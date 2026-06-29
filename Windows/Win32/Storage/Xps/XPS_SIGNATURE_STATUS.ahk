@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the status of a document's digital signature.
@@ -15,7 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_SIGNATURE_STATUS extends Win32Enum {
+export default struct XPS_SIGNATURE_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The signature violates one or more  signing rules stated in section 10.2.1.2 of the   <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>. These rules describe the parts or relationships that must or must not be signed.

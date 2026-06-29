@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11VideoDevice1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11VideoDevice1.ahk" { ID3D11VideoDevice1 }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import ".\D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS.ahk" { D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_FEATURE_VIDEO.ahk" { D3D11_FEATURE_VIDEO }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nn-d3d11_4-id3d11videodevice2
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
     /**
      * The interface identifier for ID3D11VideoDevice2
      * @type {Guid}
      */
-    static IID => Guid("{59c0cb01-35f0-4a70-8f67-87905c906a53}")
+    static IID := Guid("{59c0cb01-35f0-4a70-8f67-87905c906a53}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoDevice2 interfaces
+    */
+    struct Vtbl extends ID3D11VideoDevice1.Vtbl {
+        CheckFeatureSupport                 : IntPtr
+        NegotiateCryptoSessionKeyExchangeMT : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckFeatureSupport", "NegotiateCryptoSessionKeyExchangeMT"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoDevice2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets information about the features that are supported by the current video driver. (ID3D11VideoDevice2::CheckFeatureSupport)
@@ -38,7 +50,7 @@ class ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videodevice2-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(24, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(24, this, D3D11_FEATURE_VIDEO, Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -51,7 +63,29 @@ class ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
      * @returns {HRESULT} 
      */
     NegotiateCryptoSessionKeyExchangeMT(pCryptoSession, flags, DataSize, pData) {
-        result := ComCall(25, this, "ptr", pCryptoSession, "int", flags, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(25, this, "ptr", pCryptoSession, D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS, flags, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11VideoDevice2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.NegotiateCryptoSessionKeyExchangeMT := CallbackCreate(GetMethod(implObj, "NegotiateCryptoSessionKeyExchangeMT"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckFeatureSupport)
+        CallbackFree(this.vtbl.NegotiateCryptoSessionKeyExchangeMT)
     }
 }

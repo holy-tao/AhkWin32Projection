@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the context type.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-tdh_context_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TDH_CONTEXT_TYPE extends Win32Enum {
+export default struct TDH_CONTEXT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Null-terminated Unicode string that contains the name of the .tmf file used for parsing the WPP log. Typically, the .tmf file name is picked up from the event GUID so you do not have to specify the file name.

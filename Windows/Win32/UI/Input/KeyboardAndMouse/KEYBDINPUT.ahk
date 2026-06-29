@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VIRTUAL_KEY.ahk
-#Include .\KEYBD_EVENT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
+#Import ".\VIRTUAL_KEY.ahk" { VIRTUAL_KEY }
 
 /**
  * Contains information about a simulated keyboard event.
@@ -13,61 +12,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-keybdinput
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class KEYBDINPUT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct KEYBDINPUT {
+    #StructPack 8
 
     /**
      * Type: <b>WORD</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/inputdev/virtual-key-codes">virtual-key code</a>. The code must be a value in the range 1 to 254. If the <b>dwFlags</b> member specifies <b>KEYEVENTF_UNICODE</b>, <b>wVk</b> must be 0.
-     * @type {VIRTUAL_KEY}
      */
-    wVk {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wVk : VIRTUAL_KEY
 
     /**
      * Type: <b>WORD</b>
      * 
      * A hardware scan code for the key. If <b>dwFlags</b> specifies <b>KEYEVENTF_UNICODE</b>, <b>wScan</b> specifies a Unicode character which is to be sent to the foreground application.
-     * @type {Integer}
      */
-    wScan {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wScan : UInt16
 
     /**
      * Type: <b>DWORD</b>
-     * @type {KEYBD_EVENT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : KEYBD_EVENT_FLAGS
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The time stamp for the event, in milliseconds. If this parameter is zero, the system will provide its own time stamp.
-     * @type {Integer}
      */
-    time {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    time : UInt32
 
     /**
      * Type: <b>ULONG_PTR</b>
      * 
      * An additional value associated with the keystroke. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessageextrainfo">GetMessageExtraInfo</a> function to obtain this information.
-     * @type {Pointer}
      */
-    dwExtraInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwExtraInfo : IntPtr
+
 }

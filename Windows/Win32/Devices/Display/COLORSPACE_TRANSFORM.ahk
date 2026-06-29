@@ -1,86 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORSPACE_TRANSFORM_TYPE.ahk
-#Include .\GAMMA_RAMP_RGB256x3x16.ahk
-#Include .\GAMMA_RAMP_DXGI_1.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
-#Include .\COLORSPACE_TRANSFORM_3x4.ahk
-#Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
-#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GAMMA_RAMP_RGB.ahk" { GAMMA_RAMP_RGB }
+#Import ".\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk" { COLORSPACE_TRANSFORM_STAGE_CONTROL }
+#Import ".\COLORSPACE_TRANSFORM_MATRIX_V2.ahk" { COLORSPACE_TRANSFORM_MATRIX_V2 }
+#Import ".\GAMMA_RAMP_RGB256x3x16.ahk" { GAMMA_RAMP_RGB256x3x16 }
+#Import ".\GAMMA_RAMP_DXGI_1.ahk" { GAMMA_RAMP_DXGI_1 }
+#Import ".\COLORSPACE_TRANSFORM_TYPE.ahk" { COLORSPACE_TRANSFORM_TYPE }
+#Import ".\COLORSPACE_TRANSFORM_3x4.ahk" { COLORSPACE_TRANSFORM_3x4 }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_TRANSFORM extends Win32Struct {
-    static sizeof => 98356
+export default struct COLORSPACE_TRANSFORM {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Data_e__Union extends Win32Struct {
-        static sizeof => 98352
-        static packingSize => 4
+    struct _Data {
+        Rgb256x3x16 : GAMMA_RAMP_RGB256x3x16
 
-        /**
-         * @type {GAMMA_RAMP_RGB256x3x16}
-         */
-        Rgb256x3x16 {
-            get {
-                if(!this.HasProp("__Rgb256x3x16"))
-                    this.__Rgb256x3x16 := GAMMA_RAMP_RGB256x3x16(0, this)
-                return this.__Rgb256x3x16
-            }
-        }
-
-        /**
-         * @type {GAMMA_RAMP_DXGI_1}
-         */
-        Dxgi1 {
-            get {
-                if(!this.HasProp("__Dxgi1"))
-                    this.__Dxgi1 := GAMMA_RAMP_DXGI_1(0, this)
-                return this.__Dxgi1
-            }
-        }
-
-        /**
-         * @type {COLORSPACE_TRANSFORM_3x4}
-         */
-        T3x4 {
-            get {
-                if(!this.HasProp("__T3x4"))
-                    this.__T3x4 := COLORSPACE_TRANSFORM_3x4(0, this)
-                return this.__T3x4
-            }
-        }
-
-        /**
-         * @type {COLORSPACE_TRANSFORM_MATRIX_V2}
-         */
-        MatrixV2 {
-            get {
-                if(!this.HasProp("__MatrixV2"))
-                    this.__MatrixV2 := COLORSPACE_TRANSFORM_MATRIX_V2(0, this)
-                return this.__MatrixV2
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Dxgi1', { type: GAMMA_RAMP_DXGI_1, offset: 0 })
+            DefineProp(this.Prototype, 'T3x4', { type: COLORSPACE_TRANSFORM_3x4, offset: 0 })
+            DefineProp(this.Prototype, 'MatrixV2', { type: COLORSPACE_TRANSFORM_MATRIX_V2, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {COLORSPACE_TRANSFORM_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : COLORSPACE_TRANSFORM_TYPE
 
-    /**
-     * @type {_Data_e__Union}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := COLORSPACE_TRANSFORM._Data_e__Union(4, this)
-            return this.__Data
-        }
-    }
+    Data : COLORSPACE_TRANSFORM._Data
+
 }

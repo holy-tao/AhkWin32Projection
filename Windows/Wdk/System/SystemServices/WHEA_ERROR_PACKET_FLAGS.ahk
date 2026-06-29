@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_PACKET_FLAGS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 1
+export default struct WHEA_ERROR_PACKET_FLAGS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -21,12 +18,9 @@ class WHEA_ERROR_PACKET_FLAGS extends Win32Struct {
      * - AddressTranslationCompleted
      * - RecoveryOptional
      * - Reserved2
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -107,12 +101,8 @@ class WHEA_ERROR_PACKET_FLAGS extends Win32Struct {
         get => (this._bitfield >> 9) & 0x7FFFFF
         set => this._bitfield := ((value & 0x7FFFFF) << 9) | (this._bitfield & ~(0x7FFFFF << 9))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

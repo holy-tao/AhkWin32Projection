@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Returned by EnumerateTraceGuids. Contains information about an event trace provider.
@@ -9,66 +10,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_guid_properties
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_GUID_PROPERTIES extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TRACE_GUID_PROPERTIES {
+    #StructPack 4
 
     /**
      * Control GUID of the event trace provider.
-     * @type {Pointer}
      */
-    Guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Guid : Guid
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    GuidType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    GuidType : UInt32
 
     /**
      * Session handle that identifies the event tracing session.
-     * @type {Integer}
      */
-    LoggerId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    LoggerId : UInt32
 
     /**
      * Value passed as the _EnableLevel_ parameter to the
      * [EnableTrace](/windows/desktop/ETW/enabletrace) function.
-     * @type {Integer}
      */
-    EnableLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    EnableLevel : UInt32
 
     /**
      * Value passed as the _EnableFlag_ parameter to the
      * [EnableTrace](/windows/desktop/ETW/enabletrace) function.
-     * @type {Integer}
      */
-    EnableFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    EnableFlags : UInt32
 
     /**
      * If this member is **TRUE**, the element identified by the **Guid** member is
      * currently enabled for the session identified by the **LoggerId** member. If this
      * member is **FALSE**, all other members have no meaning and should be zero.
-     * @type {BOOLEAN}
      */
-    IsEnable {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    IsEnable : BOOLEAN
+
 }

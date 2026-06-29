@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFunctionInstance.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
 
 /**
  * Is implemented by a discovery provider to enable a client program to add and remove function instances.
@@ -13,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpublishing
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IProviderPublishing extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProviderPublishing extends IUnknown {
     /**
      * The interface identifier for IProviderPublishing
      * @type {Guid}
      */
-    static IID => Guid("{cd1b9a04-206c-4a05-a0c8-1635a21a2b7c}")
+    static IID := Guid("{cd1b9a04-206c-4a05-a0c8-1635a21a2b7c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProviderPublishing interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateInstance : IntPtr
+        RemoveInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateInstance", "RemoveInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProviderPublishing.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new function instance.
@@ -46,7 +57,7 @@ class IProviderPublishing extends IUnknown {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszProviderInstanceIdentity := pszProviderInstanceIdentity is String ? StrPtr(pszProviderInstanceIdentity) : pszProviderInstanceIdentity
 
-        result := ComCall(3, this, "int", enumVisibilityFlags, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        result := ComCall(3, this, SystemVisibilityFlags, enumVisibilityFlags, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
         return IFunctionInstance(ppIFunctionInstance)
     }
 
@@ -102,7 +113,29 @@ class IProviderPublishing extends IUnknown {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszProviderInstanceIdentity := pszProviderInstanceIdentity is String ? StrPtr(pszProviderInstanceIdentity) : pszProviderInstanceIdentity
 
-        result := ComCall(4, this, "int", enumVisibilityFlags, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "HRESULT")
+        result := ComCall(4, this, SystemVisibilityFlags, enumVisibilityFlags, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProviderPublishing.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 5)
+        this.vtbl.RemoveInstance := CallbackCreate(GetMethod(implObj, "RemoveInstance"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateInstance)
+        CallbackFree(this.vtbl.RemoveInstance)
     }
 }

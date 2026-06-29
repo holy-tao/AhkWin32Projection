@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags that defines how classification properties associated with a file are retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class FsrmGetFilePropertyOptions extends Win32Enum {
+export default struct FsrmGetFilePropertyOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Retrieve the most up-to-date classification properties. Using this value may require more time than the 

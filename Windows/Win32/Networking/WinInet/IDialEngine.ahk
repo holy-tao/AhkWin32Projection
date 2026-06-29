@@ -1,31 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDialEventSink.ahk" { IDialEventSink }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class IDialEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDialEngine extends IUnknown {
     /**
      * The interface identifier for IDialEngine
      * @type {Guid}
      */
-    static IID => Guid("{39fd782b-7905-40d5-9148-3c9b190423d5}")
+    static IID := Guid("{39fd782b-7905-40d5-9148-3c9b190423d5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDialEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize        : IntPtr
+        GetProperty       : IntPtr
+        SetProperty       : IntPtr
+        Dial              : IntPtr
+        HangUp            : IntPtr
+        GetConnectedState : IntPtr
+        GetConnectHandle  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetProperty", "SetProperty", "Dial", "HangUp", "GetConnectedState", "GetConnectHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDialEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -87,13 +103,10 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {PWSTR} pwzProperty 
      * @param {PWSTR} pwzValue 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(pwzProperty, pwzValue) {
         pwzProperty := pwzProperty is String ? StrPtr(pwzProperty) : pwzProperty
@@ -104,9 +117,8 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * . | Dialog Box Overviews
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/dlgbox/dialog-box-overviews
      */
     Dial() {
         result := ComCall(6, this, "HRESULT")
@@ -138,5 +150,37 @@ class IDialEngine extends IUnknown {
     GetConnectHandle() {
         result := ComCall(9, this, "ptr*", &pdwHandle := 0, "HRESULT")
         return pdwHandle
+    }
+
+    Query(iid) {
+        if (IDialEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Dial := CallbackCreate(GetMethod(implObj, "Dial"), flags, 1)
+        this.vtbl.HangUp := CallbackCreate(GetMethod(implObj, "HangUp"), flags, 1)
+        this.vtbl.GetConnectedState := CallbackCreate(GetMethod(implObj, "GetConnectedState"), flags, 2)
+        this.vtbl.GetConnectHandle := CallbackCreate(GetMethod(implObj, "GetConnectHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.Dial)
+        CallbackFree(this.vtbl.HangUp)
+        CallbackFree(this.vtbl.GetConnectedState)
+        CallbackFree(this.vtbl.GetConnectHandle)
     }
 }

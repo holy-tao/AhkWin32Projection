@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COORD.ahk" { COORD }
 
 /**
  * See reference information about the MOUSE_EVENT_RECORD structure, which describes a mouse input event in a console INPUT_RECORD structure.
@@ -11,22 +10,13 @@
  * @see https://learn.microsoft.com/windows/console/mouse-event-record-str
  * @namespace Windows.Win32.System.Console
  */
-class MOUSE_EVENT_RECORD extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MOUSE_EVENT_RECORD {
+    #StructPack 4
 
     /**
      * A [**COORD**](coord-str.md) structure that contains the location of the cursor, in terms of the console screen buffer's character-cell coordinates.
-     * @type {COORD}
      */
-    dwMousePosition {
-        get {
-            if(!this.HasProp("__dwMousePosition"))
-                this.__dwMousePosition := COORD(0, this)
-            return this.__dwMousePosition
-        }
-    }
+    dwMousePosition : COORD
 
     /**
      * The status of the mouse buttons. The least significant bit corresponds to the leftmost mouse button. The next least significant bit corresponds to the rightmost mouse button. The next bit indicates the next-to-leftmost mouse button. The bits then correspond left to right to the mouse buttons. A bit is 1 if the button was pressed.
@@ -40,12 +30,8 @@ class MOUSE_EVENT_RECORD extends Win32Struct {
      * | **FROM_LEFT_3RD_BUTTON_PRESSED** 0x0008 | The third button from the left. |
      * | **FROM_LEFT_4TH_BUTTON_PRESSED** 0x0010 | The fourth button from the left. |
      * | **RIGHTMOST_BUTTON_PRESSED** 0x0002 | The rightmost mouse button. |
-     * @type {Integer}
      */
-    dwButtonState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwButtonState : UInt32
 
     /**
      * The state of the control keys. This member can be one or more of the following values.
@@ -61,12 +47,8 @@ class MOUSE_EVENT_RECORD extends Win32Struct {
      * | **RIGHT_CTRL_PRESSED** 0x0004 | The right CTRL key is pressed. |
      * | **SCROLLLOCK_ON** 0x0040 | The SCROLL LOCK light is on. |
      * | **SHIFT_PRESSED** 0x0010 | The SHIFT key is pressed. |
-     * @type {Integer}
      */
-    dwControlKeyState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwControlKeyState : UInt32
 
     /**
      * The type of mouse event. If this value is zero, it indicates a mouse button being pressed or released. Otherwise, this member is one of the following values.
@@ -77,10 +59,7 @@ class MOUSE_EVENT_RECORD extends Win32Struct {
      * | **MOUSE_HWHEELED** 0x0008 | The horizontal mouse wheel was moved.<br /><br />If the high word of the **dwButtonState** member contains a positive value, the wheel was rotated to the right. Otherwise, the wheel was rotated to the left. |
      * | **MOUSE_MOVED** 0x0001 | A change in mouse position occurred. |
      * | **MOUSE_WHEELED** 0x0004 | The vertical mouse wheel was moved.<br /><br />If the high word of the **dwButtonState** member contains a positive value, the wheel was rotated forward, away from the user. Otherwise, the wheel was rotated backward, toward the user. |
-     * @type {Integer}
      */
-    dwEventFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwEventFlags : UInt32
+
 }

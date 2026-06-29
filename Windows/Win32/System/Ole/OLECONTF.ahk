@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of objects to be enumerated.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olecontf
  * @namespace Windows.Win32.System.Ole
  */
-class OLECONTF extends Win32Enum {
+export default struct OLECONTF {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Enumerates the embedded objects in the container.

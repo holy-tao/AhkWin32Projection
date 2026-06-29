@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumTfLanguageProfiles.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import ".\IEnumTfLanguageProfiles.ahk" { IEnumTfLanguageProfiles }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -13,26 +17,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofiles
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfInputProcessorProfiles extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfInputProcessorProfiles extends IUnknown {
     /**
      * The interface identifier for ITfInputProcessorProfiles
      * @type {Guid}
      */
-    static IID => Guid("{1f02b6c5-7842-4ee6-8a0b-9a24183a95ca}")
+    static IID := Guid("{1f02b6c5-7842-4ee6-8a0b-9a24183a95ca}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfInputProcessorProfiles interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Register                       : IntPtr
+        Unregister                     : IntPtr
+        AddLanguageProfile             : IntPtr
+        RemoveLanguageProfile          : IntPtr
+        EnumInputProcessorInfo         : IntPtr
+        GetDefaultLanguageProfile      : IntPtr
+        SetDefaultLanguageProfile      : IntPtr
+        ActivateLanguageProfile        : IntPtr
+        GetActiveLanguageProfile       : IntPtr
+        GetLanguageProfileDescription  : IntPtr
+        GetCurrentLanguage             : IntPtr
+        ChangeCurrentLanguage          : IntPtr
+        GetLanguageList                : IntPtr
+        EnumLanguageProfiles           : IntPtr
+        EnableLanguageProfile          : IntPtr
+        IsEnabledLanguageProfile       : IntPtr
+        EnableLanguageProfileByDefault : IntPtr
+        SubstituteKeyboardLayout       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Register", "Unregister", "AddLanguageProfile", "RemoveLanguageProfile", "EnumInputProcessorInfo", "GetDefaultLanguageProfile", "SetDefaultLanguageProfile", "ActivateLanguageProfile", "GetActiveLanguageProfile", "GetLanguageProfileDescription", "GetCurrentLanguage", "ChangeCurrentLanguage", "GetLanguageList", "EnumLanguageProfiles", "EnableLanguageProfile", "IsEnabledLanguageProfile", "EnableLanguageProfileByDefault", "SubstituteKeyboardLayout"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfInputProcessorProfiles.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfInputProcessorProfiles::Register method
@@ -70,7 +98,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-register
      */
     Register(rclsid) {
-        result := ComCall(3, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, "HRESULT")
         return result
     }
 
@@ -110,7 +138,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-unregister
      */
     Unregister(rclsid) {
-        result := ComCall(4, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rclsid, "HRESULT")
         return result
     }
 
@@ -173,7 +201,7 @@ class ITfInputProcessorProfiles extends IUnknown {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
         pchIconFile := pchIconFile is String ? StrPtr(pchIconFile) : pchIconFile
 
-        result := ComCall(5, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "HRESULT")
         return result
     }
 
@@ -215,7 +243,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-removelanguageprofile
      */
     RemoveLanguageProfile(rclsid, langid, guidProfile) {
-        result := ComCall(6, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "HRESULT")
         return result
     }
 
@@ -290,7 +318,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getdefaultlanguageprofile
      */
     GetDefaultLanguageProfile(langid, catid, pclsid, pguidProfile) {
-        result := ComCall(8, this, "ushort", langid, "ptr", catid, "ptr", pclsid, "ptr", pguidProfile, "HRESULT")
+        result := ComCall(8, this, "ushort", langid, Guid.Ptr, catid, Guid.Ptr, pclsid, Guid.Ptr, pguidProfile, "HRESULT")
         return result
     }
 
@@ -343,7 +371,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-setdefaultlanguageprofile
      */
     SetDefaultLanguageProfile(langid, rclsid, guidProfiles) {
-        result := ComCall(9, this, "ushort", langid, "ptr", rclsid, "ptr", guidProfiles, "HRESULT")
+        result := ComCall(9, this, "ushort", langid, Guid.Ptr, rclsid, Guid.Ptr, guidProfiles, "HRESULT")
         return result
     }
 
@@ -418,7 +446,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-activatelanguageprofile
      */
     ActivateLanguageProfile(rclsid, langid, guidProfiles) {
-        result := ComCall(10, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfiles, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfiles, "HRESULT")
         return result
     }
 
@@ -495,7 +523,7 @@ class ITfInputProcessorProfiles extends IUnknown {
     GetActiveLanguageProfile(rclsid, plangid, pguidProfile) {
         plangidMarshal := plangid is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ptr", rclsid, plangidMarshal, plangid, "ptr", pguidProfile, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, rclsid, plangidMarshal, plangid, Guid.Ptr, pguidProfile, "HRESULT")
         return result
     }
 
@@ -508,8 +536,8 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getlanguageprofiledescription
      */
     GetLanguageProfileDescription(rclsid, langid, guidProfile) {
-        pbstrProfile := BSTR()
-        result := ComCall(12, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pbstrProfile, "HRESULT")
+        pbstrProfile := BSTR.Owned()
+        result := ComCall(12, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BSTR.Ptr, pbstrProfile, "HRESULT")
         return pbstrProfile
     }
 
@@ -712,7 +740,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofile
      */
     EnableLanguageProfile(rclsid, langid, guidProfile, fEnable) {
-        result := ComCall(17, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int", fEnable, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -725,7 +753,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-isenabledlanguageprofile
      */
     IsEnabledLanguageProfile(rclsid, langid, guidProfile) {
-        result := ComCall(18, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int*", &pfEnable := 0, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BOOL.Ptr, &pfEnable := 0, "HRESULT")
         return pfEnable
     }
 
@@ -768,7 +796,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofilebydefault
      */
     EnableLanguageProfileByDefault(rclsid, langid, guidProfile, fEnable) {
-        result := ComCall(19, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int", fEnable, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -811,9 +839,61 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-substitutekeyboardlayout
      */
     SubstituteKeyboardLayout(rclsid, langid, guidProfile, _hKL) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
-        result := ComCall(20, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", _hKL, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, HKL, _hKL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfInputProcessorProfiles.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 2)
+        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 2)
+        this.vtbl.AddLanguageProfile := CallbackCreate(GetMethod(implObj, "AddLanguageProfile"), flags, 9)
+        this.vtbl.RemoveLanguageProfile := CallbackCreate(GetMethod(implObj, "RemoveLanguageProfile"), flags, 4)
+        this.vtbl.EnumInputProcessorInfo := CallbackCreate(GetMethod(implObj, "EnumInputProcessorInfo"), flags, 2)
+        this.vtbl.GetDefaultLanguageProfile := CallbackCreate(GetMethod(implObj, "GetDefaultLanguageProfile"), flags, 5)
+        this.vtbl.SetDefaultLanguageProfile := CallbackCreate(GetMethod(implObj, "SetDefaultLanguageProfile"), flags, 4)
+        this.vtbl.ActivateLanguageProfile := CallbackCreate(GetMethod(implObj, "ActivateLanguageProfile"), flags, 4)
+        this.vtbl.GetActiveLanguageProfile := CallbackCreate(GetMethod(implObj, "GetActiveLanguageProfile"), flags, 4)
+        this.vtbl.GetLanguageProfileDescription := CallbackCreate(GetMethod(implObj, "GetLanguageProfileDescription"), flags, 5)
+        this.vtbl.GetCurrentLanguage := CallbackCreate(GetMethod(implObj, "GetCurrentLanguage"), flags, 2)
+        this.vtbl.ChangeCurrentLanguage := CallbackCreate(GetMethod(implObj, "ChangeCurrentLanguage"), flags, 2)
+        this.vtbl.GetLanguageList := CallbackCreate(GetMethod(implObj, "GetLanguageList"), flags, 3)
+        this.vtbl.EnumLanguageProfiles := CallbackCreate(GetMethod(implObj, "EnumLanguageProfiles"), flags, 3)
+        this.vtbl.EnableLanguageProfile := CallbackCreate(GetMethod(implObj, "EnableLanguageProfile"), flags, 5)
+        this.vtbl.IsEnabledLanguageProfile := CallbackCreate(GetMethod(implObj, "IsEnabledLanguageProfile"), flags, 5)
+        this.vtbl.EnableLanguageProfileByDefault := CallbackCreate(GetMethod(implObj, "EnableLanguageProfileByDefault"), flags, 5)
+        this.vtbl.SubstituteKeyboardLayout := CallbackCreate(GetMethod(implObj, "SubstituteKeyboardLayout"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.Unregister)
+        CallbackFree(this.vtbl.AddLanguageProfile)
+        CallbackFree(this.vtbl.RemoveLanguageProfile)
+        CallbackFree(this.vtbl.EnumInputProcessorInfo)
+        CallbackFree(this.vtbl.GetDefaultLanguageProfile)
+        CallbackFree(this.vtbl.SetDefaultLanguageProfile)
+        CallbackFree(this.vtbl.ActivateLanguageProfile)
+        CallbackFree(this.vtbl.GetActiveLanguageProfile)
+        CallbackFree(this.vtbl.GetLanguageProfileDescription)
+        CallbackFree(this.vtbl.GetCurrentLanguage)
+        CallbackFree(this.vtbl.ChangeCurrentLanguage)
+        CallbackFree(this.vtbl.GetLanguageList)
+        CallbackFree(this.vtbl.EnumLanguageProfiles)
+        CallbackFree(this.vtbl.EnableLanguageProfile)
+        CallbackFree(this.vtbl.IsEnabledLanguageProfile)
+        CallbackFree(this.vtbl.EnableLanguageProfileByDefault)
+        CallbackFree(this.vtbl.SubstituteKeyboardLayout)
     }
 }

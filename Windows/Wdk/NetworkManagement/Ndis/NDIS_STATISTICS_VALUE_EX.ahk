@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_STATISTICS_VALUE_EX extends Win32Struct {
-    static sizeof => 16
+export default struct NDIS_STATISTICS_VALUE_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    Oid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Oid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

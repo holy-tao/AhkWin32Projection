@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\BITMAP_RENDERER_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BITMAP_RENDERER_STATISTICS.ahk" { BITMAP_RENDERER_STATISTICS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by a dynamic virtual channel plug-in to render bitmaps.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderer
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWTSBitmapRenderer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWTSBitmapRenderer extends IUnknown {
     /**
      * The interface identifier for IWTSBitmapRenderer
      * @type {Guid}
      */
-    static IID => Guid("{5b7acc97-f3c9-46f7-8c5b-fa685d3441b1}")
+    static IID := Guid("{5b7acc97-f3c9-46f7-8c5b-fa685d3441b1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWTSBitmapRenderer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Render                : IntPtr
+        GetRendererStatistics : IntPtr
+        RemoveMapping         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Render", "GetRendererStatistics", "RemoveMapping"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWTSBitmapRenderer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by a dynamic virtual channel plug-in to render bitmaps.
@@ -44,7 +54,7 @@ class IWTSBitmapRenderer extends IUnknown {
     Render(imageFormat, dwWidth, dwHeight, cbStride, cbImageBuffer, pImageBuffer) {
         pImageBufferMarshal := pImageBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", imageFormat, "uint", dwWidth, "uint", dwHeight, "int", cbStride, "uint", cbImageBuffer, pImageBufferMarshal, pImageBuffer, "HRESULT")
+        result := ComCall(3, this, Guid, imageFormat, "uint", dwWidth, "uint", dwHeight, "int", cbStride, "uint", cbImageBuffer, pImageBufferMarshal, pImageBuffer, "HRESULT")
         return result
     }
 
@@ -59,7 +69,7 @@ class IWTSBitmapRenderer extends IUnknown {
      */
     GetRendererStatistics() {
         pStatistics := BITMAP_RENDERER_STATISTICS()
-        result := ComCall(4, this, "ptr", pStatistics, "HRESULT")
+        result := ComCall(4, this, BITMAP_RENDERER_STATISTICS.Ptr, pStatistics, "HRESULT")
         return pStatistics
     }
 
@@ -71,5 +81,29 @@ class IWTSBitmapRenderer extends IUnknown {
     RemoveMapping() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWTSBitmapRenderer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 7)
+        this.vtbl.GetRendererStatistics := CallbackCreate(GetMethod(implObj, "GetRendererStatistics"), flags, 2)
+        this.vtbl.RemoveMapping := CallbackCreate(GetMethod(implObj, "RemoveMapping"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Render)
+        CallbackFree(this.vtbl.GetRendererStatistics)
+        CallbackFree(this.vtbl.RemoveMapping)
     }
 }

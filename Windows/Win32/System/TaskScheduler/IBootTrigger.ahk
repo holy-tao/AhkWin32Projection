@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITrigger.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Represents a trigger that starts a task when the system is started.
@@ -14,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iboottrigger
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IBootTrigger extends ITrigger {
-
-    static sizeof => A_PtrSize
+export default struct IBootTrigger extends ITrigger {
     /**
      * The interface identifier for IBootTrigger
      * @type {Guid}
      */
-    static IID => Guid("{2a9c35da-d357-41f4-bbc1-207ac1b1f3cb}")
+    static IID := Guid("{2a9c35da-d357-41f4-bbc1-207ac1b1f3cb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBootTrigger interfaces
+    */
+    struct Vtbl extends ITrigger.Vtbl {
+        get_Delay : IntPtr
+        put_Delay : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Delay", "put_Delay"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBootTrigger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -52,7 +62,7 @@ class IBootTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iboottrigger-get_delay
      */
     get_Delay(pDelay) {
-        result := ComCall(20, this, "ptr", pDelay, "HRESULT")
+        result := ComCall(20, this, BSTR.Ptr, pDelay, "HRESULT")
         return result
     }
 
@@ -67,7 +77,29 @@ class IBootTrigger extends ITrigger {
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay
 
-        result := ComCall(21, this, "ptr", delay, "HRESULT")
+        result := ComCall(21, this, BSTR, delay, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBootTrigger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Delay := CallbackCreate(GetMethod(implObj, "get_Delay"), flags, 2)
+        this.vtbl.put_Delay := CallbackCreate(GetMethod(implObj, "put_Delay"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Delay)
+        CallbackFree(this.vtbl.put_Delay)
     }
 }

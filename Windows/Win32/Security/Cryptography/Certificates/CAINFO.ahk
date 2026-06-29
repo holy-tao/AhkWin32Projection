@@ -1,97 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\ENUM_CATYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ENUM_CATYPES.ahk" { ENUM_CATYPES }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CAINFO extends Win32Struct {
-    static sizeof => 40
+export default struct CAINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CAType : ENUM_CATYPES
 
-    /**
-     * @type {ENUM_CATYPES}
-     */
-    CAType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cCASignatureCerts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCASignatureCerts {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cCAExchangeCerts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCAExchangeCerts {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cExitModules : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cExitModules {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lPropIdMax : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPropIdMax {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    lRoleSeparationEnabled : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRoleSeparationEnabled {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cKRACertUsedCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cKRACertUsedCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cKRACertCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cKRACertCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    fAdvancedServer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fAdvancedServer {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

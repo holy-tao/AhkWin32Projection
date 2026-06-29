@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether 2-channel audio is encoded as stereo or dual mono. This enumeration is used with the AVEncAudioDualMono property.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencaudiodualmono
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class eAVEncAudioDualMono extends Win32Enum {
+export default struct eAVEncAudioDualMono {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the setting specified in the input media type.

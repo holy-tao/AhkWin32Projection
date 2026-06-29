@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_NAME_INITTYPE_ENUM enumeration specifies the types of initialization to perform on a NameTranslate object. It is used in the IADsNameTranslate interface.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_name_inittype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_NAME_INITTYPE_ENUM extends Win32Enum {
+export default struct ADS_NAME_INITTYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Initializes a <b>NameTranslate</b> object by setting the domain that the object binds to.

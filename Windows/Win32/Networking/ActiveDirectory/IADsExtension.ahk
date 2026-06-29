@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsExtension interface forms the basis of the ADSI application extension model.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsextension
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsExtension extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IADsExtension extends IUnknown {
     /**
      * The interface identifier for IADsExtension
      * @type {Guid}
      */
-    static IID => Guid("{3d35553c-d2b0-11d1-b17b-0000f87593a0}")
+    static IID := Guid("{3d35553c-d2b0-11d1-b17b-0000f87593a0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsExtension interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Operate              : IntPtr
+        PrivateGetIDsOfNames : IntPtr
+        PrivateInvoke        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Operate", "PrivateGetIDsOfNames", "PrivateInvoke"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Interprets the control code and input parameters according to the specifications of the provider.
@@ -43,7 +56,7 @@ class IADsExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-operate
      */
     Operate(dwCode, varData1, varData2, varData3) {
-        result := ComCall(3, this, "uint", dwCode, "ptr", varData1, "ptr", varData2, "ptr", varData3, "HRESULT")
+        result := ComCall(3, this, "uint", dwCode, VARIANT, varData1, VARIANT, varData2, VARIANT, varData3, "HRESULT")
         return result
     }
 
@@ -61,7 +74,7 @@ class IADsExtension extends IUnknown {
     PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispid := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispid := 0, "HRESULT")
         return rgDispid
     }
 
@@ -83,7 +96,31 @@ class IADsExtension extends IUnknown {
     PrivateInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(5, this, "int", dispidMember, Guid.Ptr, riid, "uint", lcid, "ushort", wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Operate := CallbackCreate(GetMethod(implObj, "Operate"), flags, 5)
+        this.vtbl.PrivateGetIDsOfNames := CallbackCreate(GetMethod(implObj, "PrivateGetIDsOfNames"), flags, 6)
+        this.vtbl.PrivateInvoke := CallbackCreate(GetMethod(implObj, "PrivateInvoke"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Operate)
+        CallbackFree(this.vtbl.PrivateGetIDsOfNames)
+        CallbackFree(this.vtbl.PrivateInvoke)
     }
 }

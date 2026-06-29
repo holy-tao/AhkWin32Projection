@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyJobHttpOptions.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyJobHttpOptions.ahk" { IBackgroundCopyJobHttpOptions }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
  * Use this interface to retrieve and/or to override the HTTP method used for a BITS transfer.
  * @see https://learn.microsoft.com/windows/win32/api/bits10_2/nn-bits10_2-ibackgroundcopyjobhttpoptions2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions {
     /**
      * The interface identifier for IBackgroundCopyJobHttpOptions2
      * @type {Guid}
      */
-    static IID => Guid("{b591a192-a405-4fc3-8323-4c5c542578fc}")
+    static IID := Guid("{b591a192-a405-4fc3-8323-4c5c542578fc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJobHttpOptions2 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyJobHttpOptions.Vtbl {
+        SetHttpMethod : IntPtr
+        GetHttpMethod : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHttpMethod", "GetHttpMethod"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJobHttpOptions2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Overrides the default HTTP method used for a BITS transfer.
@@ -64,12 +74,34 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions {
      * @see https://learn.microsoft.com/windows/win32/api/bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-gethttpmethod
      */
     GetHttpMethod() {
-        result := ComCall(12, this, "ptr*", &method := 0, "int")
+        result := ComCall(12, this, PWSTR.Ptr, &method := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(method)
+            CoTaskMemFree(method.value)
             throw OSError()
         }
 
         return method
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJobHttpOptions2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHttpMethod := CallbackCreate(GetMethod(implObj, "SetHttpMethod"), flags, 2)
+        this.vtbl.GetHttpMethod := CallbackCreate(GetMethod(implObj, "GetHttpMethod"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHttpMethod)
+        CallbackFree(this.vtbl.GetHttpMethod)
     }
 }

@@ -1,64 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_CIPHER_PADDING_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct NCRYPT_CIPHER_PADDING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pbIV : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbIV {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbIV : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbIV {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbOtherInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbOtherInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbOtherInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbOtherInfo {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

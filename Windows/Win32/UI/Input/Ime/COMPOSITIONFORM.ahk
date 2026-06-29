@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The COMPOSITIONFORM structure (immdev.h) contains style and position information for a composition window.
@@ -10,40 +9,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-compositionform
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class COMPOSITIONFORM extends Win32Struct {
-    static sizeof => 28
+export default struct COMPOSITIONFORM {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    dwStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStyle : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinates of the upper left corner of the composition window.
-     * @type {POINT}
      */
-    ptCurrentPos {
-        get {
-            if(!this.HasProp("__ptCurrentPos"))
-                this.__ptCurrentPos := POINT(4, this)
-            return this.__ptCurrentPos
-        }
-    }
+    ptCurrentPos : POINT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the upper left and lower right corners of the composition window.
-     * @type {RECT}
      */
-    rcArea {
-        get {
-            if(!this.HasProp("__rcArea"))
-                this.__rcArea := RECT(12, this)
-            return this.__rcArea
-        }
-    }
+    rcArea : RECT
+
 }

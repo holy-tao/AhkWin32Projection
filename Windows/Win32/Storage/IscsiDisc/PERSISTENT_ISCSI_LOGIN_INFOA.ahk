@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_TARGET_PORTALA.ahk
-#Include .\ISCSI_TARGET_MAPPINGA.ahk
-#Include .\ISCSI_LOGIN_OPTIONS.ahk
-#Include .\ISCSI_AUTH_TYPES.ahk
-#Include .\ISCSI_DIGEST_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
+#Import ".\ISCSI_TARGET_MAPPINGA.ahk" { ISCSI_TARGET_MAPPINGA }
+#Import ".\ISCSI_TARGET_PORTALA.ahk" { ISCSI_TARGET_PORTALA }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\ISCSI_LOGIN_OPTIONS.ahk" { ISCSI_LOGIN_OPTIONS }
+#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * PERSISTENT_ISCSI_LOGIN_INFO structure contains information that describes a login session established by the Microsoft iSCSI initiator service after the machine boots up. (ANSI)
@@ -21,19 +22,13 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset ANSI
  */
-class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct {
-    static sizeof => 1088
-
-    static packingSize => 8
+export default struct PERSISTENT_ISCSI_LOGIN_INFOA {
+    #StructPack 8
 
     /**
      * A string representing the name of the target the initiator will login to.
-     * @type {String}
      */
-    TargetName {
-        get => StrGet(this.ptr + 0, 223, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 223, "UTF-8")
-    }
+    TargetName : CHAR[224]
 
     /**
      * If set <b>TRUE</b>, the login session is for informational purposes only and will not result in the enumeration of the specified target on the local computer. For an informational login session, the LUNs on the target are not reported to the Plug and Play Manager and the device drivers for the target are not loaded.
@@ -41,42 +36,23 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct {
      * A management application can still access targets not enumerated by the system via the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsiinquiry">SendScsiInquiry</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity">SendScsiReadCapcity</a> functions.
      * 
      * If set <b>FALSE</b>, the LUNs on the target are reported to the Plug and Play manager for enumeration.
-     * @type {BOOLEAN}
      */
-    IsInformationalSession {
-        get => NumGet(this, 224, "char")
-        set => NumPut("char", value, this, 224)
-    }
+    IsInformationalSession : BOOLEAN
 
     /**
      * A string representing the name of the initiator used to login to the target.
-     * @type {String}
      */
-    InitiatorInstance {
-        get => StrGet(this.ptr + 225, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 225, 255, "UTF-8")
-    }
+    InitiatorInstance : CHAR[256]
 
     /**
      * The port number of the Host-Bus Adapter (HBA) through which the session login is established. A value of <b>ISCSI_ANY_INITIATOR_PORT</b> indicates that a port on the initiator is not currently specified.
-     * @type {Integer}
      */
-    InitiatorPortNumber {
-        get => NumGet(this, 484, "uint")
-        set => NumPut("uint", value, this, 484)
-    }
+    InitiatorPortNumber : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> structure that describes the portal used by the Microsoft iSCSI initiator service to log on to the target.
-     * @type {ISCSI_TARGET_PORTALA}
      */
-    TargetPortal {
-        get {
-            if(!this.HasProp("__TargetPortal"))
-                this.__TargetPortal := ISCSI_TARGET_PORTALA(488, this)
-            return this.__TargetPortal
-        }
-    }
+    TargetPortal : ISCSI_TARGET_PORTALA
 
     /**
      * A bitmap that defines the security characteristics of a login connection. 
@@ -157,31 +133,17 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SecurityFlags {
-        get => NumGet(this, 1008, "uint")
-        set => NumPut("uint", value, this, 1008)
-    }
+    SecurityFlags : Int64
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a> structure that contains information about a target, its logical units, HBAs, and buses through which it is reached.
-     * @type {Pointer<ISCSI_TARGET_MAPPINGA>}
      */
-    Mappings {
-        get => NumGet(this, 1016, "ptr")
-        set => NumPut("ptr", value, this, 1016)
-    }
+    Mappings : ISCSI_TARGET_MAPPINGA.Ptr
 
     /**
      * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> structure that contains the persistent login characteristics.
-     * @type {ISCSI_LOGIN_OPTIONS}
      */
-    LoginOptions {
-        get {
-            if(!this.HasProp("__LoginOptions"))
-                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(1024, this)
-            return this.__LoginOptions
-        }
-    }
+    LoginOptions : ISCSI_LOGIN_OPTIONS
+
 }

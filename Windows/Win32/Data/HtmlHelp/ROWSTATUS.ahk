@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class ROWSTATUS extends Win32Struct {
-    static sizeof => 16
+export default struct ROWSTATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    lRowFirst : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRowFirst {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cRows : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cRows {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cProperties : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cProperties {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cRowsTotal : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cRowsTotal {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

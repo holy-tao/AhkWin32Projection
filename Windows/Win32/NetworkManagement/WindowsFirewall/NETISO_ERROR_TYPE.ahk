@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NETISO_ERROR_TYPE enumeration specifies the type of error related to a network isolation operation.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-netiso_error_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NETISO_ERROR_TYPE extends Win32Enum {
+export default struct NETISO_ERROR_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No error.

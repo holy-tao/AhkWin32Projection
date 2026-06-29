@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IPropertyDescription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method that retrieves an IPropertyDescription interface.
@@ -13,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription {
     /**
      * The interface identifier for IPropertyDescriptionRelatedPropertyInfo
      * @type {Guid}
      */
-    static IID => Guid("{507393f4-2a3d-4a60-b59e-d9c75716c2dd}")
+    static IID := Guid("{507393f4-2a3d-4a60-b59e-d9c75716c2dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyDescriptionRelatedPropertyInfo interfaces
+    */
+    struct Vtbl extends IPropertyDescription.Vtbl {
+        GetRelatedProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRelatedProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyDescriptionRelatedPropertyInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an IPropertyDescription object that represents the related property.
@@ -52,7 +61,27 @@ class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription {
     GetRelatedProperty(pszRelationshipName, riid) {
         pszRelationshipName := pszRelationshipName is String ? StrPtr(pszRelationshipName) : pszRelationshipName
 
-        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", pszRelationshipName, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IPropertyDescriptionRelatedPropertyInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRelatedProperty := CallbackCreate(GetMethod(implObj, "GetRelatedProperty"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRelatedProperty)
     }
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEER_DATA.ahk" { PEER_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The PEER_APPLICATION structure contains data describing a locally installed software application or component that can be registered and shared with trusted contacts within a peer collaboration network.
@@ -11,39 +12,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_application
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_APPLICATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PEER_APPLICATION {
+    #StructPack 8
 
     /**
      * The GUID value under which the application is registered with the local computer.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains the application information in a member byte buffer. This information is available to anyone who can query for the local peer's member information. This data is limited to 16K.
      * @deprecated
-     * @type {PEER_DATA}
      */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(8, this)
-            return this.__data
-        }
-    }
+    data : PEER_DATA
 
     /**
      * Pointer to a zero-terminated Unicode string that contains an optional  description of the local application. This description is limited to 255 unicode characters.
-     * @type {PWSTR}
      */
-    pwzDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwzDescription : PWSTR
+
 }

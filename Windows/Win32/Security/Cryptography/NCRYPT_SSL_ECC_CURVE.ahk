@@ -1,51 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_SSL_ECC_CURVE extends Win32Struct {
-    static sizeof => 780
+export default struct NCRYPT_SSL_ECC_CURVE {
+    #StructPack 4
 
-    static packingSize => 4
+    szCurveName : WCHAR[255]
 
-    /**
-     * @type {String}
-     */
-    szCurveName {
-        get => StrGet(this.ptr + 0, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 254, "UTF-16")
-    }
+    szOID : CHAR[255]
 
-    /**
-     * @type {String}
-     */
-    szOID {
-        get => StrGet(this.ptr + 510, 254, "UTF-8")
-        set => StrPut(value, this.ptr + 510, 254, "UTF-8")
-    }
+    dwPublicKeyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPublicKeyLength {
-        get => NumGet(this, 768, "uint")
-        set => NumPut("uint", value, this, 768)
-    }
+    dwCurveType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCurveType {
-        get => NumGet(this, 772, "uint")
-        set => NumPut("uint", value, this, 772)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 776, "uint")
-        set => NumPut("uint", value, this, 776)
-    }
 }

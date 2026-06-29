@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The Location attribute is the geographic location of the radio station or \ 0034;Net only \ 0034;.
@@ -10,8 +9,7 @@
  * @see https://learn.microsoft.com/windows/win32/WMP/location-attribute
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class Location extends Win32Struct {
-    static sizeof => 0
+export default struct Location {
+    #StructPack 1
 
-    static packingSize => 1
 }

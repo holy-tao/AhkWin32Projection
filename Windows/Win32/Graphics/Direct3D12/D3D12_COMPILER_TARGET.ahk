@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_COMPILER_TARGET extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_COMPILER_TARGET {
+    #StructPack 8
 
-    static packingSize => 8
+    AdapterFamilyIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AdapterFamilyIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ABIVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ABIVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

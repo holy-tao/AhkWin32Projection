@@ -1,79 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
-    static sizeof => 48
+export default struct KSPROPERTY_TUNER_FREQUENCY_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    Frequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Frequency {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LastFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LastFrequency {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    TuningFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TuningFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VideoSubChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VideoSubChannel {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    AudioSubChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AudioSubChannel {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Channel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Channel {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Country : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Country {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

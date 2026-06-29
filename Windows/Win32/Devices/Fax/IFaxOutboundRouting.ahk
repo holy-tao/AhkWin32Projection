@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxOutboundRoutingGroups.ahk
-#Include .\IFaxOutboundRoutingRules.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxOutboundRoutingRules.ahk" { IFaxOutboundRoutingRules }
+#Import ".\IFaxOutboundRoutingGroups.ahk" { IFaxOutboundRoutingGroups }
 
 /**
  * The IFaxOutboundRouting interface defines a configuration object that is used by a fax client application to configure the outbound routing groups (IFaxOutboundRoutingGroups interfaces) and outbound routing rules (IFaxOutboundRoutingRules interfaces).
@@ -12,32 +13,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundrouting
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutboundRouting extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutboundRouting extends IDispatch {
     /**
      * The interface identifier for IFaxOutboundRouting
      * @type {Guid}
      */
-    static IID => Guid("{25dc05a4-9909-41bd-a95b-7e5d1dec1d43}")
+    static IID := Guid("{25dc05a4-9909-41bd-a95b-7e5d1dec1d43}")
 
     /**
      * The class identifier for FaxOutboundRouting
      * @type {Guid}
      */
-    static CLSID => Guid("{c81b385e-b869-4afd-86c0-616498ed9be2}")
+    static CLSID := Guid("{c81b385e-b869-4afd-86c0-616498ed9be2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutboundRouting interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetGroups : IntPtr
+        GetRules  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGroups", "GetRules"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutboundRouting.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IFaxOutboundRouting::GetGroups method retrieves an interface that represents a collection of outbound routing groups.
@@ -65,5 +74,27 @@ class IFaxOutboundRouting extends IDispatch {
     GetRules() {
         result := ComCall(8, this, "ptr*", &pFaxOutboundRoutingRules := 0, "HRESULT")
         return IFaxOutboundRoutingRules(pFaxOutboundRoutingRules)
+    }
+
+    Query(iid) {
+        if (IFaxOutboundRouting.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGroups := CallbackCreate(GetMethod(implObj, "GetGroups"), flags, 2)
+        this.vtbl.GetRules := CallbackCreate(GetMethod(implObj, "GetRules"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGroups)
+        CallbackFree(this.vtbl.GetRules)
     }
 }

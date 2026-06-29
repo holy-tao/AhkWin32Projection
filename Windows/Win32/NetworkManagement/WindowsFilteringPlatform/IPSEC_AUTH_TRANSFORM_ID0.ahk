@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_AUTH_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_AUTH_TYPE.ahk" { IPSEC_AUTH_TYPE }
 
 /**
  * Is used to uniquely identify the hash algorithm used in an IPsec security association (SA).
@@ -9,19 +8,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_auth_transform_id0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_AUTH_TRANSFORM_ID0 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IPSEC_AUTH_TRANSFORM_ID0 {
+    #StructPack 4
 
     /**
      * The type of the hash algorithm as specified by [IPSEC_AUTH_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_auth_type).
-     * @type {IPSEC_AUTH_TYPE}
      */
-    authType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    authType : IPSEC_AUTH_TYPE
 
     /**
      * Additional configuration information for the IPsec SA hash algorithm as specified by a <b>IPSEC_AUTH_CONFIG</b> which maps to a <b>UINT8</b>.
@@ -114,10 +107,7 @@ class IPSEC_AUTH_TRANSFORM_ID0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    authConfig {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    authConfig : Int8
+
 }

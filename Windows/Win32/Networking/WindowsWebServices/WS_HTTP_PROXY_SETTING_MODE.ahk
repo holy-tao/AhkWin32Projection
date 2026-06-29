@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Proxy setting indicates HTTP proxy setting for the channel with binding WS_HTTP_CHANNEL_BINDING. This is specified as part of WS_CHANNEL_PROPERTY_HTTP_PROXY_SETTING_MODE channel property.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_http_proxy_setting_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_HTTP_PROXY_SETTING_MODE extends Win32Enum {
+export default struct WS_HTTP_PROXY_SETTING_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The channel will automatically detect the proxy setting based on the IE configuration for the

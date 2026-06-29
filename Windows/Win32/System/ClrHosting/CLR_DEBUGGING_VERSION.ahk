@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class CLR_DEBUGGING_VERSION extends Win32Struct {
-    static sizeof => 10
+export default struct CLR_DEBUGGING_VERSION {
+    #StructPack 2
 
-    static packingSize => 2
+    wStructVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wStructVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMajor : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMajor {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wMinor : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMinor {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wBuild : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wBuild {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wRevision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wRevision {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
 }

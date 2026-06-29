@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DS_NAME_FLAGS enumeration is used to define how the name syntax will be cracked. These flags are used by the DsCrackNames function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_flags
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_NAME_FLAGS extends Win32Enum {
+export default struct DS_NAME_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that there are no associated flags.

@@ -1,99 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_PORTCAPS extends Win32Struct {
-    static sizeof => 304
+export default struct DMUS_PORTCAPS {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    guidPort : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidPort {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwClass : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwClass {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwMemorySize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMemorySize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwMaxChannelGroups : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxChannelGroups {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwMaxVoices : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxVoices {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwMaxAudioChannels : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxAudioChannels {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwEffectFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEffectFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    wszDescription : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    wszDescription {
-        get => StrGet(this.ptr + 44, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 127, "UTF-16")
-    }
 }

@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk" { COR_PRF_FUNCTION_ARGUMENT_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class COR_PRF_FUNCTION_ARGUMENT_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct COR_PRF_FUNCTION_ARGUMENT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    numRanges : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numRanges {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    totalArgumentSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    totalArgumentSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ranges : COR_PRF_FUNCTION_ARGUMENT_RANGE[1]
 
-    /**
-     * @type {COR_PRF_FUNCTION_ARGUMENT_RANGE}
-     */
-    ranges {
-        get {
-            if(!this.HasProp("__rangesProxyArray"))
-                this.__rangesProxyArray := Win32FixedArray(this.ptr + 8, 1, COR_PRF_FUNCTION_ARGUMENT_RANGE, "")
-            return this.__rangesProxyArray
-        }
-    }
 }

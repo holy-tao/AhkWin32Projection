@@ -1,11 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMObjectFactory.ahk
-#Include .\IXpsOMPackageWriter.ahk
-#Include .\IXpsOMPackage1.ahk
-#Include .\IXpsOMPage1.ahk
-#Include .\IXpsOMRemoteDictionaryResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMObjectFactory.ahk" { IXpsOMObjectFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
+#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMPackage1.ahk" { IXpsOMPackage1 }
+#Import ".\IXpsOMPage1.ahk" { IXpsOMPage1 }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * Inherits from IXpsOMObjectFactory.
@@ -17,26 +31,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsomobjectfactory1
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     /**
      * The interface identifier for IXpsOMObjectFactory1
      * @type {Guid}
      */
-    static IID => Guid("{0a91b617-d612-4181-bf7c-be5824e9cc8f}")
+    static IID := Guid("{0a91b617-d612-4181-bf7c-be5824e9cc8f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 40
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMObjectFactory1 interfaces
+    */
+    struct Vtbl extends IXpsOMObjectFactory.Vtbl {
+        GetDocumentTypeFromFile                   : IntPtr
+        GetDocumentTypeFromStream                 : IntPtr
+        ConvertHDPhotoToJpegXR                    : IntPtr
+        ConvertJpegXRToHDPhoto                    : IntPtr
+        CreatePackageWriterOnFile1                : IntPtr
+        CreatePackageWriterOnStream1              : IntPtr
+        CreatePackage1                            : IntPtr
+        CreatePackageFromStream1                  : IntPtr
+        CreatePackageFromFile1                    : IntPtr
+        CreatePage1                               : IntPtr
+        CreatePageFromStream1                     : IntPtr
+        CreateRemoteDictionaryResourceFromStream1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDocumentTypeFromFile", "GetDocumentTypeFromStream", "ConvertHDPhotoToJpegXR", "ConvertJpegXRToHDPhoto", "CreatePackageWriterOnFile1", "CreatePackageWriterOnStream1", "CreatePackage1", "CreatePackageFromStream1", "CreatePackageFromFile1", "CreatePage1", "CreatePageFromStream1", "CreateRemoteDictionaryResourceFromStream1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMObjectFactory1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Detects the type of XPS document that is stored in the specified file.
@@ -169,7 +201,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     CreatePackageWriterOnFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(44, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(44, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, XPS_DOCUMENT_TYPE, documentType, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
     }
 
@@ -217,7 +249,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronstream1
      */
     CreatePackageWriterOnStream1(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
-        result := ComCall(45, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", outputStream, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, XPS_DOCUMENT_TYPE, documentType, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
     }
 
@@ -244,7 +276,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromstream1
      */
     CreatePackageFromStream1(stream, reuseObjects) {
-        result := ComCall(47, this, "ptr", stream, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", stream, BOOL, reuseObjects, "ptr*", &package := 0, "HRESULT")
         return IXpsOMPackage1(package)
     }
 
@@ -264,7 +296,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     CreatePackageFromFile1(filename, reuseObjects) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(48, this, "ptr", filename, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(48, this, "ptr", filename, BOOL, reuseObjects, "ptr*", &package := 0, "HRESULT")
         return IXpsOMPackage1(package)
     }
 
@@ -278,7 +310,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     CreatePage1(pageDimensions, language, partUri) {
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(49, this, "ptr", pageDimensions, "ptr", language, "ptr", partUri, "ptr*", &page := 0, "HRESULT")
+        result := ComCall(49, this, XPS_SIZE.Ptr, pageDimensions, "ptr", language, "ptr", partUri, "ptr*", &page := 0, "HRESULT")
         return IXpsOMPage1(page)
     }
 
@@ -300,7 +332,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpagefromstream1
      */
     CreatePageFromStream1(pageMarkupStream, partUri, resources, reuseObjects) {
-        result := ComCall(50, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", &page := 0, "HRESULT")
+        result := ComCall(50, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, BOOL, reuseObjects, "ptr*", &page := 0, "HRESULT")
         return IXpsOMPage1(page)
     }
 
@@ -317,5 +349,47 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     CreateRemoteDictionaryResourceFromStream1(dictionaryMarkupStream, partUri, resources) {
         result := ComCall(51, this, "ptr", dictionaryMarkupStream, "ptr", partUri, "ptr", resources, "ptr*", &dictionaryResource := 0, "HRESULT")
         return IXpsOMRemoteDictionaryResource(dictionaryResource)
+    }
+
+    Query(iid) {
+        if (IXpsOMObjectFactory1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDocumentTypeFromFile := CallbackCreate(GetMethod(implObj, "GetDocumentTypeFromFile"), flags, 3)
+        this.vtbl.GetDocumentTypeFromStream := CallbackCreate(GetMethod(implObj, "GetDocumentTypeFromStream"), flags, 3)
+        this.vtbl.ConvertHDPhotoToJpegXR := CallbackCreate(GetMethod(implObj, "ConvertHDPhotoToJpegXR"), flags, 2)
+        this.vtbl.ConvertJpegXRToHDPhoto := CallbackCreate(GetMethod(implObj, "ConvertJpegXRToHDPhoto"), flags, 2)
+        this.vtbl.CreatePackageWriterOnFile1 := CallbackCreate(GetMethod(implObj, "CreatePackageWriterOnFile1"), flags, 13)
+        this.vtbl.CreatePackageWriterOnStream1 := CallbackCreate(GetMethod(implObj, "CreatePackageWriterOnStream1"), flags, 11)
+        this.vtbl.CreatePackage1 := CallbackCreate(GetMethod(implObj, "CreatePackage1"), flags, 2)
+        this.vtbl.CreatePackageFromStream1 := CallbackCreate(GetMethod(implObj, "CreatePackageFromStream1"), flags, 4)
+        this.vtbl.CreatePackageFromFile1 := CallbackCreate(GetMethod(implObj, "CreatePackageFromFile1"), flags, 4)
+        this.vtbl.CreatePage1 := CallbackCreate(GetMethod(implObj, "CreatePage1"), flags, 5)
+        this.vtbl.CreatePageFromStream1 := CallbackCreate(GetMethod(implObj, "CreatePageFromStream1"), flags, 6)
+        this.vtbl.CreateRemoteDictionaryResourceFromStream1 := CallbackCreate(GetMethod(implObj, "CreateRemoteDictionaryResourceFromStream1"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDocumentTypeFromFile)
+        CallbackFree(this.vtbl.GetDocumentTypeFromStream)
+        CallbackFree(this.vtbl.ConvertHDPhotoToJpegXR)
+        CallbackFree(this.vtbl.ConvertJpegXRToHDPhoto)
+        CallbackFree(this.vtbl.CreatePackageWriterOnFile1)
+        CallbackFree(this.vtbl.CreatePackageWriterOnStream1)
+        CallbackFree(this.vtbl.CreatePackage1)
+        CallbackFree(this.vtbl.CreatePackageFromStream1)
+        CallbackFree(this.vtbl.CreatePackageFromFile1)
+        CallbackFree(this.vtbl.CreatePage1)
+        CallbackFree(this.vtbl.CreatePageFromStream1)
+        CallbackFree(this.vtbl.CreateRemoteDictionaryResourceFromStream1)
     }
 }

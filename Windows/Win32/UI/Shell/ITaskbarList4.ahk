@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITaskbarList3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITaskbarList3.ahk" { ITaskbarList3 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\STPFLAG.ahk" { STPFLAG }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends ITaskbarList3 by providing a method that allows the caller to control two property values for the tab thumbnail and peek feature.
@@ -25,26 +28,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist4
  * @namespace Windows.Win32.UI.Shell
  */
-class ITaskbarList4 extends ITaskbarList3 {
-
-    static sizeof => A_PtrSize
+export default struct ITaskbarList4 extends ITaskbarList3 {
     /**
      * The interface identifier for ITaskbarList4
      * @type {Guid}
      */
-    static IID => Guid("{c43dc798-95d1-4bea-9030-bb99e2983a1a}")
+    static IID := Guid("{c43dc798-95d1-4bea-9030-bb99e2983a1a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskbarList4 interfaces
+    */
+    struct Vtbl extends ITaskbarList3.Vtbl {
+        SetTabProperties : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTabProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskbarList4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows a tab to specify whether the main application frame window or the tab window should be used as a thumbnail or in the peek feature under certain circumstances.
@@ -62,9 +72,27 @@ class ITaskbarList4 extends ITaskbarList3 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist4-settabproperties
      */
     SetTabProperties(hwndTab, stpFlags) {
-        hwndTab := hwndTab is Win32Handle ? NumGet(hwndTab, "ptr") : hwndTab
-
-        result := ComCall(21, this, "ptr", hwndTab, "int", stpFlags, "HRESULT")
+        result := ComCall(21, this, HWND, hwndTab, STPFLAG, stpFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskbarList4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTabProperties := CallbackCreate(GetMethod(implObj, "SetTabProperties"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTabProperties)
     }
 }

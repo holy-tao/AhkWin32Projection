@@ -1,42 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IWdsTransportNamespace.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWdsTransportCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWdsTransportNamespace.ahk" { IWdsTransportNamespace }
+#Import ".\IWdsTransportCollection.ahk" { IWdsTransportCollection }
 
 /**
  * Represents content being transmitted under a namespace over one or more sessions.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcontent
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportContent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportContent extends IDispatch {
     /**
      * The interface identifier for IWdsTransportContent
      * @type {Guid}
      */
-    static IID => Guid("{d405d711-0296-4ab4-a860-ac7d32e65798}")
+    static IID := Guid("{d405d711-0296-4ab4-a860-ac7d32e65798}")
 
     /**
      * The class identifier for WdsTransportContent
      * @type {Guid}
      */
-    static CLSID => Guid("{0a891fe7-4a3f-4c65-b6f2-1467619679ea}")
+    static CLSID := Guid("{0a891fe7-4a3f-4c65-b6f2-1467619679ea}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportContent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Namespace    : IntPtr
+        get_Id           : IntPtr
+        get_Name         : IntPtr
+        RetrieveSessions : IntPtr
+        Terminate        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Namespace", "get_Id", "get_Name", "RetrieveSessions", "Terminate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportContent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IWdsTransportNamespace} 
@@ -87,8 +99,8 @@ class IWdsTransportContent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_name
      */
     get_Name() {
-        pbszName := BSTR()
-        result := ComCall(9, this, "ptr", pbszName, "HRESULT")
+        pbszName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbszName, "HRESULT")
         return pbszName
     }
 
@@ -110,5 +122,33 @@ class IWdsTransportContent extends IDispatch {
     Terminate() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportContent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Namespace := CallbackCreate(GetMethod(implObj, "get_Namespace"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.RetrieveSessions := CallbackCreate(GetMethod(implObj, "RetrieveSessions"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Namespace)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.RetrieveSessions)
+        CallbackFree(this.vtbl.Terminate)
     }
 }

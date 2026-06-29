@@ -1,123 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VBICODECFILTERING_STATISTICS_COMMON extends Win32Struct {
-    static sizeof => 56
+export default struct VBICODECFILTERING_STATISTICS_COMMON {
+    #StructPack 4
 
-    static packingSize => 4
+    InputSRBsProcessed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputSRBsProcessed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OutputSRBsProcessed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputSRBsProcessed {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SRBsIgnored : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SRBsIgnored {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputSRBsMissing : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputSRBsMissing {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    OutputSRBsMissing : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputSRBsMissing {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OutputFailures : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputFailures {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    InternalErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InternalErrors {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ExternalErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExternalErrors {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    InputDiscontinuities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputDiscontinuities {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DSPFailures : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DSPFailures {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TvTunerChanges : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TvTunerChanges {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    VBIHeaderChanges : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VBIHeaderChanges {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    LineConfidenceAvg : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LineConfidenceAvg {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BytesOutput : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesOutput {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

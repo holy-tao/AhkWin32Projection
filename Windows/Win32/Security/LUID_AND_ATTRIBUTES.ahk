@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\LUID.ahk
-#Include .\TOKEN_PRIVILEGES_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TOKEN_PRIVILEGES_ATTRIBUTES.ahk" { TOKEN_PRIVILEGES_ATTRIBUTES }
+#Import "..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Represents a locally unique identifier (LUID) and its attributes.
@@ -10,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-luid_and_attributes
  * @namespace Windows.Win32.Security
  */
-class LUID_AND_ATTRIBUTES extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct LUID_AND_ATTRIBUTES {
+    #StructPack 4
 
     /**
      * Specifies an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> value.
-     * @type {LUID}
      */
-    Luid {
-        get {
-            if(!this.HasProp("__Luid"))
-                this.__Luid := LUID(0, this)
-            return this.__Luid
-        }
-    }
+    Luid : LUID
 
     /**
      * Specifies attributes of the LUID. This value contains up to 32 one-bit flags. Its meaning is dependent on the definition and use of the LUID.
-     * @type {TOKEN_PRIVILEGES_ATTRIBUTES}
      */
-    Attributes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Attributes : TOKEN_PRIVILEGES_ATTRIBUTES
+
 }

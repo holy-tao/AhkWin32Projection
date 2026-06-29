@@ -1,30 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_NOTIFICATION_TARGET_TYPE.ahk
-#Include .\VDS_PACK_NOTIFICATION.ahk
-#Include .\VDS_NF_PACK.ahk
-#Include .\VDS_DISK_NOTIFICATION.ahk
-#Include .\VDS_NF_DISK.ahk
-#Include .\VDS_VOLUME_NOTIFICATION.ahk
-#Include .\VDS_PARTITION_NOTIFICATION.ahk
-#Include .\VDS_DRIVE_LETTER_NOTIFICATION.ahk
-#Include .\VDS_FILE_SYSTEM_NOTIFICATION.ahk
-#Include .\VDS_NF_FILE_SYSTEM.ahk
-#Include .\VDS_MOUNT_POINT_NOTIFICATION.ahk
-#Include .\VDS_SUB_SYSTEM_NOTIFICATION.ahk
-#Include .\VDS_CONTROLLER_NOTIFICATION.ahk
-#Include .\VDS_NF_CONTROLLER.ahk
-#Include .\VDS_DRIVE_NOTIFICATION.ahk
-#Include .\VDS_NF_DRIVE.ahk
-#Include .\VDS_LUN_NOTIFICATION.ahk
-#Include .\VDS_NF_LUN.ahk
-#Include .\VDS_PORT_NOTIFICATION.ahk
-#Include .\VDS_NF_PORT.ahk
-#Include .\VDS_PORTAL_NOTIFICATION.ahk
-#Include .\VDS_TARGET_NOTIFICATION.ahk
-#Include .\VDS_PORTAL_GROUP_NOTIFICATION.ahk
-#Include .\VDS_SERVICE_NOTIFICATION.ahk
-#Include .\VDS_RECOVER_ACTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_PARTITION_NOTIFICATION.ahk" { VDS_PARTITION_NOTIFICATION }
+#Import ".\VDS_DRIVE_LETTER_NOTIFICATION.ahk" { VDS_DRIVE_LETTER_NOTIFICATION }
+#Import ".\VDS_PACK_NOTIFICATION.ahk" { VDS_PACK_NOTIFICATION }
+#Import ".\VDS_PORTAL_NOTIFICATION.ahk" { VDS_PORTAL_NOTIFICATION }
+#Import ".\VDS_RECOVER_ACTION.ahk" { VDS_RECOVER_ACTION }
+#Import ".\VDS_CONTROLLER_NOTIFICATION.ahk" { VDS_CONTROLLER_NOTIFICATION }
+#Import ".\VDS_NF_DISK.ahk" { VDS_NF_DISK }
+#Import ".\VDS_NF_CONTROLLER.ahk" { VDS_NF_CONTROLLER }
+#Import ".\VDS_SERVICE_NOTIFICATION.ahk" { VDS_SERVICE_NOTIFICATION }
+#Import ".\VDS_MOUNT_POINT_NOTIFICATION.ahk" { VDS_MOUNT_POINT_NOTIFICATION }
+#Import ".\VDS_FILE_SYSTEM_NOTIFICATION.ahk" { VDS_FILE_SYSTEM_NOTIFICATION }
+#Import ".\VDS_DISK_NOTIFICATION.ahk" { VDS_DISK_NOTIFICATION }
+#Import ".\VDS_NF_PACK.ahk" { VDS_NF_PACK }
+#Import ".\VDS_NF_LUN.ahk" { VDS_NF_LUN }
+#Import ".\VDS_NF_DRIVE.ahk" { VDS_NF_DRIVE }
+#Import ".\VDS_NF_FILE_SYSTEM.ahk" { VDS_NF_FILE_SYSTEM }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_LUN_NOTIFICATION.ahk" { VDS_LUN_NOTIFICATION }
+#Import ".\VDS_DRIVE_NOTIFICATION.ahk" { VDS_DRIVE_NOTIFICATION }
+#Import ".\VDS_TARGET_NOTIFICATION.ahk" { VDS_TARGET_NOTIFICATION }
+#Import ".\VDS_NF_PORT.ahk" { VDS_NF_PORT }
+#Import ".\VDS_PORT_NOTIFICATION.ahk" { VDS_PORT_NOTIFICATION }
+#Import ".\VDS_NOTIFICATION_TARGET_TYPE.ahk" { VDS_NOTIFICATION_TARGET_TYPE }
+#Import ".\VDS_VOLUME_NOTIFICATION.ahk" { VDS_VOLUME_NOTIFICATION }
+#Import ".\VDS_PORTAL_GROUP_NOTIFICATION.ahk" { VDS_PORTAL_GROUP_NOTIFICATION }
+#Import ".\VDS_SUB_SYSTEM_NOTIFICATION.ahk" { VDS_SUB_SYSTEM_NOTIFICATION }
 
 /**
  * The VDS_NOTIFICATION structure (vdshwprv.h) defines the VDS notification structures specific to each notification target type (subject).
@@ -36,10 +36,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_NOTIFICATION extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct VDS_NOTIFICATION {
+    #StructPack 8
 
     /**
      * Discriminant for the union enumerated by 
@@ -231,186 +229,27 @@ class VDS_NOTIFICATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {VDS_NOTIFICATION_TARGET_TYPE}
      */
-    objectType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    objectType : VDS_NOTIFICATION_TARGET_TYPE
 
-    /**
-     * @type {VDS_PACK_NOTIFICATION}
-     */
-    Pack {
-        get {
-            if(!this.HasProp("__Pack"))
-                this.__Pack := VDS_PACK_NOTIFICATION(8, this)
-            return this.__Pack
-        }
-    }
+    Pack : VDS_PACK_NOTIFICATION
 
-    /**
-     * @type {VDS_DISK_NOTIFICATION}
-     */
-    Disk {
-        get {
-            if(!this.HasProp("__Disk"))
-                this.__Disk := VDS_DISK_NOTIFICATION(8, this)
-            return this.__Disk
-        }
-    }
-
-    /**
-     * @type {VDS_VOLUME_NOTIFICATION}
-     */
-    Volume {
-        get {
-            if(!this.HasProp("__Volume"))
-                this.__Volume := VDS_VOLUME_NOTIFICATION(8, this)
-            return this.__Volume
-        }
-    }
-
-    /**
-     * @type {VDS_PARTITION_NOTIFICATION}
-     */
-    Partition {
-        get {
-            if(!this.HasProp("__Partition"))
-                this.__Partition := VDS_PARTITION_NOTIFICATION(8, this)
-            return this.__Partition
-        }
-    }
-
-    /**
-     * @type {VDS_DRIVE_LETTER_NOTIFICATION}
-     */
-    Letter {
-        get {
-            if(!this.HasProp("__Letter"))
-                this.__Letter := VDS_DRIVE_LETTER_NOTIFICATION(8, this)
-            return this.__Letter
-        }
-    }
-
-    /**
-     * @type {VDS_FILE_SYSTEM_NOTIFICATION}
-     */
-    FileSystem {
-        get {
-            if(!this.HasProp("__FileSystem"))
-                this.__FileSystem := VDS_FILE_SYSTEM_NOTIFICATION(8, this)
-            return this.__FileSystem
-        }
-    }
-
-    /**
-     * @type {VDS_MOUNT_POINT_NOTIFICATION}
-     */
-    MountPoint {
-        get {
-            if(!this.HasProp("__MountPoint"))
-                this.__MountPoint := VDS_MOUNT_POINT_NOTIFICATION(8, this)
-            return this.__MountPoint
-        }
-    }
-
-    /**
-     * @type {VDS_SUB_SYSTEM_NOTIFICATION}
-     */
-    SubSystem {
-        get {
-            if(!this.HasProp("__SubSystem"))
-                this.__SubSystem := VDS_SUB_SYSTEM_NOTIFICATION(8, this)
-            return this.__SubSystem
-        }
-    }
-
-    /**
-     * @type {VDS_CONTROLLER_NOTIFICATION}
-     */
-    Controller {
-        get {
-            if(!this.HasProp("__Controller"))
-                this.__Controller := VDS_CONTROLLER_NOTIFICATION(8, this)
-            return this.__Controller
-        }
-    }
-
-    /**
-     * @type {VDS_DRIVE_NOTIFICATION}
-     */
-    Drive {
-        get {
-            if(!this.HasProp("__Drive"))
-                this.__Drive := VDS_DRIVE_NOTIFICATION(8, this)
-            return this.__Drive
-        }
-    }
-
-    /**
-     * @type {VDS_LUN_NOTIFICATION}
-     */
-    Lun {
-        get {
-            if(!this.HasProp("__Lun"))
-                this.__Lun := VDS_LUN_NOTIFICATION(8, this)
-            return this.__Lun
-        }
-    }
-
-    /**
-     * @type {VDS_PORT_NOTIFICATION}
-     */
-    Port {
-        get {
-            if(!this.HasProp("__Port"))
-                this.__Port := VDS_PORT_NOTIFICATION(8, this)
-            return this.__Port
-        }
-    }
-
-    /**
-     * @type {VDS_PORTAL_NOTIFICATION}
-     */
-    Portal {
-        get {
-            if(!this.HasProp("__Portal"))
-                this.__Portal := VDS_PORTAL_NOTIFICATION(8, this)
-            return this.__Portal
-        }
-    }
-
-    /**
-     * @type {VDS_TARGET_NOTIFICATION}
-     */
-    Target {
-        get {
-            if(!this.HasProp("__Target"))
-                this.__Target := VDS_TARGET_NOTIFICATION(8, this)
-            return this.__Target
-        }
-    }
-
-    /**
-     * @type {VDS_PORTAL_GROUP_NOTIFICATION}
-     */
-    PortalGroup {
-        get {
-            if(!this.HasProp("__PortalGroup"))
-                this.__PortalGroup := VDS_PORTAL_GROUP_NOTIFICATION(8, this)
-            return this.__PortalGroup
-        }
-    }
-
-    /**
-     * @type {VDS_SERVICE_NOTIFICATION}
-     */
-    Service {
-        get {
-            if(!this.HasProp("__Service"))
-                this.__Service := VDS_SERVICE_NOTIFICATION(8, this)
-            return this.__Service
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Disk', { type: VDS_DISK_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Volume', { type: VDS_VOLUME_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Partition', { type: VDS_PARTITION_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Letter', { type: VDS_DRIVE_LETTER_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'FileSystem', { type: VDS_FILE_SYSTEM_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'MountPoint', { type: VDS_MOUNT_POINT_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'SubSystem', { type: VDS_SUB_SYSTEM_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Controller', { type: VDS_CONTROLLER_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Drive', { type: VDS_DRIVE_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Lun', { type: VDS_LUN_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Port', { type: VDS_PORT_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Portal', { type: VDS_PORTAL_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Target', { type: VDS_TARGET_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'PortalGroup', { type: VDS_PORTAL_GROUP_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'Service', { type: VDS_SERVICE_NOTIFICATION, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\INameSpaceTreeControl.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NSTCSTYLE2.ahk" { NSTCSTYLE2 }
+#Import ".\INameSpaceTreeControl.ahk" { INameSpaceTreeControl }
 
 /**
  * Extends the INameSpaceTreeControl interface by providing methods that get and set the display styles of treeview controls for use with Shell namespace items.
@@ -15,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrol2
  * @namespace Windows.Win32.UI.Shell
  */
-class INameSpaceTreeControl2 extends INameSpaceTreeControl {
-
-    static sizeof => A_PtrSize
+export default struct INameSpaceTreeControl2 extends INameSpaceTreeControl {
     /**
      * The interface identifier for INameSpaceTreeControl2
      * @type {Guid}
      */
-    static IID => Guid("{7cc7aed8-290e-49bc-8945-c1401cc9306c}")
+    static IID := Guid("{7cc7aed8-290e-49bc-8945-c1401cc9306c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INameSpaceTreeControl2 interfaces
+    */
+    struct Vtbl extends INameSpaceTreeControl.Vtbl {
+        SetControlStyle  : IntPtr
+        GetControlStyle  : IntPtr
+        SetControlStyle2 : IntPtr
+        GetControlStyle2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetControlStyle", "GetControlStyle", "SetControlStyle2", "GetControlStyle2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INameSpaceTreeControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the display styles for the namespace object's treeview controls.
@@ -83,7 +95,7 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-setcontrolstyle2
      */
     SetControlStyle2(nstcsMask, nstcsStyle) {
-        result := ComCall(24, this, "int", nstcsMask, "int", nstcsStyle, "HRESULT")
+        result := ComCall(24, this, NSTCSTYLE2, nstcsMask, NSTCSTYLE2, nstcsStyle, "HRESULT")
         return result
     }
 
@@ -98,7 +110,33 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle2
      */
     GetControlStyle2(nstcsMask) {
-        result := ComCall(25, this, "int", nstcsMask, "int*", &pnstcsStyle := 0, "HRESULT")
+        result := ComCall(25, this, NSTCSTYLE2, nstcsMask, "int*", &pnstcsStyle := 0, "HRESULT")
         return pnstcsStyle
+    }
+
+    Query(iid) {
+        if (INameSpaceTreeControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetControlStyle := CallbackCreate(GetMethod(implObj, "SetControlStyle"), flags, 3)
+        this.vtbl.GetControlStyle := CallbackCreate(GetMethod(implObj, "GetControlStyle"), flags, 3)
+        this.vtbl.SetControlStyle2 := CallbackCreate(GetMethod(implObj, "SetControlStyle2"), flags, 3)
+        this.vtbl.GetControlStyle2 := CallbackCreate(GetMethod(implObj, "GetControlStyle2"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetControlStyle)
+        CallbackFree(this.vtbl.GetControlStyle)
+        CallbackFree(this.vtbl.SetControlStyle2)
+        CallbackFree(this.vtbl.GetControlStyle2)
     }
 }

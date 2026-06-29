@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBPARAMBINDINFO extends Win32Struct {
-    static sizeof => 32
+export default struct DBPARAMBINDINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszDataSourceType : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszDataSourceType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulParamSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ulParamSize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    bPrecision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPrecision {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    bScale : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bScale {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
-    }
 }

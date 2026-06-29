@@ -1,41 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMsmErrors.ahk
-#Include .\IMsmDependencies.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMsmDependencies.ahk" { IMsmDependencies }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMsmErrors.ahk" { IMsmErrors }
 
 /**
  * The IMsmMerge interface and the IMsmMerge2 interface provide interfaces to the Merge object.
  * @see https://learn.microsoft.com/windows/win32/api/mergemod/nn-mergemod-imsmmerge
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IMsmMerge extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMsmMerge extends IDispatch {
     /**
      * The interface identifier for IMsmMerge
      * @type {Guid}
      */
-    static IID => Guid("{0adda82e-2c26-11d2-ad65-00a0c9af11a6}")
+    static IID := Guid("{0adda82e-2c26-11d2-ad65-00a0c9af11a6}")
 
     /**
      * The class identifier for MsmMerge
      * @type {Guid}
      */
-    static CLSID => Guid("{0adda830-2c26-11d2-ad65-00a0c9af11a6}")
+    static CLSID := Guid("{0adda830-2c26-11d2-ad65-00a0c9af11a6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMsmMerge interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        OpenDatabase     : IntPtr
+        OpenModule       : IntPtr
+        CloseDatabase    : IntPtr
+        CloseModule      : IntPtr
+        OpenLog          : IntPtr
+        CloseLog         : IntPtr
+        Log              : IntPtr
+        get_Errors       : IntPtr
+        get_Dependencies : IntPtr
+        Merge            : IntPtr
+        Connect          : IntPtr
+        ExtractCAB       : IntPtr
+        ExtractFiles     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenDatabase", "OpenModule", "CloseDatabase", "CloseModule", "OpenLog", "CloseLog", "Log", "get_Errors", "get_Dependencies", "Merge", "Connect", "ExtractCAB", "ExtractFiles"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMsmMerge.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IMsmErrors} 
@@ -89,7 +111,7 @@ class IMsmMerge extends IDispatch {
     OpenDatabase(_Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(7, this, "ptr", _Path, "HRESULT")
+        result := ComCall(7, this, BSTR, _Path, "HRESULT")
         return result
     }
 
@@ -190,7 +212,7 @@ class IMsmMerge extends IDispatch {
     OpenModule(_Path, Language) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(8, this, "ptr", _Path, "short", Language, "HRESULT")
+        result := ComCall(8, this, BSTR, _Path, "short", Language, "HRESULT")
         return result
     }
 
@@ -256,7 +278,7 @@ class IMsmMerge extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-closedatabase
      */
     CloseDatabase(Commit) {
-        result := ComCall(9, this, "short", Commit, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, Commit, "HRESULT")
         return result
     }
 
@@ -367,7 +389,7 @@ class IMsmMerge extends IDispatch {
     OpenLog(_Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(11, this, "ptr", _Path, "HRESULT")
+        result := ComCall(11, this, BSTR, _Path, "HRESULT")
         return result
     }
 
@@ -481,7 +503,7 @@ class IMsmMerge extends IDispatch {
     Log(Message) {
         Message := Message is String ? BSTR.Alloc(Message).Value : Message
 
-        result := ComCall(13, this, "ptr", Message, "HRESULT")
+        result := ComCall(13, this, BSTR, Message, "HRESULT")
         return result
     }
 
@@ -601,7 +623,7 @@ class IMsmMerge extends IDispatch {
         Feature := Feature is String ? BSTR.Alloc(Feature).Value : Feature
         RedirectDir := RedirectDir is String ? BSTR.Alloc(RedirectDir).Value : RedirectDir
 
-        result := ComCall(16, this, "ptr", Feature, "ptr", RedirectDir, "HRESULT")
+        result := ComCall(16, this, BSTR, Feature, BSTR, RedirectDir, "HRESULT")
         return result
     }
 
@@ -660,7 +682,7 @@ class IMsmMerge extends IDispatch {
     Connect(Feature) {
         Feature := Feature is String ? BSTR.Alloc(Feature).Value : Feature
 
-        result := ComCall(17, this, "ptr", Feature, "HRESULT")
+        result := ComCall(17, this, BSTR, Feature, "HRESULT")
         return result
     }
 
@@ -746,7 +768,7 @@ class IMsmMerge extends IDispatch {
     ExtractCAB(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
-        result := ComCall(18, this, "ptr", FileName, "HRESULT")
+        result := ComCall(18, this, BSTR, FileName, "HRESULT")
         return result
     }
 
@@ -837,7 +859,51 @@ class IMsmMerge extends IDispatch {
     ExtractFiles(_Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(19, this, "ptr", _Path, "HRESULT")
+        result := ComCall(19, this, BSTR, _Path, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMsmMerge.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenDatabase := CallbackCreate(GetMethod(implObj, "OpenDatabase"), flags, 2)
+        this.vtbl.OpenModule := CallbackCreate(GetMethod(implObj, "OpenModule"), flags, 3)
+        this.vtbl.CloseDatabase := CallbackCreate(GetMethod(implObj, "CloseDatabase"), flags, 2)
+        this.vtbl.CloseModule := CallbackCreate(GetMethod(implObj, "CloseModule"), flags, 1)
+        this.vtbl.OpenLog := CallbackCreate(GetMethod(implObj, "OpenLog"), flags, 2)
+        this.vtbl.CloseLog := CallbackCreate(GetMethod(implObj, "CloseLog"), flags, 1)
+        this.vtbl.Log := CallbackCreate(GetMethod(implObj, "Log"), flags, 2)
+        this.vtbl.get_Errors := CallbackCreate(GetMethod(implObj, "get_Errors"), flags, 2)
+        this.vtbl.get_Dependencies := CallbackCreate(GetMethod(implObj, "get_Dependencies"), flags, 2)
+        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.ExtractCAB := CallbackCreate(GetMethod(implObj, "ExtractCAB"), flags, 2)
+        this.vtbl.ExtractFiles := CallbackCreate(GetMethod(implObj, "ExtractFiles"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenDatabase)
+        CallbackFree(this.vtbl.OpenModule)
+        CallbackFree(this.vtbl.CloseDatabase)
+        CallbackFree(this.vtbl.CloseModule)
+        CallbackFree(this.vtbl.OpenLog)
+        CallbackFree(this.vtbl.CloseLog)
+        CallbackFree(this.vtbl.Log)
+        CallbackFree(this.vtbl.get_Errors)
+        CallbackFree(this.vtbl.get_Dependencies)
+        CallbackFree(this.vtbl.Merge)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.ExtractCAB)
+        CallbackFree(this.vtbl.ExtractFiles)
     }
 }

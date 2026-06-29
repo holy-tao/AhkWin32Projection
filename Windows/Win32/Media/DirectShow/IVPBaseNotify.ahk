@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables the Overlay Mixer to control the properties of a hardware device such as a decoder that uses a video port. The IVPNotify interface derives from this interface.Applications should never use this interface.
@@ -10,21 +11,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nn-vpnotify-ivpbasenotify
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVPBaseNotify extends IUnknown {
+export default struct IVPBaseNotify extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RenegotiateVPParameters"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVPBaseNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RenegotiateVPParameters : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVPBaseNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RenegotiateVPParameters method initializes the connection to the decoder.
@@ -38,5 +46,25 @@ class IVPBaseNotify extends IUnknown {
     RenegotiateVPParameters() {
         result := ComCall(3, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVPBaseNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RenegotiateVPParameters := CallbackCreate(GetMethod(implObj, "RenegotiateVPParameters"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RenegotiateVPParameters)
     }
 }

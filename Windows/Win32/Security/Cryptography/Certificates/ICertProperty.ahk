@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\CERTENROLL_PROPERTYID.ahk" { CERTENROLL_PROPERTYID }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Can be used to associate an external property with a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertProperty extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertProperty extends IDispatch {
     /**
      * The interface identifier for ICertProperty
      * @type {Guid}
      */
-    static IID => Guid("{728ab32e-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab32e-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertProperty interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        InitializeFromCertificate : IntPtr
+        InitializeDecode          : IntPtr
+        get_PropertyId            : IntPtr
+        put_PropertyId            : IntPtr
+        get_RawData               : IntPtr
+        RemoveFromCertificate     : IntPtr
+        SetValueOnCertificate     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromCertificate", "InitializeDecode", "get_PropertyId", "put_PropertyId", "get_RawData", "RemoveFromCertificate", "SetValueOnCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {CERTENROLL_PROPERTYID} 
@@ -95,7 +112,7 @@ class ICertProperty extends IDispatch {
     InitializeFromCertificate(MachineContext, Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(7, this, "short", MachineContext, "int", Encoding, "ptr", strCertificate, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL, MachineContext, EncodingType, Encoding, BSTR, strCertificate, "HRESULT")
         return result
     }
 
@@ -172,7 +189,7 @@ class ICertProperty extends IDispatch {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(8, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(8, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -197,7 +214,7 @@ class ICertProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-put_propertyid
      */
     put_PropertyId(Value) {
-        result := ComCall(10, this, "int", Value, "HRESULT")
+        result := ComCall(10, this, CERTENROLL_PROPERTYID, Value, "HRESULT")
         return result
     }
 
@@ -210,8 +227,8 @@ class ICertProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
-        result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(11, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -270,7 +287,7 @@ class ICertProperty extends IDispatch {
     RemoveFromCertificate(MachineContext, Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(12, this, "short", MachineContext, "int", Encoding, "ptr", strCertificate, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, MachineContext, EncodingType, Encoding, BSTR, strCertificate, "HRESULT")
         return result
     }
 
@@ -331,7 +348,39 @@ class ICertProperty extends IDispatch {
     SetValueOnCertificate(MachineContext, Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(13, this, "short", MachineContext, "int", Encoding, "ptr", strCertificate, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, MachineContext, EncodingType, Encoding, BSTR, strCertificate, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromCertificate := CallbackCreate(GetMethod(implObj, "InitializeFromCertificate"), flags, 4)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_PropertyId := CallbackCreate(GetMethod(implObj, "get_PropertyId"), flags, 2)
+        this.vtbl.put_PropertyId := CallbackCreate(GetMethod(implObj, "put_PropertyId"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.RemoveFromCertificate := CallbackCreate(GetMethod(implObj, "RemoveFromCertificate"), flags, 4)
+        this.vtbl.SetValueOnCertificate := CallbackCreate(GetMethod(implObj, "SetValueOnCertificate"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromCertificate)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_PropertyId)
+        CallbackFree(this.vtbl.put_PropertyId)
+        CallbackFree(this.vtbl.get_RawData)
+        CallbackFree(this.vtbl.RemoveFromCertificate)
+        CallbackFree(this.vtbl.SetValueOnCertificate)
     }
 }

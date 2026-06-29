@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates where in the PERF_STRING_BUFFER_HEADER block that the string that contains the name or help string for the indicated performance counter starts.
@@ -11,27 +10,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_STRING_COUNTER_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PERF_STRING_COUNTER_HEADER {
+    #StructPack 4
 
     /**
      * The identifier of the  performance counter.
-     * @type {Integer}
      */
-    dwCounterId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCounterId : UInt32
 
     /**
      * The number of bytes from the start of the
      * <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_buffer_header">PERF_STRING_BUFFER_HEADER</a> block to the null-terminated UTF-16LE data. A value of 0xFFFFFFFF indicates that the string is not present; in other words, that the value of the string is NULL.
-     * @type {Integer}
      */
-    dwOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOffset : UInt32
+
 }

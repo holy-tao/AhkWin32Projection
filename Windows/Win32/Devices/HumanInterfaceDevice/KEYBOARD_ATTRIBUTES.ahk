@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KEYBOARD_ID.ahk
-#Include .\KEYBOARD_TYPEMATIC_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KEYBOARD_ID.ahk" { KEYBOARD_ID }
+#Import ".\KEYBOARD_TYPEMATIC_PARAMETERS.ahk" { KEYBOARD_TYPEMATIC_PARAMETERS }
 
 /**
  * KEYBOARD_ATTRIBUTES specifies the attributes of a keyboard.
@@ -14,10 +13,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class KEYBOARD_ATTRIBUTES extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct KEYBOARD_ATTRIBUTES {
+    #StructPack 4
 
     /**
      * Specifies the keyboard type and subtype in a KEYBOARD_ID structure:
@@ -28,82 +25,42 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct {
      *   UCHAR  Subtype;
      * } KEYBOARD_ID, *PKEYBOARD_ID;
      * ```
-     * @type {KEYBOARD_ID}
      */
-    KeyboardIdentifier {
-        get {
-            if(!this.HasProp("__KeyboardIdentifier"))
-                this.__KeyboardIdentifier := KEYBOARD_ID(0, this)
-            return this.__KeyboardIdentifier
-        }
-    }
+    KeyboardIdentifier : KEYBOARD_ID
 
     /**
      * Specifies the scan code mode. See the [Remarks](#remarks) section.
-     * @type {Integer}
      */
-    KeyboardMode {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    KeyboardMode : UInt16
 
     /**
      * Specifies the number of function keys that a keyboard supports.
-     * @type {Integer}
      */
-    NumberOfFunctionKeys {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NumberOfFunctionKeys : UInt16
 
     /**
      * Specifies the number of LED indicators that a keyboard supports.
-     * @type {Integer}
      */
-    NumberOfIndicators {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    NumberOfIndicators : UInt16
 
     /**
      * Specifies the number of keys that a keyboard supports.
-     * @type {Integer}
      */
-    NumberOfKeysTotal {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    NumberOfKeysTotal : UInt16
 
     /**
      * Specifies the size, in bytes, of the input data queue used by the keyboard port driver.
-     * @type {Integer}
      */
-    InputDataQueueLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    InputDataQueueLength : UInt32
 
     /**
      * Specifies the minimum possible value for the keyboard typematic rate and delay in a [KEYBOARD_TYPEMATIC_PARAMETERS](ns-ntddkbd-keyboard_typematic_parameters.md) structure.
-     * @type {KEYBOARD_TYPEMATIC_PARAMETERS}
      */
-    KeyRepeatMinimum {
-        get {
-            if(!this.HasProp("__KeyRepeatMinimum"))
-                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(16, this)
-            return this.__KeyRepeatMinimum
-        }
-    }
+    KeyRepeatMinimum : KEYBOARD_TYPEMATIC_PARAMETERS
 
     /**
      * Specifies the maximum possible value for the keyboard typematic rate and delay in a [KEYBOARD_TYPEMATIC_PARAMETERS](ns-ntddkbd-keyboard_typematic_parameters.md) structure.
-     * @type {KEYBOARD_TYPEMATIC_PARAMETERS}
      */
-    KeyRepeatMaximum {
-        get {
-            if(!this.HasProp("__KeyRepeatMaximum"))
-                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(22, this)
-            return this.__KeyRepeatMaximum
-        }
-    }
+    KeyRepeatMaximum : KEYBOARD_TYPEMATIC_PARAMETERS
+
 }

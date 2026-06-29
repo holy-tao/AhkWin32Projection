@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IN6_ADDR structure specifies an IPv6 transport address.
@@ -8,48 +7,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/in6addr/ns-in6addr-in6_addr
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IN6_ADDR extends Win32Struct {
-    static sizeof => 16
+export default struct IN6_ADDR {
+    #StructPack 2
 
-    static packingSize => 2
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 2
+    struct _u {
+        Byte : Int8[16]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Byte {
-            get {
-                if(!this.HasProp("__ByteProxyArray"))
-                    this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-                return this.__ByteProxyArray
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        Word {
-            get {
-                if(!this.HasProp("__WordProxyArray"))
-                    this.__WordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
-                return this.__WordProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Word', { type: UInt16[8], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A union that contains the following different representations of the IPv6 transport
      *      address:
-     * @type {_u_e__Union}
      */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := IN6_ADDR._u_e__Union(0, this)
-            return this.__u
-        }
-    }
+    u : IN6_ADDR._u
+
 }

@@ -1,47 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY extends Win32Struct {
-    static sizeof => 8
+export default struct IMAGE_ARM_RUNTIME_FUNCTION_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    BeginAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BeginAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UnwindData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UnwindData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Flag
-     * - FunctionLength
-     * - Ret
-     * - H
-     * - Reg
-     * - R
-     * - L
-     * - C
-     * - StackAdjust
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 
     /**
      * @type {Integer}
@@ -113,5 +81,9 @@ class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY extends Win32Struct {
     StackAdjust {
         get => (this._bitfield >> 22) & 0x3FF
         set => this._bitfield := ((value & 0x3FF) << 22) | (this._bitfield & ~(0x3FF << 22))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

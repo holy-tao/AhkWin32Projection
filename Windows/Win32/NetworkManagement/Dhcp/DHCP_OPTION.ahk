@@ -1,64 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_DATA.ahk
-#Include .\DHCP_OPTION_DATA_ELEMENT.ahk
-#Include .\DHCP_OPTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_OPTION_TYPE.ahk" { DHCP_OPTION_TYPE }
+#Import ".\DHCP_OPTION_DATA_ELEMENT.ahk" { DHCP_OPTION_DATA_ELEMENT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_OPTION_DATA.ahk" { DHCP_OPTION_DATA }
 
 /**
  * The DHCP_OPTION structure defines a single DHCP option and any data elements associated with it.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_OPTION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DHCP_OPTION {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies a unique ID number (also called a "code") for this option.
-     * @type {Integer}
      */
-    OptionID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OptionID : UInt32
 
     /**
      * Unicode string that contains the name of this option.
-     * @type {PWSTR}
      */
-    OptionName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OptionName : PWSTR
 
     /**
      * Unicode string that contains a comment about this option.
-     * @type {PWSTR}
      */
-    OptionComment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OptionComment : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data">DHCP_OPTION_DATA</a> structure that contains the data associated with this option.
-     * @type {DHCP_OPTION_DATA}
      */
-    DefaultValue {
-        get {
-            if(!this.HasProp("__DefaultValue"))
-                this.__DefaultValue := DHCP_OPTION_DATA(24, this)
-            return this.__DefaultValue
-        }
-    }
+    DefaultValue : DHCP_OPTION_DATA
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_option_type">DHCP_OPTION_TYPE</a> enumeration value that indicates whether this option is a single unary item or an element in an array of options.
-     * @type {DHCP_OPTION_TYPE}
      */
-    OptionType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    OptionType : DHCP_OPTION_TYPE
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the desktop wallpaper should be displayed.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position
  * @namespace Windows.Win32.UI.Shell
  */
-class DESKTOP_WALLPAPER_POSITION extends Win32Enum {
+export default struct DESKTOP_WALLPAPER_POSITION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Center the image; do not stretch. This is equivalent to the <a href="https://docs.microsoft.com/windows/desktop/shell/iactivedesktop-flags">WPSTYLE_CENTER</a> style in <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iactivedesktop">IActiveDesktop</a>.

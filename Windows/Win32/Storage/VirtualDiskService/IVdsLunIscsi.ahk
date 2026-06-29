@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumVdsObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsLunIscsi interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI LUN.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsluniscsi
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsLunIscsi extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsLunIscsi extends IUnknown {
     /**
      * The interface identifier for IVdsLunIscsi
      * @type {Guid}
      */
-    static IID => Guid("{0d7c1e64-b59b-45ae-b86a-2c2cc6a42067}")
+    static IID := Guid("{0d7c1e64-b59b-45ae-b86a-2c2cc6a42067}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsLunIscsi interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AssociateTargets       : IntPtr
+        QueryAssociatedTargets : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AssociateTargets", "QueryAssociatedTargets"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsLunIscsi.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsLunIscsi::AssociateTargets (vdshwprv.h) method associates LUNs with subsystem iSCSI targets.
@@ -135,7 +144,7 @@ class IVdsLunIscsi extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsluniscsi-associatetargets
      */
     AssociateTargets(pTargetIdArray, lNumberOfTargets) {
-        result := ComCall(3, this, "ptr", pTargetIdArray, "int", lNumberOfTargets, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pTargetIdArray, "int", lNumberOfTargets, "HRESULT")
         return result
     }
 
@@ -155,5 +164,27 @@ class IVdsLunIscsi extends IUnknown {
     QueryAssociatedTargets() {
         result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumVdsObject(ppEnum)
+    }
+
+    Query(iid) {
+        if (IVdsLunIscsi.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AssociateTargets := CallbackCreate(GetMethod(implObj, "AssociateTargets"), flags, 3)
+        this.vtbl.QueryAssociatedTargets := CallbackCreate(GetMethod(implObj, "QueryAssociatedTargets"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AssociateTargets)
+        CallbackFree(this.vtbl.QueryAssociatedTargets)
     }
 }

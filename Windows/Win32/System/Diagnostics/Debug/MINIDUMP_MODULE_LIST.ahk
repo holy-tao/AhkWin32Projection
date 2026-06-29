@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_MODULE.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
-#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
+#Import ".\MINIDUMP_MODULE.ahk" { MINIDUMP_MODULE }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk" { VS_FIXEDFILEINFO }
 
 /**
  * Contains a list of modules.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_MODULE_LIST extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct MINIDUMP_MODULE_LIST {
+    #StructPack 8
 
     /**
      * The number of structures in the <b>Modules</b> array.
-     * @type {Integer}
      */
-    NumberOfModules {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfModules : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_module">MINIDUMP_MODULE</a> structures.
-     * @type {MINIDUMP_MODULE}
      */
-    Modules {
-        get {
-            if(!this.HasProp("__ModulesProxyArray"))
-                this.__ModulesProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_MODULE, "")
-            return this.__ModulesProxyArray
-        }
-    }
+    Modules : MINIDUMP_MODULE[1]
+
 }

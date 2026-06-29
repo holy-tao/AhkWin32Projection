@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_DOSP_FLAGS.ahk
-#Include .\FWP_V6_ADDR_AND_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_V6_ADDR_AND_MASK.ahk" { FWP_V6_ADDR_AND_MASK }
+#Import ".\IPSEC_DOSP_FLAGS.ahk" { IPSEC_DOSP_FLAGS }
 
 /**
  * Used to store configuration parameters for IPsec DoS Protection.
@@ -10,211 +9,114 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_options0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_DOSP_OPTIONS0 extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct IPSEC_DOSP_OPTIONS0 {
+    #StructPack 8
 
     /**
      * The number of seconds before idle timeout. This value must be greater than 0.
-     * @type {Integer}
      */
-    stateIdleTimeoutSeconds {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    stateIdleTimeoutSeconds : UInt32
 
     /**
      * The idle timeout for the per IP rate limit queue object. This value must be greater than 0.
-     * @type {Integer}
      */
-    perIPRateLimitQueueIdleTimeoutSeconds {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    perIPRateLimitQueueIdleTimeoutSeconds : UInt32
 
     /**
      * The DSCP marking for unauthenticated inbound IPv6 IPsec traffic. This value must be less than or equal to 63. Specify IPSEC_DOSP_DSCP_DISABLE_VALUE to disable DSCP marking for this category.
-     * @type {Integer}
      */
-    ipV6IPsecUnauthDscp {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ipV6IPsecUnauthDscp : Int8
 
     /**
      * The rate limit for unauthenticated inbound IPv6 IPsec traffic. Specify IPSEC_DOSP_RATE_LIMIT_DISABLE_VALUE to disable rate limiting for this category.
-     * @type {Integer}
      */
-    ipV6IPsecUnauthRateLimitBytesPerSec {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ipV6IPsecUnauthRateLimitBytesPerSec : UInt32
 
     /**
      * The rate limit for unauthenticated inbound IPv6 IPsec traffic per internal IP address. Specify IPSEC_DOSP_RATE_LIMIT_DISABLE_VALUE to disable rate limiting for this category.
-     * @type {Integer}
      */
-    ipV6IPsecUnauthPerIPRateLimitBytesPerSec {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ipV6IPsecUnauthPerIPRateLimitBytesPerSec : UInt32
 
     /**
      * The DSCP marking for authenticated inbound IPv6 IPsec traffic. The value must be less than or equal to 63. Specify IPSEC_DOSP_DSCP_DISABLE_VALUE to disable DSCP marking for this category.
-     * @type {Integer}
      */
-    ipV6IPsecAuthDscp {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    ipV6IPsecAuthDscp : Int8
 
     /**
      * The rate limit for authenticated inbound IPv6 IPsec traffic. Specify IPSEC_DOSP_RATE_LIMIT_DISABLE_VALUE to disable rate limiting for this category..
-     * @type {Integer}
      */
-    ipV6IPsecAuthRateLimitBytesPerSec {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ipV6IPsecAuthRateLimitBytesPerSec : UInt32
 
     /**
      * The DSCP marking for  inbound ICMPv6 traffic. The value must be less than or equal to 63. Specify IPSEC_DOSP_DSCP_DISABLE_VALUE to disable DSCP marking for this category.
-     * @type {Integer}
      */
-    icmpV6Dscp {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    icmpV6Dscp : Int8
 
     /**
      * The rate limit for  inbound ICMPv6 traffic. Specify IPSEC_DOSP_RATE_LIMIT_DISABLE_VALUE to disable rate limiting for this category.
-     * @type {Integer}
      */
-    icmpV6RateLimitBytesPerSec {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    icmpV6RateLimitBytesPerSec : UInt32
 
     /**
      * The DSCP marking for  inbound IPv6 filter exempted traffic. The value must be less than or equal to 63. Specify IPSEC_DOSP_DSCP_DISABLE_VALUE to disable DSCP marking for this category.
-     * @type {Integer}
      */
-    ipV6FilterExemptDscp {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
+    ipV6FilterExemptDscp : Int8
 
     /**
      * The rate limit for  inbound IPV6 filter exempted traffic. Specify IPSEC_DOSP_RATE_LIMIT_DISABLE_VALUE to disable rate limiting for this category.
-     * @type {Integer}
      */
-    ipV6FilterExemptRateLimitBytesPerSec {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ipV6FilterExemptRateLimitBytesPerSec : UInt32
 
     /**
      * The DSCP marking for  inbound default-block exempted traffic. The value must be less than or equal to 63. Specify IPSEC_DOSP_DSCP_DISABLE_VALUE to disable DSCP marking for this category.
-     * @type {Integer}
      */
-    defBlockExemptDscp {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
-    }
+    defBlockExemptDscp : Int8
 
     /**
      * The rate limit for  inbound default-block exempted traffic. Specify IPSEC_DOSP_RATE_LIMIT_DISABLE_VALUE to disable rate limiting for this category.
-     * @type {Integer}
      */
-    defBlockExemptRateLimitBytesPerSec {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    defBlockExemptRateLimitBytesPerSec : UInt32
 
     /**
      * The maximum number of state entries in the table. The value must be greater than 0.
-     * @type {Integer}
      */
-    maxStateEntries {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    maxStateEntries : UInt32
 
     /**
      * The maximum number of rate limit queues for inbound unauthenticated IPv6 IPsec traffic per internal IP address. The value must be greater than 0.
-     * @type {Integer}
      */
-    maxPerIPRateLimitQueues {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    maxPerIPRateLimitQueues : UInt32
 
-    /**
-     * @type {IPSEC_DOSP_FLAGS}
-     */
-    flags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    flags : IPSEC_DOSP_FLAGS
 
     /**
      * The number  of public Internet facing interface identifiers for which DOS protection should be enabled.
-     * @type {Integer}
      */
-    numPublicIFLuids {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    numPublicIFLuids : UInt32
 
     /**
      * Pointer to an array of public Internet facing interface identifiers for which DOS protection should be enabled.
-     * @type {Pointer<Integer>}
      */
-    publicIFLuids {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    publicIFLuids : IntPtr
 
     /**
      * The number of internal network facing interface identifiers for which DOS protection should be enabled.
-     * @type {Integer}
      */
-    numInternalIFLuids {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    numInternalIFLuids : UInt32
 
     /**
      * Pointer to an array of internal network facing interface identifiers for which DOS protection should be enabled.
-     * @type {Pointer<Integer>}
      */
-    internalIFLuids {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    internalIFLuids : IntPtr
 
     /**
      * Optional public IPv6 address or subnet for this policy, as specified in [FWP_V6_ADDR_AND_MASK](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask).
-     * @type {FWP_V6_ADDR_AND_MASK}
      */
-    publicV6AddrMask {
-        get {
-            if(!this.HasProp("__publicV6AddrMask"))
-                this.__publicV6AddrMask := FWP_V6_ADDR_AND_MASK(96, this)
-            return this.__publicV6AddrMask
-        }
-    }
+    publicV6AddrMask : FWP_V6_ADDR_AND_MASK
 
     /**
      * Optional internal IPv6 address or subnet for this policy, as specified in [FWP_V6_ADDR_AND_MASK](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask).
-     * @type {FWP_V6_ADDR_AND_MASK}
      */
-    internalV6AddrMask {
-        get {
-            if(!this.HasProp("__internalV6AddrMask"))
-                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(113, this)
-            return this.__internalV6AddrMask
-        }
-    }
+    internalV6AddrMask : FWP_V6_ADDR_AND_MASK
+
 }

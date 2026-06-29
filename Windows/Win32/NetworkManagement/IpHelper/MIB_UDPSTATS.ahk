@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains statistics for the User Datagram Protocol (UDP) running on the local computer. (MIB_UDPSTATS)
@@ -11,53 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udpstats
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPSTATS extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MIB_UDPSTATS {
+    #StructPack 4
 
     /**
      * The number of datagrams received.
-     * @type {Integer}
      */
-    dwInDatagrams {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwInDatagrams : UInt32
 
     /**
      * The number of datagrams received that were discarded because the port specified was invalid.
-     * @type {Integer}
      */
-    dwNoPorts {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNoPorts : UInt32
 
     /**
      * The number of erroneous datagrams  received. This number does not include the value contained by the <b>dwNoPorts</b> member.
-     * @type {Integer}
      */
-    dwInErrors {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwInErrors : UInt32
 
     /**
      * The number of datagrams transmitted.
-     * @type {Integer}
      */
-    dwOutDatagrams {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwOutDatagrams : UInt32
 
     /**
      * The number of entries in the UDP listener table.
-     * @type {Integer}
      */
-    dwNumAddrs {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNumAddrs : UInt32
+
 }

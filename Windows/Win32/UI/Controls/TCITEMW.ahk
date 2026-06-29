@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TCITEMHEADERA_MASK.ahk
-#Include .\TAB_CONTROL_ITEM_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TAB_CONTROL_ITEM_STATE.ahk" { TAB_CONTROL_ITEM_STATE }
+#Import ".\TCITEMHEADERA_MASK.ahk" { TCITEMHEADERA_MASK }
 
 /**
  * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure. (Unicode)
@@ -9,77 +10,51 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class TCITEMW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct TCITEMW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {TCITEMHEADERA_MASK}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : TCITEMHEADERA_MASK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Specifies the item's current state if information is being retrieved. If item information is being set, this member contains the state value to be set for the item. For a list of valid tab control item states, see <a href="https://docs.microsoft.com/windows/desktop/Controls/tab-control-item-states">Tab Control Item States</a>. This member is ignored in the <a href="https://docs.microsoft.com/windows/desktop/Controls/tcm-insertitem">TCM_INSERTITEM</a> message.
-     * @type {TAB_CONTROL_ITEM_STATE}
      */
-    dwState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwState : TAB_CONTROL_ITEM_STATE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Specifies which bits of the <b>dwState</b> member contain valid information. This member is ignored in the <a href="https://docs.microsoft.com/windows/desktop/Controls/tcm-insertitem">TCM_INSERTITEM</a> message.
-     * @type {TAB_CONTROL_ITEM_STATE}
      */
-    dwStateMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwStateMask : TAB_CONTROL_ITEM_STATE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the tab text when item information is being set. If item information is being retrieved, this member specifies the address of the buffer that receives the tab text.
-     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszText : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Size in <b>TCHAR</b><b>s</b> of the buffer pointed to by the 
      * 					<b>pszText</b> member. If the structure is not receiving information, this member is ignored.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Index in the tab control's image list, or -1 if there is no image for the tab.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    iImage : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
@@ -94,10 +69,7 @@ class TCITEMW extends Win32Struct {
      * 
      * > [!NOTE]
      * > The commctrl.h header defines TCITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lParam : LPARAM
+
 }

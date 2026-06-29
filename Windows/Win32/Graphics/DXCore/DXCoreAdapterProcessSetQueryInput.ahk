@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class DXCoreAdapterProcessSetQueryInput extends Win32Struct {
-    static sizeof => 16
+export default struct DXCoreAdapterProcessSetQueryInput {
+    #StructPack 8
 
-    static packingSize => 8
+    arraySize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    arraySize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    processIds : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    processIds {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

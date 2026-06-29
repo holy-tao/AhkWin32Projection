@@ -1,36 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include .\CALLFRAMEINFO.ahk
-#Include .\CALLFRAMEPARAMINFO.ahk
-#Include ..\..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CALLFRAME_COPY.ahk" { CALLFRAME_COPY }
+#Import ".\CALLFRAMEPARAMINFO.ahk" { CALLFRAMEPARAMINFO }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
+#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\MSHLFLAGS.ahk" { MSHLFLAGS }
+#Import ".\ICallFrameWalker.ahk" { ICallFrameWalker }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Enables manipulation of call frames such as stack frames.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallframe
  * @namespace Windows.Win32.System.Com.CallObj
  */
-class ICallFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICallFrame extends IUnknown {
     /**
      * The interface identifier for ICallFrame
      * @type {Guid}
      */
-    static IID => Guid("{d573b4b0-894e-11d2-b8b6-00c04fb9618a}")
+    static IID := Guid("{d573b4b0-894e-11d2-b8b6-00c04fb9618a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICallFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInfo            : IntPtr
+        GetIIDAndMethod    : IntPtr
+        GetNames           : IntPtr
+        GetStackLocation   : IntPtr
+        SetStackLocation   : IntPtr
+        SetReturnValue     : IntPtr
+        GetReturnValue     : IntPtr
+        GetParamInfo       : IntPtr
+        SetParam           : IntPtr
+        GetParam           : IntPtr
+        Copy               : IntPtr
+        Free               : IntPtr
+        FreeParam          : IntPtr
+        WalkFrame          : IntPtr
+        GetMarshalSizeMax  : IntPtr
+        Marshal            : IntPtr
+        Unmarshal          : IntPtr
+        ReleaseMarshalData : IntPtr
+        Invoke             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInfo", "GetIIDAndMethod", "GetNames", "GetStackLocation", "SetStackLocation", "SetReturnValue", "GetReturnValue", "GetParamInfo", "SetParam", "GetParam", "Copy", "Free", "FreeParam", "WalkFrame", "GetMarshalSizeMax", "Marshal", "Unmarshal", "ReleaseMarshalData", "Invoke"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICallFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves information about the call frame.
@@ -39,7 +70,7 @@ class ICallFrame extends IUnknown {
      */
     GetInfo() {
         pInfo := CALLFRAMEINFO()
-        result := ComCall(3, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(3, this, CALLFRAMEINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -82,7 +113,7 @@ class ICallFrame extends IUnknown {
     GetIIDAndMethod(pIID, piMethod) {
         piMethodMarshal := piMethod is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pIID, piMethodMarshal, piMethod, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pIID, piMethodMarshal, piMethod, "HRESULT")
         return result
     }
 
@@ -136,7 +167,7 @@ class ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getstacklocation
      */
     GetStackLocation() {
-        result := ComCall(6, this, "ptr")
+        result := ComCall(6, this, IntPtr)
         return result
     }
 
@@ -180,7 +211,7 @@ class ICallFrame extends IUnknown {
      */
     GetParamInfo(iparam) {
         pInfo := CALLFRAMEPARAMINFO()
-        result := ComCall(10, this, "uint", iparam, "ptr", pInfo, "HRESULT")
+        result := ComCall(10, this, "uint", iparam, CALLFRAMEPARAMINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -221,7 +252,7 @@ class ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-setparam
      */
     SetParam(iparam, pvar) {
-        result := ComCall(11, this, "uint", iparam, "ptr", pvar, "HRESULT")
+        result := ComCall(11, this, "uint", iparam, VARIANT.Ptr, pvar, "HRESULT")
         return result
     }
 
@@ -233,7 +264,7 @@ class ICallFrame extends IUnknown {
      */
     GetParam(iparam) {
         pvar := VARIANT()
-        result := ComCall(12, this, "uint", iparam, "ptr", pvar, "HRESULT")
+        result := ComCall(12, this, "uint", iparam, VARIANT.Ptr, pvar, "HRESULT")
         return pvar
     }
 
@@ -247,7 +278,7 @@ class ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-copy
      */
     Copy(copyControl, pWalker) {
-        result := ComCall(13, this, "int", copyControl, "ptr", pWalker, "ptr*", &ppFrame := 0, "HRESULT")
+        result := ComCall(13, this, CALLFRAME_COPY, copyControl, "ptr", pWalker, "ptr*", &ppFrame := 0, "HRESULT")
         return ICallFrame(ppFrame)
     }
 
@@ -390,7 +421,7 @@ class ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getmarshalsizemax
      */
     GetMarshalSizeMax(pmshlContext, _mshlflags) {
-        result := ComCall(17, this, "ptr", pmshlContext, "int", _mshlflags, "uint*", &pcbBufferNeeded := 0, "HRESULT")
+        result := ComCall(17, this, CALLFRAME_MARSHALCONTEXT.Ptr, pmshlContext, MSHLFLAGS, _mshlflags, "uint*", &pcbBufferNeeded := 0, "HRESULT")
         return pcbBufferNeeded
     }
 
@@ -445,7 +476,7 @@ class ICallFrame extends IUnknown {
         pdataRepMarshal := pdataRep is VarRef ? "uint*" : "ptr"
         prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pmshlContext, "int", _mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
+        result := ComCall(18, this, CALLFRAME_MARSHALCONTEXT.Ptr, pmshlContext, MSHLFLAGS, _mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
         return result
     }
 
@@ -463,7 +494,7 @@ class ICallFrame extends IUnknown {
     Unmarshal(pBuffer, cbBuffer, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
+        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
         return pcbUnmarshalled
     }
 
@@ -513,7 +544,7 @@ class ICallFrame extends IUnknown {
     ReleaseMarshalData(pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
+        result := ComCall(20, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
         return result
     }
 
@@ -570,5 +601,61 @@ class ICallFrame extends IUnknown {
 
         result := ComCall(21, this, pvReceiverMarshal, pvReceiver, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICallFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.GetIIDAndMethod := CallbackCreate(GetMethod(implObj, "GetIIDAndMethod"), flags, 3)
+        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 3)
+        this.vtbl.GetStackLocation := CallbackCreate(GetMethod(implObj, "GetStackLocation"), flags, 1)
+        this.vtbl.SetStackLocation := CallbackCreate(GetMethod(implObj, "SetStackLocation"), flags, 2)
+        this.vtbl.SetReturnValue := CallbackCreate(GetMethod(implObj, "SetReturnValue"), flags, 2)
+        this.vtbl.GetReturnValue := CallbackCreate(GetMethod(implObj, "GetReturnValue"), flags, 1)
+        this.vtbl.GetParamInfo := CallbackCreate(GetMethod(implObj, "GetParamInfo"), flags, 3)
+        this.vtbl.SetParam := CallbackCreate(GetMethod(implObj, "SetParam"), flags, 3)
+        this.vtbl.GetParam := CallbackCreate(GetMethod(implObj, "GetParam"), flags, 3)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 7)
+        this.vtbl.FreeParam := CallbackCreate(GetMethod(implObj, "FreeParam"), flags, 5)
+        this.vtbl.WalkFrame := CallbackCreate(GetMethod(implObj, "WalkFrame"), flags, 3)
+        this.vtbl.GetMarshalSizeMax := CallbackCreate(GetMethod(implObj, "GetMarshalSizeMax"), flags, 4)
+        this.vtbl.Marshal := CallbackCreate(GetMethod(implObj, "Marshal"), flags, 8)
+        this.vtbl.Unmarshal := CallbackCreate(GetMethod(implObj, "Unmarshal"), flags, 6)
+        this.vtbl.ReleaseMarshalData := CallbackCreate(GetMethod(implObj, "ReleaseMarshalData"), flags, 6)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInfo)
+        CallbackFree(this.vtbl.GetIIDAndMethod)
+        CallbackFree(this.vtbl.GetNames)
+        CallbackFree(this.vtbl.GetStackLocation)
+        CallbackFree(this.vtbl.SetStackLocation)
+        CallbackFree(this.vtbl.SetReturnValue)
+        CallbackFree(this.vtbl.GetReturnValue)
+        CallbackFree(this.vtbl.GetParamInfo)
+        CallbackFree(this.vtbl.SetParam)
+        CallbackFree(this.vtbl.GetParam)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Free)
+        CallbackFree(this.vtbl.FreeParam)
+        CallbackFree(this.vtbl.WalkFrame)
+        CallbackFree(this.vtbl.GetMarshalSizeMax)
+        CallbackFree(this.vtbl.Marshal)
+        CallbackFree(this.vtbl.Unmarshal)
+        CallbackFree(this.vtbl.ReleaseMarshalData)
+        CallbackFree(this.vtbl.Invoke)
     }
 }

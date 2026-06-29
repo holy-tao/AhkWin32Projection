@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CSC_ThreadPool.ahk" { CSC_ThreadPool }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CSC_Binding.ahk" { CSC_Binding }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures the thread pool of the activity object that is returned by calling CoCreateActivity.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicethreadpoolconfig
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IServiceThreadPoolConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IServiceThreadPoolConfig extends IUnknown {
     /**
      * The interface identifier for IServiceThreadPoolConfig
      * @type {Guid}
      */
-    static IID => Guid("{186d89bc-f277-4bcc-80d5-4df7b836ef4a}")
+    static IID := Guid("{186d89bc-f277-4bcc-80d5-4df7b836ef4a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IServiceThreadPoolConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SelectThreadPool : IntPtr
+        SetBindingInfo   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SelectThreadPool", "SetBindingInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IServiceThreadPoolConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Selects the thread pool in which the work submitted through the activity is to run.
@@ -36,7 +47,7 @@ class IServiceThreadPoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicethreadpoolconfig-selectthreadpool
      */
     SelectThreadPool(threadPool) {
-        result := ComCall(3, this, "int", threadPool, "HRESULT")
+        result := ComCall(3, this, CSC_ThreadPool, threadPool, "HRESULT")
         return result
     }
 
@@ -47,7 +58,29 @@ class IServiceThreadPoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicethreadpoolconfig-setbindinginfo
      */
     SetBindingInfo(binding) {
-        result := ComCall(4, this, "int", binding, "HRESULT")
+        result := ComCall(4, this, CSC_Binding, binding, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IServiceThreadPoolConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SelectThreadPool := CallbackCreate(GetMethod(implObj, "SelectThreadPool"), flags, 2)
+        this.vtbl.SetBindingInfo := CallbackCreate(GetMethod(implObj, "SetBindingInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SelectThreadPool)
+        CallbackFree(this.vtbl.SetBindingInfo)
     }
 }

@@ -1,40 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods and properties used to create a session, represented by a Session object.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsman
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class IWSMan extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWSMan extends IDispatch {
     /**
      * The interface identifier for IWSMan
      * @type {Guid}
      */
-    static IID => Guid("{190d8637-5cd3-496d-ad24-69636bb5a3b5}")
+    static IID := Guid("{190d8637-5cd3-496d-ad24-69636bb5a3b5}")
 
     /**
      * The class identifier for WSMan
      * @type {Guid}
      */
-    static CLSID => Guid("{bced617b-ec03-420b-8508-977dc7a686bd}")
+    static CLSID := Guid("{bced617b-ec03-420b-8508-977dc7a686bd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSMan interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreateSession           : IntPtr
+        CreateConnectionOptions : IntPtr
+        get_CommandLine         : IntPtr
+        get_Error               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSession", "CreateConnectionOptions", "get_CommandLine", "get_Error"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSMan.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -108,7 +119,7 @@ class IWSMan extends IDispatch {
     CreateSession(_connection, flags, connectionOptions) {
         _connection := _connection is String ? BSTR.Alloc(_connection).Value : _connection
 
-        result := ComCall(7, this, "ptr", _connection, "int", flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, _connection, "int", flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
         return IDispatch(session)
     }
 
@@ -128,8 +139,8 @@ class IWSMan extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_commandline
      */
     get_CommandLine() {
-        value := BSTR()
-        result := ComCall(9, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -139,8 +150,34 @@ class IWSMan extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_error
      */
     get_Error() {
-        value := BSTR()
-        result := ComCall(10, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, value, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IWSMan.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 5)
+        this.vtbl.CreateConnectionOptions := CallbackCreate(GetMethod(implObj, "CreateConnectionOptions"), flags, 2)
+        this.vtbl.get_CommandLine := CallbackCreate(GetMethod(implObj, "get_CommandLine"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSession)
+        CallbackFree(this.vtbl.CreateConnectionOptions)
+        CallbackFree(this.vtbl.get_CommandLine)
+        CallbackFree(this.vtbl.get_Error)
     }
 }

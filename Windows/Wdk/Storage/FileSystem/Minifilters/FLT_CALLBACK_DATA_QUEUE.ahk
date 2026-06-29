@@ -1,84 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\FLT_CALLBACK_DATA_QUEUE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FLT_CALLBACK_DATA_QUEUE_FLAGS.ahk" { FLT_CALLBACK_DATA_QUEUE_FLAGS }
+#Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_CALLBACK_DATA_QUEUE extends Win32Struct {
-    static sizeof => 72
+export default struct FLT_CALLBACK_DATA_QUEUE {
+    #StructPack 8
 
-    static packingSize => 8
+    Csq : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Csq {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : FLT_CALLBACK_DATA_QUEUE_FLAGS
 
-    /**
-     * @type {FLT_CALLBACK_DATA_QUEUE_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Instance : PFLT_INSTANCE
 
-    /**
-     * @type {PFLT_INSTANCE}
-     */
-    Instance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InsertIo : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CALLBACK_DATA_QUEUE_INSERT_IO>}
-     */
-    InsertIo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    RemoveIo : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CALLBACK_DATA_QUEUE_REMOVE_IO>}
-     */
-    RemoveIo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    PeekNextIo : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO>}
-     */
-    PeekNextIo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Acquire : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CALLBACK_DATA_QUEUE_ACQUIRE>}
-     */
-    Acquire {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Release : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CALLBACK_DATA_QUEUE_RELEASE>}
-     */
-    Release {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    CompleteCanceledIo : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CALLBACK_DATA_QUEUE_COMPLETE_CANCELED_IO>}
-     */
-    CompleteCanceledIo {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

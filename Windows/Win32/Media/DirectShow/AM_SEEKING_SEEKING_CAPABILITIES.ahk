@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the seeking capabilities of a media stream.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_seeking_seeking_capabilities
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_SEEKING_SEEKING_CAPABILITIES extends Win32Enum {
+export default struct AM_SEEKING_SEEKING_CAPABILITIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The stream can seek to an absolute position.

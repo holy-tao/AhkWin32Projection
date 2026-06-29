@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The USB_PASS_THRU_PARAMETERS structure is used with the IOCTL_USB_USER_REQUEST I/O control request to pass a vendor-specific command to the host controller miniport driver.
@@ -8,38 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_pass_thru_parameters
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_PASS_THRU_PARAMETERS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct USB_PASS_THRU_PARAMETERS {
+    #StructPack 4
 
     /**
      * A GUID that identifies the operation for the host controller miniport driver.
-     * @type {Pointer}
      */
-    FunctionGUID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FunctionGUID : Guid
 
     /**
      * The size, in bytes, of the USB_PASS_THRU_PARAMETERS structure.
-     * @type {Integer}
      */
-    ParameterLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ParameterLength : UInt32
 
     /**
      * A variable length array with the parameter data for the command.
-     * @type {Array<Integer>}
      */
-    Parameters {
-        get {
-            if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__ParametersProxyArray
-        }
-    }
+    Parameters : Int8[4]
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of protocol supported by a port.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ne-wsdtypes-wsd_protocol_type
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_PROTOCOL_TYPE extends Win32Enum {
+export default struct WSD_PROTOCOL_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No protocols supported.

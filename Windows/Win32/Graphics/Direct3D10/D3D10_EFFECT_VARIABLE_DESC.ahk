@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Describes an effect variable.
@@ -8,74 +8,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_effect_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_EFFECT_VARIABLE_DESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D10_EFFECT_VARIABLE_DESC {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains the variable name.
-     * @type {PSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Name : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The semantic attached to the variable; otherwise <b>NULL</b>.
-     * @type {PSTR}
      */
-    Semantic {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Semantic : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Optional <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-effect-constants">flags</a> for effect variables.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of annotations; otherwise 0.
-     * @type {Integer}
      */
-    Annotations {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Annotations : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The offset between the beginning of the constant buffer and this variable; otherwise 0.
-     * @type {Integer}
      */
-    BufferOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BufferOffset : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The register that this variable is bound to. To bind a variable explicitly use the D3D10_EFFECT_VARIABLE_EXPLICIT_BIND_POINT flag.
-     * @type {Integer}
      */
-    ExplicitBindPoint {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ExplicitBindPoint : UInt32
+
 }

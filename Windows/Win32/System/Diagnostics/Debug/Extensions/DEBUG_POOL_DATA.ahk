@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_POOL_DATA extends Win32Struct {
-    static sizeof => 152
+export default struct DEBUG_POOL_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeofStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeofStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PoolBlock : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PoolBlock {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Pool : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Pool {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PreviousSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PreviousSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PoolTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PoolTag {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessBilled {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ProcessBilled : Int64
 
     /**
      * This bitfield backs the following members:
@@ -75,12 +31,9 @@ class DEBUG_POOL_DATA extends Win32Struct {
      * - Allocated
      * - Session
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -137,31 +90,12 @@ class DEBUG_POOL_DATA extends Win32Struct {
         get => (this._bitfield >> 6) & 0x1
         set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
     }
+    Reserved2 : Int64[4]
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PoolTagDescription : CHAR[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
-            return this.__Reserved2ProxyArray
-        }
-    }
-
-    /**
-     * @type {String}
-     */
-    PoolTagDescription {
-        get => StrGet(this.ptr + 88, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-8")
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 48 })
+        this.DeleteProp("__New")
     }
 }

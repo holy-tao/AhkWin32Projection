@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\APPLICATIONTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APPLICATIONTYPE.ahk" { APPLICATIONTYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class OLE_TM_CONFIG_PARAMS_V2 extends Win32Struct {
-    static sizeof => 24
+export default struct OLE_TM_CONFIG_PARAMS_V2 {
+    #StructPack 4
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwcConcurrencyHint : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcConcurrencyHint {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    applicationType : APPLICATIONTYPE
 
-    /**
-     * @type {APPLICATIONTYPE}
-     */
-    applicationType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    clusterResourceId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    clusterResourceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

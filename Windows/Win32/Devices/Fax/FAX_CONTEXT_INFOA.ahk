@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The FAX_CONTEXT_INFO structure contains information about a fax printer device context. The SizeOfStruct member is required. Information for the other members is supplied by a call to the FaxStartPrintJob function. (ANSI)
@@ -17,44 +17,28 @@
  * @namespace Windows.Win32.Devices.Fax
  * @charset ANSI
  */
-class FAX_CONTEXT_INFOA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FAX_CONTEXT_INFOA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the <b>FAX_CONTEXT_INFO</b> structure. The calling application must set this member to <b>sizeof(FAX_CONTEXT_INFO)</b> before it calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function.
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>HDC</b>
      * 
      * Handle to a fax printer device context. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member.
-     * @type {HDC}
      */
-    hDC {
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(8, this)
-            return this.__hDC
-        }
-    }
+    hDC : HDC
 
     /**
      * Type: <b>TCHAR[MAX_COMPUTERNAME_LENGTH+1]</b>
      * 
      * Specifies a variable that contains a null-terminated string that is the fax server name of interest. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member. If the fax server is on the local computer, this member will be empty. The client application does not need to fill in this member.
-     * @type {String}
      */
-    ServerName {
-        get => StrGet(this.ptr + 16, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 15, "UTF-8")
-    }
+    ServerName : CHAR[16]
+
 }

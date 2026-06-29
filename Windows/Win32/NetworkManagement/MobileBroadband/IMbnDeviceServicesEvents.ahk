@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMbnDeviceService.ahk" { IMbnDeviceService }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_DEVICE_SERVICES_INTERFACE_STATE.ahk" { MBN_DEVICE_SERVICES_INTERFACE_STATE }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Signals an application about notification events related to Mobile Broadband device services on the system.
@@ -20,26 +25,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbndeviceservicesevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnDeviceServicesEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnDeviceServicesEvents extends IUnknown {
     /**
      * The interface identifier for IMbnDeviceServicesEvents
      * @type {Guid}
      */
-    static IID => Guid("{0a900c19-6824-4e97-b76e-cf239d0ca642}")
+    static IID := Guid("{0a900c19-6824-4e97-b76e-cf239d0ca642}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnDeviceServicesEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnQuerySupportedCommandsComplete : IntPtr
+        OnOpenCommandSessionComplete     : IntPtr
+        OnCloseCommandSessionComplete    : IntPtr
+        OnSetCommandComplete             : IntPtr
+        OnQueryCommandComplete           : IntPtr
+        OnEventNotification              : IntPtr
+        OnOpenDataSessionComplete        : IntPtr
+        OnCloseDataSessionComplete       : IntPtr
+        OnWriteDataComplete              : IntPtr
+        OnReadData                       : IntPtr
+        OnInterfaceStateChange           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnQuerySupportedCommandsComplete", "OnOpenCommandSessionComplete", "OnCloseCommandSessionComplete", "OnSetCommandComplete", "OnQueryCommandComplete", "OnEventNotification", "OnOpenDataSessionComplete", "OnCloseDataSessionComplete", "OnWriteDataComplete", "OnReadData", "OnInterfaceStateChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnDeviceServicesEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notification method indicating that a query for the messages supported on a device service has completed.
@@ -71,7 +93,7 @@ class IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerysupportedcommandscomplete
      */
     OnQuerySupportedCommandsComplete(deviceService, commandIDList, _status, requestID) {
-        result := ComCall(3, this, "ptr", deviceService, "ptr", commandIDList, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(3, this, "ptr", deviceService, SAFEARRAY.Ptr, commandIDList, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
@@ -168,7 +190,7 @@ class IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onsetcommandcomplete
      */
     OnSetCommandComplete(deviceService, responseID, deviceServiceData, _status, requestID) {
-        result := ComCall(6, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(6, this, "ptr", deviceService, "uint", responseID, SAFEARRAY.Ptr, deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
@@ -203,7 +225,7 @@ class IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerycommandcomplete
      */
     OnQueryCommandComplete(deviceService, responseID, deviceServiceData, _status, requestID) {
-        result := ComCall(7, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(7, this, "ptr", deviceService, "uint", responseID, SAFEARRAY.Ptr, deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
@@ -236,7 +258,7 @@ class IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-oneventnotification
      */
     OnEventNotification(deviceService, eventID, deviceServiceData) {
-        result := ComCall(8, this, "ptr", deviceService, "uint", eventID, "ptr", deviceServiceData, "HRESULT")
+        result := ComCall(8, this, "ptr", deviceService, "uint", eventID, SAFEARRAY.Ptr, deviceServiceData, "HRESULT")
         return result
     }
 
@@ -361,7 +383,7 @@ class IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onreaddata
      */
     OnReadData(deviceService, deviceServiceData) {
-        result := ComCall(12, this, "ptr", deviceService, "ptr", deviceServiceData, "HRESULT")
+        result := ComCall(12, this, "ptr", deviceService, SAFEARRAY.Ptr, deviceServiceData, "HRESULT")
         return result
     }
 
@@ -393,7 +415,47 @@ class IMbnDeviceServicesEvents extends IUnknown {
     OnInterfaceStateChange(interfaceID, stateChange) {
         interfaceID := interfaceID is String ? BSTR.Alloc(interfaceID).Value : interfaceID
 
-        result := ComCall(13, this, "ptr", interfaceID, "int", stateChange, "HRESULT")
+        result := ComCall(13, this, BSTR, interfaceID, MBN_DEVICE_SERVICES_INTERFACE_STATE, stateChange, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnDeviceServicesEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnQuerySupportedCommandsComplete := CallbackCreate(GetMethod(implObj, "OnQuerySupportedCommandsComplete"), flags, 5)
+        this.vtbl.OnOpenCommandSessionComplete := CallbackCreate(GetMethod(implObj, "OnOpenCommandSessionComplete"), flags, 4)
+        this.vtbl.OnCloseCommandSessionComplete := CallbackCreate(GetMethod(implObj, "OnCloseCommandSessionComplete"), flags, 4)
+        this.vtbl.OnSetCommandComplete := CallbackCreate(GetMethod(implObj, "OnSetCommandComplete"), flags, 6)
+        this.vtbl.OnQueryCommandComplete := CallbackCreate(GetMethod(implObj, "OnQueryCommandComplete"), flags, 6)
+        this.vtbl.OnEventNotification := CallbackCreate(GetMethod(implObj, "OnEventNotification"), flags, 4)
+        this.vtbl.OnOpenDataSessionComplete := CallbackCreate(GetMethod(implObj, "OnOpenDataSessionComplete"), flags, 4)
+        this.vtbl.OnCloseDataSessionComplete := CallbackCreate(GetMethod(implObj, "OnCloseDataSessionComplete"), flags, 4)
+        this.vtbl.OnWriteDataComplete := CallbackCreate(GetMethod(implObj, "OnWriteDataComplete"), flags, 4)
+        this.vtbl.OnReadData := CallbackCreate(GetMethod(implObj, "OnReadData"), flags, 3)
+        this.vtbl.OnInterfaceStateChange := CallbackCreate(GetMethod(implObj, "OnInterfaceStateChange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnQuerySupportedCommandsComplete)
+        CallbackFree(this.vtbl.OnOpenCommandSessionComplete)
+        CallbackFree(this.vtbl.OnCloseCommandSessionComplete)
+        CallbackFree(this.vtbl.OnSetCommandComplete)
+        CallbackFree(this.vtbl.OnQueryCommandComplete)
+        CallbackFree(this.vtbl.OnEventNotification)
+        CallbackFree(this.vtbl.OnOpenDataSessionComplete)
+        CallbackFree(this.vtbl.OnCloseDataSessionComplete)
+        CallbackFree(this.vtbl.OnWriteDataComplete)
+        CallbackFree(this.vtbl.OnReadData)
+        CallbackFree(this.vtbl.OnInterfaceStateChange)
     }
 }

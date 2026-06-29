@@ -1,16 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfRange.ahk
-#Include .\ITfContextView.ahk
-#Include .\IEnumTfContextViews.ahk
-#Include .\TS_STATUS.ahk
-#Include .\ITfProperty.ahk
-#Include .\ITfReadOnlyProperty.ahk
-#Include .\IEnumTfProperties.ahk
-#Include .\ITfDocumentMgr.ahk
-#Include .\ITfRangeBackup.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
+#Import ".\ITfRangeBackup.ahk" { ITfRangeBackup }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TF_SELECTION.ahk" { TF_SELECTION }
+#Import ".\ITfEditSession.ahk" { ITfEditSession }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfProperty.ahk" { ITfProperty }
+#Import ".\TF_CONTEXT_EDIT_CONTEXT_FLAGS.ahk" { TF_CONTEXT_EDIT_CONTEXT_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTfProperties.ahk" { IEnumTfProperties }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITfContextView.ahk" { ITfContextView }
+#Import ".\IEnumTfContextViews.ahk" { IEnumTfContextViews }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
 
 /**
  * The ITfContext interface is implemented by the TSF manager and used by applications and text services to access an edit context.
@@ -19,26 +24,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontext
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfContext extends IUnknown {
     /**
      * The interface identifier for ITfContext
      * @type {Guid}
      */
-    static IID => Guid("{aa80e7fd-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e7fd-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RequestEditSession : IntPtr
+        InWriteSession     : IntPtr
+        GetSelection       : IntPtr
+        SetSelection       : IntPtr
+        GetStart           : IntPtr
+        GetEnd             : IntPtr
+        GetActiveView      : IntPtr
+        EnumViews          : IntPtr
+        GetStatus          : IntPtr
+        GetProperty        : IntPtr
+        GetAppProperty     : IntPtr
+        TrackProperties    : IntPtr
+        EnumProperties     : IntPtr
+        GetDocumentMgr     : IntPtr
+        CreateRangeBackup  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestEditSession", "InWriteSession", "GetSelection", "SetSelection", "GetStart", "GetEnd", "GetActiveView", "EnumViews", "GetStatus", "GetProperty", "GetAppProperty", "TrackProperties", "EnumProperties", "GetDocumentMgr", "CreateRangeBackup"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfContext::RequestEditSession method
@@ -77,7 +103,7 @@ class ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-requesteditsession
      */
     RequestEditSession(tid, pes, dwFlags) {
-        result := ComCall(3, this, "uint", tid, "ptr", pes, "uint", dwFlags, "int*", &phrSession := 0, "HRESULT")
+        result := ComCall(3, this, "uint", tid, "ptr", pes, TF_CONTEXT_EDIT_CONTEXT_FLAGS, dwFlags, "int*", &phrSession := 0, "HRESULT")
         return phrSession
     }
 
@@ -90,7 +116,7 @@ class ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-inwritesession
      */
     InWriteSession(tid) {
-        result := ComCall(4, this, "uint", tid, "int*", &pfWriteSession := 0, "HRESULT")
+        result := ComCall(4, this, "uint", tid, BOOL.Ptr, &pfWriteSession := 0, "HRESULT")
         return pfWriteSession
     }
 
@@ -186,7 +212,7 @@ class ITfContext extends IUnknown {
     GetSelection(ec, ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", ec, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(5, this, "uint", ec, "uint", ulIndex, "uint", ulCount, TF_SELECTION.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -245,7 +271,7 @@ class ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-setselection
      */
     SetSelection(ec, ulCount, pSelection) {
-        result := ComCall(6, this, "uint", ec, "uint", ulCount, "ptr", pSelection, "HRESULT")
+        result := ComCall(6, this, "uint", ec, "uint", ulCount, TF_SELECTION.Ptr, pSelection, "HRESULT")
         return result
     }
 
@@ -297,7 +323,7 @@ class ITfContext extends IUnknown {
      */
     GetStatus() {
         pdcs := TS_STATUS()
-        result := ComCall(11, this, "ptr", pdcs, "HRESULT")
+        result := ComCall(11, this, TS_STATUS.Ptr, pdcs, "HRESULT")
         return pdcs
     }
 
@@ -310,7 +336,7 @@ class ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getproperty
      */
     GetProperty(guidProp) {
-        result := ComCall(12, this, "ptr", guidProp, "ptr*", &ppProp := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, guidProp, "ptr*", &ppProp := 0, "HRESULT")
         return ITfProperty(ppProp)
     }
 
@@ -325,7 +351,7 @@ class ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getappproperty
      */
     GetAppProperty(guidProp) {
-        result := ComCall(13, this, "ptr", guidProp, "ptr*", &ppProp := 0, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, guidProp, "ptr*", &ppProp := 0, "HRESULT")
         return ITfReadOnlyProperty(ppProp)
     }
 
@@ -384,5 +410,53 @@ class ITfContext extends IUnknown {
     CreateRangeBackup(ec, pRange) {
         result := ComCall(17, this, "uint", ec, "ptr", pRange, "ptr*", &ppBackup := 0, "HRESULT")
         return ITfRangeBackup(ppBackup)
+    }
+
+    Query(iid) {
+        if (ITfContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestEditSession := CallbackCreate(GetMethod(implObj, "RequestEditSession"), flags, 5)
+        this.vtbl.InWriteSession := CallbackCreate(GetMethod(implObj, "InWriteSession"), flags, 3)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 6)
+        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 4)
+        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 3)
+        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 3)
+        this.vtbl.GetActiveView := CallbackCreate(GetMethod(implObj, "GetActiveView"), flags, 2)
+        this.vtbl.EnumViews := CallbackCreate(GetMethod(implObj, "EnumViews"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetAppProperty := CallbackCreate(GetMethod(implObj, "GetAppProperty"), flags, 3)
+        this.vtbl.TrackProperties := CallbackCreate(GetMethod(implObj, "TrackProperties"), flags, 6)
+        this.vtbl.EnumProperties := CallbackCreate(GetMethod(implObj, "EnumProperties"), flags, 2)
+        this.vtbl.GetDocumentMgr := CallbackCreate(GetMethod(implObj, "GetDocumentMgr"), flags, 2)
+        this.vtbl.CreateRangeBackup := CallbackCreate(GetMethod(implObj, "CreateRangeBackup"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestEditSession)
+        CallbackFree(this.vtbl.InWriteSession)
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.SetSelection)
+        CallbackFree(this.vtbl.GetStart)
+        CallbackFree(this.vtbl.GetEnd)
+        CallbackFree(this.vtbl.GetActiveView)
+        CallbackFree(this.vtbl.EnumViews)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetAppProperty)
+        CallbackFree(this.vtbl.TrackProperties)
+        CallbackFree(this.vtbl.EnumProperties)
+        CallbackFree(this.vtbl.GetDocumentMgr)
+        CallbackFree(this.vtbl.CreateRangeBackup)
     }
 }

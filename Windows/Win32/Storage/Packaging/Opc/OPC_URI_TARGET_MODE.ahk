@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the target mode of a relationship.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_uri_target_mode
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class OPC_URI_TARGET_MODE extends Win32Enum {
+export default struct OPC_URI_TARGET_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The target of the relationship  is a part inside the package.

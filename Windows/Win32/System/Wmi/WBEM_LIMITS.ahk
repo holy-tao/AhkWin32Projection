@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines some limit values.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_limits
  * @namespace Windows.Win32.System.Wmi
  */
-class WBEM_LIMITS extends Win32Enum {
+export default struct WBEM_LIMITS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

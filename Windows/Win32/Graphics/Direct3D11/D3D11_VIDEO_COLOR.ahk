@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VIDEO_COLOR_YCbCrA.ahk
-#Include .\D3D11_VIDEO_COLOR_RGBA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_VIDEO_COLOR_RGBA.ahk" { D3D11_VIDEO_COLOR_RGBA }
+#Import ".\D3D11_VIDEO_COLOR_YCbCrA.ahk" { D3D11_VIDEO_COLOR_YCbCrA }
 
 /**
  * Defines a color value for Microsoft Direct3D 11 video.
@@ -10,30 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_color
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VIDEO_COLOR extends Win32Struct {
-    static sizeof => 16
+export default struct D3D11_VIDEO_COLOR {
+    #StructPack 4
 
-    static packingSize => 4
+    YCbCr : D3D11_VIDEO_COLOR_YCbCrA
 
-    /**
-     * @type {D3D11_VIDEO_COLOR_YCbCrA}
-     */
-    YCbCr {
-        get {
-            if(!this.HasProp("__YCbCr"))
-                this.__YCbCr := D3D11_VIDEO_COLOR_YCbCrA(0, this)
-            return this.__YCbCr
-        }
-    }
-
-    /**
-     * @type {D3D11_VIDEO_COLOR_RGBA}
-     */
-    RGBA {
-        get {
-            if(!this.HasProp("__RGBA"))
-                this.__RGBA := D3D11_VIDEO_COLOR_RGBA(0, this)
-            return this.__RGBA
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'RGBA', { type: D3D11_VIDEO_COLOR_RGBA, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_RESERVATION_REPORT_STATUS_HEADER.ahk
-#Include .\NVME_REGISTERED_CONTROLLER_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_RESERVATION_REPORT_STATUS_HEADER.ahk" { NVME_RESERVATION_REPORT_STATUS_HEADER }
+#Import ".\NVME_REGISTERED_CONTROLLER_DATA.ahk" { NVME_REGISTERED_CONTROLLER_DATA }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE extends Win32Struct {
-    static sizeof => 56
+export default struct NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NVME_RESERVATION_REPORT_STATUS_HEADER
 
-    /**
-     * @type {NVME_RESERVATION_REPORT_STATUS_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NVME_RESERVATION_REPORT_STATUS_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    RegisteredControllersData : NVME_REGISTERED_CONTROLLER_DATA[1]
 
-    /**
-     * @type {NVME_REGISTERED_CONTROLLER_DATA}
-     */
-    RegisteredControllersData {
-        get {
-            if(!this.HasProp("__RegisteredControllersDataProxyArray"))
-                this.__RegisteredControllersDataProxyArray := Win32FixedArray(this.ptr + 32, 1, NVME_REGISTERED_CONTROLLER_DATA, "")
-            return this.__RegisteredControllersDataProxyArray
-        }
-    }
 }

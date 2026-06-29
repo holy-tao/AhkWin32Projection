@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSAVERSION.ahk
-#Include .\AFPROTOCOLS.ahk
-#Include .\CSADDR_INFO.ahk
-#Include ..\..\System\Com\BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import ".\WSAVERSION.ahk" { WSAVERSION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AFPROTOCOLS.ahk" { AFPROTOCOLS }
+#Import ".\CSADDR_INFO.ahk" { CSADDR_INFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens. (Unicode)
@@ -23,65 +24,43 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset Unicode
  */
-class WSAQUERYSETW extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct WSAQUERYSETW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the <b>WSAQUERYSET</b> structure. This member is used as a versioning mechanism since the size of the <b>WSAQUERYSET</b> structure has changed on later versions of Windows.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional NULL-terminated string  that contains service name. The semantics for using wildcards within the string are not defined, but can be supported by certain namespace providers.
-     * @type {PWSTR}
      */
-    lpszServiceInstanceName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszServiceInstanceName : PWSTR
 
     /**
      * Type: <b>LPGUID</b>
      * 
      * The GUID corresponding to the service class. This member is required to be set.
-     * @type {Pointer<Guid>}
      */
-    lpServiceClassId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpServiceClassId : Guid.Ptr
 
     /**
      * Type: <b>LPWSAVERSION</b>
      * 
      * A pointer to an optional desired version number of the namespace provider. This member provides version comparison semantics (that is, the version requested must match exactly, or version must be not less than the value supplied).
-     * @type {Pointer<WSAVERSION>}
      */
-    lpVersion {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpVersion : WSAVERSION.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * This member is ignored for queries.
-     * @type {PWSTR}
      */
-    lpszComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszComment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -169,110 +148,71 @@ class WSAQUERYSETW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwNameSpace {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwNameSpace : UInt32
 
     /**
      * Type: <b>LPGUID</b>
      * 
      * A pointer to an optional GUID of a specific namespace provider to query in the case where  multiple namespace providers are registered under a single namespace such as <b>NS_DNS</b>. Passing the GUID for a specific namespace provider will result in only the specified namespace provider being queried. The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersa">WSAEnumNameSpaceProviders</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexa">WSAEnumNameSpaceProvidersEx</a> functions can be called to retrieve the GUID for a namespace provider.
-     * @type {Pointer<Guid>}
      */
-    lpNSProviderId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpNSProviderId : Guid.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional starting point of the query in a hierarchical namespace.
-     * @type {PWSTR}
      */
-    lpszContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpszContext : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the protocol constraint array. This member can be zero.
-     * @type {Integer}
      */
-    dwNumberOfProtocols {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwNumberOfProtocols : UInt32
 
     /**
      * Type: <b>LPAFPROTOCOLS</b>
      * 
      * A pointer to an optional array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-afprotocols">AFPROTOCOLS</a> structures. Only services that utilize these protocols will be returned.
-     * @type {Pointer<AFPROTOCOLS>}
      */
-    lpafpProtocols {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpafpProtocols : AFPROTOCOLS.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional NULL-terminated query string. Some namespaces, such as Whois++, support enriched SQL-like queries that are contained in a simple text string. This parameter is used to specify that string.
-     * @type {PWSTR}
      */
-    lpszQueryString {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpszQueryString : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is ignored for queries.
-     * @type {Integer}
      */
-    dwNumberOfCsAddrs {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwNumberOfCsAddrs : UInt32
 
     /**
      * Type: <b>LPCSADDR_INFO</b>
      * 
      * This member is ignored for queries.
-     * @type {Pointer<CSADDR_INFO>}
      */
-    lpcsaBuffer {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    lpcsaBuffer : CSADDR_INFO.Ptr
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is ignored for queries.
-     * @type {Integer}
      */
-    dwOutputFlags {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwOutputFlags : UInt32
 
     /**
      * Type: <b>LPBLOB</b>
      * 
      * An optional pointer to data that is used to query or set provider-specific namespace information. The format of this information is specific to the namespace provider.
-     * @type {Pointer<BLOB>}
      */
-    lpBlob {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpBlob : BLOB.Ptr
+
 }

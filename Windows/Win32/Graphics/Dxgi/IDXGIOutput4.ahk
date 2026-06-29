@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutput3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIOutput3.ahk" { IDXGIOutput3 }
+#Import "Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput4 interface exposes a method to check for overlay color space support.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nn-dxgi1_4-idxgioutput4
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutput4 extends IDXGIOutput3 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutput4 extends IDXGIOutput3 {
     /**
      * The interface identifier for IDXGIOutput4
      * @type {Guid}
      */
-    static IID => Guid("{dc7dca35-2196-414d-9f53-617884032a60}")
+    static IID := Guid("{dc7dca35-2196-414d-9f53-617884032a60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutput4 interfaces
+    */
+    struct Vtbl extends IDXGIOutput3.Vtbl {
+        CheckOverlayColorSpaceSupport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckOverlayColorSpaceSupport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutput4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Checks for overlay color space support.
@@ -46,7 +57,27 @@ class IDXGIOutput4 extends IDXGIOutput3 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport
      */
     CheckOverlayColorSpaceSupport(Format, ColorSpace, pConcernedDevice) {
-        result := ComCall(25, this, "int", Format, "int", ColorSpace, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")
+        result := ComCall(25, this, DXGI_FORMAT, Format, DXGI_COLOR_SPACE_TYPE, ColorSpace, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")
         return pFlags
+    }
+
+    Query(iid) {
+        if (IDXGIOutput4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckOverlayColorSpaceSupport := CallbackCreate(GetMethod(implObj, "CheckOverlayColorSpaceSupport"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckOverlayColorSpaceSupport)
     }
 }

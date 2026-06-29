@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_TABLE_SECTION extends Win32Struct {
-    static sizeof => 16
+export default struct BDA_TABLE_SECTION {
+    #StructPack 4
 
-    static packingSize => 4
+    ulPrimarySectionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPrimarySectionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulSecondarySectionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSecondarySectionId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulcbSectionLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulcbSectionLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    argbSectionData : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbSectionData {
-        get {
-            if(!this.HasProp("__argbSectionDataProxyArray"))
-                this.__argbSectionDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
-            return this.__argbSectionDataProxyArray
-        }
-    }
 }

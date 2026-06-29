@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains parameters for specifying and enabling directives in the Directive Send command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_directive_send_identify_enable_directive
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -17,12 +14,9 @@ class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE extends Win32Struct {
      * - Reserved0
      * - DTYPE
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -55,12 +49,8 @@ class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

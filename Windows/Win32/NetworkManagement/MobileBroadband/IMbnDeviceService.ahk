@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Allows for communicating with a device service on a particular Mobile Broadband device.
@@ -11,26 +14,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbndeviceservice
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnDeviceService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnDeviceService extends IUnknown {
     /**
      * The interface identifier for IMbnDeviceService
      * @type {Guid}
      */
-    static IID => Guid("{b3bb9a71-dc70-4be9-a4da-7886ae8b191b}")
+    static IID := Guid("{b3bb9a71-dc70-4be9-a4da-7886ae8b191b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnDeviceService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QuerySupportedCommands   : IntPtr
+        OpenCommandSession       : IntPtr
+        CloseCommandSession      : IntPtr
+        SetCommand               : IntPtr
+        QueryCommand             : IntPtr
+        OpenDataSession          : IntPtr
+        CloseDataSession         : IntPtr
+        WriteData                : IntPtr
+        get_InterfaceID          : IntPtr
+        get_DeviceServiceID      : IntPtr
+        get_IsCommandSessionOpen : IntPtr
+        get_IsDataSessionOpen    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QuerySupportedCommands", "OpenCommandSession", "CloseCommandSession", "SetCommand", "QueryCommand", "OpenDataSession", "CloseDataSession", "WriteData", "get_InterfaceID", "get_DeviceServiceID", "get_IsCommandSessionOpen", "get_IsDataSessionOpen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnDeviceService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -116,7 +137,7 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-setcommand
      */
     SetCommand(commandID, deviceServiceData) {
-        result := ComCall(6, this, "uint", commandID, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(6, this, "uint", commandID, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -134,7 +155,7 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querycommand
      */
     QueryCommand(commandID, deviceServiceData) {
-        result := ComCall(7, this, "uint", commandID, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(7, this, "uint", commandID, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -179,7 +200,7 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-writedata
      */
     WriteData(deviceServiceData) {
-        result := ComCall(10, this, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(10, this, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -189,8 +210,8 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_interfaceid
      */
     get_InterfaceID() {
-        InterfaceID := BSTR()
-        result := ComCall(11, this, "ptr", InterfaceID, "HRESULT")
+        InterfaceID := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, InterfaceID, "HRESULT")
         return InterfaceID
     }
 
@@ -200,8 +221,8 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_deviceserviceid
      */
     get_DeviceServiceID() {
-        DeviceServiceID := BSTR()
-        result := ComCall(12, this, "ptr", DeviceServiceID, "HRESULT")
+        DeviceServiceID := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, DeviceServiceID, "HRESULT")
         return DeviceServiceID
     }
 
@@ -211,7 +232,7 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_iscommandsessionopen
      */
     get_IsCommandSessionOpen() {
-        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -221,7 +242,49 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_isdatasessionopen
      */
     get_IsDataSessionOpen() {
-        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(14, this, BOOL.Ptr, &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IMbnDeviceService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QuerySupportedCommands := CallbackCreate(GetMethod(implObj, "QuerySupportedCommands"), flags, 2)
+        this.vtbl.OpenCommandSession := CallbackCreate(GetMethod(implObj, "OpenCommandSession"), flags, 2)
+        this.vtbl.CloseCommandSession := CallbackCreate(GetMethod(implObj, "CloseCommandSession"), flags, 2)
+        this.vtbl.SetCommand := CallbackCreate(GetMethod(implObj, "SetCommand"), flags, 4)
+        this.vtbl.QueryCommand := CallbackCreate(GetMethod(implObj, "QueryCommand"), flags, 4)
+        this.vtbl.OpenDataSession := CallbackCreate(GetMethod(implObj, "OpenDataSession"), flags, 2)
+        this.vtbl.CloseDataSession := CallbackCreate(GetMethod(implObj, "CloseDataSession"), flags, 2)
+        this.vtbl.WriteData := CallbackCreate(GetMethod(implObj, "WriteData"), flags, 3)
+        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.get_DeviceServiceID := CallbackCreate(GetMethod(implObj, "get_DeviceServiceID"), flags, 2)
+        this.vtbl.get_IsCommandSessionOpen := CallbackCreate(GetMethod(implObj, "get_IsCommandSessionOpen"), flags, 2)
+        this.vtbl.get_IsDataSessionOpen := CallbackCreate(GetMethod(implObj, "get_IsDataSessionOpen"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QuerySupportedCommands)
+        CallbackFree(this.vtbl.OpenCommandSession)
+        CallbackFree(this.vtbl.CloseCommandSession)
+        CallbackFree(this.vtbl.SetCommand)
+        CallbackFree(this.vtbl.QueryCommand)
+        CallbackFree(this.vtbl.OpenDataSession)
+        CallbackFree(this.vtbl.CloseDataSession)
+        CallbackFree(this.vtbl.WriteData)
+        CallbackFree(this.vtbl.get_InterfaceID)
+        CallbackFree(this.vtbl.get_DeviceServiceID)
+        CallbackFree(this.vtbl.get_IsCommandSessionOpen)
+        CallbackFree(this.vtbl.get_IsDataSessionOpen)
     }
 }

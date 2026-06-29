@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputForceFeedbackMagnitude extends Win32Struct {
-    static sizeof => 28
+export default struct GameInputForceFeedbackMagnitude {
+    #StructPack 4
 
-    static packingSize => 4
+    linearX : Float32
 
-    /**
-     * @type {Float}
-     */
-    linearX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    linearY : Float32
 
-    /**
-     * @type {Float}
-     */
-    linearY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    linearZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    linearZ {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    angularX : Float32
 
-    /**
-     * @type {Float}
-     */
-    angularX {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    angularY : Float32
 
-    /**
-     * @type {Float}
-     */
-    angularY {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    angularZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    angularZ {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    normal : Float32
 
-    /**
-     * @type {Float}
-     */
-    normal {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
 }

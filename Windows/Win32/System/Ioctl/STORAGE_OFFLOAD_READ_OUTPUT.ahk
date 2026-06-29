@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_OFFLOAD_TOKEN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_OFFLOAD_TOKEN.ahk" { STORAGE_OFFLOAD_TOKEN }
 
 /**
  * Output structure for the DeviceDsmAction_OffloadRead action of the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_read_output
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_OFFLOAD_READ_OUTPUT extends Win32Struct {
-    static sizeof => 536
-
-    static packingSize => 8
+export default struct STORAGE_OFFLOAD_READ_OUTPUT {
+    #StructPack 8
 
     /**
      * Output flags.
@@ -37,50 +34,28 @@ class STORAGE_OFFLOAD_READ_OUTPUT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    OffloadReadFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OffloadReadFlags : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * The total length of the snapshot represented by the token.
-     * @type {Integer}
      */
-    LengthProtected {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LengthProtected : Int64
 
     /**
      * Length of the token in bytes.
-     * @type {Integer}
      */
-    TokenLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TokenLength : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_offload_token">STORAGE_OFFLOAD_TOKEN</a> containing the 
      *       token created.
-     * @type {STORAGE_OFFLOAD_TOKEN}
      */
-    Token {
-        get {
-            if(!this.HasProp("__Token"))
-                this.__Token := STORAGE_OFFLOAD_TOKEN(20, this)
-            return this.__Token
-        }
-    }
+    Token : STORAGE_OFFLOAD_TOKEN
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMDMMessage enumeration type defines message types and states.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmmessage
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class WMDMMessage extends Win32Enum {
+export default struct WMDMMessage {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

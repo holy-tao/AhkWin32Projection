@@ -1,37 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import ".\ACCOUNT_STATE.ahk" { ACCOUNT_STATE }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDENTITY_URL.ahk" { IDENTITY_URL }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  */
-class AsyncIConnectedIdentityProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     /**
      * The interface identifier for AsyncIConnectedIdentityProvider
      * @type {Guid}
      */
-    static IID => Guid("{9ce55141-bce9-4e15-824d-43d79f512f93}")
+    static IID := Guid("{9ce55141-bce9-4e15-824d-43d79f512f93}")
 
     /**
      * The class identifier for AsyncIConnectedIdentityProvider
      * @type {Guid}
      */
-    static CLSID => Guid("{9ce55141-bce9-4e15-824d-43d79f512f93}")
+    static CLSID := Guid("{9ce55141-bce9-4e15-824d-43d79f512f93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for AsyncIConnectedIdentityProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Begin_ConnectIdentity     : IntPtr
+        Finish_ConnectIdentity    : IntPtr
+        Begin_DisconnectIdentity  : IntPtr
+        Finish_DisconnectIdentity : IntPtr
+        Begin_IsConnected         : IntPtr
+        Finish_IsConnected        : IntPtr
+        Begin_GetUrl              : IntPtr
+        Finish_GetUrl             : IntPtr
+        Begin_GetAccountState     : IntPtr
+        Finish_GetAccountState    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Begin_ConnectIdentity", "Finish_ConnectIdentity", "Begin_DisconnectIdentity", "Finish_DisconnectIdentity", "Begin_IsConnected", "Finish_IsConnected", "Begin_GetUrl", "Finish_GetUrl", "Begin_GetAccountState", "Finish_GetAccountState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := AsyncIConnectedIdentityProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -87,7 +110,7 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
      * @returns {BOOL} 
      */
     Finish_IsConnected() {
-        result := ComCall(8, this, "int*", &Connected := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &Connected := 0, "HRESULT")
         return Connected
     }
 
@@ -98,7 +121,7 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_GetUrl(Identifier, _Context) {
-        result := ComCall(9, this, "int", Identifier, "ptr", _Context, "HRESULT")
+        result := ComCall(9, this, IDENTITY_URL, Identifier, "ptr", _Context, "HRESULT")
         return result
     }
 
@@ -111,7 +134,7 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     Finish_GetUrl(PostData, Url) {
         UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", PostData, UrlMarshal, Url, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, PostData, UrlMarshal, Url, "HRESULT")
         return result
     }
 
@@ -131,5 +154,43 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     Finish_GetAccountState() {
         result := ComCall(12, this, "int*", &pState := 0, "HRESULT")
         return pState
+    }
+
+    Query(iid) {
+        if (AsyncIConnectedIdentityProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Begin_ConnectIdentity := CallbackCreate(GetMethod(implObj, "Begin_ConnectIdentity"), flags, 3)
+        this.vtbl.Finish_ConnectIdentity := CallbackCreate(GetMethod(implObj, "Finish_ConnectIdentity"), flags, 1)
+        this.vtbl.Begin_DisconnectIdentity := CallbackCreate(GetMethod(implObj, "Begin_DisconnectIdentity"), flags, 1)
+        this.vtbl.Finish_DisconnectIdentity := CallbackCreate(GetMethod(implObj, "Finish_DisconnectIdentity"), flags, 1)
+        this.vtbl.Begin_IsConnected := CallbackCreate(GetMethod(implObj, "Begin_IsConnected"), flags, 1)
+        this.vtbl.Finish_IsConnected := CallbackCreate(GetMethod(implObj, "Finish_IsConnected"), flags, 2)
+        this.vtbl.Begin_GetUrl := CallbackCreate(GetMethod(implObj, "Begin_GetUrl"), flags, 3)
+        this.vtbl.Finish_GetUrl := CallbackCreate(GetMethod(implObj, "Finish_GetUrl"), flags, 3)
+        this.vtbl.Begin_GetAccountState := CallbackCreate(GetMethod(implObj, "Begin_GetAccountState"), flags, 1)
+        this.vtbl.Finish_GetAccountState := CallbackCreate(GetMethod(implObj, "Finish_GetAccountState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Begin_ConnectIdentity)
+        CallbackFree(this.vtbl.Finish_ConnectIdentity)
+        CallbackFree(this.vtbl.Begin_DisconnectIdentity)
+        CallbackFree(this.vtbl.Finish_DisconnectIdentity)
+        CallbackFree(this.vtbl.Begin_IsConnected)
+        CallbackFree(this.vtbl.Finish_IsConnected)
+        CallbackFree(this.vtbl.Begin_GetUrl)
+        CallbackFree(this.vtbl.Finish_GetUrl)
+        CallbackFree(this.vtbl.Begin_GetAccountState)
+        CallbackFree(this.vtbl.Finish_GetAccountState)
     }
 }

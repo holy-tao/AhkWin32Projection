@@ -1,279 +1,117 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWSURFACE_MORE.ahk
-#Include .\DDRAWI_DDRAWSURFACE_GBL.ahk
-#Include .\ATTACHLIST.ahk
-#Include .\DDSCAPS.ahk
-#Include .\DDRAWI_DDRAWPALETTE_INT.ahk
-#Include .\DDRAWI_DDRAWCLIPPER_LCL.ahk
-#Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
-#Include .\DDCOLORKEY.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include .\DBLNODE.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDRAWI_DDRAWCLIPPER_LCL.ahk" { DDRAWI_DDRAWCLIPPER_LCL }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDRAWI_DDRAWPALETTE_INT.ahk" { DDRAWI_DDRAWPALETTE_INT }
+#Import ".\ATTACHLIST.ahk" { ATTACHLIST }
+#Import ".\DDRAWI_DDRAWSURFACE_MORE.ahk" { DDRAWI_DDRAWSURFACE_MORE }
+#Import ".\DDRAWI_DDRAWCLIPPER_INT.ahk" { DDRAWI_DDRAWCLIPPER_INT }
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
+#Import ".\DBLNODE.ahk" { DBLNODE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDRAWI_DDRAWSURFACE_GBL.ahk" { DDRAWI_DDRAWSURFACE_GBL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct {
-    static sizeof => 216
+export default struct DDRAWI_DDRAWSURFACE_LCL {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_MORE>}
-     */
+    __lpSurfMore_ptr : IntPtr
     lpSurfMore {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get => (addr := this.__lpSurfMore_ptr) ? DDRAWI_DDRAWSURFACE_MORE.At(addr) : unset
+        set => this.__lpSurfMore_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_GBL>}
-     */
+    __lpGbl_ptr : IntPtr
     lpGbl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpGbl_ptr) ? DDRAWI_DDRAWSURFACE_GBL.At(addr) : unset
+        set => this.__lpGbl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer}
-     */
-    hDDSurface {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    hDDSurface : IntPtr
 
-    /**
-     * @type {Pointer<ATTACHLIST>}
-     */
+    __lpAttachList_ptr : IntPtr
     lpAttachList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => (addr := this.__lpAttachList_ptr) ? ATTACHLIST.At(addr) : unset
+        set => this.__lpAttachList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<ATTACHLIST>}
-     */
+    __lpAttachListFrom_ptr : IntPtr
     lpAttachListFrom {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => (addr := this.__lpAttachListFrom_ptr) ? ATTACHLIST.At(addr) : unset
+        set => this.__lpAttachListFrom_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalRefCnt {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwLocalRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessId {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {DDSCAPS}
-     */
-    ddsCaps {
-        get {
-            if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(52, this)
-            return this.__ddsCaps
-        }
-    }
+    ddsCaps : DDSCAPS
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWPALETTE_INT>}
-     */
+    __lpDDPalette_ptr : IntPtr
     lpDDPalette {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => (addr := this.__lpDDPalette_ptr) ? DDRAWI_DDRAWPALETTE_INT.At(addr) : unset
+        set => this.__lpDDPalette_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWPALETTE_INT>}
-     */
     lp16DDPalette {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => (addr := this.__lp16DDPalette_ptr) ? DDRAWI_DDRAWPALETTE_INT.At(addr) : unset
+        set => this.__lp16DDPalette_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWCLIPPER_LCL>}
-     */
+    __lpDDClipper_ptr : IntPtr
     lpDDClipper {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => (addr := this.__lpDDClipper_ptr) ? DDRAWI_DDRAWCLIPPER_LCL.At(addr) : unset
+        set => this.__lpDDClipper_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWCLIPPER_INT>}
-     */
     lp16DDClipper {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => (addr := this.__lp16DDClipper_ptr) ? DDRAWI_DDRAWCLIPPER_INT.At(addr) : unset
+        set => this.__lp16DDClipper_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwModeCreatedIn {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwModeCreatedIn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBackBufferCount {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwBackBufferCount : UInt32
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKDestBlt {
-        get {
-            if(!this.HasProp("__ddckCKDestBlt"))
-                this.__ddckCKDestBlt := DDCOLORKEY(80, this)
-            return this.__ddckCKDestBlt
-        }
-    }
+    ddckCKDestBlt : DDCOLORKEY
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKSrcBlt {
-        get {
-            if(!this.HasProp("__ddckCKSrcBlt"))
-                this.__ddckCKSrcBlt := DDCOLORKEY(88, this)
-            return this.__ddckCKSrcBlt
-        }
-    }
+    ddckCKSrcBlt : DDCOLORKEY
 
-    /**
-     * @type {Pointer}
-     */
-    hDC {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    hDC : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKSrcOverlay {
-        get {
-            if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(112, this)
-            return this.__ddckCKSrcOverlay
-        }
-    }
+    ddckCKSrcOverlay : DDCOLORKEY
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKDestOverlay {
-        get {
-            if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(120, this)
-            return this.__ddckCKDestOverlay
-        }
-    }
+    ddckCKDestOverlay : DDCOLORKEY
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __lpSurfaceOverlaying_ptr : IntPtr
     lpSurfaceOverlaying {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => (addr := this.__lpSurfaceOverlaying_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__lpSurfaceOverlaying_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {DBLNODE}
-     */
-    dbnOverlayNode {
-        get {
-            if(!this.HasProp("__dbnOverlayNode"))
-                this.__dbnOverlayNode := DBLNODE(136, this)
-            return this.__dbnOverlayNode
-        }
-    }
+    dbnOverlayNode : DBLNODE
 
-    /**
-     * @type {RECT}
-     */
-    rcOverlaySrc {
-        get {
-            if(!this.HasProp("__rcOverlaySrc"))
-                this.__rcOverlaySrc := RECT(168, this)
-            return this.__rcOverlaySrc
-        }
-    }
+    rcOverlaySrc : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcOverlayDest {
-        get {
-            if(!this.HasProp("__rcOverlayDest"))
-                this.__rcOverlayDest := RECT(184, this)
-            return this.__rcOverlayDest
-        }
-    }
+    rcOverlayDest : RECT
 
-    /**
-     * @type {Integer}
-     */
-    dwClrXparent {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    dwClrXparent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlpha {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    dwAlpha : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lOverlayX {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
-    }
+    lOverlayX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lOverlayY {
-        get => NumGet(this, 212, "int")
-        set => NumPut("int", value, this, 212)
+    lOverlayY : Int32
+
+    static __New() {
+        DefineProp(this.Prototype, '__lp16DDPalette_ptr', { type: IntPtr, offset: 56 })
+        DefineProp(this.Prototype, '__lp16DDClipper_ptr', { type: IntPtr, offset: 64 })
+        this.DeleteProp("__New")
     }
 }

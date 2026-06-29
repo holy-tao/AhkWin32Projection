@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmQuota.ahk
-#Include .\IFsrmAutoApplyQuota.ahk
-#Include .\IFsrmCommittableCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmQuota.ahk" { IFsrmQuota }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmAutoApplyQuota.ahk" { IFsrmAutoApplyQuota }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to manage quotas.
@@ -26,32 +30,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotamanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmQuotaManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmQuotaManager extends IDispatch {
     /**
      * The interface identifier for IFsrmQuotaManager
      * @type {Guid}
      */
-    static IID => Guid("{8bb68c7d-19d8-4ffb-809e-be4fc1734014}")
+    static IID := Guid("{8bb68c7d-19d8-4ffb-809e-be4fc1734014}")
 
     /**
      * The class identifier for FsrmQuotaManager
      * @type {Guid}
      */
-    static CLSID => Guid("{90dcab7f-347c-4bfc-b543-540326305fbe}")
+    static CLSID := Guid("{90dcab7f-347c-4bfc-b543-540326305fbe}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmQuotaManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ActionVariables            : IntPtr
+        get_ActionVariableDescriptions : IntPtr
+        CreateQuota                    : IntPtr
+        CreateAutoApplyQuota           : IntPtr
+        GetQuota                       : IntPtr
+        GetAutoApplyQuota              : IntPtr
+        GetRestrictiveQuota            : IntPtr
+        EnumQuotas                     : IntPtr
+        EnumAutoApplyQuotas            : IntPtr
+        EnumEffectiveQuotas            : IntPtr
+        Scan                           : IntPtr
+        CreateQuotaCollection          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "CreateQuota", "CreateAutoApplyQuota", "GetQuota", "GetAutoApplyQuota", "GetRestrictiveQuota", "EnumQuotas", "EnumAutoApplyQuotas", "EnumEffectiveQuotas", "Scan", "CreateQuotaCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmQuotaManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -113,7 +135,7 @@ class IFsrmQuotaManager extends IDispatch {
     CreateQuota(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(9, this, "ptr", _path, "ptr*", &quota := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, _path, "ptr*", &quota := 0, "HRESULT")
         return IFsrmQuota(quota)
     }
 
@@ -139,7 +161,7 @@ class IFsrmQuotaManager extends IDispatch {
         quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(10, this, "ptr", quotaTemplateName, "ptr", _path, "ptr*", &quota := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, quotaTemplateName, BSTR, _path, "ptr*", &quota := 0, "HRESULT")
         return IFsrmAutoApplyQuota(quota)
     }
 
@@ -153,7 +175,7 @@ class IFsrmQuotaManager extends IDispatch {
     GetQuota(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(11, this, "ptr", _path, "ptr*", &quota := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, _path, "ptr*", &quota := 0, "HRESULT")
         return IFsrmQuota(quota)
     }
 
@@ -168,7 +190,7 @@ class IFsrmQuotaManager extends IDispatch {
     GetAutoApplyQuota(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(12, this, "ptr", _path, "ptr*", &quota := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, _path, "ptr*", &quota := 0, "HRESULT")
         return IFsrmAutoApplyQuota(quota)
     }
 
@@ -185,7 +207,7 @@ class IFsrmQuotaManager extends IDispatch {
     GetRestrictiveQuota(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(13, this, "ptr", _path, "ptr*", &quota := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, _path, "ptr*", &quota := 0, "HRESULT")
         return IFsrmQuota(quota)
     }
 
@@ -223,7 +245,7 @@ class IFsrmQuotaManager extends IDispatch {
     EnumQuotas(_path, options) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(14, this, "ptr", _path, "int", options, "ptr*", &quotas := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, _path, FsrmEnumOptions, options, "ptr*", &quotas := 0, "HRESULT")
         return IFsrmCommittableCollection(quotas)
     }
 
@@ -261,7 +283,7 @@ class IFsrmQuotaManager extends IDispatch {
     EnumAutoApplyQuotas(_path, options) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(15, this, "ptr", _path, "int", options, "ptr*", &quotas := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, _path, FsrmEnumOptions, options, "ptr*", &quotas := 0, "HRESULT")
         return IFsrmCommittableCollection(quotas)
     }
 
@@ -290,7 +312,7 @@ class IFsrmQuotaManager extends IDispatch {
     EnumEffectiveQuotas(_path, options) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(16, this, "ptr", _path, "int", options, "ptr*", &quotas := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, _path, FsrmEnumOptions, options, "ptr*", &quotas := 0, "HRESULT")
         return IFsrmCommittableCollection(quotas)
     }
 
@@ -308,7 +330,7 @@ class IFsrmQuotaManager extends IDispatch {
     Scan(strPath) {
         strPath := strPath is String ? BSTR.Alloc(strPath).Value : strPath
 
-        result := ComCall(17, this, "ptr", strPath, "HRESULT")
+        result := ComCall(17, this, BSTR, strPath, "HRESULT")
         return result
     }
 
@@ -327,5 +349,47 @@ class IFsrmQuotaManager extends IDispatch {
     CreateQuotaCollection() {
         result := ComCall(18, this, "ptr*", &collection := 0, "HRESULT")
         return IFsrmCommittableCollection(collection)
+    }
+
+    Query(iid) {
+        if (IFsrmQuotaManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ActionVariables := CallbackCreate(GetMethod(implObj, "get_ActionVariables"), flags, 2)
+        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(GetMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
+        this.vtbl.CreateQuota := CallbackCreate(GetMethod(implObj, "CreateQuota"), flags, 3)
+        this.vtbl.CreateAutoApplyQuota := CallbackCreate(GetMethod(implObj, "CreateAutoApplyQuota"), flags, 4)
+        this.vtbl.GetQuota := CallbackCreate(GetMethod(implObj, "GetQuota"), flags, 3)
+        this.vtbl.GetAutoApplyQuota := CallbackCreate(GetMethod(implObj, "GetAutoApplyQuota"), flags, 3)
+        this.vtbl.GetRestrictiveQuota := CallbackCreate(GetMethod(implObj, "GetRestrictiveQuota"), flags, 3)
+        this.vtbl.EnumQuotas := CallbackCreate(GetMethod(implObj, "EnumQuotas"), flags, 4)
+        this.vtbl.EnumAutoApplyQuotas := CallbackCreate(GetMethod(implObj, "EnumAutoApplyQuotas"), flags, 4)
+        this.vtbl.EnumEffectiveQuotas := CallbackCreate(GetMethod(implObj, "EnumEffectiveQuotas"), flags, 4)
+        this.vtbl.Scan := CallbackCreate(GetMethod(implObj, "Scan"), flags, 2)
+        this.vtbl.CreateQuotaCollection := CallbackCreate(GetMethod(implObj, "CreateQuotaCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ActionVariables)
+        CallbackFree(this.vtbl.get_ActionVariableDescriptions)
+        CallbackFree(this.vtbl.CreateQuota)
+        CallbackFree(this.vtbl.CreateAutoApplyQuota)
+        CallbackFree(this.vtbl.GetQuota)
+        CallbackFree(this.vtbl.GetAutoApplyQuota)
+        CallbackFree(this.vtbl.GetRestrictiveQuota)
+        CallbackFree(this.vtbl.EnumQuotas)
+        CallbackFree(this.vtbl.EnumAutoApplyQuotas)
+        CallbackFree(this.vtbl.EnumEffectiveQuotas)
+        CallbackFree(this.vtbl.Scan)
+        CallbackFree(this.vtbl.CreateQuotaCollection)
     }
 }

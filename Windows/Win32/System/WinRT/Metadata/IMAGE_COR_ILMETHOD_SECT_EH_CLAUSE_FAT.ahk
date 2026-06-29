@@ -1,68 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CorExceptionFlag.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CorExceptionFlag.ahk" { CorExceptionFlag }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT extends Win32Struct {
-    static sizeof => 24
+export default struct IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : CorExceptionFlag
 
-    /**
-     * @type {CorExceptionFlag}
-     */
-    Flags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TryOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TryLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TryLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HandlerOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandlerOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HandlerLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandlerLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ClassToken : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClassToken {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'FilterOffset', { type: UInt32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

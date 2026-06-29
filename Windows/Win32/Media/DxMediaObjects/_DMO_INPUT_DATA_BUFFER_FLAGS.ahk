@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DMO_INPUT_DATA_BUFFER_FLAGS enumeration defines flags that describe an input buffer.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_input_data_buffer_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class _DMO_INPUT_DATA_BUFFER_FLAGS extends Win32Enum {
+export default struct _DMO_INPUT_DATA_BUFFER_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The beginning of the data is a synchronization point.

@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CREATE_DOORBELL extends Win32Struct {
-    static sizeof => 64
+export default struct D3DKMT_CREATE_DOORBELL {
+    #StructPack 8
 
-    static packingSize => 8
+    hHwQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hHwQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hRingBuffer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hRingBuffer {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hRingBufferControl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hRingBufferControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateDriverDataSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PrivateDriverData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PrivateDriverData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DoorbellCPUVirtualAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DoorbellCPUVirtualAddress {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DoorbellSecondaryCPUVirtualAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DoorbellSecondaryCPUVirtualAddress {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    DoorbellStatusCPUVirtualAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DoorbellStatusCPUVirtualAddress {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

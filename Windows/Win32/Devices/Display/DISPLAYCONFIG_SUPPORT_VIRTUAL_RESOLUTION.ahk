@@ -1,41 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk" { DISPLAYCONFIG_DEVICE_INFO_TYPE }
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk" { DISPLAYCONFIG_DEVICE_INFO_HEADER }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * The DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION structure contains information on the state of virtual resolution support for the monitor.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_support_virtual_resolution
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_device_info_header">DISPLAYCONFIG_DEVICE_INFO_HEADER</a> structure that holds information on the type, size, adapterID, and ID of the target the monitor is connected to.
-     * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : DISPLAYCONFIG_DEVICE_INFO_HEADER
 
     /**
      * This bitfield backs the following members:
      * - disableMonitorVirtualResolution
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -52,12 +39,8 @@ class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7FFFFFFF
         set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
     }
-
-    /**
-     * @type {Integer}
-     */
-    value {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'value', { type: UInt32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

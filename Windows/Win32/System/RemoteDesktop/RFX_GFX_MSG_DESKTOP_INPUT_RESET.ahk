@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFX_GFX_MSG_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MSG_DESKTOP_INPUT_RESET extends Win32Struct {
-    static sizeof => 12
+export default struct RFX_GFX_MSG_DESKTOP_INPUT_RESET {
+    #StructPack 4
 
-    static packingSize => 4
+    channelHdr : RFX_GFX_MSG_HEADER
 
-    /**
-     * @type {RFX_GFX_MSG_HEADER}
-     */
-    channelHdr {
-        get {
-            if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
-            return this.__channelHdr
-        }
-    }
+    ulWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulHeight {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

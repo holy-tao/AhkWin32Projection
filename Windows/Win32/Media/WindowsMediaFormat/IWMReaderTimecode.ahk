@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMReaderTimecode interface provides access to information about SMPTE (Society of Motion Picture and Television Engineers) time code ranges.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadertimecode
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderTimecode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderTimecode extends IUnknown {
     /**
      * The interface identifier for IWMReaderTimecode
      * @type {Guid}
      */
-    static IID => Guid("{f369e2f0-e081-4fe6-8450-b810b2f410d1}")
+    static IID := Guid("{f369e2f0-e081-4fe6-8450-b810b2f410d1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderTimecode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTimecodeRangeCount  : IntPtr
+        GetTimecodeRangeBounds : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTimecodeRangeCount", "GetTimecodeRangeBounds"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderTimecode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetTimecodeRangeCount method retrieves the total number of SMTPE time code ranges in a specified stream.
@@ -73,5 +82,27 @@ class IWMReaderTimecode extends IUnknown {
 
         result := ComCall(4, this, "ushort", wStreamNum, "ushort", wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderTimecode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTimecodeRangeCount := CallbackCreate(GetMethod(implObj, "GetTimecodeRangeCount"), flags, 3)
+        this.vtbl.GetTimecodeRangeBounds := CallbackCreate(GetMethod(implObj, "GetTimecodeRangeBounds"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTimecodeRangeCount)
+        CallbackFree(this.vtbl.GetTimecodeRangeBounds)
     }
 }

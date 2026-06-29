@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOUNDSENTRY_FLAGS.ahk
-#Include .\SOUNDSENTRY_TEXT_EFFECT.ahk
-#Include .\SOUND_SENTRY_GRAPHICS_EFFECT.ahk
-#Include .\SOUNDSENTRY_WINDOWS_EFFECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOUNDSENTRY_TEXT_EFFECT.ahk" { SOUNDSENTRY_TEXT_EFFECT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SOUND_SENTRY_GRAPHICS_EFFECT.ahk" { SOUND_SENTRY_GRAPHICS_EFFECT }
+#Import ".\SOUNDSENTRY_WINDOWS_EFFECT.ahk" { SOUNDSENTRY_WINDOWS_EFFECT }
+#Import ".\SOUNDSENTRY_FLAGS.ahk" { SOUNDSENTRY_FLAGS }
 
 /**
  * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated. (Unicode)
@@ -20,21 +20,15 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @charset Unicode
  */
-class SOUNDSENTRYW extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct SOUNDSENTRYW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Specifies the size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -83,21 +77,13 @@ class SOUNDSENTRYW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {SOUNDSENTRY_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : SOUNDSENTRY_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {SOUNDSENTRY_TEXT_EFFECT}
      */
-    iFSTextEffect {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    iFSTextEffect : SOUNDSENTRY_TEXT_EFFECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -105,12 +91,8 @@ class SOUNDSENTRYW extends Win32Struct {
      * <b>Windows 95/98:</b> Specifies the duration, in milliseconds, of the visual signal that is displayed when a full-screen, text-mode application generates a sound.
      * 
      * <b>Windows NT/2000:</b> This member is reserved for future use. It must be set to zero.
-     * @type {Integer}
      */
-    iFSTextEffectMSec {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    iFSTextEffectMSec : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -118,21 +100,13 @@ class SOUNDSENTRYW extends Win32Struct {
      * <b>Windows 95/98:</b> Specifies the RGB value of the color to be used when displaying the visual signal shown when a full-screen, text-mode application generates a sound.
      * 
      * <b>Windows NT/2000:</b> This member is reserved for future use. It must be set to zero.
-     * @type {Integer}
      */
-    iFSTextEffectColorBits {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    iFSTextEffectColorBits : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {SOUND_SENTRY_GRAPHICS_EFFECT}
      */
-    iFSGrafEffect {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    iFSGrafEffect : SOUND_SENTRY_GRAPHICS_EFFECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -140,12 +114,8 @@ class SOUNDSENTRYW extends Win32Struct {
      * <b>Windows 95/98:</b> Specifies the duration, in milliseconds, of the visual signal that is displayed when a full-screen, graphics-mode application generates a sound.
      * 
      * <b>Windows NT/2000:</b> This member is reserved for future use. It must be set to zero.
-     * @type {Integer}
      */
-    iFSGrafEffectMSec {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    iFSGrafEffectMSec : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -153,21 +123,13 @@ class SOUNDSENTRYW extends Win32Struct {
      * <b>Windows 95/98:</b> Specifies the RGB value of the color to be used when displaying the visual signal shown when a full-screen, graphics-mode application generates a sound.
      * 
      * <b>Windows NT/2000:</b> This member is reserved for future use. It must be set to zero.
-     * @type {Integer}
      */
-    iFSGrafEffectColor {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    iFSGrafEffectColor : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {SOUNDSENTRY_WINDOWS_EFFECT}
      */
-    iWindowsEffect {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    iWindowsEffect : SOUNDSENTRY_WINDOWS_EFFECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -175,37 +137,21 @@ class SOUNDSENTRYW extends Win32Struct {
      * <b>Windows 95/98:</b> Specifies the duration, in milliseconds, of the visual signal that is displayed when a Win32-based application (or an application running in a window) generates a sound.
      * 
      * <b>Windows NT/2000:</b> This member is reserved for future use. It must be set to zero.
-     * @type {Integer}
      */
-    iWindowsEffectMSec {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    iWindowsEffectMSec : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * This member is reserved for future use. It should be set to <b>NULL</b>.
-     * @type {PWSTR}
      */
-    lpszWindowsEffectDLL {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszWindowsEffectDLL : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * This member is reserved for future use. It must be set to zero.
-     * @type {Integer}
      */
-    iWindowsEffectOrdinal {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    iWindowsEffectOrdinal : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

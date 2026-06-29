@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
-#Include .\ADDRESS_FAMILY.ahk
-#Include .\SOCKADDR_IN.ahk
-#Include .\IN_ADDR.ahk
-#Include .\sockaddr_in6_old.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import ".\sockaddr_in6_old.ahk" { sockaddr_in6_old }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Provides generic socket address information, and is used with the INTERFACE_INFO structure.
@@ -14,44 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_gen
  * @namespace Windows.Win32.Networking.WinSock
  */
-class sockaddr_gen extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct sockaddr_gen {
+    #StructPack 4
 
     /**
      * IP address information expressed in a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.
-     * @type {SOCKADDR}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR(0, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKADDR
 
-    /**
-     * IP address information expressed in a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure.
-     * @type {SOCKADDR_IN}
-     */
-    AddressIn {
-        get {
-            if(!this.HasProp("__AddressIn"))
-                this.__AddressIn := SOCKADDR_IN(0, this)
-            return this.__AddressIn
-        }
-    }
-
-    /**
-     * IP address information expressed in a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in6_old</a> structure.
-     * @type {sockaddr_in6_old}
-     */
-    AddressIn6 {
-        get {
-            if(!this.HasProp("__AddressIn6"))
-                this.__AddressIn6 := sockaddr_in6_old(0, this)
-            return this.__AddressIn6
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'AddressIn', { type: SOCKADDR_IN, offset: 0 })
+        DefineProp(this.Prototype, 'AddressIn6', { type: sockaddr_in6_old, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

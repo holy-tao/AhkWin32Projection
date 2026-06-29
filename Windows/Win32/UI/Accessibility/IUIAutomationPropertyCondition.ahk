@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationCondition.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a condition based on a property value that is used to find UI Automation elements.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationpropertycondition
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationPropertyCondition extends IUIAutomationCondition {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationPropertyCondition extends IUIAutomationCondition {
     /**
      * The interface identifier for IUIAutomationPropertyCondition
      * @type {Guid}
      */
-    static IID => Guid("{99ebf2cb-5578-4267-9ad4-afd6ea77e94b}")
+    static IID := Guid("{99ebf2cb-5578-4267-9ad4-afd6ea77e94b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationPropertyCondition interfaces
+    */
+    struct Vtbl extends IUIAutomationCondition.Vtbl {
+        get_PropertyId             : IntPtr
+        get_PropertyValue          : IntPtr
+        get_PropertyConditionFlags : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PropertyId", "get_PropertyValue", "get_PropertyConditionFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationPropertyCondition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UIA_PROPERTY_ID} 
@@ -68,7 +80,7 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition {
      */
     get_PropertyValue() {
         _propertyValue := VARIANT()
-        result := ComCall(4, this, "ptr", _propertyValue, "HRESULT")
+        result := ComCall(4, this, VARIANT.Ptr, _propertyValue, "HRESULT")
         return _propertyValue
     }
 
@@ -80,5 +92,29 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition {
     get_PropertyConditionFlags() {
         result := ComCall(5, this, "int*", &flags := 0, "HRESULT")
         return flags
+    }
+
+    Query(iid) {
+        if (IUIAutomationPropertyCondition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PropertyId := CallbackCreate(GetMethod(implObj, "get_PropertyId"), flags, 2)
+        this.vtbl.get_PropertyValue := CallbackCreate(GetMethod(implObj, "get_PropertyValue"), flags, 2)
+        this.vtbl.get_PropertyConditionFlags := CallbackCreate(GetMethod(implObj, "get_PropertyConditionFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PropertyId)
+        CallbackFree(this.vtbl.get_PropertyValue)
+        CallbackFree(this.vtbl.get_PropertyConditionFlags)
     }
 }

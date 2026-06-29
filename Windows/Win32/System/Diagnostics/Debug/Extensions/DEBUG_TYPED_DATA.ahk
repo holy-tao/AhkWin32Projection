@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_TYPED_DATA extends Win32Struct {
-    static sizeof => 128
+export default struct DEBUG_TYPED_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    ModBase : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ModBase {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Offset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EngineHandle : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EngineHandle {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Data : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Data {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TypeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TypeId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BaseTypeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BaseTypeId {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Register : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Register {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    Internal : Int64[9]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Internal {
-        get {
-            if(!this.HasProp("__InternalProxyArray"))
-                this.__InternalProxyArray := Win32FixedArray(this.ptr + 56, 9, Primitive, "uint")
-            return this.__InternalProxyArray
-        }
-    }
 }

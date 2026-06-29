@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPM_RANDOM_NUMBER.ahk
-#Include .\OPM_HDCP_KEY_SELECTION_VECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OPM_HDCP_KEY_SELECTION_VECTOR.ahk" { OPM_HDCP_KEY_SELECTION_VECTOR }
+#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
 
 /**
  * Contains the result from an OPM_GET_CONNECTED_HDCP_DEVICE_INFORMATION query.
@@ -10,31 +9,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_connected_hdcp_device_information
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 4
+export default struct OPM_CONNECTED_HDCP_DEVICE_INFORMATION {
+    #StructPack 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_random_number">OPM_RANDOM_NUMBER</a> structure. This structure contains the same 128-bit random number that the application sent to the driver in the <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_get_info_parameters">OPM_GET_INFO_PARAMETERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-coppcompatiblegetinformation">OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS</a> structure.
-     * @type {OPM_RANDOM_NUMBER}
      */
-    rnRandomNumber {
-        get {
-            if(!this.HasProp("__rnRandomNumber"))
-                this.__rnRandomNumber := OPM_RANDOM_NUMBER(0, this)
-            return this.__rnRandomNumber
-        }
-    }
+    rnRandomNumber : OPM_RANDOM_NUMBER
 
     /**
      * A bitwise <b>OR</b> of <a href="https://docs.microsoft.com/windows/desktop/medfound/opm-status-flags">OPM Status Flags</a>.
-     * @type {Integer}
      */
-    ulStatusFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulStatusFlags : UInt32
 
     /**
      * A value that indicates whether the connected device is an HDCP repeater.
@@ -67,58 +53,27 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulHDCPFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulHDCPFlags : UInt32
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/ns-opmapi-opm_hdcp_key_selection_vector">OPM_HDCP_KEY_SELECTION_VECTOR</a> structure that contains the device's key selection vector (KSV). This is the value named <i>Bksv</i> in the HDCP specification.
-     * @type {OPM_HDCP_KEY_SELECTION_VECTOR}
      */
-    ksvB {
-        get {
-            if(!this.HasProp("__ksvB"))
-                this.__ksvB := OPM_HDCP_KEY_SELECTION_VECTOR(24, this)
-            return this.__ksvB
-        }
-    }
+    ksvB : OPM_HDCP_KEY_SELECTION_VECTOR
 
     /**
      * Reserved for future use. Fill this array with zeros.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 29, 11, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[11]
 
     /**
      * Reserved for future use. Fill this array with zeros.
-     * @type {Array<Integer>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[16]
 
     /**
      * Reserved for future use. Fill this array with zeros.
-     * @type {Array<Integer>}
      */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : Int8[16]
+
 }

@@ -1,70 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\CONFIG_CI_PROV_INFO_RESULT.ahk
-#Include .\CONFIG_CI_PROV_INFO_RESULT2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CONFIG_CI_PROV_INFO_RESULT2.ahk" { CONFIG_CI_PROV_INFO_RESULT2 }
+#Import ".\CONFIG_CI_PROV_INFO_RESULT.ahk" { CONFIG_CI_PROV_INFO_RESULT }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class CONFIG_CI_PROV_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct CONFIG_CI_PROV_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwPolicies : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPolicies {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pPolicies : CRYPT_INTEGER_BLOB.Ptr
 
-    /**
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
-     */
-    pPolicies {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    result : CONFIG_CI_PROV_INFO_RESULT
 
-    /**
-     * @type {CONFIG_CI_PROV_INFO_RESULT}
-     */
-    result {
-        get {
-            if(!this.HasProp("__result"))
-                this.__result := CONFIG_CI_PROV_INFO_RESULT(16, this)
-            return this.__result
-        }
-    }
+    dwScenario : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwScenario {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    result2 : CONFIG_CI_PROV_INFO_RESULT2.Ptr
 
-    /**
-     * @type {Pointer<CONFIG_CI_PROV_INFO_RESULT2>}
-     */
-    result2 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

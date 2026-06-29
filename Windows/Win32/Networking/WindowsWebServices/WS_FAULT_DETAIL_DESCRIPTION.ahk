@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_ELEMENT_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_ELEMENT_DESCRIPTION.ahk" { WS_ELEMENT_DESCRIPTION }
 
 /**
  * A description of the detail element of a fault message.
@@ -17,30 +16,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_detail_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_FAULT_DETAIL_DESCRIPTION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WS_FAULT_DETAIL_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The action associated with the fault message.
      *                 
      * 
      * If the message does not have an action, this field can be <b>NULL</b>.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    action {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    action : WS_XML_STRING.Ptr
 
     /**
      * The description of the fault detail of the fault.  This 
      *                     field must be specified (it may not be <b>NULL</b>).
-     * @type {Pointer<WS_ELEMENT_DESCRIPTION>}
      */
-    detailElementDescription {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    detailElementDescription : WS_ELEMENT_DESCRIPTION.Ptr
+
 }

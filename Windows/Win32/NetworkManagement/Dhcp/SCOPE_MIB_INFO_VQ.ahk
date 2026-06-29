@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class SCOPE_MIB_INFO_VQ extends Win32Struct {
-    static sizeof => 40
+export default struct SCOPE_MIB_INFO_VQ {
+    #StructPack 4
 
-    static packingSize => 4
+    Subnet : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Subnet {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumAddressesInuse : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumAddressesInuse {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumAddressesFree : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumAddressesFree {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumPendingOffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumPendingOffers {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    QtnNumLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnNumLeases {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    QtnPctQtnLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnPctQtnLeases {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    QtnProbationLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnProbationLeases {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    QtnNonQtnLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnNonQtnLeases {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    QtnExemptLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnExemptLeases {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    QtnCapableClients : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnCapableClients {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

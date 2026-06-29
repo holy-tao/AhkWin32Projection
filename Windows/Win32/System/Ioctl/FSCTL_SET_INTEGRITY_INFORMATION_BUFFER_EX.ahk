@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX extends Win32Struct {
-    static sizeof => 16
+export default struct FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    EnableIntegrity : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EnableIntegrity {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    KeepIntegrityStateUnchanged : Int8
 
-    /**
-     * @type {Integer}
-     */
-    KeepIntegrityStateUnchanged {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Reserved2 : Int8[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
 }

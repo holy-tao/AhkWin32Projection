@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
-#Include .\IDirectDrawStreamSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IDirectDrawStreamSample.ahk" { IDirectDrawStreamSample }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/ddstream/nn-ddstream-idirectdrawmediastream
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDirectDrawMediaStream extends IMediaStream {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawMediaStream extends IMediaStream {
     /**
      * The interface identifier for IDirectDrawMediaStream
      * @type {Guid}
      */
-    static IID => Guid("{f4104fce-9a70-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{f4104fce-9a70-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawMediaStream interfaces
+    */
+    struct Vtbl extends IMediaStream.Vtbl {
+        GetFormat       : IntPtr
+        SetFormat       : IntPtr
+        GetDirectDraw   : IntPtr
+        SetDirectDraw   : IntPtr
+        CreateSample    : IntPtr
+        GetTimePerFrame : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFormat", "SetFormat", "GetDirectDraw", "SetDirectDraw", "CreateSample", "GetTimePerFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawMediaStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the current media stream's format and, optionally, its desired format.
@@ -118,7 +135,7 @@ class IDirectDrawMediaStream extends IMediaStream {
     GetFormat(pDDSDCurrent, ppDirectDrawPalette, pDDSDDesired, pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pDDSDCurrent, "ptr*", ppDirectDrawPalette, "ptr", pDDSDDesired, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(9, this, DDSURFACEDESC.Ptr, pDDSDCurrent, IDirectDrawPalette.Ptr, ppDirectDrawPalette, DDSURFACEDESC.Ptr, pDDSDDesired, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -172,7 +189,7 @@ class IDirectDrawMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-setformat
      */
     SetFormat(pDDSurfaceDesc, pDirectDrawPalette) {
-        result := ComCall(10, this, "ptr", pDDSurfaceDesc, "ptr", pDirectDrawPalette, "HRESULT")
+        result := ComCall(10, this, DDSURFACEDESC.Ptr, pDDSurfaceDesc, "ptr", pDirectDrawPalette, "HRESULT")
         return result
     }
 
@@ -233,7 +250,7 @@ class IDirectDrawMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-createsample
      */
     CreateSample(pSurface, pRect, dwFlags) {
-        result := ComCall(13, this, "ptr", pSurface, "ptr", pRect, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pSurface, RECT.Ptr, pRect, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
         return IDirectDrawStreamSample(ppSample)
     }
 
@@ -245,5 +262,35 @@ class IDirectDrawMediaStream extends IMediaStream {
     GetTimePerFrame() {
         result := ComCall(14, this, "int64*", &pFrameTime := 0, "HRESULT")
         return pFrameTime
+    }
+
+    Query(iid) {
+        if (IDirectDrawMediaStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 5)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 3)
+        this.vtbl.GetDirectDraw := CallbackCreate(GetMethod(implObj, "GetDirectDraw"), flags, 2)
+        this.vtbl.SetDirectDraw := CallbackCreate(GetMethod(implObj, "SetDirectDraw"), flags, 2)
+        this.vtbl.CreateSample := CallbackCreate(GetMethod(implObj, "CreateSample"), flags, 5)
+        this.vtbl.GetTimePerFrame := CallbackCreate(GetMethod(implObj, "GetTimePerFrame"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.SetFormat)
+        CallbackFree(this.vtbl.GetDirectDraw)
+        CallbackFree(this.vtbl.SetDirectDraw)
+        CallbackFree(this.vtbl.CreateSample)
+        CallbackFree(this.vtbl.GetTimePerFrame)
     }
 }

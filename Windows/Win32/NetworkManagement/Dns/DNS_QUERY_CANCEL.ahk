@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * A DNS_QUERY_CANCEL structure can be used to cancel an asynchronous DNS query.
@@ -8,17 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_cancel
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_QUERY_CANCEL extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 2
+export default struct DNS_QUERY_CANCEL {
+    #StructPack 2
 
     /**
      * Contains a handle to the asynchronous query to cancel. Applications must not modify this value.
-     * @type {String}
      */
-    Reserved {
-        get => StrGet(this.ptr + 0, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-8")
-    }
+    Reserved : CHAR[32]
+
 }

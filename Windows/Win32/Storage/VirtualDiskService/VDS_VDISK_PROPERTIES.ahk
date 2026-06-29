@@ -1,109 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_VDISK_STATE.ahk
-#Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
-#Include ..\Vhd\DEPENDENT_DISK_FLAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Vhd\DEPENDENT_DISK_FLAG.ahk" { DEPENDENT_DISK_FLAG }
+#Import ".\VDS_VDISK_STATE.ahk" { VDS_VDISK_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
 
 /**
  * Defines the properties of a virtual disk.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_vdisk_properties
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_VDISK_PROPERTIES extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct VDS_VDISK_PROPERTIES {
+    #StructPack 8
 
     /**
      * Unique VDS-specific session identifier of the disk.
-     * @type {Pointer}
      */
-    Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Id : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_vdisk_state">VDS_VDISK_STATE</a> enumeration value that specifies the virtual disk state.
-     * @type {VDS_VDISK_STATE}
      */
-    State {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    State : VDS_VDISK_STATE
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> structure that specifies the storage device type of the virtual disk.
-     * @type {VIRTUAL_STORAGE_TYPE}
      */
-    VirtualDeviceType {
-        get {
-            if(!this.HasProp("__VirtualDeviceType"))
-                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(16, this)
-            return this.__VirtualDeviceType
-        }
-    }
+    VirtualDeviceType : VIRTUAL_STORAGE_TYPE
 
     /**
      * The size, in bytes, of the virtual disk.
-     * @type {Integer}
      */
-    VirtualSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    VirtualSize : Int64
 
     /**
      * The on-disk size, in bytes, of the virtual disk backing file.
-     * @type {Integer}
      */
-    PhysicalSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PhysicalSize : Int64
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and directory path of the backing file for the virtual disk.
-     * @type {PWSTR}
      */
-    pPath {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pPath : PWSTR
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and device path of the disk device object for the volume where the virtual disk resides.
-     * @type {PWSTR}
      */
-    pDeviceName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pDeviceName : PWSTR
 
     /**
      * A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-dependent_disk_flag">DEPENDENT_DISK_FLAG</a> enumeration values that specify disk dependency information.
-     * @type {DEPENDENT_DISK_FLAG}
      */
-    DiskFlag {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    DiskFlag : DEPENDENT_DISK_FLAG
 
     /**
      * <b>TRUE</b> if the virtual disk is a child virtual disk, or <b>FALSE</b> otherwise.
-     * @type {BOOL}
      */
-    bIsChild {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    bIsChild : BOOL
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a parent virtual disk object.
-     * @type {PWSTR}
      */
-    pParentPath {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pParentPath : PWSTR
+
 }

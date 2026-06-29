@@ -1,132 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a socket address.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_sockaddr
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_SOCKADDR extends Win32Struct {
-    static sizeof => 32
+export default struct WTS_SOCKADDR {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 4
+    struct _u {
 
-        class _ipv4 extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 4
+        struct _ipv4 {
+            sin_port : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            sin_port {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            IN_ADDR : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            IN_ADDR {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            sin_zero : Int8[8]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            sin_zero {
-                get {
-                    if(!this.HasProp("__sin_zeroProxyArray"))
-                        this.__sin_zeroProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-                    return this.__sin_zeroProxyArray
-                }
-            }
         }
 
-        class _ipv6 extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+        struct _ipv6 {
+            sin6_port : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            sin6_port {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            sin6_flowinfo : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            sin6_flowinfo {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            sin6_addr : UInt16[8]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            sin6_addr {
-                get {
-                    if(!this.HasProp("__sin6_addrProxyArray"))
-                        this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ushort")
-                    return this.__sin6_addrProxyArray
-                }
-            }
+            sin6_scope_id : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            sin6_scope_id {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
         }
 
-        /**
-         * @type {_ipv4}
-         */
-        ipv4 {
-            get {
-                if(!this.HasProp("__ipv4"))
-                    this.__ipv4 := WTS_SOCKADDR._u_e__Union._ipv4(0, this)
-                return this.__ipv4
-            }
-        }
+        ipv4 : WTS_SOCKADDR._u._ipv4
 
-        /**
-         * @type {_ipv6}
-         */
-        ipv6 {
-            get {
-                if(!this.HasProp("__ipv6"))
-                    this.__ipv6 := WTS_SOCKADDR._u_e__Union._ipv6(0, this)
-                return this.__ipv6
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'ipv6', { type: WTS_SOCKADDR._u._ipv6, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * An integer index into the following structure members.
-     * @type {Integer}
      */
-    sin_family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    sin_family : UInt16
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := WTS_SOCKADDR._u_e__Union(4, this)
-            return this.__u
-        }
-    }
+    u : WTS_SOCKADDR._u
+
 }

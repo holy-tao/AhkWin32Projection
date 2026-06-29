@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes subresource data. (D3D12_SUBRESOURCE_DATA)
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SUBRESOURCE_DATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_SUBRESOURCE_DATA {
+    #StructPack 8
 
     /**
      * A pointer to a memory block that contains the subresource data.
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pData : IntPtr
 
     /**
      * The row pitch, or width, or physical size, in bytes, of the subresource data.
-     * @type {Pointer}
      */
-    RowPitch {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RowPitch : IntPtr
 
     /**
      * The depth pitch, or width, or physical size, in bytes, of the subresource data.
-     * @type {Pointer}
      */
-    SlicePitch {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SlicePitch : IntPtr
+
 }

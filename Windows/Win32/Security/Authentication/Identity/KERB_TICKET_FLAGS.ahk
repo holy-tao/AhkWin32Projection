@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The ticket-granting server can issue a new ticket-granting ticket with a different network address based on the presented ticket.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_cache_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_TICKET_FLAGS extends Win32BitflagEnum {
+export default struct KERB_TICKET_FLAGS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

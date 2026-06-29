@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the default policy server.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentpolicyserverpropertyflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class EnrollmentPolicyServerPropertyFlags extends Win32Enum {
+export default struct EnrollmentPolicyServerPropertyFlags {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No default policy server URL has been specified.

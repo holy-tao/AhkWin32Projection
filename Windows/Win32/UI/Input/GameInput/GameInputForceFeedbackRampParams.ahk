@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputForceFeedbackEnvelope.ahk
-#Include .\GameInputForceFeedbackMagnitude.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
+#Import ".\GameInputForceFeedbackEnvelope.ahk" { GameInputForceFeedbackEnvelope }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputForceFeedbackRampParams extends Win32Struct {
-    static sizeof => 104
+export default struct GameInputForceFeedbackRampParams {
+    #StructPack 8
 
-    static packingSize => 8
+    envelope : GameInputForceFeedbackEnvelope
 
-    /**
-     * @type {GameInputForceFeedbackEnvelope}
-     */
-    envelope {
-        get {
-            if(!this.HasProp("__envelope"))
-                this.__envelope := GameInputForceFeedbackEnvelope(0, this)
-            return this.__envelope
-        }
-    }
+    startMagnitude : GameInputForceFeedbackMagnitude
 
-    /**
-     * @type {GameInputForceFeedbackMagnitude}
-     */
-    startMagnitude {
-        get {
-            if(!this.HasProp("__startMagnitude"))
-                this.__startMagnitude := GameInputForceFeedbackMagnitude(48, this)
-            return this.__startMagnitude
-        }
-    }
+    endMagnitude : GameInputForceFeedbackMagnitude
 
-    /**
-     * @type {GameInputForceFeedbackMagnitude}
-     */
-    endMagnitude {
-        get {
-            if(!this.HasProp("__endMagnitude"))
-                this.__endMagnitude := GameInputForceFeedbackMagnitude(76, this)
-            return this.__endMagnitude
-        }
-    }
 }

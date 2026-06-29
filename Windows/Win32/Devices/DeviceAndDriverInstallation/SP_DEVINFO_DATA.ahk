@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * An SP_DEVINFO_DATA structure defines a device instance that is a member of a device information set.
@@ -11,51 +11,29 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_DEVINFO_DATA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SP_DEVINFO_DATA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the SP_DEVINFO_DATA structure. For more information, see the following Remarks section.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The GUID of the device's setup class.
-     * @type {Pointer}
      */
-    ClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ClassGuid : Guid
 
     /**
      * An opaque handle to the device instance (also known as a handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a>). 
      * 
      * Some functions, such as <b>SetupDi</b><i>Xxx</i> functions, take the whole SP_DEVINFO_DATA structure as input to identify a device in a device information set. Other functions, such as <b>CM</b>_<i>Xxx</i> functions like <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_status">CM_Get_DevNode_Status</a>, take this <b>DevInst</b> handle as input.
-     * @type {Integer}
      */
-    DevInst {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DevInst : UInt32
 
     /**
      * Reserved. For internal use only.
-     * @type {Pointer}
      */
-    Reserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Reserved : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

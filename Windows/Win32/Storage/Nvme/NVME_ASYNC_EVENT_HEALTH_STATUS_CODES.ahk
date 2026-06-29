@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate a SMART/Health Status event type.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_async_event_health_status_codes
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_ASYNC_EVENT_HEALTH_STATUS_CODES extends Win32Enum {
+export default struct NVME_ASYNC_EVENT_HEALTH_STATUS_CODES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * NVM subsystem reliability has been compromised. This may be due to significant media errors, an internal error, the media being placed in read only mode, or a volatile memory backup device failing.

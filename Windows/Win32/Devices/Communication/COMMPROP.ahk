@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COMMPROP_STOP_PARITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COMMPROP_STOP_PARITY.ahk" { COMMPROP_STOP_PARITY }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a communications driver.
@@ -32,68 +32,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commprop
  * @namespace Windows.Win32.Devices.Communication
  */
-class COMMPROP extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 4
+export default struct COMMPROP {
+    #StructPack 4
 
     /**
      * The size of the entire data packet, regardless of the amount of data requested, in bytes.
-     * @type {Integer}
      */
-    wPacketLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wPacketLength : UInt16
 
     /**
      * The version of the structure.
-     * @type {Integer}
      */
-    wPacketVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPacketVersion : UInt16
 
     /**
      * A bitmask indicating which services are implemented by this provider. The 
      *       <b>SP_SERIALCOMM</b> value is always specified for communications providers, including modem 
      *       providers.
-     * @type {Integer}
      */
-    dwServiceMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwServiceMask : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwReserved1 : UInt32
 
     /**
      * The maximum size of the driver's internal output buffer, in bytes. A value of zero indicates that no 
      *       maximum value is imposed by the serial provider.
-     * @type {Integer}
      */
-    dwMaxTxQueue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwMaxTxQueue : UInt32
 
     /**
      * The maximum size of the driver's internal input buffer, in bytes. A value of zero indicates that no maximum 
      *       value is imposed by the serial provider.
-     * @type {Integer}
      */
-    dwMaxRxQueue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwMaxRxQueue : UInt32
 
     /**
      * The maximum allowable baud rate, in bits per second (bps). This member can be one of the following 
@@ -325,12 +299,8 @@ class COMMPROP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMaxBaud {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwMaxBaud : UInt32
 
     /**
      * The communications-provider type.
@@ -484,12 +454,8 @@ class COMMPROP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwProvSubType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwProvSubType : UInt32
 
     /**
      * A bitmask indicating the capabilities offered by the provider. This member can be a combination of the 
@@ -611,12 +577,8 @@ class COMMPROP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwProvCapabilities {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwProvCapabilities : UInt32
 
     /**
      * A bitmask indicating the communications parameters that can be changed. This member can be a combination of 
@@ -705,21 +667,13 @@ class COMMPROP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSettableParams {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwSettableParams : UInt32
 
     /**
      * The baud rates that can be used. For values, see the <b>dwMaxBaud</b> member.
-     * @type {Integer}
      */
-    dwSettableBaud {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwSettableBaud : UInt32
 
     /**
      * A bitmask indicating the number of data bits that can be set. This member can be a combination of the 
@@ -797,41 +751,25 @@ class COMMPROP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wSettableData {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    wSettableData : UInt16
 
     /**
      * A bitmask indicating the stop bit and parity settings that can be selected. This member can be a
-     * @type {COMMPROP_STOP_PARITY}
      */
-    wSettableStopParity {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    wSettableStopParity : COMMPROP_STOP_PARITY
 
     /**
      * The size of the driver's internal output buffer, in bytes. A value of zero indicates that the value is 
      *       unavailable.
-     * @type {Integer}
      */
-    dwCurrentTxQueue {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwCurrentTxQueue : UInt32
 
     /**
      * The size of the driver's internal input buffer, in bytes. A value of zero indicates that the value is 
      *       unavailable.
-     * @type {Integer}
      */
-    dwCurrentRxQueue {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwCurrentRxQueue : UInt32
 
     /**
      * Any provider-specific data. Applications should ignore this member unless they have detailed information 
@@ -840,30 +778,19 @@ class COMMPROP extends Win32Struct {
      * Set this member to <b>COMMPROP_INITIALIZED</b> before calling the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getcommproperties">GetCommProperties</a> function to indicate that the 
      *        <b>wPacketLength</b> member is already valid.
-     * @type {Integer}
      */
-    dwProvSpec1 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwProvSpec1 : UInt32
 
     /**
      * Any provider-specific data. Applications should ignore this member unless they have detailed information 
      *       about the format of the data required by the provider.
-     * @type {Integer}
      */
-    dwProvSpec2 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwProvSpec2 : UInt32
 
     /**
      * Any provider-specific data. Applications should ignore this member unless they have detailed information 
      *       about the format of the data required by the provider.
-     * @type {String}
      */
-    wcProvChar {
-        get => StrGet(this.ptr + 60, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 0, "UTF-16")
-    }
+    wcProvChar : WCHAR[1]
+
 }

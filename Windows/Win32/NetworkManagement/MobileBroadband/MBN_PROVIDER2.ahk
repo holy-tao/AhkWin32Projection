@@ -1,55 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MBN_PROVIDER.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\MBN_CELLULAR_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
 
 /**
  * The MBN_PROVIDER2 structure represents a network service provider. It is used by many of the provider-specific methods of the IMbnMultiCarrier interface and provides an extension to MBN_PROVIDER to support multi-carrier.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_provider2
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_PROVIDER2 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MBN_PROVIDER2 {
+    #StructPack 8
 
     /**
      * Contains a single-carrier <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_provider">MBN_PROVIDER</a> structure.
-     * @type {MBN_PROVIDER}
      */
-    provider {
-        get {
-            if(!this.HasProp("__provider"))
-                this.__provider := MBN_PROVIDER(0, this)
-            return this.__provider
-        }
-    }
+    provider : MBN_PROVIDER
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_cellular_class">MBN_CELLULAR_CLASS</a> that specifies which cellular class the provider uses.
-     * @type {MBN_CELLULAR_CLASS}
      */
-    cellularClass {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cellularClass : MBN_CELLULAR_CLASS
 
     /**
      * Contains the signal quality received by the device as defined by <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsignal-getsignalstrength">GetSignalStrength</a>.
-     * @type {Integer}
      */
-    signalStrength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    signalStrength : UInt32
 
     /**
      * Contains the signal error rate as defined by <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsignal-getsignalerror">GetSignalError</a>.
-     * @type {Integer}
      */
-    signalError {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    signalError : UInt32
+
 }

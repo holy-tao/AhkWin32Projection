@@ -1,111 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_SSID.ahk
-#Include .\NDIS_802_11_NETWORK_TYPE.ahk
-#Include .\NDIS_802_11_CONFIGURATION.ahk
-#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
-#Include .\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_802_11_CONFIGURATION_FH.ahk" { NDIS_802_11_CONFIGURATION_FH }
+#Import ".\NDIS_802_11_CONFIGURATION.ahk" { NDIS_802_11_CONFIGURATION }
+#Import ".\NDIS_802_11_SSID.ahk" { NDIS_802_11_SSID }
+#Import ".\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk" { NDIS_802_11_NETWORK_INFRASTRUCTURE }
+#Import ".\NDIS_802_11_NETWORK_TYPE.ahk" { NDIS_802_11_NETWORK_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_WLAN_BSSID extends Win32Struct {
-    static sizeof => 104
+export default struct NDIS_WLAN_BSSID {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MacAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MacAddress {
-        get {
-            if(!this.HasProp("__MacAddressProxyArray"))
-                this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__MacAddressProxyArray
-        }
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Ssid : NDIS_802_11_SSID
 
-    /**
-     * @type {NDIS_802_11_SSID}
-     */
-    Ssid {
-        get {
-            if(!this.HasProp("__Ssid"))
-                this.__Ssid := NDIS_802_11_SSID(12, this)
-            return this.__Ssid
-        }
-    }
+    Privacy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Privacy {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Rssi : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Rssi {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    NetworkTypeInUse : NDIS_802_11_NETWORK_TYPE
 
-    /**
-     * @type {NDIS_802_11_NETWORK_TYPE}
-     */
-    NetworkTypeInUse {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    Configuration : NDIS_802_11_CONFIGURATION
 
-    /**
-     * @type {NDIS_802_11_CONFIGURATION}
-     */
-    Configuration {
-        get {
-            if(!this.HasProp("__Configuration"))
-                this.__Configuration := NDIS_802_11_CONFIGURATION(60, this)
-            return this.__Configuration
-        }
-    }
+    InfrastructureMode : NDIS_802_11_NETWORK_INFRASTRUCTURE
 
-    /**
-     * @type {NDIS_802_11_NETWORK_INFRASTRUCTURE}
-     */
-    InfrastructureMode {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    SupportedRates : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SupportedRates {
-        get {
-            if(!this.HasProp("__SupportedRatesProxyArray"))
-                this.__SupportedRatesProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "char")
-            return this.__SupportedRatesProxyArray
-        }
-    }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SHDRAGIMAGE.ahk" { SHDRAGIMAGE }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposed by the Shell to allow an application to specify the image that will be displayed during a Shell drag-and-drop operation.
@@ -27,26 +32,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idragsourcehelper
  * @namespace Windows.Win32.UI.Shell
  */
-class IDragSourceHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDragSourceHelper extends IUnknown {
     /**
      * The interface identifier for IDragSourceHelper
      * @type {Guid}
      */
-    static IID => Guid("{de5bf786-477a-11d2-839d-00c04fd918d0}")
+    static IID := Guid("{de5bf786-477a-11d2-839d-00c04fd918d0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDragSourceHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeFromBitmap : IntPtr
+        InitializeFromWindow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromBitmap", "InitializeFromWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDragSourceHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the drag-image manager for a windowless control.
@@ -64,7 +77,7 @@ class IDragSourceHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefrombitmap
      */
     InitializeFromBitmap(pshdi, pDataObject) {
-        result := ComCall(3, this, "ptr", pshdi, "ptr", pDataObject, "HRESULT")
+        result := ComCall(3, this, SHDRAGIMAGE.Ptr, pshdi, "ptr", pDataObject, "HRESULT")
         return result
     }
 
@@ -87,9 +100,29 @@ class IDragSourceHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefromwindow
      */
     InitializeFromWindow(_hwnd, ppt, pDataObject) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(4, this, "ptr", _hwnd, "ptr", ppt, "ptr", pDataObject, "HRESULT")
+        result := ComCall(4, this, HWND, _hwnd, POINT.Ptr, ppt, "ptr", pDataObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDragSourceHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromBitmap := CallbackCreate(GetMethod(implObj, "InitializeFromBitmap"), flags, 3)
+        this.vtbl.InitializeFromWindow := CallbackCreate(GetMethod(implObj, "InitializeFromWindow"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromBitmap)
+        CallbackFree(this.vtbl.InitializeFromWindow)
     }
 }

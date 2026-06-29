@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WER_REPORT_PARAMETER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WER_REPORT_PARAMETER.ahk" { WER_REPORT_PARAMETER }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
  */
-class WER_REPORT_SIGNATURE extends Win32Struct {
-    static sizeof => 7910
+export default struct WER_REPORT_SIGNATURE {
+    #StructPack 2
 
-    static packingSize => 2
+    EventName : WCHAR[65]
 
-    /**
-     * @type {String}
-     */
-    EventName {
-        get => StrGet(this.ptr + 0, 64, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 64, "UTF-16")
-    }
+    Parameters : WER_REPORT_PARAMETER[10]
 
-    /**
-     * @type {WER_REPORT_PARAMETER}
-     */
-    Parameters {
-        get {
-            if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 130, 10, WER_REPORT_PARAMETER, "")
-            return this.__ParametersProxyArray
-        }
-    }
 }

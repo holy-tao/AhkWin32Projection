@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
- * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-osupdateassessment
  * @namespace Windows.Win32.UI.Shell
  */
-class OS extends Win32Enum {
+export default struct OS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BUSNUMBER_RANGE structure specifies a resource requirements list that describes bus number usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-busnumber_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class BUSNUMBER_RANGE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct BUSNUMBER_RANGE {
+    #StructPack 4
 
     /**
      * The lowest-numbered of a range of contiguous bus numbers that can be allocated to the device.
-     * @type {Integer}
      */
-    BUSR_Min {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BUSR_Min : UInt32
 
     /**
      * The highest-numbered of a range of contiguous bus numbers that can be allocated to the device.
-     * @type {Integer}
      */
-    BUSR_Max {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BUSR_Max : UInt32
 
     /**
      * The number of contiguous bus numbers required by the device.
-     * @type {Integer}
      */
-    BUSR_nBusNumbers {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BUSR_nBusNumbers : UInt32
 
     /**
      * <i>Not used.</i>
-     * @type {Integer}
      */
-    BUSR_Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BUSR_Flags : UInt32
+
 }

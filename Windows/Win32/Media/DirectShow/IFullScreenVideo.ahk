@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * The IFullScreenVideoEx interface is implemented on the Full Screen Renderer filter, which provides full-screen video rendering on older hardware.
- * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-ifullscreenvideoex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFullScreenVideo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFullScreenVideo extends IUnknown {
     /**
      * The interface identifier for IFullScreenVideo
      * @type {Guid}
      */
-    static IID => Guid("{dd1d7110-7836-11cf-bf47-00aa0055595a}")
+    static IID := Guid("{dd1d7110-7836-11cf-bf47-00aa0055595a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFullScreenVideo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CountModes         : IntPtr
+        GetModeInfo        : IntPtr
+        GetCurrentMode     : IntPtr
+        IsModeAvailable    : IntPtr
+        IsModeEnabled      : IntPtr
+        SetEnabled         : IntPtr
+        GetClipFactor      : IntPtr
+        SetClipFactor      : IntPtr
+        SetMessageDrain    : IntPtr
+        GetMessageDrain    : IntPtr
+        SetMonitor         : IntPtr
+        GetMonitor         : IntPtr
+        HideOnDeactivate   : IntPtr
+        IsHideOnDeactivate : IntPtr
+        SetCaption         : IntPtr
+        GetCaption         : IntPtr
+        SetDefault         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CountModes", "GetModeInfo", "GetCurrentMode", "IsModeAvailable", "IsModeEnabled", "SetEnabled", "GetClipFactor", "SetClipFactor", "SetMessageDrain", "GetMessageDrain", "SetMonitor", "GetMonitor", "HideOnDeactivate", "IsHideOnDeactivate", "SetCaption", "GetCaption", "SetDefault"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFullScreenVideo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -87,81 +109,10 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * Enables one or more Unicode point ranges on the context.
-     * @remarks
-     * The <b>SetEnabledUnicodeRanges</b> function is optional.
      * 
-     * Some recognizers do not support enabling and disabling specific code points, but may still include the <b>SetEnabledUnicodeRanges</b> function. For such recognizers, the <b>SetEnabledUnicodeRanges</b> function returns E_NOTIMPL.
-     * 
-     * Each recognizer supports one or more Unicode point ranges. To determine which Unicode point ranges the recognizer supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function. If you do not call this function, the recognizer uses a default set of Unicode point ranges. The default ranges are recognizer specific.
-     * 
-     * The Microsoft gesture recognizer uses Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
      * @param {Integer} _Mode 
      * @param {Integer} bEnabled 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_S_TRUNCATED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support one of the specified Unicode point ranges.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setenabledunicoderanges
+     * @returns {HRESULT} 
      */
     SetEnabled(_Mode, bEnabled) {
         result := ComCall(8, this, "int", _Mode, "int", bEnabled, "HRESULT")
@@ -193,9 +144,7 @@ class IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMessageDrain(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(11, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(11, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -205,23 +154,14 @@ class IFullScreenVideo extends IUnknown {
      */
     GetMessageDrain() {
         _hwnd := HWND()
-        result := ComCall(12, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(12, this, HWND.Ptr, _hwnd, "HRESULT")
         return _hwnd
     }
 
     /**
-     * Sets a monitor's brightness value.
-     * @remarks
-     * If this function is supported, the <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a> function returns the MC_CAPS_BRIGHTNESS flag.
-     *       
      * 
-     * This function takes about 50 milliseconds to return.
-     *       
-     * 
-     * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
      * @param {Integer} _Monitor 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorbrightness
+     * @returns {HRESULT} 
      */
     SetMonitor(_Monitor) {
         result := ComCall(13, this, "int", _Monitor, "HRESULT")
@@ -229,17 +169,8 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * Retrieves a monitor's minimum, maximum, and current brightness settings.
-     * @remarks
-     * If this function is supported, the <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a> function returns the MC_CAPS_BRIGHTNESS flag.
-     *       
      * 
-     * This function takes about 40 milliseconds to return.
-     *       
-     * 
-     * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
      */
     GetMonitor() {
         result := ComCall(14, this, "int*", &_Monitor := 0, "HRESULT")
@@ -273,7 +204,7 @@ class IFullScreenVideo extends IUnknown {
     SetCaption(strCaption) {
         strCaption := strCaption is String ? BSTR.Alloc(strCaption).Value : strCaption
 
-        result := ComCall(17, this, "ptr", strCaption, "HRESULT")
+        result := ComCall(17, this, BSTR, strCaption, "HRESULT")
         return result
     }
 
@@ -282,24 +213,69 @@ class IFullScreenVideo extends IUnknown {
      * @returns {BSTR} 
      */
     GetCaption() {
-        pstrCaption := BSTR()
-        result := ComCall(18, this, "ptr", pstrCaption, "HRESULT")
+        pstrCaption := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pstrCaption, "HRESULT")
         return pstrCaption
     }
 
     /**
-     * Sets the default configuration for a communications device. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdefaultcommconfigw
+     * @returns {HRESULT} 
      */
     SetDefault() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFullScreenVideo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CountModes := CallbackCreate(GetMethod(implObj, "CountModes"), flags, 2)
+        this.vtbl.GetModeInfo := CallbackCreate(GetMethod(implObj, "GetModeInfo"), flags, 5)
+        this.vtbl.GetCurrentMode := CallbackCreate(GetMethod(implObj, "GetCurrentMode"), flags, 2)
+        this.vtbl.IsModeAvailable := CallbackCreate(GetMethod(implObj, "IsModeAvailable"), flags, 2)
+        this.vtbl.IsModeEnabled := CallbackCreate(GetMethod(implObj, "IsModeEnabled"), flags, 2)
+        this.vtbl.SetEnabled := CallbackCreate(GetMethod(implObj, "SetEnabled"), flags, 3)
+        this.vtbl.GetClipFactor := CallbackCreate(GetMethod(implObj, "GetClipFactor"), flags, 2)
+        this.vtbl.SetClipFactor := CallbackCreate(GetMethod(implObj, "SetClipFactor"), flags, 2)
+        this.vtbl.SetMessageDrain := CallbackCreate(GetMethod(implObj, "SetMessageDrain"), flags, 2)
+        this.vtbl.GetMessageDrain := CallbackCreate(GetMethod(implObj, "GetMessageDrain"), flags, 2)
+        this.vtbl.SetMonitor := CallbackCreate(GetMethod(implObj, "SetMonitor"), flags, 2)
+        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
+        this.vtbl.HideOnDeactivate := CallbackCreate(GetMethod(implObj, "HideOnDeactivate"), flags, 2)
+        this.vtbl.IsHideOnDeactivate := CallbackCreate(GetMethod(implObj, "IsHideOnDeactivate"), flags, 1)
+        this.vtbl.SetCaption := CallbackCreate(GetMethod(implObj, "SetCaption"), flags, 2)
+        this.vtbl.GetCaption := CallbackCreate(GetMethod(implObj, "GetCaption"), flags, 2)
+        this.vtbl.SetDefault := CallbackCreate(GetMethod(implObj, "SetDefault"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CountModes)
+        CallbackFree(this.vtbl.GetModeInfo)
+        CallbackFree(this.vtbl.GetCurrentMode)
+        CallbackFree(this.vtbl.IsModeAvailable)
+        CallbackFree(this.vtbl.IsModeEnabled)
+        CallbackFree(this.vtbl.SetEnabled)
+        CallbackFree(this.vtbl.GetClipFactor)
+        CallbackFree(this.vtbl.SetClipFactor)
+        CallbackFree(this.vtbl.SetMessageDrain)
+        CallbackFree(this.vtbl.GetMessageDrain)
+        CallbackFree(this.vtbl.SetMonitor)
+        CallbackFree(this.vtbl.GetMonitor)
+        CallbackFree(this.vtbl.HideOnDeactivate)
+        CallbackFree(this.vtbl.IsHideOnDeactivate)
+        CallbackFree(this.vtbl.SetCaption)
+        CallbackFree(this.vtbl.GetCaption)
+        CallbackFree(this.vtbl.SetDefault)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * These flags are used with IExplorerBrowser::GetOptions and IExplorerBrowser::SetOptions.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options
  * @namespace Windows.Win32.UI.Shell
  */
-class EXPLORER_BROWSER_OPTIONS extends Win32BitflagEnum {
+export default struct EXPLORER_BROWSER_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No options.

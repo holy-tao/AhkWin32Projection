@@ -1,32 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class IPicture2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPicture2 extends IUnknown {
     /**
      * The interface identifier for IPicture2
      * @type {Guid}
      */
-    static IID => Guid("{f5185dd8-2012-4b0b-aad9-f052c6bd482b}")
+    static IID := Guid("{f5185dd8-2012-4b0b-aad9-f052c6bd482b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPicture2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Handle             : IntPtr
+        get_hPal               : IntPtr
+        get_Type               : IntPtr
+        get_Width              : IntPtr
+        get_Height             : IntPtr
+        Render                 : IntPtr
+        set_hPal               : IntPtr
+        get_CurDC              : IntPtr
+        SelectPicture          : IntPtr
+        get_KeepOriginalFormat : IntPtr
+        put_KeepOriginalFormat : IntPtr
+        PictureChanged         : IntPtr
+        SaveAsFile             : IntPtr
+        get_Attributes         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Handle", "get_hPal", "get_Type", "get_Width", "get_Height", "Render", "set_hPal", "get_CurDC", "SelectPicture", "get_KeepOriginalFormat", "put_KeepOriginalFormat", "PictureChanged", "SaveAsFile", "get_Attributes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPicture2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer} 
@@ -165,9 +189,7 @@ class IPicture2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/render-method
      */
     Render(_hDC, x, y, cx, _cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
-        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
-
-        result := ComCall(8, this, "ptr", _hDC, "int", x, "int", y, "int", cx, "int", _cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "HRESULT")
+        result := ComCall(8, this, HDC, _hDC, "int", x, "int", y, "int", cx, "int", _cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, RECT.Ptr, pRcWBounds, "HRESULT")
         return result
     }
 
@@ -187,7 +209,7 @@ class IPicture2 extends IUnknown {
      */
     get_CurDC() {
         phDC := HDC()
-        result := ComCall(10, this, "ptr", phDC, "HRESULT")
+        result := ComCall(10, this, HDC.Ptr, phDC, "HRESULT")
         return phDC
     }
 
@@ -199,11 +221,9 @@ class IPicture2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SelectPicture(hDCIn, phDCOut, phBmpOut) {
-        hDCIn := hDCIn is Win32Handle ? NumGet(hDCIn, "ptr") : hDCIn
-
         phBmpOutMarshal := phBmpOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", hDCIn, "ptr", phDCOut, phBmpOutMarshal, phBmpOut, "HRESULT")
+        result := ComCall(11, this, HDC, hDCIn, HDC.Ptr, phDCOut, phBmpOutMarshal, phBmpOut, "HRESULT")
         return result
     }
 
@@ -212,7 +232,7 @@ class IPicture2 extends IUnknown {
      * @returns {BOOL} 
      */
     get_KeepOriginalFormat() {
-        result := ComCall(12, this, "int*", &pKeep := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pKeep := 0, "HRESULT")
         return pKeep
     }
 
@@ -222,7 +242,7 @@ class IPicture2 extends IUnknown {
      * @returns {HRESULT} 
      */
     put_KeepOriginalFormat(keep) {
-        result := ComCall(13, this, "int", keep, "HRESULT")
+        result := ComCall(13, this, BOOL, keep, "HRESULT")
         return result
     }
 
@@ -242,7 +262,7 @@ class IPicture2 extends IUnknown {
      * @returns {Integer} 
      */
     SaveAsFile(pStream, fSaveMemCopy) {
-        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", &pCbSize := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pStream, BOOL, fSaveMemCopy, "int*", &pCbSize := 0, "HRESULT")
         return pCbSize
     }
 
@@ -253,5 +273,51 @@ class IPicture2 extends IUnknown {
     get_Attributes() {
         result := ComCall(16, this, "uint*", &pDwAttr := 0, "HRESULT")
         return pDwAttr
+    }
+
+    Query(iid) {
+        if (IPicture2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_hPal := CallbackCreate(GetMethod(implObj, "get_hPal"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 11)
+        this.vtbl.set_hPal := CallbackCreate(GetMethod(implObj, "set_hPal"), flags, 2)
+        this.vtbl.get_CurDC := CallbackCreate(GetMethod(implObj, "get_CurDC"), flags, 2)
+        this.vtbl.SelectPicture := CallbackCreate(GetMethod(implObj, "SelectPicture"), flags, 4)
+        this.vtbl.get_KeepOriginalFormat := CallbackCreate(GetMethod(implObj, "get_KeepOriginalFormat"), flags, 2)
+        this.vtbl.put_KeepOriginalFormat := CallbackCreate(GetMethod(implObj, "put_KeepOriginalFormat"), flags, 2)
+        this.vtbl.PictureChanged := CallbackCreate(GetMethod(implObj, "PictureChanged"), flags, 1)
+        this.vtbl.SaveAsFile := CallbackCreate(GetMethod(implObj, "SaveAsFile"), flags, 4)
+        this.vtbl.get_Attributes := CallbackCreate(GetMethod(implObj, "get_Attributes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.get_hPal)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.Render)
+        CallbackFree(this.vtbl.set_hPal)
+        CallbackFree(this.vtbl.get_CurDC)
+        CallbackFree(this.vtbl.SelectPicture)
+        CallbackFree(this.vtbl.get_KeepOriginalFormat)
+        CallbackFree(this.vtbl.put_KeepOriginalFormat)
+        CallbackFree(this.vtbl.PictureChanged)
+        CallbackFree(this.vtbl.SaveAsFile)
+        CallbackFree(this.vtbl.get_Attributes)
     }
 }

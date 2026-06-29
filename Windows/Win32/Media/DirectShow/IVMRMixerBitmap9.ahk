@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VMR9AlphaBitmap.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VMR9AlphaBitmap.ahk" { VMR9AlphaBitmap }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRMixerBitmap9 interface enables an application to blend a static image from a bitmap or Direct3D surface onto the video stream, when using the Video Mixing Renderer Filter 9 (VMR-9).You can pass images to the VMR as frequently as you like, but changing the image several times per second may impact the performance and smoothness of the video being rendered. The new image will be blended with the next and all subsequent video frames rendered by the VMR.Internally, the VMR uses its mixer component to perform the blending operation. In the VMR-9, the mixer is always present by default except in &#0034;renderless&#0034; mode in which the application is performing its own rendering. The image can contain embedded per pixel alpha information; this allows the image to contain regions that are transparent. Transparent areas can also be identified by a color key value. Changes in the image are only shown on the screen while the filter graph is running.
@@ -11,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrmixerbitmap9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRMixerBitmap9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRMixerBitmap9 extends IUnknown {
     /**
      * The interface identifier for IVMRMixerBitmap9
      * @type {Guid}
      */
-    static IID => Guid("{ced175e5-1935-4820-81bd-ff6ad00c9108}")
+    static IID := Guid("{ced175e5-1935-4820-81bd-ff6ad00c9108}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRMixerBitmap9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAlphaBitmap              : IntPtr
+        UpdateAlphaBitmapParameters : IntPtr
+        GetAlphaBitmapParameters    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAlphaBitmap", "UpdateAlphaBitmapParameters", "GetAlphaBitmapParameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRMixerBitmap9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAlphaBitmap method specifies a new bitmap image and the source location of the bitmap and how and where it should be rendered on the destination rectangle.
@@ -119,7 +129,7 @@ class IVMRMixerBitmap9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
-        result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
+        result := ComCall(3, this, VMR9AlphaBitmap.Ptr, pBmpParms, "HRESULT")
         return result
     }
 
@@ -152,7 +162,7 @@ class IVMRMixerBitmap9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
-        result := ComCall(4, this, "ptr", pBmpParms, "HRESULT")
+        result := ComCall(4, this, VMR9AlphaBitmap.Ptr, pBmpParms, "HRESULT")
         return result
     }
 
@@ -165,7 +175,31 @@ class IVMRMixerBitmap9 extends IUnknown {
      */
     GetAlphaBitmapParameters() {
         pBmpParms := VMR9AlphaBitmap()
-        result := ComCall(5, this, "ptr", pBmpParms, "HRESULT")
+        result := ComCall(5, this, VMR9AlphaBitmap.Ptr, pBmpParms, "HRESULT")
         return pBmpParms
+    }
+
+    Query(iid) {
+        if (IVMRMixerBitmap9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAlphaBitmap := CallbackCreate(GetMethod(implObj, "SetAlphaBitmap"), flags, 2)
+        this.vtbl.UpdateAlphaBitmapParameters := CallbackCreate(GetMethod(implObj, "UpdateAlphaBitmapParameters"), flags, 2)
+        this.vtbl.GetAlphaBitmapParameters := CallbackCreate(GetMethod(implObj, "GetAlphaBitmapParameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAlphaBitmap)
+        CallbackFree(this.vtbl.UpdateAlphaBitmapParameters)
+        CallbackFree(this.vtbl.GetAlphaBitmapParameters)
     }
 }

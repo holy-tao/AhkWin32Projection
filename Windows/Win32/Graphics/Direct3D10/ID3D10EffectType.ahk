@@ -1,6 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_EFFECT_TYPE_DESC.ahk" { D3D10_EFFECT_TYPE_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The ID3D10EffectType interface accesses effect variables by type.
@@ -9,26 +13,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effecttype
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectType extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectType extends Win32ComInterface {
     /**
      * The interface identifier for ID3D10EffectType
      * @type {Guid}
      */
-    static IID => Guid("{4e9e1ddc-cd9d-4772-a837-00180b9b88fd}")
+    static IID := Guid("{4e9e1ddc-cd9d-4772-a837-00180b9b88fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectType interfaces
+    */
+    struct Vtbl {
+        IsValid                 : IntPtr
+        GetDesc                 : IntPtr
+        GetMemberTypeByIndex    : IntPtr
+        GetMemberTypeByName     : IntPtr
+        GetMemberTypeBySemantic : IntPtr
+        GetMemberName           : IntPtr
+        GetMemberSemantic       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsValid", "GetDesc", "GetMemberTypeByIndex", "GetMemberTypeByName", "GetMemberTypeBySemantic", "GetMemberName", "GetMemberSemantic"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Tests that the effect type is valid.
@@ -38,7 +55,7 @@ class ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-isvalid
      */
     IsValid() {
-        result := ComCall(0, this, "int")
+        result := ComCall(0, this, BOOL)
         return result
     }
 
@@ -55,7 +72,7 @@ class ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getdesc
      */
     GetDesc(pDesc) {
-        result := ComCall(1, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(1, this, D3D10_EFFECT_TYPE_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -70,7 +87,7 @@ class ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembertypebyindex
      */
     GetMemberTypeByIndex(Index) {
-        result := ComCall(2, this, "uint", Index, "ptr")
+        result := ComCall(2, this, "uint", Index, ID3D10EffectType)
         return result
     }
 
@@ -87,7 +104,7 @@ class ID3D10EffectType extends Win32ComInterface {
     GetMemberTypeByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(3, this, "ptr", Name, "ptr")
+        result := ComCall(3, this, "ptr", Name, ID3D10EffectType)
         return result
     }
 
@@ -104,7 +121,7 @@ class ID3D10EffectType extends Win32ComInterface {
     GetMemberTypeBySemantic(Semantic) {
         Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
 
-        result := ComCall(4, this, "ptr", Semantic, "ptr")
+        result := ComCall(4, this, "ptr", Semantic, ID3D10EffectType)
         return result
     }
 
@@ -119,7 +136,7 @@ class ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembername
      */
     GetMemberName(Index) {
-        result := ComCall(5, this, "uint", Index, "ptr")
+        result := ComCall(5, this, "uint", Index, PSTR)
         return result
     }
 
@@ -134,7 +151,14 @@ class ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembersemantic
      */
     GetMemberSemantic(Index) {
-        result := ComCall(6, this, "uint", Index, "ptr")
+        result := ComCall(6, this, "uint", Index, PSTR)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10EffectType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

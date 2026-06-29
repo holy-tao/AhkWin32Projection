@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11EXT_IHV_CONNECTIVITY_PROFILE.ahk
-#Include .\DOT11EXT_IHV_SECURITY_PROFILE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11EXT_IHV_SECURITY_PROFILE.ahk" { DOT11EXT_IHV_SECURITY_PROFILE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11EXT_IHV_CONNECTIVITY_PROFILE.ahk" { DOT11EXT_IHV_CONNECTIVITY_PROFILE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11EXT_IHV_DISCOVERY_PROFILE extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11EXT_IHV_DISCOVERY_PROFILE {
+    #StructPack 8
 
-    static packingSize => 8
+    IhvConnectivityProfile : DOT11EXT_IHV_CONNECTIVITY_PROFILE
 
-    /**
-     * @type {DOT11EXT_IHV_CONNECTIVITY_PROFILE}
-     */
-    IhvConnectivityProfile {
-        get {
-            if(!this.HasProp("__IhvConnectivityProfile"))
-                this.__IhvConnectivityProfile := DOT11EXT_IHV_CONNECTIVITY_PROFILE(0, this)
-            return this.__IhvConnectivityProfile
-        }
-    }
+    IhvSecurityProfile : DOT11EXT_IHV_SECURITY_PROFILE
 
-    /**
-     * @type {DOT11EXT_IHV_SECURITY_PROFILE}
-     */
-    IhvSecurityProfile {
-        get {
-            if(!this.HasProp("__IhvSecurityProfile"))
-                this.__IhvSecurityProfile := DOT11EXT_IHV_SECURITY_PROFILE(8, this)
-            return this.__IhvSecurityProfile
-        }
-    }
 }

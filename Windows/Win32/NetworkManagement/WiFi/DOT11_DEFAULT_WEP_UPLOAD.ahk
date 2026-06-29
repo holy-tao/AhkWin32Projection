@@ -1,71 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_OFFLOAD_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DOT11_IV48_COUNTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DOT11_OFFLOAD_TYPE.ahk" { DOT11_OFFLOAD_TYPE }
+#Import ".\DOT11_IV48_COUNTER.ahk" { DOT11_IV48_COUNTER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_DEFAULT_WEP_UPLOAD extends Win32Struct {
-    static sizeof => 184
+export default struct DOT11_DEFAULT_WEP_UPLOAD {
+    #StructPack 8
 
-    static packingSize => 8
+    uReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dot11OffloadType : DOT11_OFFLOAD_TYPE
 
-    /**
-     * @type {DOT11_OFFLOAD_TYPE}
-     */
-    dot11OffloadType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    hOffload : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hOffload {
-        get {
-            if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(8, this)
-            return this.__hOffload
-        }
-    }
+    uNumOfRWsUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfRWsUsed {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dot11IV48Counters : DOT11_IV48_COUNTER[16]
 
-    /**
-     * @type {DOT11_IV48_COUNTER}
-     */
-    dot11IV48Counters {
-        get {
-            if(!this.HasProp("__dot11IV48CountersProxyArray"))
-                this.__dot11IV48CountersProxyArray := Win32FixedArray(this.ptr + 20, 16, DOT11_IV48_COUNTER, "")
-            return this.__dot11IV48CountersProxyArray
-        }
-    }
+    usDot11RWBitMaps : UInt16[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    usDot11RWBitMaps {
-        get {
-            if(!this.HasProp("__usDot11RWBitMapsProxyArray"))
-                this.__usDot11RWBitMapsProxyArray := Win32FixedArray(this.ptr + 148, 16, Primitive, "ushort")
-            return this.__usDot11RWBitMapsProxyArray
-        }
-    }
 }

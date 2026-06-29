@@ -1,57 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class KERNEL_CET_CONTEXT extends Win32Struct {
-    static sizeof => 24
+export default struct KERNEL_CET_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    Ssp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Ssp {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Rip : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rip {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SegCs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SegCs {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    AllFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AllFlags {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - UseWrss
-     * - PopShadowStackOne
-     * - Unused
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
 
     /**
      * @type {Integer}
@@ -76,15 +38,10 @@ class KERNEL_CET_CONTEXT extends Win32Struct {
         get => (this._bitfield >> 2) & 0x3FFF
         set => this._bitfield := ((value & 0x3FFF) << 2) | (this._bitfield & ~(0x3FFF << 2))
     }
+    Fill : UInt16[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Fill {
-        get {
-            if(!this.HasProp("__FillProxyArray"))
-                this.__FillProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "ushort")
-            return this.__FillProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int16, offset: 18 })
+        this.DeleteProp("__New")
     }
 }

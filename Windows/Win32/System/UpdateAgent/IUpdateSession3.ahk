@@ -1,35 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateSession2.ahk
-#Include .\IUpdateServiceManager2.ahk
-#Include .\IUpdateHistoryEntryCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUpdateSession2.ahk" { IUpdateSession2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateServiceManager2.ahk" { IUpdateServiceManager2 }
+#Import ".\IUpdateHistoryEntryCollection.ahk" { IUpdateHistoryEntryCollection }
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession3)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesession3
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateSession3 extends IUpdateSession2 {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateSession3 extends IUpdateSession2 {
     /**
      * The interface identifier for IUpdateSession3
      * @type {Guid}
      */
-    static IID => Guid("{918efd1e-b5d8-4c90-8540-aeb9bdc56f9d}")
+    static IID := Guid("{918efd1e-b5d8-4c90-8540-aeb9bdc56f9d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateSession3 interfaces
+    */
+    struct Vtbl extends IUpdateSession2.Vtbl {
+        CreateUpdateServiceManager : IntPtr
+        QueryHistory               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateUpdateServiceManager", "QueryHistory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateSession3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns a pointer to an IUpdateServiceManager2 interface for the session.
@@ -82,7 +92,29 @@ class IUpdateSession3 extends IUpdateSession2 {
     QueryHistory(criteria, startIndex, count) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(18, this, "ptr", criteria, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, criteria, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
         return IUpdateHistoryEntryCollection(retval)
+    }
+
+    Query(iid) {
+        if (IUpdateSession3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateUpdateServiceManager := CallbackCreate(GetMethod(implObj, "CreateUpdateServiceManager"), flags, 2)
+        this.vtbl.QueryHistory := CallbackCreate(GetMethod(implObj, "QueryHistory"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateUpdateServiceManager)
+        CallbackFree(this.vtbl.QueryHistory)
     }
 }

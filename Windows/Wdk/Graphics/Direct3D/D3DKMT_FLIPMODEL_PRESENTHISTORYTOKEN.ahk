@@ -1,297 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
-#Include .\D3DDDI_ROTATION.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DDDI_HDR_METADATA_TYPE.ahk
-#Include .\D3DDDI_COLOR_SPACE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DDDI_FLIPINTERVAL_TYPE.ahk" { D3DDDI_FLIPINTERVAL_TYPE }
+#Import ".\D3DDDI_HDR_METADATA_TYPE.ahk" { D3DDDI_HDR_METADATA_TYPE }
+#Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
+#Import ".\D3DDDI_COLOR_SPACE_TYPE.ahk" { D3DDDI_COLOR_SPACE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct {
-    static sizeof => 240
+export default struct D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN {
+    #StructPack 8
 
-    static packingSize => 8
+    FenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FenceValue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hLogicalSurface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hLogicalSurface {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dxgContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dxgContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SwapChainIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SwapChainIndex {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PresentLimitSemaphoreId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PresentLimitSemaphoreId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    FlipInterval : D3DDDI_FLIPINTERVAL_TYPE
 
-    /**
-     * @type {D3DDDI_FLIPINTERVAL_TYPE}
-     */
-    FlipInterval {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    hCompSurf : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hCompSurf {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
-    }
+    compSurfLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    compSurfLuid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    confirmationCookie : Int64
 
-    /**
-     * @type {Integer}
-     */
-    confirmationCookie {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    CompositionSyncKey : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CompositionSyncKey {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    RemainingTokens : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RemainingTokens {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ScrollRect : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ScrollRect {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    ScrollOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ScrollOffset {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    PresentCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PresentCount {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    RevealColor : Float32[4]
 
-    /**
-     * @type {Array<Float>}
-     */
-    RevealColor {
-        get {
-            if(!this.HasProp("__RevealColorProxyArray"))
-                this.__RevealColorProxyArray := Win32FixedArray(this.ptr + 116, 4, Primitive, "float")
-            return this.__RevealColorProxyArray
-        }
-    }
+    Rotation : D3DDDI_ROTATION
 
-    /**
-     * @type {D3DDDI_ROTATION}
-     */
-    Rotation {
-        get => NumGet(this, 132, "int")
-        set => NumPut("int", value, this, 132)
-    }
+    ScatterBlts : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ScatterBlts {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    HDRMetaDataType : D3DDDI_HDR_METADATA_TYPE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSyncObject {
-        get {
-            if(!this.HasProp("__hSyncObject"))
-                this.__hSyncObject := HANDLE(136, this)
-            return this.__hSyncObject
-        }
-    }
+    HDRMetaDataHDR10 : IntPtr
 
-    /**
-     * @type {D3DDDI_HDR_METADATA_TYPE}
-     */
-    HDRMetaDataType {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
-    }
+    InkCookie : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    HDRMetaDataHDR10 {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    SourceRect : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    HDRMetaDataHDR10Plus {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    DestWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InkCookie {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    DestHeight : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    SourceRect {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    TargetRect : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    DestWidth {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    Transform : Float32[6]
 
-    /**
-     * @type {Integer}
-     */
-    DestHeight {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    CustomDuration : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    TargetRect {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    CustomDurationFlipInterval : D3DDDI_FLIPINTERVAL_TYPE
 
-    /**
-     * @type {Array<Float>}
-     */
-    Transform {
-        get {
-            if(!this.HasProp("__TransformProxyArray"))
-                this.__TransformProxyArray := Win32FixedArray(this.ptr + 192, 6, Primitive, "float")
-            return this.__TransformProxyArray
-        }
-    }
+    PlaneIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CustomDuration {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    ColorSpace : D3DDDI_COLOR_SPACE_TYPE
 
-    /**
-     * @type {D3DDDI_FLIPINTERVAL_TYPE}
-     */
-    CustomDurationFlipInterval {
-        get => NumGet(this, 220, "int")
-        set => NumPut("int", value, this, 220)
-    }
+    DirtyRegions : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    PlaneIndex {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
-
-    /**
-     * @type {D3DDDI_COLOR_SPACE_TYPE}
-     */
-    ColorSpace {
-        get => NumGet(this, 228, "int")
-        set => NumPut("int", value, this, 228)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    DirtyRegions {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+    static __New() {
+        DefineProp(this.Prototype, 'hSyncObject', { type: HANDLE, offset: 136 })
+        DefineProp(this.Prototype, 'HDRMetaDataHDR10Plus', { type: IntPtr, offset: 152 })
+        this.DeleteProp("__New")
     }
 }

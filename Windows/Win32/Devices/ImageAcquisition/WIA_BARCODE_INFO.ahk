@@ -1,83 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_BARCODE_INFO extends Win32Struct {
-    static sizeof => 36
+export default struct WIA_BARCODE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Page : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Page {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Confidence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Confidence {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    XOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    XOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    YOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    YOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Rotation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Rotation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Text : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Text {
-        get => StrGet(this.ptr + 32, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 0, "UTF-16")
-    }
 }

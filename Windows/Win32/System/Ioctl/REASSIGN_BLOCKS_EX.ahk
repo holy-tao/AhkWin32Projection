@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains disk block reassignment data. (REASSIGN_BLOCKS_EX)
@@ -12,41 +11,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks_ex
  * @namespace Windows.Win32.System.Ioctl
  */
-class REASSIGN_BLOCKS_EX extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct REASSIGN_BLOCKS_EX {
+    #StructPack 8
 
     /**
      * This member is reserved. Do not use it. Set it to 0 (zero).
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
     /**
      * The number of blocks to be reassigned. 
      * 
      * This is the number of elements that are in the 
      *       <b>BlockNumber</b> member array.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Count : UInt16
 
     /**
      * An array of <b>Count</b> block numbers, one for each block to be reassigned.
-     * @type {Array<Integer>}
      */
-    BlockNumber {
-        get {
-            if(!this.HasProp("__BlockNumberProxyArray"))
-                this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "int64")
-            return this.__BlockNumberProxyArray
-        }
-    }
+    BlockNumber : Int64[1]
+
 }

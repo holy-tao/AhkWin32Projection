@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsiItem.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsiItem.ahk" { IFsiItem }
 
 /**
  * Use this interface to identify the file size and data stream of the file contents.
@@ -13,32 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsifileitem
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFsiFileItem extends IFsiItem {
-
-    static sizeof => A_PtrSize
+export default struct IFsiFileItem extends IFsiItem {
     /**
      * The interface identifier for IFsiFileItem
      * @type {Guid}
      */
-    static IID => Guid("{2c941fdb-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fdb-975b-59be-a960-9a2a262853a5}")
 
     /**
      * The class identifier for FsiFileItem
      * @type {Guid}
      */
-    static CLSID => Guid("{2c941fc7-975b-59be-a960-9a2a262853a5}")
+    static CLSID := Guid("{2c941fc7-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsiFileItem interfaces
+    */
+    struct Vtbl extends IFsiItem.Vtbl {
+        get_DataSize          : IntPtr
+        get_DataSize32BitLow  : IntPtr
+        get_DataSize32BitHigh : IntPtr
+        get_Data              : IntPtr
+        put_Data              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DataSize", "get_DataSize32BitLow", "get_DataSize32BitHigh", "get_Data", "put_Data"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsiFileItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -159,5 +171,33 @@ class IFsiFileItem extends IFsiItem {
     put_Data(newVal) {
         result := ComCall(23, this, "ptr", newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsiFileItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DataSize := CallbackCreate(GetMethod(implObj, "get_DataSize"), flags, 2)
+        this.vtbl.get_DataSize32BitLow := CallbackCreate(GetMethod(implObj, "get_DataSize32BitLow"), flags, 2)
+        this.vtbl.get_DataSize32BitHigh := CallbackCreate(GetMethod(implObj, "get_DataSize32BitHigh"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DataSize)
+        CallbackFree(this.vtbl.get_DataSize32BitLow)
+        CallbackFree(this.vtbl.get_DataSize32BitHigh)
+        CallbackFree(this.vtbl.get_Data)
+        CallbackFree(this.vtbl.put_Data)
     }
 }

@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets and sets the numeric value (Code Page identifier) of the ANSI code page.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iquerycodepage
  * @namespace Windows.Win32.UI.Shell
  */
-class IQueryCodePage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IQueryCodePage extends IUnknown {
     /**
      * The interface identifier for IQueryCodePage
      * @type {Guid}
      */
-    static IID => Guid("{c7b236ce-ee80-11d0-985f-006008059382}")
+    static IID := Guid("{c7b236ce-ee80-11d0-985f-006008059382}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryCodePage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCodePage : IntPtr
+        SetCodePage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCodePage", "SetCodePage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryCodePage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the numeric value (Code Page identifier) of the ANSI code page.
@@ -54,5 +63,27 @@ class IQueryCodePage extends IUnknown {
     SetCodePage(uiCodePage) {
         result := ComCall(4, this, "uint", uiCodePage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IQueryCodePage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCodePage := CallbackCreate(GetMethod(implObj, "GetCodePage"), flags, 2)
+        this.vtbl.SetCodePage := CallbackCreate(GetMethod(implObj, "SetCodePage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCodePage)
+        CallbackFree(this.vtbl.SetCodePage)
     }
 }

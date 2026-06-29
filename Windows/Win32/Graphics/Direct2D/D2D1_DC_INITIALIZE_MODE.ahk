@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how a device context is initialized for GDI rendering when it is retrieved from the render target.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dc_initialize_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_DC_INITIALIZE_MODE extends Win32Enum {
+export default struct D2D1_DC_INITIALIZE_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The current contents of the render target are copied to the device context when it is initialized.

@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * Identifies an object type element in a hierarchy of object types.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-object_type_list
  * @namespace Windows.Win32.Security
  */
-class OBJECT_TYPE_LIST extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct OBJECT_TYPE_LIST {
+    #StructPack 8
 
     /**
      * Specifies the level of the object type in the hierarchy of an object and its subobjects. Level zero indicates the object itself. Level one indicates a subobject of the object, such as a property set. Level two indicates a subobject of the level one subobject, such as a property. There can be a maximum of five levels numbered zero through four. 
@@ -55,28 +53,17 @@ class OBJECT_TYPE_LIST extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Level {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Level : UInt16
 
     /**
      * Should be zero. Reserved for future use.
-     * @type {Integer}
      */
-    Sbz {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Sbz : UInt16
 
     /**
      * A pointer to the GUID for the object or subobject.
-     * @type {Pointer<Guid>}
      */
-    ObjectType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ObjectType : Guid.Ptr
+
 }

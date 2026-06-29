@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IGPM.ahk
-#Include .\IGPMBackupDirEx.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPM.ahk" { IGPM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMBackupType.ahk" { GPMBackupType }
+#Import ".\IGPMBackupDirEx.ahk" { IGPMBackupDirEx }
 
 /**
  * The IGPM2 interface extends the GPMBackupDir and InitializeReporting methods of the IGPM interface of the Group Policy Management Console (GPMC).
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpm2
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPM2 extends IGPM {
-
-    static sizeof => A_PtrSize
+export default struct IGPM2 extends IGPM {
     /**
      * The interface identifier for IGPM2
      * @type {Guid}
      */
-    static IID => Guid("{00238f8a-3d86-41ac-8f5e-06a6638a634a}")
+    static IID := Guid("{00238f8a-3d86-41ac-8f5e-06a6638a634a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPM2 interfaces
+    */
+    struct Vtbl extends IGPM.Vtbl {
+        GetBackupDirEx        : IntPtr
+        InitializeReportingEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBackupDirEx", "InitializeReportingEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPM2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * For a Group Policy object (GPO), the GetBackupDirEx method creates and returns a GPMBackupDirEx object, which you can use to access a GPMBackup or GPMBackupCollection object.
@@ -40,7 +51,7 @@ class IGPM2 extends IGPM {
     GetBackupDirEx(bstrBackupDir, backupDirType) {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
 
-        result := ComCall(19, this, "ptr", bstrBackupDir, "int", backupDirType, "ptr*", &ppIGPMBackupDirEx := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrBackupDir, GPMBackupType, backupDirType, "ptr*", &ppIGPMBackupDirEx := 0, "HRESULT")
         return IGPMBackupDirEx(ppIGPMBackupDirEx)
     }
 
@@ -58,7 +69,29 @@ class IGPM2 extends IGPM {
     InitializeReportingEx(bstrAdmPath, reportingOptions) {
         bstrAdmPath := bstrAdmPath is String ? BSTR.Alloc(bstrAdmPath).Value : bstrAdmPath
 
-        result := ComCall(20, this, "ptr", bstrAdmPath, "int", reportingOptions, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrAdmPath, "int", reportingOptions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPM2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBackupDirEx := CallbackCreate(GetMethod(implObj, "GetBackupDirEx"), flags, 4)
+        this.vtbl.InitializeReportingEx := CallbackCreate(GetMethod(implObj, "InitializeReportingEx"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBackupDirEx)
+        CallbackFree(this.vtbl.InitializeReportingEx)
     }
 }

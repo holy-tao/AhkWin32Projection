@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DEVICE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DEVICE_FLAGS.ahk" { D3D12_DEVICE_FLAGS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DEVICE_CONFIGURATION_DESC extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_DEVICE_CONFIGURATION_DESC {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : D3D12_DEVICE_FLAGS
 
-    /**
-     * @type {D3D12_DEVICE_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    GpuBasedValidationFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GpuBasedValidationFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SDKVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SDKVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumEnabledExperimentalFeatures : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumEnabledExperimentalFeatures {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

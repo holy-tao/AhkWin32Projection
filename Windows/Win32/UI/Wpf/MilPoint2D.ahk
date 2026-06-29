@@ -1,35 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an x- and y-coordinate pair in two-dimensional space.M
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milpoint2d
  * @namespace Windows.Win32.UI.Wpf
  */
-class MilPoint2D extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MilPoint2D {
+    #StructPack 8
 
     /**
      * Type: <b>DOUBLE</b>
      * 
      * The x-coordinate value of the point.
-     * @type {Float}
      */
-    X {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
+    X : Float64
 
     /**
      * Type: <b>DOUBLE</b>
      * 
      * The y-coordinate value of the point.
-     * @type {Float}
      */
-    Y {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
+    Y : Float64
+
 }

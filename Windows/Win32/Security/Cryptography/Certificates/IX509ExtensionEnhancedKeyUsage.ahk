@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Extension.ahk
-#Include .\IObjectIds.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\IX509Extension.ahk" { IX509Extension }
 
 /**
  * Can be used to define a collection of object identifiers (OIDs) that identify the intended uses of the public key contained in the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extensionenhancedkeyusage
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509ExtensionEnhancedKeyUsage extends IX509Extension {
-
-    static sizeof => A_PtrSize
+export default struct IX509ExtensionEnhancedKeyUsage extends IX509Extension {
     /**
      * The interface identifier for IX509ExtensionEnhancedKeyUsage
      * @type {Guid}
      */
-    static IID => Guid("{728ab310-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab310-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509ExtensionEnhancedKeyUsage interfaces
+    */
+    struct Vtbl extends IX509Extension.Vtbl {
+        InitializeEncode     : IntPtr
+        InitializeDecode     : IntPtr
+        get_EnhancedKeyUsage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncode", "InitializeDecode", "get_EnhancedKeyUsage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509ExtensionEnhancedKeyUsage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IObjectIds} 
@@ -118,7 +130,7 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(13, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(13, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -132,5 +144,29 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension {
     get_EnhancedKeyUsage() {
         result := ComCall(14, this, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectIds(ppValue)
+    }
+
+    Query(iid) {
+        if (IX509ExtensionEnhancedKeyUsage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_EnhancedKeyUsage := CallbackCreate(GetMethod(implObj, "get_EnhancedKeyUsage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncode)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_EnhancedKeyUsage)
     }
 }

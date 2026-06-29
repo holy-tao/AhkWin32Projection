@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_PROPERTY_CONTEXT extends Win32Struct {
-    static sizeof => 24
+export default struct WIA_PROPERTY_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    cProps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cProps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pProps : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pProps {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pChanged : BOOL.Ptr
 
-    /**
-     * @type {Pointer<BOOL>}
-     */
-    pChanged {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

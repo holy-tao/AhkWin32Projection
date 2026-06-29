@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_RECORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_RECORD.ahk" { WHEA_ERROR_RECORD }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_ERROR_RECORD_EVENT extends Win32Struct {
-    static sizeof => 16
+export default struct WHEAP_ERROR_RECORD_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Record : WHEA_ERROR_RECORD.Ptr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_RECORD>}
-     */
-    Record {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

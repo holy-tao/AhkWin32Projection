@@ -1,75 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\TRUSTED_DOMAIN_TRUST_DIRECTION.ahk
-#Include .\TRUSTED_DOMAIN_TRUST_TYPE.ahk
-#Include .\TRUSTED_DOMAIN_TRUST_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TRUSTED_DOMAIN_TRUST_TYPE.ahk" { TRUSTED_DOMAIN_TRUST_TYPE }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\TRUSTED_DOMAIN_TRUST_ATTRIBUTES.ahk" { TRUSTED_DOMAIN_TRUST_ATTRIBUTES }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TRUSTED_DOMAIN_TRUST_DIRECTION.ahk" { TRUSTED_DOMAIN_TRUST_DIRECTION }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * Used to retrieve extended information about a trusted domain.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class TRUSTED_DOMAIN_INFORMATION_EX extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct TRUSTED_DOMAIN_INFORMATION_EX {
+    #StructPack 8
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the trusted domain. This is the DNS domain name.  For non-Microsoft trusted domains, this is the identifying name of the domain.
-     * @type {LSA_UNICODE_STRING}
      */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(0, this)
-            return this.__Name
-        }
-    }
+    Name : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the flat name of the trusted domain. For non-Microsoft trusted domains, this is the identifying name of the domain or it is <b>NULL</b>.
-     * @type {LSA_UNICODE_STRING}
      */
-    FlatName {
-        get {
-            if(!this.HasProp("__FlatName"))
-                this.__FlatName := LSA_UNICODE_STRING(16, this)
-            return this.__FlatName
-        }
-    }
+    FlatName : LSA_UNICODE_STRING
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the trusted domain. For non-Microsoft trusted domains, this member can be <b>NULL</b>.
-     * @type {PSID}
      */
-    Sid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Sid : PSID
 
-    /**
-     * @type {TRUSTED_DOMAIN_TRUST_DIRECTION}
-     */
-    TrustDirection {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TrustDirection : TRUSTED_DOMAIN_TRUST_DIRECTION
 
-    /**
-     * @type {TRUSTED_DOMAIN_TRUST_TYPE}
-     */
-    TrustType {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    TrustType : TRUSTED_DOMAIN_TRUST_TYPE
 
-    /**
-     * @type {TRUSTED_DOMAIN_TRUST_ATTRIBUTES}
-     */
-    TrustAttributes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    TrustAttributes : TRUSTED_DOMAIN_TRUST_ATTRIBUTES
+
 }

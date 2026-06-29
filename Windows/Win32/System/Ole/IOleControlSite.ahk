@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\KEYMODIFIERS.ahk" { KEYMODIFIERS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import ".\POINTF.ahk" { POINTF }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods that enable a site object to manage each embedded control within a container.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iolecontrolsite
  * @namespace Windows.Win32.System.Ole
  */
-class IOleControlSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleControlSite extends IUnknown {
     /**
      * The interface identifier for IOleControlSite
      * @type {Guid}
      */
-    static IID => Guid("{b196b289-bab4-101a-b69c-00aa00341d07}")
+    static IID := Guid("{b196b289-bab4-101a-b69c-00aa00341d07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleControlSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnControlInfoChanged : IntPtr
+        LockInPlaceActive    : IntPtr
+        GetExtendedControl   : IntPtr
+        TransformCoords      : IntPtr
+        TranslateAccelerator : IntPtr
+        OnFocus              : IntPtr
+        ShowPropertyFrame    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnControlInfoChanged", "LockInPlaceActive", "GetExtendedControl", "TransformCoords", "TranslateAccelerator", "OnFocus", "ShowPropertyFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleControlSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs the container that the control's CONTROLINFO structure has changed and that the container should call the control's IOleControl::GetControlInfo for an update.
@@ -78,7 +97,7 @@ class IOleControlSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-lockinplaceactive
      */
     LockInPlaceActive(fLock) {
-        result := ComCall(4, this, "int", fLock, "HRESULT")
+        result := ComCall(4, this, BOOL, fLock, "HRESULT")
         return result
     }
 
@@ -151,7 +170,7 @@ class IOleControlSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-transformcoords
      */
     TransformCoords(pPtlHimetric, pPtfContainer, dwFlags) {
-        result := ComCall(6, this, "ptr", pPtlHimetric, "ptr", pPtfContainer, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, POINTL.Ptr, pPtlHimetric, POINTF.Ptr, pPtfContainer, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -205,7 +224,7 @@ class IOleControlSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-translateaccelerator
      */
     TranslateAccelerator(pMsg, grfModifiers) {
-        result := ComCall(7, this, "ptr", pMsg, "uint", grfModifiers, "HRESULT")
+        result := ComCall(7, this, MSG.Ptr, pMsg, KEYMODIFIERS, grfModifiers, "HRESULT")
         return result
     }
 
@@ -218,7 +237,7 @@ class IOleControlSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-onfocus
      */
     OnFocus(fGotFocus) {
-        result := ComCall(8, this, "int", fGotFocus, "HRESULT")
+        result := ComCall(8, this, BOOL, fGotFocus, "HRESULT")
         return result
     }
 
@@ -261,5 +280,37 @@ class IOleControlSite extends IUnknown {
     ShowPropertyFrame() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleControlSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnControlInfoChanged := CallbackCreate(GetMethod(implObj, "OnControlInfoChanged"), flags, 1)
+        this.vtbl.LockInPlaceActive := CallbackCreate(GetMethod(implObj, "LockInPlaceActive"), flags, 2)
+        this.vtbl.GetExtendedControl := CallbackCreate(GetMethod(implObj, "GetExtendedControl"), flags, 2)
+        this.vtbl.TransformCoords := CallbackCreate(GetMethod(implObj, "TransformCoords"), flags, 4)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 3)
+        this.vtbl.OnFocus := CallbackCreate(GetMethod(implObj, "OnFocus"), flags, 2)
+        this.vtbl.ShowPropertyFrame := CallbackCreate(GetMethod(implObj, "ShowPropertyFrame"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnControlInfoChanged)
+        CallbackFree(this.vtbl.LockInPlaceActive)
+        CallbackFree(this.vtbl.GetExtendedControl)
+        CallbackFree(this.vtbl.TransformCoords)
+        CallbackFree(this.vtbl.TranslateAccelerator)
+        CallbackFree(this.vtbl.OnFocus)
+        CallbackFree(this.vtbl.ShowPropertyFrame)
     }
 }

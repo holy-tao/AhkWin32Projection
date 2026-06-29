@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
-#Include .\DDVIDEOPORTDESC.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
-#Include .\DDVIDEOPORTINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DD_SURFACE_INT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DD_SURFACE_INT.ahk" { DD_SURFACE_INT }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The DD_VIDEOPORT_LOCAL structure contains video port extensions (VPE)-related data that is unique to an individual Microsoft DirectDraw VPE object.
@@ -15,104 +15,65 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_videoport_local
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_VIDEOPORT_LOCAL extends Win32Struct {
-    static sizeof => 224
-
-    static packingSize => 8
+export default struct DD_VIDEOPORT_LOCAL {
+    #StructPack 8
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current DirectDraw process only.
-     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDD : DD_DIRECTDRAW_LOCAL.Ptr
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/dvp/ns-dvp-ddvideoportdesc">DDVIDEOPORTDESC</a> structure that describes the VPE object.
-     * @type {DDVIDEOPORTDESC}
      */
-    ddvpDesc {
-        get {
-            if(!this.HasProp("__ddvpDesc"))
-                this.__ddvpDesc := DDVIDEOPORTDESC(8, this)
-            return this.__ddvpDesc
-        }
-    }
+    ddvpDesc : DDVIDEOPORTDESC
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/dvp/ns-dvp-ddvideoportinfo">DDVIDEOPORTINFO</a> structure that describes the transfer of video data to a surface.
-     * @type {DDVIDEOPORTINFO}
      */
-    ddvpInfo {
-        get {
-            if(!this.HasProp("__ddvpInfo"))
-                this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
-            return this.__ddvpInfo
-        }
-    }
+    ddvpInfo : DDVIDEOPORTINFO
 
+    __lpSurface_ptr : IntPtr
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_int">DD_SURFACE_INT</a> structure for the surface receiving the video data.
-     * @type {Pointer<DD_SURFACE_INT>}
      */
     lpSurface {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => (addr := this.__lpSurface_ptr) ? DD_SURFACE_INT.At(addr) : unset
+        set => this.__lpSurface_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
+    __lpVBISurface_ptr : IntPtr
     /**
      * Points to a DD_SURFACE_INT structure for the surface receiving the <a href="https://docs.microsoft.com/windows-hardware/drivers/">VBI</a> data.
-     * @type {Pointer<DD_SURFACE_INT>}
      */
     lpVBISurface {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => (addr := this.__lpVBISurface_ptr) ? DD_SURFACE_INT.At(addr) : unset
+        set => this.__lpVBISurface_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * Specifies the number of current autoflip surfaces.
-     * @type {Integer}
      */
-    dwNumAutoflip {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    dwNumAutoflip : UInt32
 
     /**
      * Specifies the number of VBI surfaces currently being autoflipped.
-     * @type {Integer}
      */
-    dwNumVBIAutoflip {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    dwNumVBIAutoflip : UInt32
 
     /**
      * Reserved for use by the display driver.
-     * @type {Pointer}
      */
-    dwReserved1 {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    dwReserved1 : IntPtr
 
     /**
      * Reserved for use by the display driver.
-     * @type {Pointer}
      */
-    dwReserved2 {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    dwReserved2 : IntPtr
 
     /**
      * Reserved for use by the display driver.
-     * @type {Pointer}
      */
-    dwReserved3 {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    dwReserved3 : IntPtr
+
 }

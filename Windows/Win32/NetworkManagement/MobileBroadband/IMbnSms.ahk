@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMbnSmsConfiguration.ahk
-#Include .\MBN_SMS_STATUS_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MBN_SMS_FILTER.ahk" { MBN_SMS_FILTER }
+#Import ".\MBN_SMS_CDMA_ENCODING.ahk" { MBN_SMS_CDMA_ENCODING }
+#Import ".\MBN_SMS_CDMA_LANG.ahk" { MBN_SMS_CDMA_LANG }
+#Import ".\MBN_SMS_FORMAT.ahk" { MBN_SMS_FORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMbnSmsConfiguration.ahk" { IMbnSmsConfiguration }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_SMS_STATUS_INFO.ahk" { MBN_SMS_STATUS_INFO }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * SMS interface for sending and receiving messages as well as controlling the messaging configuration.
@@ -12,26 +19,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsms
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnSms extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnSms extends IUnknown {
     /**
      * The interface identifier for IMbnSms
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2015-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2015-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnSms interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSmsConfiguration : IntPtr
+        SetSmsConfiguration : IntPtr
+        SmsSendPdu          : IntPtr
+        SmsSendCdma         : IntPtr
+        SmsSendCdmaPdu      : IntPtr
+        SmsRead             : IntPtr
+        SmsDelete           : IntPtr
+        GetSmsStatus        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSmsConfiguration", "SetSmsConfiguration", "SmsSendPdu", "SmsSendCdma", "SmsSendCdmaPdu", "SmsRead", "SmsDelete", "GetSmsStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnSms.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the SMS configuration of a device.
@@ -145,7 +166,7 @@ class IMbnSms extends IUnknown {
     SmsSendCdma(_address, encoding, language, sizeInCharacters, message) {
         _address := _address is String ? StrPtr(_address) : _address
 
-        result := ComCall(6, this, "ptr", _address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _address, MBN_SMS_CDMA_ENCODING, encoding, MBN_SMS_CDMA_LANG, language, "uint", sizeInCharacters, SAFEARRAY.Ptr, message, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -166,7 +187,7 @@ class IMbnSms extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendcdmapdu
      */
     SmsSendCdmaPdu(message) {
-        result := ComCall(7, this, "ptr", message, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(7, this, SAFEARRAY.Ptr, message, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -186,7 +207,7 @@ class IMbnSms extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smsread
      */
     SmsRead(smsFilter, smsFormat) {
-        result := ComCall(8, this, "ptr", smsFilter, "int", smsFormat, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(8, this, MBN_SMS_FILTER.Ptr, smsFilter, MBN_SMS_FORMAT, smsFormat, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -199,7 +220,7 @@ class IMbnSms extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smsdelete
      */
     SmsDelete(smsFilter) {
-        result := ComCall(9, this, "ptr", smsFilter, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(9, this, MBN_SMS_FILTER.Ptr, smsFilter, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -217,7 +238,41 @@ class IMbnSms extends IUnknown {
      */
     GetSmsStatus() {
         smsStatusInfo := MBN_SMS_STATUS_INFO()
-        result := ComCall(10, this, "ptr", smsStatusInfo, "HRESULT")
+        result := ComCall(10, this, MBN_SMS_STATUS_INFO.Ptr, smsStatusInfo, "HRESULT")
         return smsStatusInfo
+    }
+
+    Query(iid) {
+        if (IMbnSms.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSmsConfiguration := CallbackCreate(GetMethod(implObj, "GetSmsConfiguration"), flags, 2)
+        this.vtbl.SetSmsConfiguration := CallbackCreate(GetMethod(implObj, "SetSmsConfiguration"), flags, 3)
+        this.vtbl.SmsSendPdu := CallbackCreate(GetMethod(implObj, "SmsSendPdu"), flags, 4)
+        this.vtbl.SmsSendCdma := CallbackCreate(GetMethod(implObj, "SmsSendCdma"), flags, 7)
+        this.vtbl.SmsSendCdmaPdu := CallbackCreate(GetMethod(implObj, "SmsSendCdmaPdu"), flags, 3)
+        this.vtbl.SmsRead := CallbackCreate(GetMethod(implObj, "SmsRead"), flags, 4)
+        this.vtbl.SmsDelete := CallbackCreate(GetMethod(implObj, "SmsDelete"), flags, 3)
+        this.vtbl.GetSmsStatus := CallbackCreate(GetMethod(implObj, "GetSmsStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSmsConfiguration)
+        CallbackFree(this.vtbl.SetSmsConfiguration)
+        CallbackFree(this.vtbl.SmsSendPdu)
+        CallbackFree(this.vtbl.SmsSendCdma)
+        CallbackFree(this.vtbl.SmsSendCdmaPdu)
+        CallbackFree(this.vtbl.SmsRead)
+        CallbackFree(this.vtbl.SmsDelete)
+        CallbackFree(this.vtbl.GetSmsStatus)
     }
 }

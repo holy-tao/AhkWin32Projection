@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Seeks a byte stream by time position.
@@ -12,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfbytestreamtimeseek
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFByteStreamTimeSeek extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFByteStreamTimeSeek extends IUnknown {
     /**
      * The interface identifier for IMFByteStreamTimeSeek
      * @type {Guid}
      */
-    static IID => Guid("{64976bfa-fb61-4041-9069-8c9a5f659beb}")
+    static IID := Guid("{64976bfa-fb61-4041-9069-8c9a5f659beb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFByteStreamTimeSeek interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsTimeSeekSupported : IntPtr
+        TimeSeek            : IntPtr
+        GetTimeSeekResult   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsTimeSeekSupported", "TimeSeek", "GetTimeSeekResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFByteStreamTimeSeek.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries whether the byte stream supports time-based seeking.
@@ -39,7 +50,7 @@ class IMFByteStreamTimeSeek extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-istimeseeksupported
      */
     IsTimeSeekSupported() {
-        result := ComCall(3, this, "int*", &pfTimeSeekIsSupported := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfTimeSeekIsSupported := 0, "HRESULT")
         return pfTimeSeekIsSupported
     }
 
@@ -106,5 +117,29 @@ class IMFByteStreamTimeSeek extends IUnknown {
 
         result := ComCall(5, this, pqwStartTimeMarshal, pqwStartTime, pqwStopTimeMarshal, pqwStopTime, pqwDurationMarshal, pqwDuration, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFByteStreamTimeSeek.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsTimeSeekSupported := CallbackCreate(GetMethod(implObj, "IsTimeSeekSupported"), flags, 2)
+        this.vtbl.TimeSeek := CallbackCreate(GetMethod(implObj, "TimeSeek"), flags, 2)
+        this.vtbl.GetTimeSeekResult := CallbackCreate(GetMethod(implObj, "GetTimeSeekResult"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsTimeSeekSupported)
+        CallbackFree(this.vtbl.TimeSeek)
+        CallbackFree(this.vtbl.GetTimeSeekResult)
     }
 }

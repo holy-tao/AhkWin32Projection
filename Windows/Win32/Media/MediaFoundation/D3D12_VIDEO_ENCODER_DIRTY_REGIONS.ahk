@@ -1,38 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO.ahk" { D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO }
+#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_DIRTY_REGIONS extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_VIDEO_ENCODER_DIRTY_REGIONS {
+    #StructPack 8
 
-    static packingSize => 8
+    MapSource : D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE}
-     */
-    MapSource {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    pOpaqueLayoutBuffer : ID3D12Resource
 
-    /**
-     * @type {ID3D12Resource}
-     */
-    pOpaqueLayoutBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO>}
-     */
-    pCPUBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pCPUBuffer', { type: D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,10 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IShellView.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\Controls\TBBUTTON.ahk" { TBBUTTON }
 
 /**
  * Implemented by hosts of Shell views (objects that implement IShellView). Exposes methods that provide services for the view it is hosting and other objects that run in the context of the Explorer window.
@@ -19,26 +30,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellbrowser
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellBrowser extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IShellBrowser extends IOleWindow {
     /**
      * The interface identifier for IShellBrowser
      * @type {Guid}
      */
-    static IID => Guid("{000214e2-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214e2-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellBrowser interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        InsertMenusSB          : IntPtr
+        SetMenuSB              : IntPtr
+        RemoveMenusSB          : IntPtr
+        SetStatusTextSB        : IntPtr
+        EnableModelessSB       : IntPtr
+        TranslateAcceleratorSB : IntPtr
+        BrowseObject           : IntPtr
+        GetViewStateStream     : IntPtr
+        GetControlWindow       : IntPtr
+        SendControlMsg         : IntPtr
+        QueryActiveShellView   : IntPtr
+        OnViewWindowActive     : IntPtr
+        SetToolbarItems        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertMenusSB", "SetMenuSB", "RemoveMenusSB", "SetStatusTextSB", "EnableModelessSB", "TranslateAcceleratorSB", "BrowseObject", "GetViewStateStream", "GetControlWindow", "SendControlMsg", "QueryActiveShellView", "OnViewWindowActive", "SetToolbarItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellBrowser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows the container to insert its menu groups into the composite menu that is displayed when an extended namespace is being viewed or used.
@@ -64,9 +94,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-insertmenussb
      */
     InsertMenusSB(hmenuShared, lpMenuWidths) {
-        hmenuShared := hmenuShared is Win32Handle ? NumGet(hmenuShared, "ptr") : hmenuShared
-
-        result := ComCall(5, this, "ptr", hmenuShared, "ptr", lpMenuWidths, "HRESULT")
+        result := ComCall(5, this, HMENU, hmenuShared, OLEMENUGROUPWIDTHS.Ptr, lpMenuWidths, "HRESULT")
         return result
     }
 
@@ -95,10 +123,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-setmenusb
      */
     SetMenuSB(hmenuShared, holemenuRes, hwndActiveObject) {
-        hmenuShared := hmenuShared is Win32Handle ? NumGet(hmenuShared, "ptr") : hmenuShared
-        hwndActiveObject := hwndActiveObject is Win32Handle ? NumGet(hwndActiveObject, "ptr") : hwndActiveObject
-
-        result := ComCall(6, this, "ptr", hmenuShared, "ptr", holemenuRes, "ptr", hwndActiveObject, "HRESULT")
+        result := ComCall(6, this, HMENU, hmenuShared, "ptr", holemenuRes, HWND, hwndActiveObject, "HRESULT")
         return result
     }
 
@@ -120,9 +145,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-removemenussb
      */
     RemoveMenusSB(hmenuShared) {
-        hmenuShared := hmenuShared is Win32Handle ? NumGet(hmenuShared, "ptr") : hmenuShared
-
-        result := ComCall(7, this, "ptr", hmenuShared, "HRESULT")
+        result := ComCall(7, this, HMENU, hmenuShared, "HRESULT")
         return result
     }
 
@@ -161,7 +184,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-enablemodelesssb
      */
     EnableModelessSB(fEnable) {
-        result := ComCall(9, this, "int", fEnable, "HRESULT")
+        result := ComCall(9, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -181,7 +204,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-translateacceleratorsb
      */
     TranslateAcceleratorSB(pmsg, wID) {
-        result := ComCall(10, this, "ptr", pmsg, "ushort", wID, "HRESULT")
+        result := ComCall(10, this, MSG.Ptr, pmsg, "ushort", wID, "HRESULT")
         return result
     }
 
@@ -199,7 +222,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-browseobject
      */
     BrowseObject(pidl, wFlags) {
-        result := ComCall(11, this, "ptr", pidl, "uint", wFlags, "HRESULT")
+        result := ComCall(11, this, ITEMIDLIST.Ptr, pidl, "uint", wFlags, "HRESULT")
         return result
     }
 
@@ -246,7 +269,7 @@ class IShellBrowser extends IOleWindow {
      */
     GetControlWindow(id) {
         phwnd := HWND()
-        result := ComCall(13, this, "uint", id, "ptr", phwnd, "HRESULT")
+        result := ComCall(13, this, "uint", id, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -279,7 +302,7 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-sendcontrolmsg
      */
     SendControlMsg(id, uMsg, _wParam, _lParam) {
-        result := ComCall(14, this, "uint", id, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr*", &pret := 0, "HRESULT")
+        result := ComCall(14, this, "uint", id, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &pret := 0, "HRESULT")
         return pret
     }
 
@@ -336,7 +359,51 @@ class IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-settoolbaritems
      */
     SetToolbarItems(lpButtons, nButtons, uFlags) {
-        result := ComCall(17, this, "ptr", lpButtons, "uint", nButtons, "uint", uFlags, "HRESULT")
+        result := ComCall(17, this, TBBUTTON.Ptr, lpButtons, "uint", nButtons, "uint", uFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellBrowser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertMenusSB := CallbackCreate(GetMethod(implObj, "InsertMenusSB"), flags, 3)
+        this.vtbl.SetMenuSB := CallbackCreate(GetMethod(implObj, "SetMenuSB"), flags, 4)
+        this.vtbl.RemoveMenusSB := CallbackCreate(GetMethod(implObj, "RemoveMenusSB"), flags, 2)
+        this.vtbl.SetStatusTextSB := CallbackCreate(GetMethod(implObj, "SetStatusTextSB"), flags, 2)
+        this.vtbl.EnableModelessSB := CallbackCreate(GetMethod(implObj, "EnableModelessSB"), flags, 2)
+        this.vtbl.TranslateAcceleratorSB := CallbackCreate(GetMethod(implObj, "TranslateAcceleratorSB"), flags, 3)
+        this.vtbl.BrowseObject := CallbackCreate(GetMethod(implObj, "BrowseObject"), flags, 3)
+        this.vtbl.GetViewStateStream := CallbackCreate(GetMethod(implObj, "GetViewStateStream"), flags, 3)
+        this.vtbl.GetControlWindow := CallbackCreate(GetMethod(implObj, "GetControlWindow"), flags, 3)
+        this.vtbl.SendControlMsg := CallbackCreate(GetMethod(implObj, "SendControlMsg"), flags, 6)
+        this.vtbl.QueryActiveShellView := CallbackCreate(GetMethod(implObj, "QueryActiveShellView"), flags, 2)
+        this.vtbl.OnViewWindowActive := CallbackCreate(GetMethod(implObj, "OnViewWindowActive"), flags, 2)
+        this.vtbl.SetToolbarItems := CallbackCreate(GetMethod(implObj, "SetToolbarItems"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertMenusSB)
+        CallbackFree(this.vtbl.SetMenuSB)
+        CallbackFree(this.vtbl.RemoveMenusSB)
+        CallbackFree(this.vtbl.SetStatusTextSB)
+        CallbackFree(this.vtbl.EnableModelessSB)
+        CallbackFree(this.vtbl.TranslateAcceleratorSB)
+        CallbackFree(this.vtbl.BrowseObject)
+        CallbackFree(this.vtbl.GetViewStateStream)
+        CallbackFree(this.vtbl.GetControlWindow)
+        CallbackFree(this.vtbl.SendControlMsg)
+        CallbackFree(this.vtbl.QueryActiveShellView)
+        CallbackFree(this.vtbl.OnViewWindowActive)
+        CallbackFree(this.vtbl.SetToolbarItems)
     }
 }

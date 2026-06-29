@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DBaseTexture9.ahk
-#Include .\IDirect3DVolume9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DLOCKED_BOX.ahk" { D3DLOCKED_BOX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DVolume9.ahk" { IDirect3DVolume9 }
+#Import ".\D3DBOX.ahk" { D3DBOX }
+#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
+#Import ".\D3DVOLUME_DESC.ahk" { D3DVOLUME_DESC }
 
 /**
  * The IDirect3DVolumeTexture9 (d3d9.h) interface is used by applications to manipulate a volume texture resource.
@@ -27,26 +31,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dvolumetexture9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
     /**
      * The interface identifier for IDirect3DVolumeTexture9
      * @type {Guid}
      */
-    static IID => Guid("{2518526c-e789-4111-a7b9-47ef328d13e6}")
+    static IID := Guid("{2518526c-e789-4111-a7b9-47ef328d13e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DVolumeTexture9 interfaces
+    */
+    struct Vtbl extends IDirect3DBaseTexture9.Vtbl {
+        GetLevelDesc   : IntPtr
+        GetVolumeLevel : IntPtr
+        LockBox        : IntPtr
+        UnlockBox      : IntPtr
+        AddDirtyBox    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLevelDesc", "GetVolumeLevel", "LockBox", "UnlockBox", "AddDirtyBox"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DVolumeTexture9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DVolumeTexture9::GetLevelDesc (d3d9.h) method retrieves a level description of a volume texture resource.
@@ -62,7 +77,7 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-getleveldesc
      */
     GetLevelDesc(Level, pDesc) {
-        result := ComCall(17, this, "uint", Level, "ptr", pDesc, "HRESULT")
+        result := ComCall(17, this, "uint", Level, D3DVOLUME_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -115,7 +130,7 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-lockbox
      */
     LockBox(Level, pLockedVolume, pBox, Flags) {
-        result := ComCall(19, this, "uint", Level, "ptr", pLockedVolume, "ptr", pBox, "uint", Flags, "HRESULT")
+        result := ComCall(19, this, "uint", Level, D3DLOCKED_BOX.Ptr, pLockedVolume, D3DBOX.Ptr, pBox, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -149,7 +164,35 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-adddirtybox
      */
     AddDirtyBox(pDirtyBox) {
-        result := ComCall(21, this, "ptr", pDirtyBox, "HRESULT")
+        result := ComCall(21, this, D3DBOX.Ptr, pDirtyBox, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DVolumeTexture9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLevelDesc := CallbackCreate(GetMethod(implObj, "GetLevelDesc"), flags, 3)
+        this.vtbl.GetVolumeLevel := CallbackCreate(GetMethod(implObj, "GetVolumeLevel"), flags, 3)
+        this.vtbl.LockBox := CallbackCreate(GetMethod(implObj, "LockBox"), flags, 5)
+        this.vtbl.UnlockBox := CallbackCreate(GetMethod(implObj, "UnlockBox"), flags, 2)
+        this.vtbl.AddDirtyBox := CallbackCreate(GetMethod(implObj, "AddDirtyBox"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLevelDesc)
+        CallbackFree(this.vtbl.GetVolumeLevel)
+        CallbackFree(this.vtbl.LockBox)
+        CallbackFree(this.vtbl.UnlockBox)
+        CallbackFree(this.vtbl.AddDirtyBox)
     }
 }

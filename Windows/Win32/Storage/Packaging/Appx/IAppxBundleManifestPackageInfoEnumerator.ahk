@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxBundleManifestPackageInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxBundleManifestPackageInfo.ahk" { IAppxBundleManifestPackageInfo }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a read-only object model for the list of payload packages that are described in a bundle package manifest.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfoenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxBundleManifestPackageInfoEnumerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxBundleManifestPackageInfoEnumerator extends IUnknown {
     /**
      * The interface identifier for IAppxBundleManifestPackageInfoEnumerator
      * @type {Guid}
      */
-    static IID => Guid("{f9b856ee-49a6-4e19-b2b0-6a2406d63a32}")
+    static IID := Guid("{f9b856ee-49a6-4e19-b2b0-6a2406d63a32}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxBundleManifestPackageInfoEnumerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrent    : IntPtr
+        GetHasCurrent : IntPtr
+        MoveNext      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxBundleManifestPackageInfoEnumerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the &lt;Package&gt; element at the current position of the enumerator.
@@ -52,7 +63,7 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-gethascurrent
      */
     GetHasCurrent() {
-        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &hasCurrent := 0, "HRESULT")
         return hasCurrent
     }
 
@@ -66,7 +77,31 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &hasNext := 0, "HRESULT")
         return hasNext
+    }
+
+    Query(iid) {
+        if (IAppxBundleManifestPackageInfoEnumerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrent := CallbackCreate(GetMethod(implObj, "GetCurrent"), flags, 2)
+        this.vtbl.GetHasCurrent := CallbackCreate(GetMethod(implObj, "GetHasCurrent"), flags, 2)
+        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrent)
+        CallbackFree(this.vtbl.GetHasCurrent)
+        CallbackFree(this.vtbl.MoveNext)
     }
 }

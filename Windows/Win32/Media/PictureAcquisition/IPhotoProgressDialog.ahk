@@ -1,41 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPhotoProgressActionCB.ahk" { IPhotoProgressActionCB }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROGRESS_DIALOG_IMAGE_TYPE.ahk" { PROGRESS_DIALOG_IMAGE_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\PROGRESS_DIALOG_CHECKBOX_ID.ahk" { PROGRESS_DIALOG_CHECKBOX_ID }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides the progress dialog box that may be displayed when enumerating or importing images. The dialog box is modal and runs in its own thread.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoprogressdialog
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoProgressDialog extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoProgressDialog extends IUnknown {
     /**
      * The interface identifier for IPhotoProgressDialog
      * @type {Guid}
      */
-    static IID => Guid("{00f246f9-0750-4f08-9381-2cd8e906a4ae}")
+    static IID := Guid("{00f246f9-0750-4f08-9381-2cd8e906a4ae}")
 
     /**
      * The class identifier for PhotoProgressDialog
      * @type {Guid}
      */
-    static CLSID => Guid("{00f24ca0-748f-4e8a-894f-0e0357c6799f}")
+    static CLSID := Guid("{00f24ca0-748f-4e8a-894f-0e0357c6799f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoProgressDialog interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Create                : IntPtr
+        GetWindow             : IntPtr
+        Destroy               : IntPtr
+        SetTitle              : IntPtr
+        ShowCheckbox          : IntPtr
+        SetCheckboxText       : IntPtr
+        SetCheckboxCheck      : IntPtr
+        SetCheckboxTooltip    : IntPtr
+        IsCheckboxChecked     : IntPtr
+        SetCaption            : IntPtr
+        SetImage              : IntPtr
+        SetPercentComplete    : IntPtr
+        SetProgressText       : IntPtr
+        SetActionLinkCallback : IntPtr
+        SetActionLinkText     : IntPtr
+        ShowActionLink        : IntPtr
+        IsCancelled           : IntPtr
+        GetUserInput          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Create", "GetWindow", "Destroy", "SetTitle", "ShowCheckbox", "SetCheckboxText", "SetCheckboxCheck", "SetCheckboxTooltip", "IsCheckboxChecked", "SetCaption", "SetImage", "SetPercentComplete", "SetProgressText", "SetActionLinkCallback", "SetActionLinkText", "ShowActionLink", "IsCancelled", "GetUserInput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoProgressDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Create method creates and displays a progress dialog box that can be shown during image enumeration and acquisition.
@@ -66,9 +98,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-create
      */
     Create(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, "HRESULT")
         return result
     }
 
@@ -79,7 +109,7 @@ class IPhotoProgressDialog extends IUnknown {
      */
     GetWindow() {
         phwndProgressDialog := HWND()
-        result := ComCall(4, this, "ptr", phwndProgressDialog, "HRESULT")
+        result := ComCall(4, this, HWND.Ptr, phwndProgressDialog, "HRESULT")
         return phwndProgressDialog
     }
 
@@ -170,7 +200,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-showcheckbox
      */
     ShowCheckbox(nCheckboxId, fShow) {
-        result := ComCall(7, this, "int", nCheckboxId, "int", fShow, "HRESULT")
+        result := ComCall(7, this, PROGRESS_DIALOG_CHECKBOX_ID, nCheckboxId, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -202,7 +232,7 @@ class IPhotoProgressDialog extends IUnknown {
     SetCheckboxText(nCheckboxId, pszCheckboxText) {
         pszCheckboxText := pszCheckboxText is String ? StrPtr(pszCheckboxText) : pszCheckboxText
 
-        result := ComCall(8, this, "int", nCheckboxId, "ptr", pszCheckboxText, "HRESULT")
+        result := ComCall(8, this, PROGRESS_DIALOG_CHECKBOX_ID, nCheckboxId, "ptr", pszCheckboxText, "HRESULT")
         return result
     }
 
@@ -213,7 +243,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCheckboxCheck(nCheckboxId, fChecked) {
-        result := ComCall(9, this, "int", nCheckboxId, "int", fChecked, "HRESULT")
+        result := ComCall(9, this, PROGRESS_DIALOG_CHECKBOX_ID, nCheckboxId, BOOL, fChecked, "HRESULT")
         return result
     }
 
@@ -245,7 +275,7 @@ class IPhotoProgressDialog extends IUnknown {
     SetCheckboxTooltip(nCheckboxId, pszCheckboxTooltipText) {
         pszCheckboxTooltipText := pszCheckboxTooltipText is String ? StrPtr(pszCheckboxTooltipText) : pszCheckboxTooltipText
 
-        result := ComCall(10, this, "int", nCheckboxId, "ptr", pszCheckboxTooltipText, "HRESULT")
+        result := ComCall(10, this, PROGRESS_DIALOG_CHECKBOX_ID, nCheckboxId, "ptr", pszCheckboxTooltipText, "HRESULT")
         return result
     }
 
@@ -256,7 +286,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
      */
     IsCheckboxChecked(nCheckboxId) {
-        result := ComCall(11, this, "int", nCheckboxId, "int*", &pfChecked := 0, "HRESULT")
+        result := ComCall(11, this, PROGRESS_DIALOG_CHECKBOX_ID, nCheckboxId, BOOL.Ptr, &pfChecked := 0, "HRESULT")
         return pfChecked
     }
 
@@ -369,10 +399,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
      */
     SetImage(nImageType, _hIcon, _hBitmap) {
-        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
-        _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
-
-        result := ComCall(13, this, "int", nImageType, "ptr", _hIcon, "ptr", _hBitmap, "HRESULT")
+        result := ComCall(13, this, PROGRESS_DIALOG_IMAGE_TYPE, nImageType, HICON, _hIcon, HBITMAP, _hBitmap, "HRESULT")
         return result
     }
 
@@ -466,7 +493,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @returns {HRESULT} 
      */
     ShowActionLink(fShow) {
-        result := ComCall(18, this, "int", fShow, "HRESULT")
+        result := ComCall(18, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -476,7 +503,7 @@ class IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-iscancelled
      */
     IsCancelled() {
-        result := ComCall(19, this, "int*", &pfCancelled := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfCancelled := 0, "HRESULT")
         return pfCancelled
     }
 
@@ -492,7 +519,61 @@ class IPhotoProgressDialog extends IUnknown {
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
         pPropVarResult := PROPVARIANT()
-        result := ComCall(20, this, "ptr", riidType, "ptr", pUnknown, "ptr", pPropVarResult, "ptr", pPropVarDefault, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, riidType, "ptr", pUnknown, PROPVARIANT.Ptr, pPropVarResult, PROPVARIANT.Ptr, pPropVarDefault, "HRESULT")
         return pPropVarResult
+    }
+
+    Query(iid) {
+        if (IPhotoProgressDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 2)
+        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.ShowCheckbox := CallbackCreate(GetMethod(implObj, "ShowCheckbox"), flags, 3)
+        this.vtbl.SetCheckboxText := CallbackCreate(GetMethod(implObj, "SetCheckboxText"), flags, 3)
+        this.vtbl.SetCheckboxCheck := CallbackCreate(GetMethod(implObj, "SetCheckboxCheck"), flags, 3)
+        this.vtbl.SetCheckboxTooltip := CallbackCreate(GetMethod(implObj, "SetCheckboxTooltip"), flags, 3)
+        this.vtbl.IsCheckboxChecked := CallbackCreate(GetMethod(implObj, "IsCheckboxChecked"), flags, 3)
+        this.vtbl.SetCaption := CallbackCreate(GetMethod(implObj, "SetCaption"), flags, 2)
+        this.vtbl.SetImage := CallbackCreate(GetMethod(implObj, "SetImage"), flags, 4)
+        this.vtbl.SetPercentComplete := CallbackCreate(GetMethod(implObj, "SetPercentComplete"), flags, 2)
+        this.vtbl.SetProgressText := CallbackCreate(GetMethod(implObj, "SetProgressText"), flags, 2)
+        this.vtbl.SetActionLinkCallback := CallbackCreate(GetMethod(implObj, "SetActionLinkCallback"), flags, 2)
+        this.vtbl.SetActionLinkText := CallbackCreate(GetMethod(implObj, "SetActionLinkText"), flags, 2)
+        this.vtbl.ShowActionLink := CallbackCreate(GetMethod(implObj, "ShowActionLink"), flags, 2)
+        this.vtbl.IsCancelled := CallbackCreate(GetMethod(implObj, "IsCancelled"), flags, 2)
+        this.vtbl.GetUserInput := CallbackCreate(GetMethod(implObj, "GetUserInput"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.GetWindow)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.ShowCheckbox)
+        CallbackFree(this.vtbl.SetCheckboxText)
+        CallbackFree(this.vtbl.SetCheckboxCheck)
+        CallbackFree(this.vtbl.SetCheckboxTooltip)
+        CallbackFree(this.vtbl.IsCheckboxChecked)
+        CallbackFree(this.vtbl.SetCaption)
+        CallbackFree(this.vtbl.SetImage)
+        CallbackFree(this.vtbl.SetPercentComplete)
+        CallbackFree(this.vtbl.SetProgressText)
+        CallbackFree(this.vtbl.SetActionLinkCallback)
+        CallbackFree(this.vtbl.SetActionLinkText)
+        CallbackFree(this.vtbl.ShowActionLink)
+        CallbackFree(this.vtbl.IsCancelled)
+        CallbackFree(this.vtbl.GetUserInput)
     }
 }

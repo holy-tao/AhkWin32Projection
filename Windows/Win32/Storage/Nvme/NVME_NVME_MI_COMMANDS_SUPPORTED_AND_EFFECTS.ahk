@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -24,12 +21,9 @@ class NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS extends Win32Struct {
      * - CSPDomain
      * - CSPNVMSubsystem
      * - CSPReserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMBrush.ahk
-#Include .\IXpsOMColorProfileResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A single-color brush.
@@ -53,26 +55,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomsolidcolorbrush
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMSolidColorBrush extends IXpsOMBrush {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMSolidColorBrush extends IXpsOMBrush {
     /**
      * The interface identifier for IXpsOMSolidColorBrush
      * @type {Guid}
      */
-    static IID => Guid("{a06f9f05-3be9-4763-98a8-094fc672e488}")
+    static IID := Guid("{a06f9f05-3be9-4763-98a8-094fc672e488}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMSolidColorBrush interfaces
+    */
+    struct Vtbl extends IXpsOMBrush.Vtbl {
+        GetColor : IntPtr
+        SetColor : IntPtr
+        Clone    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetColor", "SetColor", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMSolidColorBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the color value and color profile of the brush.
@@ -83,7 +94,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-getcolor
      */
     GetColor(_color) {
-        result := ComCall(7, this, "ptr", _color, "ptr*", &colorProfile := 0, "HRESULT")
+        result := ComCall(7, this, XPS_COLOR.Ptr, _color, "ptr*", &colorProfile := 0, "HRESULT")
         return IXpsOMColorProfileResource(colorProfile)
     }
 
@@ -161,7 +172,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-setcolor
      */
     SetColor(_color, colorProfile) {
-        result := ComCall(8, this, "ptr", _color, "ptr", colorProfile, "HRESULT")
+        result := ComCall(8, this, XPS_COLOR.Ptr, _color, "ptr", colorProfile, "HRESULT")
         return result
     }
 
@@ -175,5 +186,29 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush {
     Clone() {
         result := ComCall(9, this, "ptr*", &solidColorBrush := 0, "HRESULT")
         return IXpsOMSolidColorBrush(solidColorBrush)
+    }
+
+    Query(iid) {
+        if (IXpsOMSolidColorBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 3)
+        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetColor)
+        CallbackFree(this.vtbl.SetColor)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcCertificateEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An unordered set of certificates to be used with a signature.
@@ -17,26 +19,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopccertificateset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcCertificateSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcCertificateSet extends IUnknown {
     /**
      * The interface identifier for IOpcCertificateSet
      * @type {Guid}
      */
-    static IID => Guid("{56ea4325-8e2d-4167-b1a4-e486d24c8fa7}")
+    static IID := Guid("{56ea4325-8e2d-4167-b1a4-e486d24c8fa7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcCertificateSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Add           : IntPtr
+        Remove        : IntPtr
+        GetEnumerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Add", "Remove", "GetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcCertificateSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a certificate to the set.
@@ -84,7 +95,7 @@ class IOpcCertificateSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-add
      */
     Add(certificate) {
-        result := ComCall(3, this, "ptr", certificate, "HRESULT")
+        result := ComCall(3, this, CERT_CONTEXT.Ptr, certificate, "HRESULT")
         return result
     }
 
@@ -124,7 +135,7 @@ class IOpcCertificateSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-remove
      */
     Remove(certificate) {
-        result := ComCall(4, this, "ptr", certificate, "HRESULT")
+        result := ComCall(4, this, CERT_CONTEXT.Ptr, certificate, "HRESULT")
         return result
     }
 
@@ -136,5 +147,29 @@ class IOpcCertificateSet extends IUnknown {
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &certificateEnumerator := 0, "HRESULT")
         return IOpcCertificateEnumerator(certificateEnumerator)
+    }
+
+    Query(iid) {
+        if (IOpcCertificateSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.GetEnumerator)
     }
 }

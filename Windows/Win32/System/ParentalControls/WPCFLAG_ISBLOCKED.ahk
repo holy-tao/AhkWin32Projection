@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates information about what events are blocked from use and what controls are in place.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpcflag_isblocked
  * @namespace Windows.Win32.System.ParentalControls
  */
-class WPCFLAG_ISBLOCKED extends Win32Enum {
+export default struct WPCFLAG_ISBLOCKED {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No events are blocked from the user.

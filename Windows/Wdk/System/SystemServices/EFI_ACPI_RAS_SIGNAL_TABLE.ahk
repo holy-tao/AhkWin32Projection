@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class EFI_ACPI_RAS_SIGNAL_TABLE extends Win32Struct {
-    static sizeof => 24
+export default struct EFI_ACPI_RAS_SIGNAL_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NumberRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberRecord {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Entries : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Entries {
-        get {
-            if(!this.HasProp("__EntriesProxyArray"))
-                this.__EntriesProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
-            return this.__EntriesProxyArray
-        }
-    }
 }

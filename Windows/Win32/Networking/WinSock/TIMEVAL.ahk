@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TIMEVAL (winsock.h) structure is used to specify a time interval. It is associated with the Berkeley Software Distribution (BSD) Time.h header file.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-timeval
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TIMEVAL extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct TIMEVAL {
+    #StructPack 4
 
     /**
      * Time interval, in seconds.
-     * @type {Integer}
      */
-    tv_sec {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    tv_sec : Int32
 
     /**
      * Time interval, in microseconds. This value is used in combination with the <b>tv_sec</b> member to represent time interval values  that are not a multiple of seconds.
-     * @type {Integer}
      */
-    tv_usec {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    tv_usec : Int32
+
 }

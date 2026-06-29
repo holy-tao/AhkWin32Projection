@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRANSACTION_LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TRANSACTION_LIST_ENTRY.ahk" { TRANSACTION_LIST_ENTRY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class TRANSACTION_LIST_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct TRANSACTION_LIST_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 8
+    NumberOfTransactions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfTransactions {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TransactionInformation : TRANSACTION_LIST_ENTRY[1]
 
-    /**
-     * @type {TRANSACTION_LIST_ENTRY}
-     */
-    TransactionInformation {
-        get {
-            if(!this.HasProp("__TransactionInformationProxyArray"))
-                this.__TransactionInformationProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSACTION_LIST_ENTRY, "")
-            return this.__TransactionInformationProxyArray
-        }
-    }
 }

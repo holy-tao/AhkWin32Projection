@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGR_PRESENTER_NEXT_STEP.ahk" { SYNCMGR_PRESENTER_NEXT_STEP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_PRESENTER_CHOICE.ahk" { SYNCMGR_PRESENTER_CHOICE }
 
 /**
  * Exposes methods that get and set information about sync manager conflict resolution.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictresolveinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrConflictResolveInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrConflictResolveInfo extends IUnknown {
     /**
      * The interface identifier for ISyncMgrConflictResolveInfo
      * @type {Guid}
      */
-    static IID => Guid("{c405a219-25a2-442e-8743-b845a2cee93f}")
+    static IID := Guid("{c405a219-25a2-442e-8743-b845a2cee93f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrConflictResolveInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIterationInfo     : IntPtr
+        GetPresenterNextStep : IntPtr
+        GetPresenterChoice   : IntPtr
+        GetItemChoiceCount   : IntPtr
+        GetItemChoice        : IntPtr
+        SetPresenterNextStep : IntPtr
+        SetPresenterChoice   : IntPtr
+        SetItemChoices       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIterationInfo", "GetPresenterNextStep", "GetPresenterChoice", "GetItemChoiceCount", "GetItemChoice", "SetPresenterNextStep", "SetPresenterChoice", "SetItemChoices"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrConflictResolveInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets information about which conflict in a set of conflicts is being resolved.
@@ -125,7 +143,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setpresenternextstep
      */
     SetPresenterNextStep(nPresenterNextStep) {
-        result := ComCall(8, this, "int", nPresenterNextStep, "HRESULT")
+        result := ComCall(8, this, SYNCMGR_PRESENTER_NEXT_STEP, nPresenterNextStep, "HRESULT")
         return result
     }
 
@@ -143,7 +161,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setpresenterchoice
      */
     SetPresenterChoice(nPresenterChoice, fApplyToAll) {
-        result := ComCall(9, this, "int", nPresenterChoice, "int", fApplyToAll, "HRESULT")
+        result := ComCall(9, this, SYNCMGR_PRESENTER_CHOICE, nPresenterChoice, BOOL, fApplyToAll, "HRESULT")
         return result
     }
 
@@ -165,5 +183,39 @@ class ISyncMgrConflictResolveInfo extends IUnknown {
 
         result := ComCall(10, this, prgiConflictItemIndexesMarshal, prgiConflictItemIndexes, "uint", cChoices, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrConflictResolveInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIterationInfo := CallbackCreate(GetMethod(implObj, "GetIterationInfo"), flags, 4)
+        this.vtbl.GetPresenterNextStep := CallbackCreate(GetMethod(implObj, "GetPresenterNextStep"), flags, 2)
+        this.vtbl.GetPresenterChoice := CallbackCreate(GetMethod(implObj, "GetPresenterChoice"), flags, 3)
+        this.vtbl.GetItemChoiceCount := CallbackCreate(GetMethod(implObj, "GetItemChoiceCount"), flags, 2)
+        this.vtbl.GetItemChoice := CallbackCreate(GetMethod(implObj, "GetItemChoice"), flags, 3)
+        this.vtbl.SetPresenterNextStep := CallbackCreate(GetMethod(implObj, "SetPresenterNextStep"), flags, 2)
+        this.vtbl.SetPresenterChoice := CallbackCreate(GetMethod(implObj, "SetPresenterChoice"), flags, 3)
+        this.vtbl.SetItemChoices := CallbackCreate(GetMethod(implObj, "SetItemChoices"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIterationInfo)
+        CallbackFree(this.vtbl.GetPresenterNextStep)
+        CallbackFree(this.vtbl.GetPresenterChoice)
+        CallbackFree(this.vtbl.GetItemChoiceCount)
+        CallbackFree(this.vtbl.GetItemChoice)
+        CallbackFree(this.vtbl.SetPresenterNextStep)
+        CallbackFree(this.vtbl.SetPresenterChoice)
+        CallbackFree(this.vtbl.SetItemChoices)
     }
 }

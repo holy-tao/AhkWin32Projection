@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables application developers to monitor (spy on) memory allocation, detect memory leaks, and simulate memory failure in calls to IMalloc methods.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-imallocspy
  * @namespace Windows.Win32.System.Com
  */
-class IMallocSpy extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMallocSpy extends IUnknown {
     /**
      * The interface identifier for IMallocSpy
      * @type {Guid}
      */
-    static IID => Guid("{0000001d-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000001d-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMallocSpy interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PreAlloc         : IntPtr
+        PostAlloc        : IntPtr
+        PreFree          : IntPtr
+        PostFree         : IntPtr
+        PreRealloc       : IntPtr
+        PostRealloc      : IntPtr
+        PreGetSize       : IntPtr
+        PostGetSize      : IntPtr
+        PreDidAlloc      : IntPtr
+        PostDidAlloc     : IntPtr
+        PreHeapMinimize  : IntPtr
+        PostHeapMinimize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PreAlloc", "PostAlloc", "PreFree", "PostFree", "PreRealloc", "PostRealloc", "PreGetSize", "PostGetSize", "PreDidAlloc", "PostDidAlloc", "PreHeapMinimize", "PostHeapMinimize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMallocSpy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Performs operations required before calling IMalloc::Alloc.
@@ -44,7 +63,7 @@ class IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-prealloc
      */
     PreAlloc(cbRequest) {
-        result := ComCall(3, this, "ptr", cbRequest, "ptr")
+        result := ComCall(3, this, "ptr", cbRequest, IntPtr)
         return result
     }
 
@@ -59,7 +78,7 @@ class IMallocSpy extends IUnknown {
     PostAlloc(pActual) {
         pActualMarshal := pActual is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pActualMarshal, pActual, "ptr")
+        result := ComCall(4, this, pActualMarshal, pActual, IntPtr)
         return result
     }
 
@@ -75,7 +94,7 @@ class IMallocSpy extends IUnknown {
     PreFree(pRequest, fSpyed) {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pRequestMarshal, pRequest, "int", fSpyed, "ptr")
+        result := ComCall(5, this, pRequestMarshal, pRequest, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -88,7 +107,7 @@ class IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postfree
      */
     PostFree(fSpyed) {
-        ComCall(6, this, "int", fSpyed)
+        ComCall(6, this, BOOL, fSpyed)
     }
 
     /**
@@ -108,7 +127,7 @@ class IMallocSpy extends IUnknown {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
         ppNewRequestMarshal := ppNewRequest is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pRequestMarshal, pRequest, "ptr", cbRequest, ppNewRequestMarshal, ppNewRequest, "int", fSpyed, "ptr")
+        result := ComCall(7, this, pRequestMarshal, pRequest, "ptr", cbRequest, ppNewRequestMarshal, ppNewRequest, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -124,7 +143,7 @@ class IMallocSpy extends IUnknown {
     PostRealloc(pActual, fSpyed) {
         pActualMarshal := pActual is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, pActualMarshal, pActual, "int", fSpyed, "ptr")
+        result := ComCall(8, this, pActualMarshal, pActual, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -145,7 +164,7 @@ class IMallocSpy extends IUnknown {
     PreGetSize(pRequest, fSpyed) {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, pRequestMarshal, pRequest, "int", fSpyed, "ptr")
+        result := ComCall(9, this, pRequestMarshal, pRequest, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -159,7 +178,7 @@ class IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postgetsize
      */
     PostGetSize(cbActual, fSpyed) {
-        result := ComCall(10, this, "ptr", cbActual, "int", fSpyed, "ptr")
+        result := ComCall(10, this, "ptr", cbActual, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -175,7 +194,7 @@ class IMallocSpy extends IUnknown {
     PreDidAlloc(pRequest, fSpyed) {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, pRequestMarshal, pRequest, "int", fSpyed, "ptr")
+        result := ComCall(11, this, pRequestMarshal, pRequest, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -194,7 +213,7 @@ class IMallocSpy extends IUnknown {
     PostDidAlloc(pRequest, fSpyed, fActual) {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, pRequestMarshal, pRequest, "int", fSpyed, "int", fActual, "int")
+        result := ComCall(12, this, pRequestMarshal, pRequest, BOOL, fSpyed, "int", fActual, Int32)
         return result
     }
 
@@ -218,5 +237,47 @@ class IMallocSpy extends IUnknown {
      */
     PostHeapMinimize() {
         ComCall(14, this)
+    }
+
+    Query(iid) {
+        if (IMallocSpy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PreAlloc := CallbackCreate(GetMethod(implObj, "PreAlloc"), flags, 2)
+        this.vtbl.PostAlloc := CallbackCreate(GetMethod(implObj, "PostAlloc"), flags, 2)
+        this.vtbl.PreFree := CallbackCreate(GetMethod(implObj, "PreFree"), flags, 3)
+        this.vtbl.PostFree := CallbackCreate(GetMethod(implObj, "PostFree"), flags, 2)
+        this.vtbl.PreRealloc := CallbackCreate(GetMethod(implObj, "PreRealloc"), flags, 5)
+        this.vtbl.PostRealloc := CallbackCreate(GetMethod(implObj, "PostRealloc"), flags, 3)
+        this.vtbl.PreGetSize := CallbackCreate(GetMethod(implObj, "PreGetSize"), flags, 3)
+        this.vtbl.PostGetSize := CallbackCreate(GetMethod(implObj, "PostGetSize"), flags, 3)
+        this.vtbl.PreDidAlloc := CallbackCreate(GetMethod(implObj, "PreDidAlloc"), flags, 3)
+        this.vtbl.PostDidAlloc := CallbackCreate(GetMethod(implObj, "PostDidAlloc"), flags, 4)
+        this.vtbl.PreHeapMinimize := CallbackCreate(GetMethod(implObj, "PreHeapMinimize"), flags, 1)
+        this.vtbl.PostHeapMinimize := CallbackCreate(GetMethod(implObj, "PostHeapMinimize"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PreAlloc)
+        CallbackFree(this.vtbl.PostAlloc)
+        CallbackFree(this.vtbl.PreFree)
+        CallbackFree(this.vtbl.PostFree)
+        CallbackFree(this.vtbl.PreRealloc)
+        CallbackFree(this.vtbl.PostRealloc)
+        CallbackFree(this.vtbl.PreGetSize)
+        CallbackFree(this.vtbl.PostGetSize)
+        CallbackFree(this.vtbl.PreDidAlloc)
+        CallbackFree(this.vtbl.PostDidAlloc)
+        CallbackFree(this.vtbl.PreHeapMinimize)
+        CallbackFree(this.vtbl.PostHeapMinimize)
     }
 }

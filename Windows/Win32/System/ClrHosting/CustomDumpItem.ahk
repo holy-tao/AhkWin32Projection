@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ECustomDumpItemKind.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ECustomDumpItemKind.ahk" { ECustomDumpItemKind }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class CustomDumpItem extends Win32Struct {
-    static sizeof => 16
+export default struct CustomDumpItem {
+    #StructPack 8
 
-    static packingSize => 8
+    itemKind : ECustomDumpItemKind
 
-    /**
-     * @type {ECustomDumpItemKind}
-     */
-    itemKind {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    pReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    pReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

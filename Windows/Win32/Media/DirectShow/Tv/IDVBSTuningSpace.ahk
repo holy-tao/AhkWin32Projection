@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDVBTuningSpace2.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\SpectralInversion.ahk" { SpectralInversion }
+#Import ".\IDVBTuningSpace2.ahk" { IDVBTuningSpace2 }
 
 /**
  * The IDVBSTuningSpace interface is implemented on the DVBTuningSpace object and provides methods for working with tuning spaces with a DVBS network type.
@@ -11,32 +13,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbstuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVBSTuningSpace extends IDVBTuningSpace2 {
-
-    static sizeof => A_PtrSize
+export default struct IDVBSTuningSpace extends IDVBTuningSpace2 {
     /**
      * The interface identifier for IDVBSTuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{cdf7be60-d954-42fd-a972-78971958e470}")
+    static IID := Guid("{cdf7be60-d954-42fd-a972-78971958e470}")
 
     /**
      * The class identifier for DVBSTuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{b64016f3-c9a2-4066-96f0-bd9563314726}")
+    static CLSID := Guid("{b64016f3-c9a2-4066-96f0-bd9563314726}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVBSTuningSpace interfaces
+    */
+    struct Vtbl extends IDVBTuningSpace2.Vtbl {
+        get_LowOscillator     : IntPtr
+        put_LowOscillator     : IntPtr
+        get_HighOscillator    : IntPtr
+        put_HighOscillator    : IntPtr
+        get_LNBSwitch         : IntPtr
+        put_LNBSwitch         : IntPtr
+        get_InputRange        : IntPtr
+        put_InputRange        : IntPtr
+        get_SpectralInversion : IntPtr
+        put_SpectralInversion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LowOscillator", "put_LowOscillator", "get_HighOscillator", "put_HighOscillator", "get_LNBSwitch", "put_LNBSwitch", "get_InputRange", "put_InputRange", "get_SpectralInversion", "put_SpectralInversion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVBSTuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -147,8 +165,8 @@ class IDVBSTuningSpace extends IDVBTuningSpace2 {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_inputrange
      */
     get_InputRange() {
-        InputRange := BSTR()
-        result := ComCall(36, this, "ptr", InputRange, "HRESULT")
+        InputRange := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, InputRange, "HRESULT")
         return InputRange
     }
 
@@ -161,7 +179,7 @@ class IDVBSTuningSpace extends IDVBTuningSpace2 {
     put_InputRange(InputRange) {
         InputRange := InputRange is String ? BSTR.Alloc(InputRange).Value : InputRange
 
-        result := ComCall(37, this, "ptr", InputRange, "HRESULT")
+        result := ComCall(37, this, BSTR, InputRange, "HRESULT")
         return result
     }
 
@@ -182,7 +200,45 @@ class IDVBSTuningSpace extends IDVBTuningSpace2 {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-put_spectralinversion
      */
     put_SpectralInversion(SpectralInversionVal) {
-        result := ComCall(39, this, "int", SpectralInversionVal, "HRESULT")
+        result := ComCall(39, this, SpectralInversion, SpectralInversionVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVBSTuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LowOscillator := CallbackCreate(GetMethod(implObj, "get_LowOscillator"), flags, 2)
+        this.vtbl.put_LowOscillator := CallbackCreate(GetMethod(implObj, "put_LowOscillator"), flags, 2)
+        this.vtbl.get_HighOscillator := CallbackCreate(GetMethod(implObj, "get_HighOscillator"), flags, 2)
+        this.vtbl.put_HighOscillator := CallbackCreate(GetMethod(implObj, "put_HighOscillator"), flags, 2)
+        this.vtbl.get_LNBSwitch := CallbackCreate(GetMethod(implObj, "get_LNBSwitch"), flags, 2)
+        this.vtbl.put_LNBSwitch := CallbackCreate(GetMethod(implObj, "put_LNBSwitch"), flags, 2)
+        this.vtbl.get_InputRange := CallbackCreate(GetMethod(implObj, "get_InputRange"), flags, 2)
+        this.vtbl.put_InputRange := CallbackCreate(GetMethod(implObj, "put_InputRange"), flags, 2)
+        this.vtbl.get_SpectralInversion := CallbackCreate(GetMethod(implObj, "get_SpectralInversion"), flags, 2)
+        this.vtbl.put_SpectralInversion := CallbackCreate(GetMethod(implObj, "put_SpectralInversion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LowOscillator)
+        CallbackFree(this.vtbl.put_LowOscillator)
+        CallbackFree(this.vtbl.get_HighOscillator)
+        CallbackFree(this.vtbl.put_HighOscillator)
+        CallbackFree(this.vtbl.get_LNBSwitch)
+        CallbackFree(this.vtbl.put_LNBSwitch)
+        CallbackFree(this.vtbl.get_InputRange)
+        CallbackFree(this.vtbl.put_InputRange)
+        CallbackFree(this.vtbl.get_SpectralInversion)
+        CallbackFree(this.vtbl.put_SpectralInversion)
     }
 }

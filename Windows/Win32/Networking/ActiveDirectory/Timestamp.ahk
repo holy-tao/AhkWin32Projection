@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IADsTimestamp interface provides methods for an ADSI client to access the Timestamp attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadstimestamp
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class Timestamp extends Win32Struct {
-    static sizeof => 0
+export default struct Timestamp {
+    #StructPack 1
 
-    static packingSize => 1
 }

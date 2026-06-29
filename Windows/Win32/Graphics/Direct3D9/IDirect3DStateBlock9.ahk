@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3DStateBlock9 (d3d9.h) interface is used by applications to encapsulate render states.
@@ -20,26 +21,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dstateblock9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DStateBlock9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DStateBlock9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DStateBlock9
      * @type {Guid}
      */
-    static IID => Guid("{b07c4fe5-310d-4ba8-a23c-4f0f206f218b}")
+    static IID := Guid("{b07c4fe5-310d-4ba8-a23c-4f0f206f218b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DStateBlock9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice : IntPtr
+        Capture   : IntPtr
+        Apply     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "Capture", "Apply"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DStateBlock9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DStateBlock9::GetDevice (d3d9.h) method gets the device.
@@ -100,5 +110,29 @@ class IDirect3DStateBlock9 extends IUnknown {
     Apply() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DStateBlock9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.Capture := CallbackCreate(GetMethod(implObj, "Capture"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.Capture)
+        CallbackFree(this.vtbl.Apply)
     }
 }

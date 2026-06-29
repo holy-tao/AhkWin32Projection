@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the time of the last input.
@@ -8,35 +7,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-lastinputinfo
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class LASTINPUTINFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct LASTINPUTINFO {
+    #StructPack 4
 
     /**
      * Type: <b>UINT</b>
      * 
      * The size of the structure, in bytes. This member must be set to <c>sizeof(LASTINPUTINFO)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The tick count when the last input event was received.
-     * @type {Integer}
      */
-    dwTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTime : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 8
-    }
 }

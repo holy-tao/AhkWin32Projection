@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the available options for examining security data of an object.
@@ -32,7 +31,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_security_info_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_SECURITY_INFO_ENUM extends Win32Enum {
+export default struct ADS_SECURITY_INFO_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Reads or sets the owner data.

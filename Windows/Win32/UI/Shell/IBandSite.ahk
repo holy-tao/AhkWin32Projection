@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDeskBand.ahk" { IDeskBand }
+#Import ".\BANDSITEINFO.ahk" { BANDSITEINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that control band objects.
@@ -10,26 +14,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ibandsite
  * @namespace Windows.Win32.UI.Shell
  */
-class IBandSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBandSite extends IUnknown {
     /**
      * The interface identifier for IBandSite
      * @type {Guid}
      */
-    static IID => Guid("{4cf504b0-de96-11d0-8b3f-00a0c911e8e5}")
+    static IID := Guid("{4cf504b0-de96-11d0-8b3f-00a0c911e8e5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBandSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddBand         : IntPtr
+        EnumBands       : IntPtr
+        QueryBand       : IntPtr
+        SetBandState    : IntPtr
+        RemoveBand      : IntPtr
+        GetBandObject   : IntPtr
+        SetBandSiteInfo : IntPtr
+        GetBandSiteInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddBand", "EnumBands", "QueryBand", "SetBandState", "RemoveBand", "GetBandObject", "SetBandSiteInfo", "GetBandSiteInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBandSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a band to a band site object.
@@ -91,7 +109,7 @@ class IBandSite extends IUnknown {
 
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwBandID, "ptr*", ppstb, pdwStateMarshal, pdwState, "ptr", pszName, "int", cchName, "HRESULT")
+        result := ComCall(5, this, "uint", dwBandID, IDeskBand.Ptr, ppstb, pdwStateMarshal, pdwState, "ptr", pszName, "int", cchName, "HRESULT")
         return result
     }
 
@@ -148,7 +166,7 @@ class IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-getbandobject
      */
     GetBandObject(dwBandID, riid) {
-        result := ComCall(8, this, "uint", dwBandID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwBandID, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -166,7 +184,7 @@ class IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-setbandsiteinfo
      */
     SetBandSiteInfo(pbsinfo) {
-        result := ComCall(9, this, "ptr", pbsinfo, "HRESULT")
+        result := ComCall(9, this, BANDSITEINFO.Ptr, pbsinfo, "HRESULT")
         return result
     }
 
@@ -184,7 +202,41 @@ class IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-getbandsiteinfo
      */
     GetBandSiteInfo(pbsinfo) {
-        result := ComCall(10, this, "ptr", pbsinfo, "HRESULT")
+        result := ComCall(10, this, BANDSITEINFO.Ptr, pbsinfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBandSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddBand := CallbackCreate(GetMethod(implObj, "AddBand"), flags, 2)
+        this.vtbl.EnumBands := CallbackCreate(GetMethod(implObj, "EnumBands"), flags, 3)
+        this.vtbl.QueryBand := CallbackCreate(GetMethod(implObj, "QueryBand"), flags, 6)
+        this.vtbl.SetBandState := CallbackCreate(GetMethod(implObj, "SetBandState"), flags, 4)
+        this.vtbl.RemoveBand := CallbackCreate(GetMethod(implObj, "RemoveBand"), flags, 2)
+        this.vtbl.GetBandObject := CallbackCreate(GetMethod(implObj, "GetBandObject"), flags, 4)
+        this.vtbl.SetBandSiteInfo := CallbackCreate(GetMethod(implObj, "SetBandSiteInfo"), flags, 2)
+        this.vtbl.GetBandSiteInfo := CallbackCreate(GetMethod(implObj, "GetBandSiteInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddBand)
+        CallbackFree(this.vtbl.EnumBands)
+        CallbackFree(this.vtbl.QueryBand)
+        CallbackFree(this.vtbl.SetBandState)
+        CallbackFree(this.vtbl.RemoveBand)
+        CallbackFree(this.vtbl.GetBandObject)
+        CallbackFree(this.vtbl.SetBandSiteInfo)
+        CallbackFree(this.vtbl.GetBandSiteInfo)
     }
 }

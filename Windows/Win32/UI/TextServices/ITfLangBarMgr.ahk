@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfLangBarEventSink.ahk" { ITfLangBarEventSink }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ITfInputProcessorProfiles.ahk" { ITfInputProcessorProfiles }
+#Import ".\ITfLangBarItemMgr.ahk" { ITfLangBarItemMgr }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfLangBarMgr interface is implemented by the TSF manager and used by text services to manage event sink notification and configure floating language bar display settings. The interface ID is IID_ITfLangBarMgr.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbarmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarMgr extends IUnknown {
     /**
      * The interface identifier for ITfLangBarMgr
      * @type {Guid}
      */
-    static IID => Guid("{87955690-e627-11d2-8ddb-00105a2799b5}")
+    static IID := Guid("{87955690-e627-11d2-8ddb-00105a2799b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseEventSink           : IntPtr
+        UnadviseEventSink         : IntPtr
+        GetThreadMarshalInterface : IntPtr
+        GetThreadLangBarItemMgr   : IntPtr
+        GetInputProcessorProfiles : IntPtr
+        RestoreLastFocus          : IntPtr
+        SetModalInput             : IntPtr
+        ShowFloating              : IntPtr
+        GetShowFloatingStatus     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseEventSink", "UnadviseEventSink", "GetThreadMarshalInterface", "GetThreadLangBarItemMgr", "GetInputProcessorProfiles", "RestoreLastFocus", "SetModalInput", "ShowFloating", "GetShowFloatingStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfLangBarMgr::AdviseEventSink method advises a sink about a language bar event.
@@ -81,11 +102,9 @@ class ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-adviseeventsink
      */
     AdviseEventSink(pSink, _hwnd, dwFlags, pdwCookie) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSink, "ptr", _hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pSink, HWND, _hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -138,7 +157,7 @@ class ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getthreadmarshalinterface
      */
     GetThreadMarshalInterface(dwThreadId, dwType, riid) {
-        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -153,7 +172,7 @@ class ITfLangBarMgr extends IUnknown {
     GetThreadLangBarItemMgr(dwThreadId, pplbi, pdwThreadid) {
         pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwThreadId, "ptr*", pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
+        result := ComCall(6, this, "uint", dwThreadId, ITfLangBarItemMgr.Ptr, pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
     }
 
@@ -168,7 +187,7 @@ class ITfLangBarMgr extends IUnknown {
     GetInputProcessorProfiles(dwThreadId, ppaip, pdwThreadid) {
         pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwThreadId, "ptr*", ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
+        result := ComCall(7, this, "uint", dwThreadId, ITfInputProcessorProfiles.Ptr, ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
     }
 
@@ -179,7 +198,7 @@ class ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-restorelastfocus
      */
     RestoreLastFocus(fPrev) {
-        result := ComCall(8, this, "uint*", &pdwThreadId := 0, "int", fPrev, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwThreadId := 0, BOOL, fPrev, "HRESULT")
         return pdwThreadId
     }
 
@@ -382,5 +401,41 @@ class ITfLangBarMgr extends IUnknown {
     GetShowFloatingStatus() {
         result := ComCall(11, this, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
+    }
+
+    Query(iid) {
+        if (ITfLangBarMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseEventSink := CallbackCreate(GetMethod(implObj, "AdviseEventSink"), flags, 5)
+        this.vtbl.UnadviseEventSink := CallbackCreate(GetMethod(implObj, "UnadviseEventSink"), flags, 2)
+        this.vtbl.GetThreadMarshalInterface := CallbackCreate(GetMethod(implObj, "GetThreadMarshalInterface"), flags, 5)
+        this.vtbl.GetThreadLangBarItemMgr := CallbackCreate(GetMethod(implObj, "GetThreadLangBarItemMgr"), flags, 4)
+        this.vtbl.GetInputProcessorProfiles := CallbackCreate(GetMethod(implObj, "GetInputProcessorProfiles"), flags, 4)
+        this.vtbl.RestoreLastFocus := CallbackCreate(GetMethod(implObj, "RestoreLastFocus"), flags, 3)
+        this.vtbl.SetModalInput := CallbackCreate(GetMethod(implObj, "SetModalInput"), flags, 4)
+        this.vtbl.ShowFloating := CallbackCreate(GetMethod(implObj, "ShowFloating"), flags, 2)
+        this.vtbl.GetShowFloatingStatus := CallbackCreate(GetMethod(implObj, "GetShowFloatingStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseEventSink)
+        CallbackFree(this.vtbl.UnadviseEventSink)
+        CallbackFree(this.vtbl.GetThreadMarshalInterface)
+        CallbackFree(this.vtbl.GetThreadLangBarItemMgr)
+        CallbackFree(this.vtbl.GetInputProcessorProfiles)
+        CallbackFree(this.vtbl.RestoreLastFocus)
+        CallbackFree(this.vtbl.SetModalInput)
+        CallbackFree(this.vtbl.ShowFloating)
+        CallbackFree(this.vtbl.GetShowFloatingStatus)
     }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class PROTOCOLDATA extends Win32Struct {
-    static sizeof => 24
+export default struct PROTOCOLDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    grfFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grfFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

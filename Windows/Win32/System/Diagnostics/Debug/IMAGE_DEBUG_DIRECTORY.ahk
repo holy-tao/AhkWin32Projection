@@ -1,85 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_DEBUG_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_DEBUG_TYPE.ahk" { IMAGE_DEBUG_TYPE }
 
 /**
  * Represents the debug directory format.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_debug_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_DEBUG_DIRECTORY extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct IMAGE_DEBUG_DIRECTORY {
+    #StructPack 4
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Characteristics {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Characteristics : UInt32
 
     /**
      * The time and date the debugging information was created.
-     * @type {Integer}
      */
-    TimeDateStamp {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TimeDateStamp : UInt32
 
     /**
      * The major version number of the debugging information format.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MajorVersion : UInt16
 
     /**
      * The minor version number of the debugging information format.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    MinorVersion : UInt16
 
-    /**
-     * @type {IMAGE_DEBUG_TYPE}
-     */
-    Type {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Type : IMAGE_DEBUG_TYPE
 
     /**
      * The size of the debugging information, in bytes. This value does not include the debug directory itself.
-     * @type {Integer}
      */
-    SizeOfData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SizeOfData : UInt32
 
     /**
      * The address of the debugging information when the image is loaded, relative to the image base.
-     * @type {Integer}
      */
-    AddressOfRawData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    AddressOfRawData : UInt32
 
     /**
      * A file pointer to the debugging information.
-     * @type {Integer}
      */
-    PointerToRawData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PointerToRawData : UInt32
+
 }

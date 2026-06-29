@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Represents optional activation parameters for a spatial audio render stream. Pass this structure to ActivateAudioInterfaceAsync when activating an ISpatialAudioClient interface.
@@ -29,58 +29,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioclientactivationparams
  * @namespace Windows.Win32.Media.Audio
  */
-class SpatialAudioClientActivationParams extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SpatialAudioClientActivationParams {
+    #StructPack 4
 
     /**
      * An app-defined context identifier, used for event logging.
-     * @type {Pointer}
      */
-    tracingContextId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    tracingContextId : Guid
 
     /**
      * An identifier for the client app, used for event logging.
-     * @type {Pointer}
      */
-    appId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    appId : Guid
 
-    /**
-     * @type {Integer}
-     */
-    majorVersion {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    majorVersion : Int32
 
-    /**
-     * @type {Integer}
-     */
-    minorVersion1 {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    minorVersion1 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    minorVersion2 {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    minorVersion2 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    minorVersion3 {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    minorVersion3 : Int32
+
 }

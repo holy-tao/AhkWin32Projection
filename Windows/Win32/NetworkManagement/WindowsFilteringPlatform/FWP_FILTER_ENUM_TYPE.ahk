@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the filter enum conditions should be interpreted.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_filter_enum_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWP_FILTER_ENUM_TYPE extends Win32Enum {
+export default struct FWP_FILTER_ENUM_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Return only filters that fully contain the enum conditions.

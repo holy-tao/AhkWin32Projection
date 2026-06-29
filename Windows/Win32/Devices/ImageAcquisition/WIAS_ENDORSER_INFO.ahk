@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WIAS_ENDORSER_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WIAS_ENDORSER_VALUE.ahk" { WIAS_ENDORSER_VALUE }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIAS_ENDORSER_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct WIAS_ENDORSER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ulPageCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPageCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulNumEndorserValues : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumEndorserValues {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pEndorserValues : WIAS_ENDORSER_VALUE.Ptr
 
-    /**
-     * @type {Pointer<WIAS_ENDORSER_VALUE>}
-     */
-    pEndorserValues {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

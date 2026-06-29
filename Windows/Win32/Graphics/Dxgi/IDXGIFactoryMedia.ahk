@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDXGISwapChain1.ahk
-#Include .\IDXGIDecodeSwapChain.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXGI_DECODE_SWAP_CHAIN_DESC.ahk" { DXGI_DECODE_SWAP_CHAIN_DESC }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import ".\IDXGIDecodeSwapChain.ahk" { IDXGIDecodeSwapChain }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
 
 /**
  * Creates swap chains for desktop media apps that use DirectComposition surfaces to decode and display video.
@@ -30,26 +36,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgifactorymedia
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIFactoryMedia extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIFactoryMedia extends IUnknown {
     /**
      * The interface identifier for IDXGIFactoryMedia
      * @type {Guid}
      */
-    static IID => Guid("{41e7d1f2-a591-4f7b-a2e5-fa9c843e1c12}")
+    static IID := Guid("{41e7d1f2-a591-4f7b-a2e5-fa9c843e1c12}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIFactoryMedia interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateSwapChainForCompositionSurfaceHandle       : IntPtr
+        CreateDecodeSwapChainForCompositionSurfaceHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSwapChainForCompositionSurfaceHandle", "CreateDecodeSwapChainForCompositionSurfaceHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIFactoryMedia.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a YUV swap chain for an existing DirectComposition surface handle. (IDXGIFactoryMedia.CreateSwapChainForCompositionSurfaceHandle)
@@ -65,9 +79,7 @@ class IDXGIFactoryMedia extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle
      */
     CreateSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pRestrictToOutput) {
-        hSurface := hSurface is Win32Handle ? NumGet(hSurface, "ptr") : hSurface
-
-        result := ComCall(3, this, "ptr", pDevice, "ptr", hSurface, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevice, HANDLE, hSurface, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -101,9 +113,29 @@ class IDXGIFactoryMedia extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createdecodeswapchainforcompositionsurfacehandle
      */
     CreateDecodeSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pYuvDecodeBuffers, pRestrictToOutput) {
-        hSurface := hSurface is Win32Handle ? NumGet(hSurface, "ptr") : hSurface
-
-        result := ComCall(4, this, "ptr", pDevice, "ptr", hSurface, "ptr", pDesc, "ptr", pYuvDecodeBuffers, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pDevice, HANDLE, hSurface, DXGI_DECODE_SWAP_CHAIN_DESC.Ptr, pDesc, "ptr", pYuvDecodeBuffers, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGIDecodeSwapChain(ppSwapChain)
+    }
+
+    Query(iid) {
+        if (IDXGIFactoryMedia.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSwapChainForCompositionSurfaceHandle := CallbackCreate(GetMethod(implObj, "CreateSwapChainForCompositionSurfaceHandle"), flags, 6)
+        this.vtbl.CreateDecodeSwapChainForCompositionSurfaceHandle := CallbackCreate(GetMethod(implObj, "CreateDecodeSwapChainForCompositionSurfaceHandle"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSwapChainForCompositionSurfaceHandle)
+        CallbackFree(this.vtbl.CreateDecodeSwapChainForCompositionSurfaceHandle)
     }
 }

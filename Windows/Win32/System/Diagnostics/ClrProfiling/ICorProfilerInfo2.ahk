@@ -1,34 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo.ahk
-#Include .\ICorProfilerObjectEnum.ahk
-#Include .\COR_PRF_GC_GENERATION_RANGE.ahk
-#Include .\COR_PRF_EX_CLAUSE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
+#Import ".\COR_PRF_EX_CLAUSE_INFO.ahk" { COR_PRF_EX_CLAUSE_INFO }
+#Import "..\..\WinRT\Metadata\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
+#Import ".\ICorProfilerObjectEnum.ahk" { ICorProfilerObjectEnum }
+#Import ".\COR_PRF_GC_GENERATION_RANGE.ahk" { COR_PRF_GC_GENERATION_RANGE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COR_PRF_STATIC_TYPE.ahk" { COR_PRF_STATIC_TYPE }
+#Import ".\ICorProfilerInfo.ahk" { ICorProfilerInfo }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class ICorProfilerInfo2 extends ICorProfilerInfo {
-
-    static sizeof => A_PtrSize
+export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
     /**
      * The interface identifier for ICorProfilerInfo2
      * @type {Guid}
      */
-    static IID => Guid("{cc0935cd-a518-487d-b0bb-a93214e65478}")
+    static IID := Guid("{cc0935cd-a518-487d-b0bb-a93214e65478}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 36
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICorProfilerInfo2 interfaces
+    */
+    struct Vtbl extends ICorProfilerInfo.Vtbl {
+        DoStackSnapshot                 : IntPtr
+        SetEnterLeaveFunctionHooks2     : IntPtr
+        GetFunctionInfo2                : IntPtr
+        GetStringLayout                 : IntPtr
+        GetClassLayout                  : IntPtr
+        GetClassIDInfo2                 : IntPtr
+        GetCodeInfo2                    : IntPtr
+        GetClassFromTokenAndTypeArgs    : IntPtr
+        GetFunctionFromTokenAndTypeArgs : IntPtr
+        EnumModuleFrozenObjects         : IntPtr
+        GetArrayObjectInfo              : IntPtr
+        GetBoxClassLayout               : IntPtr
+        GetThreadAppDomain              : IntPtr
+        GetRVAStaticAddress             : IntPtr
+        GetAppDomainStaticAddress       : IntPtr
+        GetThreadStaticAddress          : IntPtr
+        GetContextStaticAddress         : IntPtr
+        GetStaticFieldInfo              : IntPtr
+        GetGenerationBounds             : IntPtr
+        GetObjectGeneration             : IntPtr
+        GetNotifiedExceptionClauseInfo  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DoStackSnapshot", "SetEnterLeaveFunctionHooks2", "GetFunctionInfo2", "GetStringLayout", "GetClassLayout", "GetClassIDInfo2", "GetCodeInfo2", "GetClassFromTokenAndTypeArgs", "GetFunctionFromTokenAndTypeArgs", "EnumModuleFrozenObjects", "GetArrayObjectInfo", "GetBoxClassLayout", "GetThreadAppDomain", "GetRVAStaticAddress", "GetAppDomainStaticAddress", "GetThreadStaticAddress", "GetContextStaticAddress", "GetStaticFieldInfo", "GetGenerationBounds", "GetObjectGeneration", "GetNotifiedExceptionClauseInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICorProfilerInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -117,7 +148,7 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
         pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
         pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "ptr", classID, "ptr", rFieldOffset, "uint", cFieldOffset, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
+        result := ComCall(40, this, "ptr", classID, COR_FIELD_OFFSET.Ptr, rFieldOffset, "uint", cFieldOffset, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
         return result
     }
 
@@ -154,7 +185,7 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     GetCodeInfo2(functionID, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, "ptr", functionID, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "HRESULT")
+        result := ComCall(42, this, "ptr", functionID, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
     }
 
@@ -305,7 +336,7 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     GetGenerationBounds(cObjectRanges, pcObjectRanges, ranges) {
         pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(54, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, "ptr", ranges, "HRESULT")
+        result := ComCall(54, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, COR_PRF_GC_GENERATION_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 
@@ -316,7 +347,7 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
      */
     GetObjectGeneration(_objectId) {
         range := COR_PRF_GC_GENERATION_RANGE()
-        result := ComCall(55, this, "ptr", _objectId, "ptr", range, "HRESULT")
+        result := ComCall(55, this, "ptr", _objectId, COR_PRF_GC_GENERATION_RANGE.Ptr, range, "HRESULT")
         return range
     }
 
@@ -326,7 +357,67 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
      */
     GetNotifiedExceptionClauseInfo() {
         pinfo := COR_PRF_EX_CLAUSE_INFO()
-        result := ComCall(56, this, "ptr", pinfo, "HRESULT")
+        result := ComCall(56, this, COR_PRF_EX_CLAUSE_INFO.Ptr, pinfo, "HRESULT")
         return pinfo
+    }
+
+    Query(iid) {
+        if (ICorProfilerInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DoStackSnapshot := CallbackCreate(GetMethod(implObj, "DoStackSnapshot"), flags, 7)
+        this.vtbl.SetEnterLeaveFunctionHooks2 := CallbackCreate(GetMethod(implObj, "SetEnterLeaveFunctionHooks2"), flags, 4)
+        this.vtbl.GetFunctionInfo2 := CallbackCreate(GetMethod(implObj, "GetFunctionInfo2"), flags, 9)
+        this.vtbl.GetStringLayout := CallbackCreate(GetMethod(implObj, "GetStringLayout"), flags, 4)
+        this.vtbl.GetClassLayout := CallbackCreate(GetMethod(implObj, "GetClassLayout"), flags, 6)
+        this.vtbl.GetClassIDInfo2 := CallbackCreate(GetMethod(implObj, "GetClassIDInfo2"), flags, 8)
+        this.vtbl.GetCodeInfo2 := CallbackCreate(GetMethod(implObj, "GetCodeInfo2"), flags, 5)
+        this.vtbl.GetClassFromTokenAndTypeArgs := CallbackCreate(GetMethod(implObj, "GetClassFromTokenAndTypeArgs"), flags, 6)
+        this.vtbl.GetFunctionFromTokenAndTypeArgs := CallbackCreate(GetMethod(implObj, "GetFunctionFromTokenAndTypeArgs"), flags, 7)
+        this.vtbl.EnumModuleFrozenObjects := CallbackCreate(GetMethod(implObj, "EnumModuleFrozenObjects"), flags, 3)
+        this.vtbl.GetArrayObjectInfo := CallbackCreate(GetMethod(implObj, "GetArrayObjectInfo"), flags, 6)
+        this.vtbl.GetBoxClassLayout := CallbackCreate(GetMethod(implObj, "GetBoxClassLayout"), flags, 3)
+        this.vtbl.GetThreadAppDomain := CallbackCreate(GetMethod(implObj, "GetThreadAppDomain"), flags, 3)
+        this.vtbl.GetRVAStaticAddress := CallbackCreate(GetMethod(implObj, "GetRVAStaticAddress"), flags, 4)
+        this.vtbl.GetAppDomainStaticAddress := CallbackCreate(GetMethod(implObj, "GetAppDomainStaticAddress"), flags, 5)
+        this.vtbl.GetThreadStaticAddress := CallbackCreate(GetMethod(implObj, "GetThreadStaticAddress"), flags, 5)
+        this.vtbl.GetContextStaticAddress := CallbackCreate(GetMethod(implObj, "GetContextStaticAddress"), flags, 5)
+        this.vtbl.GetStaticFieldInfo := CallbackCreate(GetMethod(implObj, "GetStaticFieldInfo"), flags, 4)
+        this.vtbl.GetGenerationBounds := CallbackCreate(GetMethod(implObj, "GetGenerationBounds"), flags, 4)
+        this.vtbl.GetObjectGeneration := CallbackCreate(GetMethod(implObj, "GetObjectGeneration"), flags, 3)
+        this.vtbl.GetNotifiedExceptionClauseInfo := CallbackCreate(GetMethod(implObj, "GetNotifiedExceptionClauseInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DoStackSnapshot)
+        CallbackFree(this.vtbl.SetEnterLeaveFunctionHooks2)
+        CallbackFree(this.vtbl.GetFunctionInfo2)
+        CallbackFree(this.vtbl.GetStringLayout)
+        CallbackFree(this.vtbl.GetClassLayout)
+        CallbackFree(this.vtbl.GetClassIDInfo2)
+        CallbackFree(this.vtbl.GetCodeInfo2)
+        CallbackFree(this.vtbl.GetClassFromTokenAndTypeArgs)
+        CallbackFree(this.vtbl.GetFunctionFromTokenAndTypeArgs)
+        CallbackFree(this.vtbl.EnumModuleFrozenObjects)
+        CallbackFree(this.vtbl.GetArrayObjectInfo)
+        CallbackFree(this.vtbl.GetBoxClassLayout)
+        CallbackFree(this.vtbl.GetThreadAppDomain)
+        CallbackFree(this.vtbl.GetRVAStaticAddress)
+        CallbackFree(this.vtbl.GetAppDomainStaticAddress)
+        CallbackFree(this.vtbl.GetThreadStaticAddress)
+        CallbackFree(this.vtbl.GetContextStaticAddress)
+        CallbackFree(this.vtbl.GetStaticFieldInfo)
+        CallbackFree(this.vtbl.GetGenerationBounds)
+        CallbackFree(this.vtbl.GetObjectGeneration)
+        CallbackFree(this.vtbl.GetNotifiedExceptionClauseInfo)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a volume.
@@ -10,80 +9,55 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dbox
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DBOX extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3DBOX {
+    #StructPack 4
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Position of the left side of the box on the x-axis.
-     * @type {Integer}
      */
-    Left {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Left : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Position of the top of the box on the y-axis.
-     * @type {Integer}
      */
-    Top {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Top : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Position of the right side of the box on the x-axis.
-     * @type {Integer}
      */
-    Right {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Right : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Position of the bottom of the box on the y-axis.
-     * @type {Integer}
      */
-    Bottom {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Bottom : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Position of the front of the box on the z-axis.
-     * @type {Integer}
      */
-    Front {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Front : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Position of the back of the box on the z-axis.
-     * @type {Integer}
      */
-    Back {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Back : UInt32
+
 }

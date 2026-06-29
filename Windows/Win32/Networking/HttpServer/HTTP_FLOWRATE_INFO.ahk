@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * The transfer rate of a response.
@@ -16,47 +15,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_flowrate_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_FLOWRATE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct HTTP_FLOWRATE_INFO {
+    #StructPack 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure specifying whether the property is present.
-     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : HTTP_PROPERTY_FLAGS
 
     /**
      * The maximum bandwidth represented in bytes/second.  This is the maximum bandwidth for the response after the burst content, whose size is specified in <b>BurstSize</b>,  has been sent.
-     * @type {Integer}
      */
-    MaxBandwidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxBandwidth : UInt32
 
     /**
      * The peak bandwidth represented in bytes/second.  This is the maximum bandwidth at which the burst is delivered.
-     * @type {Integer}
      */
-    MaxPeakBandwidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxPeakBandwidth : UInt32
 
     /**
      * The size of the content, in bytes, to be delivered at <b>MaxPeakBandwidth</b>.  Once this content has been delivered, the response is throttled at <b>MaxBandwidth</b>.  If the HTTP Server application sends responses at a rate slower than <b>MaxBandwidth</b>, the response is subject to burst again at <b>MaxPeakBandwidth</b> to maximize bandwidth utilization.
-     * @type {Integer}
      */
-    BurstSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BurstSize : UInt32
+
 }

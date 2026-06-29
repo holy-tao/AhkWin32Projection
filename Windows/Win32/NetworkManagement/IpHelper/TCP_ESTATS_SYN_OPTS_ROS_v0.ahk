@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains read-only static information for extended TCP statistics on SYN exchange for a TCP connection.
@@ -60,10 +60,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_syn_opts_ros_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_SYN_OPTS_ROS_v0 extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct TCP_ESTATS_SYN_OPTS_ROS_v0 {
+    #StructPack 4
 
     /**
      * Type: <b>BOOLEAN</b>
@@ -72,12 +70,8 @@ class TCP_ESTATS_SYN_OPTS_ROS_v0 extends Win32Struct {
      * 
      * If the local connection traversed the SYN-SENT
      *            state, then this member is set to <b>TRUE</b>. Otherwise, this member is set to <b>FALSE</b>.
-     * @type {BOOLEAN}
      */
-    ActiveOpen {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ActiveOpen : BOOLEAN
 
     /**
      * Type: <b>ULONG</b>
@@ -85,21 +79,14 @@ class TCP_ESTATS_SYN_OPTS_ROS_v0 extends Win32Struct {
      * The value received in an Maximum Segment Size (MSS) option during the SYN exchange, or zero if no MSS option was received. 
      * 
      * This value is the maximum data in a single TCP datagram that the remote host  can receive.
-     * @type {Integer}
      */
-    MssRcvd {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MssRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The value sent in an MSS option during the SYN exchange, or zero if no MSS option was sent.
-     * @type {Integer}
      */
-    MssSent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MssSent : UInt32
+
 }

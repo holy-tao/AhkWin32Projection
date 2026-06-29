@@ -1,36 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * The PolicyPrimaryDomainInformation value and POLICY_PRIMARY_DOMAIN_INFO structure are obsolete. Use the PolicyDnsDomainInformation and POLICY_DNS_DOMAIN_INFO structure instead.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_PRIMARY_DOMAIN_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct POLICY_PRIMARY_DOMAIN_INFO {
+    #StructPack 8
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that specifies the name of the primary domain.
-     * @type {LSA_UNICODE_STRING}
      */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(0, this)
-            return this.__Name
-        }
-    }
+    Name : LSA_UNICODE_STRING
 
     /**
      * Pointer to the SID of the primary domain.
-     * @type {PSID}
      */
-    Sid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Sid : PSID
+
 }

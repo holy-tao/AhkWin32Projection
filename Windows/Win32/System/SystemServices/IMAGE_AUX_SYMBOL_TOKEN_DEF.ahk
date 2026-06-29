@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_AUX_SYMBOL_TOKEN_DEF extends Win32Struct {
-    static sizeof => 20
+export default struct IMAGE_AUX_SYMBOL_TOKEN_DEF {
+    #StructPack 4
 
-    static packingSize => 4
+    bAuxType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bAuxType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bReserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    SymbolTableIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SymbolTableIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rgbReserved : Int8[12]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbReserved {
-        get {
-            if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "char")
-            return this.__rgbReservedProxyArray
-        }
-    }
 }

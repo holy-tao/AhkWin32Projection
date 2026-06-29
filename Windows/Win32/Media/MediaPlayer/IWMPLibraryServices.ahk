@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMPLibrary.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMPLibraryType.ahk" { WMPLibraryType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMPLibrary.ahk" { IWMPLibrary }
 
 /**
  * The IWMPLibraryServices interface provides methods to enumerate libraries.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibraryservices
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPLibraryServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPLibraryServices extends IUnknown {
     /**
      * The interface identifier for IWMPLibraryServices
      * @type {Guid}
      */
-    static IID => Guid("{39c2f8d5-1cf2-4d5e-ae09-d73492cf9eaa}")
+    static IID := Guid("{39c2f8d5-1cf2-4d5e-ae09-d73492cf9eaa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPLibraryServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        getCountByType   : IntPtr
+        getLibraryByType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getCountByType", "getLibraryByType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPLibraryServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The getCountByType method retrieves the count of available libraries of a specified type.
@@ -64,7 +74,7 @@ class IWMPLibraryServices extends IUnknown {
     getCountByType(wmplt, plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", wmplt, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(3, this, WMPLibraryType, wmplt, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -80,7 +90,29 @@ class IWMPLibraryServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibraryservices-getlibrarybytype
      */
     getLibraryByType(wmplt, lIndex) {
-        result := ComCall(4, this, "int", wmplt, "int", lIndex, "ptr*", &ppIWMPLibrary := 0, "HRESULT")
+        result := ComCall(4, this, WMPLibraryType, wmplt, "int", lIndex, "ptr*", &ppIWMPLibrary := 0, "HRESULT")
         return IWMPLibrary(ppIWMPLibrary)
+    }
+
+    Query(iid) {
+        if (IWMPLibraryServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getCountByType := CallbackCreate(GetMethod(implObj, "getCountByType"), flags, 3)
+        this.vtbl.getLibraryByType := CallbackCreate(GetMethod(implObj, "getLibraryByType"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getCountByType)
+        CallbackFree(this.vtbl.getLibraryByType)
     }
 }

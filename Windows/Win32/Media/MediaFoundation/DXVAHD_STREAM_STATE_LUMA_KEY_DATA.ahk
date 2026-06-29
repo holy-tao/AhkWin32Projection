@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the luma key for an input stream, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -24,35 +24,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_luma_key_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_LUMA_KEY_DATA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DXVAHD_STREAM_STATE_LUMA_KEY_DATA {
+    #StructPack 4
 
     /**
      * If <b>TRUE</b>, luma keying is enabled. Otherwise, luma keying is disabled. The default value is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * The lower bound for the luma key. The range is [0…1]. The default state value is 0.0.
-     * @type {Float}
      */
-    Lower {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Lower : Float32
 
     /**
      * The upper bound for the luma key. The range is [0…1]. The default state value is 0.0.
-     * @type {Float}
      */
-    Upper {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Upper : Float32
+
 }

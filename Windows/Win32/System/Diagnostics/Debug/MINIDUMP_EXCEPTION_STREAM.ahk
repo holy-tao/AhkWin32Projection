@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_EXCEPTION.ahk
-#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
+#Import ".\MINIDUMP_EXCEPTION.ahk" { MINIDUMP_EXCEPTION }
 
 /**
  * Represents an exception information stream.
@@ -10,52 +9,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_exception_stream
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_EXCEPTION_STREAM extends Win32Struct {
-    static sizeof => 168
-
-    static packingSize => 8
+export default struct MINIDUMP_EXCEPTION_STREAM {
+    #StructPack 8
 
     /**
      * The identifier of the thread that caused the exception.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ThreadId : UInt32
 
     /**
      * A variable for alignment.
-     * @type {Integer}
      */
-    __alignment {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    __alignment : UInt32
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_exception">MINIDUMP_EXCEPTION</a> structure.
-     * @type {MINIDUMP_EXCEPTION}
      */
-    ExceptionRecord {
-        get {
-            if(!this.HasProp("__ExceptionRecord"))
-                this.__ExceptionRecord := MINIDUMP_EXCEPTION(8, this)
-            return this.__ExceptionRecord
-        }
-    }
+    ExceptionRecord : MINIDUMP_EXCEPTION
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure.
-     * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    ThreadContext {
-        get {
-            if(!this.HasProp("__ThreadContext"))
-                this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(160, this)
-            return this.__ThreadContext
-        }
-    }
+    ThreadContext : MINIDUMP_LOCATION_DESCRIPTOR
+
 }

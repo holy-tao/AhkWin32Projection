@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the severity of an resource indexer message. For more info, and scenario-based walkthroughs of how to use these APIs, see Package resource indexing (PRI) APIs and custom build systems.
  * @see https://learn.microsoft.com/windows/win32/menurc/mrmresourceindexermessageseverity
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MrmResourceIndexerMessageSeverity extends Win32Enum {
+export default struct MrmResourceIndexerMessageSeverity {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

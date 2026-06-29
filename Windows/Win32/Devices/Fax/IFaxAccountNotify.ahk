@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxJobStatus.ahk" { IFaxJobStatus }
+#Import ".\IFaxAccount.ahk" { IFaxAccount }
+#Import ".\IFaxServer2.ahk" { IFaxServer2 }
 
 /**
  * Called by the fax service to send event notifications about particular fax accounts. This property sends event notifications. Events include changes to incoming and outgoing job queues, and changes to incoming and outgoing archives. (IIFaxAccountNotify)
@@ -23,26 +29,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountnotify
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxAccountNotify extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxAccountNotify extends IDispatch {
     /**
      * The interface identifier for IFaxAccountNotify
      * @type {Guid}
      */
-    static IID => Guid("{b9b3bc81-ac1b-46f3-b39d-0adc30e1b788}")
+    static IID := Guid("{b9b3bc81-ac1b-46f3-b39d-0adc30e1b788}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxAccountNotify interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        OnIncomingJobAdded       : IntPtr
+        OnIncomingJobRemoved     : IntPtr
+        OnIncomingJobChanged     : IntPtr
+        OnOutgoingJobAdded       : IntPtr
+        OnOutgoingJobRemoved     : IntPtr
+        OnOutgoingJobChanged     : IntPtr
+        OnIncomingMessageAdded   : IntPtr
+        OnIncomingMessageRemoved : IntPtr
+        OnOutgoingMessageAdded   : IntPtr
+        OnOutgoingMessageRemoved : IntPtr
+        OnServerShutDown         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnIncomingJobAdded", "OnIncomingJobRemoved", "OnIncomingJobChanged", "OnOutgoingJobAdded", "OnOutgoingJobRemoved", "OnOutgoingJobChanged", "OnIncomingMessageAdded", "OnIncomingMessageRemoved", "OnOutgoingMessageAdded", "OnOutgoingMessageRemoved", "OnServerShutDown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxAccountNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the fax service when an incoming fax job is added to the job queue for a particular fax account.
@@ -62,7 +85,7 @@ class IFaxAccountNotify extends IDispatch {
     OnIncomingJobAdded(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(7, this, "ptr", pFaxAccount, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(7, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -84,7 +107,7 @@ class IFaxAccountNotify extends IDispatch {
     OnIncomingJobRemoved(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(8, this, "ptr", pFaxAccount, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(8, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -109,7 +132,7 @@ class IFaxAccountNotify extends IDispatch {
     OnIncomingJobChanged(pFaxAccount, bstrJobId, pJobStatus) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(9, this, "ptr", pFaxAccount, "ptr", bstrJobId, "ptr", pJobStatus, "HRESULT")
+        result := ComCall(9, this, "ptr", pFaxAccount, BSTR, bstrJobId, "ptr", pJobStatus, "HRESULT")
         return result
     }
 
@@ -131,7 +154,7 @@ class IFaxAccountNotify extends IDispatch {
     OnOutgoingJobAdded(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(10, this, "ptr", pFaxAccount, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(10, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -153,7 +176,7 @@ class IFaxAccountNotify extends IDispatch {
     OnOutgoingJobRemoved(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(11, this, "ptr", pFaxAccount, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(11, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -178,7 +201,7 @@ class IFaxAccountNotify extends IDispatch {
     OnOutgoingJobChanged(pFaxAccount, bstrJobId, pJobStatus) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(12, this, "ptr", pFaxAccount, "ptr", bstrJobId, "ptr", pJobStatus, "HRESULT")
+        result := ComCall(12, this, "ptr", pFaxAccount, BSTR, bstrJobId, "ptr", pJobStatus, "HRESULT")
         return result
     }
 
@@ -203,7 +226,7 @@ class IFaxAccountNotify extends IDispatch {
     OnIncomingMessageAdded(pFaxAccount, bstrMessageId, fAddedToReceiveFolder) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(13, this, "ptr", pFaxAccount, "ptr", bstrMessageId, "short", fAddedToReceiveFolder, "HRESULT")
+        result := ComCall(13, this, "ptr", pFaxAccount, BSTR, bstrMessageId, VARIANT_BOOL, fAddedToReceiveFolder, "HRESULT")
         return result
     }
 
@@ -228,7 +251,7 @@ class IFaxAccountNotify extends IDispatch {
     OnIncomingMessageRemoved(pFaxAccount, bstrMessageId, fRemovedFromReceiveFolder) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(14, this, "ptr", pFaxAccount, "ptr", bstrMessageId, "short", fRemovedFromReceiveFolder, "HRESULT")
+        result := ComCall(14, this, "ptr", pFaxAccount, BSTR, bstrMessageId, VARIANT_BOOL, fRemovedFromReceiveFolder, "HRESULT")
         return result
     }
 
@@ -250,7 +273,7 @@ class IFaxAccountNotify extends IDispatch {
     OnOutgoingMessageAdded(pFaxAccount, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(15, this, "ptr", pFaxAccount, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(15, this, "ptr", pFaxAccount, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -272,7 +295,7 @@ class IFaxAccountNotify extends IDispatch {
     OnOutgoingMessageRemoved(pFaxAccount, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(16, this, "ptr", pFaxAccount, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(16, this, "ptr", pFaxAccount, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -291,5 +314,45 @@ class IFaxAccountNotify extends IDispatch {
     OnServerShutDown(pFaxServer) {
         result := ComCall(17, this, "ptr", pFaxServer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxAccountNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnIncomingJobAdded := CallbackCreate(GetMethod(implObj, "OnIncomingJobAdded"), flags, 3)
+        this.vtbl.OnIncomingJobRemoved := CallbackCreate(GetMethod(implObj, "OnIncomingJobRemoved"), flags, 3)
+        this.vtbl.OnIncomingJobChanged := CallbackCreate(GetMethod(implObj, "OnIncomingJobChanged"), flags, 4)
+        this.vtbl.OnOutgoingJobAdded := CallbackCreate(GetMethod(implObj, "OnOutgoingJobAdded"), flags, 3)
+        this.vtbl.OnOutgoingJobRemoved := CallbackCreate(GetMethod(implObj, "OnOutgoingJobRemoved"), flags, 3)
+        this.vtbl.OnOutgoingJobChanged := CallbackCreate(GetMethod(implObj, "OnOutgoingJobChanged"), flags, 4)
+        this.vtbl.OnIncomingMessageAdded := CallbackCreate(GetMethod(implObj, "OnIncomingMessageAdded"), flags, 4)
+        this.vtbl.OnIncomingMessageRemoved := CallbackCreate(GetMethod(implObj, "OnIncomingMessageRemoved"), flags, 4)
+        this.vtbl.OnOutgoingMessageAdded := CallbackCreate(GetMethod(implObj, "OnOutgoingMessageAdded"), flags, 3)
+        this.vtbl.OnOutgoingMessageRemoved := CallbackCreate(GetMethod(implObj, "OnOutgoingMessageRemoved"), flags, 3)
+        this.vtbl.OnServerShutDown := CallbackCreate(GetMethod(implObj, "OnServerShutDown"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnIncomingJobAdded)
+        CallbackFree(this.vtbl.OnIncomingJobRemoved)
+        CallbackFree(this.vtbl.OnIncomingJobChanged)
+        CallbackFree(this.vtbl.OnOutgoingJobAdded)
+        CallbackFree(this.vtbl.OnOutgoingJobRemoved)
+        CallbackFree(this.vtbl.OnOutgoingJobChanged)
+        CallbackFree(this.vtbl.OnIncomingMessageAdded)
+        CallbackFree(this.vtbl.OnIncomingMessageRemoved)
+        CallbackFree(this.vtbl.OnOutgoingMessageAdded)
+        CallbackFree(this.vtbl.OnOutgoingMessageRemoved)
+        CallbackFree(this.vtbl.OnServerShutDown)
     }
 }

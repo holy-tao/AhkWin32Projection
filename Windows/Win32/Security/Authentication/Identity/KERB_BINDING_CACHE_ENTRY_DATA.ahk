@@ -1,76 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_ADDRESS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_ADDRESS_TYPE.ahk" { KERB_ADDRESS_TYPE }
 
 /**
  * Specifies the data for the binding cache entry.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_binding_cache_entry_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_BINDING_CACHE_ENTRY_DATA extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct KERB_BINDING_CACHE_ENTRY_DATA {
+    #StructPack 8
 
     /**
      * The time elapsed to find the domain controller to bind to.
-     * @type {Integer}
      */
-    DiscoveryTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DiscoveryTime : Int64
 
     /**
      * The 	name of the realm for which to obtain a binding handle.
-     * @type {LSA_UNICODE_STRING}
      */
-    RealmName {
-        get {
-            if(!this.HasProp("__RealmName"))
-                this.__RealmName := LSA_UNICODE_STRING(8, this)
-            return this.__RealmName
-        }
-    }
+    RealmName : LSA_UNICODE_STRING
 
     /**
      * The address of the Key Distribution Center (KDC) of the server to  which you want to bind.
-     * @type {LSA_UNICODE_STRING}
      */
-    KdcAddress {
-        get {
-            if(!this.HasProp("__KdcAddress"))
-                this.__KdcAddress := LSA_UNICODE_STRING(24, this)
-            return this.__KdcAddress
-        }
-    }
+    KdcAddress : LSA_UNICODE_STRING
 
-    /**
-     * @type {KERB_ADDRESS_TYPE}
-     */
-    AddressType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AddressType : KERB_ADDRESS_TYPE
 
     /**
      * The domain controller flags that the caller provides. These flags are needed to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Flags : UInt32
 
     /**
      * The domain controller flags. These flags are returned from the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function.
-     * @type {Integer}
      */
-    DcFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DcFlags : UInt32
 
     /**
      * Flags that provide more information about the binding cache.
@@ -92,22 +58,12 @@ class KERB_BINDING_CACHE_ENTRY_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    CacheFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    CacheFlags : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that specifies the name of the KDC.
-     * @type {LSA_UNICODE_STRING}
      */
-    KdcName {
-        get {
-            if(!this.HasProp("__KdcName"))
-                this.__KdcName := LSA_UNICODE_STRING(56, this)
-            return this.__KdcName
-        }
-    }
+    KdcName : LSA_UNICODE_STRING
+
 }

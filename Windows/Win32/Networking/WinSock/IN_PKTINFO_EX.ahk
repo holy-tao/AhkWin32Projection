@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_PKTINFO.ahk
-#Include .\IN_ADDR.ahk
-#Include .\SCOPE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\IN_PKTINFO.ahk" { IN_PKTINFO }
+#Import ".\SCOPE_ID.ahk" { SCOPE_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IN_PKTINFO_EX extends Win32Struct {
-    static sizeof => 12
+export default struct IN_PKTINFO_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    pkt_info : IN_PKTINFO
 
-    /**
-     * @type {IN_PKTINFO}
-     */
-    pkt_info {
-        get {
-            if(!this.HasProp("__pkt_info"))
-                this.__pkt_info := IN_PKTINFO(0, this)
-            return this.__pkt_info
-        }
-    }
+    scope_id : SCOPE_ID
 
-    /**
-     * @type {SCOPE_ID}
-     */
-    scope_id {
-        get {
-            if(!this.HasProp("__scope_id"))
-                this.__scope_id := SCOPE_ID(8, this)
-            return this.__scope_id
-        }
-    }
 }

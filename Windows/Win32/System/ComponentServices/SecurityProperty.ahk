@@ -1,40 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Retrieves information about the current object's original caller and direct caller.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-securityproperty
  * @namespace Windows.Win32.System.ComponentServices
  */
-class SecurityProperty extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct SecurityProperty extends IDispatch {
     /**
      * The interface identifier for SecurityProperty
      * @type {Guid}
      */
-    static IID => Guid("{e74a7215-014d-11d1-a63c-00a0c911b4e0}")
+    static IID := Guid("{e74a7215-014d-11d1-a63c-00a0c911b4e0}")
 
     /**
      * The class identifier for SecurityProperty
      * @type {Guid}
      */
-    static CLSID => Guid("{e74a7215-014d-11d1-a63c-00a0c911b4e0}")
+    static CLSID := Guid("{e74a7215-014d-11d1-a63c-00a0c911b4e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for SecurityProperty interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetDirectCallerName    : IntPtr
+        GetDirectCreatorName   : IntPtr
+        GetOriginalCallerName  : IntPtr
+        GetOriginalCreatorName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDirectCallerName", "GetDirectCreatorName", "GetOriginalCallerName", "GetOriginalCreatorName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := SecurityProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the user name associated with the external process that called the currently executing method.
@@ -49,8 +60,8 @@ class SecurityProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getdirectcallername
      */
     GetDirectCallerName() {
-        bstrUserName := BSTR()
-        result := ComCall(7, this, "ptr", bstrUserName, "HRESULT")
+        bstrUserName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, bstrUserName, "HRESULT")
         return bstrUserName
     }
 
@@ -60,8 +71,8 @@ class SecurityProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getdirectcreatorname
      */
     GetDirectCreatorName() {
-        bstrUserName := BSTR()
-        result := ComCall(8, this, "ptr", bstrUserName, "HRESULT")
+        bstrUserName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, bstrUserName, "HRESULT")
         return bstrUserName
     }
 
@@ -83,8 +94,8 @@ class SecurityProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getoriginalcallername
      */
     GetOriginalCallerName() {
-        bstrUserName := BSTR()
-        result := ComCall(9, this, "ptr", bstrUserName, "HRESULT")
+        bstrUserName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, bstrUserName, "HRESULT")
         return bstrUserName
     }
 
@@ -94,8 +105,34 @@ class SecurityProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getoriginalcreatorname
      */
     GetOriginalCreatorName() {
-        bstrUserName := BSTR()
-        result := ComCall(10, this, "ptr", bstrUserName, "HRESULT")
+        bstrUserName := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, bstrUserName, "HRESULT")
         return bstrUserName
+    }
+
+    Query(iid) {
+        if (SecurityProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDirectCallerName := CallbackCreate(GetMethod(implObj, "GetDirectCallerName"), flags, 2)
+        this.vtbl.GetDirectCreatorName := CallbackCreate(GetMethod(implObj, "GetDirectCreatorName"), flags, 2)
+        this.vtbl.GetOriginalCallerName := CallbackCreate(GetMethod(implObj, "GetOriginalCallerName"), flags, 2)
+        this.vtbl.GetOriginalCreatorName := CallbackCreate(GetMethod(implObj, "GetOriginalCreatorName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDirectCallerName)
+        CallbackFree(this.vtbl.GetDirectCreatorName)
+        CallbackFree(this.vtbl.GetOriginalCallerName)
+        CallbackFree(this.vtbl.GetOriginalCreatorName)
     }
 }

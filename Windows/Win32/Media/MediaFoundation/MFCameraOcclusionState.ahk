@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the occlusion state of a camera.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfcameraocclusionstate
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCameraOcclusionState extends Win32BitflagEnum {
+export default struct MFCameraOcclusionState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The camera is not occluded.

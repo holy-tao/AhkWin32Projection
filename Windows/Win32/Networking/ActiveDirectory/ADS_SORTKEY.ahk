@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The ADS_SORTKEY structure specifies how to sort a query.
@@ -10,35 +11,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_sortkey
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_SORTKEY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct ADS_SORTKEY {
+    #StructPack 8
 
     /**
      * The null-terminated Unicode string that contains the attribute type.
-     * @type {PWSTR}
      */
-    pszAttrType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszAttrType : PWSTR
 
     /**
      * Reserved.
-     * @type {PWSTR}
      */
-    pszReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszReserved : PWSTR
 
     /**
      * Reverse the order of the sorted results.
-     * @type {BOOLEAN}
      */
-    fReverseorder {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    fReverseorder : BOOLEAN
+
 }

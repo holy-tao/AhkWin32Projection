@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POINTFIX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POINTFIX.ahk" { POINTFIX }
 
 /**
  * The PATHDATA structure describes all or part of a subpath.
@@ -9,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-pathdata
  * @namespace Windows.Win32.Devices.Display
  */
-class PATHDATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PATHDATA {
+    #StructPack 8
 
     /**
      * Flags describing the data returned are defined as follows:
@@ -83,28 +80,17 @@ class PATHDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
 
     /**
      * Specifies the count of POINTFIX structures pointed to by <b>pptfx</b>.
-     * @type {Integer}
      */
-    count {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    count : UInt32
 
     /**
      * Pointer to an array of POINTFIX structures that define the control points for the curves. These structures must not be modified. For a description of the POINTFIX structure, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
-     * @type {Pointer<POINTFIX>}
      */
-    pptfx {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pptfx : POINTFIX.Ptr
+
 }

@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class IO_DEVICE_HINT_ECP_CONTEXT extends Win32Struct {
-    static sizeof => 16
+export default struct IO_DEVICE_HINT_ECP_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    TargetDevice : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    TargetDevice {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RemainingName : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RemainingName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the image descriptor metadata properties for Graphics Interchange Format (GIF) frames.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgifimagedescriptorproperties
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICGifImageDescriptorProperties extends Win32Enum {
+export default struct WICGifImageDescriptorProperties {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * [VT_UI2] Indicates the X offset at which to locate this frame within the logical screen.

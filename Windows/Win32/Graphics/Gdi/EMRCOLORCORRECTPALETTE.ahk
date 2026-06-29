@@ -1,63 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRCOLORCORRECTPALETTE structure contains members for the ColorCorrectPalette enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcolorcorrectpalette
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRCOLORCORRECTPALETTE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct EMRCOLORCORRECTPALETTE {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * The index of the palette handle to color correct.
-     * @type {Integer}
      */
-    ihPalette {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ihPalette : UInt32
 
     /**
      * The index of the first entry in the palette to color correct.
-     * @type {Integer}
      */
-    nFirstEntry {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    nFirstEntry : UInt32
 
     /**
      * The number of palette entries to color correct.
-     * @type {Integer}
      */
-    nPalEntries {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    nPalEntries : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    nReserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    nReserved : UInt32
+
 }

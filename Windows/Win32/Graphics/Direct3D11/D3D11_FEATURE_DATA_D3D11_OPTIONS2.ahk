@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk
-#Include .\D3D11_TILED_RESOURCES_TIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_TILED_RESOURCES_TIER.ahk" { D3D11_TILED_RESOURCES_TIER }
+#Import ".\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk" { D3D11_CONSERVATIVE_RASTERIZATION_TIER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver. (D3D11_FEATURE_DATA_D3D11_OPTIONS2)
@@ -19,88 +19,55 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options2
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct D3D11_FEATURE_DATA_D3D11_OPTIONS2 {
+    #StructPack 4
 
     /**
      * Specifies whether the hardware and driver support <b>PSSpecifiedStencilRef</b>.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {BOOL}
      */
-    PSSpecifiedStencilRefSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    PSSpecifiedStencilRefSupported : BOOL
 
     /**
      * Specifies whether the hardware and driver support <b>TypedUAVLoadAdditionalFormats</b>.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {BOOL}
      */
-    TypedUAVLoadAdditionalFormats {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    TypedUAVLoadAdditionalFormats : BOOL
 
     /**
      * Specifies whether the hardware and driver support ROVs.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {BOOL}
      */
-    ROVsSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ROVsSupported : BOOL
 
     /**
      * Specifies whether the hardware and driver support conservative rasterization.
      *             The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_conservative_rasterization_tier">D3D11_CONSERVATIVE_RASTERIZATION_TIER</a>-typed value that indicates if the hardware and driver support conservative rasterization and at what tier level.
-     * @type {D3D11_CONSERVATIVE_RASTERIZATION_TIER}
      */
-    ConservativeRasterizationTier {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ConservativeRasterizationTier : D3D11_CONSERVATIVE_RASTERIZATION_TIER
 
     /**
      * Specifies whether the hardware and driver support tiled resources.
      *             The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_tiled_resources_tier">D3D11_TILED_RESOURCES_TIER</a>-typed value that indicates if the hardware and driver support tiled resources and at what tier level.
-     * @type {D3D11_TILED_RESOURCES_TIER}
      */
-    TiledResourcesTier {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    TiledResourcesTier : D3D11_TILED_RESOURCES_TIER
 
     /**
      * Specifies whether the hardware and driver support mapping on default textures.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {BOOL}
      */
-    MapOnDefaultTextures {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    MapOnDefaultTextures : BOOL
 
     /**
      * Specifies whether the hardware and driver support standard swizzle.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {BOOL}
      */
-    StandardSwizzle {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    StandardSwizzle : BOOL
 
     /**
      * Specifies whether the hardware and driver support Unified Memory Architecture.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {BOOL}
      */
-    UnifiedMemoryArchitecture {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    UnifiedMemoryArchitecture : BOOL
+
 }

@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if a resource is created, allocated, tracked, or destroyed.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomresourceevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComResourceEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComResourceEvents extends IUnknown {
     /**
      * The interface identifier for IComResourceEvents
      * @type {Guid}
      */
-    static IID => Guid("{683130ab-2e50-11d2-98a5-00c04f8ee1c4}")
+    static IID := Guid("{683130ab-2e50-11d2-98a5-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComResourceEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnResourceCreate   : IntPtr
+        OnResourceAllocate : IntPtr
+        OnResourceRecycle  : IntPtr
+        OnResourceDestroy  : IntPtr
+        OnResourceTrack    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnResourceCreate", "OnResourceAllocate", "OnResourceRecycle", "OnResourceDestroy", "OnResourceTrack"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComResourceEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when a new resource is created and allocated.
@@ -42,7 +57,7 @@ class IComResourceEvents extends IUnknown {
     OnResourceCreate(pInfo, _ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(3, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, BOOL, enlisted, "HRESULT")
         return result
     }
 
@@ -61,7 +76,7 @@ class IComResourceEvents extends IUnknown {
     OnResourceAllocate(pInfo, _ObjectID, pszType, resId, enlisted, NumRated, Rating) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(4, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "uint", NumRated, "uint", Rating, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, BOOL, enlisted, "uint", NumRated, "uint", Rating, "HRESULT")
         return result
     }
 
@@ -77,7 +92,7 @@ class IComResourceEvents extends IUnknown {
     OnResourceRecycle(pInfo, _ObjectID, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(5, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "HRESULT")
         return result
     }
 
@@ -94,7 +109,7 @@ class IComResourceEvents extends IUnknown {
     OnResourceDestroy(pInfo, _ObjectID, hr, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(6, this, "ptr", pInfo, "uint", _ObjectID, "int", hr, "ptr", pszType, "uint", resId, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "int", hr, "ptr", pszType, "uint", resId, "HRESULT")
         return result
     }
 
@@ -111,7 +126,35 @@ class IComResourceEvents extends IUnknown {
     OnResourceTrack(pInfo, _ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(7, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, BOOL, enlisted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComResourceEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnResourceCreate := CallbackCreate(GetMethod(implObj, "OnResourceCreate"), flags, 6)
+        this.vtbl.OnResourceAllocate := CallbackCreate(GetMethod(implObj, "OnResourceAllocate"), flags, 8)
+        this.vtbl.OnResourceRecycle := CallbackCreate(GetMethod(implObj, "OnResourceRecycle"), flags, 5)
+        this.vtbl.OnResourceDestroy := CallbackCreate(GetMethod(implObj, "OnResourceDestroy"), flags, 6)
+        this.vtbl.OnResourceTrack := CallbackCreate(GetMethod(implObj, "OnResourceTrack"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnResourceCreate)
+        CallbackFree(this.vtbl.OnResourceAllocate)
+        CallbackFree(this.vtbl.OnResourceRecycle)
+        CallbackFree(this.vtbl.OnResourceDestroy)
+        CallbackFree(this.vtbl.OnResourceTrack)
     }
 }

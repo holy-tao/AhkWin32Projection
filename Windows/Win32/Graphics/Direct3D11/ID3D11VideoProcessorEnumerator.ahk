@@ -1,12 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_CAPS.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
+#Import ".\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk" { D3D11_VIDEO_PROCESSOR_FILTER_RANGE }
+#Import ".\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS }
+#Import ".\D3D11_VIDEO_PROCESSOR_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_CAPS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk" { D3D11_VIDEO_PROCESSOR_CUSTOM_RATE }
+#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
 
 /**
  * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoProcessorEnumerator)
@@ -17,26 +20,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11VideoProcessorEnumerator
      * @type {Guid}
      */
-    static IID => Guid("{31627037-53ab-4200-9061-05faa9ab45f9}")
+    static IID := Guid("{31627037-53ab-4200-9061-05faa9ab45f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoProcessorEnumerator interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        GetVideoProcessorContentDesc        : IntPtr
+        CheckVideoProcessorFormat           : IntPtr
+        GetVideoProcessorCaps               : IntPtr
+        GetVideoProcessorRateConversionCaps : IntPtr
+        GetVideoProcessorCustomRate         : IntPtr
+        GetVideoProcessorFilterRange        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVideoProcessorContentDesc", "CheckVideoProcessorFormat", "GetVideoProcessorCaps", "GetVideoProcessorRateConversionCaps", "GetVideoProcessorCustomRate", "GetVideoProcessorFilterRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoProcessorEnumerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the content description that was used to create this enumerator.
@@ -45,7 +60,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorContentDesc() {
         pContentDesc := D3D11_VIDEO_PROCESSOR_CONTENT_DESC()
-        result := ComCall(7, this, "ptr", pContentDesc, "HRESULT")
+        result := ComCall(7, this, D3D11_VIDEO_PROCESSOR_CONTENT_DESC.Ptr, pContentDesc, "HRESULT")
         return pContentDesc
     }
 
@@ -56,7 +71,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-checkvideoprocessorformat
      */
     CheckVideoProcessorFormat(Format) {
-        result := ComCall(8, this, "int", Format, "uint*", &pFlags := 0, "HRESULT")
+        result := ComCall(8, this, DXGI_FORMAT, Format, "uint*", &pFlags := 0, "HRESULT")
         return pFlags
     }
 
@@ -67,7 +82,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorCaps() {
         pCaps := D3D11_VIDEO_PROCESSOR_CAPS()
-        result := ComCall(9, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(9, this, D3D11_VIDEO_PROCESSOR_CAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -81,7 +96,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorRateConversionCaps(TypeIndex) {
         pCaps := D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS()
-        result := ComCall(10, this, "uint", TypeIndex, "ptr", pCaps, "HRESULT")
+        result := ComCall(10, this, "uint", TypeIndex, D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -96,7 +111,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorCustomRate(TypeIndex, CustomRateIndex) {
         pRate := D3D11_VIDEO_PROCESSOR_CUSTOM_RATE()
-        result := ComCall(11, this, "uint", TypeIndex, "uint", CustomRateIndex, "ptr", pRate, "HRESULT")
+        result := ComCall(11, this, "uint", TypeIndex, "uint", CustomRateIndex, D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.Ptr, pRate, "HRESULT")
         return pRate
     }
 
@@ -108,7 +123,37 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorFilterRange(Filter) {
         pRange := D3D11_VIDEO_PROCESSOR_FILTER_RANGE()
-        result := ComCall(12, this, "int", Filter, "ptr", pRange, "HRESULT")
+        result := ComCall(12, this, D3D11_VIDEO_PROCESSOR_FILTER, Filter, D3D11_VIDEO_PROCESSOR_FILTER_RANGE.Ptr, pRange, "HRESULT")
         return pRange
+    }
+
+    Query(iid) {
+        if (ID3D11VideoProcessorEnumerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVideoProcessorContentDesc := CallbackCreate(GetMethod(implObj, "GetVideoProcessorContentDesc"), flags, 2)
+        this.vtbl.CheckVideoProcessorFormat := CallbackCreate(GetMethod(implObj, "CheckVideoProcessorFormat"), flags, 3)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 2)
+        this.vtbl.GetVideoProcessorRateConversionCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorRateConversionCaps"), flags, 3)
+        this.vtbl.GetVideoProcessorCustomRate := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCustomRate"), flags, 4)
+        this.vtbl.GetVideoProcessorFilterRange := CallbackCreate(GetMethod(implObj, "GetVideoProcessorFilterRange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVideoProcessorContentDesc)
+        CallbackFree(this.vtbl.CheckVideoProcessorFormat)
+        CallbackFree(this.vtbl.GetVideoProcessorCaps)
+        CallbackFree(this.vtbl.GetVideoProcessorRateConversionCaps)
+        CallbackFree(this.vtbl.GetVideoProcessorCustomRate)
+        CallbackFree(this.vtbl.GetVideoProcessorFilterRange)
     }
 }

@@ -1,44 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SUB_Q_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SUB_Q_HEADER.ahk" { SUB_Q_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class SUB_Q_CURRENT_POSITION extends Win32Struct {
-    static sizeof => 16
+export default struct SUB_Q_CURRENT_POSITION {
+    #StructPack 1
 
-    static packingSize => 1
+    Header : SUB_Q_HEADER
 
-    /**
-     * @type {SUB_Q_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := SUB_Q_HEADER(0, this)
-            return this.__Header
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    FormatCode : Int8
 
     /**
      * This bitfield backs the following members:
      * - Control
      * - ADR
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -55,42 +34,12 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    TrackNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TrackNumber {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    IndexNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IndexNumber {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    AbsoluteAddress : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    AbsoluteAddress {
-        get {
-            if(!this.HasProp("__AbsoluteAddressProxyArray"))
-                this.__AbsoluteAddressProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__AbsoluteAddressProxyArray
-        }
-    }
+    TrackRelativeAddress : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TrackRelativeAddress {
-        get {
-            if(!this.HasProp("__TrackRelativeAddressProxyArray"))
-                this.__TrackRelativeAddressProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__TrackRelativeAddressProxyArray
-        }
-    }
 }

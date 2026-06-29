@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FSCNTL_SCREEN_INFO.ahk
-#Include ..\..\System\Console\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Console\COORD.ahk" { COORD }
+#Import ".\FSCNTL_SCREEN_INFO.ahk" { FSCNTL_SCREEN_INFO }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FSVIDEO_REVERSE_MOUSE_POINTER extends Win32Struct {
-    static sizeof => 16
+export default struct FSVIDEO_REVERSE_MOUSE_POINTER {
+    #StructPack 4
 
-    static packingSize => 4
+    Screen : FSCNTL_SCREEN_INFO
 
-    /**
-     * @type {FSCNTL_SCREEN_INFO}
-     */
-    Screen {
-        get {
-            if(!this.HasProp("__Screen"))
-                this.__Screen := FSCNTL_SCREEN_INFO(0, this)
-            return this.__Screen
-        }
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

@@ -1,7 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
+#Import ".\IXpsOMSignatureBlockResourceCollection.ahk" { IXpsOMSignatureBlockResourceCollection }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\IXpsOMPartUriCollection.ahk" { IXpsOMPartUriCollection }
+#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
 
 /**
  * Incrementally writes the parts of an XPS document to a package file.
@@ -12,26 +24,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPackageWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPackageWriter extends IUnknown {
     /**
      * The interface identifier for IXpsOMPackageWriter
      * @type {Guid}
      */
-    static IID => Guid("{4e2aa182-a443-42c6-b41b-4f8e9de73ff9}")
+    static IID := Guid("{4e2aa182-a443-42c6-b41b-4f8e9de73ff9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPackageWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartNewDocument : IntPtr
+        AddPage          : IntPtr
+        AddResource      : IntPtr
+        Close            : IntPtr
+        IsClosed         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartNewDocument", "AddPage", "AddResource", "Close", "IsClosed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPackageWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens and initializes a new FixedDocument in the FixedDocumentSequence of the package.
@@ -180,7 +203,7 @@ class IXpsOMPackageWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackagewriter-addpage
      */
     AddPage(page, advisoryPageDimensions, discardableResourceParts, storyFragments, pagePrintTicket, pageThumbnail) {
-        result := ComCall(4, this, "ptr", page, "ptr", advisoryPageDimensions, "ptr", discardableResourceParts, "ptr", storyFragments, "ptr", pagePrintTicket, "ptr", pageThumbnail, "HRESULT")
+        result := ComCall(4, this, "ptr", page, XPS_SIZE.Ptr, advisoryPageDimensions, "ptr", discardableResourceParts, "ptr", storyFragments, "ptr", pagePrintTicket, "ptr", pageThumbnail, "HRESULT")
         return result
     }
 
@@ -344,7 +367,35 @@ class IXpsOMPackageWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackagewriter-isclosed
      */
     IsClosed() {
-        result := ComCall(7, this, "int*", &isClosed := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &isClosed := 0, "HRESULT")
         return isClosed
+    }
+
+    Query(iid) {
+        if (IXpsOMPackageWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartNewDocument := CallbackCreate(GetMethod(implObj, "StartNewDocument"), flags, 6)
+        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 7)
+        this.vtbl.AddResource := CallbackCreate(GetMethod(implObj, "AddResource"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.IsClosed := CallbackCreate(GetMethod(implObj, "IsClosed"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartNewDocument)
+        CallbackFree(this.vtbl.AddPage)
+        CallbackFree(this.vtbl.AddResource)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.IsClosed)
     }
 }

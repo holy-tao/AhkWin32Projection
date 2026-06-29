@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NLM_Connectivity enumeration is a set of flags that provide notification whenever connectivity related parameters have changed.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_connectivity
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_CONNECTIVITY extends Win32Enum {
+export default struct NLM_CONNECTIVITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The underlying network interfaces have no connectivity to any network.

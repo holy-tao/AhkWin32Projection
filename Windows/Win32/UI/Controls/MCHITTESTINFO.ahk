@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\MCHITTESTINFO_HIT_FLAGS.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\MCHITTESTINFO_HIT_FLAGS.ahk" { MCHITTESTINFO_HIT_FLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * Carries information specific to hit-testing points for a month calendar control. This structure is used with the MCM_HITTEST message and the corresponding MonthCal_HitTest macro.
@@ -12,35 +11,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mchittestinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class MCHITTESTINFO extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct MCHITTESTINFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * Point to be hit-tested.
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(4, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -205,76 +191,42 @@ class MCHITTESTINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {MCHITTESTINFO_HIT_FLAGS}
      */
-    uHit {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uHit : MCHITTESTINFO_HIT_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a></b>
      * 
      * Receives date and time information specific to the location that was hit-tested.
-     * @type {SYSTEMTIME}
      */
-    st {
-        get {
-            if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(16, this)
-            return this.__st
-        }
-    }
+    st : SYSTEMTIME
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * Hit-tested location.
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(32, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
 
     /**
      * Type: <b>int</b>
      * 
      * When displaying more than one calendar, this is the offset of the calendar at the hit-tested point (zero-based).
-     * @type {Integer}
      */
-    iOffset {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    iOffset : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The row number for the calendar grid that the given hit point was over.  Example: If you hit-tested the 8th of a month, which is in the second week of the month, <b>iRow</b> will be one since the index of the row is zero-based row index.
-     * @type {Integer}
      */
-    iRow {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    iRow : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The column number for the calendar grid that the given point was over. For example, if your week starts on Sunday and the 1st of the month is Friday, hit testing the 1st will return five (5) for <b>iCol</b>, since Friday is in the fifth column from the beginning of the row, using a zero-based column index.
-     * @type {Integer}
      */
-    iCol {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    iCol : Int32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 60
-    }
 }

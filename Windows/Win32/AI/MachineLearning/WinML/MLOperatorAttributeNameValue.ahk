@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorAttributeType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MLOperatorAttributeType.ahk" { MLOperatorAttributeType }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class MLOperatorAttributeNameValue extends Win32Struct {
-    static sizeof => 24
+export default struct MLOperatorAttributeNameValue {
+    #StructPack 8
 
-    static packingSize => 8
+    name : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    type : MLOperatorAttributeType
 
-    /**
-     * @type {MLOperatorAttributeType}
-     */
-    type {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    valueCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    valueCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    reserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ints {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<Integer>>}
-     */
-    strings {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    floats {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'ints', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'strings', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'floats', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

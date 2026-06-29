@@ -1,7 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides methods to work with indexes in Systems Format (ASF) files.
@@ -62,26 +70,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfindexer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFASFIndexer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFASFIndexer extends IUnknown {
     /**
      * The interface identifier for IMFASFIndexer
      * @type {Guid}
      */
-    static IID => Guid("{53590f48-dc3b-4297-813f-787761ad7b3e}")
+    static IID := Guid("{53590f48-dc3b-4297-813f-787761ad7b3e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFASFIndexer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFlags                : IntPtr
+        GetFlags                : IntPtr
+        Initialize              : IntPtr
+        GetIndexPosition        : IntPtr
+        SetIndexByteStreams     : IntPtr
+        GetIndexByteStreamCount : IntPtr
+        GetIndexStatus          : IntPtr
+        SetIndexStatus          : IntPtr
+        GetSeekPositionForValue : IntPtr
+        GenerateIndexEntries    : IntPtr
+        CommitIndex             : IntPtr
+        GetIndexWriteSpace      : IntPtr
+        GetCompletedIndex       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFlags", "GetFlags", "Initialize", "GetIndexPosition", "SetIndexByteStreams", "GetIndexByteStreamCount", "GetIndexStatus", "SetIndexStatus", "GetSeekPositionForValue", "GenerateIndexEntries", "CommitIndex", "GetIndexWriteSpace", "GetCompletedIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFASFIndexer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets indexer options.
@@ -249,7 +276,7 @@ class IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams
      */
     SetIndexByteStreams(ppIByteStreams, cByteStreams) {
-        result := ComCall(7, this, "ptr*", ppIByteStreams, "uint", cByteStreams, "HRESULT")
+        result := ComCall(7, this, IMFByteStream.Ptr, ppIByteStreams, "uint", cByteStreams, "HRESULT")
         return result
     }
 
@@ -312,7 +339,7 @@ class IMFASFIndexer extends IUnknown {
         pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
         pcbIndexDescriptorMarshal := pcbIndexDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pIndexIdentifier, pfIsIndexedMarshal, pfIsIndexed, pbIndexDescriptorMarshal, pbIndexDescriptor, pcbIndexDescriptorMarshal, pcbIndexDescriptor, "HRESULT")
+        result := ComCall(9, this, ASF_INDEX_IDENTIFIER.Ptr, pIndexIdentifier, pfIsIndexedMarshal, pfIsIndexed, pbIndexDescriptorMarshal, pbIndexDescriptor, pcbIndexDescriptorMarshal, pcbIndexDescriptor, "HRESULT")
         return result
     }
 
@@ -362,7 +389,7 @@ class IMFASFIndexer extends IUnknown {
     SetIndexStatus(pbIndexDescriptor, cbIndexDescriptor, fGenerateIndex) {
         pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pbIndexDescriptorMarshal, pbIndexDescriptor, "uint", cbIndexDescriptor, "int", fGenerateIndex, "HRESULT")
+        result := ComCall(10, this, pbIndexDescriptorMarshal, pbIndexDescriptor, "uint", cbIndexDescriptor, BOOL, fGenerateIndex, "HRESULT")
         return result
     }
 
@@ -391,7 +418,7 @@ class IMFASFIndexer extends IUnknown {
         phnsApproxTimeMarshal := phnsApproxTime is VarRef ? "int64*" : "ptr"
         pdwPayloadNumberOfStreamWithinPacketMarshal := pdwPayloadNumberOfStreamWithinPacket is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pvarValue, "ptr", pIndexIdentifier, "uint*", &pcbOffsetWithinData := 0, phnsApproxTimeMarshal, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacketMarshal, pdwPayloadNumberOfStreamWithinPacket, "HRESULT")
+        result := ComCall(11, this, PROPVARIANT.Ptr, pvarValue, ASF_INDEX_IDENTIFIER.Ptr, pIndexIdentifier, "uint*", &pcbOffsetWithinData := 0, phnsApproxTimeMarshal, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacketMarshal, pdwPayloadNumberOfStreamWithinPacket, "HRESULT")
         return pcbOffsetWithinData
     }
 
@@ -570,5 +597,49 @@ class IMFASFIndexer extends IUnknown {
     GetCompletedIndex(pIIndexBuffer, cbOffsetWithinIndex) {
         result := ComCall(15, this, "ptr", pIIndexBuffer, "uint", cbOffsetWithinIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFASFIndexer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetIndexPosition := CallbackCreate(GetMethod(implObj, "GetIndexPosition"), flags, 3)
+        this.vtbl.SetIndexByteStreams := CallbackCreate(GetMethod(implObj, "SetIndexByteStreams"), flags, 3)
+        this.vtbl.GetIndexByteStreamCount := CallbackCreate(GetMethod(implObj, "GetIndexByteStreamCount"), flags, 2)
+        this.vtbl.GetIndexStatus := CallbackCreate(GetMethod(implObj, "GetIndexStatus"), flags, 5)
+        this.vtbl.SetIndexStatus := CallbackCreate(GetMethod(implObj, "SetIndexStatus"), flags, 4)
+        this.vtbl.GetSeekPositionForValue := CallbackCreate(GetMethod(implObj, "GetSeekPositionForValue"), flags, 6)
+        this.vtbl.GenerateIndexEntries := CallbackCreate(GetMethod(implObj, "GenerateIndexEntries"), flags, 2)
+        this.vtbl.CommitIndex := CallbackCreate(GetMethod(implObj, "CommitIndex"), flags, 2)
+        this.vtbl.GetIndexWriteSpace := CallbackCreate(GetMethod(implObj, "GetIndexWriteSpace"), flags, 2)
+        this.vtbl.GetCompletedIndex := CallbackCreate(GetMethod(implObj, "GetCompletedIndex"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetIndexPosition)
+        CallbackFree(this.vtbl.SetIndexByteStreams)
+        CallbackFree(this.vtbl.GetIndexByteStreamCount)
+        CallbackFree(this.vtbl.GetIndexStatus)
+        CallbackFree(this.vtbl.SetIndexStatus)
+        CallbackFree(this.vtbl.GetSeekPositionForValue)
+        CallbackFree(this.vtbl.GenerateIndexEntries)
+        CallbackFree(this.vtbl.CommitIndex)
+        CallbackFree(this.vtbl.GetIndexWriteSpace)
+        CallbackFree(this.vtbl.GetCompletedIndex)
     }
 }

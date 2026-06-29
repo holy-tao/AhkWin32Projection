@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the days of the week on which to run the data collector set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-weekdays
  * @namespace Windows.Win32.System.Performance
  */
-class WeekDays extends Win32Enum {
+export default struct WeekDays {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Run only once on the specified start date and time.

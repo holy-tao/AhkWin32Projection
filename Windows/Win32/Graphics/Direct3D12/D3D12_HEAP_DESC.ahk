@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_HEAP_PROPERTIES.ahk
-#Include .\D3D12_HEAP_TYPE.ahk
-#Include .\D3D12_CPU_PAGE_PROPERTY.ahk
-#Include .\D3D12_MEMORY_POOL.ahk
-#Include .\D3D12_HEAP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_CPU_PAGE_PROPERTY.ahk" { D3D12_CPU_PAGE_PROPERTY }
+#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_MEMORY_POOL.ahk" { D3D12_MEMORY_POOL }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
 
 /**
  * Describes a heap.
@@ -13,34 +12,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_HEAP_DESC extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3D12_HEAP_DESC {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the heap.
      *             To avoid wasting memory, applications should pass <i>SizeInBytes</i> values which are multiples of the effective <i>Alignment</i>;
      *             but non-aligned <i>SizeInBytes</i> is also supported, for convenience.
      *             To find out how large a heap must be to support textures with undefined layouts and adapter-specific sizes, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo">ID3D12Device::GetResourceAllocationInfo</a>.
-     * @type {Integer}
      */
-    SizeInBytes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeInBytes : Int64
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a> structure that describes the heap properties.
-     * @type {D3D12_HEAP_PROPERTIES}
      */
-    Properties {
-        get {
-            if(!this.HasProp("__Properties"))
-                this.__Properties := D3D12_HEAP_PROPERTIES(8, this)
-            return this.__Properties
-        }
-    }
+    Properties : D3D12_HEAP_PROPERTIES
 
     /**
      * The alignment value for the heap.  Valid values:
@@ -71,21 +57,14 @@ class D3D12_HEAP_DESC extends Win32Struct {
      *                 </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Alignment {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Alignment : Int64
 
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_flags">D3D12_HEAP_FLAGS</a>-typed values that are combined by using a bitwise-OR operation.
      *             The resulting value identifies heap options.
      *             When creating heaps to support adapters with resource heap tier 1, an application must choose some flags.
-     * @type {D3D12_HEAP_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    Flags : D3D12_HEAP_FLAGS
+
 }

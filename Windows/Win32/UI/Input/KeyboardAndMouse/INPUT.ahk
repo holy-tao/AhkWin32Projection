@@ -1,12 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\INPUT_TYPE.ahk
-#Include .\MOUSEINPUT.ahk
-#Include .\MOUSE_EVENT_FLAGS.ahk
-#Include .\KEYBDINPUT.ahk
-#Include .\VIRTUAL_KEY.ahk
-#Include .\KEYBD_EVENT_FLAGS.ahk
-#Include .\HARDWAREINPUT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
+#Import ".\HARDWAREINPUT.ahk" { HARDWAREINPUT }
+#Import ".\KEYBDINPUT.ahk" { KEYBDINPUT }
+#Import ".\INPUT_TYPE.ahk" { INPUT_TYPE }
+#Import ".\MOUSEINPUT.ahk" { MOUSEINPUT }
+#Import ".\VIRTUAL_KEY.ahk" { VIRTUAL_KEY }
+#Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
 
 /**
  * Used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.
@@ -15,50 +14,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-input
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class INPUT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct INPUT {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
-     * @type {INPUT_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    type : INPUT_TYPE
 
-    /**
-     * @type {MOUSEINPUT}
-     */
-    mi {
-        get {
-            if(!this.HasProp("__mi"))
-                this.__mi := MOUSEINPUT(8, this)
-            return this.__mi
-        }
-    }
+    mi : MOUSEINPUT
 
-    /**
-     * @type {KEYBDINPUT}
-     */
-    ki {
-        get {
-            if(!this.HasProp("__ki"))
-                this.__ki := KEYBDINPUT(8, this)
-            return this.__ki
-        }
-    }
-
-    /**
-     * @type {HARDWAREINPUT}
-     */
-    hi {
-        get {
-            if(!this.HasProp("__hi"))
-                this.__hi := HARDWAREINPUT(8, this)
-            return this.__hi
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ki', { type: KEYBDINPUT, offset: 8 })
+        DefineProp(this.Prototype, 'hi', { type: HARDWAREINPUT, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

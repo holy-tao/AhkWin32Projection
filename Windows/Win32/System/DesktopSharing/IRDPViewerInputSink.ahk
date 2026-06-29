@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RDPSRAPI_MOUSE_BUTTON_TYPE.ahk" { RDPSRAPI_MOUSE_BUTTON_TYPE }
+#Import ".\RDPSRAPI_KBD_CODE_TYPE.ahk" { RDPSRAPI_KBD_CODE_TYPE }
 
 /**
  * Sends mouse and keyboard events, and supports touch input.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpviewerinputsink
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPViewerInputSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRDPViewerInputSink extends IUnknown {
     /**
      * The interface identifier for IRDPViewerInputSink
      * @type {Guid}
      */
-    static IID => Guid("{bb590853-a6c5-4a7b-8dd4-76b69eea12d5}")
+    static IID := Guid("{bb590853-a6c5-4a7b-8dd4-76b69eea12d5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPViewerInputSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SendMouseButtonEvent : IntPtr
+        SendMouseMoveEvent   : IntPtr
+        SendMouseWheelEvent  : IntPtr
+        SendKeyboardEvent    : IntPtr
+        SendSyncEvent        : IntPtr
+        BeginTouchFrame      : IntPtr
+        AddTouchInput        : IntPtr
+        EndTouchFrame        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SendMouseButtonEvent", "SendMouseMoveEvent", "SendMouseWheelEvent", "SendKeyboardEvent", "SendSyncEvent", "BeginTouchFrame", "AddTouchInput", "EndTouchFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPViewerInputSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends a mouse button event message.
@@ -39,7 +57,7 @@ class IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousebuttonevent
      */
     SendMouseButtonEvent(buttonType, vbButtonDown, xPos, yPos) {
-        result := ComCall(3, this, "int", buttonType, "short", vbButtonDown, "uint", xPos, "uint", yPos, "HRESULT")
+        result := ComCall(3, this, RDPSRAPI_MOUSE_BUTTON_TYPE, buttonType, VARIANT_BOOL, vbButtonDown, "uint", xPos, "uint", yPos, "HRESULT")
         return result
     }
 
@@ -77,7 +95,7 @@ class IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendkeyboardevent
      */
     SendKeyboardEvent(codeType, keycode, vbKeyUp, vbRepeat, vbExtended) {
-        result := ComCall(6, this, "int", codeType, "ushort", keycode, "short", vbKeyUp, "short", vbRepeat, "short", vbExtended, "HRESULT")
+        result := ComCall(6, this, RDPSRAPI_KBD_CODE_TYPE, codeType, "ushort", keycode, VARIANT_BOOL, vbKeyUp, VARIANT_BOOL, vbRepeat, VARIANT_BOOL, vbExtended, "HRESULT")
         return result
     }
 
@@ -124,5 +142,39 @@ class IRDPViewerInputSink extends IUnknown {
     EndTouchFrame() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRDPViewerInputSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SendMouseButtonEvent := CallbackCreate(GetMethod(implObj, "SendMouseButtonEvent"), flags, 5)
+        this.vtbl.SendMouseMoveEvent := CallbackCreate(GetMethod(implObj, "SendMouseMoveEvent"), flags, 3)
+        this.vtbl.SendMouseWheelEvent := CallbackCreate(GetMethod(implObj, "SendMouseWheelEvent"), flags, 2)
+        this.vtbl.SendKeyboardEvent := CallbackCreate(GetMethod(implObj, "SendKeyboardEvent"), flags, 6)
+        this.vtbl.SendSyncEvent := CallbackCreate(GetMethod(implObj, "SendSyncEvent"), flags, 2)
+        this.vtbl.BeginTouchFrame := CallbackCreate(GetMethod(implObj, "BeginTouchFrame"), flags, 1)
+        this.vtbl.AddTouchInput := CallbackCreate(GetMethod(implObj, "AddTouchInput"), flags, 5)
+        this.vtbl.EndTouchFrame := CallbackCreate(GetMethod(implObj, "EndTouchFrame"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SendMouseButtonEvent)
+        CallbackFree(this.vtbl.SendMouseMoveEvent)
+        CallbackFree(this.vtbl.SendMouseWheelEvent)
+        CallbackFree(this.vtbl.SendKeyboardEvent)
+        CallbackFree(this.vtbl.SendSyncEvent)
+        CallbackFree(this.vtbl.BeginTouchFrame)
+        CallbackFree(this.vtbl.AddTouchInput)
+        CallbackFree(this.vtbl.EndTouchFrame)
     }
 }

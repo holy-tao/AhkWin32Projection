@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AudioSessionState.ahk" { AudioSessionState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAudioSessionEvents.ahk" { IAudioSessionEvents }
 
 /**
  * The IAudioSessionControl interface enables a client to configure the control parameters for an audio session and to monitor events in the session.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioSessionControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSessionControl extends IUnknown {
     /**
      * The interface identifier for IAudioSessionControl
      * @type {Guid}
      */
-    static IID => Guid("{f4b1a599-7266-4319-a8ca-e70acb11e8cd}")
+    static IID := Guid("{f4b1a599-7266-4319-a8ca-e70acb11e8cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSessionControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetState                           : IntPtr
+        GetDisplayName                     : IntPtr
+        SetDisplayName                     : IntPtr
+        GetIconPath                        : IntPtr
+        SetIconPath                        : IntPtr
+        GetGroupingParam                   : IntPtr
+        SetGroupingParam                   : IntPtr
+        RegisterAudioSessionNotification   : IntPtr
+        UnregisterAudioSessionNotification : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetState", "GetDisplayName", "SetDisplayName", "GetIconPath", "SetIconPath", "GetGroupingParam", "SetGroupingParam", "RegisterAudioSessionNotification", "UnregisterAudioSessionNotification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSessionControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetState method retrieves the current state of the audio session.
@@ -62,7 +80,7 @@ class IAudioSessionControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-getdisplayname
      */
     GetDisplayName() {
-        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -126,7 +144,7 @@ class IAudioSessionControl extends IUnknown {
     SetDisplayName(Value, EventContext) {
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(5, this, "ptr", Value, "ptr", EventContext, "HRESULT")
+        result := ComCall(5, this, "ptr", Value, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -138,7 +156,7 @@ class IAudioSessionControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-geticonpath
      */
     GetIconPath() {
-        result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -200,7 +218,7 @@ class IAudioSessionControl extends IUnknown {
     SetIconPath(Value, EventContext) {
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(7, this, "ptr", Value, "ptr", EventContext, "HRESULT")
+        result := ComCall(7, this, "ptr", Value, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -217,7 +235,7 @@ class IAudioSessionControl extends IUnknown {
      */
     GetGroupingParam() {
         pRetVal := Guid()
-        result := ComCall(8, this, "ptr", pRetVal, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -275,7 +293,7 @@ class IAudioSessionControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-setgroupingparam
      */
     SetGroupingParam(Override, EventContext) {
-        result := ComCall(9, this, "ptr", Override, "ptr", EventContext, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, Override, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -391,5 +409,41 @@ class IAudioSessionControl extends IUnknown {
     UnregisterAudioSessionNotification(NewNotifications) {
         result := ComCall(11, this, "ptr", NewNotifications, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioSessionControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 3)
+        this.vtbl.GetIconPath := CallbackCreate(GetMethod(implObj, "GetIconPath"), flags, 2)
+        this.vtbl.SetIconPath := CallbackCreate(GetMethod(implObj, "SetIconPath"), flags, 3)
+        this.vtbl.GetGroupingParam := CallbackCreate(GetMethod(implObj, "GetGroupingParam"), flags, 2)
+        this.vtbl.SetGroupingParam := CallbackCreate(GetMethod(implObj, "SetGroupingParam"), flags, 3)
+        this.vtbl.RegisterAudioSessionNotification := CallbackCreate(GetMethod(implObj, "RegisterAudioSessionNotification"), flags, 2)
+        this.vtbl.UnregisterAudioSessionNotification := CallbackCreate(GetMethod(implObj, "UnregisterAudioSessionNotification"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.SetDisplayName)
+        CallbackFree(this.vtbl.GetIconPath)
+        CallbackFree(this.vtbl.SetIconPath)
+        CallbackFree(this.vtbl.GetGroupingParam)
+        CallbackFree(this.vtbl.SetGroupingParam)
+        CallbackFree(this.vtbl.RegisterAudioSessionNotification)
+        CallbackFree(this.vtbl.UnregisterAudioSessionNotification)
     }
 }

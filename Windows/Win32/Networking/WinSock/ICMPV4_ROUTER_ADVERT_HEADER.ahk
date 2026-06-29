@@ -1,24 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_MESSAGE.ahk
-#Include .\ICMP_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ICMP_HEADER.ahk" { ICMP_HEADER }
+#Import ".\ICMP_MESSAGE.ahk" { ICMP_MESSAGE }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ICMPV4_ROUTER_ADVERT_HEADER extends Win32Struct {
-    static sizeof => 8
+export default struct ICMPV4_ROUTER_ADVERT_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    RaHeader : ICMP_MESSAGE
 
-    /**
-     * @type {ICMP_MESSAGE}
-     */
-    RaHeader {
-        get {
-            if(!this.HasProp("__RaHeader"))
-                this.__RaHeader := ICMP_MESSAGE(0, this)
-            return this.__RaHeader
-        }
-    }
 }

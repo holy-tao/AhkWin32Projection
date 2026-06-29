@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
-#Include .\USB_BUS_STATISTICS_0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
+#Import ".\USB_BUS_STATISTICS_0.ahk" { USB_BUS_STATISTICS_0 }
 
 /**
  * The USBUSER_BUS_STATISTICS_0_REQUEST structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve bus statistics.
@@ -11,32 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_bus_statistics_0_request
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBUSER_BUS_STATISTICS_0_REQUEST extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct USBUSER_BUS_STATISTICS_0_REQUEST {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ns-usbuser-usbuser_request_header">USBUSER_REQUEST_HEADER</a> structure that specifies the user-mode request on input to IOCTL_USB_USER_REQUEST and provides buffer and status information on output.
-     * @type {USBUSER_REQUEST_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : USBUSER_REQUEST_HEADER
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ns-usbuser-usb_bus_statistics_0">USB_BUS_STATISTICS_0</a> structure that reports bus statistics.
-     * @type {USB_BUS_STATISTICS_0}
      */
-    BusStatistics0 {
-        get {
-            if(!this.HasProp("__BusStatistics0"))
-                this.__BusStatistics0 := USB_BUS_STATISTICS_0(16, this)
-            return this.__BusStatistics0
-        }
-    }
+    BusStatistics0 : USB_BUS_STATISTICS_0
+
 }

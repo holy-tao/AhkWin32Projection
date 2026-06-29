@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IMoniker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a linked object to provide its container with functions pertaining to linking.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolelink
  * @namespace Windows.Win32.System.Ole
  */
-class IOleLink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleLink extends IUnknown {
     /**
      * The interface identifier for IOleLink
      * @type {Guid}
      */
-    static IID => Guid("{0000011d-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000011d-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleLink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetUpdateOptions     : IntPtr
+        GetUpdateOptions     : IntPtr
+        SetSourceMoniker     : IntPtr
+        GetSourceMoniker     : IntPtr
+        SetSourceDisplayName : IntPtr
+        GetSourceDisplayName : IntPtr
+        BindToSource         : IntPtr
+        BindIfRunning        : IntPtr
+        GetBoundSource       : IntPtr
+        UnbindSource         : IntPtr
+        Update               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetUpdateOptions", "GetUpdateOptions", "SetSourceMoniker", "GetSourceMoniker", "SetSourceDisplayName", "GetSourceDisplayName", "BindToSource", "BindIfRunning", "GetBoundSource", "UnbindSource", "Update"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleLink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies how often a linked object should update its cached data.
@@ -112,7 +132,7 @@ class IOleLink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-setsourcemoniker
      */
     SetSourceMoniker(pmk, rclsid) {
-        result := ComCall(5, this, "ptr", pmk, "ptr", rclsid, "HRESULT")
+        result := ComCall(5, this, "ptr", pmk, Guid.Ptr, rclsid, "HRESULT")
         return result
     }
 
@@ -179,7 +199,7 @@ class IOleLink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-getsourcedisplayname
      */
     GetSourceDisplayName() {
-        result := ComCall(8, this, "ptr*", &ppszDisplayName := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &ppszDisplayName := 0, "HRESULT")
         return ppszDisplayName
     }
 
@@ -378,5 +398,45 @@ class IOleLink extends IUnknown {
     Update(pbc) {
         result := ComCall(13, this, "ptr", pbc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleLink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetUpdateOptions := CallbackCreate(GetMethod(implObj, "SetUpdateOptions"), flags, 2)
+        this.vtbl.GetUpdateOptions := CallbackCreate(GetMethod(implObj, "GetUpdateOptions"), flags, 2)
+        this.vtbl.SetSourceMoniker := CallbackCreate(GetMethod(implObj, "SetSourceMoniker"), flags, 3)
+        this.vtbl.GetSourceMoniker := CallbackCreate(GetMethod(implObj, "GetSourceMoniker"), flags, 2)
+        this.vtbl.SetSourceDisplayName := CallbackCreate(GetMethod(implObj, "SetSourceDisplayName"), flags, 2)
+        this.vtbl.GetSourceDisplayName := CallbackCreate(GetMethod(implObj, "GetSourceDisplayName"), flags, 2)
+        this.vtbl.BindToSource := CallbackCreate(GetMethod(implObj, "BindToSource"), flags, 3)
+        this.vtbl.BindIfRunning := CallbackCreate(GetMethod(implObj, "BindIfRunning"), flags, 1)
+        this.vtbl.GetBoundSource := CallbackCreate(GetMethod(implObj, "GetBoundSource"), flags, 2)
+        this.vtbl.UnbindSource := CallbackCreate(GetMethod(implObj, "UnbindSource"), flags, 1)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetUpdateOptions)
+        CallbackFree(this.vtbl.GetUpdateOptions)
+        CallbackFree(this.vtbl.SetSourceMoniker)
+        CallbackFree(this.vtbl.GetSourceMoniker)
+        CallbackFree(this.vtbl.SetSourceDisplayName)
+        CallbackFree(this.vtbl.GetSourceDisplayName)
+        CallbackFree(this.vtbl.BindToSource)
+        CallbackFree(this.vtbl.BindIfRunning)
+        CallbackFree(this.vtbl.GetBoundSource)
+        CallbackFree(this.vtbl.UnbindSource)
+        CallbackFree(this.vtbl.Update)
     }
 }

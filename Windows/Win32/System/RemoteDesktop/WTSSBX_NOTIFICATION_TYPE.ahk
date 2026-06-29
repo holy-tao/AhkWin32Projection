@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate the type of status change that occurred on a Remote Desktop Session Host (RD Session Host) server or a user session.
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_notification_type
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTSSBX_NOTIFICATION_TYPE extends Win32Enum {
+export default struct WTSSBX_NOTIFICATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * RD Connection Broker received a Removed notification. This indicates that a user has logged off an RD Session Host server or that an RD Session Host server left a farm in RD Connection Broker.

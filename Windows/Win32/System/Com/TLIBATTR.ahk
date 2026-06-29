@@ -1,68 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYSKIND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYSKIND.ahk" { SYSKIND }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a type library. Information from this structure is used to identify the type library and to provide national language support for member names.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-tlibattr
  * @namespace Windows.Win32.System.Com
  */
-class TLIBATTR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TLIBATTR {
+    #StructPack 4
 
     /**
      * The globally unique identifier.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
     /**
      * The locale identifier.
-     * @type {Integer}
      */
-    lcid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lcid : UInt32
 
     /**
      * The target hardware platform.
-     * @type {SYSKIND}
      */
-    syskind {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    syskind : SYSKIND
 
     /**
      * The major version number.
-     * @type {Integer}
      */
-    wMajorVerNum {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wMajorVerNum : UInt16
 
     /**
      * The minor version number.
-     * @type {Integer}
      */
-    wMinorVerNum {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    wMinorVerNum : UInt16
 
     /**
      * The library flags.
-     * @type {Integer}
      */
-    wLibFlags {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    wLibFlags : UInt16
+
 }

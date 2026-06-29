@@ -1,37 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IValueMapItem.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IValueMapItem.ahk" { IValueMapItem }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ValueMapType.ahk" { ValueMapType }
 
 /**
  * Manages a collection of name/value pairs.To get this interface, access one of the following properties or methods:IDataCollector::SetXmlIDataCollectorSet::CommitIDataCollectorSet::SetXmlITraceDataProvider::KeywordsAllITraceDataProvider::KeywordsAnyITraceDataProvider::LevelITraceDataProvider::Properties
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ivaluemap
  * @namespace Windows.Win32.System.Performance
  */
-class IValueMap extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IValueMap extends IDispatch {
     /**
      * The interface identifier for IValueMap
      * @type {Guid}
      */
-    static IID => Guid("{03837534-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837534-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IValueMap interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count          : IntPtr
+        get_Item           : IntPtr
+        get__NewEnum       : IntPtr
+        get_Description    : IntPtr
+        put_Description    : IntPtr
+        get_Value          : IntPtr
+        put_Value          : IntPtr
+        get_ValueMapType   : IntPtr
+        put_ValueMapType   : IntPtr
+        Add                : IntPtr
+        Remove             : IntPtr
+        Clear              : IntPtr
+        AddRange           : IntPtr
+        CreateValueMapItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "get_Description", "put_Description", "get_Value", "put_Value", "get_ValueMapType", "put_ValueMapType", "Add", "Remove", "Clear", "AddRange", "CreateValueMapItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IValueMap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -90,7 +112,7 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, index, "ptr*", &value := 0, "HRESULT")
         return IValueMapItem(value)
     }
 
@@ -116,8 +138,8 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_description
      */
     get_Description() {
-        description := BSTR()
-        result := ComCall(10, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -130,7 +152,7 @@ class IValueMap extends IDispatch {
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
 
-        result := ComCall(11, this, "ptr", description, "HRESULT")
+        result := ComCall(11, this, BSTR, description, "HRESULT")
         return result
     }
 
@@ -147,7 +169,7 @@ class IValueMap extends IDispatch {
      */
     get_Value() {
         Value := VARIANT()
-        result := ComCall(12, this, "ptr", Value, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -164,7 +186,7 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-put_value
      */
     put_Value(Value) {
-        result := ComCall(13, this, "ptr", Value, "HRESULT")
+        result := ComCall(13, this, VARIANT, Value, "HRESULT")
         return result
     }
 
@@ -185,7 +207,7 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-put_valuemaptype
      */
     put_ValueMapType(type) {
-        result := ComCall(15, this, "int", type, "HRESULT")
+        result := ComCall(15, this, ValueMapType, type, "HRESULT")
         return result
     }
 
@@ -200,7 +222,7 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-add
      */
     Add(value) {
-        result := ComCall(16, this, "ptr", value, "HRESULT")
+        result := ComCall(16, this, VARIANT, value, "HRESULT")
         return result
     }
 
@@ -213,7 +235,7 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-remove
      */
     Remove(value) {
-        result := ComCall(17, this, "ptr", value, "HRESULT")
+        result := ComCall(17, this, VARIANT, value, "HRESULT")
         return result
     }
 
@@ -246,5 +268,51 @@ class IValueMap extends IDispatch {
     CreateValueMapItem() {
         result := ComCall(20, this, "ptr*", &Item := 0, "HRESULT")
         return IValueMapItem(Item)
+    }
+
+    Query(iid) {
+        if (IValueMap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_ValueMapType := CallbackCreate(GetMethod(implObj, "get_ValueMapType"), flags, 2)
+        this.vtbl.put_ValueMapType := CallbackCreate(GetMethod(implObj, "put_ValueMapType"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.CreateValueMapItem := CallbackCreate(GetMethod(implObj, "CreateValueMapItem"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
+        CallbackFree(this.vtbl.get_ValueMapType)
+        CallbackFree(this.vtbl.put_ValueMapType)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.AddRange)
+        CallbackFree(this.vtbl.CreateValueMapItem)
     }
 }

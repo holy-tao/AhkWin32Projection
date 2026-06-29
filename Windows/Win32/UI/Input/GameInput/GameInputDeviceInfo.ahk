@@ -1,434 +1,129 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputUsage.ahk
-#Include .\GameInputVersion.ahk
-#Include ..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk
-#Include .\GameInputDeviceFamily.ahk
-#Include .\GameInputDeviceCapabilities.ahk
-#Include .\GameInputKind.ahk
-#Include .\GameInputRumbleMotors.ahk
-#Include .\GameInputRawDeviceReportInfo.ahk
-#Include .\GameInputControllerAxisInfo.ahk
-#Include .\GameInputControllerButtonInfo.ahk
-#Include .\GameInputControllerSwitchInfo.ahk
-#Include .\GameInputKeyboardInfo.ahk
-#Include .\GameInputMouseInfo.ahk
-#Include .\GameInputTouchSensorInfo.ahk
-#Include .\GameInputMotionInfo.ahk
-#Include .\GameInputArcadeStickInfo.ahk
-#Include .\GameInputFlightStickInfo.ahk
-#Include .\GameInputGamepadInfo.ahk
-#Include .\GameInputRacingWheelInfo.ahk
-#Include .\GameInputUiNavigationInfo.ahk
-#Include .\GameInputForceFeedbackMotorInfo.ahk
-#Include .\GameInputHapticFeedbackMotorInfo.ahk
-#Include .\GameInputString.ahk
-#Include .\GameInputSystemButtons.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputVersion.ahk" { GameInputVersion }
+#Import ".\GameInputString.ahk" { GameInputString }
+#Import ".\GameInputSystemButtons.ahk" { GameInputSystemButtons }
+#Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
+#Import ".\GameInputFlightStickInfo.ahk" { GameInputFlightStickInfo }
+#Import ".\GameInputRumbleMotors.ahk" { GameInputRumbleMotors }
+#Import ".\GameInputDeviceCapabilities.ahk" { GameInputDeviceCapabilities }
+#Import ".\GameInputUiNavigationInfo.ahk" { GameInputUiNavigationInfo }
+#Import "..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk" { APP_LOCAL_DEVICE_ID }
+#Import ".\GameInputControllerButtonInfo.ahk" { GameInputControllerButtonInfo }
+#Import ".\GameInputUsage.ahk" { GameInputUsage }
+#Import ".\GameInputDeviceFamily.ahk" { GameInputDeviceFamily }
+#Import ".\GameInputMouseInfo.ahk" { GameInputMouseInfo }
+#Import ".\GameInputGamepadInfo.ahk" { GameInputGamepadInfo }
+#Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputControllerSwitchInfo.ahk" { GameInputControllerSwitchInfo }
+#Import ".\GameInputControllerAxisInfo.ahk" { GameInputControllerAxisInfo }
+#Import ".\GameInputArcadeStickInfo.ahk" { GameInputArcadeStickInfo }
+#Import ".\GameInputHapticFeedbackMotorInfo.ahk" { GameInputHapticFeedbackMotorInfo }
+#Import ".\GameInputForceFeedbackMotorInfo.ahk" { GameInputForceFeedbackMotorInfo }
+#Import ".\GameInputMotionInfo.ahk" { GameInputMotionInfo }
+#Import ".\GameInputRacingWheelInfo.ahk" { GameInputRacingWheelInfo }
+#Import ".\GameInputTouchSensorInfo.ahk" { GameInputTouchSensorInfo }
+#Import ".\GameInputKeyboardInfo.ahk" { GameInputKeyboardInfo }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputDeviceInfo extends Win32Struct {
-    static sizeof => 328
+export default struct GameInputDeviceInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    infoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    infoSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    vendorId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    vendorId {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    productId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    productId {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    revisionNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    revisionNumber {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    interfaceNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    interfaceNumber {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    collectionNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    collectionNumber {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    usage : GameInputUsage
 
-    /**
-     * @type {GameInputUsage}
-     */
-    usage {
-        get {
-            if(!this.HasProp("__usage"))
-                this.__usage := GameInputUsage(12, this)
-            return this.__usage
-        }
-    }
+    hardwareVersion : GameInputVersion
 
-    /**
-     * @type {GameInputVersion}
-     */
-    hardwareVersion {
-        get {
-            if(!this.HasProp("__hardwareVersion"))
-                this.__hardwareVersion := GameInputVersion(16, this)
-            return this.__hardwareVersion
-        }
-    }
+    firmwareVersion : GameInputVersion
 
-    /**
-     * @type {GameInputVersion}
-     */
-    firmwareVersion {
-        get {
-            if(!this.HasProp("__firmwareVersion"))
-                this.__firmwareVersion := GameInputVersion(24, this)
-            return this.__firmwareVersion
-        }
-    }
+    deviceId : APP_LOCAL_DEVICE_ID
 
-    /**
-     * @type {APP_LOCAL_DEVICE_ID}
-     */
-    deviceId {
-        get {
-            if(!this.HasProp("__deviceId"))
-                this.__deviceId := APP_LOCAL_DEVICE_ID(32, this)
-            return this.__deviceId
-        }
-    }
+    deviceRootId : APP_LOCAL_DEVICE_ID
 
-    /**
-     * @type {APP_LOCAL_DEVICE_ID}
-     */
-    deviceRootId {
-        get {
-            if(!this.HasProp("__deviceRootId"))
-                this.__deviceRootId := APP_LOCAL_DEVICE_ID(64, this)
-            return this.__deviceRootId
-        }
-    }
+    deviceFamily : GameInputDeviceFamily
 
-    /**
-     * @type {GameInputDeviceFamily}
-     */
-    deviceFamily {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    capabilities : GameInputDeviceCapabilities
 
-    /**
-     * @type {GameInputDeviceCapabilities}
-     */
-    capabilities {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    supportedInput : GameInputKind
 
-    /**
-     * @type {GameInputKind}
-     */
-    supportedInput {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    supportedRumbleMotors : GameInputRumbleMotors
 
-    /**
-     * @type {GameInputRumbleMotors}
-     */
-    supportedRumbleMotors {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
+    inputReportCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    inputReportCount {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    outputReportCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    outputReportCount {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    featureReportCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    featureReportCount {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    controllerAxisCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    controllerAxisCount {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    controllerButtonCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    controllerButtonCount {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    controllerSwitchCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    controllerSwitchCount {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    touchPointCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    touchPointCount {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    touchSensorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    touchSensorCount {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    forceFeedbackMotorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    forceFeedbackMotorCount {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    hapticFeedbackMotorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hapticFeedbackMotorCount {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    deviceStringCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    deviceStringCount {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    deviceDescriptorSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    deviceDescriptorSize {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    inputReportInfo : GameInputRawDeviceReportInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportInfo>}
-     */
-    inputReportInfo {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    outputReportInfo : GameInputRawDeviceReportInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportInfo>}
-     */
-    outputReportInfo {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    featureReportInfo : GameInputRawDeviceReportInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportInfo>}
-     */
-    featureReportInfo {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    controllerAxisInfo : GameInputControllerAxisInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputControllerAxisInfo>}
-     */
-    controllerAxisInfo {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    controllerButtonInfo : GameInputControllerButtonInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputControllerButtonInfo>}
-     */
-    controllerButtonInfo {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    controllerSwitchInfo : GameInputControllerSwitchInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputControllerSwitchInfo>}
-     */
-    controllerSwitchInfo {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    keyboardInfo : GameInputKeyboardInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputKeyboardInfo>}
-     */
-    keyboardInfo {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    mouseInfo : GameInputMouseInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputMouseInfo>}
-     */
-    mouseInfo {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    touchSensorInfo : GameInputTouchSensorInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputTouchSensorInfo>}
-     */
-    touchSensorInfo {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    motionInfo : GameInputMotionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputMotionInfo>}
-     */
-    motionInfo {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    arcadeStickInfo : GameInputArcadeStickInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputArcadeStickInfo>}
-     */
-    arcadeStickInfo {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
+    flightStickInfo : GameInputFlightStickInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputFlightStickInfo>}
-     */
-    flightStickInfo {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
-    }
+    gamepadInfo : GameInputGamepadInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputGamepadInfo>}
-     */
-    gamepadInfo {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
-    }
+    racingWheelInfo : GameInputRacingWheelInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRacingWheelInfo>}
-     */
-    racingWheelInfo {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    uiNavigationInfo : GameInputUiNavigationInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputUiNavigationInfo>}
-     */
-    uiNavigationInfo {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    forceFeedbackMotorInfo : GameInputForceFeedbackMotorInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputForceFeedbackMotorInfo>}
-     */
-    forceFeedbackMotorInfo {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    hapticFeedbackMotorInfo : GameInputHapticFeedbackMotorInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputHapticFeedbackMotorInfo>}
-     */
-    hapticFeedbackMotorInfo {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    displayName : GameInputString.Ptr
 
-    /**
-     * @type {Pointer<GameInputString>}
-     */
-    displayName {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
-    }
+    deviceStrings : GameInputString.Ptr
 
-    /**
-     * @type {Pointer<GameInputString>}
-     */
-    deviceStrings {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
+    deviceDescriptorData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    deviceDescriptorData {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
-    }
+    supportedSystemButtons : GameInputSystemButtons
 
-    /**
-     * @type {GameInputSystemButtons}
-     */
-    supportedSystemButtons {
-        get => NumGet(this, 320, "int")
-        set => NumPut("int", value, this, 320)
-    }
 }

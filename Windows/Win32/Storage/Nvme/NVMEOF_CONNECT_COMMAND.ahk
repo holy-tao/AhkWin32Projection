@@ -1,31 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_SGL_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_SGL_DESC.ahk" { NVME_SGL_DESC }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_CONNECT_COMMAND extends Win32Struct {
-    static sizeof => 64
+export default struct NVMEOF_CONNECT_COMMAND {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _CATTR_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _CATTR {
         /**
          * This bitfield backs the following members:
          * - PriorityClass
          * - SqFlowControlDisable
          * - IoQueueDeletion
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -50,129 +42,36 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct {
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    OPC {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    OPC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    CID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FCTYPE {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    FCTYPE : Int8
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 19, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[19]
 
-    /**
-     * @type {NVME_SGL_DESC}
-     */
-    SGL1 {
-        get {
-            if(!this.HasProp("__SGL1"))
-                this.__SGL1 := NVME_SGL_DESC(24, this)
-            return this.__SGL1
-        }
-    }
+    SGL1 : NVME_SGL_DESC
 
-    /**
-     * @type {Integer}
-     */
-    RECFMT {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    RECFMT : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    QID {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    QID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SQSIZE {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    SQSIZE : UInt16
 
-    /**
-     * @type {_CATTR_e__Union}
-     */
-    CATTR {
-        get {
-            if(!this.HasProp("__CATTR"))
-                this.__CATTR := NVMEOF_CONNECT_COMMAND._CATTR_e__Union(46, this)
-            return this.__CATTR
-        }
-    }
+    CATTR : NVMEOF_CONNECT_COMMAND._CATTR
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 47, "char")
-        set => NumPut("char", value, this, 47)
-    }
+    Reserved2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    KATO {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    KATO : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 52, 12, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : Int8[12]
+
 }

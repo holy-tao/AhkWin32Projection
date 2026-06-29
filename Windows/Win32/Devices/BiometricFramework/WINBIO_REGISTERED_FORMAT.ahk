@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a registered data format as an owner/format pair.
@@ -15,26 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-registered-format
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_REGISTERED_FORMAT extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct WINBIO_REGISTERED_FORMAT {
+    #StructPack 2
 
     /**
      * An IBIA (International Biometric Industry Association) assigned owner value.
-     * @type {Integer}
      */
-    Owner {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Owner : UInt16
 
     /**
      * An owner assigned format.
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Type : UInt16
+
 }

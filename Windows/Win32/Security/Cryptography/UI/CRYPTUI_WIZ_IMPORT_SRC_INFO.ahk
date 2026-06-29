@@ -1,96 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include ..\CTL_CONTEXT.ahk
-#Include ..\CRL_CONTEXT.ahk
-#Include ..\HCERTSTORE.ahk
-#Include ..\CRYPT_KEY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import ".\CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION.ahk" { CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION }
+#Import "..\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
 
 /**
  * Contains the subject to import into the CryptUIWizImport function.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_import_src_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  */
-class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CRYPTUI_WIZ_IMPORT_SRC_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION}
-     */
-    dwSubjectChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSubjectChoice : CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszFileName : PWSTR
 
-    /**
-     * @type {Pointer<CERT_CONTEXT>}
-     */
-    pCertContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<CTL_CONTEXT>}
-     */
-    pCTLContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<CRL_CONTEXT>}
-     */
-    pCRLContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {HCERTSTORE}
-     */
-    hCertStore {
-        get {
-            if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(8, this)
-            return this.__hCertStore
-        }
-    }
-
-    /**
-     * @type {CRYPT_KEY_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFlags : CRYPT_KEY_FLAGS
 
     /**
      * Pointer to a null-terminated Unicode string that contains the password used to access the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a>.  A password is required if <b>pwszFileName</b> contains a PFX BLOB.  If a password is not required, the variable can be an empty string. This member cannot be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pwszPassword {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszPassword : PWSTR
+
+    static __New() {
+        DefineProp(this.Prototype, 'pCertContext', { type: CERT_CONTEXT.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pCTLContext', { type: CTL_CONTEXT.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pCRLContext', { type: CRL_CONTEXT.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'hCertStore', { type: HCERTSTORE, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

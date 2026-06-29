@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains possible values for the CaretPosition text attribute, which indicates the location of the caret relative to a line of text in a text range.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-caretposition
  * @namespace Windows.Win32.UI.Accessibility
  */
-class CaretPosition extends Win32Enum {
+export default struct CaretPosition {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The caret is not at the beginning or the end of a line.

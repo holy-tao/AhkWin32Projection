@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The ITfLangBarEventSink interface is implemented by an application or text service and used by the language bar to supply notifications of certain events that occur in the language bar.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbareventsink
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarEventSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarEventSink extends IUnknown {
     /**
      * The interface identifier for ITfLangBarEventSink
      * @type {Guid}
      */
-    static IID => Guid("{18a4e900-e0ae-11d2-afdd-00105a2799b5}")
+    static IID := Guid("{18a4e900-e0ae-11d2-afdd-00105a2799b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarEventSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnSetFocus          : IntPtr
+        OnThreadTerminate   : IntPtr
+        OnThreadItemChange  : IntPtr
+        OnModalInput        : IntPtr
+        ShowFloating        : IntPtr
+        GetItemFloatingRect : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnSetFocus", "OnThreadTerminate", "OnThreadItemChange", "OnModalInput", "ShowFloating", "GetItemFloatingRect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarEventSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfLangBarEventSink::OnSetFocus method
@@ -73,7 +88,7 @@ class ITfLangBarEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onmodalinput
      */
     OnModalInput(dwThreadId, uMsg, _wParam, _lParam) {
-        result := ComCall(6, this, "uint", dwThreadId, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(6, this, "uint", dwThreadId, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -97,7 +112,37 @@ class ITfLangBarEventSink extends IUnknown {
      */
     GetItemFloatingRect(dwThreadId, rguid) {
         prc := RECT()
-        result := ComCall(8, this, "uint", dwThreadId, "ptr", rguid, "ptr", prc, "HRESULT")
+        result := ComCall(8, this, "uint", dwThreadId, Guid.Ptr, rguid, RECT.Ptr, prc, "HRESULT")
         return prc
+    }
+
+    Query(iid) {
+        if (ITfLangBarEventSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnSetFocus := CallbackCreate(GetMethod(implObj, "OnSetFocus"), flags, 2)
+        this.vtbl.OnThreadTerminate := CallbackCreate(GetMethod(implObj, "OnThreadTerminate"), flags, 2)
+        this.vtbl.OnThreadItemChange := CallbackCreate(GetMethod(implObj, "OnThreadItemChange"), flags, 2)
+        this.vtbl.OnModalInput := CallbackCreate(GetMethod(implObj, "OnModalInput"), flags, 5)
+        this.vtbl.ShowFloating := CallbackCreate(GetMethod(implObj, "ShowFloating"), flags, 2)
+        this.vtbl.GetItemFloatingRect := CallbackCreate(GetMethod(implObj, "GetItemFloatingRect"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnSetFocus)
+        CallbackFree(this.vtbl.OnThreadTerminate)
+        CallbackFree(this.vtbl.OnThreadItemChange)
+        CallbackFree(this.vtbl.OnModalInput)
+        CallbackFree(this.vtbl.ShowFloating)
+        CallbackFree(this.vtbl.GetItemFloatingRect)
     }
 }

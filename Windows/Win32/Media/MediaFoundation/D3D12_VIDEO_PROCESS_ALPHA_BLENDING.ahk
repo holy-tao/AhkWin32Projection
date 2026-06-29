@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies alpha blending parameters for video processing.
@@ -18,26 +18,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_alpha_blending
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_PROCESS_ALPHA_BLENDING extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct D3D12_VIDEO_PROCESS_ALPHA_BLENDING {
+    #StructPack 4
 
     /**
      * A boolean value specifying whether alpha blending is enabled.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * The planar alpha value. The value can range from 0.0 (transparent) to 1.0 (opaque). If *Enable* is FALSe, this parameter is ignored.
-     * @type {Float}
      */
-    Alpha {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Alpha : Float32
+
 }

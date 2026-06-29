@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_EVENTHEADER extends Win32Struct {
-    static sizeof => 24
+export default struct DMUS_EVENTHEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    cbEvent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwChannelGroup : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwChannelGroup {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rtDelta : Int64
 
-    /**
-     * @type {Integer}
-     */
-    rtDelta {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

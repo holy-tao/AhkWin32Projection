@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the different states of a job.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_state
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_JOB_STATE extends Win32Enum {
+export default struct BG_JOB_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that the job is in the queue, and waiting to run. If a user logs off while their job is transferring, the job transitions to the queued state.

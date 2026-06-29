@@ -1,67 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an axis-aligned bounding box (AABB) used as raytracing geometry.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_aabb
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RAYTRACING_AABB extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D12_RAYTRACING_AABB {
+    #StructPack 4
 
     /**
      * The minimum X coordinate of the box.
-     * @type {Float}
      */
-    MinX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    MinX : Float32
 
     /**
      * The minimum Y coordinate of the box.
-     * @type {Float}
      */
-    MinY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    MinY : Float32
 
     /**
      * The minimum Z coordinate of the box.
-     * @type {Float}
      */
-    MinZ {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    MinZ : Float32
 
     /**
      * The maximum X coordinate of the box.
-     * @type {Float}
      */
-    MaxX {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    MaxX : Float32
 
     /**
      * The maximum Y coordinate of the box.
-     * @type {Float}
      */
-    MaxY {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MaxY : Float32
 
     /**
      * The maximum Z coordinate of the box.
-     * @type {Float}
      */
-    MaxZ {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    MaxZ : Float32
+
 }

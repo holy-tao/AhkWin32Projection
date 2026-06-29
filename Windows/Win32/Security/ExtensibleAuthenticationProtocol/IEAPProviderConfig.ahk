@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * UI for EAP provider.
  * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nn-rrascfg-ieapproviderconfig
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class IEAPProviderConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEAPProviderConfig extends IUnknown {
     /**
      * The interface identifier for IEAPProviderConfig
      * @type {Guid}
      */
-    static IID => Guid("{66a2db19-d706-11d0-a37b-00c04fc9da04}")
+    static IID := Guid("{66a2db19-d706-11d0-a37b-00c04fc9da04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEAPProviderConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                : IntPtr
+        Uninitialize              : IntPtr
+        ServerInvokeConfigUI      : IntPtr
+        RouterInvokeConfigUI      : IntPtr
+        RouterInvokeCredentialsUI : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Uninitialize", "ServerInvokeConfigUI", "RouterInvokeConfigUI", "RouterInvokeCredentialsUI"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEAPProviderConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The system calls the Initialize method to initialize an EAP configuration session with the specified computer.
@@ -185,9 +199,7 @@ class IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-serverinvokeconfigui
      */
     ServerInvokeConfigUI(dwEapTypeId, uConnectionParam, _hWnd, uReserved1, uReserved2) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", _hWnd, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, _hWnd, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
         return result
     }
 
@@ -258,13 +270,11 @@ class IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokeconfigui
      */
     RouterInvokeConfigUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, ppConnectionDataOut, pdwSizeOfConnectionDataOut) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
         pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : "ptr"
         ppConnectionDataOutMarshal := ppConnectionDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConnectionDataOutMarshal := pdwSizeOfConnectionDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
+        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
         return result
     }
 
@@ -337,14 +347,40 @@ class IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokecredentialsui
      */
     RouterInvokeCredentialsUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, pUserDataIn, dwSizeOfUserDataIn, ppUserDataOut, pdwSizeOfUserDataOut) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
         pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : "ptr"
         pUserDataInMarshal := pUserDataIn is VarRef ? "char*" : "ptr"
         ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, "uint", dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
+        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, "uint", dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEAPProviderConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 3)
+        this.vtbl.ServerInvokeConfigUI := CallbackCreate(GetMethod(implObj, "ServerInvokeConfigUI"), flags, 6)
+        this.vtbl.RouterInvokeConfigUI := CallbackCreate(GetMethod(implObj, "RouterInvokeConfigUI"), flags, 9)
+        this.vtbl.RouterInvokeCredentialsUI := CallbackCreate(GetMethod(implObj, "RouterInvokeCredentialsUI"), flags, 11)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Uninitialize)
+        CallbackFree(this.vtbl.ServerInvokeConfigUI)
+        CallbackFree(this.vtbl.RouterInvokeConfigUI)
+        CallbackFree(this.vtbl.RouterInvokeCredentialsUI)
     }
 }

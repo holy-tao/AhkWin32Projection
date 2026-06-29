@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Converts between Society of Motion Picture and Television Engineers (SMPTE) time codes and 100-nanosecond time units.
@@ -13,26 +16,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftimecodetranslate
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTimecodeTranslate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTimecodeTranslate extends IUnknown {
     /**
      * The interface identifier for IMFTimecodeTranslate
      * @type {Guid}
      */
-    static IID => Guid("{ab9d8661-f7e8-4ef4-9861-89f334f94e74}")
+    static IID := Guid("{ab9d8661-f7e8-4ef4-9861-89f334f94e74}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTimecodeTranslate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginConvertTimecodeToHNS : IntPtr
+        EndConvertTimecodeToHNS   : IntPtr
+        BeginConvertHNSToTimecode : IntPtr
+        EndConvertHNSToTimecode   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginConvertTimecodeToHNS", "EndConvertTimecodeToHNS", "BeginConvertHNSToTimecode", "EndConvertHNSToTimecode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTimecodeTranslate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts an asynchronous call to convert Society of Motion Picture and Television Engineers (SMPTE) time code to 100-nanosecond units.
@@ -115,7 +128,7 @@ class IMFTimecodeTranslate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-beginconverttimecodetohns
      */
     BeginConvertTimecodeToHNS(pPropVarTimecode, pCallback, punkState) {
-        result := ComCall(3, this, "ptr", pPropVarTimecode, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(3, this, PROPVARIANT.Ptr, pPropVarTimecode, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 
@@ -222,7 +235,33 @@ class IMFTimecodeTranslate extends IUnknown {
      */
     EndConvertHNSToTimecode(pResult) {
         pPropVarTimecode := PROPVARIANT()
-        result := ComCall(6, this, "ptr", pResult, "ptr", pPropVarTimecode, "HRESULT")
+        result := ComCall(6, this, "ptr", pResult, PROPVARIANT.Ptr, pPropVarTimecode, "HRESULT")
         return pPropVarTimecode
+    }
+
+    Query(iid) {
+        if (IMFTimecodeTranslate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginConvertTimecodeToHNS := CallbackCreate(GetMethod(implObj, "BeginConvertTimecodeToHNS"), flags, 4)
+        this.vtbl.EndConvertTimecodeToHNS := CallbackCreate(GetMethod(implObj, "EndConvertTimecodeToHNS"), flags, 3)
+        this.vtbl.BeginConvertHNSToTimecode := CallbackCreate(GetMethod(implObj, "BeginConvertHNSToTimecode"), flags, 4)
+        this.vtbl.EndConvertHNSToTimecode := CallbackCreate(GetMethod(implObj, "EndConvertHNSToTimecode"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginConvertTimecodeToHNS)
+        CallbackFree(this.vtbl.EndConvertTimecodeToHNS)
+        CallbackFree(this.vtbl.BeginConvertHNSToTimecode)
+        CallbackFree(this.vtbl.EndConvertHNSToTimecode)
     }
 }

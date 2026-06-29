@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
-#Include .\IDXGIResource.ahk
-#Include .\DXGI_MAPPED_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_OUTDUPL_POINTER_SHAPE_INFO.ahk" { DXGI_OUTDUPL_POINTER_SHAPE_INFO }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import ".\DXGI_OUTDUPL_DESC.ahk" { DXGI_OUTDUPL_DESC }
+#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
+#Import ".\DXGI_OUTDUPL_FRAME_INFO.ahk" { DXGI_OUTDUPL_FRAME_INFO }
 
 /**
  * The IDXGIOutputDuplication interface accesses and manipulates the duplicated desktop image.
@@ -54,26 +58,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutputDuplication extends IDXGIObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutputDuplication extends IDXGIObject {
     /**
      * The interface identifier for IDXGIOutputDuplication
      * @type {Guid}
      */
-    static IID => Guid("{191cfac3-a341-470d-b26e-a864f428319c}")
+    static IID := Guid("{191cfac3-a341-470d-b26e-a864f428319c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutputDuplication interfaces
+    */
+    struct Vtbl extends IDXGIObject.Vtbl {
+        GetDesc              : IntPtr
+        AcquireNextFrame     : IntPtr
+        GetFrameDirtyRects   : IntPtr
+        GetFrameMoveRects    : IntPtr
+        GetFramePointerShape : IntPtr
+        MapDesktopSurface    : IntPtr
+        UnMapDesktopSurface  : IntPtr
+        ReleaseFrame         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "AcquireNextFrame", "GetFrameDirtyRects", "GetFrameMoveRects", "GetFramePointerShape", "MapDesktopSurface", "UnMapDesktopSurface", "ReleaseFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutputDuplication.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a description of a duplicated output. This description specifies the dimensions of the surface that contains the desktop image.
@@ -84,7 +102,7 @@ class IDXGIOutputDuplication extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getdesc
      */
     GetDesc(pDesc) {
-        ComCall(7, this, "ptr", pDesc)
+        ComCall(7, this, DXGI_OUTDUPL_DESC.Ptr, pDesc)
     }
 
     /**
@@ -117,7 +135,7 @@ class IDXGIOutputDuplication extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-acquirenextframe
      */
     AcquireNextFrame(TimeoutInMilliseconds, pFrameInfo, ppDesktopResource) {
-        result := ComCall(8, this, "uint", TimeoutInMilliseconds, "ptr", pFrameInfo, "ptr*", ppDesktopResource, "HRESULT")
+        result := ComCall(8, this, "uint", TimeoutInMilliseconds, DXGI_OUTDUPL_FRAME_INFO.Ptr, pFrameInfo, IDXGIResource.Ptr, ppDesktopResource, "HRESULT")
         return result
     }
 
@@ -229,7 +247,7 @@ class IDXGIOutputDuplication extends IDXGIObject {
     GetFramePointerShape(PointerShapeBufferSize, pPointerShapeBuffer, pPointerShapeBufferSizeRequired, pPointerShapeInfo) {
         pPointerShapeBufferSizeRequiredMarshal := pPointerShapeBufferSizeRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", PointerShapeBufferSize, "ptr", pPointerShapeBuffer, pPointerShapeBufferSizeRequiredMarshal, pPointerShapeBufferSizeRequired, "ptr", pPointerShapeInfo, "HRESULT")
+        result := ComCall(11, this, "uint", PointerShapeBufferSize, "ptr", pPointerShapeBuffer, pPointerShapeBufferSizeRequiredMarshal, pPointerShapeBufferSizeRequired, DXGI_OUTDUPL_POINTER_SHAPE_INFO.Ptr, pPointerShapeInfo, "HRESULT")
         return result
     }
 
@@ -242,7 +260,7 @@ class IDXGIOutputDuplication extends IDXGIObject {
      */
     MapDesktopSurface() {
         pLockedRect := DXGI_MAPPED_RECT()
-        result := ComCall(12, this, "ptr", pLockedRect, "HRESULT")
+        result := ComCall(12, this, DXGI_MAPPED_RECT.Ptr, pLockedRect, "HRESULT")
         return pLockedRect
     }
 
@@ -283,5 +301,39 @@ class IDXGIOutputDuplication extends IDXGIObject {
     ReleaseFrame() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGIOutputDuplication.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.AcquireNextFrame := CallbackCreate(GetMethod(implObj, "AcquireNextFrame"), flags, 4)
+        this.vtbl.GetFrameDirtyRects := CallbackCreate(GetMethod(implObj, "GetFrameDirtyRects"), flags, 4)
+        this.vtbl.GetFrameMoveRects := CallbackCreate(GetMethod(implObj, "GetFrameMoveRects"), flags, 4)
+        this.vtbl.GetFramePointerShape := CallbackCreate(GetMethod(implObj, "GetFramePointerShape"), flags, 5)
+        this.vtbl.MapDesktopSurface := CallbackCreate(GetMethod(implObj, "MapDesktopSurface"), flags, 2)
+        this.vtbl.UnMapDesktopSurface := CallbackCreate(GetMethod(implObj, "UnMapDesktopSurface"), flags, 1)
+        this.vtbl.ReleaseFrame := CallbackCreate(GetMethod(implObj, "ReleaseFrame"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.AcquireNextFrame)
+        CallbackFree(this.vtbl.GetFrameDirtyRects)
+        CallbackFree(this.vtbl.GetFrameMoveRects)
+        CallbackFree(this.vtbl.GetFramePointerShape)
+        CallbackFree(this.vtbl.MapDesktopSurface)
+        CallbackFree(this.vtbl.UnMapDesktopSurface)
+        CallbackFree(this.vtbl.ReleaseFrame)
     }
 }

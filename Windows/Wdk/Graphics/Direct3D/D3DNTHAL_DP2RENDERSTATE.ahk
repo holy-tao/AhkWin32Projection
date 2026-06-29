@@ -1,36 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DRENDERSTATETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DRENDERSTATETYPE.ahk" { D3DRENDERSTATETYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DP2RENDERSTATE extends Win32Struct {
-    static sizeof => 8
+export default struct D3DNTHAL_DP2RENDERSTATE {
+    #StructPack 4
 
-    static packingSize => 4
+    RenderState : D3DRENDERSTATETYPE
 
-    /**
-     * @type {D3DRENDERSTATETYPE}
-     */
-    RenderState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fState : Float32
 
-    /**
-     * @type {Float}
-     */
-    fState {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'dwState', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

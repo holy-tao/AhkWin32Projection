@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PARTITION_STYLE.ahk
-#Include .\VDS_PARTITION_INFO_MBR.ahk
-#Include .\VDS_PARTITION_INFO_GPT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_PARTITION_INFO_MBR.ahk" { VDS_PARTITION_INFO_MBR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import ".\VDS_PARTITION_INFO_GPT.ahk" { VDS_PARTITION_INFO_GPT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Defines the properties of a partition.
@@ -13,77 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_partition_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_PARTITION_PROP extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct VDS_PARTITION_PROP {
+    #StructPack 8
 
     /**
      * The styles enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a>. 
      *       The style is either master boot record (VDS_PST_MBR) or GUID partition table (VDS_PST_GPT). This member is the
      *       discriminant for the union.
-     * @type {VDS_PARTITION_STYLE}
      */
-    PartitionStyle {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    PartitionStyle : VDS_PARTITION_STYLE
 
     /**
      * The partition flags enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_flag">VDS_PARTITION_FLAG</a>.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFlags : UInt32
 
     /**
      * The number assigned to the partition.
-     * @type {Integer}
      */
-    ulPartitionNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPartitionNumber : UInt32
 
     /**
      * The partition offset.
-     * @type {Integer}
      */
-    ullOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullOffset : Int64
 
     /**
      * The size of the partition in bytes.
-     * @type {Integer}
      */
-    ullSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ullSize : Int64
 
-    /**
-     * @type {VDS_PARTITION_INFO_MBR}
-     */
-    Mbr {
-        get {
-            if(!this.HasProp("__Mbr"))
-                this.__Mbr := VDS_PARTITION_INFO_MBR(32, this)
-            return this.__Mbr
-        }
-    }
+    Mbr : VDS_PARTITION_INFO_MBR
 
-    /**
-     * @type {VDS_PARTITION_INFO_GPT}
-     */
-    Gpt {
-        get {
-            if(!this.HasProp("__Gpt"))
-                this.__Gpt := VDS_PARTITION_INFO_GPT(32, this)
-            return this.__Gpt
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Gpt', { type: VDS_PARTITION_INFO_GPT, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

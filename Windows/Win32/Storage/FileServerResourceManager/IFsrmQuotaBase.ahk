@@ -1,36 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IFsrmAction.ahk
-#Include .\IFsrmCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Base interface for all quota interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotabase
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmQuotaBase extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmQuotaBase extends IFsrmObject {
     /**
      * The interface identifier for IFsrmQuotaBase
      * @type {Guid}
      */
-    static IID => Guid("{1568a795-3924-4118-b74b-68d8f0fa5daf}")
+    static IID := Guid("{1568a795-3924-4118-b74b-68d8f0fa5daf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmQuotaBase interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_QuotaLimit        : IntPtr
+        put_QuotaLimit        : IntPtr
+        get_QuotaFlags        : IntPtr
+        put_QuotaFlags        : IntPtr
+        get_Thresholds        : IntPtr
+        AddThreshold          : IntPtr
+        DeleteThreshold       : IntPtr
+        ModifyThreshold       : IntPtr
+        CreateThresholdAction : IntPtr
+        EnumThresholdActions  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_QuotaLimit", "put_QuotaLimit", "get_QuotaFlags", "put_QuotaFlags", "get_Thresholds", "AddThreshold", "DeleteThreshold", "ModifyThreshold", "CreateThresholdAction", "EnumThresholdActions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmQuotaBase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -64,7 +83,7 @@ class IFsrmQuotaBase extends IFsrmObject {
      */
     get_QuotaLimit() {
         quotaLimit := VARIANT()
-        result := ComCall(12, this, "ptr", quotaLimit, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, quotaLimit, "HRESULT")
         return quotaLimit
     }
 
@@ -77,7 +96,7 @@ class IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-put_quotalimit
      */
     put_QuotaLimit(quotaLimit) {
-        result := ComCall(13, this, "ptr", quotaLimit, "HRESULT")
+        result := ComCall(13, this, VARIANT, quotaLimit, "HRESULT")
         return result
     }
 
@@ -178,7 +197,7 @@ class IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-createthresholdaction
      */
     CreateThresholdAction(threshold, actionType) {
-        result := ComCall(20, this, "int", threshold, "int", actionType, "ptr*", &action := 0, "HRESULT")
+        result := ComCall(20, this, "int", threshold, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
         return IFsrmAction(action)
     }
 
@@ -196,5 +215,43 @@ class IFsrmQuotaBase extends IFsrmObject {
     EnumThresholdActions(threshold) {
         result := ComCall(21, this, "int", threshold, "ptr*", &actions := 0, "HRESULT")
         return IFsrmCollection(actions)
+    }
+
+    Query(iid) {
+        if (IFsrmQuotaBase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_QuotaLimit := CallbackCreate(GetMethod(implObj, "get_QuotaLimit"), flags, 2)
+        this.vtbl.put_QuotaLimit := CallbackCreate(GetMethod(implObj, "put_QuotaLimit"), flags, 2)
+        this.vtbl.get_QuotaFlags := CallbackCreate(GetMethod(implObj, "get_QuotaFlags"), flags, 2)
+        this.vtbl.put_QuotaFlags := CallbackCreate(GetMethod(implObj, "put_QuotaFlags"), flags, 2)
+        this.vtbl.get_Thresholds := CallbackCreate(GetMethod(implObj, "get_Thresholds"), flags, 2)
+        this.vtbl.AddThreshold := CallbackCreate(GetMethod(implObj, "AddThreshold"), flags, 2)
+        this.vtbl.DeleteThreshold := CallbackCreate(GetMethod(implObj, "DeleteThreshold"), flags, 2)
+        this.vtbl.ModifyThreshold := CallbackCreate(GetMethod(implObj, "ModifyThreshold"), flags, 3)
+        this.vtbl.CreateThresholdAction := CallbackCreate(GetMethod(implObj, "CreateThresholdAction"), flags, 4)
+        this.vtbl.EnumThresholdActions := CallbackCreate(GetMethod(implObj, "EnumThresholdActions"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_QuotaLimit)
+        CallbackFree(this.vtbl.put_QuotaLimit)
+        CallbackFree(this.vtbl.get_QuotaFlags)
+        CallbackFree(this.vtbl.put_QuotaFlags)
+        CallbackFree(this.vtbl.get_Thresholds)
+        CallbackFree(this.vtbl.AddThreshold)
+        CallbackFree(this.vtbl.DeleteThreshold)
+        CallbackFree(this.vtbl.ModifyThreshold)
+        CallbackFree(this.vtbl.CreateThresholdAction)
+        CallbackFree(this.vtbl.EnumThresholdActions)
     }
 }

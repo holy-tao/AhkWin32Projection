@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CO_MARSHALING_CONTEXT_ATTRIBUTES (objidlbase.h) enumeration identifies one of the attributes you can query using the GetMarshalingContextAttribute method.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-co_marshaling_context_attributes
  * @namespace Windows.Win32.System.Com
  */
-class CO_MARSHALING_CONTEXT_ATTRIBUTES extends Win32Enum {
+export default struct CO_MARSHALING_CONTEXT_ATTRIBUTES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The source of the marshaling data is an app container process.

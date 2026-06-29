@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFClockStateSink.ahk
-#Include .\IMFVideoMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFVP_MESSAGE_TYPE.ahk" { MFVP_MESSAGE_TYPE }
+#Import ".\IMFVideoMediaType.ahk" { IMFVideoMediaType }
+#Import ".\IMFClockStateSink.ahk" { IMFClockStateSink }
 
 /**
  * Represents a video presenter. A video presenter is an object that receives video frames, typically from a video mixer, and presents them in some way, typically by rendering them to the display.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideopresenter
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoPresenter extends IMFClockStateSink {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoPresenter extends IMFClockStateSink {
     /**
      * The interface identifier for IMFVideoPresenter
      * @type {Guid}
      */
-    static IID => Guid("{29aff080-182a-4a5d-af3b-448f3a6346cb}")
+    static IID := Guid("{29aff080-182a-4a5d-af3b-448f3a6346cb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoPresenter interfaces
+    */
+    struct Vtbl extends IMFClockStateSink.Vtbl {
+        ProcessMessage      : IntPtr
+        GetCurrentMediaType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ProcessMessage", "GetCurrentMediaType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoPresenter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends a message to the video presenter. Messages are used to signal the presenter that it must perform some action, or that some event has occurred.
@@ -67,7 +77,7 @@ class IMFVideoPresenter extends IMFClockStateSink {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopresenter-processmessage
      */
     ProcessMessage(eMessage, ulParam) {
-        result := ComCall(8, this, "int", eMessage, "ptr", ulParam, "HRESULT")
+        result := ComCall(8, this, MFVP_MESSAGE_TYPE, eMessage, "ptr", ulParam, "HRESULT")
         return result
     }
 
@@ -81,5 +91,27 @@ class IMFVideoPresenter extends IMFClockStateSink {
     GetCurrentMediaType() {
         result := ComCall(9, this, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFVideoMediaType(ppMediaType)
+    }
+
+    Query(iid) {
+        if (IMFVideoPresenter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ProcessMessage := CallbackCreate(GetMethod(implObj, "ProcessMessage"), flags, 3)
+        this.vtbl.GetCurrentMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentMediaType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ProcessMessage)
+        CallbackFree(this.vtbl.GetCurrentMediaType)
     }
 }

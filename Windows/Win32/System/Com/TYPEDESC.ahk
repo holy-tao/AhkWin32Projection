@@ -1,8 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
 
 /**
  * Describes the type of a variable, the return type of a function, or the type of a function parameter.
@@ -11,41 +9,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-typedesc
  * @namespace Windows.Win32.System.Com
  */
-class TYPEDESC extends Win32Struct {
-    static sizeof => 16
+export default struct TYPEDESC {
+    #StructPack 8
 
-    static packingSize => 8
+    lptdesc : TYPEDESC.Ptr
 
-    /**
-     * @type {Pointer<TYPEDESC>}
-     */
-    lptdesc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<ARRAYDESC>}
-     */
     lpadesc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hreftype {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => (addr := this.__lpadesc_ptr) ? ARRAYDESC.At(addr) : unset
+        set => this.__lpadesc_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * The variant type.
-     * @type {VARENUM}
      */
-    vt {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+    vt : VARENUM
+
+    static __New() {
+        DefineProp(this.Prototype, '__lpadesc_ptr', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'hreftype', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

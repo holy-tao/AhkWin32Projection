@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies flags for a HeapOptimizeResources operation initiated with HeapSetInformation.
@@ -10,24 +9,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-heap_optimize_resources_information
  * @namespace Windows.Win32.System.SystemServices
  */
-class HEAP_OPTIMIZE_RESOURCES_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct HEAP_OPTIMIZE_RESOURCES_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

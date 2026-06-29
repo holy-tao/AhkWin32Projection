@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITTAPIEventNotification interface is an outgoing interface that allows an application to control the processing of event information.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapieventnotification
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITTAPIEventNotification extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITTAPIEventNotification extends IUnknown {
     /**
      * The interface identifier for ITTAPIEventNotification
      * @type {Guid}
      */
-    static IID => Guid("{eddb9426-3b91-11d1-8f30-00c04fb6809f}")
+    static IID := Guid("{eddb9426-3b91-11d1-8f30-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITTAPIEventNotification interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Event : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Event"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITTAPIEventNotification.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Event method is called by TAPI to determine the response to an asynchronous event notification.
@@ -80,7 +90,27 @@ class ITTAPIEventNotification extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapieventnotification-event
      */
     Event(TapiEvent, pEvent) {
-        result := ComCall(3, this, "int", TapiEvent, "ptr", pEvent, "HRESULT")
+        result := ComCall(3, this, TAPI_EVENT, TapiEvent, "ptr", pEvent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITTAPIEventNotification.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Event := CallbackCreate(GetMethod(implObj, "Event"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Event)
     }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple2.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRawElementProviderSimple2.ahk" { IRawElementProviderSimple2 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the IRawElementProviderSimple2 interface to enable retrieving metadata about how accessible technology should say the preferred content type.
@@ -29,26 +31,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple3
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IRawElementProviderSimple3 extends IRawElementProviderSimple2 {
-
-    static sizeof => A_PtrSize
+export default struct IRawElementProviderSimple3 extends IRawElementProviderSimple2 {
     /**
      * The interface identifier for IRawElementProviderSimple3
      * @type {Guid}
      */
-    static IID => Guid("{fcf5d820-d7ec-4613-bdf6-42a84ce7daaf}")
+    static IID := Guid("{fcf5d820-d7ec-4613-bdf6-42a84ce7daaf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRawElementProviderSimple3 interfaces
+    */
+    struct Vtbl extends IRawElementProviderSimple2.Vtbl {
+        GetMetadataValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMetadataValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRawElementProviderSimple3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets metadata from the UI Automation element that indicates how the information should be interpreted. (IRawElementProviderSimple3.GetMetadataValue)
@@ -59,7 +68,27 @@ class IRawElementProviderSimple3 extends IRawElementProviderSimple2 {
      */
     GetMetadataValue(targetId, metadataId) {
         returnVal := VARIANT()
-        result := ComCall(8, this, "int", targetId, "int", metadataId, "ptr", returnVal, "HRESULT")
+        result := ComCall(8, this, "int", targetId, UIA_METADATA_ID, metadataId, VARIANT.Ptr, returnVal, "HRESULT")
         return returnVal
+    }
+
+    Query(iid) {
+        if (IRawElementProviderSimple3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMetadataValue := CallbackCreate(GetMethod(implObj, "GetMetadataValue"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMetadataValue)
     }
 }

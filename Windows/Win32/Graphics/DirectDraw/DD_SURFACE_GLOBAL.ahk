@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEOMEMORY.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\VIDEOMEMORY.ahk" { VIDEOMEMORY }
 
 /**
  * The DD_SURFACE_GLOBAL structure contains global surface-related data that can be shared between multiple surfaces.
@@ -13,150 +12,62 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_global
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_SURFACE_GLOBAL extends Win32Struct {
-    static sizeof => 104
+export default struct DD_SURFACE_GLOBAL {
+    #StructPack 8
 
-    static packingSize => 8
+    dwBlockSizeY : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBlockSizeY {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpVidMemHeap : VIDEOMEMORY.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    lSlicePitch {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fpVidMem : IntPtr
 
-    /**
-     * @type {Pointer<VIDEOMEMORY>}
-     */
-    lpVidMemHeap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBlockSizeX {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwUserMemSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    fpVidMem {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lPitch {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwLinearSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lPitch : Int32
 
     /**
      * Specifies the y-coordinate of the surface. This member is a 2D Cartesian coordinate specified in device space.
-     * @type {Integer}
      */
-    yHint {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    yHint : Int32
 
     /**
      * Specifies the x-coordinate of the surface. This member is a 2D Cartesian coordinate specified in device space.
-     * @type {Integer}
      */
-    xHint {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    xHint : Int32
 
     /**
      * Specifies the height in pixels of the surface.
-     * @type {Integer}
      */
-    wHeight {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    wHeight : UInt32
 
     /**
      * Specifies the width in pixels of the surface.
-     * @type {Integer}
      */
-    wWidth {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    wWidth : UInt32
 
     /**
      * Reserved for use by the display driver.
-     * @type {Pointer}
      */
-    dwReserved1 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwReserved1 : IntPtr
 
     /**
      * Points to the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-_ddpixelformat">DDPIXELFORMAT</a> structure that describes the pixel format of the surface.
-     * @type {DDPIXELFORMAT}
      */
-    ddpfSurface {
-        get {
-            if(!this.HasProp("__ddpfSurface"))
-                this.__ddpfSurface := DDPIXELFORMAT(56, this)
-            return this.__ddpfSurface
-        }
-    }
+    ddpfSurface : DDPIXELFORMAT
 
     /**
      * Points to the raw offset in the source heap.
-     * @type {Pointer}
      */
-    fpHeapOffset {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    fpHeapOffset : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {HANDLE}
      */
-    hCreatorProcess {
-        get {
-            if(!this.HasProp("__hCreatorProcess"))
-                this.__hCreatorProcess := HANDLE(96, this)
-            return this.__hCreatorProcess
-        }
+    hCreatorProcess : HANDLE
+
+    static __New() {
+        DefineProp(this.Prototype, 'lSlicePitch', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'dwBlockSizeX', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'dwUserMemSize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'dwLinearSize', { type: UInt32, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

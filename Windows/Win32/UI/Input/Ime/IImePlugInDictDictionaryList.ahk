@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Provides access to the list of IME plug-in dictionaries.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nn-msimeapi-iimeplugindictdictionarylist
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IImePlugInDictDictionaryList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IImePlugInDictDictionaryList extends IUnknown {
     /**
      * The interface identifier for IImePlugInDictDictionaryList
      * @type {Guid}
      */
-    static IID => Guid("{98752974-b0a6-489b-8f6f-bff3769c8eeb}")
+    static IID := Guid("{98752974-b0a6-489b-8f6f-bff3769c8eeb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImePlugInDictDictionaryList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDictionariesInUse : IntPtr
+        DeleteDictionary     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDictionariesInUse", "DeleteDictionary"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImePlugInDictDictionaryList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Obtains the list of Dictionary IDs (GUID) of the IME plug-in dictionaries which are in use by IME, with their creation dates and encryption flags.
@@ -95,7 +106,29 @@ class IImePlugInDictDictionaryList extends IUnknown {
     DeleteDictionary(bstrDictionaryGUID) {
         bstrDictionaryGUID := bstrDictionaryGUID is String ? BSTR.Alloc(bstrDictionaryGUID).Value : bstrDictionaryGUID
 
-        result := ComCall(4, this, "ptr", bstrDictionaryGUID, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrDictionaryGUID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IImePlugInDictDictionaryList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDictionariesInUse := CallbackCreate(GetMethod(implObj, "GetDictionariesInUse"), flags, 4)
+        this.vtbl.DeleteDictionary := CallbackCreate(GetMethod(implObj, "DeleteDictionary"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDictionariesInUse)
+        CallbackFree(this.vtbl.DeleteDictionary)
     }
 }

@@ -1,32 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITransaction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITransaction.ahk" { ITransaction }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class ITransactionPhase0EnlistmentAsync extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITransactionPhase0EnlistmentAsync extends IUnknown {
     /**
      * The interface identifier for ITransactionPhase0EnlistmentAsync
      * @type {Guid}
      */
-    static IID => Guid("{82dc88e1-a954-11d1-8f88-00600895e7d5}")
+    static IID := Guid("{82dc88e1-a954-11d1-8f88-00600895e7d5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransactionPhase0EnlistmentAsync interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Enable            : IntPtr
+        WaitForEnlistment : IntPtr
+        Phase0Done        : IntPtr
+        Unenlist          : IntPtr
+        GetTransaction    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Enable", "WaitForEnlistment", "Phase0Done", "Unenlist", "GetTransaction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransactionPhase0EnlistmentAsync.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables monitoring on a particular drive.
@@ -72,12 +84,39 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * Obtains the identifier (ID) for the specified transaction.
+     * 
      * @returns {ITransaction} 
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactionid
      */
     GetTransaction() {
         result := ComCall(7, this, "ptr*", &ppITransaction := 0, "HRESULT")
         return ITransaction(ppITransaction)
+    }
+
+    Query(iid) {
+        if (ITransactionPhase0EnlistmentAsync.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.WaitForEnlistment := CallbackCreate(GetMethod(implObj, "WaitForEnlistment"), flags, 1)
+        this.vtbl.Phase0Done := CallbackCreate(GetMethod(implObj, "Phase0Done"), flags, 1)
+        this.vtbl.Unenlist := CallbackCreate(GetMethod(implObj, "Unenlist"), flags, 1)
+        this.vtbl.GetTransaction := CallbackCreate(GetMethod(implObj, "GetTransaction"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.WaitForEnlistment)
+        CallbackFree(this.vtbl.Phase0Done)
+        CallbackFree(this.vtbl.Unenlist)
+        CallbackFree(this.vtbl.GetTransaction)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the boundaries of the ink to the recognizer.
@@ -140,89 +139,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_guide
  * @namespace Windows.Win32.UI.TabletPC
  */
-class RECO_GUIDE extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct RECO_GUIDE {
+    #StructPack 4
 
     /**
      * Left edge of the first box in ink space coordinates.
-     * @type {Integer}
      */
-    xOrigin {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    xOrigin : Int32
 
     /**
      * Top edge of first box in ink-space coordinates.
-     * @type {Integer}
      */
-    yOrigin {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    yOrigin : Int32
 
     /**
      * Width of each box in ink space units.
-     * @type {Integer}
      */
-    cxBox {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cxBox : Int32
 
     /**
      * Height of each box in ink-space units.
-     * @type {Integer}
      */
-    cyBox {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    cyBox : Int32
 
     /**
      * Margin to the guideline. This is one-half the distance in ink-space units between adjacent boxes.
-     * @type {Integer}
      */
-    cxBase {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cxBase : Int32
 
     /**
      * Vertical distance in ink-space units from the baseline to the top of the box.
-     * @type {Integer}
      */
-    cyBase {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cyBase : Int32
 
     /**
      * Count of columns of boxes.
-     * @type {Integer}
      */
-    cHorzBox {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cHorzBox : Int32
 
     /**
      * Count of rows of boxes.
-     * @type {Integer}
      */
-    cVertBox {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    cVertBox : Int32
 
     /**
      * Distance in ink-space units from the baseline to the midline, or 0 if the midline is not present.
-     * @type {Integer}
      */
-    cyMid {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cyMid : Int32
+
 }

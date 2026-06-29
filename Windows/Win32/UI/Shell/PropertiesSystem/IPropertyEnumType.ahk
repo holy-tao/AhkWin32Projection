@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PROPENUMTYPE.ahk" { PROPENUMTYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that extract data from enumeration information. IPropertyEnumType gives access to the enum and enumRange elements in the property schema in a programmatic way at run time.
@@ -11,26 +14,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertyenumtype
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyEnumType extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyEnumType extends IUnknown {
     /**
      * The interface identifier for IPropertyEnumType
      * @type {Guid}
      */
-    static IID => Guid("{11e1fbf9-2d56-4a6b-8db3-7cd193a471f2}")
+    static IID := Guid("{11e1fbf9-2d56-4a6b-8db3-7cd193a471f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyEnumType interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEnumType      : IntPtr
+        GetValue         : IntPtr
+        GetRangeMinValue : IntPtr
+        GetRangeSetValue : IntPtr
+        GetDisplayText   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEnumType", "GetValue", "GetRangeMinValue", "GetRangeSetValue", "GetDisplayText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyEnumType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an enumeration type from an enumeration information structure.
@@ -57,7 +71,7 @@ class IPropertyEnumType extends IUnknown {
      */
     GetValue() {
         ppropvar := PROPVARIANT()
-        result := ComCall(4, this, "ptr", ppropvar, "HRESULT")
+        result := ComCall(4, this, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return ppropvar
     }
 
@@ -72,7 +86,7 @@ class IPropertyEnumType extends IUnknown {
      */
     GetRangeMinValue() {
         ppropvarMin := PROPVARIANT()
-        result := ComCall(5, this, "ptr", ppropvarMin, "HRESULT")
+        result := ComCall(5, this, PROPVARIANT.Ptr, ppropvarMin, "HRESULT")
         return ppropvarMin
     }
 
@@ -87,7 +101,7 @@ class IPropertyEnumType extends IUnknown {
      */
     GetRangeSetValue() {
         ppropvarSet := PROPVARIANT()
-        result := ComCall(6, this, "ptr", ppropvarSet, "HRESULT")
+        result := ComCall(6, this, PROPVARIANT.Ptr, ppropvarSet, "HRESULT")
         return ppropvarSet
     }
 
@@ -101,7 +115,35 @@ class IPropertyEnumType extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getdisplaytext
      */
     GetDisplayText() {
-        result := ComCall(7, this, "ptr*", &ppszDisplay := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppszDisplay := 0, "HRESULT")
         return ppszDisplay
+    }
+
+    Query(iid) {
+        if (IPropertyEnumType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEnumType := CallbackCreate(GetMethod(implObj, "GetEnumType"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetRangeMinValue := CallbackCreate(GetMethod(implObj, "GetRangeMinValue"), flags, 2)
+        this.vtbl.GetRangeSetValue := CallbackCreate(GetMethod(implObj, "GetRangeSetValue"), flags, 2)
+        this.vtbl.GetDisplayText := CallbackCreate(GetMethod(implObj, "GetDisplayText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEnumType)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.GetRangeMinValue)
+        CallbackFree(this.vtbl.GetRangeSetValue)
+        CallbackFree(this.vtbl.GetDisplayText)
     }
 }

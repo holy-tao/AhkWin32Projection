@@ -1,44 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IVBSAXLocator.ahk" { IVBSAXLocator }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IVBSAXErrorHandler extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IVBSAXErrorHandler extends IDispatch {
     /**
      * The interface identifier for IVBSAXErrorHandler
      * @type {Guid}
      */
-    static IID => Guid("{d963d3fe-173c-4862-9095-b92f66995f52}")
+    static IID := Guid("{d963d3fe-173c-4862-9095-b92f66995f52}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVBSAXErrorHandler interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        error            : IntPtr
+        fatalError       : IntPtr
+        ignorableWarning : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVBSAXErrorHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["error", "fatalError", "ignorableWarning"]
-
-    /**
-     * Submits an error message to the information queue.
-     * @remarks
-     * This operation does nothing on devices that do not support it.
+     * 
      * @param {IVBSAXLocator} oLocator 
      * @param {Pointer<BSTR>} strErrorMessage 
      * @param {Integer} nErrorCode 
-     * @returns {HRESULT} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/errorf
+     * @returns {HRESULT} 
      */
     error(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(7, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(7, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, "int", nErrorCode, "HRESULT")
         return result
     }
 
@@ -50,7 +59,7 @@ class IVBSAXErrorHandler extends IDispatch {
      * @returns {HRESULT} 
      */
     fatalError(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(8, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(8, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, "int", nErrorCode, "HRESULT")
         return result
     }
 
@@ -62,7 +71,31 @@ class IVBSAXErrorHandler extends IDispatch {
      * @returns {HRESULT} 
      */
     ignorableWarning(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(9, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(9, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, "int", nErrorCode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVBSAXErrorHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.error := CallbackCreate(GetMethod(implObj, "error"), flags, 4)
+        this.vtbl.fatalError := CallbackCreate(GetMethod(implObj, "fatalError"), flags, 4)
+        this.vtbl.ignorableWarning := CallbackCreate(GetMethod(implObj, "ignorableWarning"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.error)
+        CallbackFree(this.vtbl.fatalError)
+        CallbackFree(this.vtbl.ignorableWarning)
     }
 }

@@ -1,28 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CACHE_UNINITIALIZE_EVENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class CACHE_UNINITIALIZE_EVENT extends Win32Struct {
-    static sizeof => 16
+export default struct CACHE_UNINITIALIZE_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    Next : CACHE_UNINITIALIZE_EVENT.Ptr
 
-    /**
-     * @type {Pointer<CACHE_UNINITIALIZE_EVENT>}
-     */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Event : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Event {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

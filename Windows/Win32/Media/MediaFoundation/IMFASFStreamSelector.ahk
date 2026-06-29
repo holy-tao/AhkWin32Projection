@@ -1,33 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ASF_SELECTION_STATUS.ahk" { ASF_SELECTION_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Selects streams in an Advanced Systems Format (ASF) file, based on the mutual exclusion information in the ASF header.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfstreamselector
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFASFStreamSelector extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFASFStreamSelector extends IUnknown {
     /**
      * The interface identifier for IMFASFStreamSelector
      * @type {Guid}
      */
-    static IID => Guid("{d01bad4a-4fa0-4a60-9349-c27e62da9d41}")
+    static IID := Guid("{d01bad4a-4fa0-4a60-9349-c27e62da9d41}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFASFStreamSelector interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStreamCount          : IntPtr
+        GetOutputCount          : IntPtr
+        GetOutputStreamCount    : IntPtr
+        GetOutputStreamNumbers  : IntPtr
+        GetOutputFromStream     : IntPtr
+        GetOutputOverride       : IntPtr
+        SetOutputOverride       : IntPtr
+        GetOutputMutexCount     : IntPtr
+        GetOutputMutex          : IntPtr
+        SetOutputMutexSelection : IntPtr
+        GetBandwidthStepCount   : IntPtr
+        GetBandwidthStep        : IntPtr
+        BitrateToStepNumber     : IntPtr
+        SetStreamSelectorFlags  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStreamCount", "GetOutputCount", "GetOutputStreamCount", "GetOutputStreamNumbers", "GetOutputFromStream", "GetOutputOverride", "SetOutputOverride", "GetOutputMutexCount", "GetOutputMutex", "SetOutputMutexSelection", "GetBandwidthStepCount", "GetBandwidthStep", "BitrateToStepNumber", "SetStreamSelectorFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFASFStreamSelector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the number of streams that are in the Advanced Systems Format (ASF) content.
@@ -127,7 +149,7 @@ class IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-setoutputoverride
      */
     SetOutputOverride(dwOutputNum, Selection) {
-        result := ComCall(9, this, "uint", dwOutputNum, "int", Selection, "HRESULT")
+        result := ComCall(9, this, "uint", dwOutputNum, ASF_SELECTION_STATUS, Selection, "HRESULT")
         return result
     }
 
@@ -281,5 +303,51 @@ class IMFASFStreamSelector extends IUnknown {
     SetStreamSelectorFlags(dwStreamSelectorFlags) {
         result := ComCall(16, this, "uint", dwStreamSelectorFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFASFStreamSelector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.GetOutputStreamCount := CallbackCreate(GetMethod(implObj, "GetOutputStreamCount"), flags, 3)
+        this.vtbl.GetOutputStreamNumbers := CallbackCreate(GetMethod(implObj, "GetOutputStreamNumbers"), flags, 3)
+        this.vtbl.GetOutputFromStream := CallbackCreate(GetMethod(implObj, "GetOutputFromStream"), flags, 3)
+        this.vtbl.GetOutputOverride := CallbackCreate(GetMethod(implObj, "GetOutputOverride"), flags, 3)
+        this.vtbl.SetOutputOverride := CallbackCreate(GetMethod(implObj, "SetOutputOverride"), flags, 3)
+        this.vtbl.GetOutputMutexCount := CallbackCreate(GetMethod(implObj, "GetOutputMutexCount"), flags, 3)
+        this.vtbl.GetOutputMutex := CallbackCreate(GetMethod(implObj, "GetOutputMutex"), flags, 4)
+        this.vtbl.SetOutputMutexSelection := CallbackCreate(GetMethod(implObj, "SetOutputMutexSelection"), flags, 4)
+        this.vtbl.GetBandwidthStepCount := CallbackCreate(GetMethod(implObj, "GetBandwidthStepCount"), flags, 2)
+        this.vtbl.GetBandwidthStep := CallbackCreate(GetMethod(implObj, "GetBandwidthStep"), flags, 5)
+        this.vtbl.BitrateToStepNumber := CallbackCreate(GetMethod(implObj, "BitrateToStepNumber"), flags, 3)
+        this.vtbl.SetStreamSelectorFlags := CallbackCreate(GetMethod(implObj, "SetStreamSelectorFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStreamCount)
+        CallbackFree(this.vtbl.GetOutputCount)
+        CallbackFree(this.vtbl.GetOutputStreamCount)
+        CallbackFree(this.vtbl.GetOutputStreamNumbers)
+        CallbackFree(this.vtbl.GetOutputFromStream)
+        CallbackFree(this.vtbl.GetOutputOverride)
+        CallbackFree(this.vtbl.SetOutputOverride)
+        CallbackFree(this.vtbl.GetOutputMutexCount)
+        CallbackFree(this.vtbl.GetOutputMutex)
+        CallbackFree(this.vtbl.SetOutputMutexSelection)
+        CallbackFree(this.vtbl.GetBandwidthStepCount)
+        CallbackFree(this.vtbl.GetBandwidthStep)
+        CallbackFree(this.vtbl.BitrateToStepNumber)
+        CallbackFree(this.vtbl.SetStreamSelectorFlags)
     }
 }

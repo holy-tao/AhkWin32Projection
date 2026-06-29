@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_CREDENTIAL_KEY extends Win32Struct {
-    static sizeof => 20
+export default struct MSV1_0_CREDENTIAL_KEY {
+    #StructPack 1
 
-    static packingSize => 1
+    Data : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

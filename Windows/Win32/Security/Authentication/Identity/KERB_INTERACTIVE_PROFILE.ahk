@@ -1,170 +1,90 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROFILE_BUFFER_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_PROFILE_BUFFER_TYPE.ahk" { KERB_PROFILE_BUFFER_TYPE }
 
 /**
  * The KERB_INTERACTIVE_PROFILE structure contains information about an interactive logon profile. This structure is used by the LsaLogonUser function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_interactive_profile
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_INTERACTIVE_PROFILE extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct KERB_INTERACTIVE_PROFILE {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_profile_buffer_type">KERB_PROFILE_BUFFER_TYPE</a> value identifying the type of logon request being made. This member can be set to <b>KerbInteractiveProfile</b>.
-     * @type {KERB_PROFILE_BUFFER_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROFILE_BUFFER_TYPE
 
     /**
      * Number of times the user is currently logged on.
-     * @type {Integer}
      */
-    LogonCount {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    LogonCount : UInt16
 
     /**
      * Number of times a bad password was applied to the account since the last successful logon.
-     * @type {Integer}
      */
-    BadPasswordCount {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    BadPasswordCount : UInt16
 
     /**
      * Time when the user last logged on. This is an absolute-format standard time value.
-     * @type {Integer}
      */
-    LogonTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    LogonTime : Int64
 
     /**
      * Time when user should log off. This is an absolute-format standard time value.
-     * @type {Integer}
      */
-    LogoffTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LogoffTime : Int64
 
     /**
      * Time when system should force user logoff. This is an absolute-format standard time value.
-     * @type {Integer}
      */
-    KickOffTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    KickOffTime : Int64
 
     /**
      * Time and date the password was last set. This is an absolute-format standard time value.
-     * @type {Integer}
      */
-    PasswordLastSet {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    PasswordLastSet : Int64
 
     /**
      * Time and date when the user can change the password. This is an absolute-format standard time value. To prevent a password from ever changing, set this member to a date very far into the future.
-     * @type {Integer}
      */
-    PasswordCanChange {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    PasswordCanChange : Int64
 
     /**
      * Time and date when the user must change the password. If the user can never change the password, this member is undefined. This is an absolute-format standard time value.
-     * @type {Integer}
      */
-    PasswordMustChange {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    PasswordMustChange : Int64
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
-     * @type {LSA_UNICODE_STRING}
      */
-    LogonScript {
-        get {
-            if(!this.HasProp("__LogonScript"))
-                this.__LogonScript := LSA_UNICODE_STRING(56, this)
-            return this.__LogonScript
-        }
-    }
+    LogonScript : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the user's home directory.
-     * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectory {
-        get {
-            if(!this.HasProp("__HomeDirectory"))
-                this.__HomeDirectory := LSA_UNICODE_STRING(72, this)
-            return this.__HomeDirectory
-        }
-    }
+    HomeDirectory : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the user's full name.
-     * @type {LSA_UNICODE_STRING}
      */
-    FullName {
-        get {
-            if(!this.HasProp("__FullName"))
-                this.__FullName := LSA_UNICODE_STRING(88, this)
-            return this.__FullName
-        }
-    }
+    FullName : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the path to a user's roaming profile. This is used only if the user has a roaming profile.
-     * @type {LSA_UNICODE_STRING}
      */
-    ProfilePath {
-        get {
-            if(!this.HasProp("__ProfilePath"))
-                this.__ProfilePath := LSA_UNICODE_STRING(104, this)
-            return this.__ProfilePath
-        }
-    }
+    ProfilePath : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive containing the user's home directory.
-     * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectoryDrive {
-        get {
-            if(!this.HasProp("__HomeDirectoryDrive"))
-                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(120, this)
-            return this.__HomeDirectoryDrive
-        }
-    }
+    HomeDirectoryDrive : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
-     * @type {LSA_UNICODE_STRING}
      */
-    LogonServer {
-        get {
-            if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(136, this)
-            return this.__LogonServer
-        }
-    }
+    LogonServer : LSA_UNICODE_STRING
 
     /**
      * Specifies how this user established the session. This can be one or more of the following flags.
@@ -195,10 +115,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    UserFlags {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    UserFlags : UInt32
+
 }

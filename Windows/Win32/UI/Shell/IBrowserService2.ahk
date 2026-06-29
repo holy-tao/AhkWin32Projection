@@ -1,9 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBrowserService.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\FOLDERSETDATA.ahk" { FOLDERSETDATA }
+#Import "..\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\WindowsAndMessaging\CREATESTRUCTW.ahk" { CREATESTRUCTW }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IBrowserService.ahk" { IBrowserService }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import "..\Controls\NMHDR.ahk" { NMHDR }
+#Import ".\BASEBROWSERDATALH.ahk" { BASEBROWSERDATALH }
+#Import ".\TOOLBARITEM.ahk" { TOOLBARITEM }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Deprecated. (IBrowserService2)
@@ -12,26 +32,94 @@
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice2
  * @namespace Windows.Win32.UI.Shell
  */
-class IBrowserService2 extends IBrowserService {
-
-    static sizeof => A_PtrSize
+export default struct IBrowserService2 extends IBrowserService {
     /**
      * The interface identifier for IBrowserService2
      * @type {Guid}
      */
-    static IID => Guid("{68bd21cc-438b-11d2-a560-00a0c92dbfe8}")
+    static IID := Guid("{68bd21cc-438b-11d2-a560-00a0c92dbfe8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBrowserService2 interfaces
+    */
+    struct Vtbl extends IBrowserService.Vtbl {
+        WndProcBS                     : IntPtr
+        SetAsDefFolderSettings        : IntPtr
+        GetViewRect                   : IntPtr
+        OnSize                        : IntPtr
+        OnCreate                      : IntPtr
+        OnCommand                     : IntPtr
+        OnDestroy                     : IntPtr
+        OnNotify                      : IntPtr
+        OnSetFocus                    : IntPtr
+        OnFrameWindowActivateBS       : IntPtr
+        ReleaseShellView              : IntPtr
+        ActivatePendingView           : IntPtr
+        CreateViewWindow              : IntPtr
+        CreateBrowserPropSheetExt     : IntPtr
+        GetViewWindow                 : IntPtr
+        GetBaseBrowserData            : IntPtr
+        PutBaseBrowserData            : IntPtr
+        InitializeTravelLog           : IntPtr
+        SetTopBrowser                 : IntPtr
+        Offline                       : IntPtr
+        AllowViewResize               : IntPtr
+        SetActivateState              : IntPtr
+        UpdateSecureLockIcon          : IntPtr
+        InitializeDownloadManager     : IntPtr
+        InitializeTransitionSite      : IntPtr
+        _Initialize                   : IntPtr
+        _CancelPendingNavigationAsync : IntPtr
+        _CancelPendingView            : IntPtr
+        _MaySaveChanges               : IntPtr
+        _PauseOrResumeView            : IntPtr
+        _DisableModeless              : IntPtr
+        _NavigateToPidl2              : IntPtr
+        _TryShell2Rename              : IntPtr
+        _SwitchActivationNow          : IntPtr
+        _ExecChildren                 : IntPtr
+        _SendChildren                 : IntPtr
+        GetFolderSetData              : IntPtr
+        _OnFocusChange                : IntPtr
+        v_ShowHideChildWindows        : IntPtr
+        _get_itbLastFocus             : IntPtr
+        _put_itbLastFocus             : IntPtr
+        _UIActivateView               : IntPtr
+        _GetViewBorderRect            : IntPtr
+        _UpdateViewRectSize           : IntPtr
+        _ResizeNextBorder             : IntPtr
+        _ResizeView                   : IntPtr
+        _GetEffectiveClientArea       : IntPtr
+        v_GetViewStream               : IntPtr
+        ForwardViewMsg                : IntPtr
+        SetAcceleratorMenu            : IntPtr
+        _GetToolbarCount              : IntPtr
+        _GetToolbarItem               : IntPtr
+        _SaveToolbars                 : IntPtr
+        _LoadToolbars                 : IntPtr
+        _CloseAndReleaseToolbars      : IntPtr
+        v_MayGetNextToolbarFocus      : IntPtr
+        _ResizeNextBorderHelper       : IntPtr
+        _FindTBar                     : IntPtr
+        _SetFocus                     : IntPtr
+        v_MayTranslateAccelerator     : IntPtr
+        _GetBorderDWHelper            : IntPtr
+        v_CheckZoneCrossing           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WndProcBS", "SetAsDefFolderSettings", "GetViewRect", "OnSize", "OnCreate", "OnCommand", "OnDestroy", "OnNotify", "OnSetFocus", "OnFrameWindowActivateBS", "ReleaseShellView", "ActivatePendingView", "CreateViewWindow", "CreateBrowserPropSheetExt", "GetViewWindow", "GetBaseBrowserData", "PutBaseBrowserData", "InitializeTravelLog", "SetTopBrowser", "Offline", "AllowViewResize", "SetActivateState", "UpdateSecureLockIcon", "InitializeDownloadManager", "InitializeTransitionSite", "_Initialize", "_CancelPendingNavigationAsync", "_CancelPendingView", "_MaySaveChanges", "_PauseOrResumeView", "_DisableModeless", "_NavigateToPidl2", "_TryShell2Rename", "_SwitchActivationNow", "_ExecChildren", "_SendChildren", "GetFolderSetData", "_OnFocusChange", "v_ShowHideChildWindows", "_get_itbLastFocus", "_put_itbLastFocus", "_UIActivateView", "_GetViewBorderRect", "_UpdateViewRectSize", "_ResizeNextBorder", "_ResizeView", "_GetEffectiveClientArea", "v_GetViewStream", "ForwardViewMsg", "SetAcceleratorMenu", "_GetToolbarCount", "_GetToolbarItem", "_SaveToolbars", "_LoadToolbars", "_CloseAndReleaseToolbars", "v_MayGetNextToolbarFocus", "_ResizeNextBorderHelper", "_FindTBar", "_SetFocus", "v_MayTranslateAccelerator", "_GetBorderDWHelper", "v_CheckZoneCrossing"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBrowserService2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deprecated. Allows a derived class to call the WinProc function of the base class.
@@ -53,9 +141,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-wndprocbs
      */
     WndProcBS(_hwnd, uMsg, _wParam, _lParam) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(33, this, "ptr", _hwnd, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
+        result := ComCall(33, this, HWND, _hwnd, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
     }
 
@@ -80,7 +166,7 @@ class IBrowserService2 extends IBrowserService {
      */
     GetViewRect() {
         prc := RECT()
-        result := ComCall(35, this, "ptr", prc, "HRESULT")
+        result := ComCall(35, this, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -95,7 +181,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onsize
      */
     OnSize(_wParam) {
-        result := ComCall(36, this, "ptr", _wParam, "HRESULT")
+        result := ComCall(36, this, WPARAM, _wParam, "HRESULT")
         return result
     }
 
@@ -110,7 +196,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-oncreate
      */
     OnCreate(pcs) {
-        result := ComCall(37, this, "ptr", pcs, "HRESULT")
+        result := ComCall(37, this, CREATESTRUCTW.Ptr, pcs, "HRESULT")
         return result
     }
 
@@ -131,7 +217,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-oncommand
      */
     OnCommand(_wParam, _lParam) {
-        result := ComCall(38, this, "ptr", _wParam, "ptr", _lParam, "ptr")
+        result := ComCall(38, this, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
     }
 
@@ -158,7 +244,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onnotify
      */
     OnNotify(pnm) {
-        result := ComCall(40, this, "ptr", pnm, "ptr")
+        result := ComCall(40, this, NMHDR.Ptr, pnm, LRESULT)
         return result
     }
 
@@ -185,7 +271,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onframewindowactivatebs
      */
     OnFrameWindowActivateBS(fActive) {
-        result := ComCall(42, this, "int", fActive, "HRESULT")
+        result := ComCall(42, this, BOOL, fActive, "HRESULT")
         return result
     }
 
@@ -231,7 +317,7 @@ class IBrowserService2 extends IBrowserService {
      */
     CreateViewWindow(psvNew, psvOld, prcView) {
         phwnd := HWND()
-        result := ComCall(45, this, "ptr", psvNew, "ptr", psvOld, "ptr", prcView, "ptr", phwnd, "HRESULT")
+        result := ComCall(45, this, "ptr", psvNew, "ptr", psvOld, RECT.Ptr, prcView, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -246,7 +332,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-createbrowserpropsheetext
      */
     CreateBrowserPropSheetExt(riid) {
-        result := ComCall(46, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(46, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -261,7 +347,7 @@ class IBrowserService2 extends IBrowserService {
      */
     GetViewWindow() {
         phwndView := HWND()
-        result := ComCall(47, this, "ptr", phwndView, "HRESULT")
+        result := ComCall(47, this, HWND.Ptr, phwndView, "HRESULT")
         return phwndView
     }
 
@@ -287,7 +373,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-putbasebrowserdata
      */
     PutBaseBrowserData() {
-        result := ComCall(49, this, "ptr")
+        result := ComCall(49, this, BASEBROWSERDATALH.Ptr)
         return result
     }
 
@@ -347,7 +433,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-allowviewresize
      */
     AllowViewResize(f) {
-        result := ComCall(53, this, "int", f, "HRESULT")
+        result := ComCall(53, this, BOOL, f, "HRESULT")
         return result
     }
 
@@ -419,9 +505,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_initialize
      */
     _Initialize(_hwnd, pauto) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(58, this, "ptr", _hwnd, "ptr", pauto, "HRESULT")
+        result := ComCall(58, this, HWND, _hwnd, "ptr", pauto, "HRESULT")
         return result
     }
 
@@ -472,7 +556,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_pauseorresumeview
      */
     _PauseOrResumeView(fPaused) {
-        result := ComCall(62, this, "int", fPaused, "HRESULT")
+        result := ComCall(62, this, BOOL, fPaused, "HRESULT")
         return result
     }
 
@@ -496,7 +580,7 @@ class IBrowserService2 extends IBrowserService {
      * @returns {HRESULT} 
      */
     _NavigateToPidl2(pidl, grfHLNF, dwFlags) {
-        result := ComCall(64, this, "ptr", pidl, "uint", grfHLNF, "uint", dwFlags, "HRESULT")
+        result := ComCall(64, this, ITEMIDLIST.Ptr, pidl, "uint", grfHLNF, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -516,7 +600,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_tryshell2rename
      */
     _TryShell2Rename(psv, pidlNew) {
-        result := ComCall(65, this, "ptr", psv, "ptr", pidlNew, "HRESULT")
+        result := ComCall(65, this, "ptr", psv, ITEMIDLIST.Ptr, pidlNew, "HRESULT")
         return result
     }
 
@@ -565,7 +649,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_execchildren
      */
     _ExecChildren(punkBar, fBroadcast, pguidCmdGroup, nCmdID, nCmdexecopt, pvarargIn, pvarargOut) {
-        result := ComCall(67, this, "ptr", punkBar, "int", fBroadcast, "ptr", pguidCmdGroup, "uint", nCmdID, "uint", nCmdexecopt, "ptr", pvarargIn, "ptr", pvarargOut, "HRESULT")
+        result := ComCall(67, this, "ptr", punkBar, BOOL, fBroadcast, Guid.Ptr, pguidCmdGroup, "uint", nCmdID, "uint", nCmdexecopt, VARIANT.Ptr, pvarargIn, VARIANT.Ptr, pvarargOut, "HRESULT")
         return result
     }
 
@@ -592,9 +676,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_sendchildren
      */
     _SendChildren(hwndBar, fBroadcast, uMsg, _wParam, _lParam) {
-        hwndBar := hwndBar is Win32Handle ? NumGet(hwndBar, "ptr") : hwndBar
-
-        result := ComCall(68, this, "ptr", hwndBar, "int", fBroadcast, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(68, this, HWND, hwndBar, BOOL, fBroadcast, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -611,7 +693,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getfoldersetdata
      */
     GetFolderSetData(pfsd) {
-        result := ComCall(69, this, "ptr", pfsd, "HRESULT")
+        result := ComCall(69, this, FOLDERSETDATA.Ptr, pfsd, "HRESULT")
         return result
     }
 
@@ -641,7 +723,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_showhidechildwindows
      */
     v_ShowHideChildWindows(fChildOnly) {
-        result := ComCall(71, this, "int", fChildOnly, "HRESULT")
+        result := ComCall(71, this, BOOL, fChildOnly, "HRESULT")
         return result
     }
 
@@ -653,7 +735,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_get_itblastfocus
      */
     _get_itbLastFocus() {
-        result := ComCall(72, this, "uint")
+        result := ComCall(72, this, UInt32)
         return result
     }
 
@@ -700,7 +782,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_getviewborderrect
      */
     _GetViewBorderRect(prc) {
-        result := ComCall(75, this, "ptr", prc, "HRESULT")
+        result := ComCall(75, this, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -756,10 +838,8 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_geteffectiveclientarea
      */
     _GetEffectiveClientArea(hmon) {
-        hmon := hmon is Win32Handle ? NumGet(hmon, "ptr") : hmon
-
         lprectBorder := RECT()
-        result := ComCall(79, this, "ptr", lprectBorder, "ptr", hmon, "HRESULT")
+        result := ComCall(79, this, RECT.Ptr, lprectBorder, HMONITOR, hmon, "HRESULT")
         return lprectBorder
     }
 
@@ -782,7 +862,7 @@ class IBrowserService2 extends IBrowserService {
     v_GetViewStream(pidl, grfMode, pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(80, this, "ptr", pidl, "uint", grfMode, "ptr", pwszName, "ptr")
+        result := ComCall(80, this, ITEMIDLIST.Ptr, pidl, "uint", grfMode, "ptr", pwszName, IStream)
         return result
     }
 
@@ -803,7 +883,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-forwardviewmsg
      */
     ForwardViewMsg(uMsg, _wParam, _lParam) {
-        result := ComCall(81, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
+        result := ComCall(81, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
     }
 
@@ -818,9 +898,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-setacceleratormenu
      */
     SetAcceleratorMenu(hacc) {
-        hacc := hacc is Win32Handle ? NumGet(hacc, "ptr") : hacc
-
-        result := ComCall(82, this, "ptr", hacc, "HRESULT")
+        result := ComCall(82, this, HACCEL, hacc, "HRESULT")
         return result
     }
 
@@ -834,7 +912,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbarcount
      */
     _GetToolbarCount() {
-        result := ComCall(83, this, "int")
+        result := ComCall(83, this, Int32)
         return result
     }
 
@@ -851,7 +929,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbaritem
      */
     _GetToolbarItem(itb) {
-        result := ComCall(84, this, "int", itb, "ptr")
+        result := ComCall(84, this, "int", itb, TOOLBARITEM.Ptr)
         return result
     }
 
@@ -900,7 +978,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_closeandreleasetoolbars
      */
     _CloseAndReleaseToolbars(fClose) {
-        result := ComCall(87, this, "int", fClose, "HRESULT")
+        result := ComCall(87, this, BOOL, fClose, "HRESULT")
         return result
     }
 
@@ -929,7 +1007,7 @@ class IBrowserService2 extends IBrowserService {
     v_MayGetNextToolbarFocus(lpMsg, itbNext, citb, pptbi, phwnd) {
         pptbiMarshal := pptbi is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(88, this, "ptr", lpMsg, "uint", itbNext, "int", citb, pptbiMarshal, pptbi, "ptr", phwnd, "HRESULT")
+        result := ComCall(88, this, MSG.Ptr, lpMsg, "uint", itbNext, "int", citb, pptbiMarshal, pptbi, HWND.Ptr, phwnd, "HRESULT")
         return result
     }
 
@@ -947,7 +1025,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborderhelper
      */
     _ResizeNextBorderHelper(itb, bUseHmonitor) {
-        result := ComCall(89, this, "uint", itb, "int", bUseHmonitor, "HRESULT")
+        result := ComCall(89, this, "uint", itb, BOOL, bUseHmonitor, "HRESULT")
         return result
     }
 
@@ -962,7 +1040,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_findtbar
      */
     _FindTBar(punkSrc) {
-        result := ComCall(90, this, "ptr", punkSrc, "uint")
+        result := ComCall(90, this, "ptr", punkSrc, UInt32)
         return result
     }
 
@@ -983,9 +1061,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_setfocus
      */
     _SetFocus(ptbi, _hwnd, lpMsg) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(91, this, "ptr", ptbi, "ptr", _hwnd, "ptr", lpMsg, "HRESULT")
+        result := ComCall(91, this, TOOLBARITEM.Ptr, ptbi, HWND, _hwnd, MSG.Ptr, lpMsg, "HRESULT")
         return result
     }
 
@@ -1000,7 +1076,7 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_maytranslateaccelerator
      */
     v_MayTranslateAccelerator(pmsg) {
-        result := ComCall(92, this, "ptr", pmsg, "HRESULT")
+        result := ComCall(92, this, MSG.Ptr, pmsg, "HRESULT")
         return result
     }
 
@@ -1019,7 +1095,7 @@ class IBrowserService2 extends IBrowserService {
      */
     _GetBorderDWHelper(punkSrc, bUseHmonitor) {
         lprectBorder := RECT()
-        result := ComCall(93, this, "ptr", punkSrc, "ptr", lprectBorder, "int", bUseHmonitor, "HRESULT")
+        result := ComCall(93, this, "ptr", punkSrc, RECT.Ptr, lprectBorder, BOOL, bUseHmonitor, "HRESULT")
         return lprectBorder
     }
 
@@ -1034,7 +1110,149 @@ class IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_checkzonecrossing
      */
     v_CheckZoneCrossing(pidl) {
-        result := ComCall(94, this, "ptr", pidl, "HRESULT")
+        result := ComCall(94, this, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBrowserService2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WndProcBS := CallbackCreate(GetMethod(implObj, "WndProcBS"), flags, 5)
+        this.vtbl.SetAsDefFolderSettings := CallbackCreate(GetMethod(implObj, "SetAsDefFolderSettings"), flags, 1)
+        this.vtbl.GetViewRect := CallbackCreate(GetMethod(implObj, "GetViewRect"), flags, 2)
+        this.vtbl.OnSize := CallbackCreate(GetMethod(implObj, "OnSize"), flags, 2)
+        this.vtbl.OnCreate := CallbackCreate(GetMethod(implObj, "OnCreate"), flags, 2)
+        this.vtbl.OnCommand := CallbackCreate(GetMethod(implObj, "OnCommand"), flags, 3)
+        this.vtbl.OnDestroy := CallbackCreate(GetMethod(implObj, "OnDestroy"), flags, 1)
+        this.vtbl.OnNotify := CallbackCreate(GetMethod(implObj, "OnNotify"), flags, 2)
+        this.vtbl.OnSetFocus := CallbackCreate(GetMethod(implObj, "OnSetFocus"), flags, 1)
+        this.vtbl.OnFrameWindowActivateBS := CallbackCreate(GetMethod(implObj, "OnFrameWindowActivateBS"), flags, 2)
+        this.vtbl.ReleaseShellView := CallbackCreate(GetMethod(implObj, "ReleaseShellView"), flags, 1)
+        this.vtbl.ActivatePendingView := CallbackCreate(GetMethod(implObj, "ActivatePendingView"), flags, 1)
+        this.vtbl.CreateViewWindow := CallbackCreate(GetMethod(implObj, "CreateViewWindow"), flags, 5)
+        this.vtbl.CreateBrowserPropSheetExt := CallbackCreate(GetMethod(implObj, "CreateBrowserPropSheetExt"), flags, 3)
+        this.vtbl.GetViewWindow := CallbackCreate(GetMethod(implObj, "GetViewWindow"), flags, 2)
+        this.vtbl.GetBaseBrowserData := CallbackCreate(GetMethod(implObj, "GetBaseBrowserData"), flags, 2)
+        this.vtbl.PutBaseBrowserData := CallbackCreate(GetMethod(implObj, "PutBaseBrowserData"), flags, 1)
+        this.vtbl.InitializeTravelLog := CallbackCreate(GetMethod(implObj, "InitializeTravelLog"), flags, 3)
+        this.vtbl.SetTopBrowser := CallbackCreate(GetMethod(implObj, "SetTopBrowser"), flags, 1)
+        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 2)
+        this.vtbl.AllowViewResize := CallbackCreate(GetMethod(implObj, "AllowViewResize"), flags, 2)
+        this.vtbl.SetActivateState := CallbackCreate(GetMethod(implObj, "SetActivateState"), flags, 2)
+        this.vtbl.UpdateSecureLockIcon := CallbackCreate(GetMethod(implObj, "UpdateSecureLockIcon"), flags, 2)
+        this.vtbl.InitializeDownloadManager := CallbackCreate(GetMethod(implObj, "InitializeDownloadManager"), flags, 1)
+        this.vtbl.InitializeTransitionSite := CallbackCreate(GetMethod(implObj, "InitializeTransitionSite"), flags, 1)
+        this.vtbl._Initialize := CallbackCreate(GetMethod(implObj, "_Initialize"), flags, 3)
+        this.vtbl._CancelPendingNavigationAsync := CallbackCreate(GetMethod(implObj, "_CancelPendingNavigationAsync"), flags, 1)
+        this.vtbl._CancelPendingView := CallbackCreate(GetMethod(implObj, "_CancelPendingView"), flags, 1)
+        this.vtbl._MaySaveChanges := CallbackCreate(GetMethod(implObj, "_MaySaveChanges"), flags, 1)
+        this.vtbl._PauseOrResumeView := CallbackCreate(GetMethod(implObj, "_PauseOrResumeView"), flags, 2)
+        this.vtbl._DisableModeless := CallbackCreate(GetMethod(implObj, "_DisableModeless"), flags, 1)
+        this.vtbl._NavigateToPidl2 := CallbackCreate(GetMethod(implObj, "_NavigateToPidl2"), flags, 4)
+        this.vtbl._TryShell2Rename := CallbackCreate(GetMethod(implObj, "_TryShell2Rename"), flags, 3)
+        this.vtbl._SwitchActivationNow := CallbackCreate(GetMethod(implObj, "_SwitchActivationNow"), flags, 1)
+        this.vtbl._ExecChildren := CallbackCreate(GetMethod(implObj, "_ExecChildren"), flags, 8)
+        this.vtbl._SendChildren := CallbackCreate(GetMethod(implObj, "_SendChildren"), flags, 6)
+        this.vtbl.GetFolderSetData := CallbackCreate(GetMethod(implObj, "GetFolderSetData"), flags, 2)
+        this.vtbl._OnFocusChange := CallbackCreate(GetMethod(implObj, "_OnFocusChange"), flags, 2)
+        this.vtbl.v_ShowHideChildWindows := CallbackCreate(GetMethod(implObj, "v_ShowHideChildWindows"), flags, 2)
+        this.vtbl._get_itbLastFocus := CallbackCreate(GetMethod(implObj, "_get_itbLastFocus"), flags, 1)
+        this.vtbl._put_itbLastFocus := CallbackCreate(GetMethod(implObj, "_put_itbLastFocus"), flags, 2)
+        this.vtbl._UIActivateView := CallbackCreate(GetMethod(implObj, "_UIActivateView"), flags, 2)
+        this.vtbl._GetViewBorderRect := CallbackCreate(GetMethod(implObj, "_GetViewBorderRect"), flags, 2)
+        this.vtbl._UpdateViewRectSize := CallbackCreate(GetMethod(implObj, "_UpdateViewRectSize"), flags, 1)
+        this.vtbl._ResizeNextBorder := CallbackCreate(GetMethod(implObj, "_ResizeNextBorder"), flags, 2)
+        this.vtbl._ResizeView := CallbackCreate(GetMethod(implObj, "_ResizeView"), flags, 1)
+        this.vtbl._GetEffectiveClientArea := CallbackCreate(GetMethod(implObj, "_GetEffectiveClientArea"), flags, 3)
+        this.vtbl.v_GetViewStream := CallbackCreate(GetMethod(implObj, "v_GetViewStream"), flags, 4)
+        this.vtbl.ForwardViewMsg := CallbackCreate(GetMethod(implObj, "ForwardViewMsg"), flags, 4)
+        this.vtbl.SetAcceleratorMenu := CallbackCreate(GetMethod(implObj, "SetAcceleratorMenu"), flags, 2)
+        this.vtbl._GetToolbarCount := CallbackCreate(GetMethod(implObj, "_GetToolbarCount"), flags, 1)
+        this.vtbl._GetToolbarItem := CallbackCreate(GetMethod(implObj, "_GetToolbarItem"), flags, 2)
+        this.vtbl._SaveToolbars := CallbackCreate(GetMethod(implObj, "_SaveToolbars"), flags, 2)
+        this.vtbl._LoadToolbars := CallbackCreate(GetMethod(implObj, "_LoadToolbars"), flags, 2)
+        this.vtbl._CloseAndReleaseToolbars := CallbackCreate(GetMethod(implObj, "_CloseAndReleaseToolbars"), flags, 2)
+        this.vtbl.v_MayGetNextToolbarFocus := CallbackCreate(GetMethod(implObj, "v_MayGetNextToolbarFocus"), flags, 6)
+        this.vtbl._ResizeNextBorderHelper := CallbackCreate(GetMethod(implObj, "_ResizeNextBorderHelper"), flags, 3)
+        this.vtbl._FindTBar := CallbackCreate(GetMethod(implObj, "_FindTBar"), flags, 2)
+        this.vtbl._SetFocus := CallbackCreate(GetMethod(implObj, "_SetFocus"), flags, 4)
+        this.vtbl.v_MayTranslateAccelerator := CallbackCreate(GetMethod(implObj, "v_MayTranslateAccelerator"), flags, 2)
+        this.vtbl._GetBorderDWHelper := CallbackCreate(GetMethod(implObj, "_GetBorderDWHelper"), flags, 4)
+        this.vtbl.v_CheckZoneCrossing := CallbackCreate(GetMethod(implObj, "v_CheckZoneCrossing"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WndProcBS)
+        CallbackFree(this.vtbl.SetAsDefFolderSettings)
+        CallbackFree(this.vtbl.GetViewRect)
+        CallbackFree(this.vtbl.OnSize)
+        CallbackFree(this.vtbl.OnCreate)
+        CallbackFree(this.vtbl.OnCommand)
+        CallbackFree(this.vtbl.OnDestroy)
+        CallbackFree(this.vtbl.OnNotify)
+        CallbackFree(this.vtbl.OnSetFocus)
+        CallbackFree(this.vtbl.OnFrameWindowActivateBS)
+        CallbackFree(this.vtbl.ReleaseShellView)
+        CallbackFree(this.vtbl.ActivatePendingView)
+        CallbackFree(this.vtbl.CreateViewWindow)
+        CallbackFree(this.vtbl.CreateBrowserPropSheetExt)
+        CallbackFree(this.vtbl.GetViewWindow)
+        CallbackFree(this.vtbl.GetBaseBrowserData)
+        CallbackFree(this.vtbl.PutBaseBrowserData)
+        CallbackFree(this.vtbl.InitializeTravelLog)
+        CallbackFree(this.vtbl.SetTopBrowser)
+        CallbackFree(this.vtbl.Offline)
+        CallbackFree(this.vtbl.AllowViewResize)
+        CallbackFree(this.vtbl.SetActivateState)
+        CallbackFree(this.vtbl.UpdateSecureLockIcon)
+        CallbackFree(this.vtbl.InitializeDownloadManager)
+        CallbackFree(this.vtbl.InitializeTransitionSite)
+        CallbackFree(this.vtbl._Initialize)
+        CallbackFree(this.vtbl._CancelPendingNavigationAsync)
+        CallbackFree(this.vtbl._CancelPendingView)
+        CallbackFree(this.vtbl._MaySaveChanges)
+        CallbackFree(this.vtbl._PauseOrResumeView)
+        CallbackFree(this.vtbl._DisableModeless)
+        CallbackFree(this.vtbl._NavigateToPidl2)
+        CallbackFree(this.vtbl._TryShell2Rename)
+        CallbackFree(this.vtbl._SwitchActivationNow)
+        CallbackFree(this.vtbl._ExecChildren)
+        CallbackFree(this.vtbl._SendChildren)
+        CallbackFree(this.vtbl.GetFolderSetData)
+        CallbackFree(this.vtbl._OnFocusChange)
+        CallbackFree(this.vtbl.v_ShowHideChildWindows)
+        CallbackFree(this.vtbl._get_itbLastFocus)
+        CallbackFree(this.vtbl._put_itbLastFocus)
+        CallbackFree(this.vtbl._UIActivateView)
+        CallbackFree(this.vtbl._GetViewBorderRect)
+        CallbackFree(this.vtbl._UpdateViewRectSize)
+        CallbackFree(this.vtbl._ResizeNextBorder)
+        CallbackFree(this.vtbl._ResizeView)
+        CallbackFree(this.vtbl._GetEffectiveClientArea)
+        CallbackFree(this.vtbl.v_GetViewStream)
+        CallbackFree(this.vtbl.ForwardViewMsg)
+        CallbackFree(this.vtbl.SetAcceleratorMenu)
+        CallbackFree(this.vtbl._GetToolbarCount)
+        CallbackFree(this.vtbl._GetToolbarItem)
+        CallbackFree(this.vtbl._SaveToolbars)
+        CallbackFree(this.vtbl._LoadToolbars)
+        CallbackFree(this.vtbl._CloseAndReleaseToolbars)
+        CallbackFree(this.vtbl.v_MayGetNextToolbarFocus)
+        CallbackFree(this.vtbl._ResizeNextBorderHelper)
+        CallbackFree(this.vtbl._FindTBar)
+        CallbackFree(this.vtbl._SetFocus)
+        CallbackFree(this.vtbl.v_MayTranslateAccelerator)
+        CallbackFree(this.vtbl._GetBorderDWHelper)
+        CallbackFree(this.vtbl.v_CheckZoneCrossing)
     }
 }

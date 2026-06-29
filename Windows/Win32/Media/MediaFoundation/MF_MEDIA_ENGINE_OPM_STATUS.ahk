@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the status of the Output Protection Manager (OPM).
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_opm_status
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_MEDIA_ENGINE_OPM_STATUS extends Win32Enum {
+export default struct MF_MEDIA_ENGINE_OPM_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default status. Used to return the correct status when the content is unprotected.

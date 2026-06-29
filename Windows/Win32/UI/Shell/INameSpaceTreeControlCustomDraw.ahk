@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\NSTCCUSTOMDRAW.ahk" { NSTCCUSTOMDRAW }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that enable the user to draw a custom namespace tree control and its items.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrolcustomdraw
  * @namespace Windows.Win32.UI.Shell
  */
-class INameSpaceTreeControlCustomDraw extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INameSpaceTreeControlCustomDraw extends IUnknown {
     /**
      * The interface identifier for INameSpaceTreeControlCustomDraw
      * @type {Guid}
      */
-    static IID => Guid("{2d3ba758-33ee-42d5-bb7b-5f3431d86c78}")
+    static IID := Guid("{2d3ba758-33ee-42d5-bb7b-5f3431d86c78}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INameSpaceTreeControlCustomDraw interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PrePaint      : IntPtr
+        PostPaint     : IntPtr
+        ItemPrePaint  : IntPtr
+        ItemPostPaint : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PrePaint", "PostPaint", "ItemPrePaint", "ItemPostPaint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INameSpaceTreeControlCustomDraw.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called before the namespace tree control is drawn.
@@ -43,9 +59,7 @@ class INameSpaceTreeControlCustomDraw extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-prepaint
      */
     PrePaint(_hdc, prc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(3, this, "ptr", _hdc, "ptr", prc, "ptr*", &plres := 0, "HRESULT")
+        result := ComCall(3, this, HDC, _hdc, RECT.Ptr, prc, LRESULT.Ptr, &plres := 0, "HRESULT")
         return plres
     }
 
@@ -63,9 +77,7 @@ class INameSpaceTreeControlCustomDraw extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-postpaint
      */
     PostPaint(_hdc, prc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(4, this, "ptr", _hdc, "ptr", prc, "HRESULT")
+        result := ComCall(4, this, HDC, _hdc, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -92,12 +104,10 @@ class INameSpaceTreeControlCustomDraw extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itemprepaint
      */
     ItemPrePaint(_hdc, prc, pnstccdItem, pclrText, pclrTextBk) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
         pclrTextMarshal := pclrText is VarRef ? "uint*" : "ptr"
         pclrTextBkMarshal := pclrTextBk is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", _hdc, "ptr", prc, "ptr", pnstccdItem, pclrTextMarshal, pclrText, pclrTextBkMarshal, pclrTextBk, "ptr*", &plres := 0, "HRESULT")
+        result := ComCall(5, this, HDC, _hdc, RECT.Ptr, prc, NSTCCUSTOMDRAW.Ptr, pnstccdItem, pclrTextMarshal, pclrText, pclrTextBkMarshal, pclrTextBk, LRESULT.Ptr, &plres := 0, "HRESULT")
         return plres
     }
 
@@ -118,9 +128,33 @@ class INameSpaceTreeControlCustomDraw extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itempostpaint
      */
     ItemPostPaint(_hdc, prc, pnstccdItem) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(6, this, "ptr", _hdc, "ptr", prc, "ptr", pnstccdItem, "HRESULT")
+        result := ComCall(6, this, HDC, _hdc, RECT.Ptr, prc, NSTCCUSTOMDRAW.Ptr, pnstccdItem, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INameSpaceTreeControlCustomDraw.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PrePaint := CallbackCreate(GetMethod(implObj, "PrePaint"), flags, 4)
+        this.vtbl.PostPaint := CallbackCreate(GetMethod(implObj, "PostPaint"), flags, 3)
+        this.vtbl.ItemPrePaint := CallbackCreate(GetMethod(implObj, "ItemPrePaint"), flags, 7)
+        this.vtbl.ItemPostPaint := CallbackCreate(GetMethod(implObj, "ItemPostPaint"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PrePaint)
+        CallbackFree(this.vtbl.PostPaint)
+        CallbackFree(this.vtbl.ItemPrePaint)
+        CallbackFree(this.vtbl.ItemPostPaint)
     }
 }

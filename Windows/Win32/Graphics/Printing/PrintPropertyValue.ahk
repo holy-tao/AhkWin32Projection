@@ -1,100 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EPrintPropertyType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EPrintPropertyType.ahk" { EPrintPropertyType }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PrintPropertyValue extends Win32Struct {
-    static sizeof => 24
+export default struct PrintPropertyValue {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _value_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _value {
 
-        class _propertyBlob extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _propertyBlob {
+            cbBuf : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            cbBuf {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            pBuf : IntPtr
 
-            /**
-             * @type {Pointer<Void>}
-             */
-            pBuf {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        propertyByte {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        propertyByte : Int8
 
-        /**
-         * @type {PWSTR}
-         */
-        propertyString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        propertyInt32 {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        propertyInt64 {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
-
-        /**
-         * @type {_propertyBlob}
-         */
-        propertyBlob {
-            get {
-                if(!this.HasProp("__propertyBlob"))
-                    this.__propertyBlob := PrintPropertyValue._value_e__Union._propertyBlob(0, this)
-                return this.__propertyBlob
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'propertyString', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'propertyInt32', { type: Int32, offset: 0 })
+            DefineProp(this.Prototype, 'propertyInt64', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'propertyBlob', { type: PrintPropertyValue._value._propertyBlob, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {EPrintPropertyType}
-     */
-    ePropertyType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ePropertyType : EPrintPropertyType
 
-    /**
-     * @type {_value_e__Union}
-     */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := PrintPropertyValue._value_e__Union(8, this)
-            return this.__value
-        }
-    }
+    value : PrintPropertyValue._value
+
 }

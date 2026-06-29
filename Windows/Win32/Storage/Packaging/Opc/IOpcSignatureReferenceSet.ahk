@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcSignatureReference.ahk
-#Include .\IOpcSignatureReferenceEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpcSignatureReference.ahk" { IOpcSignatureReference }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
 
 /**
  * An unordered set of IOpcSignatureReference interface pointers that represent references to XML elements to be signed.
@@ -18,26 +22,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturereferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcSignatureReferenceSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcSignatureReferenceSet extends IUnknown {
     /**
      * The interface identifier for IOpcSignatureReferenceSet
      * @type {Guid}
      */
-    static IID => Guid("{f3b02d31-ab12-42dd-9e2f-2b16761c3c1e}")
+    static IID := Guid("{f3b02d31-ab12-42dd-9e2f-2b16761c3c1e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcSignatureReferenceSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Create        : IntPtr
+        Delete        : IntPtr
+        GetEnumerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Create", "Delete", "GetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcSignatureReferenceSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IOpcSignatureReference interface pointer that represents a reference to an XML element to be signed.
@@ -94,7 +107,7 @@ class IOpcSignatureReferenceSet extends IUnknown {
         type := type is String ? StrPtr(type) : type
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", &_reference := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, OPC_CANONICALIZATION_METHOD, transformMethod, "ptr*", &_reference := 0, "HRESULT")
         return IOpcSignatureReference(_reference)
     }
 
@@ -148,5 +161,29 @@ class IOpcSignatureReferenceSet extends IUnknown {
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &referenceEnumerator := 0, "HRESULT")
         return IOpcSignatureReferenceEnumerator(referenceEnumerator)
+    }
+
+    Query(iid) {
+        if (IOpcSignatureReferenceSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 7)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetEnumerator)
     }
 }

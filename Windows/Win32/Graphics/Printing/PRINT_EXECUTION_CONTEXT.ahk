@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the execution context when GetPrintExecutionData is called.
  * @see https://learn.microsoft.com/windows/win32/printdocs/print-execution-context
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PRINT_EXECUTION_CONTEXT extends Win32Enum {
+export default struct PRINT_EXECUTION_CONTEXT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

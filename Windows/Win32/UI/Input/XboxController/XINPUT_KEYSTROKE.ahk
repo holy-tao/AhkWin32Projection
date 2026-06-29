@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XINPUT_VIRTUAL_KEY.ahk
-#Include .\XINPUT_KEYSTROKE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XINPUT_VIRTUAL_KEY.ahk" { XINPUT_VIRTUAL_KEY }
+#Import ".\XINPUT_KEYSTROKE_FLAGS.ahk" { XINPUT_KEYSTROKE_FLAGS }
 
 /**
  * Specifies keystroke data returned by XInputGetKeystroke.
@@ -163,28 +162,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_keystroke
  * @namespace Windows.Win32.UI.Input.XboxController
  */
-class XINPUT_KEYSTROKE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct XINPUT_KEYSTROKE {
+    #StructPack 2
 
     /**
      * Virtual-key code of the key, button, or stick movement. See XInput.h for a list of valid virtual-key (VK_xxx) codes. Also, see Remarks.
-     * @type {XINPUT_VIRTUAL_KEY}
      */
-    VirtualKey {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    VirtualKey : XINPUT_VIRTUAL_KEY
 
     /**
      * This member is unused and the value is zero.
-     * @type {Integer}
      */
-    Unicode {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Unicode : Int8
 
     /**
      * Flags that indicate the keyboard state at the time of the input event. This member can be any combination of the following flags:        
@@ -207,28 +196,17 @@ class XINPUT_KEYSTROKE extends Win32Struct {
      * <td>A repeat of a held key. </td>
      * </tr>
      * </table>
-     * @type {XINPUT_KEYSTROKE_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Flags : XINPUT_KEYSTROKE_FLAGS
 
     /**
      * Index of the signed-in gamer associated with the device. Can be a value in the range 0–3.
-     * @type {Integer}
      */
-    UserIndex {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    UserIndex : Int8
 
     /**
      * HID code corresponding to the input. If there is no corresponding HID code, this value is zero.
-     * @type {Integer}
      */
-    HidCode {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    HidCode : Int8
+
 }

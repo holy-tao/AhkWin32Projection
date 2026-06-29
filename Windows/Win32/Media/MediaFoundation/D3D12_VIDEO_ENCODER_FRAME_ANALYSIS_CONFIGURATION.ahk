@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_FRAME_ANALYSIS_CONFIGURATION extends Win32Struct {
-    static sizeof => 8
+export default struct D3D12_VIDEO_ENCODER_FRAME_ANALYSIS_CONFIGURATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Enabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enabled {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Pow2DownscaleFactor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pow2DownscaleFactor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

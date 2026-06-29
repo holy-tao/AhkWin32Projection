@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Specifies settings for a time zone.
@@ -85,10 +85,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/ns-timezoneapi-time_zone_information
  * @namespace Windows.Win32.System.Time
  */
-class TIME_ZONE_INFORMATION extends Win32Struct {
-    static sizeof => 172
-
-    static packingSize => 4
+export default struct TIME_ZONE_INFORMATION {
+    #StructPack 4
 
     /**
      * The current bias for local time translation on this computer, in minutes. The bias is the difference, in minutes, between Coordinated Universal Time (UTC) and local time. All translations between UTC and local time are based on the following formula: 
@@ -99,22 +97,14 @@ class TIME_ZONE_INFORMATION extends Win32Struct {
      * UTC = local time + bias
      * 
      * This member is required.
-     * @type {Integer}
      */
-    Bias {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Bias : Int32
 
     /**
      * A description for standard time. For example, "EST" could indicate Eastern Standard Time. The string will be  returned unchanged by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-gettimezoneinformation">GetTimeZoneInformation</a> function. This string can be empty.
-     * @type {String}
      */
-    StandardName {
-        get => StrGet(this.ptr + 4, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-16")
-    }
+    StandardName : WCHAR[32]
 
     /**
      * A 
@@ -129,15 +119,8 @@ class TIME_ZONE_INFORMATION extends Win32Struct {
      * Using this notation, specify 02:00 on the first Sunday in April as follows: <b>wHour</b> = 2, <b>wMonth</b> = 4, <b>wDayOfWeek</b> = 0, <b>wDay</b> = 1. Specify 02:00 on the last Thursday in October as follows: <b>wHour</b> = 2, <b>wMonth</b> = 10, <b>wDayOfWeek</b> = 4, <b>wDay</b> = 5.
      * 
      * If the <b>wYear</b> member is not zero, the transition date is absolute; it will only occur one time. Otherwise, it is a relative date that occurs yearly.
-     * @type {SYSTEMTIME}
      */
-    StandardDate {
-        get {
-            if(!this.HasProp("__StandardDate"))
-                this.__StandardDate := SYSTEMTIME(68, this)
-            return this.__StandardDate
-        }
-    }
+    StandardDate : SYSTEMTIME
 
     /**
      * The bias value to be used during local time translations that occur during standard time. This member is ignored if a value for the <b>StandardDate</b> member is not supplied. 
@@ -146,22 +129,14 @@ class TIME_ZONE_INFORMATION extends Win32Struct {
      * 
      * 
      * This value is added to the value of the <b>Bias</b> member to form the bias used during standard time. In most time zones, the value of this member is zero.
-     * @type {Integer}
      */
-    StandardBias {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    StandardBias : Int32
 
     /**
      * A description for daylight saving time. For example, "PDT" could indicate Pacific Daylight Time. The string will be  returned unchanged by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-gettimezoneinformation">GetTimeZoneInformation</a> function. This string can be empty.
-     * @type {String}
      */
-    DaylightName {
-        get => StrGet(this.ptr + 88, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 31, "UTF-16")
-    }
+    DaylightName : WCHAR[32]
 
     /**
      * A 
@@ -174,15 +149,8 @@ class TIME_ZONE_INFORMATION extends Win32Struct {
      * To select the correct day in the month, set the <b>wYear</b> member to zero, the <b>wHour</b> and <b>wMinute</b> members to the transition time, the <b>wDayOfWeek</b> member to the appropriate weekday, and the <b>wDay</b> member to indicate the occurrence of the day of the week within the month (1 to 5, where 5 indicates the final occurrence during the month if that day of the week does not occur 5 times).
      * 
      * If the <b>wYear</b> member is not zero, the transition date is absolute; it will only occur one time. Otherwise, it is a relative date that occurs yearly.
-     * @type {SYSTEMTIME}
      */
-    DaylightDate {
-        get {
-            if(!this.HasProp("__DaylightDate"))
-                this.__DaylightDate := SYSTEMTIME(152, this)
-            return this.__DaylightDate
-        }
-    }
+    DaylightDate : SYSTEMTIME
 
     /**
      * The bias value to be used during local time translations that occur during daylight saving time. This member is ignored if a value for the <b>DaylightDate</b> member is not supplied. 
@@ -191,10 +159,7 @@ class TIME_ZONE_INFORMATION extends Win32Struct {
      * 
      * 
      * This value is added to the value of the <b>Bias</b> member to form the bias used during daylight saving time. In most time zones, the value of this member is –60.
-     * @type {Integer}
      */
-    DaylightBias {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
-    }
+    DaylightBias : Int32
+
 }

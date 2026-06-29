@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISwapChain1.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DXGI_MATRIX_3X2_F.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXGI_MATRIX_3X2_F.ahk" { DXGI_MATRIX_3X2_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
 
 /**
  * Extends IDXGISwapChain1 with methods to support swap back buffer scaling and lower-latency swap chains.
@@ -13,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgiswapchain2
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISwapChain2 extends IDXGISwapChain1 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISwapChain2 extends IDXGISwapChain1 {
     /**
      * The interface identifier for IDXGISwapChain2
      * @type {Guid}
      */
-    static IID => Guid("{a8be2ac4-199f-4946-b331-79599fb98de7}")
+    static IID := Guid("{a8be2ac4-199f-4946-b331-79599fb98de7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 29
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISwapChain2 interfaces
+    */
+    struct Vtbl extends IDXGISwapChain1.Vtbl {
+        SetSourceSize                 : IntPtr
+        GetSourceSize                 : IntPtr
+        SetMaximumFrameLatency        : IntPtr
+        GetMaximumFrameLatency        : IntPtr
+        GetFrameLatencyWaitableObject : IntPtr
+        SetMatrixTransform            : IntPtr
+        GetMatrixTransform            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSourceSize", "GetSourceSize", "SetMaximumFrameLatency", "GetMaximumFrameLatency", "GetFrameLatencyWaitableObject", "SetMatrixTransform", "GetMatrixTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISwapChain2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the source region to be used for the swap chain.
@@ -98,9 +112,8 @@ class IDXGISwapChain2 extends IDXGISwapChain1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-getframelatencywaitableobject
      */
     GetFrameLatencyWaitableObject() {
-        result := ComCall(33, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(33, this, HANDLE.Owned)
+        return result
     }
 
     /**
@@ -116,7 +129,7 @@ class IDXGISwapChain2 extends IDXGISwapChain1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-setmatrixtransform
      */
     SetMatrixTransform(pMatrix) {
-        result := ComCall(34, this, "ptr", pMatrix, "HRESULT")
+        result := ComCall(34, this, DXGI_MATRIX_3X2_F.Ptr, pMatrix, "HRESULT")
         return result
     }
 
@@ -129,7 +142,39 @@ class IDXGISwapChain2 extends IDXGISwapChain1 {
      */
     GetMatrixTransform() {
         pMatrix := DXGI_MATRIX_3X2_F()
-        result := ComCall(35, this, "ptr", pMatrix, "HRESULT")
+        result := ComCall(35, this, DXGI_MATRIX_3X2_F.Ptr, pMatrix, "HRESULT")
         return pMatrix
+    }
+
+    Query(iid) {
+        if (IDXGISwapChain2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSourceSize := CallbackCreate(GetMethod(implObj, "SetSourceSize"), flags, 3)
+        this.vtbl.GetSourceSize := CallbackCreate(GetMethod(implObj, "GetSourceSize"), flags, 3)
+        this.vtbl.SetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetFrameLatencyWaitableObject := CallbackCreate(GetMethod(implObj, "GetFrameLatencyWaitableObject"), flags, 1)
+        this.vtbl.SetMatrixTransform := CallbackCreate(GetMethod(implObj, "SetMatrixTransform"), flags, 2)
+        this.vtbl.GetMatrixTransform := CallbackCreate(GetMethod(implObj, "GetMatrixTransform"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSourceSize)
+        CallbackFree(this.vtbl.GetSourceSize)
+        CallbackFree(this.vtbl.SetMaximumFrameLatency)
+        CallbackFree(this.vtbl.GetMaximumFrameLatency)
+        CallbackFree(this.vtbl.GetFrameLatencyWaitableObject)
+        CallbackFree(this.vtbl.SetMatrixTransform)
+        CallbackFree(this.vtbl.GetMatrixTransform)
     }
 }

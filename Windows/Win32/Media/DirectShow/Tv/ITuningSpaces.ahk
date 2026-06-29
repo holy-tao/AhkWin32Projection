@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\ITuningSpace.ahk
-#Include .\IEnumTuningSpaces.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITuningSpaces interface represents a collection of tuning spaces.
@@ -15,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ituningspaces
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITuningSpaces extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITuningSpaces extends IDispatch {
     /**
      * The interface identifier for ITuningSpaces
      * @type {Guid}
      */
-    static IID => Guid("{901284e4-33fe-4b69-8d63-634a596f3756}")
+    static IID := Guid("{901284e4-33fe-4b69-8d63-634a596f3756}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITuningSpaces interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count            : IntPtr
+        get__NewEnum         : IntPtr
+        get_Item             : IntPtr
+        get_EnumTuningSpaces : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "get_Item", "get_EnumTuningSpaces"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITuningSpaces.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -86,7 +98,7 @@ class ITuningSpaces extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_item
      */
     get_Item(varIndex) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", &_TuningSpace := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT, varIndex, "ptr*", &_TuningSpace := 0, "HRESULT")
         return ITuningSpace(_TuningSpace)
     }
 
@@ -98,5 +110,31 @@ class ITuningSpaces extends IDispatch {
     get_EnumTuningSpaces() {
         result := ComCall(10, this, "ptr*", &NewEnum := 0, "HRESULT")
         return IEnumTuningSpaces(NewEnum)
+    }
+
+    Query(iid) {
+        if (ITuningSpaces.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_EnumTuningSpaces := CallbackCreate(GetMethod(implObj, "get_EnumTuningSpaces"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_EnumTuningSpaces)
     }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_SCANLINES.ahk
-#Include .\NABTS_BUFFER_LINE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NABTS_BUFFER_LINE.ahk" { NABTS_BUFFER_LINE }
+#Import ".\VBICODECFILTERING_SCANLINES.ahk" { VBICODECFILTERING_SCANLINES }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class NABTS_BUFFER extends Win32Struct {
-    static sizeof => 544
+export default struct NABTS_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    ScanlinesRequested : VBICODECFILTERING_SCANLINES
 
-    /**
-     * @type {VBICODECFILTERING_SCANLINES}
-     */
-    ScanlinesRequested {
-        get {
-            if(!this.HasProp("__ScanlinesRequested"))
-                this.__ScanlinesRequested := VBICODECFILTERING_SCANLINES(0, this)
-            return this.__ScanlinesRequested
-        }
-    }
+    PictureNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PictureNumber {
-        get => NumGet(this, 128, "int64")
-        set => NumPut("int64", value, this, 128)
-    }
+    NabtsLines : NABTS_BUFFER_LINE[11]
 
-    /**
-     * @type {NABTS_BUFFER_LINE}
-     */
-    NabtsLines {
-        get {
-            if(!this.HasProp("__NabtsLinesProxyArray"))
-                this.__NabtsLinesProxyArray := Win32FixedArray(this.ptr + 136, 11, NABTS_BUFFER_LINE, "")
-            return this.__NabtsLinesProxyArray
-        }
-    }
 }

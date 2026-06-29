@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FAX_SCHEDULE_TYPE_ENUM enumeration defines the types of scheduling for outbound faxes.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_schedule_type_enum
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_SCHEDULE_TYPE_ENUM extends Win32Enum {
+export default struct FAX_SCHEDULE_TYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Send the fax as soon as a device is available.

@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IBackgroundCopyFile.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use the IEnumBackgroundCopyFiles interface to enumerate the files that a job contains. To get an IEnumBackgroundCopyFiles interface pointer, call the IBackgroundCopyJob::EnumFiles method.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ienumbackgroundcopyfiles
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IEnumBackgroundCopyFiles extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumBackgroundCopyFiles extends IUnknown {
     /**
      * The interface identifier for IEnumBackgroundCopyFiles
      * @type {Guid}
      */
-    static IID => Guid("{ca51e165-c365-424c-8d41-24aaa4ff3c40}")
+    static IID := Guid("{ca51e165-c365-424c-8d41-24aaa4ff3c40}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumBackgroundCopyFiles interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Next     : IntPtr
+        Skip     : IntPtr
+        Reset    : IntPtr
+        Clone    : IntPtr
+        GetCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumBackgroundCopyFiles.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a specified number of items in the enumeration sequence. If there are fewer than the requested number of elements left in the sequence, it retrieves the remaining elements. (IEnumBackgroundCopyFiles.Next)
@@ -113,5 +125,33 @@ class IEnumBackgroundCopyFiles extends IUnknown {
     GetCount() {
         result := ComCall(7, this, "uint*", &puCount := 0, "HRESULT")
         return puCount
+    }
+
+    Query(iid) {
+        if (IEnumBackgroundCopyFiles.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetCount)
     }
 }

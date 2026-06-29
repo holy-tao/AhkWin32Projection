@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmQuotaObject.ahk
-#Include .\IFsrmDerivedObjectsResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
+#Import ".\IFsrmQuotaObject.ahk" { IFsrmQuotaObject }
+#Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to automatically add the quota to new and existing subdirectories of the directory on which the automatic quota is applied.
@@ -22,26 +26,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmautoapplyquota
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmAutoApplyQuota extends IFsrmQuotaObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmAutoApplyQuota extends IFsrmQuotaObject {
     /**
      * The interface identifier for IFsrmAutoApplyQuota
      * @type {Guid}
      */
-    static IID => Guid("{f82e5729-6aba-4740-bfc7-c7f58f75fb7b}")
+    static IID := Guid("{f82e5729-6aba-4740-bfc7-c7f58f75fb7b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmAutoApplyQuota interfaces
+    */
+    struct Vtbl extends IFsrmQuotaObject.Vtbl {
+        get_ExcludeFolders     : IntPtr
+        put_ExcludeFolders     : IntPtr
+        CommitAndUpdateDerived : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ExcludeFolders", "put_ExcludeFolders", "CommitAndUpdateDerived"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmAutoApplyQuota.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -78,7 +91,7 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-put_excludefolders
      */
     put_ExcludeFolders(folders) {
-        result := ComCall(29, this, "ptr", folders, "HRESULT")
+        result := ComCall(29, this, SAFEARRAY.Ptr, folders, "HRESULT")
         return result
     }
 
@@ -114,7 +127,31 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-commitandupdatederived
      */
     CommitAndUpdateDerived(commitOptions, applyOptions) {
-        result := ComCall(30, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
+        result := ComCall(30, this, FsrmCommitOptions, commitOptions, FsrmTemplateApplyOptions, applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
         return IFsrmDerivedObjectsResult(derivedObjectsResult)
+    }
+
+    Query(iid) {
+        if (IFsrmAutoApplyQuota.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ExcludeFolders := CallbackCreate(GetMethod(implObj, "get_ExcludeFolders"), flags, 2)
+        this.vtbl.put_ExcludeFolders := CallbackCreate(GetMethod(implObj, "put_ExcludeFolders"), flags, 2)
+        this.vtbl.CommitAndUpdateDerived := CallbackCreate(GetMethod(implObj, "CommitAndUpdateDerived"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ExcludeFolders)
+        CallbackFree(this.vtbl.put_ExcludeFolders)
+        CallbackFree(this.vtbl.CommitAndUpdateDerived)
     }
 }

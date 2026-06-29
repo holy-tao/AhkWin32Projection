@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOMAINDESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains data about an element in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method.
@@ -9,89 +9,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domaindesc
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DOMAINDESC extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct DOMAINDESC {
+    #StructPack 8
 
     /**
      * Pointer to a Unicode string that contains the domain name.
-     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszName : PWSTR
 
     /**
      * Pointer to a Unicode string that contains the path of the domain. Reserved.
-     * @type {PWSTR}
      */
-    pszPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszPath : PWSTR
 
     /**
      * Pointer to a Unicode string that contains the fully qualified name of the domain in the form "DC=myDom, DC=Fabrikam, DC=com". This member is  blank if the <b>DBDTF_RETURNFQDN</b> flag is not set in the <i>dwFlags</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains">IDsBrowseDomainTree::GetDomains</a>.
-     * @type {PWSTR}
      */
-    pszNCName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszNCName : PWSTR
 
     /**
      * Pointer to a Unicode string that contains the name of the parent domain. This member is <b>NULL</b> if the domain has no parent.
-     * @type {PWSTR}
      */
-    pszTrustParent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszTrustParent : PWSTR
 
     /**
      * Pointer to a Unicode string that contains the object class name of the domain.
-     * @type {PWSTR}
      */
-    pszObjectClass {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszObjectClass : PWSTR
 
     /**
      * Contains a set of flags that specify the attributes of the trust. For more information, and a list of possible values, see the <i>Flags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa">DsEnumerateDomainTrusts</a>.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulFlags : UInt32
 
     /**
      * Contains a nonzero value if the domain is a down-level domain or zero otherwise.
-     * @type {BOOL}
      */
-    fDownLevel {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    fDownLevel : BOOL
 
     /**
      * Contains a pointer to a <b>DOMAINDESC</b> structure that represents the first child of the domain. Obtain subsequent children by accessing the <b>pdNextSibling</b> member of the child structure. This member is <b>NULL</b> if the domain has no children.
-     * @type {Pointer<DOMAINDESC>}
      */
-    pdChildList {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pdChildList : DOMAINDESC.Ptr
 
     /**
      * Contains a pointer to a <b>DOMAINDESC</b> structure that represents the next sibling of the domain. Obtain subsequent siblings by accessing the <b>pdNextSibling</b> member of the sibling structure. This member is <b>NULL</b> if the domain has no siblings.
-     * @type {Pointer<DOMAINDESC>}
      */
-    pdNextSibling {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pdNextSibling : DOMAINDESC.Ptr
+
 }

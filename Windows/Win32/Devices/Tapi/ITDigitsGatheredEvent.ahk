@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallInfo.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TAPI_GATHERTERM.ahk" { TAPI_GATHERTERM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITDigitsGatheredEvent interface exposes methods that allow an application to retrieve data when the TAPI Server sends an event indicating that the Server has gathered digits required by the application.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdigitsgatheredevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDigitsGatheredEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDigitsGatheredEvent extends IDispatch {
     /**
      * The interface identifier for ITDigitsGatheredEvent
      * @type {Guid}
      */
-    static IID => Guid("{e52ec4c1-cba3-441a-9e6a-93cb909e9724}")
+    static IID := Guid("{e52ec4c1-cba3-441a-9e6a-93cb909e9724}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDigitsGatheredEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Call              : IntPtr
+        get_Digits            : IntPtr
+        get_GatherTermination : IntPtr
+        get_TickCount         : IntPtr
+        get_CallbackInstance  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Call", "get_Digits", "get_GatherTermination", "get_TickCount", "get_CallbackInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDigitsGatheredEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITCallInfo} 
@@ -83,8 +96,8 @@ class ITDigitsGatheredEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitsgatheredevent-get_digits
      */
     get_Digits() {
-        ppDigits := BSTR()
-        result := ComCall(8, this, "ptr", ppDigits, "HRESULT")
+        ppDigits := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, ppDigits, "HRESULT")
         return ppDigits
     }
 
@@ -118,5 +131,33 @@ class ITDigitsGatheredEvent extends IDispatch {
     get_CallbackInstance() {
         result := ComCall(11, this, "int*", &plCallbackInstance := 0, "HRESULT")
         return plCallbackInstance
+    }
+
+    Query(iid) {
+        if (ITDigitsGatheredEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Digits := CallbackCreate(GetMethod(implObj, "get_Digits"), flags, 2)
+        this.vtbl.get_GatherTermination := CallbackCreate(GetMethod(implObj, "get_GatherTermination"), flags, 2)
+        this.vtbl.get_TickCount := CallbackCreate(GetMethod(implObj, "get_TickCount"), flags, 2)
+        this.vtbl.get_CallbackInstance := CallbackCreate(GetMethod(implObj, "get_CallbackInstance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Call)
+        CallbackFree(this.vtbl.get_Digits)
+        CallbackFree(this.vtbl.get_GatherTermination)
+        CallbackFree(this.vtbl.get_TickCount)
+        CallbackFree(this.vtbl.get_CallbackInstance)
     }
 }

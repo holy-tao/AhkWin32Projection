@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\TASK_TRIGGER.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASK_TRIGGER.ahk" { TASK_TRIGGER }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods for accessing and setting triggers for a task. Triggers specify task start times, repetition criteria, and other parameters that control when a task is run.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itasktrigger
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskTrigger extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITaskTrigger extends IUnknown {
     /**
      * The interface identifier for ITaskTrigger
      * @type {Guid}
      */
-    static IID => Guid("{148bd52b-a2ab-11ce-b11f-00aa00530503}")
+    static IID := Guid("{148bd52b-a2ab-11ce-b11f-00aa00530503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskTrigger interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTrigger       : IntPtr
+        GetTrigger       : IntPtr
+        GetTriggerString : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTrigger", "GetTrigger", "GetTriggerString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskTrigger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetTrigger method sets the trigger criteria for a task trigger.
@@ -88,7 +99,7 @@ class ITaskTrigger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-settrigger
      */
     SetTrigger(pTrigger) {
-        result := ComCall(3, this, "ptr", pTrigger, "HRESULT")
+        result := ComCall(3, this, TASK_TRIGGER.Ptr, pTrigger, "HRESULT")
         return result
     }
 
@@ -103,7 +114,7 @@ class ITaskTrigger extends IUnknown {
      */
     GetTrigger() {
         pTrigger := TASK_TRIGGER()
-        result := ComCall(4, this, "ptr", pTrigger, "HRESULT")
+        result := ComCall(4, this, TASK_TRIGGER.Ptr, pTrigger, "HRESULT")
         return pTrigger
     }
 
@@ -114,7 +125,31 @@ class ITaskTrigger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-gettriggerstring
      */
     GetTriggerString() {
-        result := ComCall(5, this, "ptr*", &ppwszTrigger := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppwszTrigger := 0, "HRESULT")
         return ppwszTrigger
+    }
+
+    Query(iid) {
+        if (ITaskTrigger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTrigger := CallbackCreate(GetMethod(implObj, "SetTrigger"), flags, 2)
+        this.vtbl.GetTrigger := CallbackCreate(GetMethod(implObj, "GetTrigger"), flags, 2)
+        this.vtbl.GetTriggerString := CallbackCreate(GetMethod(implObj, "GetTriggerString"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTrigger)
+        CallbackFree(this.vtbl.GetTrigger)
+        CallbackFree(this.vtbl.GetTriggerString)
     }
 }

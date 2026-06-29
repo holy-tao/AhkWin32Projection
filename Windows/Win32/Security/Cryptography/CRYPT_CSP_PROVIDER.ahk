@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_CSP_PROVIDER extends Win32Struct {
-    static sizeof => 40
+export default struct CRYPT_CSP_PROVIDER {
+    #StructPack 8
 
-    static packingSize => 8
+    dwKeySpec : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKeySpec {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pwszProviderName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszProviderName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Signature : CRYPT_BIT_BLOB
 
-    /**
-     * @type {CRYPT_BIT_BLOB}
-     */
-    Signature {
-        get {
-            if(!this.HasProp("__Signature"))
-                this.__Signature := CRYPT_BIT_BLOB(16, this)
-            return this.__Signature
-        }
-    }
 }

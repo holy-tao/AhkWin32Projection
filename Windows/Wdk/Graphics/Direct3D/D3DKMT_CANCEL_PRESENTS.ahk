@@ -1,73 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_CANCEL_PRESENTS_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_CANCEL_PRESENTS_OPERATION.ahk" { D3DKMT_CANCEL_PRESENTS_OPERATION }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CANCEL_PRESENTS extends Win32Struct {
-    static sizeof => 48
+export default struct D3DKMT_CANCEL_PRESENTS {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Operation : D3DKMT_CANCEL_PRESENTS_OPERATION
 
-    /**
-     * @type {D3DKMT_CANCEL_PRESENTS_OPERATION}
-     */
-    Operation {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    CancelFromPresentId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CancelFromPresentId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CompSurfaceLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CompSurfaceLuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    BindId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BindId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

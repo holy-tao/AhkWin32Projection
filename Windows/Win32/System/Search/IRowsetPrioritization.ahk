@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PRIORITY_LEVEL.ahk" { PRIORITY_LEVEL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Sets or retrieves the current indexer prioritization level for the scope specified by this query.
@@ -18,26 +20,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-irowsetprioritization
  * @namespace Windows.Win32.System.Search
  */
-class IRowsetPrioritization extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRowsetPrioritization extends IUnknown {
     /**
      * The interface identifier for IRowsetPrioritization
      * @type {Guid}
      */
-    static IID => Guid("{42811652-079d-481b-87a2-09a69ecc5f44}")
+    static IID := Guid("{42811652-079d-481b-87a2-09a69ecc5f44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowsetPrioritization interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetScopePriority   : IntPtr
+        GetScopePriority   : IntPtr
+        GetScopeStatistics : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetScopePriority", "GetScopePriority", "GetScopeStatistics"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowsetPrioritization.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the current indexer prioritization level for the scope specified by this query.
@@ -55,7 +66,7 @@ class IRowsetPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-setscopepriority
      */
     SetScopePriority(_priority, scopeStatisticsEventFrequency) {
-        result := ComCall(3, this, "int", _priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
+        result := ComCall(3, this, PRIORITY_LEVEL, _priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
         return result
     }
 
@@ -111,5 +122,29 @@ class IRowsetPrioritization extends IUnknown {
 
         result := ComCall(5, this, indexedDocumentCountMarshal, indexedDocumentCount, oustandingAddCountMarshal, oustandingAddCount, oustandingModifyCountMarshal, oustandingModifyCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowsetPrioritization.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetScopePriority := CallbackCreate(GetMethod(implObj, "SetScopePriority"), flags, 3)
+        this.vtbl.GetScopePriority := CallbackCreate(GetMethod(implObj, "GetScopePriority"), flags, 3)
+        this.vtbl.GetScopeStatistics := CallbackCreate(GetMethod(implObj, "GetScopeStatistics"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetScopePriority)
+        CallbackFree(this.vtbl.GetScopePriority)
+        CallbackFree(this.vtbl.GetScopeStatistics)
     }
 }

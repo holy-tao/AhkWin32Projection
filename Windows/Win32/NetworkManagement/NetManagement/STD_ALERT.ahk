@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The STD_ALERT structure contains the time and date when a significant event occurred.
@@ -18,21 +18,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-std_alert
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class STD_ALERT extends Win32Struct {
-    static sizeof => 200
-
-    static packingSize => 4
+export default struct STD_ALERT {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The time and date of the event. This value is stored as the number of seconds that have elapsed since 00:00:00, January 1, 1970, GMT.
-     * @type {Integer}
      */
-    alrt_timestamp {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    alrt_timestamp : UInt32
 
     /**
      * Type: <b>WCHAR[EVLEN + 1]</b>
@@ -97,21 +91,14 @@ class STD_ALERT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {String}
      */
-    alrt_eventname {
-        get => StrGet(this.ptr + 4, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 16, "UTF-16")
-    }
+    alrt_eventname : WCHAR[17]
 
     /**
      * Type: <b>WCHAR[SNLEN + 1]</b>
      * 
      * A Unicode string indicating the service application that is raising the alert message.
-     * @type {String}
      */
-    alrt_servicename {
-        get => StrGet(this.ptr + 38, 80, "UTF-16")
-        set => StrPut(value, this.ptr + 38, 80, "UTF-16")
-    }
+    alrt_servicename : WCHAR[81]
+
 }

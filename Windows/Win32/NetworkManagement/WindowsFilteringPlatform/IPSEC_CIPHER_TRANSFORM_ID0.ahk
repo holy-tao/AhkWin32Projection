@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_CIPHER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_CIPHER_TYPE.ahk" { IPSEC_CIPHER_TYPE }
 
 /**
  * Specifies information used to uniquely identify the encryption algorithm used in an IPsec SA.
@@ -9,19 +8,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_cipher_transform_id0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_CIPHER_TRANSFORM_ID0 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IPSEC_CIPHER_TRANSFORM_ID0 {
+    #StructPack 4
 
     /**
      * The type of the encryption algorithm as specified by [IPSEC_CIPHER_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_cipher_type).
-     * @type {IPSEC_CIPHER_TYPE}
      */
-    cipherType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cipherType : IPSEC_CIPHER_TYPE
 
     /**
      * Additional configuration information for the encryption algorithm as specified by <b>IPSEC_CIPHER_CONFIG</b> which maps to a <b>UINT8</b>.
@@ -136,10 +129,7 @@ class IPSEC_CIPHER_TRANSFORM_ID0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    cipherConfig {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    cipherConfig : Int8
+
 }

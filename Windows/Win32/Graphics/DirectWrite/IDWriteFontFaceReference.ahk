@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFace3.ahk
-#Include .\IDWriteFontFile.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Represents a reference to a font face.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFaceReference extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFaceReference extends IUnknown {
     /**
      * The interface identifier for IDWriteFontFaceReference
      * @type {Guid}
      */
-    static IID => Guid("{5e7fa7ca-dde3-424c-89f0-9fcd6fed58cd}")
+    static IID := Guid("{5e7fa7ca-dde3-424c-89f0-9fcd6fed58cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFaceReference interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateFontFace                     : IntPtr
+        CreateFontFaceWithSimulations      : IntPtr
+        Equals                             : IntPtr
+        GetFontFaceIndex                   : IntPtr
+        GetSimulations                     : IntPtr
+        GetFontFile                        : IntPtr
+        GetLocalFileSize                   : IntPtr
+        GetFileSize                        : IntPtr
+        GetFileTime                        : IntPtr
+        GetLocality                        : IntPtr
+        EnqueueFontDownloadRequest         : IntPtr
+        EnqueueCharacterDownloadRequest    : IntPtr
+        EnqueueGlyphDownloadRequest        : IntPtr
+        EnqueueFileFragmentDownloadRequest : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFontFace", "CreateFontFaceWithSimulations", "Equals", "GetFontFaceIndex", "GetSimulations", "GetFontFile", "GetLocalFileSize", "GetFileSize", "GetFileTime", "GetLocality", "EnqueueFontDownloadRequest", "EnqueueCharacterDownloadRequest", "EnqueueGlyphDownloadRequest", "EnqueueFileFragmentDownloadRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFaceReference.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a font face from the reference for use with layout, shaping, or rendering.
@@ -59,7 +84,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontfacewithsimulations
      */
     CreateFontFaceWithSimulations(fontFaceSimulationFlags) {
-        result := ComCall(4, this, "int", fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(4, this, DWRITE_FONT_SIMULATIONS, fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace3(fontFace)
     }
 
@@ -69,7 +94,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @returns {BOOL} 
      */
     Equals(fontFaceReference) {
-        result := ComCall(5, this, "ptr", fontFaceReference, "int")
+        result := ComCall(5, this, "ptr", fontFaceReference, BOOL)
         return result
     }
 
@@ -82,7 +107,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getfontfaceindex
      */
     GetFontFaceIndex() {
-        result := ComCall(6, this, "uint")
+        result := ComCall(6, this, UInt32)
         return result
     }
 
@@ -94,7 +119,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getsimulations
      */
     GetSimulations() {
-        result := ComCall(7, this, "int")
+        result := ComCall(7, this, DWRITE_FONT_SIMULATIONS)
         return result
     }
 
@@ -118,7 +143,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocalfilesize
      */
     GetLocalFileSize() {
-        result := ComCall(9, this, "uint")
+        result := ComCall(9, this, Int64)
         return result
     }
 
@@ -130,7 +155,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getfilesize
      */
     GetFileSize() {
-        result := ComCall(10, this, "uint")
+        result := ComCall(10, this, Int64)
         return result
     }
 
@@ -143,7 +168,7 @@ class IDWriteFontFaceReference extends IUnknown {
      */
     GetFileTime() {
         lastWriteTime := FILETIME()
-        result := ComCall(11, this, "ptr", lastWriteTime, "HRESULT")
+        result := ComCall(11, this, FILETIME.Ptr, lastWriteTime, "HRESULT")
         return lastWriteTime
     }
 
@@ -161,7 +186,7 @@ class IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocality
      */
     GetLocality() {
-        result := ComCall(12, this, "int")
+        result := ComCall(12, this, DWRITE_LOCALITY)
         return result
     }
 
@@ -237,5 +262,51 @@ class IDWriteFontFaceReference extends IUnknown {
     EnqueueFileFragmentDownloadRequest(fileOffset, fragmentSize) {
         result := ComCall(16, this, "uint", fileOffset, "uint", fragmentSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontFaceReference.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
+        this.vtbl.CreateFontFaceWithSimulations := CallbackCreate(GetMethod(implObj, "CreateFontFaceWithSimulations"), flags, 3)
+        this.vtbl.Equals := CallbackCreate(GetMethod(implObj, "Equals"), flags, 2)
+        this.vtbl.GetFontFaceIndex := CallbackCreate(GetMethod(implObj, "GetFontFaceIndex"), flags, 1)
+        this.vtbl.GetSimulations := CallbackCreate(GetMethod(implObj, "GetSimulations"), flags, 1)
+        this.vtbl.GetFontFile := CallbackCreate(GetMethod(implObj, "GetFontFile"), flags, 2)
+        this.vtbl.GetLocalFileSize := CallbackCreate(GetMethod(implObj, "GetLocalFileSize"), flags, 1)
+        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 1)
+        this.vtbl.GetFileTime := CallbackCreate(GetMethod(implObj, "GetFileTime"), flags, 2)
+        this.vtbl.GetLocality := CallbackCreate(GetMethod(implObj, "GetLocality"), flags, 1)
+        this.vtbl.EnqueueFontDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueFontDownloadRequest"), flags, 1)
+        this.vtbl.EnqueueCharacterDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueCharacterDownloadRequest"), flags, 3)
+        this.vtbl.EnqueueGlyphDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueGlyphDownloadRequest"), flags, 3)
+        this.vtbl.EnqueueFileFragmentDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueFileFragmentDownloadRequest"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFontFace)
+        CallbackFree(this.vtbl.CreateFontFaceWithSimulations)
+        CallbackFree(this.vtbl.Equals)
+        CallbackFree(this.vtbl.GetFontFaceIndex)
+        CallbackFree(this.vtbl.GetSimulations)
+        CallbackFree(this.vtbl.GetFontFile)
+        CallbackFree(this.vtbl.GetLocalFileSize)
+        CallbackFree(this.vtbl.GetFileSize)
+        CallbackFree(this.vtbl.GetFileTime)
+        CallbackFree(this.vtbl.GetLocality)
+        CallbackFree(this.vtbl.EnqueueFontDownloadRequest)
+        CallbackFree(this.vtbl.EnqueueCharacterDownloadRequest)
+        CallbackFree(this.vtbl.EnqueueGlyphDownloadRequest)
+        CallbackFree(this.vtbl.EnqueueFileFragmentDownloadRequest)
     }
 }

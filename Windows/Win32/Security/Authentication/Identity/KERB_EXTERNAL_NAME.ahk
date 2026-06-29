@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about an external name.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_external_name
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_EXTERNAL_NAME extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct KERB_EXTERNAL_NAME {
+    #StructPack 8
 
     /**
      * Indicates the type of the names stored in this structure.
@@ -121,32 +119,18 @@ class KERB_EXTERNAL_NAME extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    NameType {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    NameType : Int16
 
     /**
      * Indicates the number of names stored in <b>Names</b>.
-     * @type {Integer}
      */
-    NameCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NameCount : UInt16
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRINGS</a> containing the names.
-     * @type {LSA_UNICODE_STRING}
      */
-    Names {
-        get {
-            if(!this.HasProp("__NamesProxyArray"))
-                this.__NamesProxyArray := Win32FixedArray(this.ptr + 8, 1, LSA_UNICODE_STRING, "")
-            return this.__NamesProxyArray
-        }
-    }
+    Names : LSA_UNICODE_STRING[1]
+
 }

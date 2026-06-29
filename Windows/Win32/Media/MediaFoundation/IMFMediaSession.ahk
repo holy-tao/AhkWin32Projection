@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEventGenerator.ahk
-#Include .\IMFClock.ahk
-#Include .\IMFTopology.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFClock.ahk" { IMFClock }
 
 /**
  * Provides playback controls for protected and unprotected content.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasession
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaSession extends IMFMediaEventGenerator {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaSession extends IMFMediaEventGenerator {
     /**
      * The interface identifier for IMFMediaSession
      * @type {Guid}
      */
-    static IID => Guid("{90377834-21d0-4dee-8214-ba2e3e6c1127}")
+    static IID := Guid("{90377834-21d0-4dee-8214-ba2e3e6c1127}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaSession interfaces
+    */
+    struct Vtbl extends IMFMediaEventGenerator.Vtbl {
+        SetTopology            : IntPtr
+        ClearTopologies        : IntPtr
+        Start                  : IntPtr
+        Pause                  : IntPtr
+        Stop                   : IntPtr
+        Close                  : IntPtr
+        Shutdown               : IntPtr
+        GetClock               : IntPtr
+        GetSessionCapabilities : IntPtr
+        GetFullTopology        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTopology", "ClearTopologies", "Start", "Pause", "Stop", "Close", "Shutdown", "GetClock", "GetSessionCapabilities", "GetFullTopology"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a topology on the Media Session.
@@ -307,7 +325,7 @@ class IMFMediaSession extends IMFMediaEventGenerator {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-start
      */
     Start(pguidTimeFormat, pvarStartPosition) {
-        result := ComCall(9, this, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pguidTimeFormat, PROPVARIANT.Ptr, pvarStartPosition, "HRESULT")
         return result
     }
 
@@ -630,5 +648,43 @@ class IMFMediaSession extends IMFMediaEventGenerator {
     GetFullTopology(dwGetFullTopologyFlags, TopoId) {
         result := ComCall(16, this, "uint", dwGetFullTopologyFlags, "uint", TopoId, "ptr*", &ppFullTopology := 0, "HRESULT")
         return IMFTopology(ppFullTopology)
+    }
+
+    Query(iid) {
+        if (IMFMediaSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTopology := CallbackCreate(GetMethod(implObj, "SetTopology"), flags, 3)
+        this.vtbl.ClearTopologies := CallbackCreate(GetMethod(implObj, "ClearTopologies"), flags, 1)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetClock := CallbackCreate(GetMethod(implObj, "GetClock"), flags, 2)
+        this.vtbl.GetSessionCapabilities := CallbackCreate(GetMethod(implObj, "GetSessionCapabilities"), flags, 2)
+        this.vtbl.GetFullTopology := CallbackCreate(GetMethod(implObj, "GetFullTopology"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTopology)
+        CallbackFree(this.vtbl.ClearTopologies)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Shutdown)
+        CallbackFree(this.vtbl.GetClock)
+        CallbackFree(this.vtbl.GetSessionCapabilities)
+        CallbackFree(this.vtbl.GetFullTopology)
     }
 }

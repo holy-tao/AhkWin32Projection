@@ -1,59 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _FHSS extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _FHSS {
+        uHopPattern : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        uHopPattern {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        uHopSet : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        uHopSet {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        uDwellTime : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        uDwellTime {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    uChCenterFrequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uChCenterFrequency : UInt32
 
-    /**
-     * @type {_FHSS}
-     */
-    FHSS {
-        get {
-            if(!this.HasProp("__FHSS"))
-                this.__FHSS := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO._FHSS(0, this)
-            return this.__FHSS
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'FHSS', { type: DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO._FHSS, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

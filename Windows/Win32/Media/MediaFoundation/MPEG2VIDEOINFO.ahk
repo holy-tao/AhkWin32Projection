@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEOINFOHEADER2.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
-#Include .\MPEG2VIDEOINFO_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MPEG2VIDEOINFO_FLAGS.ahk" { MPEG2VIDEOINFO_FLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\VIDEOINFOHEADER2.ahk" { VIDEOINFOHEADER2 }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The MPEG2VIDEOINFO structure describes an MPEG-2 video stream.
@@ -12,76 +11,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-mpeg2videoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MPEG2VIDEOINFO extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct MPEG2VIDEOINFO {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure.
-     * @type {VIDEOINFOHEADER2}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := VIDEOINFOHEADER2(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : VIDEOINFOHEADER2
 
     /**
      * 25-bit group-of-pictures (GOP) time code at start of data. This field is not used for DVD.
-     * @type {Integer}
      */
-    dwStartTimeCode {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    dwStartTimeCode : UInt32
 
     /**
      * Length of the sequence header, in bytes. For DVD, set this field to zero. The sequence header is given in the <b>dwSequenceHeader</b> field.
-     * @type {Integer}
      */
-    cbSequenceHeader {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    cbSequenceHeader : UInt32
 
     /**
      * Specifies the MPEG-2 profile as an <a href="https://docs.microsoft.com/windows/desktop/api/dvdmedia/ne-dvdmedia-am_mpeg2profile">AM_MPEG2Profile</a> enumeration type.
-     * @type {Integer}
      */
-    dwProfile {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dwProfile : UInt32
 
     /**
      * Specifies the MPEG-2 level as an <a href="https://docs.microsoft.com/windows/desktop/api/dvdmedia/ne-dvdmedia-am_mpeg2level">AM_MPEG2Level</a> enumeration type.
-     * @type {Integer}
      */
-    dwLevel {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    dwLevel : UInt32
 
-    /**
-     * @type {MPEG2VIDEOINFO_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwFlags : MPEG2VIDEOINFO_FLAGS
 
     /**
      * Start of an array that contains the sequence header, including quantization matrices and the sequence extension, if required. This field is typed as <b>DWORD</b> array to enforce 32-bit alignment. The size of the array, in bytes, is given in the <b>cbSequenceHeader</b> member.
-     * @type {Array<Integer>}
      */
-    dwSequenceHeader {
-        get {
-            if(!this.HasProp("__dwSequenceHeaderProxyArray"))
-                this.__dwSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "uint")
-            return this.__dwSequenceHeaderProxyArray
-        }
-    }
+    dwSequenceHeader : UInt32[1]
+
 }

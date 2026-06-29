@@ -1,36 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFSensorDevice.ahk
-#Include .\IMFMediaSource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSensorDevice.ahk" { IMFSensorDevice }
 
 /**
  * Represents a group of sensor devices from which an IMFMediaSource can be created.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensorgroup
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSensorGroup extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSensorGroup extends IUnknown {
     /**
      * The interface identifier for IMFSensorGroup
      * @type {Guid}
      */
-    static IID => Guid("{4110243a-9757-461f-89f1-f22345bcab4e}")
+    static IID := Guid("{4110243a-9757-461f-89f1-f22345bcab4e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSensorGroup interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSymbolicLink             : IntPtr
+        GetFlags                    : IntPtr
+        GetSensorGroupAttributes    : IntPtr
+        GetSensorDeviceCount        : IntPtr
+        GetSensorDevice             : IntPtr
+        SetDefaultSensorDeviceIndex : IntPtr
+        GetDefaultSensorDeviceIndex : IntPtr
+        CreateMediaSource           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSymbolicLink", "GetFlags", "GetSensorGroupAttributes", "GetSensorDeviceCount", "GetSensorDevice", "SetDefaultSensorDeviceIndex", "GetDefaultSensorDeviceIndex", "CreateMediaSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSensorGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the symbolic link name of the sensor group.
@@ -177,5 +193,39 @@ class IMFSensorGroup extends IUnknown {
     CreateMediaSource() {
         result := ComCall(10, this, "ptr*", &ppSource := 0, "HRESULT")
         return IMFMediaSource(ppSource)
+    }
+
+    Query(iid) {
+        if (IMFSensorGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSymbolicLink := CallbackCreate(GetMethod(implObj, "GetSymbolicLink"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetSensorGroupAttributes := CallbackCreate(GetMethod(implObj, "GetSensorGroupAttributes"), flags, 2)
+        this.vtbl.GetSensorDeviceCount := CallbackCreate(GetMethod(implObj, "GetSensorDeviceCount"), flags, 2)
+        this.vtbl.GetSensorDevice := CallbackCreate(GetMethod(implObj, "GetSensorDevice"), flags, 3)
+        this.vtbl.SetDefaultSensorDeviceIndex := CallbackCreate(GetMethod(implObj, "SetDefaultSensorDeviceIndex"), flags, 2)
+        this.vtbl.GetDefaultSensorDeviceIndex := CallbackCreate(GetMethod(implObj, "GetDefaultSensorDeviceIndex"), flags, 2)
+        this.vtbl.CreateMediaSource := CallbackCreate(GetMethod(implObj, "CreateMediaSource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSymbolicLink)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetSensorGroupAttributes)
+        CallbackFree(this.vtbl.GetSensorDeviceCount)
+        CallbackFree(this.vtbl.GetSensorDevice)
+        CallbackFree(this.vtbl.SetDefaultSensorDeviceIndex)
+        CallbackFree(this.vtbl.GetDefaultSensorDeviceIndex)
+        CallbackFree(this.vtbl.CreateMediaSource)
     }
 }

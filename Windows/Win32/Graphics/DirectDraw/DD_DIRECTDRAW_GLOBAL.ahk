@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
 
 /**
  * The DD_DIRECTDRAW_GLOBAL structure contains driver information that describes the driver's device.
@@ -11,46 +10,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_directdraw_global
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_DIRECTDRAW_GLOBAL extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DD_DIRECTDRAW_GLOBAL {
+    #StructPack 8
 
     /**
      * Handle to the driver's private <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a>.
-     * @type {Pointer<Void>}
      */
-    dhpdev {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dhpdev : IntPtr
 
     /**
      * Reserved for use by the display driver.
-     * @type {Pointer}
      */
-    dwReserved1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwReserved1 : IntPtr
 
     /**
      * Reserved for use by the display driver.
-     * @type {Pointer}
      */
-    dwReserved2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwReserved2 : IntPtr
 
     /**
      * Points to an array of one or more <a href="https://docs.microsoft.com/windows/desktop/api/dvp/ns-dvp-ddvideoportcaps">DDVIDEOPORTCAPS</a> structures in which the driver should describe the DirectDraw <a href="https://docs.microsoft.com/windows-hardware/drivers/">video port extensions (VPE)</a> objects that it supports. The structures are allocated by DirectDraw; the number of structures is based on the value returned in the <b>dwMaxVideoPort</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawi/ns-ddrawi-ddcorecaps">DDCORECAPS</a>.
      * 
      * This member is <b>NULL</b> when the driver does not implement the VPE.
-     * @type {Pointer<DDVIDEOPORTCAPS>}
      */
-    lpDDVideoPortCaps {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpDDVideoPortCaps : DDVIDEOPORTCAPS.Ptr
+
 }

@@ -1,68 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPTPARAM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OPTPARAM.ahk" { OPTPARAM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OPTCOMBO extends Win32Struct {
-    static sizeof => 32
+export default struct OPTCOMBO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    cListItem : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cListItem {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    pListItem : OPTPARAM.Ptr
 
-    /**
-     * @type {Pointer<OPTPARAM>}
-     */
-    pListItem {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Sel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Sel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    dwReserved : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

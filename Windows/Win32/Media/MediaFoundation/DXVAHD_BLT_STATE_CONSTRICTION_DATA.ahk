@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Specifies whether the output is downsampled in a blit operation, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -17,29 +17,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DXVAHD_BLT_STATE_CONSTRICTION_DATA {
+    #StructPack 4
 
     /**
      * If <b>TRUE</b>, downsampling is enabled<b></b>. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored. The default state value is <b>FALSE</b> (downsampling is disabled).
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * The sampling size. The default value is (1,1).
-     * @type {SIZE}
      */
-    Size {
-        get {
-            if(!this.HasProp("__Size"))
-                this.__Size := SIZE(4, this)
-            return this.__Size
-        }
-    }
+    Size : SIZE
+
 }

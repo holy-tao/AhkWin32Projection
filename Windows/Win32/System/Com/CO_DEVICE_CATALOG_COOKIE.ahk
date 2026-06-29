@@ -1,15 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\Apis.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\Apis.ahk" { CoRevokeDeviceCatalog }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class CO_DEVICE_CATALOG_COOKIE extends Win32Handle {
-    static sizeof => 8
+export default struct CO_DEVICE_CATALOG_COOKIE {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is CO_DEVICE_CATALOG_COOKIE) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -17,16 +24,40 @@ class CO_DEVICE_CATALOG_COOKIE extends Win32Handle {
      */
     static invalidValues => [-1, 0]
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := -1) {
+        this.Value := Value
     }
 
-    Free(){
-        Com.CoRevokeDeviceCatalog(this.Value)
+    Free() {
+        ; Do nothing if the handle is invalid already
+        if (this.Value != -1 && this.Value != 0) {
+            CoRevokeDeviceCatalog(this.Value)
+            this.Value := -1
+        }
+    }
+
+    /**
+     * A `CO_DEVICE_CATALOG_COOKIE` which is owned by the script and which frees itself
+     * in `__Delete`.
+     */
+    struct Owned extends CO_DEVICE_CATALOG_COOKIE {
+        __Delete() {
+            this.Free()
+        }
+    }
+
+    /**
+     * Takes ownership of this CO_DEVICE_CATALOG_COOKIE, returning an owned handle that frees
+     * itself when it falls out of scope. This is a *move*: the original handle is
+     * invalidated so the underlying resource has exactly one owner.
+     * @returns {CO_DEVICE_CATALOG_COOKIE.Owned}
+     */
+    Adopt() {
+        if (this is CO_DEVICE_CATALOG_COOKIE.Owned) {
+            throw TypeError("Cannot adopt an owned CO_DEVICE_CATALOG_COOKIE", -1)
+        }
+        owned := CO_DEVICE_CATALOG_COOKIE.Owned(this.Value)
         this.Value := -1
+        return owned
     }
 }

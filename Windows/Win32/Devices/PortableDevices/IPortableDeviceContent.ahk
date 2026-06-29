@@ -1,38 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumPortableDeviceObjectIDs.ahk
-#Include .\IPortableDeviceProperties.ahk
-#Include .\IPortableDeviceResources.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include .\IPortableDevicePropVariantCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceResources.ahk" { IPortableDeviceResources }
+#Import ".\IPortableDeviceProperties.ahk" { IPortableDeviceProperties }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumPortableDeviceObjectIDs.ahk" { IEnumPortableDeviceObjectIDs }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDeviceContent interface provides methods to create, enumerate, examine, and delete content on a device. To get this interface, call IPortableDevice::Content.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicecontent
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceContent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceContent extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceContent
      * @type {Guid}
      */
-    static IID => Guid("{6a96ed84-7c73-4480-9938-bf5af477d426}")
+    static IID := Guid("{6a96ed84-7c73-4480-9938-bf5af477d426}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceContent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumObjects                         : IntPtr
+        Properties                          : IntPtr
+        Transfer                            : IntPtr
+        CreateObjectWithPropertiesOnly      : IntPtr
+        CreateObjectWithPropertiesAndData   : IntPtr
+        Delete                              : IntPtr
+        GetObjectIDsFromPersistentUniqueIDs : IntPtr
+        Cancel                              : IntPtr
+        Move                                : IntPtr
+        Copy                                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumObjects", "Properties", "Transfer", "CreateObjectWithPropertiesOnly", "CreateObjectWithPropertiesAndData", "Delete", "GetObjectIDsFromPersistentUniqueIDs", "Cancel", "Move", "Copy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceContent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The EnumObjects method retrieves an interface that is used to enumerate the immediate child objects of an object. It has an optional filter that can enumerate objects with specific properties.
@@ -262,7 +281,7 @@ class IPortableDeviceContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-delete
      */
     Delete(dwOptions, pObjectIDs, ppResults) {
-        result := ComCall(8, this, "uint", dwOptions, "ptr", pObjectIDs, "ptr*", ppResults, "HRESULT")
+        result := ComCall(8, this, "uint", dwOptions, "ptr", pObjectIDs, IPortableDevicePropVariantCollection.Ptr, ppResults, "HRESULT")
         return result
     }
 
@@ -378,7 +397,7 @@ class IPortableDeviceContent extends IUnknown {
     Move(pObjectIDs, pszDestinationFolderObjectID, ppResults) {
         pszDestinationFolderObjectID := pszDestinationFolderObjectID is String ? StrPtr(pszDestinationFolderObjectID) : pszDestinationFolderObjectID
 
-        result := ComCall(11, this, "ptr", pObjectIDs, "ptr", pszDestinationFolderObjectID, "ptr*", ppResults, "HRESULT")
+        result := ComCall(11, this, "ptr", pObjectIDs, "ptr", pszDestinationFolderObjectID, IPortableDevicePropVariantCollection.Ptr, ppResults, "HRESULT")
         return result
     }
 
@@ -436,7 +455,45 @@ class IPortableDeviceContent extends IUnknown {
     Copy(pObjectIDs, pszDestinationFolderObjectID, ppResults) {
         pszDestinationFolderObjectID := pszDestinationFolderObjectID is String ? StrPtr(pszDestinationFolderObjectID) : pszDestinationFolderObjectID
 
-        result := ComCall(12, this, "ptr", pObjectIDs, "ptr", pszDestinationFolderObjectID, "ptr*", ppResults, "HRESULT")
+        result := ComCall(12, this, "ptr", pObjectIDs, "ptr", pszDestinationFolderObjectID, IPortableDevicePropVariantCollection.Ptr, ppResults, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceContent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 5)
+        this.vtbl.Properties := CallbackCreate(GetMethod(implObj, "Properties"), flags, 2)
+        this.vtbl.Transfer := CallbackCreate(GetMethod(implObj, "Transfer"), flags, 2)
+        this.vtbl.CreateObjectWithPropertiesOnly := CallbackCreate(GetMethod(implObj, "CreateObjectWithPropertiesOnly"), flags, 3)
+        this.vtbl.CreateObjectWithPropertiesAndData := CallbackCreate(GetMethod(implObj, "CreateObjectWithPropertiesAndData"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 4)
+        this.vtbl.GetObjectIDsFromPersistentUniqueIDs := CallbackCreate(GetMethod(implObj, "GetObjectIDsFromPersistentUniqueIDs"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumObjects)
+        CallbackFree(this.vtbl.Properties)
+        CallbackFree(this.vtbl.Transfer)
+        CallbackFree(this.vtbl.CreateObjectWithPropertiesOnly)
+        CallbackFree(this.vtbl.CreateObjectWithPropertiesAndData)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetObjectIDsFromPersistentUniqueIDs)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Copy)
     }
 }

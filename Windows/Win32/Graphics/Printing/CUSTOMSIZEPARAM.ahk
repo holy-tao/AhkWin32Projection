@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class CUSTOMSIZEPARAM extends Win32Struct {
-    static sizeof => 12
+export default struct CUSTOMSIZEPARAM {
+    #StructPack 4
 
-    static packingSize => 4
+    dwOrder : Int32
 
-    /**
-     * @type {Integer}
-     */
-    dwOrder {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lMinVal : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lMinVal {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lMaxVal : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lMaxVal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FD_GLYPHATTR structure is used to specify the return value for the FONTOBJ_pQueryGlyphAttrs and DrvQueryGlyphAttrs functions.
@@ -14,28 +13,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_glyphattr
  * @namespace Windows.Win32.Devices.Display
  */
-class FD_GLYPHATTR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct FD_GLYPHATTR {
+    #StructPack 4
 
     /**
      * Is the size in bytes of the FD_GLYPHATTR structure, including the array specified by the <b>aGlyphAttr</b> member.
-     * @type {Integer}
      */
-    cjThis {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cjThis : UInt32
 
     /**
      * Specifies the number of glyphs in the font.
-     * @type {Integer}
      */
-    cGlyphs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cGlyphs : UInt32
 
     /**
      * Is a flag indicating the type of information being returned. The following flag is defined:
@@ -56,22 +45,12 @@ class FD_GLYPHATTR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iMode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    iMode : UInt32
 
     /**
      * Is an array supplying the information specified by <b>iMode</b>. The size of this array is (<b>cGlyphs</b>+7) / 8 bytes.
-     * @type {Array<Integer>}
      */
-    aGlyphAttr {
-        get {
-            if(!this.HasProp("__aGlyphAttrProxyArray"))
-                this.__aGlyphAttrProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__aGlyphAttrProxyArray
-        }
-    }
+    aGlyphAttr : Int8[1]
+
 }

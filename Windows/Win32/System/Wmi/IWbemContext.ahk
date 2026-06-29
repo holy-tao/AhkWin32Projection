@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemContext interface is optionally used to communicate additional context information to providers when submitting IWbemServices calls to WMI. All primary calls in IWbemServices take an optional parameter pointing to an object of this type.
@@ -45,32 +48,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemcontext
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemContext extends IUnknown {
     /**
      * The interface identifier for IWbemContext
      * @type {Guid}
      */
-    static IID => Guid("{44aca674-e8fc-11d0-a07c-00c04fb68820}")
+    static IID := Guid("{44aca674-e8fc-11d0-a07c-00c04fb68820}")
 
     /**
      * The class identifier for WbemContext
      * @type {Guid}
      */
-    static CLSID => Guid("{674b6698-ee92-11d0-ad71-00c04fd8fdff}")
+    static CLSID := Guid("{674b6698-ee92-11d0-ad71-00c04fd8fdff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Clone            : IntPtr
+        GetNames         : IntPtr
+        BeginEnumeration : IntPtr
+        Next             : IntPtr
+        EndEnumeration   : IntPtr
+        SetValue         : IntPtr
+        GetValue         : IntPtr
+        DeleteValue      : IntPtr
+        DeleteAll        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clone", "GetNames", "BeginEnumeration", "Next", "EndEnumeration", "SetValue", "GetValue", "DeleteValue", "DeleteAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemContext::Clone method makes a logical copy of the current IWbemContext object. This method can be useful when many calls must be made which have largely identical IWbemContext objects.
@@ -130,7 +148,7 @@ class IWbemContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-next
      */
     Next(lFlags, pstrName, pValue) {
-        result := ComCall(6, this, "int", lFlags, "ptr", pstrName, "ptr", pValue, "HRESULT")
+        result := ComCall(6, this, "int", lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -160,7 +178,7 @@ class IWbemContext extends IUnknown {
     SetValue(wszName, lFlags, pValue) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(8, this, "ptr", wszName, "int", lFlags, "ptr", pValue, "HRESULT")
+        result := ComCall(8, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -179,7 +197,7 @@ class IWbemContext extends IUnknown {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
         pValue := VARIANT()
-        result := ComCall(9, this, "ptr", wszName, "int", lFlags, "ptr", pValue, "HRESULT")
+        result := ComCall(9, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -205,5 +223,41 @@ class IWbemContext extends IUnknown {
     DeleteAll() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 3)
+        this.vtbl.BeginEnumeration := CallbackCreate(GetMethod(implObj, "BeginEnumeration"), flags, 2)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 1)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.DeleteValue := CallbackCreate(GetMethod(implObj, "DeleteValue"), flags, 3)
+        this.vtbl.DeleteAll := CallbackCreate(GetMethod(implObj, "DeleteAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetNames)
+        CallbackFree(this.vtbl.BeginEnumeration)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.EndEnumeration)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.DeleteValue)
+        CallbackFree(this.vtbl.DeleteAll)
     }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextRange.ahk" { ITextRange }
 
 /**
  * A text selection is a text range with selection highlighting.
@@ -76,26 +79,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextselection
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextSelection extends ITextRange {
-
-    static sizeof => A_PtrSize
+export default struct ITextSelection extends ITextRange {
     /**
      * The interface identifier for ITextSelection
      * @type {Guid}
      */
-    static IID => Guid("{8cc497c1-a1df-11ce-8098-00aa0047be5d}")
+    static IID := Guid("{8cc497c1-a1df-11ce-8098-00aa0047be5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 58
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextSelection interfaces
+    */
+    struct Vtbl extends ITextRange.Vtbl {
+        GetFlags  : IntPtr
+        SetFlags  : IntPtr
+        GetType   : IntPtr
+        MoveLeft  : IntPtr
+        MoveRight : IntPtr
+        MoveUp    : IntPtr
+        MoveDown  : IntPtr
+        HomeKey   : IntPtr
+        EndKey    : IntPtr
+        TypeText  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFlags", "SetFlags", "GetType", "MoveLeft", "MoveRight", "MoveUp", "MoveDown", "HomeKey", "EndKey", "TypeText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextSelection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the text selection flags.
@@ -618,7 +637,7 @@ class ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-homekey
      */
     HomeKey(_Unit, Extend) {
-        result := ComCall(65, this, "int", _Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(65, this, tomConstants, _Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -774,7 +793,45 @@ class ITextSelection extends ITextRange {
     TypeText(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(67, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(67, this, BSTR, _bstr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextSelection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.MoveLeft := CallbackCreate(GetMethod(implObj, "MoveLeft"), flags, 5)
+        this.vtbl.MoveRight := CallbackCreate(GetMethod(implObj, "MoveRight"), flags, 5)
+        this.vtbl.MoveUp := CallbackCreate(GetMethod(implObj, "MoveUp"), flags, 5)
+        this.vtbl.MoveDown := CallbackCreate(GetMethod(implObj, "MoveDown"), flags, 5)
+        this.vtbl.HomeKey := CallbackCreate(GetMethod(implObj, "HomeKey"), flags, 4)
+        this.vtbl.EndKey := CallbackCreate(GetMethod(implObj, "EndKey"), flags, 4)
+        this.vtbl.TypeText := CallbackCreate(GetMethod(implObj, "TypeText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.MoveLeft)
+        CallbackFree(this.vtbl.MoveRight)
+        CallbackFree(this.vtbl.MoveUp)
+        CallbackFree(this.vtbl.MoveDown)
+        CallbackFree(this.vtbl.HomeKey)
+        CallbackFree(this.vtbl.EndKey)
+        CallbackFree(this.vtbl.TypeText)
     }
 }

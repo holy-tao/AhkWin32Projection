@@ -1,63 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct {
-    static sizeof => 28
+export default struct NDIS_IPSEC_OFFLOAD_V1 {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Supported extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _Supported {
+        Encapsulation : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        AhEspCombined : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AhEspCombined {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        TransportTunnelCombined : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        TransportTunnelCombined {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        IPv4Options : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        IPv4Options {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        Flags : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Flags {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
     }
 
-    class _IPv4AH extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _IPv4AH {
         /**
          * This bitfield backs the following members:
          * - Md5
@@ -66,12 +29,9 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct {
          * - Tunnel
          * - Send
          * - Receive
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -122,10 +82,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct {
         }
     }
 
-    class _IPv4ESP extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _IPv4ESP {
         /**
          * This bitfield backs the following members:
          * - Des
@@ -136,12 +93,9 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct {
          * - Tunnel
          * - Send
          * - Receive
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -200,36 +154,10 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Supported}
-     */
-    Supported {
-        get {
-            if(!this.HasProp("__Supported"))
-                this.__Supported := NDIS_IPSEC_OFFLOAD_V1._Supported(0, this)
-            return this.__Supported
-        }
-    }
+    Supported : NDIS_IPSEC_OFFLOAD_V1._Supported
 
-    /**
-     * @type {_IPv4AH}
-     */
-    IPv4AH {
-        get {
-            if(!this.HasProp("__IPv4AH"))
-                this.__IPv4AH := NDIS_IPSEC_OFFLOAD_V1._IPv4AH(20, this)
-            return this.__IPv4AH
-        }
-    }
+    IPv4AH : NDIS_IPSEC_OFFLOAD_V1._IPv4AH
 
-    /**
-     * @type {_IPv4ESP}
-     */
-    IPv4ESP {
-        get {
-            if(!this.HasProp("__IPv4ESP"))
-                this.__IPv4ESP := NDIS_IPSEC_OFFLOAD_V1._IPv4ESP(24, this)
-            return this.__IPv4ESP
-        }
-    }
+    IPv4ESP : NDIS_IPSEC_OFFLOAD_V1._IPv4ESP
+
 }

@@ -1,79 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_MATRIX structure specifies the graphics transform to be applied to rendered glyphs.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_MATRIX extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct DWRITE_MATRIX {
+    #StructPack 4
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value indicating the horizontal scaling / cosine of rotation.
-     * @type {Float}
      */
-    m11 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    m11 : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value indicating the vertical shear / sine of rotation.
-     * @type {Float}
      */
-    m12 {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    m12 : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value indicating the horizontal shear / negative sine of rotation.
-     * @type {Float}
      */
-    m21 {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    m21 : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value indicating the vertical scaling / cosine of rotation.
-     * @type {Float}
      */
-    m22 {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    m22 : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value indicating the horizontal shift (always orthogonal regardless of rotation).
-     * @type {Float}
      */
-    dx {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    dx : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value indicating the vertical shift (always orthogonal regardless of rotation.)
-     * @type {Float}
      */
-    dy {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    dy : Float32
+
 }

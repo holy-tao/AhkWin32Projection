@@ -1,124 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_RECOVERY_CONTEXT_ERROR_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WHEA_RECOVERY_CONTEXT_ERROR_TYPE.ahk" { WHEA_RECOVERY_CONTEXT_ERROR_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_RECOVERY_CONTEXT extends Win32Struct {
-    static sizeof => 32
+export default struct WHEA_RECOVERY_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _MemoryError extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _MemoryError {
+        Address : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        Address {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        Consumed : BOOLEAN
 
-        /**
-         * @type {BOOLEAN}
-         */
-        Consumed {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
-        }
+        ErrorCode : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        ErrorCode {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
+        ErrorIpValid : BOOLEAN
 
-        /**
-         * @type {BOOLEAN}
-         */
-        ErrorIpValid {
-            get => NumGet(this, 12, "char")
-            set => NumPut("char", value, this, 12)
-        }
+        RestartIpValid : BOOLEAN
 
-        /**
-         * @type {BOOLEAN}
-         */
-        RestartIpValid {
-            get => NumGet(this, 13, "char")
-            set => NumPut("char", value, this, 13)
-        }
+        ClearPoison : BOOLEAN
 
-        /**
-         * @type {BOOLEAN}
-         */
-        ClearPoison {
-            get => NumGet(this, 14, "char")
-            set => NumPut("char", value, this, 14)
-        }
     }
 
-    class _PmemError extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _PmemError {
+        PmemErrInfo : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        PmemErrInfo {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
-    /**
-     * @type {_MemoryError}
-     */
-    MemoryError {
-        get {
-            if(!this.HasProp("__MemoryError"))
-                this.__MemoryError := WHEA_RECOVERY_CONTEXT._MemoryError(0, this)
-            return this.__MemoryError
-        }
-    }
+    MemoryError : WHEA_RECOVERY_CONTEXT._MemoryError
 
-    /**
-     * @type {_PmemError}
-     */
-    PmemError {
-        get {
-            if(!this.HasProp("__PmemError"))
-                this.__PmemError := WHEA_RECOVERY_CONTEXT._PmemError(0, this)
-            return this.__PmemError
-        }
-    }
+    PartitionId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PartitionId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    VpIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VpIndex {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ErrorType : WHEA_RECOVERY_CONTEXT_ERROR_TYPE
 
-    /**
-     * @type {WHEA_RECOVERY_CONTEXT_ERROR_TYPE}
-     */
-    ErrorType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    static __New() {
+        DefineProp(this.Prototype, 'PmemError', { type: WHEA_RECOVERY_CONTEXT._PmemError, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

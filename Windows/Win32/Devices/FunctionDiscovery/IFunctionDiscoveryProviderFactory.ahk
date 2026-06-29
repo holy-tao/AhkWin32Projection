@@ -1,36 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\IFunctionInstance.ahk
-#Include .\IFunctionInstanceCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFunctionDiscoveryProvider.ahk" { IFunctionDiscoveryProvider }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
 
 /**
  * Provides factory methods to create Function Discovery objects.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IFunctionDiscoveryProviderFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFunctionDiscoveryProviderFactory extends IUnknown {
     /**
      * The interface identifier for IFunctionDiscoveryProviderFactory
      * @type {Guid}
      */
-    static IID => Guid("{86443ff0-1ad5-4e68-a45a-40c2c329de3b}")
+    static IID := Guid("{86443ff0-1ad5-4e68-a45a-40c2c329de3b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFunctionDiscoveryProviderFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePropertyStore              : IntPtr
+        CreateInstance                   : IntPtr
+        CreateFunctionInstanceCollection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePropertyStore", "CreateInstance", "CreateFunctionInstanceCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFunctionDiscoveryProviderFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables providers to reuse the in-memory property store implementation.
@@ -89,5 +101,29 @@ class IFunctionDiscoveryProviderFactory extends IUnknown {
     CreateFunctionInstanceCollection() {
         result := ComCall(5, this, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")
         return IFunctionInstanceCollection(ppIFunctionInstanceCollection)
+    }
+
+    Query(iid) {
+        if (IFunctionDiscoveryProviderFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePropertyStore := CallbackCreate(GetMethod(implObj, "CreatePropertyStore"), flags, 2)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 7)
+        this.vtbl.CreateFunctionInstanceCollection := CallbackCreate(GetMethod(implObj, "CreateFunctionInstanceCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePropertyStore)
+        CallbackFree(this.vtbl.CreateInstance)
+        CallbackFree(this.vtbl.CreateFunctionInstanceCollection)
     }
 }

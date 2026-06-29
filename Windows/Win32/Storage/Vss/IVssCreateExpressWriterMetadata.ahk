@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
 
 /**
  * The IVssCreateExpressWriterMetadata interface is a COM interface containing methods to construct the Writer Metadata Document for an express writer.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscreateexpresswritermetadata
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssCreateExpressWriterMetadata extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssCreateExpressWriterMetadata extends IUnknown {
     /**
      * The interface identifier for IVssCreateExpressWriterMetadata
      * @type {Guid}
      */
-    static IID => Guid("{9c772e77-b26e-427f-92dd-c996f41ea5e3}")
+    static IID := Guid("{9c772e77-b26e-427f-92dd-c996f41ea5e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssCreateExpressWriterMetadata interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddExcludeFiles        : IntPtr
+        AddComponent           : IntPtr
+        AddFilesToFileGroup    : IntPtr
+        SetRestoreMethod       : IntPtr
+        AddComponentDependency : IntPtr
+        SetBackupSchema        : IntPtr
+        SaveAsXML              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddExcludeFiles", "AddComponent", "AddFilesToFileGroup", "SetRestoreMethod", "AddComponentDependency", "SetBackupSchema", "SaveAsXML"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssCreateExpressWriterMetadata.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Excludes a file set (a specified file or files) that might otherwise be implicitly included when a component of an express writer is backed up.
@@ -287,7 +305,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown {
 
         pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "int", ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
+        result := ComCall(4, this, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
         return result
     }
 
@@ -519,7 +537,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown {
         wszService := wszService is String ? StrPtr(wszService) : wszService
         wszUserProcedure := wszUserProcedure is String ? StrPtr(wszUserProcedure) : wszUserProcedure
 
-        result := ComCall(6, this, "int", method, "ptr", wszService, "ptr", wszUserProcedure, "int", writerRestore, "char", bRebootRequired, "HRESULT")
+        result := ComCall(6, this, VSS_RESTOREMETHOD_ENUM, method, "ptr", wszService, "ptr", wszUserProcedure, VSS_WRITERRESTORE_ENUM, writerRestore, "char", bRebootRequired, "HRESULT")
         return result
     }
 
@@ -617,7 +635,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown {
         wszOnLogicalPath := wszOnLogicalPath is String ? StrPtr(wszOnLogicalPath) : wszOnLogicalPath
         wszOnComponentName := wszOnComponentName is String ? StrPtr(wszOnComponentName) : wszOnComponentName
 
-        result := ComCall(7, this, "ptr", wszForLogicalPath, "ptr", wszForComponentName, "ptr", onWriterId, "ptr", wszOnLogicalPath, "ptr", wszOnComponentName, "HRESULT")
+        result := ComCall(7, this, "ptr", wszForLogicalPath, "ptr", wszForComponentName, Guid, onWriterId, "ptr", wszOnLogicalPath, "ptr", wszOnComponentName, "HRESULT")
         return result
     }
 
@@ -698,8 +716,40 @@ class IVssCreateExpressWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-saveasxml
      */
     SaveAsXML() {
-        pbstrXML := BSTR()
-        result := ComCall(9, this, "ptr", pbstrXML, "HRESULT")
+        pbstrXML := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrXML, "HRESULT")
         return pbstrXML
+    }
+
+    Query(iid) {
+        if (IVssCreateExpressWriterMetadata.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddExcludeFiles := CallbackCreate(GetMethod(implObj, "AddExcludeFiles"), flags, 4)
+        this.vtbl.AddComponent := CallbackCreate(GetMethod(implObj, "AddComponent"), flags, 12)
+        this.vtbl.AddFilesToFileGroup := CallbackCreate(GetMethod(implObj, "AddFilesToFileGroup"), flags, 8)
+        this.vtbl.SetRestoreMethod := CallbackCreate(GetMethod(implObj, "SetRestoreMethod"), flags, 6)
+        this.vtbl.AddComponentDependency := CallbackCreate(GetMethod(implObj, "AddComponentDependency"), flags, 6)
+        this.vtbl.SetBackupSchema := CallbackCreate(GetMethod(implObj, "SetBackupSchema"), flags, 2)
+        this.vtbl.SaveAsXML := CallbackCreate(GetMethod(implObj, "SaveAsXML"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddExcludeFiles)
+        CallbackFree(this.vtbl.AddComponent)
+        CallbackFree(this.vtbl.AddFilesToFileGroup)
+        CallbackFree(this.vtbl.SetRestoreMethod)
+        CallbackFree(this.vtbl.AddComponentDependency)
+        CallbackFree(this.vtbl.SetBackupSchema)
+        CallbackFree(this.vtbl.SaveAsXML)
     }
 }

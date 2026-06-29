@@ -1,81 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\PROFILER_RELATIONSHIP_INFO.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\PROFILER_PROPERTY_TYPE_SUBSTRING_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROFILER_PROPERTY_TYPE_SUBSTRING_INFO.ahk" { PROFILER_PROPERTY_TYPE_SUBSTRING_INFO }
+#Import ".\PROFILER_RELATIONSHIP_INFO.ahk" { PROFILER_RELATIONSHIP_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct {
-    static sizeof => 16
+export default struct PROFILER_HEAP_OBJECT_RELATIONSHIP {
+    #StructPack 8
 
-    static packingSize => 8
+    relationshipId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    relationshipId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    relationshipInfo : PROFILER_RELATIONSHIP_INFO
 
-    /**
-     * @type {PROFILER_RELATIONSHIP_INFO}
-     */
-    relationshipInfo {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    numberValue : Float64
 
-    /**
-     * @type {Float}
-     */
-    numberValue {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    stringValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {BSTR}
-     */
-    bstrValue {
-        get {
-            if(!this.HasProp("__bstrValue"))
-                this.__bstrValue := BSTR(8, this)
-            return this.__bstrValue
-        }
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    objectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    externalObjectAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_PROPERTY_TYPE_SUBSTRING_INFO>}
-     */
-    subString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'stringValue', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'bstrValue', { type: BSTR, offset: 8 })
+        DefineProp(this.Prototype, 'objectId', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'externalObjectAddress', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'subString', { type: PROFILER_PROPERTY_TYPE_SUBSTRING_INFO.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

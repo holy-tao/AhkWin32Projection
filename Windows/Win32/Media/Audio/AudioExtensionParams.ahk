@@ -1,50 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMMDevice.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IMMDevice.ahk" { IMMDevice }
 
 /**
  * This structure is passed to the Control Panel Endpoint Extension property page through IShellPropSheetExt::AddPages and is used to create endpoint PropertyPages.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ns-mmdeviceapi-audioextensionparams
  * @namespace Windows.Win32.Media.Audio
  */
-class AudioExtensionParams extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct AudioExtensionParams {
+    #StructPack 8
 
     /**
      * The add page param.
-     * @type {LPARAM}
      */
-    AddPageParam {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AddPageParam : LPARAM
 
     /**
      * Pointer to the end point.
-     * @type {IMMDevice}
      */
-    pEndpoint {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pEndpoint : IMMDevice
 
     /**
      * Pointer to the Pnp interface.
-     * @type {IMMDevice}
      */
-    pPnpInterface {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pPnpInterface : IMMDevice
 
     /**
      * Pointer to the Pnp devnode.
-     * @type {IMMDevice}
      */
-    pPnpDevnode {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pPnpDevnode : IMMDevice
+
 }

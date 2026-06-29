@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IFilterGraph.ahk" { IFilterGraph }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\IESEvents.ahk" { IESEvents }
+#Import ".\IESEventService.ahk" { IESEventService }
 
 /**
  * Contains methods that configure an event service that implements the IESEventService interface.
@@ -10,26 +14,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ieseventserviceconfiguration
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IESEventServiceConfiguration extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IESEventServiceConfiguration extends IUnknown {
     /**
      * The interface identifier for IESEventServiceConfiguration
      * @type {Guid}
      */
-    static IID => Guid("{33b9daae-9309-491d-a051-bcad2a70cd66}")
+    static IID := Guid("{33b9daae-9309-491d-a051-bcad2a70cd66}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IESEventServiceConfiguration interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetParent    : IntPtr
+        RemoveParent : IntPtr
+        SetOwner     : IntPtr
+        RemoveOwner  : IntPtr
+        SetGraph     : IntPtr
+        RemoveGraph  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetParent", "RemoveParent", "SetOwner", "RemoveOwner", "SetGraph", "RemoveGraph"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IESEventServiceConfiguration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a parent event service for an event service that implements the IESEventService interface. Once an event service has set a parent, it can receive advise events from the parent.
@@ -93,5 +109,35 @@ class IESEventServiceConfiguration extends IUnknown {
     RemoveGraph(pGraph) {
         result := ComCall(8, this, "ptr", pGraph, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IESEventServiceConfiguration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetParent := CallbackCreate(GetMethod(implObj, "SetParent"), flags, 2)
+        this.vtbl.RemoveParent := CallbackCreate(GetMethod(implObj, "RemoveParent"), flags, 1)
+        this.vtbl.SetOwner := CallbackCreate(GetMethod(implObj, "SetOwner"), flags, 2)
+        this.vtbl.RemoveOwner := CallbackCreate(GetMethod(implObj, "RemoveOwner"), flags, 1)
+        this.vtbl.SetGraph := CallbackCreate(GetMethod(implObj, "SetGraph"), flags, 2)
+        this.vtbl.RemoveGraph := CallbackCreate(GetMethod(implObj, "RemoveGraph"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetParent)
+        CallbackFree(this.vtbl.RemoveParent)
+        CallbackFree(this.vtbl.SetOwner)
+        CallbackFree(this.vtbl.RemoveOwner)
+        CallbackFree(this.vtbl.SetGraph)
+        CallbackFree(this.vtbl.RemoveGraph)
     }
 }

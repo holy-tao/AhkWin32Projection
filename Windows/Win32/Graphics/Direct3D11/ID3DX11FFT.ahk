@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
 
 /**
  * Encapsulates forward and inverse FFTs.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nn-d3dcsx-id3dx11fft
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3DX11FFT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3DX11FFT extends IUnknown {
     /**
      * The interface identifier for ID3DX11FFT
      * @type {Guid}
      */
-    static IID => Guid("{b3f7a938-4c93-4310-a675-b30d6de50553}")
+    static IID := Guid("{b3f7a938-4c93-4310-a675-b30d6de50553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3DX11FFT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetForwardScale            : IntPtr
+        GetForwardScale            : IntPtr
+        SetInverseScale            : IntPtr
+        GetInverseScale            : IntPtr
+        AttachBuffersAndPrecompute : IntPtr
+        ForwardTransform           : IntPtr
+        InverseTransform           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetForwardScale", "GetForwardScale", "SetInverseScale", "GetInverseScale", "AttachBuffersAndPrecompute", "ForwardTransform", "InverseTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3DX11FFT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the scale used for forward transforms.
@@ -54,7 +69,7 @@ class ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-getforwardscale
      */
     GetForwardScale() {
-        result := ComCall(4, this, "float")
+        result := ComCall(4, this, Float32)
         return result
     }
 
@@ -84,7 +99,7 @@ class ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-getinversescale
      */
     GetInverseScale() {
-        result := ComCall(6, this, "float")
+        result := ComCall(6, this, Float32)
         return result
     }
 
@@ -118,7 +133,7 @@ class ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute
      */
     AttachBuffersAndPrecompute(NumTempBuffers, ppTempBuffers, NumPrecomputeBuffers, ppPrecomputeBufferSizes) {
-        result := ComCall(7, this, "uint", NumTempBuffers, "ptr*", ppTempBuffers, "uint", NumPrecomputeBuffers, "ptr*", ppPrecomputeBufferSizes, "HRESULT")
+        result := ComCall(7, this, "uint", NumTempBuffers, ID3D11UnorderedAccessView.Ptr, ppTempBuffers, "uint", NumPrecomputeBuffers, ID3D11UnorderedAccessView.Ptr, ppPrecomputeBufferSizes, "HRESULT")
         return result
     }
 
@@ -143,7 +158,7 @@ class ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-forwardtransform
      */
     ForwardTransform(pInputBuffer, ppOutputBuffer) {
-        result := ComCall(8, this, "ptr", pInputBuffer, "ptr*", ppOutputBuffer, "HRESULT")
+        result := ComCall(8, this, "ptr", pInputBuffer, ID3D11UnorderedAccessView.Ptr, ppOutputBuffer, "HRESULT")
         return result
     }
 
@@ -163,7 +178,39 @@ class ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-inversetransform
      */
     InverseTransform(pInputBuffer, ppOutputBuffer) {
-        result := ComCall(9, this, "ptr", pInputBuffer, "ptr*", ppOutputBuffer, "HRESULT")
+        result := ComCall(9, this, "ptr", pInputBuffer, ID3D11UnorderedAccessView.Ptr, ppOutputBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3DX11FFT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetForwardScale := CallbackCreate(GetMethod(implObj, "SetForwardScale"), flags, 2)
+        this.vtbl.GetForwardScale := CallbackCreate(GetMethod(implObj, "GetForwardScale"), flags, 1)
+        this.vtbl.SetInverseScale := CallbackCreate(GetMethod(implObj, "SetInverseScale"), flags, 2)
+        this.vtbl.GetInverseScale := CallbackCreate(GetMethod(implObj, "GetInverseScale"), flags, 1)
+        this.vtbl.AttachBuffersAndPrecompute := CallbackCreate(GetMethod(implObj, "AttachBuffersAndPrecompute"), flags, 5)
+        this.vtbl.ForwardTransform := CallbackCreate(GetMethod(implObj, "ForwardTransform"), flags, 3)
+        this.vtbl.InverseTransform := CallbackCreate(GetMethod(implObj, "InverseTransform"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetForwardScale)
+        CallbackFree(this.vtbl.GetForwardScale)
+        CallbackFree(this.vtbl.SetInverseScale)
+        CallbackFree(this.vtbl.GetInverseScale)
+        CallbackFree(this.vtbl.AttachBuffersAndPrecompute)
+        CallbackFree(this.vtbl.ForwardTransform)
+        CallbackFree(this.vtbl.InverseTransform)
     }
 }

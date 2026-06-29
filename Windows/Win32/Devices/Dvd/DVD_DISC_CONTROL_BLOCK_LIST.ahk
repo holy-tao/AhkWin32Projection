@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_DISC_CONTROL_BLOCK_HEADER.ahk
-#Include .\DVD_DISC_CONTROL_BLOCK_LIST_DCB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DVD_DISC_CONTROL_BLOCK_LIST_DCB.ahk" { DVD_DISC_CONTROL_BLOCK_LIST_DCB }
+#Import ".\DVD_DISC_CONTROL_BLOCK_HEADER.ahk" { DVD_DISC_CONTROL_BLOCK_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_DISC_CONTROL_BLOCK_LIST extends Win32Struct {
-    static sizeof => 48
+export default struct DVD_DISC_CONTROL_BLOCK_LIST {
+    #StructPack 1
 
-    static packingSize => 1
+    header : DVD_DISC_CONTROL_BLOCK_HEADER
 
-    /**
-     * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(0, this)
-            return this.__header
-        }
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    ReadabldDCBs : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ReadabldDCBs {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 42, "char")
-        set => NumPut("char", value, this, 42)
-    }
+    WritableDCBs : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WritableDCBs {
-        get => NumGet(this, 43, "char")
-        set => NumPut("char", value, this, 43)
-    }
+    Dcbs : DVD_DISC_CONTROL_BLOCK_LIST_DCB[1]
 
-    /**
-     * @type {DVD_DISC_CONTROL_BLOCK_LIST_DCB}
-     */
-    Dcbs {
-        get {
-            if(!this.HasProp("__DcbsProxyArray"))
-                this.__DcbsProxyArray := Win32FixedArray(this.ptr + 44, 1, DVD_DISC_CONTROL_BLOCK_LIST_DCB, "")
-            return this.__DcbsProxyArray
-        }
-    }
 }

@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumExplorerCommand.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import ".\IEnumExplorerCommand.ahk" { IEnumExplorerCommand }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that get the command appearance, enumerate subcommands, or invoke the command.
@@ -14,26 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorercommand
  * @namespace Windows.Win32.UI.Shell
  */
-class IExplorerCommand extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExplorerCommand extends IUnknown {
     /**
      * The interface identifier for IExplorerCommand
      * @type {Guid}
      */
-    static IID => Guid("{a08ce4d0-fa25-44ab-b57c-c7b1c323e0b9}")
+    static IID := Guid("{a08ce4d0-fa25-44ab-b57c-c7b1c323e0b9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExplorerCommand interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTitle         : IntPtr
+        GetIcon          : IntPtr
+        GetToolTip       : IntPtr
+        GetCanonicalName : IntPtr
+        GetState         : IntPtr
+        Invoke           : IntPtr
+        GetFlags         : IntPtr
+        EnumSubCommands  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTitle", "GetIcon", "GetToolTip", "GetCanonicalName", "GetState", "Invoke", "GetFlags", "EnumSubCommands"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExplorerCommand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the title text of the button or menu item that launches a specified Windows Explorer command item.
@@ -46,7 +64,7 @@ class IExplorerCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettitle
      */
     GetTitle(psiItemArray) {
-        result := ComCall(3, this, "ptr", psiItemArray, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", psiItemArray, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -63,7 +81,7 @@ class IExplorerCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-geticon
      */
     GetIcon(psiItemArray) {
-        result := ComCall(4, this, "ptr", psiItemArray, "ptr*", &ppszIcon := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", psiItemArray, PWSTR.Ptr, &ppszIcon := 0, "HRESULT")
         return ppszIcon
     }
 
@@ -78,7 +96,7 @@ class IExplorerCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettooltip
      */
     GetToolTip(psiItemArray) {
-        result := ComCall(5, this, "ptr", psiItemArray, "ptr*", &ppszInfotip := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", psiItemArray, PWSTR.Ptr, &ppszInfotip := 0, "HRESULT")
         return ppszInfotip
     }
 
@@ -93,7 +111,7 @@ class IExplorerCommand extends IUnknown {
      */
     GetCanonicalName() {
         pguidCommandName := Guid()
-        result := ComCall(6, this, "ptr", pguidCommandName, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pguidCommandName, "HRESULT")
         return pguidCommandName
     }
 
@@ -111,7 +129,7 @@ class IExplorerCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
      */
     GetState(psiItemArray, fOkToBeSlow) {
-        result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, "uint*", &pCmdState := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", psiItemArray, BOOL, fOkToBeSlow, "uint*", &pCmdState := 0, "HRESULT")
         return pCmdState
     }
 
@@ -157,5 +175,39 @@ class IExplorerCommand extends IUnknown {
     EnumSubCommands() {
         result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumExplorerCommand(ppEnum)
+    }
+
+    Query(iid) {
+        if (IExplorerCommand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 3)
+        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 3)
+        this.vtbl.GetToolTip := CallbackCreate(GetMethod(implObj, "GetToolTip"), flags, 3)
+        this.vtbl.GetCanonicalName := CallbackCreate(GetMethod(implObj, "GetCanonicalName"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 4)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.EnumSubCommands := CallbackCreate(GetMethod(implObj, "EnumSubCommands"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTitle)
+        CallbackFree(this.vtbl.GetIcon)
+        CallbackFree(this.vtbl.GetToolTip)
+        CallbackFree(this.vtbl.GetCanonicalName)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.Invoke)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.EnumSubCommands)
     }
 }

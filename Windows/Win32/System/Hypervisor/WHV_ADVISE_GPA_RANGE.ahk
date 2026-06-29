@@ -1,25 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_ADVISE_GPA_RANGE_POPULATE.ahk
-#Include .\WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS.ahk
-#Include .\WHV_MEMORY_ACCESS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS.ahk" { WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS }
+#Import ".\WHV_MEMORY_ACCESS_TYPE.ahk" { WHV_MEMORY_ACCESS_TYPE }
+#Import ".\WHV_ADVISE_GPA_RANGE_POPULATE.ahk" { WHV_ADVISE_GPA_RANGE_POPULATE }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_ADVISE_GPA_RANGE extends Win32Struct {
-    static sizeof => 12
+export default struct WHV_ADVISE_GPA_RANGE {
+    #StructPack 4
 
-    static packingSize => 4
+    Populate : WHV_ADVISE_GPA_RANGE_POPULATE
 
-    /**
-     * @type {WHV_ADVISE_GPA_RANGE_POPULATE}
-     */
-    Populate {
-        get {
-            if(!this.HasProp("__Populate"))
-                this.__Populate := WHV_ADVISE_GPA_RANGE_POPULATE(0, this)
-            return this.__Populate
-        }
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate whether end-to-end data protection is enabled, and if it is, specifies the type of protection information.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_protection_information_types
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_PROTECTION_INFORMATION_TYPES extends Win32Enum {
+export default struct NVME_PROTECTION_INFORMATION_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Protection information is not enabled.

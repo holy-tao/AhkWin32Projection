@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the default save location.
@@ -18,7 +17,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype
  * @namespace Windows.Win32.UI.Shell
  */
-class DEFAULTSAVEFOLDERTYPE extends Win32Enum {
+export default struct DEFAULTSAVEFOLDERTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The current user determines the save folder. If the current user is the library's owner,  use the private save location (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DSFT_PRIVATE</a>). If the current user is not the library's owner, use the public save location (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DSFT_PUBLIC</a>).

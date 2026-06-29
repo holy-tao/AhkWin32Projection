@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the details of an input disk.
@@ -13,28 +13,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_input_disk
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_INPUT_DISK extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct VDS_INPUT_DISK {
+    #StructPack 8
 
     /**
      * The GUID of the disk. This field is required.
-     * @type {Pointer}
      */
-    diskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    diskId : Guid
 
     /**
      * Disk size in bytes. This field is required. The provider policy determines the offset, length, and number of disk extents allocated for an input disk.
-     * @type {Integer}
      */
-    ullSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullSize : Int64
 
     /**
      * When extending a volume, the GUID for the plex to which the disk belongs. VDS ignores this member when creating a volume or  repairing a RAID-5 volume.
@@ -42,12 +32,8 @@ class VDS_INPUT_DISK extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Callers can extend a volume only by extending all members of all plexes in the same operation.</div>
      * <div> </div>
-     * @type {Pointer}
      */
-    plexId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    plexId : Guid
 
     /**
      * The member index of the disk to which the extent belongs. Either specify a <b>memberIdx</b> for all disks or specify it for none. VDS uses disks with the same <b>memberIdx</b> in the order they appear in the array. For example, the first disk in the array is always used first.
@@ -55,10 +41,7 @@ class VDS_INPUT_DISK extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Do not specify <b>memberIdx</b> when repairing a RAID-5 volume.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    memberIdx {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    memberIdx : UInt32
+
 }

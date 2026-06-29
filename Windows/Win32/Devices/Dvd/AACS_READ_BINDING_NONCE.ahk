@@ -1,55 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class AACS_READ_BINDING_NONCE extends Win32Struct {
-    static sizeof => 24
+export default struct AACS_READ_BINDING_NONCE {
+    #StructPack 8
 
-    static packingSize => 8
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfSectors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfSectors {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    StartLba : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartLba {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Handle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    Handle {
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(16, this)
-            return this.__Handle
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ForceStructureLengthToMatch64bit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'ForceStructureLengthToMatch64bit', { type: Int64, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

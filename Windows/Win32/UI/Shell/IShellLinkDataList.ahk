@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow an application to attach extra data blocks to a Shell link. These methods add, copy, or remove data blocks.
@@ -59,26 +60,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelllinkdatalist
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellLinkDataList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellLinkDataList extends IUnknown {
     /**
      * The interface identifier for IShellLinkDataList
      * @type {Guid}
      */
-    static IID => Guid("{45e2b4ae-b1c3-11d0-b92f-00a0c90312e1}")
+    static IID := Guid("{45e2b4ae-b1c3-11d0-b92f-00a0c90312e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellLinkDataList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddDataBlock    : IntPtr
+        CopyDataBlock   : IntPtr
+        RemoveDataBlock : IntPtr
+        GetFlags        : IntPtr
+        SetFlags        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddDataBlock", "CopyDataBlock", "RemoveDataBlock", "GetFlags", "SetFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellLinkDataList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a data block to a link.
@@ -152,5 +164,33 @@ class IShellLinkDataList extends IUnknown {
     SetFlags(dwFlags) {
         result := ComCall(7, this, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellLinkDataList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddDataBlock := CallbackCreate(GetMethod(implObj, "AddDataBlock"), flags, 2)
+        this.vtbl.CopyDataBlock := CallbackCreate(GetMethod(implObj, "CopyDataBlock"), flags, 3)
+        this.vtbl.RemoveDataBlock := CallbackCreate(GetMethod(implObj, "RemoveDataBlock"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddDataBlock)
+        CallbackFree(this.vtbl.CopyDataBlock)
+        CallbackFree(this.vtbl.RemoveDataBlock)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.SetFlags)
     }
 }

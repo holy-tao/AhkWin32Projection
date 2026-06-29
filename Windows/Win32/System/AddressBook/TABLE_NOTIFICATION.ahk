@@ -1,23 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPropValue.ahk
-#Include .\__UPV.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\SBinary.ahk
-#Include .\SShortArray.ahk
-#Include .\SLongArray.ahk
-#Include .\SRealArray.ahk
-#Include .\SDoubleArray.ahk
-#Include .\SCurrencyArray.ahk
-#Include .\SAppTimeArray.ahk
-#Include .\SDateTimeArray.ahk
-#Include .\SBinaryArray.ahk
-#Include .\SLPSTRArray.ahk
-#Include .\SWStringArray.ahk
-#Include .\SGuidArray.ahk
-#Include .\SLargeIntegerArray.ahk
-#Include .\SRow.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SBinary.ahk" { SBinary }
+#Import ".\SDoubleArray.ahk" { SDoubleArray }
+#Import "..\Com\CY.ahk" { CY }
+#Import ".\SRow.ahk" { SRow }
+#Import ".\SLongArray.ahk" { SLongArray }
+#Import ".\SGuidArray.ahk" { SGuidArray }
+#Import ".\SDateTimeArray.ahk" { SDateTimeArray }
+#Import ".\SLargeIntegerArray.ahk" { SLargeIntegerArray }
+#Import ".\SLPSTRArray.ahk" { SLPSTRArray }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\__UPV.ahk" { __UPV }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SRealArray.ahk" { SRealArray }
+#Import ".\SShortArray.ahk" { SShortArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SAppTimeArray.ahk" { SAppTimeArray }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SWStringArray.ahk" { SWStringArray }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SCurrencyArray.ahk" { SCurrencyArray }
 
 /**
  * Describes a row in a table that has been affected by some type of event, such as a change or an error. This causes a table notification to be generated.
@@ -38,10 +41,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/table_notification
  * @namespace Windows.Win32.System.AddressBook
  */
-class TABLE_NOTIFICATION extends Win32Struct {
-    static sizeof => 672
-
-    static packingSize => 8
+export default struct TABLE_NOTIFICATION {
+    #StructPack 8
 
     /**
      * > Bitmask of flags used to represent the table event type. The following flags can be set:
@@ -91,63 +92,29 @@ class TABLE_NOTIFICATION extends Win32Struct {
      * TABLE_SORT_DONE 
      *   
      * > A table sorting operation initiated with an **IMAPITable::SortTable** method call has completed.
-     * @type {Integer}
      */
-    ulTableEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulTableEvent : UInt32
 
     /**
      * > HRESULT value for the error that has occurred, if the **ulTableEvent** member is set to TABLE_ERROR.
-     * @type {HRESULT}
      */
-    hResult {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    hResult : HRESULT
 
     /**
      * > [SPropValue](spropvalue.md) structure for the **PR_INSTANCE_KEY** property of the affected row.
-     * @type {SPropValue}
      */
-    propIndex {
-        get {
-            if(!this.HasProp("__propIndex"))
-                this.__propIndex := SPropValue(8, this)
-            return this.__propIndex
-        }
-    }
+    propIndex : SPropValue
 
     /**
      * > **SPropValue** structure for the **PR_INSTANCE_KEY** property of the row before the affected one. If the affected row is the first row in the table, **propPrior** must be set to **PR_NULL** and not zero. Zero is not a valid property tag.
-     * @type {SPropValue}
      */
-    propPrior {
-        get {
-            if(!this.HasProp("__propPrior"))
-                this.__propPrior := SPropValue(328, this)
-            return this.__propPrior
-        }
-    }
+    propPrior : SPropValue
 
     /**
      * > [SRow](srow.md) structure describing the affected row. This structure is filled for all table notification events. For table notification events that do not pass row data, the **cValues** member of the **SRow** structure is set to zero and the **lpProps** member is set to NULL. Because this **SRow** structure is read-only; clients must make a copy of it if they want to make modifications. The [ScDupPropset](scduppropset.md) function can be used to make the copy.
-     * @type {SRow}
      */
-    row {
-        get {
-            if(!this.HasProp("__row"))
-                this.__row := SRow(648, this)
-            return this.__row
-        }
-    }
+    row : SRow
 
-    /**
-     * @type {Integer}
-     */
-    ulPad {
-        get => NumGet(this, 664, "uint")
-        set => NumPut("uint", value, this, 664)
-    }
+    ulPad : UInt32
+
 }

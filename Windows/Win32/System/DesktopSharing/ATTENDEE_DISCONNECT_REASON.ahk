@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for the reasons why an attendee was disconnected from the session.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-attendee_disconnect_reason
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class ATTENDEE_DISCONNECT_REASON extends Win32Enum {
+export default struct ATTENDEE_DISCONNECT_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Minimum enumeration value.

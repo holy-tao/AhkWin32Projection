@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MIDIOUTCAPS structure describes the capabilities of a MIDI output device. (MIDIOUTCAPSW)
@@ -10,46 +10,28 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class MIDIOUTCAPSW extends Win32Struct {
-    static sizeof => 84
-
-    static packingSize => 4
+export default struct MIDIOUTCAPSW {
+    #StructPack 4
 
     /**
      * Manufacturer identifier of the device driver for the MIDI output device. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMid : UInt16
 
     /**
      * Product identifier of the MIDI output device. Product identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPid : UInt16
 
     /**
      * Version number of the device driver for the MIDI output device. The high-order byte is the major version number, and the low-order byte is the minor version number.
-     * @type {Integer}
      */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    vDriverVersion : UInt32
 
     /**
      * Product name in a null-terminated string.
-     * @type {String}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
+    szPname : WCHAR[32]
 
     /**
      * Type of the MIDI output device. This value can be one of the following:
@@ -130,39 +112,23 @@ class MIDIOUTCAPSW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wTechnology {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
+    wTechnology : UInt16
 
     /**
      * Number of voices supported by an internal synthesizer device. If the device is a port, this member is not meaningful and is set to 0.
-     * @type {Integer}
      */
-    wVoices {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
-    }
+    wVoices : UInt16
 
     /**
      * Maximum number of simultaneous notes that can be played by an internal synthesizer device. If the device is a port, this member is not meaningful and is set to 0.
-     * @type {Integer}
      */
-    wNotes {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    wNotes : UInt16
 
     /**
      * Channels that an internal synthesizer device responds to, where the least significant bit refers to channel 0 and the most significant bit to channel 15. Port devices that transmit on all channels set this member to 0xFFFF.
-     * @type {Integer}
      */
-    wChannelMask {
-        get => NumGet(this, 78, "ushort")
-        set => NumPut("ushort", value, this, 78)
-    }
+    wChannelMask : UInt16
 
     /**
      * Optional functionality supported by the device. It can be one or more of the following:
@@ -216,10 +182,7 @@ class MIDIOUTCAPSW extends Win32Struct {
      *  
      * 
      * If a device supports volume changes, the MIDICAPS_VOLUME flag will be set for the dwSupport member. If a device supports separate volume changes on the left and right channels, both the MIDICAPS_VOLUME and the MIDICAPS_LRVOLUME flags will be set for this member.
-     * @type {Integer}
      */
-    dwSupport {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwSupport : UInt32
+
 }

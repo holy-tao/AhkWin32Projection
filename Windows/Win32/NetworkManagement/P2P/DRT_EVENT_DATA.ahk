@@ -1,183 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRT_EVENT_TYPE.ahk
-#Include .\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk
-#Include .\DRT_DATA.ahk
-#Include .\DRT_REGISTRATION_STATE.ahk
-#Include .\DRT_STATUS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRT_EVENT_TYPE.ahk" { DRT_EVENT_TYPE }
+#Import ".\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk" { DRT_LEAFSET_KEY_CHANGE_TYPE }
+#Import ".\DRT_DATA.ahk" { DRT_DATA }
+#Import "..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import ".\DRT_REGISTRATION_STATE.ahk" { DRT_REGISTRATION_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DRT_STATUS.ahk" { DRT_STATUS }
 
 /**
  * DRT_EVENT_DATA.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_event_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_EVENT_DATA extends Win32Struct {
-    static sizeof => 56
+export default struct DRT_EVENT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _leafsetKeyChange {
+        change : DRT_LEAFSET_KEY_CHANGE_TYPE
+
+        localKey : DRT_DATA
+
+        remoteKey : DRT_DATA
+
+    }
+
+    struct _registrationStateChange {
+        state : DRT_REGISTRATION_STATE
+
+        localKey : DRT_DATA
+
+    }
+
+    struct _statusChange {
+
+        struct _bootstrapAddresses {
+            cntAddress : UInt32
+
+            pAddresses : SOCKADDR_STORAGE.Ptr
+
+        }
+
+        status : DRT_STATUS
+
+        bootstrapAddresses : DRT_EVENT_DATA._statusChange._bootstrapAddresses
+
+    }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/drt/ne-drt-drt_event_type">DRT_EVENT_TYPE</a> enumeration that specifies the event type.
-     * @type {DRT_EVENT_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : DRT_EVENT_TYPE
 
     /**
      * The HRESULT of the operation for which the event was signaled that indicates if a result is the last result within a search.
-     * @type {HRESULT}
      */
-    hr {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    hr : HRESULT
 
     /**
      * Pointer to the context data passed to the API that generated the event.  For example, if data is passed into the <i>pvContext</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtopen">DrtOpen</a>, that data is returned through this field.
-     * @type {Pointer<Void>}
      */
-    pvContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvContext : IntPtr
 
-    class _leafsetKeyChange extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    leafsetKeyChange : DRT_EVENT_DATA._leafsetKeyChange
 
-        /**
-         * @type {DRT_LEAFSET_KEY_CHANGE_TYPE}
-         */
-        change {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {DRT_DATA}
-         */
-        localKey {
-            get {
-                if(!this.HasProp("__localKey"))
-                    this.__localKey := DRT_DATA(8, this)
-                return this.__localKey
-            }
-        }
-
-        /**
-         * @type {DRT_DATA}
-         */
-        remoteKey {
-            get {
-                if(!this.HasProp("__remoteKey"))
-                    this.__remoteKey := DRT_DATA(24, this)
-                return this.__remoteKey
-            }
-        }
-    }
-
-    class _registrationStateChange extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {DRT_REGISTRATION_STATE}
-         */
-        state {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {DRT_DATA}
-         */
-        localKey {
-            get {
-                if(!this.HasProp("__localKey"))
-                    this.__localKey := DRT_DATA(8, this)
-                return this.__localKey
-            }
-        }
-    }
-
-    class _statusChange extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        class _bootstrapAddresses extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            cntAddress {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<SOCKADDR_STORAGE>}
-             */
-            pAddresses {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
-        }
-
-        /**
-         * @type {DRT_STATUS}
-         */
-        status {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {_bootstrapAddresses}
-         */
-        bootstrapAddresses {
-            get {
-                if(!this.HasProp("__bootstrapAddresses"))
-                    this.__bootstrapAddresses := DRT_EVENT_DATA._statusChange._bootstrapAddresses(8, this)
-                return this.__bootstrapAddresses
-            }
-        }
-    }
-
-    /**
-     * @type {_leafsetKeyChange}
-     */
-    leafsetKeyChange {
-        get {
-            if(!this.HasProp("__leafsetKeyChange"))
-                this.__leafsetKeyChange := DRT_EVENT_DATA._leafsetKeyChange(16, this)
-            return this.__leafsetKeyChange
-        }
-    }
-
-    /**
-     * @type {_registrationStateChange}
-     */
-    registrationStateChange {
-        get {
-            if(!this.HasProp("__registrationStateChange"))
-                this.__registrationStateChange := DRT_EVENT_DATA._registrationStateChange(16, this)
-            return this.__registrationStateChange
-        }
-    }
-
-    /**
-     * @type {_statusChange}
-     */
-    statusChange {
-        get {
-            if(!this.HasProp("__statusChange"))
-                this.__statusChange := DRT_EVENT_DATA._statusChange(16, this)
-            return this.__statusChange
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'registrationStateChange', { type: DRT_EVENT_DATA._registrationStateChange, offset: 16 })
+        DefineProp(this.Prototype, 'statusChange', { type: DRT_EVENT_DATA._statusChange, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

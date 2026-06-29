@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_ROI_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct KSCAMERA_EXTENDEDPROP_ROI_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Region : RECT
 
-    /**
-     * @type {RECT}
-     */
-    Region {
-        get {
-            if(!this.HasProp("__Region"))
-                this.__Region := RECT(0, this)
-            return this.__Region
-        }
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Weight : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Weight {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    RegionOfInterestType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RegionOfInterestType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

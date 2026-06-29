@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of sync operation that was being performed when a sync error was encountered.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_sync_operation
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class OFFLINEFILES_SYNC_OPERATION extends Win32Enum {
+export default struct OFFLINEFILES_SYNC_OPERATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Operation was creating a new file or directory copy on the server.

@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CERTENROLL_OBJECTID.ahk" { CERTENROLL_OBJECTID }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ObjectIdGroupId.ahk" { ObjectIdGroupId }
+#Import ".\ObjectIdPublicKeyFlags.ahk" { ObjectIdPublicKeyFlags }
+#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
 
 /**
  * Represents an object identifier (OID).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-iobjectid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IObjectId extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IObjectId extends IDispatch {
     /**
      * The interface identifier for IObjectId
      * @type {Guid}
      */
-    static IID => Guid("{728ab300-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab300-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IObjectId interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        InitializeFromName          : IntPtr
+        InitializeFromValue         : IntPtr
+        InitializeFromAlgorithmName : IntPtr
+        get_Name                    : IntPtr
+        get_FriendlyName            : IntPtr
+        put_FriendlyName            : IntPtr
+        get_Value                   : IntPtr
+        GetAlgorithmName            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromName", "InitializeFromValue", "InitializeFromAlgorithmName", "get_Name", "get_FriendlyName", "put_FriendlyName", "get_Value", "GetAlgorithmName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IObjectId.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {CERTENROLL_OBJECTID} 
@@ -120,7 +139,7 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-initializefromname
      */
     InitializeFromName(Name) {
-        result := ComCall(7, this, "int", Name, "HRESULT")
+        result := ComCall(7, this, CERTENROLL_OBJECTID, Name, "HRESULT")
         return result
     }
 
@@ -190,7 +209,7 @@ class IObjectId extends IDispatch {
     InitializeFromValue(strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(8, this, "ptr", strValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -264,7 +283,7 @@ class IObjectId extends IDispatch {
     InitializeFromAlgorithmName(GroupId, KeyFlags, AlgFlags, strAlgorithmName) {
         strAlgorithmName := strAlgorithmName is String ? BSTR.Alloc(strAlgorithmName).Value : strAlgorithmName
 
-        result := ComCall(9, this, "int", GroupId, "int", KeyFlags, "int", AlgFlags, "ptr", strAlgorithmName, "HRESULT")
+        result := ComCall(9, this, ObjectIdGroupId, GroupId, ObjectIdPublicKeyFlags, KeyFlags, AlgorithmFlags, AlgFlags, BSTR, strAlgorithmName, "HRESULT")
         return result
     }
 
@@ -328,8 +347,8 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_friendlyname
      */
     get_FriendlyName() {
-        pValue := BSTR()
-        result := ComCall(11, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -364,7 +383,7 @@ class IObjectId extends IDispatch {
     put_FriendlyName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(12, this, "ptr", Value, "HRESULT")
+        result := ComCall(12, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -398,8 +417,8 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_value
      */
     get_Value() {
-        pValue := BSTR()
-        result := ComCall(13, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -431,8 +450,42 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-getalgorithmname
      */
     GetAlgorithmName(GroupId, KeyFlags) {
-        pstrAlgorithmName := BSTR()
-        result := ComCall(14, this, "int", GroupId, "int", KeyFlags, "ptr", pstrAlgorithmName, "HRESULT")
+        pstrAlgorithmName := BSTR.Owned()
+        result := ComCall(14, this, ObjectIdGroupId, GroupId, ObjectIdPublicKeyFlags, KeyFlags, BSTR.Ptr, pstrAlgorithmName, "HRESULT")
         return pstrAlgorithmName
+    }
+
+    Query(iid) {
+        if (IObjectId.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromName := CallbackCreate(GetMethod(implObj, "InitializeFromName"), flags, 2)
+        this.vtbl.InitializeFromValue := CallbackCreate(GetMethod(implObj, "InitializeFromValue"), flags, 2)
+        this.vtbl.InitializeFromAlgorithmName := CallbackCreate(GetMethod(implObj, "InitializeFromAlgorithmName"), flags, 5)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.put_FriendlyName := CallbackCreate(GetMethod(implObj, "put_FriendlyName"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.GetAlgorithmName := CallbackCreate(GetMethod(implObj, "GetAlgorithmName"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromName)
+        CallbackFree(this.vtbl.InitializeFromValue)
+        CallbackFree(this.vtbl.InitializeFromAlgorithmName)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_FriendlyName)
+        CallbackFree(this.vtbl.put_FriendlyName)
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.GetAlgorithmName)
     }
 }

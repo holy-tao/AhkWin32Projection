@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IHostCrst.ahk
-#Include .\IHostAutoEvent.ahk
-#Include .\IHostManualEvent.ahk
-#Include .\IHostSemaphore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHostSemaphore.ahk" { IHostSemaphore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICLRSyncManager.ahk" { ICLRSyncManager }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IHostAutoEvent.ahk" { IHostAutoEvent }
+#Import ".\IHostManualEvent.ahk" { IHostManualEvent }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHostCrst.ahk" { IHostCrst }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostSyncManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostSyncManager extends IUnknown {
     /**
      * The interface identifier for IHostSyncManager
      * @type {Guid}
      */
-    static IID => Guid("{234330c7-5f10-4f20-9615-5122dab7a0ac}")
+    static IID := Guid("{234330c7-5f10-4f20-9615-5122dab7a0ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostSyncManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetCLRSyncManager       : IntPtr
+        CreateCrst              : IntPtr
+        CreateCrstWithSpinCount : IntPtr
+        CreateAutoEvent         : IntPtr
+        CreateManualEvent       : IntPtr
+        CreateMonitorEvent      : IntPtr
+        CreateRWLockWriterEvent : IntPtr
+        CreateRWLockReaderEvent : IntPtr
+        CreateSemaphoreA        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCLRSyncManager", "CreateCrst", "CreateCrstWithSpinCount", "CreateAutoEvent", "CreateManualEvent", "CreateMonitorEvent", "CreateRWLockWriterEvent", "CreateRWLockReaderEvent", "CreateSemaphoreA"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostSyncManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -75,7 +93,7 @@ class IHostSyncManager extends IUnknown {
      * @returns {IHostManualEvent} 
      */
     CreateManualEvent(bInitialState) {
-        result := ComCall(7, this, "int", bInitialState, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(7, this, BOOL, bInitialState, "ptr*", &ppEvent := 0, "HRESULT")
         return IHostManualEvent(ppEvent)
     }
 
@@ -106,7 +124,7 @@ class IHostSyncManager extends IUnknown {
      * @returns {IHostManualEvent} 
      */
     CreateRWLockReaderEvent(bInitialState, Cookie) {
-        result := ComCall(10, this, "int", bInitialState, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(10, this, BOOL, bInitialState, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
         return IHostManualEvent(ppEvent)
     }
 
@@ -141,5 +159,41 @@ class IHostSyncManager extends IUnknown {
     CreateSemaphoreA(dwInitial, dwMax) {
         result := ComCall(11, this, "uint", dwInitial, "uint", dwMax, "ptr*", &ppSemaphore := 0, "HRESULT")
         return IHostSemaphore(ppSemaphore)
+    }
+
+    Query(iid) {
+        if (IHostSyncManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCLRSyncManager := CallbackCreate(GetMethod(implObj, "SetCLRSyncManager"), flags, 2)
+        this.vtbl.CreateCrst := CallbackCreate(GetMethod(implObj, "CreateCrst"), flags, 2)
+        this.vtbl.CreateCrstWithSpinCount := CallbackCreate(GetMethod(implObj, "CreateCrstWithSpinCount"), flags, 3)
+        this.vtbl.CreateAutoEvent := CallbackCreate(GetMethod(implObj, "CreateAutoEvent"), flags, 2)
+        this.vtbl.CreateManualEvent := CallbackCreate(GetMethod(implObj, "CreateManualEvent"), flags, 3)
+        this.vtbl.CreateMonitorEvent := CallbackCreate(GetMethod(implObj, "CreateMonitorEvent"), flags, 3)
+        this.vtbl.CreateRWLockWriterEvent := CallbackCreate(GetMethod(implObj, "CreateRWLockWriterEvent"), flags, 3)
+        this.vtbl.CreateRWLockReaderEvent := CallbackCreate(GetMethod(implObj, "CreateRWLockReaderEvent"), flags, 4)
+        this.vtbl.CreateSemaphoreA := CallbackCreate(GetMethod(implObj, "CreateSemaphoreA"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCLRSyncManager)
+        CallbackFree(this.vtbl.CreateCrst)
+        CallbackFree(this.vtbl.CreateCrstWithSpinCount)
+        CallbackFree(this.vtbl.CreateAutoEvent)
+        CallbackFree(this.vtbl.CreateManualEvent)
+        CallbackFree(this.vtbl.CreateMonitorEvent)
+        CallbackFree(this.vtbl.CreateRWLockWriterEvent)
+        CallbackFree(this.vtbl.CreateRWLockReaderEvent)
+        CallbackFree(this.vtbl.CreateSemaphoreA)
     }
 }

@@ -1,44 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTM_PREF_INFO.ahk
-#Include .\RTM_NEXTHOP_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RTM_NEXTHOP_LIST.ahk" { RTM_NEXTHOP_LIST }
+#Import ".\RTM_PREF_INFO.ahk" { RTM_PREF_INFO }
 
 /**
  * The RTM_ROUTE_INFO structure is used to exchange route information with the routing table manager. Do not change the read-only information.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_route_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RTM_ROUTE_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct RTM_ROUTE_INFO {
+    #StructPack 8
 
     /**
      * Handle to the destination that owns the route.
-     * @type {Pointer}
      */
-    DestHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DestHandle : IntPtr
 
     /**
      * Handle to the client that owns this route.
-     * @type {Pointer}
      */
-    RouteOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RouteOwner : IntPtr
 
     /**
      * Handle to the neighbor that informed the routing table manager of this route. This member is <b>NULL</b> for a link-state protocol.
-     * @type {Pointer}
      */
-    Neighbour {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Neighbour : IntPtr
 
     /**
      * Flags the specify the state of this route. The following flags are used. 
@@ -81,21 +66,13 @@ class RTM_ROUTE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    State {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    State : Int8
 
     /**
      * Flags used for compatibility with RTMv1.
-     * @type {Integer}
      */
-    Flags1 {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    Flags1 : Int8
 
     /**
      * Flags used to specify information about the route. The following flags are used. 
@@ -248,52 +225,27 @@ class RTM_ROUTE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    Flags : UInt16
 
     /**
      * Specifies the preference and metric information for this route.
-     * @type {RTM_PREF_INFO}
      */
-    PrefInfo {
-        get {
-            if(!this.HasProp("__PrefInfo"))
-                this.__PrefInfo := RTM_PREF_INFO(28, this)
-            return this.__PrefInfo
-        }
-    }
+    PrefInfo : RTM_PREF_INFO
 
     /**
      * Specifies the views in which this route is included.
-     * @type {Integer}
      */
-    BelongsToViews {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    BelongsToViews : UInt32
 
     /**
      * Contains the client-specific information for the client that owns this route.
-     * @type {Pointer<Void>}
      */
-    EntitySpecificInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    EntitySpecificInfo : IntPtr
 
     /**
      * Specifies a list of equal-cost next hops.
-     * @type {RTM_NEXTHOP_LIST}
      */
-    NextHopsList {
-        get {
-            if(!this.HasProp("__NextHopsList"))
-                this.__NextHopsList := RTM_NEXTHOP_LIST(48, this)
-            return this.__NextHopsList
-        }
-    }
+    NextHopsList : RTM_NEXTHOP_LIST
+
 }

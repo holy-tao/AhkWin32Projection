@@ -1,35 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICEnroll3.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
+#Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
+#Import ".\ICEnroll3.ahk" { ICEnroll3 }
+#Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll4
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICEnroll4 extends ICEnroll3 {
-
-    static sizeof => A_PtrSize
+export default struct ICEnroll4 extends ICEnroll3 {
     /**
      * The interface identifier for ICEnroll4
      * @type {Guid}
      */
-    static IID => Guid("{c1f1188a-2eb5-4a80-841b-7e729a356d90}")
+    static IID := Guid("{c1f1188a-2eb5-4a80-841b-7e729a356d90}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 83
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICEnroll4 interfaces
+    */
+    struct Vtbl extends ICEnroll3.Vtbl {
+        put_PrivateKeyArchiveCertificate : IntPtr
+        get_PrivateKeyArchiveCertificate : IntPtr
+        put_ThumbPrint                   : IntPtr
+        get_ThumbPrint                   : IntPtr
+        binaryToString                   : IntPtr
+        stringToBinary                   : IntPtr
+        addExtensionToRequest            : IntPtr
+        addAttributeToRequest            : IntPtr
+        addNameValuePairToRequest        : IntPtr
+        resetExtensions                  : IntPtr
+        resetAttributes                  : IntPtr
+        createRequest                    : IntPtr
+        createFileRequest                : IntPtr
+        acceptResponse                   : IntPtr
+        acceptFileResponse               : IntPtr
+        getCertFromResponse              : IntPtr
+        getCertFromFileResponse          : IntPtr
+        createPFX                        : IntPtr
+        createFilePFX                    : IntPtr
+        setPendingRequestInfo            : IntPtr
+        enumPendingRequest               : IntPtr
+        removePendingRequest             : IntPtr
+        GetKeyLenEx                      : IntPtr
+        InstallPKCS7Ex                   : IntPtr
+        addCertTypeToRequestEx           : IntPtr
+        getProviderType                  : IntPtr
+        put_SignerCertificate            : IntPtr
+        put_ClientId                     : IntPtr
+        get_ClientId                     : IntPtr
+        addBlobPropertyToCertificate     : IntPtr
+        resetBlobProperties              : IntPtr
+        put_IncludeSubjectKeyID          : IntPtr
+        get_IncludeSubjectKeyID          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_PrivateKeyArchiveCertificate", "get_PrivateKeyArchiveCertificate", "put_ThumbPrint", "get_ThumbPrint", "binaryToString", "stringToBinary", "addExtensionToRequest", "addAttributeToRequest", "addNameValuePairToRequest", "resetExtensions", "resetAttributes", "createRequest", "createFileRequest", "acceptResponse", "acceptFileResponse", "getCertFromResponse", "getCertFromFileResponse", "createPFX", "createFilePFX", "setPendingRequestInfo", "enumPendingRequest", "removePendingRequest", "GetKeyLenEx", "InstallPKCS7Ex", "addCertTypeToRequestEx", "getProviderType", "put_SignerCertificate", "put_ClientId", "get_ClientId", "addBlobPropertyToCertificate", "resetBlobProperties", "put_IncludeSubjectKeyID", "get_IncludeSubjectKeyID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICEnroll4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -79,7 +125,7 @@ class ICEnroll4 extends ICEnroll3 {
     put_PrivateKeyArchiveCertificate(bstrCert) {
         bstrCert := bstrCert is String ? BSTR.Alloc(bstrCert).Value : bstrCert
 
-        result := ComCall(83, this, "ptr", bstrCert, "HRESULT")
+        result := ComCall(83, this, BSTR, bstrCert, "HRESULT")
         return result
     }
 
@@ -89,8 +135,8 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_privatekeyarchivecertificate
      */
     get_PrivateKeyArchiveCertificate() {
-        pbstrCert := BSTR()
-        result := ComCall(84, this, "ptr", pbstrCert, "HRESULT")
+        pbstrCert := BSTR.Owned()
+        result := ComCall(84, this, BSTR.Ptr, pbstrCert, "HRESULT")
         return pbstrCert
     }
 
@@ -105,7 +151,7 @@ class ICEnroll4 extends ICEnroll3 {
     put_ThumbPrint(bstrThumbPrint) {
         bstrThumbPrint := bstrThumbPrint is String ? BSTR.Alloc(bstrThumbPrint).Value : bstrThumbPrint
 
-        result := ComCall(85, this, "ptr", bstrThumbPrint, "HRESULT")
+        result := ComCall(85, this, BSTR, bstrThumbPrint, "HRESULT")
         return result
     }
 
@@ -117,8 +163,8 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_thumbprint
      */
     get_ThumbPrint() {
-        pbstrThumbPrint := BSTR()
-        result := ComCall(86, this, "ptr", pbstrThumbPrint, "HRESULT")
+        pbstrThumbPrint := BSTR.Owned()
+        result := ComCall(86, this, BSTR.Ptr, pbstrThumbPrint, "HRESULT")
         return pbstrThumbPrint
     }
 
@@ -133,8 +179,8 @@ class ICEnroll4 extends ICEnroll3 {
     binaryToString(Flags, strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        pstrEncoded := BSTR()
-        result := ComCall(87, this, "int", Flags, "ptr", strBinary, "ptr", pstrEncoded, "HRESULT")
+        pstrEncoded := BSTR.Owned()
+        result := ComCall(87, this, "int", Flags, BSTR, strBinary, BSTR.Ptr, pstrEncoded, "HRESULT")
         return pstrEncoded
     }
 
@@ -149,8 +195,8 @@ class ICEnroll4 extends ICEnroll3 {
     stringToBinary(Flags, strEncoded) {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
 
-        pstrBinary := BSTR()
-        result := ComCall(88, this, "int", Flags, "ptr", strEncoded, "ptr", pstrBinary, "HRESULT")
+        pstrBinary := BSTR.Owned()
+        result := ComCall(88, this, "int", Flags, BSTR, strEncoded, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
     }
 
@@ -170,7 +216,7 @@ class ICEnroll4 extends ICEnroll3 {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(89, this, "int", Flags, "ptr", strName, "ptr", strValue, "HRESULT")
+        result := ComCall(89, this, "int", Flags, BSTR, strName, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -190,7 +236,7 @@ class ICEnroll4 extends ICEnroll3 {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(90, this, "int", Flags, "ptr", strName, "ptr", strValue, "HRESULT")
+        result := ComCall(90, this, "int", Flags, BSTR, strName, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -210,7 +256,7 @@ class ICEnroll4 extends ICEnroll3 {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(91, this, "int", Flags, "ptr", strName, "ptr", strValue, "HRESULT")
+        result := ComCall(91, this, "int", Flags, BSTR, strName, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -256,8 +302,8 @@ class ICEnroll4 extends ICEnroll3 {
         strDNName := strDNName is String ? BSTR.Alloc(strDNName).Value : strDNName
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
 
-        pstrRequest := BSTR()
-        result := ComCall(94, this, "int", Flags, "ptr", strDNName, "ptr", Usage, "ptr", pstrRequest, "HRESULT")
+        pstrRequest := BSTR.Owned()
+        result := ComCall(94, this, CERT_CREATE_REQUEST_FLAGS, Flags, BSTR, strDNName, BSTR, Usage, BSTR.Ptr, pstrRequest, "HRESULT")
         return pstrRequest
     }
 
@@ -281,7 +327,7 @@ class ICEnroll4 extends ICEnroll3 {
         strUsage := strUsage is String ? BSTR.Alloc(strUsage).Value : strUsage
         strRequestFileName := strRequestFileName is String ? BSTR.Alloc(strRequestFileName).Value : strRequestFileName
 
-        result := ComCall(95, this, "int", Flags, "ptr", strDNName, "ptr", strUsage, "ptr", strRequestFileName, "HRESULT")
+        result := ComCall(95, this, CERT_CREATE_REQUEST_FLAGS, Flags, BSTR, strDNName, BSTR, strUsage, BSTR, strRequestFileName, "HRESULT")
         return result
     }
 
@@ -304,7 +350,7 @@ class ICEnroll4 extends ICEnroll3 {
     acceptResponse(strResponse) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        result := ComCall(96, this, "ptr", strResponse, "HRESULT")
+        result := ComCall(96, this, BSTR, strResponse, "HRESULT")
         return result
     }
 
@@ -327,7 +373,7 @@ class ICEnroll4 extends ICEnroll3 {
     acceptFileResponse(strResponseFileName) {
         strResponseFileName := strResponseFileName is String ? BSTR.Alloc(strResponseFileName).Value : strResponseFileName
 
-        result := ComCall(97, this, "ptr", strResponseFileName, "HRESULT")
+        result := ComCall(97, this, BSTR, strResponseFileName, "HRESULT")
         return result
     }
 
@@ -344,8 +390,8 @@ class ICEnroll4 extends ICEnroll3 {
     getCertFromResponse(strResponse) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        pstrCert := BSTR()
-        result := ComCall(98, this, "ptr", strResponse, "ptr", pstrCert, "HRESULT")
+        pstrCert := BSTR.Owned()
+        result := ComCall(98, this, BSTR, strResponse, BSTR.Ptr, pstrCert, "HRESULT")
         return pstrCert
     }
 
@@ -364,8 +410,8 @@ class ICEnroll4 extends ICEnroll3 {
     getCertFromFileResponse(strResponseFileName) {
         strResponseFileName := strResponseFileName is String ? BSTR.Alloc(strResponseFileName).Value : strResponseFileName
 
-        pstrCert := BSTR()
-        result := ComCall(99, this, "ptr", strResponseFileName, "ptr", pstrCert, "HRESULT")
+        pstrCert := BSTR.Owned()
+        result := ComCall(99, this, BSTR, strResponseFileName, BSTR.Ptr, pstrCert, "HRESULT")
         return pstrCert
     }
 
@@ -380,8 +426,8 @@ class ICEnroll4 extends ICEnroll3 {
     createPFX(strPassword) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        pstrPFX := BSTR()
-        result := ComCall(100, this, "ptr", strPassword, "ptr", pstrPFX, "HRESULT")
+        pstrPFX := BSTR.Owned()
+        result := ComCall(100, this, BSTR, strPassword, BSTR.Ptr, pstrPFX, "HRESULT")
         return pstrPFX
     }
 
@@ -402,7 +448,7 @@ class ICEnroll4 extends ICEnroll3 {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strPFXFileName := strPFXFileName is String ? BSTR.Alloc(strPFXFileName).Value : strPFXFileName
 
-        result := ComCall(101, this, "ptr", strPassword, "ptr", strPFXFileName, "HRESULT")
+        result := ComCall(101, this, BSTR, strPassword, BSTR, strPFXFileName, "HRESULT")
         return result
     }
 
@@ -424,7 +470,7 @@ class ICEnroll4 extends ICEnroll3 {
         strCAName := strCAName is String ? BSTR.Alloc(strCAName).Value : strCAName
         strFriendlyName := strFriendlyName is String ? BSTR.Alloc(strFriendlyName).Value : strFriendlyName
 
-        result := ComCall(102, this, "int", lRequestID, "ptr", strCADNS, "ptr", strCAName, "ptr", strFriendlyName, "HRESULT")
+        result := ComCall(102, this, "int", lRequestID, BSTR, strCADNS, BSTR, strCAName, BSTR, strFriendlyName, "HRESULT")
         return result
     }
 
@@ -444,7 +490,7 @@ class ICEnroll4 extends ICEnroll3 {
      */
     enumPendingRequest(lIndex, lDesiredProperty) {
         pvarProperty := VARIANT()
-        result := ComCall(103, this, "int", lIndex, "int", lDesiredProperty, "ptr", pvarProperty, "HRESULT")
+        result := ComCall(103, this, "int", lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, VARIANT.Ptr, pvarProperty, "HRESULT")
         return pvarProperty
     }
 
@@ -461,7 +507,7 @@ class ICEnroll4 extends ICEnroll3 {
     removePendingRequest(strThumbprint) {
         strThumbprint := strThumbprint is String ? BSTR.Alloc(strThumbprint).Value : strThumbprint
 
-        result := ComCall(104, this, "ptr", strThumbprint, "HRESULT")
+        result := ComCall(104, this, BSTR, strThumbprint, "HRESULT")
         return result
     }
 
@@ -478,7 +524,7 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
      */
     GetKeyLenEx(lSizeSpec, lKeySpec) {
-        result := ComCall(105, this, "int", lSizeSpec, "int", lKeySpec, "int*", &pdwKeySize := 0, "HRESULT")
+        result := ComCall(105, this, XEKL_KEYSIZE, lSizeSpec, XEKL_KEYSPEC, lKeySpec, "int*", &pdwKeySize := 0, "HRESULT")
         return pdwKeySize
     }
 
@@ -493,7 +539,7 @@ class ICEnroll4 extends ICEnroll3 {
     InstallPKCS7Ex(PKCS7) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
 
-        result := ComCall(106, this, "ptr", PKCS7, "int*", &plCertInstalled := 0, "HRESULT")
+        result := ComCall(106, this, BSTR, PKCS7, "int*", &plCertInstalled := 0, "HRESULT")
         return plCertInstalled
     }
 
@@ -517,7 +563,7 @@ class ICEnroll4 extends ICEnroll3 {
     addCertTypeToRequestEx(lType, bstrOIDOrName, lMajorVersion, fMinorVersion, lMinorVersion) {
         bstrOIDOrName := bstrOIDOrName is String ? BSTR.Alloc(bstrOIDOrName).Value : bstrOIDOrName
 
-        result := ComCall(107, this, "int", lType, "ptr", bstrOIDOrName, "int", lMajorVersion, "int", fMinorVersion, "int", lMinorVersion, "HRESULT")
+        result := ComCall(107, this, ADDED_CERT_TYPE, lType, BSTR, bstrOIDOrName, "int", lMajorVersion, BOOL, fMinorVersion, "int", lMinorVersion, "HRESULT")
         return result
     }
 
@@ -530,7 +576,7 @@ class ICEnroll4 extends ICEnroll3 {
     getProviderType(strProvName) {
         strProvName := strProvName is String ? BSTR.Alloc(strProvName).Value : strProvName
 
-        result := ComCall(108, this, "ptr", strProvName, "int*", &plProvType := 0, "HRESULT")
+        result := ComCall(108, this, BSTR, strProvName, "int*", &plProvType := 0, "HRESULT")
         return plProvType
     }
 
@@ -543,7 +589,7 @@ class ICEnroll4 extends ICEnroll3 {
     put_SignerCertificate(bstrCert) {
         bstrCert := bstrCert is String ? BSTR.Alloc(bstrCert).Value : bstrCert
 
-        result := ComCall(109, this, "ptr", bstrCert, "HRESULT")
+        result := ComCall(109, this, BSTR, bstrCert, "HRESULT")
         return result
     }
 
@@ -579,7 +625,7 @@ class ICEnroll4 extends ICEnroll3 {
     addBlobPropertyToCertificate(lPropertyId, lReserved, bstrProperty) {
         bstrProperty := bstrProperty is String ? BSTR.Alloc(bstrProperty).Value : bstrProperty
 
-        result := ComCall(112, this, "int", lPropertyId, "int", lReserved, "ptr", bstrProperty, "HRESULT")
+        result := ComCall(112, this, "int", lPropertyId, "int", lReserved, BSTR, bstrProperty, "HRESULT")
         return result
     }
 
@@ -600,7 +646,7 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_includesubjectkeyid
      */
     put_IncludeSubjectKeyID(fInclude) {
-        result := ComCall(114, this, "int", fInclude, "HRESULT")
+        result := ComCall(114, this, BOOL, fInclude, "HRESULT")
         return result
     }
 
@@ -610,7 +656,91 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_includesubjectkeyid
      */
     get_IncludeSubjectKeyID() {
-        result := ComCall(115, this, "int*", &pfInclude := 0, "HRESULT")
+        result := ComCall(115, this, BOOL.Ptr, &pfInclude := 0, "HRESULT")
         return pfInclude
+    }
+
+    Query(iid) {
+        if (ICEnroll4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_PrivateKeyArchiveCertificate := CallbackCreate(GetMethod(implObj, "put_PrivateKeyArchiveCertificate"), flags, 2)
+        this.vtbl.get_PrivateKeyArchiveCertificate := CallbackCreate(GetMethod(implObj, "get_PrivateKeyArchiveCertificate"), flags, 2)
+        this.vtbl.put_ThumbPrint := CallbackCreate(GetMethod(implObj, "put_ThumbPrint"), flags, 2)
+        this.vtbl.get_ThumbPrint := CallbackCreate(GetMethod(implObj, "get_ThumbPrint"), flags, 2)
+        this.vtbl.binaryToString := CallbackCreate(GetMethod(implObj, "binaryToString"), flags, 4)
+        this.vtbl.stringToBinary := CallbackCreate(GetMethod(implObj, "stringToBinary"), flags, 4)
+        this.vtbl.addExtensionToRequest := CallbackCreate(GetMethod(implObj, "addExtensionToRequest"), flags, 4)
+        this.vtbl.addAttributeToRequest := CallbackCreate(GetMethod(implObj, "addAttributeToRequest"), flags, 4)
+        this.vtbl.addNameValuePairToRequest := CallbackCreate(GetMethod(implObj, "addNameValuePairToRequest"), flags, 4)
+        this.vtbl.resetExtensions := CallbackCreate(GetMethod(implObj, "resetExtensions"), flags, 1)
+        this.vtbl.resetAttributes := CallbackCreate(GetMethod(implObj, "resetAttributes"), flags, 1)
+        this.vtbl.createRequest := CallbackCreate(GetMethod(implObj, "createRequest"), flags, 5)
+        this.vtbl.createFileRequest := CallbackCreate(GetMethod(implObj, "createFileRequest"), flags, 5)
+        this.vtbl.acceptResponse := CallbackCreate(GetMethod(implObj, "acceptResponse"), flags, 2)
+        this.vtbl.acceptFileResponse := CallbackCreate(GetMethod(implObj, "acceptFileResponse"), flags, 2)
+        this.vtbl.getCertFromResponse := CallbackCreate(GetMethod(implObj, "getCertFromResponse"), flags, 3)
+        this.vtbl.getCertFromFileResponse := CallbackCreate(GetMethod(implObj, "getCertFromFileResponse"), flags, 3)
+        this.vtbl.createPFX := CallbackCreate(GetMethod(implObj, "createPFX"), flags, 3)
+        this.vtbl.createFilePFX := CallbackCreate(GetMethod(implObj, "createFilePFX"), flags, 3)
+        this.vtbl.setPendingRequestInfo := CallbackCreate(GetMethod(implObj, "setPendingRequestInfo"), flags, 5)
+        this.vtbl.enumPendingRequest := CallbackCreate(GetMethod(implObj, "enumPendingRequest"), flags, 4)
+        this.vtbl.removePendingRequest := CallbackCreate(GetMethod(implObj, "removePendingRequest"), flags, 2)
+        this.vtbl.GetKeyLenEx := CallbackCreate(GetMethod(implObj, "GetKeyLenEx"), flags, 4)
+        this.vtbl.InstallPKCS7Ex := CallbackCreate(GetMethod(implObj, "InstallPKCS7Ex"), flags, 3)
+        this.vtbl.addCertTypeToRequestEx := CallbackCreate(GetMethod(implObj, "addCertTypeToRequestEx"), flags, 6)
+        this.vtbl.getProviderType := CallbackCreate(GetMethod(implObj, "getProviderType"), flags, 3)
+        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.put_ClientId := CallbackCreate(GetMethod(implObj, "put_ClientId"), flags, 2)
+        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.addBlobPropertyToCertificate := CallbackCreate(GetMethod(implObj, "addBlobPropertyToCertificate"), flags, 4)
+        this.vtbl.resetBlobProperties := CallbackCreate(GetMethod(implObj, "resetBlobProperties"), flags, 1)
+        this.vtbl.put_IncludeSubjectKeyID := CallbackCreate(GetMethod(implObj, "put_IncludeSubjectKeyID"), flags, 2)
+        this.vtbl.get_IncludeSubjectKeyID := CallbackCreate(GetMethod(implObj, "get_IncludeSubjectKeyID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_PrivateKeyArchiveCertificate)
+        CallbackFree(this.vtbl.get_PrivateKeyArchiveCertificate)
+        CallbackFree(this.vtbl.put_ThumbPrint)
+        CallbackFree(this.vtbl.get_ThumbPrint)
+        CallbackFree(this.vtbl.binaryToString)
+        CallbackFree(this.vtbl.stringToBinary)
+        CallbackFree(this.vtbl.addExtensionToRequest)
+        CallbackFree(this.vtbl.addAttributeToRequest)
+        CallbackFree(this.vtbl.addNameValuePairToRequest)
+        CallbackFree(this.vtbl.resetExtensions)
+        CallbackFree(this.vtbl.resetAttributes)
+        CallbackFree(this.vtbl.createRequest)
+        CallbackFree(this.vtbl.createFileRequest)
+        CallbackFree(this.vtbl.acceptResponse)
+        CallbackFree(this.vtbl.acceptFileResponse)
+        CallbackFree(this.vtbl.getCertFromResponse)
+        CallbackFree(this.vtbl.getCertFromFileResponse)
+        CallbackFree(this.vtbl.createPFX)
+        CallbackFree(this.vtbl.createFilePFX)
+        CallbackFree(this.vtbl.setPendingRequestInfo)
+        CallbackFree(this.vtbl.enumPendingRequest)
+        CallbackFree(this.vtbl.removePendingRequest)
+        CallbackFree(this.vtbl.GetKeyLenEx)
+        CallbackFree(this.vtbl.InstallPKCS7Ex)
+        CallbackFree(this.vtbl.addCertTypeToRequestEx)
+        CallbackFree(this.vtbl.getProviderType)
+        CallbackFree(this.vtbl.put_SignerCertificate)
+        CallbackFree(this.vtbl.put_ClientId)
+        CallbackFree(this.vtbl.get_ClientId)
+        CallbackFree(this.vtbl.addBlobPropertyToCertificate)
+        CallbackFree(this.vtbl.resetBlobProperties)
+        CallbackFree(this.vtbl.put_IncludeSubjectKeyID)
+        CallbackFree(this.vtbl.get_IncludeSubjectKeyID)
     }
 }

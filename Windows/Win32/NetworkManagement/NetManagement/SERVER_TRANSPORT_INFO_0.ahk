@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SERVER_TRANSPORT_INFO_0 structure contains information about the specified transport protocol, including name, address, and location on the network.
@@ -9,21 +9,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_transport_info_0
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_TRANSPORT_INFO_0 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SERVER_TRANSPORT_INFO_0 {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of clients connected to the server that are using the transport protocol specified by the <b>svti0_transportname</b> member.
-     * @type {Integer}
      */
-    svti0_numberofvcs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    svti0_numberofvcs : UInt32
 
     /**
      * Type: <b>LMSTR</b>
@@ -37,12 +31,8 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct {
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    svti0_transportname {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    svti0_transportname : PWSTR
 
     /**
      * Type: <b>LPBYTE</b>
@@ -50,20 +40,10 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct {
      * A pointer to a variable that contains the address the server is using on the transport device specified by the <b>svti0_transportname</b> member.
      * 
      * This member is usually the NetBIOS name that the server is using. In these instances, the name must be 16 characters long, and the last character must be a blank character (0x20).
-     * @type {Pointer<Integer>}
      */
-    svti0_transportaddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    svti0_transportaddress : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    svti0_transportaddresslength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    svti0_transportaddresslength : UInt32
 
     /**
      * Type: <b>LMSTR</b>
@@ -76,10 +56,7 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    svti0_networkaddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    svti0_networkaddress : PWSTR
+
 }

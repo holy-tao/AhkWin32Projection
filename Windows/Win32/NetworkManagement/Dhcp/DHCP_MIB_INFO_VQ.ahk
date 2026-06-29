@@ -1,152 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DATE_TIME.ahk
-#Include .\SCOPE_MIB_INFO_VQ.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCOPE_MIB_INFO_VQ.ahk" { SCOPE_MIB_INFO_VQ }
+#Import ".\DATE_TIME.ahk" { DATE_TIME }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_MIB_INFO_VQ extends Win32Struct {
-    static sizeof => 80
+export default struct DHCP_MIB_INFO_VQ {
+    #StructPack 8
 
-    static packingSize => 8
+    Discovers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Discovers {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Offers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Offers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Requests : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Requests {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Acks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Acks {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Naks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Naks {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Declines : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Declines {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Releases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Releases {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ServerStartTime : DATE_TIME
 
-    /**
-     * @type {DATE_TIME}
-     */
-    ServerStartTime {
-        get {
-            if(!this.HasProp("__ServerStartTime"))
-                this.__ServerStartTime := DATE_TIME(28, this)
-            return this.__ServerStartTime
-        }
-    }
+    QtnNumLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnNumLeases {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    QtnPctQtnLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnPctQtnLeases {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    QtnProbationLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnProbationLeases {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    QtnNonQtnLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnNonQtnLeases {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    QtnExemptLeases : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnExemptLeases {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    QtnCapableClients : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnCapableClients {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    QtnIASErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QtnIASErrors {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Scopes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Scopes {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ScopeInfo : SCOPE_MIB_INFO_VQ.Ptr
 
-    /**
-     * @type {Pointer<SCOPE_MIB_INFO_VQ>}
-     */
-    ScopeInfo {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

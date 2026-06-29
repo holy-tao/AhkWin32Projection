@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_RENDER_TARGET_BLEND_DESC1.ahk
-#Include .\D3D11_BLEND.ahk
-#Include .\D3D11_BLEND_OP.ahk
-#Include .\D3D11_LOGIC_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_BLEND_OP.ahk" { D3D11_BLEND_OP }
+#Import ".\D3D11_BLEND.ahk" { D3D11_BLEND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_LOGIC_OP.ahk" { D3D11_LOGIC_OP }
+#Import ".\D3D11_RENDER_TARGET_BLEND_DESC1.ahk" { D3D11_RENDER_TARGET_BLEND_DESC1 }
 
 /**
  * Describes the blend state that you use in a call to ID3D11Device1::CreateBlendState1 to create a blend-state object. (D3D11_BLEND_DESC1)
@@ -71,21 +71,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_BLEND_DESC1 extends Win32Struct {
-    static sizeof => 328
-
-    static packingSize => 4
+export default struct D3D11_BLEND_DESC1 {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether to use alpha-to-coverage as a multisampling technique when setting a pixel to a render target. For more info about using alpha-to-coverage, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">Alpha-To-Coverage</a>.
-     * @type {BOOL}
      */
-    AlphaToCoverageEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AlphaToCoverageEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -93,24 +87,14 @@ class D3D11_BLEND_DESC1 extends Win32Struct {
      * Specifies whether to enable independent blending in simultaneous render targets. Set to <b>TRUE</b> to enable independent blending. If set to <b>FALSE</b>, only the <b>RenderTarget</b>[0] members are used; <b>RenderTarget</b>[1..7] are ignored.
      * 
      * See the **Remarks** section for restrictions.
-     * @type {BOOL}
      */
-    IndependentBlendEnable {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    IndependentBlendEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_render_target_blend_desc1">D3D11_RENDER_TARGET_BLEND_DESC1</a>[8]</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_render_target_blend_desc1">D3D11_RENDER_TARGET_BLEND_DESC1</a> structures that describe the blend states for render targets; these correspond to the eight render targets that can be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> at one time.
-     * @type {D3D11_RENDER_TARGET_BLEND_DESC1}
      */
-    RenderTarget {
-        get {
-            if(!this.HasProp("__RenderTargetProxyArray"))
-                this.__RenderTargetProxyArray := Win32FixedArray(this.ptr + 8, 8, D3D11_RENDER_TARGET_BLEND_DESC1, "")
-            return this.__RenderTargetProxyArray
-        }
-    }
+    RenderTarget : D3D11_RENDER_TARGET_BLEND_DESC1[8]
+
 }

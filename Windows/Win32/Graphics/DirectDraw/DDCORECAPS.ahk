@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
 
 /**
  * The DDCORECAPS structure specifies the core capabilities of the Microsoft DirectDraw driver and its device, which are exposed to an application through the DirectDraw object.
@@ -15,19 +14,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddcorecaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDCORECAPS extends Win32Struct {
-    static sizeof => 316
-
-    static packingSize => 4
+export default struct DDCORECAPS {
+    #StructPack 4
 
     /**
      * Specifies the size in bytes of this DDCORECAPS structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Indicates a flag that specifies the driver's capabilities. The driver should set the appropriate DDCAPS_<i>Xxx</i> bit for every capability that it supports. 
@@ -358,12 +351,8 @@ class DDCORECAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCaps : UInt32
 
     /**
      * Specify more of the driver's capabilities. The driver should set the appropriate DDCAPS2_<i>Xxx</i> bit for every capability that it supports. 
@@ -619,12 +608,8 @@ class DDCORECAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCaps2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCaps2 : UInt32
 
     /**
      * Specify the color key capabilities of surfaces. The driver should set the appropriate DDCKEYCAPS_<i>Xxx</i> bit for every capability that it supports. 
@@ -825,12 +810,8 @@ class DDCORECAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCKeyCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwCKeyCaps : UInt32
 
     /**
      * Specify the driver's stretching and effects capabilities. The driver should set the appropriate DDFXCAPS_<i>Xxx</i> bit for every capability that it supports. 
@@ -1101,30 +1082,18 @@ class DDCORECAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFXCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFXCaps : UInt32
 
     /**
      * This member and its flags are obsolete and should not be used by the driver.
-     * @type {Integer}
      */
-    dwFXAlphaCaps {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFXAlphaCaps : UInt32
 
     /**
      * Specify the driver's palette capabilities. The driver should set the appropriate DDPCAPS_<i>Xxx</i> bit for every capability that it supports. The DDPCAPS_<i>Xxx</i> flags are defined in <i>ddraw.h</i>. The DirectDraw runtime currently ignores these capabilities.
-     * @type {Integer}
      */
-    dwPalCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwPalCaps : UInt32
 
     /**
      * Specify the driver's stereo vision capabilities. The driver should set the appropriate DDSVCAPS_<i>Xxx</i> bit for every capability that it supports. 
@@ -1175,411 +1144,219 @@ class DDCORECAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSVCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwSVCaps : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwAlphaBltConstBitDepths {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwAlphaBltConstBitDepths : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwAlphaBltPixelBitDepths {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwAlphaBltPixelBitDepths : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwAlphaBltSurfaceBitDepths {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwAlphaBltSurfaceBitDepths : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwAlphaOverlayConstBitDepths {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwAlphaOverlayConstBitDepths : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwAlphaOverlayPixelBitDepths {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwAlphaOverlayPixelBitDepths : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwAlphaOverlaySurfaceBitDepths {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwAlphaOverlaySurfaceBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwZBufferBitDepths {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwZBufferBitDepths : UInt32
 
     /**
      * Specifies the total amount of display memory, in bytes.
-     * @type {Integer}
      */
-    dwVidMemTotal {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwVidMemTotal : UInt32
 
     /**
      * Specifies the number of bytes of free display memory. The driver sets this member once during initialization to the same value it returns in the <b>dwVidMemTotal</b> member. DirectDraw updates it every time the application does a memory allocation.
-     * @type {Integer}
      */
-    dwVidMemFree {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwVidMemFree : UInt32
 
     /**
      * Specifies the maximum number of visible overlays.
-     * @type {Integer}
      */
-    dwMaxVisibleOverlays {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwMaxVisibleOverlays : UInt32
 
     /**
      * Specifies the current number of visible overlays.
-     * @type {Integer}
      */
-    dwCurrVisibleOverlays {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwCurrVisibleOverlays : UInt32
 
     /**
      * Specifies the number of <a href="https://docs.microsoft.com/windows-hardware/drivers/">FOURCC</a> codes that the driver supports.
-     * @type {Integer}
      */
-    dwNumFourCCCodes {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwNumFourCCCodes : UInt32
 
     /**
      * Specifies the source rectangle alignment. This member can be optionally set by the driver. If the driver sets this member, then the overlay source rectangle's top left coordinate value must be a multiple of <b>dwAlignBoundarySrc</b>.
-     * @type {Integer}
      */
-    dwAlignBoundarySrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwAlignBoundarySrc : UInt32
 
     /**
      * Specifies the size of the source rectangle, in bytes. This member can be optionally set by the driver. If the driver sets this member, then the overlay source rectangle's width must be a multiple of <b>dwAlignSizeSrc</b>.
-     * @type {Integer}
      */
-    dwAlignSizeSrc {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwAlignSizeSrc : UInt32
 
     /**
      * Specifies the destination rectangle alignment. This member can be optionally set by the driver. If the driver sets this member, then the overlay destination rectangle's top left coordinate value must be a multiple of <b>dwAlignBoundaryDest</b>.
-     * @type {Integer}
      */
-    dwAlignBoundaryDest {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwAlignBoundaryDest : UInt32
 
     /**
      * Specifies the destination rectangle byte size. This member can be optionally set by the driver. If the driver sets this member, then the overlay destination rectangle's width must be a multiple of <b>dwAlignSizeDest</b>.
-     * @type {Integer}
      */
-    dwAlignSizeDest {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwAlignSizeDest : UInt32
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwAlignStrideAlign {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwAlignStrideAlign : UInt32
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports. The driver should set the bitfield for every corresponding ROP that it supports. See the Microsoft Windows SDK documentation for information about ROPs.
-     * @type {Array<Integer>}
      */
-    dwRops {
-        get {
-            if(!this.HasProp("__dwRopsProxyArray"))
-                this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
-            return this.__dwRopsProxyArray
-        }
-    }
+    dwRops : UInt32[8]
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure that describes the types of surfaces the driver supports.
-     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get {
-            if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(132, this)
-            return this.__ddsCaps
-        }
-    }
+    ddsCaps : DDSCAPS
 
     /**
      * Specifies the minimum overlay stretch factor multiplied by 1000. For example, a factor of 1.3 should be stored as 1300. The display driver must set the minimum factor to the actual minimum to which the graphics hardware can shrink the overlay. If the graphics hardware has no minimum limitation, set to 1.
-     * @type {Integer}
      */
-    dwMinOverlayStretch {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwMinOverlayStretch : UInt32
 
     /**
      * Specifies the maximum overlay stretch factor multiplied by 1000. For example, a factor of 1.3 should be stored as 1300. The display driver must set the maximum factor to the actual maximum to which the graphics hardware can stretch the overlay. If the graphics hardware has no maximum limitation, set to 32000.
-     * @type {Integer}
      */
-    dwMaxOverlayStretch {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    dwMaxOverlayStretch : UInt32
 
     /**
      * Specifies the minimum live video stretch factor multiplied by 1000. For example, a factor of 1.3 should be stored as 1300.
-     * @type {Integer}
      */
-    dwMinLiveVideoStretch {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    dwMinLiveVideoStretch : UInt32
 
     /**
      * Specifies the maximum live video stretch factor multiplied by 1000. For example, a factor of 1.3 should be stored as 1300.
-     * @type {Integer}
      */
-    dwMaxLiveVideoStretch {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    dwMaxLiveVideoStretch : UInt32
 
     /**
      * Specifies the minimum hardware codec stretch factor multiplied by 1000. For example, a factor of 1.3 should be stored as 1300.
-     * @type {Integer}
      */
-    dwMinHwCodecStretch {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    dwMinHwCodecStretch : UInt32
 
     /**
      * Specifies the maximum hardware codec stretch factor multiplied by 1000. For example, a factor of 1.3 should be stored as 1300.
-     * @type {Integer}
      */
-    dwMaxHwCodecStretch {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    dwMaxHwCodecStretch : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    dwReserved1 : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    dwReserved2 : UInt32
 
     /**
      * Reserved for system use. The driver should ignore this member.
-     * @type {Integer}
      */
-    dwReserved3 {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    dwReserved3 : UInt32
 
     /**
      * Indicates a set of flags that specify the driver-specific capabilities for system-memory-to-display-memory blits. The driver should bitwise OR the appropriate DDCAPS_<i>Xxx</i> flags (see the <b>dwCaps</b> member) to indicate the types of blit operations it supports when blitting from system memory to display memory.
-     * @type {Integer}
      */
-    dwSVBCaps {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    dwSVBCaps : UInt32
 
     /**
      * Indicates a set of flags that specify driver color-key capabilities for system-memory-to-display-memory blits. The driver should bitwise OR the appropriate DDCKEYCAPS_<i>Xxx</i> flags (see the <b>dwCKeyCaps</b> member) to indicate the types of color key operations it supports when blitting from system memory to display memory.
-     * @type {Integer}
      */
-    dwSVBCKeyCaps {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    dwSVBCKeyCaps : UInt32
 
     /**
      * Indicates a set of flags that specify driver FX capabilities for system-memory-to-display-memory blits. The driver should bitwise OR the appropriate DDFXCAPS_<i>Xxx</i> flags (see the <b>dwFXCaps</b> member) to indicate the types of effects it supports when blitting from system memory to display memory.
-     * @type {Integer}
      */
-    dwSVBFXCaps {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    dwSVBFXCaps : UInt32
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports when performing system-memory-to-display-memory blits. The driver should set the bitfield for every corresponding ROP that it supports. See the Microsoft Windows SDK documentation for information about ROPs.
-     * @type {Array<Integer>}
      */
-    dwSVBRops {
-        get {
-            if(!this.HasProp("__dwSVBRopsProxyArray"))
-                this.__dwSVBRopsProxyArray := Win32FixedArray(this.ptr + 184, 8, Primitive, "uint")
-            return this.__dwSVBRopsProxyArray
-        }
-    }
+    dwSVBRops : UInt32[8]
 
     /**
      * Indicates a set of flags that specify driver-specific capabilities for display-memory-to-system-memory blits. The driver should bitwise OR the appropriate DDCAPS_<i>Xxx</i> flags (see the <b>dwCaps</b> member) to indicate the types of blit operations it supports when blitting from display memory to system memory.
-     * @type {Integer}
      */
-    dwVSBCaps {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    dwVSBCaps : UInt32
 
     /**
      * Indicates a set of flags that specify driver color-key capabilities for display-memory-to-system-memory blits. The driver should bitwise OR the appropriate DDCKEYCAPS_<i>Xxx</i> flags (see the <b>dwCKeyCaps</b> member) to indicate the types of color key operations it supports when blitting from display memory to system memory.
-     * @type {Integer}
      */
-    dwVSBCKeyCaps {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    dwVSBCKeyCaps : UInt32
 
     /**
      * Indicates a set of flags that specify driver FX capabilities for display-memory-to-system-memory blits. The driver should bitwise OR the appropriate DDFXCAPS_<i>Xxx</i> flags (see the <b>dwFXCaps</b> member) to indicate the types of effects it supports when blitting from display memory to system memory.
-     * @type {Integer}
      */
-    dwVSBFXCaps {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    dwVSBFXCaps : UInt32
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports when performing display-memory-to-system-memory blits. The driver should set the bitfield for every corresponding ROP that it supports. See the Windows SDK documentation for information about ROPs.
-     * @type {Array<Integer>}
      */
-    dwVSBRops {
-        get {
-            if(!this.HasProp("__dwVSBRopsProxyArray"))
-                this.__dwVSBRopsProxyArray := Win32FixedArray(this.ptr + 228, 8, Primitive, "uint")
-            return this.__dwVSBRopsProxyArray
-        }
-    }
+    dwVSBRops : UInt32[8]
 
     /**
      * Indicates a set of flags that specify driver-specific capabilities for system-memory-to-system-memory blits. The driver should bitwise OR the appropriate DDCAPS_<i>Xxx</i> flags (see the <b>dwCaps</b> member) to indicate the types of blit operations it supports when blitting from system memory to system memory.
-     * @type {Integer}
      */
-    dwSSBCaps {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
-    }
+    dwSSBCaps : UInt32
 
     /**
      * Indicates a set of flags that specify driver color-key capabilities for system-memory-to-system-memory blits. The driver should bitwise OR the appropriate DDCKEYCAPS_<i>Xxx</i> flags (see the <b>dwCKeyCaps</b> member) to indicate the types of color key operations it supports when blitting from system memory to system memory.
-     * @type {Integer}
      */
-    dwSSBCKeyCaps {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
+    dwSSBCKeyCaps : UInt32
 
     /**
      * Indicates a set of flags that specify driver FX capabilities for system-memory-to-system-memory blits. The driver should bitwise OR the appropriate DDFXCAPS_<i>Xxx</i> flags (see the <b>dwFXCaps</b> member) to indicate the types of effects it supports when blitting from system memory to system memory.
-     * @type {Integer}
      */
-    dwSSBFXCaps {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    dwSSBFXCaps : UInt32
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports when performing system-memory-to-system-memory blits. The driver should set the bitfield for every corresponding ROP that it supports. See the Windows SDK documentation for information about ROPs.
-     * @type {Array<Integer>}
      */
-    dwSSBRops {
-        get {
-            if(!this.HasProp("__dwSSBRopsProxyArray"))
-                this.__dwSSBRopsProxyArray := Win32FixedArray(this.ptr + 272, 8, Primitive, "uint")
-            return this.__dwSSBRopsProxyArray
-        }
-    }
+    dwSSBRops : UInt32[8]
 
     /**
      * Specifies the maximum number of usable VPE objects.
-     * @type {Integer}
      */
-    dwMaxVideoPorts {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
-    }
+    dwMaxVideoPorts : UInt32
 
     /**
      * Specifies the current number of VPE objects used. The driver does not need to fill in this member because it is set by DirectDraw.
-     * @type {Integer}
      */
-    dwCurrVideoPorts {
-        get => NumGet(this, 308, "uint")
-        set => NumPut("uint", value, this, 308)
-    }
+    dwCurrVideoPorts : UInt32
 
     /**
      * Specifies additional driver-specific capabilities for system-memory-to-display-memory blits. Valid flags are identical to the blit-related flags used with the <b>dwCaps2</b> member.
-     * @type {Integer}
      */
-    dwSVBCaps2 {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
-    }
+    dwSVBCaps2 : UInt32
+
 }

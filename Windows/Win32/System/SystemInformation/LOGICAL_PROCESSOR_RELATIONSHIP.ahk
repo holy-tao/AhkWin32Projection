@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the relationship between the processor set identified in the corresponding SYSTEM_LOGICAL_PROCESSOR_INFORMATION or SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX structure.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-logical_processor_relationship
  * @namespace Windows.Win32.System.SystemInformation
  */
-class LOGICAL_PROCESSOR_RELATIONSHIP extends Win32Enum {
+export default struct LOGICAL_PROCESSOR_RELATIONSHIP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The specified logical processors share a single processor core.

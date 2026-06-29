@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PHY_STATE_PARAMETERS extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_PHY_STATE_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    uPhyId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPhyId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    bHardwarePhyState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bHardwarePhyState {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bSoftwarePhyState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bSoftwarePhyState {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

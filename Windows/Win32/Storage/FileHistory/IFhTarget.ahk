@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FH_TARGET_PROPERTY_TYPE.ahk" { FH_TARGET_PROPERTY_TYPE }
 
 /**
  * The IFhTarget interface allows client applications to read numeric and string properties of a File History backup target.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhtarget
  * @namespace Windows.Win32.Storage.FileHistory
  */
-class IFhTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFhTarget extends IUnknown {
     /**
      * The interface identifier for IFhTarget
      * @type {Guid}
      */
-    static IID => Guid("{d87965fd-2bad-4657-bd3b-9567eb300ced}")
+    static IID := Guid("{d87965fd-2bad-4657-bd3b-9567eb300ced}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFhTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStringProperty    : IntPtr
+        GetNumericalProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStringProperty", "GetNumericalProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFhTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a string property of the File History backup target that is represented by an IFhTarget interface.
@@ -39,8 +49,8 @@ class IFhTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getstringproperty
      */
     GetStringProperty(PropertyType) {
-        _PropertyValue := BSTR()
-        result := ComCall(3, this, "int", PropertyType, "ptr", _PropertyValue, "HRESULT")
+        _PropertyValue := BSTR.Owned()
+        result := ComCall(3, this, FH_TARGET_PROPERTY_TYPE, PropertyType, BSTR.Ptr, _PropertyValue, "HRESULT")
         return _PropertyValue
     }
 
@@ -53,7 +63,29 @@ class IFhTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getnumericalproperty
      */
     GetNumericalProperty(PropertyType) {
-        result := ComCall(4, this, "int", PropertyType, "uint*", &_PropertyValue := 0, "HRESULT")
+        result := ComCall(4, this, FH_TARGET_PROPERTY_TYPE, PropertyType, "uint*", &_PropertyValue := 0, "HRESULT")
         return _PropertyValue
+    }
+
+    Query(iid) {
+        if (IFhTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStringProperty := CallbackCreate(GetMethod(implObj, "GetStringProperty"), flags, 3)
+        this.vtbl.GetNumericalProperty := CallbackCreate(GetMethod(implObj, "GetNumericalProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStringProperty)
+        CallbackFree(this.vtbl.GetNumericalProperty)
     }
 }

@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class USAGE_AND_PAGE extends Win32Struct {
-    static sizeof => 4
+export default struct USAGE_AND_PAGE {
+    #StructPack 2
 
-    static packingSize => 2
+    Usage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Usage {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    UsagePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    UsagePage {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 }

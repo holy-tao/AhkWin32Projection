@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate the options that can be retrieved or set with the IADsObjectOptions.GetOption and IADsObjectOptions.SetOption methods.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_option_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_OPTION_ENUM extends Win32Enum {
+export default struct ADS_OPTION_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Gets a <b>VT_BSTR</b> that contains the host name of the server for the current binding 

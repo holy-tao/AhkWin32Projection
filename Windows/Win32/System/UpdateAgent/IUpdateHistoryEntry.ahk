@@ -1,36 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateIdentity.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUpdateIdentity.ahk" { IUpdateIdentity }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\OperationResultCode.ahk" { OperationResultCode }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStringCollection.ahk" { IStringCollection }
+#Import ".\UpdateOperation.ahk" { UpdateOperation }
+#Import ".\ServerSelection.ahk" { ServerSelection }
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatehistoryentry
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateHistoryEntry extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateHistoryEntry extends IDispatch {
     /**
      * The interface identifier for IUpdateHistoryEntry
      * @type {Guid}
      */
-    static IID => Guid("{be56a644-af0e-4e0e-a311-c1d8e695cbff}")
+    static IID := Guid("{be56a644-af0e-4e0e-a311-c1d8e695cbff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateHistoryEntry interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Operation           : IntPtr
+        get_ResultCode          : IntPtr
+        get_HResult             : IntPtr
+        get_Date                : IntPtr
+        get_UpdateIdentity      : IntPtr
+        get_Title               : IntPtr
+        get_Description         : IntPtr
+        get_UnmappedResultCode  : IntPtr
+        get_ClientApplicationID : IntPtr
+        get_ServerSelection     : IntPtr
+        get_ServiceID           : IntPtr
+        get_UninstallationSteps : IntPtr
+        get_UninstallationNotes : IntPtr
+        get_SupportUrl          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Operation", "get_ResultCode", "get_HResult", "get_Date", "get_UpdateIdentity", "get_Title", "get_Description", "get_UnmappedResultCode", "get_ClientApplicationID", "get_ServerSelection", "get_ServiceID", "get_UninstallationSteps", "get_UninstallationNotes", "get_SupportUrl"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateHistoryEntry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UpdateOperation} 
@@ -195,8 +219,8 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_title
      */
     get_Title() {
-        retval := BSTR()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -213,8 +237,8 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_description
      */
     get_Description() {
-        retval := BSTR()
-        result := ComCall(13, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -238,8 +262,8 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -259,8 +283,8 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_serviceid
      */
     get_ServiceID() {
-        retval := BSTR()
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -294,8 +318,8 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationnotes
      */
     get_UninstallationNotes() {
-        retval := BSTR()
-        result := ComCall(19, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -312,8 +336,54 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_supporturl
      */
     get_SupportUrl() {
-        retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, retval, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IUpdateHistoryEntry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Operation := CallbackCreate(GetMethod(implObj, "get_Operation"), flags, 2)
+        this.vtbl.get_ResultCode := CallbackCreate(GetMethod(implObj, "get_ResultCode"), flags, 2)
+        this.vtbl.get_HResult := CallbackCreate(GetMethod(implObj, "get_HResult"), flags, 2)
+        this.vtbl.get_Date := CallbackCreate(GetMethod(implObj, "get_Date"), flags, 2)
+        this.vtbl.get_UpdateIdentity := CallbackCreate(GetMethod(implObj, "get_UpdateIdentity"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_UnmappedResultCode := CallbackCreate(GetMethod(implObj, "get_UnmappedResultCode"), flags, 2)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.get_ServerSelection := CallbackCreate(GetMethod(implObj, "get_ServerSelection"), flags, 2)
+        this.vtbl.get_ServiceID := CallbackCreate(GetMethod(implObj, "get_ServiceID"), flags, 2)
+        this.vtbl.get_UninstallationSteps := CallbackCreate(GetMethod(implObj, "get_UninstallationSteps"), flags, 2)
+        this.vtbl.get_UninstallationNotes := CallbackCreate(GetMethod(implObj, "get_UninstallationNotes"), flags, 2)
+        this.vtbl.get_SupportUrl := CallbackCreate(GetMethod(implObj, "get_SupportUrl"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Operation)
+        CallbackFree(this.vtbl.get_ResultCode)
+        CallbackFree(this.vtbl.get_HResult)
+        CallbackFree(this.vtbl.get_Date)
+        CallbackFree(this.vtbl.get_UpdateIdentity)
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.get_UnmappedResultCode)
+        CallbackFree(this.vtbl.get_ClientApplicationID)
+        CallbackFree(this.vtbl.get_ServerSelection)
+        CallbackFree(this.vtbl.get_ServiceID)
+        CallbackFree(this.vtbl.get_UninstallationSteps)
+        CallbackFree(this.vtbl.get_UninstallationNotes)
+        CallbackFree(this.vtbl.get_SupportUrl)
     }
 }

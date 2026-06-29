@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains a GUID that uniquely identifies a session.
@@ -20,26 +20,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_session_id
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_SESSION_ID extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WTS_SESSION_ID {
+    #StructPack 4
 
     /**
      * A GUID that specifies the client connection.
-     * @type {Pointer}
      */
-    SessionUniqueGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SessionUniqueGuid : Guid
 
     /**
      * An integer that specifies the session associated with the client connection.
-     * @type {Integer}
      */
-    SessionId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SessionId : UInt32
+
 }

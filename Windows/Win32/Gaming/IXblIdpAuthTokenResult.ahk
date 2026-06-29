@@ -1,39 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XBL_IDP_AUTH_TOKEN_STATUS.ahk" { XBL_IDP_AUTH_TOKEN_STATUS }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Reserved for Microsoft use. (IXblIdpAuthTokenResult)
  * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nn-xblidpauthmanager-ixblidpauthtokenresult
  * @namespace Windows.Win32.Gaming
  */
-class IXblIdpAuthTokenResult extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXblIdpAuthTokenResult extends IUnknown {
     /**
      * The interface identifier for IXblIdpAuthTokenResult
      * @type {Guid}
      */
-    static IID => Guid("{46ce0225-f267-4d68-b299-b2762552dec1}")
+    static IID := Guid("{46ce0225-f267-4d68-b299-b2762552dec1}")
 
     /**
      * The class identifier for XblIdpAuthTokenResult
      * @type {Guid}
      */
-    static CLSID => Guid("{9f493441-744a-410c-ae2b-9a22f7c7731f}")
+    static CLSID := Guid("{9f493441-744a-410c-ae2b-9a22f7c7731f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXblIdpAuthTokenResult interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStatus            : IntPtr
+        GetErrorCode         : IntPtr
+        GetToken             : IntPtr
+        GetSignature         : IntPtr
+        GetSandbox           : IntPtr
+        GetEnvironment       : IntPtr
+        GetMsaAccountId      : IntPtr
+        GetXuid              : IntPtr
+        GetGamertag          : IntPtr
+        GetAgeGroup          : IntPtr
+        GetPrivileges        : IntPtr
+        GetMsaTarget         : IntPtr
+        GetMsaPolicy         : IntPtr
+        GetMsaAppId          : IntPtr
+        GetRedirect          : IntPtr
+        GetMessage           : IntPtr
+        GetHelpId            : IntPtr
+        GetEnforcementBans   : IntPtr
+        GetRestrictions      : IntPtr
+        GetTitleRestrictions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "GetErrorCode", "GetToken", "GetSignature", "GetSandbox", "GetEnvironment", "GetMsaAccountId", "GetXuid", "GetGamertag", "GetAgeGroup", "GetPrivileges", "GetMsaTarget", "GetMsaPolicy", "GetMsaAppId", "GetRedirect", "GetMessage", "GetHelpId", "GetEnforcementBans", "GetRestrictions", "GetTitleRestrictions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXblIdpAuthTokenResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetStatus)
@@ -61,7 +90,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gettoken
      */
     GetToken() {
-        result := ComCall(5, this, "ptr*", &token := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &token := 0, "HRESULT")
         return token
     }
 
@@ -71,7 +100,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getsignature
      */
     GetSignature() {
-        result := ComCall(6, this, "ptr*", &signature := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &signature := 0, "HRESULT")
         return signature
     }
 
@@ -81,7 +110,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getsandbox
      */
     GetSandbox() {
-        result := ComCall(7, this, "ptr*", &sandbox := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &sandbox := 0, "HRESULT")
         return sandbox
     }
 
@@ -91,7 +120,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getenvironment
      */
     GetEnvironment() {
-        result := ComCall(8, this, "ptr*", &environment := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &environment := 0, "HRESULT")
         return environment
     }
 
@@ -101,7 +130,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsaaccountid
      */
     GetMsaAccountId() {
-        result := ComCall(9, this, "ptr*", &msaAccountId := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &msaAccountId := 0, "HRESULT")
         return msaAccountId
     }
 
@@ -111,7 +140,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getxuid
      */
     GetXuid() {
-        result := ComCall(10, this, "ptr*", &xuid := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &xuid := 0, "HRESULT")
         return xuid
     }
 
@@ -121,7 +150,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getgamertag
      */
     GetGamertag() {
-        result := ComCall(11, this, "ptr*", &gamertag := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &gamertag := 0, "HRESULT")
         return gamertag
     }
 
@@ -131,7 +160,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getagegroup
      */
     GetAgeGroup() {
-        result := ComCall(12, this, "ptr*", &ageGroup := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ageGroup := 0, "HRESULT")
         return ageGroup
     }
 
@@ -141,7 +170,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getprivileges
      */
     GetPrivileges() {
-        result := ComCall(13, this, "ptr*", &privileges := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &privileges := 0, "HRESULT")
         return privileges
     }
 
@@ -151,7 +180,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsatarget
      */
     GetMsaTarget() {
-        result := ComCall(14, this, "ptr*", &msaTarget := 0, "HRESULT")
+        result := ComCall(14, this, PWSTR.Ptr, &msaTarget := 0, "HRESULT")
         return msaTarget
     }
 
@@ -161,7 +190,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsapolicy
      */
     GetMsaPolicy() {
-        result := ComCall(15, this, "ptr*", &msaPolicy := 0, "HRESULT")
+        result := ComCall(15, this, PWSTR.Ptr, &msaPolicy := 0, "HRESULT")
         return msaPolicy
     }
 
@@ -171,7 +200,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsaappid
      */
     GetMsaAppId() {
-        result := ComCall(16, this, "ptr*", &msaAppId := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &msaAppId := 0, "HRESULT")
         return msaAppId
     }
 
@@ -181,7 +210,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getredirect
      */
     GetRedirect() {
-        result := ComCall(17, this, "ptr*", &redirect := 0, "HRESULT")
+        result := ComCall(17, this, PWSTR.Ptr, &redirect := 0, "HRESULT")
         return redirect
     }
 
@@ -191,7 +220,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmessage
      */
     GetMessage() {
-        result := ComCall(18, this, "ptr*", &message := 0, "HRESULT")
+        result := ComCall(18, this, PWSTR.Ptr, &message := 0, "HRESULT")
         return message
     }
 
@@ -201,7 +230,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gethelpid
      */
     GetHelpId() {
-        result := ComCall(19, this, "ptr*", &helpId := 0, "HRESULT")
+        result := ComCall(19, this, PWSTR.Ptr, &helpId := 0, "HRESULT")
         return helpId
     }
 
@@ -211,7 +240,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getenforcementbans
      */
     GetEnforcementBans() {
-        result := ComCall(20, this, "ptr*", &enforcementBans := 0, "HRESULT")
+        result := ComCall(20, this, PWSTR.Ptr, &enforcementBans := 0, "HRESULT")
         return enforcementBans
     }
 
@@ -221,7 +250,7 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getrestrictions
      */
     GetRestrictions() {
-        result := ComCall(21, this, "ptr*", &_restrictions := 0, "HRESULT")
+        result := ComCall(21, this, PWSTR.Ptr, &_restrictions := 0, "HRESULT")
         return _restrictions
     }
 
@@ -231,7 +260,65 @@ class IXblIdpAuthTokenResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gettitlerestrictions
      */
     GetTitleRestrictions() {
-        result := ComCall(22, this, "ptr*", &titleRestrictions := 0, "HRESULT")
+        result := ComCall(22, this, PWSTR.Ptr, &titleRestrictions := 0, "HRESULT")
         return titleRestrictions
+    }
+
+    Query(iid) {
+        if (IXblIdpAuthTokenResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetErrorCode := CallbackCreate(GetMethod(implObj, "GetErrorCode"), flags, 2)
+        this.vtbl.GetToken := CallbackCreate(GetMethod(implObj, "GetToken"), flags, 2)
+        this.vtbl.GetSignature := CallbackCreate(GetMethod(implObj, "GetSignature"), flags, 2)
+        this.vtbl.GetSandbox := CallbackCreate(GetMethod(implObj, "GetSandbox"), flags, 2)
+        this.vtbl.GetEnvironment := CallbackCreate(GetMethod(implObj, "GetEnvironment"), flags, 2)
+        this.vtbl.GetMsaAccountId := CallbackCreate(GetMethod(implObj, "GetMsaAccountId"), flags, 2)
+        this.vtbl.GetXuid := CallbackCreate(GetMethod(implObj, "GetXuid"), flags, 2)
+        this.vtbl.GetGamertag := CallbackCreate(GetMethod(implObj, "GetGamertag"), flags, 2)
+        this.vtbl.GetAgeGroup := CallbackCreate(GetMethod(implObj, "GetAgeGroup"), flags, 2)
+        this.vtbl.GetPrivileges := CallbackCreate(GetMethod(implObj, "GetPrivileges"), flags, 2)
+        this.vtbl.GetMsaTarget := CallbackCreate(GetMethod(implObj, "GetMsaTarget"), flags, 2)
+        this.vtbl.GetMsaPolicy := CallbackCreate(GetMethod(implObj, "GetMsaPolicy"), flags, 2)
+        this.vtbl.GetMsaAppId := CallbackCreate(GetMethod(implObj, "GetMsaAppId"), flags, 2)
+        this.vtbl.GetRedirect := CallbackCreate(GetMethod(implObj, "GetRedirect"), flags, 2)
+        this.vtbl.GetMessage := CallbackCreate(GetMethod(implObj, "GetMessage"), flags, 2)
+        this.vtbl.GetHelpId := CallbackCreate(GetMethod(implObj, "GetHelpId"), flags, 2)
+        this.vtbl.GetEnforcementBans := CallbackCreate(GetMethod(implObj, "GetEnforcementBans"), flags, 2)
+        this.vtbl.GetRestrictions := CallbackCreate(GetMethod(implObj, "GetRestrictions"), flags, 2)
+        this.vtbl.GetTitleRestrictions := CallbackCreate(GetMethod(implObj, "GetTitleRestrictions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetErrorCode)
+        CallbackFree(this.vtbl.GetToken)
+        CallbackFree(this.vtbl.GetSignature)
+        CallbackFree(this.vtbl.GetSandbox)
+        CallbackFree(this.vtbl.GetEnvironment)
+        CallbackFree(this.vtbl.GetMsaAccountId)
+        CallbackFree(this.vtbl.GetXuid)
+        CallbackFree(this.vtbl.GetGamertag)
+        CallbackFree(this.vtbl.GetAgeGroup)
+        CallbackFree(this.vtbl.GetPrivileges)
+        CallbackFree(this.vtbl.GetMsaTarget)
+        CallbackFree(this.vtbl.GetMsaPolicy)
+        CallbackFree(this.vtbl.GetMsaAppId)
+        CallbackFree(this.vtbl.GetRedirect)
+        CallbackFree(this.vtbl.GetMessage)
+        CallbackFree(this.vtbl.GetHelpId)
+        CallbackFree(this.vtbl.GetEnforcementBans)
+        CallbackFree(this.vtbl.GetRestrictions)
+        CallbackFree(this.vtbl.GetTitleRestrictions)
     }
 }

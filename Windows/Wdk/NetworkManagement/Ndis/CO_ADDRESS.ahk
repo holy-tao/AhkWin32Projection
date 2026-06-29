@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class CO_ADDRESS extends Win32Struct {
-    static sizeof => 8
+export default struct CO_ADDRESS {
+    #StructPack 4
 
-    static packingSize => 4
+    AddressSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Address : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__AddressProxyArray
-        }
-    }
 }

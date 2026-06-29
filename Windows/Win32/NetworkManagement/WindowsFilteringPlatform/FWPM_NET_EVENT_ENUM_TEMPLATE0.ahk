@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\FWPM_FILTER_CONDITION0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Used for enumerating net events.
@@ -10,43 +9,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_NET_EVENT_ENUM_TEMPLATE0 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FWPM_NET_EVENT_ENUM_TEMPLATE0 {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the start time of the period to be checked for net events.
-     * @type {FILETIME}
      */
-    startTime {
-        get {
-            if(!this.HasProp("__startTime"))
-                this.__startTime := FILETIME(0, this)
-            return this.__startTime
-        }
-    }
+    startTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the end time of the period to be checked for net events. It must be greater than or equal to <b>startTime</b>.
-     * @type {FILETIME}
      */
-    endTime {
-        get {
-            if(!this.HasProp("__endTime"))
-                this.__endTime := FILETIME(8, this)
-            return this.__endTime
-        }
-    }
+    endTime : FILETIME
 
     /**
      * Indicates the number of filter conditions in the <b>filterCondition</b> member.  If this field is 0, all events will be returned.
-     * @type {Integer}
      */
-    numFilterConditions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    numFilterConditions : UInt32
 
     /**
      * An array of [FWPM_FILTER_CONDITION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_condition0) structures that contain distinct filter conditions (duplicated filter conditions will generate an error). All conditions must be true for the action to be
@@ -144,10 +123,7 @@ class FWPM_NET_EVENT_ENUM_TEMPLATE0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<FWPM_FILTER_CONDITION0>}
      */
-    filterCondition {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    filterCondition : FWPM_FILTER_CONDITION0.Ptr
+
 }

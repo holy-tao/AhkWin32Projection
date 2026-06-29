@@ -1,7 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Pageable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
+#Import ".\D3D12_TILE_MAPPING_FLAGS.ahk" { D3D12_TILE_MAPPING_FLAGS }
+#Import ".\D3D12_TILE_RANGE_FLAGS.ahk" { D3D12_TILE_RANGE_FLAGS }
+#Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
 
 /**
  * Provides methods for submitting command lists, synchronizing command list execution, instrumenting the command queue, and updating resource tile mappings.
@@ -10,26 +20,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12CommandQueue extends ID3D12Pageable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12CommandQueue extends ID3D12Pageable {
     /**
      * The interface identifier for ID3D12CommandQueue
      * @type {Guid}
      */
-    static IID => Guid("{0ec870a6-5d7e-4c22-8cfc-5baae07616ed}")
+    static IID := Guid("{0ec870a6-5d7e-4c22-8cfc-5baae07616ed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12CommandQueue interfaces
+    */
+    struct Vtbl extends ID3D12Pageable.Vtbl {
+        UpdateTileMappings    : IntPtr
+        CopyTileMappings      : IntPtr
+        ExecuteCommandLists   : IntPtr
+        SetMarker             : IntPtr
+        BeginEvent            : IntPtr
+        EndEvent              : IntPtr
+        Signal                : IntPtr
+        Wait                  : IntPtr
+        GetTimestampFrequency : IntPtr
+        GetClockCalibration   : IntPtr
+        GetDesc               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateTileMappings", "CopyTileMappings", "ExecuteCommandLists", "SetMarker", "BeginEvent", "EndEvent", "Signal", "Wait", "GetTimestampFrequency", "GetClockCalibration", "GetDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12CommandQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates mappings of tile locations in reserved resources to memory locations in a resource heap.
@@ -98,7 +125,7 @@ class ID3D12CommandQueue extends ID3D12Pageable {
         pHeapRangeStartOffsetsMarshal := pHeapRangeStartOffsets is VarRef ? "uint*" : "ptr"
         pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
 
-        ComCall(8, this, "ptr", pResource, "uint", NumResourceRegions, "ptr", pResourceRegionStartCoordinates, "ptr", pResourceRegionSizes, "ptr", pHeap, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, "int", Flags)
+        ComCall(8, this, "ptr", pResource, "uint", NumResourceRegions, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pResourceRegionStartCoordinates, D3D12_TILE_REGION_SIZE.Ptr, pResourceRegionSizes, "ptr", pHeap, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, D3D12_TILE_MAPPING_FLAGS, Flags)
     }
 
     /**
@@ -123,7 +150,7 @@ class ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings
      */
     CopyTileMappings(pDstResource, pDstRegionStartCoordinate, pSrcResource, pSrcRegionStartCoordinate, pRegionSize, Flags) {
-        ComCall(9, this, "ptr", pDstResource, "ptr", pDstRegionStartCoordinate, "ptr", pSrcResource, "ptr", pSrcRegionStartCoordinate, "ptr", pRegionSize, "int", Flags)
+        ComCall(9, this, "ptr", pDstResource, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pDstRegionStartCoordinate, "ptr", pSrcResource, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pSrcRegionStartCoordinate, D3D12_TILE_REGION_SIZE.Ptr, pRegionSize, D3D12_TILE_MAPPING_FLAGS, Flags)
     }
 
     /**
@@ -140,7 +167,7 @@ class ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists
      */
     ExecuteCommandLists(NumCommandLists, ppCommandLists) {
-        ComCall(10, this, "uint", NumCommandLists, "ptr*", ppCommandLists)
+        ComCall(10, this, "uint", NumCommandLists, ID3D12CommandList.Ptr, ppCommandLists)
     }
 
     /**
@@ -287,7 +314,47 @@ class ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-getdesc
      */
     GetDesc() {
-        result := ComCall(18, this, "ptr")
+        result := ComCall(18, this, D3D12_COMMAND_QUEUE_DESC)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12CommandQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateTileMappings := CallbackCreate(GetMethod(implObj, "UpdateTileMappings"), flags, 11)
+        this.vtbl.CopyTileMappings := CallbackCreate(GetMethod(implObj, "CopyTileMappings"), flags, 7)
+        this.vtbl.ExecuteCommandLists := CallbackCreate(GetMethod(implObj, "ExecuteCommandLists"), flags, 3)
+        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 4)
+        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 4)
+        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.Signal := CallbackCreate(GetMethod(implObj, "Signal"), flags, 3)
+        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.GetTimestampFrequency := CallbackCreate(GetMethod(implObj, "GetTimestampFrequency"), flags, 2)
+        this.vtbl.GetClockCalibration := CallbackCreate(GetMethod(implObj, "GetClockCalibration"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateTileMappings)
+        CallbackFree(this.vtbl.CopyTileMappings)
+        CallbackFree(this.vtbl.ExecuteCommandLists)
+        CallbackFree(this.vtbl.SetMarker)
+        CallbackFree(this.vtbl.BeginEvent)
+        CallbackFree(this.vtbl.EndEvent)
+        CallbackFree(this.vtbl.Signal)
+        CallbackFree(this.vtbl.Wait)
+        CallbackFree(this.vtbl.GetTimestampFrequency)
+        CallbackFree(this.vtbl.GetClockCalibration)
+        CallbackFree(this.vtbl.GetDesc)
     }
 }

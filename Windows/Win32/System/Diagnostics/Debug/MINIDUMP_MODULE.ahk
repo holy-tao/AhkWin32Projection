@@ -1,118 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
-#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk" { VS_FIXEDFILEINFO }
 
 /**
  * Contains information for a specific module.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_MODULE extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct MINIDUMP_MODULE {
+    #StructPack 8
 
     /**
      * The base address of the module executable image in memory.
-     * @type {Integer}
      */
-    BaseOfImage {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BaseOfImage : Int64
 
     /**
      * The size of the module executable image in memory, in bytes.
-     * @type {Integer}
      */
-    SizeOfImage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SizeOfImage : UInt32
 
     /**
      * The checksum value of the module executable image.
-     * @type {Integer}
      */
-    CheckSum {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CheckSum : UInt32
 
     /**
      * The timestamp value of the module executable image, in <b>time_t</b> format.
-     * @type {Integer}
      */
-    TimeDateStamp {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TimeDateStamp : UInt32
 
     /**
      * An RVA to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_string">MINIDUMP_STRING</a> structure that specifies the name of the module.
-     * @type {Integer}
      */
-    ModuleNameRva {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ModuleNameRva : UInt32
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/verrsrc/ns-verrsrc-vs_fixedfileinfo">VS_FIXEDFILEINFO</a> structure that specifies the version of the module.
-     * @type {VS_FIXEDFILEINFO}
      */
-    VersionInfo {
-        get {
-            if(!this.HasProp("__VersionInfo"))
-                this.__VersionInfo := VS_FIXEDFILEINFO(24, this)
-            return this.__VersionInfo
-        }
-    }
+    VersionInfo : VS_FIXEDFILEINFO
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure that specifies the CodeView record of the module.
-     * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    CvRecord {
-        get {
-            if(!this.HasProp("__CvRecord"))
-                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(76, this)
-            return this.__CvRecord
-        }
-    }
+    CvRecord : MINIDUMP_LOCATION_DESCRIPTOR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure that specifies the miscellaneous record of the module.
-     * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    MiscRecord {
-        get {
-            if(!this.HasProp("__MiscRecord"))
-                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(84, this)
-            return this.__MiscRecord
-        }
-    }
+    MiscRecord : MINIDUMP_LOCATION_DESCRIPTOR
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved0 {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    Reserved0 : Int64
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved1 {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    Reserved1 : Int64
+
 }

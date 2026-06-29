@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLDOMAttribute.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLDOMAttribute.ahk" { IHTMLDOMAttribute }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLElement4 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLElement4 extends IDispatch {
     /**
      * The interface identifier for IHTMLElement4
      * @type {Guid}
      */
-    static IID => Guid("{3050f80f-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f80f-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLElement4 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_onmousewheel     : IntPtr
+        get_onmousewheel     : IntPtr
+        normalize            : IntPtr
+        getAttributeNode     : IntPtr
+        setAttributeNode     : IntPtr
+        removeAttributeNode  : IntPtr
+        put_onbeforeactivate : IntPtr
+        get_onbeforeactivate : IntPtr
+        put_onfocusin        : IntPtr
+        get_onfocusin        : IntPtr
+        put_onfocusout       : IntPtr
+        get_onfocusout       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_onmousewheel", "get_onmousewheel", "normalize", "getAttributeNode", "setAttributeNode", "removeAttributeNode", "put_onbeforeactivate", "get_onbeforeactivate", "put_onfocusin", "get_onfocusin", "put_onfocusout", "get_onfocusout"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLElement4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -67,7 +87,7 @@ class IHTMLElement4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onmousewheel(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -77,7 +97,7 @@ class IHTMLElement4 extends IDispatch {
      */
     get_onmousewheel() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -110,7 +130,7 @@ class IHTMLElement4 extends IDispatch {
     getAttributeNode(bstrname) {
         bstrname := bstrname is String ? BSTR.Alloc(bstrname).Value : bstrname
 
-        result := ComCall(10, this, "ptr", bstrname, "ptr*", &ppAttribute := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrname, "ptr*", &ppAttribute := 0, "HRESULT")
         return IHTMLDOMAttribute(ppAttribute)
     }
 
@@ -140,7 +160,7 @@ class IHTMLElement4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onbeforeactivate(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -150,7 +170,7 @@ class IHTMLElement4 extends IDispatch {
      */
     get_onbeforeactivate() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -160,7 +180,7 @@ class IHTMLElement4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onfocusin(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -170,7 +190,7 @@ class IHTMLElement4 extends IDispatch {
      */
     get_onfocusin() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -180,7 +200,7 @@ class IHTMLElement4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onfocusout(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -190,7 +210,49 @@ class IHTMLElement4 extends IDispatch {
      */
     get_onfocusout() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLElement4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_onmousewheel := CallbackCreate(GetMethod(implObj, "put_onmousewheel"), flags, 2)
+        this.vtbl.get_onmousewheel := CallbackCreate(GetMethod(implObj, "get_onmousewheel"), flags, 2)
+        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
+        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.put_onbeforeactivate := CallbackCreate(GetMethod(implObj, "put_onbeforeactivate"), flags, 2)
+        this.vtbl.get_onbeforeactivate := CallbackCreate(GetMethod(implObj, "get_onbeforeactivate"), flags, 2)
+        this.vtbl.put_onfocusin := CallbackCreate(GetMethod(implObj, "put_onfocusin"), flags, 2)
+        this.vtbl.get_onfocusin := CallbackCreate(GetMethod(implObj, "get_onfocusin"), flags, 2)
+        this.vtbl.put_onfocusout := CallbackCreate(GetMethod(implObj, "put_onfocusout"), flags, 2)
+        this.vtbl.get_onfocusout := CallbackCreate(GetMethod(implObj, "get_onfocusout"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_onmousewheel)
+        CallbackFree(this.vtbl.get_onmousewheel)
+        CallbackFree(this.vtbl.normalize)
+        CallbackFree(this.vtbl.getAttributeNode)
+        CallbackFree(this.vtbl.setAttributeNode)
+        CallbackFree(this.vtbl.removeAttributeNode)
+        CallbackFree(this.vtbl.put_onbeforeactivate)
+        CallbackFree(this.vtbl.get_onbeforeactivate)
+        CallbackFree(this.vtbl.put_onfocusin)
+        CallbackFree(this.vtbl.get_onfocusin)
+        CallbackFree(this.vtbl.put_onfocusout)
+        CallbackFree(this.vtbl.get_onfocusout)
     }
 }

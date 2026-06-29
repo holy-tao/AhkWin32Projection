@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CLFS_MGMT_CLIENT_REGISTRATION extends Win32Struct {
-    static sizeof => 56
+export default struct CLFS_MGMT_CLIENT_REGISTRATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AdvanceTailCallback : IntPtr
 
-    /**
-     * @type {Pointer<PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK>}
-     */
-    AdvanceTailCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AdvanceTailCallbackData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    AdvanceTailCallbackData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    LogGrowthCompleteCallback : IntPtr
 
-    /**
-     * @type {Pointer<PCLFS_CLIENT_LFF_HANDLER_COMPLETE_CALLBACK>}
-     */
-    LogGrowthCompleteCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    LogGrowthCompleteCallbackData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LogGrowthCompleteCallbackData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    LogUnpinnedCallback : IntPtr
 
-    /**
-     * @type {Pointer<PCLFS_CLIENT_LOG_UNPINNED_CALLBACK>}
-     */
-    LogUnpinnedCallback {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    LogUnpinnedCallbackData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LogUnpinnedCallbackData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\Extensions.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Extensions.ahk" { Extensions }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a single certificate extension.
@@ -19,32 +21,45 @@
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/extension
  * @namespace Windows.Win32.System.Mmc
  */
-class Extension extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Extension extends IDispatch {
     /**
      * The interface identifier for Extension
      * @type {Guid}
      */
-    static IID => Guid("{ad4d6ca6-912f-409b-a26e-7fd234aef542}")
+    static IID := Guid("{ad4d6ca6-912f-409b-a26e-7fd234aef542}")
 
     /**
      * The class identifier for Extension
      * @type {Guid}
      */
-    static CLSID => Guid("{ad4d6ca6-912f-409b-a26e-7fd234aef542}")
+    static CLSID := Guid("{ad4d6ca6-912f-409b-a26e-7fd234aef542}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Extension interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name            : IntPtr
+        get_Vendor          : IntPtr
+        get_Version         : IntPtr
+        get_Extensions      : IntPtr
+        get_SnapinCLSID     : IntPtr
+        EnableAllExtensions : IntPtr
+        Enable              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Vendor", "get_Version", "get_Extensions", "get_SnapinCLSID", "EnableAllExtensions", "Enable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Extension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -86,8 +101,8 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -96,8 +111,8 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_Vendor() {
-        Vendor := BSTR()
-        result := ComCall(8, this, "ptr", Vendor, "HRESULT")
+        Vendor := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, Vendor, "HRESULT")
         return Vendor
     }
 
@@ -106,8 +121,8 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_Version() {
-        _Version := BSTR()
-        result := ComCall(9, this, "ptr", _Version, "HRESULT")
+        _Version := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, _Version, "HRESULT")
         return _Version
     }
 
@@ -125,8 +140,8 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_SnapinCLSID() {
-        SnapinCLSID := BSTR()
-        result := ComCall(11, this, "ptr", SnapinCLSID, "HRESULT")
+        SnapinCLSID := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, SnapinCLSID, "HRESULT")
         return SnapinCLSID
     }
 
@@ -136,7 +151,7 @@ class Extension extends IDispatch {
      * @returns {HRESULT} 
      */
     EnableAllExtensions(Enable) {
-        result := ComCall(12, this, "int", Enable, "HRESULT")
+        result := ComCall(12, this, BOOL, Enable, "HRESULT")
         return result
     }
 
@@ -153,7 +168,39 @@ class Extension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/sr/enable-systemrestore
      */
     Enable(Enable) {
-        result := ComCall(13, this, "int", Enable, "HRESULT")
+        result := ComCall(13, this, BOOL, Enable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (Extension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Vendor := CallbackCreate(GetMethod(implObj, "get_Vendor"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_Extensions := CallbackCreate(GetMethod(implObj, "get_Extensions"), flags, 2)
+        this.vtbl.get_SnapinCLSID := CallbackCreate(GetMethod(implObj, "get_SnapinCLSID"), flags, 2)
+        this.vtbl.EnableAllExtensions := CallbackCreate(GetMethod(implObj, "EnableAllExtensions"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Vendor)
+        CallbackFree(this.vtbl.get_Version)
+        CallbackFree(this.vtbl.get_Extensions)
+        CallbackFree(this.vtbl.get_SnapinCLSID)
+        CallbackFree(this.vtbl.EnableAllExtensions)
+        CallbackFree(this.vtbl.Enable)
     }
 }

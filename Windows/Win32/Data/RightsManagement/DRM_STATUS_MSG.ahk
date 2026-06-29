@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by the custom callback function to specify why the callback function is being called.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_status_msg
  * @namespace Windows.Win32.Data.RightsManagement
  */
-class DRM_STATUS_MSG extends Win32Enum {
+export default struct DRM_STATUS_MSG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * AD RMS is attempting to activate the machine. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-activate-machine">DRM_MSG_ACTIVATE_MACHINE</a> message.

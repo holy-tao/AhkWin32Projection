@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NUMPARSE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NUMPARSE_FLAGS.ahk" { NUMPARSE_FLAGS }
 
 /**
  * Specifies numeric parsing information.
@@ -16,62 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-numparse
  * @namespace Windows.Win32.System.Ole
  */
-class NUMPARSE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct NUMPARSE {
+    #StructPack 4
 
     /**
      * On input, the size of the array. On output, the number of items written to the rgbDig array.
-     * @type {Integer}
      */
-    cDig {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cDig : Int32
 
     /**
      * Input flags.
-     * @type {NUMPARSE_FLAGS}
      */
-    dwInFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwInFlags : NUMPARSE_FLAGS
 
     /**
      * Output flags. Includes all the values for <b>dwInFlags</b>, plus the following values.
-     * @type {NUMPARSE_FLAGS}
      */
-    dwOutFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwOutFlags : NUMPARSE_FLAGS
 
     /**
      * Receives the number of characters (from the beginning of the string) that were successfully parsed.
-     * @type {Integer}
      */
-    cchUsed {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    cchUsed : Int32
 
     /**
      * The number of bits per digit (3 or 4 for octal and hexadecimal numbers, and zero for decimal).
-     * @type {Integer}
      */
-    nBaseShift {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    nBaseShift : Int32
 
     /**
      * The decimal point position.
-     * @type {Integer}
      */
-    nPwr10 {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    nPwr10 : Int32
+
 }

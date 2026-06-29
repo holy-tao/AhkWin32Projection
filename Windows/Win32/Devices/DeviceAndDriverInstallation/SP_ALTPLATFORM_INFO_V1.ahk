@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Diagnostics\Debug\VER_PLATFORM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Diagnostics\Debug\VER_PLATFORM.ahk" { VER_PLATFORM }
 
 /**
  * This structure is used to pass information for an alternate platform to SetupQueryInfOriginalFileInformation.
@@ -8,66 +7,34 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_ALTPLATFORM_INFO_V1 extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct SP_ALTPLATFORM_INFO_V1 {
+    #StructPack 4
 
     /**
      * Size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {VER_PLATFORM}
-     */
-    Platform {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Platform : VER_PLATFORM
 
     /**
      * Major version of the operating system.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MajorVersion : UInt32
 
     /**
      * Minor version of the operating system.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MinorVersion : UInt32
 
     /**
      * Processor architecture. This must be PROCESSOR_ARCHITECTURE_INTEL, PROCESSOR_ARCHITECTURE_ALPHA, PROCESSOR_ARCHITECTURE_IA64, PROCESSOR_ARCHITECTURE_ALPHA64.
-     * @type {Integer}
      */
-    ProcessorArchitecture {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    ProcessorArchitecture : UInt16
 
     /**
      * Must be set to zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    Reserved : UInt16
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 20
-    }
 }

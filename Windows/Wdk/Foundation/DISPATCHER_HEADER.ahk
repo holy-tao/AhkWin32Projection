@@ -1,89 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class DISPATCHER_HEADER extends Win32Struct {
-    static sizeof => 16
+export default struct DISPATCHER_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Lock : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Lock {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LockNV {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Signalling {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TimerType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TimerControlFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Absolute
-     * - Wake
-     * - EncodedTolerableDelay
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
 
     /**
      * @type {Integer}
@@ -107,35 +32,6 @@ class DISPATCHER_HEADER extends Win32Struct {
     EncodedTolerableDelay {
         get => (this._bitfield >> 2) & 0x3F
         set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Hand {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TimerMiscFlags {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Index
-     * - Processor
-     * - Inserted
-     * - Expired
-     * @type {Integer}
-     */
-    _bitfield1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
     }
 
     /**
@@ -173,333 +69,181 @@ class DISPATCHER_HEADER extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Timer2Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Timer2Flags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Timer2Inserted
-     * - Timer2Expiring
-     * - Timer2CancelPending
-     * - Timer2SetPending
-     * - Timer2Running
-     * - Timer2Disabled
-     * - Timer2ReservedFlags
-     * @type {Integer}
-     */
-    _bitfield12 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
     Timer2Inserted {
-        get => (this._bitfield12 >> 0) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 0) | (this._bitfield12 & ~(0x1 << 0))
+        get => (this._bitfield2 >> 0) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 0) | (this._bitfield2 & ~(0x1 << 0))
     }
 
     /**
      * @type {Integer}
      */
     Timer2Expiring {
-        get => (this._bitfield12 >> 1) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 1) | (this._bitfield12 & ~(0x1 << 1))
+        get => (this._bitfield2 >> 1) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 1) | (this._bitfield2 & ~(0x1 << 1))
     }
 
     /**
      * @type {Integer}
      */
     Timer2CancelPending {
-        get => (this._bitfield12 >> 2) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 2) | (this._bitfield12 & ~(0x1 << 2))
+        get => (this._bitfield2 >> 2) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 2) | (this._bitfield2 & ~(0x1 << 2))
     }
 
     /**
      * @type {Integer}
      */
     Timer2SetPending {
-        get => (this._bitfield12 >> 3) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 3) | (this._bitfield12 & ~(0x1 << 3))
+        get => (this._bitfield2 >> 3) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 3) | (this._bitfield2 & ~(0x1 << 3))
     }
 
     /**
      * @type {Integer}
      */
     Timer2Running {
-        get => (this._bitfield12 >> 4) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 4) | (this._bitfield12 & ~(0x1 << 4))
+        get => (this._bitfield2 >> 4) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 4) | (this._bitfield2 & ~(0x1 << 4))
     }
 
     /**
      * @type {Integer}
      */
     Timer2Disabled {
-        get => (this._bitfield12 >> 5) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 5) | (this._bitfield12 & ~(0x1 << 5))
+        get => (this._bitfield2 >> 5) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 5) | (this._bitfield2 & ~(0x1 << 5))
     }
 
     /**
      * @type {Integer}
      */
     Timer2ReservedFlags {
-        get => (this._bitfield12 >> 6) & 0x3
-        set => this._bitfield12 := ((value & 0x3) << 6) | (this._bitfield12 & ~(0x3 << 6))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Timer2ComponentId {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Timer2RelativeId {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QueueType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QueueControlFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Abandoned
-     * - DisableIncrement
-     * - QueueReservedControlFlags
-     * @type {Integer}
-     */
-    _bitfield123 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+        get => (this._bitfield2 >> 6) & 0x3
+        set => this._bitfield2 := ((value & 0x3) << 6) | (this._bitfield2 & ~(0x3 << 6))
     }
 
     /**
      * @type {Integer}
      */
     Abandoned {
-        get => (this._bitfield123 >> 0) & 0x1
-        set => this._bitfield123 := ((value & 0x1) << 0) | (this._bitfield123 & ~(0x1 << 0))
+        get => (this._bitfield3 >> 0) & 0x1
+        set => this._bitfield3 := ((value & 0x1) << 0) | (this._bitfield3 & ~(0x1 << 0))
     }
 
     /**
      * @type {Integer}
      */
     DisableIncrement {
-        get => (this._bitfield123 >> 1) & 0x1
-        set => this._bitfield123 := ((value & 0x1) << 1) | (this._bitfield123 & ~(0x1 << 1))
+        get => (this._bitfield3 >> 1) & 0x1
+        set => this._bitfield3 := ((value & 0x1) << 1) | (this._bitfield3 & ~(0x1 << 1))
     }
 
     /**
      * @type {Integer}
      */
     QueueReservedControlFlags {
-        get => (this._bitfield123 >> 2) & 0x3F
-        set => this._bitfield123 := ((value & 0x3F) << 2) | (this._bitfield123 & ~(0x3F << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QueueSize {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QueueReserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ThreadType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ThreadReserved {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ThreadControlFlags {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - CycleProfiling
-     * - CounterProfiling
-     * - GroupScheduling
-     * - AffinitySet
-     * - Tagged
-     * - EnergyProfiling
-     * - SchedulerAssist
-     * - Instrumented
-     * @type {Integer}
-     */
-    _bitfield1234 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+        get => (this._bitfield3 >> 2) & 0x3F
+        set => this._bitfield3 := ((value & 0x3F) << 2) | (this._bitfield3 & ~(0x3F << 2))
     }
 
     /**
      * @type {Integer}
      */
     CycleProfiling {
-        get => (this._bitfield1234 >> 0) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 0) | (this._bitfield1234 & ~(0x1 << 0))
+        get => (this._bitfield4 >> 0) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 0) | (this._bitfield4 & ~(0x1 << 0))
     }
 
     /**
      * @type {Integer}
      */
     CounterProfiling {
-        get => (this._bitfield1234 >> 1) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 1) | (this._bitfield1234 & ~(0x1 << 1))
+        get => (this._bitfield4 >> 1) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 1) | (this._bitfield4 & ~(0x1 << 1))
     }
 
     /**
      * @type {Integer}
      */
     GroupScheduling {
-        get => (this._bitfield1234 >> 2) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 2) | (this._bitfield1234 & ~(0x1 << 2))
+        get => (this._bitfield4 >> 2) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 2) | (this._bitfield4 & ~(0x1 << 2))
     }
 
     /**
      * @type {Integer}
      */
     AffinitySet {
-        get => (this._bitfield1234 >> 3) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 3) | (this._bitfield1234 & ~(0x1 << 3))
+        get => (this._bitfield4 >> 3) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 3) | (this._bitfield4 & ~(0x1 << 3))
     }
 
     /**
      * @type {Integer}
      */
     Tagged {
-        get => (this._bitfield1234 >> 4) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 4) | (this._bitfield1234 & ~(0x1 << 4))
+        get => (this._bitfield4 >> 4) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 4) | (this._bitfield4 & ~(0x1 << 4))
     }
 
     /**
      * @type {Integer}
      */
     EnergyProfiling {
-        get => (this._bitfield1234 >> 5) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 5) | (this._bitfield1234 & ~(0x1 << 5))
+        get => (this._bitfield4 >> 5) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 5) | (this._bitfield4 & ~(0x1 << 5))
     }
 
     /**
      * @type {Integer}
      */
     SchedulerAssist {
-        get => (this._bitfield1234 >> 6) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 6) | (this._bitfield1234 & ~(0x1 << 6))
+        get => (this._bitfield4 >> 6) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 6) | (this._bitfield4 & ~(0x1 << 6))
     }
 
     /**
      * @type {Integer}
      */
     Instrumented {
-        get => (this._bitfield1234 >> 7) & 0x1
-        set => this._bitfield1234 := ((value & 0x1) << 7) | (this._bitfield1234 & ~(0x1 << 7))
+        get => (this._bitfield4 >> 7) & 0x1
+        set => this._bitfield4 := ((value & 0x1) << 7) | (this._bitfield4 & ~(0x1 << 7))
     }
+    SignalState : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DebugActive {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    WaitListHead : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    MutantType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MutantSize {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {BOOLEAN}
-     */
-    DpcActive {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MutantReserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SignalState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    WaitListHead {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'LockNV', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'Type', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'Signalling', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'Size', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'Reserved1', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, 'TimerType', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'TimerControlFlags', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'Hand', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'TimerMiscFlags', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, '_bitfield1', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, 'Timer2Type', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'Timer2Flags', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, '_bitfield2', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'Timer2ComponentId', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'Timer2RelativeId', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, 'QueueType', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'QueueControlFlags', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, '_bitfield3', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'QueueSize', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'QueueReserved', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, 'ThreadType', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'ThreadReserved', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'ThreadControlFlags', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, '_bitfield4', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'DebugActive', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, 'MutantType', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'MutantSize', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'DpcActive', { type: BOOLEAN, offset: 2 })
+        DefineProp(this.Prototype, 'MutantReserved', { type: Int8, offset: 3 })
+        this.DeleteProp("__New")
     }
 }

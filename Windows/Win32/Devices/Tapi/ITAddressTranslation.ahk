@@ -1,37 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAddressTranslationInfo.ahk
-#Include .\IEnumLocation.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumCallingCard.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumLocation.ahk" { IEnumLocation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITAddressTranslationInfo.ahk" { ITAddressTranslationInfo }
+#Import ".\IEnumCallingCard.ahk" { IEnumCallingCard }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAddressTranslation interface provides methods that allow translation of a calling address into a different format. For example, an application may need to translate an address from canonical to dialable prior to making a call.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddresstranslation
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAddressTranslation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAddressTranslation extends IDispatch {
     /**
      * The interface identifier for ITAddressTranslation
      * @type {Guid}
      */
-    static IID => Guid("{0c4d8f03-8ddb-11d1-a09e-00805fc147d3}")
+    static IID := Guid("{0c4d8f03-8ddb-11d1-a09e-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAddressTranslation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        TranslateAddress      : IntPtr
+        TranslateDialog       : IntPtr
+        EnumerateLocations    : IntPtr
+        get_Locations         : IntPtr
+        EnumerateCallingCards : IntPtr
+        get_CallingCards      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TranslateAddress", "TranslateDialog", "EnumerateLocations", "get_Locations", "EnumerateCallingCards", "get_CallingCards"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAddressTranslation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -72,7 +86,7 @@ class ITAddressTranslation extends IDispatch {
     TranslateAddress(pAddressToTranslate, lCard, lTranslateOptions) {
         pAddressToTranslate := pAddressToTranslate is String ? BSTR.Alloc(pAddressToTranslate).Value : pAddressToTranslate
 
-        result := ComCall(7, this, "ptr", pAddressToTranslate, "int", lCard, "int", lTranslateOptions, "ptr*", &ppTranslated := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, pAddressToTranslate, "int", lCard, "int", lTranslateOptions, "ptr*", &ppTranslated := 0, "HRESULT")
         return ITAddressTranslationInfo(ppTranslated)
     }
 
@@ -211,7 +225,7 @@ class ITAddressTranslation extends IDispatch {
     TranslateDialog(hwndOwner, pAddressIn) {
         pAddressIn := pAddressIn is String ? BSTR.Alloc(pAddressIn).Value : pAddressIn
 
-        result := ComCall(8, this, "ptr", hwndOwner, "ptr", pAddressIn, "HRESULT")
+        result := ComCall(8, this, "ptr", hwndOwner, BSTR, pAddressIn, "HRESULT")
         return result
     }
 
@@ -253,7 +267,7 @@ class ITAddressTranslation extends IDispatch {
      */
     get_Locations() {
         pVariant := VARIANT()
-        result := ComCall(10, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -294,7 +308,37 @@ class ITAddressTranslation extends IDispatch {
      */
     get_CallingCards() {
         pVariant := VARIANT()
-        result := ComCall(12, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
+    }
+
+    Query(iid) {
+        if (ITAddressTranslation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TranslateAddress := CallbackCreate(GetMethod(implObj, "TranslateAddress"), flags, 5)
+        this.vtbl.TranslateDialog := CallbackCreate(GetMethod(implObj, "TranslateDialog"), flags, 3)
+        this.vtbl.EnumerateLocations := CallbackCreate(GetMethod(implObj, "EnumerateLocations"), flags, 2)
+        this.vtbl.get_Locations := CallbackCreate(GetMethod(implObj, "get_Locations"), flags, 2)
+        this.vtbl.EnumerateCallingCards := CallbackCreate(GetMethod(implObj, "EnumerateCallingCards"), flags, 2)
+        this.vtbl.get_CallingCards := CallbackCreate(GetMethod(implObj, "get_CallingCards"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TranslateAddress)
+        CallbackFree(this.vtbl.TranslateDialog)
+        CallbackFree(this.vtbl.EnumerateLocations)
+        CallbackFree(this.vtbl.get_Locations)
+        CallbackFree(this.vtbl.EnumerateCallingCards)
+        CallbackFree(this.vtbl.get_CallingCards)
     }
 }

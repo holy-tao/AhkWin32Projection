@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_ENUMCOLUMNVALUE constructor
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-enumcolumnvalue-constructor
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_ENUMCOLUMNVALUE extends Win32Struct {
-    static sizeof => 24
+export default struct JET_ENUMCOLUMNVALUE {
+    #StructPack 8
 
-    static packingSize => 8
+    itagSequence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    itagSequence {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    err : Int32
 
-    /**
-     * @type {Integer}
-     */
-    err {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pvData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

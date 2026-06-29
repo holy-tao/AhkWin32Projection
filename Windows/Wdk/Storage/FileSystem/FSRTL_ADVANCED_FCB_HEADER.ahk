@@ -1,84 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FAST_MUTEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FAST_MUTEX.ahk" { FAST_MUTEX }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FSRTL_ADVANCED_FCB_HEADER extends Win32Struct {
-    static sizeof => 64
+export default struct FSRTL_ADVANCED_FCB_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Base : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Base {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FastMutex : FAST_MUTEX.Ptr
 
-    /**
-     * @type {Pointer<FAST_MUTEX>}
-     */
-    FastMutex {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FilterContexts : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FilterContexts {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PushLock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PushLock {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FileContextSupportPointer : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Void>>}
-     */
-    FileContextSupportPointer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Oplock : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Oplock {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    AePushLock : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ReservedForRemote {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    BypassIoOpenCount : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    AePushLock {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BypassIoOpenCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    static __New() {
+        DefineProp(this.Prototype, 'ReservedForRemote', { type: IntPtr, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

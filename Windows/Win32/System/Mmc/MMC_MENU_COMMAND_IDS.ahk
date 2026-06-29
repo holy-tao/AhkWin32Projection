@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MMC_MENU_COMMAND_IDS enumeration defines the Command Identifiers that are reserved by MMC.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_menu_command_ids
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_MENU_COMMAND_IDS extends Win32Enum {
+export default struct MMC_MENU_COMMAND_IDS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Sent to a snap-in's 

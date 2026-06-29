@@ -1,63 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROC hook procedure, CallWndProc.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cwpstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class CWPSTRUCT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CWPSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b>LPARAM</b>
      * 
      * Additional information about the message. The exact meaning depends on the 
      * 					<b>message</b> value.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lParam : LPARAM
 
     /**
      * Type: <b>WPARAM</b>
      * 
      * Additional information about the message. The exact meaning depends on the 
      * 					<b>message</b> value.
-     * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wParam : WPARAM
 
     /**
      * Type: <b>UINT</b>
      * 
      * The message.
-     * @type {Integer}
      */
-    message {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    message : UInt32
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window to receive the message.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(24, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
+
 }

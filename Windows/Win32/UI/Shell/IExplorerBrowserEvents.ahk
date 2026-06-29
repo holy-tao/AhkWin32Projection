@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for notification of Explorer browser navigation and view creation events.
@@ -16,26 +19,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorerbrowserevents
  * @namespace Windows.Win32.UI.Shell
  */
-class IExplorerBrowserEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExplorerBrowserEvents extends IUnknown {
     /**
      * The interface identifier for IExplorerBrowserEvents
      * @type {Guid}
      */
-    static IID => Guid("{361bbdc7-e6ee-4e13-be58-58e2240c810f}")
+    static IID := Guid("{361bbdc7-e6ee-4e13-be58-58e2240c810f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExplorerBrowserEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnNavigationPending  : IntPtr
+        OnViewCreated        : IntPtr
+        OnNavigationComplete : IntPtr
+        OnNavigationFailed   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnNavigationPending", "OnViewCreated", "OnNavigationComplete", "OnNavigationFailed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExplorerBrowserEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies clients of a pending Explorer browser navigation to a Shell folder.
@@ -53,7 +66,7 @@ class IExplorerBrowserEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationpending
      */
     OnNavigationPending(pidlFolder) {
-        result := ComCall(3, this, "ptr", pidlFolder, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidlFolder, "HRESULT")
         return result
     }
 
@@ -89,7 +102,7 @@ class IExplorerBrowserEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationcomplete
      */
     OnNavigationComplete(pidlFolder) {
-        result := ComCall(5, this, "ptr", pidlFolder, "HRESULT")
+        result := ComCall(5, this, ITEMIDLIST.Ptr, pidlFolder, "HRESULT")
         return result
     }
 
@@ -108,7 +121,33 @@ class IExplorerBrowserEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationfailed
      */
     OnNavigationFailed(pidlFolder) {
-        result := ComCall(6, this, "ptr", pidlFolder, "HRESULT")
+        result := ComCall(6, this, ITEMIDLIST.Ptr, pidlFolder, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExplorerBrowserEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnNavigationPending := CallbackCreate(GetMethod(implObj, "OnNavigationPending"), flags, 2)
+        this.vtbl.OnViewCreated := CallbackCreate(GetMethod(implObj, "OnViewCreated"), flags, 2)
+        this.vtbl.OnNavigationComplete := CallbackCreate(GetMethod(implObj, "OnNavigationComplete"), flags, 2)
+        this.vtbl.OnNavigationFailed := CallbackCreate(GetMethod(implObj, "OnNavigationFailed"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnNavigationPending)
+        CallbackFree(this.vtbl.OnViewCreated)
+        CallbackFree(this.vtbl.OnNavigationComplete)
+        CallbackFree(this.vtbl.OnNavigationFailed)
     }
 }

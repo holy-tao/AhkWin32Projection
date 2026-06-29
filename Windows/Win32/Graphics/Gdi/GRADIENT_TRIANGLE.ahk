@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The GRADIENT_TRIANGLE structure specifies the index of three vertices in the pVertex array in the GradientFill function. These three vertices form one triangle.
@@ -12,35 +11,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gradient_triangle
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class GRADIENT_TRIANGLE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct GRADIENT_TRIANGLE {
+    #StructPack 4
 
     /**
      * The first point of the triangle where sides intersect.
-     * @type {Integer}
      */
-    Vertex1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Vertex1 : UInt32
 
     /**
      * The second point of the triangle where sides intersect.
-     * @type {Integer}
      */
-    Vertex2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Vertex2 : UInt32
 
     /**
      * The third point of the triangle where sides intersect.
-     * @type {Integer}
      */
-    Vertex3 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Vertex3 : UInt32
+
 }

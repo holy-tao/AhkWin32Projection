@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Represents a group of bitmap effects that are applied together to modify the rasterization of a visual's subtree.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositioneffectgroup
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionEffectGroup extends IDCompositionEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionEffectGroup extends IDCompositionEffect {
     /**
      * The interface identifier for IDCompositionEffectGroup
      * @type {Guid}
      */
-    static IID => Guid("{a7929a74-e6b2-4bd6-8b95-4040119ca34d}")
+    static IID := Guid("{a7929a74-e6b2-4bd6-8b95-4040119ca34d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionEffectGroup interfaces
+    */
+    struct Vtbl extends IDCompositionEffect.Vtbl {
+        SetOpacity     : IntPtr
+        SetOpacity1    : IntPtr
+        SetTransform3D : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOpacity", "SetOpacity1", "SetTransform3D"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionEffectGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Animates the value of the Opacity property.
@@ -88,5 +100,29 @@ class IDCompositionEffectGroup extends IDCompositionEffect {
     SetTransform3D(transform3D) {
         result := ComCall(5, this, "ptr", transform3D, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionEffectGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.SetOpacity1 := CallbackCreate(GetMethod(implObj, "SetOpacity1"), flags, 2)
+        this.vtbl.SetTransform3D := CallbackCreate(GetMethod(implObj, "SetTransform3D"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOpacity)
+        CallbackFree(this.vtbl.SetOpacity1)
+        CallbackFree(this.vtbl.SetTransform3D)
     }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls how media sources and transforms are enumerated in Microsoft Media Foundation. (IMFPluginControl)
@@ -41,26 +43,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfplugincontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFPluginControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFPluginControl extends IUnknown {
     /**
      * The interface identifier for IMFPluginControl
      * @type {Guid}
      */
-    static IID => Guid("{5c6c44bf-1db6-435b-9249-e8cd10fdec96}")
+    static IID := Guid("{5c6c44bf-1db6-435b-9249-e8cd10fdec96}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFPluginControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPreferredClsid        : IntPtr
+        GetPreferredClsidByIndex : IntPtr
+        SetPreferredClsid        : IntPtr
+        IsDisabled               : IntPtr
+        GetDisabledByIndex       : IntPtr
+        SetDisabled              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPreferredClsid", "GetPreferredClsidByIndex", "SetPreferredClsid", "IsDisabled", "GetDisabledByIndex", "SetDisabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFPluginControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Searches the preferred list for a class identifier (CLSID) that matches a specified key name.
@@ -73,7 +87,7 @@ class IMFPluginControl extends IUnknown {
         selector := selector is String ? StrPtr(selector) : selector
 
         clsid := Guid()
-        result := ComCall(3, this, "uint", pluginType, "ptr", selector, "ptr", clsid, "HRESULT")
+        result := ComCall(3, this, "uint", pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 
@@ -129,7 +143,7 @@ class IMFPluginControl extends IUnknown {
     GetPreferredClsidByIndex(pluginType, index, selector, clsid) {
         selectorMarshal := selector is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", pluginType, "uint", index, selectorMarshal, selector, "ptr", clsid, "HRESULT")
+        result := ComCall(4, this, "uint", pluginType, "uint", index, selectorMarshal, selector, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -146,7 +160,7 @@ class IMFPluginControl extends IUnknown {
     SetPreferredClsid(pluginType, selector, clsid) {
         selector := selector is String ? StrPtr(selector) : selector
 
-        result := ComCall(5, this, "uint", pluginType, "ptr", selector, "ptr", clsid, "HRESULT")
+        result := ComCall(5, this, "uint", pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -198,7 +212,7 @@ class IMFPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-isdisabled
      */
     IsDisabled(pluginType, clsid) {
-        result := ComCall(6, this, "uint", pluginType, "ptr", clsid, "HRESULT")
+        result := ComCall(6, this, "uint", pluginType, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -211,7 +225,7 @@ class IMFPluginControl extends IUnknown {
      */
     GetDisabledByIndex(pluginType, index) {
         clsid := Guid()
-        result := ComCall(7, this, "uint", pluginType, "uint", index, "ptr", clsid, "HRESULT")
+        result := ComCall(7, this, "uint", pluginType, "uint", index, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 
@@ -255,7 +269,37 @@ class IMFPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-setdisabled
      */
     SetDisabled(pluginType, clsid, disabled) {
-        result := ComCall(8, this, "uint", pluginType, "ptr", clsid, "int", disabled, "HRESULT")
+        result := ComCall(8, this, "uint", pluginType, Guid.Ptr, clsid, BOOL, disabled, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFPluginControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPreferredClsid := CallbackCreate(GetMethod(implObj, "GetPreferredClsid"), flags, 4)
+        this.vtbl.GetPreferredClsidByIndex := CallbackCreate(GetMethod(implObj, "GetPreferredClsidByIndex"), flags, 5)
+        this.vtbl.SetPreferredClsid := CallbackCreate(GetMethod(implObj, "SetPreferredClsid"), flags, 4)
+        this.vtbl.IsDisabled := CallbackCreate(GetMethod(implObj, "IsDisabled"), flags, 3)
+        this.vtbl.GetDisabledByIndex := CallbackCreate(GetMethod(implObj, "GetDisabledByIndex"), flags, 4)
+        this.vtbl.SetDisabled := CallbackCreate(GetMethod(implObj, "SetDisabled"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPreferredClsid)
+        CallbackFree(this.vtbl.GetPreferredClsidByIndex)
+        CallbackFree(this.vtbl.SetPreferredClsid)
+        CallbackFree(this.vtbl.IsDisabled)
+        CallbackFree(this.vtbl.GetDisabledByIndex)
+        CallbackFree(this.vtbl.SetDisabled)
     }
 }

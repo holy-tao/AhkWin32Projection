@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTS_SMALL_RECT.ahk" { WTS_SMALL_RECT }
+#Import ".\WTS_DISPLAY_IOCTL.ahk" { WTS_DISPLAY_IOCTL }
 
 /**
  * IWTSProtocolConnectionCallback is no longer available. Instead, use IWRdsProtocolConnectionCallback.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolconnectioncallback
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWTSProtocolConnectionCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWTSProtocolConnectionCallback extends IUnknown {
     /**
      * The interface identifier for IWTSProtocolConnectionCallback
      * @type {Guid}
      */
-    static IID => Guid("{23083765-75eb-41fe-b4fb-e086242afa0f}")
+    static IID := Guid("{23083765-75eb-41fe-b4fb-e086242afa0f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWTSProtocolConnectionCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnReady           : IntPtr
+        BrokenConnection  : IntPtr
+        StopScreenUpdates : IntPtr
+        RedrawWindow      : IntPtr
+        DisplayIOCtl      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnReady", "BrokenConnection", "StopScreenUpdates", "RedrawWindow", "DisplayIOCtl"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWTSProtocolConnectionCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IWTSProtocolConnectionCallback::OnReady is no longer available. Instead, use IWRdsProtocolConnectionCallback::OnReady.
@@ -94,7 +108,7 @@ class IWTSProtocolConnectionCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-redrawwindow
      */
     RedrawWindow(_rect) {
-        result := ComCall(6, this, "ptr", _rect, "HRESULT")
+        result := ComCall(6, this, WTS_SMALL_RECT.Ptr, _rect, "HRESULT")
         return result
     }
 
@@ -114,7 +128,35 @@ class IWTSProtocolConnectionCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-displayioctl
      */
     DisplayIOCtl(DisplayIOCtl) {
-        result := ComCall(7, this, "ptr", DisplayIOCtl, "HRESULT")
+        result := ComCall(7, this, WTS_DISPLAY_IOCTL.Ptr, DisplayIOCtl, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWTSProtocolConnectionCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnReady := CallbackCreate(GetMethod(implObj, "OnReady"), flags, 1)
+        this.vtbl.BrokenConnection := CallbackCreate(GetMethod(implObj, "BrokenConnection"), flags, 3)
+        this.vtbl.StopScreenUpdates := CallbackCreate(GetMethod(implObj, "StopScreenUpdates"), flags, 1)
+        this.vtbl.RedrawWindow := CallbackCreate(GetMethod(implObj, "RedrawWindow"), flags, 2)
+        this.vtbl.DisplayIOCtl := CallbackCreate(GetMethod(implObj, "DisplayIOCtl"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnReady)
+        CallbackFree(this.vtbl.BrokenConnection)
+        CallbackFree(this.vtbl.StopScreenUpdates)
+        CallbackFree(this.vtbl.RedrawWindow)
+        CallbackFree(this.vtbl.DisplayIOCtl)
     }
 }

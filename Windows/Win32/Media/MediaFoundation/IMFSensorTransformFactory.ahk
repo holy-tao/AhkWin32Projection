@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFDeviceTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCollection.ahk" { IMFCollection }
+#Import ".\IMFDeviceTransform.ahk" { IMFDeviceTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The interface implemented by sensor transforms to allow the media pipeline to query requirements of the sensor transform and to create a runtime instance of the sensor transform.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensortransformfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSensorTransformFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSensorTransformFactory extends IUnknown {
     /**
      * The interface identifier for IMFSensorTransformFactory
      * @type {Guid}
      */
-    static IID => Guid("{eed9c2ee-66b4-4f18-a697-ac7d3960215c}")
+    static IID := Guid("{eed9c2ee-66b4-4f18-a697-ac7d3960215c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSensorTransformFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFactoryAttributes    : IntPtr
+        InitializeFactory       : IntPtr
+        GetTransformCount       : IntPtr
+        GetTransformInformation : IntPtr
+        CreateTransform         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFactoryAttributes", "InitializeFactory", "GetTransformCount", "GetTransformInformation", "CreateTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSensorTransformFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -75,7 +88,7 @@ class IMFSensorTransformFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-gettransforminformation
      */
     GetTransformInformation(TransformIndex, pguidTransformId, ppAttributes, ppStreamInformation) {
-        result := ComCall(6, this, "uint", TransformIndex, "ptr", pguidTransformId, "ptr*", ppAttributes, "ptr*", ppStreamInformation, "HRESULT")
+        result := ComCall(6, this, "uint", TransformIndex, Guid.Ptr, pguidTransformId, IMFAttributes.Ptr, ppAttributes, IMFCollection.Ptr, ppStreamInformation, "HRESULT")
         return result
     }
 
@@ -87,7 +100,35 @@ class IMFSensorTransformFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-createtransform
      */
     CreateTransform(guidSensorTransformID, pAttributes) {
-        result := ComCall(7, this, "ptr", guidSensorTransformID, "ptr", pAttributes, "ptr*", &ppDeviceMFT := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidSensorTransformID, "ptr", pAttributes, "ptr*", &ppDeviceMFT := 0, "HRESULT")
         return IMFDeviceTransform(ppDeviceMFT)
+    }
+
+    Query(iid) {
+        if (IMFSensorTransformFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFactoryAttributes := CallbackCreate(GetMethod(implObj, "GetFactoryAttributes"), flags, 2)
+        this.vtbl.InitializeFactory := CallbackCreate(GetMethod(implObj, "InitializeFactory"), flags, 4)
+        this.vtbl.GetTransformCount := CallbackCreate(GetMethod(implObj, "GetTransformCount"), flags, 2)
+        this.vtbl.GetTransformInformation := CallbackCreate(GetMethod(implObj, "GetTransformInformation"), flags, 5)
+        this.vtbl.CreateTransform := CallbackCreate(GetMethod(implObj, "CreateTransform"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFactoryAttributes)
+        CallbackFree(this.vtbl.InitializeFactory)
+        CallbackFree(this.vtbl.GetTransformCount)
+        CallbackFree(this.vtbl.GetTransformInformation)
+        CallbackFree(this.vtbl.CreateTransform)
     }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RecordingType.ahk" { RecordingType }
 
 /**
  * The IMSVidStreamBufferRecordingControl interface enables an application to manage a stream buffer recording object through the Video Control.
@@ -11,32 +14,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambufferrecordingcontrol
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferRecordingControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferRecordingControl extends IDispatch {
     /**
      * The interface identifier for IMSVidStreamBufferRecordingControl
      * @type {Guid}
      */
-    static IID => Guid("{160621aa-bbbc-4326-a824-c395aebc6e74}")
+    static IID := Guid("{160621aa-bbbc-4326-a824-c395aebc6e74}")
 
     /**
      * The class identifier for MSVidStreamBufferRecordingControl
      * @type {Guid}
      */
-    static CLSID => Guid("{caafdd83-cefc-4e3d-ba03-175f17a24f91}")
+    static CLSID := Guid("{caafdd83-cefc-4e3d-ba03-175f17a24f91}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferRecordingControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StartTime          : IntPtr
+        put_StartTime          : IntPtr
+        get_StopTime           : IntPtr
+        put_StopTime           : IntPtr
+        get_RecordingStopped   : IntPtr
+        get_RecordingStarted   : IntPtr
+        get_RecordingType      : IntPtr
+        get_RecordingAttribute : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StartTime", "put_StartTime", "get_StopTime", "put_StopTime", "get_RecordingStopped", "get_RecordingStarted", "get_RecordingType", "get_RecordingAttribute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferRecordingControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -188,7 +205,7 @@ class IMSVidStreamBufferRecordingControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstopped
      */
     get_RecordingStopped() {
-        result := ComCall(11, this, "short*", &phResult := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &phResult := 0, "HRESULT")
         return phResult
     }
 
@@ -198,7 +215,7 @@ class IMSVidStreamBufferRecordingControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstarted
      */
     get_RecordingStarted() {
-        result := ComCall(12, this, "short*", &phResult := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &phResult := 0, "HRESULT")
         return phResult
     }
 
@@ -222,5 +239,39 @@ class IMSVidStreamBufferRecordingControl extends IDispatch {
     get_RecordingAttribute() {
         result := ComCall(14, this, "ptr*", &pRecordingAttribute := 0, "HRESULT")
         return IUnknown(pRecordingAttribute)
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferRecordingControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_StopTime := CallbackCreate(GetMethod(implObj, "get_StopTime"), flags, 2)
+        this.vtbl.put_StopTime := CallbackCreate(GetMethod(implObj, "put_StopTime"), flags, 2)
+        this.vtbl.get_RecordingStopped := CallbackCreate(GetMethod(implObj, "get_RecordingStopped"), flags, 2)
+        this.vtbl.get_RecordingStarted := CallbackCreate(GetMethod(implObj, "get_RecordingStarted"), flags, 2)
+        this.vtbl.get_RecordingType := CallbackCreate(GetMethod(implObj, "get_RecordingType"), flags, 2)
+        this.vtbl.get_RecordingAttribute := CallbackCreate(GetMethod(implObj, "get_RecordingAttribute"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StartTime)
+        CallbackFree(this.vtbl.put_StartTime)
+        CallbackFree(this.vtbl.get_StopTime)
+        CallbackFree(this.vtbl.put_StopTime)
+        CallbackFree(this.vtbl.get_RecordingStopped)
+        CallbackFree(this.vtbl.get_RecordingStarted)
+        CallbackFree(this.vtbl.get_RecordingType)
+        CallbackFree(this.vtbl.get_RecordingAttribute)
     }
 }

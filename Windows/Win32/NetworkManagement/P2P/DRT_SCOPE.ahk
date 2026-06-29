@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRT_SCOPE enumeration defines the set of IPv6 scopes in which DRT operates while using the IPv6 UDP transport created by DrtCreateIpv6UdpTransport.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_scope
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_SCOPE extends Win32Enum {
+export default struct DRT_SCOPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Uses the global scope.

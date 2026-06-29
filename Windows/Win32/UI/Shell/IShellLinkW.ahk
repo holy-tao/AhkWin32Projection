@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
 
 /**
  * Exposes methods that create, modify, and resolve Shell links. (Unicode)
@@ -19,26 +25,50 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset Unicode
  */
-class IShellLinkW extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellLinkW extends IUnknown {
     /**
      * The interface identifier for IShellLinkW
      * @type {Guid}
      */
-    static IID => Guid("{000214f9-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214f9-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellLinkW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPath             : IntPtr
+        GetIDList           : IntPtr
+        SetIDList           : IntPtr
+        GetDescription      : IntPtr
+        SetDescription      : IntPtr
+        GetWorkingDirectory : IntPtr
+        SetWorkingDirectory : IntPtr
+        GetArguments        : IntPtr
+        SetArguments        : IntPtr
+        GetHotkey           : IntPtr
+        SetHotkey           : IntPtr
+        GetShowCmd          : IntPtr
+        SetShowCmd          : IntPtr
+        GetIconLocation     : IntPtr
+        SetIconLocation     : IntPtr
+        SetRelativePath     : IntPtr
+        Resolve             : IntPtr
+        SetPath             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPath", "GetIDList", "SetIDList", "GetDescription", "SetDescription", "GetWorkingDirectory", "SetWorkingDirectory", "GetArguments", "SetArguments", "GetHotkey", "SetHotkey", "GetShowCmd", "SetShowCmd", "GetIconLocation", "SetIconLocation", "SetRelativePath", "Resolve", "SetPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellLinkW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the path and file name of the target of a Shell link object. (Unicode)
@@ -60,7 +90,7 @@ class IShellLinkW extends IUnknown {
     GetPath(pszFile, cch, pfd, fFlags) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(3, this, "ptr", pszFile, "int", cch, "ptr", pfd, "uint", fFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFile, "int", cch, WIN32_FIND_DATAW.Ptr, pfd, "uint", fFlags, "HRESULT")
         return result
     }
 
@@ -89,7 +119,7 @@ class IShellLinkW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-setidlist
      */
     SetIDList(pidl) {
-        result := ComCall(5, this, "ptr", pidl, "HRESULT")
+        result := ComCall(5, this, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
     }
 
@@ -266,7 +296,7 @@ class IShellLinkW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-setshowcmd
      */
     SetShowCmd(iShowCmd) {
-        result := ComCall(15, this, "int", iShowCmd, "HRESULT")
+        result := ComCall(15, this, SHOW_WINDOW_CMD, iShowCmd, "HRESULT")
         return result
     }
 
@@ -359,9 +389,7 @@ class IShellLinkW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-resolve
      */
     Resolve(_hwnd, fFlags) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(19, this, "ptr", _hwnd, "uint", fFlags, "HRESULT")
+        result := ComCall(19, this, HWND, _hwnd, "uint", fFlags, "HRESULT")
         return result
     }
 
@@ -380,5 +408,59 @@ class IShellLinkW extends IUnknown {
 
         result := ComCall(20, this, "ptr", pszFile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellLinkW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 5)
+        this.vtbl.GetIDList := CallbackCreate(GetMethod(implObj, "GetIDList"), flags, 2)
+        this.vtbl.SetIDList := CallbackCreate(GetMethod(implObj, "SetIDList"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetWorkingDirectory := CallbackCreate(GetMethod(implObj, "GetWorkingDirectory"), flags, 3)
+        this.vtbl.SetWorkingDirectory := CallbackCreate(GetMethod(implObj, "SetWorkingDirectory"), flags, 2)
+        this.vtbl.GetArguments := CallbackCreate(GetMethod(implObj, "GetArguments"), flags, 3)
+        this.vtbl.SetArguments := CallbackCreate(GetMethod(implObj, "SetArguments"), flags, 2)
+        this.vtbl.GetHotkey := CallbackCreate(GetMethod(implObj, "GetHotkey"), flags, 2)
+        this.vtbl.SetHotkey := CallbackCreate(GetMethod(implObj, "SetHotkey"), flags, 2)
+        this.vtbl.GetShowCmd := CallbackCreate(GetMethod(implObj, "GetShowCmd"), flags, 2)
+        this.vtbl.SetShowCmd := CallbackCreate(GetMethod(implObj, "SetShowCmd"), flags, 2)
+        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 4)
+        this.vtbl.SetIconLocation := CallbackCreate(GetMethod(implObj, "SetIconLocation"), flags, 3)
+        this.vtbl.SetRelativePath := CallbackCreate(GetMethod(implObj, "SetRelativePath"), flags, 3)
+        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 3)
+        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetIDList)
+        CallbackFree(this.vtbl.SetIDList)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetDescription)
+        CallbackFree(this.vtbl.GetWorkingDirectory)
+        CallbackFree(this.vtbl.SetWorkingDirectory)
+        CallbackFree(this.vtbl.GetArguments)
+        CallbackFree(this.vtbl.SetArguments)
+        CallbackFree(this.vtbl.GetHotkey)
+        CallbackFree(this.vtbl.SetHotkey)
+        CallbackFree(this.vtbl.GetShowCmd)
+        CallbackFree(this.vtbl.SetShowCmd)
+        CallbackFree(this.vtbl.GetIconLocation)
+        CallbackFree(this.vtbl.SetIconLocation)
+        CallbackFree(this.vtbl.SetRelativePath)
+        CallbackFree(this.vtbl.Resolve)
+        CallbackFree(this.vtbl.SetPath)
     }
 }

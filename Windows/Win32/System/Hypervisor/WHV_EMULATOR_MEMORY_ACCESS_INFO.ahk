@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_EMULATOR_MEMORY_ACCESS_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct WHV_EMULATOR_MEMORY_ACCESS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    GpaAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GpaAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Direction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Direction {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    AccessSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AccessSize {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    Data : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 10, 8, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The type of a state subobject. Use with D3D12_STATE_SUBOBJECT.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_state_subobject_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_STATE_SUBOBJECT_TYPE extends Win32Enum {
+export default struct D3D12_STATE_SUBOBJECT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Subobject type is <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_state_object_config">D3D12_STATE_OBJECT_CONFIG</a>.
@@ -180,7 +189,7 @@ class D3D12_STATE_SUBOBJECT_TYPE extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_SUBOBJECT_TYPE_COMPILER_EXISITING_COLLECTION => 33
+    static D3D12_STATE_SUBOBJECT_TYPE_COMPILER_EXISTING_COLLECTION => 33
 
     /**
      * @type {Integer (Int32)}

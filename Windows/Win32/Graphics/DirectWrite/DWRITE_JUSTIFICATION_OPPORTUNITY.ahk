@@ -1,42 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_JUSTIFICATION_OPPORTUNITY structure specifies justification info per glyph.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_justification_opportunity
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DWRITE_JUSTIFICATION_OPPORTUNITY {
+    #StructPack 4
 
     /**
      * Minimum amount of expansion to apply to the side of the glyph. This might vary from zero to infinity, typically being zero except for kashida.
-     * @type {Float}
      */
-    expansionMinimum {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    expansionMinimum : Float32
 
     /**
      * Maximum amount of expansion to apply to the side of the glyph. This might vary from zero to infinity, being zero for fixed-size characters and connected scripts, and non-zero for discrete scripts, and non-zero for cursive scripts at expansion points.
-     * @type {Float}
      */
-    expansionMaximum {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    expansionMaximum : Float32
 
     /**
      * Maximum amount of compression to apply to the side of the glyph. This might vary from zero up to the glyph cluster size.
-     * @type {Float}
      */
-    compressionMaximum {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    compressionMaximum : Float32
 
     /**
      * This bitfield backs the following members:
@@ -47,12 +32,9 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct {
      * - applyToLeadingEdge
      * - applyToTrailingEdge
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

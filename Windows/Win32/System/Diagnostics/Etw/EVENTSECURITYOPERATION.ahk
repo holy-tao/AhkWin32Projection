@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines what component of the security descriptor that the EventAccessControl function modifies.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ne-evntcons-eventsecurityoperation
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENTSECURITYOPERATION extends Win32Enum {
+export default struct EVENTSECURITYOPERATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Clears the current discretionary access control list (DACL) and adds an ACE to the DACL. The <i>Sid</i>, <i>Rights</i>, and <i>AllowOrDeny</i> parameters of the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/nf-evntcons-eventaccesscontrol">EventAccessControl</a> function determine the contents of the ACE (who has access to the provider or session and the type of access). To add a new ACE to the DACL without clearing the existing DACL, specify EventSecurityAddDACL.

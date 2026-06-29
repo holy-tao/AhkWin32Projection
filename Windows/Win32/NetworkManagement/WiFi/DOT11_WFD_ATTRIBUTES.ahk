@@ -1,138 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_ATTRIBUTES extends Win32Struct {
-    static sizeof => 72
+export default struct DOT11_WFD_ATTRIBUTES {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    uNumConcurrentGORole : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumConcurrentGORole {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uNumConcurrentClientRole : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumConcurrentClientRole {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WPSVersionsSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WPSVersionsSupported {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    bServiceDiscoverySupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bServiceDiscoverySupported {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bClientDiscoverabilitySupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bClientDiscoverabilitySupported {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    bInfrastructureManagementSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bInfrastructureManagementSupported {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    uMaxSecondaryDeviceTypeListSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMaxSecondaryDeviceTypeListSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DeviceAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DeviceAddress {
-        get {
-            if(!this.HasProp("__DeviceAddressProxyArray"))
-                this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "char")
-            return this.__DeviceAddressProxyArray
-        }
-    }
+    uInterfaceAddressListCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uInterfaceAddressListCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pInterfaceAddressList : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pInterfaceAddressList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    uNumSupportedCountryOrRegionStrings : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumSupportedCountryOrRegionStrings {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pSupportedCountryOrRegionStrings : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pSupportedCountryOrRegionStrings {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    uDiscoveryFilterListSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDiscoveryFilterListSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    uGORoleClientTableSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uGORoleClientTableSize {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
 }

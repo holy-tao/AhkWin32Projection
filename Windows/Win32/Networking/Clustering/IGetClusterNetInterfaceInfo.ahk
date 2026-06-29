@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HNETINTERFACE.ahk" { HNETINTERFACE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IGetClusterNetInterfaceInfo interface is called by a Failover Cluster Administrator extension to retrieve information about a network interface.
@@ -36,26 +37,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusternetinterfaceinfo
  * @namespace Windows.Win32.Networking.Clustering
  */
-class IGetClusterNetInterfaceInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGetClusterNetInterfaceInfo extends IUnknown {
     /**
      * The interface identifier for IGetClusterNetInterfaceInfo
      * @type {Guid}
      */
-    static IID => Guid("{97dede57-fc6b-11cf-b5f5-00a0c90ab505}")
+    static IID := Guid("{97dede57-fc6b-11cf-b5f5-00a0c90ab505}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGetClusterNetInterfaceInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNetInterfaceHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNetInterfaceHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGetClusterNetInterfaceInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a handle to a node.
@@ -76,7 +84,27 @@ class IGetClusterNetInterfaceInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusternetinterfaceinfo-getnetinterfacehandle
      */
     GetNetInterfaceHandle(lObjIndex) {
-        result := ComCall(3, this, "int", lObjIndex, "ptr")
+        result := ComCall(3, this, "int", lObjIndex, HNETINTERFACE)
         return result
+    }
+
+    Query(iid) {
+        if (IGetClusterNetInterfaceInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNetInterfaceHandle := CallbackCreate(GetMethod(implObj, "GetNetInterfaceHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNetInterfaceHandle)
     }
 }

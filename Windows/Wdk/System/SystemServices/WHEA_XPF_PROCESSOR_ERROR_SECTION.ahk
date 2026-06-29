@@ -1,49 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_XPF_PROCESSOR_ERROR_SECTION extends Win32Struct {
-    static sizeof => 72
+export default struct WHEA_XPF_PROCESSOR_ERROR_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ValidBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LocalAPICId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LocalAPICId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CpuId : Int8[48]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CpuId {
-        get {
-            if(!this.HasProp("__CpuIdProxyArray"))
-                this.__CpuIdProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")
-            return this.__CpuIdProxyArray
-        }
-    }
+    VariableInfo : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VariableInfo {
-        get {
-            if(!this.HasProp("__VariableInfoProxyArray"))
-                this.__VariableInfoProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
-            return this.__VariableInfoProxyArray
-        }
-    }
 }

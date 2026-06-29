@@ -1,39 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\System\Com\IEnumUnknown.ahk
-#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
+#Import "..\..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IIdentityAdvise.ahk" { IIdentityAdvise }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  */
-class AsyncIIdentityProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct AsyncIIdentityProvider extends IUnknown {
     /**
      * The interface identifier for AsyncIIdentityProvider
      * @type {Guid}
      */
-    static IID => Guid("{c6fc9901-c433-4646-8f48-4e4687aae2a0}")
+    static IID := Guid("{c6fc9901-c433-4646-8f48-4e4687aae2a0}")
 
     /**
      * The class identifier for AsyncIIdentityProvider
      * @type {Guid}
      */
-    static CLSID => Guid("{c6fc9901-c433-4646-8f48-4e4687aae2a0}")
+    static CLSID := Guid("{c6fc9901-c433-4646-8f48-4e4687aae2a0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for AsyncIIdentityProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Begin_GetIdentityEnum           : IntPtr
+        Finish_GetIdentityEnum          : IntPtr
+        Begin_Create                    : IntPtr
+        Finish_Create                   : IntPtr
+        Begin_Import                    : IntPtr
+        Finish_Import                   : IntPtr
+        Begin_Delete                    : IntPtr
+        Finish_Delete                   : IntPtr
+        Begin_FindByUniqueID            : IntPtr
+        Finish_FindByUniqueID           : IntPtr
+        Begin_GetProviderPropertyStore  : IntPtr
+        Finish_GetProviderPropertyStore : IntPtr
+        Begin_Advise                    : IntPtr
+        Finish_Advise                   : IntPtr
+        Begin_UnAdvise                  : IntPtr
+        Finish_UnAdvise                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Begin_GetIdentityEnum", "Finish_GetIdentityEnum", "Begin_Create", "Finish_Create", "Begin_Import", "Finish_Import", "Begin_Delete", "Finish_Delete", "Begin_FindByUniqueID", "Finish_FindByUniqueID", "Begin_GetProviderPropertyStore", "Finish_GetProviderPropertyStore", "Begin_Advise", "Finish_Advise", "Begin_UnAdvise", "Finish_UnAdvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := AsyncIIdentityProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -43,7 +71,7 @@ class AsyncIIdentityProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "HRESULT")
+        result := ComCall(3, this, IDENTITY_TYPE, eIdentityType, PROPERTYKEY.Ptr, pFilterkey, PROPVARIANT.Ptr, pFilterPropVarValue, "HRESULT")
         return result
     }
 
@@ -65,7 +93,7 @@ class AsyncIIdentityProvider extends IUnknown {
     Begin_Create(lpszUserName, pKeywordsToAdd) {
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
 
-        result := ComCall(5, this, "ptr", lpszUserName, "ptr", pKeywordsToAdd, "HRESULT")
+        result := ComCall(5, this, "ptr", lpszUserName, PROPVARIANT.Ptr, pKeywordsToAdd, "HRESULT")
         return result
     }
 
@@ -106,7 +134,7 @@ class AsyncIIdentityProvider extends IUnknown {
     Begin_Delete(lpszUniqueID, pKeywordsToDelete) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", pKeywordsToDelete, "HRESULT")
+        result := ComCall(9, this, "ptr", lpszUniqueID, PROPVARIANT.Ptr, pKeywordsToDelete, "HRESULT")
         return result
     }
 
@@ -195,5 +223,55 @@ class AsyncIIdentityProvider extends IUnknown {
     Finish_UnAdvise() {
         result := ComCall(18, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (AsyncIIdentityProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Begin_GetIdentityEnum := CallbackCreate(GetMethod(implObj, "Begin_GetIdentityEnum"), flags, 4)
+        this.vtbl.Finish_GetIdentityEnum := CallbackCreate(GetMethod(implObj, "Finish_GetIdentityEnum"), flags, 2)
+        this.vtbl.Begin_Create := CallbackCreate(GetMethod(implObj, "Begin_Create"), flags, 3)
+        this.vtbl.Finish_Create := CallbackCreate(GetMethod(implObj, "Finish_Create"), flags, 2)
+        this.vtbl.Begin_Import := CallbackCreate(GetMethod(implObj, "Begin_Import"), flags, 2)
+        this.vtbl.Finish_Import := CallbackCreate(GetMethod(implObj, "Finish_Import"), flags, 1)
+        this.vtbl.Begin_Delete := CallbackCreate(GetMethod(implObj, "Begin_Delete"), flags, 3)
+        this.vtbl.Finish_Delete := CallbackCreate(GetMethod(implObj, "Finish_Delete"), flags, 1)
+        this.vtbl.Begin_FindByUniqueID := CallbackCreate(GetMethod(implObj, "Begin_FindByUniqueID"), flags, 2)
+        this.vtbl.Finish_FindByUniqueID := CallbackCreate(GetMethod(implObj, "Finish_FindByUniqueID"), flags, 2)
+        this.vtbl.Begin_GetProviderPropertyStore := CallbackCreate(GetMethod(implObj, "Begin_GetProviderPropertyStore"), flags, 1)
+        this.vtbl.Finish_GetProviderPropertyStore := CallbackCreate(GetMethod(implObj, "Finish_GetProviderPropertyStore"), flags, 2)
+        this.vtbl.Begin_Advise := CallbackCreate(GetMethod(implObj, "Begin_Advise"), flags, 3)
+        this.vtbl.Finish_Advise := CallbackCreate(GetMethod(implObj, "Finish_Advise"), flags, 2)
+        this.vtbl.Begin_UnAdvise := CallbackCreate(GetMethod(implObj, "Begin_UnAdvise"), flags, 2)
+        this.vtbl.Finish_UnAdvise := CallbackCreate(GetMethod(implObj, "Finish_UnAdvise"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Begin_GetIdentityEnum)
+        CallbackFree(this.vtbl.Finish_GetIdentityEnum)
+        CallbackFree(this.vtbl.Begin_Create)
+        CallbackFree(this.vtbl.Finish_Create)
+        CallbackFree(this.vtbl.Begin_Import)
+        CallbackFree(this.vtbl.Finish_Import)
+        CallbackFree(this.vtbl.Begin_Delete)
+        CallbackFree(this.vtbl.Finish_Delete)
+        CallbackFree(this.vtbl.Begin_FindByUniqueID)
+        CallbackFree(this.vtbl.Finish_FindByUniqueID)
+        CallbackFree(this.vtbl.Begin_GetProviderPropertyStore)
+        CallbackFree(this.vtbl.Finish_GetProviderPropertyStore)
+        CallbackFree(this.vtbl.Begin_Advise)
+        CallbackFree(this.vtbl.Finish_Advise)
+        CallbackFree(this.vtbl.Begin_UnAdvise)
+        CallbackFree(this.vtbl.Finish_UnAdvise)
     }
 }

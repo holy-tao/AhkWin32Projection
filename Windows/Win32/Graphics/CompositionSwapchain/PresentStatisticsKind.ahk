@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that indicate the kind of presentation surface the statistics are for.
  * @see https://learn.microsoft.com/windows/win32/api/presentationtypes/ne-presentationtypes-presentstatisticskind
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  */
-class PresentStatisticsKind extends Win32Enum {
+export default struct PresentStatisticsKind {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Statistics are for a present status.

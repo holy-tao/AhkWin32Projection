@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFont.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_PANOSE.ahk" { DWRITE_PANOSE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
 
 /**
  * Represents a physical font in a font collection. (IDWriteFont1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefont1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFont1 extends IDWriteFont {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFont1 extends IDWriteFont {
     /**
      * The interface identifier for IDWriteFont1
      * @type {Guid}
      */
-    static IID => Guid("{acd16696-8c14-4f5d-877e-fe3fc1d32738}")
+    static IID := Guid("{acd16696-8c14-4f5d-877e-fe3fc1d32738}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFont1 interfaces
+    */
+    struct Vtbl extends IDWriteFont.Vtbl {
+        GetMetrics       : IntPtr
+        GetPanose        : IntPtr
+        GetUnicodeRanges : IntPtr
+        IsMonospacedFont : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMetrics", "GetPanose", "GetUnicodeRanges", "IsMonospacedFont"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFont1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations. (IDWriteFont1.GetMetrics)
@@ -38,7 +53,7 @@ class IDWriteFont1 extends IDWriteFont {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getmetrics
      */
     GetMetrics(fontMetrics) {
-        ComCall(14, this, "ptr", fontMetrics)
+        ComCall(14, this, DWRITE_FONT_METRICS1.Ptr, fontMetrics)
     }
 
     /**
@@ -53,7 +68,7 @@ class IDWriteFont1 extends IDWriteFont {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getpanose
      */
     GetPanose(_panose) {
-        ComCall(15, this, "ptr", _panose)
+        ComCall(15, this, DWRITE_PANOSE.Ptr, _panose)
     }
 
     /**
@@ -118,7 +133,7 @@ class IDWriteFont1 extends IDWriteFont {
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
         actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", maxRangeCount, "ptr", unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
+        result := ComCall(16, this, "uint", maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 
@@ -130,7 +145,33 @@ class IDWriteFont1 extends IDWriteFont {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-ismonospacedfont
      */
     IsMonospacedFont() {
-        result := ComCall(17, this, "int")
+        result := ComCall(17, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFont1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetPanose := CallbackCreate(GetMethod(implObj, "GetPanose"), flags, 2)
+        this.vtbl.GetUnicodeRanges := CallbackCreate(GetMethod(implObj, "GetUnicodeRanges"), flags, 4)
+        this.vtbl.IsMonospacedFont := CallbackCreate(GetMethod(implObj, "IsMonospacedFont"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMetrics)
+        CallbackFree(this.vtbl.GetPanose)
+        CallbackFree(this.vtbl.GetUnicodeRanges)
+        CallbackFree(this.vtbl.IsMonospacedFont)
     }
 }

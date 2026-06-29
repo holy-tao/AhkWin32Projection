@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_DISCOVERY_HEADER extends Win32Struct {
-    static sizeof => 1024
+export default struct NVME_DISCOVERY_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _DLPF_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DLPF {
         /**
          * This bitfield backs the following members:
          * - Extended
          * - PortLocal
          * - AllSubsystems
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -49,75 +41,24 @@ class NVME_DISCOVERY_HEADER extends Win32Struct {
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    GENCTR {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    GENCTR : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NUMREC {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NUMREC : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RECFMT {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    RECFMT : UInt16
 
-    /**
-     * @type {_DLPF_e__Union}
-     */
-    DLPF {
-        get {
-            if(!this.HasProp("__DLPF"))
-                this.__DLPF := NVME_DISCOVERY_HEADER._DLPF_e__Union(18, this)
-            return this.__DLPF
-        }
-    }
+    DLPF : NVME_DISCOVERY_HEADER._DLPF
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TDLPL {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    TDLPL : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 24, 1000, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[1000]
+
 }

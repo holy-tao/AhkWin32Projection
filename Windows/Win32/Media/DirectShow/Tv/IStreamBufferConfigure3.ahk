@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IStreamBufferConfigure2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IStreamBufferConfigure2.ahk" { IStreamBufferConfigure2 }
 
 /**
  * The IStreamBufferConfigure3 interface is exposed by the StreamBufferConfig object.
@@ -10,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferconfigure3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
-
-    static sizeof => A_PtrSize
+export default struct IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
     /**
      * The interface identifier for IStreamBufferConfigure3
      * @type {Guid}
      */
-    static IID => Guid("{7e2d2a1e-7192-4bd7-80c1-061fd1d10402}")
+    static IID := Guid("{7e2d2a1e-7192-4bd7-80c1-061fd1d10402}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamBufferConfigure3 interfaces
+    */
+    struct Vtbl extends IStreamBufferConfigure2.Vtbl {
+        SetStartRecConfig : IntPtr
+        GetStartRecConfig : IntPtr
+        SetNamespace      : IntPtr
+        GetNamespace      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetStartRecConfig", "GetStartRecConfig", "SetNamespace", "GetNamespace"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamBufferConfigure3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetStartRecConfig method specifies whether the IStreamBufferRecordControl::Start method automatically stops the current recording.
@@ -58,7 +71,7 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-setstartrecconfig
      */
     SetStartRecConfig(fStartStopsCur) {
-        result := ComCall(13, this, "int", fStartStopsCur, "HRESULT")
+        result := ComCall(13, this, BOOL, fStartStopsCur, "HRESULT")
         return result
     }
 
@@ -68,7 +81,7 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-getstartrecconfig
      */
     GetStartRecConfig() {
-        result := ComCall(14, this, "int*", &pfStartStopsCur := 0, "HRESULT")
+        result := ComCall(14, this, BOOL.Ptr, &pfStartStopsCur := 0, "HRESULT")
         return pfStartStopsCur
     }
 
@@ -129,7 +142,33 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-getnamespace
      */
     GetNamespace() {
-        result := ComCall(16, this, "ptr*", &ppszNamespace := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &ppszNamespace := 0, "HRESULT")
         return ppszNamespace
+    }
+
+    Query(iid) {
+        if (IStreamBufferConfigure3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetStartRecConfig := CallbackCreate(GetMethod(implObj, "SetStartRecConfig"), flags, 2)
+        this.vtbl.GetStartRecConfig := CallbackCreate(GetMethod(implObj, "GetStartRecConfig"), flags, 2)
+        this.vtbl.SetNamespace := CallbackCreate(GetMethod(implObj, "SetNamespace"), flags, 2)
+        this.vtbl.GetNamespace := CallbackCreate(GetMethod(implObj, "GetNamespace"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetStartRecConfig)
+        CallbackFree(this.vtbl.GetStartRecConfig)
+        CallbackFree(this.vtbl.SetNamespace)
+        CallbackFree(this.vtbl.GetNamespace)
     }
 }

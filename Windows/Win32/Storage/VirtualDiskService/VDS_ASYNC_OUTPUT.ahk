@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_ASYNC_OUTPUT_TYPE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_ASYNC_OUTPUT_TYPE.ahk" { VDS_ASYNC_OUTPUT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_ASYNC_OUTPUT structure (vdshwprv.h) defines the output of an async object. Output elements vary depending on the operation type.
@@ -12,10 +12,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_async_output
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_ASYNC_OUTPUT extends Win32Struct {
-    static sizeof => 24
+export default struct VDS_ASYNC_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _cp {
+        ullOffset : Int64
+
+        volumeId : Guid
+
+    }
+
+    struct _cv {
+        pVolumeUnk : IUnknown
+
+    }
+
+    struct _bvp {
+        pVolumeUnk : IUnknown
+
+    }
+
+    struct _sv {
+        ullReclaimedBytes : Int64
+
+    }
+
+    struct _cl {
+        pLunUnk : IUnknown
+
+    }
+
+    struct _ct {
+        pTargetUnk : IUnknown
+
+    }
+
+    struct _cpg {
+        pPortalGroupUnk : IUnknown
+
+    }
+
+    struct _cvd {
+        pVDiskUnk : IUnknown
+
+    }
 
     /**
      * Discriminant for the union enumerated by 
@@ -104,210 +145,19 @@ class VDS_ASYNC_OUTPUT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {VDS_ASYNC_OUTPUT_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : VDS_ASYNC_OUTPUT_TYPE
 
-    class _cp extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    cp : VDS_ASYNC_OUTPUT._cp
 
-        /**
-         * @type {Integer}
-         */
-        ullOffset {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        volumeId {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    class _cv extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {IUnknown}
-         */
-        pVolumeUnk {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    class _bvp extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {IUnknown}
-         */
-        pVolumeUnk {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    class _sv extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        ullReclaimedBytes {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _cl extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {IUnknown}
-         */
-        pLunUnk {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    class _ct extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {IUnknown}
-         */
-        pTargetUnk {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    class _cpg extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {IUnknown}
-         */
-        pPortalGroupUnk {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    class _cvd extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {IUnknown}
-         */
-        pVDiskUnk {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    /**
-     * @type {_cp}
-     */
-    cp {
-        get {
-            if(!this.HasProp("__cp"))
-                this.__cp := VDS_ASYNC_OUTPUT._cp(8, this)
-            return this.__cp
-        }
-    }
-
-    /**
-     * @type {_cv}
-     */
-    cv {
-        get {
-            if(!this.HasProp("__cv"))
-                this.__cv := VDS_ASYNC_OUTPUT._cv(8, this)
-            return this.__cv
-        }
-    }
-
-    /**
-     * @type {_bvp}
-     */
-    bvp {
-        get {
-            if(!this.HasProp("__bvp"))
-                this.__bvp := VDS_ASYNC_OUTPUT._bvp(8, this)
-            return this.__bvp
-        }
-    }
-
-    /**
-     * @type {_sv}
-     */
-    sv {
-        get {
-            if(!this.HasProp("__sv"))
-                this.__sv := VDS_ASYNC_OUTPUT._sv(8, this)
-            return this.__sv
-        }
-    }
-
-    /**
-     * @type {_cl}
-     */
-    cl {
-        get {
-            if(!this.HasProp("__cl"))
-                this.__cl := VDS_ASYNC_OUTPUT._cl(8, this)
-            return this.__cl
-        }
-    }
-
-    /**
-     * @type {_ct}
-     */
-    ct {
-        get {
-            if(!this.HasProp("__ct"))
-                this.__ct := VDS_ASYNC_OUTPUT._ct(8, this)
-            return this.__ct
-        }
-    }
-
-    /**
-     * @type {_cpg}
-     */
-    cpg {
-        get {
-            if(!this.HasProp("__cpg"))
-                this.__cpg := VDS_ASYNC_OUTPUT._cpg(8, this)
-            return this.__cpg
-        }
-    }
-
-    /**
-     * @type {_cvd}
-     */
-    cvd {
-        get {
-            if(!this.HasProp("__cvd"))
-                this.__cvd := VDS_ASYNC_OUTPUT._cvd(8, this)
-            return this.__cvd
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'cv', { type: VDS_ASYNC_OUTPUT._cv, offset: 8 })
+        DefineProp(this.Prototype, 'bvp', { type: VDS_ASYNC_OUTPUT._bvp, offset: 8 })
+        DefineProp(this.Prototype, 'sv', { type: VDS_ASYNC_OUTPUT._sv, offset: 8 })
+        DefineProp(this.Prototype, 'cl', { type: VDS_ASYNC_OUTPUT._cl, offset: 8 })
+        DefineProp(this.Prototype, 'ct', { type: VDS_ASYNC_OUTPUT._ct, offset: 8 })
+        DefineProp(this.Prototype, 'cpg', { type: VDS_ASYNC_OUTPUT._cpg, offset: 8 })
+        DefineProp(this.Prototype, 'cvd', { type: VDS_ASYNC_OUTPUT._cvd, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

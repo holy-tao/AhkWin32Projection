@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AXISINFOA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AXISINFOA.ahk" { AXISINFOA }
 
 /**
  * The AXESLIST structure contains information on all the axes of a multiple master font. (ANSI)
@@ -19,38 +18,22 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class AXESLISTA extends Win32Struct {
-    static sizeof => 392
-
-    static packingSize => 4
+export default struct AXESLISTA {
+    #StructPack 4
 
     /**
      * Reserved. Must be STAMP_AXESLIST.
-     * @type {Integer}
      */
-    axlReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    axlReserved : UInt32
 
     /**
      * Number of axes for a specified multiple master font.
-     * @type {Integer}
      */
-    axlNumAxes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    axlNumAxes : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-axisinfoa">AXISINFO</a> structures. Each <b>AXISINFO</b> structure contains information on an axis of a specified multiple master font. This corresponds to the <b>dvValues</b> array in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-designvector">DESIGNVECTOR</a> structure.
-     * @type {AXISINFOA}
      */
-    axlAxisInfo {
-        get {
-            if(!this.HasProp("__axlAxisInfoProxyArray"))
-                this.__axlAxisInfoProxyArray := Win32FixedArray(this.ptr + 8, 16, AXISINFOA, "")
-            return this.__axlAxisInfoProxyArray
-        }
-    }
+    axlAxisInfo : AXISINFOA[16]
+
 }

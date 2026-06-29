@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPersist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPersist.ahk" { IPersist }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\STGM.ahk" { STGM }
 
 /**
  * Enables an object to be loaded from or saved to a disk file, rather than a storage object or stream.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ipersistfile
  * @namespace Windows.Win32.System.Com
  */
-class IPersistFile extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IPersistFile extends IPersist {
     /**
      * The interface identifier for IPersistFile
      * @type {Guid}
      */
-    static IID => Guid("{0000010b-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000010b-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistFile interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        IsDirty       : IntPtr
+        Load          : IntPtr
+        Save          : IntPtr
+        SaveCompleted : IntPtr
+        GetCurFile    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsDirty", "Load", "Save", "SaveCompleted", "GetCurFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistFile.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether an object has changed since it was last saved to its current file.
@@ -49,7 +64,7 @@ class IPersistFile extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersistfile-isdirty
      */
     IsDirty() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, Int32)
         return result
     }
 
@@ -115,7 +130,7 @@ class IPersistFile extends IPersist {
     Load(pszFileName, dwMode) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(5, this, "ptr", pszFileName, "uint", dwMode, "HRESULT")
+        result := ComCall(5, this, "ptr", pszFileName, STGM, dwMode, "HRESULT")
         return result
     }
 
@@ -144,7 +159,7 @@ class IPersistFile extends IPersist {
     Save(pszFileName, fRemember) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(6, this, "ptr", pszFileName, "int", fRemember, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFileName, BOOL, fRemember, "HRESULT")
         return result
     }
 
@@ -185,7 +200,35 @@ class IPersistFile extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersistfile-getcurfile
      */
     GetCurFile() {
-        result := ComCall(8, this, "ptr*", &ppszFileName := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &ppszFileName := 0, "HRESULT")
         return ppszFileName
+    }
+
+    Query(iid) {
+        if (IPersistFile.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
+        this.vtbl.SaveCompleted := CallbackCreate(GetMethod(implObj, "SaveCompleted"), flags, 2)
+        this.vtbl.GetCurFile := CallbackCreate(GetMethod(implObj, "GetCurFile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsDirty)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SaveCompleted)
+        CallbackFree(this.vtbl.GetCurFile)
     }
 }

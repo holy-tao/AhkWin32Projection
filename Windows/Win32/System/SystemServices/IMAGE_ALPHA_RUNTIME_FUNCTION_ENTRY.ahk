@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY extends Win32Struct {
-    static sizeof => 20
+export default struct IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    BeginAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BeginAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EndAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ExceptionHandler : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionHandler {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HandlerData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandlerData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PrologEndAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrologEndAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

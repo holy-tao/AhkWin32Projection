@@ -1,26 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_FOREST_TRUST_COLLISION_RECORD_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_FOREST_TRUST_COLLISION_RECORD_TYPE.ahk" { LSA_FOREST_TRUST_COLLISION_RECORD_TYPE }
 
 /**
  * Contains information about a Local Security Authority forest trust collision.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_record
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct LSA_FOREST_TRUST_COLLISION_RECORD {
+    #StructPack 8
 
     /**
      * Index of this collision record in the array of <b>LSA_FOREST_TRUST_COLLISION_RECORD</b> structures pointed to by the <b>Entries</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_information">LSA_FOREST_TRUST_COLLISION_INFORMATION</a> structure.
-     * @type {Integer}
      */
-    Index {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Index : UInt32
 
     /**
      * Type of the collision. The following table shows the possible values.
@@ -61,31 +55,17 @@ class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {LSA_FOREST_TRUST_COLLISION_RECORD_TYPE}
      */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Type : LSA_FOREST_TRUST_COLLISION_RECORD_TYPE
 
     /**
      * Flags that provide more information about the collision. The following table lists the possible values for this member when the <b>Type</b> member is CollisionTdo.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the collision record.
-     * @type {LSA_UNICODE_STRING}
      */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(16, this)
-            return this.__Name
-        }
-    }
+    Name : LSA_UNICODE_STRING
+
 }

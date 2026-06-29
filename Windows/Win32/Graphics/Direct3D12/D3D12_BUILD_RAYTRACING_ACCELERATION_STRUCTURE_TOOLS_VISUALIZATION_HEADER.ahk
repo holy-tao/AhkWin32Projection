@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE }
 
 /**
  * Describes the GPU memory layout of an acceleration structure visualization.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_build_raytracing_acceleration_structure_tools_visualization_header
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER {
+    #StructPack 4
 
     /**
      * The type of acceleration structure.
-     * @type {D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE
 
     /**
      * The number of descriptions.
-     * @type {Integer}
      */
-    NumDescs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumDescs : UInt32
+
 }

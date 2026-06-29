@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MSV1_0_LOGON_SUBMIT_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MSV1_0_LOGON_SUBMIT_TYPE.ahk" { MSV1_0_LOGON_SUBMIT_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_S4U_LOGON extends Win32Struct {
-    static sizeof => 40
+export default struct MSV1_0_S4U_LOGON {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : MSV1_0_LOGON_SUBMIT_TYPE
 
-    /**
-     * @type {MSV1_0_LOGON_SUBMIT_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    UserPrincipalName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    UserPrincipalName {
-        get {
-            if(!this.HasProp("__UserPrincipalName"))
-                this.__UserPrincipalName := LSA_UNICODE_STRING(8, this)
-            return this.__UserPrincipalName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(24, this)
-            return this.__DomainName
-        }
-    }
 }

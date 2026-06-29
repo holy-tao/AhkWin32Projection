@@ -1,34 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device4.ahk
-#Include .\D3D12_META_COMMAND_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_SERIALIZED_DATA_TYPE.ahk" { D3D12_SERIALIZED_DATA_TYPE }
+#Import ".\ID3D12LifetimeOwner.ahk" { ID3D12LifetimeOwner }
+#Import ".\D3D12_META_COMMAND_PARAMETER_STAGE.ahk" { D3D12_META_COMMAND_PARAMETER_STAGE }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO }
+#Import ".\D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS.ahk" { D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS }
+#Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
+#Import ".\D3D12_META_COMMAND_DESC.ahk" { D3D12_META_COMMAND_DESC }
+#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS }
+#Import ".\D3D12_META_COMMAND_PARAMETER_DESC.ahk" { D3D12_META_COMMAND_PARAMETER_DESC }
+#Import ".\ID3D12Device4.ahk" { ID3D12Device4 }
+#Import ".\D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER.ahk" { D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device4](../d3d12/nn-d3d12-id3d12device4.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device5
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device5 extends ID3D12Device4 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device5 extends ID3D12Device4 {
     /**
      * The interface identifier for ID3D12Device5
      * @type {Guid}
      */
-    static IID => Guid("{8b4f173b-2fea-4b80-8f58-4307191ab95d}")
+    static IID := Guid("{8b4f173b-2fea-4b80-8f58-4307191ab95d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 57
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device5 interfaces
+    */
+    struct Vtbl extends ID3D12Device4.Vtbl {
+        CreateLifetimeTracker                          : IntPtr
+        RemoveDevice                                   : IntPtr
+        EnumerateMetaCommands                          : IntPtr
+        EnumerateMetaCommandParameters                 : IntPtr
+        CreateMetaCommand                              : IntPtr
+        CreateStateObject                              : IntPtr
+        GetRaytracingAccelerationStructurePrebuildInfo : IntPtr
+        CheckDriverMatchingIdentifier                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateLifetimeTracker", "RemoveDevice", "EnumerateMetaCommands", "EnumerateMetaCommandParameters", "CreateMetaCommand", "CreateStateObject", "GetRaytracingAccelerationStructurePrebuildInfo", "CheckDriverMatchingIdentifier"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a lifetime tracker associated with an application-defined callback; the callback receives notifications when the lifetime of a tracked object is changed.
@@ -44,7 +68,7 @@ class ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createlifetimetracker
      */
     CreateLifetimeTracker(pOwner, riid) {
-        result := ComCall(57, this, "ptr", pOwner, "ptr", riid, "ptr*", &ppvTracker := 0, "HRESULT")
+        result := ComCall(57, this, "ptr", pOwner, Guid.Ptr, riid, "ptr*", &ppvTracker := 0, "HRESULT")
         return ppvTracker
     }
 
@@ -96,7 +120,7 @@ class ID3D12Device5 extends ID3D12Device4 {
         pNumMetaCommandsMarshal := pNumMetaCommands is VarRef ? "uint*" : "ptr"
 
         pDescs := D3D12_META_COMMAND_DESC()
-        result := ComCall(59, this, pNumMetaCommandsMarshal, pNumMetaCommands, "ptr", pDescs, "HRESULT")
+        result := ComCall(59, this, pNumMetaCommandsMarshal, pNumMetaCommands, D3D12_META_COMMAND_DESC.Ptr, pDescs, "HRESULT")
         return pDescs
     }
 
@@ -126,7 +150,7 @@ class ID3D12Device5 extends ID3D12Device4 {
         pTotalStructureSizeInBytesMarshal := pTotalStructureSizeInBytes is VarRef ? "uint*" : "ptr"
         pParameterCountMarshal := pParameterCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(60, this, "ptr", CommandId, "int", Stage, pTotalStructureSizeInBytesMarshal, pTotalStructureSizeInBytes, pParameterCountMarshal, pParameterCount, "ptr", pParameterDescs, "HRESULT")
+        result := ComCall(60, this, Guid.Ptr, CommandId, D3D12_META_COMMAND_PARAMETER_STAGE, Stage, pTotalStructureSizeInBytesMarshal, pTotalStructureSizeInBytes, pParameterCountMarshal, pParameterCount, D3D12_META_COMMAND_PARAMETER_DESC.Ptr, pParameterDescs, "HRESULT")
         return result
     }
 
@@ -153,7 +177,7 @@ class ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createmetacommand
      */
     CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid) {
-        result := ComCall(61, this, "ptr", CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, "ptr", riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
+        result := ComCall(61, this, Guid.Ptr, CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, Guid.Ptr, riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
         return ppMetaCommand
     }
 
@@ -165,7 +189,7 @@ class ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createstateobject
      */
     CreateStateObject(pDesc, riid) {
-        result := ComCall(62, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppStateObject := 0, "HRESULT")
+        result := ComCall(62, this, D3D12_STATE_OBJECT_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppStateObject := 0, "HRESULT")
         return ppStateObject
     }
 
@@ -185,7 +209,7 @@ class ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-getraytracingaccelerationstructureprebuildinfo
      */
     GetRaytracingAccelerationStructurePrebuildInfo(pDesc, pInfo) {
-        ComCall(63, this, "ptr", pDesc, "ptr", pInfo)
+        ComCall(63, this, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.Ptr, pDesc, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO.Ptr, pInfo)
     }
 
     /**
@@ -196,7 +220,41 @@ class ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-checkdrivermatchingidentifier
      */
     CheckDriverMatchingIdentifier(SerializedDataType, pIdentifierToCheck) {
-        result := ComCall(64, this, "int", SerializedDataType, "ptr", pIdentifierToCheck, "int")
+        result := ComCall(64, this, D3D12_SERIALIZED_DATA_TYPE, SerializedDataType, D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER.Ptr, pIdentifierToCheck, D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12Device5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateLifetimeTracker := CallbackCreate(GetMethod(implObj, "CreateLifetimeTracker"), flags, 4)
+        this.vtbl.RemoveDevice := CallbackCreate(GetMethod(implObj, "RemoveDevice"), flags, 1)
+        this.vtbl.EnumerateMetaCommands := CallbackCreate(GetMethod(implObj, "EnumerateMetaCommands"), flags, 3)
+        this.vtbl.EnumerateMetaCommandParameters := CallbackCreate(GetMethod(implObj, "EnumerateMetaCommandParameters"), flags, 6)
+        this.vtbl.CreateMetaCommand := CallbackCreate(GetMethod(implObj, "CreateMetaCommand"), flags, 7)
+        this.vtbl.CreateStateObject := CallbackCreate(GetMethod(implObj, "CreateStateObject"), flags, 4)
+        this.vtbl.GetRaytracingAccelerationStructurePrebuildInfo := CallbackCreate(GetMethod(implObj, "GetRaytracingAccelerationStructurePrebuildInfo"), flags, 3)
+        this.vtbl.CheckDriverMatchingIdentifier := CallbackCreate(GetMethod(implObj, "CheckDriverMatchingIdentifier"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateLifetimeTracker)
+        CallbackFree(this.vtbl.RemoveDevice)
+        CallbackFree(this.vtbl.EnumerateMetaCommands)
+        CallbackFree(this.vtbl.EnumerateMetaCommandParameters)
+        CallbackFree(this.vtbl.CreateMetaCommand)
+        CallbackFree(this.vtbl.CreateStateObject)
+        CallbackFree(this.vtbl.GetRaytracingAccelerationStructurePrebuildInfo)
+        CallbackFree(this.vtbl.CheckDriverMatchingIdentifier)
     }
 }

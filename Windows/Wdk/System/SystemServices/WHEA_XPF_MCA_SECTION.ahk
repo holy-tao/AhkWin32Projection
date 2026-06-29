@@ -1,143 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_CPU_VENDOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_CPU_VENDOR.ahk" { WHEA_CPU_VENDOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_XPF_MCA_SECTION extends Win32Struct {
-    static sizeof => 288
+export default struct WHEA_XPF_MCA_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    VersionNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VersionNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CpuVendor : WHEA_CPU_VENDOR
 
-    /**
-     * @type {WHEA_CPU_VENDOR}
-     */
-    CpuVendor {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Timestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Timestamp {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    ProcessorNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    GlobalStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    GlobalStatus {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InstructionPointer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InstructionPointer {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BankNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BankNumber {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Status : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Status {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Address : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Address {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Misc : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Misc {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ExtendedRegisterCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtendedRegisterCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ApicId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ApicId {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ExtendedRegisters : Int64[24]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ExtendedRegisters {
-        get {
-            if(!this.HasProp("__ExtendedRegistersProxyArray"))
-                this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 80, 24, Primitive, "uint")
-            return this.__ExtendedRegistersProxyArray
-        }
-    }
+    GlobalCapability : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AMDExtendedRegisters {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    RecoveryInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    GlobalCapability {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    RecoveryInfo {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
+    static __New() {
+        DefineProp(this.Prototype, 'AMDExtendedRegisters', { type: IntPtr, offset: 80 })
+        this.DeleteProp("__New")
     }
 }

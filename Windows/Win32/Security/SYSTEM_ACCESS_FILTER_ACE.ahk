@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\ACE_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACE_HEADER.ahk" { ACE_HEADER }
 
 /**
  * @namespace Windows.Win32.Security
  */
-class SYSTEM_ACCESS_FILTER_ACE extends Win32Struct {
-    static sizeof => 12
+export default struct SYSTEM_ACCESS_FILTER_ACE {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : ACE_HEADER
 
-    /**
-     * @type {ACE_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := ACE_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Mask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Mask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SidStart : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SidStart {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

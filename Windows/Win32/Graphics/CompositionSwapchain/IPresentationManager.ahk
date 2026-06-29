@@ -1,37 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPresentationBuffer.ahk
-#Include .\IPresentationSurface.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IPresentStatistics.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPresentationSurface.ahk" { IPresentationSurface }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
+#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
+#Import ".\PresentStatisticsKind.ahk" { PresentStatisticsKind }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SystemInterruptTime.ahk" { SystemInterruptTime }
 
 /**
  * Defines methods for managing presentation.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationmanager
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  */
-class IPresentationManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPresentationManager extends IUnknown {
     /**
      * The interface identifier for IPresentationManager
      * @type {Guid}
      */
-    static IID => Guid("{fb562f82-6292-470a-88b1-843661e7f20c}")
+    static IID := Guid("{fb562f82-6292-470a-88b1-843661e7f20c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPresentationManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddBufferFromResource              : IntPtr
+        CreatePresentationSurface          : IntPtr
+        GetNextPresentId                   : IntPtr
+        SetTargetTime                      : IntPtr
+        SetPreferredPresentDuration        : IntPtr
+        ForceVSyncInterrupt                : IntPtr
+        Present                            : IntPtr
+        GetPresentRetiringFence            : IntPtr
+        CancelPresentsFrom                 : IntPtr
+        GetLostEvent                       : IntPtr
+        GetPresentStatisticsAvailableEvent : IntPtr
+        EnablePresentStatisticsKind        : IntPtr
+        GetNextPresentStatistics           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddBufferFromResource", "CreatePresentationSurface", "GetNextPresentId", "SetTargetTime", "SetPreferredPresentDuration", "ForceVSyncInterrupt", "Present", "GetPresentRetiringFence", "CancelPresentsFrom", "GetLostEvent", "GetPresentStatisticsAvailableEvent", "EnablePresentStatisticsKind", "GetNextPresentStatistics"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPresentationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -54,9 +76,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-createpresentationsurface
      */
     CreatePresentationSurface(compositionSurfaceHandle) {
-        compositionSurfaceHandle := compositionSurfaceHandle is Win32Handle ? NumGet(compositionSurfaceHandle, "ptr") : compositionSurfaceHandle
-
-        result := ComCall(4, this, "ptr", compositionSurfaceHandle, "ptr*", &presentationSurface := 0, "HRESULT")
+        result := ComCall(4, this, HANDLE, compositionSurfaceHandle, "ptr*", &presentationSurface := 0, "HRESULT")
         return IPresentationSurface(presentationSurface)
     }
 
@@ -68,7 +88,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getnextpresentid
      */
     GetNextPresentId() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, Int64)
         return result
     }
 
@@ -87,7 +107,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-settargettime
      */
     SetTargetTime(targetTime) {
-        result := ComCall(6, this, "ptr", targetTime, "HRESULT")
+        result := ComCall(6, this, SystemInterruptTime, targetTime, "HRESULT")
         return result
     }
 
@@ -109,7 +129,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-setpreferredpresentduration
      */
     SetPreferredPresentDuration(preferredDuration, deviationTolerance) {
-        result := ComCall(7, this, "ptr", preferredDuration, "ptr", deviationTolerance, "HRESULT")
+        result := ComCall(7, this, SystemInterruptTime, preferredDuration, SystemInterruptTime, deviationTolerance, "HRESULT")
         return result
     }
 
@@ -163,7 +183,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getpresentretiringfence
      */
     GetPresentRetiringFence(riid) {
-        result := ComCall(10, this, "ptr", riid, "ptr*", &fence := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, riid, "ptr*", &fence := 0, "HRESULT")
         return fence
     }
 
@@ -196,8 +216,8 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getlostevent
      */
     GetLostEvent() {
-        lostEventHandle := HANDLE()
-        result := ComCall(12, this, "ptr", lostEventHandle, "HRESULT")
+        lostEventHandle := HANDLE.Owned()
+        result := ComCall(12, this, HANDLE.Ptr, lostEventHandle, "HRESULT")
         return lostEventHandle
     }
 
@@ -213,8 +233,8 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getpresentstatisticsavailableevent
      */
     GetPresentStatisticsAvailableEvent() {
-        presentStatisticsAvailableEventHandle := HANDLE()
-        result := ComCall(13, this, "ptr", presentStatisticsAvailableEventHandle, "HRESULT")
+        presentStatisticsAvailableEventHandle := HANDLE.Owned()
+        result := ComCall(13, this, HANDLE.Ptr, presentStatisticsAvailableEventHandle, "HRESULT")
         return presentStatisticsAvailableEventHandle
     }
 
@@ -234,7 +254,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-enablepresentstatisticskind
      */
     EnablePresentStatisticsKind(_presentStatisticsKind, enabled) {
-        result := ComCall(14, this, "int", _presentStatisticsKind, "char", enabled, "HRESULT")
+        result := ComCall(14, this, PresentStatisticsKind, _presentStatisticsKind, "char", enabled, "HRESULT")
         return result
     }
 
@@ -250,5 +270,49 @@ class IPresentationManager extends IUnknown {
     GetNextPresentStatistics() {
         result := ComCall(15, this, "ptr*", &nextPresentStatistics := 0, "HRESULT")
         return IPresentStatistics(nextPresentStatistics)
+    }
+
+    Query(iid) {
+        if (IPresentationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddBufferFromResource := CallbackCreate(GetMethod(implObj, "AddBufferFromResource"), flags, 3)
+        this.vtbl.CreatePresentationSurface := CallbackCreate(GetMethod(implObj, "CreatePresentationSurface"), flags, 3)
+        this.vtbl.GetNextPresentId := CallbackCreate(GetMethod(implObj, "GetNextPresentId"), flags, 1)
+        this.vtbl.SetTargetTime := CallbackCreate(GetMethod(implObj, "SetTargetTime"), flags, 2)
+        this.vtbl.SetPreferredPresentDuration := CallbackCreate(GetMethod(implObj, "SetPreferredPresentDuration"), flags, 3)
+        this.vtbl.ForceVSyncInterrupt := CallbackCreate(GetMethod(implObj, "ForceVSyncInterrupt"), flags, 2)
+        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 1)
+        this.vtbl.GetPresentRetiringFence := CallbackCreate(GetMethod(implObj, "GetPresentRetiringFence"), flags, 3)
+        this.vtbl.CancelPresentsFrom := CallbackCreate(GetMethod(implObj, "CancelPresentsFrom"), flags, 2)
+        this.vtbl.GetLostEvent := CallbackCreate(GetMethod(implObj, "GetLostEvent"), flags, 2)
+        this.vtbl.GetPresentStatisticsAvailableEvent := CallbackCreate(GetMethod(implObj, "GetPresentStatisticsAvailableEvent"), flags, 2)
+        this.vtbl.EnablePresentStatisticsKind := CallbackCreate(GetMethod(implObj, "EnablePresentStatisticsKind"), flags, 3)
+        this.vtbl.GetNextPresentStatistics := CallbackCreate(GetMethod(implObj, "GetNextPresentStatistics"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddBufferFromResource)
+        CallbackFree(this.vtbl.CreatePresentationSurface)
+        CallbackFree(this.vtbl.GetNextPresentId)
+        CallbackFree(this.vtbl.SetTargetTime)
+        CallbackFree(this.vtbl.SetPreferredPresentDuration)
+        CallbackFree(this.vtbl.ForceVSyncInterrupt)
+        CallbackFree(this.vtbl.Present)
+        CallbackFree(this.vtbl.GetPresentRetiringFence)
+        CallbackFree(this.vtbl.CancelPresentsFrom)
+        CallbackFree(this.vtbl.GetLostEvent)
+        CallbackFree(this.vtbl.GetPresentStatisticsAvailableEvent)
+        CallbackFree(this.vtbl.EnablePresentStatisticsKind)
+        CallbackFree(this.vtbl.GetNextPresentStatistics)
     }
 }

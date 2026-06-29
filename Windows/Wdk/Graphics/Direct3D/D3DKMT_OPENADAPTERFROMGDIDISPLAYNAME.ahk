@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME extends Win32Struct {
-    static sizeof => 88
+export default struct D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceName : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    DeviceName {
-        get => StrGet(this.ptr + 0, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
-    }
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    AdapterLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AdapterLuid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBDA_DigitalDemodulator2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BDA_SIGNAL_TIMEOUTS.ahk" { BDA_SIGNAL_TIMEOUTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBDA_DigitalDemodulator2.ahk" { IBDA_DigitalDemodulator2 }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
     /**
      * The interface identifier for IBDA_DigitalDemodulator3
      * @type {Guid}
      */
-    static IID => Guid("{13f19604-7d32-4359-93a2-a05205d90ac9}")
+    static IID := Guid("{13f19604-7d32-4359-93a2-a05205d90ac9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DigitalDemodulator3 interfaces
+    */
+    struct Vtbl extends IBDA_DigitalDemodulator2.Vtbl {
+        put_SignalTimeouts : IntPtr
+        get_SignalTimeouts : IntPtr
+        put_PLPNumber      : IntPtr
+        get_PLPNumber      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_SignalTimeouts", "get_SignalTimeouts", "put_PLPNumber", "get_PLPNumber"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DigitalDemodulator3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BDA_SIGNAL_TIMEOUTS} 
@@ -49,7 +61,7 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
      * @returns {HRESULT} 
      */
     put_SignalTimeouts(pSignalTimeouts) {
-        result := ComCall(25, this, "ptr", pSignalTimeouts, "HRESULT")
+        result := ComCall(25, this, BDA_SIGNAL_TIMEOUTS.Ptr, pSignalTimeouts, "HRESULT")
         return result
     }
 
@@ -59,7 +71,7 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
      * @returns {HRESULT} 
      */
     get_SignalTimeouts(pSignalTimeouts) {
-        result := ComCall(26, this, "ptr", pSignalTimeouts, "HRESULT")
+        result := ComCall(26, this, BDA_SIGNAL_TIMEOUTS.Ptr, pSignalTimeouts, "HRESULT")
         return result
     }
 
@@ -85,5 +97,31 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
 
         result := ComCall(28, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DigitalDemodulator3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_SignalTimeouts := CallbackCreate(GetMethod(implObj, "put_SignalTimeouts"), flags, 2)
+        this.vtbl.get_SignalTimeouts := CallbackCreate(GetMethod(implObj, "get_SignalTimeouts"), flags, 2)
+        this.vtbl.put_PLPNumber := CallbackCreate(GetMethod(implObj, "put_PLPNumber"), flags, 2)
+        this.vtbl.get_PLPNumber := CallbackCreate(GetMethod(implObj, "get_PLPNumber"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_SignalTimeouts)
+        CallbackFree(this.vtbl.get_SignalTimeouts)
+        CallbackFree(this.vtbl.put_PLPNumber)
+        CallbackFree(this.vtbl.get_PLPNumber)
     }
 }

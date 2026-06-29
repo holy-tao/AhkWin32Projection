@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WORK_ITEM extends Win32Struct {
-    static sizeof => 48
+export default struct NDIS_WORK_ITEM {
+    #StructPack 8
 
-    static packingSize => 8
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Routine : IntPtr
 
-    /**
-     * @type {Pointer<NDIS_PROC>}
-     */
-    Routine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    WrapperReserved : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    WrapperReserved {
-        get {
-            if(!this.HasProp("__WrapperReservedProxyArray"))
-                this.__WrapperReservedProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "char")
-            return this.__WrapperReservedProxyArray
-        }
-    }
 }

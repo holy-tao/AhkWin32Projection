@@ -1,36 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SpatialAudioHrtfDirectivity.ahk
-#Include .\SpatialAudioHrtfDirectivityType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SpatialAudioHrtfDirectivityType.ahk" { SpatialAudioHrtfDirectivityType }
+#Import ".\SpatialAudioHrtfDirectivity.ahk" { SpatialAudioHrtfDirectivity }
 
 /**
  * Represents a cardioid-shaped directivity model for an ISpatialAudioObjectForHrtf.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivitycardioid
  * @namespace Windows.Win32.Media.Audio
  */
-class SpatialAudioHrtfDirectivityCardioid extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct SpatialAudioHrtfDirectivityCardioid {
+    #StructPack 4
 
     /**
      * A structure that expresses the direction in which sound is emitted by an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a>.
-     * @type {SpatialAudioHrtfDirectivity}
      */
-    directivity {
-        get {
-            if(!this.HasProp("__directivity"))
-                this.__directivity := SpatialAudioHrtfDirectivity(0, this)
-            return this.__directivity
-        }
-    }
+    directivity : SpatialAudioHrtfDirectivity
 
     /**
      * The order of the cardioid.
-     * @type {Float}
      */
-    Order {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Order : Float32
+
 }

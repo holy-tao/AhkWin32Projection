@@ -1,34 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\HLBWINFO.ahk
-#Include .\IEnumHLITEM.ahk
-#Include .\IHlink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HLBWINFO.ahk" { HLBWINFO }
+#Import ".\IEnumHLITEM.ahk" { IEnumHLITEM }
+#Import ".\IHlink.ahk" { IHlink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IHlinkBrowseContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHlinkBrowseContext extends IUnknown {
     /**
      * The interface identifier for IHlinkBrowseContext
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c7-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c7-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHlinkBrowseContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Register            : IntPtr
+        GetObject           : IntPtr
+        Revoke              : IntPtr
+        SetBrowseWindowInfo : IntPtr
+        GetBrowseWindowInfo : IntPtr
+        SetInitialHlink     : IntPtr
+        OnNavigateHlink     : IntPtr
+        UpdateHlink         : IntPtr
+        EnumNavigationStack : IntPtr
+        QueryHlink          : IntPtr
+        GetHlink            : IntPtr
+        SetCurrentHlink     : IntPtr
+        Clone               : IntPtr
+        Close               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Register", "GetObject", "Revoke", "SetBrowseWindowInfo", "GetBrowseWindowInfo", "SetInitialHlink", "OnNavigateHlink", "UpdateHlink", "EnumNavigationStack", "QueryHlink", "GetHlink", "SetCurrentHlink", "Clone", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHlinkBrowseContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The expert must implement the Register expert function. Network Monitor calls the Register expert function to obtain information about the expert.
@@ -63,15 +87,14 @@ class IHlinkBrowseContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobject
      */
     GetObject(pimk, fBindIfRootRegistered) {
-        result := ComCall(4, this, "ptr", pimk, "int", fBindIfRootRegistered, "ptr*", &ppiunk := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pimk, BOOL, fBindIfRootRegistered, "ptr*", &ppiunk := 0, "HRESULT")
         return IUnknown(ppiunk)
     }
 
     /**
-     * Ends an object's status as active.
-     * @param {Integer} dwRegister A handle previously returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registeractiveobject">RegisterActiveObject</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-revokeactiveobject
+     * 
+     * @param {Integer} dwRegister 
+     * @returns {HRESULT} 
      */
     Revoke(dwRegister) {
         result := ComCall(5, this, "uint", dwRegister, "HRESULT")
@@ -84,7 +107,7 @@ class IHlinkBrowseContext extends IUnknown {
      * @returns {HRESULT} 
      */
     SetBrowseWindowInfo(phlbwi) {
-        result := ComCall(6, this, "ptr", phlbwi, "HRESULT")
+        result := ComCall(6, this, HLBWINFO.Ptr, phlbwi, "HRESULT")
         return result
     }
 
@@ -94,7 +117,7 @@ class IHlinkBrowseContext extends IUnknown {
      */
     GetBrowseWindowInfo() {
         phlbwi := HLBWINFO()
-        result := ComCall(7, this, "ptr", phlbwi, "HRESULT")
+        result := ComCall(7, this, HLBWINFO.Ptr, phlbwi, "HRESULT")
         return phlbwi
     }
 
@@ -188,33 +211,69 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * Creates a recognizer context that contains the same settings as the original. The new recognizer context does not include the ink or recognition results of the original.
-     * @remarks
-     * The settings  for this context include the recognition guide, character Autocomplete mode, and any factoids that improve the recognition results. An example of a factoid may include whether the ink is a phone number, a name, or a URL. The TextContext and Wordlists are preserved in the new context.
+     * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
      */
     Clone(piunkOuter, riid) {
-        result := ComCall(15, this, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppiunkObj := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", piunkOuter, Guid.Ptr, riid, "ptr*", &ppiunkObj := 0, "HRESULT")
         return IUnknown(ppiunkObj)
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @param {Integer} reserved 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close(reserved) {
         result := ComCall(16, this, "uint", reserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHlinkBrowseContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 5)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.SetBrowseWindowInfo := CallbackCreate(GetMethod(implObj, "SetBrowseWindowInfo"), flags, 2)
+        this.vtbl.GetBrowseWindowInfo := CallbackCreate(GetMethod(implObj, "GetBrowseWindowInfo"), flags, 2)
+        this.vtbl.SetInitialHlink := CallbackCreate(GetMethod(implObj, "SetInitialHlink"), flags, 4)
+        this.vtbl.OnNavigateHlink := CallbackCreate(GetMethod(implObj, "OnNavigateHlink"), flags, 6)
+        this.vtbl.UpdateHlink := CallbackCreate(GetMethod(implObj, "UpdateHlink"), flags, 5)
+        this.vtbl.EnumNavigationStack := CallbackCreate(GetMethod(implObj, "EnumNavigationStack"), flags, 4)
+        this.vtbl.QueryHlink := CallbackCreate(GetMethod(implObj, "QueryHlink"), flags, 3)
+        this.vtbl.GetHlink := CallbackCreate(GetMethod(implObj, "GetHlink"), flags, 3)
+        this.vtbl.SetCurrentHlink := CallbackCreate(GetMethod(implObj, "SetCurrentHlink"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 4)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.Revoke)
+        CallbackFree(this.vtbl.SetBrowseWindowInfo)
+        CallbackFree(this.vtbl.GetBrowseWindowInfo)
+        CallbackFree(this.vtbl.SetInitialHlink)
+        CallbackFree(this.vtbl.OnNavigateHlink)
+        CallbackFree(this.vtbl.UpdateHlink)
+        CallbackFree(this.vtbl.EnumNavigationStack)
+        CallbackFree(this.vtbl.QueryHlink)
+        CallbackFree(this.vtbl.GetHlink)
+        CallbackFree(this.vtbl.SetCurrentHlink)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.Close)
     }
 }

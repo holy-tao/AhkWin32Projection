@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IEnumSTATDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
+#Import ".\FORMATETC.ahk" { FORMATETC }
+#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates and manages advisory connections between a data object and one or more advise sinks.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-idataadviseholder
  * @namespace Windows.Win32.System.Com
  */
-class IDataAdviseHolder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataAdviseHolder extends IUnknown {
     /**
      * The interface identifier for IDataAdviseHolder
      * @type {Guid}
      */
-    static IID => Guid("{00000110-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000110-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataAdviseHolder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise           : IntPtr
+        Unadvise         : IntPtr
+        EnumAdvise       : IntPtr
+        SendOnDataChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise", "EnumAdvise", "SendOnDataChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataAdviseHolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a connection between an advise sink and a data object for receiving notifications.
@@ -95,7 +109,7 @@ class IDataAdviseHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-advise
      */
     Advise(pDataObject, pFetc, _advf, pAdvise) {
-        result := ComCall(3, this, "ptr", pDataObject, "ptr", pFetc, "uint", _advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDataObject, FORMATETC.Ptr, pFetc, "uint", _advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -160,5 +174,31 @@ class IDataAdviseHolder extends IUnknown {
 
         result := ComCall(6, this, "ptr", pDataObject, "uint", dwReserved, "uint", _advf, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDataAdviseHolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 6)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumAdvise := CallbackCreate(GetMethod(implObj, "EnumAdvise"), flags, 2)
+        this.vtbl.SendOnDataChange := CallbackCreate(GetMethod(implObj, "SendOnDataChange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.EnumAdvise)
+        CallbackFree(this.vtbl.SendOnDataChange)
     }
 }

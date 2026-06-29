@@ -1,33 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\DEBUG_SYMBOL_PARAMETERS.ahk
-#Include .\DEBUG_SYMBOL_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DEBUG_SYMBOL_ENTRY.ahk" { DEBUG_SYMBOL_ENTRY }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_SYMBOL_PARAMETERS.ahk" { DEBUG_SYMBOL_PARAMETERS }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugSymbolGroup2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugSymbolGroup2 extends IUnknown {
     /**
      * The interface identifier for IDebugSymbolGroup2
      * @type {Guid}
      */
-    static IID => Guid("{6a7ccc5f-fb5e-4dcc-b41c-6c20307bccc7}")
+    static IID := Guid("{6a7ccc5f-fb5e-4dcc-b41c-6c20307bccc7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugSymbolGroup2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumberSymbols          : IntPtr
+        AddSymbol                 : IntPtr
+        RemoveSymbolByName        : IntPtr
+        RemoveSymbolByIndex       : IntPtr
+        GetSymbolName             : IntPtr
+        GetSymbolParameters       : IntPtr
+        ExpandSymbol              : IntPtr
+        OutputSymbols             : IntPtr
+        WriteSymbol               : IntPtr
+        OutputAsType              : IntPtr
+        AddSymbolWide             : IntPtr
+        RemoveSymbolByNameWide    : IntPtr
+        GetSymbolNameWide         : IntPtr
+        WriteSymbolWide           : IntPtr
+        OutputAsTypeWide          : IntPtr
+        GetSymbolTypeName         : IntPtr
+        GetSymbolTypeNameWide     : IntPtr
+        GetSymbolSize             : IntPtr
+        GetSymbolOffset           : IntPtr
+        GetSymbolRegister         : IntPtr
+        GetSymbolValueText        : IntPtr
+        GetSymbolValueTextWide    : IntPtr
+        GetSymbolEntryInformation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumberSymbols", "AddSymbol", "RemoveSymbolByName", "RemoveSymbolByIndex", "GetSymbolName", "GetSymbolParameters", "ExpandSymbol", "OutputSymbols", "WriteSymbol", "OutputAsType", "AddSymbolWide", "RemoveSymbolByNameWide", "GetSymbolNameWide", "WriteSymbolWide", "OutputAsTypeWide", "GetSymbolTypeName", "GetSymbolTypeNameWide", "GetSymbolSize", "GetSymbolOffset", "GetSymbolRegister", "GetSymbolValueText", "GetSymbolValueTextWide", "GetSymbolEntryInformation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugSymbolGroup2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -97,7 +130,7 @@ class IDebugSymbolGroup2 extends IUnknown {
      */
     GetSymbolParameters(Start, Count) {
         Params := DEBUG_SYMBOL_PARAMETERS()
-        result := ComCall(8, this, "uint", Start, "uint", Count, "ptr", Params, "HRESULT")
+        result := ComCall(8, this, "uint", Start, "uint", Count, DEBUG_SYMBOL_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -108,7 +141,7 @@ class IDebugSymbolGroup2 extends IUnknown {
      * @returns {HRESULT} 
      */
     ExpandSymbol(Index, Expand) {
-        result := ComCall(9, this, "uint", Index, "int", Expand, "HRESULT")
+        result := ComCall(9, this, "uint", Index, BOOL, Expand, "HRESULT")
         return result
     }
 
@@ -311,7 +344,71 @@ class IDebugSymbolGroup2 extends IUnknown {
      */
     GetSymbolEntryInformation(Index) {
         Entry := DEBUG_SYMBOL_ENTRY()
-        result := ComCall(25, this, "uint", Index, "ptr", Entry, "HRESULT")
+        result := ComCall(25, this, "uint", Index, DEBUG_SYMBOL_ENTRY.Ptr, Entry, "HRESULT")
         return Entry
+    }
+
+    Query(iid) {
+        if (IDebugSymbolGroup2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumberSymbols := CallbackCreate(GetMethod(implObj, "GetNumberSymbols"), flags, 2)
+        this.vtbl.AddSymbol := CallbackCreate(GetMethod(implObj, "AddSymbol"), flags, 3)
+        this.vtbl.RemoveSymbolByName := CallbackCreate(GetMethod(implObj, "RemoveSymbolByName"), flags, 2)
+        this.vtbl.RemoveSymbolByIndex := CallbackCreate(GetMethod(implObj, "RemoveSymbolByIndex"), flags, 2)
+        this.vtbl.GetSymbolName := CallbackCreate(GetMethod(implObj, "GetSymbolName"), flags, 5)
+        this.vtbl.GetSymbolParameters := CallbackCreate(GetMethod(implObj, "GetSymbolParameters"), flags, 4)
+        this.vtbl.ExpandSymbol := CallbackCreate(GetMethod(implObj, "ExpandSymbol"), flags, 3)
+        this.vtbl.OutputSymbols := CallbackCreate(GetMethod(implObj, "OutputSymbols"), flags, 5)
+        this.vtbl.WriteSymbol := CallbackCreate(GetMethod(implObj, "WriteSymbol"), flags, 3)
+        this.vtbl.OutputAsType := CallbackCreate(GetMethod(implObj, "OutputAsType"), flags, 3)
+        this.vtbl.AddSymbolWide := CallbackCreate(GetMethod(implObj, "AddSymbolWide"), flags, 3)
+        this.vtbl.RemoveSymbolByNameWide := CallbackCreate(GetMethod(implObj, "RemoveSymbolByNameWide"), flags, 2)
+        this.vtbl.GetSymbolNameWide := CallbackCreate(GetMethod(implObj, "GetSymbolNameWide"), flags, 5)
+        this.vtbl.WriteSymbolWide := CallbackCreate(GetMethod(implObj, "WriteSymbolWide"), flags, 3)
+        this.vtbl.OutputAsTypeWide := CallbackCreate(GetMethod(implObj, "OutputAsTypeWide"), flags, 3)
+        this.vtbl.GetSymbolTypeName := CallbackCreate(GetMethod(implObj, "GetSymbolTypeName"), flags, 5)
+        this.vtbl.GetSymbolTypeNameWide := CallbackCreate(GetMethod(implObj, "GetSymbolTypeNameWide"), flags, 5)
+        this.vtbl.GetSymbolSize := CallbackCreate(GetMethod(implObj, "GetSymbolSize"), flags, 3)
+        this.vtbl.GetSymbolOffset := CallbackCreate(GetMethod(implObj, "GetSymbolOffset"), flags, 3)
+        this.vtbl.GetSymbolRegister := CallbackCreate(GetMethod(implObj, "GetSymbolRegister"), flags, 3)
+        this.vtbl.GetSymbolValueText := CallbackCreate(GetMethod(implObj, "GetSymbolValueText"), flags, 5)
+        this.vtbl.GetSymbolValueTextWide := CallbackCreate(GetMethod(implObj, "GetSymbolValueTextWide"), flags, 5)
+        this.vtbl.GetSymbolEntryInformation := CallbackCreate(GetMethod(implObj, "GetSymbolEntryInformation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumberSymbols)
+        CallbackFree(this.vtbl.AddSymbol)
+        CallbackFree(this.vtbl.RemoveSymbolByName)
+        CallbackFree(this.vtbl.RemoveSymbolByIndex)
+        CallbackFree(this.vtbl.GetSymbolName)
+        CallbackFree(this.vtbl.GetSymbolParameters)
+        CallbackFree(this.vtbl.ExpandSymbol)
+        CallbackFree(this.vtbl.OutputSymbols)
+        CallbackFree(this.vtbl.WriteSymbol)
+        CallbackFree(this.vtbl.OutputAsType)
+        CallbackFree(this.vtbl.AddSymbolWide)
+        CallbackFree(this.vtbl.RemoveSymbolByNameWide)
+        CallbackFree(this.vtbl.GetSymbolNameWide)
+        CallbackFree(this.vtbl.WriteSymbolWide)
+        CallbackFree(this.vtbl.OutputAsTypeWide)
+        CallbackFree(this.vtbl.GetSymbolTypeName)
+        CallbackFree(this.vtbl.GetSymbolTypeNameWide)
+        CallbackFree(this.vtbl.GetSymbolSize)
+        CallbackFree(this.vtbl.GetSymbolOffset)
+        CallbackFree(this.vtbl.GetSymbolRegister)
+        CallbackFree(this.vtbl.GetSymbolValueText)
+        CallbackFree(this.vtbl.GetSymbolValueTextWide)
+        CallbackFree(this.vtbl.GetSymbolEntryInformation)
     }
 }

@@ -1,36 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_VOLUME_PLEX_PROP.ahk
-#Include .\IVdsVolume.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsVolume.ahk" { IVdsVolume }
+#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_VOLUME_PLEX_PROP.ahk" { VDS_VOLUME_PLEX_PROP }
 
 /**
  * Provides methods for maintaining volume plexes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumeplex
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsVolumePlex extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsVolumePlex extends IUnknown {
     /**
      * The interface identifier for IVdsVolumePlex
      * @type {Guid}
      */
-    static IID => Guid("{4daa0135-e1d1-40f1-aaa5-3cc1e53221c3}")
+    static IID := Guid("{4daa0135-e1d1-40f1-aaa5-3cc1e53221c3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsVolumePlex interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties : IntPtr
+        GetVolume     : IntPtr
+        QueryExtents  : IntPtr
+        Repair        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetVolume", "QueryExtents", "Repair"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsVolumePlex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the property details of the current volume plex.
@@ -39,7 +52,7 @@ class IVdsVolumePlex extends IUnknown {
      */
     GetProperties() {
         pPlexProperties := VDS_VOLUME_PLEX_PROP()
-        result := ComCall(3, this, "ptr", pPlexProperties, "HRESULT")
+        result := ComCall(3, this, VDS_VOLUME_PLEX_PROP.Ptr, pPlexProperties, "HRESULT")
         return pPlexProperties
     }
 
@@ -108,7 +121,33 @@ class IVdsVolumePlex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeplex-repair
      */
     Repair(pInputDiskArray, lNumberOfDisks) {
-        result := ComCall(6, this, "ptr", pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsVolumePlex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.QueryExtents := CallbackCreate(GetMethod(implObj, "QueryExtents"), flags, 3)
+        this.vtbl.Repair := CallbackCreate(GetMethod(implObj, "Repair"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetVolume)
+        CallbackFree(this.vtbl.QueryExtents)
+        CallbackFree(this.vtbl.Repair)
     }
 }

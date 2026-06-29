@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows a decryptor to manage hardware keys and decrypt hardware samples.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentdecryptorcontext
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFContentDecryptorContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFContentDecryptorContext extends IUnknown {
     /**
      * The interface identifier for IMFContentDecryptorContext
      * @type {Guid}
      */
-    static IID => Guid("{7ec4b1bd-43fb-4763-85d2-64fcb5c5f4cb}")
+    static IID := Guid("{7ec4b1bd-43fb-4763-85d2-64fcb5c5f4cb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFContentDecryptorContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeHardwareKey : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeHardwareKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFContentDecryptorContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows the display driver to return IHV-specific information used when initializing a new hardware key.
@@ -43,5 +51,25 @@ class IMFContentDecryptorContext extends IUnknown {
 
         result := ComCall(3, this, "uint", InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "HRESULT")
         return OutputPrivateData
+    }
+
+    Query(iid) {
+        if (IMFContentDecryptorContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeHardwareKey := CallbackCreate(GetMethod(implObj, "InitializeHardwareKey"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeHardwareKey)
     }
 }

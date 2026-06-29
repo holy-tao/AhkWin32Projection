@@ -1,83 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTRL_LEVEL.ahk
-#Include .\ATTENDEE_DISCONNECT_REASON.ahk
-#Include .\CHANNEL_PRIORITY.ahk
-#Include .\CHANNEL_FLAGS.ahk
-#Include .\CHANNEL_ACCESS_ENUM.ahk
-#Include .\RDPENCOMAPI_ATTENDEE_FLAGS.ahk
-#Include .\RDPSRAPI_WND_FLAGS.ahk
-#Include .\RDPSRAPI_APP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RDPSRAPI_APP_FLAGS.ahk" { RDPSRAPI_APP_FLAGS }
+#Import ".\RDPENCOMAPI_ATTENDEE_FLAGS.ahk" { RDPENCOMAPI_ATTENDEE_FLAGS }
+#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
+#Import ".\RDPSRAPI_WND_FLAGS.ahk" { RDPSRAPI_WND_FLAGS }
+#Import ".\ATTENDEE_DISCONNECT_REASON.ahk" { ATTENDEE_DISCONNECT_REASON }
+#Import ".\CHANNEL_FLAGS.ahk" { CHANNEL_FLAGS }
+#Import ".\CHANNEL_PRIORITY.ahk" { CHANNEL_PRIORITY }
+#Import ".\CHANNEL_ACCESS_ENUM.ahk" { CHANNEL_ACCESS_ENUM }
 
 /**
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class __ReferenceRemainingTypes__ extends Win32Struct {
-    static sizeof => 32
+export default struct __ReferenceRemainingTypes__ {
+    #StructPack 4
 
-    static packingSize => 4
+    __ctrlLevel__ : CTRL_LEVEL
 
-    /**
-     * @type {CTRL_LEVEL}
-     */
-    __ctrlLevel__ {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    __attendeeDisconnectReason__ : ATTENDEE_DISCONNECT_REASON
 
-    /**
-     * @type {ATTENDEE_DISCONNECT_REASON}
-     */
-    __attendeeDisconnectReason__ {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    __channelPriority__ : CHANNEL_PRIORITY
 
-    /**
-     * @type {CHANNEL_PRIORITY}
-     */
-    __channelPriority__ {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    __channelFlags__ : CHANNEL_FLAGS
 
-    /**
-     * @type {CHANNEL_FLAGS}
-     */
-    __channelFlags__ {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    __channelAccessEnum__ : CHANNEL_ACCESS_ENUM
 
-    /**
-     * @type {CHANNEL_ACCESS_ENUM}
-     */
-    __channelAccessEnum__ {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    __rdpencomapiAttendeeFlags__ : RDPENCOMAPI_ATTENDEE_FLAGS
 
-    /**
-     * @type {RDPENCOMAPI_ATTENDEE_FLAGS}
-     */
-    __rdpencomapiAttendeeFlags__ {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    __rdpsrapiWndFlags__ : RDPSRAPI_WND_FLAGS
 
-    /**
-     * @type {RDPSRAPI_WND_FLAGS}
-     */
-    __rdpsrapiWndFlags__ {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    __rdpsrapiAppFlags__ : RDPSRAPI_APP_FLAGS
 
-    /**
-     * @type {RDPSRAPI_APP_FLAGS}
-     */
-    __rdpsrapiAppFlags__ {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

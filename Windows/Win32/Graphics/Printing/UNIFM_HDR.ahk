@@ -1,94 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class UNIFM_HDR extends Win32Struct {
-    static sizeof => 44
+export default struct UNIFM_HDR {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulDefaultCodepage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDefaultCodepage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lGlyphSetDataRCID : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lGlyphSetDataRCID {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    loUnidrvInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    loUnidrvInfo {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    loIFIMetrics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    loIFIMetrics {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    loExtTextMetric : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    loExtTextMetric {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    loWidthTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    loWidthTable {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    loKernPair : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    loKernPair {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved : UInt32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
 }

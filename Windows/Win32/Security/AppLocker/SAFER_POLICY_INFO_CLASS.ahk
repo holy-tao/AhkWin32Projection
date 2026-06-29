@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the ways in which a policy may be queried.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ne-winsafer-safer_policy_info_class
  * @namespace Windows.Win32.Security.AppLocker
  */
-class SAFER_POLICY_INFO_CLASS extends Win32Enum {
+export default struct SAFER_POLICY_INFO_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Queries for the list of all levels defined in a policy.

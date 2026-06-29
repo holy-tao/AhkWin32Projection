@@ -1,45 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STGMEDIUM.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IStream.ahk
-#Include StructuredStorage\IStorage.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
+#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import ".\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "StructuredStorage\IStorage.ahk" { IStorage }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class FLAG_STGMEDIUM extends Win32Struct {
-    static sizeof => 32
+export default struct FLAG_STGMEDIUM {
+    #StructPack 8
 
-    static packingSize => 8
+    ContextFlags : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ContextFlags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fPassOwnership : Int32
 
-    /**
-     * @type {Integer}
-     */
-    fPassOwnership {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Stgmed : STGMEDIUM
 
-    /**
-     * @type {STGMEDIUM}
-     */
-    Stgmed {
-        get {
-            if(!this.HasProp("__Stgmed"))
-                this.__Stgmed := STGMEDIUM(8, this)
-            return this.__Stgmed
-        }
-    }
 }

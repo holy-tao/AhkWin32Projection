@@ -1,35 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_ContextFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_ContextFT.ahk" { MI_ContextFT }
 
 /**
  * Holds context for the operation that the provider needs to carry out.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_context
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Context extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MI_Context {
+    #StructPack 8
 
     /**
      * This member is used internally, and it must not be changed.
-     * @type {Pointer<MI_ContextFT>}
      */
-    ft {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ft : MI_ContextFT.Ptr
 
     /**
      * Reserved for internal use.
-     * @type {Array<Pointer>}
      */
-    reserved {
-        get {
-            if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")
-            return this.__reservedProxyArray
-        }
-    }
+    reserved : IntPtr[3]
+
 }

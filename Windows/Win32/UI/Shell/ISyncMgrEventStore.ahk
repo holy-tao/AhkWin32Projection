@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumSyncMgrEvents.ahk
-#Include .\ISyncMgrEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncMgrEvent.ahk" { ISyncMgrEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSyncMgrEvents.ahk" { IEnumSyncMgrEvents }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow a handler to provide its own event store and manage its own sync events, instead of using the default Sync Center event store. These events are displayed in the Sync Results folder.
@@ -17,26 +18,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgreventstore
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrEventStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrEventStore extends IUnknown {
     /**
      * The interface identifier for ISyncMgrEventStore
      * @type {Guid}
      */
-    static IID => Guid("{37e412f9-016e-44c2-81ff-db3add774266}")
+    static IID := Guid("{37e412f9-016e-44c2-81ff-db3add774266}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrEventStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEventEnumerator : IntPtr
+        GetEventCount      : IntPtr
+        GetEvent           : IntPtr
+        RemoveEvent        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventEnumerator", "GetEventCount", "GetEvent", "RemoveEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrEventStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an enumerator for a handler's events.
@@ -75,7 +86,7 @@ class ISyncMgrEventStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-getevent
      */
     GetEvent(rguidEventID) {
-        result := ComCall(5, this, "ptr", rguidEventID, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rguidEventID, "ptr*", &ppEvent := 0, "HRESULT")
         return ISyncMgrEvent(ppEvent)
     }
 
@@ -93,7 +104,33 @@ class ISyncMgrEventStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-removeevent
      */
     RemoveEvent(pguidEventIDs, cEvents) {
-        result := ComCall(6, this, "ptr", pguidEventIDs, "uint", cEvents, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pguidEventIDs, "uint", cEvents, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrEventStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventEnumerator := CallbackCreate(GetMethod(implObj, "GetEventEnumerator"), flags, 2)
+        this.vtbl.GetEventCount := CallbackCreate(GetMethod(implObj, "GetEventCount"), flags, 2)
+        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 3)
+        this.vtbl.RemoveEvent := CallbackCreate(GetMethod(implObj, "RemoveEvent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventEnumerator)
+        CallbackFree(this.vtbl.GetEventCount)
+        CallbackFree(this.vtbl.GetEvent)
+        CallbackFree(this.vtbl.RemoveEvent)
     }
 }

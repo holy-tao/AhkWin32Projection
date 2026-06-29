@@ -1,74 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struct {
-    static sizeof => 32
+export default struct KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _MaxFrameRate extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _MaxFrameRate {
+        Numerator : Int32
 
-        /**
-         * @type {Integer}
-         */
-        Numerator {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+        Denominator : Int32
 
-        /**
-         * @type {Integer}
-         */
-        Denominator {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
     }
 
-    /**
-     * @type {SIZE}
-     */
-    Resolution {
-        get {
-            if(!this.HasProp("__Resolution"))
-                this.__Resolution := SIZE(0, this)
-            return this.__Resolution
-        }
-    }
+    Resolution : SIZE
 
-    /**
-     * @type {_MaxFrameRate}
-     */
-    MaxFrameRate {
-        get {
-            if(!this.HasProp("__MaxFrameRate"))
-                this.__MaxFrameRate := KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS._MaxFrameRate(8, this)
-            return this.__MaxFrameRate
-        }
-    }
+    MaxFrameRate : KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS._MaxFrameRate
 
-    /**
-     * @type {SIZE}
-     */
-    MaskResolution {
-        get {
-            if(!this.HasProp("__MaskResolution"))
-                this.__MaskResolution := SIZE(16, this)
-            return this.__MaskResolution
-        }
-    }
+    MaskResolution : SIZE
 
-    /**
-     * @type {Pointer}
-     */
-    SubType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SubType : Guid
+
 }

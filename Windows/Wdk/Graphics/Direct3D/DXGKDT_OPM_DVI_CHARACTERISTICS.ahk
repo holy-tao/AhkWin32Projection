@@ -1,10 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKDT_OPM_DVI_CHARACTERISTICS extends Win32Enum {
+export default struct DXGKDT_OPM_DVI_CHARACTERISTICS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

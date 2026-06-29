@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VMR9DeinterlacePrefs enumeration type describes the deinterlacing method that the Video Mixing Renderer Filter 9 (VMR-9) uses if the method set by the application cannot be used.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9deinterlaceprefs
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VMR9DeinterlacePrefs extends Win32Enum {
+export default struct VMR9DeinterlacePrefs {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the next best mode offered by the driver.

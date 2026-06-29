@@ -1,55 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPROW2 extends Win32Struct {
-    static sizeof => 168
+export default struct MIB_UDPROW2 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwLocalAddr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalAddr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLocalPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalPort {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOwningPid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOwningPid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    liCreateTimestamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    liCreateTimestamp : Int64
 
     /**
      * This bitfield backs the following members:
      * - SpecificPortBind
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -58,39 +28,14 @@ class MIB_UDPROW2 extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
+    OwningModuleInfo : Int64[16]
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dwRemoteAddr : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OwningModuleInfo {
-        get {
-            if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")
-            return this.__OwningModuleInfoProxyArray
-        }
-    }
+    dwRemotePort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRemoteAddr {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRemotePort {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+    static __New() {
+        DefineProp(this.Prototype, 'dwFlags', { type: Int32, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

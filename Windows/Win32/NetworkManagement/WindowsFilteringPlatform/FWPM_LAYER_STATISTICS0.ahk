@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Stores statistics related to a layer.
@@ -8,61 +8,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_layer_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_LAYER_STATISTICS0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FWPM_LAYER_STATISTICS0 {
+    #StructPack 4
 
     /**
      * Type: <b>GUID</b>
      * 
      * Identifier of the layer.
-     * @type {Pointer}
      */
-    layerId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    layerId : Guid
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of permitted connections.
-     * @type {Integer}
      */
-    classifyPermitCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    classifyPermitCount : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of blocked connections.
-     * @type {Integer}
      */
-    classifyBlockCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    classifyBlockCount : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of vetoed connections.
-     * @type {Integer}
      */
-    classifyVetoCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    classifyVetoCount : UInt32
 
     /**
      * Type: <b>UINT32</b>
-     * @type {Integer}
      */
-    numCacheEntries {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    numCacheEntries : UInt32
+
 }

@@ -1,80 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\KS_H264VIDEOINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
+#Import ".\KS_H264VIDEOINFO.ahk" { KS_H264VIDEOINFO }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DATARANGE_H264_VIDEO extends Win32Struct {
-    static sizeof => 272
+export default struct KS_DATARANGE_H264_VIDEO {
+    #StructPack 8
 
-    static packingSize => 8
+    DataRange : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataRange {
-        get {
-            if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(0, this)
-            return this.__DataRange
-        }
-    }
+    bFixedSizeSamples : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bFixedSizeSamples {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    bTemporalCompression : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bTemporalCompression {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    StreamDescriptionFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamDescriptionFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    MemoryAllocationFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MemoryAllocationFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ConfigCaps : KS_VIDEO_STREAM_CONFIG_CAPS
 
-    /**
-     * @type {KS_VIDEO_STREAM_CONFIG_CAPS}
-     */
-    ConfigCaps {
-        get {
-            if(!this.HasProp("__ConfigCaps"))
-                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(64, this)
-            return this.__ConfigCaps
-        }
-    }
+    VideoInfoHeader : KS_H264VIDEOINFO
 
-    /**
-     * @type {KS_H264VIDEOINFO}
-     */
-    VideoInfoHeader {
-        get {
-            if(!this.HasProp("__VideoInfoHeader"))
-                this.__VideoInfoHeader := KS_H264VIDEOINFO(184, this)
-            return this.__VideoInfoHeader
-        }
-    }
 }

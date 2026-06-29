@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class TXFS_ROLLFORWARD_REDO_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct TXFS_ROLLFORWARD_REDO_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    LastVirtualClock : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastVirtualClock {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    LastRedoLsn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastRedoLsn {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HighestRecoveryLsn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HighestRecoveryLsn {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportServicePolicy.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WDSTRANSPORT_UDP_PORT_POLICY.ahk" { WDSTRANSPORT_UDP_PORT_POLICY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWdsTransportServicePolicy.ahk" { IWdsTransportServicePolicy }
 
 /**
  * This interface inherits from the IWdsTransportServicePolicy interface and extends it beginning with Windows Server 2012.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportservicepolicy2
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy {
     /**
      * The interface identifier for IWdsTransportServicePolicy2
      * @type {Guid}
      */
-    static IID => Guid("{65c19e5c-aa7e-4b91-8944-91e0e5572797}")
+    static IID := Guid("{65c19e5c-aa7e-4b91-8944-91e0e5572797}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 23
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportServicePolicy2 interfaces
+    */
+    struct Vtbl extends IWdsTransportServicePolicy.Vtbl {
+        get_UdpPortPolicy                     : IntPtr
+        put_UdpPortPolicy                     : IntPtr
+        get_TftpMaximumBlockSize              : IntPtr
+        put_TftpMaximumBlockSize              : IntPtr
+        get_EnableTftpVariableWindowExtension : IntPtr
+        put_EnableTftpVariableWindowExtension : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UdpPortPolicy", "put_UdpPortPolicy", "get_TftpMaximumBlockSize", "put_TftpMaximumBlockSize", "get_EnableTftpVariableWindowExtension", "put_EnableTftpVariableWindowExtension"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportServicePolicy2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {WDSTRANSPORT_UDP_PORT_POLICY} 
@@ -70,7 +85,7 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_udpportpolicy
      */
     put_UdpPortPolicy(UdpPortPolicy) {
-        result := ComCall(24, this, "int", UdpPortPolicy, "HRESULT")
+        result := ComCall(24, this, WDSTRANSPORT_UDP_PORT_POLICY, UdpPortPolicy, "HRESULT")
         return result
     }
 
@@ -101,7 +116,7 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_enabletftpvariablewindowextension
      */
     get_EnableTftpVariableWindowExtension() {
-        result := ComCall(27, this, "short*", &pbEnableTftpVariableWindowExtension := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &pbEnableTftpVariableWindowExtension := 0, "HRESULT")
         return pbEnableTftpVariableWindowExtension
     }
 
@@ -112,7 +127,37 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_enabletftpvariablewindowextension
      */
     put_EnableTftpVariableWindowExtension(bEnableTftpVariableWindowExtension) {
-        result := ComCall(28, this, "short", bEnableTftpVariableWindowExtension, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL, bEnableTftpVariableWindowExtension, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportServicePolicy2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UdpPortPolicy := CallbackCreate(GetMethod(implObj, "get_UdpPortPolicy"), flags, 2)
+        this.vtbl.put_UdpPortPolicy := CallbackCreate(GetMethod(implObj, "put_UdpPortPolicy"), flags, 2)
+        this.vtbl.get_TftpMaximumBlockSize := CallbackCreate(GetMethod(implObj, "get_TftpMaximumBlockSize"), flags, 2)
+        this.vtbl.put_TftpMaximumBlockSize := CallbackCreate(GetMethod(implObj, "put_TftpMaximumBlockSize"), flags, 2)
+        this.vtbl.get_EnableTftpVariableWindowExtension := CallbackCreate(GetMethod(implObj, "get_EnableTftpVariableWindowExtension"), flags, 2)
+        this.vtbl.put_EnableTftpVariableWindowExtension := CallbackCreate(GetMethod(implObj, "put_EnableTftpVariableWindowExtension"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UdpPortPolicy)
+        CallbackFree(this.vtbl.put_UdpPortPolicy)
+        CallbackFree(this.vtbl.get_TftpMaximumBlockSize)
+        CallbackFree(this.vtbl.put_TftpMaximumBlockSize)
+        CallbackFree(this.vtbl.get_EnableTftpVariableWindowExtension)
+        CallbackFree(this.vtbl.put_EnableTftpVariableWindowExtension)
     }
 }

@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_RUNTIME_FUNCTION_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64
  */
-class UNWIND_HISTORY_TABLE_ENTRY extends Win32Struct {
-    static sizeof => 16
+export default struct UNWIND_HISTORY_TABLE_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    ImageBase : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ImageBase {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FunctionEntry : IMAGE_RUNTIME_FUNCTION_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<IMAGE_RUNTIME_FUNCTION_ENTRY>}
-     */
-    FunctionEntry {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

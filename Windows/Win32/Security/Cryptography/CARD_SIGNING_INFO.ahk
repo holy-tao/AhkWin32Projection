@@ -1,100 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ALG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ALG_ID.ahk" { ALG_ID }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CARD_SIGNING_INFO extends Win32Struct {
-    static sizeof => 72
+export default struct CARD_SIGNING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bContainerIndex : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bContainerIndex {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    dwKeySpec : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKeySpec {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSigningFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSigningFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    aiHashAlg : ALG_ID
 
-    /**
-     * @type {ALG_ID}
-     */
-    aiHashAlg {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pbSignedData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSignedData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    cbSignedData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSignedData {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pPaddingInfo : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPaddingInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwPaddingType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPaddingType {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include .\IFsrmMutableCollection.ahk
-#Include .\IFsrmAction.ahk
-#Include .\IFsrmCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
 
 /**
  * Base class for all file screen interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenbase
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmFileScreenBase extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmFileScreenBase extends IFsrmObject {
     /**
      * The interface identifier for IFsrmFileScreenBase
      * @type {Guid}
      */
-    static IID => Guid("{f3637e80-5b22-4a2b-a637-bbb642b41cfc}")
+    static IID := Guid("{f3637e80-5b22-4a2b-a637-bbb642b41cfc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmFileScreenBase interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_BlockedFileGroups : IntPtr
+        put_BlockedFileGroups : IntPtr
+        get_FileScreenFlags   : IntPtr
+        put_FileScreenFlags   : IntPtr
+        CreateAction          : IntPtr
+        EnumActions           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BlockedFileGroups", "put_BlockedFileGroups", "get_FileScreenFlags", "put_FileScreenFlags", "CreateAction", "EnumActions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmFileScreenBase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IFsrmMutableCollection} 
@@ -109,7 +123,7 @@ class IFsrmFileScreenBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-createaction
      */
     CreateAction(actionType) {
-        result := ComCall(16, this, "int", actionType, "ptr*", &action := 0, "HRESULT")
+        result := ComCall(16, this, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
         return IFsrmAction(action)
     }
 
@@ -123,5 +137,35 @@ class IFsrmFileScreenBase extends IFsrmObject {
     EnumActions() {
         result := ComCall(17, this, "ptr*", &actions := 0, "HRESULT")
         return IFsrmCollection(actions)
+    }
+
+    Query(iid) {
+        if (IFsrmFileScreenBase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BlockedFileGroups := CallbackCreate(GetMethod(implObj, "get_BlockedFileGroups"), flags, 2)
+        this.vtbl.put_BlockedFileGroups := CallbackCreate(GetMethod(implObj, "put_BlockedFileGroups"), flags, 2)
+        this.vtbl.get_FileScreenFlags := CallbackCreate(GetMethod(implObj, "get_FileScreenFlags"), flags, 2)
+        this.vtbl.put_FileScreenFlags := CallbackCreate(GetMethod(implObj, "put_FileScreenFlags"), flags, 2)
+        this.vtbl.CreateAction := CallbackCreate(GetMethod(implObj, "CreateAction"), flags, 3)
+        this.vtbl.EnumActions := CallbackCreate(GetMethod(implObj, "EnumActions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BlockedFileGroups)
+        CallbackFree(this.vtbl.put_BlockedFileGroups)
+        CallbackFree(this.vtbl.get_FileScreenFlags)
+        CallbackFree(this.vtbl.put_FileScreenFlags)
+        CallbackFree(this.vtbl.CreateAction)
+        CallbackFree(this.vtbl.EnumActions)
     }
 }

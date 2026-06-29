@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WinHttpRequestOption.ahk" { WinHttpRequestOption }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\WinHttpRequestAutoLogonPolicy.ahk" { WinHttpRequestAutoLogonPolicy }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWinHttpRequest interface provides all of the nonevent methods for Microsoft Windows HTTP Services (WinHTTP).
@@ -21,32 +25,57 @@
  * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-interface
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class IWinHttpRequest extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWinHttpRequest extends IDispatch {
     /**
      * The interface identifier for IWinHttpRequest
      * @type {Guid}
      */
-    static IID => Guid("{016fe2ec-b2c8-45f8-b23b-39e53a75396b}")
+    static IID := Guid("{016fe2ec-b2c8-45f8-b23b-39e53a75396b}")
 
     /**
      * The class identifier for WinHttpRequest
      * @type {Guid}
      */
-    static CLSID => Guid("{2087c2f4-2cef-4953-a8ab-66779b670495}")
+    static CLSID := Guid("{2087c2f4-2cef-4953-a8ab-66779b670495}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWinHttpRequest interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetProxy              : IntPtr
+        SetCredentials        : IntPtr
+        Open                  : IntPtr
+        SetRequestHeader      : IntPtr
+        GetResponseHeader     : IntPtr
+        GetAllResponseHeaders : IntPtr
+        Send                  : IntPtr
+        get_Status            : IntPtr
+        get_StatusText        : IntPtr
+        get_ResponseText      : IntPtr
+        get_ResponseBody      : IntPtr
+        get_ResponseStream    : IntPtr
+        get_Option            : IntPtr
+        put_Option            : IntPtr
+        WaitForResponse       : IntPtr
+        Abort                 : IntPtr
+        SetTimeouts           : IntPtr
+        SetClientCertificate  : IntPtr
+        SetAutoLogonPolicy    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProxy", "SetCredentials", "Open", "SetRequestHeader", "GetResponseHeader", "GetAllResponseHeaders", "Send", "get_Status", "get_StatusText", "get_ResponseText", "get_ResponseBody", "get_ResponseStream", "get_Option", "put_Option", "WaitForResponse", "Abort", "SetTimeouts", "SetClientCertificate", "SetAutoLogonPolicy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWinHttpRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -108,7 +137,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-setproxy
      */
     SetProxy(ProxySetting, ProxyServer, BypassList) {
-        result := ComCall(7, this, "int", ProxySetting, "ptr", ProxyServer, "ptr", BypassList, "HRESULT")
+        result := ComCall(7, this, "int", ProxySetting, VARIANT, ProxyServer, VARIANT, BypassList, "HRESULT")
         return result
     }
 
@@ -140,7 +169,7 @@ class IWinHttpRequest extends IDispatch {
         UserName := UserName is String ? BSTR.Alloc(UserName).Value : UserName
         Password := Password is String ? BSTR.Alloc(Password).Value : Password
 
-        result := ComCall(8, this, "ptr", UserName, "ptr", Password, "int", Flags, "HRESULT")
+        result := ComCall(8, this, BSTR, UserName, BSTR, Password, "int", Flags, "HRESULT")
         return result
     }
 
@@ -168,7 +197,7 @@ class IWinHttpRequest extends IDispatch {
         Method := Method is String ? BSTR.Alloc(Method).Value : Method
         Url := Url is String ? BSTR.Alloc(Url).Value : Url
 
-        result := ComCall(9, this, "ptr", Method, "ptr", Url, "ptr", Async, "HRESULT")
+        result := ComCall(9, this, BSTR, Method, BSTR, Url, VARIANT, Async, "HRESULT")
         return result
     }
 
@@ -192,7 +221,7 @@ class IWinHttpRequest extends IDispatch {
         Header := Header is String ? BSTR.Alloc(Header).Value : Header
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(10, this, "ptr", Header, "ptr", Value, "HRESULT")
+        result := ComCall(10, this, BSTR, Header, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -210,8 +239,8 @@ class IWinHttpRequest extends IDispatch {
     GetResponseHeader(Header) {
         Header := Header is String ? BSTR.Alloc(Header).Value : Header
 
-        Value := BSTR()
-        result := ComCall(11, this, "ptr", Header, "ptr", Value, "HRESULT")
+        Value := BSTR.Owned()
+        result := ComCall(11, this, BSTR, Header, BSTR.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -226,8 +255,8 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-getallresponseheaders
      */
     GetAllResponseHeaders() {
-        Headers := BSTR()
-        result := ComCall(12, this, "ptr", Headers, "HRESULT")
+        Headers := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, Headers, "HRESULT")
         return Headers
     }
 
@@ -243,7 +272,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-send
      */
     Send(Body) {
-        result := ComCall(13, this, "ptr", Body, "HRESULT")
+        result := ComCall(13, this, VARIANT, Body, "HRESULT")
         return result
     }
 
@@ -273,8 +302,8 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-statustext
      */
     get_StatusText() {
-        _Status := BSTR()
-        result := ComCall(15, this, "ptr", _Status, "HRESULT")
+        _Status := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, _Status, "HRESULT")
         return _Status
     }
 
@@ -291,8 +320,8 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-responsetext
      */
     get_ResponseText() {
-        Body := BSTR()
-        result := ComCall(16, this, "ptr", Body, "HRESULT")
+        Body := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, Body, "HRESULT")
         return Body
     }
 
@@ -308,7 +337,7 @@ class IWinHttpRequest extends IDispatch {
      */
     get_ResponseBody() {
         Body := VARIANT()
-        result := ComCall(17, this, "ptr", Body, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, Body, "HRESULT")
         return Body
     }
 
@@ -324,7 +353,7 @@ class IWinHttpRequest extends IDispatch {
      */
     get_ResponseStream() {
         Body := VARIANT()
-        result := ComCall(18, this, "ptr", Body, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, Body, "HRESULT")
         return Body
     }
 
@@ -339,7 +368,7 @@ class IWinHttpRequest extends IDispatch {
      */
     get_Option(Option) {
         Value := VARIANT()
-        result := ComCall(19, this, "int", Option, "ptr", Value, "HRESULT")
+        result := ComCall(19, this, WinHttpRequestOption, Option, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -354,7 +383,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-option
      */
     put_Option(Option, Value) {
-        result := ComCall(20, this, "int", Option, "ptr", Value, "HRESULT")
+        result := ComCall(20, this, WinHttpRequestOption, Option, VARIANT, Value, "HRESULT")
         return result
     }
 
@@ -379,7 +408,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-waitforresponse
      */
     WaitForResponse(Timeout) {
-        result := ComCall(21, this, "ptr", Timeout, "short*", &Succeeded := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT, Timeout, VARIANT_BOOL.Ptr, &Succeeded := 0, "HRESULT")
         return Succeeded
     }
 
@@ -442,7 +471,7 @@ class IWinHttpRequest extends IDispatch {
     SetClientCertificate(ClientCertificate) {
         ClientCertificate := ClientCertificate is String ? BSTR.Alloc(ClientCertificate).Value : ClientCertificate
 
-        result := ComCall(24, this, "ptr", ClientCertificate, "HRESULT")
+        result := ComCall(24, this, BSTR, ClientCertificate, "HRESULT")
         return result
     }
 
@@ -460,7 +489,63 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-setautologonpolicy
      */
     SetAutoLogonPolicy(AutoLogonPolicy) {
-        result := ComCall(25, this, "int", AutoLogonPolicy, "HRESULT")
+        result := ComCall(25, this, WinHttpRequestAutoLogonPolicy, AutoLogonPolicy, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWinHttpRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProxy := CallbackCreate(GetMethod(implObj, "SetProxy"), flags, 4)
+        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 4)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
+        this.vtbl.SetRequestHeader := CallbackCreate(GetMethod(implObj, "SetRequestHeader"), flags, 3)
+        this.vtbl.GetResponseHeader := CallbackCreate(GetMethod(implObj, "GetResponseHeader"), flags, 3)
+        this.vtbl.GetAllResponseHeaders := CallbackCreate(GetMethod(implObj, "GetAllResponseHeaders"), flags, 2)
+        this.vtbl.Send := CallbackCreate(GetMethod(implObj, "Send"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.get_ResponseText := CallbackCreate(GetMethod(implObj, "get_ResponseText"), flags, 2)
+        this.vtbl.get_ResponseBody := CallbackCreate(GetMethod(implObj, "get_ResponseBody"), flags, 2)
+        this.vtbl.get_ResponseStream := CallbackCreate(GetMethod(implObj, "get_ResponseStream"), flags, 2)
+        this.vtbl.get_Option := CallbackCreate(GetMethod(implObj, "get_Option"), flags, 3)
+        this.vtbl.put_Option := CallbackCreate(GetMethod(implObj, "put_Option"), flags, 3)
+        this.vtbl.WaitForResponse := CallbackCreate(GetMethod(implObj, "WaitForResponse"), flags, 3)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.SetTimeouts := CallbackCreate(GetMethod(implObj, "SetTimeouts"), flags, 5)
+        this.vtbl.SetClientCertificate := CallbackCreate(GetMethod(implObj, "SetClientCertificate"), flags, 2)
+        this.vtbl.SetAutoLogonPolicy := CallbackCreate(GetMethod(implObj, "SetAutoLogonPolicy"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProxy)
+        CallbackFree(this.vtbl.SetCredentials)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.SetRequestHeader)
+        CallbackFree(this.vtbl.GetResponseHeader)
+        CallbackFree(this.vtbl.GetAllResponseHeaders)
+        CallbackFree(this.vtbl.Send)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_StatusText)
+        CallbackFree(this.vtbl.get_ResponseText)
+        CallbackFree(this.vtbl.get_ResponseBody)
+        CallbackFree(this.vtbl.get_ResponseStream)
+        CallbackFree(this.vtbl.get_Option)
+        CallbackFree(this.vtbl.put_Option)
+        CallbackFree(this.vtbl.WaitForResponse)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.SetTimeouts)
+        CallbackFree(this.vtbl.SetClientCertificate)
+        CallbackFree(this.vtbl.SetAutoLogonPolicy)
     }
 }

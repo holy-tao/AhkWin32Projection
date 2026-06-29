@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLBodyElement3 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLBodyElement3 extends IDispatch {
     /**
      * The interface identifier for IHTMLBodyElement3
      * @type {Guid}
      */
-    static IID => Guid("{30510422-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510422-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLBodyElement3 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_background   : IntPtr
+        get_background   : IntPtr
+        put_ononline     : IntPtr
+        get_ononline     : IntPtr
+        put_onoffline    : IntPtr
+        get_onoffline    : IntPtr
+        put_onhashchange : IntPtr
+        get_onhashchange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_background", "get_background", "put_ononline", "get_ononline", "put_onoffline", "get_onoffline", "put_onhashchange", "get_onhashchange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLBodyElement3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -69,7 +84,7 @@ class IHTMLBodyElement3 extends IDispatch {
     put_background(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -78,8 +93,8 @@ class IHTMLBodyElement3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_background() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -89,7 +104,7 @@ class IHTMLBodyElement3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ononline(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -99,7 +114,7 @@ class IHTMLBodyElement3 extends IDispatch {
      */
     get_ononline() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -109,7 +124,7 @@ class IHTMLBodyElement3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onoffline(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -119,7 +134,7 @@ class IHTMLBodyElement3 extends IDispatch {
      */
     get_onoffline() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -129,7 +144,7 @@ class IHTMLBodyElement3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onhashchange(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -139,7 +154,41 @@ class IHTMLBodyElement3 extends IDispatch {
      */
     get_onhashchange() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLBodyElement3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_ononline := CallbackCreate(GetMethod(implObj, "put_ononline"), flags, 2)
+        this.vtbl.get_ononline := CallbackCreate(GetMethod(implObj, "get_ononline"), flags, 2)
+        this.vtbl.put_onoffline := CallbackCreate(GetMethod(implObj, "put_onoffline"), flags, 2)
+        this.vtbl.get_onoffline := CallbackCreate(GetMethod(implObj, "get_onoffline"), flags, 2)
+        this.vtbl.put_onhashchange := CallbackCreate(GetMethod(implObj, "put_onhashchange"), flags, 2)
+        this.vtbl.get_onhashchange := CallbackCreate(GetMethod(implObj, "get_onhashchange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_background)
+        CallbackFree(this.vtbl.get_background)
+        CallbackFree(this.vtbl.put_ononline)
+        CallbackFree(this.vtbl.get_ononline)
+        CallbackFree(this.vtbl.put_onoffline)
+        CallbackFree(this.vtbl.get_onoffline)
+        CallbackFree(this.vtbl.put_onhashchange)
+        CallbackFree(this.vtbl.get_onhashchange)
     }
 }

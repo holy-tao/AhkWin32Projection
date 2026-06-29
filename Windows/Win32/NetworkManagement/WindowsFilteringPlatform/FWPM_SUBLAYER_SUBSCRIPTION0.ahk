@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk
-#Include .\FWPM_SUBSCRIPTION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_SUBSCRIPTION_FLAGS.ahk" { FWPM_SUBSCRIPTION_FLAGS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
 
 /**
  * Used to subscribe for change notifications. (FWPM_SUBLAYER_SUBSCRIPTION0)
@@ -15,36 +15,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_subscription0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_SUBLAYER_SUBSCRIPTION0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FWPM_SUBLAYER_SUBSCRIPTION0 {
+    #StructPack 8
 
     /**
      * Enumeration template for limiting the subscription.
      * 
      * See [FWPM_SUBLAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_enum_template0) for more information.
-     * @type {Pointer<FWPM_SUBLAYER_ENUM_TEMPLATE0>}
      */
-    enumTemplate {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    enumTemplate : FWPM_SUBLAYER_ENUM_TEMPLATE0.Ptr
 
-    /**
-     * @type {FWPM_SUBSCRIPTION_FLAGS}
-     */
-    flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    flags : FWPM_SUBSCRIPTION_FLAGS
 
     /**
      * Uniquely identifies this session.
-     * @type {Pointer}
      */
-    sessionKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    sessionKey : Guid
+
 }

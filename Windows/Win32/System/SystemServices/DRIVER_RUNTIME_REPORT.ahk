@@ -1,32 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RUNTIME_REPORT_HEADER.ahk
-#Include .\DRIVER_INFO_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RUNTIME_REPORT_HEADER.ahk" { RUNTIME_REPORT_HEADER }
+#Import ".\DRIVER_INFO_ENTRY.ahk" { DRIVER_INFO_ENTRY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class DRIVER_RUNTIME_REPORT extends Win32Struct {
-    static sizeof => 68
+export default struct DRIVER_RUNTIME_REPORT {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - ReportOverflowed
          * - PartialReport
          * - IncludeBootDrivers
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -51,54 +44,18 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct {
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUInt16 {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUInt16', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {RUNTIME_REPORT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := RUNTIME_REPORT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : RUNTIME_REPORT_HEADER
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfDrivers {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    NumberOfDrivers : UInt16
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := DRIVER_RUNTIME_REPORT._Flags_e__Union(10, this)
-            return this.__Flags
-        }
-    }
+    Flags : DRIVER_RUNTIME_REPORT._Flags
 
-    /**
-     * @type {DRIVER_INFO_ENTRY}
-     */
-    DriverEntries {
-        get {
-            if(!this.HasProp("__DriverEntriesProxyArray"))
-                this.__DriverEntriesProxyArray := Win32FixedArray(this.ptr + 12, 1, DRIVER_INFO_ENTRY, "")
-            return this.__DriverEntriesProxyArray
-        }
-    }
+    DriverEntries : DRIVER_INFO_ENTRY[1]
+
 }

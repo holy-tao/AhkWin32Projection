@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderNetworkConfig.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMReaderNetworkConfig.ahk" { IWMReaderNetworkConfig }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IWMReaderNetworkConfig2 interface provides advanced networking functionality.An IWMReaderNetworkConfig2 interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadernetworkconfig2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
     /**
      * The interface identifier for IWMReaderNetworkConfig2
      * @type {Guid}
      */
-    static IID => Guid("{d979a853-042b-4050-8387-c939db22013f}")
+    static IID := Guid("{d979a853-042b-4050-8387-c939db22013f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 36
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderNetworkConfig2 interfaces
+    */
+    struct Vtbl extends IWMReaderNetworkConfig.Vtbl {
+        GetEnableContentCaching         : IntPtr
+        SetEnableContentCaching         : IntPtr
+        GetEnableFastCache              : IntPtr
+        SetEnableFastCache              : IntPtr
+        GetAcceleratedStreamingDuration : IntPtr
+        SetAcceleratedStreamingDuration : IntPtr
+        GetAutoReconnectLimit           : IntPtr
+        SetAutoReconnectLimit           : IntPtr
+        GetEnableResends                : IntPtr
+        SetEnableResends                : IntPtr
+        GetEnableThinning               : IntPtr
+        SetEnableThinning               : IntPtr
+        GetMaxNetPacketSize             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEnableContentCaching", "SetEnableContentCaching", "GetEnableFastCache", "SetEnableFastCache", "GetAcceleratedStreamingDuration", "SetAcceleratedStreamingDuration", "GetAutoReconnectLimit", "SetAutoReconnectLimit", "GetEnableResends", "SetEnableResends", "GetEnableThinning", "SetEnableThinning", "GetMaxNetPacketSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderNetworkConfig2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetEnableContentCaching method queries whether content caching is enabled. If content caching is enabled, streaming content can be cached locally.
@@ -37,7 +58,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenablecontentcaching
      */
     GetEnableContentCaching() {
-        result := ComCall(36, this, "int*", &pfEnableContentCaching := 0, "HRESULT")
+        result := ComCall(36, this, BOOL.Ptr, &pfEnableContentCaching := 0, "HRESULT")
         return pfEnableContentCaching
     }
 
@@ -68,7 +89,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-setenablecontentcaching
      */
     SetEnableContentCaching(fEnableContentCaching) {
-        result := ComCall(37, this, "int", fEnableContentCaching, "HRESULT")
+        result := ComCall(37, this, BOOL, fEnableContentCaching, "HRESULT")
         return result
     }
 
@@ -80,7 +101,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenablefastcache
      */
     GetEnableFastCache() {
-        result := ComCall(38, this, "int*", &pfEnableFastCache := 0, "HRESULT")
+        result := ComCall(38, this, BOOL.Ptr, &pfEnableFastCache := 0, "HRESULT")
         return pfEnableFastCache
     }
 
@@ -113,7 +134,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-setenablefastcache
      */
     SetEnableFastCache(fEnableFastCache) {
-        result := ComCall(39, this, "int", fEnableFastCache, "HRESULT")
+        result := ComCall(39, this, BOOL, fEnableFastCache, "HRESULT")
         return result
     }
 
@@ -215,7 +236,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenableresends
      */
     GetEnableResends() {
-        result := ComCall(44, this, "int*", &pfEnableResends := 0, "HRESULT")
+        result := ComCall(44, this, BOOL.Ptr, &pfEnableResends := 0, "HRESULT")
         return pfEnableResends
     }
 
@@ -246,7 +267,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-setenableresends
      */
     SetEnableResends(fEnableResends) {
-        result := ComCall(45, this, "int", fEnableResends, "HRESULT")
+        result := ComCall(45, this, BOOL, fEnableResends, "HRESULT")
         return result
     }
 
@@ -267,7 +288,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenablethinning
      */
     GetEnableThinning() {
-        result := ComCall(46, this, "int*", &pfEnableThinning := 0, "HRESULT")
+        result := ComCall(46, this, BOOL.Ptr, &pfEnableThinning := 0, "HRESULT")
         return pfEnableThinning
     }
 
@@ -313,7 +334,7 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-setenablethinning
      */
     SetEnableThinning(fEnableThinning) {
-        result := ComCall(47, this, "int", fEnableThinning, "HRESULT")
+        result := ComCall(47, this, BOOL, fEnableThinning, "HRESULT")
         return result
     }
 
@@ -325,5 +346,49 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
     GetMaxNetPacketSize() {
         result := ComCall(48, this, "uint*", &pdwMaxNetPacketSize := 0, "HRESULT")
         return pdwMaxNetPacketSize
+    }
+
+    Query(iid) {
+        if (IWMReaderNetworkConfig2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEnableContentCaching := CallbackCreate(GetMethod(implObj, "GetEnableContentCaching"), flags, 2)
+        this.vtbl.SetEnableContentCaching := CallbackCreate(GetMethod(implObj, "SetEnableContentCaching"), flags, 2)
+        this.vtbl.GetEnableFastCache := CallbackCreate(GetMethod(implObj, "GetEnableFastCache"), flags, 2)
+        this.vtbl.SetEnableFastCache := CallbackCreate(GetMethod(implObj, "SetEnableFastCache"), flags, 2)
+        this.vtbl.GetAcceleratedStreamingDuration := CallbackCreate(GetMethod(implObj, "GetAcceleratedStreamingDuration"), flags, 2)
+        this.vtbl.SetAcceleratedStreamingDuration := CallbackCreate(GetMethod(implObj, "SetAcceleratedStreamingDuration"), flags, 2)
+        this.vtbl.GetAutoReconnectLimit := CallbackCreate(GetMethod(implObj, "GetAutoReconnectLimit"), flags, 2)
+        this.vtbl.SetAutoReconnectLimit := CallbackCreate(GetMethod(implObj, "SetAutoReconnectLimit"), flags, 2)
+        this.vtbl.GetEnableResends := CallbackCreate(GetMethod(implObj, "GetEnableResends"), flags, 2)
+        this.vtbl.SetEnableResends := CallbackCreate(GetMethod(implObj, "SetEnableResends"), flags, 2)
+        this.vtbl.GetEnableThinning := CallbackCreate(GetMethod(implObj, "GetEnableThinning"), flags, 2)
+        this.vtbl.SetEnableThinning := CallbackCreate(GetMethod(implObj, "SetEnableThinning"), flags, 2)
+        this.vtbl.GetMaxNetPacketSize := CallbackCreate(GetMethod(implObj, "GetMaxNetPacketSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEnableContentCaching)
+        CallbackFree(this.vtbl.SetEnableContentCaching)
+        CallbackFree(this.vtbl.GetEnableFastCache)
+        CallbackFree(this.vtbl.SetEnableFastCache)
+        CallbackFree(this.vtbl.GetAcceleratedStreamingDuration)
+        CallbackFree(this.vtbl.SetAcceleratedStreamingDuration)
+        CallbackFree(this.vtbl.GetAutoReconnectLimit)
+        CallbackFree(this.vtbl.SetAutoReconnectLimit)
+        CallbackFree(this.vtbl.GetEnableResends)
+        CallbackFree(this.vtbl.SetEnableResends)
+        CallbackFree(this.vtbl.GetEnableThinning)
+        CallbackFree(this.vtbl.SetEnableThinning)
+        CallbackFree(this.vtbl.GetMaxNetPacketSize)
     }
 }

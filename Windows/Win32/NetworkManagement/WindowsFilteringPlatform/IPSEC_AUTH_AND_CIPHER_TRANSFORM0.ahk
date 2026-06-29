@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_AUTH_TRANSFORM0.ahk
-#Include .\IPSEC_AUTH_TRANSFORM_ID0.ahk
-#Include .\IPSEC_AUTH_TYPE.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM0.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
-#Include .\IPSEC_CIPHER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_AUTH_TRANSFORM_ID0.ahk" { IPSEC_AUTH_TRANSFORM_ID0 }
+#Import ".\IPSEC_AUTH_TRANSFORM0.ahk" { IPSEC_AUTH_TRANSFORM0 }
+#Import ".\IPSEC_CIPHER_TYPE.ahk" { IPSEC_CIPHER_TYPE }
+#Import ".\IPSEC_CIPHER_TRANSFORM_ID0.ahk" { IPSEC_CIPHER_TRANSFORM_ID0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_AUTH_TYPE.ahk" { IPSEC_AUTH_TYPE }
+#Import ".\IPSEC_CIPHER_TRANSFORM0.ahk" { IPSEC_CIPHER_TRANSFORM0 }
 
 /**
  * Is used to store hash and encryption specific information together for an SA transform in an IPsec quick mode policy.
@@ -14,32 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_auth_and_cipher_transform0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_AUTH_AND_CIPHER_TRANSFORM0 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IPSEC_AUTH_AND_CIPHER_TRANSFORM0 {
+    #StructPack 8
 
     /**
      * Hash specific information as specified by [IPSEC_AUTH_TRANSFORM0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_auth_transform0).
-     * @type {IPSEC_AUTH_TRANSFORM0}
      */
-    authTransform {
-        get {
-            if(!this.HasProp("__authTransform"))
-                this.__authTransform := IPSEC_AUTH_TRANSFORM0(0, this)
-            return this.__authTransform
-        }
-    }
+    authTransform : IPSEC_AUTH_TRANSFORM0
 
     /**
      * Encryption specific information as specified by [IPSEC_CIPHER_TRANSFORM0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_cipher_transform0).
-     * @type {IPSEC_CIPHER_TRANSFORM0}
      */
-    cipherTransform {
-        get {
-            if(!this.HasProp("__cipherTransform"))
-                this.__cipherTransform := IPSEC_CIPHER_TRANSFORM0(16, this)
-            return this.__cipherTransform
-        }
-    }
+    cipherTransform : IPSEC_CIPHER_TRANSFORM0
+
 }

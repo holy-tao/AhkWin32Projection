@@ -1,32 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\NMHDR.ahk" { NMHDR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class GROUPTYPINGCHANGE extends Win32Struct {
-    static sizeof => 32
+export default struct GROUPTYPINGCHANGE {
+    #StructPack 8
 
-    static packingSize => 8
+    nmhdr : NMHDR
 
-    /**
-     * @type {NMHDR}
-     */
-    nmhdr {
-        get {
-            if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(0, this)
-            return this.__nmhdr
-        }
-    }
+    fGroupTyping : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fGroupTyping {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

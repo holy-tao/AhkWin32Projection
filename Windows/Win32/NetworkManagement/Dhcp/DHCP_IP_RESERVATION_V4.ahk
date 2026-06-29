@@ -1,34 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_BINARY_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
 
 /**
  * The DHCP_IP_RESERVATION_V4 structure defines a client IP reservation. This structure extends an IP reservation by including the type of client (DHCP or BOOTP) holding the reservation.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_IP_RESERVATION_V4 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DHCP_IP_RESERVATION_V4 {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the reserved IP address.
-     * @type {Integer}
      */
-    ReservedIpAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReservedIpAddress : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_CLIENT_UID</a> structure that contains the hardware address (MAC address) of the DHCPv4 client that holds this reservation.
-     * @type {Pointer<DHCP_BINARY_DATA>}
      */
-    ReservedForClient {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ReservedForClient : DHCP_BINARY_DATA.Ptr
 
     /**
      * Value that specifies the DHCPv4 reserved client type. The possible values are below:
@@ -72,10 +61,7 @@ class DHCP_IP_RESERVATION_V4 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    bAllowedClientTypes {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bAllowedClientTypes : Int8
+
 }

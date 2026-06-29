@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * The DRAWPATRECT structure defines a rectangle to be created.
@@ -9,34 +8,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-drawpatrect
  * @namespace Windows.Win32.Storage.Xps
  */
-class DRAWPATRECT extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DRAWPATRECT {
+    #StructPack 4
 
     /**
      * The upper-left corner of the rectangle, in logical units.
-     * @type {POINT}
      */
-    ptPosition {
-        get {
-            if(!this.HasProp("__ptPosition"))
-                this.__ptPosition := POINT(0, this)
-            return this.__ptPosition
-        }
-    }
+    ptPosition : POINT
 
     /**
      * The lower-right corner of the rectangle, in logical units.
-     * @type {POINT}
      */
-    ptSize {
-        get {
-            if(!this.HasProp("__ptSize"))
-                this.__ptSize := POINT(8, this)
-            return this.__ptSize
-        }
-    }
+    ptSize : POINT
 
     /**
      * The style of the rectangle. It can be one of the following.
@@ -59,19 +42,12 @@ class DRAWPATRECT extends Win32Struct {
      * <td>Gray rectangle. Used with <b>wPattern</b>.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wStyle {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wStyle : UInt16
 
     /**
      * Amount of grayness of the rectangle, as a percentage (0-100). A value of 0 means a white rectangle and 100 means a black rectangle. This is only used when <b>wStyle</b> is 2.
-     * @type {Integer}
      */
-    wPattern {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    wPattern : UInt16
+
 }

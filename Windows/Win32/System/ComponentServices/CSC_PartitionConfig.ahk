@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the COM+ partition on which the enclosed context runs.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_partitionconfig
  * @namespace Windows.Win32.System.ComponentServices
  */
-class CSC_PartitionConfig extends Win32Enum {
+export default struct CSC_PartitionConfig {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The enclosed context runs on the Base Application Partition. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.

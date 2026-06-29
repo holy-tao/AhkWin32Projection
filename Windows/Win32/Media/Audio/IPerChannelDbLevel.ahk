@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPerChannelDbLevel interface represents a generic subunit control interface that provides per-channel control over the volume level, in decibels, of an audio stream or of a frequency band in an audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iperchanneldblevel
  * @namespace Windows.Win32.Media.Audio
  */
-class IPerChannelDbLevel extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPerChannelDbLevel extends IUnknown {
     /**
      * The interface identifier for IPerChannelDbLevel
      * @type {Guid}
      */
-    static IID => Guid("{c2f8e001-f205-4bc9-99bc-c13b1e048ccb}")
+    static IID := Guid("{c2f8e001-f205-4bc9-99bc-c13b1e048ccb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPerChannelDbLevel interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetChannelCount     : IntPtr
+        GetLevelRange       : IntPtr
+        GetLevel            : IntPtr
+        SetLevel            : IntPtr
+        SetLevelUniform     : IntPtr
+        SetLevelAllChannels : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetChannelCount", "GetLevelRange", "GetLevel", "SetLevel", "SetLevelUniform", "SetLevelAllChannels"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPerChannelDbLevel.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetChannelCount method gets the number of channels in the audio stream. (IPerChannelDbLevel.GetChannelCount)
@@ -141,7 +154,7 @@ class IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevel
      */
     SetLevel(nChannel, fLevelDB, pguidEventContext) {
-        result := ComCall(6, this, "uint", nChannel, "float", fLevelDB, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(6, this, "uint", nChannel, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -173,7 +186,7 @@ class IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setleveluniform
      */
     SetLevelUniform(fLevelDB, pguidEventContext) {
-        result := ComCall(7, this, "float", fLevelDB, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(7, this, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -230,7 +243,37 @@ class IPerChannelDbLevel extends IUnknown {
     SetLevelAllChannels(aLevelsDB, cChannels, pguidEventContext) {
         aLevelsDBMarshal := aLevelsDB is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, "uint", cChannels, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, "uint", cChannels, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPerChannelDbLevel.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.GetLevelRange := CallbackCreate(GetMethod(implObj, "GetLevelRange"), flags, 5)
+        this.vtbl.GetLevel := CallbackCreate(GetMethod(implObj, "GetLevel"), flags, 3)
+        this.vtbl.SetLevel := CallbackCreate(GetMethod(implObj, "SetLevel"), flags, 4)
+        this.vtbl.SetLevelUniform := CallbackCreate(GetMethod(implObj, "SetLevelUniform"), flags, 3)
+        this.vtbl.SetLevelAllChannels := CallbackCreate(GetMethod(implObj, "SetLevelAllChannels"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetChannelCount)
+        CallbackFree(this.vtbl.GetLevelRange)
+        CallbackFree(this.vtbl.GetLevel)
+        CallbackFree(this.vtbl.SetLevel)
+        CallbackFree(this.vtbl.SetLevelUniform)
+        CallbackFree(this.vtbl.SetLevelAllChannels)
     }
 }

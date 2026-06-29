@@ -1,101 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class RASDIALPARAMSA extends Win32Struct {
-    static sizeof => 1080
+export default struct RASDIALPARAMSA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szEntryName : CHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szEntryName {
-        get => StrGet(this.ptr + 4, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 256, "UTF-8")
-    }
+    szPhoneNumber : CHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szPhoneNumber {
-        get => StrGet(this.ptr + 261, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 261, 128, "UTF-8")
-    }
+    szCallbackNumber : CHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szCallbackNumber {
-        get => StrGet(this.ptr + 390, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 390, 128, "UTF-8")
-    }
+    szUserName : CHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szUserName {
-        get => StrGet(this.ptr + 519, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 519, 256, "UTF-8")
-    }
+    szPassword : CHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szPassword {
-        get => StrGet(this.ptr + 776, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 776, 256, "UTF-8")
-    }
+    szDomain : CHAR[16]
 
-    /**
-     * @type {String}
-     */
-    szDomain {
-        get => StrGet(this.ptr + 1033, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 1033, 15, "UTF-8")
-    }
+    dwSubEntry : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSubEntry {
-        get => NumGet(this, 1052, "uint")
-        set => NumPut("uint", value, this, 1052)
-    }
+    dwCallbackId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwCallbackId {
-        get => NumGet(this, 1056, "ptr")
-        set => NumPut("ptr", value, this, 1056)
-    }
+    dwIfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIfIndex {
-        get => NumGet(this, 1064, "uint")
-        set => NumPut("uint", value, this, 1064)
-    }
+    szEncPassword : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    szEncPassword {
-        get => NumGet(this, 1072, "ptr")
-        set => NumPut("ptr", value, this, 1072)
-    }
 }

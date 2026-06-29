@@ -1,15 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWRdsProtocolLogonErrorRedirector.ahk
-#Include .\WTS_CLIENT_DATA.ahk
-#Include .\WTS_USER_CREDENTIAL.ahk
-#Include .\IWRdsProtocolLicenseConnection.ahk
-#Include .\WTS_SESSION_ID.ahk
-#Include .\WTS_PROTOCOL_STATUS.ahk
-#Include .\WTS_PROPERTY_VALUE.ahk
-#Include .\IWRdsProtocolShadowConnection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWRdsProtocolShadowConnection.ahk" { IWRdsProtocolShadowConnection }
+#Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
+#Import ".\IWRdsProtocolLicenseConnection.ahk" { IWRdsProtocolLicenseConnection }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
+#Import ".\WTS_CLIENT_DATA.ahk" { WTS_CLIENT_DATA }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTS_PROTOCOL_STATUS.ahk" { WTS_PROTOCOL_STATUS }
+#Import ".\IWRdsProtocolLogonErrorRedirector.ahk" { IWRdsProtocolLogonErrorRedirector }
+#Import ".\WTS_USER_CREDENTIAL.ahk" { WTS_USER_CREDENTIAL }
 
 /**
  * Exposes methods called by the Remote Desktop Services service to configure a client connection.
@@ -18,26 +24,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocolconnection
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWRdsProtocolConnection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWRdsProtocolConnection extends IUnknown {
     /**
      * The interface identifier for IWRdsProtocolConnection
      * @type {Guid}
      */
-    static IID => Guid("{324ed94f-fdaf-4ff6-81a8-42abe755830b}")
+    static IID := Guid("{324ed94f-fdaf-4ff6-81a8-42abe755830b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWRdsProtocolConnection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLogonErrorRedirector       : IntPtr
+        AcceptConnection              : IntPtr
+        GetClientData                 : IntPtr
+        GetClientMonitorData          : IntPtr
+        GetUserCredentials            : IntPtr
+        GetLicenseConnection          : IntPtr
+        AuthenticateClientToSession   : IntPtr
+        NotifySessionId               : IntPtr
+        GetInputHandles               : IntPtr
+        GetVideoHandle                : IntPtr
+        ConnectNotify                 : IntPtr
+        IsUserAllowedToLogon          : IntPtr
+        SessionArbitrationEnumeration : IntPtr
+        LogonNotify                   : IntPtr
+        PreDisconnect                 : IntPtr
+        DisconnectNotify              : IntPtr
+        Close                         : IntPtr
+        GetProtocolStatus             : IntPtr
+        GetLastInputTime              : IntPtr
+        SetErrorInfo                  : IntPtr
+        CreateVirtualChannel          : IntPtr
+        QueryProperty                 : IntPtr
+        GetShadowConnection           : IntPtr
+        NotifyCommandProcessCreated   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLogonErrorRedirector", "AcceptConnection", "GetClientData", "GetClientMonitorData", "GetUserCredentials", "GetLicenseConnection", "AuthenticateClientToSession", "NotifySessionId", "GetInputHandles", "GetVideoHandle", "ConnectNotify", "IsUserAllowedToLogon", "SessionArbitrationEnumeration", "LogonNotify", "PreDisconnect", "DisconnectNotify", "Close", "GetProtocolStatus", "GetLastInputTime", "SetErrorInfo", "CreateVirtualChannel", "QueryProperty", "GetShadowConnection", "NotifyCommandProcessCreated"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWRdsProtocolConnection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an IWRdsProtocolLogonErrorRedirector interface that specifies how the protocol should handle client logon errors.
@@ -68,7 +104,7 @@ class IWRdsProtocolConnection extends IUnknown {
      */
     GetClientData() {
         pClientData := WTS_CLIENT_DATA()
-        result := ComCall(5, this, "ptr", pClientData, "HRESULT")
+        result := ComCall(5, this, WTS_CLIENT_DATA.Ptr, pClientData, "HRESULT")
         return pClientData
     }
 
@@ -96,7 +132,7 @@ class IWRdsProtocolConnection extends IUnknown {
      */
     GetUserCredentials() {
         pUserCreds := WTS_USER_CREDENTIAL()
-        result := ComCall(7, this, "ptr", pUserCreds, "HRESULT")
+        result := ComCall(7, this, WTS_USER_CREDENTIAL.Ptr, pUserCreds, "HRESULT")
         return pUserCreds
     }
 
@@ -117,7 +153,7 @@ class IWRdsProtocolConnection extends IUnknown {
      */
     AuthenticateClientToSession() {
         SessionId := WTS_SESSION_ID()
-        result := ComCall(9, this, "ptr", SessionId, "HRESULT")
+        result := ComCall(9, this, WTS_SESSION_ID.Ptr, SessionId, "HRESULT")
         return SessionId
     }
 
@@ -131,7 +167,7 @@ class IWRdsProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-notifysessionid
      */
     NotifySessionId(SessionId, SessionHandle) {
-        result := ComCall(10, this, "ptr", SessionId, "ptr", SessionHandle, "HRESULT")
+        result := ComCall(10, this, WTS_SESSION_ID.Ptr, SessionId, HANDLE_PTR, SessionHandle, "HRESULT")
         return result
     }
 
@@ -162,7 +198,7 @@ class IWRdsProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getvideohandle
      */
     GetVideoHandle() {
-        result := ComCall(12, this, "ptr*", &pVideoHandle := 0, "HRESULT")
+        result := ComCall(12, this, HANDLE_PTR.Ptr, &pVideoHandle := 0, "HRESULT")
         return pVideoHandle
     }
 
@@ -192,7 +228,7 @@ class IWRdsProtocolConnection extends IUnknown {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
         pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
-        result := ComCall(14, this, "uint", SessionId, "ptr", UserToken, "ptr", pDomainName, "ptr", pUserName, "HRESULT")
+        result := ComCall(14, this, "uint", SessionId, HANDLE_PTR, UserToken, "ptr", pDomainName, "ptr", pUserName, "HRESULT")
         return result
     }
 
@@ -207,7 +243,7 @@ class IWRdsProtocolConnection extends IUnknown {
     SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pdwSessionIdentifierCount) {
         pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, "uint*", &pSessionIdArray := 0, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
+        result := ComCall(15, this, HANDLE_PTR, hUserToken, BOOL, bSingleSessionPerUserEnabled, "uint*", &pSessionIdArray := 0, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
         return pSessionIdArray
     }
 
@@ -227,7 +263,7 @@ class IWRdsProtocolConnection extends IUnknown {
         wszUserName := wszUserName is String ? StrPtr(wszUserName) : wszUserName
         wszDomainName := wszDomainName is String ? StrPtr(wszDomainName) : wszDomainName
 
-        result := ComCall(16, this, "ptr", hClientToken, "ptr", wszUserName, "ptr", wszDomainName, "ptr", SessionId, "ptr", pWRdsConnectionSettings, "HRESULT")
+        result := ComCall(16, this, HANDLE_PTR, hClientToken, "ptr", wszUserName, "ptr", wszDomainName, WTS_SESSION_ID.Ptr, SessionId, WRDS_CONNECTION_SETTINGS.Ptr, pWRdsConnectionSettings, "HRESULT")
         return result
     }
 
@@ -273,7 +309,7 @@ class IWRdsProtocolConnection extends IUnknown {
      */
     GetProtocolStatus() {
         pProtocolStatus := WTS_PROTOCOL_STATUS()
-        result := ComCall(20, this, "ptr", pProtocolStatus, "HRESULT")
+        result := ComCall(20, this, WTS_PROTOCOL_STATUS.Ptr, pProtocolStatus, "HRESULT")
         return pProtocolStatus
     }
 
@@ -312,7 +348,7 @@ class IWRdsProtocolConnection extends IUnknown {
     CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority) {
         szEndpointName := szEndpointName is String ? StrPtr(szEndpointName) : szEndpointName
 
-        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, "ptr*", &phChannel := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", szEndpointName, BOOL, bStatic, "uint", RequestedPriority, "ptr*", &phChannel := 0, "HRESULT")
         return phChannel
     }
 
@@ -327,7 +363,7 @@ class IWRdsProtocolConnection extends IUnknown {
      */
     QueryProperty(QueryType, ulNumEntriesIn, ulNumEntriesOut, pPropertyEntriesIn) {
         pPropertyEntriesOut := WTS_PROPERTY_VALUE()
-        result := ComCall(24, this, "ptr", QueryType, "uint", ulNumEntriesIn, "uint", ulNumEntriesOut, "ptr", pPropertyEntriesIn, "ptr", pPropertyEntriesOut, "HRESULT")
+        result := ComCall(24, this, Guid, QueryType, "uint", ulNumEntriesIn, "uint", ulNumEntriesOut, WTS_PROPERTY_VALUE.Ptr, pPropertyEntriesIn, WTS_PROPERTY_VALUE.Ptr, pPropertyEntriesOut, "HRESULT")
         return pPropertyEntriesOut
     }
 
@@ -352,5 +388,71 @@ class IWRdsProtocolConnection extends IUnknown {
     NotifyCommandProcessCreated(SessionId) {
         result := ComCall(26, this, "uint", SessionId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWRdsProtocolConnection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLogonErrorRedirector := CallbackCreate(GetMethod(implObj, "GetLogonErrorRedirector"), flags, 2)
+        this.vtbl.AcceptConnection := CallbackCreate(GetMethod(implObj, "AcceptConnection"), flags, 1)
+        this.vtbl.GetClientData := CallbackCreate(GetMethod(implObj, "GetClientData"), flags, 2)
+        this.vtbl.GetClientMonitorData := CallbackCreate(GetMethod(implObj, "GetClientMonitorData"), flags, 3)
+        this.vtbl.GetUserCredentials := CallbackCreate(GetMethod(implObj, "GetUserCredentials"), flags, 2)
+        this.vtbl.GetLicenseConnection := CallbackCreate(GetMethod(implObj, "GetLicenseConnection"), flags, 2)
+        this.vtbl.AuthenticateClientToSession := CallbackCreate(GetMethod(implObj, "AuthenticateClientToSession"), flags, 2)
+        this.vtbl.NotifySessionId := CallbackCreate(GetMethod(implObj, "NotifySessionId"), flags, 3)
+        this.vtbl.GetInputHandles := CallbackCreate(GetMethod(implObj, "GetInputHandles"), flags, 4)
+        this.vtbl.GetVideoHandle := CallbackCreate(GetMethod(implObj, "GetVideoHandle"), flags, 2)
+        this.vtbl.ConnectNotify := CallbackCreate(GetMethod(implObj, "ConnectNotify"), flags, 2)
+        this.vtbl.IsUserAllowedToLogon := CallbackCreate(GetMethod(implObj, "IsUserAllowedToLogon"), flags, 5)
+        this.vtbl.SessionArbitrationEnumeration := CallbackCreate(GetMethod(implObj, "SessionArbitrationEnumeration"), flags, 5)
+        this.vtbl.LogonNotify := CallbackCreate(GetMethod(implObj, "LogonNotify"), flags, 6)
+        this.vtbl.PreDisconnect := CallbackCreate(GetMethod(implObj, "PreDisconnect"), flags, 2)
+        this.vtbl.DisconnectNotify := CallbackCreate(GetMethod(implObj, "DisconnectNotify"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetProtocolStatus := CallbackCreate(GetMethod(implObj, "GetProtocolStatus"), flags, 2)
+        this.vtbl.GetLastInputTime := CallbackCreate(GetMethod(implObj, "GetLastInputTime"), flags, 2)
+        this.vtbl.SetErrorInfo := CallbackCreate(GetMethod(implObj, "SetErrorInfo"), flags, 2)
+        this.vtbl.CreateVirtualChannel := CallbackCreate(GetMethod(implObj, "CreateVirtualChannel"), flags, 5)
+        this.vtbl.QueryProperty := CallbackCreate(GetMethod(implObj, "QueryProperty"), flags, 6)
+        this.vtbl.GetShadowConnection := CallbackCreate(GetMethod(implObj, "GetShadowConnection"), flags, 2)
+        this.vtbl.NotifyCommandProcessCreated := CallbackCreate(GetMethod(implObj, "NotifyCommandProcessCreated"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLogonErrorRedirector)
+        CallbackFree(this.vtbl.AcceptConnection)
+        CallbackFree(this.vtbl.GetClientData)
+        CallbackFree(this.vtbl.GetClientMonitorData)
+        CallbackFree(this.vtbl.GetUserCredentials)
+        CallbackFree(this.vtbl.GetLicenseConnection)
+        CallbackFree(this.vtbl.AuthenticateClientToSession)
+        CallbackFree(this.vtbl.NotifySessionId)
+        CallbackFree(this.vtbl.GetInputHandles)
+        CallbackFree(this.vtbl.GetVideoHandle)
+        CallbackFree(this.vtbl.ConnectNotify)
+        CallbackFree(this.vtbl.IsUserAllowedToLogon)
+        CallbackFree(this.vtbl.SessionArbitrationEnumeration)
+        CallbackFree(this.vtbl.LogonNotify)
+        CallbackFree(this.vtbl.PreDisconnect)
+        CallbackFree(this.vtbl.DisconnectNotify)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.GetProtocolStatus)
+        CallbackFree(this.vtbl.GetLastInputTime)
+        CallbackFree(this.vtbl.SetErrorInfo)
+        CallbackFree(this.vtbl.CreateVirtualChannel)
+        CallbackFree(this.vtbl.QueryProperty)
+        CallbackFree(this.vtbl.GetShadowConnection)
+        CallbackFree(this.vtbl.NotifyCommandProcessCreated)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RGBQUAD structure describes a color consisting of relative intensities of red, green, and blue.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgbquad
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class RGBQUAD extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 1
+export default struct RGBQUAD {
+    #StructPack 1
 
     /**
      * The intensity of blue in the color.
-     * @type {Integer}
      */
-    rgbBlue {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    rgbBlue : Int8
 
     /**
      * The intensity of green in the color.
-     * @type {Integer}
      */
-    rgbGreen {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    rgbGreen : Int8
 
     /**
      * The intensity of red in the color.
-     * @type {Integer}
      */
-    rgbRed {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    rgbRed : Int8
 
     /**
      * This member is reserved and must be zero.
-     * @type {Integer}
      */
-    rgbReserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    rgbReserved : Int8
+
 }

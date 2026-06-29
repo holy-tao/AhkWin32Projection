@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPPlaylist.ahk
-#Include .\IWMPPlaylistArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWMPPlaylistArray.ahk" { IWMPPlaylistArray }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPPlaylistCollection interface provides methods for manipulating the IWMPPlaylist and IWMPPlaylistArray interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplaylistcollection
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPPlaylistCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPPlaylistCollection extends IDispatch {
     /**
      * The interface identifier for IWMPPlaylistCollection
      * @type {Guid}
      */
-    static IID => Guid("{10a13217-23a7-439b-b1c0-d847c79b7774}")
+    static IID := Guid("{10a13217-23a7-439b-b1c0-d847c79b7774}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPPlaylistCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        newPlaylist    : IntPtr
+        getAll         : IntPtr
+        getByName      : IntPtr
+        remove         : IntPtr
+        setDeleted     : IntPtr
+        isDeleted      : IntPtr
+        importPlaylist : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["newPlaylist", "getAll", "getByName", "remove", "setDeleted", "isDeleted", "importPlaylist"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPPlaylistCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The newPlaylist method creates a new, empty playlist in the library.
@@ -48,7 +64,7 @@ class IWMPPlaylistCollection extends IDispatch {
     newPlaylist(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "ptr", bstrName, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrName, "ptr*", &ppItem := 0, "HRESULT")
         return IWMPPlaylist(ppItem)
     }
 
@@ -77,7 +93,7 @@ class IWMPPlaylistCollection extends IDispatch {
     getByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr*", &ppPlaylistArray := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrName, "ptr*", &ppPlaylistArray := 0, "HRESULT")
         return IWMPPlaylistArray(ppPlaylistArray)
     }
 
@@ -120,7 +136,7 @@ class IWMPPlaylistCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplaylistcollection
      */
     setDeleted(pItem, varfIsDeleted) {
-        result := ComCall(11, this, "ptr", pItem, "short", varfIsDeleted, "HRESULT")
+        result := ComCall(11, this, "ptr", pItem, VARIANT_BOOL, varfIsDeleted, "HRESULT")
         return result
     }
 
@@ -173,5 +189,37 @@ class IWMPPlaylistCollection extends IDispatch {
     importPlaylist(pItem) {
         result := ComCall(13, this, "ptr", pItem, "ptr*", &ppImportedItem := 0, "HRESULT")
         return IWMPPlaylist(ppImportedItem)
+    }
+
+    Query(iid) {
+        if (IWMPPlaylistCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.newPlaylist := CallbackCreate(GetMethod(implObj, "newPlaylist"), flags, 3)
+        this.vtbl.getAll := CallbackCreate(GetMethod(implObj, "getAll"), flags, 2)
+        this.vtbl.getByName := CallbackCreate(GetMethod(implObj, "getByName"), flags, 3)
+        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
+        this.vtbl.setDeleted := CallbackCreate(GetMethod(implObj, "setDeleted"), flags, 3)
+        this.vtbl.isDeleted := CallbackCreate(GetMethod(implObj, "isDeleted"), flags, 3)
+        this.vtbl.importPlaylist := CallbackCreate(GetMethod(implObj, "importPlaylist"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.newPlaylist)
+        CallbackFree(this.vtbl.getAll)
+        CallbackFree(this.vtbl.getByName)
+        CallbackFree(this.vtbl.remove)
+        CallbackFree(this.vtbl.setDeleted)
+        CallbackFree(this.vtbl.isDeleted)
+        CallbackFree(this.vtbl.importPlaylist)
     }
 }

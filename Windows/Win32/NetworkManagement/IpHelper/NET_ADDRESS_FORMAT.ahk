@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NET_ADDRESS_FORMAT enumeration specifies the format of a network address returned by the ParseNetworkString function.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ne-iphlpapi-net_address_format
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class NET_ADDRESS_FORMAT extends Win32Enum {
+export default struct NET_ADDRESS_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The format of the network address is unspecified.

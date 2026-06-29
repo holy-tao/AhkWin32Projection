@@ -1,38 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_FAILURE_POINT.ahk
-#Include .\IKEEXT_EM_SA_STATE.ahk
-#Include .\IKEEXT_SA_ROLE.ahk
-#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_FAILURE_POINT.ahk" { IPSEC_FAILURE_POINT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
+#Import ".\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk" { IKEEXT_AUTHENTICATION_METHOD_TYPE }
+#Import ".\IKEEXT_SA_ROLE.ahk" { IKEEXT_SA_ROLE }
+#Import ".\IKEEXT_EM_SA_STATE.ahk" { IKEEXT_EM_SA_STATE }
 
 /**
  * The FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 structure contains information that describes an IKE Extended mode (EM) failure.Note  FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 is the specific implementation of FWPM_NET_EVENT_IKEEXT_EM_FAILURE used in Windows 7 and later.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ikeext_em_failure1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 {
+    #StructPack 8
 
     /**
      * Windows error code for the failure.
-     * @type {Integer}
      */
-    failureErrorCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    failureErrorCode : UInt32
 
     /**
      * An [IPSEC_FAILURE_POINT](../ipsectypes/ne-ipsectypes-ipsec_failure_point.md) value that indicates the IPsec state when the failure occurred.
-     * @type {IPSEC_FAILURE_POINT}
      */
-    failurePoint {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    failurePoint : IPSEC_FAILURE_POINT
 
     /**
      * Flags for the failure event.
@@ -41,132 +31,74 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct {
      * | ----- | ------- |
      * | FWPM_NET_EVENT_IKEEXT_EM_FAILURE_FLAG_MULTIPLE | Indicates that multiple IKE EM failure events have been reported. |
      * | FWPM_NET_EVENT_IKEEXT_EM_FAILURE_FLAG_BENIGN | Indicates that IKE EM failure events have been reported, but that the events are benign. |
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    flags : UInt32
 
     /**
      * An [IKEEXT_EM_SA_STATE](../iketypes/ne-iketypes-ikeext_em_sa_state.md) value that indicates the EM state when the failure occurred.
-     * @type {IKEEXT_EM_SA_STATE}
      */
-    emState {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    emState : IKEEXT_EM_SA_STATE
 
     /**
      * An [IKEEXT_SA_ROLE](../iketypes/ne-iketypes-ikeext_sa_role.md) value that specifies the SA role when the failure occurred.
-     * @type {IKEEXT_SA_ROLE}
      */
-    saRole {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    saRole : IKEEXT_SA_ROLE
 
     /**
      * An [IKEEXT_AUTHENTICATION_METHOD_TYPE](../iketypes/ne-iketypes-ikeext_authentication_method_type.md) value that specifies the authentication method.
-     * @type {IKEEXT_AUTHENTICATION_METHOD_TYPE}
      */
-    emAuthMethod {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    emAuthMethod : IKEEXT_AUTHENTICATION_METHOD_TYPE
 
     /**
      * SHA thumbprint hash of the end certificate corresponding to the failures that happen during building or validating certificate chains.
      * 
      * **IKEEXT_CERT_HASH_LEN** maps to 20.
-     * @type {Array<Integer>}
      */
-    endCertHash {
-        get {
-            if(!this.HasProp("__endCertHashProxyArray"))
-                this.__endCertHashProxyArray := Win32FixedArray(this.ptr + 24, 20, Primitive, "char")
-            return this.__endCertHashProxyArray
-        }
-    }
+    endCertHash : Int8[20]
 
     /**
      * LUID for the Main Mode (MM) SA.
-     * @type {Integer}
      */
-    mmId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    mmId : Int64
 
     /**
      * Quick Mode (QM) filter ID associated with this failure.
-     * @type {Integer}
      */
-    qmFilterId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    qmFilterId : Int64
 
     /**
      * Name of the EM local security principal.
-     * @type {PWSTR}
      */
-    localPrincipalNameForAuth {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    localPrincipalNameForAuth : PWSTR
 
     /**
      * Name of the EM remote security principal.
-     * @type {PWSTR}
      */
-    remotePrincipalNameForAuth {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    remotePrincipalNameForAuth : PWSTR
 
     /**
      * Number of groups in the local security principal's token.
-     * @type {Integer}
      */
-    numLocalPrincipalGroupSids {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    numLocalPrincipalGroupSids : UInt32
 
     /**
      * Groups in the local security principal's token.
-     * @type {Pointer<PWSTR>}
      */
-    localPrincipalGroupSids {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    localPrincipalGroupSids : PWSTR.Ptr
 
     /**
      * Number of groups in the remote security principal's token.
-     * @type {Integer}
      */
-    numRemotePrincipalGroupSids {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    numRemotePrincipalGroupSids : UInt32
 
     /**
      * Groups in the remote security principal's token.
-     * @type {Pointer<PWSTR>}
      */
-    remotePrincipalGroupSids {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    remotePrincipalGroupSids : PWSTR.Ptr
 
     /**
      * Type of traffic for which the embedded quick mode was being negotiated.
-     * @type {IPSEC_TRAFFIC_TYPE}
      */
-    saTrafficType {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    saTrafficType : IPSEC_TRAFFIC_TYPE
+
 }

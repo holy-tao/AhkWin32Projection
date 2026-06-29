@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
  * @charset Unicode
  */
-class LINEREQMAKECALLW extends Win32Struct {
-    static sizeof => 480
+export default struct LINEREQMAKECALLW {
+    #StructPack 2
 
-    static packingSize => 2
+    szDestAddress : WCHAR[80]
 
-    /**
-     * @type {String}
-     */
-    szDestAddress {
-        get => StrGet(this.ptr + 0, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 79, "UTF-16")
-    }
+    szAppName : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    szAppName {
-        get => StrGet(this.ptr + 160, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 160, 39, "UTF-16")
-    }
+    szCalledParty : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    szCalledParty {
-        get => StrGet(this.ptr + 240, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 240, 39, "UTF-16")
-    }
+    szComment : WCHAR[80]
 
-    /**
-     * @type {String}
-     */
-    szComment {
-        get => StrGet(this.ptr + 320, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 320, 79, "UTF-16")
-    }
 }

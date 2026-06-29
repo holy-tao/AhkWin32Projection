@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * Contains format data for an Advanced Audio Coding (AAC) or High-Efficiency Advanced Audio Coding (HE-AAC) stream.
@@ -52,23 +51,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-heaacwaveinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class HEAACWAVEINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct HEAACWAVEINFO {
+    #StructPack 4
 
     /**
      * A <b>WAVEFORMATEX</b> structure that describes the core AAC stream,
      *  without SBR or PS extensions. See Remarks.
-     * @type {WAVEFORMATEX}
      */
-    wfx {
-        get {
-            if(!this.HasProp("__wfx"))
-                this.__wfx := WAVEFORMATEX(0, this)
-            return this.__wfx
-        }
-    }
+    wfx : WAVEFORMATEX
 
     /**
      * The payload type.
@@ -127,21 +117,13 @@ class HEAACWAVEINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wPayloadType {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    wPayloadType : UInt16
 
     /**
      * Contains the value of the <b>audioProfileLevelIndication</b> field, as defined by ISO/IEC 14496-3 (MPEG-4 Audio). If the value is unknown, set this member to zero or 0xFE ("no audio profile specified").
-     * @type {Integer}
      */
-    wAudioProfileLevelIndication {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    wAudioProfileLevelIndication : UInt16
 
     /**
      * Defines the data that follows this structure. Currently the following value is defined.
@@ -168,28 +150,17 @@ class HEAACWAVEINFO extends Win32Struct {
      *  
      * 
      * All other values for this member are reserved.
-     * @type {Integer}
      */
-    wStructType {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    wStructType : UInt16
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    wReserved1 {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    wReserved1 : UInt16
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwReserved2 : UInt32
+
 }

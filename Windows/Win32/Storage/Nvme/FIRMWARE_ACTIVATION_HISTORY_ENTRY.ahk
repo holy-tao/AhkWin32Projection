@@ -1,118 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct {
-    static sizeof => 72
+export default struct FIRMWARE_ACTIVATION_HISTORY_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    VersionNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VersionNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Length : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved0 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ActivationCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ActivationCount {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Timestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Timestamp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PowerCycleCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PowerCycleCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PreviousFirmware : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PreviousFirmware {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NewFirmware : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NewFirmware {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SlotNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SlotNumber {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
+    CommitActionType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CommitActionType {
-        get => NumGet(this, 49, "char")
-        set => NumPut("char", value, this, 49)
-    }
+    Result : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Result {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    Reserved2 : Int8[14]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 52, 14, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
 }

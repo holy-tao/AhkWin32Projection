@@ -1,36 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IImageList.ahk
-#Include .\IConsoleVerb.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IToolbar.ahk" { IToolbar }
+#Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IConsoleVerb.ahk" { IConsoleVerb }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IImageList.ahk" { IImageList }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables communication with the console.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsole
  * @namespace Windows.Win32.System.Mmc
  */
-class IConsole extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConsole extends IUnknown {
     /**
      * The interface identifier for IConsole
      * @type {Guid}
      */
-    static IID => Guid("{43136eb1-d36c-11cf-adbc-00aa00a80033}")
+    static IID := Guid("{43136eb1-d36c-11cf-adbc-00aa00a80033}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConsole interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetHeader            : IntPtr
+        SetToolbar           : IntPtr
+        QueryResultView      : IntPtr
+        QueryScopeImageList  : IntPtr
+        QueryResultImageList : IntPtr
+        UpdateAllViews       : IntPtr
+        MessageBox           : IntPtr
+        QueryConsoleVerb     : IntPtr
+        SelectScopeItem      : IntPtr
+        GetMainWindow        : IntPtr
+        NewWindow            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHeader", "SetToolbar", "QueryResultView", "QueryScopeImageList", "QueryResultImageList", "UpdateAllViews", "MessageBox", "QueryConsoleVerb", "SelectScopeItem", "GetMainWindow", "NewWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConsole.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the header interface to use for this instance of IComponent. This is used only by instances of IComponent.
@@ -116,7 +139,7 @@ class IConsole extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-updateallviews
      */
     UpdateAllViews(lpDataObject, data, hint) {
-        result := ComCall(8, this, "ptr", lpDataObject, "ptr", data, "ptr", hint, "HRESULT")
+        result := ComCall(8, this, "ptr", lpDataObject, LPARAM, data, "ptr", hint, "HRESULT")
         return result
     }
 
@@ -189,7 +212,7 @@ class IConsole extends IUnknown {
      */
     GetMainWindow() {
         phwnd := HWND()
-        result := ComCall(12, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(12, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -203,5 +226,45 @@ class IConsole extends IUnknown {
     NewWindow(hScopeItem, lOptions) {
         result := ComCall(13, this, "ptr", hScopeItem, "uint", lOptions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IConsole.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHeader := CallbackCreate(GetMethod(implObj, "SetHeader"), flags, 2)
+        this.vtbl.SetToolbar := CallbackCreate(GetMethod(implObj, "SetToolbar"), flags, 2)
+        this.vtbl.QueryResultView := CallbackCreate(GetMethod(implObj, "QueryResultView"), flags, 2)
+        this.vtbl.QueryScopeImageList := CallbackCreate(GetMethod(implObj, "QueryScopeImageList"), flags, 2)
+        this.vtbl.QueryResultImageList := CallbackCreate(GetMethod(implObj, "QueryResultImageList"), flags, 2)
+        this.vtbl.UpdateAllViews := CallbackCreate(GetMethod(implObj, "UpdateAllViews"), flags, 4)
+        this.vtbl.MessageBox := CallbackCreate(GetMethod(implObj, "MessageBox"), flags, 5)
+        this.vtbl.QueryConsoleVerb := CallbackCreate(GetMethod(implObj, "QueryConsoleVerb"), flags, 2)
+        this.vtbl.SelectScopeItem := CallbackCreate(GetMethod(implObj, "SelectScopeItem"), flags, 2)
+        this.vtbl.GetMainWindow := CallbackCreate(GetMethod(implObj, "GetMainWindow"), flags, 2)
+        this.vtbl.NewWindow := CallbackCreate(GetMethod(implObj, "NewWindow"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHeader)
+        CallbackFree(this.vtbl.SetToolbar)
+        CallbackFree(this.vtbl.QueryResultView)
+        CallbackFree(this.vtbl.QueryScopeImageList)
+        CallbackFree(this.vtbl.QueryResultImageList)
+        CallbackFree(this.vtbl.UpdateAllViews)
+        CallbackFree(this.vtbl.MessageBox)
+        CallbackFree(this.vtbl.QueryConsoleVerb)
+        CallbackFree(this.vtbl.SelectScopeItem)
+        CallbackFree(this.vtbl.GetMainWindow)
+        CallbackFree(this.vtbl.NewWindow)
     }
 }

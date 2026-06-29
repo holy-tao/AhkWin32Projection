@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_BLT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVAHD_BLT_STATE.ahk" { DXVAHD_BLT_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHDETW_VIDEOPROCESSBLTSTATE extends Win32Struct {
-    static sizeof => 24
+export default struct DXVAHDETW_VIDEOPROCESSBLTSTATE {
+    #StructPack 8
 
-    static packingSize => 8
+    pObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pObject {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    State : DXVAHD_BLT_STATE
 
-    /**
-     * @type {DXVAHD_BLT_STATE}
-     */
-    State {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SetState : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SetState {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

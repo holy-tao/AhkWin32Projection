@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDIFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_DISPLAY_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct DXGK_DISPLAY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Pitch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pitch {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ColorFormat : D3DDDIFORMAT
 
-    /**
-     * @type {D3DDDIFORMAT}
-     */
-    ColorFormat {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PhysicAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PhysicAddress {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TargetId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AcpiId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AcpiId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * This flag enables the job's CPU rate to be controlled based on weight or hard cap. You must set this value if you also set <b>JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED</b>,   <b>JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP</b>, or <b>JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_cpu_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOB_OBJECT_CPU_RATE_CONTROL extends Win32BitflagEnum {
+export default struct JOB_OBJECT_CPU_RATE_CONTROL {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

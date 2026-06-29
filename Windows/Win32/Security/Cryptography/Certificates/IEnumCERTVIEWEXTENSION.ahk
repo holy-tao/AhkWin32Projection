@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import ".\ENUM_CERT_COLUMN_VALUE_FLAGS.ahk" { ENUM_CERT_COLUMN_VALUE_FLAGS }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents an extension-enumeration sequence that contains the certificate extension data for the current row of the row-enumeration sequence.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-ienumcertviewextension
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IEnumCERTVIEWEXTENSION extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEnumCERTVIEWEXTENSION extends IDispatch {
     /**
      * The interface identifier for IEnumCERTVIEWEXTENSION
      * @type {Guid}
      */
-    static IID => Guid("{e7dd1466-7653-11d1-9bde-00c04fb683fa}")
+    static IID := Guid("{e7dd1466-7653-11d1-9bde-00c04fb683fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumCERTVIEWEXTENSION interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Next     : IntPtr
+        GetName  : IntPtr
+        GetFlags : IntPtr
+        GetValue : IntPtr
+        Skip     : IntPtr
+        Reset    : IntPtr
+        Clone    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "GetName", "GetFlags", "GetValue", "Skip", "Reset", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumCERTVIEWEXTENSION.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Moves to the next extension in the extension-enumeration sequence.
@@ -92,7 +110,7 @@ class IEnumCERTVIEWEXTENSION extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getname
      */
     GetName(pstrOut) {
-        result := ComCall(8, this, "ptr", pstrOut, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pstrOut, "HRESULT")
         return result
     }
 
@@ -239,7 +257,7 @@ class IEnumCERTVIEWEXTENSION extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getvalue
      */
     GetValue(Type, Flags, pvarValue) {
-        result := ComCall(10, this, "int", Type, "int", Flags, "ptr", pvarValue, "HRESULT")
+        result := ComCall(10, this, CERT_PROPERTY_TYPE, Type, ENUM_CERT_COLUMN_VALUE_FLAGS, Flags, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -321,5 +339,37 @@ class IEnumCERTVIEWEXTENSION extends IDispatch {
     Clone() {
         result := ComCall(13, this, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumCERTVIEWEXTENSION(ppenum)
+    }
+
+    Query(iid) {
+        if (IEnumCERTVIEWEXTENSION.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
     }
 }

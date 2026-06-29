@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class WCS_DEVICE_MHC2_CAPABILITIES extends Win32Struct {
-    static sizeof => 20
+export default struct WCS_DEVICE_MHC2_CAPABILITIES {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SupportsMhc2 : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SupportsMhc2 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    RegammaLutEntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegammaLutEntryCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CscXyzMatrixRows : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CscXyzMatrixRows {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CscXyzMatrixColumns : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CscXyzMatrixColumns {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

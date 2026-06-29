@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidClosedCaptioning.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidClosedCaptioning.ahk" { IMSVidClosedCaptioning }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MSVidCCService.ahk" { MSVidCCService }
 
 /**
  * The IMSVidClosedCaptioning2 interface sets the closed captioning service, such as CC1 or CC2. The MSVidClosedCaptioning feature exposes this interface.
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidclosedcaptioning2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning {
     /**
      * The interface identifier for IMSVidClosedCaptioning2
      * @type {Guid}
      */
-    static IID => Guid("{e00cb864-a029-4310-9987-a873f5887d97}")
+    static IID := Guid("{e00cb864-a029-4310-9987-a873f5887d97}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidClosedCaptioning2 interfaces
+    */
+    struct Vtbl extends IMSVidClosedCaptioning.Vtbl {
+        get_Service : IntPtr
+        put_Service : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Service", "put_Service"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidClosedCaptioning2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {MSVidCCService} 
@@ -74,7 +84,29 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning2-put_service
      */
     put_Service(On) {
-        result := ComCall(19, this, "int", On, "HRESULT")
+        result := ComCall(19, this, MSVidCCService, On, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidClosedCaptioning2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Service := CallbackCreate(GetMethod(implObj, "get_Service"), flags, 2)
+        this.vtbl.put_Service := CallbackCreate(GetMethod(implObj, "put_Service"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Service)
+        CallbackFree(this.vtbl.put_Service)
     }
 }

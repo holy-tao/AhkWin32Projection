@@ -1,116 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
-#Include .\DXVAHD_FRAME_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DXVAHD_FRAME_FORMAT.ahk" { DXVAHD_FRAME_FORMAT }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct {
-    static sizeof => 80
+export default struct DXVAHDETW_VIDEOPROCESSBLTHD_STREAM {
+    #StructPack 8
 
-    static packingSize => 8
+    pObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pObject {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pInputSurface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pInputSurface {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SourceRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    SourceRect {
-        get {
-            if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := RECT(16, this)
-            return this.__SourceRect
-        }
-    }
+    DestinationRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    DestinationRect {
-        get {
-            if(!this.HasProp("__DestinationRect"))
-                this.__DestinationRect := RECT(32, this)
-            return this.__DestinationRect
-        }
-    }
+    InputFormat : D3DFORMAT
 
-    /**
-     * @type {D3DFORMAT}
-     */
-    InputFormat {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    FrameFormat : DXVAHD_FRAME_FORMAT
 
-    /**
-     * @type {DXVAHD_FRAME_FORMAT}
-     */
-    FrameFormat {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    ColorSpace : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ColorSpace {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    StreamNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamNumber {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    OutputIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    InputFrameOrField : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputFrameOrField {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    PastFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PastFrames {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    FutureFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FutureFrames {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
 }

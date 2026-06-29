@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UI_EVENTLOCATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UI_EVENTLOCATION.ahk" { UI_EVENTLOCATION }
 
 /**
  * Contains information about a Command associated with a event.
@@ -13,62 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ns-uiribbon-ui_eventparams_command
  * @namespace Windows.Win32.UI.Ribbon
  */
-class UI_EVENTPARAMS_COMMAND extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct UI_EVENTPARAMS_COMMAND {
+    #StructPack 8
 
     /**
      * The ID of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> directly related to the event, which is specified in the markup resource file.
-     * @type {Integer}
      */
-    CommandID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CommandID : UInt32
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> name that is associated with <b>CommandId</b>.
-     * @type {PWSTR}
      */
-    CommandName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CommandName : PWSTR
 
     /**
      * The ID for the parent of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a>, which is specified in the markup resource file.
-     * @type {Integer}
      */
-    ParentCommandID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ParentCommandID : UInt32
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> name  of the parent that is associated with <b>CommandId</b>.
-     * @type {PWSTR}
      */
-    ParentCommandName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ParentCommandName : PWSTR
 
     /**
      * <b>SelectionIndex</b> is used only when a <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventtype">UI_EVENTTYPE_CommandExecuted</a> has been fired in response to the user selecting an item within a <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-combobox">ComboBox</a> or item gallery.  In those cases, <b>SelectionIndex</b> contains the index of the selected item.  In all other cases, it is set to 0.
-     * @type {Integer}
      */
-    SelectionIndex {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SelectionIndex : UInt32
 
     /**
      * One of the values from <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventlocation">UI_EVENTLOCATION</a>.
-     * @type {UI_EVENTLOCATION}
      */
-    Location {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    Location : UI_EVENTLOCATION
+
 }

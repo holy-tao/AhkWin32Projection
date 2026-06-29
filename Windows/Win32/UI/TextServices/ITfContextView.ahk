@@ -1,36 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfRange.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfContextView interface is implemented by the TSF manager and used by a client (application or text service) to obtain information about a context view.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextview
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfContextView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfContextView extends IUnknown {
     /**
      * The interface identifier for ITfContextView
      * @type {Guid}
      */
-    static IID => Guid("{2433bf8e-0f9b-435c-ba2c-180611978c30}")
+    static IID := Guid("{2433bf8e-0f9b-435c-ba2c-180611978c30}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfContextView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRangeFromPoint : IntPtr
+        GetTextExt        : IntPtr
+        GetScreenExt      : IntPtr
+        GetWnd            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRangeFromPoint", "GetTextExt", "GetScreenExt", "GetWnd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfContextView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfContextView::GetRangeFromPoint method converts a point, in screen coordinates, to an empty range of text positioned at a corresponding location.
@@ -73,7 +86,7 @@ class ITfContextView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getrangefrompoint
      */
     GetRangeFromPoint(ec, ppt, dwFlags) {
-        result := ComCall(3, this, "uint", ec, "ptr", ppt, "uint", dwFlags, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(3, this, "uint", ec, POINT.Ptr, ppt, "uint", dwFlags, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRange(ppRange)
     }
 
@@ -131,7 +144,7 @@ class ITfContextView extends IUnknown {
     GetTextExt(ec, pRange, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", ec, "ptr", pRange, "ptr", prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(4, this, "uint", ec, "ptr", pRange, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
@@ -144,7 +157,7 @@ class ITfContextView extends IUnknown {
      */
     GetScreenExt() {
         prc := RECT()
-        result := ComCall(5, this, "ptr", prc, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -157,7 +170,33 @@ class ITfContextView extends IUnknown {
      */
     GetWnd() {
         phwnd := HWND()
-        result := ComCall(6, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(6, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
+    }
+
+    Query(iid) {
+        if (ITfContextView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRangeFromPoint := CallbackCreate(GetMethod(implObj, "GetRangeFromPoint"), flags, 5)
+        this.vtbl.GetTextExt := CallbackCreate(GetMethod(implObj, "GetTextExt"), flags, 5)
+        this.vtbl.GetScreenExt := CallbackCreate(GetMethod(implObj, "GetScreenExt"), flags, 2)
+        this.vtbl.GetWnd := CallbackCreate(GetMethod(implObj, "GetWnd"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRangeFromPoint)
+        CallbackFree(this.vtbl.GetTextExt)
+        CallbackFree(this.vtbl.GetScreenExt)
+        CallbackFree(this.vtbl.GetWnd)
     }
 }

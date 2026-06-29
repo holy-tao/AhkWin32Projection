@@ -1,23 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The RegionChange method displays a system dialog box that enables the user to change the region associated with the DVD drive.
- * @remarks
- * The region for a DVD drive can be changed only five times.
- * @see https://learn.microsoft.com/windows/win32/DirectShow/regionchange-method
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class Region extends Win32Struct {
-    static sizeof => 8
+export default struct Region {
+    value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is Region) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
 
-    /**
-     * @type {Pointer}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(value := 0) {
+        this.value := value
     }
 }

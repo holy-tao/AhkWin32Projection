@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCD_STAT_COUNTERS.ahk
-#Include .\HCD_ISO_STAT_COUNTERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCD_ISO_STAT_COUNTERS.ahk" { HCD_ISO_STAT_COUNTERS }
+#Import ".\HCD_STAT_COUNTERS.ahk" { HCD_STAT_COUNTERS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class HCD_STAT_INFORMATION_2 extends Win32Struct {
-    static sizeof => 128
+export default struct HCD_STAT_INFORMATION_2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ResetCounters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResetCounters {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TimeRead : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeRead {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LockedMemoryUsed : Int32
 
-    /**
-     * @type {Integer}
-     */
-    LockedMemoryUsed {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Counters : HCD_STAT_COUNTERS
 
-    /**
-     * @type {HCD_STAT_COUNTERS}
-     */
-    Counters {
-        get {
-            if(!this.HasProp("__Counters"))
-                this.__Counters := HCD_STAT_COUNTERS(28, this)
-            return this.__Counters
-        }
-    }
+    IsoCounters : HCD_ISO_STAT_COUNTERS
 
-    /**
-     * @type {HCD_ISO_STAT_COUNTERS}
-     */
-    IsoCounters {
-        get {
-            if(!this.HasProp("__IsoCounters"))
-                this.__IsoCounters := HCD_ISO_STAT_COUNTERS(52, this)
-            return this.__IsoCounters
-        }
-    }
 }

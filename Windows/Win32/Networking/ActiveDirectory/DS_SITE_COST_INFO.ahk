@@ -1,30 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DS_SITE_COST_INFO structure is used with the DsQuerySitesByCost function to contain communication cost data.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_site_cost_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_SITE_COST_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct DS_SITE_COST_INFO {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    errorCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    errorCode : UInt32
 
     /**
      * If the <b>errorCode</b> member contains <b>ERROR_SUCCESS</b>, this member contains the communication cost value of the site. If the <b>errorCode</b> member contains <b>ERROR_DS_OBJ_NOT_FOUND</b>, this contents of this member is undefined.
-     * @type {Integer}
      */
-    cost {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cost : UInt32
+
 }

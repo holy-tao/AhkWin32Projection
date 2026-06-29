@@ -1,41 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IWPCBlockedUrls extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWPCBlockedUrls extends IUnknown {
     /**
      * The interface identifier for IWPCBlockedUrls
      * @type {Guid}
      */
-    static IID => Guid("{30510413-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510413-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWPCBlockedUrls interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetUrl   : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWPCBlockedUrls.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetUrl"]
-
-    /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -43,23 +47,35 @@ class IWPCBlockedUrls extends IUnknown {
     }
 
     /**
-     * Retrieves information about cache configuration. (ANSI)
-     * @remarks
-     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
-     * <div> </div>
      * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winineti.h header defines GetUrlCacheConfigInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwIdx 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-geturlcacheconfiginfoa
      */
     GetUrl(dwIdx) {
-        pbstrUrl := BSTR()
-        result := ComCall(4, this, "uint", dwIdx, "ptr", pbstrUrl, "HRESULT")
+        pbstrUrl := BSTR.Owned()
+        result := ComCall(4, this, "uint", dwIdx, BSTR.Ptr, pbstrUrl, "HRESULT")
         return pbstrUrl
+    }
+
+    Query(iid) {
+        if (IWPCBlockedUrls.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetUrl := CallbackCreate(GetMethod(implObj, "GetUrl"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetUrl)
     }
 }

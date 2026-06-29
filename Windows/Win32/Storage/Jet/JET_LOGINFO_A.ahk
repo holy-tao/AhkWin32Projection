@@ -1,52 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset ANSI
  */
-class JET_LOGINFO_A extends Win32Struct {
-    static sizeof => 16
+export default struct JET_LOGINFO_A {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulGenLow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGenLow {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulGenHigh : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGenHigh {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    szBaseName : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szBaseName {
-        get {
-            if(!this.HasProp("__szBaseNameProxyArray"))
-                this.__szBaseNameProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__szBaseNameProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

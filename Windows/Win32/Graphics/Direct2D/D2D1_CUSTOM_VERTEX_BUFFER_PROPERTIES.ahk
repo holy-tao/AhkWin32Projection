@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_INPUT_ELEMENT_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_INPUT_ELEMENT_DESC.ahk" { D2D1_INPUT_ELEMENT_DESC }
 
 /**
  * Defines a vertex shader and the input element description to define the input layout.
@@ -11,53 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_custom_vertex_buffer_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES {
+    #StructPack 8
 
     /**
      * A pointer to the buffer.
-     * @type {Pointer<Integer>}
      */
-    shaderBufferWithInputSignature {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    shaderBufferWithInputSignature : IntPtr
 
     /**
      * The size of the buffer.
-     * @type {Integer}
      */
-    shaderBufferSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    shaderBufferSize : UInt32
 
     /**
      * An array of input assembler stage data types.
-     * @type {Pointer<D2D1_INPUT_ELEMENT_DESC>}
      */
-    inputElements {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    inputElements : D2D1_INPUT_ELEMENT_DESC.Ptr
 
     /**
      * The number of input elements in the vertex shader.
-     * @type {Integer}
      */
-    elementCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    elementCount : UInt32
 
     /**
      * The vertex stride.
-     * @type {Integer}
      */
-    stride {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    stride : UInt32
+
 }

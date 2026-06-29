@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_TYPE_VALUE_ABSA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_TYPE_VALUE_ABSA.ahk" { SERVICE_TYPE_VALUE_ABSA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The SERVICE_TYPE_INFO_ABS structure contains information about a network service type. Use SERVICE_TYPE_INFO_ABS to add a network service type to a namespace. (ANSI)
@@ -22,31 +22,21 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset ANSI
  */
-class SERVICE_TYPE_INFO_ABSA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct SERVICE_TYPE_INFO_ABSA {
+    #StructPack 8
 
     /**
      * Pointer to a zero-terminated string that is the name of the network service type. This name is the same in all namespaces, and is used by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/nf-nspapi-gettypebynamea">GetTypeByName</a> and 
      * <b>GetNameByType</b> functions.
-     * @type {PSTR}
      */
-    lpTypeName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpTypeName : PSTR
 
     /**
      * Number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_type_value_absa">SERVICE_TYPE_VALUE_ABS</a> structures in the <b>Values</b> member array that follows <b>dwValueCount</b>.
-     * @type {Integer}
      */
-    dwValueCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwValueCount : UInt32
 
     /**
      * Array of 
@@ -59,13 +49,7 @@ class SERVICE_TYPE_INFO_ABSA extends Win32Struct {
      * 
      * The information in these structures may be specific to a namespace. For example, if a network service uses the SAP namespace, but does not have a <b>GUID</b> that contains the SAP identifier (SAPID), it defines the SAPID in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_type_value_absa">SERVICE_TYPE_VALUE_ABS</a> structure.
-     * @type {SERVICE_TYPE_VALUE_ABSA}
      */
-    Values {
-        get {
-            if(!this.HasProp("__ValuesProxyArray"))
-                this.__ValuesProxyArray := Win32FixedArray(this.ptr + 16, 1, SERVICE_TYPE_VALUE_ABSA, "")
-            return this.__ValuesProxyArray
-        }
-    }
+    Values : SERVICE_TYPE_VALUE_ABSA[1]
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDeskBand.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDeskBand.ahk" { IDeskBand }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods to enable and query translucency effects in a deskband object.
@@ -23,26 +25,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ideskband2
  * @namespace Windows.Win32.UI.Shell
  */
-class IDeskBand2 extends IDeskBand {
-
-    static sizeof => A_PtrSize
+export default struct IDeskBand2 extends IDeskBand {
     /**
      * The interface identifier for IDeskBand2
      * @type {Guid}
      */
-    static IID => Guid("{79d16de4-abee-4021-8d9d-9169b261d657}")
+    static IID := Guid("{79d16de4-abee-4021-8d9d-9169b261d657}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeskBand2 interfaces
+    */
+    struct Vtbl extends IDeskBand.Vtbl {
+        CanRenderComposited : IntPtr
+        SetCompositionState : IntPtr
+        GetCompositionState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CanRenderComposited", "SetCompositionState", "GetCompositionState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeskBand2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates the deskband's ability to be displayed as translucent.
@@ -52,7 +63,7 @@ class IDeskBand2 extends IDeskBand {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-canrendercomposited
      */
     CanRenderComposited() {
-        result := ComCall(9, this, "int*", &pfCanRenderComposited := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfCanRenderComposited := 0, "HRESULT")
         return pfCanRenderComposited
     }
 
@@ -67,7 +78,7 @@ class IDeskBand2 extends IDeskBand {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-setcompositionstate
      */
     SetCompositionState(fCompositionEnabled) {
-        result := ComCall(10, this, "int", fCompositionEnabled, "HRESULT")
+        result := ComCall(10, this, BOOL, fCompositionEnabled, "HRESULT")
         return result
     }
 
@@ -79,7 +90,31 @@ class IDeskBand2 extends IDeskBand {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-getcompositionstate
      */
     GetCompositionState() {
-        result := ComCall(11, this, "int*", &pfCompositionEnabled := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pfCompositionEnabled := 0, "HRESULT")
         return pfCompositionEnabled
+    }
+
+    Query(iid) {
+        if (IDeskBand2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CanRenderComposited := CallbackCreate(GetMethod(implObj, "CanRenderComposited"), flags, 2)
+        this.vtbl.SetCompositionState := CallbackCreate(GetMethod(implObj, "SetCompositionState"), flags, 2)
+        this.vtbl.GetCompositionState := CallbackCreate(GetMethod(implObj, "GetCompositionState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CanRenderComposited)
+        CallbackFree(this.vtbl.SetCompositionState)
+        CallbackFree(this.vtbl.GetCompositionState)
     }
 }

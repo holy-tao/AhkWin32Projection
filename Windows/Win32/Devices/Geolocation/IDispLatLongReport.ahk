@@ -1,37 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class IDispLatLongReport extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDispLatLongReport extends IDispatch {
     /**
      * The interface identifier for IDispLatLongReport
      * @type {Guid}
      */
-    static IID => Guid("{8ae32723-389b-4a11-9957-5bdd48fc9617}")
+    static IID := Guid("{8ae32723-389b-4a11-9957-5bdd48fc9617}")
 
     /**
      * The class identifier for DispLatLongReport
      * @type {Guid}
      */
-    static CLSID => Guid("{7a7c3277-8f84-4636-95b2-ebb5507ff77e}")
+    static CLSID := Guid("{7a7c3277-8f84-4636-95b2-ebb5507ff77e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDispLatLongReport interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Latitude      : IntPtr
+        get_Longitude     : IntPtr
+        get_ErrorRadius   : IntPtr
+        get_Altitude      : IntPtr
+        get_AltitudeError : IntPtr
+        get_Timestamp     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Latitude", "get_Longitude", "get_ErrorRadius", "get_Altitude", "get_AltitudeError", "get_Timestamp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDispLatLongReport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -127,5 +140,35 @@ class IDispLatLongReport extends IDispatch {
     get_Timestamp() {
         result := ComCall(12, this, "double*", &pVal := 0, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IDispLatLongReport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Latitude := CallbackCreate(GetMethod(implObj, "get_Latitude"), flags, 2)
+        this.vtbl.get_Longitude := CallbackCreate(GetMethod(implObj, "get_Longitude"), flags, 2)
+        this.vtbl.get_ErrorRadius := CallbackCreate(GetMethod(implObj, "get_ErrorRadius"), flags, 2)
+        this.vtbl.get_Altitude := CallbackCreate(GetMethod(implObj, "get_Altitude"), flags, 2)
+        this.vtbl.get_AltitudeError := CallbackCreate(GetMethod(implObj, "get_AltitudeError"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Latitude)
+        CallbackFree(this.vtbl.get_Longitude)
+        CallbackFree(this.vtbl.get_ErrorRadius)
+        CallbackFree(this.vtbl.get_Altitude)
+        CallbackFree(this.vtbl.get_AltitudeError)
+        CallbackFree(this.vtbl.get_Timestamp)
     }
 }

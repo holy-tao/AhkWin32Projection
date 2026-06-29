@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\ADDRESS64.ahk
-#Include .\ADDRESS_MODE.ahk
-#Include .\KDHELP64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KDHELP64.ahk" { KDHELP64 }
+#Import ".\ADDRESS64.ahk" { ADDRESS64 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ADDRESS_MODE.ahk" { ADDRESS_MODE }
 
 /**
  * Represents a stack frame. (STACKFRAME64)
@@ -15,10 +15,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-stackframe64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class STACKFRAME64 extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 8
+export default struct STACKFRAME64 {
+    #StructPack 8
 
     /**
      * An 
@@ -32,28 +30,14 @@ class STACKFRAME64 extends Win32Struct {
      * <b>Intel Itanium:  </b>The program counter is StIIP.
      * 
      * <b>x64:  </b>The program counter is RIP.
-     * @type {ADDRESS64}
      */
-    AddrPC {
-        get {
-            if(!this.HasProp("__AddrPC"))
-                this.__AddrPC := ADDRESS64(0, this)
-            return this.__AddrPC
-        }
-    }
+    AddrPC : ADDRESS64
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-address">ADDRESS64</a> structure that specifies the return address.
-     * @type {ADDRESS64}
      */
-    AddrReturn {
-        get {
-            if(!this.HasProp("__AddrReturn"))
-                this.__AddrReturn := ADDRESS64(16, this)
-            return this.__AddrReturn
-        }
-    }
+    AddrReturn : ADDRESS64
 
     /**
      * An 
@@ -67,15 +51,8 @@ class STACKFRAME64 extends Win32Struct {
      * <b>Intel Itanium:  </b>There is no frame pointer, but <b>AddrBStore</b> is used.
      * 
      * <b>x64:  </b>The frame pointer is RBP or RDI. This value is not always used.
-     * @type {ADDRESS64}
      */
-    AddrFrame {
-        get {
-            if(!this.HasProp("__AddrFrame"))
-                this.__AddrFrame := ADDRESS64(32, this)
-            return this.__AddrFrame
-        }
-    }
+    AddrFrame : ADDRESS64
 
     /**
      * An 
@@ -89,92 +66,46 @@ class STACKFRAME64 extends Win32Struct {
      * <b>Intel Itanium:  </b>The stack pointer is SP.
      * 
      * <b>x64:  </b>The stack pointer is RSP.
-     * @type {ADDRESS64}
      */
-    AddrStack {
-        get {
-            if(!this.HasProp("__AddrStack"))
-                this.__AddrStack := ADDRESS64(48, this)
-            return this.__AddrStack
-        }
-    }
+    AddrStack : ADDRESS64
 
     /**
      * <b>Intel Itanium:  </b>An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-address">ADDRESS64</a> structure that specifies the backing store (RsBSP).
-     * @type {ADDRESS64}
      */
-    AddrBStore {
-        get {
-            if(!this.HasProp("__AddrBStore"))
-                this.__AddrBStore := ADDRESS64(64, this)
-            return this.__AddrBStore
-        }
-    }
+    AddrBStore : ADDRESS64
 
     /**
      * On x86 computers, this member is an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-fpo_data">FPO_DATA</a> structure. If there is no function table entry, this member is <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    FuncTableEntry {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    FuncTableEntry : IntPtr
 
     /**
      * The possible arguments to the function.
-     * @type {Array<Integer>}
      */
-    Params {
-        get {
-            if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 88, 4, Primitive, "uint")
-            return this.__ParamsProxyArray
-        }
-    }
+    Params : Int64[4]
 
     /**
      * This member is <b>TRUE</b> if this is a WOW far call.
-     * @type {BOOL}
      */
-    Far {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    Far : BOOL
 
     /**
      * This member is <b>TRUE</b> if this is a virtual frame.
-     * @type {BOOL}
      */
-    Virtual {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
+    Virtual : BOOL
 
     /**
      * This member is used internally by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-stackwalk">StackWalk64</a> function.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 3, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int64[3]
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-kdhelp">KDHELP64</a> structure that specifies helper data for walking kernel callback frames.
-     * @type {KDHELP64}
      */
-    KdHelp {
-        get {
-            if(!this.HasProp("__KdHelp"))
-                this.__KdHelp := KDHELP64(152, this)
-            return this.__KdHelp
-        }
-    }
+    KdHelp : KDHELP64
+
 }

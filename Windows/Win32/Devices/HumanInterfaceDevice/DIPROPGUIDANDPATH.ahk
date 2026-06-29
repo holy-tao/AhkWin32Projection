@@ -1,39 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIPROPHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIPROPGUIDANDPATH extends Win32Struct {
-    static sizeof => 544
+export default struct DIPROPGUIDANDPATH {
+    #StructPack 4
 
-    static packingSize => 8
+    diph : DIPROPHEADER
 
-    /**
-     * @type {DIPROPHEADER}
-     */
-    diph {
-        get {
-            if(!this.HasProp("__diph"))
-                this.__diph := DIPROPHEADER(0, this)
-            return this.__diph
-        }
-    }
+    guidClass : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidClass {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszPath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    wszPath {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
-    }
 }

@@ -1,265 +1,122 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_CREDENTIALS.ahk
-#Include .\WEBAUTHN_CREDENTIAL.ahk
-#Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include .\WEBAUTHN_EXTENSION.ahk
-#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
-#Include .\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk
-#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WEBAUTHN_CREDENTIALS.ahk" { WEBAUTHN_CREDENTIALS }
+#Import ".\WEBAUTHN_EXTENSION.ahk" { WEBAUTHN_EXTENSION }
+#Import ".\WEBAUTHN_HMAC_SECRET_SALT.ahk" { WEBAUTHN_HMAC_SECRET_SALT }
+#Import ".\WEBAUTHN_CREDENTIAL.ahk" { WEBAUTHN_CREDENTIAL }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WEBAUTHN_EXTENSIONS.ahk" { WEBAUTHN_EXTENSIONS }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WEBAUTHN_CREDENTIAL_LIST.ahk" { WEBAUTHN_CREDENTIAL_LIST }
+#Import ".\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk" { CTAPCBOR_HYBRID_STORAGE_LINKED_DATA }
 
 /**
  * The options for the WebAuthNAuthenticatorMakeCredential operation.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_make_credential_options
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct {
-    static sizeof => 200
-
-    static packingSize => 8
+export default struct WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS {
+    #StructPack 8
 
     /**
      * Version of this structure.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Time that the operation is expected to complete within. This is used as guidance, and can be overridden by the platform.
-     * @type {Integer}
      */
-    dwTimeoutMilliseconds {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTimeoutMilliseconds : UInt32
 
     /**
      * Credentials used for exclusion.
-     * @type {WEBAUTHN_CREDENTIALS}
      */
-    CredentialList {
-        get {
-            if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
-            return this.__CredentialList
-        }
-    }
+    CredentialList : WEBAUTHN_CREDENTIALS
 
     /**
      * _Optional_ extensions to parse when performing the operation.
-     * @type {WEBAUTHN_EXTENSIONS}
      */
-    Extensions {
-        get {
-            if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)
-            return this.__Extensions
-        }
-    }
+    Extensions : WEBAUTHN_EXTENSIONS
 
     /**
      * _Optional_ platform vs cross-platform authenticators.
-     * @type {Integer}
      */
-    dwAuthenticatorAttachment {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwAuthenticatorAttachment : UInt32
 
     /**
      * Require key to be resident or not. This is _optional_ and defaults to **FALSE**.
-     * @type {BOOL}
      */
-    bRequireResidentKey {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    bRequireResidentKey : BOOL
 
     /**
      * The user verification requirement.
-     * @type {Integer}
      */
-    dwUserVerificationRequirement {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwUserVerificationRequirement : UInt32
 
     /**
      * The attestation conveyance preference.
-     * @type {Integer}
      */
-    dwAttestationConveyancePreference {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwAttestationConveyancePreference : UInt32
 
     /**
      * The flags (_reserved for future use_).
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwFlags : UInt32
 
     /**
      * The _optional_ cancellation Id.  See [WebAuthNGetCancellationId](./nf-webauthn-webauthngetcancellationid.md) for more information.
-     * @type {Pointer<Guid>}
      */
-    pCancellationId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pCancellationId : Guid.Ptr
 
     /**
      * The exclude credential list. If present, **CredentialList** will be ignored.
-     * @type {Pointer<WEBAUTHN_CREDENTIAL_LIST>}
      */
-    pExcludeCredentialList {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pExcludeCredentialList : WEBAUTHN_CREDENTIAL_LIST.Ptr
 
     /**
      * The enterprise attestation.
-     * @type {Integer}
      */
-    dwEnterpriseAttestation {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwEnterpriseAttestation : UInt32
 
     /**
      * The requested large blob support: **none**, **required** or **preferred**. User will receive **NTE_INVALID_PARAMETER** when large blob is set to **required** or **preferred** and **bRequireResidentKey** isn't set to **TRUE**.
-     * @type {Integer}
      */
-    dwLargeBlobSupport {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwLargeBlobSupport : UInt32
 
     /**
      * Prefer key to be resident. Optional parameter, defaulting to **FALSE**. When **TRUE**, overrides **bRequireResidentKey**.
-     * @type {BOOL}
      */
-    bPreferResidentKey {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    bPreferResidentKey : BOOL
 
     /**
      * Indicates whether the client is using in-private mode in the browser. An _optional_ parameter that defaults to **FALSE**.
-     * @type {BOOL}
      */
-    bBrowserInPrivateMode {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    bBrowserInPrivateMode : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bEnablePrf {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    bEnablePrf : BOOL
 
-    /**
-     * @type {Pointer<CTAPCBOR_HYBRID_STORAGE_LINKED_DATA>}
-     */
-    pLinkedDevice {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pLinkedDevice : CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    cbJsonExt {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    cbJsonExt : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbJsonExt {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    pbJsonExt : IntPtr
 
-    /**
-     * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
-     */
-    pPRFGlobalEval {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    pPRFGlobalEval : WEBAUTHN_HMAC_SECRET_SALT.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    cCredentialHints {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    cCredentialHints : UInt32
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    ppwszCredentialHints {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    ppwszCredentialHints : PWSTR.Ptr
 
-    /**
-     * @type {BOOL}
-     */
-    bThirdPartyPayment {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
-    }
+    bThirdPartyPayment : BOOL
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszRemoteWebOrigin {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    pwszRemoteWebOrigin : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    cbPublicKeyCredentialCreationOptionsJSON {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    cbPublicKeyCredentialCreationOptionsJSON : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPublicKeyCredentialCreationOptionsJSON {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    pbPublicKeyCredentialCreationOptionsJSON : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cbAuthenticatorId {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    cbAuthenticatorId : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbAuthenticatorId {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    pbAuthenticatorId : IntPtr
+
 }

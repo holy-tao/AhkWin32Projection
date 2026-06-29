@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_PHY_RADIO_STATE.ahk
-#Include .\DOT11_RADIO_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_RADIO_STATE.ahk" { DOT11_RADIO_STATE }
+#Import ".\WLAN_PHY_RADIO_STATE.ahk" { WLAN_PHY_RADIO_STATE }
 
 /**
  * Specifies the radio state on a list of physical layer (PHY) types.
@@ -14,29 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_radio_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_RADIO_STATE extends Win32Struct {
-    static sizeof => 772
-
-    static packingSize => 4
+export default struct WLAN_RADIO_STATE {
+    #StructPack 4
 
     /**
      * The number of valid PHY indices in the <b>PhyRadioState</b> member.
-     * @type {Integer}
      */
-    dwNumberOfPhys {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumberOfPhys : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_phy_radio_state">WLAN_PHY_RADIO_STATE</a> structures that specify the radio states of a number of PHY indices. Only the first <b>dwNumberOfPhys</b> entries in this array are valid.
-     * @type {WLAN_PHY_RADIO_STATE}
      */
-    PhyRadioState {
-        get {
-            if(!this.HasProp("__PhyRadioStateProxyArray"))
-                this.__PhyRadioStateProxyArray := Win32FixedArray(this.ptr + 4, 64, WLAN_PHY_RADIO_STATE, "")
-            return this.__PhyRadioStateProxyArray
-        }
-    }
+    PhyRadioState : WLAN_PHY_RADIO_STATE[64]
+
 }

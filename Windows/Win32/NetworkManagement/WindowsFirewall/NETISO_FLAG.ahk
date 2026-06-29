@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NETISO_FLAG enumeration specifies whether binaries should be returned for app containers. (NETISO_FLAG)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-netiso_flag
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NETISO_FLAG extends Win32Enum {
+export default struct NETISO_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that all binaries will be computed before the app container is returned.

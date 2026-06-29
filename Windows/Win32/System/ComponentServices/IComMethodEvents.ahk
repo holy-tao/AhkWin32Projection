@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if an object's method has been called, returned, or generated an exception. (IComMethodEvents)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icommethodevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComMethodEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComMethodEvents extends IUnknown {
     /**
      * The interface identifier for IComMethodEvents
      * @type {Guid}
      */
-    static IID => Guid("{683130a9-2e50-11d2-98a5-00c04f8ee1c4}")
+    static IID := Guid("{683130a9-2e50-11d2-98a5-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComMethodEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnMethodCall      : IntPtr
+        OnMethodReturn    : IntPtr
+        OnMethodException : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnMethodCall", "OnMethodReturn", "OnMethodException"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComMethodEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when an object's method is called. (IComMethodEvents.OnMethodCall)
@@ -40,7 +51,7 @@ class IComMethodEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethodevents-onmethodcall
      */
     OnMethodCall(pInfo, oid, guidCid, guidRid, iMeth) {
-        result := ComCall(3, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", iMeth, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, "uint", iMeth, "HRESULT")
         return result
     }
 
@@ -56,7 +67,7 @@ class IComMethodEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethodevents-onmethodreturn
      */
     OnMethodReturn(pInfo, oid, guidCid, guidRid, iMeth, _hresult) {
-        result := ComCall(4, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", iMeth, "int", _hresult, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, "uint", iMeth, "int", _hresult, "HRESULT")
         return result
     }
 
@@ -71,7 +82,31 @@ class IComMethodEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethodevents-onmethodexception
      */
     OnMethodException(pInfo, oid, guidCid, guidRid, iMeth) {
-        result := ComCall(5, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", iMeth, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, "uint", iMeth, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComMethodEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnMethodCall := CallbackCreate(GetMethod(implObj, "OnMethodCall"), flags, 6)
+        this.vtbl.OnMethodReturn := CallbackCreate(GetMethod(implObj, "OnMethodReturn"), flags, 7)
+        this.vtbl.OnMethodException := CallbackCreate(GetMethod(implObj, "OnMethodException"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnMethodCall)
+        CallbackFree(this.vtbl.OnMethodReturn)
+        CallbackFree(this.vtbl.OnMethodException)
     }
 }

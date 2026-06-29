@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RADIUS_DATA_TYPE type enumerates the possible data type for a RADIUS attribute or extended attribute.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_data_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUS_DATA_TYPE extends Win32Enum {
+export default struct RADIUS_DATA_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The value is a pointer to an unknown data type.

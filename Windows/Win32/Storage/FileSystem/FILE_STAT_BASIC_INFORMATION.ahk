@@ -1,135 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_ID_128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_ID_128.ahk" { FILE_ID_128 }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_STAT_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 104
+export default struct FILE_STAT_BASIC_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    FileId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileId {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    CreationTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CreationTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    LastAccessTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastAccessTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LastWriteTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastWriteTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    ChangeTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ChangeTime {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    EndOfFile : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndOfFile {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    FileAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileAttributes {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ReparseTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReparseTag {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    NumberOfLinks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfLinks {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    DeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceType {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    DeviceCharacteristics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceCharacteristics {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    VolumeSerialNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VolumeSerialNumber {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
-    }
+    FileId128 : FILE_ID_128
 
-    /**
-     * @type {FILE_ID_128}
-     */
-    FileId128 {
-        get {
-            if(!this.HasProp("__FileId128"))
-                this.__FileId128 := FILE_ID_128(88, this)
-            return this.__FileId128
-        }
-    }
 }

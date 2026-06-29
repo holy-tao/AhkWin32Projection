@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate an error associated with the NVM media or indicate a data integrity type error.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_media_error_codes
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_STATUS_MEDIA_ERROR_CODES extends Win32Enum {
+export default struct NVME_STATUS_MEDIA_ERROR_CODES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The write data could not be committed to the media.

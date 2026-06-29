@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BRUSHOBJ structure contains three public members that describe a brush object.
@@ -14,34 +13,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-brushobj
  * @namespace Windows.Win32.Devices.Display
  */
-class BRUSHOBJ extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct BRUSHOBJ {
+    #StructPack 8
 
     /**
      * Specifies the color index of a solid brush. This index has been translated to the target surface's palette. Drawing can proceed without realization of the brush. A value of 0xFFFFFFFF indicates that a nonsolid brush must be realized.
-     * @type {Integer}
      */
-    iSolidColor {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iSolidColor : UInt32
 
     /**
      * Pointer to the driver's realized brush.
-     * @type {Pointer<Void>}
      */
-    pvRbrush {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvRbrush : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    flColorType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    flColorType : UInt32
+
 }

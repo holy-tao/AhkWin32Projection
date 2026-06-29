@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechBaseStream.ahk
-#Include .\ISpeechAudioStatus.ahk
-#Include .\ISpeechAudioBufferInfo.ahk
-#Include .\ISpeechAudioFormat.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpeechAudioBufferInfo.ahk" { ISpeechAudioBufferInfo }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechAudioStatus.ahk" { ISpeechAudioStatus }
+#Import ".\SpeechAudioState.ahk" { SpeechAudioState }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechAudio extends ISpeechBaseStream {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechAudio extends ISpeechBaseStream {
     /**
      * The interface identifier for ISpeechAudio
      * @type {Guid}
      */
-    static IID => Guid("{cff8e175-019e-11d3-a08e-00c04f8ef9b5}")
+    static IID := Guid("{cff8e175-019e-11d3-a08e-00c04f8ef9b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechAudio interfaces
+    */
+    struct Vtbl extends ISpeechBaseStream.Vtbl {
+        get_Status           : IntPtr
+        get_BufferInfo       : IntPtr
+        get_DefaultFormat    : IntPtr
+        get_Volume           : IntPtr
+        put_Volume           : IntPtr
+        get_BufferNotifySize : IntPtr
+        put_BufferNotifySize : IntPtr
+        get_EventHandle      : IntPtr
+        SetState             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Status", "get_BufferInfo", "get_DefaultFormat", "get_Volume", "put_Volume", "get_BufferNotifySize", "put_BufferNotifySize", "get_EventHandle", "SetState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechAudio.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISpeechAudioStatus} 
@@ -154,7 +171,43 @@ class ISpeechAudio extends ISpeechBaseStream {
      * @returns {HRESULT} 
      */
     SetState(State) {
-        result := ComCall(20, this, "int", State, "HRESULT")
+        result := ComCall(20, this, SpeechAudioState, State, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechAudio.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_BufferInfo := CallbackCreate(GetMethod(implObj, "get_BufferInfo"), flags, 2)
+        this.vtbl.get_DefaultFormat := CallbackCreate(GetMethod(implObj, "get_DefaultFormat"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.get_BufferNotifySize := CallbackCreate(GetMethod(implObj, "get_BufferNotifySize"), flags, 2)
+        this.vtbl.put_BufferNotifySize := CallbackCreate(GetMethod(implObj, "put_BufferNotifySize"), flags, 2)
+        this.vtbl.get_EventHandle := CallbackCreate(GetMethod(implObj, "get_EventHandle"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_BufferInfo)
+        CallbackFree(this.vtbl.get_DefaultFormat)
+        CallbackFree(this.vtbl.get_Volume)
+        CallbackFree(this.vtbl.put_Volume)
+        CallbackFree(this.vtbl.get_BufferNotifySize)
+        CallbackFree(this.vtbl.put_BufferNotifySize)
+        CallbackFree(this.vtbl.get_EventHandle)
+        CallbackFree(this.vtbl.SetState)
     }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 
 /**
  * The IXDSToRat interface parses rating information from extended data services (XDS) information in line 21.
@@ -10,32 +13,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/tvratings/nn-tvratings-ixdstorat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IXDSToRat extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXDSToRat extends IDispatch {
     /**
      * The interface identifier for IXDSToRat
      * @type {Guid}
      */
-    static IID => Guid("{c5c5c5b0-3abc-11d6-b25b-00c04fa0c026}")
+    static IID := Guid("{c5c5c5b0-3abc-11d6-b25b-00c04fa0c026}")
 
     /**
      * The class identifier for XDSToRat
      * @type {Guid}
      */
-    static CLSID => Guid("{c5c5c5f0-3abc-11d6-b25b-00c04fa0c026}")
+    static CLSID := Guid("{c5c5c5f0-3abc-11d6-b25b-00c04fa0c026}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXDSToRat interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Init             : IntPtr
+        ParseXDSBytePair : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "ParseXDSBytePair"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXDSToRat.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Init method sets the XDSToRat object to its initial state.
@@ -147,5 +158,27 @@ class IXDSToRat extends IDispatch {
 
         result := ComCall(8, this, "char", byte1, "char", byte2, pEnSystemMarshal, pEnSystem, pEnLevelMarshal, pEnLevel, plBfEnAttributesMarshal, plBfEnAttributes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXDSToRat.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 1)
+        this.vtbl.ParseXDSBytePair := CallbackCreate(GetMethod(implObj, "ParseXDSBytePair"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.ParseXDSBytePair)
     }
 }

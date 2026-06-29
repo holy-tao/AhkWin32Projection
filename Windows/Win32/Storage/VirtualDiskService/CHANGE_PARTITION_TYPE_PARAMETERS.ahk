@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PARTITION_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes parameters to be used when changing a partition's type.
@@ -9,65 +9,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-change_partition_type_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct CHANGE_PARTITION_TYPE_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 8
+
+    struct _MbrPartInfo {
+        partitionType : Int8
+
+    }
+
+    struct _GptPartInfo {
+        partitionType : Guid
+
+    }
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a> enumeration that describes the disk's partition style.
-     * @type {VDS_PARTITION_STYLE}
      */
-    style {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    style : VDS_PARTITION_STYLE
 
-    class _MbrPartInfo extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
+    MbrPartInfo : CHANGE_PARTITION_TYPE_PARAMETERS._MbrPartInfo
 
-        /**
-         * @type {Integer}
-         */
-        partitionType {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-    }
-
-    class _GptPartInfo extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Pointer}
-         */
-        partitionType {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    /**
-     * @type {_MbrPartInfo}
-     */
-    MbrPartInfo {
-        get {
-            if(!this.HasProp("__MbrPartInfo"))
-                this.__MbrPartInfo := CHANGE_PARTITION_TYPE_PARAMETERS._MbrPartInfo(8, this)
-            return this.__MbrPartInfo
-        }
-    }
-
-    /**
-     * @type {_GptPartInfo}
-     */
-    GptPartInfo {
-        get {
-            if(!this.HasProp("__GptPartInfo"))
-                this.__GptPartInfo := CHANGE_PARTITION_TYPE_PARAMETERS._GptPartInfo(8, this)
-            return this.__GptPartInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'GptPartInfo', { type: CHANGE_PARTITION_TYPE_PARAMETERS._GptPartInfo, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

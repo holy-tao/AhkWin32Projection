@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset ANSI
  */
-class RASSUBENTRYA extends Win32Struct {
-    static sizeof => 288
+export default struct RASSUBENTRYA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwfFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwfFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szDeviceType : CHAR[17]
 
-    /**
-     * @type {String}
-     */
-    szDeviceType {
-        get => StrGet(this.ptr + 8, 16, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 16, "UTF-8")
-    }
+    szDeviceName : CHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szDeviceName {
-        get => StrGet(this.ptr + 25, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 25, 128, "UTF-8")
-    }
+    szLocalPhoneNumber : CHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szLocalPhoneNumber {
-        get => StrGet(this.ptr + 154, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 154, 128, "UTF-8")
-    }
+    dwAlternateOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlternateOffset {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
-    }
 }

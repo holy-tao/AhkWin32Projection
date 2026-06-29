@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * VirtualDesktopManager implements the IVirtualDesktopManager interface.
@@ -8,8 +7,7 @@
  * @see https://learn.microsoft.com/windows/win32/shell/virtualdesktopmanager
  * @namespace Windows.Win32.UI.Shell
  */
-class VirtualDesktopManager extends Win32Struct {
-    static sizeof => 0
+export default struct VirtualDesktopManager {
+    #StructPack 1
 
-    static packingSize => 1
 }

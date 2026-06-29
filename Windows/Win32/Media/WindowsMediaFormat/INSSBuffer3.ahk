@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INSSBuffer2.ahk" { INSSBuffer2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INSSBuffer3 interface enhances the INSSBuffer interface by adding the ability to set and retrieve single properties for a sample.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class INSSBuffer3 extends INSSBuffer2 {
-
-    static sizeof => A_PtrSize
+export default struct INSSBuffer3 extends INSSBuffer2 {
     /**
      * The interface identifier for INSSBuffer3
      * @type {Guid}
      */
-    static IID => Guid("{c87ceaaf-75be-4bc4-84eb-ac2798507672}")
+    static IID := Guid("{c87ceaaf-75be-4bc4-84eb-ac2798507672}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INSSBuffer3 interfaces
+    */
+    struct Vtbl extends INSSBuffer2.Vtbl {
+        SetProperty : IntPtr
+        GetProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProperty", "GetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INSSBuffer3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetProperty method is used to specify a property for the sample in the buffer. Buffer properties are used to pass information along with the sample to the writer object when writing ASF files. Sample properties are GUID values.
@@ -71,7 +80,7 @@ class INSSBuffer3 extends INSSBuffer2 {
     SetProperty(guidBufferProperty, pvBufferProperty, dwBufferPropertySize) {
         pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, "uint", dwBufferPropertySize, "HRESULT")
+        result := ComCall(10, this, Guid, guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, "uint", dwBufferPropertySize, "HRESULT")
         return result
     }
 
@@ -85,7 +94,29 @@ class INSSBuffer3 extends INSSBuffer2 {
     GetProperty(guidBufferProperty, pdwBufferPropertySize) {
         pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", guidBufferProperty, "ptr", &pvBufferProperty := 0, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
+        result := ComCall(11, this, Guid, guidBufferProperty, "ptr", &pvBufferProperty := 0, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return pvBufferProperty
+    }
+
+    Query(iid) {
+        if (INSSBuffer3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.GetProperty)
     }
 }

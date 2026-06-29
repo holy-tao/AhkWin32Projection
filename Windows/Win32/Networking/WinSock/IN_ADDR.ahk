@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The in_addr structure represents an IPv4 address.
@@ -10,112 +9,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/inaddr/ns-inaddr-in_addr
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IN_ADDR extends Win32Struct {
-    static sizeof => 4
+export default struct IN_ADDR {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _S_un_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _S_un {
 
-        class _S_un_b extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 1
+        struct _S_un_b {
+            s_b1 : Int8
 
-            /**
-             * @type {Integer}
-             */
-            s_b1 {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            s_b2 : Int8
 
-            /**
-             * @type {Integer}
-             */
-            s_b2 {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
+            s_b3 : Int8
 
-            /**
-             * @type {Integer}
-             */
-            s_b3 {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
+            s_b4 : Int8
 
-            /**
-             * @type {Integer}
-             */
-            s_b4 {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
         }
 
-        class _S_un_w extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 2
+        struct _S_un_w {
+            s_w1 : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            s_w1 {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            s_w2 : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            s_w2 {
-                get => NumGet(this, 2, "ushort")
-                set => NumPut("ushort", value, this, 2)
-            }
         }
 
-        /**
-         * @type {_S_un_b}
-         */
-        S_un_b {
-            get {
-                if(!this.HasProp("__S_un_b"))
-                    this.__S_un_b := IN_ADDR._S_un_e__Union._S_un_b(0, this)
-                return this.__S_un_b
-            }
-        }
+        S_un_b : IN_ADDR._S_un._S_un_b
 
-        /**
-         * @type {_S_un_w}
-         */
-        S_un_w {
-            get {
-                if(!this.HasProp("__S_un_w"))
-                    this.__S_un_w := IN_ADDR._S_un_e__Union._S_un_w(0, this)
-                return this.__S_un_w
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        S_addr {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'S_un_w', { type: IN_ADDR._S_un._S_un_w, offset: 0 })
+            DefineProp(this.Prototype, 'S_addr', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_S_un_e__Union}
-     */
-    S_un {
-        get {
-            if(!this.HasProp("__S_un"))
-                this.__S_un := IN_ADDR._S_un_e__Union(0, this)
-            return this.__S_un
-        }
-    }
+    S_un : IN_ADDR._S_un
+
 }

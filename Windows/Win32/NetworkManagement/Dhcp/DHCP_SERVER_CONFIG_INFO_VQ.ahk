@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines settings for the DHCP server.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_vq
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct DHCP_SERVER_CONFIG_INFO_VQ {
+    #StructPack 8
 
     /**
      * Integer value that defines the type of RPC protocol used by the DHCP server to register with RPC. Following is the set of supported types, which may be bitwise OR'd to produce valid values.
@@ -64,75 +63,43 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    APIProtocolSupport {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    APIProtocolSupport : UInt32
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server database name that is used by the DHCP server for persistent storage.
-     * @type {PWSTR}
      */
-    DatabaseName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DatabaseName : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path, where the DHCP server database is stored.
-     * @type {PWSTR}
      */
-    DatabasePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DatabasePath : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path for backup storage that is used by the DHCP server for backup.
-     * @type {PWSTR}
      */
-    BackupPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    BackupPath : PWSTR
 
     /**
      * Integer value that specifies the interval in minutes between backups of the DHCP server database.
-     * @type {Integer}
      */
-    BackupInterval {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BackupInterval : UInt32
 
     /**
      * Integer value that indicates the transaction logging mode of the DHCP server. The value 1 indicates that the transaction log is enabled for the DHCP server, and 0 indicates that the transaction log is disabled for the DHCP server.
-     * @type {Integer}
      */
-    DatabaseLoggingFlag {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DatabaseLoggingFlag : UInt32
 
     /**
      * Integer value used as a BOOL flag. If this setting is <b>TRUE</b> (1), the DHCP service loads the DHCP database from the backup database on DHCP service startup. The default value of this flag is <b>FALSE</b> (0).
-     * @type {Integer}
      */
-    RestoreFlag {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RestoreFlag : UInt32
 
     /**
      * Integer value that specifies the maximum time interval that DOOMED IPv4 DHCP client records are allowed to persist within the DHCP server database.
-     * @type {Integer}
      */
-    DatabaseCleanupInterval {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DatabaseCleanupInterval : UInt32
 
     /**
      * Integer flag value that specifies the level of logging done by the DHCP server. The following table defines the set values that can be used. Specifying '0xFFFFFFFF' enables all types of logging.
@@ -496,73 +463,42 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DebugFlag {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DebugFlag : UInt32
 
     /**
      * Integer value that specifies the number of retries that the DHCP server can make to verify whether a particular address is already in use by any client by issuing a ping before issuing any address to the DHCP client (valid range: 0–5, inclusive).
-     * @type {Integer}
      */
-    dwPingRetries {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwPingRetries : UInt32
 
     /**
      * Integer value that contains the size of the BOOT TABLE given to the DHCP client.
-     * @type {Integer}
      */
-    cbBootTableString {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cbBootTableString : UInt32
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path of the BOOTP TABLE given to the BOOTP client.
-     * @type {PWSTR}
      */
-    wszBootTableString {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    wszBootTableString : PWSTR
 
     /**
      * If <b>TRUE</b>, an audit log will be written by the DHCP server; if <b>FALSE</b>, it will not.
-     * @type {BOOL}
      */
-    fAuditLog {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    fAuditLog : BOOL
 
     /**
      * If <b>TRUE</b>, Quarantine is turned ON on the DHCP server; if <b>FALSE</b>, it is turned OFF.
-     * @type {BOOL}
      */
-    QuarantineOn {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    QuarantineOn : BOOL
 
     /**
      * Integer value that determines the default policy for a DHCP NAP server when an NPS server is not reachable. Choices include Quarantine/unrestricted/Drop Request.
-     * @type {Integer}
      */
-    QuarDefFail {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    QuarDefFail : UInt32
 
     /**
      * If <b>TRUE</b>, NAP is enabled on the DHCP server; if <b>FALSE</b>, it is not.
-     * @type {BOOL}
      */
-    QuarRuntimeStatus {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    QuarRuntimeStatus : BOOL
+
 }

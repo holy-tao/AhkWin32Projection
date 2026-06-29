@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The values in the pages have changed, so the state of the <b>Apply</b> button should be updated.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-onstatuschange
  * @namespace Windows.Win32.System.Ole
  */
-class PROPPAGESTATUS extends Win32Enum {
+export default struct PROPPAGESTATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USER_PRIV.ahk
-#Include .\USER_ACCOUNT_FLAGS.ahk
-#Include .\AF_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USER_PRIV.ahk" { USER_PRIV }
+#Import ".\AF_OP.ahk" { AF_OP }
+#Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
 
 /**
  * The USER_INFO_22 structure contains information about a user account, including the account name, privilege level, the path to the user's home directory, a one-way encrypted LAN Manager 2.x-compatible password, and other user-related network statistics.
@@ -11,36 +11,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_22
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_22 extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct USER_INFO_22 {
+    #StructPack 8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    usri22_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    usri22_name : PWSTR
 
     /**
      * Type: <b>BYTE[ENCRYPTED_PWLEN]</b>
      * 
      * A one-way encrypted LAN Manager 2.<i>x</i>-compatible password.
-     * @type {Array<Integer>}
      */
-    usri22_password {
-        get {
-            if(!this.HasProp("__usri22_passwordProxyArray"))
-                this.__usri22_passwordProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__usri22_passwordProxyArray
-        }
-    }
+    usri22_password : Int8[16]
 
     /**
      * Type: <b>DWORD</b>
@@ -48,12 +35,8 @@ class USER_INFO_22 extends Win32Struct {
      * The number of seconds that have elapsed since the <b>usri22_password</b> member was last changed. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Integer}
      */
-    usri22_password_age {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    usri22_password_age : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -62,54 +45,34 @@ class USER_INFO_22 extends Win32Struct {
      * <b>NetUserAdd</b> function must specify USER_PRIV_USER. When you call the 
      * <b>NetUserSetInfo</b> function this member must be the value returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> or the
-     * @type {USER_PRIV}
      */
-    usri22_priv {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    usri22_priv : USER_PRIV
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory for the user specified by the <b>usri22_name</b> member. The string can be null.
-     * @type {PWSTR}
      */
-    usri22_home_dir {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    usri22_home_dir : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user account. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri22_comment {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    usri22_comment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
-     * @type {USER_ACCOUNT_FLAGS}
      */
-    usri22_flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    usri22_flags : USER_ACCOUNT_FLAGS
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be null.
-     * @type {PWSTR}
      */
-    usri22_script_path {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    usri22_script_path : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -133,45 +96,29 @@ class USER_INFO_22 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> or to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a>.</li>
      * </ul>
-     * @type {AF_OP}
      */
-    usri22_auth_flags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    usri22_auth_flags : AF_OP
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri22_full_name {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    usri22_full_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a user comment. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri22_usr_comment {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    usri22_usr_comment : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a null string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {PWSTR}
      */
-    usri22_parms {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    usri22_parms : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -180,12 +127,8 @@ class USER_INFO_22 extends Win32Struct {
      * > You should no longer use **usri22_workstations**. Instead, you can control sign-in access to workstations by configuring the User Rights Assignment settings (**Allow log on locally** and **Deny log on locally**, or **Allow log on through Remote Desktop Services** and **Deny log on through Remote Desktop Services**).
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. A null string indicates that there is no restriction. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri22_flags</b> member.
-     * @type {PWSTR}
      */
-    usri22_workstations {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    usri22_workstations : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -198,12 +141,8 @@ class USER_INFO_22 extends Win32Struct {
      * 
      * 
      * This member is maintained separately on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The last logon occurred at the time indicated by the largest retrieved value.
-     * @type {Integer}
      */
-    usri22_last_logon {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    usri22_last_logon : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -218,34 +157,22 @@ class USER_INFO_22 extends Win32Struct {
      * <b>NetUserSetInfo</b>.
      * 
      * This member is maintained separately on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The last logoff occurred at the time indicated by the largest retrieved value.
-     * @type {Integer}
      */
-    usri22_last_logoff {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    usri22_last_logoff : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The date and time when the account expires. This value is stored as the number of seconds that have elapsed since 00:00:00, January 1, 1970, GMT. A value of TIMEQ_FOREVER indicates that the account never expires.
-     * @type {Integer}
      */
-    usri22_acct_expires {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    usri22_acct_expires : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The maximum amount of disk space the user can use. Specify USER_MAXSTORAGE_UNLIMITED to use all available disk space.
-     * @type {Integer}
      */
-    usri22_max_storage {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    usri22_max_storage : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -260,12 +187,8 @@ class USER_INFO_22 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
      * 
      * For service applications, the units must be one of the following: SAM_DAYS_PER_WEEK, SAM_HOURS_PER_WEEK, or SAM_MINUTES_PER_WEEK.
-     * @type {Integer}
      */
-    usri22_units_per_week {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    usri22_units_per_week : UInt32
 
     /**
      * Type: <b>PBYTE</b>
@@ -280,12 +203,8 @@ class USER_INFO_22 extends Win32Struct {
      * Specify a null pointer in this member when calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function to indicate no time restriction. Specify a null pointer when calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function to indicate that no change is to be made to the times during which the user can log on.
-     * @type {Pointer<Integer>}
      */
-    usri22_logon_hours {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    usri22_logon_hours : IntPtr
 
     /**
      * Type: <b>DWORD</b>
@@ -298,12 +217,8 @@ class USER_INFO_22 extends Win32Struct {
      * 
      * 
      * This member is replicated from the primary domain controller (PDC); it is also maintained on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The number of times the user tried to log on using an incorrect password is the largest value retrieved.
-     * @type {Integer}
      */
-    usri22_bad_pw_count {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    usri22_bad_pw_count : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -316,12 +231,8 @@ class USER_INFO_22 extends Win32Struct {
      * 
      * 
      * This member is maintained separately on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The number of times the user logged on successfully is the sum of the retrieved values.
-     * @type {Integer}
      */
-    usri22_num_logons {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    usri22_num_logons : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
@@ -336,12 +247,8 @@ class USER_INFO_22 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> functions return \\*. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {PWSTR}
      */
-    usri22_logon_server {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    usri22_logon_server : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -352,12 +259,8 @@ class USER_INFO_22 extends Win32Struct {
      * 
      * 
      * This value is ignored.
-     * @type {Integer}
      */
-    usri22_country_code {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    usri22_country_code : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -368,10 +271,7 @@ class USER_INFO_22 extends Win32Struct {
      * 
      * 
      * This value is ignored.
-     * @type {Integer}
      */
-    usri22_code_page {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    usri22_code_page : UInt32
+
 }

@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEVICE_STATE.ahk" { DEVICE_STATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\STGM.ahk" { STGM }
+#Import "..\..\System\Com\CLSCTX.ahk" { CLSCTX }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * The IMMDevice interface encapsulates the generic features of a multimedia device resource.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immdevice
  * @namespace Windows.Win32.Media.Audio
  */
-class IMMDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMMDevice extends IUnknown {
     /**
      * The interface identifier for IMMDevice
      * @type {Guid}
      */
-    static IID => Guid("{d666063f-1587-4e43-81f1-b948e807363f}")
+    static IID := Guid("{d666063f-1587-4e43-81f1-b948e807363f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMMDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Activate          : IntPtr
+        OpenPropertyStore : IntPtr
+        GetId             : IntPtr
+        GetState          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Activate", "OpenPropertyStore", "GetId", "GetState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMMDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Activate method creates a COM object with the specified interface.
@@ -149,7 +165,7 @@ class IMMDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate
      */
     Activate(iid, dwClsCtx, pActivationParams) {
-        result := ComCall(3, this, "ptr", iid, "uint", dwClsCtx, "ptr", pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, iid, CLSCTX, dwClsCtx, PROPVARIANT.Ptr, pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
         return ppInterface
     }
 
@@ -181,7 +197,7 @@ class IMMDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-openpropertystore
      */
     OpenPropertyStore(stgmAccess) {
-        result := ComCall(4, this, "uint", stgmAccess, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(4, this, STGM, stgmAccess, "ptr*", &ppProperties := 0, "HRESULT")
         return IPropertyStore(ppProperties)
     }
 
@@ -204,7 +220,7 @@ class IMMDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid
      */
     GetId() {
-        result := ComCall(5, this, "ptr*", &ppstrId := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppstrId := 0, "HRESULT")
         return ppstrId
     }
 
@@ -224,5 +240,31 @@ class IMMDevice extends IUnknown {
     GetState() {
         result := ComCall(6, this, "uint*", &pdwState := 0, "HRESULT")
         return pdwState
+    }
+
+    Query(iid) {
+        if (IMMDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 5)
+        this.vtbl.OpenPropertyStore := CallbackCreate(GetMethod(implObj, "OpenPropertyStore"), flags, 3)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.OpenPropertyStore)
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetState)
     }
 }

@@ -1,50 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_SOAP_HEADER.ahk
-#Include .\WSD_HEADER_RELATESTO.ahk
-#Include .\WSDXML_NAME.ahk
-#Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_APP_SEQUENCE.ahk
-#Include .\WSDXML_ELEMENT.ahk
-#Include .\WSDXML_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }
+#Import ".\WSD_HEADER_RELATESTO.ahk" { WSD_HEADER_RELATESTO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_SOAP_HEADER.ahk" { WSD_SOAP_HEADER }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_APP_SEQUENCE.ahk" { WSD_APP_SEQUENCE }
+#Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 
 /**
  * The contents of a WSD SOAP message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_message
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_SOAP_MESSAGE extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct WSD_SOAP_MESSAGE {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_header">WSD_SOAP_HEADER</a> structure that specifies the header of the SOAP message.
-     * @type {WSD_SOAP_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := WSD_SOAP_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : WSD_SOAP_HEADER
 
     /**
      * The body of the SOAP message.
-     * @type {Pointer<Void>}
      */
-    Body {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    Body : IntPtr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_type">WSDXML_TYPE</a> structure that specifies the type of the SOAP message body.
-     * @type {Pointer<WSDXML_TYPE>}
      */
-    BodyType {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    BodyType : WSDXML_TYPE.Ptr
+
 }

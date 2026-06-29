@@ -1,300 +1,166 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BATTERY_REPORTING_SCALE.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
+#Import ".\BATTERY_REPORTING_SCALE.ahk" { BATTERY_REPORTING_SCALE }
 
 /**
  * Contains information about the power capabilities of the system.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_capabilities
  * @namespace Windows.Win32.System.Power
  */
-class SYSTEM_POWER_CAPABILITIES extends Win32Struct {
-    static sizeof => 76
-
-    static packingSize => 4
+export default struct SYSTEM_POWER_CAPABILITIES {
+    #StructPack 4
 
     /**
      * If this member is <b>TRUE</b>, there is a system power button.
-     * @type {BOOLEAN}
      */
-    PowerButtonPresent {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    PowerButtonPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, there is a system sleep button.
-     * @type {BOOLEAN}
      */
-    SleepButtonPresent {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    SleepButtonPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, there is a lid switch.
-     * @type {BOOLEAN}
      */
-    LidPresent {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    LidPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S1</a>.
-     * @type {BOOLEAN}
      */
-    SystemS1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    SystemS1 : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S2</a>.
-     * @type {BOOLEAN}
      */
-    SystemS2 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    SystemS2 : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S3</a>.
-     * @type {BOOLEAN}
      */
-    SystemS3 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    SystemS3 : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S4</a> (hibernation).
-     * @type {BOOLEAN}
      */
-    SystemS4 {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    SystemS4 : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">power off state S5</a> (soft off).
-     * @type {BOOLEAN}
      */
-    SystemS5 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    SystemS5 : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system hibernation file is present.
-     * @type {BOOLEAN}
      */
-    HiberFilePresent {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    HiberFilePresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports wake capabilities.
-     * @type {BOOLEAN}
      */
-    FullWake {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    FullWake : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports video display dimming 
      *       capabilities.
-     * @type {BOOLEAN}
      */
-    VideoDimPresent {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    VideoDimPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports APM BIOS power management 
      *       features.
-     * @type {BOOLEAN}
      */
-    ApmPresent {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    ApmPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, there is an uninterruptible power supply 
      *       (UPS).
-     * @type {BOOLEAN}
      */
-    UpsPresent {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    UpsPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports thermal zones.
-     * @type {BOOLEAN}
      */
-    ThermalControl {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    ThermalControl : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports processor throttling.
-     * @type {BOOLEAN}
      */
-    ProcessorThrottle {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    ProcessorThrottle : BOOLEAN
 
     /**
      * The minimum level of system processor throttling supported, expressed as a percentage.
-     * @type {Integer}
      */
-    ProcessorMinThrottle {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    ProcessorMinThrottle : Int8
 
     /**
      * The maximum level of system processor throttling supported, expressed as a percentage.
-     * @type {Integer}
      */
-    ProcessorMaxThrottle {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ProcessorMaxThrottle : Int8
 
     /**
      * If this member is <b>TRUE</b>, the system supports the <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">hybrid sleep state</a>.
-     * @type {BOOLEAN}
      */
-    FastSystemS4 {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    FastSystemS4 : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Hiberboot {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    Hiberboot : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the platform has support for ACPI wake alarm devices.  For more details on wake alarm devices, please see the ACPI specification section 9.18.
-     * @type {BOOLEAN}
      */
-    WakeAlarmPresent {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    WakeAlarmPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports the S0 low power idle model.
-     * @type {BOOLEAN}
      */
-    AoAc {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    AoAc : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system supports allowing the removal of power to 
      *       fixed disk devices.
-     * @type {BOOLEAN}
      */
-    DiskSpinDown {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    DiskSpinDown : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    HiberFileType {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    HiberFileType : Int8
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AoAcConnectivitySupported {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    AoAcConnectivitySupported : BOOLEAN
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    spare3 {
-        get {
-            if(!this.HasProp("__spare3ProxyArray"))
-                this.__spare3ProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "char")
-            return this.__spare3ProxyArray
-        }
-    }
+    spare3 : Int8[6]
 
     /**
      * If this member is <b>TRUE</b>, there are one or more batteries in the system.
-     * @type {BOOLEAN}
      */
-    SystemBatteriesPresent {
-        get => NumGet(this, 30, "char")
-        set => NumPut("char", value, this, 30)
-    }
+    SystemBatteriesPresent : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the system batteries are short-term. Short-term batteries 
      *       are used in uninterruptible power supplies (UPS).
-     * @type {BOOLEAN}
      */
-    BatteriesAreShortTerm {
-        get => NumGet(this, 31, "char")
-        set => NumPut("char", value, this, 31)
-    }
+    BatteriesAreShortTerm : BOOLEAN
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-battery_reporting_scale">BATTERY_REPORTING_SCALE</a> structure 
      *       that contains information about how system battery metrics are reported.
-     * @type {BATTERY_REPORTING_SCALE}
      */
-    BatteryScale {
-        get {
-            if(!this.HasProp("__BatteryScaleProxyArray"))
-                this.__BatteryScaleProxyArray := Win32FixedArray(this.ptr + 32, 3, BATTERY_REPORTING_SCALE, "")
-            return this.__BatteryScaleProxyArray
-        }
-    }
+    BatteryScale : BATTERY_REPORTING_SCALE[3]
 
     /**
      * The lowest <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system sleep state</a> (Sx) that will generate a wake event when the system is on AC power. This 
      *       member must be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> 
      *       enumeration type values.
-     * @type {SYSTEM_POWER_STATE}
      */
-    AcOnLineWake {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    AcOnLineWake : SYSTEM_POWER_STATE
 
     /**
      * The lowest <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system sleep state</a> (Sx) that will generate a wake event via the lid switch. This member must be 
      *       one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration 
      *       type values.
-     * @type {SYSTEM_POWER_STATE}
      */
-    SoftLidWake {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    SoftLidWake : SYSTEM_POWER_STATE
 
     /**
      * The lowest <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system sleep state</a> (Sx) supported by hardware that will generate a wake event via the Real Time Clock (RTC). This 
@@ -303,23 +169,15 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct {
      *       values. 
      * 
      * To wake the computer using the RTC, the operating system must also support waking from the sleep state the computer is in when the RTC generates the wake event. Therefore, the  effective lowest sleep state from which an RTC wake event can wake the computer is the lowest sleep state supported by the operating system that is  equal to or higher than  the  value  of <b>RtcWake</b>.  To determine  the sleep states that the operating system supports, check the   <b>SystemS1</b>, <b>SystemS2</b>, <b>SystemS3</b>, and <b>SystemS4</b> members.
-     * @type {SYSTEM_POWER_STATE}
      */
-    RtcWake {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    RtcWake : SYSTEM_POWER_STATE
 
     /**
      * The minimum allowable <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system power state</a> supporting wake events. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type 
      *       values. Note that this state may change as different device drivers are installed on the system.
-     * @type {SYSTEM_POWER_STATE}
      */
-    MinDeviceWakeState {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    MinDeviceWakeState : SYSTEM_POWER_STATE
 
     /**
      * The default <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system power state</a> used if an application calls 
@@ -327,10 +185,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct {
      *       <b>LT_LOWEST_LATENCY</b>. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type 
      *       values.
-     * @type {SYSTEM_POWER_STATE}
      */
-    DefaultLowLatencyWake {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    DefaultLowLatencyWake : SYSTEM_POWER_STATE
+
 }

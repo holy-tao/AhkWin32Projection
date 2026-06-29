@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a file, related to its use with MUI.
@@ -59,28 +58,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-filemuiinfo
  * @namespace Windows.Win32.Globalization
  */
-class FILEMUIINFO extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 4
+export default struct FILEMUIINFO {
+    #StructPack 4
 
     /**
      * Size of the structure, including the buffer, which can be extended past the 8 bytes declared. The minimum value allowed is <c>sizeof(FILEMUIINFO)</c>.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Version of the structure. The current version is 0x001.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVersion : UInt32
 
     /**
      * The file type. Possible values are:
@@ -90,109 +79,57 @@ class FILEMUIINFO extends Win32Struct {
      * <li>MUI_FILETYPE_LANGUAGE_NEUTRAL_MAIN. The input file is an LN file.</li>
      * <li>MUI_FILETYPE_LANGUAGE_NEUTRAL_MUI. The input file is a language-specific resource file.</li>
      * </ul>
-     * @type {Integer}
      */
-    dwFileType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFileType : UInt32
 
     /**
      * Pointer to a 128-bit checksum for the file, if it is either an LN file or a language-specific resource file.
-     * @type {Array<Integer>}
      */
-    pChecksum {
-        get {
-            if(!this.HasProp("__pChecksumProxyArray"))
-                this.__pChecksumProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
-            return this.__pChecksumProxyArray
-        }
-    }
+    pChecksum : Int8[16]
 
     /**
      * Pointer to a 128-bit checksum for the file, used for servicing.
-     * @type {Array<Integer>}
      */
-    pServiceChecksum {
-        get {
-            if(!this.HasProp("__pServiceChecksumProxyArray"))
-                this.__pServiceChecksumProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
-            return this.__pServiceChecksumProxyArray
-        }
-    }
+    pServiceChecksum : Int8[16]
 
     /**
      * Offset, in bytes, from the beginning of the structure to the language name string for a language-specific resource file, or to the ultimate fallback language name string for an LN file.
-     * @type {Integer}
      */
-    dwLanguageNameOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwLanguageNameOffset : UInt32
 
     /**
      * Size of the array for which the offset is indicated by <i>dwTypeIDMainOffset</i>. The size also corresponds to the number of strings in the multi-string array indicated by <i>dwTypeNameMainOffset</i>.
-     * @type {Integer}
      */
-    dwTypeIDMainSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwTypeIDMainSize : UInt32
 
     /**
      * Offset, in bytes, from the beginning of the structure to a DWORD array enumerating the resource types contained in the LN file.
-     * @type {Integer}
      */
-    dwTypeIDMainOffset {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwTypeIDMainOffset : UInt32
 
     /**
      * Offset, in bytes, from the beginning of the structure to a series of null-terminated strings in a multi-string array enumerating the resource names contained in the LN file.
-     * @type {Integer}
      */
-    dwTypeNameMainOffset {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwTypeNameMainOffset : UInt32
 
     /**
      * Size of the array with the offset indicated by <i>dwTypeIDMUIOffset</i>. The size also corresponds to the number of strings in the series of strings indicated by <i>dwTypeNameMUIOffset</i>.
-     * @type {Integer}
      */
-    dwTypeIDMUISize {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwTypeIDMUISize : UInt32
 
     /**
      * Offset, in bytes, from the beginning of the structure to a DWORD array enumerating the resource types contained in the LN file.
-     * @type {Integer}
      */
-    dwTypeIDMUIOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwTypeIDMUIOffset : UInt32
 
     /**
      * Offset, in bytes, from the beginning of the structure to a multi-string array enumerating the resource names contained in the LN file.
-     * @type {Integer}
      */
-    dwTypeNameMUIOffset {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwTypeNameMUIOffset : UInt32
 
     /**
      * Remainder of the allocated memory for this structure. See the Remarks section for correct use of this array.
-     * @type {Array<Integer>}
      */
-    abBuffer {
-        get {
-            if(!this.HasProp("__abBufferProxyArray"))
-                this.__abBufferProxyArray := Win32FixedArray(this.ptr + 72, 8, Primitive, "char")
-            return this.__abBufferProxyArray
-        }
-    }
+    abBuffer : Int8[8]
+
 }

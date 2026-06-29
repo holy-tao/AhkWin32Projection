@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced5.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMReaderAdvanced5.ahk" { IWMReaderAdvanced5 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderAdvanced6 interface enables sample protection.An IWMReaderAdvanced6 interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced6
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
     /**
      * The interface identifier for IWMReaderAdvanced6
      * @type {Guid}
      */
-    static IID => Guid("{18a2e7f8-428f-4acd-8a00-e64639bc93de}")
+    static IID := Guid("{18a2e7f8-428f-4acd-8a00-e64639bc93de}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 50
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderAdvanced6 interfaces
+    */
+    struct Vtbl extends IWMReaderAdvanced5.Vtbl {
+        SetProtectStreamSamples : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProtectStreamSamples"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderAdvanced6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetProtectStreamSamples method configures sample protection.
@@ -47,5 +55,25 @@ class IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
 
         result := ComCall(50, this, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "uint", dwCertificateType, "uint", dwFlags, "char*", &pbInitializationVector := 0, pcbInitializationVectorMarshal, pcbInitializationVector, "HRESULT")
         return pbInitializationVector
+    }
+
+    Query(iid) {
+        if (IWMReaderAdvanced6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProtectStreamSamples := CallbackCreate(GetMethod(implObj, "SetProtectStreamSamples"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProtectStreamSamples)
     }
 }

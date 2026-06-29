@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class METADATA_RECORD extends Win32Struct {
-    static sizeof => 40
+export default struct METADATA_RECORD {
+    #StructPack 8
 
-    static packingSize => 8
+    dwMDIdentifier : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMDIdentifier {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMDAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMDAttributes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMDUserType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMDUserType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMDDataType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMDDataType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwMDDataLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMDDataLen {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbMDData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbMDData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwMDDataTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMDDataTag {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

@@ -1,139 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DTLVERTEX extends Win32Struct {
-    static sizeof => 32
+export default struct D3DTLVERTEX {
+    #StructPack 4
 
-    static packingSize => 4
+    sx : Float32
 
-    /**
-     * @type {Float}
-     */
-    sx {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    sy : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvSX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    sz : Float32
 
-    /**
-     * @type {Float}
-     */
-    sy {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    rhw : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvSY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    color : UInt32
 
-    /**
-     * @type {Float}
-     */
-    sz {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    specular : UInt32
 
-    /**
-     * @type {Float}
-     */
-    dvSZ {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    tu : Float32
 
-    /**
-     * @type {Float}
-     */
-    rhw {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    tv : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvRHW {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    color {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dcColor {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    specular {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dcSpecular {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Float}
-     */
-    tu {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvTU {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
-
-    /**
-     * @type {Float}
-     */
-    tv {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvTV {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
+    static __New() {
+        DefineProp(this.Prototype, 'dvSX', { type: Float32, offset: 0 })
+        DefineProp(this.Prototype, 'dvSY', { type: Float32, offset: 4 })
+        DefineProp(this.Prototype, 'dvSZ', { type: Float32, offset: 8 })
+        DefineProp(this.Prototype, 'dvRHW', { type: Float32, offset: 12 })
+        DefineProp(this.Prototype, 'dcColor', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dcSpecular', { type: UInt32, offset: 20 })
+        DefineProp(this.Prototype, 'dvTU', { type: Float32, offset: 24 })
+        DefineProp(this.Prototype, 'dvTV', { type: Float32, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

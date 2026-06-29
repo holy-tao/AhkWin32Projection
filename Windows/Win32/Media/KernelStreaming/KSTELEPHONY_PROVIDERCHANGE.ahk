@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TELEPHONY_CALLTYPE.ahk
-#Include .\TELEPHONY_PROVIDERCHANGEOP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TELEPHONY_CALLTYPE.ahk" { TELEPHONY_CALLTYPE }
+#Import ".\TELEPHONY_PROVIDERCHANGEOP.ahk" { TELEPHONY_PROVIDERCHANGEOP }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSTELEPHONY_PROVIDERCHANGE extends Win32Struct {
-    static sizeof => 8
+export default struct KSTELEPHONY_PROVIDERCHANGE {
+    #StructPack 4
 
-    static packingSize => 4
+    CallType : TELEPHONY_CALLTYPE
 
-    /**
-     * @type {TELEPHONY_CALLTYPE}
-     */
-    CallType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ProviderChangeOp : TELEPHONY_PROVIDERCHANGEOP
 
-    /**
-     * @type {TELEPHONY_PROVIDERCHANGEOP}
-     */
-    ProviderChangeOp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

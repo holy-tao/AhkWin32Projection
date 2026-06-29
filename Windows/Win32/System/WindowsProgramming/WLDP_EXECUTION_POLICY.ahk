@@ -1,11 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_execution_policy
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class WLDP_EXECUTION_POLICY extends Win32Enum {
+export default struct WLDP_EXECUTION_POLICY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The subject does not pass execution policy and should not be executed.

@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXVAHD_BLT_STATE.ahk" { DXVAHD_BLT_STATE }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXVAHD_STREAM_DATA.ahk" { DXVAHD_STREAM_DATA }
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nn-dxvahd-idxvahd_videoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IDXVAHD_VideoProcessor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXVAHD_VideoProcessor extends IUnknown {
     /**
      * The interface identifier for IDXVAHD_VideoProcessor
      * @type {Guid}
      */
-    static IID => Guid("{95f4edf4-6e03-4cd7-be1b-3075d665aa52}")
+    static IID := Guid("{95f4edf4-6e03-4cd7-be1b-3075d665aa52}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXVAHD_VideoProcessor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetVideoProcessBltState    : IntPtr
+        GetVideoProcessBltState    : IntPtr
+        SetVideoProcessStreamState : IntPtr
+        GetVideoProcessStreamState : IntPtr
+        VideoProcessBltHD          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetVideoProcessBltState", "GetVideoProcessBltState", "SetVideoProcessStreamState", "GetVideoProcessStreamState", "VideoProcessBltHD"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXVAHD_VideoProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a state parameter for a blit operation by a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
@@ -38,7 +54,7 @@ class IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessbltstate
      */
     SetVideoProcessBltState(State, DataSize, pData) {
-        result := ComCall(3, this, "int", State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(3, this, DXVAHD_BLT_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -51,7 +67,7 @@ class IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-getvideoprocessbltstate
      */
     GetVideoProcessBltState(State, DataSize, pData) {
-        result := ComCall(4, this, "int", State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(4, this, DXVAHD_BLT_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -67,7 +83,7 @@ class IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessstreamstate
      */
     SetVideoProcessStreamState(StreamNumber, State, DataSize, pData) {
-        result := ComCall(5, this, "uint", StreamNumber, "int", State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, "uint", StreamNumber, DXVAHD_STREAM_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -81,7 +97,7 @@ class IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-getvideoprocessstreamstate
      */
     GetVideoProcessStreamState(StreamNumber, State, DataSize, pData) {
-        result := ComCall(6, this, "uint", StreamNumber, "int", State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(6, this, "uint", StreamNumber, DXVAHD_STREAM_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -104,7 +120,35 @@ class IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-videoprocessblthd
      */
     VideoProcessBltHD(pOutputSurface, OutputFrame, StreamCount, pStreams) {
-        result := ComCall(7, this, "ptr", pOutputSurface, "uint", OutputFrame, "uint", StreamCount, "ptr", pStreams, "HRESULT")
+        result := ComCall(7, this, "ptr", pOutputSurface, "uint", OutputFrame, "uint", StreamCount, DXVAHD_STREAM_DATA.Ptr, pStreams, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXVAHD_VideoProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetVideoProcessBltState := CallbackCreate(GetMethod(implObj, "SetVideoProcessBltState"), flags, 4)
+        this.vtbl.GetVideoProcessBltState := CallbackCreate(GetMethod(implObj, "GetVideoProcessBltState"), flags, 4)
+        this.vtbl.SetVideoProcessStreamState := CallbackCreate(GetMethod(implObj, "SetVideoProcessStreamState"), flags, 5)
+        this.vtbl.GetVideoProcessStreamState := CallbackCreate(GetMethod(implObj, "GetVideoProcessStreamState"), flags, 5)
+        this.vtbl.VideoProcessBltHD := CallbackCreate(GetMethod(implObj, "VideoProcessBltHD"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetVideoProcessBltState)
+        CallbackFree(this.vtbl.GetVideoProcessBltState)
+        CallbackFree(this.vtbl.SetVideoProcessStreamState)
+        CallbackFree(this.vtbl.GetVideoProcessStreamState)
+        CallbackFree(this.vtbl.VideoProcessBltHD)
     }
 }

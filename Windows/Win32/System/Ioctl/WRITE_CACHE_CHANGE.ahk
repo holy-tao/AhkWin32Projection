@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether the write cache features of a device are changeable.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-write_cache_change
  * @namespace Windows.Win32.System.Ioctl
  */
-class WRITE_CACHE_CHANGE extends Win32Enum {
+export default struct WRITE_CACHE_CHANGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The system cannot report the write cache change capability of the device.

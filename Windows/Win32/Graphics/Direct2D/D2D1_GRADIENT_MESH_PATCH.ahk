@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_POINT_2F.ahk
-#Include Common\D2D1_COLOR_F.ahk
-#Include .\D2D1_PATCH_EDGE_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_PATCH_EDGE_MODE.ahk" { D2D1_PATCH_EDGE_MODE }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * Represents a tensor patch with 16 control points, 4 corner colors, and boundary flags. An ID2D1GradientMesh is made up of 1 or more gradient mesh patches. Use the GradientMeshPatch function or the GradientMeshPatchFromCoonsPatch function to create one.
@@ -13,284 +12,127 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_GRADIENT_MESH_PATCH extends Win32Struct {
-    static sizeof => 208
-
-    static packingSize => 4
+export default struct D2D1_GRADIENT_MESH_PATCH {
+    #StructPack 4
 
     /**
      * The coordinate-space location of the control point in column 0 and row 0 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point00 {
-        get {
-            if(!this.HasProp("__point00"))
-                this.__point00 := D2D_POINT_2F(0, this)
-            return this.__point00
-        }
-    }
+    point00 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 0 and row 1 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point01 {
-        get {
-            if(!this.HasProp("__point01"))
-                this.__point01 := D2D_POINT_2F(8, this)
-            return this.__point01
-        }
-    }
+    point01 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 0 and row 2 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point02 {
-        get {
-            if(!this.HasProp("__point02"))
-                this.__point02 := D2D_POINT_2F(16, this)
-            return this.__point02
-        }
-    }
+    point02 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 0 and row 3 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point03 {
-        get {
-            if(!this.HasProp("__point03"))
-                this.__point03 := D2D_POINT_2F(24, this)
-            return this.__point03
-        }
-    }
+    point03 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 1 and row 0 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point10 {
-        get {
-            if(!this.HasProp("__point10"))
-                this.__point10 := D2D_POINT_2F(32, this)
-            return this.__point10
-        }
-    }
+    point10 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 1 and row 1 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point11 {
-        get {
-            if(!this.HasProp("__point11"))
-                this.__point11 := D2D_POINT_2F(40, this)
-            return this.__point11
-        }
-    }
+    point11 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 1 and row 2 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point12 {
-        get {
-            if(!this.HasProp("__point12"))
-                this.__point12 := D2D_POINT_2F(48, this)
-            return this.__point12
-        }
-    }
+    point12 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 1 and row 3 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point13 {
-        get {
-            if(!this.HasProp("__point13"))
-                this.__point13 := D2D_POINT_2F(56, this)
-            return this.__point13
-        }
-    }
+    point13 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 2 and row 0 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point20 {
-        get {
-            if(!this.HasProp("__point20"))
-                this.__point20 := D2D_POINT_2F(64, this)
-            return this.__point20
-        }
-    }
+    point20 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 2 and row 1 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point21 {
-        get {
-            if(!this.HasProp("__point21"))
-                this.__point21 := D2D_POINT_2F(72, this)
-            return this.__point21
-        }
-    }
+    point21 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 2 and row 2 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point22 {
-        get {
-            if(!this.HasProp("__point22"))
-                this.__point22 := D2D_POINT_2F(80, this)
-            return this.__point22
-        }
-    }
+    point22 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 2 and row 3 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point23 {
-        get {
-            if(!this.HasProp("__point23"))
-                this.__point23 := D2D_POINT_2F(88, this)
-            return this.__point23
-        }
-    }
+    point23 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 3 and row 0 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point30 {
-        get {
-            if(!this.HasProp("__point30"))
-                this.__point30 := D2D_POINT_2F(96, this)
-            return this.__point30
-        }
-    }
+    point30 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 3 and row 1 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point31 {
-        get {
-            if(!this.HasProp("__point31"))
-                this.__point31 := D2D_POINT_2F(104, this)
-            return this.__point31
-        }
-    }
+    point31 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 3 and row 2 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point32 {
-        get {
-            if(!this.HasProp("__point32"))
-                this.__point32 := D2D_POINT_2F(112, this)
-            return this.__point32
-        }
-    }
+    point32 : D2D_POINT_2F
 
     /**
      * The coordinate-space location of the control point in column 3 and row 3 of the tensor grid.
-     * @type {D2D_POINT_2F}
      */
-    point33 {
-        get {
-            if(!this.HasProp("__point33"))
-                this.__point33 := D2D_POINT_2F(120, this)
-            return this.__point33
-        }
-    }
+    point33 : D2D_POINT_2F
 
     /**
      * The color associated with the control point in column 0 and row 0 of the tensor grid.
-     * @type {D2D1_COLOR_F}
      */
-    color00 {
-        get {
-            if(!this.HasProp("__color00"))
-                this.__color00 := D2D1_COLOR_F(128, this)
-            return this.__color00
-        }
-    }
+    color00 : D2D1_COLOR_F
 
     /**
      * The color associated with the control point in column 0 and row 3 of the tensor grid.
-     * @type {D2D1_COLOR_F}
      */
-    color03 {
-        get {
-            if(!this.HasProp("__color03"))
-                this.__color03 := D2D1_COLOR_F(144, this)
-            return this.__color03
-        }
-    }
+    color03 : D2D1_COLOR_F
 
     /**
      * The color associated with the control point in column 3 and row 0 of the tensor grid.
-     * @type {D2D1_COLOR_F}
      */
-    color30 {
-        get {
-            if(!this.HasProp("__color30"))
-                this.__color30 := D2D1_COLOR_F(160, this)
-            return this.__color30
-        }
-    }
+    color30 : D2D1_COLOR_F
 
     /**
      * The color associated with the control point in column 3 and row 3 of the tensor grid.
-     * @type {D2D1_COLOR_F}
      */
-    color33 {
-        get {
-            if(!this.HasProp("__color33"))
-                this.__color33 := D2D1_COLOR_F(176, this)
-            return this.__color33
-        }
-    }
+    color33 : D2D1_COLOR_F
 
     /**
      * Specifies how to render the top edge of the mesh.
-     * @type {D2D1_PATCH_EDGE_MODE}
      */
-    topEdgeMode {
-        get => NumGet(this, 192, "int")
-        set => NumPut("int", value, this, 192)
-    }
+    topEdgeMode : D2D1_PATCH_EDGE_MODE
 
     /**
      * Specifies how to render the left edge of the mesh.
-     * @type {D2D1_PATCH_EDGE_MODE}
      */
-    leftEdgeMode {
-        get => NumGet(this, 196, "int")
-        set => NumPut("int", value, this, 196)
-    }
+    leftEdgeMode : D2D1_PATCH_EDGE_MODE
 
     /**
      * Specifies how to render the bottom edge of the mesh.
-     * @type {D2D1_PATCH_EDGE_MODE}
      */
-    bottomEdgeMode {
-        get => NumGet(this, 200, "int")
-        set => NumPut("int", value, this, 200)
-    }
+    bottomEdgeMode : D2D1_PATCH_EDGE_MODE
 
     /**
      * Specifies how to render the right edge of the mesh.
-     * @type {D2D1_PATCH_EDGE_MODE}
      */
-    rightEdgeMode {
-        get => NumGet(this, 204, "int")
-        set => NumPut("int", value, this, 204)
-    }
+    rightEdgeMode : D2D1_PATCH_EDGE_MODE
+
 }

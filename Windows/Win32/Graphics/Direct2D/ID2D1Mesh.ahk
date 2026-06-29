@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
-#Include .\ID2D1TessellationSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1TessellationSink.ahk" { ID2D1TessellationSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * Represents a set of vertices that form a list of triangles.
@@ -14,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1mesh
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Mesh extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Mesh extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1Mesh
      * @type {Guid}
      */
-    static IID => Guid("{2cd906c2-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906c2-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Mesh interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        Open : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Mesh.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens the mesh for population.
@@ -45,5 +53,25 @@ class ID2D1Mesh extends ID2D1Resource {
     Open() {
         result := ComCall(4, this, "ptr*", &tessellationSink := 0, "HRESULT")
         return ID2D1TessellationSink(tessellationSink)
+    }
+
+    Query(iid) {
+        if (ID2D1Mesh.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
     }
 }

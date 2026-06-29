@@ -1,25 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
-#Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk" { HTTP_SERVICE_CONFIG_QUERY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk" { HTTP_SERVICE_CONFIG_URLACL_KEY }
 
 /**
  * Used to specify a particular reservation record to query in the URL namespace reservation store.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_query
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct {
-    static sizeof => 24
+export default struct HTTP_SERVICE_CONFIG_URLACL_QUERY {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {HTTP_SERVICE_CONFIG_QUERY_TYPE}
-     */
-    QueryDesc {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    QueryDesc : HTTP_SERVICE_CONFIG_QUERY_TYPE
 
     /**
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryExact</b>, then <i>KeyDesc</i> should contain an 
@@ -29,15 +21,8 @@ class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct {
      * 
      * 
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryNext</b>, <i>KeyDesc</i> is ignored.
-     * @type {HTTP_SERVICE_CONFIG_URLACL_KEY}
      */
-    KeyDesc {
-        get {
-            if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_URLACL_KEY(8, this)
-            return this.__KeyDesc
-        }
-    }
+    KeyDesc : HTTP_SERVICE_CONFIG_URLACL_KEY
 
     /**
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryNext</b>, then <i>dwToken</i> must be equal to zero on the first call to the 
@@ -48,10 +33,7 @@ class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct {
      * 
      * 
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryExact</b>, then <i>dwToken</i> is ignored.
-     * @type {Integer}
      */
-    dwToken {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwToken : UInt32
+
 }

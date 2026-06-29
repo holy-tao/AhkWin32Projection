@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1TransformNode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * A support transform for effects to modify the output rectangle of the previous effect or bitmap.
@@ -23,26 +24,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1boundsadjustmenttransform
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode {
     /**
      * The interface identifier for ID2D1BoundsAdjustmentTransform
      * @type {Guid}
      */
-    static IID => Guid("{90f732e2-5092-4606-a819-8651970baccd}")
+    static IID := Guid("{90f732e2-5092-4606-a819-8651970baccd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1BoundsAdjustmentTransform interfaces
+    */
+    struct Vtbl extends ID2D1TransformNode.Vtbl {
+        SetOutputBounds : IntPtr
+        GetOutputBounds : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOutputBounds", "GetOutputBounds"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1BoundsAdjustmentTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This sets the output bounds for the support transform.
@@ -53,7 +62,7 @@ class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-setoutputbounds
      */
     SetOutputBounds(outputBounds) {
-        ComCall(4, this, "ptr", outputBounds)
+        ComCall(4, this, RECT.Ptr, outputBounds)
     }
 
     /**
@@ -65,6 +74,28 @@ class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-getoutputbounds
      */
     GetOutputBounds(outputBounds) {
-        ComCall(5, this, "ptr", outputBounds)
+        ComCall(5, this, RECT.Ptr, outputBounds)
+    }
+
+    Query(iid) {
+        if (ID2D1BoundsAdjustmentTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOutputBounds := CallbackCreate(GetMethod(implObj, "SetOutputBounds"), flags, 2)
+        this.vtbl.GetOutputBounds := CallbackCreate(GetMethod(implObj, "GetOutputBounds"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOutputBounds)
+        CallbackFree(this.vtbl.GetOutputBounds)
     }
 }

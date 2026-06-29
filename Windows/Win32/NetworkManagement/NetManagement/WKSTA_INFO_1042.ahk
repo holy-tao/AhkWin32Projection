@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class WKSTA_INFO_1042 extends Win32Struct {
-    static sizeof => 4
+export default struct WKSTA_INFO_1042 {
+    #StructPack 4
 
-    static packingSize => 4
+    wki1042_lock_increment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki1042_lock_increment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

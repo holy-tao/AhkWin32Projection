@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
-#Include .\MMC_TASK_DISPLAY_TYPE.ahk
-#Include .\MMC_TASK_DISPLAY_BITMAP.ahk
-#Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
-#Include .\MMC_ACTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MMC_TASK_DISPLAY_SYMBOL.ahk" { MMC_TASK_DISPLAY_SYMBOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MMC_TASK_DISPLAY_OBJECT.ahk" { MMC_TASK_DISPLAY_OBJECT }
+#Import ".\MMC_ACTION_TYPE.ahk" { MMC_ACTION_TYPE }
+#Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
+#Import ".\MMC_TASK_DISPLAY_BITMAP.ahk" { MMC_TASK_DISPLAY_BITMAP }
 
 /**
  * The MMC_TASK structure is introduced in MMC 1.1.
@@ -17,74 +17,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_TASK extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct MMC_TASK {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_object">MMC_TASK_DISPLAY_OBJECT</a> structure that the snap-in must fill in to specify the image to be displayed as the image for the task in the taskpad specified by <b>pszGroup</b>.
-     * @type {MMC_TASK_DISPLAY_OBJECT}
      */
-    sDisplayObject {
-        get {
-            if(!this.HasProp("__sDisplayObject"))
-                this.__sDisplayObject := MMC_TASK_DISPLAY_OBJECT(0, this)
-            return this.__sDisplayObject
-        }
-    }
+    sDisplayObject : MMC_TASK_DISPLAY_OBJECT
 
     /**
      * A pointer to a null-terminated string that contains the text placed directly to the right of the mouse-over image. This text serves as the label for the task. This text should be an action in the imperative such as "Add a new user."
-     * @type {PWSTR}
      */
-    szText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    szText : PWSTR
 
     /**
      * A pointer to a null-terminated string that contains the descriptive text placed in the upper-right corner when the user moves the mouse over the mouse-over image or the label text for the task. This text serves as the description for the task such as "Creates a new account, creates a mailbox, and sets up everything a user must access the network."
-     * @type {PWSTR}
      */
-    szHelpString {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    szHelpString : PWSTR
 
     /**
      * Value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_action_type">MMC_ACTION_TYPE</a> that specifies the type of action triggered when a user clicks a task on a taskpad.
      * 
      * There are three types of actions:
-     * @type {MMC_ACTION_TYPE}
      */
-    eActionType {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    eActionType : MMC_ACTION_TYPE
 
-    /**
-     * @type {Pointer}
-     */
-    nCommandID {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    nCommandID : IntPtr
 
-    /**
-     * @type {PWSTR}
-     */
-    szActionURL {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    szScript {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    static __New() {
+        DefineProp(this.Prototype, 'szActionURL', { type: PWSTR, offset: 56 })
+        DefineProp(this.Prototype, 'szScript', { type: PWSTR, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VDS_RECOVER_ACTION enumeration (vdshwprv.h) is reserved for system use.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_recover_action
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_RECOVER_ACTION extends Win32Enum {
+export default struct VDS_RECOVER_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

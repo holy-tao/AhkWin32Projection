@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_SETTYPE_ENUM enumeration specifies the available pathname format used by the IADsPathname::Set method.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_settype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_SETTYPE_ENUM extends Win32Enum {
+export default struct ADS_SETTYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Sets the full path, for example, "LDAP://servername/o=internet/…/cn=bar".

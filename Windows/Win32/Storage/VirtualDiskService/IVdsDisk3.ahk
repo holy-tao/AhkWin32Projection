@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_DISK_PROP2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_DISK_PROP2.ahk" { VDS_DISK_PROP2 }
+#Import ".\VDS_DISK_FREE_EXTENT.ahk" { VDS_DISK_FREE_EXTENT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to retrieve property information for a disk, including the disk's location path.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdisk3
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsDisk3 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsDisk3 extends IUnknown {
     /**
      * The interface identifier for IVdsDisk3
      * @type {Guid}
      */
-    static IID => Guid("{8f4b2f5d-ec15-4357-992f-473ef10975b9}")
+    static IID := Guid("{8f4b2f5d-ec15-4357-992f-473ef10975b9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsDisk3 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties2   : IntPtr
+        QueryFreeExtents : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties2", "QueryFreeExtents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsDisk3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns property information for a disk. This method is identical to the IVdsDisk::GetProperties method, except that it returns a VDS_DISK_PROP2 structure instead of a VDS_DISK_PROP structure.
@@ -46,7 +56,7 @@ class IVdsDisk3 extends IUnknown {
      */
     GetProperties2() {
         pDiskProperties := VDS_DISK_PROP2()
-        result := ComCall(3, this, "ptr", pDiskProperties, "HRESULT")
+        result := ComCall(3, this, VDS_DISK_PROP2.Ptr, pDiskProperties, "HRESULT")
         return pDiskProperties
     }
 
@@ -113,5 +123,27 @@ class IVdsDisk3 extends IUnknown {
 
         result := ComCall(4, this, "uint", ulAlign, ppFreeExtentArrayMarshal, ppFreeExtentArray, plNumberOfFreeExtentsMarshal, plNumberOfFreeExtents, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsDisk3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties2 := CallbackCreate(GetMethod(implObj, "GetProperties2"), flags, 2)
+        this.vtbl.QueryFreeExtents := CallbackCreate(GetMethod(implObj, "QueryFreeExtents"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties2)
+        CallbackFree(this.vtbl.QueryFreeExtents)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The MCI_DGV_SETVIDEO_PARMSW (Unicode) structure contains parameters for the MCI_SETVIDEO command for digital-video devices.
@@ -16,71 +16,42 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset Unicode
  */
-class MCI_DGV_SETVIDEO_PARMSW extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MCI_DGV_SETVIDEO_PARMSW {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Constant indicating the target adjustment.
-     * @type {Integer}
      */
-    dwItem {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwItem : UInt32
 
     /**
      * Adjustment level.
-     * @type {Integer}
      */
-    dwValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwValue : UInt32
 
     /**
      * Transmission length.
-     * @type {Integer}
      */
-    dwOver {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwOver : UInt32
 
     /**
      * Pointer to a null-terminated string containing the name of the video-compression algorithm.
-     * @type {PWSTR}
      */
-    lpstrAlgorithm {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpstrAlgorithm : PWSTR
 
     /**
      * Pointer to a null-terminated string containing a descriptor of the video-compression algorithm.
-     * @type {PWSTR}
      */
-    lpstrQuality {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpstrQuality : PWSTR
 
     /**
      * Index of input source.
-     * @type {Integer}
      */
-    dwSourceNumber {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwSourceNumber : UInt32
+
 }

@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class COMM_FAULT_OFFSETS extends Win32Struct {
-    static sizeof => 4
+export default struct COMM_FAULT_OFFSETS {
+    #StructPack 2
 
-    static packingSize => 2
+    CommOffset : Int16
 
-    /**
-     * @type {Integer}
-     */
-    CommOffset {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    FaultOffset : Int16
 
-    /**
-     * @type {Integer}
-     */
-    FaultOffset {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
 }

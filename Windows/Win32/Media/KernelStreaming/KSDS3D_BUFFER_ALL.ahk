@@ -1,93 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS3DVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DS3DVECTOR.ahk" { DS3DVECTOR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDS3D_BUFFER_ALL extends Win32Struct {
-    static sizeof => 60
+export default struct KSDS3D_BUFFER_ALL {
+    #StructPack 4
 
-    static packingSize => 4
+    Position : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    Position {
-        get {
-            if(!this.HasProp("__Position"))
-                this.__Position := DS3DVECTOR(0, this)
-            return this.__Position
-        }
-    }
+    Velocity : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    Velocity {
-        get {
-            if(!this.HasProp("__Velocity"))
-                this.__Velocity := DS3DVECTOR(12, this)
-            return this.__Velocity
-        }
-    }
+    InsideConeAngle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InsideConeAngle {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OutsideConeAngle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutsideConeAngle {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ConeOrientation : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    ConeOrientation {
-        get {
-            if(!this.HasProp("__ConeOrientation"))
-                this.__ConeOrientation := DS3DVECTOR(32, this)
-            return this.__ConeOrientation
-        }
-    }
+    ConeOutsideVolume : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ConeOutsideVolume {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    MinDistance : Float32
 
-    /**
-     * @type {Float}
-     */
-    MinDistance {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
+    MaxDistance : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxDistance {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
+    Mode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Mode {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

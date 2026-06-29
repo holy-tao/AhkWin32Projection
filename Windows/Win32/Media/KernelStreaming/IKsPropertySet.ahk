@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsPropertySet interface was originally designed as an efficient way to set and retrieve device properties on WDM drivers, using KSProxy to translate the user-mode COM method calls into the kernel-mode property sets used by WDM streaming class drivers. This interface is now also used to pass information strictly between software components.In some cases, software components must implement either this interface, or else the IKsControl interface (documented in the DirectShow DDK). For example, if you are writing a software MPEG-2 decoder for use with the DVD Navigator, you must implement one of these interfaces and also support the DVD-related property sets that the Navigator will send to the decoder. Pins may support one of these interfaces to allow other pins or filters to set or retrieve their properties.Note  Another interface by this name exists in the dsound.h header file. The two interfaces are not compatible. The IKsControl interface, documented in the DirectShow DDK, is now the recommended interface for passing property sets between WDM drivers and user mode components. .
@@ -15,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsPropertySet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsPropertySet extends IUnknown {
     /**
      * The interface identifier for IKsPropertySet
      * @type {Guid}
      */
-    static IID => Guid("{31efac30-515c-11d0-a9aa-00aa0061be93}")
+    static IID := Guid("{31efac30-515c-11d0-a9aa-00aa0061be93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsPropertySet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Set            : IntPtr
+        Get            : IntPtr
+        QuerySupported : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Set", "Get", "QuerySupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsPropertySet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Set method sets a property identified by a property set GUID and a property ID.
@@ -63,7 +73,7 @@ class IKsPropertySet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-set
      */
     Set(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData) {
-        result := ComCall(3, this, "ptr", guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "HRESULT")
         return result
     }
 
@@ -88,7 +98,7 @@ class IKsPropertySet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-get
      */
     Get(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData) {
-        result := ComCall(4, this, "ptr", guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "uint*", &pcbReturned := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "uint*", &pcbReturned := 0, "HRESULT")
         return pcbReturned
     }
 
@@ -114,7 +124,31 @@ class IKsPropertySet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-querysupported
      */
     QuerySupported(guidPropSet, dwPropID) {
-        result := ComCall(5, this, "ptr", guidPropSet, "uint", dwPropID, "uint*", &pTypeSupport := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidPropSet, "uint", dwPropID, "uint*", &pTypeSupport := 0, "HRESULT")
         return pTypeSupport
+    }
+
+    Query(iid) {
+        if (IKsPropertySet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 7)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 8)
+        this.vtbl.QuerySupported := CallbackCreate(GetMethod(implObj, "QuerySupported"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.QuerySupported)
     }
 }

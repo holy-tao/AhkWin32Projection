@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Enables or disables maintenance mode on a cluster node.
@@ -14,10 +14,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_maintenance_mode_info
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_MAINTENANCE_MODE_INFO extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct CLUS_MAINTENANCE_MODE_INFO {
+    #StructPack 4
 
     /**
      * Set to <b>TRUE</b> to enable or <b>FALSE</b> to disable maintenance 
@@ -25,10 +23,7 @@ class CLUS_MAINTENANCE_MODE_INFO extends Win32Struct {
      * 
      * When queried, a resource will return <b>True</b> or <b>False</b> to 
      *        indicate the current maintenance mode state of the resource.
-     * @type {BOOL}
      */
-    InMaintenance {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    InMaintenance : BOOL
+
 }

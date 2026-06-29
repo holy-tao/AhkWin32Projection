@@ -1,232 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_RUN_VP_EXIT_REASON.ahk
-#Include .\WHV_VP_EXIT_CONTEXT.ahk
-#Include .\WHV_X64_VP_EXECUTION_STATE.ahk
-#Include .\WHV_X64_SEGMENT_REGISTER.ahk
-#Include .\WHV_MEMORY_ACCESS_CONTEXT.ahk
-#Include .\WHV_MEMORY_ACCESS_INFO.ahk
-#Include .\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk
-#Include .\WHV_X64_IO_PORT_ACCESS_INFO.ahk
-#Include .\WHV_X64_MSR_ACCESS_CONTEXT.ahk
-#Include .\WHV_X64_MSR_ACCESS_INFO.ahk
-#Include .\WHV_X64_CPUID_ACCESS_CONTEXT.ahk
-#Include .\WHV_VP_EXCEPTION_CONTEXT.ahk
-#Include .\WHV_VP_EXCEPTION_INFO.ahk
-#Include .\WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT.ahk
-#Include .\WHV_X64_PENDING_INTERRUPTION_TYPE.ahk
-#Include .\WHV_X64_UNSUPPORTED_FEATURE_CONTEXT.ahk
-#Include .\WHV_X64_UNSUPPORTED_FEATURE_CODE.ahk
-#Include .\WHV_RUN_VP_CANCELED_CONTEXT.ahk
-#Include .\WHV_RUN_VP_CANCEL_REASON.ahk
-#Include .\WHV_X64_APIC_EOI_CONTEXT.ahk
-#Include .\WHV_X64_RDTSC_CONTEXT.ahk
-#Include .\WHV_X64_RDTSC_INFO.ahk
-#Include .\WHV_X64_APIC_SMI_CONTEXT.ahk
-#Include .\WHV_HYPERCALL_CONTEXT.ahk
-#Include .\WHV_UINT128.ahk
-#Include .\WHV_X64_APIC_INIT_SIPI_CONTEXT.ahk
-#Include .\WHV_X64_APIC_WRITE_CONTEXT.ahk
-#Include .\WHV_X64_APIC_WRITE_TYPE.ahk
-#Include .\WHV_SYNIC_SINT_DELIVERABLE_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_RUN_VP_CANCEL_REASON.ahk" { WHV_RUN_VP_CANCEL_REASON }
+#Import ".\WHV_X64_APIC_SMI_CONTEXT.ahk" { WHV_X64_APIC_SMI_CONTEXT }
+#Import ".\WHV_VP_EXCEPTION_INFO.ahk" { WHV_VP_EXCEPTION_INFO }
+#Import ".\WHV_X64_UNSUPPORTED_FEATURE_CONTEXT.ahk" { WHV_X64_UNSUPPORTED_FEATURE_CONTEXT }
+#Import ".\WHV_X64_RDTSC_CONTEXT.ahk" { WHV_X64_RDTSC_CONTEXT }
+#Import ".\WHV_X64_APIC_INIT_SIPI_CONTEXT.ahk" { WHV_X64_APIC_INIT_SIPI_CONTEXT }
+#Import ".\WHV_X64_UNSUPPORTED_FEATURE_CODE.ahk" { WHV_X64_UNSUPPORTED_FEATURE_CODE }
+#Import ".\WHV_X64_APIC_WRITE_TYPE.ahk" { WHV_X64_APIC_WRITE_TYPE }
+#Import ".\WHV_UINT128.ahk" { WHV_UINT128 }
+#Import ".\WHV_X64_MSR_ACCESS_INFO.ahk" { WHV_X64_MSR_ACCESS_INFO }
+#Import ".\WHV_VP_EXCEPTION_CONTEXT.ahk" { WHV_VP_EXCEPTION_CONTEXT }
+#Import ".\WHV_MEMORY_ACCESS_INFO.ahk" { WHV_MEMORY_ACCESS_INFO }
+#Import ".\WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT.ahk" { WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT }
+#Import ".\WHV_RUN_VP_CANCELED_CONTEXT.ahk" { WHV_RUN_VP_CANCELED_CONTEXT }
+#Import ".\WHV_X64_APIC_EOI_CONTEXT.ahk" { WHV_X64_APIC_EOI_CONTEXT }
+#Import ".\WHV_VP_EXIT_CONTEXT.ahk" { WHV_VP_EXIT_CONTEXT }
+#Import ".\WHV_X64_VP_EXECUTION_STATE.ahk" { WHV_X64_VP_EXECUTION_STATE }
+#Import ".\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk" { WHV_X64_IO_PORT_ACCESS_CONTEXT }
+#Import ".\WHV_MEMORY_ACCESS_CONTEXT.ahk" { WHV_MEMORY_ACCESS_CONTEXT }
+#Import ".\WHV_SYNIC_SINT_DELIVERABLE_CONTEXT.ahk" { WHV_SYNIC_SINT_DELIVERABLE_CONTEXT }
+#Import ".\WHV_X64_RDTSC_INFO.ahk" { WHV_X64_RDTSC_INFO }
+#Import ".\WHV_HYPERCALL_CONTEXT.ahk" { WHV_HYPERCALL_CONTEXT }
+#Import ".\WHV_X64_IO_PORT_ACCESS_INFO.ahk" { WHV_X64_IO_PORT_ACCESS_INFO }
+#Import ".\WHV_X64_PENDING_INTERRUPTION_TYPE.ahk" { WHV_X64_PENDING_INTERRUPTION_TYPE }
+#Import ".\WHV_X64_APIC_WRITE_CONTEXT.ahk" { WHV_X64_APIC_WRITE_CONTEXT }
+#Import ".\WHV_X64_CPUID_ACCESS_CONTEXT.ahk" { WHV_X64_CPUID_ACCESS_CONTEXT }
+#Import ".\WHV_RUN_VP_EXIT_REASON.ahk" { WHV_RUN_VP_EXIT_REASON }
+#Import ".\WHV_X64_MSR_ACCESS_CONTEXT.ahk" { WHV_X64_MSR_ACCESS_CONTEXT }
+#Import ".\WHV_X64_SEGMENT_REGISTER.ahk" { WHV_X64_SEGMENT_REGISTER }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
-    static sizeof => 328
+export default struct WHV_RUN_VP_EXIT_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    ExitReason : WHV_RUN_VP_EXIT_REASON
 
-    /**
-     * @type {WHV_RUN_VP_EXIT_REASON}
-     */
-    ExitReason {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    VpContext : WHV_VP_EXIT_CONTEXT
 
-    /**
-     * @type {WHV_VP_EXIT_CONTEXT}
-     */
-    VpContext {
-        get {
-            if(!this.HasProp("__VpContext"))
-                this.__VpContext := WHV_VP_EXIT_CONTEXT(8, this)
-            return this.__VpContext
-        }
-    }
+    MemoryAccess : WHV_MEMORY_ACCESS_CONTEXT
 
-    /**
-     * @type {WHV_MEMORY_ACCESS_CONTEXT}
-     */
-    MemoryAccess {
-        get {
-            if(!this.HasProp("__MemoryAccess"))
-                this.__MemoryAccess := WHV_MEMORY_ACCESS_CONTEXT(56, this)
-            return this.__MemoryAccess
-        }
-    }
-
-    /**
-     * @type {WHV_X64_IO_PORT_ACCESS_CONTEXT}
-     */
-    IoPortAccess {
-        get {
-            if(!this.HasProp("__IoPortAccess"))
-                this.__IoPortAccess := WHV_X64_IO_PORT_ACCESS_CONTEXT(56, this)
-            return this.__IoPortAccess
-        }
-    }
-
-    /**
-     * @type {WHV_X64_MSR_ACCESS_CONTEXT}
-     */
-    MsrAccess {
-        get {
-            if(!this.HasProp("__MsrAccess"))
-                this.__MsrAccess := WHV_X64_MSR_ACCESS_CONTEXT(56, this)
-            return this.__MsrAccess
-        }
-    }
-
-    /**
-     * @type {WHV_X64_CPUID_ACCESS_CONTEXT}
-     */
-    CpuidAccess {
-        get {
-            if(!this.HasProp("__CpuidAccess"))
-                this.__CpuidAccess := WHV_X64_CPUID_ACCESS_CONTEXT(56, this)
-            return this.__CpuidAccess
-        }
-    }
-
-    /**
-     * @type {WHV_VP_EXCEPTION_CONTEXT}
-     */
-    VpException {
-        get {
-            if(!this.HasProp("__VpException"))
-                this.__VpException := WHV_VP_EXCEPTION_CONTEXT(56, this)
-            return this.__VpException
-        }
-    }
-
-    /**
-     * @type {WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT}
-     */
-    InterruptWindow {
-        get {
-            if(!this.HasProp("__InterruptWindow"))
-                this.__InterruptWindow := WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(56, this)
-            return this.__InterruptWindow
-        }
-    }
-
-    /**
-     * @type {WHV_X64_UNSUPPORTED_FEATURE_CONTEXT}
-     */
-    UnsupportedFeature {
-        get {
-            if(!this.HasProp("__UnsupportedFeature"))
-                this.__UnsupportedFeature := WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(56, this)
-            return this.__UnsupportedFeature
-        }
-    }
-
-    /**
-     * @type {WHV_RUN_VP_CANCELED_CONTEXT}
-     */
-    CancelReason {
-        get {
-            if(!this.HasProp("__CancelReason"))
-                this.__CancelReason := WHV_RUN_VP_CANCELED_CONTEXT(56, this)
-            return this.__CancelReason
-        }
-    }
-
-    /**
-     * @type {WHV_X64_APIC_EOI_CONTEXT}
-     */
-    ApicEoi {
-        get {
-            if(!this.HasProp("__ApicEoi"))
-                this.__ApicEoi := WHV_X64_APIC_EOI_CONTEXT(56, this)
-            return this.__ApicEoi
-        }
-    }
-
-    /**
-     * @type {WHV_X64_RDTSC_CONTEXT}
-     */
-    ReadTsc {
-        get {
-            if(!this.HasProp("__ReadTsc"))
-                this.__ReadTsc := WHV_X64_RDTSC_CONTEXT(56, this)
-            return this.__ReadTsc
-        }
-    }
-
-    /**
-     * @type {WHV_X64_APIC_SMI_CONTEXT}
-     */
-    ApicSmi {
-        get {
-            if(!this.HasProp("__ApicSmi"))
-                this.__ApicSmi := WHV_X64_APIC_SMI_CONTEXT(56, this)
-            return this.__ApicSmi
-        }
-    }
-
-    /**
-     * @type {WHV_HYPERCALL_CONTEXT}
-     */
-    Hypercall {
-        get {
-            if(!this.HasProp("__Hypercall"))
-                this.__Hypercall := WHV_HYPERCALL_CONTEXT(56, this)
-            return this.__Hypercall
-        }
-    }
-
-    /**
-     * @type {WHV_X64_APIC_INIT_SIPI_CONTEXT}
-     */
-    ApicInitSipi {
-        get {
-            if(!this.HasProp("__ApicInitSipi"))
-                this.__ApicInitSipi := WHV_X64_APIC_INIT_SIPI_CONTEXT(56, this)
-            return this.__ApicInitSipi
-        }
-    }
-
-    /**
-     * @type {WHV_X64_APIC_WRITE_CONTEXT}
-     */
-    ApicWrite {
-        get {
-            if(!this.HasProp("__ApicWrite"))
-                this.__ApicWrite := WHV_X64_APIC_WRITE_CONTEXT(56, this)
-            return this.__ApicWrite
-        }
-    }
-
-    /**
-     * @type {WHV_SYNIC_SINT_DELIVERABLE_CONTEXT}
-     */
-    SynicSintDeliverable {
-        get {
-            if(!this.HasProp("__SynicSintDeliverable"))
-                this.__SynicSintDeliverable := WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(56, this)
-            return this.__SynicSintDeliverable
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'IoPortAccess', { type: WHV_X64_IO_PORT_ACCESS_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'MsrAccess', { type: WHV_X64_MSR_ACCESS_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'CpuidAccess', { type: WHV_X64_CPUID_ACCESS_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'VpException', { type: WHV_VP_EXCEPTION_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'InterruptWindow', { type: WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'UnsupportedFeature', { type: WHV_X64_UNSUPPORTED_FEATURE_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'CancelReason', { type: WHV_RUN_VP_CANCELED_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'ApicEoi', { type: WHV_X64_APIC_EOI_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'ReadTsc', { type: WHV_X64_RDTSC_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'ApicSmi', { type: WHV_X64_APIC_SMI_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'Hypercall', { type: WHV_HYPERCALL_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'ApicInitSipi', { type: WHV_X64_APIC_INIT_SIPI_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'ApicWrite', { type: WHV_X64_APIC_WRITE_CONTEXT, offset: 56 })
+        DefineProp(this.Prototype, 'SynicSintDeliverable', { type: WHV_SYNIC_SINT_DELIVERABLE_CONTEXT, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

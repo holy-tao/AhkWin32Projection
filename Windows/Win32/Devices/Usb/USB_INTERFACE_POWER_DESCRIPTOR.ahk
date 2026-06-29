@@ -1,107 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_INTERFACE_POWER_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
+export default struct USB_INTERFACE_POWER_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bmCapabilitiesFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmCapabilitiesFlags {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bBusPowerSavingD1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBusPowerSavingD1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bSelfPowerSavingD1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSelfPowerSavingD1 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bBusPowerSavingD2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBusPowerSavingD2 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bSelfPowerSavingD2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSelfPowerSavingD2 {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bBusPowerSavingD3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBusPowerSavingD3 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    bSelfPowerSavingD3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSelfPowerSavingD3 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    TransitionTimeFromD1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransitionTimeFromD1 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    TransitionTimeFromD2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransitionTimeFromD2 {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    TransitionTimeFromD3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransitionTimeFromD3 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
 }

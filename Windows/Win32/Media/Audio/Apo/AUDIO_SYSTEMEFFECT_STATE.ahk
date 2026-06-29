@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the state of a System Effects Audio Processing Object (sAPO) audio effect.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ne-audioengineextensionapo-audio_systemeffect_state
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class AUDIO_SYSTEMEFFECT_STATE extends Win32Enum {
+export default struct AUDIO_SYSTEMEFFECT_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The audio effect is off.

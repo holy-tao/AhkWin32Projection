@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYRANGE.ahk
-#Include .\JOYPOS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOYRANGE.ahk" { JOYRANGE }
+#Import ".\JOYPOS.ahk" { JOYPOS }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class JOYREGUSERVALUES extends Win32Struct {
-    static sizeof => 100
+export default struct JOYREGUSERVALUES {
+    #StructPack 4
 
-    static packingSize => 4
+    dwTimeOut : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTimeOut {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    jrvRanges : JOYRANGE
 
-    /**
-     * @type {JOYRANGE}
-     */
-    jrvRanges {
-        get {
-            if(!this.HasProp("__jrvRanges"))
-                this.__jrvRanges := JOYRANGE(4, this)
-            return this.__jrvRanges
-        }
-    }
+    jpDeadZone : JOYPOS
 
-    /**
-     * @type {JOYPOS}
-     */
-    jpDeadZone {
-        get {
-            if(!this.HasProp("__jpDeadZone"))
-                this.__jpDeadZone := JOYPOS(76, this)
-            return this.__jpDeadZone
-        }
-    }
 }

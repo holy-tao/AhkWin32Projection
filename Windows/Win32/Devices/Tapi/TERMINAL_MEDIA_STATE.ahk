@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TERMINAL_MEDIA_STATE enum indicates the state of a file terminal.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-terminal_media_state
  * @namespace Windows.Win32.Devices.Tapi
  */
-class TERMINAL_MEDIA_STATE extends Win32Enum {
+export default struct TERMINAL_MEDIA_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The file terminal is idle.

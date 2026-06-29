@@ -1,13 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\DDBLTFX.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DDCOLORKEY.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DDARGB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDARGB.ahk" { DDARGB }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DD_BLTDATA structure contains the information relevant to the driver for doing bit block transfers.
@@ -16,59 +17,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_bltdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_BLTDATA extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 8
+export default struct DD_BLTDATA {
+    #StructPack 8
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_global">DD_DIRECTDRAW_GLOBAL</a> structure that describes the driver's device.
-     * @type {Pointer<DD_DIRECTDRAW_GLOBAL>}
      */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDD : DD_DIRECTDRAW_GLOBAL.Ptr
 
     /**
      * Points to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure that describes the surface on which to blit.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpDDDestSurface {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDDDestSurface : DD_SURFACE_LOCAL.Ptr
 
-    /**
-     * @type {RECTL}
-     */
-    rDest {
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(16, this)
-            return this.__rDest
-        }
-    }
+    rDest : RECTL
 
     /**
      * Points to a DD_SURFACE_LOCAL structure that describes the source surface.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpDDSrcSurface {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpDDSrcSurface : DD_SURFACE_LOCAL.Ptr
 
-    /**
-     * @type {RECTL}
-     */
-    rSrc {
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(40, this)
-            return this.__rSrc
-        }
-    }
+    rSrc : RECTL
 
     /**
      * Indicates a set of flags that specify the type of blit operation to perform and what associated structure members have valid data that the driver should use. This member is a bitwise OR of any of the following flags:
@@ -248,120 +217,59 @@ class DD_BLTDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwFlags : UInt32
 
     /**
      * Unused on Windows 2000 and later and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwROPFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwROPFlags : UInt32
 
-    /**
-     * @type {DDBLTFX}
-     */
-    bltFX {
-        get {
-            if(!this.HasProp("__bltFX"))
-                this.__bltFX := DDBLTFX(64, this)
-            return this.__bltFX
-        }
-    }
+    bltFX : DDBLTFX
 
     /**
      * Specifies the location in which the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_blt">DdBlt</a> callback. A return code of DD_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">Return Values for DirectDraw</a>.
-     * @type {HRESULT}
      */
-    ddRVal {
-        get => NumGet(this, 192, "int")
-        set => NumPut("int", value, this, 192)
-    }
+    ddRVal : HRESULT
 
     /**
      * Used by the DirectDraw API and should not be filled in by the driver.
-     * @type {Pointer<Void>}
      */
-    Blt {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    Blt : IntPtr
 
     /**
      * Indicates whether this is a clipped blit. On Windows 2000 and later, this member is always <b>FALSE</b>, indicating that the blit is unclipped.
-     * @type {BOOL}
      */
-    IsClipped {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
-    }
+    IsClipped : BOOL
 
     /**
      * <b>Unused for Windows 2000 and later.</b> Specifies a RECTL structure that defines the unclipped destination rectangle. This member is valid only if <b>IsClipped</b> is <b>TRUE</b>.
-     * @type {RECTL}
      */
-    rOrigDest {
-        get {
-            if(!this.HasProp("__rOrigDest"))
-                this.__rOrigDest := RECTL(212, this)
-            return this.__rOrigDest
-        }
-    }
+    rOrigDest : RECTL
 
     /**
      * <b>Unused for Windows 2000 and later.</b> Specifies a RECTL structure that defines the unclipped source rectangle. This member is valid only if <b>IsClipped</b> is <b>TRUE</b>.
-     * @type {RECTL}
      */
-    rOrigSrc {
-        get {
-            if(!this.HasProp("__rOrigSrc"))
-                this.__rOrigSrc := RECTL(228, this)
-            return this.__rOrigSrc
-        }
-    }
+    rOrigSrc : RECTL
 
     /**
      * <b>Unused for Windows 2000 and later.</b>Specifies the number of destination rectangles to which <b>prDestRects</b> points. This member is valid only if <b>IsClipped</b> is <b>TRUE</b>.
-     * @type {Integer}
      */
-    dwRectCnt {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    dwRectCnt : UInt32
 
     /**
      * <b>Unused for Windows 2000 and later.</b> Points to an array of RECTL structures that describe of destination rectangles. This member is valid only if <b>IsClipped</b> is <b>TRUE</b>.
-     * @type {Pointer<RECT>}
      */
-    prDestRects {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
-    }
+    prDestRects : RECT.Ptr
 
     /**
      * Unused and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwAFlags {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    dwAFlags : UInt32
 
     /**
      * ARGB scaling factors (AlphaBlt)
-     * @type {DDARGB}
      */
-    ddargbScaleFactors {
-        get {
-            if(!this.HasProp("__ddargbScaleFactors"))
-                this.__ddargbScaleFactors := DDARGB(260, this)
-            return this.__ddargbScaleFactors
-        }
-    }
+    ddargbScaleFactors : DDARGB
+
 }

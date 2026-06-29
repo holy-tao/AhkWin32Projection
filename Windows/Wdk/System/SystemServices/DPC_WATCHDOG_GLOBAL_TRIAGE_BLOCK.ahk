@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DPC_WATCHDOG_GLOBAL_TRIAGE_BLOCK extends Win32Struct {
-    static sizeof => 16
+export default struct DPC_WATCHDOG_GLOBAL_TRIAGE_BLOCK {
+    #StructPack 4
 
-    static packingSize => 4
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Revision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    DpcWatchdogProfileOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DpcWatchdogProfileOffset {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    DpcWatchdogProfileLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DpcWatchdogProfileLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

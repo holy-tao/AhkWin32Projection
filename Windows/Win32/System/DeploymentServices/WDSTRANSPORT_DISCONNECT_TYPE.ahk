@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates what action a WDS client should take when it is disconnected from the session.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_disconnect_type
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class WDSTRANSPORT_DISCONNECT_TYPE extends Win32Enum {
+export default struct WDSTRANSPORT_DISCONNECT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default value that indicates that the disconnection type is not known.

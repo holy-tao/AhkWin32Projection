@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CorrectionMode.ahk" { CorrectionMode }
+#Import ".\InPlaceState.ahk" { InPlaceState }
+#Import ".\PanelInputArea.ahk" { PanelInputArea }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Defines methods that handle the ITextInputPanel Interface events.
@@ -10,26 +17,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-itextinputpaneleventsink
  * @namespace Windows.Win32.UI.TabletPC
  */
-class ITextInputPanelEventSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextInputPanelEventSink extends IUnknown {
     /**
      * The interface identifier for ITextInputPanelEventSink
      * @type {Guid}
      */
-    static IID => Guid("{27560408-8e64-4fe1-804e-421201584b31}")
+    static IID := Guid("{27560408-8e64-4fe1-804e-421201584b31}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextInputPanelEventSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InPlaceStateChanging      : IntPtr
+        InPlaceStateChanged       : IntPtr
+        InPlaceSizeChanging       : IntPtr
+        InPlaceSizeChanged        : IntPtr
+        InputAreaChanging         : IntPtr
+        InputAreaChanged          : IntPtr
+        CorrectionModeChanging    : IntPtr
+        CorrectionModeChanged     : IntPtr
+        InPlaceVisibilityChanging : IntPtr
+        InPlaceVisibilityChanged  : IntPtr
+        TextInserting             : IntPtr
+        TextInserted              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InPlaceStateChanging", "InPlaceStateChanged", "InPlaceSizeChanging", "InPlaceSizeChanged", "InputAreaChanging", "InputAreaChanged", "CorrectionModeChanging", "CorrectionModeChanged", "InPlaceVisibilityChanging", "InPlaceVisibilityChanged", "TextInserting", "TextInserted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextInputPanelEventSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Occurs when the In-Place state is about to change.
@@ -68,7 +93,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacestatechanging
      */
     InPlaceStateChanging(oldInPlaceState, newInPlaceState) {
-        result := ComCall(3, this, "int", oldInPlaceState, "int", newInPlaceState, "HRESULT")
+        result := ComCall(3, this, InPlaceState, oldInPlaceState, InPlaceState, newInPlaceState, "HRESULT")
         return result
     }
 
@@ -109,7 +134,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacestatechanged
      */
     InPlaceStateChanged(oldInPlaceState, newInPlaceState) {
-        result := ComCall(4, this, "int", oldInPlaceState, "int", newInPlaceState, "HRESULT")
+        result := ComCall(4, this, InPlaceState, oldInPlaceState, InPlaceState, newInPlaceState, "HRESULT")
         return result
     }
 
@@ -152,7 +177,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacesizechanging
      */
     InPlaceSizeChanging(oldBoundingRectangle, newBoundingRectangle) {
-        result := ComCall(5, this, "ptr", oldBoundingRectangle, "ptr", newBoundingRectangle, "HRESULT")
+        result := ComCall(5, this, RECT, oldBoundingRectangle, RECT, newBoundingRectangle, "HRESULT")
         return result
     }
 
@@ -195,7 +220,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacesizechanged
      */
     InPlaceSizeChanged(oldBoundingRectangle, newBoundingRectangle) {
-        result := ComCall(6, this, "ptr", oldBoundingRectangle, "ptr", newBoundingRectangle, "HRESULT")
+        result := ComCall(6, this, RECT, oldBoundingRectangle, RECT, newBoundingRectangle, "HRESULT")
         return result
     }
 
@@ -236,7 +261,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inputareachanging
      */
     InputAreaChanging(oldInputArea, newInputArea) {
-        result := ComCall(7, this, "int", oldInputArea, "int", newInputArea, "HRESULT")
+        result := ComCall(7, this, PanelInputArea, oldInputArea, PanelInputArea, newInputArea, "HRESULT")
         return result
     }
 
@@ -277,7 +302,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inputareachanged
      */
     InputAreaChanged(oldInputArea, newInputArea) {
-        result := ComCall(8, this, "int", oldInputArea, "int", newInputArea, "HRESULT")
+        result := ComCall(8, this, PanelInputArea, oldInputArea, PanelInputArea, newInputArea, "HRESULT")
         return result
     }
 
@@ -322,7 +347,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-correctionmodechanging
      */
     CorrectionModeChanging(oldCorrectionMode, newCorrectionMode) {
-        result := ComCall(9, this, "int", oldCorrectionMode, "int", newCorrectionMode, "HRESULT")
+        result := ComCall(9, this, CorrectionMode, oldCorrectionMode, CorrectionMode, newCorrectionMode, "HRESULT")
         return result
     }
 
@@ -367,7 +392,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-correctionmodechanged
      */
     CorrectionModeChanged(oldCorrectionMode, newCorrectionMode) {
-        result := ComCall(10, this, "int", oldCorrectionMode, "int", newCorrectionMode, "HRESULT")
+        result := ComCall(10, this, CorrectionMode, oldCorrectionMode, CorrectionMode, newCorrectionMode, "HRESULT")
         return result
     }
 
@@ -408,7 +433,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacevisibilitychanging
      */
     InPlaceVisibilityChanging(oldVisible, newVisible) {
-        result := ComCall(11, this, "int", oldVisible, "int", newVisible, "HRESULT")
+        result := ComCall(11, this, BOOL, oldVisible, BOOL, newVisible, "HRESULT")
         return result
     }
 
@@ -449,7 +474,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacevisibilitychanged
      */
     InPlaceVisibilityChanged(oldVisible, newVisible) {
-        result := ComCall(12, this, "int", oldVisible, "int", newVisible, "HRESULT")
+        result := ComCall(12, this, BOOL, oldVisible, BOOL, newVisible, "HRESULT")
         return result
     }
 
@@ -491,7 +516,7 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserting
      */
     TextInserting(_Ink) {
-        result := ComCall(13, this, "ptr", _Ink, "HRESULT")
+        result := ComCall(13, this, SAFEARRAY.Ptr, _Ink, "HRESULT")
         return result
     }
 
@@ -533,7 +558,49 @@ class ITextInputPanelEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserted
      */
     TextInserted(_Ink) {
-        result := ComCall(14, this, "ptr", _Ink, "HRESULT")
+        result := ComCall(14, this, SAFEARRAY.Ptr, _Ink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextInputPanelEventSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InPlaceStateChanging := CallbackCreate(GetMethod(implObj, "InPlaceStateChanging"), flags, 3)
+        this.vtbl.InPlaceStateChanged := CallbackCreate(GetMethod(implObj, "InPlaceStateChanged"), flags, 3)
+        this.vtbl.InPlaceSizeChanging := CallbackCreate(GetMethod(implObj, "InPlaceSizeChanging"), flags, 3)
+        this.vtbl.InPlaceSizeChanged := CallbackCreate(GetMethod(implObj, "InPlaceSizeChanged"), flags, 3)
+        this.vtbl.InputAreaChanging := CallbackCreate(GetMethod(implObj, "InputAreaChanging"), flags, 3)
+        this.vtbl.InputAreaChanged := CallbackCreate(GetMethod(implObj, "InputAreaChanged"), flags, 3)
+        this.vtbl.CorrectionModeChanging := CallbackCreate(GetMethod(implObj, "CorrectionModeChanging"), flags, 3)
+        this.vtbl.CorrectionModeChanged := CallbackCreate(GetMethod(implObj, "CorrectionModeChanged"), flags, 3)
+        this.vtbl.InPlaceVisibilityChanging := CallbackCreate(GetMethod(implObj, "InPlaceVisibilityChanging"), flags, 3)
+        this.vtbl.InPlaceVisibilityChanged := CallbackCreate(GetMethod(implObj, "InPlaceVisibilityChanged"), flags, 3)
+        this.vtbl.TextInserting := CallbackCreate(GetMethod(implObj, "TextInserting"), flags, 2)
+        this.vtbl.TextInserted := CallbackCreate(GetMethod(implObj, "TextInserted"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InPlaceStateChanging)
+        CallbackFree(this.vtbl.InPlaceStateChanged)
+        CallbackFree(this.vtbl.InPlaceSizeChanging)
+        CallbackFree(this.vtbl.InPlaceSizeChanged)
+        CallbackFree(this.vtbl.InputAreaChanging)
+        CallbackFree(this.vtbl.InputAreaChanged)
+        CallbackFree(this.vtbl.CorrectionModeChanging)
+        CallbackFree(this.vtbl.CorrectionModeChanged)
+        CallbackFree(this.vtbl.InPlaceVisibilityChanging)
+        CallbackFree(this.vtbl.InPlaceVisibilityChanged)
+        CallbackFree(this.vtbl.TextInserting)
+        CallbackFree(this.vtbl.TextInserted)
     }
 }

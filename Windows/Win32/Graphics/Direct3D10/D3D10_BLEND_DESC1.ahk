@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_RENDER_TARGET_BLEND_DESC1.ahk
-#Include .\D3D10_BLEND.ahk
-#Include .\D3D10_BLEND_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_RENDER_TARGET_BLEND_DESC1.ahk" { D3D10_RENDER_TARGET_BLEND_DESC1 }
+#Import ".\D3D10_BLEND.ahk" { D3D10_BLEND }
+#Import ".\D3D10_BLEND_OP.ahk" { D3D10_BLEND_OP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the blend state for a Direct3D 10.1 device.
@@ -65,45 +65,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_BLEND_DESC1 extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 4
+export default struct D3D10_BLEND_DESC1 {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Determines whether or not to use the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">alpha-to-coverage</a> multisampling technique when setting a render-target pixel.
-     * @type {BOOL}
      */
-    AlphaToCoverageEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AlphaToCoverageEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Set to <b>TRUE</b> to enable independent blending in simultaneous render targets. If set to <b>FALSE</b>, only the RenderTarget[0] members are used. RenderTarget[1..7] are ignored.
-     * @type {BOOL}
      */
-    IndependentBlendEnable {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    IndependentBlendEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ns-d3d10_1-d3d10_render_target_blend_desc1">D3D10_RENDER_TARGET_BLEND_DESC1</a></b>
      * 
      * An array of render-target-blend descriptions (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ns-d3d10_1-d3d10_render_target_blend_desc1">D3D10_RENDER_TARGET_BLEND_DESC1</a>); these correspond to the eight rendertargets 
      *         that can be set to the output-merger stage at one time.
-     * @type {D3D10_RENDER_TARGET_BLEND_DESC1}
      */
-    RenderTarget {
-        get {
-            if(!this.HasProp("__RenderTargetProxyArray"))
-                this.__RenderTargetProxyArray := Win32FixedArray(this.ptr + 8, 8, D3D10_RENDER_TARGET_BLEND_DESC1, "")
-            return this.__RenderTargetProxyArray
-        }
-    }
+    RenderTarget : D3D10_RENDER_TARGET_BLEND_DESC1[8]
+
 }

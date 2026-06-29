@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines where the trace events are delivered.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-streammode
  * @namespace Windows.Win32.System.Performance
  */
-class StreamMode extends Win32Enum {
+export default struct StreamMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Write the trace events to a log file.

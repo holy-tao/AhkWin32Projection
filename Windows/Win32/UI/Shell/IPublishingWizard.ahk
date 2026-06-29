@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWizardExtension.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWizardExtension.ahk" { IWizardExtension }
 
 /**
  * Exposes methods for working with the Online Print Wizard, the Web Publishing Wizard, and the Add Network Place Wizard. In Windows Vista, IPublishingWizard no longer supports the Web Publishing Wizard or Online Print Wizard.
@@ -64,32 +68,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ipublishingwizard
  * @namespace Windows.Win32.UI.Shell
  */
-class IPublishingWizard extends IWizardExtension {
-
-    static sizeof => A_PtrSize
+export default struct IPublishingWizard extends IWizardExtension {
     /**
      * The interface identifier for IPublishingWizard
      * @type {Guid}
      */
-    static IID => Guid("{aa9198bb-ccec-472d-beed-19a4f6733f7a}")
+    static IID := Guid("{aa9198bb-ccec-472d-beed-19a4f6733f7a}")
 
     /**
      * The class identifier for PublishingWizard
      * @type {Guid}
      */
-    static CLSID => Guid("{6b33163c-76a5-4b6c-bf21-45de9cd503a1}")
+    static CLSID := Guid("{6b33163c-76a5-4b6c-bf21-45de9cd503a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPublishingWizard interfaces
+    */
+    struct Vtbl extends IWizardExtension.Vtbl {
+        Initialize          : IntPtr
+        GetTransferManifest : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetTransferManifest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPublishingWizard.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the Publishing Wizard object with the files to transfer, the settings to use, and the type of wizard to create.
@@ -201,7 +213,29 @@ class IPublishingWizard extends IWizardExtension {
     GetTransferManifest(phrFromTransfer, pdocManifest) {
         phrFromTransferMarshal := phrFromTransfer is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, "ptr*", pdocManifest, "HRESULT")
+        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, IXMLDOMDocument.Ptr, pdocManifest, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPublishingWizard.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetTransferManifest := CallbackCreate(GetMethod(implObj, "GetTransferManifest"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetTransferManifest)
     }
 }

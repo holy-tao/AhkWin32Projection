@@ -1,9 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DSurface9.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\D3DRASTER_STATUS.ahk" { D3DRASTER_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3DSwapChain9 (d3d9.h) interface is used by applications to manipulate a swap chain.
@@ -30,26 +38,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dswapchain9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DSwapChain9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DSwapChain9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DSwapChain9
      * @type {Guid}
      */
-    static IID => Guid("{794950f2-adfc-458a-905e-10a10b0b503b}")
+    static IID := Guid("{794950f2-adfc-458a-905e-10a10b0b503b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DSwapChain9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Present              : IntPtr
+        GetFrontBufferData   : IntPtr
+        GetBackBuffer        : IntPtr
+        GetRasterStatus      : IntPtr
+        GetDisplayMode       : IntPtr
+        GetDevice            : IntPtr
+        GetPresentParameters : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Present", "GetFrontBufferData", "GetBackBuffer", "GetRasterStatus", "GetDisplayMode", "GetDevice", "GetPresentParameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DSwapChain9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DSwapChain9::Present (d3d9.h) method presents the contents of the next buffer in the sequence of back buffers owned by the swap chain.
@@ -90,9 +111,7 @@ class IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-present
      */
     Present(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags) {
-        hDestWindowOverride := hDestWindowOverride is Win32Handle ? NumGet(hDestWindowOverride, "ptr") : hDestWindowOverride
-
-        result := ComCall(3, this, "ptr", pSourceRect, "ptr", pDestRect, "ptr", hDestWindowOverride, "ptr", pDirtyRegion, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -130,7 +149,7 @@ class IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getbackbuffer
      */
     GetBackBuffer(iBackBuffer, Type) {
-        result := ComCall(5, this, "uint", iBackBuffer, "int", Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        result := ComCall(5, this, "uint", iBackBuffer, D3DBACKBUFFER_TYPE, Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
         return IDirect3DSurface9(ppBackBuffer)
     }
 
@@ -145,7 +164,7 @@ class IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getrasterstatus
      */
     GetRasterStatus(pRasterStatus) {
-        result := ComCall(6, this, "ptr", pRasterStatus, "HRESULT")
+        result := ComCall(6, this, D3DRASTER_STATUS.Ptr, pRasterStatus, "HRESULT")
         return result
     }
 
@@ -160,7 +179,7 @@ class IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getdisplaymode
      */
     GetDisplayMode(pMode) {
-        result := ComCall(7, this, "ptr", pMode, "HRESULT")
+        result := ComCall(7, this, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -193,7 +212,39 @@ class IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getpresentparameters
      */
     GetPresentParameters(pPresentationParameters) {
-        result := ComCall(9, this, "ptr", pPresentationParameters, "HRESULT")
+        result := ComCall(9, this, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DSwapChain9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 6)
+        this.vtbl.GetFrontBufferData := CallbackCreate(GetMethod(implObj, "GetFrontBufferData"), flags, 2)
+        this.vtbl.GetBackBuffer := CallbackCreate(GetMethod(implObj, "GetBackBuffer"), flags, 4)
+        this.vtbl.GetRasterStatus := CallbackCreate(GetMethod(implObj, "GetRasterStatus"), flags, 2)
+        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 2)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetPresentParameters := CallbackCreate(GetMethod(implObj, "GetPresentParameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Present)
+        CallbackFree(this.vtbl.GetFrontBufferData)
+        CallbackFree(this.vtbl.GetBackBuffer)
+        CallbackFree(this.vtbl.GetRasterStatus)
+        CallbackFree(this.vtbl.GetDisplayMode)
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetPresentParameters)
     }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPPlayerServices interface provides methods used by the host of a remoted Windows Media Player control to manipulate the full mode of the Player. These methods can only be used with C++.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayerservices
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPPlayerServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPPlayerServices extends IUnknown {
     /**
      * The interface identifier for IWMPPlayerServices
      * @type {Guid}
      */
-    static IID => Guid("{1d01fbdb-ade2-4c8d-9842-c190b95c3306}")
+    static IID := Guid("{1d01fbdb-ade2-4c8d-9842-c190b95c3306}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPPlayerServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        activateUIPlugin : IntPtr
+        setTaskPane      : IntPtr
+        setTaskPaneURL   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["activateUIPlugin", "setTaskPane", "setTaskPaneURL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPPlayerServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The activateUIPlugin method activates the specified UI plug-in in the full mode of Windows Media Player.
@@ -55,7 +66,7 @@ class IWMPPlayerServices extends IUnknown {
     activateUIPlugin(bstrPlugin) {
         bstrPlugin := bstrPlugin is String ? BSTR.Alloc(bstrPlugin).Value : bstrPlugin
 
-        result := ComCall(3, this, "ptr", bstrPlugin, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrPlugin, "HRESULT")
         return result
     }
 
@@ -85,7 +96,7 @@ class IWMPPlayerServices extends IUnknown {
     setTaskPane(bstrTaskPane) {
         bstrTaskPane := bstrTaskPane is String ? BSTR.Alloc(bstrTaskPane).Value : bstrTaskPane
 
-        result := ComCall(4, this, "ptr", bstrTaskPane, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrTaskPane, "HRESULT")
         return result
     }
 
@@ -119,7 +130,31 @@ class IWMPPlayerServices extends IUnknown {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
         bstrFriendlyName := bstrFriendlyName is String ? BSTR.Alloc(bstrFriendlyName).Value : bstrFriendlyName
 
-        result := ComCall(5, this, "ptr", bstrTaskPane, "ptr", bstrURL, "ptr", bstrFriendlyName, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrTaskPane, BSTR, bstrURL, BSTR, bstrFriendlyName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPPlayerServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.activateUIPlugin := CallbackCreate(GetMethod(implObj, "activateUIPlugin"), flags, 2)
+        this.vtbl.setTaskPane := CallbackCreate(GetMethod(implObj, "setTaskPane"), flags, 2)
+        this.vtbl.setTaskPaneURL := CallbackCreate(GetMethod(implObj, "setTaskPaneURL"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.activateUIPlugin)
+        CallbackFree(this.vtbl.setTaskPane)
+        CallbackFree(this.vtbl.setTaskPaneURL)
     }
 }

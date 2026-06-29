@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING.ahk
-#Include .\WS_SECURITY_BINDING_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
-#Include .\WS_SAML_AUTHENTICATOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
+#Import ".\WS_SAML_AUTHENTICATOR.ahk" { WS_SAML_AUTHENTICATOR }
+#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
+#Import ".\WS_SECURITY_BINDING_TYPE.ahk" { WS_SECURITY_BINDING_TYPE }
 
 /**
  * The security binding subtype for specifying the use of a SAML assertion as a message security token.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_saml_message_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SAML_MESSAGE_SECURITY_BINDING extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_SAML_MESSAGE_SECURITY_BINDING {
+    #StructPack 8
 
     /**
      * The base type from which this security binding subtype and all other security binding subtypes derive.
-     * @type {WS_SECURITY_BINDING}
      */
-    binding {
-        get {
-            if(!this.HasProp("__binding"))
-                this.__binding := WS_SECURITY_BINDING(0, this)
-            return this.__binding
-        }
-    }
+    binding : WS_SECURITY_BINDING
 
     /**
      * How the security token corresponding to this security binding should be bound to a message.
@@ -41,20 +31,13 @@ class WS_SAML_MESSAGE_SECURITY_BINDING extends Win32Struct {
      *                 
      * 
      * To use this binding on HTTP without SSL, the security description property <b>WS_SECURITY_PROPERTY_TRANSPORT_PROTECTION_LEVEL</b> must be explicitly set to <b>WS_PROTECTION_LEVEL_NONE</b>. This is not supported on the client or on TCP.
-     * @type {WS_MESSAGE_SECURITY_USAGE}
      */
-    bindingUsage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bindingUsage : WS_MESSAGE_SECURITY_USAGE
 
     /**
      * The authenticator for validating incoming SAML tokens.  This field is
      * required.
-     * @type {Pointer<WS_SAML_AUTHENTICATOR>}
      */
-    authenticator {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    authenticator : WS_SAML_AUTHENTICATOR.Ptr
+
 }

@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOB_SET_ARRAY extends Win32Struct {
-    static sizeof => 16
+export default struct JOB_SET_ARRAY {
+    #StructPack 8
 
-    static packingSize => 8
+    JobHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    JobHandle {
-        get {
-            if(!this.HasProp("__JobHandle"))
-                this.__JobHandle := HANDLE(0, this)
-            return this.__JobHandle
-        }
-    }
+    MemberLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MemberLevel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

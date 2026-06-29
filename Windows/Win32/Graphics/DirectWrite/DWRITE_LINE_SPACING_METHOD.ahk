@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The method used for line spacing in a text layout.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_LINE_SPACING_METHOD extends Win32Enum {
+export default struct DWRITE_LINE_SPACING_METHOD {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Line spacing depends solely on the content, adjusting to accommodate the size of fonts and inline objects.

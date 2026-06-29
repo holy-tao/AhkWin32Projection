@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IWbemContext interface is optionally used to communicate additional context information to providers when submitting IWbemServices calls to WMI. All primary calls in IWbemServices take an optional parameter pointing to an object of this type.
@@ -41,8 +40,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemcontext
  * @namespace Windows.Win32.System.Wmi
  */
-class WbemContext extends Win32Struct {
-    static sizeof => 0
+export default struct WbemContext {
+    #StructPack 1
 
-    static packingSize => 1
 }

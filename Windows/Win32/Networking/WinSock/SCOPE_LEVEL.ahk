@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SCOPE_LEVEL enumeration is used with the IP_ADAPTER_ADDRESSES structure to identify scope levels for IPv6 addresses.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ne-ws2def-scope_level
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SCOPE_LEVEL extends Win32Enum {
+export default struct SCOPE_LEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The scope is interface-level.

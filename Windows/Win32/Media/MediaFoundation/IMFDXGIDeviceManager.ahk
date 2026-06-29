@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables two threads to share the same Microsoft Direct3D 11 device.
@@ -17,26 +19,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfdxgidevicemanager
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFDXGIDeviceManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFDXGIDeviceManager extends IUnknown {
     /**
      * The interface identifier for IMFDXGIDeviceManager
      * @type {Guid}
      */
-    static IID => Guid("{eb533d5d-2db6-40f8-97a9-494692014f07}")
+    static IID := Guid("{eb533d5d-2db6-40f8-97a9-494692014f07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFDXGIDeviceManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CloseDeviceHandle : IntPtr
+        GetVideoService   : IntPtr
+        LockDevice        : IntPtr
+        OpenDeviceHandle  : IntPtr
+        ResetDevice       : IntPtr
+        TestDevice        : IntPtr
+        UnlockDevice      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CloseDeviceHandle", "GetVideoService", "LockDevice", "OpenDeviceHandle", "ResetDevice", "TestDevice", "UnlockDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFDXGIDeviceManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Closes a Microsoft Direct3D device handle.
@@ -76,9 +91,7 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-closedevicehandle
      */
     CloseDeviceHandle(hDevice) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(3, this, "ptr", hDevice, "HRESULT")
+        result := ComCall(3, this, HANDLE, hDevice, "HRESULT")
         return result
     }
 
@@ -101,9 +114,7 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-getvideoservice
      */
     GetVideoService(hDevice, riid) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(4, this, "ptr", hDevice, "ptr", riid, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(4, this, HANDLE, hDevice, Guid.Ptr, riid, "ptr*", &ppService := 0, "HRESULT")
         return ppService
     }
 
@@ -134,9 +145,7 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-lockdevice
      */
     LockDevice(hDevice, riid, fBlock) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(5, this, "ptr", hDevice, "ptr", riid, "ptr*", &ppUnkDevice := 0, "int", fBlock, "HRESULT")
+        result := ComCall(5, this, HANDLE, hDevice, Guid.Ptr, riid, "ptr*", &ppUnkDevice := 0, BOOL, fBlock, "HRESULT")
         return ppUnkDevice
     }
 
@@ -146,8 +155,8 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle
      */
     OpenDeviceHandle() {
-        phDevice := HANDLE()
-        result := ComCall(6, this, "ptr", phDevice, "HRESULT")
+        phDevice := HANDLE.Owned()
+        result := ComCall(6, this, HANDLE.Ptr, phDevice, "HRESULT")
         return phDevice
     }
 
@@ -225,9 +234,7 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-testdevice
      */
     TestDevice(hDevice) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(8, this, "ptr", hDevice, "HRESULT")
+        result := ComCall(8, this, HANDLE, hDevice, "HRESULT")
         return result
     }
 
@@ -241,9 +248,39 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-unlockdevice
      */
     UnlockDevice(hDevice, fSaveState) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(9, this, "ptr", hDevice, "int", fSaveState, "HRESULT")
+        result := ComCall(9, this, HANDLE, hDevice, BOOL, fSaveState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFDXGIDeviceManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CloseDeviceHandle := CallbackCreate(GetMethod(implObj, "CloseDeviceHandle"), flags, 2)
+        this.vtbl.GetVideoService := CallbackCreate(GetMethod(implObj, "GetVideoService"), flags, 4)
+        this.vtbl.LockDevice := CallbackCreate(GetMethod(implObj, "LockDevice"), flags, 5)
+        this.vtbl.OpenDeviceHandle := CallbackCreate(GetMethod(implObj, "OpenDeviceHandle"), flags, 2)
+        this.vtbl.ResetDevice := CallbackCreate(GetMethod(implObj, "ResetDevice"), flags, 3)
+        this.vtbl.TestDevice := CallbackCreate(GetMethod(implObj, "TestDevice"), flags, 2)
+        this.vtbl.UnlockDevice := CallbackCreate(GetMethod(implObj, "UnlockDevice"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CloseDeviceHandle)
+        CallbackFree(this.vtbl.GetVideoService)
+        CallbackFree(this.vtbl.LockDevice)
+        CallbackFree(this.vtbl.OpenDeviceHandle)
+        CallbackFree(this.vtbl.ResetDevice)
+        CallbackFree(this.vtbl.TestDevice)
+        CallbackFree(this.vtbl.UnlockDevice)
     }
 }

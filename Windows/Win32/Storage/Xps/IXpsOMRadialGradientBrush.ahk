@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMGradientBrush.ahk
-#Include .\XPS_POINT.ahk
-#Include .\XPS_SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
 
 /**
  * Specifies a radial gradient.
@@ -61,26 +62,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
     /**
      * The interface identifier for IXpsOMRadialGradientBrush
      * @type {Guid}
      */
-    static IID => Guid("{75f207e5-08bf-413c-96b1-b82b4064176b}")
+    static IID := Guid("{75f207e5-08bf-413c-96b1-b82b4064176b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMRadialGradientBrush interfaces
+    */
+    struct Vtbl extends IXpsOMGradientBrush.Vtbl {
+        GetCenter         : IntPtr
+        SetCenter         : IntPtr
+        GetRadiiSizes     : IntPtr
+        SetRadiiSizes     : IntPtr
+        GetGradientOrigin : IntPtr
+        SetGradientOrigin : IntPtr
+        Clone             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCenter", "SetCenter", "GetRadiiSizes", "SetRadiiSizes", "GetGradientOrigin", "SetGradientOrigin", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMRadialGradientBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the center point of the radial gradient region ellipse.
@@ -95,7 +109,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
      */
     GetCenter() {
         center := XPS_POINT()
-        result := ComCall(17, this, "ptr", center, "HRESULT")
+        result := ComCall(17, this, XPS_POINT.Ptr, center, "HRESULT")
         return center
     }
 
@@ -152,7 +166,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setcenter
      */
     SetCenter(center) {
-        result := ComCall(18, this, "ptr", center, "HRESULT")
+        result := ComCall(18, this, XPS_POINT.Ptr, center, "HRESULT")
         return result
     }
 
@@ -197,7 +211,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
      */
     GetRadiiSizes() {
         radiiSizes := XPS_SIZE()
-        result := ComCall(19, this, "ptr", radiiSizes, "HRESULT")
+        result := ComCall(19, this, XPS_SIZE.Ptr, radiiSizes, "HRESULT")
         return radiiSizes
     }
 
@@ -282,7 +296,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setradiisizes
      */
     SetRadiiSizes(radiiSizes) {
-        result := ComCall(20, this, "ptr", radiiSizes, "HRESULT")
+        result := ComCall(20, this, XPS_SIZE.Ptr, radiiSizes, "HRESULT")
         return result
     }
 
@@ -299,7 +313,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
      */
     GetGradientOrigin() {
         origin := XPS_POINT()
-        result := ComCall(21, this, "ptr", origin, "HRESULT")
+        result := ComCall(21, this, XPS_POINT.Ptr, origin, "HRESULT")
         return origin
     }
 
@@ -356,7 +370,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setgradientorigin
      */
     SetGradientOrigin(origin) {
-        result := ComCall(22, this, "ptr", origin, "HRESULT")
+        result := ComCall(22, this, XPS_POINT.Ptr, origin, "HRESULT")
         return result
     }
 
@@ -370,5 +384,37 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
     Clone() {
         result := ComCall(23, this, "ptr*", &radialGradientBrush := 0, "HRESULT")
         return IXpsOMRadialGradientBrush(radialGradientBrush)
+    }
+
+    Query(iid) {
+        if (IXpsOMRadialGradientBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCenter := CallbackCreate(GetMethod(implObj, "GetCenter"), flags, 2)
+        this.vtbl.SetCenter := CallbackCreate(GetMethod(implObj, "SetCenter"), flags, 2)
+        this.vtbl.GetRadiiSizes := CallbackCreate(GetMethod(implObj, "GetRadiiSizes"), flags, 2)
+        this.vtbl.SetRadiiSizes := CallbackCreate(GetMethod(implObj, "SetRadiiSizes"), flags, 2)
+        this.vtbl.GetGradientOrigin := CallbackCreate(GetMethod(implObj, "GetGradientOrigin"), flags, 2)
+        this.vtbl.SetGradientOrigin := CallbackCreate(GetMethod(implObj, "SetGradientOrigin"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCenter)
+        CallbackFree(this.vtbl.SetCenter)
+        CallbackFree(this.vtbl.GetRadiiSizes)
+        CallbackFree(this.vtbl.SetRadiiSizes)
+        CallbackFree(this.vtbl.GetGradientOrigin)
+        CallbackFree(this.vtbl.SetGradientOrigin)
+        CallbackFree(this.vtbl.Clone)
     }
 }

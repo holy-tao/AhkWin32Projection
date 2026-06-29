@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputRacingWheelButtons.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputRacingWheelButtons.ahk" { GameInputRacingWheelButtons }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputRacingWheelState extends Win32Struct {
-    static sizeof => 28
+export default struct GameInputRacingWheelState {
+    #StructPack 4
 
-    static packingSize => 4
+    buttons : GameInputRacingWheelButtons
 
-    /**
-     * @type {GameInputRacingWheelButtons}
-     */
-    buttons {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    patternShifterGear : Int32
 
-    /**
-     * @type {Integer}
-     */
-    patternShifterGear {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    wheel : Float32
 
-    /**
-     * @type {Float}
-     */
-    wheel {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    throttle : Float32
 
-    /**
-     * @type {Float}
-     */
-    throttle {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    brake : Float32
 
-    /**
-     * @type {Float}
-     */
-    brake {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    clutch : Float32
 
-    /**
-     * @type {Float}
-     */
-    clutch {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    handbrake : Float32
 
-    /**
-     * @type {Float}
-     */
-    handbrake {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
 }

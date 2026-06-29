@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITLegacyCallMediaControl interface supports legacy applications that must communicate directly with a device. This interface is exposed on the Call Object and can be created by calling QueryInterface on ITBasicCallControl.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlegacycallmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITLegacyCallMediaControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITLegacyCallMediaControl extends IDispatch {
     /**
      * The interface identifier for ITLegacyCallMediaControl
      * @type {Guid}
      */
-    static IID => Guid("{d624582f-cc23-4436-b8a5-47c625c8045d}")
+    static IID := Guid("{d624582f-cc23-4436-b8a5-47c625c8045d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITLegacyCallMediaControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        DetectDigits   : IntPtr
+        GenerateDigits : IntPtr
+        GetID          : IntPtr
+        SetMediaType   : IntPtr
+        MonitorMedia   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DetectDigits", "GenerateDigits", "GetID", "SetMediaType", "MonitorMedia"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITLegacyCallMediaControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The DetectDigits method sets an identifier of the type of digits that will be detected on the current call, such as rotary pulse or DTMF.
@@ -136,7 +149,7 @@ class ITLegacyCallMediaControl extends IDispatch {
     GenerateDigits(pDigits, DigitMode) {
         pDigits := pDigits is String ? BSTR.Alloc(pDigits).Value : pDigits
 
-        result := ComCall(8, this, "ptr", pDigits, "int", DigitMode, "HRESULT")
+        result := ComCall(8, this, BSTR, pDigits, "int", DigitMode, "HRESULT")
         return result
     }
 
@@ -205,7 +218,7 @@ class ITLegacyCallMediaControl extends IDispatch {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
+        result := ComCall(9, this, BSTR, pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
         return result
     }
 
@@ -333,5 +346,33 @@ class ITLegacyCallMediaControl extends IDispatch {
     MonitorMedia(lMediaType) {
         result := ComCall(11, this, "int", lMediaType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITLegacyCallMediaControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DetectDigits := CallbackCreate(GetMethod(implObj, "DetectDigits"), flags, 2)
+        this.vtbl.GenerateDigits := CallbackCreate(GetMethod(implObj, "GenerateDigits"), flags, 3)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 4)
+        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
+        this.vtbl.MonitorMedia := CallbackCreate(GetMethod(implObj, "MonitorMedia"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DetectDigits)
+        CallbackFree(this.vtbl.GenerateDigits)
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.SetMediaType)
+        CallbackFree(this.vtbl.MonitorMedia)
     }
 }

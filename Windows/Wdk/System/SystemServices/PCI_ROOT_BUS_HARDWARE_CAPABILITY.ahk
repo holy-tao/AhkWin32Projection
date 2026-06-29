@@ -1,85 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PCI_HARDWARE_INTERFACE.ahk
-#Include .\PCI_BUS_WIDTH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PCI_HARDWARE_INTERFACE.ahk" { PCI_HARDWARE_INTERFACE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PCI_BUS_WIDTH.ahk" { PCI_BUS_WIDTH }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct {
-    static sizeof => 48
+export default struct PCI_ROOT_BUS_HARDWARE_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    SecondaryInterface : PCI_HARDWARE_INTERFACE
 
-    /**
-     * @type {PCI_HARDWARE_INTERFACE}
-     */
-    SecondaryInterface {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    BusCapabilitiesFound : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    BusCapabilitiesFound {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    CurrentSpeedAndMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentSpeedAndMode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SupportedSpeedsAndModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedSpeedsAndModes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DeviceIDMessagingCapable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DeviceIDMessagingCapable {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    SecondaryBusWidth : PCI_BUS_WIDTH
 
-    /**
-     * @type {PCI_BUS_WIDTH}
-     */
-    SecondaryBusWidth {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    OscFeatureSupport : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    OscFeatureSupport {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    OscControlRequest : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    OscControlRequest {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    OscControlGranted : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    OscControlGranted {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

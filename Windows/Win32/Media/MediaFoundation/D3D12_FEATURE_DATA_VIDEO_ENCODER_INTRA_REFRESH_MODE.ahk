@@ -1,83 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
-#Include .\D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk" { D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk" { D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE.ahk" { D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk" { D3D12_VIDEO_ENCODER_LEVELS_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk" { D3D12_VIDEO_ENCODER_PROFILE_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk" { D3D12_VIDEO_ENCODER_AV1_PROFILE }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk" { D3D12_VIDEO_ENCODER_LEVEL_SETTING }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_HEVC }
 
 /**
  * Retrieves a value indicating if the specified intra refresh mode is supported for the specified codec, profile, and level.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_intra_refresh_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE {
+    #StructPack 8
 
     /**
      * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
-     * @type {Integer}
      */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeIndex : UInt32
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which intra refresh mode support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
-    Codec {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Codec : D3D12_VIDEO_ENCODER_CODEC
 
     /**
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the profile for which intra refresh mode support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    Profile {
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
-            return this.__Profile
-        }
-    }
+    Profile : D3D12_VIDEO_ENCODER_PROFILE_DESC
 
     /**
      * A [D3D12_VIDEO_ENCODER_LEVEL_SETTING](ns-d3d12video-d3d12_video_encoder_level_setting.md) structure specifying the level for which intra refresh mode support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    Level {
-        get {
-            if(!this.HasProp("__Level"))
-                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(24, this)
-            return this.__Level
-        }
-    }
+    Level : D3D12_VIDEO_ENCODER_LEVEL_SETTING
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE](ne-d3d12video-d3d12_video_encoder_intra_refresh_mode.md) enumeration specifying the intra refresh mode for which support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE}
      */
-    IntraRefreshMode {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    IntraRefreshMode : D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE
 
     /**
      * Receives a boolean value indicating if the specified intra refresh mode is supported for the specified codec, profile, and level.
-     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    IsSupported : BOOL
+
 }

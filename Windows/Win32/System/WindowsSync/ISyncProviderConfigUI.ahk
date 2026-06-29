@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\ISyncProviderInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISyncProviderInfo.ahk" { ISyncProviderInfo }
 
 /**
  * Represents configuration UI information used to build and register a synchronization provider.
@@ -14,26 +16,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-isyncproviderconfigui
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncProviderConfigUI extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncProviderConfigUI extends IUnknown {
     /**
      * The interface identifier for ISyncProviderConfigUI
      * @type {Guid}
      */
-    static IID => Guid("{7b0705f6-cbcd-4071-ab05-3bdc364d4a0c}")
+    static IID := Guid("{7b0705f6-cbcd-4071-ab05-3bdc364d4a0c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncProviderConfigUI interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init                             : IntPtr
+        GetRegisteredProperties          : IntPtr
+        CreateAndRegisterNewSyncProvider : IntPtr
+        ModifySyncProvider               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "GetRegisteredProperties", "CreateAndRegisterNewSyncProvider", "ModifySyncProvider"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncProviderConfigUI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the configuration UI for a synchronization provider.
@@ -65,7 +77,7 @@ class ISyncProviderConfigUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-init
      */
     Init(pguidInstanceId, pguidContentType, pConfigurationProperties) {
-        result := ComCall(3, this, "ptr", pguidInstanceId, "ptr", pguidContentType, "ptr", pConfigurationProperties, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidInstanceId, Guid.Ptr, pguidContentType, "ptr", pConfigurationProperties, "HRESULT")
         return result
     }
 
@@ -88,9 +100,7 @@ class ISyncProviderConfigUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-createandregisternewsyncprovider
      */
     CreateAndRegisterNewSyncProvider(hwndParent, pUnkContext) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(5, this, "ptr", hwndParent, "ptr", pUnkContext, "ptr*", &ppProviderInfo := 0, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, "ptr", pUnkContext, "ptr*", &ppProviderInfo := 0, "HRESULT")
         return ISyncProviderInfo(ppProviderInfo)
     }
 
@@ -133,9 +143,33 @@ class ISyncProviderConfigUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-modifysyncprovider
      */
     ModifySyncProvider(hwndParent, pUnkContext, pProviderInfo) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(6, this, "ptr", hwndParent, "ptr", pUnkContext, "ptr", pProviderInfo, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, "ptr", pUnkContext, "ptr", pProviderInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncProviderConfigUI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
+        this.vtbl.GetRegisteredProperties := CallbackCreate(GetMethod(implObj, "GetRegisteredProperties"), flags, 2)
+        this.vtbl.CreateAndRegisterNewSyncProvider := CallbackCreate(GetMethod(implObj, "CreateAndRegisterNewSyncProvider"), flags, 4)
+        this.vtbl.ModifySyncProvider := CallbackCreate(GetMethod(implObj, "ModifySyncProvider"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.GetRegisteredProperties)
+        CallbackFree(this.vtbl.CreateAndRegisterNewSyncProvider)
+        CallbackFree(this.vtbl.ModifySyncProvider)
     }
 }

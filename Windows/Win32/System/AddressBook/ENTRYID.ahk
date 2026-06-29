@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * ENTRYID contains an entry identifier for a MAPI object. This article describes its syntax, members, and remarks.
@@ -50,10 +49,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/entryid
  * @namespace Windows.Win32.System.AddressBook
  */
-class ENTRYID extends Win32Struct {
-    static sizeof => 5
-
-    static packingSize => 1
+export default struct ENTRYID {
+    #StructPack 1
 
     /**
      * > Bitmask of flags that provide information that describes the object. Only the first byte of the flags, **abFlags[0]**, may be set by the provider; the other three are reserved. These flags must not be set for permanent entry identifiers; they are only set for short-term entry identifiers. To clients, this structure is read-only. The following flags can be set in **abFlags[0]**:
@@ -77,25 +74,12 @@ class ENTRYID extends Win32Struct {
      * MAPI_THISSESSION 
      *   
      * > The entry identifier cannot be used on other sessions.
-     * @type {Array<Integer>}
      */
-    abFlags {
-        get {
-            if(!this.HasProp("__abFlagsProxyArray"))
-                this.__abFlagsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__abFlagsProxyArray
-        }
-    }
+    abFlags : Int8[4]
 
     /**
      * > Indicates an array of binary data that is used by service providers. The client application cannot use this array.
-     * @type {Array<Integer>}
      */
-    ab {
-        get {
-            if(!this.HasProp("__abProxyArray"))
-                this.__abProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__abProxyArray
-        }
-    }
+    ab : Int8[1]
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Configurable options for the filter engine.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_ENGINE_OPTION extends Win32Enum {
+export default struct FWPM_ENGINE_OPTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The filter engine will collect WFP network events.

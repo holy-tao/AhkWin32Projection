@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDMDeviceControl interface provides methods for controlling playback on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmdevicecontrol
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMDeviceControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMDeviceControl extends IUnknown {
     /**
      * The interface identifier for IWMDMDeviceControl
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a04-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a04-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMDeviceControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStatus       : IntPtr
+        GetCapabilities : IntPtr
+        Play            : IntPtr
+        Record          : IntPtr
+        Pause           : IntPtr
+        Resume          : IntPtr
+        Stop            : IntPtr
+        Seek            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "GetCapabilities", "Play", "Record", "Pause", "Resume", "Stop", "Seek"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMDeviceControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetStatus method retrieves the control status of the device.
@@ -270,7 +286,7 @@ class IWMDMDeviceControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicecontrol-record
      */
     Record(pFormat) {
-        result := ComCall(6, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(6, this, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -557,5 +573,39 @@ class IWMDMDeviceControl extends IUnknown {
     Seek(fuMode, nOffset) {
         result := ComCall(10, this, "uint", fuMode, "int", nOffset, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMDeviceControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Record := CallbackCreate(GetMethod(implObj, "Record"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.Play)
+        CallbackFree(this.vtbl.Record)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Seek)
     }
 }

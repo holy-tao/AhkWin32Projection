@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The USB_USER_ERROR_CODE enumeration lists the error codes that a USB user-mode request reports when it fails.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ne-usbuser-usb_user_error_code
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_USER_ERROR_CODE extends Win32Enum {
+export default struct USB_USER_ERROR_CODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The user request succeeded.

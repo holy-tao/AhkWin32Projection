@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RECO_LATTICE_PROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RECO_LATTICE_PROPERTY.ahk" { RECO_LATTICE_PROPERTY }
 
 /**
  * Contains an array of pointers to property structures.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_properties
  * @namespace Windows.Win32.UI.TabletPC
  */
-class RECO_LATTICE_PROPERTIES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct RECO_LATTICE_PROPERTIES {
+    #StructPack 8
 
     /**
      * A count of the properties in the array of properties.
-     * @type {Integer}
      */
-    cProperties {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cProperties : UInt32
 
     /**
      * An array of pointers to properties.
-     * @type {Pointer<Pointer<RECO_LATTICE_PROPERTY>>}
      */
-    apProps {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    apProps : IntPtr
+
 }

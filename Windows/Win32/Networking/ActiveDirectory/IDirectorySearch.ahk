@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ADS_SEARCH_HANDLE.ahk
-#Include .\ADS_SEARCH_COLUMN.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADS_SEARCH_COLUMN.ahk" { ADS_SEARCH_COLUMN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ADS_SEARCHPREF_INFO.ahk" { ADS_SEARCHPREF_INFO }
+#Import ".\ADS_SEARCH_HANDLE.ahk" { ADS_SEARCH_HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectorySearch interface is a pure COM interface that provides a low overhead method that non-Automation clients can use to perform queries in the underlying directory.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectorysearch
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDirectorySearch extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectorySearch extends IUnknown {
     /**
      * The interface identifier for IDirectorySearch
      * @type {Guid}
      */
-    static IID => Guid("{109ba8ec-92f0-11d0-a790-00c04fd8d5a8}")
+    static IID := Guid("{109ba8ec-92f0-11d0-a790-00c04fd8d5a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectorySearch interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetSearchPreference : IntPtr
+        ExecuteSearch       : IntPtr
+        AbandonSearch       : IntPtr
+        GetFirstRow         : IntPtr
+        GetNextRow          : IntPtr
+        GetPreviousRow      : IntPtr
+        GetNextColumnName   : IntPtr
+        GetColumn           : IntPtr
+        FreeColumn          : IntPtr
+        CloseSearchHandle   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSearchPreference", "ExecuteSearch", "AbandonSearch", "GetFirstRow", "GetNextRow", "GetPreviousRow", "GetNextColumnName", "GetColumn", "FreeColumn", "CloseSearchHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectorySearch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a search preference for obtaining data in a subsequent search.
@@ -41,7 +60,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-setsearchpreference
      */
     SetSearchPreference(pSearchPrefs, dwNumPrefs) {
-        result := ComCall(3, this, "ptr", pSearchPrefs, "uint", dwNumPrefs, "HRESULT")
+        result := ComCall(3, this, ADS_SEARCHPREF_INFO.Ptr, pSearchPrefs, "uint", dwNumPrefs, "HRESULT")
         return result
     }
 
@@ -65,7 +84,7 @@ class IDirectorySearch extends IUnknown {
         pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
 
         phSearchResult := ADS_SEARCH_HANDLE()
-        result := ComCall(4, this, "ptr", pszSearchFilter, pAttributeNamesMarshal, pAttributeNames, "uint", dwNumberAttributes, "ptr", phSearchResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pszSearchFilter, pAttributeNamesMarshal, pAttributeNames, "uint", dwNumberAttributes, ADS_SEARCH_HANDLE.Ptr, phSearchResult, "HRESULT")
         return phSearchResult
     }
 
@@ -80,9 +99,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-abandonsearch
      */
     AbandonSearch(phSearchResult) {
-        phSearchResult := phSearchResult is Win32Handle ? NumGet(phSearchResult, "ptr") : phSearchResult
-
-        result := ComCall(5, this, "ptr", phSearchResult, "HRESULT")
+        result := ComCall(5, this, ADS_SEARCH_HANDLE, phSearchResult, "HRESULT")
         return result
     }
 
@@ -98,9 +115,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getfirstrow
      */
     GetFirstRow(hSearchResult) {
-        hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
-
-        result := ComCall(6, this, "ptr", hSearchResult, "int")
+        result := ComCall(6, this, ADS_SEARCH_HANDLE, hSearchResult, Int32)
         return result
     }
 
@@ -117,9 +132,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getnextrow
      */
     GetNextRow(hSearchResult) {
-        hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
-
-        result := ComCall(7, this, "ptr", hSearchResult, "int")
+        result := ComCall(7, this, ADS_SEARCH_HANDLE, hSearchResult, Int32)
         return result
     }
 
@@ -134,9 +147,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getpreviousrow
      */
     GetPreviousRow(hSearchResult) {
-        hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
-
-        result := ComCall(8, this, "ptr", hSearchResult, "int")
+        result := ComCall(8, this, ADS_SEARCH_HANDLE, hSearchResult, Int32)
         return result
     }
 
@@ -149,9 +160,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getnextcolumnname
      */
     GetNextColumnName(hSearchHandle) {
-        hSearchHandle := hSearchHandle is Win32Handle ? NumGet(hSearchHandle, "ptr") : hSearchHandle
-
-        result := ComCall(9, this, "ptr", hSearchHandle, "ptr*", &ppszColumnName := 0, "int")
+        result := ComCall(9, this, ADS_SEARCH_HANDLE, hSearchHandle, PWSTR.Ptr, &ppszColumnName := 0, Int32)
         return ppszColumnName
     }
 
@@ -167,11 +176,10 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getcolumn
      */
     GetColumn(hSearchResult, szColumnName) {
-        hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
         szColumnName := szColumnName is String ? StrPtr(szColumnName) : szColumnName
 
         pSearchColumn := ADS_SEARCH_COLUMN()
-        result := ComCall(10, this, "ptr", hSearchResult, "ptr", szColumnName, "ptr", pSearchColumn, "HRESULT")
+        result := ComCall(10, this, ADS_SEARCH_HANDLE, hSearchResult, "ptr", szColumnName, ADS_SEARCH_COLUMN.Ptr, pSearchColumn, "HRESULT")
         return pSearchColumn
     }
 
@@ -184,7 +192,7 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-freecolumn
      */
     FreeColumn(pSearchColumn) {
-        result := ComCall(11, this, "ptr", pSearchColumn, "HRESULT")
+        result := ComCall(11, this, ADS_SEARCH_COLUMN.Ptr, pSearchColumn, "HRESULT")
         return result
     }
 
@@ -201,9 +209,45 @@ class IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-closesearchhandle
      */
     CloseSearchHandle(hSearchResult) {
-        hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
-
-        result := ComCall(12, this, "ptr", hSearchResult, "HRESULT")
+        result := ComCall(12, this, ADS_SEARCH_HANDLE, hSearchResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectorySearch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSearchPreference := CallbackCreate(GetMethod(implObj, "SetSearchPreference"), flags, 3)
+        this.vtbl.ExecuteSearch := CallbackCreate(GetMethod(implObj, "ExecuteSearch"), flags, 5)
+        this.vtbl.AbandonSearch := CallbackCreate(GetMethod(implObj, "AbandonSearch"), flags, 2)
+        this.vtbl.GetFirstRow := CallbackCreate(GetMethod(implObj, "GetFirstRow"), flags, 2)
+        this.vtbl.GetNextRow := CallbackCreate(GetMethod(implObj, "GetNextRow"), flags, 2)
+        this.vtbl.GetPreviousRow := CallbackCreate(GetMethod(implObj, "GetPreviousRow"), flags, 2)
+        this.vtbl.GetNextColumnName := CallbackCreate(GetMethod(implObj, "GetNextColumnName"), flags, 3)
+        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 4)
+        this.vtbl.FreeColumn := CallbackCreate(GetMethod(implObj, "FreeColumn"), flags, 2)
+        this.vtbl.CloseSearchHandle := CallbackCreate(GetMethod(implObj, "CloseSearchHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSearchPreference)
+        CallbackFree(this.vtbl.ExecuteSearch)
+        CallbackFree(this.vtbl.AbandonSearch)
+        CallbackFree(this.vtbl.GetFirstRow)
+        CallbackFree(this.vtbl.GetNextRow)
+        CallbackFree(this.vtbl.GetPreviousRow)
+        CallbackFree(this.vtbl.GetNextColumnName)
+        CallbackFree(this.vtbl.GetColumn)
+        CallbackFree(this.vtbl.FreeColumn)
+        CallbackFree(this.vtbl.CloseSearchHandle)
     }
 }

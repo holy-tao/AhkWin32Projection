@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Applies a filter to the token when a process impersonates a client. Requires at least one of the following members to be set: <b>SidsToDisable</b>, <b>PrivilegesToDelete</b>, or <b>RestrictedSids</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_security_limit_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOB_OBJECT_SECURITY extends Win32BitflagEnum {
+export default struct JOB_OBJECT_SECURITY {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

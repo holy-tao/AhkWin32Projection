@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE structure contains information that identifies the device type by category, sub-category, and a manufacturer specific OUI (Organization ID).
  * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ns-wcntypes-wcn_value_type_primary_device_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  */
-class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE {
+    #StructPack 4
 
     /**
      * Specifies the primary device type category. This data is supplied in network byte order.
@@ -156,12 +153,8 @@ class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Category {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Category : UInt16
 
     /**
      * Specifies the unique manufacturer OUI associated with the device.
@@ -183,12 +176,8 @@ class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SubCategoryOUI {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SubCategoryOUI : UInt32
 
     /**
      * Specifies the primary device type sub-category. This data is supplied in network byte order. If <b>SubCategoryOUI</b> is equal to <b>WCN_VALUE_DT_SUBTYPE_WIFI_OUI</b>, then any of the values below are valid. Otherwise, the SubCategory has been defined by the vendor.
@@ -1063,10 +1052,7 @@ class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SubCategory {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    SubCategory : UInt16
+
 }

@@ -1,37 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFTimedTextBinary.ahk
-#Include .\IMFTimedTextRegion.ahk
-#Include .\IMFTimedTextStyle.ahk
-#Include .\IMFTimedTextFormattedText.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTimedTextBinary.ahk" { IMFTimedTextBinary }
+#Import ".\IMFTimedTextFormattedText.ahk" { IMFTimedTextFormattedText }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
+#Import ".\IMFTimedTextRegion.ahk" { IMFTimedTextRegion }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTimedTextStyle.ahk" { IMFTimedTextStyle }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the timed-text-cue object.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextcue
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTimedTextCue extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTimedTextCue extends IUnknown {
     /**
      * The interface identifier for IMFTimedTextCue
      * @type {Guid}
      */
-    static IID => Guid("{1e560447-9a2b-43e1-a94c-b0aaabfbfbc9}")
+    static IID := Guid("{1e560447-9a2b-43e1-a94c-b0aaabfbfbc9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTimedTextCue interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetId         : IntPtr
+        GetOriginalId : IntPtr
+        GetCueKind    : IntPtr
+        GetStartTime  : IntPtr
+        GetDuration   : IntPtr
+        GetTrackId    : IntPtr
+        GetData       : IntPtr
+        GetRegion     : IntPtr
+        GetStyle      : IntPtr
+        GetLineCount  : IntPtr
+        GetLine       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetId", "GetOriginalId", "GetCueKind", "GetStartTime", "GetDuration", "GetTrackId", "GetData", "GetRegion", "GetStyle", "GetLineCount", "GetLine"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTimedTextCue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the identifier of a timed-text cue.
@@ -44,7 +64,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getid
      */
     GetId() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -58,7 +78,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getoriginalid
      */
     GetOriginalId() {
-        result := ComCall(4, this, "ptr*", &originalId := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &originalId := 0, "HRESULT")
         return originalId
     }
 
@@ -70,7 +90,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getcuekind
      */
     GetCueKind() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, MF_TIMED_TEXT_TRACK_KIND)
         return result
     }
 
@@ -82,7 +102,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getstarttime
      */
     GetStartTime() {
-        result := ComCall(6, this, "double")
+        result := ComCall(6, this, Float64)
         return result
     }
 
@@ -94,7 +114,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getduration
      */
     GetDuration() {
-        result := ComCall(7, this, "double")
+        result := ComCall(7, this, Float64)
         return result
     }
 
@@ -106,7 +126,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-gettrackid
      */
     GetTrackId() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, UInt32)
         return result
     }
 
@@ -154,7 +174,7 @@ class IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getlinecount
      */
     GetLineCount() {
-        result := ComCall(12, this, "uint")
+        result := ComCall(12, this, UInt32)
         return result
     }
 
@@ -171,5 +191,45 @@ class IMFTimedTextCue extends IUnknown {
     GetLine(index) {
         result := ComCall(13, this, "uint", index, "ptr*", &line := 0, "HRESULT")
         return IMFTimedTextFormattedText(line)
+    }
+
+    Query(iid) {
+        if (IMFTimedTextCue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 1)
+        this.vtbl.GetOriginalId := CallbackCreate(GetMethod(implObj, "GetOriginalId"), flags, 2)
+        this.vtbl.GetCueKind := CallbackCreate(GetMethod(implObj, "GetCueKind"), flags, 1)
+        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 1)
+        this.vtbl.GetTrackId := CallbackCreate(GetMethod(implObj, "GetTrackId"), flags, 1)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.GetRegion := CallbackCreate(GetMethod(implObj, "GetRegion"), flags, 2)
+        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 2)
+        this.vtbl.GetLineCount := CallbackCreate(GetMethod(implObj, "GetLineCount"), flags, 1)
+        this.vtbl.GetLine := CallbackCreate(GetMethod(implObj, "GetLine"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetOriginalId)
+        CallbackFree(this.vtbl.GetCueKind)
+        CallbackFree(this.vtbl.GetStartTime)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.GetTrackId)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.GetRegion)
+        CallbackFree(this.vtbl.GetStyle)
+        CallbackFree(this.vtbl.GetLineCount)
+        CallbackFree(this.vtbl.GetLine)
     }
 }

@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\SECPKG_SURROGATE_LOGON_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SECPKG_SURROGATE_LOGON_ENTRY.ahk" { SECPKG_SURROGATE_LOGON_ENTRY }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_SURROGATE_LOGON extends Win32Struct {
-    static sizeof => 24
+export default struct SECPKG_SURROGATE_LOGON {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SurrogateLogonID : LUID
 
-    /**
-     * @type {LUID}
-     */
-    SurrogateLogonID {
-        get {
-            if(!this.HasProp("__SurrogateLogonID"))
-                this.__SurrogateLogonID := LUID(4, this)
-            return this.__SurrogateLogonID
-        }
-    }
+    EntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntryCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Entries : SECPKG_SURROGATE_LOGON_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<SECPKG_SURROGATE_LOGON_ENTRY>}
-     */
-    Entries {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

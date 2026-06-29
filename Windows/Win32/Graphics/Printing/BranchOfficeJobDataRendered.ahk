@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BranchOfficeJobDataRendered extends Win32Struct {
-    static sizeof => 24
+export default struct BranchOfficeJobDataRendered {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    ICMMethod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ICMMethod {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Color : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Color {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
+    PrintQuality : Int16
 
-    /**
-     * @type {Integer}
-     */
-    PrintQuality {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
+    YResolution : Int16
 
-    /**
-     * @type {Integer}
-     */
-    YResolution {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    Copies : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Copies {
-        get => NumGet(this, 18, "short")
-        set => NumPut("short", value, this, 18)
-    }
+    TTOption : Int16
 
-    /**
-     * @type {Integer}
-     */
-    TTOption {
-        get => NumGet(this, 20, "short")
-        set => NumPut("short", value, this, 20)
-    }
 }

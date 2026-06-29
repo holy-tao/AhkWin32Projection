@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_ADAPTER_SERIAL_NUMBER extends Win32Struct {
-    static sizeof => 264
+export default struct STORAGE_ADAPTER_SERIAL_NUMBER {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SerialNumber : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    SerialNumber {
-        get => StrGet(this.ptr + 8, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 127, "UTF-16")
-    }
 }

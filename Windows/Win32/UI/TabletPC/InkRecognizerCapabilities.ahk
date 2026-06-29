@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the attributes of a recognizer. You also use this enumeration to determine which attributes to use when you search for an installed recognizer.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognizercapabilities
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkRecognizerCapabilities extends Win32Enum {
+export default struct InkRecognizerCapabilities {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Ignores all other flags that are set.

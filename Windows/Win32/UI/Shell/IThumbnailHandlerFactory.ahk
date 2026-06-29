@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method for retrieving the thumbnail handler of an item. Implement this interface if you want to specify what extractor is used for a child IDList.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ithumbnailhandlerfactory
  * @namespace Windows.Win32.UI.Shell
  */
-class IThumbnailHandlerFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IThumbnailHandlerFactory extends IUnknown {
     /**
      * The interface identifier for IThumbnailHandlerFactory
      * @type {Guid}
      */
-    static IID => Guid("{e35b4b2e-00da-4bc1-9f13-38bc11f5d417}")
+    static IID := Guid("{e35b4b2e-00da-4bc1-9f13-38bc11f5d417}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IThumbnailHandlerFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetThumbnailHandler : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetThumbnailHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IThumbnailHandlerFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the requested thumbnail handler for the thumbnail of a given item.
@@ -48,7 +58,27 @@ class IThumbnailHandlerFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ithumbnailhandlerfactory-getthumbnailhandler
      */
     GetThumbnailHandler(pidlChild, pbc, riid) {
-        result := ComCall(3, this, "ptr", pidlChild, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidlChild, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IThumbnailHandlerFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetThumbnailHandler := CallbackCreate(GetMethod(implObj, "GetThumbnailHandler"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetThumbnailHandler)
     }
 }

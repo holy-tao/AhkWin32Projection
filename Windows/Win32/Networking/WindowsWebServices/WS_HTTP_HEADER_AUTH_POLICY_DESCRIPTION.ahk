@@ -1,56 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
-#Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_PROPERTY.ahk
-#Include .\WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_SECURITY_BINDING_PROPERTIES.ahk" { WS_SECURITY_BINDING_PROPERTIES }
+#Import ".\WS_SECURITY_PROPERTY.ahk" { WS_SECURITY_PROPERTY }
+#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
+#Import ".\WS_CHANNEL_PROPERTIES.ahk" { WS_CHANNEL_PROPERTIES }
+#Import ".\WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION.ahk" { WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION }
+#Import ".\WS_SECURITY_PROPERTIES.ahk" { WS_SECURITY_PROPERTIES }
 
 /**
  * Describes the policy specifying http channel binding. (WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION)
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_header_auth_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION {
+    #StructPack 8
 
     /**
      * Template description for the channel properties specified in policy.
-     * @type {WS_CHANNEL_PROPERTIES}
      */
-    channelProperties {
-        get {
-            if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
-            return this.__channelProperties
-        }
-    }
+    channelProperties : WS_CHANNEL_PROPERTIES
 
     /**
      * Template description for the security properties specified in policy.
-     * @type {WS_SECURITY_PROPERTIES}
      */
-    securityProperties {
-        get {
-            if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
-            return this.__securityProperties
-        }
-    }
+    securityProperties : WS_SECURITY_PROPERTIES
 
     /**
      * header authentication security binding description.
-     * @type {WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION}
      */
-    httpHeaderAuthSecurityBinding {
-        get {
-            if(!this.HasProp("__httpHeaderAuthSecurityBinding"))
-                this.__httpHeaderAuthSecurityBinding := WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION(32, this)
-            return this.__httpHeaderAuthSecurityBinding
-        }
-    }
+    httpHeaderAuthSecurityBinding : WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION
+
 }

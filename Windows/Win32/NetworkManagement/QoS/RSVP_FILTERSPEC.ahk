@@ -1,85 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FilterType.ahk
-#Include .\RSVP_FILTERSPEC_V4.ahk
-#Include .\IN_ADDR_IPV4.ahk
-#Include .\RSVP_FILTERSPEC_V6.ahk
-#Include .\IN_ADDR_IPV6.ahk
-#Include .\RSVP_FILTERSPEC_V6_FLOW.ahk
-#Include .\RSVP_FILTERSPEC_V4_GPI.ahk
-#Include .\RSVP_FILTERSPEC_V6_GPI.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FilterType.ahk" { FilterType }
+#Import ".\RSVP_FILTERSPEC_V4_GPI.ahk" { RSVP_FILTERSPEC_V4_GPI }
+#Import ".\IN_ADDR_IPV4.ahk" { IN_ADDR_IPV4 }
+#Import ".\RSVP_FILTERSPEC_V6_FLOW.ahk" { RSVP_FILTERSPEC_V6_FLOW }
+#Import ".\RSVP_FILTERSPEC_V6.ahk" { RSVP_FILTERSPEC_V6 }
+#Import ".\RSVP_FILTERSPEC_V6_GPI.ahk" { RSVP_FILTERSPEC_V6_GPI }
+#Import ".\IN_ADDR_IPV6.ahk" { IN_ADDR_IPV6 }
+#Import ".\RSVP_FILTERSPEC_V4.ahk" { RSVP_FILTERSPEC_V4 }
 
 /**
  * The RSVP_FILTERSPEC structure provides RSVP FILTERSPEC information.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_filterspec
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class RSVP_FILTERSPEC extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct RSVP_FILTERSPEC {
+    #StructPack 4
 
     /**
      * Specifies the type of FILTERSPEC using the <b>FilterSpec</b> enumeration.
-     * @type {FilterType}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : FilterType
 
-    /**
-     * @type {RSVP_FILTERSPEC_V4}
-     */
-    FilterSpecV4 {
-        get {
-            if(!this.HasProp("__FilterSpecV4"))
-                this.__FilterSpecV4 := RSVP_FILTERSPEC_V4(4, this)
-            return this.__FilterSpecV4
-        }
-    }
+    FilterSpecV4 : RSVP_FILTERSPEC_V4
 
-    /**
-     * @type {RSVP_FILTERSPEC_V6}
-     */
-    FilterSpecV6 {
-        get {
-            if(!this.HasProp("__FilterSpecV6"))
-                this.__FilterSpecV6 := RSVP_FILTERSPEC_V6(4, this)
-            return this.__FilterSpecV6
-        }
-    }
-
-    /**
-     * @type {RSVP_FILTERSPEC_V6_FLOW}
-     */
-    FilterSpecV6Flow {
-        get {
-            if(!this.HasProp("__FilterSpecV6Flow"))
-                this.__FilterSpecV6Flow := RSVP_FILTERSPEC_V6_FLOW(4, this)
-            return this.__FilterSpecV6Flow
-        }
-    }
-
-    /**
-     * @type {RSVP_FILTERSPEC_V4_GPI}
-     */
-    FilterSpecV4Gpi {
-        get {
-            if(!this.HasProp("__FilterSpecV4Gpi"))
-                this.__FilterSpecV4Gpi := RSVP_FILTERSPEC_V4_GPI(4, this)
-            return this.__FilterSpecV4Gpi
-        }
-    }
-
-    /**
-     * @type {RSVP_FILTERSPEC_V6_GPI}
-     */
-    FilterSpecV6Gpi {
-        get {
-            if(!this.HasProp("__FilterSpecV6Gpi"))
-                this.__FilterSpecV6Gpi := RSVP_FILTERSPEC_V6_GPI(4, this)
-            return this.__FilterSpecV6Gpi
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'FilterSpecV6', { type: RSVP_FILTERSPEC_V6, offset: 4 })
+        DefineProp(this.Prototype, 'FilterSpecV6Flow', { type: RSVP_FILTERSPEC_V6_FLOW, offset: 4 })
+        DefineProp(this.Prototype, 'FilterSpecV4Gpi', { type: RSVP_FILTERSPEC_V4_GPI, offset: 4 })
+        DefineProp(this.Prototype, 'FilterSpecV6Gpi', { type: RSVP_FILTERSPEC_V6_GPI, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

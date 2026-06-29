@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPersistFolder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPersistFolder.ahk" { IPersistFolder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 
 /**
  * Exposes methods that obtain information from Shell folder objects.
@@ -13,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistfolder2
  * @namespace Windows.Win32.UI.Shell
  */
-class IPersistFolder2 extends IPersistFolder {
-
-    static sizeof => A_PtrSize
+export default struct IPersistFolder2 extends IPersistFolder {
     /**
      * The interface identifier for IPersistFolder2
      * @type {Guid}
      */
-    static IID => Guid("{1ac3d9f0-175c-11d1-95be-00609797ea4f}")
+    static IID := Guid("{1ac3d9f0-175c-11d1-95be-00609797ea4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistFolder2 interfaces
+    */
+    struct Vtbl extends IPersistFolder.Vtbl {
+        GetCurFolder : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurFolder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistFolder2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ITEMIDLIST for the folder object.
@@ -46,5 +55,25 @@ class IPersistFolder2 extends IPersistFolder {
     GetCurFolder() {
         result := ComCall(5, this, "ptr*", &ppidl := 0, "HRESULT")
         return ppidl
+    }
+
+    Query(iid) {
+        if (IPersistFolder2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurFolder := CallbackCreate(GetMethod(implObj, "GetCurFolder"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurFolder)
     }
 }

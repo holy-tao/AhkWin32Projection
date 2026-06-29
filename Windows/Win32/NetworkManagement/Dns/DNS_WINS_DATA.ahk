@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DNS_WINS_DATA structure represents a DNS Windows Internet Name Service (WINS) record.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wins_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_WINS_DATA extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DNS_WINS_DATA {
+    #StructPack 4
 
     /**
      * The WINS mapping flag that specifies whether the record must be included in zone replication. <b>dwMappingFlag</b> must be one of these mutually exclusive values:
@@ -44,49 +41,27 @@ class DNS_WINS_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMappingFlag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMappingFlag : UInt32
 
     /**
      * The time, in seconds, that a DNS Server attempts resolution using WINS lookup.
-     * @type {Integer}
      */
-    dwLookupTimeout {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLookupTimeout : UInt32
 
     /**
      * The time, in seconds, that a DNS Server using WINS lookup may cache the WINS Server's response.
-     * @type {Integer}
      */
-    dwCacheTimeout {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCacheTimeout : UInt32
 
     /**
      * The number of WINS Servers listed in <b>WinsServers</b>.
-     * @type {Integer}
      */
-    cWinsServerCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cWinsServerCount : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-ip4_array">IP4_ARRAY</a> structures that contain the IPv4 address of the WINS lookup Servers.
-     * @type {Array<Integer>}
      */
-    WinsServers {
-        get {
-            if(!this.HasProp("__WinsServersProxyArray"))
-                this.__WinsServersProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
-            return this.__WinsServersProxyArray
-        }
-    }
+    WinsServers : UInt32[1]
+
 }

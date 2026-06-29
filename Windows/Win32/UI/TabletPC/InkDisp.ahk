@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * InkDisp class - Represents the collected strokes of ink within an ink space.
@@ -21,8 +20,7 @@
  * @see https://learn.microsoft.com/windows/win32/tablet/inkdisp-class
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkDisp extends Win32Struct {
-    static sizeof => 0
+export default struct InkDisp {
+    #StructPack 1
 
-    static packingSize => 1
 }

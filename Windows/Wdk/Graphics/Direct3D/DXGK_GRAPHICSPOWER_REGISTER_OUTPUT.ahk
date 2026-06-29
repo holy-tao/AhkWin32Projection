@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_GRAPHICSPOWER_REGISTER_OUTPUT extends Win32Struct {
-    static sizeof => 32
+export default struct DXGK_GRAPHICSPOWER_REGISTER_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InitialGrfxPowerState : DEVICE_POWER_STATE
 
-    /**
-     * @type {DEVICE_POWER_STATE}
-     */
-    InitialGrfxPowerState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    SetSharedPowerComponentStateCb : IntPtr
 
-    /**
-     * @type {Pointer<PDXGK_SET_SHARED_POWER_COMPONENT_STATE>}
-     */
-    SetSharedPowerComponentStateCb {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    UnregisterCb : IntPtr
 
-    /**
-     * @type {Pointer<PDXGK_GRAPHICSPOWER_UNREGISTER>}
-     */
-    UnregisterCb {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

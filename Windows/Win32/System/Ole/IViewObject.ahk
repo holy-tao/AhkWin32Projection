@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
 
 /**
  * Enables an object to display itself directly without passing a data object to the caller. In addition, this interface can create and manage a connection with an advise sink so the caller can be notified of changes in the view object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iviewobject
  * @namespace Windows.Win32.System.Ole
  */
-class IViewObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IViewObject extends IUnknown {
     /**
      * The interface identifier for IViewObject
      * @type {Guid}
      */
-    static IID => Guid("{0000010d-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000010d-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IViewObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Draw        : IntPtr
+        GetColorSet : IntPtr
+        Freeze      : IntPtr
+        Unfreeze    : IntPtr
+        SetAdvise   : IntPtr
+        GetAdvise   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Draw", "GetColorSet", "Freeze", "Unfreeze", "SetAdvise", "GetAdvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IViewObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Draws a representation of an object onto the specified device context.
@@ -137,12 +156,9 @@ class IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-draw
      */
     Draw(dwDrawAspect, lindex, pvAspect, ptd, hdcTargetDev, hdcDraw, lprcBounds, lprcWBounds, pfnContinue, dwContinue) {
-        hdcTargetDev := hdcTargetDev is Win32Handle ? NumGet(hdcTargetDev, "ptr") : hdcTargetDev
-        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
-
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcTargetDev, "ptr", hdcDraw, "ptr", lprcBounds, "ptr", lprcWBounds, "ptr", pfnContinue, "ptr", dwContinue, "HRESULT")
+        result := ComCall(3, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcTargetDev, HDC, hdcDraw, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, "ptr", pfnContinue, "ptr", dwContinue, "HRESULT")
         return result
     }
 
@@ -161,11 +177,9 @@ class IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-getcolorset
      */
     GetColorSet(dwDrawAspect, lindex, pvAspect, ptd, hicTargetDev) {
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
+        result := ComCall(4, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
         return ppColorSet
     }
 
@@ -188,7 +202,7 @@ class IViewObject extends IUnknown {
     Freeze(dwDrawAspect, lindex, pvAspect) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "uint*", &pdwFreeze := 0, "HRESULT")
+        result := ComCall(5, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "uint*", &pdwFreeze := 0, "HRESULT")
         return pdwFreeze
     }
 
@@ -320,7 +334,7 @@ class IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-setadvise
      */
     SetAdvise(aspects, _advf, pAdvSink) {
-        result := ComCall(7, this, "uint", aspects, "uint", _advf, "ptr", pAdvSink, "HRESULT")
+        result := ComCall(7, this, DVASPECT, aspects, "uint", _advf, "ptr", pAdvSink, "HRESULT")
         return result
     }
 
@@ -336,7 +350,37 @@ class IViewObject extends IUnknown {
         pAspectsMarshal := pAspects is VarRef ? "uint*" : "ptr"
         pAdvfMarshal := pAdvf is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pAspectsMarshal, pAspects, pAdvfMarshal, pAdvf, "ptr*", ppAdvSink, "HRESULT")
+        result := ComCall(8, this, pAspectsMarshal, pAspects, pAdvfMarshal, pAdvf, IAdviseSink.Ptr, ppAdvSink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IViewObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 11)
+        this.vtbl.GetColorSet := CallbackCreate(GetMethod(implObj, "GetColorSet"), flags, 7)
+        this.vtbl.Freeze := CallbackCreate(GetMethod(implObj, "Freeze"), flags, 5)
+        this.vtbl.Unfreeze := CallbackCreate(GetMethod(implObj, "Unfreeze"), flags, 2)
+        this.vtbl.SetAdvise := CallbackCreate(GetMethod(implObj, "SetAdvise"), flags, 4)
+        this.vtbl.GetAdvise := CallbackCreate(GetMethod(implObj, "GetAdvise"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.GetColorSet)
+        CallbackFree(this.vtbl.Freeze)
+        CallbackFree(this.vtbl.Unfreeze)
+        CallbackFree(this.vtbl.SetAdvise)
+        CallbackFree(this.vtbl.GetAdvise)
     }
 }

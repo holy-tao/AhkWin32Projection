@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_VOLUME_NOTIFICATION structure (vdshwprv.h) defines the details of volume events.
@@ -16,10 +16,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_volume_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_VOLUME_NOTIFICATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct VDS_VOLUME_NOTIFICATION {
+    #StructPack 4
 
     /**
      * Determines the volume event for which an application will be notified, as one of the following 
@@ -77,38 +75,23 @@ class VDS_VOLUME_NOTIFICATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulEvent : UInt32
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the volume that triggered the event.
-     * @type {Pointer}
      */
-    volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    volumeId : Guid
 
     /**
      * The <b>VDS_OBJECT_ID</b> of a volume plex. VDS applies this identifier during the 
      *       rebuild operation, which can execute on multiple plexes at different rates.
-     * @type {Pointer}
      */
-    plexId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    plexId : Guid
 
     /**
      * The degree to which the operation is complete.
-     * @type {Integer}
      */
-    ulPercentCompleted {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulPercentCompleted : UInt32
+
 }

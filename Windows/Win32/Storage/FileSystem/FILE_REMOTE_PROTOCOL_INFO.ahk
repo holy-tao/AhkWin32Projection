@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains file remote protocol information.
@@ -10,180 +9,82 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_remote_protocol_info
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct {
-    static sizeof => 116
+export default struct FILE_REMOTE_PROTOCOL_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _GenericReserved extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 4
+    struct _GenericReserved {
+        Reserved : UInt32[8]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Reserved {
-            get {
-                if(!this.HasProp("__ReservedProxyArray"))
-                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
-                return this.__ReservedProxyArray
-            }
-        }
     }
 
-    class _ProtocolSpecific_e__Union extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 4
+    struct _ProtocolSpecific {
 
-        class _Smb2 extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+        struct _Smb2 {
 
-            class _Server extends Win32Struct {
-                static sizeof => 4
-                static packingSize => 4
+            struct _Server {
+                Capabilities : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Capabilities {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
             }
 
-            class _Share extends Win32Struct {
-                static sizeof => 8
-                static packingSize => 4
+            struct _Share {
+                Capabilities : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Capabilities {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
+                ShareFlags : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                ShareFlags {
-                    get => NumGet(this, 4, "uint")
-                    set => NumPut("uint", value, this, 4)
-                }
             }
 
-            /**
-             * @type {_Server}
-             */
-            Server {
-                get {
-                    if(!this.HasProp("__Server"))
-                        this.__Server := FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific_e__Union._Smb2._Server(0, this)
-                    return this.__Server
-                }
-            }
+            Server : FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific._Smb2._Server
 
-            /**
-             * @type {_Share}
-             */
-            Share {
-                get {
-                    if(!this.HasProp("__Share"))
-                        this.__Share := FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific_e__Union._Smb2._Share(4, this)
-                    return this.__Share
-                }
-            }
+            Share : FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific._Smb2._Share
+
         }
 
-        /**
-         * @type {_Smb2}
-         */
-        Smb2 {
-            get {
-                if(!this.HasProp("__Smb2"))
-                    this.__Smb2 := FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific_e__Union._Smb2(0, this)
-                return this.__Smb2
-            }
-        }
+        Smb2 : FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific._Smb2
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Reserved {
-            get {
-                if(!this.HasProp("__ReservedProxyArray"))
-                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "uint")
-                return this.__ReservedProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Reserved', { type: UInt32[16], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Version of this structure. This member should be set to 2 if the communication is between 
      *      computers running Windows 8, Windows Server 2012, or later and 1 otherwise.
-     * @type {Integer}
      */
-    StructureVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    StructureVersion : UInt16
 
     /**
      * Size of this structure. This member should be set to 
      *      <c>sizeof(FILE_REMOTE_PROTOCOL_INFO)</c>.
-     * @type {Integer}
      */
-    StructureSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    StructureSize : UInt16
 
     /**
      * Remote protocol (<b>WNNC_NET_*</b>) defined in Wnnc.h or 
      *      Ntifs.h.
-     * @type {Integer}
      */
-    Protocol {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Protocol : UInt32
 
     /**
      * Major version of the remote protocol.
-     * @type {Integer}
      */
-    ProtocolMajorVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ProtocolMajorVersion : UInt16
 
     /**
      * Minor version of the remote protocol.
-     * @type {Integer}
      */
-    ProtocolMinorVersion {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    ProtocolMinorVersion : UInt16
 
     /**
      * Revision of the remote protocol.
-     * @type {Integer}
      */
-    ProtocolRevision {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    ProtocolRevision : UInt16
 
     /**
      * Should be set to zero. Do not use this member.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Reserved : UInt16
 
     /**
      * Remote protocol information. This member can be set to zero or more of the following flags.
@@ -271,33 +172,14 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
     /**
      * Protocol-generic information structure.
-     * @type {_GenericReserved}
      */
-    GenericReserved {
-        get {
-            if(!this.HasProp("__GenericReserved"))
-                this.__GenericReserved := FILE_REMOTE_PROTOCOL_INFO._GenericReserved(20, this)
-            return this.__GenericReserved
-        }
-    }
+    GenericReserved : FILE_REMOTE_PROTOCOL_INFO._GenericReserved
 
-    /**
-     * @type {_ProtocolSpecific_e__Union}
-     */
-    ProtocolSpecific {
-        get {
-            if(!this.HasProp("__ProtocolSpecific"))
-                this.__ProtocolSpecific := FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific_e__Union(52, this)
-            return this.__ProtocolSpecific
-        }
-    }
+    ProtocolSpecific : FILE_REMOTE_PROTOCOL_INFO._ProtocolSpecific
+
 }

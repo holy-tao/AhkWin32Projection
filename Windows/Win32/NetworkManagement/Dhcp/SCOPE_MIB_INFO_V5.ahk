@@ -1,49 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a specific DHCP scope.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-scope_mib_info_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class SCOPE_MIB_INFO_V5 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct SCOPE_MIB_INFO_V5 {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet gateway that defines the scope.
-     * @type {Integer}
      */
-    Subnet {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Subnet : UInt32
 
     /**
      * The number of IP addresses in the scope that are currently assigned to DHCP clients.
-     * @type {Integer}
      */
-    NumAddressesInuse {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumAddressesInuse : UInt32
 
     /**
      * The number of IP addresses in the scope that are not currently  assigned to DHCP clients.
-     * @type {Integer}
      */
-    NumAddressesFree {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumAddressesFree : UInt32
 
     /**
      * The number of IP addresses in the scope that have been offered to DHCP clients but have not yet received REQUEST messages.
-     * @type {Integer}
      */
-    NumPendingOffers {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumPendingOffers : UInt32
+
 }

@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMPSyncDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPSyncServices interface provides methods to enumerate available devices that can synchronize digital media files with Windows Media Player 10 or later.To use this interface, you must create a remoted instance of the Windows Media Player control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncservices
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSyncServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSyncServices extends IUnknown {
     /**
      * The interface identifier for IWMPSyncServices
      * @type {Guid}
      */
-    static IID => Guid("{8b5050ff-e0a4-4808-b3a8-893a9e1ed894}")
+    static IID := Guid("{8b5050ff-e0a4-4808-b3a8-893a9e1ed894}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSyncServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_deviceCount : IntPtr
+        getDevice       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_deviceCount", "getDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSyncServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -93,5 +102,27 @@ class IWMPSyncServices extends IUnknown {
     getDevice(lIndex) {
         result := ComCall(4, this, "int", lIndex, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMPSyncDevice(ppDevice)
+    }
+
+    Query(iid) {
+        if (IWMPSyncServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_deviceCount := CallbackCreate(GetMethod(implObj, "get_deviceCount"), flags, 2)
+        this.vtbl.getDevice := CallbackCreate(GetMethod(implObj, "getDevice"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_deviceCount)
+        CallbackFree(this.vtbl.getDevice)
     }
 }

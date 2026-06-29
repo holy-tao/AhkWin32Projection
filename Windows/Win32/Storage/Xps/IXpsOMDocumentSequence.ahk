@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
-#Include .\IXpsOMPackage.ahk
-#Include .\IXpsOMDocumentCollection.ahk
-#Include .\IXpsOMPrintTicketResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMDocumentCollection.ahk" { IXpsOMDocumentCollection }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
+#Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
 
 /**
  * The root object that has the XPS document content.
@@ -55,26 +56,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMDocumentSequence extends IXpsOMPart {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMDocumentSequence extends IXpsOMPart {
     /**
      * The interface identifier for IXpsOMDocumentSequence
      * @type {Guid}
      */
-    static IID => Guid("{56492eb4-d8d5-425e-8256-4c2b64ad0264}")
+    static IID := Guid("{56492eb4-d8d5-425e-8256-4c2b64ad0264}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMDocumentSequence interfaces
+    */
+    struct Vtbl extends IXpsOMPart.Vtbl {
+        GetOwner               : IntPtr
+        GetDocuments           : IntPtr
+        GetPrintTicketResource : IntPtr
+        SetPrintTicketResource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetDocuments", "GetPrintTicketResource", "SetPrintTicketResource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMDocumentSequence.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMPackage interface that contains the document sequence.
@@ -122,5 +133,31 @@ class IXpsOMDocumentSequence extends IXpsOMPart {
     SetPrintTicketResource(printTicketResource) {
         result := ComCall(8, this, "ptr", printTicketResource, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMDocumentSequence.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetDocuments := CallbackCreate(GetMethod(implObj, "GetDocuments"), flags, 2)
+        this.vtbl.GetPrintTicketResource := CallbackCreate(GetMethod(implObj, "GetPrintTicketResource"), flags, 2)
+        this.vtbl.SetPrintTicketResource := CallbackCreate(GetMethod(implObj, "SetPrintTicketResource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetDocuments)
+        CallbackFree(this.vtbl.GetPrintTicketResource)
+        CallbackFree(this.vtbl.SetPrintTicketResource)
     }
 }

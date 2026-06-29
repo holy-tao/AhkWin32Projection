@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods that get data from a Digital Video Broadcast (DVB) linkage descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvblinkagedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbLinkageDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbLinkageDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbLinkageDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{1cdf8b31-994a-46fc-acfd-6a6be8934dd5}")
+    static IID := Guid("{1cdf8b31-994a-46fc-acfd-6a6be8934dd5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbLinkageDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag               : IntPtr
+        GetLength            : IntPtr
+        GetTSId              : IntPtr
+        GetONId              : IntPtr
+        GetServiceId         : IntPtr
+        GetLinkageType       : IntPtr
+        GetPrivateDataLength : IntPtr
+        GetPrivateData       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetTSId", "GetONId", "GetServiceId", "GetLinkageType", "GetPrivateDataLength", "GetPrivateData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbLinkageDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tag that identifies a Digital Video Broadcast (DVB) linkage descriptor.
@@ -112,5 +127,39 @@ class IDvbLinkageDescriptor extends IUnknown {
 
         result := ComCall(10, this, pbLenMarshal, pbLen, "char*", &pbData := 0, "HRESULT")
         return pbData
+    }
+
+    Query(iid) {
+        if (IDvbLinkageDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetTSId := CallbackCreate(GetMethod(implObj, "GetTSId"), flags, 2)
+        this.vtbl.GetONId := CallbackCreate(GetMethod(implObj, "GetONId"), flags, 2)
+        this.vtbl.GetServiceId := CallbackCreate(GetMethod(implObj, "GetServiceId"), flags, 2)
+        this.vtbl.GetLinkageType := CallbackCreate(GetMethod(implObj, "GetLinkageType"), flags, 2)
+        this.vtbl.GetPrivateDataLength := CallbackCreate(GetMethod(implObj, "GetPrivateDataLength"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetTSId)
+        CallbackFree(this.vtbl.GetONId)
+        CallbackFree(this.vtbl.GetServiceId)
+        CallbackFree(this.vtbl.GetLinkageType)
+        CallbackFree(this.vtbl.GetPrivateDataLength)
+        CallbackFree(this.vtbl.GetPrivateData)
     }
 }

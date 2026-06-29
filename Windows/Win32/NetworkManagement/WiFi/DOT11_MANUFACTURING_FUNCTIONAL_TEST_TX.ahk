@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BAND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_BAND.ahk" { DOT11_BAND }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX extends Win32Struct {
-    static sizeof => 20
+export default struct DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX {
+    #StructPack 4
 
-    static packingSize => 4
+    bEnable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bEnable {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bOpenLoop : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bOpenLoop {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Dot11Band : DOT11_BAND
 
-    /**
-     * @type {DOT11_BAND}
-     */
-    Dot11Band {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    uChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uChannel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uSetPowerLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSetPowerLevel {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ADCPowerLevel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ADCPowerLevel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

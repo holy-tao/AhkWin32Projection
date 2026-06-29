@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWSDAsyncResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWSDAsyncCallback.ahk" { IWSDAsyncCallback }
+#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
+#Import ".\WSD_SYNCHRONOUS_RESPONSE_CONTEXT.ahk" { WSD_SYNCHRONOUS_RESPONSE_CONTEXT }
 
 /**
  * Implements a device services messaging proxy.
@@ -13,26 +19,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdendpointproxy
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDEndpointProxy extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDEndpointProxy extends IUnknown {
     /**
      * The interface identifier for IWSDEndpointProxy
      * @type {Guid}
      */
-    static IID => Guid("{1860d430-b24c-4975-9f90-dbb39baa24ec}")
+    static IID := Guid("{1860d430-b24c-4975-9f90-dbb39baa24ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDEndpointProxy interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SendOneWayRequest      : IntPtr
+        SendTwoWayRequest      : IntPtr
+        SendTwoWayRequestAsync : IntPtr
+        AbortAsyncOperation    : IntPtr
+        ProcessFault           : IntPtr
+        GetErrorInfo           : IntPtr
+        GetFaultInfo           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SendOneWayRequest", "SendTwoWayRequest", "SendTwoWayRequestAsync", "AbortAsyncOperation", "ProcessFault", "GetErrorInfo", "GetFaultInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDEndpointProxy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends a one-way request message.
@@ -75,7 +94,7 @@ class IWSDEndpointProxy extends IUnknown {
     SendOneWayRequest(pBody, pOperation) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pBodyMarshal, pBody, "ptr", pOperation, "HRESULT")
+        result := ComCall(3, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "HRESULT")
         return result
     }
 
@@ -126,7 +145,7 @@ class IWSDEndpointProxy extends IUnknown {
     SendTwoWayRequest(pBody, pOperation, pResponseContext) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pResponseContext, "HRESULT")
+        result := ComCall(4, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, WSD_SYNCHRONOUS_RESPONSE_CONTEXT.Ptr, pResponseContext, "HRESULT")
         return result
     }
 
@@ -144,7 +163,7 @@ class IWSDEndpointProxy extends IUnknown {
     SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(5, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", &pResult := 0, "HRESULT")
         return IWSDAsyncResult(pResult)
     }
 
@@ -240,7 +259,7 @@ class IWSDEndpointProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-processfault
      */
     ProcessFault(pFault) {
-        result := ComCall(7, this, "ptr", pFault, "HRESULT")
+        result := ComCall(7, this, WSD_SOAP_FAULT.Ptr, pFault, "HRESULT")
         return result
     }
 
@@ -253,7 +272,7 @@ class IWSDEndpointProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-geterrorinfo
      */
     GetErrorInfo() {
-        result := ComCall(8, this, "ptr*", &ppszErrorInfo := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &ppszErrorInfo := 0, "HRESULT")
         return ppszErrorInfo
     }
 
@@ -268,5 +287,37 @@ class IWSDEndpointProxy extends IUnknown {
     GetFaultInfo() {
         result := ComCall(9, this, "ptr*", &ppFault := 0, "HRESULT")
         return ppFault
+    }
+
+    Query(iid) {
+        if (IWSDEndpointProxy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SendOneWayRequest := CallbackCreate(GetMethod(implObj, "SendOneWayRequest"), flags, 3)
+        this.vtbl.SendTwoWayRequest := CallbackCreate(GetMethod(implObj, "SendTwoWayRequest"), flags, 4)
+        this.vtbl.SendTwoWayRequestAsync := CallbackCreate(GetMethod(implObj, "SendTwoWayRequestAsync"), flags, 6)
+        this.vtbl.AbortAsyncOperation := CallbackCreate(GetMethod(implObj, "AbortAsyncOperation"), flags, 2)
+        this.vtbl.ProcessFault := CallbackCreate(GetMethod(implObj, "ProcessFault"), flags, 2)
+        this.vtbl.GetErrorInfo := CallbackCreate(GetMethod(implObj, "GetErrorInfo"), flags, 2)
+        this.vtbl.GetFaultInfo := CallbackCreate(GetMethod(implObj, "GetFaultInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SendOneWayRequest)
+        CallbackFree(this.vtbl.SendTwoWayRequest)
+        CallbackFree(this.vtbl.SendTwoWayRequestAsync)
+        CallbackFree(this.vtbl.AbortAsyncOperation)
+        CallbackFree(this.vtbl.ProcessFault)
+        CallbackFree(this.vtbl.GetErrorInfo)
+        CallbackFree(this.vtbl.GetFaultInfo)
     }
 }

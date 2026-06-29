@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_IDENTIFY_ZNS_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct {
-    static sizeof => 4096
+export default struct NVME_IDENTIFY_ZNS_SPECIFIC_CONTROLLER_IO_COMMAND_SET {
+    #StructPack 1
 
-    static packingSize => 1
+    ZASL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ZASL {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8[4095]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 4095, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

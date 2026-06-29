@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SNAP_HEADER extends Win32Struct {
-    static sizeof => 8
+export default struct SNAP_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    Dsap : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Dsap {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Ssap : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Ssap {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Control : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Control {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Oui : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Oui {
-        get {
-            if(!this.HasProp("__OuiProxyArray"))
-                this.__OuiProxyArray := Win32FixedArray(this.ptr + 3, 3, Primitive, "char")
-            return this.__OuiProxyArray
-        }
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

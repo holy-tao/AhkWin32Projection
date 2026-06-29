@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
- * Extends the ShellLinkObject object and supports one additional property.
- * @see https://learn.microsoft.com/windows/win32/shell/ishelllinkdual2-object
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellLinkDual extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IShellLinkDual extends IDispatch {
     /**
      * The interface identifier for IShellLinkDual
      * @type {Guid}
      */
-    static IID => Guid("{88a05c00-f000-11ce-8350-444553540000}")
+    static IID := Guid("{88a05c00-f000-11ce-8350-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellLinkDual interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Path             : IntPtr
+        put_Path             : IntPtr
+        get_Description      : IntPtr
+        put_Description      : IntPtr
+        get_WorkingDirectory : IntPtr
+        put_WorkingDirectory : IntPtr
+        get_Arguments        : IntPtr
+        put_Arguments        : IntPtr
+        get_Hotkey           : IntPtr
+        put_Hotkey           : IntPtr
+        get_ShowCommand      : IntPtr
+        put_ShowCommand      : IntPtr
+        Resolve              : IntPtr
+        GetIconLocation      : IntPtr
+        SetIconLocation      : IntPtr
+        Save                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Path", "put_Path", "get_Description", "put_Description", "get_WorkingDirectory", "put_WorkingDirectory", "get_Arguments", "put_Arguments", "get_Hotkey", "put_Hotkey", "get_ShowCommand", "put_ShowCommand", "Resolve", "GetIconLocation", "SetIconLocation", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellLinkDual.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -83,8 +105,8 @@ class IShellLinkDual extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        pbs := BSTR()
-        result := ComCall(7, this, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 
@@ -96,7 +118,7 @@ class IShellLinkDual extends IDispatch {
     put_Path(bs) {
         bs := bs is String ? BSTR.Alloc(bs).Value : bs
 
-        result := ComCall(8, this, "ptr", bs, "HRESULT")
+        result := ComCall(8, this, BSTR, bs, "HRESULT")
         return result
     }
 
@@ -105,8 +127,8 @@ class IShellLinkDual extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        pbs := BSTR()
-        result := ComCall(9, this, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 
@@ -118,7 +140,7 @@ class IShellLinkDual extends IDispatch {
     put_Description(bs) {
         bs := bs is String ? BSTR.Alloc(bs).Value : bs
 
-        result := ComCall(10, this, "ptr", bs, "HRESULT")
+        result := ComCall(10, this, BSTR, bs, "HRESULT")
         return result
     }
 
@@ -127,8 +149,8 @@ class IShellLinkDual extends IDispatch {
      * @returns {BSTR} 
      */
     get_WorkingDirectory() {
-        pbs := BSTR()
-        result := ComCall(11, this, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 
@@ -140,7 +162,7 @@ class IShellLinkDual extends IDispatch {
     put_WorkingDirectory(bs) {
         bs := bs is String ? BSTR.Alloc(bs).Value : bs
 
-        result := ComCall(12, this, "ptr", bs, "HRESULT")
+        result := ComCall(12, this, BSTR, bs, "HRESULT")
         return result
     }
 
@@ -149,8 +171,8 @@ class IShellLinkDual extends IDispatch {
      * @returns {BSTR} 
      */
     get_Arguments() {
-        pbs := BSTR()
-        result := ComCall(13, this, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 
@@ -162,7 +184,7 @@ class IShellLinkDual extends IDispatch {
     put_Arguments(bs) {
         bs := bs is String ? BSTR.Alloc(bs).Value : bs
 
-        result := ComCall(14, this, "ptr", bs, "HRESULT")
+        result := ComCall(14, this, BSTR, bs, "HRESULT")
         return result
     }
 
@@ -205,10 +227,9 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
+     * 
      * @param {Integer} fFlags 
-     * @returns {HRESULT} The address of the import, or the failure stub for it.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/resolvedelayloadedapi
+     * @returns {HRESULT} 
      */
     Resolve(fFlags) {
         result := ComCall(19, this, "int", fFlags, "HRESULT")
@@ -221,7 +242,7 @@ class IShellLinkDual extends IDispatch {
      * @returns {Integer} 
      */
     GetIconLocation(pbs) {
-        result := ComCall(20, this, "ptr", pbs, "int*", &piIcon := 0, "HRESULT")
+        result := ComCall(20, this, BSTR.Ptr, pbs, "int*", &piIcon := 0, "HRESULT")
         return piIcon
     }
 
@@ -234,20 +255,67 @@ class IShellLinkDual extends IDispatch {
     SetIconLocation(bs, iIcon) {
         bs := bs is String ? BSTR.Alloc(bs).Value : bs
 
-        result := ComCall(21, this, "ptr", bs, "int", iIcon, "HRESULT")
+        result := ComCall(21, this, BSTR, bs, "int", iIcon, "HRESULT")
         return result
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {VARIANT} vWhere 
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * @returns {HRESULT} 
      */
     Save(vWhere) {
-        result := ComCall(22, this, "ptr", vWhere, "HRESULT")
+        result := ComCall(22, this, VARIANT, vWhere, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellLinkDual.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_WorkingDirectory := CallbackCreate(GetMethod(implObj, "get_WorkingDirectory"), flags, 2)
+        this.vtbl.put_WorkingDirectory := CallbackCreate(GetMethod(implObj, "put_WorkingDirectory"), flags, 2)
+        this.vtbl.get_Arguments := CallbackCreate(GetMethod(implObj, "get_Arguments"), flags, 2)
+        this.vtbl.put_Arguments := CallbackCreate(GetMethod(implObj, "put_Arguments"), flags, 2)
+        this.vtbl.get_Hotkey := CallbackCreate(GetMethod(implObj, "get_Hotkey"), flags, 2)
+        this.vtbl.put_Hotkey := CallbackCreate(GetMethod(implObj, "put_Hotkey"), flags, 2)
+        this.vtbl.get_ShowCommand := CallbackCreate(GetMethod(implObj, "get_ShowCommand"), flags, 2)
+        this.vtbl.put_ShowCommand := CallbackCreate(GetMethod(implObj, "put_ShowCommand"), flags, 2)
+        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 2)
+        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 3)
+        this.vtbl.SetIconLocation := CallbackCreate(GetMethod(implObj, "SetIconLocation"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.put_Path)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_WorkingDirectory)
+        CallbackFree(this.vtbl.put_WorkingDirectory)
+        CallbackFree(this.vtbl.get_Arguments)
+        CallbackFree(this.vtbl.put_Arguments)
+        CallbackFree(this.vtbl.get_Hotkey)
+        CallbackFree(this.vtbl.put_Hotkey)
+        CallbackFree(this.vtbl.get_ShowCommand)
+        CallbackFree(this.vtbl.put_ShowCommand)
+        CallbackFree(this.vtbl.Resolve)
+        CallbackFree(this.vtbl.GetIconLocation)
+        CallbackFree(this.vtbl.SetIconLocation)
+        CallbackFree(this.vtbl.Save)
     }
 }

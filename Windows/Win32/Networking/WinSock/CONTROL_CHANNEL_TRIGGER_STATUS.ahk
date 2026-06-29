@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the status from a query for the REAL_TIME_NOTIFICATION_CAPABILITY transport setting for a TCP socket that is used with ControlChannelTrigger to receive background network notifications in a Windows Store app.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-control_channel_trigger_status
  * @namespace Windows.Win32.Networking.WinSock
  */
-class CONTROL_CHANNEL_TRIGGER_STATUS extends Win32Enum {
+export default struct CONTROL_CHANNEL_TRIGGER_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Status is invalid.

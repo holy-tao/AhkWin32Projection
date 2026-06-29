@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSMIDILOOPED_BUFFER_PROPERTY extends Win32Struct {
-    static sizeof => 24
+export default struct KSMIDILOOPED_BUFFER_PROPERTY {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    RequestedBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestedBufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

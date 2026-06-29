@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether the caller should use the IPropertySetStorage and IPropertyStorage interfaces to locate additional properties.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/filter/ne-filter-ifilter_flags
  * @namespace Windows.Win32.Storage.IndexServer
  */
-class IFILTER_FLAGS extends Win32Enum {
+export default struct IFILTER_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The caller should use the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> and <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interfaces to locate additional properties. When this flag is set, properties available through COM enumerators should not be returned from <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a>.

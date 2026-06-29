@@ -1,62 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USN_RECORD_COMMON_HEADER.ahk
-#Include .\USN_RECORD_V2.ahk
-#Include .\USN_RECORD_V3.ahk
-#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
-#Include .\USN_RECORD_V4.ahk
-#Include .\USN_SOURCE_INFO_ID.ahk
-#Include .\USN_RECORD_EXTENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USN_RECORD_V2.ahk" { USN_RECORD_V2 }
+#Import ".\USN_RECORD_V4.ahk" { USN_RECORD_V4 }
+#Import "..\..\Storage\FileSystem\FILE_ID_128.ahk" { FILE_ID_128 }
+#Import ".\USN_RECORD_EXTENT.ahk" { USN_RECORD_EXTENT }
+#Import ".\USN_RECORD_COMMON_HEADER.ahk" { USN_RECORD_COMMON_HEADER }
+#Import ".\USN_SOURCE_INFO_ID.ahk" { USN_SOURCE_INFO_ID }
+#Import ".\USN_RECORD_V3.ahk" { USN_RECORD_V3 }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class USN_RECORD_UNION extends Win32Struct {
-    static sizeof => 232
+export default struct USN_RECORD_UNION {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : USN_RECORD_COMMON_HEADER
 
-    /**
-     * @type {USN_RECORD_COMMON_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USN_RECORD_COMMON_HEADER(0, this)
-            return this.__Header
-        }
-    }
-
-    /**
-     * @type {USN_RECORD_V2}
-     */
-    V2 {
-        get {
-            if(!this.HasProp("__V2"))
-                this.__V2 := USN_RECORD_V2(0, this)
-            return this.__V2
-        }
-    }
-
-    /**
-     * @type {USN_RECORD_V3}
-     */
-    V3 {
-        get {
-            if(!this.HasProp("__V3"))
-                this.__V3 := USN_RECORD_V3(0, this)
-            return this.__V3
-        }
-    }
-
-    /**
-     * @type {USN_RECORD_V4}
-     */
-    V4 {
-        get {
-            if(!this.HasProp("__V4"))
-                this.__V4 := USN_RECORD_V4(0, this)
-            return this.__V4
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'V2', { type: USN_RECORD_V2, offset: 0 })
+        DefineProp(this.Prototype, 'V3', { type: USN_RECORD_V3, offset: 0 })
+        DefineProp(this.Prototype, 'V4', { type: USN_RECORD_V4, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

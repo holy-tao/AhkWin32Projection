@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IMPEG2_TIF_CONTROL is no longer available for use.
@@ -10,26 +11,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-impeg2_tif_control
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMPEG2_TIF_CONTROL extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMPEG2_TIF_CONTROL extends IUnknown {
     /**
      * The interface identifier for IMPEG2_TIF_CONTROL
      * @type {Guid}
      */
-    static IID => Guid("{f9bac2f9-4149-4916-b2ef-faa202326862}")
+    static IID := Guid("{f9bac2f9-4149-4916-b2ef-faa202326862}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMPEG2_TIF_CONTROL interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterTIF   : IntPtr
+        UnregisterTIF : IntPtr
+        AddPIDs       : IntPtr
+        DeletePIDs    : IntPtr
+        GetPIDCount   : IntPtr
+        GetPIDs       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterTIF", "UnregisterTIF", "AddPIDs", "DeletePIDs", "GetPIDCount", "GetPIDs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMPEG2_TIF_CONTROL.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RegisterTIF method is called by the Transport Information Filter (TIF) to register itself with the Network Provider.
@@ -253,5 +266,35 @@ class IMPEG2_TIF_CONTROL extends IUnknown {
 
         result := ComCall(8, this, pulcPIDsMarshal, pulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMPEG2_TIF_CONTROL.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterTIF := CallbackCreate(GetMethod(implObj, "RegisterTIF"), flags, 3)
+        this.vtbl.UnregisterTIF := CallbackCreate(GetMethod(implObj, "UnregisterTIF"), flags, 2)
+        this.vtbl.AddPIDs := CallbackCreate(GetMethod(implObj, "AddPIDs"), flags, 3)
+        this.vtbl.DeletePIDs := CallbackCreate(GetMethod(implObj, "DeletePIDs"), flags, 3)
+        this.vtbl.GetPIDCount := CallbackCreate(GetMethod(implObj, "GetPIDCount"), flags, 2)
+        this.vtbl.GetPIDs := CallbackCreate(GetMethod(implObj, "GetPIDs"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterTIF)
+        CallbackFree(this.vtbl.UnregisterTIF)
+        CallbackFree(this.vtbl.AddPIDs)
+        CallbackFree(this.vtbl.DeletePIDs)
+        CallbackFree(this.vtbl.GetPIDCount)
+        CallbackFree(this.vtbl.GetPIDs)
     }
 }

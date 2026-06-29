@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Storage\FileSystem\FILE_ID_128.ahk" { FILE_ID_128 }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class CSV_QUERY_FILE_REVISION_FILE_ID_128 extends Win32Struct {
-    static sizeof => 40
+export default struct CSV_QUERY_FILE_REVISION_FILE_ID_128 {
+    #StructPack 8
 
-    static packingSize => 8
+    FileId : FILE_ID_128
 
-    /**
-     * @type {FILE_ID_128}
-     */
-    FileId {
-        get {
-            if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(0, this)
-            return this.__FileId
-        }
-    }
+    FileRevision : Int64[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FileRevision {
-        get {
-            if(!this.HasProp("__FileRevisionProxyArray"))
-                this.__FileRevisionProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "int64")
-            return this.__FileRevisionProxyArray
-        }
-    }
 }

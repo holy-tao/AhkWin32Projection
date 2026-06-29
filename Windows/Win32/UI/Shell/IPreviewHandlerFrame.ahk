@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\PREVIEWHANDLERFRAMEINFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PREVIEWHANDLERFRAMEINFO.ahk" { PREVIEWHANDLERFRAMEINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Enables preview handlers to pass keyboard shortcuts to the host. This interface retrieves a list of keyboard shortcuts and directs the host to handle a keyboard shortcut.
@@ -11,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewhandlerframe
  * @namespace Windows.Win32.UI.Shell
  */
-class IPreviewHandlerFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPreviewHandlerFrame extends IUnknown {
     /**
      * The interface identifier for IPreviewHandlerFrame
      * @type {Guid}
      */
-    static IID => Guid("{fec87aaf-35f9-447a-adb7-20234491401a}")
+    static IID := Guid("{fec87aaf-35f9-447a-adb7-20234491401a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPreviewHandlerFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetWindowContext     : IntPtr
+        TranslateAccelerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetWindowContext", "TranslateAccelerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPreviewHandlerFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a list of the keyboard shortcuts for the preview host.
@@ -45,7 +55,7 @@ class IPreviewHandlerFrame extends IUnknown {
      */
     GetWindowContext() {
         pinfo := PREVIEWHANDLERFRAMEINFO()
-        result := ComCall(3, this, "ptr", pinfo, "HRESULT")
+        result := ComCall(3, this, PREVIEWHANDLERFRAMEINFO.Ptr, pinfo, "HRESULT")
         return pinfo
     }
 
@@ -63,7 +73,29 @@ class IPreviewHandlerFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-translateaccelerator
      */
     TranslateAccelerator(pmsg) {
-        result := ComCall(4, this, "ptr", pmsg, "HRESULT")
+        result := ComCall(4, this, MSG.Ptr, pmsg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPreviewHandlerFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetWindowContext := CallbackCreate(GetMethod(implObj, "GetWindowContext"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetWindowContext)
+        CallbackFree(this.vtbl.TranslateAccelerator)
     }
 }

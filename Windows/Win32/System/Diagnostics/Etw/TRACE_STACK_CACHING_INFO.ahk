@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_STACK_CACHING_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct TRACE_STACK_CACHING_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Enabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Enabled {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    CacheSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CacheSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BucketCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BucketCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

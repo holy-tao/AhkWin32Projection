@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\IO_SECURITY_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\IO_SECURITY_CONTEXT.ahk" { IO_SECURITY_CONTEXT }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class QUERY_PATH_REQUEST extends Win32Struct {
-    static sizeof => 24
+export default struct QUERY_PATH_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    PathNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PathNameLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SecurityContext : IO_SECURITY_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<IO_SECURITY_CONTEXT>}
-     */
-    SecurityContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FilePathName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    FilePathName {
-        get => StrGet(this.ptr + 16, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
-    }
 }

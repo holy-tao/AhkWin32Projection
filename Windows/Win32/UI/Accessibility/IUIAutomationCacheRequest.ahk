@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationCondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AutomationElementMode.ahk" { AutomationElementMode }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes properties and methods of a cache request. Client applications use this interface to specify the properties and control patterns to be cached when a Microsoft UI Automation element is obtained.
@@ -13,26 +18,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationCacheRequest extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationCacheRequest extends IUnknown {
     /**
      * The interface identifier for IUIAutomationCacheRequest
      * @type {Guid}
      */
-    static IID => Guid("{b32a92b5-bc25-4078-9c08-d7ee95c48e03}")
+    static IID := Guid("{b32a92b5-bc25-4078-9c08-d7ee95c48e03}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationCacheRequest interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddProperty               : IntPtr
+        AddPattern                : IntPtr
+        Clone                     : IntPtr
+        get_TreeScope             : IntPtr
+        put_TreeScope             : IntPtr
+        get_TreeFilter            : IntPtr
+        put_TreeFilter            : IntPtr
+        get_AutomationElementMode : IntPtr
+        put_AutomationElementMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddProperty", "AddPattern", "Clone", "get_TreeScope", "put_TreeScope", "get_TreeFilter", "put_TreeFilter", "get_AutomationElementMode", "put_AutomationElementMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationCacheRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {TreeScope} 
@@ -69,7 +89,7 @@ class IUIAutomationCacheRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-addproperty
      */
     AddProperty(propertyId) {
-        result := ComCall(3, this, "int", propertyId, "HRESULT")
+        result := ComCall(3, this, UIA_PROPERTY_ID, propertyId, "HRESULT")
         return result
     }
 
@@ -86,7 +106,7 @@ class IUIAutomationCacheRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-addpattern
      */
     AddPattern(patternId) {
-        result := ComCall(4, this, "int", patternId, "HRESULT")
+        result := ComCall(4, this, UIA_PATTERN_ID, patternId, "HRESULT")
         return result
     }
 
@@ -123,7 +143,7 @@ class IUIAutomationCacheRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_treescope
      */
     put_TreeScope(scope) {
-        result := ComCall(7, this, "int", scope, "HRESULT")
+        result := ComCall(7, this, TreeScope, scope, "HRESULT")
         return result
     }
 
@@ -177,7 +197,43 @@ class IUIAutomationCacheRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_automationelementmode
      */
     put_AutomationElementMode(_mode) {
-        result := ComCall(11, this, "int", _mode, "HRESULT")
+        result := ComCall(11, this, AutomationElementMode, _mode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomationCacheRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddProperty := CallbackCreate(GetMethod(implObj, "AddProperty"), flags, 2)
+        this.vtbl.AddPattern := CallbackCreate(GetMethod(implObj, "AddPattern"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.get_TreeScope := CallbackCreate(GetMethod(implObj, "get_TreeScope"), flags, 2)
+        this.vtbl.put_TreeScope := CallbackCreate(GetMethod(implObj, "put_TreeScope"), flags, 2)
+        this.vtbl.get_TreeFilter := CallbackCreate(GetMethod(implObj, "get_TreeFilter"), flags, 2)
+        this.vtbl.put_TreeFilter := CallbackCreate(GetMethod(implObj, "put_TreeFilter"), flags, 2)
+        this.vtbl.get_AutomationElementMode := CallbackCreate(GetMethod(implObj, "get_AutomationElementMode"), flags, 2)
+        this.vtbl.put_AutomationElementMode := CallbackCreate(GetMethod(implObj, "put_AutomationElementMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddProperty)
+        CallbackFree(this.vtbl.AddPattern)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.get_TreeScope)
+        CallbackFree(this.vtbl.put_TreeScope)
+        CallbackFree(this.vtbl.get_TreeFilter)
+        CallbackFree(this.vtbl.put_TreeFilter)
+        CallbackFree(this.vtbl.get_AutomationElementMode)
+        CallbackFree(this.vtbl.put_AutomationElementMode)
     }
 }

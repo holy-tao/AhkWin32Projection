@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_STATUS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_802_11_STATUS_TYPE.ahk" { NDIS_802_11_STATUS_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_802_11_STATUS_INDICATION extends Win32Struct {
-    static sizeof => 4
+export default struct NDIS_802_11_STATUS_INDICATION {
+    #StructPack 4
 
-    static packingSize => 4
+    StatusType : NDIS_802_11_STATUS_TYPE
 
-    /**
-     * @type {NDIS_802_11_STATUS_TYPE}
-     */
-    StatusType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRANSPORT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TRANSPORT_TYPE.ahk" { TRANSPORT_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class TRANSPORT_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct TRANSPORT_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : TRANSPORT_TYPE
 
-    /**
-     * @type {TRANSPORT_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SkipCertificateCheck : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SkipCertificateCheck {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    TcpPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TcpPort {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    QuicPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    QuicPort {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    RdmaPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RdmaPort {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

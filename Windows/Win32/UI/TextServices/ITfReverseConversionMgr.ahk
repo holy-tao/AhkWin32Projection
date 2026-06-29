@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfReverseConversion.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfReverseConversion.ahk" { ITfReverseConversion }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to ITfReverseConversion objects, which are used to perform reverse conversions.
@@ -11,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfreverseconversionmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfReverseConversionMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfReverseConversionMgr extends IUnknown {
     /**
      * The interface identifier for ITfReverseConversionMgr
      * @type {Guid}
      */
-    static IID => Guid("{b643c236-c493-41b6-abb3-692412775cc4}")
+    static IID := Guid("{b643c236-c493-41b6-abb3-692412775cc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfReverseConversionMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetReverseConversion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetReverseConversion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfReverseConversionMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an ITfReverseConversion object that can perform reverse conversions.
@@ -94,7 +102,27 @@ class ITfReverseConversionMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionmgr-getreverseconversion
      */
     GetReverseConversion(langid, guidProfile, dwflag) {
-        result := ComCall(3, this, "ushort", langid, "ptr", guidProfile, "uint", dwflag, "ptr*", &ppReverseConversion := 0, "HRESULT")
+        result := ComCall(3, this, "ushort", langid, Guid.Ptr, guidProfile, "uint", dwflag, "ptr*", &ppReverseConversion := 0, "HRESULT")
         return ITfReverseConversion(ppReverseConversion)
+    }
+
+    Query(iid) {
+        if (ITfReverseConversionMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetReverseConversion := CallbackCreate(GetMethod(implObj, "GetReverseConversion"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetReverseConversion)
     }
 }

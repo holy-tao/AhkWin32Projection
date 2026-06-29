@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CERT_ALT_NAME.ahk" { CERT_ALT_NAME }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for handling alternate names used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodealtname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertEncodeAltName extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertEncodeAltName extends IDispatch {
     /**
      * The interface identifier for ICertEncodeAltName
      * @type {Guid}
      */
-    static IID => Guid("{1c9a8c70-1271-11d1-9bd4-00c04fb683fa}")
+    static IID := Guid("{1c9a8c70-1271-11d1-9bd4-00c04fb683fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertEncodeAltName interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Decode        : IntPtr
+        GetNameCount  : IntPtr
+        GetNameChoice : IntPtr
+        GetName       : IntPtr
+        Reset         : IntPtr
+        SetNameEntry  : IntPtr
+        Encode        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "GetNameCount", "GetNameChoice", "GetName", "Reset", "SetNameEntry", "Encode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertEncodeAltName.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Decodes an Abstract Syntax Notation One (ASN.1)-encoded alternate name extension and stores the resulting array of strings in the CertEncodeAltName object.
@@ -42,7 +57,7 @@ class ICertEncodeAltName extends IDispatch {
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        result := ComCall(7, this, "ptr", strBinary, "HRESULT")
+        result := ComCall(7, this, BSTR, strBinary, "HRESULT")
         return result
     }
 
@@ -76,8 +91,8 @@ class ICertEncodeAltName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getname
      */
     GetName(NameIndex) {
-        pstrName := BSTR()
-        result := ComCall(10, this, "int", NameIndex, "ptr", pstrName, "HRESULT")
+        pstrName := BSTR.Owned()
+        result := ComCall(10, this, "int", NameIndex, BSTR.Ptr, pstrName, "HRESULT")
         return pstrName
     }
 
@@ -111,7 +126,7 @@ class ICertEncodeAltName extends IDispatch {
     SetNameEntry(NameIndex, NameChoice, strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(12, this, "int", NameIndex, "int", NameChoice, "ptr", strName, "HRESULT")
+        result := ComCall(12, this, "int", NameIndex, CERT_ALT_NAME, NameChoice, BSTR, strName, "HRESULT")
         return result
     }
 
@@ -121,8 +136,40 @@ class ICertEncodeAltName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-encode
      */
     Encode() {
-        pstrBinary := BSTR()
-        result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
+        pstrBinary := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
+    }
+
+    Query(iid) {
+        if (ICertEncodeAltName.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetNameCount := CallbackCreate(GetMethod(implObj, "GetNameCount"), flags, 2)
+        this.vtbl.GetNameChoice := CallbackCreate(GetMethod(implObj, "GetNameChoice"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetNameEntry := CallbackCreate(GetMethod(implObj, "SetNameEntry"), flags, 4)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.GetNameCount)
+        CallbackFree(this.vtbl.GetNameChoice)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetNameEntry)
+        CallbackFree(this.vtbl.Encode)
     }
 }

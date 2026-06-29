@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSM_BDA_SCAN_CAPABILTIES extends Win32Struct {
-    static sizeof => 24
+export default struct KSM_BDA_SCAN_CAPABILTIES {
+    #StructPack 8
 
-    static packingSize => 8
+    Method : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Method {
-        get {
-            if(!this.HasProp("__Method"))
-                this.__Method := KSIDENTIFIER(0, this)
-            return this.__Method
-        }
-    }
+    uuidBroadcastStandard : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    uuidBroadcastStandard {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

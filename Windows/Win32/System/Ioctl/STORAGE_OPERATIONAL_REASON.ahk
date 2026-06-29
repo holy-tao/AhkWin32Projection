@@ -1,151 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_OPERATIONAL_STATUS_REASON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_OPERATIONAL_STATUS_REASON.ahk" { STORAGE_OPERATIONAL_STATUS_REASON }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_OPERATIONAL_REASON extends Win32Struct {
-    static sizeof => 16
+export default struct STORAGE_OPERATIONAL_REASON {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _RawBytes_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _RawBytes {
 
-        class _ScsiSenseKey extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 1
+        struct _ScsiSenseKey {
+            SenseKey : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SenseKey {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            ASC : Int8
 
-            /**
-             * @type {Integer}
-             */
-            ASC {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
+            ASCQ : Int8
 
-            /**
-             * @type {Integer}
-             */
-            ASCQ {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
+            Reserved : Int8
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
         }
 
-        class _NVDIMM_N extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 1
+        struct _NVDIMM_N {
+            CriticalHealth : Int8
 
-            /**
-             * @type {Integer}
-             */
-            CriticalHealth {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            ModuleHealth : Int8[2]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            ModuleHealth {
-                get {
-                    if(!this.HasProp("__ModuleHealthProxyArray"))
-                        this.__ModuleHealthProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
-                    return this.__ModuleHealthProxyArray
-                }
-            }
+            ErrorThresholdStatus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdStatus {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
         }
 
-        /**
-         * @type {_ScsiSenseKey}
-         */
-        ScsiSenseKey {
-            get {
-                if(!this.HasProp("__ScsiSenseKey"))
-                    this.__ScsiSenseKey := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union._ScsiSenseKey(0, this)
-                return this.__ScsiSenseKey
-            }
-        }
+        ScsiSenseKey : STORAGE_OPERATIONAL_REASON._RawBytes._ScsiSenseKey
 
-        /**
-         * @type {_NVDIMM_N}
-         */
-        NVDIMM_N {
-            get {
-                if(!this.HasProp("__NVDIMM_N"))
-                    this.__NVDIMM_N := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union._NVDIMM_N(0, this)
-                return this.__NVDIMM_N
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'NVDIMM_N', { type: STORAGE_OPERATIONAL_REASON._RawBytes._NVDIMM_N, offset: 0 })
+            DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {STORAGE_OPERATIONAL_STATUS_REASON}
-     */
-    Reason {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Reason : STORAGE_OPERATIONAL_STATUS_REASON
 
-    /**
-     * @type {_RawBytes_e__Union}
-     */
-    RawBytes {
-        get {
-            if(!this.HasProp("__RawBytes"))
-                this.__RawBytes := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union(12, this)
-            return this.__RawBytes
-        }
-    }
+    RawBytes : STORAGE_OPERATIONAL_REASON._RawBytes
+
 }

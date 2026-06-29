@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Kernel\COMPARTMENT_ID.ahk
-#Include .\SCOPE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Kernel\COMPARTMENT_ID.ahk" { COMPARTMENT_ID }
+#Import ".\SCOPE_ID.ahk" { SCOPE_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class DL_TUNNEL_ADDRESS extends Win32Struct {
-    static sizeof => 12
+export default struct DL_TUNNEL_ADDRESS {
+    #StructPack 4
 
-    static packingSize => 4
+    CompartmentId : COMPARTMENT_ID
 
-    /**
-     * @type {COMPARTMENT_ID}
-     */
-    CompartmentId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ScopeId : SCOPE_ID
 
-    /**
-     * @type {SCOPE_ID}
-     */
-    ScopeId {
-        get {
-            if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(4, this)
-            return this.__ScopeId
-        }
-    }
+    IpAddress : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    IpAddress {
-        get {
-            if(!this.HasProp("__IpAddressProxyArray"))
-                this.__IpAddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__IpAddressProxyArray
-        }
-    }
 }

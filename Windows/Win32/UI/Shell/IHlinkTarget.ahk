@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IHlinkBrowseContext.ahk
-#Include ..\..\System\Com\IMoniker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IHlinkTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHlinkTarget extends IUnknown {
     /**
      * The interface identifier for IHlinkTarget
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c4-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c4-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHlinkTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetBrowseContext : IntPtr
+        GetBrowseContext : IntPtr
+        Navigate         : IntPtr
+        GetMoniker       : IntPtr
+        GetFriendlyName  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBrowseContext", "GetBrowseContext", "Navigate", "GetMoniker", "GetFriendlyName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHlinkTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -76,18 +89,42 @@ class IHlinkTarget extends IUnknown {
     }
 
     /**
-     * Retrieves the display name for a certificate. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The cryptdlg.h header defines GetFriendlyNameOfCert as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {PWSTR} pwzLocation 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/nf-cryptdlg-getfriendlynameofcerta
      */
     GetFriendlyName(pwzLocation) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
-        result := ComCall(7, this, "ptr", pwzLocation, "ptr*", &ppwzFriendlyName := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pwzLocation, PWSTR.Ptr, &ppwzFriendlyName := 0, "HRESULT")
         return ppwzFriendlyName
+    }
+
+    Query(iid) {
+        if (IHlinkTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBrowseContext := CallbackCreate(GetMethod(implObj, "SetBrowseContext"), flags, 2)
+        this.vtbl.GetBrowseContext := CallbackCreate(GetMethod(implObj, "GetBrowseContext"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 3)
+        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 4)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBrowseContext)
+        CallbackFree(this.vtbl.GetBrowseContext)
+        CallbackFree(this.vtbl.Navigate)
+        CallbackFree(this.vtbl.GetMoniker)
+        CallbackFree(this.vtbl.GetFriendlyName)
     }
 }

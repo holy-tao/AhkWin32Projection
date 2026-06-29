@@ -1,29 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
-    static sizeof => 16
+export default struct PCI_ADVANCED_FEATURES_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Capabilities_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Capabilities {
         /**
          * This bitfield backs the following members:
          * - FunctionLevelResetSupported
          * - TransactionsPendingSupported
          * - Rsvd
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -48,30 +40,20 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
             get => (this._bitfield >> 2) & 0x3F
             set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUCHAR {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUCHAR', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Control_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Control {
         /**
          * This bitfield backs the following members:
          * - InitiateFunctionLevelReset
          * - Rsvd
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -88,30 +70,20 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
             get => (this._bitfield >> 1) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUCHAR {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUCHAR', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Status_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Status {
         /**
          * This bitfield backs the following members:
          * - TransactionsPending
          * - Rsvd
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -128,62 +100,20 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
             get => (this._bitfield >> 1) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUCHAR {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUCHAR', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Header : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Length : Int8
 
-    /**
-     * @type {_Capabilities_e__Union}
-     */
-    Capabilities {
-        get {
-            if(!this.HasProp("__Capabilities"))
-                this.__Capabilities := PCI_ADVANCED_FEATURES_CAPABILITY._Capabilities_e__Union(9, this)
-            return this.__Capabilities
-        }
-    }
+    Capabilities : PCI_ADVANCED_FEATURES_CAPABILITY._Capabilities
 
-    /**
-     * @type {_Control_e__Union}
-     */
-    Control {
-        get {
-            if(!this.HasProp("__Control"))
-                this.__Control := PCI_ADVANCED_FEATURES_CAPABILITY._Control_e__Union(10, this)
-            return this.__Control
-        }
-    }
+    Control : PCI_ADVANCED_FEATURES_CAPABILITY._Control
 
-    /**
-     * @type {_Status_e__Union}
-     */
-    Status {
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := PCI_ADVANCED_FEATURES_CAPABILITY._Status_e__Union(11, this)
-            return this.__Status
-        }
-    }
+    Status : PCI_ADVANCED_FEATURES_CAPABILITY._Status
+
 }

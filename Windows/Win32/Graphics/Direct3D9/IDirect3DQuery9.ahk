@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3DQuery9 (d3d9.h) interface applications use the methods of the IDirect3DQuery9 interface to perform asynchronous queries on a driver.
@@ -18,26 +20,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dquery9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DQuery9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DQuery9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DQuery9
      * @type {Guid}
      */
-    static IID => Guid("{d9771460-a695-4f26-bbd3-27b840b541cc}")
+    static IID := Guid("{d9771460-a695-4f26-bbd3-27b840b541cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DQuery9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice   : IntPtr
+        GetType     : IntPtr
+        GetDataSize : IntPtr
+        Issue       : IntPtr
+        GetData     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "GetType", "GetDataSize", "Issue", "GetData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DQuery9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DQuery9::GetDevice (d3d9.h) method gets the device that is being queried.
@@ -59,7 +72,7 @@ class IDirect3DQuery9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dquery9-gettype
      */
     GetType() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, D3DQUERYTYPE)
         return result
     }
 
@@ -71,7 +84,7 @@ class IDirect3DQuery9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dquery9-getdatasize
      */
     GetDataSize() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, UInt32)
         return result
     }
 
@@ -135,5 +148,33 @@ class IDirect3DQuery9 extends IUnknown {
 
         result := ComCall(7, this, pDataMarshal, pData, "uint", dwSize, "uint", dwGetDataFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DQuery9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
+        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 1)
+        this.vtbl.Issue := CallbackCreate(GetMethod(implObj, "Issue"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetDataSize)
+        CallbackFree(this.vtbl.Issue)
+        CallbackFree(this.vtbl.GetData)
     }
 }

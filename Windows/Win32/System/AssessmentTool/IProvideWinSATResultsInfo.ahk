@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IProvideWinSATAssessmentInfo.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WINSAT_ASSESSMENT_STATE.ahk" { WINSAT_ASSESSMENT_STATE }
+#Import ".\IProvideWinSATAssessmentInfo.ahk" { IProvideWinSATAssessmentInfo }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\WINSAT_ASSESSMENT_TYPE.ahk" { WINSAT_ASSESSMENT_TYPE }
 
 /**
  * Gets information about the results of an assessment, for example, the base score and the date that the assessment was run.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatresultsinfo
  * @namespace Windows.Win32.System.AssessmentTool
  */
-class IProvideWinSATResultsInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IProvideWinSATResultsInfo extends IDispatch {
     /**
      * The interface identifier for IProvideWinSATResultsInfo
      * @type {Guid}
      */
-    static IID => Guid("{f8334d5d-568e-4075-875f-9df341506640}")
+    static IID := Guid("{f8334d5d-568e-4075-875f-9df341506640}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProvideWinSATResultsInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetAssessmentInfo      : IntPtr
+        get_AssessmentState    : IntPtr
+        get_AssessmentDateTime : IntPtr
+        get_SystemRating       : IntPtr
+        get_RatingStateDesc    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAssessmentInfo", "get_AssessmentState", "get_AssessmentDateTime", "get_SystemRating", "get_RatingStateDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProvideWinSATResultsInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {WINSAT_ASSESSMENT_STATE} 
@@ -67,7 +81,7 @@ class IProvideWinSATResultsInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-getassessmentinfo
      */
     GetAssessmentInfo(assessment) {
-        result := ComCall(7, this, "int", assessment, "ptr*", &ppinfo := 0, "HRESULT")
+        result := ComCall(7, this, WINSAT_ASSESSMENT_TYPE, assessment, "ptr*", &ppinfo := 0, "HRESULT")
         return IProvideWinSATAssessmentInfo(ppinfo)
     }
 
@@ -88,7 +102,7 @@ class IProvideWinSATResultsInfo extends IDispatch {
      */
     get_AssessmentDateTime() {
         _fileTime := VARIANT()
-        result := ComCall(9, this, "ptr", _fileTime, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, _fileTime, "HRESULT")
         return _fileTime
     }
 
@@ -123,8 +137,36 @@ class IProvideWinSATResultsInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_ratingstatedesc
      */
     get_RatingStateDesc() {
-        description := BSTR()
-        result := ComCall(11, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, description, "HRESULT")
         return description
+    }
+
+    Query(iid) {
+        if (IProvideWinSATResultsInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAssessmentInfo := CallbackCreate(GetMethod(implObj, "GetAssessmentInfo"), flags, 3)
+        this.vtbl.get_AssessmentState := CallbackCreate(GetMethod(implObj, "get_AssessmentState"), flags, 2)
+        this.vtbl.get_AssessmentDateTime := CallbackCreate(GetMethod(implObj, "get_AssessmentDateTime"), flags, 2)
+        this.vtbl.get_SystemRating := CallbackCreate(GetMethod(implObj, "get_SystemRating"), flags, 2)
+        this.vtbl.get_RatingStateDesc := CallbackCreate(GetMethod(implObj, "get_RatingStateDesc"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAssessmentInfo)
+        CallbackFree(this.vtbl.get_AssessmentState)
+        CallbackFree(this.vtbl.get_AssessmentDateTime)
+        CallbackFree(this.vtbl.get_SystemRating)
+        CallbackFree(this.vtbl.get_RatingStateDesc)
     }
 }

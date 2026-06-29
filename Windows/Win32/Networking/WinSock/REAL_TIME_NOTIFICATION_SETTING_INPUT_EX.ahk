@@ -1,39 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRANSPORT_SETTING_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TRANSPORT_SETTING_ID.ahk" { TRANSPORT_SETTING_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX extends Win32Struct {
-    static sizeof => 24
+export default struct REAL_TIME_NOTIFICATION_SETTING_INPUT_EX {
+    #StructPack 4
 
-    static packingSize => 8
+    TransportSettingId : TRANSPORT_SETTING_ID
 
-    /**
-     * @type {TRANSPORT_SETTING_ID}
-     */
-    TransportSettingId {
-        get {
-            if(!this.HasProp("__TransportSettingId"))
-                this.__TransportSettingId := TRANSPORT_SETTING_ID(0, this)
-            return this.__TransportSettingId
-        }
-    }
+    BrokerEventGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    BrokerEventGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Unmark : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Unmark {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_RATE_SET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_RATE_SET.ahk" { WLAN_RATE_SET }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO extends Win32Struct {
-    static sizeof => 272
+export default struct WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    ucLinkID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucLinkID {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ulChannelCenterFrequencyMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulChannelCenterFrequencyMhz {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulBandwidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBandwidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lRssi : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRssi {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    wlanRateSet : WLAN_RATE_SET
 
-    /**
-     * @type {WLAN_RATE_SET}
-     */
-    wlanRateSet {
-        get {
-            if(!this.HasProp("__wlanRateSet"))
-                this.__wlanRateSet := WLAN_RATE_SET(16, this)
-            return this.__wlanRateSet
-        }
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies various types of storage media.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_media_type
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_MEDIA_TYPE extends Win32Enum {
+export default struct STORAGE_MEDIA_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * One of the following tape types: DAT, DDS1, DDS2, and so on.

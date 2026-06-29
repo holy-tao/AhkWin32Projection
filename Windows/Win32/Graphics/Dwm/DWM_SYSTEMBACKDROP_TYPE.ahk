@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags for specifying the system-drawn backdrop material of a window, including behind the non-client area.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_systembackdrop_type
  * @namespace Windows.Win32.Graphics.Dwm
  */
-class DWM_SYSTEMBACKDROP_TYPE extends Win32Enum {
+export default struct DWM_SYSTEMBACKDROP_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The default. Let the Desktop Window Manager (DWM) automatically decide the system-drawn backdrop material for this window.

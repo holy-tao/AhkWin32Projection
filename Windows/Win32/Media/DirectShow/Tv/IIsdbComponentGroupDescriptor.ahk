@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) component group descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbcomponentgroupdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IIsdbComponentGroupDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IIsdbComponentGroupDescriptor extends IUnknown {
     /**
      * The interface identifier for IIsdbComponentGroupDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{a494f17f-c592-47d8-8943-64c9a34be7b9}")
+    static IID := Guid("{a494f17f-c592-47d8-8943-64c9a34be7b9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIsdbComponentGroupDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag                            : IntPtr
+        GetLength                         : IntPtr
+        GetComponentGroupType             : IntPtr
+        GetCountOfRecords                 : IntPtr
+        GetRecordGroupId                  : IntPtr
+        GetRecordNumberOfCAUnit           : IntPtr
+        GetRecordCAUnitCAUnitId           : IntPtr
+        GetRecordCAUnitNumberOfComponents : IntPtr
+        GetRecordCAUnitComponentTag       : IntPtr
+        GetRecordTotalBitRate             : IntPtr
+        GetRecordTextW                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetComponentGroupType", "GetCountOfRecords", "GetRecordGroupId", "GetRecordNumberOfCAUnit", "GetRecordCAUnitCAUnitId", "GetRecordCAUnitNumberOfComponents", "GetRecordCAUnitComponentTag", "GetRecordTotalBitRate", "GetRecordTextW"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIsdbComponentGroupDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tag that identifies an Integrated Services Digital Broadcasting (ISDB) component group descriptor.
@@ -159,8 +178,48 @@ class IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordtextw
      */
     GetRecordTextW(bRecordIndex, convMode) {
-        pbstrText := BSTR()
-        result := ComCall(13, this, "char", bRecordIndex, "int", convMode, "ptr", pbstrText, "HRESULT")
+        pbstrText := BSTR.Owned()
+        result := ComCall(13, this, "char", bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrText, "HRESULT")
         return pbstrText
+    }
+
+    Query(iid) {
+        if (IIsdbComponentGroupDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetComponentGroupType := CallbackCreate(GetMethod(implObj, "GetComponentGroupType"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordGroupId := CallbackCreate(GetMethod(implObj, "GetRecordGroupId"), flags, 3)
+        this.vtbl.GetRecordNumberOfCAUnit := CallbackCreate(GetMethod(implObj, "GetRecordNumberOfCAUnit"), flags, 3)
+        this.vtbl.GetRecordCAUnitCAUnitId := CallbackCreate(GetMethod(implObj, "GetRecordCAUnitCAUnitId"), flags, 4)
+        this.vtbl.GetRecordCAUnitNumberOfComponents := CallbackCreate(GetMethod(implObj, "GetRecordCAUnitNumberOfComponents"), flags, 4)
+        this.vtbl.GetRecordCAUnitComponentTag := CallbackCreate(GetMethod(implObj, "GetRecordCAUnitComponentTag"), flags, 5)
+        this.vtbl.GetRecordTotalBitRate := CallbackCreate(GetMethod(implObj, "GetRecordTotalBitRate"), flags, 3)
+        this.vtbl.GetRecordTextW := CallbackCreate(GetMethod(implObj, "GetRecordTextW"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetComponentGroupType)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordGroupId)
+        CallbackFree(this.vtbl.GetRecordNumberOfCAUnit)
+        CallbackFree(this.vtbl.GetRecordCAUnitCAUnitId)
+        CallbackFree(this.vtbl.GetRecordCAUnitNumberOfComponents)
+        CallbackFree(this.vtbl.GetRecordCAUnitComponentTag)
+        CallbackFree(this.vtbl.GetRecordTotalBitRate)
+        CallbackFree(this.vtbl.GetRecordTextW)
     }
 }

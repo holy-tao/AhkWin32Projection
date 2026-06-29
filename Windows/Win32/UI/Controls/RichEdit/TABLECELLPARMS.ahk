@@ -1,26 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * Defines the attributes of cells in a table row.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-tablecellparms
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class TABLECELLPARMS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct TABLECELLPARMS {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * The width of a cell (\cellx).
-     * @type {Integer}
      */
-    dxWidth {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dxWidth : Int32
 
     /**
      * This bitfield backs the following members:
@@ -30,12 +24,9 @@ class TABLECELLPARMS extends Win32Struct {
      * - fVertical
      * - fMergeStart
      * - fMergeCont
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -84,125 +75,81 @@ class TABLECELLPARMS extends Win32Struct {
         get => (this._bitfield >> 6) & 0x1
         set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
     }
-
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
      * 
      * Shading in .01% (\clshdng). This controls the amount of pattern foreground color (<b>crForePat</b>) and pattern background color (<b>crBackPat</b>) that is used to create the cell background color. If <b>wShading</b> is 0, the cell background is <b>crBackPat</b>. If it's 10000, the cell background is <b>crForePat</b>. Values of <b>wShading</b> in between are mixtures of the two pattern colors.
-     * @type {Integer}
      */
-    wShading {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wShading : UInt16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SHORT</a></b>
      * 
      * Left border width, in twips  (\clbrdrl\brdrwN).
-     * @type {Integer}
      */
-    dxBrdrLeft {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    dxBrdrLeft : Int16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SHORT</a></b>
      * 
      * Top border width (\clbrdrt\brdrwN).
-     * @type {Integer}
      */
-    dyBrdrTop {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    dyBrdrTop : Int16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SHORT</a></b>
      * 
      * Right border width (\clbrdrr\brdrwN).
-     * @type {Integer}
      */
-    dxBrdrRight {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
+    dxBrdrRight : Int16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SHORT</a></b>
      * 
      * Bottom border width (\clbrdrb\brdrwN).
-     * @type {Integer}
      */
-    dyBrdrBottom {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
+    dyBrdrBottom : Int16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Left border color (\clbrdrl\brdrcf).
-     * @type {COLORREF}
      */
-    crBrdrLeft {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    crBrdrLeft : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Top border color (\clbrdrt\brdrcf).
-     * @type {COLORREF}
      */
-    crBrdrTop {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    crBrdrTop : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Right border color (\clbrdrr\brdrcf).
-     * @type {COLORREF}
      */
-    crBrdrRight {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    crBrdrRight : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Bottom border color (\clbrdrb\brdrcf).
-     * @type {COLORREF}
      */
-    crBrdrBottom {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    crBrdrBottom : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Background color (\clcbpat).
-     * @type {COLORREF}
      */
-    crBackPat {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    crBackPat : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Foreground color (\clcfpat).
-     * @type {COLORREF}
      */
-    crForePat {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    crForePat : COLORREF
+
 }

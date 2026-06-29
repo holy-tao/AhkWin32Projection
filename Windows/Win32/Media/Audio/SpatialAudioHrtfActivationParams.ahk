@@ -1,123 +1,74 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
-#Include .\AudioObjectType.ahk
-#Include .\AUDIO_STREAM_CATEGORY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
-#Include .\SpatialAudioHrtfDistanceDecay.ahk
-#Include .\SpatialAudioHrtfDirectivityUnion.ahk
-#Include .\SpatialAudioHrtfEnvironmentType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import ".\ISpatialAudioObjectRenderStreamNotify.ahk" { ISpatialAudioObjectRenderStreamNotify }
+#Import ".\SpatialAudioHrtfDistanceDecay.ahk" { SpatialAudioHrtfDistanceDecay }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\SpatialAudioHrtfDirectivityUnion.ahk" { SpatialAudioHrtfDirectivityUnion }
+#Import ".\SpatialAudioHrtfEnvironmentType.ahk" { SpatialAudioHrtfEnvironmentType }
+#Import ".\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * Specifies the activation parameters for an ISpatialAudioRenderStreamForHrtf.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfactivationparams
  * @namespace Windows.Win32.Media.Audio
  */
-class SpatialAudioHrtfActivationParams extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct SpatialAudioHrtfActivationParams {
+    #StructPack 8
 
     /**
      * Format descriptor for spatial audio objects associated with the stream. All objects must have the same format and must be of type <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd390971(v=vs.85)">WAVEFORMATEXTENSIBLE</a>.
-     * @type {Pointer<WAVEFORMATEX>}
      */
-    ObjectFormat {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ObjectFormat : WAVEFORMATEX.Ptr
 
     /**
      * A bitwise combination of <b>AudioObjectType</b> values indicating the set of static spatial audio channels that will be allowed by the activated stream.
-     * @type {AudioObjectType}
      */
-    StaticObjectTypeMask {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    StaticObjectTypeMask : AudioObjectType
 
     /**
      * The minimum number of concurrent dynamic objects. If this number of dynamic audio objects can't be activated simultaneously, no dynamic audio objects will be activated.
-     * @type {Integer}
      */
-    MinDynamicObjectCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MinDynamicObjectCount : UInt32
 
     /**
      * The maximum number of concurrent dynamic objects that can be activated with <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectrenderstreamforhrtf">ISpatialAudioRenderStreamForHrtf</a>.
-     * @type {Integer}
      */
-    MaxDynamicObjectCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxDynamicObjectCount : UInt32
 
     /**
      * The category of the audio stream and its spatial audio objects.
-     * @type {AUDIO_STREAM_CATEGORY}
      */
-    Category {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Category : AUDIO_STREAM_CATEGORY
 
     /**
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
-     * @type {HANDLE}
      */
-    EventHandle {
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(24, this)
-            return this.__EventHandle
-        }
-    }
+    EventHandle : HANDLE
 
     /**
      * The object that provides notifications for spatial audio clients to respond to changes in the state of an  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectrenderstreamforhrtf">ISpatialAudioRenderStreamForHrtf</a>. This object is used to notify clients that the number of dynamic spatial audio objects that can be activated concurrently is about to change.
-     * @type {ISpatialAudioObjectRenderStreamNotify}
      */
-    NotifyObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    NotifyObject : ISpatialAudioObjectRenderStreamNotify
 
     /**
      * Optional default value for the decay model used for <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<SpatialAudioHrtfDistanceDecay>}
      */
-    DistanceDecay {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DistanceDecay : SpatialAudioHrtfDistanceDecay.Ptr
 
     /**
      * Optional default value for the spatial audio directivity model used for <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<SpatialAudioHrtfDirectivityUnion>}
      */
-    Directivity {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Directivity : SpatialAudioHrtfDirectivityUnion.Ptr
 
     /**
      * Optional default value for the type of environment that is simulated when audio is processed for <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<SpatialAudioHrtfEnvironmentType>}
      */
-    Environment {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Environment : SpatialAudioHrtfEnvironmentType.Ptr
 
     /**
      * Optional default value for the orientation of <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<Float>}
      */
-    Orientation {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    Orientation : IntPtr
+
 }

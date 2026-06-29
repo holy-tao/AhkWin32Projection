@@ -1,31 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrintOemCommon.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
+#Import ".\IPrintOemCommon.ahk" { IPrintOemCommon }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
+#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\DEVQUERYPRINT_INFO.ahk" { DEVQUERYPRINT_INFO }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintOemUI extends IPrintOemCommon {
-
-    static sizeof => A_PtrSize
+export default struct IPrintOemUI extends IPrintOemCommon {
     /**
      * The interface identifier for IPrintOemUI
      * @type {Guid}
      */
-    static IID => Guid("{c6a7a9d0-774c-11d1-947f-00a0c90640b8}")
+    static IID := Guid("{c6a7a9d0-774c-11d1-947f-00a0c90640b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintOemUI interfaces
+    */
+    struct Vtbl extends IPrintOemCommon.Vtbl {
+        PublishDriverInterface : IntPtr
+        CommonUIProp           : IntPtr
+        DocumentPropertySheets : IntPtr
+        DevicePropertySheets   : IntPtr
+        DevQueryPrintEx        : IntPtr
+        DeviceCapabilitiesA    : IntPtr
+        UpgradePrinter         : IntPtr
+        PrinterEvent           : IntPtr
+        DriverEvent            : IntPtr
+        QueryColorProfile      : IntPtr
+        FontInstallerDlgProc   : IntPtr
+        UpdateExternalFonts    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PublishDriverInterface", "CommonUIProp", "DocumentPropertySheets", "DevicePropertySheets", "DevQueryPrintEx", "DeviceCapabilitiesA", "UpgradePrinter", "PrinterEvent", "DriverEvent", "QueryColorProfile", "FontInstallerDlgProc", "UpdateExternalFonts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintOemUI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -44,7 +75,7 @@ class IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     CommonUIProp(dwMode, pOemCUIPParam) {
-        result := ComCall(6, this, "uint", dwMode, "ptr", pOemCUIPParam, "HRESULT")
+        result := ComCall(6, this, "uint", dwMode, OEMCUIPPARAM.Ptr, pOemCUIPParam, "HRESULT")
         return result
     }
 
@@ -55,7 +86,7 @@ class IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     DocumentPropertySheets(pPSUIInfo, _lParam) {
-        result := ComCall(7, this, "ptr", pPSUIInfo, "ptr", _lParam, "HRESULT")
+        result := ComCall(7, this, PROPSHEETUI_INFO.Ptr, pPSUIInfo, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -66,7 +97,7 @@ class IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     DevicePropertySheets(pPSUIInfo, _lParam) {
-        result := ComCall(8, this, "ptr", pPSUIInfo, "ptr", _lParam, "HRESULT")
+        result := ComCall(8, this, PROPSHEETUI_INFO.Ptr, pPSUIInfo, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -81,7 +112,7 @@ class IPrintOemUI extends IPrintOemCommon {
     DevQueryPrintEx(poemuiobj, pDQPInfo, pPublicDM, pOEMDM) {
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", poemuiobj, "ptr", pDQPInfo, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "HRESULT")
+        result := ComCall(9, this, OEMUIOBJ.Ptr, poemuiobj, DEVQUERYPRINT_INFO.Ptr, pDQPInfo, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, "HRESULT")
         return result
     }
 
@@ -124,14 +155,13 @@ class IPrintOemUI extends IPrintOemCommon {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-devicecapabilitiesa
      */
     DeviceCapabilitiesA(poemuiobj, hPrinter, pDeviceName, wCapability, pOutput, pPublicDM, pOEMDM, dwOld, dwResult) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         dwResultMarshal := dwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", poemuiobj, "ptr", hPrinter, "ptr", pDeviceName, "ushort", wCapability, pOutputMarshal, pOutput, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", dwOld, dwResultMarshal, dwResult, "HRESULT")
+        result := ComCall(10, this, OEMUIOBJ.Ptr, poemuiobj, HANDLE, hPrinter, "ptr", pDeviceName, "ushort", wCapability, pOutputMarshal, pOutput, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, "uint", dwOld, dwResultMarshal, dwResult, "HRESULT")
         return result
     }
 
@@ -159,7 +189,7 @@ class IPrintOemUI extends IPrintOemCommon {
     PrinterEvent(pPrinterName, iDriverEvent, dwFlags, _lParam) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
-        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, "ptr", _lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -174,7 +204,7 @@ class IPrintOemUI extends IPrintOemCommon {
     DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, _lParam) {
         pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, "ptr", _lParam, "HRESULT")
+        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -191,14 +221,12 @@ class IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     QueryColorProfile(hPrinter, poemuiobj, pPublicDM, pOEMDM, ulQueryMode, pvProfileData, pcbProfileData, pflProfileData) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pvProfileDataMarshal := pvProfileData is VarRef ? "ptr" : "ptr"
         pcbProfileDataMarshal := pcbProfileData is VarRef ? "uint*" : "ptr"
         pflProfileDataMarshal := pflProfileData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", hPrinter, "ptr", poemuiobj, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
+        result := ComCall(14, this, PRINTER_HANDLE, hPrinter, OEMUIOBJ.Ptr, poemuiobj, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, "uint", ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
         return result
     }
 
@@ -211,9 +239,7 @@ class IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     FontInstallerDlgProc(_hWnd, usMsg, _wParam, _lParam) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(15, this, "ptr", _hWnd, "uint", usMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(15, this, HWND, _hWnd, "uint", usMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -225,11 +251,51 @@ class IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     UpdateExternalFonts(hPrinter, hHeap, pwstrCartridges) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
         pwstrCartridges := pwstrCartridges is String ? StrPtr(pwstrCartridges) : pwstrCartridges
 
-        result := ComCall(16, this, "ptr", hPrinter, "ptr", hHeap, "ptr", pwstrCartridges, "HRESULT")
+        result := ComCall(16, this, PRINTER_HANDLE, hPrinter, HANDLE, hHeap, "ptr", pwstrCartridges, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintOemUI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PublishDriverInterface := CallbackCreate(GetMethod(implObj, "PublishDriverInterface"), flags, 2)
+        this.vtbl.CommonUIProp := CallbackCreate(GetMethod(implObj, "CommonUIProp"), flags, 3)
+        this.vtbl.DocumentPropertySheets := CallbackCreate(GetMethod(implObj, "DocumentPropertySheets"), flags, 3)
+        this.vtbl.DevicePropertySheets := CallbackCreate(GetMethod(implObj, "DevicePropertySheets"), flags, 3)
+        this.vtbl.DevQueryPrintEx := CallbackCreate(GetMethod(implObj, "DevQueryPrintEx"), flags, 5)
+        this.vtbl.DeviceCapabilitiesA := CallbackCreate(GetMethod(implObj, "DeviceCapabilitiesA"), flags, 10)
+        this.vtbl.UpgradePrinter := CallbackCreate(GetMethod(implObj, "UpgradePrinter"), flags, 3)
+        this.vtbl.PrinterEvent := CallbackCreate(GetMethod(implObj, "PrinterEvent"), flags, 5)
+        this.vtbl.DriverEvent := CallbackCreate(GetMethod(implObj, "DriverEvent"), flags, 5)
+        this.vtbl.QueryColorProfile := CallbackCreate(GetMethod(implObj, "QueryColorProfile"), flags, 9)
+        this.vtbl.FontInstallerDlgProc := CallbackCreate(GetMethod(implObj, "FontInstallerDlgProc"), flags, 5)
+        this.vtbl.UpdateExternalFonts := CallbackCreate(GetMethod(implObj, "UpdateExternalFonts"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PublishDriverInterface)
+        CallbackFree(this.vtbl.CommonUIProp)
+        CallbackFree(this.vtbl.DocumentPropertySheets)
+        CallbackFree(this.vtbl.DevicePropertySheets)
+        CallbackFree(this.vtbl.DevQueryPrintEx)
+        CallbackFree(this.vtbl.DeviceCapabilitiesA)
+        CallbackFree(this.vtbl.UpgradePrinter)
+        CallbackFree(this.vtbl.PrinterEvent)
+        CallbackFree(this.vtbl.DriverEvent)
+        CallbackFree(this.vtbl.QueryColorProfile)
+        CallbackFree(this.vtbl.FontInstallerDlgProc)
+        CallbackFree(this.vtbl.UpdateExternalFonts)
     }
 }

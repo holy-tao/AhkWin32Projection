@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Describes information about present that helps the operating system optimize presentation.
@@ -37,46 +36,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_present_parameters
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_PRESENT_PARAMETERS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DXGI_PRESENT_PARAMETERS {
+    #StructPack 8
 
     /**
      * The number of updated rectangles that you update in the back buffer for the presented frame. The operating system uses this information to optimize presentation. You can set this member to 0 to indicate that you update the whole frame.
-     * @type {Integer}
      */
-    DirtyRectsCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DirtyRectsCount : UInt32
 
     /**
      * A list of updated rectangles that you update in the back buffer for the presented frame. An application must update every single pixel in each rectangle that it reports to the runtime; the application cannot assume that the pixels are saved from the previous frame. For more information about updating dirty rectangles, see Remarks. You can set this member to <b>NULL</b> if <b>DirtyRectsCount</b> is 0. An application must not update any pixel outside of the dirty rectangles.
-     * @type {Pointer<RECT>}
      */
-    pDirtyRects {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDirtyRects : RECT.Ptr
 
     /**
      * A pointer to the scrolled rectangle. The scrolled rectangle is the rectangle of the previous frame from which the runtime bit-block transfers (bitblts) content. The runtime also uses the scrolled rectangle to optimize presentation in terminal server and indirect display scenarios.
      * 
      * The scrolled rectangle also describes the destination rectangle, that is, the region on the current frame that is filled with scrolled content. You can set this member to <b>NULL</b> to indicate that no content is scrolled from the previous frame.
-     * @type {Pointer<RECT>}
      */
-    pScrollRect {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pScrollRect : RECT.Ptr
 
     /**
      * A pointer to the offset of the scrolled area that goes from the source rectangle (of previous frame) to the destination rectangle (of current frame). You can set this member to <b>NULL</b> to indicate no offset.
-     * @type {Pointer<POINT>}
      */
-    pScrollOffset {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pScrollOffset : POINT.Ptr
+
 }

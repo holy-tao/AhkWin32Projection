@@ -1,125 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UpdateAssessment.ahk
-#Include .\UpdateAssessmentStatus.ahk
-#Include .\UpdateImpactLevel.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UpdateAssessment.ahk" { UpdateAssessment }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\UpdateAssessmentStatus.ahk" { UpdateAssessmentStatus }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\UpdateImpactLevel.ahk" { UpdateImpactLevel }
 
 /**
  * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
  * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-osupdateassessment
  * @namespace Windows.Win32.System.UpdateAssessment
  */
-class OSUpdateAssessment extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct OSUpdateAssessment {
+    #StructPack 8
 
     /**
      * <b>true</b> if the OS on the device is no longer supported by Microsoft and will no longer receive servicing updates; otherwise, <b>false</b>.
-     * @type {BOOL}
      */
-    isEndOfSupport {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    isEndOfSupport : BOOL
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-updateassessment">UpdateAssessment</a> structure containing an assessment against the latest update Microsoft has released.
-     * @type {UpdateAssessment}
      */
-    assessmentForCurrent {
-        get {
-            if(!this.HasProp("__assessmentForCurrent"))
-                this.__assessmentForCurrent := UpdateAssessment(4, this)
-            return this.__assessmentForCurrent
-        }
-    }
+    assessmentForCurrent : UpdateAssessment
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-updateassessment">UpdateAssessment</a> structure containing an assessment against the latest applicable quality update for the device.
-     * @type {UpdateAssessment}
      */
-    assessmentForUpToDate {
-        get {
-            if(!this.HasProp("__assessmentForUpToDate"))
-                this.__assessmentForUpToDate := UpdateAssessment(16, this)
-            return this.__assessmentForUpToDate
-        }
-    }
+    assessmentForUpToDate : UpdateAssessment
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateassessmentstatus">UpdateAssessmentStatus</a> enumeration that details whether the device is on the latest applicable security update.
-     * @type {UpdateAssessmentStatus}
      */
-    securityStatus {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    securityStatus : UpdateAssessmentStatus
 
     /**
      * Timestamp when the assessment was done.
-     * @type {FILETIME}
      */
-    assessmentTime {
-        get {
-            if(!this.HasProp("__assessmentTime"))
-                this.__assessmentTime := FILETIME(32, this)
-            return this.__assessmentTime
-        }
-    }
+    assessmentTime : FILETIME
 
     /**
      * Timestamp when the release information was updated.
-     * @type {FILETIME}
      */
-    releaseInfoTime {
-        get {
-            if(!this.HasProp("__releaseInfoTime"))
-                this.__releaseInfoTime := FILETIME(40, this)
-            return this.__releaseInfoTime
-        }
-    }
+    releaseInfoTime : FILETIME
 
     /**
      * The latest OS build that Microsoft has released. This value is used to determine whether a device is current.
-     * @type {PWSTR}
      */
-    currentOSBuild {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    currentOSBuild : PWSTR
 
     /**
      * The published timestamp of the release date for current OS build.
-     * @type {FILETIME}
      */
-    currentOSReleaseTime {
-        get {
-            if(!this.HasProp("__currentOSReleaseTime"))
-                this.__currentOSReleaseTime := FILETIME(56, this)
-            return this.__currentOSReleaseTime
-        }
-    }
+    currentOSReleaseTime : FILETIME
 
     /**
      * The latest applicable OS build in the device's servicing train. This value is used to determine whether a device is up-to-date.
-     * @type {PWSTR}
      */
-    upToDateOSBuild {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    upToDateOSBuild : PWSTR
 
     /**
      * The published timestamp of the release date for the up-to-date OS build.
-     * @type {FILETIME}
      */
-    upToDateOSReleaseTime {
-        get {
-            if(!this.HasProp("__upToDateOSReleaseTime"))
-                this.__upToDateOSReleaseTime := FILETIME(72, this)
-            return this.__upToDateOSReleaseTime
-        }
-    }
+    upToDateOSReleaseTime : FILETIME
+
 }

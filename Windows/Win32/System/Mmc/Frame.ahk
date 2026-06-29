@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Changes the frame rate of a video stream.
@@ -12,32 +13,49 @@
  * @see https://learn.microsoft.com/windows/win32/medfound/framerateconverter
  * @namespace Windows.Win32.System.Mmc
  */
-class Frame extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Frame extends IDispatch {
     /**
      * The interface identifier for Frame
      * @type {Guid}
      */
-    static IID => Guid("{e5e2d970-5bb3-4306-8804-b0968a31c8e6}")
+    static IID := Guid("{e5e2d970-5bb3-4306-8804-b0968a31c8e6}")
 
     /**
      * The class identifier for Frame
      * @type {Guid}
      */
-    static CLSID => Guid("{e5e2d970-5bb3-4306-8804-b0968a31c8e6}")
+    static CLSID := Guid("{e5e2d970-5bb3-4306-8804-b0968a31c8e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Frame interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Maximize   : IntPtr
+        Minimize   : IntPtr
+        Restore    : IntPtr
+        get_Top    : IntPtr
+        put_Top    : IntPtr
+        get_Bottom : IntPtr
+        put_Bottom : IntPtr
+        get_Left   : IntPtr
+        put_Left   : IntPtr
+        get_Right  : IntPtr
+        put_Right  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Maximize", "Minimize", "Restore", "get_Top", "put_Top", "get_Bottom", "put_Bottom", "get_Left", "put_Left", "get_Right", "put_Right"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Frame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -173,5 +191,45 @@ class Frame extends IDispatch {
     put_Right(right) {
         result := ComCall(17, this, "int", right, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (Frame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Maximize := CallbackCreate(GetMethod(implObj, "Maximize"), flags, 1)
+        this.vtbl.Minimize := CallbackCreate(GetMethod(implObj, "Minimize"), flags, 1)
+        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
+        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Bottom := CallbackCreate(GetMethod(implObj, "get_Bottom"), flags, 2)
+        this.vtbl.put_Bottom := CallbackCreate(GetMethod(implObj, "put_Bottom"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Right := CallbackCreate(GetMethod(implObj, "get_Right"), flags, 2)
+        this.vtbl.put_Right := CallbackCreate(GetMethod(implObj, "put_Right"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Maximize)
+        CallbackFree(this.vtbl.Minimize)
+        CallbackFree(this.vtbl.Restore)
+        CallbackFree(this.vtbl.get_Top)
+        CallbackFree(this.vtbl.put_Top)
+        CallbackFree(this.vtbl.get_Bottom)
+        CallbackFree(this.vtbl.put_Bottom)
+        CallbackFree(this.vtbl.get_Left)
+        CallbackFree(this.vtbl.put_Left)
+        CallbackFree(this.vtbl.get_Right)
+        CallbackFree(this.vtbl.put_Right)
     }
 }

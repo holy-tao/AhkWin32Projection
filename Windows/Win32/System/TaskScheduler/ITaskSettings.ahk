@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IIdleSettings.ahk
-#Include .\INetworkSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INetworkSettings.ahk" { INetworkSettings }
+#Import ".\IIdleSettings.ahk" { IIdleSettings }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TASK_INSTANCES_POLICY.ahk" { TASK_INSTANCES_POLICY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASK_COMPATIBILITY.ahk" { TASK_COMPATIBILITY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides the settings that the Task Scheduler service uses to perform the task.
@@ -23,26 +28,72 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasksettings
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITaskSettings extends IDispatch {
     /**
      * The interface identifier for ITaskSettings
      * @type {Guid}
      */
-    static IID => Guid("{8fd4711d-2d02-4c8c-87e3-eff699de127e}")
+    static IID := Guid("{8fd4711d-2d02-4c8c-87e3-eff699de127e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AllowDemandStart           : IntPtr
+        put_AllowDemandStart           : IntPtr
+        get_RestartInterval            : IntPtr
+        put_RestartInterval            : IntPtr
+        get_RestartCount               : IntPtr
+        put_RestartCount               : IntPtr
+        get_MultipleInstances          : IntPtr
+        put_MultipleInstances          : IntPtr
+        get_StopIfGoingOnBatteries     : IntPtr
+        put_StopIfGoingOnBatteries     : IntPtr
+        get_DisallowStartIfOnBatteries : IntPtr
+        put_DisallowStartIfOnBatteries : IntPtr
+        get_AllowHardTerminate         : IntPtr
+        put_AllowHardTerminate         : IntPtr
+        get_StartWhenAvailable         : IntPtr
+        put_StartWhenAvailable         : IntPtr
+        get_XmlText                    : IntPtr
+        put_XmlText                    : IntPtr
+        get_RunOnlyIfNetworkAvailable  : IntPtr
+        put_RunOnlyIfNetworkAvailable  : IntPtr
+        get_ExecutionTimeLimit         : IntPtr
+        put_ExecutionTimeLimit         : IntPtr
+        get_Enabled                    : IntPtr
+        put_Enabled                    : IntPtr
+        get_DeleteExpiredTaskAfter     : IntPtr
+        put_DeleteExpiredTaskAfter     : IntPtr
+        get_Priority                   : IntPtr
+        put_Priority                   : IntPtr
+        get_Compatibility              : IntPtr
+        put_Compatibility              : IntPtr
+        get_Hidden                     : IntPtr
+        put_Hidden                     : IntPtr
+        get_IdleSettings               : IntPtr
+        put_IdleSettings               : IntPtr
+        get_RunOnlyIfIdle              : IntPtr
+        put_RunOnlyIfIdle              : IntPtr
+        get_WakeToRun                  : IntPtr
+        put_WakeToRun                  : IntPtr
+        get_NetworkSettings            : IntPtr
+        put_NetworkSettings            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AllowDemandStart", "put_AllowDemandStart", "get_RestartInterval", "put_RestartInterval", "get_RestartCount", "put_RestartCount", "get_MultipleInstances", "put_MultipleInstances", "get_StopIfGoingOnBatteries", "put_StopIfGoingOnBatteries", "get_DisallowStartIfOnBatteries", "put_DisallowStartIfOnBatteries", "get_AllowHardTerminate", "put_AllowHardTerminate", "get_StartWhenAvailable", "put_StartWhenAvailable", "get_XmlText", "put_XmlText", "get_RunOnlyIfNetworkAvailable", "put_RunOnlyIfNetworkAvailable", "get_ExecutionTimeLimit", "put_ExecutionTimeLimit", "get_Enabled", "put_Enabled", "get_DeleteExpiredTaskAfter", "put_DeleteExpiredTaskAfter", "get_Priority", "put_Priority", "get_Compatibility", "put_Compatibility", "get_Hidden", "put_Hidden", "get_IdleSettings", "put_IdleSettings", "get_RunOnlyIfIdle", "put_RunOnlyIfIdle", "get_WakeToRun", "put_WakeToRun", "get_NetworkSettings", "put_NetworkSettings"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -232,7 +283,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_allowdemandstart
      */
     put_AllowDemandStart(allowDemandStart) {
-        result := ComCall(8, this, "short", allowDemandStart, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, allowDemandStart, "HRESULT")
         return result
     }
 
@@ -245,7 +296,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_restartinterval
      */
     get_RestartInterval(pRestartInterval) {
-        result := ComCall(9, this, "ptr", pRestartInterval, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pRestartInterval, "HRESULT")
         return result
     }
 
@@ -260,7 +311,7 @@ class ITaskSettings extends IDispatch {
     put_RestartInterval(restartInterval) {
         restartInterval := restartInterval is String ? BSTR.Alloc(restartInterval).Value : restartInterval
 
-        result := ComCall(10, this, "ptr", restartInterval, "HRESULT")
+        result := ComCall(10, this, BSTR, restartInterval, "HRESULT")
         return result
     }
 
@@ -316,7 +367,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_multipleinstances
      */
     put_MultipleInstances(policy) {
-        result := ComCall(14, this, "int", policy, "HRESULT")
+        result := ComCall(14, this, TASK_INSTANCES_POLICY, policy, "HRESULT")
         return result
     }
 
@@ -344,7 +395,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_stopifgoingonbatteries
      */
     put_StopIfGoingOnBatteries(stopIfOnBatteries) {
-        result := ComCall(16, this, "short", stopIfOnBatteries, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, stopIfOnBatteries, "HRESULT")
         return result
     }
 
@@ -372,7 +423,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_disallowstartifonbatteries
      */
     put_DisallowStartIfOnBatteries(disallowStart) {
-        result := ComCall(18, this, "short", disallowStart, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, disallowStart, "HRESULT")
         return result
     }
 
@@ -400,7 +451,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_allowhardterminate
      */
     put_AllowHardTerminate(allowHardTerminate) {
-        result := ComCall(20, this, "short", allowHardTerminate, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, allowHardTerminate, "HRESULT")
         return result
     }
 
@@ -436,7 +487,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_startwhenavailable
      */
     put_StartWhenAvailable(startWhenAvailable) {
-        result := ComCall(22, this, "short", startWhenAvailable, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, startWhenAvailable, "HRESULT")
         return result
     }
 
@@ -447,7 +498,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_xmltext
      */
     get_XmlText(pText) {
-        result := ComCall(23, this, "ptr", pText, "HRESULT")
+        result := ComCall(23, this, BSTR.Ptr, pText, "HRESULT")
         return result
     }
 
@@ -460,7 +511,7 @@ class ITaskSettings extends IDispatch {
     put_XmlText(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(24, this, "ptr", text, "HRESULT")
+        result := ComCall(24, this, BSTR, text, "HRESULT")
         return result
     }
 
@@ -488,7 +539,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_runonlyifnetworkavailable
      */
     put_RunOnlyIfNetworkAvailable(runOnlyIfNetworkAvailable) {
-        result := ComCall(26, this, "short", runOnlyIfNetworkAvailable, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, runOnlyIfNetworkAvailable, "HRESULT")
         return result
     }
 
@@ -505,7 +556,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_executiontimelimit
      */
     get_ExecutionTimeLimit(pExecutionTimeLimit) {
-        result := ComCall(27, this, "ptr", pExecutionTimeLimit, "HRESULT")
+        result := ComCall(27, this, BSTR.Ptr, pExecutionTimeLimit, "HRESULT")
         return result
     }
 
@@ -524,7 +575,7 @@ class ITaskSettings extends IDispatch {
     put_ExecutionTimeLimit(executionTimeLimit) {
         executionTimeLimit := executionTimeLimit is String ? BSTR.Alloc(executionTimeLimit).Value : executionTimeLimit
 
-        result := ComCall(28, this, "ptr", executionTimeLimit, "HRESULT")
+        result := ComCall(28, this, BSTR, executionTimeLimit, "HRESULT")
         return result
     }
 
@@ -594,7 +645,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(30, this, "short", enabled, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -609,7 +660,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_deleteexpiredtaskafter
      */
     get_DeleteExpiredTaskAfter(pExpirationDelay) {
-        result := ComCall(31, this, "ptr", pExpirationDelay, "HRESULT")
+        result := ComCall(31, this, BSTR.Ptr, pExpirationDelay, "HRESULT")
         return result
     }
 
@@ -626,7 +677,7 @@ class ITaskSettings extends IDispatch {
     put_DeleteExpiredTaskAfter(expirationDelay) {
         expirationDelay := expirationDelay is String ? BSTR.Alloc(expirationDelay).Value : expirationDelay
 
-        result := ComCall(32, this, "ptr", expirationDelay, "HRESULT")
+        result := ComCall(32, this, BSTR, expirationDelay, "HRESULT")
         return result
     }
 
@@ -831,7 +882,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_compatibility
      */
     put_Compatibility(compatLevel) {
-        result := ComCall(36, this, "int", compatLevel, "HRESULT")
+        result := ComCall(36, this, TASK_COMPATIBILITY, compatLevel, "HRESULT")
         return result
     }
 
@@ -859,7 +910,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_hidden
      */
     put_Hidden(hidden) {
-        result := ComCall(38, this, "short", hidden, "HRESULT")
+        result := ComCall(38, this, VARIANT_BOOL, hidden, "HRESULT")
         return result
     }
 
@@ -930,7 +981,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_runonlyifidle
      */
     put_RunOnlyIfIdle(runOnlyIfIdle) {
-        result := ComCall(42, this, "short", runOnlyIfIdle, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL, runOnlyIfIdle, "HRESULT")
         return result
     }
 
@@ -966,7 +1017,7 @@ class ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_waketorun
      */
     put_WakeToRun(wake) {
-        result := ComCall(44, this, "short", wake, "HRESULT")
+        result := ComCall(44, this, VARIANT_BOOL, wake, "HRESULT")
         return result
     }
 
@@ -989,5 +1040,103 @@ class ITaskSettings extends IDispatch {
     put_NetworkSettings(pNetworkSettings) {
         result := ComCall(46, this, "ptr", pNetworkSettings, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AllowDemandStart := CallbackCreate(GetMethod(implObj, "get_AllowDemandStart"), flags, 2)
+        this.vtbl.put_AllowDemandStart := CallbackCreate(GetMethod(implObj, "put_AllowDemandStart"), flags, 2)
+        this.vtbl.get_RestartInterval := CallbackCreate(GetMethod(implObj, "get_RestartInterval"), flags, 2)
+        this.vtbl.put_RestartInterval := CallbackCreate(GetMethod(implObj, "put_RestartInterval"), flags, 2)
+        this.vtbl.get_RestartCount := CallbackCreate(GetMethod(implObj, "get_RestartCount"), flags, 2)
+        this.vtbl.put_RestartCount := CallbackCreate(GetMethod(implObj, "put_RestartCount"), flags, 2)
+        this.vtbl.get_MultipleInstances := CallbackCreate(GetMethod(implObj, "get_MultipleInstances"), flags, 2)
+        this.vtbl.put_MultipleInstances := CallbackCreate(GetMethod(implObj, "put_MultipleInstances"), flags, 2)
+        this.vtbl.get_StopIfGoingOnBatteries := CallbackCreate(GetMethod(implObj, "get_StopIfGoingOnBatteries"), flags, 2)
+        this.vtbl.put_StopIfGoingOnBatteries := CallbackCreate(GetMethod(implObj, "put_StopIfGoingOnBatteries"), flags, 2)
+        this.vtbl.get_DisallowStartIfOnBatteries := CallbackCreate(GetMethod(implObj, "get_DisallowStartIfOnBatteries"), flags, 2)
+        this.vtbl.put_DisallowStartIfOnBatteries := CallbackCreate(GetMethod(implObj, "put_DisallowStartIfOnBatteries"), flags, 2)
+        this.vtbl.get_AllowHardTerminate := CallbackCreate(GetMethod(implObj, "get_AllowHardTerminate"), flags, 2)
+        this.vtbl.put_AllowHardTerminate := CallbackCreate(GetMethod(implObj, "put_AllowHardTerminate"), flags, 2)
+        this.vtbl.get_StartWhenAvailable := CallbackCreate(GetMethod(implObj, "get_StartWhenAvailable"), flags, 2)
+        this.vtbl.put_StartWhenAvailable := CallbackCreate(GetMethod(implObj, "put_StartWhenAvailable"), flags, 2)
+        this.vtbl.get_XmlText := CallbackCreate(GetMethod(implObj, "get_XmlText"), flags, 2)
+        this.vtbl.put_XmlText := CallbackCreate(GetMethod(implObj, "put_XmlText"), flags, 2)
+        this.vtbl.get_RunOnlyIfNetworkAvailable := CallbackCreate(GetMethod(implObj, "get_RunOnlyIfNetworkAvailable"), flags, 2)
+        this.vtbl.put_RunOnlyIfNetworkAvailable := CallbackCreate(GetMethod(implObj, "put_RunOnlyIfNetworkAvailable"), flags, 2)
+        this.vtbl.get_ExecutionTimeLimit := CallbackCreate(GetMethod(implObj, "get_ExecutionTimeLimit"), flags, 2)
+        this.vtbl.put_ExecutionTimeLimit := CallbackCreate(GetMethod(implObj, "put_ExecutionTimeLimit"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_DeleteExpiredTaskAfter := CallbackCreate(GetMethod(implObj, "get_DeleteExpiredTaskAfter"), flags, 2)
+        this.vtbl.put_DeleteExpiredTaskAfter := CallbackCreate(GetMethod(implObj, "put_DeleteExpiredTaskAfter"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Compatibility := CallbackCreate(GetMethod(implObj, "get_Compatibility"), flags, 2)
+        this.vtbl.put_Compatibility := CallbackCreate(GetMethod(implObj, "put_Compatibility"), flags, 2)
+        this.vtbl.get_Hidden := CallbackCreate(GetMethod(implObj, "get_Hidden"), flags, 2)
+        this.vtbl.put_Hidden := CallbackCreate(GetMethod(implObj, "put_Hidden"), flags, 2)
+        this.vtbl.get_IdleSettings := CallbackCreate(GetMethod(implObj, "get_IdleSettings"), flags, 2)
+        this.vtbl.put_IdleSettings := CallbackCreate(GetMethod(implObj, "put_IdleSettings"), flags, 2)
+        this.vtbl.get_RunOnlyIfIdle := CallbackCreate(GetMethod(implObj, "get_RunOnlyIfIdle"), flags, 2)
+        this.vtbl.put_RunOnlyIfIdle := CallbackCreate(GetMethod(implObj, "put_RunOnlyIfIdle"), flags, 2)
+        this.vtbl.get_WakeToRun := CallbackCreate(GetMethod(implObj, "get_WakeToRun"), flags, 2)
+        this.vtbl.put_WakeToRun := CallbackCreate(GetMethod(implObj, "put_WakeToRun"), flags, 2)
+        this.vtbl.get_NetworkSettings := CallbackCreate(GetMethod(implObj, "get_NetworkSettings"), flags, 2)
+        this.vtbl.put_NetworkSettings := CallbackCreate(GetMethod(implObj, "put_NetworkSettings"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AllowDemandStart)
+        CallbackFree(this.vtbl.put_AllowDemandStart)
+        CallbackFree(this.vtbl.get_RestartInterval)
+        CallbackFree(this.vtbl.put_RestartInterval)
+        CallbackFree(this.vtbl.get_RestartCount)
+        CallbackFree(this.vtbl.put_RestartCount)
+        CallbackFree(this.vtbl.get_MultipleInstances)
+        CallbackFree(this.vtbl.put_MultipleInstances)
+        CallbackFree(this.vtbl.get_StopIfGoingOnBatteries)
+        CallbackFree(this.vtbl.put_StopIfGoingOnBatteries)
+        CallbackFree(this.vtbl.get_DisallowStartIfOnBatteries)
+        CallbackFree(this.vtbl.put_DisallowStartIfOnBatteries)
+        CallbackFree(this.vtbl.get_AllowHardTerminate)
+        CallbackFree(this.vtbl.put_AllowHardTerminate)
+        CallbackFree(this.vtbl.get_StartWhenAvailable)
+        CallbackFree(this.vtbl.put_StartWhenAvailable)
+        CallbackFree(this.vtbl.get_XmlText)
+        CallbackFree(this.vtbl.put_XmlText)
+        CallbackFree(this.vtbl.get_RunOnlyIfNetworkAvailable)
+        CallbackFree(this.vtbl.put_RunOnlyIfNetworkAvailable)
+        CallbackFree(this.vtbl.get_ExecutionTimeLimit)
+        CallbackFree(this.vtbl.put_ExecutionTimeLimit)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_DeleteExpiredTaskAfter)
+        CallbackFree(this.vtbl.put_DeleteExpiredTaskAfter)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.get_Compatibility)
+        CallbackFree(this.vtbl.put_Compatibility)
+        CallbackFree(this.vtbl.get_Hidden)
+        CallbackFree(this.vtbl.put_Hidden)
+        CallbackFree(this.vtbl.get_IdleSettings)
+        CallbackFree(this.vtbl.put_IdleSettings)
+        CallbackFree(this.vtbl.get_RunOnlyIfIdle)
+        CallbackFree(this.vtbl.put_RunOnlyIfIdle)
+        CallbackFree(this.vtbl.get_WakeToRun)
+        CallbackFree(this.vtbl.put_WakeToRun)
+        CallbackFree(this.vtbl.get_NetworkSettings)
+        CallbackFree(this.vtbl.put_NetworkSettings)
     }
 }

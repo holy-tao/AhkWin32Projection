@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a sub-pixel sample position for use with programmable sample positions.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_sample_position
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SAMPLE_POSITION extends Win32Struct {
-    static sizeof => 2
-
-    static packingSize => 1
+export default struct D3D12_SAMPLE_POSITION {
+    #StructPack 1
 
     /**
      * A signed sub-pixel coordinate value in the X axis.
-     * @type {Integer}
      */
-    X {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    X : Int8
 
     /**
      * A signed sub-pixel coordinate value in the Y axis.
-     * @type {Integer}
      */
-    Y {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Y : Int8
+
 }

@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR extends Win32Struct {
-    static sizeof => 10
+export default struct USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bDevCapabilityType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDevCapabilityType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bmAttributes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmAttributes {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    wSpeedsSupported : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSpeedsSupported {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    bFunctionalitySupport : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFunctionalitySupport {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bU1DevExitLat : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bU1DevExitLat {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    wU2DevExitLat : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wU2DevExitLat {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
 }

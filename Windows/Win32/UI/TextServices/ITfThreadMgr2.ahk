@@ -1,38 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfDocumentMgr.ahk
-#Include .\IEnumTfDocumentMgrs.ahk
-#Include .\ITfFunctionProvider.ahk
-#Include .\IEnumTfFunctionProviders.ahk
-#Include .\ITfCompartmentMgr.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTfFunctionProviders.ahk" { IEnumTfFunctionProviders }
+#Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IEnumTfDocumentMgrs.ahk" { IEnumTfDocumentMgrs }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfCompartmentMgr.ahk" { ITfCompartmentMgr }
 
 /**
  * The ITfThreadMgr2 defines the primary object implemented by the TSF manager. ITfThreadMgr2 is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgr2
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfThreadMgr2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfThreadMgr2 extends IUnknown {
     /**
      * The interface identifier for ITfThreadMgr2
      * @type {Guid}
      */
-    static IID => Guid("{0ab198ef-6477-4ee8-8812-6780edb82d5e}")
+    static IID := Guid("{0ab198ef-6477-4ee8-8812-6780edb82d5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfThreadMgr2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Activate                 : IntPtr
+        Deactivate               : IntPtr
+        CreateDocumentMgr        : IntPtr
+        EnumDocumentMgrs         : IntPtr
+        GetFocus                 : IntPtr
+        SetFocus                 : IntPtr
+        IsThreadFocus            : IntPtr
+        GetFunctionProvider      : IntPtr
+        EnumFunctionProviders    : IntPtr
+        GetGlobalCompartment     : IntPtr
+        ActivateEx               : IntPtr
+        GetActiveFlags           : IntPtr
+        SuspendKeystrokeHandling : IntPtr
+        ResumeKeystrokeHandling  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Activate", "Deactivate", "CreateDocumentMgr", "EnumDocumentMgrs", "GetFocus", "SetFocus", "IsThreadFocus", "GetFunctionProvider", "EnumFunctionProviders", "GetGlobalCompartment", "ActivateEx", "GetActiveFlags", "SuspendKeystrokeHandling", "ResumeKeystrokeHandling"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfThreadMgr2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Activates TSF for the calling thread.
@@ -169,7 +191,7 @@ class ITfThreadMgr2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr2-isthreadfocus
      */
     IsThreadFocus() {
-        result := ComCall(9, this, "int*", &pfThreadFocus := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfThreadFocus := 0, "HRESULT")
         return pfThreadFocus
     }
 
@@ -209,7 +231,7 @@ class ITfThreadMgr2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr2-getfunctionprovider
      */
     GetFunctionProvider(clsid) {
-        result := ComCall(10, this, "ptr", clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
         return ITfFunctionProvider(ppFuncProv)
     }
 
@@ -454,5 +476,51 @@ class ITfThreadMgr2 extends IUnknown {
     ResumeKeystrokeHandling() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfThreadMgr2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.CreateDocumentMgr := CallbackCreate(GetMethod(implObj, "CreateDocumentMgr"), flags, 2)
+        this.vtbl.EnumDocumentMgrs := CallbackCreate(GetMethod(implObj, "EnumDocumentMgrs"), flags, 2)
+        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 2)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.IsThreadFocus := CallbackCreate(GetMethod(implObj, "IsThreadFocus"), flags, 2)
+        this.vtbl.GetFunctionProvider := CallbackCreate(GetMethod(implObj, "GetFunctionProvider"), flags, 3)
+        this.vtbl.EnumFunctionProviders := CallbackCreate(GetMethod(implObj, "EnumFunctionProviders"), flags, 2)
+        this.vtbl.GetGlobalCompartment := CallbackCreate(GetMethod(implObj, "GetGlobalCompartment"), flags, 2)
+        this.vtbl.ActivateEx := CallbackCreate(GetMethod(implObj, "ActivateEx"), flags, 3)
+        this.vtbl.GetActiveFlags := CallbackCreate(GetMethod(implObj, "GetActiveFlags"), flags, 2)
+        this.vtbl.SuspendKeystrokeHandling := CallbackCreate(GetMethod(implObj, "SuspendKeystrokeHandling"), flags, 1)
+        this.vtbl.ResumeKeystrokeHandling := CallbackCreate(GetMethod(implObj, "ResumeKeystrokeHandling"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
+        CallbackFree(this.vtbl.CreateDocumentMgr)
+        CallbackFree(this.vtbl.EnumDocumentMgrs)
+        CallbackFree(this.vtbl.GetFocus)
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.IsThreadFocus)
+        CallbackFree(this.vtbl.GetFunctionProvider)
+        CallbackFree(this.vtbl.EnumFunctionProviders)
+        CallbackFree(this.vtbl.GetGlobalCompartment)
+        CallbackFree(this.vtbl.ActivateEx)
+        CallbackFree(this.vtbl.GetActiveFlags)
+        CallbackFree(this.vtbl.SuspendKeystrokeHandling)
+        CallbackFree(this.vtbl.ResumeKeystrokeHandling)
     }
 }

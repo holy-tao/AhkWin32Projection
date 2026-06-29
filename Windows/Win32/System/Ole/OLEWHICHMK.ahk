@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates which part of an object's moniker is being set or retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olewhichmk
  * @namespace Windows.Win32.System.Ole
  */
-class OLEWHICHMK extends Win32Enum {
+export default struct OLEWHICHMK {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The moniker of the object's container. Typically, this is a file moniker. This moniker is not persistently stored inside the object, since the container can be renamed even while the object is not loaded.

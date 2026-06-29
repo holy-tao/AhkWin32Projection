@@ -1,41 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct {
-    static sizeof => 32
+export default struct STORAGE_LB_PROVISIONING_MAP_RESOURCES {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Version : UInt32
 
     /**
      * This bitfield backs the following members:
      * - AvailableMappingResourcesValid
      * - UsedMappingResourcesValid
      * - Reserved0
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    _bitfield1 : Int8
+
 
     /**
      * @type {Integer}
@@ -60,29 +42,16 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct {
         get => (this._bitfield1 >> 2) & 0x3F
         set => this._bitfield1 := ((value & 0x3F) << 2) | (this._bitfield1 & ~(0x3F << 2))
     }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[3]
 
     /**
      * This bitfield backs the following members:
      * - AvailableMappingResourcesScope
      * - UsedMappingResourcesScope
      * - Reserved2
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    _bitfield2 : Int8
+
 
     /**
      * @type {Integer}
@@ -107,31 +76,10 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct {
         get => (this._bitfield2 >> 4) & 0xF
         set => this._bitfield2 := ((value & 0xF) << 4) | (this._bitfield2 & ~(0xF << 4))
     }
+    Reserved3 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    AvailableMappingResources : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AvailableMappingResources {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    UsedMappingResources : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UsedMappingResources {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

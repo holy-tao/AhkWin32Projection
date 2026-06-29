@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAction.ahk" { IAction }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an action that shows a message box when a task is activated.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-ishowmessageaction
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IShowMessageAction extends IAction {
-
-    static sizeof => A_PtrSize
+export default struct IShowMessageAction extends IAction {
     /**
      * The interface identifier for IShowMessageAction
      * @type {Guid}
      */
-    static IID => Guid("{505e9e68-af89-46b8-a30f-56162a83d537}")
+    static IID := Guid("{505e9e68-af89-46b8-a30f-56162a83d537}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShowMessageAction interfaces
+    */
+    struct Vtbl extends IAction.Vtbl {
+        get_Title       : IntPtr
+        put_Title       : IntPtr
+        get_MessageBody : IntPtr
+        put_MessageBody : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Title", "put_Title", "get_MessageBody", "put_MessageBody"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShowMessageAction.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -60,7 +72,7 @@ class IShowMessageAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ishowmessageaction-get_title
      */
     get_Title(pTitle) {
-        result := ComCall(10, this, "ptr", pTitle, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pTitle, "HRESULT")
         return result
     }
 
@@ -77,7 +89,7 @@ class IShowMessageAction extends IAction {
     put_Title(title) {
         title := title is String ? BSTR.Alloc(title).Value : title
 
-        result := ComCall(11, this, "ptr", title, "HRESULT")
+        result := ComCall(11, this, BSTR, title, "HRESULT")
         return result
     }
 
@@ -92,7 +104,7 @@ class IShowMessageAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ishowmessageaction-get_messagebody
      */
     get_MessageBody(pMessageBody) {
-        result := ComCall(12, this, "ptr", pMessageBody, "HRESULT")
+        result := ComCall(12, this, BSTR.Ptr, pMessageBody, "HRESULT")
         return result
     }
 
@@ -109,7 +121,33 @@ class IShowMessageAction extends IAction {
     put_MessageBody(messageBody) {
         messageBody := messageBody is String ? BSTR.Alloc(messageBody).Value : messageBody
 
-        result := ComCall(13, this, "ptr", messageBody, "HRESULT")
+        result := ComCall(13, this, BSTR, messageBody, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShowMessageAction.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_MessageBody := CallbackCreate(GetMethod(implObj, "get_MessageBody"), flags, 2)
+        this.vtbl.put_MessageBody := CallbackCreate(GetMethod(implObj, "put_MessageBody"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.put_Title)
+        CallbackFree(this.vtbl.get_MessageBody)
+        CallbackFree(this.vtbl.put_MessageBody)
     }
 }

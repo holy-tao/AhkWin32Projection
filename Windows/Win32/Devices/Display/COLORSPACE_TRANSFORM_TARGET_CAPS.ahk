@@ -1,57 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION.ahk
-#Include .\COLORSPACE_TRANSFORM_1DLUT_CAP.ahk
-#Include .\COLORSPACE_TRANSFORM_DATA_CAP.ahk
-#Include .\COLORSPACE_TRANSFORM_DATA_TYPE.ahk
-#Include .\COLORSPACE_TRANSFORM_MATRIX_CAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COLORSPACE_TRANSFORM_1DLUT_CAP.ahk" { COLORSPACE_TRANSFORM_1DLUT_CAP }
+#Import ".\COLORSPACE_TRANSFORM_MATRIX_CAP.ahk" { COLORSPACE_TRANSFORM_MATRIX_CAP }
+#Import ".\COLORSPACE_TRANSFORM_DATA_TYPE.ahk" { COLORSPACE_TRANSFORM_DATA_TYPE }
+#Import ".\COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION.ahk" { COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION }
+#Import ".\COLORSPACE_TRANSFORM_DATA_CAP.ahk" { COLORSPACE_TRANSFORM_DATA_CAP }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_TRANSFORM_TARGET_CAPS extends Win32Struct {
-    static sizeof => 64
+export default struct COLORSPACE_TRANSFORM_TARGET_CAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION
 
-    /**
-     * @type {COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION}
-     */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    LookupTable1DDegammaCap : COLORSPACE_TRANSFORM_1DLUT_CAP
 
-    /**
-     * @type {COLORSPACE_TRANSFORM_1DLUT_CAP}
-     */
-    LookupTable1DDegammaCap {
-        get {
-            if(!this.HasProp("__LookupTable1DDegammaCap"))
-                this.__LookupTable1DDegammaCap := COLORSPACE_TRANSFORM_1DLUT_CAP(4, this)
-            return this.__LookupTable1DDegammaCap
-        }
-    }
+    ColorMatrix3x3Cap : COLORSPACE_TRANSFORM_MATRIX_CAP
 
-    /**
-     * @type {COLORSPACE_TRANSFORM_MATRIX_CAP}
-     */
-    ColorMatrix3x3Cap {
-        get {
-            if(!this.HasProp("__ColorMatrix3x3Cap"))
-                this.__ColorMatrix3x3Cap := COLORSPACE_TRANSFORM_MATRIX_CAP(24, this)
-            return this.__ColorMatrix3x3Cap
-        }
-    }
+    LookupTable1DRegammaCap : COLORSPACE_TRANSFORM_1DLUT_CAP
 
-    /**
-     * @type {COLORSPACE_TRANSFORM_1DLUT_CAP}
-     */
-    LookupTable1DRegammaCap {
-        get {
-            if(!this.HasProp("__LookupTable1DRegammaCap"))
-                this.__LookupTable1DRegammaCap := COLORSPACE_TRANSFORM_1DLUT_CAP(44, this)
-            return this.__LookupTable1DRegammaCap
-        }
-    }
 }

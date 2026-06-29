@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextFont)
@@ -32,26 +34,87 @@
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextfont
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextFont extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextFont extends IDispatch {
     /**
      * The interface identifier for ITextFont
      * @type {Guid}
      */
-    static IID => Guid("{8cc497c3-a1df-11ce-8098-00aa0047be5d}")
+    static IID := Guid("{8cc497c3-a1df-11ce-8098-00aa0047be5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextFont interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetDuplicate     : IntPtr
+        SetDuplicate     : IntPtr
+        CanChange        : IntPtr
+        IsEqual          : IntPtr
+        Reset            : IntPtr
+        GetStyle         : IntPtr
+        SetStyle         : IntPtr
+        GetAllCaps       : IntPtr
+        SetAllCaps       : IntPtr
+        GetAnimation     : IntPtr
+        SetAnimation     : IntPtr
+        GetBackColor     : IntPtr
+        SetBackColor     : IntPtr
+        GetBold          : IntPtr
+        SetBold          : IntPtr
+        GetEmboss        : IntPtr
+        SetEmboss        : IntPtr
+        GetForeColor     : IntPtr
+        SetForeColor     : IntPtr
+        GetHidden        : IntPtr
+        SetHidden        : IntPtr
+        GetEngrave       : IntPtr
+        SetEngrave       : IntPtr
+        GetItalic        : IntPtr
+        SetItalic        : IntPtr
+        GetKerning       : IntPtr
+        SetKerning       : IntPtr
+        GetLanguageID    : IntPtr
+        SetLanguageID    : IntPtr
+        GetName          : IntPtr
+        SetName          : IntPtr
+        GetOutline       : IntPtr
+        SetOutline       : IntPtr
+        GetPosition      : IntPtr
+        SetPosition      : IntPtr
+        GetProtected     : IntPtr
+        SetProtected     : IntPtr
+        GetShadow        : IntPtr
+        SetShadow        : IntPtr
+        GetSize          : IntPtr
+        SetSize          : IntPtr
+        GetSmallCaps     : IntPtr
+        SetSmallCaps     : IntPtr
+        GetSpacing       : IntPtr
+        SetSpacing       : IntPtr
+        GetStrikeThrough : IntPtr
+        SetStrikeThrough : IntPtr
+        GetSubscript     : IntPtr
+        SetSubscript     : IntPtr
+        GetSuperscript   : IntPtr
+        SetSuperscript   : IntPtr
+        GetUnderline     : IntPtr
+        SetUnderline     : IntPtr
+        GetWeight        : IntPtr
+        SetWeight        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDuplicate", "SetDuplicate", "CanChange", "IsEqual", "Reset", "GetStyle", "SetStyle", "GetAllCaps", "SetAllCaps", "GetAnimation", "SetAnimation", "GetBackColor", "SetBackColor", "GetBold", "SetBold", "GetEmboss", "SetEmboss", "GetForeColor", "SetForeColor", "GetHidden", "SetHidden", "GetEngrave", "SetEngrave", "GetItalic", "SetItalic", "GetKerning", "SetKerning", "GetLanguageID", "SetLanguageID", "GetName", "SetName", "GetOutline", "SetOutline", "GetPosition", "SetPosition", "GetProtected", "SetProtected", "GetShadow", "SetShadow", "GetSize", "SetSize", "GetSmallCaps", "SetSmallCaps", "GetSpacing", "SetSpacing", "GetStrikeThrough", "SetStrikeThrough", "GetSubscript", "SetSubscript", "GetSuperscript", "SetSuperscript", "GetUnderline", "SetUnderline", "GetWeight", "SetWeight"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextFont.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a duplicate of this text font object.
@@ -223,7 +286,7 @@ class ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-reset
      */
     Reset(Value) {
-        result := ComCall(11, this, "int", Value, "HRESULT")
+        result := ComCall(11, this, tomConstants, Value, "HRESULT")
         return result
     }
 
@@ -1481,8 +1544,8 @@ class ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getname
      */
     GetName() {
-        pbstr := BSTR()
-        result := ComCall(36, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -1550,7 +1613,7 @@ class ITextFont extends IDispatch {
     SetName(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(37, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(37, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -2904,5 +2967,133 @@ class ITextFont extends IDispatch {
     SetWeight(Value) {
         result := ComCall(61, this, "int", Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextFont.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDuplicate := CallbackCreate(GetMethod(implObj, "GetDuplicate"), flags, 2)
+        this.vtbl.SetDuplicate := CallbackCreate(GetMethod(implObj, "SetDuplicate"), flags, 2)
+        this.vtbl.CanChange := CallbackCreate(GetMethod(implObj, "CanChange"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 2)
+        this.vtbl.SetStyle := CallbackCreate(GetMethod(implObj, "SetStyle"), flags, 2)
+        this.vtbl.GetAllCaps := CallbackCreate(GetMethod(implObj, "GetAllCaps"), flags, 2)
+        this.vtbl.SetAllCaps := CallbackCreate(GetMethod(implObj, "SetAllCaps"), flags, 2)
+        this.vtbl.GetAnimation := CallbackCreate(GetMethod(implObj, "GetAnimation"), flags, 2)
+        this.vtbl.SetAnimation := CallbackCreate(GetMethod(implObj, "SetAnimation"), flags, 2)
+        this.vtbl.GetBackColor := CallbackCreate(GetMethod(implObj, "GetBackColor"), flags, 2)
+        this.vtbl.SetBackColor := CallbackCreate(GetMethod(implObj, "SetBackColor"), flags, 2)
+        this.vtbl.GetBold := CallbackCreate(GetMethod(implObj, "GetBold"), flags, 2)
+        this.vtbl.SetBold := CallbackCreate(GetMethod(implObj, "SetBold"), flags, 2)
+        this.vtbl.GetEmboss := CallbackCreate(GetMethod(implObj, "GetEmboss"), flags, 2)
+        this.vtbl.SetEmboss := CallbackCreate(GetMethod(implObj, "SetEmboss"), flags, 2)
+        this.vtbl.GetForeColor := CallbackCreate(GetMethod(implObj, "GetForeColor"), flags, 2)
+        this.vtbl.SetForeColor := CallbackCreate(GetMethod(implObj, "SetForeColor"), flags, 2)
+        this.vtbl.GetHidden := CallbackCreate(GetMethod(implObj, "GetHidden"), flags, 2)
+        this.vtbl.SetHidden := CallbackCreate(GetMethod(implObj, "SetHidden"), flags, 2)
+        this.vtbl.GetEngrave := CallbackCreate(GetMethod(implObj, "GetEngrave"), flags, 2)
+        this.vtbl.SetEngrave := CallbackCreate(GetMethod(implObj, "SetEngrave"), flags, 2)
+        this.vtbl.GetItalic := CallbackCreate(GetMethod(implObj, "GetItalic"), flags, 2)
+        this.vtbl.SetItalic := CallbackCreate(GetMethod(implObj, "SetItalic"), flags, 2)
+        this.vtbl.GetKerning := CallbackCreate(GetMethod(implObj, "GetKerning"), flags, 2)
+        this.vtbl.SetKerning := CallbackCreate(GetMethod(implObj, "SetKerning"), flags, 2)
+        this.vtbl.GetLanguageID := CallbackCreate(GetMethod(implObj, "GetLanguageID"), flags, 2)
+        this.vtbl.SetLanguageID := CallbackCreate(GetMethod(implObj, "SetLanguageID"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetOutline := CallbackCreate(GetMethod(implObj, "GetOutline"), flags, 2)
+        this.vtbl.SetOutline := CallbackCreate(GetMethod(implObj, "SetOutline"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 2)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 2)
+        this.vtbl.GetProtected := CallbackCreate(GetMethod(implObj, "GetProtected"), flags, 2)
+        this.vtbl.SetProtected := CallbackCreate(GetMethod(implObj, "SetProtected"), flags, 2)
+        this.vtbl.GetShadow := CallbackCreate(GetMethod(implObj, "GetShadow"), flags, 2)
+        this.vtbl.SetShadow := CallbackCreate(GetMethod(implObj, "SetShadow"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.GetSmallCaps := CallbackCreate(GetMethod(implObj, "GetSmallCaps"), flags, 2)
+        this.vtbl.SetSmallCaps := CallbackCreate(GetMethod(implObj, "SetSmallCaps"), flags, 2)
+        this.vtbl.GetSpacing := CallbackCreate(GetMethod(implObj, "GetSpacing"), flags, 2)
+        this.vtbl.SetSpacing := CallbackCreate(GetMethod(implObj, "SetSpacing"), flags, 2)
+        this.vtbl.GetStrikeThrough := CallbackCreate(GetMethod(implObj, "GetStrikeThrough"), flags, 2)
+        this.vtbl.SetStrikeThrough := CallbackCreate(GetMethod(implObj, "SetStrikeThrough"), flags, 2)
+        this.vtbl.GetSubscript := CallbackCreate(GetMethod(implObj, "GetSubscript"), flags, 2)
+        this.vtbl.SetSubscript := CallbackCreate(GetMethod(implObj, "SetSubscript"), flags, 2)
+        this.vtbl.GetSuperscript := CallbackCreate(GetMethod(implObj, "GetSuperscript"), flags, 2)
+        this.vtbl.SetSuperscript := CallbackCreate(GetMethod(implObj, "SetSuperscript"), flags, 2)
+        this.vtbl.GetUnderline := CallbackCreate(GetMethod(implObj, "GetUnderline"), flags, 2)
+        this.vtbl.SetUnderline := CallbackCreate(GetMethod(implObj, "SetUnderline"), flags, 2)
+        this.vtbl.GetWeight := CallbackCreate(GetMethod(implObj, "GetWeight"), flags, 2)
+        this.vtbl.SetWeight := CallbackCreate(GetMethod(implObj, "SetWeight"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDuplicate)
+        CallbackFree(this.vtbl.SetDuplicate)
+        CallbackFree(this.vtbl.CanChange)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetStyle)
+        CallbackFree(this.vtbl.SetStyle)
+        CallbackFree(this.vtbl.GetAllCaps)
+        CallbackFree(this.vtbl.SetAllCaps)
+        CallbackFree(this.vtbl.GetAnimation)
+        CallbackFree(this.vtbl.SetAnimation)
+        CallbackFree(this.vtbl.GetBackColor)
+        CallbackFree(this.vtbl.SetBackColor)
+        CallbackFree(this.vtbl.GetBold)
+        CallbackFree(this.vtbl.SetBold)
+        CallbackFree(this.vtbl.GetEmboss)
+        CallbackFree(this.vtbl.SetEmboss)
+        CallbackFree(this.vtbl.GetForeColor)
+        CallbackFree(this.vtbl.SetForeColor)
+        CallbackFree(this.vtbl.GetHidden)
+        CallbackFree(this.vtbl.SetHidden)
+        CallbackFree(this.vtbl.GetEngrave)
+        CallbackFree(this.vtbl.SetEngrave)
+        CallbackFree(this.vtbl.GetItalic)
+        CallbackFree(this.vtbl.SetItalic)
+        CallbackFree(this.vtbl.GetKerning)
+        CallbackFree(this.vtbl.SetKerning)
+        CallbackFree(this.vtbl.GetLanguageID)
+        CallbackFree(this.vtbl.SetLanguageID)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.GetOutline)
+        CallbackFree(this.vtbl.SetOutline)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.GetProtected)
+        CallbackFree(this.vtbl.SetProtected)
+        CallbackFree(this.vtbl.GetShadow)
+        CallbackFree(this.vtbl.SetShadow)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.SetSize)
+        CallbackFree(this.vtbl.GetSmallCaps)
+        CallbackFree(this.vtbl.SetSmallCaps)
+        CallbackFree(this.vtbl.GetSpacing)
+        CallbackFree(this.vtbl.SetSpacing)
+        CallbackFree(this.vtbl.GetStrikeThrough)
+        CallbackFree(this.vtbl.SetStrikeThrough)
+        CallbackFree(this.vtbl.GetSubscript)
+        CallbackFree(this.vtbl.SetSubscript)
+        CallbackFree(this.vtbl.GetSuperscript)
+        CallbackFree(this.vtbl.SetSuperscript)
+        CallbackFree(this.vtbl.GetUnderline)
+        CallbackFree(this.vtbl.SetUnderline)
+        CallbackFree(this.vtbl.GetWeight)
+        CallbackFree(this.vtbl.SetWeight)
     }
 }

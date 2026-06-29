@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DFS_TARGET_PRIORITY_CLASS enumeration r1 (lmdfs.h) defines the set of possible DFS target priority class settings.
@@ -28,7 +27,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ne-lmdfs-dfs_target_priority_class~r1
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_TARGET_PRIORITY_CLASS extends Win32Enum {
+export default struct DFS_TARGET_PRIORITY_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The priority class is not valid.

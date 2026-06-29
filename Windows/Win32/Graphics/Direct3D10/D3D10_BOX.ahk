@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a 3D box. (D3D10_BOX)
@@ -10,74 +9,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_box
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_BOX extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D10_BOX {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The x position of the left hand side of the box.
-     * @type {Integer}
      */
-    left {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    left : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The y position of the top of the box.
-     * @type {Integer}
      */
-    top {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    top : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The z position of the front of the box.
-     * @type {Integer}
      */
-    front {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    front : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The x position of the right hand side of the box.
-     * @type {Integer}
      */
-    right {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    right : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The y position of the bottom of the box.
-     * @type {Integer}
      */
-    bottom {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    bottom : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The z position of the back of the box.
-     * @type {Integer}
      */
-    back {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    back : UInt32
+
 }

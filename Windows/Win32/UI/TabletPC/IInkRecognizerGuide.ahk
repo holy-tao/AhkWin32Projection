@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkRectangle.ahk
-#Include .\InkRecoGuide.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\InkRecoGuide.ahk" { InkRecoGuide }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
 
 /**
  * . (IInkRecognizerGuide)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizerguide
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkRecognizerGuide extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkRecognizerGuide extends IDispatch {
     /**
      * The interface identifier for IInkRecognizerGuide
      * @type {Guid}
      */
-    static IID => Guid("{d934be07-7b84-4208-9136-83c20994e905}")
+    static IID := Guid("{d934be07-7b84-4208-9136-83c20994e905}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkRecognizerGuide interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_WritingBox : IntPtr
+        put_WritingBox : IntPtr
+        get_DrawnBox   : IntPtr
+        put_DrawnBox   : IntPtr
+        get_Rows       : IntPtr
+        put_Rows       : IntPtr
+        get_Columns    : IntPtr
+        put_Columns    : IntPtr
+        get_Midline    : IntPtr
+        put_Midline    : IntPtr
+        get_GuideData  : IntPtr
+        put_GuideData  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_WritingBox", "put_WritingBox", "get_DrawnBox", "put_DrawnBox", "get_Rows", "put_Rows", "get_Columns", "put_Columns", "get_Midline", "put_Midline", "get_GuideData", "put_GuideData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkRecognizerGuide.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IInkRectangle} 
@@ -707,7 +726,7 @@ class IInkRecognizerGuide extends IDispatch {
      */
     get_GuideData() {
         pRecoGuide := InkRecoGuide()
-        result := ComCall(17, this, "ptr", pRecoGuide, "HRESULT")
+        result := ComCall(17, this, InkRecoGuide.Ptr, pRecoGuide, "HRESULT")
         return pRecoGuide
     }
 
@@ -718,7 +737,49 @@ class IInkRecognizerGuide extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-put_guidedata
      */
     put_GuideData(recoGuide) {
-        result := ComCall(18, this, "ptr", recoGuide, "HRESULT")
+        result := ComCall(18, this, InkRecoGuide, recoGuide, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkRecognizerGuide.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_WritingBox := CallbackCreate(GetMethod(implObj, "get_WritingBox"), flags, 2)
+        this.vtbl.put_WritingBox := CallbackCreate(GetMethod(implObj, "put_WritingBox"), flags, 2)
+        this.vtbl.get_DrawnBox := CallbackCreate(GetMethod(implObj, "get_DrawnBox"), flags, 2)
+        this.vtbl.put_DrawnBox := CallbackCreate(GetMethod(implObj, "put_DrawnBox"), flags, 2)
+        this.vtbl.get_Rows := CallbackCreate(GetMethod(implObj, "get_Rows"), flags, 2)
+        this.vtbl.put_Rows := CallbackCreate(GetMethod(implObj, "put_Rows"), flags, 2)
+        this.vtbl.get_Columns := CallbackCreate(GetMethod(implObj, "get_Columns"), flags, 2)
+        this.vtbl.put_Columns := CallbackCreate(GetMethod(implObj, "put_Columns"), flags, 2)
+        this.vtbl.get_Midline := CallbackCreate(GetMethod(implObj, "get_Midline"), flags, 2)
+        this.vtbl.put_Midline := CallbackCreate(GetMethod(implObj, "put_Midline"), flags, 2)
+        this.vtbl.get_GuideData := CallbackCreate(GetMethod(implObj, "get_GuideData"), flags, 2)
+        this.vtbl.put_GuideData := CallbackCreate(GetMethod(implObj, "put_GuideData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_WritingBox)
+        CallbackFree(this.vtbl.put_WritingBox)
+        CallbackFree(this.vtbl.get_DrawnBox)
+        CallbackFree(this.vtbl.put_DrawnBox)
+        CallbackFree(this.vtbl.get_Rows)
+        CallbackFree(this.vtbl.put_Rows)
+        CallbackFree(this.vtbl.get_Columns)
+        CallbackFree(this.vtbl.put_Columns)
+        CallbackFree(this.vtbl.get_Midline)
+        CallbackFree(this.vtbl.put_Midline)
+        CallbackFree(this.vtbl.get_GuideData)
+        CallbackFree(this.vtbl.put_GuideData)
     }
 }

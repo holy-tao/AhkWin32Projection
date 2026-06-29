@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains client window coordinates.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_small_rect
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_SMALL_RECT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct WTS_SMALL_RECT {
+    #StructPack 2
 
     /**
      * Specifies the upper left x-coordinate.
-     * @type {Integer}
      */
-    Left {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Left : Int16
 
     /**
      * Specifies the upper left y-coordinate.
-     * @type {Integer}
      */
-    Top {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Top : Int16
 
     /**
      * Specifies the lower right x-coordinate.
-     * @type {Integer}
      */
-    Right {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    Right : Int16
 
     /**
      * Specifies the lower right y-coordinate.
-     * @type {Integer}
      */
-    Bottom {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
+    Bottom : Int16
+
 }

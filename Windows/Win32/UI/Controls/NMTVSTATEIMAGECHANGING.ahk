@@ -1,63 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
 
 /**
  * Contains information about an NM_TVSTATEIMAGECHANGING notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvstateimagechanging
  * @namespace Windows.Win32.UI.Controls
  */
-class NMTVSTATEIMAGECHANGING extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct NMTVSTATEIMAGECHANGING {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the tree-view item whose state image is changing.
-     * @type {HTREEITEM}
      */
-    hti {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    hti : HTREEITEM
 
     /**
      * Type: <b>int</b>
      * 
      * The index of the old state image.
-     * @type {Integer}
      */
-    iOldStateImageIndex {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    iOldStateImageIndex : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The index of the new state image.
-     * @type {Integer}
      */
-    iNewStateImageIndex {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    iNewStateImageIndex : Int32
+
 }

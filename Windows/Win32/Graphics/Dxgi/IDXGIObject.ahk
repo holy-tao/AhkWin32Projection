@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IDXGIObject interface is a base interface for all DXGI objects; IDXGIObject supports associating caller-defined (private data) with an object and retrieval of an interface to the parent object.
@@ -28,26 +29,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiobject
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIObject extends IUnknown {
     /**
      * The interface identifier for IDXGIObject
      * @type {Guid}
      */
-    static IID => Guid("{aec22fb8-76f3-4639-9be0-28eb43a67a2e}")
+    static IID := Guid("{aec22fb8-76f3-4639-9be0-28eb43a67a2e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetPrivateData          : IntPtr
+        SetPrivateDataInterface : IntPtr
+        GetPrivateData          : IntPtr
+        GetParent               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPrivateData", "SetPrivateDataInterface", "GetPrivateData", "GetParent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets application-defined data to the object and associates that data with a GUID.
@@ -83,7 +94,7 @@ class IDXGIObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-setprivatedata
      */
     SetPrivateData(Name, DataSize, pData) {
-        result := ComCall(3, this, "ptr", Name, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Name, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -105,7 +116,7 @@ class IDXGIObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-setprivatedatainterface
      */
     SetPrivateDataInterface(Name, pUnknown) {
-        result := ComCall(4, this, "ptr", Name, "ptr", pUnknown, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, Name, "ptr", pUnknown, "HRESULT")
         return result
     }
 
@@ -141,7 +152,7 @@ class IDXGIObject extends IUnknown {
     GetPrivateData(Name, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", Name, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, Name, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -156,7 +167,33 @@ class IDXGIObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-getparent
      */
     GetParent(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &ppParent := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, "ptr*", &ppParent := 0, "HRESULT")
         return ppParent
+    }
+
+    Query(iid) {
+        if (IDXGIObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.SetPrivateDataInterface)
+        CallbackFree(this.vtbl.GetPrivateData)
+        CallbackFree(this.vtbl.GetParent)
     }
 }

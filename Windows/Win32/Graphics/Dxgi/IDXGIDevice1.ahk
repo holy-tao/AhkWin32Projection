@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIDevice.ahk" { IDXGIDevice }
 
 /**
  * An IDXGIDevice1 interface implements a derived class for DXGI objects that produce image data.
@@ -35,26 +36,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgidevice1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIDevice1 extends IDXGIDevice {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIDevice1 extends IDXGIDevice {
     /**
      * The interface identifier for IDXGIDevice1
      * @type {Guid}
      */
-    static IID => Guid("{77db970f-6276-48ba-ba28-070143b4392c}")
+    static IID := Guid("{77db970f-6276-48ba-ba28-070143b4392c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIDevice1 interfaces
+    */
+    struct Vtbl extends IDXGIDevice.Vtbl {
+        SetMaximumFrameLatency : IntPtr
+        GetMaximumFrameLatency : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMaximumFrameLatency", "GetMaximumFrameLatency"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIDevice1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the number of frames that the system is allowed to queue for rendering.
@@ -97,5 +106,27 @@ class IDXGIDevice1 extends IDXGIDevice {
     GetMaximumFrameLatency() {
         result := ComCall(13, this, "uint*", &pMaxLatency := 0, "HRESULT")
         return pMaxLatency
+    }
+
+    Query(iid) {
+        if (IDXGIDevice1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMaximumFrameLatency)
+        CallbackFree(this.vtbl.GetMaximumFrameLatency)
     }
 }

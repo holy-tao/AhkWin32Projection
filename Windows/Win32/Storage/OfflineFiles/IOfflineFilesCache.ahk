@@ -1,42 +1,74 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IOfflineFilesItem.ahk
-#Include .\IOfflineFilesSetting.ahk
-#Include .\IEnumOfflineFilesSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOfflineFilesSimpleProgress.ahk" { IOfflineFilesSimpleProgress }
+#Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
+#Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOfflineFilesSetting.ahk" { IOfflineFilesSetting }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumOfflineFilesSettings.ahk" { IEnumOfflineFilesSettings }
+#Import ".\IOfflineFilesSyncProgress.ahk" { IOfflineFilesSyncProgress }
+#Import ".\IOfflineFilesSyncConflictHandler.ahk" { IOfflineFilesSyncConflictHandler }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OFFLINEFILES_CACHING_MODE.ahk" { OFFLINEFILES_CACHING_MODE }
 
 /**
  * Used to manage the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilescache
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesCache extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesCache extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesCache
      * @type {Guid}
      */
-    static IID => Guid("{855d6203-7914-48b9-8d40-4c56f5acffc5}")
+    static IID := Guid("{855d6203-7914-48b9-8d40-4c56f5acffc5}")
 
     /**
      * The class identifier for OfflineFilesCache
      * @type {Guid}
      */
-    static CLSID => Guid("{48c6be7c-3871-43cc-b46f-1449a1bb2ff3}")
+    static CLSID := Guid("{48c6be7c-3871-43cc-b46f-1449a1bb2ff3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesCache interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Synchronize             : IntPtr
+        DeleteItems             : IntPtr
+        DeleteItemsForUser      : IntPtr
+        Pin                     : IntPtr
+        Unpin                   : IntPtr
+        GetEncryptionStatus     : IntPtr
+        Encrypt                 : IntPtr
+        FindItem                : IntPtr
+        FindItemEx              : IntPtr
+        RenameItem              : IntPtr
+        GetLocation             : IntPtr
+        GetDiskSpaceInformation : IntPtr
+        SetDiskSpaceLimits      : IntPtr
+        ProcessAdminPinPolicy   : IntPtr
+        GetSettingObject        : IntPtr
+        EnumSettingObjects      : IntPtr
+        IsPathCacheable         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Synchronize", "DeleteItems", "DeleteItemsForUser", "Pin", "Unpin", "GetEncryptionStatus", "Encrypt", "FindItem", "FindItemEx", "RenameItem", "GetLocation", "GetDiskSpaceInformation", "SetDiskSpaceLimits", "ProcessAdminPinPolicy", "GetSettingObject", "EnumSettingObjects", "IsPathCacheable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Synchronizes files and directories in the Offline Files cache with their corresponding copies in the applicable network shared folders.
@@ -137,11 +169,9 @@ class IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-synchronize
      */
     Synchronize(hwndParent, rgpszPaths, cPaths, bAsync, dwSyncControl, pISyncConflictHandler, pIProgress, pSyncId) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "int", bAsync, "uint", dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, "ptr", pSyncId, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, BOOL, bAsync, "uint", dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, Guid.Ptr, pSyncId, "HRESULT")
         return result
     }
 
@@ -226,7 +256,7 @@ class IOfflineFilesCache extends IUnknown {
     DeleteItems(rgpszPaths, cPaths, dwFlags, bAsync, pIProgress) {
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -314,7 +344,7 @@ class IOfflineFilesCache extends IUnknown {
 
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -390,11 +420,9 @@ class IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-pin
      */
     Pin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "int", bDeep, "int", bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, BOOL, bDeep, BOOL, bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -470,11 +498,9 @@ class IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-unpin
      */
     Unpin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "int", bDeep, "int", bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        result := ComCall(7, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, BOOL, bDeep, BOOL, bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -592,9 +618,7 @@ class IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-encrypt
      */
     Encrypt(hwndParent, bEncrypt, dwEncryptionControlFlags, bAsync, pIProgress) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(9, this, "ptr", hwndParent, "int", bEncrypt, "uint", dwEncryptionControlFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(9, this, HWND, hwndParent, BOOL, bEncrypt, "uint", dwEncryptionControlFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -654,7 +678,7 @@ class IOfflineFilesCache extends IUnknown {
         pszPathOriginal := pszPathOriginal is String ? StrPtr(pszPathOriginal) : pszPathOriginal
         pszPathNew := pszPathNew is String ? StrPtr(pszPathNew) : pszPathNew
 
-        result := ComCall(12, this, "ptr", pszPathOriginal, "ptr", pszPathNew, "int", bReplaceIfExists, "HRESULT")
+        result := ComCall(12, this, "ptr", pszPathOriginal, "ptr", pszPathNew, BOOL, bReplaceIfExists, "HRESULT")
         return result
     }
 
@@ -664,7 +688,7 @@ class IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getlocation
      */
     GetLocation() {
-        result := ComCall(13, this, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
@@ -794,5 +818,57 @@ class IOfflineFilesCache extends IUnknown {
 
         result := ComCall(19, this, "ptr", pszPath, pbCacheableMarshal, pbCacheable, pShareCachingModeMarshal, pShareCachingMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 9)
+        this.vtbl.DeleteItems := CallbackCreate(GetMethod(implObj, "DeleteItems"), flags, 6)
+        this.vtbl.DeleteItemsForUser := CallbackCreate(GetMethod(implObj, "DeleteItemsForUser"), flags, 7)
+        this.vtbl.Pin := CallbackCreate(GetMethod(implObj, "Pin"), flags, 8)
+        this.vtbl.Unpin := CallbackCreate(GetMethod(implObj, "Unpin"), flags, 8)
+        this.vtbl.GetEncryptionStatus := CallbackCreate(GetMethod(implObj, "GetEncryptionStatus"), flags, 3)
+        this.vtbl.Encrypt := CallbackCreate(GetMethod(implObj, "Encrypt"), flags, 6)
+        this.vtbl.FindItem := CallbackCreate(GetMethod(implObj, "FindItem"), flags, 4)
+        this.vtbl.FindItemEx := CallbackCreate(GetMethod(implObj, "FindItemEx"), flags, 8)
+        this.vtbl.RenameItem := CallbackCreate(GetMethod(implObj, "RenameItem"), flags, 4)
+        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 2)
+        this.vtbl.GetDiskSpaceInformation := CallbackCreate(GetMethod(implObj, "GetDiskSpaceInformation"), flags, 6)
+        this.vtbl.SetDiskSpaceLimits := CallbackCreate(GetMethod(implObj, "SetDiskSpaceLimits"), flags, 3)
+        this.vtbl.ProcessAdminPinPolicy := CallbackCreate(GetMethod(implObj, "ProcessAdminPinPolicy"), flags, 3)
+        this.vtbl.GetSettingObject := CallbackCreate(GetMethod(implObj, "GetSettingObject"), flags, 3)
+        this.vtbl.EnumSettingObjects := CallbackCreate(GetMethod(implObj, "EnumSettingObjects"), flags, 2)
+        this.vtbl.IsPathCacheable := CallbackCreate(GetMethod(implObj, "IsPathCacheable"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Synchronize)
+        CallbackFree(this.vtbl.DeleteItems)
+        CallbackFree(this.vtbl.DeleteItemsForUser)
+        CallbackFree(this.vtbl.Pin)
+        CallbackFree(this.vtbl.Unpin)
+        CallbackFree(this.vtbl.GetEncryptionStatus)
+        CallbackFree(this.vtbl.Encrypt)
+        CallbackFree(this.vtbl.FindItem)
+        CallbackFree(this.vtbl.FindItemEx)
+        CallbackFree(this.vtbl.RenameItem)
+        CallbackFree(this.vtbl.GetLocation)
+        CallbackFree(this.vtbl.GetDiskSpaceInformation)
+        CallbackFree(this.vtbl.SetDiskSpaceLimits)
+        CallbackFree(this.vtbl.ProcessAdminPinPolicy)
+        CallbackFree(this.vtbl.GetSettingObject)
+        CallbackFree(this.vtbl.EnumSettingObjects)
+        CallbackFree(this.vtbl.IsPathCacheable)
     }
 }

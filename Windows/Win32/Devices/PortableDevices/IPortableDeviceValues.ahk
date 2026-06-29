@@ -1,45 +1,94 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPortableDevicePropVariantCollection.ahk
-#Include .\IPortableDeviceKeyCollection.ahk
-#Include .\IPortableDeviceValuesCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
+#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDeviceValues interface holds a collection of PROPERTYKEY/PROPVARIANT pairs.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceValues extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceValues extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceValues
      * @type {Guid}
      */
-    static IID => Guid("{6848f6f2-3155-4f86-b6f5-263eeeab3143}")
+    static IID := Guid("{6848f6f2-3155-4f86-b6f5-263eeeab3143}")
 
     /**
      * The class identifier for PortableDeviceValues
      * @type {Guid}
      */
-    static CLSID => Guid("{0c15d503-d017-47ce-9016-7b3f978721cc}")
+    static CLSID := Guid("{0c15d503-d017-47ce-9016-7b3f978721cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceValues interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount                                     : IntPtr
+        GetAt                                        : IntPtr
+        SetValue                                     : IntPtr
+        GetValue                                     : IntPtr
+        SetStringValue                               : IntPtr
+        GetStringValue                               : IntPtr
+        SetUnsignedIntegerValue                      : IntPtr
+        GetUnsignedIntegerValue                      : IntPtr
+        SetSignedIntegerValue                        : IntPtr
+        GetSignedIntegerValue                        : IntPtr
+        SetUnsignedLargeIntegerValue                 : IntPtr
+        GetUnsignedLargeIntegerValue                 : IntPtr
+        SetSignedLargeIntegerValue                   : IntPtr
+        GetSignedLargeIntegerValue                   : IntPtr
+        SetFloatValue                                : IntPtr
+        GetFloatValue                                : IntPtr
+        SetErrorValue                                : IntPtr
+        GetErrorValue                                : IntPtr
+        SetKeyValue                                  : IntPtr
+        GetKeyValue                                  : IntPtr
+        SetBoolValue                                 : IntPtr
+        GetBoolValue                                 : IntPtr
+        SetIUnknownValue                             : IntPtr
+        GetIUnknownValue                             : IntPtr
+        SetGuidValue                                 : IntPtr
+        GetGuidValue                                 : IntPtr
+        SetBufferValue                               : IntPtr
+        GetBufferValue                               : IntPtr
+        SetIPortableDeviceValuesValue                : IntPtr
+        GetIPortableDeviceValuesValue                : IntPtr
+        SetIPortableDevicePropVariantCollectionValue : IntPtr
+        GetIPortableDevicePropVariantCollectionValue : IntPtr
+        SetIPortableDeviceKeyCollectionValue         : IntPtr
+        GetIPortableDeviceKeyCollectionValue         : IntPtr
+        SetIPortableDeviceValuesCollectionValue      : IntPtr
+        GetIPortableDeviceValuesCollectionValue      : IntPtr
+        RemoveValue                                  : IntPtr
+        CopyValuesFromPropertyStore                  : IntPtr
+        CopyValuesToPropertyStore                    : IntPtr
+        Clear                                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt", "SetValue", "GetValue", "SetStringValue", "GetStringValue", "SetUnsignedIntegerValue", "GetUnsignedIntegerValue", "SetSignedIntegerValue", "GetSignedIntegerValue", "SetUnsignedLargeIntegerValue", "GetUnsignedLargeIntegerValue", "SetSignedLargeIntegerValue", "GetSignedLargeIntegerValue", "SetFloatValue", "GetFloatValue", "SetErrorValue", "GetErrorValue", "SetKeyValue", "GetKeyValue", "SetBoolValue", "GetBoolValue", "SetIUnknownValue", "GetIUnknownValue", "SetGuidValue", "GetGuidValue", "SetBufferValue", "GetBufferValue", "SetIPortableDeviceValuesValue", "GetIPortableDeviceValuesValue", "SetIPortableDevicePropVariantCollectionValue", "GetIPortableDevicePropVariantCollectionValue", "SetIPortableDeviceKeyCollectionValue", "GetIPortableDeviceKeyCollectionValue", "SetIPortableDeviceValuesCollectionValue", "GetIPortableDeviceValuesCollectionValue", "RemoveValue", "CopyValuesFromPropertyStore", "CopyValuesToPropertyStore", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceValues.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IPortableDeviceValues::GetCount method - The GetCount method retrieves the number of items in the collection.
@@ -78,7 +127,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getat
      */
     GetAt(index, pKey, pValue) {
-        result := ComCall(4, this, "uint", index, "ptr", pKey, "ptr", pValue, "HRESULT")
+        result := ComCall(4, this, "uint", index, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -102,7 +151,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setvalue
      */
     SetValue(key, pValue) {
-        result := ComCall(5, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -118,7 +167,7 @@ class IPortableDeviceValues extends IUnknown {
      */
     GetValue(key) {
         pValue := PROPVARIANT()
-        result := ComCall(6, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(6, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -140,7 +189,7 @@ class IPortableDeviceValues extends IUnknown {
     SetStringValue(key, Value) {
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(7, this, "ptr", key, "ptr", Value, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, key, "ptr", Value, "HRESULT")
         return result
     }
 
@@ -151,7 +200,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getstringvalue
      */
     GetStringValue(key) {
-        result := ComCall(8, this, "ptr", key, "ptr*", &pValue := 0, "HRESULT")
+        result := ComCall(8, this, PROPERTYKEY.Ptr, key, PWSTR.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -171,7 +220,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setunsignedintegervalue
      */
     SetUnsignedIntegerValue(key, Value) {
-        result := ComCall(9, this, "ptr", key, "uint", Value, "HRESULT")
+        result := ComCall(9, this, PROPERTYKEY.Ptr, key, "uint", Value, "HRESULT")
         return result
     }
 
@@ -182,7 +231,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getunsignedintegervalue
      */
     GetUnsignedIntegerValue(key) {
-        result := ComCall(10, this, "ptr", key, "uint*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, PROPERTYKEY.Ptr, key, "uint*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -202,7 +251,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setsignedintegervalue
      */
     SetSignedIntegerValue(key, Value) {
-        result := ComCall(11, this, "ptr", key, "int", Value, "HRESULT")
+        result := ComCall(11, this, PROPERTYKEY.Ptr, key, "int", Value, "HRESULT")
         return result
     }
 
@@ -213,7 +262,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getsignedintegervalue
      */
     GetSignedIntegerValue(key) {
-        result := ComCall(12, this, "ptr", key, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(12, this, PROPERTYKEY.Ptr, key, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -231,7 +280,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setunsignedlargeintegervalue
      */
     SetUnsignedLargeIntegerValue(key, Value) {
-        result := ComCall(13, this, "ptr", key, "uint", Value, "HRESULT")
+        result := ComCall(13, this, PROPERTYKEY.Ptr, key, "uint", Value, "HRESULT")
         return result
     }
 
@@ -242,7 +291,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getunsignedlargeintegervalue
      */
     GetUnsignedLargeIntegerValue(key) {
-        result := ComCall(14, this, "ptr", key, "uint*", &pValue := 0, "HRESULT")
+        result := ComCall(14, this, PROPERTYKEY.Ptr, key, "uint*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -262,7 +311,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setsignedlargeintegervalue
      */
     SetSignedLargeIntegerValue(key, Value) {
-        result := ComCall(15, this, "ptr", key, "int64", Value, "HRESULT")
+        result := ComCall(15, this, PROPERTYKEY.Ptr, key, "int64", Value, "HRESULT")
         return result
     }
 
@@ -273,7 +322,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getsignedlargeintegervalue
      */
     GetSignedLargeIntegerValue(key) {
-        result := ComCall(16, this, "ptr", key, "int64*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, PROPERTYKEY.Ptr, key, "int64*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -293,7 +342,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setfloatvalue
      */
     SetFloatValue(key, Value) {
-        result := ComCall(17, this, "ptr", key, "float", Value, "HRESULT")
+        result := ComCall(17, this, PROPERTYKEY.Ptr, key, "float", Value, "HRESULT")
         return result
     }
 
@@ -304,7 +353,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getfloatvalue
      */
     GetFloatValue(key) {
-        result := ComCall(18, this, "ptr", key, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(18, this, PROPERTYKEY.Ptr, key, "float*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -324,7 +373,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-seterrorvalue
      */
     SetErrorValue(key, Value) {
-        result := ComCall(19, this, "ptr", key, "int", Value, "HRESULT")
+        result := ComCall(19, this, PROPERTYKEY.Ptr, key, "int", Value, "HRESULT")
         return result
     }
 
@@ -335,7 +384,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-geterrorvalue
      */
     GetErrorValue(key) {
-        result := ComCall(20, this, "ptr", key, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(20, this, PROPERTYKEY.Ptr, key, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -355,7 +404,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setkeyvalue
      */
     SetKeyValue(key, Value) {
-        result := ComCall(21, this, "ptr", key, "ptr", Value, "HRESULT")
+        result := ComCall(21, this, PROPERTYKEY.Ptr, key, PROPERTYKEY.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -367,7 +416,7 @@ class IPortableDeviceValues extends IUnknown {
      */
     GetKeyValue(key) {
         pValue := PROPERTYKEY()
-        result := ComCall(22, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(22, this, PROPERTYKEY.Ptr, key, PROPERTYKEY.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -387,7 +436,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setboolvalue
      */
     SetBoolValue(key, Value) {
-        result := ComCall(23, this, "ptr", key, "int", Value, "HRESULT")
+        result := ComCall(23, this, PROPERTYKEY.Ptr, key, BOOL, Value, "HRESULT")
         return result
     }
 
@@ -398,7 +447,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getboolvalue
      */
     GetBoolValue(key) {
-        result := ComCall(24, this, "ptr", key, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(24, this, PROPERTYKEY.Ptr, key, BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -418,7 +467,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setiunknownvalue
      */
     SetIUnknownValue(key, pValue) {
-        result := ComCall(25, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(25, this, PROPERTYKEY.Ptr, key, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -429,7 +478,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiunknownvalue
      */
     GetIUnknownValue(key) {
-        result := ComCall(26, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(26, this, PROPERTYKEY.Ptr, key, "ptr*", &ppValue := 0, "HRESULT")
         return IUnknown(ppValue)
     }
 
@@ -449,7 +498,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setguidvalue
      */
     SetGuidValue(key, Value) {
-        result := ComCall(27, this, "ptr", key, "ptr", Value, "HRESULT")
+        result := ComCall(27, this, PROPERTYKEY.Ptr, key, Guid.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -461,7 +510,7 @@ class IPortableDeviceValues extends IUnknown {
      */
     GetGuidValue(key) {
         pValue := Guid()
-        result := ComCall(28, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(28, this, PROPERTYKEY.Ptr, key, Guid.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -486,7 +535,7 @@ class IPortableDeviceValues extends IUnknown {
     SetBufferValue(key, pValue, cbValue) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(29, this, "ptr", key, pValueMarshal, pValue, "uint", cbValue, "HRESULT")
+        result := ComCall(29, this, PROPERTYKEY.Ptr, key, pValueMarshal, pValue, "uint", cbValue, "HRESULT")
         return result
     }
 
@@ -512,7 +561,7 @@ class IPortableDeviceValues extends IUnknown {
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "ptr", key, ppValueMarshal, ppValue, pcbValueMarshal, pcbValue, "HRESULT")
+        result := ComCall(30, this, PROPERTYKEY.Ptr, key, ppValueMarshal, ppValue, pcbValueMarshal, pcbValue, "HRESULT")
         return result
     }
 
@@ -532,7 +581,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setiportabledevicevaluesvalue
      */
     SetIPortableDeviceValuesValue(key, pValue) {
-        result := ComCall(31, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(31, this, PROPERTYKEY.Ptr, key, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -543,7 +592,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicevaluesvalue
      */
     GetIPortableDeviceValuesValue(key) {
-        result := ComCall(32, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(32, this, PROPERTYKEY.Ptr, key, "ptr*", &ppValue := 0, "HRESULT")
         return IPortableDeviceValues(ppValue)
     }
 
@@ -563,7 +612,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setiportabledevicepropvariantcollectionvalue
      */
     SetIPortableDevicePropVariantCollectionValue(key, pValue) {
-        result := ComCall(33, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(33, this, PROPERTYKEY.Ptr, key, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -574,7 +623,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicepropvariantcollectionvalue
      */
     GetIPortableDevicePropVariantCollectionValue(key) {
-        result := ComCall(34, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(34, this, PROPERTYKEY.Ptr, key, "ptr*", &ppValue := 0, "HRESULT")
         return IPortableDevicePropVariantCollection(ppValue)
     }
 
@@ -594,7 +643,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setiportabledevicekeycollectionvalue
      */
     SetIPortableDeviceKeyCollectionValue(key, pValue) {
-        result := ComCall(35, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(35, this, PROPERTYKEY.Ptr, key, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -605,7 +654,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicekeycollectionvalue
      */
     GetIPortableDeviceKeyCollectionValue(key) {
-        result := ComCall(36, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(36, this, PROPERTYKEY.Ptr, key, "ptr*", &ppValue := 0, "HRESULT")
         return IPortableDeviceKeyCollection(ppValue)
     }
 
@@ -625,7 +674,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setiportabledevicevaluescollectionvalue
      */
     SetIPortableDeviceValuesCollectionValue(key, pValue) {
-        result := ComCall(37, this, "ptr", key, "ptr", pValue, "HRESULT")
+        result := ComCall(37, this, PROPERTYKEY.Ptr, key, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -636,7 +685,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicevaluescollectionvalue
      */
     GetIPortableDeviceValuesCollectionValue(key) {
-        result := ComCall(38, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(38, this, PROPERTYKEY.Ptr, key, "ptr*", &ppValue := 0, "HRESULT")
         return IPortableDeviceValuesCollection(ppValue)
     }
 
@@ -653,7 +702,7 @@ class IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-removevalue
      */
     RemoveValue(key) {
-        result := ComCall(39, this, "ptr", key, "HRESULT")
+        result := ComCall(39, this, PROPERTYKEY.Ptr, key, "HRESULT")
         return result
     }
 
@@ -720,5 +769,103 @@ class IPortableDeviceValues extends IUnknown {
     Clear() {
         result := ComCall(42, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceValues.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.SetUnsignedIntegerValue := CallbackCreate(GetMethod(implObj, "SetUnsignedIntegerValue"), flags, 3)
+        this.vtbl.GetUnsignedIntegerValue := CallbackCreate(GetMethod(implObj, "GetUnsignedIntegerValue"), flags, 3)
+        this.vtbl.SetSignedIntegerValue := CallbackCreate(GetMethod(implObj, "SetSignedIntegerValue"), flags, 3)
+        this.vtbl.GetSignedIntegerValue := CallbackCreate(GetMethod(implObj, "GetSignedIntegerValue"), flags, 3)
+        this.vtbl.SetUnsignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "SetUnsignedLargeIntegerValue"), flags, 3)
+        this.vtbl.GetUnsignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "GetUnsignedLargeIntegerValue"), flags, 3)
+        this.vtbl.SetSignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "SetSignedLargeIntegerValue"), flags, 3)
+        this.vtbl.GetSignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "GetSignedLargeIntegerValue"), flags, 3)
+        this.vtbl.SetFloatValue := CallbackCreate(GetMethod(implObj, "SetFloatValue"), flags, 3)
+        this.vtbl.GetFloatValue := CallbackCreate(GetMethod(implObj, "GetFloatValue"), flags, 3)
+        this.vtbl.SetErrorValue := CallbackCreate(GetMethod(implObj, "SetErrorValue"), flags, 3)
+        this.vtbl.GetErrorValue := CallbackCreate(GetMethod(implObj, "GetErrorValue"), flags, 3)
+        this.vtbl.SetKeyValue := CallbackCreate(GetMethod(implObj, "SetKeyValue"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 3)
+        this.vtbl.SetBoolValue := CallbackCreate(GetMethod(implObj, "SetBoolValue"), flags, 3)
+        this.vtbl.GetBoolValue := CallbackCreate(GetMethod(implObj, "GetBoolValue"), flags, 3)
+        this.vtbl.SetIUnknownValue := CallbackCreate(GetMethod(implObj, "SetIUnknownValue"), flags, 3)
+        this.vtbl.GetIUnknownValue := CallbackCreate(GetMethod(implObj, "GetIUnknownValue"), flags, 3)
+        this.vtbl.SetGuidValue := CallbackCreate(GetMethod(implObj, "SetGuidValue"), flags, 3)
+        this.vtbl.GetGuidValue := CallbackCreate(GetMethod(implObj, "GetGuidValue"), flags, 3)
+        this.vtbl.SetBufferValue := CallbackCreate(GetMethod(implObj, "SetBufferValue"), flags, 4)
+        this.vtbl.GetBufferValue := CallbackCreate(GetMethod(implObj, "GetBufferValue"), flags, 4)
+        this.vtbl.SetIPortableDeviceValuesValue := CallbackCreate(GetMethod(implObj, "SetIPortableDeviceValuesValue"), flags, 3)
+        this.vtbl.GetIPortableDeviceValuesValue := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceValuesValue"), flags, 3)
+        this.vtbl.SetIPortableDevicePropVariantCollectionValue := CallbackCreate(GetMethod(implObj, "SetIPortableDevicePropVariantCollectionValue"), flags, 3)
+        this.vtbl.GetIPortableDevicePropVariantCollectionValue := CallbackCreate(GetMethod(implObj, "GetIPortableDevicePropVariantCollectionValue"), flags, 3)
+        this.vtbl.SetIPortableDeviceKeyCollectionValue := CallbackCreate(GetMethod(implObj, "SetIPortableDeviceKeyCollectionValue"), flags, 3)
+        this.vtbl.GetIPortableDeviceKeyCollectionValue := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceKeyCollectionValue"), flags, 3)
+        this.vtbl.SetIPortableDeviceValuesCollectionValue := CallbackCreate(GetMethod(implObj, "SetIPortableDeviceValuesCollectionValue"), flags, 3)
+        this.vtbl.GetIPortableDeviceValuesCollectionValue := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceValuesCollectionValue"), flags, 3)
+        this.vtbl.RemoveValue := CallbackCreate(GetMethod(implObj, "RemoveValue"), flags, 2)
+        this.vtbl.CopyValuesFromPropertyStore := CallbackCreate(GetMethod(implObj, "CopyValuesFromPropertyStore"), flags, 2)
+        this.vtbl.CopyValuesToPropertyStore := CallbackCreate(GetMethod(implObj, "CopyValuesToPropertyStore"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.SetStringValue)
+        CallbackFree(this.vtbl.GetStringValue)
+        CallbackFree(this.vtbl.SetUnsignedIntegerValue)
+        CallbackFree(this.vtbl.GetUnsignedIntegerValue)
+        CallbackFree(this.vtbl.SetSignedIntegerValue)
+        CallbackFree(this.vtbl.GetSignedIntegerValue)
+        CallbackFree(this.vtbl.SetUnsignedLargeIntegerValue)
+        CallbackFree(this.vtbl.GetUnsignedLargeIntegerValue)
+        CallbackFree(this.vtbl.SetSignedLargeIntegerValue)
+        CallbackFree(this.vtbl.GetSignedLargeIntegerValue)
+        CallbackFree(this.vtbl.SetFloatValue)
+        CallbackFree(this.vtbl.GetFloatValue)
+        CallbackFree(this.vtbl.SetErrorValue)
+        CallbackFree(this.vtbl.GetErrorValue)
+        CallbackFree(this.vtbl.SetKeyValue)
+        CallbackFree(this.vtbl.GetKeyValue)
+        CallbackFree(this.vtbl.SetBoolValue)
+        CallbackFree(this.vtbl.GetBoolValue)
+        CallbackFree(this.vtbl.SetIUnknownValue)
+        CallbackFree(this.vtbl.GetIUnknownValue)
+        CallbackFree(this.vtbl.SetGuidValue)
+        CallbackFree(this.vtbl.GetGuidValue)
+        CallbackFree(this.vtbl.SetBufferValue)
+        CallbackFree(this.vtbl.GetBufferValue)
+        CallbackFree(this.vtbl.SetIPortableDeviceValuesValue)
+        CallbackFree(this.vtbl.GetIPortableDeviceValuesValue)
+        CallbackFree(this.vtbl.SetIPortableDevicePropVariantCollectionValue)
+        CallbackFree(this.vtbl.GetIPortableDevicePropVariantCollectionValue)
+        CallbackFree(this.vtbl.SetIPortableDeviceKeyCollectionValue)
+        CallbackFree(this.vtbl.GetIPortableDeviceKeyCollectionValue)
+        CallbackFree(this.vtbl.SetIPortableDeviceValuesCollectionValue)
+        CallbackFree(this.vtbl.GetIPortableDeviceValuesCollectionValue)
+        CallbackFree(this.vtbl.RemoveValue)
+        CallbackFree(this.vtbl.CopyValuesFromPropertyStore)
+        CallbackFree(this.vtbl.CopyValuesToPropertyStore)
+        CallbackFree(this.vtbl.Clear)
     }
 }

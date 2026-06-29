@@ -1,37 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_ISCSI_TARGET_PROP.ahk
-#Include .\IVdsSubSystem.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_ISCSI_TARGET_PROP.ahk" { VDS_ISCSI_TARGET_PROP }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import ".\VDS_ISCSI_SHARED_SECRET.ahk" { VDS_ISCSI_SHARED_SECRET }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsIscsiTarget interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI target.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsiscsitarget
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsIscsiTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsIscsiTarget extends IUnknown {
     /**
      * The interface identifier for IVdsIscsiTarget
      * @type {Guid}
      */
-    static IID => Guid("{aa8f5055-83e5-4bcc-aa73-19851a36a849}")
+    static IID := Guid("{aa8f5055-83e5-4bcc-aa73-19851a36a849}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsIscsiTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties                 : IntPtr
+        GetSubSystem                  : IntPtr
+        QueryPortalGroups             : IntPtr
+        QueryAssociatedLuns           : IntPtr
+        CreatePortalGroup             : IntPtr
+        Delete                        : IntPtr
+        SetFriendlyName               : IntPtr
+        SetSharedSecret               : IntPtr
+        RememberInitiatorSharedSecret : IntPtr
+        GetConnectedInitiators        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetSubSystem", "QueryPortalGroups", "QueryAssociatedLuns", "CreatePortalGroup", "Delete", "SetFriendlyName", "SetSharedSecret", "RememberInitiatorSharedSecret", "GetConnectedInitiators"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsIscsiTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsIscsiTarget::GetProperties (vdshwprv.h) method returns the properties of an iSCSI target.
@@ -44,7 +63,7 @@ class IVdsIscsiTarget extends IUnknown {
      */
     GetProperties() {
         pTargetProp := VDS_ISCSI_TARGET_PROP()
-        result := ComCall(3, this, "ptr", pTargetProp, "HRESULT")
+        result := ComCall(3, this, VDS_ISCSI_TARGET_PROP.Ptr, pTargetProp, "HRESULT")
         return pTargetProp
     }
 
@@ -301,7 +320,7 @@ class IVdsIscsiTarget extends IUnknown {
     SetSharedSecret(pTargetSharedSecret, pwszInitiatorName) {
         pwszInitiatorName := pwszInitiatorName is String ? StrPtr(pwszInitiatorName) : pwszInitiatorName
 
-        result := ComCall(10, this, "ptr", pTargetSharedSecret, "ptr", pwszInitiatorName, "HRESULT")
+        result := ComCall(10, this, VDS_ISCSI_SHARED_SECRET.Ptr, pTargetSharedSecret, "ptr", pwszInitiatorName, "HRESULT")
         return result
     }
 
@@ -375,7 +394,7 @@ class IVdsIscsiTarget extends IUnknown {
     RememberInitiatorSharedSecret(pwszInitiatorName, pInitiatorSharedSecret) {
         pwszInitiatorName := pwszInitiatorName is String ? StrPtr(pwszInitiatorName) : pwszInitiatorName
 
-        result := ComCall(11, this, "ptr", pwszInitiatorName, "ptr", pInitiatorSharedSecret, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszInitiatorName, VDS_ISCSI_SHARED_SECRET.Ptr, pInitiatorSharedSecret, "HRESULT")
         return result
     }
 
@@ -453,5 +472,43 @@ class IVdsIscsiTarget extends IUnknown {
 
         result := ComCall(12, this, pppwszInitiatorListMarshal, pppwszInitiatorList, plNumberOfInitiatorsMarshal, plNumberOfInitiators, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsIscsiTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.QueryPortalGroups := CallbackCreate(GetMethod(implObj, "QueryPortalGroups"), flags, 2)
+        this.vtbl.QueryAssociatedLuns := CallbackCreate(GetMethod(implObj, "QueryAssociatedLuns"), flags, 2)
+        this.vtbl.CreatePortalGroup := CallbackCreate(GetMethod(implObj, "CreatePortalGroup"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.SetFriendlyName := CallbackCreate(GetMethod(implObj, "SetFriendlyName"), flags, 2)
+        this.vtbl.SetSharedSecret := CallbackCreate(GetMethod(implObj, "SetSharedSecret"), flags, 3)
+        this.vtbl.RememberInitiatorSharedSecret := CallbackCreate(GetMethod(implObj, "RememberInitiatorSharedSecret"), flags, 3)
+        this.vtbl.GetConnectedInitiators := CallbackCreate(GetMethod(implObj, "GetConnectedInitiators"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetSubSystem)
+        CallbackFree(this.vtbl.QueryPortalGroups)
+        CallbackFree(this.vtbl.QueryAssociatedLuns)
+        CallbackFree(this.vtbl.CreatePortalGroup)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.SetFriendlyName)
+        CallbackFree(this.vtbl.SetSharedSecret)
+        CallbackFree(this.vtbl.RememberInitiatorSharedSecret)
+        CallbackFree(this.vtbl.GetConnectedInitiators)
     }
 }

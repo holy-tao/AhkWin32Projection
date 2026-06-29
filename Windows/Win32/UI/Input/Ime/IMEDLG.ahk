@@ -1,53 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Used when invoking the Microsoft IME's Dictionary Tool or Word Register Dialog Window from the app.
  * @see https://learn.microsoft.com/windows/win32/api/msime/ns-msime-imedlg
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEDLG extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IMEDLG {
+    #StructPack 8
 
     /**
      * The size of this structure. You must set this value before using the structure.
-     * @type {Integer}
      */
-    cbIMEDLG {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cbIMEDLG : Int32
 
     /**
      * The parent window handle of the Register Word Dialog.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(8, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * <b>NULL</b>, or  the string to be registered. It shows in the Word Register Dialog's "Display" field.
-     * @type {PWSTR}
      */
-    lpwstrWord {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpwstrWord : PWSTR
 
     /**
      * The initial tab ID, 0 or 1.
-     * @type {Integer}
      */
-    nTabId {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    nTabId : Int32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VDS_DRIVE_FLAG enumeration (vdshwprv.h) defines the set of valid flags for a drive object.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_drive_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_DRIVE_FLAG extends Win32Enum {
+export default struct VDS_DRIVE_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The drive is reserved for use only as a hot spare.

@@ -1,30 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIContainer.ahk
-#Include .\IMAPIProp.ahk
-#Include .\FlagList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\FlagList.ahk" { FlagList }
+#Import ".\ADRLIST.ahk" { ADRLIST }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\IMAPIContainer.ahk" { IMAPIContainer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
 
 /**
  * Do not use. This interface provides access to address book containers. Applications call the methods of the interface to perform name resolution and to create, copy, and delete recipients.
  * @see https://learn.microsoft.com/windows/win32/api/wabdefs/nn-wabdefs-iabcontainer
  * @namespace Windows.Win32.System.AddressBook
  */
-class IABContainer extends IMAPIContainer {
+export default struct IABContainer extends IMAPIContainer {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateEntry", "CopyEntries", "DeleteEntries", "ResolveNames"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IABContainer interfaces
+    */
+    struct Vtbl extends IMAPIContainer.Vtbl {
+        CreateEntry   : IntPtr
+        CopyEntries   : IntPtr
+        DeleteEntries : IntPtr
+        ResolveNames  : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IABContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -97,7 +112,7 @@ class IABContainer extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iabcontainer-copyentries
      */
     CopyEntries(lpEntries, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(20, this, "ptr", lpEntries, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -115,7 +130,7 @@ class IABContainer extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iabcontainer-deleteentries
      */
     DeleteEntries(lpEntries, ulFlags) {
-        result := ComCall(21, this, "ptr", lpEntries, "uint", ulFlags, "HRESULT")
+        result := ComCall(21, this, SBinaryArray.Ptr, lpEntries, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -163,7 +178,33 @@ class IABContainer extends IMAPIContainer {
      */
     ResolveNames(lpPropTagArray, ulFlags, lpAdrList) {
         lpFlagList := FlagList()
-        result := ComCall(22, this, "ptr", lpPropTagArray, "uint", ulFlags, "ptr", lpAdrList, "ptr", lpFlagList, "HRESULT")
+        result := ComCall(22, this, SPropTagArray.Ptr, lpPropTagArray, "uint", ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
         return lpFlagList
+    }
+
+    Query(iid) {
+        if (IABContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateEntry := CallbackCreate(GetMethod(implObj, "CreateEntry"), flags, 5)
+        this.vtbl.CopyEntries := CallbackCreate(GetMethod(implObj, "CopyEntries"), flags, 5)
+        this.vtbl.DeleteEntries := CallbackCreate(GetMethod(implObj, "DeleteEntries"), flags, 3)
+        this.vtbl.ResolveNames := CallbackCreate(GetMethod(implObj, "ResolveNames"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateEntry)
+        CallbackFree(this.vtbl.CopyEntries)
+        CallbackFree(this.vtbl.DeleteEntries)
+        CallbackFree(this.vtbl.ResolveNames)
     }
 }

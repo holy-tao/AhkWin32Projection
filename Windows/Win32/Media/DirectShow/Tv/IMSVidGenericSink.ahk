@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidOutputDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MSVidSinkStreams.ahk" { MSVidSinkStreams }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
 
 /**
  * The IMSVidGenericSink interface represents a generic output device that supports streaming output. It is implemented by the MSVidGenericSink object.
@@ -10,32 +13,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidgenericsink
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidGenericSink extends IMSVidOutputDevice {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidGenericSink extends IMSVidOutputDevice {
     /**
      * The interface identifier for IMSVidGenericSink
      * @type {Guid}
      */
-    static IID => Guid("{6c29b41d-455b-4c33-963a-0d28e5e555ea}")
+    static IID := Guid("{6c29b41d-455b-4c33-963a-0d28e5e555ea}")
 
     /**
      * The class identifier for MSVidGenericSink
      * @type {Guid}
      */
-    static CLSID => Guid("{4a5869cf-929d-4040-ae03-fcafc5b9cd42}")
+    static CLSID := Guid("{4a5869cf-929d-4040-ae03-fcafc5b9cd42}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidGenericSink interfaces
+    */
+    struct Vtbl extends IMSVidOutputDevice.Vtbl {
+        SetSinkFilter   : IntPtr
+        get_SinkStreams : IntPtr
+        put_SinkStreams : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSinkFilter", "get_SinkStreams", "put_SinkStreams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidGenericSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {MSVidSinkStreams} 
@@ -72,7 +84,7 @@ class IMSVidGenericSink extends IMSVidOutputDevice {
     SetSinkFilter(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(16, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -93,7 +105,31 @@ class IMSVidGenericSink extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-put_sinkstreams
      */
     put_SinkStreams(Streams) {
-        result := ComCall(18, this, "int", Streams, "HRESULT")
+        result := ComCall(18, this, MSVidSinkStreams, Streams, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidGenericSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSinkFilter := CallbackCreate(GetMethod(implObj, "SetSinkFilter"), flags, 2)
+        this.vtbl.get_SinkStreams := CallbackCreate(GetMethod(implObj, "get_SinkStreams"), flags, 2)
+        this.vtbl.put_SinkStreams := CallbackCreate(GetMethod(implObj, "put_SinkStreams"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSinkFilter)
+        CallbackFree(this.vtbl.get_SinkStreams)
+        CallbackFree(this.vtbl.put_SinkStreams)
     }
 }

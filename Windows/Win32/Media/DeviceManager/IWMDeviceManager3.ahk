@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDeviceManager2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDeviceManager2.ahk" { IWMDeviceManager2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDeviceManager3 interface extends the IWMDeviceManager2 interface by providing a method that sets the device enumeration preferences.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdevicemanager3
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDeviceManager3 extends IWMDeviceManager2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMDeviceManager3 extends IWMDeviceManager2 {
     /**
      * The interface identifier for IWMDeviceManager3
      * @type {Guid}
      */
-    static IID => Guid("{af185c41-100d-46ed-be2e-9ce8c44594ef}")
+    static IID := Guid("{af185c41-100d-46ed-be2e-9ce8c44594ef}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDeviceManager3 interfaces
+    */
+    struct Vtbl extends IWMDeviceManager2.Vtbl {
+        SetDeviceEnumPreference : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDeviceEnumPreference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDeviceManager3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetDeviceEnumPreference method sets the device enumeration preferences. (IWMDeviceManager3.SetDeviceEnumPreference)
@@ -101,5 +109,25 @@ class IWMDeviceManager3 extends IWMDeviceManager2 {
     SetDeviceEnumPreference(dwEnumPref) {
         result := ComCall(9, this, "uint", dwEnumPref, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDeviceManager3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDeviceEnumPreference := CallbackCreate(GetMethod(implObj, "SetDeviceEnumPreference"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDeviceEnumPreference)
     }
 }

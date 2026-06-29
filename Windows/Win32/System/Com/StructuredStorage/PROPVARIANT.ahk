@@ -1,42 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Variant\VARENUM.ahk
-#Include ..\CY.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
-#Include .\CLIPDATA.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\BSTRBLOB.ahk
-#Include ..\BLOB.ahk
-#Include ..\IUnknown.ahk
-#Include ..\IDispatch.ahk
-#Include ..\IStream.ahk
-#Include .\IStorage.ahk
-#Include .\VERSIONEDSTREAM.ahk
-#Include ..\SAFEARRAY.ahk
-#Include .\CAC.ahk
-#Include .\CAUB.ahk
-#Include .\CAI.ahk
-#Include .\CAUI.ahk
-#Include .\CAL.ahk
-#Include .\CAUL.ahk
-#Include .\CAH.ahk
-#Include .\CAUH.ahk
-#Include .\CAFLT.ahk
-#Include .\CADBL.ahk
-#Include .\CABOOL.ahk
-#Include .\CASCODE.ahk
-#Include .\CACY.ahk
-#Include .\CADATE.ahk
-#Include .\CAFILETIME.ahk
-#Include .\CACLSID.ahk
-#Include .\CACLIPDATA.ahk
-#Include .\CABSTR.ahk
-#Include .\CABSTRBLOB.ahk
-#Include .\CALPSTR.ahk
-#Include .\CALPWSTR.ahk
-#Include .\CAPROPVARIANT.ahk
-#Include .\PROPVARIANT.ahk
-#Include ..\..\..\Foundation\DECIMAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\CAUL.ahk" { CAUL }
+#Import "..\..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\IStream.ahk" { IStream }
+#Import ".\CADATE.ahk" { CADATE }
+#Import ".\CAFLT.ahk" { CAFLT }
+#Import ".\CABSTR.ahk" { CABSTR }
+#Import ".\CAFILETIME.ahk" { CAFILETIME }
+#Import ".\BSTRBLOB.ahk" { BSTRBLOB }
+#Import "..\BLOB.ahk" { BLOB }
+#Import ".\CALPWSTR.ahk" { CALPWSTR }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\CY.ahk" { CY }
+#Import ".\CLIPDATA.ahk" { CLIPDATA }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\CAL.ahk" { CAL }
+#Import ".\CABSTRBLOB.ahk" { CABSTRBLOB }
+#Import ".\CAH.ahk" { CAH }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CAC.ahk" { CAC }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Variant\VARENUM.ahk" { VARENUM }
+#Import ".\CASCODE.ahk" { CASCODE }
+#Import ".\CADBL.ahk" { CADBL }
+#Import ".\CALPSTR.ahk" { CALPSTR }
+#Import ".\CAUH.ahk" { CAUH }
+#Import ".\CAPROPVARIANT.ahk" { CAPROPVARIANT }
+#Import ".\CACLIPDATA.ahk" { CACLIPDATA }
+#Import ".\IStorage.ahk" { IStorage }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CAUB.ahk" { CAUB }
+#Import "..\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\VERSIONEDSTREAM.ahk" { VERSIONEDSTREAM }
+#Import ".\CAI.ahk" { CAI }
+#Import ".\CACY.ahk" { CACY }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import ".\CAUI.ahk" { CAUI }
+#Import ".\CACLSID.ahk" { CACLSID }
+#Import ".\CABOOL.ahk" { CABOOL }
 
 /**
  * The PROPVARIANT structure is used in the ReadMultiple and WriteMultiple methods of IPropertyStorage to define the type tag and the value of a property in a property set.
@@ -121,716 +124,93 @@
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-propvariant
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class PROPVARIANT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
-
-    /**
-     * @type {VARENUM}
-     */
-    vt {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wReserved2 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wReserved3 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {CHAR}
-     */
-    cVal {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bVal {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    iVal {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uiVal {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lVal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ulVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    intVal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uintVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hVal {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uhVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    fltVal {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dblVal {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
-
-    /**
-     * @type {VARIANT_BOOL}
-     */
-    boolVal {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {VARIANT_BOOL}
-     */
-    __OBSOLETE__VARIANT_BOOL {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    scode {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {CY}
-     */
-    cyVal {
-        get {
-            if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(8, this)
-            return this.__cyVal
-        }
-    }
-
-    /**
-     * @type {Float}
-     */
-    date {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
-
-    /**
-     * @type {FILETIME}
-     */
-    filetime {
-        get {
-            if(!this.HasProp("__filetime"))
-                this.__filetime := FILETIME(8, this)
-            return this.__filetime
-        }
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    puuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<CLIPDATA>}
-     */
-    pclipdata {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {BSTR}
-     */
-    bstrVal {
-        get {
-            if(!this.HasProp("__bstrVal"))
-                this.__bstrVal := BSTR(8, this)
-            return this.__bstrVal
-        }
-    }
-
-    /**
-     * @type {BSTRBLOB}
-     */
-    bstrblobVal {
-        get {
-            if(!this.HasProp("__bstrblobVal"))
-                this.__bstrblobVal := BSTRBLOB(8, this)
-            return this.__bstrblobVal
-        }
-    }
-
-    /**
-     * @type {BLOB}
-     */
-    blob {
-        get {
-            if(!this.HasProp("__blob"))
-                this.__blob := BLOB(8, this)
-            return this.__blob
-        }
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pwszVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IUnknown}
-     */
-    punkVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IDispatch}
-     */
-    pdispVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IStream}
-     */
-    pStream {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IStorage}
-     */
-    pStorage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<VERSIONEDSTREAM>}
-     */
-    pVersionedStream {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<SAFEARRAY>}
-     */
-    parray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {CAC}
-     */
-    cac {
-        get {
-            if(!this.HasProp("__cac"))
-                this.__cac := CAC(8, this)
-            return this.__cac
-        }
-    }
-
-    /**
-     * @type {CAUB}
-     */
-    caub {
-        get {
-            if(!this.HasProp("__caub"))
-                this.__caub := CAUB(8, this)
-            return this.__caub
-        }
-    }
-
-    /**
-     * @type {CAI}
-     */
-    cai {
-        get {
-            if(!this.HasProp("__cai"))
-                this.__cai := CAI(8, this)
-            return this.__cai
-        }
-    }
-
-    /**
-     * @type {CAUI}
-     */
-    caui {
-        get {
-            if(!this.HasProp("__caui"))
-                this.__caui := CAUI(8, this)
-            return this.__caui
-        }
-    }
-
-    /**
-     * @type {CAL}
-     */
-    cal {
-        get {
-            if(!this.HasProp("__cal"))
-                this.__cal := CAL(8, this)
-            return this.__cal
-        }
-    }
-
-    /**
-     * @type {CAUL}
-     */
-    caul {
-        get {
-            if(!this.HasProp("__caul"))
-                this.__caul := CAUL(8, this)
-            return this.__caul
-        }
-    }
-
-    /**
-     * @type {CAH}
-     */
-    cah {
-        get {
-            if(!this.HasProp("__cah"))
-                this.__cah := CAH(8, this)
-            return this.__cah
-        }
-    }
-
-    /**
-     * @type {CAUH}
-     */
-    cauh {
-        get {
-            if(!this.HasProp("__cauh"))
-                this.__cauh := CAUH(8, this)
-            return this.__cauh
-        }
-    }
-
-    /**
-     * @type {CAFLT}
-     */
-    caflt {
-        get {
-            if(!this.HasProp("__caflt"))
-                this.__caflt := CAFLT(8, this)
-            return this.__caflt
-        }
-    }
-
-    /**
-     * @type {CADBL}
-     */
-    cadbl {
-        get {
-            if(!this.HasProp("__cadbl"))
-                this.__cadbl := CADBL(8, this)
-            return this.__cadbl
-        }
-    }
-
-    /**
-     * @type {CABOOL}
-     */
-    cabool {
-        get {
-            if(!this.HasProp("__cabool"))
-                this.__cabool := CABOOL(8, this)
-            return this.__cabool
-        }
-    }
-
-    /**
-     * @type {CASCODE}
-     */
-    cascode {
-        get {
-            if(!this.HasProp("__cascode"))
-                this.__cascode := CASCODE(8, this)
-            return this.__cascode
-        }
-    }
-
-    /**
-     * @type {CACY}
-     */
-    cacy {
-        get {
-            if(!this.HasProp("__cacy"))
-                this.__cacy := CACY(8, this)
-            return this.__cacy
-        }
-    }
-
-    /**
-     * @type {CADATE}
-     */
-    cadate {
-        get {
-            if(!this.HasProp("__cadate"))
-                this.__cadate := CADATE(8, this)
-            return this.__cadate
-        }
-    }
-
-    /**
-     * @type {CAFILETIME}
-     */
-    cafiletime {
-        get {
-            if(!this.HasProp("__cafiletime"))
-                this.__cafiletime := CAFILETIME(8, this)
-            return this.__cafiletime
-        }
-    }
-
-    /**
-     * @type {CACLSID}
-     */
-    cauuid {
-        get {
-            if(!this.HasProp("__cauuid"))
-                this.__cauuid := CACLSID(8, this)
-            return this.__cauuid
-        }
-    }
-
-    /**
-     * @type {CACLIPDATA}
-     */
-    caclipdata {
-        get {
-            if(!this.HasProp("__caclipdata"))
-                this.__caclipdata := CACLIPDATA(8, this)
-            return this.__caclipdata
-        }
-    }
-
-    /**
-     * @type {CABSTR}
-     */
-    cabstr {
-        get {
-            if(!this.HasProp("__cabstr"))
-                this.__cabstr := CABSTR(8, this)
-            return this.__cabstr
-        }
-    }
-
-    /**
-     * @type {CABSTRBLOB}
-     */
-    cabstrblob {
-        get {
-            if(!this.HasProp("__cabstrblob"))
-                this.__cabstrblob := CABSTRBLOB(8, this)
-            return this.__cabstrblob
-        }
-    }
-
-    /**
-     * @type {CALPSTR}
-     */
-    calpstr {
-        get {
-            if(!this.HasProp("__calpstr"))
-                this.__calpstr := CALPSTR(8, this)
-            return this.__calpstr
-        }
-    }
-
-    /**
-     * @type {CALPWSTR}
-     */
-    calpwstr {
-        get {
-            if(!this.HasProp("__calpwstr"))
-                this.__calpwstr := CALPWSTR(8, this)
-            return this.__calpwstr
-        }
-    }
-
-    /**
-     * @type {CAPROPVARIANT}
-     */
-    capropvar {
-        get {
-            if(!this.HasProp("__capropvar"))
-                this.__capropvar := CAPROPVARIANT(8, this)
-            return this.__capropvar
-        }
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pcVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    piVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    puiVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    plVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pulVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pintVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    puintVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pfltVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pdblVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<VARIANT_BOOL>}
-     */
-    pboolVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DECIMAL>}
-     */
-    pdecVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pscode {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<CY>}
-     */
-    pcyVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pdate {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<BSTR>}
-     */
-    pbstrVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IUnknown>}
-     */
-    ppunkVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IDispatch>}
-     */
-    ppdispVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Pointer<SAFEARRAY>>}
-     */
-    pparray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROPVARIANT>}
-     */
-    pvarVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {DECIMAL}
-     */
-    decVal {
-        get {
-            if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(0, this)
-            return this.__decVal
-        }
+export default struct PROPVARIANT {
+    #StructPack 8
+
+    vt : VARENUM
+
+    wReserved1 : UInt16
+
+    wReserved2 : UInt16
+
+    wReserved3 : UInt16
+
+    cVal : CHAR
+
+    static __New() {
+        DefineProp(this.Prototype, 'bVal', { type: Int8, offset: 8 })
+        DefineProp(this.Prototype, 'iVal', { type: Int16, offset: 8 })
+        DefineProp(this.Prototype, 'uiVal', { type: UInt16, offset: 8 })
+        DefineProp(this.Prototype, 'lVal', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'ulVal', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'intVal', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'uintVal', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'hVal', { type: Int64, offset: 8 })
+        DefineProp(this.Prototype, 'uhVal', { type: Int64, offset: 8 })
+        DefineProp(this.Prototype, 'fltVal', { type: Float32, offset: 8 })
+        DefineProp(this.Prototype, 'dblVal', { type: Float64, offset: 8 })
+        DefineProp(this.Prototype, 'boolVal', { type: VARIANT_BOOL, offset: 8 })
+        DefineProp(this.Prototype, '__OBSOLETE__VARIANT_BOOL', { type: VARIANT_BOOL, offset: 8 })
+        DefineProp(this.Prototype, 'scode', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'cyVal', { type: CY, offset: 8 })
+        DefineProp(this.Prototype, 'date', { type: Float64, offset: 8 })
+        DefineProp(this.Prototype, 'filetime', { type: FILETIME, offset: 8 })
+        DefineProp(this.Prototype, 'puuid', { type: Guid.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pclipdata', { type: CLIPDATA.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'bstrVal', { type: BSTR, offset: 8 })
+        DefineProp(this.Prototype, 'bstrblobVal', { type: BSTRBLOB, offset: 8 })
+        DefineProp(this.Prototype, 'blob', { type: BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'pszVal', { type: PSTR, offset: 8 })
+        DefineProp(this.Prototype, 'pwszVal', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'punkVal', { type: IUnknown, offset: 8 })
+        DefineProp(this.Prototype, 'pdispVal', { type: IDispatch, offset: 8 })
+        DefineProp(this.Prototype, 'pStream', { type: IStream, offset: 8 })
+        DefineProp(this.Prototype, 'pStorage', { type: IStorage, offset: 8 })
+        DefineProp(this.Prototype, 'pVersionedStream', { type: VERSIONEDSTREAM.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'parray', { type: SAFEARRAY.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'cac', { type: CAC, offset: 8 })
+        DefineProp(this.Prototype, 'caub', { type: CAUB, offset: 8 })
+        DefineProp(this.Prototype, 'cai', { type: CAI, offset: 8 })
+        DefineProp(this.Prototype, 'caui', { type: CAUI, offset: 8 })
+        DefineProp(this.Prototype, 'cal', { type: CAL, offset: 8 })
+        DefineProp(this.Prototype, 'caul', { type: CAUL, offset: 8 })
+        DefineProp(this.Prototype, 'cah', { type: CAH, offset: 8 })
+        DefineProp(this.Prototype, 'cauh', { type: CAUH, offset: 8 })
+        DefineProp(this.Prototype, 'caflt', { type: CAFLT, offset: 8 })
+        DefineProp(this.Prototype, 'cadbl', { type: CADBL, offset: 8 })
+        DefineProp(this.Prototype, 'cabool', { type: CABOOL, offset: 8 })
+        DefineProp(this.Prototype, 'cascode', { type: CASCODE, offset: 8 })
+        DefineProp(this.Prototype, 'cacy', { type: CACY, offset: 8 })
+        DefineProp(this.Prototype, 'cadate', { type: CADATE, offset: 8 })
+        DefineProp(this.Prototype, 'cafiletime', { type: CAFILETIME, offset: 8 })
+        DefineProp(this.Prototype, 'cauuid', { type: CACLSID, offset: 8 })
+        DefineProp(this.Prototype, 'caclipdata', { type: CACLIPDATA, offset: 8 })
+        DefineProp(this.Prototype, 'cabstr', { type: CABSTR, offset: 8 })
+        DefineProp(this.Prototype, 'cabstrblob', { type: CABSTRBLOB, offset: 8 })
+        DefineProp(this.Prototype, 'calpstr', { type: CALPSTR, offset: 8 })
+        DefineProp(this.Prototype, 'calpwstr', { type: CALPWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'capropvar', { type: CAPROPVARIANT, offset: 8 })
+        DefineProp(this.Prototype, 'pcVal', { type: PSTR, offset: 8 })
+        DefineProp(this.Prototype, 'pbVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'piVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'puiVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'plVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pulVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pintVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'puintVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pfltVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pdblVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pboolVal', { type: VARIANT_BOOL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pdecVal', { type: DECIMAL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pscode', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pcyVal', { type: CY.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pdate', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pbstrVal', { type: BSTR.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'ppunkVal', { type: IUnknown.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'ppdispVal', { type: IDispatch.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pparray', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pvarVal', { type: PROPVARIANT.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'decVal', { type: DECIMAL, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

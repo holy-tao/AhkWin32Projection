@@ -1,33 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "PropertiesSystem\PDOPSTATUS.ahk" { PDOPSTATUS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPACTION.ahk" { SPACTION }
 
 /**
  * Exposes methods to get, set, and query a progress dialog.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ioperationsprogressdialog
  * @namespace Windows.Win32.UI.Shell
  */
-class IOperationsProgressDialog extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOperationsProgressDialog extends IUnknown {
     /**
      * The interface identifier for IOperationsProgressDialog
      * @type {Guid}
      */
-    static IID => Guid("{0c9fb851-e5c9-43eb-a370-f0677b13874c}")
+    static IID := Guid("{0c9fb851-e5c9-43eb-a370-f0677b13874c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOperationsProgressDialog interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartProgressDialog : IntPtr
+        StopProgressDialog  : IntPtr
+        SetOperation        : IntPtr
+        SetMode             : IntPtr
+        UpdateProgress      : IntPtr
+        UpdateLocations     : IntPtr
+        ResetTimer          : IntPtr
+        PauseTimer          : IntPtr
+        ResumeTimer         : IntPtr
+        GetMilliseconds     : IntPtr
+        GetOperationStatus  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartProgressDialog", "StopProgressDialog", "SetOperation", "SetMode", "UpdateProgress", "UpdateLocations", "ResetTimer", "PauseTimer", "ResumeTimer", "GetMilliseconds", "GetOperationStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOperationsProgressDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts the specified progress dialog.
@@ -45,9 +67,7 @@ class IOperationsProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-startprogressdialog
      */
     StartProgressDialog(hwndOwner, flags) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
-        result := ComCall(3, this, "ptr", hwndOwner, "uint", flags, "HRESULT")
+        result := ComCall(3, this, HWND, hwndOwner, "uint", flags, "HRESULT")
         return result
     }
 
@@ -74,7 +94,7 @@ class IOperationsProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setoperation
      */
     SetOperation(action) {
-        result := ComCall(5, this, "int", action, "HRESULT")
+        result := ComCall(5, this, SPACTION, action, "HRESULT")
         return result
     }
 
@@ -211,5 +231,45 @@ class IOperationsProgressDialog extends IUnknown {
     GetOperationStatus() {
         result := ComCall(13, this, "int*", &popstatus := 0, "HRESULT")
         return popstatus
+    }
+
+    Query(iid) {
+        if (IOperationsProgressDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartProgressDialog := CallbackCreate(GetMethod(implObj, "StartProgressDialog"), flags, 3)
+        this.vtbl.StopProgressDialog := CallbackCreate(GetMethod(implObj, "StopProgressDialog"), flags, 1)
+        this.vtbl.SetOperation := CallbackCreate(GetMethod(implObj, "SetOperation"), flags, 2)
+        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 2)
+        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 7)
+        this.vtbl.UpdateLocations := CallbackCreate(GetMethod(implObj, "UpdateLocations"), flags, 4)
+        this.vtbl.ResetTimer := CallbackCreate(GetMethod(implObj, "ResetTimer"), flags, 1)
+        this.vtbl.PauseTimer := CallbackCreate(GetMethod(implObj, "PauseTimer"), flags, 1)
+        this.vtbl.ResumeTimer := CallbackCreate(GetMethod(implObj, "ResumeTimer"), flags, 1)
+        this.vtbl.GetMilliseconds := CallbackCreate(GetMethod(implObj, "GetMilliseconds"), flags, 3)
+        this.vtbl.GetOperationStatus := CallbackCreate(GetMethod(implObj, "GetOperationStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartProgressDialog)
+        CallbackFree(this.vtbl.StopProgressDialog)
+        CallbackFree(this.vtbl.SetOperation)
+        CallbackFree(this.vtbl.SetMode)
+        CallbackFree(this.vtbl.UpdateProgress)
+        CallbackFree(this.vtbl.UpdateLocations)
+        CallbackFree(this.vtbl.ResetTimer)
+        CallbackFree(this.vtbl.PauseTimer)
+        CallbackFree(this.vtbl.ResumeTimer)
+        CallbackFree(this.vtbl.GetMilliseconds)
+        CallbackFree(this.vtbl.GetOperationStatus)
     }
 }

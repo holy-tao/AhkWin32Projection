@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ACTCTX_REQUESTED_RUN_LEVEL enumeration describes the requested run level of the activation context.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-actctx_requested_run_level
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ACTCTX_REQUESTED_RUN_LEVEL extends Win32Enum {
+export default struct ACTCTX_REQUESTED_RUN_LEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The application manifest does not specify a requested run level for the application.

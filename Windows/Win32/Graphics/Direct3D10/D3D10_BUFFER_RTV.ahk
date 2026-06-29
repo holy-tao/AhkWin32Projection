@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the elements from a buffer resource to use in a render-target view.
@@ -8,40 +7,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_buffer_rtv
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_BUFFER_RTV extends Win32Struct {
-    static sizeof => 8
+export default struct D3D10_BUFFER_RTV {
+    #StructPack 4
 
-    static packingSize => 4
+    FirstElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstElement {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ElementOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumElements {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ElementWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'ElementOffset', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'ElementWidth', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

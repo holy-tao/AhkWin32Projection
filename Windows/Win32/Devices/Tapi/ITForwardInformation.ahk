@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITForwardInformation interface provides methods for setup and implementation of call forwarding.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itforwardinformation
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITForwardInformation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITForwardInformation extends IDispatch {
     /**
      * The interface identifier for ITForwardInformation
      * @type {Guid}
      */
-    static IID => Guid("{449f659e-88a3-11d1-bb5d-00c04fb6809f}")
+    static IID := Guid("{449f659e-88a3-11d1-bb5d-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITForwardInformation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_NumRingsNoAnswer       : IntPtr
+        get_NumRingsNoAnswer       : IntPtr
+        SetForwardType             : IntPtr
+        get_ForwardTypeDestination : IntPtr
+        get_ForwardTypeCaller      : IntPtr
+        GetForwardType             : IntPtr
+        Clear                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_NumRingsNoAnswer", "get_NumRingsNoAnswer", "SetForwardType", "get_ForwardTypeDestination", "get_ForwardTypeCaller", "GetForwardType", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITForwardInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -155,7 +169,7 @@ class ITForwardInformation extends IDispatch {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
         pCallerAddress := pCallerAddress is String ? BSTR.Alloc(pCallerAddress).Value : pCallerAddress
 
-        result := ComCall(9, this, "int", ForwardType, "ptr", pDestAddress, "ptr", pCallerAddress, "HRESULT")
+        result := ComCall(9, this, "int", ForwardType, BSTR, pDestAddress, BSTR, pCallerAddress, "HRESULT")
         return result
     }
 
@@ -169,8 +183,8 @@ class ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypedestination
      */
     get_ForwardTypeDestination(ForwardType) {
-        ppDestAddress := BSTR()
-        result := ComCall(10, this, "int", ForwardType, "ptr", ppDestAddress, "HRESULT")
+        ppDestAddress := BSTR.Owned()
+        result := ComCall(10, this, "int", ForwardType, BSTR.Ptr, ppDestAddress, "HRESULT")
         return ppDestAddress
     }
 
@@ -184,8 +198,8 @@ class ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypecaller
      */
     get_ForwardTypeCaller(Forwardtype) {
-        ppCallerAddress := BSTR()
-        result := ComCall(11, this, "int", Forwardtype, "ptr", ppCallerAddress, "HRESULT")
+        ppCallerAddress := BSTR.Owned()
+        result := ComCall(11, this, "int", Forwardtype, BSTR.Ptr, ppCallerAddress, "HRESULT")
         return ppCallerAddress
     }
 
@@ -241,7 +255,7 @@ class ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-getforwardtype
      */
     GetForwardType(ForwardType, ppDestinationAddress, ppCallerAddress) {
-        result := ComCall(12, this, "int", ForwardType, "ptr", ppDestinationAddress, "ptr", ppCallerAddress, "HRESULT")
+        result := ComCall(12, this, "int", ForwardType, BSTR.Ptr, ppDestinationAddress, BSTR.Ptr, ppCallerAddress, "HRESULT")
         return result
     }
 
@@ -284,5 +298,37 @@ class ITForwardInformation extends IDispatch {
     Clear() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITForwardInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_NumRingsNoAnswer := CallbackCreate(GetMethod(implObj, "put_NumRingsNoAnswer"), flags, 2)
+        this.vtbl.get_NumRingsNoAnswer := CallbackCreate(GetMethod(implObj, "get_NumRingsNoAnswer"), flags, 2)
+        this.vtbl.SetForwardType := CallbackCreate(GetMethod(implObj, "SetForwardType"), flags, 4)
+        this.vtbl.get_ForwardTypeDestination := CallbackCreate(GetMethod(implObj, "get_ForwardTypeDestination"), flags, 3)
+        this.vtbl.get_ForwardTypeCaller := CallbackCreate(GetMethod(implObj, "get_ForwardTypeCaller"), flags, 3)
+        this.vtbl.GetForwardType := CallbackCreate(GetMethod(implObj, "GetForwardType"), flags, 4)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_NumRingsNoAnswer)
+        CallbackFree(this.vtbl.get_NumRingsNoAnswer)
+        CallbackFree(this.vtbl.SetForwardType)
+        CallbackFree(this.vtbl.get_ForwardTypeDestination)
+        CallbackFree(this.vtbl.get_ForwardTypeCaller)
+        CallbackFree(this.vtbl.GetForwardType)
+        CallbackFree(this.vtbl.Clear)
     }
 }

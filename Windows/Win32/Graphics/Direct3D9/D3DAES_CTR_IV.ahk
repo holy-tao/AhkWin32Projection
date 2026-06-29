@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an initialization vector (IV) for 128-bit Advanced Encryption Standard CTR mode (AES-CTR) block cipher encryption.
@@ -11,26 +10,17 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @architecture X64, Arm64
  */
-class D3DAES_CTR_IV extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3DAES_CTR_IV {
+    #StructPack 8
 
     /**
      * The IV, in big-endian format.
-     * @type {Integer}
      */
-    IV {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IV : Int64
 
     /**
      * The block count, in big-endian format.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Count : Int64
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICredentialProviderCredential.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IQueryContinueWithStatus.ahk" { IQueryContinueWithStatus }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
 
 /**
  * Exposes methods for connecting and disconnecting IConnectableCredentialProviderCredential objects.
@@ -14,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-iconnectablecredentialprovidercredential
  * @namespace Windows.Win32.UI.Shell
  */
-class IConnectableCredentialProviderCredential extends ICredentialProviderCredential {
-
-    static sizeof => A_PtrSize
+export default struct IConnectableCredentialProviderCredential extends ICredentialProviderCredential {
     /**
      * The interface identifier for IConnectableCredentialProviderCredential
      * @type {Guid}
      */
-    static IID => Guid("{9387928b-ac75-4bf9-8ab2-2b93c4a55290}")
+    static IID := Guid("{9387928b-ac75-4bf9-8ab2-2b93c4a55290}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConnectableCredentialProviderCredential interfaces
+    */
+    struct Vtbl extends ICredentialProviderCredential.Vtbl {
+        Connect    : IntPtr
+        Disconnect : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConnectableCredentialProviderCredential.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Connects an IConnectableCredentialProviderCredential object. This method is called after the user clicks the Submit button within the Pre-Logon-Access Provider screen and before ICredentialProviderCredential::GetSerialization is called.
@@ -66,5 +76,27 @@ class IConnectableCredentialProviderCredential extends ICredentialProviderCreden
     Disconnect() {
         result := ComCall(21, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IConnectableCredentialProviderCredential.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
     }
 }

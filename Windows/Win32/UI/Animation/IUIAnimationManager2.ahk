@@ -1,41 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAnimationVariable2.ahk
-#Include .\IUIAnimationStoryboard2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
+#Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
+#Import ".\UI_ANIMATION_MODE.ahk" { UI_ANIMATION_MODE }
+#Import ".\IUIAnimationManagerEventHandler2.ahk" { IUIAnimationManagerEventHandler2 }
+#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
+#Import ".\IUIAnimationPriorityComparison2.ahk" { IUIAnimationPriorityComparison2 }
+#Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines an animation manager, which provides a central interface for creating and managing animations in multiple dimensions.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationmanager2
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationManager2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationManager2 extends IUnknown {
     /**
      * The interface identifier for IUIAnimationManager2
      * @type {Guid}
      */
-    static IID => Guid("{d8b6f7d4-4109-4d3f-acee-879926968cb1}")
+    static IID := Guid("{d8b6f7d4-4109-4d3f-acee-879926968cb1}")
 
     /**
      * The class identifier for UIAnimationManager2
      * @type {Guid}
      */
-    static CLSID => Guid("{d25d8842-8884-4a4a-b321-091314379bdd}")
+    static CLSID := Guid("{d25d8842-8884-4a4a-b321-091314379bdd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationManager2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateAnimationVectorVariable    : IntPtr
+        CreateAnimationVariable          : IntPtr
+        ScheduleTransition               : IntPtr
+        CreateStoryboard                 : IntPtr
+        FinishAllStoryboards             : IntPtr
+        AbandonAllStoryboards            : IntPtr
+        Update                           : IntPtr
+        GetVariableFromTag               : IntPtr
+        GetStoryboardFromTag             : IntPtr
+        EstimateNextEventTime            : IntPtr
+        GetStatus                        : IntPtr
+        SetAnimationMode                 : IntPtr
+        Pause                            : IntPtr
+        Resume                           : IntPtr
+        SetManagerEventHandler           : IntPtr
+        SetCancelPriorityComparison      : IntPtr
+        SetTrimPriorityComparison        : IntPtr
+        SetCompressPriorityComparison    : IntPtr
+        SetConcludePriorityComparison    : IntPtr
+        SetDefaultLongestAcceptableDelay : IntPtr
+        Shutdown                         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateAnimationVectorVariable", "CreateAnimationVariable", "ScheduleTransition", "CreateStoryboard", "FinishAllStoryboards", "AbandonAllStoryboards", "Update", "GetVariableFromTag", "GetStoryboardFromTag", "EstimateNextEventTime", "GetStatus", "SetAnimationMode", "Pause", "Resume", "SetManagerEventHandler", "SetCancelPriorityComparison", "SetTrimPriorityComparison", "SetCompressPriorityComparison", "SetConcludePriorityComparison", "SetDefaultLongestAcceptableDelay", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationManager2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new animation variable for each specified dimension.
@@ -205,7 +240,7 @@ class IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-setanimationmode
      */
     SetAnimationMode(_mode) {
-        result := ComCall(14, this, "int", _mode, "HRESULT")
+        result := ComCall(14, this, UI_ANIMATION_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -245,7 +280,7 @@ class IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-setmanagereventhandler
      */
     SetManagerEventHandler(handler, fRegisterForNextAnimationEvent) {
-        result := ComCall(17, this, "ptr", handler, "int", fRegisterForNextAnimationEvent, "HRESULT")
+        result := ComCall(17, this, "ptr", handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
         return result
     }
 
@@ -350,5 +385,65 @@ class IUIAnimationManager2 extends IUnknown {
     Shutdown() {
         result := ComCall(23, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationManager2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateAnimationVectorVariable := CallbackCreate(GetMethod(implObj, "CreateAnimationVectorVariable"), flags, 4)
+        this.vtbl.CreateAnimationVariable := CallbackCreate(GetMethod(implObj, "CreateAnimationVariable"), flags, 3)
+        this.vtbl.ScheduleTransition := CallbackCreate(GetMethod(implObj, "ScheduleTransition"), flags, 4)
+        this.vtbl.CreateStoryboard := CallbackCreate(GetMethod(implObj, "CreateStoryboard"), flags, 2)
+        this.vtbl.FinishAllStoryboards := CallbackCreate(GetMethod(implObj, "FinishAllStoryboards"), flags, 2)
+        this.vtbl.AbandonAllStoryboards := CallbackCreate(GetMethod(implObj, "AbandonAllStoryboards"), flags, 1)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
+        this.vtbl.GetVariableFromTag := CallbackCreate(GetMethod(implObj, "GetVariableFromTag"), flags, 4)
+        this.vtbl.GetStoryboardFromTag := CallbackCreate(GetMethod(implObj, "GetStoryboardFromTag"), flags, 4)
+        this.vtbl.EstimateNextEventTime := CallbackCreate(GetMethod(implObj, "EstimateNextEventTime"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.SetAnimationMode := CallbackCreate(GetMethod(implObj, "SetAnimationMode"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.SetManagerEventHandler := CallbackCreate(GetMethod(implObj, "SetManagerEventHandler"), flags, 3)
+        this.vtbl.SetCancelPriorityComparison := CallbackCreate(GetMethod(implObj, "SetCancelPriorityComparison"), flags, 2)
+        this.vtbl.SetTrimPriorityComparison := CallbackCreate(GetMethod(implObj, "SetTrimPriorityComparison"), flags, 2)
+        this.vtbl.SetCompressPriorityComparison := CallbackCreate(GetMethod(implObj, "SetCompressPriorityComparison"), flags, 2)
+        this.vtbl.SetConcludePriorityComparison := CallbackCreate(GetMethod(implObj, "SetConcludePriorityComparison"), flags, 2)
+        this.vtbl.SetDefaultLongestAcceptableDelay := CallbackCreate(GetMethod(implObj, "SetDefaultLongestAcceptableDelay"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateAnimationVectorVariable)
+        CallbackFree(this.vtbl.CreateAnimationVariable)
+        CallbackFree(this.vtbl.ScheduleTransition)
+        CallbackFree(this.vtbl.CreateStoryboard)
+        CallbackFree(this.vtbl.FinishAllStoryboards)
+        CallbackFree(this.vtbl.AbandonAllStoryboards)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.GetVariableFromTag)
+        CallbackFree(this.vtbl.GetStoryboardFromTag)
+        CallbackFree(this.vtbl.EstimateNextEventTime)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetAnimationMode)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.SetManagerEventHandler)
+        CallbackFree(this.vtbl.SetCancelPriorityComparison)
+        CallbackFree(this.vtbl.SetTrimPriorityComparison)
+        CallbackFree(this.vtbl.SetCompressPriorityComparison)
+        CallbackFree(this.vtbl.SetConcludePriorityComparison)
+        CallbackFree(this.vtbl.SetDefaultLongestAcceptableDelay)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

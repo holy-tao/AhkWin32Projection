@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AM_SimpleRateChange structure is used to change the playback rate for an MPEG-2 stream.
@@ -92,26 +91,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_simpleratechange
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_SimpleRateChange extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AM_SimpleRateChange {
+    #StructPack 8
 
     /**
      * Specifies the time stamp on the input sample when the new rate takes effect. The new rate applies to all samples with a time stamp &gt;= <b>StartTime</b> and less than the start time on the next queued rate segment.
-     * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    StartTime : Int64
 
     /**
      * Specifies the new rate x 10000. Rate is the inverse of speed. For example, if the playback speed is 2x, the rate is 1/2, so the <b>Rate</b> member is set to 5000.
-     * @type {Integer}
      */
-    Rate {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Rate : Int32
+
 }

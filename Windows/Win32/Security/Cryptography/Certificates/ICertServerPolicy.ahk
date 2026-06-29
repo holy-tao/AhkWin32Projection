@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Allows the policy module to communicate with Certificate Services.
  * @see https://learn.microsoft.com/windows/win32/api/certif/nn-certif-icertserverpolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertServerPolicy extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertServerPolicy extends IDispatch {
     /**
      * The interface identifier for ICertServerPolicy
      * @type {Guid}
      */
-    static IID => Guid("{aa000922-ffbe-11cf-8800-00a0c903b83c}")
+    static IID := Guid("{aa000922-ffbe-11cf-8800-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertServerPolicy interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetContext                   : IntPtr
+        GetRequestProperty           : IntPtr
+        GetRequestAttribute          : IntPtr
+        GetCertificateProperty       : IntPtr
+        SetCertificateProperty       : IntPtr
+        GetCertificateExtension      : IntPtr
+        GetCertificateExtensionFlags : IntPtr
+        SetCertificateExtension      : IntPtr
+        EnumerateExtensionsSetup     : IntPtr
+        EnumerateExtensions          : IntPtr
+        EnumerateExtensionsClose     : IntPtr
+        EnumerateAttributesSetup     : IntPtr
+        EnumerateAttributes          : IntPtr
+        EnumerateAttributesClose     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetContext", "GetRequestProperty", "GetRequestAttribute", "GetCertificateProperty", "SetCertificateProperty", "GetCertificateExtension", "GetCertificateExtensionFlags", "SetCertificateExtension", "EnumerateExtensionsSetup", "EnumerateExtensions", "EnumerateExtensionsClose", "EnumerateAttributesSetup", "EnumerateAttributes", "EnumerateAttributesClose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertServerPolicy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the request to be used as the context for subsequent calls to Certificate Services.
@@ -213,7 +235,7 @@ class ICertServerPolicy extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(8, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -249,8 +271,8 @@ class ICertServerPolicy extends IDispatch {
     GetRequestAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        pstrAttributeValue := BSTR()
-        result := ComCall(9, this, "ptr", strAttributeName, "ptr", pstrAttributeValue, "HRESULT")
+        pstrAttributeValue := BSTR.Owned()
+        result := ComCall(9, this, BSTR, strAttributeName, BSTR.Ptr, pstrAttributeValue, "HRESULT")
         return pstrAttributeValue
     }
 
@@ -393,7 +415,7 @@ class ICertServerPolicy extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(10, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(10, this, BSTR, strPropertyName, CERT_PROPERTY_TYPE, PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -566,7 +588,7 @@ class ICertServerPolicy extends IDispatch {
     SetCertificateProperty(strPropertyName, PropertyType, pvarPropertyValue) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
-        result := ComCall(11, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(11, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return result
     }
 
@@ -586,7 +608,7 @@ class ICertServerPolicy extends IDispatch {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
         pvarValue := VARIANT()
-        result := ComCall(12, this, "ptr", strExtensionName, "int", Type, "ptr", pvarValue, "HRESULT")
+        result := ComCall(12, this, BSTR, strExtensionName, CERT_PROPERTY_TYPE, Type, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -842,7 +864,7 @@ class ICertServerPolicy extends IDispatch {
     SetCertificateExtension(strExtensionName, Type, ExtFlags, pvarValue) {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
-        result := ComCall(14, this, "ptr", strExtensionName, "int", Type, "int", ExtFlags, "ptr", pvarValue, "HRESULT")
+        result := ComCall(14, this, BSTR, strExtensionName, "int", Type, "int", ExtFlags, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -876,8 +898,8 @@ class ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateextensions
      */
     EnumerateExtensions() {
-        pstrExtensionName := BSTR()
-        result := ComCall(16, this, "ptr", pstrExtensionName, "HRESULT")
+        pstrExtensionName := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pstrExtensionName, "HRESULT")
         return pstrExtensionName
     }
 
@@ -928,8 +950,8 @@ class ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateattributes
      */
     EnumerateAttributes() {
-        pstrAttributeName := BSTR()
-        result := ComCall(19, this, "ptr", pstrAttributeName, "HRESULT")
+        pstrAttributeName := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pstrAttributeName, "HRESULT")
         return pstrAttributeName
     }
 
@@ -947,5 +969,51 @@ class ICertServerPolicy extends IDispatch {
     EnumerateAttributesClose() {
         result := ComCall(20, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertServerPolicy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetRequestProperty := CallbackCreate(GetMethod(implObj, "GetRequestProperty"), flags, 4)
+        this.vtbl.GetRequestAttribute := CallbackCreate(GetMethod(implObj, "GetRequestAttribute"), flags, 3)
+        this.vtbl.GetCertificateProperty := CallbackCreate(GetMethod(implObj, "GetCertificateProperty"), flags, 4)
+        this.vtbl.SetCertificateProperty := CallbackCreate(GetMethod(implObj, "SetCertificateProperty"), flags, 4)
+        this.vtbl.GetCertificateExtension := CallbackCreate(GetMethod(implObj, "GetCertificateExtension"), flags, 4)
+        this.vtbl.GetCertificateExtensionFlags := CallbackCreate(GetMethod(implObj, "GetCertificateExtensionFlags"), flags, 2)
+        this.vtbl.SetCertificateExtension := CallbackCreate(GetMethod(implObj, "SetCertificateExtension"), flags, 5)
+        this.vtbl.EnumerateExtensionsSetup := CallbackCreate(GetMethod(implObj, "EnumerateExtensionsSetup"), flags, 2)
+        this.vtbl.EnumerateExtensions := CallbackCreate(GetMethod(implObj, "EnumerateExtensions"), flags, 2)
+        this.vtbl.EnumerateExtensionsClose := CallbackCreate(GetMethod(implObj, "EnumerateExtensionsClose"), flags, 1)
+        this.vtbl.EnumerateAttributesSetup := CallbackCreate(GetMethod(implObj, "EnumerateAttributesSetup"), flags, 2)
+        this.vtbl.EnumerateAttributes := CallbackCreate(GetMethod(implObj, "EnumerateAttributes"), flags, 2)
+        this.vtbl.EnumerateAttributesClose := CallbackCreate(GetMethod(implObj, "EnumerateAttributesClose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetContext)
+        CallbackFree(this.vtbl.GetRequestProperty)
+        CallbackFree(this.vtbl.GetRequestAttribute)
+        CallbackFree(this.vtbl.GetCertificateProperty)
+        CallbackFree(this.vtbl.SetCertificateProperty)
+        CallbackFree(this.vtbl.GetCertificateExtension)
+        CallbackFree(this.vtbl.GetCertificateExtensionFlags)
+        CallbackFree(this.vtbl.SetCertificateExtension)
+        CallbackFree(this.vtbl.EnumerateExtensionsSetup)
+        CallbackFree(this.vtbl.EnumerateExtensions)
+        CallbackFree(this.vtbl.EnumerateExtensionsClose)
+        CallbackFree(this.vtbl.EnumerateAttributesSetup)
+        CallbackFree(this.vtbl.EnumerateAttributes)
+        CallbackFree(this.vtbl.EnumerateAttributesClose)
     }
 }

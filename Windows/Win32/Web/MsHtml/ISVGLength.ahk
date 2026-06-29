@@ -1,38 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGLength extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGLength extends IDispatch {
     /**
      * The interface identifier for ISVGLength
      * @type {Guid}
      */
-    static IID => Guid("{305104cf-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104cf-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGLength
      * @type {Guid}
      */
-    static CLSID => Guid("{3051057e-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3051057e-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGLength interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_unitType              : IntPtr
+        get_unitType              : IntPtr
+        put_value                 : IntPtr
+        get_value                 : IntPtr
+        put_valueInSpecifiedUnits : IntPtr
+        get_valueInSpecifiedUnits : IntPtr
+        put_valueAsString         : IntPtr
+        get_valueAsString         : IntPtr
+        newValueSpecifiedUnits    : IntPtr
+        convertToSpecifiedUnits   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_unitType", "get_unitType", "put_value", "get_value", "put_valueInSpecifiedUnits", "get_valueInSpecifiedUnits", "put_valueAsString", "get_valueAsString", "newValueSpecifiedUnits", "convertToSpecifiedUnits"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGLength.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -131,7 +148,7 @@ class ISVGLength extends IDispatch {
     put_valueAsString(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -140,8 +157,8 @@ class ISVGLength extends IDispatch {
      * @returns {BSTR} 
      */
     get_valueAsString() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -164,5 +181,43 @@ class ISVGLength extends IDispatch {
     convertToSpecifiedUnits(unitType) {
         result := ComCall(16, this, "short", unitType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISVGLength.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_unitType := CallbackCreate(GetMethod(implObj, "put_unitType"), flags, 2)
+        this.vtbl.get_unitType := CallbackCreate(GetMethod(implObj, "get_unitType"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_valueInSpecifiedUnits := CallbackCreate(GetMethod(implObj, "put_valueInSpecifiedUnits"), flags, 2)
+        this.vtbl.get_valueInSpecifiedUnits := CallbackCreate(GetMethod(implObj, "get_valueInSpecifiedUnits"), flags, 2)
+        this.vtbl.put_valueAsString := CallbackCreate(GetMethod(implObj, "put_valueAsString"), flags, 2)
+        this.vtbl.get_valueAsString := CallbackCreate(GetMethod(implObj, "get_valueAsString"), flags, 2)
+        this.vtbl.newValueSpecifiedUnits := CallbackCreate(GetMethod(implObj, "newValueSpecifiedUnits"), flags, 3)
+        this.vtbl.convertToSpecifiedUnits := CallbackCreate(GetMethod(implObj, "convertToSpecifiedUnits"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_unitType)
+        CallbackFree(this.vtbl.get_unitType)
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
+        CallbackFree(this.vtbl.put_valueInSpecifiedUnits)
+        CallbackFree(this.vtbl.get_valueInSpecifiedUnits)
+        CallbackFree(this.vtbl.put_valueAsString)
+        CallbackFree(this.vtbl.get_valueAsString)
+        CallbackFree(this.vtbl.newValueSpecifiedUnits)
+        CallbackFree(this.vtbl.convertToSpecifiedUnits)
     }
 }

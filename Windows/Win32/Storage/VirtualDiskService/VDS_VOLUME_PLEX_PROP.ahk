@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_VOLUME_PLEX_TYPE.ahk
-#Include .\VDS_VOLUME_PLEX_STATUS.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_TRANSITION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_TRANSITION_STATE.ahk" { VDS_TRANSITION_STATE }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_VOLUME_PLEX_STATUS.ahk" { VDS_VOLUME_PLEX_STATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_VOLUME_PLEX_TYPE.ahk" { VDS_VOLUME_PLEX_TYPE }
 
 /**
  * Defines the properties of a volume plex object.
@@ -12,80 +12,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_volume_plex_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_VOLUME_PLEX_PROP extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct VDS_VOLUME_PLEX_PROP {
+    #StructPack 8
 
     /**
      * The GUID of the plex object.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * The plex type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_plex_type">VDS_VOLUME_PLEX_TYPE</a>. The type of the plex is not required to match the type of the volume to which the plex belongs.
-     * @type {VDS_VOLUME_PLEX_TYPE}
      */
-    type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    type : VDS_VOLUME_PLEX_TYPE
 
     /**
      * The status of the plex object enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_plex_status">VDS_VOLUME_PLEX_STATUS</a>. The status of the plex is not required to match the status of the volume to which the plex belongs.
-     * @type {VDS_VOLUME_PLEX_STATUS}
      */
-    status {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    status : VDS_VOLUME_PLEX_STATUS
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health state of the plex.  The health state of the plex is not required to match the health state of the volume to which the plex belongs.
-     * @type {VDS_HEALTH}
      */
-    health {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    health : VDS_HEALTH
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_transition_state">VDS_TRANSITION_STATE</a> enumeration value that specifies the transition state of the plex.
-     * @type {VDS_TRANSITION_STATE}
      */
-    TransitionState {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    TransitionState : VDS_TRANSITION_STATE
 
     /**
      * The size of the plex, in bytes. The size of the plex must be greater than or equal to that of the volume to which the plex belongs. The plex cannot be smaller than the volume.
-     * @type {Integer}
      */
-    ullSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ullSize : Int64
 
     /**
      * The stripe interleave size, in bytes. This member is valid only for plexes of type <b>VDS_VPT_STRIPE</b> (striped) and <b>VDS_VPT_PARITY</b> (striped with parity). For other plex types, this member should be zero.
-     * @type {Integer}
      */
-    ulStripeSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulStripeSize : UInt32
 
     /**
      * The number of members in the volume plex. A plex member is a collection of concatenated disk extents contained on one more disks.
-     * @type {Integer}
      */
-    ulNumberOfMembers {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulNumberOfMembers : UInt32
+
 }

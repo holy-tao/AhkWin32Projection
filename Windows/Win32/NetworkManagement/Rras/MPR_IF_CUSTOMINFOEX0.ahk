@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include .\ROUTER_IKEv2_IF_CUSTOM_CONFIG0.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
+#Import "..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\ROUTER_IKEv2_IF_CUSTOM_CONFIG0.ahk" { ROUTER_IKEv2_IF_CUSTOM_CONFIG0 }
+#Import ".\MPRAPI_OBJECT_HEADER.ahk" { MPRAPI_OBJECT_HEADER }
 
 /**
  * Gets or sets tunnel specific custom configuration for a demand dial interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_if_custominfoex0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_IF_CUSTOMINFOEX0 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MPR_IF_CUSTOMINFOEX0 {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mprapi_object_header">MPRAPI_OBJECT_HEADER</a> structure that specifies the version of the <b>MPR_IF_CUSTOMINFOEX0</b> structure.
-     * @type {MPRAPI_OBJECT_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : MPRAPI_OBJECT_HEADER
 
     /**
      * A value that specifies the tunnel type for which the custom configuration is available. The following values are supported.
@@ -58,22 +48,12 @@ class MPR_IF_CUSTOMINFOEX0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-router_ikev2_if_custom_config0">ROUTER_IKEv2_IF_CUSTOM_CONFIG0</a> structure that specifies the IKEv2 tunnel configuration parameters.
-     * @type {ROUTER_IKEv2_IF_CUSTOM_CONFIG0}
      */
-    customIkev2Config {
-        get {
-            if(!this.HasProp("__customIkev2Config"))
-                this.__customIkev2Config := ROUTER_IKEv2_IF_CUSTOM_CONFIG0(8, this)
-            return this.__customIkev2Config
-        }
-    }
+    customIkev2Config : ROUTER_IKEv2_IF_CUSTOM_CONFIG0
+
 }

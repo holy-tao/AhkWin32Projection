@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrintCoreHelper.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintCoreHelper.ahk" { IPrintCoreHelper }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintCoreHelperPS extends IPrintCoreHelper {
-
-    static sizeof => A_PtrSize
+export default struct IPrintCoreHelperPS extends IPrintCoreHelper {
     /**
      * The interface identifier for IPrintCoreHelperPS
      * @type {Guid}
      */
-    static IID => Guid("{c2c14f6f-95d3-4d63-96cf-6bd9e6c907c2}")
+    static IID := Guid("{c2c14f6f-95d3-4d63-96cf-6bd9e6c907c2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintCoreHelperPS interfaces
+    */
+    struct Vtbl extends IPrintCoreHelper.Vtbl {
+        GetGlobalAttribute  : IntPtr
+        GetFeatureAttribute : IntPtr
+        GetOptionAttribute  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGlobalAttribute", "GetFeatureAttribute", "GetOptionAttribute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintCoreHelperPS.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -88,5 +99,29 @@ class IPrintCoreHelperPS extends IPrintCoreHelper {
 
         result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, ppbDataMarshal, ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintCoreHelperPS.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGlobalAttribute := CallbackCreate(GetMethod(implObj, "GetGlobalAttribute"), flags, 5)
+        this.vtbl.GetFeatureAttribute := CallbackCreate(GetMethod(implObj, "GetFeatureAttribute"), flags, 6)
+        this.vtbl.GetOptionAttribute := CallbackCreate(GetMethod(implObj, "GetOptionAttribute"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGlobalAttribute)
+        CallbackFree(this.vtbl.GetFeatureAttribute)
+        CallbackFree(this.vtbl.GetOptionAttribute)
     }
 }

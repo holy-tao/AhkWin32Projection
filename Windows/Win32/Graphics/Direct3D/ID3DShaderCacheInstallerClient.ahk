@@ -1,30 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE.ahk" { D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE }
+#Import ".\ID3DShaderCacheInstaller.ahk" { ID3DShaderCacheInstaller }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class ID3DShaderCacheInstallerClient extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3DShaderCacheInstallerClient extends Win32ComInterface {
     /**
      * The interface identifier for ID3DShaderCacheInstallerClient
      * @type {Guid}
      */
-    static IID => Guid("{a16ee930-d9f6-4222-a514-244473e5d266}")
+    static IID := Guid("{a16ee930-d9f6-4222-a514-244473e5d266}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3DShaderCacheInstallerClient interfaces
+    */
+    struct Vtbl {
+        GetInstallerName   : IntPtr
+        GetInstallerScope  : IntPtr
+        HandleDriverUpdate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInstallerName", "GetInstallerScope", "HandleDriverUpdate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3DShaderCacheInstallerClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -46,7 +59,7 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface {
      * @returns {D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE} 
      */
     GetInstallerScope() {
-        result := ComCall(1, this, "int")
+        result := ComCall(1, this, D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE)
         return result
     }
 
@@ -58,5 +71,12 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface {
     HandleDriverUpdate(pInstaller) {
         result := ComCall(2, this, "ptr", pInstaller, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3DShaderCacheInstallerClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

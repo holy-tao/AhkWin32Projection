@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class VIRTUAL_TO_PHYSICAL extends Win32Struct {
-    static sizeof => 32
+export default struct VIRTUAL_TO_PHYSICAL {
+    #StructPack 8
 
-    static packingSize => 8
+    Status : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PdeAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PdeAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Virtual : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Virtual {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Physical : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Physical {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

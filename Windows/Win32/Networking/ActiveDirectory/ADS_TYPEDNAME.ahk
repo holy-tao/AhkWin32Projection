@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents an ADSI representation of Typed Name attribute syntax.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_typedname
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_TYPEDNAME extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ADS_TYPEDNAME {
+    #StructPack 8
 
     /**
      * The null-terminated Unicode string that contains an object name.
-     * @type {PWSTR}
      */
-    ObjectName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ObjectName : PWSTR
 
     /**
      * The priority associated with the object.
-     * @type {Integer}
      */
-    Level {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Level : UInt32
 
     /**
      * The frequency of reference of the object.
-     * @type {Integer}
      */
-    Interval {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Interval : UInt32
+
 }

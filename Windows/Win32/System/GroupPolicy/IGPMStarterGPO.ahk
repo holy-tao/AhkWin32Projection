@@ -1,10 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMResult.ahk
-#Include .\IGPMSecurityInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\GPMStarterGPOType.ahk" { GPMStarterGPOType }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMReportType.ahk" { GPMReportType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMStarterGPO interface supports methods that enable you to manage Starter Group Policy Objects (GPOs) in the directory service.
@@ -24,26 +29,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstartergpo
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMStarterGPO extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMStarterGPO extends IDispatch {
     /**
      * The interface identifier for IGPMStarterGPO
      * @type {Guid}
      */
-    static IID => Guid("{dfc3f61b-8880-4490-9337-d29c7ba8c2f0}")
+    static IID := Guid("{dfc3f61b-8880-4490-9337-d29c7ba8c2f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMStarterGPO interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DisplayName       : IntPtr
+        put_DisplayName       : IntPtr
+        get_Description       : IntPtr
+        put_Description       : IntPtr
+        get_Author            : IntPtr
+        get_Product           : IntPtr
+        get_CreationTime      : IntPtr
+        get_ID                : IntPtr
+        get_ModifiedTime      : IntPtr
+        get_Type              : IntPtr
+        get_ComputerVersion   : IntPtr
+        get_UserVersion       : IntPtr
+        get_StarterGPOVersion : IntPtr
+        Delete                : IntPtr
+        Save                  : IntPtr
+        Backup                : IntPtr
+        CopyTo                : IntPtr
+        GenerateReport        : IntPtr
+        GenerateReportToFile  : IntPtr
+        GetSecurityInfo       : IntPtr
+        SetSecurityInfo       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Description", "put_Description", "get_Author", "get_Product", "get_CreationTime", "get_ID", "get_ModifiedTime", "get_Type", "get_ComputerVersion", "get_UserVersion", "get_StarterGPOVersion", "Delete", "Save", "Backup", "CopyTo", "GenerateReport", "GenerateReportToFile", "GetSecurityInfo", "SetSecurityInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMStarterGPO.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -129,8 +161,8 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -142,7 +174,7 @@ class IGPMStarterGPO extends IDispatch {
     put_DisplayName(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(8, this, "ptr", newVal, "HRESULT")
+        result := ComCall(8, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -151,8 +183,8 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -164,7 +196,7 @@ class IGPMStarterGPO extends IDispatch {
     put_Description(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(10, this, "ptr", newVal, "HRESULT")
+        result := ComCall(10, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -173,8 +205,8 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Author() {
-        pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -183,8 +215,8 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Product() {
-        pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -202,8 +234,8 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pVal := BSTR()
-        result := ComCall(14, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -248,8 +280,8 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_StarterGPOVersion() {
-        pVal := BSTR()
-        result := ComCall(19, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -281,7 +313,7 @@ class IGPMStarterGPO extends IDispatch {
     Save(bstrSaveFile, bOverwrite, bSaveAsSystem, bstrLanguage, bstrAuthor, bstrProduct, bstrUniqueID, bstrVersion, pvarGPMProgress, pvarGPMCancel) {
         bstrSaveFile := bstrSaveFile is String ? BSTR.Alloc(bstrSaveFile).Value : bstrSaveFile
 
-        result := ComCall(21, this, "ptr", bstrSaveFile, "short", bOverwrite, "short", bSaveAsSystem, "ptr", bstrLanguage, "ptr", bstrAuthor, "ptr", bstrProduct, "ptr", bstrUniqueID, "ptr", bstrVersion, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrSaveFile, VARIANT_BOOL, bOverwrite, VARIANT_BOOL, bSaveAsSystem, VARIANT.Ptr, bstrLanguage, VARIANT.Ptr, bstrAuthor, VARIANT.Ptr, bstrProduct, VARIANT.Ptr, bstrUniqueID, VARIANT.Ptr, bstrVersion, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -307,7 +339,7 @@ class IGPMStarterGPO extends IDispatch {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
         bstrComment := bstrComment is String ? BSTR.Alloc(bstrComment).Value : bstrComment
 
-        result := ComCall(22, this, "ptr", bstrBackupDir, "ptr", bstrComment, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrBackupDir, BSTR, bstrComment, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -329,7 +361,7 @@ class IGPMStarterGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-copyto
      */
     CopyTo(pvarNewDisplayName, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(23, this, "ptr", pvarNewDisplayName, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, pvarNewDisplayName, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -342,7 +374,7 @@ class IGPMStarterGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-generatereport
      */
     GenerateReport(_gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(24, this, "int", _gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(24, this, GPMReportType, _gpmReportType, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -359,7 +391,7 @@ class IGPMStarterGPO extends IDispatch {
     GenerateReportToFile(_gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(25, this, "int", _gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(25, this, GPMReportType, _gpmReportType, BSTR, bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -389,5 +421,65 @@ class IGPMStarterGPO extends IDispatch {
     SetSecurityInfo(pSecurityInfo) {
         result := ComCall(27, this, "ptr", pSecurityInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPMStarterGPO.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Author := CallbackCreate(GetMethod(implObj, "get_Author"), flags, 2)
+        this.vtbl.get_Product := CallbackCreate(GetMethod(implObj, "get_Product"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_ModifiedTime := CallbackCreate(GetMethod(implObj, "get_ModifiedTime"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_ComputerVersion := CallbackCreate(GetMethod(implObj, "get_ComputerVersion"), flags, 2)
+        this.vtbl.get_UserVersion := CallbackCreate(GetMethod(implObj, "get_UserVersion"), flags, 2)
+        this.vtbl.get_StarterGPOVersion := CallbackCreate(GetMethod(implObj, "get_StarterGPOVersion"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 12)
+        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 6)
+        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 5)
+        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
+        this.vtbl.GetSecurityInfo := CallbackCreate(GetMethod(implObj, "GetSecurityInfo"), flags, 2)
+        this.vtbl.SetSecurityInfo := CallbackCreate(GetMethod(implObj, "SetSecurityInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DisplayName)
+        CallbackFree(this.vtbl.put_DisplayName)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_Author)
+        CallbackFree(this.vtbl.get_Product)
+        CallbackFree(this.vtbl.get_CreationTime)
+        CallbackFree(this.vtbl.get_ID)
+        CallbackFree(this.vtbl.get_ModifiedTime)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_ComputerVersion)
+        CallbackFree(this.vtbl.get_UserVersion)
+        CallbackFree(this.vtbl.get_StarterGPOVersion)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.Backup)
+        CallbackFree(this.vtbl.CopyTo)
+        CallbackFree(this.vtbl.GenerateReport)
+        CallbackFree(this.vtbl.GenerateReportToFile)
+        CallbackFree(this.vtbl.GetSecurityInfo)
+        CallbackFree(this.vtbl.SetSecurityInfo)
     }
 }

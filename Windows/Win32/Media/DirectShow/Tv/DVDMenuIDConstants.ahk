@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DVDMenuID constants define menu type ID numbers used to display specific menus.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-dvdmenuidconstants
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class DVDMenuIDConstants extends Win32Enum {
+export default struct DVDMenuIDConstants {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Title menu, also called the Video Manager Menu.

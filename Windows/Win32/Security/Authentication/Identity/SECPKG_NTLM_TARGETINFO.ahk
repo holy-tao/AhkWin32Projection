@@ -1,87 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_NTLM_TARGETINFO extends Win32Struct {
-    static sizeof => 72
+export default struct SECPKG_NTLM_TARGETINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MsvAvNbComputerName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    MsvAvNbComputerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MsvAvNbDomainName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    MsvAvNbDomainName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MsvAvDnsComputerName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    MsvAvDnsComputerName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MsvAvDnsDomainName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    MsvAvDnsDomainName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    MsvAvDnsTreeName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    MsvAvDnsTreeName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    MsvAvFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MsvAvFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MsvAvTimestamp : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    MsvAvTimestamp {
-        get {
-            if(!this.HasProp("__MsvAvTimestamp"))
-                this.__MsvAvTimestamp := FILETIME(52, this)
-            return this.__MsvAvTimestamp
-        }
-    }
+    MsvAvTargetName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    MsvAvTargetName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

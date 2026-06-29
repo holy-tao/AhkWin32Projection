@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Registry
  */
-class val_context extends Win32Struct {
-    static sizeof => 24
+export default struct val_context {
+    #StructPack 8
 
-    static packingSize => 8
+    valuelen : Int32
 
-    /**
-     * @type {Integer}
-     */
-    valuelen {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    value_context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    value_context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    val_buff_ptr : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    val_buff_ptr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

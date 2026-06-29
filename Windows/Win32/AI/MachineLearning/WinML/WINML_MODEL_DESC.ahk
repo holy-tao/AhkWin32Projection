@@ -1,58 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains description properties of the model.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_model_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class WINML_MODEL_DESC extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WINML_MODEL_DESC {
+    #StructPack 8
 
     /**
      * The author of the model.
-     * @type {PWSTR}
      */
-    Author {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Author : PWSTR
 
     /**
      * The name of the model.
-     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Name : PWSTR
 
     /**
      * The domain of the model.
-     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Domain : PWSTR
 
     /**
      * The description of the model.
-     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Description : PWSTR
 
     /**
      * The version of the model.
-     * @type {Pointer}
      */
-    Version {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Version : IntPtr
+
 }

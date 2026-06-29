@@ -1,33 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICreateTypeInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\INVOKEKIND.ahk" { INVOKEKIND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypeinfo2
  * @namespace Windows.Win32.System.Ole
  */
-class ICreateTypeInfo2 extends ICreateTypeInfo {
-
-    static sizeof => A_PtrSize
+export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
     /**
      * The interface identifier for ICreateTypeInfo2
      * @type {Guid}
      */
-    static IID => Guid("{0002040e-0000-0000-c000-000000000046}")
+    static IID := Guid("{0002040e-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateTypeInfo2 interfaces
+    */
+    struct Vtbl extends ICreateTypeInfo.Vtbl {
+        DeleteFuncDesc           : IntPtr
+        DeleteFuncDescByMemId    : IntPtr
+        DeleteVarDesc            : IntPtr
+        DeleteVarDescByMemId     : IntPtr
+        DeleteImplType           : IntPtr
+        SetCustData              : IntPtr
+        SetFuncCustData          : IntPtr
+        SetParamCustData         : IntPtr
+        SetVarCustData           : IntPtr
+        SetImplTypeCustData      : IntPtr
+        SetHelpStringContext     : IntPtr
+        SetFuncHelpStringContext : IntPtr
+        SetVarHelpStringContext  : IntPtr
+        Invalidate               : IntPtr
+        SetName                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeleteFuncDesc", "DeleteFuncDescByMemId", "DeleteVarDesc", "DeleteVarDescByMemId", "DeleteImplType", "SetCustData", "SetFuncCustData", "SetParamCustData", "SetVarCustData", "SetImplTypeCustData", "SetHelpStringContext", "SetFuncHelpStringContext", "SetVarHelpStringContext", "Invalidate", "SetName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateTypeInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deletes a function description specified by the index number.
@@ -134,7 +159,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdescbymemid
      */
     DeleteFuncDescByMemId(memid, invKind) {
-        result := ComCall(27, this, "int", memid, "int", invKind, "HRESULT")
+        result := ComCall(27, this, "int", memid, INVOKEKIND, invKind, "HRESULT")
         return result
     }
 
@@ -443,7 +468,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setcustdata
      */
     SetCustData(guid, pVarVal) {
-        result := ComCall(31, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(31, this, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -499,7 +524,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setfunccustdata
      */
     SetFuncCustData(index, guid, pVarVal) {
-        result := ComCall(32, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(32, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -556,7 +581,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setparamcustdata
      */
     SetParamCustData(indexFunc, indexParam, guid, pVarVal) {
-        result := ComCall(33, this, "uint", indexFunc, "uint", indexParam, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(33, this, "uint", indexFunc, "uint", indexParam, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -612,7 +637,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setvarcustdata
      */
     SetVarCustData(index, guid, pVarVal) {
-        result := ComCall(34, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(34, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -668,7 +693,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setimpltypecustdata
      */
     SetImplTypeCustData(index, guid, pVarVal) {
-        result := ComCall(35, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(35, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -837,9 +862,8 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
     }
 
     /**
-     * Enables the user to remove a single name and all associated data from the name cache.
-     * @returns {HRESULT} Returns <b>TRUE</b> if the name and associated data are removed from the name cache; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-invalidatename
+     * 
+     * @returns {HRESULT} 
      */
     Invalidate() {
         result := ComCall(39, this, "HRESULT")
@@ -900,5 +924,53 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
 
         result := ComCall(40, this, "ptr", szName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICreateTypeInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeleteFuncDesc := CallbackCreate(GetMethod(implObj, "DeleteFuncDesc"), flags, 2)
+        this.vtbl.DeleteFuncDescByMemId := CallbackCreate(GetMethod(implObj, "DeleteFuncDescByMemId"), flags, 3)
+        this.vtbl.DeleteVarDesc := CallbackCreate(GetMethod(implObj, "DeleteVarDesc"), flags, 2)
+        this.vtbl.DeleteVarDescByMemId := CallbackCreate(GetMethod(implObj, "DeleteVarDescByMemId"), flags, 2)
+        this.vtbl.DeleteImplType := CallbackCreate(GetMethod(implObj, "DeleteImplType"), flags, 2)
+        this.vtbl.SetCustData := CallbackCreate(GetMethod(implObj, "SetCustData"), flags, 3)
+        this.vtbl.SetFuncCustData := CallbackCreate(GetMethod(implObj, "SetFuncCustData"), flags, 4)
+        this.vtbl.SetParamCustData := CallbackCreate(GetMethod(implObj, "SetParamCustData"), flags, 5)
+        this.vtbl.SetVarCustData := CallbackCreate(GetMethod(implObj, "SetVarCustData"), flags, 4)
+        this.vtbl.SetImplTypeCustData := CallbackCreate(GetMethod(implObj, "SetImplTypeCustData"), flags, 4)
+        this.vtbl.SetHelpStringContext := CallbackCreate(GetMethod(implObj, "SetHelpStringContext"), flags, 2)
+        this.vtbl.SetFuncHelpStringContext := CallbackCreate(GetMethod(implObj, "SetFuncHelpStringContext"), flags, 3)
+        this.vtbl.SetVarHelpStringContext := CallbackCreate(GetMethod(implObj, "SetVarHelpStringContext"), flags, 3)
+        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 1)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeleteFuncDesc)
+        CallbackFree(this.vtbl.DeleteFuncDescByMemId)
+        CallbackFree(this.vtbl.DeleteVarDesc)
+        CallbackFree(this.vtbl.DeleteVarDescByMemId)
+        CallbackFree(this.vtbl.DeleteImplType)
+        CallbackFree(this.vtbl.SetCustData)
+        CallbackFree(this.vtbl.SetFuncCustData)
+        CallbackFree(this.vtbl.SetParamCustData)
+        CallbackFree(this.vtbl.SetVarCustData)
+        CallbackFree(this.vtbl.SetImplTypeCustData)
+        CallbackFree(this.vtbl.SetHelpStringContext)
+        CallbackFree(this.vtbl.SetFuncHelpStringContext)
+        CallbackFree(this.vtbl.SetVarHelpStringContext)
+        CallbackFree(this.vtbl.Invalidate)
+        CallbackFree(this.vtbl.SetName)
     }
 }

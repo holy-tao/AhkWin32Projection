@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KBDTABLE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KBDTABLE_DESC.ahk" { KBDTABLE_DESC }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class KBDTABLE_MULTI extends Win32Struct {
-    static sizeof => 580
+export default struct KBDTABLE_MULTI {
+    #StructPack 4
 
-    static packingSize => 4
+    nTables : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nTables {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    aKbdTables : KBDTABLE_DESC[8]
 
-    /**
-     * @type {KBDTABLE_DESC}
-     */
-    aKbdTables {
-        get {
-            if(!this.HasProp("__aKbdTablesProxyArray"))
-                this.__aKbdTablesProxyArray := Win32FixedArray(this.ptr + 4, 8, KBDTABLE_DESC, "")
-            return this.__aKbdTablesProxyArray
-        }
-    }
 }

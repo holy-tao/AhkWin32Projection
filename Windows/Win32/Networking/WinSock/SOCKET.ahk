@@ -1,21 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\Apis.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\Apis.ahk" { closesocket }
 
 /**
- * SOCKET_ADDRESS structure stores protocol-specific address information.
- * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure pointed to by the <b>lpSockaddr</b> member varies depending on the protocol or address family selected. For example, the <b>sockaddr_in6</b> structure is used for an IPv6 socket address while the <b>sockaddr_in4</b> structure is used for an IPv4 socket address. The address family is the first member of all of the <b>SOCKADDR</b> structures. The address family is used to determine which structure is used. 
- * 
- * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>SOCKET_ADDRESS</b> structure is defined in the <i>Ws2def.h</i> header file. Note that the <i>Ws2def.h</i> header file is automatically included in <i>Winsock2.h</i>, and should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_address
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET extends Win32Handle {
-    static sizeof => 8
+export default struct SOCKET {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is SOCKET) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -23,16 +24,40 @@ class SOCKET extends Win32Handle {
      */
     static invalidValues => [-1]
 
-    /**
-     * @type {Pointer}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := -1) {
+        this.Value := Value
     }
 
-    Free(){
-        WinSock.closesocket(this.Value)
+    Free() {
+        ; Do nothing if the handle is invalid already
+        if (this.Value != -1 && this.Value != 0) {
+            closesocket(this.Value)
+            this.Value := -1
+        }
+    }
+
+    /**
+     * A `SOCKET` which is owned by the script and which frees itself
+     * in `__Delete`.
+     */
+    struct Owned extends SOCKET {
+        __Delete() {
+            this.Free()
+        }
+    }
+
+    /**
+     * Takes ownership of this SOCKET, returning an owned handle that frees
+     * itself when it falls out of scope. This is a *move*: the original handle is
+     * invalidated so the underlying resource has exactly one owner.
+     * @returns {SOCKET.Owned}
+     */
+    Adopt() {
+        if (this is SOCKET.Owned) {
+            throw TypeError("Cannot adopt an owned SOCKET", -1)
+        }
+        owned := SOCKET.Owned(this.Value)
         this.Value := -1
+        return owned
     }
 }

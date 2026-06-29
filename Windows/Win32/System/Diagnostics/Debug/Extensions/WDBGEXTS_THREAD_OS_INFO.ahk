@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class WDBGEXTS_THREAD_OS_INFO extends Win32Struct {
-    static sizeof => 64
+export default struct WDBGEXTS_THREAD_OS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ThreadId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ThreadId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ExitStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExitStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PriorityClass : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PriorityClass {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Priority : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Priority {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CreateTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CreateTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ExitTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExitTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    KernelTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KernelTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    UserTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UserTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    StartOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Affinity : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Affinity {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

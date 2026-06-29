@@ -1,52 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OUTPUT_WIRE_COLOR_SPACE_TYPE.ahk
-#Include .\OUTPUT_WIRE_FORMAT.ahk
-#Include .\OUTPUT_COLOR_ENCODING.ahk
-#Include .\COLORSPACE_TRANSFORM.ahk
-#Include .\COLORSPACE_TRANSFORM_TYPE.ahk
-#Include .\GAMMA_RAMP_RGB256x3x16.ahk
-#Include .\GAMMA_RAMP_DXGI_1.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
-#Include .\COLORSPACE_TRANSFORM_3x4.ahk
-#Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
-#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GAMMA_RAMP_RGB.ahk" { GAMMA_RAMP_RGB }
+#Import ".\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk" { COLORSPACE_TRANSFORM_STAGE_CONTROL }
+#Import ".\COLORSPACE_TRANSFORM.ahk" { COLORSPACE_TRANSFORM }
+#Import ".\COLORSPACE_TRANSFORM_MATRIX_V2.ahk" { COLORSPACE_TRANSFORM_MATRIX_V2 }
+#Import ".\GAMMA_RAMP_RGB256x3x16.ahk" { GAMMA_RAMP_RGB256x3x16 }
+#Import ".\OUTPUT_WIRE_FORMAT.ahk" { OUTPUT_WIRE_FORMAT }
+#Import ".\OUTPUT_COLOR_ENCODING.ahk" { OUTPUT_COLOR_ENCODING }
+#Import ".\GAMMA_RAMP_DXGI_1.ahk" { GAMMA_RAMP_DXGI_1 }
+#Import ".\COLORSPACE_TRANSFORM_TYPE.ahk" { COLORSPACE_TRANSFORM_TYPE }
+#Import ".\COLORSPACE_TRANSFORM_3x4.ahk" { COLORSPACE_TRANSFORM_3x4 }
+#Import ".\OUTPUT_WIRE_COLOR_SPACE_TYPE.ahk" { OUTPUT_WIRE_COLOR_SPACE_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct {
-    static sizeof => 98368
+export default struct COLORSPACE_TRANSFORM_SET_INPUT {
+    #StructPack 4
 
-    static packingSize => 4
+    OutputWireColorSpaceExpected : OUTPUT_WIRE_COLOR_SPACE_TYPE
 
-    /**
-     * @type {OUTPUT_WIRE_COLOR_SPACE_TYPE}
-     */
-    OutputWireColorSpaceExpected {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    OutputWireFormatExpected : OUTPUT_WIRE_FORMAT
 
-    /**
-     * @type {OUTPUT_WIRE_FORMAT}
-     */
-    OutputWireFormatExpected {
-        get {
-            if(!this.HasProp("__OutputWireFormatExpected"))
-                this.__OutputWireFormatExpected := OUTPUT_WIRE_FORMAT(4, this)
-            return this.__OutputWireFormatExpected
-        }
-    }
+    ColorSpaceTransform : COLORSPACE_TRANSFORM
 
-    /**
-     * @type {COLORSPACE_TRANSFORM}
-     */
-    ColorSpaceTransform {
-        get {
-            if(!this.HasProp("__ColorSpaceTransform"))
-                this.__ColorSpaceTransform := COLORSPACE_TRANSFORM(12, this)
-            return this.__ColorSpaceTransform
-        }
-    }
 }

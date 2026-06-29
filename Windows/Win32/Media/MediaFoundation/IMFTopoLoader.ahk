@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFTopology.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Converts a partial topology into a full topology.
@@ -11,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopoloader
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTopoLoader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTopoLoader extends IUnknown {
     /**
      * The interface identifier for IMFTopoLoader
      * @type {Guid}
      */
-    static IID => Guid("{de9a6157-f660-4643-b56a-df9f7998c7cd}")
+    static IID := Guid("{de9a6157-f660-4643-b56a-df9f7998c7cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTopoLoader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Load : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Load"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTopoLoader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a fully loaded topology from the input partial topology.
@@ -50,5 +58,25 @@ class IMFTopoLoader extends IUnknown {
     Load(pInputTopo, pCurrentTopo) {
         result := ComCall(3, this, "ptr", pInputTopo, "ptr*", &ppOutputTopo := 0, "ptr", pCurrentTopo, "HRESULT")
         return IMFTopology(ppOutputTopo)
+    }
+
+    Query(iid) {
+        if (IMFTopoLoader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Load)
     }
 }

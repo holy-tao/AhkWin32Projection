@@ -1,37 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
-#Include .\IXpsOMMatrixTransform.ahk
-#Include .\IXpsOMGeometry.ahk
-#Include .\IXpsOMBrush.ahk
-#Include ..\..\System\Com\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import "..\..\System\Com\IUri.ahk" { IUri }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The base interface for path, canvas, and glyph interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMVisual extends IXpsOMShareable {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMVisual extends IXpsOMShareable {
     /**
      * The interface identifier for IXpsOMVisual
      * @type {Guid}
      */
-    static IID => Guid("{bc3e7333-fb0b-4af3-a819-0b4eaad0d2fd}")
+    static IID := Guid("{bc3e7333-fb0b-4af3-a819-0b4eaad0d2fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMVisual interfaces
+    */
+    struct Vtbl extends IXpsOMShareable.Vtbl {
+        GetTransform              : IntPtr
+        GetTransformLocal         : IntPtr
+        SetTransformLocal         : IntPtr
+        GetTransformLookup        : IntPtr
+        SetTransformLookup        : IntPtr
+        GetClipGeometry           : IntPtr
+        GetClipGeometryLocal      : IntPtr
+        SetClipGeometryLocal      : IntPtr
+        GetClipGeometryLookup     : IntPtr
+        SetClipGeometryLookup     : IntPtr
+        GetOpacity                : IntPtr
+        SetOpacity                : IntPtr
+        GetOpacityMaskBrush       : IntPtr
+        GetOpacityMaskBrushLocal  : IntPtr
+        SetOpacityMaskBrushLocal  : IntPtr
+        GetOpacityMaskBrushLookup : IntPtr
+        SetOpacityMaskBrushLookup : IntPtr
+        GetName                   : IntPtr
+        SetName                   : IntPtr
+        GetIsHyperlinkTarget      : IntPtr
+        SetIsHyperlinkTarget      : IntPtr
+        GetHyperlinkNavigateUri   : IntPtr
+        SetHyperlinkNavigateUri   : IntPtr
+        GetLanguage               : IntPtr
+        SetLanguage               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTransform", "GetTransformLocal", "SetTransformLocal", "GetTransformLookup", "SetTransformLookup", "GetClipGeometry", "GetClipGeometryLocal", "SetClipGeometryLocal", "GetClipGeometryLookup", "SetClipGeometryLookup", "GetOpacity", "SetOpacity", "GetOpacityMaskBrush", "GetOpacityMaskBrushLocal", "SetOpacityMaskBrushLocal", "GetOpacityMaskBrushLookup", "SetOpacityMaskBrushLookup", "GetName", "SetName", "GetIsHyperlinkTarget", "SetIsHyperlinkTarget", "GetHyperlinkNavigateUri", "SetHyperlinkNavigateUri", "GetLanguage", "SetLanguage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMVisual.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMMatrixTransform interface that contains the visual's resolved matrix transform.
@@ -297,7 +331,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(8, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -699,7 +733,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup
      */
     GetClipGeometryLookup() {
-        result := ComCall(13, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -1156,7 +1190,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup
      */
     GetOpacityMaskBrushLookup() {
-        result := ComCall(20, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(20, this, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -1303,7 +1337,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getname
      */
     GetName() {
-        result := ComCall(22, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(22, this, PWSTR.Ptr, &name := 0, "HRESULT")
         return name
     }
 
@@ -1388,7 +1422,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getishyperlinktarget
      */
     GetIsHyperlinkTarget() {
-        result := ComCall(24, this, "int*", &isHyperlink := 0, "HRESULT")
+        result := ComCall(24, this, BOOL.Ptr, &isHyperlink := 0, "HRESULT")
         return isHyperlink
     }
 
@@ -1457,7 +1491,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setishyperlinktarget
      */
     SetIsHyperlinkTarget(isHyperlink) {
-        result := ComCall(25, this, "int", isHyperlink, "HRESULT")
+        result := ComCall(25, this, BOOL, isHyperlink, "HRESULT")
         return result
     }
 
@@ -1497,7 +1531,7 @@ class IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getlanguage
      */
     GetLanguage() {
-        result := ComCall(28, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(28, this, PWSTR.Ptr, &language := 0, "HRESULT")
         return language
     }
 
@@ -1543,5 +1577,73 @@ class IXpsOMVisual extends IXpsOMShareable {
 
         result := ComCall(29, this, "ptr", language, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMVisual.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.GetClipGeometry := CallbackCreate(GetMethod(implObj, "GetClipGeometry"), flags, 2)
+        this.vtbl.GetClipGeometryLocal := CallbackCreate(GetMethod(implObj, "GetClipGeometryLocal"), flags, 2)
+        this.vtbl.SetClipGeometryLocal := CallbackCreate(GetMethod(implObj, "SetClipGeometryLocal"), flags, 2)
+        this.vtbl.GetClipGeometryLookup := CallbackCreate(GetMethod(implObj, "GetClipGeometryLookup"), flags, 2)
+        this.vtbl.SetClipGeometryLookup := CallbackCreate(GetMethod(implObj, "SetClipGeometryLookup"), flags, 2)
+        this.vtbl.GetOpacity := CallbackCreate(GetMethod(implObj, "GetOpacity"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.GetOpacityMaskBrush := CallbackCreate(GetMethod(implObj, "GetOpacityMaskBrush"), flags, 2)
+        this.vtbl.GetOpacityMaskBrushLocal := CallbackCreate(GetMethod(implObj, "GetOpacityMaskBrushLocal"), flags, 2)
+        this.vtbl.SetOpacityMaskBrushLocal := CallbackCreate(GetMethod(implObj, "SetOpacityMaskBrushLocal"), flags, 2)
+        this.vtbl.GetOpacityMaskBrushLookup := CallbackCreate(GetMethod(implObj, "GetOpacityMaskBrushLookup"), flags, 2)
+        this.vtbl.SetOpacityMaskBrushLookup := CallbackCreate(GetMethod(implObj, "SetOpacityMaskBrushLookup"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetIsHyperlinkTarget := CallbackCreate(GetMethod(implObj, "GetIsHyperlinkTarget"), flags, 2)
+        this.vtbl.SetIsHyperlinkTarget := CallbackCreate(GetMethod(implObj, "SetIsHyperlinkTarget"), flags, 2)
+        this.vtbl.GetHyperlinkNavigateUri := CallbackCreate(GetMethod(implObj, "GetHyperlinkNavigateUri"), flags, 2)
+        this.vtbl.SetHyperlinkNavigateUri := CallbackCreate(GetMethod(implObj, "SetHyperlinkNavigateUri"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.SetLanguage := CallbackCreate(GetMethod(implObj, "SetLanguage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.GetTransformLocal)
+        CallbackFree(this.vtbl.SetTransformLocal)
+        CallbackFree(this.vtbl.GetTransformLookup)
+        CallbackFree(this.vtbl.SetTransformLookup)
+        CallbackFree(this.vtbl.GetClipGeometry)
+        CallbackFree(this.vtbl.GetClipGeometryLocal)
+        CallbackFree(this.vtbl.SetClipGeometryLocal)
+        CallbackFree(this.vtbl.GetClipGeometryLookup)
+        CallbackFree(this.vtbl.SetClipGeometryLookup)
+        CallbackFree(this.vtbl.GetOpacity)
+        CallbackFree(this.vtbl.SetOpacity)
+        CallbackFree(this.vtbl.GetOpacityMaskBrush)
+        CallbackFree(this.vtbl.GetOpacityMaskBrushLocal)
+        CallbackFree(this.vtbl.SetOpacityMaskBrushLocal)
+        CallbackFree(this.vtbl.GetOpacityMaskBrushLookup)
+        CallbackFree(this.vtbl.SetOpacityMaskBrushLookup)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.GetIsHyperlinkTarget)
+        CallbackFree(this.vtbl.SetIsHyperlinkTarget)
+        CallbackFree(this.vtbl.GetHyperlinkNavigateUri)
+        CallbackFree(this.vtbl.SetHyperlinkNavigateUri)
+        CallbackFree(this.vtbl.GetLanguage)
+        CallbackFree(this.vtbl.SetLanguage)
     }
 }

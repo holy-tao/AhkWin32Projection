@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_GETSHAREDRESOURCEADAPTERLUID extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_GETSHAREDRESOURCEADAPTERLUID {
+    #StructPack 8
 
-    static packingSize => 8
+    hGlobalShare : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hGlobalShare {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hNtHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hNtHandle {
-        get {
-            if(!this.HasProp("__hNtHandle"))
-                this.__hNtHandle := HANDLE(8, this)
-            return this.__hNtHandle
-        }
-    }
+    AdapterLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AdapterLuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

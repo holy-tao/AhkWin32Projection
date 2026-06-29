@@ -1,33 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\AM_WST_STATE.ahk" { AM_WST_STATE }
+#Import ".\AM_WST_DRAWBGMODE.ahk" { AM_WST_DRAWBGMODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AM_WST_LEVEL.ahk" { AM_WST_LEVEL }
+#Import ".\AM_WST_SERVICE.ahk" { AM_WST_SERVICE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AM_WST_PAGE.ahk" { AM_WST_PAGE }
 
 /**
  * The IAMWstDecoder interface sets and retrieves information about World Standard Teletext (WST). The WST Decoder filter implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nn-iwstdec-iamwstdecoder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMWstDecoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMWstDecoder extends IUnknown {
     /**
      * The interface identifier for IAMWstDecoder
      * @type {Guid}
      */
-    static IID => Guid("{c056de21-75c2-11d3-a184-00105aef9f33}")
+    static IID := Guid("{c056de21-75c2-11d3-a184-00105aef9f33}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMWstDecoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDecoderLevel       : IntPtr
+        GetCurrentService     : IntPtr
+        GetServiceState       : IntPtr
+        SetServiceState       : IntPtr
+        GetOutputFormat       : IntPtr
+        SetOutputFormat       : IntPtr
+        GetBackgroundColor    : IntPtr
+        SetBackgroundColor    : IntPtr
+        GetRedrawAlways       : IntPtr
+        SetRedrawAlways       : IntPtr
+        GetDrawBackgroundMode : IntPtr
+        SetDrawBackgroundMode : IntPtr
+        SetAnswerMode         : IntPtr
+        GetAnswerMode         : IntPtr
+        SetHoldPage           : IntPtr
+        GetHoldPage           : IntPtr
+        GetCurrentPage        : IntPtr
+        SetCurrentPage        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDecoderLevel", "GetCurrentService", "GetServiceState", "SetServiceState", "GetOutputFormat", "SetOutputFormat", "GetBackgroundColor", "SetBackgroundColor", "GetRedrawAlways", "SetRedrawAlways", "GetDrawBackgroundMode", "SetDrawBackgroundMode", "SetAnswerMode", "GetAnswerMode", "SetHoldPage", "GetHoldPage", "GetCurrentPage", "SetCurrentPage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMWstDecoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Applications use the GetDecoderLevel method to retrieve the WST decoder level. This method is not implemented and always returns AM_WST_LEVEL_1_5.
@@ -134,7 +167,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setservicestate
      */
     SetServiceState(State) {
-        result := ComCall(6, this, "int", State, "HRESULT")
+        result := ComCall(6, this, AM_WST_STATE, State, "HRESULT")
         return result
     }
 
@@ -145,7 +178,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getoutputformat
      */
     GetOutputFormat(lpbmih) {
-        result := ComCall(7, this, "ptr", lpbmih, "HRESULT")
+        result := ComCall(7, this, BITMAPINFOHEADER.Ptr, lpbmih, "HRESULT")
         return result
     }
 
@@ -185,7 +218,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setoutputformat
      */
     SetOutputFormat(lpbmi) {
-        result := ComCall(8, this, "ptr", lpbmi, "HRESULT")
+        result := ComCall(8, this, BITMAPINFO.Ptr, lpbmi, "HRESULT")
         return result
     }
 
@@ -267,7 +300,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setredrawalways
      */
     SetRedrawAlways(bOption) {
-        result := ComCall(12, this, "int", bOption, "HRESULT")
+        result := ComCall(12, this, BOOL, bOption, "HRESULT")
         return result
     }
 
@@ -308,7 +341,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setdrawbackgroundmode
      */
     SetDrawBackgroundMode(_Mode) {
-        result := ComCall(14, this, "int", _Mode, "HRESULT")
+        result := ComCall(14, this, AM_WST_DRAWBGMODE, _Mode, "HRESULT")
         return result
     }
 
@@ -336,7 +369,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setanswermode
      */
     SetAnswerMode(bAnswer) {
-        result := ComCall(15, this, "int", bAnswer, "HRESULT")
+        result := ComCall(15, this, BOOL, bAnswer, "HRESULT")
         return result
     }
 
@@ -394,7 +427,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setholdpage
      */
     SetHoldPage(bHoldPage) {
-        result := ComCall(17, this, "int", bHoldPage, "HRESULT")
+        result := ComCall(17, this, BOOL, bHoldPage, "HRESULT")
         return result
     }
 
@@ -435,7 +468,7 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getcurrentpage
      */
     GetCurrentPage(pWstPage) {
-        result := ComCall(19, this, "ptr", pWstPage, "HRESULT")
+        result := ComCall(19, this, AM_WST_PAGE.Ptr, pWstPage, "HRESULT")
         return result
     }
 
@@ -446,7 +479,61 @@ class IAMWstDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setcurrentpage
      */
     SetCurrentPage(WstPage) {
-        result := ComCall(20, this, "ptr", WstPage, "HRESULT")
+        result := ComCall(20, this, AM_WST_PAGE, WstPage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMWstDecoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDecoderLevel := CallbackCreate(GetMethod(implObj, "GetDecoderLevel"), flags, 2)
+        this.vtbl.GetCurrentService := CallbackCreate(GetMethod(implObj, "GetCurrentService"), flags, 2)
+        this.vtbl.GetServiceState := CallbackCreate(GetMethod(implObj, "GetServiceState"), flags, 2)
+        this.vtbl.SetServiceState := CallbackCreate(GetMethod(implObj, "SetServiceState"), flags, 2)
+        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 2)
+        this.vtbl.SetOutputFormat := CallbackCreate(GetMethod(implObj, "SetOutputFormat"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetRedrawAlways := CallbackCreate(GetMethod(implObj, "GetRedrawAlways"), flags, 2)
+        this.vtbl.SetRedrawAlways := CallbackCreate(GetMethod(implObj, "SetRedrawAlways"), flags, 2)
+        this.vtbl.GetDrawBackgroundMode := CallbackCreate(GetMethod(implObj, "GetDrawBackgroundMode"), flags, 2)
+        this.vtbl.SetDrawBackgroundMode := CallbackCreate(GetMethod(implObj, "SetDrawBackgroundMode"), flags, 2)
+        this.vtbl.SetAnswerMode := CallbackCreate(GetMethod(implObj, "SetAnswerMode"), flags, 2)
+        this.vtbl.GetAnswerMode := CallbackCreate(GetMethod(implObj, "GetAnswerMode"), flags, 2)
+        this.vtbl.SetHoldPage := CallbackCreate(GetMethod(implObj, "SetHoldPage"), flags, 2)
+        this.vtbl.GetHoldPage := CallbackCreate(GetMethod(implObj, "GetHoldPage"), flags, 2)
+        this.vtbl.GetCurrentPage := CallbackCreate(GetMethod(implObj, "GetCurrentPage"), flags, 2)
+        this.vtbl.SetCurrentPage := CallbackCreate(GetMethod(implObj, "SetCurrentPage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDecoderLevel)
+        CallbackFree(this.vtbl.GetCurrentService)
+        CallbackFree(this.vtbl.GetServiceState)
+        CallbackFree(this.vtbl.SetServiceState)
+        CallbackFree(this.vtbl.GetOutputFormat)
+        CallbackFree(this.vtbl.SetOutputFormat)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.SetBackgroundColor)
+        CallbackFree(this.vtbl.GetRedrawAlways)
+        CallbackFree(this.vtbl.SetRedrawAlways)
+        CallbackFree(this.vtbl.GetDrawBackgroundMode)
+        CallbackFree(this.vtbl.SetDrawBackgroundMode)
+        CallbackFree(this.vtbl.SetAnswerMode)
+        CallbackFree(this.vtbl.GetAnswerMode)
+        CallbackFree(this.vtbl.SetHoldPage)
+        CallbackFree(this.vtbl.GetHoldPage)
+        CallbackFree(this.vtbl.GetCurrentPage)
+        CallbackFree(this.vtbl.SetCurrentPage)
     }
 }

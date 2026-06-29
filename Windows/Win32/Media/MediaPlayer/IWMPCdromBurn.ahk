@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMPPlaylist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPBurnState.ahk" { WMPBurnState }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPBurnFormat.ahk" { WMPBurnFormat }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPCdromBurn interface provides methods to manage creating audio CDs.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcdromburn
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPCdromBurn extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPCdromBurn extends IUnknown {
     /**
      * The interface identifier for IWMPCdromBurn
      * @type {Guid}
      */
-    static IID => Guid("{bd94dbeb-417f-4928-aa06-087d56ed9b59}")
+    static IID := Guid("{bd94dbeb-417f-4928-aa06-087d56ed9b59}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPCdromBurn interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        isAvailable      : IntPtr
+        getItemInfo      : IntPtr
+        get_label        : IntPtr
+        put_label        : IntPtr
+        get_burnFormat   : IntPtr
+        put_burnFormat   : IntPtr
+        get_burnPlaylist : IntPtr
+        put_burnPlaylist : IntPtr
+        refreshStatus    : IntPtr
+        get_burnState    : IntPtr
+        get_burnProgress : IntPtr
+        startBurn        : IntPtr
+        stopBurn         : IntPtr
+        erase            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["isAvailable", "getItemInfo", "get_label", "put_label", "get_burnFormat", "put_burnFormat", "get_burnPlaylist", "put_burnPlaylist", "refreshStatus", "get_burnState", "get_burnProgress", "startBurn", "stopBurn", "erase"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPCdromBurn.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -98,7 +123,7 @@ class IWMPCdromBurn extends IUnknown {
 
         pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -132,7 +157,7 @@ class IWMPCdromBurn extends IUnknown {
     getItemInfo(bstrItem, pbstrVal) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        result := ComCall(4, this, "ptr", bstrItem, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrItem, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
     }
 
@@ -163,7 +188,7 @@ class IWMPCdromBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_label
      */
     get_label(pbstrLabel) {
-        result := ComCall(5, this, "ptr", pbstrLabel, "HRESULT")
+        result := ComCall(5, this, BSTR.Ptr, pbstrLabel, "HRESULT")
         return result
     }
 
@@ -198,7 +223,7 @@ class IWMPCdromBurn extends IUnknown {
     put_label(bstrLabel) {
         bstrLabel := bstrLabel is String ? BSTR.Alloc(bstrLabel).Value : bstrLabel
 
-        result := ComCall(6, this, "ptr", bstrLabel, "HRESULT")
+        result := ComCall(6, this, BSTR, bstrLabel, "HRESULT")
         return result
     }
 
@@ -262,7 +287,7 @@ class IWMPCdromBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-put_burnformat
      */
     put_burnFormat(wmpbf) {
-        result := ComCall(8, this, "int", wmpbf, "HRESULT")
+        result := ComCall(8, this, WMPBurnFormat, wmpbf, "HRESULT")
         return result
     }
 
@@ -505,5 +530,51 @@ class IWMPCdromBurn extends IUnknown {
     erase() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPCdromBurn.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.isAvailable := CallbackCreate(GetMethod(implObj, "isAvailable"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.get_label := CallbackCreate(GetMethod(implObj, "get_label"), flags, 2)
+        this.vtbl.put_label := CallbackCreate(GetMethod(implObj, "put_label"), flags, 2)
+        this.vtbl.get_burnFormat := CallbackCreate(GetMethod(implObj, "get_burnFormat"), flags, 2)
+        this.vtbl.put_burnFormat := CallbackCreate(GetMethod(implObj, "put_burnFormat"), flags, 2)
+        this.vtbl.get_burnPlaylist := CallbackCreate(GetMethod(implObj, "get_burnPlaylist"), flags, 2)
+        this.vtbl.put_burnPlaylist := CallbackCreate(GetMethod(implObj, "put_burnPlaylist"), flags, 2)
+        this.vtbl.refreshStatus := CallbackCreate(GetMethod(implObj, "refreshStatus"), flags, 1)
+        this.vtbl.get_burnState := CallbackCreate(GetMethod(implObj, "get_burnState"), flags, 2)
+        this.vtbl.get_burnProgress := CallbackCreate(GetMethod(implObj, "get_burnProgress"), flags, 2)
+        this.vtbl.startBurn := CallbackCreate(GetMethod(implObj, "startBurn"), flags, 1)
+        this.vtbl.stopBurn := CallbackCreate(GetMethod(implObj, "stopBurn"), flags, 1)
+        this.vtbl.erase := CallbackCreate(GetMethod(implObj, "erase"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.isAvailable)
+        CallbackFree(this.vtbl.getItemInfo)
+        CallbackFree(this.vtbl.get_label)
+        CallbackFree(this.vtbl.put_label)
+        CallbackFree(this.vtbl.get_burnFormat)
+        CallbackFree(this.vtbl.put_burnFormat)
+        CallbackFree(this.vtbl.get_burnPlaylist)
+        CallbackFree(this.vtbl.put_burnPlaylist)
+        CallbackFree(this.vtbl.refreshStatus)
+        CallbackFree(this.vtbl.get_burnState)
+        CallbackFree(this.vtbl.get_burnProgress)
+        CallbackFree(this.vtbl.startBurn)
+        CallbackFree(this.vtbl.stopBurn)
+        CallbackFree(this.vtbl.erase)
     }
 }

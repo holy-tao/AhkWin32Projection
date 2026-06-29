@@ -1,36 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext3.ahk
-#Include .\ID2D1SvgGlyphStyle.ahk
-#Include .\ID2D1Image.ahk
-#Include .\ID2D1CommandList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
+#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DirectWrite\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "..\DirectWrite\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\ID2D1DeviceContext3.ahk" { ID2D1DeviceContext3 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "..\DirectWrite\IDWriteTextLayout.ahk" { IDWriteTextLayout }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext3 interface, plus it enables functionality for handling new types of color font glyphs.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext4
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
     /**
      * The interface identifier for ID2D1DeviceContext4
      * @type {Guid}
      */
-    static IID => Guid("{8c427831-3d90-4476-b647-c4fae349e4db}")
+    static IID := Guid("{8c427831-3d90-4476-b647-c4fae349e4db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 108
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1DeviceContext4 interfaces
+    */
+    struct Vtbl extends ID2D1DeviceContext3.Vtbl {
+        CreateSvgGlyphStyle      : IntPtr
+        DrawText                 : IntPtr
+        DrawTextLayout           : IntPtr
+        DrawColorBitmapGlyphRun  : IntPtr
+        DrawSvgGlyphRun          : IntPtr
+        GetColorBitmapGlyphImage : IntPtr
+        GetSvgGlyphImage         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSvgGlyphStyle", "DrawText", "DrawTextLayout", "DrawColorBitmapGlyphRun", "DrawSvgGlyphRun", "GetColorBitmapGlyphImage", "GetSvgGlyphImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1DeviceContext4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an SVG glyph style object.
@@ -82,7 +110,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
     DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(109, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options, "int", measuringMode)
+        ComCall(109, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -111,7 +139,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtextlayout
      */
     DrawTextLayout(origin, textLayout, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options) {
-        ComCall(110, this, "ptr", origin, "ptr", textLayout, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options)
+        ComCall(110, this, D2D_POINT_2F, origin, "ptr", textLayout, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options)
     }
 
     /**
@@ -139,7 +167,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawcolorbitmapglyphrun
      */
     DrawColorBitmapGlyphRun(glyphImageFormat, baselineOrigin, _glyphRun, measuringMode, bitmapSnapOption) {
-        ComCall(111, this, "int", glyphImageFormat, "ptr", baselineOrigin, "ptr", _glyphRun, "int", measuringMode, "int", bitmapSnapOption)
+        ComCall(111, this, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MEASURING_MODE, measuringMode, D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION, bitmapSnapOption)
     }
 
     /**
@@ -167,7 +195,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawsvgglyphrun
      */
     DrawSvgGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, measuringMode) {
-        ComCall(112, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", measuringMode)
+        ComCall(112, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -213,7 +241,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getcolorbitmapglyphimage
      */
     GetColorBitmapGlyphImage(glyphImageFormat, glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, dpiX, dpiY, glyphTransform, glyphImage) {
-        result := ComCall(113, this, "int", glyphImageFormat, "ptr", glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, "int", isSideways, "ptr", worldTransform, "float", dpiX, "float", dpiY, "ptr", glyphTransform, "ptr*", glyphImage, "HRESULT")
+        result := ComCall(113, this, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", dpiX, "float", dpiY, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1Image.Ptr, glyphImage, "HRESULT")
         return result
     }
 
@@ -261,7 +289,39 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getsvgglyphimage
      */
     GetSvgGlyphImage(glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, glyphTransform, glyphImage) {
-        result := ComCall(114, this, "ptr", glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, "int", isSideways, "ptr", worldTransform, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "ptr", glyphTransform, "ptr*", glyphImage, "HRESULT")
+        result := ComCall(114, this, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1CommandList.Ptr, glyphImage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1DeviceContext4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSvgGlyphStyle := CallbackCreate(GetMethod(implObj, "CreateSvgGlyphStyle"), flags, 2)
+        this.vtbl.DrawText := CallbackCreate(GetMethod(implObj, "DrawText"), flags, 10)
+        this.vtbl.DrawTextLayout := CallbackCreate(GetMethod(implObj, "DrawTextLayout"), flags, 7)
+        this.vtbl.DrawColorBitmapGlyphRun := CallbackCreate(GetMethod(implObj, "DrawColorBitmapGlyphRun"), flags, 6)
+        this.vtbl.DrawSvgGlyphRun := CallbackCreate(GetMethod(implObj, "DrawSvgGlyphRun"), flags, 7)
+        this.vtbl.GetColorBitmapGlyphImage := CallbackCreate(GetMethod(implObj, "GetColorBitmapGlyphImage"), flags, 12)
+        this.vtbl.GetSvgGlyphImage := CallbackCreate(GetMethod(implObj, "GetSvgGlyphImage"), flags, 12)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSvgGlyphStyle)
+        CallbackFree(this.vtbl.DrawText)
+        CallbackFree(this.vtbl.DrawTextLayout)
+        CallbackFree(this.vtbl.DrawColorBitmapGlyphRun)
+        CallbackFree(this.vtbl.DrawSvgGlyphRun)
+        CallbackFree(this.vtbl.GetColorBitmapGlyphImage)
+        CallbackFree(this.vtbl.GetSvgGlyphImage)
     }
 }

@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QCMINFO_IDMAP_PLACEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QCMINFO_IDMAP_PLACEMENT.ahk" { QCMINFO_IDMAP_PLACEMENT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class QCMINFO_IDMAP extends Win32Struct {
-    static sizeof => 12
+export default struct QCMINFO_IDMAP {
+    #StructPack 4
 
-    static packingSize => 4
+    nMaxIds : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nMaxIds {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pIdList : QCMINFO_IDMAP_PLACEMENT[1]
 
-    /**
-     * @type {QCMINFO_IDMAP_PLACEMENT}
-     */
-    pIdList {
-        get {
-            if(!this.HasProp("__pIdListProxyArray"))
-                this.__pIdListProxyArray := Win32FixedArray(this.ptr + 4, 1, QCMINFO_IDMAP_PLACEMENT, "")
-            return this.__pIdListProxyArray
-        }
-    }
 }

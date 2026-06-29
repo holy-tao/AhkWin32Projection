@@ -1,67 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk
-#Include ..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk
-#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
+#Import "..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import "..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk" { OBJECT_ATTRIBUTE_FLAGS }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class OBJECT_ATTRIBUTES extends Win32Struct {
-    static sizeof => 48
+export default struct OBJECT_ATTRIBUTES {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RootDirectory : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    RootDirectory {
-        get {
-            if(!this.HasProp("__RootDirectory"))
-                this.__RootDirectory := HANDLE(8, this)
-            return this.__RootDirectory
-        }
-    }
+    ObjectName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    ObjectName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Attributes : OBJECT_ATTRIBUTE_FLAGS
 
-    /**
-     * @type {OBJECT_ATTRIBUTE_FLAGS}
-     */
-    Attributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SecurityDescriptor : SECURITY_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<SECURITY_DESCRIPTOR>}
-     */
-    SecurityDescriptor {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SecurityQualityOfService : SECURITY_QUALITY_OF_SERVICE.Ptr
 
-    /**
-     * @type {Pointer<SECURITY_QUALITY_OF_SERVICE>}
-     */
-    SecurityQualityOfService {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

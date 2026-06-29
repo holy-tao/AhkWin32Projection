@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include .\WNV_IP_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\WNV_IP_ADDRESS.ahk" { WNV_IP_ADDRESS }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * Specifies the provider address's DAD (duplicate address detection) status change, which causes the Windows Network Virtualization (WNV) driver to generate a WnvObjectChangeType notification that specifies the WnvProviderAddressType object type containing this structure.
@@ -13,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_provider_address_change_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  */
-class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct WNV_PROVIDER_ADDRESS_CHANGE_PARAM {
+    #StructPack 4
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
      * 
      * The address family (<b>AF_INET</b> or <b>AF_INET6</b>) for the provider address.
-     * @type {ADDRESS_FAMILY}
      */
-    PAFamily {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    PAFamily : ADDRESS_FAMILY
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_ip_address">WNV_IP_ADDRESS</a></b>
      * 
      * The IP address object for the provider address, which is the matching IP address used on the physical network for the customer address.
-     * @type {WNV_IP_ADDRESS}
      */
-    PA {
-        get {
-            if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(4, this)
-            return this.__PA
-        }
-    }
+    PA : WNV_IP_ADDRESS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff568758(v=vs.85)">NL_DAD_STATE</a></b>
@@ -109,10 +95,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_DAD_STATE}
      */
-    AddressState {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    AddressState : NL_DAD_STATE
+
 }

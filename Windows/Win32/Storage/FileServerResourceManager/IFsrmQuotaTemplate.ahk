@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmQuotaBase.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmDerivedObjectsResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
+#Import ".\IFsrmQuotaBase.ahk" { IFsrmQuotaBase }
 
 /**
  * Used to configure templates from which new quota objects can be derived.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmQuotaTemplate extends IFsrmQuotaBase {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmQuotaTemplate extends IFsrmQuotaBase {
     /**
      * The interface identifier for IFsrmQuotaTemplate
      * @type {Guid}
      */
-    static IID => Guid("{a2efab31-295e-46bb-b976-e86d58b52e8b}")
+    static IID := Guid("{a2efab31-295e-46bb-b976-e86d58b52e8b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmQuotaTemplate interfaces
+    */
+    struct Vtbl extends IFsrmQuotaBase.Vtbl {
+        get_Name               : IntPtr
+        put_Name               : IntPtr
+        CopyTemplate           : IntPtr
+        CommitAndUpdateDerived : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "CopyTemplate", "CommitAndUpdateDerived"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmQuotaTemplate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -48,8 +61,8 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(22, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -65,7 +78,7 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(23, this, "ptr", name, "HRESULT")
+        result := ComCall(23, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -79,7 +92,7 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase {
     CopyTemplate(quotaTemplateName) {
         quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName
 
-        result := ComCall(24, this, "ptr", quotaTemplateName, "HRESULT")
+        result := ComCall(24, this, BSTR, quotaTemplateName, "HRESULT")
         return result
     }
 
@@ -95,7 +108,33 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived
      */
     CommitAndUpdateDerived(commitOptions, applyOptions) {
-        result := ComCall(25, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
+        result := ComCall(25, this, FsrmCommitOptions, commitOptions, FsrmTemplateApplyOptions, applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
         return IFsrmDerivedObjectsResult(derivedObjectsResult)
+    }
+
+    Query(iid) {
+        if (IFsrmQuotaTemplate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.CopyTemplate := CallbackCreate(GetMethod(implObj, "CopyTemplate"), flags, 2)
+        this.vtbl.CommitAndUpdateDerived := CallbackCreate(GetMethod(implObj, "CommitAndUpdateDerived"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.CopyTemplate)
+        CallbackFree(this.vtbl.CommitAndUpdateDerived)
     }
 }

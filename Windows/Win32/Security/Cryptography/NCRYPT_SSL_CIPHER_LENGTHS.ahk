@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_SSL_CIPHER_LENGTHS extends Win32Struct {
-    static sizeof => 20
+export default struct NCRYPT_SSL_CIPHER_LENGTHS {
+    #StructPack 4
 
-    static packingSize => 4
+    cbLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwHeaderLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeaderLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFixedTrailerLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFixedTrailerLen {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMaxVariableTrailerLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxVariableTrailerLen {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

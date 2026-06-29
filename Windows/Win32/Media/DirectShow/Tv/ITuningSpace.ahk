@@ -1,14 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuneRequest.ahk
-#Include ..\..\..\System\Com\IEnumGUID.ahk
-#Include ..\..\..\System\Com\IEnumMoniker.ahk
-#Include .\IComponentTypes.ahk
-#Include .\ILocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ILocator.ahk" { ILocator }
+#Import "..\..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
+#Import "..\..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IComponentTypes.ahk" { IComponentTypes }
 
 /**
  * The ITuningSpace interface provides the common functionality for all network-specific tuning spaces.
@@ -17,32 +17,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ituningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITuningSpace extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITuningSpace extends IDispatch {
     /**
      * The interface identifier for ITuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{061c6e30-e622-11d2-9493-00c04f72d980}")
+    static IID := Guid("{061c6e30-e622-11d2-9493-00c04f72d980}")
 
     /**
      * The class identifier for TuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{5ffdc5e6-b83a-4b55-b6e8-c69e765fe9db}")
+    static CLSID := Guid("{5ffdc5e6-b83a-4b55-b6e8-c69e765fe9db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITuningSpace interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_UniqueName                     : IntPtr
+        put_UniqueName                     : IntPtr
+        get_FriendlyName                   : IntPtr
+        put_FriendlyName                   : IntPtr
+        get_CLSID                          : IntPtr
+        get_NetworkType                    : IntPtr
+        put_NetworkType                    : IntPtr
+        get__NetworkType                   : IntPtr
+        put__NetworkType                   : IntPtr
+        CreateTuneRequest                  : IntPtr
+        EnumCategoryGUIDs                  : IntPtr
+        EnumDeviceMonikers                 : IntPtr
+        get_DefaultPreferredComponentTypes : IntPtr
+        put_DefaultPreferredComponentTypes : IntPtr
+        get_FrequencyMapping               : IntPtr
+        put_FrequencyMapping               : IntPtr
+        get_DefaultLocator                 : IntPtr
+        put_DefaultLocator                 : IntPtr
+        Clone                              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UniqueName", "put_UniqueName", "get_FriendlyName", "put_FriendlyName", "get_CLSID", "get_NetworkType", "put_NetworkType", "get__NetworkType", "put__NetworkType", "CreateTuneRequest", "EnumCategoryGUIDs", "EnumDeviceMonikers", "get_DefaultPreferredComponentTypes", "put_DefaultPreferredComponentTypes", "get_FrequencyMapping", "put_FrequencyMapping", "get_DefaultLocator", "put_DefaultLocator", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -115,8 +140,8 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_uniquename
      */
     get_UniqueName() {
-        Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -131,7 +156,7 @@ class ITuningSpace extends IDispatch {
     put_UniqueName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "HRESULT")
+        result := ComCall(8, this, BSTR, Name, "HRESULT")
         return result
     }
 
@@ -143,8 +168,8 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_friendlyname
      */
     get_FriendlyName() {
-        Name := BSTR()
-        result := ComCall(9, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -157,7 +182,7 @@ class ITuningSpace extends IDispatch {
     put_FriendlyName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(10, this, "ptr", Name, "HRESULT")
+        result := ComCall(10, this, BSTR, Name, "HRESULT")
         return result
     }
 
@@ -171,8 +196,8 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_clsid
      */
     get_CLSID() {
-        SpaceCLSID := BSTR()
-        result := ComCall(11, this, "ptr", SpaceCLSID, "HRESULT")
+        SpaceCLSID := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, SpaceCLSID, "HRESULT")
         return SpaceCLSID
     }
 
@@ -184,8 +209,8 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_networktype
      */
     get_NetworkType() {
-        NetworkTypeGuid := BSTR()
-        result := ComCall(12, this, "ptr", NetworkTypeGuid, "HRESULT")
+        NetworkTypeGuid := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, NetworkTypeGuid, "HRESULT")
         return NetworkTypeGuid
     }
 
@@ -198,7 +223,7 @@ class ITuningSpace extends IDispatch {
     put_NetworkType(NetworkTypeGuid) {
         NetworkTypeGuid := NetworkTypeGuid is String ? BSTR.Alloc(NetworkTypeGuid).Value : NetworkTypeGuid
 
-        result := ComCall(13, this, "ptr", NetworkTypeGuid, "HRESULT")
+        result := ComCall(13, this, BSTR, NetworkTypeGuid, "HRESULT")
         return result
     }
 
@@ -209,7 +234,7 @@ class ITuningSpace extends IDispatch {
      */
     get__NetworkType() {
         NetworkTypeGuid := Guid()
-        result := ComCall(14, this, "ptr", NetworkTypeGuid, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, NetworkTypeGuid, "HRESULT")
         return NetworkTypeGuid
     }
 
@@ -220,7 +245,7 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put__networktype
      */
     put__NetworkType(NetworkTypeGuid) {
-        result := ComCall(15, this, "ptr", NetworkTypeGuid, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, NetworkTypeGuid, "HRESULT")
         return result
     }
 
@@ -295,8 +320,8 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_frequencymapping
      */
     get_FrequencyMapping() {
-        pMapping := BSTR()
-        result := ComCall(21, this, "ptr", pMapping, "HRESULT")
+        pMapping := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pMapping, "HRESULT")
         return pMapping
     }
 
@@ -311,7 +336,7 @@ class ITuningSpace extends IDispatch {
     put_FrequencyMapping(Mapping) {
         Mapping := Mapping is String ? BSTR.Alloc(Mapping).Value : Mapping
 
-        result := ComCall(22, this, "ptr", Mapping, "HRESULT")
+        result := ComCall(22, this, BSTR, Mapping, "HRESULT")
         return result
     }
 
@@ -352,5 +377,61 @@ class ITuningSpace extends IDispatch {
     Clone() {
         result := ComCall(25, this, "ptr*", &NewTS := 0, "HRESULT")
         return ITuningSpace(NewTS)
+    }
+
+    Query(iid) {
+        if (ITuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UniqueName := CallbackCreate(GetMethod(implObj, "get_UniqueName"), flags, 2)
+        this.vtbl.put_UniqueName := CallbackCreate(GetMethod(implObj, "put_UniqueName"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.put_FriendlyName := CallbackCreate(GetMethod(implObj, "put_FriendlyName"), flags, 2)
+        this.vtbl.get_CLSID := CallbackCreate(GetMethod(implObj, "get_CLSID"), flags, 2)
+        this.vtbl.get_NetworkType := CallbackCreate(GetMethod(implObj, "get_NetworkType"), flags, 2)
+        this.vtbl.put_NetworkType := CallbackCreate(GetMethod(implObj, "put_NetworkType"), flags, 2)
+        this.vtbl.get__NetworkType := CallbackCreate(GetMethod(implObj, "get__NetworkType"), flags, 2)
+        this.vtbl.put__NetworkType := CallbackCreate(GetMethod(implObj, "put__NetworkType"), flags, 2)
+        this.vtbl.CreateTuneRequest := CallbackCreate(GetMethod(implObj, "CreateTuneRequest"), flags, 2)
+        this.vtbl.EnumCategoryGUIDs := CallbackCreate(GetMethod(implObj, "EnumCategoryGUIDs"), flags, 2)
+        this.vtbl.EnumDeviceMonikers := CallbackCreate(GetMethod(implObj, "EnumDeviceMonikers"), flags, 2)
+        this.vtbl.get_DefaultPreferredComponentTypes := CallbackCreate(GetMethod(implObj, "get_DefaultPreferredComponentTypes"), flags, 2)
+        this.vtbl.put_DefaultPreferredComponentTypes := CallbackCreate(GetMethod(implObj, "put_DefaultPreferredComponentTypes"), flags, 2)
+        this.vtbl.get_FrequencyMapping := CallbackCreate(GetMethod(implObj, "get_FrequencyMapping"), flags, 2)
+        this.vtbl.put_FrequencyMapping := CallbackCreate(GetMethod(implObj, "put_FrequencyMapping"), flags, 2)
+        this.vtbl.get_DefaultLocator := CallbackCreate(GetMethod(implObj, "get_DefaultLocator"), flags, 2)
+        this.vtbl.put_DefaultLocator := CallbackCreate(GetMethod(implObj, "put_DefaultLocator"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UniqueName)
+        CallbackFree(this.vtbl.put_UniqueName)
+        CallbackFree(this.vtbl.get_FriendlyName)
+        CallbackFree(this.vtbl.put_FriendlyName)
+        CallbackFree(this.vtbl.get_CLSID)
+        CallbackFree(this.vtbl.get_NetworkType)
+        CallbackFree(this.vtbl.put_NetworkType)
+        CallbackFree(this.vtbl.get__NetworkType)
+        CallbackFree(this.vtbl.put__NetworkType)
+        CallbackFree(this.vtbl.CreateTuneRequest)
+        CallbackFree(this.vtbl.EnumCategoryGUIDs)
+        CallbackFree(this.vtbl.EnumDeviceMonikers)
+        CallbackFree(this.vtbl.get_DefaultPreferredComponentTypes)
+        CallbackFree(this.vtbl.put_DefaultPreferredComponentTypes)
+        CallbackFree(this.vtbl.get_FrequencyMapping)
+        CallbackFree(this.vtbl.put_FrequencyMapping)
+        CallbackFree(this.vtbl.get_DefaultLocator)
+        CallbackFree(this.vtbl.put_DefaultLocator)
+        CallbackFree(this.vtbl.Clone)
     }
 }

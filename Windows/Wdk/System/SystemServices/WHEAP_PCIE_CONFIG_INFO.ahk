@@ -1,94 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_PCIE_CONFIG_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct WHEAP_PCIE_CONFIG_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Segment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Segment {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Bus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Bus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Device : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Device {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Function : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Function {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Offset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Value : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Succeeded : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Succeeded {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 41, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

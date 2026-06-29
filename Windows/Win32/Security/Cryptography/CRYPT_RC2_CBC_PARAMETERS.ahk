@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information used with szOID_RSA_RC2CBC encryption.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_rc2_cbc_parameters
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct CRYPT_RC2_CBC_PARAMETERS {
+    #StructPack 4
 
     /**
      * Specifies the key length. Current usable key lengths are 40, 64, and 128 bits. 
@@ -69,21 +67,13 @@ class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Boolean specifying whether an 8-byte <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) is contained in <b>rgbIV[8]</b>. Set to <b>TRUE</b> when IV is present.
-     * @type {BOOL}
      */
-    fIV {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fIV : BOOL
 
     /**
      * Eight byte <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a>. Can be <b>NULL</b> if fIV is <b>FALSE</b>. The IV is encoded as an OCTET_STRING. 
@@ -98,13 +88,7 @@ class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct {
      * <div class="alert"><b>Note</b>  When a message is decrypted, if it has an IV parameter, the message functions calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsetkeyparam">CryptSetKeyParam</a> with the IV before doing the decryption.</div>
      * <div> </div>
-     * @type {Array<Integer>}
      */
-    rgbIV {
-        get {
-            if(!this.HasProp("__rgbIVProxyArray"))
-                this.__rgbIVProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-            return this.__rgbIVProxyArray
-        }
-    }
+    rgbIV : Int8[8]
+
 }

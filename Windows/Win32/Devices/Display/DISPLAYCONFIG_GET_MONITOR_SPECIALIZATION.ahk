@@ -1,27 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk" { DISPLAYCONFIG_DEVICE_INFO_TYPE }
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk" { DISPLAYCONFIG_DEVICE_INFO_HEADER }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION extends Win32Struct {
-    static sizeof => 24
+export default struct DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : DISPLAYCONFIG_DEVICE_INFO_HEADER
 
     /**
      * This bitfield backs the following members:
@@ -29,12 +17,9 @@ class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION extends Win32Struct {
      * - isSpecializationAvailableForMonitor
      * - isSpecializationAvailableForSystem
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -67,12 +52,8 @@ class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION extends Win32Struct {
         get => (this._bitfield >> 3) & 0x1FFFFFFF
         set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
     }
-
-    /**
-     * @type {Integer}
-     */
-    value {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'value', { type: UInt32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

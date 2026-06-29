@@ -1,70 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\Sip\SIP_DISPATCH_INFO.ahk
-#Include ..\Cryptography\Sip\SIP_SUBJECTINFO.ahk
-#Include ..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Cryptography\Sip\SIP_DISPATCH_INFO.ahk" { SIP_DISPATCH_INFO }
+#Import "..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
+#Import "..\Cryptography\Sip\SIP_SUBJECTINFO.ahk" { SIP_SUBJECTINFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class PROVDATA_SIP extends Win32Struct {
-    static sizeof => 56
+export default struct PROVDATA_SIP {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    gSubject : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    gSubject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSip : SIP_DISPATCH_INFO.Ptr
 
-    /**
-     * @type {Pointer<SIP_DISPATCH_INFO>}
-     */
-    pSip {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pCATSip : SIP_DISPATCH_INFO.Ptr
 
-    /**
-     * @type {Pointer<SIP_DISPATCH_INFO>}
-     */
-    pCATSip {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    psSipSubjectInfo : SIP_SUBJECTINFO.Ptr
 
-    /**
-     * @type {Pointer<SIP_SUBJECTINFO>}
-     */
-    psSipSubjectInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    psSipCATSubjectInfo : SIP_SUBJECTINFO.Ptr
 
-    /**
-     * @type {Pointer<SIP_SUBJECTINFO>}
-     */
-    psSipCATSubjectInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    psIndirectData : SIP_INDIRECT_DATA.Ptr
 
-    /**
-     * @type {Pointer<SIP_INDIRECT_DATA>}
-     */
-    psIndirectData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

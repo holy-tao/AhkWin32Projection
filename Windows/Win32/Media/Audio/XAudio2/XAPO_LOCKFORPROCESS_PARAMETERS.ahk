@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * Defines stream buffer parameters that remain constant while an XAPO is locked. Used with the IXAPO::LockForProcess method.
@@ -14,26 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_lockforprocess_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAPO_LOCKFORPROCESS_PARAMETERS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct XAPO_LOCKFORPROCESS_PARAMETERS {
+    #StructPack 8
 
     /**
      * A WAVFORMATEX describing the format for the stream buffer.
-     * @type {Pointer<WAVEFORMATEX>}
      */
-    pFormat {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pFormat : WAVEFORMATEX.Ptr
 
     /**
      * Maximum number of frames in the stream buffer that <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nf-xapo-ixapo-process">IXAPO::Process</a> would ever be required to handle, irrespective of dynamic parameter settings.
-     * @type {Integer}
      */
-    MaxFrameCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxFrameCount : UInt32
+
 }

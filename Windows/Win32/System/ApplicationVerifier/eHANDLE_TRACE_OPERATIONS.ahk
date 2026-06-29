@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of handle operation that has occurred.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-ehandle_trace_operations
  * @namespace Windows.Win32.System.ApplicationVerifier
  */
-class eHANDLE_TRACE_OPERATIONS extends Win32Enum {
+export default struct eHANDLE_TRACE_OPERATIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not used at this time.

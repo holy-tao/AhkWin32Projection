@@ -1,89 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_WFD_DISCOVER_TYPE.ahk
-#Include .\DOT11_WFD_SCAN_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_WFD_SCAN_TYPE.ahk" { DOT11_WFD_SCAN_TYPE }
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_WFD_DISCOVER_TYPE.ahk" { DOT11_WFD_DISCOVER_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct {
-    static sizeof => 36
+export default struct DOT11_WFD_DISCOVER_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    DiscoverType : DOT11_WFD_DISCOVER_TYPE
 
-    /**
-     * @type {DOT11_WFD_DISCOVER_TYPE}
-     */
-    DiscoverType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ScanType : DOT11_WFD_SCAN_TYPE
 
-    /**
-     * @type {DOT11_WFD_SCAN_TYPE}
-     */
-    ScanType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    uDiscoverTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDiscoverTimeout {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uDeviceFilterListOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDeviceFilterListOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uNumDeviceFilters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumDeviceFilters {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    bForceScanLegacyNetworks : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bForceScanLegacyNetworks {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
 }

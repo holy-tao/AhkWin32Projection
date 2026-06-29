@@ -1,30 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT.ahk
-#Include .\ELEMENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 
 /**
  * Contains information that the IOCTL_CHANGER_QUERY_VOLUME_TAGS control code uses to determine the volume information to be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_send_volume_tag_information
  * @namespace Windows.Win32.System.Ioctl
  */
-class CHANGER_SEND_VOLUME_TAG_INFORMATION extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct CHANGER_SEND_VOLUME_TAG_INFORMATION {
+    #StructPack 4
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-changer_element">CHANGER_ELEMENT</a> structure that represents the starting element for which information is to be retrieved.
-     * @type {CHANGER_ELEMENT}
      */
-    StartingElement {
-        get {
-            if(!this.HasProp("__StartingElement"))
-                this.__StartingElement := CHANGER_ELEMENT(0, this)
-            return this.__StartingElement
-        }
-    }
+    StartingElement : CHANGER_ELEMENT
 
     /**
      * The action to be performed.
@@ -227,22 +217,12 @@ class CHANGER_SEND_VOLUME_TAG_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ActionCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ActionCode : UInt32
 
     /**
      * The template that the device uses to search for volume IDs. For search operations, the template can include wildcard characters to search for volumes that match the template. Supported wildcard characters include the asterisk (*) and question mark (?). For other operations, the template must specify a single volume.
-     * @type {Array<Integer>}
      */
-    VolumeIDTemplate {
-        get {
-            if(!this.HasProp("__VolumeIDTemplateProxyArray"))
-                this.__VolumeIDTemplateProxyArray := Win32FixedArray(this.ptr + 12, 40, Primitive, "char")
-            return this.__VolumeIDTemplateProxyArray
-        }
-    }
+    VolumeIDTemplate : Int8[40]
+
 }

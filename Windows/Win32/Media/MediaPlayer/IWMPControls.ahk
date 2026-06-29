@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPMedia.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPControls interface provides a way to manipulate the playback of a media item.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcontrols
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPControls extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPControls extends IDispatch {
     /**
      * The interface identifier for IWMPControls
      * @type {Guid}
      */
-    static IID => Guid("{74c09e02-f828-11d2-a74b-00a0c905f36e}")
+    static IID := Guid("{74c09e02-f828-11d2-a74b-00a0c905f36e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPControls interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_isAvailable           : IntPtr
+        play                      : IntPtr
+        stop                      : IntPtr
+        pause                     : IntPtr
+        fastForward               : IntPtr
+        fastReverse               : IntPtr
+        get_currentPosition       : IntPtr
+        put_currentPosition       : IntPtr
+        get_currentPositionString : IntPtr
+        next                      : IntPtr
+        previous                  : IntPtr
+        get_currentItem           : IntPtr
+        put_currentItem           : IntPtr
+        get_currentMarker         : IntPtr
+        put_currentMarker         : IntPtr
+        playItem                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_isAvailable", "play", "stop", "pause", "fastForward", "fastReverse", "get_currentPosition", "put_currentPosition", "get_currentPositionString", "next", "previous", "get_currentItem", "put_currentItem", "get_currentMarker", "put_currentMarker", "playItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPControls.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -90,7 +115,7 @@ class IWMPControls extends IDispatch {
 
         pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -343,7 +368,7 @@ class IWMPControls extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentpositionstring
      */
     get_currentPositionString(pbstrCurrentPosition) {
-        result := ComCall(15, this, "ptr", pbstrCurrentPosition, "HRESULT")
+        result := ComCall(15, this, BSTR.Ptr, pbstrCurrentPosition, "HRESULT")
         return result
     }
 
@@ -556,5 +581,55 @@ class IWMPControls extends IDispatch {
     playItem(pIWMPMedia) {
         result := ComCall(22, this, "ptr", pIWMPMedia, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPControls.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_isAvailable := CallbackCreate(GetMethod(implObj, "get_isAvailable"), flags, 3)
+        this.vtbl.play := CallbackCreate(GetMethod(implObj, "play"), flags, 1)
+        this.vtbl.stop := CallbackCreate(GetMethod(implObj, "stop"), flags, 1)
+        this.vtbl.pause := CallbackCreate(GetMethod(implObj, "pause"), flags, 1)
+        this.vtbl.fastForward := CallbackCreate(GetMethod(implObj, "fastForward"), flags, 1)
+        this.vtbl.fastReverse := CallbackCreate(GetMethod(implObj, "fastReverse"), flags, 1)
+        this.vtbl.get_currentPosition := CallbackCreate(GetMethod(implObj, "get_currentPosition"), flags, 2)
+        this.vtbl.put_currentPosition := CallbackCreate(GetMethod(implObj, "put_currentPosition"), flags, 2)
+        this.vtbl.get_currentPositionString := CallbackCreate(GetMethod(implObj, "get_currentPositionString"), flags, 2)
+        this.vtbl.next := CallbackCreate(GetMethod(implObj, "next"), flags, 1)
+        this.vtbl.previous := CallbackCreate(GetMethod(implObj, "previous"), flags, 1)
+        this.vtbl.get_currentItem := CallbackCreate(GetMethod(implObj, "get_currentItem"), flags, 2)
+        this.vtbl.put_currentItem := CallbackCreate(GetMethod(implObj, "put_currentItem"), flags, 2)
+        this.vtbl.get_currentMarker := CallbackCreate(GetMethod(implObj, "get_currentMarker"), flags, 2)
+        this.vtbl.put_currentMarker := CallbackCreate(GetMethod(implObj, "put_currentMarker"), flags, 2)
+        this.vtbl.playItem := CallbackCreate(GetMethod(implObj, "playItem"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_isAvailable)
+        CallbackFree(this.vtbl.play)
+        CallbackFree(this.vtbl.stop)
+        CallbackFree(this.vtbl.pause)
+        CallbackFree(this.vtbl.fastForward)
+        CallbackFree(this.vtbl.fastReverse)
+        CallbackFree(this.vtbl.get_currentPosition)
+        CallbackFree(this.vtbl.put_currentPosition)
+        CallbackFree(this.vtbl.get_currentPositionString)
+        CallbackFree(this.vtbl.next)
+        CallbackFree(this.vtbl.previous)
+        CallbackFree(this.vtbl.get_currentItem)
+        CallbackFree(this.vtbl.put_currentItem)
+        CallbackFree(this.vtbl.get_currentMarker)
+        CallbackFree(this.vtbl.put_currentMarker)
+        CallbackFree(this.vtbl.playItem)
     }
 }

@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class XML_DRIVER_NODE_INFO extends Win32Struct {
-    static sizeof => 1184
+export default struct XML_DRIVER_NODE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    FileName : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 0, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 63, "UTF-8")
-    }
+    FileSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    CreationDate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CreationDate {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    Version : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    Version {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
-    }
+    Manufacturer : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    Manufacturer {
-        get => StrGet(this.ptr + 144, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 144, 259, "UTF-8")
-    }
+    ProductName : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    ProductName {
-        get => StrGet(this.ptr + 404, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 404, 259, "UTF-8")
-    }
+    Group : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    Group {
-        get => StrGet(this.ptr + 664, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 664, 259, "UTF-8")
-    }
+    Altitude : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    Altitude {
-        get => StrGet(this.ptr + 924, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 924, 259, "UTF-8")
-    }
 }

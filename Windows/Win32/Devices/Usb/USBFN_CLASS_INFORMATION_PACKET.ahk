@@ -1,71 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBFN_CLASS_INTERFACE.ahk
-#Include .\USBFN_PIPE_INFORMATION.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import ".\USBFN_PIPE_INFORMATION.ahk" { USBFN_PIPE_INFORMATION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USBFN_CLASS_INTERFACE.ahk" { USBFN_CLASS_INTERFACE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBFN_CLASS_INFORMATION_PACKET extends Win32Struct {
-    static sizeof => 748
+export default struct USBFN_CLASS_INFORMATION_PACKET {
+    #StructPack 4
 
-    static packingSize => 4
+    FullSpeedClassInterface : USBFN_CLASS_INTERFACE
 
-    /**
-     * @type {USBFN_CLASS_INTERFACE}
-     */
-    FullSpeedClassInterface {
-        get {
-            if(!this.HasProp("__FullSpeedClassInterface"))
-                this.__FullSpeedClassInterface := USBFN_CLASS_INTERFACE(0, this)
-            return this.__FullSpeedClassInterface
-        }
-    }
+    HighSpeedClassInterface : USBFN_CLASS_INTERFACE
 
-    /**
-     * @type {USBFN_CLASS_INTERFACE}
-     */
-    HighSpeedClassInterface {
-        get {
-            if(!this.HasProp("__HighSpeedClassInterface"))
-                this.__HighSpeedClassInterface := USBFN_CLASS_INTERFACE(196, this)
-            return this.__HighSpeedClassInterface
-        }
-    }
+    InterfaceName : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    InterfaceName {
-        get => StrGet(this.ptr + 392, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 392, 39, "UTF-16")
-    }
+    InterfaceGuid : WCHAR[39]
 
-    /**
-     * @type {String}
-     */
-    InterfaceGuid {
-        get => StrGet(this.ptr + 472, 38, "UTF-16")
-        set => StrPut(value, this.ptr + 472, 38, "UTF-16")
-    }
+    HasInterfaceGuid : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HasInterfaceGuid {
-        get => NumGet(this, 550, "char")
-        set => NumPut("char", value, this, 550)
-    }
+    SuperSpeedClassInterface : USBFN_CLASS_INTERFACE
 
-    /**
-     * @type {USBFN_CLASS_INTERFACE}
-     */
-    SuperSpeedClassInterface {
-        get {
-            if(!this.HasProp("__SuperSpeedClassInterface"))
-                this.__SuperSpeedClassInterface := USBFN_CLASS_INTERFACE(552, this)
-            return this.__SuperSpeedClassInterface
-        }
-    }
 }

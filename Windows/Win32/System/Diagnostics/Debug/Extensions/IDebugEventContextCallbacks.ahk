@@ -1,31 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\EXCEPTION_RECORD64.ahk" { EXCEPTION_RECORD64 }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugBreakpoint2.ahk" { IDebugBreakpoint2 }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugEventContextCallbacks extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugEventContextCallbacks extends IUnknown {
     /**
      * The interface identifier for IDebugEventContextCallbacks
      * @type {Guid}
      */
-    static IID => Guid("{61a4905b-23f9-4247-b3c5-53d087529ab7}")
+    static IID := Guid("{61a4905b-23f9-4247-b3c5-53d087529ab7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugEventContextCallbacks interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInterestMask     : IntPtr
+        Breakpoint          : IntPtr
+        Exception           : IntPtr
+        CreateThread        : IntPtr
+        ExitThread          : IntPtr
+        CreateProcessA      : IntPtr
+        ExitProcess         : IntPtr
+        LoadModule          : IntPtr
+        UnloadModule        : IntPtr
+        SystemError         : IntPtr
+        SessionStatus       : IntPtr
+        ChangeDebuggeeState : IntPtr
+        ChangeEngineState   : IntPtr
+        ChangeSymbolState   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInterestMask", "Breakpoint", "Exception", "CreateThread", "ExitThread", "CreateProcessA", "ExitProcess", "LoadModule", "UnloadModule", "SystemError", "SessionStatus", "ChangeDebuggeeState", "ChangeEngineState", "ChangeSymbolState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugEventContextCallbacks.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -57,7 +81,7 @@ class IDebugEventContextCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     Exception(Exception, FirstChance, _Context, ContextSize) {
-        result := ComCall(5, this, "ptr", Exception, "uint", FirstChance, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(5, this, EXCEPTION_RECORD64.Ptr, Exception, "uint", FirstChance, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -557,5 +581,51 @@ class IDebugEventContextCallbacks extends IUnknown {
     ChangeSymbolState(Flags, Argument) {
         result := ComCall(16, this, "uint", Flags, "uint", Argument, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugEventContextCallbacks.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInterestMask := CallbackCreate(GetMethod(implObj, "GetInterestMask"), flags, 2)
+        this.vtbl.Breakpoint := CallbackCreate(GetMethod(implObj, "Breakpoint"), flags, 4)
+        this.vtbl.Exception := CallbackCreate(GetMethod(implObj, "Exception"), flags, 5)
+        this.vtbl.CreateThread := CallbackCreate(GetMethod(implObj, "CreateThread"), flags, 6)
+        this.vtbl.ExitThread := CallbackCreate(GetMethod(implObj, "ExitThread"), flags, 4)
+        this.vtbl.CreateProcessA := CallbackCreate(GetMethod(implObj, "CreateProcessA"), flags, 14)
+        this.vtbl.ExitProcess := CallbackCreate(GetMethod(implObj, "ExitProcess"), flags, 4)
+        this.vtbl.LoadModule := CallbackCreate(GetMethod(implObj, "LoadModule"), flags, 10)
+        this.vtbl.UnloadModule := CallbackCreate(GetMethod(implObj, "UnloadModule"), flags, 5)
+        this.vtbl.SystemError := CallbackCreate(GetMethod(implObj, "SystemError"), flags, 5)
+        this.vtbl.SessionStatus := CallbackCreate(GetMethod(implObj, "SessionStatus"), flags, 2)
+        this.vtbl.ChangeDebuggeeState := CallbackCreate(GetMethod(implObj, "ChangeDebuggeeState"), flags, 5)
+        this.vtbl.ChangeEngineState := CallbackCreate(GetMethod(implObj, "ChangeEngineState"), flags, 5)
+        this.vtbl.ChangeSymbolState := CallbackCreate(GetMethod(implObj, "ChangeSymbolState"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInterestMask)
+        CallbackFree(this.vtbl.Breakpoint)
+        CallbackFree(this.vtbl.Exception)
+        CallbackFree(this.vtbl.CreateThread)
+        CallbackFree(this.vtbl.ExitThread)
+        CallbackFree(this.vtbl.CreateProcessA)
+        CallbackFree(this.vtbl.ExitProcess)
+        CallbackFree(this.vtbl.LoadModule)
+        CallbackFree(this.vtbl.UnloadModule)
+        CallbackFree(this.vtbl.SystemError)
+        CallbackFree(this.vtbl.SessionStatus)
+        CallbackFree(this.vtbl.ChangeDebuggeeState)
+        CallbackFree(this.vtbl.ChangeEngineState)
+        CallbackFree(this.vtbl.ChangeSymbolState)
     }
 }

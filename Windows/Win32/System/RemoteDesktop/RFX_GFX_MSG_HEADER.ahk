@@ -1,32 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MSG_HEADER extends Win32Struct {
-    static sizeof => 4
+export default struct RFX_GFX_MSG_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    uMSGType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    uMSGType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 4
-    }
 }

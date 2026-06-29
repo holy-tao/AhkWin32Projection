@@ -1,41 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk" { D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE }
+#Import ".\D3D12_VIDEO_DECODE_CONFIGURATION.ahk" { D3D12_VIDEO_DECODE_CONFIGURATION }
+#Import ".\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk" { D3D12_BITSTREAM_ENCRYPTION_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMAT_COUNT extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_FEATURE_DATA_VIDEO_DECODE_FORMAT_COUNT {
+    #StructPack 4
 
-    static packingSize => 8
+    NodeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Configuration : D3D12_VIDEO_DECODE_CONFIGURATION
 
-    /**
-     * @type {D3D12_VIDEO_DECODE_CONFIGURATION}
-     */
-    Configuration {
-        get {
-            if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
-            return this.__Configuration
-        }
-    }
+    FormatCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FormatCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

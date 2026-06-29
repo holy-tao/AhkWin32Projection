@@ -1,37 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IRTCClientPresence.ahk
-#Include .\IRTCBuddyGroup.ahk
-#Include .\IRTCEnumGroups.ahk
-#Include .\IRTCCollection.ahk
-#Include .\IRTCWatcher2.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRTCBuddy2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk" { RTC_BUDDY_SUBSCRIPTION_TYPE }
+#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
+#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
+#Import ".\IRTCClientPresence.ahk" { IRTCClientPresence }
+#Import ".\IRTCWatcher2.ahk" { IRTCWatcher2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_WATCHER_STATE.ahk" { RTC_WATCHER_STATE }
+#Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\RTC_WATCHER_MATCH_MODE.ahk" { RTC_WATCHER_MATCH_MODE }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import ".\RTC_PRESENCE_PROPERTY.ahk" { RTC_PRESENCE_PROPERTY }
+#Import ".\IRTCBuddy2.ahk" { IRTCBuddy2 }
+#Import ".\IRTCEnumGroups.ahk" { IRTCEnumGroups }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCClientPresence2 extends IRTCClientPresence {
-
-    static sizeof => A_PtrSize
+export default struct IRTCClientPresence2 extends IRTCClientPresence {
     /**
      * The interface identifier for IRTCClientPresence2
      * @type {Guid}
      */
-    static IID => Guid("{ad1809e8-62f7-4783-909a-29c9d2cb1d34}")
+    static IID := Guid("{ad1809e8-62f7-4783-909a-29c9d2cb1d34}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCClientPresence2 interfaces
+    */
+    struct Vtbl extends IRTCClientPresence.Vtbl {
+        EnablePresenceEx     : IntPtr
+        DisablePresence      : IntPtr
+        AddGroup             : IntPtr
+        RemoveGroup          : IntPtr
+        EnumerateGroups      : IntPtr
+        get_Groups           : IntPtr
+        get_Group            : IntPtr
+        AddWatcherEx         : IntPtr
+        get_WatcherEx        : IntPtr
+        put_PresenceProperty : IntPtr
+        get_PresenceProperty : IntPtr
+        SetPresenceData      : IntPtr
+        GetPresenceData      : IntPtr
+        GetLocalPresenceInfo : IntPtr
+        AddBuddyEx           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnablePresenceEx", "DisablePresence", "AddGroup", "RemoveGroup", "EnumerateGroups", "get_Groups", "get_Group", "AddWatcherEx", "get_WatcherEx", "put_PresenceProperty", "get_PresenceProperty", "SetPresenceData", "GetPresenceData", "GetLocalPresenceInfo", "AddBuddyEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCClientPresence2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRTCCollection} 
@@ -48,7 +79,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
      * @returns {HRESULT} 
      */
     EnablePresenceEx(pProfile, varStorage, lFlags) {
-        result := ComCall(21, this, "ptr", pProfile, "ptr", varStorage, "int", lFlags, "HRESULT")
+        result := ComCall(21, this, "ptr", pProfile, VARIANT, varStorage, "int", lFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +104,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(23, this, "ptr", bstrGroupName, "ptr", bstrData, "ptr", pProfile, "int", lFlags, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrGroupName, BSTR, bstrData, "ptr", pProfile, "int", lFlags, "ptr*", &ppGroup := 0, "HRESULT")
         return IRTCBuddyGroup(ppGroup)
     }
 
@@ -113,7 +144,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     get_Group(bstrGroupName) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(27, this, "ptr", bstrGroupName, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrGroupName, "ptr*", &ppGroup := 0, "HRESULT")
         return IRTCBuddyGroup(ppGroup)
     }
 
@@ -134,7 +165,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(28, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "int", enState, "short", fPersistent, "int", enScope, "ptr", pProfile, "int", lFlags, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, RTC_WATCHER_STATE, enState, VARIANT_BOOL, fPersistent, RTC_ACE_SCOPE, enScope, "ptr", pProfile, "int", lFlags, "ptr*", &ppWatcher := 0, "HRESULT")
         return IRTCWatcher2(ppWatcher)
     }
 
@@ -147,7 +178,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     get_WatcherEx(enMode, bstrPresentityURI) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
 
-        result := ComCall(29, this, "int", enMode, "ptr", bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(29, this, RTC_WATCHER_MATCH_MODE, enMode, BSTR, bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
         return IRTCWatcher2(ppWatcher)
     }
 
@@ -160,7 +191,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     put_PresenceProperty(enProperty, bstrProperty) {
         bstrProperty := bstrProperty is String ? BSTR.Alloc(bstrProperty).Value : bstrProperty
 
-        result := ComCall(30, this, "int", enProperty, "ptr", bstrProperty, "HRESULT")
+        result := ComCall(30, this, RTC_PRESENCE_PROPERTY, enProperty, BSTR, bstrProperty, "HRESULT")
         return result
     }
 
@@ -170,8 +201,8 @@ class IRTCClientPresence2 extends IRTCClientPresence {
      * @returns {BSTR} 
      */
     get_PresenceProperty(enProperty) {
-        pbstrProperty := BSTR()
-        result := ComCall(31, this, "int", enProperty, "ptr", pbstrProperty, "HRESULT")
+        pbstrProperty := BSTR.Owned()
+        result := ComCall(31, this, RTC_PRESENCE_PROPERTY, enProperty, BSTR.Ptr, pbstrProperty, "HRESULT")
         return pbstrProperty
     }
 
@@ -185,7 +216,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(32, this, "ptr", bstrNamespace, "ptr", bstrData, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrNamespace, BSTR, bstrData, "HRESULT")
         return result
     }
 
@@ -196,7 +227,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
      * @returns {HRESULT} 
      */
     GetPresenceData(pbstrNamespace, pbstrData) {
-        result := ComCall(33, this, "ptr", pbstrNamespace, "ptr", pbstrData, "HRESULT")
+        result := ComCall(33, this, BSTR.Ptr, pbstrNamespace, BSTR.Ptr, pbstrData, "HRESULT")
         return result
     }
 
@@ -209,7 +240,7 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     GetLocalPresenceInfo(penStatus, pbstrNotes) {
         penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, penStatusMarshal, penStatus, "ptr", pbstrNotes, "HRESULT")
+        result := ComCall(34, this, penStatusMarshal, penStatus, BSTR.Ptr, pbstrNotes, "HRESULT")
         return result
     }
 
@@ -229,7 +260,55 @@ class IRTCClientPresence2 extends IRTCClientPresence {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(35, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "int", enSubscriptionType, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fPersistent, RTC_BUDDY_SUBSCRIPTION_TYPE, enSubscriptionType, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
         return IRTCBuddy2(ppBuddy)
+    }
+
+    Query(iid) {
+        if (IRTCClientPresence2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnablePresenceEx := CallbackCreate(GetMethod(implObj, "EnablePresenceEx"), flags, 4)
+        this.vtbl.DisablePresence := CallbackCreate(GetMethod(implObj, "DisablePresence"), flags, 1)
+        this.vtbl.AddGroup := CallbackCreate(GetMethod(implObj, "AddGroup"), flags, 6)
+        this.vtbl.RemoveGroup := CallbackCreate(GetMethod(implObj, "RemoveGroup"), flags, 2)
+        this.vtbl.EnumerateGroups := CallbackCreate(GetMethod(implObj, "EnumerateGroups"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 3)
+        this.vtbl.AddWatcherEx := CallbackCreate(GetMethod(implObj, "AddWatcherEx"), flags, 10)
+        this.vtbl.get_WatcherEx := CallbackCreate(GetMethod(implObj, "get_WatcherEx"), flags, 4)
+        this.vtbl.put_PresenceProperty := CallbackCreate(GetMethod(implObj, "put_PresenceProperty"), flags, 3)
+        this.vtbl.get_PresenceProperty := CallbackCreate(GetMethod(implObj, "get_PresenceProperty"), flags, 3)
+        this.vtbl.SetPresenceData := CallbackCreate(GetMethod(implObj, "SetPresenceData"), flags, 3)
+        this.vtbl.GetPresenceData := CallbackCreate(GetMethod(implObj, "GetPresenceData"), flags, 3)
+        this.vtbl.GetLocalPresenceInfo := CallbackCreate(GetMethod(implObj, "GetLocalPresenceInfo"), flags, 3)
+        this.vtbl.AddBuddyEx := CallbackCreate(GetMethod(implObj, "AddBuddyEx"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnablePresenceEx)
+        CallbackFree(this.vtbl.DisablePresence)
+        CallbackFree(this.vtbl.AddGroup)
+        CallbackFree(this.vtbl.RemoveGroup)
+        CallbackFree(this.vtbl.EnumerateGroups)
+        CallbackFree(this.vtbl.get_Groups)
+        CallbackFree(this.vtbl.get_Group)
+        CallbackFree(this.vtbl.AddWatcherEx)
+        CallbackFree(this.vtbl.get_WatcherEx)
+        CallbackFree(this.vtbl.put_PresenceProperty)
+        CallbackFree(this.vtbl.get_PresenceProperty)
+        CallbackFree(this.vtbl.SetPresenceData)
+        CallbackFree(this.vtbl.GetPresenceData)
+        CallbackFree(this.vtbl.GetLocalPresenceInfo)
+        CallbackFree(this.vtbl.AddBuddyEx)
     }
 }

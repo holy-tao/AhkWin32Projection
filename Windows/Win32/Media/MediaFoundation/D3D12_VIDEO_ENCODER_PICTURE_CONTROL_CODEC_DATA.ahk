@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk" { D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1 }
 
 /**
  * Represents the picture level control elements for the associated EncodeFrame command for multiple codecs.
@@ -14,49 +13,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA {
+    #StructPack 8
 
     /**
      * The data size of the provided picture level control structure.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264>}
-     */
-    pH264PicData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pH264PicData : D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.Ptr
 
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC>}
-     */
-    pHEVCPicData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1>}
-     */
-    pHEVCPicData1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA>}
-     */
-    pAV1PicData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pHEVCPicData', { type: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pHEVCPicData1', { type: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pAV1PicData', { type: D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

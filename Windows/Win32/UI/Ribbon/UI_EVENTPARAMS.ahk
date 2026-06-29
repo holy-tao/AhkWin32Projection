@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UI_EVENTTYPE.ahk
-#Include .\UI_EVENTPARAMS_COMMAND.ahk
-#Include .\UI_EVENTLOCATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UI_EVENTPARAMS_COMMAND.ahk" { UI_EVENTPARAMS_COMMAND }
+#Import ".\UI_EVENTLOCATION.ahk" { UI_EVENTLOCATION }
+#Import ".\UI_EVENTTYPE.ahk" { UI_EVENTTYPE }
 
 /**
  * Contains information about a Ribbon event.
@@ -19,36 +19,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ns-uiribbon-ui_eventparams
  * @namespace Windows.Win32.UI.Ribbon
  */
-class UI_EVENTPARAMS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct UI_EVENTPARAMS {
+    #StructPack 8
 
     /**
      * One of the values from <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventtype">UI_EVENTTYPE</a>.
-     * @type {UI_EVENTTYPE}
      */
-    EventType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    EventType : UI_EVENTTYPE
 
-    /**
-     * @type {Integer}
-     */
-    Modes {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Modes : Int32
 
-    /**
-     * @type {UI_EVENTPARAMS_COMMAND}
-     */
-    Params {
-        get {
-            if(!this.HasProp("__Params"))
-                this.__Params := UI_EVENTPARAMS_COMMAND(8, this)
-            return this.__Params
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Params', { type: UI_EVENTPARAMS_COMMAND, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

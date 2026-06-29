@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a DS resource record (RR) as specified in section 2 of RFC 4034 and is used to verify the contents of DNS_DNSKEY_DATA.
@@ -10,19 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_ds_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_DS_DATA extends Win32Struct {
-    static sizeof => 10
-
-    static packingSize => 2
+export default struct DNS_DS_DATA {
+    #StructPack 2
 
     /**
      * A value that represents the method to choose which public key is used to verify  <b>Signature</b> in <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_sig_dataw">DNS_RRSIG_DATA</a> as specified in Appendix B of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>. This value is identical to the <b>wKeyTag</b> field in <b>DNS_RRSIG_DATA</b>.
-     * @type {Integer}
      */
-    wKeyTag {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wKeyTag : UInt16
 
     /**
      * A value that specifies the  algorithm defined by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a>. The possible values are shown in the following table.
@@ -83,12 +76,8 @@ class DNS_DS_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    chAlgorithm {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    chAlgorithm : Int8
 
     /**
      * A value that specifies the cryptographic algorithm used to generate <b>Digest</b>. The possible values are shown in the following table.
@@ -109,40 +98,22 @@ class DNS_DS_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    chDigestType {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    chDigestType : Int8
 
     /**
      * The length, in bytes. of the message digest in <b>Digest</b>. This value is determined by the algorithm type in <b>chDigestType</b>.
-     * @type {Integer}
      */
-    wDigestLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wDigestLength : UInt16
 
     /**
      * Reserved for padding. Do not use.
-     * @type {Integer}
      */
-    wPad {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wPad : UInt16
 
     /**
      * A <b>BYTE</b> array that contains a cryptographic digest of the DNSKEY RR and RDATA as specified in section 5.1.4 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>. Its length is determined by <b>wDigestLength</b>.
-     * @type {Array<Integer>}
      */
-    Digest {
-        get {
-            if(!this.HasProp("__DigestProxyArray"))
-                this.__DigestProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__DigestProxyArray
-        }
-    }
+    Digest : Int8[1]
+
 }

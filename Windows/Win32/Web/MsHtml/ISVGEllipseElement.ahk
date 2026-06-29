@@ -1,38 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedLength.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGEllipseElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGEllipseElement extends IDispatch {
     /**
      * The interface identifier for ISVGEllipseElement
      * @type {Guid}
      */
-    static IID => Guid("{30510515-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510515-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGEllipseElement
      * @type {Guid}
      */
-    static CLSID => Guid("{30510579-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{30510579-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGEllipseElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_cx : IntPtr
+        get_cx    : IntPtr
+        putref_cy : IntPtr
+        get_cy    : IntPtr
+        putref_rx : IntPtr
+        get_rx    : IntPtr
+        putref_ry : IntPtr
+        get_ry    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_cx", "get_cx", "putref_cy", "get_cy", "putref_rx", "get_rx", "putref_ry", "get_ry"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGEllipseElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGAnimatedLength} 
@@ -136,5 +151,39 @@ class ISVGEllipseElement extends IDispatch {
     get_ry() {
         result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
         return ISVGAnimatedLength(p)
+    }
+
+    Query(iid) {
+        if (ISVGEllipseElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_cx := CallbackCreate(GetMethod(implObj, "putref_cx"), flags, 2)
+        this.vtbl.get_cx := CallbackCreate(GetMethod(implObj, "get_cx"), flags, 2)
+        this.vtbl.putref_cy := CallbackCreate(GetMethod(implObj, "putref_cy"), flags, 2)
+        this.vtbl.get_cy := CallbackCreate(GetMethod(implObj, "get_cy"), flags, 2)
+        this.vtbl.putref_rx := CallbackCreate(GetMethod(implObj, "putref_rx"), flags, 2)
+        this.vtbl.get_rx := CallbackCreate(GetMethod(implObj, "get_rx"), flags, 2)
+        this.vtbl.putref_ry := CallbackCreate(GetMethod(implObj, "putref_ry"), flags, 2)
+        this.vtbl.get_ry := CallbackCreate(GetMethod(implObj, "get_ry"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_cx)
+        CallbackFree(this.vtbl.get_cx)
+        CallbackFree(this.vtbl.putref_cy)
+        CallbackFree(this.vtbl.get_cy)
+        CallbackFree(this.vtbl.putref_rx)
+        CallbackFree(this.vtbl.get_rx)
+        CallbackFree(this.vtbl.putref_ry)
+        CallbackFree(this.vtbl.get_ry)
     }
 }

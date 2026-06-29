@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the copy offload capabilities for a storage device.
@@ -12,113 +11,65 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_copy_offload_descriptor
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_COPY_OFFLOAD_DESCRIPTOR extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DEVICE_COPY_OFFLOAD_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * Contains the size of this structure, in bytes. The value of this member will change as members are added to 
      *       the structure.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Specifies the total size of the data returned, in bytes. This may include data that follows this 
      *       structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * The maximum lifetime of the token, in seconds.
-     * @type {Integer}
      */
-    MaximumTokenLifetime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaximumTokenLifetime : UInt32
 
     /**
      * The default lifetime of the token, in seconds.
-     * @type {Integer}
      */
-    DefaultTokenLifetime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DefaultTokenLifetime : UInt32
 
     /**
      * The maximum transfer size, in bytes.
-     * @type {Integer}
      */
-    MaximumTransferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaximumTransferSize : Int64
 
     /**
      * The optimal transfer size, in bytes.
-     * @type {Integer}
      */
-    OptimalTransferCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OptimalTransferCount : Int64
 
     /**
      * The maximum number of data descriptors.
-     * @type {Integer}
      */
-    MaximumDataDescriptors {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MaximumDataDescriptors : UInt32
 
     /**
      * The maximum transfer length, in blocks, per descriptor.
-     * @type {Integer}
      */
-    MaximumTransferLengthPerDescriptor {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaximumTransferLengthPerDescriptor : UInt32
 
     /**
      * The optimal transfer length per descriptor.
-     * @type {Integer}
      */
-    OptimalTransferLengthPerDescriptor {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    OptimalTransferLengthPerDescriptor : UInt32
 
     /**
      * The granularity of the optimal transfer length, in blocks. Transfer lengths that are not an even multiple 
      *       of this length may be delayed.
-     * @type {Integer}
      */
-    OptimalTransferLengthGranularity {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    OptimalTransferLengthGranularity : UInt16
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[2]
+
 }

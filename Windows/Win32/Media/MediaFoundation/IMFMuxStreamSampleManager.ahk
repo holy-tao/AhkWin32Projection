@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the ability to retrieve IMFSample objects for individual substreams within the output of a multiplexed media source.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmuxstreamsamplemanager
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMuxStreamSampleManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMuxStreamSampleManager extends IUnknown {
     /**
      * The interface identifier for IMFMuxStreamSampleManager
      * @type {Guid}
      */
-    static IID => Guid("{74abbc19-b1cc-4e41-bb8b-9d9b86a8f6ca}")
+    static IID := Guid("{74abbc19-b1cc-4e41-bb8b-9d9b86a8f6ca}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMuxStreamSampleManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStreamCount         : IntPtr
+        GetSample              : IntPtr
+        GetStreamConfiguration : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStreamCount", "GetSample", "GetStreamConfiguration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMuxStreamSampleManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the count of substreams managed by the multiplexed media source. (IMFMuxStreamSampleManager.GetStreamCount)
@@ -57,7 +67,31 @@ class IMFMuxStreamSampleManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getstreamconfiguration
      */
     GetStreamConfiguration() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, Int64)
         return result
+    }
+
+    Query(iid) {
+        if (IMFMuxStreamSampleManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetSample := CallbackCreate(GetMethod(implObj, "GetSample"), flags, 3)
+        this.vtbl.GetStreamConfiguration := CallbackCreate(GetMethod(implObj, "GetStreamConfiguration"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStreamCount)
+        CallbackFree(this.vtbl.GetSample)
+        CallbackFree(this.vtbl.GetStreamConfiguration)
     }
 }

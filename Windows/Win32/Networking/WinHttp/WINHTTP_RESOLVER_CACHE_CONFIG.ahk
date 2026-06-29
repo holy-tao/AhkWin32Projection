@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_SECURE_DNS_SETTING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINHTTP_SECURE_DNS_SETTING.ahk" { WINHTTP_SECURE_DNS_SETTING }
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
  * @architecture X64, Arm64
  */
-class WINHTTP_RESOLVER_CACHE_CONFIG extends Win32Struct {
-    static sizeof => 32
+export default struct WINHTTP_RESOLVER_CACHE_CONFIG {
+    #StructPack 8
 
-    static packingSize => 8
+    ulMaxResolverCacheEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxResolverCacheEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulMaxCacheEntryAge : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxCacheEntryAge {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulMinCacheEntryTtl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMinCacheEntryTtl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SecureDnsSetting : WINHTTP_SECURE_DNS_SETTING
 
-    /**
-     * @type {WINHTTP_SECURE_DNS_SETTING}
-     */
-    SecureDnsSetting {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ullConnResolutionWaitTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullConnResolutionWaitTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullFlags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

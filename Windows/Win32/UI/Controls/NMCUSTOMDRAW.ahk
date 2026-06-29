@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMCUSTOMDRAW_DRAW_STAGE.ahk" { NMCUSTOMDRAW_DRAW_STAGE }
+#Import ".\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk" { NMCUSTOMDRAW_DRAW_STATE_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.
@@ -14,72 +14,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomdraw
  * @namespace Windows.Win32.UI.Controls
  */
-class NMCUSTOMDRAW extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct NMCUSTOMDRAW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {NMCUSTOMDRAW_DRAW_STAGE}
      */
-    dwDrawStage {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwDrawStage : NMCUSTOMDRAW_DRAW_STAGE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the control's device context. Use this HDC to perform any GDI functions.
-     * @type {HDC}
      */
-    hdc {
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(32, this)
-            return this.__hdc
-        }
-    }
+    hdc : HDC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn. This member is initialized only by the CDDS_ITEMPREPAINT notification. <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80.</a> This member is also initialized by the CDDS_PREPAINT notification.
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(40, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD_PTR</a></b>
      * 
      * The item number. What is contained in this member will depend on the type of control that is sending the notification. See the <a href="https://docs.microsoft.com/windows/desktop/Controls/nm-customdraw">NM_CUSTOMDRAW</a> notification reference for the specific control to determine what, if anything, is contained in this member.
-     * @type {Pointer}
      */
-    dwItemSpec {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwItemSpec : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -230,21 +199,14 @@ class NMCUSTOMDRAW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NMCUSTOMDRAW_DRAW_STATE_FLAGS}
      */
-    uItemState {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    uItemState : NMCUSTOMDRAW_DRAW_STATE_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined item data.
-     * @type {LPARAM}
      */
-    lItemlParam {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lItemlParam : LPARAM
+
 }

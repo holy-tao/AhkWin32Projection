@@ -1,45 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GAMMA_RAMP_RGB.ahk" { GAMMA_RAMP_RGB }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class GAMMA_RAMP_DXGI_1 extends Win32Struct {
-    static sizeof => 12324
+export default struct GAMMA_RAMP_DXGI_1 {
+    #StructPack 4
 
-    static packingSize => 4
+    Scale : GAMMA_RAMP_RGB
 
-    /**
-     * @type {GAMMA_RAMP_RGB}
-     */
-    Scale {
-        get {
-            if(!this.HasProp("__Scale"))
-                this.__Scale := GAMMA_RAMP_RGB(0, this)
-            return this.__Scale
-        }
-    }
+    Offset : GAMMA_RAMP_RGB
 
-    /**
-     * @type {GAMMA_RAMP_RGB}
-     */
-    Offset {
-        get {
-            if(!this.HasProp("__Offset"))
-                this.__Offset := GAMMA_RAMP_RGB(12, this)
-            return this.__Offset
-        }
-    }
+    GammaCurve : GAMMA_RAMP_RGB[1025]
 
-    /**
-     * @type {GAMMA_RAMP_RGB}
-     */
-    GammaCurve {
-        get {
-            if(!this.HasProp("__GammaCurveProxyArray"))
-                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 24, 1025, GAMMA_RAMP_RGB, "")
-            return this.__GammaCurveProxyArray
-        }
-    }
 }

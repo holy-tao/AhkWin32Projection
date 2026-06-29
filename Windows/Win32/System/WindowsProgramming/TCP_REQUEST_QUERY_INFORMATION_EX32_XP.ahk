@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TDIObjectID.ahk
-#Include .\TDIEntityID.ahk
-#Include .\TDIENTITY_ENTITY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TDIEntityID.ahk" { TDIEntityID }
+#Import ".\TDIObjectID.ahk" { TDIObjectID }
+#Import ".\TDIENTITY_ENTITY_TYPE.ahk" { TDIENTITY_ENTITY_TYPE }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @architecture X64, Arm64
  */
-class TCP_REQUEST_QUERY_INFORMATION_EX32_XP extends Win32Struct {
-    static sizeof => 36
+export default struct TCP_REQUEST_QUERY_INFORMATION_EX32_XP {
+    #StructPack 4
 
-    static packingSize => 4
+    ID : TDIObjectID
 
-    /**
-     * @type {TDIObjectID}
-     */
-    ID {
-        get {
-            if(!this.HasProp("__ID"))
-                this.__ID := TDIObjectID(0, this)
-            return this.__ID
-        }
-    }
+    Context : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Context {
-        get {
-            if(!this.HasProp("__ContextProxyArray"))
-                this.__ContextProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
-            return this.__ContextProxyArray
-        }
-    }
 }

@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used by the application's custom text entry code to insert the text into both the text field and the Text Services backing-store.
@@ -10,32 +14,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-ihandwrittentextinsertion
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IHandwrittenTextInsertion extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHandwrittenTextInsertion extends IUnknown {
     /**
      * The interface identifier for IHandwrittenTextInsertion
      * @type {Guid}
      */
-    static IID => Guid("{56fdea97-ecd6-43e7-aa3a-816be7785860}")
+    static IID := Guid("{56fdea97-ecd6-43e7-aa3a-816be7785860}")
 
     /**
      * The class identifier for HandwrittenTextInsertion
      * @type {Guid}
      */
-    static CLSID => Guid("{9f074ee2-e6e9-4d8a-a047-eb5b5c3c55da}")
+    static CLSID := Guid("{9f074ee2-e6e9-4d8a-a047-eb5b5c3c55da}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHandwrittenTextInsertion interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InsertRecognitionResultsArray : IntPtr
+        InsertInkRecognitionResult    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertRecognitionResultsArray", "InsertInkRecognitionResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHandwrittenTextInsertion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Insert recognition results array.
@@ -48,7 +60,7 @@ class IHandwrittenTextInsertion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertrecognitionresultsarray
      */
     InsertRecognitionResultsArray(psaAlternates, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(3, this, "ptr", psaAlternates, "uint", locale, "int", fAlternateContainsAutoSpacingInformation, "HRESULT")
+        result := ComCall(3, this, SAFEARRAY.Ptr, psaAlternates, "uint", locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
         return result
     }
 
@@ -61,7 +73,29 @@ class IHandwrittenTextInsertion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertinkrecognitionresult
      */
     InsertInkRecognitionResult(pIInkRecoResult, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(4, this, "ptr", pIInkRecoResult, "uint", locale, "int", fAlternateContainsAutoSpacingInformation, "HRESULT")
+        result := ComCall(4, this, "ptr", pIInkRecoResult, "uint", locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHandwrittenTextInsertion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertRecognitionResultsArray := CallbackCreate(GetMethod(implObj, "InsertRecognitionResultsArray"), flags, 4)
+        this.vtbl.InsertInkRecognitionResult := CallbackCreate(GetMethod(implObj, "InsertInkRecognitionResult"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertRecognitionResultsArray)
+        CallbackFree(this.vtbl.InsertInkRecognitionResult)
     }
 }

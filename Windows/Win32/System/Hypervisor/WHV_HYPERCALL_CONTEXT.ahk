@@ -1,98 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_UINT128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_UINT128.ahk" { WHV_UINT128 }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_HYPERCALL_CONTEXT extends Win32Struct {
-    static sizeof => 272
+export default struct WHV_HYPERCALL_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    Rax : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rax {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Rbx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rbx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Rcx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rcx {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Rdx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rdx {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    R8 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R8 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Rsi : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rsi {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Rdi : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rdi {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Reserved0 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    XmmRegisters : WHV_UINT128[6]
 
-    /**
-     * @type {WHV_UINT128}
-     */
-    XmmRegisters {
-        get {
-            if(!this.HasProp("__XmmRegistersProxyArray"))
-                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 64, 6, WHV_UINT128, "")
-            return this.__XmmRegistersProxyArray
-        }
-    }
+    Reserved1 : Int64[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 256, 2, Primitive, "uint")
-            return this.__Reserved1ProxyArray
-        }
-    }
 }

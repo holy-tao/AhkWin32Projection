@@ -1,104 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk
-#Include .\CLUSTER_RANGE.ahk
-#Include .\FILE_REFERENCE_RANGE.ahk
-#Include .\STORAGE_RESERVE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_RANGE.ahk" { CLUSTER_RANGE }
+#Import ".\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk" { QUERY_FILE_LAYOUT_FILTER_TYPE }
+#Import ".\FILE_REFERENCE_RANGE.ahk" { FILE_REFERENCE_RANGE }
+#Import ".\STORAGE_RESERVE_ID.ahk" { STORAGE_RESERVE_ID }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class QUERY_FILE_LAYOUT_INPUT extends Win32Struct {
-    static sizeof => 32
+export default struct QUERY_FILE_LAYOUT_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Filter_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _Filter {
+        ClusterRanges : CLUSTER_RANGE[1]
 
-        /**
-         * @type {CLUSTER_RANGE}
-         */
-        ClusterRanges {
-            get {
-                if(!this.HasProp("__ClusterRangesProxyArray"))
-                    this.__ClusterRangesProxyArray := Win32FixedArray(this.ptr + 0, 1, CLUSTER_RANGE, "")
-                return this.__ClusterRangesProxyArray
-            }
-        }
-
-        /**
-         * @type {FILE_REFERENCE_RANGE}
-         */
-        FileReferenceRanges {
-            get {
-                if(!this.HasProp("__FileReferenceRangesProxyArray"))
-                    this.__FileReferenceRangesProxyArray := Win32FixedArray(this.ptr + 0, 1, FILE_REFERENCE_RANGE, "")
-                return this.__FileReferenceRangesProxyArray
-            }
-        }
-
-        /**
-         * @type {Array<STORAGE_RESERVE_ID>}
-         */
-        StorageReserveIds {
-            get {
-                if(!this.HasProp("__StorageReserveIdsProxyArray"))
-                    this.__StorageReserveIdsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "int")
-                return this.__StorageReserveIdsProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'FileReferenceRanges', { type: FILE_REFERENCE_RANGE[1], offset: 0 })
+            DefineProp(this.Prototype, 'StorageReserveIds', { type: STORAGE_RESERVE_ID[1], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    FilterEntryCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FilterEntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPairs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FilterType : QUERY_FILE_LAYOUT_FILTER_TYPE
 
-    /**
-     * @type {QUERY_FILE_LAYOUT_FILTER_TYPE}
-     */
-    FilterType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Filter : QUERY_FILE_LAYOUT_INPUT._Filter
 
-    /**
-     * @type {_Filter_e__Union}
-     */
-    Filter {
-        get {
-            if(!this.HasProp("__Filter"))
-                this.__Filter := QUERY_FILE_LAYOUT_INPUT._Filter_e__Union(16, this)
-            return this.__Filter
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'NumberOfPairs', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

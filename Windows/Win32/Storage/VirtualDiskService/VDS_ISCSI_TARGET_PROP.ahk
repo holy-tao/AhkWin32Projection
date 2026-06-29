@@ -1,50 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_ISCSI_TARGET_PROP structure (vdshwprv.h) defines the properties of an iSCSI target.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_target_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_ISCSI_TARGET_PROP extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct VDS_ISCSI_TARGET_PROP {
+    #StructPack 8
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the target.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * A null-terminated, human-readable string that is the iSCSI name of the target.
-     * @type {PWSTR}
      */
-    pwszIscsiName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszIscsiName : PWSTR
 
     /**
      * A null-terminated, human-readable string that is the friendly name of the target. This corresponds to the 
      *      iSCSI alias.
-     * @type {PWSTR}
      */
-    pwszFriendlyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszFriendlyName : PWSTR
 
     /**
      * If <b>TRUE</b>, a CHAP shared secret is required to login to this target.
-     * @type {BOOL}
      */
-    bChapEnabled {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bChapEnabled : BOOL
+
 }

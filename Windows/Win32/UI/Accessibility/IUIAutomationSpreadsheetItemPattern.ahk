@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElementArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Enables a client application to retrieve information about an item (cell) in a spreadsheet.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationspreadsheetitempattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationSpreadsheetItemPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationSpreadsheetItemPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationSpreadsheetItemPattern
      * @type {Guid}
      */
-    static IID => Guid("{7d4fb86c-8d34-40e1-8e83-62c15204e335}")
+    static IID := Guid("{7d4fb86c-8d34-40e1-8e83-62c15204e335}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationSpreadsheetItemPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_CurrentFormula          : IntPtr
+        GetCurrentAnnotationObjects : IntPtr
+        GetCurrentAnnotationTypes   : IntPtr
+        get_CachedFormula           : IntPtr
+        GetCachedAnnotationObjects  : IntPtr
+        GetCachedAnnotationTypes    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentFormula", "GetCurrentAnnotationObjects", "GetCurrentAnnotationTypes", "get_CachedFormula", "GetCachedAnnotationObjects", "GetCachedAnnotationTypes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationSpreadsheetItemPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -51,8 +65,8 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_currentformula
      */
     get_CurrentFormula() {
-        retVal := BSTR()
-        result := ComCall(3, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -86,8 +100,8 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_cachedformula
      */
     get_CachedFormula() {
-        retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -113,5 +127,35 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown {
     GetCachedAnnotationTypes() {
         result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationSpreadsheetItemPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentFormula := CallbackCreate(GetMethod(implObj, "get_CurrentFormula"), flags, 2)
+        this.vtbl.GetCurrentAnnotationObjects := CallbackCreate(GetMethod(implObj, "GetCurrentAnnotationObjects"), flags, 2)
+        this.vtbl.GetCurrentAnnotationTypes := CallbackCreate(GetMethod(implObj, "GetCurrentAnnotationTypes"), flags, 2)
+        this.vtbl.get_CachedFormula := CallbackCreate(GetMethod(implObj, "get_CachedFormula"), flags, 2)
+        this.vtbl.GetCachedAnnotationObjects := CallbackCreate(GetMethod(implObj, "GetCachedAnnotationObjects"), flags, 2)
+        this.vtbl.GetCachedAnnotationTypes := CallbackCreate(GetMethod(implObj, "GetCachedAnnotationTypes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentFormula)
+        CallbackFree(this.vtbl.GetCurrentAnnotationObjects)
+        CallbackFree(this.vtbl.GetCurrentAnnotationTypes)
+        CallbackFree(this.vtbl.get_CachedFormula)
+        CallbackFree(this.vtbl.GetCachedAnnotationObjects)
+        CallbackFree(this.vtbl.GetCachedAnnotationTypes)
     }
 }

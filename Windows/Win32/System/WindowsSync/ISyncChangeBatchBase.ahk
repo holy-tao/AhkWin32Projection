@@ -1,11 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumSyncChanges.ahk
-#Include .\ISyncChangeBuilder.ahk
-#Include .\ISyncKnowledge.ahk
-#Include .\IForgottenKnowledge.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IForgottenKnowledge.ahk" { IForgottenKnowledge }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSyncChanges.ahk" { IEnumSyncChanges }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatchBase)
@@ -14,26 +17,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatchbase
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncChangeBatchBase extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncChangeBatchBase extends IUnknown {
     /**
      * The interface identifier for ISyncChangeBatchBase
      * @type {Guid}
      */
-    static IID => Guid("{52f6e694-6a71-4494-a184-a8311bf5d227}")
+    static IID := Guid("{52f6e694-6a71-4494-a184-a8311bf5d227}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncChangeBatchBase interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetChangeEnumerator                : IntPtr
+        GetIsLastBatch                     : IntPtr
+        GetWorkEstimateForBatch            : IntPtr
+        GetRemainingWorkEstimateForSession : IntPtr
+        BeginOrderedGroup                  : IntPtr
+        EndOrderedGroup                    : IntPtr
+        AddItemMetadataToGroup             : IntPtr
+        GetLearnedKnowledge                : IntPtr
+        GetPrerequisiteKnowledge           : IntPtr
+        GetSourceForgottenKnowledge        : IntPtr
+        SetLastBatch                       : IntPtr
+        SetWorkEstimateForBatch            : IntPtr
+        SetRemainingWorkEstimateForSession : IntPtr
+        Serialize                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetChangeEnumerator", "GetIsLastBatch", "GetWorkEstimateForBatch", "GetRemainingWorkEstimateForSession", "BeginOrderedGroup", "EndOrderedGroup", "AddItemMetadataToGroup", "GetLearnedKnowledge", "GetPrerequisiteKnowledge", "GetSourceForgottenKnowledge", "SetLastBatch", "SetWorkEstimateForBatch", "SetRemainingWorkEstimateForSession", "Serialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncChangeBatchBase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an IEnumSyncChanges object that enumerates the item changes in this change batch.
@@ -332,7 +355,7 @@ class ISyncChangeBatchBase extends IUnknown {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 
@@ -536,5 +559,51 @@ class ISyncChangeBatchBase extends IUnknown {
 
         result := ComCall(16, this, pbChangeBatchMarshal, pbChangeBatch, pcbChangeBatchMarshal, pcbChangeBatch, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncChangeBatchBase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetChangeEnumerator := CallbackCreate(GetMethod(implObj, "GetChangeEnumerator"), flags, 2)
+        this.vtbl.GetIsLastBatch := CallbackCreate(GetMethod(implObj, "GetIsLastBatch"), flags, 2)
+        this.vtbl.GetWorkEstimateForBatch := CallbackCreate(GetMethod(implObj, "GetWorkEstimateForBatch"), flags, 2)
+        this.vtbl.GetRemainingWorkEstimateForSession := CallbackCreate(GetMethod(implObj, "GetRemainingWorkEstimateForSession"), flags, 2)
+        this.vtbl.BeginOrderedGroup := CallbackCreate(GetMethod(implObj, "BeginOrderedGroup"), flags, 2)
+        this.vtbl.EndOrderedGroup := CallbackCreate(GetMethod(implObj, "EndOrderedGroup"), flags, 3)
+        this.vtbl.AddItemMetadataToGroup := CallbackCreate(GetMethod(implObj, "AddItemMetadataToGroup"), flags, 8)
+        this.vtbl.GetLearnedKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledge"), flags, 2)
+        this.vtbl.GetPrerequisiteKnowledge := CallbackCreate(GetMethod(implObj, "GetPrerequisiteKnowledge"), flags, 2)
+        this.vtbl.GetSourceForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetSourceForgottenKnowledge"), flags, 2)
+        this.vtbl.SetLastBatch := CallbackCreate(GetMethod(implObj, "SetLastBatch"), flags, 1)
+        this.vtbl.SetWorkEstimateForBatch := CallbackCreate(GetMethod(implObj, "SetWorkEstimateForBatch"), flags, 2)
+        this.vtbl.SetRemainingWorkEstimateForSession := CallbackCreate(GetMethod(implObj, "SetRemainingWorkEstimateForSession"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetChangeEnumerator)
+        CallbackFree(this.vtbl.GetIsLastBatch)
+        CallbackFree(this.vtbl.GetWorkEstimateForBatch)
+        CallbackFree(this.vtbl.GetRemainingWorkEstimateForSession)
+        CallbackFree(this.vtbl.BeginOrderedGroup)
+        CallbackFree(this.vtbl.EndOrderedGroup)
+        CallbackFree(this.vtbl.AddItemMetadataToGroup)
+        CallbackFree(this.vtbl.GetLearnedKnowledge)
+        CallbackFree(this.vtbl.GetPrerequisiteKnowledge)
+        CallbackFree(this.vtbl.GetSourceForgottenKnowledge)
+        CallbackFree(this.vtbl.SetLastBatch)
+        CallbackFree(this.vtbl.SetWorkEstimateForBatch)
+        CallbackFree(this.vtbl.SetRemainingWorkEstimateForSession)
+        CallbackFree(this.vtbl.Serialize)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of authentication used to connect to Remote Desktop Gateway (RD Gateway).
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-aaauthschemes
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class AAAuthSchemes extends Win32Enum {
+export default struct AAAuthSchemes {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is reserved.

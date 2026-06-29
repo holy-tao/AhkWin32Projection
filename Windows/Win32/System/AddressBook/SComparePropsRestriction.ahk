@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a compare property restriction, which tests two properties using a relational operator.
@@ -14,10 +13,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scomparepropsrestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SComparePropsRestriction extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct SComparePropsRestriction {
+    #StructPack 4
 
     /**
      * > Relational operator to use to compare the two properties. Possible values are as follows:
@@ -35,28 +32,17 @@ class SComparePropsRestriction extends Win32Struct {
      *   - RELOP_RE: The comparison is made based on LIKE (regular expression) values.
      *       
      *   - RELOP_EQ: The comparison is made based on equal values.
-     * @type {Integer}
      */
-    relop {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    relop : UInt32
 
     /**
      * > Property tag of the first property to be compared.
-     * @type {Integer}
      */
-    ulPropTag1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulPropTag1 : UInt32
 
     /**
      * > Property tag of the second property to be compared.
-     * @type {Integer}
      */
-    ulPropTag2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPropTag2 : UInt32
+
 }

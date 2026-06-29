@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D11Fence)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11fence
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Fence extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Fence extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11Fence
      * @type {Guid}
      */
-    static IID => Guid("{affde9d1-1df7-4bb7-8a34-0f46251dab80}")
+    static IID := Guid("{affde9d1-1df7-4bb7-8a34-0f46251dab80}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Fence interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        CreateSharedHandle   : IntPtr
+        GetCompletedValue    : IntPtr
+        SetEventOnCompletion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSharedHandle", "GetCompletedValue", "SetEventOnCompletion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Fence.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a shared handle to a fence object.
@@ -83,8 +95,8 @@ class ID3D11Fence extends ID3D11DeviceChild {
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        pHandle := HANDLE()
-        result := ComCall(7, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "HRESULT")
+        pHandle := HANDLE.Owned()
+        result := ComCall(7, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, "uint", dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -96,7 +108,7 @@ class ID3D11Fence extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11fence-getcompletedvalue
      */
     GetCompletedValue() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, Int64)
         return result
     }
 
@@ -114,9 +126,31 @@ class ID3D11Fence extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11fence-seteventoncompletion
      */
     SetEventOnCompletion(Value, hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(9, this, "uint", Value, "ptr", hEvent, "HRESULT")
+        result := ComCall(9, this, "uint", Value, HANDLE, hEvent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11Fence.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 5)
+        this.vtbl.GetCompletedValue := CallbackCreate(GetMethod(implObj, "GetCompletedValue"), flags, 1)
+        this.vtbl.SetEventOnCompletion := CallbackCreate(GetMethod(implObj, "SetEventOnCompletion"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSharedHandle)
+        CallbackFree(this.vtbl.GetCompletedValue)
+        CallbackFree(this.vtbl.SetEventOnCompletion)
     }
 }

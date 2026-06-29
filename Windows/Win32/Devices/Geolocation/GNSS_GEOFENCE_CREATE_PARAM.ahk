@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_GEOFENCE_STATE.ahk
-#Include .\GNSS_GEOREGION.ahk
-#Include .\GNSS_GEOREGIONTYPE.ahk
-#Include .\GNSS_GEOREGION_CIRCLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GNSS_GEOREGION.ahk" { GNSS_GEOREGION }
+#Import ".\GNSS_GEOFENCE_STATE.ahk" { GNSS_GEOFENCE_STATE }
+#Import ".\GNSS_GEOREGIONTYPE.ahk" { GNSS_GEOREGIONTYPE }
+#Import ".\GNSS_GEOREGION_CIRCLE.ahk" { GNSS_GEOREGION_CIRCLE }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct {
-    static sizeof => 1056
+export default struct GNSS_GEOFENCE_CREATE_PARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AlertTypes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlertTypes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InitialState : GNSS_GEOFENCE_STATE
 
-    /**
-     * @type {GNSS_GEOFENCE_STATE}
-     */
-    InitialState {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Boundary : GNSS_GEOREGION
 
-    /**
-     * @type {GNSS_GEOREGION}
-     */
-    Boundary {
-        get {
-            if(!this.HasProp("__Boundary"))
-                this.__Boundary := GNSS_GEOREGION(16, this)
-            return this.__Boundary
-        }
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 544, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYREGHWVALUES.ahk
-#Include .\JOYRANGE.ahk
-#Include .\JOYPOS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOYREGHWVALUES.ahk" { JOYREGHWVALUES }
+#Import ".\JOYRANGE.ahk" { JOYRANGE }
+#Import ".\JOYPOS.ahk" { JOYPOS }
+#Import ".\JOYREGHWSETTINGS.ahk" { JOYREGHWSETTINGS }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class JOYREGHWCONFIG extends Win32Struct {
-    static sizeof => 112
+export default struct JOYREGHWCONFIG {
+    #StructPack 4
 
-    static packingSize => 4
+    hws : JOYREGHWSETTINGS
 
-    /**
-     * @type {JOYREGHWSETTINGS}
-     */
-    hws {
-        get {
-            if(!this.HasProp("__hws"))
-                this.__hws := JOYREGHWSETTINGS(0, this)
-            return this.__hws
-        }
-    }
+    dwUsageSettings : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUsageSettings {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    hwv : JOYREGHWVALUES
 
-    /**
-     * @type {JOYREGHWVALUES}
-     */
-    hwv {
-        get {
-            if(!this.HasProp("__hwv"))
-                this.__hwv := JOYREGHWVALUES(12, this)
-            return this.__hwv
-        }
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
 }

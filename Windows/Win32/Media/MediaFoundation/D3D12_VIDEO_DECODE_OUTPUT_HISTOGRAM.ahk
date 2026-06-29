@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Represents the histogram output buffer for a single component.
@@ -40,26 +39,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_output_histogram
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM {
+    #StructPack 8
 
     /**
      * The offset location in *pBuffer* to write the component histogram.  Must be 256-byte aligned.  Set to zero when a component is disabled.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Offset : Int64
 
     /**
      * And [ID3D12Resource](../d3d12/nn-d3d12-id3d12resource.md) representing the target buffer for hardware to write the components histogram.  Set to a nullptr when the component histogram is disabled.
-     * @type {ID3D12Resource}
      */
-    pBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pBuffer : ID3D12Resource
+
 }

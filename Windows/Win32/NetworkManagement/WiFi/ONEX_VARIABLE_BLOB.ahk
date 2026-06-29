@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Is used as a member of other 802.1X authentication structures to contain variable-sized members.
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_variable_blob
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_VARIABLE_BLOB extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct ONEX_VARIABLE_BLOB {
+    #StructPack 4
 
     /**
      * The size, in bytes, of this <b>ONEX_VARIABLE_BLOB</b> structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * The offset, in bytes, from the beginning of the containing outer structure (where the <b>ONEX_VARIABLE_BLOB</b> structure is a  member) to the data contained in the <b>ONEX_VARIABLE_BLOB</b> structure.
-     * @type {Integer}
      */
-    dwOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOffset : UInt32
+
 }

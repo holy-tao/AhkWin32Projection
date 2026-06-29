@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class DIMM_ADDRESS extends Win32Struct {
-    static sizeof => 48
+export default struct DIMM_ADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Ddr4 extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
+    struct _Ddr4 {
         /**
          * This bitfield backs the following members:
          * - SocketId
@@ -25,12 +20,9 @@ class DIMM_ADDRESS extends Win32Struct {
          * - Bank
          * - Dq
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -103,36 +95,15 @@ class DIMM_ADDRESS extends Win32Struct {
             get => (this._bitfield >> 28) & 0xF
             set => this._bitfield := ((value & 0xF) << 28) | (this._bitfield & ~(0xF << 28))
         }
+        Row : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Row {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Column : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Column {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        Info : Int64
 
-        /**
-         * @type {Integer}
-         */
-        Info {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
     }
 
-    class _Ddr5 extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
+    struct _Ddr5 {
         /**
          * This bitfield backs the following members:
          * - SocketId
@@ -146,12 +117,9 @@ class DIMM_ADDRESS extends Win32Struct {
          * - Bank
          * - Dq
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -232,51 +200,18 @@ class DIMM_ADDRESS extends Win32Struct {
             get => (this._bitfield >> 38) & 0x1F
             set => this._bitfield := ((value & 0x1F) << 38) | (this._bitfield & ~(0x1F << 38))
         }
+        Row : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Row {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Column : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Column {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        Info : Int64
 
-        /**
-         * @type {Integer}
-         */
-        Info {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
     }
 
-    /**
-     * @type {_Ddr4}
-     */
-    Ddr4 {
-        get {
-            if(!this.HasProp("__Ddr4"))
-                this.__Ddr4 := DIMM_ADDRESS._Ddr4(0, this)
-            return this.__Ddr4
-        }
-    }
+    Ddr4 : DIMM_ADDRESS._Ddr4
 
-    /**
-     * @type {_Ddr5}
-     */
-    Ddr5 {
-        get {
-            if(!this.HasProp("__Ddr5"))
-                this.__Ddr5 := DIMM_ADDRESS._Ddr5(0, this)
-            return this.__Ddr5
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Ddr5', { type: DIMM_ADDRESS._Ddr5, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,17 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ALT_NAME_INFO.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
+#Import ".\CERT_ALT_NAME_INFO.ahk" { CERT_ALT_NAME_INFO }
 
 /**
  * Identifies a location from which the CRL can be obtained.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_dist_point_name
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRL_DIST_POINT_NAME extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRL_DIST_POINT_NAME {
+    #StructPack 8
 
     /**
      * Indicates the variant used for the name data contained in the union. The following values are defined: 
@@ -57,21 +54,9 @@ class CRL_DIST_POINT_NAME extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwDistPointNameChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDistPointNameChoice : UInt32
 
-    /**
-     * @type {CERT_ALT_NAME_INFO}
-     */
-    FullName {
-        get {
-            if(!this.HasProp("__FullName"))
-                this.__FullName := CERT_ALT_NAME_INFO(8, this)
-            return this.__FullName
-        }
-    }
+    FullName : CERT_ALT_NAME_INFO
+
 }

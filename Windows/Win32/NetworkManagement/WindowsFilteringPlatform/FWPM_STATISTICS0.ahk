@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_LAYER_STATISTICS0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_LAYER_STATISTICS0.ahk" { FWPM_LAYER_STATISTICS0 }
 
 /**
  * Stores statistics related to connections at specific layers.
@@ -9,338 +8,149 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_STATISTICS0 extends Win32Struct {
-    static sizeof => 240
-
-    static packingSize => 8
+export default struct FWPM_STATISTICS0 {
+    #StructPack 8
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of [FWPM_LAYER_STATISTICS0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_layer_statistics0) structures in the <b>layerStatistics</b> member.
-     * @type {Integer}
      */
-    numLayerStatistics {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numLayerStatistics : UInt32
 
     /**
      * Type: [FWPM_LAYER_STATISTICS0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_layer_statistics0)*</b>
      * 
      * Statistics related to the layer.
-     * @type {Pointer<FWPM_LAYER_STATISTICS0>}
      */
-    layerStatistics {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    layerStatistics : FWPM_LAYER_STATISTICS0.Ptr
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of allowed IPv4 inbound connections.
-     * @type {Integer}
      */
-    inboundAllowedConnectionsV4 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    inboundAllowedConnectionsV4 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of blocked IPv4 inbound connections.
-     * @type {Integer}
      */
-    inboundBlockedConnectionsV4 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    inboundBlockedConnectionsV4 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of allowed IPv4 outbound connections.
-     * @type {Integer}
      */
-    outboundAllowedConnectionsV4 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    outboundAllowedConnectionsV4 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of blocked IPv4 outbound connections.
-     * @type {Integer}
      */
-    outboundBlockedConnectionsV4 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    outboundBlockedConnectionsV4 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of allowed IPv6 inbound connections.
-     * @type {Integer}
      */
-    inboundAllowedConnectionsV6 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    inboundAllowedConnectionsV6 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of blocked IPv6 inbound connections.
-     * @type {Integer}
      */
-    inboundBlockedConnectionsV6 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    inboundBlockedConnectionsV6 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of allowed IPv6 outbound connections.
-     * @type {Integer}
      */
-    outboundAllowedConnectionsV6 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    outboundAllowedConnectionsV6 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of blocked IPv6 outbound connections.
-     * @type {Integer}
      */
-    outboundBlockedConnectionsV6 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    outboundBlockedConnectionsV6 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of active IPv4 inbound connections.
-     * @type {Integer}
      */
-    inboundActiveConnectionsV4 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    inboundActiveConnectionsV4 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of active IPv4 outbound connections.
-     * @type {Integer}
      */
-    outboundActiveConnectionsV4 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    outboundActiveConnectionsV4 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of active IPv6 inbound connections.
-     * @type {Integer}
      */
-    inboundActiveConnectionsV6 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    inboundActiveConnectionsV6 : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of active IPv6 outbound connections.
-     * @type {Integer}
      */
-    outboundActiveConnectionsV6 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    outboundActiveConnectionsV6 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    reauthDirInbound {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    reauthDirInbound : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthDirOutbound {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    reauthDirOutbound : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthFamilyV4 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    reauthFamilyV4 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthFamilyV6 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    reauthFamilyV6 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoOther {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    reauthProtoOther : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoIPv4 {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    reauthProtoIPv4 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoIPv6 {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    reauthProtoIPv6 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoICMP {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    reauthProtoICMP : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoICMP6 {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    reauthProtoICMP6 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoUDP {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    reauthProtoUDP : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthProtoTCP {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    reauthProtoTCP : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonPolicyChange {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    reauthReasonPolicyChange : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonNewArrivalInterface {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    reauthReasonNewArrivalInterface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonNewNextHopInterface {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    reauthReasonNewNextHopInterface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonProfileCrossing {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    reauthReasonProfileCrossing : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonClassifyCompletion {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    reauthReasonClassifyCompletion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonIPSecPropertiesChanged {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    reauthReasonIPSecPropertiesChanged : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonMidStreamInspection {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    reauthReasonMidStreamInspection : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonSocketPropertyChanged {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    reauthReasonSocketPropertyChanged : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonNewInboundMCastBCastPacket {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    reauthReasonNewInboundMCastBCastPacket : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonEDPPolicyChanged {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    reauthReasonEDPPolicyChanged : Int64
 
-    /**
-     * @type {Integer}
-     */
-    reauthReasonProxyHandleChanged {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
+    reauthReasonProxyHandleChanged : Int64
+
 }

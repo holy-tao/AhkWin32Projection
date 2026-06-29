@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\KSDATAFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSWAVETABLE_WAVE_DESC extends Win32Struct {
-    static sizeof => 80
+export default struct KSWAVETABLE_WAVE_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    Identifier : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Identifier {
-        get {
-            if(!this.HasProp("__Identifier"))
-                this.__Identifier := KSIDENTIFIER(0, this)
-            return this.__Identifier
-        }
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Looped : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Looped {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    LoopPoint : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LoopPoint {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    InROM : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    InROM {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    Format : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    Format {
-        get {
-            if(!this.HasProp("__Format"))
-                this.__Format := KSDATAFORMAT(32, this)
-            return this.__Format
-        }
-    }
 }

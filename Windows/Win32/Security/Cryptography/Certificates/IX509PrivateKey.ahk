@@ -1,38 +1,111 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509PublicKey.ahk
-#Include .\ICspInformations.ahk
-#Include .\ICspStatus.ahk
-#Include .\IObjectId.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509PrivateKeyProtection.ahk" { X509PrivateKeyProtection }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\X509PrivateKeyExportFlags.ahk" { X509PrivateKeyExportFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
+#Import ".\ICspInformations.ahk" { ICspInformations }
+#Import ".\X509PrivateKeyUsageFlags.ahk" { X509PrivateKeyUsageFlags }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\X509ProviderType.ahk" { X509ProviderType }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\ICspStatus.ahk" { ICspStatus }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents an asymmetric private key that can be used for encryption, signing, and key agreement.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509privatekey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509PrivateKey extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509PrivateKey extends IDispatch {
     /**
      * The interface identifier for IX509PrivateKey
      * @type {Guid}
      */
-    static IID => Guid("{728ab30c-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab30c-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509PrivateKey interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Open                    : IntPtr
+        Create                  : IntPtr
+        Close                   : IntPtr
+        Delete                  : IntPtr
+        Verify                  : IntPtr
+        Import                  : IntPtr
+        Export                  : IntPtr
+        ExportPublicKey         : IntPtr
+        get_ContainerName       : IntPtr
+        put_ContainerName       : IntPtr
+        get_ContainerNamePrefix : IntPtr
+        put_ContainerNamePrefix : IntPtr
+        get_ReaderName          : IntPtr
+        put_ReaderName          : IntPtr
+        get_CspInformations     : IntPtr
+        put_CspInformations     : IntPtr
+        get_CspStatus           : IntPtr
+        put_CspStatus           : IntPtr
+        get_ProviderName        : IntPtr
+        put_ProviderName        : IntPtr
+        get_ProviderType        : IntPtr
+        put_ProviderType        : IntPtr
+        get_LegacyCsp           : IntPtr
+        put_LegacyCsp           : IntPtr
+        get_Algorithm           : IntPtr
+        put_Algorithm           : IntPtr
+        get_KeySpec             : IntPtr
+        put_KeySpec             : IntPtr
+        get_Length              : IntPtr
+        put_Length              : IntPtr
+        get_ExportPolicy        : IntPtr
+        put_ExportPolicy        : IntPtr
+        get_KeyUsage            : IntPtr
+        put_KeyUsage            : IntPtr
+        get_KeyProtection       : IntPtr
+        put_KeyProtection       : IntPtr
+        get_MachineContext      : IntPtr
+        put_MachineContext      : IntPtr
+        get_SecurityDescriptor  : IntPtr
+        put_SecurityDescriptor  : IntPtr
+        get_Certificate         : IntPtr
+        put_Certificate         : IntPtr
+        get_UniqueContainerName : IntPtr
+        get_Opened              : IntPtr
+        get_DefaultContainer    : IntPtr
+        get_Existing            : IntPtr
+        put_Existing            : IntPtr
+        get_Silent              : IntPtr
+        put_Silent              : IntPtr
+        get_ParentWindow        : IntPtr
+        put_ParentWindow        : IntPtr
+        get_UIContextMessage    : IntPtr
+        put_UIContextMessage    : IntPtr
+        put_Pin                 : IntPtr
+        get_FriendlyName        : IntPtr
+        put_FriendlyName        : IntPtr
+        get_Description         : IntPtr
+        put_Description         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Create", "Close", "Delete", "Verify", "Import", "Export", "ExportPublicKey", "get_ContainerName", "put_ContainerName", "get_ContainerNamePrefix", "put_ContainerNamePrefix", "get_ReaderName", "put_ReaderName", "get_CspInformations", "put_CspInformations", "get_CspStatus", "put_CspStatus", "get_ProviderName", "put_ProviderName", "get_ProviderType", "put_ProviderType", "get_LegacyCsp", "put_LegacyCsp", "get_Algorithm", "put_Algorithm", "get_KeySpec", "put_KeySpec", "get_Length", "put_Length", "get_ExportPolicy", "put_ExportPolicy", "get_KeyUsage", "put_KeyUsage", "get_KeyProtection", "put_KeyProtection", "get_MachineContext", "put_MachineContext", "get_SecurityDescriptor", "put_SecurityDescriptor", "get_Certificate", "put_Certificate", "get_UniqueContainerName", "get_Opened", "get_DefaultContainer", "get_Existing", "put_Existing", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "put_Pin", "get_FriendlyName", "put_FriendlyName", "get_Description", "put_Description"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509PrivateKey.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -520,7 +593,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-verify
      */
     Verify(VerifyType) {
-        result := ComCall(11, this, "int", VerifyType, "HRESULT")
+        result := ComCall(11, this, X509PrivateKeyVerify, VerifyType, "HRESULT")
         return result
     }
 
@@ -605,7 +678,7 @@ class IX509PrivateKey extends IDispatch {
         strExportType := strExportType is String ? BSTR.Alloc(strExportType).Value : strExportType
         strEncodedKey := strEncodedKey is String ? BSTR.Alloc(strEncodedKey).Value : strEncodedKey
 
-        result := ComCall(12, this, "ptr", strExportType, "ptr", strEncodedKey, "int", Encoding, "HRESULT")
+        result := ComCall(12, this, BSTR, strExportType, BSTR, strEncodedKey, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -621,8 +694,8 @@ class IX509PrivateKey extends IDispatch {
     Export(strExportType, Encoding) {
         strExportType := strExportType is String ? BSTR.Alloc(strExportType).Value : strExportType
 
-        pstrEncodedKey := BSTR()
-        result := ComCall(13, this, "ptr", strExportType, "int", Encoding, "ptr", pstrEncodedKey, "HRESULT")
+        pstrEncodedKey := BSTR.Owned()
+        result := ComCall(13, this, BSTR, strExportType, EncodingType, Encoding, BSTR.Ptr, pstrEncodedKey, "HRESULT")
         return pstrEncodedKey
     }
 
@@ -646,8 +719,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_containername
      */
     get_ContainerName() {
-        pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -662,7 +735,7 @@ class IX509PrivateKey extends IDispatch {
     put_ContainerName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(16, this, "ptr", Value, "HRESULT")
+        result := ComCall(16, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -674,8 +747,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix
      */
     get_ContainerNamePrefix() {
-        pValue := BSTR()
-        result := ComCall(17, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -690,7 +763,7 @@ class IX509PrivateKey extends IDispatch {
     put_ContainerNamePrefix(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(18, this, "ptr", Value, "HRESULT")
+        result := ComCall(18, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -702,8 +775,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_readername
      */
     get_ReaderName() {
-        pValue := BSTR()
-        result := ComCall(19, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -718,7 +791,7 @@ class IX509PrivateKey extends IDispatch {
     put_ReaderName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(20, this, "ptr", Value, "HRESULT")
+        result := ComCall(20, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -808,8 +881,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_providername
      */
     get_ProviderName() {
-        pValue := BSTR()
-        result := ComCall(25, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -852,7 +925,7 @@ class IX509PrivateKey extends IDispatch {
     put_ProviderName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(26, this, "ptr", Value, "HRESULT")
+        result := ComCall(26, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -929,7 +1002,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_providertype
      */
     put_ProviderType(Value) {
-        result := ComCall(28, this, "int", Value, "HRESULT")
+        result := ComCall(28, this, X509ProviderType, Value, "HRESULT")
         return result
     }
 
@@ -965,7 +1038,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp
      */
     get_LegacyCsp() {
-        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1002,7 +1075,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_legacycsp
      */
     put_LegacyCsp(Value) {
-        result := ComCall(30, this, "short", Value, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -1054,7 +1127,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_keyspec
      */
     put_KeySpec(Value) {
-        result := ComCall(34, this, "int", Value, "HRESULT")
+        result := ComCall(34, this, X509KeySpec, Value, "HRESULT")
         return result
     }
 
@@ -1096,7 +1169,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_exportpolicy
      */
     put_ExportPolicy(Value) {
-        result := ComCall(38, this, "int", Value, "HRESULT")
+        result := ComCall(38, this, X509PrivateKeyExportFlags, Value, "HRESULT")
         return result
     }
 
@@ -1123,7 +1196,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_keyusage
      */
     put_KeyUsage(Value) {
-        result := ComCall(40, this, "int", Value, "HRESULT")
+        result := ComCall(40, this, X509PrivateKeyUsageFlags, Value, "HRESULT")
         return result
     }
 
@@ -1144,7 +1217,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_keyprotection
      */
     put_KeyProtection(Value) {
-        result := ComCall(42, this, "int", Value, "HRESULT")
+        result := ComCall(42, this, X509PrivateKeyProtection, Value, "HRESULT")
         return result
     }
 
@@ -1154,7 +1227,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_machinecontext
      */
     get_MachineContext() {
-        result := ComCall(43, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1165,7 +1238,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_machinecontext
      */
     put_MachineContext(Value) {
-        result := ComCall(44, this, "short", Value, "HRESULT")
+        result := ComCall(44, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -1185,8 +1258,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_securitydescriptor
      */
     get_SecurityDescriptor() {
-        pValue := BSTR()
-        result := ComCall(45, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(45, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1209,7 +1282,7 @@ class IX509PrivateKey extends IDispatch {
     put_SecurityDescriptor(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(46, this, "ptr", Value, "HRESULT")
+        result := ComCall(46, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -1224,8 +1297,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
-        result := ComCall(47, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(47, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1243,7 +1316,7 @@ class IX509PrivateKey extends IDispatch {
     put_Certificate(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(48, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(48, this, EncodingType, Encoding, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -1255,8 +1328,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_uniquecontainername
      */
     get_UniqueContainerName() {
-        pValue := BSTR()
-        result := ComCall(49, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(49, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1268,7 +1341,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_opened
      */
     get_Opened() {
-        result := ComCall(50, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1282,7 +1355,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_defaultcontainer
      */
     get_DefaultContainer() {
-        result := ComCall(51, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(51, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1294,7 +1367,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_existing
      */
     get_Existing() {
-        result := ComCall(52, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(52, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1307,7 +1380,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_existing
      */
     put_Existing(Value) {
-        result := ComCall(53, this, "short", Value, "HRESULT")
+        result := ComCall(53, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -1319,7 +1392,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_silent
      */
     get_Silent() {
-        result := ComCall(54, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(54, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1332,7 +1405,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(55, this, "short", Value, "HRESULT")
+        result := ComCall(55, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -1363,8 +1436,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage
      */
     get_UIContextMessage() {
-        pValue := BSTR()
-        result := ComCall(58, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(58, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1377,7 +1450,7 @@ class IX509PrivateKey extends IDispatch {
     put_UIContextMessage(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(59, this, "ptr", Value, "HRESULT")
+        result := ComCall(59, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -1390,7 +1463,7 @@ class IX509PrivateKey extends IDispatch {
     put_Pin(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(60, this, "ptr", Value, "HRESULT")
+        result := ComCall(60, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -1402,8 +1475,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_friendlyname
      */
     get_FriendlyName() {
-        pValue := BSTR()
-        result := ComCall(61, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(61, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1418,7 +1491,7 @@ class IX509PrivateKey extends IDispatch {
     put_FriendlyName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(62, this, "ptr", Value, "HRESULT")
+        result := ComCall(62, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -1430,8 +1503,8 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_description
      */
     get_Description() {
-        pValue := BSTR()
-        result := ComCall(63, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(63, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1446,7 +1519,141 @@ class IX509PrivateKey extends IDispatch {
     put_Description(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(64, this, "ptr", Value, "HRESULT")
+        result := ComCall(64, this, BSTR, Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509PrivateKey.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Verify := CallbackCreate(GetMethod(implObj, "Verify"), flags, 2)
+        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 4)
+        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 4)
+        this.vtbl.ExportPublicKey := CallbackCreate(GetMethod(implObj, "ExportPublicKey"), flags, 2)
+        this.vtbl.get_ContainerName := CallbackCreate(GetMethod(implObj, "get_ContainerName"), flags, 2)
+        this.vtbl.put_ContainerName := CallbackCreate(GetMethod(implObj, "put_ContainerName"), flags, 2)
+        this.vtbl.get_ContainerNamePrefix := CallbackCreate(GetMethod(implObj, "get_ContainerNamePrefix"), flags, 2)
+        this.vtbl.put_ContainerNamePrefix := CallbackCreate(GetMethod(implObj, "put_ContainerNamePrefix"), flags, 2)
+        this.vtbl.get_ReaderName := CallbackCreate(GetMethod(implObj, "get_ReaderName"), flags, 2)
+        this.vtbl.put_ReaderName := CallbackCreate(GetMethod(implObj, "put_ReaderName"), flags, 2)
+        this.vtbl.get_CspInformations := CallbackCreate(GetMethod(implObj, "get_CspInformations"), flags, 2)
+        this.vtbl.put_CspInformations := CallbackCreate(GetMethod(implObj, "put_CspInformations"), flags, 2)
+        this.vtbl.get_CspStatus := CallbackCreate(GetMethod(implObj, "get_CspStatus"), flags, 2)
+        this.vtbl.put_CspStatus := CallbackCreate(GetMethod(implObj, "put_CspStatus"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.put_ProviderName := CallbackCreate(GetMethod(implObj, "put_ProviderName"), flags, 2)
+        this.vtbl.get_ProviderType := CallbackCreate(GetMethod(implObj, "get_ProviderType"), flags, 2)
+        this.vtbl.put_ProviderType := CallbackCreate(GetMethod(implObj, "put_ProviderType"), flags, 2)
+        this.vtbl.get_LegacyCsp := CallbackCreate(GetMethod(implObj, "get_LegacyCsp"), flags, 2)
+        this.vtbl.put_LegacyCsp := CallbackCreate(GetMethod(implObj, "put_LegacyCsp"), flags, 2)
+        this.vtbl.get_Algorithm := CallbackCreate(GetMethod(implObj, "get_Algorithm"), flags, 2)
+        this.vtbl.put_Algorithm := CallbackCreate(GetMethod(implObj, "put_Algorithm"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.put_KeySpec := CallbackCreate(GetMethod(implObj, "put_KeySpec"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.put_Length := CallbackCreate(GetMethod(implObj, "put_Length"), flags, 2)
+        this.vtbl.get_ExportPolicy := CallbackCreate(GetMethod(implObj, "get_ExportPolicy"), flags, 2)
+        this.vtbl.put_ExportPolicy := CallbackCreate(GetMethod(implObj, "put_ExportPolicy"), flags, 2)
+        this.vtbl.get_KeyUsage := CallbackCreate(GetMethod(implObj, "get_KeyUsage"), flags, 2)
+        this.vtbl.put_KeyUsage := CallbackCreate(GetMethod(implObj, "put_KeyUsage"), flags, 2)
+        this.vtbl.get_KeyProtection := CallbackCreate(GetMethod(implObj, "get_KeyProtection"), flags, 2)
+        this.vtbl.put_KeyProtection := CallbackCreate(GetMethod(implObj, "put_KeyProtection"), flags, 2)
+        this.vtbl.get_MachineContext := CallbackCreate(GetMethod(implObj, "get_MachineContext"), flags, 2)
+        this.vtbl.put_MachineContext := CallbackCreate(GetMethod(implObj, "put_MachineContext"), flags, 2)
+        this.vtbl.get_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "get_SecurityDescriptor"), flags, 2)
+        this.vtbl.put_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "put_SecurityDescriptor"), flags, 2)
+        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.put_Certificate := CallbackCreate(GetMethod(implObj, "put_Certificate"), flags, 3)
+        this.vtbl.get_UniqueContainerName := CallbackCreate(GetMethod(implObj, "get_UniqueContainerName"), flags, 2)
+        this.vtbl.get_Opened := CallbackCreate(GetMethod(implObj, "get_Opened"), flags, 2)
+        this.vtbl.get_DefaultContainer := CallbackCreate(GetMethod(implObj, "get_DefaultContainer"), flags, 2)
+        this.vtbl.get_Existing := CallbackCreate(GetMethod(implObj, "get_Existing"), flags, 2)
+        this.vtbl.put_Existing := CallbackCreate(GetMethod(implObj, "put_Existing"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_UIContextMessage := CallbackCreate(GetMethod(implObj, "get_UIContextMessage"), flags, 2)
+        this.vtbl.put_UIContextMessage := CallbackCreate(GetMethod(implObj, "put_UIContextMessage"), flags, 2)
+        this.vtbl.put_Pin := CallbackCreate(GetMethod(implObj, "put_Pin"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.put_FriendlyName := CallbackCreate(GetMethod(implObj, "put_FriendlyName"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Verify)
+        CallbackFree(this.vtbl.Import)
+        CallbackFree(this.vtbl.Export)
+        CallbackFree(this.vtbl.ExportPublicKey)
+        CallbackFree(this.vtbl.get_ContainerName)
+        CallbackFree(this.vtbl.put_ContainerName)
+        CallbackFree(this.vtbl.get_ContainerNamePrefix)
+        CallbackFree(this.vtbl.put_ContainerNamePrefix)
+        CallbackFree(this.vtbl.get_ReaderName)
+        CallbackFree(this.vtbl.put_ReaderName)
+        CallbackFree(this.vtbl.get_CspInformations)
+        CallbackFree(this.vtbl.put_CspInformations)
+        CallbackFree(this.vtbl.get_CspStatus)
+        CallbackFree(this.vtbl.put_CspStatus)
+        CallbackFree(this.vtbl.get_ProviderName)
+        CallbackFree(this.vtbl.put_ProviderName)
+        CallbackFree(this.vtbl.get_ProviderType)
+        CallbackFree(this.vtbl.put_ProviderType)
+        CallbackFree(this.vtbl.get_LegacyCsp)
+        CallbackFree(this.vtbl.put_LegacyCsp)
+        CallbackFree(this.vtbl.get_Algorithm)
+        CallbackFree(this.vtbl.put_Algorithm)
+        CallbackFree(this.vtbl.get_KeySpec)
+        CallbackFree(this.vtbl.put_KeySpec)
+        CallbackFree(this.vtbl.get_Length)
+        CallbackFree(this.vtbl.put_Length)
+        CallbackFree(this.vtbl.get_ExportPolicy)
+        CallbackFree(this.vtbl.put_ExportPolicy)
+        CallbackFree(this.vtbl.get_KeyUsage)
+        CallbackFree(this.vtbl.put_KeyUsage)
+        CallbackFree(this.vtbl.get_KeyProtection)
+        CallbackFree(this.vtbl.put_KeyProtection)
+        CallbackFree(this.vtbl.get_MachineContext)
+        CallbackFree(this.vtbl.put_MachineContext)
+        CallbackFree(this.vtbl.get_SecurityDescriptor)
+        CallbackFree(this.vtbl.put_SecurityDescriptor)
+        CallbackFree(this.vtbl.get_Certificate)
+        CallbackFree(this.vtbl.put_Certificate)
+        CallbackFree(this.vtbl.get_UniqueContainerName)
+        CallbackFree(this.vtbl.get_Opened)
+        CallbackFree(this.vtbl.get_DefaultContainer)
+        CallbackFree(this.vtbl.get_Existing)
+        CallbackFree(this.vtbl.put_Existing)
+        CallbackFree(this.vtbl.get_Silent)
+        CallbackFree(this.vtbl.put_Silent)
+        CallbackFree(this.vtbl.get_ParentWindow)
+        CallbackFree(this.vtbl.put_ParentWindow)
+        CallbackFree(this.vtbl.get_UIContextMessage)
+        CallbackFree(this.vtbl.put_UIContextMessage)
+        CallbackFree(this.vtbl.put_Pin)
+        CallbackFree(this.vtbl.get_FriendlyName)
+        CallbackFree(this.vtbl.put_FriendlyName)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
     }
 }

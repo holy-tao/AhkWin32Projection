@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include .\ITraceEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITraceEvent.ahk" { ITraceEvent }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITraceEventCallback.ahk" { ITraceEventCallback }
 
 /**
  * Provides access to the relogging functionality, allowing you to manipulate and relog events from an ETW trace stream.
@@ -11,26 +15,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itracerelogger
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ITraceRelogger extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITraceRelogger extends IUnknown {
     /**
      * The interface identifier for ITraceRelogger
      * @type {Guid}
      */
-    static IID => Guid("{f754ad43-3bcc-4286-8009-9c5da214e84e}")
+    static IID := Guid("{f754ad43-3bcc-4286-8009-9c5da214e84e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITraceRelogger interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddLogfileTraceStream  : IntPtr
+        AddRealtimeTraceStream : IntPtr
+        RegisterCallback       : IntPtr
+        Inject                 : IntPtr
+        CreateEventInstance    : IntPtr
+        ProcessTrace           : IntPtr
+        SetOutputFilename      : IntPtr
+        SetCompressionMode     : IntPtr
+        Cancel                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddLogfileTraceStream", "AddRealtimeTraceStream", "RegisterCallback", "Inject", "CreateEventInstance", "ProcessTrace", "SetOutputFilename", "SetCompressionMode", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITraceRelogger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a new logfile-based ETW trace stream to the relogger.
@@ -50,7 +69,7 @@ class ITraceRelogger extends IUnknown {
 
         UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", LogfileName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, LogfileName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
         return TraceStreamId
     }
 
@@ -72,7 +91,7 @@ class ITraceRelogger extends IUnknown {
 
         UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", LoggerName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
+        result := ComCall(4, this, BSTR, LoggerName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
         return TraceStreamId
     }
 
@@ -155,7 +174,7 @@ class ITraceRelogger extends IUnknown {
     SetOutputFilename(LogfileName) {
         LogfileName := LogfileName is String ? BSTR.Alloc(LogfileName).Value : LogfileName
 
-        result := ComCall(9, this, "ptr", LogfileName, "HRESULT")
+        result := ComCall(9, this, BSTR, LogfileName, "HRESULT")
         return result
     }
 
@@ -179,7 +198,7 @@ class ITraceRelogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-setcompressionmode
      */
     SetCompressionMode(CompressionMode) {
-        result := ComCall(10, this, "char", CompressionMode, "HRESULT")
+        result := ComCall(10, this, BOOLEAN, CompressionMode, "HRESULT")
         return result
     }
 
@@ -193,5 +212,41 @@ class ITraceRelogger extends IUnknown {
     Cancel() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITraceRelogger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddLogfileTraceStream := CallbackCreate(GetMethod(implObj, "AddLogfileTraceStream"), flags, 4)
+        this.vtbl.AddRealtimeTraceStream := CallbackCreate(GetMethod(implObj, "AddRealtimeTraceStream"), flags, 4)
+        this.vtbl.RegisterCallback := CallbackCreate(GetMethod(implObj, "RegisterCallback"), flags, 2)
+        this.vtbl.Inject := CallbackCreate(GetMethod(implObj, "Inject"), flags, 2)
+        this.vtbl.CreateEventInstance := CallbackCreate(GetMethod(implObj, "CreateEventInstance"), flags, 4)
+        this.vtbl.ProcessTrace := CallbackCreate(GetMethod(implObj, "ProcessTrace"), flags, 1)
+        this.vtbl.SetOutputFilename := CallbackCreate(GetMethod(implObj, "SetOutputFilename"), flags, 2)
+        this.vtbl.SetCompressionMode := CallbackCreate(GetMethod(implObj, "SetCompressionMode"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddLogfileTraceStream)
+        CallbackFree(this.vtbl.AddRealtimeTraceStream)
+        CallbackFree(this.vtbl.RegisterCallback)
+        CallbackFree(this.vtbl.Inject)
+        CallbackFree(this.vtbl.CreateEventInstance)
+        CallbackFree(this.vtbl.ProcessTrace)
+        CallbackFree(this.vtbl.SetOutputFilename)
+        CallbackFree(this.vtbl.SetCompressionMode)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the values that specify the type of information to access from the event.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_render_context_flags
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_RENDER_CONTEXT_FLAGS extends Win32Enum {
+export default struct EVT_RENDER_CONTEXT_FLAGS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Render specific properties from the event.

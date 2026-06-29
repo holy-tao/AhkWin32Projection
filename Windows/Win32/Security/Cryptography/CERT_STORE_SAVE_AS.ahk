@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The certificate store can be saved as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">PKCS #7</a> signed message that does not include additional properties. The <i>dwEncodingType</i> parameter specifies the message encoding type.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsavestore
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_STORE_SAVE_AS extends Win32Enum {
+export default struct CERT_STORE_SAVE_AS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

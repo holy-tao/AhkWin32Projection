@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DMUS_LFOPARAMS.ahk
-#Include .\DMUS_VEGPARAMS.ahk
-#Include .\DMUS_PEGPARAMS.ahk
-#Include .\DMUS_MSCPARAMS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DMUS_VEGPARAMS.ahk" { DMUS_VEGPARAMS }
+#Import ".\DMUS_PEGPARAMS.ahk" { DMUS_PEGPARAMS }
+#Import ".\DMUS_MSCPARAMS.ahk" { DMUS_MSCPARAMS }
+#Import ".\DMUS_LFOPARAMS.ahk" { DMUS_LFOPARAMS }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_ARTICPARAMS extends Win32Struct {
-    static sizeof => 80
+export default struct DMUS_ARTICPARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    LFO : DMUS_LFOPARAMS
 
-    /**
-     * @type {DMUS_LFOPARAMS}
-     */
-    LFO {
-        get {
-            if(!this.HasProp("__LFO"))
-                this.__LFO := DMUS_LFOPARAMS(0, this)
-            return this.__LFO
-        }
-    }
+    VolEG : DMUS_VEGPARAMS
 
-    /**
-     * @type {DMUS_VEGPARAMS}
-     */
-    VolEG {
-        get {
-            if(!this.HasProp("__VolEG"))
-                this.__VolEG := DMUS_VEGPARAMS(24, this)
-            return this.__VolEG
-        }
-    }
+    PitchEG : DMUS_PEGPARAMS
 
-    /**
-     * @type {DMUS_PEGPARAMS}
-     */
-    PitchEG {
-        get {
-            if(!this.HasProp("__PitchEG"))
-                this.__PitchEG := DMUS_PEGPARAMS(48, this)
-            return this.__PitchEG
-        }
-    }
+    Misc : DMUS_MSCPARAMS
 
-    /**
-     * @type {DMUS_MSCPARAMS}
-     */
-    Misc {
-        get {
-            if(!this.HasProp("__Misc"))
-                this.__Misc := DMUS_MSCPARAMS(76, this)
-            return this.__Misc
-        }
-    }
 }

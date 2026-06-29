@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Direct2D\ID2D1Image.ahk" { ID2D1Image }
+#Import "..\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
+#Import "..\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
+#Import "..\WICImageParameters.ahk" { WICImageParameters }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Encodes ID2D1Image interfaces to an IWICBitmapEncoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicimageencoder
  * @namespace Windows.Win32.Graphics.Imaging.D2D
  */
-class IWICImageEncoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICImageEncoder extends IUnknown {
     /**
      * The interface identifier for IWICImageEncoder
      * @type {Guid}
      */
-    static IID => Guid("{04c75bf8-3ce1-473b-acc5-3cc4f5e94999}")
+    static IID := Guid("{04c75bf8-3ce1-473b-acc5-3cc4f5e94999}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICImageEncoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        WriteFrame          : IntPtr
+        WriteFrameThumbnail : IntPtr
+        WriteThumbnail      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WriteFrame", "WriteFrameThumbnail", "WriteThumbnail"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICImageEncoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Encodes the image to the frame given by the IWICBitmapFrameEncode.
@@ -52,7 +66,7 @@ class IWICImageEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimageencoder-writeframe
      */
     WriteFrame(pImage, pFrameEncode, pImageParameters) {
-        result := ComCall(3, this, "ptr", pImage, "ptr", pFrameEncode, "ptr", pImageParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pImage, "ptr", pFrameEncode, WICImageParameters.Ptr, pImageParameters, "HRESULT")
         return result
     }
 
@@ -79,7 +93,7 @@ class IWICImageEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimageencoder-writeframethumbnail
      */
     WriteFrameThumbnail(pImage, pFrameEncode, pImageParameters) {
-        result := ComCall(4, this, "ptr", pImage, "ptr", pFrameEncode, "ptr", pImageParameters, "HRESULT")
+        result := ComCall(4, this, "ptr", pImage, "ptr", pFrameEncode, WICImageParameters.Ptr, pImageParameters, "HRESULT")
         return result
     }
 
@@ -106,7 +120,31 @@ class IWICImageEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimageencoder-writethumbnail
      */
     WriteThumbnail(pImage, pEncoder, pImageParameters) {
-        result := ComCall(5, this, "ptr", pImage, "ptr", pEncoder, "ptr", pImageParameters, "HRESULT")
+        result := ComCall(5, this, "ptr", pImage, "ptr", pEncoder, WICImageParameters.Ptr, pImageParameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICImageEncoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WriteFrame := CallbackCreate(GetMethod(implObj, "WriteFrame"), flags, 4)
+        this.vtbl.WriteFrameThumbnail := CallbackCreate(GetMethod(implObj, "WriteFrameThumbnail"), flags, 4)
+        this.vtbl.WriteThumbnail := CallbackCreate(GetMethod(implObj, "WriteThumbnail"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WriteFrame)
+        CallbackFree(this.vtbl.WriteFrameThumbnail)
+        CallbackFree(this.vtbl.WriteThumbnail)
     }
 }

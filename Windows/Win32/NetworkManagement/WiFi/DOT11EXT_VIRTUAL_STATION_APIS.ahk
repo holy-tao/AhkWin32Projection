@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11EXT_VIRTUAL_STATION_APIS extends Win32Struct {
-    static sizeof => 32
+export default struct DOT11EXT_VIRTUAL_STATION_APIS {
+    #StructPack 8
 
-    static packingSize => 8
+    Dot11ExtRequestVirtualStation : IntPtr
 
-    /**
-     * @type {Pointer<DOT11EXT_REQUEST_VIRTUAL_STATION>}
-     */
-    Dot11ExtRequestVirtualStation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Dot11ExtReleaseVirtualStation : IntPtr
 
-    /**
-     * @type {Pointer<DOT11EXT_RELEASE_VIRTUAL_STATION>}
-     */
-    Dot11ExtReleaseVirtualStation {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Dot11ExtQueryVirtualStationProperties : IntPtr
 
-    /**
-     * @type {Pointer<DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES>}
-     */
-    Dot11ExtQueryVirtualStationProperties {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Dot11ExtSetVirtualStationAPProperties : IntPtr
 
-    /**
-     * @type {Pointer<DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES>}
-     */
-    Dot11ExtSetVirtualStationAPProperties {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

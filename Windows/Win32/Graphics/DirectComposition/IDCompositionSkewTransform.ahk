@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Represents a 2D transformation that affects the skew of a visual along the x-axis and y-axis. The coordinate system is skewed around the specified center point.
@@ -14,26 +16,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionskewtransform
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionSkewTransform extends IDCompositionTransform {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionSkewTransform extends IDCompositionTransform {
     /**
      * The interface identifier for IDCompositionSkewTransform
      * @type {Guid}
      */
-    static IID => Guid("{e57aa735-dcdb-4c72-9c61-0591f58889ee}")
+    static IID := Guid("{e57aa735-dcdb-4c72-9c61-0591f58889ee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionSkewTransform interfaces
+    */
+    struct Vtbl extends IDCompositionTransform.Vtbl {
+        SetAngleX   : IntPtr
+        SetAngleX1  : IntPtr
+        SetAngleY   : IntPtr
+        SetAngleY1  : IntPtr
+        SetCenterX  : IntPtr
+        SetCenterX1 : IntPtr
+        SetCenterY  : IntPtr
+        SetCenterY1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAngleX", "SetAngleX1", "SetAngleY", "SetAngleY1", "SetCenterX", "SetCenterX1", "SetCenterY", "SetCenterY1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionSkewTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Changes the value of the AngleX property of a 2D skew transform.
@@ -189,5 +205,39 @@ class IDCompositionSkewTransform extends IDCompositionTransform {
     SetCenterY1(centerY) {
         result := ComCall(10, this, "float", centerY, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionSkewTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAngleX := CallbackCreate(GetMethod(implObj, "SetAngleX"), flags, 2)
+        this.vtbl.SetAngleX1 := CallbackCreate(GetMethod(implObj, "SetAngleX1"), flags, 2)
+        this.vtbl.SetAngleY := CallbackCreate(GetMethod(implObj, "SetAngleY"), flags, 2)
+        this.vtbl.SetAngleY1 := CallbackCreate(GetMethod(implObj, "SetAngleY1"), flags, 2)
+        this.vtbl.SetCenterX := CallbackCreate(GetMethod(implObj, "SetCenterX"), flags, 2)
+        this.vtbl.SetCenterX1 := CallbackCreate(GetMethod(implObj, "SetCenterX1"), flags, 2)
+        this.vtbl.SetCenterY := CallbackCreate(GetMethod(implObj, "SetCenterY"), flags, 2)
+        this.vtbl.SetCenterY1 := CallbackCreate(GetMethod(implObj, "SetCenterY1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAngleX)
+        CallbackFree(this.vtbl.SetAngleX1)
+        CallbackFree(this.vtbl.SetAngleY)
+        CallbackFree(this.vtbl.SetAngleY1)
+        CallbackFree(this.vtbl.SetCenterX)
+        CallbackFree(this.vtbl.SetCenterX1)
+        CallbackFree(this.vtbl.SetCenterY)
+        CallbackFree(this.vtbl.SetCenterY1)
     }
 }

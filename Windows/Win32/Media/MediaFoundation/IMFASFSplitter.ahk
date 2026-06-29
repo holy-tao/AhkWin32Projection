@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ASF_STATUSFLAGS.ahk" { ASF_STATUSFLAGS }
 
 /**
  * Provides methods to read data from an Advanced Systems Format (ASF) file.
@@ -10,26 +15,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfsplitter
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFASFSplitter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFASFSplitter extends IUnknown {
     /**
      * The interface identifier for IMFASFSplitter
      * @type {Guid}
      */
-    static IID => Guid("{12558295-e399-11d5-bc2a-00b0d0f3f4ab}")
+    static IID := Guid("{12558295-e399-11d5-bc2a-00b0d0f3f4ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFASFSplitter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize         : IntPtr
+        SetFlags           : IntPtr
+        GetFlags           : IntPtr
+        SelectStreams      : IntPtr
+        GetSelectedStreams : IntPtr
+        ParseData          : IntPtr
+        GetNextSample      : IntPtr
+        Flush              : IntPtr
+        GetLastSendTime    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SetFlags", "GetFlags", "SelectStreams", "GetSelectedStreams", "ParseData", "GetNextSample", "Flush", "GetLastSendTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFASFSplitter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resets the Advanced Systems Format (ASF) splitter and configures it to parse data from an ASF data section.
@@ -395,7 +415,7 @@ class IMFASFSplitter extends IUnknown {
         pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "int*" : "ptr"
         pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, pdwStatusFlagsMarshal, pdwStatusFlags, pwStreamNumberMarshal, pwStreamNumber, "ptr*", ppISample, "HRESULT")
+        result := ComCall(9, this, pdwStatusFlagsMarshal, pdwStatusFlags, pwStreamNumberMarshal, pwStreamNumber, IMFSample.Ptr, ppISample, "HRESULT")
         return result
     }
 
@@ -437,5 +457,41 @@ class IMFASFSplitter extends IUnknown {
     GetLastSendTime() {
         result := ComCall(11, this, "uint*", &pdwLastSendTime := 0, "HRESULT")
         return pdwLastSendTime
+    }
+
+    Query(iid) {
+        if (IMFASFSplitter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SelectStreams := CallbackCreate(GetMethod(implObj, "SelectStreams"), flags, 3)
+        this.vtbl.GetSelectedStreams := CallbackCreate(GetMethod(implObj, "GetSelectedStreams"), flags, 3)
+        this.vtbl.ParseData := CallbackCreate(GetMethod(implObj, "ParseData"), flags, 4)
+        this.vtbl.GetNextSample := CallbackCreate(GetMethod(implObj, "GetNextSample"), flags, 4)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.GetLastSendTime := CallbackCreate(GetMethod(implObj, "GetLastSendTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.SelectStreams)
+        CallbackFree(this.vtbl.GetSelectedStreams)
+        CallbackFree(this.vtbl.ParseData)
+        CallbackFree(this.vtbl.GetNextSample)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.GetLastSendTime)
     }
 }

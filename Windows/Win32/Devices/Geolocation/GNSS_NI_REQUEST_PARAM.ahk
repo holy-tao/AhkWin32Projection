@@ -1,114 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_NI_REQUEST_TYPE.ahk
-#Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
-#Include .\GNSS_NI_PLANE_TYPE.ahk
-#Include .\GNSS_SUPL_NI_INFO.ahk
-#Include .\GNSS_CP_NI_INFO.ahk
-#Include .\GNSS_V2UPL_NI_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GNSS_NI_PLANE_TYPE.ahk" { GNSS_NI_PLANE_TYPE }
+#Import ".\GNSS_NI_REQUEST_TYPE.ahk" { GNSS_NI_REQUEST_TYPE }
+#Import ".\GNSS_V2UPL_NI_INFO.ahk" { GNSS_V2UPL_NI_INFO }
+#Import ".\GNSS_SUPL_NI_INFO.ahk" { GNSS_SUPL_NI_INFO }
+#Import ".\GNSS_CP_NI_INFO.ahk" { GNSS_CP_NI_INFO }
+#Import ".\GNSS_NI_NOTIFICATION_TYPE.ahk" { GNSS_NI_NOTIFICATION_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_NI_REQUEST_PARAM extends Win32Struct {
-    static sizeof => 1340
+export default struct GNSS_NI_REQUEST_PARAM {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RequestId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RequestType : GNSS_NI_REQUEST_TYPE
 
-    /**
-     * @type {GNSS_NI_REQUEST_TYPE}
-     */
-    RequestType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    NotificationType : GNSS_NI_NOTIFICATION_TYPE
 
-    /**
-     * @type {GNSS_NI_NOTIFICATION_TYPE}
-     */
-    NotificationType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    RequestPlaneType : GNSS_NI_PLANE_TYPE
 
-    /**
-     * @type {GNSS_NI_PLANE_TYPE}
-     */
-    RequestPlaneType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    SuplNiInfo : GNSS_SUPL_NI_INFO
 
-    /**
-     * @type {GNSS_SUPL_NI_INFO}
-     */
-    SuplNiInfo {
-        get {
-            if(!this.HasProp("__SuplNiInfo"))
-                this.__SuplNiInfo := GNSS_SUPL_NI_INFO(24, this)
-            return this.__SuplNiInfo
-        }
-    }
+    ResponseTimeInSec : UInt32
 
-    /**
-     * @type {GNSS_CP_NI_INFO}
-     */
-    CpNiInfo {
-        get {
-            if(!this.HasProp("__CpNiInfo"))
-                this.__CpNiInfo := GNSS_CP_NI_INFO(24, this)
-            return this.__CpNiInfo
-        }
-    }
+    EmergencyLocation : BOOL
 
-    /**
-     * @type {GNSS_V2UPL_NI_INFO}
-     */
-    V2UplNiInfo {
-        get {
-            if(!this.HasProp("__V2UplNiInfo"))
-                this.__V2UplNiInfo := GNSS_V2UPL_NI_INFO(24, this)
-            return this.__V2UplNiInfo
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ResponseTimeInSec {
-        get => NumGet(this, 1332, "uint")
-        set => NumPut("uint", value, this, 1332)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    EmergencyLocation {
-        get => NumGet(this, 1336, "int")
-        set => NumPut("int", value, this, 1336)
+    static __New() {
+        DefineProp(this.Prototype, 'CpNiInfo', { type: GNSS_CP_NI_INFO, offset: 24 })
+        DefineProp(this.Prototype, 'V2UplNiInfo', { type: GNSS_V2UPL_NI_INFO, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

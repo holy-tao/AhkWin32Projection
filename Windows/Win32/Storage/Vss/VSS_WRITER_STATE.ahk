@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the current state of the writer.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_writer_state
  * @namespace Windows.Win32.Storage.Vss
  */
-class VSS_WRITER_STATE extends Win32Enum {
+export default struct VSS_WRITER_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The writer's state is not known. 

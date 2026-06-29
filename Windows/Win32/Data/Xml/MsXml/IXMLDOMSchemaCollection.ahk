@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IXMLDOMNode.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLDOMSchemaCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXMLDOMSchemaCollection extends IDispatch {
     /**
      * The interface identifier for IXMLDOMSchemaCollection
      * @type {Guid}
      */
-    static IID => Guid("{373984c8-b845-449b-91e7-45ac83036ade}")
+    static IID := Guid("{373984c8-b845-449b-91e7-45ac83036ade}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLDOMSchemaCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        add              : IntPtr
+        get              : IntPtr
+        remove           : IntPtr
+        get_length       : IntPtr
+        get_namespaceURI : IntPtr
+        addCollection    : IntPtr
+        get__newEnum     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["add", "get", "remove", "get_length", "get_namespaceURI", "addCollection", "get__newEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLDOMSchemaCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -82,25 +97,19 @@ class IXMLDOMSchemaCollection extends IDispatch {
     add(namespaceURI, var) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(7, this, "ptr", namespaceURI, "ptr", var, "HRESULT")
+        result := ComCall(7, this, BSTR, namespaceURI, VARIANT, var, "HRESULT")
         return result
     }
 
     /**
-     * Gets a value that specifies whether ink is currently being drawn on an ink collector (InkCollector, InkOverlay, or InkPicture). (IInkCollector.get_CollectingInk)
-     * @remarks
-     * You can use the <b>CollectingInk</b> property to see if ink is being drawn on an ink collector rather than monitoring the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a> event.
      * 
-     * <div class="alert"><b>Note</b>  Because ink collection is happening on a different thread than your application code, it is possible that the <b>CollectingInk</b> property can change soon after you have checked it. Thus, your code may be operating under the assumption that the ink collector is not collecting ink, when in fact it is. If this occurs, an error is thrown. To be safe, put such code in a try-catch block.</div>
-     * <div> </div>
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink
      */
     get(namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(8, this, "ptr", namespaceURI, "ptr*", &schemaNode := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, namespaceURI, "ptr*", &schemaNode := 0, "HRESULT")
         return IXMLDOMNode(schemaNode)
     }
 
@@ -112,7 +121,7 @@ class IXMLDOMSchemaCollection extends IDispatch {
     remove(namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(9, this, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(9, this, BSTR, namespaceURI, "HRESULT")
         return result
     }
 
@@ -131,8 +140,8 @@ class IXMLDOMSchemaCollection extends IDispatch {
      * @returns {BSTR} 
      */
     get_namespaceURI(index) {
-        length := BSTR()
-        result := ComCall(11, this, "int", index, "ptr", length, "HRESULT")
+        length := BSTR.Owned()
+        result := ComCall(11, this, "int", index, BSTR.Ptr, length, "HRESULT")
         return length
     }
 
@@ -153,5 +162,37 @@ class IXMLDOMSchemaCollection extends IDispatch {
     get__newEnum() {
         result := ComCall(13, this, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
+    }
+
+    Query(iid) {
+        if (IXMLDOMSchemaCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
+        this.vtbl.get := CallbackCreate(GetMethod(implObj, "get"), flags, 3)
+        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 3)
+        this.vtbl.addCollection := CallbackCreate(GetMethod(implObj, "addCollection"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.add)
+        CallbackFree(this.vtbl.get)
+        CallbackFree(this.vtbl.remove)
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.get_namespaceURI)
+        CallbackFree(this.vtbl.addCollection)
+        CallbackFree(this.vtbl.get__newEnum)
     }
 }

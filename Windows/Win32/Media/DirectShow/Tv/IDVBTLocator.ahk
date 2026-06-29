@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDigitalLocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\GuardInterval.ahk" { GuardInterval }
+#Import "..\FECMethod.ahk" { FECMethod }
+#Import "..\HierarchyAlpha.ahk" { HierarchyAlpha }
+#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
+#Import "..\TransmissionMode.ahk" { TransmissionMode }
+#Import ".\IDigitalLocator.ahk" { IDigitalLocator }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IDVBTLocator interface is implemented on the DVBTLocator object.
@@ -10,32 +17,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtlocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVBTLocator extends IDigitalLocator {
-
-    static sizeof => A_PtrSize
+export default struct IDVBTLocator extends IDigitalLocator {
     /**
      * The interface identifier for IDVBTLocator
      * @type {Guid}
      */
-    static IID => Guid("{8664da16-dda2-42ac-926a-c18f9127c302}")
+    static IID := Guid("{8664da16-dda2-42ac-926a-c18f9127c302}")
 
     /**
      * The class identifier for DVBTLocator
      * @type {Guid}
      */
-    static CLSID => Guid("{9cd64701-bdf3-4d14-8e03-f12983d86664}")
+    static CLSID := Guid("{9cd64701-bdf3-4d14-8e03-f12983d86664}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVBTLocator interfaces
+    */
+    struct Vtbl extends IDigitalLocator.Vtbl {
+        get_Bandwidth           : IntPtr
+        put_Bandwidth           : IntPtr
+        get_LPInnerFEC          : IntPtr
+        put_LPInnerFEC          : IntPtr
+        get_LPInnerFECRate      : IntPtr
+        put_LPInnerFECRate      : IntPtr
+        get_HAlpha              : IntPtr
+        put_HAlpha              : IntPtr
+        get_Guard               : IntPtr
+        put_Guard               : IntPtr
+        get_Mode                : IntPtr
+        put_Mode                : IntPtr
+        get_OtherFrequencyInUse : IntPtr
+        put_OtherFrequencyInUse : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Bandwidth", "put_Bandwidth", "get_LPInnerFEC", "put_LPInnerFEC", "get_LPInnerFECRate", "put_LPInnerFECRate", "get_HAlpha", "put_HAlpha", "get_Guard", "put_Guard", "get_Mode", "put_Mode", "get_OtherFrequencyInUse", "put_OtherFrequencyInUse"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVBTLocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -133,7 +160,7 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_lpinnerfec
      */
     put_LPInnerFEC(FEC) {
-        result := ComCall(25, this, "int", FEC, "HRESULT")
+        result := ComCall(25, this, FECMethod, FEC, "HRESULT")
         return result
     }
 
@@ -154,7 +181,7 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_lpinnerfecrate
      */
     put_LPInnerFECRate(FEC) {
-        result := ComCall(27, this, "int", FEC, "HRESULT")
+        result := ComCall(27, this, BinaryConvolutionCodeRate, FEC, "HRESULT")
         return result
     }
 
@@ -175,7 +202,7 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_halpha
      */
     put_HAlpha(Alpha) {
-        result := ComCall(29, this, "int", Alpha, "HRESULT")
+        result := ComCall(29, this, HierarchyAlpha, Alpha, "HRESULT")
         return result
     }
 
@@ -196,7 +223,7 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_guard
      */
     put_Guard(GI) {
-        result := ComCall(31, this, "int", GI, "HRESULT")
+        result := ComCall(31, this, GuardInterval, GI, "HRESULT")
         return result
     }
 
@@ -217,7 +244,7 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_mode
      */
     put_Mode(_mode) {
-        result := ComCall(33, this, "int", _mode, "HRESULT")
+        result := ComCall(33, this, TransmissionMode, _mode, "HRESULT")
         return result
     }
 
@@ -227,7 +254,7 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_otherfrequencyinuse
      */
     get_OtherFrequencyInUse() {
-        result := ComCall(34, this, "short*", &OtherFrequencyInUseVal := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL.Ptr, &OtherFrequencyInUseVal := 0, "HRESULT")
         return OtherFrequencyInUseVal
     }
 
@@ -238,7 +265,53 @@ class IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_otherfrequencyinuse
      */
     put_OtherFrequencyInUse(OtherFrequencyInUseVal) {
-        result := ComCall(35, this, "short", OtherFrequencyInUseVal, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL, OtherFrequencyInUseVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVBTLocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Bandwidth := CallbackCreate(GetMethod(implObj, "get_Bandwidth"), flags, 2)
+        this.vtbl.put_Bandwidth := CallbackCreate(GetMethod(implObj, "put_Bandwidth"), flags, 2)
+        this.vtbl.get_LPInnerFEC := CallbackCreate(GetMethod(implObj, "get_LPInnerFEC"), flags, 2)
+        this.vtbl.put_LPInnerFEC := CallbackCreate(GetMethod(implObj, "put_LPInnerFEC"), flags, 2)
+        this.vtbl.get_LPInnerFECRate := CallbackCreate(GetMethod(implObj, "get_LPInnerFECRate"), flags, 2)
+        this.vtbl.put_LPInnerFECRate := CallbackCreate(GetMethod(implObj, "put_LPInnerFECRate"), flags, 2)
+        this.vtbl.get_HAlpha := CallbackCreate(GetMethod(implObj, "get_HAlpha"), flags, 2)
+        this.vtbl.put_HAlpha := CallbackCreate(GetMethod(implObj, "put_HAlpha"), flags, 2)
+        this.vtbl.get_Guard := CallbackCreate(GetMethod(implObj, "get_Guard"), flags, 2)
+        this.vtbl.put_Guard := CallbackCreate(GetMethod(implObj, "put_Guard"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_OtherFrequencyInUse := CallbackCreate(GetMethod(implObj, "get_OtherFrequencyInUse"), flags, 2)
+        this.vtbl.put_OtherFrequencyInUse := CallbackCreate(GetMethod(implObj, "put_OtherFrequencyInUse"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Bandwidth)
+        CallbackFree(this.vtbl.put_Bandwidth)
+        CallbackFree(this.vtbl.get_LPInnerFEC)
+        CallbackFree(this.vtbl.put_LPInnerFEC)
+        CallbackFree(this.vtbl.get_LPInnerFECRate)
+        CallbackFree(this.vtbl.put_LPInnerFECRate)
+        CallbackFree(this.vtbl.get_HAlpha)
+        CallbackFree(this.vtbl.put_HAlpha)
+        CallbackFree(this.vtbl.get_Guard)
+        CallbackFree(this.vtbl.put_Guard)
+        CallbackFree(this.vtbl.get_Mode)
+        CallbackFree(this.vtbl.put_Mode)
+        CallbackFree(this.vtbl.get_OtherFrequencyInUse)
+        CallbackFree(this.vtbl.put_OtherFrequencyInUse)
     }
 }

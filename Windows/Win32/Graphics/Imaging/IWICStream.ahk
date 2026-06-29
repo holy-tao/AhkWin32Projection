@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a Windows Imaging Component (WIC) stream for referencing imaging and metadata content.
@@ -14,26 +16,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicstream
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICStream extends IStream {
-
-    static sizeof => A_PtrSize
+export default struct IWICStream extends IStream {
     /**
      * The interface identifier for IWICStream
      * @type {Guid}
      */
-    static IID => Guid("{135ff860-22b7-4ddf-b0f6-218f4f299a43}")
+    static IID := Guid("{135ff860-22b7-4ddf-b0f6-218f4f299a43}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICStream interfaces
+    */
+    struct Vtbl extends IStream.Vtbl {
+        InitializeFromIStream       : IntPtr
+        InitializeFromFilename      : IntPtr
+        InitializeFromMemory        : IntPtr
+        InitializeFromIStreamRegion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromIStream", "InitializeFromFilename", "InitializeFromMemory", "InitializeFromIStreamRegion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a stream from another stream. Access rights are inherited from the underlying stream.
@@ -146,5 +158,31 @@ class IWICStream extends IStream {
     InitializeFromIStreamRegion(pIStream, ulOffset, ulMaxSize) {
         result := ComCall(17, this, "ptr", pIStream, "uint", ulOffset, "uint", ulMaxSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromIStream := CallbackCreate(GetMethod(implObj, "InitializeFromIStream"), flags, 2)
+        this.vtbl.InitializeFromFilename := CallbackCreate(GetMethod(implObj, "InitializeFromFilename"), flags, 3)
+        this.vtbl.InitializeFromMemory := CallbackCreate(GetMethod(implObj, "InitializeFromMemory"), flags, 3)
+        this.vtbl.InitializeFromIStreamRegion := CallbackCreate(GetMethod(implObj, "InitializeFromIStreamRegion"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromIStream)
+        CallbackFree(this.vtbl.InitializeFromFilename)
+        CallbackFree(this.vtbl.InitializeFromMemory)
+        CallbackFree(this.vtbl.InitializeFromIStreamRegion)
     }
 }

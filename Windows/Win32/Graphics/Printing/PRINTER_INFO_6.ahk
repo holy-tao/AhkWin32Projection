@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PRINTER\_INFO\_6 specifies the status value of a printer.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-6
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PRINTER_INFO_6 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct PRINTER_INFO_6 {
+    #StructPack 4
 
     /**
      * The printer status. This member can be any reasonable combination of the following values.
@@ -43,10 +40,7 @@ class PRINTER_INFO_6 extends Win32Struct {
      * | PRINTER\_STATUS\_USER\_INTERVENTION | The printer has an error that requires the user to do something.                                              |
      * | PRINTER\_STATUS\_WAITING            | The printer is waiting.                                                                                       |
      * | PRINTER\_STATUS\_WARMING\_UP        | The printer is warming up.                                                                                    |
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : UInt32
+
 }

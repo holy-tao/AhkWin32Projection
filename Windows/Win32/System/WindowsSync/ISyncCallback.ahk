@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNC_FULL_ENUMERATION_ACTION.ahk" { SYNC_FULL_ENUMERATION_ACTION }
+#Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import ".\IRecoverableError.ahk" { IRecoverableError }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChange.ahk" { ISyncChange }
+#Import ".\IChangeConflict.ahk" { IChangeConflict }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents application callbacks that are used to notify the application of synchronization events.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isynccallback
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncCallback extends IUnknown {
     /**
      * The interface identifier for ISyncCallback
      * @type {Guid}
      */
-    static IID => Guid("{0599797f-5ed9-485c-ae36-0c5d1bf2e7a5}")
+    static IID := Guid("{0599797f-5ed9-485c-ae36-0c5d1bf2e7a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnProgress              : IntPtr
+        OnChange                : IntPtr
+        OnConflict              : IntPtr
+        OnFullEnumerationNeeded : IntPtr
+        OnRecoverableError      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnProgress", "OnChange", "OnConflict", "OnFullEnumerationNeeded", "OnRecoverableError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Occurs periodically during the synchronization session to report progress.
@@ -67,7 +85,7 @@ class ISyncCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onprogress
      */
     OnProgress(provider, syncStage, dwCompletedWork, dwTotalWork) {
-        result := ComCall(3, this, "int", provider, "int", syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
+        result := ComCall(3, this, SYNC_PROVIDER_ROLE, provider, SYNC_PROGRESS_STAGE, syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
         return result
     }
 
@@ -223,5 +241,33 @@ class ISyncCallback extends IUnknown {
     OnRecoverableError(pRecoverableError) {
         result := ComCall(7, this, "ptr", pRecoverableError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 5)
+        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 2)
+        this.vtbl.OnConflict := CallbackCreate(GetMethod(implObj, "OnConflict"), flags, 2)
+        this.vtbl.OnFullEnumerationNeeded := CallbackCreate(GetMethod(implObj, "OnFullEnumerationNeeded"), flags, 2)
+        this.vtbl.OnRecoverableError := CallbackCreate(GetMethod(implObj, "OnRecoverableError"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnProgress)
+        CallbackFree(this.vtbl.OnChange)
+        CallbackFree(this.vtbl.OnConflict)
+        CallbackFree(this.vtbl.OnFullEnumerationNeeded)
+        CallbackFree(this.vtbl.OnRecoverableError)
     }
 }

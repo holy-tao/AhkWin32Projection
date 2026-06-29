@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\KNOWNFOLDER_DEFINITION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
+#Import ".\KF_CATEGORY.ahk" { KF_CATEGORY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow an application to retrieve information about a known folder's category, type, GUID, pointer to an item identifier list (PIDL) value, redirection capabilities, and definition.
@@ -14,26 +17,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iknownfolder
  * @namespace Windows.Win32.UI.Shell
  */
-class IKnownFolder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKnownFolder extends IUnknown {
     /**
      * The interface identifier for IKnownFolder
      * @type {Guid}
      */
-    static IID => Guid("{3aa7af7e-9b36-420c-a8e3-f77d4674a488}")
+    static IID := Guid("{3aa7af7e-9b36-420c-a8e3-f77d4674a488}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKnownFolder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetId                      : IntPtr
+        GetCategory                : IntPtr
+        GetShellItem               : IntPtr
+        GetPath                    : IntPtr
+        SetPath                    : IntPtr
+        GetIDList                  : IntPtr
+        GetFolderType              : IntPtr
+        GetRedirectionCapabilities : IntPtr
+        GetFolderDefinition        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetId", "GetCategory", "GetShellItem", "GetPath", "SetPath", "GetIDList", "GetFolderType", "GetRedirectionCapabilities", "GetFolderDefinition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKnownFolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID of the selected folder.
@@ -44,7 +62,7 @@ class IKnownFolder extends IUnknown {
      */
     GetId() {
         pkfid := Guid()
-        result := ComCall(3, this, "ptr", pkfid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pkfid, "HRESULT")
         return pkfid
     }
 
@@ -74,7 +92,7 @@ class IKnownFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem
      */
     GetShellItem(dwFlags, riid) {
-        result := ComCall(5, this, "uint", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -91,7 +109,7 @@ class IKnownFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath
      */
     GetPath(dwFlags) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwFlags, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
@@ -147,7 +165,7 @@ class IKnownFolder extends IUnknown {
      */
     GetFolderType() {
         pftid := Guid()
-        result := ComCall(9, this, "ptr", pftid, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pftid, "HRESULT")
         return pftid
     }
 
@@ -176,7 +194,43 @@ class IKnownFolder extends IUnknown {
      */
     GetFolderDefinition() {
         pKFD := KNOWNFOLDER_DEFINITION()
-        result := ComCall(11, this, "ptr", pKFD, "HRESULT")
+        result := ComCall(11, this, KNOWNFOLDER_DEFINITION.Ptr, pKFD, "HRESULT")
         return pKFD
+    }
+
+    Query(iid) {
+        if (IKnownFolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.GetShellItem := CallbackCreate(GetMethod(implObj, "GetShellItem"), flags, 4)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 3)
+        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 3)
+        this.vtbl.GetIDList := CallbackCreate(GetMethod(implObj, "GetIDList"), flags, 3)
+        this.vtbl.GetFolderType := CallbackCreate(GetMethod(implObj, "GetFolderType"), flags, 2)
+        this.vtbl.GetRedirectionCapabilities := CallbackCreate(GetMethod(implObj, "GetRedirectionCapabilities"), flags, 2)
+        this.vtbl.GetFolderDefinition := CallbackCreate(GetMethod(implObj, "GetFolderDefinition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetCategory)
+        CallbackFree(this.vtbl.GetShellItem)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.SetPath)
+        CallbackFree(this.vtbl.GetIDList)
+        CallbackFree(this.vtbl.GetFolderType)
+        CallbackFree(this.vtbl.GetRedirectionCapabilities)
+        CallbackFree(this.vtbl.GetFolderDefinition)
     }
 }

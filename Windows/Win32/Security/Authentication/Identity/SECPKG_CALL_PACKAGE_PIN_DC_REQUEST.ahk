@@ -1,58 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST extends Win32Struct {
-    static sizeof => 48
+export default struct SECPKG_CALL_PACKAGE_PIN_DC_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MessageType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(8, this)
-            return this.__DomainName
-        }
-    }
+    DcName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DcName {
-        get {
-            if(!this.HasProp("__DcName"))
-                this.__DcName := LSA_UNICODE_STRING(24, this)
-            return this.__DcName
-        }
-    }
+    DcFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DcFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

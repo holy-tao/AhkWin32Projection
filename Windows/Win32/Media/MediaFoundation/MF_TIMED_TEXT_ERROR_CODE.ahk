@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the kind error that occurred with a timed text track.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_TIMED_TEXT_ERROR_CODE extends Win32Enum {
+export default struct MF_TIMED_TEXT_ERROR_CODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No error occurred.

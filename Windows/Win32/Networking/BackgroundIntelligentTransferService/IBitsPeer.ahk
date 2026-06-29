@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use IBitsPeer to get information about a peer in the neighborhood.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibitspeer
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBitsPeer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBitsPeer extends IUnknown {
     /**
      * The interface identifier for IBitsPeer
      * @type {Guid}
      */
-    static IID => Guid("{659cdea2-489e-11d9-a9cd-000d56965251}")
+    static IID := Guid("{659cdea2-489e-11d9-a9cd-000d56965251}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBitsPeer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPeerName     : IntPtr
+        IsAuthenticated : IntPtr
+        IsAvailable     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPeerName", "IsAuthenticated", "IsAvailable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBitsPeer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the server principal name that uniquely identifies the peer.
@@ -38,7 +50,7 @@ class IBitsPeer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-getpeername
      */
     GetPeerName() {
-        result := ComCall(3, this, "ptr*", &pName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &pName := 0, "HRESULT")
         return pName
     }
 
@@ -50,7 +62,7 @@ class IBitsPeer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-isauthenticated
      */
     IsAuthenticated() {
-        result := ComCall(4, this, "int*", &pAuth := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pAuth := 0, "HRESULT")
         return pAuth
     }
 
@@ -64,7 +76,31 @@ class IBitsPeer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-isavailable
      */
     IsAvailable() {
-        result := ComCall(5, this, "int*", &pOnline := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &pOnline := 0, "HRESULT")
         return pOnline
+    }
+
+    Query(iid) {
+        if (IBitsPeer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPeerName := CallbackCreate(GetMethod(implObj, "GetPeerName"), flags, 2)
+        this.vtbl.IsAuthenticated := CallbackCreate(GetMethod(implObj, "IsAuthenticated"), flags, 2)
+        this.vtbl.IsAvailable := CallbackCreate(GetMethod(implObj, "IsAvailable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPeerName)
+        CallbackFree(this.vtbl.IsAuthenticated)
+        CallbackFree(this.vtbl.IsAvailable)
     }
 }

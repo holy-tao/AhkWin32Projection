@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides formatting support for controls on a Visual Basic container.
  * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-ivbformat
  * @namespace Windows.Win32.System.Ole
  */
-class IVBFormat extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVBFormat extends IUnknown {
     /**
      * The interface identifier for IVBFormat
      * @type {Guid}
      */
-    static IID => Guid("{9849fd60-3768-101b-8d72-ae6164ffe3cf}")
+    static IID := Guid("{9849fd60-3768-101b-8d72-ae6164ffe3cf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVBFormat interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Format : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Format"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVBFormat.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Formats a string according to a pattern.
@@ -190,7 +200,27 @@ class IVBFormat extends IUnknown {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
         rcbMarshal := rcb is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, "ptr", vData, "ptr", bstrFormat, lpBufferMarshal, lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
+        result := ComCall(3, this, VARIANT.Ptr, vData, BSTR, bstrFormat, lpBufferMarshal, lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVBFormat.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Format := CallbackCreate(GetMethod(implObj, "Format"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Format)
     }
 }

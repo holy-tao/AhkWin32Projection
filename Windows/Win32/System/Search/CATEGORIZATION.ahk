@@ -1,65 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BUCKETCATEGORIZE.ahk
-#Include .\RANGECATEGORIZE.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\COLUMNSET.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Storage\IndexServer\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import ".\COLUMNSET.ahk" { COLUMNSET }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\BUCKETCATEGORIZE.ahk" { BUCKETCATEGORIZE }
+#Import ".\RANGECATEGORIZE.ahk" { RANGECATEGORIZE }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class CATEGORIZATION extends Win32Struct {
-    static sizeof => 40
+export default struct CATEGORIZATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ulCatType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCatType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cClusters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cClusters {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    csColumns : COLUMNSET
 
-    /**
-     * @type {BUCKETCATEGORIZE}
-     */
-    bucket {
-        get {
-            if(!this.HasProp("__bucket"))
-                this.__bucket := BUCKETCATEGORIZE(8, this)
-            return this.__bucket
-        }
-    }
-
-    /**
-     * @type {RANGECATEGORIZE}
-     */
-    range {
-        get {
-            if(!this.HasProp("__range"))
-                this.__range := RANGECATEGORIZE(8, this)
-            return this.__range
-        }
-    }
-
-    /**
-     * @type {COLUMNSET}
-     */
-    csColumns {
-        get {
-            if(!this.HasProp("__csColumns"))
-                this.__csColumns := COLUMNSET(24, this)
-            return this.__csColumns
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'bucket', { type: BUCKETCATEGORIZE, offset: 8 })
+        DefineProp(this.Prototype, 'range', { type: RANGECATEGORIZE, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

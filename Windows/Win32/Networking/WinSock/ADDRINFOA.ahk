@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
-#Include .\ADDRINFOA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used by the getaddrinfo function to hold host address information.
@@ -34,10 +33,8 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset ANSI
  */
-class ADDRINFOA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct ADDRINFOA {
+    #StructPack 8
 
     /**
      * Type: <b>int</b>
@@ -198,12 +195,8 @@ class ADDRINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ai_flags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ai_flags : Int32
 
     /**
      * Type: <b>int</b>
@@ -289,12 +282,8 @@ class ADDRINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ai_family {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ai_family : Int32
 
     /**
      * Type: <b>int</b>
@@ -370,12 +359,8 @@ class ADDRINFOA extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumprotocolsa">WSAEnumProtocols</a> function. So an application can determine the possible socket type and protocol options for an address family  and use this information when specifying this parameter. Socket type definitions in the <i>Winsock2.h</i> and <i>Ws2def.h</i> header files will be periodically updated as new socket types, address families, and protocols are defined.
      * 
      * In Windows Sockets 1.1, the only possible socket types are  <b>SOCK_DATAGRAM</b> and <b>SOCK_STREAM</b>.
-     * @type {Integer}
      */
-    ai_socktype {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ai_socktype : Int32
 
     /**
      * Type: <b>int</b>
@@ -431,56 +416,37 @@ class ADDRINFOA extends Win32Struct {
      *  
      * 
      * If the <b>ai_family</b> member is <b>AF_IRDA</b>, then the <b>ai_protocol</b> must be 0.
-     * @type {Integer}
      */
-    ai_protocol {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ai_protocol : Int32
 
     /**
      * Type: <b>size_t</b>
      * 
      * The length, in bytes, of the buffer pointed to by the <b>ai_addr</b> member.
-     * @type {Pointer}
      */
-    ai_addrlen {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ai_addrlen : IntPtr
 
     /**
      * Type: <b>char*</b>
      * 
      * The canonical name for the host.
-     * @type {PSTR}
      */
-    ai_canonname {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ai_canonname : PSTR
 
     /**
      * Type: <b>struct sockaddr*</b>
      * 
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure. The <b>ai_addr</b> member in each returned <b>addrinfo</b> structure points to a filled-in socket address structure. The length, in bytes, of each returned <b>addrinfo</b> structure is specified in the <b>ai_addrlen</b> member.
-     * @type {Pointer<SOCKADDR>}
      */
-    ai_addr {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ai_addr : SOCKADDR.Ptr
 
     /**
      * Type: <b>struct addrinfo*</b>
      * 
      * A pointer to the next structure in a linked list. This parameter is set to <b>NULL</b> in the last 
      * <b>addrinfo</b> structure of a linked list.
-     * @type {Pointer<ADDRINFOA>}
      */
-    ai_next {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ai_next : ADDRINFOA.Ptr
+
 }

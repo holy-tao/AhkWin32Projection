@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GLYPHDEF.ahk
-#Include .\GLYPHBITS.ahk
-#Include .\PATHOBJ.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\POINTQF.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\GLYPHBITS.ahk" { GLYPHBITS }
+#Import ".\GLYPHDEF.ahk" { GLYPHDEF }
+#Import ".\POINTQF.ahk" { POINTQF }
+#Import ".\PATHOBJ.ahk" { PATHOBJ }
 
 /**
  * The GLYPHDATA structure contains information about an individual glyph.
@@ -15,98 +14,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphdata
  * @namespace Windows.Win32.Devices.Display
  */
-class GLYPHDATA extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct GLYPHDATA {
+    #StructPack 8
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdef">GLYPHDEF</a> union that contains a pointer to either a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphbits">GLYPHBITS</a> structure or a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure, depending on whether, respectively, the glyph data is in the form of a bitmap or an outline.
-     * @type {GLYPHDEF}
      */
-    gdf {
-        get {
-            if(!this.HasProp("__gdf"))
-                this.__gdf := GLYPHDEF(0, this)
-            return this.__gdf
-        }
-    }
+    gdf : GLYPHDEF
 
     /**
      * Handle to the glyph.
-     * @type {Integer}
      */
-    hg {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    hg : UInt32
 
     /**
      * Specifies a FIX value containing the character increment amount, D = A + B + C. The character increment amount represents the sum of the prebearing, or left sidebearing amount (A), the width of the glyph (B), and the width of the right sidebearing amount (C). The two sidebearing amounts represent the (usually) empty space immediately to the left and right of the glyph. The value stored in <b>fxD</b> is the dot product of D and a unit vector along the baseline (in device coordinates), yielding the projection of D onto the baseline.
-     * @type {Integer}
      */
-    fxD {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    fxD : Int32
 
     /**
      * Specifies a FIX value containing the prebearing, or left sidebearing amount, A. The value stored in <b>fxA</b> is the dot product of A and a unit vector along the baseline (in device coordinates), yielding the projection of A onto the baseline.
-     * @type {Integer}
      */
-    fxA {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fxA : Int32
 
     /**
      * Specifies a FIX value containing the advancing edge of the character, A + B. The value stored in fxAB is the dot product of A + B and a unit vector along the baseline (in device coordinates), yielding the projection of A + B onto the baseline.
-     * @type {Integer}
      */
-    fxAB {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fxAB : Int32
 
     /**
      * Specifies a FIX value containing the distance between the baseline and the ink box top along a unit vector in the ascent direction (in device coordinates).
-     * @type {Integer}
      */
-    fxInkTop {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    fxInkTop : Int32
 
     /**
      * Specifies a FIX value containing the distance between the baseline and the ink box bottom along a unit vector in the ascent direction (in device coordinates).
-     * @type {Integer}
      */
-    fxInkBottom {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    fxInkBottom : Int32
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that describes the ink box in which the glyph fits. The sides of the ink box are parallel to the x and y axes.
-     * @type {RECTL}
      */
-    rclInk {
-        get {
-            if(!this.HasProp("__rclInk"))
-                this.__rclInk := RECTL(40, this)
-            return this.__rclInk
-        }
-    }
+    rclInk : RECTL
 
     /**
      * Specifies a POINTQF structure that contains the character increment vector, D = A + B + C. The high-order WORDs of <b>ptqD</b> are 28.4 device coordinates. The low-order WORDs of this member provide additional precision. For a description of the POINTQF structure, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
-     * @type {POINTQF}
      */
-    ptqD {
-        get {
-            if(!this.HasProp("__ptqD"))
-                this.__ptqD := POINTQF(56, this)
-            return this.__ptqD
-        }
-    }
+    ptqD : POINTQF
+
 }

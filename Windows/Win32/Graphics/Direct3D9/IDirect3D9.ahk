@@ -1,9 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Gdi\HMONITOR.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DADAPTER_IDENTIFIER9.ahk" { D3DADAPTER_IDENTIFIER9 }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
 
 /**
  * The IDirect3D9 (d3d9.h) interface applications use the methods of the IDirect3D9 interface to create Microsoft Direct3D objects and set up the environment.
@@ -21,26 +32,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3d9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3D9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3D9 extends IUnknown {
     /**
      * The interface identifier for IDirect3D9
      * @type {Guid}
      */
-    static IID => Guid("{81bdcbca-64d4-426d-ae8d-ad0147f4275c}")
+    static IID := Guid("{81bdcbca-64d4-426d-ae8d-ad0147f4275c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3D9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterSoftwareDevice      : IntPtr
+        GetAdapterCount             : IntPtr
+        GetAdapterIdentifier        : IntPtr
+        GetAdapterModeCount         : IntPtr
+        EnumAdapterModes            : IntPtr
+        GetAdapterDisplayMode       : IntPtr
+        CheckDeviceType             : IntPtr
+        CheckDeviceFormat           : IntPtr
+        CheckDeviceMultiSampleType  : IntPtr
+        CheckDepthStencilMatch      : IntPtr
+        CheckDeviceFormatConversion : IntPtr
+        GetDeviceCaps               : IntPtr
+        GetAdapterMonitor           : IntPtr
+        CreateDevice                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterSoftwareDevice", "GetAdapterCount", "GetAdapterIdentifier", "GetAdapterModeCount", "EnumAdapterModes", "GetAdapterDisplayMode", "CheckDeviceType", "CheckDeviceFormat", "CheckDeviceMultiSampleType", "CheckDepthStencilMatch", "CheckDeviceFormatConversion", "GetDeviceCaps", "GetAdapterMonitor", "CreateDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3D9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3D9::RegisterSoftwareDevice method (d3d9.h) registers a pluggable software device.
@@ -75,7 +106,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptercount
      */
     GetAdapterCount() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -100,7 +131,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadapteridentifier
      */
     GetAdapterIdentifier(_Adapter, Flags, pIdentifier) {
-        result := ComCall(5, this, "uint", _Adapter, "uint", Flags, "ptr", pIdentifier, "HRESULT")
+        result := ComCall(5, this, "uint", _Adapter, "uint", Flags, D3DADAPTER_IDENTIFIER9.Ptr, pIdentifier, "HRESULT")
         return result
     }
 
@@ -118,7 +149,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptermodecount
      */
     GetAdapterModeCount(_Adapter, Format) {
-        result := ComCall(6, this, "uint", _Adapter, "uint", Format, "uint")
+        result := ComCall(6, this, "uint", _Adapter, D3DFORMAT, Format, UInt32)
         return result
     }
 
@@ -160,7 +191,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-enumadaptermodes
      */
     EnumAdapterModes(_Adapter, Format, _Mode, pMode) {
-        result := ComCall(7, this, "uint", _Adapter, "uint", Format, "uint", _Mode, "ptr", pMode, "HRESULT")
+        result := ComCall(7, this, "uint", _Adapter, D3DFORMAT, Format, "uint", _Mode, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -184,7 +215,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadapterdisplaymode
      */
     GetAdapterDisplayMode(_Adapter, pMode) {
-        result := ComCall(8, this, "uint", _Adapter, "ptr", pMode, "HRESULT")
+        result := ComCall(8, this, "uint", _Adapter, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -247,7 +278,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicetype
      */
     CheckDeviceType(_Adapter, DevType, AdapterFormat, BackBufferFormat, bWindowed) {
-        result := ComCall(9, this, "uint", _Adapter, "int", DevType, "uint", AdapterFormat, "uint", BackBufferFormat, "int", bWindowed, "HRESULT")
+        result := ComCall(9, this, "uint", _Adapter, D3DDEVTYPE, DevType, D3DFORMAT, AdapterFormat, D3DFORMAT, BackBufferFormat, BOOL, bWindowed, "HRESULT")
         return result
     }
 
@@ -334,7 +365,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformat
      */
     CheckDeviceFormat(_Adapter, DeviceType, AdapterFormat, Usage, RType, CheckFormat) {
-        result := ComCall(10, this, "uint", _Adapter, "int", DeviceType, "uint", AdapterFormat, "uint", Usage, "int", RType, "uint", CheckFormat, "HRESULT")
+        result := ComCall(10, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, AdapterFormat, "uint", Usage, D3DRESOURCETYPE, RType, D3DFORMAT, CheckFormat, "HRESULT")
         return result
     }
 
@@ -389,7 +420,7 @@ class IDirect3D9 extends IUnknown {
     CheckDeviceMultiSampleType(_Adapter, DeviceType, SurfaceFormat, Windowed, MultiSampleType, pQualityLevels) {
         pQualityLevelsMarshal := pQualityLevels is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", _Adapter, "int", DeviceType, "uint", SurfaceFormat, "int", Windowed, "int", MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
+        result := ComCall(11, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SurfaceFormat, BOOL, Windowed, D3DMULTISAMPLE_TYPE, MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
         return result
     }
 
@@ -456,7 +487,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdepthstencilmatch
      */
     CheckDepthStencilMatch(_Adapter, DeviceType, AdapterFormat, RenderTargetFormat, DepthStencilFormat) {
-        result := ComCall(12, this, "uint", _Adapter, "int", DeviceType, "uint", AdapterFormat, "uint", RenderTargetFormat, "uint", DepthStencilFormat, "HRESULT")
+        result := ComCall(12, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, AdapterFormat, D3DFORMAT, RenderTargetFormat, D3DFORMAT, DepthStencilFormat, "HRESULT")
         return result
     }
 
@@ -527,7 +558,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformatconversion
      */
     CheckDeviceFormatConversion(_Adapter, DeviceType, SourceFormat, TargetFormat) {
-        result := ComCall(13, this, "uint", _Adapter, "int", DeviceType, "uint", SourceFormat, "uint", TargetFormat, "HRESULT")
+        result := ComCall(13, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SourceFormat, D3DFORMAT, TargetFormat, "HRESULT")
         return result
     }
 
@@ -550,7 +581,7 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getdevicecaps
      */
     GetDeviceCaps(_Adapter, DeviceType, pCaps) {
-        result := ComCall(14, this, "uint", _Adapter, "int", DeviceType, "ptr", pCaps, "HRESULT")
+        result := ComCall(14, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DCAPS9.Ptr, pCaps, "HRESULT")
         return result
     }
 
@@ -582,9 +613,8 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptermonitor
      */
     GetAdapterMonitor(_Adapter) {
-        result := ComCall(15, this, "uint", _Adapter, "ptr")
-        resultHandle := HMONITOR({Value: result}, True)
-        return resultHandle
+        result := ComCall(15, this, "uint", _Adapter, HMONITOR)
+        return result
     }
 
     /**
@@ -658,9 +688,53 @@ class IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice
      */
     CreateDevice(_Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters) {
-        hFocusWindow := hFocusWindow is Win32Handle ? NumGet(hFocusWindow, "ptr") : hFocusWindow
-
-        result := ComCall(16, this, "uint", _Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        result := ComCall(16, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, HWND, hFocusWindow, "uint", BehaviorFlags, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
         return IDirect3DDevice9(ppReturnedDeviceInterface)
+    }
+
+    Query(iid) {
+        if (IDirect3D9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterSoftwareDevice := CallbackCreate(GetMethod(implObj, "RegisterSoftwareDevice"), flags, 2)
+        this.vtbl.GetAdapterCount := CallbackCreate(GetMethod(implObj, "GetAdapterCount"), flags, 1)
+        this.vtbl.GetAdapterIdentifier := CallbackCreate(GetMethod(implObj, "GetAdapterIdentifier"), flags, 4)
+        this.vtbl.GetAdapterModeCount := CallbackCreate(GetMethod(implObj, "GetAdapterModeCount"), flags, 3)
+        this.vtbl.EnumAdapterModes := CallbackCreate(GetMethod(implObj, "EnumAdapterModes"), flags, 5)
+        this.vtbl.GetAdapterDisplayMode := CallbackCreate(GetMethod(implObj, "GetAdapterDisplayMode"), flags, 3)
+        this.vtbl.CheckDeviceType := CallbackCreate(GetMethod(implObj, "CheckDeviceType"), flags, 6)
+        this.vtbl.CheckDeviceFormat := CallbackCreate(GetMethod(implObj, "CheckDeviceFormat"), flags, 7)
+        this.vtbl.CheckDeviceMultiSampleType := CallbackCreate(GetMethod(implObj, "CheckDeviceMultiSampleType"), flags, 7)
+        this.vtbl.CheckDepthStencilMatch := CallbackCreate(GetMethod(implObj, "CheckDepthStencilMatch"), flags, 6)
+        this.vtbl.CheckDeviceFormatConversion := CallbackCreate(GetMethod(implObj, "CheckDeviceFormatConversion"), flags, 5)
+        this.vtbl.GetDeviceCaps := CallbackCreate(GetMethod(implObj, "GetDeviceCaps"), flags, 4)
+        this.vtbl.GetAdapterMonitor := CallbackCreate(GetMethod(implObj, "GetAdapterMonitor"), flags, 2)
+        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterSoftwareDevice)
+        CallbackFree(this.vtbl.GetAdapterCount)
+        CallbackFree(this.vtbl.GetAdapterIdentifier)
+        CallbackFree(this.vtbl.GetAdapterModeCount)
+        CallbackFree(this.vtbl.EnumAdapterModes)
+        CallbackFree(this.vtbl.GetAdapterDisplayMode)
+        CallbackFree(this.vtbl.CheckDeviceType)
+        CallbackFree(this.vtbl.CheckDeviceFormat)
+        CallbackFree(this.vtbl.CheckDeviceMultiSampleType)
+        CallbackFree(this.vtbl.CheckDepthStencilMatch)
+        CallbackFree(this.vtbl.CheckDeviceFormatConversion)
+        CallbackFree(this.vtbl.GetDeviceCaps)
+        CallbackFree(this.vtbl.GetAdapterMonitor)
+        CallbackFree(this.vtbl.CreateDevice)
     }
 }

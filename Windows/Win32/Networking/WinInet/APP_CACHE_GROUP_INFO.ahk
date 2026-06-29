@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class APP_CACHE_GROUP_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct APP_CACHE_GROUP_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszManifestUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszManifestUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ftLastAccessTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastAccessTime {
-        get {
-            if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(8, this)
-            return this.__ftLastAccessTime
-        }
-    }
+    ullSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

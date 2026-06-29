@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAzAuthorizationStore2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzAuthorizationStore2.ahk" { IAzAuthorizationStore2 }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Extends the IAzAuthorizationStore2 interface with methods that manage business rule (BizRule) support and caching.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazauthorizationstore3
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
-
-    static sizeof => A_PtrSize
+export default struct IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
     /**
      * The interface identifier for IAzAuthorizationStore3
      * @type {Guid}
      */
-    static IID => Guid("{abc08425-0c86-4fa0-9be3-7189956c926e}")
+    static IID := Guid("{abc08425-0c86-4fa0-9be3-7189956c926e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 60
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzAuthorizationStore3 interfaces
+    */
+    struct Vtbl extends IAzAuthorizationStore2.Vtbl {
+        IsUpdateNeeded                    : IntPtr
+        BizruleGroupSupported             : IntPtr
+        UpgradeStoresFunctionalLevel      : IntPtr
+        IsFunctionalLevelUpgradeSupported : IntPtr
+        GetSchemaVersion                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsUpdateNeeded", "BizruleGroupSupported", "UpgradeStoresFunctionalLevel", "IsFunctionalLevelUpgradeSupported", "GetSchemaVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzAuthorizationStore3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Checks whether the persisted version of this authorization store is newer than the cached version.
@@ -35,7 +48,7 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-isupdateneeded
      */
     IsUpdateNeeded() {
-        result := ComCall(60, this, "short*", &pbIsUpdateNeeded := 0, "HRESULT")
+        result := ComCall(60, this, VARIANT_BOOL.Ptr, &pbIsUpdateNeeded := 0, "HRESULT")
         return pbIsUpdateNeeded
     }
 
@@ -45,7 +58,7 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-bizrulegroupsupported
      */
     BizruleGroupSupported() {
-        result := ComCall(61, this, "short*", &pbSupported := 0, "HRESULT")
+        result := ComCall(61, this, VARIANT_BOOL.Ptr, &pbSupported := 0, "HRESULT")
         return pbSupported
     }
 
@@ -71,7 +84,7 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-isfunctionallevelupgradesupported
      */
     IsFunctionalLevelUpgradeSupported(lFunctionalLevel) {
-        result := ComCall(63, this, "int", lFunctionalLevel, "short*", &pbSupported := 0, "HRESULT")
+        result := ComCall(63, this, "int", lFunctionalLevel, VARIANT_BOOL.Ptr, &pbSupported := 0, "HRESULT")
         return pbSupported
     }
 
@@ -90,5 +103,33 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
 
         result := ComCall(64, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAzAuthorizationStore3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsUpdateNeeded := CallbackCreate(GetMethod(implObj, "IsUpdateNeeded"), flags, 2)
+        this.vtbl.BizruleGroupSupported := CallbackCreate(GetMethod(implObj, "BizruleGroupSupported"), flags, 2)
+        this.vtbl.UpgradeStoresFunctionalLevel := CallbackCreate(GetMethod(implObj, "UpgradeStoresFunctionalLevel"), flags, 2)
+        this.vtbl.IsFunctionalLevelUpgradeSupported := CallbackCreate(GetMethod(implObj, "IsFunctionalLevelUpgradeSupported"), flags, 3)
+        this.vtbl.GetSchemaVersion := CallbackCreate(GetMethod(implObj, "GetSchemaVersion"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsUpdateNeeded)
+        CallbackFree(this.vtbl.BizruleGroupSupported)
+        CallbackFree(this.vtbl.UpgradeStoresFunctionalLevel)
+        CallbackFree(this.vtbl.IsFunctionalLevelUpgradeSupported)
+        CallbackFree(this.vtbl.GetSchemaVersion)
     }
 }

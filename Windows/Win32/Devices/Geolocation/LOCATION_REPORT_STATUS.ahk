@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines possible status for new reports of a particular report type.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/ne-locationapi-location_report_status
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class LOCATION_REPORT_STATUS extends Win32Enum {
+export default struct LOCATION_REPORT_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The requested report type is not supported by the API. No location providers of the requested type are installed.

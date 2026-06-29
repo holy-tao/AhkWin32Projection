@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PEER_STATISTICS extends Win32Struct {
-    static sizeof => 48
+export default struct DOT11_PEER_STATISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    ullDecryptSuccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullDecryptSuccessCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ullDecryptFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullDecryptFailureCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullTxPacketSuccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTxPacketSuccessCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullTxPacketFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTxPacketFailureCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ullRxPacketSuccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRxPacketSuccessCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ullRxPacketFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRxPacketFailureCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS.ahk" { MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS }
 
 /**
  * Retrieves events from any Media Foundation object that generates events.
@@ -11,26 +16,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmediaeventgenerator
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEventGenerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEventGenerator extends IUnknown {
     /**
      * The interface identifier for IMFMediaEventGenerator
      * @type {Guid}
      */
-    static IID => Guid("{2cd0bd52-bcd5-4b89-b62c-eadc0c031e7d}")
+    static IID := Guid("{2cd0bd52-bcd5-4b89-b62c-eadc0c031e7d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEventGenerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEvent      : IntPtr
+        BeginGetEvent : IntPtr
+        EndGetEvent   : IntPtr
+        QueueEvent    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEvent", "BeginGetEvent", "EndGetEvent", "QueueEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEventGenerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the next event in the queue. This method is synchronous.
@@ -55,7 +70,7 @@ class IMFMediaEventGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventgenerator-getevent
      */
     GetEvent(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(3, this, MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS, dwFlags, "ptr*", &ppEvent := 0, "HRESULT")
         return IMFMediaEvent(ppEvent)
     }
 
@@ -200,7 +215,33 @@ class IMFMediaEventGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventgenerator-queueevent
      */
     QueueEvent(met, guidExtendedType, hrStatus, pvValue) {
-        result := ComCall(6, this, "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pvValue, "HRESULT")
+        result := ComCall(6, this, "uint", met, Guid.Ptr, guidExtendedType, "int", hrStatus, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaEventGenerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 3)
+        this.vtbl.BeginGetEvent := CallbackCreate(GetMethod(implObj, "BeginGetEvent"), flags, 3)
+        this.vtbl.EndGetEvent := CallbackCreate(GetMethod(implObj, "EndGetEvent"), flags, 3)
+        this.vtbl.QueueEvent := CallbackCreate(GetMethod(implObj, "QueueEvent"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEvent)
+        CallbackFree(this.vtbl.BeginGetEvent)
+        CallbackFree(this.vtbl.EndGetEvent)
+        CallbackFree(this.vtbl.QueueEvent)
     }
 }

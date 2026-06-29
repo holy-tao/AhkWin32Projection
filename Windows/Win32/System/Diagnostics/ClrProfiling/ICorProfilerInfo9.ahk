@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo8.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerInfo8.ahk" { ICorProfilerInfo8 }
+#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class ICorProfilerInfo9 extends ICorProfilerInfo8 {
-
-    static sizeof => A_PtrSize
+export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
     /**
      * The interface identifier for ICorProfilerInfo9
      * @type {Guid}
      */
-    static IID => Guid("{008170db-f8cc-4796-9a51-dc8aa0b47012}")
+    static IID := Guid("{008170db-f8cc-4796-9a51-dc8aa0b47012}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 90
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICorProfilerInfo9 interfaces
+    */
+    struct Vtbl extends ICorProfilerInfo8.Vtbl {
+        GetNativeCodeStartAddresses : IntPtr
+        GetILToNativeMapping3       : IntPtr
+        GetCodeInfo4                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNativeCodeStartAddresses", "GetILToNativeMapping3", "GetCodeInfo4"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICorProfilerInfo9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -55,7 +67,7 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8 {
     GetILToNativeMapping3(pNativeCodeStartAddress, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, "ptr", _map, "HRESULT")
+        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
     }
 
@@ -70,7 +82,31 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8 {
     GetCodeInfo4(pNativeCodeStartAddress, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(92, this, "ptr", pNativeCodeStartAddress, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "HRESULT")
+        result := ComCall(92, this, "ptr", pNativeCodeStartAddress, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICorProfilerInfo9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNativeCodeStartAddresses := CallbackCreate(GetMethod(implObj, "GetNativeCodeStartAddresses"), flags, 6)
+        this.vtbl.GetILToNativeMapping3 := CallbackCreate(GetMethod(implObj, "GetILToNativeMapping3"), flags, 5)
+        this.vtbl.GetCodeInfo4 := CallbackCreate(GetMethod(implObj, "GetCodeInfo4"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNativeCodeStartAddresses)
+        CallbackFree(this.vtbl.GetILToNativeMapping3)
+        CallbackFree(this.vtbl.GetCodeInfo4)
     }
 }

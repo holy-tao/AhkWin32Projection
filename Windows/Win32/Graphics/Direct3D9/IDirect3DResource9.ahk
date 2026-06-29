@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3DResource9 (d3d9.h) interface is used by applications to query and prepare resources.
@@ -46,26 +48,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dresource9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DResource9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DResource9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DResource9
      * @type {Guid}
      */
-    static IID => Guid("{05eec05d-8f7d-4362-b999-d1baf357c704}")
+    static IID := Guid("{05eec05d-8f7d-4362-b999-d1baf357c704}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DResource9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice       : IntPtr
+        SetPrivateData  : IntPtr
+        GetPrivateData  : IntPtr
+        FreePrivateData : IntPtr
+        SetPriority     : IntPtr
+        GetPriority     : IntPtr
+        PreLoad         : IntPtr
+        GetType         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "SetPrivateData", "GetPrivateData", "FreePrivateData", "SetPriority", "GetPriority", "PreLoad", "GetType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DResource9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DResource9::GetDevice (d3d9.h) method retrieves the device associated with a resource.
@@ -137,7 +153,7 @@ class IDirect3DResource9 extends IUnknown {
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -177,7 +193,7 @@ class IDirect3DResource9 extends IUnknown {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
         pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
     }
 
@@ -194,7 +210,7 @@ class IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-freeprivatedata
      */
     FreePrivateData(refguid) {
-        result := ComCall(6, this, "ptr", refguid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, refguid, "HRESULT")
         return result
     }
 
@@ -228,7 +244,7 @@ class IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-setpriority
      */
     SetPriority(PriorityNew) {
-        result := ComCall(7, this, "uint", PriorityNew, "uint")
+        result := ComCall(7, this, "uint", PriorityNew, UInt32)
         return result
     }
 
@@ -244,7 +260,7 @@ class IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-getpriority
      */
     GetPriority() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, UInt32)
         return result
     }
 
@@ -269,7 +285,41 @@ class IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-gettype
      */
     GetType() {
-        result := ComCall(10, this, "int")
+        result := ComCall(10, this, D3DRESOURCETYPE)
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DResource9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 5)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.FreePrivateData := CallbackCreate(GetMethod(implObj, "FreePrivateData"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 1)
+        this.vtbl.PreLoad := CallbackCreate(GetMethod(implObj, "PreLoad"), flags, 1)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.GetPrivateData)
+        CallbackFree(this.vtbl.FreePrivateData)
+        CallbackFree(this.vtbl.SetPriority)
+        CallbackFree(this.vtbl.GetPriority)
+        CallbackFree(this.vtbl.PreLoad)
+        CallbackFree(this.vtbl.GetType)
     }
 }

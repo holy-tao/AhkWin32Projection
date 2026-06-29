@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IChannelTuneRequest.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IChannelTuneRequest.ahk" { IChannelTuneRequest }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IATSCChannelTuneRequest interface provides methods for tuning to a channel in an ATSC network. The ATSCChannelTuneRequest object implements this interface.
@@ -32,32 +33,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iatscchanneltunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IATSCChannelTuneRequest extends IChannelTuneRequest {
-
-    static sizeof => A_PtrSize
+export default struct IATSCChannelTuneRequest extends IChannelTuneRequest {
     /**
      * The interface identifier for IATSCChannelTuneRequest
      * @type {Guid}
      */
-    static IID => Guid("{0369b4e1-45b6-11d3-b650-00c04f79498e}")
+    static IID := Guid("{0369b4e1-45b6-11d3-b650-00c04f79498e}")
 
     /**
      * The class identifier for ATSCChannelTuneRequest
      * @type {Guid}
      */
-    static CLSID => Guid("{0369b4e6-45b6-11d3-b650-00c04f79498e}")
+    static CLSID := Guid("{0369b4e6-45b6-11d3-b650-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IATSCChannelTuneRequest interfaces
+    */
+    struct Vtbl extends IChannelTuneRequest.Vtbl {
+        get_MinorChannel : IntPtr
+        put_MinorChannel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MinorChannel", "put_MinorChannel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IATSCChannelTuneRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -86,5 +95,27 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest {
     put_MinorChannel(MinorChannel) {
         result := ComCall(15, this, "int", MinorChannel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IATSCChannelTuneRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MinorChannel := CallbackCreate(GetMethod(implObj, "get_MinorChannel"), flags, 2)
+        this.vtbl.put_MinorChannel := CallbackCreate(GetMethod(implObj, "put_MinorChannel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MinorChannel)
+        CallbackFree(this.vtbl.put_MinorChannel)
     }
 }

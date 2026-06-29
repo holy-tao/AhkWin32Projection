@@ -1,108 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IMultipleResults extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMultipleResults extends IUnknown {
     /**
      * The interface identifier for IMultipleResults
      * @type {Guid}
      */
-    static IID => Guid("{0c733a90-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a90-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultipleResults interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetResult : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultipleResults.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResult"]
-
-    /**
-     * Retrieves a list of properties the recognizer can return for a result range.
+     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} lResultFlag 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} pcRowsAffected 
      * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pPropertyGuid</i> buffer is too small.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getresultpropertylist
+     * @returns {HRESULT} 
      */
     GetResult(pUnkOuter, lResultFlag, riid, pcRowsAffected, ppRowset) {
         pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", lResultFlag, "ptr", riid, pcRowsAffectedMarshal, pcRowsAffected, "ptr*", ppRowset, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", lResultFlag, Guid.Ptr, riid, pcRowsAffectedMarshal, pcRowsAffected, IUnknown.Ptr, ppRowset, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMultipleResults.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResult)
     }
 }

@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_SESSION_TICKET extends Win32Struct {
-    static sizeof => 4
+export default struct SEC_SESSION_TICKET {
+    #StructPack 2
 
-    static packingSize => 2
+    SessionTicketSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SessionTicketSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    SessionTicket : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SessionTicket {
-        get {
-            if(!this.HasProp("__SessionTicketProxyArray"))
-                this.__SessionTicketProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__SessionTicketProxyArray
-        }
-    }
 }

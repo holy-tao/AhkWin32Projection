@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\HDI_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\HDI_MASK.ahk" { HDI_MASK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information used in handling HDN_GETDISPINFO notification codes. (Unicode)
@@ -13,89 +14,57 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class NMHDDISPINFOW extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct NMHDDISPINFOW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure containing information about this notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of the item in the header control.
-     * @type {Integer}
      */
-    iItem {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iItem : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {HDI_MASK}
      */
-    mask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    mask : HDI_MASK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * A pointer to a null-terminated string containing the text that will be displayed for the header item.
-     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszText : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * The size of the buffer that 
      * 					<b>pszText</b> points to.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of an image within the image list. The specified image will be displayed with the header item, but it does not take the place of the item's bitmap. If 
      * 					<b>iImage</b> is set to I_IMAGECALLBACK, the control requests image information for this item by using an <a href="https://docs.microsoft.com/windows/desktop/Controls/hdn-getdispinfo">HDN_GETDISPINFO</a> notification code.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    iImage : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * An application-defined value to associate with the item.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lParam : LPARAM
+
 }

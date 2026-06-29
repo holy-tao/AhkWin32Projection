@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_MAILSLOT_QUERY_INFORMATION extends Win32Struct {
-    static sizeof => 24
+export default struct FILE_MAILSLOT_QUERY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    MaximumMessageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumMessageSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MailslotQuota : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MailslotQuota {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NextMessageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextMessageSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MessagesAvailable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MessagesAvailable {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ReadTimeout : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReadTimeout {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
 }

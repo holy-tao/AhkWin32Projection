@@ -1,33 +1,88 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMPPlaylistChangeEventType.ahk" { WMPPlaylistChangeEventType }
 
 /**
  * The IWMPEvents interface provides events that originate from the Windows Media Player control. An embedding program can respond to these events. The events exposed by IWMPEvents are also exposed by the _WMPOCXEvents interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPEvents extends IUnknown {
     /**
      * The interface identifier for IWMPEvents
      * @type {Guid}
      */
-    static IID => Guid("{19a6627b-da9e-47c1-bb23-00b5e668236a}")
+    static IID := Guid("{19a6627b-da9e-47c1-bb23-00b5e668236a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OpenStateChange                        : IntPtr
+        PlayStateChange                        : IntPtr
+        AudioLanguageChange                    : IntPtr
+        StatusChange                           : IntPtr
+        ScriptCommand                          : IntPtr
+        NewStream                              : IntPtr
+        Disconnect                             : IntPtr
+        Buffering                              : IntPtr
+        Error                                  : IntPtr
+        Warning                                : IntPtr
+        EndOfStream                            : IntPtr
+        PositionChange                         : IntPtr
+        MarkerHit                              : IntPtr
+        DurationUnitChange                     : IntPtr
+        CdromMediaChange                       : IntPtr
+        PlaylistChange                         : IntPtr
+        CurrentPlaylistChange                  : IntPtr
+        CurrentPlaylistItemAvailable           : IntPtr
+        MediaChange                            : IntPtr
+        CurrentMediaItemAvailable              : IntPtr
+        CurrentItemChange                      : IntPtr
+        MediaCollectionChange                  : IntPtr
+        MediaCollectionAttributeStringAdded    : IntPtr
+        MediaCollectionAttributeStringRemoved  : IntPtr
+        MediaCollectionAttributeStringChanged  : IntPtr
+        PlaylistCollectionChange               : IntPtr
+        PlaylistCollectionPlaylistAdded        : IntPtr
+        PlaylistCollectionPlaylistRemoved      : IntPtr
+        PlaylistCollectionPlaylistSetAsDeleted : IntPtr
+        ModeChange                             : IntPtr
+        MediaError                             : IntPtr
+        OpenPlaylistSwitch                     : IntPtr
+        DomainChange                           : IntPtr
+        SwitchedToPlayerApplication            : IntPtr
+        SwitchedToControl                      : IntPtr
+        PlayerDockedStateChange                : IntPtr
+        PlayerReconnect                        : IntPtr
+        Click                                  : IntPtr
+        DoubleClick                            : IntPtr
+        KeyDown                                : IntPtr
+        KeyPress                               : IntPtr
+        KeyUp                                  : IntPtr
+        MouseDown                              : IntPtr
+        MouseMove                              : IntPtr
+        MouseUp                                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenStateChange", "PlayStateChange", "AudioLanguageChange", "StatusChange", "ScriptCommand", "NewStream", "Disconnect", "Buffering", "Error", "Warning", "EndOfStream", "PositionChange", "MarkerHit", "DurationUnitChange", "CdromMediaChange", "PlaylistChange", "CurrentPlaylistChange", "CurrentPlaylistItemAvailable", "MediaChange", "CurrentMediaItemAvailable", "CurrentItemChange", "MediaCollectionChange", "MediaCollectionAttributeStringAdded", "MediaCollectionAttributeStringRemoved", "MediaCollectionAttributeStringChanged", "PlaylistCollectionChange", "PlaylistCollectionPlaylistAdded", "PlaylistCollectionPlaylistRemoved", "PlaylistCollectionPlaylistSetAsDeleted", "ModeChange", "MediaError", "OpenPlaylistSwitch", "DomainChange", "SwitchedToPlayerApplication", "SwitchedToControl", "PlayerDockedStateChange", "PlayerReconnect", "Click", "DoubleClick", "KeyDown", "KeyPress", "KeyUp", "MouseDown", "MouseMove", "MouseUp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OpenStateChange event occurs when the Windows Media Player control changes state.
@@ -163,7 +218,7 @@ class IWMPEvents extends IUnknown {
         scType := scType is String ? BSTR.Alloc(scType).Value : scType
         Param := Param is String ? BSTR.Alloc(Param).Value : Param
 
-        ComCall(7, this, "ptr", scType, "ptr", Param)
+        ComCall(7, this, BSTR, scType, BSTR, Param)
     }
 
     /**
@@ -200,7 +255,7 @@ class IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-buffering
      */
     Buffering(Start) {
-        ComCall(10, this, "short", Start)
+        ComCall(10, this, VARIANT_BOOL, Start)
     }
 
     /**
@@ -227,7 +282,7 @@ class IWMPEvents extends IUnknown {
     Warning(WarningType, Param, Description) {
         Description := Description is String ? BSTR.Alloc(Description).Value : Description
 
-        ComCall(12, this, "int", WarningType, "int", Param, "ptr", Description)
+        ComCall(12, this, "int", WarningType, "int", Param, BSTR, Description)
     }
 
     /**
@@ -305,7 +360,7 @@ class IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-playlistchange
      */
     PlaylistChange(Playlist, change) {
-        ComCall(18, this, "ptr", Playlist, "int", change)
+        ComCall(18, this, "ptr", Playlist, WMPPlaylistChangeEventType, change)
     }
 
     /**
@@ -317,7 +372,7 @@ class IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-currentplaylistchange
      */
     CurrentPlaylistChange(change) {
-        ComCall(19, this, "int", change)
+        ComCall(19, this, WMPPlaylistChangeEventType, change)
     }
 
     /**
@@ -333,7 +388,7 @@ class IWMPEvents extends IUnknown {
     CurrentPlaylistItemAvailable(bstrItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        ComCall(20, this, "ptr", bstrItemName)
+        ComCall(20, this, BSTR, bstrItemName)
     }
 
     /**
@@ -359,7 +414,7 @@ class IWMPEvents extends IUnknown {
     CurrentMediaItemAvailable(bstrItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        ComCall(22, this, "ptr", bstrItemName)
+        ComCall(22, this, BSTR, bstrItemName)
     }
 
     /**
@@ -398,7 +453,7 @@ class IWMPEvents extends IUnknown {
         bstrAttribName := bstrAttribName is String ? BSTR.Alloc(bstrAttribName).Value : bstrAttribName
         bstrAttribVal := bstrAttribVal is String ? BSTR.Alloc(bstrAttribVal).Value : bstrAttribVal
 
-        ComCall(25, this, "ptr", bstrAttribName, "ptr", bstrAttribVal)
+        ComCall(25, this, BSTR, bstrAttribName, BSTR, bstrAttribVal)
     }
 
     /**
@@ -416,7 +471,7 @@ class IWMPEvents extends IUnknown {
         bstrAttribName := bstrAttribName is String ? BSTR.Alloc(bstrAttribName).Value : bstrAttribName
         bstrAttribVal := bstrAttribVal is String ? BSTR.Alloc(bstrAttribVal).Value : bstrAttribVal
 
-        ComCall(26, this, "ptr", bstrAttribName, "ptr", bstrAttribVal)
+        ComCall(26, this, BSTR, bstrAttribName, BSTR, bstrAttribVal)
     }
 
     /**
@@ -436,7 +491,7 @@ class IWMPEvents extends IUnknown {
         bstrOldAttribVal := bstrOldAttribVal is String ? BSTR.Alloc(bstrOldAttribVal).Value : bstrOldAttribVal
         bstrNewAttribVal := bstrNewAttribVal is String ? BSTR.Alloc(bstrNewAttribVal).Value : bstrNewAttribVal
 
-        ComCall(27, this, "ptr", bstrAttribName, "ptr", bstrOldAttribVal, "ptr", bstrNewAttribVal)
+        ComCall(27, this, BSTR, bstrAttribName, BSTR, bstrOldAttribVal, BSTR, bstrNewAttribVal)
     }
 
     /**
@@ -463,7 +518,7 @@ class IWMPEvents extends IUnknown {
     PlaylistCollectionPlaylistAdded(bstrPlaylistName) {
         bstrPlaylistName := bstrPlaylistName is String ? BSTR.Alloc(bstrPlaylistName).Value : bstrPlaylistName
 
-        ComCall(29, this, "ptr", bstrPlaylistName)
+        ComCall(29, this, BSTR, bstrPlaylistName)
     }
 
     /**
@@ -477,7 +532,7 @@ class IWMPEvents extends IUnknown {
     PlaylistCollectionPlaylistRemoved(bstrPlaylistName) {
         bstrPlaylistName := bstrPlaylistName is String ? BSTR.Alloc(bstrPlaylistName).Value : bstrPlaylistName
 
-        ComCall(30, this, "ptr", bstrPlaylistName)
+        ComCall(30, this, BSTR, bstrPlaylistName)
     }
 
     /**
@@ -494,7 +549,7 @@ class IWMPEvents extends IUnknown {
     PlaylistCollectionPlaylistSetAsDeleted(bstrPlaylistName, varfIsDeleted) {
         bstrPlaylistName := bstrPlaylistName is String ? BSTR.Alloc(bstrPlaylistName).Value : bstrPlaylistName
 
-        ComCall(31, this, "ptr", bstrPlaylistName, "short", varfIsDeleted)
+        ComCall(31, this, BSTR, bstrPlaylistName, VARIANT_BOOL, varfIsDeleted)
     }
 
     /**
@@ -507,7 +562,7 @@ class IWMPEvents extends IUnknown {
     ModeChange(ModeName, NewValue) {
         ModeName := ModeName is String ? BSTR.Alloc(ModeName).Value : ModeName
 
-        ComCall(32, this, "ptr", ModeName, "short", NewValue)
+        ComCall(32, this, BSTR, ModeName, VARIANT_BOOL, NewValue)
     }
 
     /**
@@ -543,7 +598,7 @@ class IWMPEvents extends IUnknown {
     DomainChange(strDomain) {
         strDomain := strDomain is String ? BSTR.Alloc(strDomain).Value : strDomain
 
-        ComCall(35, this, "ptr", strDomain)
+        ComCall(35, this, BSTR, strDomain)
     }
 
     /**
@@ -879,5 +934,113 @@ class IWMPEvents extends IUnknown {
      */
     MouseUp(nButton, nShiftState, fX, fY) {
         ComCall(47, this, "short", nButton, "short", nShiftState, "int", fX, "int", fY)
+    }
+
+    Query(iid) {
+        if (IWMPEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenStateChange := CallbackCreate(GetMethod(implObj, "OpenStateChange"), flags, 2)
+        this.vtbl.PlayStateChange := CallbackCreate(GetMethod(implObj, "PlayStateChange"), flags, 2)
+        this.vtbl.AudioLanguageChange := CallbackCreate(GetMethod(implObj, "AudioLanguageChange"), flags, 2)
+        this.vtbl.StatusChange := CallbackCreate(GetMethod(implObj, "StatusChange"), flags, 1)
+        this.vtbl.ScriptCommand := CallbackCreate(GetMethod(implObj, "ScriptCommand"), flags, 3)
+        this.vtbl.NewStream := CallbackCreate(GetMethod(implObj, "NewStream"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.Buffering := CallbackCreate(GetMethod(implObj, "Buffering"), flags, 2)
+        this.vtbl.Error := CallbackCreate(GetMethod(implObj, "Error"), flags, 1)
+        this.vtbl.Warning := CallbackCreate(GetMethod(implObj, "Warning"), flags, 4)
+        this.vtbl.EndOfStream := CallbackCreate(GetMethod(implObj, "EndOfStream"), flags, 2)
+        this.vtbl.PositionChange := CallbackCreate(GetMethod(implObj, "PositionChange"), flags, 3)
+        this.vtbl.MarkerHit := CallbackCreate(GetMethod(implObj, "MarkerHit"), flags, 2)
+        this.vtbl.DurationUnitChange := CallbackCreate(GetMethod(implObj, "DurationUnitChange"), flags, 2)
+        this.vtbl.CdromMediaChange := CallbackCreate(GetMethod(implObj, "CdromMediaChange"), flags, 2)
+        this.vtbl.PlaylistChange := CallbackCreate(GetMethod(implObj, "PlaylistChange"), flags, 3)
+        this.vtbl.CurrentPlaylistChange := CallbackCreate(GetMethod(implObj, "CurrentPlaylistChange"), flags, 2)
+        this.vtbl.CurrentPlaylistItemAvailable := CallbackCreate(GetMethod(implObj, "CurrentPlaylistItemAvailable"), flags, 2)
+        this.vtbl.MediaChange := CallbackCreate(GetMethod(implObj, "MediaChange"), flags, 2)
+        this.vtbl.CurrentMediaItemAvailable := CallbackCreate(GetMethod(implObj, "CurrentMediaItemAvailable"), flags, 2)
+        this.vtbl.CurrentItemChange := CallbackCreate(GetMethod(implObj, "CurrentItemChange"), flags, 2)
+        this.vtbl.MediaCollectionChange := CallbackCreate(GetMethod(implObj, "MediaCollectionChange"), flags, 1)
+        this.vtbl.MediaCollectionAttributeStringAdded := CallbackCreate(GetMethod(implObj, "MediaCollectionAttributeStringAdded"), flags, 3)
+        this.vtbl.MediaCollectionAttributeStringRemoved := CallbackCreate(GetMethod(implObj, "MediaCollectionAttributeStringRemoved"), flags, 3)
+        this.vtbl.MediaCollectionAttributeStringChanged := CallbackCreate(GetMethod(implObj, "MediaCollectionAttributeStringChanged"), flags, 4)
+        this.vtbl.PlaylistCollectionChange := CallbackCreate(GetMethod(implObj, "PlaylistCollectionChange"), flags, 1)
+        this.vtbl.PlaylistCollectionPlaylistAdded := CallbackCreate(GetMethod(implObj, "PlaylistCollectionPlaylistAdded"), flags, 2)
+        this.vtbl.PlaylistCollectionPlaylistRemoved := CallbackCreate(GetMethod(implObj, "PlaylistCollectionPlaylistRemoved"), flags, 2)
+        this.vtbl.PlaylistCollectionPlaylistSetAsDeleted := CallbackCreate(GetMethod(implObj, "PlaylistCollectionPlaylistSetAsDeleted"), flags, 3)
+        this.vtbl.ModeChange := CallbackCreate(GetMethod(implObj, "ModeChange"), flags, 3)
+        this.vtbl.MediaError := CallbackCreate(GetMethod(implObj, "MediaError"), flags, 2)
+        this.vtbl.OpenPlaylistSwitch := CallbackCreate(GetMethod(implObj, "OpenPlaylistSwitch"), flags, 2)
+        this.vtbl.DomainChange := CallbackCreate(GetMethod(implObj, "DomainChange"), flags, 2)
+        this.vtbl.SwitchedToPlayerApplication := CallbackCreate(GetMethod(implObj, "SwitchedToPlayerApplication"), flags, 1)
+        this.vtbl.SwitchedToControl := CallbackCreate(GetMethod(implObj, "SwitchedToControl"), flags, 1)
+        this.vtbl.PlayerDockedStateChange := CallbackCreate(GetMethod(implObj, "PlayerDockedStateChange"), flags, 1)
+        this.vtbl.PlayerReconnect := CallbackCreate(GetMethod(implObj, "PlayerReconnect"), flags, 1)
+        this.vtbl.Click := CallbackCreate(GetMethod(implObj, "Click"), flags, 5)
+        this.vtbl.DoubleClick := CallbackCreate(GetMethod(implObj, "DoubleClick"), flags, 5)
+        this.vtbl.KeyDown := CallbackCreate(GetMethod(implObj, "KeyDown"), flags, 3)
+        this.vtbl.KeyPress := CallbackCreate(GetMethod(implObj, "KeyPress"), flags, 2)
+        this.vtbl.KeyUp := CallbackCreate(GetMethod(implObj, "KeyUp"), flags, 3)
+        this.vtbl.MouseDown := CallbackCreate(GetMethod(implObj, "MouseDown"), flags, 5)
+        this.vtbl.MouseMove := CallbackCreate(GetMethod(implObj, "MouseMove"), flags, 5)
+        this.vtbl.MouseUp := CallbackCreate(GetMethod(implObj, "MouseUp"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenStateChange)
+        CallbackFree(this.vtbl.PlayStateChange)
+        CallbackFree(this.vtbl.AudioLanguageChange)
+        CallbackFree(this.vtbl.StatusChange)
+        CallbackFree(this.vtbl.ScriptCommand)
+        CallbackFree(this.vtbl.NewStream)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Buffering)
+        CallbackFree(this.vtbl.Error)
+        CallbackFree(this.vtbl.Warning)
+        CallbackFree(this.vtbl.EndOfStream)
+        CallbackFree(this.vtbl.PositionChange)
+        CallbackFree(this.vtbl.MarkerHit)
+        CallbackFree(this.vtbl.DurationUnitChange)
+        CallbackFree(this.vtbl.CdromMediaChange)
+        CallbackFree(this.vtbl.PlaylistChange)
+        CallbackFree(this.vtbl.CurrentPlaylistChange)
+        CallbackFree(this.vtbl.CurrentPlaylistItemAvailable)
+        CallbackFree(this.vtbl.MediaChange)
+        CallbackFree(this.vtbl.CurrentMediaItemAvailable)
+        CallbackFree(this.vtbl.CurrentItemChange)
+        CallbackFree(this.vtbl.MediaCollectionChange)
+        CallbackFree(this.vtbl.MediaCollectionAttributeStringAdded)
+        CallbackFree(this.vtbl.MediaCollectionAttributeStringRemoved)
+        CallbackFree(this.vtbl.MediaCollectionAttributeStringChanged)
+        CallbackFree(this.vtbl.PlaylistCollectionChange)
+        CallbackFree(this.vtbl.PlaylistCollectionPlaylistAdded)
+        CallbackFree(this.vtbl.PlaylistCollectionPlaylistRemoved)
+        CallbackFree(this.vtbl.PlaylistCollectionPlaylistSetAsDeleted)
+        CallbackFree(this.vtbl.ModeChange)
+        CallbackFree(this.vtbl.MediaError)
+        CallbackFree(this.vtbl.OpenPlaylistSwitch)
+        CallbackFree(this.vtbl.DomainChange)
+        CallbackFree(this.vtbl.SwitchedToPlayerApplication)
+        CallbackFree(this.vtbl.SwitchedToControl)
+        CallbackFree(this.vtbl.PlayerDockedStateChange)
+        CallbackFree(this.vtbl.PlayerReconnect)
+        CallbackFree(this.vtbl.Click)
+        CallbackFree(this.vtbl.DoubleClick)
+        CallbackFree(this.vtbl.KeyDown)
+        CallbackFree(this.vtbl.KeyPress)
+        CallbackFree(this.vtbl.KeyUp)
+        CallbackFree(this.vtbl.MouseDown)
+        CallbackFree(this.vtbl.MouseMove)
+        CallbackFree(this.vtbl.MouseUp)
     }
 }

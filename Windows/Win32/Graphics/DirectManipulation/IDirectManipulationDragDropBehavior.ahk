@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION.ahk" { DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIRECTMANIPULATION_DRAG_DROP_STATUS.ahk" { DIRECTMANIPULATION_DRAG_DROP_STATUS }
 
 /**
  * Represents behaviors for drag and drop interactions, which are triggered by cross-slide or press-and-hold gestures.
@@ -12,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationdragdropbehavior
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationDragDropBehavior extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationDragDropBehavior extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationDragDropBehavior
      * @type {Guid}
      */
-    static IID => Guid("{814b5af5-c2c8-4270-a9b7-a198ce8d02fa}")
+    static IID := Guid("{814b5af5-c2c8-4270-a9b7-a198ce8d02fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationDragDropBehavior interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetConfiguration : IntPtr
+        GetStatus        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetConfiguration", "GetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationDragDropBehavior.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the configuration of the drag-drop interaction for the viewport this behavior is attached to.
@@ -61,7 +72,7 @@ class IDirectManipulationDragDropBehavior extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-setconfiguration
      */
     SetConfiguration(configuration) {
-        result := ComCall(3, this, "int", configuration, "HRESULT")
+        result := ComCall(3, this, DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION, configuration, "HRESULT")
         return result
     }
 
@@ -75,5 +86,27 @@ class IDirectManipulationDragDropBehavior extends IUnknown {
     GetStatus() {
         result := ComCall(4, this, "int*", &_status := 0, "HRESULT")
         return _status
+    }
+
+    Query(iid) {
+        if (IDirectManipulationDragDropBehavior.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetConfiguration := CallbackCreate(GetMethod(implObj, "SetConfiguration"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetConfiguration)
+        CallbackFree(this.vtbl.GetStatus)
     }
 }

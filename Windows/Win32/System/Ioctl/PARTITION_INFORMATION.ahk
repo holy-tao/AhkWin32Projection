@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains information about a disk partition.
@@ -8,82 +8,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information
  * @namespace Windows.Win32.System.Ioctl
  */
-class PARTITION_INFORMATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PARTITION_INFORMATION {
+    #StructPack 8
 
     /**
      * The starting offset of the partition.
-     * @type {Integer}
      */
-    StartingOffset {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    StartingOffset : Int64
 
     /**
      * The length of the partition, in bytes.
-     * @type {Integer}
      */
-    PartitionLength {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    PartitionLength : Int64
 
     /**
      * The number of hidden sectors in the partition.
-     * @type {Integer}
      */
-    HiddenSectors {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    HiddenSectors : UInt32
 
     /**
      * The number of the partition (1-based).
-     * @type {Integer}
      */
-    PartitionNumber {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PartitionNumber : UInt32
 
     /**
      * The type of partition. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/disk-partition-types">Disk Partition Types</a>.
-     * @type {Integer}
      */
-    PartitionType {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    PartitionType : Int8
 
     /**
      * If this member is <b>TRUE</b>, the partition is bootable.
-     * @type {BOOLEAN}
      */
-    BootIndicator {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    BootIndicator : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the partition is of a recognized type.
-     * @type {BOOLEAN}
      */
-    RecognizedPartition {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    RecognizedPartition : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, the partition information has changed. When you change a partition (with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_drive_layout">IOCTL_DISK_SET_DRIVE_LAYOUT</a>), the system uses this member to determine which partitions have changed and need their information rewritten.
-     * @type {BOOLEAN}
      */
-    RewritePartition {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
+    RewritePartition : BOOLEAN
+
 }

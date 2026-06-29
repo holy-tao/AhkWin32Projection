@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INSSBuffer interface is the basic interface of a buffer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class INSSBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INSSBuffer extends IUnknown {
     /**
      * The interface identifier for INSSBuffer
      * @type {Guid}
      */
-    static IID => Guid("{e1cd3524-03d7-11d2-9eed-006097d2d7cf}")
+    static IID := Guid("{e1cd3524-03d7-11d2-9eed-006097d2d7cf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INSSBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLength          : IntPtr
+        SetLength          : IntPtr
+        GetMaxLength       : IntPtr
+        GetBuffer          : IntPtr
+        GetBufferAndLength : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLength", "SetLength", "GetMaxLength", "GetBuffer", "GetBufferAndLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INSSBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetLength method retrieves the size of the used portion of the buffer controlled by the buffer object.
@@ -145,5 +157,33 @@ class INSSBuffer extends IUnknown {
 
         result := ComCall(7, this, ppdwBufferMarshal, ppdwBuffer, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INSSBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 2)
+        this.vtbl.GetBufferAndLength := CallbackCreate(GetMethod(implObj, "GetBufferAndLength"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.SetLength)
+        CallbackFree(this.vtbl.GetMaxLength)
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.GetBufferAndLength)
     }
 }

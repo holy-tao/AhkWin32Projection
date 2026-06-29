@@ -1,60 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IORING_REF_KIND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IORING_REF_KIND.ahk" { IORING_REF_KIND }
 
 /**
  * Represents a reference to a file handle used in an I/O ring operation.
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_handle_ref
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class IORING_HANDLE_REF extends Win32Struct {
-    static sizeof => 24
+export default struct IORING_HANDLE_REF {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class HandleUnion extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct HandleUnion {
+        Handle : HANDLE
 
-        /**
-         * @type {HANDLE}
-         */
-        Handle {
-            get {
-                if(!this.HasProp("__Handle"))
-                    this.__Handle := HANDLE(0, this)
-                return this.__Handle
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Index {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Index', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A value from the [IORING_REF_KIND](ne-ioringapi-ioring_ref_kind.md) enumeration specifying the kind of handle represented by the structure.
-     * @type {IORING_REF_KIND}
      */
-    Kind {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Kind : IORING_REF_KIND
 
     /**
      * The handle to a file if the *Kind* value is IORING_REF_RAW.
-     * @type {HandleUnion}
      */
-    Handle {
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := IORING_HANDLE_REF.HandleUnion(8, this)
-            return this.__Handle
-        }
-    }
+    Handle : IORING_HANDLE_REF.HandleUnion
+
 }

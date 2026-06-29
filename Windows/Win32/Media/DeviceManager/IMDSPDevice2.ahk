@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPDevice.ahk
-#Include .\IMDSPStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import ".\WMFILECAPABILITIES.ahk" { WMFILECAPABILITIES }
 
 /**
  * The IMDSPDevice2 interface extends IMDSPDevice by getting extended formats, getting Plug and Play (PnP) device names, enabling the use of property pages, and making it possible to get a pointer to a storage medium from its name.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevice2
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IMDSPDevice2 extends IMDSPDevice {
-
-    static sizeof => A_PtrSize
+export default struct IMDSPDevice2 extends IMDSPDevice {
     /**
      * The interface identifier for IMDSPDevice2
      * @type {Guid}
      */
-    static IID => Guid("{420d16ad-c97d-4e00-82aa-00e9f4335ddd}")
+    static IID := Guid("{420d16ad-c97d-4e00-82aa-00e9f4335ddd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMDSPDevice2 interfaces
+    */
+    struct Vtbl extends IMDSPDevice.Vtbl {
+        GetStorage              : IntPtr
+        GetFormatSupport2       : IntPtr
+        GetSpecifyPropertyPages : IntPtr
+        GetCanonicalName        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStorage", "GetFormatSupport2", "GetSpecifyPropertyPages", "GetCanonicalName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMDSPDevice2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetStorage method makes it possible to go directly to a storage based on its name instead of enumerating through all storages to find it.
@@ -128,7 +145,7 @@ class IMDSPDevice2 extends IMDSPDevice {
         pppUnknownsMarshal := pppUnknowns is VarRef ? "ptr*" : "ptr"
         pcUnksMarshal := pcUnks is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr*", ppSpecifyPropPages, pppUnknownsMarshal, pppUnknowns, pcUnksMarshal, pcUnks, "HRESULT")
+        result := ComCall(16, this, ISpecifyPropertyPages.Ptr, ppSpecifyPropPages, pppUnknownsMarshal, pppUnknowns, pcUnksMarshal, pcUnks, "HRESULT")
         return result
     }
 
@@ -148,5 +165,31 @@ class IMDSPDevice2 extends IMDSPDevice {
 
         result := ComCall(17, this, "ptr", pwszPnPName, "uint", nMaxChars, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMDSPDevice2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStorage := CallbackCreate(GetMethod(implObj, "GetStorage"), flags, 3)
+        this.vtbl.GetFormatSupport2 := CallbackCreate(GetMethod(implObj, "GetFormatSupport2"), flags, 8)
+        this.vtbl.GetSpecifyPropertyPages := CallbackCreate(GetMethod(implObj, "GetSpecifyPropertyPages"), flags, 4)
+        this.vtbl.GetCanonicalName := CallbackCreate(GetMethod(implObj, "GetCanonicalName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStorage)
+        CallbackFree(this.vtbl.GetFormatSupport2)
+        CallbackFree(this.vtbl.GetSpecifyPropertyPages)
+        CallbackFree(this.vtbl.GetCanonicalName)
     }
 }

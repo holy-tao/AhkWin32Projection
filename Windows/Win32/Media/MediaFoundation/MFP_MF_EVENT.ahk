@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFP_EVENT_HEADER.ahk
-#Include .\MFP_EVENT_TYPE.ahk
-#Include .\IMFPMediaPlayer.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\IMFMediaEvent.ahk
-#Include .\IMFPMediaItem.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import ".\IMFPMediaItem.ahk" { IMFPMediaItem }
+#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
+#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
 
 /**
  * Event structure for the MFP_EVENT_TYPE_MF event.
@@ -30,22 +30,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_mf_event
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFP_MF_EVENT extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct MFP_MF_EVENT {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure that contains data common to all <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> events.
-     * @type {MFP_EVENT_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := MFP_EVENT_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : MFP_EVENT_HEADER
 
     /**
      * Media Foundation event type. Currently, the MFPlay player object forwards the following pipeline events to the application:
@@ -98,28 +89,17 @@ class MFP_MF_EVENT extends Win32Struct {
      * <td>A stream format has changed.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    MFEventType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MFEventType : UInt32
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface of the Media Foundation event.
-     * @type {IMFMediaEvent}
      */
-    pMFMediaEvent {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pMFMediaEvent : IMFMediaEvent
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaitem">IMFPMediaItem</a> interface of the current media item.
-     * @type {IMFPMediaItem}
      */
-    pMediaItem {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pMediaItem : IMFPMediaItem
+
 }

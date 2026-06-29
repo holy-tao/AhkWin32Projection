@@ -1,22 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\MINIDUMP_THREAD_CALLBACK.ahk
-#Include .\CONTEXT.ahk
-#Include .\CONTEXT_FLAGS.ahk
-#Include .\ARM64_NT_NEON128.ahk
-#Include .\MINIDUMP_THREAD_EX_CALLBACK.ahk
-#Include .\MINIDUMP_MODULE_CALLBACK.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
-#Include .\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk
-#Include .\MINIDUMP_INCLUDE_MODULE_CALLBACK.ahk
-#Include .\MINIDUMP_IO_CALLBACK.ahk
-#Include .\MINIDUMP_READ_MEMORY_FAILURE_CALLBACK.ahk
-#Include .\MINIDUMP_VM_QUERY_CALLBACK.ahk
-#Include .\MINIDUMP_VM_PRE_READ_CALLBACK.ahk
-#Include .\MINIDUMP_VM_POST_READ_CALLBACK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CONTEXT.ahk" { CONTEXT }
+#Import ".\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk" { MINIDUMP_INCLUDE_THREAD_CALLBACK }
+#Import ".\MINIDUMP_IO_CALLBACK.ahk" { MINIDUMP_IO_CALLBACK }
+#Import ".\MINIDUMP_THREAD_EX_CALLBACK.ahk" { MINIDUMP_THREAD_EX_CALLBACK }
+#Import ".\MINIDUMP_READ_MEMORY_FAILURE_CALLBACK.ahk" { MINIDUMP_READ_MEMORY_FAILURE_CALLBACK }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
+#Import ".\MINIDUMP_VM_QUERY_CALLBACK.ahk" { MINIDUMP_VM_QUERY_CALLBACK }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk" { VS_FIXEDFILEINFO }
+#Import ".\MINIDUMP_VM_PRE_READ_CALLBACK.ahk" { MINIDUMP_VM_PRE_READ_CALLBACK }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MINIDUMP_INCLUDE_MODULE_CALLBACK.ahk" { MINIDUMP_INCLUDE_MODULE_CALLBACK }
+#Import ".\MINIDUMP_THREAD_CALLBACK.ahk" { MINIDUMP_THREAD_CALLBACK }
+#Import ".\ARM64_NT_NEON128.ahk" { ARM64_NT_NEON128 }
+#Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
+#Import ".\MINIDUMP_VM_POST_READ_CALLBACK.ahk" { MINIDUMP_VM_POST_READ_CALLBACK }
+#Import ".\MINIDUMP_MODULE_CALLBACK.ahk" { MINIDUMP_MODULE_CALLBACK }
 
 /**
  * Contains information used by the MiniDumpCallback function.
@@ -25,169 +26,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_input
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_CALLBACK_INPUT extends Win32Struct {
-    static sizeof => 3048
-
-    static packingSize => 8
+export default struct MINIDUMP_CALLBACK_INPUT {
+    #StructPack 8
 
     /**
      * The identifier of the process that contains callback function.
      * 
      * This member is not used if <b>CallbackType</b> is <b>IoStartCallback</b>.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProcessId : UInt32
 
     /**
      * A handle to the process that contains the callback function.
      * 
      * This member is not used if <b>CallbackType</b> is <b>IoStartCallback</b>.
-     * @type {HANDLE}
      */
-    ProcessHandle {
-        get {
-            if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(8, this)
-            return this.__ProcessHandle
-        }
-    }
+    ProcessHandle : HANDLE
 
     /**
      * The type of callback function. This member can be one of the values in the 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_callback_type">MINIDUMP_CALLBACK_TYPE</a> enumeration.
-     * @type {Integer}
      */
-    CallbackType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CallbackType : UInt32
 
-    /**
-     * @type {HRESULT}
-     */
-    Status {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Status : HRESULT
 
-    /**
-     * @type {MINIDUMP_THREAD_CALLBACK}
-     */
-    Thread {
-        get {
-            if(!this.HasProp("__Thread"))
-                this.__Thread := MINIDUMP_THREAD_CALLBACK(24, this)
-            return this.__Thread
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_THREAD_EX_CALLBACK}
-     */
-    ThreadEx {
-        get {
-            if(!this.HasProp("__ThreadEx"))
-                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(24, this)
-            return this.__ThreadEx
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_MODULE_CALLBACK}
-     */
-    Module {
-        get {
-            if(!this.HasProp("__Module"))
-                this.__Module := MINIDUMP_MODULE_CALLBACK(24, this)
-            return this.__Module
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_INCLUDE_THREAD_CALLBACK}
-     */
-    IncludeThread {
-        get {
-            if(!this.HasProp("__IncludeThread"))
-                this.__IncludeThread := MINIDUMP_INCLUDE_THREAD_CALLBACK(24, this)
-            return this.__IncludeThread
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_INCLUDE_MODULE_CALLBACK}
-     */
-    IncludeModule {
-        get {
-            if(!this.HasProp("__IncludeModule"))
-                this.__IncludeModule := MINIDUMP_INCLUDE_MODULE_CALLBACK(24, this)
-            return this.__IncludeModule
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_IO_CALLBACK}
-     */
-    Io {
-        get {
-            if(!this.HasProp("__Io"))
-                this.__Io := MINIDUMP_IO_CALLBACK(24, this)
-            return this.__Io
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_READ_MEMORY_FAILURE_CALLBACK}
-     */
-    ReadMemoryFailure {
-        get {
-            if(!this.HasProp("__ReadMemoryFailure"))
-                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(24, this)
-            return this.__ReadMemoryFailure
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SecondaryFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {MINIDUMP_VM_QUERY_CALLBACK}
-     */
-    VmQuery {
-        get {
-            if(!this.HasProp("__VmQuery"))
-                this.__VmQuery := MINIDUMP_VM_QUERY_CALLBACK(24, this)
-            return this.__VmQuery
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_VM_PRE_READ_CALLBACK}
-     */
-    VmPreRead {
-        get {
-            if(!this.HasProp("__VmPreRead"))
-                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(24, this)
-            return this.__VmPreRead
-        }
-    }
-
-    /**
-     * @type {MINIDUMP_VM_POST_READ_CALLBACK}
-     */
-    VmPostRead {
-        get {
-            if(!this.HasProp("__VmPostRead"))
-                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(24, this)
-            return this.__VmPostRead
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Thread', { type: MINIDUMP_THREAD_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'ThreadEx', { type: MINIDUMP_THREAD_EX_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'Module', { type: MINIDUMP_MODULE_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'IncludeThread', { type: MINIDUMP_INCLUDE_THREAD_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'IncludeModule', { type: MINIDUMP_INCLUDE_MODULE_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'Io', { type: MINIDUMP_IO_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'ReadMemoryFailure', { type: MINIDUMP_READ_MEMORY_FAILURE_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'SecondaryFlags', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'VmQuery', { type: MINIDUMP_VM_QUERY_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'VmPreRead', { type: MINIDUMP_VM_PRE_READ_CALLBACK, offset: 24 })
+        DefineProp(this.Prototype, 'VmPostRead', { type: MINIDUMP_VM_POST_READ_CALLBACK, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

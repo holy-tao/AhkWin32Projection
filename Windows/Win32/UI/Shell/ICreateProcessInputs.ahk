@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by the ICreatingProcess interface to alter some parameters of the process that is being created.
@@ -12,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icreateprocessinputs
  * @namespace Windows.Win32.UI.Shell
  */
-class ICreateProcessInputs extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICreateProcessInputs extends IUnknown {
     /**
      * The interface identifier for ICreateProcessInputs
      * @type {Guid}
      */
-    static IID => Guid("{f6ef6140-e26f-4d82-bac4-e9ba5fd239a8}")
+    static IID := Guid("{f6ef6140-e26f-4d82-bac4-e9ba5fd239a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateProcessInputs interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCreateFlags         : IntPtr
+        SetCreateFlags         : IntPtr
+        AddCreateFlags         : IntPtr
+        SetHotKey              : IntPtr
+        AddStartupFlags        : IntPtr
+        SetTitle               : IntPtr
+        SetEnvironmentVariable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCreateFlags", "SetCreateFlags", "AddCreateFlags", "SetHotKey", "AddStartupFlags", "SetTitle", "SetEnvironmentVariable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateProcessInputs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the additional flags that will be passed to CreateProcess.
@@ -123,5 +138,37 @@ class ICreateProcessInputs extends IUnknown {
 
         result := ComCall(9, this, "ptr", pszName, "ptr", pszValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICreateProcessInputs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCreateFlags := CallbackCreate(GetMethod(implObj, "GetCreateFlags"), flags, 2)
+        this.vtbl.SetCreateFlags := CallbackCreate(GetMethod(implObj, "SetCreateFlags"), flags, 2)
+        this.vtbl.AddCreateFlags := CallbackCreate(GetMethod(implObj, "AddCreateFlags"), flags, 2)
+        this.vtbl.SetHotKey := CallbackCreate(GetMethod(implObj, "SetHotKey"), flags, 2)
+        this.vtbl.AddStartupFlags := CallbackCreate(GetMethod(implObj, "AddStartupFlags"), flags, 2)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetEnvironmentVariable := CallbackCreate(GetMethod(implObj, "SetEnvironmentVariable"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCreateFlags)
+        CallbackFree(this.vtbl.SetCreateFlags)
+        CallbackFree(this.vtbl.AddCreateFlags)
+        CallbackFree(this.vtbl.SetHotKey)
+        CallbackFree(this.vtbl.AddStartupFlags)
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.SetEnvironmentVariable)
     }
 }

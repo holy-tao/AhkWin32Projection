@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type of actions that a task can perform.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_action_type
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TASK_ACTION_TYPE extends Win32Enum {
+export default struct TASK_ACTION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This action performs a command-line operation. For example, the action can run a script, launch an executable, or, if the name of a document is provided, find its associated application and launch the application with the document.

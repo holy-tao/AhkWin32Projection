@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the configuration type of a camera control.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_camera_control_configuration_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_CAMERA_CONTROL_CONFIGURATION_TYPE extends Win32Enum {
+export default struct MF_CAMERA_CONTROL_CONFIGURATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The camera control must be configured before streaming begins.

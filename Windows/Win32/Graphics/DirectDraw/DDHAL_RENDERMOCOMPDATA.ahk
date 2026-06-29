@@ -1,102 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDRAWI_DDMOTIONCOMP_LCL.ahk
-#Include .\DDMCBUFFERINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDMCBUFFERINFO.ahk" { DDMCBUFFERINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_RENDERMOCOMPDATA extends Win32Struct {
-    static sizeof => 80
+export default struct DDHAL_RENDERMOCOMPDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpMoComp : DDRAWI_DDMOTIONCOMP_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDMOTIONCOMP_LCL>}
-     */
-    lpMoComp {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwNumBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumBuffers {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lpBufferInfo : DDMCBUFFERINFO.Ptr
 
-    /**
-     * @type {Pointer<DDMCBUFFERINFO>}
-     */
-    lpBufferInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwFunction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFunction {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    lpInputData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpInputData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwInputDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInputDataSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    lpOutputData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpOutputData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwOutputDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOutputDataSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    RenderMoComp : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALMOCOMPCB_RENDER>}
-     */
-    RenderMoComp {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

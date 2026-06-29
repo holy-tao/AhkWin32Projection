@@ -1,94 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains statistical information from the FAT file system.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fat_statistics
  * @namespace Windows.Win32.System.Ioctl
  */
-class FAT_STATISTICS extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct FAT_STATISTICS {
+    #StructPack 4
 
     /**
      * The number of create operations.
-     * @type {Integer}
      */
-    CreateHits {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CreateHits : UInt32
 
     /**
      * The number of successful create operations.
-     * @type {Integer}
      */
-    SuccessfulCreates {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SuccessfulCreates : UInt32
 
     /**
      * The number of failed create operations.
-     * @type {Integer}
      */
-    FailedCreates {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FailedCreates : UInt32
 
     /**
      * The number of read operations that were not cached.
-     * @type {Integer}
      */
-    NonCachedReads {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NonCachedReads : UInt32
 
     /**
      * The number of bytes read from a file that were not cached.
-     * @type {Integer}
      */
-    NonCachedReadBytes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NonCachedReadBytes : UInt32
 
     /**
      * The number of write operations that were not cached.
-     * @type {Integer}
      */
-    NonCachedWrites {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NonCachedWrites : UInt32
 
     /**
      * The number of bytes written to a file that were not cached.
-     * @type {Integer}
      */
-    NonCachedWriteBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NonCachedWriteBytes : UInt32
 
     /**
      * The number of read operations that were not cached. This value includes sub-read operations.
-     * @type {Integer}
      */
-    NonCachedDiskReads {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    NonCachedDiskReads : UInt32
 
     /**
      * The number of write operations that were not cached. This value includes sub-write operations.
-     * @type {Integer}
      */
-    NonCachedDiskWrites {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NonCachedDiskWrites : UInt32
+
 }

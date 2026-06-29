@@ -1,29 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_HEADER.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SAFER_IDENTIFICATION_HEADER.ahk" { SAFER_IDENTIFICATION_HEADER }
+#Import ".\SAFER_IDENTIFICATION_TYPES.ahk" { SAFER_IDENTIFICATION_TYPES }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Represents a URL zone identification rule.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_urlzone_identification
  * @namespace Windows.Win32.Security.AppLocker
  */
-class SAFER_URLZONE_IDENTIFICATION extends Win32Struct {
-    static sizeof => 32
+export default struct SAFER_URLZONE_IDENTIFICATION {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {SAFER_IDENTIFICATION_HEADER}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := SAFER_IDENTIFICATION_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : SAFER_IDENTIFICATION_HEADER
 
     /**
      * A URLZONE identifier that represents the origin of the code image to be checked. The following table shows the possible values.
@@ -84,19 +73,12 @@ class SAFER_URLZONE_IDENTIFICATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    UrlZoneId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    UrlZoneId : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwSaferFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwSaferFlags : UInt32
+
 }

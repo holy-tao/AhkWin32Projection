@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SVCB_PARAM_IPV4 extends Win32Struct {
-    static sizeof => 8
+export default struct DNS_SVCB_PARAM_IPV4 {
+    #StructPack 4
 
-    static packingSize => 4
+    cIps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cIps {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    rgIps : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgIps {
-        get {
-            if(!this.HasProp("__rgIpsProxyArray"))
-                this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__rgIpsProxyArray
-        }
-    }
 }

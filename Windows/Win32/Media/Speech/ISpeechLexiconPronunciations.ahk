@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechLexiconPronunciation.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISpeechLexiconPronunciation.ahk" { ISpeechLexiconPronunciation }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechLexiconPronunciations extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechLexiconPronunciations extends IDispatch {
     /**
      * The interface identifier for ISpeechLexiconPronunciations
      * @type {Guid}
      */
-    static IID => Guid("{72829128-5682-4704-a0d4-3e2bb6f2ead3}")
+    static IID := Guid("{72829128-5682-4704-a0d4-3e2bb6f2ead3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechLexiconPronunciations interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        Item         : IntPtr
+        get__NewEnum : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "Item", "get__NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechLexiconPronunciations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -75,5 +85,29 @@ class ISpeechLexiconPronunciations extends IDispatch {
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &EnumVARIANT := 0, "HRESULT")
         return IUnknown(EnumVARIANT)
+    }
+
+    Query(iid) {
+        if (ISpeechLexiconPronunciations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get__NewEnum)
     }
 }

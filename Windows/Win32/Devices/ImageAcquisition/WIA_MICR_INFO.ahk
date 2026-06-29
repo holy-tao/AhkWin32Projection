@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_MICR_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct WIA_MICR_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Page : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Page {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Text : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Text {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
-    }
 }

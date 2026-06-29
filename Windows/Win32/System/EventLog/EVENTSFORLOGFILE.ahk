@@ -1,49 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EVENTLOGRECORD.ahk
-#Include .\REPORT_EVENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EVENTLOGRECORD.ahk" { EVENTLOGRECORD }
+#Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.EventLog
  * @deprecated struct EVENTSFORLOGFILE is deprecated and might not work on all platforms. For more info, see MSDN.
  */
-class EVENTSFORLOGFILE extends Win32Struct {
-    static sizeof => 576
+export default struct EVENTSFORLOGFILE {
+    #StructPack 4
 
-    static packingSize => 4
+    ulSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szLogicalLogFile : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    szLogicalLogFile {
-        get => StrGet(this.ptr + 4, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 255, "UTF-16")
-    }
+    ulNumRecords : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumRecords {
-        get => NumGet(this, 516, "uint")
-        set => NumPut("uint", value, this, 516)
-    }
+    pEventLogRecords : EVENTLOGRECORD[1]
 
-    /**
-     * @type {EVENTLOGRECORD}
-     */
-    pEventLogRecords {
-        get {
-            if(!this.HasProp("__pEventLogRecordsProxyArray"))
-                this.__pEventLogRecordsProxyArray := Win32FixedArray(this.ptr + 520, 1, EVENTLOGRECORD, "")
-            return this.__pEventLogRecordsProxyArray
-        }
-    }
 }

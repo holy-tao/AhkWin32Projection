@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUnbufferedFileHandleOplockCallback.ahk" { IUnbufferedFileHandleOplockCallback }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to handles from a random-access byte stream that the StorageFile.OpenAsync method created.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-iunbufferedfilehandleprovider
  * @namespace Windows.Win32.System.WinRT.Storage
  */
-class IUnbufferedFileHandleProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUnbufferedFileHandleProvider extends IUnknown {
     /**
      * The interface identifier for IUnbufferedFileHandleProvider
      * @type {Guid}
      */
-    static IID => Guid("{a65c9109-42ab-4b94-a7b1-dd2e4e68515e}")
+    static IID := Guid("{a65c9109-42ab-4b94-a7b1-dd2e4e68515e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUnbufferedFileHandleProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OpenUnbufferedFileHandle  : IntPtr
+        CloseUnbufferedFileHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenUnbufferedFileHandle", "CloseUnbufferedFileHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUnbufferedFileHandleProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a handle from a random-access byte stream that the StorageFile.OpenAsync method created and registers a callback method that you want to run when the opportunistic lock for the handle is broken.
@@ -52,5 +62,27 @@ class IUnbufferedFileHandleProvider extends IUnknown {
     CloseUnbufferedFileHandle() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUnbufferedFileHandleProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenUnbufferedFileHandle := CallbackCreate(GetMethod(implObj, "OpenUnbufferedFileHandle"), flags, 3)
+        this.vtbl.CloseUnbufferedFileHandle := CallbackCreate(GetMethod(implObj, "CloseUnbufferedFileHandle"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenUnbufferedFileHandle)
+        CallbackFree(this.vtbl.CloseUnbufferedFileHandle)
     }
 }

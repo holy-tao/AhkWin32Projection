@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutput2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGIOutput2.ahk" { IDXGIOutput2 }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput3 interface exposes a method to check for overlay support.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgioutput3
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutput3 extends IDXGIOutput2 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutput3 extends IDXGIOutput2 {
     /**
      * The interface identifier for IDXGIOutput3
      * @type {Guid}
      */
-    static IID => Guid("{8a6bb301-7e7e-41f4-a8e0-5b32f7f99b18}")
+    static IID := Guid("{8a6bb301-7e7e-41f4-a8e0-5b32f7f99b18}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutput3 interfaces
+    */
+    struct Vtbl extends IDXGIOutput2.Vtbl {
+        CheckOverlaySupport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckOverlaySupport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutput3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Checks for overlay support.
@@ -43,7 +53,27 @@ class IDXGIOutput3 extends IDXGIOutput2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgioutput3-checkoverlaysupport
      */
     CheckOverlaySupport(EnumFormat, pConcernedDevice) {
-        result := ComCall(24, this, "int", EnumFormat, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")
+        result := ComCall(24, this, DXGI_FORMAT, EnumFormat, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")
         return pFlags
+    }
+
+    Query(iid) {
+        if (IDXGIOutput3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckOverlaySupport := CallbackCreate(GetMethod(implObj, "CheckOverlaySupport"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckOverlaySupport)
     }
 }

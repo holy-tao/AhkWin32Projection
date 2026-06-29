@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the interval, in weeks, between invocations of a task.
@@ -19,19 +18,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-weekly
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class WEEKLY extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct WEEKLY {
+    #StructPack 2
 
     /**
      * Number of weeks between invocations of a task.
-     * @type {Integer}
      */
-    WeeksInterval {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    WeeksInterval : UInt16
 
     /**
      * Value that describes the days of the week the task runs. This value is a bitfield and is a combination of the following flags. See Remarks for an example of specifying multiple flags. 
@@ -114,10 +107,7 @@ class WEEKLY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    rgfDaysOfTheWeek {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    rgfDaysOfTheWeek : UInt16
+
 }

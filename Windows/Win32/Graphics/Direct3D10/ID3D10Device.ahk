@@ -1,25 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D10Buffer.ahk
-#Include .\ID3D10Texture1D.ahk
-#Include .\ID3D10Texture2D.ahk
-#Include .\ID3D10Texture3D.ahk
-#Include .\ID3D10ShaderResourceView.ahk
-#Include .\ID3D10RenderTargetView.ahk
-#Include .\ID3D10DepthStencilView.ahk
-#Include .\ID3D10InputLayout.ahk
-#Include .\ID3D10VertexShader.ahk
-#Include .\ID3D10GeometryShader.ahk
-#Include .\ID3D10PixelShader.ahk
-#Include .\ID3D10BlendState.ahk
-#Include .\ID3D10DepthStencilState.ahk
-#Include .\ID3D10RasterizerState.ahk
-#Include .\ID3D10SamplerState.ahk
-#Include .\ID3D10Query.ahk
-#Include .\ID3D10Predicate.ahk
-#Include .\ID3D10Counter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\ID3D10GeometryShader.ahk" { ID3D10GeometryShader }
+#Import ".\D3D10_SO_DECLARATION_ENTRY.ahk" { D3D10_SO_DECLARATION_ENTRY }
+#Import ".\D3D10_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D10_DEPTH_STENCIL_VIEW_DESC }
+#Import ".\ID3D10Texture1D.ahk" { ID3D10Texture1D }
+#Import ".\D3D10_RENDER_TARGET_VIEW_DESC.ahk" { D3D10_RENDER_TARGET_VIEW_DESC }
+#Import ".\ID3D10Resource.ahk" { ID3D10Resource }
+#Import ".\D3D10_SAMPLER_DESC.ahk" { D3D10_SAMPLER_DESC }
+#Import ".\D3D10_BUFFER_DESC.ahk" { D3D10_BUFFER_DESC }
+#Import ".\D3D10_TEXTURE3D_DESC.ahk" { D3D10_TEXTURE3D_DESC }
+#Import ".\D3D10_SUBRESOURCE_DATA.ahk" { D3D10_SUBRESOURCE_DATA }
+#Import ".\D3D10_RASTERIZER_DESC.ahk" { D3D10_RASTERIZER_DESC }
+#Import ".\ID3D10Texture2D.ahk" { ID3D10Texture2D }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D10_COUNTER_INFO.ahk" { D3D10_COUNTER_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_DEPTH_STENCIL_DESC.ahk" { D3D10_DEPTH_STENCIL_DESC }
+#Import ".\ID3D10VertexShader.ahk" { ID3D10VertexShader }
+#Import "..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk" { D3D_PRIMITIVE_TOPOLOGY }
+#Import ".\ID3D10RenderTargetView.ahk" { ID3D10RenderTargetView }
+#Import ".\ID3D10DepthStencilView.ahk" { ID3D10DepthStencilView }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_INPUT_ELEMENT_DESC.ahk" { D3D10_INPUT_ELEMENT_DESC }
+#Import ".\D3D10_BLEND_DESC.ahk" { D3D10_BLEND_DESC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ID3D10Buffer.ahk" { ID3D10Buffer }
+#Import ".\ID3D10PixelShader.ahk" { ID3D10PixelShader }
+#Import ".\ID3D10SamplerState.ahk" { ID3D10SamplerState }
+#Import ".\ID3D10BlendState.ahk" { ID3D10BlendState }
+#Import ".\ID3D10RasterizerState.ahk" { ID3D10RasterizerState }
+#Import ".\ID3D10DepthStencilState.ahk" { ID3D10DepthStencilState }
+#Import ".\ID3D10Query.ahk" { ID3D10Query }
+#Import ".\ID3D10InputLayout.ahk" { ID3D10InputLayout }
+#Import ".\ID3D10ShaderResourceView.ahk" { ID3D10ShaderResourceView }
+#Import ".\D3D10_BOX.ahk" { D3D10_BOX }
+#Import ".\D3D10_TEXTURE1D_DESC.ahk" { D3D10_TEXTURE1D_DESC }
+#Import ".\D3D10_COUNTER_DESC.ahk" { D3D10_COUNTER_DESC }
+#Import ".\D3D10_COUNTER_TYPE.ahk" { D3D10_COUNTER_TYPE }
+#Import ".\ID3D10Predicate.ahk" { ID3D10Predicate }
+#Import ".\D3D10_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D10_SHADER_RESOURCE_VIEW_DESC }
+#Import ".\D3D10_TEXTURE2D_DESC.ahk" { D3D10_TEXTURE2D_DESC }
+#Import ".\ID3D10Counter.ahk" { ID3D10Counter }
+#Import ".\ID3D10Texture3D.ahk" { ID3D10Texture3D }
+#Import ".\D3D10_QUERY_DESC.ahk" { D3D10_QUERY_DESC }
+#Import ".\D3D10_VIEWPORT.ahk" { D3D10_VIEWPORT }
 
 /**
  * The device interface represents a virtual adapter for Direct3D 10.0; it is used to perform rendering and create Direct3D resources.
@@ -28,26 +56,127 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10device
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10Device extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10Device extends IUnknown {
     /**
      * The interface identifier for ID3D10Device
      * @type {Guid}
      */
-    static IID => Guid("{9b7e4c0f-342c-4106-a19f-4f2704f689f0}")
+    static IID := Guid("{9b7e4c0f-342c-4106-a19f-4f2704f689f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10Device interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        VSSetConstantBuffers                 : IntPtr
+        PSSetShaderResources                 : IntPtr
+        PSSetShader                          : IntPtr
+        PSSetSamplers                        : IntPtr
+        VSSetShader                          : IntPtr
+        DrawIndexed                          : IntPtr
+        Draw                                 : IntPtr
+        PSSetConstantBuffers                 : IntPtr
+        IASetInputLayout                     : IntPtr
+        IASetVertexBuffers                   : IntPtr
+        IASetIndexBuffer                     : IntPtr
+        DrawIndexedInstanced                 : IntPtr
+        DrawInstanced                        : IntPtr
+        GSSetConstantBuffers                 : IntPtr
+        GSSetShader                          : IntPtr
+        IASetPrimitiveTopology               : IntPtr
+        VSSetShaderResources                 : IntPtr
+        VSSetSamplers                        : IntPtr
+        SetPredication                       : IntPtr
+        GSSetShaderResources                 : IntPtr
+        GSSetSamplers                        : IntPtr
+        OMSetRenderTargets                   : IntPtr
+        OMSetBlendState                      : IntPtr
+        OMSetDepthStencilState               : IntPtr
+        SOSetTargets                         : IntPtr
+        DrawAuto                             : IntPtr
+        RSSetState                           : IntPtr
+        RSSetViewports                       : IntPtr
+        RSSetScissorRects                    : IntPtr
+        CopySubresourceRegion                : IntPtr
+        CopyResource                         : IntPtr
+        UpdateSubresource                    : IntPtr
+        ClearRenderTargetView                : IntPtr
+        ClearDepthStencilView                : IntPtr
+        GenerateMips                         : IntPtr
+        ResolveSubresource                   : IntPtr
+        VSGetConstantBuffers                 : IntPtr
+        PSGetShaderResources                 : IntPtr
+        PSGetShader                          : IntPtr
+        PSGetSamplers                        : IntPtr
+        VSGetShader                          : IntPtr
+        PSGetConstantBuffers                 : IntPtr
+        IAGetInputLayout                     : IntPtr
+        IAGetVertexBuffers                   : IntPtr
+        IAGetIndexBuffer                     : IntPtr
+        GSGetConstantBuffers                 : IntPtr
+        GSGetShader                          : IntPtr
+        IAGetPrimitiveTopology               : IntPtr
+        VSGetShaderResources                 : IntPtr
+        VSGetSamplers                        : IntPtr
+        GetPredication                       : IntPtr
+        GSGetShaderResources                 : IntPtr
+        GSGetSamplers                        : IntPtr
+        OMGetRenderTargets                   : IntPtr
+        OMGetBlendState                      : IntPtr
+        OMGetDepthStencilState               : IntPtr
+        SOGetTargets                         : IntPtr
+        RSGetState                           : IntPtr
+        RSGetViewports                       : IntPtr
+        RSGetScissorRects                    : IntPtr
+        GetDeviceRemovedReason               : IntPtr
+        SetExceptionMode                     : IntPtr
+        GetExceptionMode                     : IntPtr
+        GetPrivateData                       : IntPtr
+        SetPrivateData                       : IntPtr
+        SetPrivateDataInterface              : IntPtr
+        ClearState                           : IntPtr
+        Flush                                : IntPtr
+        CreateBuffer                         : IntPtr
+        CreateTexture1D                      : IntPtr
+        CreateTexture2D                      : IntPtr
+        CreateTexture3D                      : IntPtr
+        CreateShaderResourceView             : IntPtr
+        CreateRenderTargetView               : IntPtr
+        CreateDepthStencilView               : IntPtr
+        CreateInputLayout                    : IntPtr
+        CreateVertexShader                   : IntPtr
+        CreateGeometryShader                 : IntPtr
+        CreateGeometryShaderWithStreamOutput : IntPtr
+        CreatePixelShader                    : IntPtr
+        CreateBlendState                     : IntPtr
+        CreateDepthStencilState              : IntPtr
+        CreateRasterizerState                : IntPtr
+        CreateSamplerState                   : IntPtr
+        CreateQuery                          : IntPtr
+        CreatePredicate                      : IntPtr
+        CreateCounter                        : IntPtr
+        CheckFormatSupport                   : IntPtr
+        CheckMultisampleQualityLevels        : IntPtr
+        CheckCounterInfo                     : IntPtr
+        CheckCounter                         : IntPtr
+        GetCreationFlags                     : IntPtr
+        OpenSharedResource                   : IntPtr
+        SetTextFilterSize                    : IntPtr
+        GetTextFilterSize                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["VSSetConstantBuffers", "PSSetShaderResources", "PSSetShader", "PSSetSamplers", "VSSetShader", "DrawIndexed", "Draw", "PSSetConstantBuffers", "IASetInputLayout", "IASetVertexBuffers", "IASetIndexBuffer", "DrawIndexedInstanced", "DrawInstanced", "GSSetConstantBuffers", "GSSetShader", "IASetPrimitiveTopology", "VSSetShaderResources", "VSSetSamplers", "SetPredication", "GSSetShaderResources", "GSSetSamplers", "OMSetRenderTargets", "OMSetBlendState", "OMSetDepthStencilState", "SOSetTargets", "DrawAuto", "RSSetState", "RSSetViewports", "RSSetScissorRects", "CopySubresourceRegion", "CopyResource", "UpdateSubresource", "ClearRenderTargetView", "ClearDepthStencilView", "GenerateMips", "ResolveSubresource", "VSGetConstantBuffers", "PSGetShaderResources", "PSGetShader", "PSGetSamplers", "VSGetShader", "PSGetConstantBuffers", "IAGetInputLayout", "IAGetVertexBuffers", "IAGetIndexBuffer", "GSGetConstantBuffers", "GSGetShader", "IAGetPrimitiveTopology", "VSGetShaderResources", "VSGetSamplers", "GetPredication", "GSGetShaderResources", "GSGetSamplers", "OMGetRenderTargets", "OMGetBlendState", "OMGetDepthStencilState", "SOGetTargets", "RSGetState", "RSGetViewports", "RSGetScissorRects", "GetDeviceRemovedReason", "SetExceptionMode", "GetExceptionMode", "GetPrivateData", "SetPrivateData", "SetPrivateDataInterface", "ClearState", "Flush", "CreateBuffer", "CreateTexture1D", "CreateTexture2D", "CreateTexture3D", "CreateShaderResourceView", "CreateRenderTargetView", "CreateDepthStencilView", "CreateInputLayout", "CreateVertexShader", "CreateGeometryShader", "CreateGeometryShaderWithStreamOutput", "CreatePixelShader", "CreateBlendState", "CreateDepthStencilState", "CreateRasterizerState", "CreateSamplerState", "CreateQuery", "CreatePredicate", "CreateCounter", "CheckFormatSupport", "CheckMultisampleQualityLevels", "CheckCounterInfo", "CheckCounter", "GetCreationFlags", "OpenSharedResource", "SetTextFilterSize", "GetTextFilterSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10Device.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set the constant buffers used by the vertex shader pipeline stage.
@@ -66,7 +195,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vssetconstantbuffers
      */
     VSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(3, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
+        ComCall(3, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -90,7 +219,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-pssetshaderresources
      */
     PSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(4, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
+        ComCall(4, this, "uint", StartSlot, "uint", NumViews, ID3D10ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -186,7 +315,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-pssetsamplers
      */
     PSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(6, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
+        ComCall(6, this, "uint", StartSlot, "uint", NumSamplers, ID3D10SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -261,7 +390,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-pssetconstantbuffers
      */
     PSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(10, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
+        ComCall(10, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -312,7 +441,7 @@ class ID3D10Device extends IUnknown {
         pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(12, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
+        ComCall(12, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -338,7 +467,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iasetindexbuffer
      */
     IASetIndexBuffer(pIndexBuffer, Format, Offset) {
-        ComCall(13, this, "ptr", pIndexBuffer, "int", Format, "uint", Offset)
+        ComCall(13, this, "ptr", pIndexBuffer, DXGI_FORMAT, Format, "uint", Offset)
     }
 
     /**
@@ -413,7 +542,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gssetconstantbuffers
      */
     GSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(16, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
+        ComCall(16, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -439,7 +568,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iasetprimitivetopology
      */
     IASetPrimitiveTopology(Topology) {
-        ComCall(18, this, "int", Topology)
+        ComCall(18, this, D3D_PRIMITIVE_TOPOLOGY, Topology)
     }
 
     /**
@@ -463,7 +592,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vssetshaderresources
      */
     VSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(19, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
+        ComCall(19, this, "uint", StartSlot, "uint", NumViews, ID3D10ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -507,7 +636,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vssetsamplers
      */
     VSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(20, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
+        ComCall(20, this, "uint", StartSlot, "uint", NumSamplers, ID3D10SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -528,7 +657,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-setpredication
      */
     SetPredication(pPredicate, PredicateValue) {
-        ComCall(21, this, "ptr", pPredicate, "int", PredicateValue)
+        ComCall(21, this, "ptr", pPredicate, BOOL, PredicateValue)
     }
 
     /**
@@ -552,7 +681,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gssetshaderresources
      */
     GSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(22, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
+        ComCall(22, this, "uint", StartSlot, "uint", NumViews, ID3D10ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -596,7 +725,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gssetsamplers
      */
     GSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(23, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
+        ComCall(23, this, "uint", StartSlot, "uint", NumSamplers, ID3D10SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -630,7 +759,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-omsetrendertargets
      */
     OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView) {
-        ComCall(24, this, "uint", NumViews, "ptr*", ppRenderTargetViews, "ptr", pDepthStencilView)
+        ComCall(24, this, "uint", NumViews, ID3D10RenderTargetView.Ptr, ppRenderTargetViews, "ptr", pDepthStencilView)
     }
 
     /**
@@ -758,7 +887,7 @@ class ID3D10Device extends IUnknown {
     SOSetTargets(NumBuffers, ppSOTargets, pOffsets) {
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(27, this, "uint", NumBuffers, "ptr*", ppSOTargets, pOffsetsMarshal, pOffsets)
+        ComCall(27, this, "uint", NumBuffers, ID3D10Buffer.Ptr, ppSOTargets, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -820,7 +949,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-rssetviewports
      */
     RSSetViewports(NumViewports, pViewports) {
-        ComCall(30, this, "uint", NumViewports, "ptr", pViewports)
+        ComCall(30, this, "uint", NumViewports, D3D10_VIEWPORT.Ptr, pViewports)
     }
 
     /**
@@ -841,7 +970,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-rssetscissorrects
      */
     RSSetScissorRects(NumRects, pRects) {
-        ComCall(31, this, "uint", NumRects, "ptr", pRects)
+        ComCall(31, this, "uint", NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -946,7 +1075,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-copysubresourceregion
      */
     CopySubresourceRegion(pDstResource, DstSubresource, DstX, DstY, DstZ, pSrcResource, SrcSubresource, pSrcBox) {
-        ComCall(32, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrcResource, "uint", SrcSubresource, "ptr", pSrcBox)
+        ComCall(32, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrcResource, "uint", SrcSubresource, D3D10_BOX.Ptr, pSrcBox)
     }
 
     /**
@@ -1109,7 +1238,7 @@ class ID3D10Device extends IUnknown {
     UpdateSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(34, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        ComCall(34, this, "ptr", pDstResource, "uint", DstSubresource, D3D10_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
     }
 
     /**
@@ -1304,7 +1433,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-resolvesubresource
      */
     ResolveSubresource(pDstResource, DstSubresource, pSrcResource, SrcSubresource, Format) {
-        ComCall(38, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, "int", Format)
+        ComCall(38, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, DXGI_FORMAT, Format)
     }
 
     /**
@@ -1324,7 +1453,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vsgetconstantbuffers
      */
     VSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(39, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
+        ComCall(39, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -1344,7 +1473,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-psgetshaderresources
      */
     PSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(40, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
+        ComCall(40, this, "uint", StartSlot, "uint", NumViews, ID3D10ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -1358,7 +1487,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-psgetshader
      */
     PSGetShader(ppPixelShader) {
-        ComCall(41, this, "ptr*", ppPixelShader)
+        ComCall(41, this, ID3D10PixelShader.Ptr, ppPixelShader)
     }
 
     /**
@@ -1378,7 +1507,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-psgetsamplers
      */
     PSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(42, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
+        ComCall(42, this, "uint", StartSlot, "uint", NumSamplers, ID3D10SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -1392,7 +1521,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vsgetshader
      */
     VSGetShader(ppVertexShader) {
-        ComCall(43, this, "ptr*", ppVertexShader)
+        ComCall(43, this, ID3D10VertexShader.Ptr, ppVertexShader)
     }
 
     /**
@@ -1412,7 +1541,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-psgetconstantbuffers
      */
     PSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(44, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
+        ComCall(44, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -1428,7 +1557,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iagetinputlayout
      */
     IAGetInputLayout(ppInputLayout) {
-        ComCall(45, this, "ptr*", ppInputLayout)
+        ComCall(45, this, ID3D10InputLayout.Ptr, ppInputLayout)
     }
 
     /**
@@ -1457,7 +1586,7 @@ class ID3D10Device extends IUnknown {
         pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(46, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
+        ComCall(46, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -1480,7 +1609,7 @@ class ID3D10Device extends IUnknown {
         FormatMarshal := Format is VarRef ? "int*" : "ptr"
         OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
 
-        ComCall(47, this, "ptr*", pIndexBuffer, FormatMarshal, Format, OffsetMarshal, Offset)
+        ComCall(47, this, ID3D10Buffer.Ptr, pIndexBuffer, FormatMarshal, Format, OffsetMarshal, Offset)
     }
 
     /**
@@ -1500,7 +1629,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gsgetconstantbuffers
      */
     GSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(48, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
+        ComCall(48, this, "uint", StartSlot, "uint", NumBuffers, ID3D10Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -1514,7 +1643,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gsgetshader
      */
     GSGetShader(ppGeometryShader) {
-        ComCall(49, this, "ptr*", ppGeometryShader)
+        ComCall(49, this, ID3D10GeometryShader.Ptr, ppGeometryShader)
     }
 
     /**
@@ -1548,7 +1677,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vsgetshaderresources
      */
     VSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(51, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
+        ComCall(51, this, "uint", StartSlot, "uint", NumViews, ID3D10ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -1568,7 +1697,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-vsgetsamplers
      */
     VSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(52, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
+        ComCall(52, this, "uint", StartSlot, "uint", NumSamplers, ID3D10SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -1587,7 +1716,7 @@ class ID3D10Device extends IUnknown {
     GetPredication(ppPredicate, pPredicateValue) {
         pPredicateValueMarshal := pPredicateValue is VarRef ? "int*" : "ptr"
 
-        ComCall(53, this, "ptr*", ppPredicate, pPredicateValueMarshal, pPredicateValue)
+        ComCall(53, this, ID3D10Predicate.Ptr, ppPredicate, pPredicateValueMarshal, pPredicateValue)
     }
 
     /**
@@ -1607,7 +1736,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gsgetshaderresources
      */
     GSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(54, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
+        ComCall(54, this, "uint", StartSlot, "uint", NumViews, ID3D10ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -1627,7 +1756,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gsgetsamplers
      */
     GSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(55, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
+        ComCall(55, this, "uint", StartSlot, "uint", NumSamplers, ID3D10SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -1647,7 +1776,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-omgetrendertargets
      */
     OMGetRenderTargets(NumViews, ppRenderTargetViews, ppDepthStencilView) {
-        ComCall(56, this, "uint", NumViews, "ptr*", ppRenderTargetViews, "ptr*", ppDepthStencilView)
+        ComCall(56, this, "uint", NumViews, ID3D10RenderTargetView.Ptr, ppRenderTargetViews, ID3D10DepthStencilView.Ptr, ppDepthStencilView)
     }
 
     /**
@@ -1670,7 +1799,7 @@ class ID3D10Device extends IUnknown {
         BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
         pSampleMaskMarshal := pSampleMask is VarRef ? "uint*" : "ptr"
 
-        ComCall(57, this, "ptr*", ppBlendState, BlendFactorMarshal, BlendFactor, pSampleMaskMarshal, pSampleMask)
+        ComCall(57, this, ID3D10BlendState.Ptr, ppBlendState, BlendFactorMarshal, BlendFactor, pSampleMaskMarshal, pSampleMask)
     }
 
     /**
@@ -1689,7 +1818,7 @@ class ID3D10Device extends IUnknown {
     OMGetDepthStencilState(ppDepthStencilState, pStencilRef) {
         pStencilRefMarshal := pStencilRef is VarRef ? "uint*" : "ptr"
 
-        ComCall(58, this, "ptr*", ppDepthStencilState, pStencilRefMarshal, pStencilRef)
+        ComCall(58, this, ID3D10DepthStencilState.Ptr, ppDepthStencilState, pStencilRefMarshal, pStencilRef)
     }
 
     /**
@@ -1711,7 +1840,7 @@ class ID3D10Device extends IUnknown {
     SOGetTargets(NumBuffers, ppSOTargets, pOffsets) {
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(59, this, "uint", NumBuffers, "ptr*", ppSOTargets, pOffsetsMarshal, pOffsets)
+        ComCall(59, this, "uint", NumBuffers, ID3D10Buffer.Ptr, ppSOTargets, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -1725,7 +1854,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-rsgetstate
      */
     RSGetState(ppRasterizerState) {
-        ComCall(60, this, "ptr*", ppRasterizerState)
+        ComCall(60, this, ID3D10RasterizerState.Ptr, ppRasterizerState)
     }
 
     /**
@@ -1744,7 +1873,7 @@ class ID3D10Device extends IUnknown {
     RSGetViewports(NumViewports, pViewports) {
         NumViewportsMarshal := NumViewports is VarRef ? "uint*" : "ptr"
 
-        ComCall(61, this, NumViewportsMarshal, NumViewports, "ptr", pViewports)
+        ComCall(61, this, NumViewportsMarshal, NumViewports, D3D10_VIEWPORT.Ptr, pViewports)
     }
 
     /**
@@ -1761,7 +1890,7 @@ class ID3D10Device extends IUnknown {
     RSGetScissorRects(NumRects, pRects) {
         NumRectsMarshal := NumRects is VarRef ? "uint*" : "ptr"
 
-        ComCall(62, this, NumRectsMarshal, NumRects, "ptr", pRects)
+        ComCall(62, this, NumRectsMarshal, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1817,7 +1946,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-getexceptionmode
      */
     GetExceptionMode() {
-        result := ComCall(65, this, "uint")
+        result := ComCall(65, this, UInt32)
         return result
     }
 
@@ -1844,7 +1973,7 @@ class ID3D10Device extends IUnknown {
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(66, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -1869,7 +1998,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(67, this, "ptr", guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(67, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -1889,7 +2018,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(68, this, "ptr", guid, "ptr", pData, "HRESULT")
+        result := ComCall(68, this, Guid.Ptr, guid, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -1944,7 +2073,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createbuffer
      */
     CreateBuffer(pDesc, pInitialData) {
-        result := ComCall(71, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(71, this, D3D10_BUFFER_DESC.Ptr, pDesc, D3D10_SUBRESOURCE_DATA.Ptr, pInitialData, "ptr*", &ppBuffer := 0, "HRESULT")
         return ID3D10Buffer(ppBuffer)
     }
 
@@ -1966,7 +2095,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createtexture1d
      */
     CreateTexture1D(pDesc, pInitialData) {
-        result := ComCall(72, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture1D := 0, "HRESULT")
+        result := ComCall(72, this, D3D10_TEXTURE1D_DESC.Ptr, pDesc, D3D10_SUBRESOURCE_DATA.Ptr, pInitialData, "ptr*", &ppTexture1D := 0, "HRESULT")
         return ID3D10Texture1D(ppTexture1D)
     }
 
@@ -1988,7 +2117,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createtexture2d
      */
     CreateTexture2D(pDesc, pInitialData) {
-        result := ComCall(73, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
+        result := ComCall(73, this, D3D10_TEXTURE2D_DESC.Ptr, pDesc, D3D10_SUBRESOURCE_DATA.Ptr, pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
         return ID3D10Texture2D(ppTexture2D)
     }
 
@@ -2010,7 +2139,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createtexture3d
      */
     CreateTexture3D(pDesc, pInitialData) {
-        result := ComCall(74, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
+        result := ComCall(74, this, D3D10_TEXTURE3D_DESC.Ptr, pDesc, D3D10_SUBRESOURCE_DATA.Ptr, pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
         return ID3D10Texture3D(ppTexture3D)
     }
 
@@ -2032,7 +2161,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createshaderresourceview
      */
     CreateShaderResourceView(pResource, pDesc) {
-        result := ComCall(75, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppSRView := 0, "HRESULT")
+        result := ComCall(75, this, "ptr", pResource, D3D10_SHADER_RESOURCE_VIEW_DESC.Ptr, pDesc, "ptr*", &ppSRView := 0, "HRESULT")
         return ID3D10ShaderResourceView(ppSRView)
     }
 
@@ -2052,7 +2181,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createrendertargetview
      */
     CreateRenderTargetView(pResource, pDesc) {
-        result := ComCall(76, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppRTView := 0, "HRESULT")
+        result := ComCall(76, this, "ptr", pResource, D3D10_RENDER_TARGET_VIEW_DESC.Ptr, pDesc, "ptr*", &ppRTView := 0, "HRESULT")
         return ID3D10RenderTargetView(ppRTView)
     }
 
@@ -2074,7 +2203,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createdepthstencilview
      */
     CreateDepthStencilView(pResource, pDesc) {
-        result := ComCall(77, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppDepthStencilView := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", pResource, D3D10_DEPTH_STENCIL_VIEW_DESC.Ptr, pDesc, "ptr*", &ppDepthStencilView := 0, "HRESULT")
         return ID3D10DepthStencilView(ppDepthStencilView)
     }
 
@@ -2119,7 +2248,7 @@ class ID3D10Device extends IUnknown {
     CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength) {
         pShaderBytecodeWithInputSignatureMarshal := pShaderBytecodeWithInputSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(78, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", &ppInputLayout := 0, "HRESULT")
+        result := ComCall(78, this, D3D10_INPUT_ELEMENT_DESC.Ptr, pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", &ppInputLayout := 0, "HRESULT")
         return ID3D10InputLayout(ppInputLayout)
     }
 
@@ -2194,7 +2323,7 @@ class ID3D10Device extends IUnknown {
     CreateGeometryShaderWithStreamOutput(pShaderBytecode, BytecodeLength, pSODeclaration, NumEntries, OutputStreamStride) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(81, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, "uint", OutputStreamStride, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        result := ComCall(81, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, D3D10_SO_DECLARATION_ENTRY.Ptr, pSODeclaration, "uint", NumEntries, "uint", OutputStreamStride, "ptr*", &ppGeometryShader := 0, "HRESULT")
         return ID3D10GeometryShader(ppGeometryShader)
     }
 
@@ -2233,7 +2362,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createblendstate
      */
     CreateBlendState(pBlendStateDesc) {
-        result := ComCall(83, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
+        result := ComCall(83, this, D3D10_BLEND_DESC.Ptr, pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
         return ID3D10BlendState(ppBlendState)
     }
 
@@ -2252,7 +2381,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createdepthstencilstate
      */
     CreateDepthStencilState(pDepthStencilDesc) {
-        result := ComCall(84, this, "ptr", pDepthStencilDesc, "ptr*", &ppDepthStencilState := 0, "HRESULT")
+        result := ComCall(84, this, D3D10_DEPTH_STENCIL_DESC.Ptr, pDepthStencilDesc, "ptr*", &ppDepthStencilState := 0, "HRESULT")
         return ID3D10DepthStencilState(ppDepthStencilState)
     }
 
@@ -2271,7 +2400,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createrasterizerstate
      */
     CreateRasterizerState(pRasterizerDesc) {
-        result := ComCall(85, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        result := ComCall(85, this, D3D10_RASTERIZER_DESC.Ptr, pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
         return ID3D10RasterizerState(ppRasterizerState)
     }
 
@@ -2290,7 +2419,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createsamplerstate
      */
     CreateSamplerState(pSamplerDesc) {
-        result := ComCall(86, this, "ptr", pSamplerDesc, "ptr*", &ppSamplerState := 0, "HRESULT")
+        result := ComCall(86, this, D3D10_SAMPLER_DESC.Ptr, pSamplerDesc, "ptr*", &ppSamplerState := 0, "HRESULT")
         return ID3D10SamplerState(ppSamplerState)
     }
 
@@ -2305,7 +2434,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createquery
      */
     CreateQuery(pQueryDesc) {
-        result := ComCall(87, this, "ptr", pQueryDesc, "ptr*", &ppQuery := 0, "HRESULT")
+        result := ComCall(87, this, D3D10_QUERY_DESC.Ptr, pQueryDesc, "ptr*", &ppQuery := 0, "HRESULT")
         return ID3D10Query(ppQuery)
     }
 
@@ -2320,7 +2449,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createpredicate
      */
     CreatePredicate(pPredicateDesc) {
-        result := ComCall(88, this, "ptr", pPredicateDesc, "ptr*", &ppPredicate := 0, "HRESULT")
+        result := ComCall(88, this, D3D10_QUERY_DESC.Ptr, pPredicateDesc, "ptr*", &ppPredicate := 0, "HRESULT")
         return ID3D10Predicate(ppPredicate)
     }
 
@@ -2335,7 +2464,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createcounter
      */
     CreateCounter(pCounterDesc) {
-        result := ComCall(89, this, "ptr", pCounterDesc, "ptr*", &ppCounter := 0, "HRESULT")
+        result := ComCall(89, this, D3D10_COUNTER_DESC.Ptr, pCounterDesc, "ptr*", &ppCounter := 0, "HRESULT")
         return ID3D10Counter(ppCounter)
     }
 
@@ -2355,7 +2484,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-checkformatsupport
      */
     CheckFormatSupport(Format) {
-        result := ComCall(90, this, "int", Format, "uint*", &pFormatSupport := 0, "HRESULT")
+        result := ComCall(90, this, DXGI_FORMAT, Format, "uint*", &pFormatSupport := 0, "HRESULT")
         return pFormatSupport
     }
 
@@ -2382,7 +2511,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-checkmultisamplequalitylevels
      */
     CheckMultisampleQualityLevels(Format, SampleCount) {
-        result := ComCall(91, this, "int", Format, "uint", SampleCount, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        result := ComCall(91, this, DXGI_FORMAT, Format, "uint", SampleCount, "uint*", &pNumQualityLevels := 0, "HRESULT")
         return pNumQualityLevels
     }
 
@@ -2395,7 +2524,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-checkcounterinfo
      */
     CheckCounterInfo(pCounterInfo) {
-        ComCall(92, this, "ptr", pCounterInfo)
+        ComCall(92, this, D3D10_COUNTER_INFO.Ptr, pCounterInfo)
     }
 
     /**
@@ -2445,7 +2574,7 @@ class ID3D10Device extends IUnknown {
         pUnitsLengthMarshal := pUnitsLength is VarRef ? "uint*" : "ptr"
         pDescriptionLengthMarshal := pDescriptionLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(93, this, "ptr", pDesc, pTypeMarshal, pType, pActiveCountersMarshal, pActiveCounters, "ptr", szName, pNameLengthMarshal, pNameLength, "ptr", szUnits, pUnitsLengthMarshal, pUnitsLength, "ptr", szDescription, pDescriptionLengthMarshal, pDescriptionLength, "HRESULT")
+        result := ComCall(93, this, D3D10_COUNTER_DESC.Ptr, pDesc, pTypeMarshal, pType, pActiveCountersMarshal, pActiveCounters, "ptr", szName, pNameLengthMarshal, pNameLength, "ptr", szUnits, pUnitsLengthMarshal, pUnitsLength, "ptr", szDescription, pDescriptionLengthMarshal, pDescriptionLength, "HRESULT")
         return result
     }
 
@@ -2457,7 +2586,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-getcreationflags
      */
     GetCreationFlags() {
-        result := ComCall(94, this, "uint")
+        result := ComCall(94, this, UInt32)
         return result
     }
 
@@ -2530,9 +2659,7 @@ class ID3D10Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-opensharedresource
      */
     OpenSharedResource(_hResource, ReturnedInterface) {
-        _hResource := _hResource is Win32Handle ? NumGet(_hResource, "ptr") : _hResource
-
-        result := ComCall(95, this, "ptr", _hResource, "ptr", ReturnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(95, this, HANDLE, _hResource, Guid.Ptr, ReturnedInterface, "ptr*", &ppResource := 0, "HRESULT")
         return ppResource
     }
 
@@ -2571,5 +2698,213 @@ class ID3D10Device extends IUnknown {
         pHeightMarshal := pHeight is VarRef ? "uint*" : "ptr"
 
         ComCall(97, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight)
+    }
+
+    Query(iid) {
+        if (ID3D10Device.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.VSSetConstantBuffers := CallbackCreate(GetMethod(implObj, "VSSetConstantBuffers"), flags, 4)
+        this.vtbl.PSSetShaderResources := CallbackCreate(GetMethod(implObj, "PSSetShaderResources"), flags, 4)
+        this.vtbl.PSSetShader := CallbackCreate(GetMethod(implObj, "PSSetShader"), flags, 2)
+        this.vtbl.PSSetSamplers := CallbackCreate(GetMethod(implObj, "PSSetSamplers"), flags, 4)
+        this.vtbl.VSSetShader := CallbackCreate(GetMethod(implObj, "VSSetShader"), flags, 2)
+        this.vtbl.DrawIndexed := CallbackCreate(GetMethod(implObj, "DrawIndexed"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 3)
+        this.vtbl.PSSetConstantBuffers := CallbackCreate(GetMethod(implObj, "PSSetConstantBuffers"), flags, 4)
+        this.vtbl.IASetInputLayout := CallbackCreate(GetMethod(implObj, "IASetInputLayout"), flags, 2)
+        this.vtbl.IASetVertexBuffers := CallbackCreate(GetMethod(implObj, "IASetVertexBuffers"), flags, 6)
+        this.vtbl.IASetIndexBuffer := CallbackCreate(GetMethod(implObj, "IASetIndexBuffer"), flags, 4)
+        this.vtbl.DrawIndexedInstanced := CallbackCreate(GetMethod(implObj, "DrawIndexedInstanced"), flags, 6)
+        this.vtbl.DrawInstanced := CallbackCreate(GetMethod(implObj, "DrawInstanced"), flags, 5)
+        this.vtbl.GSSetConstantBuffers := CallbackCreate(GetMethod(implObj, "GSSetConstantBuffers"), flags, 4)
+        this.vtbl.GSSetShader := CallbackCreate(GetMethod(implObj, "GSSetShader"), flags, 2)
+        this.vtbl.IASetPrimitiveTopology := CallbackCreate(GetMethod(implObj, "IASetPrimitiveTopology"), flags, 2)
+        this.vtbl.VSSetShaderResources := CallbackCreate(GetMethod(implObj, "VSSetShaderResources"), flags, 4)
+        this.vtbl.VSSetSamplers := CallbackCreate(GetMethod(implObj, "VSSetSamplers"), flags, 4)
+        this.vtbl.SetPredication := CallbackCreate(GetMethod(implObj, "SetPredication"), flags, 3)
+        this.vtbl.GSSetShaderResources := CallbackCreate(GetMethod(implObj, "GSSetShaderResources"), flags, 4)
+        this.vtbl.GSSetSamplers := CallbackCreate(GetMethod(implObj, "GSSetSamplers"), flags, 4)
+        this.vtbl.OMSetRenderTargets := CallbackCreate(GetMethod(implObj, "OMSetRenderTargets"), flags, 4)
+        this.vtbl.OMSetBlendState := CallbackCreate(GetMethod(implObj, "OMSetBlendState"), flags, 4)
+        this.vtbl.OMSetDepthStencilState := CallbackCreate(GetMethod(implObj, "OMSetDepthStencilState"), flags, 3)
+        this.vtbl.SOSetTargets := CallbackCreate(GetMethod(implObj, "SOSetTargets"), flags, 4)
+        this.vtbl.DrawAuto := CallbackCreate(GetMethod(implObj, "DrawAuto"), flags, 1)
+        this.vtbl.RSSetState := CallbackCreate(GetMethod(implObj, "RSSetState"), flags, 2)
+        this.vtbl.RSSetViewports := CallbackCreate(GetMethod(implObj, "RSSetViewports"), flags, 3)
+        this.vtbl.RSSetScissorRects := CallbackCreate(GetMethod(implObj, "RSSetScissorRects"), flags, 3)
+        this.vtbl.CopySubresourceRegion := CallbackCreate(GetMethod(implObj, "CopySubresourceRegion"), flags, 9)
+        this.vtbl.CopyResource := CallbackCreate(GetMethod(implObj, "CopyResource"), flags, 3)
+        this.vtbl.UpdateSubresource := CallbackCreate(GetMethod(implObj, "UpdateSubresource"), flags, 7)
+        this.vtbl.ClearRenderTargetView := CallbackCreate(GetMethod(implObj, "ClearRenderTargetView"), flags, 3)
+        this.vtbl.ClearDepthStencilView := CallbackCreate(GetMethod(implObj, "ClearDepthStencilView"), flags, 5)
+        this.vtbl.GenerateMips := CallbackCreate(GetMethod(implObj, "GenerateMips"), flags, 2)
+        this.vtbl.ResolveSubresource := CallbackCreate(GetMethod(implObj, "ResolveSubresource"), flags, 6)
+        this.vtbl.VSGetConstantBuffers := CallbackCreate(GetMethod(implObj, "VSGetConstantBuffers"), flags, 4)
+        this.vtbl.PSGetShaderResources := CallbackCreate(GetMethod(implObj, "PSGetShaderResources"), flags, 4)
+        this.vtbl.PSGetShader := CallbackCreate(GetMethod(implObj, "PSGetShader"), flags, 2)
+        this.vtbl.PSGetSamplers := CallbackCreate(GetMethod(implObj, "PSGetSamplers"), flags, 4)
+        this.vtbl.VSGetShader := CallbackCreate(GetMethod(implObj, "VSGetShader"), flags, 2)
+        this.vtbl.PSGetConstantBuffers := CallbackCreate(GetMethod(implObj, "PSGetConstantBuffers"), flags, 4)
+        this.vtbl.IAGetInputLayout := CallbackCreate(GetMethod(implObj, "IAGetInputLayout"), flags, 2)
+        this.vtbl.IAGetVertexBuffers := CallbackCreate(GetMethod(implObj, "IAGetVertexBuffers"), flags, 6)
+        this.vtbl.IAGetIndexBuffer := CallbackCreate(GetMethod(implObj, "IAGetIndexBuffer"), flags, 4)
+        this.vtbl.GSGetConstantBuffers := CallbackCreate(GetMethod(implObj, "GSGetConstantBuffers"), flags, 4)
+        this.vtbl.GSGetShader := CallbackCreate(GetMethod(implObj, "GSGetShader"), flags, 2)
+        this.vtbl.IAGetPrimitiveTopology := CallbackCreate(GetMethod(implObj, "IAGetPrimitiveTopology"), flags, 2)
+        this.vtbl.VSGetShaderResources := CallbackCreate(GetMethod(implObj, "VSGetShaderResources"), flags, 4)
+        this.vtbl.VSGetSamplers := CallbackCreate(GetMethod(implObj, "VSGetSamplers"), flags, 4)
+        this.vtbl.GetPredication := CallbackCreate(GetMethod(implObj, "GetPredication"), flags, 3)
+        this.vtbl.GSGetShaderResources := CallbackCreate(GetMethod(implObj, "GSGetShaderResources"), flags, 4)
+        this.vtbl.GSGetSamplers := CallbackCreate(GetMethod(implObj, "GSGetSamplers"), flags, 4)
+        this.vtbl.OMGetRenderTargets := CallbackCreate(GetMethod(implObj, "OMGetRenderTargets"), flags, 4)
+        this.vtbl.OMGetBlendState := CallbackCreate(GetMethod(implObj, "OMGetBlendState"), flags, 4)
+        this.vtbl.OMGetDepthStencilState := CallbackCreate(GetMethod(implObj, "OMGetDepthStencilState"), flags, 3)
+        this.vtbl.SOGetTargets := CallbackCreate(GetMethod(implObj, "SOGetTargets"), flags, 4)
+        this.vtbl.RSGetState := CallbackCreate(GetMethod(implObj, "RSGetState"), flags, 2)
+        this.vtbl.RSGetViewports := CallbackCreate(GetMethod(implObj, "RSGetViewports"), flags, 3)
+        this.vtbl.RSGetScissorRects := CallbackCreate(GetMethod(implObj, "RSGetScissorRects"), flags, 3)
+        this.vtbl.GetDeviceRemovedReason := CallbackCreate(GetMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
+        this.vtbl.SetExceptionMode := CallbackCreate(GetMethod(implObj, "SetExceptionMode"), flags, 2)
+        this.vtbl.GetExceptionMode := CallbackCreate(GetMethod(implObj, "GetExceptionMode"), flags, 1)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+        this.vtbl.ClearState := CallbackCreate(GetMethod(implObj, "ClearState"), flags, 1)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.CreateBuffer := CallbackCreate(GetMethod(implObj, "CreateBuffer"), flags, 4)
+        this.vtbl.CreateTexture1D := CallbackCreate(GetMethod(implObj, "CreateTexture1D"), flags, 4)
+        this.vtbl.CreateTexture2D := CallbackCreate(GetMethod(implObj, "CreateTexture2D"), flags, 4)
+        this.vtbl.CreateTexture3D := CallbackCreate(GetMethod(implObj, "CreateTexture3D"), flags, 4)
+        this.vtbl.CreateShaderResourceView := CallbackCreate(GetMethod(implObj, "CreateShaderResourceView"), flags, 4)
+        this.vtbl.CreateRenderTargetView := CallbackCreate(GetMethod(implObj, "CreateRenderTargetView"), flags, 4)
+        this.vtbl.CreateDepthStencilView := CallbackCreate(GetMethod(implObj, "CreateDepthStencilView"), flags, 4)
+        this.vtbl.CreateInputLayout := CallbackCreate(GetMethod(implObj, "CreateInputLayout"), flags, 6)
+        this.vtbl.CreateVertexShader := CallbackCreate(GetMethod(implObj, "CreateVertexShader"), flags, 4)
+        this.vtbl.CreateGeometryShader := CallbackCreate(GetMethod(implObj, "CreateGeometryShader"), flags, 4)
+        this.vtbl.CreateGeometryShaderWithStreamOutput := CallbackCreate(GetMethod(implObj, "CreateGeometryShaderWithStreamOutput"), flags, 7)
+        this.vtbl.CreatePixelShader := CallbackCreate(GetMethod(implObj, "CreatePixelShader"), flags, 4)
+        this.vtbl.CreateBlendState := CallbackCreate(GetMethod(implObj, "CreateBlendState"), flags, 3)
+        this.vtbl.CreateDepthStencilState := CallbackCreate(GetMethod(implObj, "CreateDepthStencilState"), flags, 3)
+        this.vtbl.CreateRasterizerState := CallbackCreate(GetMethod(implObj, "CreateRasterizerState"), flags, 3)
+        this.vtbl.CreateSamplerState := CallbackCreate(GetMethod(implObj, "CreateSamplerState"), flags, 3)
+        this.vtbl.CreateQuery := CallbackCreate(GetMethod(implObj, "CreateQuery"), flags, 3)
+        this.vtbl.CreatePredicate := CallbackCreate(GetMethod(implObj, "CreatePredicate"), flags, 3)
+        this.vtbl.CreateCounter := CallbackCreate(GetMethod(implObj, "CreateCounter"), flags, 3)
+        this.vtbl.CheckFormatSupport := CallbackCreate(GetMethod(implObj, "CheckFormatSupport"), flags, 3)
+        this.vtbl.CheckMultisampleQualityLevels := CallbackCreate(GetMethod(implObj, "CheckMultisampleQualityLevels"), flags, 4)
+        this.vtbl.CheckCounterInfo := CallbackCreate(GetMethod(implObj, "CheckCounterInfo"), flags, 2)
+        this.vtbl.CheckCounter := CallbackCreate(GetMethod(implObj, "CheckCounter"), flags, 10)
+        this.vtbl.GetCreationFlags := CallbackCreate(GetMethod(implObj, "GetCreationFlags"), flags, 1)
+        this.vtbl.OpenSharedResource := CallbackCreate(GetMethod(implObj, "OpenSharedResource"), flags, 4)
+        this.vtbl.SetTextFilterSize := CallbackCreate(GetMethod(implObj, "SetTextFilterSize"), flags, 3)
+        this.vtbl.GetTextFilterSize := CallbackCreate(GetMethod(implObj, "GetTextFilterSize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.VSSetConstantBuffers)
+        CallbackFree(this.vtbl.PSSetShaderResources)
+        CallbackFree(this.vtbl.PSSetShader)
+        CallbackFree(this.vtbl.PSSetSamplers)
+        CallbackFree(this.vtbl.VSSetShader)
+        CallbackFree(this.vtbl.DrawIndexed)
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.PSSetConstantBuffers)
+        CallbackFree(this.vtbl.IASetInputLayout)
+        CallbackFree(this.vtbl.IASetVertexBuffers)
+        CallbackFree(this.vtbl.IASetIndexBuffer)
+        CallbackFree(this.vtbl.DrawIndexedInstanced)
+        CallbackFree(this.vtbl.DrawInstanced)
+        CallbackFree(this.vtbl.GSSetConstantBuffers)
+        CallbackFree(this.vtbl.GSSetShader)
+        CallbackFree(this.vtbl.IASetPrimitiveTopology)
+        CallbackFree(this.vtbl.VSSetShaderResources)
+        CallbackFree(this.vtbl.VSSetSamplers)
+        CallbackFree(this.vtbl.SetPredication)
+        CallbackFree(this.vtbl.GSSetShaderResources)
+        CallbackFree(this.vtbl.GSSetSamplers)
+        CallbackFree(this.vtbl.OMSetRenderTargets)
+        CallbackFree(this.vtbl.OMSetBlendState)
+        CallbackFree(this.vtbl.OMSetDepthStencilState)
+        CallbackFree(this.vtbl.SOSetTargets)
+        CallbackFree(this.vtbl.DrawAuto)
+        CallbackFree(this.vtbl.RSSetState)
+        CallbackFree(this.vtbl.RSSetViewports)
+        CallbackFree(this.vtbl.RSSetScissorRects)
+        CallbackFree(this.vtbl.CopySubresourceRegion)
+        CallbackFree(this.vtbl.CopyResource)
+        CallbackFree(this.vtbl.UpdateSubresource)
+        CallbackFree(this.vtbl.ClearRenderTargetView)
+        CallbackFree(this.vtbl.ClearDepthStencilView)
+        CallbackFree(this.vtbl.GenerateMips)
+        CallbackFree(this.vtbl.ResolveSubresource)
+        CallbackFree(this.vtbl.VSGetConstantBuffers)
+        CallbackFree(this.vtbl.PSGetShaderResources)
+        CallbackFree(this.vtbl.PSGetShader)
+        CallbackFree(this.vtbl.PSGetSamplers)
+        CallbackFree(this.vtbl.VSGetShader)
+        CallbackFree(this.vtbl.PSGetConstantBuffers)
+        CallbackFree(this.vtbl.IAGetInputLayout)
+        CallbackFree(this.vtbl.IAGetVertexBuffers)
+        CallbackFree(this.vtbl.IAGetIndexBuffer)
+        CallbackFree(this.vtbl.GSGetConstantBuffers)
+        CallbackFree(this.vtbl.GSGetShader)
+        CallbackFree(this.vtbl.IAGetPrimitiveTopology)
+        CallbackFree(this.vtbl.VSGetShaderResources)
+        CallbackFree(this.vtbl.VSGetSamplers)
+        CallbackFree(this.vtbl.GetPredication)
+        CallbackFree(this.vtbl.GSGetShaderResources)
+        CallbackFree(this.vtbl.GSGetSamplers)
+        CallbackFree(this.vtbl.OMGetRenderTargets)
+        CallbackFree(this.vtbl.OMGetBlendState)
+        CallbackFree(this.vtbl.OMGetDepthStencilState)
+        CallbackFree(this.vtbl.SOGetTargets)
+        CallbackFree(this.vtbl.RSGetState)
+        CallbackFree(this.vtbl.RSGetViewports)
+        CallbackFree(this.vtbl.RSGetScissorRects)
+        CallbackFree(this.vtbl.GetDeviceRemovedReason)
+        CallbackFree(this.vtbl.SetExceptionMode)
+        CallbackFree(this.vtbl.GetExceptionMode)
+        CallbackFree(this.vtbl.GetPrivateData)
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.SetPrivateDataInterface)
+        CallbackFree(this.vtbl.ClearState)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.CreateBuffer)
+        CallbackFree(this.vtbl.CreateTexture1D)
+        CallbackFree(this.vtbl.CreateTexture2D)
+        CallbackFree(this.vtbl.CreateTexture3D)
+        CallbackFree(this.vtbl.CreateShaderResourceView)
+        CallbackFree(this.vtbl.CreateRenderTargetView)
+        CallbackFree(this.vtbl.CreateDepthStencilView)
+        CallbackFree(this.vtbl.CreateInputLayout)
+        CallbackFree(this.vtbl.CreateVertexShader)
+        CallbackFree(this.vtbl.CreateGeometryShader)
+        CallbackFree(this.vtbl.CreateGeometryShaderWithStreamOutput)
+        CallbackFree(this.vtbl.CreatePixelShader)
+        CallbackFree(this.vtbl.CreateBlendState)
+        CallbackFree(this.vtbl.CreateDepthStencilState)
+        CallbackFree(this.vtbl.CreateRasterizerState)
+        CallbackFree(this.vtbl.CreateSamplerState)
+        CallbackFree(this.vtbl.CreateQuery)
+        CallbackFree(this.vtbl.CreatePredicate)
+        CallbackFree(this.vtbl.CreateCounter)
+        CallbackFree(this.vtbl.CheckFormatSupport)
+        CallbackFree(this.vtbl.CheckMultisampleQualityLevels)
+        CallbackFree(this.vtbl.CheckCounterInfo)
+        CallbackFree(this.vtbl.CheckCounter)
+        CallbackFree(this.vtbl.GetCreationFlags)
+        CallbackFree(this.vtbl.OpenSharedResource)
+        CallbackFree(this.vtbl.SetTextFilterSize)
+        CallbackFree(this.vtbl.GetTextFilterSize)
     }
 }

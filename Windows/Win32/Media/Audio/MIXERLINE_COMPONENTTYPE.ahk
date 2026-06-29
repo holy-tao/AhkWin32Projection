@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Audio line is a digital destination (for example, digital input to a DAT or CD audio device).
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixerline
  * @namespace Windows.Win32.Media.Audio
  */
-class MIXERLINE_COMPONENTTYPE extends Win32Enum {
+export default struct MIXERLINE_COMPONENTTYPE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

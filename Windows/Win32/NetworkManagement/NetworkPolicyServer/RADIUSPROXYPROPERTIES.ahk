@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values in the RADIUSPROXYPROPERTIES enumeration type enumerate properties related to the RADIUS proxy service.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusproxyproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUSPROXYPROPERTIES extends Win32Enum {
+export default struct RADIUSPROXYPROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The collection of RADIUS proxy server groups.

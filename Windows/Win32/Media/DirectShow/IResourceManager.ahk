@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IResourceConsumer.ahk" { IResourceConsumer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iresourcemanager
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IResourceManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IResourceManager extends IUnknown {
     /**
      * The interface identifier for IResourceManager
      * @type {Guid}
      */
-    static IID => Guid("{56a868ac-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868ac-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IResourceManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Register        : IntPtr
+        RegisterGroup   : IntPtr
+        RequestResource : IntPtr
+        NotifyAcquire   : IntPtr
+        NotifyRelease   : IntPtr
+        CancelRequest   : IntPtr
+        SetFocus        : IntPtr
+        ReleaseFocus    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Register", "RegisterGroup", "RequestResource", "NotifyAcquire", "NotifyRelease", "CancelRequest", "SetFocus", "ReleaseFocus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IResourceManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Register method registers a single named resource with the resource manager.
@@ -240,7 +258,7 @@ class IResourceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-notifyrelease
      */
     NotifyRelease(idResource, pConsumer, bStillWant) {
-        result := ComCall(7, this, "int", idResource, "ptr", pConsumer, "int", bStillWant, "HRESULT")
+        result := ComCall(7, this, "int", idResource, "ptr", pConsumer, BOOL, bStillWant, "HRESULT")
         return result
     }
 
@@ -478,5 +496,39 @@ class IResourceManager extends IUnknown {
     ReleaseFocus(pFocusObject) {
         result := ComCall(10, this, "ptr", pFocusObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IResourceManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 4)
+        this.vtbl.RegisterGroup := CallbackCreate(GetMethod(implObj, "RegisterGroup"), flags, 5)
+        this.vtbl.RequestResource := CallbackCreate(GetMethod(implObj, "RequestResource"), flags, 4)
+        this.vtbl.NotifyAcquire := CallbackCreate(GetMethod(implObj, "NotifyAcquire"), flags, 4)
+        this.vtbl.NotifyRelease := CallbackCreate(GetMethod(implObj, "NotifyRelease"), flags, 4)
+        this.vtbl.CancelRequest := CallbackCreate(GetMethod(implObj, "CancelRequest"), flags, 3)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.ReleaseFocus := CallbackCreate(GetMethod(implObj, "ReleaseFocus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.RegisterGroup)
+        CallbackFree(this.vtbl.RequestResource)
+        CallbackFree(this.vtbl.NotifyAcquire)
+        CallbackFree(this.vtbl.NotifyRelease)
+        CallbackFree(this.vtbl.CancelRequest)
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.ReleaseFocus)
     }
 }

@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWSDTransportAddress.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSDUdpMessageType.ahk" { WSDUdpMessageType }
+#Import ".\IWSDTransportAddress.ahk" { IWSDTransportAddress }
+#Import "..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides access to the individual components of a UDP address.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdudpaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDUdpAddress extends IWSDTransportAddress {
-
-    static sizeof => A_PtrSize
+export default struct IWSDUdpAddress extends IWSDTransportAddress {
     /**
      * The interface identifier for IWSDUdpAddress
      * @type {Guid}
      */
-    static IID => Guid("{74d6124a-a441-4f78-a1eb-97a8d1996893}")
+    static IID := Guid("{74d6124a-a441-4f78-a1eb-97a8d1996893}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDUdpAddress interfaces
+    */
+    struct Vtbl extends IWSDTransportAddress.Vtbl {
+        SetSockaddr    : IntPtr
+        GetSockaddr    : IntPtr
+        SetExclusive   : IntPtr
+        GetExclusive   : IntPtr
+        SetMessageType : IntPtr
+        GetMessageType : IntPtr
+        SetTTL         : IntPtr
+        GetTTL         : IntPtr
+        SetAlias       : IntPtr
+        GetAlias       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSockaddr", "GetSockaddr", "SetExclusive", "GetExclusive", "SetMessageType", "GetMessageType", "SetTTL", "GetTTL", "SetAlias", "GetAlias"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDUdpAddress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the socket address information.
@@ -111,7 +129,7 @@ class IWSDUdpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setsockaddr
      */
     SetSockaddr(pSockAddr) {
-        result := ComCall(10, this, "ptr", pSockAddr, "HRESULT")
+        result := ComCall(10, this, SOCKADDR_STORAGE.Ptr, pSockAddr, "HRESULT")
         return result
     }
 
@@ -122,7 +140,7 @@ class IWSDUdpAddress extends IWSDTransportAddress {
      */
     GetSockaddr() {
         pSockAddr := SOCKADDR_STORAGE()
-        result := ComCall(11, this, "ptr", pSockAddr, "HRESULT")
+        result := ComCall(11, this, SOCKADDR_STORAGE.Ptr, pSockAddr, "HRESULT")
         return pSockAddr
     }
 
@@ -156,7 +174,7 @@ class IWSDUdpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setexclusive
      */
     SetExclusive(fExclusive) {
-        result := ComCall(12, this, "int", fExclusive, "HRESULT")
+        result := ComCall(12, this, BOOL, fExclusive, "HRESULT")
         return result
     }
 
@@ -229,7 +247,7 @@ class IWSDUdpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setmessagetype
      */
     SetMessageType(messageType) {
-        result := ComCall(14, this, "int", messageType, "HRESULT")
+        result := ComCall(14, this, WSDUdpMessageType, messageType, "HRESULT")
         return result
     }
 
@@ -323,7 +341,7 @@ class IWSDUdpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setalias
      */
     SetAlias(pAlias) {
-        result := ComCall(18, this, "ptr", pAlias, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, pAlias, "HRESULT")
         return result
     }
 
@@ -334,7 +352,45 @@ class IWSDUdpAddress extends IWSDTransportAddress {
      */
     GetAlias() {
         pAlias := Guid()
-        result := ComCall(19, this, "ptr", pAlias, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, pAlias, "HRESULT")
         return pAlias
+    }
+
+    Query(iid) {
+        if (IWSDUdpAddress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSockaddr := CallbackCreate(GetMethod(implObj, "SetSockaddr"), flags, 2)
+        this.vtbl.GetSockaddr := CallbackCreate(GetMethod(implObj, "GetSockaddr"), flags, 2)
+        this.vtbl.SetExclusive := CallbackCreate(GetMethod(implObj, "SetExclusive"), flags, 2)
+        this.vtbl.GetExclusive := CallbackCreate(GetMethod(implObj, "GetExclusive"), flags, 1)
+        this.vtbl.SetMessageType := CallbackCreate(GetMethod(implObj, "SetMessageType"), flags, 2)
+        this.vtbl.GetMessageType := CallbackCreate(GetMethod(implObj, "GetMessageType"), flags, 2)
+        this.vtbl.SetTTL := CallbackCreate(GetMethod(implObj, "SetTTL"), flags, 2)
+        this.vtbl.GetTTL := CallbackCreate(GetMethod(implObj, "GetTTL"), flags, 2)
+        this.vtbl.SetAlias := CallbackCreate(GetMethod(implObj, "SetAlias"), flags, 2)
+        this.vtbl.GetAlias := CallbackCreate(GetMethod(implObj, "GetAlias"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSockaddr)
+        CallbackFree(this.vtbl.GetSockaddr)
+        CallbackFree(this.vtbl.SetExclusive)
+        CallbackFree(this.vtbl.GetExclusive)
+        CallbackFree(this.vtbl.SetMessageType)
+        CallbackFree(this.vtbl.GetMessageType)
+        CallbackFree(this.vtbl.SetTTL)
+        CallbackFree(this.vtbl.GetTTL)
+        CallbackFree(this.vtbl.SetAlias)
+        CallbackFree(this.vtbl.GetAlias)
     }
 }

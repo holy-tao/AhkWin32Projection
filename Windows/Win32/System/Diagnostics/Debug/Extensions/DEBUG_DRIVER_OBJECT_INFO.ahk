@@ -1,99 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct DEBUG_DRIVER_OBJECT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _DriverName extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _DriverName {
+        Length : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        MaximumLength : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        MaximumLength {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
+        Buffer : Int64
 
-        /**
-         * @type {Integer}
-         */
-        Buffer {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DriverSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DriverSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DriverObjAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DriverObjAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DriverStart {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DriverStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DriverExtension {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DriverExtension : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DeviceObject {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DeviceObject : Int64
 
-    /**
-     * @type {_DriverName}
-     */
-    DriverName {
-        get {
-            if(!this.HasProp("__DriverName"))
-                this.__DriverName := DEBUG_DRIVER_OBJECT_INFO._DriverName(40, this)
-            return this.__DriverName
-        }
-    }
+    DriverName : DEBUG_DRIVER_OBJECT_INFO._DriverName
+
 }

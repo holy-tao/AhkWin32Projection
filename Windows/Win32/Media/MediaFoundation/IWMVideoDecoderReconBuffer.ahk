@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\DxMediaObjects\IMediaBuffer.ahk" { IMediaBuffer }
 
 /**
  * Note  This interface is obsolete and should not be used. Manages reconstructed video frames.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderreconbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IWMVideoDecoderReconBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMVideoDecoderReconBuffer extends IUnknown {
     /**
      * The interface identifier for IWMVideoDecoderReconBuffer
      * @type {Guid}
      */
-    static IID => Guid("{45bda2ac-88e2-4923-98ba-3949080711a3}")
+    static IID := Guid("{45bda2ac-88e2-4923-98ba-3949080711a3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMVideoDecoderReconBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetReconstructedVideoFrameSize : IntPtr
+        GetReconstructedVideoFrame     : IntPtr
+        SetReconstructedVideoFrame     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetReconstructedVideoFrameSize", "GetReconstructedVideoFrame", "SetReconstructedVideoFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMVideoDecoderReconBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This method is obsolete and should not be used. Retrieves the size of the current reconstructed video frame.
@@ -116,5 +127,29 @@ class IWMVideoDecoderReconBuffer extends IUnknown {
     SetReconstructedVideoFrame(pBuf) {
         result := ComCall(5, this, "ptr", pBuf, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMVideoDecoderReconBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetReconstructedVideoFrameSize := CallbackCreate(GetMethod(implObj, "GetReconstructedVideoFrameSize"), flags, 2)
+        this.vtbl.GetReconstructedVideoFrame := CallbackCreate(GetMethod(implObj, "GetReconstructedVideoFrame"), flags, 2)
+        this.vtbl.SetReconstructedVideoFrame := CallbackCreate(GetMethod(implObj, "SetReconstructedVideoFrame"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetReconstructedVideoFrameSize)
+        CallbackFree(this.vtbl.GetReconstructedVideoFrame)
+        CallbackFree(this.vtbl.SetReconstructedVideoFrame)
     }
 }

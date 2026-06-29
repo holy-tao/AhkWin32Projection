@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether all of the work that is submitted via the activity returned from CoCreateActivity should be bound to only one single-threaded apartment (STA). This enumeration has no impact on the multithreaded apartment (MTA).
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_binding
  * @namespace Windows.Win32.System.ComponentServices
  */
-class CSC_Binding extends Win32Enum {
+export default struct CSC_Binding {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The work submitted through the activity is not bound to a single STA.

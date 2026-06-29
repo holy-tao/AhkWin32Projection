@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FAX_SMTP_AUTHENTICATION_TYPE_ENUM.ahk" { FAX_SMTP_AUTHENTICATION_TYPE_ENUM }
 
 /**
  * The IFaxReceiptOptions interface defines a FaxReceiptOptions configuration object used by a fax client application to set and retrieve the receipt configuration that the fax service uses to send delivery receipts for fax transmissions.
@@ -11,32 +15,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxreceiptoptions
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxReceiptOptions extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxReceiptOptions extends IDispatch {
     /**
      * The interface identifier for IFaxReceiptOptions
      * @type {Guid}
      */
-    static IID => Guid("{378efaeb-5fcb-4afb-b2ee-e16e80614487}")
+    static IID := Guid("{378efaeb-5fcb-4afb-b2ee-e16e80614487}")
 
     /**
      * The class identifier for FaxReceiptOptions
      * @type {Guid}
      */
-    static CLSID => Guid("{6982487b-227b-4c96-a61c-248348b05ab6}")
+    static CLSID := Guid("{6982487b-227b-4c96-a61c-248348b05ab6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxReceiptOptions interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AuthenticationType   : IntPtr
+        put_AuthenticationType   : IntPtr
+        get_SMTPServer           : IntPtr
+        put_SMTPServer           : IntPtr
+        get_SMTPPort             : IntPtr
+        put_SMTPPort             : IntPtr
+        get_SMTPSender           : IntPtr
+        put_SMTPSender           : IntPtr
+        get_SMTPUser             : IntPtr
+        put_SMTPUser             : IntPtr
+        get_AllowedReceipts      : IntPtr
+        put_AllowedReceipts      : IntPtr
+        get_SMTPPassword         : IntPtr
+        put_SMTPPassword         : IntPtr
+        Refresh                  : IntPtr
+        Save                     : IntPtr
+        get_UseForInboundRouting : IntPtr
+        put_UseForInboundRouting : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AuthenticationType", "put_AuthenticationType", "get_SMTPServer", "put_SMTPServer", "get_SMTPPort", "put_SMTPPort", "get_SMTPSender", "put_SMTPSender", "get_SMTPUser", "put_SMTPUser", "get_AllowedReceipts", "put_AllowedReceipts", "get_SMTPPassword", "put_SMTPPassword", "Refresh", "Save", "get_UseForInboundRouting", "put_UseForInboundRouting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxReceiptOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {FAX_SMTP_AUTHENTICATION_TYPE_ENUM} 
@@ -123,7 +151,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_authenticationtype
      */
     put_AuthenticationType(Type) {
-        result := ComCall(8, this, "int", Type, "HRESULT")
+        result := ComCall(8, this, FAX_SMTP_AUTHENTICATION_TYPE_ENUM, Type, "HRESULT")
         return result
     }
 
@@ -135,8 +163,8 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpserver
      */
     get_SMTPServer() {
-        pbstrSMTPServer := BSTR()
-        result := ComCall(9, this, "ptr", pbstrSMTPServer, "HRESULT")
+        pbstrSMTPServer := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrSMTPServer, "HRESULT")
         return pbstrSMTPServer
     }
 
@@ -151,7 +179,7 @@ class IFaxReceiptOptions extends IDispatch {
     put_SMTPServer(bstrSMTPServer) {
         bstrSMTPServer := bstrSMTPServer is String ? BSTR.Alloc(bstrSMTPServer).Value : bstrSMTPServer
 
-        result := ComCall(10, this, "ptr", bstrSMTPServer, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrSMTPServer, "HRESULT")
         return result
     }
 
@@ -188,8 +216,8 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpsender
      */
     get_SMTPSender() {
-        pbstrSMTPSender := BSTR()
-        result := ComCall(13, this, "ptr", pbstrSMTPSender, "HRESULT")
+        pbstrSMTPSender := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrSMTPSender, "HRESULT")
         return pbstrSMTPSender
     }
 
@@ -204,7 +232,7 @@ class IFaxReceiptOptions extends IDispatch {
     put_SMTPSender(bstrSMTPSender) {
         bstrSMTPSender := bstrSMTPSender is String ? BSTR.Alloc(bstrSMTPSender).Value : bstrSMTPSender
 
-        result := ComCall(14, this, "ptr", bstrSMTPSender, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrSMTPSender, "HRESULT")
         return result
     }
 
@@ -216,8 +244,8 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpuser
      */
     get_SMTPUser() {
-        pbstrSMTPUser := BSTR()
-        result := ComCall(15, this, "ptr", pbstrSMTPUser, "HRESULT")
+        pbstrSMTPUser := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrSMTPUser, "HRESULT")
         return pbstrSMTPUser
     }
 
@@ -232,7 +260,7 @@ class IFaxReceiptOptions extends IDispatch {
     put_SMTPUser(bstrSMTPUser) {
         bstrSMTPUser := bstrSMTPUser is String ? BSTR.Alloc(bstrSMTPUser).Value : bstrSMTPUser
 
-        result := ComCall(16, this, "ptr", bstrSMTPUser, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrSMTPUser, "HRESULT")
         return result
     }
 
@@ -257,7 +285,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_allowedreceipts
      */
     put_AllowedReceipts(AllowedReceipts) {
-        result := ComCall(18, this, "int", AllowedReceipts, "HRESULT")
+        result := ComCall(18, this, FAX_RECEIPT_TYPE_ENUM, AllowedReceipts, "HRESULT")
         return result
     }
 
@@ -269,8 +297,8 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtppassword
      */
     get_SMTPPassword() {
-        pbstrSMTPPassword := BSTR()
-        result := ComCall(19, this, "ptr", pbstrSMTPPassword, "HRESULT")
+        pbstrSMTPPassword := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstrSMTPPassword, "HRESULT")
         return pbstrSMTPPassword
     }
 
@@ -285,7 +313,7 @@ class IFaxReceiptOptions extends IDispatch {
     put_SMTPPassword(bstrSMTPPassword) {
         bstrSMTPPassword := bstrSMTPPassword is String ? BSTR.Alloc(bstrSMTPPassword).Value : bstrSMTPPassword
 
-        result := ComCall(20, this, "ptr", bstrSMTPPassword, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrSMTPPassword, "HRESULT")
         return result
     }
 
@@ -329,7 +357,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_useforinboundrouting
      */
     get_UseForInboundRouting() {
-        result := ComCall(23, this, "short*", &pbUseForInboundRouting := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &pbUseForInboundRouting := 0, "HRESULT")
         return pbUseForInboundRouting
     }
 
@@ -344,7 +372,61 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_useforinboundrouting
      */
     put_UseForInboundRouting(bUseForInboundRouting) {
-        result := ComCall(24, this, "short", bUseForInboundRouting, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, bUseForInboundRouting, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxReceiptOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AuthenticationType := CallbackCreate(GetMethod(implObj, "get_AuthenticationType"), flags, 2)
+        this.vtbl.put_AuthenticationType := CallbackCreate(GetMethod(implObj, "put_AuthenticationType"), flags, 2)
+        this.vtbl.get_SMTPServer := CallbackCreate(GetMethod(implObj, "get_SMTPServer"), flags, 2)
+        this.vtbl.put_SMTPServer := CallbackCreate(GetMethod(implObj, "put_SMTPServer"), flags, 2)
+        this.vtbl.get_SMTPPort := CallbackCreate(GetMethod(implObj, "get_SMTPPort"), flags, 2)
+        this.vtbl.put_SMTPPort := CallbackCreate(GetMethod(implObj, "put_SMTPPort"), flags, 2)
+        this.vtbl.get_SMTPSender := CallbackCreate(GetMethod(implObj, "get_SMTPSender"), flags, 2)
+        this.vtbl.put_SMTPSender := CallbackCreate(GetMethod(implObj, "put_SMTPSender"), flags, 2)
+        this.vtbl.get_SMTPUser := CallbackCreate(GetMethod(implObj, "get_SMTPUser"), flags, 2)
+        this.vtbl.put_SMTPUser := CallbackCreate(GetMethod(implObj, "put_SMTPUser"), flags, 2)
+        this.vtbl.get_AllowedReceipts := CallbackCreate(GetMethod(implObj, "get_AllowedReceipts"), flags, 2)
+        this.vtbl.put_AllowedReceipts := CallbackCreate(GetMethod(implObj, "put_AllowedReceipts"), flags, 2)
+        this.vtbl.get_SMTPPassword := CallbackCreate(GetMethod(implObj, "get_SMTPPassword"), flags, 2)
+        this.vtbl.put_SMTPPassword := CallbackCreate(GetMethod(implObj, "put_SMTPPassword"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_UseForInboundRouting := CallbackCreate(GetMethod(implObj, "get_UseForInboundRouting"), flags, 2)
+        this.vtbl.put_UseForInboundRouting := CallbackCreate(GetMethod(implObj, "put_UseForInboundRouting"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AuthenticationType)
+        CallbackFree(this.vtbl.put_AuthenticationType)
+        CallbackFree(this.vtbl.get_SMTPServer)
+        CallbackFree(this.vtbl.put_SMTPServer)
+        CallbackFree(this.vtbl.get_SMTPPort)
+        CallbackFree(this.vtbl.put_SMTPPort)
+        CallbackFree(this.vtbl.get_SMTPSender)
+        CallbackFree(this.vtbl.put_SMTPSender)
+        CallbackFree(this.vtbl.get_SMTPUser)
+        CallbackFree(this.vtbl.put_SMTPUser)
+        CallbackFree(this.vtbl.get_AllowedReceipts)
+        CallbackFree(this.vtbl.put_AllowedReceipts)
+        CallbackFree(this.vtbl.get_SMTPPassword)
+        CallbackFree(this.vtbl.put_SMTPPassword)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.get_UseForInboundRouting)
+        CallbackFree(this.vtbl.put_UseForInboundRouting)
     }
 }

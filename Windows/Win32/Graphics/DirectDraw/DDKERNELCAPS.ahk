@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DDKERNELCAPS structure notifies the client what support, if any, exists in the miniport driver for the kernel-mode video transport.
  * @see https://learn.microsoft.com/windows/win32/api/ddkernel/ns-ddkernel-ddkernelcaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDKERNELCAPS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DDKERNELCAPS {
+    #StructPack 4
 
     /**
      * Specifies the size, in bytes, of this structure. This member must be initialized before the structure is used.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies a set of flags indicating the device's capabilities. This member can be any combination of the following capabilities: 
@@ -129,12 +122,8 @@ class DDKERNELCAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCaps : UInt32
 
     /**
      * Can be a combination of the following flags: 
@@ -355,10 +344,7 @@ class DDKERNELCAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwIRQCaps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwIRQCaps : UInt32
+
 }

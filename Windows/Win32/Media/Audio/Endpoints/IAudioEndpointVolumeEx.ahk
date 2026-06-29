@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IAudioEndpointVolume.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioEndpointVolume.ahk" { IAudioEndpointVolume }
 
 /**
  * The IAudioEndpointVolumeEx interface provides volume controls on the audio stream to or from a device endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nn-endpointvolume-iaudioendpointvolumeex
  * @namespace Windows.Win32.Media.Audio.Endpoints
  */
-class IAudioEndpointVolumeEx extends IAudioEndpointVolume {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEndpointVolumeEx extends IAudioEndpointVolume {
     /**
      * The interface identifier for IAudioEndpointVolumeEx
      * @type {Guid}
      */
-    static IID => Guid("{66e11784-f695-4f28-a505-a7080081a78f}")
+    static IID := Guid("{66e11784-f695-4f28-a505-a7080081a78f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEndpointVolumeEx interfaces
+    */
+    struct Vtbl extends IAudioEndpointVolume.Vtbl {
+        GetVolumeRangeChannel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVolumeRangeChannel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEndpointVolumeEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetVolumeRangeChannel method gets the volume range for a specified channel.
@@ -63,5 +71,25 @@ class IAudioEndpointVolumeEx extends IAudioEndpointVolume {
 
         result := ComCall(21, this, "uint", iChannel, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioEndpointVolumeEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVolumeRangeChannel := CallbackCreate(GetMethod(implObj, "GetVolumeRangeChannel"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVolumeRangeChannel)
     }
 }

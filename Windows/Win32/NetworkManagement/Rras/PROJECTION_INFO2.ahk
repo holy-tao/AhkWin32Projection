@@ -1,19 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_PROJECTION_INFO2.ahk
-#Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
-#Include .\IKEV2_PROJECTION_INFO2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPP_PROJECTION_INFO2.ahk" { PPP_PROJECTION_INFO2 }
+#Import ".\PPP_LCP.ahk" { PPP_LCP }
+#Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
+#Import ".\IKEV2_PROJECTION_INFO2.ahk" { IKEV2_PROJECTION_INFO2 }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used in the RAS_CONNECTION_4 structure as a placeholder for the PPP_PROJECTION_INFO2 and IKEV2_PROJECTION_INFO2 structures.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-projection_info2
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class PROJECTION_INFO2 extends Win32Struct {
-    static sizeof => 208
-
-    static packingSize => 8
+export default struct PROJECTION_INFO2 {
+    #StructPack 8
 
     /**
      * A value that specifies if the projection is for a Point-to-Point (PPP) or an Internet Key Exchange version 2 (IKEv2) based tunnel. The following values are supported.
@@ -44,32 +42,13 @@ class PROJECTION_INFO2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    projectionInfoType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    projectionInfoType : Int8
 
-    /**
-     * @type {PPP_PROJECTION_INFO2}
-     */
-    PppProjectionInfo {
-        get {
-            if(!this.HasProp("__PppProjectionInfo"))
-                this.__PppProjectionInfo := PPP_PROJECTION_INFO2(8, this)
-            return this.__PppProjectionInfo
-        }
-    }
+    PppProjectionInfo : PPP_PROJECTION_INFO2
 
-    /**
-     * @type {IKEV2_PROJECTION_INFO2}
-     */
-    Ikev2ProjectionInfo {
-        get {
-            if(!this.HasProp("__Ikev2ProjectionInfo"))
-                this.__Ikev2ProjectionInfo := IKEV2_PROJECTION_INFO2(8, this)
-            return this.__Ikev2ProjectionInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Ikev2ProjectionInfo', { type: IKEV2_PROJECTION_INFO2, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

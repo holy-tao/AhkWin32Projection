@@ -1,14 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class HANDLE_SDP_TYPE extends Win32Handle {
-    static sizeof => 8
+export default struct HANDLE_SDP_TYPE {
+    Value : Int64
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is HANDLE_SDP_TYPE) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -16,11 +23,7 @@ class HANDLE_SDP_TYPE extends Win32Handle {
      */
     static invalidValues => [-1, 0]
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    __New(Value := -1) {
+        this.Value := Value
     }
 }

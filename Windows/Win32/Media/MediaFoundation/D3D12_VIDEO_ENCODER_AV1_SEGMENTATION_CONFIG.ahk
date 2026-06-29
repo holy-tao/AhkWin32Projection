@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA.ahk" { D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG extends Win32Struct {
-    static sizeof => 608
+export default struct D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG {
+    #StructPack 8
 
-    static packingSize => 8
+    UpdateMap : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UpdateMap {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TemporalUpdate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TemporalUpdate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    UpdateData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UpdateData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumSegments : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumSegments {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SegmentsData : D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA[8]
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA}
-     */
-    SegmentsData {
-        get {
-            if(!this.HasProp("__SegmentsDataProxyArray"))
-                this.__SegmentsDataProxyArray := Win32FixedArray(this.ptr + 32, 8, D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA, "")
-            return this.__SegmentsDataProxyArray
-        }
-    }
 }

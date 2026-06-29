@@ -1,48 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ND_OPTION_PREF64 extends Win32Struct {
-    static sizeof => 16
+export default struct ND_OPTION_PREF64 {
+    #StructPack 2
 
-    static packingSize => 2
+    nd_opt_p64_type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_p64_type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    nd_opt_p64_len : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_p64_len {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    nd_opt_p64_lifetime_plc : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_p64_lifetime_plc {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - nd_opt_p64_prefix_length_code
-     * - nd_opt_p64_scaled_lifetime
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 
     /**
      * @type {Integer}
@@ -59,15 +28,10 @@ class ND_OPTION_PREF64 extends Win32Struct {
         get => (this._bitfield >> 3) & 0x1FFF
         set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))
     }
+    nd_opt_p64_prefix : Int8[12]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    nd_opt_p64_prefix {
-        get {
-            if(!this.HasProp("__nd_opt_p64_prefixProxyArray"))
-                this.__nd_opt_p64_prefixProxyArray := Win32FixedArray(this.ptr + 4, 12, Primitive, "char")
-            return this.__nd_opt_p64_prefixProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

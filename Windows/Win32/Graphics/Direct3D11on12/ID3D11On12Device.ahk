@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\D3D11_RESOURCE_FLAGS.ahk" { D3D11_RESOURCE_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D12\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles the creation, wrapping, and releasing of D3D11 resources for Direct3D11on12.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nn-d3d11on12-id3d11on12device
  * @namespace Windows.Win32.Graphics.Direct3D11on12
  */
-class ID3D11On12Device extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11On12Device extends IUnknown {
     /**
      * The interface identifier for ID3D11On12Device
      * @type {Guid}
      */
-    static IID => Guid("{85611e73-70a9-490e-9614-a9e302777904}")
+    static IID := Guid("{85611e73-70a9-490e-9614-a9e302777904}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11On12Device interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateWrappedResource   : IntPtr
+        ReleaseWrappedResources : IntPtr
+        AcquireWrappedResources : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateWrappedResource", "ReleaseWrappedResources", "AcquireWrappedResources"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11On12Device.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method creates D3D11 resources for use with D3D 11on12.
@@ -55,7 +68,7 @@ class ID3D11On12Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device-createwrappedresource
      */
     CreateWrappedResource(pResource12, pFlags11, InState, OutState, riid) {
-        result := ComCall(3, this, "ptr", pResource12, "ptr", pFlags11, "int", InState, "int", OutState, "ptr", riid, "ptr*", &ppResource11 := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pResource12, D3D11_RESOURCE_FLAGS.Ptr, pFlags11, D3D12_RESOURCE_STATES, InState, D3D12_RESOURCE_STATES, OutState, Guid.Ptr, riid, "ptr*", &ppResource11 := 0, "HRESULT")
         return ppResource11
     }
 
@@ -78,7 +91,7 @@ class ID3D11On12Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources
      */
     ReleaseWrappedResources(ppResources, NumResources) {
-        ComCall(4, this, "ptr*", ppResources, "uint", NumResources)
+        ComCall(4, this, ID3D11Resource.Ptr, ppResources, "uint", NumResources)
     }
 
     /**
@@ -98,6 +111,30 @@ class ID3D11On12Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources
      */
     AcquireWrappedResources(ppResources, NumResources) {
-        ComCall(5, this, "ptr*", ppResources, "uint", NumResources)
+        ComCall(5, this, ID3D11Resource.Ptr, ppResources, "uint", NumResources)
+    }
+
+    Query(iid) {
+        if (ID3D11On12Device.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateWrappedResource := CallbackCreate(GetMethod(implObj, "CreateWrappedResource"), flags, 7)
+        this.vtbl.ReleaseWrappedResources := CallbackCreate(GetMethod(implObj, "ReleaseWrappedResources"), flags, 3)
+        this.vtbl.AcquireWrappedResources := CallbackCreate(GetMethod(implObj, "AcquireWrappedResources"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateWrappedResource)
+        CallbackFree(this.vtbl.ReleaseWrappedResources)
+        CallbackFree(this.vtbl.AcquireWrappedResources)
     }
 }

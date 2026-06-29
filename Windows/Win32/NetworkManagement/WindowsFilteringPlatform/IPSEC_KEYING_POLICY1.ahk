@@ -1,37 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines an unordered set of keying modules that will be tried for IPsec. (IPSEC_KEYING_POLICY1)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_keying_policy1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_KEYING_POLICY1 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct IPSEC_KEYING_POLICY1 {
+    #StructPack 8
 
     /**
      * Type: <b>UINT32</b>
      * 
      * Number of keying modules in the array.
-     * @type {Integer}
      */
-    numKeyMods {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numKeyMods : UInt32
 
     /**
      * Type: <b>GUID*</b>
      * 
      * Array of distinct keying modules.
-     * @type {Pointer<Guid>}
      */
-    keyModKeys {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    keyModKeys : Guid.Ptr
 
     /**
      * Type: <b>UINT32</b>
@@ -54,10 +44,7 @@ class IPSEC_KEYING_POLICY1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    flags : UInt32
+
 }

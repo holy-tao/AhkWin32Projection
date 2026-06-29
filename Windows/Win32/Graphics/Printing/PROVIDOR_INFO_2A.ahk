@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PROVIDOR\_INFO\_2 structure appends a print provider to the print provider order list.
@@ -9,17 +9,12 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset ANSI
  */
-class PROVIDOR_INFO_2A extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct PROVIDOR_INFO_2A {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the name of the print provider.
-     * @type {PSTR}
      */
-    pOrder {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pOrder : PSTR
+
 }

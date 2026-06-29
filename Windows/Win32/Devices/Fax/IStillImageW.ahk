@@ -1,32 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IStiDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STINOTIFY.ahk" { STINOTIFY }
+#Import ".\STI_DEVICE_INFORMATIONW.ahk" { STI_DEVICE_INFORMATIONW }
+#Import ".\IStiDevice.ahk" { IStiDevice }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class IStillImageW extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStillImageW extends IUnknown {
     /**
      * The interface identifier for IStillImageW
      * @type {Guid}
      */
-    static IID => Guid("{641bd880-2dc8-11d0-90ea-00aa0060f86c}")
+    static IID := Guid("{641bd880-2dc8-11d0-90ea-00aa0060f86c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStillImageW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                  : IntPtr
+        GetDeviceList               : IntPtr
+        GetDeviceInfo               : IntPtr
+        CreateDevice                : IntPtr
+        GetDeviceValue              : IntPtr
+        SetDeviceValue              : IntPtr
+        GetSTILaunchInformation     : IntPtr
+        RegisterLaunchApplication   : IntPtr
+        UnregisterLaunchApplication : IntPtr
+        EnableHwNotifications       : IntPtr
+        GetHwNotificationState      : IntPtr
+        RefreshDeviceBus            : IntPtr
+        LaunchApplicationForDevice  : IntPtr
+        SetupDeviceParameters       : IntPtr
+        WriteToErrorLog             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetDeviceList", "GetDeviceInfo", "CreateDevice", "GetDeviceValue", "SetDeviceValue", "GetSTILaunchInformation", "RegisterLaunchApplication", "UnregisterLaunchApplication", "EnableHwNotifications", "GetHwNotificationState", "RefreshDeviceBus", "LaunchApplicationForDevice", "SetupDeviceParameters", "WriteToErrorLog"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStillImageW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -59,9 +86,7 @@ class IStillImageW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(hinst, dwVersion) {
-        hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
-
-        result := ComCall(3, this, "ptr", hinst, "uint", dwVersion, "HRESULT")
+        result := ComCall(3, this, HINSTANCE, hinst, "uint", dwVersion, "HRESULT")
         return result
     }
 
@@ -94,12 +119,11 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
+     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {Integer} dwMode 
      * @param {IUnknown} punkOuter 
      * @returns {IStiDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(pwszDeviceName, dwMode, punkOuter) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
@@ -192,7 +216,7 @@ class IStillImageW extends IUnknown {
     EnableHwNotifications(pwszDeviceName, bNewState) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(12, this, "ptr", pwszDeviceName, "int", bNewState, "HRESULT")
+        result := ComCall(12, this, "ptr", pwszDeviceName, BOOL, bNewState, "HRESULT")
         return result
     }
 
@@ -204,7 +228,7 @@ class IStillImageW extends IUnknown {
     GetHwNotificationState(pwszDeviceName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(13, this, "ptr", pwszDeviceName, "int*", &pbCurrentState := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pwszDeviceName, BOOL.Ptr, &pbCurrentState := 0, "HRESULT")
         return pbCurrentState
     }
 
@@ -231,7 +255,7 @@ class IStillImageW extends IUnknown {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pwszAppName := pwszAppName is String ? StrPtr(pwszAppName) : pwszAppName
 
-        result := ComCall(15, this, "ptr", pwszDeviceName, "ptr", pwszAppName, "ptr", pStiNotify, "HRESULT")
+        result := ComCall(15, this, "ptr", pwszDeviceName, "ptr", pwszAppName, STINOTIFY.Ptr, pStiNotify, "HRESULT")
         return result
     }
 
@@ -241,7 +265,7 @@ class IStillImageW extends IUnknown {
      * @returns {HRESULT} 
      */
     SetupDeviceParameters(param0) {
-        result := ComCall(16, this, "ptr", param0, "HRESULT")
+        result := ComCall(16, this, STI_DEVICE_INFORMATIONW.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -256,5 +280,53 @@ class IStillImageW extends IUnknown {
 
         result := ComCall(17, this, "uint", dwMessageType, "ptr", pszMessage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStillImageW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetDeviceList := CallbackCreate(GetMethod(implObj, "GetDeviceList"), flags, 5)
+        this.vtbl.GetDeviceInfo := CallbackCreate(GetMethod(implObj, "GetDeviceInfo"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 5)
+        this.vtbl.GetDeviceValue := CallbackCreate(GetMethod(implObj, "GetDeviceValue"), flags, 6)
+        this.vtbl.SetDeviceValue := CallbackCreate(GetMethod(implObj, "SetDeviceValue"), flags, 6)
+        this.vtbl.GetSTILaunchInformation := CallbackCreate(GetMethod(implObj, "GetSTILaunchInformation"), flags, 4)
+        this.vtbl.RegisterLaunchApplication := CallbackCreate(GetMethod(implObj, "RegisterLaunchApplication"), flags, 3)
+        this.vtbl.UnregisterLaunchApplication := CallbackCreate(GetMethod(implObj, "UnregisterLaunchApplication"), flags, 2)
+        this.vtbl.EnableHwNotifications := CallbackCreate(GetMethod(implObj, "EnableHwNotifications"), flags, 3)
+        this.vtbl.GetHwNotificationState := CallbackCreate(GetMethod(implObj, "GetHwNotificationState"), flags, 3)
+        this.vtbl.RefreshDeviceBus := CallbackCreate(GetMethod(implObj, "RefreshDeviceBus"), flags, 2)
+        this.vtbl.LaunchApplicationForDevice := CallbackCreate(GetMethod(implObj, "LaunchApplicationForDevice"), flags, 4)
+        this.vtbl.SetupDeviceParameters := CallbackCreate(GetMethod(implObj, "SetupDeviceParameters"), flags, 2)
+        this.vtbl.WriteToErrorLog := CallbackCreate(GetMethod(implObj, "WriteToErrorLog"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetDeviceList)
+        CallbackFree(this.vtbl.GetDeviceInfo)
+        CallbackFree(this.vtbl.CreateDevice)
+        CallbackFree(this.vtbl.GetDeviceValue)
+        CallbackFree(this.vtbl.SetDeviceValue)
+        CallbackFree(this.vtbl.GetSTILaunchInformation)
+        CallbackFree(this.vtbl.RegisterLaunchApplication)
+        CallbackFree(this.vtbl.UnregisterLaunchApplication)
+        CallbackFree(this.vtbl.EnableHwNotifications)
+        CallbackFree(this.vtbl.GetHwNotificationState)
+        CallbackFree(this.vtbl.RefreshDeviceBus)
+        CallbackFree(this.vtbl.LaunchApplicationForDevice)
+        CallbackFree(this.vtbl.SetupDeviceParameters)
+        CallbackFree(this.vtbl.WriteToErrorLog)
     }
 }

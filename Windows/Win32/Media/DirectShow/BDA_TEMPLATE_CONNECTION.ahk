@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_TEMPLATE_CONNECTION extends Win32Struct {
-    static sizeof => 16
+export default struct BDA_TEMPLATE_CONNECTION {
+    #StructPack 4
 
-    static packingSize => 4
+    FromNodeType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FromNodeType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FromNodePinType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FromNodePinType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ToNodeType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ToNodeType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ToNodePinType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ToNodePinType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

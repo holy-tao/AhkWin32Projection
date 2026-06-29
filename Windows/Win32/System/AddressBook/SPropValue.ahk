@@ -1,21 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\__UPV.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\SBinary.ahk
-#Include .\SShortArray.ahk
-#Include .\SLongArray.ahk
-#Include .\SRealArray.ahk
-#Include .\SDoubleArray.ahk
-#Include .\SCurrencyArray.ahk
-#Include .\SAppTimeArray.ahk
-#Include .\SDateTimeArray.ahk
-#Include .\SBinaryArray.ahk
-#Include .\SLPSTRArray.ahk
-#Include .\SWStringArray.ahk
-#Include .\SGuidArray.ahk
-#Include .\SLargeIntegerArray.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SBinary.ahk" { SBinary }
+#Import ".\SDoubleArray.ahk" { SDoubleArray }
+#Import "..\Com\CY.ahk" { CY }
+#Import ".\SLongArray.ahk" { SLongArray }
+#Import ".\SGuidArray.ahk" { SGuidArray }
+#Import ".\SDateTimeArray.ahk" { SDateTimeArray }
+#Import ".\SLargeIntegerArray.ahk" { SLargeIntegerArray }
+#Import ".\SLPSTRArray.ahk" { SLPSTRArray }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\__UPV.ahk" { __UPV }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SRealArray.ahk" { SRealArray }
+#Import ".\SShortArray.ahk" { SShortArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SAppTimeArray.ahk" { SAppTimeArray }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SWStringArray.ahk" { SWStringArray }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SCurrencyArray.ahk" { SCurrencyArray }
 
 /**
  * Describes a MAPI property for Outlook 2013 and Outlook 2016.
@@ -39,28 +41,18 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropvalue
  * @namespace Windows.Win32.System.AddressBook
  */
-class SPropValue extends Win32Struct {
-    static sizeof => 320
-
-    static packingSize => 8
+export default struct SPropValue {
+    #StructPack 8
 
     /**
      * > Property tag for the property. Property tags are 32-bit unsigned integers consisting of the property's unique identifier in the high-order 16 bits and the property's type in the low-order 16 bits.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulPropTag : UInt32
 
     /**
      * > Reserved for MAPI; do not use.
-     * @type {Integer}
      */
-    dwAlignPad {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAlignPad : UInt32
 
     /**
      * > Union of data values, the specific value dictated by the property type. The following table lists for each property type, the member of the union that should be used and its associated data type.
@@ -96,13 +88,7 @@ class SPropValue extends Win32Struct {
      * |PT_ERROR  <br/> |**err** <br/> |[SCODE](scode.md) <br/> |
      * |PT_NULL or PT_OBJECT  <br/> |**x** <br/> |LONG  <br/> |
      * |PT_PTR or PT_FILE_HANDLE  <br/> |**lpv** <br/> |VOID \*  <br/> |
-     * @type {__UPV}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := __UPV(8, this)
-            return this.__Value
-        }
-    }
+    Value : __UPV
+
 }

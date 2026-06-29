@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICComponentInfo.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that provide information about a particular codec.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapcodecinfo
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapCodecInfo extends IWICComponentInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
     /**
      * The interface identifier for IWICBitmapCodecInfo
      * @type {Guid}
      */
-    static IID => Guid("{e87a44c4-b76e-4c47-8b09-298eb12a2714}")
+    static IID := Guid("{e87a44c4-b76e-4c47-8b09-298eb12a2714}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapCodecInfo interfaces
+    */
+    struct Vtbl extends IWICComponentInfo.Vtbl {
+        GetContainerFormat        : IntPtr
+        GetPixelFormats           : IntPtr
+        GetColorManagementVersion : IntPtr
+        GetDeviceManufacturer     : IntPtr
+        GetDeviceModels           : IntPtr
+        GetMimeTypes              : IntPtr
+        GetFileExtensions         : IntPtr
+        DoesSupportAnimation      : IntPtr
+        DoesSupportChromakey      : IntPtr
+        DoesSupportLossless       : IntPtr
+        DoesSupportMultiframe     : IntPtr
+        MatchesMimeType           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContainerFormat", "GetPixelFormats", "GetColorManagementVersion", "GetDeviceManufacturer", "GetDeviceModels", "GetMimeTypes", "GetFileExtensions", "DoesSupportAnimation", "DoesSupportChromakey", "DoesSupportLossless", "DoesSupportMultiframe", "MatchesMimeType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapCodecInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the container GUID associated with the codec.
@@ -39,7 +59,7 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
-        result := ComCall(11, this, "ptr", pguidContainerFormat, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pguidContainerFormat, "HRESULT")
         return pguidContainerFormat
     }
 
@@ -62,7 +82,7 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pguidPixelFormats) {
-        result := ComCall(12, this, "uint", cFormats, "ptr", pguidPixelFormats, "uint*", &pcActual := 0, "HRESULT")
+        result := ComCall(12, this, "uint", cFormats, Guid.Ptr, pguidPixelFormats, "uint*", &pcActual := 0, "HRESULT")
         return pcActual
     }
 
@@ -201,7 +221,7 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportanimation
      */
     DoesSupportAnimation() {
-        result := ComCall(18, this, "int*", &pfSupportAnimation := 0, "HRESULT")
+        result := ComCall(18, this, BOOL.Ptr, &pfSupportAnimation := 0, "HRESULT")
         return pfSupportAnimation
     }
 
@@ -213,7 +233,7 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportchromakey
      */
     DoesSupportChromakey() {
-        result := ComCall(19, this, "int*", &pfSupportChromakey := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfSupportChromakey := 0, "HRESULT")
         return pfSupportChromakey
     }
 
@@ -225,7 +245,7 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportlossless
      */
     DoesSupportLossless() {
-        result := ComCall(20, this, "int*", &pfSupportLossless := 0, "HRESULT")
+        result := ComCall(20, this, BOOL.Ptr, &pfSupportLossless := 0, "HRESULT")
         return pfSupportLossless
     }
 
@@ -237,7 +257,7 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportmultiframe
      */
     DoesSupportMultiframe() {
-        result := ComCall(21, this, "int*", &pfSupportMultiframe := 0, "HRESULT")
+        result := ComCall(21, this, BOOL.Ptr, &pfSupportMultiframe := 0, "HRESULT")
         return pfSupportMultiframe
     }
 
@@ -257,7 +277,49 @@ class IWICBitmapCodecInfo extends IWICComponentInfo {
     MatchesMimeType(wzMimeType) {
         wzMimeType := wzMimeType is String ? StrPtr(wzMimeType) : wzMimeType
 
-        result := ComCall(22, this, "ptr", wzMimeType, "int*", &pfMatches := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", wzMimeType, BOOL.Ptr, &pfMatches := 0, "HRESULT")
         return pfMatches
+    }
+
+    Query(iid) {
+        if (IWICBitmapCodecInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetPixelFormats := CallbackCreate(GetMethod(implObj, "GetPixelFormats"), flags, 4)
+        this.vtbl.GetColorManagementVersion := CallbackCreate(GetMethod(implObj, "GetColorManagementVersion"), flags, 4)
+        this.vtbl.GetDeviceManufacturer := CallbackCreate(GetMethod(implObj, "GetDeviceManufacturer"), flags, 4)
+        this.vtbl.GetDeviceModels := CallbackCreate(GetMethod(implObj, "GetDeviceModels"), flags, 4)
+        this.vtbl.GetMimeTypes := CallbackCreate(GetMethod(implObj, "GetMimeTypes"), flags, 4)
+        this.vtbl.GetFileExtensions := CallbackCreate(GetMethod(implObj, "GetFileExtensions"), flags, 4)
+        this.vtbl.DoesSupportAnimation := CallbackCreate(GetMethod(implObj, "DoesSupportAnimation"), flags, 2)
+        this.vtbl.DoesSupportChromakey := CallbackCreate(GetMethod(implObj, "DoesSupportChromakey"), flags, 2)
+        this.vtbl.DoesSupportLossless := CallbackCreate(GetMethod(implObj, "DoesSupportLossless"), flags, 2)
+        this.vtbl.DoesSupportMultiframe := CallbackCreate(GetMethod(implObj, "DoesSupportMultiframe"), flags, 2)
+        this.vtbl.MatchesMimeType := CallbackCreate(GetMethod(implObj, "MatchesMimeType"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContainerFormat)
+        CallbackFree(this.vtbl.GetPixelFormats)
+        CallbackFree(this.vtbl.GetColorManagementVersion)
+        CallbackFree(this.vtbl.GetDeviceManufacturer)
+        CallbackFree(this.vtbl.GetDeviceModels)
+        CallbackFree(this.vtbl.GetMimeTypes)
+        CallbackFree(this.vtbl.GetFileExtensions)
+        CallbackFree(this.vtbl.DoesSupportAnimation)
+        CallbackFree(this.vtbl.DoesSupportChromakey)
+        CallbackFree(this.vtbl.DoesSupportLossless)
+        CallbackFree(this.vtbl.DoesSupportMultiframe)
+        CallbackFree(this.vtbl.MatchesMimeType)
     }
 }

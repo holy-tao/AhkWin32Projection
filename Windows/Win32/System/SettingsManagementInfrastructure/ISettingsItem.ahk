@@ -1,36 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IItemEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WcmDataType.ahk" { WcmDataType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WcmRestrictionFacets.ahk" { WcmRestrictionFacets }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\WcmSettingType.ahk" { WcmSettingType }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsitem
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class ISettingsItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISettingsItem extends IUnknown {
     /**
      * The interface identifier for ISettingsItem
      * @type {Guid}
      */
-    static IID => Guid("{9f7d7bbb-20b3-11da-81a5-0030f1642e3c}")
+    static IID := Guid("{9f7d7bbb-20b3-11da-81a5-0030f1642e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISettingsItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName               : IntPtr
+        GetValue              : IntPtr
+        SetValue              : IntPtr
+        GetSettingType        : IntPtr
+        GetDataType           : IntPtr
+        GetValueRaw           : IntPtr
+        SetValueRaw           : IntPtr
+        HasChild              : IntPtr
+        Children              : IntPtr
+        GetChild              : IntPtr
+        GetSettingByPath      : IntPtr
+        CreateSettingByPath   : IntPtr
+        RemoveSettingByPath   : IntPtr
+        GetListKeyInformation : IntPtr
+        CreateListElement     : IntPtr
+        RemoveListElement     : IntPtr
+        Attributes            : IntPtr
+        GetAttribute          : IntPtr
+        GetPath               : IntPtr
+        GetRestrictionFacets  : IntPtr
+        GetRestriction        : IntPtr
+        GetKeyValue           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetValue", "SetValue", "GetSettingType", "GetDataType", "GetValueRaw", "SetValueRaw", "HasChild", "Children", "GetChild", "GetSettingByPath", "CreateSettingByPath", "RemoveSettingByPath", "GetListKeyInformation", "CreateListElement", "RemoveListElement", "Attributes", "GetAttribute", "GetPath", "GetRestrictionFacets", "GetRestriction", "GetKeyValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISettingsItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the name of the item.
@@ -38,8 +72,8 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getname
      */
     GetName() {
-        Name := BSTR()
-        result := ComCall(3, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -50,7 +84,7 @@ class ISettingsItem extends IUnknown {
      */
     GetValue() {
         Value := VARIANT()
-        result := ComCall(4, this, "ptr", Value, "HRESULT")
+        result := ComCall(4, this, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -101,7 +135,7 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalue
      */
     SetValue(Value) {
-        result := ComCall(5, this, "ptr", Value, "HRESULT")
+        result := ComCall(5, this, VARIANT.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -199,7 +233,7 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-haschild
      */
     HasChild() {
-        result := ComCall(10, this, "int*", &ItemHasChild := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &ItemHasChild := 0, "HRESULT")
         return ItemHasChild
     }
 
@@ -359,7 +393,7 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation
      */
     GetListKeyInformation(KeyName) {
-        result := ComCall(16, this, "ptr", KeyName, "int*", &DataType := 0, "HRESULT")
+        result := ComCall(16, this, BSTR.Ptr, KeyName, "int*", &DataType := 0, "HRESULT")
         return DataType
     }
 
@@ -373,7 +407,7 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createlistelement
      */
     CreateListElement(KeyData) {
-        result := ComCall(17, this, "ptr", KeyData, "ptr*", &Child := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, KeyData, "ptr*", &Child := 0, "HRESULT")
         return ISettingsItem(Child)
     }
 
@@ -494,7 +528,7 @@ class ISettingsItem extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
 
         Value := VARIANT()
-        result := ComCall(20, this, "ptr", Name, "ptr", Value, "HRESULT")
+        result := ComCall(20, this, "ptr", Name, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -504,8 +538,8 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getpath
      */
     GetPath() {
-        _Path := BSTR()
-        result := ComCall(21, this, "ptr", _Path, "HRESULT")
+        _Path := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, _Path, "HRESULT")
         return _Path
     }
 
@@ -527,7 +561,7 @@ class ISettingsItem extends IUnknown {
      */
     GetRestriction(RestrictionFacet) {
         FacetData := VARIANT()
-        result := ComCall(23, this, "int", RestrictionFacet, "ptr", FacetData, "HRESULT")
+        result := ComCall(23, this, WcmRestrictionFacets, RestrictionFacet, VARIANT.Ptr, FacetData, "HRESULT")
         return FacetData
     }
 
@@ -538,7 +572,69 @@ class ISettingsItem extends IUnknown {
      */
     GetKeyValue() {
         Value := VARIANT()
-        result := ComCall(24, this, "ptr", Value, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, Value, "HRESULT")
         return Value
+    }
+
+    Query(iid) {
+        if (ISettingsItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.GetSettingType := CallbackCreate(GetMethod(implObj, "GetSettingType"), flags, 2)
+        this.vtbl.GetDataType := CallbackCreate(GetMethod(implObj, "GetDataType"), flags, 2)
+        this.vtbl.GetValueRaw := CallbackCreate(GetMethod(implObj, "GetValueRaw"), flags, 3)
+        this.vtbl.SetValueRaw := CallbackCreate(GetMethod(implObj, "SetValueRaw"), flags, 4)
+        this.vtbl.HasChild := CallbackCreate(GetMethod(implObj, "HasChild"), flags, 2)
+        this.vtbl.Children := CallbackCreate(GetMethod(implObj, "Children"), flags, 2)
+        this.vtbl.GetChild := CallbackCreate(GetMethod(implObj, "GetChild"), flags, 3)
+        this.vtbl.GetSettingByPath := CallbackCreate(GetMethod(implObj, "GetSettingByPath"), flags, 3)
+        this.vtbl.CreateSettingByPath := CallbackCreate(GetMethod(implObj, "CreateSettingByPath"), flags, 3)
+        this.vtbl.RemoveSettingByPath := CallbackCreate(GetMethod(implObj, "RemoveSettingByPath"), flags, 2)
+        this.vtbl.GetListKeyInformation := CallbackCreate(GetMethod(implObj, "GetListKeyInformation"), flags, 3)
+        this.vtbl.CreateListElement := CallbackCreate(GetMethod(implObj, "CreateListElement"), flags, 3)
+        this.vtbl.RemoveListElement := CallbackCreate(GetMethod(implObj, "RemoveListElement"), flags, 2)
+        this.vtbl.Attributes := CallbackCreate(GetMethod(implObj, "Attributes"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 3)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetRestrictionFacets := CallbackCreate(GetMethod(implObj, "GetRestrictionFacets"), flags, 2)
+        this.vtbl.GetRestriction := CallbackCreate(GetMethod(implObj, "GetRestriction"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetSettingType)
+        CallbackFree(this.vtbl.GetDataType)
+        CallbackFree(this.vtbl.GetValueRaw)
+        CallbackFree(this.vtbl.SetValueRaw)
+        CallbackFree(this.vtbl.HasChild)
+        CallbackFree(this.vtbl.Children)
+        CallbackFree(this.vtbl.GetChild)
+        CallbackFree(this.vtbl.GetSettingByPath)
+        CallbackFree(this.vtbl.CreateSettingByPath)
+        CallbackFree(this.vtbl.RemoveSettingByPath)
+        CallbackFree(this.vtbl.GetListKeyInformation)
+        CallbackFree(this.vtbl.CreateListElement)
+        CallbackFree(this.vtbl.RemoveListElement)
+        CallbackFree(this.vtbl.Attributes)
+        CallbackFree(this.vtbl.GetAttribute)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetRestrictionFacets)
+        CallbackFree(this.vtbl.GetRestriction)
+        CallbackFree(this.vtbl.GetKeyValue)
     }
 }

@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class CO_SPECIFIC_PARAMETERS extends Win32Struct {
-    static sizeof => 12
+export default struct CO_SPECIFIC_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    ParamType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ParamType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Parameters : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Parameters {
-        get {
-            if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__ParametersProxyArray
-        }
-    }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_CONTACT.ahk
-#Include .\PEER_ENDPOINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEER_CONTACT.ahk" { PEER_CONTACT }
+#Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
 
 /**
  * The PEER_EVENT_ENDPOINT_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_CHANGED or PEER_EVENT_MY_ENDPOINT_CHANGED event is raised on a peer participating in a peer collaboration network.
@@ -10,28 +9,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_endpoint_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_EVENT_ENDPOINT_CHANGED_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PEER_EVENT_ENDPOINT_CHANGED_DATA {
+    #StructPack 8
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure that contains the contact information for the contact who changed endpoints.
      * @deprecated
-     * @type {Pointer<PEER_CONTACT>}
      */
-    pContact {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pContact : PEER_CONTACT.Ptr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the new active endpoint for  the peer specified in <i>pContact</i>.
      * @deprecated
-     * @type {Pointer<PEER_ENDPOINT>}
      */
-    pEndpoint {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pEndpoint : PEER_ENDPOINT.Ptr
+
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataQueryReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for setting or removing metadata blocks and items to an encoder or its image frames using a metadata query expression.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicmetadataquerywriter
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICMetadataQueryWriter extends IWICMetadataQueryReader {
-
-    static sizeof => A_PtrSize
+export default struct IWICMetadataQueryWriter extends IWICMetadataQueryReader {
     /**
      * The interface identifier for IWICMetadataQueryWriter
      * @type {Guid}
      */
-    static IID => Guid("{a721791a-0def-4d06-bd91-2118bf1db10b}")
+    static IID := Guid("{a721791a-0def-4d06-bd91-2118bf1db10b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICMetadataQueryWriter interfaces
+    */
+    struct Vtbl extends IWICMetadataQueryReader.Vtbl {
+        SetMetadataByName    : IntPtr
+        RemoveMetadataByName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMetadataByName", "RemoveMetadataByName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICMetadataQueryWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a metadata item to a specific location.
@@ -52,7 +63,7 @@ class IWICMetadataQueryWriter extends IWICMetadataQueryReader {
     SetMetadataByName(wzName, pvarValue) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := ComCall(7, this, "ptr", wzName, "ptr", pvarValue, "HRESULT")
+        result := ComCall(7, this, "ptr", wzName, PROPVARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -75,5 +86,27 @@ class IWICMetadataQueryWriter extends IWICMetadataQueryReader {
 
         result := ComCall(8, this, "ptr", wzName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICMetadataQueryWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMetadataByName := CallbackCreate(GetMethod(implObj, "SetMetadataByName"), flags, 3)
+        this.vtbl.RemoveMetadataByName := CallbackCreate(GetMethod(implObj, "RemoveMetadataByName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMetadataByName)
+        CallbackFree(this.vtbl.RemoveMetadataByName)
     }
 }

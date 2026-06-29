@@ -1,46 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides context information about the event.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_context
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ETW_BUFFER_CONTEXT extends Win32Struct {
-    static sizeof => 4
+export default struct ETW_BUFFER_CONTEXT {
+    #StructPack 2
 
-    static packingSize => 2
+    ProcessorNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessorIndex {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Alignment : Int8
 
     /**
      * Identifier of the session that logged the event.
-     * @type {Integer}
      */
-    LoggerId {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    LoggerId : UInt16
+
+    static __New() {
+        DefineProp(this.Prototype, 'ProcessorIndex', { type: UInt16, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

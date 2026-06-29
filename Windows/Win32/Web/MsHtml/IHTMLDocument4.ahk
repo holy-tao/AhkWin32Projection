@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLDocument2.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLEventObj.ahk
-#Include .\IHTMLRenderStyle.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLRenderStyle.ahk" { IHTMLRenderStyle }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDocument4 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDocument4 extends IDispatch {
     /**
      * The interface identifier for IHTMLDocument4
      * @type {Guid}
      */
-    static IID => Guid("{3050f69a-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f69a-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDocument4 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        focus                 : IntPtr
+        hasFocus              : IntPtr
+        put_onselectionchange : IntPtr
+        get_onselectionchange : IntPtr
+        get_namespaces        : IntPtr
+        createDocumentFromUrl : IntPtr
+        put_media             : IntPtr
+        get_media             : IntPtr
+        createEventObject     : IntPtr
+        fireEvent             : IntPtr
+        createRenderStyle     : IntPtr
+        put_oncontrolselect   : IntPtr
+        get_oncontrolselect   : IntPtr
+        get_URLUnencoded      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["focus", "hasFocus", "put_onselectionchange", "get_onselectionchange", "get_namespaces", "createDocumentFromUrl", "put_media", "get_media", "createEventObject", "fireEvent", "createRenderStyle", "put_oncontrolselect", "get_oncontrolselect", "get_URLUnencoded"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDocument4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -84,7 +106,7 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     hasFocus() {
-        result := ComCall(8, this, "short*", &pfFocus := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &pfFocus := 0, "HRESULT")
         return pfFocus
     }
 
@@ -94,7 +116,7 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onselectionchange(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -104,7 +126,7 @@ class IHTMLDocument4 extends IDispatch {
      */
     get_onselectionchange() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -127,7 +149,7 @@ class IHTMLDocument4 extends IDispatch {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bstrOptions := bstrOptions is String ? BSTR.Alloc(bstrOptions).Value : bstrOptions
 
-        result := ComCall(12, this, "ptr", bstrUrl, "ptr", bstrOptions, "ptr*", &newDoc := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrUrl, BSTR, bstrOptions, "ptr*", &newDoc := 0, "HRESULT")
         return IHTMLDocument2(newDoc)
     }
 
@@ -139,7 +161,7 @@ class IHTMLDocument4 extends IDispatch {
     put_media(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -148,8 +170,8 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {BSTR} 
      */
     get_media() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -159,7 +181,7 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {IHTMLEventObj} 
      */
     createEventObject(pvarEventObject) {
-        result := ComCall(15, this, "ptr", pvarEventObject, "ptr*", &ppEventObj := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, pvarEventObject, "ptr*", &ppEventObj := 0, "HRESULT")
         return IHTMLEventObj(ppEventObj)
     }
 
@@ -172,7 +194,7 @@ class IHTMLDocument4 extends IDispatch {
     fireEvent(bstrEventName, pvarEventObject) {
         bstrEventName := bstrEventName is String ? BSTR.Alloc(bstrEventName).Value : bstrEventName
 
-        result := ComCall(16, this, "ptr", bstrEventName, "ptr", pvarEventObject, "short*", &pfCancelled := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrEventName, VARIANT.Ptr, pvarEventObject, VARIANT_BOOL.Ptr, &pfCancelled := 0, "HRESULT")
         return pfCancelled
     }
 
@@ -184,7 +206,7 @@ class IHTMLDocument4 extends IDispatch {
     createRenderStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "ptr*", &ppIHTMLRenderStyle := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "ptr*", &ppIHTMLRenderStyle := 0, "HRESULT")
         return IHTMLRenderStyle(ppIHTMLRenderStyle)
     }
 
@@ -194,7 +216,7 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_oncontrolselect(v) {
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -204,7 +226,7 @@ class IHTMLDocument4 extends IDispatch {
      */
     get_oncontrolselect() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -213,8 +235,54 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {BSTR} 
      */
     get_URLUnencoded() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLDocument4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.focus := CallbackCreate(GetMethod(implObj, "focus"), flags, 1)
+        this.vtbl.hasFocus := CallbackCreate(GetMethod(implObj, "hasFocus"), flags, 2)
+        this.vtbl.put_onselectionchange := CallbackCreate(GetMethod(implObj, "put_onselectionchange"), flags, 2)
+        this.vtbl.get_onselectionchange := CallbackCreate(GetMethod(implObj, "get_onselectionchange"), flags, 2)
+        this.vtbl.get_namespaces := CallbackCreate(GetMethod(implObj, "get_namespaces"), flags, 2)
+        this.vtbl.createDocumentFromUrl := CallbackCreate(GetMethod(implObj, "createDocumentFromUrl"), flags, 4)
+        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.createEventObject := CallbackCreate(GetMethod(implObj, "createEventObject"), flags, 3)
+        this.vtbl.fireEvent := CallbackCreate(GetMethod(implObj, "fireEvent"), flags, 4)
+        this.vtbl.createRenderStyle := CallbackCreate(GetMethod(implObj, "createRenderStyle"), flags, 3)
+        this.vtbl.put_oncontrolselect := CallbackCreate(GetMethod(implObj, "put_oncontrolselect"), flags, 2)
+        this.vtbl.get_oncontrolselect := CallbackCreate(GetMethod(implObj, "get_oncontrolselect"), flags, 2)
+        this.vtbl.get_URLUnencoded := CallbackCreate(GetMethod(implObj, "get_URLUnencoded"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.focus)
+        CallbackFree(this.vtbl.hasFocus)
+        CallbackFree(this.vtbl.put_onselectionchange)
+        CallbackFree(this.vtbl.get_onselectionchange)
+        CallbackFree(this.vtbl.get_namespaces)
+        CallbackFree(this.vtbl.createDocumentFromUrl)
+        CallbackFree(this.vtbl.put_media)
+        CallbackFree(this.vtbl.get_media)
+        CallbackFree(this.vtbl.createEventObject)
+        CallbackFree(this.vtbl.fireEvent)
+        CallbackFree(this.vtbl.createRenderStyle)
+        CallbackFree(this.vtbl.put_oncontrolselect)
+        CallbackFree(this.vtbl.get_oncontrolselect)
+        CallbackFree(this.vtbl.get_URLUnencoded)
     }
 }

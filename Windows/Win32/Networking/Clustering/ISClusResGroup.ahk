@@ -1,38 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISClusNode.ahk
-#Include .\ISClusResGroupResources.ahk
-#Include .\ISClusResGroupPreferredOwnerNodes.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISCluster.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISClusNode.ahk" { ISClusNode }
+#Import ".\ISClusResGroupResources.ahk" { ISClusResGroupResources }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CLUSTER_GROUP_STATE.ahk" { CLUSTER_GROUP_STATE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import ".\ISClusResGroupPreferredOwnerNodes.ahk" { ISClusResGroupPreferredOwnerNodes }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ISClusResGroup extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISClusResGroup extends IDispatch {
     /**
      * The interface identifier for ISClusResGroup
      * @type {Guid}
      */
-    static IID => Guid("{f2e60706-2631-11d1-89f1-00a0c90d061e}")
+    static IID := Guid("{f2e60706-2631-11d1-89f1-00a0c90d061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISClusResGroup interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CommonProperties    : IntPtr
+        get_PrivateProperties   : IntPtr
+        get_CommonROProperties  : IntPtr
+        get_PrivateROProperties : IntPtr
+        get_Handle              : IntPtr
+        get_Name                : IntPtr
+        put_Name                : IntPtr
+        get_State               : IntPtr
+        get_OwnerNode           : IntPtr
+        get_Resources           : IntPtr
+        get_PreferredOwnerNodes : IntPtr
+        Delete                  : IntPtr
+        Online                  : IntPtr
+        Move                    : IntPtr
+        Offline                 : IntPtr
+        get_Cluster             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Handle", "get_Name", "put_Name", "get_State", "get_OwnerNode", "get_Resources", "get_PreferredOwnerNodes", "Delete", "Online", "Move", "Offline", "get_Cluster"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISClusResGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISClusProperties} 
@@ -162,8 +186,8 @@ class ISClusResGroup extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -175,7 +199,7 @@ class ISClusResGroup extends IDispatch {
     put_Name(bstrGroupName) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(13, this, "ptr", bstrGroupName, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrGroupName, "HRESULT")
         return result
     }
 
@@ -216,17 +240,8 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(18, this, "HRESULT")
@@ -234,64 +249,37 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * Brings a group online. (OnlineClusterGroup)
-     * @remarks
-     * If the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter, the  <b>OnlineClusterGroup</b> function fails.
      * 
-     * If the <i>hDestinationNode</i> parameter is set to <b>NULL</b>,  <b>OnlineClusterGroup</b> brings the group online on the current node.
-     * 
-     * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroup
      */
     Online(varTimeout, varNode) {
         pvarPending := VARIANT()
-        result := ComCall(19, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "HRESULT")
+        result := ComCall(19, this, VARIANT, varTimeout, VARIANT, varNode, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 
     /**
-     * Moves a group and all of its resources from one node to another.
-     * @remarks
-     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
      * 
-     * If you want your application to ensure a particular state for a resource or a group after a move:
-     * 
-     * <ol>
-     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
-     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
-     * </ol>
-     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
-     * 
-     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
      */
     Move(varTimeout, varNode) {
         pvarPending := VARIANT()
-        result := ComCall(20, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "HRESULT")
+        result := ComCall(20, this, VARIANT, varTimeout, VARIANT, varNode, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 
     /**
-     * Takes a group offline.
-     * @remarks
-     * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
      * @param {VARIANT} varTimeout 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroup
      */
     Offline(varTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(21, this, "ptr", varTimeout, "ptr", pvarPending, "HRESULT")
+        result := ComCall(21, this, VARIANT, varTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 
@@ -302,5 +290,55 @@ class ISClusResGroup extends IDispatch {
     get_Cluster() {
         result := ComCall(22, this, "ptr*", &ppCluster := 0, "HRESULT")
         return ISCluster(ppCluster)
+    }
+
+    Query(iid) {
+        if (ISClusResGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_OwnerNode := CallbackCreate(GetMethod(implObj, "get_OwnerNode"), flags, 2)
+        this.vtbl.get_Resources := CallbackCreate(GetMethod(implObj, "get_Resources"), flags, 2)
+        this.vtbl.get_PreferredOwnerNodes := CallbackCreate(GetMethod(implObj, "get_PreferredOwnerNodes"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Online := CallbackCreate(GetMethod(implObj, "Online"), flags, 4)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 3)
+        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CommonProperties)
+        CallbackFree(this.vtbl.get_PrivateProperties)
+        CallbackFree(this.vtbl.get_CommonROProperties)
+        CallbackFree(this.vtbl.get_PrivateROProperties)
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_OwnerNode)
+        CallbackFree(this.vtbl.get_Resources)
+        CallbackFree(this.vtbl.get_PreferredOwnerNodes)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Online)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Offline)
+        CallbackFree(this.vtbl.get_Cluster)
     }
 }

@@ -1,36 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_LUN_PLEX_PROP.ahk
-#Include .\IVdsLun.ahk
-#Include .\VDS_HINTS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVdsLun.ahk" { IVdsLun }
+#Import ".\VDS_LUN_PLEX_PROP.ahk" { VDS_LUN_PLEX_PROP }
+#Import ".\VDS_DRIVE_EXTENT.ahk" { VDS_DRIVE_EXTENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
 
 /**
  * The IVdsLunPlex interface (vdshwprv.h) provides methods for performing query and configuration operations on a LUN plex.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslunplex
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsLunPlex extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsLunPlex extends IUnknown {
     /**
      * The interface identifier for IVdsLunPlex
      * @type {Guid}
      */
-    static IID => Guid("{0ee1a790-5d2e-4abb-8c99-c481e8be2138}")
+    static IID := Guid("{0ee1a790-5d2e-4abb-8c99-c481e8be2138}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsLunPlex interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties : IntPtr
+        GetLun        : IntPtr
+        QueryExtents  : IntPtr
+        QueryHints    : IntPtr
+        ApplyHints    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetLun", "QueryExtents", "QueryHints", "ApplyHints"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsLunPlex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsLunPlex::GetProperties (vdshwprv.h) method returns the properties of the LUN plex.
@@ -39,7 +52,7 @@ class IVdsLunPlex extends IUnknown {
      */
     GetProperties() {
         pPlexProp := VDS_LUN_PLEX_PROP()
-        result := ComCall(3, this, "ptr", pPlexProp, "HRESULT")
+        result := ComCall(3, this, VDS_LUN_PLEX_PROP.Ptr, pPlexProp, "HRESULT")
         return pPlexProp
     }
 
@@ -138,7 +151,7 @@ class IVdsLunPlex extends IUnknown {
      */
     QueryHints() {
         pHints := VDS_HINTS()
-        result := ComCall(6, this, "ptr", pHints, "HRESULT")
+        result := ComCall(6, this, VDS_HINTS.Ptr, pHints, "HRESULT")
         return pHints
     }
 
@@ -218,7 +231,35 @@ class IVdsLunPlex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-applyhints
      */
     ApplyHints(pHints) {
-        result := ComCall(7, this, "ptr", pHints, "HRESULT")
+        result := ComCall(7, this, VDS_HINTS.Ptr, pHints, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsLunPlex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetLun := CallbackCreate(GetMethod(implObj, "GetLun"), flags, 2)
+        this.vtbl.QueryExtents := CallbackCreate(GetMethod(implObj, "QueryExtents"), flags, 3)
+        this.vtbl.QueryHints := CallbackCreate(GetMethod(implObj, "QueryHints"), flags, 2)
+        this.vtbl.ApplyHints := CallbackCreate(GetMethod(implObj, "ApplyHints"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetLun)
+        CallbackFree(this.vtbl.QueryExtents)
+        CallbackFree(this.vtbl.QueryHints)
+        CallbackFree(this.vtbl.ApplyHints)
     }
 }

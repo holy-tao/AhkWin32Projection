@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WMI_OUTPUT_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct NDIS_WMI_OUTPUT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SupportedRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SupportedRevision {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    DataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

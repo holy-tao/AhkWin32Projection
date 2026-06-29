@@ -1,32 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IEnumRemoteDebugApplications.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumRemoteDebugApplications.ahk" { IEnumRemoteDebugApplications }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IMachineDebugManagerCookie extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMachineDebugManagerCookie extends IUnknown {
     /**
      * The interface identifier for IMachineDebugManagerCookie
      * @type {Guid}
      */
-    static IID => Guid("{51973c2d-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c2d-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMachineDebugManagerCookie interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddApplication    : IntPtr
+        RemoveApplication : IntPtr
+        EnumApplications  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddApplication", "RemoveApplication", "EnumApplications"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMachineDebugManagerCookie.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -57,5 +68,29 @@ class IMachineDebugManagerCookie extends IUnknown {
     EnumApplications() {
         result := ComCall(5, this, "ptr*", &ppeda := 0, "HRESULT")
         return IEnumRemoteDebugApplications(ppeda)
+    }
+
+    Query(iid) {
+        if (IMachineDebugManagerCookie.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddApplication := CallbackCreate(GetMethod(implObj, "AddApplication"), flags, 4)
+        this.vtbl.RemoveApplication := CallbackCreate(GetMethod(implObj, "RemoveApplication"), flags, 3)
+        this.vtbl.EnumApplications := CallbackCreate(GetMethod(implObj, "EnumApplications"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddApplication)
+        CallbackFree(this.vtbl.RemoveApplication)
+        CallbackFree(this.vtbl.EnumApplications)
     }
 }

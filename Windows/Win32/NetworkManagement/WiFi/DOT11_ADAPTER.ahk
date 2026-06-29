@@ -1,39 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_CURRENT_OPERATION_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DOT11_CURRENT_OPERATION_MODE.ahk" { DOT11_CURRENT_OPERATION_MODE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ADAPTER extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_ADAPTER {
+    #StructPack 8
 
-    static packingSize => 8
+    gAdapterId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    gAdapterId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszDescription : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDescription {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Dot11CurrentOpMode : DOT11_CURRENT_OPERATION_MODE
 
-    /**
-     * @type {DOT11_CURRENT_OPERATION_MODE}
-     */
-    Dot11CurrentOpMode {
-        get {
-            if(!this.HasProp("__Dot11CurrentOpMode"))
-                this.__Dot11CurrentOpMode := DOT11_CURRENT_OPERATION_MODE(16, this)
-            return this.__Dot11CurrentOpMode
-        }
-    }
 }

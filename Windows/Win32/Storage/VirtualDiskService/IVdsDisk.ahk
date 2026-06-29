@@ -1,36 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_DISK_PROP.ahk
-#Include .\IVdsPack.ahk
-#Include .\VDS_LUN_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import ".\VDS_DISK_PROP.ahk" { VDS_DISK_PROP }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to query and configure basic and dynamic disks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsDisk extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsDisk extends IUnknown {
     /**
      * The interface identifier for IVdsDisk
      * @type {Guid}
      */
-    static IID => Guid("{07e5c822-f00c-47a1-8fce-b244da56fd06}")
+    static IID := Guid("{07e5c822-f00c-47a1-8fce-b244da56fd06}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsDisk interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties         : IntPtr
+        GetPack               : IntPtr
+        GetIdentificationData : IntPtr
+        QueryExtents          : IntPtr
+        ConvertStyle          : IntPtr
+        SetFlags              : IntPtr
+        ClearFlags            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetPack", "GetIdentificationData", "QueryExtents", "ConvertStyle", "SetFlags", "ClearFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsDisk.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns property information for a disk.
@@ -44,7 +60,7 @@ class IVdsDisk extends IUnknown {
      */
     GetProperties() {
         pDiskProperties := VDS_DISK_PROP()
-        result := ComCall(3, this, "ptr", pDiskProperties, "HRESULT")
+        result := ComCall(3, this, VDS_DISK_PROP.Ptr, pDiskProperties, "HRESULT")
         return pDiskProperties
     }
 
@@ -73,7 +89,7 @@ class IVdsDisk extends IUnknown {
      */
     GetIdentificationData() {
         pLunInfo := VDS_LUN_INFORMATION()
-        result := ComCall(5, this, "ptr", pLunInfo, "HRESULT")
+        result := ComCall(5, this, VDS_LUN_INFORMATION.Ptr, pLunInfo, "HRESULT")
         return pLunInfo
     }
 
@@ -171,7 +187,7 @@ class IVdsDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-convertstyle
      */
     ConvertStyle(NewStyle) {
-        result := ComCall(7, this, "int", NewStyle, "HRESULT")
+        result := ComCall(7, this, VDS_PARTITION_STYLE, NewStyle, "HRESULT")
         return result
     }
 
@@ -269,5 +285,37 @@ class IVdsDisk extends IUnknown {
     ClearFlags(ulFlags) {
         result := ComCall(9, this, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsDisk.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetPack := CallbackCreate(GetMethod(implObj, "GetPack"), flags, 2)
+        this.vtbl.GetIdentificationData := CallbackCreate(GetMethod(implObj, "GetIdentificationData"), flags, 2)
+        this.vtbl.QueryExtents := CallbackCreate(GetMethod(implObj, "QueryExtents"), flags, 3)
+        this.vtbl.ConvertStyle := CallbackCreate(GetMethod(implObj, "ConvertStyle"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetPack)
+        CallbackFree(this.vtbl.GetIdentificationData)
+        CallbackFree(this.vtbl.QueryExtents)
+        CallbackFree(this.vtbl.ConvertStyle)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.ClearFlags)
     }
 }

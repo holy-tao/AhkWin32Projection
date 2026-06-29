@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies how to bind a resource to the pipeline. (D3D10_BIND_FLAG)
@@ -17,7 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_bind_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_BIND_FLAG extends Win32Enum {
+export default struct D3D10_BIND_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Bind a buffer as a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">vertex buffer</a> to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage">input-assembler stage</a>.

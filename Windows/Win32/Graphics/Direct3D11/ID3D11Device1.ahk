@@ -1,36 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device.ahk
-#Include .\ID3D11DeviceContext1.ahk
-#Include .\ID3D11BlendState1.ahk
-#Include .\ID3D11RasterizerState1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11BlendState1.ahk" { ID3D11BlendState1 }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_BLEND_DESC1.ahk" { D3D11_BLEND_DESC1 }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import ".\D3D11_RASTERIZER_DESC1.ahk" { D3D11_RASTERIZER_DESC1 }
+#Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
+#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import ".\ID3D11RasterizerState1.ahk" { ID3D11RasterizerState1 }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device1 adds new methods to those in ID3D11Device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11device1
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Device1 extends ID3D11Device {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Device1 extends ID3D11Device {
     /**
      * The interface identifier for ID3D11Device1
      * @type {Guid}
      */
-    static IID => Guid("{a04bfb29-08ef-43d6-a49c-a9bdbdcbe686}")
+    static IID := Guid("{a04bfb29-08ef-43d6-a49c-a9bdbdcbe686}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 43
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Device1 interfaces
+    */
+    struct Vtbl extends ID3D11Device.Vtbl {
+        GetImmediateContext1     : IntPtr
+        CreateDeferredContext1   : IntPtr
+        CreateBlendState1        : IntPtr
+        CreateRasterizerState1   : IntPtr
+        CreateDeviceContextState : IntPtr
+        OpenSharedResource1      : IntPtr
+        OpenSharedResourceByName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetImmediateContext1", "CreateDeferredContext1", "CreateBlendState1", "CreateRasterizerState1", "CreateDeviceContextState", "OpenSharedResource1", "OpenSharedResourceByName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Device1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an immediate context, which can play back command lists. (ID3D11Device1.GetImmediateContext1)
@@ -43,7 +63,7 @@ class ID3D11Device1 extends ID3D11Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-getimmediatecontext1
      */
     GetImmediateContext1(ppImmediateContext) {
-        ComCall(43, this, "ptr*", ppImmediateContext)
+        ComCall(43, this, ID3D11DeviceContext1.Ptr, ppImmediateContext)
     }
 
     /**
@@ -88,7 +108,7 @@ class ID3D11Device1 extends ID3D11Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createblendstate1
      */
     CreateBlendState1(pBlendStateDesc) {
-        result := ComCall(45, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
+        result := ComCall(45, this, D3D11_BLEND_DESC1.Ptr, pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
         return ID3D11BlendState1(ppBlendState)
     }
 
@@ -102,7 +122,7 @@ class ID3D11Device1 extends ID3D11Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createrasterizerstate1
      */
     CreateRasterizerState1(pRasterizerDesc) {
-        result := ComCall(46, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        result := ComCall(46, this, D3D11_RASTERIZER_DESC1.Ptr, pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
         return ID3D11RasterizerState1(ppRasterizerState)
     }
 
@@ -1695,7 +1715,7 @@ class ID3D11Device1 extends ID3D11Device {
         pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
         pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
 
-        result := ComCall(47, this, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "ptr*", ppContextState, "HRESULT")
+        result := ComCall(47, this, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, Guid.Ptr, EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, ID3DDeviceContextState.Ptr, ppContextState, "HRESULT")
         return result
     }
 
@@ -1718,9 +1738,7 @@ class ID3D11Device1 extends ID3D11Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1
      */
     OpenSharedResource1(_hResource, returnedInterface) {
-        _hResource := _hResource is Win32Handle ? NumGet(_hResource, "ptr") : _hResource
-
-        result := ComCall(48, this, "ptr", _hResource, "ptr", returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(48, this, HANDLE, _hResource, Guid.Ptr, returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
         return ppResource
     }
 
@@ -1752,7 +1770,39 @@ class ID3D11Device1 extends ID3D11Device {
     OpenSharedResourceByName(lpName, dwDesiredAccess, returnedInterface) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, "ptr", returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, Guid.Ptr, returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
         return ppResource
+    }
+
+    Query(iid) {
+        if (ID3D11Device1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetImmediateContext1 := CallbackCreate(GetMethod(implObj, "GetImmediateContext1"), flags, 2)
+        this.vtbl.CreateDeferredContext1 := CallbackCreate(GetMethod(implObj, "CreateDeferredContext1"), flags, 3)
+        this.vtbl.CreateBlendState1 := CallbackCreate(GetMethod(implObj, "CreateBlendState1"), flags, 3)
+        this.vtbl.CreateRasterizerState1 := CallbackCreate(GetMethod(implObj, "CreateRasterizerState1"), flags, 3)
+        this.vtbl.CreateDeviceContextState := CallbackCreate(GetMethod(implObj, "CreateDeviceContextState"), flags, 8)
+        this.vtbl.OpenSharedResource1 := CallbackCreate(GetMethod(implObj, "OpenSharedResource1"), flags, 4)
+        this.vtbl.OpenSharedResourceByName := CallbackCreate(GetMethod(implObj, "OpenSharedResourceByName"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetImmediateContext1)
+        CallbackFree(this.vtbl.CreateDeferredContext1)
+        CallbackFree(this.vtbl.CreateBlendState1)
+        CallbackFree(this.vtbl.CreateRasterizerState1)
+        CallbackFree(this.vtbl.CreateDeviceContextState)
+        CallbackFree(this.vtbl.OpenSharedResource1)
+        CallbackFree(this.vtbl.OpenSharedResourceByName)
     }
 }

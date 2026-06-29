@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the sides of a DVD disc.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_disc_side
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_DISC_SIDE extends Win32Enum {
+export default struct DVD_DISC_SIDE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Side A.

@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTCHAINENGINE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\HCERTSTORE.ahk
-#Include .\CERT_CHAIN_PARA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CERT_CHAIN_PARA.ahk" { CERT_CHAIN_PARA }
 
 /**
  * Contains the parameters used for building and selecting chains.
@@ -19,55 +18,31 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_select_chain_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_SELECT_CHAIN_PARA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CERT_SELECT_CHAIN_PARA {
+    #StructPack 8
 
     /**
      * The handle of the chain engine to use to build the chain. If the value of the <i>hChainEngine</i> parameter is <b>NULL</b>, the default chain engine, <b>HCCE_CURRENT_USER</b>, is used.
-     * @type {HCERTCHAINENGINE}
      */
-    hChainEngine {
-        get {
-            if(!this.HasProp("__hChainEngine"))
-                this.__hChainEngine := HCERTCHAINENGINE(0, this)
-            return this.__hChainEngine
-        }
-    }
+    hChainEngine : HCERTCHAINENGINE
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time for which the chain is to be validated. If the  value of the <i>pTime</i> parameter is <b>NULL</b>, the current system time is passed to this parameter. 
      * 
      * <div class="alert"><b>Note</b>  The time does not affect trust list, revocation, or root store checking.</div>
      * <div> </div>
-     * @type {Pointer<FILETIME>}
      */
-    pTime {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pTime : FILETIME.Ptr
 
     /**
      * The handle of any additional store to search for supporting certificates and certificate trust lists (CTLs). This parameter can be <b>NULL</b> if no additional store is to be searched.
-     * @type {HCERTSTORE}
      */
-    hAdditionalStore {
-        get {
-            if(!this.HasProp("__hAdditionalStore"))
-                this.__hAdditionalStore := HCERTSTORE(16, this)
-            return this.__hAdditionalStore
-        }
-    }
+    hAdditionalStore : HCERTSTORE
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_para">CERT_CHAIN_PARA</a> structure that includes chain-building parameters.
-     * @type {Pointer<CERT_CHAIN_PARA>}
      */
-    pChainPara {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pChainPara : CERT_CHAIN_PARA.Ptr
 
     /**
      * Flag values that indicate special processing during chain build. 
@@ -102,10 +77,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFlags : UInt32
+
 }

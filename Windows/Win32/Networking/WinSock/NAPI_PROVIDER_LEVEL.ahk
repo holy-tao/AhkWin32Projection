@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the provider authority level of a NS_EMAIL namespace provider for a given domain.
@@ -24,7 +23,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nsemail/ne-nsemail-napi_provider_level
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NAPI_PROVIDER_LEVEL extends Win32Enum {
+export default struct NAPI_PROVIDER_LEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The namespace provider does not support the current domain. This value can be used to temporarily turn off the support for a domain without removing it from the list of supported domains. 

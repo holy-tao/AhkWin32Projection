@@ -1,42 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA_ProcAmpControlProp.ahk
-#Include .\DXVA_VideoDesc.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
-#Include .\DXVA_Frequency.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA_VideoDesc.ahk" { DXVA_VideoDesc }
+#Import ".\DXVA_ProcAmpControlProp.ahk" { DXVA_ProcAmpControlProp }
+#Import ".\DXVA_Frequency.ahk" { DXVA_Frequency }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_ProcAmpControlQueryRange extends Win32Struct {
-    static sizeof => 44
+export default struct DXVA_ProcAmpControlQueryRange {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProcAmpControlProp : DXVA_ProcAmpControlProp
 
-    /**
-     * @type {DXVA_ProcAmpControlProp}
-     */
-    ProcAmpControlProp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    VideoDesc : DXVA_VideoDesc
 
-    /**
-     * @type {DXVA_VideoDesc}
-     */
-    VideoDesc {
-        get {
-            if(!this.HasProp("__VideoDesc"))
-                this.__VideoDesc := DXVA_VideoDesc(8, this)
-            return this.__VideoDesc
-        }
-    }
 }

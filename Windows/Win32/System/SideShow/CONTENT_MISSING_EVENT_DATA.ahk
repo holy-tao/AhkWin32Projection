@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.SideShow
  */
-class CONTENT_MISSING_EVENT_DATA extends Win32Struct {
-    static sizeof => 32
+export default struct CONTENT_MISSING_EVENT_DATA {
+    #StructPack 4
 
-    static packingSize => 8
+    cbContentMissingEventData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbContentMissingEventData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ApplicationId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ApplicationId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    EndpointId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    EndpointId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ContentId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ContentId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

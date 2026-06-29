@@ -1,36 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IApplicationDebugger.ahk
-#Include .\IEnumRemoteDebugApplicationThreads.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IDebugApplicationNode.ahk
-#Include .\IEnumDebugExpressionContexts.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
+#Import ".\IEnumRemoteDebugApplicationThreads.ahk" { IEnumRemoteDebugApplicationThreads }
+#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
+#Import ".\IEnumDebugExpressionContexts.ahk" { IEnumDebugExpressionContexts }
+#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IRemoteDebugApplication extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRemoteDebugApplication extends IUnknown {
     /**
      * The interface identifier for IRemoteDebugApplication
      * @type {Guid}
      */
-    static IID => Guid("{51973c30-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c30-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRemoteDebugApplication interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ResumeFromBreakPoint         : IntPtr
+        CauseBreak                   : IntPtr
+        ConnectDebugger              : IntPtr
+        DisconnectDebugger           : IntPtr
+        GetDebugger                  : IntPtr
+        CreateInstanceAtApplication  : IntPtr
+        QueryAlive                   : IntPtr
+        EnumThreads                  : IntPtr
+        GetName                      : IntPtr
+        GetRootNode                  : IntPtr
+        EnumGlobalExpressionContexts : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ResumeFromBreakPoint", "CauseBreak", "ConnectDebugger", "DisconnectDebugger", "GetDebugger", "CreateInstanceAtApplication", "QueryAlive", "EnumThreads", "GetName", "GetRootNode", "EnumGlobalExpressionContexts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRemoteDebugApplication.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -40,7 +61,7 @@ class IRemoteDebugApplication extends IUnknown {
      * @returns {HRESULT} 
      */
     ResumeFromBreakPoint(prptFocus, bra, era) {
-        result := ComCall(3, this, "ptr", prptFocus, "int", bra, "int", era, "HRESULT")
+        result := ComCall(3, this, "ptr", prptFocus, BREAKRESUMEACTION, bra, ERRORRESUMEACTION, era, "HRESULT")
         return result
     }
 
@@ -90,7 +111,7 @@ class IRemoteDebugApplication extends IUnknown {
      * @returns {IUnknown} 
      */
     CreateInstanceAtApplication(rclsid, pUnkOuter, dwClsContext, riid) {
-        result := ComCall(8, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return IUnknown(ppvObject)
     }
 
@@ -118,8 +139,8 @@ class IRemoteDebugApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pbstrName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -139,5 +160,45 @@ class IRemoteDebugApplication extends IUnknown {
     EnumGlobalExpressionContexts() {
         result := ComCall(13, this, "ptr*", &ppedec := 0, "HRESULT")
         return IEnumDebugExpressionContexts(ppedec)
+    }
+
+    Query(iid) {
+        if (IRemoteDebugApplication.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ResumeFromBreakPoint := CallbackCreate(GetMethod(implObj, "ResumeFromBreakPoint"), flags, 4)
+        this.vtbl.CauseBreak := CallbackCreate(GetMethod(implObj, "CauseBreak"), flags, 1)
+        this.vtbl.ConnectDebugger := CallbackCreate(GetMethod(implObj, "ConnectDebugger"), flags, 2)
+        this.vtbl.DisconnectDebugger := CallbackCreate(GetMethod(implObj, "DisconnectDebugger"), flags, 1)
+        this.vtbl.GetDebugger := CallbackCreate(GetMethod(implObj, "GetDebugger"), flags, 2)
+        this.vtbl.CreateInstanceAtApplication := CallbackCreate(GetMethod(implObj, "CreateInstanceAtApplication"), flags, 6)
+        this.vtbl.QueryAlive := CallbackCreate(GetMethod(implObj, "QueryAlive"), flags, 1)
+        this.vtbl.EnumThreads := CallbackCreate(GetMethod(implObj, "EnumThreads"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetRootNode := CallbackCreate(GetMethod(implObj, "GetRootNode"), flags, 2)
+        this.vtbl.EnumGlobalExpressionContexts := CallbackCreate(GetMethod(implObj, "EnumGlobalExpressionContexts"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ResumeFromBreakPoint)
+        CallbackFree(this.vtbl.CauseBreak)
+        CallbackFree(this.vtbl.ConnectDebugger)
+        CallbackFree(this.vtbl.DisconnectDebugger)
+        CallbackFree(this.vtbl.GetDebugger)
+        CallbackFree(this.vtbl.CreateInstanceAtApplication)
+        CallbackFree(this.vtbl.QueryAlive)
+        CallbackFree(this.vtbl.EnumThreads)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetRootNode)
+        CallbackFree(this.vtbl.EnumGlobalExpressionContexts)
     }
 }

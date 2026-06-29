@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct {
-    static sizeof => 104
+export default struct PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Capabilities1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Capabilities1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Capabilities2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Capabilities2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Control : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Control {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Status : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Status {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Resource : IntPtr[8]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Resource {
-        get {
-            if(!this.HasProp("__ResourceProxyArray"))
-                this.__ResourceProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "ptr")
-            return this.__ResourceProxyArray
-        }
-    }
 }

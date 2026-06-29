@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DUPLICATE_EXTENTS_DATA_EX extends Win32Struct {
-    static sizeof => 48
+export default struct DUPLICATE_EXTENTS_DATA_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Size {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FileHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    FileHandle {
-        get {
-            if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(8, this)
-            return this.__FileHandle
-        }
-    }
+    SourceFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SourceFileOffset {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TargetFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetFileOffset {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    ByteCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

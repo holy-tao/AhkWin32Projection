@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT extends Win32Struct {
-    static sizeof => 32
+export default struct TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT {
+    #StructPack 4
 
-    static packingSize => 8
+    PropagationCookie : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PropagationCookie {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UOW : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    UOW {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TmIdentity : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    TmIdentity {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    BufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

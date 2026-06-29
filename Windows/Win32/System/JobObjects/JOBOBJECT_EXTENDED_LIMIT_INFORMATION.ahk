@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk
-#Include .\JOB_OBJECT_LIMIT.ahk
-#Include ..\Threading\IO_COUNTERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
+#Import ".\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk" { JOBOBJECT_BASIC_LIMIT_INFORMATION }
+#Import "..\Threading\IO_COUNTERS.ahk" { IO_COUNTERS }
 
 /**
  * Contains basic and extended limit information for a job object.
@@ -15,71 +14,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_extended_limit_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
+    #StructPack 8
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_basic_limit_information">JOBOBJECT_BASIC_LIMIT_INFORMATION</a> structure that contains basic limit information.
-     * @type {JOBOBJECT_BASIC_LIMIT_INFORMATION}
      */
-    BasicLimitInformation {
-        get {
-            if(!this.HasProp("__BasicLimitInformation"))
-                this.__BasicLimitInformation := JOBOBJECT_BASIC_LIMIT_INFORMATION(0, this)
-            return this.__BasicLimitInformation
-        }
-    }
+    BasicLimitInformation : JOBOBJECT_BASIC_LIMIT_INFORMATION
 
     /**
      * Reserved.
-     * @type {IO_COUNTERS}
      */
-    IoInfo {
-        get {
-            if(!this.HasProp("__IoInfo"))
-                this.__IoInfo := IO_COUNTERS(64, this)
-            return this.__IoInfo
-        }
-    }
+    IoInfo : IO_COUNTERS
 
     /**
      * If the <b>LimitFlags</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_basic_limit_information">JOBOBJECT_BASIC_LIMIT_INFORMATION</a> structure specifies the <b>JOB_OBJECT_LIMIT_PROCESS_MEMORY</b> value, this member specifies the limit for the virtual memory that can be committed by a process. Otherwise, this member is ignored.
-     * @type {Pointer}
      */
-    ProcessMemoryLimit {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    ProcessMemoryLimit : IntPtr
 
     /**
      * If the <b>LimitFlags</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_basic_limit_information">JOBOBJECT_BASIC_LIMIT_INFORMATION</a> structure specifies the <b>JOB_OBJECT_LIMIT_JOB_MEMORY</b> value, this member specifies the limit for the virtual memory that can be committed for the job. Otherwise, this member is ignored.
-     * @type {Pointer}
      */
-    JobMemoryLimit {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    JobMemoryLimit : IntPtr
 
     /**
      * The peak memory used by any process ever associated with the job.
-     * @type {Pointer}
      */
-    PeakProcessMemoryUsed {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    PeakProcessMemoryUsed : IntPtr
 
     /**
      * The peak memory usage of all processes currently associated with the job.
-     * @type {Pointer}
      */
-    PeakJobMemoryUsed {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    PeakJobMemoryUsed : IntPtr
+
 }

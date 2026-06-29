@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DPICKRECORD extends Win32Struct {
-    static sizeof => 12
+export default struct D3DPICKRECORD {
+    #StructPack 4
 
-    static packingSize => 4
+    bOpcode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bOpcode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bPad : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPad {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    dwOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dvZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvZ {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
 }

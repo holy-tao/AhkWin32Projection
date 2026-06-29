@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct {
-    static sizeof => 24
+export default struct DEVICE_BUS_SPECIFIC_RESET_TYPE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Pci extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _Pci {
         /**
          * This bitfield backs the following members:
          * - FunctionLevelDeviceReset
          * - PlatformLevelDeviceReset
          * - SecondaryBusReset
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -51,21 +43,15 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct {
         }
     }
 
-    class _Acpi extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _Acpi {
         /**
          * This bitfield backs the following members:
          * - FunctionLevelDeviceReset
          * - PlatformLevelDeviceReset
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -84,33 +70,11 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Pci}
-     */
-    Pci {
-        get {
-            if(!this.HasProp("__Pci"))
-                this.__Pci := DEVICE_BUS_SPECIFIC_RESET_TYPE._Pci(0, this)
-            return this.__Pci
-        }
-    }
+    Pci : DEVICE_BUS_SPECIFIC_RESET_TYPE._Pci
 
-    /**
-     * @type {_Acpi}
-     */
-    Acpi {
-        get {
-            if(!this.HasProp("__Acpi"))
-                this.__Acpi := DEVICE_BUS_SPECIFIC_RESET_TYPE._Acpi(0, this)
-            return this.__Acpi
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONGLONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Acpi', { type: DEVICE_BUS_SPECIFIC_RESET_TYPE._Acpi, offset: 0 })
+        DefineProp(this.Prototype, 'AsULONGLONG', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

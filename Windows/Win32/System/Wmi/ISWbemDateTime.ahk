@@ -1,38 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemDateTime extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemDateTime extends IDispatch {
     /**
      * The interface identifier for ISWbemDateTime
      * @type {Guid}
      */
-    static IID => Guid("{5e97458a-cf77-11d3-b38f-00105a1f473a}")
+    static IID := Guid("{5e97458a-cf77-11d3-b38f-00105a1f473a}")
 
     /**
      * The class identifier for SWbemDateTime
      * @type {Guid}
      */
-    static CLSID => Guid("{47dfbe54-cf76-11d3-b38f-00105a1f473a}")
+    static CLSID := Guid("{47dfbe54-cf76-11d3-b38f-00105a1f473a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemDateTime interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Value                 : IntPtr
+        put_Value                 : IntPtr
+        get_Year                  : IntPtr
+        put_Year                  : IntPtr
+        get_YearSpecified         : IntPtr
+        put_YearSpecified         : IntPtr
+        get_Month                 : IntPtr
+        put_Month                 : IntPtr
+        get_MonthSpecified        : IntPtr
+        put_MonthSpecified        : IntPtr
+        get_Day                   : IntPtr
+        put_Day                   : IntPtr
+        get_DaySpecified          : IntPtr
+        put_DaySpecified          : IntPtr
+        get_Hours                 : IntPtr
+        put_Hours                 : IntPtr
+        get_HoursSpecified        : IntPtr
+        put_HoursSpecified        : IntPtr
+        get_Minutes               : IntPtr
+        put_Minutes               : IntPtr
+        get_MinutesSpecified      : IntPtr
+        put_MinutesSpecified      : IntPtr
+        get_Seconds               : IntPtr
+        put_Seconds               : IntPtr
+        get_SecondsSpecified      : IntPtr
+        put_SecondsSpecified      : IntPtr
+        get_Microseconds          : IntPtr
+        put_Microseconds          : IntPtr
+        get_MicrosecondsSpecified : IntPtr
+        put_MicrosecondsSpecified : IntPtr
+        get_UTC                   : IntPtr
+        put_UTC                   : IntPtr
+        get_UTCSpecified          : IntPtr
+        put_UTCSpecified          : IntPtr
+        get_IsInterval            : IntPtr
+        put_IsInterval            : IntPtr
+        GetVarDate                : IntPtr
+        SetVarDate                : IntPtr
+        GetFileTime               : IntPtr
+        SetFileTime               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Value", "put_Value", "get_Year", "put_Year", "get_YearSpecified", "put_YearSpecified", "get_Month", "put_Month", "get_MonthSpecified", "put_MonthSpecified", "get_Day", "put_Day", "get_DaySpecified", "put_DaySpecified", "get_Hours", "put_Hours", "get_HoursSpecified", "put_HoursSpecified", "get_Minutes", "put_Minutes", "get_MinutesSpecified", "put_MinutesSpecified", "get_Seconds", "put_Seconds", "get_SecondsSpecified", "put_SecondsSpecified", "get_Microseconds", "put_Microseconds", "get_MicrosecondsSpecified", "put_MicrosecondsSpecified", "get_UTC", "put_UTC", "get_UTCSpecified", "put_UTCSpecified", "get_IsInterval", "put_IsInterval", "GetVarDate", "SetVarDate", "GetFileTime", "SetFileTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemDateTime.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -183,8 +231,8 @@ class ISWbemDateTime extends IDispatch {
      * @returns {BSTR} 
      */
     get_Value() {
-        strValue := BSTR()
-        result := ComCall(7, this, "ptr", strValue, "HRESULT")
+        strValue := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, strValue, "HRESULT")
         return strValue
     }
 
@@ -196,7 +244,7 @@ class ISWbemDateTime extends IDispatch {
     put_Value(strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(8, this, "ptr", strValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -224,7 +272,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_YearSpecified() {
-        result := ComCall(11, this, "short*", &bYearSpecified := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &bYearSpecified := 0, "HRESULT")
         return bYearSpecified
     }
 
@@ -234,7 +282,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_YearSpecified(bYearSpecified) {
-        result := ComCall(12, this, "short", bYearSpecified, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, bYearSpecified, "HRESULT")
         return result
     }
 
@@ -262,7 +310,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_MonthSpecified() {
-        result := ComCall(15, this, "short*", &bMonthSpecified := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &bMonthSpecified := 0, "HRESULT")
         return bMonthSpecified
     }
 
@@ -272,7 +320,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MonthSpecified(bMonthSpecified) {
-        result := ComCall(16, this, "short", bMonthSpecified, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, bMonthSpecified, "HRESULT")
         return result
     }
 
@@ -300,7 +348,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_DaySpecified() {
-        result := ComCall(19, this, "short*", &bDaySpecified := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &bDaySpecified := 0, "HRESULT")
         return bDaySpecified
     }
 
@@ -310,7 +358,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DaySpecified(bDaySpecified) {
-        result := ComCall(20, this, "short", bDaySpecified, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, bDaySpecified, "HRESULT")
         return result
     }
 
@@ -338,7 +386,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_HoursSpecified() {
-        result := ComCall(23, this, "short*", &bHoursSpecified := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &bHoursSpecified := 0, "HRESULT")
         return bHoursSpecified
     }
 
@@ -348,7 +396,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_HoursSpecified(bHoursSpecified) {
-        result := ComCall(24, this, "short", bHoursSpecified, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, bHoursSpecified, "HRESULT")
         return result
     }
 
@@ -376,7 +424,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_MinutesSpecified() {
-        result := ComCall(27, this, "short*", &bMinutesSpecified := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &bMinutesSpecified := 0, "HRESULT")
         return bMinutesSpecified
     }
 
@@ -386,7 +434,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MinutesSpecified(bMinutesSpecified) {
-        result := ComCall(28, this, "short", bMinutesSpecified, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL, bMinutesSpecified, "HRESULT")
         return result
     }
 
@@ -414,7 +462,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_SecondsSpecified() {
-        result := ComCall(31, this, "short*", &bSecondsSpecified := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &bSecondsSpecified := 0, "HRESULT")
         return bSecondsSpecified
     }
 
@@ -424,7 +472,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SecondsSpecified(bSecondsSpecified) {
-        result := ComCall(32, this, "short", bSecondsSpecified, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL, bSecondsSpecified, "HRESULT")
         return result
     }
 
@@ -452,7 +500,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_MicrosecondsSpecified() {
-        result := ComCall(35, this, "short*", &bMicrosecondsSpecified := 0, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL.Ptr, &bMicrosecondsSpecified := 0, "HRESULT")
         return bMicrosecondsSpecified
     }
 
@@ -462,7 +510,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MicrosecondsSpecified(bMicrosecondsSpecified) {
-        result := ComCall(36, this, "short", bMicrosecondsSpecified, "HRESULT")
+        result := ComCall(36, this, VARIANT_BOOL, bMicrosecondsSpecified, "HRESULT")
         return result
     }
 
@@ -490,7 +538,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_UTCSpecified() {
-        result := ComCall(39, this, "short*", &bUTCSpecified := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT_BOOL.Ptr, &bUTCSpecified := 0, "HRESULT")
         return bUTCSpecified
     }
 
@@ -500,7 +548,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_UTCSpecified(bUTCSpecified) {
-        result := ComCall(40, this, "short", bUTCSpecified, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL, bUTCSpecified, "HRESULT")
         return result
     }
 
@@ -509,7 +557,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsInterval() {
-        result := ComCall(41, this, "short*", &bIsInterval := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL.Ptr, &bIsInterval := 0, "HRESULT")
         return bIsInterval
     }
 
@@ -519,7 +567,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_IsInterval(bIsInterval) {
-        result := ComCall(42, this, "short", bIsInterval, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL, bIsInterval, "HRESULT")
         return result
     }
 
@@ -529,7 +577,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {Float} 
      */
     GetVarDate(bIsLocal) {
-        result := ComCall(43, this, "short", bIsLocal, "double*", &dVarDate := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL, bIsLocal, "double*", &dVarDate := 0, "HRESULT")
         return dVarDate
     }
 
@@ -540,7 +588,7 @@ class ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     SetVarDate(dVarDate, bIsLocal) {
-        result := ComCall(44, this, "double", dVarDate, "short", bIsLocal, "HRESULT")
+        result := ComCall(44, this, "double", dVarDate, VARIANT_BOOL, bIsLocal, "HRESULT")
         return result
     }
 
@@ -567,8 +615,8 @@ class ISWbemDateTime extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfiletime
      */
     GetFileTime(bIsLocal) {
-        strFileTime := BSTR()
-        result := ComCall(45, this, "short", bIsLocal, "ptr", strFileTime, "HRESULT")
+        strFileTime := BSTR.Owned()
+        result := ComCall(45, this, VARIANT_BOOL, bIsLocal, BSTR.Ptr, strFileTime, "HRESULT")
         return strFileTime
     }
 
@@ -586,7 +634,105 @@ class ISWbemDateTime extends IDispatch {
     SetFileTime(strFileTime, bIsLocal) {
         strFileTime := strFileTime is String ? BSTR.Alloc(strFileTime).Value : strFileTime
 
-        result := ComCall(46, this, "ptr", strFileTime, "short", bIsLocal, "HRESULT")
+        result := ComCall(46, this, BSTR, strFileTime, VARIANT_BOOL, bIsLocal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISWbemDateTime.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Year := CallbackCreate(GetMethod(implObj, "get_Year"), flags, 2)
+        this.vtbl.put_Year := CallbackCreate(GetMethod(implObj, "put_Year"), flags, 2)
+        this.vtbl.get_YearSpecified := CallbackCreate(GetMethod(implObj, "get_YearSpecified"), flags, 2)
+        this.vtbl.put_YearSpecified := CallbackCreate(GetMethod(implObj, "put_YearSpecified"), flags, 2)
+        this.vtbl.get_Month := CallbackCreate(GetMethod(implObj, "get_Month"), flags, 2)
+        this.vtbl.put_Month := CallbackCreate(GetMethod(implObj, "put_Month"), flags, 2)
+        this.vtbl.get_MonthSpecified := CallbackCreate(GetMethod(implObj, "get_MonthSpecified"), flags, 2)
+        this.vtbl.put_MonthSpecified := CallbackCreate(GetMethod(implObj, "put_MonthSpecified"), flags, 2)
+        this.vtbl.get_Day := CallbackCreate(GetMethod(implObj, "get_Day"), flags, 2)
+        this.vtbl.put_Day := CallbackCreate(GetMethod(implObj, "put_Day"), flags, 2)
+        this.vtbl.get_DaySpecified := CallbackCreate(GetMethod(implObj, "get_DaySpecified"), flags, 2)
+        this.vtbl.put_DaySpecified := CallbackCreate(GetMethod(implObj, "put_DaySpecified"), flags, 2)
+        this.vtbl.get_Hours := CallbackCreate(GetMethod(implObj, "get_Hours"), flags, 2)
+        this.vtbl.put_Hours := CallbackCreate(GetMethod(implObj, "put_Hours"), flags, 2)
+        this.vtbl.get_HoursSpecified := CallbackCreate(GetMethod(implObj, "get_HoursSpecified"), flags, 2)
+        this.vtbl.put_HoursSpecified := CallbackCreate(GetMethod(implObj, "put_HoursSpecified"), flags, 2)
+        this.vtbl.get_Minutes := CallbackCreate(GetMethod(implObj, "get_Minutes"), flags, 2)
+        this.vtbl.put_Minutes := CallbackCreate(GetMethod(implObj, "put_Minutes"), flags, 2)
+        this.vtbl.get_MinutesSpecified := CallbackCreate(GetMethod(implObj, "get_MinutesSpecified"), flags, 2)
+        this.vtbl.put_MinutesSpecified := CallbackCreate(GetMethod(implObj, "put_MinutesSpecified"), flags, 2)
+        this.vtbl.get_Seconds := CallbackCreate(GetMethod(implObj, "get_Seconds"), flags, 2)
+        this.vtbl.put_Seconds := CallbackCreate(GetMethod(implObj, "put_Seconds"), flags, 2)
+        this.vtbl.get_SecondsSpecified := CallbackCreate(GetMethod(implObj, "get_SecondsSpecified"), flags, 2)
+        this.vtbl.put_SecondsSpecified := CallbackCreate(GetMethod(implObj, "put_SecondsSpecified"), flags, 2)
+        this.vtbl.get_Microseconds := CallbackCreate(GetMethod(implObj, "get_Microseconds"), flags, 2)
+        this.vtbl.put_Microseconds := CallbackCreate(GetMethod(implObj, "put_Microseconds"), flags, 2)
+        this.vtbl.get_MicrosecondsSpecified := CallbackCreate(GetMethod(implObj, "get_MicrosecondsSpecified"), flags, 2)
+        this.vtbl.put_MicrosecondsSpecified := CallbackCreate(GetMethod(implObj, "put_MicrosecondsSpecified"), flags, 2)
+        this.vtbl.get_UTC := CallbackCreate(GetMethod(implObj, "get_UTC"), flags, 2)
+        this.vtbl.put_UTC := CallbackCreate(GetMethod(implObj, "put_UTC"), flags, 2)
+        this.vtbl.get_UTCSpecified := CallbackCreate(GetMethod(implObj, "get_UTCSpecified"), flags, 2)
+        this.vtbl.put_UTCSpecified := CallbackCreate(GetMethod(implObj, "put_UTCSpecified"), flags, 2)
+        this.vtbl.get_IsInterval := CallbackCreate(GetMethod(implObj, "get_IsInterval"), flags, 2)
+        this.vtbl.put_IsInterval := CallbackCreate(GetMethod(implObj, "put_IsInterval"), flags, 2)
+        this.vtbl.GetVarDate := CallbackCreate(GetMethod(implObj, "GetVarDate"), flags, 3)
+        this.vtbl.SetVarDate := CallbackCreate(GetMethod(implObj, "SetVarDate"), flags, 3)
+        this.vtbl.GetFileTime := CallbackCreate(GetMethod(implObj, "GetFileTime"), flags, 3)
+        this.vtbl.SetFileTime := CallbackCreate(GetMethod(implObj, "SetFileTime"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
+        CallbackFree(this.vtbl.get_Year)
+        CallbackFree(this.vtbl.put_Year)
+        CallbackFree(this.vtbl.get_YearSpecified)
+        CallbackFree(this.vtbl.put_YearSpecified)
+        CallbackFree(this.vtbl.get_Month)
+        CallbackFree(this.vtbl.put_Month)
+        CallbackFree(this.vtbl.get_MonthSpecified)
+        CallbackFree(this.vtbl.put_MonthSpecified)
+        CallbackFree(this.vtbl.get_Day)
+        CallbackFree(this.vtbl.put_Day)
+        CallbackFree(this.vtbl.get_DaySpecified)
+        CallbackFree(this.vtbl.put_DaySpecified)
+        CallbackFree(this.vtbl.get_Hours)
+        CallbackFree(this.vtbl.put_Hours)
+        CallbackFree(this.vtbl.get_HoursSpecified)
+        CallbackFree(this.vtbl.put_HoursSpecified)
+        CallbackFree(this.vtbl.get_Minutes)
+        CallbackFree(this.vtbl.put_Minutes)
+        CallbackFree(this.vtbl.get_MinutesSpecified)
+        CallbackFree(this.vtbl.put_MinutesSpecified)
+        CallbackFree(this.vtbl.get_Seconds)
+        CallbackFree(this.vtbl.put_Seconds)
+        CallbackFree(this.vtbl.get_SecondsSpecified)
+        CallbackFree(this.vtbl.put_SecondsSpecified)
+        CallbackFree(this.vtbl.get_Microseconds)
+        CallbackFree(this.vtbl.put_Microseconds)
+        CallbackFree(this.vtbl.get_MicrosecondsSpecified)
+        CallbackFree(this.vtbl.put_MicrosecondsSpecified)
+        CallbackFree(this.vtbl.get_UTC)
+        CallbackFree(this.vtbl.put_UTC)
+        CallbackFree(this.vtbl.get_UTCSpecified)
+        CallbackFree(this.vtbl.put_UTCSpecified)
+        CallbackFree(this.vtbl.get_IsInterval)
+        CallbackFree(this.vtbl.put_IsInterval)
+        CallbackFree(this.vtbl.GetVarDate)
+        CallbackFree(this.vtbl.SetVarDate)
+        CallbackFree(this.vtbl.GetFileTime)
+        CallbackFree(this.vtbl.SetFileTime)
     }
 }

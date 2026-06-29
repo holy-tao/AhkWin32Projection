@@ -1,46 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk
-#Include .\ENCRYPTION_CERTIFICATE.ahk
-#Include .\EFS_RPC_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EFS_RPC_BLOB.ahk" { EFS_RPC_BLOB }
+#Import ".\ENCRYPTION_CERTIFICATE.ahk" { ENCRYPTION_CERTIFICATE }
+#Import ".\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk" { ENCRYPTION_CERTIFICATE_HASH_LIST }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class ENCRYPTED_FILE_METADATA_SIGNATURE extends Win32Struct {
-    static sizeof => 32
+export default struct ENCRYPTED_FILE_METADATA_SIGNATURE {
+    #StructPack 8
 
-    static packingSize => 8
+    dwEfsAccessType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEfsAccessType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pCertificatesAdded : ENCRYPTION_CERTIFICATE_HASH_LIST.Ptr
 
-    /**
-     * @type {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>}
-     */
-    pCertificatesAdded {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pEncryptionCertificate : ENCRYPTION_CERTIFICATE.Ptr
 
-    /**
-     * @type {Pointer<ENCRYPTION_CERTIFICATE>}
-     */
-    pEncryptionCertificate {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pEfsStreamSignature : EFS_RPC_BLOB.Ptr
 
-    /**
-     * @type {Pointer<EFS_RPC_BLOB>}
-     */
-    pEfsStreamSignature {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

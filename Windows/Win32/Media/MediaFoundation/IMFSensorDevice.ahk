@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFAttributes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MFSensorDeviceMode.ahk" { MFSensorDeviceMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\MFSensorStreamType.ahk" { MFSensorStreamType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MFSensorDeviceType.ahk" { MFSensorDeviceType }
 
 /**
  * Represents a sensor device that can belong to a sensor group, which is represented by the IMFSensorGroup interface. The term &quot;device&quot; in this context could refer to a physical device, a custom media source, or a frame provider.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensordevice
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSensorDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSensorDevice extends IUnknown {
     /**
      * The interface identifier for IMFSensorDevice
      * @type {Guid}
      */
-    static IID => Guid("{fb9f48f2-2a18-4e28-9730-786f30f04dc4}")
+    static IID := Guid("{fb9f48f2-2a18-4e28-9730-786f30f04dc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSensorDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDeviceId              : IntPtr
+        GetDeviceType            : IntPtr
+        GetFlags                 : IntPtr
+        GetSymbolicLink          : IntPtr
+        GetDeviceAttributes      : IntPtr
+        GetStreamAttributesCount : IntPtr
+        GetStreamAttributes      : IntPtr
+        SetSensorDeviceMode      : IntPtr
+        GetSensorDeviceMode      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDeviceId", "GetDeviceType", "GetFlags", "GetSymbolicLink", "GetDeviceAttributes", "GetStreamAttributesCount", "GetStreamAttributes", "SetSensorDeviceMode", "GetSensorDeviceMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSensorDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the unique identifier for the device. This value is currently unused.
@@ -104,7 +124,7 @@ class IMFSensorDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount
      */
     GetStreamAttributesCount(eType) {
-        result := ComCall(8, this, "int", eType, "uint*", &pdwCount := 0, "HRESULT")
+        result := ComCall(8, this, MFSensorStreamType, eType, "uint*", &pdwCount := 0, "HRESULT")
         return pdwCount
     }
 
@@ -118,7 +138,7 @@ class IMFSensorDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributes
      */
     GetStreamAttributes(eType, dwIndex) {
-        result := ComCall(9, this, "int", eType, "uint", dwIndex, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(9, this, MFSensorStreamType, eType, "uint", dwIndex, "ptr*", &ppAttributes := 0, "HRESULT")
         return IMFAttributes(ppAttributes)
     }
 
@@ -160,7 +180,7 @@ class IMFSensorDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-setsensordevicemode
      */
     SetSensorDeviceMode(eMode) {
-        result := ComCall(10, this, "int", eMode, "HRESULT")
+        result := ComCall(10, this, MFSensorDeviceMode, eMode, "HRESULT")
         return result
     }
 
@@ -172,5 +192,41 @@ class IMFSensorDevice extends IUnknown {
     GetSensorDeviceMode() {
         result := ComCall(11, this, "int*", &peMode := 0, "HRESULT")
         return peMode
+    }
+
+    Query(iid) {
+        if (IMFSensorDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.GetDeviceType := CallbackCreate(GetMethod(implObj, "GetDeviceType"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetSymbolicLink := CallbackCreate(GetMethod(implObj, "GetSymbolicLink"), flags, 4)
+        this.vtbl.GetDeviceAttributes := CallbackCreate(GetMethod(implObj, "GetDeviceAttributes"), flags, 2)
+        this.vtbl.GetStreamAttributesCount := CallbackCreate(GetMethod(implObj, "GetStreamAttributesCount"), flags, 3)
+        this.vtbl.GetStreamAttributes := CallbackCreate(GetMethod(implObj, "GetStreamAttributes"), flags, 4)
+        this.vtbl.SetSensorDeviceMode := CallbackCreate(GetMethod(implObj, "SetSensorDeviceMode"), flags, 2)
+        this.vtbl.GetSensorDeviceMode := CallbackCreate(GetMethod(implObj, "GetSensorDeviceMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDeviceId)
+        CallbackFree(this.vtbl.GetDeviceType)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetSymbolicLink)
+        CallbackFree(this.vtbl.GetDeviceAttributes)
+        CallbackFree(this.vtbl.GetStreamAttributesCount)
+        CallbackFree(this.vtbl.GetStreamAttributes)
+        CallbackFree(this.vtbl.SetSensorDeviceMode)
+        CallbackFree(this.vtbl.GetSensorDeviceMode)
     }
 }

@@ -1,10 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRawCDImageTrackInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRawCDImageTrackInfo.ahk" { IRawCDImageTrackInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
+#Import ".\IMAPI_CD_SECTOR_TYPE.ahk" { IMAPI_CD_SECTOR_TYPE }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to create a RAW CD image for use in writing to CD media in Disc-at-Once (DAO) mode. Images created with this interface can be written to CD media using the IDiscFormat2RawCD interface.
@@ -17,26 +22,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-irawcdimagecreator
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IRawCDImageCreator extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRawCDImageCreator extends IDispatch {
     /**
      * The interface identifier for IRawCDImageCreator
      * @type {Guid}
      */
-    static IID => Guid("{25983550-9d65-49ce-b335-40630d901227}")
+    static IID := Guid("{25983550-9d65-49ce-b335-40630d901227}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRawCDImageCreator interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreateResultImage             : IntPtr
+        AddTrack                      : IntPtr
+        AddSpecialPregap              : IntPtr
+        AddSubcodeRWGenerator         : IntPtr
+        put_ResultingImageType        : IntPtr
+        get_ResultingImageType        : IntPtr
+        get_StartOfLeadout            : IntPtr
+        put_StartOfLeadoutLimit       : IntPtr
+        get_StartOfLeadoutLimit       : IntPtr
+        put_DisableGaplessAudio       : IntPtr
+        get_DisableGaplessAudio       : IntPtr
+        put_MediaCatalogNumber        : IntPtr
+        get_MediaCatalogNumber        : IntPtr
+        put_StartingTrackNumber       : IntPtr
+        get_StartingTrackNumber       : IntPtr
+        get_TrackInfo                 : IntPtr
+        get_NumberOfExistingTracks    : IntPtr
+        get_LastUsedUserSectorInImage : IntPtr
+        get_ExpectedTableOfContents   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateResultImage", "AddTrack", "AddSpecialPregap", "AddSubcodeRWGenerator", "put_ResultingImageType", "get_ResultingImageType", "get_StartOfLeadout", "put_StartOfLeadoutLimit", "get_StartOfLeadoutLimit", "put_DisableGaplessAudio", "get_DisableGaplessAudio", "put_MediaCatalogNumber", "get_MediaCatalogNumber", "put_StartingTrackNumber", "get_StartingTrackNumber", "get_TrackInfo", "get_NumberOfExistingTracks", "get_LastUsedUserSectorInImage", "get_ExpectedTableOfContents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRawCDImageCreator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE} 
@@ -134,7 +164,7 @@ class IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-addtrack
      */
     AddTrack(dataType, data) {
-        result := ComCall(8, this, "int", dataType, "ptr", data, "int*", &trackIndex := 0, "HRESULT")
+        result := ComCall(8, this, IMAPI_CD_SECTOR_TYPE, dataType, "ptr", data, "int*", &trackIndex := 0, "HRESULT")
         return trackIndex
     }
 
@@ -181,7 +211,7 @@ class IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-put_resultingimagetype
      */
     put_ResultingImageType(value) {
-        result := ComCall(11, this, "int", value, "HRESULT")
+        result := ComCall(11, this, IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE, value, "HRESULT")
         return result
     }
 
@@ -249,7 +279,7 @@ class IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-put_disablegaplessaudio
      */
     put_DisableGaplessAudio(value) {
-        result := ComCall(16, this, "short", value, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -263,7 +293,7 @@ class IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_disablegaplessaudio
      */
     get_DisableGaplessAudio() {
-        result := ComCall(17, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -282,7 +312,7 @@ class IRawCDImageCreator extends IDispatch {
     put_MediaCatalogNumber(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(18, this, "ptr", value, "HRESULT")
+        result := ComCall(18, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -298,8 +328,8 @@ class IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_mediacatalognumber
      */
     get_MediaCatalogNumber() {
-        value := BSTR()
-        result := ComCall(19, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -383,5 +413,61 @@ class IRawCDImageCreator extends IDispatch {
     get_ExpectedTableOfContents() {
         result := ComCall(25, this, "ptr*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IRawCDImageCreator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateResultImage := CallbackCreate(GetMethod(implObj, "CreateResultImage"), flags, 2)
+        this.vtbl.AddTrack := CallbackCreate(GetMethod(implObj, "AddTrack"), flags, 4)
+        this.vtbl.AddSpecialPregap := CallbackCreate(GetMethod(implObj, "AddSpecialPregap"), flags, 2)
+        this.vtbl.AddSubcodeRWGenerator := CallbackCreate(GetMethod(implObj, "AddSubcodeRWGenerator"), flags, 2)
+        this.vtbl.put_ResultingImageType := CallbackCreate(GetMethod(implObj, "put_ResultingImageType"), flags, 2)
+        this.vtbl.get_ResultingImageType := CallbackCreate(GetMethod(implObj, "get_ResultingImageType"), flags, 2)
+        this.vtbl.get_StartOfLeadout := CallbackCreate(GetMethod(implObj, "get_StartOfLeadout"), flags, 2)
+        this.vtbl.put_StartOfLeadoutLimit := CallbackCreate(GetMethod(implObj, "put_StartOfLeadoutLimit"), flags, 2)
+        this.vtbl.get_StartOfLeadoutLimit := CallbackCreate(GetMethod(implObj, "get_StartOfLeadoutLimit"), flags, 2)
+        this.vtbl.put_DisableGaplessAudio := CallbackCreate(GetMethod(implObj, "put_DisableGaplessAudio"), flags, 2)
+        this.vtbl.get_DisableGaplessAudio := CallbackCreate(GetMethod(implObj, "get_DisableGaplessAudio"), flags, 2)
+        this.vtbl.put_MediaCatalogNumber := CallbackCreate(GetMethod(implObj, "put_MediaCatalogNumber"), flags, 2)
+        this.vtbl.get_MediaCatalogNumber := CallbackCreate(GetMethod(implObj, "get_MediaCatalogNumber"), flags, 2)
+        this.vtbl.put_StartingTrackNumber := CallbackCreate(GetMethod(implObj, "put_StartingTrackNumber"), flags, 2)
+        this.vtbl.get_StartingTrackNumber := CallbackCreate(GetMethod(implObj, "get_StartingTrackNumber"), flags, 2)
+        this.vtbl.get_TrackInfo := CallbackCreate(GetMethod(implObj, "get_TrackInfo"), flags, 3)
+        this.vtbl.get_NumberOfExistingTracks := CallbackCreate(GetMethod(implObj, "get_NumberOfExistingTracks"), flags, 2)
+        this.vtbl.get_LastUsedUserSectorInImage := CallbackCreate(GetMethod(implObj, "get_LastUsedUserSectorInImage"), flags, 2)
+        this.vtbl.get_ExpectedTableOfContents := CallbackCreate(GetMethod(implObj, "get_ExpectedTableOfContents"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateResultImage)
+        CallbackFree(this.vtbl.AddTrack)
+        CallbackFree(this.vtbl.AddSpecialPregap)
+        CallbackFree(this.vtbl.AddSubcodeRWGenerator)
+        CallbackFree(this.vtbl.put_ResultingImageType)
+        CallbackFree(this.vtbl.get_ResultingImageType)
+        CallbackFree(this.vtbl.get_StartOfLeadout)
+        CallbackFree(this.vtbl.put_StartOfLeadoutLimit)
+        CallbackFree(this.vtbl.get_StartOfLeadoutLimit)
+        CallbackFree(this.vtbl.put_DisableGaplessAudio)
+        CallbackFree(this.vtbl.get_DisableGaplessAudio)
+        CallbackFree(this.vtbl.put_MediaCatalogNumber)
+        CallbackFree(this.vtbl.get_MediaCatalogNumber)
+        CallbackFree(this.vtbl.put_StartingTrackNumber)
+        CallbackFree(this.vtbl.get_StartingTrackNumber)
+        CallbackFree(this.vtbl.get_TrackInfo)
+        CallbackFree(this.vtbl.get_NumberOfExistingTracks)
+        CallbackFree(this.vtbl.get_LastUsedUserSectorInImage)
+        CallbackFree(this.vtbl.get_ExpectedTableOfContents)
     }
 }

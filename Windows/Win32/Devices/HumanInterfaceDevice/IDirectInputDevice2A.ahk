@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirectInputDeviceA.ahk
-#Include .\IDirectInputEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
+#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectInputDeviceA.ahk" { IDirectInputDeviceA }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset ANSI
  */
-class IDirectInputDevice2A extends IDirectInputDeviceA {
-
-    static sizeof => A_PtrSize
+export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     /**
      * The interface identifier for IDirectInputDevice2A
      * @type {Guid}
      */
-    static IID => Guid("{5944e682-c92e-11cf-bfc7-444553540000}")
+    static IID := Guid("{5944e682-c92e-11cf-bfc7-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectInputDevice2A interfaces
+    */
+    struct Vtbl extends IDirectInputDeviceA.Vtbl {
+        CreateEffect             : IntPtr
+        EnumEffects              : IntPtr
+        GetEffectInfo            : IntPtr
+        GetForceFeedbackState    : IntPtr
+        SendForceFeedbackCommand : IntPtr
+        EnumCreatedEffectObjects : IntPtr
+        Escape                   : IntPtr
+        Poll                     : IntPtr
+        SendDeviceData           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateEffect", "EnumEffects", "GetEffectInfo", "GetForceFeedbackState", "SendForceFeedbackCommand", "EnumCreatedEffectObjects", "Escape", "Poll", "SendDeviceData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectInputDevice2A.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -37,7 +58,7 @@ class IDirectInputDevice2A extends IDirectInputDeviceA {
      * @returns {IDirectInputEffect} 
      */
     CreateEffect(param0, param1, param3) {
-        result := ComCall(18, this, "ptr", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, param0, DIEFFECT.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
         return IDirectInputEffect(param2)
     }
 
@@ -62,7 +83,7 @@ class IDirectInputDevice2A extends IDirectInputDeviceA {
      * @returns {HRESULT} 
      */
     GetEffectInfo(param0, param1) {
-        result := ComCall(20, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(20, this, DIEFFECTINFOA.Ptr, param0, Guid.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -149,7 +170,7 @@ class IDirectInputDevice2A extends IDirectInputDeviceA {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(param0) {
-        result := ComCall(24, this, "ptr", param0, "HRESULT")
+        result := ComCall(24, this, DIEFFESCAPE.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -173,7 +194,43 @@ class IDirectInputDevice2A extends IDirectInputDeviceA {
     SendDeviceData(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(26, this, "uint", param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectInputDevice2A.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 5)
+        this.vtbl.EnumEffects := CallbackCreate(GetMethod(implObj, "EnumEffects"), flags, 4)
+        this.vtbl.GetEffectInfo := CallbackCreate(GetMethod(implObj, "GetEffectInfo"), flags, 3)
+        this.vtbl.GetForceFeedbackState := CallbackCreate(GetMethod(implObj, "GetForceFeedbackState"), flags, 2)
+        this.vtbl.SendForceFeedbackCommand := CallbackCreate(GetMethod(implObj, "SendForceFeedbackCommand"), flags, 2)
+        this.vtbl.EnumCreatedEffectObjects := CallbackCreate(GetMethod(implObj, "EnumCreatedEffectObjects"), flags, 4)
+        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 2)
+        this.vtbl.Poll := CallbackCreate(GetMethod(implObj, "Poll"), flags, 1)
+        this.vtbl.SendDeviceData := CallbackCreate(GetMethod(implObj, "SendDeviceData"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateEffect)
+        CallbackFree(this.vtbl.EnumEffects)
+        CallbackFree(this.vtbl.GetEffectInfo)
+        CallbackFree(this.vtbl.GetForceFeedbackState)
+        CallbackFree(this.vtbl.SendForceFeedbackCommand)
+        CallbackFree(this.vtbl.EnumCreatedEffectObjects)
+        CallbackFree(this.vtbl.Escape)
+        CallbackFree(this.vtbl.Poll)
+        CallbackFree(this.vtbl.SendDeviceData)
     }
 }

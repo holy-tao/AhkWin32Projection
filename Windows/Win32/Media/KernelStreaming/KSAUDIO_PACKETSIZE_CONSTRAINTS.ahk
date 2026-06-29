@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk" { KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSAUDIO_PACKETSIZE_CONSTRAINTS extends Win32Struct {
-    static sizeof => 32
+export default struct KSAUDIO_PACKETSIZE_CONSTRAINTS {
+    #StructPack 4
 
-    static packingSize => 8
+    MinPacketPeriodInHns : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinPacketPeriodInHns {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PacketSizeFileAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PacketSizeFileAlignment {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumProcessingModeConstraints : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumProcessingModeConstraints {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessingModeConstraints : KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT[1]
 
-    /**
-     * @type {KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT}
-     */
-    ProcessingModeConstraints {
-        get {
-            if(!this.HasProp("__ProcessingModeConstraintsProxyArray"))
-                this.__ProcessingModeConstraintsProxyArray := Win32FixedArray(this.ptr + 16, 1, KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT, "")
-            return this.__ProcessingModeConstraintsProxyArray
-        }
-    }
 }

@@ -1,14 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPPATH_ROW.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\MIB_IPPATH_ROW.ahk" { MIB_IPPATH_ROW }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains a table of IP path entries.
@@ -27,30 +28,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ippath_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPPATH_TABLE extends Win32Struct {
-    static sizeof => 208
-
-    static packingSize => 8
+export default struct MIB_IPPATH_TABLE {
+    #StructPack 8
 
     /**
      * A value that specifies the number of IP path entries in the array.
-     * @type {Integer}
      */
-    NumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> structures containing IP path entries.
-     * @type {MIB_IPPATH_ROW}
      */
-    Table {
-        get {
-            if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPPATH_ROW, "")
-            return this.__TableProxyArray
-        }
-    }
+    Table : MIB_IPPATH_ROW[1]
+
 }

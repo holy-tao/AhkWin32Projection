@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The VIDEO_STREAM_CONFIG_CAPS structure describes a range of video formats. Video compression and video capture filters use this structure to describe what formats they can produce.
@@ -34,28 +34,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-video_stream_config_caps
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct VIDEO_STREAM_CONFIG_CAPS {
+    #StructPack 8
 
     /**
      * <b>GUID</b> that identifies the format type. For example, <b>FORMAT_VideoInfo</b> or <b>FORMAT_VideoInfo2</b>. For more information, see the <b>formattype</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
     /**
      * The analog video standard supported. The value is a bitwise combination of flags from the [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration type, or zero.
-     * @type {Integer}
      */
-    VideoStandard {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    VideoStandard : UInt32
 
     /**
      * Native size of the incoming video signal. For a compressor, the size is taken from the input pin. For a capture filter, the size is the largest signal the filter can digitize with every pixel remaining unique.
@@ -63,15 +53,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {SIZE}
      */
-    InputSize {
-        get {
-            if(!this.HasProp("__InputSize"))
-                this.__InputSize := SIZE(12, this)
-            return this.__InputSize
-        }
-    }
+    InputSize : SIZE
 
     /**
      * Smallest source rectangle allowed. The source rectangle is defined in the <b>rcSource</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amvideo/ns-amvideo-videoinfoheader">VIDEOINFOHEADER</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure.
@@ -79,30 +62,16 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {SIZE}
      */
-    MinCroppingSize {
-        get {
-            if(!this.HasProp("__MinCroppingSize"))
-                this.__MinCroppingSize := SIZE(20, this)
-            return this.__MinCroppingSize
-        }
-    }
+    MinCroppingSize : SIZE
 
     /**
      * Largest source rectangle allowed.
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {SIZE}
      */
-    MaxCroppingSize {
-        get {
-            if(!this.HasProp("__MaxCroppingSize"))
-                this.__MaxCroppingSize := SIZE(28, this)
-            return this.__MaxCroppingSize
-        }
-    }
+    MaxCroppingSize : SIZE
 
     /**
      * Horizontal granularity of the source rectangle. This value specifies the increments that are valid between <b>MinCroppingSize</b> and <b>MaxCroppingSize</b>.
@@ -110,12 +79,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    CropGranularityX {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    CropGranularityX : Int32
 
     /**
      * Vertical granularity of the source rectangle. This value specifies the increments that are valid between <b>MinCroppingSize</b> and <b>MaxCroppingSize</b>.
@@ -123,12 +88,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    CropGranularityY {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    CropGranularityY : Int32
 
     /**
      * Required horizontal alignment of the source rectangle.
@@ -136,12 +97,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    CropAlignX {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    CropAlignX : Int32
 
     /**
      * Required vertical alignment of the source rectangle.
@@ -149,12 +106,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    CropAlignY {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    CropAlignY : Int32
 
     /**
      * Minimum output size.
@@ -162,15 +115,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {SIZE}
      */
-    MinOutputSize {
-        get {
-            if(!this.HasProp("__MinOutputSize"))
-                this.__MinOutputSize := SIZE(52, this)
-            return this.__MinOutputSize
-        }
-    }
+    MinOutputSize : SIZE
 
     /**
      * Maximum output size.
@@ -178,15 +124,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {SIZE}
      */
-    MaxOutputSize {
-        get {
-            if(!this.HasProp("__MaxOutputSize"))
-                this.__MaxOutputSize := SIZE(60, this)
-            return this.__MaxOutputSize
-        }
-    }
+    MaxOutputSize : SIZE
 
     /**
      * Granularity of the output width. This value specifies the increments that are valid between <b>MinOutputSize</b> and <b>MaxOutputSize</b>.
@@ -194,12 +133,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    OutputGranularityX {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    OutputGranularityX : Int32
 
     /**
      * Granularity of output height. This value specifies the increments that are valid between <b>MinOutputSize</b> and <b>MaxOutputSize</b>.
@@ -207,12 +142,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    OutputGranularityY {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    OutputGranularityY : Int32
 
     /**
      * Indicates how well the filter can stretch the image horizontally.
@@ -220,12 +151,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    StretchTapsX {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    StretchTapsX : Int32
 
     /**
      * Indicates how well the filter can stretch the image vertically.
@@ -233,12 +160,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    StretchTapsY {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    StretchTapsY : Int32
 
     /**
      * Indicates how well the filter can shrink the image horizontally.
@@ -246,12 +169,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    ShrinkTapsX {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    ShrinkTapsX : Int32
 
     /**
      * Indicates how well the filter can shrink the image vertically.
@@ -307,30 +226,18 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ShrinkTapsY {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    ShrinkTapsY : Int32
 
     /**
      * The minimum frame duration, in 100-nanosecond units. This value applies only to capture filters.
-     * @type {Integer}
      */
-    MinFrameInterval {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
-    }
+    MinFrameInterval : Int64
 
     /**
      * The maximum frame duration, in 100-nanosecond units. This value applies only to capture filters.
-     * @type {Integer}
      */
-    MaxFrameInterval {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
-    }
+    MaxFrameInterval : Int64
 
     /**
      * Minimum data rate this pin can produce.
@@ -338,12 +245,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    MinBitsPerSecond {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    MinBitsPerSecond : Int32
 
     /**
      * Maximum data rate this pin can produce.
@@ -351,10 +254,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Deprecated.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    MaxBitsPerSecond {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    MaxBitsPerSecond : Int32
+
 }

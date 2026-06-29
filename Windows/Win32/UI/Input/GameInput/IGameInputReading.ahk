@@ -1,38 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
+#Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
+#Import ".\GameInputArcadeStickState.ahk" { GameInputArcadeStickState }
+#Import ".\GameInputUiNavigationState.ahk" { GameInputUiNavigationState }
+#Import ".\GameInputTouchState.ahk" { GameInputTouchState }
+#Import ".\GameInputRacingWheelState.ahk" { GameInputRacingWheelState }
+#Import ".\GameInputMouseState.ahk" { GameInputMouseState }
+#Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputMotionState.ahk" { GameInputMotionState }
+#Import ".\GameInputKeyState.ahk" { GameInputKeyState }
+#Import ".\GameInputGamepadState.ahk" { GameInputGamepadState }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GameInputFlightStickState.ahk" { GameInputFlightStickState }
+#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class IGameInputReading extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGameInputReading extends IUnknown {
     /**
      * The interface identifier for IGameInputReading
      * @type {Guid}
      */
-    static IID => Guid("{2156947a-e1fa-4de0-a30b-d812931dbd8d}")
+    static IID := Guid("{2156947a-e1fa-4de0-a30b-d812931dbd8d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGameInputReading interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInputKind             : IntPtr
+        GetSequenceNumber        : IntPtr
+        GetTimestamp             : IntPtr
+        GetDevice                : IntPtr
+        GetRawReport             : IntPtr
+        GetControllerAxisCount   : IntPtr
+        GetControllerAxisState   : IntPtr
+        GetControllerButtonCount : IntPtr
+        GetControllerButtonState : IntPtr
+        GetControllerSwitchCount : IntPtr
+        GetControllerSwitchState : IntPtr
+        GetKeyCount              : IntPtr
+        GetKeyState              : IntPtr
+        GetMouseState            : IntPtr
+        GetTouchCount            : IntPtr
+        GetTouchState            : IntPtr
+        GetMotionState           : IntPtr
+        GetArcadeStickState      : IntPtr
+        GetFlightStickState      : IntPtr
+        GetGamepadState          : IntPtr
+        GetRacingWheelState      : IntPtr
+        GetUiNavigationState     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputKind", "GetSequenceNumber", "GetTimestamp", "GetDevice", "GetRawReport", "GetControllerAxisCount", "GetControllerAxisState", "GetControllerButtonCount", "GetControllerButtonState", "GetControllerSwitchCount", "GetControllerSwitchState", "GetKeyCount", "GetKeyState", "GetMouseState", "GetTouchCount", "GetTouchState", "GetMotionState", "GetArcadeStickState", "GetFlightStickState", "GetGamepadState", "GetRacingWheelState", "GetUiNavigationState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGameInputReading.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {GameInputKind} 
      */
     GetInputKind() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, GameInputKind)
         return result
     }
 
@@ -42,82 +83,26 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetSequenceNumber(inputKind) {
-        result := ComCall(4, this, "int", inputKind, "uint")
+        result := ComCall(4, this, GameInputKind, inputKind, Int64)
         return result
     }
 
     /**
-     * Retrieves the time stamp of a loaded image.
-     * @remarks
-     * The time stamp for an image is initially set by the linker, but it can be modified by operations such as rebasing. The value is represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock. The time stamp can be printed using the C run-time (CRT) function ctime.
      * 
-     * All <a href="https://docs.microsoft.com/windows/desktop/Debug/dbghelp-functions">DbgHelp Functions</a>, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
-     * @returns {Integer} If the function succeeds, the return value is the time stamp from the image.
-     * 
-     * If the function fails, the return value is zero. To retrieve extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-gettimestampforloadedlibrary
+     * @returns {Integer} 
      */
     GetTimestamp() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, Int64)
         return result
     }
 
     /**
-     * The GetDeviceCaps function retrieves device-specific information for the specified device.
-     * @remarks
-     * When <i>nIndex</i> is SHADEBLENDCAPS:
      * 
-     * <ul>
-     * <li>For a printer, <b>GetDeviceCaps</b> returns whatever the printer reports.</li>
-     * <li>For a display device, all blending operations are available; besides SB_NONE, the only return values are SB_CONST_ALPHA and SB_PIXEL_ALPHA, which indicate whether these operations are accelerated.</li>
-     * </ul>
-     * On a multiple monitor system, if <i>hdc</i> is the desktop, <b>GetDeviceCaps</b> returns the capabilities of the primary monitor. If you want info for other monitors, you must use the <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors-reference">multi-monitor APIs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> to get a HDC for the device context (DC) of a specific monitor.  
-     * 
-     * <div class="alert"><b>Note</b>  Display1 is typically the primary monitor, but not always.</div>
-     * <div> </div>
-     * <b>GetDeviceCaps</b> provides the following six indexes in place of printer escapes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Index</th>
-     * <th>Printer escape replaced</th>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALWIDTH</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALHEIGHT</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETX</td>
-     * <td>GETPRINTINGOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETY</td>
-     * <td>GETPHYSICALOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORX</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORY</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  <b>GetDeviceCaps</b> reports info that the display driver provides. If the display driver declines to report any info, <b>GetDeviceCaps</b> calculates the info based on fixed calculations. If the display driver reports invalid info, <b>GetDeviceCaps</b> returns the invalid info. Also, if the display driver declines to report info, <b>GetDeviceCaps</b> might calculate incorrect info because it assumes either fixed DPI (96 DPI) or a fixed size (depending on the info that the display driver did and didn’t provide). Unfortunately, a display driver that is implemented to the Windows Display Driver Model (WDDM) (introduced in Windows Vista) causes GDI to not get the info, so <b>GetDeviceCaps</b> must always calculate the info.</div>
-     * <div> </div>
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicecaps
      */
     GetDevice(device) {
-        ComCall(6, this, "ptr*", device)
+        ComCall(6, this, IGameInputDevice.Ptr, device)
     }
 
     /**
@@ -126,7 +111,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetRawReport(report) {
-        result := ComCall(7, this, "ptr*", report, "int")
+        result := ComCall(7, this, IGameInputRawDeviceReport.Ptr, report, Int32)
         return result
     }
 
@@ -135,7 +120,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetControllerAxisCount() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, UInt32)
         return result
     }
 
@@ -148,7 +133,7 @@ class IGameInputReading extends IUnknown {
     GetControllerAxisState(stateArrayCount, stateArray) {
         stateArrayMarshal := stateArray is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, "uint")
+        result := ComCall(9, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
@@ -157,7 +142,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetControllerButtonCount() {
-        result := ComCall(10, this, "uint")
+        result := ComCall(10, this, UInt32)
         return result
     }
 
@@ -170,7 +155,7 @@ class IGameInputReading extends IUnknown {
     GetControllerButtonState(stateArrayCount, stateArray) {
         stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, "uint")
+        result := ComCall(11, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
@@ -179,7 +164,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetControllerSwitchCount() {
-        result := ComCall(12, this, "uint")
+        result := ComCall(12, this, UInt32)
         return result
     }
 
@@ -192,7 +177,7 @@ class IGameInputReading extends IUnknown {
     GetControllerSwitchState(stateArrayCount, stateArray) {
         stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, "uint")
+        result := ComCall(13, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
@@ -201,7 +186,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetKeyCount() {
-        result := ComCall(14, this, "uint")
+        result := ComCall(14, this, UInt32)
         return result
     }
 
@@ -238,7 +223,7 @@ class IGameInputReading extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeystate
      */
     GetKeyState(stateArrayCount, stateArray) {
-        result := ComCall(15, this, "uint", stateArrayCount, "ptr", stateArray, "uint")
+        result := ComCall(15, this, "uint", stateArrayCount, GameInputKeyState.Ptr, stateArray, UInt32)
         return result
     }
 
@@ -248,7 +233,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetMouseState(state) {
-        result := ComCall(16, this, "ptr", state, "int")
+        result := ComCall(16, this, GameInputMouseState.Ptr, state, Int32)
         return result
     }
 
@@ -257,7 +242,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetTouchCount() {
-        result := ComCall(17, this, "uint")
+        result := ComCall(17, this, UInt32)
         return result
     }
 
@@ -268,7 +253,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetTouchState(stateArrayCount, stateArray) {
-        result := ComCall(18, this, "uint", stateArrayCount, "ptr", stateArray, "uint")
+        result := ComCall(18, this, "uint", stateArrayCount, GameInputTouchState.Ptr, stateArray, UInt32)
         return result
     }
 
@@ -278,7 +263,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetMotionState(state) {
-        result := ComCall(19, this, "ptr", state, "int")
+        result := ComCall(19, this, GameInputMotionState.Ptr, state, Int32)
         return result
     }
 
@@ -288,7 +273,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetArcadeStickState(state) {
-        result := ComCall(20, this, "ptr", state, "int")
+        result := ComCall(20, this, GameInputArcadeStickState.Ptr, state, Int32)
         return result
     }
 
@@ -298,7 +283,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetFlightStickState(state) {
-        result := ComCall(21, this, "ptr", state, "int")
+        result := ComCall(21, this, GameInputFlightStickState.Ptr, state, Int32)
         return result
     }
 
@@ -308,7 +293,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetGamepadState(state) {
-        result := ComCall(22, this, "ptr", state, "int")
+        result := ComCall(22, this, GameInputGamepadState.Ptr, state, Int32)
         return result
     }
 
@@ -318,7 +303,7 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetRacingWheelState(state) {
-        result := ComCall(23, this, "ptr", state, "int")
+        result := ComCall(23, this, GameInputRacingWheelState.Ptr, state, Int32)
         return result
     }
 
@@ -328,7 +313,69 @@ class IGameInputReading extends IUnknown {
      * @returns {Boolean} 
      */
     GetUiNavigationState(state) {
-        result := ComCall(24, this, "ptr", state, "int")
+        result := ComCall(24, this, GameInputUiNavigationState.Ptr, state, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IGameInputReading.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputKind := CallbackCreate(GetMethod(implObj, "GetInputKind"), flags, 1)
+        this.vtbl.GetSequenceNumber := CallbackCreate(GetMethod(implObj, "GetSequenceNumber"), flags, 2)
+        this.vtbl.GetTimestamp := CallbackCreate(GetMethod(implObj, "GetTimestamp"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetRawReport := CallbackCreate(GetMethod(implObj, "GetRawReport"), flags, 2)
+        this.vtbl.GetControllerAxisCount := CallbackCreate(GetMethod(implObj, "GetControllerAxisCount"), flags, 1)
+        this.vtbl.GetControllerAxisState := CallbackCreate(GetMethod(implObj, "GetControllerAxisState"), flags, 3)
+        this.vtbl.GetControllerButtonCount := CallbackCreate(GetMethod(implObj, "GetControllerButtonCount"), flags, 1)
+        this.vtbl.GetControllerButtonState := CallbackCreate(GetMethod(implObj, "GetControllerButtonState"), flags, 3)
+        this.vtbl.GetControllerSwitchCount := CallbackCreate(GetMethod(implObj, "GetControllerSwitchCount"), flags, 1)
+        this.vtbl.GetControllerSwitchState := CallbackCreate(GetMethod(implObj, "GetControllerSwitchState"), flags, 3)
+        this.vtbl.GetKeyCount := CallbackCreate(GetMethod(implObj, "GetKeyCount"), flags, 1)
+        this.vtbl.GetKeyState := CallbackCreate(GetMethod(implObj, "GetKeyState"), flags, 3)
+        this.vtbl.GetMouseState := CallbackCreate(GetMethod(implObj, "GetMouseState"), flags, 2)
+        this.vtbl.GetTouchCount := CallbackCreate(GetMethod(implObj, "GetTouchCount"), flags, 1)
+        this.vtbl.GetTouchState := CallbackCreate(GetMethod(implObj, "GetTouchState"), flags, 3)
+        this.vtbl.GetMotionState := CallbackCreate(GetMethod(implObj, "GetMotionState"), flags, 2)
+        this.vtbl.GetArcadeStickState := CallbackCreate(GetMethod(implObj, "GetArcadeStickState"), flags, 2)
+        this.vtbl.GetFlightStickState := CallbackCreate(GetMethod(implObj, "GetFlightStickState"), flags, 2)
+        this.vtbl.GetGamepadState := CallbackCreate(GetMethod(implObj, "GetGamepadState"), flags, 2)
+        this.vtbl.GetRacingWheelState := CallbackCreate(GetMethod(implObj, "GetRacingWheelState"), flags, 2)
+        this.vtbl.GetUiNavigationState := CallbackCreate(GetMethod(implObj, "GetUiNavigationState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputKind)
+        CallbackFree(this.vtbl.GetSequenceNumber)
+        CallbackFree(this.vtbl.GetTimestamp)
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetRawReport)
+        CallbackFree(this.vtbl.GetControllerAxisCount)
+        CallbackFree(this.vtbl.GetControllerAxisState)
+        CallbackFree(this.vtbl.GetControllerButtonCount)
+        CallbackFree(this.vtbl.GetControllerButtonState)
+        CallbackFree(this.vtbl.GetControllerSwitchCount)
+        CallbackFree(this.vtbl.GetControllerSwitchState)
+        CallbackFree(this.vtbl.GetKeyCount)
+        CallbackFree(this.vtbl.GetKeyState)
+        CallbackFree(this.vtbl.GetMouseState)
+        CallbackFree(this.vtbl.GetTouchCount)
+        CallbackFree(this.vtbl.GetTouchState)
+        CallbackFree(this.vtbl.GetMotionState)
+        CallbackFree(this.vtbl.GetArcadeStickState)
+        CallbackFree(this.vtbl.GetFlightStickState)
+        CallbackFree(this.vtbl.GetGamepadState)
+        CallbackFree(this.vtbl.GetRacingWheelState)
+        CallbackFree(this.vtbl.GetUiNavigationState)
     }
 }

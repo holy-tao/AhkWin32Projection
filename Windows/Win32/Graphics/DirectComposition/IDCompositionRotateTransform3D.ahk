@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTransform3D.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Represents a 3D transformation that affects the rotation of a visual along an arbitrary axis in 3D space. The coordinate system is rotated around the specified center point.
@@ -22,26 +24,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionrotatetransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionRotateTransform3D extends IDCompositionTransform3D {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionRotateTransform3D extends IDCompositionTransform3D {
     /**
      * The interface identifier for IDCompositionRotateTransform3D
      * @type {Guid}
      */
-    static IID => Guid("{d8f5b23f-d429-4a91-b55a-d2f45fd75b18}")
+    static IID := Guid("{d8f5b23f-d429-4a91-b55a-d2f45fd75b18}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionRotateTransform3D interfaces
+    */
+    struct Vtbl extends IDCompositionTransform3D.Vtbl {
+        SetAngle    : IntPtr
+        SetAngle1   : IntPtr
+        SetAxisX    : IntPtr
+        SetAxisX1   : IntPtr
+        SetAxisY    : IntPtr
+        SetAxisY1   : IntPtr
+        SetAxisZ    : IntPtr
+        SetAxisZ1   : IntPtr
+        SetCenterX  : IntPtr
+        SetCenterX1 : IntPtr
+        SetCenterY  : IntPtr
+        SetCenterY1 : IntPtr
+        SetCenterZ  : IntPtr
+        SetCenterZ1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAngle", "SetAngle1", "SetAxisX", "SetAxisX1", "SetAxisY", "SetAxisY1", "SetAxisZ", "SetAxisZ1", "SetCenterX", "SetCenterX1", "SetCenterY", "SetCenterY1", "SetCenterZ", "SetCenterZ1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionRotateTransform3D.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Animates the value of the Angle property of a 3D rotation transform. The Angle property specifies the rotation angle. The default value is zero.
@@ -333,5 +355,51 @@ class IDCompositionRotateTransform3D extends IDCompositionTransform3D {
     SetCenterZ1(centerZ) {
         result := ComCall(16, this, "float", centerZ, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionRotateTransform3D.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAngle := CallbackCreate(GetMethod(implObj, "SetAngle"), flags, 2)
+        this.vtbl.SetAngle1 := CallbackCreate(GetMethod(implObj, "SetAngle1"), flags, 2)
+        this.vtbl.SetAxisX := CallbackCreate(GetMethod(implObj, "SetAxisX"), flags, 2)
+        this.vtbl.SetAxisX1 := CallbackCreate(GetMethod(implObj, "SetAxisX1"), flags, 2)
+        this.vtbl.SetAxisY := CallbackCreate(GetMethod(implObj, "SetAxisY"), flags, 2)
+        this.vtbl.SetAxisY1 := CallbackCreate(GetMethod(implObj, "SetAxisY1"), flags, 2)
+        this.vtbl.SetAxisZ := CallbackCreate(GetMethod(implObj, "SetAxisZ"), flags, 2)
+        this.vtbl.SetAxisZ1 := CallbackCreate(GetMethod(implObj, "SetAxisZ1"), flags, 2)
+        this.vtbl.SetCenterX := CallbackCreate(GetMethod(implObj, "SetCenterX"), flags, 2)
+        this.vtbl.SetCenterX1 := CallbackCreate(GetMethod(implObj, "SetCenterX1"), flags, 2)
+        this.vtbl.SetCenterY := CallbackCreate(GetMethod(implObj, "SetCenterY"), flags, 2)
+        this.vtbl.SetCenterY1 := CallbackCreate(GetMethod(implObj, "SetCenterY1"), flags, 2)
+        this.vtbl.SetCenterZ := CallbackCreate(GetMethod(implObj, "SetCenterZ"), flags, 2)
+        this.vtbl.SetCenterZ1 := CallbackCreate(GetMethod(implObj, "SetCenterZ1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAngle)
+        CallbackFree(this.vtbl.SetAngle1)
+        CallbackFree(this.vtbl.SetAxisX)
+        CallbackFree(this.vtbl.SetAxisX1)
+        CallbackFree(this.vtbl.SetAxisY)
+        CallbackFree(this.vtbl.SetAxisY1)
+        CallbackFree(this.vtbl.SetAxisZ)
+        CallbackFree(this.vtbl.SetAxisZ1)
+        CallbackFree(this.vtbl.SetCenterX)
+        CallbackFree(this.vtbl.SetCenterX1)
+        CallbackFree(this.vtbl.SetCenterY)
+        CallbackFree(this.vtbl.SetCenterY1)
+        CallbackFree(this.vtbl.SetCenterZ)
+        CallbackFree(this.vtbl.SetCenterZ1)
     }
 }

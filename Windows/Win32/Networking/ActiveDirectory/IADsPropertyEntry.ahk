@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsPropertyEntry interface is used to manage a property entry in the property cache.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyentry
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsPropertyEntry extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsPropertyEntry extends IDispatch {
     /**
      * The interface identifier for IADsPropertyEntry
      * @type {Guid}
      */
-    static IID => Guid("{05792c8e-941f-11d0-8529-00c04fd8d503}")
+    static IID := Guid("{05792c8e-941f-11d0-8529-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsPropertyEntry interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Clear           : IntPtr
+        get_Name        : IntPtr
+        put_Name        : IntPtr
+        get_ADsType     : IntPtr
+        put_ADsType     : IntPtr
+        get_ControlCode : IntPtr
+        put_ControlCode : IntPtr
+        get_Values      : IntPtr
+        put_Values      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clear", "get_Name", "put_Name", "get_ADsType", "put_ADsType", "get_ControlCode", "put_ControlCode", "get_Values", "put_Values"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsPropertyEntry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -96,8 +112,8 @@ class IADsPropertyEntry extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        retval := BSTR()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -109,7 +125,7 @@ class IADsPropertyEntry extends IDispatch {
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -157,7 +173,7 @@ class IADsPropertyEntry extends IDispatch {
      */
     get_Values() {
         retval := VARIANT()
-        result := ComCall(14, this, "ptr", retval, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -167,7 +183,43 @@ class IADsPropertyEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Values(vValues) {
-        result := ComCall(15, this, "ptr", vValues, "HRESULT")
+        result := ComCall(15, this, VARIANT, vValues, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsPropertyEntry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_ADsType := CallbackCreate(GetMethod(implObj, "get_ADsType"), flags, 2)
+        this.vtbl.put_ADsType := CallbackCreate(GetMethod(implObj, "put_ADsType"), flags, 2)
+        this.vtbl.get_ControlCode := CallbackCreate(GetMethod(implObj, "get_ControlCode"), flags, 2)
+        this.vtbl.put_ControlCode := CallbackCreate(GetMethod(implObj, "put_ControlCode"), flags, 2)
+        this.vtbl.get_Values := CallbackCreate(GetMethod(implObj, "get_Values"), flags, 2)
+        this.vtbl.put_Values := CallbackCreate(GetMethod(implObj, "put_Values"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_ADsType)
+        CallbackFree(this.vtbl.put_ADsType)
+        CallbackFree(this.vtbl.get_ControlCode)
+        CallbackFree(this.vtbl.put_ControlCode)
+        CallbackFree(this.vtbl.get_Values)
+        CallbackFree(this.vtbl.put_Values)
     }
 }

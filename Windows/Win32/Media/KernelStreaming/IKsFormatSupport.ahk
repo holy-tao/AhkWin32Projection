@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsFormatSupport interface provides information about the audio data formats that are supported by a software-configured I/O connection (typically a DMA channel) between an audio adapter device and system memory.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iksformatsupport
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsFormatSupport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsFormatSupport extends IUnknown {
     /**
      * The interface identifier for IKsFormatSupport
      * @type {Guid}
      */
-    static IID => Guid("{3cb4a69d-bb6f-4d2b-95b7-452d2c155db5}")
+    static IID := Guid("{3cb4a69d-bb6f-4d2b-95b7-452d2c155db5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsFormatSupport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsFormatSupported        : IntPtr
+        GetDevicePreferredFormat : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsFormatSupported", "GetDevicePreferredFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsFormatSupport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsFormatSupported method indicates whether the audio endpoint device supports the specified audio stream format.
@@ -37,7 +48,7 @@ class IKsFormatSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksformatsupport-isformatsupported
      */
     IsFormatSupported(pKsFormat, cbFormat) {
-        result := ComCall(3, this, "ptr", pKsFormat, "uint", cbFormat, "int*", &pbSupported := 0, "HRESULT")
+        result := ComCall(3, this, KSDATAFORMAT.Ptr, pKsFormat, "uint", cbFormat, BOOL.Ptr, &pbSupported := 0, "HRESULT")
         return pbSupported
     }
 
@@ -49,5 +60,27 @@ class IKsFormatSupport extends IUnknown {
     GetDevicePreferredFormat() {
         result := ComCall(4, this, "ptr*", &ppKsFormat := 0, "HRESULT")
         return ppKsFormat
+    }
+
+    Query(iid) {
+        if (IKsFormatSupport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsFormatSupported := CallbackCreate(GetMethod(implObj, "IsFormatSupported"), flags, 4)
+        this.vtbl.GetDevicePreferredFormat := CallbackCreate(GetMethod(implObj, "GetDevicePreferredFormat"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsFormatSupported)
+        CallbackFree(this.vtbl.GetDevicePreferredFormat)
     }
 }

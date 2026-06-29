@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Ole\IOleInPlaceSite.ahk
-#Include ..\..\System\Ole\IOleObject.ahk
-#Include .\ITravelLog.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Ole\IOleObject.ahk" { IOleObject }
+#Import ".\BNSTATE.ahk" { BNSTATE }
+#Import ".\ShellWindowTypeConstants.ahk" { ShellWindowTypeConstants }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import "..\..\System\Ole\IOleInPlaceSite.ahk" { IOleInPlaceSite }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 
 /**
  * Deprecated. (IBrowserService)
@@ -15,26 +24,62 @@
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice
  * @namespace Windows.Win32.UI.Shell
  */
-class IBrowserService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBrowserService extends IUnknown {
     /**
      * The interface identifier for IBrowserService
      * @type {Guid}
      */
-    static IID => Guid("{02ba3b52-0547-11d1-b833-00c04fc9b31f}")
+    static IID := Guid("{02ba3b52-0547-11d1-b833-00c04fc9b31f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBrowserService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetParentSite          : IntPtr
+        SetTitle               : IntPtr
+        GetTitle               : IntPtr
+        GetOleObject           : IntPtr
+        GetTravelLog           : IntPtr
+        ShowControlWindow      : IntPtr
+        IsControlWindowShown   : IntPtr
+        IEGetDisplayName       : IntPtr
+        IEParseDisplayName     : IntPtr
+        DisplayParseError      : IntPtr
+        NavigateToPidl         : IntPtr
+        SetNavigateState       : IntPtr
+        GetNavigateState       : IntPtr
+        NotifyRedirect         : IntPtr
+        UpdateWindowList       : IntPtr
+        UpdateBackForwardState : IntPtr
+        SetFlags               : IntPtr
+        GetFlags               : IntPtr
+        CanNavigateNow         : IntPtr
+        GetPidl                : IntPtr
+        SetReferrer            : IntPtr
+        GetBrowserIndex        : IntPtr
+        GetBrowserByIndex      : IntPtr
+        GetHistoryObject       : IntPtr
+        SetHistoryObject       : IntPtr
+        CacheOLEServer         : IntPtr
+        GetSetCodePage         : IntPtr
+        OnHttpEquiv            : IntPtr
+        GetPalette             : IntPtr
+        RegisterWindow         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetParentSite", "SetTitle", "GetTitle", "GetOleObject", "GetTravelLog", "ShowControlWindow", "IsControlWindowShown", "IEGetDisplayName", "IEParseDisplayName", "DisplayParseError", "NavigateToPidl", "SetNavigateState", "GetNavigateState", "NotifyRedirect", "UpdateWindowList", "UpdateBackForwardState", "SetFlags", "GetFlags", "CanNavigateNow", "GetPidl", "SetReferrer", "GetBrowserIndex", "GetBrowserByIndex", "GetHistoryObject", "SetHistoryObject", "CacheOLEServer", "GetSetCodePage", "OnHttpEquiv", "GetPalette", "RegisterWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBrowserService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deprecated. Retrieves the browser parent's in-place client site.
@@ -129,7 +174,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-showcontrolwindow
      */
     ShowControlWindow(id, fShow) {
-        result := ComCall(8, this, "uint", id, "int", fShow, "HRESULT")
+        result := ComCall(8, this, "uint", id, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -147,7 +192,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-iscontrolwindowshown
      */
     IsControlWindowShown(id) {
-        result := ComCall(9, this, "uint", id, "int*", &pfShown := 0, "HRESULT")
+        result := ComCall(9, this, "uint", id, BOOL.Ptr, &pfShown := 0, "HRESULT")
         return pfShown
     }
 
@@ -168,7 +213,7 @@ class IBrowserService extends IUnknown {
     IEGetDisplayName(pidl, pwszName, uFlags) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(10, this, "ptr", pidl, "ptr", pwszName, "uint", uFlags, "HRESULT")
+        result := ComCall(10, this, ITEMIDLIST.Ptr, pidl, "ptr", pwszName, "uint", uFlags, "HRESULT")
         return result
     }
 
@@ -228,7 +273,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-navigatetopidl
      */
     NavigateToPidl(pidl, grfHLNF) {
-        result := ComCall(13, this, "ptr", pidl, "uint", grfHLNF, "HRESULT")
+        result := ComCall(13, this, ITEMIDLIST.Ptr, pidl, "uint", grfHLNF, "HRESULT")
         return result
     }
 
@@ -243,7 +288,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-setnavigatestate
      */
     SetNavigateState(_bnstate) {
-        result := ComCall(14, this, "int", _bnstate, "HRESULT")
+        result := ComCall(14, this, BNSTATE, _bnstate, "HRESULT")
         return result
     }
 
@@ -273,7 +318,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-notifyredirect
      */
     NotifyRedirect(psv, pidl) {
-        result := ComCall(16, this, "ptr", psv, "ptr", pidl, "int*", &pfDidBrowse := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", psv, ITEMIDLIST.Ptr, pidl, BOOL.Ptr, &pfDidBrowse := 0, "HRESULT")
         return pfDidBrowse
     }
 
@@ -364,7 +409,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-setreferrer
      */
     SetReferrer(pidl) {
-        result := ComCall(23, this, "ptr", pidl, "HRESULT")
+        result := ComCall(23, this, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
     }
 
@@ -378,7 +423,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserindex
      */
     GetBrowserIndex() {
-        result := ComCall(24, this, "uint")
+        result := ComCall(24, this, UInt32)
         return result
     }
 
@@ -421,7 +466,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-gethistoryobject
      */
     GetHistoryObject(ppole, pstm, ppbc) {
-        result := ComCall(26, this, "ptr*", ppole, "ptr*", pstm, "ptr*", ppbc, "HRESULT")
+        result := ComCall(26, this, IOleObject.Ptr, ppole, IStream.Ptr, pstm, IBindCtx.Ptr, ppbc, "HRESULT")
         return result
     }
 
@@ -441,7 +486,7 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-sethistoryobject
      */
     SetHistoryObject(pole, fIsLocalAnchor) {
-        result := ComCall(27, this, "ptr", pole, "int", fIsLocalAnchor, "HRESULT")
+        result := ComCall(27, this, "ptr", pole, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -472,7 +517,7 @@ class IBrowserService extends IUnknown {
      */
     GetSetCodePage(pvarIn) {
         pvarOut := VARIANT()
-        result := ComCall(29, this, "ptr", pvarIn, "ptr", pvarOut, "HRESULT")
+        result := ComCall(29, this, VARIANT.Ptr, pvarIn, VARIANT.Ptr, pvarOut, "HRESULT")
         return pvarOut
     }
 
@@ -494,7 +539,7 @@ class IBrowserService extends IUnknown {
      */
     OnHttpEquiv(psv, fDone, pvarargIn) {
         pvarargOut := VARIANT()
-        result := ComCall(30, this, "ptr", psv, "int", fDone, "ptr", pvarargIn, "ptr", pvarargOut, "HRESULT")
+        result := ComCall(30, this, "ptr", psv, BOOL, fDone, VARIANT.Ptr, pvarargIn, VARIANT.Ptr, pvarargOut, "HRESULT")
         return pvarargOut
     }
 
@@ -508,8 +553,8 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpalette
      */
     GetPalette() {
-        hpal := HPALETTE()
-        result := ComCall(31, this, "ptr", hpal, "HRESULT")
+        hpal := HPALETTE.Owned()
+        result := ComCall(31, this, HPALETTE.Ptr, hpal, "HRESULT")
         return hpal
     }
 
@@ -527,7 +572,85 @@ class IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-registerwindow
      */
     RegisterWindow(fForceRegister, swc) {
-        result := ComCall(32, this, "int", fForceRegister, "int", swc, "HRESULT")
+        result := ComCall(32, this, BOOL, fForceRegister, ShellWindowTypeConstants, swc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBrowserService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetParentSite := CallbackCreate(GetMethod(implObj, "GetParentSite"), flags, 2)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 3)
+        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 4)
+        this.vtbl.GetOleObject := CallbackCreate(GetMethod(implObj, "GetOleObject"), flags, 2)
+        this.vtbl.GetTravelLog := CallbackCreate(GetMethod(implObj, "GetTravelLog"), flags, 2)
+        this.vtbl.ShowControlWindow := CallbackCreate(GetMethod(implObj, "ShowControlWindow"), flags, 3)
+        this.vtbl.IsControlWindowShown := CallbackCreate(GetMethod(implObj, "IsControlWindowShown"), flags, 3)
+        this.vtbl.IEGetDisplayName := CallbackCreate(GetMethod(implObj, "IEGetDisplayName"), flags, 4)
+        this.vtbl.IEParseDisplayName := CallbackCreate(GetMethod(implObj, "IEParseDisplayName"), flags, 4)
+        this.vtbl.DisplayParseError := CallbackCreate(GetMethod(implObj, "DisplayParseError"), flags, 3)
+        this.vtbl.NavigateToPidl := CallbackCreate(GetMethod(implObj, "NavigateToPidl"), flags, 3)
+        this.vtbl.SetNavigateState := CallbackCreate(GetMethod(implObj, "SetNavigateState"), flags, 2)
+        this.vtbl.GetNavigateState := CallbackCreate(GetMethod(implObj, "GetNavigateState"), flags, 2)
+        this.vtbl.NotifyRedirect := CallbackCreate(GetMethod(implObj, "NotifyRedirect"), flags, 4)
+        this.vtbl.UpdateWindowList := CallbackCreate(GetMethod(implObj, "UpdateWindowList"), flags, 1)
+        this.vtbl.UpdateBackForwardState := CallbackCreate(GetMethod(implObj, "UpdateBackForwardState"), flags, 1)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.CanNavigateNow := CallbackCreate(GetMethod(implObj, "CanNavigateNow"), flags, 1)
+        this.vtbl.GetPidl := CallbackCreate(GetMethod(implObj, "GetPidl"), flags, 2)
+        this.vtbl.SetReferrer := CallbackCreate(GetMethod(implObj, "SetReferrer"), flags, 2)
+        this.vtbl.GetBrowserIndex := CallbackCreate(GetMethod(implObj, "GetBrowserIndex"), flags, 1)
+        this.vtbl.GetBrowserByIndex := CallbackCreate(GetMethod(implObj, "GetBrowserByIndex"), flags, 3)
+        this.vtbl.GetHistoryObject := CallbackCreate(GetMethod(implObj, "GetHistoryObject"), flags, 4)
+        this.vtbl.SetHistoryObject := CallbackCreate(GetMethod(implObj, "SetHistoryObject"), flags, 3)
+        this.vtbl.CacheOLEServer := CallbackCreate(GetMethod(implObj, "CacheOLEServer"), flags, 2)
+        this.vtbl.GetSetCodePage := CallbackCreate(GetMethod(implObj, "GetSetCodePage"), flags, 3)
+        this.vtbl.OnHttpEquiv := CallbackCreate(GetMethod(implObj, "OnHttpEquiv"), flags, 5)
+        this.vtbl.GetPalette := CallbackCreate(GetMethod(implObj, "GetPalette"), flags, 2)
+        this.vtbl.RegisterWindow := CallbackCreate(GetMethod(implObj, "RegisterWindow"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetParentSite)
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.GetTitle)
+        CallbackFree(this.vtbl.GetOleObject)
+        CallbackFree(this.vtbl.GetTravelLog)
+        CallbackFree(this.vtbl.ShowControlWindow)
+        CallbackFree(this.vtbl.IsControlWindowShown)
+        CallbackFree(this.vtbl.IEGetDisplayName)
+        CallbackFree(this.vtbl.IEParseDisplayName)
+        CallbackFree(this.vtbl.DisplayParseError)
+        CallbackFree(this.vtbl.NavigateToPidl)
+        CallbackFree(this.vtbl.SetNavigateState)
+        CallbackFree(this.vtbl.GetNavigateState)
+        CallbackFree(this.vtbl.NotifyRedirect)
+        CallbackFree(this.vtbl.UpdateWindowList)
+        CallbackFree(this.vtbl.UpdateBackForwardState)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.CanNavigateNow)
+        CallbackFree(this.vtbl.GetPidl)
+        CallbackFree(this.vtbl.SetReferrer)
+        CallbackFree(this.vtbl.GetBrowserIndex)
+        CallbackFree(this.vtbl.GetBrowserByIndex)
+        CallbackFree(this.vtbl.GetHistoryObject)
+        CallbackFree(this.vtbl.SetHistoryObject)
+        CallbackFree(this.vtbl.CacheOLEServer)
+        CallbackFree(this.vtbl.GetSetCodePage)
+        CallbackFree(this.vtbl.OnHttpEquiv)
+        CallbackFree(this.vtbl.GetPalette)
+        CallbackFree(this.vtbl.RegisterWindow)
     }
 }

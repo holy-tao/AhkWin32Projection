@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * These are the operational enum values that are passed to KeyCredentialManagerShowUIOperation.
  * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype
  * @namespace Windows.Win32.Security.Credentials
  */
-class KeyCredentialManagerOperationType extends Win32Enum {
+export default struct KeyCredentialManagerOperationType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Start the Provisioning operation.

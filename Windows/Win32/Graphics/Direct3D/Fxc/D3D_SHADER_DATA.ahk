@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes shader data. (D3D_SHADER_DATA)
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/ns-d3dcompiler-d3d_shader_data
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  */
-class D3D_SHADER_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D_SHADER_DATA {
+    #StructPack 8
 
     /**
      * A pointer to shader data.
-     * @type {Pointer<Void>}
      */
-    pBytecode {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pBytecode : IntPtr
 
     /**
      * Length of shader data that <b>pBytecode</b> points to.
-     * @type {Pointer}
      */
-    BytecodeLength {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BytecodeLength : IntPtr
+
 }

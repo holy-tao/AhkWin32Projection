@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * An optional type description used with WS_UINT32_TYPE to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_uint32_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_UINT32_DESCRIPTION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WS_UINT32_DESCRIPTION {
+    #StructPack 4
 
     /**
      * The minimum value.
-     * @type {Integer}
      */
-    minValue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    minValue : UInt32
 
     /**
      * The maximum value.
-     * @type {Integer}
      */
-    maxValue {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    maxValue : UInt32
+
 }

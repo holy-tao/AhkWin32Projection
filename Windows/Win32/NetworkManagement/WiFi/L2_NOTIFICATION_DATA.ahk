@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_NOTIFICATION_SOURCES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WLAN_NOTIFICATION_SOURCES.ahk" { WLAN_NOTIFICATION_SOURCES }
 
 /**
  * Important  The Native 802.11 Wireless LAN interface is deprecated in Windows 10 and later.
@@ -15,29 +15,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/l2cmn/ns-l2cmn-l2_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class L2_NOTIFICATION_DATA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct L2_NOTIFICATION_DATA {
+    #StructPack 8
 
     /**
      * This member specifies where the notification comes from. The IHV Extensions DLL must set this
      *      member to L2_NOTIFICATION_SOURCE_WLAN_IHV.
-     * @type {WLAN_NOTIFICATION_SOURCES}
      */
-    NotificationSource {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NotificationSource : WLAN_NOTIFICATION_SOURCES
 
     /**
      * This member specifies the notification code for the status indication. This notification code must not have the bit 0x10000 set.
-     * @type {Integer}
      */
-    NotificationCode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NotificationCode : UInt32
 
     /**
      * The globally unique identifier (GUID) for the wireless LAN (WLAN) adapter. 
@@ -49,23 +39,15 @@ class L2_NOTIFICATION_DATA extends Win32Struct {
      *      the WLAN adapter. For more information about this operation, see 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/l2cmn/ns-l2cmn-l2_notification_data">802.11 WLAN Adapter
      *      Arrival</a>.
-     * @type {Pointer}
      */
-    InterfaceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InterfaceGuid : Guid
 
     /**
      * The length, in bytes, of the data within the buffer referenced by the 
      *      <b>pData</b> member. The IHV Extensions DLL must set this member to zero if additional data is not
      *      required for the notification.
-     * @type {Integer}
      */
-    dwDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwDataSize : UInt32
 
     /**
      * The address of a caller-allocated buffer that contains additional data for the notification. The
@@ -74,10 +56,7 @@ class L2_NOTIFICATION_DATA extends Win32Struct {
      * 
      * The IHV Extensions DLL must set this member to <b>NULL</b> if additional data is not required for the
      *      notification.
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pData : IntPtr
+
 }

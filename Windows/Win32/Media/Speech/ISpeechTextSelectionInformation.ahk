@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechTextSelectionInformation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechTextSelectionInformation extends IDispatch {
     /**
      * The interface identifier for ISpeechTextSelectionInformation
      * @type {Guid}
      */
-    static IID => Guid("{3b9c7e7a-6eee-4ded-9092-11657279adbe}")
+    static IID := Guid("{3b9c7e7a-6eee-4ded-9092-11657279adbe}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechTextSelectionInformation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_ActiveOffset    : IntPtr
+        get_ActiveOffset    : IntPtr
+        put_ActiveLength    : IntPtr
+        get_ActiveLength    : IntPtr
+        put_SelectionOffset : IntPtr
+        get_SelectionOffset : IntPtr
+        put_SelectionLength : IntPtr
+        get_SelectionLength : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_ActiveOffset", "get_ActiveOffset", "put_ActiveLength", "get_ActiveLength", "put_SelectionOffset", "get_SelectionOffset", "put_SelectionLength", "get_SelectionLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechTextSelectionInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -133,5 +148,39 @@ class ISpeechTextSelectionInformation extends IDispatch {
     get_SelectionLength() {
         result := ComCall(14, this, "int*", &SelectionLength := 0, "HRESULT")
         return SelectionLength
+    }
+
+    Query(iid) {
+        if (ISpeechTextSelectionInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_ActiveOffset := CallbackCreate(GetMethod(implObj, "put_ActiveOffset"), flags, 2)
+        this.vtbl.get_ActiveOffset := CallbackCreate(GetMethod(implObj, "get_ActiveOffset"), flags, 2)
+        this.vtbl.put_ActiveLength := CallbackCreate(GetMethod(implObj, "put_ActiveLength"), flags, 2)
+        this.vtbl.get_ActiveLength := CallbackCreate(GetMethod(implObj, "get_ActiveLength"), flags, 2)
+        this.vtbl.put_SelectionOffset := CallbackCreate(GetMethod(implObj, "put_SelectionOffset"), flags, 2)
+        this.vtbl.get_SelectionOffset := CallbackCreate(GetMethod(implObj, "get_SelectionOffset"), flags, 2)
+        this.vtbl.put_SelectionLength := CallbackCreate(GetMethod(implObj, "put_SelectionLength"), flags, 2)
+        this.vtbl.get_SelectionLength := CallbackCreate(GetMethod(implObj, "get_SelectionLength"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_ActiveOffset)
+        CallbackFree(this.vtbl.get_ActiveOffset)
+        CallbackFree(this.vtbl.put_ActiveLength)
+        CallbackFree(this.vtbl.get_ActiveLength)
+        CallbackFree(this.vtbl.put_SelectionOffset)
+        CallbackFree(this.vtbl.get_SelectionOffset)
+        CallbackFree(this.vtbl.put_SelectionLength)
+        CallbackFree(this.vtbl.get_SelectionLength)
     }
 }

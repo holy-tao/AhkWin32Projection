@@ -1,36 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509PrivateKey.ahk
-#Include .\IX509SignatureInformation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents a signing certificate that enables you to sign a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-isignercertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ISignerCertificate extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISignerCertificate extends IDispatch {
     /**
      * The interface identifier for ISignerCertificate
      * @type {Guid}
      */
-    static IID => Guid("{728ab33d-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab33d-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISignerCertificate interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize               : IntPtr
+        get_Certificate          : IntPtr
+        get_PrivateKey           : IntPtr
+        get_Silent               : IntPtr
+        put_Silent               : IntPtr
+        get_ParentWindow         : IntPtr
+        put_ParentWindow         : IntPtr
+        get_UIContextMessage     : IntPtr
+        put_UIContextMessage     : IntPtr
+        put_Pin                  : IntPtr
+        get_SignatureInformation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "get_Certificate", "get_PrivateKey", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "put_Pin", "get_SignatureInformation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISignerCertificate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509PrivateKey} 
@@ -144,7 +165,7 @@ class ISignerCertificate extends IDispatch {
     Initialize(MachineContext, VerifyType, Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(7, this, "short", MachineContext, "int", VerifyType, "int", Encoding, "ptr", strCertificate, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL, MachineContext, X509PrivateKeyVerify, VerifyType, EncodingType, Encoding, BSTR, strCertificate, "HRESULT")
         return result
     }
 
@@ -175,8 +196,8 @@ class ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
-        result := ComCall(8, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(8, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -237,7 +258,7 @@ class ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_silent
      */
     get_Silent() {
-        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -268,7 +289,7 @@ class ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(11, this, "short", Value, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -358,8 +379,8 @@ class ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage
      */
     get_UIContextMessage() {
-        pValue := BSTR()
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -395,7 +416,7 @@ class ISignerCertificate extends IDispatch {
     put_UIContextMessage(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(15, this, "ptr", Value, "HRESULT")
+        result := ComCall(15, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -428,7 +449,7 @@ class ISignerCertificate extends IDispatch {
     put_Pin(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(16, this, "ptr", Value, "HRESULT")
+        result := ComCall(16, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -461,5 +482,45 @@ class ISignerCertificate extends IDispatch {
     get_SignatureInformation() {
         result := ComCall(17, this, "ptr*", &ppValue := 0, "HRESULT")
         return IX509SignatureInformation(ppValue)
+    }
+
+    Query(iid) {
+        if (ISignerCertificate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.get_PrivateKey := CallbackCreate(GetMethod(implObj, "get_PrivateKey"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_UIContextMessage := CallbackCreate(GetMethod(implObj, "get_UIContextMessage"), flags, 2)
+        this.vtbl.put_UIContextMessage := CallbackCreate(GetMethod(implObj, "put_UIContextMessage"), flags, 2)
+        this.vtbl.put_Pin := CallbackCreate(GetMethod(implObj, "put_Pin"), flags, 2)
+        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_Certificate)
+        CallbackFree(this.vtbl.get_PrivateKey)
+        CallbackFree(this.vtbl.get_Silent)
+        CallbackFree(this.vtbl.put_Silent)
+        CallbackFree(this.vtbl.get_ParentWindow)
+        CallbackFree(this.vtbl.put_ParentWindow)
+        CallbackFree(this.vtbl.get_UIContextMessage)
+        CallbackFree(this.vtbl.put_UIContextMessage)
+        CallbackFree(this.vtbl.put_Pin)
+        CallbackFree(this.vtbl.get_SignatureInformation)
     }
 }

@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPFORWARDROW.ahk
-#Include .\MIB_IPFORWARD_TYPE.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPFORWARD_TYPE.ahk" { MIB_IPFORWARD_TYPE }
+#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
+#Import "..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk" { NL_ROUTE_PROTOCOL }
 
 /**
  * Contains a table of IPv4 route entries.
@@ -19,30 +18,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipforwardtable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPFORWARDTABLE extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct MIB_IPFORWARDTABLE {
+    #StructPack 4
 
     /**
      * The number of route entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of route entries implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipforwardrow">MIB_IPFORWARDROW</a> structures.
-     * @type {MIB_IPFORWARDROW}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPFORWARDROW, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPFORWARDROW[1]
+
 }

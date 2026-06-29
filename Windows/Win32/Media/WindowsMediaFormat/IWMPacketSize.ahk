@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPacketSize interface controls the maximum size of packets in an ASF file.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmpacketsize
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMPacketSize extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPacketSize extends IUnknown {
     /**
      * The interface identifier for IWMPacketSize
      * @type {Guid}
      */
-    static IID => Guid("{cdfb97ab-188f-40b3-b643-5b7903975c59}")
+    static IID := Guid("{cdfb97ab-188f-40b3-b643-5b7903975c59}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPacketSize interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMaxPacketSize : IntPtr
+        SetMaxPacketSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMaxPacketSize", "SetMaxPacketSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPacketSize.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetMaxPacketSize method retrieves the maximum size of a packet in an ASF file.
@@ -83,5 +92,27 @@ class IWMPacketSize extends IUnknown {
     SetMaxPacketSize(dwMaxPacketSize) {
         result := ComCall(4, this, "uint", dwMaxPacketSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPacketSize.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMaxPacketSize := CallbackCreate(GetMethod(implObj, "GetMaxPacketSize"), flags, 2)
+        this.vtbl.SetMaxPacketSize := CallbackCreate(GetMethod(implObj, "SetMaxPacketSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMaxPacketSize)
+        CallbackFree(this.vtbl.SetMaxPacketSize)
     }
 }

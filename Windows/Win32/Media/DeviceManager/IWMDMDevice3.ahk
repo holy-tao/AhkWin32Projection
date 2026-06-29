@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMDevice2.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\WMDM_FORMAT_CAPABILITY.ahk
-#Include .\IWMDMStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
+#Import ".\IWMDMDevice2.ahk" { IWMDMDevice2 }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
+#Import ".\WMDM_FORMAT_CAPABILITY.ahk" { WMDM_FORMAT_CAPABILITY }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * The IWMDMDevice3 interface extends IWMDMDevice2 by providing methods to query a device for properties, send device I/O control codes, and also providing upgraded methods to search for storages and retrieve device format capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmdevice3
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMDevice3 extends IWMDMDevice2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMDevice3 extends IWMDMDevice2 {
     /**
      * The interface identifier for IWMDMDevice3
      * @type {Guid}
      */
-    static IID => Guid("{6c03e4fe-05db-4dda-9e3c-06233a6d5d65}")
+    static IID := Guid("{6c03e4fe-05db-4dda-9e3c-06233a6d5d65}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMDevice3 interfaces
+    */
+    struct Vtbl extends IWMDMDevice2.Vtbl {
+        GetProperty         : IntPtr
+        SetProperty         : IntPtr
+        GetFormatCapability : IntPtr
+        DeviceIoControl     : IntPtr
+        FindStorage         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperty", "SetProperty", "GetFormatCapability", "DeviceIoControl", "FindStorage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMDevice3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetProperty method retrieves a specific device metadata property.
@@ -48,7 +63,7 @@ class IWMDMDevice3 extends IWMDMDevice2 {
         pwszPropName := pwszPropName is String ? StrPtr(pwszPropName) : pwszPropName
 
         pValue := PROPVARIANT()
-        result := ComCall(18, this, "ptr", pwszPropName, "ptr", pValue, "HRESULT")
+        result := ComCall(18, this, "ptr", pwszPropName, PROPVARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -77,7 +92,7 @@ class IWMDMDevice3 extends IWMDMDevice2 {
     SetProperty(pwszPropName, pValue) {
         pwszPropName := pwszPropName is String ? StrPtr(pwszPropName) : pwszPropName
 
-        result := ComCall(19, this, "ptr", pwszPropName, "ptr", pValue, "HRESULT")
+        result := ComCall(19, this, "ptr", pwszPropName, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -93,7 +108,7 @@ class IWMDMDevice3 extends IWMDMDevice2 {
      */
     GetFormatCapability(format) {
         pFormatSupport := WMDM_FORMAT_CAPABILITY()
-        result := ComCall(20, this, "int", format, "ptr", pFormatSupport, "HRESULT")
+        result := ComCall(20, this, WMDM_FORMATCODE, format, WMDM_FORMAT_CAPABILITY.Ptr, pFormatSupport, "HRESULT")
         return pFormatSupport
     }
 
@@ -134,7 +149,35 @@ class IWMDMDevice3 extends IWMDMDevice2 {
     FindStorage(findScope, pwszUniqueID) {
         pwszUniqueID := pwszUniqueID is String ? StrPtr(pwszUniqueID) : pwszUniqueID
 
-        result := ComCall(22, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
+        result := ComCall(22, this, WMDM_FIND_SCOPE, findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
         return IWMDMStorage(ppStorage)
+    }
+
+    Query(iid) {
+        if (IWMDMDevice3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetFormatCapability := CallbackCreate(GetMethod(implObj, "GetFormatCapability"), flags, 3)
+        this.vtbl.DeviceIoControl := CallbackCreate(GetMethod(implObj, "DeviceIoControl"), flags, 6)
+        this.vtbl.FindStorage := CallbackCreate(GetMethod(implObj, "FindStorage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.GetFormatCapability)
+        CallbackFree(this.vtbl.DeviceIoControl)
+        CallbackFree(this.vtbl.FindStorage)
     }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaItemExtras interface provides several methods that enable applications to communicate with hardware drivers.
@@ -36,26 +37,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiaitemextras
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaItemExtras extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaItemExtras extends IUnknown {
     /**
      * The interface identifier for IWiaItemExtras
      * @type {Guid}
      */
-    static IID => Guid("{6291ef2c-36ef-4532-876a-8e132593778d}")
+    static IID := Guid("{6291ef2c-36ef-4532-876a-8e132593778d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaItemExtras interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetExtendedErrorInfo : IntPtr
+        Escape               : IntPtr
+        CancelPendingIO      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetExtendedErrorInfo", "Escape", "CancelPendingIO"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaItemExtras.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWiaItemExtras::GetExtendedErrorInfo method gets a string from the device driver that contains information about the most recent error.
@@ -67,8 +77,8 @@ class IWiaItemExtras extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitemextras-getextendederrorinfo
      */
     GetExtendedErrorInfo() {
-        bstrErrorText := BSTR()
-        result := ComCall(3, this, "ptr", bstrErrorText, "HRESULT")
+        bstrErrorText := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, bstrErrorText, "HRESULT")
         return bstrErrorText
     }
 
@@ -118,5 +128,29 @@ class IWiaItemExtras extends IUnknown {
     CancelPendingIO() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaItemExtras.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetExtendedErrorInfo := CallbackCreate(GetMethod(implObj, "GetExtendedErrorInfo"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 7)
+        this.vtbl.CancelPendingIO := CallbackCreate(GetMethod(implObj, "CancelPendingIO"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetExtendedErrorInfo)
+        CallbackFree(this.vtbl.Escape)
+        CallbackFree(this.vtbl.CancelPendingIO)
     }
 }

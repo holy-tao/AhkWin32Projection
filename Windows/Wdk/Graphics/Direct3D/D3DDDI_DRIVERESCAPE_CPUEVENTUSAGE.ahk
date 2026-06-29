@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_DRIVERESCAPETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_DRIVERESCAPETYPE.ahk" { D3DDDI_DRIVERESCAPETYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_DRIVERESCAPE_CPUEVENTUSAGE extends Win32Struct {
-    static sizeof => 48
+export default struct D3DDDI_DRIVERESCAPE_CPUEVENTUSAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    EscapeType : D3DDDI_DRIVERESCAPETYPE
 
-    /**
-     * @type {D3DDDI_DRIVERESCAPETYPE}
-     */
-    EscapeType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hSyncObject : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hSyncObject {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hKmdCpuEvent : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hKmdCpuEvent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Usage : UInt32[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Usage {
-        get {
-            if(!this.HasProp("__UsageProxyArray"))
-                this.__UsageProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
-            return this.__UsageProxyArray
-        }
-    }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to report progress back to callers of lengthy Offline Files operations. (IOfflineFilesProgress)
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesprogress
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesProgress extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesProgress extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesProgress
      * @type {Guid}
      */
-    static IID => Guid("{fad63237-c55b-4911-9850-bcf96d4c979e}")
+    static IID := Guid("{fad63237-c55b-4911-9850-bcf96d4c979e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesProgress interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Begin      : IntPtr
+        QueryAbort : IntPtr
+        End        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Begin", "QueryAbort", "End"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports that an operation has begun.
@@ -35,7 +46,7 @@ class IOfflineFilesProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesprogress-begin
      */
     Begin() {
-        result := ComCall(3, this, "int*", &pbAbort := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pbAbort := 0, "HRESULT")
         return pbAbort
     }
 
@@ -47,7 +58,7 @@ class IOfflineFilesProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesprogress-queryabort
      */
     QueryAbort() {
-        result := ComCall(4, this, "int*", &pbAbort := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pbAbort := 0, "HRESULT")
         return pbAbort
     }
 
@@ -60,5 +71,29 @@ class IOfflineFilesProgress extends IUnknown {
     End(hrResult) {
         result := ComCall(5, this, "int", hrResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 2)
+        this.vtbl.QueryAbort := CallbackCreate(GetMethod(implObj, "QueryAbort"), flags, 2)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Begin)
+        CallbackFree(this.vtbl.QueryAbort)
+        CallbackFree(this.vtbl.End)
     }
 }

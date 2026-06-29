@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure contains a firmware image payload to be downloaded to the target.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_download
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_HW_FIRMWARE_DOWNLOAD extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct STORAGE_HW_FIRMWARE_DOWNLOAD {
+    #StructPack 8
 
     /**
      * The version of this structure. This should be set to sizeof(STORAGE_HW_FIRMWARE_DOWNLOAD).
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The size of this structure and the download image buffer.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * Flags associated with this download. The following are valid flags that this member can hold.
@@ -46,61 +35,32 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD extends Win32Struct {
      * <td>Indicates that the current firmware image segment is the last one.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * The slot number that the firmware image will be downloaded to.
-     * @type {Integer}
      */
-    Slot {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Slot : Int8
 
     /**
      * Reserved for future use.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[3]
 
     /**
      * The offset in this buffer of where the Image file begins. This should be aligned to <b>ImagePayloadAlignment</b> from <a href="https://docs.microsoft.com/windows/desktop/FileIO/storage-hw-firmware-info">STORAGE_HW_FIRMWARE_INFO</a>.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Offset : Int64
 
     /**
      * The buffer size of the ImageBuffer. This should be a multiple of <b>ImagePayloadAlignment</b> from <a href="https://docs.microsoft.com/windows/desktop/FileIO/storage-hw-firmware-info">STORAGE_HW_FIRMWARE_INFO</a>.
-     * @type {Integer}
      */
-    BufferSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BufferSize : Int64
 
     /**
      * The firmware image file.
-     * @type {Array<Integer>}
      */
-    ImageBuffer {
-        get {
-            if(!this.HasProp("__ImageBufferProxyArray"))
-                this.__ImageBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__ImageBufferProxyArray
-        }
-    }
+    ImageBuffer : Int8[1]
+
 }

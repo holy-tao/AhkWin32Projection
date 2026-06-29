@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * The WMPContextMenuInfo structure contains data about a context menu command.
@@ -9,41 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ns-contentpartner-wmpcontextmenuinfo
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class WMPContextMenuInfo extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WMPContextMenuInfo {
+    #StructPack 8
 
     /**
      * The ID of the command.
-     * @type {Integer}
      */
-    dwID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwID : UInt32
 
     /**
      * The menu text to display for the command.
-     * @type {BSTR}
      */
-    bstrMenuText {
-        get {
-            if(!this.HasProp("__bstrMenuText"))
-                this.__bstrMenuText := BSTR(8, this)
-            return this.__bstrMenuText
-        }
-    }
+    bstrMenuText : BSTR
 
     /**
      * The help text to display for the command.
-     * @type {BSTR}
      */
-    bstrHelpText {
-        get {
-            if(!this.HasProp("__bstrHelpText"))
-                this.__bstrHelpText := BSTR(16, this)
-            return this.__bstrHelpText
-        }
-    }
+    bstrHelpText : BSTR
+
 }

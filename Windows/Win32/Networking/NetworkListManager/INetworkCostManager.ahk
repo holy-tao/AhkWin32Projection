@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\NLM_DATAPLAN_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_DATAPLAN_STATUS.ahk" { NLM_DATAPLAN_STATUS }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\NLM_SOCKADDR.ahk" { NLM_SOCKADDR }
 
 /**
  * Use this interface to query for machine-wide cost and data plan status information associated with either a connection used for machine-wide Internet connectivity, or the first-hop of routing to a specific destination on a connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkcostmanager
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class INetworkCostManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetworkCostManager extends IUnknown {
     /**
      * The interface identifier for INetworkCostManager
      * @type {Guid}
      */
-    static IID => Guid("{dcb00008-570f-4a9b-8d69-199fdba5723b}")
+    static IID := Guid("{dcb00008-570f-4a9b-8d69-199fdba5723b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetworkCostManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCost                 : IntPtr
+        GetDataPlanStatus       : IntPtr
+        SetDestinationAddresses : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCost", "GetDataPlanStatus", "SetDestinationAddresses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetworkCostManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * GetCost method retrieves the current cost of either a machine-wide internet connection, or the first-hop of routing to a specific destination on a connection.
@@ -37,7 +49,7 @@ class INetworkCostManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanager-getcost
      */
     GetCost(pDestIPAddr) {
-        result := ComCall(3, this, "uint*", &pCost := 0, "ptr", pDestIPAddr, "HRESULT")
+        result := ComCall(3, this, "uint*", &pCost := 0, NLM_SOCKADDR.Ptr, pDestIPAddr, "HRESULT")
         return pCost
     }
 
@@ -49,7 +61,7 @@ class INetworkCostManager extends IUnknown {
      */
     GetDataPlanStatus(pDestIPAddr) {
         pDataPlanStatus := NLM_DATAPLAN_STATUS()
-        result := ComCall(4, this, "ptr", pDataPlanStatus, "ptr", pDestIPAddr, "HRESULT")
+        result := ComCall(4, this, NLM_DATAPLAN_STATUS.Ptr, pDataPlanStatus, NLM_SOCKADDR.Ptr, pDestIPAddr, "HRESULT")
         return pDataPlanStatus
     }
 
@@ -123,7 +135,31 @@ class INetworkCostManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanager-setdestinationaddresses
      */
     SetDestinationAddresses(length, pDestIPAddrList, bAppend) {
-        result := ComCall(5, this, "uint", length, "ptr", pDestIPAddrList, "short", bAppend, "HRESULT")
+        result := ComCall(5, this, "uint", length, NLM_SOCKADDR.Ptr, pDestIPAddrList, VARIANT_BOOL, bAppend, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetworkCostManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCost := CallbackCreate(GetMethod(implObj, "GetCost"), flags, 3)
+        this.vtbl.GetDataPlanStatus := CallbackCreate(GetMethod(implObj, "GetDataPlanStatus"), flags, 3)
+        this.vtbl.SetDestinationAddresses := CallbackCreate(GetMethod(implObj, "SetDestinationAddresses"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCost)
+        CallbackFree(this.vtbl.GetDataPlanStatus)
+        CallbackFree(this.vtbl.SetDestinationAddresses)
     }
 }

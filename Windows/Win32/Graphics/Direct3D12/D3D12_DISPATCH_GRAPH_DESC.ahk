@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DISPATCH_MODE.ahk
-#Include .\D3D12_NODE_CPU_INPUT.ahk
-#Include .\D3D12_MULTI_NODE_CPU_INPUT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_NODE_CPU_INPUT.ahk" { D3D12_NODE_CPU_INPUT }
+#Import ".\D3D12_MULTI_NODE_CPU_INPUT.ahk" { D3D12_MULTI_NODE_CPU_INPUT }
+#Import ".\D3D12_DISPATCH_MODE.ahk" { D3D12_DISPATCH_MODE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DISPATCH_GRAPH_DESC extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_DISPATCH_GRAPH_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    Mode : D3D12_DISPATCH_MODE
 
-    /**
-     * @type {D3D12_DISPATCH_MODE}
-     */
-    Mode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    NodeCPUInput : D3D12_NODE_CPU_INPUT
 
-    /**
-     * @type {D3D12_NODE_CPU_INPUT}
-     */
-    NodeCPUInput {
-        get {
-            if(!this.HasProp("__NodeCPUInput"))
-                this.__NodeCPUInput := D3D12_NODE_CPU_INPUT(8, this)
-            return this.__NodeCPUInput
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NodeGPUInput {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {D3D12_MULTI_NODE_CPU_INPUT}
-     */
-    MultiNodeCPUInput {
-        get {
-            if(!this.HasProp("__MultiNodeCPUInput"))
-                this.__MultiNodeCPUInput := D3D12_MULTI_NODE_CPU_INPUT(8, this)
-            return this.__MultiNodeCPUInput
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MultiNodeGPUInput {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'NodeGPUInput', { type: Int64, offset: 8 })
+        DefineProp(this.Prototype, 'MultiNodeCPUInput', { type: D3D12_MULTI_NODE_CPU_INPUT, offset: 8 })
+        DefineProp(this.Prototype, 'MultiNodeGPUInput', { type: Int64, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

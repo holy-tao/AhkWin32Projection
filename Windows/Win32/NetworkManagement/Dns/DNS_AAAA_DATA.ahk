@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP6_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
 
 /**
  * The DNS_AAAA_DATA structure represents a DNS IPv6 (AAAA) record as specified in RFC 3596.
@@ -11,20 +10,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_aaaa_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_AAAA_DATA extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct DNS_AAAA_DATA {
+    #StructPack 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-ip6_address">IP6_ADDRESS</a> data type that contains an IPv6 address.
-     * @type {IP6_ADDRESS}
      */
-    Ip6Address {
-        get {
-            if(!this.HasProp("__Ip6Address"))
-                this.__Ip6Address := IP6_ADDRESS(0, this)
-            return this.__Ip6Address
-        }
-    }
+    Ip6Address : IP6_ADDRESS
+
 }

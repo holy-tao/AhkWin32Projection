@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TfLBBalloonStyle.ahk" { TfLBBalloonStyle }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfSpeechUIServer interface manages the speech-related user interface on the TSF language bar.
@@ -29,26 +33,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctfspui/nn-ctfspui-itfspeechuiserver
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfSpeechUIServer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfSpeechUIServer extends IUnknown {
     /**
      * The interface identifier for ITfSpeechUIServer
      * @type {Guid}
      */
-    static IID => Guid("{90e9a944-9244-489f-a78f-de67afc013a7}")
+    static IID := Guid("{90e9a944-9244-489f-a78f-de67afc013a7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfSpeechUIServer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize    : IntPtr
+        ShowUI        : IntPtr
+        UpdateBalloon : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "ShowUI", "UpdateBalloon"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfSpeechUIServer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfSpeechUIServer::Initialize method
@@ -105,7 +118,7 @@ class ITfSpeechUIServer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfspui/nf-ctfspui-itfspeechuiserver-showui
      */
     ShowUI(fShow) {
-        result := ComCall(4, this, "int", fShow, "HRESULT")
+        result := ComCall(4, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -138,7 +151,31 @@ class ITfSpeechUIServer extends IUnknown {
     UpdateBalloon(style, pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch
 
-        result := ComCall(5, this, "int", style, "ptr", pch, "uint", cch, "HRESULT")
+        result := ComCall(5, this, TfLBBalloonStyle, style, "ptr", pch, "uint", cch, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfSpeechUIServer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.ShowUI := CallbackCreate(GetMethod(implObj, "ShowUI"), flags, 2)
+        this.vtbl.UpdateBalloon := CallbackCreate(GetMethod(implObj, "UpdateBalloon"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.ShowUI)
+        CallbackFree(this.vtbl.UpdateBalloon)
     }
 }

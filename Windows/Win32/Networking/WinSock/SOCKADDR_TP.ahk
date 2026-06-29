@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_TP extends Win32Struct {
-    static sizeof => 72
+export default struct SOCKADDR_TP {
+    #StructPack 2
 
-    static packingSize => 2
+    tp_family : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    tp_family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    tp_addr_type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    tp_addr_type {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    tp_taddr_len : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    tp_taddr_len {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    tp_tsel_len : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    tp_tsel_len {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    tp_addr : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    tp_addr {
-        get {
-            if(!this.HasProp("__tp_addrProxyArray"))
-                this.__tp_addrProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
-            return this.__tp_addrProxyArray
-        }
-    }
 }

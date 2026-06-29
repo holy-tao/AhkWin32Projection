@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class RemHMETAFILEPICT extends Win32Struct {
-    static sizeof => 20
+export default struct RemHMETAFILEPICT {
+    #StructPack 4
 
-    static packingSize => 4
+    mm : Int32
 
-    /**
-     * @type {Integer}
-     */
-    mm {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    xExt : Int32
 
-    /**
-     * @type {Integer}
-     */
-    xExt {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    yExt : Int32
 
-    /**
-     * @type {Integer}
-     */
-    yExt {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__dataProxyArray
-        }
-    }
 }

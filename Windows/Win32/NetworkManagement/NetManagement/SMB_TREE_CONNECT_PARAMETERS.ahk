@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SMB_TREE_CONNECT_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct SMB_TREE_CONNECT_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    EABufferOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EABufferOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EABufferLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EABufferLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CreateOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CreateOptions {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TreeConnectAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TreeConnectAttributes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

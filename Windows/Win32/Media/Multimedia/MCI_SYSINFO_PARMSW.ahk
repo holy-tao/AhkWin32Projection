@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  * @charset Unicode
  */
-class MCI_SYSINFO_PARMSW extends Win32Struct {
-    static sizeof => 32
+export default struct MCI_SYSINFO_PARMSW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwCallback : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpstrReturn : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpstrReturn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwRetSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRetSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumber {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    wDeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wDeviceType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

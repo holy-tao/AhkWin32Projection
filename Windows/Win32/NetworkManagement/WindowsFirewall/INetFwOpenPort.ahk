@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_SCOPE.ahk" { NET_FW_SCOPE }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
 
 /**
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.
@@ -19,32 +24,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwopenport
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwOpenPort extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwOpenPort extends IDispatch {
     /**
      * The interface identifier for INetFwOpenPort
      * @type {Guid}
      */
-    static IID => Guid("{e0483ba0-47ff-4d9c-a6d6-7741d0b195f7}")
+    static IID := Guid("{e0483ba0-47ff-4d9c-a6d6-7741d0b195f7}")
 
     /**
      * The class identifier for NetFwOpenPort
      * @type {Guid}
      */
-    static CLSID => Guid("{0ca545c6-37ad-4a6c-bf92-9f7610067ef5}")
+    static CLSID := Guid("{0ca545c6-37ad-4a6c-bf92-9f7610067ef5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwOpenPort interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name            : IntPtr
+        put_Name            : IntPtr
+        get_IpVersion       : IntPtr
+        put_IpVersion       : IntPtr
+        get_Protocol        : IntPtr
+        put_Protocol        : IntPtr
+        get_Port            : IntPtr
+        put_Port            : IntPtr
+        get_Scope           : IntPtr
+        put_Scope           : IntPtr
+        get_RemoteAddresses : IntPtr
+        put_RemoteAddresses : IntPtr
+        get_Enabled         : IntPtr
+        put_Enabled         : IntPtr
+        get_BuiltIn         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_IpVersion", "put_IpVersion", "get_Protocol", "put_Protocol", "get_Port", "put_Port", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled", "get_BuiltIn"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwOpenPort.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -117,8 +143,8 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -133,7 +159,7 @@ class INetFwOpenPort extends IDispatch {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -158,7 +184,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_ipversion
      */
     put_IpVersion(ipVersion) {
-        result := ComCall(10, this, "int", ipVersion, "HRESULT")
+        result := ComCall(10, this, NET_FW_IP_VERSION, ipVersion, "HRESULT")
         return result
     }
 
@@ -183,7 +209,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_protocol
      */
     put_Protocol(ipProtocol) {
-        result := ComCall(12, this, "int", ipProtocol, "HRESULT")
+        result := ComCall(12, this, NET_FW_IP_PROTOCOL, ipProtocol, "HRESULT")
         return result
     }
 
@@ -241,7 +267,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_scope
      */
     put_Scope(scope) {
-        result := ComCall(16, this, "int", scope, "HRESULT")
+        result := ComCall(16, this, NET_FW_SCOPE, scope, "HRESULT")
         return result
     }
 
@@ -269,8 +295,8 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
-        result := ComCall(17, this, "ptr", remoteAddrs, "HRESULT")
+        remoteAddrs := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, remoteAddrs, "HRESULT")
         return remoteAddrs
     }
 
@@ -301,7 +327,7 @@ class INetFwOpenPort extends IDispatch {
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
 
-        result := ComCall(18, this, "ptr", remoteAddrs, "HRESULT")
+        result := ComCall(18, this, BSTR, remoteAddrs, "HRESULT")
         return result
     }
 
@@ -315,7 +341,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_enabled
      */
     get_Enabled() {
-        result := ComCall(19, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -330,7 +356,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(20, this, "short", enabled, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -342,7 +368,55 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_builtin
      */
     get_BuiltIn() {
-        result := ComCall(21, this, "short*", &builtIn := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &builtIn := 0, "HRESULT")
         return builtIn
+    }
+
+    Query(iid) {
+        if (INetFwOpenPort.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_IpVersion := CallbackCreate(GetMethod(implObj, "get_IpVersion"), flags, 2)
+        this.vtbl.put_IpVersion := CallbackCreate(GetMethod(implObj, "put_IpVersion"), flags, 2)
+        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.put_Protocol := CallbackCreate(GetMethod(implObj, "put_Protocol"), flags, 2)
+        this.vtbl.get_Port := CallbackCreate(GetMethod(implObj, "get_Port"), flags, 2)
+        this.vtbl.put_Port := CallbackCreate(GetMethod(implObj, "put_Port"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.put_Scope := CallbackCreate(GetMethod(implObj, "put_Scope"), flags, 2)
+        this.vtbl.get_RemoteAddresses := CallbackCreate(GetMethod(implObj, "get_RemoteAddresses"), flags, 2)
+        this.vtbl.put_RemoteAddresses := CallbackCreate(GetMethod(implObj, "put_RemoteAddresses"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_BuiltIn := CallbackCreate(GetMethod(implObj, "get_BuiltIn"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_IpVersion)
+        CallbackFree(this.vtbl.put_IpVersion)
+        CallbackFree(this.vtbl.get_Protocol)
+        CallbackFree(this.vtbl.put_Protocol)
+        CallbackFree(this.vtbl.get_Port)
+        CallbackFree(this.vtbl.put_Port)
+        CallbackFree(this.vtbl.get_Scope)
+        CallbackFree(this.vtbl.put_Scope)
+        CallbackFree(this.vtbl.get_RemoteAddresses)
+        CallbackFree(this.vtbl.put_RemoteAddresses)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_BuiltIn)
     }
 }

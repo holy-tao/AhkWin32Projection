@@ -1,39 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMLOperatorAttributes.ahk
-#Include .\MLOperatorEdgeDescription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMLOperatorAttributes.ahk" { IMLOperatorAttributes }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MLOperatorEdgeDescription.ahk" { MLOperatorEdgeDescription }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     /**
      * The interface identifier for IMLOperatorShapeInferenceContext
      * @type {Guid}
      */
-    static IID => Guid("{105b6b29-5408-4a68-9959-09b5955a3492}")
+    static IID := Guid("{105b6b29-5408-4a68-9959-09b5955a3492}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMLOperatorShapeInferenceContext interfaces
+    */
+    struct Vtbl extends IMLOperatorAttributes.Vtbl {
+        GetInputCount                : IntPtr
+        GetOutputCount               : IntPtr
+        IsInputValid                 : IntPtr
+        IsOutputValid                : IntPtr
+        GetInputEdgeDescription      : IntPtr
+        GetInputTensorDimensionCount : IntPtr
+        GetInputTensorShape          : IntPtr
+        SetOutputTensorShape         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputCount", "GetOutputCount", "IsInputValid", "IsOutputValid", "GetInputEdgeDescription", "GetInputTensorDimensionCount", "GetInputTensorShape", "SetOutputTensorShape"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMLOperatorShapeInferenceContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Integer} 
      */
     GetInputCount() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
     }
 
@@ -42,7 +57,7 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
      * @returns {Integer} 
      */
     GetOutputCount() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, UInt32)
         return result
     }
 
@@ -52,7 +67,7 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
      * @returns {Boolean} 
      */
     IsInputValid(inputIndex) {
-        result := ComCall(9, this, "uint", inputIndex, "int")
+        result := ComCall(9, this, "uint", inputIndex, Int32)
         return result
     }
 
@@ -62,7 +77,7 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
      * @returns {Boolean} 
      */
     IsOutputValid(outputIndex) {
-        result := ComCall(10, this, "uint", outputIndex, "int")
+        result := ComCall(10, this, "uint", outputIndex, Int32)
         return result
     }
 
@@ -73,7 +88,7 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
      */
     GetInputEdgeDescription(inputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(11, this, "uint", inputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
         return edgeDescription
     }
 
@@ -110,5 +125,39 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
 
         result := ComCall(14, this, "uint", outputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMLOperatorShapeInferenceContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 1)
+        this.vtbl.IsInputValid := CallbackCreate(GetMethod(implObj, "IsInputValid"), flags, 2)
+        this.vtbl.IsOutputValid := CallbackCreate(GetMethod(implObj, "IsOutputValid"), flags, 2)
+        this.vtbl.GetInputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetInputEdgeDescription"), flags, 3)
+        this.vtbl.GetInputTensorDimensionCount := CallbackCreate(GetMethod(implObj, "GetInputTensorDimensionCount"), flags, 3)
+        this.vtbl.GetInputTensorShape := CallbackCreate(GetMethod(implObj, "GetInputTensorShape"), flags, 4)
+        this.vtbl.SetOutputTensorShape := CallbackCreate(GetMethod(implObj, "SetOutputTensorShape"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputCount)
+        CallbackFree(this.vtbl.GetOutputCount)
+        CallbackFree(this.vtbl.IsInputValid)
+        CallbackFree(this.vtbl.IsOutputValid)
+        CallbackFree(this.vtbl.GetInputEdgeDescription)
+        CallbackFree(this.vtbl.GetInputTensorDimensionCount)
+        CallbackFree(this.vtbl.GetInputTensorShape)
+        CallbackFree(this.vtbl.SetOutputTensorShape)
     }
 }

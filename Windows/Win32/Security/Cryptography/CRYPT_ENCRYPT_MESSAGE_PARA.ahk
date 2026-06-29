@@ -1,27 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information used to encrypt messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_encrypt_message_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct CRYPT_ENCRYPT_MESSAGE_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
@@ -34,12 +28,8 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
      */
-    dwMsgEncodingType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMsgEncodingType : UInt32
 
     /**
      * This member is not used and should be set to <b>NULL</b>.
@@ -50,15 +40,8 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
      * Unless there is a strong reason for passing in a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic provider</a> in <b>hCryptProv</b>, pass zero to use the default RSA or DSS provider.
      * 
      * This member's data type is <b>HCRYPTPROV</b>.
-     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get {
-            if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
-            return this.__hCryptProv
-        }
-    }
+    hCryptProv : HCRYPTPROV_LEGACY
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the encryption algorithm to use. The CSP specified by the <b>hCryptProv</b> must support this encryption algorithm.
@@ -76,15 +59,8 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
      * <div class="alert"><b>Note</b>  When a message is decrypted, if it has an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> parameter, the cryptographic message functions call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsetkeyparam">CryptSetKeyParam</a> with the <i>initialization vector</i> before decrypting.</div>
      * <div> </div>
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    ContentEncryptionAlgorithm {
-        get {
-            if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
-            return this.__ContentEncryptionAlgorithm
-        }
-    }
+    ContentEncryptionAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A pointer to a 
@@ -92,12 +68,8 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_sp3_compatible_aux_info">CMSG_SP3_COMPATIBLE_AUX_INFO</a> structure for SP3-compatible encryption. For other than RC2 or SP3-compatible encryption, this member must be set to <b>NULL</b>.
      * 
      * If the <b>ContentEncryptionAlgorithm</b> member contains <b>szOID_RSA_RC4</b>, this member points to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_rc4_aux_info">CMSG_RC4_AUX_INFO</a> structure  that specifies the number of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">salt bytes</a> to be included.
-     * @type {Pointer<Void>}
      */
-    pvEncryptionAuxInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pvEncryptionAuxInfo : IntPtr
 
     /**
      * Normally set to zero. However, if the encoded output is to be a CMSG_ENVELOPED <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a> of an outer cryptographic message, such as a CMSG_SIGNED message, the CRYPT_MESSAGE_BARE_CONTENT_OUT_FLAG must be set. If it is not set, content will be encoded as an <i>inner content</i> type of CMSG_DATA.
@@ -105,24 +77,12 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
      * CRYPT_MESSAGE_ENCAPSULATED_CONTENT_OUT_FLAG can be set to encapsulate non-data <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a> within an OCTET STRING before encrypting.
      * 
      * CRYPT_MESSAGE_KEYID_RECIPIENT_FLAG can be set to identify recipients by their Key Identifier and not their Issuer and Serial Number.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwFlags : UInt32
 
     /**
      * Normally set to zero. The <b>dwInnerContentType</b> member must be set to set the cryptographic message types if the input to be encrypted is the encoded output of another cryptographic message such as CMSG_SIGNED.
-     * @type {Integer}
      */
-    dwInnerContentType {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwInnerContentType : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

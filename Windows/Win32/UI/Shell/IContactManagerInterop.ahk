@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\FLYOUT_PLACEMENT.ahk" { FLYOUT_PLACEMENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables access to ContactManager methods in an app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontactmanagerinterop
  * @namespace Windows.Win32.UI.Shell
  */
-class IContactManagerInterop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactManagerInterop extends IUnknown {
     /**
      * The interface identifier for IContactManagerInterop
      * @type {Guid}
      */
-    static IID => Guid("{99eacba7-e073-43b6-a896-55afe48a0833}")
+    static IID := Guid("{99eacba7-e073-43b6-a896-55afe48a0833}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactManagerInterop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShowContactCardForWindow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowContactCardForWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactManagerInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Displays the UI for a contact on the specified window.
@@ -121,9 +132,27 @@ class IContactManagerInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontactmanagerinterop-showcontactcardforwindow
      */
     ShowContactCardForWindow(appWindow, _contact, selection, preferredPlacement) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(3, this, "ptr", appWindow, "ptr", _contact, "ptr", selection, "int", preferredPlacement, "HRESULT")
+        result := ComCall(3, this, HWND, appWindow, "ptr", _contact, RECT.Ptr, selection, FLYOUT_PLACEMENT, preferredPlacement, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContactManagerInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowContactCardForWindow := CallbackCreate(GetMethod(implObj, "ShowContactCardForWindow"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowContactCardForWindow)
     }
 }

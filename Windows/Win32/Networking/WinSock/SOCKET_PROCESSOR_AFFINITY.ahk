@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Kernel\PROCESSOR_NUMBER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Kernel\PROCESSOR_NUMBER.ahk" { PROCESSOR_NUMBER }
 
 /**
  * Contains the association between a socket and an RSS processor core and NUMA node.
@@ -12,39 +11,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_processor_affinity
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_PROCESSOR_AFFINITY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct SOCKET_PROCESSOR_AFFINITY {
+    #StructPack 2
 
     /**
      * A structure to represent a system wide processor number. This <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure contains a
      * group number and relative processor number within the group.
-     * @type {PROCESSOR_NUMBER}
      */
-    Processor {
-        get {
-            if(!this.HasProp("__Processor"))
-                this.__Processor := PROCESSOR_NUMBER(0, this)
-            return this.__Processor
-        }
-    }
+    Processor : PROCESSOR_NUMBER
 
     /**
      * The NUMA node ID.
-     * @type {Integer}
      */
-    NumaNodeId {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NumaNodeId : UInt16
 
     /**
      * A value reserved for future use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : UInt16
+
 }

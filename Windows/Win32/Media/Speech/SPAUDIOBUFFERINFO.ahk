@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPAUDIOBUFFERINFO extends Win32Struct {
-    static sizeof => 12
+export default struct SPAUDIOBUFFERINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    ulMsMinNotification : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMsMinNotification {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulMsBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMsBufferSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulMsEventBias : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMsEventBias {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

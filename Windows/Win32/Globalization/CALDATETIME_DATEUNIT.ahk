@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Deprecated. Specifies the date units for adjusting the CALDATETIME structure.
  * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime-dateunit
  * @namespace Windows.Win32.Globalization
  */
-class CALDATETIME_DATEUNIT extends Win32Enum {
+export default struct CALDATETIME_DATEUNIT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

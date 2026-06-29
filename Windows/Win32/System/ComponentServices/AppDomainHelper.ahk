@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Binds a managed object to an application domain, which is an isolated environment where applications execute.
@@ -10,8 +9,7 @@
  * @see https://learn.microsoft.com/windows/win32/cossdk/appdomainhelper
  * @namespace Windows.Win32.System.ComponentServices
  */
-class AppDomainHelper extends Win32Struct {
-    static sizeof => 0
+export default struct AppDomainHelper {
+    #StructPack 1
 
-    static packingSize => 1
 }

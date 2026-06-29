@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASIKEV_PROJECTION_INFO_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\RASIKEV_PROJECTION_INFO_FLAGS.ahk" { RASIKEV_PROJECTION_INFO_FLAGS }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Contains projection information obtained during Internet Key Exchange (IKE) negotiation.
@@ -10,85 +9,43 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @architecture X64, Arm64
  */
-class RASIKEV2_PROJECTION_INFO extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct RASIKEV2_PROJECTION_INFO {
+    #StructPack 8
 
     /**
      * A value that specifies the result of IPv4 negotiation. A value of zero indicates an IPv4 address has been assigned successfully. A nonzero value indicates failure, and is the fatal error that occurred during negotiation.
-     * @type {Integer}
      */
-    dwIPv4NegotiationError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIPv4NegotiationError : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a>  structure  that contains a null-terminated Unicode string that specifies the IPv4 address of the local client. This string has the form "a.b.c.d". <b>ipv4Address</b> is valid only if <b>dwIPv4NegotiationError</b> is zero.
-     * @type {IN_ADDR}
      */
-    ipv4Address {
-        get {
-            if(!this.HasProp("__ipv4Address"))
-                this.__ipv4Address := IN_ADDR(4, this)
-            return this.__ipv4Address
-        }
-    }
+    ipv4Address : IN_ADDR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a> structure  that contains a null-terminated Unicode string that specifies the IPv4 address of the remote server. This string has the form "a.b.c.d". <b>ipv4ServerAddress</b> is valid only if <b>dwIPv4NegotiationError</b> is zero. If the address is not available, this member is an empty string.
-     * @type {IN_ADDR}
      */
-    ipv4ServerAddress {
-        get {
-            if(!this.HasProp("__ipv4ServerAddress"))
-                this.__ipv4ServerAddress := IN_ADDR(8, this)
-            return this.__ipv4ServerAddress
-        }
-    }
+    ipv4ServerAddress : IN_ADDR
 
     /**
      * A value that specifies the result of IPv6 negotiation. A value of zero indicates an IPv6 address has been negotiated successfully. A nonzero value indicates failure, and is the fatal error that occurred during negotiation.
-     * @type {Integer}
      */
-    dwIPv6NegotiationError {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwIPv6NegotiationError : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV6ADDR</a>  structure  that contains a null-terminated Unicode string that specifies the IPv6 address of the local client. <b>ipv6Address</b> is valid only if <b>dwIPv6NegotiationError</b> is zero.
-     * @type {IN6_ADDR}
      */
-    ipv6Address {
-        get {
-            if(!this.HasProp("__ipv6Address"))
-                this.__ipv6Address := IN6_ADDR(16, this)
-            return this.__ipv6Address
-        }
-    }
+    ipv6Address : IN6_ADDR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV6ADDR</a> structure  that contains a null-terminated Unicode string that specifies the IPv6 address of the remote server. <b>ipv6ServerAddress</b> is valid only if <b>dwIPv6NegotiationError</b> is zero. If the address is not available, this member is an empty string.
-     * @type {IN6_ADDR}
      */
-    ipv6ServerAddress {
-        get {
-            if(!this.HasProp("__ipv6ServerAddress"))
-                this.__ipv6ServerAddress := IN6_ADDR(32, this)
-            return this.__ipv6ServerAddress
-        }
-    }
+    ipv6ServerAddress : IN6_ADDR
 
     /**
      * A value that specifies the length, in bits, of the IPv6 address prefix.
-     * @type {Integer}
      */
-    dwPrefixLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwPrefixLength : UInt32
 
     /**
      * A value that specifies the authentication protocol used to authenticate the remote server. The following authentication protocols are supported:
@@ -120,29 +77,15 @@ class RASIKEV2_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwAuthenticationProtocol {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwAuthenticationProtocol : UInt32
 
     /**
      * A value that specifies the type identifier of the Extensible Authentication Protocol (EAP) used to authenticate the local client. The value of this member is valid only if <b>dwAuthenticationProtocol</b> is <b>RASIKEv2_AUTH_EAP</b>.
-     * @type {Integer}
      */
-    dwEapTypeId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwEapTypeId : UInt32
 
-    /**
-     * @type {RASIKEV_PROJECTION_INFO_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwFlags : RASIKEV_PROJECTION_INFO_FLAGS
 
     /**
      * A value that specifies the encryption method used in the connection. The following encryption methods are supported:
@@ -193,46 +136,27 @@ class RASIKEV2_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwEncryptionMethod {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwEncryptionMethod : UInt32
 
     /**
      * The number of available IPv4 addresses the server can switch to on the IKEv2 connection.
-     * @type {Integer}
      */
-    numIPv4ServerAddresses {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    numIPv4ServerAddresses : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a> structure that contains the available IPv4 addresses the server can switch to on the IKEv2 connection.
-     * @type {Pointer<IN_ADDR>}
      */
-    ipv4ServerAddresses {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ipv4ServerAddresses : IN_ADDR.Ptr
 
     /**
      * The number of available IPv6 addresses the server can switch to on the IKEv2 connection.
-     * @type {Integer}
      */
-    numIPv6ServerAddresses {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    numIPv6ServerAddresses : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV6ADDR</a> structure that contains the available IPv6 addresses the server can switch to on the IKEv2 connection.
-     * @type {Pointer<IN6_ADDR>}
      */
-    ipv6ServerAddresses {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ipv6ServerAddresses : IN6_ADDR.Ptr
+
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Provides service information for the specified Bluetooth service.
@@ -50,71 +49,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_set_service
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_SET_SERVICE extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct BTH_SET_SERVICE {
+    #StructPack 8
 
     /**
      * Version of the SDP. Clients set this member to 
      * BTH_SDP_VERSION.
-     * @type {Pointer<Integer>}
      */
-    pSdpVersion {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pSdpVersion : IntPtr
 
     /**
      * Handle to the SDP record. Corresponds to SDP ServiceRecordHandle. Returned by the add record operations, and subsequently used to delete the record.
-     * @type {Pointer<HANDLE>}
      */
-    pRecordHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pRecordHandle : HANDLE.Ptr
 
     /**
      * Class of device (COD) information. A 32-bit field of COD_SERVICE_* class of device bits associated with this SDP record. The system  combines these bits with COD bits from other service records and system characteristics.  The resulting class of device for the local radio is advertised when the radio is found during device inquiry. When the last SDP record associated with a particular service bit is deleted, that service bit is no longer reported in responses to future device inquiries.
      * 
      * The format and possible values for the COD field are defined in the <i>Bluetooth Assigned Numbers 1.1</i> portion of the Bluetooth specification, Section 1.2. (This resource may not be available in some languages and countries.) Corresponding macros and definitions for COD_SERVICE_* bits used by Windows are defined in Bthdef.h. For more information about class of device (COD), see <a href="https://docs.microsoft.com/windows/desktop/api/bthdef/ns-bthdef-bth_device_info">BTH_DEVICE_INFO</a>.
-     * @type {Integer}
      */
-    fCodService {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fCodService : UInt32
 
     /**
      * Reserved. Must be set to zero.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 5, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : UInt32[5]
 
     /**
      * Size, in bytes, of <b>pRecord</b>.
-     * @type {Integer}
      */
-    ulRecordLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulRecordLength : UInt32
 
     /**
      * SDP record, as defined by the Bluetooth specification.
-     * @type {Array<Integer>}
      */
-    pRecord {
-        get {
-            if(!this.HasProp("__pRecordProxyArray"))
-                this.__pRecordProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
-            return this.__pRecordProxyArray
-        }
-    }
+    pRecord : Int8[1]
+
 }

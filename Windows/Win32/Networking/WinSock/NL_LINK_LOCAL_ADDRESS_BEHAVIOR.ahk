@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NL_LINK_LOCAL_ADDRESS_BEHAVIOR enumeration type defines the link local address behavior.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_link_local_address_behavior
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NL_LINK_LOCAL_ADDRESS_BEHAVIOR extends Win32Enum {
+export default struct NL_LINK_LOCAL_ADDRESS_BEHAVIOR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A link local IP address should never be used.

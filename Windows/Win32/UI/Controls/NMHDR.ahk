@@ -1,50 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information about a notification message. (NMHDR)
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nmhdr
  * @namespace Windows.Win32.UI.Controls
  */
-class NMHDR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct NMHDR {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A window handle to the control sending the message.
-     * @type {HWND}
      */
-    hwndFrom {
-        get {
-            if(!this.HasProp("__hwndFrom"))
-                this.__hwndFrom := HWND(0, this)
-            return this.__hwndFrom
-        }
-    }
+    hwndFrom : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT_PTR</a></b>
      * 
      * An identifier of the control sending the message.
-     * @type {Pointer}
      */
-    idFrom {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    idFrom : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A notification code. This member can be one of the common notification codes (see Notifications under <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-reference">General Control Reference</a>), or it can be a control-specific notification code.
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    code : UInt32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRMENCODINGTYPE enumeration identifies possible encoding types used in licenses.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmencodingtype
  * @namespace Windows.Win32.Data.RightsManagement
  */
-class DRMENCODINGTYPE extends Win32Enum {
+export default struct DRMENCODINGTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Base 64 encoded value.

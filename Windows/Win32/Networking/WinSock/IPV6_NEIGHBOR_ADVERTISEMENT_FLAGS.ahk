@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -15,12 +12,9 @@ class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct {
      * - Override
      * - Solicited
      * - Router
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -53,23 +47,10 @@ class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct {
         get => (this._bitfield >> 7) & 0x1
         set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
+    Reserved2 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

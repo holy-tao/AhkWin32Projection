@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOB_OBJECT_CPU_RATE_CONTROL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOB_OBJECT_CPU_RATE_CONTROL.ahk" { JOB_OBJECT_CPU_RATE_CONTROL }
 
 /**
  * Contains CPU rate control information for a job object. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectCpuRateControlInformation information class.
@@ -11,48 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_cpu_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    ControlFlags : JOB_OBJECT_CPU_RATE_CONTROL
 
-    /**
-     * @type {JOB_OBJECT_CPU_RATE_CONTROL}
-     */
-    ControlFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CpuRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CpuRate {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Weight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MinRate {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaxRate {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+    static __New() {
+        DefineProp(this.Prototype, 'Weight', { type: UInt32, offset: 4 })
+        DefineProp(this.Prototype, 'MinRate', { type: UInt16, offset: 4 })
+        DefineProp(this.Prototype, 'MaxRate', { type: UInt16, offset: 6 })
+        this.DeleteProp("__New")
     }
 }

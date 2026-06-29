@@ -1,27 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIMAGELIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 
 /**
  * Contains information that describes rebar control characteristics.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rebarinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class REBARINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct REBARINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of this structure, in bytes. Your application must fill this member before sending any messages that use the address of this structure as a parameter.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -45,29 +38,14 @@ class REBARINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fMask : UInt32
 
     /**
      * Type: <b>HIMAGELIST</b>
      * 
      * Handle to an image list. The rebar control will use the specified image list to obtain images.
-     * @type {HIMAGELIST}
      */
-    himl {
-        get {
-            if(!this.HasProp("__himl"))
-                this.__himl := HIMAGELIST(8, this)
-            return this.__himl
-        }
-    }
+    himl : HIMAGELIST
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

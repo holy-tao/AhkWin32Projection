@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS3DVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DS3DVECTOR.ahk" { DS3DVECTOR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDS3D_LISTENER_ORIENTATION extends Win32Struct {
-    static sizeof => 24
+export default struct KSDS3D_LISTENER_ORIENTATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Front : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    Front {
-        get {
-            if(!this.HasProp("__Front"))
-                this.__Front := DS3DVECTOR(0, this)
-            return this.__Front
-        }
-    }
+    Top : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    Top {
-        get {
-            if(!this.HasProp("__Top"))
-                this.__Top := DS3DVECTOR(12, this)
-            return this.__Top
-        }
-    }
 }

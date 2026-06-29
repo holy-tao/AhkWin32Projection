@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MESSAGE_RESOURCE_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MESSAGE_RESOURCE_BLOCK.ahk" { MESSAGE_RESOURCE_BLOCK }
 
 /**
  * Contains information about formatted text for display as an error message or in a message box in a message table resource.
@@ -10,34 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_data
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MESSAGE_RESOURCE_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MESSAGE_RESOURCE_DATA {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-message_resource_block">MESSAGE_RESOURCE_BLOCK</a> structures.
-     * @type {Integer}
      */
-    NumberOfBlocks {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfBlocks : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-message_resource_block">MESSAGE_RESOURCE_BLOCK</a>[1]</b>
      * 
      * An array of structures. The array is the size indicated by the 
      * 					<b>NumberOfBlocks</b>  member.
-     * @type {MESSAGE_RESOURCE_BLOCK}
      */
-    Blocks {
-        get {
-            if(!this.HasProp("__BlocksProxyArray"))
-                this.__BlocksProxyArray := Win32FixedArray(this.ptr + 4, 1, MESSAGE_RESOURCE_BLOCK, "")
-            return this.__BlocksProxyArray
-        }
-    }
+    Blocks : MESSAGE_RESOURCE_BLOCK[1]
+
 }

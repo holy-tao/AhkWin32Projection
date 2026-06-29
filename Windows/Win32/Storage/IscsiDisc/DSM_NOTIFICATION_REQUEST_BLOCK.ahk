@@ -1,74 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MP_DEVICE_DATA_SET_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MP_DEVICE_DATA_SET_RANGE.ahk" { MP_DEVICE_DATA_SET_RANGE }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class DSM_NOTIFICATION_REQUEST_BLOCK extends Win32Struct {
-    static sizeof => 48
+export default struct DSM_NOTIFICATION_REQUEST_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NotifyFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NotifyFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataSetProfile : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSetProfile {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    DataSetRangesCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSetRangesCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DataSetRanges : MP_DEVICE_DATA_SET_RANGE[1]
 
-    /**
-     * @type {MP_DEVICE_DATA_SET_RANGE}
-     */
-    DataSetRanges {
-        get {
-            if(!this.HasProp("__DataSetRangesProxyArray"))
-                this.__DataSetRangesProxyArray := Win32FixedArray(this.ptr + 32, 1, MP_DEVICE_DATA_SET_RANGE, "")
-            return this.__DataSetRangesProxyArray
-        }
-    }
 }

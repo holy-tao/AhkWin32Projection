@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Acts as a container for the entire set of named qualifiers for a single property or entire object (a class or instance).
@@ -14,26 +19,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemqualifierset
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemQualifierSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemQualifierSet extends IUnknown {
     /**
      * The interface identifier for IWbemQualifierSet
      * @type {Guid}
      */
-    static IID => Guid("{dc12a680-737f-11cf-884d-00aa004b2e24}")
+    static IID := Guid("{dc12a680-737f-11cf-884d-00aa004b2e24}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemQualifierSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Get              : IntPtr
+        Put              : IntPtr
+        Delete           : IntPtr
+        GetNames         : IntPtr
+        BeginEnumeration : IntPtr
+        Next             : IntPtr
+        EndEnumeration   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Get", "Put", "Delete", "GetNames", "BeginEnumeration", "Next", "EndEnumeration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemQualifierSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemQualifierSet::Get method gets the specified named qualifier, if found.
@@ -54,7 +72,7 @@ class IWbemQualifierSet extends IUnknown {
 
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszName, "int", lFlags, "ptr", pVal, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(3, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -71,7 +89,7 @@ class IWbemQualifierSet extends IUnknown {
     Put(wszName, pVal, lFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(4, this, "ptr", wszName, "ptr", pVal, "int", lFlavor, "HRESULT")
+        result := ComCall(4, this, "ptr", wszName, VARIANT.Ptr, pVal, "int", lFlavor, "HRESULT")
         return result
     }
 
@@ -130,7 +148,7 @@ class IWbemQualifierSet extends IUnknown {
     Next(lFlags, pstrName, pVal, plFlavor) {
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "int", lFlags, "ptr", pstrName, "ptr", pVal, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(8, this, "int", lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -142,5 +160,37 @@ class IWbemQualifierSet extends IUnknown {
     EndEnumeration() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemQualifierSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 5)
+        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 3)
+        this.vtbl.BeginEnumeration := CallbackCreate(GetMethod(implObj, "BeginEnumeration"), flags, 2)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
+        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.Put)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetNames)
+        CallbackFree(this.vtbl.BeginEnumeration)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.EndEnumeration)
     }
 }

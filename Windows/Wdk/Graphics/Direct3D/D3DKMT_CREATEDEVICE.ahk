@@ -1,93 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_ALLOCATIONLIST.ahk
-#Include .\D3DDDI_PATCHLOCATIONLIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_ALLOCATIONLIST.ahk" { D3DDDI_ALLOCATIONLIST }
+#Import ".\D3DDDI_PATCHLOCATIONLIST.ahk" { D3DDDI_PATCHLOCATIONLIST }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CREATEDEVICE extends Win32Struct {
-    static sizeof => 72
+export default struct D3DKMT_CREATEDEVICE {
+    #StructPack 8
 
-    static packingSize => 8
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pAdapter {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCommandBuffer : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CommandBufferSize : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pCommandBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pAllocationList : D3DDDI_ALLOCATIONLIST.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    CommandBufferSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    AllocationListSize : UInt32
 
-    /**
-     * @type {Pointer<D3DDDI_ALLOCATIONLIST>}
-     */
-    pAllocationList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pPatchLocationList : D3DDDI_PATCHLOCATIONLIST.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    AllocationListSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PatchLocationListSize : UInt32
 
-    /**
-     * @type {Pointer<D3DDDI_PATCHLOCATIONLIST>}
-     */
-    pPatchLocationList {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PatchLocationListSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+    static __New() {
+        DefineProp(this.Prototype, 'pAdapter', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SpeechPartOfSpeech.ahk" { SpeechPartOfSpeech }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechLexiconType.ahk" { SpeechLexiconType }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechLexiconPronunciation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechLexiconPronunciation extends IDispatch {
     /**
      * The interface identifier for ISpeechLexiconPronunciation
      * @type {Guid}
      */
-    static IID => Guid("{95252c5d-9e43-4f4a-9899-48ee73352f9f}")
+    static IID := Guid("{95252c5d-9e43-4f4a-9899-48ee73352f9f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechLexiconPronunciation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type         : IntPtr
+        get_LangId       : IntPtr
+        get_PartOfSpeech : IntPtr
+        get_PhoneIds     : IntPtr
+        get_Symbolic     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "get_LangId", "get_PartOfSpeech", "get_PhoneIds", "get_Symbolic"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechLexiconPronunciation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {SpeechLexiconType} 
@@ -97,7 +111,7 @@ class ISpeechLexiconPronunciation extends IDispatch {
      */
     get_PhoneIds() {
         PhoneIds := VARIANT()
-        result := ComCall(10, this, "ptr", PhoneIds, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, PhoneIds, "HRESULT")
         return PhoneIds
     }
 
@@ -106,8 +120,36 @@ class ISpeechLexiconPronunciation extends IDispatch {
      * @returns {BSTR} 
      */
     get_Symbolic() {
-        Symbolic := BSTR()
-        result := ComCall(11, this, "ptr", Symbolic, "HRESULT")
+        Symbolic := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, Symbolic, "HRESULT")
         return Symbolic
+    }
+
+    Query(iid) {
+        if (ISpeechLexiconPronunciation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_LangId := CallbackCreate(GetMethod(implObj, "get_LangId"), flags, 2)
+        this.vtbl.get_PartOfSpeech := CallbackCreate(GetMethod(implObj, "get_PartOfSpeech"), flags, 2)
+        this.vtbl.get_PhoneIds := CallbackCreate(GetMethod(implObj, "get_PhoneIds"), flags, 2)
+        this.vtbl.get_Symbolic := CallbackCreate(GetMethod(implObj, "get_Symbolic"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_LangId)
+        CallbackFree(this.vtbl.get_PartOfSpeech)
+        CallbackFree(this.vtbl.get_PhoneIds)
+        CallbackFree(this.vtbl.get_Symbolic)
     }
 }

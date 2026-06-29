@@ -1,115 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class ImgErrorInfo extends Win32Struct {
-    static sizeof => 88
+export default struct ImgErrorInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    description : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    description {
-        get {
-            if(!this.HasProp("__description"))
-                this.__description := BSTR(0, this)
-            return this.__description
-        }
-    }
+    guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    helpContext : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    helpContext {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    helpFile : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    helpFile {
-        get {
-            if(!this.HasProp("__helpFile"))
-                this.__helpFile := BSTR(24, this)
-            return this.__helpFile
-        }
-    }
+    source : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    source {
-        get {
-            if(!this.HasProp("__source"))
-                this.__source := BSTR(32, this)
-            return this.__source
-        }
-    }
+    devDescription : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    devDescription {
-        get {
-            if(!this.HasProp("__devDescription"))
-                this.__devDescription := BSTR(40, this)
-            return this.__devDescription
-        }
-    }
+    errorID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    errorID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cUserParameters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cUserParameters {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    aUserParameters : BSTR.Ptr
 
-    /**
-     * @type {Pointer<BSTR>}
-     */
-    aUserParameters {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    userFallback : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    userFallback {
-        get {
-            if(!this.HasProp("__userFallback"))
-                this.__userFallback := BSTR(72, this)
-            return this.__userFallback
-        }
-    }
+    exceptionID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    exceptionID {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

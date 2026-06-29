@@ -1,41 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_INTERACTIVE_LOGON.ahk
-#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\KERB_LOGON_SUBMIT_TYPE.ahk" { KERB_LOGON_SUBMIT_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_INTERACTIVE_LOGON.ahk" { KERB_INTERACTIVE_LOGON }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information used to unlock a workstation that has been locked during an interactive logon session.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_interactive_unlock_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_INTERACTIVE_UNLOCK_LOGON extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct KERB_INTERACTIVE_UNLOCK_LOGON {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-kerb_interactive_logon">KERB_INTERACTIVE_LOGON</a> structure that specifies the interactive logon session. The <b>MessageType</b> member of the <b>KERB_INTERACTIVE_LOGON</b> structure must be set to <b>KerbWorkstationUnlockLogon</b>.
-     * @type {KERB_INTERACTIVE_LOGON}
      */
-    Logon {
-        get {
-            if(!this.HasProp("__Logon"))
-                this.__Logon := KERB_INTERACTIVE_LOGON(0, this)
-            return this.__Logon
-        }
-    }
+    Logon : KERB_INTERACTIVE_LOGON
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure that contains the identity of the user attempting to unlock the workstation.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(56, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
+
 }

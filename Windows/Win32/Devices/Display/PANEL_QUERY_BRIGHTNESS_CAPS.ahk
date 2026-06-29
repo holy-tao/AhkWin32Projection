@@ -1,22 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BRIGHTNESS_INTERFACE_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BRIGHTNESS_INTERFACE_VERSION.ahk" { BRIGHTNESS_INTERFACE_VERSION }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class PANEL_QUERY_BRIGHTNESS_CAPS extends Win32Struct {
-    static sizeof => 8
+export default struct PANEL_QUERY_BRIGHTNESS_CAPS {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {BRIGHTNESS_INTERFACE_VERSION}
-     */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : BRIGHTNESS_INTERFACE_VERSION
 
     /**
      * This bitfield backs the following members:
@@ -24,12 +15,9 @@ class PANEL_QUERY_BRIGHTNESS_CAPS extends Win32Struct {
      * - Adaptive
      * - NitsCalibrated
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -54,12 +42,8 @@ class PANEL_QUERY_BRIGHTNESS_CAPS extends Win32Struct {
         get => (this._bitfield >> 2) & 0x1
         set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

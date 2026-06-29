@@ -1,89 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_STACK_FRAME extends Win32Struct {
-    static sizeof => 128
+export default struct DEBUG_STACK_FRAME {
+    #StructPack 8
 
-    static packingSize => 8
+    InstructionOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InstructionOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReturnOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReturnOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FrameOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FrameOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    StackOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StackOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FuncTableEntry : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FuncTableEntry {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Params : Int64[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Params {
-        get {
-            if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
-            return this.__ParamsProxyArray
-        }
-    }
+    Reserved : Int64[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 72, 6, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Virtual : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Virtual {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    FrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FrameNumber {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
 }

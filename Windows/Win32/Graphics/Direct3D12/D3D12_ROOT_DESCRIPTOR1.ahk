@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_ROOT_DESCRIPTOR_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_ROOT_DESCRIPTOR_FLAGS.ahk" { D3D12_ROOT_DESCRIPTOR_FLAGS }
 
 /**
  * Describes descriptors inline in the root signature version 1.1 that appear in shaders.
@@ -13,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_descriptor1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_ROOT_DESCRIPTOR1 extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D12_ROOT_DESCRIPTOR1 {
+    #StructPack 4
 
     /**
      * The shader register.
-     * @type {Integer}
      */
-    ShaderRegister {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ShaderRegister : UInt32
 
     /**
      * The register space.
-     * @type {Integer}
      */
-    RegisterSpace {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RegisterSpace : UInt32
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags">D3D12_ROOT_DESCRIPTOR_FLAGS</a> that determine the volatility of descriptors and the data they reference.
-     * @type {D3D12_ROOT_DESCRIPTOR_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Flags : D3D12_ROOT_DESCRIPTOR_FLAGS
+
 }

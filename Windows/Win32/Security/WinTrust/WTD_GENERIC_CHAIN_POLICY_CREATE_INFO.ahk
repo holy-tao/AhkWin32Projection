@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\HCERTCHAINENGINE.ahk
-#Include ..\Cryptography\CERT_CHAIN_PARA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Cryptography\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
+#Import "..\Cryptography\CERT_CHAIN_PARA.ahk" { CERT_CHAIN_PARA }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct WTD_GENERIC_CHAIN_POLICY_CREATE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hChainEngine : HCERTCHAINENGINE
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pChainPara : CERT_CHAIN_PARA.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 4
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {HCERTCHAINENGINE}
-     */
-    hChainEngine {
-        get {
-            if(!this.HasProp("__hChainEngine"))
-                this.__hChainEngine := HCERTCHAINENGINE(8, this)
-            return this.__hChainEngine
-        }
-    }
+    pvReserved : IntPtr
 
-    /**
-     * @type {Pointer<CERT_CHAIN_PARA>}
-     */
-    pChainPara {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvReserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'cbSize', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

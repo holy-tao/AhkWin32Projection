@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DBCOST.ahk" { DBCOST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ICommandCost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICommandCost extends IUnknown {
     /**
      * The interface identifier for ICommandCost
      * @type {Guid}
      */
-    static IID => Guid("{0c733a4e-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a4e-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICommandCost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAccumulatedCost : IntPtr
+        GetCostEstimate    : IntPtr
+        GetCostGoals       : IntPtr
+        GetCostLimits      : IntPtr
+        SetCostGoals       : IntPtr
+        SetCostLimits      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAccumulatedCost", "GetCostEstimate", "GetCostGoals", "GetCostLimits", "SetCostGoals", "SetCostLimits"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICommandCost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -54,7 +69,7 @@ class ICommandCost extends IUnknown {
 
         pcCostEstimatesMarshal := pcCostEstimates is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwszRowsetName, pcCostEstimatesMarshal, pcCostEstimates, "ptr", prgCostEstimates, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszRowsetName, pcCostEstimatesMarshal, pcCostEstimates, DBCOST.Ptr, prgCostEstimates, "HRESULT")
         return result
     }
 
@@ -70,7 +85,7 @@ class ICommandCost extends IUnknown {
 
         pcCostGoalsMarshal := pcCostGoals is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwszRowsetName, pcCostGoalsMarshal, pcCostGoals, "ptr", prgCostGoals, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszRowsetName, pcCostGoalsMarshal, pcCostGoals, DBCOST.Ptr, prgCostGoals, "HRESULT")
         return result
     }
 
@@ -86,7 +101,7 @@ class ICommandCost extends IUnknown {
 
         pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr", prgCostLimits, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, DBCOST.Ptr, prgCostLimits, "HRESULT")
         return result
     }
 
@@ -100,7 +115,7 @@ class ICommandCost extends IUnknown {
     SetCostGoals(pwszRowsetName, cCostGoals, rgCostGoals) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(7, this, "ptr", pwszRowsetName, "uint", cCostGoals, "ptr", rgCostGoals, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszRowsetName, "uint", cCostGoals, DBCOST.Ptr, rgCostGoals, "HRESULT")
         return result
     }
 
@@ -115,7 +130,37 @@ class ICommandCost extends IUnknown {
     SetCostLimits(pwszRowsetName, cCostLimits, prgCostLimits, dwExecutionFlags) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(8, this, "ptr", pwszRowsetName, "uint", cCostLimits, "ptr", prgCostLimits, "uint", dwExecutionFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszRowsetName, "uint", cCostLimits, DBCOST.Ptr, prgCostLimits, "uint", dwExecutionFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICommandCost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAccumulatedCost := CallbackCreate(GetMethod(implObj, "GetAccumulatedCost"), flags, 4)
+        this.vtbl.GetCostEstimate := CallbackCreate(GetMethod(implObj, "GetCostEstimate"), flags, 4)
+        this.vtbl.GetCostGoals := CallbackCreate(GetMethod(implObj, "GetCostGoals"), flags, 4)
+        this.vtbl.GetCostLimits := CallbackCreate(GetMethod(implObj, "GetCostLimits"), flags, 4)
+        this.vtbl.SetCostGoals := CallbackCreate(GetMethod(implObj, "SetCostGoals"), flags, 4)
+        this.vtbl.SetCostLimits := CallbackCreate(GetMethod(implObj, "SetCostLimits"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAccumulatedCost)
+        CallbackFree(this.vtbl.GetCostEstimate)
+        CallbackFree(this.vtbl.GetCostGoals)
+        CallbackFree(this.vtbl.GetCostLimits)
+        CallbackFree(this.vtbl.SetCostGoals)
+        CallbackFree(this.vtbl.SetCostLimits)
     }
 }

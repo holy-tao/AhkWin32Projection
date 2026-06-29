@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The WMT_WEBSTREAM_SAMPLE_HEADER structure is used as a variable-sized header for each Web stream sample.
@@ -10,53 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_webstream_sample_header
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMT_WEBSTREAM_SAMPLE_HEADER extends Win32Struct {
-    static sizeof => 10
-
-    static packingSize => 2
+export default struct WMT_WEBSTREAM_SAMPLE_HEADER {
+    #StructPack 2
 
     /**
      * <b>WORD</b> containing the size of <b>wszURL</b> in wide characters.
-     * @type {Integer}
      */
-    cbLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cbLength : UInt16
 
     /**
      * <b>WORD</b> containing the zero-based part number to which the sample applies. When the last part is received, <b>wPart</b> equals <b>cTotalParts</b>– 1.
-     * @type {Integer}
      */
-    wPart {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPart : UInt16
 
     /**
      * <b>WORD</b> containing the total number of parts in the Web stream.
-     * @type {Integer}
      */
-    cTotalParts {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    cTotalParts : UInt16
 
     /**
      * <b>WORD</b> containing the type of Web stream, either WEBSTREAM_SAMPLE_TYPE_FILE (0x1) or WEBSTREAM_SAMPLE_TYPE_RENDER (0x2). See Remarks.
-     * @type {Integer}
      */
-    wSampleType {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wSampleType : UInt16
 
     /**
      * Wide-character null-terminated string specifying the local URL.
-     * @type {String}
      */
-    wszURL {
-        get => StrGet(this.ptr + 8, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 0, "UTF-16")
-    }
+    wszURL : WCHAR[1]
+
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyCallback2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyCallback2.ahk" { IBackgroundCopyCallback2 }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 
 /**
  * Clients implement the IBackgroundCopyCallback3 interface to receive notification that ranges of a file have completed downloading.
  * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nn-bits10_1-ibackgroundcopycallback3
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyCallback3 extends IBackgroundCopyCallback2 {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyCallback3 extends IBackgroundCopyCallback2 {
     /**
      * The interface identifier for IBackgroundCopyCallback3
      * @type {Guid}
      */
-    static IID => Guid("{98c97bd2-e32b-4ad8-a528-95fd8b16bd42}")
+    static IID := Guid("{98c97bd2-e32b-4ad8-a528-95fd8b16bd42}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyCallback3 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyCallback2.Vtbl {
+        FileRangesTransferred : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FileRangesTransferred"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyCallback3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * BITS calls your implementation of the FileRangesTransferred method when one or more file ranges have been downloaded. File ranges are added to the job using the IBackgroundCopyFile6::RequestFileRanges method.
@@ -50,7 +61,27 @@ class IBackgroundCopyCallback3 extends IBackgroundCopyCallback2 {
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopycallback3-filerangestransferred
      */
     FileRangesTransferred(job, _file, rangeCount, ranges) {
-        result := ComCall(7, this, "ptr", job, "ptr", _file, "uint", rangeCount, "ptr", ranges, "HRESULT")
+        result := ComCall(7, this, "ptr", job, "ptr", _file, "uint", rangeCount, BG_FILE_RANGE.Ptr, ranges, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyCallback3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FileRangesTransferred := CallbackCreate(GetMethod(implObj, "FileRangesTransferred"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FileRangesTransferred)
     }
 }

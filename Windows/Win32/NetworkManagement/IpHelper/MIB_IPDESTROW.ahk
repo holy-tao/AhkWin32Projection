@@ -1,41 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPFORWARDROW.ahk
-#Include .\MIB_IPFORWARD_TYPE.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPFORWARD_TYPE.ahk" { MIB_IPFORWARD_TYPE }
+#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
+#Import "..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk" { NL_ROUTE_PROTOCOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPDESTROW extends Win32Struct {
-    static sizeof => 64
+export default struct MIB_IPDESTROW {
+    #StructPack 4
 
-    static packingSize => 4
+    ForwardRow : MIB_IPFORWARDROW
 
-    /**
-     * @type {MIB_IPFORWARDROW}
-     */
-    ForwardRow {
-        get {
-            if(!this.HasProp("__ForwardRow"))
-                this.__ForwardRow := MIB_IPFORWARDROW(0, this)
-            return this.__ForwardRow
-        }
-    }
+    dwForwardPreference : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwForwardPreference {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwForwardViewSet : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwForwardViewSet {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

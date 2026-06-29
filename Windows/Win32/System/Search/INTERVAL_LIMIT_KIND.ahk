@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * These values are returned by IInterval::GetLimits as pairs to specify a range with an upper and lower limit.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind
  * @namespace Windows.Win32.System.Search
  */
-class INTERVAL_LIMIT_KIND extends Win32Enum {
+export default struct INTERVAL_LIMIT_KIND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The value is included in the range. For example, an integer range of numbers that is equal to or greater than 3 and less than or equal to 6 includes both 3 and 6. So the values 3 and 6 would both be returned with <b>ILK_EXPLICIT_INCLUDED</b>.

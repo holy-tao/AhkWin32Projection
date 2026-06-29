@@ -1,91 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class MIMECPINFO extends Win32Struct {
-    static sizeof => 572
+export default struct MIMECPINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uiCodePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiCodePage {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uiFamilyCodePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiFamilyCodePage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wszDescription : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    wszDescription {
-        get => StrGet(this.ptr + 12, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 63, "UTF-16")
-    }
+    wszWebCharset : WCHAR[50]
 
-    /**
-     * @type {String}
-     */
-    wszWebCharset {
-        get => StrGet(this.ptr + 140, 49, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 49, "UTF-16")
-    }
+    wszHeaderCharset : WCHAR[50]
 
-    /**
-     * @type {String}
-     */
-    wszHeaderCharset {
-        get => StrGet(this.ptr + 240, 49, "UTF-16")
-        set => StrPut(value, this.ptr + 240, 49, "UTF-16")
-    }
+    wszBodyCharset : WCHAR[50]
 
-    /**
-     * @type {String}
-     */
-    wszBodyCharset {
-        get => StrGet(this.ptr + 340, 49, "UTF-16")
-        set => StrPut(value, this.ptr + 340, 49, "UTF-16")
-    }
+    wszFixedWidthFont : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    wszFixedWidthFont {
-        get => StrGet(this.ptr + 440, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 440, 31, "UTF-16")
-    }
+    wszProportionalFont : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    wszProportionalFont {
-        get => StrGet(this.ptr + 504, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 504, 31, "UTF-16")
-    }
+    bGDICharset : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bGDICharset {
-        get => NumGet(this, 568, "char")
-        set => NumPut("char", value, this, 568)
-    }
 }

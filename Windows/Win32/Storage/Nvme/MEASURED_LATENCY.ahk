@@ -1,107 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class MEASURED_LATENCY extends Win32Struct {
-    static sizeof => 24
+export default struct MEASURED_LATENCY {
+    #StructPack 2
 
-    static packingSize => 2
+    Trim3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Trim3 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Write3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Write3 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Read3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Read3 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Trim2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Trim2 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Write2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Write2 {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Read2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Read2 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Trim1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Trim1 {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    Write1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Write1 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Read1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Read1 {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Trim0 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Trim0 {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    Write0 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Write0 {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    Read0 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Read0 {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
 }

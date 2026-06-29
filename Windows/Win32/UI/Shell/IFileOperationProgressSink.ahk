@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide a rich notification system used by callers of IFileOperation to monitor the details of the operations they are performing through that interface.
@@ -63,26 +66,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileOperationProgressSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileOperationProgressSink extends IUnknown {
     /**
      * The interface identifier for IFileOperationProgressSink
      * @type {Guid}
      */
-    static IID => Guid("{04b0f1a7-9490-44bc-96e1-4296a31252e2}")
+    static IID := Guid("{04b0f1a7-9490-44bc-96e1-4296a31252e2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileOperationProgressSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartOperations  : IntPtr
+        FinishOperations : IntPtr
+        PreRenameItem    : IntPtr
+        PostRenameItem   : IntPtr
+        PreMoveItem      : IntPtr
+        PostMoveItem     : IntPtr
+        PreCopyItem      : IntPtr
+        PostCopyItem     : IntPtr
+        PreDeleteItem    : IntPtr
+        PostDeleteItem   : IntPtr
+        PreNewItem       : IntPtr
+        PostNewItem      : IntPtr
+        UpdateProgress   : IntPtr
+        ResetTimer       : IntPtr
+        PauseTimer       : IntPtr
+        ResumeTimer      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartOperations", "FinishOperations", "PreRenameItem", "PostRenameItem", "PreMoveItem", "PostMoveItem", "PreCopyItem", "PostCopyItem", "PreDeleteItem", "PostDeleteItem", "PreNewItem", "PostNewItem", "UpdateProgress", "ResetTimer", "PauseTimer", "ResumeTimer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileOperationProgressSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Performs caller-implemented actions before any specific file operations are performed.
@@ -453,5 +478,55 @@ class IFileOperationProgressSink extends IUnknown {
     ResumeTimer() {
         result := ComCall(18, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileOperationProgressSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartOperations := CallbackCreate(GetMethod(implObj, "StartOperations"), flags, 1)
+        this.vtbl.FinishOperations := CallbackCreate(GetMethod(implObj, "FinishOperations"), flags, 2)
+        this.vtbl.PreRenameItem := CallbackCreate(GetMethod(implObj, "PreRenameItem"), flags, 4)
+        this.vtbl.PostRenameItem := CallbackCreate(GetMethod(implObj, "PostRenameItem"), flags, 6)
+        this.vtbl.PreMoveItem := CallbackCreate(GetMethod(implObj, "PreMoveItem"), flags, 5)
+        this.vtbl.PostMoveItem := CallbackCreate(GetMethod(implObj, "PostMoveItem"), flags, 7)
+        this.vtbl.PreCopyItem := CallbackCreate(GetMethod(implObj, "PreCopyItem"), flags, 5)
+        this.vtbl.PostCopyItem := CallbackCreate(GetMethod(implObj, "PostCopyItem"), flags, 7)
+        this.vtbl.PreDeleteItem := CallbackCreate(GetMethod(implObj, "PreDeleteItem"), flags, 3)
+        this.vtbl.PostDeleteItem := CallbackCreate(GetMethod(implObj, "PostDeleteItem"), flags, 5)
+        this.vtbl.PreNewItem := CallbackCreate(GetMethod(implObj, "PreNewItem"), flags, 4)
+        this.vtbl.PostNewItem := CallbackCreate(GetMethod(implObj, "PostNewItem"), flags, 8)
+        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 3)
+        this.vtbl.ResetTimer := CallbackCreate(GetMethod(implObj, "ResetTimer"), flags, 1)
+        this.vtbl.PauseTimer := CallbackCreate(GetMethod(implObj, "PauseTimer"), flags, 1)
+        this.vtbl.ResumeTimer := CallbackCreate(GetMethod(implObj, "ResumeTimer"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartOperations)
+        CallbackFree(this.vtbl.FinishOperations)
+        CallbackFree(this.vtbl.PreRenameItem)
+        CallbackFree(this.vtbl.PostRenameItem)
+        CallbackFree(this.vtbl.PreMoveItem)
+        CallbackFree(this.vtbl.PostMoveItem)
+        CallbackFree(this.vtbl.PreCopyItem)
+        CallbackFree(this.vtbl.PostCopyItem)
+        CallbackFree(this.vtbl.PreDeleteItem)
+        CallbackFree(this.vtbl.PostDeleteItem)
+        CallbackFree(this.vtbl.PreNewItem)
+        CallbackFree(this.vtbl.PostNewItem)
+        CallbackFree(this.vtbl.UpdateProgress)
+        CallbackFree(this.vtbl.ResetTimer)
+        CallbackFree(this.vtbl.PauseTimer)
+        CallbackFree(this.vtbl.ResumeTimer)
     }
 }

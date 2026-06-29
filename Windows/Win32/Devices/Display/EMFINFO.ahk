@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class EMFINFO extends Win32Struct {
-    static sizeof => 32
+export default struct EMFINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    nSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hdc : HDC
 
-    /**
-     * @type {HDC}
-     */
-    hdc {
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(8, this)
-            return this.__hdc
-        }
-    }
+    pvEMF : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pvEMF {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvCurrentRecord : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pvCurrentRecord {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

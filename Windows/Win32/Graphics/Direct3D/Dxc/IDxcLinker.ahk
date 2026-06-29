@@ -1,32 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcOperationResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcLinker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcLinker extends IUnknown {
     /**
      * The interface identifier for IDxcLinker
      * @type {Guid}
      */
-    static IID => Guid("{f1b5be2a-62dd-4327-a1c2-42ac1e1e78e6}")
+    static IID := Guid("{f1b5be2a-62dd-4327-a1c2-42ac1e1e78e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcLinker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterLibrary : IntPtr
+        Link            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterLibrary", "Link"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcLinker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -42,11 +53,7 @@ class IDxcLinker extends IUnknown {
     }
 
     /**
-     * Registers a window class that allows for the SysLink common control to be used in a window.
-     * @remarks
-     * This function does not have an associated header or library file so it must be called by ordinal value. Call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name Shell32.dll to obtain a module handle. Then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the ordinal number 258 to use this function.
      * 
-     * Use [**LinkWindow\_UnregisterClass**](linkwindow-unregisterclass.md) to unregister the class after use.
      * @param {PWSTR} pEntryName 
      * @param {PWSTR} pTargetProfile 
      * @param {Pointer<PWSTR>} pLibNames 
@@ -54,7 +61,6 @@ class IDxcLinker extends IUnknown {
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @returns {IDxcOperationResult} 
-     * @see https://learn.microsoft.com/windows/win32/shell/linkwindow-registerclass
      */
     Link(pEntryName, pTargetProfile, pLibNames, libCount, pArguments, argCount) {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
@@ -65,5 +71,27 @@ class IDxcLinker extends IUnknown {
 
         result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, "uint", libCount, pArgumentsMarshal, pArguments, "uint", argCount, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
+    }
+
+    Query(iid) {
+        if (IDxcLinker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterLibrary := CallbackCreate(GetMethod(implObj, "RegisterLibrary"), flags, 3)
+        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterLibrary)
+        CallbackFree(this.vtbl.Link)
     }
 }

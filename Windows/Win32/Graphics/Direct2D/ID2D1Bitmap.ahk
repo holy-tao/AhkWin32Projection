@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Image.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_POINT_2U.ahk" { D2D_POINT_2U }
+#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
 
 /**
  * Represents a bitmap that has been bound to an ID2D1RenderTarget.
@@ -23,26 +30,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Bitmap extends ID2D1Image {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Bitmap extends ID2D1Image {
     /**
      * The interface identifier for ID2D1Bitmap
      * @type {Guid}
      */
-    static IID => Guid("{a2296057-ea42-4099-983b-539fb6505426}")
+    static IID := Guid("{a2296057-ea42-4099-983b-539fb6505426}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Bitmap interfaces
+    */
+    struct Vtbl extends ID2D1Image.Vtbl {
+        GetSize              : IntPtr
+        GetPixelSize         : IntPtr
+        GetPixelFormat       : IntPtr
+        GetDpi               : IntPtr
+        CopyFromBitmap       : IntPtr
+        CopyFromRenderTarget : IntPtr
+        CopyFromMemory       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSize", "GetPixelSize", "GetPixelFormat", "GetDpi", "CopyFromBitmap", "CopyFromRenderTarget", "CopyFromMemory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Bitmap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the size, in device-independent pixels (DIPs), of the bitmap.
@@ -54,7 +74,7 @@ class ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-getsize
      */
     GetSize() {
-        result := ComCall(4, this, "ptr")
+        result := ComCall(4, this, D2D_SIZE_F)
         return result
     }
 
@@ -66,7 +86,7 @@ class ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-getpixelsize
      */
     GetPixelSize() {
-        result := ComCall(5, this, "ptr")
+        result := ComCall(5, this, D2D_SIZE_U)
         return result
     }
 
@@ -78,7 +98,7 @@ class ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-getpixelformat
      */
     GetPixelFormat() {
-        result := ComCall(6, this, "ptr")
+        result := ComCall(6, this, D2D1_PIXEL_FORMAT)
         return result
     }
 
@@ -123,7 +143,7 @@ class ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfrombitmap
      */
     CopyFromBitmap(destPoint, _bitmap, srcRect) {
-        result := ComCall(8, this, "ptr", destPoint, "ptr", _bitmap, "ptr", srcRect, "HRESULT")
+        result := ComCall(8, this, D2D_POINT_2U.Ptr, destPoint, "ptr", _bitmap, D2D_RECT_U.Ptr, srcRect, "HRESULT")
         return result
     }
 
@@ -150,7 +170,7 @@ class ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfromrendertarget
      */
     CopyFromRenderTarget(destPoint, renderTarget, srcRect) {
-        result := ComCall(9, this, "ptr", destPoint, "ptr", renderTarget, "ptr", srcRect, "HRESULT")
+        result := ComCall(9, this, D2D_POINT_2U.Ptr, destPoint, "ptr", renderTarget, D2D_RECT_U.Ptr, srcRect, "HRESULT")
         return result
     }
 
@@ -181,7 +201,39 @@ class ID2D1Bitmap extends ID2D1Image {
     CopyFromMemory(dstRect, srcData, pitch) {
         srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", dstRect, srcDataMarshal, srcData, "uint", pitch, "HRESULT")
+        result := ComCall(10, this, D2D_RECT_U.Ptr, dstRect, srcDataMarshal, srcData, "uint", pitch, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1Bitmap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 1)
+        this.vtbl.GetPixelSize := CallbackCreate(GetMethod(implObj, "GetPixelSize"), flags, 1)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 1)
+        this.vtbl.GetDpi := CallbackCreate(GetMethod(implObj, "GetDpi"), flags, 3)
+        this.vtbl.CopyFromBitmap := CallbackCreate(GetMethod(implObj, "CopyFromBitmap"), flags, 4)
+        this.vtbl.CopyFromRenderTarget := CallbackCreate(GetMethod(implObj, "CopyFromRenderTarget"), flags, 4)
+        this.vtbl.CopyFromMemory := CallbackCreate(GetMethod(implObj, "CopyFromMemory"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetPixelSize)
+        CallbackFree(this.vtbl.GetPixelFormat)
+        CallbackFree(this.vtbl.GetDpi)
+        CallbackFree(this.vtbl.CopyFromBitmap)
+        CallbackFree(this.vtbl.CopyFromRenderTarget)
+        CallbackFree(this.vtbl.CopyFromMemory)
     }
 }

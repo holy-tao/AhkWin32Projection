@@ -1,9 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DDevice9.ahk
-#Include .\IDirect3DResource9.ahk
-#Include .\IDirect3DSurface9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import ".\D3DCOMPOSERECTSOP.ahk" { D3DCOMPOSERECTSOP }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
 
 /**
  * Applications use the methods of the IDirect3DDevice9Ex interface to render primitives, create resources, work with system-level variables, adjust gamma ramp levels, work with palettes, and create shaders.
@@ -47,26 +61,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3ddevice9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DDevice9Ex extends IDirect3DDevice9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
     /**
      * The interface identifier for IDirect3DDevice9Ex
      * @type {Guid}
      */
-    static IID => Guid("{b18b10ce-2649-405a-870f-95f777d4313a}")
+    static IID := Guid("{b18b10ce-2649-405a-870f-95f777d4313a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 119
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DDevice9Ex interfaces
+    */
+    struct Vtbl extends IDirect3DDevice9.Vtbl {
+        SetConvolutionMonoKernel      : IntPtr
+        ComposeRects                  : IntPtr
+        PresentEx                     : IntPtr
+        GetGPUThreadPriority          : IntPtr
+        SetGPUThreadPriority          : IntPtr
+        WaitForVBlank                 : IntPtr
+        CheckResourceResidency        : IntPtr
+        SetMaximumFrameLatency        : IntPtr
+        GetMaximumFrameLatency        : IntPtr
+        CheckDeviceState              : IntPtr
+        CreateRenderTargetEx          : IntPtr
+        CreateOffscreenPlainSurfaceEx : IntPtr
+        CreateDepthStencilSurfaceEx   : IntPtr
+        ResetEx                       : IntPtr
+        GetDisplayModeEx              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetConvolutionMonoKernel", "ComposeRects", "PresentEx", "GetGPUThreadPriority", "SetGPUThreadPriority", "WaitForVBlank", "CheckResourceResidency", "SetMaximumFrameLatency", "GetMaximumFrameLatency", "CheckDeviceState", "CreateRenderTargetEx", "CreateOffscreenPlainSurfaceEx", "CreateDepthStencilSurfaceEx", "ResetEx", "GetDisplayModeEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DDevice9Ex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Prepare the texture sampler for monochrome convolution filtering on a single-color texture.
@@ -152,7 +187,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-composerects
      */
     ComposeRects(pSrc, pDst, pSrcRectDescs, NumRects, pDstRectDescs, Operation, Xoffset, Yoffset) {
-        result := ComCall(120, this, "ptr", pSrc, "ptr", pDst, "ptr", pSrcRectDescs, "uint", NumRects, "ptr", pDstRectDescs, "int", Operation, "int", Xoffset, "int", Yoffset, "HRESULT")
+        result := ComCall(120, this, "ptr", pSrc, "ptr", pDst, "ptr", pSrcRectDescs, "uint", NumRects, "ptr", pDstRectDescs, D3DCOMPOSERECTSOP, Operation, "int", Xoffset, "int", Yoffset, "HRESULT")
         return result
     }
 
@@ -209,9 +244,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex
      */
     PresentEx(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags) {
-        hDestWindowOverride := hDestWindowOverride is Win32Handle ? NumGet(hDestWindowOverride, "ptr") : hDestWindowOverride
-
-        result := ComCall(121, this, "ptr", pSourceRect, "ptr", pDestRect, "ptr", hDestWindowOverride, "ptr", pDirtyRegion, "uint", dwFlags, "HRESULT")
+        result := ComCall(121, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -350,9 +383,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkdevicestate
      */
     CheckDeviceState(hDestinationWindow) {
-        hDestinationWindow := hDestinationWindow is Win32Handle ? NumGet(hDestinationWindow, "ptr") : hDestinationWindow
-
-        result := ComCall(128, this, "ptr", hDestinationWindow, "HRESULT")
+        result := ComCall(128, this, HWND, hDestinationWindow, "HRESULT")
         return result
     }
 
@@ -394,7 +425,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createrendertargetex
      */
     CreateRenderTargetEx(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, pSharedHandle, Usage) {
-        result := ComCall(129, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Lockable, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
+        result := ComCall(129, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Lockable, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "uint", Usage, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -432,7 +463,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createoffscreenplainsurfaceex
      */
     CreateOffscreenPlainSurfaceEx(Width, Height, Format, Pool, pSharedHandle, Usage) {
-        result := ComCall(130, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
+        result := ComCall(130, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "uint", Usage, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -473,7 +504,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createdepthstencilsurfaceex
      */
     CreateDepthStencilSurfaceEx(Width, Height, Format, MultiSample, MultisampleQuality, Discard, pSharedHandle, Usage) {
-        result := ComCall(131, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Discard, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
+        result := ComCall(131, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Discard, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "uint", Usage, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -524,7 +555,7 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-resetex
      */
     ResetEx(pPresentationParameters, pFullscreenDisplayMode) {
-        result := ComCall(132, this, "ptr", pPresentationParameters, "ptr", pFullscreenDisplayMode, "HRESULT")
+        result := ComCall(132, this, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, D3DDISPLAYMODEEX.Ptr, pFullscreenDisplayMode, "HRESULT")
         return result
     }
 
@@ -547,7 +578,55 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9 {
     GetDisplayModeEx(iSwapChain, pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(133, this, "uint", iSwapChain, "ptr", pMode, pRotationMarshal, pRotation, "HRESULT")
+        result := ComCall(133, this, "uint", iSwapChain, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DDevice9Ex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetConvolutionMonoKernel := CallbackCreate(GetMethod(implObj, "SetConvolutionMonoKernel"), flags, 5)
+        this.vtbl.ComposeRects := CallbackCreate(GetMethod(implObj, "ComposeRects"), flags, 9)
+        this.vtbl.PresentEx := CallbackCreate(GetMethod(implObj, "PresentEx"), flags, 6)
+        this.vtbl.GetGPUThreadPriority := CallbackCreate(GetMethod(implObj, "GetGPUThreadPriority"), flags, 2)
+        this.vtbl.SetGPUThreadPriority := CallbackCreate(GetMethod(implObj, "SetGPUThreadPriority"), flags, 2)
+        this.vtbl.WaitForVBlank := CallbackCreate(GetMethod(implObj, "WaitForVBlank"), flags, 2)
+        this.vtbl.CheckResourceResidency := CallbackCreate(GetMethod(implObj, "CheckResourceResidency"), flags, 3)
+        this.vtbl.SetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
+        this.vtbl.CheckDeviceState := CallbackCreate(GetMethod(implObj, "CheckDeviceState"), flags, 2)
+        this.vtbl.CreateRenderTargetEx := CallbackCreate(GetMethod(implObj, "CreateRenderTargetEx"), flags, 10)
+        this.vtbl.CreateOffscreenPlainSurfaceEx := CallbackCreate(GetMethod(implObj, "CreateOffscreenPlainSurfaceEx"), flags, 8)
+        this.vtbl.CreateDepthStencilSurfaceEx := CallbackCreate(GetMethod(implObj, "CreateDepthStencilSurfaceEx"), flags, 10)
+        this.vtbl.ResetEx := CallbackCreate(GetMethod(implObj, "ResetEx"), flags, 3)
+        this.vtbl.GetDisplayModeEx := CallbackCreate(GetMethod(implObj, "GetDisplayModeEx"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetConvolutionMonoKernel)
+        CallbackFree(this.vtbl.ComposeRects)
+        CallbackFree(this.vtbl.PresentEx)
+        CallbackFree(this.vtbl.GetGPUThreadPriority)
+        CallbackFree(this.vtbl.SetGPUThreadPriority)
+        CallbackFree(this.vtbl.WaitForVBlank)
+        CallbackFree(this.vtbl.CheckResourceResidency)
+        CallbackFree(this.vtbl.SetMaximumFrameLatency)
+        CallbackFree(this.vtbl.GetMaximumFrameLatency)
+        CallbackFree(this.vtbl.CheckDeviceState)
+        CallbackFree(this.vtbl.CreateRenderTargetEx)
+        CallbackFree(this.vtbl.CreateOffscreenPlainSurfaceEx)
+        CallbackFree(this.vtbl.CreateDepthStencilSurfaceEx)
+        CallbackFree(this.vtbl.ResetEx)
+        CallbackFree(this.vtbl.GetDisplayModeEx)
     }
 }

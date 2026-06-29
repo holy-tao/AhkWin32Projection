@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_TRIGGER_TYPE.ahk
-#Include .\SERVICE_TRIGGER_ACTION.ahk
-#Include .\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_TRIGGER_TYPE.ahk" { SERVICE_TRIGGER_TYPE }
+#Import ".\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.ahk" { SERVICE_TRIGGER_SPECIFIC_DATA_ITEM }
+#Import ".\SERVICE_TRIGGER_ACTION.ahk" { SERVICE_TRIGGER_ACTION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Represents a service trigger event. This structure is used by the SERVICE_TRIGGER_INFO structure.
@@ -15,26 +15,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_TRIGGER extends Win32Struct {
-    static sizeof => 32
+export default struct SERVICE_TRIGGER {
+    #StructPack 8
 
-    static packingSize => 8
+    dwTriggerType : SERVICE_TRIGGER_TYPE
 
-    /**
-     * @type {SERVICE_TRIGGER_TYPE}
-     */
-    dwTriggerType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {SERVICE_TRIGGER_ACTION}
-     */
-    dwAction {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAction : SERVICE_TRIGGER_ACTION
 
     /**
      * Points to a GUID that identifies the trigger event subtype. The value of this member depends on the value of the <b>dwTriggerType</b> member. 
@@ -42,30 +28,19 @@ class SERVICE_TRIGGER extends Win32Struct {
      * If <b>dwTriggerType</b> is SERVICE_TRIGGER_TYPE_CUSTOM, <b>pTriggerSubtype</b> is the GUID that identifies the custom event provider. 
      * 
      * If <b>dwTriggerType</b> is SERVICE_TRIGGER_TYPE_DEVICE_INTERFACE_ARRIVAL, <b>pTriggerSubtype</b> is the GUID that identifies the device interface class.
-     * @type {Pointer<Guid>}
      */
-    pTriggerSubtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pTriggerSubtype : Guid.Ptr
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_trigger_specific_data_item">SERVICE_TRIGGER_SPECIFIC_DATA_ITEM</a> structures in the array pointed to by <i>pDataItems</i>. 
      * 
      * This member is valid only if the <b>dwDataType</b> member is SERVICE_TRIGGER_TYPE_CUSTOM, SERVICE_TRIGGER_TYPE_DEVICE_ARRIVAL, SERVICE_TRIGGER_TYPE_FIREWALL_PORT_EVENT, or SERVICE_TRIGGER_TYPE_NETWORK_ENDPOINT.
-     * @type {Integer}
      */
-    cDataItems {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cDataItems : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_trigger_specific_data_item">SERVICE_TRIGGER_SPECIFIC_DATA_ITEM</a> structures that contain trigger-specific data.
-     * @type {Pointer<SERVICE_TRIGGER_SPECIFIC_DATA_ITEM>}
      */
-    pDataItems {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pDataItems : SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.Ptr
+
 }

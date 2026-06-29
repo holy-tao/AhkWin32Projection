@@ -1,43 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PARAM_BUFFER structure describes the format of the parameter buffer that can be included in the CONTROL_SERVICE structure.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-param_buffer
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class PARAM_BUFFER extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct PARAM_BUFFER {
+    #StructPack 4
 
     /**
      * Parameter ID, as defined by INTSERV.
-     * @type {Integer}
      */
-    ParameterId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ParameterId : UInt32
 
     /**
      * Length of the entire <b>PARAM_BUFFER</b> structure.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
     /**
      * Buffer containing the parameter.
-     * @type {Array<Integer>}
      */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__BufferProxyArray
-        }
-    }
+    Buffer : Int8[1]
+
 }

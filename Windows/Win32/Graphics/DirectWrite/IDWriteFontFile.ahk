@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFileLoader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
+#Import ".\DWRITE_FONT_FILE_TYPE.ahk" { DWRITE_FONT_FILE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a font file. Applications such as font managers or font viewers can call IDWriteFontFile::Analyze to find out if a particular file is a font file, and whether it is a font type that is supported by the font system.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFile extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFile extends IUnknown {
     /**
      * The interface identifier for IDWriteFontFile
      * @type {Guid}
      */
-    static IID => Guid("{739d886a-cef5-47dc-8769-1a8b41bebbb0}")
+    static IID := Guid("{739d886a-cef5-47dc-8769-1a8b41bebbb0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFile interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetReferenceKey : IntPtr
+        GetLoader       : IntPtr
+        Analyze         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetReferenceKey", "GetLoader", "Analyze"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFile.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Obtains the pointer to the reference key of a font file. The returned pointer is valid until the font file object is released.
@@ -98,5 +111,29 @@ class IDWriteFontFile extends IUnknown {
 
         result := ComCall(5, this, isSupportedFontTypeMarshal, isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontFile.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetReferenceKey := CallbackCreate(GetMethod(implObj, "GetReferenceKey"), flags, 3)
+        this.vtbl.GetLoader := CallbackCreate(GetMethod(implObj, "GetLoader"), flags, 2)
+        this.vtbl.Analyze := CallbackCreate(GetMethod(implObj, "Analyze"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetReferenceKey)
+        CallbackFree(this.vtbl.GetLoader)
+        CallbackFree(this.vtbl.Analyze)
     }
 }

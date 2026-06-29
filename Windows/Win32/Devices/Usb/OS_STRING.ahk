@@ -1,59 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class OS_STRING extends Win32Struct {
-    static sizeof => 18
+export default struct OS_STRING {
+    #StructPack 2
 
-    static packingSize => 2
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    MicrosoftString : WCHAR[7]
 
-    /**
-     * @type {String}
-     */
-    MicrosoftString {
-        get => StrGet(this.ptr + 2, 6, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 6, "UTF-16")
-    }
+    bVendorCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bVendorCode {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bPad : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPad {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bFlags {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    static __New() {
+        DefineProp(this.Prototype, 'bFlags', { type: Int8, offset: 17 })
+        this.DeleteProp("__New")
     }
 }

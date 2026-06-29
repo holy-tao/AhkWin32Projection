@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDeviceFinderCallback interface allows the UPnP framework to communicate the results of an asynchronous search to an application.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevicefindercallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPDeviceFinderCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPDeviceFinderCallback extends IUnknown {
     /**
      * The interface identifier for IUPnPDeviceFinderCallback
      * @type {Guid}
      */
-    static IID => Guid("{415a984a-88b3-49f3-92af-0508bedf0d6c}")
+    static IID := Guid("{415a984a-88b3-49f3-92af-0508bedf0d6c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPDeviceFinderCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DeviceAdded    : IntPtr
+        DeviceRemoved  : IntPtr
+        SearchComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeviceAdded", "DeviceRemoved", "SearchComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPDeviceFinderCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The DeviceAdded method is invoked by the UPnP framework to notify the application that a device has been added to the network.
@@ -60,7 +72,7 @@ class IUPnPDeviceFinderCallback extends IUnknown {
     DeviceRemoved(lFindData, bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(4, this, "int", lFindData, "ptr", bstrUDN, "HRESULT")
+        result := ComCall(4, this, "int", lFindData, BSTR, bstrUDN, "HRESULT")
         return result
     }
 
@@ -79,5 +91,29 @@ class IUPnPDeviceFinderCallback extends IUnknown {
     SearchComplete(lFindData) {
         result := ComCall(5, this, "int", lFindData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPDeviceFinderCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeviceAdded := CallbackCreate(GetMethod(implObj, "DeviceAdded"), flags, 3)
+        this.vtbl.DeviceRemoved := CallbackCreate(GetMethod(implObj, "DeviceRemoved"), flags, 3)
+        this.vtbl.SearchComplete := CallbackCreate(GetMethod(implObj, "SearchComplete"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeviceAdded)
+        CallbackFree(this.vtbl.DeviceRemoved)
+        CallbackFree(this.vtbl.SearchComplete)
     }
 }

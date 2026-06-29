@@ -1,51 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_SUPL_NI_INFO extends Win32Struct {
-    static sizeof => 1308
+export default struct GNSS_SUPL_NI_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RequestorId : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    RequestorId {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
-    }
+    ClientName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    ClientName {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
-    }
+    SuplNiUrl : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    SuplNiUrl {
-        get => StrGet(this.ptr + 1048, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 1048, 259, "UTF-8")
-    }
 }

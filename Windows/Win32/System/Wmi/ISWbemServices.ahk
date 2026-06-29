@@ -1,41 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\ISWbemObject.ahk
-#Include .\ISWbemObjectSet.ahk
-#Include .\ISWbemEventSource.ahk
-#Include .\ISWbemSecurity.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISWbemObject.ahk" { ISWbemObject }
+#Import ".\ISWbemEventSource.ahk" { ISWbemEventSource }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemServices extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemServices extends IDispatch {
     /**
      * The interface identifier for ISWbemServices
      * @type {Guid}
      */
-    static IID => Guid("{76a6415c-cb41-11d1-8b02-00600806d9b6}")
+    static IID := Guid("{76a6415c-cb41-11d1-8b02-00600806d9b6}")
 
     /**
      * The class identifier for SWbemServices
      * @type {Guid}
      */
-    static CLSID => Guid("{04b83d63-21ae-11d2-8b33-00600806d9b6}")
+    static CLSID := Guid("{04b83d63-21ae-11d2-8b33-00600806d9b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemServices interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Get                        : IntPtr
+        GetAsync                   : IntPtr
+        Delete                     : IntPtr
+        DeleteAsync                : IntPtr
+        InstancesOf                : IntPtr
+        InstancesOfAsync           : IntPtr
+        SubclassesOf               : IntPtr
+        SubclassesOfAsync          : IntPtr
+        ExecQuery                  : IntPtr
+        ExecQueryAsync             : IntPtr
+        AssociatorsOf              : IntPtr
+        AssociatorsOfAsync         : IntPtr
+        ReferencesTo               : IntPtr
+        ReferencesToAsync          : IntPtr
+        ExecNotificationQuery      : IntPtr
+        ExecNotificationQueryAsync : IntPtr
+        ExecMethod                 : IntPtr
+        ExecMethodAsync            : IntPtr
+        get_Security_              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Get", "GetAsync", "Delete", "DeleteAsync", "InstancesOf", "InstancesOfAsync", "SubclassesOf", "SubclassesOfAsync", "ExecQuery", "ExecQueryAsync", "AssociatorsOf", "AssociatorsOfAsync", "ReferencesTo", "ReferencesToAsync", "ExecNotificationQuery", "ExecNotificationQueryAsync", "ExecMethod", "ExecMethodAsync", "get_Security_"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISWbemSecurity} 
@@ -55,120 +83,37 @@ class ISWbemServices extends IDispatch {
     Get(strObjectPath, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(7, this, "ptr", strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObject := 0, "HRESULT")
         return ISWbemObject(objWbemObject)
     }
 
     /**
-     * Determines whether a key is up or down at the time the function is called, and whether the key was pressed after a previous call to GetAsyncKeyState.
-     * @remarks
-     * The <b>GetAsyncKeyState</b> function works with mouse buttons. However, it checks on the state of the physical mouse buttons, not on the logical mouse buttons that the physical buttons are mapped to. For example, the call <b>GetAsyncKeyState</b>(VK_LBUTTON) always returns the state of the left physical mouse button, regardless of whether it is mapped to the left or right logical mouse button. You can determine the system's current mapping of physical mouse buttons to logical mouse buttons by calling <c>GetSystemMetrics(SM_SWAPBUTTON)</c>.
      * 
-     * which returns TRUE if the mouse buttons have been swapped.
-     * 
-     * Although the least significant bit of the return value indicates whether the key has been pressed since the last query, due to the preemptive multitasking nature of Windows, another application can call <b>GetAsyncKeyState</b> and receive the "recently pressed" bit instead of your application. The behavior of the least significant bit of the return value is retained strictly for compatibility with 16-bit Windows applications (which are non-preemptive) and should not be relied upon.
-     * 
-     * You can use the virtual-key code constants <b>VK_SHIFT</b>, <b>VK_CONTROL</b>, and <b>VK_MENU</b> as values for the 
-     *     <i>vKey</i> parameter. This gives the state of the SHIFT, CTRL, or ALT keys without distinguishing between left and right.
-     * 
-     * You can use the following virtual-key code constants as values for 
-     *     <i>vKey</i> to distinguish between the left and right instances of those keys.
-     * 
-     * <table class="clsStd">
-     * <tr>
-     * <th>Code</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td><b>VK_LSHIFT</b></td>
-     * <td>
-     * Left-shift key.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>VK_RSHIFT</b></td>
-     * <td>
-     * Right-shift key.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>VK_LCONTROL</b></td>
-     * <td>
-     * Left-control key.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>VK_RCONTROL</b></td>
-     * <td>
-     * Right-control key.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>VK_LMENU</b></td>
-     * <td>
-     * Left-menu key.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>VK_RMENU</b></td>
-     * <td>
-     * Right-menu key.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * These left- and right-distinguishing constants are only available when you call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getkeyboardstate">GetKeyboardState</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setkeyboardstate">SetKeyboardState</a>, <b>GetAsyncKeyState</b>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getkeystate">GetKeyState</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapvirtualkeya">MapVirtualKey</a> functions.
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @param {IDispatch} objWbemAsyncContext 
-     * @returns {HRESULT} Type: <b>SHORT</b>
-     * 
-     * If the function succeeds, the return value specifies whether the key was pressed since the last call to <b>GetAsyncKeyState</b>, and whether the key is currently up or down. If the most significant bit is set, the key is down, and if the least significant bit is set, the key was pressed after the previous call to <b>GetAsyncKeyState</b>. However, you should not rely on this last behavior; for more information, see the Remarks.
-     * 
-     * The return value is zero for the following cases:
-     * 
-     * <ul>
-     * <li>The current desktop is not the active desktop</li>
-     * <li>The foreground thread belongs to another process and the desktop does not allow the hook or the journal record.</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getasynckeystate
+     * @returns {HRESULT} 
      */
     GetAsync(objWbemSink, strObjectPath, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(8, this, "ptr", objWbemSink, "ptr", strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(8, this, "ptr", objWbemSink, BSTR, strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
+     * 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete(strObjectPath, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(9, this, "ptr", strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
+        result := ComCall(9, this, BSTR, strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
         return result
     }
 
@@ -184,7 +129,7 @@ class ISWbemServices extends IDispatch {
     DeleteAsync(objWbemSink, strObjectPath, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(10, this, "ptr", objWbemSink, "ptr", strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(10, this, "ptr", objWbemSink, BSTR, strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -198,7 +143,7 @@ class ISWbemServices extends IDispatch {
     InstancesOf(strClass, iFlags, objWbemNamedValueSet) {
         strClass := strClass is String ? BSTR.Alloc(strClass).Value : strClass
 
-        result := ComCall(11, this, "ptr", strClass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, strClass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -214,7 +159,7 @@ class ISWbemServices extends IDispatch {
     InstancesOfAsync(objWbemSink, strClass, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
         strClass := strClass is String ? BSTR.Alloc(strClass).Value : strClass
 
-        result := ComCall(12, this, "ptr", objWbemSink, "ptr", strClass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(12, this, "ptr", objWbemSink, BSTR, strClass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -228,7 +173,7 @@ class ISWbemServices extends IDispatch {
     SubclassesOf(strSuperclass, iFlags, objWbemNamedValueSet) {
         strSuperclass := strSuperclass is String ? BSTR.Alloc(strSuperclass).Value : strSuperclass
 
-        result := ComCall(13, this, "ptr", strSuperclass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, strSuperclass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -244,7 +189,7 @@ class ISWbemServices extends IDispatch {
     SubclassesOfAsync(objWbemSink, strSuperclass, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
         strSuperclass := strSuperclass is String ? BSTR.Alloc(strSuperclass).Value : strSuperclass
 
-        result := ComCall(14, this, "ptr", objWbemSink, "ptr", strSuperclass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(14, this, "ptr", objWbemSink, BSTR, strSuperclass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -260,7 +205,7 @@ class ISWbemServices extends IDispatch {
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
 
-        result := ComCall(15, this, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, strQuery, BSTR, strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -278,7 +223,7 @@ class ISWbemServices extends IDispatch {
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
 
-        result := ComCall(16, this, "ptr", objWbemSink, "ptr", strQuery, "ptr", strQueryLanguage, "int", lFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(16, this, "ptr", objWbemSink, BSTR, strQuery, BSTR, strQueryLanguage, "int", lFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -306,7 +251,7 @@ class ISWbemServices extends IDispatch {
         strRequiredAssocQualifier := strRequiredAssocQualifier is String ? BSTR.Alloc(strRequiredAssocQualifier).Value : strRequiredAssocQualifier
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(17, this, "ptr", strObjectPath, "ptr", strAssocClass, "ptr", strResultClass, "ptr", strResultRole, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredAssocQualifier, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, strObjectPath, BSTR, strAssocClass, BSTR, strResultClass, BSTR, strResultRole, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredAssocQualifier, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -336,7 +281,7 @@ class ISWbemServices extends IDispatch {
         strRequiredAssocQualifier := strRequiredAssocQualifier is String ? BSTR.Alloc(strRequiredAssocQualifier).Value : strRequiredAssocQualifier
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(18, this, "ptr", objWbemSink, "ptr", strObjectPath, "ptr", strAssocClass, "ptr", strResultClass, "ptr", strResultRole, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredAssocQualifier, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(18, this, "ptr", objWbemSink, BSTR, strObjectPath, BSTR, strAssocClass, BSTR, strResultClass, BSTR, strResultRole, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredAssocQualifier, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -358,7 +303,7 @@ class ISWbemServices extends IDispatch {
         strRole := strRole is String ? BSTR.Alloc(strRole).Value : strRole
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(19, this, "ptr", strObjectPath, "ptr", strResultClass, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, strObjectPath, BSTR, strResultClass, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -382,7 +327,7 @@ class ISWbemServices extends IDispatch {
         strRole := strRole is String ? BSTR.Alloc(strRole).Value : strRole
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(20, this, "ptr", objWbemSink, "ptr", strObjectPath, "ptr", strResultClass, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(20, this, "ptr", objWbemSink, BSTR, strObjectPath, BSTR, strResultClass, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -398,7 +343,7 @@ class ISWbemServices extends IDispatch {
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
 
-        result := ComCall(21, this, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemEventSource := 0, "HRESULT")
+        result := ComCall(21, this, BSTR, strQuery, BSTR, strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemEventSource := 0, "HRESULT")
         return ISWbemEventSource(objWbemEventSource)
     }
 
@@ -416,7 +361,7 @@ class ISWbemServices extends IDispatch {
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
 
-        result := ComCall(22, this, "ptr", objWbemSink, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(22, this, "ptr", objWbemSink, BSTR, strQuery, BSTR, strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -433,7 +378,7 @@ class ISWbemServices extends IDispatch {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(23, this, "ptr", strObjectPath, "ptr", strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemOutParameters := 0, "HRESULT")
+        result := ComCall(23, this, BSTR, strObjectPath, BSTR, strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemOutParameters := 0, "HRESULT")
         return ISWbemObject(objWbemOutParameters)
     }
 
@@ -452,7 +397,7 @@ class ISWbemServices extends IDispatch {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(24, this, "ptr", objWbemSink, "ptr", strObjectPath, "ptr", strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(24, this, "ptr", objWbemSink, BSTR, strObjectPath, BSTR, strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -463,5 +408,61 @@ class ISWbemServices extends IDispatch {
     get_Security_() {
         result := ComCall(25, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
         return ISWbemSecurity(objWbemSecurity)
+    }
+
+    Query(iid) {
+        if (ISWbemServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 5)
+        this.vtbl.GetAsync := CallbackCreate(GetMethod(implObj, "GetAsync"), flags, 6)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 4)
+        this.vtbl.DeleteAsync := CallbackCreate(GetMethod(implObj, "DeleteAsync"), flags, 6)
+        this.vtbl.InstancesOf := CallbackCreate(GetMethod(implObj, "InstancesOf"), flags, 5)
+        this.vtbl.InstancesOfAsync := CallbackCreate(GetMethod(implObj, "InstancesOfAsync"), flags, 6)
+        this.vtbl.SubclassesOf := CallbackCreate(GetMethod(implObj, "SubclassesOf"), flags, 5)
+        this.vtbl.SubclassesOfAsync := CallbackCreate(GetMethod(implObj, "SubclassesOfAsync"), flags, 6)
+        this.vtbl.ExecQuery := CallbackCreate(GetMethod(implObj, "ExecQuery"), flags, 6)
+        this.vtbl.ExecQueryAsync := CallbackCreate(GetMethod(implObj, "ExecQueryAsync"), flags, 7)
+        this.vtbl.AssociatorsOf := CallbackCreate(GetMethod(implObj, "AssociatorsOf"), flags, 13)
+        this.vtbl.AssociatorsOfAsync := CallbackCreate(GetMethod(implObj, "AssociatorsOfAsync"), flags, 14)
+        this.vtbl.ReferencesTo := CallbackCreate(GetMethod(implObj, "ReferencesTo"), flags, 10)
+        this.vtbl.ReferencesToAsync := CallbackCreate(GetMethod(implObj, "ReferencesToAsync"), flags, 11)
+        this.vtbl.ExecNotificationQuery := CallbackCreate(GetMethod(implObj, "ExecNotificationQuery"), flags, 6)
+        this.vtbl.ExecNotificationQueryAsync := CallbackCreate(GetMethod(implObj, "ExecNotificationQueryAsync"), flags, 7)
+        this.vtbl.ExecMethod := CallbackCreate(GetMethod(implObj, "ExecMethod"), flags, 7)
+        this.vtbl.ExecMethodAsync := CallbackCreate(GetMethod(implObj, "ExecMethodAsync"), flags, 8)
+        this.vtbl.get_Security_ := CallbackCreate(GetMethod(implObj, "get_Security_"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.GetAsync)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.DeleteAsync)
+        CallbackFree(this.vtbl.InstancesOf)
+        CallbackFree(this.vtbl.InstancesOfAsync)
+        CallbackFree(this.vtbl.SubclassesOf)
+        CallbackFree(this.vtbl.SubclassesOfAsync)
+        CallbackFree(this.vtbl.ExecQuery)
+        CallbackFree(this.vtbl.ExecQueryAsync)
+        CallbackFree(this.vtbl.AssociatorsOf)
+        CallbackFree(this.vtbl.AssociatorsOfAsync)
+        CallbackFree(this.vtbl.ReferencesTo)
+        CallbackFree(this.vtbl.ReferencesToAsync)
+        CallbackFree(this.vtbl.ExecNotificationQuery)
+        CallbackFree(this.vtbl.ExecNotificationQueryAsync)
+        CallbackFree(this.vtbl.ExecMethod)
+        CallbackFree(this.vtbl.ExecMethodAsync)
+        CallbackFree(this.vtbl.get_Security_)
     }
 }

@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME.ahk
-#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE.ahk
-#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE.ahk" { CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE }
+#Import ".\CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME.ahk" { CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME }
+#Import ".\CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME.ahk" { CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT extends Win32Struct {
-    static sizeof => 1048
+export default struct CLUSTER_SHARED_VOLUME_RENAME_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Base : CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME
 
-    /**
-     * @type {CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(0, this)
-            return this.__Base
-        }
-    }
+    Base2 : CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME
 
-    /**
-     * @type {CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME}
-     */
-    Base2 {
-        get {
-            if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(528, this)
-            return this.__Base2
-        }
-    }
 }

@@ -1,15 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The maximum number of attendees that can connect to the session. (Get)
- * @remarks
- * The password is set when the invitation is created and can be modified using <b>put_AttendeeLimit</b>.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_attendeelimit
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class RDPSRAPIInvitation extends Win32Struct {
-    static sizeof => 0
+export default struct RDPSRAPIInvitation {
+    #StructPack 1
 
-    static packingSize => 1
 }

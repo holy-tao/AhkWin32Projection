@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaControl interface provides methods for controlling the flow of data through the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-imediacontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMediaControl extends IDispatch {
     /**
      * The interface identifier for IMediaControl
      * @type {Guid}
      */
-    static IID => Guid("{56a868b1-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b1-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Run                     : IntPtr
+        Pause                   : IntPtr
+        Stop                    : IntPtr
+        GetState                : IntPtr
+        RenderFile              : IntPtr
+        AddSourceFilter         : IntPtr
+        get_FilterCollection    : IntPtr
+        get_RegFilterCollection : IntPtr
+        StopWhenReady           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Run", "Pause", "Stop", "GetState", "RenderFile", "AddSourceFilter", "get_FilterCollection", "get_RegFilterCollection", "StopWhenReady"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -194,7 +211,7 @@ class IMediaControl extends IDispatch {
     RenderFile(strFilename) {
         strFilename := strFilename is String ? BSTR.Alloc(strFilename).Value : strFilename
 
-        result := ComCall(11, this, "ptr", strFilename, "HRESULT")
+        result := ComCall(11, this, BSTR, strFilename, "HRESULT")
         return result
     }
 
@@ -207,7 +224,7 @@ class IMediaControl extends IDispatch {
     AddSourceFilter(strFilename) {
         strFilename := strFilename is String ? BSTR.Alloc(strFilename).Value : strFilename
 
-        result := ComCall(12, this, "ptr", strFilename, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, strFilename, "ptr*", &ppUnk := 0, "HRESULT")
         return IDispatch(ppUnk)
     }
 
@@ -274,5 +291,41 @@ class IMediaControl extends IDispatch {
     StopWhenReady() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.RenderFile := CallbackCreate(GetMethod(implObj, "RenderFile"), flags, 2)
+        this.vtbl.AddSourceFilter := CallbackCreate(GetMethod(implObj, "AddSourceFilter"), flags, 3)
+        this.vtbl.get_FilterCollection := CallbackCreate(GetMethod(implObj, "get_FilterCollection"), flags, 2)
+        this.vtbl.get_RegFilterCollection := CallbackCreate(GetMethod(implObj, "get_RegFilterCollection"), flags, 2)
+        this.vtbl.StopWhenReady := CallbackCreate(GetMethod(implObj, "StopWhenReady"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.RenderFile)
+        CallbackFree(this.vtbl.AddSourceFilter)
+        CallbackFree(this.vtbl.get_FilterCollection)
+        CallbackFree(this.vtbl.get_RegFilterCollection)
+        CallbackFree(this.vtbl.StopWhenReady)
     }
 }

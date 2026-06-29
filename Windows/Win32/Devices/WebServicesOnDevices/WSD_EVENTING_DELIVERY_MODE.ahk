@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_EVENTING_DELIVERY_MODE_PUSH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_EVENTING_DELIVERY_MODE_PUSH.ahk" { WSD_EVENTING_DELIVERY_MODE_PUSH }
 
 /**
  * Represents the delivery mode used in a WS-Eventing Subscribe message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_delivery_mode
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_EVENTING_DELIVERY_MODE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WSD_EVENTING_DELIVERY_MODE {
+    #StructPack 8
 
     /**
      * Specifies the delivery mode for event delivery.
@@ -31,27 +29,14 @@ class WSD_EVENTING_DELIVERY_MODE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PWSTR}
      */
-    Mode {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Mode : PWSTR
 
-    /**
-     * @type {Pointer<WSD_EVENTING_DELIVERY_MODE_PUSH>}
-     */
-    Push {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Push : WSD_EVENTING_DELIVERY_MODE_PUSH.Ptr
 
     /**
      * A reference to the endpoint used for event delivery.
-     * @type {Pointer<Void>}
      */
-    Data {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data : IntPtr
+
 }

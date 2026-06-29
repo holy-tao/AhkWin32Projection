@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Base interface that provides methods for controlling a spatial audio object render stream, including starting, stopping, and resetting the stream.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectrenderstreambase
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioObjectRenderStreamBase extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioObjectRenderStreamBase extends IUnknown {
     /**
      * The interface identifier for ISpatialAudioObjectRenderStreamBase
      * @type {Guid}
      */
-    static IID => Guid("{feaaf403-c1d8-450d-aa05-e0ccee7502a8}")
+    static IID := Guid("{feaaf403-c1d8-450d-aa05-e0ccee7502a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioObjectRenderStreamBase interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAvailableDynamicObjectCount : IntPtr
+        GetService                     : IntPtr
+        Start                          : IntPtr
+        Stop                           : IntPtr
+        Reset                          : IntPtr
+        BeginUpdatingAudioObjects      : IntPtr
+        EndUpdatingAudioObjects        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAvailableDynamicObjectCount", "GetService", "Start", "Stop", "Reset", "BeginUpdatingAudioObjects", "EndUpdatingAudioObjects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioObjectRenderStreamBase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of dynamic spatial audio objects that are currently available.
@@ -71,7 +85,7 @@ class ISpatialAudioObjectRenderStreamBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-getservice
      */
     GetService(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &service := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, "ptr*", &service := 0, "HRESULT")
         return service
     }
 
@@ -527,5 +541,37 @@ class ISpatialAudioObjectRenderStreamBase extends IUnknown {
     EndUpdatingAudioObjects() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpatialAudioObjectRenderStreamBase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAvailableDynamicObjectCount := CallbackCreate(GetMethod(implObj, "GetAvailableDynamicObjectCount"), flags, 2)
+        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 3)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.BeginUpdatingAudioObjects := CallbackCreate(GetMethod(implObj, "BeginUpdatingAudioObjects"), flags, 3)
+        this.vtbl.EndUpdatingAudioObjects := CallbackCreate(GetMethod(implObj, "EndUpdatingAudioObjects"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAvailableDynamicObjectCount)
+        CallbackFree(this.vtbl.GetService)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.BeginUpdatingAudioObjects)
+        CallbackFree(this.vtbl.EndUpdatingAudioObjects)
     }
 }

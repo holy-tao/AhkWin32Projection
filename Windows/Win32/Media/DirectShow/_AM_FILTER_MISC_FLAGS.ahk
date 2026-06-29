@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The _AM_FILTER_MISC_FLAGS enumeration contains flags that indicate whether a filter is a source filter or a renderer filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_filter_misc_flags
  * @namespace Windows.Win32.Media.DirectShow
  */
-class _AM_FILTER_MISC_FLAGS extends Win32Enum {
+export default struct _AM_FILTER_MISC_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The filter is a renderer and sends an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-complete">EC_COMPLETE</a> event at the end of the stream.

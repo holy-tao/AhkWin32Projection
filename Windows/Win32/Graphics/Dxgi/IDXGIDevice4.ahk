@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDevice3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import ".\DXGI_RECLAIM_RESOURCE_RESULTS.ahk" { DXGI_RECLAIM_RESOURCE_RESULTS }
+#Import ".\IDXGIDevice3.ahk" { IDXGIDevice3 }
 
 /**
  * This interface provides updated methods to offer and reclaim resources.
@@ -18,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nn-dxgi1_5-idxgidevice4
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIDevice4 extends IDXGIDevice3 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIDevice4 extends IDXGIDevice3 {
     /**
      * The interface identifier for IDXGIDevice4
      * @type {Guid}
      */
-    static IID => Guid("{95b4f95f-d8da-4ca4-9ee6-3b76d5968a10}")
+    static IID := Guid("{95b4f95f-d8da-4ca4-9ee6-3b76d5968a10}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIDevice4 interfaces
+    */
+    struct Vtbl extends IDXGIDevice3.Vtbl {
+        OfferResources1   : IntPtr
+        ReclaimResources1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OfferResources1", "ReclaimResources1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIDevice4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows the operating system to free the video memory of resources, including both discarding the content and de-committing the memory.
@@ -73,7 +85,7 @@ class IDXGIDevice4 extends IDXGIDevice3 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-offerresources1
      */
     OfferResources1(NumResources, ppResources, _Priority, Flags) {
-        result := ComCall(18, this, "uint", NumResources, "ptr*", ppResources, "int", _Priority, "uint", Flags, "HRESULT")
+        result := ComCall(18, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, DXGI_OFFER_RESOURCE_PRIORITY, _Priority, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -95,7 +107,29 @@ class IDXGIDevice4 extends IDXGIDevice3 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-reclaimresources1
      */
     ReclaimResources1(NumResources, ppResources) {
-        result := ComCall(19, this, "uint", NumResources, "ptr*", ppResources, "int*", &pResults := 0, "HRESULT")
+        result := ComCall(19, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, "int*", &pResults := 0, "HRESULT")
         return pResults
+    }
+
+    Query(iid) {
+        if (IDXGIDevice4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OfferResources1 := CallbackCreate(GetMethod(implObj, "OfferResources1"), flags, 5)
+        this.vtbl.ReclaimResources1 := CallbackCreate(GetMethod(implObj, "ReclaimResources1"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OfferResources1)
+        CallbackFree(this.vtbl.ReclaimResources1)
     }
 }

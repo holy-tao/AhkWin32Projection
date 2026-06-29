@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSBUFFERDESC1 extends Win32Struct {
-    static sizeof => 24
+export default struct DSBUFFERDESC1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwBufferBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBufferBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpwfxFormat : WAVEFORMATEX.Ptr
 
-    /**
-     * @type {Pointer<WAVEFORMATEX>}
-     */
-    lpwfxFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

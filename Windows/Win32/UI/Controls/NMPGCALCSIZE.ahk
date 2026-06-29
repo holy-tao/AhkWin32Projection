@@ -1,62 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NMPGCALCSIZE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMPGCALCSIZE_FLAGS.ahk" { NMPGCALCSIZE_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains and receives information that the pager control uses to calculate the scrollable area of the contained window. It is used with the PGN_CALCSIZE notification.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpgcalcsize
  * @namespace Windows.Win32.UI.Controls
  */
-class NMPGCALCSIZE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct NMPGCALCSIZE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {NMPGCALCSIZE_FLAGS}
      */
-    dwFlag {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlag : NMPGCALCSIZE_FLAGS
 
     /**
      * Type: <b>int</b>
      * 
      * Receives the desired width of the scrollable area, in pixels.
-     * @type {Integer}
      */
-    iWidth {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    iWidth : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Receives the desired height of the scrollable area, in pixels.
-     * @type {Integer}
      */
-    iHeight {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    iHeight : Int32
+
 }

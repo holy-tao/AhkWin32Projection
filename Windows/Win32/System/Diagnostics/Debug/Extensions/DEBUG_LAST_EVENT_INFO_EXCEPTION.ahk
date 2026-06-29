@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\EXCEPTION_RECORD64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\EXCEPTION_RECORD64.ahk" { EXCEPTION_RECORD64 }
+#Import "..\..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_LAST_EVENT_INFO_EXCEPTION extends Win32Struct {
-    static sizeof => 160
+export default struct DEBUG_LAST_EVENT_INFO_EXCEPTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ExceptionRecord : EXCEPTION_RECORD64
 
-    /**
-     * @type {EXCEPTION_RECORD64}
-     */
-    ExceptionRecord {
-        get {
-            if(!this.HasProp("__ExceptionRecord"))
-                this.__ExceptionRecord := EXCEPTION_RECORD64(0, this)
-            return this.__ExceptionRecord
-        }
-    }
+    FirstChance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstChance {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
 }

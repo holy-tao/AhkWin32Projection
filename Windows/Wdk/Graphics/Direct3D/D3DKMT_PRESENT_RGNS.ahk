@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
-#Include .\D3DKMT_MOVE_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_MOVE_RECT.ahk" { D3DKMT_MOVE_RECT }
+#Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_PRESENT_RGNS extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMT_PRESENT_RGNS {
+    #StructPack 8
 
-    static packingSize => 8
+    DirtyRectCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DirtyRectCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pDirtyRects : RECT.Ptr
 
-    /**
-     * @type {Pointer<RECT>}
-     */
-    pDirtyRects {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MoveRectCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MoveRectCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pMoveRects : D3DKMT_MOVE_RECT.Ptr
 
-    /**
-     * @type {Pointer<D3DKMT_MOVE_RECT>}
-     */
-    pMoveRects {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

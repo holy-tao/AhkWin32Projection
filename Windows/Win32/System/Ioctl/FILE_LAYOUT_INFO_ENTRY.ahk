@@ -1,100 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_RESERVE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_RESERVE_ID.ahk" { STORAGE_RESERVE_ID }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FILE_LAYOUT_INFO_ENTRY extends Win32Struct {
-    static sizeof => 64
+export default struct FILE_LAYOUT_INFO_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _BasicInformation extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _BasicInformation {
+        CreationTime : Int64
 
-        /**
-         * @type {Integer}
-         */
-        CreationTime {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
+        LastAccessTime : Int64
 
-        /**
-         * @type {Integer}
-         */
-        LastAccessTime {
-            get => NumGet(this, 8, "int64")
-            set => NumPut("int64", value, this, 8)
-        }
+        LastWriteTime : Int64
 
-        /**
-         * @type {Integer}
-         */
-        LastWriteTime {
-            get => NumGet(this, 16, "int64")
-            set => NumPut("int64", value, this, 16)
-        }
+        ChangeTime : Int64
 
-        /**
-         * @type {Integer}
-         */
-        ChangeTime {
-            get => NumGet(this, 24, "int64")
-            set => NumPut("int64", value, this, 24)
-        }
+        FileAttributes : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        FileAttributes {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
     }
 
-    /**
-     * @type {_BasicInformation}
-     */
-    BasicInformation {
-        get {
-            if(!this.HasProp("__BasicInformation"))
-                this.__BasicInformation := FILE_LAYOUT_INFO_ENTRY._BasicInformation(0, this)
-            return this.__BasicInformation
-        }
-    }
+    BasicInformation : FILE_LAYOUT_INFO_ENTRY._BasicInformation
 
-    /**
-     * @type {Integer}
-     */
-    OwnerId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    OwnerId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecurityId {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    SecurityId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Usn {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    Usn : Int64
 
-    /**
-     * @type {STORAGE_RESERVE_ID}
-     */
-    StorageReserveId {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    StorageReserveId : STORAGE_RESERVE_ID
+
 }

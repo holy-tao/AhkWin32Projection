@@ -1,13 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Factory.ahk
-#Include .\ID2D1Device.ahk
-#Include .\ID2D1StrokeStyle1.ahk
-#Include .\ID2D1PathGeometry1.ahk
-#Include .\ID2D1DrawingStateBlock1.ahk
-#Include .\ID2D1GdiMetafile.ahk
-#Include .\ID2D1Properties.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1DrawingStateBlock1.ahk" { ID2D1DrawingStateBlock1 }
+#Import ".\ID2D1StrokeStyle1.ahk" { ID2D1StrokeStyle1 }
+#Import ".\ID2D1Factory.ahk" { ID2D1Factory }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\ID2D1PathGeometry1.ahk" { ID2D1PathGeometry1 }
+#Import ".\D2D1_PROPERTY_BINDING.ahk" { D2D1_PROPERTY_BINDING }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
+#Import ".\ID2D1Device.ahk" { ID2D1Device }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID2D1Properties.ahk" { ID2D1Properties }
+#Import ".\D2D1_DRAWING_STATE_DESCRIPTION1.ahk" { D2D1_DRAWING_STATE_DESCRIPTION1 }
+#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
+#Import ".\D2D1_STROKE_STYLE_PROPERTIES1.ahk" { D2D1_STROKE_STYLE_PROPERTIES1 }
 
 /**
  * Creates Direct2D resources. (ID2D1Factory1)
@@ -16,26 +24,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1factory1
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Factory1 extends ID2D1Factory {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Factory1 extends ID2D1Factory {
     /**
      * The interface identifier for ID2D1Factory1
      * @type {Guid}
      */
-    static IID => Guid("{bb12d362-daee-4b9a-aa1d-14ba401cfa1f}")
+    static IID := Guid("{bb12d362-daee-4b9a-aa1d-14ba401cfa1f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Factory1 interfaces
+    */
+    struct Vtbl extends ID2D1Factory.Vtbl {
+        CreateDevice             : IntPtr
+        CreateStrokeStyle        : IntPtr
+        CreatePathGeometry       : IntPtr
+        CreateDrawingStateBlock  : IntPtr
+        CreateGdiMetafile        : IntPtr
+        RegisterEffectFromStream : IntPtr
+        RegisterEffectFromString : IntPtr
+        UnregisterEffect         : IntPtr
+        GetRegisteredEffects     : IntPtr
+        GetEffectProperties      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateDevice", "CreateStrokeStyle", "CreatePathGeometry", "CreateDrawingStateBlock", "CreateGdiMetafile", "RegisterEffectFromStream", "RegisterEffectFromString", "UnregisterEffect", "GetRegisteredEffects", "GetEffectProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Factory1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a ID2D1Device object.
@@ -75,7 +99,7 @@ class ID2D1Factory1 extends ID2D1Factory {
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(18, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
+        result := ComCall(18, this, D2D1_STROKE_STYLE_PROPERTIES1.Ptr, strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
         return ID2D1StrokeStyle1(strokeStyle)
     }
 
@@ -105,7 +129,7 @@ class ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createdrawingstateblock(constd2d1_drawing_state_description1_idwriterenderingparams_id2d1drawingstateblock1)
      */
     CreateDrawingStateBlock(drawingStateDescription, textRenderingParams) {
-        result := ComCall(20, this, "ptr", drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
+        result := ComCall(20, this, D2D1_DRAWING_STATE_DESCRIPTION1.Ptr, drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
         return ID2D1DrawingStateBlock1(drawingStateBlock)
     }
 
@@ -188,7 +212,7 @@ class ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstream
      */
     RegisterEffectFromStream(classId, propertyXml, bindings, bindingsCount, effectFactory) {
-        result := ComCall(22, this, "ptr", classId, "ptr", propertyXml, "ptr", bindings, "uint", bindingsCount, "ptr", effectFactory, "HRESULT")
+        result := ComCall(22, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, "uint", bindingsCount, "ptr", effectFactory, "HRESULT")
         return result
     }
 
@@ -257,7 +281,7 @@ class ID2D1Factory1 extends ID2D1Factory {
     RegisterEffectFromString(classId, propertyXml, bindings, bindingsCount, effectFactory) {
         propertyXml := propertyXml is String ? StrPtr(propertyXml) : propertyXml
 
-        result := ComCall(23, this, "ptr", classId, "ptr", propertyXml, "ptr", bindings, "uint", bindingsCount, "ptr", effectFactory, "HRESULT")
+        result := ComCall(23, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, "uint", bindingsCount, "ptr", effectFactory, "HRESULT")
         return result
     }
 
@@ -276,7 +300,7 @@ class ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-unregistereffect
      */
     UnregisterEffect(classId) {
-        result := ComCall(24, this, "ptr", classId, "HRESULT")
+        result := ComCall(24, this, Guid.Ptr, classId, "HRESULT")
         return result
     }
 
@@ -326,7 +350,7 @@ class ID2D1Factory1 extends ID2D1Factory {
         effectsReturnedMarshal := effectsReturned is VarRef ? "uint*" : "ptr"
         effectsRegisteredMarshal := effectsRegistered is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "ptr", effects, "uint", effectsCount, effectsReturnedMarshal, effectsReturned, effectsRegisteredMarshal, effectsRegistered, "HRESULT")
+        result := ComCall(25, this, Guid.Ptr, effects, "uint", effectsCount, effectsReturnedMarshal, effectsReturned, effectsRegisteredMarshal, effectsRegistered, "HRESULT")
         return result
     }
 
@@ -350,7 +374,45 @@ class ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-geteffectproperties
      */
     GetEffectProperties(effectId) {
-        result := ComCall(26, this, "ptr", effectId, "ptr*", &_properties := 0, "HRESULT")
+        result := ComCall(26, this, Guid.Ptr, effectId, "ptr*", &_properties := 0, "HRESULT")
         return ID2D1Properties(_properties)
+    }
+
+    Query(iid) {
+        if (ID2D1Factory1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 3)
+        this.vtbl.CreateStrokeStyle := CallbackCreate(GetMethod(implObj, "CreateStrokeStyle"), flags, 5)
+        this.vtbl.CreatePathGeometry := CallbackCreate(GetMethod(implObj, "CreatePathGeometry"), flags, 2)
+        this.vtbl.CreateDrawingStateBlock := CallbackCreate(GetMethod(implObj, "CreateDrawingStateBlock"), flags, 4)
+        this.vtbl.CreateGdiMetafile := CallbackCreate(GetMethod(implObj, "CreateGdiMetafile"), flags, 3)
+        this.vtbl.RegisterEffectFromStream := CallbackCreate(GetMethod(implObj, "RegisterEffectFromStream"), flags, 6)
+        this.vtbl.RegisterEffectFromString := CallbackCreate(GetMethod(implObj, "RegisterEffectFromString"), flags, 6)
+        this.vtbl.UnregisterEffect := CallbackCreate(GetMethod(implObj, "UnregisterEffect"), flags, 2)
+        this.vtbl.GetRegisteredEffects := CallbackCreate(GetMethod(implObj, "GetRegisteredEffects"), flags, 5)
+        this.vtbl.GetEffectProperties := CallbackCreate(GetMethod(implObj, "GetEffectProperties"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateDevice)
+        CallbackFree(this.vtbl.CreateStrokeStyle)
+        CallbackFree(this.vtbl.CreatePathGeometry)
+        CallbackFree(this.vtbl.CreateDrawingStateBlock)
+        CallbackFree(this.vtbl.CreateGdiMetafile)
+        CallbackFree(this.vtbl.RegisterEffectFromStream)
+        CallbackFree(this.vtbl.RegisterEffectFromString)
+        CallbackFree(this.vtbl.UnregisterEffect)
+        CallbackFree(this.vtbl.GetRegisteredEffects)
+        CallbackFree(this.vtbl.GetEffectProperties)
     }
 }

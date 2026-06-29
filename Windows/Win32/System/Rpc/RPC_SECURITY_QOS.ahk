@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_C_QOS_CAPABILITIES.ahk
-#Include .\RPC_C_QOS_IDENTITY.ahk
-#Include ..\Com\RPC_C_IMP_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_C_QOS_IDENTITY.ahk" { RPC_C_QOS_IDENTITY }
+#Import ".\RPC_C_QOS_CAPABILITIES.ahk" { RPC_C_QOS_CAPABILITIES }
+#Import "..\Com\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
 
 /**
  * The RPC_SECURITY_QOS structure defines security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions.
@@ -31,19 +30,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_security_qos
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_SECURITY_QOS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct RPC_SECURITY_QOS {
+    #StructPack 4
 
     /**
      * Version of the <b>RPC_SECURITY_QOS</b> structure being used. This topic documents version 1 of the <b>RPC_SECURITY_QOS</b> structure. See <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v2_a">RPC_SECURITY_QOS_V2</a>, <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v3_a">RPC_SECURITY_QOS_V3</a>, <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v4_a">RPC_SECURITY_QOS_V4</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v5_a">RPC_SECURITY_QOS_V5</a> for other versions.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Security services being provided to the application. Capabilities is a set of flags that can be combined using the bitwise OR operator.
@@ -141,12 +134,8 @@ class RPC_SECURITY_QOS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_QOS_CAPABILITIES}
      */
-    Capabilities {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Capabilities : RPC_C_QOS_CAPABILITIES
 
     /**
      * Sets the context tracking mode. Should be set to one of the values shown in the following table. 
@@ -181,12 +170,8 @@ class RPC_SECURITY_QOS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_QOS_IDENTITY}
      */
-    IdentityTracking {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IdentityTracking : RPC_C_QOS_IDENTITY
 
     /**
      * Level at which the server process can impersonate the client.
@@ -251,10 +236,7 @@ class RPC_SECURITY_QOS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_IMP_LEVEL}
      */
-    ImpersonationType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ImpersonationType : RPC_C_IMP_LEVEL
+
 }

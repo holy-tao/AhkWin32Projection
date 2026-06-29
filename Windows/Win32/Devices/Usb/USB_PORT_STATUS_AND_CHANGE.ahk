@@ -1,47 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_PORT_STATUS.ahk
-#Include .\USB_20_PORT_STATUS.ahk
-#Include .\USB_30_PORT_STATUS.ahk
-#Include .\USB_PORT_CHANGE.ahk
-#Include .\USB_20_PORT_CHANGE.ahk
-#Include .\USB_30_PORT_CHANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_30_PORT_CHANGE.ahk" { USB_30_PORT_CHANGE }
+#Import ".\USB_30_PORT_STATUS.ahk" { USB_30_PORT_STATUS }
+#Import ".\USB_20_PORT_STATUS.ahk" { USB_20_PORT_STATUS }
+#Import ".\USB_PORT_STATUS.ahk" { USB_PORT_STATUS }
+#Import ".\USB_PORT_CHANGE.ahk" { USB_PORT_CHANGE }
+#Import ".\USB_20_PORT_CHANGE.ahk" { USB_20_PORT_CHANGE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_PORT_STATUS_AND_CHANGE extends Win32Struct {
-    static sizeof => 24
+export default struct USB_PORT_STATUS_AND_CHANGE {
+    #StructPack 1
 
-    static packingSize => 1
+    AsUlong32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PortChange : USB_PORT_CHANGE
 
-    /**
-     * @type {USB_PORT_STATUS}
-     */
-    PortStatus {
-        get {
-            if(!this.HasProp("__PortStatus"))
-                this.__PortStatus := USB_PORT_STATUS(0, this)
-            return this.__PortStatus
-        }
-    }
-
-    /**
-     * @type {USB_PORT_CHANGE}
-     */
-    PortChange {
-        get {
-            if(!this.HasProp("__PortChange"))
-                this.__PortChange := USB_PORT_CHANGE(10, this)
-            return this.__PortChange
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'PortStatus', { type: USB_PORT_STATUS, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

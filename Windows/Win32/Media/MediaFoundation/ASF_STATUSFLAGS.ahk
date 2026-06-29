@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines status conditions for the IMFASFSplitter::GetNextSample method.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-asf_statusflags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ASF_STATUSFLAGS extends Win32Enum {
+export default struct ASF_STATUSFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The operation is incomplete.

@@ -1,34 +1,91 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDvdCmd.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
+#Import ".\IDvdState.ahk" { IDvdState }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DVD_OPTION_FLAG.ahk" { DVD_OPTION_FLAG }
+#Import ".\DVD_RELATIVE_BUTTON.ahk" { DVD_RELATIVE_BUTTON }
+#Import ".\IDvdCmd.ahk" { IDvdCmd }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\DVD_MENU_ID.ahk" { DVD_MENU_ID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
 
 /**
  * The IDvdControl2 interface navigates and plays DVD-Video titles.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdcontrol2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDvdControl2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvdControl2 extends IUnknown {
     /**
      * The interface identifier for IDvdControl2
      * @type {Guid}
      */
-    static IID => Guid("{33bc7430-eec0-11d2-8201-00a0c9d74842}")
+    static IID := Guid("{33bc7430-eec0-11d2-8201-00a0c9d74842}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvdControl2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PlayTitle                          : IntPtr
+        PlayChapterInTitle                 : IntPtr
+        PlayAtTimeInTitle                  : IntPtr
+        Stop                               : IntPtr
+        ReturnFromSubmenu                  : IntPtr
+        PlayAtTime                         : IntPtr
+        PlayChapter                        : IntPtr
+        PlayPrevChapter                    : IntPtr
+        ReplayChapter                      : IntPtr
+        PlayNextChapter                    : IntPtr
+        PlayForwards                       : IntPtr
+        PlayBackwards                      : IntPtr
+        ShowMenu                           : IntPtr
+        Resume                             : IntPtr
+        SelectRelativeButton               : IntPtr
+        ActivateButton                     : IntPtr
+        SelectButton                       : IntPtr
+        SelectAndActivateButton            : IntPtr
+        StillOff                           : IntPtr
+        Pause                              : IntPtr
+        SelectAudioStream                  : IntPtr
+        SelectSubpictureStream             : IntPtr
+        SetSubpictureState                 : IntPtr
+        SelectAngle                        : IntPtr
+        SelectParentalLevel                : IntPtr
+        SelectParentalCountry              : IntPtr
+        SelectKaraokeAudioPresentationMode : IntPtr
+        SelectVideoModePreference          : IntPtr
+        SetDVDDirectory                    : IntPtr
+        ActivateAtPosition                 : IntPtr
+        SelectAtPosition                   : IntPtr
+        PlayChaptersAutoStop               : IntPtr
+        AcceptParentalLevelChange          : IntPtr
+        SetOption                          : IntPtr
+        SetState                           : IntPtr
+        PlayPeriodInTitleAutoStop          : IntPtr
+        SetGPRM                            : IntPtr
+        SelectDefaultMenuLanguage          : IntPtr
+        SelectDefaultAudioLanguage         : IntPtr
+        SelectDefaultSubpictureLanguage    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PlayTitle", "PlayChapterInTitle", "PlayAtTimeInTitle", "Stop", "ReturnFromSubmenu", "PlayAtTime", "PlayChapter", "PlayPrevChapter", "ReplayChapter", "PlayNextChapter", "PlayForwards", "PlayBackwards", "ShowMenu", "Resume", "SelectRelativeButton", "ActivateButton", "SelectButton", "SelectAndActivateButton", "StillOff", "Pause", "SelectAudioStream", "SelectSubpictureStream", "SetSubpictureState", "SelectAngle", "SelectParentalLevel", "SelectParentalCountry", "SelectKaraokeAudioPresentationMode", "SelectVideoModePreference", "SetDVDDirectory", "ActivateAtPosition", "SelectAtPosition", "PlayChaptersAutoStop", "AcceptParentalLevelChange", "SetOption", "SetState", "PlayPeriodInTitleAutoStop", "SetGPRM", "SelectDefaultMenuLanguage", "SelectDefaultAudioLanguage", "SelectDefaultSubpictureLanguage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvdControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The PlayTitle method starts playback from the beginning of the specified title.
@@ -132,7 +189,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playattimeintitle
      */
     PlayAtTimeInTitle(ulTitle, pStartTime, dwFlags) {
-        result := ComCall(5, this, "uint", ulTitle, "ptr", pStartTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(5, this, "uint", ulTitle, DVD_HMSF_TIMECODE.Ptr, pStartTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -258,7 +315,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playattime
      */
     PlayAtTime(pTime, dwFlags) {
-        result := ComCall(8, this, "ptr", pTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(8, this, DVD_HMSF_TIMECODE.Ptr, pTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -492,7 +549,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-showmenu
      */
     ShowMenu(MenuID, dwFlags) {
-        result := ComCall(15, this, "int", MenuID, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(15, this, DVD_MENU_ID, MenuID, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -600,7 +657,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectrelativebutton
      */
     SelectRelativeButton(buttonDir) {
-        result := ComCall(17, this, "int", buttonDir, "HRESULT")
+        result := ComCall(17, this, DVD_RELATIVE_BUTTON, buttonDir, "HRESULT")
         return result
     }
 
@@ -1010,7 +1067,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-pause
      */
     Pause(bState) {
-        result := ComCall(22, this, "int", bState, "HRESULT")
+        result := ComCall(22, this, BOOL, bState, "HRESULT")
         return result
     }
 
@@ -1135,7 +1192,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-setsubpicturestate
      */
     SetSubpictureState(bState, dwFlags) {
-        result := ComCall(25, this, "int", bState, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(25, this, BOOL, bState, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -1750,7 +1807,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-activateatposition
      */
     ActivateAtPosition(_point) {
-        result := ComCall(32, this, "ptr", _point, "HRESULT")
+        result := ComCall(32, this, POINT, _point, "HRESULT")
         return result
     }
 
@@ -1829,7 +1886,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectatposition
      */
     SelectAtPosition(_point) {
-        result := ComCall(33, this, "ptr", _point, "HRESULT")
+        result := ComCall(33, this, POINT, _point, "HRESULT")
         return result
     }
 
@@ -1890,7 +1947,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-acceptparentallevelchange
      */
     AcceptParentalLevelChange(bAccept) {
-        result := ComCall(35, this, "int", bAccept, "HRESULT")
+        result := ComCall(35, this, BOOL, bAccept, "HRESULT")
         return result
     }
 
@@ -1954,7 +2011,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-setoption
      */
     SetOption(flag, fState) {
-        result := ComCall(36, this, "int", flag, "int", fState, "HRESULT")
+        result := ComCall(36, this, DVD_OPTION_FLAG, flag, BOOL, fState, "HRESULT")
         return result
     }
 
@@ -2007,7 +2064,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playperiodintitleautostop
      */
     PlayPeriodInTitleAutoStop(ulTitle, pStartTime, pEndTime, dwFlags) {
-        result := ComCall(38, this, "uint", ulTitle, "ptr", pStartTime, "ptr", pEndTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(38, this, "uint", ulTitle, DVD_HMSF_TIMECODE.Ptr, pStartTime, DVD_HMSF_TIMECODE.Ptr, pEndTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -2174,7 +2231,7 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectdefaultaudiolanguage
      */
     SelectDefaultAudioLanguage(Language, audioExtension) {
-        result := ComCall(41, this, "uint", Language, "int", audioExtension, "HRESULT")
+        result := ComCall(41, this, "uint", Language, DVD_AUDIO_LANG_EXT, audioExtension, "HRESULT")
         return result
     }
 
@@ -2243,7 +2300,105 @@ class IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectdefaultsubpicturelanguage
      */
     SelectDefaultSubpictureLanguage(Language, subpictureExtension) {
-        result := ComCall(42, this, "uint", Language, "int", subpictureExtension, "HRESULT")
+        result := ComCall(42, this, "uint", Language, DVD_SUBPICTURE_LANG_EXT, subpictureExtension, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDvdControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PlayTitle := CallbackCreate(GetMethod(implObj, "PlayTitle"), flags, 4)
+        this.vtbl.PlayChapterInTitle := CallbackCreate(GetMethod(implObj, "PlayChapterInTitle"), flags, 5)
+        this.vtbl.PlayAtTimeInTitle := CallbackCreate(GetMethod(implObj, "PlayAtTimeInTitle"), flags, 5)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.ReturnFromSubmenu := CallbackCreate(GetMethod(implObj, "ReturnFromSubmenu"), flags, 3)
+        this.vtbl.PlayAtTime := CallbackCreate(GetMethod(implObj, "PlayAtTime"), flags, 4)
+        this.vtbl.PlayChapter := CallbackCreate(GetMethod(implObj, "PlayChapter"), flags, 4)
+        this.vtbl.PlayPrevChapter := CallbackCreate(GetMethod(implObj, "PlayPrevChapter"), flags, 3)
+        this.vtbl.ReplayChapter := CallbackCreate(GetMethod(implObj, "ReplayChapter"), flags, 3)
+        this.vtbl.PlayNextChapter := CallbackCreate(GetMethod(implObj, "PlayNextChapter"), flags, 3)
+        this.vtbl.PlayForwards := CallbackCreate(GetMethod(implObj, "PlayForwards"), flags, 4)
+        this.vtbl.PlayBackwards := CallbackCreate(GetMethod(implObj, "PlayBackwards"), flags, 4)
+        this.vtbl.ShowMenu := CallbackCreate(GetMethod(implObj, "ShowMenu"), flags, 4)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 3)
+        this.vtbl.SelectRelativeButton := CallbackCreate(GetMethod(implObj, "SelectRelativeButton"), flags, 2)
+        this.vtbl.ActivateButton := CallbackCreate(GetMethod(implObj, "ActivateButton"), flags, 1)
+        this.vtbl.SelectButton := CallbackCreate(GetMethod(implObj, "SelectButton"), flags, 2)
+        this.vtbl.SelectAndActivateButton := CallbackCreate(GetMethod(implObj, "SelectAndActivateButton"), flags, 2)
+        this.vtbl.StillOff := CallbackCreate(GetMethod(implObj, "StillOff"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 2)
+        this.vtbl.SelectAudioStream := CallbackCreate(GetMethod(implObj, "SelectAudioStream"), flags, 4)
+        this.vtbl.SelectSubpictureStream := CallbackCreate(GetMethod(implObj, "SelectSubpictureStream"), flags, 4)
+        this.vtbl.SetSubpictureState := CallbackCreate(GetMethod(implObj, "SetSubpictureState"), flags, 4)
+        this.vtbl.SelectAngle := CallbackCreate(GetMethod(implObj, "SelectAngle"), flags, 4)
+        this.vtbl.SelectParentalLevel := CallbackCreate(GetMethod(implObj, "SelectParentalLevel"), flags, 2)
+        this.vtbl.SelectParentalCountry := CallbackCreate(GetMethod(implObj, "SelectParentalCountry"), flags, 2)
+        this.vtbl.SelectKaraokeAudioPresentationMode := CallbackCreate(GetMethod(implObj, "SelectKaraokeAudioPresentationMode"), flags, 2)
+        this.vtbl.SelectVideoModePreference := CallbackCreate(GetMethod(implObj, "SelectVideoModePreference"), flags, 2)
+        this.vtbl.SetDVDDirectory := CallbackCreate(GetMethod(implObj, "SetDVDDirectory"), flags, 2)
+        this.vtbl.ActivateAtPosition := CallbackCreate(GetMethod(implObj, "ActivateAtPosition"), flags, 2)
+        this.vtbl.SelectAtPosition := CallbackCreate(GetMethod(implObj, "SelectAtPosition"), flags, 2)
+        this.vtbl.PlayChaptersAutoStop := CallbackCreate(GetMethod(implObj, "PlayChaptersAutoStop"), flags, 6)
+        this.vtbl.AcceptParentalLevelChange := CallbackCreate(GetMethod(implObj, "AcceptParentalLevelChange"), flags, 2)
+        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 4)
+        this.vtbl.PlayPeriodInTitleAutoStop := CallbackCreate(GetMethod(implObj, "PlayPeriodInTitleAutoStop"), flags, 6)
+        this.vtbl.SetGPRM := CallbackCreate(GetMethod(implObj, "SetGPRM"), flags, 5)
+        this.vtbl.SelectDefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultMenuLanguage"), flags, 2)
+        this.vtbl.SelectDefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultAudioLanguage"), flags, 3)
+        this.vtbl.SelectDefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultSubpictureLanguage"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PlayTitle)
+        CallbackFree(this.vtbl.PlayChapterInTitle)
+        CallbackFree(this.vtbl.PlayAtTimeInTitle)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.ReturnFromSubmenu)
+        CallbackFree(this.vtbl.PlayAtTime)
+        CallbackFree(this.vtbl.PlayChapter)
+        CallbackFree(this.vtbl.PlayPrevChapter)
+        CallbackFree(this.vtbl.ReplayChapter)
+        CallbackFree(this.vtbl.PlayNextChapter)
+        CallbackFree(this.vtbl.PlayForwards)
+        CallbackFree(this.vtbl.PlayBackwards)
+        CallbackFree(this.vtbl.ShowMenu)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.SelectRelativeButton)
+        CallbackFree(this.vtbl.ActivateButton)
+        CallbackFree(this.vtbl.SelectButton)
+        CallbackFree(this.vtbl.SelectAndActivateButton)
+        CallbackFree(this.vtbl.StillOff)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.SelectAudioStream)
+        CallbackFree(this.vtbl.SelectSubpictureStream)
+        CallbackFree(this.vtbl.SetSubpictureState)
+        CallbackFree(this.vtbl.SelectAngle)
+        CallbackFree(this.vtbl.SelectParentalLevel)
+        CallbackFree(this.vtbl.SelectParentalCountry)
+        CallbackFree(this.vtbl.SelectKaraokeAudioPresentationMode)
+        CallbackFree(this.vtbl.SelectVideoModePreference)
+        CallbackFree(this.vtbl.SetDVDDirectory)
+        CallbackFree(this.vtbl.ActivateAtPosition)
+        CallbackFree(this.vtbl.SelectAtPosition)
+        CallbackFree(this.vtbl.PlayChaptersAutoStop)
+        CallbackFree(this.vtbl.AcceptParentalLevelChange)
+        CallbackFree(this.vtbl.SetOption)
+        CallbackFree(this.vtbl.SetState)
+        CallbackFree(this.vtbl.PlayPeriodInTitleAutoStop)
+        CallbackFree(this.vtbl.SetGPRM)
+        CallbackFree(this.vtbl.SelectDefaultMenuLanguage)
+        CallbackFree(this.vtbl.SelectDefaultAudioLanguage)
+        CallbackFree(this.vtbl.SelectDefaultSubpictureLanguage)
     }
 }

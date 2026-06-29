@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * BLUETOOTH_AUTHENTICATION_REQUIREMENTS enumeration specifies the 'Man in the Middle' protection required for authentication.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_requirements
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_AUTHENTICATION_REQUIREMENTS extends Win32Enum {
+export default struct BLUETOOTH_AUTHENTICATION_REQUIREMENTS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Protection against a "Man in the Middle" attack is not required for authentication.

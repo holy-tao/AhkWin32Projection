@@ -1,126 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
-#Include .\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES }
+#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk" { D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk" { D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk" { D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk" { D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk" { D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk" { D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk" { D3D12_VIDEO_ENCODER_LEVELS_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk" { D3D12_VIDEO_ENCODER_PROFILE_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk" { D3D12_VIDEO_ENCODER_AV1_PROFILE }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk" { D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE }
+#Import ".\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk" { D3D12_VIDEO_ENCODER_LEVEL_SETTING }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_HEVC }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct {
-    static sizeof => 144
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SessionInfo : D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO}
-     */
-    SessionInfo {
-        get {
-            if(!this.HasProp("__SessionInfo"))
-                this.__SessionInfo := D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO(8, this)
-            return this.__SessionInfo
-        }
-    }
+    MotionSearchMode : D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE}
-     */
-    MotionSearchMode {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    MapSource : D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE}
-     */
-    MapSource {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
+    BidirectionalRefFrameEnabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    BidirectionalRefFrameEnabled {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    SupportFlags : D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS}
-     */
-    SupportFlags {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    MaxMotionHints : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxMotionHints {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    MinDeviation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinDeviation {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    MaxDeviation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxDeviation {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    MapSourcePreferenceRanking : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MapSourcePreferenceRanking {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    MotionUnitPrecisionSupport : D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS}
-     */
-    MotionUnitPrecisionSupport {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
 }

@@ -1,78 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
-#Include .\DXVA_VideoProcessCaps.ahk
-#Include .\DXVA_DeinterlaceTech.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA_VideoProcessCaps.ahk" { DXVA_VideoProcessCaps }
+#Import ".\DXVA_DeinterlaceTech.ahk" { DXVA_DeinterlaceTech }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_DeinterlaceCaps extends Win32Struct {
-    static sizeof => 32
+export default struct DXVA_DeinterlaceCaps {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumPreviousOutputFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumPreviousOutputFrames {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InputPool : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputPool {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumForwardRefSamples : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumForwardRefSamples {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumBackwardRefSamples : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumBackwardRefSamples {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    d3dOutputFormat : D3DFORMAT
 
-    /**
-     * @type {D3DFORMAT}
-     */
-    d3dOutputFormat {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    VideoProcessingCaps : DXVA_VideoProcessCaps
 
-    /**
-     * @type {DXVA_VideoProcessCaps}
-     */
-    VideoProcessingCaps {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DeinterlaceTechnology : DXVA_DeinterlaceTech
 
-    /**
-     * @type {DXVA_DeinterlaceTech}
-     */
-    DeinterlaceTechnology {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

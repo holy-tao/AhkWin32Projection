@@ -1,35 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Defines a regions of interest.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-roi_area
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ROI_AREA extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct ROI_AREA {
+    #StructPack 4
 
     /**
      * The bounds of the region.
-     * @type {RECT}
      */
-    rect {
-        get {
-            if(!this.HasProp("__rect"))
-                this.__rect := RECT(0, this)
-            return this.__rect
-        }
-    }
+    rect : RECT
 
     /**
      * Specifies the  quantization parameter delta for the specified region from the rest of the frame.
-     * @type {Integer}
      */
-    QPDelta {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    QPDelta : Int32
+
 }

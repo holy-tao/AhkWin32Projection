@@ -1,103 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the result of an IPv6 control protocol negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ipv6_cp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class PPP_IPV6_CP_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct PPP_IPV6_CP_INFO {
+    #StructPack 4
 
     /**
      * The version of the <b>PPP_IPV6_CP_INFO</b> structure used.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size, in bytes, of this <b>PPP_IPV6_CP_INFO</b> structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies the result of the PPP control protocol negotiation. A value of zero indicates success. A nonzero value indicates failure, and is the actual fatal error that occurred during the control protocol negotiation.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwError : UInt32
 
     /**
      * Specifies the 64 bit interface identifier of the IPv6 server interface.
-     * @type {Array<Integer>}
      */
-    bInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
-                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")
-            return this.__bInterfaceIdentifierProxyArray
-        }
-    }
+    bInterfaceIdentifier : Int8[8]
 
     /**
      * Specifies the 64 bit interface identifier of the IPv6 client interface.
-     * @type {Array<Integer>}
      */
-    bRemoteInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bRemoteInterfaceIdentifierProxyArray"))
-                this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "char")
-            return this.__bRemoteInterfaceIdentifierProxyArray
-        }
-    }
+    bRemoteInterfaceIdentifier : Int8[8]
 
     /**
      * Reserved. Must be set to 0.
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwOptions : UInt32
 
     /**
      * Reserved. Must be set to 0.
-     * @type {Integer}
      */
-    dwRemoteOptions {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwRemoteOptions : UInt32
 
     /**
      * Specifies the address prefix of the IPv6 client interface.
-     * @type {Array<Integer>}
      */
-    bPrefix {
-        get {
-            if(!this.HasProp("__bPrefixProxyArray"))
-                this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 36, 8, Primitive, "char")
-            return this.__bPrefixProxyArray
-        }
-    }
+    bPrefix : Int8[8]
 
     /**
      * The length, in bits, of the address prefix.
-     * @type {Integer}
      */
-    dwPrefixLength {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwPrefixLength : UInt32
+
 }

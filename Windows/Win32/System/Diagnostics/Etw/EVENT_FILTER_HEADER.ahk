@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the header data that must precede the filter data that is defined in the instrumentation manifest.
@@ -21,43 +20,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_FILTER_HEADER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct EVENT_FILTER_HEADER {
+    #StructPack 8
 
     /**
      * The identifier that identifies the filter in the manifest for a schematized
      * filter. The **value** attribute of the **filter** element contains the
      * identifier.
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Id : UInt16
 
     /**
      * The version number of the filter for a schematized filter. The **version**
      * attribute of the **filter** element contains the version number.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Version : Int8
 
     /**
      * Reserved
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[5]
 
     /**
      * An identifier that identifies the session that passed the filter. ETW sets this
@@ -68,31 +50,20 @@ class EVENT_FILTER_HEADER extends Win32Struct {
      * prevent the event from being written to the session if the event data does not
      * match the filter criteria (the provider determines the semantics of how the
      * filter data is used in determining whether the event is written to the session).
-     * @type {Integer}
      */
-    InstanceId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InstanceId : Int64
 
     /**
      * The size, in bytes, of this header and the filter data that is appended to the
      * end of this header.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Size : UInt32
 
     /**
      * The offset from the beginning of this filter object to the next filter object.
      * The value is zero if there are no more filter blocks. ETW sets this value; the
      * session must set this member to zero.
-     * @type {Integer}
      */
-    NextOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NextOffset : UInt32
+
 }

@@ -1,39 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRITE_CACHE_TYPE.ahk
-#Include .\WRITE_CACHE_ENABLE.ahk
-#Include .\WRITE_CACHE_CHANGE.ahk
-#Include .\WRITE_THROUGH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WRITE_CACHE_CHANGE.ahk" { WRITE_CACHE_CHANGE }
+#Import ".\WRITE_CACHE_ENABLE.ahk" { WRITE_CACHE_ENABLE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WRITE_THROUGH.ahk" { WRITE_THROUGH }
+#Import ".\WRITE_CACHE_TYPE.ahk" { WRITE_CACHE_TYPE }
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve information about a device's write cache property.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_write_cache_property
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct STORAGE_WRITE_CACHE_PROPERTY {
+    #StructPack 4
 
     /**
      * Contains the size of this structure, in bytes. The value of this member will change as members are added to 
      *       the structure.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Specifies the total size of the data returned, in bytes. This may include data that follows this 
      *       structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-write_cache_type">WRITE_CACHE_TYPE</a> enumeration 
@@ -89,12 +79,8 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {WRITE_CACHE_TYPE}
      */
-    WriteCacheType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    WriteCacheType : WRITE_CACHE_TYPE
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-write_cache_enable">WRITE_CACHE_ENABLE</a> enumeration 
@@ -139,12 +125,8 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {WRITE_CACHE_ENABLE}
      */
-    WriteCacheEnabled {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    WriteCacheEnabled : WRITE_CACHE_ENABLE
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-write_cache_change">WRITE_CACHE_CHANGE</a> enumeration that 
@@ -189,12 +171,8 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {WRITE_CACHE_CHANGE}
      */
-    WriteCacheChangeable {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    WriteCacheChangeable : WRITE_CACHE_CHANGE
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-write_through">WRITE_THROUGH</a> enumeration that indicates whether the device supports write-through caching.
@@ -238,44 +216,29 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {WRITE_THROUGH}
      */
-    WriteThroughSupported {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    WriteThroughSupported : WRITE_THROUGH
 
     /**
      * A <b>BOOLEAN</b> value that indicates whether the device allows host software to 
      *       flush the device cache. If <b>TRUE</b>, the device allows host software to flush the device 
      *       cache. If <b>FALSE</b>, host software cannot flush the device cache.
-     * @type {BOOLEAN}
      */
-    FlushCacheSupported {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    FlushCacheSupported : BOOLEAN
 
     /**
      * A <b>BOOLEAN</b> value that indicates whether a user can configure the device's power 
      *       protection characteristics in the registry. If <b>TRUE</b>, a user can configure the device's 
      *       power protection characteristics in the registry. If <b>FALSE</b>, the user cannot configure 
      *       the device's power protection characteristics in the registry.
-     * @type {BOOLEAN}
      */
-    UserDefinedPowerProtection {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    UserDefinedPowerProtection : BOOLEAN
 
     /**
      * A <b>BOOLEAN</b> value that indicates whether the device has a battery backup for the 
      *       write cache. If <b>TRUE</b>, the device has a battery backup for the write cache. If 
      *       <b>FALSE</b>, the device does not have a battery backup for the writer cache.
-     * @type {BOOLEAN}
      */
-    NVCacheEnabled {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    NVCacheEnabled : BOOLEAN
+
 }

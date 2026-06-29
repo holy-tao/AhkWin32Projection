@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaEventCallback interface is used by applications to receive notification of Windows Image Acquisition (WIA) hardware device events.
@@ -35,26 +37,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiaeventcallback
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaEventCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaEventCallback extends IUnknown {
     /**
      * The interface identifier for IWiaEventCallback
      * @type {Guid}
      */
-    static IID => Guid("{ae6287b0-0084-11d2-973b-00a0c9068f2e}")
+    static IID := Guid("{ae6287b0-0084-11d2-973b-00a0c9068f2e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaEventCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ImageEventCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ImageEventCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaEventCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWiaEventCallback::ImageEventCallback method is invoked by the Windows Image Acquisition (WIA) run-time system when a hardware device event occurs.
@@ -99,7 +108,27 @@ class IWiaEventCallback extends IUnknown {
 
         pulEventTypeMarshal := pulEventType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pEventGUID, "ptr", bstrEventDescription, "ptr", bstrDeviceID, "ptr", bstrDeviceDescription, "uint", dwDeviceType, "ptr", bstrFullItemName, pulEventTypeMarshal, pulEventType, "uint", ulReserved, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pEventGUID, BSTR, bstrEventDescription, BSTR, bstrDeviceID, BSTR, bstrDeviceDescription, "uint", dwDeviceType, BSTR, bstrFullItemName, pulEventTypeMarshal, pulEventType, "uint", ulReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaEventCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ImageEventCallback := CallbackCreate(GetMethod(implObj, "ImageEventCallback"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ImageEventCallback)
     }
 }

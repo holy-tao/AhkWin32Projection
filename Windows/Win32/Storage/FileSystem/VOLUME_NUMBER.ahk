@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class VOLUME_NUMBER extends Win32Struct {
-    static sizeof => 20
+export default struct VOLUME_NUMBER {
+    #StructPack 4
 
-    static packingSize => 4
+    VolumeNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VolumeNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VolumeManagerName : WCHAR[8]
 
-    /**
-     * @type {String}
-     */
-    VolumeManagerName {
-        get => StrGet(this.ptr + 4, 7, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 7, "UTF-16")
-    }
 }

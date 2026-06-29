@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDeviceKeyCollection interface holds a collection of PROPERTYKEY values. This interface can be retrieved from a method or, if a new object is required, call CoCreate with CLSID\_PortableDeviceKeyCollection.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceKeyCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceKeyCollection extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceKeyCollection
      * @type {Guid}
      */
-    static IID => Guid("{dada2357-e0ad-492e-98db-dd61c53ba353}")
+    static IID := Guid("{dada2357-e0ad-492e-98db-dd61c53ba353}")
 
     /**
      * The class identifier for PortableDeviceKeyCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{de2d022d-2480-43be-97f0-d1fa2cf98f4f}")
+    static CLSID := Guid("{de2d022d-2480-43be-97f0-d1fa2cf98f4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceKeyCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetAt    : IntPtr
+        Add      : IntPtr
+        Clear    : IntPtr
+        RemoveAt : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt", "Add", "Clear", "RemoveAt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceKeyCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCount method retrieves the number of keys in this collection.
@@ -71,7 +84,7 @@ class IPortableDeviceKeyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection-getat
      */
     GetAt(dwIndex, pKey) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr", pKey, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
         return result
     }
 
@@ -89,7 +102,7 @@ class IPortableDeviceKeyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection-add
      */
     Add(Key) {
-        result := ComCall(5, this, "ptr", Key, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, Key, "HRESULT")
         return result
     }
 
@@ -130,5 +143,33 @@ class IPortableDeviceKeyCollection extends IUnknown {
     RemoveAt(dwIndex) {
         result := ComCall(7, this, "uint", dwIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceKeyCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.RemoveAt)
     }
 }

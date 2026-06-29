@@ -1,56 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\DOT11_RECV_SENSITIVITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_RECV_SENSITIVITY.ahk" { DOT11_RECV_SENSITIVITY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_RECV_SENSITIVITY_LIST extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_RECV_SENSITIVITY_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11PhyType : DOT11_PHY_TYPE
 
-    /**
-     * @type {DOT11_PHY_TYPE}
-     */
-    dot11PhyType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPhyId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uTotalNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfEntries {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dot11RecvSensitivity : DOT11_RECV_SENSITIVITY[1]
 
-    /**
-     * @type {Integer}
-     */
-    uTotalNumOfEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {DOT11_RECV_SENSITIVITY}
-     */
-    dot11RecvSensitivity {
-        get {
-            if(!this.HasProp("__dot11RecvSensitivityProxyArray"))
-                this.__dot11RecvSensitivityProxyArray := Win32FixedArray(this.ptr + 12, 1, DOT11_RECV_SENSITIVITY, "")
-            return this.__dot11RecvSensitivityProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'uPhyId', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

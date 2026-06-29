@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RAS_AUTH_ATTRIBUTE_TYPE enumerated type specifies attribute values used for session authentication.
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ne-raseapif-ras_auth_attribute_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum {
+export default struct RAS_AUTH_ATTRIBUTE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies a value equal to zero, and used as the <b>NULL</b> terminator in any array of 

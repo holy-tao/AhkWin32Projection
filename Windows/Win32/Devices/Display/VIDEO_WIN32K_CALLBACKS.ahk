@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_WIN32K_CALLBACKS extends Win32Struct {
-    static sizeof => 40
+export default struct VIDEO_WIN32K_CALLBACKS {
+    #StructPack 8
 
-    static packingSize => 8
+    PhysDisp : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PhysDisp {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Callout : IntPtr
 
-    /**
-     * @type {Pointer<PVIDEO_WIN32K_CALLOUT>}
-     */
-    Callout {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    bACPI : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bACPI {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pPhysDeviceObject : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    pPhysDeviceObject {
-        get {
-            if(!this.HasProp("__pPhysDeviceObject"))
-                this.__pPhysDeviceObject := HANDLE(24, this)
-            return this.__pPhysDeviceObject
-        }
-    }
+    DualviewFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DualviewFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

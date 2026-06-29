@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Holds handle trace information returned by PssQuerySnapshot.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_handle_trace_information
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  */
-class PSS_HANDLE_TRACE_INFORMATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PSS_HANDLE_TRACE_INFORMATION {
+    #StructPack 8
 
     /**
      * A handle to a section containing the handle trace information.
-     * @type {HANDLE}
      */
-    SectionHandle {
-        get {
-            if(!this.HasProp("__SectionHandle"))
-                this.__SectionHandle := HANDLE(0, this)
-            return this.__SectionHandle
-        }
-    }
+    SectionHandle : HANDLE
 
     /**
      * The size of the handle trace section, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Size : UInt32
+
 }

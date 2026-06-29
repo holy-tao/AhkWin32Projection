@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how to output a 3D stereoscopic video stream.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-mf3dvideooutputtype
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF3DVideoOutputType extends Win32Enum {
+export default struct MF3DVideoOutputType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Output the base view only. Discard the other view.

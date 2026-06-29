@@ -1,58 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VERSION_NUMBER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_VERSION_NUMBER.ahk" { D3D12_VERSION_NUMBER }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_APPLICATION_DESC extends Win32Struct {
-    static sizeof => 56
+export default struct D3D12_APPLICATION_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    pExeFilename : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pExeFilename {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Version : D3D12_VERSION_NUMBER
 
-    /**
-     * @type {D3D12_VERSION_NUMBER}
-     */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := D3D12_VERSION_NUMBER(16, this)
-            return this.__Version
-        }
-    }
+    pEngineName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pEngineName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    EngineVersion : D3D12_VERSION_NUMBER
 
-    /**
-     * @type {D3D12_VERSION_NUMBER}
-     */
-    EngineVersion {
-        get {
-            if(!this.HasProp("__EngineVersion"))
-                this.__EngineVersion := D3D12_VERSION_NUMBER(40, this)
-            return this.__EngineVersion
-        }
-    }
 }

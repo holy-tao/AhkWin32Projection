@@ -1,106 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset ANSI
  */
-class JET_COLUMNBASE_A extends Win32Struct {
-    static sizeof => 540
+export default struct JET_COLUMNBASE_A {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    columnid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnid {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    coltyp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    coltyp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wCountry : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wCountry {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    langid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    langid {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    cp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cp {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wFiller : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFiller {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    cbMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbMax {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    szBaseTableName : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szBaseTableName {
-        get {
-            if(!this.HasProp("__szBaseTableNameProxyArray"))
-                this.__szBaseTableNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "char")
-            return this.__szBaseTableNameProxyArray
-        }
-    }
+    szBaseColumnName : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szBaseColumnName {
-        get {
-            if(!this.HasProp("__szBaseColumnNameProxyArray"))
-                this.__szBaseColumnNameProxyArray := Win32FixedArray(this.ptr + 284, 256, Primitive, "char")
-            return this.__szBaseColumnNameProxyArray
-        }
-    }
 }

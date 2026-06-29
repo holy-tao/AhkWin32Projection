@@ -1,185 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_QUERYSTATISTICS_TYPE.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DKMT_MEMORY_SEGMENT_GROUP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DKMT_MEMORY_SEGMENT_GROUP.ahk" { D3DKMT_MEMORY_SEGMENT_GROUP }
+#Import ".\D3DKMT_QUERYSTATISTICS_TYPE.ahk" { D3DKMT_QUERYSTATISTICS_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_QUERYSTATISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : D3DKMT_QUERYSTATISTICS_TYPE
 
-    /**
-     * @type {D3DKMT_QUERYSTATISTICS_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AdapterLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AdapterLuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hProcess : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(16, this)
-            return this.__hProcess
-        }
-    }
+    QueryResult : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    QueryResult {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    QuerySegment : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    QuerySegment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessSegment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {D3DKMT_MEMORY_SEGMENT_GROUP}
-     */
-    QueryProcessSegmentGroup {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryNode {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessNode {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryVidPnSource {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessVidPnSource {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryPhysAdapter {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryAdapter2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QuerySegment2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessAdapter2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessSegment2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessSegmentGroup2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QuerySegmentUsage {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QuerySegmentGroupUsage {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryNode2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    QueryProcessNode2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'QueryProcessSegment', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessSegmentGroup', { type: D3DKMT_MEMORY_SEGMENT_GROUP, offset: 32 })
+        DefineProp(this.Prototype, 'QueryNode', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessNode', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryVidPnSource', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessVidPnSource', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryPhysAdapter', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryAdapter2', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QuerySegment2', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessAdapter2', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessSegment2', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessSegmentGroup2', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QuerySegmentUsage', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QuerySegmentGroupUsage', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryNode2', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'QueryProcessNode2', { type: IntPtr, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

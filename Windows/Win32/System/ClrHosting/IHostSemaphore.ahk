@@ -1,57 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostSemaphore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostSemaphore extends IUnknown {
     /**
      * The interface identifier for IHostSemaphore
      * @type {Guid}
      */
-    static IID => Guid("{855efd47-cc09-463a-a97d-16acab882661}")
+    static IID := Guid("{855efd47-cc09-463a-a97d-16acab882661}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostSemaphore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Wait             : IntPtr
+        ReleaseSemaphore : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostSemaphore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Wait", "ReleaseSemaphore"]
-
-    /**
-     * Waits for an event to occur for a specified communications device. The set of events that are monitored by this function is contained in the event mask associated with the device handle.
-     * @remarks
-     * The 
-     * <b>WaitCommEvent</b> function monitors a set of events for a specified communications resource. To set and query the current event mask of a communications resource, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommmask">SetCommMask</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getcommmask">GetCommMask</a> functions.
      * 
-     * If the overlapped operation cannot be completed immediately, the function returns <b>FALSE</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_IO_PENDING</b>, indicating that the operation is executing in the background. When this happens, the system sets the <b>hEvent</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure to the not-signaled state before 
-     * <b>WaitCommEvent</b> returns, and then it sets it to the signaled state when one of the specified events or an error occurs. The calling process can use one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a> to determine the event object's state and then use the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function to determine the results of the 
-     * <b>WaitCommEvent</b> operation. 
-     * <b>GetOverlappedResult</b> reports the success or failure of the operation, and the variable pointed to by the <i>lpEvtMask</i> parameter is set to indicate the event that occurred.
-     * 
-     * If a process attempts to change the device handle's event mask by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommmask">SetCommMask</a> function while an overlapped 
-     * <b>WaitCommEvent</b> operation is in progress, 
-     * <b>WaitCommEvent</b> returns immediately. The variable pointed to by the <i>lpEvtMask</i> parameter is set to zero.
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-waitcommevent
+     * @returns {HRESULT} 
      */
     Wait(dwMilliseconds, option) {
         result := ComCall(3, this, "uint", dwMilliseconds, "uint", option, "HRESULT")
@@ -84,5 +73,27 @@ class IHostSemaphore extends IUnknown {
     ReleaseSemaphore(lReleaseCount) {
         result := ComCall(4, this, "int", lReleaseCount, "int*", &lpPreviousCount := 0, "HRESULT")
         return lpPreviousCount
+    }
+
+    Query(iid) {
+        if (IHostSemaphore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.ReleaseSemaphore := CallbackCreate(GetMethod(implObj, "ReleaseSemaphore"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Wait)
+        CallbackFree(this.vtbl.ReleaseSemaphore)
     }
 }

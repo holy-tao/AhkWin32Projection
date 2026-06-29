@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the condition type to use when displaying the property in the query builder UI in Windows Vista, but not in Windows 7 and later.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_condition_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class PROPDESC_CONDITION_TYPE extends Win32Enum {
+export default struct PROPDESC_CONDITION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The default value; it means the condition type is unspecified.

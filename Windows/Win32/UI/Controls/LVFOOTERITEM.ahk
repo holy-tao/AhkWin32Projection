@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVFOOTERITEM_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LVFOOTERITEM_MASK.ahk" { LVFOOTERITEM_MASK }
 
 /**
  * Contains information on a footer item.
@@ -9,52 +9,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvfooteritem
  * @namespace Windows.Win32.UI.Controls
  */
-class LVFOOTERITEM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct LVFOOTERITEM {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {LVFOOTERITEM_MASK}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : LVFOOTERITEM_MASK
 
     /**
      * Type: <b>int</b>
      * 
      * The index of the item.
-     * @type {Integer}
      */
-    iItem {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iItem : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * A pointer to a null-terminated, Unicode buffer. The calling process is responsible for allocating the buffer.
-     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszText : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * The number of <b>WCHAR</b><b>s</b> in the buffer pointed to by <b>pszText</b>,  including the terminating <b>NULL</b>.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -77,12 +59,8 @@ class LVFOOTERITEM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    state {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    state : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -105,10 +83,7 @@ class LVFOOTERITEM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    stateMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    stateMask : UInt32
+
 }

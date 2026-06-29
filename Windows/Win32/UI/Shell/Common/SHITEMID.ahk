@@ -1,38 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines an item identifier.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-shitemid
  * @namespace Windows.Win32.UI.Shell.Common
  */
-class SHITEMID extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct SHITEMID {
+    #StructPack 2
 
     /**
      * Type: <b>USHORT</b>
      * 
      * The size of identifier, in bytes, including <b>cb</b> itself.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cb : UInt16
 
     /**
      * Type: <b>BYTE[1]</b>
      * 
      * A variable-length item identifier.
-     * @type {Array<Integer>}
      */
-    abID {
-        get {
-            if(!this.HasProp("__abIDProxyArray"))
-                this.__abIDProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__abIDProxyArray
-        }
-    }
+    abID : Int8[1]
+
 }

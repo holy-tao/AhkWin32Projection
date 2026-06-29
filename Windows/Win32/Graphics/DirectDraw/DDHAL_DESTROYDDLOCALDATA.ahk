@@ -1,41 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * DDHAL_DESTROYDDLOCALDATA contains the information required for the driver to destroy a set of surfaces associated to a given local DirectDraw object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddhal_destroyddlocaldata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_DESTROYDDLOCALDATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DDHAL_DESTROYDDLOCALDATA {
+    #StructPack 8
 
     /**
      * Unused.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Points to the local Direct Draw object that serves as a reference for all Direct3D surfaces that have to be destroyed.
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
      */
-    pDDLcl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDDLcl : DDRAWI_DIRECTDRAW_LCL.Ptr
 
     /**
      * Specifies the location where the driver writes the return value of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_destroyddlocal">D3dDestroyDDLocal</a>. A return code of D3D_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-codes-for-direct3d-driver-callbacks">Return Codes for Direct3D Driver Callbacks</a>.
-     * @type {HRESULT}
      */
-    ddRVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ddRVal : HRESULT
+
 }

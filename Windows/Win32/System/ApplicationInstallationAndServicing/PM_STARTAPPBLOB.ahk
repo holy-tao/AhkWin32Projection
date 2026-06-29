@@ -1,113 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\PM_APPLICATION_INSTALL_TYPE.ahk
-#Include .\PM_APPLICATION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PM_APPLICATION_STATE.ahk" { PM_APPLICATION_STATE }
+#Import ".\PM_APPLICATION_INSTALL_TYPE.ahk" { PM_APPLICATION_INSTALL_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class PM_STARTAPPBLOB extends Win32Struct {
-    static sizeof => 64
+export default struct PM_STARTAPPBLOB {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProductID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProductID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AppTitle : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    AppTitle {
-        get {
-            if(!this.HasProp("__AppTitle"))
-                this.__AppTitle := BSTR(16, this)
-            return this.__AppTitle
-        }
-    }
+    IconPath : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    IconPath {
-        get {
-            if(!this.HasProp("__IconPath"))
-                this.__IconPath := BSTR(24, this)
-            return this.__IconPath
-        }
-    }
+    IsUninstallable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsUninstallable {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    AppInstallType : PM_APPLICATION_INSTALL_TYPE
 
-    /**
-     * @type {PM_APPLICATION_INSTALL_TYPE}
-     */
-    AppInstallType {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    InstanceID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    InstanceID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    State : PM_APPLICATION_STATE
 
-    /**
-     * @type {PM_APPLICATION_STATE}
-     */
-    State {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    IsModern : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsModern {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    IsModernLightUp : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsModernLightUp {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    LightUpSupportMask : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LightUpSupportMask {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 64
-    }
 }

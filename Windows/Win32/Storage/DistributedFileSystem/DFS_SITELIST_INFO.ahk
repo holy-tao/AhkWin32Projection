@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DFS_SITENAME_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DFS_SITENAME_INFO.ahk" { DFS_SITENAME_INFO }
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_SITELIST_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct DFS_SITELIST_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cSites : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cSites {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Site : DFS_SITENAME_INFO[1]
 
-    /**
-     * @type {DFS_SITENAME_INFO}
-     */
-    Site {
-        get {
-            if(!this.HasProp("__SiteProxyArray"))
-                this.__SiteProxyArray := Win32FixedArray(this.ptr + 8, 1, DFS_SITENAME_INFO, "")
-            return this.__SiteProxyArray
-        }
-    }
 }

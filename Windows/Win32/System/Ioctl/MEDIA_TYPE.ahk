@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the various forms of device media.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-media_type
  * @namespace Windows.Win32.System.Ioctl
  */
-class MEDIA_TYPE extends Win32Enum {
+export default struct MEDIA_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Format is unknown

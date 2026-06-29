@@ -1,31 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\URLZONEREG.ahk" { URLZONEREG }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetZoneManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInternetZoneManager extends IUnknown {
     /**
      * The interface identifier for IInternetZoneManager
      * @type {Guid}
      */
-    static IID => Guid("{79eac9ef-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9ef-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetZoneManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetZoneAttributes          : IntPtr
+        SetZoneAttributes          : IntPtr
+        GetZoneCustomPolicy        : IntPtr
+        SetZoneCustomPolicy        : IntPtr
+        GetZoneActionPolicy        : IntPtr
+        SetZoneActionPolicy        : IntPtr
+        PromptAction               : IntPtr
+        LogAction                  : IntPtr
+        CreateZoneEnumerator       : IntPtr
+        GetZoneAt                  : IntPtr
+        DestroyZoneEnumerator      : IntPtr
+        CopyTemplatePoliciesToZone : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetZoneAttributes", "SetZoneAttributes", "GetZoneCustomPolicy", "SetZoneCustomPolicy", "GetZoneActionPolicy", "SetZoneActionPolicy", "PromptAction", "LogAction", "CreateZoneEnumerator", "GetZoneAt", "DestroyZoneEnumerator", "CopyTemplatePoliciesToZone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetZoneManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,7 +57,7 @@ class IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GetZoneAttributes(dwZone, pZoneAttributes) {
-        result := ComCall(3, this, "uint", dwZone, "ptr", pZoneAttributes, "HRESULT")
+        result := ComCall(3, this, "uint", dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "HRESULT")
         return result
     }
 
@@ -45,7 +68,7 @@ class IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetZoneAttributes(dwZone, pZoneAttributes) {
-        result := ComCall(4, this, "uint", dwZone, "ptr", pZoneAttributes, "HRESULT")
+        result := ComCall(4, this, "uint", dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "HRESULT")
         return result
     }
 
@@ -62,7 +85,7 @@ class IInternetZoneManager extends IUnknown {
         ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwZone, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, "int", _urlZoneReg, "HRESULT")
+        result := ComCall(5, this, "uint", dwZone, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
@@ -78,7 +101,7 @@ class IInternetZoneManager extends IUnknown {
     SetZoneCustomPolicy(dwZone, guidKey, pPolicy, cbPolicy, _urlZoneReg) {
         pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwZone, "ptr", guidKey, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", _urlZoneReg, "HRESULT")
+        result := ComCall(6, this, "uint", dwZone, Guid.Ptr, guidKey, pPolicyMarshal, pPolicy, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
@@ -91,7 +114,7 @@ class IInternetZoneManager extends IUnknown {
      * @returns {Integer} 
      */
     GetZoneActionPolicy(dwZone, dwAction, cbPolicy, _urlZoneReg) {
-        result := ComCall(7, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, "int", _urlZoneReg, "HRESULT")
+        result := ComCall(7, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return pPolicy
     }
 
@@ -107,7 +130,7 @@ class IInternetZoneManager extends IUnknown {
     SetZoneActionPolicy(dwZone, dwAction, pPolicy, cbPolicy, _urlZoneReg) {
         pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", _urlZoneReg, "HRESULT")
+        result := ComCall(8, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
@@ -121,11 +144,10 @@ class IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     PromptAction(dwAction, hwndParent, pwszUrl, pwszText, dwPromptFlags) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(9, this, "uint", dwAction, "ptr", hwndParent, "ptr", pwszUrl, "ptr", pwszText, "uint", dwPromptFlags, "HRESULT")
+        result := ComCall(9, this, "uint", dwAction, HWND, hwndParent, "ptr", pwszUrl, "ptr", pwszText, "uint", dwPromptFlags, "HRESULT")
         return result
     }
 
@@ -191,5 +213,47 @@ class IInternetZoneManager extends IUnknown {
     CopyTemplatePoliciesToZone(dwTemplate, dwZone, dwReserved) {
         result := ComCall(14, this, "uint", dwTemplate, "uint", dwZone, "uint", dwReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetZoneManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetZoneAttributes := CallbackCreate(GetMethod(implObj, "GetZoneAttributes"), flags, 3)
+        this.vtbl.SetZoneAttributes := CallbackCreate(GetMethod(implObj, "SetZoneAttributes"), flags, 3)
+        this.vtbl.GetZoneCustomPolicy := CallbackCreate(GetMethod(implObj, "GetZoneCustomPolicy"), flags, 6)
+        this.vtbl.SetZoneCustomPolicy := CallbackCreate(GetMethod(implObj, "SetZoneCustomPolicy"), flags, 6)
+        this.vtbl.GetZoneActionPolicy := CallbackCreate(GetMethod(implObj, "GetZoneActionPolicy"), flags, 6)
+        this.vtbl.SetZoneActionPolicy := CallbackCreate(GetMethod(implObj, "SetZoneActionPolicy"), flags, 6)
+        this.vtbl.PromptAction := CallbackCreate(GetMethod(implObj, "PromptAction"), flags, 6)
+        this.vtbl.LogAction := CallbackCreate(GetMethod(implObj, "LogAction"), flags, 5)
+        this.vtbl.CreateZoneEnumerator := CallbackCreate(GetMethod(implObj, "CreateZoneEnumerator"), flags, 4)
+        this.vtbl.GetZoneAt := CallbackCreate(GetMethod(implObj, "GetZoneAt"), flags, 4)
+        this.vtbl.DestroyZoneEnumerator := CallbackCreate(GetMethod(implObj, "DestroyZoneEnumerator"), flags, 2)
+        this.vtbl.CopyTemplatePoliciesToZone := CallbackCreate(GetMethod(implObj, "CopyTemplatePoliciesToZone"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetZoneAttributes)
+        CallbackFree(this.vtbl.SetZoneAttributes)
+        CallbackFree(this.vtbl.GetZoneCustomPolicy)
+        CallbackFree(this.vtbl.SetZoneCustomPolicy)
+        CallbackFree(this.vtbl.GetZoneActionPolicy)
+        CallbackFree(this.vtbl.SetZoneActionPolicy)
+        CallbackFree(this.vtbl.PromptAction)
+        CallbackFree(this.vtbl.LogAction)
+        CallbackFree(this.vtbl.CreateZoneEnumerator)
+        CallbackFree(this.vtbl.GetZoneAt)
+        CallbackFree(this.vtbl.DestroyZoneEnumerator)
+        CallbackFree(this.vtbl.CopyTemplatePoliciesToZone)
     }
 }

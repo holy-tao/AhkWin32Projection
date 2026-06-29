@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DTCTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DTCTL.ahk" { DTCTL }
 
 /**
  * DTPAGE describes the dialog box that is built from a display table by the BuildDisplayTable function.
@@ -15,51 +14,28 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtpage
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTPAGE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DTPAGE {
+    #StructPack 8
 
     /**
      * > Count of controls pointed to by the **lpctl** member.
-     * @type {Integer}
      */
-    cctl {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cctl : UInt32
 
     /**
      * > Pointer to the name or integer identifier for the dialog box resource.
-     * @type {Pointer<Integer>}
      */
-    lpszResourceName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszResourceName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpszComponent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ulItemID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lpszComponent : IntPtr
 
     /**
      * > Pointer to an array of [DTCTL](dtctl.md) structures, one for each control on the page.
-     * @type {Pointer<DTCTL>}
      */
-    lpctl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpctl : DTCTL.Ptr
+
+    static __New() {
+        DefineProp(this.Prototype, 'ulItemID', { type: UInt32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

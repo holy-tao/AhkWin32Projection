@@ -1,139 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This structure is intended for infrastructure use only.
  * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/ns-featurestagingapi-feature_error
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class FEATURE_ERROR extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct FEATURE_ERROR {
+    #StructPack 8
 
     /**
      * Infrastructure use only.
-     * @type {HRESULT}
      */
-    hr {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hr : HRESULT
 
     /**
      * Infrastructure use only.
-     * @type {Integer}
      */
-    lineNumber {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    lineNumber : UInt16
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    file {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    file : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    process {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    process : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    module {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    module : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {Integer}
      */
-    callerReturnAddressOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    callerReturnAddressOffset : UInt32
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    callerModule {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    callerModule : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    message {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    message : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {Integer}
      */
-    originLineNumber {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    originLineNumber : UInt16
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    originFile {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    originFile : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    originModule {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    originModule : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {Integer}
      */
-    originCallerReturnAddressOffset {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    originCallerReturnAddressOffset : UInt32
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    originCallerModule {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    originCallerModule : PSTR
 
     /**
      * Infrastructure use only.
-     * @type {PSTR}
      */
-    originName {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    originName : PSTR
+
 }

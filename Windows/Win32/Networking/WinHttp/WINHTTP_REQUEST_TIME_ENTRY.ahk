@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WINHTTP_REQUEST_TIME_ENTRY enumeration lists the available types of request timing information.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ne-winhttp-winhttp_request_time_entry
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_REQUEST_TIME_ENTRY extends Win32Enum {
+export default struct WINHTTP_REQUEST_TIME_ENTRY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Start of proxy detection.

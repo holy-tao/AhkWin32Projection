@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FS_BPIO_OPERATIONS.ahk
-#Include .\FS_BPIO_OUTFLAGS.ahk
-#Include .\FS_BPIO_RESULTS.ahk
-#Include .\FS_BPIO_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FS_BPIO_OPERATIONS.ahk" { FS_BPIO_OPERATIONS }
+#Import ".\FS_BPIO_OUTFLAGS.ahk" { FS_BPIO_OUTFLAGS }
+#Import ".\FS_BPIO_RESULTS.ahk" { FS_BPIO_RESULTS }
+#Import ".\FS_BPIO_INFO.ahk" { FS_BPIO_INFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FS_BPIO_OUTPUT extends Win32Struct {
-    static sizeof => 352
+export default struct FS_BPIO_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Operation : FS_BPIO_OPERATIONS
 
-    /**
-     * @type {FS_BPIO_OPERATIONS}
-     */
-    Operation {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    OutFlags : FS_BPIO_OUTFLAGS
 
-    /**
-     * @type {FS_BPIO_OUTFLAGS}
-     */
-    OutFlags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Enable : FS_BPIO_RESULTS
 
-    /**
-     * @type {FS_BPIO_RESULTS}
-     */
-    Enable {
-        get {
-            if(!this.HasProp("__Enable"))
-                this.__Enable := FS_BPIO_RESULTS(24, this)
-            return this.__Enable
-        }
-    }
-
-    /**
-     * @type {FS_BPIO_RESULTS}
-     */
-    Query {
-        get {
-            if(!this.HasProp("__Query"))
-                this.__Query := FS_BPIO_RESULTS(24, this)
-            return this.__Query
-        }
-    }
-
-    /**
-     * @type {FS_BPIO_RESULTS}
-     */
-    VolumeStackResume {
-        get {
-            if(!this.HasProp("__VolumeStackResume"))
-                this.__VolumeStackResume := FS_BPIO_RESULTS(24, this)
-            return this.__VolumeStackResume
-        }
-    }
-
-    /**
-     * @type {FS_BPIO_RESULTS}
-     */
-    StreamResume {
-        get {
-            if(!this.HasProp("__StreamResume"))
-                this.__StreamResume := FS_BPIO_RESULTS(24, this)
-            return this.__StreamResume
-        }
-    }
-
-    /**
-     * @type {FS_BPIO_INFO}
-     */
-    GetInfo {
-        get {
-            if(!this.HasProp("__GetInfo"))
-                this.__GetInfo := FS_BPIO_INFO(24, this)
-            return this.__GetInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Query', { type: FS_BPIO_RESULTS, offset: 24 })
+        DefineProp(this.Prototype, 'VolumeStackResume', { type: FS_BPIO_RESULTS, offset: 24 })
+        DefineProp(this.Prototype, 'StreamResume', { type: FS_BPIO_RESULTS, offset: 24 })
+        DefineProp(this.Prototype, 'GetInfo', { type: FS_BPIO_INFO, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

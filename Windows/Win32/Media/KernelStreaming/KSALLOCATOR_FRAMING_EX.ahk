@@ -1,61 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_COMPRESSION.ahk
-#Include .\KS_FRAMING_ITEM.ahk
-#Include .\KS_FRAMING_RANGE.ahk
-#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_FRAMING_RANGE.ahk" { KS_FRAMING_RANGE }
+#Import ".\KS_FRAMING_ITEM.ahk" { KS_FRAMING_ITEM }
+#Import ".\KS_COMPRESSION.ahk" { KS_COMPRESSION }
+#Import ".\KS_FRAMING_RANGE_WEIGHTED.ahk" { KS_FRAMING_RANGE_WEIGHTED }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSALLOCATOR_FRAMING_EX extends Win32Struct {
-    static sizeof => 96
+export default struct KSALLOCATOR_FRAMING_EX {
+    #StructPack 4
 
-    static packingSize => 8
+    CountItems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CountItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PinFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PinFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OutputCompression : KS_COMPRESSION
 
-    /**
-     * @type {KS_COMPRESSION}
-     */
-    OutputCompression {
-        get {
-            if(!this.HasProp("__OutputCompression"))
-                this.__OutputCompression := KS_COMPRESSION(8, this)
-            return this.__OutputCompression
-        }
-    }
+    PinWeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PinWeight {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    FramingItem : KS_FRAMING_ITEM[1]
 
-    /**
-     * @type {KS_FRAMING_ITEM}
-     */
-    FramingItem {
-        get {
-            if(!this.HasProp("__FramingItemProxyArray"))
-                this.__FramingItemProxyArray := Win32FixedArray(this.ptr + 24, 1, KS_FRAMING_ITEM, "")
-            return this.__FramingItemProxyArray
-        }
-    }
 }

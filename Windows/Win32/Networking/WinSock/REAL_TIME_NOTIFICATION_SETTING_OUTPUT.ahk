@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CONTROL_CHANNEL_TRIGGER_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CONTROL_CHANNEL_TRIGGER_STATUS.ahk" { CONTROL_CHANNEL_TRIGGER_STATUS }
 
 /**
  * Provides the output settings from a query for the REAL_TIME_NOTIFICATION_CAPABILITY transport setting for a TCP socket that is used with ControlChannelTrigger to receive background network notifications in a Windows Store app.
@@ -12,17 +11,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-real_time_notification_setting_output
  * @namespace Windows.Win32.Networking.WinSock
  */
-class REAL_TIME_NOTIFICATION_SETTING_OUTPUT extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct REAL_TIME_NOTIFICATION_SETTING_OUTPUT {
+    #StructPack 4
 
     /**
      * The channel status for a socket that is used with the <a href="https://docs.microsoft.com/uwp/api/windows.networking.sockets.controlchanneltrigger">ControlChannelTrigger</a>.
-     * @type {CONTROL_CHANNEL_TRIGGER_STATUS}
      */
-    ChannelStatus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ChannelStatus : CONTROL_CHANNEL_TRIGGER_STATUS
+
 }

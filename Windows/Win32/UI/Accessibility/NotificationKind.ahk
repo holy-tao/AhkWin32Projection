@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that indicate the type of a notification event, and a hint to the listener about the processing of the event.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-notificationkind
  * @namespace Windows.Win32.UI.Accessibility
  */
-class NotificationKind extends Win32Enum {
+export default struct NotificationKind {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The current element and/or the container has had something added to it that should be presented to the user.

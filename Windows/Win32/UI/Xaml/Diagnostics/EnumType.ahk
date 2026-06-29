@@ -1,45 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\SAFEARRAY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents a XAML Runtime enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-enumtype
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class EnumType extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct EnumType {
+    #StructPack 8
 
     /**
      * The name of the enumeration.
-     * @type {BSTR}
      */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := BSTR(0, this)
-            return this.__Name
-        }
-    }
+    Name : BSTR
 
     /**
      * An array of int values in the enumeration.
-     * @type {Pointer<SAFEARRAY>}
      */
-    ValueInts {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ValueInts : SAFEARRAY.Ptr
 
     /**
      * An array of strings representing the named value of the enumeration.
-     * @type {Pointer<SAFEARRAY>}
      */
-    ValueStrings {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ValueStrings : SAFEARRAY.Ptr
+
 }

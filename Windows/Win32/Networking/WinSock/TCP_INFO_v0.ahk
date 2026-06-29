@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TCPSTATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TCPSTATE.ahk" { TCPSTATE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains the Transmission Control Protocol (TCP) statistics that were collected for a socket.
@@ -11,179 +11,102 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_info_v0
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TCP_INFO_v0 extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct TCP_INFO_v0 {
+    #StructPack 8
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-tcpstate">TCPSTATE</a> enumeration that indicates the  state of the TCP connection.
-     * @type {TCPSTATE}
      */
-    State {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    State : TCPSTATE
 
     /**
      * The current maximum segment size (MSS) for the connection, in bytes.
-     * @type {Integer}
      */
-    Mss {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Mss : UInt32
 
     /**
      * The lifetime of the connection, in milliseconds.
-     * @type {Integer}
      */
-    ConnectionTimeMs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ConnectionTimeMs : Int64
 
     /**
      * <b>TRUE</b> if TCP time stamps are turned on for the connection; otherwise <b>FALSE</b>.
-     * @type {BOOLEAN}
      */
-    TimestampsEnabled {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    TimestampsEnabled : BOOLEAN
 
     /**
      * The current estimated round-trip time for the connection, in microseconds.
-     * @type {Integer}
      */
-    RttUs {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    RttUs : UInt32
 
     /**
      * The minimum sampled round trip time, in microseconds.
-     * @type {Integer}
      */
-    MinRttUs {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MinRttUs : UInt32
 
     /**
      * The current number of sent bytes that are unacknowledged.
-     * @type {Integer}
      */
-    BytesInFlight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    BytesInFlight : UInt32
 
     /**
      * The size of the current congestion window, in bytes.
-     * @type {Integer}
      */
-    Cwnd {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Cwnd : UInt32
 
     /**
      * The size of the send window (SND.WND in <a href="https://tools.ietf.org/html/rfc793">RFC 793</a>),  in bytes.
-     * @type {Integer}
      */
-    SndWnd {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    SndWnd : UInt32
 
     /**
      * The size of the receive window (RCV.WND in <a href="https://tools.ietf.org/html/rfc793">RFC 793</a>), in bytes.
-     * @type {Integer}
      */
-    RcvWnd {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RcvWnd : UInt32
 
     /**
      * The size of the current receive buffer, in bytes.   The size of the receive buffer  changes dynamically when autotuning is turned on for the receive window.
-     * @type {Integer}
      */
-    RcvBuf {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    RcvBuf : UInt32
 
     /**
      * The total number of bytes sent.
-     * @type {Integer}
      */
-    BytesOut {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BytesOut : Int64
 
     /**
      * The total number of bytes received.
-     * @type {Integer}
      */
-    BytesIn {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    BytesIn : Int64
 
     /**
      * The total number of bytes reordered.
-     * @type {Integer}
      */
-    BytesReordered {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    BytesReordered : UInt32
 
     /**
      * The total number of bytes retransmitted.
-     * @type {Integer}
      */
-    BytesRetrans {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    BytesRetrans : UInt32
 
     /**
      * The number of calls of the Fast Retransmit algorithm.
-     * @type {Integer}
      */
-    FastRetrans {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    FastRetrans : UInt32
 
     /**
      * The total number of duplicate acknowledgments received.
-     * @type {Integer}
      */
-    DupAcksIn {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    DupAcksIn : UInt32
 
     /**
      * The total number of retransmission timeout episodes. Each episode can consist of multiple timeouts.
-     * @type {Integer}
      */
-    TimeoutEpisodes {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    TimeoutEpisodes : UInt32
 
     /**
      * The total number of retransmitted synchronize control flags (SYNs).
-     * @type {Integer}
      */
-    SynRetrans {
-        get => NumGet(this, 84, "char")
-        set => NumPut("char", value, this, 84)
-    }
+    SynRetrans : Int8
+
 }

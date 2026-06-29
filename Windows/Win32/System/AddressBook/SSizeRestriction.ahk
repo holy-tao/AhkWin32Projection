@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a size restriction which is used to test the size of a property value for Outlook 2013 and Outlook 2016.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssizerestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SSizeRestriction extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct SSizeRestriction {
+    #StructPack 4
 
     /**
      * > Relational operator that is used in the size comparison. Possible values are as follows: 
@@ -43,28 +40,17 @@ class SSizeRestriction extends Win32Struct {
      * RELOP_EQ 
      *   
      * > The comparison is made based on equal values.
-     * @type {Integer}
      */
-    relop {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    relop : UInt32
 
     /**
      * > Property tag identifying the property to test.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulPropTag : UInt32
 
     /**
      * > Count of bytes in the property value.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cb : UInt32
+
 }

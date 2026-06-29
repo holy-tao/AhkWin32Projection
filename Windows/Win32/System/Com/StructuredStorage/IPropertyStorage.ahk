@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include .\PROPVARIANT.ahk
-#Include .\IEnumSTATPROPSTG.ahk
-#Include .\STATPROPSETSTG.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\STATPROPSETSTG.ahk" { STATPROPSETSTG }
+#Import ".\IEnumSTATPROPSTG.ahk" { IEnumSTATPROPSTG }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\PROPSPEC.ahk" { PROPSPEC }
 
 /**
  * The IPropertyStorage interface manages the persistent properties of a single property set. (IPropertyStorage interface)
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nn-propidlbase-ipropertystorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IPropertyStorage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyStorage extends IUnknown {
     /**
      * The interface identifier for IPropertyStorage
      * @type {Guid}
      */
-    static IID => Guid("{00000138-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000138-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyStorage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReadMultiple        : IntPtr
+        WriteMultiple       : IntPtr
+        DeleteMultiple      : IntPtr
+        ReadPropertyNames   : IntPtr
+        WritePropertyNames  : IntPtr
+        DeletePropertyNames : IntPtr
+        Commit              : IntPtr
+        Revert              : IntPtr
+        Enum                : IntPtr
+        SetTimes            : IntPtr
+        SetClass            : IntPtr
+        Stat                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadMultiple", "WriteMultiple", "DeleteMultiple", "ReadPropertyNames", "WritePropertyNames", "DeletePropertyNames", "Commit", "Revert", "Enum", "SetTimes", "SetClass", "Stat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IPropertyStorage::ReadMultiple method reads specified properties from the current property set.
@@ -46,7 +68,7 @@ class IPropertyStorage extends IUnknown {
      */
     ReadMultiple(cpspec, rgpspec) {
         rgpropvar := PROPVARIANT()
-        result := ComCall(3, this, "uint", cpspec, "ptr", rgpspec, "ptr", rgpropvar, "HRESULT")
+        result := ComCall(3, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return rgpropvar
     }
 
@@ -87,7 +109,7 @@ class IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-writemultiple
      */
     WriteMultiple(cpspec, rgpspec, rgpropvar, propidNameFirst) {
-        result := ComCall(4, this, "uint", cpspec, "ptr", rgpspec, "ptr", rgpropvar, "uint", propidNameFirst, "HRESULT")
+        result := ComCall(4, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "uint", propidNameFirst, "HRESULT")
         return result
     }
 
@@ -103,7 +125,7 @@ class IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-deletemultiple
      */
     DeleteMultiple(cpspec, rgpspec) {
-        result := ComCall(5, this, "uint", cpspec, "ptr", rgpspec, "HRESULT")
+        result := ComCall(5, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, "HRESULT")
         return result
     }
 
@@ -125,7 +147,7 @@ class IPropertyStorage extends IUnknown {
     ReadPropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr*", &rglpwstrName := 0, "HRESULT")
+        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
         return rglpwstrName
     }
 
@@ -296,7 +318,7 @@ class IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-settimes
      */
     SetTimes(pctime, patime, pmtime) {
-        result := ComCall(12, this, "ptr", pctime, "ptr", patime, "ptr", pmtime, "HRESULT")
+        result := ComCall(12, this, FILETIME.Ptr, pctime, FILETIME.Ptr, patime, FILETIME.Ptr, pmtime, "HRESULT")
         return result
     }
 
@@ -316,7 +338,7 @@ class IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-setclass
      */
     SetClass(clsid) {
-        result := ComCall(13, this, "ptr", clsid, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -331,7 +353,49 @@ class IPropertyStorage extends IUnknown {
      */
     Stat() {
         pstatpsstg := STATPROPSETSTG()
-        result := ComCall(14, this, "ptr", pstatpsstg, "HRESULT")
+        result := ComCall(14, this, STATPROPSETSTG.Ptr, pstatpsstg, "HRESULT")
         return pstatpsstg
+    }
+
+    Query(iid) {
+        if (IPropertyStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadMultiple := CallbackCreate(GetMethod(implObj, "ReadMultiple"), flags, 4)
+        this.vtbl.WriteMultiple := CallbackCreate(GetMethod(implObj, "WriteMultiple"), flags, 5)
+        this.vtbl.DeleteMultiple := CallbackCreate(GetMethod(implObj, "DeleteMultiple"), flags, 3)
+        this.vtbl.ReadPropertyNames := CallbackCreate(GetMethod(implObj, "ReadPropertyNames"), flags, 4)
+        this.vtbl.WritePropertyNames := CallbackCreate(GetMethod(implObj, "WritePropertyNames"), flags, 4)
+        this.vtbl.DeletePropertyNames := CallbackCreate(GetMethod(implObj, "DeletePropertyNames"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.SetTimes := CallbackCreate(GetMethod(implObj, "SetTimes"), flags, 4)
+        this.vtbl.SetClass := CallbackCreate(GetMethod(implObj, "SetClass"), flags, 2)
+        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadMultiple)
+        CallbackFree(this.vtbl.WriteMultiple)
+        CallbackFree(this.vtbl.DeleteMultiple)
+        CallbackFree(this.vtbl.ReadPropertyNames)
+        CallbackFree(this.vtbl.WritePropertyNames)
+        CallbackFree(this.vtbl.DeletePropertyNames)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Revert)
+        CallbackFree(this.vtbl.Enum)
+        CallbackFree(this.vtbl.SetTimes)
+        CallbackFree(this.vtbl.SetClass)
+        CallbackFree(this.vtbl.Stat)
     }
 }

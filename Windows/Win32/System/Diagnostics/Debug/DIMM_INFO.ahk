@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DIMM_ADDRESS.ahk
-#Include .\DIMM_ADDR_VALID_BITS.ahk
-#Include .\DIMM_ADDR_VALID_BITS_DDR4.ahk
-#Include .\DIMM_ADDR_VALID_BITS_DDR5.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIMM_ADDR_VALID_BITS_DDR4.ahk" { DIMM_ADDR_VALID_BITS_DDR4 }
+#Import ".\DIMM_ADDR_VALID_BITS_DDR5.ahk" { DIMM_ADDR_VALID_BITS_DDR5 }
+#Import ".\DIMM_ADDR_VALID_BITS.ahk" { DIMM_ADDR_VALID_BITS }
+#Import ".\DIMM_ADDRESS.ahk" { DIMM_ADDRESS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class DIMM_INFO extends Win32Struct {
-    static sizeof => 64
+export default struct DIMM_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    DimmAddress : DIMM_ADDRESS
 
-    /**
-     * @type {DIMM_ADDRESS}
-     */
-    DimmAddress {
-        get {
-            if(!this.HasProp("__DimmAddress"))
-                this.__DimmAddress := DIMM_ADDRESS(0, this)
-            return this.__DimmAddress
-        }
-    }
+    ValidBits : DIMM_ADDR_VALID_BITS
 
-    /**
-     * @type {DIMM_ADDR_VALID_BITS}
-     */
-    ValidBits {
-        get {
-            if(!this.HasProp("__ValidBits"))
-                this.__ValidBits := DIMM_ADDR_VALID_BITS(48, this)
-            return this.__ValidBits
-        }
-    }
 }

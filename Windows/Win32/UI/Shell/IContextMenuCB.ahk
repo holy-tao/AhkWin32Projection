@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Exposes a method that enables the callback of a context menu. For example, to add a shield icon to a menuItem that requires elevation.
@@ -12,26 +18,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenucb
  * @namespace Windows.Win32.UI.Shell
  */
-class IContextMenuCB extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContextMenuCB extends IUnknown {
     /**
      * The interface identifier for IContextMenuCB
      * @type {Guid}
      */
-    static IID => Guid("{3409e930-5a39-11d1-83fa-00a0c90dc849}")
+    static IID := Guid("{3409e930-5a39-11d1-83fa-00a0c90dc849}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContextMenuCB interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CallBack : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CallBack"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContextMenuCB.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables the callback function for a context menu.
@@ -130,9 +143,27 @@ class IContextMenuCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenucb-callback
      */
     CallBack(psf, hwndOwner, pdtobj, uMsg, _wParam, _lParam) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
-        result := ComCall(3, this, "ptr", psf, "ptr", hwndOwner, "ptr", pdtobj, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, HWND, hwndOwner, "ptr", pdtobj, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContextMenuCB.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CallBack := CallbackCreate(GetMethod(implObj, "CallBack"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CallBack)
     }
 }

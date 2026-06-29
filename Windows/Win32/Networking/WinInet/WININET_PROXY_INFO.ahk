@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_SCHEME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class WININET_PROXY_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct WININET_PROXY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    fProxy : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fProxy {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fBypass : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fBypass {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ProxyScheme : INTERNET_SCHEME
 
-    /**
-     * @type {INTERNET_SCHEME}
-     */
-    ProxyScheme {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    pwszProxy : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszProxy {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ProxyPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProxyPort {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
 }

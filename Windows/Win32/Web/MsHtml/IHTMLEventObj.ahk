@@ -1,34 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLEventObj extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLEventObj extends IDispatch {
     /**
      * The interface identifier for IHTMLEventObj
      * @type {Guid}
      */
-    static IID => Guid("{3050f32d-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f32d-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLEventObj interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_srcElement   : IntPtr
+        get_altKey       : IntPtr
+        get_ctrlKey      : IntPtr
+        get_shiftKey     : IntPtr
+        put_returnValue  : IntPtr
+        get_returnValue  : IntPtr
+        put_cancelBubble : IntPtr
+        get_cancelBubble : IntPtr
+        get_fromElement  : IntPtr
+        get_toElement    : IntPtr
+        put_keyCode      : IntPtr
+        get_keyCode      : IntPtr
+        get_button       : IntPtr
+        get_type         : IntPtr
+        get_qualifier    : IntPtr
+        get_reason       : IntPtr
+        get_x            : IntPtr
+        get_y            : IntPtr
+        get_clientX      : IntPtr
+        get_clientY      : IntPtr
+        get_offsetX      : IntPtr
+        get_offsetY      : IntPtr
+        get_screenX      : IntPtr
+        get_screenY      : IntPtr
+        get_srcFilter    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_srcElement", "get_altKey", "get_ctrlKey", "get_shiftKey", "put_returnValue", "get_returnValue", "put_cancelBubble", "get_cancelBubble", "get_fromElement", "get_toElement", "put_keyCode", "get_keyCode", "get_button", "get_type", "get_qualifier", "get_reason", "get_x", "get_y", "get_clientX", "get_clientY", "get_offsetX", "get_offsetY", "get_screenX", "get_screenY", "get_srcFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLEventObj.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IHTMLElement} 
@@ -201,7 +234,7 @@ class IHTMLEventObj extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -210,7 +243,7 @@ class IHTMLEventObj extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
-        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -219,7 +252,7 @@ class IHTMLEventObj extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -229,7 +262,7 @@ class IHTMLEventObj extends IDispatch {
      * @returns {HRESULT} 
      */
     put_returnValue(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -239,7 +272,7 @@ class IHTMLEventObj extends IDispatch {
      */
     get_returnValue() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -249,7 +282,7 @@ class IHTMLEventObj extends IDispatch {
      * @returns {HRESULT} 
      */
     put_cancelBubble(v) {
-        result := ComCall(13, this, "short", v, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -258,7 +291,7 @@ class IHTMLEventObj extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_cancelBubble() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -313,8 +346,8 @@ class IHTMLEventObj extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -323,8 +356,8 @@ class IHTMLEventObj extends IDispatch {
      * @returns {BSTR} 
      */
     get_qualifier() {
-        p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -416,5 +449,73 @@ class IHTMLEventObj extends IDispatch {
     get_srcFilter() {
         result := ComCall(31, this, "ptr*", &p := 0, "HRESULT")
         return IDispatch(p)
+    }
+
+    Query(iid) {
+        if (IHTMLEventObj.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_srcElement := CallbackCreate(GetMethod(implObj, "get_srcElement"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.put_returnValue := CallbackCreate(GetMethod(implObj, "put_returnValue"), flags, 2)
+        this.vtbl.get_returnValue := CallbackCreate(GetMethod(implObj, "get_returnValue"), flags, 2)
+        this.vtbl.put_cancelBubble := CallbackCreate(GetMethod(implObj, "put_cancelBubble"), flags, 2)
+        this.vtbl.get_cancelBubble := CallbackCreate(GetMethod(implObj, "get_cancelBubble"), flags, 2)
+        this.vtbl.get_fromElement := CallbackCreate(GetMethod(implObj, "get_fromElement"), flags, 2)
+        this.vtbl.get_toElement := CallbackCreate(GetMethod(implObj, "get_toElement"), flags, 2)
+        this.vtbl.put_keyCode := CallbackCreate(GetMethod(implObj, "put_keyCode"), flags, 2)
+        this.vtbl.get_keyCode := CallbackCreate(GetMethod(implObj, "get_keyCode"), flags, 2)
+        this.vtbl.get_button := CallbackCreate(GetMethod(implObj, "get_button"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_qualifier := CallbackCreate(GetMethod(implObj, "get_qualifier"), flags, 2)
+        this.vtbl.get_reason := CallbackCreate(GetMethod(implObj, "get_reason"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.get_clientX := CallbackCreate(GetMethod(implObj, "get_clientX"), flags, 2)
+        this.vtbl.get_clientY := CallbackCreate(GetMethod(implObj, "get_clientY"), flags, 2)
+        this.vtbl.get_offsetX := CallbackCreate(GetMethod(implObj, "get_offsetX"), flags, 2)
+        this.vtbl.get_offsetY := CallbackCreate(GetMethod(implObj, "get_offsetY"), flags, 2)
+        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.get_srcFilter := CallbackCreate(GetMethod(implObj, "get_srcFilter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_srcElement)
+        CallbackFree(this.vtbl.get_altKey)
+        CallbackFree(this.vtbl.get_ctrlKey)
+        CallbackFree(this.vtbl.get_shiftKey)
+        CallbackFree(this.vtbl.put_returnValue)
+        CallbackFree(this.vtbl.get_returnValue)
+        CallbackFree(this.vtbl.put_cancelBubble)
+        CallbackFree(this.vtbl.get_cancelBubble)
+        CallbackFree(this.vtbl.get_fromElement)
+        CallbackFree(this.vtbl.get_toElement)
+        CallbackFree(this.vtbl.put_keyCode)
+        CallbackFree(this.vtbl.get_keyCode)
+        CallbackFree(this.vtbl.get_button)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_qualifier)
+        CallbackFree(this.vtbl.get_reason)
+        CallbackFree(this.vtbl.get_x)
+        CallbackFree(this.vtbl.get_y)
+        CallbackFree(this.vtbl.get_clientX)
+        CallbackFree(this.vtbl.get_clientY)
+        CallbackFree(this.vtbl.get_offsetX)
+        CallbackFree(this.vtbl.get_offsetY)
+        CallbackFree(this.vtbl.get_screenX)
+        CallbackFree(this.vtbl.get_screenY)
+        CallbackFree(this.vtbl.get_srcFilter)
     }
 }

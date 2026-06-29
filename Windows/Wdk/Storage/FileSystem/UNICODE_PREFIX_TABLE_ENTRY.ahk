@@ -1,61 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UNICODE_PREFIX_TABLE_ENTRY.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class UNICODE_PREFIX_TABLE_ENTRY extends Win32Struct {
-    static sizeof => 40
+export default struct UNICODE_PREFIX_TABLE_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeTypeCode : Int16
 
-    /**
-     * @type {Integer}
-     */
-    NodeTypeCode {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    NameLength : Int16
 
-    /**
-     * @type {Integer}
-     */
-    NameLength {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    NextPrefixTree : UNICODE_PREFIX_TABLE_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_PREFIX_TABLE_ENTRY>}
-     */
-    NextPrefixTree {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CaseMatch : UNICODE_PREFIX_TABLE_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_PREFIX_TABLE_ENTRY>}
-     */
-    CaseMatch {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Links : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Links {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Prefix : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    Prefix {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

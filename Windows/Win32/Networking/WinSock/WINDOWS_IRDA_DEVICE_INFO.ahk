@@ -1,54 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WINDOWS_IRDA_DEVICE_INFO extends Win32Struct {
-    static sizeof => 30
+export default struct WINDOWS_IRDA_DEVICE_INFO {
+    #StructPack 2
 
-    static packingSize => 2
+    irdaDeviceID : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    irdaDeviceID {
-        get {
-            if(!this.HasProp("__irdaDeviceIDProxyArray"))
-                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__irdaDeviceIDProxyArray
-        }
-    }
+    irdaDeviceName : CHAR[22]
 
-    /**
-     * @type {String}
-     */
-    irdaDeviceName {
-        get => StrGet(this.ptr + 4, 21, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 21, "UTF-8")
-    }
+    irdaDeviceHints1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    irdaDeviceHints1 {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    irdaDeviceHints2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    irdaDeviceHints2 {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
+    irdaCharSet : Int8
 
-    /**
-     * @type {Integer}
-     */
-    irdaCharSet {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
 }

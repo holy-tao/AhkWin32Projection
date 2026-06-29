@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACCESS_MODE.ahk
-#Include ..\ACE_FLAGS.ahk
-#Include .\TRUSTEE_A.ahk
-#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
-#Include .\TRUSTEE_FORM.ahk
-#Include .\TRUSTEE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\ACE_FLAGS.ahk" { ACE_FLAGS }
+#Import ".\ACCESS_MODE.ahk" { ACCESS_MODE }
+#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
+#Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
+#Import ".\TRUSTEE_A.ahk" { TRUSTEE_A }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
 
 /**
  * Defines access control information for a specified trustee. (ANSI)
@@ -16,51 +16,31 @@
  * @namespace Windows.Win32.Security.Authorization
  * @charset ANSI
  */
-class EXPLICIT_ACCESS_A extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct EXPLICIT_ACCESS_A {
+    #StructPack 8
 
     /**
      * A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that an ACE allows, denies, or audits for the trustee. The functions that use the <b>EXPLICIT_ACCESS</b> structure do not convert, interpret, or validate the bits in this mask.
-     * @type {Integer}
      */
-    grfAccessPermissions {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    grfAccessPermissions : UInt32
 
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a> enumeration. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), this flag indicates whether the ACL allows or denies the specified access rights. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), this flag indicates whether the ACL generates audit messages for successful attempts to use the specified access rights, or failed attempts, or both. When modifying an existing ACL, you can specify the REVOKE_ACCESS flag to remove any existing ACEs for the specified trustee.
-     * @type {ACCESS_MODE}
      */
-    grfAccessMode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    grfAccessMode : ACCESS_MODE
 
     /**
      * A set of bit flags that determines whether other containers or objects can inherit the 
      * ACE from the primary object to which the 
      * ACL is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
-     * @type {ACE_FLAGS}
      */
-    grfInheritance {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    grfInheritance : ACE_FLAGS
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the user, group, or program (such as a Windows service) to which the ACE applies.
-     * @type {TRUSTEE_A}
      */
-    Trustee {
-        get {
-            if(!this.HasProp("__Trustee"))
-                this.__Trustee := TRUSTEE_A(16, this)
-            return this.__Trustee
-        }
-    }
+    Trustee : TRUSTEE_A
+
 }

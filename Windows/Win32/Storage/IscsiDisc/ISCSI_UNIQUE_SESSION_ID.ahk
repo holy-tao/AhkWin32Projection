@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * ISCSI_UNIQUE_SESSION_ID structure is an opaque entity that contains data that uniquely identifies a session.
@@ -8,24 +7,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class ISCSI_UNIQUE_SESSION_ID extends Win32Struct {
-    static sizeof => 16
+export default struct ISCSI_UNIQUE_SESSION_ID {
+    #StructPack 8
 
-    static packingSize => 8
+    AdapterUnique : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AdapterUnique {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AdapterSpecific : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AdapterSpecific {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

@@ -1,187 +1,109 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEKIND.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\IDLDESC.ahk
-#Include .\IDLFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDLDESC.ahk" { IDLDESC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDLFLAGS.ahk" { IDLFLAGS }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
+#Import ".\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
 
 /**
  * Contains attributes of a type.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-typeattr
  * @namespace Windows.Win32.System.Com
  */
-class TYPEATTR extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct TYPEATTR {
+    #StructPack 8
 
     /**
      * The GUID of the type information.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
     /**
      * The locale of member names and documentation strings.
-     * @type {Integer}
      */
-    lcid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lcid : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwReserved : UInt32
 
     /**
      * The constructor ID, or MEMBERID_NIL if none.
-     * @type {Integer}
      */
-    memidConstructor {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    memidConstructor : Int32
 
     /**
      * The destructor ID, or MEMBERID_NIL if none.
-     * @type {Integer}
      */
-    memidDestructor {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    memidDestructor : Int32
 
     /**
      * Reserved.
-     * @type {PWSTR}
      */
-    lpstrSchema {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpstrSchema : PWSTR
 
     /**
      * The size of an instance of this type.
-     * @type {Integer}
      */
-    cbSizeInstance {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbSizeInstance : UInt32
 
     /**
      * The kind of type.
-     * @type {TYPEKIND}
      */
-    typekind {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    typekind : TYPEKIND
 
     /**
      * The number of functions.
-     * @type {Integer}
      */
-    cFuncs {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    cFuncs : UInt16
 
     /**
      * The number of variables or data members.
-     * @type {Integer}
      */
-    cVars {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    cVars : UInt16
 
     /**
      * The number of implemented interfaces.
-     * @type {Integer}
      */
-    cImplTypes {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    cImplTypes : UInt16
 
     /**
      * The size of this type's VTBL.
-     * @type {Integer}
      */
-    cbSizeVft {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    cbSizeVft : UInt16
 
     /**
      * The byte alignment for an instance of this type. A value of 0 indicates alignment on the 64K boundary; 1 indicates no special alignment. For other values, <i>n</i> indicates aligned on byte <i>n</i>.
-     * @type {Integer}
      */
-    cbAlignment {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    cbAlignment : UInt16
 
     /**
      * The type flags. See <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-typeflags">TYPEFLAGS</a>.
-     * @type {Integer}
      */
-    wTypeFlags {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    wTypeFlags : UInt16
 
     /**
      * The major version number.
-     * @type {Integer}
      */
-    wMajorVerNum {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    wMajorVerNum : UInt16
 
     /**
      * The minor version number.
-     * @type {Integer}
      */
-    wMinorVerNum {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
+    wMinorVerNum : UInt16
 
     /**
      * If <b>typekind</b> is TKIND_ALIAS, specifies the type for which this type is an alias.
-     * @type {TYPEDESC}
      */
-    tdescAlias {
-        get {
-            if(!this.HasProp("__tdescAlias"))
-                this.__tdescAlias := TYPEDESC(56, this)
-            return this.__tdescAlias
-        }
-    }
+    tdescAlias : TYPEDESC
 
     /**
      * The IDL attributes of the described type.
-     * @type {IDLDESC}
      */
-    idldescType {
-        get {
-            if(!this.HasProp("__idldescType"))
-                this.__idldescType := IDLDESC(72, this)
-            return this.__idldescType
-        }
-    }
+    idldescType : IDLDESC
+
 }

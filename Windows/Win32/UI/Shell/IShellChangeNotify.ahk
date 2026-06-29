@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that notifies a Shell namespace extension when the ID of an item has changed.
@@ -16,26 +18,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishellchangenotify
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellChangeNotify extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellChangeNotify extends IUnknown {
     /**
      * The interface identifier for IShellChangeNotify
      * @type {Guid}
      */
-    static IID => Guid("{d82be2b1-5764-11d0-a96e-00c04fd705a2}")
+    static IID := Guid("{d82be2b1-5764-11d0-a96e-00c04fd705a2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellChangeNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellChangeNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs a namespace extension that an event has taken place that affects its items.
@@ -56,7 +65,27 @@ class IShellChangeNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellchangenotify-onchange
      */
     OnChange(lEvent, pidl1, pidl2) {
-        result := ComCall(3, this, "int", lEvent, "ptr", pidl1, "ptr", pidl2, "HRESULT")
+        result := ComCall(3, this, "int", lEvent, ITEMIDLIST.Ptr, pidl1, ITEMIDLIST.Ptr, pidl2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellChangeNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnChange)
     }
 }

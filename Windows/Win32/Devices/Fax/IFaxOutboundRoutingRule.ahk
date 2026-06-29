@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FAX_RULE_STATUS_ENUM.ahk" { FAX_RULE_STATUS_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IFaxOutboundRoutingRule interface describes a configuration object that is used by a fax client application to set and retrieve information about an individual fax outbound routing rule.
@@ -11,32 +14,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrule
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutboundRoutingRule extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutboundRoutingRule extends IDispatch {
     /**
      * The interface identifier for IFaxOutboundRoutingRule
      * @type {Guid}
      */
-    static IID => Guid("{e1f795d5-07c2-469f-b027-acacc23219da}")
+    static IID := Guid("{e1f795d5-07c2-469f-b027-acacc23219da}")
 
     /**
      * The class identifier for FaxOutboundRoutingRule
      * @type {Guid}
      */
-    static CLSID => Guid("{6549eebf-08d1-475a-828b-3bf105952fa0}")
+    static CLSID := Guid("{6549eebf-08d1-475a-828b-3bf105952fa0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutboundRoutingRule interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CountryCode : IntPtr
+        get_AreaCode    : IntPtr
+        get_Status      : IntPtr
+        get_UseDevice   : IntPtr
+        put_UseDevice   : IntPtr
+        get_DeviceId    : IntPtr
+        put_DeviceId    : IntPtr
+        get_GroupName   : IntPtr
+        put_GroupName   : IntPtr
+        Refresh         : IntPtr
+        Save            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CountryCode", "get_AreaCode", "get_Status", "get_UseDevice", "put_UseDevice", "get_DeviceId", "put_DeviceId", "get_GroupName", "put_GroupName", "Refresh", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutboundRoutingRule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -131,7 +151,7 @@ class IFaxOutboundRoutingRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_usedevice
      */
     get_UseDevice() {
-        result := ComCall(10, this, "short*", &pbUseDevice := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pbUseDevice := 0, "HRESULT")
         return pbUseDevice
     }
 
@@ -144,7 +164,7 @@ class IFaxOutboundRoutingRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-put_usedevice
      */
     put_UseDevice(bUseDevice) {
-        result := ComCall(11, this, "short", bUseDevice, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, bUseDevice, "HRESULT")
         return result
     }
 
@@ -187,8 +207,8 @@ class IFaxOutboundRoutingRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_groupname
      */
     get_GroupName() {
-        pbstrGroupName := BSTR()
-        result := ComCall(14, this, "ptr", pbstrGroupName, "HRESULT")
+        pbstrGroupName := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrGroupName, "HRESULT")
         return pbstrGroupName
     }
 
@@ -205,7 +225,7 @@ class IFaxOutboundRoutingRule extends IDispatch {
     put_GroupName(bstrGroupName) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(15, this, "ptr", bstrGroupName, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrGroupName, "HRESULT")
         return result
     }
 
@@ -235,5 +255,45 @@ class IFaxOutboundRoutingRule extends IDispatch {
     Save() {
         result := ComCall(17, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxOutboundRoutingRule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.get_AreaCode := CallbackCreate(GetMethod(implObj, "get_AreaCode"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_UseDevice := CallbackCreate(GetMethod(implObj, "get_UseDevice"), flags, 2)
+        this.vtbl.put_UseDevice := CallbackCreate(GetMethod(implObj, "put_UseDevice"), flags, 2)
+        this.vtbl.get_DeviceId := CallbackCreate(GetMethod(implObj, "get_DeviceId"), flags, 2)
+        this.vtbl.put_DeviceId := CallbackCreate(GetMethod(implObj, "put_DeviceId"), flags, 2)
+        this.vtbl.get_GroupName := CallbackCreate(GetMethod(implObj, "get_GroupName"), flags, 2)
+        this.vtbl.put_GroupName := CallbackCreate(GetMethod(implObj, "put_GroupName"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CountryCode)
+        CallbackFree(this.vtbl.get_AreaCode)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_UseDevice)
+        CallbackFree(this.vtbl.put_UseDevice)
+        CallbackFree(this.vtbl.get_DeviceId)
+        CallbackFree(this.vtbl.put_DeviceId)
+        CallbackFree(this.vtbl.get_GroupName)
+        CallbackFree(this.vtbl.put_GroupName)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
     }
 }

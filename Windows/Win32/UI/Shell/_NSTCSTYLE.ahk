@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the characteristics of a given namespace tree control.
@@ -44,7 +43,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle
  * @namespace Windows.Win32.UI.Shell
  */
-class _NSTCSTYLE extends Win32Enum {
+export default struct _NSTCSTYLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The control displays a triangle—known as an expando—on the leftmost edge of those items that have child items. Clicking on the expando expands the item to reveal the children of the item. Has no effect when combined with NSTCS_SHOWTABSBUTTON, NSTCS_SHOWDELETEBUTTON, or NSTCS_SHOWREFRESHBUTTON.

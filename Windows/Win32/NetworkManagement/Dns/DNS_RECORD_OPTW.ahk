@@ -1,136 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_RECORDW.ahk
-#Include .\DNS_RECORD_FLAGS.ahk
-#Include .\DNS_HEADER_EXT.ahk
-#Include .\DNS_OPT_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_RECORD_FLAGS.ahk" { DNS_RECORD_FLAGS }
+#Import ".\DNS_HEADER_EXT.ahk" { DNS_HEADER_EXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_OPT_DATA.ahk" { DNS_OPT_DATA }
+#Import ".\DNS_RECORDW.ahk" { DNS_RECORDW }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_RECORD_OPTW extends Win32Struct {
-    static sizeof => 40
+export default struct DNS_RECORD_OPTW {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Flags {
+        DW : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        DW {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {DNS_RECORD_FLAGS}
-         */
-        S {
-            get {
-                if(!this.HasProp("__S"))
-                    this.__S := DNS_RECORD_FLAGS(0, this)
-                return this.__S
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'S', { type: DNS_RECORD_FLAGS, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Data_e__Union extends Win32Struct {
-        static sizeof => 6
-        static packingSize => 2
+    struct _Data {
+        OPT : DNS_OPT_DATA
 
-        /**
-         * @type {DNS_OPT_DATA}
-         */
-        OPT {
-            get {
-                if(!this.HasProp("__OPT"))
-                    this.__OPT := DNS_OPT_DATA(0, this)
-                return this.__OPT
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Opt1', { type: DNS_OPT_DATA, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer<DNS_RECORDW>}
-     */
-    pNext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNext : DNS_RECORDW.Ptr
 
-    /**
-     * @type {PWSTR}
-     */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pName : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDataLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    wDataLength : UInt16
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := DNS_RECORD_OPTW._Flags_e__Union(20, this)
-            return this.__Flags
-        }
-    }
+    Flags : DNS_RECORD_OPTW._Flags
 
-    /**
-     * @type {DNS_HEADER_EXT}
-     */
-    ExtHeader {
-        get {
-            if(!this.HasProp("__ExtHeader"))
-                this.__ExtHeader := DNS_HEADER_EXT(24, this)
-            return this.__ExtHeader
-        }
-    }
+    ExtHeader : DNS_HEADER_EXT
 
-    /**
-     * @type {Integer}
-     */
-    wPayloadSize {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    wPayloadSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    wReserved : UInt16
 
-    /**
-     * @type {_Data_e__Union}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := DNS_RECORD_OPTW._Data_e__Union(32, this)
-            return this.__Data
-        }
-    }
+    Data : DNS_RECORD_OPTW._Data
+
 }

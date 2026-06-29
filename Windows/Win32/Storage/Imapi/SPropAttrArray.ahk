@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a list of attributes for properties of an object. The SPropAttrArray structure is used by property data objects that implement the IPropData:IMAPIProp interface.
@@ -8,19 +7,13 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropattrarray
  * @namespace Windows.Win32.Storage.Imapi
  */
-class SPropAttrArray extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SPropAttrArray {
+    #StructPack 4
 
     /**
      * > Count of property attributes in the **aPropAttr** member.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cValues : UInt32
 
     /**
      * > An array of property attributes. Valid values for attributes are as follows:
@@ -29,13 +22,7 @@ class SPropAttrArray extends Win32Struct {
      *   - PROPATTR_READABLE
      *   - PROPATTR_WRITEABLE
      *   - PROPATTR_NOT_PRESENT
-     * @type {Array<Integer>}
      */
-    aPropAttr {
-        get {
-            if(!this.HasProp("__aPropAttrProxyArray"))
-                this.__aPropAttrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__aPropAttrProxyArray
-        }
-    }
+    aPropAttr : UInt32[1]
+
 }

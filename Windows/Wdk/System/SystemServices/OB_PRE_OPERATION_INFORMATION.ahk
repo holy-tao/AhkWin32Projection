@@ -1,41 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OB_PRE_OPERATION_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POBJECT_TYPE.ahk" { POBJECT_TYPE }
+#Import ".\OB_PRE_OPERATION_PARAMETERS.ahk" { OB_PRE_OPERATION_PARAMETERS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class OB_PRE_OPERATION_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct OB_PRE_OPERATION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Operation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Operation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - KernelHandle
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 
     /**
      * @type {Integer}
@@ -44,36 +20,16 @@ class OB_PRE_OPERATION_INFORMATION extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ObjectType : POBJECT_TYPE
 
-    /**
-     * @type {POBJECT_TYPE}
-     */
-    ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CallContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Parameters : OB_PRE_OPERATION_PARAMETERS.Ptr
 
-    /**
-     * @type {Pointer<OB_PRE_OPERATION_PARAMETERS>}
-     */
-    Parameters {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

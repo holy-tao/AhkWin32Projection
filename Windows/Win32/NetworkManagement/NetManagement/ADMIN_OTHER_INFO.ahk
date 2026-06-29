@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADMIN_OTHER_INFO structure contains error message information. The NetAlertRaise and NetAlertRaiseEx functions use the ADMIN_OTHER_INFO structure to specify information when raising an administrator's interrupting message.
@@ -13,26 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-admin_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class ADMIN_OTHER_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct ADMIN_OTHER_INFO {
+    #StructPack 4
 
     /**
      * Specifies the error code for the new message written to the message log.
-     * @type {Integer}
      */
-    alrtad_errcode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    alrtad_errcode : UInt32
 
     /**
      * Specifies the number (0-9) of consecutive Unicode strings written to the message log.
-     * @type {Integer}
      */
-    alrtad_numstrings {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    alrtad_numstrings : UInt32
+
 }

@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\CERT_RDN_ATTR_VALUE_TYPE.ahk" { CERT_RDN_ATTR_VALUE_TYPE }
 
 /**
  * Provides methods for handling string arrays used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodestringarray
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertEncodeStringArray extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertEncodeStringArray extends IDispatch {
     /**
      * The interface identifier for ICertEncodeStringArray
      * @type {Guid}
      */
-    static IID => Guid("{12a88820-7494-11d0-8816-00a0c903b83c}")
+    static IID := Guid("{12a88820-7494-11d0-8816-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertEncodeStringArray interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Decode        : IntPtr
+        GetStringType : IntPtr
+        GetCount      : IntPtr
+        GetValue      : IntPtr
+        Reset         : IntPtr
+        SetValue      : IntPtr
+        Encode        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "GetStringType", "GetCount", "GetValue", "Reset", "SetValue", "Encode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertEncodeStringArray.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Decodes an Abstract Syntax Notation One (ASN.1)-encoded string array and stores the resulting array of strings in the CertEncodeStringArray object.
@@ -44,7 +59,7 @@ class ICertEncodeStringArray extends IDispatch {
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        result := ComCall(7, this, "ptr", strBinary, "HRESULT")
+        result := ComCall(7, this, BSTR, strBinary, "HRESULT")
         return result
     }
 
@@ -128,8 +143,8 @@ class ICertEncodeStringArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getvalue
      */
     GetValue(Index) {
-        _pstr := BSTR()
-        result := ComCall(10, this, "int", Index, "ptr", _pstr, "HRESULT")
+        _pstr := BSTR.Owned()
+        result := ComCall(10, this, "int", Index, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -144,7 +159,7 @@ class ICertEncodeStringArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-reset
      */
     Reset(Count, StringType) {
-        result := ComCall(11, this, "int", Count, "int", StringType, "HRESULT")
+        result := ComCall(11, this, "int", Count, CERT_RDN_ATTR_VALUE_TYPE, StringType, "HRESULT")
         return result
     }
 
@@ -161,7 +176,7 @@ class ICertEncodeStringArray extends IDispatch {
     SetValue(Index, str) {
         str := str is String ? BSTR.Alloc(str).Value : str
 
-        result := ComCall(12, this, "int", Index, "ptr", str, "HRESULT")
+        result := ComCall(12, this, "int", Index, BSTR, str, "HRESULT")
         return result
     }
 
@@ -171,8 +186,40 @@ class ICertEncodeStringArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-encode
      */
     Encode() {
-        pstrBinary := BSTR()
-        result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
+        pstrBinary := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
+    }
+
+    Query(iid) {
+        if (ICertEncodeStringArray.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetStringType := CallbackCreate(GetMethod(implObj, "GetStringType"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.GetStringType)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.Encode)
     }
 }

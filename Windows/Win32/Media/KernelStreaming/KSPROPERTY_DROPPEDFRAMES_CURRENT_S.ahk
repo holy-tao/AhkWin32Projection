@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_DROPPEDFRAMES_CURRENT_S extends Win32Struct {
-    static sizeof => 40
+export default struct KSPROPERTY_DROPPEDFRAMES_CURRENT_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    PictureNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PictureNumber {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    DropCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DropCount {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    AverageFrameSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AverageFrameSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

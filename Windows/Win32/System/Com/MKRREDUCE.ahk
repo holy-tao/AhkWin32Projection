@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how far a moniker should be reduced.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-mkrreduce
  * @namespace Windows.Win32.System.Com
  */
-class MKRREDUCE extends Win32Enum {
+export default struct MKRREDUCE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Performs only one step of reducing the moniker. In general, the caller must have specific knowledge about the particular kind of moniker to take advantage of this option.

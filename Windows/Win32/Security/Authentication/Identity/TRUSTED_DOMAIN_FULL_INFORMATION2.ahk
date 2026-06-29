@@ -1,49 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TRUSTED_DOMAIN_INFORMATION_EX2.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\TRUSTED_POSIX_OFFSET_INFO.ahk
-#Include .\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk
-#Include .\LSA_AUTH_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\TRUSTED_DOMAIN_INFORMATION_EX2.ahk" { TRUSTED_DOMAIN_INFORMATION_EX2 }
+#Import ".\TRUSTED_POSIX_OFFSET_INFO.ahk" { TRUSTED_POSIX_OFFSET_INFO }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_AUTH_INFORMATION.ahk" { LSA_AUTH_INFORMATION }
+#Import ".\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk" { TRUSTED_DOMAIN_AUTH_INFORMATION }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class TRUSTED_DOMAIN_FULL_INFORMATION2 extends Win32Struct {
-    static sizeof => 120
+export default struct TRUSTED_DOMAIN_FULL_INFORMATION2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Information : TRUSTED_DOMAIN_INFORMATION_EX2
 
-    /**
-     * @type {TRUSTED_DOMAIN_INFORMATION_EX2}
-     */
-    Information {
-        get {
-            if(!this.HasProp("__Information"))
-                this.__Information := TRUSTED_DOMAIN_INFORMATION_EX2(0, this)
-            return this.__Information
-        }
-    }
+    PosixOffset : TRUSTED_POSIX_OFFSET_INFO
 
-    /**
-     * @type {TRUSTED_POSIX_OFFSET_INFO}
-     */
-    PosixOffset {
-        get {
-            if(!this.HasProp("__PosixOffset"))
-                this.__PosixOffset := TRUSTED_POSIX_OFFSET_INFO(64, this)
-            return this.__PosixOffset
-        }
-    }
+    AuthInformation : TRUSTED_DOMAIN_AUTH_INFORMATION
 
-    /**
-     * @type {TRUSTED_DOMAIN_AUTH_INFORMATION}
-     */
-    AuthInformation {
-        get {
-            if(!this.HasProp("__AuthInformation"))
-                this.__AuthInformation := TRUSTED_DOMAIN_AUTH_INFORMATION(72, this)
-            return this.__AuthInformation
-        }
-    }
 }

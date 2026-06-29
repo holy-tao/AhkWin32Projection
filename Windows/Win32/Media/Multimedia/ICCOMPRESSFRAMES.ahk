@@ -1,158 +1,93 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The ICCOMPRESSFRAMES structure contains compression parameters used with the ICM_COMPRESS_FRAMES_INFO message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-iccompressframes
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICCOMPRESSFRAMES extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct ICCOMPRESSFRAMES {
+    #StructPack 8
 
     /**
      * Applicable flags. The following value is defined: <b>ICCOMPRESSFRAMES_PADDING</b>. If this value is used, padding is used with the frame.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the output format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiOutput {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpbiOutput : BITMAPINFOHEADER.Ptr
 
     /**
      * Reserved; do not use.
-     * @type {LPARAM}
      */
-    lOutput {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lOutput : LPARAM
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the input format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiInput {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpbiInput : BITMAPINFOHEADER.Ptr
 
     /**
      * Reserved; do not use.
-     * @type {LPARAM}
      */
-    lInput {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lInput : LPARAM
 
     /**
      * Number of the first frame to compress.
-     * @type {Integer}
      */
-    lStartFrame {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    lStartFrame : Int32
 
     /**
      * Number of frames to compress.
-     * @type {Integer}
      */
-    lFrameCount {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    lFrameCount : Int32
 
     /**
      * Quality setting.
-     * @type {Integer}
      */
-    lQuality {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    lQuality : Int32
 
     /**
      * Maximum data rate, in bytes per second.
-     * @type {Integer}
      */
-    lDataRate {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    lDataRate : Int32
 
     /**
      * Maximum number of frames between consecutive key frames.
-     * @type {Integer}
      */
-    lKeyRate {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    lKeyRate : Int32
 
     /**
      * Compression rate in an integer format. To obtain the rate in frames per second, divide this value by the value in <b>dwScale</b>.
-     * @type {Integer}
      */
-    dwRate {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwRate : UInt32
 
     /**
      * Value used to scale <b>dwRate</b> to frames per second.
-     * @type {Integer}
      */
-    dwScale {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwScale : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwOverheadPerFrame {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwOverheadPerFrame : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwReserved2 : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Pointer}
      */
-    GetData {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    GetData : IntPtr
 
     /**
      * Reserved; do not use.
-     * @type {Pointer}
      */
-    PutData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    PutData : IntPtr
+
 }

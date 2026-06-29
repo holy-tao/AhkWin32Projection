@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk" { D3DPRIMITIVETYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_DP2DRAWINDEXEDPRIMITIVE extends Win32Struct {
-    static sizeof => 24
+export default struct D3DHAL_DP2DRAWINDEXEDPRIMITIVE {
+    #StructPack 4
 
-    static packingSize => 4
+    primType : D3DPRIMITIVETYPE
 
-    /**
-     * @type {D3DPRIMITIVETYPE}
-     */
-    primType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    BaseVertexIndex : Int32
 
-    /**
-     * @type {Integer}
-     */
-    BaseVertexIndex {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    MinIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumVertices : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumVertices {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    StartIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PrimitiveCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrimitiveCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

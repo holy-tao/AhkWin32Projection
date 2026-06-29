@@ -1,40 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLFormElement.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLObjectElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLObjectElement extends IDispatch {
     /**
      * The interface identifier for IHTMLObjectElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f24f-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f24f-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLObjectElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f24e-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f24e-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLObjectElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_object             : IntPtr
+        get_classid            : IntPtr
+        get_data               : IntPtr
+        putref_recordset       : IntPtr
+        get_recordset          : IntPtr
+        put_align              : IntPtr
+        get_align              : IntPtr
+        put_name               : IntPtr
+        get_name               : IntPtr
+        put_codeBase           : IntPtr
+        get_codeBase           : IntPtr
+        put_codeType           : IntPtr
+        get_codeType           : IntPtr
+        put_code               : IntPtr
+        get_code               : IntPtr
+        get_BaseHref           : IntPtr
+        put_type               : IntPtr
+        get_type               : IntPtr
+        get_form               : IntPtr
+        put_width              : IntPtr
+        get_width              : IntPtr
+        put_height             : IntPtr
+        get_height             : IntPtr
+        get_readyState         : IntPtr
+        put_onreadystatechange : IntPtr
+        get_onreadystatechange : IntPtr
+        put_onerror            : IntPtr
+        get_onerror            : IntPtr
+        put_altHtml            : IntPtr
+        get_altHtml            : IntPtr
+        put_vspace             : IntPtr
+        get_vspace             : IntPtr
+        put_hspace             : IntPtr
+        get_hspace             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_object", "get_classid", "get_data", "putref_recordset", "get_recordset", "put_align", "get_align", "put_name", "get_name", "put_codeBase", "get_codeBase", "put_codeType", "get_codeType", "put_code", "get_code", "get_BaseHref", "put_type", "get_type", "get_form", "put_width", "get_width", "put_height", "get_height", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "put_onerror", "get_onerror", "put_altHtml", "get_altHtml", "put_vspace", "get_vspace", "put_hspace", "get_hspace"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLObjectElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -203,8 +244,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_classid() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -213,8 +254,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_data() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -245,7 +286,7 @@ class IHTMLObjectElement extends IDispatch {
     put_align(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -254,8 +295,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -267,7 +308,7 @@ class IHTMLObjectElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -276,8 +317,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -289,7 +330,7 @@ class IHTMLObjectElement extends IDispatch {
     put_codeBase(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -298,8 +339,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_codeBase() {
-        p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -311,7 +352,7 @@ class IHTMLObjectElement extends IDispatch {
     put_codeType(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -320,8 +361,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_codeType() {
-        p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -333,7 +374,7 @@ class IHTMLObjectElement extends IDispatch {
     put_code(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -342,8 +383,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_code() {
-        p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -352,8 +393,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_BaseHref() {
-        p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -365,7 +406,7 @@ class IHTMLObjectElement extends IDispatch {
     put_type(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -374,8 +415,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -394,7 +435,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(26, this, "ptr", v, "HRESULT")
+        result := ComCall(26, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -404,7 +445,7 @@ class IHTMLObjectElement extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        result := ComCall(27, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -414,7 +455,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(28, this, "ptr", v, "HRESULT")
+        result := ComCall(28, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -424,7 +465,7 @@ class IHTMLObjectElement extends IDispatch {
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        result := ComCall(29, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -443,7 +484,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -453,7 +494,7 @@ class IHTMLObjectElement extends IDispatch {
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -463,7 +504,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -473,7 +514,7 @@ class IHTMLObjectElement extends IDispatch {
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -485,7 +526,7 @@ class IHTMLObjectElement extends IDispatch {
     put_altHtml(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -494,8 +535,8 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_altHtml() {
-        p := BSTR()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -535,5 +576,91 @@ class IHTMLObjectElement extends IDispatch {
     get_hspace() {
         result := ComCall(40, this, "int*", &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLObjectElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_object := CallbackCreate(GetMethod(implObj, "get_object"), flags, 2)
+        this.vtbl.get_classid := CallbackCreate(GetMethod(implObj, "get_classid"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.putref_recordset := CallbackCreate(GetMethod(implObj, "putref_recordset"), flags, 2)
+        this.vtbl.get_recordset := CallbackCreate(GetMethod(implObj, "get_recordset"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_codeBase := CallbackCreate(GetMethod(implObj, "put_codeBase"), flags, 2)
+        this.vtbl.get_codeBase := CallbackCreate(GetMethod(implObj, "get_codeBase"), flags, 2)
+        this.vtbl.put_codeType := CallbackCreate(GetMethod(implObj, "put_codeType"), flags, 2)
+        this.vtbl.get_codeType := CallbackCreate(GetMethod(implObj, "get_codeType"), flags, 2)
+        this.vtbl.put_code := CallbackCreate(GetMethod(implObj, "put_code"), flags, 2)
+        this.vtbl.get_code := CallbackCreate(GetMethod(implObj, "get_code"), flags, 2)
+        this.vtbl.get_BaseHref := CallbackCreate(GetMethod(implObj, "get_BaseHref"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_altHtml := CallbackCreate(GetMethod(implObj, "put_altHtml"), flags, 2)
+        this.vtbl.get_altHtml := CallbackCreate(GetMethod(implObj, "get_altHtml"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_object)
+        CallbackFree(this.vtbl.get_classid)
+        CallbackFree(this.vtbl.get_data)
+        CallbackFree(this.vtbl.putref_recordset)
+        CallbackFree(this.vtbl.get_recordset)
+        CallbackFree(this.vtbl.put_align)
+        CallbackFree(this.vtbl.get_align)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_codeBase)
+        CallbackFree(this.vtbl.get_codeBase)
+        CallbackFree(this.vtbl.put_codeType)
+        CallbackFree(this.vtbl.get_codeType)
+        CallbackFree(this.vtbl.put_code)
+        CallbackFree(this.vtbl.get_code)
+        CallbackFree(this.vtbl.get_BaseHref)
+        CallbackFree(this.vtbl.put_type)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_form)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.put_onreadystatechange)
+        CallbackFree(this.vtbl.get_onreadystatechange)
+        CallbackFree(this.vtbl.put_onerror)
+        CallbackFree(this.vtbl.get_onerror)
+        CallbackFree(this.vtbl.put_altHtml)
+        CallbackFree(this.vtbl.get_altHtml)
+        CallbackFree(this.vtbl.put_vspace)
+        CallbackFree(this.vtbl.get_vspace)
+        CallbackFree(this.vtbl.put_hspace)
+        CallbackFree(this.vtbl.get_hspace)
     }
 }

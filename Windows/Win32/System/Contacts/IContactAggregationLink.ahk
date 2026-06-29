@@ -1,31 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONTACT_AGGREGATION_BLOB.ahk" { CONTACT_AGGREGATION_BLOB }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactAggregationLink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactAggregationLink extends IUnknown {
     /**
      * The interface identifier for IContactAggregationLink
      * @type {Guid}
      */
-    static IID => Guid("{b6813323-a183-4654-8627-79b30de3a0ec}")
+    static IID := Guid("{b6813323-a183-4654-8627-79b30de3a0ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactAggregationLink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Delete                    : IntPtr
+        Save                      : IntPtr
+        get_AccountId             : IntPtr
+        put_AccountId             : IntPtr
+        get_Id                    : IntPtr
+        get_IsLinkResolved        : IntPtr
+        put_IsLinkResolved        : IntPtr
+        get_NetworkSourceIdString : IntPtr
+        put_NetworkSourceIdString : IntPtr
+        get_RemoteObjectId        : IntPtr
+        put_RemoteObjectId        : IntPtr
+        get_ServerPerson          : IntPtr
+        put_ServerPerson          : IntPtr
+        get_ServerPersonBaseline  : IntPtr
+        put_ServerPersonBaseline  : IntPtr
+        get_SyncIdentityHash      : IntPtr
+        put_SyncIdentityHash      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Delete", "Save", "get_AccountId", "put_AccountId", "get_Id", "get_IsLinkResolved", "put_IsLinkResolved", "get_NetworkSourceIdString", "put_NetworkSourceIdString", "get_RemoteObjectId", "put_RemoteObjectId", "get_ServerPerson", "put_ServerPerson", "get_ServerPersonBaseline", "put_ServerPersonBaseline", "get_SyncIdentityHash", "put_SyncIdentityHash"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactAggregationLink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -91,17 +118,8 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(3, this, "HRESULT")
@@ -109,11 +127,8 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * 
+     * @returns {HRESULT} 
      */
     Save() {
         result := ComCall(4, this, "HRESULT")
@@ -125,7 +140,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {PWSTR} 
      */
     get_AccountId() {
-        result := ComCall(5, this, "ptr*", &ppAccountId := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppAccountId := 0, "HRESULT")
         return ppAccountId
     }
 
@@ -146,7 +161,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {PWSTR} 
      */
     get_Id() {
-        result := ComCall(7, this, "ptr*", &ppItemId := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppItemId := 0, "HRESULT")
         return ppItemId
     }
 
@@ -155,7 +170,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {BOOL} 
      */
     get_IsLinkResolved() {
-        result := ComCall(8, this, "int*", &pIsLinkResolved := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pIsLinkResolved := 0, "HRESULT")
         return pIsLinkResolved
     }
 
@@ -165,7 +180,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {HRESULT} 
      */
     put_IsLinkResolved(isLinkResolved) {
-        result := ComCall(9, this, "int", isLinkResolved, "HRESULT")
+        result := ComCall(9, this, BOOL, isLinkResolved, "HRESULT")
         return result
     }
 
@@ -174,7 +189,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {PWSTR} 
      */
     get_NetworkSourceIdString() {
-        result := ComCall(10, this, "ptr*", &ppNetworkSourceId := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &ppNetworkSourceId := 0, "HRESULT")
         return ppNetworkSourceId
     }
 
@@ -205,7 +220,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {HRESULT} 
      */
     put_RemoteObjectId(pRemoteObjectId) {
-        result := ComCall(13, this, "ptr", pRemoteObjectId, "HRESULT")
+        result := ComCall(13, this, CONTACT_AGGREGATION_BLOB.Ptr, pRemoteObjectId, "HRESULT")
         return result
     }
 
@@ -214,7 +229,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {PWSTR} 
      */
     get_ServerPerson() {
-        result := ComCall(14, this, "ptr*", &ppServerPersonId := 0, "HRESULT")
+        result := ComCall(14, this, PWSTR.Ptr, &ppServerPersonId := 0, "HRESULT")
         return ppServerPersonId
     }
 
@@ -235,7 +250,7 @@ class IContactAggregationLink extends IUnknown {
      * @returns {PWSTR} 
      */
     get_ServerPersonBaseline() {
-        result := ComCall(16, this, "ptr*", &ppServerPersonId := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &ppServerPersonId := 0, "HRESULT")
         return ppServerPersonId
     }
 
@@ -266,7 +281,59 @@ class IContactAggregationLink extends IUnknown {
      * @returns {HRESULT} 
      */
     put_SyncIdentityHash(pSyncIdentityHash) {
-        result := ComCall(19, this, "ptr", pSyncIdentityHash, "HRESULT")
+        result := ComCall(19, this, CONTACT_AGGREGATION_BLOB.Ptr, pSyncIdentityHash, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContactAggregationLink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_AccountId := CallbackCreate(GetMethod(implObj, "get_AccountId"), flags, 2)
+        this.vtbl.put_AccountId := CallbackCreate(GetMethod(implObj, "put_AccountId"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_IsLinkResolved := CallbackCreate(GetMethod(implObj, "get_IsLinkResolved"), flags, 2)
+        this.vtbl.put_IsLinkResolved := CallbackCreate(GetMethod(implObj, "put_IsLinkResolved"), flags, 2)
+        this.vtbl.get_NetworkSourceIdString := CallbackCreate(GetMethod(implObj, "get_NetworkSourceIdString"), flags, 2)
+        this.vtbl.put_NetworkSourceIdString := CallbackCreate(GetMethod(implObj, "put_NetworkSourceIdString"), flags, 2)
+        this.vtbl.get_RemoteObjectId := CallbackCreate(GetMethod(implObj, "get_RemoteObjectId"), flags, 2)
+        this.vtbl.put_RemoteObjectId := CallbackCreate(GetMethod(implObj, "put_RemoteObjectId"), flags, 2)
+        this.vtbl.get_ServerPerson := CallbackCreate(GetMethod(implObj, "get_ServerPerson"), flags, 2)
+        this.vtbl.put_ServerPerson := CallbackCreate(GetMethod(implObj, "put_ServerPerson"), flags, 2)
+        this.vtbl.get_ServerPersonBaseline := CallbackCreate(GetMethod(implObj, "get_ServerPersonBaseline"), flags, 2)
+        this.vtbl.put_ServerPersonBaseline := CallbackCreate(GetMethod(implObj, "put_ServerPersonBaseline"), flags, 2)
+        this.vtbl.get_SyncIdentityHash := CallbackCreate(GetMethod(implObj, "get_SyncIdentityHash"), flags, 2)
+        this.vtbl.put_SyncIdentityHash := CallbackCreate(GetMethod(implObj, "put_SyncIdentityHash"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.get_AccountId)
+        CallbackFree(this.vtbl.put_AccountId)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_IsLinkResolved)
+        CallbackFree(this.vtbl.put_IsLinkResolved)
+        CallbackFree(this.vtbl.get_NetworkSourceIdString)
+        CallbackFree(this.vtbl.put_NetworkSourceIdString)
+        CallbackFree(this.vtbl.get_RemoteObjectId)
+        CallbackFree(this.vtbl.put_RemoteObjectId)
+        CallbackFree(this.vtbl.get_ServerPerson)
+        CallbackFree(this.vtbl.put_ServerPerson)
+        CallbackFree(this.vtbl.get_ServerPersonBaseline)
+        CallbackFree(this.vtbl.put_ServerPersonBaseline)
+        CallbackFree(this.vtbl.get_SyncIdentityHash)
+        CallbackFree(this.vtbl.put_SyncIdentityHash)
     }
 }

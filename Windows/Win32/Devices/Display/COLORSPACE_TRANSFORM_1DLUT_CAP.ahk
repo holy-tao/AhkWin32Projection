@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORSPACE_TRANSFORM_DATA_CAP.ahk
-#Include .\COLORSPACE_TRANSFORM_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COLORSPACE_TRANSFORM_DATA_TYPE.ahk" { COLORSPACE_TRANSFORM_DATA_TYPE }
+#Import ".\COLORSPACE_TRANSFORM_DATA_CAP.ahk" { COLORSPACE_TRANSFORM_DATA_CAP }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_TRANSFORM_1DLUT_CAP extends Win32Struct {
-    static sizeof => 20
+export default struct COLORSPACE_TRANSFORM_1DLUT_CAP {
+    #StructPack 4
 
-    static packingSize => 4
+    NumberOfLUTEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfLUTEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataCap : COLORSPACE_TRANSFORM_DATA_CAP
 
-    /**
-     * @type {COLORSPACE_TRANSFORM_DATA_CAP}
-     */
-    DataCap {
-        get {
-            if(!this.HasProp("__DataCap"))
-                this.__DataCap := COLORSPACE_TRANSFORM_DATA_CAP(4, this)
-            return this.__DataCap
-        }
-    }
 }

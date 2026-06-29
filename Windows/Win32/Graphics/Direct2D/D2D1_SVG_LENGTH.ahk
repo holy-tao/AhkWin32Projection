@@ -1,30 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_SVG_LENGTH_UNITS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_SVG_LENGTH_UNITS.ahk" { D2D1_SVG_LENGTH_UNITS }
 
 /**
  * Represents an SVG length.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ns-d2d1svg-d2d1_svg_length
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_SVG_LENGTH extends Win32Struct {
-    static sizeof => 8
+export default struct D2D1_SVG_LENGTH {
+    #StructPack 4
 
-    static packingSize => 4
+    value : Float32
 
-    /**
-     * @type {Float}
-     */
-    value {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    units : D2D1_SVG_LENGTH_UNITS
 
-    /**
-     * @type {D2D1_SVG_LENGTH_UNITS}
-     */
-    units {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

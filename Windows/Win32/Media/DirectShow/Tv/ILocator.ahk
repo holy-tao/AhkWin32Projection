@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\ModulationType.ahk" { ModulationType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\FECMethod.ahk" { FECMethod }
+#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
 
 /**
  * The ILocator interface is implemented (through derived interfaces such as IATSCLocator) on Locator objects that contain tuning information about the tuning space.
@@ -10,32 +14,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ilocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ILocator extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ILocator extends IDispatch {
     /**
      * The interface identifier for ILocator
      * @type {Guid}
      */
-    static IID => Guid("{286d7f89-760c-4f89-80c4-66841d2507aa}")
+    static IID := Guid("{286d7f89-760c-4f89-80c4-66841d2507aa}")
 
     /**
      * The class identifier for Locator
      * @type {Guid}
      */
-    static CLSID => Guid("{0888c883-ac4f-4943-b516-2c38d9b34562}")
+    static CLSID := Guid("{0888c883-ac4f-4943-b516-2c38d9b34562}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILocator interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CarrierFrequency : IntPtr
+        put_CarrierFrequency : IntPtr
+        get_InnerFEC         : IntPtr
+        put_InnerFEC         : IntPtr
+        get_InnerFECRate     : IntPtr
+        put_InnerFECRate     : IntPtr
+        get_OuterFEC         : IntPtr
+        put_OuterFEC         : IntPtr
+        get_OuterFECRate     : IntPtr
+        put_OuterFECRate     : IntPtr
+        get_Modulation       : IntPtr
+        put_Modulation       : IntPtr
+        get_SymbolRate       : IntPtr
+        put_SymbolRate       : IntPtr
+        Clone                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CarrierFrequency", "put_CarrierFrequency", "get_InnerFEC", "put_InnerFEC", "get_InnerFECRate", "put_InnerFECRate", "get_OuterFEC", "put_OuterFEC", "get_OuterFECRate", "put_OuterFECRate", "get_Modulation", "put_Modulation", "get_SymbolRate", "put_SymbolRate", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -131,7 +156,7 @@ class ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_innerfec
      */
     put_InnerFEC(FEC) {
-        result := ComCall(10, this, "int", FEC, "HRESULT")
+        result := ComCall(10, this, FECMethod, FEC, "HRESULT")
         return result
     }
 
@@ -152,7 +177,7 @@ class ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_innerfecrate
      */
     put_InnerFECRate(FEC) {
-        result := ComCall(12, this, "int", FEC, "HRESULT")
+        result := ComCall(12, this, BinaryConvolutionCodeRate, FEC, "HRESULT")
         return result
     }
 
@@ -173,7 +198,7 @@ class ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_outerfec
      */
     put_OuterFEC(FEC) {
-        result := ComCall(14, this, "int", FEC, "HRESULT")
+        result := ComCall(14, this, FECMethod, FEC, "HRESULT")
         return result
     }
 
@@ -194,7 +219,7 @@ class ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_outerfecrate
      */
     put_OuterFECRate(FEC) {
-        result := ComCall(16, this, "int", FEC, "HRESULT")
+        result := ComCall(16, this, BinaryConvolutionCodeRate, FEC, "HRESULT")
         return result
     }
 
@@ -217,7 +242,7 @@ class ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_modulation
      */
     put_Modulation(Modulation) {
-        result := ComCall(18, this, "int", Modulation, "HRESULT")
+        result := ComCall(18, this, ModulationType, Modulation, "HRESULT")
         return result
     }
 
@@ -250,5 +275,53 @@ class ILocator extends IDispatch {
     Clone() {
         result := ComCall(21, this, "ptr*", &NewLocator := 0, "HRESULT")
         return ILocator(NewLocator)
+    }
+
+    Query(iid) {
+        if (ILocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CarrierFrequency := CallbackCreate(GetMethod(implObj, "get_CarrierFrequency"), flags, 2)
+        this.vtbl.put_CarrierFrequency := CallbackCreate(GetMethod(implObj, "put_CarrierFrequency"), flags, 2)
+        this.vtbl.get_InnerFEC := CallbackCreate(GetMethod(implObj, "get_InnerFEC"), flags, 2)
+        this.vtbl.put_InnerFEC := CallbackCreate(GetMethod(implObj, "put_InnerFEC"), flags, 2)
+        this.vtbl.get_InnerFECRate := CallbackCreate(GetMethod(implObj, "get_InnerFECRate"), flags, 2)
+        this.vtbl.put_InnerFECRate := CallbackCreate(GetMethod(implObj, "put_InnerFECRate"), flags, 2)
+        this.vtbl.get_OuterFEC := CallbackCreate(GetMethod(implObj, "get_OuterFEC"), flags, 2)
+        this.vtbl.put_OuterFEC := CallbackCreate(GetMethod(implObj, "put_OuterFEC"), flags, 2)
+        this.vtbl.get_OuterFECRate := CallbackCreate(GetMethod(implObj, "get_OuterFECRate"), flags, 2)
+        this.vtbl.put_OuterFECRate := CallbackCreate(GetMethod(implObj, "put_OuterFECRate"), flags, 2)
+        this.vtbl.get_Modulation := CallbackCreate(GetMethod(implObj, "get_Modulation"), flags, 2)
+        this.vtbl.put_Modulation := CallbackCreate(GetMethod(implObj, "put_Modulation"), flags, 2)
+        this.vtbl.get_SymbolRate := CallbackCreate(GetMethod(implObj, "get_SymbolRate"), flags, 2)
+        this.vtbl.put_SymbolRate := CallbackCreate(GetMethod(implObj, "put_SymbolRate"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CarrierFrequency)
+        CallbackFree(this.vtbl.put_CarrierFrequency)
+        CallbackFree(this.vtbl.get_InnerFEC)
+        CallbackFree(this.vtbl.put_InnerFEC)
+        CallbackFree(this.vtbl.get_InnerFECRate)
+        CallbackFree(this.vtbl.put_InnerFECRate)
+        CallbackFree(this.vtbl.get_OuterFEC)
+        CallbackFree(this.vtbl.put_OuterFEC)
+        CallbackFree(this.vtbl.get_OuterFECRate)
+        CallbackFree(this.vtbl.put_OuterFECRate)
+        CallbackFree(this.vtbl.get_Modulation)
+        CallbackFree(this.vtbl.put_Modulation)
+        CallbackFree(this.vtbl.get_SymbolRate)
+        CallbackFree(this.vtbl.put_SymbolRate)
+        CallbackFree(this.vtbl.Clone)
     }
 }

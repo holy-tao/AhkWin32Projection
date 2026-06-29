@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a media source in the application process to create objects in the protected media path (PMP) process.
@@ -14,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpmphost
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFPMPHost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFPMPHost extends IUnknown {
     /**
      * The interface identifier for IMFPMPHost
      * @type {Guid}
      */
-    static IID => Guid("{f70ca1a9-fdc7-4782-b994-adffb1c98606}")
+    static IID := Guid("{f70ca1a9-fdc7-4782-b994-adffb1c98606}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFPMPHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LockProcess         : IntPtr
+        UnlockProcess       : IntPtr
+        CreateObjectByCLSID : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LockProcess", "UnlockProcess", "CreateObjectByCLSID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFPMPHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Blocks the protected media path (PMP) process from ending. (IMFPMPHost.LockProcess)
@@ -68,7 +79,31 @@ class IMFPMPHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
      */
     CreateObjectByCLSID(clsid, pStream, riid) {
-        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, clsid, "ptr", pStream, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IMFPMPHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LockProcess := CallbackCreate(GetMethod(implObj, "LockProcess"), flags, 1)
+        this.vtbl.UnlockProcess := CallbackCreate(GetMethod(implObj, "UnlockProcess"), flags, 1)
+        this.vtbl.CreateObjectByCLSID := CallbackCreate(GetMethod(implObj, "CreateObjectByCLSID"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LockProcess)
+        CallbackFree(this.vtbl.UnlockProcess)
+        CallbackFree(this.vtbl.CreateObjectByCLSID)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a function table stream.
@@ -9,53 +8,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_function_table_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_FUNCTION_TABLE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MINIDUMP_FUNCTION_TABLE_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * The minimum address of functions described by the table.
-     * @type {Integer}
      */
-    MinimumAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MinimumAddress : Int64
 
     /**
      * The maximum address of functions described by the table.
-     * @type {Integer}
      */
-    MaximumAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaximumAddress : Int64
 
     /**
      * The base address to use when computing full virtual addresses from relative virtual addresses in function entries.
-     * @type {Integer}
      */
-    BaseAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BaseAddress : Int64
 
     /**
      * The number of entries in the function table.
-     * @type {Integer}
      */
-    EntryCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    EntryCount : UInt32
 
     /**
      * The size of alignment padding that follows the function entry data, in bytes. The function entry data in the stream is guaranteed to be aligned appropriately for access to the data members. If a minidump is directly mapped in memory, it is always possible to directly reference structure members in the stream.
-     * @type {Integer}
      */
-    SizeOfAlignPad {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    SizeOfAlignPad : UInt32
+
 }

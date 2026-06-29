@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IXAudio2VoiceCallback interface contains methods that notify the client when certain events happen in a given IXAudio2SourceVoice.
@@ -10,21 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2voicecallback
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAudio2VoiceCallback extends Win32ComInterface {
+export default struct IXAudio2VoiceCallback extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnVoiceProcessingPassStart", "OnVoiceProcessingPassEnd", "OnStreamEnd", "OnBufferStart", "OnBufferEnd", "OnLoopEnd", "OnVoiceError"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAudio2VoiceCallback interfaces
+    */
+    struct Vtbl {
+        OnVoiceProcessingPassStart : IntPtr
+        OnVoiceProcessingPassEnd   : IntPtr
+        OnStreamEnd                : IntPtr
+        OnBufferStart              : IntPtr
+        OnBufferEnd                : IntPtr
+        OnLoopEnd                  : IntPtr
+        OnVoiceError               : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAudio2VoiceCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called during each processing pass for each voice, just before XAudio2 reads data from the voice's buffer queue.
@@ -200,5 +214,12 @@ class IXAudio2VoiceCallback extends Win32ComInterface {
         pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
 
         ComCall(6, this, pBufferContextMarshal, pBufferContext, "int", _Error)
+    }
+
+    Query(iid) {
+        if (IXAudio2VoiceCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

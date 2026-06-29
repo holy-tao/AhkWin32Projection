@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XSAVE_AREA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XSAVE_AREA.ahk" { XSAVE_AREA }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64, Arm64
  */
-class XSTATE_CONTEXT extends Win32Struct {
-    static sizeof => 32
+export default struct XSTATE_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    Mask : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Area : XSAVE_AREA.Ptr
 
-    /**
-     * @type {Pointer<XSAVE_AREA>}
-     */
-    Area {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Buffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Buffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

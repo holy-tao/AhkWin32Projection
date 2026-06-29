@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_NODE_PERFDATA extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_NODE_PERFDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeOrdinal : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeOrdinal {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PhysicalAdapterIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalAdapterIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Frequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Frequency {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrequency {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxFrequencyOC : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrequencyOC {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Voltage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Voltage {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    VoltageMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VoltageMax {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    VoltageMaxOC : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VoltageMaxOC {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MaxTransitionLatency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxTransitionLatency {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

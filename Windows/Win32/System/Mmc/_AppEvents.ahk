@@ -1,37 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\_Application.ahk" { _Application }
+#Import ".\MenuItem.ahk" { MenuItem }
+#Import ".\View.ahk" { View }
+#Import ".\Nodes.ahk" { Nodes }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SnapIn.ahk" { SnapIn }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\Node.ahk" { Node }
+#Import ".\Document.ahk" { Document }
 
 /**
  * @namespace Windows.Win32.System.Mmc
  */
-class _AppEvents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct _AppEvents extends IDispatch {
     /**
      * The interface identifier for _AppEvents
      * @type {Guid}
      */
-    static IID => Guid("{de46cbdd-53f5-4635-af54-4fe71e923d3f}")
+    static IID := Guid("{de46cbdd-53f5-4635-af54-4fe71e923d3f}")
 
     /**
      * The class identifier for _AppEvents
      * @type {Guid}
      */
-    static CLSID => Guid("{de46cbdd-53f5-4635-af54-4fe71e923d3f}")
+    static CLSID := Guid("{de46cbdd-53f5-4635-af54-4fe71e923d3f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for _AppEvents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        OnQuit                 : IntPtr
+        OnDocumentOpen         : IntPtr
+        OnDocumentClose        : IntPtr
+        OnSnapInAdded          : IntPtr
+        OnSnapInRemoved        : IntPtr
+        OnNewView              : IntPtr
+        OnViewClose            : IntPtr
+        OnViewChange           : IntPtr
+        OnSelectionChange      : IntPtr
+        OnContextMenuExecuted  : IntPtr
+        OnToolbarButtonClicked : IntPtr
+        OnListUpdated          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnQuit", "OnDocumentOpen", "OnDocumentClose", "OnSnapInAdded", "OnSnapInRemoved", "OnNewView", "OnViewClose", "OnViewChange", "OnSelectionChange", "OnContextMenuExecuted", "OnToolbarButtonClicked", "OnListUpdated"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := _AppEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -50,7 +77,7 @@ class _AppEvents extends IDispatch {
      * @returns {HRESULT} 
      */
     OnDocumentOpen(_Document, New) {
-        result := ComCall(8, this, "ptr", _Document, "int", New, "HRESULT")
+        result := ComCall(8, this, "ptr", _Document, BOOL, New, "HRESULT")
         return result
     }
 
@@ -155,5 +182,47 @@ class _AppEvents extends IDispatch {
     OnListUpdated(_View) {
         result := ComCall(18, this, "ptr", _View, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (_AppEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnQuit := CallbackCreate(GetMethod(implObj, "OnQuit"), flags, 2)
+        this.vtbl.OnDocumentOpen := CallbackCreate(GetMethod(implObj, "OnDocumentOpen"), flags, 3)
+        this.vtbl.OnDocumentClose := CallbackCreate(GetMethod(implObj, "OnDocumentClose"), flags, 2)
+        this.vtbl.OnSnapInAdded := CallbackCreate(GetMethod(implObj, "OnSnapInAdded"), flags, 3)
+        this.vtbl.OnSnapInRemoved := CallbackCreate(GetMethod(implObj, "OnSnapInRemoved"), flags, 3)
+        this.vtbl.OnNewView := CallbackCreate(GetMethod(implObj, "OnNewView"), flags, 2)
+        this.vtbl.OnViewClose := CallbackCreate(GetMethod(implObj, "OnViewClose"), flags, 2)
+        this.vtbl.OnViewChange := CallbackCreate(GetMethod(implObj, "OnViewChange"), flags, 3)
+        this.vtbl.OnSelectionChange := CallbackCreate(GetMethod(implObj, "OnSelectionChange"), flags, 3)
+        this.vtbl.OnContextMenuExecuted := CallbackCreate(GetMethod(implObj, "OnContextMenuExecuted"), flags, 2)
+        this.vtbl.OnToolbarButtonClicked := CallbackCreate(GetMethod(implObj, "OnToolbarButtonClicked"), flags, 1)
+        this.vtbl.OnListUpdated := CallbackCreate(GetMethod(implObj, "OnListUpdated"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnQuit)
+        CallbackFree(this.vtbl.OnDocumentOpen)
+        CallbackFree(this.vtbl.OnDocumentClose)
+        CallbackFree(this.vtbl.OnSnapInAdded)
+        CallbackFree(this.vtbl.OnSnapInRemoved)
+        CallbackFree(this.vtbl.OnNewView)
+        CallbackFree(this.vtbl.OnViewClose)
+        CallbackFree(this.vtbl.OnViewChange)
+        CallbackFree(this.vtbl.OnSelectionChange)
+        CallbackFree(this.vtbl.OnContextMenuExecuted)
+        CallbackFree(this.vtbl.OnToolbarButtonClicked)
+        CallbackFree(this.vtbl.OnListUpdated)
     }
 }

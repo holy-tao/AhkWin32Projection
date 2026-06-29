@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates the event objects that are registered in the COM+ events store.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ienumeventobject
  * @namespace Windows.Win32.System.Com.Events
  */
-class IEnumEventObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumEventObject extends IUnknown {
     /**
      * The interface identifier for IEnumEventObject
      * @type {Guid}
      */
-    static IID => Guid("{f4a07d63-2e25-11d1-9964-00c04fbbb345}")
+    static IID := Guid("{f4a07d63-2e25-11d1-9964-00c04fbbb345}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumEventObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Clone : IntPtr
+        Next  : IntPtr
+        Reset : IntPtr
+        Skip  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clone", "Next", "Reset", "Skip"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumEventObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an enumerator that contains the same enumeration state as the current one. (IEnumEventObject.Clone)
@@ -81,7 +92,7 @@ class IEnumEventObject extends IUnknown {
     Next(cReqElem, ppInterface, cRetElem) {
         cRetElemMarshal := cRetElem is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", cReqElem, "ptr*", ppInterface, cRetElemMarshal, cRetElem, "HRESULT")
+        result := ComCall(4, this, "uint", cReqElem, IUnknown.Ptr, ppInterface, cRetElemMarshal, cRetElem, "HRESULT")
         return result
     }
 
@@ -124,7 +135,7 @@ class IEnumEventObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-reset
      */
     Reset() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, Int32)
         return result
     }
 
@@ -168,5 +179,31 @@ class IEnumEventObject extends IUnknown {
     Skip(cSkipElem) {
         result := ComCall(6, this, "uint", cSkipElem, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnumEventObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Skip)
     }
 }

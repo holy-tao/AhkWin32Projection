@@ -1,37 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ITfRange.ahk
-#Include .\TF_SELECTIONSTYLE.ahk
-#Include .\TfActiveSelEnd.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TF_SELECTIONSTYLE.ahk" { TF_SELECTIONSTYLE }
+#Import ".\TfActiveSelEnd.ahk" { TfActiveSelEnd }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The TF_SELECTION structure contains text selection data.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_selection
  * @namespace Windows.Win32.UI.TextServices
  */
-class TF_SELECTION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct TF_SELECTION {
+    #StructPack 8
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that specifies the selected text.
-     * @type {ITfRange}
      */
-    range {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    range : ITfRange
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_selectionstyle">TF_SELECTIONSTYLE</a> structure that contains selection data.
-     * @type {TF_SELECTIONSTYLE}
      */
-    style {
-        get {
-            if(!this.HasProp("__style"))
-                this.__style := TF_SELECTIONSTYLE(8, this)
-            return this.__style
-        }
-    }
+    style : TF_SELECTIONSTYLE
+
 }

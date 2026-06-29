@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include .\IPropertyStorage.ahk
-#Include .\IEnumSTATPROPSETSTG.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPropertyStorage.ahk" { IPropertyStorage }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSTATPROPSETSTG.ahk" { IEnumSTATPROPSETSTG }
 
 /**
  * The IPropertySetStorage interface creates, opens, deletes, and enumerates property set storages that support instances of the IPropertyStorage interface.
@@ -19,26 +20,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/propidl/nn-propidl-ipropertysetstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IPropertySetStorage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertySetStorage extends IUnknown {
     /**
      * The interface identifier for IPropertySetStorage
      * @type {Guid}
      */
-    static IID => Guid("{0000013a-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000013a-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertySetStorage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Create : IntPtr
+        Open   : IntPtr
+        Delete : IntPtr
+        Enum   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Create", "Open", "Delete", "Enum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertySetStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates and opens a new property set in the property set storage object.
@@ -83,7 +94,7 @@ class IPropertySetStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-create
      */
     Create(rfmtid, pclsid, grfFlags, grfMode) {
-        result := ComCall(3, this, "ptr", rfmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rfmtid, Guid.Ptr, pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
         return IPropertyStorage(ppprstg)
     }
 
@@ -150,7 +161,7 @@ class IPropertySetStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-open
      */
     Open(rfmtid, grfMode) {
-        result := ComCall(4, this, "ptr", rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
         return IPropertyStorage(ppprstg)
     }
 
@@ -163,7 +174,7 @@ class IPropertySetStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-delete
      */
     Delete(rfmtid) {
-        result := ComCall(5, this, "ptr", rfmtid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rfmtid, "HRESULT")
         return result
     }
 
@@ -181,5 +192,31 @@ class IPropertySetStorage extends IUnknown {
     Enum() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumSTATPROPSETSTG(ppenum)
+    }
+
+    Query(iid) {
+        if (IPropertySetStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 6)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Enum)
     }
 }

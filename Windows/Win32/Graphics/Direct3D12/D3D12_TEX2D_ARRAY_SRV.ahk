@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the subresources from an array of 2D textures to use in a shader-resource view. (D3D12_TEX2D_ARRAY_SRV)
@@ -8,58 +7,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_tex2d_array_srv
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_TEX2D_ARRAY_SRV extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D12_TEX2D_ARRAY_SRV {
+    #StructPack 4
 
     /**
      * Index of the most detailed mipmap level to use; this number is between 0 and <b>MipLevels</b> -1 (where <b>MipLevels</b> is from the original Texture2D for which <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> creates a view).
-     * @type {Integer}
      */
-    MostDetailedMip {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MostDetailedMip : UInt32
 
     /**
      * The maximum number of mipmap levels for the view of the texture. See the remarks in <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_srv">D3D12_TEX1D_SRV</a>.
      *             
      * 
      * Set to -1 to indicate all the mipmap levels from <b>MostDetailedMip</b> on down to least detailed.
-     * @type {Integer}
      */
-    MipLevels {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MipLevels : UInt32
 
     /**
      * The index of the first texture to use in an array of textures.
-     * @type {Integer}
      */
-    FirstArraySlice {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FirstArraySlice : UInt32
 
     /**
      * Number of textures in the array.
-     * @type {Integer}
      */
-    ArraySize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ArraySize : UInt32
 
     /**
      * The index (plane slice number) of the plane to use in an array of textures.
-     * @type {Integer}
      */
-    PlaneSlice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PlaneSlice : UInt32
 
     /**
      * Specifies the minimum mipmap level that you can access. Specifying 0.0f means that you can access all of the mipmap levels. Specifying 3.0f means that you can access mipmap levels from 3.0f to *MipCount - 1*.
@@ -67,10 +44,7 @@ class D3D12_TEX2D_ARRAY_SRV extends Win32Struct {
      * We recommend that you don't set *MostDetailedMip* and *ResourceMinLODClamp* at the same time. Instead, set one of those two members to 0 (to get default behavior). That's because *MipLevels* is interpreted differently in conjunction with different fields:
      * * For *MostDetailedMip*, mips are in the range \[*MostDetailedMip*, *MostDetailedMip* + *MipLevels* - 1].
      * * For *ResourceMinLODClamp*, mips are in the range \[*ResourceMinLODClamp*, *MipLevels* - 1].
-     * @type {Float}
      */
-    ResourceMinLODClamp {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    ResourceMinLODClamp : Float32
+
 }

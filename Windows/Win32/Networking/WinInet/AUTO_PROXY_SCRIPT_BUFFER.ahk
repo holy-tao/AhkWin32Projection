@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The AUTO_PROXY_SCRIPT_BUFFER structure is used to pass an autoproxy script in a buffer to InternetInitializeAutoProxyDll , instead of identifying a file that InternetInitializeAutoProxyDll opens.
@@ -9,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-auto_proxy_script_buffer
  * @namespace Windows.Win32.Networking.WinInet
  */
-class AUTO_PROXY_SCRIPT_BUFFER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct AUTO_PROXY_SCRIPT_BUFFER {
+    #StructPack 8
 
     /**
      * Size of this structure. Always set to "sizeof(AUTO_PROXY_SCRIPT_BUFFER)".
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * Pointer to the script buffer being passed using this structure.
-     * @type {PSTR}
      */
-    lpszScriptBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszScriptBuffer : PSTR
 
     /**
      * Size of the script buffer pointed to by <b>lpszScriptBuffer</b>.
-     * @type {Integer}
      */
-    dwScriptBufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwScriptBufferSize : UInt32
+
 }

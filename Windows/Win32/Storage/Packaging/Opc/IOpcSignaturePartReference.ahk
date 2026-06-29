@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcPartUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a reference to a part that has been or will be signed.
@@ -40,26 +43,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturepartreference
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcSignaturePartReference extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcSignaturePartReference extends IUnknown {
     /**
      * The interface identifier for IOpcSignaturePartReference
      * @type {Guid}
      */
-    static IID => Guid("{e24231ca-59f4-484e-b64b-36eeda36072c}")
+    static IID := Guid("{e24231ca-59f4-484e-b64b-36eeda36072c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcSignaturePartReference interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPartName        : IntPtr
+        GetContentType     : IntPtr
+        GetDigestMethod    : IntPtr
+        GetDigestValue     : IntPtr
+        GetTransformMethod : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPartName", "GetContentType", "GetDigestMethod", "GetDigestValue", "GetTransformMethod"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcSignaturePartReference.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the part name of the referenced part.
@@ -79,7 +93,7 @@ class IOpcSignaturePartReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getcontenttype
      */
     GetContentType() {
-        result := ComCall(4, this, "ptr*", &contentType := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &contentType := 0, "HRESULT")
         return contentType
     }
 
@@ -91,7 +105,7 @@ class IOpcSignaturePartReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getdigestmethod
      */
     GetDigestMethod() {
-        result := ComCall(5, this, "ptr*", &digestMethod := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &digestMethod := 0, "HRESULT")
         return digestMethod
     }
 
@@ -151,5 +165,33 @@ class IOpcSignaturePartReference extends IUnknown {
     GetTransformMethod() {
         result := ComCall(7, this, "int*", &transformMethod := 0, "HRESULT")
         return transformMethod
+    }
+
+    Query(iid) {
+        if (IOpcSignaturePartReference.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPartName := CallbackCreate(GetMethod(implObj, "GetPartName"), flags, 2)
+        this.vtbl.GetContentType := CallbackCreate(GetMethod(implObj, "GetContentType"), flags, 2)
+        this.vtbl.GetDigestMethod := CallbackCreate(GetMethod(implObj, "GetDigestMethod"), flags, 2)
+        this.vtbl.GetDigestValue := CallbackCreate(GetMethod(implObj, "GetDigestValue"), flags, 3)
+        this.vtbl.GetTransformMethod := CallbackCreate(GetMethod(implObj, "GetTransformMethod"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPartName)
+        CallbackFree(this.vtbl.GetContentType)
+        CallbackFree(this.vtbl.GetDigestMethod)
+        CallbackFree(this.vtbl.GetDigestValue)
+        CallbackFree(this.vtbl.GetTransformMethod)
     }
 }

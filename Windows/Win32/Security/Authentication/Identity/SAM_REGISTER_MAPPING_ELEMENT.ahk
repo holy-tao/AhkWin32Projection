@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SAM_REGISTER_MAPPING_ELEMENT extends Win32Struct {
-    static sizeof => 24
+export default struct SAM_REGISTER_MAPPING_ELEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    Original : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    Original {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Mapped : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    Mapped {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Continuable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Continuable {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

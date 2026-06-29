@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_PING_RSP extends Win32Struct {
-    static sizeof => 45
+export default struct BTH_PING_RSP {
+    #StructPack 1
 
-    static packingSize => 1
+    dataLen : Int8
 
-    /**
-     * @type {Integer}
-     */
-    dataLen {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    data : Int8[44]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 1, 44, Primitive, "char")
-            return this.__dataProxyArray
-        }
-    }
 }

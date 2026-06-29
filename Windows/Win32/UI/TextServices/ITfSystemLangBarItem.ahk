@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfSystemLangBarItem interface is implemented by a system language bar menu and is used by a system language bar extension to modify the icon and/or tooltip string displayed for the menu.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfsystemlangbaritem
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfSystemLangBarItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfSystemLangBarItem extends IUnknown {
     /**
      * The interface identifier for ITfSystemLangBarItem
      * @type {Guid}
      */
-    static IID => Guid("{1e13e9ec-6b33-4d4a-b5eb-8a92f029f356}")
+    static IID := Guid("{1e13e9ec-6b33-4d4a-b5eb-8a92f029f356}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfSystemLangBarItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetIcon          : IntPtr
+        SetTooltipString : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetIcon", "SetTooltipString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfSystemLangBarItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfSystemLangBarItem::SetIcon method
@@ -69,9 +80,7 @@ class ITfSystemLangBarItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritem-seticon
      */
     SetIcon(_hIcon) {
-        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
-
-        result := ComCall(3, this, "ptr", _hIcon, "HRESULT")
+        result := ComCall(3, this, HICON, _hIcon, "HRESULT")
         return result
     }
 
@@ -118,5 +127,27 @@ class ITfSystemLangBarItem extends IUnknown {
 
         result := ComCall(4, this, "ptr", pchToolTip, "uint", cch, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfSystemLangBarItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetIcon := CallbackCreate(GetMethod(implObj, "SetIcon"), flags, 2)
+        this.vtbl.SetTooltipString := CallbackCreate(GetMethod(implObj, "SetTooltipString"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetIcon)
+        CallbackFree(this.vtbl.SetTooltipString)
     }
 }

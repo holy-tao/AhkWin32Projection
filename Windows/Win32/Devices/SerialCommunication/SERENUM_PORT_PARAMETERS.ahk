@@ -1,79 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERENUM_PORTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERENUM_PORTION.ahk" { SERENUM_PORTION }
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  */
-class SERENUM_PORT_PARAMETERS extends Win32Struct {
-    static sizeof => 56
+export default struct SERENUM_PORT_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReadAccessor : IntPtr
 
-    /**
-     * @type {Pointer<PSERENUM_READPORT>}
-     */
-    ReadAccessor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    WriteAccessor : IntPtr
 
-    /**
-     * @type {Pointer<PSERENUM_WRITEPORT>}
-     */
-    WriteAccessor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SerPortAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SerPortAddress {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    HardwareHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    HardwareHandle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Portion : SERENUM_PORTION
 
-    /**
-     * @type {SERENUM_PORTION}
-     */
-    Portion {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    NumberAxis : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberAxis {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    Reserved : UInt16[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 3, Primitive, "ushort")
-            return this.__ReservedProxyArray
-        }
-    }
 }

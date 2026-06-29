@@ -1,63 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BTH_LE_GATT_DESCRIPTOR_TYPE.ahk
-#Include .\BTH_LE_UUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BTH_LE_UUID.ahk" { BTH_LE_UUID }
+#Import ".\BTH_LE_GATT_DESCRIPTOR_TYPE.ahk" { BTH_LE_GATT_DESCRIPTOR_TYPE }
 
 /**
  * The BTH_LE_GATT_DESCRIPTOR structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_descriptor
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_LE_GATT_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct BTH_LE_GATT_DESCRIPTOR {
+    #StructPack 4
 
     /**
      * The handle to the Bluetooth LE GATT profile service.
-     * @type {Integer}
      */
-    ServiceHandle {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ServiceHandle : UInt16
 
     /**
      * The handle to the Bluetooth LE GATT profile characteristic.
-     * @type {Integer}
      */
-    CharacteristicHandle {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    CharacteristicHandle : UInt16
 
     /**
      * The type of the Bluetooth LE GATT descriptor.
-     * @type {BTH_LE_GATT_DESCRIPTOR_TYPE}
      */
-    DescriptorType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DescriptorType : BTH_LE_GATT_DESCRIPTOR_TYPE
 
     /**
      * The Universally Unique ID (UUID) of the Bluetooth LE GATT descriptor.
-     * @type {BTH_LE_UUID}
      */
-    DescriptorUuid {
-        get {
-            if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(8, this)
-            return this.__DescriptorUuid
-        }
-    }
+    DescriptorUuid : BTH_LE_UUID
 
     /**
      * The handle to the Bluetooth LE GATT profile attributes.
-     * @type {Integer}
      */
-    AttributeHandle {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    AttributeHandle : UInt16
+
 }

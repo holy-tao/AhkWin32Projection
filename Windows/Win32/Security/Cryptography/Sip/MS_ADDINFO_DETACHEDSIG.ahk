@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
  */
-class MS_ADDINFO_DETACHEDSIG extends Win32Struct {
-    static sizeof => 32
+export default struct MS_ADDINFO_DETACHEDSIG {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hSignatureFile : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSignatureFile {
-        get {
-            if(!this.HasProp("__hSignatureFile"))
-                this.__hSignatureFile := HANDLE(8, this)
-            return this.__hSignatureFile
-        }
-    }
+    cbSignatureObject : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSignatureObject {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbSignatureObject : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSignatureObject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

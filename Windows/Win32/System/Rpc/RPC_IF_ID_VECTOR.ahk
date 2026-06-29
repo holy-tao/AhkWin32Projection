@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_IF_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_IF_ID.ahk" { RPC_IF_ID }
 
 /**
  * The RPC_IF_ID_VECTOR structure contains a list of interfaces offered by a server.
@@ -17,28 +16,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_if_id_vector
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_IF_ID_VECTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct RPC_IF_ID_VECTOR {
+    #StructPack 8
 
     /**
      * Number of interface-identification structures present in the array <b>IfHandl</b>.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Array<Pointer<RPC_IF_ID>>}
-     */
-    IfId {
-        get {
-            if(!this.HasProp("__IfIdProxyArray"))
-                this.__IfIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__IfIdProxyArray
-        }
-    }
+    IfId : RPC_IF_ID.Ptr[1]
+
 }

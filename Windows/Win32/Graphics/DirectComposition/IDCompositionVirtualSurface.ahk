@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionSurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
 
 /**
  * Represents a sparsely allocated bitmap that can be associated with a visual for composition in a visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvirtualsurface
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionVirtualSurface extends IDCompositionSurface {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionVirtualSurface extends IDCompositionSurface {
     /**
      * The interface identifier for IDCompositionVirtualSurface
      * @type {Guid}
      */
-    static IID => Guid("{ae471c51-5f53-4a24-8d3e-d0c39c30b3f0}")
+    static IID := Guid("{ae471c51-5f53-4a24-8d3e-d0c39c30b3f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionVirtualSurface interfaces
+    */
+    struct Vtbl extends IDCompositionSurface.Vtbl {
+        Resize : IntPtr
+        Trim   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Resize", "Trim"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionVirtualSurface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Changes the logical size of this virtual surface object.
@@ -75,7 +85,29 @@ class IDCompositionVirtualSurface extends IDCompositionSurface {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvirtualsurface-trim
      */
     Trim(rectangles, count) {
-        result := ComCall(9, this, "ptr", rectangles, "uint", count, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, rectangles, "uint", count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionVirtualSurface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.Trim := CallbackCreate(GetMethod(implObj, "Trim"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Resize)
+        CallbackFree(this.vtbl.Trim)
     }
 }

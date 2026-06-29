@@ -1,125 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The CAPDRIVERCAPS structure defines the capabilities of the capture driver.An application should use the WM_CAP_DRIVER_GET_CAPS message or capDriverGetCaps macro to place a copy of the driver capabilities in a CAPDRIVERCAPS structure whenever the application connects a capture window to a capture driver.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capdrivercaps
  * @namespace Windows.Win32.Media.Multimedia
  */
-class CAPDRIVERCAPS extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CAPDRIVERCAPS {
+    #StructPack 8
 
     /**
      * Index of the capture driver. An index value can range from 0 to 9.
-     * @type {Integer}
      */
-    wDeviceIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wDeviceIndex : UInt32
 
     /**
      * Video-overlay flag. The value of this member is <b>TRUE</b> if the device supports video overlay.
-     * @type {BOOL}
      */
-    fHasOverlay {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fHasOverlay : BOOL
 
     /**
      * Video source dialog flag. The value of this member is <b>TRUE</b> if the device supports a dialog box for selecting and controlling the video source.
-     * @type {BOOL}
      */
-    fHasDlgVideoSource {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fHasDlgVideoSource : BOOL
 
     /**
      * Video format dialog flag. The value of this member is <b>TRUE</b> if the device supports a dialog box for selecting the video format.
-     * @type {BOOL}
      */
-    fHasDlgVideoFormat {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    fHasDlgVideoFormat : BOOL
 
     /**
      * Video display dialog flag. The value of this member is <b>TRUE</b> if the device supports a dialog box for controlling the redisplay of video from the capture frame buffer.
-     * @type {BOOL}
      */
-    fHasDlgVideoDisplay {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fHasDlgVideoDisplay : BOOL
 
     /**
      * Capture initialization flag. The value of this member is <b>TRUE</b> if a capture device has been successfully connected.
-     * @type {BOOL}
      */
-    fCaptureInitialized {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    fCaptureInitialized : BOOL
 
     /**
      * Driver palette flag. The value of this member is <b>TRUE</b> if the driver can create palettes.
-     * @type {BOOL}
      */
-    fDriverSuppliesPalettes {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fDriverSuppliesPalettes : BOOL
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
      */
-    hVideoIn {
-        get {
-            if(!this.HasProp("__hVideoIn"))
-                this.__hVideoIn := HANDLE(32, this)
-            return this.__hVideoIn
-        }
-    }
+    hVideoIn : HANDLE
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
      */
-    hVideoOut {
-        get {
-            if(!this.HasProp("__hVideoOut"))
-                this.__hVideoOut := HANDLE(40, this)
-            return this.__hVideoOut
-        }
-    }
+    hVideoOut : HANDLE
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
      */
-    hVideoExtIn {
-        get {
-            if(!this.HasProp("__hVideoExtIn"))
-                this.__hVideoExtIn := HANDLE(48, this)
-            return this.__hVideoExtIn
-        }
-    }
+    hVideoExtIn : HANDLE
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
      */
-    hVideoExtOut {
-        get {
-            if(!this.HasProp("__hVideoExtOut"))
-                this.__hVideoExtOut := HANDLE(56, this)
-            return this.__hVideoExtOut
-        }
-    }
+    hVideoExtOut : HANDLE
+
 }

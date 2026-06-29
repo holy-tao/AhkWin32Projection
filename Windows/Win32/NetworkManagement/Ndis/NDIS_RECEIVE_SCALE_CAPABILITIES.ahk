@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_RECEIVE_SCALE_CAPABILITIES extends Win32Struct {
-    static sizeof => 16
+export default struct NDIS_RECEIVE_SCALE_CAPABILITIES {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    CapabilitiesFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CapabilitiesFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberOfInterruptMessages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfInterruptMessages {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumberOfReceiveQueues : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfReceiveQueues {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

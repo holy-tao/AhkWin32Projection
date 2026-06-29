@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MBN_SMS_FORMAT.ahk" { MBN_SMS_FORMAT }
+#Import ".\IMbnSms.ahk" { IMbnSms }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * This notification interface signals an application with the completion status of SMS operations and changes in the device SMS status.
@@ -19,26 +24,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnSmsEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnSmsEvents extends IUnknown {
     /**
      * The interface identifier for IMbnSmsEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2016-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2016-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnSmsEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnSmsConfigurationChange      : IntPtr
+        OnSetSmsConfigurationComplete : IntPtr
+        OnSmsSendComplete             : IntPtr
+        OnSmsReadComplete             : IntPtr
+        OnSmsNewClass0Message         : IntPtr
+        OnSmsDeleteComplete           : IntPtr
+        OnSmsStatusChange             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnSmsConfigurationChange", "OnSetSmsConfigurationComplete", "OnSmsSendComplete", "OnSmsReadComplete", "OnSmsNewClass0Message", "OnSmsDeleteComplete", "OnSmsStatusChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnSmsEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notification method that indicates that SMS configuration has changed or is available.
@@ -101,7 +119,7 @@ class IMbnSmsEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsreadcomplete
      */
     OnSmsReadComplete(sms, smsFormat, readMsgs, moreMsgs, requestID, _status) {
-        result := ComCall(6, this, "ptr", sms, "int", smsFormat, "ptr", readMsgs, "short", moreMsgs, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(6, this, "ptr", sms, MBN_SMS_FORMAT, smsFormat, SAFEARRAY.Ptr, readMsgs, VARIANT_BOOL, moreMsgs, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -118,7 +136,7 @@ class IMbnSmsEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsnewclass0message
      */
     OnSmsNewClass0Message(sms, smsFormat, readMsgs) {
-        result := ComCall(7, this, "ptr", sms, "int", smsFormat, "ptr", readMsgs, "HRESULT")
+        result := ComCall(7, this, "ptr", sms, MBN_SMS_FORMAT, smsFormat, SAFEARRAY.Ptr, readMsgs, "HRESULT")
         return result
     }
 
@@ -146,5 +164,37 @@ class IMbnSmsEvents extends IUnknown {
     OnSmsStatusChange(sms) {
         result := ComCall(9, this, "ptr", sms, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnSmsEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnSmsConfigurationChange := CallbackCreate(GetMethod(implObj, "OnSmsConfigurationChange"), flags, 2)
+        this.vtbl.OnSetSmsConfigurationComplete := CallbackCreate(GetMethod(implObj, "OnSetSmsConfigurationComplete"), flags, 4)
+        this.vtbl.OnSmsSendComplete := CallbackCreate(GetMethod(implObj, "OnSmsSendComplete"), flags, 4)
+        this.vtbl.OnSmsReadComplete := CallbackCreate(GetMethod(implObj, "OnSmsReadComplete"), flags, 7)
+        this.vtbl.OnSmsNewClass0Message := CallbackCreate(GetMethod(implObj, "OnSmsNewClass0Message"), flags, 4)
+        this.vtbl.OnSmsDeleteComplete := CallbackCreate(GetMethod(implObj, "OnSmsDeleteComplete"), flags, 4)
+        this.vtbl.OnSmsStatusChange := CallbackCreate(GetMethod(implObj, "OnSmsStatusChange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnSmsConfigurationChange)
+        CallbackFree(this.vtbl.OnSetSmsConfigurationComplete)
+        CallbackFree(this.vtbl.OnSmsSendComplete)
+        CallbackFree(this.vtbl.OnSmsReadComplete)
+        CallbackFree(this.vtbl.OnSmsNewClass0Message)
+        CallbackFree(this.vtbl.OnSmsDeleteComplete)
+        CallbackFree(this.vtbl.OnSmsStatusChange)
     }
 }

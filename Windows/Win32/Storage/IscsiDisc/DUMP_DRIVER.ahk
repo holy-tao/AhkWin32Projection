@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class DUMP_DRIVER extends Win32Struct {
-    static sizeof => 72
+export default struct DUMP_DRIVER {
+    #StructPack 8
 
-    static packingSize => 8
+    DumpDriverList : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DumpDriverList {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DriverName : WCHAR[15]
 
-    /**
-     * @type {String}
-     */
-    DriverName {
-        get => StrGet(this.ptr + 8, 14, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 14, "UTF-16")
-    }
+    BaseName : WCHAR[15]
 
-    /**
-     * @type {String}
-     */
-    BaseName {
-        get => StrGet(this.ptr + 38, 14, "UTF-16")
-        set => StrPut(value, this.ptr + 38, 14, "UTF-16")
-    }
 }

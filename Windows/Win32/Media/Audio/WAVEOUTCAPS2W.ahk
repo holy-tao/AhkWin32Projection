@@ -1,100 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class WAVEOUTCAPS2W extends Win32Struct {
-    static sizeof => 112
+export default struct WAVEOUTCAPS2W {
+    #StructPack 4
 
-    static packingSize => 8
+    wMid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wPid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    vDriverVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szPname : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
+    dwFormats : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFormats {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    wChannels : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wChannels {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    wReserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 78, "ushort")
-        set => NumPut("ushort", value, this, 78)
-    }
+    dwSupport : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSupport {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ManufacturerGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ManufacturerGuid {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ProductGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProductGuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    NameGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    NameGuid {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
 }

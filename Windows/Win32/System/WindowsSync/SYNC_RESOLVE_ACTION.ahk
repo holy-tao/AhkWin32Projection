@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents actions that are taken to resolve a specific concurrency conflict.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_resolve_action
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SYNC_RESOLVE_ACTION extends Win32Enum {
+export default struct SYNC_RESOLVE_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Ignore the conflict and do not apply the change. The change applier does not pass the conflict data to the destination provider.

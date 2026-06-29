@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEV_BROADCAST_HDR.ahk
-#Include .\DEV_BROADCAST_HDR_DEVICE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEV_BROADCAST_HDR.ahk" { DEV_BROADCAST_HDR }
+#Import ".\DEV_BROADCAST_HDR_DEVICE_TYPE.ahk" { DEV_BROADCAST_HDR_DEVICE_TYPE }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class VolLockBroadcast extends Win32Struct {
-    static sizeof => 20
+export default struct VolLockBroadcast {
+    #StructPack 4
 
-    static packingSize => 4
+    vlb_dbh : DEV_BROADCAST_HDR
 
-    /**
-     * @type {DEV_BROADCAST_HDR}
-     */
-    vlb_dbh {
-        get {
-            if(!this.HasProp("__vlb_dbh"))
-                this.__vlb_dbh := DEV_BROADCAST_HDR(0, this)
-            return this.__vlb_dbh
-        }
-    }
+    vlb_owner : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    vlb_owner {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    vlb_perms : Int8
 
-    /**
-     * @type {Integer}
-     */
-    vlb_perms {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    vlb_lockType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    vlb_lockType {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    vlb_drive : Int8
 
-    /**
-     * @type {Integer}
-     */
-    vlb_drive {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    vlb_flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    vlb_flags {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
 }

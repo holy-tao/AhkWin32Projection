@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AASHELLMENUFILENAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AASHELLMENUFILENAME.ahk" { AASHELLMENUFILENAME }
 
 /**
  * Contains information about a menu item. (AASHELLMENUITEM)
@@ -19,63 +19,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenuitem
  * @namespace Windows.Win32.UI.Shell
  */
-class AASHELLMENUITEM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct AASHELLMENUITEM {
+    #StructPack 8
 
     /**
      * Type: <b>VOID</b>
      * 
      * Reserved. Applications should ignore this value.
-     * @type {Pointer<Void>}
      */
-    lpReserved1 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpReserved1 : IntPtr
 
     /**
      * Type: <b>int</b>
      * 
      * Reserved. Applications should ignore this value.
-     * @type {Integer}
      */
-    iReserved {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iReserved : Int32
 
     /**
      * Type: <b>UINT</b>
      * 
      * Reserved. Applications should ignore this value.
-     * @type {Integer}
      */
-    uiReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uiReserved : UInt32
 
     /**
      * Type: <b>LPAASHELLMENUFILENAME</b>
      * 
      * If the selected menu item represents a file, this member is a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenufilename">AASHELLMENUFILENAME</a> structure that contains the name of the file. Otherwise this member is <b>NULL</b>.
-     * @type {Pointer<AASHELLMENUFILENAME>}
      */
-    lpName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpName : AASHELLMENUFILENAME.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the string that contains the text to use if there is no file.
-     * @type {PWSTR}
      */
-    psz {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    psz : PWSTR
+
 }

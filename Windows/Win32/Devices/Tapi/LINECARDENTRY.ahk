@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINECARDENTRY structure describes a calling card. The LINETRANSLATECAPS structure can contain an array of LINECARDENTRY structures.
@@ -16,109 +15,64 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecardentry
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINECARDENTRY extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct LINECARDENTRY {
+    #StructPack 4
 
     /**
      * Permanent identifier that identifies the card.
-     * @type {Integer}
      */
-    dwPermanentCardID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwPermanentCardID : UInt32
 
     /**
      * Size of the card name string including <b>null</b> terminator, in bytes.
-     * @type {Integer}
      */
-    dwCardNameSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCardNameSize : UInt32
 
     /**
      * Offset from the beginning of the structure to a <b>null</b>-terminated string that describes the card in a user-friendly manner. The size of the field is specified by <b>dwCardNameSize</b>.
-     * @type {Integer}
      */
-    dwCardNameOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCardNameOffset : UInt32
 
     /**
      * Number of digits in the existing card number. The card number itself is not returned for security reasons (it is stored in scrambled form by TAPI). The application can use this to insert filler bytes into a text control in "password" mode to show that a number exists.
-     * @type {Integer}
      */
-    dwCardNumberDigits {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwCardNumberDigits : UInt32
 
     /**
      * Size of the same-area dialing rule including the <b>null</b> terminator, in bytes.
-     * @type {Integer}
      */
-    dwSameAreaRuleSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSameAreaRuleSize : UInt32
 
     /**
      * Offset from the beginning of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to the dialing rule defined for calls to numbers in the same area code. The rule is a <b>null</b>-terminated string. The size of the field is specified by <b>dwSameAreaRuleSize</b>.
-     * @type {Integer}
      */
-    dwSameAreaRuleOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwSameAreaRuleOffset : UInt32
 
     /**
      * Size of the long distance dialing rule including the <b>null</b> terminator, in bytes.
-     * @type {Integer}
      */
-    dwLongDistanceRuleSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLongDistanceRuleSize : UInt32
 
     /**
      * Offset from the beginning of the structure to the dialing rule defined for calls to numbers in the other areas in the same country/region. The rule is a <b>null</b>-terminated string. The size of the field is specified by <b>dwLongDistanceRuleSize</b>.
-     * @type {Integer}
      */
-    dwLongDistanceRuleOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwLongDistanceRuleOffset : UInt32
 
     /**
      * Size of the international dialing rule including the <b>null</b> terminator, in bytes.
-     * @type {Integer}
      */
-    dwInternationalRuleSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwInternationalRuleSize : UInt32
 
     /**
      * Offset from the beginning of the structure to the dialing rule defined for calls to numbers in other countries/regions. The rule is a <b>null</b>-terminated string. The size of the field is specified by <b>dwInternationalRuleSize</b>.
-     * @type {Integer}
      */
-    dwInternationalRuleOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwInternationalRuleOffset : UInt32
 
     /**
      * Indicates other settings associated with this calling card, using the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecardoption--constants">LINECARDOPTION_ Constants</a>.
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwOptions : UInt32
+
 }

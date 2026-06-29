@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DDCOLORKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 
 /**
  * The DDOVERLAYFX structure passes overlay information to the IDirectDrawSurface7::UpdateOverlay method.
@@ -10,136 +9,66 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddoverlayfx
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDOVERLAYFX extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DDOVERLAYFX {
+    #StructPack 8
 
     /**
      * Size of the structure, in bytes. This member must be initialized before the structure is used.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Bit depth used to specify the constant for an alpha edge blend.
-     * @type {Integer}
      */
-    dwAlphaEdgeBlendBitDepth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAlphaEdgeBlendBitDepth : UInt32
 
     /**
      * Constant to use as the alpha for an edge blend.
-     * @type {Integer}
      */
-    dwAlphaEdgeBlend {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAlphaEdgeBlend : UInt32
 
     /**
      * Reserved
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwReserved : UInt32
 
     /**
      * Bit depth used to specify the alpha constant for a destination.
-     * @type {Integer}
      */
-    dwAlphaDestConstBitDepth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAlphaDestConstBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaDestConst {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {IDirectDrawSurface}
-     */
-    lpDDSAlphaDest {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwAlphaDestConst : UInt32
 
     /**
      * Bit depth used to specify the alpha constant for a source.
-     * @type {Integer}
      */
-    dwAlphaSrcConstBitDepth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwAlphaSrcConstBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaSrcConst {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {IDirectDrawSurface}
-     */
-    lpDDSAlphaSrc {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwAlphaSrcConst : UInt32
 
     /**
      * Destination color key for the overlay.
-     * @type {DDCOLORKEY}
      */
-    dckDestColorkey {
-        get {
-            if(!this.HasProp("__dckDestColorkey"))
-                this.__dckDestColorkey := DDCOLORKEY(48, this)
-            return this.__dckDestColorkey
-        }
-    }
+    dckDestColorkey : DDCOLORKEY
 
     /**
      * Source color key for the overlay.
-     * @type {DDCOLORKEY}
      */
-    dckSrcColorkey {
-        get {
-            if(!this.HasProp("__dckSrcColorkey"))
-                this.__dckSrcColorkey := DDCOLORKEY(56, this)
-            return this.__dckSrcColorkey
-        }
-    }
+    dckSrcColorkey : DDCOLORKEY
 
     /**
      * The following flags that specify overlay effects.
-     * @type {Integer}
      */
-    dwDDFX {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwDDFX : UInt32
 
     /**
      * Currently not used and must be set to 0.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+    dwFlags : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'lpDDSAlphaDest', { type: IDirectDrawSurface, offset: 24 })
+        DefineProp(this.Prototype, 'lpDDSAlphaSrc', { type: IDirectDrawSurface, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

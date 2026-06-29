@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Pageable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_RANGE.ahk" { D3D12_RANGE }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_BOX.ahk" { D3D12_BOX }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Encapsulates a generalized ability of the CPU and GPU to read and write to physical memory, or heaps. It contains abstractions for organizing and manipulating simple arrays of data as well as multidimensional data optimized for shader sampling.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Resource extends ID3D12Pageable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Resource extends ID3D12Pageable {
     /**
      * The interface identifier for ID3D12Resource
      * @type {Guid}
      */
-    static IID => Guid("{696442be-a72e-4059-bc79-5b5c98040fad}")
+    static IID := Guid("{696442be-a72e-4059-bc79-5b5c98040fad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Resource interfaces
+    */
+    struct Vtbl extends ID3D12Pageable.Vtbl {
+        Map                  : IntPtr
+        Unmap                : IntPtr
+        GetDesc              : IntPtr
+        GetGPUVirtualAddress : IntPtr
+        WriteToSubresource   : IntPtr
+        ReadFromSubresource  : IntPtr
+        GetHeapProperties    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Map", "Unmap", "GetDesc", "GetGPUVirtualAddress", "WriteToSubresource", "ReadFromSubresource", "GetHeapProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Resource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a CPU pointer to the specified subresource in the resource, but may not disclose the pointer value to applications. Map also invalidates the CPU cache, when necessary, so that CPU reads to this address reflect any modifications made by the GPU.
@@ -107,7 +126,7 @@ class ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map
      */
     Map(Subresource, pReadRange) {
-        result := ComCall(8, this, "uint", Subresource, "ptr", pReadRange, "ptr*", &ppData := 0, "HRESULT")
+        result := ComCall(8, this, "uint", Subresource, D3D12_RANGE.Ptr, pReadRange, "ptr*", &ppData := 0, "HRESULT")
         return ppData
     }
 
@@ -129,7 +148,7 @@ class ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-unmap
      */
     Unmap(Subresource, pWrittenRange) {
-        ComCall(9, this, "uint", Subresource, "ptr", pWrittenRange)
+        ComCall(9, this, "uint", Subresource, D3D12_RANGE.Ptr, pWrittenRange)
     }
 
     /**
@@ -143,7 +162,7 @@ class ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/direct3d12/id3d12resource-getdesc
      */
     GetDesc() {
-        result := ComCall(10, this, "ptr")
+        result := ComCall(10, this, D3D12_RESOURCE_DESC)
         return result
     }
 
@@ -160,7 +179,7 @@ class ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress
      */
     GetGPUVirtualAddress() {
-        result := ComCall(11, this, "uint")
+        result := ComCall(11, this, Int64)
         return result
     }
 
@@ -215,7 +234,7 @@ class ID3D12Resource extends ID3D12Pageable {
     WriteToSubresource(DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "HRESULT")
+        result := ComCall(12, this, "uint", DstSubresource, D3D12_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "HRESULT")
         return result
     }
 
@@ -249,7 +268,7 @@ class ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource
      */
     ReadFromSubresource(DstRowPitch, DstDepthPitch, SrcSubresource, pSrcBox) {
-        result := ComCall(13, this, "ptr", &pDstData := 0, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, "ptr", pSrcBox, "HRESULT")
+        result := ComCall(13, this, "ptr", &pDstData := 0, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, D3D12_BOX.Ptr, pSrcBox, "HRESULT")
         return pDstData
     }
 
@@ -277,7 +296,39 @@ class ID3D12Resource extends ID3D12Pageable {
     GetHeapProperties(pHeapProperties, pHeapFlags) {
         pHeapFlagsMarshal := pHeapFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pHeapProperties, pHeapFlagsMarshal, pHeapFlags, "HRESULT")
+        result := ComCall(14, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, pHeapFlagsMarshal, pHeapFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12Resource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 4)
+        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
+        this.vtbl.GetGPUVirtualAddress := CallbackCreate(GetMethod(implObj, "GetGPUVirtualAddress"), flags, 1)
+        this.vtbl.WriteToSubresource := CallbackCreate(GetMethod(implObj, "WriteToSubresource"), flags, 6)
+        this.vtbl.ReadFromSubresource := CallbackCreate(GetMethod(implObj, "ReadFromSubresource"), flags, 6)
+        this.vtbl.GetHeapProperties := CallbackCreate(GetMethod(implObj, "GetHeapProperties"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Map)
+        CallbackFree(this.vtbl.Unmap)
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.GetGPUVirtualAddress)
+        CallbackFree(this.vtbl.WriteToSubresource)
+        CallbackFree(this.vtbl.ReadFromSubresource)
+        CallbackFree(this.vtbl.GetHeapProperties)
     }
 }

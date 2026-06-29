@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information associated with audio descriptions. This structure is used with the SystemParametersInfo function when the SPI_GETAUDIODESCRIPTION or SPI_SETAUDIODESCRIPTION action value is specified.
@@ -9,41 +9,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-audiodescription
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class AUDIODESCRIPTION extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct AUDIODESCRIPTION {
+    #StructPack 4
 
     /**
      * The size of the structure, in bytes. The caller must set this member to <c>sizeof(AUDIODESCRIPTION)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * If this member is <b>TRUE</b>, audio descriptions are enabled; Otherwise, this member is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    Enabled {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Enabled : BOOL
 
     /**
      * The locale identifier (LCID) of the language for the audio description. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Intl/locales-and-languages">Locales and Languages</a>.
-     * @type {Integer}
      */
-    Locale {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Locale : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 12
-    }
 }

@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures an Advanced Systems Format (ASF) mutual exclusion object, which manages information about a group of streams in an ASF profile that are mutually exclusive.
@@ -11,26 +11,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfmutualexclusion
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFASFMutualExclusion extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFASFMutualExclusion extends IUnknown {
     /**
      * The interface identifier for IMFASFMutualExclusion
      * @type {Guid}
      */
-    static IID => Guid("{12558291-e399-11d5-bc2a-00b0d0f3f4ab}")
+    static IID := Guid("{12558291-e399-11d5-bc2a-00b0d0f3f4ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFASFMutualExclusion interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetType                : IntPtr
+        SetType                : IntPtr
+        GetRecordCount         : IntPtr
+        GetStreamsForRecord    : IntPtr
+        AddStreamForRecord     : IntPtr
+        RemoveStreamFromRecord : IntPtr
+        RemoveRecord           : IntPtr
+        AddRecord              : IntPtr
+        Clone                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "SetType", "GetRecordCount", "GetStreamsForRecord", "AddStreamForRecord", "RemoveStreamFromRecord", "RemoveRecord", "AddRecord", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFASFMutualExclusion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the type of mutual exclusion represented by the Advanced Systems Format (ASF) mutual exclusion object.
@@ -41,7 +56,7 @@ class IMFASFMutualExclusion extends IUnknown {
      */
     GetType() {
         pguidType := Guid()
-        result := ComCall(3, this, "ptr", pguidType, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidType, "HRESULT")
         return pguidType
     }
 
@@ -72,7 +87,7 @@ class IMFASFMutualExclusion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-settype
      */
     SetType(guidType) {
-        result := ComCall(4, this, "ptr", guidType, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidType, "HRESULT")
         return result
     }
 
@@ -243,5 +258,41 @@ class IMFASFMutualExclusion extends IUnknown {
     Clone() {
         result := ComCall(11, this, "ptr*", &ppIMutex := 0, "HRESULT")
         return IMFASFMutualExclusion(ppIMutex)
+    }
+
+    Query(iid) {
+        if (IMFASFMutualExclusion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetRecordCount := CallbackCreate(GetMethod(implObj, "GetRecordCount"), flags, 2)
+        this.vtbl.GetStreamsForRecord := CallbackCreate(GetMethod(implObj, "GetStreamsForRecord"), flags, 4)
+        this.vtbl.AddStreamForRecord := CallbackCreate(GetMethod(implObj, "AddStreamForRecord"), flags, 3)
+        this.vtbl.RemoveStreamFromRecord := CallbackCreate(GetMethod(implObj, "RemoveStreamFromRecord"), flags, 3)
+        this.vtbl.RemoveRecord := CallbackCreate(GetMethod(implObj, "RemoveRecord"), flags, 2)
+        this.vtbl.AddRecord := CallbackCreate(GetMethod(implObj, "AddRecord"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.SetType)
+        CallbackFree(this.vtbl.GetRecordCount)
+        CallbackFree(this.vtbl.GetStreamsForRecord)
+        CallbackFree(this.vtbl.AddStreamForRecord)
+        CallbackFree(this.vtbl.RemoveStreamFromRecord)
+        CallbackFree(this.vtbl.RemoveRecord)
+        CallbackFree(this.vtbl.AddRecord)
+        CallbackFree(this.vtbl.Clone)
     }
 }

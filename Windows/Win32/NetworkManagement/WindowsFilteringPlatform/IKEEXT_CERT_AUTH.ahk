@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication0">IKEEXT_CERTIFICATE_AUTHENTICATION0</see>, <see href="https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication1">IKEEXT_CERTIFICATE_AUTHENTICATION1</see>, <see href="https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication2">IKEEXT_CERTIFICATE_AUTHENTICATION2</see>.
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_CERT_AUTH extends Win32BitflagEnum {
+export default struct IKEEXT_CERT_AUTH {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

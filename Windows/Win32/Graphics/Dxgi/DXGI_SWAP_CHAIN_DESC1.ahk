@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\DXGI_FORMAT.ahk
-#Include Common\DXGI_SAMPLE_DESC.ahk
-#Include .\DXGI_USAGE.ahk
-#Include .\DXGI_SCALING.ahk
-#Include .\DXGI_SWAP_EFFECT.ahk
-#Include Common\DXGI_ALPHA_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
+#Import ".\DXGI_SWAP_EFFECT.ahk" { DXGI_SWAP_EFFECT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\DXGI_SCALING.ahk" { DXGI_SCALING }
+#Import "Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC1)
@@ -40,10 +40,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct DXGI_SWAP_CHAIN_DESC1 {
+    #StructPack 4
 
     /**
      * A value that describes the resolution width. If you specify the width as zero when you call the 
@@ -54,12 +52,8 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct {
      *       retrieve the assigned width value. You cannot specify the width as zero when you call the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> 
      *       method.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Width : UInt32
 
     /**
      * A value that describes the resolution height. If you specify the height as zero when you call the 
@@ -70,22 +64,14 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct {
      *       retrieve the assigned height value. You cannot specify the height as zero when you call the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> 
      *       method.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Height : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> structure that describes the 
      *       display format.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * Specifies whether the full-screen display mode or the swap-chain back buffer is stereo. 
@@ -93,57 +79,34 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct {
      *       must also specify a flip-model swap chain (that is, a swap chain that has the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a> 
      *       value set in the <b>SwapEffect</b> member).
-     * @type {BOOL}
      */
-    Stereo {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Stereo : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure that 
      *       describes multi-sampling parameters. This member is valid only with bit-block transfer (bitblt) model swap 
      *       chains.
-     * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc {
-        get {
-            if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(16, this)
-            return this.__SampleDesc
-        }
-    }
+    SampleDesc : DXGI_SAMPLE_DESC
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>-typed value that describes the 
      *       surface usage and CPU access options for the back buffer. The back buffer can be used for shader input or 
      *       render-target output.
-     * @type {DXGI_USAGE}
      */
-    BufferUsage {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BufferUsage : DXGI_USAGE
 
     /**
      * A value that describes the number of buffers in the swap chain. When you create a full-screen swap chain, 
      *       you typically include the front buffer in this value.
-     * @type {Integer}
      */
-    BufferCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    BufferCount : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_scaling">DXGI_SCALING</a>-typed value that identifies 
      *       resize behavior if the size of the back buffer is not equal to the target output.
-     * @type {DXGI_SCALING}
      */
-    Scaling {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Scaling : DXGI_SCALING
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT</a>-typed value 
@@ -154,31 +117,20 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> 
      *       method because this method supports only <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">flip 
      *       presentation model</a>.
-     * @type {DXGI_SWAP_EFFECT}
      */
-    SwapEffect {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    SwapEffect : DXGI_SWAP_EFFECT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a>-typed value that 
      *       identifies the transparency behavior of the swap-chain back buffer.
-     * @type {DXGI_ALPHA_MODE}
      */
-    AlphaMode {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    AlphaMode : DXGI_ALPHA_MODE
 
     /**
      * A combination of 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_chain_flag">DXGI_SWAP_CHAIN_FLAG</a>-typed values that are 
      *      combined by using a bitwise OR operation. The resulting value specifies options for swap-chain behavior.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Flags : UInt32
+
 }

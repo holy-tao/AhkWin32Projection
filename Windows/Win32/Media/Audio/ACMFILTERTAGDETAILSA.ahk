@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset ANSI
  */
-class ACMFILTERTAGDETAILSA extends Win32Struct {
-    static sizeof => 72
+export default struct ACMFILTERTAGDETAILSA {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFilterTagIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFilterTagIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFilterTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFilterTag {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbFilterSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbFilterSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    fdwSupport : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwSupport {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cStandardFilters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cStandardFilters {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    szFilterTag : CHAR[48]
 
-    /**
-     * @type {String}
-     */
-    szFilterTag {
-        get => StrGet(this.ptr + 24, 47, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 47, "UTF-8")
-    }
 }

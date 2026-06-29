@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WOW64_LDT_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WOW64_LDT_ENTRY.ahk" { WOW64_LDT_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct {
-    static sizeof => 12
+export default struct WOW64_DESCRIPTOR_TABLE_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    Selector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Selector {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Descriptor : WOW64_LDT_ENTRY
 
-    /**
-     * @type {WOW64_LDT_ENTRY}
-     */
-    Descriptor {
-        get {
-            if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := WOW64_LDT_ENTRY(4, this)
-            return this.__Descriptor
-        }
-    }
 }

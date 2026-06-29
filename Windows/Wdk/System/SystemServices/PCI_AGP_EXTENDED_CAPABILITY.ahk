@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_AGP_EXTENDED_CAPABILITY extends Win32Struct {
-    static sizeof => 48
+export default struct PCI_AGP_EXTENDED_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    IsochStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    IsochStatus {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AgpControl : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AgpControl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ApertureSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ApertureSize {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    AperturePageSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AperturePageSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GartLow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GartLow {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    GartHigh : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GartHigh {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    IsochCommand : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    IsochCommand {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

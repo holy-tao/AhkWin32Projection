@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDIFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_SHADOWSURFACEDATA extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMDT_SHADOWSURFACEDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Format : D3DDDIFORMAT
 
-    /**
-     * @type {D3DDDIFORMAT}
-     */
-    Format {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Pitch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pitch {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

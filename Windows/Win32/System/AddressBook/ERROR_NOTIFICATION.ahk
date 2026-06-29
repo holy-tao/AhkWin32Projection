@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENTRYID.ahk
-#Include .\MAPIERROR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Describes information that relate to a critical error. This causes an error notification to be generated.
@@ -20,37 +19,23 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/error_notification
  * @namespace Windows.Win32.System.AddressBook
  */
-class ERROR_NOTIFICATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ERROR_NOTIFICATION {
+    #StructPack 8
 
     /**
      * > Count of bytes in the entry identifier pointed to by **lpEntryID**.
-     * @type {Integer}
      */
-    cbEntryID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbEntryID : UInt32
 
     /**
      * > Pointer to the entry identifier of the object that causes the error.
-     * @type {Pointer<ENTRYID>}
      */
-    lpEntryID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpEntryID : ENTRYID.Ptr
 
     /**
      * > Error value for the critical error.
-     * @type {Integer}
      */
-    scode {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    scode : Int32
 
     /**
      * > Bitmask of flags used to designate the format of the text pointed to by the **lpszError** member in the structure pointed to by **lpMAPIError**. The following flag can be set:
@@ -58,19 +43,12 @@ class ERROR_NOTIFICATION extends Win32Struct {
      * MAPI_UNICODE 
      *   
      * > The passed-in strings are in Unicode format. If the MAPI_UNICODE flag is not set, the strings are in ANSI format.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulFlags : UInt32
 
     /**
      * > Pointer to a [MAPIERROR](mapierror.md) structure describing the error.
-     * @type {Pointer<MAPIERROR>}
      */
-    lpMAPIError {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpMAPIError : MAPIERROR.Ptr
+
 }

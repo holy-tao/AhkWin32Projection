@@ -1,31 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYMBOL_INFO_EX.ahk" { SYMBOL_INFO_EX }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugAdvanced4 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugAdvanced4 extends IUnknown {
     /**
      * The interface identifier for IDebugAdvanced4
      * @type {Guid}
      */
-    static IID => Guid("{d1069067-2a65-4bf0-ae97-76184b67856b}")
+    static IID := Guid("{d1069067-2a65-4bf0-ae97-76184b67856b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugAdvanced4 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetThreadContext             : IntPtr
+        SetThreadContext             : IntPtr
+        Request                      : IntPtr
+        GetSourceFileInformation     : IntPtr
+        FindSourceFileAndToken       : IntPtr
+        GetSymbolInformation         : IntPtr
+        GetSystemObjectInformation   : IntPtr
+        GetSourceFileInformationWide : IntPtr
+        FindSourceFileAndTokenWide   : IntPtr
+        GetSymbolInformationWide     : IntPtr
+        GetSymbolInformationWideEx   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetThreadContext", "SetThreadContext", "Request", "GetSourceFileInformation", "FindSourceFileAndToken", "GetSymbolInformation", "GetSystemObjectInformation", "GetSourceFileInformationWide", "FindSourceFileAndTokenWide", "GetSymbolInformationWide", "GetSymbolInformationWideEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugAdvanced4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the context of the specified thread.
@@ -71,14 +92,13 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * Specifies the type of application that created a certificate request.
+     * 
      * @param {Integer} Request 
      * @param {Integer} InBuffer 
      * @param {Integer} InBufferSize 
      * @param {Integer} OutBuffer 
      * @param {Integer} OutBufferSize 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
      */
     Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize) {
         result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", &OutSize := 0, "HRESULT")
@@ -249,7 +269,47 @@ class IDebugAdvanced4 extends IUnknown {
         InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
         StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, StringSizeMarshal, StringSize, "ptr", pInfoEx, "HRESULT")
+        result := ComCall(13, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, StringSizeMarshal, StringSize, SYMBOL_INFO_EX.Ptr, pInfoEx, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugAdvanced4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetThreadContext := CallbackCreate(GetMethod(implObj, "GetThreadContext"), flags, 3)
+        this.vtbl.SetThreadContext := CallbackCreate(GetMethod(implObj, "SetThreadContext"), flags, 3)
+        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 7)
+        this.vtbl.GetSourceFileInformation := CallbackCreate(GetMethod(implObj, "GetSourceFileInformation"), flags, 8)
+        this.vtbl.FindSourceFileAndToken := CallbackCreate(GetMethod(implObj, "FindSourceFileAndToken"), flags, 11)
+        this.vtbl.GetSymbolInformation := CallbackCreate(GetMethod(implObj, "GetSymbolInformation"), flags, 10)
+        this.vtbl.GetSystemObjectInformation := CallbackCreate(GetMethod(implObj, "GetSystemObjectInformation"), flags, 7)
+        this.vtbl.GetSourceFileInformationWide := CallbackCreate(GetMethod(implObj, "GetSourceFileInformationWide"), flags, 8)
+        this.vtbl.FindSourceFileAndTokenWide := CallbackCreate(GetMethod(implObj, "FindSourceFileAndTokenWide"), flags, 11)
+        this.vtbl.GetSymbolInformationWide := CallbackCreate(GetMethod(implObj, "GetSymbolInformationWide"), flags, 10)
+        this.vtbl.GetSymbolInformationWideEx := CallbackCreate(GetMethod(implObj, "GetSymbolInformationWideEx"), flags, 11)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetThreadContext)
+        CallbackFree(this.vtbl.SetThreadContext)
+        CallbackFree(this.vtbl.Request)
+        CallbackFree(this.vtbl.GetSourceFileInformation)
+        CallbackFree(this.vtbl.FindSourceFileAndToken)
+        CallbackFree(this.vtbl.GetSymbolInformation)
+        CallbackFree(this.vtbl.GetSystemObjectInformation)
+        CallbackFree(this.vtbl.GetSourceFileInformationWide)
+        CallbackFree(this.vtbl.FindSourceFileAndTokenWide)
+        CallbackFree(this.vtbl.GetSymbolInformationWide)
+        CallbackFree(this.vtbl.GetSymbolInformationWideEx)
     }
 }

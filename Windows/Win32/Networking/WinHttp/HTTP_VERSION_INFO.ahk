@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the global HTTP version.
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-http_version_info
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class HTTP_VERSION_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct HTTP_VERSION_INFO {
+    #StructPack 4
 
     /**
      * The major version number. Must be 1.
-     * @type {Integer}
      */
-    dwMajorVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMajorVersion : UInt32
 
     /**
      * The minor version number. Can be either 1 or zero.
-     * @type {Integer}
      */
-    dwMinorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMinorVersion : UInt32
+
 }

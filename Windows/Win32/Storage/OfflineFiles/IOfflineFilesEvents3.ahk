@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesEvents2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OFFLINEFILES_EVENTS.ahk" { OFFLINEFILES_EVENTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesEvents2.ahk" { IOfflineFilesEvents2 }
+#Import ".\OFFLINEFILES_ITEM_TYPE.ahk" { OFFLINEFILES_ITEM_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Used to report events associated with transparently cached items.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesevents3
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesEvents3 extends IOfflineFilesEvents2 {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesEvents3 extends IOfflineFilesEvents2 {
     /**
      * The interface identifier for IOfflineFilesEvents3
      * @type {Guid}
      */
-    static IID => Guid("{9ba04a45-ee69-42f0-9ab1-7db5c8805808}")
+    static IID := Guid("{9ba04a45-ee69-42f0-9ab1-7db5c8805808}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 37
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesEvents3 interfaces
+    */
+    struct Vtbl extends IOfflineFilesEvents2.Vtbl {
+        TransparentCacheItemNotify : IntPtr
+        PrefetchFileBegin          : IntPtr
+        PrefetchFileEnd            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TransparentCacheItemNotify", "PrefetchFileBegin", "PrefetchFileEnd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesEvents3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports that an action has been performed on a transparently cached item.
@@ -44,7 +58,7 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2 {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pzsOldPath := pzsOldPath is String ? StrPtr(pzsOldPath) : pzsOldPath
 
-        result := ComCall(37, this, "ptr", pszPath, "int", EventType, "int", ItemType, "int", bModifiedData, "int", bModifiedAttributes, "ptr", pzsOldPath, "HRESULT")
+        result := ComCall(37, this, "ptr", pszPath, OFFLINEFILES_EVENTS, EventType, OFFLINEFILES_ITEM_TYPE, ItemType, BOOL, bModifiedData, BOOL, bModifiedAttributes, "ptr", pzsOldPath, "HRESULT")
         return result
     }
 
@@ -73,5 +87,29 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2 {
 
         result := ComCall(39, this, "ptr", pszPath, "int", hrResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesEvents3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TransparentCacheItemNotify := CallbackCreate(GetMethod(implObj, "TransparentCacheItemNotify"), flags, 7)
+        this.vtbl.PrefetchFileBegin := CallbackCreate(GetMethod(implObj, "PrefetchFileBegin"), flags, 2)
+        this.vtbl.PrefetchFileEnd := CallbackCreate(GetMethod(implObj, "PrefetchFileEnd"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TransparentCacheItemNotify)
+        CallbackFree(this.vtbl.PrefetchFileBegin)
+        CallbackFree(this.vtbl.PrefetchFileEnd)
     }
 }

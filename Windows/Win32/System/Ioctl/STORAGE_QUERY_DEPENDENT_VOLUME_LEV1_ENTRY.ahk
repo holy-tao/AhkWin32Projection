@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY extends Win32Struct {
-    static sizeof => 32
+export default struct STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY {
+    #StructPack 4
 
-    static packingSize => 8
+    EntryLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntryLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DependencyTypeFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DependencyTypeFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProviderSpecificFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProviderSpecificFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    VirtualStorageType : VIRTUAL_STORAGE_TYPE
 
-    /**
-     * @type {VIRTUAL_STORAGE_TYPE}
-     */
-    VirtualStorageType {
-        get {
-            if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(16, this)
-            return this.__VirtualStorageType
-        }
-    }
 }

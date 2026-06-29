@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\ITypeInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes objects, methods and properties to programming tools and other applications that support Automation.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-idispatch
  * @namespace Windows.Win32.System.Com
  */
-class IDispatch extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDispatch extends IUnknown {
     /**
      * The interface identifier for IDispatch
      * @type {Guid}
      */
-    static IID => Guid("{00020400-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020400-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDispatch interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTypeInfoCount : IntPtr
+        GetTypeInfo      : IntPtr
+        GetIDsOfNames    : IntPtr
+        Invoke           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTypeInfoCount", "GetTypeInfo", "GetIDsOfNames", "Invoke"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDispatch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the number of type information interfaces that an object provides (either 0 or 1).
@@ -81,7 +97,7 @@ class IDispatch extends IUnknown {
     GetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispId := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispId := 0, "HRESULT")
         return rgDispId
     }
 
@@ -319,7 +335,33 @@ class IDispatch extends IUnknown {
     Invoke(dispIdMember, riid, lcid, wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "int", dispIdMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pDispParams, "ptr", pVarResult, "ptr", pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(6, this, "int", dispIdMember, Guid.Ptr, riid, "uint", lcid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDispatch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTypeInfoCount := CallbackCreate(GetMethod(implObj, "GetTypeInfoCount"), flags, 2)
+        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 4)
+        this.vtbl.GetIDsOfNames := CallbackCreate(GetMethod(implObj, "GetIDsOfNames"), flags, 6)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTypeInfoCount)
+        CallbackFree(this.vtbl.GetTypeInfo)
+        CallbackFree(this.vtbl.GetIDsOfNames)
+        CallbackFree(this.vtbl.Invoke)
     }
 }

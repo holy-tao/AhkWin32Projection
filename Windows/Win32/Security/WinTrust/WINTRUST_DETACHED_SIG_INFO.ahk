@@ -1,45 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINTRUST_DETACHED_SIG_FILE_HANDLES.ahk
-#Include .\WINTRUST_DETACHED_SIG_BLOBS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINTRUST_DETACHED_SIG_BLOBS.ahk" { WINTRUST_DETACHED_SIG_BLOBS }
+#Import ".\WINTRUST_DETACHED_SIG_FILE_HANDLES.ahk" { WINTRUST_DETACHED_SIG_FILE_HANDLES }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WINTRUST_DETACHED_SIG_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct WINTRUST_DETACHED_SIG_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwUnionChoice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUnionChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pDetachedSigHandles : WINTRUST_DETACHED_SIG_FILE_HANDLES.Ptr
 
-    /**
-     * @type {Pointer<WINTRUST_DETACHED_SIG_FILE_HANDLES>}
-     */
-    pDetachedSigHandles {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<WINTRUST_DETACHED_SIG_BLOBS>}
-     */
-    pDetachedSigBlobs {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pDetachedSigBlobs', { type: WINTRUST_DETACHED_SIG_BLOBS.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

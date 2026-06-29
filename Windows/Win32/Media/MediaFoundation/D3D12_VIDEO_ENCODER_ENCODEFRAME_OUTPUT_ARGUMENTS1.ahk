@@ -1,64 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1.ahk
-#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE.ahk
-#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM.ahk
-#Include .\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Fence.ahk
-#Include .\D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE.ahk
-#Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM.ahk" { D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM }
+#Import ".\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE.ahk" { D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE }
+#Import ".\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk" { D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER }
+#Import ".\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1.ahk" { D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 }
+#Import ".\D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE.ahk" { D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE }
+#Import ".\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE.ahk" { D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM.ahk" { D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 extends Win32Struct {
-    static sizeof => 112
+export default struct D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Bitstream : D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1}
-     */
-    Bitstream {
-        get {
-            if(!this.HasProp("__Bitstream"))
-                this.__Bitstream := D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1(0, this)
-            return this.__Bitstream
-        }
-    }
+    ReconstructedPicture : D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE}
-     */
-    ReconstructedPicture {
-        get {
-            if(!this.HasProp("__ReconstructedPicture"))
-                this.__ReconstructedPicture := D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(64, this)
-            return this.__ReconstructedPicture
-        }
-    }
+    EncoderOutputMetadata : D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
-     */
-    EncoderOutputMetadata {
-        get {
-            if(!this.HasProp("__EncoderOutputMetadata"))
-                this.__EncoderOutputMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(80, this)
-            return this.__EncoderOutputMetadata
-        }
-    }
+    FrameAnalysisReconstructedPicture : D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE}
-     */
-    FrameAnalysisReconstructedPicture {
-        get {
-            if(!this.HasProp("__FrameAnalysisReconstructedPicture"))
-                this.__FrameAnalysisReconstructedPicture := D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(96, this)
-            return this.__FrameAnalysisReconstructedPicture
-        }
-    }
 }

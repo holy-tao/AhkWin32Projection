@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_NOTIFICATION_TYPE.ahk
-#Include .\AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR.ahk
-#Include ..\IMMDevice.ahk
-#Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR.ahk" { AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR }
+#Import ".\AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk" { AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR }
+#Import "..\IMMDevice.ahk" { IMMDevice }
+#Import ".\APO_NOTIFICATION_TYPE.ahk" { APO_NOTIFICATION_TYPE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR.ahk" { AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR }
+#Import ".\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR }
 
 /**
  * Specifies a requested APO notification.
@@ -16,61 +16,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apo_notification_descriptor
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APO_NOTIFICATION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct APO_NOTIFICATION_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * A value from the [APO_NOTIFICATION_TYPE](ne-audioengineextensionapo-apo_notification_type.md) enumeration
-     * @type {APO_NOTIFICATION_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : APO_NOTIFICATION_TYPE
 
-    /**
-     * @type {AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR}
-     */
-    audioEndpointVolume {
-        get {
-            if(!this.HasProp("__audioEndpointVolume"))
-                this.__audioEndpointVolume := AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(8, this)
-            return this.__audioEndpointVolume
-        }
-    }
+    audioEndpointVolume : AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR
 
-    /**
-     * @type {AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR}
-     */
-    audioEndpointPropertyChange {
-        get {
-            if(!this.HasProp("__audioEndpointPropertyChange"))
-                this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(8, this)
-            return this.__audioEndpointPropertyChange
-        }
-    }
-
-    /**
-     * @type {AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR}
-     */
-    audioSystemEffectsPropertyChange {
-        get {
-            if(!this.HasProp("__audioSystemEffectsPropertyChange"))
-                this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(8, this)
-            return this.__audioSystemEffectsPropertyChange
-        }
-    }
-
-    /**
-     * @type {AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR}
-     */
-    audioMicrophoneBoost {
-        get {
-            if(!this.HasProp("__audioMicrophoneBoost"))
-                this.__audioMicrophoneBoost := AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR(8, this)
-            return this.__audioMicrophoneBoost
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'audioEndpointPropertyChange', { type: AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR, offset: 8 })
+        DefineProp(this.Prototype, 'audioSystemEffectsPropertyChange', { type: AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR, offset: 8 })
+        DefineProp(this.Prototype, 'audioMicrophoneBoost', { type: AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

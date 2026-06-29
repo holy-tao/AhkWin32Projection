@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the dimensions and style of a dialog box.
@@ -31,10 +30,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class DLGTEMPLATE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DLGTEMPLATE {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
@@ -45,76 +42,49 @@ class DLGTEMPLATE extends Win32Struct {
      * 						<b>WORD</b> boundary that follows the title array. The font data specifies a 16-bit point size value and a Unicode font name string. If possible, the system creates a font according to the specified values. Then the system sends a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-setfont">WM_SETFONT</a> message to the dialog box and to each control to provide a handle to the font. If <b>DS_SETFONT</b> is not specified, the dialog box template does not include the font data. 
      * 
      * The <b>DS_SHELLFONT</b> style is not supported in the <b>DLGTEMPLATE</b> header.
-     * @type {Integer}
      */
-    style {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    style : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The extended styles for a window. This member is not used to create dialog boxes, but applications that use dialog box templates can use it to create other types of windows. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @type {Integer}
      */
-    dwExtendedStyle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwExtendedStyle : UInt32
 
     /**
      * Type: <b>WORD</b>
      * 
      * The number of items in the dialog box.
-     * @type {Integer}
      */
-    cdit {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    cdit : UInt16
 
     /**
      * Type: <b>short</b>
      * 
      * The x-coordinate, in dialog box units, of the upper-left corner of the dialog box.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    x : Int16
 
     /**
      * Type: <b>short</b>
      * 
      * The y-coordinate, in dialog box units, of the upper-left corner of the dialog box.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
+    y : Int16
 
     /**
      * Type: <b>short</b>
      * 
      * The width, in dialog box units, of the dialog box.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
+    cx : Int16
 
     /**
      * Type: <b>short</b>
      * 
      * The height, in dialog box units, of the dialog box.
-     * @type {Integer}
      */
-    cy {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    cy : Int16
+
 }

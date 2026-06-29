@@ -1,114 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\SECURITY_IMPERSONATION_LEVEL.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_CLIENT_INFO_EX extends Win32Struct {
-    static sizeof => 48
+export default struct SECPKG_CLIENT_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    LogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(0, this)
-            return this.__LogonId
-        }
-    }
+    ProcessID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ThreadID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ThreadID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HasTcbPrivilege : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HasTcbPrivilege {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Impersonating : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Impersonating {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    Restricted : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Restricted {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    ClientFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ClientFlags {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    ImpersonationLevel : SECURITY_IMPERSONATION_LEVEL
 
-    /**
-     * @type {SECURITY_IMPERSONATION_LEVEL}
-     */
-    ImpersonationLevel {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ClientToken : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    ClientToken {
-        get {
-            if(!this.HasProp("__ClientToken"))
-                this.__ClientToken := HANDLE(24, this)
-            return this.__ClientToken
-        }
-    }
+    IdentificationLogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    IdentificationLogonId {
-        get {
-            if(!this.HasProp("__IdentificationLogonId"))
-                this.__IdentificationLogonId := LUID(32, this)
-            return this.__IdentificationLogonId
-        }
-    }
+    IdentificationToken : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    IdentificationToken {
-        get {
-            if(!this.HasProp("__IdentificationToken"))
-                this.__IdentificationToken := HANDLE(40, this)
-            return this.__IdentificationToken
-        }
-    }
 }

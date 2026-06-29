@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class SHARE_INFO_1503 extends Win32Struct {
-    static sizeof => 8
+export default struct SHARE_INFO_1503 {
+    #StructPack 4
 
-    static packingSize => 8
+    shi1503_sharefilter : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    shi1503_sharefilter {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 }

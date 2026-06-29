@@ -1,48 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITimer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITimer.ahk" { ITimer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class ITimerService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITimerService extends IUnknown {
     /**
      * The interface identifier for ITimerService
      * @type {Guid}
      */
-    static IID => Guid("{3050f35f-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f35f-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITimerService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTimer            : IntPtr
+        GetNamedTimer          : IntPtr
+        SetNamedTimerReference : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITimerService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTimer", "GetNamedTimer", "SetNamedTimerReference"]
-
-    /**
-     * Creates a queue for timers.
-     * @remarks
-     * To add a timer to the queue, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueuetimer">CreateTimerQueueTimer</a> function. To remove a timer from the queue, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueuetimer">DeleteTimerQueueTimer</a> function.
      * 
-     * When you are finished with the queue of timers, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueueex">DeleteTimerQueueEx</a> function to delete the timer queue. Any pending timers in the queue are canceled and deleted.
-     * 
-     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {ITimer} pReferenceTimer 
      * @returns {ITimer} 
-     * @see https://learn.microsoft.com/windows/win32/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue
      */
     CreateTimer(pReferenceTimer) {
         result := ComCall(3, this, "ptr", pReferenceTimer, "ptr*", &ppNewTimer := 0, "HRESULT")
@@ -55,7 +54,7 @@ class ITimerService extends IUnknown {
      * @returns {ITimer} 
      */
     GetNamedTimer(rguidName) {
-        result := ComCall(4, this, "ptr", rguidName, "ptr*", &ppTimer := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rguidName, "ptr*", &ppTimer := 0, "HRESULT")
         return ITimer(ppTimer)
     }
 
@@ -66,7 +65,31 @@ class ITimerService extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNamedTimerReference(rguidName, pReferenceTimer) {
-        result := ComCall(5, this, "ptr", rguidName, "ptr", pReferenceTimer, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rguidName, "ptr", pReferenceTimer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITimerService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTimer := CallbackCreate(GetMethod(implObj, "CreateTimer"), flags, 3)
+        this.vtbl.GetNamedTimer := CallbackCreate(GetMethod(implObj, "GetNamedTimer"), flags, 3)
+        this.vtbl.SetNamedTimerReference := CallbackCreate(GetMethod(implObj, "SetNamedTimerReference"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTimer)
+        CallbackFree(this.vtbl.GetNamedTimer)
+        CallbackFree(this.vtbl.SetNamedTimerReference)
     }
 }

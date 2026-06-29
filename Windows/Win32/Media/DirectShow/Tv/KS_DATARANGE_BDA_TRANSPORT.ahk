@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSDATAFORMAT.ahk
-#Include .\BDA_TRANSPORT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BDA_TRANSPORT_INFO.ahk" { BDA_TRANSPORT_INFO }
+#Import "..\..\KernelStreaming\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct {
-    static sizeof => 72
+export default struct KS_DATARANGE_BDA_TRANSPORT {
+    #StructPack 8
 
-    static packingSize => 8
+    DataRange : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataRange {
-        get {
-            if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(0, this)
-            return this.__DataRange
-        }
-    }
+    BdaTransportInfo : BDA_TRANSPORT_INFO
 
-    /**
-     * @type {BDA_TRANSPORT_INFO}
-     */
-    BdaTransportInfo {
-        get {
-            if(!this.HasProp("__BdaTransportInfo"))
-                this.__BdaTransportInfo := BDA_TRANSPORT_INFO(48, this)
-            return this.__BdaTransportInfo
-        }
-    }
 }

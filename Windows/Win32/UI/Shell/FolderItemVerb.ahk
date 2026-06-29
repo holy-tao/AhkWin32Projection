@@ -1,40 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a single verb available to an item. This object contains properties and methods that allow you to retrieve information about the verb.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitemverb
  * @namespace Windows.Win32.UI.Shell
  */
-class FolderItemVerb extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct FolderItemVerb extends IDispatch {
     /**
      * The interface identifier for FolderItemVerb
      * @type {Guid}
      */
-    static IID => Guid("{08ec3e00-50b0-11cf-960c-0080c7f4ee85}")
+    static IID := Guid("{08ec3e00-50b0-11cf-960c-0080c7f4ee85}")
 
     /**
      * The class identifier for FolderItemVerb
      * @type {Guid}
      */
-    static CLSID => Guid("{08ec3e00-50b0-11cf-960c-0080c7f4ee85}")
+    static CLSID := Guid("{08ec3e00-50b0-11cf-960c-0080c7f4ee85}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for FolderItemVerb interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Application : IntPtr
+        get_Parent      : IntPtr
+        get_Name        : IntPtr
+        DoIt            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Application", "get_Parent", "get_Name", "DoIt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := FolderItemVerb.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -80,8 +91,8 @@ class FolderItemVerb extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbs := BSTR()
-        result := ComCall(9, this, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 
@@ -96,5 +107,31 @@ class FolderItemVerb extends IDispatch {
     DoIt() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (FolderItemVerb.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.DoIt := CallbackCreate(GetMethod(implObj, "DoIt"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Application)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.DoIt)
     }
 }

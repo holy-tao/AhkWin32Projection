@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IShellIconOverlayManager may be altered or unavailable.
@@ -14,26 +17,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishelliconoverlaymanager
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellIconOverlayManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellIconOverlayManager extends IUnknown {
     /**
      * The interface identifier for IShellIconOverlayManager
      * @type {Guid}
      */
-    static IID => Guid("{f10b5e34-dd3b-42a7-aa7d-2f4ec54bb09b}")
+    static IID := Guid("{f10b5e34-dd3b-42a7-aa7d-2f4ec54bb09b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellIconOverlayManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFileOverlayInfo              : IntPtr
+        GetReservedOverlayInfo          : IntPtr
+        RefreshOverlayImages            : IntPtr
+        LoadNonloadedOverlayIdentifiers : IntPtr
+        OverlayIndexFromImageIndex      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFileOverlayInfo", "GetReservedOverlayInfo", "RefreshOverlayImages", "LoadNonloadedOverlayIdentifiers", "OverlayIndexFromImageIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellIconOverlayManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the index of the icon overlay or the icon image for the specified file with the specified attributes.
@@ -154,7 +168,35 @@ class IShellIconOverlayManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
      */
     OverlayIndexFromImageIndex(iImage, fAdd) {
-        result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, "int", fAdd, "HRESULT")
+        result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, BOOL, fAdd, "HRESULT")
         return piIndex
+    }
+
+    Query(iid) {
+        if (IShellIconOverlayManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFileOverlayInfo := CallbackCreate(GetMethod(implObj, "GetFileOverlayInfo"), flags, 5)
+        this.vtbl.GetReservedOverlayInfo := CallbackCreate(GetMethod(implObj, "GetReservedOverlayInfo"), flags, 6)
+        this.vtbl.RefreshOverlayImages := CallbackCreate(GetMethod(implObj, "RefreshOverlayImages"), flags, 2)
+        this.vtbl.LoadNonloadedOverlayIdentifiers := CallbackCreate(GetMethod(implObj, "LoadNonloadedOverlayIdentifiers"), flags, 1)
+        this.vtbl.OverlayIndexFromImageIndex := CallbackCreate(GetMethod(implObj, "OverlayIndexFromImageIndex"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFileOverlayInfo)
+        CallbackFree(this.vtbl.GetReservedOverlayInfo)
+        CallbackFree(this.vtbl.RefreshOverlayImages)
+        CallbackFree(this.vtbl.LoadNonloadedOverlayIdentifiers)
+        CallbackFree(this.vtbl.OverlayIndexFromImageIndex)
     }
 }

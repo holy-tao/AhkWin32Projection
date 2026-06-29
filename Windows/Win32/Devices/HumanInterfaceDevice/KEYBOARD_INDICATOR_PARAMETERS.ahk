@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * KEYBOARD_INDICATOR_PARAMETERS specifies the state of a keyboard's indicator LEDs.
@@ -8,19 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_indicator_parameters
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class KEYBOARD_INDICATOR_PARAMETERS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct KEYBOARD_INDICATOR_PARAMETERS {
+    #StructPack 2
 
     /**
      * Specifies the unit number of a keyboard device. A keyboard device name has the format \Device\KeyboardPort<i>N</i>, where the suffix <i>N </i> is the unit number of the device. For example, a device, whose name is \Device\KeyboardPort0, has a unit number of zero, and a device, whose name is \Device\KeyboardPort1, has a unit number of one.
-     * @type {Integer}
      */
-    UnitId {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    UnitId : UInt16
 
     /**
      * Specifies a bitwise OR of zero or more of the following LED flags: 
@@ -81,10 +74,7 @@ class KEYBOARD_INDICATOR_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    LedFlags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    LedFlags : UInt16
+
 }

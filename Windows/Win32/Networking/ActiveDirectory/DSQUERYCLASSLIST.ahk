@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DSQUERYCLASSLIST structure describes a list of classes against which a directory service query is made.
@@ -8,38 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryclasslist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DSQUERYCLASSLIST extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DSQUERYCLASSLIST {
+    #StructPack 4
 
     /**
      * Size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Number of the classes in the array.
-     * @type {Integer}
      */
-    cClasses {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cClasses : Int32
 
     /**
      * Offset to the class names of Unicode strings.
-     * @type {Array<Integer>}
      */
-    offsetClass {
-        get {
-            if(!this.HasProp("__offsetClassProxyArray"))
-                this.__offsetClassProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
-            return this.__offsetClassProxyArray
-        }
-    }
+    offsetClass : UInt32[1]
+
 }

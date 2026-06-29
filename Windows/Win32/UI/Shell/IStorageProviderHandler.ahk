@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IStorageProviderPropertyHandler.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStorageProviderPropertyHandler.ahk" { IStorageProviderPropertyHandler }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves the IStorageProviderPropertyHandler associated with a specific file or folder.
@@ -14,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nn-storageprovider-istorageproviderhandler
  * @namespace Windows.Win32.UI.Shell
  */
-class IStorageProviderHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStorageProviderHandler extends IUnknown {
     /**
      * The interface identifier for IStorageProviderHandler
      * @type {Guid}
      */
-    static IID => Guid("{162c6fb5-44d3-435b-903d-e613fa093fb5}")
+    static IID := Guid("{162c6fb5-44d3-435b-903d-e613fa093fb5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStorageProviderHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropertyHandlerFromPath   : IntPtr
+        GetPropertyHandlerFromUri    : IntPtr
+        GetPropertyHandlerFromFileId : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyHandlerFromPath", "GetPropertyHandlerFromUri", "GetPropertyHandlerFromFileId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStorageProviderHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an instance of IStorageProviderPropertyHandler associated with the provided path.
@@ -76,5 +87,29 @@ class IStorageProviderHandler extends IUnknown {
 
         result := ComCall(5, this, "ptr", fileId, "ptr*", &propertyHandler := 0, "HRESULT")
         return IStorageProviderPropertyHandler(propertyHandler)
+    }
+
+    Query(iid) {
+        if (IStorageProviderHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyHandlerFromPath := CallbackCreate(GetMethod(implObj, "GetPropertyHandlerFromPath"), flags, 3)
+        this.vtbl.GetPropertyHandlerFromUri := CallbackCreate(GetMethod(implObj, "GetPropertyHandlerFromUri"), flags, 3)
+        this.vtbl.GetPropertyHandlerFromFileId := CallbackCreate(GetMethod(implObj, "GetPropertyHandlerFromFileId"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyHandlerFromPath)
+        CallbackFree(this.vtbl.GetPropertyHandlerFromUri)
+        CallbackFree(this.vtbl.GetPropertyHandlerFromFileId)
     }
 }

@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a single user quota entry in the volume quota information file.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotauser
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class IDiskQuotaUser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDiskQuotaUser extends IUnknown {
     /**
      * The interface identifier for IDiskQuotaUser
      * @type {Guid}
      */
-    static IID => Guid("{7988b574-ec89-11cf-9c00-00aa00a14f56}")
+    static IID := Guid("{7988b574-ec89-11cf-9c00-00aa00a14f56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiskQuotaUser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetID                 : IntPtr
+        GetName               : IntPtr
+        GetSidLength          : IntPtr
+        GetSid                : IntPtr
+        GetQuotaThreshold     : IntPtr
+        GetQuotaThresholdText : IntPtr
+        GetQuotaLimit         : IntPtr
+        GetQuotaLimitText     : IntPtr
+        GetQuotaUsed          : IntPtr
+        GetQuotaUsedText      : IntPtr
+        GetQuotaInformation   : IntPtr
+        SetQuotaThreshold     : IntPtr
+        SetQuotaLimit         : IntPtr
+        Invalidate            : IntPtr
+        GetAccountStatus      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetID", "GetName", "GetSidLength", "GetSid", "GetQuotaThreshold", "GetQuotaThresholdText", "GetQuotaLimit", "GetQuotaLimitText", "GetQuotaUsed", "GetQuotaUsedText", "GetQuotaInformation", "SetQuotaThreshold", "SetQuotaLimit", "Invalidate", "GetAccountStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiskQuotaUser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a unique identifier (ID) number for the DiskQuotaUser object.
@@ -976,7 +1000,7 @@ class IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-setquotathreshold
      */
     SetQuotaThreshold(llThreshold, fWriteThrough) {
-        result := ComCall(14, this, "int64", llThreshold, "int", fWriteThrough, "HRESULT")
+        result := ComCall(14, this, "int64", llThreshold, BOOL, fWriteThrough, "HRESULT")
         return result
     }
 
@@ -1040,7 +1064,7 @@ class IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-setquotalimit
      */
     SetQuotaLimit(llLimit, fWriteThrough) {
-        result := ComCall(15, this, "int64", llLimit, "int", fWriteThrough, "HRESULT")
+        result := ComCall(15, this, "int64", llLimit, BOOL, fWriteThrough, "HRESULT")
         return result
     }
 
@@ -1168,5 +1192,53 @@ class IDiskQuotaUser extends IUnknown {
 
         result := ComCall(17, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDiskQuotaUser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 7)
+        this.vtbl.GetSidLength := CallbackCreate(GetMethod(implObj, "GetSidLength"), flags, 2)
+        this.vtbl.GetSid := CallbackCreate(GetMethod(implObj, "GetSid"), flags, 3)
+        this.vtbl.GetQuotaThreshold := CallbackCreate(GetMethod(implObj, "GetQuotaThreshold"), flags, 2)
+        this.vtbl.GetQuotaThresholdText := CallbackCreate(GetMethod(implObj, "GetQuotaThresholdText"), flags, 3)
+        this.vtbl.GetQuotaLimit := CallbackCreate(GetMethod(implObj, "GetQuotaLimit"), flags, 2)
+        this.vtbl.GetQuotaLimitText := CallbackCreate(GetMethod(implObj, "GetQuotaLimitText"), flags, 3)
+        this.vtbl.GetQuotaUsed := CallbackCreate(GetMethod(implObj, "GetQuotaUsed"), flags, 2)
+        this.vtbl.GetQuotaUsedText := CallbackCreate(GetMethod(implObj, "GetQuotaUsedText"), flags, 3)
+        this.vtbl.GetQuotaInformation := CallbackCreate(GetMethod(implObj, "GetQuotaInformation"), flags, 3)
+        this.vtbl.SetQuotaThreshold := CallbackCreate(GetMethod(implObj, "SetQuotaThreshold"), flags, 3)
+        this.vtbl.SetQuotaLimit := CallbackCreate(GetMethod(implObj, "SetQuotaLimit"), flags, 3)
+        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 1)
+        this.vtbl.GetAccountStatus := CallbackCreate(GetMethod(implObj, "GetAccountStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetSidLength)
+        CallbackFree(this.vtbl.GetSid)
+        CallbackFree(this.vtbl.GetQuotaThreshold)
+        CallbackFree(this.vtbl.GetQuotaThresholdText)
+        CallbackFree(this.vtbl.GetQuotaLimit)
+        CallbackFree(this.vtbl.GetQuotaLimitText)
+        CallbackFree(this.vtbl.GetQuotaUsed)
+        CallbackFree(this.vtbl.GetQuotaUsedText)
+        CallbackFree(this.vtbl.GetQuotaInformation)
+        CallbackFree(this.vtbl.SetQuotaThreshold)
+        CallbackFree(this.vtbl.SetQuotaLimit)
+        CallbackFree(this.vtbl.Invalidate)
+        CallbackFree(this.vtbl.GetAccountStatus)
     }
 }

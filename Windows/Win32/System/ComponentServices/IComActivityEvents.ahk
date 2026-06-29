@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if an activity is created, destroyed, or timed out.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomactivityevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComActivityEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComActivityEvents extends IUnknown {
     /**
      * The interface identifier for IComActivityEvents
      * @type {Guid}
      */
-    static IID => Guid("{683130b0-2e50-11d2-98a5-00c04f8ee1c4}")
+    static IID := Guid("{683130b0-2e50-11d2-98a5-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComActivityEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnActivityCreate    : IntPtr
+        OnActivityDestroy   : IntPtr
+        OnActivityEnter     : IntPtr
+        OnActivityTimeout   : IntPtr
+        OnActivityReenter   : IntPtr
+        OnActivityLeave     : IntPtr
+        OnActivityLeaveSame : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnActivityCreate", "OnActivityDestroy", "OnActivityEnter", "OnActivityTimeout", "OnActivityReenter", "OnActivityLeave", "OnActivityLeaveSame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComActivityEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when an activity starts.
@@ -37,7 +52,7 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivitycreate
      */
     OnActivityCreate(pInfo, guidActivity) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, "HRESULT")
         return result
     }
 
@@ -49,7 +64,7 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivitydestroy
      */
     OnActivityDestroy(pInfo, guidActivity) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidActivity, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, "HRESULT")
         return result
     }
 
@@ -63,7 +78,7 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityenter
      */
     OnActivityEnter(pInfo, guidCurrent, guidEntered, dwThread) {
-        result := ComCall(5, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidEntered, "uint", dwThread, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidEntered, "uint", dwThread, "HRESULT")
         return result
     }
 
@@ -78,7 +93,7 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivitytimeout
      */
     OnActivityTimeout(pInfo, guidCurrent, guidEntered, dwThread, dwTimeout) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidEntered, "uint", dwThread, "uint", dwTimeout, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidEntered, "uint", dwThread, "uint", dwTimeout, "HRESULT")
         return result
     }
 
@@ -92,7 +107,7 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityreenter
      */
     OnActivityReenter(pInfo, guidCurrent, dwThread, dwCallDepth) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidCurrent, "uint", dwThread, "uint", dwCallDepth, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, "uint", dwThread, "uint", dwCallDepth, "HRESULT")
         return result
     }
 
@@ -105,7 +120,7 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityleave
      */
     OnActivityLeave(pInfo, guidCurrent, guidLeft) {
-        result := ComCall(8, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidLeft, "HRESULT")
+        result := ComCall(8, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidLeft, "HRESULT")
         return result
     }
 
@@ -118,7 +133,39 @@ class IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityleavesame
      */
     OnActivityLeaveSame(pInfo, guidCurrent, dwCallDepth) {
-        result := ComCall(9, this, "ptr", pInfo, "ptr", guidCurrent, "uint", dwCallDepth, "HRESULT")
+        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, "uint", dwCallDepth, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComActivityEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnActivityCreate := CallbackCreate(GetMethod(implObj, "OnActivityCreate"), flags, 3)
+        this.vtbl.OnActivityDestroy := CallbackCreate(GetMethod(implObj, "OnActivityDestroy"), flags, 3)
+        this.vtbl.OnActivityEnter := CallbackCreate(GetMethod(implObj, "OnActivityEnter"), flags, 5)
+        this.vtbl.OnActivityTimeout := CallbackCreate(GetMethod(implObj, "OnActivityTimeout"), flags, 6)
+        this.vtbl.OnActivityReenter := CallbackCreate(GetMethod(implObj, "OnActivityReenter"), flags, 5)
+        this.vtbl.OnActivityLeave := CallbackCreate(GetMethod(implObj, "OnActivityLeave"), flags, 4)
+        this.vtbl.OnActivityLeaveSame := CallbackCreate(GetMethod(implObj, "OnActivityLeaveSame"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnActivityCreate)
+        CallbackFree(this.vtbl.OnActivityDestroy)
+        CallbackFree(this.vtbl.OnActivityEnter)
+        CallbackFree(this.vtbl.OnActivityTimeout)
+        CallbackFree(this.vtbl.OnActivityReenter)
+        CallbackFree(this.vtbl.OnActivityLeave)
+        CallbackFree(this.vtbl.OnActivityLeaveSame)
     }
 }

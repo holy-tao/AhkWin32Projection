@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Holds certificate chain status information returned by the CertVerifyCertificateChainPolicy function when the certificate chains are validated.
@@ -8,19 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_CHAIN_POLICY_STATUS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CERT_CHAIN_POLICY_STATUS {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A value that indicates that an error or invalid condition was encountered during the  validation process. The values of this member are specific to the policy type as specified by the value of the   <i>pszPolicyOID</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certverifycertificatechainpolicy">CertVerifyCertificateChainPolicy</a> function.
@@ -382,43 +375,23 @@ class CERT_CHAIN_POLICY_STATUS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwError : UInt32
 
     /**
      * Index that indicates the chain in which an error or condition that is not valid was found. For more information, see Remarks.
-     * @type {Integer}
      */
-    lChainIndex {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lChainIndex : Int32
 
     /**
      * Index that indicates the element in a chain where an error or condition that is not valid was found. For more information, see Remarks.
-     * @type {Integer}
      */
-    lElementIndex {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lElementIndex : Int32
 
     /**
      * A pointer to a structure. The structure type is determined by the value of the <b>pszPolicyOID</b> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certverifycertificatechainpolicy">CertVerifyCertificateChainPolicy</a> function. In addition to <b>dwError</b> errors, policy OID–specific extra status can also be returned here to provide additional chain status information. This pointer can be optionally set to point to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-authenticode_extra_cert_chain_policy_status">AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS</a> structure.
-     * @type {Pointer<Void>}
      */
-    pvExtraPolicyStatus {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvExtraPolicyStatus : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

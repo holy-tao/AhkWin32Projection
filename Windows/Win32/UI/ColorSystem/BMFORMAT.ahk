@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the **BMFORMAT** enumerated type are used by several WCS functions to indicate the format that particular bitmaps are in.
  * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-bmformat
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class BMFORMAT extends Win32Enum {
+export default struct BMFORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 16 bits per pixel. RGB color space. 5 bits per channel. The most significant bit is ignored.

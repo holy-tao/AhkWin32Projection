@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a set of private key properties that are used for setup of certification authority (CA) or Microsoft Simple Certificate Enrollment Protocol (SCEP) roles.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertsrvsetupkeyinformation
  * @namespace Windows.Win32.Security.Cryptography
  */
-class ICertSrvSetupKeyInformation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertSrvSetupKeyInformation extends IDispatch {
     /**
      * The interface identifier for ICertSrvSetupKeyInformation
      * @type {Guid}
      */
-    static IID => Guid("{6ba73778-36da-4c39-8a85-bcfa7d000793}")
+    static IID := Guid("{6ba73778-36da-4c39-8a85-bcfa7d000793}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertSrvSetupKeyInformation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ProviderName          : IntPtr
+        put_ProviderName          : IntPtr
+        get_Length                : IntPtr
+        put_Length                : IntPtr
+        get_Existing              : IntPtr
+        put_Existing              : IntPtr
+        get_ContainerName         : IntPtr
+        put_ContainerName         : IntPtr
+        get_HashAlgorithm         : IntPtr
+        put_HashAlgorithm         : IntPtr
+        get_ExistingCACertificate : IntPtr
+        put_ExistingCACertificate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ProviderName", "put_ProviderName", "get_Length", "put_Length", "get_Existing", "put_Existing", "get_ContainerName", "put_ContainerName", "get_HashAlgorithm", "put_HashAlgorithm", "get_ExistingCACertificate", "put_ExistingCACertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertSrvSetupKeyInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -87,8 +107,8 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_providername
      */
     get_ProviderName() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -103,7 +123,7 @@ class ICertSrvSetupKeyInformation extends IDispatch {
     put_ProviderName(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -134,7 +154,7 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_existing
      */
     get_Existing() {
-        result := ComCall(11, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -145,7 +165,7 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-put_existing
      */
     put_Existing(bVal) {
-        result := ComCall(12, this, "short", bVal, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, bVal, "HRESULT")
         return result
     }
 
@@ -157,8 +177,8 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_containername
      */
     get_ContainerName() {
-        pVal := BSTR()
-        result := ComCall(13, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -173,7 +193,7 @@ class ICertSrvSetupKeyInformation extends IDispatch {
     put_ContainerName(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(14, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -185,8 +205,8 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_hashalgorithm
      */
     get_HashAlgorithm() {
-        pVal := BSTR()
-        result := ComCall(15, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -201,7 +221,7 @@ class ICertSrvSetupKeyInformation extends IDispatch {
     put_HashAlgorithm(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(16, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -212,7 +232,7 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      */
     get_ExistingCACertificate() {
         pVal := VARIANT()
-        result := ComCall(17, this, "ptr", pVal, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -223,7 +243,49 @@ class ICertSrvSetupKeyInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-put_existingcacertificate
      */
     put_ExistingCACertificate(varVal) {
-        result := ComCall(18, this, "ptr", varVal, "HRESULT")
+        result := ComCall(18, this, VARIANT, varVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertSrvSetupKeyInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.put_ProviderName := CallbackCreate(GetMethod(implObj, "put_ProviderName"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.put_Length := CallbackCreate(GetMethod(implObj, "put_Length"), flags, 2)
+        this.vtbl.get_Existing := CallbackCreate(GetMethod(implObj, "get_Existing"), flags, 2)
+        this.vtbl.put_Existing := CallbackCreate(GetMethod(implObj, "put_Existing"), flags, 2)
+        this.vtbl.get_ContainerName := CallbackCreate(GetMethod(implObj, "get_ContainerName"), flags, 2)
+        this.vtbl.put_ContainerName := CallbackCreate(GetMethod(implObj, "put_ContainerName"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_ExistingCACertificate := CallbackCreate(GetMethod(implObj, "get_ExistingCACertificate"), flags, 2)
+        this.vtbl.put_ExistingCACertificate := CallbackCreate(GetMethod(implObj, "put_ExistingCACertificate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ProviderName)
+        CallbackFree(this.vtbl.put_ProviderName)
+        CallbackFree(this.vtbl.get_Length)
+        CallbackFree(this.vtbl.put_Length)
+        CallbackFree(this.vtbl.get_Existing)
+        CallbackFree(this.vtbl.put_Existing)
+        CallbackFree(this.vtbl.get_ContainerName)
+        CallbackFree(this.vtbl.put_ContainerName)
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
+        CallbackFree(this.vtbl.get_ExistingCACertificate)
+        CallbackFree(this.vtbl.put_ExistingCACertificate)
     }
 }

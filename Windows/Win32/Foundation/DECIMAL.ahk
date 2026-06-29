@@ -1,79 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DECIMAL structure represents a decimal data type that provides a sign and scale for a number.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-decimal~r1
  * @namespace Windows.Win32.Foundation
  */
-class DECIMAL extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DECIMAL {
+    #StructPack 8
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    wReserved {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wReserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    scale {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    scale : Int8
 
-    /**
-     * @type {Integer}
-     */
-    sign {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    signscale {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    sign : Int8
 
     /**
      * The high 32 bits of the number.
-     * @type {Integer}
      */
-    Hi32 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Hi32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Lo32 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Lo32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Mid32 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Mid32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Lo64 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'signscale', { type: UInt16, offset: 2 })
+        DefineProp(this.Prototype, 'Lo64', { type: Int64, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

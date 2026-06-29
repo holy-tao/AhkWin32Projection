@@ -1,80 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\ITEMIDLIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 
 /**
  * Stores window data.
  * @see https://learn.microsoft.com/windows/win32/api/tlogstg/ns-tlogstg-windowdata
  * @namespace Windows.Win32.UI.Shell
  */
-class WINDOWDATA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WINDOWDATA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The window ID.
-     * @type {Integer}
      */
-    dwWindowID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwWindowID : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * The codepage of the current entry.
-     * @type {Integer}
      */
-    uiCP {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uiCP : UInt32
 
     /**
      * Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * The current PIDL.
-     * @type {Pointer<ITEMIDLIST>}
      */
-    pidl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pidl : ITEMIDLIST.Ptr
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer to hold the window URL.
-     * @type {PWSTR}
      */
-    lpszUrl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszUrl : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer to hold the window URL Location (local anchor).
-     * @type {PWSTR}
      */
-    lpszUrlLocation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszUrlLocation : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer to hold the window title.
-     * @type {PWSTR}
      */
-    lpszTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszTitle : PWSTR
+
 }

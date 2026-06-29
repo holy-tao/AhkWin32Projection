@@ -1,70 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PAGE_PROTECTION_FLAGS.ahk
-#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
-#Include .\PAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
+#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
+#Import ".\PAGE_TYPE.ahk" { PAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Memory
  */
-class MEMORY_BASIC_INFORMATION32 extends Win32Struct {
-    static sizeof => 28
+export default struct MEMORY_BASIC_INFORMATION32 {
+    #StructPack 4
 
-    static packingSize => 4
+    BaseAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BaseAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AllocationBase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocationBase {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AllocationProtect : PAGE_PROTECTION_FLAGS
 
-    /**
-     * @type {PAGE_PROTECTION_FLAGS}
-     */
-    AllocationProtect {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RegionSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegionSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    State : VIRTUAL_ALLOCATION_TYPE
 
-    /**
-     * @type {VIRTUAL_ALLOCATION_TYPE}
-     */
-    State {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Protect : PAGE_PROTECTION_FLAGS
 
-    /**
-     * @type {PAGE_PROTECTION_FLAGS}
-     */
-    Protect {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Type : PAGE_TYPE
 
-    /**
-     * @type {PAGE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

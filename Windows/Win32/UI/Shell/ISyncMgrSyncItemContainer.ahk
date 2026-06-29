@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISyncMgrSyncItem.ahk
-#Include .\IEnumSyncMgrSyncItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncMgrSyncItem.ahk" { ISyncMgrSyncItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSyncMgrSyncItems.ahk" { IEnumSyncMgrSyncItems }
 
 /**
  * Exposes methods that provide information to handlers about the items they contain.
@@ -12,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsyncitemcontainer
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrSyncItemContainer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrSyncItemContainer extends IUnknown {
     /**
      * The interface identifier for ISyncMgrSyncItemContainer
      * @type {Guid}
      */
-    static IID => Guid("{90701133-be32-4129-a65c-99e616cafff4}")
+    static IID := Guid("{90701133-be32-4129-a65c-99e616cafff4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrSyncItemContainer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSyncItem           : IntPtr
+        GetSyncItemEnumerator : IntPtr
+        GetSyncItemCount      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSyncItem", "GetSyncItemEnumerator", "GetSyncItemCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrSyncItemContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a specified sync item.
@@ -76,5 +87,29 @@ class ISyncMgrSyncItemContainer extends IUnknown {
     GetSyncItemCount() {
         result := ComCall(5, this, "uint*", &pcItems := 0, "HRESULT")
         return pcItems
+    }
+
+    Query(iid) {
+        if (ISyncMgrSyncItemContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSyncItem := CallbackCreate(GetMethod(implObj, "GetSyncItem"), flags, 3)
+        this.vtbl.GetSyncItemEnumerator := CallbackCreate(GetMethod(implObj, "GetSyncItemEnumerator"), flags, 2)
+        this.vtbl.GetSyncItemCount := CallbackCreate(GetMethod(implObj, "GetSyncItemCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSyncItem)
+        CallbackFree(this.vtbl.GetSyncItemEnumerator)
+        CallbackFree(this.vtbl.GetSyncItemCount)
     }
 }

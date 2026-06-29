@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
-#Include .\USB_DRIVER_VERSION_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
+#Import ".\USB_DRIVER_VERSION_PARAMETERS.ahk" { USB_DRIVER_VERSION_PARAMETERS }
 
 /**
  * The USBUSER_GET_DRIVER_VERSION structure is used with the IOCTL_USB_USER_REQUEST I/O control request to read driver and interface version information.
@@ -11,32 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_get_driver_version
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBUSER_GET_DRIVER_VERSION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct USBUSER_GET_DRIVER_VERSION {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ns-usbuser-usbuser_request_header">USBUSER_REQUEST_HEADER</a> structure that specifies the user-mode request on input to <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a> and provides buffer and status information on output.
-     * @type {USBUSER_REQUEST_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : USBUSER_REQUEST_HEADER
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ns-usbuser-usb_driver_version_parameters">USB_DRIVER_VERSION_PARAMETERS</a> structure that specifies the parameters that are associated with this request.
-     * @type {USB_DRIVER_VERSION_PARAMETERS}
      */
-    Parameters {
-        get {
-            if(!this.HasProp("__Parameters"))
-                this.__Parameters := USB_DRIVER_VERSION_PARAMETERS(16, this)
-            return this.__Parameters
-        }
-    }
+    Parameters : USB_DRIVER_VERSION_PARAMETERS
+
 }

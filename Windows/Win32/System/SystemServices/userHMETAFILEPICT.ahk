@@ -1,60 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\remoteMETAFILEPICT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\remoteMETAFILEPICT.ahk" { remoteMETAFILEPICT }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class userHMETAFILEPICT extends Win32Struct {
-    static sizeof => 32
+export default struct userHMETAFILEPICT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _u {
+        hInproc : Int32
 
-        /**
-         * @type {Integer}
-         */
-        hInproc {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<remoteMETAFILEPICT>}
-         */
-        hRemote {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        hInproc64 {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'hRemote', { type: remoteMETAFILEPICT.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'hInproc64', { type: Int64, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    fContext {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fContext : Int32
 
-    /**
-     * @type {_u}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := userHMETAFILEPICT._u(8, this)
-            return this.__u
-        }
-    }
+    u : userHMETAFILEPICT._u
+
 }

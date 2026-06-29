@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionArithmeticCompositeEffect)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionarithmeticcompositeeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionArithmeticCompositeEffect
      * @type {Guid}
      */
-    static IID => Guid("{3b67dfa8-e3dd-4e61-b640-46c2f3d739dc}")
+    static IID := Guid("{3b67dfa8-e3dd-4e61-b640-46c2f3d739dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionArithmeticCompositeEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetCoefficients  : IntPtr
+        SetClampOutput   : IntPtr
+        SetCoefficient1  : IntPtr
+        SetCoefficient11 : IntPtr
+        SetCoefficient2  : IntPtr
+        SetCoefficient21 : IntPtr
+        SetCoefficient3  : IntPtr
+        SetCoefficient31 : IntPtr
+        SetCoefficient4  : IntPtr
+        SetCoefficient41 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCoefficients", "SetClampOutput", "SetCoefficient1", "SetCoefficient11", "SetCoefficient2", "SetCoefficient21", "SetCoefficient3", "SetCoefficient31", "SetCoefficient4", "SetCoefficient41"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionArithmeticCompositeEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the coefficients for the equation used to composite the two input images.
@@ -40,7 +60,7 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficients
      */
     SetCoefficients(coefficients) {
-        result := ComCall(4, this, "ptr", coefficients, "HRESULT")
+        result := ComCall(4, this, D2D_VECTOR_4F.Ptr, coefficients, "HRESULT")
         return result
     }
 
@@ -55,7 +75,7 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setclampoutput
      */
     SetClampOutput(clampoutput) {
-        result := ComCall(5, this, "int", clampoutput, "HRESULT")
+        result := ComCall(5, this, BOOL, clampoutput, "HRESULT")
         return result
     }
 
@@ -169,5 +189,43 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect {
     SetCoefficient41(Coefficient4) {
         result := ComCall(13, this, "float", Coefficient4, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionArithmeticCompositeEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCoefficients := CallbackCreate(GetMethod(implObj, "SetCoefficients"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
+        this.vtbl.SetCoefficient1 := CallbackCreate(GetMethod(implObj, "SetCoefficient1"), flags, 2)
+        this.vtbl.SetCoefficient11 := CallbackCreate(GetMethod(implObj, "SetCoefficient11"), flags, 2)
+        this.vtbl.SetCoefficient2 := CallbackCreate(GetMethod(implObj, "SetCoefficient2"), flags, 2)
+        this.vtbl.SetCoefficient21 := CallbackCreate(GetMethod(implObj, "SetCoefficient21"), flags, 2)
+        this.vtbl.SetCoefficient3 := CallbackCreate(GetMethod(implObj, "SetCoefficient3"), flags, 2)
+        this.vtbl.SetCoefficient31 := CallbackCreate(GetMethod(implObj, "SetCoefficient31"), flags, 2)
+        this.vtbl.SetCoefficient4 := CallbackCreate(GetMethod(implObj, "SetCoefficient4"), flags, 2)
+        this.vtbl.SetCoefficient41 := CallbackCreate(GetMethod(implObj, "SetCoefficient41"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCoefficients)
+        CallbackFree(this.vtbl.SetClampOutput)
+        CallbackFree(this.vtbl.SetCoefficient1)
+        CallbackFree(this.vtbl.SetCoefficient11)
+        CallbackFree(this.vtbl.SetCoefficient2)
+        CallbackFree(this.vtbl.SetCoefficient21)
+        CallbackFree(this.vtbl.SetCoefficient3)
+        CallbackFree(this.vtbl.SetCoefficient31)
+        CallbackFree(this.vtbl.SetCoefficient4)
+        CallbackFree(this.vtbl.SetCoefficient41)
     }
 }

@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an attribute that identifies the cryptographic provider used by the entity requesting the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributecspprovider
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509AttributeCspProvider extends IX509Attribute {
-
-    static sizeof => A_PtrSize
+export default struct IX509AttributeCspProvider extends IX509Attribute {
     /**
      * The interface identifier for IX509AttributeCspProvider
      * @type {Guid}
      */
-    static IID => Guid("{728ab32b-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab32b-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509AttributeCspProvider interfaces
+    */
+    struct Vtbl extends IX509Attribute.Vtbl {
+        InitializeEncode : IntPtr
+        InitializeDecode : IntPtr
+        get_KeySpec      : IntPtr
+        get_ProviderName : IntPtr
+        get_Signature    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncode", "InitializeDecode", "get_KeySpec", "get_ProviderName", "get_Signature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509AttributeCspProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {X509KeySpec} 
@@ -73,7 +87,7 @@ class IX509AttributeCspProvider extends IX509Attribute {
         strProviderName := strProviderName is String ? BSTR.Alloc(strProviderName).Value : strProviderName
         strSignature := strSignature is String ? BSTR.Alloc(strSignature).Value : strSignature
 
-        result := ComCall(10, this, "int", KeySpec, "ptr", strProviderName, "int", Encoding, "ptr", strSignature, "HRESULT")
+        result := ComCall(10, this, X509KeySpec, KeySpec, BSTR, strProviderName, EncodingType, Encoding, BSTR, strSignature, "HRESULT")
         return result
     }
 
@@ -105,7 +119,7 @@ class IX509AttributeCspProvider extends IX509Attribute {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -147,8 +161,8 @@ class IX509AttributeCspProvider extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributecspprovider-get_providername
      */
     get_ProviderName() {
-        pValue := BSTR()
-        result := ComCall(13, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -170,8 +184,36 @@ class IX509AttributeCspProvider extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributecspprovider-get_signature
      */
     get_Signature(Encoding) {
-        pValue := BSTR()
-        result := ComCall(14, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(14, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509AttributeCspProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 5)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncode)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_KeySpec)
+        CallbackFree(this.vtbl.get_ProviderName)
+        CallbackFree(this.vtbl.get_Signature)
     }
 }

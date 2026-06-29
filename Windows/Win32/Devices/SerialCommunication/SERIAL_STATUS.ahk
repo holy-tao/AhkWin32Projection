@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  */
-class SERIAL_STATUS extends Win32Struct {
-    static sizeof => 20
+export default struct SERIAL_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    Errors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Errors {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    HoldReasons : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HoldReasons {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AmountInInQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AmountInInQueue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AmountInOutQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AmountInOutQueue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    EofReceived : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    EofReceived {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    WaitForImmediate : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    WaitForImmediate {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
 }

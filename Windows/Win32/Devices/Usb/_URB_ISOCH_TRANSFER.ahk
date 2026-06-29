@@ -1,120 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
-#Include .\URB.ahk
-#Include .\_URB_HCD_AREA.ahk
-#Include .\USBD_ISO_PACKET_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\_URB_HCD_AREA.ahk" { _URB_HCD_AREA }
+#Import ".\URB.ahk" { URB }
+#Import ".\USBD_ISO_PACKET_DESCRIPTOR.ahk" { USBD_ISO_PACKET_DESCRIPTOR }
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class _URB_ISOCH_TRANSFER extends Win32Struct {
-    static sizeof => 152
+export default struct _URB_ISOCH_TRANSFER {
+    #StructPack 8
 
-    static packingSize => 8
+    Hdr : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    Hdr {
-        get {
-            if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(0, this)
-            return this.__Hdr
-        }
-    }
+    PipeHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PipeHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TransferFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransferFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TransferBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransferBufferLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TransferBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TransferBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    TransferBufferMDL : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TransferBufferMDL {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<URB>}
-     */
+    __UrbLink_ptr : IntPtr
     UrbLink {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => (addr := this.__UrbLink_ptr) ? URB.At(addr) : unset
+        set => this.__UrbLink_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {_URB_HCD_AREA}
-     */
-    hca {
-        get {
-            if(!this.HasProp("__hca"))
-                this.__hca := _URB_HCD_AREA(64, this)
-            return this.__hca
-        }
-    }
+    hca : _URB_HCD_AREA
 
-    /**
-     * @type {Integer}
-     */
-    StartFrame {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    StartFrame : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPackets {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    NumberOfPackets : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorCount {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    ErrorCount : UInt32
 
-    /**
-     * @type {USBD_ISO_PACKET_DESCRIPTOR}
-     */
-    IsoPacket {
-        get {
-            if(!this.HasProp("__IsoPacketProxyArray"))
-                this.__IsoPacketProxyArray := Win32FixedArray(this.ptr + 140, 1, USBD_ISO_PACKET_DESCRIPTOR, "")
-            return this.__IsoPacketProxyArray
-        }
-    }
+    IsoPacket : USBD_ISO_PACKET_DESCRIPTOR[1]
+
 }

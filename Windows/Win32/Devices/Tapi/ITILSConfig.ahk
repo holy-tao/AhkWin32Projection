@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITILSConfig interface allows configuration of the ILS directory.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itilsconfig
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITILSConfig extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITILSConfig extends IDispatch {
     /**
      * The interface identifier for ITILSConfig
      * @type {Guid}
      */
-    static IID => Guid("{34621d72-6cff-11d1-aff7-00c04fc31fee}")
+    static IID := Guid("{34621d72-6cff-11d1-aff7-00c04fc31fee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITILSConfig interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Port : IntPtr
+        put_Port : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Port", "put_Port"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITILSConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -100,5 +109,27 @@ class ITILSConfig extends IDispatch {
     put_Port(Port) {
         result := ComCall(8, this, "int", Port, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITILSConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Port := CallbackCreate(GetMethod(implObj, "get_Port"), flags, 2)
+        this.vtbl.put_Port := CallbackCreate(GetMethod(implObj, "put_Port"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Port)
+        CallbackFree(this.vtbl.put_Port)
     }
 }

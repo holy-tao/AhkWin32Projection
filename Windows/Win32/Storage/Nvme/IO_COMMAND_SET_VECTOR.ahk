@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class IO_COMMAND_SET_VECTOR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct IO_COMMAND_SET_VECTOR {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
@@ -15,12 +12,9 @@ class IO_COMMAND_SET_VECTOR extends Win32Struct {
      * - KVCommandSet
      * - ZNCommandSet
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}

@@ -1,71 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASPPPIPV6 extends Win32Struct {
-    static sizeof => 28
+export default struct RASPPPIPV6 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    bLocalInterfaceIdentifier : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bLocalInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bLocalInterfaceIdentifierProxyArray"))
-                this.__bLocalInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-            return this.__bLocalInterfaceIdentifierProxyArray
-        }
-    }
+    bPeerInterfaceIdentifier : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bPeerInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bPeerInterfaceIdentifierProxyArray"))
-                this.__bPeerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "char")
-            return this.__bPeerInterfaceIdentifierProxyArray
-        }
-    }
+    bLocalCompressionProtocol : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bLocalCompressionProtocol {
-        get {
-            if(!this.HasProp("__bLocalCompressionProtocolProxyArray"))
-                this.__bLocalCompressionProtocolProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "char")
-            return this.__bLocalCompressionProtocolProxyArray
-        }
-    }
+    bPeerCompressionProtocol : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bPeerCompressionProtocol {
-        get {
-            if(!this.HasProp("__bPeerCompressionProtocolProxyArray"))
-                this.__bPeerCompressionProtocolProxyArray := Win32FixedArray(this.ptr + 26, 2, Primitive, "char")
-            return this.__bPeerCompressionProtocolProxyArray
-        }
-    }
 }

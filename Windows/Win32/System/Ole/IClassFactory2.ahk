@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IClassFactory.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\LICINFO.ahk" { LICINFO }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IClassFactory.ahk" { IClassFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a class factory object, in any sort of object server, to control object creation through licensing.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iclassfactory2
  * @namespace Windows.Win32.System.Ole
  */
-class IClassFactory2 extends IClassFactory {
-
-    static sizeof => A_PtrSize
+export default struct IClassFactory2 extends IClassFactory {
     /**
      * The interface identifier for IClassFactory2
      * @type {Guid}
      */
-    static IID => Guid("{b196b28f-bab4-101a-b69c-00aa00341d07}")
+    static IID := Guid("{b196b28f-bab4-101a-b69c-00aa00341d07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IClassFactory2 interfaces
+    */
+    struct Vtbl extends IClassFactory.Vtbl {
+        GetLicInfo        : IntPtr
+        RequestLicKey     : IntPtr
+        CreateInstanceLic : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLicInfo", "RequestLicKey", "CreateInstanceLic"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IClassFactory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves information about the licensing capabilities of this class factory.
@@ -69,7 +81,7 @@ class IClassFactory2 extends IClassFactory {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iclassfactory2-getlicinfo
      */
     GetLicInfo(pLicInfo) {
-        result := ComCall(5, this, "ptr", pLicInfo, "HRESULT")
+        result := ComCall(5, this, LICINFO.Ptr, pLicInfo, "HRESULT")
         return result
     }
 
@@ -90,8 +102,8 @@ class IClassFactory2 extends IClassFactory {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iclassfactory2-requestlickey
      */
     RequestLicKey(dwReserved) {
-        pBstrKey := BSTR()
-        result := ComCall(6, this, "uint", dwReserved, "ptr", pBstrKey, "HRESULT")
+        pBstrKey := BSTR.Owned()
+        result := ComCall(6, this, "uint", dwReserved, BSTR.Ptr, pBstrKey, "HRESULT")
         return pBstrKey
     }
 
@@ -111,7 +123,31 @@ class IClassFactory2 extends IClassFactory {
 
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
-        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pUnkReserved, "ptr", riid, "ptr", bstrKey, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pUnkReserved, Guid.Ptr, riid, BSTR, bstrKey, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
+    }
+
+    Query(iid) {
+        if (IClassFactory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLicInfo := CallbackCreate(GetMethod(implObj, "GetLicInfo"), flags, 2)
+        this.vtbl.RequestLicKey := CallbackCreate(GetMethod(implObj, "RequestLicKey"), flags, 3)
+        this.vtbl.CreateInstanceLic := CallbackCreate(GetMethod(implObj, "CreateInstanceLic"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLicInfo)
+        CallbackFree(this.vtbl.RequestLicKey)
+        CallbackFree(this.vtbl.CreateInstanceLic)
     }
 }

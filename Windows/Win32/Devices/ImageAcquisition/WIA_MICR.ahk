@@ -1,71 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WIA_MICR_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WIA_MICR_INFO.ahk" { WIA_MICR_INFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_MICR extends Win32Struct {
-    static sizeof => 36
+export default struct WIA_MICR {
+    #StructPack 4
 
-    static packingSize => 4
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Placeholder : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Placeholder {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Micr : WIA_MICR_INFO[1]
 
-    /**
-     * @type {WIA_MICR_INFO}
-     */
-    Micr {
-        get {
-            if(!this.HasProp("__MicrProxyArray"))
-                this.__MicrProxyArray := Win32FixedArray(this.ptr + 20, 1, WIA_MICR_INFO, "")
-            return this.__MicrProxyArray
-        }
-    }
 }

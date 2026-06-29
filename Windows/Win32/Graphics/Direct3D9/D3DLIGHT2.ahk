@@ -1,127 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DLIGHTTYPE.ahk
-#Include .\D3DCOLORVALUE.ahk
-#Include ..\Direct3D\D3DVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DCOLORVALUE.ahk" { D3DCOLORVALUE }
+#Import "..\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
+#Import ".\D3DLIGHTTYPE.ahk" { D3DLIGHTTYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DLIGHT2 extends Win32Struct {
-    static sizeof => 80
+export default struct D3DLIGHT2 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dltType : D3DLIGHTTYPE
 
-    /**
-     * @type {D3DLIGHTTYPE}
-     */
-    dltType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dcvColor : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvColor {
-        get {
-            if(!this.HasProp("__dcvColor"))
-                this.__dcvColor := D3DCOLORVALUE(8, this)
-            return this.__dcvColor
-        }
-    }
+    dvPosition : D3DVECTOR
 
-    /**
-     * @type {D3DVECTOR}
-     */
-    dvPosition {
-        get {
-            if(!this.HasProp("__dvPosition"))
-                this.__dvPosition := D3DVECTOR(24, this)
-            return this.__dvPosition
-        }
-    }
+    dvDirection : D3DVECTOR
 
-    /**
-     * @type {D3DVECTOR}
-     */
-    dvDirection {
-        get {
-            if(!this.HasProp("__dvDirection"))
-                this.__dvDirection := D3DVECTOR(36, this)
-            return this.__dvDirection
-        }
-    }
+    dvRange : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvRange {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
+    dvFalloff : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvFalloff {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
+    dvAttenuation0 : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvAttenuation0 {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
-    }
+    dvAttenuation1 : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvAttenuation1 {
-        get => NumGet(this, 60, "float")
-        set => NumPut("float", value, this, 60)
-    }
+    dvAttenuation2 : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvAttenuation2 {
-        get => NumGet(this, 64, "float")
-        set => NumPut("float", value, this, 64)
-    }
+    dvTheta : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvTheta {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
-    }
+    dvPhi : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvPhi {
-        get => NumGet(this, 72, "float")
-        set => NumPut("float", value, this, 72)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
 }

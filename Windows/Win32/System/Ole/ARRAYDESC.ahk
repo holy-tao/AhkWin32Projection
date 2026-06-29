@@ -1,50 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\TYPEDESC.ahk
-#Include .\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\SAFEARRAYBOUND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
 
 /**
  * Describes an array, its element type, and its dimension.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-arraydesc
  * @namespace Windows.Win32.System.Ole
  */
-class ARRAYDESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ARRAYDESC {
+    #StructPack 8
 
     /**
      * The element type.
-     * @type {TYPEDESC}
      */
-    tdescElem {
-        get {
-            if(!this.HasProp("__tdescElem"))
-                this.__tdescElem := TYPEDESC(0, this)
-            return this.__tdescElem
-        }
-    }
+    tdescElem : TYPEDESC
 
     /**
      * The dimension count.
-     * @type {Integer}
      */
-    cDims {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    cDims : UInt16
 
     /**
      * A variable-length array containing one element for each dimension.
-     * @type {SAFEARRAYBOUND}
      */
-    rgbounds {
-        get {
-            if(!this.HasProp("__rgboundsProxyArray"))
-                this.__rgboundsProxyArray := Win32FixedArray(this.ptr + 20, 1, SAFEARRAYBOUND, "")
-            return this.__rgboundsProxyArray
-        }
-    }
+    rgbounds : SAFEARRAYBOUND[1]
+
 }

@@ -1,47 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class HARDWAREHOOKSTRUCT extends Win32Struct {
-    static sizeof => 32
+export default struct HARDWAREHOOKSTRUCT {
+    #StructPack 8
 
-    static packingSize => 8
+    hwnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(0, this)
-            return this.__hwnd
-        }
-    }
+    message : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    message {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wParam : WPARAM
 
-    /**
-     * @type {WPARAM}
-     */
-    wParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lParam : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

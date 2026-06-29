@@ -1,100 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTUI_WIZ_EXPORT_SUBJECT.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include ..\CTL_CONTEXT.ahk
-#Include ..\CRL_CONTEXT.ahk
-#Include ..\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\CRYPTUI_WIZ_EXPORT_SUBJECT.ahk" { CRYPTUI_WIZ_EXPORT_SUBJECT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\CTL_CONTEXT.ahk" { CTL_CONTEXT }
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  */
-class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CRYPTUI_WIZ_EXPORT_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * A pointer to a null-terminated Unicode string that contains the fully qualified file name to export to. If this member is
      * not <b>NULL</b> and the <b>CRYPTUI_WIZ_NO_UI</b> flag in the <i>dwFlags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuiwizexport">CryptUIWizExport</a> function is not set, this string is
      * displayed to the user as the default file name. This member is required if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set.  This member is otherwise optional.
-     * @type {PWSTR}
      */
-    pwszExportFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszExportFileName : PWSTR
 
-    /**
-     * @type {CRYPTUI_WIZ_EXPORT_SUBJECT}
-     */
-    dwSubjectChoice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSubjectChoice : CRYPTUI_WIZ_EXPORT_SUBJECT
 
-    /**
-     * @type {Pointer<CERT_CONTEXT>}
-     */
-    pCertContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CTL_CONTEXT>}
-     */
-    pCTLContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CRL_CONTEXT>}
-     */
-    pCRLContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {HCERTSTORE}
-     */
-    hCertStore {
-        get {
-            if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(24, this)
-            return this.__hCertStore
-        }
-    }
+    pCertContext : CERT_CONTEXT.Ptr
 
     /**
      * The number of elements in the <b>rghStores</b> array.
-     * @type {Integer}
      */
-    cStores {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cStores : UInt32
 
     /**
      * An array of extra certificate stores to search for certificates in the trust chain if the chain is being exported with a certificate.
      * This member is ignored if <b>dwSubjectChoice</b> is anything other than the   <b>CRYPTUI_WIZ_EXPORT_CERT_CONTEXT</b> value. The <b>cStores</b> member contains the number of elements in this array.
-     * @type {Pointer<HCERTSTORE>}
      */
-    rghStores {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    rghStores : HCERTSTORE.Ptr
+
+    static __New() {
+        DefineProp(this.Prototype, 'pCTLContext', { type: CTL_CONTEXT.Ptr, offset: 24 })
+        DefineProp(this.Prototype, 'pCRLContext', { type: CRL_CONTEXT.Ptr, offset: 24 })
+        DefineProp(this.Prototype, 'hCertStore', { type: HCERTSTORE, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

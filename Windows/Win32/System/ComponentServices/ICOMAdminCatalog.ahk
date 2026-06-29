@@ -1,39 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\COMAdminApplicationExportOptions.ahk" { COMAdminApplicationExportOptions }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icomadmincatalog
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICOMAdminCatalog extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICOMAdminCatalog extends IDispatch {
     /**
      * The interface identifier for ICOMAdminCatalog
      * @type {Guid}
      */
-    static IID => Guid("{dd662187-dfc2-11d1-a2cf-00805fc79235}")
+    static IID := Guid("{dd662187-dfc2-11d1-a2cf-00805fc79235}")
 
     /**
      * The class identifier for COMAdminCatalog
      * @type {Guid}
      */
-    static CLSID => Guid("{f618c514-dfb8-11d1-a2cf-00805fc79235}")
+    static CLSID := Guid("{f618c514-dfb8-11d1-a2cf-00805fc79235}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICOMAdminCatalog interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetCollection               : IntPtr
+        Connect                     : IntPtr
+        get_MajorVersion            : IntPtr
+        get_MinorVersion            : IntPtr
+        GetCollectionByQuery        : IntPtr
+        ImportComponent             : IntPtr
+        InstallComponent            : IntPtr
+        ShutdownApplication         : IntPtr
+        ExportApplication           : IntPtr
+        InstallApplication          : IntPtr
+        StopRouter                  : IntPtr
+        RefreshRouter               : IntPtr
+        StartRouter                 : IntPtr
+        Reserved1                   : IntPtr
+        Reserved2                   : IntPtr
+        InstallMultipleComponents   : IntPtr
+        GetMultipleComponentsInfo   : IntPtr
+        RefreshComponents           : IntPtr
+        BackupREGDB                 : IntPtr
+        RestoreREGDB                : IntPtr
+        QueryApplicationFile        : IntPtr
+        StartApplication            : IntPtr
+        ServiceCheck                : IntPtr
+        InstallMultipleEventClasses : IntPtr
+        InstallEventClass           : IntPtr
+        GetEventClassesForIID       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCollection", "Connect", "get_MajorVersion", "get_MinorVersion", "GetCollectionByQuery", "ImportComponent", "InstallComponent", "ShutdownApplication", "ExportApplication", "InstallApplication", "StopRouter", "RefreshRouter", "StartRouter", "Reserved1", "Reserved2", "InstallMultipleComponents", "GetMultipleComponentsInfo", "RefreshComponents", "BackupREGDB", "RestoreREGDB", "QueryApplicationFile", "StartApplication", "ServiceCheck", "InstallMultipleEventClasses", "InstallEventClass", "GetEventClassesForIID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICOMAdminCatalog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -64,7 +102,7 @@ class ICOMAdminCatalog extends IDispatch {
     GetCollection(bstrCollName) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrCollName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
         return IDispatch(ppCatalogCollection)
     }
 
@@ -83,7 +121,7 @@ class ICOMAdminCatalog extends IDispatch {
     Connect(bstrCatalogServerName) {
         bstrCatalogServerName := bstrCatalogServerName is String ? BSTR.Alloc(bstrCatalogServerName).Value : bstrCatalogServerName
 
-        result := ComCall(8, this, "ptr", bstrCatalogServerName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrCatalogServerName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
         return IDispatch(ppCatalogCollection)
     }
 
@@ -127,7 +165,7 @@ class ICOMAdminCatalog extends IDispatch {
 
         ppsaVarQueryMarshal := ppsaVarQuery is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", &ppCatalogCollection := 0, "HRESULT")
         return IDispatch(ppCatalogCollection)
     }
 
@@ -146,7 +184,7 @@ class ICOMAdminCatalog extends IDispatch {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
         bstrCLSIDOrProgID := bstrCLSIDOrProgID is String ? BSTR.Alloc(bstrCLSIDOrProgID).Value : bstrCLSIDOrProgID
 
-        result := ComCall(12, this, "ptr", bstrApplIDOrName, "ptr", bstrCLSIDOrProgID, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrApplIDOrName, BSTR, bstrCLSIDOrProgID, "HRESULT")
         return result
     }
 
@@ -169,7 +207,7 @@ class ICOMAdminCatalog extends IDispatch {
         bstrTLB := bstrTLB is String ? BSTR.Alloc(bstrTLB).Value : bstrTLB
         bstrPSDLL := bstrPSDLL is String ? BSTR.Alloc(bstrPSDLL).Value : bstrPSDLL
 
-        result := ComCall(13, this, "ptr", bstrApplIDOrName, "ptr", bstrDLL, "ptr", bstrTLB, "ptr", bstrPSDLL, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrApplIDOrName, BSTR, bstrDLL, BSTR, bstrTLB, BSTR, bstrPSDLL, "HRESULT")
         return result
     }
 
@@ -211,7 +249,7 @@ class ICOMAdminCatalog extends IDispatch {
     ShutdownApplication(bstrApplIDOrName) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
 
-        result := ComCall(14, this, "ptr", bstrApplIDOrName, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrApplIDOrName, "HRESULT")
         return result
     }
 
@@ -258,7 +296,7 @@ class ICOMAdminCatalog extends IDispatch {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
 
-        result := ComCall(15, this, "ptr", bstrApplIDOrName, "ptr", bstrApplicationFile, "int", lOptions, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrApplIDOrName, BSTR, bstrApplicationFile, COMAdminApplicationExportOptions, lOptions, "HRESULT")
         return result
     }
 
@@ -331,7 +369,7 @@ class ICOMAdminCatalog extends IDispatch {
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
         bstrRSN := bstrRSN is String ? BSTR.Alloc(bstrRSN).Value : bstrRSN
 
-        result := ComCall(16, this, "ptr", bstrApplicationFile, "ptr", bstrDestinationDirectory, "int", lOptions, "ptr", bstrUserId, "ptr", bstrPassword, "ptr", bstrRSN, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrApplicationFile, BSTR, bstrDestinationDirectory, COMAdminApplicationInstallOptions, lOptions, BSTR, bstrUserId, BSTR, bstrPassword, BSTR, bstrRSN, "HRESULT")
         return result
     }
 
@@ -512,7 +550,7 @@ class ICOMAdminCatalog extends IDispatch {
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
         ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, "ptr", bstrApplIDOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrApplIDOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, "HRESULT")
         return result
     }
 
@@ -565,7 +603,7 @@ class ICOMAdminCatalog extends IDispatch {
         ppsaVarFileFlagsMarshal := ppsaVarFileFlags is VarRef ? "ptr*" : "ptr"
         ppsaVarComponentFlagsMarshal := ppsaVarComponentFlags is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(23, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarClassNamesMarshal, ppsaVarClassNames, ppsaVarFileFlagsMarshal, ppsaVarFileFlags, ppsaVarComponentFlagsMarshal, ppsaVarComponentFlags, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarClassNamesMarshal, ppsaVarClassNames, ppsaVarFileFlagsMarshal, ppsaVarFileFlags, ppsaVarComponentFlagsMarshal, ppsaVarComponentFlags, "HRESULT")
         return result
     }
 
@@ -594,7 +632,7 @@ class ICOMAdminCatalog extends IDispatch {
     BackupREGDB(bstrBackupFilePath) {
         bstrBackupFilePath := bstrBackupFilePath is String ? BSTR.Alloc(bstrBackupFilePath).Value : bstrBackupFilePath
 
-        result := ComCall(25, this, "ptr", bstrBackupFilePath, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrBackupFilePath, "HRESULT")
         return result
     }
 
@@ -647,7 +685,7 @@ class ICOMAdminCatalog extends IDispatch {
     RestoreREGDB(bstrBackupFilePath) {
         bstrBackupFilePath := bstrBackupFilePath is String ? BSTR.Alloc(bstrBackupFilePath).Value : bstrBackupFilePath
 
-        result := ComCall(26, this, "ptr", bstrBackupFilePath, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrBackupFilePath, "HRESULT")
         return result
     }
 
@@ -669,7 +707,7 @@ class ICOMAdminCatalog extends IDispatch {
         pbIsProxyMarshal := pbIsProxy is VarRef ? "short*" : "ptr"
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, pbHasUsersMarshal, pbHasUsers, pbIsProxyMarshal, pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrApplicationFile, BSTR.Ptr, pbstrApplicationName, BSTR.Ptr, pbstrApplicationDescription, pbHasUsersMarshal, pbHasUsers, pbIsProxyMarshal, pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
         return result
     }
 
@@ -682,7 +720,7 @@ class ICOMAdminCatalog extends IDispatch {
     StartApplication(bstrApplIdOrName) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
 
-        result := ComCall(28, this, "ptr", bstrApplIdOrName, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrApplIdOrName, "HRESULT")
         return result
     }
 
@@ -813,7 +851,7 @@ class ICOMAdminCatalog extends IDispatch {
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
         ppsaVarCLSIDSMarshal := ppsaVarCLSIDS is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(30, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDSMarshal, ppsaVarCLSIDS, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDSMarshal, ppsaVarCLSIDS, "HRESULT")
         return result
     }
 
@@ -836,7 +874,7 @@ class ICOMAdminCatalog extends IDispatch {
         bstrTLB := bstrTLB is String ? BSTR.Alloc(bstrTLB).Value : bstrTLB
         bstrPSDLL := bstrPSDLL is String ? BSTR.Alloc(bstrPSDLL).Value : bstrPSDLL
 
-        result := ComCall(31, this, "ptr", bstrApplIdOrName, "ptr", bstrDLL, "ptr", bstrTLB, "ptr", bstrPSDLL, "HRESULT")
+        result := ComCall(31, this, BSTR, bstrApplIdOrName, BSTR, bstrDLL, BSTR, bstrTLB, BSTR, bstrPSDLL, "HRESULT")
         return result
     }
 
@@ -856,7 +894,77 @@ class ICOMAdminCatalog extends IDispatch {
         ppsaVarProgIDsMarshal := ppsaVarProgIDs is VarRef ? "ptr*" : "ptr"
         ppsaVarDescriptionsMarshal := ppsaVarDescriptions is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(32, this, "ptr", bstrIID, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarProgIDsMarshal, ppsaVarProgIDs, ppsaVarDescriptionsMarshal, ppsaVarDescriptions, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrIID, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarProgIDsMarshal, ppsaVarProgIDs, ppsaVarDescriptionsMarshal, ppsaVarDescriptions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICOMAdminCatalog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCollection := CallbackCreate(GetMethod(implObj, "GetCollection"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.GetCollectionByQuery := CallbackCreate(GetMethod(implObj, "GetCollectionByQuery"), flags, 4)
+        this.vtbl.ImportComponent := CallbackCreate(GetMethod(implObj, "ImportComponent"), flags, 3)
+        this.vtbl.InstallComponent := CallbackCreate(GetMethod(implObj, "InstallComponent"), flags, 5)
+        this.vtbl.ShutdownApplication := CallbackCreate(GetMethod(implObj, "ShutdownApplication"), flags, 2)
+        this.vtbl.ExportApplication := CallbackCreate(GetMethod(implObj, "ExportApplication"), flags, 4)
+        this.vtbl.InstallApplication := CallbackCreate(GetMethod(implObj, "InstallApplication"), flags, 7)
+        this.vtbl.StopRouter := CallbackCreate(GetMethod(implObj, "StopRouter"), flags, 1)
+        this.vtbl.RefreshRouter := CallbackCreate(GetMethod(implObj, "RefreshRouter"), flags, 1)
+        this.vtbl.StartRouter := CallbackCreate(GetMethod(implObj, "StartRouter"), flags, 1)
+        this.vtbl.Reserved1 := CallbackCreate(GetMethod(implObj, "Reserved1"), flags, 1)
+        this.vtbl.Reserved2 := CallbackCreate(GetMethod(implObj, "Reserved2"), flags, 1)
+        this.vtbl.InstallMultipleComponents := CallbackCreate(GetMethod(implObj, "InstallMultipleComponents"), flags, 4)
+        this.vtbl.GetMultipleComponentsInfo := CallbackCreate(GetMethod(implObj, "GetMultipleComponentsInfo"), flags, 7)
+        this.vtbl.RefreshComponents := CallbackCreate(GetMethod(implObj, "RefreshComponents"), flags, 1)
+        this.vtbl.BackupREGDB := CallbackCreate(GetMethod(implObj, "BackupREGDB"), flags, 2)
+        this.vtbl.RestoreREGDB := CallbackCreate(GetMethod(implObj, "RestoreREGDB"), flags, 2)
+        this.vtbl.QueryApplicationFile := CallbackCreate(GetMethod(implObj, "QueryApplicationFile"), flags, 7)
+        this.vtbl.StartApplication := CallbackCreate(GetMethod(implObj, "StartApplication"), flags, 2)
+        this.vtbl.ServiceCheck := CallbackCreate(GetMethod(implObj, "ServiceCheck"), flags, 3)
+        this.vtbl.InstallMultipleEventClasses := CallbackCreate(GetMethod(implObj, "InstallMultipleEventClasses"), flags, 4)
+        this.vtbl.InstallEventClass := CallbackCreate(GetMethod(implObj, "InstallEventClass"), flags, 5)
+        this.vtbl.GetEventClassesForIID := CallbackCreate(GetMethod(implObj, "GetEventClassesForIID"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCollection)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.get_MajorVersion)
+        CallbackFree(this.vtbl.get_MinorVersion)
+        CallbackFree(this.vtbl.GetCollectionByQuery)
+        CallbackFree(this.vtbl.ImportComponent)
+        CallbackFree(this.vtbl.InstallComponent)
+        CallbackFree(this.vtbl.ShutdownApplication)
+        CallbackFree(this.vtbl.ExportApplication)
+        CallbackFree(this.vtbl.InstallApplication)
+        CallbackFree(this.vtbl.StopRouter)
+        CallbackFree(this.vtbl.RefreshRouter)
+        CallbackFree(this.vtbl.StartRouter)
+        CallbackFree(this.vtbl.Reserved1)
+        CallbackFree(this.vtbl.Reserved2)
+        CallbackFree(this.vtbl.InstallMultipleComponents)
+        CallbackFree(this.vtbl.GetMultipleComponentsInfo)
+        CallbackFree(this.vtbl.RefreshComponents)
+        CallbackFree(this.vtbl.BackupREGDB)
+        CallbackFree(this.vtbl.RestoreREGDB)
+        CallbackFree(this.vtbl.QueryApplicationFile)
+        CallbackFree(this.vtbl.StartApplication)
+        CallbackFree(this.vtbl.ServiceCheck)
+        CallbackFree(this.vtbl.InstallMultipleEventClasses)
+        CallbackFree(this.vtbl.InstallEventClass)
+        CallbackFree(this.vtbl.GetEventClassesForIID)
     }
 }

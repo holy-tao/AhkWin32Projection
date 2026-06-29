@@ -1,95 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_POL_COND_ARRAY.ahk
-#Include .\DHCP_POL_EXPR_ARRAY.ahk
-#Include .\DHCP_IP_RANGE_ARRAY.ahk
-#Include .\DHCP_PROPERTY_ARRAY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_POL_EXPR_ARRAY.ahk" { DHCP_POL_EXPR_ARRAY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_POL_COND_ARRAY.ahk" { DHCP_POL_COND_ARRAY }
+#Import ".\DHCP_IP_RANGE_ARRAY.ahk" { DHCP_IP_RANGE_ARRAY }
+#Import ".\DHCP_PROPERTY_ARRAY.ahk" { DHCP_PROPERTY_ARRAY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_POLICY_EX extends Win32Struct {
-    static sizeof => 72
+export default struct DHCP_POLICY_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    PolicyName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    PolicyName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    IsGlobalPolicy : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsGlobalPolicy {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Subnet : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Subnet {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessingOrder : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessingOrder {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Conditions : DHCP_POL_COND_ARRAY.Ptr
 
-    /**
-     * @type {Pointer<DHCP_POL_COND_ARRAY>}
-     */
-    Conditions {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Expressions : DHCP_POL_EXPR_ARRAY.Ptr
 
-    /**
-     * @type {Pointer<DHCP_POL_EXPR_ARRAY>}
-     */
-    Expressions {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Ranges : DHCP_IP_RANGE_ARRAY.Ptr
 
-    /**
-     * @type {Pointer<DHCP_IP_RANGE_ARRAY>}
-     */
-    Ranges {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Description : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Description {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Enabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enabled {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    Properties : DHCP_PROPERTY_ARRAY.Ptr
 
-    /**
-     * @type {Pointer<DHCP_PROPERTY_ARRAY>}
-     */
-    Properties {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

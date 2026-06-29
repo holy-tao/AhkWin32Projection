@@ -1,211 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct {
-    static sizeof => 76
+export default struct NDIS_WMI_IPSEC_OFFLOAD_V1 {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Supported extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _Supported {
+        Encapsulation : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        AhEspCombined : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AhEspCombined {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        TransportTunnelCombined : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        TransportTunnelCombined {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        IPv4Options : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        IPv4Options {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        Flags : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Flags {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
     }
 
-    class _IPv4AH extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+    struct _IPv4AH {
+        Md5 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Md5 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Sha_1 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Sha_1 {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        Transport : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Transport {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Tunnel : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Tunnel {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        Send : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Send {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        Receive : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Receive {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
     }
 
-    class _IPv4ESP extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 4
+    struct _IPv4ESP {
+        Des : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Des {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Reserved : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        TripleDes : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        TripleDes {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        NullEsp : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        NullEsp {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        Transport : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Transport {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        Tunnel : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Tunnel {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
+        Send : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Send {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
+        Receive : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Receive {
-            get => NumGet(this, 28, "uint")
-            set => NumPut("uint", value, this, 28)
-        }
     }
 
-    /**
-     * @type {_Supported}
-     */
-    Supported {
-        get {
-            if(!this.HasProp("__Supported"))
-                this.__Supported := NDIS_WMI_IPSEC_OFFLOAD_V1._Supported(0, this)
-            return this.__Supported
-        }
-    }
+    Supported : NDIS_WMI_IPSEC_OFFLOAD_V1._Supported
 
-    /**
-     * @type {_IPv4AH}
-     */
-    IPv4AH {
-        get {
-            if(!this.HasProp("__IPv4AH"))
-                this.__IPv4AH := NDIS_WMI_IPSEC_OFFLOAD_V1._IPv4AH(20, this)
-            return this.__IPv4AH
-        }
-    }
+    IPv4AH : NDIS_WMI_IPSEC_OFFLOAD_V1._IPv4AH
 
-    /**
-     * @type {_IPv4ESP}
-     */
-    IPv4ESP {
-        get {
-            if(!this.HasProp("__IPv4ESP"))
-                this.__IPv4ESP := NDIS_WMI_IPSEC_OFFLOAD_V1._IPv4ESP(44, this)
-            return this.__IPv4ESP
-        }
-    }
+    IPv4ESP : NDIS_WMI_IPSEC_OFFLOAD_V1._IPv4ESP
+
 }

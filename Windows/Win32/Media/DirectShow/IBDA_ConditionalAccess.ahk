@@ -1,8 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SmartCardApplication.ahk" { SmartCardApplication }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EALocationCodeType.ahk" { EALocationCodeType }
+#Import ".\EntitlementType.ahk" { EntitlementType }
+#Import ".\UICloseReasonType.ahk" { UICloseReasonType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SmartCardStatusType.ahk" { SmartCardStatusType }
+#Import ".\SmartCardAssociationType.ahk" { SmartCardAssociationType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IBDA_ConditionalAccess interface provides conditional access to program content.
@@ -11,26 +19,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_conditionalaccess
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_ConditionalAccess extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_ConditionalAccess extends IUnknown {
     /**
      * The interface identifier for IBDA_ConditionalAccess
      * @type {Guid}
      */
-    static IID => Guid("{cd51f1e0-7be9-4123-8482-a2a796c0a6b0}")
+    static IID := Guid("{cd51f1e0-7be9-4123-8482-a2a796c0a6b0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_ConditionalAccess interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_SmartCardStatus       : IntPtr
+        get_SmartCardInfo         : IntPtr
+        get_SmartCardApplications : IntPtr
+        get_Entitlement           : IntPtr
+        TuneByChannel             : IntPtr
+        SetProgram                : IntPtr
+        AddProgram                : IntPtr
+        RemoveProgram             : IntPtr
+        GetModuleUI               : IntPtr
+        InformUIClosed            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SmartCardStatus", "get_SmartCardInfo", "get_SmartCardApplications", "get_Entitlement", "TuneByChannel", "SetProgram", "AddProgram", "RemoveProgram", "GetModuleUI", "InformUIClosed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_ConditionalAccess.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The get_SmartCardStatus method retrieves the status of the smart card.
@@ -48,7 +72,7 @@ class IBDA_ConditionalAccess extends IUnknown {
         pCardAssociationMarshal := pCardAssociation is VarRef ? "int*" : "ptr"
         pfOOBLockedMarshal := pfOOBLocked is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, pCardStatusMarshal, pCardStatus, pCardAssociationMarshal, pCardAssociation, "ptr", pbstrCardError, pfOOBLockedMarshal, pfOOBLocked, "HRESULT")
+        result := ComCall(3, this, pCardStatusMarshal, pCardStatus, pCardAssociationMarshal, pCardAssociation, BSTR.Ptr, pbstrCardError, pfOOBLockedMarshal, pfOOBLocked, "HRESULT")
         return result
     }
 
@@ -69,7 +93,7 @@ class IBDA_ConditionalAccess extends IUnknown {
         pbyRatingRegionMarshal := pbyRatingRegion is VarRef ? "char*" : "ptr"
         plTimeZoneOffsetMinutesMarshal := plTimeZoneOffsetMinutes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pbstrCardName, "ptr", pbstrCardManufacturer, pfDaylightSavingsMarshal, pfDaylightSavings, pbyRatingRegionMarshal, pbyRatingRegion, plTimeZoneOffsetMinutesMarshal, plTimeZoneOffsetMinutes, "ptr", pbstrLanguage, "ptr", pEALocationCode, "HRESULT")
+        result := ComCall(4, this, BSTR.Ptr, pbstrCardName, BSTR.Ptr, pbstrCardManufacturer, pfDaylightSavingsMarshal, pfDaylightSavings, pbyRatingRegionMarshal, pbyRatingRegion, plTimeZoneOffsetMinutesMarshal, plTimeZoneOffsetMinutes, BSTR.Ptr, pbstrLanguage, EALocationCodeType.Ptr, pEALocationCode, "HRESULT")
         return result
     }
 
@@ -87,7 +111,7 @@ class IBDA_ConditionalAccess extends IUnknown {
     get_SmartCardApplications(pulcApplications, ulcApplicationsMax, rgApplications) {
         pulcApplicationsMarshal := pulcApplications is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pulcApplicationsMarshal, pulcApplications, "uint", ulcApplicationsMax, "ptr", rgApplications, "HRESULT")
+        result := ComCall(5, this, pulcApplicationsMarshal, pulcApplications, "uint", ulcApplicationsMax, SmartCardApplication.Ptr, rgApplications, "HRESULT")
         return result
     }
 
@@ -153,8 +177,8 @@ class IBDA_ConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-getmoduleui
      */
     GetModuleUI(byDialogNumber) {
-        pbstrURL := BSTR()
-        result := ComCall(11, this, "char", byDialogNumber, "ptr", pbstrURL, "HRESULT")
+        pbstrURL := BSTR.Owned()
+        result := ComCall(11, this, "char", byDialogNumber, BSTR.Ptr, pbstrURL, "HRESULT")
         return pbstrURL
     }
 
@@ -166,7 +190,45 @@ class IBDA_ConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-informuiclosed
      */
     InformUIClosed(byDialogNumber, CloseReason) {
-        result := ComCall(12, this, "char", byDialogNumber, "int", CloseReason, "HRESULT")
+        result := ComCall(12, this, "char", byDialogNumber, UICloseReasonType, CloseReason, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_ConditionalAccess.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SmartCardStatus := CallbackCreate(GetMethod(implObj, "get_SmartCardStatus"), flags, 5)
+        this.vtbl.get_SmartCardInfo := CallbackCreate(GetMethod(implObj, "get_SmartCardInfo"), flags, 8)
+        this.vtbl.get_SmartCardApplications := CallbackCreate(GetMethod(implObj, "get_SmartCardApplications"), flags, 4)
+        this.vtbl.get_Entitlement := CallbackCreate(GetMethod(implObj, "get_Entitlement"), flags, 3)
+        this.vtbl.TuneByChannel := CallbackCreate(GetMethod(implObj, "TuneByChannel"), flags, 2)
+        this.vtbl.SetProgram := CallbackCreate(GetMethod(implObj, "SetProgram"), flags, 2)
+        this.vtbl.AddProgram := CallbackCreate(GetMethod(implObj, "AddProgram"), flags, 2)
+        this.vtbl.RemoveProgram := CallbackCreate(GetMethod(implObj, "RemoveProgram"), flags, 2)
+        this.vtbl.GetModuleUI := CallbackCreate(GetMethod(implObj, "GetModuleUI"), flags, 3)
+        this.vtbl.InformUIClosed := CallbackCreate(GetMethod(implObj, "InformUIClosed"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SmartCardStatus)
+        CallbackFree(this.vtbl.get_SmartCardInfo)
+        CallbackFree(this.vtbl.get_SmartCardApplications)
+        CallbackFree(this.vtbl.get_Entitlement)
+        CallbackFree(this.vtbl.TuneByChannel)
+        CallbackFree(this.vtbl.SetProgram)
+        CallbackFree(this.vtbl.AddProgram)
+        CallbackFree(this.vtbl.RemoveProgram)
+        CallbackFree(this.vtbl.GetModuleUI)
+        CallbackFree(this.vtbl.InformUIClosed)
     }
 }

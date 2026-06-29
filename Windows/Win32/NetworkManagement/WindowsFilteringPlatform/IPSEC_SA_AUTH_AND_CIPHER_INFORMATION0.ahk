@@ -1,14 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_SA_CIPHER_INFORMATION0.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM0.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
-#Include .\IPSEC_CIPHER_TYPE.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include .\IPSEC_SA_AUTH_INFORMATION0.ahk
-#Include .\IPSEC_AUTH_TRANSFORM0.ahk
-#Include .\IPSEC_AUTH_TRANSFORM_ID0.ahk
-#Include .\IPSEC_AUTH_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_AUTH_TRANSFORM_ID0.ahk" { IPSEC_AUTH_TRANSFORM_ID0 }
+#Import ".\IPSEC_AUTH_TRANSFORM0.ahk" { IPSEC_AUTH_TRANSFORM0 }
+#Import ".\IPSEC_CIPHER_TYPE.ahk" { IPSEC_CIPHER_TYPE }
+#Import ".\IPSEC_CIPHER_TRANSFORM_ID0.ahk" { IPSEC_CIPHER_TRANSFORM_ID0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_SA_CIPHER_INFORMATION0.ahk" { IPSEC_SA_CIPHER_INFORMATION0 }
+#Import ".\IPSEC_AUTH_TYPE.ahk" { IPSEC_AUTH_TYPE }
+#Import ".\IPSEC_SA_AUTH_INFORMATION0.ahk" { IPSEC_SA_AUTH_INFORMATION0 }
+#Import ".\IPSEC_CIPHER_TRANSFORM0.ahk" { IPSEC_CIPHER_TRANSFORM0 }
 
 /**
  * Stores information about the authentication and encryption algorithms of an IPsec security association (SA).
@@ -17,32 +17,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_auth_and_cipher_information0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0 {
+    #StructPack 8
 
     /**
      * Encryption algorithm information as specified by [IPSEC_SA_CIPHER_INFORMATION0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_cipher_information0).
-     * @type {IPSEC_SA_CIPHER_INFORMATION0}
      */
-    saCipherInformation {
-        get {
-            if(!this.HasProp("__saCipherInformation"))
-                this.__saCipherInformation := IPSEC_SA_CIPHER_INFORMATION0(0, this)
-            return this.__saCipherInformation
-        }
-    }
+    saCipherInformation : IPSEC_SA_CIPHER_INFORMATION0
 
     /**
      * Authentication algorithm information as specified by [IPSEC_SA_AUTH_INFORMATION0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_auth_information0).
-     * @type {IPSEC_SA_AUTH_INFORMATION0}
      */
-    saAuthInformation {
-        get {
-            if(!this.HasProp("__saAuthInformation"))
-                this.__saAuthInformation := IPSEC_SA_AUTH_INFORMATION0(32, this)
-            return this.__saAuthInformation
-        }
-    }
+    saAuthInformation : IPSEC_SA_AUTH_INFORMATION0
+
 }

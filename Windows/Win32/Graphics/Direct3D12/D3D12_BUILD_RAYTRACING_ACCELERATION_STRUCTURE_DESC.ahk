@@ -1,21 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS.ahk
-#Include .\D3D12_ELEMENTS_LAYOUT.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_DESC.ahk
-#Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE }
+#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS }
+#Import ".\D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC.ahk" { D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC }
+#Import ".\D3D12_RAYTRACING_GEOMETRY_DESC.ahk" { D3D12_RAYTRACING_GEOMETRY_DESC }
+#Import ".\D3D12_ELEMENTS_LAYOUT.ahk" { D3D12_ELEMENTS_LAYOUT }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS }
 
 /**
  * Describes a raytracing acceleration structure. Pass this structure into ID3D12GraphicsCommandList4::BuildRaytracingAccelerationStructure to describe the acceleration structure to be built.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_build_raytracing_acceleration_structure_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC {
+    #StructPack 8
 
     /**
      * Location to store resulting acceleration structure.  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device5-getraytracingaccelerationstructureprebuildinfo">ID3D12Device5::GetRaytracingAccelerationStructurePrebuildInfo</a> reports the amount of memory required for the result here given a set of acceleration structure build parameters.  
@@ -24,24 +21,13 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC extends Win32Struct {
      * 
      * > [!IMPORTANT]
      * > The memory must be in state [**D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states).
-     * @type {Integer}
      */
-    DestAccelerationStructureData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DestAccelerationStructureData : Int64
 
     /**
      * Description of the input data for the acceleration structure build.  This is data is stored in a separate structure because it is also used with <b>GetRaytracingAccelerationStructurePrebuildInfo</b>.
-     * @type {D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS}
      */
-    Inputs {
-        get {
-            if(!this.HasProp("__Inputs"))
-                this.__Inputs := D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(8, this)
-            return this.__Inputs
-        }
-    }
+    Inputs : D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS
 
     /**
      * Address of an existing acceleration structure if an acceleration structure update (an incremental build) is being requested, by setting  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_build_flags">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PERFORM_UPDATE</a> in the Flags parameter.  Otherwise this address must be NULL.
@@ -52,18 +38,9 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC extends Win32Struct {
      * 
      * > [!IMPORTANT]
      * > The memory must be in state [**D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states).
-     * @type {Integer}
      */
-    SourceAccelerationStructureData {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SourceAccelerationStructureData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ScratchAccelerationStructureData {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ScratchAccelerationStructureData : Int64
+
 }

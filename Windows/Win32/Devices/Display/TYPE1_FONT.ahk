@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * The TYPE1_FONT structure contains the information necessary for a PostScript driver to access a Type1 font through GDI.
@@ -11,41 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-type1_font
  * @namespace Windows.Win32.Devices.Display
  */
-class TYPE1_FONT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TYPE1_FONT {
+    #StructPack 8
 
     /**
      * Handle to the PostScript Type1 .<a href="https://docs.microsoft.com/windows-hardware/drivers/">pfm</a> file.
-     * @type {HANDLE}
      */
-    hPFM {
-        get {
-            if(!this.HasProp("__hPFM"))
-                this.__hPFM := HANDLE(0, this)
-            return this.__hPFM
-        }
-    }
+    hPFM : HANDLE
 
     /**
      * Handle to the PostScript Type1 .<i>pfb</i> file.
-     * @type {HANDLE}
      */
-    hPFB {
-        get {
-            if(!this.HasProp("__hPFB"))
-                this.__hPFB := HANDLE(8, this)
-            return this.__hPFB
-        }
-    }
+    hPFB : HANDLE
 
     /**
      * Is an identifier that is generated and used by GDI. The driver stores <b>ulIdentifier</b> in the <b>dpCharSets</b> field of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-ifimetrics">IFIMETRICS</a> structure.
-     * @type {Integer}
      */
-    ulIdentifier {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulIdentifier : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an entry in the function table. (IMAGE_FUNCTION_ENTRY)
@@ -20,35 +19,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_function_entry
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_FUNCTION_ENTRY extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct IMAGE_FUNCTION_ENTRY {
+    #StructPack 4
 
     /**
      * The image address of the start of the function.
-     * @type {Integer}
      */
-    StartingAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StartingAddress : UInt32
 
     /**
      * The image address of the end of the function.
-     * @type {Integer}
      */
-    EndingAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EndingAddress : UInt32
 
     /**
      * The image address of the end of the prologue code.
-     * @type {Integer}
      */
-    EndOfPrologue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EndOfPrologue : UInt32
+
 }

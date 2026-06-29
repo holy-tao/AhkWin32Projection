@@ -1,50 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRDS_SETTING_TYPE.ahk
-#Include .\WRDS_SETTING_LEVEL.ahk
-#Include .\WRDS_SETTING.ahk
-#Include .\WRDS_SETTINGS_1.ahk
-#Include .\WRDS_SETTING_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WRDS_SETTING_TYPE.ahk" { WRDS_SETTING_TYPE }
+#Import ".\WRDS_SETTING.ahk" { WRDS_SETTING }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WRDS_SETTING_STATUS.ahk" { WRDS_SETTING_STATUS }
+#Import ".\WRDS_SETTINGS_1.ahk" { WRDS_SETTINGS_1 }
+#Import ".\WRDS_SETTING_LEVEL.ahk" { WRDS_SETTING_LEVEL }
 
 /**
  * Contains policy-related setting information for a remote session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_settings
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WRDS_SETTINGS extends Win32Struct {
-    static sizeof => 132
-
-    static packingSize => 4
+export default struct WRDS_SETTINGS {
+    #StructPack 4
 
     /**
      * The category of settings contained (machine group policy, user group policy, or user security accounts manager).
-     * @type {WRDS_SETTING_TYPE}
      */
-    WRdsSettingType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    WRdsSettingType : WRDS_SETTING_TYPE
 
     /**
      * The setting level.
-     * @type {WRDS_SETTING_LEVEL}
      */
-    WRdsSettingLevel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    WRdsSettingLevel : WRDS_SETTING_LEVEL
 
     /**
      * A structure that contains the policy setting states and values.
      * 
      * A structure that contains the policy setting states and values.
-     * @type {WRDS_SETTING}
      */
-    WRdsSetting {
-        get {
-            if(!this.HasProp("__WRdsSetting"))
-                this.__WRdsSetting := WRDS_SETTING(8, this)
-            return this.__WRdsSetting
-        }
-    }
+    WRdsSetting : WRDS_SETTING
+
 }

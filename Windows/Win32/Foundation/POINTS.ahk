@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The POINTS structure defines the x- and y-coordinates of a point.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/windef/ns-windef-points
  * @namespace Windows.Win32.Foundation
  */
-class POINTS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct POINTS {
+    #StructPack 2
 
     /**
      * Specifies the <i>x</i>-coordinate of the point.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    x : Int16
 
     /**
      * Specifies the <i>y</i>-coordinate of the point.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    y : Int16
+
 }

@@ -1,318 +1,97 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains additional information about the status of an enrollment that is in progress.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-enrollment-status
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
-    static sizeof => 368
+export default struct WINBIO_EXTENDED_ENROLLMENT_STATUS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Specific_e__Union extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+    struct _Specific {
 
-        class _FacialFeatures extends Win32Struct {
-            static sizeof => 344
-            static packingSize => 8
+        struct _FacialFeatures {
 
-            class _OpaqueEngineData extends Win32Struct {
-                static sizeof => 320
-                static packingSize => 8
+            struct _OpaqueEngineData {
+                AdapterId : Guid
 
-                /**
-                 * @type {Pointer}
-                 */
-                AdapterId {
-                    get => NumGet(this, 0, "ptr")
-                    set => NumPut("ptr", value, this, 0)
-                }
+                Data : UInt32[78]
 
-                /**
-                 * @type {Array<Integer>}
-                 */
-                Data {
-                    get {
-                        if(!this.HasProp("__DataProxyArray"))
-                            this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 78, Primitive, "uint")
-                        return this.__DataProxyArray
-                    }
-                }
             }
 
-            /**
-             * @type {RECT}
-             */
-            BoundingBox {
-                get {
-                    if(!this.HasProp("__BoundingBox"))
-                        this.__BoundingBox := RECT(0, this)
-                    return this.__BoundingBox
-                }
-            }
+            BoundingBox : RECT
 
-            /**
-             * @type {Integer}
-             */
-            Distance {
-                get => NumGet(this, 16, "int")
-                set => NumPut("int", value, this, 16)
-            }
+            Distance : Int32
 
-            /**
-             * @type {_OpaqueEngineData}
-             */
-            OpaqueEngineData {
-                get {
-                    if(!this.HasProp("__OpaqueEngineData"))
-                        this.__OpaqueEngineData := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._FacialFeatures._OpaqueEngineData(24, this)
-                    return this.__OpaqueEngineData
-                }
-            }
+            OpaqueEngineData : WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._FacialFeatures._OpaqueEngineData
+
         }
 
-        class _Fingerprint extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Fingerprint {
+            GeneralSamples : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            GeneralSamples {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Center : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Center {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            TopEdge : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            TopEdge {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            BottomEdge : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            BottomEdge {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            LeftEdge : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            LeftEdge {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            RightEdge : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RightEdge {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _Iris extends Win32Struct {
-            static sizeof => 96
-            static packingSize => 8
+        struct _Iris {
 
-            class _Point3D extends Win32Struct {
-                static sizeof => 24
-                static packingSize => 8
+            struct _Point3D {
+                X : Float64
 
-                /**
-                 * @type {Float}
-                 */
-                X {
-                    get => NumGet(this, 0, "double")
-                    set => NumPut("double", value, this, 0)
-                }
+                Y : Float64
 
-                /**
-                 * @type {Float}
-                 */
-                Y {
-                    get => NumGet(this, 8, "double")
-                    set => NumPut("double", value, this, 8)
-                }
+                Z : Float64
 
-                /**
-                 * @type {Float}
-                 */
-                Z {
-                    get => NumGet(this, 16, "double")
-                    set => NumPut("double", value, this, 16)
-                }
             }
 
-            /**
-             * @type {RECT}
-             */
-            EyeBoundingBox_1 {
-                get {
-                    if(!this.HasProp("__EyeBoundingBox_1"))
-                        this.__EyeBoundingBox_1 := RECT(0, this)
-                    return this.__EyeBoundingBox_1
-                }
-            }
+            EyeBoundingBox_1 : RECT
 
-            /**
-             * @type {RECT}
-             */
-            EyeBoundingBox_2 {
-                get {
-                    if(!this.HasProp("__EyeBoundingBox_2"))
-                        this.__EyeBoundingBox_2 := RECT(16, this)
-                    return this.__EyeBoundingBox_2
-                }
-            }
+            EyeBoundingBox_2 : RECT
 
-            /**
-             * @type {POINT}
-             */
-            PupilCenter_1 {
-                get {
-                    if(!this.HasProp("__PupilCenter_1"))
-                        this.__PupilCenter_1 := POINT(32, this)
-                    return this.__PupilCenter_1
-                }
-            }
+            PupilCenter_1 : POINT
 
-            /**
-             * @type {POINT}
-             */
-            PupilCenter_2 {
-                get {
-                    if(!this.HasProp("__PupilCenter_2"))
-                        this.__PupilCenter_2 := POINT(40, this)
-                    return this.__PupilCenter_2
-                }
-            }
+            PupilCenter_2 : POINT
 
-            /**
-             * @type {Integer}
-             */
-            Distance {
-                get => NumGet(this, 48, "int")
-                set => NumPut("int", value, this, 48)
-            }
+            Distance : Int32
 
-            /**
-             * @type {Integer}
-             */
-            GridPointCompletionPercent {
-                get => NumGet(this, 52, "uint")
-                set => NumPut("uint", value, this, 52)
-            }
+            GridPointCompletionPercent : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            GridPointIndex {
-                get => NumGet(this, 56, "ushort")
-                set => NumPut("ushort", value, this, 56)
-            }
+            GridPointIndex : UInt16
 
-            /**
-             * @type {_Point3D}
-             */
-            Point3D {
-                get {
-                    if(!this.HasProp("__Point3D"))
-                        this.__Point3D := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Iris._Point3D(64, this)
-                    return this.__Point3D
-                }
-            }
+            Point3D : WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Iris._Point3D
 
-            /**
-             * @type {BOOL}
-             */
-            StopCaptureAndShowCriticalFeedback {
-                get => NumGet(this, 88, "int")
-                set => NumPut("int", value, this, 88)
-            }
+            StopCaptureAndShowCriticalFeedback : BOOL
+
         }
 
-        class _Voice extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _Voice {
+            Reserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        Null {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Null : UInt32
 
-        /**
-         * @type {_FacialFeatures}
-         */
-        FacialFeatures {
-            get {
-                if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._FacialFeatures(0, this)
-                return this.__FacialFeatures
-            }
-        }
-
-        /**
-         * @type {_Fingerprint}
-         */
-        Fingerprint {
-            get {
-                if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Fingerprint(0, this)
-                return this.__Fingerprint
-            }
-        }
-
-        /**
-         * @type {_Iris}
-         */
-        Iris {
-            get {
-                if(!this.HasProp("__Iris"))
-                    this.__Iris := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Iris(0, this)
-                return this.__Iris
-            }
-        }
-
-        /**
-         * @type {_Voice}
-         */
-        Voice {
-            get {
-                if(!this.HasProp("__Voice"))
-                    this.__Voice := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Voice(0, this)
-                return this.__Voice
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'FacialFeatures', { type: WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._FacialFeatures, offset: 0 })
+            DefineProp(this.Prototype, 'Fingerprint', { type: WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Fingerprint, offset: 0 })
+            DefineProp(this.Prototype, 'Iris', { type: WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Iris, offset: 0 })
+            DefineProp(this.Prototype, 'Voice', { type: WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Voice, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -327,58 +106,32 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
      * | <span id="WINBIO_E_INVALID_OPERATION"></span><span id="winbio_e_invalid_operation"></span><dl> <dt>**WINBIO\_E\_INVALID\_OPERATION**</dt> </dl> | No enrollment is in progress.<br/>                       |
      * | <span id="WINBIO_I_MORE_DATA"></span><span id="winbio_i_more_data"></span><dl> <dt>**WINBIO\_I\_MORE\_DATA**</dt> </dl>                         | More samples are required to complete the template.<br/> |
      * | <span id="WINBIO_E_BAD_CAPTURE"></span><span id="winbio_e_bad_capture"></span><dl> <dt>**WINBIO\_E\_BAD\_CAPTURE**</dt> </dl>                   | The most recent sample is not usable.<br/>               |
-     * @type {HRESULT}
      */
-    TemplateStatus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TemplateStatus : HRESULT
 
     /**
      * The reason that the most recent sample is unusable, if the value of the **TemplateStatus** member is **WINBIO\_E\_BAD\_CAPTURE**.
-     * @type {Integer}
      */
-    RejectDetail {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RejectDetail : UInt32
 
     /**
      * The best estimate from the engine adapter for the percentage of the template that is complete, as a value from 0 to 100.
-     * @type {Integer}
      */
-    PercentComplete {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PercentComplete : UInt32
 
     /**
      * The type of biometric unit for which this structure contains information about capabilities and enrollment requirements of the engine adapter. For example, if the value of the **Factor** member is **WINBIO\_TYPE\_FINGERPRINT**, the [**WINBIO\_EXTENDED\_ENGINE\_INFO**](winbio-extended-engine-info.md) structure applies to a fingerprint reader and contains the relevant information in the **Specifc.Fingerprint** structure.
-     * @type {Integer}
      */
-    Factor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Factor : UInt32
 
     /**
      * A **WINBIO\_BIOMETRIC\_SUBTYPE** value that provides additional information about the enrollment.
-     * @type {Integer}
      */
-    SubFactor {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    SubFactor : Int8
 
     /**
      * Information about the status of an enrollment that is in progress for a specific biometric factor.
-     * @type {_Specific_e__Union}
      */
-    Specific {
-        get {
-            if(!this.HasProp("__Specific"))
-                this.__Specific := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union(24, this)
-            return this.__Specific
-        }
-    }
+    Specific : WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific
+
 }

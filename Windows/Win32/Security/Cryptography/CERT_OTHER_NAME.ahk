@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_OTHER_NAME extends Win32Struct {
-    static sizeof => 24
+export default struct CERT_OTHER_NAME {
+    #StructPack 8
 
-    static packingSize => 8
+    pszObjId : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Value : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(8, this)
-            return this.__Value
-        }
-    }
 }

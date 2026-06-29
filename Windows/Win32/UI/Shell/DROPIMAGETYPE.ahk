@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values used with the DROPDESCRIPTION structure to specify the drop image.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-dropimagetype
  * @namespace Windows.Win32.UI.Shell
  */
-class DROPIMAGETYPE extends Win32Enum {
+export default struct DROPIMAGETYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No drop image preference; use the default image.

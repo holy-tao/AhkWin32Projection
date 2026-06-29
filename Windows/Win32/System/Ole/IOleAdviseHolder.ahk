@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IEnumSTATDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages advisory connections and compound document notifications in an object server.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleadviseholder
  * @namespace Windows.Win32.System.Ole
  */
-class IOleAdviseHolder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleAdviseHolder extends IUnknown {
     /**
      * The interface identifier for IOleAdviseHolder
      * @type {Guid}
      */
-    static IID => Guid("{00000111-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000111-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleAdviseHolder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise       : IntPtr
+        Unadvise     : IntPtr
+        EnumAdvise   : IntPtr
+        SendOnRename : IntPtr
+        SendOnSave   : IntPtr
+        SendOnClose  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise", "EnumAdvise", "SendOnRename", "SendOnSave", "SendOnClose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleAdviseHolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Establishes an advisory connection between an OLE object and the calling object's advise sink. Through that sink, the calling object can receive notification when the OLE object is renamed, saved, or closed.
@@ -131,5 +146,35 @@ class IOleAdviseHolder extends IUnknown {
     SendOnClose() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleAdviseHolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumAdvise := CallbackCreate(GetMethod(implObj, "EnumAdvise"), flags, 2)
+        this.vtbl.SendOnRename := CallbackCreate(GetMethod(implObj, "SendOnRename"), flags, 2)
+        this.vtbl.SendOnSave := CallbackCreate(GetMethod(implObj, "SendOnSave"), flags, 1)
+        this.vtbl.SendOnClose := CallbackCreate(GetMethod(implObj, "SendOnClose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.EnumAdvise)
+        CallbackFree(this.vtbl.SendOnRename)
+        CallbackFree(this.vtbl.SendOnSave)
+        CallbackFree(this.vtbl.SendOnClose)
     }
 }

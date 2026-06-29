@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_NETNAME_PWD_INFOEX extends Win32Struct {
-    static sizeof => 904
+export default struct CLUS_NETNAME_PWD_INFOEX {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Password : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    Password {
-        get => StrGet(this.ptr + 4, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 127, "UTF-16")
-    }
+    CreatingDC : WCHAR[258]
 
-    /**
-     * @type {String}
-     */
-    CreatingDC {
-        get => StrGet(this.ptr + 260, 257, "UTF-16")
-        set => StrPut(value, this.ptr + 260, 257, "UTF-16")
-    }
+    ObjectGuid : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    ObjectGuid {
-        get => StrGet(this.ptr + 776, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 776, 63, "UTF-16")
-    }
 }

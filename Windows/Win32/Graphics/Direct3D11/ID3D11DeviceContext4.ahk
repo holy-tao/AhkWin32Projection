@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceContext3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11Fence.ahk" { ID3D11Fence }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext4 adds new methods to those in ID3D11DeviceContext3.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11devicecontext4
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
     /**
      * The interface identifier for ID3D11DeviceContext4
      * @type {Guid}
      */
-    static IID => Guid("{917600da-f58c-4c33-98d8-3e15b390fa24}")
+    static IID := Guid("{917600da-f58c-4c33-98d8-3e15b390fa24}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 147
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11DeviceContext4 interfaces
+    */
+    struct Vtbl extends ID3D11DeviceContext3.Vtbl {
+        Signal : IntPtr
+        Wait   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Signal", "Wait"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11DeviceContext4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates a fence to a specified value after all previous work has completed.
@@ -63,5 +73,27 @@ class ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
     Wait(pFence, Value) {
         result := ComCall(148, this, "ptr", pFence, "uint", Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11DeviceContext4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Signal := CallbackCreate(GetMethod(implObj, "Signal"), flags, 3)
+        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Signal)
+        CallbackFree(this.vtbl.Wait)
     }
 }

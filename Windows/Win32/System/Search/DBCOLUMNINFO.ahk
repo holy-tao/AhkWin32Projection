@@ -1,89 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\ITypeInfo.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBCOLUMNINFO extends Win32Struct {
-    static sizeof => 72
+export default struct DBCOLUMNINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pTypeInfo : ITypeInfo
 
-    /**
-     * @type {ITypeInfo}
-     */
-    pTypeInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    iOrdinal : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    iOrdinal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulColumnSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ulColumnSize {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    wType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    bPrecision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPrecision {
-        get => NumGet(this, 42, "char")
-        set => NumPut("char", value, this, 42)
-    }
+    bScale : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bScale {
-        get => NumGet(this, 43, "char")
-        set => NumPut("char", value, this, 43)
-    }
+    columnid : DBID
 
-    /**
-     * @type {DBID}
-     */
-    columnid {
-        get {
-            if(!this.HasProp("__columnid"))
-                this.__columnid := DBID(48, this)
-            return this.__columnid
-        }
-    }
 }

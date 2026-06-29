@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XHR_COOKIE.ahk" { XHR_COOKIE }
+#Import "..\..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\XHR_PROPERTY.ahk" { XHR_PROPERTY }
 
 /**
  * Provides the methods and properties needed to configure and send HTTP requests and use callbacks to receive notifications during HTTP response processing. Note  This interface is supported on Windows Phone 8.1.  .
@@ -26,26 +32,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest2
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLHTTPRequest2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXMLHTTPRequest2 extends IUnknown {
     /**
      * The interface identifier for IXMLHTTPRequest2
      * @type {Guid}
      */
-    static IID => Guid("{e5d37dc0-552a-4d52-9cc0-a14d546fbd04}")
+    static IID := Guid("{e5d37dc0-552a-4d52-9cc0-a14d546fbd04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLHTTPRequest2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open                    : IntPtr
+        Send                    : IntPtr
+        Abort                   : IntPtr
+        SetCookie               : IntPtr
+        SetCustomResponseStream : IntPtr
+        SetProperty             : IntPtr
+        SetRequestHeader        : IntPtr
+        GetAllResponseHeaders   : IntPtr
+        GetCookie               : IntPtr
+        GetResponseHeader       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Send", "Abort", "SetCookie", "SetCustomResponseStream", "SetProperty", "SetRequestHeader", "GetAllResponseHeaders", "GetCookie", "GetResponseHeader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLHTTPRequest2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes an IXMLHTTPRequest2 request and specifies the method, URL, and authentication information for the request. After calling this method, you must call the Send method to send the request and data, if any, to the server.
@@ -201,7 +223,7 @@ class IXMLHTTPRequest2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-setcookie
      */
     SetCookie(pCookie) {
-        result := ComCall(6, this, "ptr", pCookie, "uint*", &pdwCookieState := 0, "HRESULT")
+        result := ComCall(6, this, XHR_COOKIE.Ptr, pCookie, "uint*", &pdwCookieState := 0, "HRESULT")
         return pdwCookieState
     }
 
@@ -474,7 +496,7 @@ class IXMLHTTPRequest2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-setproperty
      */
     SetProperty(eProperty, ullValue) {
-        result := ComCall(8, this, "int", eProperty, "uint", ullValue, "HRESULT")
+        result := ComCall(8, this, XHR_PROPERTY, eProperty, "uint", ullValue, "HRESULT")
         return result
     }
 
@@ -541,5 +563,43 @@ class IXMLHTTPRequest2 extends IUnknown {
 
         result := ComCall(12, this, "ptr", pwszHeader, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
+    }
+
+    Query(iid) {
+        if (IXMLHTTPRequest2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 8)
+        this.vtbl.Send := CallbackCreate(GetMethod(implObj, "Send"), flags, 3)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.SetCookie := CallbackCreate(GetMethod(implObj, "SetCookie"), flags, 3)
+        this.vtbl.SetCustomResponseStream := CallbackCreate(GetMethod(implObj, "SetCustomResponseStream"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetRequestHeader := CallbackCreate(GetMethod(implObj, "SetRequestHeader"), flags, 3)
+        this.vtbl.GetAllResponseHeaders := CallbackCreate(GetMethod(implObj, "GetAllResponseHeaders"), flags, 2)
+        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 6)
+        this.vtbl.GetResponseHeader := CallbackCreate(GetMethod(implObj, "GetResponseHeader"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Send)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.SetCookie)
+        CallbackFree(this.vtbl.SetCustomResponseStream)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.SetRequestHeader)
+        CallbackFree(this.vtbl.GetAllResponseHeaders)
+        CallbackFree(this.vtbl.GetCookie)
+        CallbackFree(this.vtbl.GetResponseHeader)
     }
 }

@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxOutgoingMessageIterator.ahk
-#Include .\IFaxOutgoingMessage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxOutgoingMessageIterator.ahk" { IFaxOutgoingMessageIterator }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IFaxOutgoingArchive interface describes a configuration object that is used by a fax client application to access and configure the archive of outbound fax messages transmitted successfully by the fax service.
@@ -13,32 +15,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingarchive
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutgoingArchive extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutgoingArchive extends IDispatch {
     /**
      * The interface identifier for IFaxOutgoingArchive
      * @type {Guid}
      */
-    static IID => Guid("{c9c28f40-8d80-4e53-810f-9a79919b49fd}")
+    static IID := Guid("{c9c28f40-8d80-4e53-810f-9a79919b49fd}")
 
     /**
      * The class identifier for FaxOutgoingArchive
      * @type {Guid}
      */
-    static CLSID => Guid("{43c28403-e04f-474d-990c-b94669148f59}")
+    static CLSID := Guid("{43c28403-e04f-474d-990c-b94669148f59}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutgoingArchive interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_UseArchive         : IntPtr
+        put_UseArchive         : IntPtr
+        get_ArchiveFolder      : IntPtr
+        put_ArchiveFolder      : IntPtr
+        get_SizeQuotaWarning   : IntPtr
+        put_SizeQuotaWarning   : IntPtr
+        get_HighQuotaWaterMark : IntPtr
+        put_HighQuotaWaterMark : IntPtr
+        get_LowQuotaWaterMark  : IntPtr
+        put_LowQuotaWaterMark  : IntPtr
+        get_AgeLimit           : IntPtr
+        put_AgeLimit           : IntPtr
+        get_SizeLow            : IntPtr
+        get_SizeHigh           : IntPtr
+        Refresh                : IntPtr
+        Save                   : IntPtr
+        GetMessages            : IntPtr
+        GetMessage             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UseArchive", "put_UseArchive", "get_ArchiveFolder", "put_ArchiveFolder", "get_SizeQuotaWarning", "put_SizeQuotaWarning", "get_HighQuotaWaterMark", "put_HighQuotaWaterMark", "get_LowQuotaWaterMark", "put_LowQuotaWaterMark", "get_AgeLimit", "put_AgeLimit", "get_SizeLow", "get_SizeHigh", "Refresh", "Save", "GetMessages", "GetMessage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutgoingArchive.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -112,7 +138,7 @@ class IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_usearchive
      */
     get_UseArchive() {
-        result := ComCall(7, this, "short*", &pbUseArchive := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbUseArchive := 0, "HRESULT")
         return pbUseArchive
     }
 
@@ -127,7 +153,7 @@ class IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-put_usearchive
      */
     put_UseArchive(bUseArchive) {
-        result := ComCall(8, this, "short", bUseArchive, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, bUseArchive, "HRESULT")
         return result
     }
 
@@ -141,8 +167,8 @@ class IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_archivefolder
      */
     get_ArchiveFolder() {
-        pbstrArchiveFolder := BSTR()
-        result := ComCall(9, this, "ptr", pbstrArchiveFolder, "HRESULT")
+        pbstrArchiveFolder := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrArchiveFolder, "HRESULT")
         return pbstrArchiveFolder
     }
 
@@ -159,7 +185,7 @@ class IFaxOutgoingArchive extends IDispatch {
     put_ArchiveFolder(bstrArchiveFolder) {
         bstrArchiveFolder := bstrArchiveFolder is String ? BSTR.Alloc(bstrArchiveFolder).Value : bstrArchiveFolder
 
-        result := ComCall(10, this, "ptr", bstrArchiveFolder, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrArchiveFolder, "HRESULT")
         return result
     }
 
@@ -175,7 +201,7 @@ class IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_sizequotawarning
      */
     get_SizeQuotaWarning() {
-        result := ComCall(11, this, "short*", &pbSizeQuotaWarning := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbSizeQuotaWarning := 0, "HRESULT")
         return pbSizeQuotaWarning
     }
 
@@ -192,7 +218,7 @@ class IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-put_sizequotawarning
      */
     put_SizeQuotaWarning(bSizeQuotaWarning) {
-        result := ComCall(12, this, "short", bSizeQuotaWarning, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, bSizeQuotaWarning, "HRESULT")
         return result
     }
 
@@ -379,7 +405,61 @@ class IFaxOutgoingArchive extends IDispatch {
     GetMessage(bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(24, this, "ptr", bstrMessageId, "ptr*", &pFaxOutgoingMessage := 0, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrMessageId, "ptr*", &pFaxOutgoingMessage := 0, "HRESULT")
         return IFaxOutgoingMessage(pFaxOutgoingMessage)
+    }
+
+    Query(iid) {
+        if (IFaxOutgoingArchive.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UseArchive := CallbackCreate(GetMethod(implObj, "get_UseArchive"), flags, 2)
+        this.vtbl.put_UseArchive := CallbackCreate(GetMethod(implObj, "put_UseArchive"), flags, 2)
+        this.vtbl.get_ArchiveFolder := CallbackCreate(GetMethod(implObj, "get_ArchiveFolder"), flags, 2)
+        this.vtbl.put_ArchiveFolder := CallbackCreate(GetMethod(implObj, "put_ArchiveFolder"), flags, 2)
+        this.vtbl.get_SizeQuotaWarning := CallbackCreate(GetMethod(implObj, "get_SizeQuotaWarning"), flags, 2)
+        this.vtbl.put_SizeQuotaWarning := CallbackCreate(GetMethod(implObj, "put_SizeQuotaWarning"), flags, 2)
+        this.vtbl.get_HighQuotaWaterMark := CallbackCreate(GetMethod(implObj, "get_HighQuotaWaterMark"), flags, 2)
+        this.vtbl.put_HighQuotaWaterMark := CallbackCreate(GetMethod(implObj, "put_HighQuotaWaterMark"), flags, 2)
+        this.vtbl.get_LowQuotaWaterMark := CallbackCreate(GetMethod(implObj, "get_LowQuotaWaterMark"), flags, 2)
+        this.vtbl.put_LowQuotaWaterMark := CallbackCreate(GetMethod(implObj, "put_LowQuotaWaterMark"), flags, 2)
+        this.vtbl.get_AgeLimit := CallbackCreate(GetMethod(implObj, "get_AgeLimit"), flags, 2)
+        this.vtbl.put_AgeLimit := CallbackCreate(GetMethod(implObj, "put_AgeLimit"), flags, 2)
+        this.vtbl.get_SizeLow := CallbackCreate(GetMethod(implObj, "get_SizeLow"), flags, 2)
+        this.vtbl.get_SizeHigh := CallbackCreate(GetMethod(implObj, "get_SizeHigh"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetMessages := CallbackCreate(GetMethod(implObj, "GetMessages"), flags, 3)
+        this.vtbl.GetMessage := CallbackCreate(GetMethod(implObj, "GetMessage"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UseArchive)
+        CallbackFree(this.vtbl.put_UseArchive)
+        CallbackFree(this.vtbl.get_ArchiveFolder)
+        CallbackFree(this.vtbl.put_ArchiveFolder)
+        CallbackFree(this.vtbl.get_SizeQuotaWarning)
+        CallbackFree(this.vtbl.put_SizeQuotaWarning)
+        CallbackFree(this.vtbl.get_HighQuotaWaterMark)
+        CallbackFree(this.vtbl.put_HighQuotaWaterMark)
+        CallbackFree(this.vtbl.get_LowQuotaWaterMark)
+        CallbackFree(this.vtbl.put_LowQuotaWaterMark)
+        CallbackFree(this.vtbl.get_AgeLimit)
+        CallbackFree(this.vtbl.put_AgeLimit)
+        CallbackFree(this.vtbl.get_SizeLow)
+        CallbackFree(this.vtbl.get_SizeHigh)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetMessages)
+        CallbackFree(this.vtbl.GetMessage)
     }
 }

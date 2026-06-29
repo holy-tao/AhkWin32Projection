@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the kind of change affecting an item when a source sink notifies a client that an item has been changed.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_kind_of_change
  * @namespace Windows.Win32.System.Search
  */
-class SEARCH_KIND_OF_CHANGE extends Win32Enum {
+export default struct SEARCH_KIND_OF_CHANGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An item was added.

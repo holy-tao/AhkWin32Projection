@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPINTERFACE_ROW.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk
-#Include ..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk
-#Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk" { NL_ROUTER_DISCOVERY_BEHAVIOR }
+#Import "..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk" { NL_LINK_LOCAL_ADDRESS_BEHAVIOR }
+#Import "..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk" { NL_INTERFACE_OFFLOAD_ROD }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * Contains a table of IP interface entries.
@@ -24,30 +24,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipinterface_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPINTERFACE_TABLE extends Win32Struct {
-    static sizeof => 184
-
-    static packingSize => 8
+export default struct MIB_IPINTERFACE_TABLE {
+    #StructPack 8
 
     /**
      * The number of IP interface entries in the array.
-     * @type {Integer}
      */
-    NumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structures that contain IP interface entries.
-     * @type {MIB_IPINTERFACE_ROW}
      */
-    Table {
-        get {
-            if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPINTERFACE_ROW, "")
-            return this.__TableProxyArray
-        }
-    }
+    Table : MIB_IPINTERFACE_ROW[1]
+
 }

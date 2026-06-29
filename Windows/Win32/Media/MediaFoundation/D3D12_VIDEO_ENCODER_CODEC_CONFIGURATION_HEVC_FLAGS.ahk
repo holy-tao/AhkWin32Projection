@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies configuration flags for HEVC video encoding.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS extends Win32BitflagEnum {
+export default struct D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * None.
@@ -107,4 +116,14 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS extends Win32BitflagEnu
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_SEPARATE_COLOUR_PLANE => 65536
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_TEMPORAL_MVP_ENABLED => 131072
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAG_STRONG_INTRA_SMOOTHING_ENABLED => 262144
 }

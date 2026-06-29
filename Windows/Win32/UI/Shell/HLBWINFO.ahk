@@ -1,67 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\HLTBINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HLTBINFO.ahk" { HLTBINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class HLBWINFO extends Win32Struct {
-    static sizeof => 60
+export default struct HLBWINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    grfHLBWIF : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grfHLBWIF {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rcFramePos : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcFramePos {
-        get {
-            if(!this.HasProp("__rcFramePos"))
-                this.__rcFramePos := RECT(8, this)
-            return this.__rcFramePos
-        }
-    }
+    rcDocPos : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcDocPos {
-        get {
-            if(!this.HasProp("__rcDocPos"))
-                this.__rcDocPos := RECT(24, this)
-            return this.__rcDocPos
-        }
-    }
+    hltbinfo : HLTBINFO
 
-    /**
-     * @type {HLTBINFO}
-     */
-    hltbinfo {
-        get {
-            if(!this.HasProp("__hltbinfo"))
-                this.__hltbinfo := HLTBINFO(40, this)
-            return this.__hltbinfo
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 60
-    }
 }

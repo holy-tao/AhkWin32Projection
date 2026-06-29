@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_ALL_INFORMATION extends Win32Struct {
-    static sizeof => 72
+export default struct FILE_ALL_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    BasicInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BasicInformation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    StandardInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    StandardInformation {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InternalInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InternalInformation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    EaInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    EaInformation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AccessInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AccessInformation {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    PositionInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PositionInformation {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ModeInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ModeInformation {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    AlignmentInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AlignmentInformation {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    NameInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NameInformation {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

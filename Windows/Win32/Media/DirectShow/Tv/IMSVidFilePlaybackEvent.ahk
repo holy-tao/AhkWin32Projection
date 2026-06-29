@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidPlaybackEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidPlaybackEvent.ahk" { IMSVidPlaybackEvent }
 
 /**
  * This topic applies to Windows XP or later.
@@ -10,24 +10,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidfileplaybackevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidFilePlaybackEvent extends IMSVidPlaybackEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidFilePlaybackEvent extends IMSVidPlaybackEvent {
     /**
      * The interface identifier for IMSVidFilePlaybackEvent
      * @type {Guid}
      */
-    static IID => Guid("{37b0353a-a4c8-11d2-b634-00c04f79498e}")
+    static IID := Guid("{37b0353a-a4c8-11d2-b634-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidFilePlaybackEvent interfaces
+    */
+    struct Vtbl extends IMSVidPlaybackEvent.Vtbl {
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => []
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidFilePlaybackEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
+
+    Query(iid) {
+        if (IMSVidFilePlaybackEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+    }
 }

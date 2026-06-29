@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class CMSGHDR extends Win32Struct {
-    static sizeof => 16
+export default struct CMSGHDR {
+    #StructPack 8
 
-    static packingSize => 8
+    cmsg_len : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cmsg_len {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cmsg_level : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cmsg_level {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cmsg_type : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cmsg_type {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

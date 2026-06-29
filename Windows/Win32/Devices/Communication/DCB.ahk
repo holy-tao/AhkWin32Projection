@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DCB_PARITY.ahk
-#Include .\DCB_STOP_BITS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DCB_PARITY.ahk" { DCB_PARITY }
+#Import ".\DCB_STOP_BITS.ahk" { DCB_STOP_BITS }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Defines the control setting for a serial communications device.
@@ -18,20 +18,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Communication
  */
-class DCB extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct DCB {
+    #StructPack 8
 
     /**
      * The length of the structure, in bytes. The caller must set this member to 
      *       <c>sizeof(DCB)</c>.
-     * @type {Integer}
      */
-    DCBlength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DCBlength : UInt32
 
     /**
      * The baud rate at which the communications device operates. This member can be an actual baud rate value, or 
@@ -197,12 +191,8 @@ class DCB extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    BaudRate {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BaudRate : UInt32
 
     /**
      * This bitfield backs the following members:
@@ -220,12 +210,9 @@ class DCB extends Win32Struct {
      * - fRtsControl
      * - fAbortOnError
      * - fDummy2
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -338,27 +325,18 @@ class DCB extends Win32Struct {
         get => (this._bitfield >> 15) & 0x1FFFF
         set => this._bitfield := ((value & 0x1FFFF) << 15) | (this._bitfield & ~(0x1FFFF << 15))
     }
-
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    wReserved {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wReserved : UInt16
 
     /**
      * The minimum number of bytes in use allowed in the input buffer before flow control is activated to allow 
      *       transmission by the sender. This assumes that either XON/XOFF, RTS, or DTR input flow control is specified in 
      *       the <b>fInX</b>, <b>fRtsControl</b>, or 
      *       <b>fDtrControl</b> members.
-     * @type {Integer}
      */
-    XonLim {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    XonLim : UInt16
 
     /**
      * The minimum number of free bytes allowed in the input buffer before flow control is activated to inhibit 
@@ -367,89 +345,46 @@ class DCB extends Win32Struct {
      *       in the <b>fInX</b>, <b>fRtsControl</b>, or 
      *       <b>fDtrControl</b> members. The maximum number of bytes in use allowed is calculated by 
      *       subtracting this value from the size, in bytes, of the input buffer.
-     * @type {Integer}
      */
-    XoffLim {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    XoffLim : UInt16
 
     /**
      * The number of bits in the bytes transmitted and received.
-     * @type {Integer}
      */
-    ByteSize {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    ByteSize : Int8
 
-    /**
-     * @type {DCB_PARITY}
-     */
-    Parity {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    Parity : DCB_PARITY
 
-    /**
-     * @type {DCB_STOP_BITS}
-     */
-    StopBits {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    StopBits : DCB_STOP_BITS
 
     /**
      * The value of the XON character for both transmission and reception.
-     * @type {CHAR}
      */
-    XonChar {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    XonChar : CHAR
 
     /**
      * The value of the XOFF character for both transmission and reception.
-     * @type {CHAR}
      */
-    XoffChar {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    XoffChar : CHAR
 
     /**
      * The value of the character used to replace bytes received with a parity error.
-     * @type {CHAR}
      */
-    ErrorChar {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    ErrorChar : CHAR
 
     /**
      * The value of the character used to signal the end of data.
-     * @type {CHAR}
      */
-    EofChar {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    EofChar : CHAR
 
     /**
      * The value of the character used to signal an event.
-     * @type {CHAR}
      */
-    EvtChar {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    EvtChar : CHAR
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    wReserved1 {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    wReserved1 : UInt16
+
 }

@@ -1,36 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\ISAXEntityResolver.ahk
-#Include .\ISAXContentHandler.ahk
-#Include .\ISAXDTDHandler.ahk
-#Include .\ISAXErrorHandler.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISAXErrorHandler.ahk" { ISAXErrorHandler }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISAXContentHandler.ahk" { ISAXContentHandler }
+#Import ".\ISAXDTDHandler.ahk" { ISAXDTDHandler }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISAXEntityResolver.ahk" { ISAXEntityResolver }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class ISAXXMLReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISAXXMLReader extends IUnknown {
     /**
      * The interface identifier for ISAXXMLReader
      * @type {Guid}
      */
-    static IID => Guid("{a4f96ed0-f829-476e-81c0-cdc7bd2a0802}")
+    static IID := Guid("{a4f96ed0-f829-476e-81c0-cdc7bd2a0802}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISAXXMLReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        getFeature        : IntPtr
+        putFeature        : IntPtr
+        getProperty       : IntPtr
+        putProperty       : IntPtr
+        getEntityResolver : IntPtr
+        putEntityResolver : IntPtr
+        getContentHandler : IntPtr
+        putContentHandler : IntPtr
+        getDTDHandler     : IntPtr
+        putDTDHandler     : IntPtr
+        getErrorHandler   : IntPtr
+        putErrorHandler   : IntPtr
+        getBaseURL        : IntPtr
+        putBaseURL        : IntPtr
+        getSecureBaseURL  : IntPtr
+        putSecureBaseURL  : IntPtr
+        parse             : IntPtr
+        parseURL          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getFeature", "putFeature", "getProperty", "putProperty", "getEntityResolver", "putEntityResolver", "getContentHandler", "putContentHandler", "getDTDHandler", "putDTDHandler", "getErrorHandler", "putErrorHandler", "getBaseURL", "putBaseURL", "getSecureBaseURL", "putSecureBaseURL", "parse", "parseURL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISAXXMLReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -40,7 +67,7 @@ class ISAXXMLReader extends IUnknown {
     getFeature(pwchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(3, this, "ptr", pwchName, "short*", &pvfValue := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchName, VARIANT_BOOL.Ptr, &pvfValue := 0, "HRESULT")
         return pvfValue
     }
 
@@ -53,7 +80,7 @@ class ISAXXMLReader extends IUnknown {
     putFeature(pwchName, vfValue) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(4, this, "ptr", pwchName, "short", vfValue, "HRESULT")
+        result := ComCall(4, this, "ptr", pwchName, VARIANT_BOOL, vfValue, "HRESULT")
         return result
     }
 
@@ -66,7 +93,7 @@ class ISAXXMLReader extends IUnknown {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
         pvarValue := VARIANT()
-        result := ComCall(5, this, "ptr", pwchName, "ptr", pvarValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pwchName, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -79,7 +106,7 @@ class ISAXXMLReader extends IUnknown {
     putProperty(pwchName, varValue) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(6, this, "ptr", pwchName, "ptr", varValue, "HRESULT")
+        result := ComCall(6, this, "ptr", pwchName, VARIANT, varValue, "HRESULT")
         return result
     }
 
@@ -207,7 +234,7 @@ class ISAXXMLReader extends IUnknown {
      * @returns {HRESULT} 
      */
     parse(varInput) {
-        result := ComCall(19, this, "ptr", varInput, "HRESULT")
+        result := ComCall(19, this, VARIANT, varInput, "HRESULT")
         return result
     }
 
@@ -221,5 +248,59 @@ class ISAXXMLReader extends IUnknown {
 
         result := ComCall(20, this, "ptr", pwchUrl, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISAXXMLReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getFeature := CallbackCreate(GetMethod(implObj, "getFeature"), flags, 3)
+        this.vtbl.putFeature := CallbackCreate(GetMethod(implObj, "putFeature"), flags, 3)
+        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.putProperty := CallbackCreate(GetMethod(implObj, "putProperty"), flags, 3)
+        this.vtbl.getEntityResolver := CallbackCreate(GetMethod(implObj, "getEntityResolver"), flags, 2)
+        this.vtbl.putEntityResolver := CallbackCreate(GetMethod(implObj, "putEntityResolver"), flags, 2)
+        this.vtbl.getContentHandler := CallbackCreate(GetMethod(implObj, "getContentHandler"), flags, 2)
+        this.vtbl.putContentHandler := CallbackCreate(GetMethod(implObj, "putContentHandler"), flags, 2)
+        this.vtbl.getDTDHandler := CallbackCreate(GetMethod(implObj, "getDTDHandler"), flags, 2)
+        this.vtbl.putDTDHandler := CallbackCreate(GetMethod(implObj, "putDTDHandler"), flags, 2)
+        this.vtbl.getErrorHandler := CallbackCreate(GetMethod(implObj, "getErrorHandler"), flags, 2)
+        this.vtbl.putErrorHandler := CallbackCreate(GetMethod(implObj, "putErrorHandler"), flags, 2)
+        this.vtbl.getBaseURL := CallbackCreate(GetMethod(implObj, "getBaseURL"), flags, 2)
+        this.vtbl.putBaseURL := CallbackCreate(GetMethod(implObj, "putBaseURL"), flags, 2)
+        this.vtbl.getSecureBaseURL := CallbackCreate(GetMethod(implObj, "getSecureBaseURL"), flags, 2)
+        this.vtbl.putSecureBaseURL := CallbackCreate(GetMethod(implObj, "putSecureBaseURL"), flags, 2)
+        this.vtbl.parse := CallbackCreate(GetMethod(implObj, "parse"), flags, 2)
+        this.vtbl.parseURL := CallbackCreate(GetMethod(implObj, "parseURL"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getFeature)
+        CallbackFree(this.vtbl.putFeature)
+        CallbackFree(this.vtbl.getProperty)
+        CallbackFree(this.vtbl.putProperty)
+        CallbackFree(this.vtbl.getEntityResolver)
+        CallbackFree(this.vtbl.putEntityResolver)
+        CallbackFree(this.vtbl.getContentHandler)
+        CallbackFree(this.vtbl.putContentHandler)
+        CallbackFree(this.vtbl.getDTDHandler)
+        CallbackFree(this.vtbl.putDTDHandler)
+        CallbackFree(this.vtbl.getErrorHandler)
+        CallbackFree(this.vtbl.putErrorHandler)
+        CallbackFree(this.vtbl.getBaseURL)
+        CallbackFree(this.vtbl.putBaseURL)
+        CallbackFree(this.vtbl.getSecureBaseURL)
+        CallbackFree(this.vtbl.putSecureBaseURL)
+        CallbackFree(this.vtbl.parse)
+        CallbackFree(this.vtbl.parseURL)
     }
 }

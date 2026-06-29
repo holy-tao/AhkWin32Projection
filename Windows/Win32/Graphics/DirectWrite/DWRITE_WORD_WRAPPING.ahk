@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the word wrapping to be used in a particular multiline paragraph.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_WORD_WRAPPING extends Win32Enum {
+export default struct DWRITE_WORD_WRAPPING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that words are broken across lines to avoid text overflowing the layout box.

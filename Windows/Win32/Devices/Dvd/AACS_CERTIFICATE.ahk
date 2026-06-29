@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class AACS_CERTIFICATE extends Win32Struct {
-    static sizeof => 112
+export default struct AACS_CERTIFICATE {
+    #StructPack 1
 
-    static packingSize => 1
+    Nonce : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Nonce {
-        get {
-            if(!this.HasProp("__NonceProxyArray"))
-                this.__NonceProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
-            return this.__NonceProxyArray
-        }
-    }
+    Certificate : Int8[92]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Certificate {
-        get {
-            if(!this.HasProp("__CertificateProxyArray"))
-                this.__CertificateProxyArray := Win32FixedArray(this.ptr + 20, 92, Primitive, "char")
-            return this.__CertificateProxyArray
-        }
-    }
 }

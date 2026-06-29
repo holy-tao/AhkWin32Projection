@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\UiaRect.ahk
-#Include .\IRawElementProviderFragmentRoot.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NavigateDirection.ahk" { NavigateDirection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawElementProviderFragmentRoot.ahk" { IRawElementProviderFragmentRoot }
+#Import ".\UiaRect.ahk" { UiaRect }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Exposes methods and properties on UI elements that are part of a structure more than one level deep, such as a list box or list item. Implemented by Microsoft UI Automation provider.
@@ -12,26 +15,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IRawElementProviderFragment extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRawElementProviderFragment extends IUnknown {
     /**
      * The interface identifier for IRawElementProviderFragment
      * @type {Guid}
      */
-    static IID => Guid("{f7063da8-8359-439c-9297-bbc5299a7d87}")
+    static IID := Guid("{f7063da8-8359-439c-9297-bbc5299a7d87}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRawElementProviderFragment interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Navigate                 : IntPtr
+        GetRuntimeId             : IntPtr
+        get_BoundingRectangle    : IntPtr
+        GetEmbeddedFragmentRoots : IntPtr
+        SetFocus                 : IntPtr
+        get_FragmentRoot         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Navigate", "GetRuntimeId", "get_BoundingRectangle", "GetEmbeddedFragmentRoots", "SetFocus", "get_FragmentRoot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRawElementProviderFragment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UiaRect} 
@@ -68,7 +83,7 @@ class IRawElementProviderFragment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-navigate
      */
     Navigate(_direction) {
-        result := ComCall(3, this, "int", _direction, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, NavigateDirection, _direction, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderFragment(pRetVal)
     }
 
@@ -102,7 +117,7 @@ class IRawElementProviderFragment extends IUnknown {
      */
     get_BoundingRectangle() {
         pRetVal := UiaRect()
-        result := ComCall(5, this, "ptr", pRetVal, "HRESULT")
+        result := ComCall(5, this, UiaRect.Ptr, pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -149,5 +164,35 @@ class IRawElementProviderFragment extends IUnknown {
     get_FragmentRoot() {
         result := ComCall(8, this, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderFragmentRoot(pRetVal)
+    }
+
+    Query(iid) {
+        if (IRawElementProviderFragment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 3)
+        this.vtbl.GetRuntimeId := CallbackCreate(GetMethod(implObj, "GetRuntimeId"), flags, 2)
+        this.vtbl.get_BoundingRectangle := CallbackCreate(GetMethod(implObj, "get_BoundingRectangle"), flags, 2)
+        this.vtbl.GetEmbeddedFragmentRoots := CallbackCreate(GetMethod(implObj, "GetEmbeddedFragmentRoots"), flags, 2)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.get_FragmentRoot := CallbackCreate(GetMethod(implObj, "get_FragmentRoot"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Navigate)
+        CallbackFree(this.vtbl.GetRuntimeId)
+        CallbackFree(this.vtbl.get_BoundingRectangle)
+        CallbackFree(this.vtbl.GetEmbeddedFragmentRoots)
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.get_FragmentRoot)
     }
 }

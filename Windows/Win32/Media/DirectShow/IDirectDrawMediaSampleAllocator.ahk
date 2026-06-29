@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectDrawMediaSampleAllocator interface allocates samples that contain DirectDraw surfaces.The Overlay Mixer filter's input pin creates an allocator that implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-idirectdrawmediasampleallocator
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDirectDrawMediaSampleAllocator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawMediaSampleAllocator extends IUnknown {
     /**
      * The interface identifier for IDirectDrawMediaSampleAllocator
      * @type {Guid}
      */
-    static IID => Guid("{ab6b4afc-f6e4-11d0-900d-00c04fd9189d}")
+    static IID := Guid("{ab6b4afc-f6e4-11d0-900d-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawMediaSampleAllocator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDirectDraw : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDirectDraw"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawMediaSampleAllocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDirectDraw method retrieves a pointer to the DirectDraw instance used to allocate surfaces.
@@ -40,5 +48,25 @@ class IDirectDrawMediaSampleAllocator extends IUnknown {
     GetDirectDraw() {
         result := ComCall(3, this, "ptr*", &ppDirectDraw := 0, "HRESULT")
         return IDirectDraw(ppDirectDraw)
+    }
+
+    Query(iid) {
+        if (IDirectDrawMediaSampleAllocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDirectDraw := CallbackCreate(GetMethod(implObj, "GetDirectDraw"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDirectDraw)
     }
 }

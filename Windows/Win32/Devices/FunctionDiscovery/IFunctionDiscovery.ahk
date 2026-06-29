@@ -1,43 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFunctionInstanceCollection.ahk
-#Include .\IFunctionInstance.ahk
-#Include .\IFunctionInstanceCollectionQuery.ahk
-#Include .\IFunctionInstanceQuery.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFunctionInstanceQuery.ahk" { IFunctionInstanceQuery }
+#Import ".\IFunctionInstanceCollectionQuery.ahk" { IFunctionInstanceCollectionQuery }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
+#Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
 
 /**
  * This interface is used by client programs to discover function instances, get the default function instance for a category, and create advanced Function Discovery query objects that enable registering Function Discovery defaults, among other things.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscovery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IFunctionDiscovery extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFunctionDiscovery extends IUnknown {
     /**
      * The interface identifier for IFunctionDiscovery
      * @type {Guid}
      */
-    static IID => Guid("{4df99b70-e148-4432-b004-4c9eeb535a5e}")
+    static IID := Guid("{4df99b70-e148-4432-b004-4c9eeb535a5e}")
 
     /**
      * The class identifier for FunctionDiscovery
      * @type {Guid}
      */
-    static CLSID => Guid("{c72be2ec-8e90-452c-b29a-ab8ff1c071fc}")
+    static CLSID := Guid("{c72be2ec-8e90-452c-b29a-ab8ff1c071fc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFunctionDiscovery interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInstanceCollection         : IntPtr
+        GetInstance                   : IntPtr
+        CreateInstanceCollectionQuery : IntPtr
+        CreateInstanceQuery           : IntPtr
+        AddInstance                   : IntPtr
+        RemoveInstance                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInstanceCollection", "GetInstance", "CreateInstanceCollectionQuery", "CreateInstanceQuery", "AddInstance", "RemoveInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFunctionDiscovery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the specified collection of function instances, based on category and subcategory.
@@ -61,7 +78,7 @@ class IFunctionDiscovery extends IUnknown {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
-        result := ComCall(3, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszCategory, "ptr", pszSubCategory, BOOL, fIncludeAllSubCategories, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")
         return IFunctionInstanceCollection(ppIFunctionInstanceCollection)
     }
 
@@ -106,7 +123,7 @@ class IFunctionDiscovery extends IUnknown {
 
         pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", &ppIFunctionInstanceCollectionQuery := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, BOOL, fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", &ppIFunctionInstanceCollectionQuery := 0, "HRESULT")
         return IFunctionInstanceCollectionQuery(ppIFunctionInstanceCollectionQuery)
     }
 
@@ -160,7 +177,7 @@ class IFunctionDiscovery extends IUnknown {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszCategoryIdentity := pszCategoryIdentity is String ? StrPtr(pszCategoryIdentity) : pszCategoryIdentity
 
-        result := ComCall(7, this, "int", enumSystemVisibility, "ptr", pszCategory, "ptr", pszSubCategory, "ptr", pszCategoryIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        result := ComCall(7, this, SystemVisibilityFlags, enumSystemVisibility, "ptr", pszCategory, "ptr", pszSubCategory, "ptr", pszCategoryIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
         return IFunctionInstance(ppIFunctionInstance)
     }
 
@@ -246,7 +263,37 @@ class IFunctionDiscovery extends IUnknown {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszCategoryIdentity := pszCategoryIdentity is String ? StrPtr(pszCategoryIdentity) : pszCategoryIdentity
 
-        result := ComCall(8, this, "int", enumSystemVisibility, "ptr", pszCategory, "ptr", pszSubCategory, "ptr", pszCategoryIdentity, "HRESULT")
+        result := ComCall(8, this, SystemVisibilityFlags, enumSystemVisibility, "ptr", pszCategory, "ptr", pszSubCategory, "ptr", pszCategoryIdentity, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFunctionDiscovery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInstanceCollection := CallbackCreate(GetMethod(implObj, "GetInstanceCollection"), flags, 5)
+        this.vtbl.GetInstance := CallbackCreate(GetMethod(implObj, "GetInstance"), flags, 3)
+        this.vtbl.CreateInstanceCollectionQuery := CallbackCreate(GetMethod(implObj, "CreateInstanceCollectionQuery"), flags, 7)
+        this.vtbl.CreateInstanceQuery := CallbackCreate(GetMethod(implObj, "CreateInstanceQuery"), flags, 5)
+        this.vtbl.AddInstance := CallbackCreate(GetMethod(implObj, "AddInstance"), flags, 6)
+        this.vtbl.RemoveInstance := CallbackCreate(GetMethod(implObj, "RemoveInstance"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInstanceCollection)
+        CallbackFree(this.vtbl.GetInstance)
+        CallbackFree(this.vtbl.CreateInstanceCollectionQuery)
+        CallbackFree(this.vtbl.CreateInstanceQuery)
+        CallbackFree(this.vtbl.AddInstance)
+        CallbackFree(this.vtbl.RemoveInstance)
     }
 }

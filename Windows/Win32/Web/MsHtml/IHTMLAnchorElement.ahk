@@ -1,39 +1,87 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLAnchorElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLAnchorElement extends IDispatch {
     /**
      * The interface identifier for IHTMLAnchorElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f1da-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f1da-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLAnchorElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f248-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f248-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLAnchorElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_href         : IntPtr
+        get_href         : IntPtr
+        put_target       : IntPtr
+        get_target       : IntPtr
+        put_rel          : IntPtr
+        get_rel          : IntPtr
+        put_rev          : IntPtr
+        get_rev          : IntPtr
+        put_urn          : IntPtr
+        get_urn          : IntPtr
+        put_Methods      : IntPtr
+        get_Methods      : IntPtr
+        put_name         : IntPtr
+        get_name         : IntPtr
+        put_host         : IntPtr
+        get_host         : IntPtr
+        put_hostname     : IntPtr
+        get_hostname     : IntPtr
+        put_pathname     : IntPtr
+        get_pathname     : IntPtr
+        put_port         : IntPtr
+        get_port         : IntPtr
+        put_protocol     : IntPtr
+        get_protocol     : IntPtr
+        put_search       : IntPtr
+        get_search       : IntPtr
+        put_hash         : IntPtr
+        get_hash         : IntPtr
+        put_onblur       : IntPtr
+        get_onblur       : IntPtr
+        put_onfocus      : IntPtr
+        get_onfocus      : IntPtr
+        put_accessKey    : IntPtr
+        get_accessKey    : IntPtr
+        get_protocolLong : IntPtr
+        get_mimeType     : IntPtr
+        get_nameProp     : IntPtr
+        put_tabIndex     : IntPtr
+        get_tabIndex     : IntPtr
+        focus            : IntPtr
+        blur             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_href", "get_href", "put_target", "get_target", "put_rel", "get_rel", "put_rev", "get_rev", "put_urn", "get_urn", "put_Methods", "get_Methods", "put_name", "get_name", "put_host", "get_host", "put_hostname", "get_hostname", "put_pathname", "get_pathname", "put_port", "get_port", "put_protocol", "get_protocol", "put_search", "get_search", "put_hash", "get_hash", "put_onblur", "get_onblur", "put_onfocus", "get_onfocus", "put_accessKey", "get_accessKey", "get_protocolLong", "get_mimeType", "get_nameProp", "put_tabIndex", "get_tabIndex", "focus", "blur"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLAnchorElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -208,7 +256,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_href(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -217,8 +265,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -230,7 +278,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_target(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -239,8 +287,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_target() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -252,7 +300,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_rel(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -261,8 +309,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_rel() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -274,7 +322,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_rev(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -283,8 +331,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_rev() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -296,7 +344,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_urn(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -305,8 +353,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_urn() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -318,7 +366,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_Methods(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -327,8 +375,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_Methods() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -340,7 +388,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -349,8 +397,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -362,7 +410,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_host(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -371,8 +419,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_host() {
-        p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -384,7 +432,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_hostname(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -393,8 +441,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_hostname() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -406,7 +454,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_pathname(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -415,8 +463,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_pathname() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -428,7 +476,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_port(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -437,8 +485,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_port() {
-        p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -450,7 +498,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_protocol(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -459,8 +507,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_protocol() {
-        p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -472,7 +520,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_search(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -481,8 +529,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_search() {
-        p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -494,7 +542,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_hash(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -503,8 +551,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_hash() {
-        p := BSTR()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -514,7 +562,7 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onblur(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -524,7 +572,7 @@ class IHTMLAnchorElement extends IDispatch {
      */
     get_onblur() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -534,7 +582,7 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onfocus(v) {
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -544,7 +592,7 @@ class IHTMLAnchorElement extends IDispatch {
      */
     get_onfocus() {
         p := VARIANT()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -556,7 +604,7 @@ class IHTMLAnchorElement extends IDispatch {
     put_accessKey(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -565,8 +613,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_accessKey() {
-        p := BSTR()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -575,8 +623,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_protocolLong() {
-        p := BSTR()
-        result := ComCall(41, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -585,8 +633,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_mimeType() {
-        p := BSTR()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(42, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -595,8 +643,8 @@ class IHTMLAnchorElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_nameProp() {
-        p := BSTR()
-        result := ComCall(43, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(43, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -635,5 +683,105 @@ class IHTMLAnchorElement extends IDispatch {
     blur() {
         result := ComCall(47, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLAnchorElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.put_target := CallbackCreate(GetMethod(implObj, "put_target"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
+        this.vtbl.put_rel := CallbackCreate(GetMethod(implObj, "put_rel"), flags, 2)
+        this.vtbl.get_rel := CallbackCreate(GetMethod(implObj, "get_rel"), flags, 2)
+        this.vtbl.put_rev := CallbackCreate(GetMethod(implObj, "put_rev"), flags, 2)
+        this.vtbl.get_rev := CallbackCreate(GetMethod(implObj, "get_rev"), flags, 2)
+        this.vtbl.put_urn := CallbackCreate(GetMethod(implObj, "put_urn"), flags, 2)
+        this.vtbl.get_urn := CallbackCreate(GetMethod(implObj, "get_urn"), flags, 2)
+        this.vtbl.put_Methods := CallbackCreate(GetMethod(implObj, "put_Methods"), flags, 2)
+        this.vtbl.get_Methods := CallbackCreate(GetMethod(implObj, "get_Methods"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_host := CallbackCreate(GetMethod(implObj, "put_host"), flags, 2)
+        this.vtbl.get_host := CallbackCreate(GetMethod(implObj, "get_host"), flags, 2)
+        this.vtbl.put_hostname := CallbackCreate(GetMethod(implObj, "put_hostname"), flags, 2)
+        this.vtbl.get_hostname := CallbackCreate(GetMethod(implObj, "get_hostname"), flags, 2)
+        this.vtbl.put_pathname := CallbackCreate(GetMethod(implObj, "put_pathname"), flags, 2)
+        this.vtbl.get_pathname := CallbackCreate(GetMethod(implObj, "get_pathname"), flags, 2)
+        this.vtbl.put_port := CallbackCreate(GetMethod(implObj, "put_port"), flags, 2)
+        this.vtbl.get_port := CallbackCreate(GetMethod(implObj, "get_port"), flags, 2)
+        this.vtbl.put_protocol := CallbackCreate(GetMethod(implObj, "put_protocol"), flags, 2)
+        this.vtbl.get_protocol := CallbackCreate(GetMethod(implObj, "get_protocol"), flags, 2)
+        this.vtbl.put_search := CallbackCreate(GetMethod(implObj, "put_search"), flags, 2)
+        this.vtbl.get_search := CallbackCreate(GetMethod(implObj, "get_search"), flags, 2)
+        this.vtbl.put_hash := CallbackCreate(GetMethod(implObj, "put_hash"), flags, 2)
+        this.vtbl.get_hash := CallbackCreate(GetMethod(implObj, "get_hash"), flags, 2)
+        this.vtbl.put_onblur := CallbackCreate(GetMethod(implObj, "put_onblur"), flags, 2)
+        this.vtbl.get_onblur := CallbackCreate(GetMethod(implObj, "get_onblur"), flags, 2)
+        this.vtbl.put_onfocus := CallbackCreate(GetMethod(implObj, "put_onfocus"), flags, 2)
+        this.vtbl.get_onfocus := CallbackCreate(GetMethod(implObj, "get_onfocus"), flags, 2)
+        this.vtbl.put_accessKey := CallbackCreate(GetMethod(implObj, "put_accessKey"), flags, 2)
+        this.vtbl.get_accessKey := CallbackCreate(GetMethod(implObj, "get_accessKey"), flags, 2)
+        this.vtbl.get_protocolLong := CallbackCreate(GetMethod(implObj, "get_protocolLong"), flags, 2)
+        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_nameProp := CallbackCreate(GetMethod(implObj, "get_nameProp"), flags, 2)
+        this.vtbl.put_tabIndex := CallbackCreate(GetMethod(implObj, "put_tabIndex"), flags, 2)
+        this.vtbl.get_tabIndex := CallbackCreate(GetMethod(implObj, "get_tabIndex"), flags, 2)
+        this.vtbl.focus := CallbackCreate(GetMethod(implObj, "focus"), flags, 1)
+        this.vtbl.blur := CallbackCreate(GetMethod(implObj, "blur"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_href)
+        CallbackFree(this.vtbl.get_href)
+        CallbackFree(this.vtbl.put_target)
+        CallbackFree(this.vtbl.get_target)
+        CallbackFree(this.vtbl.put_rel)
+        CallbackFree(this.vtbl.get_rel)
+        CallbackFree(this.vtbl.put_rev)
+        CallbackFree(this.vtbl.get_rev)
+        CallbackFree(this.vtbl.put_urn)
+        CallbackFree(this.vtbl.get_urn)
+        CallbackFree(this.vtbl.put_Methods)
+        CallbackFree(this.vtbl.get_Methods)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_host)
+        CallbackFree(this.vtbl.get_host)
+        CallbackFree(this.vtbl.put_hostname)
+        CallbackFree(this.vtbl.get_hostname)
+        CallbackFree(this.vtbl.put_pathname)
+        CallbackFree(this.vtbl.get_pathname)
+        CallbackFree(this.vtbl.put_port)
+        CallbackFree(this.vtbl.get_port)
+        CallbackFree(this.vtbl.put_protocol)
+        CallbackFree(this.vtbl.get_protocol)
+        CallbackFree(this.vtbl.put_search)
+        CallbackFree(this.vtbl.get_search)
+        CallbackFree(this.vtbl.put_hash)
+        CallbackFree(this.vtbl.get_hash)
+        CallbackFree(this.vtbl.put_onblur)
+        CallbackFree(this.vtbl.get_onblur)
+        CallbackFree(this.vtbl.put_onfocus)
+        CallbackFree(this.vtbl.get_onfocus)
+        CallbackFree(this.vtbl.put_accessKey)
+        CallbackFree(this.vtbl.get_accessKey)
+        CallbackFree(this.vtbl.get_protocolLong)
+        CallbackFree(this.vtbl.get_mimeType)
+        CallbackFree(this.vtbl.get_nameProp)
+        CallbackFree(this.vtbl.put_tabIndex)
+        CallbackFree(this.vtbl.get_tabIndex)
+        CallbackFree(this.vtbl.focus)
+        CallbackFree(this.vtbl.blur)
     }
 }

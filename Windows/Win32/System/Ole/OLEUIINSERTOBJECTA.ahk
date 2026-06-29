@@ -1,13 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INSERT_OBJECT_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\Com\FORMATETC.ahk
-#Include .\IOleClientSite.ahk
-#Include ..\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\INSERT_OBJECT_FLAGS.ahk" { INSERT_OBJECT_FLAGS }
+#Import "..\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Insert Object dialog box, and space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -18,19 +20,13 @@
  * @namespace Windows.Win32.System.Ole
  * @charset ANSI
  */
-class OLEUIINSERTOBJECTA extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct OLEUIINSERTOBJECTA {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes. This field must be filled on input.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * On input, specifies the initialization and creation flags. On exit, specifies the user's choices. It can be a combination of the following flags.
@@ -186,202 +182,107 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {INSERT_OBJECT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : INSERT_OBJECT_FLAGS
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {HWND}
      */
-    hWndOwner {
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(8, this)
-            return this.__hWndOwner
-        }
-    }
+    hWndOwner : HWND
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Insert Object</b>.
-     * @type {PSTR}
      */
-    lpszCaption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszCaption : PSTR
 
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
-     * @type {Pointer<LPFNOLEUIHOOK>}
      */
-    lpfnHook {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIINSERTOBJECT</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lCustData : LPARAM
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(40, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Insert Object</b> dialog box template.
-     * @type {PSTR}
      */
-    lpszTemplate {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpszTemplate : PSTR
 
     /**
      * Customized template handle.
-     * @type {HRSRC}
      */
-    hResource {
-        get {
-            if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(56, this)
-            return this.__hResource
-        }
-    }
+    hResource : HRSRC
 
     /**
      * CLSID for class of the object to be inserted. Filled on output.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    clsid : Guid
 
     /**
      * Pointer to the name of the file to be linked or embedded. Filled on output.
-     * @type {PSTR}
      */
-    lpszFile {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpszFile : PSTR
 
     /**
      * Size of <b>lpszFile</b> buffer; will not exceed MAX_PATH.
-     * @type {Integer}
      */
-    cchFile {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    cchFile : UInt32
 
     /**
      * Number of CLSIDs included in the <b>lpClsidExclude</b> list. Filled on input.
-     * @type {Integer}
      */
-    cClsidExclude {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    cClsidExclude : UInt32
 
     /**
      * Pointer to a list of CLSIDs to exclude from listing.
-     * @type {Pointer<Guid>}
      */
-    lpClsidExclude {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpClsidExclude : Guid.Ptr
 
     /**
      * Identifier of the requested interface. If <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> creates the object, then it will return a pointer to this interface. This parameter is ignored if <b>OleUIInsertObject</b> does not create the object.
-     * @type {Pointer}
      */
-    iid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    iid : Guid
 
     /**
      * Rendering option. If <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> creates the object, then it selects the rendering option when it creates the object. This parameter is ignored if <b>OleUIInsertObject</b> does not create the object.
-     * @type {Integer}
      */
-    oleRender {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    oleRender : UInt32
 
     /**
      * Desired format. If <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> creates the object, then it selects the format when it creates the object. This parameter is ignored if <b>OleUIInsertObject</b> does not create the object.
-     * @type {Pointer<FORMATETC>}
      */
-    lpFormatEtc {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpFormatEtc : FORMATETC.Ptr
 
     /**
      * Pointer to the client site to be used for the object. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {IOleClientSite}
      */
-    lpIOleClientSite {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpIOleClientSite : IOleClientSite
 
     /**
      * Pointer to the storage to be used for the object. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {IStorage}
      */
-    lpIStorage {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    lpIStorage : IStorage
 
     /**
      * Address of output pointer variable that contains the interface pointer for the object being inserted. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {Pointer<Pointer<Void>>}
      */
-    ppvObj {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ppvObj : IntPtr
 
     /**
      * Result of creation calls. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {Integer}
      */
-    sc {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
-    }
+    sc : Int32
 
     /**
      * MetafilePict structure containing the iconic aspect, if it wasn't placed in the object's cache.
-     * @type {HGLOBAL}
      */
-    hMetaPict {
-        get {
-            if(!this.HasProp("__hMetaPict"))
-                this.__hMetaPict := HGLOBAL(152, this)
-            return this.__hMetaPict
-        }
-    }
+    hMetaPict : HGLOBAL
+
 }

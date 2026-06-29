@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV6_ROUTER_ADVERTISEMENT_FLAGS extends Win32Struct {
-    static sizeof => 2
-
-    static packingSize => 1
+export default struct IPV6_ROUTER_ADVERTISEMENT_FLAGS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class IPV6_ROUTER_ADVERTISEMENT_FLAGS extends Win32Struct {
      * - HomeAgent
      * - OtherStatefulConfiguration
      * - ManagedAddressConfiguration
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -54,12 +48,8 @@ class IPV6_ROUTER_ADVERTISEMENT_FLAGS extends Win32Struct {
         get => (this._bitfield >> 7) & 0x1
         set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: Int8, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

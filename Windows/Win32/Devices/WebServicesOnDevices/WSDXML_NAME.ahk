@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_NAMESPACE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 
 /**
  * Specifies an XML qualified name.
@@ -9,26 +9,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_name
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_NAME extends Win32Struct {
-    static sizeof => 16
+export default struct WSDXML_NAME {
+    #StructPack 8
 
-    static packingSize => 8
-
+    __Space_ptr : IntPtr
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_namespace">WSDXML_NAMESPACE</a> structure that specifies the namespace of the qualified name.
-     * @type {Pointer<WSDXML_NAMESPACE>}
      */
     Space {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get => (addr := this.__Space_ptr) ? WSDXML_NAMESPACE.At(addr) : unset
+        set => this.__Space_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * The local name of the qualified name.
-     * @type {PWSTR}
      */
-    LocalName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LocalName : PWSTR
+
 }

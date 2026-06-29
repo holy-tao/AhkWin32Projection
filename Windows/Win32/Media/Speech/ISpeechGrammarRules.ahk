@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechGrammarRule.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\SpeechRuleAttributes.ahk" { SpeechRuleAttributes }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechGrammarRules extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechGrammarRules extends IDispatch {
     /**
      * The interface identifier for ISpeechGrammarRules
      * @type {Guid}
      */
-    static IID => Guid("{6ffa3b44-fc2d-40d1-8afc-32911c7f1ad1}")
+    static IID := Guid("{6ffa3b44-fc2d-40d1-8afc-32911c7f1ad1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechGrammarRules interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count     : IntPtr
+        FindRule      : IntPtr
+        Item          : IntPtr
+        get__NewEnum  : IntPtr
+        get_Dynamic   : IntPtr
+        Add           : IntPtr
+        Commit        : IntPtr
+        CommitAndSave : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "FindRule", "Item", "get__NewEnum", "get_Dynamic", "Add", "Commit", "CommitAndSave"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechGrammarRules.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -66,7 +84,7 @@ class ISpeechGrammarRules extends IDispatch {
      * @returns {ISpeechGrammarRule} 
      */
     FindRule(RuleNameOrId) {
-        result := ComCall(8, this, "ptr", RuleNameOrId, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, RuleNameOrId, "ptr*", &Rule := 0, "HRESULT")
         return ISpeechGrammarRule(Rule)
     }
 
@@ -100,43 +118,27 @@ class ISpeechGrammarRules extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Dynamic() {
-        result := ComCall(11, this, "short*", &Dynamic := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &Dynamic := 0, "HRESULT")
         return Dynamic
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} RuleName 
      * @param {SpeechRuleAttributes} Attributes 
      * @param {Integer} RuleId 
      * @returns {ISpeechGrammarRule} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(RuleName, Attributes, RuleId) {
         RuleName := RuleName is String ? BSTR.Alloc(RuleName).Value : RuleName
 
-        result := ComCall(12, this, "ptr", RuleName, "int", Attributes, "int", RuleId, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, RuleName, SpeechRuleAttributes, Attributes, "int", RuleId, "ptr*", &Rule := 0, "HRESULT")
         return ISpeechGrammarRule(Rule)
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit() {
         result := ComCall(13, this, "HRESULT")
@@ -150,7 +152,41 @@ class ISpeechGrammarRules extends IDispatch {
      * @returns {HRESULT} 
      */
     CommitAndSave(ErrorText, SaveStream) {
-        result := ComCall(14, this, "ptr", ErrorText, "ptr", SaveStream, "HRESULT")
+        result := ComCall(14, this, BSTR.Ptr, ErrorText, VARIANT.Ptr, SaveStream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechGrammarRules.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.FindRule := CallbackCreate(GetMethod(implObj, "FindRule"), flags, 3)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Dynamic := CallbackCreate(GetMethod(implObj, "get_Dynamic"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.CommitAndSave := CallbackCreate(GetMethod(implObj, "CommitAndSave"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.FindRule)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Dynamic)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.CommitAndSave)
     }
 }

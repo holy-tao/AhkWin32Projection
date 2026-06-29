@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to rendering features that help with application debugging and performance tuning. This interface can be queried from the DirectComposition device interface.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevicedebug
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionDeviceDebug extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionDeviceDebug extends IUnknown {
     /**
      * The interface identifier for IDCompositionDeviceDebug
      * @type {Guid}
      */
-    static IID => Guid("{a1a3c64a-224f-4a81-9773-4f03a89d3c6c}")
+    static IID := Guid("{a1a3c64a-224f-4a81-9773-4f03a89d3c6c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionDeviceDebug interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnableDebugCounters  : IntPtr
+        DisableDebugCounters : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnableDebugCounters", "DisableDebugCounters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionDeviceDebug.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables display of performance debugging counters.
@@ -60,5 +69,27 @@ class IDCompositionDeviceDebug extends IUnknown {
     DisableDebugCounters() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionDeviceDebug.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnableDebugCounters := CallbackCreate(GetMethod(implObj, "EnableDebugCounters"), flags, 1)
+        this.vtbl.DisableDebugCounters := CallbackCreate(GetMethod(implObj, "DisableDebugCounters"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnableDebugCounters)
+        CallbackFree(this.vtbl.DisableDebugCounters)
     }
 }

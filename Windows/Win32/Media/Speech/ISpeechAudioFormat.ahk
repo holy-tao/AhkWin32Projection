@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISpeechWaveFormatEx.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SpeechAudioFormatType.ahk" { SpeechAudioFormatType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechWaveFormatEx.ahk" { ISpeechWaveFormatEx }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechAudioFormat extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechAudioFormat extends IDispatch {
     /**
      * The interface identifier for ISpeechAudioFormat
      * @type {Guid}
      */
-    static IID => Guid("{e6e9c590-3e18-40e3-8299-061f98bde7c7}")
+    static IID := Guid("{e6e9c590-3e18-40e3-8299-061f98bde7c7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechAudioFormat interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type        : IntPtr
+        put_Type        : IntPtr
+        get_Guid        : IntPtr
+        put_Guid        : IntPtr
+        GetWaveFormatEx : IntPtr
+        SetWaveFormatEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "put_Type", "get_Guid", "put_Guid", "GetWaveFormatEx", "SetWaveFormatEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechAudioFormat.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {SpeechAudioFormatType} 
@@ -60,7 +74,7 @@ class ISpeechAudioFormat extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Type(AudioFormat) {
-        result := ComCall(8, this, "int", AudioFormat, "HRESULT")
+        result := ComCall(8, this, SpeechAudioFormatType, AudioFormat, "HRESULT")
         return result
     }
 
@@ -69,8 +83,8 @@ class ISpeechAudioFormat extends IDispatch {
      * @returns {BSTR} 
      */
     get_Guid() {
-        Guid := BSTR()
-        result := ComCall(9, this, "ptr", Guid, "HRESULT")
+        Guid := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, Guid, "HRESULT")
         return Guid
     }
 
@@ -82,7 +96,7 @@ class ISpeechAudioFormat extends IDispatch {
     put_Guid(Guid) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(10, this, "ptr", Guid, "HRESULT")
+        result := ComCall(10, this, BSTR, Guid, "HRESULT")
         return result
     }
 
@@ -103,5 +117,35 @@ class ISpeechAudioFormat extends IDispatch {
     SetWaveFormatEx(SpeechWaveFormatEx) {
         result := ComCall(12, this, "ptr", SpeechWaveFormatEx, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechAudioFormat.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.put_Guid := CallbackCreate(GetMethod(implObj, "put_Guid"), flags, 2)
+        this.vtbl.GetWaveFormatEx := CallbackCreate(GetMethod(implObj, "GetWaveFormatEx"), flags, 2)
+        this.vtbl.SetWaveFormatEx := CallbackCreate(GetMethod(implObj, "SetWaveFormatEx"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.put_Type)
+        CallbackFree(this.vtbl.get_Guid)
+        CallbackFree(this.vtbl.put_Guid)
+        CallbackFree(this.vtbl.GetWaveFormatEx)
+        CallbackFree(this.vtbl.SetWaveFormatEx)
     }
 }

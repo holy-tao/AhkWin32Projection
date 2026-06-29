@@ -1,105 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include ..\Gdi\PALETTEENTRY.ahk
-#Include ..\Gdi\HPALETTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct {
-    static sizeof => 56
+export default struct DDRAWI_DDRAWPALETTE_GBL {
+    #StructPack 8
 
-    static packingSize => 8
+    dwRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRefCnt {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpDD_lcl_ptr : IntPtr
     lpDD_lcl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpDD_lcl_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpDD_lcl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {Pointer<PALETTEENTRY>}
-     */
-    lpColorTable {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpColorTable : PALETTEENTRY.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {HPALETTE}
-     */
-    hHELGDIPalette {
-        get {
-            if(!this.HasProp("__hHELGDIPalette"))
-                this.__hHELGDIPalette := HPALETTE(32, this)
-            return this.__hHELGDIPalette
-        }
-    }
+    dwDriverReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDriverReserved {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwContentsStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwContentsStamp {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwSaveStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSaveStamp {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHandle {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    static __New() {
+        DefineProp(this.Prototype, 'hHELGDIPalette', { type: HPALETTE, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

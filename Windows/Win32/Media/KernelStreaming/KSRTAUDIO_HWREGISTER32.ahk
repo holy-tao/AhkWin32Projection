@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSRTAUDIO_HWREGISTER32 extends Win32Struct {
-    static sizeof => 32
+export default struct KSRTAUDIO_HWREGISTER32 {
+    #StructPack 8
 
-    static packingSize => 8
+    Register : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Register {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Numerator : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Numerator {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Denominator : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Denominator {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Accuracy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Accuracy {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

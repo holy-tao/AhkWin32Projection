@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class KAGREQDIAG extends Win32Struct {
-    static sizeof => 8
+export default struct KAGREQDIAG {
+    #StructPack 4
 
-    static packingSize => 4
+    ulDiagFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDiagFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    vt : VARENUM
 
-    /**
-     * @type {VARENUM}
-     */
-    vt {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    sDiagField : Int16
 
-    /**
-     * @type {Integer}
-     */
-    sDiagField {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
 }

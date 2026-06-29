@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
-#Include .\MilRectD.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
+#Import ".\IMILBitmapEffectOutputConnector.ahk" { IMILBitmapEffectOutputConnector }
+#Import ".\MilRectD.ahk" { MilRectD }
+#Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
+#Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Exposes methods that define an an out IMILBitmapEffect object.
@@ -12,26 +17,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectimpl
  * @namespace Windows.Win32.UI.Wpf
  */
-class IMILBitmapEffectImpl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMILBitmapEffectImpl extends IUnknown {
     /**
      * The interface identifier for IMILBitmapEffectImpl
      * @type {Guid}
      */
-    static IID => Guid("{cc2468f2-9936-47be-b4af-06b5df5dbcbb}")
+    static IID := Guid("{cc2468f2-9936-47be-b4af-06b5df5dbcbb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMILBitmapEffectImpl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsInPlaceModificationAllowed : IntPtr
+        SetParentEffect              : IntPtr
+        GetInputSource               : IntPtr
+        GetInputSourceBounds         : IntPtr
+        GetInputBitmapSource         : IntPtr
+        GetOutputBitmapSource        : IntPtr
+        Initialize                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsInPlaceModificationAllowed", "SetParentEffect", "GetInputSource", "GetInputSourceBounds", "GetInputBitmapSource", "GetOutputBitmapSource", "Initialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMILBitmapEffectImpl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the effect allows in-place modifications.
@@ -44,7 +62,7 @@ class IMILBitmapEffectImpl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-isinplacemodificationallowed
      */
     IsInPlaceModificationAllowed(pOutputConnector) {
-        result := ComCall(3, this, "ptr", pOutputConnector, "short*", &pfModifyInPlace := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pOutputConnector, VARIANT_BOOL.Ptr, &pfModifyInPlace := 0, "HRESULT")
         return pfModifyInPlace
     }
 
@@ -90,7 +108,7 @@ class IMILBitmapEffectImpl extends IUnknown {
      */
     GetInputSourceBounds(uiIndex) {
         pRect := MilRectD()
-        result := ComCall(6, this, "uint", uiIndex, "ptr", pRect, "HRESULT")
+        result := ComCall(6, this, "uint", uiIndex, MilRectD.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -153,5 +171,37 @@ class IMILBitmapEffectImpl extends IUnknown {
     Initialize(pInner) {
         result := ComCall(9, this, "ptr", pInner, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMILBitmapEffectImpl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsInPlaceModificationAllowed := CallbackCreate(GetMethod(implObj, "IsInPlaceModificationAllowed"), flags, 3)
+        this.vtbl.SetParentEffect := CallbackCreate(GetMethod(implObj, "SetParentEffect"), flags, 2)
+        this.vtbl.GetInputSource := CallbackCreate(GetMethod(implObj, "GetInputSource"), flags, 3)
+        this.vtbl.GetInputSourceBounds := CallbackCreate(GetMethod(implObj, "GetInputSourceBounds"), flags, 3)
+        this.vtbl.GetInputBitmapSource := CallbackCreate(GetMethod(implObj, "GetInputBitmapSource"), flags, 5)
+        this.vtbl.GetOutputBitmapSource := CallbackCreate(GetMethod(implObj, "GetOutputBitmapSource"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsInPlaceModificationAllowed)
+        CallbackFree(this.vtbl.SetParentEffect)
+        CallbackFree(this.vtbl.GetInputSource)
+        CallbackFree(this.vtbl.GetInputSourceBounds)
+        CallbackFree(this.vtbl.GetInputBitmapSource)
+        CallbackFree(this.vtbl.GetOutputBitmapSource)
+        CallbackFree(this.vtbl.Initialize)
     }
 }

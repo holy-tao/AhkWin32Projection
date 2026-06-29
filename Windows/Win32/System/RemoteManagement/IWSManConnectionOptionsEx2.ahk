@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWSManConnectionOptionsEx.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSManConnectionOptionsEx.ahk" { IWSManConnectionOptionsEx }
 
 /**
  * The IWSManConnectionOptionsEx2 object is passed to the IWSMan::CreateSession method to provide the authentication mechanism, access type, and credentials to connect to a proxy server.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanconnectionoptionsex2
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx {
-
-    static sizeof => A_PtrSize
+export default struct IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx {
     /**
      * The interface identifier for IWSManConnectionOptionsEx2
      * @type {Guid}
      */
-    static IID => Guid("{f500c9ec-24ee-48ab-b38d-fc9a164c658e}")
+    static IID := Guid("{f500c9ec-24ee-48ab-b38d-fc9a164c658e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSManConnectionOptionsEx2 interfaces
+    */
+    struct Vtbl extends IWSManConnectionOptionsEx.Vtbl {
+        SetProxy                        : IntPtr
+        ProxyIEConfig                   : IntPtr
+        ProxyWinHttpConfig              : IntPtr
+        ProxyAutoDetect                 : IntPtr
+        ProxyNoProxyServer              : IntPtr
+        ProxyAuthenticationUseNegotiate : IntPtr
+        ProxyAuthenticationUseBasic     : IntPtr
+        ProxyAuthenticationUseDigest    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProxy", "ProxyIEConfig", "ProxyWinHttpConfig", "ProxyAutoDetect", "ProxyNoProxyServer", "ProxyAuthenticationUseNegotiate", "ProxyAuthenticationUseBasic", "ProxyAuthenticationUseDigest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSManConnectionOptionsEx2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the proxy information for the session.
@@ -44,7 +60,7 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx {
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(12, this, "int", accessType, "int", authenticationMechanism, "ptr", userName, "ptr", password, "HRESULT")
+        result := ComCall(12, this, "int", accessType, "int", authenticationMechanism, BSTR, userName, BSTR, password, "HRESULT")
         return result
     }
 
@@ -116,5 +132,39 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx {
     ProxyAuthenticationUseDigest() {
         result := ComCall(19, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IWSManConnectionOptionsEx2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProxy := CallbackCreate(GetMethod(implObj, "SetProxy"), flags, 5)
+        this.vtbl.ProxyIEConfig := CallbackCreate(GetMethod(implObj, "ProxyIEConfig"), flags, 2)
+        this.vtbl.ProxyWinHttpConfig := CallbackCreate(GetMethod(implObj, "ProxyWinHttpConfig"), flags, 2)
+        this.vtbl.ProxyAutoDetect := CallbackCreate(GetMethod(implObj, "ProxyAutoDetect"), flags, 2)
+        this.vtbl.ProxyNoProxyServer := CallbackCreate(GetMethod(implObj, "ProxyNoProxyServer"), flags, 2)
+        this.vtbl.ProxyAuthenticationUseNegotiate := CallbackCreate(GetMethod(implObj, "ProxyAuthenticationUseNegotiate"), flags, 2)
+        this.vtbl.ProxyAuthenticationUseBasic := CallbackCreate(GetMethod(implObj, "ProxyAuthenticationUseBasic"), flags, 2)
+        this.vtbl.ProxyAuthenticationUseDigest := CallbackCreate(GetMethod(implObj, "ProxyAuthenticationUseDigest"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProxy)
+        CallbackFree(this.vtbl.ProxyIEConfig)
+        CallbackFree(this.vtbl.ProxyWinHttpConfig)
+        CallbackFree(this.vtbl.ProxyAutoDetect)
+        CallbackFree(this.vtbl.ProxyNoProxyServer)
+        CallbackFree(this.vtbl.ProxyAuthenticationUseNegotiate)
+        CallbackFree(this.vtbl.ProxyAuthenticationUseBasic)
+        CallbackFree(this.vtbl.ProxyAuthenticationUseDigest)
     }
 }

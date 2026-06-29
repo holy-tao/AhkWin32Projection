@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HrtfDirectivity.ahk
-#Include .\HrtfDirectivityType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HrtfDirectivityType.ahk" { HrtfDirectivityType }
+#Import ".\HrtfDirectivity.ahk" { HrtfDirectivity }
 
 /**
  * Describes a cone directivity.
@@ -10,38 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivitycone
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class HrtfDirectivityCone extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct HrtfDirectivityCone {
+    #StructPack 4
 
     /**
      * Descriptor for the cone pattern. The type parameter must be set to HrtfDirectivityType.Cone.
-     * @type {HrtfDirectivity}
      */
-    directivity {
-        get {
-            if(!this.HasProp("__directivity"))
-                this.__directivity := HrtfDirectivity(0, this)
-            return this.__directivity
-        }
-    }
+    directivity : HrtfDirectivity
 
     /**
      * Angle, in radians, that defines the inner cone. Must be between 0 and 2 * pi.
-     * @type {Float}
      */
-    innerAngle {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    innerAngle : Float32
 
     /**
      * Angle, in radians, that defines the outer cone. Must be between 0 and 2 * pi.
-     * @type {Float}
      */
-    outerAngle {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    outerAngle : Float32
+
 }

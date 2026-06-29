@@ -1,78 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_PROPOSAL0.ahk
-#Include .\IPSEC_POLICY_FLAG.ahk
-#Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
-#Include .\IKEEXT_EM_POLICY0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_POLICY_FLAG.ahk" { IPSEC_POLICY_FLAG }
+#Import ".\IPSEC_SA_IDLE_TIMEOUT0.ahk" { IPSEC_SA_IDLE_TIMEOUT0 }
+#Import ".\IPSEC_PROPOSAL0.ahk" { IPSEC_PROPOSAL0 }
+#Import ".\IKEEXT_EM_POLICY0.ahk" { IKEEXT_EM_POLICY0 }
 
 /**
  * Stores the quick mode negotiation policy for transport mode IPsec. (IPSEC_TRANSPORT_POLICY0)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_transport_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TRANSPORT_POLICY0 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct IPSEC_TRANSPORT_POLICY0 {
+    #StructPack 8
 
     /**
      * Number of quick mode proposals in the policy.
-     * @type {Integer}
      */
-    numIpsecProposals {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numIpsecProposals : UInt32
 
     /**
      * Array of quick mode proposals.
      * 
      * See [IPSEC_PROPOSAL0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_proposal0) for more information.
-     * @type {Pointer<IPSEC_PROPOSAL0>}
      */
-    ipsecProposals {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ipsecProposals : IPSEC_PROPOSAL0.Ptr
 
-    /**
-     * @type {IPSEC_POLICY_FLAG}
-     */
-    flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    flags : IPSEC_POLICY_FLAG
 
     /**
      * Timeout in seconds, after which the IPsec security association (SA) should stop accepting
      *    packets coming in the clear. Used for negotiation discovery.
-     * @type {Integer}
      */
-    ndAllowClearTimeoutSeconds {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ndAllowClearTimeoutSeconds : UInt32
 
     /**
      * An [IPSEC_SA_IDLE_TIMEOUT0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_idle_timeout0) structure that specifies the SA idle timeout in IPsec policy.
-     * @type {IPSEC_SA_IDLE_TIMEOUT0}
      */
-    saIdleTimeout {
-        get {
-            if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(24, this)
-            return this.__saIdleTimeout
-        }
-    }
+    saIdleTimeout : IPSEC_SA_IDLE_TIMEOUT0
 
     /**
      * The AuthIP extended mode authentication policy.
      * 
      * See [IKEEXT_EM_POLICY0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_em_policy0) for more information.
-     * @type {Pointer<IKEEXT_EM_POLICY0>}
      */
-    emPolicy {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    emPolicy : IKEEXT_EM_POLICY0.Ptr
+
 }

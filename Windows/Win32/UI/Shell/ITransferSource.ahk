@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IShellItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
 
 /**
  * Exposes methods to manipulate IShellItem, including copy, move, recycle, and others. This interface is offered to provide more control over file operations by providing an ITransferSource::Advise method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransfersource
  * @namespace Windows.Win32.UI.Shell
  */
-class ITransferSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITransferSource extends IUnknown {
     /**
      * The interface identifier for ITransferSource
      * @type {Guid}
      */
-    static IID => Guid("{00adb003-bde9-45c6-8e29-d09f9353e108}")
+    static IID := Guid("{00adb003-bde9-45c6-8e29-d09f9353e108}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransferSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise                    : IntPtr
+        Unadvise                  : IntPtr
+        SetProperties             : IntPtr
+        OpenItem                  : IntPtr
+        MoveItem                  : IntPtr
+        RecycleItem               : IntPtr
+        RemoveItem                : IntPtr
+        RenameItem                : IntPtr
+        LinkItem                  : IntPtr
+        ApplyPropertiesToItem     : IntPtr
+        GetDefaultDestinationName : IntPtr
+        EnterFolder               : IntPtr
+        LeaveFolder               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise", "SetProperties", "OpenItem", "MoveItem", "RecycleItem", "RemoveItem", "RenameItem", "LinkItem", "ApplyPropertiesToItem", "GetDefaultDestinationName", "EnterFolder", "LeaveFolder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransferSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets up an advisory connection for notifications on the status of file operations. (ITransferSource.Advise)
@@ -125,7 +148,7 @@ class ITransferSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-openitem
      */
     OpenItem(psi, flags, riid) {
-        result := ComCall(6, this, "ptr", psi, "uint", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", psi, "uint", flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -380,7 +403,7 @@ class ITransferSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-getdefaultdestinationname
      */
     GetDefaultDestinationName(psiSource, psiParentDest) {
-        result := ComCall(13, this, "ptr", psiSource, "ptr", psiParentDest, "ptr*", &ppszDestinationName := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", psiSource, "ptr", psiParentDest, PWSTR.Ptr, &ppszDestinationName := 0, "HRESULT")
         return ppszDestinationName
     }
 
@@ -416,5 +439,49 @@ class ITransferSource extends IUnknown {
     LeaveFolder(psiChildFolderDest) {
         result := ComCall(15, this, "ptr", psiChildFolderDest, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITransferSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 2)
+        this.vtbl.OpenItem := CallbackCreate(GetMethod(implObj, "OpenItem"), flags, 5)
+        this.vtbl.MoveItem := CallbackCreate(GetMethod(implObj, "MoveItem"), flags, 6)
+        this.vtbl.RecycleItem := CallbackCreate(GetMethod(implObj, "RecycleItem"), flags, 5)
+        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 3)
+        this.vtbl.RenameItem := CallbackCreate(GetMethod(implObj, "RenameItem"), flags, 5)
+        this.vtbl.LinkItem := CallbackCreate(GetMethod(implObj, "LinkItem"), flags, 6)
+        this.vtbl.ApplyPropertiesToItem := CallbackCreate(GetMethod(implObj, "ApplyPropertiesToItem"), flags, 3)
+        this.vtbl.GetDefaultDestinationName := CallbackCreate(GetMethod(implObj, "GetDefaultDestinationName"), flags, 4)
+        this.vtbl.EnterFolder := CallbackCreate(GetMethod(implObj, "EnterFolder"), flags, 2)
+        this.vtbl.LeaveFolder := CallbackCreate(GetMethod(implObj, "LeaveFolder"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.SetProperties)
+        CallbackFree(this.vtbl.OpenItem)
+        CallbackFree(this.vtbl.MoveItem)
+        CallbackFree(this.vtbl.RecycleItem)
+        CallbackFree(this.vtbl.RemoveItem)
+        CallbackFree(this.vtbl.RenameItem)
+        CallbackFree(this.vtbl.LinkItem)
+        CallbackFree(this.vtbl.ApplyPropertiesToItem)
+        CallbackFree(this.vtbl.GetDefaultDestinationName)
+        CallbackFree(this.vtbl.EnterFolder)
+        CallbackFree(this.vtbl.LeaveFolder)
     }
 }

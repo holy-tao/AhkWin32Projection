@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class HTML_PAINTER_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct HTML_PAINTER_INFO {
+    #StructPack 4
 
-    static packingSize => 8
+    lFlags : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFlags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lZOrder : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lZOrder {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iidDrawObject : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    iidDrawObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rcExpand : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcExpand {
-        get {
-            if(!this.HasProp("__rcExpand"))
-                this.__rcExpand := RECT(16, this)
-            return this.__rcExpand
-        }
-    }
 }

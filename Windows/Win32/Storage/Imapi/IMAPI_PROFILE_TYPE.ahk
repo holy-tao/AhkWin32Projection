@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for the possible profiles of a CD and DVD device. A profile defines the type of media and features that the device supports.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_profile_type
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMAPI_PROFILE_TYPE extends Win32Enum {
+export default struct IMAPI_PROFILE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The profile is not valid.

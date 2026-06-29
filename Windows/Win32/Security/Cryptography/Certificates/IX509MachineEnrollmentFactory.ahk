@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509EnrollmentHelper.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509EnrollmentHelper.ahk" { IX509EnrollmentHelper }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Can be used to create an IX509EnrollmentHelper object on a webpage.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509machineenrollmentfactory
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509MachineEnrollmentFactory extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509MachineEnrollmentFactory extends IDispatch {
     /**
      * The interface identifier for IX509MachineEnrollmentFactory
      * @type {Guid}
      */
-    static IID => Guid("{728ab352-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab352-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509MachineEnrollmentFactory interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreateObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509MachineEnrollmentFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IX509EnrollmentHelper object on a webpage.
@@ -41,7 +50,27 @@ class IX509MachineEnrollmentFactory extends IDispatch {
     CreateObject(strProgID) {
         strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID
 
-        result := ComCall(7, this, "ptr", strProgID, "ptr*", &ppIHelper := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strProgID, "ptr*", &ppIHelper := 0, "HRESULT")
         return IX509EnrollmentHelper(ppIHelper)
+    }
+
+    Query(iid) {
+        if (IX509MachineEnrollmentFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateObject := CallbackCreate(GetMethod(implObj, "CreateObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateObject)
     }
 }

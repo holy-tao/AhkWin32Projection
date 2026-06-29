@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class MPR_PROTOCOL_0 extends Win32Struct {
-    static sizeof => 184
+export default struct MPR_PROTOCOL_0 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwProtocolId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProtocolId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wszProtocol : WCHAR[41]
 
-    /**
-     * @type {String}
-     */
-    wszProtocol {
-        get => StrGet(this.ptr + 4, 40, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 40, "UTF-16")
-    }
+    wszDLLName : WCHAR[49]
 
-    /**
-     * @type {String}
-     */
-    wszDLLName {
-        get => StrGet(this.ptr + 86, 48, "UTF-16")
-        set => StrPut(value, this.ptr + 86, 48, "UTF-16")
-    }
 }

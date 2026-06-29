@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPClosedCaption.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPClosedCaption.ahk" { IWMPClosedCaption }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPClosedCaption2 interface provides closed captioning methods that supplement the IWMPClosedCaption interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpclosedcaption2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPClosedCaption2 extends IWMPClosedCaption {
-
-    static sizeof => A_PtrSize
+export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
     /**
      * The interface identifier for IWMPClosedCaption2
      * @type {Guid}
      */
-    static IID => Guid("{350ba78b-6bc8-4113-a5f5-312056934eb6}")
+    static IID := Guid("{350ba78b-6bc8-4113-a5f5-312056934eb6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPClosedCaption2 interfaces
+    */
+    struct Vtbl extends IWMPClosedCaption.Vtbl {
+        get_SAMILangCount  : IntPtr
+        getSAMILangName    : IntPtr
+        getSAMILangID      : IntPtr
+        get_SAMIStyleCount : IntPtr
+        getSAMIStyleName   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SAMILangCount", "getSAMILangName", "getSAMILangID", "get_SAMIStyleCount", "getSAMIStyleName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPClosedCaption2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -108,7 +121,7 @@ class IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamilangname
      */
     getSAMILangName(nIndex, pbstrName) {
-        result := ComCall(16, this, "int", nIndex, "ptr", pbstrName, "HRESULT")
+        result := ComCall(16, this, "int", nIndex, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -217,7 +230,35 @@ class IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamistylename
      */
     getSAMIStyleName(nIndex, pbstrName) {
-        result := ComCall(19, this, "int", nIndex, "ptr", pbstrName, "HRESULT")
+        result := ComCall(19, this, "int", nIndex, BSTR.Ptr, pbstrName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPClosedCaption2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SAMILangCount := CallbackCreate(GetMethod(implObj, "get_SAMILangCount"), flags, 2)
+        this.vtbl.getSAMILangName := CallbackCreate(GetMethod(implObj, "getSAMILangName"), flags, 3)
+        this.vtbl.getSAMILangID := CallbackCreate(GetMethod(implObj, "getSAMILangID"), flags, 3)
+        this.vtbl.get_SAMIStyleCount := CallbackCreate(GetMethod(implObj, "get_SAMIStyleCount"), flags, 2)
+        this.vtbl.getSAMIStyleName := CallbackCreate(GetMethod(implObj, "getSAMIStyleName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SAMILangCount)
+        CallbackFree(this.vtbl.getSAMILangName)
+        CallbackFree(this.vtbl.getSAMILangID)
+        CallbackFree(this.vtbl.get_SAMIStyleCount)
+        CallbackFree(this.vtbl.getSAMIStyleName)
     }
 }

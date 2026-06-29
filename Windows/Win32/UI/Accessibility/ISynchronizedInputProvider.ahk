@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SynchronizedInputType.ahk" { SynchronizedInputType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables Microsoft UI Automation client applications to direct the mouse or keyboard input to a specific UI element.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-isynchronizedinputprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ISynchronizedInputProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISynchronizedInputProvider extends IUnknown {
     /**
      * The interface identifier for ISynchronizedInputProvider
      * @type {Guid}
      */
-    static IID => Guid("{29db1a06-02ce-4cf7-9b42-565d4fab20ee}")
+    static IID := Guid("{29db1a06-02ce-4cf7-9b42-565d4fab20ee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISynchronizedInputProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartListening : IntPtr
+        Cancel         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartListening", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISynchronizedInputProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts listening for input of the specified type.
@@ -46,7 +56,7 @@ class ISynchronizedInputProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-isynchronizedinputprovider-startlistening
      */
     StartListening(inputType) {
-        result := ComCall(3, this, "int", inputType, "HRESULT")
+        result := ComCall(3, this, SynchronizedInputType, inputType, "HRESULT")
         return result
     }
 
@@ -62,5 +72,27 @@ class ISynchronizedInputProvider extends IUnknown {
     Cancel() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISynchronizedInputProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartListening := CallbackCreate(GetMethod(implObj, "StartListening"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartListening)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

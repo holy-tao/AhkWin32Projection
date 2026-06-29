@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains information about a system appbar message.
@@ -9,46 +9,29 @@
  * @namespace Windows.Win32.UI.Shell
  * @architecture X64, Arm64
  */
-class APPBARDATA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct APPBARDATA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HWND</b>
      * 
      * The handle to the appbar window. Not all messages use this member. See the individual message page to see if you need to provide an <b>hWind</b> value.
-     * @type {HWND}
      */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(8, this)
-            return this.__hWnd
-        }
-    }
+    hWnd : HWND
 
     /**
      * Type: <b>UINT</b>
      * 
      * An application-defined message identifier. The application uses the specified identifier for notification messages that it sends to the appbar identified by the <b>hWnd</b> member. This member is used when sending the <a href="https://docs.microsoft.com/windows/desktop/shell/abm-new">ABM_NEW</a> message.
-     * @type {Integer}
      */
-    uCallbackMessage {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uCallbackMessage : UInt32
 
     /**
      * Type: <b>UINT</b>
@@ -75,12 +58,8 @@ class APPBARDATA extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/shell/abm-setpos">ABM_SETPOS</a>
      * </li>
      * </ul>
-     * @type {Integer}
      */
-    uEdge {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uEdge : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
@@ -95,15 +74,8 @@ class APPBARDATA extends Win32Struct {
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/shell/abm-getautohidebarex">ABM_GETAUTOHIDEBAREX</a>, <a href="https://docs.microsoft.com/windows/desktop/shell/abm-setautohidebarex">ABM_SETAUTOHIDEBAREX</a>: The monitor on which the operation is being performed. This information can be retrieved through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmonitorinfoa">GetMonitorInfo</a> function.</li>
      * </ul>
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(24, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
 
     /**
      * Type: <b>LPARAM</b>
@@ -124,15 +96,7 @@ class APPBARDATA extends Win32Struct {
      * 
      * 
      * See the individual message pages for details.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lParam : LPARAM
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the format and type of a data value. It is used as the Syntax member of the CLUSPROP_VALUE structure.
@@ -11,35 +10,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_syntax
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_SYNTAX extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CLUSPROP_SYNTAX {
+    #StructPack 4
 
     /**
      * A DWORD that describes the format and type of the data value. The 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_property_syntax">CLUSTER_PROPERTY_SYNTAX</a> enumeration defines the 
      *        possible values.
-     * @type {Integer}
      */
-    dw {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dw : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wFormat {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    static __New() {
+        DefineProp(this.Prototype, 'wFormat', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'wType', { type: UInt16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

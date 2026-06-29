@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies values used by IAutoComplete2::GetOptions and IAutoComplete2::SetOptions for options surrounding autocomplete.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/ne-shldisp-autocompleteoptions
  * @namespace Windows.Win32.UI.Shell
  */
-class AUTOCOMPLETEOPTIONS extends Win32Enum {
+export default struct AUTOCOMPLETEOPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 0x0000. Do not autocomplete.

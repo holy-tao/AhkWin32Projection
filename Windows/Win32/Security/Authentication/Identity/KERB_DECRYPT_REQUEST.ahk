@@ -1,101 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\KERB_CRYPTO_KEY.ahk
-#Include .\KERB_CRYPTO_KEY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_CRYPTO_KEY_TYPE.ahk" { KERB_CRYPTO_KEY_TYPE }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import ".\KERB_CRYPTO_KEY.ahk" { KERB_CRYPTO_KEY }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_DECRYPT_REQUEST extends Win32Struct {
-    static sizeof => 64
+export default struct KERB_DECRYPT_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
-    /**
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    LogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CryptoType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CryptoType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    KeyUsage : Int32
 
-    /**
-     * @type {Integer}
-     */
-    KeyUsage {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Key : KERB_CRYPTO_KEY
 
-    /**
-     * @type {KERB_CRYPTO_KEY}
-     */
-    Key {
-        get {
-            if(!this.HasProp("__Key"))
-                this.__Key := KERB_CRYPTO_KEY(24, this)
-            return this.__Key
-        }
-    }
+    EncryptedDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncryptedDataSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    InitialVectorSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InitialVectorSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    InitialVector : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    InitialVector {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    EncryptedData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    EncryptedData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BITMAPCOREHEADER.ahk
-#Include .\RGBTRIPLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RGBTRIPLE.ahk" { RGBTRIPLE }
+#Import ".\BITMAPCOREHEADER.ahk" { BITMAPCOREHEADER }
 
 /**
  * The BITMAPCOREINFO structure defines the dimensions and color information for a DIB.
@@ -45,32 +44,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapcoreinfo
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class BITMAPCOREINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct BITMAPCOREINFO {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreheader">BITMAPCOREHEADER</a> structure that contains information about the dimensions and color format of a DIB.
-     * @type {BITMAPCOREHEADER}
      */
-    bmciHeader {
-        get {
-            if(!this.HasProp("__bmciHeader"))
-                this.__bmciHeader := BITMAPCOREHEADER(0, this)
-            return this.__bmciHeader
-        }
-    }
+    bmciHeader : BITMAPCOREHEADER
 
     /**
      * Specifies an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgbtriple">RGBTRIPLE</a> structures that define the colors in the bitmap.
-     * @type {RGBTRIPLE}
      */
-    bmciColors {
-        get {
-            if(!this.HasProp("__bmciColorsProxyArray"))
-                this.__bmciColorsProxyArray := Win32FixedArray(this.ptr + 12, 1, RGBTRIPLE, "")
-            return this.__bmciColorsProxyArray
-        }
-    }
+    bmciColors : RGBTRIPLE[1]
+
 }

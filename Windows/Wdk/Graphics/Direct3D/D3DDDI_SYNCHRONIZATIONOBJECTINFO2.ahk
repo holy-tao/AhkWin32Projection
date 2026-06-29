@@ -1,283 +1,82 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk" { D3DDDI_SYNCHRONIZATIONOBJECT_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct {
-    static sizeof => 88
+export default struct D3DDDI_SYNCHRONIZATIONOBJECTINFO2 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {D3DDDI_SYNCHRONIZATIONOBJECT_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _SynchronizationMutex {
+        InitialState : BOOL
+
     }
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    struct _Semaphore {
+        MaxCount : UInt32
+
+        InitialCount : UInt32
+
     }
 
-    class _SynchronizationMutex extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Fence {
+        FenceValue : Int64
 
-        /**
-         * @type {BOOL}
-         */
-        InitialState {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
     }
 
-    class _Semaphore extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _CPUNotification {
+        Event : HANDLE
 
-        /**
-         * @type {Integer}
-         */
-        MaxCount {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        InitialCount {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
     }
 
-    class _Fence extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _MonitoredFence {
+        InitialFenceValue : Int64
 
-        /**
-         * @type {Integer}
-         */
-        FenceValue {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        FenceValueCPUVirtualAddress : IntPtr
+
+        FenceValueGPUVirtualAddress : Int64
+
+        EngineAffinity : UInt32
+
+        Padding : UInt32
+
     }
 
-    class _CPUNotification extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _PeriodicMonitoredFence {
+        hAdapter : UInt32
 
-        /**
-         * @type {HANDLE}
-         */
-        Event {
-            get {
-                if(!this.HasProp("__Event"))
-                    this.__Event := HANDLE(0, this)
-                return this.__Event
-            }
-        }
+        VidPnTargetId : UInt32
+
+        Time : Int64
+
+        FenceValueCPUVirtualAddress : IntPtr
+
+        FenceValueGPUVirtualAddress : Int64
+
+        EngineAffinity : UInt32
+
+        Padding : UInt32
+
     }
 
-    class _MonitoredFence extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+    Type : D3DDDI_SYNCHRONIZATIONOBJECT_TYPE
 
-        /**
-         * @type {Integer}
-         */
-        InitialFenceValue {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    Flags : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        FenceValueCPUVirtualAddress {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+    SynchronizationMutex : D3DDDI_SYNCHRONIZATIONOBJECTINFO2._SynchronizationMutex
 
-        /**
-         * @type {Integer}
-         */
-        FenceValueGPUVirtualAddress {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+    SharedHandle : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        EngineAffinity {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Padding {
-            get => NumGet(this, 28, "uint")
-            set => NumPut("uint", value, this, 28)
-        }
-    }
-
-    class _PeriodicMonitoredFence extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        hAdapter {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        VidPnTargetId {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Time {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        FenceValueCPUVirtualAddress {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        FenceValueGPUVirtualAddress {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        EngineAffinity {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Padding {
-            get => NumGet(this, 36, "uint")
-            set => NumPut("uint", value, this, 36)
-        }
-    }
-
-    /**
-     * @type {_SynchronizationMutex}
-     */
-    SynchronizationMutex {
-        get {
-            if(!this.HasProp("__SynchronizationMutex"))
-                this.__SynchronizationMutex := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._SynchronizationMutex(16, this)
-            return this.__SynchronizationMutex
-        }
-    }
-
-    /**
-     * @type {_Semaphore}
-     */
-    Semaphore {
-        get {
-            if(!this.HasProp("__Semaphore"))
-                this.__Semaphore := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Semaphore(16, this)
-            return this.__Semaphore
-        }
-    }
-
-    /**
-     * @type {_Fence}
-     */
-    Fence {
-        get {
-            if(!this.HasProp("__Fence"))
-                this.__Fence := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Fence(16, this)
-            return this.__Fence
-        }
-    }
-
-    /**
-     * @type {_CPUNotification}
-     */
-    CPUNotification {
-        get {
-            if(!this.HasProp("__CPUNotification"))
-                this.__CPUNotification := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._CPUNotification(16, this)
-            return this.__CPUNotification
-        }
-    }
-
-    /**
-     * @type {_MonitoredFence}
-     */
-    MonitoredFence {
-        get {
-            if(!this.HasProp("__MonitoredFence"))
-                this.__MonitoredFence := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._MonitoredFence(16, this)
-            return this.__MonitoredFence
-        }
-    }
-
-    /**
-     * @type {_PeriodicMonitoredFence}
-     */
-    PeriodicMonitoredFence {
-        get {
-            if(!this.HasProp("__PeriodicMonitoredFence"))
-                this.__PeriodicMonitoredFence := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._PeriodicMonitoredFence(16, this)
-            return this.__PeriodicMonitoredFence
-        }
-    }
-
-    /**
-     * @type {_Reserved}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Reserved(16, this)
-            return this.__Reserved
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SharedHandle {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    static __New() {
+        DefineProp(this.Prototype, 'Semaphore', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Semaphore, offset: 16 })
+        DefineProp(this.Prototype, 'Fence', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Fence, offset: 16 })
+        DefineProp(this.Prototype, 'CPUNotification', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO2._CPUNotification, offset: 16 })
+        DefineProp(this.Prototype, 'MonitoredFence', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO2._MonitoredFence, offset: 16 })
+        DefineProp(this.Prototype, 'PeriodicMonitoredFence', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO2._PeriodicMonitoredFence, offset: 16 })
+        DefineProp(this.Prototype, 'Reserved', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Reserved, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IDataCollectorSet.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDataCollectorSet.ahk" { IDataCollectorSet }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Manages a collection of DataCollectorSet objects.To get this interface, call the CoCreateInstance function, passing __uuidof(DataCollectorSetCollection) as the class identifier and __uuidof(IDataCollectorSetCollection) as the interface identifier.Then, to populate the collection, call the IDataCollectorSetCollection::GetDataCollectorSets method.
@@ -12,32 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollectorsetcollection
  * @namespace Windows.Win32.System.Performance
  */
-class IDataCollectorSetCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDataCollectorSetCollection extends IDispatch {
     /**
      * The interface identifier for IDataCollectorSetCollection
      * @type {Guid}
      */
-    static IID => Guid("{03837524-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837524-098b-11d8-9414-505054503030}")
 
     /**
      * The class identifier for DataCollectorSetCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{03837525-098b-11d8-9414-505054503030}")
+    static CLSID := Guid("{03837525-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataCollectorSetCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count            : IntPtr
+        get_Item             : IntPtr
+        get__NewEnum         : IntPtr
+        Add                  : IntPtr
+        Remove               : IntPtr
+        Clear                : IntPtr
+        AddRange             : IntPtr
+        GetDataCollectorSets : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "Add", "Remove", "Clear", "AddRange", "GetDataCollectorSets"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataCollectorSetCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -72,7 +89,7 @@ class IDataCollectorSetCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &set := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, index, "ptr*", &set := 0, "HRESULT")
         return IDataCollectorSet(set)
     }
 
@@ -114,7 +131,7 @@ class IDataCollectorSetCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-remove
      */
     Remove(set) {
-        result := ComCall(11, this, "ptr", set, "HRESULT")
+        result := ComCall(11, this, VARIANT, set, "HRESULT")
         return result
     }
 
@@ -183,7 +200,41 @@ class IDataCollectorSetCollection extends IDispatch {
         server := server is String ? BSTR.Alloc(server).Value : server
         filter := filter is String ? BSTR.Alloc(filter).Value : filter
 
-        result := ComCall(14, this, "ptr", server, "ptr", filter, "HRESULT")
+        result := ComCall(14, this, BSTR, server, BSTR, filter, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDataCollectorSetCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.GetDataCollectorSets := CallbackCreate(GetMethod(implObj, "GetDataCollectorSets"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.AddRange)
+        CallbackFree(this.vtbl.GetDataCollectorSets)
     }
 }

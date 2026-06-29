@@ -1,129 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\AAAuthSchemes.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\AAAuthSchemes.ahk" { AAAuthSchemes }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * This structure contains information about a connection event.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class AAAccountingData extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct AAAccountingData {
+    #StructPack 8
 
     /**
      * The user name.
-     * @type {BSTR}
      */
-    userName {
-        get {
-            if(!this.HasProp("__userName"))
-                this.__userName := BSTR(0, this)
-            return this.__userName
-        }
-    }
+    userName : BSTR
 
     /**
      * The name of the client computer.
-     * @type {BSTR}
      */
-    clientName {
-        get {
-            if(!this.HasProp("__clientName"))
-                this.__clientName := BSTR(8, this)
-            return this.__clientName
-        }
-    }
+    clientName : BSTR
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-aaauthschemes">AAAuthSchemes</a> enumeration type that specifies the type of authentication used to connect to RD Gateway.
-     * @type {AAAuthSchemes}
      */
-    authType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    authType : AAAuthSchemes
 
     /**
      * The name of the remote computer.
-     * @type {BSTR}
      */
-    resourceName {
-        get {
-            if(!this.HasProp("__resourceName"))
-                this.__resourceName := BSTR(24, this)
-            return this.__resourceName
-        }
-    }
+    resourceName : BSTR
 
     /**
      * The port number of the remote computer used by the connection.
-     * @type {Integer}
      */
-    portNumber {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    portNumber : Int32
 
     /**
      * The name of the protocol used by the connection.
-     * @type {BSTR}
      */
-    protocolName {
-        get {
-            if(!this.HasProp("__protocolName"))
-                this.__protocolName := BSTR(40, this)
-            return this.__protocolName
-        }
-    }
+    protocolName : BSTR
 
     /**
      * The number of bytes sent from the client to the remote computer.
-     * @type {Integer}
      */
-    numberOfBytesReceived {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    numberOfBytesReceived : Int32
 
     /**
      * The number of bytes sent from the remote computer to the client.
-     * @type {Integer}
      */
-    numberOfBytesTransfered {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    numberOfBytesTransfered : Int32
 
     /**
      * The reason the connection was disconnected.
-     * @type {BSTR}
      */
-    reasonForDisconnect {
-        get {
-            if(!this.HasProp("__reasonForDisconnect"))
-                this.__reasonForDisconnect := BSTR(56, this)
-            return this.__reasonForDisconnect
-        }
-    }
+    reasonForDisconnect : BSTR
 
     /**
      * A unique identifier assigned to the connection  by RD Gateway.
-     * @type {Pointer}
      */
-    mainSessionId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    mainSessionId : Guid
 
     /**
      * A unique identifier assigned to the subsession by RD Gateway.
-     * @type {Integer}
      */
-    subSessionId {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    subSessionId : Int32
+
 }

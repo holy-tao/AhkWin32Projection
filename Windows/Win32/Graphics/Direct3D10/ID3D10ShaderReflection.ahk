@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D10_SHADER_DESC.ahk
-#Include .\D3D10_SHADER_INPUT_BIND_DESC.ahk
-#Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D10_SHADER_DESC.ahk" { D3D10_SHADER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10ShaderReflectionConstantBuffer.ahk" { ID3D10ShaderReflectionConstantBuffer }
+#Import ".\D3D10_SIGNATURE_PARAMETER_DESC.ahk" { D3D10_SIGNATURE_PARAMETER_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D10_SHADER_INPUT_BIND_DESC.ahk" { D3D10_SHADER_INPUT_BIND_DESC }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D10ShaderReflection)
@@ -13,26 +16,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nn-d3d10shader-id3d10shaderreflection
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10ShaderReflection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10ShaderReflection extends IUnknown {
     /**
      * The interface identifier for ID3D10ShaderReflection
      * @type {Guid}
      */
-    static IID => Guid("{d40e20b6-f8f7-42ad-ab20-4baf8f15dfaa}")
+    static IID := Guid("{d40e20b6-f8f7-42ad-ab20-4baf8f15dfaa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10ShaderReflection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDesc                  : IntPtr
+        GetConstantBufferByIndex : IntPtr
+        GetConstantBufferByName  : IntPtr
+        GetResourceBindingDesc   : IntPtr
+        GetInputParameterDesc    : IntPtr
+        GetOutputParameterDesc   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetInputParameterDesc", "GetOutputParameterDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10ShaderReflection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a shader description. (ID3D10ShaderReflection.GetDesc)
@@ -43,7 +58,7 @@ class ID3D10ShaderReflection extends IUnknown {
      */
     GetDesc() {
         pDesc := D3D10_SHADER_DESC()
-        result := ComCall(3, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(3, this, D3D10_SHADER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -60,7 +75,7 @@ class ID3D10ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
-        result := ComCall(4, this, "uint", Index, "ptr")
+        result := ComCall(4, this, "uint", Index, ID3D10ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -79,7 +94,7 @@ class ID3D10ShaderReflection extends IUnknown {
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(5, this, "ptr", Name, "ptr")
+        result := ComCall(5, this, "ptr", Name, ID3D10ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -97,7 +112,7 @@ class ID3D10ShaderReflection extends IUnknown {
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D10_SHADER_INPUT_BIND_DESC()
-        result := ComCall(6, this, "uint", ResourceIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(6, this, "uint", ResourceIndex, D3D10_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -115,7 +130,7 @@ class ID3D10ShaderReflection extends IUnknown {
      */
     GetInputParameterDesc(ParameterIndex) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(7, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(7, this, "uint", ParameterIndex, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -133,7 +148,37 @@ class ID3D10ShaderReflection extends IUnknown {
      */
     GetOutputParameterDesc(ParameterIndex) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(8, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(8, this, "uint", ParameterIndex, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
+    }
+
+    Query(iid) {
+        if (ID3D10ShaderReflection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetResourceBindingDesc := CallbackCreate(GetMethod(implObj, "GetResourceBindingDesc"), flags, 3)
+        this.vtbl.GetInputParameterDesc := CallbackCreate(GetMethod(implObj, "GetInputParameterDesc"), flags, 3)
+        this.vtbl.GetOutputParameterDesc := CallbackCreate(GetMethod(implObj, "GetOutputParameterDesc"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.GetConstantBufferByIndex)
+        CallbackFree(this.vtbl.GetConstantBufferByName)
+        CallbackFree(this.vtbl.GetResourceBindingDesc)
+        CallbackFree(this.vtbl.GetInputParameterDesc)
+        CallbackFree(this.vtbl.GetOutputParameterDesc)
     }
 }

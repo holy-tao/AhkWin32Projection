@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EDataFlow enumeration defines constants that indicate the direction in which audio data flows between an audio endpoint device and an application.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow
  * @namespace Windows.Win32.Media.Audio
  */
-class EDataFlow extends Win32Enum {
+export default struct EDataFlow {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Audio rendering stream. Audio data flows from the application to the audio endpoint device, which renders the stream.

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPSyncDevice2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPSyncDevice2.ahk" { IWMPSyncDevice2 }
 
 /**
  * The IWMPSyncDevice3 interface provides methods for estimating the size required to synchronize a playlist to a device.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice3
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSyncDevice3 extends IWMPSyncDevice2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSyncDevice3 extends IWMPSyncDevice2 {
     /**
      * The interface identifier for IWMPSyncDevice3
      * @type {Guid}
      */
-    static IID => Guid("{b22c85f9-263c-4372-a0da-b518db9b4098}")
+    static IID := Guid("{b22c85f9-263c-4372-a0da-b518db9b4098}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSyncDevice3 interfaces
+    */
+    struct Vtbl extends IWMPSyncDevice2.Vtbl {
+        estimateSyncSize : IntPtr
+        cancelEstimation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["estimateSyncSize", "cancelEstimation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSyncDevice3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The estimateSyncSize method initiates the estimation of the size required on the device to synchronize a specified playlist.
@@ -115,5 +125,27 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2 {
     cancelEstimation() {
         result := ComCall(21, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSyncDevice3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.estimateSyncSize := CallbackCreate(GetMethod(implObj, "estimateSyncSize"), flags, 3)
+        this.vtbl.cancelEstimation := CallbackCreate(GetMethod(implObj, "cancelEstimation"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.estimateSyncSize)
+        CallbackFree(this.vtbl.cancelEstimation)
     }
 }

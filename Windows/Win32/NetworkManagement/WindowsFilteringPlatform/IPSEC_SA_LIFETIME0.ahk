@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores the lifetime in seconds/kilobytes/packets for an IPsec security association (SA).
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_lifetime0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_LIFETIME0 extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct IPSEC_SA_LIFETIME0 {
+    #StructPack 4
 
     /**
      * SA lifetime in seconds.
-     * @type {Integer}
      */
-    lifetimeSeconds {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lifetimeSeconds : UInt32
 
     /**
      * SA lifetime in kilobytes.
-     * @type {Integer}
      */
-    lifetimeKilobytes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lifetimeKilobytes : UInt32
 
     /**
      * SA lifetime in packets.
-     * @type {Integer}
      */
-    lifetimePackets {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lifetimePackets : UInt32
+
 }

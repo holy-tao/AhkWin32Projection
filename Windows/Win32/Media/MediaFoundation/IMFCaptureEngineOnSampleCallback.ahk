@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Callback interface to receive data from the capture engine.
@@ -22,26 +24,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCaptureEngineOnSampleCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCaptureEngineOnSampleCallback extends IUnknown {
     /**
      * The interface identifier for IMFCaptureEngineOnSampleCallback
      * @type {Guid}
      */
-    static IID => Guid("{52150b82-ab39-4467-980f-e48bf0822ecd}")
+    static IID := Guid("{52150b82-ab39-4467-980f-e48bf0822ecd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCaptureEngineOnSampleCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnSample : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnSample"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCaptureEngineOnSampleCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when the capture sink receives a sample.
@@ -52,5 +61,25 @@ class IMFCaptureEngineOnSampleCallback extends IUnknown {
     OnSample(pSample) {
         result := ComCall(3, this, "ptr", pSample, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCaptureEngineOnSampleCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnSample := CallbackCreate(GetMethod(implObj, "OnSample"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnSample)
     }
 }

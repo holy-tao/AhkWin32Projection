@@ -1,39 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MANIPULATION_PROCESSOR_MANIPULATIONS.ahk" { MANIPULATION_PROCESSOR_MANIPULATIONS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IManipulationProcessor provides functionality for monitoring and responding to multitouch input.
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/nn-manipulations-imanipulationprocessor
  * @namespace Windows.Win32.UI.Input.Touch
  */
-class IManipulationProcessor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IManipulationProcessor extends IUnknown {
     /**
      * The interface identifier for IManipulationProcessor
      * @type {Guid}
      */
-    static IID => Guid("{a22ac519-8300-48a0-bef4-f1be8737dba4}")
+    static IID := Guid("{a22ac519-8300-48a0-bef4-f1be8737dba4}")
 
     /**
      * The class identifier for ManipulationProcessor
      * @type {Guid}
      */
-    static CLSID => Guid("{597d4fb0-47fd-4aff-89b9-c6cfae8cf08e}")
+    static CLSID := Guid("{597d4fb0-47fd-4aff-89b9-c6cfae8cf08e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IManipulationProcessor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_SupportedManipulations   : IntPtr
+        put_SupportedManipulations   : IntPtr
+        get_PivotPointX              : IntPtr
+        put_PivotPointX              : IntPtr
+        get_PivotPointY              : IntPtr
+        put_PivotPointY              : IntPtr
+        get_PivotRadius              : IntPtr
+        put_PivotRadius              : IntPtr
+        CompleteManipulation         : IntPtr
+        ProcessDown                  : IntPtr
+        ProcessMove                  : IntPtr
+        ProcessUp                    : IntPtr
+        ProcessDownWithTime          : IntPtr
+        ProcessMoveWithTime          : IntPtr
+        ProcessUpWithTime            : IntPtr
+        GetVelocityX                 : IntPtr
+        GetVelocityY                 : IntPtr
+        GetExpansionVelocity         : IntPtr
+        GetAngularVelocity           : IntPtr
+        get_MinimumScaleRotateRadius : IntPtr
+        put_MinimumScaleRotateRadius : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SupportedManipulations", "put_SupportedManipulations", "get_PivotPointX", "put_PivotPointX", "get_PivotPointY", "put_PivotPointY", "get_PivotRadius", "put_PivotRadius", "CompleteManipulation", "ProcessDown", "ProcessMove", "ProcessUp", "ProcessDownWithTime", "ProcessMoveWithTime", "ProcessUpWithTime", "GetVelocityX", "GetVelocityY", "GetExpansionVelocity", "GetAngularVelocity", "get_MinimumScaleRotateRadius", "put_MinimumScaleRotateRadius"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IManipulationProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {MANIPULATION_PROCESSOR_MANIPULATIONS} 
@@ -98,7 +127,7 @@ class IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-put_supportedmanipulations
      */
     put_SupportedManipulations(manipulations) {
-        result := ComCall(4, this, "int", manipulations, "HRESULT")
+        result := ComCall(4, this, MANIPULATION_PROCESSOR_MANIPULATIONS, manipulations, "HRESULT")
         return result
     }
 
@@ -376,5 +405,65 @@ class IManipulationProcessor extends IUnknown {
     put_MinimumScaleRotateRadius(minRadius) {
         result := ComCall(23, this, "float", minRadius, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IManipulationProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SupportedManipulations := CallbackCreate(GetMethod(implObj, "get_SupportedManipulations"), flags, 2)
+        this.vtbl.put_SupportedManipulations := CallbackCreate(GetMethod(implObj, "put_SupportedManipulations"), flags, 2)
+        this.vtbl.get_PivotPointX := CallbackCreate(GetMethod(implObj, "get_PivotPointX"), flags, 2)
+        this.vtbl.put_PivotPointX := CallbackCreate(GetMethod(implObj, "put_PivotPointX"), flags, 2)
+        this.vtbl.get_PivotPointY := CallbackCreate(GetMethod(implObj, "get_PivotPointY"), flags, 2)
+        this.vtbl.put_PivotPointY := CallbackCreate(GetMethod(implObj, "put_PivotPointY"), flags, 2)
+        this.vtbl.get_PivotRadius := CallbackCreate(GetMethod(implObj, "get_PivotRadius"), flags, 2)
+        this.vtbl.put_PivotRadius := CallbackCreate(GetMethod(implObj, "put_PivotRadius"), flags, 2)
+        this.vtbl.CompleteManipulation := CallbackCreate(GetMethod(implObj, "CompleteManipulation"), flags, 1)
+        this.vtbl.ProcessDown := CallbackCreate(GetMethod(implObj, "ProcessDown"), flags, 4)
+        this.vtbl.ProcessMove := CallbackCreate(GetMethod(implObj, "ProcessMove"), flags, 4)
+        this.vtbl.ProcessUp := CallbackCreate(GetMethod(implObj, "ProcessUp"), flags, 4)
+        this.vtbl.ProcessDownWithTime := CallbackCreate(GetMethod(implObj, "ProcessDownWithTime"), flags, 5)
+        this.vtbl.ProcessMoveWithTime := CallbackCreate(GetMethod(implObj, "ProcessMoveWithTime"), flags, 5)
+        this.vtbl.ProcessUpWithTime := CallbackCreate(GetMethod(implObj, "ProcessUpWithTime"), flags, 5)
+        this.vtbl.GetVelocityX := CallbackCreate(GetMethod(implObj, "GetVelocityX"), flags, 2)
+        this.vtbl.GetVelocityY := CallbackCreate(GetMethod(implObj, "GetVelocityY"), flags, 2)
+        this.vtbl.GetExpansionVelocity := CallbackCreate(GetMethod(implObj, "GetExpansionVelocity"), flags, 2)
+        this.vtbl.GetAngularVelocity := CallbackCreate(GetMethod(implObj, "GetAngularVelocity"), flags, 2)
+        this.vtbl.get_MinimumScaleRotateRadius := CallbackCreate(GetMethod(implObj, "get_MinimumScaleRotateRadius"), flags, 2)
+        this.vtbl.put_MinimumScaleRotateRadius := CallbackCreate(GetMethod(implObj, "put_MinimumScaleRotateRadius"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SupportedManipulations)
+        CallbackFree(this.vtbl.put_SupportedManipulations)
+        CallbackFree(this.vtbl.get_PivotPointX)
+        CallbackFree(this.vtbl.put_PivotPointX)
+        CallbackFree(this.vtbl.get_PivotPointY)
+        CallbackFree(this.vtbl.put_PivotPointY)
+        CallbackFree(this.vtbl.get_PivotRadius)
+        CallbackFree(this.vtbl.put_PivotRadius)
+        CallbackFree(this.vtbl.CompleteManipulation)
+        CallbackFree(this.vtbl.ProcessDown)
+        CallbackFree(this.vtbl.ProcessMove)
+        CallbackFree(this.vtbl.ProcessUp)
+        CallbackFree(this.vtbl.ProcessDownWithTime)
+        CallbackFree(this.vtbl.ProcessMoveWithTime)
+        CallbackFree(this.vtbl.ProcessUpWithTime)
+        CallbackFree(this.vtbl.GetVelocityX)
+        CallbackFree(this.vtbl.GetVelocityY)
+        CallbackFree(this.vtbl.GetExpansionVelocity)
+        CallbackFree(this.vtbl.GetAngularVelocity)
+        CallbackFree(this.vtbl.get_MinimumScaleRotateRadius)
+        CallbackFree(this.vtbl.put_MinimumScaleRotateRadius)
     }
 }

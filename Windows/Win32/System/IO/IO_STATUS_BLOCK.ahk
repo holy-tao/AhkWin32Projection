@@ -1,35 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.System.IO
  */
-class IO_STATUS_BLOCK extends Win32Struct {
-    static sizeof => 16
+export default struct IO_STATUS_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    Status : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    Status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Information : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Pointer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Information {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'Pointer', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_VPCI_PROBED_BARS extends Win32Struct {
-    static sizeof => 24
+export default struct WHV_VPCI_PROBED_BARS {
+    #StructPack 4
 
-    static packingSize => 4
+    Value : UInt32[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Value {
-        get {
-            if(!this.HasProp("__ValueProxyArray"))
-                this.__ValueProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
-            return this.__ValueProxyArray
-        }
-    }
 }

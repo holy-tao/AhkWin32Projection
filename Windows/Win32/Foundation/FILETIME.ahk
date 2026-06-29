@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes FILETIME and provides syntax, members, and additional remarks.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/filetime
  * @namespace Windows.Win32.Foundation
  */
-class FILETIME extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct FILETIME {
+    #StructPack 4
 
     /**
      * > Low-order 32 bits of the file time value.
-     * @type {Integer}
      */
-    dwLowDateTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLowDateTime : UInt32
 
     /**
      * > High-order 32 bits of the file time value.
-     * @type {Integer}
      */
-    dwHighDateTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwHighDateTime : UInt32
+
 }

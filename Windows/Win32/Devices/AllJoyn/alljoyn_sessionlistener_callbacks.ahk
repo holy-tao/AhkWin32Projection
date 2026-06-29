@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
  */
-class alljoyn_sessionlistener_callbacks extends Win32Struct {
-    static sizeof => 24
+export default struct alljoyn_sessionlistener_callbacks {
+    #StructPack 8
 
-    static packingSize => 8
+    session_lost : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_sessionlistener_sessionlost_ptr>}
-     */
-    session_lost {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    session_member_added : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_sessionlistener_sessionmemberadded_ptr>}
-     */
-    session_member_added {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    session_member_removed : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_sessionlistener_sessionmemberremoved_ptr>}
-     */
-    session_member_removed {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

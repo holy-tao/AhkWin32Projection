@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDTFilter2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDTFilter2.ahk" { IDTFilter2 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ProtType.ahk" { ProtType }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IDTFilter3 interface extends the IDTFilter2 interface and is exposed by the Decrypter/Detagger filter.
@@ -10,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilter3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDTFilter3 extends IDTFilter2 {
-
-    static sizeof => A_PtrSize
+export default struct IDTFilter3 extends IDTFilter2 {
     /**
      * The interface identifier for IDTFilter3
      * @type {Guid}
      */
-    static IID => Guid("{513998cc-e929-4cdf-9fbd-bad1e0314866}")
+    static IID := Guid("{513998cc-e929-4cdf-9fbd-bad1e0314866}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDTFilter3 interfaces
+    */
+    struct Vtbl extends IDTFilter2.Vtbl {
+        GetProtectionType        : IntPtr
+        LicenseHasExpirationDate : IntPtr
+        SetRights                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProtectionType", "LicenseHasExpirationDate", "SetRights"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDTFilter3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetProtectionType method retrieves the type of content protection that is currently in effect.
@@ -47,7 +60,7 @@ class IDTFilter3 extends IDTFilter2 {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-licensehasexpirationdate
      */
     LicenseHasExpirationDate() {
-        result := ComCall(15, this, "int*", &pfLicenseHasExpirationDate := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pfLicenseHasExpirationDate := 0, "HRESULT")
         return pfLicenseHasExpirationDate
     }
 
@@ -60,7 +73,31 @@ class IDTFilter3 extends IDTFilter2 {
     SetRights(bstrRights) {
         bstrRights := bstrRights is String ? BSTR.Alloc(bstrRights).Value : bstrRights
 
-        result := ComCall(16, this, "ptr", bstrRights, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrRights, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDTFilter3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProtectionType := CallbackCreate(GetMethod(implObj, "GetProtectionType"), flags, 2)
+        this.vtbl.LicenseHasExpirationDate := CallbackCreate(GetMethod(implObj, "LicenseHasExpirationDate"), flags, 2)
+        this.vtbl.SetRights := CallbackCreate(GetMethod(implObj, "SetRights"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProtectionType)
+        CallbackFree(this.vtbl.LicenseHasExpirationDate)
+        CallbackFree(this.vtbl.SetRights)
     }
 }

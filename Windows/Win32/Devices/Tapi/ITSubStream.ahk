@@ -1,36 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IEnumTerminal.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ITStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITStream.ahk" { ITStream }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
 
 /**
  * An ITSubStream is a component of an ITStream, and gives an application finer control over the media streaming.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itsubstream
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITSubStream extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITSubStream extends IDispatch {
     /**
      * The interface identifier for ITSubStream
      * @type {Guid}
      */
-    static IID => Guid("{ee3bd608-3868-11d2-a045-00c04fb6809f}")
+    static IID := Guid("{ee3bd608-3868-11d2-a045-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSubStream interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        StartSubStream     : IntPtr
+        PauseSubStream     : IntPtr
+        StopSubStream      : IntPtr
+        SelectTerminal     : IntPtr
+        UnselectTerminal   : IntPtr
+        EnumerateTerminals : IntPtr
+        get_Terminals      : IntPtr
+        get_Stream         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartSubStream", "PauseSubStream", "StopSubStream", "SelectTerminal", "UnselectTerminal", "EnumerateTerminals", "get_Terminals", "get_Stream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSubStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -380,7 +396,7 @@ class ITSubStream extends IDispatch {
      */
     get_Terminals() {
         pTerminals := VARIANT()
-        result := ComCall(13, this, "ptr", pTerminals, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pTerminals, "HRESULT")
         return pTerminals
     }
 
@@ -397,5 +413,39 @@ class ITSubStream extends IDispatch {
     get_Stream() {
         result := ComCall(14, this, "ptr*", &ppITStream := 0, "HRESULT")
         return ITStream(ppITStream)
+    }
+
+    Query(iid) {
+        if (ITSubStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartSubStream := CallbackCreate(GetMethod(implObj, "StartSubStream"), flags, 1)
+        this.vtbl.PauseSubStream := CallbackCreate(GetMethod(implObj, "PauseSubStream"), flags, 1)
+        this.vtbl.StopSubStream := CallbackCreate(GetMethod(implObj, "StopSubStream"), flags, 1)
+        this.vtbl.SelectTerminal := CallbackCreate(GetMethod(implObj, "SelectTerminal"), flags, 2)
+        this.vtbl.UnselectTerminal := CallbackCreate(GetMethod(implObj, "UnselectTerminal"), flags, 2)
+        this.vtbl.EnumerateTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTerminals"), flags, 2)
+        this.vtbl.get_Terminals := CallbackCreate(GetMethod(implObj, "get_Terminals"), flags, 2)
+        this.vtbl.get_Stream := CallbackCreate(GetMethod(implObj, "get_Stream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartSubStream)
+        CallbackFree(this.vtbl.PauseSubStream)
+        CallbackFree(this.vtbl.StopSubStream)
+        CallbackFree(this.vtbl.SelectTerminal)
+        CallbackFree(this.vtbl.UnselectTerminal)
+        CallbackFree(this.vtbl.EnumerateTerminals)
+        CallbackFree(this.vtbl.get_Terminals)
+        CallbackFree(this.vtbl.get_Stream)
     }
 }

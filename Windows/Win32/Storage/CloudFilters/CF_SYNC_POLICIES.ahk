@@ -1,33 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_HYDRATION_POLICY.ahk
-#Include .\CF_HYDRATION_POLICY_PRIMARY.ahk
-#Include .\CF_HYDRATION_POLICY_MODIFIER.ahk
-#Include .\CF_POPULATION_POLICY.ahk
-#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
-#Include .\CF_POPULATION_POLICY_MODIFIER.ahk
-#Include .\CF_INSYNC_POLICY.ahk
-#Include .\CF_HARDLINK_POLICY.ahk
-#Include .\CF_PLACEHOLDER_MANAGEMENT_POLICY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_PLACEHOLDER_MANAGEMENT_POLICY.ahk" { CF_PLACEHOLDER_MANAGEMENT_POLICY }
+#Import ".\CF_HARDLINK_POLICY.ahk" { CF_HARDLINK_POLICY }
+#Import ".\CF_HYDRATION_POLICY_PRIMARY.ahk" { CF_HYDRATION_POLICY_PRIMARY }
+#Import ".\CF_HYDRATION_POLICY.ahk" { CF_HYDRATION_POLICY }
+#Import ".\CF_POPULATION_POLICY.ahk" { CF_POPULATION_POLICY }
+#Import ".\CF_POPULATION_POLICY_MODIFIER.ahk" { CF_POPULATION_POLICY_MODIFIER }
+#Import ".\CF_INSYNC_POLICY.ahk" { CF_INSYNC_POLICY }
+#Import ".\CF_POPULATION_POLICY_PRIMARY.ahk" { CF_POPULATION_POLICY_PRIMARY }
+#Import ".\CF_HYDRATION_POLICY_MODIFIER.ahk" { CF_HYDRATION_POLICY_MODIFIER }
 
 /**
  * Defines the sync policies used by a sync root.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_policies
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_SYNC_POLICIES extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct CF_SYNC_POLICIES {
+    #StructPack 4
 
     /**
      * The size of the `CF_SYNC_POLICIES` structure.
-     * @type {Integer}
      */
-    StructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StructSize : UInt32
 
     /**
      * The hydration policy allows a sync provider to control how placeholder files should be hydrated by the platform. It consists of a primary policy and a set of policy modifiers.
@@ -49,15 +42,8 @@ class CF_SYNC_POLICIES extends Win32Struct {
      * | STREAMING_ALLOWED | This policy modifier grants the platform the permission to not store any data returned by a sync provider on local disks. This policy modifier is mutually exclusive with `VALIDATION_REQUIRED`. The API fails with `ERROR_INVALID_PARAMETER` when both flags are specified. |
      * | AUTO_DEHYDRATION_ALLOWED | This policy modifier grants the platform the permission to dehydrate in-sync cloud file placeholders without the help of sync providers. Without this flag, the platform is not allowed to call [CfDehydratePlaceholder](/previous-versions/mt827480(v=vs.85)) directly. Instead, the only supported way to dehydrate a cloud file placeholder is to clear the file’s pinned attribute and set the file’s unpinned attribute. Then the actual dehydration will be performed asynchronously by the sync engine after it receives the directory change notification on the two attributes. When this flag is specified, the platform will be allowed to invoke [CfDehydratePlaceholder](/previous-versions/mt827480(v=vs.85)) directly on any in-sync cloud file placeholder. It is recommended for sync providers to support auto dehydration. |
      * | ALLOW_FULL_RESTART_HYDRATION | This policy modifier grants the platform permission to fully hydrate a file synchronously when it intercepts an attempt by an AV Filter to scan the file. Sync providers that wish to use **RestartHydration** to change the `fileSize` from a **FetchData** callback must opt-in for the `ALLOW_FULL_RESTART_HYDRATION` policy to avoid possible deadlocks with anti-virus and anti-malware software trying to scan the file and the provider trying to change `fileSize` using **RestartHydration**.<br/><br/> **Note:** This modifier is supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x500` or higher. |
-     * @type {CF_HYDRATION_POLICY}
      */
-    Hydration {
-        get {
-            if(!this.HasProp("__Hydration"))
-                this.__Hydration := CF_HYDRATION_POLICY(4, this)
-            return this.__Hydration
-        }
-    }
+    Hydration : CF_HYDRATION_POLICY
 
     /**
      * The population policy allows a sync provider to control how placeholder namespace, both directories and files, should be created by the platform. There are currently three primary policies with no modifiers defined:
@@ -67,33 +53,18 @@ class CF_SYNC_POLICIES extends Win32Struct {
      * | ALWAYS_FULL | When `ALWAYS_FULL` is selected, the platform assumes that the full name space is always available locally. It will never forward any directory enumeration request to the sync provider. |
      * | FULL | With the `FULL` population policy, when the platform detects access on a not fully populated directory, it will request the sync provider return all entries under the directory before completing the user request. |
      * | PARTIAL | With the `PARTIAL` population policy, when the platform detects access on a not fully populated directory, it will request only the entries required by the user application from the sync provider. |
-     * @type {CF_POPULATION_POLICY}
      */
-    Population {
-        get {
-            if(!this.HasProp("__Population"))
-                this.__Population := CF_POPULATION_POLICY(8, this)
-            return this.__Population
-        }
-    }
+    Population : CF_POPULATION_POLICY
 
     /**
      * The `InSync` policy allows a sync provider to control when the platform should clear the in-sync state on a placeholder. In addition to always clearing in-sync on any data modification, the platform can currently clear in-sync on changes of any combinations of three file attributes (_ReadOnly_, _System_, and _Hidden_) and two file times (_CreateTime_ and _LastWriteTime_). These policies can be applied to files and directories separately.
-     * @type {CF_INSYNC_POLICY}
      */
-    InSync {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    InSync : CF_INSYNC_POLICY
 
     /**
      * By default, the platform does not allow hard links to be created on any placeholder. However, sync providers that are capable of handling hard links can instruct the platform to enable the support via the `ALLOWED` policy. With this policy, applications can create as many hard links as the file system supports so long as the links are under either the same sync root or no sync root. The platform will force a placeholder to be hydrated when the first out-of-sync-root link is introduced and revert a placeholder to normal file when its last in-sync-root link is removed. Hardlink creation that is not compatible with the policy will fail with HRESULT `ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS`. Placeholder operations that are not compatible with the policy will also fail with `ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS`.
-     * @type {CF_HARDLINK_POLICY}
      */
-    HardLink {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    HardLink : CF_HARDLINK_POLICY
 
     /**
      * By default, only a sync provider can perform placeholder management operations in a sync root. Non sync provider processes can perform placeholder management operations only if the sync root is inactive (i.e., when no sync providers are connected to the sync root.) These policies, when enabled, allow non sync provider processes to perform respective placeholder management operations in an active sync root. `CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT` is the default policy, allowing only a connected sync provider to perform any placeholder management operations. The three policies below can be specified in any combination:
@@ -106,10 +77,7 @@ class CF_SYNC_POLICIES extends Win32Struct {
      * 
      * > [!NOTE]
      * > These flags are supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x310` or higher.
-     * @type {CF_PLACEHOLDER_MANAGEMENT_POLICY}
      */
-    PlaceholderManagement {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    PlaceholderManagement : CF_PLACEHOLDER_MANAGEMENT_POLICY
+
 }

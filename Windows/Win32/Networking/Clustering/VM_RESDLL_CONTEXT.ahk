@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains actions for a virtual machine to perform.
@@ -15,7 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-vm_resdll_context
  * @namespace Windows.Win32.Networking.Clustering
  */
-class VM_RESDLL_CONTEXT extends Win32Enum {
+export default struct VM_RESDLL_CONTEXT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Turns off the virtual machine.

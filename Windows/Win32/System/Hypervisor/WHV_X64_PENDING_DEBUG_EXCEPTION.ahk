@@ -1,36 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_PENDING_DEBUG_EXCEPTION extends Win32Struct {
-    static sizeof => 16
+export default struct WHV_X64_PENDING_DEBUG_EXCEPTION {
+    #StructPack 8
 
-    static packingSize => 8
+    AsUINT64 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AsUINT64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Breakpoint0
-     * - Breakpoint1
-     * - Breakpoint2
-     * - Breakpoint3
-     * - SingleStep
-     * - Reserved0
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -78,5 +55,9 @@ class WHV_X64_PENDING_DEBUG_EXCEPTION extends Win32Struct {
     Reserved0 {
         get => (this._bitfield >> 5) & 0x7FFFFFFFFFFFFFF
         set => this._bitfield := ((value & 0x7FFFFFFFFFFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFFFFFFFFFF << 5))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

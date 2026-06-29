@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics observed on the remote receiver for a TCP connection.
@@ -68,43 +67,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_obs_rec_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_OBS_REC_ROD_v0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct TCP_ESTATS_OBS_REC_ROD_v0 {
+    #StructPack 4
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The most recent window advertisement, in bytes, received from the remote receiver.
-     * @type {Integer}
      */
-    CurRwinRcvd {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CurRwinRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum window advertisement, in bytes, received from the remote receiver.
-     * @type {Integer}
      */
-    MaxRwinRcvd {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxRwinRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum window advertisement, in bytes, received from the remote receiver.
-     * @type {Integer}
      */
-    MinRwinRcvd {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinRwinRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -117,10 +102,7 @@ class TCP_ESTATS_OBS_REC_ROD_v0 extends Win32Struct {
      *            will be the same as this value and used to scale receiver
      *            window announcements from the remote host to the local
      *            host.
-     * @type {Integer}
      */
-    WinScaleRcvd {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    WinScaleRcvd : Int8
+
 }

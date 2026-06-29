@@ -1,48 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\FILTERREGION.ahk" { FILTERREGION }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ISearchQueryHits extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchQueryHits extends IUnknown {
     /**
      * The interface identifier for ISearchQueryHits
      * @type {Guid}
      */
-    static IID => Guid("{ed8ce7e0-106c-11ce-84e2-00aa004b9986}")
+    static IID := Guid("{ed8ce7e0-106c-11ce-84e2-00aa004b9986}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchQueryHits interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init           : IntPtr
+        NextHitMoniker : IntPtr
+        NextHitOffset  : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchQueryHits.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "NextHitMoniker", "NextHitOffset"]
-
-    /**
-     * Initializes the trace.
-     * @remarks
-     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
-     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {IFilter} pflt 
      * @param {Integer} ulFlags 
-     * @returns {Integer} This function has no parameters.
-     * 
-     * 
-     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
+     * @returns {Integer} 
      */
     Init(pflt, ulFlags) {
-        result := ComCall(3, this, "ptr", pflt, "uint", ulFlags, "int")
+        result := ComCall(3, this, "ptr", pflt, "uint", ulFlags, Int32)
         return result
     }
 
@@ -56,7 +60,7 @@ class ISearchQueryHits extends IUnknown {
         pcMnkMarshal := pcMnk is VarRef ? "uint*" : "ptr"
         papMnkMarshal := papMnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcMnkMarshal, pcMnk, papMnkMarshal, papMnk, "int")
+        result := ComCall(4, this, pcMnkMarshal, pcMnk, papMnkMarshal, papMnk, Int32)
         return result
     }
 
@@ -70,7 +74,31 @@ class ISearchQueryHits extends IUnknown {
         pcRegionMarshal := pcRegion is VarRef ? "uint*" : "ptr"
         paRegionMarshal := paRegion is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pcRegionMarshal, pcRegion, paRegionMarshal, paRegion, "int")
+        result := ComCall(5, this, pcRegionMarshal, pcRegion, paRegionMarshal, paRegion, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (ISearchQueryHits.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
+        this.vtbl.NextHitMoniker := CallbackCreate(GetMethod(implObj, "NextHitMoniker"), flags, 3)
+        this.vtbl.NextHitOffset := CallbackCreate(GetMethod(implObj, "NextHitOffset"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.NextHitMoniker)
+        CallbackFree(this.vtbl.NextHitOffset)
     }
 }

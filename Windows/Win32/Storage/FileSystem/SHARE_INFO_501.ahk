@@ -1,50 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SHARE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SHARE_TYPE.ahk" { SHARE_TYPE }
 
 /**
  * Contains information about the shared resource including the name and type of the resource, and a comment associated with the resource.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_501
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class SHARE_INFO_501 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SHARE_INFO_501 {
+    #StructPack 8
 
     /**
      * Pointer to a Unicode string specifying the name of a shared resource.
-     * @type {PWSTR}
      */
-    shi501_netname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    shi501_netname : PWSTR
 
     /**
      * A combination of values that specify the type of share.
-     * @type {SHARE_TYPE}
      */
-    shi501_type {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    shi501_type : SHARE_TYPE
 
     /**
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {PWSTR}
      */
-    shi501_remark {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    shi501_remark : PWSTR
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    shi501_flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    shi501_flags : UInt32
+
 }

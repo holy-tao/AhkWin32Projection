@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFP_EVENT_HEADER.ahk
-#Include .\MFP_EVENT_TYPE.ahk
-#Include .\IMFPMediaPlayer.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
+#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
 
 /**
  * Event structure for the MFP_EVENT_TYPE_ERROR event.
@@ -15,20 +15,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_error_event
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFP_ERROR_EVENT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MFP_ERROR_EVENT {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure that contains data common to all <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> events. The <b>hrEvent</b> member of the structure contains the error code.
-     * @type {MFP_EVENT_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := MFP_EVENT_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : MFP_EVENT_HEADER
+
 }

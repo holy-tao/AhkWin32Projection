@@ -1,10 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\ITEMSPACING.ahk
-#Include .\IShellFolderViewCB.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IShellFolderViewCB.ahk" { IShellFolderViewCB }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\ITEMSPACING.ahk" { ITEMSPACING }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
 
 /**
  * Exposes methods that manipulate Shell folder views.
@@ -13,32 +20,66 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishellfolderview
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFolderView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellFolderView extends IUnknown {
     /**
      * The interface identifier for IShellFolderView
      * @type {Guid}
      */
-    static IID => Guid("{37a378c0-f82d-11ce-ae65-08002b2e1262}")
+    static IID := Guid("{37a378c0-f82d-11ce-ae65-08002b2e1262}")
 
     /**
      * The class identifier for ShellFolderView
      * @type {Guid}
      */
-    static CLSID => Guid("{62112aa1-ebe4-11cf-a5fb-0020afe7292d}")
+    static CLSID := Guid("{62112aa1-ebe4-11cf-a5fb-0020afe7292d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFolderView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Rearrange           : IntPtr
+        GetArrangeParam     : IntPtr
+        ArrangeGrid         : IntPtr
+        AutoArrange         : IntPtr
+        GetAutoArrange      : IntPtr
+        AddObject           : IntPtr
+        GetObject           : IntPtr
+        RemoveObject        : IntPtr
+        GetObjectCount      : IntPtr
+        SetObjectCount      : IntPtr
+        UpdateObject        : IntPtr
+        RefreshObject       : IntPtr
+        SetRedraw           : IntPtr
+        GetSelectedCount    : IntPtr
+        GetSelectedObjects  : IntPtr
+        IsDropOnSource      : IntPtr
+        GetDragPoint        : IntPtr
+        GetDropPoint        : IntPtr
+        MoveIcons           : IntPtr
+        SetItemPos          : IntPtr
+        IsBkDropTarget      : IntPtr
+        SetClipboard        : IntPtr
+        SetPoints           : IntPtr
+        GetItemSpacing      : IntPtr
+        SetCallback         : IntPtr
+        Select              : IntPtr
+        QuerySupport        : IntPtr
+        SetAutomationObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Rearrange", "GetArrangeParam", "ArrangeGrid", "AutoArrange", "GetAutoArrange", "AddObject", "GetObject", "RemoveObject", "GetObjectCount", "SetObjectCount", "UpdateObject", "RefreshObject", "SetRedraw", "GetSelectedCount", "GetSelectedObjects", "IsDropOnSource", "GetDragPoint", "GetDropPoint", "MoveIcons", "SetItemPos", "IsBkDropTarget", "SetClipboard", "SetPoints", "GetItemSpacing", "SetCallback", "Select", "QuerySupport", "SetAutomationObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFolderView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Rearrange may be altered or unavailable.
@@ -65,7 +106,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-rearrange
      */
     Rearrange(lParamSort) {
-        result := ComCall(3, this, "ptr", lParamSort, "HRESULT")
+        result := ComCall(3, this, LPARAM, lParamSort, "HRESULT")
         return result
     }
 
@@ -83,7 +124,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getarrangeparam
      */
     GetArrangeParam() {
-        result := ComCall(4, this, "ptr*", &plParamSort := 0, "HRESULT")
+        result := ComCall(4, this, LPARAM.Ptr, &plParamSort := 0, "HRESULT")
         return plParamSort
     }
 
@@ -142,7 +183,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-addobject
      */
     AddObject(pidl) {
-        result := ComCall(8, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
+        result := ComCall(8, this, ITEMIDLIST.Ptr, pidl, "uint*", &puItem := 0, "HRESULT")
         return puItem
     }
 
@@ -174,7 +215,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-removeobject
      */
     RemoveObject(pidl) {
-        result := ComCall(10, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
+        result := ComCall(10, this, ITEMIDLIST.Ptr, pidl, "uint*", &puItem := 0, "HRESULT")
         return puItem
     }
 
@@ -228,7 +269,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-updateobject
      */
     UpdateObject(pidlOld, pidlNew) {
-        result := ComCall(13, this, "ptr", pidlOld, "ptr", pidlNew, "uint*", &puItem := 0, "HRESULT")
+        result := ComCall(13, this, ITEMIDLIST.Ptr, pidlOld, ITEMIDLIST.Ptr, pidlNew, "uint*", &puItem := 0, "HRESULT")
         return puItem
     }
 
@@ -245,7 +286,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-refreshobject
      */
     RefreshObject(pidl) {
-        result := ComCall(14, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
+        result := ComCall(14, this, ITEMIDLIST.Ptr, pidl, "uint*", &puItem := 0, "HRESULT")
         return puItem
     }
 
@@ -262,7 +303,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setredraw
      */
     SetRedraw(bRedraw) {
-        result := ComCall(15, this, "int", bRedraw, "HRESULT")
+        result := ComCall(15, this, BOOL, bRedraw, "HRESULT")
         return result
     }
 
@@ -325,7 +366,7 @@ class IShellFolderView extends IUnknown {
      */
     GetDragPoint() {
         ppt := POINT()
-        result := ComCall(19, this, "ptr", ppt, "HRESULT")
+        result := ComCall(19, this, POINT.Ptr, ppt, "HRESULT")
         return ppt
     }
 
@@ -338,7 +379,7 @@ class IShellFolderView extends IUnknown {
      */
     GetDropPoint() {
         ppt := POINT()
-        result := ComCall(20, this, "ptr", ppt, "HRESULT")
+        result := ComCall(20, this, POINT.Ptr, ppt, "HRESULT")
         return ppt
     }
 
@@ -369,7 +410,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setitempos
      */
     SetItemPos(pidl, ppt) {
-        result := ComCall(22, this, "ptr", pidl, "ptr", ppt, "HRESULT")
+        result := ComCall(22, this, ITEMIDLIST.Ptr, pidl, POINT.Ptr, ppt, "HRESULT")
         return result
     }
 
@@ -399,7 +440,7 @@ class IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setclipboard
      */
     SetClipboard(bMove) {
-        result := ComCall(24, this, "int", bMove, "HRESULT")
+        result := ComCall(24, this, BOOL, bMove, "HRESULT")
         return result
     }
 
@@ -435,7 +476,7 @@ class IShellFolderView extends IUnknown {
      */
     GetItemSpacing() {
         pSpacing := ITEMSPACING()
-        result := ComCall(26, this, "ptr", pSpacing, "HRESULT")
+        result := ComCall(26, this, ITEMSPACING.Ptr, pSpacing, "HRESULT")
         return pSpacing
     }
 
@@ -499,5 +540,79 @@ class IShellFolderView extends IUnknown {
     SetAutomationObject(pdisp) {
         result := ComCall(30, this, "ptr", pdisp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellFolderView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Rearrange := CallbackCreate(GetMethod(implObj, "Rearrange"), flags, 2)
+        this.vtbl.GetArrangeParam := CallbackCreate(GetMethod(implObj, "GetArrangeParam"), flags, 2)
+        this.vtbl.ArrangeGrid := CallbackCreate(GetMethod(implObj, "ArrangeGrid"), flags, 1)
+        this.vtbl.AutoArrange := CallbackCreate(GetMethod(implObj, "AutoArrange"), flags, 1)
+        this.vtbl.GetAutoArrange := CallbackCreate(GetMethod(implObj, "GetAutoArrange"), flags, 1)
+        this.vtbl.AddObject := CallbackCreate(GetMethod(implObj, "AddObject"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 3)
+        this.vtbl.RemoveObject := CallbackCreate(GetMethod(implObj, "RemoveObject"), flags, 3)
+        this.vtbl.GetObjectCount := CallbackCreate(GetMethod(implObj, "GetObjectCount"), flags, 2)
+        this.vtbl.SetObjectCount := CallbackCreate(GetMethod(implObj, "SetObjectCount"), flags, 3)
+        this.vtbl.UpdateObject := CallbackCreate(GetMethod(implObj, "UpdateObject"), flags, 4)
+        this.vtbl.RefreshObject := CallbackCreate(GetMethod(implObj, "RefreshObject"), flags, 3)
+        this.vtbl.SetRedraw := CallbackCreate(GetMethod(implObj, "SetRedraw"), flags, 2)
+        this.vtbl.GetSelectedCount := CallbackCreate(GetMethod(implObj, "GetSelectedCount"), flags, 2)
+        this.vtbl.GetSelectedObjects := CallbackCreate(GetMethod(implObj, "GetSelectedObjects"), flags, 3)
+        this.vtbl.IsDropOnSource := CallbackCreate(GetMethod(implObj, "IsDropOnSource"), flags, 2)
+        this.vtbl.GetDragPoint := CallbackCreate(GetMethod(implObj, "GetDragPoint"), flags, 2)
+        this.vtbl.GetDropPoint := CallbackCreate(GetMethod(implObj, "GetDropPoint"), flags, 2)
+        this.vtbl.MoveIcons := CallbackCreate(GetMethod(implObj, "MoveIcons"), flags, 2)
+        this.vtbl.SetItemPos := CallbackCreate(GetMethod(implObj, "SetItemPos"), flags, 3)
+        this.vtbl.IsBkDropTarget := CallbackCreate(GetMethod(implObj, "IsBkDropTarget"), flags, 2)
+        this.vtbl.SetClipboard := CallbackCreate(GetMethod(implObj, "SetClipboard"), flags, 2)
+        this.vtbl.SetPoints := CallbackCreate(GetMethod(implObj, "SetPoints"), flags, 2)
+        this.vtbl.GetItemSpacing := CallbackCreate(GetMethod(implObj, "GetItemSpacing"), flags, 2)
+        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 3)
+        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 2)
+        this.vtbl.QuerySupport := CallbackCreate(GetMethod(implObj, "QuerySupport"), flags, 2)
+        this.vtbl.SetAutomationObject := CallbackCreate(GetMethod(implObj, "SetAutomationObject"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Rearrange)
+        CallbackFree(this.vtbl.GetArrangeParam)
+        CallbackFree(this.vtbl.ArrangeGrid)
+        CallbackFree(this.vtbl.AutoArrange)
+        CallbackFree(this.vtbl.GetAutoArrange)
+        CallbackFree(this.vtbl.AddObject)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.RemoveObject)
+        CallbackFree(this.vtbl.GetObjectCount)
+        CallbackFree(this.vtbl.SetObjectCount)
+        CallbackFree(this.vtbl.UpdateObject)
+        CallbackFree(this.vtbl.RefreshObject)
+        CallbackFree(this.vtbl.SetRedraw)
+        CallbackFree(this.vtbl.GetSelectedCount)
+        CallbackFree(this.vtbl.GetSelectedObjects)
+        CallbackFree(this.vtbl.IsDropOnSource)
+        CallbackFree(this.vtbl.GetDragPoint)
+        CallbackFree(this.vtbl.GetDropPoint)
+        CallbackFree(this.vtbl.MoveIcons)
+        CallbackFree(this.vtbl.SetItemPos)
+        CallbackFree(this.vtbl.IsBkDropTarget)
+        CallbackFree(this.vtbl.SetClipboard)
+        CallbackFree(this.vtbl.SetPoints)
+        CallbackFree(this.vtbl.GetItemSpacing)
+        CallbackFree(this.vtbl.SetCallback)
+        CallbackFree(this.vtbl.Select)
+        CallbackFree(this.vtbl.QuerySupport)
+        CallbackFree(this.vtbl.SetAutomationObject)
     }
 }

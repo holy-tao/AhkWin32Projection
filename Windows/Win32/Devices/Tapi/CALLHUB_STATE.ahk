@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CALLHUB_STATE enum is a state indicator returned by the ITCallHub::get_State method.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callhub_state
  * @namespace Windows.Win32.Devices.Tapi
  */
-class CALLHUB_STATE extends Win32Enum {
+export default struct CALLHUB_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The CallHub is active. There is at least one call that is not in the CS_DISCONNECTED state.

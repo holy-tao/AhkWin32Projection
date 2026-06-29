@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the level of certainty for a named entity.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-named_entity_certainty
  * @namespace Windows.Win32.System.Search
  */
-class NAMED_ENTITY_CERTAINTY extends Win32Enum {
+export default struct NAMED_ENTITY_CERTAINTY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * It could be this named entity but additional evidence is advisable.

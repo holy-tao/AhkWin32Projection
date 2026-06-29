@@ -1,40 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
-#Include .\WS_ENDPOINT_IDENTITY_TYPE.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_ENDPOINT_IDENTITY_TYPE.ahk" { WS_ENDPOINT_IDENTITY_TYPE }
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 
 /**
  * Type for specifying an endpoint identity represented by an SPN (service principal name).
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_spn_endpoint_identity
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SPN_ENDPOINT_IDENTITY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WS_SPN_ENDPOINT_IDENTITY {
+    #StructPack 8
 
     /**
      * The base type from which this type and all other endpoint identity types derive.
-     * @type {WS_ENDPOINT_IDENTITY}
      */
-    identity {
-        get {
-            if(!this.HasProp("__identity"))
-                this.__identity := WS_ENDPOINT_IDENTITY(0, this)
-            return this.__identity
-        }
-    }
+    identity : WS_ENDPOINT_IDENTITY
 
     /**
      * The SPN (service principal name) of the endpoint that is represented by this endpoint identity.
-     * @type {WS_STRING}
      */
-    spn {
-        get {
-            if(!this.HasProp("__spn"))
-                this.__spn := WS_STRING(8, this)
-            return this.__spn
-        }
-    }
+    spn : WS_STRING
+
 }

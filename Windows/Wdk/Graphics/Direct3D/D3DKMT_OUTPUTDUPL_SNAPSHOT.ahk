@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OUTPUTDUPL_SNAPSHOT extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMT_OUTPUTDUPL_SNAPSHOT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SessionProcessCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionProcessCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SessionActiveConnectionsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionActiveConnectionsCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumVidPnSources : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumVidPnSources {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumOutputDuplContexts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumOutputDuplContexts {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Padding : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Padding {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    OutputDuplDebugInfos : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    OutputDuplDebugInfos {
-        get {
-            if(!this.HasProp("__OutputDuplDebugInfosProxyArray"))
-                this.__OutputDuplDebugInfosProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ptr")
-            return this.__OutputDuplDebugInfosProxyArray
-        }
-    }
 }

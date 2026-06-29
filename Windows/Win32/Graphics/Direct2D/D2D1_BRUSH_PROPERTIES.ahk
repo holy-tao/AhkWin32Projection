@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_MATRIX_3X2_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 
 /**
  * Describes the opacity and transformation of a brush.
@@ -12,33 +11,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_BRUSH_PROPERTIES extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct D2D1_BRUSH_PROPERTIES {
+    #StructPack 4
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value between 0.0f and 1.0f, inclusive, that specifies the degree of opacity of the brush.
-     * @type {Float}
      */
-    opacity {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    opacity : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
      * The transformation that is applied to the brush.
-     * @type {D2D_MATRIX_3X2_F}
      */
-    transform {
-        get {
-            if(!this.HasProp("__transform"))
-                this.__transform := D2D_MATRIX_3X2_F(4, this)
-            return this.__transform
-        }
-    }
+    transform : D2D_MATRIX_3X2_F
+
 }

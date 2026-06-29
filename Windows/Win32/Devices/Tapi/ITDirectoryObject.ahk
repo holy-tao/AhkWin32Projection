@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumDialableAddrs.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumDialableAddrs.ahk" { IEnumDialableAddrs }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITDirectoryObject interface is the common interface supported by all objects that can be added and deleted by using the ITDirectory interface.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectoryobject
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDirectoryObject extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDirectoryObject extends IDispatch {
     /**
      * The interface identifier for ITDirectoryObject
      * @type {Guid}
      */
-    static IID => Guid("{34621d6e-6cff-11d1-aff7-00c04fc31fee}")
+    static IID := Guid("{34621d6e-6cff-11d1-aff7-00c04fc31fee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDirectoryObject interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ObjectType         : IntPtr
+        get_Name               : IntPtr
+        put_Name               : IntPtr
+        get_DialableAddrs      : IntPtr
+        EnumerateDialableAddrs : IntPtr
+        get_SecurityDescriptor : IntPtr
+        put_SecurityDescriptor : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ObjectType", "get_Name", "put_Name", "get_DialableAddrs", "EnumerateDialableAddrs", "get_SecurityDescriptor", "put_SecurityDescriptor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDirectoryObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {DIRECTORY_OBJECT_TYPE} 
@@ -74,8 +89,8 @@ class ITDirectoryObject extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_name
      */
     get_Name() {
-        ppName := BSTR()
-        result := ComCall(8, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
     }
 
@@ -159,7 +174,7 @@ class ITDirectoryObject extends IDispatch {
     put_Name(pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(9, this, "ptr", pName, "HRESULT")
+        result := ComCall(9, this, BSTR, pName, "HRESULT")
         return result
     }
 
@@ -176,7 +191,7 @@ class ITDirectoryObject extends IDispatch {
      */
     get_DialableAddrs(dwAddressType) {
         pVariant := VARIANT()
-        result := ComCall(10, this, "int", dwAddressType, "ptr", pVariant, "HRESULT")
+        result := ComCall(10, this, "int", dwAddressType, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -282,5 +297,37 @@ class ITDirectoryObject extends IDispatch {
     put_SecurityDescriptor(pSecDes) {
         result := ComCall(13, this, "ptr", pSecDes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITDirectoryObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ObjectType := CallbackCreate(GetMethod(implObj, "get_ObjectType"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_DialableAddrs := CallbackCreate(GetMethod(implObj, "get_DialableAddrs"), flags, 3)
+        this.vtbl.EnumerateDialableAddrs := CallbackCreate(GetMethod(implObj, "EnumerateDialableAddrs"), flags, 3)
+        this.vtbl.get_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "get_SecurityDescriptor"), flags, 2)
+        this.vtbl.put_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "put_SecurityDescriptor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ObjectType)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_DialableAddrs)
+        CallbackFree(this.vtbl.EnumerateDialableAddrs)
+        CallbackFree(this.vtbl.get_SecurityDescriptor)
+        CallbackFree(this.vtbl.put_SecurityDescriptor)
     }
 }

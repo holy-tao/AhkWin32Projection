@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNAL_IF_OPER_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERNAL_IF_OPER_STATUS.ahk" { INTERNAL_IF_OPER_STATUS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Stores information about a particular interface. (MIB_IFROW)
@@ -11,32 +11,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/ifmib/ns-ifmib-mib_ifrow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IFROW extends Win32Struct {
-    static sizeof => 860
-
-    static packingSize => 4
+export default struct MIB_IFROW {
+    #StructPack 4
 
     /**
      * Type: <b>WCHAR[MAX_INTERFACE_NAME_LEN]</b>
      * 
      * A pointer to a Unicode string that contains the name of the interface.
-     * @type {String}
      */
-    wszName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    wszName : WCHAR[256]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The index that identifies the interface. This index value may change when a network adapter is disabled and then enabled, and should not be considered persistent.
-     * @type {Integer}
      */
-    dwIndex {
-        get => NumGet(this, 512, "uint")
-        set => NumPut("uint", value, this, 512)
-    }
+    dwIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -200,79 +190,48 @@ class MIB_IFROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 516, "uint")
-        set => NumPut("uint", value, this, 516)
-    }
+    dwType : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The Maximum Transmission Unit (MTU) size in bytes.
-     * @type {Integer}
      */
-    dwMtu {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
-    }
+    dwMtu : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The speed of the interface in bits per second.
-     * @type {Integer}
      */
-    dwSpeed {
-        get => NumGet(this, 524, "uint")
-        set => NumPut("uint", value, this, 524)
-    }
+    dwSpeed : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the physical address specified by the <b>bPhysAddr</b> member.
-     * @type {Integer}
      */
-    dwPhysAddrLen {
-        get => NumGet(this, 528, "uint")
-        set => NumPut("uint", value, this, 528)
-    }
+    dwPhysAddrLen : UInt32
 
     /**
      * Type: <b>BYTE[MAXLEN_PHYSADDR]</b>
      * 
      * The physical address of the adapter for this interface.
-     * @type {Array<Integer>}
      */
-    bPhysAddr {
-        get {
-            if(!this.HasProp("__bPhysAddrProxyArray"))
-                this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 532, 8, Primitive, "char")
-            return this.__bPhysAddrProxyArray
-        }
-    }
+    bPhysAddr : Int8[8]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The interface is administratively enabled or disabled.
-     * @type {Integer}
      */
-    dwAdminStatus {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
-    }
+    dwAdminStatus : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {INTERNAL_IF_OPER_STATUS}
      */
-    dwOperStatus {
-        get => NumGet(this, 544, "int")
-        set => NumPut("int", value, this, 544)
-    }
+    dwOperStatus : INTERNAL_IF_OPER_STATUS
 
     /**
      * Type: <b>DWORD</b>
@@ -280,167 +239,105 @@ class MIB_IFROW extends Win32Struct {
      * The  length of time, in hundredths of seconds (10^-2 sec), starting from the last computer restart, when the interface entered its current operational state. This value rolls over after 2^32 hundredths of a second. 
      * 
      * The <b>dwLastChange</b> member is not currently supported by NDIS. On Windows Vista and later, NDIS returns zero for this member. On earlier versions of Windows, an arbitrary value is returned in this member for the interfaces supported by NDIS. For interfaces supported by other interface providers, they might return an appropriate value.
-     * @type {Integer}
      */
-    dwLastChange {
-        get => NumGet(this, 548, "uint")
-        set => NumPut("uint", value, this, 548)
-    }
+    dwLastChange : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of octets of data received through this interface.
-     * @type {Integer}
      */
-    dwInOctets {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    dwInOctets : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of unicast packets received through this interface.
-     * @type {Integer}
      */
-    dwInUcastPkts {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
-    }
+    dwInUcastPkts : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of non-unicast packets received through this interface. Broadcast and multicast packets are included.
-     * @type {Integer}
      */
-    dwInNUcastPkts {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    dwInNUcastPkts : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of incoming packets that were discarded even though they did not have errors.
-     * @type {Integer}
      */
-    dwInDiscards {
-        get => NumGet(this, 564, "uint")
-        set => NumPut("uint", value, this, 564)
-    }
+    dwInDiscards : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of incoming packets that were discarded because of errors.
-     * @type {Integer}
      */
-    dwInErrors {
-        get => NumGet(this, 568, "uint")
-        set => NumPut("uint", value, this, 568)
-    }
+    dwInErrors : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of incoming packets that were discarded because the protocol was unknown.
-     * @type {Integer}
      */
-    dwInUnknownProtos {
-        get => NumGet(this, 572, "uint")
-        set => NumPut("uint", value, this, 572)
-    }
+    dwInUnknownProtos : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of octets of data sent through this interface.
-     * @type {Integer}
      */
-    dwOutOctets {
-        get => NumGet(this, 576, "uint")
-        set => NumPut("uint", value, this, 576)
-    }
+    dwOutOctets : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of unicast packets sent through this interface.
-     * @type {Integer}
      */
-    dwOutUcastPkts {
-        get => NumGet(this, 580, "uint")
-        set => NumPut("uint", value, this, 580)
-    }
+    dwOutUcastPkts : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of non-unicast packets sent through this interface. Broadcast and multicast packets are included.
-     * @type {Integer}
      */
-    dwOutNUcastPkts {
-        get => NumGet(this, 584, "uint")
-        set => NumPut("uint", value, this, 584)
-    }
+    dwOutNUcastPkts : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of outgoing packets that were discarded even though they did not have errors.
-     * @type {Integer}
      */
-    dwOutDiscards {
-        get => NumGet(this, 588, "uint")
-        set => NumPut("uint", value, this, 588)
-    }
+    dwOutDiscards : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of outgoing packets that were discarded because of errors.
-     * @type {Integer}
      */
-    dwOutErrors {
-        get => NumGet(this, 592, "uint")
-        set => NumPut("uint", value, this, 592)
-    }
+    dwOutErrors : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The transmit queue length. This field is not currently used.
-     * @type {Integer}
      */
-    dwOutQLen {
-        get => NumGet(this, 596, "uint")
-        set => NumPut("uint", value, this, 596)
-    }
+    dwOutQLen : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the <b>bDescr</b> member.
-     * @type {Integer}
      */
-    dwDescrLen {
-        get => NumGet(this, 600, "uint")
-        set => NumPut("uint", value, this, 600)
-    }
+    dwDescrLen : UInt32
 
     /**
      * Type: <b>BYTE[MAXLEN_IFDESCR]</b>
      * 
      * A description of the interface.
-     * @type {Array<Integer>}
      */
-    bDescr {
-        get {
-            if(!this.HasProp("__bDescrProxyArray"))
-                this.__bDescrProxyArray := Win32FixedArray(this.ptr + 604, 256, Primitive, "char")
-            return this.__bDescrProxyArray
-        }
-    }
+    bDescr : Int8[256]
+
 }

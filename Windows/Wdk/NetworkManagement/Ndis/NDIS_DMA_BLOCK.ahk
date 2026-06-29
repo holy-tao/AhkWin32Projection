@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_DMA_BLOCK extends Win32Struct {
-    static sizeof => 40
+export default struct NDIS_DMA_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    MapRegisterBase : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    MapRegisterBase {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AllocationEvent : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AllocationEvent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SystemAdapterObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SystemAdapterObject {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Miniport : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Miniport {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InProgress : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    InProgress {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
 }

@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import ".\WSD_SOAP_HEADER.ahk" { WSD_SOAP_HEADER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Is used by generated stub code to send faults or responses to incoming messages.
  * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsdservicemessaging
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDServiceMessaging extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDServiceMessaging extends IUnknown {
     /**
      * The interface identifier for IWSDServiceMessaging
      * @type {Guid}
      */
-    static IID => Guid("{94974cf4-0cab-460d-a3f6-7a0ad623c0e6}")
+    static IID := Guid("{94974cf4-0cab-460d-a3f6-7a0ad623c0e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDServiceMessaging interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SendResponse : IntPtr
+        FaultRequest : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SendResponse", "FaultRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDServiceMessaging.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends a response message matching a given request context.
@@ -102,7 +115,7 @@ class IWSDServiceMessaging extends IUnknown {
     SendResponse(pBody, pOperation, pMessageParameters) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pMessageParameters, "HRESULT")
+        result := ComCall(3, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "ptr", pMessageParameters, "HRESULT")
         return result
     }
 
@@ -177,7 +190,29 @@ class IWSDServiceMessaging extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsdservicemessaging-faultrequest
      */
     FaultRequest(pRequestHeader, pMessageParameters, pFault) {
-        result := ComCall(4, this, "ptr", pRequestHeader, "ptr", pMessageParameters, "ptr", pFault, "HRESULT")
+        result := ComCall(4, this, WSD_SOAP_HEADER.Ptr, pRequestHeader, "ptr", pMessageParameters, WSD_SOAP_FAULT.Ptr, pFault, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDServiceMessaging.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SendResponse := CallbackCreate(GetMethod(implObj, "SendResponse"), flags, 4)
+        this.vtbl.FaultRequest := CallbackCreate(GetMethod(implObj, "FaultRequest"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SendResponse)
+        CallbackFree(this.vtbl.FaultRequest)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Allows a sync provider to control how placeholder files should be hydrated by the platform. This is a modifier that can be used with the primary policy:\_CF_HYDRATION_POLICY_PRIMARY.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_hydration_policy_modifier
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_HYDRATION_POLICY_MODIFIER extends Win32BitflagEnum {
+export default struct CF_HYDRATION_POLICY_MODIFIER {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * `0x0000`

@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ICMP_HEADER.ahk" { ICMP_HEADER }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class MLDV2_REPORT_HEADER extends Win32Struct {
-    static sizeof => 8
+export default struct MLDV2_REPORT_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    IcmpHeader : ICMP_HEADER
 
-    /**
-     * @type {ICMP_HEADER}
-     */
-    IcmpHeader {
-        get {
-            if(!this.HasProp("__IcmpHeader"))
-                this.__IcmpHeader := ICMP_HEADER(0, this)
-            return this.__IcmpHeader
-        }
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    RecordCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RecordCount {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

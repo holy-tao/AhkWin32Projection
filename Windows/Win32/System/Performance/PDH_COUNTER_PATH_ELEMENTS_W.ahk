@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PDH_COUNTER_PATH_ELEMENTS structure contains the components of a counter path. (Unicode)
@@ -11,62 +11,37 @@
  * @namespace Windows.Win32.System.Performance
  * @charset Unicode
  */
-class PDH_COUNTER_PATH_ELEMENTS_W extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PDH_COUNTER_PATH_ELEMENTS_W {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the computer name.
-     * @type {PWSTR}
      */
-    szMachineName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szMachineName : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the object name.
-     * @type {PWSTR}
      */
-    szObjectName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szObjectName : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the instance name. Can contain a wildcard character.
-     * @type {PWSTR}
      */
-    szInstanceName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szInstanceName : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the parent instance name. Can contain a wildcard character.
-     * @type {PWSTR}
      */
-    szParentInstance {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szParentInstance : PWSTR
 
     /**
      * Index used to uniquely identify duplicate instance names.
-     * @type {Integer}
      */
-    dwInstanceIndex {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwInstanceIndex : UInt32
 
     /**
      * Pointer to a null-terminated string that specifies the counter name.
-     * @type {PWSTR}
      */
-    szCounterName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    szCounterName : PWSTR
+
 }

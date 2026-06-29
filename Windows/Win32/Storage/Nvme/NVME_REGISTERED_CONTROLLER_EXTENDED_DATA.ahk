@@ -1,28 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct {
-    static sizeof => 64
+export default struct NVME_REGISTERED_CONTROLLER_EXTENDED_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _RCSTS extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _RCSTS {
         /**
          * This bitfield backs the following members:
          * - HoldReservation
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -33,63 +25,16 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    CNTLID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    CNTLID : UInt16
 
-    /**
-     * @type {_RCSTS}
-     */
-    RCSTS {
-        get {
-            if(!this.HasProp("__RCSTS"))
-                this.__RCSTS := NVME_REGISTERED_CONTROLLER_EXTENDED_DATA._RCSTS(2, this)
-            return this.__RCSTS
-        }
-    }
+    RCSTS : NVME_REGISTERED_CONTROLLER_EXTENDED_DATA._RCSTS
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[5]
 
-    /**
-     * @type {Integer}
-     */
-    RKEY {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RKEY : Int64
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HOSTID {
-        get {
-            if(!this.HasProp("__HOSTIDProxyArray"))
-                this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__HOSTIDProxyArray
-        }
-    }
+    HOSTID : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[32]
+
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for accessing thesaurus information.
@@ -10,26 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchlanguagesupport
  * @namespace Windows.Win32.System.Search
  */
-class ISearchLanguageSupport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchLanguageSupport extends IUnknown {
     /**
      * The interface identifier for ISearchLanguageSupport
      * @type {Guid}
      */
-    static IID => Guid("{24c3cbaa-ebc1-491a-9ef1-9f6d8deb1b8f}")
+    static IID := Guid("{24c3cbaa-ebc1-491a-9ef1-9f6d8deb1b8f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchLanguageSupport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDiacriticSensitivity : IntPtr
+        GetDiacriticSensitivity : IntPtr
+        LoadWordBreaker         : IntPtr
+        LoadStemmer             : IntPtr
+        IsPrefixNormalized      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDiacriticSensitivity", "GetDiacriticSensitivity", "LoadWordBreaker", "LoadStemmer", "IsPrefixNormalized"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchLanguageSupport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a value that indicates whether an implemented ISearchLanguageSupport interface is sensitive to diacritics. A diacritic is an accent mark added to a letter to indicate a special phonetic value or pronunciation.
@@ -42,7 +56,7 @@ class ISearchLanguageSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-setdiacriticsensitivity
      */
     SetDiacriticSensitivity(fDiacriticSensitive) {
-        result := ComCall(3, this, "int", fDiacriticSensitive, "HRESULT")
+        result := ComCall(3, this, BOOL, fDiacriticSensitive, "HRESULT")
         return result
     }
 
@@ -54,7 +68,7 @@ class ISearchLanguageSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-getdiacriticsensitivity
      */
     GetDiacriticSensitivity() {
-        result := ComCall(4, this, "int*", &pfDiacriticSensitive := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfDiacriticSensitive := 0, "HRESULT")
         return pfDiacriticSensitive
     }
 
@@ -81,7 +95,7 @@ class ISearchLanguageSupport extends IUnknown {
         ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", lcid, "ptr", riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(5, this, "uint", lcid, Guid.Ptr, riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -108,7 +122,7 @@ class ISearchLanguageSupport extends IUnknown {
         ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", lcid, "ptr", riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(6, this, "uint", lcid, Guid.Ptr, riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -137,5 +151,33 @@ class ISearchLanguageSupport extends IUnknown {
 
         result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, "uint*", &pulPrefixLength := 0, "HRESULT")
         return pulPrefixLength
+    }
+
+    Query(iid) {
+        if (ISearchLanguageSupport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDiacriticSensitivity := CallbackCreate(GetMethod(implObj, "SetDiacriticSensitivity"), flags, 2)
+        this.vtbl.GetDiacriticSensitivity := CallbackCreate(GetMethod(implObj, "GetDiacriticSensitivity"), flags, 2)
+        this.vtbl.LoadWordBreaker := CallbackCreate(GetMethod(implObj, "LoadWordBreaker"), flags, 5)
+        this.vtbl.LoadStemmer := CallbackCreate(GetMethod(implObj, "LoadStemmer"), flags, 5)
+        this.vtbl.IsPrefixNormalized := CallbackCreate(GetMethod(implObj, "IsPrefixNormalized"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDiacriticSensitivity)
+        CallbackFree(this.vtbl.GetDiacriticSensitivity)
+        CallbackFree(this.vtbl.LoadWordBreaker)
+        CallbackFree(this.vtbl.LoadStemmer)
+        CallbackFree(this.vtbl.IsPrefixNormalized)
     }
 }

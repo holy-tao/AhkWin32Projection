@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEER_DATA.ahk" { PEER_DATA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The PEER_OBJECT structure contains application-specific run-time information that can be shared with trusted contacts within a peer collaboration network.
@@ -15,39 +15,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_object
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_OBJECT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PEER_OBJECT {
+    #StructPack 8
 
     /**
      * GUID value under which the peer object is uniquely registered.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains information which describes the peer object.
      * @deprecated
-     * @type {PEER_DATA}
      */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(8, this)
-            return this.__data
-        }
-    }
+    data : PEER_DATA
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_publication_scope">PEER_PUBLICATION_SCOPE</a> enumeration value that specifies the publication scope for this peer object.
-     * @type {Integer}
      */
-    dwPublicationScope {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwPublicationScope : UInt32
+
 }

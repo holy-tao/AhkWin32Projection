@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_INFO_PARMSA (ANSI) structure (digitalv.h) contains parameters for the MCI_INFO command for digital-video devices.
@@ -16,44 +16,27 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class MCI_DGV_INFO_PARMSA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MCI_DGV_INFO_PARMSA {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Pointer to buffer for return string.
-     * @type {PSTR}
      */
-    lpstrReturn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrReturn : PSTR
 
     /**
      * Size, in bytes, of return buffer.
-     * @type {Integer}
      */
-    dwRetSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwRetSize : UInt32
 
     /**
      * Constant describing information to return.
-     * @type {Integer}
      */
-    dwItem {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwItem : UInt32
+
 }

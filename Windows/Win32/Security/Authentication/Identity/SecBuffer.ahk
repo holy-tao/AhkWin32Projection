@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a buffer allocated by a transport application to pass to a security package.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secbuffer
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecBuffer extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SecBuffer {
+    #StructPack 8
 
     /**
      * Specifies the size, in bytes, of the buffer pointed to by the <b>pvBuffer</b> member.
-     * @type {Integer}
      */
-    cbBuffer {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbBuffer : UInt32
 
     /**
      * Bit flags that indicate the type of buffer. <b>BufferType</b> must be one of the following flags.
@@ -322,19 +315,12 @@ class SecBuffer extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    BufferType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BufferType : UInt32
 
     /**
      * A pointer to a buffer.
-     * @type {Pointer<Void>}
      */
-    pvBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvBuffer : IntPtr
+
 }

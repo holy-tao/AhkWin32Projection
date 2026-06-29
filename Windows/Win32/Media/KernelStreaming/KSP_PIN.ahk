@@ -1,49 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
- * The KSP_PINMODE structure specifies the pin property and the supported audio processing modes for a pin factory.
- * @see https://learn.microsoft.com/windows/win32/api/msapofxproxy/ns-msapofxproxy-ksp_pinmode
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSP_PIN extends Win32Struct {
-    static sizeof => 24
+export default struct KSP_PIN {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    PinId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PinId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: UInt32, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

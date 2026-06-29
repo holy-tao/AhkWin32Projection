@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_CONTEXT_HANDLE_FORMAT extends Win32Struct {
-    static sizeof => 4
+export default struct NDR64_CONTEXT_HANDLE_FORMAT {
+    #StructPack 1
 
-    static packingSize => 1
+    FormatCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ContextFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ContextFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    RundownRoutineIndex : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RundownRoutineIndex {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Ordinal : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Ordinal {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

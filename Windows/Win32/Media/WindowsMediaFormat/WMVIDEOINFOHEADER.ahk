@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The WMVIDEOINFOHEADER structure describes the bitmap and color information for a video image.
@@ -12,71 +11,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmvideoinfoheader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMVIDEOINFOHEADER extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct WMVIDEOINFOHEADER {
+    #StructPack 8
 
     /**
      * <b>RECT</b> structure that specifies the source video window.
-     * @type {RECT}
      */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcSource : RECT
 
     /**
      * <b>RECT</b> structure that specifies the destination video window.
-     * @type {RECT}
      */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    rcTarget : RECT
 
     /**
      * <b>DWORD</b> containing the approximate bit rate, in bits per second.
-     * @type {Integer}
      */
-    dwBitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwBitRate : UInt32
 
     /**
      * <b>DWORD</b> containing the error rate for this stream, in bits per second.
-     * @type {Integer}
      */
-    dwBitErrorRate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwBitErrorRate : UInt32
 
     /**
      * When writing an ASF file, this member specifies the desired average time per frame in 100-nanosecond units. When reading an ASF file, this member is always zero.
-     * @type {Integer}
      */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    AvgTimePerFrame : Int64
 
     /**
      * <b>BITMAPINFOHEADER</b> structure that contains color and dimension information for the video image bitmap. <b>BITMAPINFOHEADER</b> is a Windows GDI structure.
-     * @type {BITMAPINFOHEADER}
      */
-    bmiHeader {
-        get {
-            if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(48, this)
-            return this.__bmiHeader
-        }
-    }
+    bmiHeader : BITMAPINFOHEADER
+
 }

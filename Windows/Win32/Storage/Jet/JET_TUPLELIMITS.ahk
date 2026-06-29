@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_TUPLELIMITS Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-tuplelimits-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_TUPLELIMITS extends Win32Struct {
-    static sizeof => 20
+export default struct JET_TUPLELIMITS {
+    #StructPack 4
 
-    static packingSize => 4
+    chLengthMin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    chLengthMin {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    chLengthMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    chLengthMax {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    chToIndexMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    chToIndexMax {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cchIncrement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cchIncrement {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ichStart : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ichStart {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

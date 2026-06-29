@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_BDDFALLBACK_CTL extends Win32Struct {
-    static sizeof => 1
+export default struct D3DKMT_BDDFALLBACK_CTL {
+    #StructPack 1
 
-    static packingSize => 1
+    ForceBddHeadlessNextFallback : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ForceBddHeadlessNextFallback {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLHTTPRequest2Callback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXMLHTTPRequest3.ahk" { IXMLHTTPRequest3 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
+#Import ".\XHR_CERT.ahk" { XHR_CERT }
 
 /**
  * Defines callbacks that notify an application with an outstanding IXMLHTTPRequest3 request of events that affect HTTP request and response processing.
@@ -18,26 +21,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest3callback
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback {
-
-    static sizeof => A_PtrSize
+export default struct IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback {
     /**
      * The interface identifier for IXMLHTTPRequest3Callback
      * @type {Guid}
      */
-    static IID => Guid("{b9e57830-8c6c-4a6f-9c13-47772bb047bb}")
+    static IID := Guid("{b9e57830-8c6c-4a6f-9c13-47772bb047bb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLHTTPRequest3Callback interfaces
+    */
+    struct Vtbl extends IXMLHTTPRequest2Callback.Vtbl {
+        OnServerCertificateReceived  : IntPtr
+        OnClientCertificateRequested : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnServerCertificateReceived", "OnClientCertificateRequested"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLHTTPRequest3Callback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Occurs when a client receives certificate errors or a server certificate chain during SSL negotiation with the server.
@@ -52,7 +63,7 @@ class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback {
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3callback-onservercertificatereceived
      */
     OnServerCertificateReceived(pXHR, dwCertificateErrors, cServerCertificateChain, rgServerCertificateChain) {
-        result := ComCall(8, this, "ptr", pXHR, "uint", dwCertificateErrors, "uint", cServerCertificateChain, "ptr", rgServerCertificateChain, "HRESULT")
+        result := ComCall(8, this, "ptr", pXHR, "uint", dwCertificateErrors, "uint", cServerCertificateChain, XHR_CERT.Ptr, rgServerCertificateChain, "HRESULT")
         return result
     }
 
@@ -72,5 +83,27 @@ class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback {
 
         result := ComCall(9, this, "ptr", pXHR, "uint", cIssuerList, rgpwszIssuerListMarshal, rgpwszIssuerList, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXMLHTTPRequest3Callback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnServerCertificateReceived := CallbackCreate(GetMethod(implObj, "OnServerCertificateReceived"), flags, 5)
+        this.vtbl.OnClientCertificateRequested := CallbackCreate(GetMethod(implObj, "OnClientCertificateRequested"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnServerCertificateReceived)
+        CallbackFree(this.vtbl.OnClientCertificateRequested)
     }
 }

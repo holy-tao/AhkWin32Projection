@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class EISA_PORT_DESCRIPTOR extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct EISA_PORT_DESCRIPTOR {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -15,12 +12,9 @@ class EISA_PORT_DESCRIPTOR extends Win32Struct {
      * - Reserved
      * - Shared
      * - MoreEntries
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}

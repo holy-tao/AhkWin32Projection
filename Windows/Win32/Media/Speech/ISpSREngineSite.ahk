@@ -1,40 +1,78 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISpPhraseBuilder.ahk
-#Include .\SPSTATEINFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPTRANSITIONPROPERTY.ahk" { SPTRANSITIONPROPERTY }
+#Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
+#Import ".\SPEVENT.ahk" { SPEVENT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPSTATEINFO.ahk" { SPSTATEINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPRULEINFOOPT.ahk" { SPRULEINFOOPT }
+#Import ".\SPRECORESULTINFO.ahk" { SPRECORESULTINFO }
+#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
+#Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
+#Import ".\SPWORDINFOOPT.ahk" { SPWORDINFOOPT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPPARSEINFO.ahk" { SPPARSEINFO }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
+#Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
+#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
+#Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpSREngineSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpSREngineSite extends IUnknown {
     /**
      * The interface identifier for ISpSREngineSite
      * @type {Guid}
      */
-    static IID => Guid("{3b414aec-720c-4883-b9ef-178cd394fb3a}")
+    static IID := Guid("{3b414aec-720c-4883-b9ef-178cd394fb3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpSREngineSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Read                    : IntPtr
+        DataAvailable           : IntPtr
+        SetBufferNotifySize     : IntPtr
+        ParseFromTransitions    : IntPtr
+        Recognition             : IntPtr
+        AddEvent                : IntPtr
+        Synchronize             : IntPtr
+        GetWordInfo             : IntPtr
+        SetWordClientContext    : IntPtr
+        GetRuleInfo             : IntPtr
+        SetRuleClientContext    : IntPtr
+        GetStateInfo            : IntPtr
+        GetResource             : IntPtr
+        GetTransitionProperty   : IntPtr
+        IsAlternate             : IntPtr
+        GetMaxAlternates        : IntPtr
+        GetContextMaxAlternates : IntPtr
+        UpdateRecoPos           : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpSREngineSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Read", "DataAvailable", "SetBufferNotifySize", "ParseFromTransitions", "Recognition", "AddEvent", "Synchronize", "GetWordInfo", "SetWordClientContext", "GetRuleInfo", "SetRuleClientContext", "GetStateInfo", "GetResource", "GetTransitionProperty", "IsAlternate", "GetMaxAlternates", "GetContextMaxAlternates", "UpdateRecoPos"]
-
-    /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -68,20 +106,17 @@ class ISpSREngineSite extends IUnknown {
      * @returns {ISpPhraseBuilder} 
      */
     ParseFromTransitions(pParseInfo) {
-        result := ComCall(6, this, "ptr", pParseInfo, "ptr*", &ppNewPhrase := 0, "HRESULT")
+        result := ComCall(6, this, SPPARSEINFO.Ptr, pParseInfo, "ptr*", &ppNewPhrase := 0, "HRESULT")
         return ISpPhraseBuilder(ppNewPhrase)
     }
 
     /**
-     * Indicates the level of confidence that the IInkAnalyzer has in the accuracy of the recognition result.
-     * @remarks
-     * The [**IInkAnalyzer**](iinkanalyzer.md) uses one or more [**IInkAnalysisRecognizer**](iinkanalysisrecognizer.md) objects to convert handwriting to text.
+     * 
      * @param {Pointer<SPRECORESULTINFO>} pResultInfo 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/tablet/recognitionconfidence
      */
     Recognition(pResultInfo) {
-        result := ComCall(7, this, "ptr", pResultInfo, "HRESULT")
+        result := ComCall(7, this, SPRECORESULTINFO.Ptr, pResultInfo, "HRESULT")
         return result
     }
 
@@ -92,19 +127,14 @@ class ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     AddEvent(pEvent, hSAPIRecoContext) {
-        hSAPIRecoContext := hSAPIRecoContext is Win32Handle ? NumGet(hSAPIRecoContext, "ptr") : hSAPIRecoContext
-
-        result := ComCall(8, this, "ptr", pEvent, "ptr", hSAPIRecoContext, "HRESULT")
+        result := ComCall(8, this, SPEVENT.Ptr, pEvent, SPRECOCONTEXTHANDLE, hSAPIRecoContext, "HRESULT")
         return result
     }
 
     /**
-     * Causes the UI Automation provider to stop listening for mouse or keyboard input.
-     * @param {Integer} ullProcessedThruPos 
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * Returns S_OK if successful or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_cancel
+     * @param {Integer} ullProcessedThruPos 
+     * @returns {HRESULT} 
      */
     Synchronize(ullProcessedThruPos) {
         result := ComCall(9, this, "uint", ullProcessedThruPos, "HRESULT")
@@ -118,7 +148,7 @@ class ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     GetWordInfo(pWordEntry, Options) {
-        result := ComCall(10, this, "ptr", pWordEntry, "int", Options, "HRESULT")
+        result := ComCall(10, this, SPWORDENTRY.Ptr, pWordEntry, SPWORDINFOOPT, Options, "HRESULT")
         return result
     }
 
@@ -129,11 +159,9 @@ class ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     SetWordClientContext(hWord, pvClientContext) {
-        hWord := hWord is Win32Handle ? NumGet(hWord, "ptr") : hWord
-
         pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", hWord, pvClientContextMarshal, pvClientContext, "HRESULT")
+        result := ComCall(11, this, SPWORDHANDLE, hWord, pvClientContextMarshal, pvClientContext, "HRESULT")
         return result
     }
 
@@ -144,7 +172,7 @@ class ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRuleInfo(pRuleEntry, Options) {
-        result := ComCall(12, this, "ptr", pRuleEntry, "int", Options, "HRESULT")
+        result := ComCall(12, this, SPRULEENTRY.Ptr, pRuleEntry, SPRULEINFOOPT, Options, "HRESULT")
         return result
     }
 
@@ -155,11 +183,9 @@ class ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRuleClientContext(hRule, pvClientContext) {
-        hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
-
         pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, "ptr", hRule, pvClientContextMarshal, pvClientContext, "HRESULT")
+        result := ComCall(13, this, SPRULEHANDLE, hRule, pvClientContextMarshal, pvClientContext, "HRESULT")
         return result
     }
 
@@ -169,10 +195,8 @@ class ISpSREngineSite extends IUnknown {
      * @returns {SPSTATEINFO} 
      */
     GetStateInfo(hState) {
-        hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
-
         pStateInfo := SPSTATEINFO()
-        result := ComCall(14, this, "ptr", hState, "ptr", pStateInfo, "HRESULT")
+        result := ComCall(14, this, SPSTATEHANDLE, hState, SPSTATEINFO.Ptr, pStateInfo, "HRESULT")
         return pStateInfo
     }
 
@@ -183,10 +207,9 @@ class ISpSREngineSite extends IUnknown {
      * @returns {PWSTR} 
      */
     GetResource(hRule, pszResourceName) {
-        hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        result := ComCall(15, this, "ptr", hRule, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "HRESULT")
+        result := ComCall(15, this, SPRULEHANDLE, hRule, "ptr", pszResourceName, PWSTR.Ptr, &ppCoMemResource := 0, "HRESULT")
         return ppCoMemResource
     }
 
@@ -196,9 +219,7 @@ class ISpSREngineSite extends IUnknown {
      * @returns {Pointer<SPTRANSITIONPROPERTY>} 
      */
     GetTransitionProperty(ID) {
-        ID := ID is Win32Handle ? NumGet(ID, "ptr") : ID
-
-        result := ComCall(16, this, "ptr", ID, "ptr*", &ppCoMemProperty := 0, "HRESULT")
+        result := ComCall(16, this, SPTRANSITIONID, ID, "ptr*", &ppCoMemProperty := 0, "HRESULT")
         return ppCoMemProperty
     }
 
@@ -209,10 +230,7 @@ class ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     IsAlternate(hRule, hAltRule) {
-        hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
-        hAltRule := hAltRule is Win32Handle ? NumGet(hAltRule, "ptr") : hAltRule
-
-        result := ComCall(17, this, "ptr", hRule, "ptr", hAltRule, "HRESULT")
+        result := ComCall(17, this, SPRULEHANDLE, hRule, SPRULEHANDLE, hAltRule, "HRESULT")
         return result
     }
 
@@ -222,9 +240,7 @@ class ISpSREngineSite extends IUnknown {
      * @returns {Integer} 
      */
     GetMaxAlternates(hRule) {
-        hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
-
-        result := ComCall(18, this, "ptr", hRule, "uint*", &pulNumAlts := 0, "HRESULT")
+        result := ComCall(18, this, SPRULEHANDLE, hRule, "uint*", &pulNumAlts := 0, "HRESULT")
         return pulNumAlts
     }
 
@@ -234,9 +250,7 @@ class ISpSREngineSite extends IUnknown {
      * @returns {Integer} 
      */
     GetContextMaxAlternates(hContext) {
-        hContext := hContext is Win32Handle ? NumGet(hContext, "ptr") : hContext
-
-        result := ComCall(19, this, "ptr", hContext, "uint*", &pulNumAlts := 0, "HRESULT")
+        result := ComCall(19, this, SPRECOCONTEXTHANDLE, hContext, "uint*", &pulNumAlts := 0, "HRESULT")
         return pulNumAlts
     }
 
@@ -248,5 +262,59 @@ class ISpSREngineSite extends IUnknown {
     UpdateRecoPos(ullCurrentRecoPos) {
         result := ComCall(20, this, "uint", ullCurrentRecoPos, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpSREngineSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
+        this.vtbl.DataAvailable := CallbackCreate(GetMethod(implObj, "DataAvailable"), flags, 2)
+        this.vtbl.SetBufferNotifySize := CallbackCreate(GetMethod(implObj, "SetBufferNotifySize"), flags, 2)
+        this.vtbl.ParseFromTransitions := CallbackCreate(GetMethod(implObj, "ParseFromTransitions"), flags, 3)
+        this.vtbl.Recognition := CallbackCreate(GetMethod(implObj, "Recognition"), flags, 2)
+        this.vtbl.AddEvent := CallbackCreate(GetMethod(implObj, "AddEvent"), flags, 3)
+        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 2)
+        this.vtbl.GetWordInfo := CallbackCreate(GetMethod(implObj, "GetWordInfo"), flags, 3)
+        this.vtbl.SetWordClientContext := CallbackCreate(GetMethod(implObj, "SetWordClientContext"), flags, 3)
+        this.vtbl.GetRuleInfo := CallbackCreate(GetMethod(implObj, "GetRuleInfo"), flags, 3)
+        this.vtbl.SetRuleClientContext := CallbackCreate(GetMethod(implObj, "SetRuleClientContext"), flags, 3)
+        this.vtbl.GetStateInfo := CallbackCreate(GetMethod(implObj, "GetStateInfo"), flags, 3)
+        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 4)
+        this.vtbl.GetTransitionProperty := CallbackCreate(GetMethod(implObj, "GetTransitionProperty"), flags, 3)
+        this.vtbl.IsAlternate := CallbackCreate(GetMethod(implObj, "IsAlternate"), flags, 3)
+        this.vtbl.GetMaxAlternates := CallbackCreate(GetMethod(implObj, "GetMaxAlternates"), flags, 3)
+        this.vtbl.GetContextMaxAlternates := CallbackCreate(GetMethod(implObj, "GetContextMaxAlternates"), flags, 3)
+        this.vtbl.UpdateRecoPos := CallbackCreate(GetMethod(implObj, "UpdateRecoPos"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.DataAvailable)
+        CallbackFree(this.vtbl.SetBufferNotifySize)
+        CallbackFree(this.vtbl.ParseFromTransitions)
+        CallbackFree(this.vtbl.Recognition)
+        CallbackFree(this.vtbl.AddEvent)
+        CallbackFree(this.vtbl.Synchronize)
+        CallbackFree(this.vtbl.GetWordInfo)
+        CallbackFree(this.vtbl.SetWordClientContext)
+        CallbackFree(this.vtbl.GetRuleInfo)
+        CallbackFree(this.vtbl.SetRuleClientContext)
+        CallbackFree(this.vtbl.GetStateInfo)
+        CallbackFree(this.vtbl.GetResource)
+        CallbackFree(this.vtbl.GetTransitionProperty)
+        CallbackFree(this.vtbl.IsAlternate)
+        CallbackFree(this.vtbl.GetMaxAlternates)
+        CallbackFree(this.vtbl.GetContextMaxAlternates)
+        CallbackFree(this.vtbl.UpdateRecoPos)
     }
 }

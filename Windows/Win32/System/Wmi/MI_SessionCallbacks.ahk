@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A container for callback function pointers that handle logging and error messages.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sessioncallbacks
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_SessionCallbacks extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MI_SessionCallbacks {
+    #StructPack 8
 
     /**
      * A client-specific context that is passed to all of the callbacks. This is used to correlate the callback to the associated operation.
-     * @type {Pointer<Void>}
      */
-    callbackContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    callbackContext : IntPtr
 
     /**
      * The CIM extension callback for receiving logging from the session creation. All parameters are valid only for the lifetime of the callback.
-     * @type {Pointer}
      */
-    writeMessage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    writeMessage : IntPtr
 
     /**
      * The CIM extension callback for errors. The session version of this function is informative only. The session will fail to create and will  return an error. All parameters are valid only for the lifetime of the callback.
-     * @type {Pointer}
      */
-    writeError {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    writeError : IntPtr
+
 }

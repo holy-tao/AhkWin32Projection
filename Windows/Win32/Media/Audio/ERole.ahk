@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ERole enumeration defines constants that indicate the role that the system has assigned to an audio endpoint device.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole
  * @namespace Windows.Win32.Media.Audio
  */
-class ERole extends Win32Enum {
+export default struct ERole {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Games, system notification sounds, and voice commands.

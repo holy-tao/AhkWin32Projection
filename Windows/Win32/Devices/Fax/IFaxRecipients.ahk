@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFaxRecipient.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxRecipient.ahk" { IFaxRecipient }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFaxRecipients interface defines a FaxRecipients messaging collection is used by a fax client application to manage the fax recipient objects (FaxRecipient) that represent the recipients of a single fax document.
@@ -12,32 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxrecipients
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxRecipients extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxRecipients extends IDispatch {
     /**
      * The interface identifier for IFaxRecipients
      * @type {Guid}
      */
-    static IID => Guid("{b9c9de5a-894e-4492-9fa3-08c627c11d5d}")
+    static IID := Guid("{b9c9de5a-894e-4492-9fa3-08c627c11d5d}")
 
     /**
      * The class identifier for FaxRecipients
      * @type {Guid}
      */
-    static CLSID => Guid("{ea9bdf53-10a9-4d4f-a067-63c8f84f01b0}")
+    static CLSID := Guid("{ea9bdf53-10a9-4d4f-a067-63c8f84f01b0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxRecipients interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        get_Count    : IntPtr
+        Add          : IntPtr
+        Remove       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Add", "Remove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxRecipients.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -109,7 +122,7 @@ class IFaxRecipients extends IDispatch {
         bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
         bstrRecipientName := bstrRecipientName is String ? BSTR.Alloc(bstrRecipientName).Value : bstrRecipientName
 
-        result := ComCall(10, this, "ptr", bstrFaxNumber, "ptr", bstrRecipientName, "ptr*", &ppFaxRecipient := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrFaxNumber, BSTR, bstrRecipientName, "ptr*", &ppFaxRecipient := 0, "HRESULT")
         return IFaxRecipient(ppFaxRecipient)
     }
 
@@ -126,5 +139,33 @@ class IFaxRecipients extends IDispatch {
     Remove(lIndex) {
         result := ComCall(11, this, "int", lIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxRecipients.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
     }
 }

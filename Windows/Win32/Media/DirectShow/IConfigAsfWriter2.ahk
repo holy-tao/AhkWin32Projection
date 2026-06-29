@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IConfigAsfWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IConfigAsfWriter.ahk" { IConfigAsfWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
 
 /**
  * The IConfigAsfWriter2 interface extends the IConfigAsfWriter interface, which configures the WM ASF Writer filter.
  * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nn-dshowasf-iconfigasfwriter2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IConfigAsfWriter2 extends IConfigAsfWriter {
-
-    static sizeof => A_PtrSize
+export default struct IConfigAsfWriter2 extends IConfigAsfWriter {
     /**
      * The interface identifier for IConfigAsfWriter2
      * @type {Guid}
      */
-    static IID => Guid("{7989ccaa-53f0-44f0-884a-f3b03f6ae066}")
+    static IID := Guid("{7989ccaa-53f0-44f0-884a-f3b03f6ae066}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConfigAsfWriter2 interfaces
+    */
+    struct Vtbl extends IConfigAsfWriter.Vtbl {
+        StreamNumFromPin    : IntPtr
+        SetParam            : IntPtr
+        GetParam            : IntPtr
+        ResetMultiPassState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StreamNumFromPin", "SetParam", "GetParam", "ResetMultiPassState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConfigAsfWriter2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StreamNumFromPin method retrieves the stream number associated with the specified input pin.
@@ -110,5 +122,31 @@ class IConfigAsfWriter2 extends IConfigAsfWriter {
     ResetMultiPassState() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IConfigAsfWriter2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StreamNumFromPin := CallbackCreate(GetMethod(implObj, "StreamNumFromPin"), flags, 3)
+        this.vtbl.SetParam := CallbackCreate(GetMethod(implObj, "SetParam"), flags, 4)
+        this.vtbl.GetParam := CallbackCreate(GetMethod(implObj, "GetParam"), flags, 4)
+        this.vtbl.ResetMultiPassState := CallbackCreate(GetMethod(implObj, "ResetMultiPassState"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StreamNumFromPin)
+        CallbackFree(this.vtbl.SetParam)
+        CallbackFree(this.vtbl.GetParam)
+        CallbackFree(this.vtbl.ResetMultiPassState)
     }
 }

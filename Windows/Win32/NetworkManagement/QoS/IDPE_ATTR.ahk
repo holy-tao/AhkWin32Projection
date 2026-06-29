@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IDPE_ATTR structure contains identity policy element attribute information.
  * @see https://learn.microsoft.com/windows/win32/api/qospol/ns-qospol-idpe_attr
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class IDPE_ATTR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct IDPE_ATTR {
+    #StructPack 2
 
     /**
      * Length of the entire <b>IDPE_ATTR</b> structure, in bytes.
-     * @type {Integer}
      */
-    PeAttribLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    PeAttribLength : UInt16
 
     /**
      * Policy element attribute type. Must be the following type:
@@ -39,12 +32,8 @@ class IDPE_ATTR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    PeAttribType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    PeAttribType : Int8
 
     /**
      * Policy element attribute subtype. Must be the following type:
@@ -95,22 +84,12 @@ class IDPE_ATTR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    PeAttribSubType {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    PeAttribSubType : Int8
 
     /**
      * Policy element value.
-     * @type {Array<Integer>}
      */
-    PeAttribValue {
-        get {
-            if(!this.HasProp("__PeAttribValueProxyArray"))
-                this.__PeAttribValueProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__PeAttribValueProxyArray
-        }
-    }
+    PeAttribValue : Int8[4]
+
 }

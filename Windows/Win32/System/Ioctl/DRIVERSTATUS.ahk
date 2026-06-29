@@ -1,49 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DRIVERSTATUS extends Win32Struct {
-    static sizeof => 12
+export default struct DRIVERSTATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    bDriverError : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDriverError {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bIDEError : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIDEError {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bReserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bReserved {
-        get {
-            if(!this.HasProp("__bReservedProxyArray"))
-                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__bReservedProxyArray
-        }
-    }
+    dwReserved : UInt32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
 }

@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISyncChange.ahk
-#Include .\IRecoverableErrorData.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChange.ahk" { ISyncChange }
+#Import ".\IRecoverableErrorData.ahk" { IRecoverableErrorData }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a recoverable error that occurred when an item was loaded or when an item was saved.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irecoverableerror
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IRecoverableError extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRecoverableError extends IUnknown {
     /**
      * The interface identifier for IRecoverableError
      * @type {Guid}
      */
-    static IID => Guid("{0f5625e8-0a7b-45ee-9637-1ce13645909e}")
+    static IID := Guid("{0f5625e8-0a7b-45ee-9637-1ce13645909e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRecoverableError interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStage                             : IntPtr
+        GetProvider                          : IntPtr
+        GetChangeWithRecoverableError        : IntPtr
+        GetRecoverableErrorDataForChange     : IntPtr
+        GetRecoverableErrorDataForChangeUnit : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStage", "GetProvider", "GetChangeWithRecoverableError", "GetRecoverableErrorDataForChange", "GetRecoverableErrorDataForChangeUnit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRecoverableError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the stage in the synchronization session when the error occurred.
@@ -150,5 +165,33 @@ class IRecoverableError extends IUnknown {
 
         result := ComCall(7, this, "ptr", pChangeUnit, phrErrorMarshal, phrError, "ptr*", &ppErrorData := 0, "HRESULT")
         return IRecoverableErrorData(ppErrorData)
+    }
+
+    Query(iid) {
+        if (IRecoverableError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStage := CallbackCreate(GetMethod(implObj, "GetStage"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.GetChangeWithRecoverableError := CallbackCreate(GetMethod(implObj, "GetChangeWithRecoverableError"), flags, 2)
+        this.vtbl.GetRecoverableErrorDataForChange := CallbackCreate(GetMethod(implObj, "GetRecoverableErrorDataForChange"), flags, 3)
+        this.vtbl.GetRecoverableErrorDataForChangeUnit := CallbackCreate(GetMethod(implObj, "GetRecoverableErrorDataForChangeUnit"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStage)
+        CallbackFree(this.vtbl.GetProvider)
+        CallbackFree(this.vtbl.GetChangeWithRecoverableError)
+        CallbackFree(this.vtbl.GetRecoverableErrorDataForChange)
+        CallbackFree(this.vtbl.GetRecoverableErrorDataForChangeUnit)
     }
 }

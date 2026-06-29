@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the 256-bit symmetric key information for an Advanced Encryption Standard (AES) cipher.
@@ -10,68 +9,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_aes_256_key_state
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_AES_256_KEY_STATE extends Win32Struct {
-    static sizeof => 544
-
-    static packingSize => 1
+export default struct CRYPT_AES_256_KEY_STATE {
+    #StructPack 1
 
     /**
      * An array of hexadecimal values that specify a 256-bit <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher</a> key.
-     * @type {Array<Integer>}
      */
-    Key {
-        get {
-            if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
-            return this.__KeyProxyArray
-        }
-    }
+    Key : Int8[32]
 
     /**
      * An array of hexadecimal values that specify an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher</a>.
-     * @type {Array<Integer>}
      */
-    IV {
-        get {
-            if(!this.HasProp("__IVProxyArray"))
-                this.__IVProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
-            return this.__IVProxyArray
-        }
-    }
+    IV : Int8[16]
 
     /**
      * An array of hexadecimal values that specify a 15-round encryption key schedule.
-     * @type {Array<Integer>}
      */
-    EncryptionState {
-        get {
-            if(!this.HasProp("__EncryptionStateProxyArray"))
-                this.__EncryptionStateProxyArray := Win32FixedArray(this.ptr + 48, 240, Primitive, "char")
-            return this.__EncryptionStateProxyArray
-        }
-    }
+    EncryptionState : Int8[240]
 
     /**
      * An array of hexadecimal values that specify a 15-round decryption key schedule.
-     * @type {Array<Integer>}
      */
-    DecryptionState {
-        get {
-            if(!this.HasProp("__DecryptionStateProxyArray"))
-                this.__DecryptionStateProxyArray := Win32FixedArray(this.ptr + 288, 240, Primitive, "char")
-            return this.__DecryptionStateProxyArray
-        }
-    }
+    DecryptionState : Int8[240]
 
     /**
      * An array of hexadecimal values that specify the feedback vector for a stage in the encryption or decryption process.
-     * @type {Array<Integer>}
      */
-    Feedback {
-        get {
-            if(!this.HasProp("__FeedbackProxyArray"))
-                this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 528, 16, Primitive, "char")
-            return this.__FeedbackProxyArray
-        }
-    }
+    Feedback : Int8[16]
+
 }

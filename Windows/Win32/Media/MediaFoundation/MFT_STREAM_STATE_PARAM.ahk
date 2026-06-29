@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MF_STREAM_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MF_STREAM_STATE.ahk" { MF_STREAM_STATE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFT_STREAM_STATE_PARAM extends Win32Struct {
-    static sizeof => 8
+export default struct MFT_STREAM_STATE_PARAM {
+    #StructPack 4
 
-    static packingSize => 4
+    StreamId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    State : MF_STREAM_STATE
 
-    /**
-     * @type {MF_STREAM_STATE}
-     */
-    State {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

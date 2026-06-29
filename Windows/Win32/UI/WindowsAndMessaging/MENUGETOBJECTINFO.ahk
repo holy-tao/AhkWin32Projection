@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENUGETOBJECTINFO_FLAGS.ahk
-#Include .\HMENU.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MENUGETOBJECTINFO_FLAGS.ahk" { MENUGETOBJECTINFO_FLAGS }
+#Import ".\HMENU.ahk" { HMENU }
 
 /**
  * Contains information about the menu that the mouse cursor is on.
@@ -14,67 +13,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menugetobjectinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MENUGETOBJECTINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MENUGETOBJECTINFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The position of the mouse cursor with respect to the item indicated by
-     * @type {MENUGETOBJECTINFO_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : MENUGETOBJECTINFO_FLAGS
 
     /**
      * Type: <b>UINT</b>
      * 
      * The position of the item the mouse cursor is on.
-     * @type {Integer}
      */
-    uPos {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uPos : UInt32
 
     /**
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu the mouse cursor is on.
-     * @type {HMENU}
      */
-    hmenu {
-        get {
-            if(!this.HasProp("__hmenu"))
-                this.__hmenu := HMENU(8, this)
-            return this.__hmenu
-        }
-    }
+    hmenu : HMENU
 
     /**
      * Type: <b>PVOID</b>
      * 
      * The identifier of the requested interface. Currently it can only be <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a>.
-     * @type {Pointer<Void>}
      */
-    riid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    riid : IntPtr
 
     /**
      * Type: <b>PVOID</b>
      * 
      * A pointer to the interface corresponding to the 
      * 					<b>riid</b> member. This pointer is to be returned by the application when processing the message.
-     * @type {Pointer<Void>}
      */
-    pvObj {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvObj : IntPtr
+
 }

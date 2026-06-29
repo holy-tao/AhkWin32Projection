@@ -1,37 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISignerCertificate.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include .\IX509EnrollmentStatus.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
+#Import ".\IX509EnrollmentStatus.ahk" { IX509EnrollmentStatus }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\X509SCEPFailInfo.ahk" { X509SCEPFailInfo }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * X.509 Simple Computer Enrollment Protocol Interface
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509scepenrollment
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509SCEPEnrollment extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509SCEPEnrollment extends IDispatch {
     /**
      * The interface identifier for IX509SCEPEnrollment
      * @type {Guid}
      */
-    static IID => Guid("{728ab361-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab361-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509SCEPEnrollment interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize                       : IntPtr
+        InitializeForPending             : IntPtr
+        CreateRequestMessage             : IntPtr
+        CreateRetrievePendingMessage     : IntPtr
+        CreateRetrieveCertificateMessage : IntPtr
+        ProcessResponseMessage           : IntPtr
+        put_ServerCapabilities           : IntPtr
+        get_FailInfo                     : IntPtr
+        get_SignerCertificate            : IntPtr
+        put_SignerCertificate            : IntPtr
+        get_OldCertificate               : IntPtr
+        put_OldCertificate               : IntPtr
+        get_TransactionId                : IntPtr
+        put_TransactionId                : IntPtr
+        get_Request                      : IntPtr
+        get_CertificateFriendlyName      : IntPtr
+        put_CertificateFriendlyName      : IntPtr
+        get_Status                       : IntPtr
+        get_Certificate                  : IntPtr
+        get_Silent                       : IntPtr
+        put_Silent                       : IntPtr
+        DeleteRequest                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InitializeForPending", "CreateRequestMessage", "CreateRetrievePendingMessage", "CreateRetrieveCertificateMessage", "ProcessResponseMessage", "put_ServerCapabilities", "get_FailInfo", "get_SignerCertificate", "put_SignerCertificate", "get_OldCertificate", "put_OldCertificate", "get_TransactionId", "put_TransactionId", "get_Request", "get_CertificateFriendlyName", "put_CertificateFriendlyName", "get_Status", "get_Certificate", "get_Silent", "put_Silent", "DeleteRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509SCEPEnrollment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -111,7 +145,7 @@ class IX509SCEPEnrollment extends IDispatch {
         strThumbprint := strThumbprint is String ? BSTR.Alloc(strThumbprint).Value : strThumbprint
         strServerCertificates := strServerCertificates is String ? BSTR.Alloc(strServerCertificates).Value : strServerCertificates
 
-        result := ComCall(7, this, "ptr", pRequest, "ptr", strThumbprint, "int", ThumprintEncoding, "ptr", strServerCertificates, "int", Encoding, "HRESULT")
+        result := ComCall(7, this, "ptr", pRequest, BSTR, strThumbprint, EncodingType, ThumprintEncoding, BSTR, strServerCertificates, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -122,7 +156,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending
      */
     InitializeForPending(_Context) {
-        result := ComCall(8, this, "int", _Context, "HRESULT")
+        result := ComCall(8, this, X509CertificateEnrollmentContext, _Context, "HRESULT")
         return result
     }
 
@@ -135,8 +169,8 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createrequestmessage
      */
     CreateRequestMessage(Encoding) {
-        pValue := BSTR()
-        result := ComCall(9, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(9, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -149,8 +183,8 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievependingmessage
      */
     CreateRetrievePendingMessage(Encoding) {
-        pValue := BSTR()
-        result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(10, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -171,8 +205,8 @@ class IX509SCEPEnrollment extends IDispatch {
         strIssuer := strIssuer is String ? BSTR.Alloc(strIssuer).Value : strIssuer
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        pValue := BSTR()
-        result := ComCall(11, this, "int", _Context, "ptr", strIssuer, "int", IssuerEncoding, "ptr", strSerialNumber, "int", SerialNumberEncoding, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(11, this, X509CertificateEnrollmentContext, _Context, BSTR, strIssuer, EncodingType, IssuerEncoding, BSTR, strSerialNumber, EncodingType, SerialNumberEncoding, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -188,7 +222,7 @@ class IX509SCEPEnrollment extends IDispatch {
     ProcessResponseMessage(strResponse, Encoding) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        result := ComCall(12, this, "ptr", strResponse, "int", Encoding, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, strResponse, EncodingType, Encoding, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -205,7 +239,7 @@ class IX509SCEPEnrollment extends IDispatch {
     put_ServerCapabilities(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(13, this, "ptr", Value, "HRESULT")
+        result := ComCall(13, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -284,8 +318,8 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_transactionid
      */
     get_TransactionId(Encoding) {
-        pValue := BSTR()
-        result := ComCall(19, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(19, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -307,7 +341,7 @@ class IX509SCEPEnrollment extends IDispatch {
     put_TransactionId(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(20, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(20, this, EncodingType, Encoding, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -329,8 +363,8 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_certificatefriendlyname
      */
     get_CertificateFriendlyName() {
-        pValue := BSTR()
-        result := ComCall(22, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -343,7 +377,7 @@ class IX509SCEPEnrollment extends IDispatch {
     put_CertificateFriendlyName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(23, this, "ptr", Value, "HRESULT")
+        result := ComCall(23, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -364,8 +398,8 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
-        result := ComCall(25, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(25, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -374,7 +408,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Silent() {
-        result := ComCall(26, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -385,7 +419,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(27, this, "short", Value, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -399,5 +433,67 @@ class IX509SCEPEnrollment extends IDispatch {
     DeleteRequest() {
         result := ComCall(28, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509SCEPEnrollment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.InitializeForPending := CallbackCreate(GetMethod(implObj, "InitializeForPending"), flags, 2)
+        this.vtbl.CreateRequestMessage := CallbackCreate(GetMethod(implObj, "CreateRequestMessage"), flags, 3)
+        this.vtbl.CreateRetrievePendingMessage := CallbackCreate(GetMethod(implObj, "CreateRetrievePendingMessage"), flags, 3)
+        this.vtbl.CreateRetrieveCertificateMessage := CallbackCreate(GetMethod(implObj, "CreateRetrieveCertificateMessage"), flags, 8)
+        this.vtbl.ProcessResponseMessage := CallbackCreate(GetMethod(implObj, "ProcessResponseMessage"), flags, 4)
+        this.vtbl.put_ServerCapabilities := CallbackCreate(GetMethod(implObj, "put_ServerCapabilities"), flags, 2)
+        this.vtbl.get_FailInfo := CallbackCreate(GetMethod(implObj, "get_FailInfo"), flags, 2)
+        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.get_OldCertificate := CallbackCreate(GetMethod(implObj, "get_OldCertificate"), flags, 2)
+        this.vtbl.put_OldCertificate := CallbackCreate(GetMethod(implObj, "put_OldCertificate"), flags, 2)
+        this.vtbl.get_TransactionId := CallbackCreate(GetMethod(implObj, "get_TransactionId"), flags, 3)
+        this.vtbl.put_TransactionId := CallbackCreate(GetMethod(implObj, "put_TransactionId"), flags, 3)
+        this.vtbl.get_Request := CallbackCreate(GetMethod(implObj, "get_Request"), flags, 2)
+        this.vtbl.get_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "get_CertificateFriendlyName"), flags, 2)
+        this.vtbl.put_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "put_CertificateFriendlyName"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.DeleteRequest := CallbackCreate(GetMethod(implObj, "DeleteRequest"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InitializeForPending)
+        CallbackFree(this.vtbl.CreateRequestMessage)
+        CallbackFree(this.vtbl.CreateRetrievePendingMessage)
+        CallbackFree(this.vtbl.CreateRetrieveCertificateMessage)
+        CallbackFree(this.vtbl.ProcessResponseMessage)
+        CallbackFree(this.vtbl.put_ServerCapabilities)
+        CallbackFree(this.vtbl.get_FailInfo)
+        CallbackFree(this.vtbl.get_SignerCertificate)
+        CallbackFree(this.vtbl.put_SignerCertificate)
+        CallbackFree(this.vtbl.get_OldCertificate)
+        CallbackFree(this.vtbl.put_OldCertificate)
+        CallbackFree(this.vtbl.get_TransactionId)
+        CallbackFree(this.vtbl.put_TransactionId)
+        CallbackFree(this.vtbl.get_Request)
+        CallbackFree(this.vtbl.get_CertificateFriendlyName)
+        CallbackFree(this.vtbl.put_CertificateFriendlyName)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_Certificate)
+        CallbackFree(this.vtbl.get_Silent)
+        CallbackFree(this.vtbl.put_Silent)
+        CallbackFree(this.vtbl.DeleteRequest)
     }
 }

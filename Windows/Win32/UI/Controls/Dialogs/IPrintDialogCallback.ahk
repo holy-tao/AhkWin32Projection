@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Provides methods that enable an application to receive notifications and messages from the PrintDlgEx function while the Print Property Sheet is displayed.
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/nn-commdlg-iprintdialogcallback
  * @namespace Windows.Win32.UI.Controls.Dialogs
  */
-class IPrintDialogCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintDialogCallback extends IUnknown {
     /**
      * The interface identifier for IPrintDialogCallback
      * @type {Guid}
      */
-    static IID => Guid("{5852a2c3-6530-11d1-b6a3-0000f8757bf9}")
+    static IID := Guid("{5852a2c3-6530-11d1-b6a3-0000f8757bf9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintDialogCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitDone        : IntPtr
+        SelectionChange : IntPtr
+        HandleMessage   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitDone", "SelectionChange", "HandleMessage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintDialogCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by PrintDlgEx when the system has finished initializing the General page of the Print Property Sheet.
@@ -98,11 +112,33 @@ class IPrintDialogCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-iprintdialogcallback-handlemessage
      */
     HandleMessage(hDlg, uMsg, _wParam, _lParam, pResult) {
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
-
         pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hDlg, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, pResultMarshal, pResult, "HRESULT")
+        result := ComCall(5, this, HWND, hDlg, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, pResultMarshal, pResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintDialogCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitDone := CallbackCreate(GetMethod(implObj, "InitDone"), flags, 1)
+        this.vtbl.SelectionChange := CallbackCreate(GetMethod(implObj, "SelectionChange"), flags, 1)
+        this.vtbl.HandleMessage := CallbackCreate(GetMethod(implObj, "HandleMessage"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitDone)
+        CallbackFree(this.vtbl.SelectionChange)
+        CallbackFree(this.vtbl.HandleMessage)
     }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains the LastModified and Expire times for a resource stored in the Internet cache.
@@ -14,32 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cache_timestamps
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_CACHE_TIMESTAMPS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct INTERNET_CACHE_TIMESTAMPS {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the Expires time.
-     * @type {FILETIME}
      */
-    ftExpires {
-        get {
-            if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(0, this)
-            return this.__ftExpires
-        }
-    }
+    ftExpires : FILETIME
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the LastModified time.
-     * @type {FILETIME}
      */
-    ftLastModified {
-        get {
-            if(!this.HasProp("__ftLastModified"))
-                this.__ftLastModified := FILETIME(8, this)
-            return this.__ftLastModified
-        }
-    }
+    ftLastModified : FILETIME
+
 }

@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_DP2COMMAND extends Win32Struct {
-    static sizeof => 4
+export default struct D3DHAL_DP2COMMAND {
+    #StructPack 2
 
-    static packingSize => 2
+    bCommand : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCommand {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bReserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    wPrimitiveCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPrimitiveCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wStateCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    static __New() {
+        DefineProp(this.Prototype, 'wStateCount', { type: UInt16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

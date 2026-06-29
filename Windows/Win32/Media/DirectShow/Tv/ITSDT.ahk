@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-itsdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITSDT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITSDT extends IUnknown {
     /**
      * The interface identifier for ITSDT
      * @type {Guid}
      */
-    static IID => Guid("{d19bdb43-405b-4a7c-a791-c89110c33165}")
+    static IID := Guid("{d19bdb43-405b-4a7c-a791-c89110c33165}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSDT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                 : IntPtr
+        GetVersionNumber           : IntPtr
+        GetCountOfTableDescriptors : IntPtr
+        GetTableDescriptorByIndex  : IntPtr
+        GetTableDescriptorByTag    : IntPtr
+        RegisterForNextTable       : IntPtr
+        GetNextTable               : IntPtr
+        RegisterForWhenCurrent     : IntPtr
+        ConvertNextToCurrent       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag", "RegisterForNextTable", "GetNextTable", "RegisterForWhenCurrent", "ConvertNextToCurrent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSDT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -189,9 +208,7 @@ class ITSDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-itsdt-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
-        hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
-
-        result := ComCall(8, this, "ptr", hNextTableAvailable, "HRESULT")
+        result := ComCall(8, this, HANDLE, hNextTableAvailable, "HRESULT")
         return result
     }
 
@@ -267,9 +284,7 @@ class ITSDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-itsdt-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
-        hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
-
-        result := ComCall(10, this, "ptr", hNextTableIsCurrent, "HRESULT")
+        result := ComCall(10, this, HANDLE, hNextTableIsCurrent, "HRESULT")
         return result
     }
 
@@ -334,5 +349,41 @@ class ITSDT extends IUnknown {
     ConvertNextToCurrent() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITSDT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.RegisterForNextTable := CallbackCreate(GetMethod(implObj, "RegisterForNextTable"), flags, 2)
+        this.vtbl.GetNextTable := CallbackCreate(GetMethod(implObj, "GetNextTable"), flags, 2)
+        this.vtbl.RegisterForWhenCurrent := CallbackCreate(GetMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
+        this.vtbl.ConvertNextToCurrent := CallbackCreate(GetMethod(implObj, "ConvertNextToCurrent"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
+        CallbackFree(this.vtbl.RegisterForNextTable)
+        CallbackFree(this.vtbl.GetNextTable)
+        CallbackFree(this.vtbl.RegisterForWhenCurrent)
+        CallbackFree(this.vtbl.ConvertNextToCurrent)
     }
 }

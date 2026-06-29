@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that indicate whether the events come from a channel or log file.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_exportlog_flags
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_EXPORTLOG_FLAGS extends Win32Enum {
+export default struct EVT_EXPORTLOG_FLAGS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The source of the events is a channel.

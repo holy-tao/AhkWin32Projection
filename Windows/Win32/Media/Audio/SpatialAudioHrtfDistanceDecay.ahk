@@ -1,55 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SpatialAudioHrtfDistanceDecayType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SpatialAudioHrtfDistanceDecayType.ahk" { SpatialAudioHrtfDistanceDecayType }
 
 /**
  * Represents the decay model that is applied over distance from the position of an ISpatialAudioObjectForHrtf to the position of the listener.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdistancedecay
  * @namespace Windows.Win32.Media.Audio
  */
-class SpatialAudioHrtfDistanceDecay extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct SpatialAudioHrtfDistanceDecay {
+    #StructPack 4
 
     /**
      * The type of decay, natural or custom. The default value for this field is  <b>SpatialAudioHrtfDistanceDecay_NaturalDecay</b>.
-     * @type {SpatialAudioHrtfDistanceDecayType}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : SpatialAudioHrtfDistanceDecayType
 
-    /**
-     * @type {Float}
-     */
-    MaxGain {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    MaxGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    MinGain {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    MinGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    UnityGainDistance {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    UnityGainDistance : Float32
 
-    /**
-     * @type {Float}
-     */
-    CutoffDistance {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    CutoffDistance : Float32
+
 }

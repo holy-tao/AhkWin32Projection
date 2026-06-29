@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the metadata for HDR10, used when video is compressed using High Efficiency Video Coding (HEVC).
@@ -29,92 +28,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_HDR_METADATA_HDR10 extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct DXGI_HDR_METADATA_HDR10 {
+    #StructPack 4
 
     /**
      * The chromaticity coordinates of the red value in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<Integer>}
      */
-    RedPrimary {
-        get {
-            if(!this.HasProp("__RedPrimaryProxyArray"))
-                this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
-            return this.__RedPrimaryProxyArray
-        }
-    }
+    RedPrimary : UInt16[2]
 
     /**
      * The chromaticity coordinates of the green value in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<Integer>}
      */
-    GreenPrimary {
-        get {
-            if(!this.HasProp("__GreenPrimaryProxyArray"))
-                this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
-            return this.__GreenPrimaryProxyArray
-        }
-    }
+    GreenPrimary : UInt16[2]
 
     /**
      * The chromaticity coordinates of the blue value in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<Integer>}
      */
-    BluePrimary {
-        get {
-            if(!this.HasProp("__BluePrimaryProxyArray"))
-                this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
-            return this.__BluePrimaryProxyArray
-        }
-    }
+    BluePrimary : UInt16[2]
 
     /**
      * The chromaticity coordinates of the white point in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<Integer>}
      */
-    WhitePoint {
-        get {
-            if(!this.HasProp("__WhitePointProxyArray"))
-                this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "ushort")
-            return this.__WhitePointProxyArray
-        }
-    }
+    WhitePoint : UInt16[2]
 
     /**
      * The maximum number of nits of the display used to master the content. Values are in whole nits.
-     * @type {Integer}
      */
-    MaxMasteringLuminance {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxMasteringLuminance : UInt32
 
     /**
      * The minimum number of nits of the display used to master the content. Values are 1/10000th of a nit (0.0001 nit).
-     * @type {Integer}
      */
-    MinMasteringLuminance {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MinMasteringLuminance : UInt32
 
     /**
      * The maximum content light level (MaxCLL). This is the nit value corresponding to the brightest pixel used anywhere in the content.
-     * @type {Integer}
      */
-    MaxContentLightLevel {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    MaxContentLightLevel : UInt16
 
     /**
      * The maximum frame average light level (MaxFALL). This is the nit value corresponding to the average luminance of the frame which has the brightest average luminance anywhere in the content.
-     * @type {Integer}
      */
-    MaxFrameAverageLightLevel {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    MaxFrameAverageLightLevel : UInt16
+
 }

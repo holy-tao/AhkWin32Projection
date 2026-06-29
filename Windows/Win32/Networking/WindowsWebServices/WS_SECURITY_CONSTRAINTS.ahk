@@ -1,17 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_PROPERTY_CONSTRAINT.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_SECURITY_PROPERTY_CONSTRAINT.ahk" { WS_SECURITY_PROPERTY_CONSTRAINT }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT.ahk" { WS_SECURITY_BINDING_CONSTRAINT }
 
 /**
  * This structure specifies the security related constraints as part of WS_POLICY_CONSTRAINTS.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_CONSTRAINTS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WS_SECURITY_CONSTRAINTS {
+    #StructPack 8
 
     /**
      * An array of security property constraints which override the default
@@ -28,12 +25,8 @@ class WS_SECURITY_CONSTRAINTS extends Win32Struct {
      * 
      * Note that the defaults constraints for <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_property_constraint">WS_SECURITY_PROPERTY_CONSTRAINT</a> 
      *                     are the same as the defaults for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_security_property">WS_SECURITY_PROPERTY</a>.
-     * @type {Pointer<WS_SECURITY_PROPERTY_CONSTRAINT>}
      */
-    securityPropertyConstraints {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    securityPropertyConstraints : WS_SECURITY_PROPERTY_CONSTRAINT.Ptr
 
     /**
      * The number of elements specified in the securityPropertyConstraints
@@ -41,12 +34,8 @@ class WS_SECURITY_CONSTRAINTS extends Win32Struct {
      *                 
      * 
      * If this value is 0, then the securityPropertyConstraints array may be <b>NULL</b>.
-     * @type {Integer}
      */
-    securityPropertyConstraintCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    securityPropertyConstraintCount : UInt32
 
     /**
      * Any array of security binding constraints which taken as a unit specify
@@ -59,12 +48,8 @@ class WS_SECURITY_CONSTRAINTS extends Win32Struct {
      *                 
      * 
      * Specifying zero constraints indicates no security.
-     * @type {Pointer<Pointer<WS_SECURITY_BINDING_CONSTRAINT>>}
      */
-    securityBindingConstraints {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    securityBindingConstraints : IntPtr
 
     /**
      * The number of elements specified in the securityBindingConstraints
@@ -72,10 +57,7 @@ class WS_SECURITY_CONSTRAINTS extends Win32Struct {
      *                 
      * 
      * If this value is 0, then the securityBindingConstraints array may be <b>NULL</b>.
-     * @type {Integer}
      */
-    securityBindingConstraintCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    securityBindingConstraintCount : UInt32
+
 }

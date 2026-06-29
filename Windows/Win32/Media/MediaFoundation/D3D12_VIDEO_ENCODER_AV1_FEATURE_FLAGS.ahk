@@ -1,10 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS extends Win32BitflagEnum {
+export default struct D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}
@@ -140,4 +149,9 @@ class D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS extends Win32BitflagEnum {
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DELTA_LF_PARAMS => 33554432
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DISABLE_CDF_UPDATE_UNSUPPORTED => 67108864
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a rational number.
@@ -16,30 +15,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ns-dxgicommon-dxgi_rational
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  */
-class DXGI_RATIONAL extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DXGI_RATIONAL {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * An unsigned integer value representing the top of the rational number.
-     * @type {Integer}
      */
-    Numerator {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Numerator : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * An unsigned integer value representing the bottom of the rational number.
-     * @type {Integer}
      */
-    Denominator {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Denominator : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the range of key sizes that are supported by the provider.
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_key_lengths_struct
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_KEY_LENGTHS_STRUCT extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct BCRYPT_KEY_LENGTHS_STRUCT {
+    #StructPack 4
 
     /**
      * The minimum length, in bits, of a key.
-     * @type {Integer}
      */
-    dwMinLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMinLength : UInt32
 
     /**
      * The maximum length, in bits, of a key.
-     * @type {Integer}
      */
-    dwMaxLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMaxLength : UInt32
 
     /**
      * The number of bits that the key size can be incremented between <b>dwMinLength</b> and <b>dwMaxLength</b>.
-     * @type {Integer}
      */
-    dwIncrement {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwIncrement : UInt32
+
 }

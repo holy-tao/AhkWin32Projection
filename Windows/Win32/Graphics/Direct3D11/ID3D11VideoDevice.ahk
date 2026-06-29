@@ -1,18 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D11VideoDecoder.ahk
-#Include .\ID3D11VideoProcessor.ahk
-#Include .\ID3D11AuthenticatedChannel.ahk
-#Include .\ID3D11CryptoSession.ahk
-#Include .\ID3D11VideoDecoderOutputView.ahk
-#Include .\ID3D11VideoProcessorInputView.ahk
-#Include .\ID3D11VideoProcessorOutputView.ahk
-#Include .\ID3D11VideoProcessorEnumerator.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_VIDEO_DECODER_CONFIG.ahk
-#Include .\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
+#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
+#Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
+#Import ".\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import ".\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
+#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk" { D3D11_VIDEO_CONTENT_PROTECTION_CAPS }
+#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC }
+#Import ".\ID3D11VideoProcessorEnumerator.ahk" { ID3D11VideoProcessorEnumerator }
+#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\D3D11_AUTHENTICATED_CHANNEL_TYPE.ahk" { D3D11_AUTHENTICATED_CHANNEL_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice)
@@ -23,26 +32,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videodevice
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoDevice extends IUnknown {
     /**
      * The interface identifier for ID3D11VideoDevice
      * @type {Guid}
      */
-    static IID => Guid("{10ec4d5b-975a-4689-b9e4-d0aac30fe333}")
+    static IID := Guid("{10ec4d5b-975a-4689-b9e4-d0aac30fe333}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateVideoDecoder             : IntPtr
+        CreateVideoProcessor           : IntPtr
+        CreateAuthenticatedChannel     : IntPtr
+        CreateCryptoSession            : IntPtr
+        CreateVideoDecoderOutputView   : IntPtr
+        CreateVideoProcessorInputView  : IntPtr
+        CreateVideoProcessorOutputView : IntPtr
+        CreateVideoProcessorEnumerator : IntPtr
+        GetVideoDecoderProfileCount    : IntPtr
+        GetVideoDecoderProfile         : IntPtr
+        CheckVideoDecoderFormat        : IntPtr
+        GetVideoDecoderConfigCount     : IntPtr
+        GetVideoDecoderConfig          : IntPtr
+        GetContentProtectionCaps       : IntPtr
+        CheckCryptoKeyExchange         : IntPtr
+        SetPrivateData                 : IntPtr
+        SetPrivateDataInterface        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateVideoDecoder", "CreateVideoProcessor", "CreateAuthenticatedChannel", "CreateCryptoSession", "CreateVideoDecoderOutputView", "CreateVideoProcessorInputView", "CreateVideoProcessorOutputView", "CreateVideoProcessorEnumerator", "GetVideoDecoderProfileCount", "GetVideoDecoderProfile", "CheckVideoDecoderFormat", "GetVideoDecoderConfigCount", "GetVideoDecoderConfig", "GetContentProtectionCaps", "CheckCryptoKeyExchange", "SetPrivateData", "SetPrivateDataInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a video decoder device for Microsoft Direct3D 11.
@@ -56,7 +88,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder
      */
     CreateVideoDecoder(pVideoDesc, pConfig) {
-        result := ComCall(3, this, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", &ppDecoder := 0, "HRESULT")
+        result := ComCall(3, this, D3D11_VIDEO_DECODER_DESC.Ptr, pVideoDesc, D3D11_VIDEO_DECODER_CONFIG.Ptr, pConfig, "ptr*", &ppDecoder := 0, "HRESULT")
         return ID3D11VideoDecoder(ppDecoder)
     }
 
@@ -85,7 +117,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createauthenticatedchannel
      */
     CreateAuthenticatedChannel(_ChannelType) {
-        result := ComCall(5, this, "int", _ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "HRESULT")
+        result := ComCall(5, this, D3D11_AUTHENTICATED_CHANNEL_TYPE, _ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "HRESULT")
         return ID3D11AuthenticatedChannel(ppAuthenticatedChannel)
     }
 
@@ -137,7 +169,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createcryptosession
      */
     CreateCryptoSession(pCryptoType, pDecoderProfile, pKeyExchangeType) {
-        result := ComCall(6, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, "ptr*", &ppCryptoSession := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, Guid.Ptr, pKeyExchangeType, "ptr*", &ppCryptoSession := 0, "HRESULT")
         return ID3D11CryptoSession(ppCryptoSession)
     }
 
@@ -151,7 +183,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoderoutputview
      */
     CreateVideoDecoderOutputView(pResource, pDesc) {
-        result := ComCall(7, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppVDOVView := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pResource, D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.Ptr, pDesc, "ptr*", &ppVDOVView := 0, "HRESULT")
         return ID3D11VideoDecoderOutputView(ppVDOVView)
     }
 
@@ -180,7 +212,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorinputview
      */
     CreateVideoProcessorInputView(pResource, pEnum, pDesc) {
-        result := ComCall(8, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", &ppVPIView := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pResource, "ptr", pEnum, D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.Ptr, pDesc, "ptr*", &ppVPIView := 0, "HRESULT")
         return ID3D11VideoProcessorInputView(ppVPIView)
     }
 
@@ -217,7 +249,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessoroutputview
      */
     CreateVideoProcessorOutputView(pResource, pEnum, pDesc) {
-        result := ComCall(9, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", &ppVPOView := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pResource, "ptr", pEnum, D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.Ptr, pDesc, "ptr*", &ppVPOView := 0, "HRESULT")
         return ID3D11VideoProcessorOutputView(ppVPOView)
     }
 
@@ -230,7 +262,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator
      */
     CreateVideoProcessorEnumerator(pDesc) {
-        result := ComCall(10, this, "ptr", pDesc, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(10, this, D3D11_VIDEO_PROCESSOR_CONTENT_DESC.Ptr, pDesc, "ptr*", &ppEnum := 0, "HRESULT")
         return ID3D11VideoProcessorEnumerator(ppEnum)
     }
 
@@ -242,7 +274,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofilecount
      */
     GetVideoDecoderProfileCount() {
-        result := ComCall(11, this, "uint")
+        result := ComCall(11, this, UInt32)
         return result
     }
 
@@ -254,7 +286,7 @@ class ID3D11VideoDevice extends IUnknown {
      */
     GetVideoDecoderProfile(Index) {
         pDecoderProfile := Guid()
-        result := ComCall(12, this, "uint", Index, "ptr", pDecoderProfile, "HRESULT")
+        result := ComCall(12, this, "uint", Index, Guid.Ptr, pDecoderProfile, "HRESULT")
         return pDecoderProfile
     }
 
@@ -268,7 +300,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkvideodecoderformat
      */
     CheckVideoDecoderFormat(pDecoderProfile, Format) {
-        result := ComCall(13, this, "ptr", pDecoderProfile, "int", Format, "int*", &pSupported := 0, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, pDecoderProfile, DXGI_FORMAT, Format, BOOL.Ptr, &pSupported := 0, "HRESULT")
         return pSupported
     }
 
@@ -281,7 +313,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfigcount
      */
     GetVideoDecoderConfigCount(pDesc) {
-        result := ComCall(14, this, "ptr", pDesc, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(14, this, D3D11_VIDEO_DECODER_DESC.Ptr, pDesc, "uint*", &pCount := 0, "HRESULT")
         return pCount
     }
 
@@ -294,7 +326,7 @@ class ID3D11VideoDevice extends IUnknown {
      */
     GetVideoDecoderConfig(pDesc, Index) {
         pConfig := D3D11_VIDEO_DECODER_CONFIG()
-        result := ComCall(15, this, "ptr", pDesc, "uint", Index, "ptr", pConfig, "HRESULT")
+        result := ComCall(15, this, D3D11_VIDEO_DECODER_DESC.Ptr, pDesc, "uint", Index, D3D11_VIDEO_DECODER_CONFIG.Ptr, pConfig, "HRESULT")
         return pConfig
     }
 
@@ -330,7 +362,7 @@ class ID3D11VideoDevice extends IUnknown {
      */
     GetContentProtectionCaps(pCryptoType, pDecoderProfile) {
         pCaps := D3D11_VIDEO_CONTENT_PROTECTION_CAPS()
-        result := ComCall(16, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pCaps, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, D3D11_VIDEO_CONTENT_PROTECTION_CAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -362,7 +394,7 @@ class ID3D11VideoDevice extends IUnknown {
      */
     CheckCryptoKeyExchange(pCryptoType, pDecoderProfile, Index) {
         pKeyExchangeType := Guid()
-        result := ComCall(17, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "uint", Index, "ptr", pKeyExchangeType, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, "uint", Index, Guid.Ptr, pKeyExchangeType, "HRESULT")
         return pKeyExchangeType
     }
 
@@ -375,7 +407,7 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(18, this, "ptr", guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -387,7 +419,59 @@ class ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(19, this, "ptr", guid, "ptr", pData, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, guid, "ptr", pData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11VideoDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateVideoDecoder := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder"), flags, 4)
+        this.vtbl.CreateVideoProcessor := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor"), flags, 4)
+        this.vtbl.CreateAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "CreateAuthenticatedChannel"), flags, 3)
+        this.vtbl.CreateCryptoSession := CallbackCreate(GetMethod(implObj, "CreateCryptoSession"), flags, 5)
+        this.vtbl.CreateVideoDecoderOutputView := CallbackCreate(GetMethod(implObj, "CreateVideoDecoderOutputView"), flags, 4)
+        this.vtbl.CreateVideoProcessorInputView := CallbackCreate(GetMethod(implObj, "CreateVideoProcessorInputView"), flags, 5)
+        this.vtbl.CreateVideoProcessorOutputView := CallbackCreate(GetMethod(implObj, "CreateVideoProcessorOutputView"), flags, 5)
+        this.vtbl.CreateVideoProcessorEnumerator := CallbackCreate(GetMethod(implObj, "CreateVideoProcessorEnumerator"), flags, 3)
+        this.vtbl.GetVideoDecoderProfileCount := CallbackCreate(GetMethod(implObj, "GetVideoDecoderProfileCount"), flags, 1)
+        this.vtbl.GetVideoDecoderProfile := CallbackCreate(GetMethod(implObj, "GetVideoDecoderProfile"), flags, 3)
+        this.vtbl.CheckVideoDecoderFormat := CallbackCreate(GetMethod(implObj, "CheckVideoDecoderFormat"), flags, 4)
+        this.vtbl.GetVideoDecoderConfigCount := CallbackCreate(GetMethod(implObj, "GetVideoDecoderConfigCount"), flags, 3)
+        this.vtbl.GetVideoDecoderConfig := CallbackCreate(GetMethod(implObj, "GetVideoDecoderConfig"), flags, 4)
+        this.vtbl.GetContentProtectionCaps := CallbackCreate(GetMethod(implObj, "GetContentProtectionCaps"), flags, 4)
+        this.vtbl.CheckCryptoKeyExchange := CallbackCreate(GetMethod(implObj, "CheckCryptoKeyExchange"), flags, 5)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateVideoDecoder)
+        CallbackFree(this.vtbl.CreateVideoProcessor)
+        CallbackFree(this.vtbl.CreateAuthenticatedChannel)
+        CallbackFree(this.vtbl.CreateCryptoSession)
+        CallbackFree(this.vtbl.CreateVideoDecoderOutputView)
+        CallbackFree(this.vtbl.CreateVideoProcessorInputView)
+        CallbackFree(this.vtbl.CreateVideoProcessorOutputView)
+        CallbackFree(this.vtbl.CreateVideoProcessorEnumerator)
+        CallbackFree(this.vtbl.GetVideoDecoderProfileCount)
+        CallbackFree(this.vtbl.GetVideoDecoderProfile)
+        CallbackFree(this.vtbl.CheckVideoDecoderFormat)
+        CallbackFree(this.vtbl.GetVideoDecoderConfigCount)
+        CallbackFree(this.vtbl.GetVideoDecoderConfig)
+        CallbackFree(this.vtbl.GetContentProtectionCaps)
+        CallbackFree(this.vtbl.CheckCryptoKeyExchange)
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.SetPrivateDataInterface)
     }
 }

@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class INDICATOR_LIST extends Win32Struct {
-    static sizeof => 4
+export default struct INDICATOR_LIST {
+    #StructPack 2
 
-    static packingSize => 2
+    MakeCode : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MakeCode {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    IndicatorFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    IndicatorFlags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains flags that indicate the status of the IMFSourceReader::ReadSample method.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/ne-mfreadwrite-mf_source_reader_flag
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_SOURCE_READER_FLAG extends Win32BitflagEnum {
+export default struct MF_SOURCE_READER_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An error occurred. If you receive this flag, do not make any further calls to <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereader">IMFSourceReader</a> methods.

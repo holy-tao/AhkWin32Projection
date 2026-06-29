@@ -1,63 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MCAST_SCOPE_CTX.ahk
-#Include .\IPNG_ADDRESS.ahk
-#Include ..\..\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\IPNG_ADDRESS.ahk" { IPNG_ADDRESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MCAST_SCOPE_CTX.ahk" { MCAST_SCOPE_CTX }
 
 /**
  * The MCAST_SCOPE_ENTRY structure provides a complete set of information about a given multicast scope.
  * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_scope_entry
  * @namespace Windows.Win32.NetworkManagement.Multicast
  */
-class MCAST_SCOPE_ENTRY extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct MCAST_SCOPE_ENTRY {
+    #StructPack 8
 
     /**
      * Handle for the multicast scope, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-mcast_scope_ctx">MCAST_SCOPE_CTX</a> structure.
-     * @type {MCAST_SCOPE_CTX}
      */
-    ScopeCtx {
-        get {
-            if(!this.HasProp("__ScopeCtx"))
-                this.__ScopeCtx := MCAST_SCOPE_CTX(0, this)
-            return this.__ScopeCtx
-        }
-    }
+    ScopeCtx : MCAST_SCOPE_CTX
 
     /**
      * Internet Protocol (IP) address of the last address in the scope, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure.
-     * @type {IPNG_ADDRESS}
      */
-    LastAddr {
-        get {
-            if(!this.HasProp("__LastAddr"))
-                this.__LastAddr := IPNG_ADDRESS(60, this)
-            return this.__LastAddr
-        }
-    }
+    LastAddr : IPNG_ADDRESS
 
     /**
      * Time To Live (TTL) value of the scope.
-     * @type {Integer}
      */
-    TTL {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    TTL : UInt32
 
     /**
      * Description of the scope, in human readable, user-friendly format.
-     * @type {UNICODE_STRING}
      */
-    ScopeDesc {
-        get {
-            if(!this.HasProp("__ScopeDesc"))
-                this.__ScopeDesc := UNICODE_STRING(88, this)
-            return this.__ScopeDesc
-        }
-    }
+    ScopeDesc : UNICODE_STRING
+
 }

@@ -1,37 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumDirectory.ahk
-#Include .\ITDirectory.ahk
-#Include .\ITDirectoryObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITDirectory.ahk" { ITDirectory }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
+#Import ".\IEnumDirectory.ahk" { IEnumDirectory }
+#Import ".\DIRECTORY_TYPE.ahk" { DIRECTORY_TYPE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITRendezvous interface is the main interface for the Rendezvous control. An application calls the COM CoCreateInstance function on this interface to create the Rendezvous object.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itrendezvous
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITRendezvous extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITRendezvous extends IDispatch {
     /**
      * The interface identifier for ITRendezvous
      * @type {Guid}
      */
-    static IID => Guid("{34621d6b-6cff-11d1-aff7-00c04fc31fee}")
+    static IID := Guid("{34621d6b-6cff-11d1-aff7-00c04fc31fee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITRendezvous interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DefaultDirectories      : IntPtr
+        EnumerateDefaultDirectories : IntPtr
+        CreateDirectory             : IntPtr
+        CreateDirectoryObject       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DefaultDirectories", "EnumerateDefaultDirectories", "CreateDirectory", "CreateDirectoryObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITRendezvous.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -53,7 +67,7 @@ class ITRendezvous extends IDispatch {
      */
     get_DefaultDirectories() {
         pVariant := VARIANT()
-        result := ComCall(7, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -96,7 +110,7 @@ class ITRendezvous extends IDispatch {
     CreateDirectory(DirectoryType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(9, this, "int", DirectoryType, "ptr", pName, "ptr*", &ppDir := 0, "HRESULT")
+        result := ComCall(9, this, DIRECTORY_TYPE, DirectoryType, BSTR, pName, "ptr*", &ppDir := 0, "HRESULT")
         return ITDirectory(ppDir)
     }
 
@@ -122,7 +136,33 @@ class ITRendezvous extends IDispatch {
     CreateDirectoryObject(DirectoryObjectType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(10, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", &ppDirectoryObject := 0, "HRESULT")
+        result := ComCall(10, this, DIRECTORY_OBJECT_TYPE, DirectoryObjectType, BSTR, pName, "ptr*", &ppDirectoryObject := 0, "HRESULT")
         return ITDirectoryObject(ppDirectoryObject)
+    }
+
+    Query(iid) {
+        if (ITRendezvous.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DefaultDirectories := CallbackCreate(GetMethod(implObj, "get_DefaultDirectories"), flags, 2)
+        this.vtbl.EnumerateDefaultDirectories := CallbackCreate(GetMethod(implObj, "EnumerateDefaultDirectories"), flags, 2)
+        this.vtbl.CreateDirectory := CallbackCreate(GetMethod(implObj, "CreateDirectory"), flags, 4)
+        this.vtbl.CreateDirectoryObject := CallbackCreate(GetMethod(implObj, "CreateDirectoryObject"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DefaultDirectories)
+        CallbackFree(this.vtbl.EnumerateDefaultDirectories)
+        CallbackFree(this.vtbl.CreateDirectory)
+        CallbackFree(this.vtbl.CreateDirectoryObject)
     }
 }

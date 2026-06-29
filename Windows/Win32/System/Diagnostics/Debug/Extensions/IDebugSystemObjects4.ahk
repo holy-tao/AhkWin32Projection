@@ -1,31 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugSystemObjects4 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugSystemObjects4 extends IUnknown {
     /**
      * The interface identifier for IDebugSystemObjects4
      * @type {Guid}
      */
-    static IID => Guid("{489468e6-7d0f-4af5-87ab-25207454d553}")
+    static IID := Guid("{489468e6-7d0f-4af5-87ab-25207454d553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugSystemObjects4 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEventThread                      : IntPtr
+        GetEventProcess                     : IntPtr
+        GetCurrentThreadId                  : IntPtr
+        SetCurrentThreadId                  : IntPtr
+        GetCurrentProcessId                 : IntPtr
+        SetCurrentProcessId                 : IntPtr
+        GetNumberThreads                    : IntPtr
+        GetTotalNumberThreads               : IntPtr
+        GetThreadIdsByIndex                 : IntPtr
+        GetThreadIdByProcessor              : IntPtr
+        GetCurrentThreadDataOffset          : IntPtr
+        GetThreadIdByDataOffset             : IntPtr
+        GetCurrentThreadTeb                 : IntPtr
+        GetThreadIdByTeb                    : IntPtr
+        GetCurrentThreadSystemId            : IntPtr
+        GetThreadIdBySystemId               : IntPtr
+        GetCurrentThreadHandle              : IntPtr
+        GetThreadIdByHandle                 : IntPtr
+        GetNumberProcesses                  : IntPtr
+        GetProcessIdsByIndex                : IntPtr
+        GetCurrentProcessDataOffset         : IntPtr
+        GetProcessIdByDataOffset            : IntPtr
+        GetCurrentProcessPeb                : IntPtr
+        GetProcessIdByPeb                   : IntPtr
+        GetCurrentProcessSystemId           : IntPtr
+        GetProcessIdBySystemId              : IntPtr
+        GetCurrentProcessHandle             : IntPtr
+        GetProcessIdByHandle                : IntPtr
+        GetCurrentProcessExecutableName     : IntPtr
+        GetCurrentProcessUpTime             : IntPtr
+        GetImplicitThreadDataOffset         : IntPtr
+        SetImplicitThreadDataOffset         : IntPtr
+        GetImplicitProcessDataOffset        : IntPtr
+        SetImplicitProcessDataOffset        : IntPtr
+        GetEventSystem                      : IntPtr
+        GetCurrentSystemId                  : IntPtr
+        SetCurrentSystemId                  : IntPtr
+        GetNumberSystems                    : IntPtr
+        GetSystemIdsByIndex                 : IntPtr
+        GetTotalNumberThreadsAndProcesses   : IntPtr
+        GetCurrentSystemServer              : IntPtr
+        GetSystemByServer                   : IntPtr
+        GetCurrentSystemServerName          : IntPtr
+        GetCurrentProcessExecutableNameWide : IntPtr
+        GetCurrentSystemServerNameWide      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventThread", "GetEventProcess", "GetCurrentThreadId", "SetCurrentThreadId", "GetCurrentProcessId", "SetCurrentProcessId", "GetNumberThreads", "GetTotalNumberThreads", "GetThreadIdsByIndex", "GetThreadIdByProcessor", "GetCurrentThreadDataOffset", "GetThreadIdByDataOffset", "GetCurrentThreadTeb", "GetThreadIdByTeb", "GetCurrentThreadSystemId", "GetThreadIdBySystemId", "GetCurrentThreadHandle", "GetThreadIdByHandle", "GetNumberProcesses", "GetProcessIdsByIndex", "GetCurrentProcessDataOffset", "GetProcessIdByDataOffset", "GetCurrentProcessPeb", "GetProcessIdByPeb", "GetCurrentProcessSystemId", "GetProcessIdBySystemId", "GetCurrentProcessHandle", "GetProcessIdByHandle", "GetCurrentProcessExecutableName", "GetCurrentProcessUpTime", "GetImplicitThreadDataOffset", "SetImplicitThreadDataOffset", "GetImplicitProcessDataOffset", "SetImplicitProcessDataOffset", "GetEventSystem", "GetCurrentSystemId", "SetCurrentSystemId", "GetNumberSystems", "GetSystemIdsByIndex", "GetTotalNumberThreadsAndProcesses", "GetCurrentSystemServer", "GetSystemByServer", "GetCurrentSystemServerName", "GetCurrentProcessExecutableNameWide", "GetCurrentSystemServerNameWide"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugSystemObjects4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,7 +93,6 @@ class IDebugSystemObjects4 extends IUnknown {
     /**
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/evntcons/nf-evntcons-geteventprocessorindex
      */
     GetEventProcess() {
         result := ComCall(4, this, "uint*", &Id := 0, "HRESULT")
@@ -500,5 +553,113 @@ class IDebugSystemObjects4 extends IUnknown {
 
         result := ComCall(47, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
+    }
+
+    Query(iid) {
+        if (IDebugSystemObjects4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventThread := CallbackCreate(GetMethod(implObj, "GetEventThread"), flags, 2)
+        this.vtbl.GetEventProcess := CallbackCreate(GetMethod(implObj, "GetEventProcess"), flags, 2)
+        this.vtbl.GetCurrentThreadId := CallbackCreate(GetMethod(implObj, "GetCurrentThreadId"), flags, 2)
+        this.vtbl.SetCurrentThreadId := CallbackCreate(GetMethod(implObj, "SetCurrentThreadId"), flags, 2)
+        this.vtbl.GetCurrentProcessId := CallbackCreate(GetMethod(implObj, "GetCurrentProcessId"), flags, 2)
+        this.vtbl.SetCurrentProcessId := CallbackCreate(GetMethod(implObj, "SetCurrentProcessId"), flags, 2)
+        this.vtbl.GetNumberThreads := CallbackCreate(GetMethod(implObj, "GetNumberThreads"), flags, 2)
+        this.vtbl.GetTotalNumberThreads := CallbackCreate(GetMethod(implObj, "GetTotalNumberThreads"), flags, 3)
+        this.vtbl.GetThreadIdsByIndex := CallbackCreate(GetMethod(implObj, "GetThreadIdsByIndex"), flags, 5)
+        this.vtbl.GetThreadIdByProcessor := CallbackCreate(GetMethod(implObj, "GetThreadIdByProcessor"), flags, 3)
+        this.vtbl.GetCurrentThreadDataOffset := CallbackCreate(GetMethod(implObj, "GetCurrentThreadDataOffset"), flags, 2)
+        this.vtbl.GetThreadIdByDataOffset := CallbackCreate(GetMethod(implObj, "GetThreadIdByDataOffset"), flags, 3)
+        this.vtbl.GetCurrentThreadTeb := CallbackCreate(GetMethod(implObj, "GetCurrentThreadTeb"), flags, 2)
+        this.vtbl.GetThreadIdByTeb := CallbackCreate(GetMethod(implObj, "GetThreadIdByTeb"), flags, 3)
+        this.vtbl.GetCurrentThreadSystemId := CallbackCreate(GetMethod(implObj, "GetCurrentThreadSystemId"), flags, 2)
+        this.vtbl.GetThreadIdBySystemId := CallbackCreate(GetMethod(implObj, "GetThreadIdBySystemId"), flags, 3)
+        this.vtbl.GetCurrentThreadHandle := CallbackCreate(GetMethod(implObj, "GetCurrentThreadHandle"), flags, 2)
+        this.vtbl.GetThreadIdByHandle := CallbackCreate(GetMethod(implObj, "GetThreadIdByHandle"), flags, 3)
+        this.vtbl.GetNumberProcesses := CallbackCreate(GetMethod(implObj, "GetNumberProcesses"), flags, 2)
+        this.vtbl.GetProcessIdsByIndex := CallbackCreate(GetMethod(implObj, "GetProcessIdsByIndex"), flags, 5)
+        this.vtbl.GetCurrentProcessDataOffset := CallbackCreate(GetMethod(implObj, "GetCurrentProcessDataOffset"), flags, 2)
+        this.vtbl.GetProcessIdByDataOffset := CallbackCreate(GetMethod(implObj, "GetProcessIdByDataOffset"), flags, 3)
+        this.vtbl.GetCurrentProcessPeb := CallbackCreate(GetMethod(implObj, "GetCurrentProcessPeb"), flags, 2)
+        this.vtbl.GetProcessIdByPeb := CallbackCreate(GetMethod(implObj, "GetProcessIdByPeb"), flags, 3)
+        this.vtbl.GetCurrentProcessSystemId := CallbackCreate(GetMethod(implObj, "GetCurrentProcessSystemId"), flags, 2)
+        this.vtbl.GetProcessIdBySystemId := CallbackCreate(GetMethod(implObj, "GetProcessIdBySystemId"), flags, 3)
+        this.vtbl.GetCurrentProcessHandle := CallbackCreate(GetMethod(implObj, "GetCurrentProcessHandle"), flags, 2)
+        this.vtbl.GetProcessIdByHandle := CallbackCreate(GetMethod(implObj, "GetProcessIdByHandle"), flags, 3)
+        this.vtbl.GetCurrentProcessExecutableName := CallbackCreate(GetMethod(implObj, "GetCurrentProcessExecutableName"), flags, 4)
+        this.vtbl.GetCurrentProcessUpTime := CallbackCreate(GetMethod(implObj, "GetCurrentProcessUpTime"), flags, 2)
+        this.vtbl.GetImplicitThreadDataOffset := CallbackCreate(GetMethod(implObj, "GetImplicitThreadDataOffset"), flags, 2)
+        this.vtbl.SetImplicitThreadDataOffset := CallbackCreate(GetMethod(implObj, "SetImplicitThreadDataOffset"), flags, 2)
+        this.vtbl.GetImplicitProcessDataOffset := CallbackCreate(GetMethod(implObj, "GetImplicitProcessDataOffset"), flags, 2)
+        this.vtbl.SetImplicitProcessDataOffset := CallbackCreate(GetMethod(implObj, "SetImplicitProcessDataOffset"), flags, 2)
+        this.vtbl.GetEventSystem := CallbackCreate(GetMethod(implObj, "GetEventSystem"), flags, 2)
+        this.vtbl.GetCurrentSystemId := CallbackCreate(GetMethod(implObj, "GetCurrentSystemId"), flags, 2)
+        this.vtbl.SetCurrentSystemId := CallbackCreate(GetMethod(implObj, "SetCurrentSystemId"), flags, 2)
+        this.vtbl.GetNumberSystems := CallbackCreate(GetMethod(implObj, "GetNumberSystems"), flags, 2)
+        this.vtbl.GetSystemIdsByIndex := CallbackCreate(GetMethod(implObj, "GetSystemIdsByIndex"), flags, 4)
+        this.vtbl.GetTotalNumberThreadsAndProcesses := CallbackCreate(GetMethod(implObj, "GetTotalNumberThreadsAndProcesses"), flags, 6)
+        this.vtbl.GetCurrentSystemServer := CallbackCreate(GetMethod(implObj, "GetCurrentSystemServer"), flags, 2)
+        this.vtbl.GetSystemByServer := CallbackCreate(GetMethod(implObj, "GetSystemByServer"), flags, 3)
+        this.vtbl.GetCurrentSystemServerName := CallbackCreate(GetMethod(implObj, "GetCurrentSystemServerName"), flags, 4)
+        this.vtbl.GetCurrentProcessExecutableNameWide := CallbackCreate(GetMethod(implObj, "GetCurrentProcessExecutableNameWide"), flags, 4)
+        this.vtbl.GetCurrentSystemServerNameWide := CallbackCreate(GetMethod(implObj, "GetCurrentSystemServerNameWide"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventThread)
+        CallbackFree(this.vtbl.GetEventProcess)
+        CallbackFree(this.vtbl.GetCurrentThreadId)
+        CallbackFree(this.vtbl.SetCurrentThreadId)
+        CallbackFree(this.vtbl.GetCurrentProcessId)
+        CallbackFree(this.vtbl.SetCurrentProcessId)
+        CallbackFree(this.vtbl.GetNumberThreads)
+        CallbackFree(this.vtbl.GetTotalNumberThreads)
+        CallbackFree(this.vtbl.GetThreadIdsByIndex)
+        CallbackFree(this.vtbl.GetThreadIdByProcessor)
+        CallbackFree(this.vtbl.GetCurrentThreadDataOffset)
+        CallbackFree(this.vtbl.GetThreadIdByDataOffset)
+        CallbackFree(this.vtbl.GetCurrentThreadTeb)
+        CallbackFree(this.vtbl.GetThreadIdByTeb)
+        CallbackFree(this.vtbl.GetCurrentThreadSystemId)
+        CallbackFree(this.vtbl.GetThreadIdBySystemId)
+        CallbackFree(this.vtbl.GetCurrentThreadHandle)
+        CallbackFree(this.vtbl.GetThreadIdByHandle)
+        CallbackFree(this.vtbl.GetNumberProcesses)
+        CallbackFree(this.vtbl.GetProcessIdsByIndex)
+        CallbackFree(this.vtbl.GetCurrentProcessDataOffset)
+        CallbackFree(this.vtbl.GetProcessIdByDataOffset)
+        CallbackFree(this.vtbl.GetCurrentProcessPeb)
+        CallbackFree(this.vtbl.GetProcessIdByPeb)
+        CallbackFree(this.vtbl.GetCurrentProcessSystemId)
+        CallbackFree(this.vtbl.GetProcessIdBySystemId)
+        CallbackFree(this.vtbl.GetCurrentProcessHandle)
+        CallbackFree(this.vtbl.GetProcessIdByHandle)
+        CallbackFree(this.vtbl.GetCurrentProcessExecutableName)
+        CallbackFree(this.vtbl.GetCurrentProcessUpTime)
+        CallbackFree(this.vtbl.GetImplicitThreadDataOffset)
+        CallbackFree(this.vtbl.SetImplicitThreadDataOffset)
+        CallbackFree(this.vtbl.GetImplicitProcessDataOffset)
+        CallbackFree(this.vtbl.SetImplicitProcessDataOffset)
+        CallbackFree(this.vtbl.GetEventSystem)
+        CallbackFree(this.vtbl.GetCurrentSystemId)
+        CallbackFree(this.vtbl.SetCurrentSystemId)
+        CallbackFree(this.vtbl.GetNumberSystems)
+        CallbackFree(this.vtbl.GetSystemIdsByIndex)
+        CallbackFree(this.vtbl.GetTotalNumberThreadsAndProcesses)
+        CallbackFree(this.vtbl.GetCurrentSystemServer)
+        CallbackFree(this.vtbl.GetSystemByServer)
+        CallbackFree(this.vtbl.GetCurrentSystemServerName)
+        CallbackFree(this.vtbl.GetCurrentProcessExecutableNameWide)
+        CallbackFree(this.vtbl.GetCurrentSystemServerNameWide)
     }
 }

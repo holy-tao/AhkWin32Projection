@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OUTPUTDUPL_KEYEDMUTEX extends Win32Struct {
-    static sizeof => 8
+export default struct D3DKMT_OUTPUTDUPL_KEYEDMUTEX {
+    #StructPack 8
 
-    static packingSize => 8
+    hSharedSurfaceNt : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSharedSurfaceNt {
-        get {
-            if(!this.HasProp("__hSharedSurfaceNt"))
-                this.__hSharedSurfaceNt := HANDLE(0, this)
-            return this.__hSharedSurfaceNt
-        }
-    }
 }

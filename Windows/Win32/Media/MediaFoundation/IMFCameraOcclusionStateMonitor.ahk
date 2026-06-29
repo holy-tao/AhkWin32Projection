@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Monitors the occlusion state of a camera device.
@@ -12,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraocclusionstatemonitor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCameraOcclusionStateMonitor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCameraOcclusionStateMonitor extends IUnknown {
     /**
      * The interface identifier for IMFCameraOcclusionStateMonitor
      * @type {Guid}
      */
-    static IID => Guid("{cc692f46-c697-47e2-a72d-7b064617749b}")
+    static IID := Guid("{cc692f46-c697-47e2-a72d-7b064617749b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCameraOcclusionStateMonitor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Start              : IntPtr
+        Stop               : IntPtr
+        GetSupportedStates : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "GetSupportedStates"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCameraOcclusionStateMonitor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts the camera occlusion state monitor.
@@ -69,7 +79,31 @@ class IMFCameraOcclusionStateMonitor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraocclusionstatemonitor-getsupportedstates
      */
     GetSupportedStates() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (IMFCameraOcclusionStateMonitor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetSupportedStates := CallbackCreate(GetMethod(implObj, "GetSupportedStates"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.GetSupportedStates)
     }
 }

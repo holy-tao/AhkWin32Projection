@@ -1,51 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_EXTENSIONCHUNK extends Win32Struct {
-    static sizeof => 16
+export default struct DMUS_EXTENSIONCHUNK {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulNextExtCkIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNextExtCkIdx {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ExtCkID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtCkID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    byExtCk : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    byExtCk {
-        get {
-            if(!this.HasProp("__byExtCkProxyArray"))
-                this.__byExtCkProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__byExtCkProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

@@ -1,37 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_XML_DICTIONARY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
 
 /**
  * Specifies an individual header that is mapped as part of WS_HTTP_MESSAGE_MAPPING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_header_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_HTTP_HEADER_MAPPING extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_HTTP_HEADER_MAPPING {
+    #StructPack 8
 
     /**
      * The name of the HTTP header.
-     * @type {WS_XML_STRING}
      */
-    headerName {
-        get {
-            if(!this.HasProp("__headerName"))
-                this.__headerName := WS_XML_STRING(0, this)
-            return this.__headerName
-        }
-    }
+    headerName : WS_XML_STRING
 
     /**
      * A set of flags that control how headers are mapped.  
      *                     See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_canonicalization_algorithm">WS_HTTP_HEADER_MAPPING_OPTIONS</a> for more information.
-     * @type {Integer}
      */
-    headerMappingOptions {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    headerMappingOptions : UInt32
+
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables any apartment in a process to get access to an interface implemented on an object in any other apartment in the process.
@@ -16,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iglobalinterfacetable
  * @namespace Windows.Win32.System.Com
  */
-class IGlobalInterfaceTable extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGlobalInterfaceTable extends IUnknown {
     /**
      * The interface identifier for IGlobalInterfaceTable
      * @type {Guid}
      */
-    static IID => Guid("{00000146-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000146-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGlobalInterfaceTable interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterInterfaceInGlobal : IntPtr
+        RevokeInterfaceFromGlobal : IntPtr
+        GetInterfaceFromGlobal    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterInterfaceInGlobal", "RevokeInterfaceFromGlobal", "GetInterfaceFromGlobal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGlobalInterfaceTable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers the specified interface on an object residing in one apartment of a process as a global interface, enabling other apartments access to that interface.
@@ -51,7 +61,7 @@ class IGlobalInterfaceTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-registerinterfaceinglobal
      */
     RegisterInterfaceInGlobal(pUnk, riid) {
-        result := ComCall(3, this, "ptr", pUnk, "ptr", riid, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnk, Guid.Ptr, riid, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -111,7 +121,31 @@ class IGlobalInterfaceTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-getinterfacefromglobal
      */
     GetInterfaceFromGlobal(dwCookie, riid) {
-        result := ComCall(5, this, "uint", dwCookie, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwCookie, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IGlobalInterfaceTable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterInterfaceInGlobal := CallbackCreate(GetMethod(implObj, "RegisterInterfaceInGlobal"), flags, 4)
+        this.vtbl.RevokeInterfaceFromGlobal := CallbackCreate(GetMethod(implObj, "RevokeInterfaceFromGlobal"), flags, 2)
+        this.vtbl.GetInterfaceFromGlobal := CallbackCreate(GetMethod(implObj, "GetInterfaceFromGlobal"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterInterfaceInGlobal)
+        CallbackFree(this.vtbl.RevokeInterfaceFromGlobal)
+        CallbackFree(this.vtbl.GetInterfaceFromGlobal)
     }
 }

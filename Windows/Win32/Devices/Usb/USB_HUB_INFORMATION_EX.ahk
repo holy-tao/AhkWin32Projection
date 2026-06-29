@@ -1,68 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_TYPE.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
-#Include .\USB_30_HUB_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_30_HUB_DESCRIPTOR.ahk" { USB_30_HUB_DESCRIPTOR }
+#Import ".\USB_HUB_TYPE.ahk" { USB_HUB_TYPE }
+#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_INFORMATION_EX extends Win32Struct {
-    static sizeof => 80
+export default struct USB_HUB_INFORMATION_EX {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 2
+    struct _u {
+        UsbHubDescriptor : USB_HUB_DESCRIPTOR
 
-        /**
-         * @type {USB_HUB_DESCRIPTOR}
-         */
-        UsbHubDescriptor {
-            get {
-                if(!this.HasProp("__UsbHubDescriptor"))
-                    this.__UsbHubDescriptor := USB_HUB_DESCRIPTOR(0, this)
-                return this.__UsbHubDescriptor
-            }
-        }
-
-        /**
-         * @type {USB_30_HUB_DESCRIPTOR}
-         */
-        Usb30HubDescriptor {
-            get {
-                if(!this.HasProp("__Usb30HubDescriptor"))
-                    this.__Usb30HubDescriptor := USB_30_HUB_DESCRIPTOR(0, this)
-                return this.__Usb30HubDescriptor
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Usb30HubDescriptor', { type: USB_30_HUB_DESCRIPTOR, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {USB_HUB_TYPE}
-     */
-    HubType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    HubType : USB_HUB_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    HighestPortNumber {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    HighestPortNumber : UInt16
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := USB_HUB_INFORMATION_EX._u_e__Union(6, this)
-            return this.__u
-        }
-    }
+    u : USB_HUB_INFORMATION_EX._u
+
 }

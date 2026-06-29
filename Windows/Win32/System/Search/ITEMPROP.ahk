@@ -1,14 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Stores information about properties in the Windows Property System, and is used by the IItemPropertyBag interface.
@@ -17,27 +20,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/subsmgr/ns-subsmgr-itemprop
  * @namespace Windows.Win32.System.Search
  */
-class ITEMPROP extends Win32Struct {
-    static sizeof => 32
+export default struct ITEMPROP {
+    #StructPack 8
 
-    static packingSize => 8
+    variantValue : VARIANT
 
-    /**
-     * @type {VARIANT}
-     */
-    variantValue {
-        get {
-            if(!this.HasProp("__variantValue"))
-                this.__variantValue := VARIANT(0, this)
-            return this.__variantValue
-        }
-    }
+    pwszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

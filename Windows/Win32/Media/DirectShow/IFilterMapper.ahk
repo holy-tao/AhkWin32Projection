@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumRegFilters.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumRegFilters.ahk" { IEnumRegFilters }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface has been deprecated. (IFilterMapper)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltermapper
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFilterMapper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFilterMapper extends IUnknown {
     /**
      * The interface identifier for IFilterMapper
      * @type {Guid}
      */
-    static IID => Guid("{56a868a3-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868a3-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilterMapper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterFilter           : IntPtr
+        RegisterFilterInstance   : IntPtr
+        RegisterPin              : IntPtr
+        RegisterPinType          : IntPtr
+        UnregisterFilter         : IntPtr
+        UnregisterFilterInstance : IntPtr
+        UnregisterPin            : IntPtr
+        EnumMatchingFilters      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterFilter", "RegisterFilterInstance", "RegisterPin", "RegisterPinType", "UnregisterFilter", "UnregisterFilterInstance", "UnregisterPin", "EnumMatchingFilters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilterMapper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Adds a filter to the registry; the filter can then be enumerated.
@@ -44,7 +60,7 @@ class IFilterMapper extends IUnknown {
     RegisterFilter(clsid, Name, dwMerit) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(3, this, "ptr", clsid, "ptr", Name, "uint", dwMerit, "HRESULT")
+        result := ComCall(3, this, Guid, clsid, "ptr", Name, "uint", dwMerit, "HRESULT")
         return result
     }
 
@@ -63,7 +79,7 @@ class IFilterMapper extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
 
         MRId := Guid()
-        result := ComCall(4, this, "ptr", clsid, "ptr", Name, "ptr", MRId, "HRESULT")
+        result := ComCall(4, this, Guid, clsid, "ptr", Name, Guid.Ptr, MRId, "HRESULT")
         return MRId
     }
 
@@ -84,7 +100,7 @@ class IFilterMapper extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
         ConnectsToPin := ConnectsToPin is String ? StrPtr(ConnectsToPin) : ConnectsToPin
 
-        result := ComCall(5, this, "ptr", Filter, "ptr", Name, "int", bRendered, "int", bOutput, "int", bZero, "int", bMany, "ptr", ConnectsToFilter, "ptr", ConnectsToPin, "HRESULT")
+        result := ComCall(5, this, Guid, Filter, "ptr", Name, BOOL, bRendered, BOOL, bOutput, BOOL, bZero, BOOL, bMany, Guid, ConnectsToFilter, "ptr", ConnectsToPin, "HRESULT")
         return result
     }
 
@@ -102,7 +118,7 @@ class IFilterMapper extends IUnknown {
     RegisterPinType(clsFilter, strName, clsMajorType, clsSubType) {
         strName := strName is String ? StrPtr(strName) : strName
 
-        result := ComCall(6, this, "ptr", clsFilter, "ptr", strName, "ptr", clsMajorType, "ptr", clsSubType, "HRESULT")
+        result := ComCall(6, this, Guid, clsFilter, "ptr", strName, Guid, clsMajorType, Guid, clsSubType, "HRESULT")
         return result
     }
 
@@ -113,7 +129,7 @@ class IFilterMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-unregisterfilter
      */
     UnregisterFilter(Filter) {
-        result := ComCall(7, this, "ptr", Filter, "HRESULT")
+        result := ComCall(7, this, Guid, Filter, "HRESULT")
         return result
     }
 
@@ -124,7 +140,7 @@ class IFilterMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-unregisterfilterinstance
      */
     UnregisterFilterInstance(MRId) {
-        result := ComCall(8, this, "ptr", MRId, "HRESULT")
+        result := ComCall(8, this, Guid, MRId, "HRESULT")
         return result
     }
 
@@ -138,7 +154,7 @@ class IFilterMapper extends IUnknown {
     UnregisterPin(Filter, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(9, this, "ptr", Filter, "ptr", Name, "HRESULT")
+        result := ComCall(9, this, Guid, Filter, "ptr", Name, "HRESULT")
         return result
     }
 
@@ -158,7 +174,41 @@ class IFilterMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-enummatchingfilters
      */
     EnumMatchingFilters(dwMerit, bInputNeeded, clsInMaj, clsInSub, bRender, bOututNeeded, clsOutMaj, clsOutSub) {
-        result := ComCall(10, this, "ptr*", &ppEnum := 0, "uint", dwMerit, "int", bInputNeeded, "ptr", clsInMaj, "ptr", clsInSub, "int", bRender, "int", bOututNeeded, "ptr", clsOutMaj, "ptr", clsOutSub, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, "uint", dwMerit, BOOL, bInputNeeded, Guid, clsInMaj, Guid, clsInSub, BOOL, bRender, BOOL, bOututNeeded, Guid, clsOutMaj, Guid, clsOutSub, "HRESULT")
         return IEnumRegFilters(ppEnum)
+    }
+
+    Query(iid) {
+        if (IFilterMapper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterFilter := CallbackCreate(GetMethod(implObj, "RegisterFilter"), flags, 4)
+        this.vtbl.RegisterFilterInstance := CallbackCreate(GetMethod(implObj, "RegisterFilterInstance"), flags, 4)
+        this.vtbl.RegisterPin := CallbackCreate(GetMethod(implObj, "RegisterPin"), flags, 9)
+        this.vtbl.RegisterPinType := CallbackCreate(GetMethod(implObj, "RegisterPinType"), flags, 5)
+        this.vtbl.UnregisterFilter := CallbackCreate(GetMethod(implObj, "UnregisterFilter"), flags, 2)
+        this.vtbl.UnregisterFilterInstance := CallbackCreate(GetMethod(implObj, "UnregisterFilterInstance"), flags, 2)
+        this.vtbl.UnregisterPin := CallbackCreate(GetMethod(implObj, "UnregisterPin"), flags, 3)
+        this.vtbl.EnumMatchingFilters := CallbackCreate(GetMethod(implObj, "EnumMatchingFilters"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterFilter)
+        CallbackFree(this.vtbl.RegisterFilterInstance)
+        CallbackFree(this.vtbl.RegisterPin)
+        CallbackFree(this.vtbl.RegisterPinType)
+        CallbackFree(this.vtbl.UnregisterFilter)
+        CallbackFree(this.vtbl.UnregisterFilterInstance)
+        CallbackFree(this.vtbl.UnregisterPin)
+        CallbackFree(this.vtbl.EnumMatchingFilters)
     }
 }

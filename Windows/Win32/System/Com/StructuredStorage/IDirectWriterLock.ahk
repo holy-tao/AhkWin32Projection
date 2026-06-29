@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectWriterLock interface enables a single writer to obtain exclusive write access to a root storage object opened in direct mode while allowing concurrent access by multiple readers.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-idirectwriterlock
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IDirectWriterLock extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectWriterLock extends IUnknown {
     /**
      * The interface identifier for IDirectWriterLock
      * @type {Guid}
      */
-    static IID => Guid("{0e6d4d92-6738-11cf-9608-00aa00680db4}")
+    static IID := Guid("{0e6d4d92-6738-11cf-9608-00aa00680db4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectWriterLock interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        WaitForWriteAccess : IntPtr
+        ReleaseWriteAccess : IntPtr
+        HaveWriteAccess    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WaitForWriteAccess", "ReleaseWriteAccess", "HaveWriteAccess"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectWriterLock.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The WaitForWriteAccess method obtains exclusive write access to a storage object.
@@ -81,5 +91,29 @@ class IDirectWriterLock extends IUnknown {
     HaveWriteAccess() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectWriterLock.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WaitForWriteAccess := CallbackCreate(GetMethod(implObj, "WaitForWriteAccess"), flags, 2)
+        this.vtbl.ReleaseWriteAccess := CallbackCreate(GetMethod(implObj, "ReleaseWriteAccess"), flags, 1)
+        this.vtbl.HaveWriteAccess := CallbackCreate(GetMethod(implObj, "HaveWriteAccess"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WaitForWriteAccess)
+        CallbackFree(this.vtbl.ReleaseWriteAccess)
+        CallbackFree(this.vtbl.HaveWriteAccess)
     }
 }

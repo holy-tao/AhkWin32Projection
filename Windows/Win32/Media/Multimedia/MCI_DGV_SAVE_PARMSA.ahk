@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_SAVE_PARMSA (ANSI) structure (digitalv.h) contains information for the MCI_SAVE command for digital-video devices.
@@ -17,38 +17,22 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class MCI_DGV_SAVE_PARMSA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MCI_DGV_SAVE_PARMSA {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * String for filename to save.
-     * @type {PSTR}
      */
-    lpstrFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrFileName : PSTR
 
     /**
      * Rectangle containing positioning information. <a href="https://docs.microsoft.com/previous-versions//ms536136(v=vs.85)">RECT</a> structures are handled differently in MCI than in other parts of Windows; in MCI, <b>rc.right</b> contains the width of the rectangle and <b>rc.bottom</b> contains its height.
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(16, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
+
 }

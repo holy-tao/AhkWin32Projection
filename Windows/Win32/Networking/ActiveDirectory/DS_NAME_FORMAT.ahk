@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DS_NAME_FORMAT enumeration provides formats to use for input and output names for the DsCrackNames function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_format
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_NAME_FORMAT extends Win32Enum {
+export default struct DS_NAME_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the name is using an unknown name type. This format can impact performance because it forces the server to attempt to match all possible

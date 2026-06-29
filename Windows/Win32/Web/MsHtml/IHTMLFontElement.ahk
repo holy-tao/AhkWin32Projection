@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLFontElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLFontElement extends IDispatch {
     /**
      * The interface identifier for IHTMLFontElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f1d9-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f1d9-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLFontElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f27b-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f27b-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLFontElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_color : IntPtr
+        get_color : IntPtr
+        put_face  : IntPtr
+        get_face  : IntPtr
+        put_size  : IntPtr
+        get_size  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_color", "get_color", "put_face", "get_face", "put_size", "get_size"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLFontElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -65,7 +78,7 @@ class IHTMLFontElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_color(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -75,7 +88,7 @@ class IHTMLFontElement extends IDispatch {
      */
     get_color() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -87,7 +100,7 @@ class IHTMLFontElement extends IDispatch {
     put_face(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -96,8 +109,8 @@ class IHTMLFontElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_face() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -107,7 +120,7 @@ class IHTMLFontElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_size(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -117,7 +130,37 @@ class IHTMLFontElement extends IDispatch {
      */
     get_size() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLFontElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_color := CallbackCreate(GetMethod(implObj, "put_color"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.put_face := CallbackCreate(GetMethod(implObj, "put_face"), flags, 2)
+        this.vtbl.get_face := CallbackCreate(GetMethod(implObj, "get_face"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_color)
+        CallbackFree(this.vtbl.get_color)
+        CallbackFree(this.vtbl.put_face)
+        CallbackFree(this.vtbl.get_face)
+        CallbackFree(this.vtbl.put_size)
+        CallbackFree(this.vtbl.get_size)
     }
 }

@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMetaDataDispenser.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMetaDataDispenser.ahk" { IMetaDataDispenser }
 
 /**
  * Extends the IMetaDataDispenser interface to provide the capability to control how the metadata APIs operate on the current metadata scope.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatadispenserex
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataDispenserEx extends IMetaDataDispenser {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
     /**
      * The interface identifier for IMetaDataDispenserEx
      * @type {Guid}
      */
-    static IID => Guid("{31bcfce2-dafb-11d2-9f81-00c04f79a0a3}")
+    static IID := Guid("{31bcfce2-dafb-11d2-9f81-00c04f79a0a3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataDispenserEx interfaces
+    */
+    struct Vtbl extends IMetaDataDispenser.Vtbl {
+        SetOption             : IntPtr
+        GetOption             : IntPtr
+        OpenScopeOnITypeInfo  : IntPtr
+        GetCORSystemDirectory : IntPtr
+        FindAssembly          : IntPtr
+        FindAssemblyModule    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOption", "GetOption", "OpenScopeOnITypeInfo", "GetCORSystemDirectory", "FindAssembly", "FindAssemblyModule"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataDispenserEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.
@@ -141,7 +157,7 @@ class IMetaDataDispenserEx extends IMetaDataDispenser {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenserex-setoption
      */
     SetOption(optionid, value) {
-        result := ComCall(6, this, "ptr", optionid, "ptr", value, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, optionid, VARIANT.Ptr, value, "HRESULT")
         return result
     }
 
@@ -186,7 +202,7 @@ class IMetaDataDispenserEx extends IMetaDataDispenser {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenserex-getoption
      */
     GetOption(optionid, pvalue) {
-        result := ComCall(7, this, "ptr", optionid, "ptr", pvalue, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, optionid, VARIANT.Ptr, pvalue, "HRESULT")
         return result
     }
 
@@ -199,7 +215,7 @@ class IMetaDataDispenserEx extends IMetaDataDispenser {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenserex-openscopeonitypeinfo
      */
     OpenScopeOnITypeInfo(pITI, dwOpenFlags, riid) {
-        result := ComCall(8, this, "ptr", pITI, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pITI, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 
@@ -270,5 +286,35 @@ class IMetaDataDispenserEx extends IMetaDataDispenser {
 
         result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, "ptr", szName, "uint", cchName, pcNameMarshal, pcName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataDispenserEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 3)
+        this.vtbl.OpenScopeOnITypeInfo := CallbackCreate(GetMethod(implObj, "OpenScopeOnITypeInfo"), flags, 5)
+        this.vtbl.GetCORSystemDirectory := CallbackCreate(GetMethod(implObj, "GetCORSystemDirectory"), flags, 4)
+        this.vtbl.FindAssembly := CallbackCreate(GetMethod(implObj, "FindAssembly"), flags, 8)
+        this.vtbl.FindAssemblyModule := CallbackCreate(GetMethod(implObj, "FindAssemblyModule"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOption)
+        CallbackFree(this.vtbl.GetOption)
+        CallbackFree(this.vtbl.OpenScopeOnITypeInfo)
+        CallbackFree(this.vtbl.GetCORSystemDirectory)
+        CallbackFree(this.vtbl.FindAssembly)
+        CallbackFree(this.vtbl.FindAssemblyModule)
     }
 }

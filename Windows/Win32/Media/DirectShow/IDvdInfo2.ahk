@@ -1,43 +1,100 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DVD_PLAYBACK_LOCATION2.ahk
-#Include .\DVD_MenuAttributes.ahk
-#Include .\DVD_VideoAttributes.ahk
-#Include .\DVD_AudioAttributes.ahk
-#Include .\DVD_KaraokeAttributes.ahk
-#Include .\DVD_SubpictureAttributes.ahk
-#Include .\IDvdState.ahk
-#Include .\IDvdCmd.ahk
-#Include .\DVD_DECODER_CAPS.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
+#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
+#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
+#Import ".\DVD_MenuAttributes.ahk" { DVD_MenuAttributes }
+#Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
+#Import ".\DVD_TitleAttributes.ahk" { DVD_TitleAttributes }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\DVD_TextStringType.ahk" { DVD_TextStringType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVD_PLAYBACK_LOCATION2.ahk" { DVD_PLAYBACK_LOCATION2 }
+#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
+#Import ".\DVD_DECODER_CAPS.ahk" { DVD_DECODER_CAPS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\IDvdCmd.ahk" { IDvdCmd }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
+#Import ".\IDvdState.ahk" { IDvdState }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_KaraokeAttributes.ahk" { DVD_KaraokeAttributes }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DVD_TextCharSet.ahk" { DVD_TextCharSet }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The IDvdInfo2 interface reports attributes of a DVD disc or the current state of DVD playback and navigation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdinfo2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDvdInfo2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvdInfo2 extends IUnknown {
     /**
      * The interface identifier for IDvdInfo2
      * @type {Guid}
      */
-    static IID => Guid("{34151510-eec0-11d2-8201-00a0c9d74842}")
+    static IID := Guid("{34151510-eec0-11d2-8201-00a0c9d74842}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvdInfo2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentDomain             : IntPtr
+        GetCurrentLocation           : IntPtr
+        GetTotalTitleTime            : IntPtr
+        GetCurrentButton             : IntPtr
+        GetCurrentAngle              : IntPtr
+        GetCurrentAudio              : IntPtr
+        GetCurrentSubpicture         : IntPtr
+        GetCurrentUOPS               : IntPtr
+        GetAllSPRMs                  : IntPtr
+        GetAllGPRMs                  : IntPtr
+        GetAudioLanguage             : IntPtr
+        GetSubpictureLanguage        : IntPtr
+        GetTitleAttributes           : IntPtr
+        GetVMGAttributes             : IntPtr
+        GetCurrentVideoAttributes    : IntPtr
+        GetAudioAttributes           : IntPtr
+        GetKaraokeAttributes         : IntPtr
+        GetSubpictureAttributes      : IntPtr
+        GetDVDVolumeInfo             : IntPtr
+        GetDVDTextNumberOfLanguages  : IntPtr
+        GetDVDTextLanguageInfo       : IntPtr
+        GetDVDTextStringAsNative     : IntPtr
+        GetDVDTextStringAsUnicode    : IntPtr
+        GetPlayerParentalLevel       : IntPtr
+        GetNumberOfChapters          : IntPtr
+        GetTitleParentalLevels       : IntPtr
+        GetDVDDirectory              : IntPtr
+        IsAudioStreamEnabled         : IntPtr
+        GetDiscID                    : IntPtr
+        GetState                     : IntPtr
+        GetMenuLanguages             : IntPtr
+        GetButtonAtPosition          : IntPtr
+        GetCmdFromEvent              : IntPtr
+        GetDefaultMenuLanguage       : IntPtr
+        GetDefaultAudioLanguage      : IntPtr
+        GetDefaultSubpictureLanguage : IntPtr
+        GetDecoderCaps               : IntPtr
+        GetButtonRect                : IntPtr
+        IsSubpictureStreamEnabled    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentDomain", "GetCurrentLocation", "GetTotalTitleTime", "GetCurrentButton", "GetCurrentAngle", "GetCurrentAudio", "GetCurrentSubpicture", "GetCurrentUOPS", "GetAllSPRMs", "GetAllGPRMs", "GetAudioLanguage", "GetSubpictureLanguage", "GetTitleAttributes", "GetVMGAttributes", "GetCurrentVideoAttributes", "GetAudioAttributes", "GetKaraokeAttributes", "GetSubpictureAttributes", "GetDVDVolumeInfo", "GetDVDTextNumberOfLanguages", "GetDVDTextLanguageInfo", "GetDVDTextStringAsNative", "GetDVDTextStringAsUnicode", "GetPlayerParentalLevel", "GetNumberOfChapters", "GetTitleParentalLevels", "GetDVDDirectory", "IsAudioStreamEnabled", "GetDiscID", "GetState", "GetMenuLanguages", "GetButtonAtPosition", "GetCmdFromEvent", "GetDefaultMenuLanguage", "GetDefaultAudioLanguage", "GetDefaultSubpictureLanguage", "GetDecoderCaps", "GetButtonRect", "IsSubpictureStreamEnabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvdInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCurrentDomain method retrieves the domain in which the DVD Navigator is currently located.
@@ -60,7 +117,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetCurrentLocation() {
         pLocation := DVD_PLAYBACK_LOCATION2()
-        result := ComCall(4, this, "ptr", pLocation, "HRESULT")
+        result := ComCall(4, this, DVD_PLAYBACK_LOCATION2.Ptr, pLocation, "HRESULT")
         return pLocation
     }
 
@@ -129,7 +186,7 @@ class IDvdInfo2 extends IUnknown {
     GetTotalTitleTime(pTotalTime, ulTimeCodeFlags) {
         ulTimeCodeFlagsMarshal := ulTimeCodeFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pTotalTime, ulTimeCodeFlagsMarshal, ulTimeCodeFlags, "HRESULT")
+        result := ComCall(5, this, DVD_HMSF_TIMECODE.Ptr, pTotalTime, ulTimeCodeFlagsMarshal, ulTimeCodeFlags, "HRESULT")
         return result
     }
 
@@ -637,7 +694,7 @@ class IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettitleattributes
      */
     GetTitleAttributes(ulTitle, pMenu, pTitle) {
-        result := ComCall(15, this, "uint", ulTitle, "ptr", pMenu, "ptr", pTitle, "HRESULT")
+        result := ComCall(15, this, "uint", ulTitle, DVD_MenuAttributes.Ptr, pMenu, DVD_TitleAttributes.Ptr, pTitle, "HRESULT")
         return result
     }
 
@@ -650,7 +707,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetVMGAttributes() {
         pATR := DVD_MenuAttributes()
-        result := ComCall(16, this, "ptr", pATR, "HRESULT")
+        result := ComCall(16, this, DVD_MenuAttributes.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -663,7 +720,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetCurrentVideoAttributes() {
         pATR := DVD_VideoAttributes()
-        result := ComCall(17, this, "ptr", pATR, "HRESULT")
+        result := ComCall(17, this, DVD_VideoAttributes.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -705,7 +762,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetAudioAttributes(ulStream) {
         pATR := DVD_AudioAttributes()
-        result := ComCall(18, this, "uint", ulStream, "ptr", pATR, "HRESULT")
+        result := ComCall(18, this, "uint", ulStream, DVD_AudioAttributes.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -738,7 +795,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetKaraokeAttributes(ulStream) {
         pAttributes := DVD_KaraokeAttributes()
-        result := ComCall(19, this, "uint", ulStream, "ptr", pAttributes, "HRESULT")
+        result := ComCall(19, this, "uint", ulStream, DVD_KaraokeAttributes.Ptr, pAttributes, "HRESULT")
         return pAttributes
     }
 
@@ -776,7 +833,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetSubpictureAttributes(ulStream) {
         pATR := DVD_SubpictureAttributes()
-        result := ComCall(20, this, "uint", ulStream, "ptr", pATR, "HRESULT")
+        result := ComCall(20, this, "uint", ulStream, DVD_SubpictureAttributes.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -1154,7 +1211,7 @@ class IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-isaudiostreamenabled
      */
     IsAudioStreamEnabled(ulStreamNum) {
-        result := ComCall(30, this, "uint", ulStreamNum, "int*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(30, this, "uint", ulStreamNum, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 
@@ -1254,7 +1311,7 @@ class IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getbuttonatposition
      */
     GetButtonAtPosition(_point) {
-        result := ComCall(34, this, "ptr", _point, "uint*", &pulButtonIndex := 0, "HRESULT")
+        result := ComCall(34, this, POINT, _point, "uint*", &pulButtonIndex := 0, "HRESULT")
         return pulButtonIndex
     }
 
@@ -1442,7 +1499,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetDecoderCaps() {
         pCaps := DVD_DECODER_CAPS()
-        result := ComCall(39, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(39, this, DVD_DECODER_CAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -1454,7 +1511,7 @@ class IDvdInfo2 extends IUnknown {
      */
     GetButtonRect(ulButton) {
         pRect := RECT()
-        result := ComCall(40, this, "uint", ulButton, "ptr", pRect, "HRESULT")
+        result := ComCall(40, this, "uint", ulButton, RECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -1467,7 +1524,103 @@ class IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-issubpicturestreamenabled
      */
     IsSubpictureStreamEnabled(ulStreamNum) {
-        result := ComCall(41, this, "uint", ulStreamNum, "int*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(41, this, "uint", ulStreamNum, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
+    }
+
+    Query(iid) {
+        if (IDvdInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentDomain := CallbackCreate(GetMethod(implObj, "GetCurrentDomain"), flags, 2)
+        this.vtbl.GetCurrentLocation := CallbackCreate(GetMethod(implObj, "GetCurrentLocation"), flags, 2)
+        this.vtbl.GetTotalTitleTime := CallbackCreate(GetMethod(implObj, "GetTotalTitleTime"), flags, 3)
+        this.vtbl.GetCurrentButton := CallbackCreate(GetMethod(implObj, "GetCurrentButton"), flags, 3)
+        this.vtbl.GetCurrentAngle := CallbackCreate(GetMethod(implObj, "GetCurrentAngle"), flags, 3)
+        this.vtbl.GetCurrentAudio := CallbackCreate(GetMethod(implObj, "GetCurrentAudio"), flags, 3)
+        this.vtbl.GetCurrentSubpicture := CallbackCreate(GetMethod(implObj, "GetCurrentSubpicture"), flags, 4)
+        this.vtbl.GetCurrentUOPS := CallbackCreate(GetMethod(implObj, "GetCurrentUOPS"), flags, 2)
+        this.vtbl.GetAllSPRMs := CallbackCreate(GetMethod(implObj, "GetAllSPRMs"), flags, 2)
+        this.vtbl.GetAllGPRMs := CallbackCreate(GetMethod(implObj, "GetAllGPRMs"), flags, 2)
+        this.vtbl.GetAudioLanguage := CallbackCreate(GetMethod(implObj, "GetAudioLanguage"), flags, 3)
+        this.vtbl.GetSubpictureLanguage := CallbackCreate(GetMethod(implObj, "GetSubpictureLanguage"), flags, 3)
+        this.vtbl.GetTitleAttributes := CallbackCreate(GetMethod(implObj, "GetTitleAttributes"), flags, 4)
+        this.vtbl.GetVMGAttributes := CallbackCreate(GetMethod(implObj, "GetVMGAttributes"), flags, 2)
+        this.vtbl.GetCurrentVideoAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentVideoAttributes"), flags, 2)
+        this.vtbl.GetAudioAttributes := CallbackCreate(GetMethod(implObj, "GetAudioAttributes"), flags, 3)
+        this.vtbl.GetKaraokeAttributes := CallbackCreate(GetMethod(implObj, "GetKaraokeAttributes"), flags, 3)
+        this.vtbl.GetSubpictureAttributes := CallbackCreate(GetMethod(implObj, "GetSubpictureAttributes"), flags, 3)
+        this.vtbl.GetDVDVolumeInfo := CallbackCreate(GetMethod(implObj, "GetDVDVolumeInfo"), flags, 5)
+        this.vtbl.GetDVDTextNumberOfLanguages := CallbackCreate(GetMethod(implObj, "GetDVDTextNumberOfLanguages"), flags, 2)
+        this.vtbl.GetDVDTextLanguageInfo := CallbackCreate(GetMethod(implObj, "GetDVDTextLanguageInfo"), flags, 5)
+        this.vtbl.GetDVDTextStringAsNative := CallbackCreate(GetMethod(implObj, "GetDVDTextStringAsNative"), flags, 7)
+        this.vtbl.GetDVDTextStringAsUnicode := CallbackCreate(GetMethod(implObj, "GetDVDTextStringAsUnicode"), flags, 7)
+        this.vtbl.GetPlayerParentalLevel := CallbackCreate(GetMethod(implObj, "GetPlayerParentalLevel"), flags, 3)
+        this.vtbl.GetNumberOfChapters := CallbackCreate(GetMethod(implObj, "GetNumberOfChapters"), flags, 3)
+        this.vtbl.GetTitleParentalLevels := CallbackCreate(GetMethod(implObj, "GetTitleParentalLevels"), flags, 3)
+        this.vtbl.GetDVDDirectory := CallbackCreate(GetMethod(implObj, "GetDVDDirectory"), flags, 4)
+        this.vtbl.IsAudioStreamEnabled := CallbackCreate(GetMethod(implObj, "IsAudioStreamEnabled"), flags, 3)
+        this.vtbl.GetDiscID := CallbackCreate(GetMethod(implObj, "GetDiscID"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetMenuLanguages := CallbackCreate(GetMethod(implObj, "GetMenuLanguages"), flags, 4)
+        this.vtbl.GetButtonAtPosition := CallbackCreate(GetMethod(implObj, "GetButtonAtPosition"), flags, 3)
+        this.vtbl.GetCmdFromEvent := CallbackCreate(GetMethod(implObj, "GetCmdFromEvent"), flags, 3)
+        this.vtbl.GetDefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "GetDefaultMenuLanguage"), flags, 2)
+        this.vtbl.GetDefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "GetDefaultAudioLanguage"), flags, 3)
+        this.vtbl.GetDefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "GetDefaultSubpictureLanguage"), flags, 3)
+        this.vtbl.GetDecoderCaps := CallbackCreate(GetMethod(implObj, "GetDecoderCaps"), flags, 2)
+        this.vtbl.GetButtonRect := CallbackCreate(GetMethod(implObj, "GetButtonRect"), flags, 3)
+        this.vtbl.IsSubpictureStreamEnabled := CallbackCreate(GetMethod(implObj, "IsSubpictureStreamEnabled"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentDomain)
+        CallbackFree(this.vtbl.GetCurrentLocation)
+        CallbackFree(this.vtbl.GetTotalTitleTime)
+        CallbackFree(this.vtbl.GetCurrentButton)
+        CallbackFree(this.vtbl.GetCurrentAngle)
+        CallbackFree(this.vtbl.GetCurrentAudio)
+        CallbackFree(this.vtbl.GetCurrentSubpicture)
+        CallbackFree(this.vtbl.GetCurrentUOPS)
+        CallbackFree(this.vtbl.GetAllSPRMs)
+        CallbackFree(this.vtbl.GetAllGPRMs)
+        CallbackFree(this.vtbl.GetAudioLanguage)
+        CallbackFree(this.vtbl.GetSubpictureLanguage)
+        CallbackFree(this.vtbl.GetTitleAttributes)
+        CallbackFree(this.vtbl.GetVMGAttributes)
+        CallbackFree(this.vtbl.GetCurrentVideoAttributes)
+        CallbackFree(this.vtbl.GetAudioAttributes)
+        CallbackFree(this.vtbl.GetKaraokeAttributes)
+        CallbackFree(this.vtbl.GetSubpictureAttributes)
+        CallbackFree(this.vtbl.GetDVDVolumeInfo)
+        CallbackFree(this.vtbl.GetDVDTextNumberOfLanguages)
+        CallbackFree(this.vtbl.GetDVDTextLanguageInfo)
+        CallbackFree(this.vtbl.GetDVDTextStringAsNative)
+        CallbackFree(this.vtbl.GetDVDTextStringAsUnicode)
+        CallbackFree(this.vtbl.GetPlayerParentalLevel)
+        CallbackFree(this.vtbl.GetNumberOfChapters)
+        CallbackFree(this.vtbl.GetTitleParentalLevels)
+        CallbackFree(this.vtbl.GetDVDDirectory)
+        CallbackFree(this.vtbl.IsAudioStreamEnabled)
+        CallbackFree(this.vtbl.GetDiscID)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.GetMenuLanguages)
+        CallbackFree(this.vtbl.GetButtonAtPosition)
+        CallbackFree(this.vtbl.GetCmdFromEvent)
+        CallbackFree(this.vtbl.GetDefaultMenuLanguage)
+        CallbackFree(this.vtbl.GetDefaultAudioLanguage)
+        CallbackFree(this.vtbl.GetDefaultSubpictureLanguage)
+        CallbackFree(this.vtbl.GetDecoderCaps)
+        CallbackFree(this.vtbl.GetButtonRect)
+        CallbackFree(this.vtbl.IsSubpictureStreamEnabled)
     }
 }

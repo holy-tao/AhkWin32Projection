@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates an instance of either the sink writer or the source reader.
@@ -33,26 +36,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfreadwriteclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFReadWriteClassFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFReadWriteClassFactory extends IUnknown {
     /**
      * The interface identifier for IMFReadWriteClassFactory
      * @type {Guid}
      */
-    static IID => Guid("{e7fe2e12-661c-40da-92f9-4f002ab67627}")
+    static IID := Guid("{e7fe2e12-661c-40da-92f9-4f002ab67627}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFReadWriteClassFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateInstanceFromURL    : IntPtr
+        CreateInstanceFromObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateInstanceFromURL", "CreateInstanceFromObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFReadWriteClassFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an instance of the sink writer or source reader, given a URL.
@@ -105,7 +116,7 @@ class IMFReadWriteClassFactory extends IUnknown {
     CreateInstanceFromURL(clsid, pwszURL, pAttributes, riid) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", clsid, "ptr", pwszURL, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsid, "ptr", pwszURL, "ptr", pAttributes, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -199,7 +210,29 @@ class IMFReadWriteClassFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromobject
      */
     CreateInstanceFromObject(clsid, punkObject, pAttributes, riid) {
-        result := ComCall(4, this, "ptr", clsid, "ptr", punkObject, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, clsid, "ptr", punkObject, "ptr", pAttributes, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
+    }
+
+    Query(iid) {
+        if (IMFReadWriteClassFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateInstanceFromURL := CallbackCreate(GetMethod(implObj, "CreateInstanceFromURL"), flags, 6)
+        this.vtbl.CreateInstanceFromObject := CallbackCreate(GetMethod(implObj, "CreateInstanceFromObject"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateInstanceFromURL)
+        CallbackFree(this.vtbl.CreateInstanceFromObject)
     }
 }

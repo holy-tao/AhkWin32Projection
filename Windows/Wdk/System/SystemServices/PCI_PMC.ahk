@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_PMC extends Win32Struct {
-    static sizeof => 2
+export default struct PCI_PMC {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _PM_SUPPORT extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _PM_SUPPORT {
         /**
          * This bitfield backs the following members:
          * - Rsvd2
@@ -23,12 +18,9 @@ class PCI_PMC extends Win32Struct {
          * - PMED2
          * - PMED3Hot
          * - PMED3Cold
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -102,12 +94,9 @@ class PCI_PMC extends Win32Struct {
      * - Rsvd1
      * - DeviceSpecificInitialization
      * - Rsvd2
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -148,15 +137,6 @@ class PCI_PMC extends Win32Struct {
         get => (this._bitfield >> 6) & 0x3
         set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
     }
+    Support : PCI_PMC._PM_SUPPORT
 
-    /**
-     * @type {_PM_SUPPORT}
-     */
-    Support {
-        get {
-            if(!this.HasProp("__Support"))
-                this.__Support := PCI_PMC._PM_SUPPORT(1, this)
-            return this.__Support
-        }
-    }
 }

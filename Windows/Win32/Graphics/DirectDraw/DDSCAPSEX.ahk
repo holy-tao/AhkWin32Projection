@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDSCAPSEX extends Win32Struct {
-    static sizeof => 12
+export default struct DDSCAPSEX {
+    #StructPack 4
 
-    static packingSize => 4
+    dwCaps2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps2 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCaps3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps3 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCaps4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps4 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwVolumeDepth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'dwVolumeDepth', { type: UInt32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,84 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_POLICY_FLAG.ahk
-#Include .\IPSEC_PROPOSAL0.ahk
-#Include .\IPSEC_TUNNEL_ENDPOINTS1.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
-#Include .\IKEEXT_EM_POLICY1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_POLICY_FLAG.ahk" { IPSEC_POLICY_FLAG }
+#Import ".\IPSEC_SA_IDLE_TIMEOUT0.ahk" { IPSEC_SA_IDLE_TIMEOUT0 }
+#Import ".\IKEEXT_EM_POLICY1.ahk" { IKEEXT_EM_POLICY1 }
+#Import ".\IPSEC_PROPOSAL0.ahk" { IPSEC_PROPOSAL0 }
+#Import ".\IPSEC_TUNNEL_ENDPOINTS1.ahk" { IPSEC_TUNNEL_ENDPOINTS1 }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * Stores the quick mode negotiation policy for tunnel mode IPsec. (IPSEC_TUNNEL_POLICY1)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TUNNEL_POLICY1 extends Win32Struct {
-    static sizeof => 80
+export default struct IPSEC_TUNNEL_POLICY1 {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {IPSEC_POLICY_FLAG}
-     */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : IPSEC_POLICY_FLAG
 
     /**
      * Number of quick mode proposals in the policy.
-     * @type {Integer}
      */
-    numIpsecProposals {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    numIpsecProposals : UInt32
 
     /**
      * Array of quick mode proposals.
      * 
      * See [IPSEC_PROPOSAL0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_proposal0) for more information.
-     * @type {Pointer<IPSEC_PROPOSAL0>}
      */
-    ipsecProposals {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ipsecProposals : IPSEC_PROPOSAL0.Ptr
 
     /**
      * Tunnel endpoints of the IPsec security association (SA) generated from this policy.
      * 
      * See [IPSEC_TUNNEL_ENDPOINTS1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_endpoints1) for more information.
-     * @type {IPSEC_TUNNEL_ENDPOINTS1}
      */
-    tunnelEndpoints {
-        get {
-            if(!this.HasProp("__tunnelEndpoints"))
-                this.__tunnelEndpoints := IPSEC_TUNNEL_ENDPOINTS1(16, this)
-            return this.__tunnelEndpoints
-        }
-    }
+    tunnelEndpoints : IPSEC_TUNNEL_ENDPOINTS1
 
     /**
      * An [IPSEC_SA_IDLE_TIMEOUT0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_idle_timeout0) structure that specifies the SA idle timeout in IPsec policy.
-     * @type {IPSEC_SA_IDLE_TIMEOUT0}
      */
-    saIdleTimeout {
-        get {
-            if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(64, this)
-            return this.__saIdleTimeout
-        }
-    }
+    saIdleTimeout : IPSEC_SA_IDLE_TIMEOUT0
 
     /**
      * The AuthIP extended mode authentication policy.
      * 
      * See [IKEEXT_EM_POLICY1](/windows/desktop/api/iketypes/ns-iketypes-ikeext_em_policy1) for more information.
-     * @type {Pointer<IKEEXT_EM_POLICY1>}
      */
-    emPolicy {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    emPolicy : IKEEXT_EM_POLICY1.Ptr
+
 }

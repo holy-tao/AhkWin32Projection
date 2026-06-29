@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * BLUETOOTH_OOB_DATA_INFO structure contains data used to authenticate prior to establishing an Out-of-Band device pairing.
@@ -8,32 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_oob_data_info
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_OOB_DATA_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 1
+export default struct BLUETOOTH_OOB_DATA_INFO {
+    #StructPack 1
 
     /**
      * A 128-bit cryptographic key used for two-way authentication.
-     * @type {Array<Integer>}
      */
-    C {
-        get {
-            if(!this.HasProp("__CProxyArray"))
-                this.__CProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__CProxyArray
-        }
-    }
+    C : Int8[16]
 
     /**
      * A randomly generated number used for one-way authentication. If this number is not provided by the device initiating the OOB session, this value is 0.
-     * @type {Array<Integer>}
      */
-    R {
-        get {
-            if(!this.HasProp("__RProxyArray"))
-                this.__RProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__RProxyArray
-        }
-    }
+    R : Int8[16]
+
 }

@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct {
-    static sizeof => 64
+export default struct WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS {
+    #StructPack 8
 
-    static packingSize => 8
+    cbCredentialId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbCredentialId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pbCredentialId : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbCredentialId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszRpId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszRpId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszRpName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszRpName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbUserId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbUserId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pbUserId : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbUserId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pwszUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszUserName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pwszUserDisplayName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszUserDisplayName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

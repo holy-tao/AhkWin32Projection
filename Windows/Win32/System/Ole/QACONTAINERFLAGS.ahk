@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates ambient properties supplied by the container. It is used in the dwAmbientFlags member of the QACONTAINER structure.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-qacontainerflags
  * @namespace Windows.Win32.System.Ole
  */
-class QACONTAINERFLAGS extends Win32Enum {
+export default struct QACONTAINERFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the ShowHatching ambient property, which has a standard ambient DISPID of -712.

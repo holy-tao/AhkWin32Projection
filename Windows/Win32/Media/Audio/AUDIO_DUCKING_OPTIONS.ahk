@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies audio ducking options. Use values from this enumeration when calling IAudioClientDuckingControl::SetDuckingOptionsForCurrentStream
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ne-audioclient-audio_ducking_options
  * @namespace Windows.Win32.Media.Audio
  */
-class AUDIO_DUCKING_OPTIONS extends Win32BitflagEnum {
+export default struct AUDIO_DUCKING_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The associated audio stream should use the default audio ducking behavior.

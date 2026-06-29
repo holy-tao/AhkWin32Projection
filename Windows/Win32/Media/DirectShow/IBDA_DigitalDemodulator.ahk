@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ModulationType.ahk" { ModulationType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FECMethod.ahk" { FECMethod }
+#Import ".\SpectralInversion.ahk" { SpectralInversion }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
 
 /**
  * The IBDA_DigitalDemodulator interface is exposed on BDA device filters, specifically demodulators, that are not capable of automatically detecting the characteristics of a signal.
@@ -10,26 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_digitaldemodulator
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DigitalDemodulator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DigitalDemodulator extends IUnknown {
     /**
      * The interface identifier for IBDA_DigitalDemodulator
      * @type {Guid}
      */
-    static IID => Guid("{ef30f379-985b-4d10-b640-a79d5e04e1e0}")
+    static IID := Guid("{ef30f379-985b-4d10-b640-a79d5e04e1e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DigitalDemodulator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_ModulationType    : IntPtr
+        get_ModulationType    : IntPtr
+        put_InnerFECMethod    : IntPtr
+        get_InnerFECMethod    : IntPtr
+        put_InnerFECRate      : IntPtr
+        get_InnerFECRate      : IntPtr
+        put_OuterFECMethod    : IntPtr
+        get_OuterFECMethod    : IntPtr
+        put_OuterFECRate      : IntPtr
+        get_OuterFECRate      : IntPtr
+        put_SymbolRate        : IntPtr
+        get_SymbolRate        : IntPtr
+        put_SpectralInversion : IntPtr
+        get_SpectralInversion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_ModulationType", "get_ModulationType", "put_InnerFECMethod", "get_InnerFECMethod", "put_InnerFECRate", "get_InnerFECRate", "put_OuterFECMethod", "get_OuterFECMethod", "put_OuterFECRate", "get_OuterFECRate", "put_SymbolRate", "get_SymbolRate", "put_SpectralInversion", "get_SpectralInversion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DigitalDemodulator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ModulationType} 
@@ -269,5 +294,51 @@ class IBDA_DigitalDemodulator extends IUnknown {
 
         result := ComCall(16, this, pSpectralInversionMarshal, pSpectralInversion, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DigitalDemodulator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_ModulationType := CallbackCreate(GetMethod(implObj, "put_ModulationType"), flags, 2)
+        this.vtbl.get_ModulationType := CallbackCreate(GetMethod(implObj, "get_ModulationType"), flags, 2)
+        this.vtbl.put_InnerFECMethod := CallbackCreate(GetMethod(implObj, "put_InnerFECMethod"), flags, 2)
+        this.vtbl.get_InnerFECMethod := CallbackCreate(GetMethod(implObj, "get_InnerFECMethod"), flags, 2)
+        this.vtbl.put_InnerFECRate := CallbackCreate(GetMethod(implObj, "put_InnerFECRate"), flags, 2)
+        this.vtbl.get_InnerFECRate := CallbackCreate(GetMethod(implObj, "get_InnerFECRate"), flags, 2)
+        this.vtbl.put_OuterFECMethod := CallbackCreate(GetMethod(implObj, "put_OuterFECMethod"), flags, 2)
+        this.vtbl.get_OuterFECMethod := CallbackCreate(GetMethod(implObj, "get_OuterFECMethod"), flags, 2)
+        this.vtbl.put_OuterFECRate := CallbackCreate(GetMethod(implObj, "put_OuterFECRate"), flags, 2)
+        this.vtbl.get_OuterFECRate := CallbackCreate(GetMethod(implObj, "get_OuterFECRate"), flags, 2)
+        this.vtbl.put_SymbolRate := CallbackCreate(GetMethod(implObj, "put_SymbolRate"), flags, 2)
+        this.vtbl.get_SymbolRate := CallbackCreate(GetMethod(implObj, "get_SymbolRate"), flags, 2)
+        this.vtbl.put_SpectralInversion := CallbackCreate(GetMethod(implObj, "put_SpectralInversion"), flags, 2)
+        this.vtbl.get_SpectralInversion := CallbackCreate(GetMethod(implObj, "get_SpectralInversion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_ModulationType)
+        CallbackFree(this.vtbl.get_ModulationType)
+        CallbackFree(this.vtbl.put_InnerFECMethod)
+        CallbackFree(this.vtbl.get_InnerFECMethod)
+        CallbackFree(this.vtbl.put_InnerFECRate)
+        CallbackFree(this.vtbl.get_InnerFECRate)
+        CallbackFree(this.vtbl.put_OuterFECMethod)
+        CallbackFree(this.vtbl.get_OuterFECMethod)
+        CallbackFree(this.vtbl.put_OuterFECRate)
+        CallbackFree(this.vtbl.get_OuterFECRate)
+        CallbackFree(this.vtbl.put_SymbolRate)
+        CallbackFree(this.vtbl.get_SymbolRate)
+        CallbackFree(this.vtbl.put_SpectralInversion)
+        CallbackFree(this.vtbl.get_SpectralInversion)
     }
 }

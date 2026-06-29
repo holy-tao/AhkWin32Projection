@@ -1,34 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_REPLICA_SOURCE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct POLICY_REPLICA_SOURCE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ReplicaSource : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    ReplicaSource {
-        get {
-            if(!this.HasProp("__ReplicaSource"))
-                this.__ReplicaSource := LSA_UNICODE_STRING(0, this)
-            return this.__ReplicaSource
-        }
-    }
+    ReplicaAccountName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    ReplicaAccountName {
-        get {
-            if(!this.HasProp("__ReplicaAccountName"))
-                this.__ReplicaAccountName := LSA_UNICODE_STRING(16, this)
-            return this.__ReplicaAccountName
-        }
-    }
 }

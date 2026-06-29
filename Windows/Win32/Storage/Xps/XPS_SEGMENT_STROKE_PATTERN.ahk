@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether all, some, or none of the segments in a figure are stroked.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_stroke_pattern
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_SEGMENT_STROKE_PATTERN extends Win32Enum {
+export default struct XPS_SEGMENT_STROKE_PATTERN {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * All segments in the figure are stroked.

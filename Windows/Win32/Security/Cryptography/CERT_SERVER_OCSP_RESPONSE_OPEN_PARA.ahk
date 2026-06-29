@@ -1,64 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct {
-    static sizeof => 40
+export default struct CERT_SERVER_OCSP_RESPONSE_OPEN_PARA {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pcbUsedSize : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pcbUsedSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszOcspDirectory : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszOcspDirectory {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pfnUpdateCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK>}
-     */
-    pfnUpdateCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvUpdateCallbackArg : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvUpdateCallbackArg {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

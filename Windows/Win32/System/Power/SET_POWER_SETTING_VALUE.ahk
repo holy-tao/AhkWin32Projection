@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYSTEM_POWER_CONDITION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYSTEM_POWER_CONDITION.ahk" { SYSTEM_POWER_CONDITION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class SET_POWER_SETTING_VALUE extends Win32Struct {
-    static sizeof => 32
+export default struct SET_POWER_SETTING_VALUE {
+    #StructPack 4
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PowerCondition : SYSTEM_POWER_CONDITION
 
-    /**
-     * @type {SYSTEM_POWER_CONDITION}
-     */
-    PowerCondition {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

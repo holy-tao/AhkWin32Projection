@@ -1,53 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDSURFACEDESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_CANCREATESURFACEDATA extends Win32Struct {
-    static sizeof => 32
+export default struct DDHAL_CANCREATESURFACEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDSurfaceDesc : DDSURFACEDESC.Ptr
 
-    /**
-     * @type {Pointer<DDSURFACEDESC>}
-     */
-    lpDDSurfaceDesc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    bIsDifferentPixelFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bIsDifferentPixelFormat {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    CanCreateSurface : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_CANCREATESURFACE>}
-     */
-    CanCreateSurface {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

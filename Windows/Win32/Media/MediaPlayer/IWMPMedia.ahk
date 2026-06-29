@@ -1,33 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use the IWMPMedia interface to set and retrieve the properties of a media item.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmedia
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPMedia extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPMedia extends IDispatch {
     /**
      * The interface identifier for IWMPMedia
      * @type {Guid}
      */
-    static IID => Guid("{94d55e95-3fac-11d3-b155-00c04f79faa6}")
+    static IID := Guid("{94d55e95-3fac-11d3-b155-00c04f79faa6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPMedia interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_isIdentical       : IntPtr
+        get_sourceURL         : IntPtr
+        get_name              : IntPtr
+        put_name              : IntPtr
+        get_imageSourceWidth  : IntPtr
+        get_imageSourceHeight : IntPtr
+        get_markerCount       : IntPtr
+        getMarkerTime         : IntPtr
+        getMarkerName         : IntPtr
+        get_duration          : IntPtr
+        get_durationString    : IntPtr
+        get_attributeCount    : IntPtr
+        getAttributeName      : IntPtr
+        getItemInfo           : IntPtr
+        setItemInfo           : IntPtr
+        getItemInfoByAtom     : IntPtr
+        isMemberOf            : IntPtr
+        isReadOnlyItem        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_isIdentical", "get_sourceURL", "get_name", "put_name", "get_imageSourceWidth", "get_imageSourceHeight", "get_markerCount", "getMarkerTime", "getMarkerName", "get_duration", "get_durationString", "get_attributeCount", "getAttributeName", "getItemInfo", "setItemInfo", "getItemInfoByAtom", "isMemberOf", "isReadOnlyItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPMedia.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -136,7 +164,7 @@ class IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_sourceurl
      */
     get_sourceURL(pbstrSourceURL) {
-        result := ComCall(8, this, "ptr", pbstrSourceURL, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pbstrSourceURL, "HRESULT")
         return result
     }
 
@@ -167,7 +195,7 @@ class IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_name
      */
     get_name(pbstrName) {
-        result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -202,7 +230,7 @@ class IWMPMedia extends IDispatch {
     put_name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(10, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -387,7 +415,7 @@ class IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getmarkername
      */
     getMarkerName(MarkerNum, pbstrMarkerName) {
-        result := ComCall(15, this, "int", MarkerNum, "ptr", pbstrMarkerName, "HRESULT")
+        result := ComCall(15, this, "int", MarkerNum, BSTR.Ptr, pbstrMarkerName, "HRESULT")
         return result
     }
 
@@ -459,7 +487,7 @@ class IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_durationstring
      */
     get_durationString(pbstrDuration) {
-        result := ComCall(17, this, "ptr", pbstrDuration, "HRESULT")
+        result := ComCall(17, this, BSTR.Ptr, pbstrDuration, "HRESULT")
         return result
     }
 
@@ -534,7 +562,7 @@ class IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getattributename
      */
     getAttributeName(lIndex, pbstrItemName) {
-        result := ComCall(19, this, "int", lIndex, "ptr", pbstrItemName, "HRESULT")
+        result := ComCall(19, this, "int", lIndex, BSTR.Ptr, pbstrItemName, "HRESULT")
         return result
     }
 
@@ -621,7 +649,7 @@ class IWMPMedia extends IDispatch {
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(20, this, "ptr", bstrItemName, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrItemName, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
     }
 
@@ -667,7 +695,7 @@ class IWMPMedia extends IDispatch {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(21, this, "ptr", bstrItemName, "ptr", bstrVal, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrItemName, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -705,7 +733,7 @@ class IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getiteminfobyatom
      */
     getItemInfoByAtom(lAtom, pbstrVal) {
-        result := ComCall(22, this, "int", lAtom, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(22, this, "int", lAtom, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
     }
 
@@ -781,7 +809,61 @@ class IWMPMedia extends IDispatch {
 
         pvarfIsReadOnlyMarshal := pvarfIsReadOnly is VarRef ? "short*" : "ptr"
 
-        result := ComCall(24, this, "ptr", bstrItemName, pvarfIsReadOnlyMarshal, pvarfIsReadOnly, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrItemName, pvarfIsReadOnlyMarshal, pvarfIsReadOnly, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPMedia.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_isIdentical := CallbackCreate(GetMethod(implObj, "get_isIdentical"), flags, 3)
+        this.vtbl.get_sourceURL := CallbackCreate(GetMethod(implObj, "get_sourceURL"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_imageSourceWidth := CallbackCreate(GetMethod(implObj, "get_imageSourceWidth"), flags, 2)
+        this.vtbl.get_imageSourceHeight := CallbackCreate(GetMethod(implObj, "get_imageSourceHeight"), flags, 2)
+        this.vtbl.get_markerCount := CallbackCreate(GetMethod(implObj, "get_markerCount"), flags, 2)
+        this.vtbl.getMarkerTime := CallbackCreate(GetMethod(implObj, "getMarkerTime"), flags, 3)
+        this.vtbl.getMarkerName := CallbackCreate(GetMethod(implObj, "getMarkerName"), flags, 3)
+        this.vtbl.get_duration := CallbackCreate(GetMethod(implObj, "get_duration"), flags, 2)
+        this.vtbl.get_durationString := CallbackCreate(GetMethod(implObj, "get_durationString"), flags, 2)
+        this.vtbl.get_attributeCount := CallbackCreate(GetMethod(implObj, "get_attributeCount"), flags, 2)
+        this.vtbl.getAttributeName := CallbackCreate(GetMethod(implObj, "getAttributeName"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.setItemInfo := CallbackCreate(GetMethod(implObj, "setItemInfo"), flags, 3)
+        this.vtbl.getItemInfoByAtom := CallbackCreate(GetMethod(implObj, "getItemInfoByAtom"), flags, 3)
+        this.vtbl.isMemberOf := CallbackCreate(GetMethod(implObj, "isMemberOf"), flags, 3)
+        this.vtbl.isReadOnlyItem := CallbackCreate(GetMethod(implObj, "isReadOnlyItem"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_isIdentical)
+        CallbackFree(this.vtbl.get_sourceURL)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_imageSourceWidth)
+        CallbackFree(this.vtbl.get_imageSourceHeight)
+        CallbackFree(this.vtbl.get_markerCount)
+        CallbackFree(this.vtbl.getMarkerTime)
+        CallbackFree(this.vtbl.getMarkerName)
+        CallbackFree(this.vtbl.get_duration)
+        CallbackFree(this.vtbl.get_durationString)
+        CallbackFree(this.vtbl.get_attributeCount)
+        CallbackFree(this.vtbl.getAttributeName)
+        CallbackFree(this.vtbl.getItemInfo)
+        CallbackFree(this.vtbl.setItemInfo)
+        CallbackFree(this.vtbl.getItemInfoByAtom)
+        CallbackFree(this.vtbl.isMemberOf)
+        CallbackFree(this.vtbl.isReadOnlyItem)
     }
 }

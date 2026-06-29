@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDRMWriter interface provides support for applying DRM protection to content in ASF files.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmwriter
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMDRMWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDRMWriter extends IUnknown {
     /**
      * The interface identifier for IWMDRMWriter
      * @type {Guid}
      */
-    static IID => Guid("{d6ea5dd0-12a0-43f4-90ab-a3fd451e6a07}")
+    static IID := Guid("{d6ea5dd0-12a0-43f4-90ab-a3fd451e6a07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDRMWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GenerateKeySeed        : IntPtr
+        GenerateKeyID          : IntPtr
+        GenerateSigningKeyPair : IntPtr
+        SetDRMAttribute        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GenerateKeySeed", "GenerateKeyID", "GenerateSigningKeyPair", "SetDRMAttribute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDRMWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GenerateKeySeed method generates a DRM key seed.
@@ -117,7 +130,33 @@ class IWMDRMWriter extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDRMWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GenerateKeySeed := CallbackCreate(GetMethod(implObj, "GenerateKeySeed"), flags, 3)
+        this.vtbl.GenerateKeyID := CallbackCreate(GetMethod(implObj, "GenerateKeyID"), flags, 3)
+        this.vtbl.GenerateSigningKeyPair := CallbackCreate(GetMethod(implObj, "GenerateSigningKeyPair"), flags, 5)
+        this.vtbl.SetDRMAttribute := CallbackCreate(GetMethod(implObj, "SetDRMAttribute"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GenerateKeySeed)
+        CallbackFree(this.vtbl.GenerateKeyID)
+        CallbackFree(this.vtbl.GenerateSigningKeyPair)
+        CallbackFree(this.vtbl.SetDRMAttribute)
     }
 }

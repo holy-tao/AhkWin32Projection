@@ -1,98 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NMPGSCROLL_KEYS.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\NMPGSCROLL_DIR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMPGSCROLL_KEYS.ahk" { NMPGSCROLL_KEYS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMPGSCROLL_DIR.ahk" { NMPGSCROLL_DIR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains and receives information that the pager control uses when scrolling the contained window. It is used with the PGN_SCROLL notification.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpgscroll
  * @namespace Windows.Win32.UI.Controls
  */
-class NMPGSCROLL extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct NMPGSCROLL {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
-     * @type {NMPGSCROLL_KEYS}
      */
-    fwKeys {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    fwKeys : NMPGSCROLL_KEYS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * Contains the client rectangle of the pager control.
-     * @type {RECT}
      */
-    rcParent {
-        get {
-            if(!this.HasProp("__rcParent"))
-                this.__rcParent := RECT(28, this)
-            return this.__rcParent
-        }
-    }
+    rcParent : RECT
 
     /**
      * Type: <b>int</b>
-     * @type {NMPGSCROLL_DIR}
      */
-    iDir {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    iDir : NMPGSCROLL_DIR
 
     /**
      * Type: <b>int</b>
      * 
      * Contains the horizontal scroll position of the contained window, in pixels, before the scroll action.
-     * @type {Integer}
      */
-    iXpos {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    iXpos : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Contains the vertical scroll position of the contained window, in pixels, before the scroll action.
-     * @type {Integer}
      */
-    iYpos {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    iYpos : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * On entry, contains the default scroll delta in pixels. This member can be modified to contain a different scroll delta amount if desired. This value is always positive, regardless of the scroll direction.
-     * @type {Integer}
      */
-    iScroll {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    iScroll : Int32
+
 }

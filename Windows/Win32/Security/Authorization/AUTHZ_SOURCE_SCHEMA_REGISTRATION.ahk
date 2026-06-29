@@ -1,16 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET.ahk" { AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies information about source schema registration.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_source_schema_registration
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct AUTHZ_SOURCE_SCHEMA_REGISTRATION {
+    #StructPack 8
 
     /**
      * Flags that control the behavior of the operation. The following table shows a possible value.
@@ -43,92 +42,48 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * A pointer to a wide character string that represents the name of the event source.
-     * @type {PWSTR}
      */
-    szEventSourceName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szEventSourceName : PWSTR
 
     /**
      * A pointer to a wide character string that represents the name of the resource that contains the event messages.
-     * @type {PWSTR}
      */
-    szEventMessageFile {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szEventMessageFile : PWSTR
 
     /**
      * A pointer to a wide character string that represents the name of the XML schema file for the event source.
-     * @type {PWSTR}
      */
-    szEventSourceXmlSchemaFile {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szEventSourceXmlSchemaFile : PWSTR
 
     /**
      * A pointer to a wide character string that represents the name of the resource that contains the event parameter strings.
-     * @type {PWSTR}
      */
-    szEventAccessStringsFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    szEventAccessStringsFile : PWSTR
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {PWSTR}
      */
-    szExecutableImagePath {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    szExecutableImagePath : PWSTR
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pReserved {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    pProviderGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pReserved : IntPtr
 
     /**
      * The number of objects in the <i>ObjectTypeNames</i> array.
-     * @type {Integer}
      */
-    dwObjectTypeNameCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwObjectTypeNameCount : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/authz/ns-authz-authz_registration_object_type_name_offset">AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET</a> structures that represents the object types for the events.
-     * @type {AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET}
      */
-    ObjectTypeNames {
-        get {
-            if(!this.HasProp("__ObjectTypeNamesProxyArray"))
-                this.__ObjectTypeNamesProxyArray := Win32FixedArray(this.ptr + 64, 1, AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET, "")
-            return this.__ObjectTypeNamesProxyArray
-        }
+    ObjectTypeNames : AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET[1]
+
+    static __New() {
+        DefineProp(this.Prototype, 'pProviderGuid', { type: Guid.Ptr, offset: 48 })
+        this.DeleteProp("__New")
     }
 }

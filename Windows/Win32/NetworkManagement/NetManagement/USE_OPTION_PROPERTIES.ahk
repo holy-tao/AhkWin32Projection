@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USE_OPTION_PROPERTIES extends Win32Struct {
-    static sizeof => 24
+export default struct USE_OPTION_PROPERTIES {
+    #StructPack 8
 
-    static packingSize => 8
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pInfo : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Length : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Length {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

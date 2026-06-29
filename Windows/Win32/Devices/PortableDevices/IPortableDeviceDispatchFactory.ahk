@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a factory that can instantiate a WPD Automation Device object.
@@ -18,32 +20,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedispatchfactory
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceDispatchFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceDispatchFactory extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceDispatchFactory
      * @type {Guid}
      */
-    static IID => Guid("{5e1eafc3-e3d7-4132-96fa-759c0f9d1e0f}")
+    static IID := Guid("{5e1eafc3-e3d7-4132-96fa-759c0f9d1e0f}")
 
     /**
      * The class identifier for PortableDeviceDispatchFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{43232233-8338-4658-ae01-0b4ae830b6b0}")
+    static CLSID := Guid("{43232233-8338-4658-ae01-0b4ae830b6b0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceDispatchFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDeviceDispatch : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDeviceDispatch"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceDispatchFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Instantiates a WPD Automation Device object for a given WPD device identifier. (IPortableDeviceDispatchFactory.GetDeviceDispatch)
@@ -59,5 +68,25 @@ class IPortableDeviceDispatchFactory extends IUnknown {
 
         result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr*", &ppDeviceDispatch := 0, "HRESULT")
         return IDispatch(ppDeviceDispatch)
+    }
+
+    Query(iid) {
+        if (IPortableDeviceDispatchFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDeviceDispatch := CallbackCreate(GetMethod(implObj, "GetDeviceDispatch"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDeviceDispatch)
     }
 }

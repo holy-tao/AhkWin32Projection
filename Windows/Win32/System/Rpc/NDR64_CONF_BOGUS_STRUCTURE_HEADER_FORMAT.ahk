@@ -1,87 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_STRUCTURE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR64_STRUCTURE_FLAGS.ahk" { NDR64_STRUCTURE_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT extends Win32Struct {
-    static sizeof => 40
+export default struct NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    FormatCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Alignment : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Flags : NDR64_STRUCTURE_FLAGS
 
-    /**
-     * @type {NDR64_STRUCTURE_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := NDR64_STRUCTURE_FLAGS(2, this)
-            return this.__Flags
-        }
-    }
+    Dimensions : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Dimensions {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    MemorySize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MemorySize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OriginalMemberLayout : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OriginalMemberLayout {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OriginalPointerLayout : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OriginalPointerLayout {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PointerLayout : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PointerLayout {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ConfArrayDescription : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ConfArrayDescription {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

@@ -1,71 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_VNS extends Win32Struct {
-    static sizeof => 16
+export default struct SOCKADDR_VNS {
+    #StructPack 2
 
-    static packingSize => 2
+    sin_family : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    sin_family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    net_address : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    net_address {
-        get {
-            if(!this.HasProp("__net_addressProxyArray"))
-                this.__net_addressProxyArray := Win32FixedArray(this.ptr + 2, 4, Primitive, "char")
-            return this.__net_addressProxyArray
-        }
-    }
+    subnet_addr : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    subnet_addr {
-        get {
-            if(!this.HasProp("__subnet_addrProxyArray"))
-                this.__subnet_addrProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
-            return this.__subnet_addrProxyArray
-        }
-    }
+    port : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    port {
-        get {
-            if(!this.HasProp("__portProxyArray"))
-                this.__portProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
-            return this.__portProxyArray
-        }
-    }
+    hops : Int8
 
-    /**
-     * @type {Integer}
-     */
-    hops {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    filler : Int8[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    filler {
-        get {
-            if(!this.HasProp("__fillerProxyArray"))
-                this.__fillerProxyArray := Win32FixedArray(this.ptr + 11, 5, Primitive, "char")
-            return this.__fillerProxyArray
-        }
-    }
 }

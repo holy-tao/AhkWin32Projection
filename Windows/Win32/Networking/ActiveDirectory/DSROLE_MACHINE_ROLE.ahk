@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with the MachineRole member of the DSROLE_PRIMARY_DOMAIN_INFO_BASIC structure to specify the computer role.
  * @see https://learn.microsoft.com/windows/win32/api/dsrole/ne-dsrole-dsrole_machine_role
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DSROLE_MACHINE_ROLE extends Win32Enum {
+export default struct DSROLE_MACHINE_ROLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The computer is a workstation that is not a member of a domain.

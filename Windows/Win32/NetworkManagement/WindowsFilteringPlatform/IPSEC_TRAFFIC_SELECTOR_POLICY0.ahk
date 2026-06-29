@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TRAFFIC_SELECTOR0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_TRAFFIC_SELECTOR0.ahk" { IPSEC_TRAFFIC_SELECTOR0 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TRAFFIC_SELECTOR_POLICY0 extends Win32Struct {
-    static sizeof => 32
+export default struct IPSEC_TRAFFIC_SELECTOR_POLICY0 {
+    #StructPack 8
 
-    static packingSize => 8
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numLocalTrafficSelectors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numLocalTrafficSelectors {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    localTrafficSelectors : IPSEC_TRAFFIC_SELECTOR0.Ptr
 
-    /**
-     * @type {Pointer<IPSEC_TRAFFIC_SELECTOR0>}
-     */
-    localTrafficSelectors {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    numRemoteTrafficSelectors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numRemoteTrafficSelectors {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    remoteTrafficSelectors : IPSEC_TRAFFIC_SELECTOR0.Ptr
 
-    /**
-     * @type {Pointer<IPSEC_TRAFFIC_SELECTOR0>}
-     */
-    remoteTrafficSelectors {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

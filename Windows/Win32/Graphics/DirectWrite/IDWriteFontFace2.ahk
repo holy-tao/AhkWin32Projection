@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace1.ahk
-#Include .\DWRITE_COLOR_F.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\IDWriteFontFace1.ahk" { IDWriteFontFace1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace2)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwritefontface2
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFace2 extends IDWriteFontFace1 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFace2 extends IDWriteFontFace1 {
     /**
      * The interface identifier for IDWriteFontFace2
      * @type {Guid}
      */
-    static IID => Guid("{d8b768ff-64bc-4e66-982b-ec8e87f693f7}")
+    static IID := Guid("{d8b768ff-64bc-4e66-982b-ec8e87f693f7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFace2 interfaces
+    */
+    struct Vtbl extends IDWriteFontFace1.Vtbl {
+        IsColorFont                 : IntPtr
+        GetColorPaletteCount        : IntPtr
+        GetPaletteEntryCount        : IntPtr
+        GetPaletteEntries           : IntPtr
+        GetRecommendedRenderingMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsColorFont", "GetColorPaletteCount", "GetPaletteEntryCount", "GetPaletteEntries", "GetRecommendedRenderingMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFace2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows you to determine if a color rendering path is potentially necessary.
@@ -38,7 +57,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontface2-iscolorfont
      */
     IsColorFont() {
-        result := ComCall(30, this, "int")
+        result := ComCall(30, this, BOOL)
         return result
     }
 
@@ -48,7 +67,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontface2-getcolorpalettecount
      */
     GetColorPaletteCount() {
-        result := ComCall(31, this, "uint")
+        result := ComCall(31, this, UInt32)
         return result
     }
 
@@ -60,7 +79,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontface2-getpaletteentrycount
      */
     GetPaletteEntryCount() {
-        result := ComCall(32, this, "uint")
+        result := ComCall(32, this, UInt32)
         return result
     }
 
@@ -74,7 +93,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1 {
      */
     GetPaletteEntries(colorPaletteIndex, firstEntryIndex, entryCount) {
         paletteEntries := DWRITE_COLOR_F()
-        result := ComCall(33, this, "uint", colorPaletteIndex, "uint", firstEntryIndex, "uint", entryCount, "ptr", paletteEntries, "HRESULT")
+        result := ComCall(33, this, "uint", colorPaletteIndex, "uint", firstEntryIndex, "uint", entryCount, DWRITE_COLOR_F.Ptr, paletteEntries, "HRESULT")
         return paletteEntries
     }
 
@@ -119,7 +138,35 @@ class IDWriteFontFace2 extends IDWriteFontFace1 {
         renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
         gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontFace2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsColorFont := CallbackCreate(GetMethod(implObj, "IsColorFont"), flags, 1)
+        this.vtbl.GetColorPaletteCount := CallbackCreate(GetMethod(implObj, "GetColorPaletteCount"), flags, 1)
+        this.vtbl.GetPaletteEntryCount := CallbackCreate(GetMethod(implObj, "GetPaletteEntryCount"), flags, 1)
+        this.vtbl.GetPaletteEntries := CallbackCreate(GetMethod(implObj, "GetPaletteEntries"), flags, 5)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 11)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsColorFont)
+        CallbackFree(this.vtbl.GetColorPaletteCount)
+        CallbackFree(this.vtbl.GetPaletteEntryCount)
+        CallbackFree(this.vtbl.GetPaletteEntries)
+        CallbackFree(this.vtbl.GetRecommendedRenderingMode)
     }
 }

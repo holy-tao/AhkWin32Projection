@@ -1,59 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BARRIER_TYPE.ahk
-#Include .\D3D12_GLOBAL_BARRIER.ahk
-#Include .\D3D12_TEXTURE_BARRIER.ahk
-#Include .\D3D12_BUFFER_BARRIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_TEXTURE_BARRIER.ahk" { D3D12_TEXTURE_BARRIER }
+#Import ".\D3D12_BUFFER_BARRIER.ahk" { D3D12_BUFFER_BARRIER }
+#Import ".\D3D12_BARRIER_TYPE.ahk" { D3D12_BARRIER_TYPE }
+#Import ".\D3D12_GLOBAL_BARRIER.ahk" { D3D12_GLOBAL_BARRIER }
 
 /**
  * Describes a group of barriers of a given type.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_barrier_group
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_BARRIER_GROUP extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D12_BARRIER_GROUP {
+    #StructPack 8
 
     /**
      * The type of barriers in the group.
-     * @type {D3D12_BARRIER_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_BARRIER_TYPE
 
     /**
      * The number of barriers in the group.
-     * @type {Integer}
      */
-    NumBarriers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumBarriers : UInt32
 
-    /**
-     * @type {Pointer<D3D12_GLOBAL_BARRIER>}
-     */
-    pGlobalBarriers {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pGlobalBarriers : D3D12_GLOBAL_BARRIER.Ptr
 
-    /**
-     * @type {Pointer<D3D12_TEXTURE_BARRIER>}
-     */
-    pTextureBarriers {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<D3D12_BUFFER_BARRIER>}
-     */
-    pBufferBarriers {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pTextureBarriers', { type: D3D12_TEXTURE_BARRIER.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pBufferBarriers', { type: D3D12_BUFFER_BARRIER.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSinkEvent2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidStreamBufferSinkEvent2.ahk" { IMSVidStreamBufferSinkEvent2 }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersinkevent3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSinkEvent2 {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSinkEvent2 {
     /**
      * The interface identifier for IMSVidStreamBufferSinkEvent3
      * @type {Guid}
      */
-    static IID => Guid("{735ad8d5-c259-48e9-81e7-d27953665b23}")
+    static IID := Guid("{735ad8d5-c259-48e9-81e7-d27953665b23}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSinkEvent3 interfaces
+    */
+    struct Vtbl extends IMSVidStreamBufferSinkEvent2.Vtbl {
+        LicenseChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LicenseChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSinkEvent3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -40,5 +48,25 @@ class IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSinkEvent2 {
     LicenseChange(dwProt) {
         result := ComCall(13, this, "int", dwProt, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSinkEvent3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LicenseChange := CallbackCreate(GetMethod(implObj, "LicenseChange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LicenseChange)
     }
 }

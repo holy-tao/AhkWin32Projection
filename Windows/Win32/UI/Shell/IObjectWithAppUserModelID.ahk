@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow implementers of a custom IAssocHandler object to provide access to its explicit Application User Model ID (AppUserModelID).
@@ -20,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectwithappusermodelid
  * @namespace Windows.Win32.UI.Shell
  */
-class IObjectWithAppUserModelID extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IObjectWithAppUserModelID extends IUnknown {
     /**
      * The interface identifier for IObjectWithAppUserModelID
      * @type {Guid}
      */
-    static IID => Guid("{36db0196-9665-46d1-9ba7-d3709eecf9ed}")
+    static IID := Guid("{36db0196-9665-46d1-9ba7-d3709eecf9ed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IObjectWithAppUserModelID interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAppID : IntPtr
+        GetAppID : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAppID", "GetAppID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IObjectWithAppUserModelID.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a unique application-defined Application User Model ID (AppUserModelID) that identifies the object as a handler for a specific file type. This method is used by applications that require dynamic AppUserModelIDs.
@@ -68,7 +78,29 @@ class IObjectWithAppUserModelID extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-getappid
      */
     GetAppID() {
-        result := ComCall(4, this, "ptr*", &ppszAppID := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszAppID := 0, "HRESULT")
         return ppszAppID
+    }
+
+    Query(iid) {
+        if (IObjectWithAppUserModelID.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.GetAppID := CallbackCreate(GetMethod(implObj, "GetAppID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAppID)
+        CallbackFree(this.vtbl.GetAppID)
     }
 }

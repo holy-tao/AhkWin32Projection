@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_ZONE_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_ZONE_TYPES.ahk" { STORAGE_ZONE_TYPES }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_ZONE_GROUP extends Win32Struct {
-    static sizeof => 16
+export default struct STORAGE_ZONE_GROUP {
+    #StructPack 8
 
-    static packingSize => 8
+    ZoneCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ZoneCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ZoneType : STORAGE_ZONE_TYPES
 
-    /**
-     * @type {STORAGE_ZONE_TYPES}
-     */
-    ZoneType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ZoneSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZoneSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

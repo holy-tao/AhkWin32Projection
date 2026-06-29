@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IRequiredExtensions interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-irequiredextensions
  * @namespace Windows.Win32.System.Mmc
  */
-class IRequiredExtensions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRequiredExtensions extends IUnknown {
     /**
      * The interface identifier for IRequiredExtensions
      * @type {Guid}
      */
-    static IID => Guid("{72782d7a-a4a0-11d1-af0f-00c04fb6dd2c}")
+    static IID := Guid("{72782d7a-a4a0-11d1-af0f-00c04fb6dd2c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRequiredExtensions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnableAllExtensions : IntPtr
+        GetFirstExtension   : IntPtr
+        GetNextExtension    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnableAllExtensions", "GetFirstExtension", "GetNextExtension"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRequiredExtensions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IRequiredExtensions::EnableAllExtensions method enables the snap-in to specify that all extension snap-ins registered for the snap-in are required.
@@ -60,7 +69,7 @@ class IRequiredExtensions extends IUnknown {
      */
     GetFirstExtension() {
         pExtCLSID := Guid()
-        result := ComCall(4, this, "ptr", pExtCLSID, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pExtCLSID, "HRESULT")
         return pExtCLSID
     }
 
@@ -78,7 +87,31 @@ class IRequiredExtensions extends IUnknown {
      */
     GetNextExtension() {
         pExtCLSID := Guid()
-        result := ComCall(5, this, "ptr", pExtCLSID, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pExtCLSID, "HRESULT")
         return pExtCLSID
+    }
+
+    Query(iid) {
+        if (IRequiredExtensions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnableAllExtensions := CallbackCreate(GetMethod(implObj, "EnableAllExtensions"), flags, 1)
+        this.vtbl.GetFirstExtension := CallbackCreate(GetMethod(implObj, "GetFirstExtension"), flags, 2)
+        this.vtbl.GetNextExtension := CallbackCreate(GetMethod(implObj, "GetNextExtension"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnableAllExtensions)
+        CallbackFree(this.vtbl.GetFirstExtension)
+        CallbackFree(this.vtbl.GetNextExtension)
     }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FILE_FS_FULL_SIZE_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct FILE_FS_FULL_SIZE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TotalAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalAllocationUnits {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    CallerAvailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CallerAvailableAllocationUnits {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    ActualAvailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ActualAvailableAllocationUnits {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    SectorsPerAllocationUnit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SectorsPerAllocationUnit {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BytesPerSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesPerSector {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

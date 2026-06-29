@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDIFORMAT.ahk
-#Include .\D3DKMT_MULTISAMPLEMETHOD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
+#Import ".\D3DKMT_MULTISAMPLEMETHOD.ahk" { D3DKMT_MULTISAMPLEMETHOD }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_GETMULTISAMPLEMETHODLIST extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_GETMULTISAMPLEMETHODLIST {
+    #StructPack 8
 
-    static packingSize => 8
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Format : D3DDDIFORMAT
 
-    /**
-     * @type {D3DDDIFORMAT}
-     */
-    Format {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pMethodList : D3DKMT_MULTISAMPLEMETHOD.Ptr
 
-    /**
-     * @type {Pointer<D3DKMT_MULTISAMPLEMETHOD>}
-     */
-    pMethodList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MethodCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MethodCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

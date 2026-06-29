@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEND_GENERIC_TLS_EXTENSION extends Win32Struct {
-    static sizeof => 12
+export default struct SEND_GENERIC_TLS_EXTENSION {
+    #StructPack 4
 
-    static packingSize => 4
+    ExtensionType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ExtensionType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    HandshakeType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HandshakeType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BufferSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Buffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
-            return this.__BufferProxyArray
-        }
-    }
 }

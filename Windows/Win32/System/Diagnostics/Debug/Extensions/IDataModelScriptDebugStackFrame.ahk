@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IModelObject.ahk
-#Include .\IDataModelScriptDebugVariableSetEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDataModelScript.ahk" { IDataModelScript }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDataModelScriptDebugVariableSetEnumerator.ahk" { IDataModelScriptDebugVariableSetEnumerator }
+#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDataModelScriptDebugStackFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataModelScriptDebugStackFrame extends IUnknown {
     /**
      * The interface identifier for IDataModelScriptDebugStackFrame
      * @type {Guid}
      */
-    static IID => Guid("{dec6ed5e-6360-4941-ab4c-a26409de4f82}")
+    static IID := Guid("{dec6ed5e-6360-4941-ab4c-a26409de4f82}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataModelScriptDebugStackFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName            : IntPtr
+        GetPosition        : IntPtr
+        IsTransitionPoint  : IntPtr
+        GetTransition      : IntPtr
+        Evaluate           : IntPtr
+        EnumerateLocals    : IntPtr
+        EnumerateArguments : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetPosition", "IsTransitionPoint", "GetTransition", "Evaluate", "EnumerateLocals", "EnumerateArguments"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataModelScriptDebugStackFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
@@ -36,21 +53,20 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        name := BSTR()
-        result := ComCall(3, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
     /**
-     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
+     * 
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/mediastreaming/getpositioninformationoperation
      */
     GetPosition(position, positionSpanEnd, lineText) {
-        result := ComCall(4, this, "ptr", position, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")
+        result := ComCall(4, this, ScriptDebugPosition.Ptr, position, ScriptDebugPosition.Ptr, positionSpanEnd, BSTR.Ptr, lineText, "HRESULT")
         return result
     }
 
@@ -72,17 +88,14 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     GetTransition(transitionScript, isTransitionContiguous) {
         isTransitionContiguousMarshal := isTransitionContiguous is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr*", transitionScript, isTransitionContiguousMarshal, isTransitionContiguous, "HRESULT")
+        result := ComCall(6, this, IDataModelScript.Ptr, transitionScript, isTransitionContiguousMarshal, isTransitionContiguous, "HRESULT")
         return result
     }
 
     /**
-     * Evaluates at the indexed sample location.
-     * @remarks
-     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
+     * 
      * @param {PWSTR} pwszExpression 
      * @returns {IModelObject} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pwszExpression) {
         pwszExpression := pwszExpression is String ? StrPtr(pwszExpression) : pwszExpression
@@ -107,5 +120,37 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     EnumerateArguments() {
         result := ComCall(9, this, "ptr*", &variablesEnum := 0, "HRESULT")
         return IDataModelScriptDebugVariableSetEnumerator(variablesEnum)
+    }
+
+    Query(iid) {
+        if (IDataModelScriptDebugStackFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 4)
+        this.vtbl.IsTransitionPoint := CallbackCreate(GetMethod(implObj, "IsTransitionPoint"), flags, 2)
+        this.vtbl.GetTransition := CallbackCreate(GetMethod(implObj, "GetTransition"), flags, 3)
+        this.vtbl.Evaluate := CallbackCreate(GetMethod(implObj, "Evaluate"), flags, 3)
+        this.vtbl.EnumerateLocals := CallbackCreate(GetMethod(implObj, "EnumerateLocals"), flags, 2)
+        this.vtbl.EnumerateArguments := CallbackCreate(GetMethod(implObj, "EnumerateArguments"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.IsTransitionPoint)
+        CallbackFree(this.vtbl.GetTransition)
+        CallbackFree(this.vtbl.Evaluate)
+        CallbackFree(this.vtbl.EnumerateLocals)
+        CallbackFree(this.vtbl.EnumerateArguments)
     }
 }

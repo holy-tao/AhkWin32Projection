@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USER_PRIV.ahk
-#Include .\USER_ACCOUNT_FLAGS.ahk
-#Include .\AF_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USER_PRIV.ahk" { USER_PRIV }
+#Import ".\AF_OP.ahk" { AF_OP }
+#Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
 
 /**
  * The USER_INFO_3 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, relative identifiers (RIDs), and other user-related network statistics.
@@ -24,22 +24,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_3 extends Win32Struct {
-    static sizeof => 184
-
-    static packingSize => 8
+export default struct USER_INFO_3 {
+    #StructPack 8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the user account. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member is ignored. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    usri3_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    usri3_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -52,12 +46,8 @@ class USER_INFO_3 extends Win32Struct {
      * 
      * 
      * By convention, the length of passwords is limited to LM20_PWLEN characters.
-     * @type {PWSTR}
      */
-    usri3_password {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    usri3_password : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -65,66 +55,42 @@ class USER_INFO_3 extends Win32Struct {
      * The number of seconds that have elapsed since the <b>usri3_password</b> member was last changed. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Integer}
      */
-    usri3_password_age {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    usri3_password_age : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The level of privilege assigned to the <b>usri3_name</b> member. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and
-     * @type {USER_PRIV}
      */
-    usri3_priv {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    usri3_priv : USER_PRIV
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory of the user specified by the <b>usri3_name</b> member. The string can be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    usri3_home_dir {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    usri3_home_dir : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment to associate with the user account. The string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri3_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    usri3_comment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
-     * @type {USER_ACCOUNT_FLAGS}
      */
-    usri3_flags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    usri3_flags : USER_ACCOUNT_FLAGS
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    usri3_script_path {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    usri3_script_path : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -141,45 +107,29 @@ class USER_INFO_3 extends Win32Struct {
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {AF_OP}
      */
-    usri3_auth_flags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    usri3_auth_flags : AF_OP
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri3_full_name {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    usri3_full_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a user comment. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri3_usr_comment {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    usri3_usr_comment : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {PWSTR}
      */
-    usri3_parms {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    usri3_parms : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -188,12 +138,8 @@ class USER_INFO_3 extends Win32Struct {
      * > You should no longer use **usri3_workstations**. Instead, you can control sign-in access to workstations by configuring the User Rights Assignment settings (**Allow log on locally** and **Deny log on locally**, or **Allow log on through Remote Desktop Services** and **Deny log on through Remote Desktop Services**).
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. If you do not want to restrict the number of workstations, use a <b>NULL</b> string. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri3_flags</b> member.
-     * @type {PWSTR}
      */
-    usri3_workstations {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    usri3_workstations : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -206,12 +152,8 @@ class USER_INFO_3 extends Win32Struct {
      * 
      * 
      * This member is maintained separately on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The last logon occurred at the time indicated by the largest retrieved value.
-     * @type {Integer}
      */
-    usri3_last_logon {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    usri3_last_logon : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -224,34 +166,22 @@ class USER_INFO_3 extends Win32Struct {
      * The date and time when the last logoff occurred. This value is stored as the number of seconds that have elapsed since 00:00:00, January 1, 1970, GMT. A value of zero indicates that the last logoff time is unknown.
      * 
      * This member is maintained separately on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The last logoff occurred at the time indicated by the largest retrieved value.
-     * @type {Integer}
      */
-    usri3_last_logoff {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    usri3_last_logoff : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The date and time when the account expires. This value is stored as the number of seconds elapsed since 00:00:00, January 1, 1970, GMT. A value of TIMEQ_FOREVER indicates that the account never expires.
-     * @type {Integer}
      */
-    usri3_acct_expires {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    usri3_acct_expires : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The maximum amount of disk space the user can use. Specify USER_MAXSTORAGE_UNLIMITED to use all available disk space.
-     * @type {Integer}
      */
-    usri3_max_storage {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    usri3_max_storage : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -264,12 +194,8 @@ class USER_INFO_3 extends Win32Struct {
      * This value must be UNITS_PER_WEEK for LAN Manager 2.0. This element is ignored by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions.
-     * @type {Integer}
      */
-    usri3_units_per_week {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    usri3_units_per_week : UInt32
 
     /**
      * Type: <b>PBYTE</b>
@@ -284,12 +210,8 @@ class USER_INFO_3 extends Win32Struct {
      * Specify a <b>NULL</b> pointer in this member when calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function to indicate no time restriction. Specify a <b>NULL</b> pointer when calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function to indicate that no change is to be made to the times during which the user can log on.
-     * @type {Pointer<Integer>}
      */
-    usri3_logon_hours {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    usri3_logon_hours : IntPtr
 
     /**
      * Type: <b>DWORD</b>
@@ -302,12 +224,8 @@ class USER_INFO_3 extends Win32Struct {
      * 
      * 
      * This member is replicated from the primary domain controller (PDC); it is also maintained on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The number of times the user tried to log on using an incorrect password is the largest value retrieved.
-     * @type {Integer}
      */
-    usri3_bad_pw_count {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    usri3_bad_pw_count : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -320,12 +238,8 @@ class USER_INFO_3 extends Win32Struct {
      * 
      * 
      * This member is maintained separately on each backup domain controller (BDC) in the domain. To obtain an accurate value, you must query each BDC in the domain. The number of times the user logged on successfully is the sum of the retrieved values.
-     * @type {Integer}
      */
-    usri3_num_logons {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    usri3_num_logons : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
@@ -337,34 +251,22 @@ class USER_INFO_3 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> return \\*. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {PWSTR}
      */
-    usri3_logon_server {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    usri3_logon_server : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The country/region code for the user's language of choice.
-     * @type {Integer}
      */
-    usri3_country_code {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    usri3_country_code : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The code page for the user's language of choice.
-     * @type {Integer}
      */
-    usri3_code_page {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    usri3_code_page : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -373,12 +275,8 @@ class USER_INFO_3 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member. For more information about RIDs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @type {Integer}
      */
-    usri3_user_id {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    usri3_user_id : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -387,34 +285,22 @@ class USER_INFO_3 extends Win32Struct {
      * <b>NetUserAdd</b> function, this member must be DOMAIN_GROUP_RID_USERS (defined in WinNT.h). When you call 
      * <b>NetUserSetInfo</b>, this member must be the RID of a global group in which the user is enrolled. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-Known SIDs</a>.
-     * @type {Integer}
      */
-    usri3_primary_group_id {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    usri3_primary_group_id : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies a path to the user's profile. This value can be a <b>NULL</b> string, a local absolute path, or a UNC path.
-     * @type {PWSTR}
      */
-    usri3_profile {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    usri3_profile : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the drive letter assigned to the user's home directory for logon purposes.
-     * @type {PWSTR}
      */
-    usri3_home_dir_drive {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    usri3_home_dir_drive : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -432,10 +318,7 @@ class USER_INFO_3 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a>, specify a nonzero value in this member to inform users that they must change their password at the next logon. To turn off this message, call 
      * <b>NetUserSetInfo</b> and specify zero in this member. Note that you cannot specify zero to negate the expiration of a password that has already expired.
-     * @type {Integer}
      */
-    usri3_password_expired {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    usri3_password_expired : UInt32
+
 }

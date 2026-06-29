@@ -1,299 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_PictureParameters extends Win32Struct {
-    static sizeof => 44
+export default struct DXVA_PictureParameters {
+    #StructPack 2
 
-    static packingSize => 2
+    wDecodedPictureIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDecodedPictureIndex {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wDeblockedPictureIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDeblockedPictureIndex {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wForwardRefPictureIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wForwardRefPictureIndex {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wBackwardRefPictureIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wBackwardRefPictureIndex {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wPicWidthInMBminus1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPicWidthInMBminus1 {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wPicHeightInMBminus1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPicHeightInMBminus1 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    bMacroblockWidthMinus1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMacroblockWidthMinus1 {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    bMacroblockHeightMinus1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMacroblockHeightMinus1 {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    bBlockWidthMinus1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBlockWidthMinus1 {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    bBlockHeightMinus1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBlockHeightMinus1 {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    bBPPminus1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBPPminus1 {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bPicStructure : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicStructure {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    bSecondField : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSecondField {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    bPicIntra : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicIntra {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    bPicBackwardPrediction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicBackwardPrediction {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    bBidirectionalAveragingMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBidirectionalAveragingMode {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    bMVprecisionAndChromaRelation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMVprecisionAndChromaRelation {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    bChromaFormat : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bChromaFormat {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    bPicScanFixed : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicScanFixed {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    bPicScanMethod : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicScanMethod {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    bPicReadbackRequests : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicReadbackRequests {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    bRcontrol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bRcontrol {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
+    bPicSpatialResid8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicSpatialResid8 {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    bPicOverflowBlocks : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicOverflowBlocks {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
-    }
+    bPicExtrapolation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicExtrapolation {
-        get => NumGet(this, 30, "char")
-        set => NumPut("char", value, this, 30)
-    }
+    bPicDeblocked : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicDeblocked {
-        get => NumGet(this, 31, "char")
-        set => NumPut("char", value, this, 31)
-    }
+    bPicDeblockConfined : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicDeblockConfined {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    bPic4MVallowed : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPic4MVallowed {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    bPicOBMC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicOBMC {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
-    }
+    bPicBinPB : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPicBinPB {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
-    }
+    bMV_RPS : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMV_RPS {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
+    bReservedBits : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bReservedBits {
-        get => NumGet(this, 37, "char")
-        set => NumPut("char", value, this, 37)
-    }
+    wBitstreamFcodes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wBitstreamFcodes {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    wBitstreamPCEelements : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wBitstreamPCEelements {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    bBitstreamConcealmentNeed : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBitstreamConcealmentNeed {
-        get => NumGet(this, 42, "char")
-        set => NumPut("char", value, this, 42)
-    }
+    bBitstreamConcealmentMethod : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bBitstreamConcealmentMethod {
-        get => NumGet(this, 43, "char")
-        set => NumPut("char", value, this, 43)
-    }
 }

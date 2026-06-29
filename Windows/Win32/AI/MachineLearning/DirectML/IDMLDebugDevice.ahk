@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls the DirectML debug layers.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldebugdevice
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class IDMLDebugDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDMLDebugDevice extends IUnknown {
     /**
      * The interface identifier for IDMLDebugDevice
      * @type {Guid}
      */
-    static IID => Guid("{7d6f3ac9-394a-4ac3-92a7-390cc57a8217}")
+    static IID := Guid("{7d6f3ac9-394a-4ac3-92a7-390cc57a8217}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDMLDebugDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMuteDebugOutput : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMuteDebugOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDMLDebugDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determine whether to mute DirectML from sending messages to the ID3D12InfoQueue.
@@ -38,6 +46,26 @@ class IDMLDebugDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldebugdevice-setmutedebugoutput
      */
     SetMuteDebugOutput(mute) {
-        ComCall(3, this, "int", mute)
+        ComCall(3, this, BOOL, mute)
+    }
+
+    Query(iid) {
+        if (IDMLDebugDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "SetMuteDebugOutput"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMuteDebugOutput)
     }
 }

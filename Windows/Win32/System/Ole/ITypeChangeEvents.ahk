@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CHANGEKIND.ahk" { CHANGEKIND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables clients to subscribe to type change notifications on objects that implement the ITypeInfo, ITypeInfo2, ICreateTypeInfo, and ICreateTypeInfo2 interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypechangeevents
  * @namespace Windows.Win32.System.Ole
  */
-class ITypeChangeEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITypeChangeEvents extends IUnknown {
     /**
      * The interface identifier for ITypeChangeEvents
      * @type {Guid}
      */
-    static IID => Guid("{00020410-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020410-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeChangeEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RequestTypeChange : IntPtr
+        AfterTypeChange   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestTypeChange", "AfterTypeChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeChangeEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Raised when a request has been made to change a type. The change can be disallowed.
@@ -43,7 +55,7 @@ class ITypeChangeEvents extends IUnknown {
     RequestTypeChange(_changeKind, pTInfoBefore, pStrName) {
         pStrName := pStrName is String ? StrPtr(pStrName) : pStrName
 
-        result := ComCall(3, this, "int", _changeKind, "ptr", pTInfoBefore, "ptr", pStrName, "int*", &pfCancel := 0, "HRESULT")
+        result := ComCall(3, this, CHANGEKIND, _changeKind, "ptr", pTInfoBefore, "ptr", pStrName, "int*", &pfCancel := 0, "HRESULT")
         return pfCancel
     }
 
@@ -103,7 +115,29 @@ class ITypeChangeEvents extends IUnknown {
     AfterTypeChange(_changeKind, pTInfoAfter, pStrName) {
         pStrName := pStrName is String ? StrPtr(pStrName) : pStrName
 
-        result := ComCall(4, this, "int", _changeKind, "ptr", pTInfoAfter, "ptr", pStrName, "HRESULT")
+        result := ComCall(4, this, CHANGEKIND, _changeKind, "ptr", pTInfoAfter, "ptr", pStrName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITypeChangeEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestTypeChange := CallbackCreate(GetMethod(implObj, "RequestTypeChange"), flags, 5)
+        this.vtbl.AfterTypeChange := CallbackCreate(GetMethod(implObj, "AfterTypeChange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestTypeChange)
+        CallbackFree(this.vtbl.AfterTypeChange)
     }
 }

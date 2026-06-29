@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The SOCKADDR_BTH structure is used in conjunction with Bluetooth socket operations, defined by address family AF_BTH.
@@ -10,47 +10,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-sockaddr_bth
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class SOCKADDR_BTH extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SOCKADDR_BTH {
+    #StructPack 8
 
     /**
      * Address family of the socket. This member is always AF_BTH.
-     * @type {Integer}
      */
-    addressFamily {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    addressFamily : UInt16
 
     /**
      * Address of the target Bluetooth device. When used with the 
      * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-bind">bind</a> function, must be zero or a valid local radio address. If zero, a valid local Bluetooth device address is assigned when the 
      * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-connect">connect</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-accept">accept</a> function is called. When used with the <b>connect</b> function, a valid remote radio address must be specified.
-     * @type {Integer}
      */
-    btAddr {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    btAddr : Int64
 
     /**
      * Service Class Identifier of the socket. When used with the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-bind">bind</a> function, <i>serviceClassId</i> is ignored. Also ignored if the port is specified. For the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-connect">connect</a> function, specifies the unique Bluetooth service class ID of the service to which it wants to connect. If the peer device has more than one port that corresponds to the service class identifier, the <b>connect</b> function attempts to connect to the first valid service; this mechanism can be used without prior SDP queries.
-     * @type {Pointer}
      */
-    serviceClassId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    serviceClassId : Guid
 
     /**
      * RFCOMM channel associated with the socket. See Remarks.
-     * @type {Integer}
      */
-    port {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    port : UInt32
+
 }

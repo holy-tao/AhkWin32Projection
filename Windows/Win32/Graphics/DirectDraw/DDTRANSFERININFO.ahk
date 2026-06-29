@@ -1,53 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSURFACEDATA.ahk
-#Include .\DDMDL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDMDL.ahk" { DDMDL }
+#Import ".\DDSURFACEDATA.ahk" { DDSURFACEDATA }
 
 /**
  * The DDTRANSFERININFO structure contains the transfer information for the surface
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddtransferininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDTRANSFERININFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DDTRANSFERININFO {
+    #StructPack 8
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddsurfacedata">DDSURFACEDATA</a> structure that represents the surface that contains the information to be transferred. The information in this structure is supplied by DirectDraw.
-     * @type {Pointer<DDSURFACEDATA>}
      */
-    lpSurfaceData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpSurfaceData : DDSURFACEDATA.Ptr
 
     /**
      * Indicates the first line in the surface from which data is transferred.
-     * @type {Integer}
      */
-    dwStartLine {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwStartLine : UInt32
 
     /**
      * Indicates the last line in the surface from which data is transferred, inclusive.
-     * @type {Integer}
      */
-    dwEndLine {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwEndLine : UInt32
 
     /**
      * Specifies an identification for the transfer supplied by DirectDraw. This transfer ID is used by the driver in the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddgettransferstatusoutinfo">DDGETTRANSFERSTATUSOUTINFO</a> structure.
-     * @type {Pointer}
      */
-    dwTransferID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwTransferID : IntPtr
 
     /**
      * Indicates the type of transfer. One of the following: 
@@ -108,19 +89,12 @@ class DDTRANSFERININFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwTransferFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwTransferFlags : UInt32
 
     /**
      * Points to a destination <a href="https://docs.microsoft.com/windows-hardware/drivers/">memory descriptor list (MDL)</a> structure.
-     * @type {Pointer<DDMDL>}
      */
-    lpDestMDL {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpDestMDL : DDMDL.Ptr
+
 }

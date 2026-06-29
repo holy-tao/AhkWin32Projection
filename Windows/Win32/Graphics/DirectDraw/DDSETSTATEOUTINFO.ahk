@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DDSETSTATEOUTINFO structure contains the state information for the video port extensions (VPE) object.
@@ -10,35 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddsetstateoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDSETSTATEOUTINFO extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DDSETSTATEOUTINFO {
+    #StructPack 4
 
     /**
      * When set to a nonzero value, causes Microsoft DirectDraw to revert to software autoflipping. Note that once software autoflipping has been initiated, you cannot revert back to hardware autoflipping until the VPE object and surface are destroyed and restarted.
-     * @type {BOOL}
      */
-    bSoftwareAutoflip {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bSoftwareAutoflip : BOOL
 
     /**
      * Indicates the zero-based index in the autoflip chain of the surface currently receiving the data from the VPE object. This field is ignored unless the miniport driver is switching from hardware autoflipping to software autoflipping.
-     * @type {Integer}
      */
-    dwSurfaceIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSurfaceIndex : UInt32
 
     /**
      * Indicates the zero-based index in the autoflip chain of the <a href="https://docs.microsoft.com/windows-hardware/drivers/">vertical blanking interval (VBI)</a> surface currently receiving the data from the VPE object. This field is ignored unless the video miniport driver is switching from hardware autoflipping to software autoflipping.
-     * @type {Integer}
      */
-    dwVBISurfaceIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwVBISurfaceIndex : UInt32
+
 }

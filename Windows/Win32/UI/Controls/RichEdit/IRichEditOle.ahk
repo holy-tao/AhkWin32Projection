@@ -1,35 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Ole\IOleClientSite.ahk
-#Include ..\..\..\System\Com\IDataObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
+#Import "..\..\..\System\Ole\IOleClientSite.ahk" { IOleClientSite }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import ".\RICH_EDIT_GET_OBJECT_FLAGS.ahk" { RICH_EDIT_GET_OBJECT_FLAGS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import ".\REOBJECT.ahk" { REOBJECT }
 
 /**
  * The IRichEditOle interface exposes the Component Object Model (COM) functionality of a rich edit control. The interface can be obtained by sending the EM_GETOLEINTERFACE message. This interface has the following methods.
  * @see https://learn.microsoft.com/windows/win32/api/richole/nn-richole-iricheditole
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class IRichEditOle extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRichEditOle extends IUnknown {
     /**
      * The interface identifier for IRichEditOle
      * @type {Guid}
      */
-    static IID => Guid("{00020d00-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020d00-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRichEditOle interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClientSite        : IntPtr
+        GetObjectCount       : IntPtr
+        GetLinkCount         : IntPtr
+        GetObject            : IntPtr
+        InsertObject         : IntPtr
+        ConvertObject        : IntPtr
+        ActivateAs           : IntPtr
+        SetHostNames         : IntPtr
+        SetLinkAvailable     : IntPtr
+        SetDvaspect          : IntPtr
+        HandsOffStorage      : IntPtr
+        SaveCompleted        : IntPtr
+        InPlaceDeactivate    : IntPtr
+        ContextSensitiveHelp : IntPtr
+        GetClipboardData     : IntPtr
+        ImportDataObject     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClientSite", "GetObjectCount", "GetLinkCount", "GetObject", "InsertObject", "ConvertObject", "ActivateAs", "SetHostNames", "SetLinkAvailable", "SetDvaspect", "HandsOffStorage", "SaveCompleted", "InPlaceDeactivate", "ContextSensitiveHelp", "GetClipboardData", "ImportDataObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRichEditOle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an IOleClientSite interface to be used when creating a new object. All objects inserted into a rich edit control must use client site interfaces returned by this function. A client site may be used with exactly one object.
@@ -51,7 +81,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getobjectcount
      */
     GetObjectCount() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, Int32)
         return result
     }
 
@@ -63,7 +93,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getlinkcount
      */
     GetLinkCount() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, Int32)
         return result
     }
 
@@ -82,7 +112,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getobject
      */
     GetObject(iob, lpreobject, dwFlags) {
-        result := ComCall(6, this, "int", iob, "ptr", lpreobject, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "int", iob, REOBJECT.Ptr, lpreobject, RICH_EDIT_GET_OBJECT_FLAGS, dwFlags, "HRESULT")
         return result
     }
 
@@ -99,7 +129,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-insertobject
      */
     InsertObject(lpreobject) {
-        result := ComCall(7, this, "ptr", lpreobject, "HRESULT")
+        result := ComCall(7, this, REOBJECT.Ptr, lpreobject, "HRESULT")
         return result
     }
 
@@ -122,7 +152,7 @@ class IRichEditOle extends IUnknown {
     ConvertObject(iob, rclsidNew, lpstrUserTypeNew) {
         lpstrUserTypeNew := lpstrUserTypeNew is String ? StrPtr(lpstrUserTypeNew) : lpstrUserTypeNew
 
-        result := ComCall(8, this, "int", iob, "ptr", rclsidNew, "ptr", lpstrUserTypeNew, "HRESULT")
+        result := ComCall(8, this, "int", iob, Guid.Ptr, rclsidNew, "ptr", lpstrUserTypeNew, "HRESULT")
         return result
     }
 
@@ -140,7 +170,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-activateas
      */
     ActivateAs(rclsid, rclsidAs) {
-        result := ComCall(9, this, "ptr", rclsid, "ptr", rclsidAs, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rclsid, Guid.Ptr, rclsidAs, "HRESULT")
         return result
     }
 
@@ -179,7 +209,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-setlinkavailable
      */
     SetLinkAvailable(iob, fAvailable) {
-        result := ComCall(11, this, "int", iob, "int", fAvailable, "HRESULT")
+        result := ComCall(11, this, "int", iob, BOOL, fAvailable, "HRESULT")
         return result
     }
 
@@ -257,7 +287,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-contextsensitivehelp
      */
     ContextSensitiveHelp(fEnterMode) {
-        result := ComCall(16, this, "int", fEnterMode, "HRESULT")
+        result := ComCall(16, this, BOOL, fEnterMode, "HRESULT")
         return result
     }
 
@@ -276,7 +306,7 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getclipboarddata
      */
     GetClipboardData(lpchrg, reco) {
-        result := ComCall(17, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        result := ComCall(17, this, CHARRANGE.Ptr, lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
         return IDataObject(lplpdataobj)
     }
 
@@ -326,9 +356,57 @@ class IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-importdataobject
      */
     ImportDataObject(lpdataobj, cf, hMetaPict) {
-        hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
-
-        result := ComCall(18, this, "ptr", lpdataobj, "ushort", cf, "ptr", hMetaPict, "HRESULT")
+        result := ComCall(18, this, "ptr", lpdataobj, "ushort", cf, HGLOBAL, hMetaPict, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRichEditOle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClientSite := CallbackCreate(GetMethod(implObj, "GetClientSite"), flags, 2)
+        this.vtbl.GetObjectCount := CallbackCreate(GetMethod(implObj, "GetObjectCount"), flags, 1)
+        this.vtbl.GetLinkCount := CallbackCreate(GetMethod(implObj, "GetLinkCount"), flags, 1)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.InsertObject := CallbackCreate(GetMethod(implObj, "InsertObject"), flags, 2)
+        this.vtbl.ConvertObject := CallbackCreate(GetMethod(implObj, "ConvertObject"), flags, 4)
+        this.vtbl.ActivateAs := CallbackCreate(GetMethod(implObj, "ActivateAs"), flags, 3)
+        this.vtbl.SetHostNames := CallbackCreate(GetMethod(implObj, "SetHostNames"), flags, 3)
+        this.vtbl.SetLinkAvailable := CallbackCreate(GetMethod(implObj, "SetLinkAvailable"), flags, 3)
+        this.vtbl.SetDvaspect := CallbackCreate(GetMethod(implObj, "SetDvaspect"), flags, 3)
+        this.vtbl.HandsOffStorage := CallbackCreate(GetMethod(implObj, "HandsOffStorage"), flags, 2)
+        this.vtbl.SaveCompleted := CallbackCreate(GetMethod(implObj, "SaveCompleted"), flags, 3)
+        this.vtbl.InPlaceDeactivate := CallbackCreate(GetMethod(implObj, "InPlaceDeactivate"), flags, 1)
+        this.vtbl.ContextSensitiveHelp := CallbackCreate(GetMethod(implObj, "ContextSensitiveHelp"), flags, 2)
+        this.vtbl.GetClipboardData := CallbackCreate(GetMethod(implObj, "GetClipboardData"), flags, 4)
+        this.vtbl.ImportDataObject := CallbackCreate(GetMethod(implObj, "ImportDataObject"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClientSite)
+        CallbackFree(this.vtbl.GetObjectCount)
+        CallbackFree(this.vtbl.GetLinkCount)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.InsertObject)
+        CallbackFree(this.vtbl.ConvertObject)
+        CallbackFree(this.vtbl.ActivateAs)
+        CallbackFree(this.vtbl.SetHostNames)
+        CallbackFree(this.vtbl.SetLinkAvailable)
+        CallbackFree(this.vtbl.SetDvaspect)
+        CallbackFree(this.vtbl.HandsOffStorage)
+        CallbackFree(this.vtbl.SaveCompleted)
+        CallbackFree(this.vtbl.InPlaceDeactivate)
+        CallbackFree(this.vtbl.ContextSensitiveHelp)
+        CallbackFree(this.vtbl.GetClipboardData)
+        CallbackFree(this.vtbl.ImportDataObject)
     }
 }

@@ -1,90 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_ICE_TYPE.ahk
-#Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
-#Include .\STORAGE_CRYPTO_KEY_TYPE.ahk
-#Include .\STORAGE_CRYPTO_CAPABILITY_V2.ahk
-#Include .\STORAGE_CRYPTO_ALGORITHM_ID.ahk
-#Include .\STORAGE_CRYPTO_KEY_SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_CRYPTO_CAPABILITY_V2.ahk" { STORAGE_CRYPTO_CAPABILITY_V2 }
+#Import ".\STORAGE_CRYPTO_KEY_SIZE.ahk" { STORAGE_CRYPTO_KEY_SIZE }
+#Import ".\STORAGE_ICE_TYPE.ahk" { STORAGE_ICE_TYPE }
+#Import ".\STORAGE_CRYPTO_ALGORITHM_ID.ahk" { STORAGE_CRYPTO_ALGORITHM_ID }
+#Import ".\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk" { STORAGE_SECURITY_COMPLIANCE_BITMASK }
+#Import ".\STORAGE_CRYPTO_KEY_TYPE.ahk" { STORAGE_CRYPTO_KEY_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct {
-    static sizeof => 56
+export default struct STORAGE_CRYPTO_DESCRIPTOR_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumKeysSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumKeysSupported {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumCryptoCapabilities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumCryptoCapabilities {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    IceType : STORAGE_ICE_TYPE
 
-    /**
-     * @type {STORAGE_ICE_TYPE}
-     */
-    IceType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    SecurityComplianceBitmask : STORAGE_SECURITY_COMPLIANCE_BITMASK
 
-    /**
-     * @type {STORAGE_SECURITY_COMPLIANCE_BITMASK}
-     */
-    SecurityComplianceBitmask {
-        get {
-            if(!this.HasProp("__SecurityComplianceBitmask"))
-                this.__SecurityComplianceBitmask := STORAGE_SECURITY_COMPLIANCE_BITMASK(20, this)
-            return this.__SecurityComplianceBitmask
-        }
-    }
+    KeyTypeBitmask : STORAGE_CRYPTO_KEY_TYPE
 
-    /**
-     * @type {STORAGE_CRYPTO_KEY_TYPE}
-     */
-    KeyTypeBitmask {
-        get {
-            if(!this.HasProp("__KeyTypeBitmask"))
-                this.__KeyTypeBitmask := STORAGE_CRYPTO_KEY_TYPE(22, this)
-            return this.__KeyTypeBitmask
-        }
-    }
+    CryptoCapabilities : STORAGE_CRYPTO_CAPABILITY_V2[1]
 
-    /**
-     * @type {STORAGE_CRYPTO_CAPABILITY_V2}
-     */
-    CryptoCapabilities {
-        get {
-            if(!this.HasProp("__CryptoCapabilitiesProxyArray"))
-                this.__CryptoCapabilitiesProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_CRYPTO_CAPABILITY_V2, "")
-            return this.__CryptoCapabilitiesProxyArray
-        }
-    }
 }

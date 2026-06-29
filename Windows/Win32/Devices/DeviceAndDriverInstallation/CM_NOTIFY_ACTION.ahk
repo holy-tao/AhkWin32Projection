@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This enumeration identifies Plug and Play device event types.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ne-cfgmgr32-cm_notify_action
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class CM_NOTIFY_ACTION extends Win32Enum {
+export default struct CM_NOTIFY_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * For this value, set the <b>FilterType</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/ns-cfgmgr32-cm_notify_filter">CM_NOTIFY_FILTER</a> structure

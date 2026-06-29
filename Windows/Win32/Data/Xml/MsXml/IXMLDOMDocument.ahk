@@ -1,44 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMNode.ahk
-#Include .\IXMLDOMDocumentType.ahk
-#Include .\IXMLDOMImplementation.ahk
-#Include .\IXMLDOMElement.ahk
-#Include .\IXMLDOMDocumentFragment.ahk
-#Include .\IXMLDOMText.ahk
-#Include .\IXMLDOMComment.ahk
-#Include .\IXMLDOMCDATASection.ahk
-#Include .\IXMLDOMProcessingInstruction.ahk
-#Include .\IXMLDOMAttribute.ahk
-#Include .\IXMLDOMEntityReference.ahk
-#Include .\IXMLDOMNodeList.ahk
-#Include .\IXMLDOMParseError.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IXMLDOMProcessingInstruction.ahk" { IXMLDOMProcessingInstruction }
+#Import ".\IXMLDOMImplementation.ahk" { IXMLDOMImplementation }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLDOMDocumentType.ahk" { IXMLDOMDocumentType }
+#Import ".\IXMLDOMElement.ahk" { IXMLDOMElement }
+#Import ".\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IXMLDOMDocumentFragment.ahk" { IXMLDOMDocumentFragment }
+#Import ".\IXMLDOMText.ahk" { IXMLDOMText }
+#Import ".\IXMLDOMParseError.ahk" { IXMLDOMParseError }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IXMLDOMEntityReference.ahk" { IXMLDOMEntityReference }
+#Import ".\IXMLDOMCDATASection.ahk" { IXMLDOMCDATASection }
+#Import ".\IXMLDOMComment.ahk" { IXMLDOMComment }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
+#Import ".\IXMLDOMAttribute.ahk" { IXMLDOMAttribute }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLDOMDocument extends IXMLDOMNode {
-
-    static sizeof => A_PtrSize
+export default struct IXMLDOMDocument extends IXMLDOMNode {
     /**
      * The interface identifier for IXMLDOMDocument
      * @type {Guid}
      */
-    static IID => Guid("{2933bf81-7b36-11d2-b20e-00c04f983e60}")
+    static IID := Guid("{2933bf81-7b36-11d2-b20e-00c04f983e60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 43
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLDOMDocument interfaces
+    */
+    struct Vtbl extends IXMLDOMNode.Vtbl {
+        get_doctype                 : IntPtr
+        get_implementation          : IntPtr
+        get_documentElement         : IntPtr
+        putref_documentElement      : IntPtr
+        createElement               : IntPtr
+        createDocumentFragment      : IntPtr
+        createTextNode              : IntPtr
+        createComment               : IntPtr
+        createCDATASection          : IntPtr
+        createProcessingInstruction : IntPtr
+        createAttribute             : IntPtr
+        createEntityReference       : IntPtr
+        getElementsByTagName        : IntPtr
+        createNode                  : IntPtr
+        nodeFromID                  : IntPtr
+        load                        : IntPtr
+        get_readyState              : IntPtr
+        get_parseError              : IntPtr
+        get_url                     : IntPtr
+        get_async                   : IntPtr
+        put_async                   : IntPtr
+        abort                       : IntPtr
+        loadXML                     : IntPtr
+        save                        : IntPtr
+        get_validateOnParse         : IntPtr
+        put_validateOnParse         : IntPtr
+        get_resolveExternals        : IntPtr
+        put_resolveExternals        : IntPtr
+        get_preserveWhiteSpace      : IntPtr
+        put_preserveWhiteSpace      : IntPtr
+        put_onreadystatechange      : IntPtr
+        put_ondataavailable         : IntPtr
+        put_ontransformnode         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_doctype", "get_implementation", "get_documentElement", "putref_documentElement", "createElement", "createDocumentFragment", "createTextNode", "createComment", "createCDATASection", "createProcessingInstruction", "createAttribute", "createEntityReference", "getElementsByTagName", "createNode", "nodeFromID", "load", "get_readyState", "get_parseError", "get_url", "get_async", "put_async", "abort", "loadXML", "save", "get_validateOnParse", "put_validateOnParse", "get_resolveExternals", "put_resolveExternals", "get_preserveWhiteSpace", "put_preserveWhiteSpace", "put_onreadystatechange", "put_ondataavailable", "put_ontransformnode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLDOMDocument.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IXMLDOMDocumentType} 
@@ -180,7 +222,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     createElement(tagName) {
         tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
 
-        result := ComCall(47, this, "ptr", tagName, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(47, this, BSTR, tagName, "ptr*", &element := 0, "HRESULT")
         return IXMLDOMElement(element)
     }
 
@@ -201,7 +243,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     createTextNode(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(49, this, "ptr", data, "ptr*", &text := 0, "HRESULT")
+        result := ComCall(49, this, BSTR, data, "ptr*", &text := 0, "HRESULT")
         return IXMLDOMText(text)
     }
 
@@ -213,7 +255,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     createComment(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(50, this, "ptr", data, "ptr*", &comment := 0, "HRESULT")
+        result := ComCall(50, this, BSTR, data, "ptr*", &comment := 0, "HRESULT")
         return IXMLDOMComment(comment)
     }
 
@@ -225,7 +267,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     createCDATASection(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(51, this, "ptr", data, "ptr*", &cdata := 0, "HRESULT")
+        result := ComCall(51, this, BSTR, data, "ptr*", &cdata := 0, "HRESULT")
         return IXMLDOMCDATASection(cdata)
     }
 
@@ -239,7 +281,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
         target := target is String ? BSTR.Alloc(target).Value : target
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(52, this, "ptr", target, "ptr", data, "ptr*", &pi := 0, "HRESULT")
+        result := ComCall(52, this, BSTR, target, BSTR, data, "ptr*", &pi := 0, "HRESULT")
         return IXMLDOMProcessingInstruction(pi)
     }
 
@@ -251,7 +293,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     createAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(53, this, "ptr", name, "ptr*", &attribute := 0, "HRESULT")
+        result := ComCall(53, this, BSTR, name, "ptr*", &attribute := 0, "HRESULT")
         return IXMLDOMAttribute(attribute)
     }
 
@@ -263,7 +305,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     createEntityReference(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(54, this, "ptr", name, "ptr*", &entityRef := 0, "HRESULT")
+        result := ComCall(54, this, BSTR, name, "ptr*", &entityRef := 0, "HRESULT")
         return IXMLDOMEntityReference(entityRef)
     }
 
@@ -275,7 +317,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     getElementsByTagName(tagName) {
         tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
 
-        result := ComCall(55, this, "ptr", tagName, "ptr*", &resultList := 0, "HRESULT")
+        result := ComCall(55, this, BSTR, tagName, "ptr*", &resultList := 0, "HRESULT")
         return IXMLDOMNodeList(resultList)
     }
 
@@ -290,7 +332,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
         name := name is String ? BSTR.Alloc(name).Value : name
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", &_node := 0, "HRESULT")
+        result := ComCall(56, this, VARIANT, Type, BSTR, name, BSTR, namespaceURI, "ptr*", &_node := 0, "HRESULT")
         return IXMLDOMNode(_node)
     }
 
@@ -302,7 +344,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     nodeFromID(idString) {
         idString := idString is String ? BSTR.Alloc(idString).Value : idString
 
-        result := ComCall(57, this, "ptr", idString, "ptr*", &_node := 0, "HRESULT")
+        result := ComCall(57, this, BSTR, idString, "ptr*", &_node := 0, "HRESULT")
         return IXMLDOMNode(_node)
     }
 
@@ -315,7 +357,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @see https://learn.microsoft.com/windows/win32/Multimedia/load
      */
     load(xmlSource) {
-        result := ComCall(58, this, "ptr", xmlSource, "short*", &isSuccessful := 0, "HRESULT")
+        result := ComCall(58, this, VARIANT, xmlSource, VARIANT_BOOL.Ptr, &isSuccessful := 0, "HRESULT")
         return isSuccessful
     }
 
@@ -342,8 +384,8 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {BSTR} 
      */
     get_url() {
-        urlString := BSTR()
-        result := ComCall(61, this, "ptr", urlString, "HRESULT")
+        urlString := BSTR.Owned()
+        result := ComCall(61, this, BSTR.Ptr, urlString, "HRESULT")
         return urlString
     }
 
@@ -352,7 +394,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
-        result := ComCall(62, this, "short*", &isAsync := 0, "HRESULT")
+        result := ComCall(62, this, VARIANT_BOOL.Ptr, &isAsync := 0, "HRESULT")
         return isAsync
     }
 
@@ -362,7 +404,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_async(isAsync) {
-        result := ComCall(63, this, "short", isAsync, "HRESULT")
+        result := ComCall(63, this, VARIANT_BOOL, isAsync, "HRESULT")
         return result
     }
 
@@ -390,7 +432,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
     loadXML(bstrXML) {
         bstrXML := bstrXML is String ? BSTR.Alloc(bstrXML).Value : bstrXML
 
-        result := ComCall(65, this, "ptr", bstrXML, "short*", &isSuccessful := 0, "HRESULT")
+        result := ComCall(65, this, BSTR, bstrXML, VARIANT_BOOL.Ptr, &isSuccessful := 0, "HRESULT")
         return isSuccessful
     }
 
@@ -447,7 +489,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @see https://learn.microsoft.com/windows/win32/Multimedia/save
      */
     save(destination) {
-        result := ComCall(66, this, "ptr", destination, "HRESULT")
+        result := ComCall(66, this, VARIANT, destination, "HRESULT")
         return result
     }
 
@@ -456,7 +498,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnParse() {
-        result := ComCall(67, this, "short*", &isValidating := 0, "HRESULT")
+        result := ComCall(67, this, VARIANT_BOOL.Ptr, &isValidating := 0, "HRESULT")
         return isValidating
     }
 
@@ -466,7 +508,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_validateOnParse(isValidating) {
-        result := ComCall(68, this, "short", isValidating, "HRESULT")
+        result := ComCall(68, this, VARIANT_BOOL, isValidating, "HRESULT")
         return result
     }
 
@@ -475,7 +517,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {VARIANT_BOOL} 
      */
     get_resolveExternals() {
-        result := ComCall(69, this, "short*", &isResolving := 0, "HRESULT")
+        result := ComCall(69, this, VARIANT_BOOL.Ptr, &isResolving := 0, "HRESULT")
         return isResolving
     }
 
@@ -485,7 +527,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_resolveExternals(isResolving) {
-        result := ComCall(70, this, "short", isResolving, "HRESULT")
+        result := ComCall(70, this, VARIANT_BOOL, isResolving, "HRESULT")
         return result
     }
 
@@ -494,7 +536,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {VARIANT_BOOL} 
      */
     get_preserveWhiteSpace() {
-        result := ComCall(71, this, "short*", &isPreserving := 0, "HRESULT")
+        result := ComCall(71, this, VARIANT_BOOL.Ptr, &isPreserving := 0, "HRESULT")
         return isPreserving
     }
 
@@ -504,7 +546,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_preserveWhiteSpace(isPreserving) {
-        result := ComCall(72, this, "short", isPreserving, "HRESULT")
+        result := ComCall(72, this, VARIANT_BOOL, isPreserving, "HRESULT")
         return result
     }
 
@@ -514,7 +556,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_onreadystatechange(readystatechangeSink) {
-        result := ComCall(73, this, "ptr", readystatechangeSink, "HRESULT")
+        result := ComCall(73, this, VARIANT, readystatechangeSink, "HRESULT")
         return result
     }
 
@@ -524,7 +566,7 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_ondataavailable(ondataavailableSink) {
-        result := ComCall(74, this, "ptr", ondataavailableSink, "HRESULT")
+        result := ComCall(74, this, VARIANT, ondataavailableSink, "HRESULT")
         return result
     }
 
@@ -534,7 +576,91 @@ class IXMLDOMDocument extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     put_ontransformnode(ontransformnodeSink) {
-        result := ComCall(75, this, "ptr", ontransformnodeSink, "HRESULT")
+        result := ComCall(75, this, VARIANT, ontransformnodeSink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXMLDOMDocument.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_doctype := CallbackCreate(GetMethod(implObj, "get_doctype"), flags, 2)
+        this.vtbl.get_implementation := CallbackCreate(GetMethod(implObj, "get_implementation"), flags, 2)
+        this.vtbl.get_documentElement := CallbackCreate(GetMethod(implObj, "get_documentElement"), flags, 2)
+        this.vtbl.putref_documentElement := CallbackCreate(GetMethod(implObj, "putref_documentElement"), flags, 2)
+        this.vtbl.createElement := CallbackCreate(GetMethod(implObj, "createElement"), flags, 3)
+        this.vtbl.createDocumentFragment := CallbackCreate(GetMethod(implObj, "createDocumentFragment"), flags, 2)
+        this.vtbl.createTextNode := CallbackCreate(GetMethod(implObj, "createTextNode"), flags, 3)
+        this.vtbl.createComment := CallbackCreate(GetMethod(implObj, "createComment"), flags, 3)
+        this.vtbl.createCDATASection := CallbackCreate(GetMethod(implObj, "createCDATASection"), flags, 3)
+        this.vtbl.createProcessingInstruction := CallbackCreate(GetMethod(implObj, "createProcessingInstruction"), flags, 4)
+        this.vtbl.createAttribute := CallbackCreate(GetMethod(implObj, "createAttribute"), flags, 3)
+        this.vtbl.createEntityReference := CallbackCreate(GetMethod(implObj, "createEntityReference"), flags, 3)
+        this.vtbl.getElementsByTagName := CallbackCreate(GetMethod(implObj, "getElementsByTagName"), flags, 3)
+        this.vtbl.createNode := CallbackCreate(GetMethod(implObj, "createNode"), flags, 5)
+        this.vtbl.nodeFromID := CallbackCreate(GetMethod(implObj, "nodeFromID"), flags, 3)
+        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 3)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_parseError := CallbackCreate(GetMethod(implObj, "get_parseError"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.get_async := CallbackCreate(GetMethod(implObj, "get_async"), flags, 2)
+        this.vtbl.put_async := CallbackCreate(GetMethod(implObj, "put_async"), flags, 2)
+        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
+        this.vtbl.loadXML := CallbackCreate(GetMethod(implObj, "loadXML"), flags, 3)
+        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 2)
+        this.vtbl.get_validateOnParse := CallbackCreate(GetMethod(implObj, "get_validateOnParse"), flags, 2)
+        this.vtbl.put_validateOnParse := CallbackCreate(GetMethod(implObj, "put_validateOnParse"), flags, 2)
+        this.vtbl.get_resolveExternals := CallbackCreate(GetMethod(implObj, "get_resolveExternals"), flags, 2)
+        this.vtbl.put_resolveExternals := CallbackCreate(GetMethod(implObj, "put_resolveExternals"), flags, 2)
+        this.vtbl.get_preserveWhiteSpace := CallbackCreate(GetMethod(implObj, "get_preserveWhiteSpace"), flags, 2)
+        this.vtbl.put_preserveWhiteSpace := CallbackCreate(GetMethod(implObj, "put_preserveWhiteSpace"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.put_ondataavailable := CallbackCreate(GetMethod(implObj, "put_ondataavailable"), flags, 2)
+        this.vtbl.put_ontransformnode := CallbackCreate(GetMethod(implObj, "put_ontransformnode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_doctype)
+        CallbackFree(this.vtbl.get_implementation)
+        CallbackFree(this.vtbl.get_documentElement)
+        CallbackFree(this.vtbl.putref_documentElement)
+        CallbackFree(this.vtbl.createElement)
+        CallbackFree(this.vtbl.createDocumentFragment)
+        CallbackFree(this.vtbl.createTextNode)
+        CallbackFree(this.vtbl.createComment)
+        CallbackFree(this.vtbl.createCDATASection)
+        CallbackFree(this.vtbl.createProcessingInstruction)
+        CallbackFree(this.vtbl.createAttribute)
+        CallbackFree(this.vtbl.createEntityReference)
+        CallbackFree(this.vtbl.getElementsByTagName)
+        CallbackFree(this.vtbl.createNode)
+        CallbackFree(this.vtbl.nodeFromID)
+        CallbackFree(this.vtbl.load)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.get_parseError)
+        CallbackFree(this.vtbl.get_url)
+        CallbackFree(this.vtbl.get_async)
+        CallbackFree(this.vtbl.put_async)
+        CallbackFree(this.vtbl.abort)
+        CallbackFree(this.vtbl.loadXML)
+        CallbackFree(this.vtbl.save)
+        CallbackFree(this.vtbl.get_validateOnParse)
+        CallbackFree(this.vtbl.put_validateOnParse)
+        CallbackFree(this.vtbl.get_resolveExternals)
+        CallbackFree(this.vtbl.put_resolveExternals)
+        CallbackFree(this.vtbl.get_preserveWhiteSpace)
+        CallbackFree(this.vtbl.put_preserveWhiteSpace)
+        CallbackFree(this.vtbl.put_onreadystatechange)
+        CallbackFree(this.vtbl.put_ondataavailable)
+        CallbackFree(this.vtbl.put_ontransformnode)
     }
 }

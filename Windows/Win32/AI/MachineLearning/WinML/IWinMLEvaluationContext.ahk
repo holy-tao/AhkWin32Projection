@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINML_BINDING_DESC.ahk" { WINML_BINDING_DESC }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the context to bind inputs and outputs to a WinML model.
  * @see https://learn.microsoft.com/windows/win32/api/winml/nn-winml-iwinmlevaluationcontext
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class IWinMLEvaluationContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWinMLEvaluationContext extends IUnknown {
     /**
      * The interface identifier for IWinMLEvaluationContext
      * @type {Guid}
      */
-    static IID => Guid("{95848f9e-583d-4054-af12-916387cd8426}")
+    static IID := Guid("{95848f9e-583d-4054-af12-916387cd8426}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWinMLEvaluationContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BindValue      : IntPtr
+        GetValueByName : IntPtr
+        Clear          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BindValue", "GetValueByName", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWinMLEvaluationContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Binds the input/output to the given model.
@@ -36,7 +48,7 @@ class IWinMLEvaluationContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-bindvalue
      */
     BindValue(pDescriptor) {
-        result := ComCall(3, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(3, this, WINML_BINDING_DESC.Ptr, pDescriptor, "HRESULT")
         return result
     }
 
@@ -61,5 +73,29 @@ class IWinMLEvaluationContext extends IUnknown {
     Clear() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWinMLEvaluationContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BindValue := CallbackCreate(GetMethod(implObj, "BindValue"), flags, 2)
+        this.vtbl.GetValueByName := CallbackCreate(GetMethod(implObj, "GetValueByName"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BindValue)
+        CallbackFree(this.vtbl.GetValueByName)
+        CallbackFree(this.vtbl.Clear)
     }
 }

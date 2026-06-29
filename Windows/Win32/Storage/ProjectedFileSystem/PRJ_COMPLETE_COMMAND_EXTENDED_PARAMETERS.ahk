@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRJ_COMPLETE_COMMAND_TYPE.ahk
-#Include .\PRJ_NOTIFY_TYPES.ahk
-#Include .\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PRJ_NOTIFY_TYPES.ahk" { PRJ_NOTIFY_TYPES }
+#Import ".\PRJ_COMPLETE_COMMAND_TYPE.ahk" { PRJ_COMPLETE_COMMAND_TYPE }
+#Import ".\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk" { PRJ_DIR_ENTRY_BUFFER_HANDLE }
 
 /**
  * Specifies parameters required for completing certain callbacks.
@@ -13,68 +12,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_complete_command_extended_parameters
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  */
-class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Notification {
+        NotificationMask : PRJ_NOTIFY_TYPES
+
+    }
+
+    struct _Enumeration {
+        DirEntryBufferHandle : PRJ_DIR_ENTRY_BUFFER_HANDLE
+
+    }
 
     /**
      * The type of command.
-     * @type {PRJ_COMPLETE_COMMAND_TYPE}
      */
-    CommandType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CommandType : PRJ_COMPLETE_COMMAND_TYPE
 
-    class _Notification extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    Notification : PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS._Notification
 
-        /**
-         * @type {PRJ_NOTIFY_TYPES}
-         */
-        NotificationMask {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _Enumeration extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {PRJ_DIR_ENTRY_BUFFER_HANDLE}
-         */
-        DirEntryBufferHandle {
-            get {
-                if(!this.HasProp("__DirEntryBufferHandle"))
-                    this.__DirEntryBufferHandle := PRJ_DIR_ENTRY_BUFFER_HANDLE(0, this)
-                return this.__DirEntryBufferHandle
-            }
-        }
-    }
-
-    /**
-     * @type {_Notification}
-     */
-    Notification {
-        get {
-            if(!this.HasProp("__Notification"))
-                this.__Notification := PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS._Notification(8, this)
-            return this.__Notification
-        }
-    }
-
-    /**
-     * @type {_Enumeration}
-     */
-    Enumeration {
-        get {
-            if(!this.HasProp("__Enumeration"))
-                this.__Enumeration := PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS._Enumeration(8, this)
-            return this.__Enumeration
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Enumeration', { type: PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS._Enumeration, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

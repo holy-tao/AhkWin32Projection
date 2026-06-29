@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPLibrary.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPLibrary.ahk" { IWMPLibrary }
 
 /**
  * The IWMPLibrary2 interface represents a media library.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrary2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPLibrary2 extends IWMPLibrary {
-
-    static sizeof => A_PtrSize
+export default struct IWMPLibrary2 extends IWMPLibrary {
     /**
      * The interface identifier for IWMPLibrary2
      * @type {Guid}
      */
-    static IID => Guid("{dd578a4e-79b1-426c-bf8f-3add9072500b}")
+    static IID := Guid("{dd578a4e-79b1-426c-bf8f-3add9072500b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPLibrary2 interfaces
+    */
+    struct Vtbl extends IWMPLibrary.Vtbl {
+        getItemInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getItemInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPLibrary2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The getItemInfo method retrieves the value of the LibraryID attribute.
@@ -59,7 +68,27 @@ class IWMPLibrary2 extends IWMPLibrary {
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(7, this, "ptr", bstrItemName, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrItemName, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPLibrary2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getItemInfo)
     }
 }

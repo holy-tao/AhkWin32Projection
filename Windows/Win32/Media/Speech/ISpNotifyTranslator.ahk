@@ -1,38 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpNotifySink.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISpNotifyCallback.ahk" { ISpNotifyCallback }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpNotifySink.ahk" { ISpNotifySink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpNotifyTranslator extends ISpNotifySink {
-
-    static sizeof => A_PtrSize
+export default struct ISpNotifyTranslator extends ISpNotifySink {
     /**
      * The interface identifier for ISpNotifyTranslator
      * @type {Guid}
      */
-    static IID => Guid("{aca16614-5d3d-11d2-960e-00c04f8ee628}")
+    static IID := Guid("{aca16614-5d3d-11d2-960e-00c04f8ee628}")
 
     /**
      * The class identifier for SpNotifyTranslator
      * @type {Guid}
      */
-    static CLSID => Guid("{e2ae5372-5d40-11d2-960e-00c04f8ee628}")
+    static CLSID := Guid("{e2ae5372-5d40-11d2-960e-00c04f8ee628}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpNotifyTranslator interfaces
+    */
+    struct Vtbl extends ISpNotifySink.Vtbl {
+        InitWindowMessage    : IntPtr
+        InitCallback         : IntPtr
+        InitSpNotifyCallback : IntPtr
+        InitWin32Event       : IntPtr
+        Wait                 : IntPtr
+        GetEventHandle       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitWindowMessage", "InitCallback", "InitSpNotifyCallback", "InitWin32Event", "Wait", "GetEventHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpNotifyTranslator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -43,9 +61,7 @@ class ISpNotifyTranslator extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     InitWindowMessage(_hWnd, _Msg, _wParam, _lParam) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(4, this, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(4, this, HWND, _hWnd, "uint", _Msg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -59,7 +75,7 @@ class ISpNotifyTranslator extends ISpNotifySink {
     InitCallback(_pfnCallback, _wParam, _lParam) {
         _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, _pfnCallbackMarshal, _pfnCallback, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(5, this, _pfnCallbackMarshal, _pfnCallback, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -71,7 +87,7 @@ class ISpNotifyTranslator extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     InitSpNotifyCallback(pSpCallback, _wParam, _lParam) {
-        result := ComCall(6, this, "ptr", pSpCallback, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(6, this, "ptr", pSpCallback, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -82,36 +98,14 @@ class ISpNotifyTranslator extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     InitWin32Event(hEvent, fCloseHandleOnRelease) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(7, this, "ptr", hEvent, "int", fCloseHandleOnRelease, "HRESULT")
+        result := ComCall(7, this, HANDLE, hEvent, BOOL, fCloseHandleOnRelease, "HRESULT")
         return result
     }
 
     /**
-     * Waits for an event to occur for a specified communications device. The set of events that are monitored by this function is contained in the event mask associated with the device handle.
-     * @remarks
-     * The 
-     * <b>WaitCommEvent</b> function monitors a set of events for a specified communications resource. To set and query the current event mask of a communications resource, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommmask">SetCommMask</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getcommmask">GetCommMask</a> functions.
      * 
-     * If the overlapped operation cannot be completed immediately, the function returns <b>FALSE</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_IO_PENDING</b>, indicating that the operation is executing in the background. When this happens, the system sets the <b>hEvent</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure to the not-signaled state before 
-     * <b>WaitCommEvent</b> returns, and then it sets it to the signaled state when one of the specified events or an error occurs. The calling process can use one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a> to determine the event object's state and then use the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function to determine the results of the 
-     * <b>WaitCommEvent</b> operation. 
-     * <b>GetOverlappedResult</b> reports the success or failure of the operation, and the variable pointed to by the <i>lpEvtMask</i> parameter is set to indicate the event that occurred.
-     * 
-     * If a process attempts to change the device handle's event mask by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommmask">SetCommMask</a> function while an overlapped 
-     * <b>WaitCommEvent</b> operation is in progress, 
-     * <b>WaitCommEvent</b> returns immediately. The variable pointed to by the <i>lpEvtMask</i> parameter is set to zero.
      * @param {Integer} dwMilliseconds 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-waitcommevent
+     * @returns {HRESULT} 
      */
     Wait(dwMilliseconds) {
         result := ComCall(8, this, "uint", dwMilliseconds, "HRESULT")
@@ -123,8 +117,37 @@ class ISpNotifyTranslator extends ISpNotifySink {
      * @returns {HANDLE} 
      */
     GetEventHandle() {
-        result := ComCall(9, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(9, this, HANDLE.Owned)
+        return result
+    }
+
+    Query(iid) {
+        if (ISpNotifyTranslator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitWindowMessage := CallbackCreate(GetMethod(implObj, "InitWindowMessage"), flags, 5)
+        this.vtbl.InitCallback := CallbackCreate(GetMethod(implObj, "InitCallback"), flags, 4)
+        this.vtbl.InitSpNotifyCallback := CallbackCreate(GetMethod(implObj, "InitSpNotifyCallback"), flags, 4)
+        this.vtbl.InitWin32Event := CallbackCreate(GetMethod(implObj, "InitWin32Event"), flags, 3)
+        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 2)
+        this.vtbl.GetEventHandle := CallbackCreate(GetMethod(implObj, "GetEventHandle"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitWindowMessage)
+        CallbackFree(this.vtbl.InitCallback)
+        CallbackFree(this.vtbl.InitSpNotifyCallback)
+        CallbackFree(this.vtbl.InitWin32Event)
+        CallbackFree(this.vtbl.Wait)
+        CallbackFree(this.vtbl.GetEventHandle)
     }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_BREAK_RESERVATION_REQUEST extends Win32Struct {
-    static sizeof => 8
+export default struct STORAGE_BREAK_RESERVATION_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _unused : Int8
 
-    /**
-     * @type {Integer}
-     */
-    _unused {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    PathId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PathId {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    TargetId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    Lun : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Lun {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
 }

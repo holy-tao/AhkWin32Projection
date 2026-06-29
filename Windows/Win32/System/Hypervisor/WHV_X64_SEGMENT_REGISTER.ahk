@@ -1,37 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_SEGMENT_REGISTER extends Win32Struct {
-    static sizeof => 16
+export default struct WHV_X64_SEGMENT_REGISTER {
+    #StructPack 8
 
-    static packingSize => 8
+    Base : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Base {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Limit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Limit {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Selector {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    Selector : UInt16
 
     /**
      * This bitfield backs the following members:
@@ -44,12 +23,9 @@ class WHV_X64_SEGMENT_REGISTER extends Win32Struct {
      * - Long
      * - Default
      * - Granularity
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -114,12 +90,8 @@ class WHV_X64_SEGMENT_REGISTER extends Win32Struct {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Attributes {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+    static __New() {
+        DefineProp(this.Prototype, 'Attributes', { type: UInt16, offset: 14 })
+        this.DeleteProp("__New")
     }
 }

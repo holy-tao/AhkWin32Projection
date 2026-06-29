@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DWRITE_INLINE_OBJECT_METRICS.ahk
-#Include .\DWRITE_OVERHANG_METRICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
+#Import ".\DWRITE_INLINE_OBJECT_METRICS.ahk" { DWRITE_INLINE_OBJECT_METRICS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_BREAK_CONDITION.ahk" { DWRITE_BREAK_CONDITION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
 
 /**
  * Wraps an application-defined inline graphic, allowing DWrite to query metrics as if the graphic were a glyph inline with the text.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteinlineobject
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteInlineObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteInlineObject extends IUnknown {
     /**
      * The interface identifier for IDWriteInlineObject
      * @type {Guid}
      */
-    static IID => Guid("{8339fde3-106f-47ab-8373-1c6295eb10b3}")
+    static IID := Guid("{8339fde3-106f-47ab-8373-1c6295eb10b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteInlineObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Draw               : IntPtr
+        GetMetrics         : IntPtr
+        GetOverhangMetrics : IntPtr
+        GetBreakConditions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Draw", "GetMetrics", "GetOverhangMetrics", "GetBreakConditions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteInlineObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The application implemented rendering callback (IDWriteTextRenderer::DrawInlineObject) can use this to draw the inline object without needing to cast or query the object type. The text layout does not call this method directly.
@@ -62,7 +76,7 @@ class IDWriteInlineObject extends IUnknown {
     Draw(clientDrawingContext, renderer, originX, originY, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -76,7 +90,7 @@ class IDWriteInlineObject extends IUnknown {
      */
     GetMetrics() {
         metrics := DWRITE_INLINE_OBJECT_METRICS()
-        result := ComCall(4, this, "ptr", metrics, "HRESULT")
+        result := ComCall(4, this, DWRITE_INLINE_OBJECT_METRICS.Ptr, metrics, "HRESULT")
         return metrics
     }
 
@@ -89,7 +103,7 @@ class IDWriteInlineObject extends IUnknown {
      */
     GetOverhangMetrics() {
         overhangs := DWRITE_OVERHANG_METRICS()
-        result := ComCall(5, this, "ptr", overhangs, "HRESULT")
+        result := ComCall(5, this, DWRITE_OVERHANG_METRICS.Ptr, overhangs, "HRESULT")
         return overhangs
     }
 
@@ -112,5 +126,31 @@ class IDWriteInlineObject extends IUnknown {
 
         result := ComCall(6, this, breakConditionBeforeMarshal, breakConditionBefore, breakConditionAfterMarshal, breakConditionAfter, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteInlineObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 8)
+        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetOverhangMetrics := CallbackCreate(GetMethod(implObj, "GetOverhangMetrics"), flags, 2)
+        this.vtbl.GetBreakConditions := CallbackCreate(GetMethod(implObj, "GetBreakConditions"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.GetMetrics)
+        CallbackFree(this.vtbl.GetOverhangMetrics)
+        CallbackFree(this.vtbl.GetBreakConditions)
     }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDeviceSubObject.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
+#Import ".\DXGI_RESOURCE_PRIORITY.ahk" { DXGI_RESOURCE_PRIORITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An IDXGIResource interface allows resource sharing and identifies the memory that a resource resides in.
@@ -25,26 +28,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiresource
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIResource extends IDXGIDeviceSubObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIResource extends IDXGIDeviceSubObject {
     /**
      * The interface identifier for IDXGIResource
      * @type {Guid}
      */
-    static IID => Guid("{035f3ab4-482e-4e50-b41f-8a7f8bd8960b}")
+    static IID := Guid("{035f3ab4-482e-4e50-b41f-8a7f8bd8960b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIResource interfaces
+    */
+    struct Vtbl extends IDXGIDeviceSubObject.Vtbl {
+        GetSharedHandle     : IntPtr
+        GetUsage            : IntPtr
+        SetEvictionPriority : IntPtr
+        GetEvictionPriority : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSharedHandle", "GetUsage", "SetEvictionPriority", "GetEvictionPriority"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIResource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the handle to a shared resource.
@@ -62,8 +75,8 @@ class IDXGIResource extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getsharedhandle
      */
     GetSharedHandle() {
-        pSharedHandle := HANDLE()
-        result := ComCall(8, this, "ptr", pSharedHandle, "HRESULT")
+        pSharedHandle := HANDLE.Owned()
+        result := ComCall(8, this, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return pSharedHandle
     }
 
@@ -92,7 +105,7 @@ class IDXGIResource extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
-        result := ComCall(10, this, "uint", EvictionPriority, "HRESULT")
+        result := ComCall(10, this, DXGI_RESOURCE_PRIORITY, EvictionPriority, "HRESULT")
         return result
     }
 
@@ -169,5 +182,31 @@ class IDXGIResource extends IDXGIDeviceSubObject {
     GetEvictionPriority() {
         result := ComCall(11, this, "uint*", &pEvictionPriority := 0, "HRESULT")
         return pEvictionPriority
+    }
+
+    Query(iid) {
+        if (IDXGIResource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSharedHandle := CallbackCreate(GetMethod(implObj, "GetSharedHandle"), flags, 2)
+        this.vtbl.GetUsage := CallbackCreate(GetMethod(implObj, "GetUsage"), flags, 2)
+        this.vtbl.SetEvictionPriority := CallbackCreate(GetMethod(implObj, "SetEvictionPriority"), flags, 2)
+        this.vtbl.GetEvictionPriority := CallbackCreate(GetMethod(implObj, "GetEvictionPriority"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSharedHandle)
+        CallbackFree(this.vtbl.GetUsage)
+        CallbackFree(this.vtbl.SetEvictionPriority)
+        CallbackFree(this.vtbl.GetEvictionPriority)
     }
 }

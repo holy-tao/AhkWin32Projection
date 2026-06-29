@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsNetAddress interface provides methods for an ADSI client to access the Net Address attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnetaddress
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsNetAddress extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsNetAddress extends IDispatch {
     /**
      * The interface identifier for IADsNetAddress
      * @type {Guid}
      */
-    static IID => Guid("{b21a50a9-4080-11d1-a3ac-00c04fb950dc}")
+    static IID := Guid("{b21a50a9-4080-11d1-a3ac-00c04fb950dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsNetAddress interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AddressType : IntPtr
+        put_AddressType : IntPtr
+        get_Address     : IntPtr
+        put_Address     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AddressType", "put_AddressType", "get_Address", "put_Address"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsNetAddress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -71,7 +82,7 @@ class IADsNetAddress extends IDispatch {
      */
     get_Address() {
         retval := VARIANT()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -81,7 +92,33 @@ class IADsNetAddress extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Address(vAddress) {
-        result := ComCall(10, this, "ptr", vAddress, "HRESULT")
+        result := ComCall(10, this, VARIANT, vAddress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsNetAddress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AddressType := CallbackCreate(GetMethod(implObj, "get_AddressType"), flags, 2)
+        this.vtbl.put_AddressType := CallbackCreate(GetMethod(implObj, "put_AddressType"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.put_Address := CallbackCreate(GetMethod(implObj, "put_Address"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AddressType)
+        CallbackFree(this.vtbl.put_AddressType)
+        CallbackFree(this.vtbl.get_Address)
+        CallbackFree(this.vtbl.put_Address)
     }
 }

@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_PFA_REMOVE_TRIGGER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_PFA_REMOVE_TRIGGER.ahk" { WHEA_PFA_REMOVE_TRIGGER }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_PFA_MEMORY_REMOVE_MONITOR extends Win32Struct {
-    static sizeof => 24
+export default struct WHEAP_PFA_MEMORY_REMOVE_MONITOR {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RemoveTrigger : WHEA_PFA_REMOVE_TRIGGER
 
-    /**
-     * @type {WHEA_PFA_REMOVE_TRIGGER}
-     */
-    RemoveTrigger {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    TimeInList : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeInList {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ErrorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Page : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Page {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

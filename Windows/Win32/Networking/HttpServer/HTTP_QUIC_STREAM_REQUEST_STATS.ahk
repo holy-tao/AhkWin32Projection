@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_QUIC_STREAM_REQUEST_STATS extends Win32Struct {
-    static sizeof => 64
+export default struct HTTP_QUIC_STREAM_REQUEST_STATS {
+    #StructPack 8
 
-    static packingSize => 8
+    StreamWaitStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StreamWaitStart {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StreamWaitEnd : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StreamWaitEnd {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RequestHeadersCompressionStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequestHeadersCompressionStart {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RequestHeadersCompressionEnd : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequestHeadersCompressionEnd {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ResponseHeadersDecompressionStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResponseHeadersDecompressionStart {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ResponseHeadersDecompressionEnd : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResponseHeadersDecompressionEnd {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RequestHeadersCompressedSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequestHeadersCompressedSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ResponseHeadersCompressedSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResponseHeadersCompressedSize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

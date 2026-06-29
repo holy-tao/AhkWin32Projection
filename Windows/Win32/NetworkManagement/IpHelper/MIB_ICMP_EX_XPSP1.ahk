@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIBICMPSTATS_EX_XPSP1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIBICMPSTATS_EX_XPSP1.ahk" { MIBICMPSTATS_EX_XPSP1 }
 
 /**
  * Contains the extended Internet Control Message Protocol (ICMP) statistics for a particular computer.
@@ -15,32 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_icmp_ex_xpsp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_ICMP_EX_XPSP1 extends Win32Struct {
-    static sizeof => 2064
-
-    static packingSize => 4
+export default struct MIB_ICMP_EX_XPSP1 {
+    #StructPack 4
 
     /**
      * Specifies an <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mibicmpstats_ex_xpsp1">MIBICMPSTATS_EX</a> structure that contains the extended statistics for incoming ICMP messages.
-     * @type {MIBICMPSTATS_EX_XPSP1}
      */
-    icmpInStats {
-        get {
-            if(!this.HasProp("__icmpInStats"))
-                this.__icmpInStats := MIBICMPSTATS_EX_XPSP1(0, this)
-            return this.__icmpInStats
-        }
-    }
+    icmpInStats : MIBICMPSTATS_EX_XPSP1
 
     /**
      * Specifies an <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mibicmpstats_ex_xpsp1">MIBICMPSTATS_EX</a> structure that contains the extended statistics for outgoing ICMP messages.
-     * @type {MIBICMPSTATS_EX_XPSP1}
      */
-    icmpOutStats {
-        get {
-            if(!this.HasProp("__icmpOutStats"))
-                this.__icmpOutStats := MIBICMPSTATS_EX_XPSP1(1032, this)
-            return this.__icmpOutStats
-        }
-    }
+    icmpOutStats : MIBICMPSTATS_EX_XPSP1
+
 }

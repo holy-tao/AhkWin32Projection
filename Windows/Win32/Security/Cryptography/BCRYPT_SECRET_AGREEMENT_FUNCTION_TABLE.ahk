@@ -1,119 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_INTERFACE_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE extends Win32Struct {
-    static sizeof => 104
+export default struct BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : BCRYPT_INTERFACE_VERSION
 
-    /**
-     * @type {BCRYPT_INTERFACE_VERSION}
-     */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := BCRYPT_INTERFACE_VERSION(0, this)
-            return this.__Version
-        }
-    }
+    OpenAlgorithmProvider : IntPtr
 
-    /**
-     * @type {Pointer<BCryptOpenAlgorithmProviderFn>}
-     */
-    OpenAlgorithmProvider {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    GetProperty : IntPtr
 
-    /**
-     * @type {Pointer<BCryptGetPropertyFn>}
-     */
-    GetProperty {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SetProperty : IntPtr
 
-    /**
-     * @type {Pointer<BCryptSetPropertyFn>}
-     */
-    SetProperty {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CloseAlgorithmProvider : IntPtr
 
-    /**
-     * @type {Pointer<BCryptCloseAlgorithmProviderFn>}
-     */
-    CloseAlgorithmProvider {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SecretAgreement : IntPtr
 
-    /**
-     * @type {Pointer<BCryptSecretAgreementFn>}
-     */
-    SecretAgreement {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DeriveKey : IntPtr
 
-    /**
-     * @type {Pointer<BCryptDeriveKeyFn>}
-     */
-    DeriveKey {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    DestroySecret : IntPtr
 
-    /**
-     * @type {Pointer<BCryptDestroySecretFn>}
-     */
-    DestroySecret {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    GenerateKeyPair : IntPtr
 
-    /**
-     * @type {Pointer<BCryptGenerateKeyPairFn>}
-     */
-    GenerateKeyPair {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    FinalizeKeyPair : IntPtr
 
-    /**
-     * @type {Pointer<BCryptFinalizeKeyPairFn>}
-     */
-    FinalizeKeyPair {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ImportKeyPair : IntPtr
 
-    /**
-     * @type {Pointer<BCryptImportKeyPairFn>}
-     */
-    ImportKeyPair {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ExportKey : IntPtr
 
-    /**
-     * @type {Pointer<BCryptExportKeyFn>}
-     */
-    ExportKey {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    DestroyKey : IntPtr
 
-    /**
-     * @type {Pointer<BCryptDestroyKeyFn>}
-     */
-    DestroyKey {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

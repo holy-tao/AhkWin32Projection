@@ -1,33 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DIJOYCONFIG.ahk" { DIJOYCONFIG }
+#Import ".\DIJOYTYPEINFO.ahk" { DIJOYTYPEINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIJOYUSERVALUES.ahk" { DIJOYUSERVALUES }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * IDirectInputJoyConfig8 interface contains methods that allow hardware developers who are writing property sheets to write and read information to and from the registry.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputjoyconfig8
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class IDirectInputJoyConfig8 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectInputJoyConfig8 extends IUnknown {
     /**
      * The interface identifier for IDirectInputJoyConfig8
      * @type {Guid}
      */
-    static IID => Guid("{eb0d7dfa-1990-4f27-b4d6-edf2eec4a44c}")
+    static IID := Guid("{eb0d7dfa-1990-4f27-b4d6-edf2eec4a44c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectInputJoyConfig8 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Acquire             : IntPtr
+        Unacquire           : IntPtr
+        SetCooperativeLevel : IntPtr
+        SendNotify          : IntPtr
+        EnumTypes           : IntPtr
+        GetTypeInfo         : IntPtr
+        SetTypeInfo         : IntPtr
+        DeleteType          : IntPtr
+        GetConfig           : IntPtr
+        SetConfig           : IntPtr
+        DeleteConfig        : IntPtr
+        GetUserValues       : IntPtr
+        SetUserValues       : IntPtr
+        AddNewHardware      : IntPtr
+        OpenTypeKey         : IntPtr
+        OpenAppStatusKey    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Acquire", "Unacquire", "SetCooperativeLevel", "SendNotify", "EnumTypes", "GetTypeInfo", "SetTypeInfo", "DeleteType", "GetConfig", "SetConfig", "DeleteConfig", "GetUserValues", "SetUserValues", "AddNewHardware", "OpenTypeKey", "OpenAppStatusKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectInputJoyConfig8.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirectInputJoyConfig8::Acquire method acquires &quot;joystick configuration mode.&quot; Only one application can be in joystick configuration mode at a time; subsequent attempts by other applications to acquire this mode should receive the error DIERR_OTHERAPPHASPRIO. After entering configuration mode, the application can make alterations to the global joystick configuration settings. The application should check the existing settings before installing the new ones in case another application changed the settings in the interim.
@@ -117,9 +146,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-setcooperativelevel
      */
     SetCooperativeLevel(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(5, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(5, this, HWND, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -253,7 +280,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
     GetTypeInfo(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(8, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(8, this, "ptr", param0, DIJOYTYPEINFO.Ptr, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -310,7 +337,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
         param0 := param0 is String ? StrPtr(param0) : param0
         param3 := param3 is String ? StrPtr(param3) : param3
 
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, DIJOYTYPEINFO.Ptr, param1, "uint", param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -405,7 +432,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-getconfig
      */
     GetConfig(param0, param1, param2) {
-        result := ComCall(11, this, "uint", param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(11, this, "uint", param0, DIJOYCONFIG.Ptr, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -447,7 +474,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-setconfig
      */
     SetConfig(param0, param1, param2) {
-        result := ComCall(12, this, "uint", param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(12, this, "uint", param0, DIJOYCONFIG.Ptr, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -517,7 +544,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-getuservalues
      */
     GetUserValues(param0, param1) {
-        result := ComCall(14, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(14, this, DIJOYUSERVALUES.Ptr, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -558,7 +585,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-setuservalues
      */
     SetUserValues(param0, param1) {
-        result := ComCall(15, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(15, this, DIJOYUSERVALUES.Ptr, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -632,9 +659,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-addnewhardware
      */
     AddNewHardware(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(16, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(16, this, HWND, param0, Guid.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -691,7 +716,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
     OpenTypeKey(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(17, this, "ptr", param0, "uint", param1, "ptr", param2, "HRESULT")
+        result := ComCall(17, this, "ptr", param0, "uint", param1, HKEY.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -733,7 +758,57 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-openappstatuskey
      */
     OpenAppStatusKey(param0) {
-        result := ComCall(18, this, "ptr", param0, "HRESULT")
+        result := ComCall(18, this, HKEY.Ptr, param0, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectInputJoyConfig8.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Acquire := CallbackCreate(GetMethod(implObj, "Acquire"), flags, 1)
+        this.vtbl.Unacquire := CallbackCreate(GetMethod(implObj, "Unacquire"), flags, 1)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.SendNotify := CallbackCreate(GetMethod(implObj, "SendNotify"), flags, 1)
+        this.vtbl.EnumTypes := CallbackCreate(GetMethod(implObj, "EnumTypes"), flags, 3)
+        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 4)
+        this.vtbl.SetTypeInfo := CallbackCreate(GetMethod(implObj, "SetTypeInfo"), flags, 5)
+        this.vtbl.DeleteType := CallbackCreate(GetMethod(implObj, "DeleteType"), flags, 2)
+        this.vtbl.GetConfig := CallbackCreate(GetMethod(implObj, "GetConfig"), flags, 4)
+        this.vtbl.SetConfig := CallbackCreate(GetMethod(implObj, "SetConfig"), flags, 4)
+        this.vtbl.DeleteConfig := CallbackCreate(GetMethod(implObj, "DeleteConfig"), flags, 2)
+        this.vtbl.GetUserValues := CallbackCreate(GetMethod(implObj, "GetUserValues"), flags, 3)
+        this.vtbl.SetUserValues := CallbackCreate(GetMethod(implObj, "SetUserValues"), flags, 3)
+        this.vtbl.AddNewHardware := CallbackCreate(GetMethod(implObj, "AddNewHardware"), flags, 3)
+        this.vtbl.OpenTypeKey := CallbackCreate(GetMethod(implObj, "OpenTypeKey"), flags, 4)
+        this.vtbl.OpenAppStatusKey := CallbackCreate(GetMethod(implObj, "OpenAppStatusKey"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Acquire)
+        CallbackFree(this.vtbl.Unacquire)
+        CallbackFree(this.vtbl.SetCooperativeLevel)
+        CallbackFree(this.vtbl.SendNotify)
+        CallbackFree(this.vtbl.EnumTypes)
+        CallbackFree(this.vtbl.GetTypeInfo)
+        CallbackFree(this.vtbl.SetTypeInfo)
+        CallbackFree(this.vtbl.DeleteType)
+        CallbackFree(this.vtbl.GetConfig)
+        CallbackFree(this.vtbl.SetConfig)
+        CallbackFree(this.vtbl.DeleteConfig)
+        CallbackFree(this.vtbl.GetUserValues)
+        CallbackFree(this.vtbl.SetUserValues)
+        CallbackFree(this.vtbl.AddNewHardware)
+        CallbackFree(this.vtbl.OpenTypeKey)
+        CallbackFree(this.vtbl.OpenAppStatusKey)
     }
 }

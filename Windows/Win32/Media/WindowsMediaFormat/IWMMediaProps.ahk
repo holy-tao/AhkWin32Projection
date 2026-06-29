@@ -1,35 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\WM_MEDIA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WM_MEDIA_TYPE.ahk" { WM_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMMediaProps interface sets and retrieves the WM_MEDIA_TYPE structure for an input, stream, or output.In the case of inputs and streams, the contents of the media type structure determine what actions the writer object will perform on the input data when writing the file. Typically, the input media type is an uncompressed type and the stream is a compressed type, so that the contents of their respective media type structures will determine the settings passed by the writer to the codec that will compress the stream.In the case of outputs, the media type structure determines the settings used to decompress the contents of a stream. The Windows Media codecs are capable of delivering output content in a variety of formats.The methods of IWMMediaProps are inherited by IWMVideoMediaProps, which provides access to additional settings for specifying video media types. The methods are also inherited by IWMInputMediaProps and IWMOutputMediaProps.An instance of the IWMMediaProps interface exists for every stream configuration object, input media properties object, and output media properties object. You can retrieve a pointer to this interface by calling the QueryInterface method of any other interface in one of those objects.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmmediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMMediaProps extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMMediaProps extends IUnknown {
     /**
      * The interface identifier for IWMMediaProps
      * @type {Guid}
      */
-    static IID => Guid("{96406bce-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bce-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMMediaProps interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetType      : IntPtr
+        GetMediaType : IntPtr
+        SetMediaType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "GetMediaType", "SetMediaType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMMediaProps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetType method retrieves the major type of the media in the stream, input, or output described by the object to which the current IWMMediaProps interface belongs.
@@ -42,7 +51,7 @@ class IWMMediaProps extends IUnknown {
      */
     GetType() {
         pguidType := Guid()
-        result := ComCall(3, this, "ptr", pguidType, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidType, "HRESULT")
         return pguidType
     }
 
@@ -58,7 +67,7 @@ class IWMMediaProps extends IUnknown {
         pcbTypeMarshal := pcbType is VarRef ? "uint*" : "ptr"
 
         pType := WM_MEDIA_TYPE()
-        result := ComCall(4, this, "ptr", pType, pcbTypeMarshal, pcbType, "HRESULT")
+        result := ComCall(4, this, WM_MEDIA_TYPE.Ptr, pType, pcbTypeMarshal, pcbType, "HRESULT")
         return pType
     }
 
@@ -111,7 +120,31 @@ class IWMMediaProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-setmediatype
      */
     SetMediaType(pType) {
-        result := ComCall(5, this, "ptr", pType, "HRESULT")
+        result := ComCall(5, this, WM_MEDIA_TYPE.Ptr, pType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMMediaProps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 3)
+        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetMediaType)
+        CallbackFree(this.vtbl.SetMediaType)
     }
 }

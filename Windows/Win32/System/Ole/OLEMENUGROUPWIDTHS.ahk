@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the number of menu items in each of the six menu groups of a menu shared between a container and an object server during an in-place editing session. This is the mechanism for building a shared menu.
@@ -8,20 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-olemenugroupwidths
  * @namespace Windows.Win32.System.Ole
  */
-class OLEMENUGROUPWIDTHS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct OLEMENUGROUPWIDTHS {
+    #StructPack 4
 
     /**
      * An array whose elements contain the number of menu items in each of the six menu groups of a shared in-place editing menu. Each menu group can have any number of menu items. The container uses elements 0, 2, and 4 to indicate the number of menu items in its <b>File</b>, <b>View</b>, and <b>Window</b> menu groups. The object server uses elements 1, 3, and 5 to indicate the number of menu items in its <b>Edit</b>, <b>Object</b>, and <b>Help</b> menu groups.
-     * @type {Array<Integer>}
      */
-    width {
-        get {
-            if(!this.HasProp("__widthProxyArray"))
-                this.__widthProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "int")
-            return this.__widthProxyArray
-        }
-    }
+    width : Int32[6]
+
 }

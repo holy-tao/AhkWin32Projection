@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_RATE_SET.ahk
-#Include .\DOT11_BSS_DESCRIPTION.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BSS_DESCRIPTION.ahk" { DOT11_BSS_DESCRIPTION }
+#Import ".\DOT11_RATE_SET.ahk" { DOT11_RATE_SET }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_JOIN_REQUEST extends Win32Struct {
-    static sizeof => 192
+export default struct DOT11_JOIN_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    uJoinFailureTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uJoinFailureTimeout {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OperationalRateSet : DOT11_RATE_SET
 
-    /**
-     * @type {DOT11_RATE_SET}
-     */
-    OperationalRateSet {
-        get {
-            if(!this.HasProp("__OperationalRateSet"))
-                this.__OperationalRateSet := DOT11_RATE_SET(4, this)
-            return this.__OperationalRateSet
-        }
-    }
+    uChCenterFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uChCenterFrequency {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dot11BSSDescription : DOT11_BSS_DESCRIPTION
 
-    /**
-     * @type {DOT11_BSS_DESCRIPTION}
-     */
-    dot11BSSDescription {
-        get {
-            if(!this.HasProp("__dot11BSSDescription"))
-                this.__dot11BSSDescription := DOT11_BSS_DESCRIPTION(144, this)
-            return this.__dot11BSSDescription
-        }
-    }
 }

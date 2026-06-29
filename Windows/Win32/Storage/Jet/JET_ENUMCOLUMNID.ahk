@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_ENUMCOLUMNID Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-enumcolumnid-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_ENUMCOLUMNID extends Win32Struct {
-    static sizeof => 16
+export default struct JET_ENUMCOLUMNID {
+    #StructPack 8
 
-    static packingSize => 8
+    columnid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ctagSequence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ctagSequence {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rgtagSequence : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    rgtagSequence {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

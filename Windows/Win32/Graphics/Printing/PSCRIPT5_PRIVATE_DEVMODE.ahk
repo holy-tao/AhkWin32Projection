@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PSCRIPT5_PRIVATE_DEVMODE extends Win32Struct {
-    static sizeof => 116
+export default struct PSCRIPT5_PRIVATE_DEVMODE {
+    #StructPack 2
 
-    static packingSize => 2
+    wReserved : UInt16[57]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    wReserved {
-        get {
-            if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 0, 57, Primitive, "ushort")
-            return this.__wReservedProxyArray
-        }
-    }
+    wSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSize {
-        get => NumGet(this, 114, "ushort")
-        set => NumPut("ushort", value, this, 114)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes per-monitor DPI scaling behavior overrides for child windows within dialogs. The values in this enumeration are bitfields and can be combined.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-dialog_control_dpi_change_behaviors
  * @namespace Windows.Win32.UI.HiDpi
  */
-class DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS extends Win32BitflagEnum {
+export default struct DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The default behavior of the dialog manager. The dialog managed will update the font, size, and position of the child window on DPI changes.

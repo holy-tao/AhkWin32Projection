@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies data used by the SIO_TCP_INITIAL_RTO IOCTL to configure initial re-transmission timeout (RTO) parameters to be used on the socket.
@@ -14,27 +13,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_initial_rto_parameters
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TCP_INITIAL_RTO_PARAMETERS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct TCP_INITIAL_RTO_PARAMETERS {
+    #StructPack 2
 
     /**
      * Supplies the initial RTT in milliseconds.
-     * @type {Integer}
      */
-    Rtt {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Rtt : UInt16
 
     /**
      * Supplies the number of retransmissions attempted before the connection
      *     setup fails.
-     * @type {Integer}
      */
-    MaxSynRetransmissions {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    MaxSynRetransmissions : Int8
+
 }

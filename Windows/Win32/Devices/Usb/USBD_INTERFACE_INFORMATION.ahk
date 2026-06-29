@@ -1,96 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBD_PIPE_INFORMATION.ahk
-#Include .\USBD_PIPE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USBD_PIPE_INFORMATION.ahk" { USBD_PIPE_INFORMATION }
+#Import ".\USBD_PIPE_TYPE.ahk" { USBD_PIPE_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBD_INTERFACE_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct USBD_INTERFACE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    InterfaceNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InterfaceNumber {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    AlternateSetting : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AlternateSetting {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Class : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Class {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    SubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SubClass {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Protocol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Protocol {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    InterfaceHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    InterfaceHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NumberOfPipes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPipes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Pipes : USBD_PIPE_INFORMATION[1]
 
-    /**
-     * @type {USBD_PIPE_INFORMATION}
-     */
-    Pipes {
-        get {
-            if(!this.HasProp("__PipesProxyArray"))
-                this.__PipesProxyArray := Win32FixedArray(this.ptr + 24, 1, USBD_PIPE_INFORMATION, "")
-            return this.__PipesProxyArray
-        }
-    }
 }

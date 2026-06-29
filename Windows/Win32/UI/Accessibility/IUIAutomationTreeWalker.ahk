@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationElement.ahk
-#Include .\IUIAutomationCondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Exposes properties and methods that UI Automation client applications use to view and navigate the UI Automation elements on the desktop.
@@ -16,26 +18,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtreewalker
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationTreeWalker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationTreeWalker extends IUnknown {
     /**
      * The interface identifier for IUIAutomationTreeWalker
      * @type {Guid}
      */
-    static IID => Guid("{4042c624-389c-4afc-a630-9df854a541fc}")
+    static IID := Guid("{4042c624-389c-4afc-a630-9df854a541fc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationTreeWalker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetParentElement                    : IntPtr
+        GetFirstChildElement                : IntPtr
+        GetLastChildElement                 : IntPtr
+        GetNextSiblingElement               : IntPtr
+        GetPreviousSiblingElement           : IntPtr
+        NormalizeElement                    : IntPtr
+        GetParentElementBuildCache          : IntPtr
+        GetFirstChildElementBuildCache      : IntPtr
+        GetLastChildElementBuildCache       : IntPtr
+        GetNextSiblingElementBuildCache     : IntPtr
+        GetPreviousSiblingElementBuildCache : IntPtr
+        NormalizeElementBuildCache          : IntPtr
+        get_Condition                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetParentElement", "GetFirstChildElement", "GetLastChildElement", "GetNextSiblingElement", "GetPreviousSiblingElement", "NormalizeElement", "GetParentElementBuildCache", "GetFirstChildElementBuildCache", "GetLastChildElementBuildCache", "GetNextSiblingElementBuildCache", "GetPreviousSiblingElementBuildCache", "NormalizeElementBuildCache", "get_Condition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationTreeWalker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUIAutomationCondition} 
@@ -297,5 +318,49 @@ class IUIAutomationTreeWalker extends IUnknown {
     get_Condition() {
         result := ComCall(15, this, "ptr*", &condition := 0, "HRESULT")
         return IUIAutomationCondition(condition)
+    }
+
+    Query(iid) {
+        if (IUIAutomationTreeWalker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetParentElement := CallbackCreate(GetMethod(implObj, "GetParentElement"), flags, 3)
+        this.vtbl.GetFirstChildElement := CallbackCreate(GetMethod(implObj, "GetFirstChildElement"), flags, 3)
+        this.vtbl.GetLastChildElement := CallbackCreate(GetMethod(implObj, "GetLastChildElement"), flags, 3)
+        this.vtbl.GetNextSiblingElement := CallbackCreate(GetMethod(implObj, "GetNextSiblingElement"), flags, 3)
+        this.vtbl.GetPreviousSiblingElement := CallbackCreate(GetMethod(implObj, "GetPreviousSiblingElement"), flags, 3)
+        this.vtbl.NormalizeElement := CallbackCreate(GetMethod(implObj, "NormalizeElement"), flags, 3)
+        this.vtbl.GetParentElementBuildCache := CallbackCreate(GetMethod(implObj, "GetParentElementBuildCache"), flags, 4)
+        this.vtbl.GetFirstChildElementBuildCache := CallbackCreate(GetMethod(implObj, "GetFirstChildElementBuildCache"), flags, 4)
+        this.vtbl.GetLastChildElementBuildCache := CallbackCreate(GetMethod(implObj, "GetLastChildElementBuildCache"), flags, 4)
+        this.vtbl.GetNextSiblingElementBuildCache := CallbackCreate(GetMethod(implObj, "GetNextSiblingElementBuildCache"), flags, 4)
+        this.vtbl.GetPreviousSiblingElementBuildCache := CallbackCreate(GetMethod(implObj, "GetPreviousSiblingElementBuildCache"), flags, 4)
+        this.vtbl.NormalizeElementBuildCache := CallbackCreate(GetMethod(implObj, "NormalizeElementBuildCache"), flags, 4)
+        this.vtbl.get_Condition := CallbackCreate(GetMethod(implObj, "get_Condition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetParentElement)
+        CallbackFree(this.vtbl.GetFirstChildElement)
+        CallbackFree(this.vtbl.GetLastChildElement)
+        CallbackFree(this.vtbl.GetNextSiblingElement)
+        CallbackFree(this.vtbl.GetPreviousSiblingElement)
+        CallbackFree(this.vtbl.NormalizeElement)
+        CallbackFree(this.vtbl.GetParentElementBuildCache)
+        CallbackFree(this.vtbl.GetFirstChildElementBuildCache)
+        CallbackFree(this.vtbl.GetLastChildElementBuildCache)
+        CallbackFree(this.vtbl.GetNextSiblingElementBuildCache)
+        CallbackFree(this.vtbl.GetPreviousSiblingElementBuildCache)
+        CallbackFree(this.vtbl.NormalizeElementBuildCache)
+        CallbackFree(this.vtbl.get_Condition)
     }
 }

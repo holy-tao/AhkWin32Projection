@@ -1,31 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import ".\IHlinkSite.ahk" { IHlinkSite }
+#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IHlink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHlink extends IUnknown {
     /**
      * The interface identifier for IHlink
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c3-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c3-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHlink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetHlinkSite        : IntPtr
+        GetHlinkSite        : IntPtr
+        SetMonikerReference : IntPtr
+        GetMonikerReference : IntPtr
+        SetStringReference  : IntPtr
+        GetStringReference  : IntPtr
+        SetFriendlyName     : IntPtr
+        GetFriendlyName     : IntPtr
+        SetTargetFrameName  : IntPtr
+        GetTargetFrameName  : IntPtr
+        GetMiscStatus       : IntPtr
+        Navigate            : IntPtr
+        SetAdditionalParams : IntPtr
+        GetAdditionalParams : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHlinkSite", "GetHlinkSite", "SetMonikerReference", "GetMonikerReference", "SetStringReference", "GetStringReference", "SetFriendlyName", "GetFriendlyName", "SetTargetFrameName", "GetTargetFrameName", "GetMiscStatus", "Navigate", "SetAdditionalParams", "GetAdditionalParams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHlink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -47,7 +74,7 @@ class IHlink extends IUnknown {
     GetHlinkSite(ppihlSite, pdwSiteData) {
         pdwSiteDataMarshal := pdwSiteData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppihlSite, pdwSiteDataMarshal, pdwSiteData, "HRESULT")
+        result := ComCall(4, this, IHlinkSite.Ptr, ppihlSite, pdwSiteDataMarshal, pdwSiteData, "HRESULT")
         return result
     }
 
@@ -75,7 +102,7 @@ class IHlink extends IUnknown {
     GetMonikerReference(dwWhichRef, ppimkTarget, ppwzLocation) {
         ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwWhichRef, "ptr*", ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
+        result := ComCall(6, this, "uint", dwWhichRef, IMoniker.Ptr, ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
@@ -122,16 +149,12 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * Retrieves the display name for a certificate. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The cryptdlg.h header defines GetFriendlyNameOfCert as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Integer} grfHLFNAMEF 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/nf-cryptdlg-getfriendlynameofcerta
      */
     GetFriendlyName(grfHLFNAMEF) {
-        result := ComCall(10, this, "uint", grfHLFNAMEF, "ptr*", &ppwzFriendlyName := 0, "HRESULT")
+        result := ComCall(10, this, "uint", grfHLFNAMEF, PWSTR.Ptr, &ppwzFriendlyName := 0, "HRESULT")
         return ppwzFriendlyName
     }
 
@@ -152,7 +175,7 @@ class IHlink extends IUnknown {
      * @returns {PWSTR} 
      */
     GetTargetFrameName() {
-        result := ComCall(12, this, "ptr*", &ppwzTargetFrameName := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ppwzTargetFrameName := 0, "HRESULT")
         return ppwzTargetFrameName
     }
 
@@ -196,7 +219,53 @@ class IHlink extends IUnknown {
      * @returns {PWSTR} 
      */
     GetAdditionalParams() {
-        result := ComCall(16, this, "ptr*", &ppwzAdditionalParams := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &ppwzAdditionalParams := 0, "HRESULT")
         return ppwzAdditionalParams
+    }
+
+    Query(iid) {
+        if (IHlink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHlinkSite := CallbackCreate(GetMethod(implObj, "SetHlinkSite"), flags, 3)
+        this.vtbl.GetHlinkSite := CallbackCreate(GetMethod(implObj, "GetHlinkSite"), flags, 3)
+        this.vtbl.SetMonikerReference := CallbackCreate(GetMethod(implObj, "SetMonikerReference"), flags, 4)
+        this.vtbl.GetMonikerReference := CallbackCreate(GetMethod(implObj, "GetMonikerReference"), flags, 4)
+        this.vtbl.SetStringReference := CallbackCreate(GetMethod(implObj, "SetStringReference"), flags, 4)
+        this.vtbl.GetStringReference := CallbackCreate(GetMethod(implObj, "GetStringReference"), flags, 4)
+        this.vtbl.SetFriendlyName := CallbackCreate(GetMethod(implObj, "SetFriendlyName"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 3)
+        this.vtbl.SetTargetFrameName := CallbackCreate(GetMethod(implObj, "SetTargetFrameName"), flags, 2)
+        this.vtbl.GetTargetFrameName := CallbackCreate(GetMethod(implObj, "GetTargetFrameName"), flags, 2)
+        this.vtbl.GetMiscStatus := CallbackCreate(GetMethod(implObj, "GetMiscStatus"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 5)
+        this.vtbl.SetAdditionalParams := CallbackCreate(GetMethod(implObj, "SetAdditionalParams"), flags, 2)
+        this.vtbl.GetAdditionalParams := CallbackCreate(GetMethod(implObj, "GetAdditionalParams"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHlinkSite)
+        CallbackFree(this.vtbl.GetHlinkSite)
+        CallbackFree(this.vtbl.SetMonikerReference)
+        CallbackFree(this.vtbl.GetMonikerReference)
+        CallbackFree(this.vtbl.SetStringReference)
+        CallbackFree(this.vtbl.GetStringReference)
+        CallbackFree(this.vtbl.SetFriendlyName)
+        CallbackFree(this.vtbl.GetFriendlyName)
+        CallbackFree(this.vtbl.SetTargetFrameName)
+        CallbackFree(this.vtbl.GetTargetFrameName)
+        CallbackFree(this.vtbl.GetMiscStatus)
+        CallbackFree(this.vtbl.Navigate)
+        CallbackFree(this.vtbl.SetAdditionalParams)
+        CallbackFree(this.vtbl.GetAdditionalParams)
     }
 }

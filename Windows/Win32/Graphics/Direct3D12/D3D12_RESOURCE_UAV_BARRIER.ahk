@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12Resource.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Represents a resource in which all UAV accesses must complete before any future UAV accesses can begin.
@@ -17,17 +16,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_uav_barrier
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RESOURCE_UAV_BARRIER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct D3D12_RESOURCE_UAV_BARRIER {
+    #StructPack 8
 
     /**
      * The resource used in the transition, as a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>.
-     * @type {ID3D12Resource}
      */
-    pResource {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pResource : ID3D12Resource
+
 }

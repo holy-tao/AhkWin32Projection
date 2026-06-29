@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores the index of the interface that has the best route to a particular destination IPv4 address.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_best_if
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_BEST_IF extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIB_BEST_IF {
+    #StructPack 4
 
     /**
      * Specifies the IPv4 address of the destination.
-     * @type {Integer}
      */
-    dwDestAddr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDestAddr : UInt32
 
     /**
      * Specifies the index of the interface that has the best route to the destination address specified by the <b>dwDestAddr</b> member.
-     * @type {Integer}
      */
-    dwIfIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwIfIndex : UInt32
+
 }

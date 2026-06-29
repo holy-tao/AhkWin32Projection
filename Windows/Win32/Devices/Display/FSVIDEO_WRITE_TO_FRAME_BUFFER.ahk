@@ -1,33 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHAR_IMAGE_INFO.ahk
-#Include .\FSCNTL_SCREEN_INFO.ahk
-#Include ..\..\System\Console\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CHAR_IMAGE_INFO.ahk" { CHAR_IMAGE_INFO }
+#Import "..\..\System\Console\COORD.ahk" { COORD }
+#Import ".\FSCNTL_SCREEN_INFO.ahk" { FSCNTL_SCREEN_INFO }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FSVIDEO_WRITE_TO_FRAME_BUFFER extends Win32Struct {
-    static sizeof => 24
+export default struct FSVIDEO_WRITE_TO_FRAME_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    SrcBuffer : CHAR_IMAGE_INFO.Ptr
 
-    /**
-     * @type {Pointer<CHAR_IMAGE_INFO>}
-     */
-    SrcBuffer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DestScreen : FSCNTL_SCREEN_INFO
 
-    /**
-     * @type {FSCNTL_SCREEN_INFO}
-     */
-    DestScreen {
-        get {
-            if(!this.HasProp("__DestScreen"))
-                this.__DestScreen := FSCNTL_SCREEN_INFO(8, this)
-            return this.__DestScreen
-        }
-    }
 }

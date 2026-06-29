@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFileSystemImage2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFileSystemImage2.ahk" { IFileSystemImage2 }
 
 /**
  * Use this interface to set or check the metadata and metadata mirror files in a UDF file system (rev 2.50 and later) to determine redundancy.
@@ -16,26 +19,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimage3
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFileSystemImage3 extends IFileSystemImage2 {
-
-    static sizeof => A_PtrSize
+export default struct IFileSystemImage3 extends IFileSystemImage2 {
     /**
      * The interface identifier for IFileSystemImage3
      * @type {Guid}
      */
-    static IID => Guid("{7cff842c-7e97-4807-8304-910dd8f7c051}")
+    static IID := Guid("{7cff842c-7e97-4807-8304-910dd8f7c051}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 59
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSystemImage3 interfaces
+    */
+    struct Vtbl extends IFileSystemImage2.Vtbl {
+        get_CreateRedundantUdfMetadataFiles : IntPtr
+        put_CreateRedundantUdfMetadataFiles : IntPtr
+        ProbeSpecificFileSystem             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CreateRedundantUdfMetadataFiles", "put_CreateRedundantUdfMetadataFiles", "ProbeSpecificFileSystem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSystemImage3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -53,7 +65,7 @@ class IFileSystemImage3 extends IFileSystemImage2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-get_createredundantudfmetadatafiles
      */
     get_CreateRedundantUdfMetadataFiles() {
-        result := ComCall(59, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(59, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -87,7 +99,7 @@ class IFileSystemImage3 extends IFileSystemImage2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-put_createredundantudfmetadatafiles
      */
     put_CreateRedundantUdfMetadataFiles(newVal) {
-        result := ComCall(60, this, "short", newVal, "HRESULT")
+        result := ComCall(60, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -100,7 +112,31 @@ class IFileSystemImage3 extends IFileSystemImage2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-probespecificfilesystem
      */
     ProbeSpecificFileSystem(fileSystemToProbe) {
-        result := ComCall(61, this, "int", fileSystemToProbe, "short*", &isAppendable := 0, "HRESULT")
+        result := ComCall(61, this, FsiFileSystems, fileSystemToProbe, VARIANT_BOOL.Ptr, &isAppendable := 0, "HRESULT")
         return isAppendable
+    }
+
+    Query(iid) {
+        if (IFileSystemImage3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CreateRedundantUdfMetadataFiles := CallbackCreate(GetMethod(implObj, "get_CreateRedundantUdfMetadataFiles"), flags, 2)
+        this.vtbl.put_CreateRedundantUdfMetadataFiles := CallbackCreate(GetMethod(implObj, "put_CreateRedundantUdfMetadataFiles"), flags, 2)
+        this.vtbl.ProbeSpecificFileSystem := CallbackCreate(GetMethod(implObj, "ProbeSpecificFileSystem"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CreateRedundantUdfMetadataFiles)
+        CallbackFree(this.vtbl.put_CreateRedundantUdfMetadataFiles)
+        CallbackFree(this.vtbl.ProbeSpecificFileSystem)
     }
 }

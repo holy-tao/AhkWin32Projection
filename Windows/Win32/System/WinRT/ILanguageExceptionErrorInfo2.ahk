@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ILanguageExceptionErrorInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ILanguageExceptionErrorInfo.ahk" { ILanguageExceptionErrorInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables language projections to provide and retrieve error information as with ILanguageExceptionErrorInfo, with the additional benefit of working across language boundaries.
  * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo2
  * @namespace Windows.Win32.System.WinRT
  */
-class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo {
-
-    static sizeof => A_PtrSize
+export default struct ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo {
     /**
      * The interface identifier for ILanguageExceptionErrorInfo2
      * @type {Guid}
      */
-    static IID => Guid("{5746e5c4-5b97-424c-b620-2822915734dd}")
+    static IID := Guid("{5746e5c4-5b97-424c-b620-2822915734dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILanguageExceptionErrorInfo2 interfaces
+    */
+    struct Vtbl extends ILanguageExceptionErrorInfo.Vtbl {
+        GetPreviousLanguageExceptionErrorInfo : IntPtr
+        CapturePropagationContext             : IntPtr
+        GetPropagationContextHead             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPreviousLanguageExceptionErrorInfo", "CapturePropagationContext", "GetPropagationContextHead"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILanguageExceptionErrorInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the previous language exception error information object.
@@ -71,5 +82,29 @@ class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo {
     GetPropagationContextHead() {
         result := ComCall(6, this, "ptr*", &propagatedLanguageExceptionErrorInfoHead := 0, "HRESULT")
         return ILanguageExceptionErrorInfo2(propagatedLanguageExceptionErrorInfoHead)
+    }
+
+    Query(iid) {
+        if (ILanguageExceptionErrorInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPreviousLanguageExceptionErrorInfo := CallbackCreate(GetMethod(implObj, "GetPreviousLanguageExceptionErrorInfo"), flags, 2)
+        this.vtbl.CapturePropagationContext := CallbackCreate(GetMethod(implObj, "CapturePropagationContext"), flags, 2)
+        this.vtbl.GetPropagationContextHead := CallbackCreate(GetMethod(implObj, "GetPropagationContextHead"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPreviousLanguageExceptionErrorInfo)
+        CallbackFree(this.vtbl.CapturePropagationContext)
+        CallbackFree(this.vtbl.GetPropagationContextHead)
     }
 }

@@ -1,111 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class EXT_FIND_FILE extends Win32Struct {
-    static sizeof => 80
+export default struct EXT_FIND_FILE {
+    #StructPack 8
 
-    static packingSize => 8
+    FileName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    FileName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    IndexedSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IndexedSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ImageTimeDateStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImageTimeDateStamp {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ImageCheckSum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImageCheckSum {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ExtraInfo : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ExtraInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ExtraInfoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtraInfoSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    FileMapping : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FileMapping {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FileMappingSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileMappingSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    FileHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    FileHandle {
-        get {
-            if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(56, this)
-            return this.__FileHandle
-        }
-    }
+    FoundFileName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    FoundFileName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    FoundFileNameChars : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FoundFileNameChars {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The file was added to the directory.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-file_notify_extended_information
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_ACTION extends Win32Enum {
+export default struct FILE_ACTION {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

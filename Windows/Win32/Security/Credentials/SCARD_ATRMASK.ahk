@@ -1,46 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by the SCardLocateCardsByATR function to locate cards.
  * @see https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_atrmask
  * @namespace Windows.Win32.Security.Credentials
  */
-class SCARD_ATRMASK extends Win32Struct {
-    static sizeof => 76
-
-    static packingSize => 4
+export default struct SCARD_ATRMASK {
+    #StructPack 4
 
     /**
      * The number of bytes in the ATR and the mask.
-     * @type {Integer}
      */
-    cbAtr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbAtr : UInt32
 
     /**
      * An array of <b>BYTE</b> values for the ATR of the card with extra alignment bytes.
-     * @type {Array<Integer>}
      */
-    rgbAtr {
-        get {
-            if(!this.HasProp("__rgbAtrProxyArray"))
-                this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 4, 36, Primitive, "char")
-            return this.__rgbAtrProxyArray
-        }
-    }
+    rgbAtr : Int8[36]
 
     /**
      * An array of <b>BYTE</b> values for the mask for the ATR with extra alignment bytes.
-     * @type {Array<Integer>}
      */
-    rgbMask {
-        get {
-            if(!this.HasProp("__rgbMaskProxyArray"))
-                this.__rgbMaskProxyArray := Win32FixedArray(this.ptr + 40, 36, Primitive, "char")
-            return this.__rgbMaskProxyArray
-        }
-    }
+    rgbMask : Int8[36]
+
 }

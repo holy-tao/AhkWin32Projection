@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether the encoder discards partial groups of pictures (GOPs) at the end of the stream. This enumeration is used with the AVEncCommonStreamEndHandling codec property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavenccommonstreamendhandling
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class eAVEncCommonStreamEndHandling extends Win32Enum {
+export default struct eAVEncCommonStreamEndHandling {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * If there is a partial GOP at the end of the stream, the encoder will discard it.

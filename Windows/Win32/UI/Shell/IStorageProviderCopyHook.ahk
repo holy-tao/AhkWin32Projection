@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines a method that determines whether the Shell will be allowed to move, copy, delete, or rename a folder in a cloud provider's sync root.
  * @see https://learn.microsoft.com/windows/win32/shell/nn-shobjidl-istorageprovidercopyhook
  * @namespace Windows.Win32.UI.Shell
  */
-class IStorageProviderCopyHook extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStorageProviderCopyHook extends IUnknown {
     /**
      * The interface identifier for IStorageProviderCopyHook
      * @type {Guid}
      */
-    static IID => Guid("{7bf992a9-af7a-4dba-b2e5-4d080b1ecbc6}")
+    static IID := Guid("{7bf992a9-af7a-4dba-b2e5-4d080b1ecbc6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStorageProviderCopyHook interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CopyCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CopyCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStorageProviderCopyHook.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the Shell will be allowed to move, copy, delete, or rename a folder in a cloud provider's sync root.
@@ -61,11 +71,30 @@ class IStorageProviderCopyHook extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/shell/nf-shobjidl-istorageprovidercopyhook-copycallback
      */
     CopyCallback(_hwnd, operation, flags, srcFile, srcAttribs, destFile, destAttribs) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         srcFile := srcFile is String ? StrPtr(srcFile) : srcFile
         destFile := destFile is String ? StrPtr(destFile) : destFile
 
-        result := ComCall(3, this, "ptr", _hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, "uint*", &result := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, "uint*", &result := 0, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStorageProviderCopyHook.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CopyCallback := CallbackCreate(GetMethod(implObj, "CopyCallback"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CopyCallback)
     }
 }

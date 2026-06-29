@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IDiscRecorder2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Base interface containing properties common to derived multisession interfaces.
@@ -11,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisession
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMultisession extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMultisession extends IDispatch {
     /**
      * The interface identifier for IMultisession
      * @type {Guid}
      */
-    static IID => Guid("{27354150-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354150-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultisession interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_IsSupportedOnCurrentMediaState : IntPtr
+        put_InUse                          : IntPtr
+        get_InUse                          : IntPtr
+        get_ImportRecorder                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IsSupportedOnCurrentMediaState", "put_InUse", "get_InUse", "get_ImportRecorder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultisession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -60,7 +72,7 @@ class IMultisession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_issupportedoncurrentmediastate
      */
     get_IsSupportedOnCurrentMediaState() {
-        result := ComCall(7, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -71,7 +83,7 @@ class IMultisession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-put_inuse
      */
     put_InUse(value) {
-        result := ComCall(8, this, "short", value, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -81,7 +93,7 @@ class IMultisession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_inuse
      */
     get_InUse() {
-        result := ComCall(9, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -95,5 +107,31 @@ class IMultisession extends IDispatch {
     get_ImportRecorder() {
         result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
         return IDiscRecorder2(value)
+    }
+
+    Query(iid) {
+        if (IMultisession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IsSupportedOnCurrentMediaState := CallbackCreate(GetMethod(implObj, "get_IsSupportedOnCurrentMediaState"), flags, 2)
+        this.vtbl.put_InUse := CallbackCreate(GetMethod(implObj, "put_InUse"), flags, 2)
+        this.vtbl.get_InUse := CallbackCreate(GetMethod(implObj, "get_InUse"), flags, 2)
+        this.vtbl.get_ImportRecorder := CallbackCreate(GetMethod(implObj, "get_ImportRecorder"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IsSupportedOnCurrentMediaState)
+        CallbackFree(this.vtbl.put_InUse)
+        CallbackFree(this.vtbl.get_InUse)
+        CallbackFree(this.vtbl.get_ImportRecorder)
     }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWbemClassObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the methods and properties of an object.
@@ -22,26 +25,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjectaccess
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemObjectAccess extends IWbemClassObject {
-
-    static sizeof => A_PtrSize
+export default struct IWbemObjectAccess extends IWbemClassObject {
     /**
      * The interface identifier for IWbemObjectAccess
      * @type {Guid}
      */
-    static IID => Guid("{49353c9a-516b-11d1-aea6-00c04fb68820}")
+    static IID := Guid("{49353c9a-516b-11d1-aea6-00c04fb68820}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemObjectAccess interfaces
+    */
+    struct Vtbl extends IWbemClassObject.Vtbl {
+        GetPropertyHandle       : IntPtr
+        WritePropertyValue      : IntPtr
+        ReadPropertyValue       : IntPtr
+        ReadDWORD               : IntPtr
+        WriteDWORD              : IntPtr
+        ReadQWORD               : IntPtr
+        WriteQWORD              : IntPtr
+        GetPropertyInfoByHandle : IntPtr
+        Lock                    : IntPtr
+        Unlock                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyHandle", "WritePropertyValue", "ReadPropertyValue", "ReadDWORD", "WriteDWORD", "ReadQWORD", "WriteQWORD", "GetPropertyInfoByHandle", "Lock", "Unlock"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemObjectAccess.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPropertyHandle method returns a unique handle that identifies a property. You can use this handle to identify properties when using IWbemObjectAccess methods to read or write property values.
@@ -154,7 +173,7 @@ class IWbemObjectAccess extends IWbemClassObject {
     GetPropertyInfoByHandle(lHandle, pstrName, pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "int", lHandle, "ptr", pstrName, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(34, this, "int", lHandle, BSTR.Ptr, pstrName, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -178,5 +197,43 @@ class IWbemObjectAccess extends IWbemClassObject {
     Unlock(lFlags) {
         result := ComCall(36, this, "int", lFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemObjectAccess.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyHandle := CallbackCreate(GetMethod(implObj, "GetPropertyHandle"), flags, 4)
+        this.vtbl.WritePropertyValue := CallbackCreate(GetMethod(implObj, "WritePropertyValue"), flags, 4)
+        this.vtbl.ReadPropertyValue := CallbackCreate(GetMethod(implObj, "ReadPropertyValue"), flags, 5)
+        this.vtbl.ReadDWORD := CallbackCreate(GetMethod(implObj, "ReadDWORD"), flags, 3)
+        this.vtbl.WriteDWORD := CallbackCreate(GetMethod(implObj, "WriteDWORD"), flags, 3)
+        this.vtbl.ReadQWORD := CallbackCreate(GetMethod(implObj, "ReadQWORD"), flags, 3)
+        this.vtbl.WriteQWORD := CallbackCreate(GetMethod(implObj, "WriteQWORD"), flags, 3)
+        this.vtbl.GetPropertyInfoByHandle := CallbackCreate(GetMethod(implObj, "GetPropertyInfoByHandle"), flags, 4)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 2)
+        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyHandle)
+        CallbackFree(this.vtbl.WritePropertyValue)
+        CallbackFree(this.vtbl.ReadPropertyValue)
+        CallbackFree(this.vtbl.ReadDWORD)
+        CallbackFree(this.vtbl.WriteDWORD)
+        CallbackFree(this.vtbl.ReadQWORD)
+        CallbackFree(this.vtbl.WriteQWORD)
+        CallbackFree(this.vtbl.GetPropertyInfoByHandle)
+        CallbackFree(this.vtbl.Lock)
+        CallbackFree(this.vtbl.Unlock)
     }
 }

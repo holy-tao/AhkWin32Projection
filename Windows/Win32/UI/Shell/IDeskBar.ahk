@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that enable desk bar manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ideskbar
  * @namespace Windows.Win32.UI.Shell
  */
-class IDeskBar extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IDeskBar extends IOleWindow {
     /**
      * The interface identifier for IDeskBar
      * @type {Guid}
      */
-    static IID => Guid("{eb0fe173-1a3a-11d0-89b3-00a0c90a90ac}")
+    static IID := Guid("{eb0fe173-1a3a-11d0-89b3-00a0c90a90ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeskBar interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        SetClient         : IntPtr
+        GetClient         : IntPtr
+        OnPosRectChangeDB : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetClient", "GetClient", "OnPosRectChangeDB"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeskBar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the client specified by punkClient.
@@ -68,7 +79,31 @@ class IDeskBar extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskbar-onposrectchangedb
      */
     OnPosRectChangeDB(prc) {
-        result := ComCall(7, this, "ptr", prc, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, prc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDeskBar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetClient := CallbackCreate(GetMethod(implObj, "SetClient"), flags, 2)
+        this.vtbl.GetClient := CallbackCreate(GetMethod(implObj, "GetClient"), flags, 2)
+        this.vtbl.OnPosRectChangeDB := CallbackCreate(GetMethod(implObj, "OnPosRectChangeDB"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetClient)
+        CallbackFree(this.vtbl.GetClient)
+        CallbackFree(this.vtbl.OnPosRectChangeDB)
     }
 }

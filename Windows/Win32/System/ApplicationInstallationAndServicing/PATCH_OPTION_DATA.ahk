@@ -1,84 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PATCH_INTERLEAVE_MAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PATCH_INTERLEAVE_MAP.ahk" { PATCH_INTERLEAVE_MAP }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class PATCH_OPTION_DATA extends Win32Struct {
-    static sizeof => 64
+export default struct PATCH_OPTION_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfThisStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfThisStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SymbolOptionFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SymbolOptionFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NewFileSymbolPath : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    NewFileSymbolPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OldFileSymbolPathArray : PSTR.Ptr
 
-    /**
-     * @type {Pointer<PSTR>}
-     */
-    OldFileSymbolPathArray {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ExtendedOptionFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtendedOptionFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SymLoadCallback : IntPtr
 
-    /**
-     * @type {Pointer<PPATCH_SYMLOAD_CALLBACK>}
-     */
-    SymLoadCallback {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SymLoadContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SymLoadContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    InterleaveMapArray : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<PATCH_INTERLEAVE_MAP>>}
-     */
-    InterleaveMapArray {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    MaxLzxWindowSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxLzxWindowSize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

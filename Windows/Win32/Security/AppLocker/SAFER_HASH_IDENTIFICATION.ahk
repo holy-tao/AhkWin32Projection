@@ -1,95 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_HEADER.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Cryptography\ALG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SAFER_IDENTIFICATION_HEADER.ahk" { SAFER_IDENTIFICATION_HEADER }
+#Import ".\SAFER_IDENTIFICATION_TYPES.ahk" { SAFER_IDENTIFICATION_TYPES }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Represents a hash identification rule.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_hash_identification
  * @namespace Windows.Win32.Security.AppLocker
  */
-class SAFER_HASH_IDENTIFICATION extends Win32Struct {
-    static sizeof => 1136
-
-    static packingSize => 8
+export default struct SAFER_HASH_IDENTIFICATION {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_identification_header">SAFER_IDENTIFICATION_HEADER</a> structure containing the structure header. The <b>dwIdentificationType</b> member  of the header must be <b>SaferIdentityTypeImageHash</b>, and the <b>cbStructSize</b> member  of the header must be sizeof(SAFER_HASH_IDENTIFICATION).
-     * @type {SAFER_IDENTIFICATION_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := SAFER_IDENTIFICATION_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : SAFER_IDENTIFICATION_HEADER
 
     /**
      * A description of the hash identification rule provided by the user.
-     * @type {String}
      */
-    Description {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
-    }
+    Description : WCHAR[256]
 
     /**
      * A human-readable name for the hash identification rule.
-     * @type {String}
      */
-    FriendlyName {
-        get => StrGet(this.ptr + 536, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 255, "UTF-16")
-    }
+    FriendlyName : WCHAR[256]
 
     /**
      * The size of the <b>ImageHash</b> member in bytes. For example, if the algorithm specified by the <b>HashAlgorithm</b> member is MD5, the size is 16.
-     * @type {Integer}
      */
-    HashSize {
-        get => NumGet(this, 1048, "uint")
-        set => NumPut("uint", value, this, 1048)
-    }
+    HashSize : UInt32
 
     /**
      * The computed hash of the code image.
-     * @type {Array<Integer>}
      */
-    ImageHash {
-        get {
-            if(!this.HasProp("__ImageHashProxyArray"))
-                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 1052, 64, Primitive, "char")
-            return this.__ImageHashProxyArray
-        }
-    }
+    ImageHash : Int8[64]
 
     /**
      * The algorithm used to compute the hash.
-     * @type {ALG_ID}
      */
-    HashAlgorithm {
-        get => NumGet(this, 1116, "uint")
-        set => NumPut("uint", value, this, 1116)
-    }
+    HashAlgorithm : ALG_ID
 
     /**
      * The size of the original file in bytes.
-     * @type {Integer}
      */
-    ImageSize {
-        get => NumGet(this, 1120, "int64")
-        set => NumPut("int64", value, this, 1120)
-    }
+    ImageSize : Int64
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwSaferFlags {
-        get => NumGet(this, 1128, "uint")
-        set => NumPut("uint", value, this, 1128)
-    }
+    dwSaferFlags : UInt32
+
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFARGB.ahk
-#Include .\MFAYUVSample.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MFAYUVSample.ahk" { MFAYUVSample }
 
 /**
  * Contains one palette entry in a color table.
@@ -10,32 +9,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfpaletteentry
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFPaletteEntry extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 1
+export default struct MFPaletteEntry {
+    #StructPack 1
 
     /**
      * [MFARGB](./ns-mfobjects-mfargb.md) structure that contains an RGB color.
-     * @type {MFARGB}
      */
-    ARGB {
-        get {
-            if(!this.HasProp("__ARGB"))
-                this.__ARGB := MFARGB(0, this)
-            return this.__ARGB
-        }
-    }
+    ARGB : MFARGB
 
-    /**
-     * [MFAYUVSample](./ns-mfobjects-mfayuvsample.md) structure that contains a Y'Cb'Cr' color.
-     * @type {MFAYUVSample}
-     */
-    AYCbCr {
-        get {
-            if(!this.HasProp("__AYCbCr"))
-                this.__AYCbCr := MFAYUVSample(0, this)
-            return this.__AYCbCr
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'AYCbCr', { type: MFAYUVSample, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

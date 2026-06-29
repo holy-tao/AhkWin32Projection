@@ -1,14 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHROMATICITY_COORDINATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CHROMATICITY_COORDINATE.ahk" { CHROMATICITY_COORDINATE }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct PANEL_BRIGHTNESS_SENSOR_DATA {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
      * - ChromaticityCoordinateValid
      * - ColorTemperatureValid
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -46,39 +40,14 @@ class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
         get => (this._bitfield >> 2) & 0x1
         set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
+    AlsReading : Float32
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ChromaticityCoordinate : CHROMATICITY_COORDINATE
 
-    /**
-     * @type {Float}
-     */
-    AlsReading {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    ColorTemperature : Float32
 
-    /**
-     * @type {CHROMATICITY_COORDINATE}
-     */
-    ChromaticityCoordinate {
-        get {
-            if(!this.HasProp("__ChromaticityCoordinate"))
-                this.__ChromaticityCoordinate := CHROMATICITY_COORDINATE(8, this)
-            return this.__ChromaticityCoordinate
-        }
-    }
-
-    /**
-     * @type {Float}
-     */
-    ColorTemperature {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Contains parameters used to describe a property page to a property frame. A property page fills a caller-provided structure in the IPropertyPage::GetPageInfo method.
@@ -9,65 +9,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-proppageinfo
  * @namespace Windows.Win32.System.Ole
  */
-class PROPPAGEINFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PROPPAGEINFO {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that contains the string that appears in the tab for this page. The string must be allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-getpageinfo">IPropertyPage::GetPageInfo</a> is responsible for freeing the memory with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {PWSTR}
      */
-    pszTitle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszTitle : PWSTR
 
     /**
      * Required dimensions of the page's dialog box, in pixels.
-     * @type {SIZE}
      */
-    size {
-        get {
-            if(!this.HasProp("__size"))
-                this.__size := SIZE(16, this)
-            return this.__size
-        }
-    }
+    size : SIZE
 
     /**
      * Pointer to a text string describing the page, which can be displayed in the property sheet dialog box (current frame implementation doesn't use this field). The text must be allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-getpageinfo">IPropertyPage::GetPageInfo</a> is responsible for freeing the memory with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {PWSTR}
      */
-    pszDocString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszDocString : PWSTR
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that contains the simple name of the help file that describes this property page used instead of implementing <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-help">IPropertyPage::Help</a>. When the user presses Help, the Help method is normally called. If that method fails, the frame will open the help system with this help file (prefixed with the value of the HelpDir key in the property page's registry entries under its CLSID) and will instruct the help system to display the context described by the <b>dwHelpContext</b> field. The path must be allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-getpageinfo">IPropertyPage::GetPageInfo</a> is responsible for freeing the memory with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {PWSTR}
      */
-    pszHelpFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszHelpFile : PWSTR
 
     /**
      * Context identifier for the help topic within <b>pszHelpFile</b> that describes this page.
-     * @type {Integer}
      */
-    dwHelpContext {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwHelpContext : UInt32
+
 }

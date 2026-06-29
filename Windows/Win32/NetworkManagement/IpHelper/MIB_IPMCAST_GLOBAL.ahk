@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores global information for IP multicast on a particular computer.
@@ -8,17 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_global
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_GLOBAL extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_GLOBAL {
+    #StructPack 4
 
     /**
      * Specifies whether IP multicast is enabled on the computer.
-     * @type {Integer}
      */
-    dwEnable {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwEnable : UInt32
+
 }

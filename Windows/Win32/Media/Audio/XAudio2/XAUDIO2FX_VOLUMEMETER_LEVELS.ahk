@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes parameters for use with the volume meter APO.
@@ -19,35 +18,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2fx/ns-xaudio2fx-xaudio2fx_volumemeter_levels
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAUDIO2FX_VOLUMEMETER_LEVELS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct XAUDIO2FX_VOLUMEMETER_LEVELS {
+    #StructPack 8
 
     /**
      * Array that will be filled with the maximum absolute level for each channel during a processing pass. The array must be at least <i>ChannelCount</i> × sizeof(float) bytes. <i>pPeakLevels</i> may be NULL if <i>pRMSLevels</i> is not NULL.
-     * @type {Pointer<Float>}
      */
-    pPeakLevels {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pPeakLevels : IntPtr
 
     /**
      * Array that will be filled with root mean square level for each channel during a processing pass. The array must be at least <i>ChannelCount</i> × sizeof(float) bytes. <i>pRMSLevels</i> may be NULL if <i>pPeakLevels</i> is not NULL.
-     * @type {Pointer<Float>}
      */
-    pRMSLevels {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pRMSLevels : IntPtr
 
     /**
      * Number of channels being processed.
-     * @type {Integer}
      */
-    ChannelCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ChannelCount : UInt32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DISCONNECT_CODE enum is used by the ITBasicCallControl::Disconnect method.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-disconnect_code
  * @namespace Windows.Win32.Devices.Tapi
  */
-class DISCONNECT_CODE extends Win32Enum {
+export default struct DISCONNECT_CODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The call is being disconnected as part of the normal cycle of the call.

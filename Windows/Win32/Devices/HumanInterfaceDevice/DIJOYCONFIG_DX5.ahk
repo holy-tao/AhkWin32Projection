@@ -1,67 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWCONFIG.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYREGHWVALUES.ahk
-#Include .\JOYRANGE.ahk
-#Include .\JOYPOS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOYREGHWVALUES.ahk" { JOYREGHWVALUES }
+#Import ".\JOYREGHWCONFIG.ahk" { JOYREGHWCONFIG }
+#Import ".\JOYRANGE.ahk" { JOYRANGE }
+#Import ".\JOYPOS.ahk" { JOYPOS }
+#Import ".\JOYREGHWSETTINGS.ahk" { JOYREGHWSETTINGS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIJOYCONFIG_DX5 extends Win32Struct {
-    static sizeof => 1160
+export default struct DIJOYCONFIG_DX5 {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    guidInstance : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hwc : JOYREGHWCONFIG
 
-    /**
-     * @type {JOYREGHWCONFIG}
-     */
-    hwc {
-        get {
-            if(!this.HasProp("__hwc"))
-                this.__hwc := JOYREGHWCONFIG(16, this)
-            return this.__hwc
-        }
-    }
+    dwGain : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwGain {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    wszType : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    wszType {
-        get => StrGet(this.ptr + 132, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
-    }
+    wszCallout : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    wszCallout {
-        get => StrGet(this.ptr + 644, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
-    }
 }

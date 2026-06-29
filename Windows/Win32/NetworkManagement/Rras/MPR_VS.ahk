@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * RRAS dials PPTP first. If PPTP fails, L2TP is attempted. The protocol that succeeds is tried first in subsequent dialing for this entry.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_2
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_VS extends Win32Enum {
+export default struct MPR_VS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

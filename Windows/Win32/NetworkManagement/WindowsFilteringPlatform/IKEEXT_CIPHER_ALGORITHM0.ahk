@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_CIPHER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_CIPHER_TYPE.ahk" { IKEEXT_CIPHER_TYPE }
 
 /**
  * Stores information about the IKE/AuthIP encryption algorithm.
@@ -9,37 +8,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_cipher_algorithm0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_CIPHER_ALGORITHM0 extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct IKEEXT_CIPHER_ALGORITHM0 {
+    #StructPack 4
 
     /**
      * The type of encryption algorithm.
      * 
      * See [IKEEXT_CIPHER_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cipher_type) for more information.
-     * @type {IKEEXT_CIPHER_TYPE}
      */
-    algoIdentifier {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    algoIdentifier : IKEEXT_CIPHER_TYPE
 
     /**
      * Unused parameter, always set it to 0.
-     * @type {Integer}
      */
-    keyLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    keyLen : UInt32
 
     /**
      * Unused parameter, always set it to 0.
-     * @type {Integer}
      */
-    rounds {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    rounds : UInt32
+
 }

@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Specifies the sparse state to be set.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_set_sparse_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class FILE_SET_SPARSE_BUFFER extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct FILE_SET_SPARSE_BUFFER {
+    #StructPack 1
 
     /**
      * If <b>TRUE</b>, makes the file sparse.
@@ -23,10 +21,7 @@ class FILE_SET_SPARSE_BUFFER extends Win32Struct {
      * <b>Windows Server 2003 and Windows XP:  </b>A value of <b>FALSE</b> for this member is not supported. Specifying 
      *         <b>FALSE</b> will cause the 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_set_sparse">FSCTL_SET_SPARSE</a> call to fail.
-     * @type {BOOLEAN}
      */
-    SetSparse {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    SetSparse : BOOLEAN
+
 }

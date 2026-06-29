@@ -1,37 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidWebDVDAdm extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidWebDVDAdm extends IDispatch {
     /**
      * The interface identifier for IMSVidWebDVDAdm
      * @type {Guid}
      */
-    static IID => Guid("{b8be681a-eb2c-47f0-b415-94d5452f0e05}")
+    static IID := Guid("{b8be681a-eb2c-47f0-b415-94d5452f0e05}")
 
     /**
      * The class identifier for MSVidWebDVDAdm
      * @type {Guid}
      */
-    static CLSID => Guid("{fa7c375b-66a7-4280-879d-fd459c84bb02}")
+    static CLSID := Guid("{fa7c375b-66a7-4280-879d-fd459c84bb02}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidWebDVDAdm interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        ChangePassword            : IntPtr
+        SaveParentalLevel         : IntPtr
+        SaveParentalCountry       : IntPtr
+        ConfirmPassword           : IntPtr
+        GetParentalLevel          : IntPtr
+        GetParentalCountry        : IntPtr
+        get_DefaultAudioLCID      : IntPtr
+        put_DefaultAudioLCID      : IntPtr
+        get_DefaultSubpictureLCID : IntPtr
+        put_DefaultSubpictureLCID : IntPtr
+        get_DefaultMenuLCID       : IntPtr
+        put_DefaultMenuLCID       : IntPtr
+        get_BookmarkOnStop        : IntPtr
+        put_BookmarkOnStop        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ChangePassword", "SaveParentalLevel", "SaveParentalCountry", "ConfirmPassword", "GetParentalLevel", "GetParentalCountry", "get_DefaultAudioLCID", "put_DefaultAudioLCID", "get_DefaultSubpictureLCID", "put_DefaultSubpictureLCID", "get_DefaultMenuLCID", "put_DefaultMenuLCID", "get_BookmarkOnStop", "put_BookmarkOnStop"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidWebDVDAdm.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -96,7 +119,7 @@ class IMSVidWebDVDAdm extends IDispatch {
         strOld := strOld is String ? BSTR.Alloc(strOld).Value : strOld
         strNew := strNew is String ? BSTR.Alloc(strNew).Value : strNew
 
-        result := ComCall(7, this, "ptr", strUserName, "ptr", strOld, "ptr", strNew, "HRESULT")
+        result := ComCall(7, this, BSTR, strUserName, BSTR, strOld, BSTR, strNew, "HRESULT")
         return result
     }
 
@@ -130,7 +153,7 @@ class IMSVidWebDVDAdm extends IDispatch {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(8, this, "int", level, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(8, this, "int", level, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -164,7 +187,7 @@ class IMSVidWebDVDAdm extends IDispatch {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(9, this, "int", country, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(9, this, "int", country, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -181,7 +204,7 @@ class IMSVidWebDVDAdm extends IDispatch {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(10, this, "ptr", strUserName, "ptr", strPassword, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, strUserName, BSTR, strPassword, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -271,7 +294,7 @@ class IMSVidWebDVDAdm extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_BookmarkOnStop() {
-        result := ComCall(19, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -281,7 +304,53 @@ class IMSVidWebDVDAdm extends IDispatch {
      * @returns {HRESULT} 
      */
     put_BookmarkOnStop(newVal) {
-        result := ComCall(20, this, "short", newVal, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidWebDVDAdm.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ChangePassword := CallbackCreate(GetMethod(implObj, "ChangePassword"), flags, 4)
+        this.vtbl.SaveParentalLevel := CallbackCreate(GetMethod(implObj, "SaveParentalLevel"), flags, 4)
+        this.vtbl.SaveParentalCountry := CallbackCreate(GetMethod(implObj, "SaveParentalCountry"), flags, 4)
+        this.vtbl.ConfirmPassword := CallbackCreate(GetMethod(implObj, "ConfirmPassword"), flags, 4)
+        this.vtbl.GetParentalLevel := CallbackCreate(GetMethod(implObj, "GetParentalLevel"), flags, 2)
+        this.vtbl.GetParentalCountry := CallbackCreate(GetMethod(implObj, "GetParentalCountry"), flags, 2)
+        this.vtbl.get_DefaultAudioLCID := CallbackCreate(GetMethod(implObj, "get_DefaultAudioLCID"), flags, 2)
+        this.vtbl.put_DefaultAudioLCID := CallbackCreate(GetMethod(implObj, "put_DefaultAudioLCID"), flags, 2)
+        this.vtbl.get_DefaultSubpictureLCID := CallbackCreate(GetMethod(implObj, "get_DefaultSubpictureLCID"), flags, 2)
+        this.vtbl.put_DefaultSubpictureLCID := CallbackCreate(GetMethod(implObj, "put_DefaultSubpictureLCID"), flags, 2)
+        this.vtbl.get_DefaultMenuLCID := CallbackCreate(GetMethod(implObj, "get_DefaultMenuLCID"), flags, 2)
+        this.vtbl.put_DefaultMenuLCID := CallbackCreate(GetMethod(implObj, "put_DefaultMenuLCID"), flags, 2)
+        this.vtbl.get_BookmarkOnStop := CallbackCreate(GetMethod(implObj, "get_BookmarkOnStop"), flags, 2)
+        this.vtbl.put_BookmarkOnStop := CallbackCreate(GetMethod(implObj, "put_BookmarkOnStop"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ChangePassword)
+        CallbackFree(this.vtbl.SaveParentalLevel)
+        CallbackFree(this.vtbl.SaveParentalCountry)
+        CallbackFree(this.vtbl.ConfirmPassword)
+        CallbackFree(this.vtbl.GetParentalLevel)
+        CallbackFree(this.vtbl.GetParentalCountry)
+        CallbackFree(this.vtbl.get_DefaultAudioLCID)
+        CallbackFree(this.vtbl.put_DefaultAudioLCID)
+        CallbackFree(this.vtbl.get_DefaultSubpictureLCID)
+        CallbackFree(this.vtbl.put_DefaultSubpictureLCID)
+        CallbackFree(this.vtbl.get_DefaultMenuLCID)
+        CallbackFree(this.vtbl.put_DefaultMenuLCID)
+        CallbackFree(this.vtbl.get_BookmarkOnStop)
+        CallbackFree(this.vtbl.put_BookmarkOnStop)
     }
 }

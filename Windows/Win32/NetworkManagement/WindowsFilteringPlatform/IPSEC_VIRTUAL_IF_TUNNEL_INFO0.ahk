@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Is used to store information specific to virtual interface tunneling.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-ipsec_virtual_if_tunnel_info0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_VIRTUAL_IF_TUNNEL_INFO0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct IPSEC_VIRTUAL_IF_TUNNEL_INFO0 {
+    #StructPack 8
 
     /**
      * ID of the  virtual interface tunnel state.
-     * @type {Integer}
      */
-    virtualIfTunnelId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    virtualIfTunnelId : Int64
 
     /**
      * ID of the virtual interface tunneling traffic selector(s).
-     * @type {Integer}
      */
-    trafficSelectorId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    trafficSelectorId : Int64
+
 }

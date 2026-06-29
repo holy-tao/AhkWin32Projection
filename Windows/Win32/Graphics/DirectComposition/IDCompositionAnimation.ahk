@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a function for animating one or more properties of one or more Microsoft DirectComposition objects.
  * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nn-dcompanimation-idcompositionanimation
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionAnimation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionAnimation extends IUnknown {
     /**
      * The interface identifier for IDCompositionAnimation
      * @type {Guid}
      */
-    static IID => Guid("{cbfd91d9-51b2-45e4-b3de-d19ccfb863c5}")
+    static IID := Guid("{cbfd91d9-51b2-45e4-b3de-d19ccfb863c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionAnimation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reset                : IntPtr
+        SetAbsoluteBeginTime : IntPtr
+        AddCubic             : IntPtr
+        AddSinusoidal        : IntPtr
+        AddRepeat            : IntPtr
+        End                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "SetAbsoluteBeginTime", "AddCubic", "AddSinusoidal", "AddRepeat", "End"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionAnimation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resets the animation function so that it contains no segments.
@@ -194,5 +207,35 @@ class IDCompositionAnimation extends IUnknown {
     End(endOffset, endValue) {
         result := ComCall(8, this, "double", endOffset, "float", endValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionAnimation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SetAbsoluteBeginTime := CallbackCreate(GetMethod(implObj, "SetAbsoluteBeginTime"), flags, 2)
+        this.vtbl.AddCubic := CallbackCreate(GetMethod(implObj, "AddCubic"), flags, 6)
+        this.vtbl.AddSinusoidal := CallbackCreate(GetMethod(implObj, "AddSinusoidal"), flags, 6)
+        this.vtbl.AddRepeat := CallbackCreate(GetMethod(implObj, "AddRepeat"), flags, 3)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetAbsoluteBeginTime)
+        CallbackFree(this.vtbl.AddCubic)
+        CallbackFree(this.vtbl.AddSinusoidal)
+        CallbackFree(this.vtbl.AddRepeat)
+        CallbackFree(this.vtbl.End)
     }
 }

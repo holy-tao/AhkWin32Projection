@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXCoreAdapterPreference.ahk" { DXCoreAdapterPreference }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The **IDXCoreAdapterList** interface implements methods for retrieving adapter items from a generated list, as well as details about the list.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class IDXCoreAdapterList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXCoreAdapterList extends IUnknown {
     /**
      * The interface identifier for IDXCoreAdapterList
      * @type {Guid}
      */
-    static IID => Guid("{526c7776-40e9-459b-b711-f32ad76dfc28}")
+    static IID := Guid("{526c7776-40e9-459b-b711-f32ad76dfc28}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXCoreAdapterList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAdapter                   : IntPtr
+        GetAdapterCount              : IntPtr
+        IsStale                      : IntPtr
+        GetFactory                   : IntPtr
+        Sort                         : IntPtr
+        IsAdapterPreferenceSupported : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAdapter", "GetAdapterCount", "IsStale", "GetFactory", "Sort", "IsAdapterPreferenceSupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXCoreAdapterList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a specific adapter by index from a DXCore adapter list object.
@@ -45,7 +59,7 @@ class IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getadapter
      */
     GetAdapter(index, riid) {
-        result := ComCall(3, this, "uint", index, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(3, this, "uint", index, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
         return ppvAdapter
     }
 
@@ -57,7 +71,7 @@ class IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getadaptercount
      */
     GetAdapterCount() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -71,7 +85,7 @@ class IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-isstale
      */
     IsStale() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, Int32)
         return result
     }
 
@@ -88,7 +102,7 @@ class IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getfactory
      */
     GetFactory(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &ppvFactory := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, "ptr*", &ppvFactory := 0, "HRESULT")
         return ppvFactory
     }
 
@@ -135,7 +149,37 @@ class IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-isadapterpreferencesupported
      */
     IsAdapterPreferenceSupported(preference) {
-        result := ComCall(8, this, "uint", preference, "int")
+        result := ComCall(8, this, DXCoreAdapterPreference, preference, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IDXCoreAdapterList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAdapter := CallbackCreate(GetMethod(implObj, "GetAdapter"), flags, 4)
+        this.vtbl.GetAdapterCount := CallbackCreate(GetMethod(implObj, "GetAdapterCount"), flags, 1)
+        this.vtbl.IsStale := CallbackCreate(GetMethod(implObj, "IsStale"), flags, 1)
+        this.vtbl.GetFactory := CallbackCreate(GetMethod(implObj, "GetFactory"), flags, 3)
+        this.vtbl.Sort := CallbackCreate(GetMethod(implObj, "Sort"), flags, 3)
+        this.vtbl.IsAdapterPreferenceSupported := CallbackCreate(GetMethod(implObj, "IsAdapterPreferenceSupported"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAdapter)
+        CallbackFree(this.vtbl.GetAdapterCount)
+        CallbackFree(this.vtbl.IsStale)
+        CallbackFree(this.vtbl.GetFactory)
+        CallbackFree(this.vtbl.Sort)
+        CallbackFree(this.vtbl.IsAdapterPreferenceSupported)
     }
 }

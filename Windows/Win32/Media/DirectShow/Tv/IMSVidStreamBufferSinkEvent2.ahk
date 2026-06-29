@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSinkEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidStreamBufferSinkEvent.ahk" { IMSVidStreamBufferSinkEvent }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidStreamBufferSinkEvent2 interface is used to receive events from the MSVidStreamBufferSink object.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersinkevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSinkEvent2 extends IMSVidStreamBufferSinkEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSinkEvent2 extends IMSVidStreamBufferSinkEvent {
     /**
      * The interface identifier for IMSVidStreamBufferSinkEvent2
      * @type {Guid}
      */
-    static IID => Guid("{3d7a5166-72d7-484b-a06f-286187b80ca1}")
+    static IID := Guid("{3d7a5166-72d7-484b-a06f-286187b80ca1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSinkEvent2 interfaces
+    */
+    struct Vtbl extends IMSVidStreamBufferSinkEvent.Vtbl {
+        EncryptionOn  : IntPtr
+        EncryptionOff : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EncryptionOn", "EncryptionOff"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSinkEvent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -85,5 +94,27 @@ class IMSVidStreamBufferSinkEvent2 extends IMSVidStreamBufferSinkEvent {
     EncryptionOff() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSinkEvent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EncryptionOn := CallbackCreate(GetMethod(implObj, "EncryptionOn"), flags, 1)
+        this.vtbl.EncryptionOff := CallbackCreate(GetMethod(implObj, "EncryptionOff"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EncryptionOn)
+        CallbackFree(this.vtbl.EncryptionOff)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMT_IMAGE_TYPE enumeration type defines the types of images that can be used for banner ads. This type is used as the value of the BannerImageType attribute.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_image_type
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMT_IMAGE_TYPE extends Win32Enum {
+export default struct WMT_IMAGE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * There is no image. If a <a href="https://docs.microsoft.com/windows/desktop/wmformat/bannerimagedata">BannerImageData</a> attribute in the file, it will be ignored.

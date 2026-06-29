@@ -1,55 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSM_BDA_PIN_PAIR extends Win32Struct {
-    static sizeof => 24
+export default struct KSM_BDA_PIN_PAIR {
+    #StructPack 8
 
-    static packingSize => 8
+    Method : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Method {
-        get {
-            if(!this.HasProp("__Method"))
-                this.__Method := KSIDENTIFIER(0, this)
-            return this.__Method
-        }
-    }
+    InputPinId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputPinId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OutputPinId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputPinType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    OutputPinId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    OutputPinType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'InputPinType', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'OutputPinType', { type: UInt32, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

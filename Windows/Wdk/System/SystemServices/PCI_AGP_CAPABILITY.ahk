@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_AGP_CAPABILITY extends Win32Struct {
-    static sizeof => 24
+export default struct PCI_AGP_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _PCI_AGP_STATUS extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _PCI_AGP_STATUS {
         /**
          * This bitfield backs the following members:
          * - Rate
@@ -29,12 +24,9 @@ class PCI_AGP_CAPABILITY extends Win32Struct {
          * - Isoch
          * - Rsvd2
          * - RequestQueueDepthMaximum
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -149,10 +141,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _PCI_AGP_COMMAND extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _PCI_AGP_COMMAND {
         /**
          * This bitfield backs the following members:
          * - Rate
@@ -167,12 +156,9 @@ class PCI_AGP_CAPABILITY extends Win32Struct {
          * - AsyncReqSize
          * - Rsvd3
          * - RequestQueueDepth
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -271,25 +257,16 @@ class PCI_AGP_CAPABILITY extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Header : IntPtr
 
     /**
      * This bitfield backs the following members:
      * - Minor
      * - Major
      * - Rsvd1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -314,26 +291,8 @@ class PCI_AGP_CAPABILITY extends Win32Struct {
         get => (this._bitfield >> 8) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
     }
+    AGPStatus : PCI_AGP_CAPABILITY._PCI_AGP_STATUS
 
-    /**
-     * @type {_PCI_AGP_STATUS}
-     */
-    AGPStatus {
-        get {
-            if(!this.HasProp("__AGPStatus"))
-                this.__AGPStatus := PCI_AGP_CAPABILITY._PCI_AGP_STATUS(12, this)
-            return this.__AGPStatus
-        }
-    }
+    AGPCommand : PCI_AGP_CAPABILITY._PCI_AGP_COMMAND
 
-    /**
-     * @type {_PCI_AGP_COMMAND}
-     */
-    AGPCommand {
-        get {
-            if(!this.HasProp("__AGPCommand"))
-                this.__AGPCommand := PCI_AGP_CAPABILITY._PCI_AGP_COMMAND(16, this)
-            return this.__AGPCommand
-        }
-    }
 }

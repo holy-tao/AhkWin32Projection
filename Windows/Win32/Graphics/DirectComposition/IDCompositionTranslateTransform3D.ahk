@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTransform3D.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Represents a 3D transformation that affects the offset of a visual along the x-axis, y-axis, and z-axis.
@@ -15,26 +17,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontranslatetransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionTranslateTransform3D extends IDCompositionTransform3D {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionTranslateTransform3D extends IDCompositionTransform3D {
     /**
      * The interface identifier for IDCompositionTranslateTransform3D
      * @type {Guid}
      */
-    static IID => Guid("{91636d4b-9ba1-4532-aaf7-e3344994d788}")
+    static IID := Guid("{91636d4b-9ba1-4532-aaf7-e3344994d788}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionTranslateTransform3D interfaces
+    */
+    struct Vtbl extends IDCompositionTransform3D.Vtbl {
+        SetOffsetX  : IntPtr
+        SetOffsetX1 : IntPtr
+        SetOffsetY  : IntPtr
+        SetOffsetY1 : IntPtr
+        SetOffsetZ  : IntPtr
+        SetOffsetZ1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOffsetX", "SetOffsetX1", "SetOffsetY", "SetOffsetY1", "SetOffsetZ", "SetOffsetZ1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionTranslateTransform3D.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Animates the value of the OffsetX property of a 3D translation transform effect. The OffsetX property specifies the distance to translate along the x-axis.
@@ -154,5 +168,35 @@ class IDCompositionTranslateTransform3D extends IDCompositionTransform3D {
     SetOffsetZ1(offsetZ) {
         result := ComCall(8, this, "float", offsetZ, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionTranslateTransform3D.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOffsetX := CallbackCreate(GetMethod(implObj, "SetOffsetX"), flags, 2)
+        this.vtbl.SetOffsetX1 := CallbackCreate(GetMethod(implObj, "SetOffsetX1"), flags, 2)
+        this.vtbl.SetOffsetY := CallbackCreate(GetMethod(implObj, "SetOffsetY"), flags, 2)
+        this.vtbl.SetOffsetY1 := CallbackCreate(GetMethod(implObj, "SetOffsetY1"), flags, 2)
+        this.vtbl.SetOffsetZ := CallbackCreate(GetMethod(implObj, "SetOffsetZ"), flags, 2)
+        this.vtbl.SetOffsetZ1 := CallbackCreate(GetMethod(implObj, "SetOffsetZ1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOffsetX)
+        CallbackFree(this.vtbl.SetOffsetX1)
+        CallbackFree(this.vtbl.SetOffsetY)
+        CallbackFree(this.vtbl.SetOffsetY1)
+        CallbackFree(this.vtbl.SetOffsetZ)
+        CallbackFree(this.vtbl.SetOffsetZ1)
     }
 }

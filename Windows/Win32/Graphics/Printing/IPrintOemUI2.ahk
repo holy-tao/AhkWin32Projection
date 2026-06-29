@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrintOemUI.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import ".\IPrintOemUI.ahk" { IPrintOemUI }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintOemUI2 extends IPrintOemUI {
-
-    static sizeof => A_PtrSize
+export default struct IPrintOemUI2 extends IPrintOemUI {
     /**
      * The interface identifier for IPrintOemUI2
      * @type {Guid}
      */
-    static IID => Guid("{292515f9-b54b-489b-9275-bab56821395e}")
+    static IID := Guid("{292515f9-b54b-489b-9275-bab56821395e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintOemUI2 interfaces
+    */
+    struct Vtbl extends IPrintOemUI.Vtbl {
+        QueryJobAttributes : IntPtr
+        HideStandardUI     : IntPtr
+        DocumentEvent      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryJobAttributes", "HideStandardUI", "DocumentEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintOemUI2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,11 +49,9 @@ class IPrintOemUI2 extends IPrintOemUI {
      * @returns {HRESULT} 
      */
     QueryJobAttributes(hPrinter, pDevmode, dwLevel, lpAttributeInfo) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         lpAttributeInfoMarshal := lpAttributeInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(17, this, "ptr", hPrinter, "ptr", pDevmode, "uint", dwLevel, lpAttributeInfoMarshal, lpAttributeInfo, "HRESULT")
+        result := ComCall(17, this, PRINTER_HANDLE, hPrinter, DEVMODEA.Ptr, pDevmode, "uint", dwLevel, lpAttributeInfoMarshal, lpAttributeInfo, "HRESULT")
         return result
     }
 
@@ -182,14 +193,35 @@ class IPrintOemUI2 extends IPrintOemUI {
      * @see https://learn.microsoft.com/windows/win32/printdocs/documentevent
      */
     DocumentEvent(hPrinter, _hdc, iEsc, cbIn, pvIn, cbOut, pvOut, piResult) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
         pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
         pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
         piResultMarshal := piResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "ptr", hPrinter, "ptr", _hdc, "int", iEsc, "uint", cbIn, pvInMarshal, pvIn, "uint", cbOut, pvOutMarshal, pvOut, piResultMarshal, piResult, "HRESULT")
+        result := ComCall(19, this, PRINTER_HANDLE, hPrinter, HDC, _hdc, "int", iEsc, "uint", cbIn, pvInMarshal, pvIn, "uint", cbOut, pvOutMarshal, pvOut, piResultMarshal, piResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintOemUI2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryJobAttributes := CallbackCreate(GetMethod(implObj, "QueryJobAttributes"), flags, 5)
+        this.vtbl.HideStandardUI := CallbackCreate(GetMethod(implObj, "HideStandardUI"), flags, 2)
+        this.vtbl.DocumentEvent := CallbackCreate(GetMethod(implObj, "DocumentEvent"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryJobAttributes)
+        CallbackFree(this.vtbl.HideStandardUI)
+        CallbackFree(this.vtbl.DocumentEvent)
     }
 }

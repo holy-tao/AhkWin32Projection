@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines a level-2 control query response from a domain controller.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-netlogon_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NETLOGON_INFO_2 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct NETLOGON_INFO_2 {
+    #StructPack 8
 
     /**
      * An integer value that contains one or more of the following control query responses from the DC.
@@ -108,37 +106,22 @@ class NETLOGON_INFO_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    netlog2_flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    netlog2_flags : UInt32
 
     /**
      * An enumerated integer value that contains a status code defined in Lmerr.h, with a value greater than 2100.   If <b>NETLOGON_VERIFY_STATUS_RETURNED</b> is set in <b>netlog2_flags</b>, this value represents the trust verification status of all domain members  collectively.
-     * @type {Integer}
      */
-    netlog2_pdc_connection_status {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    netlog2_pdc_connection_status : UInt32
 
     /**
      * A marshaled pointer to a string that contains the name of the trusted domain controller.
-     * @type {PWSTR}
      */
-    netlog2_trusted_dc_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    netlog2_trusted_dc_name : PWSTR
 
     /**
      * An enumerated integer value that contains a status code defined in Lmerr.h, with a value greater than 2100. This code shows the status of the secure channel to the specified trusted DC.
-     * @type {Integer}
      */
-    netlog2_tc_connection_status {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    netlog2_tc_connection_status : UInt32
+
 }

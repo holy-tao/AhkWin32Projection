@@ -1,48 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class WLOOP extends Win32Struct {
-    static sizeof => 16
+export default struct WLOOP {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulStart : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStart {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

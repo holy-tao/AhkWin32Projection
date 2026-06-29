@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WindowInteractionState.ahk" { WindowInteractionState }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WindowVisualState.ahk" { WindowVisualState }
 
 /**
  * Provides access to the fundamental functionality of a window.
@@ -10,26 +14,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationwindowpattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationWindowPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationWindowPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationWindowPattern
      * @type {Guid}
      */
-    static IID => Guid("{0faef453-9208-43ef-bbb2-3b485177864f}")
+    static IID := Guid("{0faef453-9208-43ef-bbb2-3b485177864f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationWindowPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Close                             : IntPtr
+        WaitForInputIdle                  : IntPtr
+        SetWindowVisualState              : IntPtr
+        get_CurrentCanMaximize            : IntPtr
+        get_CurrentCanMinimize            : IntPtr
+        get_CurrentIsModal                : IntPtr
+        get_CurrentIsTopmost              : IntPtr
+        get_CurrentWindowVisualState      : IntPtr
+        get_CurrentWindowInteractionState : IntPtr
+        get_CachedCanMaximize             : IntPtr
+        get_CachedCanMinimize             : IntPtr
+        get_CachedIsModal                 : IntPtr
+        get_CachedIsTopmost               : IntPtr
+        get_CachedWindowVisualState       : IntPtr
+        get_CachedWindowInteractionState  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Close", "WaitForInputIdle", "SetWindowVisualState", "get_CurrentCanMaximize", "get_CurrentCanMinimize", "get_CurrentIsModal", "get_CurrentIsTopmost", "get_CurrentWindowVisualState", "get_CurrentWindowInteractionState", "get_CachedCanMaximize", "get_CachedCanMinimize", "get_CachedIsModal", "get_CachedIsTopmost", "get_CachedWindowVisualState", "get_CachedWindowInteractionState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationWindowPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -140,7 +165,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-waitforinputidle
      */
     WaitForInputIdle(milliseconds) {
-        result := ComCall(4, this, "int", milliseconds, "int*", &success := 0, "HRESULT")
+        result := ComCall(4, this, "int", milliseconds, BOOL.Ptr, &success := 0, "HRESULT")
         return success
     }
 
@@ -153,7 +178,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-setwindowvisualstate
      */
     SetWindowVisualState(state) {
-        result := ComCall(5, this, "int", state, "HRESULT")
+        result := ComCall(5, this, WindowVisualState, state, "HRESULT")
         return result
     }
 
@@ -163,7 +188,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanmaximize
      */
     get_CurrentCanMaximize() {
-        result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -173,7 +198,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanminimize
      */
     get_CurrentCanMinimize() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -183,7 +208,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentismodal
      */
     get_CurrentIsModal() {
-        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -193,7 +218,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentistopmost
      */
     get_CurrentIsTopmost() {
-        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -223,7 +248,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanmaximize
      */
     get_CachedCanMaximize() {
-        result := ComCall(12, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -233,7 +258,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanminimize
      */
     get_CachedCanMinimize() {
-        result := ComCall(13, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -243,7 +268,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedismodal
      */
     get_CachedIsModal() {
-        result := ComCall(14, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(14, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -253,7 +278,7 @@ class IUIAutomationWindowPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedistopmost
      */
     get_CachedIsTopmost() {
-        result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -275,5 +300,53 @@ class IUIAutomationWindowPattern extends IUnknown {
     get_CachedWindowInteractionState() {
         result := ComCall(17, this, "int*", &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationWindowPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.WaitForInputIdle := CallbackCreate(GetMethod(implObj, "WaitForInputIdle"), flags, 3)
+        this.vtbl.SetWindowVisualState := CallbackCreate(GetMethod(implObj, "SetWindowVisualState"), flags, 2)
+        this.vtbl.get_CurrentCanMaximize := CallbackCreate(GetMethod(implObj, "get_CurrentCanMaximize"), flags, 2)
+        this.vtbl.get_CurrentCanMinimize := CallbackCreate(GetMethod(implObj, "get_CurrentCanMinimize"), flags, 2)
+        this.vtbl.get_CurrentIsModal := CallbackCreate(GetMethod(implObj, "get_CurrentIsModal"), flags, 2)
+        this.vtbl.get_CurrentIsTopmost := CallbackCreate(GetMethod(implObj, "get_CurrentIsTopmost"), flags, 2)
+        this.vtbl.get_CurrentWindowVisualState := CallbackCreate(GetMethod(implObj, "get_CurrentWindowVisualState"), flags, 2)
+        this.vtbl.get_CurrentWindowInteractionState := CallbackCreate(GetMethod(implObj, "get_CurrentWindowInteractionState"), flags, 2)
+        this.vtbl.get_CachedCanMaximize := CallbackCreate(GetMethod(implObj, "get_CachedCanMaximize"), flags, 2)
+        this.vtbl.get_CachedCanMinimize := CallbackCreate(GetMethod(implObj, "get_CachedCanMinimize"), flags, 2)
+        this.vtbl.get_CachedIsModal := CallbackCreate(GetMethod(implObj, "get_CachedIsModal"), flags, 2)
+        this.vtbl.get_CachedIsTopmost := CallbackCreate(GetMethod(implObj, "get_CachedIsTopmost"), flags, 2)
+        this.vtbl.get_CachedWindowVisualState := CallbackCreate(GetMethod(implObj, "get_CachedWindowVisualState"), flags, 2)
+        this.vtbl.get_CachedWindowInteractionState := CallbackCreate(GetMethod(implObj, "get_CachedWindowInteractionState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.WaitForInputIdle)
+        CallbackFree(this.vtbl.SetWindowVisualState)
+        CallbackFree(this.vtbl.get_CurrentCanMaximize)
+        CallbackFree(this.vtbl.get_CurrentCanMinimize)
+        CallbackFree(this.vtbl.get_CurrentIsModal)
+        CallbackFree(this.vtbl.get_CurrentIsTopmost)
+        CallbackFree(this.vtbl.get_CurrentWindowVisualState)
+        CallbackFree(this.vtbl.get_CurrentWindowInteractionState)
+        CallbackFree(this.vtbl.get_CachedCanMaximize)
+        CallbackFree(this.vtbl.get_CachedCanMinimize)
+        CallbackFree(this.vtbl.get_CachedIsModal)
+        CallbackFree(this.vtbl.get_CachedIsTopmost)
+        CallbackFree(this.vtbl.get_CachedWindowVisualState)
+        CallbackFree(this.vtbl.get_CachedWindowInteractionState)
     }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMDocument.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A collection of IXpsOMDocument interface pointers.
@@ -11,26 +12,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentcollection
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMDocumentCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMDocumentCollection extends IUnknown {
     /**
      * The interface identifier for IXpsOMDocumentCollection
      * @type {Guid}
      */
-    static IID => Guid("{d1c87f0d-e947-4754-8a25-971478f7e83e}")
+    static IID := Guid("{d1c87f0d-e947-4754-8a25-971478f7e83e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMDocumentCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetAt    : IntPtr
+        InsertAt : IntPtr
+        RemoveAt : IntPtr
+        SetAt    : IntPtr
+        Append   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt", "InsertAt", "RemoveAt", "SetAt", "Append"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMDocumentCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of IXpsOMDocument interface pointers in the collection.
@@ -115,5 +128,35 @@ class IXpsOMDocumentCollection extends IUnknown {
     Append(_document) {
         result := ComCall(8, this, "ptr", _document, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMDocumentCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.InsertAt := CallbackCreate(GetMethod(implObj, "InsertAt"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.SetAt := CallbackCreate(GetMethod(implObj, "SetAt"), flags, 3)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.InsertAt)
+        CallbackFree(this.vtbl.RemoveAt)
+        CallbackFree(this.vtbl.SetAt)
+        CallbackFree(this.vtbl.Append)
     }
 }

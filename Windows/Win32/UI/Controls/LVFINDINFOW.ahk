@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVFINDINFOW_FLAGS.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information used when searching for a list-view item. This structure is identical to LV_FINDINFO but has been renamed to fit standard naming conventions. (Unicode)
@@ -12,56 +13,35 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class LVFINDINFOW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct LVFINDINFOW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {LVFINDINFOW_FLAGS}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : LVFINDINFOW_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Address of a null-terminated string to compare with the item text. It is valid only if LVFI_STRING or LVFI_PARTIAL is set in the <b>flags</b> member.
-     * @type {PWSTR}
      */
-    psz {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    psz : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Value to compare with the <b>lParam</b> member of a list-view item's <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure. It is valid only if LVFI_PARAM is set in the <b>flags</b> member.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lParam : LPARAM
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure with the initial search position. It is valid only if LVFI_NEARESTXY is set in the <b>flags</b> member.
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(24, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -81,10 +61,7 @@ class LVFINDINFOW extends Win32Struct {
      * <li>VK_NEXT </li>
      * </ul>
      * This member is valid only if LVFI_NEARESTXY is set in the <b>flags</b> member.
-     * @type {Integer}
      */
-    vkDirection {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    vkDirection : UInt32
+
 }

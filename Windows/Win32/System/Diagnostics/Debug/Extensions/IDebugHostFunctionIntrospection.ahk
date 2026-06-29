@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugHostFunctionLocalDetailsEnumerator.ahk
-#Include .\IDebugHostSymbolEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDebugHostFunctionLocalDetailsEnumerator.ahk" { IDebugHostFunctionLocalDetailsEnumerator }
+#Import ".\Location.ahk" { Location }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostFunctionIntrospection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostFunctionIntrospection extends IUnknown {
     /**
      * The interface identifier for IDebugHostFunctionIntrospection
      * @type {Guid}
      */
-    static IID => Guid("{a754393c-4fbe-4178-8ad5-fe6079ac048d}")
+    static IID := Guid("{a754393c-4fbe-4178-8ad5-fe6079ac048d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostFunctionIntrospection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumerateLocalsDetails        : IntPtr
+        EnumerateInlineFunctionsByRVA : IntPtr
+        FindContainingCodeRangeByRVA  : IntPtr
+        FindSourceLocationByRVA       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumerateLocalsDetails", "EnumerateInlineFunctionsByRVA", "FindContainingCodeRangeByRVA", "FindSourceLocationByRVA"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostFunctionIntrospection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -56,7 +69,7 @@ class IDebugHostFunctionIntrospection extends IUnknown {
      * @returns {HRESULT} 
      */
     FindContainingCodeRangeByRVA(rva, rangeStart, rangeEnd) {
-        result := ComCall(5, this, "uint", rva, "ptr", rangeStart, "ptr", rangeEnd, "HRESULT")
+        result := ComCall(5, this, "uint", rva, Location.Ptr, rangeStart, Location.Ptr, rangeEnd, "HRESULT")
         return result
     }
 
@@ -70,7 +83,33 @@ class IDebugHostFunctionIntrospection extends IUnknown {
     FindSourceLocationByRVA(rva, _sourceFile, sourceLine) {
         sourceLineMarshal := sourceLine is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", rva, "ptr", _sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
+        result := ComCall(6, this, "uint", rva, BSTR.Ptr, _sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugHostFunctionIntrospection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumerateLocalsDetails := CallbackCreate(GetMethod(implObj, "EnumerateLocalsDetails"), flags, 2)
+        this.vtbl.EnumerateInlineFunctionsByRVA := CallbackCreate(GetMethod(implObj, "EnumerateInlineFunctionsByRVA"), flags, 3)
+        this.vtbl.FindContainingCodeRangeByRVA := CallbackCreate(GetMethod(implObj, "FindContainingCodeRangeByRVA"), flags, 4)
+        this.vtbl.FindSourceLocationByRVA := CallbackCreate(GetMethod(implObj, "FindSourceLocationByRVA"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumerateLocalsDetails)
+        CallbackFree(this.vtbl.EnumerateInlineFunctionsByRVA)
+        CallbackFree(this.vtbl.FindContainingCodeRangeByRVA)
+        CallbackFree(this.vtbl.FindSourceLocationByRVA)
     }
 }

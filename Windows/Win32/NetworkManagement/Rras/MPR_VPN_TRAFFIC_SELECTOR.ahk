@@ -1,77 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPR_VPN_TS_TYPE.ahk
-#Include .\VPN_TS_IP_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\VPN_TS_IP_ADDRESS.ahk" { VPN_TS_IP_ADDRESS }
+#Import ".\MPR_VPN_TS_TYPE.ahk" { MPR_VPN_TS_TYPE }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct {
-    static sizeof => 52
+export default struct MPR_VPN_TRAFFIC_SELECTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    type : MPR_VPN_TS_TYPE
 
-    /**
-     * @type {MPR_VPN_TS_TYPE}
-     */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    protocolId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    protocolId {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    portStart : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    portStart {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    portEnd : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    portEnd {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    tsPayloadId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    tsPayloadId {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    addrStart : VPN_TS_IP_ADDRESS
 
-    /**
-     * @type {VPN_TS_IP_ADDRESS}
-     */
-    addrStart {
-        get {
-            if(!this.HasProp("__addrStart"))
-                this.__addrStart := VPN_TS_IP_ADDRESS(12, this)
-            return this.__addrStart
-        }
-    }
+    addrEnd : VPN_TS_IP_ADDRESS
 
-    /**
-     * @type {VPN_TS_IP_ADDRESS}
-     */
-    addrEnd {
-        get {
-            if(!this.HasProp("__addrEnd"))
-                this.__addrEnd := VPN_TS_IP_ADDRESS(32, this)
-            return this.__addrEnd
-        }
-    }
 }

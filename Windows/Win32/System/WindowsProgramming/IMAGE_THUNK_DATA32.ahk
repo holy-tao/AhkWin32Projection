@@ -1,59 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class IMAGE_THUNK_DATA32 extends Win32Struct {
-    static sizeof => 4
+export default struct IMAGE_THUNK_DATA32 {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u1_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _u1 {
+        ForwarderString : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ForwarderString {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Function {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Ordinal {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AddressOfData {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Function', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'Ordinal', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'AddressOfData', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_u1_e__Union}
-     */
-    u1 {
-        get {
-            if(!this.HasProp("__u1"))
-                this.__u1 := IMAGE_THUNK_DATA32._u1_e__Union(0, this)
-            return this.__u1
-        }
-    }
+    u1 : IMAGE_THUNK_DATA32._u1
+
 }

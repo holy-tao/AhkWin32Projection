@@ -1,51 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_QualifierDecl.ahk
-#Include .\MI_ClassDecl.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_ClassDecl.ahk" { MI_ClassDecl }
+#Import ".\MI_QualifierDecl.ahk" { MI_QualifierDecl }
 
 /**
  * Represents the schema objects in a CIM schema, which include CIM classes and CIM qualifier declarations.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_schemadecl
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_SchemaDecl extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MI_SchemaDecl {
+    #StructPack 8
 
     /**
      * Qualifiers.
-     * @type {Pointer<Pointer<MI_QualifierDecl>>}
      */
-    qualifierDecls {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    qualifierDecls : IntPtr
 
     /**
      * Number of qualifiers.
-     * @type {Integer}
      */
-    numQualifierDecls {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    numQualifierDecls : UInt32
 
     /**
      * Classes in this schema.
-     * @type {Pointer<Pointer<MI_ClassDecl>>}
      */
-    classDecls {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    classDecls : IntPtr
 
     /**
      * Number of <b>classDecls</b>.
-     * @type {Integer}
      */
-    numClassDecls {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    numClassDecls : UInt32
+
 }

@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWICMetadataQueryWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICRect.ahk" { WICRect }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
  * Represents an encoder's individual image frames.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapframeencode
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapFrameEncode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapFrameEncode extends IUnknown {
     /**
      * The interface identifier for IWICBitmapFrameEncode
      * @type {Guid}
      */
-    static IID => Guid("{00000105-a8f2-4877-ba0a-fd2b6645fb94}")
+    static IID := Guid("{00000105-a8f2-4877-ba0a-fd2b6645fb94}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapFrameEncode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize             : IntPtr
+        SetSize                : IntPtr
+        SetResolution          : IntPtr
+        SetPixelFormat         : IntPtr
+        SetColorContexts       : IntPtr
+        SetPalette             : IntPtr
+        SetThumbnail           : IntPtr
+        WritePixels            : IntPtr
+        WriteSource            : IntPtr
+        Commit                 : IntPtr
+        GetMetadataQueryWriter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SetSize", "SetResolution", "SetPixelFormat", "SetColorContexts", "SetPalette", "SetThumbnail", "WritePixels", "WriteSource", "Commit", "GetMetadataQueryWriter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapFrameEncode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the frame encoder using the given properties.
@@ -130,7 +153,7 @@ class IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-setpixelformat
      */
     SetPixelFormat(pPixelFormat) {
-        result := ComCall(6, this, "ptr", pPixelFormat, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pPixelFormat, "HRESULT")
         return result
     }
 
@@ -163,7 +186,7 @@ class IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-setcolorcontexts
      */
     SetColorContexts(cCount, ppIColorContext) {
-        result := ComCall(7, this, "uint", cCount, "ptr*", ppIColorContext, "HRESULT")
+        result := ComCall(7, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContext, "HRESULT")
         return result
     }
 
@@ -315,7 +338,7 @@ class IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-writesource
      */
     WriteSource(pIBitmapSource, prc) {
-        result := ComCall(11, this, "ptr", pIBitmapSource, "ptr", prc, "HRESULT")
+        result := ComCall(11, this, "ptr", pIBitmapSource, WICRect.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -348,5 +371,45 @@ class IWICBitmapFrameEncode extends IUnknown {
     GetMetadataQueryWriter() {
         result := ComCall(13, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")
         return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
+    }
+
+    Query(iid) {
+        if (IWICBitmapFrameEncode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 3)
+        this.vtbl.SetResolution := CallbackCreate(GetMethod(implObj, "SetResolution"), flags, 3)
+        this.vtbl.SetPixelFormat := CallbackCreate(GetMethod(implObj, "SetPixelFormat"), flags, 2)
+        this.vtbl.SetColorContexts := CallbackCreate(GetMethod(implObj, "SetColorContexts"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.SetThumbnail := CallbackCreate(GetMethod(implObj, "SetThumbnail"), flags, 2)
+        this.vtbl.WritePixels := CallbackCreate(GetMethod(implObj, "WritePixels"), flags, 5)
+        this.vtbl.WriteSource := CallbackCreate(GetMethod(implObj, "WriteSource"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetMetadataQueryWriter := CallbackCreate(GetMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetSize)
+        CallbackFree(this.vtbl.SetResolution)
+        CallbackFree(this.vtbl.SetPixelFormat)
+        CallbackFree(this.vtbl.SetColorContexts)
+        CallbackFree(this.vtbl.SetPalette)
+        CallbackFree(this.vtbl.SetThumbnail)
+        CallbackFree(this.vtbl.WritePixels)
+        CallbackFree(this.vtbl.WriteSource)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.GetMetadataQueryWriter)
     }
 }

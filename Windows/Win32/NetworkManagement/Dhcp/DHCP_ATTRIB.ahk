@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines an attribute set on the DHCP server.
@@ -8,19 +8,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_attrib
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_ATTRIB extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DHCP_ATTRIB {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_ATTRIB_ID</a> structure that uniquely identifies the DHCP server attribute.
-     * @type {Integer}
      */
-    DhcpAttribId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DhcpAttribId : UInt32
 
     /**
      * Specifies exactly one of the following attribute types.
@@ -97,26 +91,13 @@ class DHCP_ATTRIB extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DhcpAttribType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DhcpAttribType : UInt32
 
-    /**
-     * @type {BOOL}
-     */
-    DhcpAttribBool {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DhcpAttribBool : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    DhcpAttribUlong {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'DhcpAttribUlong', { type: UInt32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of message passed in the COPYFILE2_MESSAGE structure to the CopyFile2ProgressRoutine callback function.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_message_type
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class COPYFILE2_MESSAGE_TYPE extends Win32Enum {
+export default struct COPYFILE2_MESSAGE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not a valid value.

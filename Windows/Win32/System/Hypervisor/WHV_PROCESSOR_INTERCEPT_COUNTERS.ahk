@@ -1,166 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_PROCESSOR_INTERCEPT_COUNTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_PROCESSOR_INTERCEPT_COUNTER.ahk" { WHV_PROCESSOR_INTERCEPT_COUNTER }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct {
-    static sizeof => 224
+export default struct WHV_PROCESSOR_INTERCEPT_COUNTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    PageInvalidations : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    PageInvalidations {
-        get {
-            if(!this.HasProp("__PageInvalidations"))
-                this.__PageInvalidations := WHV_PROCESSOR_INTERCEPT_COUNTER(0, this)
-            return this.__PageInvalidations
-        }
-    }
+    ControlRegisterAccesses : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    ControlRegisterAccesses {
-        get {
-            if(!this.HasProp("__ControlRegisterAccesses"))
-                this.__ControlRegisterAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(16, this)
-            return this.__ControlRegisterAccesses
-        }
-    }
+    IoInstructions : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    IoInstructions {
-        get {
-            if(!this.HasProp("__IoInstructions"))
-                this.__IoInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(32, this)
-            return this.__IoInstructions
-        }
-    }
+    HaltInstructions : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    HaltInstructions {
-        get {
-            if(!this.HasProp("__HaltInstructions"))
-                this.__HaltInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(48, this)
-            return this.__HaltInstructions
-        }
-    }
+    CpuidInstructions : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    CpuidInstructions {
-        get {
-            if(!this.HasProp("__CpuidInstructions"))
-                this.__CpuidInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(64, this)
-            return this.__CpuidInstructions
-        }
-    }
+    MsrAccesses : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    MsrAccesses {
-        get {
-            if(!this.HasProp("__MsrAccesses"))
-                this.__MsrAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(80, this)
-            return this.__MsrAccesses
-        }
-    }
+    OtherIntercepts : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    OtherIntercepts {
-        get {
-            if(!this.HasProp("__OtherIntercepts"))
-                this.__OtherIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(96, this)
-            return this.__OtherIntercepts
-        }
-    }
+    PendingInterrupts : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    PendingInterrupts {
-        get {
-            if(!this.HasProp("__PendingInterrupts"))
-                this.__PendingInterrupts := WHV_PROCESSOR_INTERCEPT_COUNTER(112, this)
-            return this.__PendingInterrupts
-        }
-    }
+    EmulatedInstructions : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    EmulatedInstructions {
-        get {
-            if(!this.HasProp("__EmulatedInstructions"))
-                this.__EmulatedInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(128, this)
-            return this.__EmulatedInstructions
-        }
-    }
+    DebugRegisterAccesses : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    DebugRegisterAccesses {
-        get {
-            if(!this.HasProp("__DebugRegisterAccesses"))
-                this.__DebugRegisterAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(144, this)
-            return this.__DebugRegisterAccesses
-        }
-    }
+    PageFaultIntercepts : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    PageFaultIntercepts {
-        get {
-            if(!this.HasProp("__PageFaultIntercepts"))
-                this.__PageFaultIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(160, this)
-            return this.__PageFaultIntercepts
-        }
-    }
+    NestedPageFaultIntercepts : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    NestedPageFaultIntercepts {
-        get {
-            if(!this.HasProp("__NestedPageFaultIntercepts"))
-                this.__NestedPageFaultIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(176, this)
-            return this.__NestedPageFaultIntercepts
-        }
-    }
+    Hypercalls : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    Hypercalls {
-        get {
-            if(!this.HasProp("__Hypercalls"))
-                this.__Hypercalls := WHV_PROCESSOR_INTERCEPT_COUNTER(192, this)
-            return this.__Hypercalls
-        }
-    }
+    RdpmcInstructions : WHV_PROCESSOR_INTERCEPT_COUNTER
 
-    /**
-     * @type {WHV_PROCESSOR_INTERCEPT_COUNTER}
-     */
-    RdpmcInstructions {
-        get {
-            if(!this.HasProp("__RdpmcInstructions"))
-                this.__RdpmcInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(208, this)
-            return this.__RdpmcInstructions
-        }
-    }
 }

@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows primary snap-ins to compare result items that are displayed in a sorted order in the result pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iresultdatacompare
  * @namespace Windows.Win32.System.Mmc
  */
-class IResultDataCompare extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IResultDataCompare extends IUnknown {
     /**
      * The interface identifier for IResultDataCompare
      * @type {Guid}
      */
-    static IID => Guid("{e8315a52-7a1a-11d0-a2d2-00c04fd909dd}")
+    static IID := Guid("{e8315a52-7a1a-11d0-a2d2-00c04fd909dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IResultDataCompare interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Compare : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Compare"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IResultDataCompare.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides a way for a primary snap-in to compare cookies for the purpose of sorting the result items that it inserts in the result pane.
@@ -56,7 +65,27 @@ class IResultDataCompare extends IUnknown {
     Compare(lUserParam, cookieA, cookieB, pnResult) {
         pnResultMarshal := pnResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", lUserParam, "ptr", cookieA, "ptr", cookieB, pnResultMarshal, pnResult, "HRESULT")
+        result := ComCall(3, this, LPARAM, lUserParam, "ptr", cookieA, "ptr", cookieB, pnResultMarshal, pnResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IResultDataCompare.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Compare)
     }
 }

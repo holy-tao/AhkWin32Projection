@@ -1,167 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class ACCESS_STATE extends Win32Struct {
-    static sizeof => 88
+export default struct ACCESS_STATE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Privileges_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Privileges {
+        InitialPrivilegeSet : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        InitialPrivilegeSet {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        PrivilegeSet {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'PrivilegeSet', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    OperationID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    OperationID : IntPtr
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SecurityEvaluated {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    SecurityEvaluated : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    GenerateAudit {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    GenerateAudit : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    GenerateOnClose {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    GenerateOnClose : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PrivilegesAllocated {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    PrivilegesAllocated : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RemainingDesiredAccess {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RemainingDesiredAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PreviouslyGrantedAccess {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PreviouslyGrantedAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OriginalDesiredAccess {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OriginalDesiredAccess : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    SubjectSecurityContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SubjectSecurityContext : IntPtr
 
-    /**
-     * @type {PSECURITY_DESCRIPTOR}
-     */
-    SecurityDescriptor {
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(40, this)
-            return this.__SecurityDescriptor
-        }
-    }
+    SecurityDescriptor : PSECURITY_DESCRIPTOR
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    AuxData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    AuxData : IntPtr
 
-    /**
-     * @type {_Privileges_e__Union}
-     */
-    Privileges {
-        get {
-            if(!this.HasProp("__Privileges"))
-                this.__Privileges := ACCESS_STATE._Privileges_e__Union(56, this)
-            return this.__Privileges
-        }
-    }
+    Privileges : ACCESS_STATE._Privileges
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AuditPrivileges {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
-    }
+    AuditPrivileges : BOOLEAN
 
-    /**
-     * @type {Pointer}
-     */
-    ObjectName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ObjectName : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ObjectTypeName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ObjectTypeName : IntPtr
+
 }

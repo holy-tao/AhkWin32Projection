@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DS_REPSYNCALL_ERROR enumeration is used with the DS_REPSYNCALL_ERRINFO structure to indicate where in the replication process an error occurred.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repsyncall_error
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_REPSYNCALL_ERROR extends Win32Enum {
+export default struct DS_REPSYNCALL_ERROR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The server referred to by the <b>pszSvrId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structure cannot be contacted.

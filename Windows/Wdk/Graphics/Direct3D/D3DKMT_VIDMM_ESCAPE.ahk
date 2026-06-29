@@ -1,30 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_VIDMMESCAPETYPE.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DKMT_VAD_ESCAPE_COMMAND.ahk
-#Include .\D3DKMT_DEFRAG_ESCAPE_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_VAD_ESCAPE_COMMAND.ahk" { D3DKMT_VAD_ESCAPE_COMMAND }
+#Import ".\D3DKMT_DEFRAG_ESCAPE_OPERATION.ahk" { D3DKMT_DEFRAG_ESCAPE_OPERATION }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DKMT_VIDMMESCAPETYPE.ahk" { D3DKMT_VIDMMESCAPETYPE }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_VIDMM_ESCAPE extends Win32Struct {
-    static sizeof => 48
+export default struct D3DKMT_VIDMM_ESCAPE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {D3DKMT_VIDMMESCAPETYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    class _SetFault extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _SetFault {
         /**
          * This bitfield backs the following members:
          * - ProbeAndLock
@@ -43,12 +32,9 @@ class D3DKMT_VIDMM_ESCAPE extends Win32Struct {
          * - NeverDiscardOfferedAllocation
          * - AlwaysDiscardOfferedAllocation
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -169,537 +155,142 @@ class D3DKMT_VIDMM_ESCAPE extends Win32Struct {
             get => (this._bitfield >> 14) & 0x1
             set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
         }
-
-        /**
-         * @type {Integer}
-         */
-        Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Evict extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _Evict {
+        ResourceHandle : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ResourceHandle {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        AllocationHandle : UInt32
+
+        hProcess : HANDLE
+
+    }
+
+    struct _EvictByNtHandle {
+        NtHandle : Int64
+
+    }
+
+    struct _GetVads {
+
+        struct _GetNumVads {
+            NumVads : UInt32
+
         }
 
-        /**
-         * @type {Integer}
-         */
-        AllocationHandle {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        GetNumVads : D3DKMT_VIDMM_ESCAPE._GetVads._GetNumVads
 
-        /**
-         * @type {HANDLE}
-         */
-        hProcess {
-            get {
-                if(!this.HasProp("__hProcess"))
-                    this.__hProcess := HANDLE(8, this)
-                return this.__hProcess
-            }
+        Command : D3DKMT_VAD_ESCAPE_COMMAND
+
+        Status : NTSTATUS
+
+        static __New() {
+            DefineProp(this.Prototype, 'GetVad', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'GetVadRange', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'GetGpuMmuCaps', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'GetPte', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'GetSegmentCaps', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _EvictByNtHandle extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _SetBudget {
+        LocalMemoryBudget : Int64
 
-        /**
-         * @type {Integer}
-         */
-        NtHandle {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        SystemMemoryBudget : Int64
+
     }
 
-    class _GetVads extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _SuspendProcess {
+        hProcess : HANDLE
 
-        class _GetNumVads extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        bAllowWakeOnSubmission : BOOL
 
-            /**
-             * @type {Integer}
-             */
-            NumVads {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-        }
-
-        /**
-         * @type {_GetNumVads}
-         */
-        GetNumVads {
-            get {
-                if(!this.HasProp("__GetNumVads"))
-                    this.__GetNumVads := D3DKMT_VIDMM_ESCAPE._GetVads._GetNumVads(0, this)
-                return this.__GetNumVads
-            }
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        GetVad {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        GetVadRange {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        GetGpuMmuCaps {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        GetPte {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        GetSegmentCaps {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {D3DKMT_VAD_ESCAPE_COMMAND}
-         */
-        Command {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
-        }
-
-        /**
-         * @type {NTSTATUS}
-         */
-        Status {
-            get => NumGet(this, 12, "int")
-            set => NumPut("int", value, this, 12)
-        }
     }
 
-    class _SetBudget extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _ResumeProcess {
+        hProcess : HANDLE
 
-        /**
-         * @type {Integer}
-         */
-        LocalMemoryBudget {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SystemMemoryBudget {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    class _SuspendProcess extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _GetBudget {
+        NumBytesToTrim : Int64
 
-        /**
-         * @type {HANDLE}
-         */
-        hProcess {
-            get {
-                if(!this.HasProp("__hProcess"))
-                    this.__hProcess := HANDLE(0, this)
-                return this.__hProcess
-            }
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        bAllowWakeOnSubmission {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
-        }
     }
 
-    class _ResumeProcess extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _SetTrimIntervals {
+        MinTrimInterval : UInt32
 
-        /**
-         * @type {HANDLE}
-         */
-        hProcess {
-            get {
-                if(!this.HasProp("__hProcess"))
-                    this.__hProcess := HANDLE(0, this)
-                return this.__hProcess
-            }
-        }
+        MaxTrimInterval : UInt32
+
+        IdleTrimInterval : UInt32
+
     }
 
-    class _GetBudget extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Wake {
+        bFlush : BOOL
 
-        /**
-         * @type {Integer}
-         */
-        NumBytesToTrim {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
     }
 
-    class _SetTrimIntervals extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _Defrag {
+        Operation : D3DKMT_DEFRAG_ESCAPE_OPERATION
 
-        /**
-         * @type {Integer}
-         */
-        MinTrimInterval {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        SegmentId : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MaxTrimInterval {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        TotalCommitted : Int64
 
-        /**
-         * @type {Integer}
-         */
-        IdleTrimInterval {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        TotalFree : Int64
+
+        LargestGapBefore : Int64
+
+        LargestGapAfter : Int64
+
     }
 
-    class _Wake extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _DelayExecution {
+        hPagingQueue : UInt32
 
-        /**
-         * @type {BOOL}
-         */
-        bFlush {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+        PhysicalAdapterIndex : UInt32
+
+        Milliseconds : UInt32
+
+        PagingFenceValue : Int64
+
     }
 
-    class _Defrag extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _VerifyIntegrity {
+        SegmentId : UInt32
 
-        /**
-         * @type {D3DKMT_DEFRAG_ESCAPE_OPERATION}
-         */
-        Operation {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SegmentId {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        TotalCommitted {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        TotalFree {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        LargestGapBefore {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        LargestGapAfter {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
     }
 
-    class _DelayExecution extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _DelayedEvictionConfig {
+        TimerValue : Int64
 
-        /**
-         * @type {Integer}
-         */
-        hPagingQueue {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PhysicalAdapterIndex {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Milliseconds {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PagingFenceValue {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
     }
 
-    class _VerifyIntegrity extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    Type : D3DKMT_VIDMMESCAPETYPE
 
-        /**
-         * @type {Integer}
-         */
-        SegmentId {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
+    SetFault : D3DKMT_VIDMM_ESCAPE._SetFault
 
-    class _DelayedEvictionConfig extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        TimerValue {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
-    }
-
-    /**
-     * @type {_SetFault}
-     */
-    SetFault {
-        get {
-            if(!this.HasProp("__SetFault"))
-                this.__SetFault := D3DKMT_VIDMM_ESCAPE._SetFault(8, this)
-            return this.__SetFault
-        }
-    }
-
-    /**
-     * @type {_Evict}
-     */
-    Evict {
-        get {
-            if(!this.HasProp("__Evict"))
-                this.__Evict := D3DKMT_VIDMM_ESCAPE._Evict(8, this)
-            return this.__Evict
-        }
-    }
-
-    /**
-     * @type {_EvictByNtHandle}
-     */
-    EvictByNtHandle {
-        get {
-            if(!this.HasProp("__EvictByNtHandle"))
-                this.__EvictByNtHandle := D3DKMT_VIDMM_ESCAPE._EvictByNtHandle(8, this)
-            return this.__EvictByNtHandle
-        }
-    }
-
-    /**
-     * @type {_GetVads}
-     */
-    GetVads {
-        get {
-            if(!this.HasProp("__GetVads"))
-                this.__GetVads := D3DKMT_VIDMM_ESCAPE._GetVads(8, this)
-            return this.__GetVads
-        }
-    }
-
-    /**
-     * @type {_SetBudget}
-     */
-    SetBudget {
-        get {
-            if(!this.HasProp("__SetBudget"))
-                this.__SetBudget := D3DKMT_VIDMM_ESCAPE._SetBudget(8, this)
-            return this.__SetBudget
-        }
-    }
-
-    /**
-     * @type {_SuspendProcess}
-     */
-    SuspendProcess {
-        get {
-            if(!this.HasProp("__SuspendProcess"))
-                this.__SuspendProcess := D3DKMT_VIDMM_ESCAPE._SuspendProcess(8, this)
-            return this.__SuspendProcess
-        }
-    }
-
-    /**
-     * @type {_ResumeProcess}
-     */
-    ResumeProcess {
-        get {
-            if(!this.HasProp("__ResumeProcess"))
-                this.__ResumeProcess := D3DKMT_VIDMM_ESCAPE._ResumeProcess(8, this)
-            return this.__ResumeProcess
-        }
-    }
-
-    /**
-     * @type {_GetBudget}
-     */
-    GetBudget {
-        get {
-            if(!this.HasProp("__GetBudget"))
-                this.__GetBudget := D3DKMT_VIDMM_ESCAPE._GetBudget(8, this)
-            return this.__GetBudget
-        }
-    }
-
-    /**
-     * @type {_SetTrimIntervals}
-     */
-    SetTrimIntervals {
-        get {
-            if(!this.HasProp("__SetTrimIntervals"))
-                this.__SetTrimIntervals := D3DKMT_VIDMM_ESCAPE._SetTrimIntervals(8, this)
-            return this.__SetTrimIntervals
-        }
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    EvictByCriteria {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {_Wake}
-     */
-    Wake {
-        get {
-            if(!this.HasProp("__Wake"))
-                this.__Wake := D3DKMT_VIDMM_ESCAPE._Wake(8, this)
-            return this.__Wake
-        }
-    }
-
-    /**
-     * @type {_Defrag}
-     */
-    Defrag {
-        get {
-            if(!this.HasProp("__Defrag"))
-                this.__Defrag := D3DKMT_VIDMM_ESCAPE._Defrag(8, this)
-            return this.__Defrag
-        }
-    }
-
-    /**
-     * @type {_DelayExecution}
-     */
-    DelayExecution {
-        get {
-            if(!this.HasProp("__DelayExecution"))
-                this.__DelayExecution := D3DKMT_VIDMM_ESCAPE._DelayExecution(8, this)
-            return this.__DelayExecution
-        }
-    }
-
-    /**
-     * @type {_VerifyIntegrity}
-     */
-    VerifyIntegrity {
-        get {
-            if(!this.HasProp("__VerifyIntegrity"))
-                this.__VerifyIntegrity := D3DKMT_VIDMM_ESCAPE._VerifyIntegrity(8, this)
-            return this.__VerifyIntegrity
-        }
-    }
-
-    /**
-     * @type {_DelayedEvictionConfig}
-     */
-    DelayedEvictionConfig {
-        get {
-            if(!this.HasProp("__DelayedEvictionConfig"))
-                this.__DelayedEvictionConfig := D3DKMT_VIDMM_ESCAPE._DelayedEvictionConfig(8, this)
-            return this.__DelayedEvictionConfig
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Evict', { type: D3DKMT_VIDMM_ESCAPE._Evict, offset: 8 })
+        DefineProp(this.Prototype, 'EvictByNtHandle', { type: D3DKMT_VIDMM_ESCAPE._EvictByNtHandle, offset: 8 })
+        DefineProp(this.Prototype, 'GetVads', { type: D3DKMT_VIDMM_ESCAPE._GetVads, offset: 8 })
+        DefineProp(this.Prototype, 'SetBudget', { type: D3DKMT_VIDMM_ESCAPE._SetBudget, offset: 8 })
+        DefineProp(this.Prototype, 'SuspendProcess', { type: D3DKMT_VIDMM_ESCAPE._SuspendProcess, offset: 8 })
+        DefineProp(this.Prototype, 'ResumeProcess', { type: D3DKMT_VIDMM_ESCAPE._ResumeProcess, offset: 8 })
+        DefineProp(this.Prototype, 'GetBudget', { type: D3DKMT_VIDMM_ESCAPE._GetBudget, offset: 8 })
+        DefineProp(this.Prototype, 'SetTrimIntervals', { type: D3DKMT_VIDMM_ESCAPE._SetTrimIntervals, offset: 8 })
+        DefineProp(this.Prototype, 'EvictByCriteria', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'Wake', { type: D3DKMT_VIDMM_ESCAPE._Wake, offset: 8 })
+        DefineProp(this.Prototype, 'Defrag', { type: D3DKMT_VIDMM_ESCAPE._Defrag, offset: 8 })
+        DefineProp(this.Prototype, 'DelayExecution', { type: D3DKMT_VIDMM_ESCAPE._DelayExecution, offset: 8 })
+        DefineProp(this.Prototype, 'VerifyIntegrity', { type: D3DKMT_VIDMM_ESCAPE._VerifyIntegrity, offset: 8 })
+        DefineProp(this.Prototype, 'DelayedEvictionConfig', { type: D3DKMT_VIDMM_ESCAPE._DelayedEvictionConfig, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

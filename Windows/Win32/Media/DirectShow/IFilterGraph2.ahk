@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IGraphBuilder.ahk
-#Include .\IBaseFilter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import ".\IPin.ahk" { IPin }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
  * The IFilterGraph2 interface extends the IFilterGraph and IGraphBuilder interfaces, which contain methods for building filter graphs.The Filter Graph Manager implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltergraph2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFilterGraph2 extends IGraphBuilder {
-
-    static sizeof => A_PtrSize
+export default struct IFilterGraph2 extends IGraphBuilder {
     /**
      * The interface identifier for IFilterGraph2
      * @type {Guid}
      */
-    static IID => Guid("{36b73882-c2c8-11cf-8b46-00805f6cef60}")
+    static IID := Guid("{36b73882-c2c8-11cf-8b46-00805f6cef60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilterGraph2 interfaces
+    */
+    struct Vtbl extends IGraphBuilder.Vtbl {
+        AddSourceFilterForMoniker : IntPtr
+        ReconnectEx               : IntPtr
+        RenderEx                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddSourceFilterForMoniker", "ReconnectEx", "RenderEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilterGraph2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AddSourceFilterForMoniker method creates a source filter from an IMoniker pointer and adds the filter to the graph.
@@ -121,7 +136,7 @@ class IFilterGraph2 extends IGraphBuilder {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph2-reconnectex
      */
     ReconnectEx(ppin, pmt) {
-        result := ComCall(19, this, "ptr", ppin, "ptr", pmt, "HRESULT")
+        result := ComCall(19, this, "ptr", ppin, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return result
     }
 
@@ -137,5 +152,29 @@ class IFilterGraph2 extends IGraphBuilder {
 
         result := ComCall(20, this, "ptr", pPinOut, "uint", dwFlags, "uint*", pvContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFilterGraph2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddSourceFilterForMoniker := CallbackCreate(GetMethod(implObj, "AddSourceFilterForMoniker"), flags, 5)
+        this.vtbl.ReconnectEx := CallbackCreate(GetMethod(implObj, "ReconnectEx"), flags, 3)
+        this.vtbl.RenderEx := CallbackCreate(GetMethod(implObj, "RenderEx"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddSourceFilterForMoniker)
+        CallbackFree(this.vtbl.ReconnectEx)
+        CallbackFree(this.vtbl.RenderEx)
     }
 }

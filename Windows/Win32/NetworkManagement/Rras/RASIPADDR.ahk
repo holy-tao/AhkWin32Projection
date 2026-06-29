@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASIPADDR extends Win32Struct {
-    static sizeof => 4
+export default struct RASIPADDR {
+    #StructPack 1
 
-    static packingSize => 1
+    a : Int8
 
-    /**
-     * @type {Integer}
-     */
-    a {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    b : Int8
 
-    /**
-     * @type {Integer}
-     */
-    b {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    c : Int8
 
-    /**
-     * @type {Integer}
-     */
-    c {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    d : Int8
 
-    /**
-     * @type {Integer}
-     */
-    d {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

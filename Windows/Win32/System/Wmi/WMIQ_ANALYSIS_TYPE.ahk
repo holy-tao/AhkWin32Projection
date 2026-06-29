@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains constants used to specify the type of analysis to perform by using the GetAnalysis method.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ne-wmiutils-wmiq_analysis_type
  * @namespace Windows.Win32.System.Wmi
  */
-class WMIQ_ANALYSIS_TYPE extends Win32Enum {
+export default struct WMIQ_ANALYSIS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Used if the query has a SELECT clause. When this type of analysis is used,  <i>pAnalysis</i> points to an <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnencodedquery">SWbemRpnEncodedQuery</a> structure.

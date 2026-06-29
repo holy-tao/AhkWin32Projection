@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CMSG_RECIPIENT_ENCODE_INFO.ahk
-#Include .\BCRYPT_KEY_HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CMSG_RECIPIENT_ENCODE_INFO.ahk" { CMSG_RECIPIENT_ENCODE_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.
@@ -45,43 +46,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_content_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct CMSG_CONTENT_ENCRYPT_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP). If the <b>fCNG</b> member is <b>FALSE</b> and the <b>hCryptProv</b> member is <b>NULL</b> upon input, <b>hCryptProv</b> must be updated by the callback function. If a provider is acquired that must be released, the <b>CMSG_CONTENT_ENCRYPT_RELEASE_CONTEXT_FLAG</b> must be set in the <b>dwFlags</b> member.
-     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get {
-            if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
-            return this.__hCryptProv
-        }
-    }
+    hCryptProv : HCRYPTPROV_LEGACY
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the key. If the callback function updates either the <b>pszObjId</b> member or the <b>Parameters</b> member of the <b>CRYPT_ALGORITHM_IDENTIFIER</b> structure, set the appropriate value in the <b>dwFlags</b> member. You must allocate and free memory for these values by using the <b>pfnAlloc</b> and <b>pfnFree</b> members.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    ContentEncryptionAlgorithm {
-        get {
-            if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
-            return this.__ContentEncryptionAlgorithm
-        }
-    }
+    ContentEncryptionAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A pointer to a structure that depends on the encryption algorithm. The following table lists possible algorithm IDs and the corresponding member content.
@@ -119,76 +100,35 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct {
      *  
      * 
      * For all other encryption algorithms, this value is <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pvEncryptionAuxInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pvEncryptionAuxInfo : IntPtr
 
     /**
      * A value that specifies the number of recipients of a message.
-     * @type {Integer}
      */
-    cRecipients {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cRecipients : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_recipient_encode_info">CMSG_RECIPIENT_ENCODE_INFO</a> structures that contain the message recipient information.
-     * @type {Pointer<CMSG_RECIPIENT_ENCODE_INFO>}
      */
-    rgCmsRecipients {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    rgCmsRecipients : CMSG_RECIPIENT_ENCODE_INFO.Ptr
 
     /**
      * A pointer to an installable function used to allocate memory for an updated member.
-     * @type {Pointer<PFN_CMSG_ALLOC>}
      */
-    pfnAlloc {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pfnAlloc : IntPtr
 
     /**
      * A pointer to an installable function used to free memory allocated by <b>pfnAlloc</b>.
-     * @type {Pointer<PFN_CMSG_FREE>}
      */
-    pfnFree {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pfnFree : IntPtr
 
     /**
      * A value that indicates whether the encoded output should be padded with zeros to obtain a consistent maximum length required for definite-length streaming in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength">CryptMsgCalculateEncodedLength</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> functions.
-     * @type {Integer}
      */
-    dwEncryptFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwEncryptFlags : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    hContentEncryptKey {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
-
-    /**
-     * @type {BCRYPT_KEY_HANDLE}
-     */
-    hCNGContentEncryptKey {
-        get {
-            if(!this.HasProp("__hCNGContentEncryptKey"))
-                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(88, this)
-            return this.__hCNGContentEncryptKey
-        }
-    }
+    hContentEncryptKey : IntPtr
 
     /**
      * A value that indicates whether memory must be freed for the <b>hCryptProv</b> or <b>ContentEncryptionAlgorithm</b> members.
@@ -232,12 +172,8 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwFlags : UInt32
 
     /**
      * A value that indicates whether to use a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Cryptography API: Next Generation</a> (CNG) provider to generate the content encryption key.
@@ -245,42 +181,26 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct {
      * If the <b>fCNG</b> member is <b>FALSE</b>, the <b>CMSG_OID_GEN_CONTENT_ENCRYPT_KEY_FUNC</b> function is called to update the <b>hContentEncryptKey</b> member.
      * 
      * If the <b>fCNG</b> member is <b>TRUE</b>, the  <b>CMSG_OID_CNG_GEN_CONTENT_ENCRYPT_KEY_FUNC</b> function is called to update the <b>hCNGContentEncryptKey</b> and <b>cbContentEncryptKey</b> members, and the <b>pbCNGContentEncryptKeyObject</b> and <b>pbContentEncryptKey</b> members must be allocated by the <b>pfnAlloc</b> member. Free and release the content encryption key by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> function.
-     * @type {BOOL}
      */
-    fCNG {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    fCNG : BOOL
 
     /**
      * A pointer to the buffer that contains the CNG content encryption key.
-     * @type {Pointer<Integer>}
      */
-    pbCNGContentEncryptKeyObject {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pbCNGContentEncryptKeyObject : IntPtr
 
     /**
      * A pointer to the buffer that contains a CAPI1 content encryption key.
-     * @type {Pointer<Integer>}
      */
-    pbContentEncryptKey {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    pbContentEncryptKey : IntPtr
 
     /**
      * The size, in bytes, of the <b>pbCNGContentEncryptKeyObject</b> or <b>pbContentEncryptKey</b> member depending on the value of the <b>fCNG</b> member.
-     * @type {Integer}
      */
-    cbContentEncryptKey {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    cbContentEncryptKey : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 128
+    static __New() {
+        DefineProp(this.Prototype, 'hCNGContentEncryptKey', { type: BCRYPT_KEY_HANDLE, offset: 88 })
+        this.DeleteProp("__New")
     }
 }

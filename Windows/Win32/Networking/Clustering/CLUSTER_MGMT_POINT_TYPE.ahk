@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSTER_MGMT_POINT_TYPE enumeration (msclus.h) specifies the type of the management point for the cluster.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_mgmt_point_type
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_MGMT_POINT_TYPE extends Win32Enum {
+export default struct CLUSTER_MGMT_POINT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The cluster has no management point.

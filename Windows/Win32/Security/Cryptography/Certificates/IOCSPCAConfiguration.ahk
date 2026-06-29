@@ -1,35 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a set of definitions that enable an Online Certificate Status Protocol (OCSP) service to respond to a certificate status request for a specific certification authority (CA).
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspcaconfiguration
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IOCSPCAConfiguration extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IOCSPCAConfiguration extends IDispatch {
     /**
      * The interface identifier for IOCSPCAConfiguration
      * @type {Guid}
      */
-    static IID => Guid("{aec92b40-3d46-433f-87d1-b84d5c1e790d}")
+    static IID := Guid("{aec92b40-3d46-433f-87d1-b84d5c1e790d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOCSPCAConfiguration interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Identifier                 : IntPtr
+        get_CACertificate              : IntPtr
+        get_HashAlgorithm              : IntPtr
+        put_HashAlgorithm              : IntPtr
+        get_SigningFlags               : IntPtr
+        put_SigningFlags               : IntPtr
+        get_SigningCertificate         : IntPtr
+        put_SigningCertificate         : IntPtr
+        get_ReminderDuration           : IntPtr
+        put_ReminderDuration           : IntPtr
+        get_ErrorCode                  : IntPtr
+        get_CSPName                    : IntPtr
+        get_KeySpec                    : IntPtr
+        get_ProviderCLSID              : IntPtr
+        put_ProviderCLSID              : IntPtr
+        get_ProviderProperties         : IntPtr
+        put_ProviderProperties         : IntPtr
+        get_Modified                   : IntPtr
+        get_LocalRevocationInformation : IntPtr
+        put_LocalRevocationInformation : IntPtr
+        get_SigningCertificateTemplate : IntPtr
+        put_SigningCertificateTemplate : IntPtr
+        get_CAConfig                   : IntPtr
+        put_CAConfig                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Identifier", "get_CACertificate", "get_HashAlgorithm", "put_HashAlgorithm", "get_SigningFlags", "put_SigningFlags", "get_SigningCertificate", "put_SigningCertificate", "get_ReminderDuration", "put_ReminderDuration", "get_ErrorCode", "get_CSPName", "get_KeySpec", "get_ProviderCLSID", "put_ProviderCLSID", "get_ProviderProperties", "put_ProviderProperties", "get_Modified", "get_LocalRevocationInformation", "put_LocalRevocationInformation", "get_SigningCertificateTemplate", "put_SigningCertificateTemplate", "get_CAConfig", "put_CAConfig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOCSPCAConfiguration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -153,8 +185,8 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_identifier
      */
     get_Identifier() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -167,7 +199,7 @@ class IOCSPCAConfiguration extends IDispatch {
      */
     get_CACertificate() {
         pVal := VARIANT()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -177,8 +209,8 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_hashalgorithm
      */
     get_HashAlgorithm() {
-        pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -191,7 +223,7 @@ class IOCSPCAConfiguration extends IDispatch {
     put_HashAlgorithm(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(10, this, "ptr", newVal, "HRESULT")
+        result := ComCall(10, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -355,7 +387,7 @@ class IOCSPCAConfiguration extends IDispatch {
      */
     get_SigningCertificate() {
         pVal := VARIANT()
-        result := ComCall(13, this, "ptr", pVal, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -366,7 +398,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_signingcertificate
      */
     put_SigningCertificate(newVal) {
-        result := ComCall(14, this, "ptr", newVal, "HRESULT")
+        result := ComCall(14, this, VARIANT, newVal, "HRESULT")
         return result
     }
 
@@ -417,8 +449,8 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_cspname
      */
     get_CSPName() {
-        pVal := BSTR()
-        result := ComCall(18, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -445,8 +477,8 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_providerclsid
      */
     get_ProviderCLSID() {
-        pVal := BSTR()
-        result := ComCall(20, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -459,7 +491,7 @@ class IOCSPCAConfiguration extends IDispatch {
     put_ProviderCLSID(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(21, this, "ptr", newVal, "HRESULT")
+        result := ComCall(21, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -520,7 +552,7 @@ class IOCSPCAConfiguration extends IDispatch {
      */
     get_ProviderProperties() {
         pVal := VARIANT()
-        result := ComCall(22, this, "ptr", pVal, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -577,7 +609,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_providerproperties
      */
     put_ProviderProperties(newVal) {
-        result := ComCall(23, this, "ptr", newVal, "HRESULT")
+        result := ComCall(23, this, VARIANT, newVal, "HRESULT")
         return result
     }
 
@@ -587,7 +619,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_modified
      */
     get_Modified() {
-        result := ComCall(24, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -600,7 +632,7 @@ class IOCSPCAConfiguration extends IDispatch {
      */
     get_LocalRevocationInformation() {
         pVal := VARIANT()
-        result := ComCall(25, this, "ptr", pVal, "HRESULT")
+        result := ComCall(25, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -613,7 +645,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_localrevocationinformation
      */
     put_LocalRevocationInformation(newVal) {
-        result := ComCall(26, this, "ptr", newVal, "HRESULT")
+        result := ComCall(26, this, VARIANT, newVal, "HRESULT")
         return result
     }
 
@@ -623,8 +655,8 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificatetemplate
      */
     get_SigningCertificateTemplate() {
-        pVal := BSTR()
-        result := ComCall(27, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -637,7 +669,7 @@ class IOCSPCAConfiguration extends IDispatch {
     put_SigningCertificateTemplate(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(28, this, "ptr", newVal, "HRESULT")
+        result := ComCall(28, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -647,8 +679,8 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_caconfig
      */
     get_CAConfig() {
-        pVal := BSTR()
-        result := ComCall(29, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -661,7 +693,73 @@ class IOCSPCAConfiguration extends IDispatch {
     put_CAConfig(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(30, this, "ptr", newVal, "HRESULT")
+        result := ComCall(30, this, BSTR, newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOCSPCAConfiguration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Identifier := CallbackCreate(GetMethod(implObj, "get_Identifier"), flags, 2)
+        this.vtbl.get_CACertificate := CallbackCreate(GetMethod(implObj, "get_CACertificate"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_SigningFlags := CallbackCreate(GetMethod(implObj, "get_SigningFlags"), flags, 2)
+        this.vtbl.put_SigningFlags := CallbackCreate(GetMethod(implObj, "put_SigningFlags"), flags, 2)
+        this.vtbl.get_SigningCertificate := CallbackCreate(GetMethod(implObj, "get_SigningCertificate"), flags, 2)
+        this.vtbl.put_SigningCertificate := CallbackCreate(GetMethod(implObj, "put_SigningCertificate"), flags, 2)
+        this.vtbl.get_ReminderDuration := CallbackCreate(GetMethod(implObj, "get_ReminderDuration"), flags, 2)
+        this.vtbl.put_ReminderDuration := CallbackCreate(GetMethod(implObj, "put_ReminderDuration"), flags, 2)
+        this.vtbl.get_ErrorCode := CallbackCreate(GetMethod(implObj, "get_ErrorCode"), flags, 2)
+        this.vtbl.get_CSPName := CallbackCreate(GetMethod(implObj, "get_CSPName"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.get_ProviderCLSID := CallbackCreate(GetMethod(implObj, "get_ProviderCLSID"), flags, 2)
+        this.vtbl.put_ProviderCLSID := CallbackCreate(GetMethod(implObj, "put_ProviderCLSID"), flags, 2)
+        this.vtbl.get_ProviderProperties := CallbackCreate(GetMethod(implObj, "get_ProviderProperties"), flags, 2)
+        this.vtbl.put_ProviderProperties := CallbackCreate(GetMethod(implObj, "put_ProviderProperties"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
+        this.vtbl.get_LocalRevocationInformation := CallbackCreate(GetMethod(implObj, "get_LocalRevocationInformation"), flags, 2)
+        this.vtbl.put_LocalRevocationInformation := CallbackCreate(GetMethod(implObj, "put_LocalRevocationInformation"), flags, 2)
+        this.vtbl.get_SigningCertificateTemplate := CallbackCreate(GetMethod(implObj, "get_SigningCertificateTemplate"), flags, 2)
+        this.vtbl.put_SigningCertificateTemplate := CallbackCreate(GetMethod(implObj, "put_SigningCertificateTemplate"), flags, 2)
+        this.vtbl.get_CAConfig := CallbackCreate(GetMethod(implObj, "get_CAConfig"), flags, 2)
+        this.vtbl.put_CAConfig := CallbackCreate(GetMethod(implObj, "put_CAConfig"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Identifier)
+        CallbackFree(this.vtbl.get_CACertificate)
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
+        CallbackFree(this.vtbl.get_SigningFlags)
+        CallbackFree(this.vtbl.put_SigningFlags)
+        CallbackFree(this.vtbl.get_SigningCertificate)
+        CallbackFree(this.vtbl.put_SigningCertificate)
+        CallbackFree(this.vtbl.get_ReminderDuration)
+        CallbackFree(this.vtbl.put_ReminderDuration)
+        CallbackFree(this.vtbl.get_ErrorCode)
+        CallbackFree(this.vtbl.get_CSPName)
+        CallbackFree(this.vtbl.get_KeySpec)
+        CallbackFree(this.vtbl.get_ProviderCLSID)
+        CallbackFree(this.vtbl.put_ProviderCLSID)
+        CallbackFree(this.vtbl.get_ProviderProperties)
+        CallbackFree(this.vtbl.put_ProviderProperties)
+        CallbackFree(this.vtbl.get_Modified)
+        CallbackFree(this.vtbl.get_LocalRevocationInformation)
+        CallbackFree(this.vtbl.put_LocalRevocationInformation)
+        CallbackFree(this.vtbl.get_SigningCertificateTemplate)
+        CallbackFree(this.vtbl.put_SigningCertificateTemplate)
+        CallbackFree(this.vtbl.get_CAConfig)
+        CallbackFree(this.vtbl.put_CAConfig)
     }
 }

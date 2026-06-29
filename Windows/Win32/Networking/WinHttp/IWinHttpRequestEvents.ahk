@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Provides events for Microsoft Windows HTTP Services (WinHTTP).
@@ -26,26 +28,36 @@
  * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequestevents-interface
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class IWinHttpRequestEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWinHttpRequestEvents extends IUnknown {
     /**
      * The interface identifier for IWinHttpRequestEvents
      * @type {Guid}
      */
-    static IID => Guid("{f97f4e15-b787-4212-80d1-d380cbbf982e}")
+    static IID := Guid("{f97f4e15-b787-4212-80d1-d380cbbf982e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWinHttpRequestEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnResponseStart         : IntPtr
+        OnResponseDataAvailable : IntPtr
+        OnResponseFinished      : IntPtr
+        OnError                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnResponseStart", "OnResponseDataAvailable", "OnResponseFinished", "OnError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWinHttpRequestEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Occurs when the response data starts to be received.
@@ -64,7 +76,7 @@ class IWinHttpRequestEvents extends IUnknown {
     OnResponseStart(_Status, ContentType) {
         ContentType := ContentType is String ? BSTR.Alloc(ContentType).Value : ContentType
 
-        ComCall(3, this, "int", _Status, "ptr", ContentType)
+        ComCall(3, this, "int", _Status, BSTR, ContentType)
     }
 
     /**
@@ -111,6 +123,32 @@ class IWinHttpRequestEvents extends IUnknown {
     OnError(ErrorNumber, ErrorDescription) {
         ErrorDescription := ErrorDescription is String ? BSTR.Alloc(ErrorDescription).Value : ErrorDescription
 
-        ComCall(6, this, "int", ErrorNumber, "ptr", ErrorDescription)
+        ComCall(6, this, "int", ErrorNumber, BSTR, ErrorDescription)
+    }
+
+    Query(iid) {
+        if (IWinHttpRequestEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnResponseStart := CallbackCreate(GetMethod(implObj, "OnResponseStart"), flags, 3)
+        this.vtbl.OnResponseDataAvailable := CallbackCreate(GetMethod(implObj, "OnResponseDataAvailable"), flags, 2)
+        this.vtbl.OnResponseFinished := CallbackCreate(GetMethod(implObj, "OnResponseFinished"), flags, 1)
+        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnResponseStart)
+        CallbackFree(this.vtbl.OnResponseDataAvailable)
+        CallbackFree(this.vtbl.OnResponseFinished)
+        CallbackFree(this.vtbl.OnError)
     }
 }

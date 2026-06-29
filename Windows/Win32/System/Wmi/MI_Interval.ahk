@@ -1,85 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MI_Interval represents an interval of time.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_interval
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Interval extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct MI_Interval {
+    #StructPack 4
 
     /**
      * The number of days in the interval. (0-99999999)
-     * @type {Integer}
      */
-    days {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    days : UInt32
 
     /**
      * The remaining number of hours in the interval. (0-23)
-     * @type {Integer}
      */
-    hours {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hours : UInt32
 
     /**
      * The remaining number of minutes in the interval. (0-59)
-     * @type {Integer}
      */
-    minutes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    minutes : UInt32
 
     /**
      * The remaining number of seconds in the interval. (0-59)
-     * @type {Integer}
      */
-    seconds {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    seconds : UInt32
 
     /**
      * The remaining number of microseconds in the interval. (0-999999)
-     * @type {Integer}
      */
-    microseconds {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    microseconds : UInt32
 
     /**
      * Reserved. The <b>MI_Interval</b> structure is padded to have the same size as <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_timestamp">MI_Timestamp</a>.
-     * @type {Integer}
      */
-    __padding1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    __padding1 : UInt32
 
     /**
      * Reserved. The <b>MI_Interval</b> structure is padded to have the same size as <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_timestamp">MI_Timestamp</a>.
-     * @type {Integer}
      */
-    __padding2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    __padding2 : UInt32
 
     /**
      * Reserved. The <b>MI_Interval</b> structure is padded to have the same size as <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_timestamp">MI_Timestamp</a>.
-     * @type {Integer}
      */
-    __padding3 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    __padding3 : UInt32
+
 }

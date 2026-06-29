@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Optional parameters for configuring a call on a client side service operation.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_call_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CALL_PROPERTY_ID extends Win32Enum {
+export default struct WS_CALL_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An application can suppress or enable must understand header processing 

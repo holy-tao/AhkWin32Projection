@@ -1,40 +1,74 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\PanelType.ahk" { PanelType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IPenInputPanel)
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-ipeninputpanel
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IPenInputPanel extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IPenInputPanel extends IDispatch {
     /**
      * The interface identifier for IPenInputPanel
      * @type {Guid}
      */
-    static IID => Guid("{fa7a4083-5747-4040-a182-0b0e9fd4fac7}")
+    static IID := Guid("{fa7a4083-5747-4040-a182-0b0e9fd4fac7}")
 
     /**
      * The class identifier for PenInputPanel
      * @type {Guid}
      */
-    static CLSID => Guid("{f744e496-1b5a-489e-81dc-fbd7ac6298a8}")
+    static CLSID := Guid("{f744e496-1b5a-489e-81dc-fbd7ac6298a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPenInputPanel interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Busy               : IntPtr
+        get_Factoid            : IntPtr
+        put_Factoid            : IntPtr
+        get_AttachedEditWindow : IntPtr
+        put_AttachedEditWindow : IntPtr
+        get_CurrentPanel       : IntPtr
+        put_CurrentPanel       : IntPtr
+        get_DefaultPanel       : IntPtr
+        put_DefaultPanel       : IntPtr
+        get_Visible            : IntPtr
+        put_Visible            : IntPtr
+        get_Top                : IntPtr
+        get_Left               : IntPtr
+        get_Width              : IntPtr
+        get_Height             : IntPtr
+        get_VerticalOffset     : IntPtr
+        put_VerticalOffset     : IntPtr
+        get_HorizontalOffset   : IntPtr
+        put_HorizontalOffset   : IntPtr
+        get_AutoShow           : IntPtr
+        put_AutoShow           : IntPtr
+        MoveTo                 : IntPtr
+        CommitPendingInput     : IntPtr
+        Refresh                : IntPtr
+        EnableTsf              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Busy", "get_Factoid", "put_Factoid", "get_AttachedEditWindow", "put_AttachedEditWindow", "get_CurrentPanel", "put_CurrentPanel", "get_DefaultPanel", "put_DefaultPanel", "get_Visible", "put_Visible", "get_Top", "get_Left", "get_Width", "get_Height", "get_VerticalOffset", "put_VerticalOffset", "get_HorizontalOffset", "put_HorizontalOffset", "get_AutoShow", "put_AutoShow", "MoveTo", "CommitPendingInput", "Refresh", "EnableTsf"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPenInputPanel.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -141,7 +175,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_busy
      */
     get_Busy() {
-        result := ComCall(7, this, "short*", &Busy := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &Busy := 0, "HRESULT")
         return Busy
     }
 
@@ -172,8 +206,8 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_factoid
      */
     get_Factoid() {
-        Factoid := BSTR()
-        result := ComCall(8, this, "ptr", Factoid, "HRESULT")
+        Factoid := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, Factoid, "HRESULT")
         return Factoid
     }
 
@@ -207,7 +241,7 @@ class IPenInputPanel extends IDispatch {
     put_Factoid(Factoid) {
         Factoid := Factoid is String ? BSTR.Alloc(Factoid).Value : Factoid
 
-        result := ComCall(9, this, "ptr", Factoid, "HRESULT")
+        result := ComCall(9, this, BSTR, Factoid, "HRESULT")
         return result
     }
 
@@ -269,7 +303,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_currentpanel
      */
     put_CurrentPanel(CurrentPanel) {
-        result := ComCall(13, this, "int", CurrentPanel, "HRESULT")
+        result := ComCall(13, this, PanelType, CurrentPanel, "HRESULT")
         return result
     }
 
@@ -314,7 +348,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_defaultpanel
      */
     put_DefaultPanel(DefaultPanel) {
-        result := ComCall(15, this, "int", DefaultPanel, "HRESULT")
+        result := ComCall(15, this, PanelType, DefaultPanel, "HRESULT")
         return result
     }
 
@@ -326,7 +360,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_visible
      */
     get_Visible() {
-        result := ComCall(16, this, "short*", &Visible := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &Visible := 0, "HRESULT")
         return Visible
     }
 
@@ -336,7 +370,7 @@ class IPenInputPanel extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Visible(Visible) {
-        result := ComCall(17, this, "short", Visible, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, Visible, "HRESULT")
         return result
     }
 
@@ -462,7 +496,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_autoshow
      */
     get_AutoShow() {
-        result := ComCall(26, this, "short*", &pAutoShow := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &pAutoShow := 0, "HRESULT")
         return pAutoShow
     }
 
@@ -475,7 +509,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_autoshow
      */
     put_AutoShow(AutoShow) {
-        result := ComCall(27, this, "short", AutoShow, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, AutoShow, "HRESULT")
         return result
     }
 
@@ -748,7 +782,75 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-enabletsf
      */
     EnableTsf(Enable) {
-        result := ComCall(31, this, "short", Enable, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL, Enable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPenInputPanel.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Busy := CallbackCreate(GetMethod(implObj, "get_Busy"), flags, 2)
+        this.vtbl.get_Factoid := CallbackCreate(GetMethod(implObj, "get_Factoid"), flags, 2)
+        this.vtbl.put_Factoid := CallbackCreate(GetMethod(implObj, "put_Factoid"), flags, 2)
+        this.vtbl.get_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "get_AttachedEditWindow"), flags, 2)
+        this.vtbl.put_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "put_AttachedEditWindow"), flags, 2)
+        this.vtbl.get_CurrentPanel := CallbackCreate(GetMethod(implObj, "get_CurrentPanel"), flags, 2)
+        this.vtbl.put_CurrentPanel := CallbackCreate(GetMethod(implObj, "put_CurrentPanel"), flags, 2)
+        this.vtbl.get_DefaultPanel := CallbackCreate(GetMethod(implObj, "get_DefaultPanel"), flags, 2)
+        this.vtbl.put_DefaultPanel := CallbackCreate(GetMethod(implObj, "put_DefaultPanel"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.get_VerticalOffset := CallbackCreate(GetMethod(implObj, "get_VerticalOffset"), flags, 2)
+        this.vtbl.put_VerticalOffset := CallbackCreate(GetMethod(implObj, "put_VerticalOffset"), flags, 2)
+        this.vtbl.get_HorizontalOffset := CallbackCreate(GetMethod(implObj, "get_HorizontalOffset"), flags, 2)
+        this.vtbl.put_HorizontalOffset := CallbackCreate(GetMethod(implObj, "put_HorizontalOffset"), flags, 2)
+        this.vtbl.get_AutoShow := CallbackCreate(GetMethod(implObj, "get_AutoShow"), flags, 2)
+        this.vtbl.put_AutoShow := CallbackCreate(GetMethod(implObj, "put_AutoShow"), flags, 2)
+        this.vtbl.MoveTo := CallbackCreate(GetMethod(implObj, "MoveTo"), flags, 3)
+        this.vtbl.CommitPendingInput := CallbackCreate(GetMethod(implObj, "CommitPendingInput"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.EnableTsf := CallbackCreate(GetMethod(implObj, "EnableTsf"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Busy)
+        CallbackFree(this.vtbl.get_Factoid)
+        CallbackFree(this.vtbl.put_Factoid)
+        CallbackFree(this.vtbl.get_AttachedEditWindow)
+        CallbackFree(this.vtbl.put_AttachedEditWindow)
+        CallbackFree(this.vtbl.get_CurrentPanel)
+        CallbackFree(this.vtbl.put_CurrentPanel)
+        CallbackFree(this.vtbl.get_DefaultPanel)
+        CallbackFree(this.vtbl.put_DefaultPanel)
+        CallbackFree(this.vtbl.get_Visible)
+        CallbackFree(this.vtbl.put_Visible)
+        CallbackFree(this.vtbl.get_Top)
+        CallbackFree(this.vtbl.get_Left)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.get_VerticalOffset)
+        CallbackFree(this.vtbl.put_VerticalOffset)
+        CallbackFree(this.vtbl.get_HorizontalOffset)
+        CallbackFree(this.vtbl.put_HorizontalOffset)
+        CallbackFree(this.vtbl.get_AutoShow)
+        CallbackFree(this.vtbl.put_AutoShow)
+        CallbackFree(this.vtbl.MoveTo)
+        CallbackFree(this.vtbl.CommitPendingInput)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.EnableTsf)
     }
 }

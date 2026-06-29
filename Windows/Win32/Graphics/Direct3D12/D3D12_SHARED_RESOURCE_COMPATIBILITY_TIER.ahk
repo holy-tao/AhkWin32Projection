@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify a cross-API sharing support tier.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shared_resource_compatibility_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum {
+export default struct D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_1](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).

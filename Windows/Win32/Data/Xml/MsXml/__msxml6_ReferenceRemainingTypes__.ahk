@@ -1,198 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DOMNodeType.ahk
-#Include .\SERVERXMLHTTP_OPTION.ahk
-#Include .\SXH_SERVER_CERT_OPTION.ahk
-#Include .\SXH_PROXY_SETTING.ahk
-#Include .\SOMITEMTYPE.ahk
-#Include .\SCHEMAUSE.ahk
-#Include .\SCHEMADERIVATIONMETHOD.ahk
-#Include .\SCHEMACONTENTTYPE.ahk
-#Include .\SCHEMAPROCESSCONTENTS.ahk
-#Include .\SCHEMAWHITESPACE.ahk
-#Include .\SCHEMATYPEVARIETY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCHEMACONTENTTYPE.ahk" { SCHEMACONTENTTYPE }
+#Import ".\SXH_PROXY_SETTING.ahk" { SXH_PROXY_SETTING }
+#Import ".\SXH_SERVER_CERT_OPTION.ahk" { SXH_SERVER_CERT_OPTION }
+#Import ".\SCHEMAPROCESSCONTENTS.ahk" { SCHEMAPROCESSCONTENTS }
+#Import ".\SCHEMAWHITESPACE.ahk" { SCHEMAWHITESPACE }
+#Import ".\SOMITEMTYPE.ahk" { SOMITEMTYPE }
+#Import ".\SCHEMATYPEVARIETY.ahk" { SCHEMATYPEVARIETY }
+#Import ".\SCHEMAUSE.ahk" { SCHEMAUSE }
+#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
+#Import ".\SERVERXMLHTTP_OPTION.ahk" { SERVERXMLHTTP_OPTION }
+#Import ".\DOMNodeType.ahk" { DOMNodeType }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class __msxml6_ReferenceRemainingTypes__ extends Win32Struct {
-    static sizeof => 88
+export default struct __msxml6_ReferenceRemainingTypes__ {
+    #StructPack 4
 
-    static packingSize => 4
+    __tagDomNodeType__ : DOMNodeType
 
-    /**
-     * @type {DOMNodeType}
-     */
-    __tagDomNodeType__ {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    __domNodeType__ : DOMNodeType
 
-    /**
-     * @type {DOMNodeType}
-     */
-    __domNodeType__ {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    __serverXmlHttpOptionEnum__ : SERVERXMLHTTP_OPTION
 
-    /**
-     * @type {SERVERXMLHTTP_OPTION}
-     */
-    __serverXmlHttpOptionEnum__ {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    __serverXmlHttpOption__ : SERVERXMLHTTP_OPTION
 
-    /**
-     * @type {SERVERXMLHTTP_OPTION}
-     */
-    __serverXmlHttpOption__ {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    __serverCertOptionEnum__ : SXH_SERVER_CERT_OPTION
 
-    /**
-     * @type {SXH_SERVER_CERT_OPTION}
-     */
-    __serverCertOptionEnum__ {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    __serverCertOption__ : SXH_SERVER_CERT_OPTION
 
-    /**
-     * @type {SXH_SERVER_CERT_OPTION}
-     */
-    __serverCertOption__ {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    __proxySettingEnum__ : SXH_PROXY_SETTING
 
-    /**
-     * @type {SXH_PROXY_SETTING}
-     */
-    __proxySettingEnum__ {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    __proxySetting__ : SXH_PROXY_SETTING
 
-    /**
-     * @type {SXH_PROXY_SETTING}
-     */
-    __proxySetting__ {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    __somItemTypeEnum__ : SOMITEMTYPE
 
-    /**
-     * @type {SOMITEMTYPE}
-     */
-    __somItemTypeEnum__ {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    __somItemType__ : SOMITEMTYPE
 
-    /**
-     * @type {SOMITEMTYPE}
-     */
-    __somItemType__ {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    __schemaUseEnum__ : SCHEMAUSE
 
-    /**
-     * @type {SCHEMAUSE}
-     */
-    __schemaUseEnum__ {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    __schemaUse__ : SCHEMAUSE
 
-    /**
-     * @type {SCHEMAUSE}
-     */
-    __schemaUse__ {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    __schemaDerivationMethodEnum__ : SCHEMADERIVATIONMETHOD
 
-    /**
-     * @type {SCHEMADERIVATIONMETHOD}
-     */
-    __schemaDerivationMethodEnum__ {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    __schemaDerivationMethod__ : SCHEMADERIVATIONMETHOD
 
-    /**
-     * @type {SCHEMADERIVATIONMETHOD}
-     */
-    __schemaDerivationMethod__ {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    __schemaContentTypeEnum__ : SCHEMACONTENTTYPE
 
-    /**
-     * @type {SCHEMACONTENTTYPE}
-     */
-    __schemaContentTypeEnum__ {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    __schemaContentType__ : SCHEMACONTENTTYPE
 
-    /**
-     * @type {SCHEMACONTENTTYPE}
-     */
-    __schemaContentType__ {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    __schemaProcessContentsEnum__ : SCHEMAPROCESSCONTENTS
 
-    /**
-     * @type {SCHEMAPROCESSCONTENTS}
-     */
-    __schemaProcessContentsEnum__ {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    __schemaProcessContents__ : SCHEMAPROCESSCONTENTS
 
-    /**
-     * @type {SCHEMAPROCESSCONTENTS}
-     */
-    __schemaProcessContents__ {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    __schemaWhitespaceEnum__ : SCHEMAWHITESPACE
 
-    /**
-     * @type {SCHEMAWHITESPACE}
-     */
-    __schemaWhitespaceEnum__ {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    __schemaWhitespace__ : SCHEMAWHITESPACE
 
-    /**
-     * @type {SCHEMAWHITESPACE}
-     */
-    __schemaWhitespace__ {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    __schemaTypeVarietyEnum__ : SCHEMATYPEVARIETY
 
-    /**
-     * @type {SCHEMATYPEVARIETY}
-     */
-    __schemaTypeVarietyEnum__ {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    __schemaTypeVariety__ : SCHEMATYPEVARIETY
 
-    /**
-     * @type {SCHEMATYPEVARIETY}
-     */
-    __schemaTypeVariety__ {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
 }

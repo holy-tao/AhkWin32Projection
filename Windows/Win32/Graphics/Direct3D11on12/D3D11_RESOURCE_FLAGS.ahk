@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with ID3D11On12Device::CreateWrappedResourceto override flags that would be inferred by the resource properties or heap properties, including bind flags, misc flags, and CPU access flags.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/ns-d3d11on12-d3d11_resource_flags
  * @namespace Windows.Win32.Graphics.Direct3D11on12
  */
-class D3D11_RESOURCE_FLAGS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct D3D11_RESOURCE_FLAGS {
+    #StructPack 4
 
     /**
      * Bind flags must be either completely inferred, or completely specified, to allow the graphics driver to scope a general D3D12 resource to something that D3D11 can understand.
@@ -50,12 +47,8 @@ class D3D11_RESOURCE_FLAGS extends Win32Struct {
      * <li>D3D11_BIND_UNORDERED_ACCESS, if D3D12_RESOURCE_MISC_ALLOW_UNORDERED_ACCESS is present</li>
      * </ul>
      * A render target or UAV buffer can be wrapped without overriding flags; but a VB/IB/CB/SO buffer must have bind flags manually specified, since these are mutually exclusive in Direct3D 11.
-     * @type {Integer}
      */
-    BindFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BindFlags : UInt32
 
     /**
      * If misc flags are nonzero, then any specified flags will be OR’d into the final resource desc with inferred flags.
@@ -106,12 +99,8 @@ class D3D11_RESOURCE_FLAGS extends Win32Struct {
      * <li>D3D11_RESOURCE_MISC_GUARDED is only meant to be set by an internal creation mechanism.
      *               </li>
      * </ul>
-     * @type {Integer}
      */
-    MiscFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MiscFlags : UInt32
 
     /**
      * The <b>CPUAccessFlags</b> are not inferred from the D3D12 resource.
@@ -119,19 +108,12 @@ class D3D11_RESOURCE_FLAGS extends Win32Struct {
      *               Wrapped resources do not support <b>Map(DISCARD)</b>.
      *               Wrapped resources do not support <b>Map(NO_OVERWRITE)</b>, but that can be implemented by mapping the underlying D3D12 resource instead.
      *               Issuing a <b>Map</b> call on a wrapped resource will synchronize with all D3D11 work submitted against that resource, unless the DO_NOT_WAIT flag was used.
-     * @type {Integer}
      */
-    CPUAccessFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CPUAccessFlags : UInt32
 
     /**
      * The size of each element in the buffer structure (in bytes) when the buffer represents a structured buffer.
-     * @type {Integer}
      */
-    StructureByteStride {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    StructureByteStride : UInt32
+
 }

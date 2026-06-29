@@ -1,36 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APOInitSystemEffects3.ahk
-#Include .\APOInitBaseStruct.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\System\Com\IServiceProvider.ahk
-#Include ..\IMMDeviceCollection.ahk
-#Include .\APO_REFERENCE_STREAM_PROPERTIES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APO_REFERENCE_STREAM_PROPERTIES.ahk" { APO_REFERENCE_STREAM_PROPERTIES }
+#Import ".\APOInitBaseStruct.ahk" { APOInitBaseStruct }
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\IMMDeviceCollection.ahk" { IMMDeviceCollection }
+#Import "..\..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APOInitSystemEffects3.ahk" { APOInitSystemEffects3 }
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class AcousticEchoCanceller_Reference_Input extends Win32Struct {
-    static sizeof => 72
+export default struct AcousticEchoCanceller_Reference_Input {
+    #StructPack 8
 
-    static packingSize => 8
+    apoInitSystemEffects : APOInitSystemEffects3
 
-    /**
-     * @type {APOInitSystemEffects3}
-     */
-    apoInitSystemEffects {
-        get {
-            if(!this.HasProp("__apoInitSystemEffects"))
-                this.__apoInitSystemEffects := APOInitSystemEffects3(0, this)
-            return this.__apoInitSystemEffects
-        }
-    }
+    streamProperties : APO_REFERENCE_STREAM_PROPERTIES
 
-    /**
-     * @type {APO_REFERENCE_STREAM_PROPERTIES}
-     */
-    streamProperties {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
 }

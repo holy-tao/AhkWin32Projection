@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class RUNTIME_REPORT_PACKAGE_HEADER extends Win32Struct {
-    static sizeof => 40
+export default struct RUNTIME_REPORT_PACKAGE_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Magic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Magic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PackageVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PackageVersion {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NumberOfReports : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfReports {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ReportTypesBitmap : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReportTypesBitmap {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PackageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PackageSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ReportDigestType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReportDigestType {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    TotalReportDigestsSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TotalReportDigestsSize {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    SignatureScheme : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SignatureScheme {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    SignatureSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SignatureSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    TotalAuthenticatedReportsSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalAuthenticatedReportsSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a domain handled by a namespace provider for the NS_EMAIL namespace.
@@ -19,44 +18,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/nsemail/ns-nsemail-napi_domain_description_blob
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NAPI_DOMAIN_DESCRIPTION_BLOB extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct NAPI_DOMAIN_DESCRIPTION_BLOB {
+    #StructPack 4
 
     /**
      * The authority level of the namespace provider for this domain. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ne-nsemail-napi_provider_level">NAPI_PROVIDER_LEVEL</a> enumeration type defined in the <i>Nsemail.h</i> header file.
-     * @type {Integer}
      */
-    AuthLevel {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AuthLevel : UInt32
 
     /**
      * The length, in Unicode characters, of the Unicode string that contains the domain name represented by the <b>OffsetThisDomainName</b> member. The <b>NULL</b> terminator is not counted when calculating the length.
-     * @type {Integer}
      */
-    cchDomainName {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cchDomainName : UInt32
 
     /**
      * The offset, in bytes, to the next <b>NAPI_DOMAIN_DESCRIPTION_BLOB</b> structure in the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_provider_installation_blob">NAPI_PROVIDER_INSTALLATION_BLOB</a> structure.
-     * @type {Integer}
      */
-    OffsetNextDomainDescription {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    OffsetNextDomainDescription : UInt32
 
     /**
      * The offset, in bytes, to a Unicode string that contains a domain name handled by this namespace provider for the NS_EMAIL namespace. The domain name must be at least <b>cchDomainName</b> Unicode characters in length. <b>NULL</b>-termination of the Unicode string that contains the domain name is recommended, but not required. This offset must be aligned on a minimum of a two-byte boundary.
-     * @type {Integer}
      */
-    OffsetThisDomainName {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    OffsetThisDomainName : UInt32
+
 }

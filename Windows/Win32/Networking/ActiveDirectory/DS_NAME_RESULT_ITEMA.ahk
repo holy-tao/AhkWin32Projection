@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The DS_NAME_RESULT_ITEM structure contains a name converted by the DsCrackNames function, along with associated error and domain data. (ANSI)
@@ -16,35 +16,22 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @charset ANSI
  */
-class DS_NAME_RESULT_ITEMA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DS_NAME_RESULT_ITEMA {
+    #StructPack 8
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_error">DS_NAME_ERROR</a> values that indicates the status of this name conversion.
-     * @type {Integer}
      */
-    status {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    status : UInt32
 
     /**
      * Pointer to a null-terminated string that specifies the DNS domain in which the object resides. This member will contain valid data if <b>status</b> contains <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_error">DS_NAME_NO_ERROR</a> or <b>DS_NAME_ERROR_DOMAIN_ONLY</b>.
-     * @type {PSTR}
      */
-    pDomain {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDomain : PSTR
 
     /**
      * Pointer to a null-terminated string that specifies the newly formatted object name.
-     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pName : PSTR
+
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmClassificationManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
+#Import ".\IFsrmClassificationManager.ahk" { IFsrmClassificationManager }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager2)
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmClassificationManager2 extends IFsrmClassificationManager {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmClassificationManager2 extends IFsrmClassificationManager {
     /**
      * The interface identifier for IFsrmClassificationManager2
      * @type {Guid}
      */
-    static IID => Guid("{0004c1c9-127e-4765-ba07-6a3147bca112}")
+    static IID := Guid("{0004c1c9-127e-4765-ba07-6a3147bca112}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 34
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmClassificationManager2 interfaces
+    */
+    struct Vtbl extends IFsrmClassificationManager.Vtbl {
+        ClassifyFiles : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ClassifyFiles"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmClassificationManager2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method is used to perform bulk enumeration, setting, and clearing of file properties.
@@ -45,7 +55,27 @@ class IFsrmClassificationManager2 extends IFsrmClassificationManager {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager2-classifyfiles
      */
     ClassifyFiles(filePaths, propertyNames, propertyValues, options) {
-        result := ComCall(34, this, "ptr", filePaths, "ptr", propertyNames, "ptr", propertyValues, "int", options, "HRESULT")
+        result := ComCall(34, this, SAFEARRAY.Ptr, filePaths, SAFEARRAY.Ptr, propertyNames, SAFEARRAY.Ptr, propertyValues, FsrmGetFilePropertyOptions, options, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmClassificationManager2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ClassifyFiles := CallbackCreate(GetMethod(implObj, "ClassifyFiles"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ClassifyFiles)
     }
 }

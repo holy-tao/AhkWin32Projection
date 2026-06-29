@@ -1,46 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostEvaluator2.ahk
-#Include .\IModelObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugHostEvaluator2.ahk" { IDebugHostEvaluator2 }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostEvaluator3 extends IDebugHostEvaluator2 {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostEvaluator3 extends IDebugHostEvaluator2 {
     /**
      * The interface identifier for IDebugHostEvaluator3
      * @type {Guid}
      */
-    static IID => Guid("{d2419f4a-7e8d-4c15-a499-73902b015abb}")
+    static IID := Guid("{d2419f4a-7e8d-4c15-a499-73902b015abb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostEvaluator3 interfaces
+    */
+    struct Vtbl extends IDebugHostEvaluator2.Vtbl {
+        Compare : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostEvaluator3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Compare"]
-
-    /**
-     * The CompareAddresses function compares two addresses, indicating that one of the addresses is greater than, less than, or equal to the other address.
-     * @remarks
-     * An address that is less than another address indicates a previous frame. An address that is greater than another address indicates a later frame.
      * 
-     * Network Monitor provides two other functions, [CompareFrameDestAddress](compareframedestaddress.md) and [CompareFrameSourceAddress](compareframesourceaddress.md), which you can use to compare addresses. The **CompareFrameDestAddress** function compares a given address to the frame's destination address, and the **CompareFrameSourceAddress** function compares a given address to the frame's source address.
      * @param {IModelObject} pLeft 
      * @param {IModelObject} pRight 
      * @returns {IModelObject} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/compareaddresses
      */
     Compare(pLeft, pRight) {
         result := ComCall(6, this, "ptr", pLeft, "ptr", pRight, "ptr*", &ppResult := 0, "HRESULT")
         return IModelObject(ppResult)
+    }
+
+    Query(iid) {
+        if (IDebugHostEvaluator3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Compare)
     }
 }

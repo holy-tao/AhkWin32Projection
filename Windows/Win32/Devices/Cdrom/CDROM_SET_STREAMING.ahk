@@ -1,109 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_SPEED_REQUEST.ahk
-#Include .\WRITE_ROTATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CDROM_SPEED_REQUEST.ahk" { CDROM_SPEED_REQUEST }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WRITE_ROTATION.ahk" { WRITE_ROTATION }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_SET_STREAMING extends Win32Struct {
-    static sizeof => 36
+export default struct CDROM_SET_STREAMING {
+    #StructPack 4
 
-    static packingSize => 4
+    RequestType : CDROM_SPEED_REQUEST
 
-    /**
-     * @type {CDROM_SPEED_REQUEST}
-     */
-    RequestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ReadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReadSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ReadTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReadTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WriteSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WriteSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    WriteTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WriteTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    StartLba : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartLba {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    EndLba : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndLba {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RotationControl : WRITE_ROTATION
 
-    /**
-     * @type {WRITE_ROTATION}
-     */
-    RotationControl {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    RestoreDefaults : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RestoreDefaults {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    SetExact : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SetExact {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    RandomAccess : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RandomAccess {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
-    }
+    Persistent : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Persistent {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
-    }
 }

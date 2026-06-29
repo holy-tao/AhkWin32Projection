@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ShellWindowTypeConstants.ahk" { ShellWindowTypeConstants }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ShellWindowFindWindowOptions.ahk" { ShellWindowFindWindowOptions }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides access to the collection of open Shell windows.
@@ -33,32 +38,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-ishellwindows
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellWindows extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IShellWindows extends IDispatch {
     /**
      * The interface identifier for IShellWindows
      * @type {Guid}
      */
-    static IID => Guid("{85cb6900-4d95-11cf-960c-0080c7f4ee85}")
+    static IID := Guid("{85cb6900-4d95-11cf-960c-0080c7f4ee85}")
 
     /**
      * The class identifier for ShellWindows
      * @type {Guid}
      */
-    static CLSID => Guid("{9ba05972-f6a8-11cf-a442-00a0c90a8f39}")
+    static CLSID := Guid("{9ba05972-f6a8-11cf-a442-00a0c90a8f39}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellWindows interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count           : IntPtr
+        Item                : IntPtr
+        _NewEnum            : IntPtr
+        Register            : IntPtr
+        RegisterPending     : IntPtr
+        Revoke              : IntPtr
+        OnNavigate          : IntPtr
+        OnActivated         : IntPtr
+        FindWindowSW        : IntPtr
+        OnCreated           : IntPtr
+        ProcessAttachDetach : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "Item", "_NewEnum", "Register", "RegisterPending", "Revoke", "OnNavigate", "OnActivated", "FindWindowSW", "OnCreated", "ProcessAttachDetach"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellWindows.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -90,7 +112,7 @@ class IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-item
      */
     Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &_Folder := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, index, "ptr*", &_Folder := 0, "HRESULT")
         return IDispatch(_Folder)
     }
 
@@ -127,7 +149,7 @@ class IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
      */
     Register(pid, _hwnd, swClass) {
-        result := ComCall(10, this, "ptr", pid, "int", _hwnd, "int", swClass, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pid, "int", _hwnd, ShellWindowTypeConstants, swClass, "int*", &plCookie := 0, "HRESULT")
         return plCookie
     }
 
@@ -153,7 +175,7 @@ class IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-registerpending
      */
     RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass) {
-        result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(11, this, "int", lThreadId, VARIANT.Ptr, pvarloc, VARIANT.Ptr, pvarlocRoot, ShellWindowTypeConstants, swClass, "int*", &plCookie := 0, "HRESULT")
         return plCookie
     }
 
@@ -192,7 +214,7 @@ class IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onnavigate
      */
     OnNavigate(lCookie, pvarLoc) {
-        result := ComCall(13, this, "int", lCookie, "ptr", pvarLoc, "HRESULT")
+        result := ComCall(13, this, "int", lCookie, VARIANT.Ptr, pvarLoc, "HRESULT")
         return result
     }
 
@@ -212,7 +234,7 @@ class IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onactivated
      */
     OnActivated(lCookie, fActive) {
-        result := ComCall(14, this, "int", lCookie, "short", fActive, "HRESULT")
+        result := ComCall(14, this, "int", lCookie, VARIANT_BOOL, fActive, "HRESULT")
         return result
     }
 
@@ -243,7 +265,7 @@ class IShellWindows extends IDispatch {
     FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions) {
         phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pvarLoc, "ptr", pvarLocRoot, "int", swClass, phwndMarshal, phwnd, "int", swfwOptions, "ptr*", &ppdispOut := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, pvarLoc, VARIANT.Ptr, pvarLocRoot, ShellWindowTypeConstants, swClass, phwndMarshal, phwnd, ShellWindowFindWindowOptions, swfwOptions, "ptr*", &ppdispOut := 0, "HRESULT")
         return IDispatch(ppdispOut)
     }
 
@@ -278,7 +300,47 @@ class IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-processattachdetach
      */
     ProcessAttachDetach(fAttach) {
-        result := ComCall(17, this, "short", fAttach, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, fAttach, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellWindows.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl._NewEnum := CallbackCreate(GetMethod(implObj, "_NewEnum"), flags, 2)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 5)
+        this.vtbl.RegisterPending := CallbackCreate(GetMethod(implObj, "RegisterPending"), flags, 6)
+        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.OnNavigate := CallbackCreate(GetMethod(implObj, "OnNavigate"), flags, 3)
+        this.vtbl.OnActivated := CallbackCreate(GetMethod(implObj, "OnActivated"), flags, 3)
+        this.vtbl.FindWindowSW := CallbackCreate(GetMethod(implObj, "FindWindowSW"), flags, 7)
+        this.vtbl.OnCreated := CallbackCreate(GetMethod(implObj, "OnCreated"), flags, 3)
+        this.vtbl.ProcessAttachDetach := CallbackCreate(GetMethod(implObj, "ProcessAttachDetach"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl._NewEnum)
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.RegisterPending)
+        CallbackFree(this.vtbl.Revoke)
+        CallbackFree(this.vtbl.OnNavigate)
+        CallbackFree(this.vtbl.OnActivated)
+        CallbackFree(this.vtbl.FindWindowSW)
+        CallbackFree(this.vtbl.OnCreated)
+        CallbackFree(this.vtbl.ProcessAttachDetach)
     }
 }

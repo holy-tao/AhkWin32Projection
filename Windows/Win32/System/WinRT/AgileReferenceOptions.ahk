@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies options for the RoGetAgileReference function.
  * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-agilereferenceoptions
  * @namespace Windows.Win32.System.WinRT
  */
-class AgileReferenceOptions extends Win32Enum {
+export default struct AgileReferenceOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the default marshaling behavior, which is to marshal interfaces when an agile reference to the interface is obtained.

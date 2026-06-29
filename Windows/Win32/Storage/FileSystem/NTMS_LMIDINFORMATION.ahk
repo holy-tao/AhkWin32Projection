@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The NTMS_LMIDINFORMATION structure defines the properties specific to a logical media object.
@@ -10,26 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_lmidinformation
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class NTMS_LMIDINFORMATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct NTMS_LMIDINFORMATION {
+    #StructPack 4
 
     /**
      * Unique identifier of the media pool that contains the logical media.
-     * @type {Pointer}
      */
-    MediaPool {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MediaPool : Guid
 
     /**
      * Number of sides in the media object.
-     * @type {Integer}
      */
-    dwNumberOfPartitions {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNumberOfPartitions : UInt32
+
 }

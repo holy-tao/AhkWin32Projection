@@ -1,40 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSEVENTDATA.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\KSEVENTDATA.ahk" { KSEVENTDATA }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSEVENT_TUNER_INITIATE_SCAN_S extends Win32Struct {
-    static sizeof => 40
+export default struct KSEVENT_TUNER_INITIATE_SCAN_S {
+    #StructPack 8
 
-    static packingSize => 8
+    EventData : KSEVENTDATA
 
-    /**
-     * @type {KSEVENTDATA}
-     */
-    EventData {
-        get {
-            if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(0, this)
-            return this.__EventData
-        }
-    }
+    StartFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartFrequency {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EndFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndFrequency {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

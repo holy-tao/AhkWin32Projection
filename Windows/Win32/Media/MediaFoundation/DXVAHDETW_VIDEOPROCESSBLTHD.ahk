@@ -1,80 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct {
-    static sizeof => 56
+export default struct DXVAHDETW_VIDEOPROCESSBLTHD {
+    #StructPack 8
 
-    static packingSize => 8
+    pObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pObject {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pOutputSurface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pOutputSurface {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TargetRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    TargetRect {
-        get {
-            if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(16, this)
-            return this.__TargetRect
-        }
-    }
+    OutputFormat : D3DFORMAT
 
-    /**
-     * @type {D3DFORMAT}
-     */
-    OutputFormat {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ColorSpace : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ColorSpace {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    OutputFrame : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputFrame {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    StreamCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Enter : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enter {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
 }

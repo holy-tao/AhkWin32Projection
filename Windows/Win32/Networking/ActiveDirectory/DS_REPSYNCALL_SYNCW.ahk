@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DS_REPSYNCALL_SYNC structure identifies a single replication operation performed between a source, and destination, server by the DsReplicaSyncAll function. (Unicode)
@@ -10,50 +11,23 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @charset Unicode
  */
-class DS_REPSYNCALL_SYNCW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DS_REPSYNCALL_SYNCW {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the DNS GUID of the source server.
-     * @type {PWSTR}
      */
-    pszSrcId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszSrcId : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the DNS GUID of the destination server.
-     * @type {PWSTR}
      */
-    pszDstId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszDstId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszNC {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszNC : PWSTR
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    pguidSrc {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pguidSrc : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    pguidDst {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pguidDst : Guid.Ptr
+
 }

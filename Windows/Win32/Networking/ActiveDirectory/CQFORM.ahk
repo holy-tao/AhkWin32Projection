@@ -1,61 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used to define a query form added to the query dialog box with the CQAddFormsProc callback function.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-cqform
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class CQFORM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CQFORM {
+    #StructPack 8
 
     /**
      * Contains the size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Contains  the class identifier used to identify the query form.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    clsid : Guid
 
     /**
      * Contains the  handle of the icon to be displayed with the query form.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(16, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Pointer to a null-terminated Unicode string that contains the title of the query form.
-     * @type {PWSTR}
      */
-    pszTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszTitle : PWSTR
+
 }

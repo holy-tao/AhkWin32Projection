@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
-#Include .\ID3D10DepthStencilState.ahk
-#Include .\D3D10_DEPTH_STENCIL_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D10DepthStencilState.ahk" { ID3D10DepthStencilState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_DEPTH_STENCIL_DESC.ahk" { D3D10_DEPTH_STENCIL_DESC }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**
  * A depth-stencil-variable interface accesses depth-stencil state.
@@ -15,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectDepthStencilVariable extends ID3D10EffectVariable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectDepthStencilVariable extends ID3D10EffectVariable {
     /**
      * The interface identifier for ID3D10EffectDepthStencilVariable
      * @type {Guid}
      */
-    static IID => Guid("{af482368-330a-46a5-9a5c-01c71af24c8d}")
+    static IID := Guid("{af482368-330a-46a5-9a5c-01c71af24c8d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectDepthStencilVariable interfaces
+    */
+    struct Vtbl extends ID3D10EffectVariable.Vtbl {
+        GetDepthStencilState : IntPtr
+        GetBackingStore      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDepthStencilState", "GetBackingStore"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectDepthStencilVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a pointer to a depth-stencil interface.
@@ -65,7 +74,29 @@ class ID3D10EffectDepthStencilVariable extends ID3D10EffectVariable {
      */
     GetBackingStore(Index) {
         pDepthStencilDesc := D3D10_DEPTH_STENCIL_DESC()
-        result := ComCall(26, this, "uint", Index, "ptr", pDepthStencilDesc, "HRESULT")
+        result := ComCall(26, this, "uint", Index, D3D10_DEPTH_STENCIL_DESC.Ptr, pDepthStencilDesc, "HRESULT")
         return pDepthStencilDesc
+    }
+
+    Query(iid) {
+        if (ID3D10EffectDepthStencilVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDepthStencilState := CallbackCreate(GetMethod(implObj, "GetDepthStencilState"), flags, 3)
+        this.vtbl.GetBackingStore := CallbackCreate(GetMethod(implObj, "GetBackingStore"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDepthStencilState)
+        CallbackFree(this.vtbl.GetBackingStore)
     }
 }

@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AD_GENERAL_PARAMS.ahk
-#Include .\AD_GUARANTEED.ahk
-#Include .\PARAM_BUFFER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PARAM_BUFFER.ahk" { PARAM_BUFFER }
+#Import ".\AD_GENERAL_PARAMS.ahk" { AD_GENERAL_PARAMS }
+#Import ".\AD_GUARANTEED.ahk" { AD_GUARANTEED }
 
 /**
  * The CONTROL_SERVICE structure contains supported RSVP service types.
@@ -11,19 +10,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-control_service
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class CONTROL_SERVICE extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct CONTROL_SERVICE {
+    #StructPack 4
 
     /**
      * Length of the entire structure, in bytes.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
     /**
      * The supported service type. Must be one of the following:
@@ -134,44 +127,18 @@ class CONTROL_SERVICE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Service {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Service : UInt32
 
     /**
      * Specifies overrides to service specifications, expressed in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-ad_general_params">AD_GENERAL_PARAMS</a> structure.
-     * @type {AD_GENERAL_PARAMS}
      */
-    Overrides {
-        get {
-            if(!this.HasProp("__Overrides"))
-                this.__Overrides := AD_GENERAL_PARAMS(8, this)
-            return this.__Overrides
-        }
-    }
+    Overrides : AD_GENERAL_PARAMS
 
-    /**
-     * @type {AD_GUARANTEED}
-     */
-    Guaranteed {
-        get {
-            if(!this.HasProp("__Guaranteed"))
-                this.__Guaranteed := AD_GUARANTEED(28, this)
-            return this.__Guaranteed
-        }
-    }
+    Guaranteed : AD_GUARANTEED
 
-    /**
-     * @type {PARAM_BUFFER}
-     */
-    ParamBuffer {
-        get {
-            if(!this.HasProp("__ParamBufferProxyArray"))
-                this.__ParamBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, PARAM_BUFFER, "")
-            return this.__ParamBufferProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ParamBuffer', { type: PARAM_BUFFER[1], offset: 28 })
+        this.DeleteProp("__New")
     }
 }

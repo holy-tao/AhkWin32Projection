@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS.ahk
-#Include .\D3D12_ELEMENTS_LAYOUT.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_DESC.ahk
-#Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE }
+#Import ".\D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC.ahk" { D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC }
+#Import ".\D3D12_RAYTRACING_GEOMETRY_DESC.ahk" { D3D12_RAYTRACING_GEOMETRY_DESC }
+#Import ".\D3D12_ELEMENTS_LAYOUT.ahk" { D3D12_ELEMENTS_LAYOUT }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS }
 
 /**
  * Defines the inputs for a raytracing acceleration structure build operation. This structure is used by ID3D12GraphicsCommandList4::BuildRaytracingAccelerationStructure and ID3D12Device5::GetRaytracingAccelerationStructurePrebuildInfo.
@@ -13,78 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_build_raytracing_acceleration_structure_inputs
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS {
+    #StructPack 8
 
     /**
      * The type of acceleration structure to build.
-     * @type {D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE
 
     /**
      * The build flags.
-     * @type {D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Flags : D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS
 
     /**
      * If <i>Type</i> is <b>D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TOP_LEVEL</b>, this value is the number of instances, laid out based on <i>DescsLayout</i>.
      * 
      * If <i>Type</i> is <b>D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BOTTOM_LEVEL</b>, this value is the number of elements referred to by <i>pGeometryDescs</i> or <i>ppGeometryDescs</i>. Which of these fields  is used depends on <i>DescsLayout</i>.
-     * @type {Integer}
      */
-    NumDescs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumDescs : UInt32
 
     /**
      * How geometry descriptions are specified; either an array of descriptions or an array of pointers to descriptions.
-     * @type {D3D12_ELEMENTS_LAYOUT}
      */
-    DescsLayout {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    DescsLayout : D3D12_ELEMENTS_LAYOUT
 
-    /**
-     * @type {Integer}
-     */
-    InstanceDescs {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InstanceDescs : Int64
 
-    /**
-     * @type {Pointer<D3D12_RAYTRACING_GEOMETRY_DESC>}
-     */
-    pGeometryDescs {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<D3D12_RAYTRACING_GEOMETRY_DESC>>}
-     */
-    ppGeometryDescs {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC>}
-     */
-    pOpacityMicromapArrayDesc {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'pGeometryDescs', { type: D3D12_RAYTRACING_GEOMETRY_DESC.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'ppGeometryDescs', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pOpacityMicromapArrayDesc', { type: D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC.Ptr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

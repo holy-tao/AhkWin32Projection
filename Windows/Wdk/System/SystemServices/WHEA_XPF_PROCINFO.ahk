@@ -1,115 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_XPF_PROCINFO extends Win32Struct {
-    static sizeof => 56
+export default struct WHEA_XPF_PROCINFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _CheckInfo_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 1
+    struct _CheckInfo {
+        CacheCheck : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        CacheCheck {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        TlbCheck {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        BusCheck {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        MsCheck {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsULONGLONG {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'TlbCheck', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'BusCheck', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'MsCheck', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'AsULONGLONG', { type: Int64, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    CheckInfoId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CheckInfoId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ValidBits : IntPtr
 
-    /**
-     * @type {_CheckInfo_e__Union}
-     */
-    CheckInfo {
-        get {
-            if(!this.HasProp("__CheckInfo"))
-                this.__CheckInfo := WHEA_XPF_PROCINFO._CheckInfo_e__Union(16, this)
-            return this.__CheckInfo
-        }
-    }
+    CheckInfo : WHEA_XPF_PROCINFO._CheckInfo
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TargetId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequesterId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    RequesterId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResponderId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ResponderId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InstructionPointer {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    InstructionPointer : Int64
+
 }

@@ -1,422 +1,111 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_VXD_HEADER extends Win32Struct {
-    static sizeof => 196
+export default struct IMAGE_VXD_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    e32_magic : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e32_magic {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    e32_border : Int8
 
-    /**
-     * @type {Integer}
-     */
-    e32_border {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    e32_worder : Int8
 
-    /**
-     * @type {Integer}
-     */
-    e32_worder {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    e32_level : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_level {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    e32_cpu : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e32_cpu {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    e32_os : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e32_os {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    e32_ver : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_ver {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    e32_mflags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_mflags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    e32_mpages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_mpages {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    e32_startobj : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_startobj {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    e32_eip : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_eip {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    e32_stackobj : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_stackobj {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    e32_esp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_esp {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    e32_pagesize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_pagesize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    e32_lastpagesize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_lastpagesize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    e32_fixupsize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_fixupsize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    e32_fixupsum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_fixupsum {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    e32_ldrsize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_ldrsize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    e32_ldrsum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_ldrsum {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    e32_objtab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_objtab {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    e32_objcnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_objcnt {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    e32_objmap : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_objmap {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    e32_itermap : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_itermap {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    e32_rsrctab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_rsrctab {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    e32_rsrccnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_rsrccnt {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    e32_restab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_restab {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    e32_enttab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_enttab {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    e32_dirtab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_dirtab {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    e32_dircnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_dircnt {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    e32_fpagetab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_fpagetab {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    e32_frectab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_frectab {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    e32_impmod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_impmod {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    e32_impmodcnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_impmodcnt {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    e32_impproc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_impproc {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    e32_pagesum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_pagesum {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    e32_datapage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_datapage {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    e32_preload : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_preload {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    e32_nrestab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_nrestab {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    e32_cbnrestab : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_cbnrestab {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    e32_nressum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_nressum {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    e32_autodata : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_autodata {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    e32_debuginfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_debuginfo {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    e32_debuglen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_debuglen {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    e32_instpreload : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_instpreload {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    e32_instdemand : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_instdemand {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    e32_heapsize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_heapsize {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    e32_res3 : Int8[12]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    e32_res3 {
-        get {
-            if(!this.HasProp("__e32_res3ProxyArray"))
-                this.__e32_res3ProxyArray := Win32FixedArray(this.ptr + 172, 12, Primitive, "char")
-            return this.__e32_res3ProxyArray
-        }
-    }
+    e32_winresoff : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_winresoff {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    e32_winreslen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    e32_winreslen {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    e32_devid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e32_devid {
-        get => NumGet(this, 192, "ushort")
-        set => NumPut("ushort", value, this, 192)
-    }
+    e32_ddkver : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e32_ddkver {
-        get => NumGet(this, 194, "ushort")
-        set => NumPut("ushort", value, this, 194)
-    }
 }

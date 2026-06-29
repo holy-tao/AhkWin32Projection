@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IAMNetShowConfig interface configures the legacy Windows Media Player 6.4 source filter. The Windows Media Source filter implements this interface.
@@ -12,26 +15,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamnetshowconfig
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMNetShowConfig extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAMNetShowConfig extends IDispatch {
     /**
      * The interface identifier for IAMNetShowConfig
      * @type {Guid}
      */
-    static IID => Guid("{fa2aa8f1-8b62-11d0-a520-000000000000}")
+    static IID := Guid("{fa2aa8f1-8b62-11d0-a520-000000000000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMNetShowConfig interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_BufferingTime   : IntPtr
+        put_BufferingTime   : IntPtr
+        get_UseFixedUDPPort : IntPtr
+        put_UseFixedUDPPort : IntPtr
+        get_FixedUDPPort    : IntPtr
+        put_FixedUDPPort    : IntPtr
+        get_UseHTTPProxy    : IntPtr
+        put_UseHTTPProxy    : IntPtr
+        get_EnableAutoProxy : IntPtr
+        put_EnableAutoProxy : IntPtr
+        get_HTTPProxyHost   : IntPtr
+        put_HTTPProxyHost   : IntPtr
+        get_HTTPProxyPort   : IntPtr
+        put_HTTPProxyPort   : IntPtr
+        get_EnableMulticast : IntPtr
+        put_EnableMulticast : IntPtr
+        get_EnableUDP       : IntPtr
+        put_EnableUDP       : IntPtr
+        get_EnableTCP       : IntPtr
+        put_EnableTCP       : IntPtr
+        get_EnableHTTP      : IntPtr
+        put_EnableHTTP      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BufferingTime", "put_BufferingTime", "get_UseFixedUDPPort", "put_UseFixedUDPPort", "get_FixedUDPPort", "put_FixedUDPPort", "get_UseHTTPProxy", "put_UseHTTPProxy", "get_EnableAutoProxy", "put_EnableAutoProxy", "get_HTTPProxyHost", "put_HTTPProxyHost", "get_HTTPProxyPort", "put_HTTPProxyPort", "get_EnableMulticast", "put_EnableMulticast", "get_EnableUDP", "put_EnableUDP", "get_EnableTCP", "put_EnableTCP", "get_EnableHTTP", "put_EnableHTTP"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMNetShowConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -165,7 +196,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_usefixedudpport
      */
     put_UseFixedUDPPort(UseFixedUDPPort) {
-        result := ComCall(10, this, "short", UseFixedUDPPort, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, UseFixedUDPPort, "HRESULT")
         return result
     }
 
@@ -213,7 +244,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_usehttpproxy
      */
     put_UseHTTPProxy(UseHTTPProxy) {
-        result := ComCall(14, this, "short", UseHTTPProxy, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, UseHTTPProxy, "HRESULT")
         return result
     }
 
@@ -239,7 +270,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enableautoproxy
      */
     put_EnableAutoProxy(EnableAutoProxy) {
-        result := ComCall(16, this, "short", EnableAutoProxy, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, EnableAutoProxy, "HRESULT")
         return result
     }
 
@@ -252,7 +283,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyhost
      */
     get_HTTPProxyHost(pbstrHTTPProxyHost) {
-        result := ComCall(17, this, "ptr", pbstrHTTPProxyHost, "HRESULT")
+        result := ComCall(17, this, BSTR.Ptr, pbstrHTTPProxyHost, "HRESULT")
         return result
     }
 
@@ -265,7 +296,7 @@ class IAMNetShowConfig extends IDispatch {
     put_HTTPProxyHost(bstrHTTPProxyHost) {
         bstrHTTPProxyHost := bstrHTTPProxyHost is String ? BSTR.Alloc(bstrHTTPProxyHost).Value : bstrHTTPProxyHost
 
-        result := ComCall(18, this, "ptr", bstrHTTPProxyHost, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrHTTPProxyHost, "HRESULT")
         return result
     }
 
@@ -313,7 +344,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enablemulticast
      */
     put_EnableMulticast(EnableMulticast) {
-        result := ComCall(22, this, "short", EnableMulticast, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, EnableMulticast, "HRESULT")
         return result
     }
 
@@ -337,7 +368,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enableudp
      */
     put_EnableUDP(EnableUDP) {
-        result := ComCall(24, this, "short", EnableUDP, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, EnableUDP, "HRESULT")
         return result
     }
 
@@ -361,7 +392,7 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enabletcp
      */
     put_EnableTCP(EnableTCP) {
-        result := ComCall(26, this, "short", EnableTCP, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, EnableTCP, "HRESULT")
         return result
     }
 
@@ -385,7 +416,69 @@ class IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enablehttp
      */
     put_EnableHTTP(EnableHTTP) {
-        result := ComCall(28, this, "short", EnableHTTP, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL, EnableHTTP, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMNetShowConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BufferingTime := CallbackCreate(GetMethod(implObj, "get_BufferingTime"), flags, 2)
+        this.vtbl.put_BufferingTime := CallbackCreate(GetMethod(implObj, "put_BufferingTime"), flags, 2)
+        this.vtbl.get_UseFixedUDPPort := CallbackCreate(GetMethod(implObj, "get_UseFixedUDPPort"), flags, 2)
+        this.vtbl.put_UseFixedUDPPort := CallbackCreate(GetMethod(implObj, "put_UseFixedUDPPort"), flags, 2)
+        this.vtbl.get_FixedUDPPort := CallbackCreate(GetMethod(implObj, "get_FixedUDPPort"), flags, 2)
+        this.vtbl.put_FixedUDPPort := CallbackCreate(GetMethod(implObj, "put_FixedUDPPort"), flags, 2)
+        this.vtbl.get_UseHTTPProxy := CallbackCreate(GetMethod(implObj, "get_UseHTTPProxy"), flags, 2)
+        this.vtbl.put_UseHTTPProxy := CallbackCreate(GetMethod(implObj, "put_UseHTTPProxy"), flags, 2)
+        this.vtbl.get_EnableAutoProxy := CallbackCreate(GetMethod(implObj, "get_EnableAutoProxy"), flags, 2)
+        this.vtbl.put_EnableAutoProxy := CallbackCreate(GetMethod(implObj, "put_EnableAutoProxy"), flags, 2)
+        this.vtbl.get_HTTPProxyHost := CallbackCreate(GetMethod(implObj, "get_HTTPProxyHost"), flags, 2)
+        this.vtbl.put_HTTPProxyHost := CallbackCreate(GetMethod(implObj, "put_HTTPProxyHost"), flags, 2)
+        this.vtbl.get_HTTPProxyPort := CallbackCreate(GetMethod(implObj, "get_HTTPProxyPort"), flags, 2)
+        this.vtbl.put_HTTPProxyPort := CallbackCreate(GetMethod(implObj, "put_HTTPProxyPort"), flags, 2)
+        this.vtbl.get_EnableMulticast := CallbackCreate(GetMethod(implObj, "get_EnableMulticast"), flags, 2)
+        this.vtbl.put_EnableMulticast := CallbackCreate(GetMethod(implObj, "put_EnableMulticast"), flags, 2)
+        this.vtbl.get_EnableUDP := CallbackCreate(GetMethod(implObj, "get_EnableUDP"), flags, 2)
+        this.vtbl.put_EnableUDP := CallbackCreate(GetMethod(implObj, "put_EnableUDP"), flags, 2)
+        this.vtbl.get_EnableTCP := CallbackCreate(GetMethod(implObj, "get_EnableTCP"), flags, 2)
+        this.vtbl.put_EnableTCP := CallbackCreate(GetMethod(implObj, "put_EnableTCP"), flags, 2)
+        this.vtbl.get_EnableHTTP := CallbackCreate(GetMethod(implObj, "get_EnableHTTP"), flags, 2)
+        this.vtbl.put_EnableHTTP := CallbackCreate(GetMethod(implObj, "put_EnableHTTP"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BufferingTime)
+        CallbackFree(this.vtbl.put_BufferingTime)
+        CallbackFree(this.vtbl.get_UseFixedUDPPort)
+        CallbackFree(this.vtbl.put_UseFixedUDPPort)
+        CallbackFree(this.vtbl.get_FixedUDPPort)
+        CallbackFree(this.vtbl.put_FixedUDPPort)
+        CallbackFree(this.vtbl.get_UseHTTPProxy)
+        CallbackFree(this.vtbl.put_UseHTTPProxy)
+        CallbackFree(this.vtbl.get_EnableAutoProxy)
+        CallbackFree(this.vtbl.put_EnableAutoProxy)
+        CallbackFree(this.vtbl.get_HTTPProxyHost)
+        CallbackFree(this.vtbl.put_HTTPProxyHost)
+        CallbackFree(this.vtbl.get_HTTPProxyPort)
+        CallbackFree(this.vtbl.put_HTTPProxyPort)
+        CallbackFree(this.vtbl.get_EnableMulticast)
+        CallbackFree(this.vtbl.put_EnableMulticast)
+        CallbackFree(this.vtbl.get_EnableUDP)
+        CallbackFree(this.vtbl.put_EnableUDP)
+        CallbackFree(this.vtbl.get_EnableTCP)
+        CallbackFree(this.vtbl.put_EnableTCP)
+        CallbackFree(this.vtbl.get_EnableHTTP)
+        CallbackFree(this.vtbl.put_EnableHTTP)
     }
 }

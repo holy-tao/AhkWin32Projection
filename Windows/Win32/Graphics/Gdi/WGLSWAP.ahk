@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class WGLSWAP extends Win32Struct {
-    static sizeof => 16
+export default struct WGLSWAP {
+    #StructPack 8
 
-    static packingSize => 8
+    hdc : HDC
 
-    /**
-     * @type {HDC}
-     */
-    hdc {
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(0, this)
-            return this.__hdc
-        }
-    }
+    uiFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

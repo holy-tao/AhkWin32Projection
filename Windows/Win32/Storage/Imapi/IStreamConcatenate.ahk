@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to combine several data streams into a single stream.
@@ -17,26 +18,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-istreamconcatenate
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IStreamConcatenate extends IStream {
-
-    static sizeof => A_PtrSize
+export default struct IStreamConcatenate extends IStream {
     /**
      * The interface identifier for IStreamConcatenate
      * @type {Guid}
      */
-    static IID => Guid("{27354146-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354146-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamConcatenate interfaces
+    */
+    struct Vtbl extends IStream.Vtbl {
+        Initialize  : IntPtr
+        Initialize2 : IntPtr
+        Append      : IntPtr
+        Append2     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Initialize2", "Append", "Append2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamConcatenate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes this stream from two input streams.
@@ -164,7 +175,7 @@ class IStreamConcatenate extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-initialize2
      */
     Initialize2(streams, streamCount) {
-        result := ComCall(15, this, "ptr*", streams, "uint", streamCount, "HRESULT")
+        result := ComCall(15, this, IStream.Ptr, streams, "uint", streamCount, "HRESULT")
         return result
     }
 
@@ -235,7 +246,33 @@ class IStreamConcatenate extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-append2
      */
     Append2(streams, streamCount) {
-        result := ComCall(17, this, "ptr*", streams, "uint", streamCount, "HRESULT")
+        result := ComCall(17, this, IStream.Ptr, streams, "uint", streamCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamConcatenate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Initialize2 := CallbackCreate(GetMethod(implObj, "Initialize2"), flags, 3)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
+        this.vtbl.Append2 := CallbackCreate(GetMethod(implObj, "Append2"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Initialize2)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.Append2)
     }
 }

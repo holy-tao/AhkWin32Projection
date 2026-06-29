@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the color space for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) input stream.
@@ -12,10 +11,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_input_color_space_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -24,12 +21,9 @@ class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA extends Win32Struct {
      * - YCbCr_Matrix
      * - YCbCr_xvYCC
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -62,12 +56,8 @@ class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA extends Win32Struct {
         get => (this._bitfield >> 3) & 0x1
         set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

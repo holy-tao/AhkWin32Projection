@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that allows the programmatic addition of an installed gadget to the user's desktop.
@@ -14,32 +16,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-idesktopgadget
  * @namespace Windows.Win32.UI.Shell
  */
-class IDesktopGadget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDesktopGadget extends IUnknown {
     /**
      * The interface identifier for IDesktopGadget
      * @type {Guid}
      */
-    static IID => Guid("{c1646bc4-f298-4f91-a204-eb2dd1709d1a}")
+    static IID := Guid("{c1646bc4-f298-4f91-a204-eb2dd1709d1a}")
 
     /**
      * The class identifier for DesktopGadget
      * @type {Guid}
      */
-    static CLSID => Guid("{924ccc1b-6562-4c85-8657-d177925222b6}")
+    static CLSID := Guid("{924ccc1b-6562-4c85-8657-d177925222b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDesktopGadget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RunGadget : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RunGadget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDesktopGadget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds an installed gadget to the desktop.
@@ -102,5 +111,25 @@ class IDesktopGadget extends IUnknown {
 
         result := ComCall(3, this, "ptr", gadgetPath, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDesktopGadget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RunGadget := CallbackCreate(GetMethod(implObj, "RunGadget"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RunGadget)
     }
 }

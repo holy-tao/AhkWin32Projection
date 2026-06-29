@@ -1,31 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Com.ChannelCredentials
  */
-class IChannelCredentials extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IChannelCredentials extends IDispatch {
     /**
      * The interface identifier for IChannelCredentials
      * @type {Guid}
      */
-    static IID => Guid("{181b448c-c17c-4b17-ac6d-06699b93198f}")
+    static IID := Guid("{181b448c-c17c-4b17-ac6d-06699b93198f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IChannelCredentials interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetWindowsCredential                        : IntPtr
+        SetUserNameCredential                       : IntPtr
+        SetClientCertificateFromStore               : IntPtr
+        SetClientCertificateFromStoreByName         : IntPtr
+        SetClientCertificateFromFile                : IntPtr
+        SetDefaultServiceCertificateFromStore       : IntPtr
+        SetDefaultServiceCertificateFromStoreByName : IntPtr
+        SetDefaultServiceCertificateFromFile        : IntPtr
+        SetServiceCertificateAuthentication         : IntPtr
+        SetIssuedToken                              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWindowsCredential", "SetUserNameCredential", "SetClientCertificateFromStore", "SetClientCertificateFromStoreByName", "SetClientCertificateFromFile", "SetDefaultServiceCertificateFromStore", "SetDefaultServiceCertificateFromStoreByName", "SetDefaultServiceCertificateFromFile", "SetServiceCertificateAuthentication", "SetIssuedToken"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IChannelCredentials.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,7 +61,7 @@ class IChannelCredentials extends IDispatch {
         username := username is String ? BSTR.Alloc(username).Value : username
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(7, this, "ptr", domain, "ptr", username, "ptr", password, "int", impersonationLevel, "int", allowNtlm, "HRESULT")
+        result := ComCall(7, this, BSTR, domain, BSTR, username, BSTR, password, "int", impersonationLevel, BOOL, allowNtlm, "HRESULT")
         return result
     }
 
@@ -55,7 +75,7 @@ class IChannelCredentials extends IDispatch {
         username := username is String ? BSTR.Alloc(username).Value : username
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(8, this, "ptr", username, "ptr", password, "HRESULT")
+        result := ComCall(8, this, BSTR, username, BSTR, password, "HRESULT")
         return result
     }
 
@@ -72,7 +92,7 @@ class IChannelCredentials extends IDispatch {
         storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
         findYype := findYype is String ? BSTR.Alloc(findYype).Value : findYype
 
-        result := ComCall(9, this, "ptr", storeLocation, "ptr", storeName, "ptr", findYype, "ptr", findValue, "HRESULT")
+        result := ComCall(9, this, BSTR, storeLocation, BSTR, storeName, BSTR, findYype, VARIANT, findValue, "HRESULT")
         return result
     }
 
@@ -88,7 +108,7 @@ class IChannelCredentials extends IDispatch {
         storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
         storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
 
-        result := ComCall(10, this, "ptr", subjectName, "ptr", storeLocation, "ptr", storeName, "HRESULT")
+        result := ComCall(10, this, BSTR, subjectName, BSTR, storeLocation, BSTR, storeName, "HRESULT")
         return result
     }
 
@@ -104,7 +124,7 @@ class IChannelCredentials extends IDispatch {
         password := password is String ? BSTR.Alloc(password).Value : password
         keystorageFlags := keystorageFlags is String ? BSTR.Alloc(keystorageFlags).Value : keystorageFlags
 
-        result := ComCall(11, this, "ptr", filename, "ptr", password, "ptr", keystorageFlags, "HRESULT")
+        result := ComCall(11, this, BSTR, filename, BSTR, password, BSTR, keystorageFlags, "HRESULT")
         return result
     }
 
@@ -121,7 +141,7 @@ class IChannelCredentials extends IDispatch {
         storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
         findType := findType is String ? BSTR.Alloc(findType).Value : findType
 
-        result := ComCall(12, this, "ptr", storeLocation, "ptr", storeName, "ptr", findType, "ptr", findValue, "HRESULT")
+        result := ComCall(12, this, BSTR, storeLocation, BSTR, storeName, BSTR, findType, VARIANT, findValue, "HRESULT")
         return result
     }
 
@@ -137,7 +157,7 @@ class IChannelCredentials extends IDispatch {
         storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
         storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
 
-        result := ComCall(13, this, "ptr", subjectName, "ptr", storeLocation, "ptr", storeName, "HRESULT")
+        result := ComCall(13, this, BSTR, subjectName, BSTR, storeLocation, BSTR, storeName, "HRESULT")
         return result
     }
 
@@ -153,7 +173,7 @@ class IChannelCredentials extends IDispatch {
         password := password is String ? BSTR.Alloc(password).Value : password
         keystorageFlags := keystorageFlags is String ? BSTR.Alloc(keystorageFlags).Value : keystorageFlags
 
-        result := ComCall(14, this, "ptr", filename, "ptr", password, "ptr", keystorageFlags, "HRESULT")
+        result := ComCall(14, this, BSTR, filename, BSTR, password, BSTR, keystorageFlags, "HRESULT")
         return result
     }
 
@@ -169,7 +189,7 @@ class IChannelCredentials extends IDispatch {
         revocationMode := revocationMode is String ? BSTR.Alloc(revocationMode).Value : revocationMode
         certificateValidationMode := certificateValidationMode is String ? BSTR.Alloc(certificateValidationMode).Value : certificateValidationMode
 
-        result := ComCall(15, this, "ptr", storeLocation, "ptr", revocationMode, "ptr", certificateValidationMode, "HRESULT")
+        result := ComCall(15, this, BSTR, storeLocation, BSTR, revocationMode, BSTR, certificateValidationMode, "HRESULT")
         return result
     }
 
@@ -185,7 +205,45 @@ class IChannelCredentials extends IDispatch {
         localIssuerBindingType := localIssuerBindingType is String ? BSTR.Alloc(localIssuerBindingType).Value : localIssuerBindingType
         localIssuerBinding := localIssuerBinding is String ? BSTR.Alloc(localIssuerBinding).Value : localIssuerBinding
 
-        result := ComCall(16, this, "ptr", localIssuerAddres, "ptr", localIssuerBindingType, "ptr", localIssuerBinding, "HRESULT")
+        result := ComCall(16, this, BSTR, localIssuerAddres, BSTR, localIssuerBindingType, BSTR, localIssuerBinding, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IChannelCredentials.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWindowsCredential := CallbackCreate(GetMethod(implObj, "SetWindowsCredential"), flags, 6)
+        this.vtbl.SetUserNameCredential := CallbackCreate(GetMethod(implObj, "SetUserNameCredential"), flags, 3)
+        this.vtbl.SetClientCertificateFromStore := CallbackCreate(GetMethod(implObj, "SetClientCertificateFromStore"), flags, 5)
+        this.vtbl.SetClientCertificateFromStoreByName := CallbackCreate(GetMethod(implObj, "SetClientCertificateFromStoreByName"), flags, 4)
+        this.vtbl.SetClientCertificateFromFile := CallbackCreate(GetMethod(implObj, "SetClientCertificateFromFile"), flags, 4)
+        this.vtbl.SetDefaultServiceCertificateFromStore := CallbackCreate(GetMethod(implObj, "SetDefaultServiceCertificateFromStore"), flags, 5)
+        this.vtbl.SetDefaultServiceCertificateFromStoreByName := CallbackCreate(GetMethod(implObj, "SetDefaultServiceCertificateFromStoreByName"), flags, 4)
+        this.vtbl.SetDefaultServiceCertificateFromFile := CallbackCreate(GetMethod(implObj, "SetDefaultServiceCertificateFromFile"), flags, 4)
+        this.vtbl.SetServiceCertificateAuthentication := CallbackCreate(GetMethod(implObj, "SetServiceCertificateAuthentication"), flags, 4)
+        this.vtbl.SetIssuedToken := CallbackCreate(GetMethod(implObj, "SetIssuedToken"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWindowsCredential)
+        CallbackFree(this.vtbl.SetUserNameCredential)
+        CallbackFree(this.vtbl.SetClientCertificateFromStore)
+        CallbackFree(this.vtbl.SetClientCertificateFromStoreByName)
+        CallbackFree(this.vtbl.SetClientCertificateFromFile)
+        CallbackFree(this.vtbl.SetDefaultServiceCertificateFromStore)
+        CallbackFree(this.vtbl.SetDefaultServiceCertificateFromStoreByName)
+        CallbackFree(this.vtbl.SetDefaultServiceCertificateFromFile)
+        CallbackFree(this.vtbl.SetServiceCertificateAuthentication)
+        CallbackFree(this.vtbl.SetIssuedToken)
     }
 }

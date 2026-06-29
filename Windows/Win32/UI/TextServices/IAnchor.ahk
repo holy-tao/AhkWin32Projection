@@ -1,33 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TsGravity.ahk" { TsGravity }
+#Import ".\ANCHOR_CHANGE_HISTORY_FLAGS.ahk" { ANCHOR_CHANGE_HISTORY_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TsShiftDir.ahk" { TsShiftDir }
 
 /**
  * The IAnchor interface is implemented by the TSF manager. Clients of Microsoft Active Accessibility use IAnchor anchor objects to delimit a range of text within a text stream.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-ianchor
  * @namespace Windows.Win32.UI.TextServices
  */
-class IAnchor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAnchor extends IUnknown {
     /**
      * The interface identifier for IAnchor
      * @type {Guid}
      */
-    static IID => Guid("{0feb7e34-5a60-4356-8ef7-abdec2ff7cf8}")
+    static IID := Guid("{0feb7e34-5a60-4356-8ef7-abdec2ff7cf8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAnchor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetGravity           : IntPtr
+        GetGravity           : IntPtr
+        IsEqual              : IntPtr
+        Compare              : IntPtr
+        Shift                : IntPtr
+        ShiftTo              : IntPtr
+        ShiftRegion          : IntPtr
+        SetChangeHistoryMask : IntPtr
+        GetChangeHistory     : IntPtr
+        ClearChangeHistory   : IntPtr
+        Clone                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetGravity", "GetGravity", "IsEqual", "Compare", "Shift", "ShiftTo", "ShiftRegion", "SetChangeHistoryMask", "GetChangeHistory", "ClearChangeHistory", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAnchor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IAnchor::SetGravity method
@@ -54,7 +76,7 @@ class IAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-setgravity
      */
     SetGravity(gravity) {
-        result := ComCall(3, this, "int", gravity, "HRESULT")
+        result := ComCall(3, this, TsGravity, gravity, "HRESULT")
         return result
     }
 
@@ -81,7 +103,7 @@ class IAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-isequal
      */
     IsEqual(paWith) {
-        result := ComCall(5, this, "ptr", paWith, "int*", &pfEqual := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", paWith, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
     }
 
@@ -315,7 +337,7 @@ class IAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-shiftregion
      */
     ShiftRegion(dwFlags, dir) {
-        result := ComCall(9, this, "uint", dwFlags, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwFlags, TsShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
         return pfNoRegion
     }
 
@@ -402,5 +424,45 @@ class IAnchor extends IUnknown {
     Clone() {
         result := ComCall(13, this, "ptr*", &ppaClone := 0, "HRESULT")
         return IAnchor(ppaClone)
+    }
+
+    Query(iid) {
+        if (IAnchor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 2)
+        this.vtbl.GetGravity := CallbackCreate(GetMethod(implObj, "GetGravity"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 3)
+        this.vtbl.Shift := CallbackCreate(GetMethod(implObj, "Shift"), flags, 5)
+        this.vtbl.ShiftTo := CallbackCreate(GetMethod(implObj, "ShiftTo"), flags, 2)
+        this.vtbl.ShiftRegion := CallbackCreate(GetMethod(implObj, "ShiftRegion"), flags, 4)
+        this.vtbl.SetChangeHistoryMask := CallbackCreate(GetMethod(implObj, "SetChangeHistoryMask"), flags, 2)
+        this.vtbl.GetChangeHistory := CallbackCreate(GetMethod(implObj, "GetChangeHistory"), flags, 2)
+        this.vtbl.ClearChangeHistory := CallbackCreate(GetMethod(implObj, "ClearChangeHistory"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetGravity)
+        CallbackFree(this.vtbl.GetGravity)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.Compare)
+        CallbackFree(this.vtbl.Shift)
+        CallbackFree(this.vtbl.ShiftTo)
+        CallbackFree(this.vtbl.ShiftRegion)
+        CallbackFree(this.vtbl.SetChangeHistoryMask)
+        CallbackFree(this.vtbl.GetChangeHistory)
+        CallbackFree(this.vtbl.ClearChangeHistory)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Bitmap.ahk
-#Include ..\Dxgi\IDXGISurface.ahk
-#Include .\D2D1_MAPPED_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import ".\D2D1_MAPPED_RECT.ahk" { D2D1_MAPPED_RECT }
+#Import ".\D2D1_MAP_OPTIONS.ahk" { D2D1_MAP_OPTIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
 
 /**
  * Represents a bitmap that can be used as a surface for an ID2D1DeviceContext or mapped into system memory, and can contain additional color context information.
@@ -25,26 +29,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1bitmap1
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Bitmap1 extends ID2D1Bitmap {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Bitmap1 extends ID2D1Bitmap {
     /**
      * The interface identifier for ID2D1Bitmap1
      * @type {Guid}
      */
-    static IID => Guid("{a898a84c-3873-4588-b08b-ebbf978df041}")
+    static IID := Guid("{a898a84c-3873-4588-b08b-ebbf978df041}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Bitmap1 interfaces
+    */
+    struct Vtbl extends ID2D1Bitmap.Vtbl {
+        GetColorContext : IntPtr
+        GetOptions      : IntPtr
+        GetSurface      : IntPtr
+        Map             : IntPtr
+        Unmap           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetColorContext", "GetOptions", "GetSurface", "Map", "Unmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Bitmap1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the color context information associated with the bitmap.
@@ -57,7 +72,7 @@ class ID2D1Bitmap1 extends ID2D1Bitmap {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-getcolorcontext
      */
     GetColorContext(colorContext) {
-        ComCall(11, this, "ptr*", colorContext)
+        ComCall(11, this, ID2D1ColorContext.Ptr, colorContext)
     }
 
     /**
@@ -68,7 +83,7 @@ class ID2D1Bitmap1 extends ID2D1Bitmap {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-getoptions
      */
     GetOptions() {
-        result := ComCall(12, this, "int")
+        result := ComCall(12, this, D2D1_BITMAP_OPTIONS)
         return result
     }
 
@@ -104,7 +119,7 @@ class ID2D1Bitmap1 extends ID2D1Bitmap {
      */
     Map(options) {
         mappedRect := D2D1_MAPPED_RECT()
-        result := ComCall(14, this, "int", options, "ptr", mappedRect, "HRESULT")
+        result := ComCall(14, this, D2D1_MAP_OPTIONS, options, D2D1_MAPPED_RECT.Ptr, mappedRect, "HRESULT")
         return mappedRect
     }
 
@@ -141,5 +156,33 @@ class ID2D1Bitmap1 extends ID2D1Bitmap {
     Unmap() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1Bitmap1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetColorContext := CallbackCreate(GetMethod(implObj, "GetColorContext"), flags, 2)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 1)
+        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 2)
+        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 3)
+        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetColorContext)
+        CallbackFree(this.vtbl.GetOptions)
+        CallbackFree(this.vtbl.GetSurface)
+        CallbackFree(this.vtbl.Map)
+        CallbackFree(this.vtbl.Unmap)
     }
 }

@@ -1,68 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\CRYPTO_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPTO_SETTINGS.ahk" { CRYPTO_SETTINGS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Indicates TLS parameter restrictions.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-tls_parameters
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class TLS_PARAMETERS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct TLS_PARAMETERS {
+    #StructPack 8
 
     /**
      * The number of ALPN Ids in rgstrAlpnIds. 
      * 
      * Set to 0 if the following parameter restrictions apply regardless of the negotiated application protocol. It is an error to specify more than SCH_CRED_MAX_SUPPORTED_ALPN_IDS.
-     * @type {Integer}
      */
-    cAlpnIds {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cAlpnIds : UInt32
 
     /**
      * An array of ALPN IDs that the following parameters apply to. 
      * 
      * Set to NULL if parameter restrictions apply regardless of the negotiated application protocol.
-     * @type {Pointer<LSA_UNICODE_STRING>}
      */
-    rgstrAlpnIds {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgstrAlpnIds : LSA_UNICODE_STRING.Ptr
 
     /**
      * The bit string that represents the disabled protocols. 
      * 
      * Set to 0 to use system defaults. Schannel protocol flags are [documented here.](./ns-schannel-schannel_cred.md)
-     * @type {Integer}
      */
-    grbitDisabledProtocols {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    grbitDisabledProtocols : UInt32
 
     /**
      * The count of entries in the pDisabledCrypto array. It is an error to specify more than SCH_CRED_MAX_SUPPORTED_CRYPTO_SETTINGS.
-     * @type {Integer}
      */
-    cDisabledCrypto {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cDisabledCrypto : UInt32
 
     /**
      * An array of pointers to the CRYPTO_SETTINGS structures that express disabled cryptographic settings.
-     * @type {Pointer<CRYPTO_SETTINGS>}
      */
-    pDisabledCrypto {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pDisabledCrypto : CRYPTO_SETTINGS.Ptr
 
     /**
      * (*optional*) The flags to pass. 
@@ -73,10 +50,7 @@ class TLS_PARAMETERS extends Win32Struct {
      * 
      * > [!NOTE]
      * > TLS_PARAMS_OPTIONAL is valid for server applications only. Must be zero otherwise.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFlags : UInt32
+
 }

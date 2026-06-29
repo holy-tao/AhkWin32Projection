@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the next action that the WebDAV client should take after a successful call to the DavAuthCallback callback function.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/davclnt/ne-davclnt-authnextstep
  * @namespace Windows.Win32.NetworkManagement.WebDav
  */
-class AUTHNEXTSTEP extends Win32Enum {
+export default struct AUTHNEXTSTEP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Retry the connection request without using the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function. This is the same as the default behavior if no callback function is registered.

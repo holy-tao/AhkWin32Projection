@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a physical bitmap that can be associated with a visual for composition in a visual tree. This interface can also be used to update the bitmap contents.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionsurface
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionSurface extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionSurface extends IUnknown {
     /**
      * The interface identifier for IDCompositionSurface
      * @type {Guid}
      */
-    static IID => Guid("{bb8a4953-2c99-4f5a-96f5-4819027fa3ac}")
+    static IID := Guid("{bb8a4953-2c99-4f5a-96f5-4819027fa3ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionSurface interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginDraw   : IntPtr
+        EndDraw     : IntPtr
+        SuspendDraw : IntPtr
+        ResumeDraw  : IntPtr
+        Scroll      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginDraw", "EndDraw", "SuspendDraw", "ResumeDraw", "Scroll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionSurface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initiates drawing on this Microsoft DirectComposition surface object.
@@ -94,7 +108,7 @@ class IDCompositionSurface extends IUnknown {
     BeginDraw(updateRect, iid, updateObject, updateOffset) {
         updateObjectMarshal := updateObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", updateRect, "ptr", iid, updateObjectMarshal, updateObject, "ptr", updateOffset, "HRESULT")
+        result := ComCall(3, this, RECT.Ptr, updateRect, Guid.Ptr, iid, updateObjectMarshal, updateObject, POINT.Ptr, updateOffset, "HRESULT")
         return result
     }
 
@@ -173,7 +187,35 @@ class IDCompositionSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurface-scroll
      */
     Scroll(scrollRect, clipRect, offsetX, offsetY) {
-        result := ComCall(7, this, "ptr", scrollRect, "ptr", clipRect, "int", offsetX, "int", offsetY, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, scrollRect, RECT.Ptr, clipRect, "int", offsetX, "int", offsetY, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionSurface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 5)
+        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 1)
+        this.vtbl.SuspendDraw := CallbackCreate(GetMethod(implObj, "SuspendDraw"), flags, 1)
+        this.vtbl.ResumeDraw := CallbackCreate(GetMethod(implObj, "ResumeDraw"), flags, 1)
+        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginDraw)
+        CallbackFree(this.vtbl.EndDraw)
+        CallbackFree(this.vtbl.SuspendDraw)
+        CallbackFree(this.vtbl.ResumeDraw)
+        CallbackFree(this.vtbl.Scroll)
     }
 }

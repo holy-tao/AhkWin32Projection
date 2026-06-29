@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_SRAS_TABLE_ENTRIES_EVENT extends Win32Struct {
-    static sizeof => 24
+export default struct WHEA_SRAS_TABLE_ENTRIES_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LogNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumberSignals : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberSignals {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

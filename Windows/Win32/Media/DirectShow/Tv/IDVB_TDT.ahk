@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\MPEG_DATE_AND_TIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_tdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVB_TDT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDVB_TDT extends IUnknown {
     /**
      * The interface identifier for IDVB_TDT
      * @type {Guid}
      */
-    static IID => Guid("{0780dc7d-d55c-4aef-97e6-6b75906e2796}")
+    static IID := Guid("{0780dc7d-d55c-4aef-97e6-6b75906e2796}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVB_TDT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        GetUTCTime : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetUTCTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVB_TDT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -99,7 +109,29 @@ class IDVB_TDT extends IUnknown {
      */
     GetUTCTime() {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(4, this, "ptr", pmdtVal, "HRESULT")
+        result := ComCall(4, this, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
+    }
+
+    Query(iid) {
+        if (IDVB_TDT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetUTCTime := CallbackCreate(GetMethod(implObj, "GetUTCTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetUTCTime)
     }
 }

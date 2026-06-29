@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_PANOSE_DECORATIVE_TOPOLOGY enumeration contains values that specify the overall shape characteristics of the font.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_decorative_topology
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_PANOSE_DECORATIVE_TOPOLOGY extends Win32Enum {
+export default struct DWRITE_PANOSE_DECORATIVE_TOPOLOGY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Any decorative topology.

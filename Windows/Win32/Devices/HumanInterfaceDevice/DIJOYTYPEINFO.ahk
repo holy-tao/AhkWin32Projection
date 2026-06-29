@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWSETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\JOYREGHWSETTINGS.ahk" { JOYREGHWSETTINGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The DIJOYTYPEINFO structure contains information about a joystick type.
@@ -57,91 +58,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoytypeinfo
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIJOYTYPEINFO extends Win32Struct {
-    static sizeof => 2088
-
-    static packingSize => 8
+export default struct DIJOYTYPEINFO {
+    #StructPack 4
 
     /**
      * Specifies the size of the structure in bytes. This member must be initialized before the structure is used.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Joystick hardware settings.
-     * @type {JOYREGHWSETTINGS}
      */
-    hws {
-        get {
-            if(!this.HasProp("__hws"))
-                this.__hws := JOYREGHWSETTINGS(4, this)
-            return this.__hws
-        }
-    }
+    hws : JOYREGHWSETTINGS
 
     /**
      * Specifies a CLSID for the joystick type configuration object. Pass this CLSID to CoCreateInstance to create a configuration object. This field is zero if the type does not have custom configuration.
-     * @type {Pointer}
      */
-    clsidConfig {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    clsidConfig : Guid
 
     /**
      * The display name for the joystick type. The display name is the name that should be used to display the name of the joystick type to the end user.
-     * @type {String}
      */
-    wszDisplayName {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
-    }
+    wszDisplayName : WCHAR[256]
 
     /**
      * The device responsible for handling polling for devices of this type. This is a null string if the global polling callout is to be used.
-     * @type {String}
      */
-    wszCallout {
-        get => StrGet(this.ptr + 536, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 259, "UTF-16")
-    }
+    wszCallout : WCHAR[260]
 
     /**
      * The hardware ID for the joystick type. The hardware ID is used by Plug and Play on Windows 2000 and Windows 98 (DirectX 7.0 only) to find the drivers for the joystick.
-     * @type {String}
      */
-    wszHardwareId {
-        get => StrGet(this.ptr + 1056, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1056, 255, "UTF-16")
-    }
+    wszHardwareId : WCHAR[256]
 
     /**
      * Joystick type flags. This member can be set to a combination of the following flags.
-     * @type {Integer}
      */
-    dwFlags1 {
-        get => NumGet(this, 1568, "uint")
-        set => NumPut("uint", value, this, 1568)
-    }
+    dwFlags1 : UInt32
 
     /**
      * Combination of device filtering and device type/subtype override flags. Device-filtering flags should be placed in the high WORD of <b>dwFlags2</b>. Device type and subtype should be placed in the low and high WORDs of the member, respectively.
-     * @type {Integer}
      */
-    dwFlags2 {
-        get => NumGet(this, 1572, "uint")
-        set => NumPut("uint", value, this, 1572)
-    }
+    dwFlags2 : UInt32
 
-    /**
-     * @type {String}
-     */
-    wszMapFile {
-        get => StrGet(this.ptr + 1576, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1576, 255, "UTF-16")
-    }
+    wszMapFile : WCHAR[256]
+
 }

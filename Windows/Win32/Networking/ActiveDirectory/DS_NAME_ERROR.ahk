@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DS_NAME_ERROR enumeration defines the errors returned by the status member of the DS_NAME_RESULT_ITEM structure. These are potential errors that may be encountered while a name is converted by the DsCrackNames function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_error
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_NAME_ERROR extends Win32Enum {
+export default struct DS_NAME_ERROR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The conversion was successful.

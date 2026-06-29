@@ -1,115 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class ANON_OBJECT_HEADER_BIGOBJ extends Win32Struct {
-    static sizeof => 56
+export default struct ANON_OBJECT_HEADER_BIGOBJ {
+    #StructPack 4
 
-    static packingSize => 8
+    Sig1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Sig1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Sig2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Sig2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Machine : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Machine {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    TimeDateStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeDateStamp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ClassID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ClassID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SizeOfData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MetaDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MetaDataSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MetaDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MetaDataOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    NumberOfSections : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfSections {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PointerToSymbolTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PointerToSymbolTable {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    NumberOfSymbols : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfSymbols {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS structure contains information about a target device.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_target_device_name_flags
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -17,12 +14,9 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS extends Win32Struct {
      * - friendlyNameForced
      * - edidIdsValid
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -55,12 +49,8 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS extends Win32Struct {
         get => (this._bitfield >> 3) & 0x1FFFFFFF
         set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
     }
-
-    /**
-     * @type {Integer}
-     */
-    value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

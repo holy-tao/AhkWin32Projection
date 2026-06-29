@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains settings for the Shell's state. This structure is used with the SHGetSetSettings function. (Unicode)
@@ -10,10 +9,8 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset Unicode
  */
-class SHELLSTATEW extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct SHELLSTATEW {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -34,12 +31,9 @@ class SHELLSTATEW extends Win32Struct {
      * - fFilter
      * - fShowSuperHidden
      * - fNoNetCrawling
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -176,72 +170,47 @@ class SHELLSTATEW extends Win32Struct {
         get => (this._bitfield1 >> 16) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 16) | (this._bitfield1 & ~(0x1 << 16))
     }
-
     /**
      * Type: <b>DWORD</b>
      * 
      * Not used.
-     * @type {Integer}
      */
-    dwWin95Unused {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwWin95Unused : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * Not used.
-     * @type {Integer}
      */
-    uWin95Unused {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uWin95Unused : UInt32
 
     /**
      * Type: <b>LONG</b>
      * 
      * The column to sort by.
-     * @type {Integer}
      */
-    lParamSort {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lParamSort : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Alphabetical sort direction for the column specified by <b>lParamSort</b>. Use 1 for an ascending sort, -1 for a descending sort.
-     * @type {Integer}
      */
-    iSortDirection {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    iSortDirection : Int32
 
     /**
      * Type: <b>UINT</b>
      * 
      * Not used.
-     * @type {Integer}
      */
-    version {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    version : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * Not used.
-     * @type {Integer}
      */
-    uNotUsed {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uNotUsed : UInt32
 
     /**
      * This bitfield backs the following members:
@@ -253,12 +222,9 @@ class SHELLSTATEW extends Win32Struct {
      * - fShowTypeOverlay
      * - fShowStatusBar
      * - fSpareFlags
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    _bitfield2 : Int32
+
 
     /**
      * @type {Integer}

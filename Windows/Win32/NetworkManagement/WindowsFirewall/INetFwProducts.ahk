@@ -1,41 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INetFwProduct.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetFwProduct.ahk" { INetFwProduct }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * To access the methods and properties for registering third-party firewall products with Windows Firewall and for enumerating registered products.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwproducts
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwProducts extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwProducts extends IDispatch {
     /**
      * The interface identifier for INetFwProducts
      * @type {Guid}
      */
-    static IID => Guid("{39eb36e0-2097-40bd-8af2-63a13b525362}")
+    static IID := Guid("{39eb36e0-2097-40bd-8af2-63a13b525362}")
 
     /**
      * The class identifier for NetFwProducts
      * @type {Guid}
      */
-    static CLSID => Guid("{cc19079b-8272-4d73-bb70-cdb533527b61}")
+    static CLSID := Guid("{cc19079b-8272-4d73-bb70-cdb533527b61}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwProducts interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        Register     : IntPtr
+        Item         : IntPtr
+        get__NewEnum : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "Register", "Item", "get__NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwProducts.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -97,5 +108,31 @@ class INetFwProducts extends IDispatch {
     get__NewEnum() {
         result := ComCall(10, this, "ptr*", &newEnum := 0, "HRESULT")
         return IUnknown(newEnum)
+    }
+
+    Query(iid) {
+        if (INetFwProducts.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 3)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get__NewEnum)
     }
 }

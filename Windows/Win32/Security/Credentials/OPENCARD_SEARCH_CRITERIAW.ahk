@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The OPENCARD_SEARCH_CRITERIA structure is used by the SCardUIDlgSelectCard function in order to recognize cards that meet the requirements set forth by the caller. You can, however, call SCardUIDlgSelectCard without using this structure. (Unicode)
@@ -10,73 +11,43 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class OPENCARD_SEARCH_CRITERIAW extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct OPENCARD_SEARCH_CRITERIAW {
+    #StructPack 8
 
     /**
      * The length, in bytes, of the structure. Must not be <b>NULL</b>.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * A pointer to a buffer containing null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {PWSTR}
      */
-    lpstrGroupNames {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrGroupNames : PWSTR
 
     /**
      * The maximum number of bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version) in the <b>lpstrGroupNames</b> string.
-     * @type {Integer}
      */
-    nMaxGroupNames {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    nMaxGroupNames : UInt32
 
     /**
      * Reserved for future use. An array of GUIDs that identifies the interfaces required. Set this member to <b>NULL</b>.
-     * @type {Pointer<Guid>}
      */
-    rgguidInterfaces {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rgguidInterfaces : Guid.Ptr
 
     /**
      * Reserved for future use. The number of interfaces in the <b>rgguidInterfaces</b> array. Set this member to <b>NULL</b>.
-     * @type {Integer}
      */
-    cguidInterfaces {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cguidInterfaces : UInt32
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {PWSTR}
      */
-    lpstrCardNames {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpstrCardNames : PWSTR
 
     /**
      * The maximum number of bytes (ANSI version) or characters (Unicode version) in the <b>lpstrGroupNames</b> string.
-     * @type {Integer}
      */
-    nMaxCardNames {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    nMaxCardNames : UInt32
 
     /**
      * A pointer to the caller's card verify routine. If no special card verification is required, this pointer is <b>NULL</b>. If the card is rejected by the verify routine, <b>FALSE</b> is returned, and the card will be disconnected. If the card is accepted by the verify routine, <b>TRUE</b> is returned. 
@@ -95,12 +66,8 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct {
      * );
      * 
      * ```
-     * @type {Pointer<LPOCNCHKPROC>}
      */
-    lpfnCheck {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpfnCheck : IntPtr
 
     /**
      * A pointer to the caller's card connect routine. If the caller needs to perform additional processing to connect to the card, this function pointer is set to the user's connect function. If the connect function is successful, the card is left connected and initialized, and the card handle is returned. 
@@ -121,12 +88,8 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct {
      * );
      * 
      * ```
-     * @type {Pointer<LPOCNCONNPROCW>}
      */
-    lpfnConnect {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpfnConnect : IntPtr
 
     /**
      * A pointer to the caller's card disconnect routine. 
@@ -149,38 +112,23 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  When you use <b>lpfnConnect</b>, <b>lpfnCheck</b>, and <b>lpfnDisconnect</b>, all three callback procedures should be present. Using these callbacks allows further verification that the calling application has found the appropriate card. This is the best way to ensure the appropriate card is selected. However, when using a value that is not <b>NULL</b> for <b>lpfnCheck</b>, either both <b>lpfnConnect</b> and <b>lpfnDisconnect</b> must not be <b>NULL</b> (and <b>pvUserData</b> should also be provided), or <b>dwShareMode</b> and <b>dwPreferredProtocols</b> must both be set.</div>
      * <div> </div>
-     * @type {Pointer<LPOCNDSCPROC>}
      */
-    lpfnDisconnect {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpfnDisconnect : IntPtr
 
     /**
      * Void pointer to user data. This pointer is passed back to the caller on the Connect, Check, and Disconnect routines.
-     * @type {Pointer<Void>}
      */
-    pvUserData {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pvUserData : IntPtr
 
     /**
      * If <b>lpfnConnect</b> is not <b>NULL</b>, the <b>dwShareMode</b> and <b>dwPreferredProtocols</b> members are ignored. If <b>lpfnConnect</b> is <b>NULL</b> and <b>dwShareMode</b> is nonzero, an internal call is made to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a> that uses <b>dwShareMode</b> and <b>dwPreferredProtocols</b> as the parameter.
-     * @type {Integer}
      */
-    dwShareMode {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwShareMode : UInt32
 
     /**
      * Used for internal connection as described in <b>dwShareMode</b>.
-     * @type {Integer}
      */
-    dwPreferredProtocols {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwPreferredProtocols : UInt32
+
 }

@@ -1,32 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeedFolder extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFeedFolder extends IDispatch {
     /**
      * The interface identifier for IFeedFolder
      * @type {Guid}
      */
-    static IID => Guid("{81f04ad1-4194-4d7d-86d6-11813cec163c}")
+    static IID := Guid("{81f04ad1-4194-4d7d-86d6-11813cec163c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeedFolder interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Feeds                : IntPtr
+        get_Subfolders           : IntPtr
+        CreateFeed               : IntPtr
+        CreateSubfolder          : IntPtr
+        ExistsFeed               : IntPtr
+        GetFeed                  : IntPtr
+        ExistsSubfolder          : IntPtr
+        GetSubfolder             : IntPtr
+        Delete                   : IntPtr
+        get_Name                 : IntPtr
+        Rename                   : IntPtr
+        get_Path                 : IntPtr
+        Move                     : IntPtr
+        get_Parent               : IntPtr
+        get_IsRoot               : IntPtr
+        get_TotalUnreadItemCount : IntPtr
+        get_TotalItemCount       : IntPtr
+        GetWatcher               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Feeds", "get_Subfolders", "CreateFeed", "CreateSubfolder", "ExistsFeed", "GetFeed", "ExistsSubfolder", "GetSubfolder", "Delete", "get_Name", "Rename", "get_Path", "Move", "get_Parent", "get_IsRoot", "get_TotalUnreadItemCount", "get_TotalItemCount", "GetWatcher"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeedFolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -112,7 +140,7 @@ class IFeedFolder extends IDispatch {
         feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(9, this, "ptr", feedName, "ptr", feedUrl, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, feedName, BSTR, feedUrl, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -124,7 +152,7 @@ class IFeedFolder extends IDispatch {
     CreateSubfolder(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(10, this, "ptr", folderName, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, folderName, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -136,7 +164,7 @@ class IFeedFolder extends IDispatch {
     ExistsFeed(feedName) {
         feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
 
-        result := ComCall(11, this, "ptr", feedName, "short*", &exists := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, feedName, VARIANT_BOOL.Ptr, &exists := 0, "HRESULT")
         return exists
     }
 
@@ -148,7 +176,7 @@ class IFeedFolder extends IDispatch {
     GetFeed(feedName) {
         feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
 
-        result := ComCall(12, this, "ptr", feedName, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, feedName, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -160,7 +188,7 @@ class IFeedFolder extends IDispatch {
     ExistsSubfolder(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(13, this, "ptr", folderName, "short*", &exists := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, folderName, VARIANT_BOOL.Ptr, &exists := 0, "HRESULT")
         return exists
     }
 
@@ -172,22 +200,13 @@ class IFeedFolder extends IDispatch {
     GetSubfolder(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(14, this, "ptr", folderName, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, folderName, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(15, this, "HRESULT")
@@ -199,21 +218,20 @@ class IFeedFolder extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        folderName := BSTR()
-        result := ComCall(16, this, "ptr", folderName, "HRESULT")
+        folderName := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, folderName, "HRESULT")
         return folderName
     }
 
     /**
-     * Learn more about: RenameColumnGrbit enumeration
+     * 
      * @param {BSTR} folderName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(17, this, "ptr", folderName, "HRESULT")
+        result := ComCall(17, this, BSTR, folderName, "HRESULT")
         return result
     }
 
@@ -222,56 +240,20 @@ class IFeedFolder extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        folderPath := BSTR()
-        result := ComCall(18, this, "ptr", folderPath, "HRESULT")
+        folderPath := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, folderPath, "HRESULT")
         return folderPath
     }
 
     /**
-     * Moves a group and all of its resources from one node to another.
-     * @remarks
-     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
      * 
-     * If you want your application to ensure a particular state for a resource or a group after a move:
-     * 
-     * <ol>
-     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
-     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
-     * </ol>
-     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
-     * 
-     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {BSTR} newParentPath 
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
-     * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_IO_PENDING</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The reassignment of ownership of the group is in progress.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
+     * @returns {HRESULT} 
      */
     Move(newParentPath) {
         newParentPath := newParentPath is String ? BSTR.Alloc(newParentPath).Value : newParentPath
 
-        result := ComCall(19, this, "ptr", newParentPath, "HRESULT")
+        result := ComCall(19, this, BSTR, newParentPath, "HRESULT")
         return result
     }
 
@@ -289,7 +271,7 @@ class IFeedFolder extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsRoot() {
-        result := ComCall(21, this, "short*", &isRoot := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &isRoot := 0, "HRESULT")
         return isRoot
     }
 
@@ -318,7 +300,61 @@ class IFeedFolder extends IDispatch {
      * @returns {IDispatch} 
      */
     GetWatcher(scope, mask) {
-        result := ComCall(24, this, "int", scope, "int", mask, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(24, this, FEEDS_EVENTS_SCOPE, scope, FEEDS_EVENTS_MASK, mask, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
+    }
+
+    Query(iid) {
+        if (IFeedFolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Feeds := CallbackCreate(GetMethod(implObj, "get_Feeds"), flags, 2)
+        this.vtbl.get_Subfolders := CallbackCreate(GetMethod(implObj, "get_Subfolders"), flags, 2)
+        this.vtbl.CreateFeed := CallbackCreate(GetMethod(implObj, "CreateFeed"), flags, 4)
+        this.vtbl.CreateSubfolder := CallbackCreate(GetMethod(implObj, "CreateSubfolder"), flags, 3)
+        this.vtbl.ExistsFeed := CallbackCreate(GetMethod(implObj, "ExistsFeed"), flags, 3)
+        this.vtbl.GetFeed := CallbackCreate(GetMethod(implObj, "GetFeed"), flags, 3)
+        this.vtbl.ExistsSubfolder := CallbackCreate(GetMethod(implObj, "ExistsSubfolder"), flags, 3)
+        this.vtbl.GetSubfolder := CallbackCreate(GetMethod(implObj, "GetSubfolder"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_IsRoot := CallbackCreate(GetMethod(implObj, "get_IsRoot"), flags, 2)
+        this.vtbl.get_TotalUnreadItemCount := CallbackCreate(GetMethod(implObj, "get_TotalUnreadItemCount"), flags, 2)
+        this.vtbl.get_TotalItemCount := CallbackCreate(GetMethod(implObj, "get_TotalItemCount"), flags, 2)
+        this.vtbl.GetWatcher := CallbackCreate(GetMethod(implObj, "GetWatcher"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Feeds)
+        CallbackFree(this.vtbl.get_Subfolders)
+        CallbackFree(this.vtbl.CreateFeed)
+        CallbackFree(this.vtbl.CreateSubfolder)
+        CallbackFree(this.vtbl.ExistsFeed)
+        CallbackFree(this.vtbl.GetFeed)
+        CallbackFree(this.vtbl.ExistsSubfolder)
+        CallbackFree(this.vtbl.GetSubfolder)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.Rename)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_IsRoot)
+        CallbackFree(this.vtbl.get_TotalUnreadItemCount)
+        CallbackFree(this.vtbl.get_TotalItemCount)
+        CallbackFree(this.vtbl.GetWatcher)
     }
 }

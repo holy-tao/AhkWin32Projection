@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontCollection1.ahk
-#Include .\IDWriteFontFamily2.ahk
-#Include .\IDWriteFontList2.ahk
-#Include .\IDWriteFontSet1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import ".\IDWriteFontFamily2.ahk" { IDWriteFontFamily2 }
+#Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontList2.ahk" { IDWriteFontList2 }
 
 /**
  * This interface encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. The font collection API can be used to discover what font families and fonts are available, and to obtain some metadata about the fonts. (IDWriteFontCollection2)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection2
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontCollection2 extends IDWriteFontCollection1 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontCollection2 extends IDWriteFontCollection1 {
     /**
      * The interface identifier for IDWriteFontCollection2
      * @type {Guid}
      */
-    static IID => Guid("{514039c6-4617-4064-bf8b-92ea83e506e0}")
+    static IID := Guid("{514039c6-4617-4064-bf8b-92ea83e506e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontCollection2 interfaces
+    */
+    struct Vtbl extends IDWriteFontCollection1.Vtbl {
+        GetFontFamily      : IntPtr
+        GetMatchingFonts   : IntPtr
+        GetFontFamilyModel : IntPtr
+        GetFontSet         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontFamily", "GetMatchingFonts", "GetFontFamilyModel", "GetFontSet"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontCollection2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a font family object, given a zero-based font family index.
@@ -68,7 +82,7 @@ class IDWriteFontCollection2 extends IDWriteFontCollection1 {
     GetMatchingFonts(familyName, fontAxisValues, fontAxisValueCount) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(10, this, "ptr", familyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontList := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", familyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontList := 0, "HRESULT")
         return IDWriteFontList2(fontList)
     }
 
@@ -80,7 +94,7 @@ class IDWriteFontCollection2 extends IDWriteFontCollection1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection2-getfontfamilymodel
      */
     GetFontFamilyModel() {
-        result := ComCall(11, this, "int")
+        result := ComCall(11, this, DWRITE_FONT_FAMILY_MODEL)
         return result
     }
 
@@ -94,5 +108,31 @@ class IDWriteFontCollection2 extends IDWriteFontCollection1 {
     GetFontSet() {
         result := ComCall(12, this, "ptr*", &fontSet := 0, "HRESULT")
         return IDWriteFontSet1(fontSet)
+    }
+
+    Query(iid) {
+        if (IDWriteFontCollection2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontFamily := CallbackCreate(GetMethod(implObj, "GetFontFamily"), flags, 3)
+        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 5)
+        this.vtbl.GetFontFamilyModel := CallbackCreate(GetMethod(implObj, "GetFontFamilyModel"), flags, 1)
+        this.vtbl.GetFontSet := CallbackCreate(GetMethod(implObj, "GetFontSet"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontFamily)
+        CallbackFree(this.vtbl.GetMatchingFonts)
+        CallbackFree(this.vtbl.GetFontFamilyModel)
+        CallbackFree(this.vtbl.GetFontSet)
     }
 }

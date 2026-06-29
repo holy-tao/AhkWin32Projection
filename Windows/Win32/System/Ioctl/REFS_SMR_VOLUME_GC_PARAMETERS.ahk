@@ -1,72 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REFS_SMR_VOLUME_GC_ACTION.ahk
-#Include .\REFS_SMR_VOLUME_GC_METHOD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\REFS_SMR_VOLUME_GC_ACTION.ahk" { REFS_SMR_VOLUME_GC_ACTION }
+#Import ".\REFS_SMR_VOLUME_GC_METHOD.ahk" { REFS_SMR_VOLUME_GC_METHOD }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class REFS_SMR_VOLUME_GC_PARAMETERS extends Win32Struct {
-    static sizeof => 88
+export default struct REFS_SMR_VOLUME_GC_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Action : REFS_SMR_VOLUME_GC_ACTION
 
-    /**
-     * @type {REFS_SMR_VOLUME_GC_ACTION}
-     */
-    Action {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Method : REFS_SMR_VOLUME_GC_METHOD
 
-    /**
-     * @type {REFS_SMR_VOLUME_GC_METHOD}
-     */
-    Method {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    IoGranularity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IoGranularity {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CompressionFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CompressionFormat {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Unused : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "uint")
-            return this.__UnusedProxyArray
-        }
-    }
 }

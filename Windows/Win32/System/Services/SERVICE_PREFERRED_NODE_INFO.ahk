@@ -1,31 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Represents the preferred node on which to run a service.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_preferred_node_info
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_PREFERRED_NODE_INFO extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct SERVICE_PREFERRED_NODE_INFO {
+    #StructPack 2
 
     /**
      * The node number of the preferred node.
-     * @type {Integer}
      */
-    usPreferredNode {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usPreferredNode : UInt16
 
     /**
      * If this member is TRUE, the preferred node setting is deleted.
-     * @type {BOOLEAN}
      */
-    fDelete {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    fDelete : BOOLEAN
+
 }

@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import ".\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk" { DEFAULT_FOLDER_MENU_RESTRICTIONS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * Provides methods used to get and set shortcut menu information. This information is the same as that provided to SHCreateDefaultContextMenu through the DEFCONTEXTMENU structure.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idefaultfoldermenuinitialize
  * @namespace Windows.Win32.UI.Shell
  */
-class IDefaultFolderMenuInitialize extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDefaultFolderMenuInitialize extends IUnknown {
     /**
      * The interface identifier for IDefaultFolderMenuInitialize
      * @type {Guid}
      */
-    static IID => Guid("{7690aa79-f8fc-4615-a327-36f7d18f5d91}")
+    static IID := Guid("{7690aa79-f8fc-4615-a327-36f7d18f5d91}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDefaultFolderMenuInitialize interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize          : IntPtr
+        SetMenuRestrictions : IntPtr
+        GetMenuRestrictions : IntPtr
+        SetHandlerClsid     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SetMenuRestrictions", "GetMenuRestrictions", "SetHandlerClsid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDefaultFolderMenuInitialize.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * . (IDefaultFolderMenuInitialize.Initialize)
@@ -60,11 +77,9 @@ class IDefaultFolderMenuInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-initialize
      */
     Initialize(_hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", pcmcb, ITEMIDLIST.Ptr, pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, HKEY.Ptr, aKeys, "HRESULT")
         return result
     }
 
@@ -75,7 +90,7 @@ class IDefaultFolderMenuInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-setmenurestrictions
      */
     SetMenuRestrictions(dfmrValues) {
-        result := ComCall(4, this, "int", dfmrValues, "HRESULT")
+        result := ComCall(4, this, DEFAULT_FOLDER_MENU_RESTRICTIONS, dfmrValues, "HRESULT")
         return result
     }
 
@@ -86,7 +101,7 @@ class IDefaultFolderMenuInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-getmenurestrictions
      */
     GetMenuRestrictions(dfmrMask) {
-        result := ComCall(5, this, "int", dfmrMask, "int*", &pdfmrValues := 0, "HRESULT")
+        result := ComCall(5, this, DEFAULT_FOLDER_MENU_RESTRICTIONS, dfmrMask, "int*", &pdfmrValues := 0, "HRESULT")
         return pdfmrValues
     }
 
@@ -99,7 +114,33 @@ class IDefaultFolderMenuInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-sethandlerclsid
      */
     SetHandlerClsid(rclsid) {
-        result := ComCall(6, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDefaultFolderMenuInitialize.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 10)
+        this.vtbl.SetMenuRestrictions := CallbackCreate(GetMethod(implObj, "SetMenuRestrictions"), flags, 2)
+        this.vtbl.GetMenuRestrictions := CallbackCreate(GetMethod(implObj, "GetMenuRestrictions"), flags, 3)
+        this.vtbl.SetHandlerClsid := CallbackCreate(GetMethod(implObj, "SetHandlerClsid"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetMenuRestrictions)
+        CallbackFree(this.vtbl.GetMenuRestrictions)
+        CallbackFree(this.vtbl.SetHandlerClsid)
     }
 }

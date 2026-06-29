@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The AT_INFO structure contains information about a job.
@@ -9,21 +9,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmat/ns-lmat-at_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AT_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct AT_INFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD_PTR</b>
      * 
      * A pointer to a value that indicates the time of day at which the job is scheduled to run. The time is the local time at a computer on which the schedule service is running; it is measured from midnight, and is expressed in milliseconds.
-     * @type {Pointer}
      */
-    JobTime {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    JobTime : IntPtr
 
     /**
      * Type: <b>DWORD</b>
@@ -31,12 +25,8 @@ class AT_INFO extends Win32Struct {
      * A set of bit flags representing the days of the month. For each bit that is set, the scheduled job will run at the time specified by the <b>JobTime</b> member, on the corresponding day of the month. Bit 0 corresponds to the first day of the month, and so on.
      * 
      * The value of the bitmask is zero if the job was scheduled to run only once, at the first occurrence specified by the <b>JobTime</b> member.
-     * @type {Integer}
      */
-    DaysOfMonth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DaysOfMonth : UInt32
 
     /**
      * Type: <b>UCHAR</b>
@@ -47,12 +37,8 @@ class AT_INFO extends Win32Struct {
      * 
      * 
      * The value of the bitmask is zero if the job was scheduled to run only once, at the first occurrence specified by the <b>JobTime</b> member.
-     * @type {Integer}
      */
-    DaysOfWeek {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    DaysOfWeek : Int8
 
     /**
      * Type: <b>UCHAR</b>
@@ -63,21 +49,14 @@ class AT_INFO extends Win32Struct {
      * 
      * 
      *  When you submit a job using a call to the
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    Flags : Int8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the name of the command, batch program, or binary file to execute.
-     * @type {PWSTR}
      */
-    Command {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Command : PWSTR
+
 }

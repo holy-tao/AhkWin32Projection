@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutput5.ahk
-#Include .\DXGI_OUTPUT_DESC1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIOutput5.ahk" { IDXGIOutput5 }
+#Import ".\DXGI_OUTPUT_DESC1.ahk" { DXGI_OUTPUT_DESC1 }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput6 interface exposes methods to provide specific monitor capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgioutput6
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutput6 extends IDXGIOutput5 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutput6 extends IDXGIOutput5 {
     /**
      * The interface identifier for IDXGIOutput6
      * @type {Guid}
      */
-    static IID => Guid("{068346e8-aaec-4b84-add7-137f513f77a1}")
+    static IID := Guid("{068346e8-aaec-4b84-add7-137f513f77a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutput6 interfaces
+    */
+    struct Vtbl extends IDXGIOutput5.Vtbl {
+        GetDesc1                        : IntPtr
+        CheckHardwareCompositionSupport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc1", "CheckHardwareCompositionSupport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutput6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get an extended description of the output that includes color characteristics and connection type.
@@ -47,7 +56,7 @@ class IDXGIOutput6 extends IDXGIOutput5 {
      */
     GetDesc1() {
         pDesc := DXGI_OUTPUT_DESC1()
-        result := ComCall(27, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(27, this, DXGI_OUTPUT_DESC1.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -61,5 +70,27 @@ class IDXGIOutput6 extends IDXGIOutput5 {
     CheckHardwareCompositionSupport() {
         result := ComCall(28, this, "uint*", &pFlags := 0, "HRESULT")
         return pFlags
+    }
+
+    Query(iid) {
+        if (IDXGIOutput6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
+        this.vtbl.CheckHardwareCompositionSupport := CallbackCreate(GetMethod(implObj, "CheckHardwareCompositionSupport"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc1)
+        CallbackFree(this.vtbl.CheckHardwareCompositionSupport)
     }
 }

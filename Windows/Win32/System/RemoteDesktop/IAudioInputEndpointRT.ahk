@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AE_CURRENT_POSITION.ahk" { AE_CURRENT_POSITION }
+#Import "..\..\Media\Audio\Apo\APO_CONNECTION_PROPERTY.ahk" { APO_CONNECTION_PROPERTY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets the input buffer for each processing pass.
@@ -15,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioinputendpointrt
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IAudioInputEndpointRT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioInputEndpointRT extends IUnknown {
     /**
      * The interface identifier for IAudioInputEndpointRT
      * @type {Guid}
      */
-    static IID => Guid("{8026ab61-92b2-43c1-a1df-5c37ebd08d82}")
+    static IID := Guid("{8026ab61-92b2-43c1-a1df-5c37ebd08d82}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioInputEndpointRT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInputDataPointer     : IntPtr
+        ReleaseInputDataPointer : IntPtr
+        PulseEndpoint           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputDataPointer", "ReleaseInputDataPointer", "PulseEndpoint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioInputEndpointRT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the buffer from which data will be read by the audio engine.
@@ -85,7 +96,7 @@ class IAudioInputEndpointRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-getinputdatapointer
      */
     GetInputDataPointer(pConnectionProperty, pAeTimeStamp) {
-        ComCall(3, this, "ptr", pConnectionProperty, "ptr", pAeTimeStamp)
+        ComCall(3, this, APO_CONNECTION_PROPERTY.Ptr, pConnectionProperty, AE_CURRENT_POSITION.Ptr, pAeTimeStamp)
     }
 
     /**
@@ -124,5 +135,29 @@ class IAudioInputEndpointRT extends IUnknown {
      */
     PulseEndpoint() {
         ComCall(5, this)
+    }
+
+    Query(iid) {
+        if (IAudioInputEndpointRT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputDataPointer := CallbackCreate(GetMethod(implObj, "GetInputDataPointer"), flags, 3)
+        this.vtbl.ReleaseInputDataPointer := CallbackCreate(GetMethod(implObj, "ReleaseInputDataPointer"), flags, 3)
+        this.vtbl.PulseEndpoint := CallbackCreate(GetMethod(implObj, "PulseEndpoint"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputDataPointer)
+        CallbackFree(this.vtbl.ReleaseInputDataPointer)
+        CallbackFree(this.vtbl.PulseEndpoint)
     }
 }

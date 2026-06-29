@@ -1,37 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Gaming
  */
-class IGameStatistics extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGameStatistics extends IUnknown {
     /**
      * The interface identifier for IGameStatistics
      * @type {Guid}
      */
-    static IID => Guid("{3887c9ca-04a0-42ae-bc4c-5fa6c7721145}")
+    static IID := Guid("{3887c9ca-04a0-42ae-bc4c-5fa6c7721145}")
 
     /**
      * The class identifier for GameStatistics
      * @type {Guid}
      */
-    static CLSID => Guid("{dbc85a2c-c0dc-4961-b6e2-d28b62c11ad4}")
+    static CLSID := Guid("{dbc85a2c-c0dc-4961-b6e2-d28b62c11ad4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGameStatistics interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMaxCategoryLength   : IntPtr
+        GetMaxNameLength       : IntPtr
+        GetMaxValueLength      : IntPtr
+        GetMaxCategories       : IntPtr
+        GetMaxStatsPerCategory : IntPtr
+        SetCategoryTitle       : IntPtr
+        GetCategoryTitle       : IntPtr
+        GetStatistic           : IntPtr
+        SetStatistic           : IntPtr
+        Save                   : IntPtr
+        SetLastPlayedCategory  : IntPtr
+        GetLastPlayedCategory  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMaxCategoryLength", "GetMaxNameLength", "GetMaxValueLength", "GetMaxCategories", "GetMaxStatsPerCategory", "SetCategoryTitle", "GetCategoryTitle", "GetStatistic", "SetStatistic", "Save", "SetLastPlayedCategory", "GetLastPlayedCategory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGameStatistics.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -97,7 +118,7 @@ class IGameStatistics extends IUnknown {
      * @returns {PWSTR} 
      */
     GetCategoryTitle(categoryIndex) {
-        result := ComCall(9, this, "ushort", categoryIndex, "ptr*", &pTitle := 0, "HRESULT")
+        result := ComCall(9, this, "ushort", categoryIndex, PWSTR.Ptr, &pTitle := 0, "HRESULT")
         return pTitle
     }
 
@@ -134,15 +155,12 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {BOOL} trackChanges 
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * @returns {HRESULT} 
      */
     Save(trackChanges) {
-        result := ComCall(12, this, "int", trackChanges, "HRESULT")
+        result := ComCall(12, this, BOOL, trackChanges, "HRESULT")
         return result
     }
 
@@ -163,5 +181,47 @@ class IGameStatistics extends IUnknown {
     GetLastPlayedCategory() {
         result := ComCall(14, this, "uint*", &pCategoryIndex := 0, "HRESULT")
         return pCategoryIndex
+    }
+
+    Query(iid) {
+        if (IGameStatistics.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMaxCategoryLength := CallbackCreate(GetMethod(implObj, "GetMaxCategoryLength"), flags, 2)
+        this.vtbl.GetMaxNameLength := CallbackCreate(GetMethod(implObj, "GetMaxNameLength"), flags, 2)
+        this.vtbl.GetMaxValueLength := CallbackCreate(GetMethod(implObj, "GetMaxValueLength"), flags, 2)
+        this.vtbl.GetMaxCategories := CallbackCreate(GetMethod(implObj, "GetMaxCategories"), flags, 2)
+        this.vtbl.GetMaxStatsPerCategory := CallbackCreate(GetMethod(implObj, "GetMaxStatsPerCategory"), flags, 2)
+        this.vtbl.SetCategoryTitle := CallbackCreate(GetMethod(implObj, "SetCategoryTitle"), flags, 3)
+        this.vtbl.GetCategoryTitle := CallbackCreate(GetMethod(implObj, "GetCategoryTitle"), flags, 3)
+        this.vtbl.GetStatistic := CallbackCreate(GetMethod(implObj, "GetStatistic"), flags, 5)
+        this.vtbl.SetStatistic := CallbackCreate(GetMethod(implObj, "SetStatistic"), flags, 5)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 2)
+        this.vtbl.SetLastPlayedCategory := CallbackCreate(GetMethod(implObj, "SetLastPlayedCategory"), flags, 2)
+        this.vtbl.GetLastPlayedCategory := CallbackCreate(GetMethod(implObj, "GetLastPlayedCategory"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMaxCategoryLength)
+        CallbackFree(this.vtbl.GetMaxNameLength)
+        CallbackFree(this.vtbl.GetMaxValueLength)
+        CallbackFree(this.vtbl.GetMaxCategories)
+        CallbackFree(this.vtbl.GetMaxStatsPerCategory)
+        CallbackFree(this.vtbl.SetCategoryTitle)
+        CallbackFree(this.vtbl.GetCategoryTitle)
+        CallbackFree(this.vtbl.GetStatistic)
+        CallbackFree(this.vtbl.SetStatistic)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SetLastPlayedCategory)
+        CallbackFree(this.vtbl.GetLastPlayedCategory)
     }
 }

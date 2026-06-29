@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\FolderItems.ahk
-#Include .\FolderItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FolderItem.ahk" { FolderItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FolderItems.ahk" { FolderItems }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a Shell folder. This object contains properties and methods that allow you to retrieve information about the folder.
@@ -20,32 +22,48 @@
  * @see https://learn.microsoft.com/windows/win32/shell/folder
  * @namespace Windows.Win32.UI.Shell
  */
-class Folder extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Folder extends IDispatch {
     /**
      * The interface identifier for Folder
      * @type {Guid}
      */
-    static IID => Guid("{bbcbde60-c3ff-11ce-8350-444553540000}")
+    static IID := Guid("{bbcbde60-c3ff-11ce-8350-444553540000}")
 
     /**
      * The class identifier for Folder
      * @type {Guid}
      */
-    static CLSID => Guid("{bbcbde60-c3ff-11ce-8350-444553540000}")
+    static CLSID := Guid("{bbcbde60-c3ff-11ce-8350-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Folder interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Title        : IntPtr
+        get_Application  : IntPtr
+        get_Parent       : IntPtr
+        get_ParentFolder : IntPtr
+        Items            : IntPtr
+        ParseName        : IntPtr
+        NewFolder        : IntPtr
+        MoveHere         : IntPtr
+        CopyHere         : IntPtr
+        GetDetailsOf     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Title", "get_Application", "get_Parent", "get_ParentFolder", "Items", "ParseName", "NewFolder", "MoveHere", "CopyHere", "GetDetailsOf"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Folder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -80,8 +98,8 @@ class Folder extends IDispatch {
      * @returns {BSTR} 
      */
     get_Title() {
-        pbs := BSTR()
-        result := ComCall(7, this, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 
@@ -138,7 +156,7 @@ class Folder extends IDispatch {
     ParseName(bName) {
         bName := bName is String ? BSTR.Alloc(bName).Value : bName
 
-        result := ComCall(12, this, "ptr", bName, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, bName, "ptr*", &ppid := 0, "HRESULT")
         return FolderItem(ppid)
     }
 
@@ -159,7 +177,7 @@ class Folder extends IDispatch {
     NewFolder(bName, vOptions) {
         bName := bName is String ? BSTR.Alloc(bName).Value : bName
 
-        result := ComCall(13, this, "ptr", bName, "ptr", vOptions, "HRESULT")
+        result := ComCall(13, this, BSTR, bName, VARIANT, vOptions, "HRESULT")
         return result
     }
 
@@ -277,7 +295,7 @@ class Folder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/folder-movehere
      */
     MoveHere(vItem, vOptions) {
-        result := ComCall(14, this, "ptr", vItem, "ptr", vOptions, "HRESULT")
+        result := ComCall(14, this, VARIANT, vItem, VARIANT, vOptions, "HRESULT")
         return result
     }
 
@@ -402,7 +420,7 @@ class Folder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/folder-copyhere
      */
     CopyHere(vItem, vOptions) {
-        result := ComCall(15, this, "ptr", vItem, "ptr", vOptions, "HRESULT")
+        result := ComCall(15, this, VARIANT, vItem, VARIANT, vOptions, "HRESULT")
         return result
     }
 
@@ -475,8 +493,46 @@ class Folder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/folder-getdetailsof
      */
     GetDetailsOf(vItem, iColumn) {
-        pbs := BSTR()
-        result := ComCall(16, this, "ptr", vItem, "int", iColumn, "ptr", pbs, "HRESULT")
+        pbs := BSTR.Owned()
+        result := ComCall(16, this, VARIANT, vItem, "int", iColumn, BSTR.Ptr, pbs, "HRESULT")
         return pbs
+    }
+
+    Query(iid) {
+        if (Folder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_ParentFolder := CallbackCreate(GetMethod(implObj, "get_ParentFolder"), flags, 2)
+        this.vtbl.Items := CallbackCreate(GetMethod(implObj, "Items"), flags, 2)
+        this.vtbl.ParseName := CallbackCreate(GetMethod(implObj, "ParseName"), flags, 3)
+        this.vtbl.NewFolder := CallbackCreate(GetMethod(implObj, "NewFolder"), flags, 3)
+        this.vtbl.MoveHere := CallbackCreate(GetMethod(implObj, "MoveHere"), flags, 3)
+        this.vtbl.CopyHere := CallbackCreate(GetMethod(implObj, "CopyHere"), flags, 3)
+        this.vtbl.GetDetailsOf := CallbackCreate(GetMethod(implObj, "GetDetailsOf"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.get_Application)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_ParentFolder)
+        CallbackFree(this.vtbl.Items)
+        CallbackFree(this.vtbl.ParseName)
+        CallbackFree(this.vtbl.NewFolder)
+        CallbackFree(this.vtbl.MoveHere)
+        CallbackFree(this.vtbl.CopyHere)
+        CallbackFree(this.vtbl.GetDetailsOf)
     }
 }

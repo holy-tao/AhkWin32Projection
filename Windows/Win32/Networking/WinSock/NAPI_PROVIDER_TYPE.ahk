@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of hosting expected for a namespace provider.
@@ -16,7 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nsemail/ne-nsemail-napi_provider_type
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NAPI_PROVIDER_TYPE extends Win32Enum {
+export default struct NAPI_PROVIDER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The namespace provider is expected to be hosted by an application. There may be multiple namespace providers of type <b>ProviderType_Application</b> running at the same time on a local system. 

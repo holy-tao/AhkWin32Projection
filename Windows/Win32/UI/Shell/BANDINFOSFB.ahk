@@ -1,119 +1,78 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IShellFolder.ahk
-#Include Common\ITEMIDLIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Contains information about a folder band. This structure is used with the IShellFolderBand::GetBandInfoSFB and IShellFolderBand::SetBandInfoSFB methods.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-bandinfosfb
  * @namespace Windows.Win32.UI.Shell
  */
-class BANDINFOSFB extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct BANDINFOSFB {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwStateMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStateMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * State bits. One of the values listed for <b>dwStateMask</b>.
-     * @type {Integer}
      */
-    dwState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwState : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the background color of the band.
-     * @type {COLORREF}
      */
-    crBkgnd {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    crBkgnd : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the light button color.
-     * @type {COLORREF}
      */
-    crBtnLt {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    crBtnLt : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the dark button color.
-     * @type {COLORREF}
      */
-    crBtnDk {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    crBtnDk : COLORREF
 
     /**
      * Type: <b>WORD</b>
-     * @type {Integer}
      */
-    wViewMode {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    wViewMode : UInt16
 
     /**
      * Type: <b>WORD</b>
-     * @type {Integer}
      */
-    wAlign {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    wAlign : UInt16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object.
-     * @type {IShellFolder}
      */
-    psf {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    psf : IShellFolder
 
     /**
      * Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * A PIDL.
-     * @type {Pointer<ITEMIDLIST>}
      */
-    pidl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pidl : ITEMIDLIST.Ptr
+
 }

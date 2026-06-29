@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The EVENT_TRACE_HEADER structure contains standard event tracing information common to all events written by TraceEvent.
@@ -30,10 +30,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_TRACE_HEADER extends Win32Struct {
-    static sizeof => 40
+export default struct EVENT_TRACE_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Class {
+        Type : Int8
+
+        Level : Int8
+
+        Version : UInt16
+
+    }
 
     /**
      * Total number of bytes of the event. **Size** includes the size of the header
@@ -43,106 +51,26 @@ class EVENT_TRACE_HEADER extends Win32Struct {
      * buffer minus 72 (0x48).
      * 
      * On output, do not use this number in calculations.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FieldTypeFlags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    FieldTypeFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HeaderType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MarkerFlags {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    class _Class extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 2
-
-        /**
-         * @type {Integer}
-         */
-        Type {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Level {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Version {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {_Class}
-     */
-    Class {
-        get {
-            if(!this.HasProp("__Class"))
-                this.__Class := EVENT_TRACE_HEADER._Class(4, this)
-            return this.__Class
-        }
-    }
+    Version : UInt32
 
     /**
      * On output, identifies the thread that generated the event.
      * 
      * Note that on Windows 2000, **ThreadId** was a **ULONGLONG** value.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ThreadId : UInt32
 
     /**
      * On output, identifies the process that generated the event.
      * 
      * **Windows 2000:** This member is not supported.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessId : UInt32
 
     /**
      * On output, contains the time that the event occurred. The resolution is system
@@ -152,66 +80,23 @@ class EVENT_TRACE_HEADER extends Win32Struct {
      * resolution depends on the value of the **Wnode.ClientContext** member of
      * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
      * at the time the controller created the session.
-     * @type {Integer}
      */
-    TimeStamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TimeStamp : Int64
 
-    /**
-     * @type {Pointer}
-     */
-    Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Guid : Guid
 
-    /**
-     * @type {Integer}
-     */
-    GuidPtr {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    KernelTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KernelTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    UserTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UserTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessorTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ClientContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+    static __New() {
+        DefineProp(this.Prototype, 'HeaderType', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'MarkerFlags', { type: Int8, offset: 3 })
+        DefineProp(this.Prototype, 'Class', { type: EVENT_TRACE_HEADER._Class, offset: 4 })
+        DefineProp(this.Prototype, 'GuidPtr', { type: Int64, offset: 24 })
+        DefineProp(this.Prototype, 'ProcessorTime', { type: Int64, offset: 40 })
+        DefineProp(this.Prototype, 'ClientContext', { type: UInt32, offset: 40 })
+        DefineProp(this.Prototype, 'Flags', { type: UInt32, offset: 44 })
+        this.DeleteProp("__New")
     }
 }

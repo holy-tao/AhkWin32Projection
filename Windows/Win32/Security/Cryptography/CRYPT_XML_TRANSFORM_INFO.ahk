@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_TRANSFORM_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_XML_TRANSFORM_FLAGS.ahk" { CRYPT_XML_TRANSFORM_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information that is used when applying the data transform.
@@ -9,59 +9,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_transform_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_XML_TRANSFORM_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CRYPT_XML_TRANSFORM_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a null-terminated Unicode string that contains the <b>Algorithm</b> attribute.
-     * @type {PWSTR}
      */
-    wszAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wszAlgorithm : PWSTR
 
     /**
      * The size, in bytes, of the data provider's buffer. The size can be zero if the size cannot be determined at initialization time.
      *     This value is used by a caller of the structure pointed to by the <b>pfnCreateTransform</b> member to determine the necessary size of the receiving buffer.
-     * @type {Integer}
      */
-    cbBufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbBufferSize : UInt32
 
     /**
      * Specifies values that control how the transform is applied.
-     * @type {CRYPT_XML_TRANSFORM_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFlags : CRYPT_XML_TRANSFORM_FLAGS
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_create_transform">PFN_CRYPT_XML_CREATE_TRANSFORM</a> callback function used to create the transform.
-     * @type {Pointer<PFN_CRYPT_XML_CREATE_TRANSFORM>}
      */
-    pfnCreateTransform {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pfnCreateTransform : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

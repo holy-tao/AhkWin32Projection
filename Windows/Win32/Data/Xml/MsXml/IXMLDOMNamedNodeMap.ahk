@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IXMLDOMNode.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLDOMNamedNodeMap extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXMLDOMNamedNodeMap extends IDispatch {
     /**
      * The interface identifier for IXMLDOMNamedNodeMap
      * @type {Guid}
      */
-    static IID => Guid("{2933bf83-7b36-11d2-b20e-00c04f983e60}")
+    static IID := Guid("{2933bf83-7b36-11d2-b20e-00c04f983e60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLDOMNamedNodeMap interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        getNamedItem        : IntPtr
+        setNamedItem        : IntPtr
+        removeNamedItem     : IntPtr
+        get_item            : IntPtr
+        get_length          : IntPtr
+        getQualifiedItem    : IntPtr
+        removeQualifiedItem : IntPtr
+        nextNode            : IntPtr
+        reset               : IntPtr
+        get__newEnum        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getNamedItem", "setNamedItem", "removeNamedItem", "get_item", "get_length", "getQualifiedItem", "removeQualifiedItem", "nextNode", "reset", "get__newEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLDOMNamedNodeMap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -51,7 +69,7 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     getNamedItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(7, this, "ptr", name, "ptr*", &namedItem := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, name, "ptr*", &namedItem := 0, "HRESULT")
         return IXMLDOMNode(namedItem)
     }
 
@@ -73,7 +91,7 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     removeNamedItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", &namedItem := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, name, "ptr*", &namedItem := 0, "HRESULT")
         return IXMLDOMNode(namedItem)
     }
 
@@ -106,7 +124,7 @@ class IXMLDOMNamedNodeMap extends IDispatch {
         baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(12, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, baseName, BSTR, namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
         return IXMLDOMNode(qualifiedItem)
     }
 
@@ -120,7 +138,7 @@ class IXMLDOMNamedNodeMap extends IDispatch {
         baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(13, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, baseName, BSTR, namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
         return IXMLDOMNode(qualifiedItem)
     }
 
@@ -149,5 +167,43 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     get__newEnum() {
         result := ComCall(16, this, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
+    }
+
+    Query(iid) {
+        if (IXMLDOMNamedNodeMap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getNamedItem := CallbackCreate(GetMethod(implObj, "getNamedItem"), flags, 3)
+        this.vtbl.setNamedItem := CallbackCreate(GetMethod(implObj, "setNamedItem"), flags, 3)
+        this.vtbl.removeNamedItem := CallbackCreate(GetMethod(implObj, "removeNamedItem"), flags, 3)
+        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.getQualifiedItem := CallbackCreate(GetMethod(implObj, "getQualifiedItem"), flags, 4)
+        this.vtbl.removeQualifiedItem := CallbackCreate(GetMethod(implObj, "removeQualifiedItem"), flags, 4)
+        this.vtbl.nextNode := CallbackCreate(GetMethod(implObj, "nextNode"), flags, 2)
+        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
+        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getNamedItem)
+        CallbackFree(this.vtbl.setNamedItem)
+        CallbackFree(this.vtbl.removeNamedItem)
+        CallbackFree(this.vtbl.get_item)
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.getQualifiedItem)
+        CallbackFree(this.vtbl.removeQualifiedItem)
+        CallbackFree(this.vtbl.nextNode)
+        CallbackFree(this.vtbl.reset)
+        CallbackFree(this.vtbl.get__newEnum)
     }
 }

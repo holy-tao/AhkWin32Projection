@@ -1,40 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IRulesApplied.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRulesApplied.ahk" { IRulesApplied }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IRulesAppliedCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRulesAppliedCollection extends IDispatch {
     /**
      * The interface identifier for IRulesAppliedCollection
      * @type {Guid}
      */
-    static IID => Guid("{305104be-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104be-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for RulesAppliedCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{671926ee-c3cf-40af-be8f-1cbaee6486e8}")
+    static CLSID := Guid("{671926ee-c3cf-40af-be8f-1cbaee6486e8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRulesAppliedCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        item                         : IntPtr
+        get_length                   : IntPtr
+        get_element                  : IntPtr
+        propertyInheritedFrom        : IntPtr
+        get_propertyCount            : IntPtr
+        property                     : IntPtr
+        propertyInheritedTrace       : IntPtr
+        propertyInheritedTraceLength : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["item", "get_length", "get_element", "propertyInheritedFrom", "get_propertyCount", "property", "propertyInheritedTrace", "propertyInheritedTraceLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRulesAppliedCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -93,7 +108,7 @@ class IRulesAppliedCollection extends IDispatch {
     propertyInheritedFrom(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, name, "ptr*", &ppRulesApplied := 0, "HRESULT")
         return IRulesApplied(ppRulesApplied)
     }
 
@@ -112,8 +127,8 @@ class IRulesAppliedCollection extends IDispatch {
      * @returns {BSTR} 
      */
     property(index) {
-        pbstrProperty := BSTR()
-        result := ComCall(12, this, "int", index, "ptr", pbstrProperty, "HRESULT")
+        pbstrProperty := BSTR.Owned()
+        result := ComCall(12, this, "int", index, BSTR.Ptr, pbstrProperty, "HRESULT")
         return pbstrProperty
     }
 
@@ -126,7 +141,7 @@ class IRulesAppliedCollection extends IDispatch {
     propertyInheritedTrace(name, index) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, "ptr", name, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, name, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
         return IRulesApplied(ppRulesApplied)
     }
 
@@ -138,7 +153,41 @@ class IRulesAppliedCollection extends IDispatch {
     propertyInheritedTraceLength(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(14, this, "ptr", name, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, name, "int*", &pLength := 0, "HRESULT")
         return pLength
+    }
+
+    Query(iid) {
+        if (IRulesAppliedCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_element := CallbackCreate(GetMethod(implObj, "get_element"), flags, 2)
+        this.vtbl.propertyInheritedFrom := CallbackCreate(GetMethod(implObj, "propertyInheritedFrom"), flags, 3)
+        this.vtbl.get_propertyCount := CallbackCreate(GetMethod(implObj, "get_propertyCount"), flags, 2)
+        this.vtbl.property := CallbackCreate(GetMethod(implObj, "property"), flags, 3)
+        this.vtbl.propertyInheritedTrace := CallbackCreate(GetMethod(implObj, "propertyInheritedTrace"), flags, 4)
+        this.vtbl.propertyInheritedTraceLength := CallbackCreate(GetMethod(implObj, "propertyInheritedTraceLength"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.item)
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.get_element)
+        CallbackFree(this.vtbl.propertyInheritedFrom)
+        CallbackFree(this.vtbl.get_propertyCount)
+        CallbackFree(this.vtbl.property)
+        CallbackFree(this.vtbl.propertyInheritedTrace)
+        CallbackFree(this.vtbl.propertyInheritedTraceLength)
     }
 }

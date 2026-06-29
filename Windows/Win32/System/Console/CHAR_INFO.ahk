@@ -1,48 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Specifies a Unicode or ANSI character and its attributes. This structure is used by console functions to read from and write to a console screen buffer.
  * @see https://learn.microsoft.com/windows/console/char-info-str
  * @namespace Windows.Win32.System.Console
  */
-class CHAR_INFO extends Win32Struct {
-    static sizeof => 4
+export default struct CHAR_INFO {
+    #StructPack 2
 
-    static packingSize => 2
 
-    class _Char_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
+    struct _Char {
+        UnicodeChar : Int8
 
-        /**
-         * @type {Integer}
-         */
-        UnicodeChar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {CHAR}
-         */
-        AsciiChar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsciiChar', { type: CHAR, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A union of the following members.
-     * @type {_Char_e__Union}
      */
-    Char {
-        get {
-            if(!this.HasProp("__Char"))
-                this.__Char := CHAR_INFO._Char_e__Union(0, this)
-            return this.__Char
-        }
-    }
+    Char : CHAR_INFO._Char
 
     /**
      * The character attributes. This member can be zero or any combination of the following values.
@@ -64,10 +44,7 @@ class CHAR_INFO extends Win32Struct {
      * | **COMMON_LVB_GRID_RVERTICAL** `0x1000` | Right vertical. |
      * | **COMMON_LVB_REVERSE_VIDEO** `0x4000` | Reverse foreground and background attribute. |
      * | **COMMON_LVB_UNDERSCORE** `0x8000` | Underscore. |
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Attributes : UInt16
+
 }

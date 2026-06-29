@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\GRADIENT_FILL.ahk
-#Include .\TRIVERTEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GRADIENT_FILL.ahk" { GRADIENT_FILL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\TRIVERTEX.ahk" { TRIVERTEX }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRGRADIENTFILL structure contains members for the GradientFill enhanced metafile record.
@@ -15,70 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrgradientfill
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRGRADIENTFILL extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct EMRGRADIENTFILL {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * The bounding rectangle, in device units.
-     * @type {RECTL}
      */
-    rclBounds {
-        get {
-            if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(8, this)
-            return this.__rclBounds
-        }
-    }
+    rclBounds : RECTL
 
     /**
      * The number of vertices.
-     * @type {Integer}
      */
-    nVer {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    nVer : UInt32
 
     /**
      * The number of rectangles or triangles to be passed to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gradientfill">GradientFill</a>.
-     * @type {Integer}
      */
-    nTri {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    nTri : UInt32
 
-    /**
-     * @type {GRADIENT_FILL}
-     */
-    ulMode {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulMode : GRADIENT_FILL
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structures that each define a vertex.
-     * @type {TRIVERTEX}
      */
-    Ver {
-        get {
-            if(!this.HasProp("__VerProxyArray"))
-                this.__VerProxyArray := Win32FixedArray(this.ptr + 36, 1, TRIVERTEX, "")
-            return this.__VerProxyArray
-        }
-    }
+    Ver : TRIVERTEX[1]
+
 }

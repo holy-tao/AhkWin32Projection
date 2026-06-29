@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IPX_PATTERN structure applies a specific pattern or corresponding mask for the IPX protocol. The IPX_PATTERN structure designation is used by the traffic control interface in the application of packet filters.
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-ipx_pattern
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class IPX_PATTERN extends Win32Struct {
-    static sizeof => 24
+export default struct IPX_PATTERN {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Src extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _Src {
+        NetworkAddress : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        NetworkAddress {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        NodeAddress : Int8[6]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        NodeAddress {
-            get {
-                if(!this.HasProp("__NodeAddressProxyArray"))
-                    this.__NodeAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-                return this.__NodeAddressProxyArray
-            }
-        }
+        Socket : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        Socket {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
     }
 
-    /**
-     * @type {_Src}
-     */
-    Src {
-        get {
-            if(!this.HasProp("__Src"))
-                this.__Src := IPX_PATTERN._Src(0, this)
-            return this.__Src
-        }
-    }
+    Src : IPX_PATTERN._Src
 
-    /**
-     * @type {_Src}
-     */
-    Dest {
-        get {
-            if(!this.HasProp("__Dest"))
-                this.__Dest := IPX_PATTERN._Src(12, this)
-            return this.__Dest
-        }
-    }
+    Dest : IPX_PATTERN._Src
+
 }

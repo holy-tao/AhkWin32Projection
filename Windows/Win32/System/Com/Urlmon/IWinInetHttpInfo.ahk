@@ -1,51 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IWinInetInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWinInetInfo.ahk" { IWinInetInfo }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IWinInetHttpInfo extends IWinInetInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWinInetHttpInfo extends IWinInetInfo {
     /**
      * The interface identifier for IWinInetHttpInfo
      * @type {Guid}
      */
-    static IID => Guid("{79eac9d8-bafa-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9d8-bafa-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWinInetHttpInfo interfaces
+    */
+    struct Vtbl extends IWinInetInfo.Vtbl {
+        QueryInfo : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWinInetHttpInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryInfo"]
-
-    /**
-     * Retrieves limit and job state information from the job object.
-     * @remarks
-     * Use 
-     * <b>QueryInformationJobObject</b> to obtain the current limits and modify them. Use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function to set new limits.
      * 
-     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pcbBuf 
      * @param {Pointer<Integer>} pdwFlags 
      * @param {Pointer<Integer>} pdwReserved 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject
+     * @returns {HRESULT} 
      */
     QueryInfo(dwOption, pBuffer, pcbBuf, pdwFlags, pdwReserved) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
@@ -55,5 +52,25 @@ class IWinInetHttpInfo extends IWinInetInfo {
 
         result := ComCall(4, this, "uint", dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWinInetHttpInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryInfo := CallbackCreate(GetMethod(implObj, "QueryInfo"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryInfo)
     }
 }

@@ -1,37 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IHomePageSetting extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHomePageSetting extends IUnknown {
     /**
      * The interface identifier for IHomePageSetting
      * @type {Guid}
      */
-    static IID => Guid("{fdfc244f-18fa-4ff2-b08e-1d618f3ffbe4}")
+    static IID := Guid("{fdfc244f-18fa-4ff2-b08e-1d618f3ffbe4}")
 
     /**
      * The class identifier for HomePageSetting
      * @type {Guid}
      */
-    static CLSID => Guid("{374cede0-873a-4c4f-bc86-bcc8cf5116a3}")
+    static CLSID := Guid("{374cede0-873a-4c4f-bc86-bcc8cf5116a3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHomePageSetting interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetHomePage                 : IntPtr
+        IsHomePage                  : IntPtr
+        SetHomePageToBrowserDefault : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHomePage", "IsHomePage", "SetHomePageToBrowserDefault"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHomePageSetting.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,11 +54,10 @@ class IHomePageSetting extends IUnknown {
      * @returns {HRESULT} 
      */
     SetHomePage(_hwnd, homePageUri, brandingMessage) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         homePageUri := homePageUri is String ? StrPtr(homePageUri) : homePageUri
         brandingMessage := brandingMessage is String ? StrPtr(brandingMessage) : brandingMessage
 
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", homePageUri, "ptr", brandingMessage, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", homePageUri, "ptr", brandingMessage, "HRESULT")
         return result
     }
 
@@ -57,7 +69,7 @@ class IHomePageSetting extends IUnknown {
     IsHomePage(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(4, this, "ptr", uri, "int*", &isDefault := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", uri, BOOL.Ptr, &isDefault := 0, "HRESULT")
         return isDefault
     }
 
@@ -68,5 +80,29 @@ class IHomePageSetting extends IUnknown {
     SetHomePageToBrowserDefault() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHomePageSetting.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHomePage := CallbackCreate(GetMethod(implObj, "SetHomePage"), flags, 4)
+        this.vtbl.IsHomePage := CallbackCreate(GetMethod(implObj, "IsHomePage"), flags, 3)
+        this.vtbl.SetHomePageToBrowserDefault := CallbackCreate(GetMethod(implObj, "SetHomePageToBrowserDefault"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHomePage)
+        CallbackFree(this.vtbl.IsHomePage)
+        CallbackFree(this.vtbl.SetHomePageToBrowserDefault)
     }
 }

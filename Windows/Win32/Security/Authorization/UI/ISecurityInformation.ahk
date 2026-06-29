@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SI_INHERIT_TYPE.ahk" { SI_INHERIT_TYPE }
+#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SECURITY_INFO_PAGE_FLAGS.ahk" { SECURITY_INFO_PAGE_FLAGS }
+#Import "..\..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import ".\SI_ACCESS.ahk" { SI_ACCESS }
+#Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\UI\Controls\PSPCB_MESSAGE.ahk" { PSPCB_MESSAGE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SI_OBJECT_INFO.ahk" { SI_OBJECT_INFO }
 
 /**
  * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation
  * @namespace Windows.Win32.Security.Authorization.UI
  */
-class ISecurityInformation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISecurityInformation extends IUnknown {
     /**
      * The interface identifier for ISecurityInformation
      * @type {Guid}
      */
-    static IID => Guid("{965fc360-16ff-11d0-91cb-00aa00bbb723}")
+    static IID := Guid("{965fc360-16ff-11d0-91cb-00aa00bbb723}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISecurityInformation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetObjectInformation      : IntPtr
+        GetSecurity               : IntPtr
+        SetSecurity               : IntPtr
+        GetAccessRights           : IntPtr
+        MapGeneric                : IntPtr
+        GetInheritTypes           : IntPtr
+        PropertySheetPageCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetObjectInformation", "GetSecurity", "SetSecurity", "GetAccessRights", "MapGeneric", "GetInheritTypes", "PropertySheetPageCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISecurityInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetObjectInformation method requests information that the access control editor uses to initialize its pages and to determine the editing options available to the user.
@@ -42,7 +66,7 @@ class ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getobjectinformation
      */
     GetObjectInformation(pObjectInfo) {
-        result := ComCall(3, this, "ptr", pObjectInfo, "HRESULT")
+        result := ComCall(3, this, SI_OBJECT_INFO.Ptr, pObjectInfo, "HRESULT")
         return result
     }
 
@@ -71,7 +95,7 @@ class ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getsecurity
      */
     GetSecurity(RequestedInformation, ppSecurityDescriptor, fDefault) {
-        result := ComCall(4, this, "uint", RequestedInformation, "ptr", ppSecurityDescriptor, "int", fDefault, "HRESULT")
+        result := ComCall(4, this, OBJECT_SECURITY_INFORMATION, RequestedInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, BOOL, fDefault, "HRESULT")
         return result
     }
 
@@ -88,9 +112,7 @@ class ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-setsecurity
      */
     SetSecurity(SecurityInformation, pSecurityDescriptor) {
-        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
-
-        result := ComCall(5, this, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "HRESULT")
+        result := ComCall(5, this, OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, "HRESULT")
         return result
     }
 
@@ -118,7 +140,7 @@ class ISecurityInformation extends IUnknown {
         pcAccessesMarshal := pcAccesses is VarRef ? "uint*" : "ptr"
         piDefaultAccessMarshal := piDefaultAccess is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pguidObjectType, "uint", dwFlags, ppAccessMarshal, ppAccess, pcAccessesMarshal, pcAccesses, piDefaultAccessMarshal, piDefaultAccess, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pguidObjectType, SECURITY_INFO_PAGE_FLAGS, dwFlags, ppAccessMarshal, ppAccess, pcAccessesMarshal, pcAccesses, piDefaultAccessMarshal, piDefaultAccess, "HRESULT")
         return result
     }
 
@@ -141,7 +163,7 @@ class ISecurityInformation extends IUnknown {
         pAceFlagsMarshal := pAceFlags is VarRef ? "char*" : "ptr"
         pMaskMarshal := pMask is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pguidObjectType, pAceFlagsMarshal, pAceFlags, pMaskMarshal, pMask, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pguidObjectType, pAceFlagsMarshal, pAceFlags, pMaskMarshal, pMask, "HRESULT")
         return result
     }
 
@@ -177,9 +199,39 @@ class ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-propertysheetpagecallback
      */
     PropertySheetPageCallback(_hwnd, uMsg, uPage) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(9, this, "ptr", _hwnd, "uint", uMsg, "int", uPage, "HRESULT")
+        result := ComCall(9, this, HWND, _hwnd, PSPCB_MESSAGE, uMsg, SI_PAGE_TYPE, uPage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISecurityInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetObjectInformation := CallbackCreate(GetMethod(implObj, "GetObjectInformation"), flags, 2)
+        this.vtbl.GetSecurity := CallbackCreate(GetMethod(implObj, "GetSecurity"), flags, 4)
+        this.vtbl.SetSecurity := CallbackCreate(GetMethod(implObj, "SetSecurity"), flags, 3)
+        this.vtbl.GetAccessRights := CallbackCreate(GetMethod(implObj, "GetAccessRights"), flags, 6)
+        this.vtbl.MapGeneric := CallbackCreate(GetMethod(implObj, "MapGeneric"), flags, 4)
+        this.vtbl.GetInheritTypes := CallbackCreate(GetMethod(implObj, "GetInheritTypes"), flags, 3)
+        this.vtbl.PropertySheetPageCallback := CallbackCreate(GetMethod(implObj, "PropertySheetPageCallback"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetObjectInformation)
+        CallbackFree(this.vtbl.GetSecurity)
+        CallbackFree(this.vtbl.SetSecurity)
+        CallbackFree(this.vtbl.GetAccessRights)
+        CallbackFree(this.vtbl.MapGeneric)
+        CallbackFree(this.vtbl.GetInheritTypes)
+        CallbackFree(this.vtbl.PropertySheetPageCallback)
     }
 }

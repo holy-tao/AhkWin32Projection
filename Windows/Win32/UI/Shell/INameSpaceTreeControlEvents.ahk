@@ -1,7 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\IContextMenu.ahk" { IContextMenu }
 
 /**
  * Exposes methods for handling INameSpaceTreeControl events.
@@ -10,26 +18,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrolevents
  * @namespace Windows.Win32.UI.Shell
  */
-class INameSpaceTreeControlEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INameSpaceTreeControlEvents extends IUnknown {
     /**
      * The interface identifier for INameSpaceTreeControlEvents
      * @type {Guid}
      */
-    static IID => Guid("{93d77985-b3d8-4484-8318-672cdda002ce}")
+    static IID := Guid("{93d77985-b3d8-4484-8318-672cdda002ce}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INameSpaceTreeControlEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnItemClick              : IntPtr
+        OnPropertyItemCommit     : IntPtr
+        OnItemStateChanging      : IntPtr
+        OnItemStateChanged       : IntPtr
+        OnSelectionChanged       : IntPtr
+        OnKeyboardInput          : IntPtr
+        OnBeforeExpand           : IntPtr
+        OnAfterExpand            : IntPtr
+        OnBeginLabelEdit         : IntPtr
+        OnEndLabelEdit           : IntPtr
+        OnGetToolTip             : IntPtr
+        OnBeforeItemDelete       : IntPtr
+        OnItemAdded              : IntPtr
+        OnItemDeleted            : IntPtr
+        OnBeforeContextMenu      : IntPtr
+        OnAfterContextMenu       : IntPtr
+        OnBeforeStateImageChange : IntPtr
+        OnGetDefaultIconIndex    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnItemClick", "OnPropertyItemCommit", "OnItemStateChanging", "OnItemStateChanged", "OnSelectionChanged", "OnKeyboardInput", "OnBeforeExpand", "OnAfterExpand", "OnBeginLabelEdit", "OnEndLabelEdit", "OnGetToolTip", "OnBeforeItemDelete", "OnItemAdded", "OnItemDeleted", "OnBeforeContextMenu", "OnAfterContextMenu", "OnBeforeStateImageChange", "OnGetDefaultIconIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INameSpaceTreeControlEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when the user clicks a button on the mouse.
@@ -141,7 +173,7 @@ class INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onkeyboardinput
      */
     OnKeyboardInput(uMsg, _wParam, _lParam) {
-        result := ComCall(8, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(8, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -263,7 +295,7 @@ class INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemadded
      */
     OnItemAdded(psi, fIsRoot) {
-        result := ComCall(15, this, "ptr", psi, "int", fIsRoot, "HRESULT")
+        result := ComCall(15, this, "ptr", psi, BOOL, fIsRoot, "HRESULT")
         return result
     }
 
@@ -281,7 +313,7 @@ class INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemdeleted
      */
     OnItemDeleted(psi, fIsRoot) {
-        result := ComCall(16, this, "ptr", psi, "int", fIsRoot, "HRESULT")
+        result := ComCall(16, this, "ptr", psi, BOOL, fIsRoot, "HRESULT")
         return result
     }
 
@@ -299,7 +331,7 @@ class INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforecontextmenu
      */
     OnBeforeContextMenu(psi, riid) {
-        result := ComCall(17, this, "ptr", psi, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", psi, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -322,7 +354,7 @@ class INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onaftercontextmenu
      */
     OnAfterContextMenu(psi, pcmIn, riid) {
-        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -356,5 +388,59 @@ class INameSpaceTreeControlEvents extends IUnknown {
 
         result := ComCall(20, this, "ptr", psi, piDefaultIconMarshal, piDefaultIcon, piOpenIconMarshal, piOpenIcon, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INameSpaceTreeControlEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnItemClick := CallbackCreate(GetMethod(implObj, "OnItemClick"), flags, 4)
+        this.vtbl.OnPropertyItemCommit := CallbackCreate(GetMethod(implObj, "OnPropertyItemCommit"), flags, 2)
+        this.vtbl.OnItemStateChanging := CallbackCreate(GetMethod(implObj, "OnItemStateChanging"), flags, 4)
+        this.vtbl.OnItemStateChanged := CallbackCreate(GetMethod(implObj, "OnItemStateChanged"), flags, 4)
+        this.vtbl.OnSelectionChanged := CallbackCreate(GetMethod(implObj, "OnSelectionChanged"), flags, 2)
+        this.vtbl.OnKeyboardInput := CallbackCreate(GetMethod(implObj, "OnKeyboardInput"), flags, 4)
+        this.vtbl.OnBeforeExpand := CallbackCreate(GetMethod(implObj, "OnBeforeExpand"), flags, 2)
+        this.vtbl.OnAfterExpand := CallbackCreate(GetMethod(implObj, "OnAfterExpand"), flags, 2)
+        this.vtbl.OnBeginLabelEdit := CallbackCreate(GetMethod(implObj, "OnBeginLabelEdit"), flags, 2)
+        this.vtbl.OnEndLabelEdit := CallbackCreate(GetMethod(implObj, "OnEndLabelEdit"), flags, 2)
+        this.vtbl.OnGetToolTip := CallbackCreate(GetMethod(implObj, "OnGetToolTip"), flags, 4)
+        this.vtbl.OnBeforeItemDelete := CallbackCreate(GetMethod(implObj, "OnBeforeItemDelete"), flags, 2)
+        this.vtbl.OnItemAdded := CallbackCreate(GetMethod(implObj, "OnItemAdded"), flags, 3)
+        this.vtbl.OnItemDeleted := CallbackCreate(GetMethod(implObj, "OnItemDeleted"), flags, 3)
+        this.vtbl.OnBeforeContextMenu := CallbackCreate(GetMethod(implObj, "OnBeforeContextMenu"), flags, 4)
+        this.vtbl.OnAfterContextMenu := CallbackCreate(GetMethod(implObj, "OnAfterContextMenu"), flags, 5)
+        this.vtbl.OnBeforeStateImageChange := CallbackCreate(GetMethod(implObj, "OnBeforeStateImageChange"), flags, 2)
+        this.vtbl.OnGetDefaultIconIndex := CallbackCreate(GetMethod(implObj, "OnGetDefaultIconIndex"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnItemClick)
+        CallbackFree(this.vtbl.OnPropertyItemCommit)
+        CallbackFree(this.vtbl.OnItemStateChanging)
+        CallbackFree(this.vtbl.OnItemStateChanged)
+        CallbackFree(this.vtbl.OnSelectionChanged)
+        CallbackFree(this.vtbl.OnKeyboardInput)
+        CallbackFree(this.vtbl.OnBeforeExpand)
+        CallbackFree(this.vtbl.OnAfterExpand)
+        CallbackFree(this.vtbl.OnBeginLabelEdit)
+        CallbackFree(this.vtbl.OnEndLabelEdit)
+        CallbackFree(this.vtbl.OnGetToolTip)
+        CallbackFree(this.vtbl.OnBeforeItemDelete)
+        CallbackFree(this.vtbl.OnItemAdded)
+        CallbackFree(this.vtbl.OnItemDeleted)
+        CallbackFree(this.vtbl.OnBeforeContextMenu)
+        CallbackFree(this.vtbl.OnAfterContextMenu)
+        CallbackFree(this.vtbl.OnBeforeStateImageChange)
+        CallbackFree(this.vtbl.OnGetDefaultIconIndex)
     }
 }

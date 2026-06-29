@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * Specifies display properties for a text ink object (tInk).
@@ -10,37 +10,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkmetric
  * @namespace Windows.Win32.UI.TabletPC
  */
-class INKMETRIC extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct INKMETRIC {
+    #StructPack 4
 
     /**
      * Ink height.
-     * @type {Integer}
      */
-    iHeight {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    iHeight : Int32
 
     /**
      * Assent height.
-     * @type {Integer}
      */
-    iFontAscent {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iFontAscent : Int32
 
     /**
      * Descent height.
-     * @type {Integer}
      */
-    iFontDescent {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iFontDescent : Int32
 
     /**
      * Ink metric flags.
@@ -84,19 +70,12 @@ class INKMETRIC extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFlags : UInt32
 
     /**
      * Ink color.
-     * @type {COLORREF}
      */
-    color {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    color : COLORREF
+
 }

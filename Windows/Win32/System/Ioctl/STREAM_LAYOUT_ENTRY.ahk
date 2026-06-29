@@ -1,99 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STREAM_LAYOUT_ENTRY extends Win32Struct {
-    static sizeof => 56
+export default struct STREAM_LAYOUT_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NextStreamOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextStreamOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ExtentInformationOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtentInformationOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    EndOfFile : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndOfFile {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    StreamInformationOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamInformationOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    AttributeTypeCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AttributeTypeCode {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    AttributeFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AttributeFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    StreamIdentifierLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamIdentifierLength {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    StreamIdentifier : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    StreamIdentifier {
-        get => StrGet(this.ptr + 48, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 0, "UTF-16")
-    }
 }

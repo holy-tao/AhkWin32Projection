@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains information about a localized image that is associated with an update or a category.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iimageinformation
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IImageInformation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IImageInformation extends IDispatch {
     /**
      * The interface identifier for IImageInformation
      * @type {Guid}
      */
-    static IID => Guid("{7c907864-346c-4aeb-8f3f-57da289f969f}")
+    static IID := Guid("{7c907864-346c-4aeb-8f3f-57da289f969f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImageInformation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AltText : IntPtr
+        get_Height  : IntPtr
+        get_Source  : IntPtr
+        get_Width   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AltText", "get_Height", "get_Source", "get_Width"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImageInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -64,8 +75,8 @@ class IImageInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_alttext
      */
     get_AltText() {
-        retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -85,8 +96,8 @@ class IImageInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_source
      */
     get_Source() {
-        retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -98,5 +109,31 @@ class IImageInformation extends IDispatch {
     get_Width() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IImageInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AltText := CallbackCreate(GetMethod(implObj, "get_AltText"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.get_Source := CallbackCreate(GetMethod(implObj, "get_Source"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AltText)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.get_Source)
+        CallbackFree(this.vtbl.get_Width)
     }
 }

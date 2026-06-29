@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_MAINTENANCE_OPERATION.ahk" { VDS_MAINTENANCE_OPERATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsMaintenance interface (vdshwprv.h) provides methods for performing maintenance operations on a subsystem, controller, LUN, or drive.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsmaintenance
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsMaintenance extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsMaintenance extends IUnknown {
     /**
      * The interface identifier for IVdsMaintenance
      * @type {Guid}
      */
-    static IID => Guid("{daebeef3-8523-47ed-a2b9-05cecce2a1ae}")
+    static IID := Guid("{daebeef3-8523-47ed-a2b9-05cecce2a1ae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsMaintenance interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartMaintenance : IntPtr
+        StopMaintenance  : IntPtr
+        PulseMaintenance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartMaintenance", "StopMaintenance", "PulseMaintenance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsMaintenance.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsMaintenance::StartMaintenance (vdshwprv.h) method starts a maintenance operation.
@@ -110,7 +121,7 @@ class IVdsMaintenance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-startmaintenance
      */
     StartMaintenance(operation) {
-        result := ComCall(3, this, "int", operation, "HRESULT")
+        result := ComCall(3, this, VDS_MAINTENANCE_OPERATION, operation, "HRESULT")
         return result
     }
 
@@ -199,7 +210,7 @@ class IVdsMaintenance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-stopmaintenance
      */
     StopMaintenance(operation) {
-        result := ComCall(4, this, "int", operation, "HRESULT")
+        result := ComCall(4, this, VDS_MAINTENANCE_OPERATION, operation, "HRESULT")
         return result
     }
 
@@ -291,7 +302,31 @@ class IVdsMaintenance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-pulsemaintenance
      */
     PulseMaintenance(operation, ulCount) {
-        result := ComCall(5, this, "int", operation, "uint", ulCount, "HRESULT")
+        result := ComCall(5, this, VDS_MAINTENANCE_OPERATION, operation, "uint", ulCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsMaintenance.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartMaintenance := CallbackCreate(GetMethod(implObj, "StartMaintenance"), flags, 2)
+        this.vtbl.StopMaintenance := CallbackCreate(GetMethod(implObj, "StopMaintenance"), flags, 2)
+        this.vtbl.PulseMaintenance := CallbackCreate(GetMethod(implObj, "PulseMaintenance"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartMaintenance)
+        CallbackFree(this.vtbl.StopMaintenance)
+        CallbackFree(this.vtbl.PulseMaintenance)
     }
 }

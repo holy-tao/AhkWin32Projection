@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPC_LINK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPC_LINK.ahk" { SPC_LINK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class SPC_SP_OPUS_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct SPC_SP_OPUS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszProgramName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszProgramName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pMoreInfo : SPC_LINK.Ptr
 
-    /**
-     * @type {Pointer<SPC_LINK>}
-     */
-    pMoreInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPublisherInfo : SPC_LINK.Ptr
 
-    /**
-     * @type {Pointer<SPC_LINK>}
-     */
-    pPublisherInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

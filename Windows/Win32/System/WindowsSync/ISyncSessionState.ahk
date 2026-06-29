@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_RANGE.ahk" { SYNC_RANGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents information about the current synchronization session.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncsessionstate
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncSessionState extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncSessionState extends IUnknown {
     /**
      * The interface identifier for ISyncSessionState
      * @type {Guid}
      */
-    static IID => Guid("{b8a940fe-9f01-483b-9434-c37d361225d9}")
+    static IID := Guid("{b8a940fe-9f01-483b-9434-c37d361225d9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncSessionState interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsCanceled                              : IntPtr
+        GetInfoForChangeApplication             : IntPtr
+        LoadInfoFromChangeApplication           : IntPtr
+        GetForgottenKnowledgeRecoveryRangeStart : IntPtr
+        GetForgottenKnowledgeRecoveryRangeEnd   : IntPtr
+        SetForgottenKnowledgeRecoveryRange      : IntPtr
+        OnProgress                              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsCanceled", "GetInfoForChangeApplication", "LoadInfoFromChangeApplication", "GetForgottenKnowledgeRecoveryRangeStart", "GetForgottenKnowledgeRecoveryRangeEnd", "SetForgottenKnowledgeRecoveryRange", "OnProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncSessionState.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates whether the synchronization session has been canceled.
@@ -364,7 +382,7 @@ class ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-setforgottenknowledgerecoveryrange
      */
     SetForgottenKnowledgeRecoveryRange(pRange) {
-        result := ComCall(8, this, "ptr", pRange, "HRESULT")
+        result := ComCall(8, this, SYNC_RANGE.Ptr, pRange, "HRESULT")
         return result
     }
 
@@ -409,7 +427,39 @@ class ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-onprogress
      */
     OnProgress(provider, syncStage, dwCompletedWork, dwTotalWork) {
-        result := ComCall(9, this, "int", provider, "int", syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
+        result := ComCall(9, this, SYNC_PROVIDER_ROLE, provider, SYNC_PROGRESS_STAGE, syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncSessionState.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsCanceled := CallbackCreate(GetMethod(implObj, "IsCanceled"), flags, 2)
+        this.vtbl.GetInfoForChangeApplication := CallbackCreate(GetMethod(implObj, "GetInfoForChangeApplication"), flags, 3)
+        this.vtbl.LoadInfoFromChangeApplication := CallbackCreate(GetMethod(implObj, "LoadInfoFromChangeApplication"), flags, 3)
+        this.vtbl.GetForgottenKnowledgeRecoveryRangeStart := CallbackCreate(GetMethod(implObj, "GetForgottenKnowledgeRecoveryRangeStart"), flags, 3)
+        this.vtbl.GetForgottenKnowledgeRecoveryRangeEnd := CallbackCreate(GetMethod(implObj, "GetForgottenKnowledgeRecoveryRangeEnd"), flags, 3)
+        this.vtbl.SetForgottenKnowledgeRecoveryRange := CallbackCreate(GetMethod(implObj, "SetForgottenKnowledgeRecoveryRange"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsCanceled)
+        CallbackFree(this.vtbl.GetInfoForChangeApplication)
+        CallbackFree(this.vtbl.LoadInfoFromChangeApplication)
+        CallbackFree(this.vtbl.GetForgottenKnowledgeRecoveryRangeStart)
+        CallbackFree(this.vtbl.GetForgottenKnowledgeRecoveryRangeEnd)
+        CallbackFree(this.vtbl.SetForgottenKnowledgeRecoveryRange)
+        CallbackFree(this.vtbl.OnProgress)
     }
 }

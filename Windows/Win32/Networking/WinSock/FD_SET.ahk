@@ -1,33 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKET.ahk" { SOCKET }
 
 /**
  * The FD_SET macro (winsock.h) structure is used by Windows Sockets (Winsock) functions and service providers to place sockets into a set.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-fd_set
  * @namespace Windows.Win32.Networking.WinSock
  */
-class FD_SET extends Win32Struct {
-    static sizeof => 520
+export default struct FD_SET {
+    #StructPack 8
 
-    static packingSize => 8
+    fd_count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fd_count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fd_array : SOCKET[64]
 
-    /**
-     * @type {Array<SOCKET>}
-     */
-    fd_array {
-        get {
-            if(!this.HasProp("__fd_arrayProxyArray"))
-                this.__fd_arrayProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "ptr")
-            return this.__fd_arrayProxyArray
-        }
-    }
 }

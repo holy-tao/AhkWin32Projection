@@ -1,55 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDirectMusicBuffer.ahk
-#Include .\IDirectMusicPort.ahk
-#Include ..\..\IReferenceClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import ".\IDirectMusicPort.ahk" { IDirectMusicPort }
+#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DMUS_CLOCKINFO8.ahk" { DMUS_CLOCKINFO8 }
+#Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import ".\DMUS_BUFFERDESC.ahk" { DMUS_BUFFERDESC }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.
- * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynth
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class IDirectMusic extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectMusic extends IUnknown {
     /**
      * The interface identifier for IDirectMusic
      * @type {Guid}
      */
-    static IID => Guid("{6536115a-7b2d-11d2-ba18-0000f875ac12}")
+    static IID := Guid("{6536115a-7b2d-11d2-ba18-0000f875ac12}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectMusic interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumPort          : IntPtr
+        CreateMusicBuffer : IntPtr
+        CreatePort        : IntPtr
+        EnumMasterClock   : IntPtr
+        GetMasterClock    : IntPtr
+        SetMasterClock    : IntPtr
+        Activate          : IntPtr
+        GetDefaultPort    : IntPtr
+        SetDirectSound    : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectMusic.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumPort", "CreateMusicBuffer", "CreatePort", "EnumMasterClock", "GetMasterClock", "SetMasterClock", "Activate", "GetDefaultPort", "SetDirectSound"]
-
-    /**
-     * The EnumPorts function enumerates the ports that are available for printing on a specified server.
-     * @remarks
-     * > [!Note]  
-     * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
      * 
-     *  
-     * 
-     * The **EnumPorts** function can succeed even if the server specified by *pName* does not have a printer defined.
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
-     * @returns {HRESULT} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumports
+     * @returns {HRESULT} 
      */
     EnumPort(dwIndex, pPortCaps) {
-        result := ComCall(3, this, "uint", dwIndex, "ptr", pPortCaps, "HRESULT")
+        result := ComCall(3, this, "uint", dwIndex, DMUS_PORTCAPS.Ptr, pPortCaps, "HRESULT")
         return result
     }
 
@@ -60,7 +71,7 @@ class IDirectMusic extends IUnknown {
      * @returns {IDirectMusicBuffer} 
      */
     CreateMusicBuffer(pBufferDesc, pUnkOuter) {
-        result := ComCall(4, this, "ptr", pBufferDesc, "ptr*", &ppBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        result := ComCall(4, this, DMUS_BUFFERDESC.Ptr, pBufferDesc, "ptr*", &ppBuffer := 0, "ptr", pUnkOuter, "HRESULT")
         return IDirectMusicBuffer(ppBuffer)
     }
 
@@ -72,7 +83,7 @@ class IDirectMusic extends IUnknown {
      * @returns {IDirectMusicPort} 
      */
     CreatePort(rclsidPort, pPortParams, pUnkOuter) {
-        result := ComCall(5, this, "ptr", rclsidPort, "ptr", pPortParams, "ptr*", &ppPort := 0, "ptr", pUnkOuter, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsidPort, DMUS_PORTPARAMS8.Ptr, pPortParams, "ptr*", &ppPort := 0, "ptr", pUnkOuter, "HRESULT")
         return IDirectMusicPort(ppPort)
     }
 
@@ -83,7 +94,7 @@ class IDirectMusic extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumMasterClock(dwIndex, lpClockInfo) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr", lpClockInfo, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, DMUS_CLOCKINFO8.Ptr, lpClockInfo, "HRESULT")
         return result
     }
 
@@ -93,7 +104,7 @@ class IDirectMusic extends IUnknown {
      * @returns {IReferenceClock} 
      */
     GetMasterClock(pguidClock) {
-        result := ComCall(7, this, "ptr", pguidClock, "ptr*", &ppReferenceClock := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pguidClock, "ptr*", &ppReferenceClock := 0, "HRESULT")
         return IReferenceClock(ppReferenceClock)
     }
 
@@ -103,32 +114,17 @@ class IDirectMusic extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMasterClock(rguidClock) {
-        result := ComCall(8, this, "ptr", rguidClock, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rguidClock, "HRESULT")
         return result
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fEnable 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(fEnable) {
-        result := ComCall(9, this, "int", fEnable, "HRESULT")
+        result := ComCall(9, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -138,7 +134,7 @@ class IDirectMusic extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDefaultPort(pguidPort) {
-        result := ComCall(10, this, "ptr", pguidPort, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pguidPort, "HRESULT")
         return result
     }
 
@@ -149,9 +145,43 @@ class IDirectMusic extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDirectSound(pDirectSound, _hWnd) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(11, this, "ptr", pDirectSound, "ptr", _hWnd, "HRESULT")
+        result := ComCall(11, this, "ptr", pDirectSound, HWND, _hWnd, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectMusic.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumPort := CallbackCreate(GetMethod(implObj, "EnumPort"), flags, 3)
+        this.vtbl.CreateMusicBuffer := CallbackCreate(GetMethod(implObj, "CreateMusicBuffer"), flags, 4)
+        this.vtbl.CreatePort := CallbackCreate(GetMethod(implObj, "CreatePort"), flags, 5)
+        this.vtbl.EnumMasterClock := CallbackCreate(GetMethod(implObj, "EnumMasterClock"), flags, 3)
+        this.vtbl.GetMasterClock := CallbackCreate(GetMethod(implObj, "GetMasterClock"), flags, 3)
+        this.vtbl.SetMasterClock := CallbackCreate(GetMethod(implObj, "SetMasterClock"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.GetDefaultPort := CallbackCreate(GetMethod(implObj, "GetDefaultPort"), flags, 2)
+        this.vtbl.SetDirectSound := CallbackCreate(GetMethod(implObj, "SetDirectSound"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumPort)
+        CallbackFree(this.vtbl.CreateMusicBuffer)
+        CallbackFree(this.vtbl.CreatePort)
+        CallbackFree(this.vtbl.EnumMasterClock)
+        CallbackFree(this.vtbl.GetMasterClock)
+        CallbackFree(this.vtbl.SetMasterClock)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.GetDefaultPort)
+        CallbackFree(this.vtbl.SetDirectSound)
     }
 }

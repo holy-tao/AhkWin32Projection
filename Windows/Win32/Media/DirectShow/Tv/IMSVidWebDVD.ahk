@@ -1,44 +1,146 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidPlayback.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IMSVidRect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DVDTextStringType.ahk" { DVDTextStringType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DVDMenuIDConstants.ahk" { DVDMenuIDConstants }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMSVidPlayback.ahk" { IMSVidPlayback }
+#Import ".\DVDSPExt.ahk" { DVDSPExt }
+#Import ".\IMSVidRect.ahk" { IMSVidRect }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
- * Contains methods that save and load the current location and state for DVD playback.
- * @remarks
- * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidWebDVD2)</c>.
- * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidwebdvd2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidWebDVD extends IMSVidPlayback {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidWebDVD extends IMSVidPlayback {
     /**
      * The interface identifier for IMSVidWebDVD
      * @type {Guid}
      */
-    static IID => Guid("{cf45f88b-ac56-4ee2-a73a-ed04e2885d3c}")
+    static IID := Guid("{cf45f88b-ac56-4ee2-a73a-ed04e2885d3c}")
 
     /**
      * The class identifier for MSVidWebDVD
      * @type {Guid}
      */
-    static CLSID => Guid("{011b3619-fe63-4814-8a84-15a194ce9ce3}")
+    static CLSID := Guid("{011b3619-fe63-4814-8a84-15a194ce9ce3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidWebDVD interfaces
+    */
+    struct Vtbl extends IMSVidPlayback.Vtbl {
+        OnDVDEvent                       : IntPtr
+        PlayTitle                        : IntPtr
+        PlayChapterInTitle               : IntPtr
+        PlayChapter                      : IntPtr
+        PlayChaptersAutoStop             : IntPtr
+        PlayAtTime                       : IntPtr
+        PlayAtTimeInTitle                : IntPtr
+        PlayPeriodInTitleAutoStop        : IntPtr
+        ReplayChapter                    : IntPtr
+        PlayPrevChapter                  : IntPtr
+        PlayNextChapter                  : IntPtr
+        StillOff                         : IntPtr
+        get_AudioLanguage                : IntPtr
+        ShowMenu                         : IntPtr
+        Resume                           : IntPtr
+        ReturnFromSubmenu                : IntPtr
+        get_ButtonsAvailable             : IntPtr
+        get_CurrentButton                : IntPtr
+        SelectAndActivateButton          : IntPtr
+        ActivateButton                   : IntPtr
+        SelectRightButton                : IntPtr
+        SelectLeftButton                 : IntPtr
+        SelectLowerButton                : IntPtr
+        SelectUpperButton                : IntPtr
+        ActivateAtPosition               : IntPtr
+        SelectAtPosition                 : IntPtr
+        get_ButtonAtPosition             : IntPtr
+        get_NumberOfChapters             : IntPtr
+        get_TotalTitleTime               : IntPtr
+        get_TitlesAvailable              : IntPtr
+        get_VolumesAvailable             : IntPtr
+        get_CurrentVolume                : IntPtr
+        get_CurrentDiscSide              : IntPtr
+        get_CurrentDomain                : IntPtr
+        get_CurrentChapter               : IntPtr
+        get_CurrentTitle                 : IntPtr
+        get_CurrentTime                  : IntPtr
+        DVDTimeCode2bstr                 : IntPtr
+        get_DVDDirectory                 : IntPtr
+        put_DVDDirectory                 : IntPtr
+        IsSubpictureStreamEnabled        : IntPtr
+        IsAudioStreamEnabled             : IntPtr
+        get_CurrentSubpictureStream      : IntPtr
+        put_CurrentSubpictureStream      : IntPtr
+        get_SubpictureLanguage           : IntPtr
+        get_CurrentAudioStream           : IntPtr
+        put_CurrentAudioStream           : IntPtr
+        get_AudioStreamsAvailable        : IntPtr
+        get_AnglesAvailable              : IntPtr
+        get_CurrentAngle                 : IntPtr
+        put_CurrentAngle                 : IntPtr
+        get_SubpictureStreamsAvailable   : IntPtr
+        get_SubpictureOn                 : IntPtr
+        put_SubpictureOn                 : IntPtr
+        get_DVDUniqueID                  : IntPtr
+        AcceptParentalLevelChange        : IntPtr
+        NotifyParentalLevelChange        : IntPtr
+        SelectParentalCountry            : IntPtr
+        SelectParentalLevel              : IntPtr
+        get_TitleParentalLevels          : IntPtr
+        get_PlayerParentalCountry        : IntPtr
+        get_PlayerParentalLevel          : IntPtr
+        Eject                            : IntPtr
+        UOPValid                         : IntPtr
+        get_SPRM                         : IntPtr
+        get_GPRM                         : IntPtr
+        put_GPRM                         : IntPtr
+        get_DVDTextStringType            : IntPtr
+        get_DVDTextString                : IntPtr
+        get_DVDTextNumberOfStrings       : IntPtr
+        get_DVDTextNumberOfLanguages     : IntPtr
+        get_DVDTextLanguageLCID          : IntPtr
+        RegionChange                     : IntPtr
+        get_DVDAdm                       : IntPtr
+        DeleteBookmark                   : IntPtr
+        RestoreBookmark                  : IntPtr
+        SaveBookmark                     : IntPtr
+        SelectDefaultAudioLanguage       : IntPtr
+        SelectDefaultSubpictureLanguage  : IntPtr
+        get_PreferredSubpictureStream    : IntPtr
+        get_DefaultMenuLanguage          : IntPtr
+        put_DefaultMenuLanguage          : IntPtr
+        get_DefaultSubpictureLanguage    : IntPtr
+        get_DefaultAudioLanguage         : IntPtr
+        get_DefaultSubpictureLanguageExt : IntPtr
+        get_DefaultAudioLanguageExt      : IntPtr
+        get_LanguageFromLCID             : IntPtr
+        get_KaraokeAudioPresentationMode : IntPtr
+        put_KaraokeAudioPresentationMode : IntPtr
+        get_KaraokeChannelContent        : IntPtr
+        get_KaraokeChannelAssignment     : IntPtr
+        RestorePreferredSettings         : IntPtr
+        get_ButtonRect                   : IntPtr
+        get_DVDScreenInMouseCoordinates  : IntPtr
+        put_DVDScreenInMouseCoordinates  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDVDEvent", "PlayTitle", "PlayChapterInTitle", "PlayChapter", "PlayChaptersAutoStop", "PlayAtTime", "PlayAtTimeInTitle", "PlayPeriodInTitleAutoStop", "ReplayChapter", "PlayPrevChapter", "PlayNextChapter", "StillOff", "get_AudioLanguage", "ShowMenu", "Resume", "ReturnFromSubmenu", "get_ButtonsAvailable", "get_CurrentButton", "SelectAndActivateButton", "ActivateButton", "SelectRightButton", "SelectLeftButton", "SelectLowerButton", "SelectUpperButton", "ActivateAtPosition", "SelectAtPosition", "get_ButtonAtPosition", "get_NumberOfChapters", "get_TotalTitleTime", "get_TitlesAvailable", "get_VolumesAvailable", "get_CurrentVolume", "get_CurrentDiscSide", "get_CurrentDomain", "get_CurrentChapter", "get_CurrentTitle", "get_CurrentTime", "DVDTimeCode2bstr", "get_DVDDirectory", "put_DVDDirectory", "IsSubpictureStreamEnabled", "IsAudioStreamEnabled", "get_CurrentSubpictureStream", "put_CurrentSubpictureStream", "get_SubpictureLanguage", "get_CurrentAudioStream", "put_CurrentAudioStream", "get_AudioStreamsAvailable", "get_AnglesAvailable", "get_CurrentAngle", "put_CurrentAngle", "get_SubpictureStreamsAvailable", "get_SubpictureOn", "put_SubpictureOn", "get_DVDUniqueID", "AcceptParentalLevelChange", "NotifyParentalLevelChange", "SelectParentalCountry", "SelectParentalLevel", "get_TitleParentalLevels", "get_PlayerParentalCountry", "get_PlayerParentalLevel", "Eject", "UOPValid", "get_SPRM", "get_GPRM", "put_GPRM", "get_DVDTextStringType", "get_DVDTextString", "get_DVDTextNumberOfStrings", "get_DVDTextNumberOfLanguages", "get_DVDTextLanguageLCID", "RegionChange", "get_DVDAdm", "DeleteBookmark", "RestoreBookmark", "SaveBookmark", "SelectDefaultAudioLanguage", "SelectDefaultSubpictureLanguage", "get_PreferredSubpictureStream", "get_DefaultMenuLanguage", "put_DefaultMenuLanguage", "get_DefaultSubpictureLanguage", "get_DefaultAudioLanguage", "get_DefaultSubpictureLanguageExt", "get_DefaultAudioLanguageExt", "get_LanguageFromLCID", "get_KaraokeAudioPresentationMode", "put_KaraokeAudioPresentationMode", "get_KaraokeChannelContent", "get_KaraokeChannelAssignment", "RestorePreferredSettings", "get_ButtonRect", "get_DVDScreenInMouseCoordinates", "put_DVDScreenInMouseCoordinates"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidWebDVD.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -391,7 +493,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
     PlayAtTime(strTime) {
         strTime := strTime is String ? BSTR.Alloc(strTime).Value : strTime
 
-        result := ComCall(37, this, "ptr", strTime, "HRESULT")
+        result := ComCall(37, this, BSTR, strTime, "HRESULT")
         return result
     }
 
@@ -416,7 +518,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
     PlayAtTimeInTitle(lTitle, strTime) {
         strTime := strTime is String ? BSTR.Alloc(strTime).Value : strTime
 
-        result := ComCall(38, this, "int", lTitle, "ptr", strTime, "HRESULT")
+        result := ComCall(38, this, "int", lTitle, BSTR, strTime, "HRESULT")
         return result
     }
 
@@ -448,7 +550,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
         strStartTime := strStartTime is String ? BSTR.Alloc(strStartTime).Value : strStartTime
         strEndTime := strEndTime is String ? BSTR.Alloc(strEndTime).Value : strEndTime
 
-        result := ComCall(39, this, "int", lTitle, "ptr", strStartTime, "ptr", strEndTime, "HRESULT")
+        result := ComCall(39, this, "int", lTitle, BSTR, strStartTime, BSTR, strEndTime, "HRESULT")
         return result
     }
 
@@ -501,8 +603,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_AudioLanguage(lStream, fFormat) {
-        strAudioLang := BSTR()
-        result := ComCall(44, this, "int", lStream, "short", fFormat, "ptr", strAudioLang, "HRESULT")
+        strAudioLang := BSTR.Owned()
+        result := ComCall(44, this, "int", lStream, VARIANT_BOOL, fFormat, BSTR.Ptr, strAudioLang, "HRESULT")
         return strAudioLang
     }
 
@@ -536,7 +638,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/showmenu-method
      */
     ShowMenu(MenuID) {
-        result := ComCall(45, this, "int", MenuID, "HRESULT")
+        result := ComCall(45, this, DVDMenuIDConstants, MenuID, "HRESULT")
         return result
     }
 
@@ -731,8 +833,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_TotalTitleTime() {
-        pVal := BSTR()
-        result := ComCall(60, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(60, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -804,8 +906,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_CurrentTime() {
-        pVal := BSTR()
-        result := ComCall(68, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(68, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -818,8 +920,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/dvdtimecode2bstr-method
      */
     DVDTimeCode2bstr(_timeCode) {
-        pTimeStr := BSTR()
-        result := ComCall(69, this, "int", _timeCode, "ptr", pTimeStr, "HRESULT")
+        pTimeStr := BSTR.Owned()
+        result := ComCall(69, this, "int", _timeCode, BSTR.Ptr, pTimeStr, "HRESULT")
         return pTimeStr
     }
 
@@ -828,8 +930,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_DVDDirectory() {
-        pVal := BSTR()
-        result := ComCall(70, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(70, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -841,7 +943,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
     put_DVDDirectory(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(71, this, "ptr", newVal, "HRESULT")
+        result := ComCall(71, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -854,7 +956,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/issubpicturestreamenabled-method
      */
     IsSubpictureStreamEnabled(lstream) {
-        result := ComCall(72, this, "int", lstream, "short*", &fEnabled := 0, "HRESULT")
+        result := ComCall(72, this, "int", lstream, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
         return fEnabled
     }
 
@@ -867,7 +969,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/isaudiostreamenabled-method
      */
     IsAudioStreamEnabled(lstream) {
-        result := ComCall(73, this, "int", lstream, "short*", &fEnabled := 0, "HRESULT")
+        result := ComCall(73, this, "int", lstream, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
         return fEnabled
     }
 
@@ -896,8 +998,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_SubpictureLanguage(lStream) {
-        strLanguage := BSTR()
-        result := ComCall(76, this, "int", lStream, "ptr", strLanguage, "HRESULT")
+        strLanguage := BSTR.Owned()
+        result := ComCall(76, this, "int", lStream, BSTR.Ptr, strLanguage, "HRESULT")
         return strLanguage
     }
 
@@ -971,7 +1073,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {VARIANT_BOOL} 
      */
     get_SubpictureOn() {
-        result := ComCall(84, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(84, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -981,7 +1083,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_SubpictureOn(newVal) {
-        result := ComCall(85, this, "short", newVal, "HRESULT")
+        result := ComCall(85, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -990,8 +1092,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_DVDUniqueID() {
-        pVal := BSTR()
-        result := ComCall(86, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(86, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -1026,7 +1128,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(87, this, "short", fAccept, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(87, this, VARIANT_BOOL, fAccept, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -1045,7 +1147,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/notifyparentallevelchange-method
      */
     NotifyParentalLevelChange(newVal) {
-        result := ComCall(88, this, "short", newVal, "HRESULT")
+        result := ComCall(88, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -1079,7 +1181,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(89, this, "int", lCountry, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(89, this, "int", lCountry, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -1113,7 +1215,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(90, this, "int", lParentalLevel, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(90, this, "int", lParentalLevel, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -1164,7 +1266,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/uopvalid-method
      */
     UOPValid(lUOP) {
-        result := ComCall(95, this, "int", lUOP, "short*", &pfValid := 0, "HRESULT")
+        result := ComCall(95, this, "int", lUOP, VARIANT_BOOL.Ptr, &pfValid := 0, "HRESULT")
         return pfValid
     }
 
@@ -1217,8 +1319,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_DVDTextString(lLangIndex, lStringIndex) {
-        pstrText := BSTR()
-        result := ComCall(100, this, "int", lLangIndex, "int", lStringIndex, "ptr", pstrText, "HRESULT")
+        pstrText := BSTR.Owned()
+        result := ComCall(100, this, "int", lLangIndex, "int", lStringIndex, BSTR.Ptr, pstrText, "HRESULT")
         return pstrText
     }
 
@@ -1384,7 +1486,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/selectdefaultsubpicturelanguage-method
      */
     SelectDefaultSubpictureLanguage(lang, ext) {
-        result := ComCall(110, this, "int", lang, "int", ext, "HRESULT")
+        result := ComCall(110, this, "int", lang, DVDSPExt, ext, "HRESULT")
         return result
     }
 
@@ -1458,8 +1560,8 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_LanguageFromLCID(lcid) {
-        lang := BSTR()
-        result := ComCall(118, this, "int", lcid, "ptr", lang, "HRESULT")
+        lang := BSTR.Owned()
+        result := ComCall(118, this, "int", lcid, BSTR.Ptr, lang, "HRESULT")
         return lang
     }
 
@@ -1539,5 +1641,213 @@ class IMSVidWebDVD extends IMSVidPlayback {
     put_DVDScreenInMouseCoordinates(pRect) {
         result := ComCall(126, this, "ptr", pRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidWebDVD.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDVDEvent := CallbackCreate(GetMethod(implObj, "OnDVDEvent"), flags, 4)
+        this.vtbl.PlayTitle := CallbackCreate(GetMethod(implObj, "PlayTitle"), flags, 2)
+        this.vtbl.PlayChapterInTitle := CallbackCreate(GetMethod(implObj, "PlayChapterInTitle"), flags, 3)
+        this.vtbl.PlayChapter := CallbackCreate(GetMethod(implObj, "PlayChapter"), flags, 2)
+        this.vtbl.PlayChaptersAutoStop := CallbackCreate(GetMethod(implObj, "PlayChaptersAutoStop"), flags, 4)
+        this.vtbl.PlayAtTime := CallbackCreate(GetMethod(implObj, "PlayAtTime"), flags, 2)
+        this.vtbl.PlayAtTimeInTitle := CallbackCreate(GetMethod(implObj, "PlayAtTimeInTitle"), flags, 3)
+        this.vtbl.PlayPeriodInTitleAutoStop := CallbackCreate(GetMethod(implObj, "PlayPeriodInTitleAutoStop"), flags, 4)
+        this.vtbl.ReplayChapter := CallbackCreate(GetMethod(implObj, "ReplayChapter"), flags, 1)
+        this.vtbl.PlayPrevChapter := CallbackCreate(GetMethod(implObj, "PlayPrevChapter"), flags, 1)
+        this.vtbl.PlayNextChapter := CallbackCreate(GetMethod(implObj, "PlayNextChapter"), flags, 1)
+        this.vtbl.StillOff := CallbackCreate(GetMethod(implObj, "StillOff"), flags, 1)
+        this.vtbl.get_AudioLanguage := CallbackCreate(GetMethod(implObj, "get_AudioLanguage"), flags, 4)
+        this.vtbl.ShowMenu := CallbackCreate(GetMethod(implObj, "ShowMenu"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.ReturnFromSubmenu := CallbackCreate(GetMethod(implObj, "ReturnFromSubmenu"), flags, 1)
+        this.vtbl.get_ButtonsAvailable := CallbackCreate(GetMethod(implObj, "get_ButtonsAvailable"), flags, 2)
+        this.vtbl.get_CurrentButton := CallbackCreate(GetMethod(implObj, "get_CurrentButton"), flags, 2)
+        this.vtbl.SelectAndActivateButton := CallbackCreate(GetMethod(implObj, "SelectAndActivateButton"), flags, 2)
+        this.vtbl.ActivateButton := CallbackCreate(GetMethod(implObj, "ActivateButton"), flags, 1)
+        this.vtbl.SelectRightButton := CallbackCreate(GetMethod(implObj, "SelectRightButton"), flags, 1)
+        this.vtbl.SelectLeftButton := CallbackCreate(GetMethod(implObj, "SelectLeftButton"), flags, 1)
+        this.vtbl.SelectLowerButton := CallbackCreate(GetMethod(implObj, "SelectLowerButton"), flags, 1)
+        this.vtbl.SelectUpperButton := CallbackCreate(GetMethod(implObj, "SelectUpperButton"), flags, 1)
+        this.vtbl.ActivateAtPosition := CallbackCreate(GetMethod(implObj, "ActivateAtPosition"), flags, 3)
+        this.vtbl.SelectAtPosition := CallbackCreate(GetMethod(implObj, "SelectAtPosition"), flags, 3)
+        this.vtbl.get_ButtonAtPosition := CallbackCreate(GetMethod(implObj, "get_ButtonAtPosition"), flags, 4)
+        this.vtbl.get_NumberOfChapters := CallbackCreate(GetMethod(implObj, "get_NumberOfChapters"), flags, 3)
+        this.vtbl.get_TotalTitleTime := CallbackCreate(GetMethod(implObj, "get_TotalTitleTime"), flags, 2)
+        this.vtbl.get_TitlesAvailable := CallbackCreate(GetMethod(implObj, "get_TitlesAvailable"), flags, 2)
+        this.vtbl.get_VolumesAvailable := CallbackCreate(GetMethod(implObj, "get_VolumesAvailable"), flags, 2)
+        this.vtbl.get_CurrentVolume := CallbackCreate(GetMethod(implObj, "get_CurrentVolume"), flags, 2)
+        this.vtbl.get_CurrentDiscSide := CallbackCreate(GetMethod(implObj, "get_CurrentDiscSide"), flags, 2)
+        this.vtbl.get_CurrentDomain := CallbackCreate(GetMethod(implObj, "get_CurrentDomain"), flags, 2)
+        this.vtbl.get_CurrentChapter := CallbackCreate(GetMethod(implObj, "get_CurrentChapter"), flags, 2)
+        this.vtbl.get_CurrentTitle := CallbackCreate(GetMethod(implObj, "get_CurrentTitle"), flags, 2)
+        this.vtbl.get_CurrentTime := CallbackCreate(GetMethod(implObj, "get_CurrentTime"), flags, 2)
+        this.vtbl.DVDTimeCode2bstr := CallbackCreate(GetMethod(implObj, "DVDTimeCode2bstr"), flags, 3)
+        this.vtbl.get_DVDDirectory := CallbackCreate(GetMethod(implObj, "get_DVDDirectory"), flags, 2)
+        this.vtbl.put_DVDDirectory := CallbackCreate(GetMethod(implObj, "put_DVDDirectory"), flags, 2)
+        this.vtbl.IsSubpictureStreamEnabled := CallbackCreate(GetMethod(implObj, "IsSubpictureStreamEnabled"), flags, 3)
+        this.vtbl.IsAudioStreamEnabled := CallbackCreate(GetMethod(implObj, "IsAudioStreamEnabled"), flags, 3)
+        this.vtbl.get_CurrentSubpictureStream := CallbackCreate(GetMethod(implObj, "get_CurrentSubpictureStream"), flags, 2)
+        this.vtbl.put_CurrentSubpictureStream := CallbackCreate(GetMethod(implObj, "put_CurrentSubpictureStream"), flags, 2)
+        this.vtbl.get_SubpictureLanguage := CallbackCreate(GetMethod(implObj, "get_SubpictureLanguage"), flags, 3)
+        this.vtbl.get_CurrentAudioStream := CallbackCreate(GetMethod(implObj, "get_CurrentAudioStream"), flags, 2)
+        this.vtbl.put_CurrentAudioStream := CallbackCreate(GetMethod(implObj, "put_CurrentAudioStream"), flags, 2)
+        this.vtbl.get_AudioStreamsAvailable := CallbackCreate(GetMethod(implObj, "get_AudioStreamsAvailable"), flags, 2)
+        this.vtbl.get_AnglesAvailable := CallbackCreate(GetMethod(implObj, "get_AnglesAvailable"), flags, 2)
+        this.vtbl.get_CurrentAngle := CallbackCreate(GetMethod(implObj, "get_CurrentAngle"), flags, 2)
+        this.vtbl.put_CurrentAngle := CallbackCreate(GetMethod(implObj, "put_CurrentAngle"), flags, 2)
+        this.vtbl.get_SubpictureStreamsAvailable := CallbackCreate(GetMethod(implObj, "get_SubpictureStreamsAvailable"), flags, 2)
+        this.vtbl.get_SubpictureOn := CallbackCreate(GetMethod(implObj, "get_SubpictureOn"), flags, 2)
+        this.vtbl.put_SubpictureOn := CallbackCreate(GetMethod(implObj, "put_SubpictureOn"), flags, 2)
+        this.vtbl.get_DVDUniqueID := CallbackCreate(GetMethod(implObj, "get_DVDUniqueID"), flags, 2)
+        this.vtbl.AcceptParentalLevelChange := CallbackCreate(GetMethod(implObj, "AcceptParentalLevelChange"), flags, 4)
+        this.vtbl.NotifyParentalLevelChange := CallbackCreate(GetMethod(implObj, "NotifyParentalLevelChange"), flags, 2)
+        this.vtbl.SelectParentalCountry := CallbackCreate(GetMethod(implObj, "SelectParentalCountry"), flags, 4)
+        this.vtbl.SelectParentalLevel := CallbackCreate(GetMethod(implObj, "SelectParentalLevel"), flags, 4)
+        this.vtbl.get_TitleParentalLevels := CallbackCreate(GetMethod(implObj, "get_TitleParentalLevels"), flags, 3)
+        this.vtbl.get_PlayerParentalCountry := CallbackCreate(GetMethod(implObj, "get_PlayerParentalCountry"), flags, 2)
+        this.vtbl.get_PlayerParentalLevel := CallbackCreate(GetMethod(implObj, "get_PlayerParentalLevel"), flags, 2)
+        this.vtbl.Eject := CallbackCreate(GetMethod(implObj, "Eject"), flags, 1)
+        this.vtbl.UOPValid := CallbackCreate(GetMethod(implObj, "UOPValid"), flags, 3)
+        this.vtbl.get_SPRM := CallbackCreate(GetMethod(implObj, "get_SPRM"), flags, 3)
+        this.vtbl.get_GPRM := CallbackCreate(GetMethod(implObj, "get_GPRM"), flags, 3)
+        this.vtbl.put_GPRM := CallbackCreate(GetMethod(implObj, "put_GPRM"), flags, 3)
+        this.vtbl.get_DVDTextStringType := CallbackCreate(GetMethod(implObj, "get_DVDTextStringType"), flags, 4)
+        this.vtbl.get_DVDTextString := CallbackCreate(GetMethod(implObj, "get_DVDTextString"), flags, 4)
+        this.vtbl.get_DVDTextNumberOfStrings := CallbackCreate(GetMethod(implObj, "get_DVDTextNumberOfStrings"), flags, 3)
+        this.vtbl.get_DVDTextNumberOfLanguages := CallbackCreate(GetMethod(implObj, "get_DVDTextNumberOfLanguages"), flags, 2)
+        this.vtbl.get_DVDTextLanguageLCID := CallbackCreate(GetMethod(implObj, "get_DVDTextLanguageLCID"), flags, 3)
+        this.vtbl.RegionChange := CallbackCreate(GetMethod(implObj, "RegionChange"), flags, 1)
+        this.vtbl.get_DVDAdm := CallbackCreate(GetMethod(implObj, "get_DVDAdm"), flags, 2)
+        this.vtbl.DeleteBookmark := CallbackCreate(GetMethod(implObj, "DeleteBookmark"), flags, 1)
+        this.vtbl.RestoreBookmark := CallbackCreate(GetMethod(implObj, "RestoreBookmark"), flags, 1)
+        this.vtbl.SaveBookmark := CallbackCreate(GetMethod(implObj, "SaveBookmark"), flags, 1)
+        this.vtbl.SelectDefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultAudioLanguage"), flags, 3)
+        this.vtbl.SelectDefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultSubpictureLanguage"), flags, 3)
+        this.vtbl.get_PreferredSubpictureStream := CallbackCreate(GetMethod(implObj, "get_PreferredSubpictureStream"), flags, 2)
+        this.vtbl.get_DefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "get_DefaultMenuLanguage"), flags, 2)
+        this.vtbl.put_DefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "put_DefaultMenuLanguage"), flags, 2)
+        this.vtbl.get_DefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "get_DefaultSubpictureLanguage"), flags, 2)
+        this.vtbl.get_DefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "get_DefaultAudioLanguage"), flags, 2)
+        this.vtbl.get_DefaultSubpictureLanguageExt := CallbackCreate(GetMethod(implObj, "get_DefaultSubpictureLanguageExt"), flags, 2)
+        this.vtbl.get_DefaultAudioLanguageExt := CallbackCreate(GetMethod(implObj, "get_DefaultAudioLanguageExt"), flags, 2)
+        this.vtbl.get_LanguageFromLCID := CallbackCreate(GetMethod(implObj, "get_LanguageFromLCID"), flags, 3)
+        this.vtbl.get_KaraokeAudioPresentationMode := CallbackCreate(GetMethod(implObj, "get_KaraokeAudioPresentationMode"), flags, 2)
+        this.vtbl.put_KaraokeAudioPresentationMode := CallbackCreate(GetMethod(implObj, "put_KaraokeAudioPresentationMode"), flags, 2)
+        this.vtbl.get_KaraokeChannelContent := CallbackCreate(GetMethod(implObj, "get_KaraokeChannelContent"), flags, 4)
+        this.vtbl.get_KaraokeChannelAssignment := CallbackCreate(GetMethod(implObj, "get_KaraokeChannelAssignment"), flags, 3)
+        this.vtbl.RestorePreferredSettings := CallbackCreate(GetMethod(implObj, "RestorePreferredSettings"), flags, 1)
+        this.vtbl.get_ButtonRect := CallbackCreate(GetMethod(implObj, "get_ButtonRect"), flags, 3)
+        this.vtbl.get_DVDScreenInMouseCoordinates := CallbackCreate(GetMethod(implObj, "get_DVDScreenInMouseCoordinates"), flags, 2)
+        this.vtbl.put_DVDScreenInMouseCoordinates := CallbackCreate(GetMethod(implObj, "put_DVDScreenInMouseCoordinates"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDVDEvent)
+        CallbackFree(this.vtbl.PlayTitle)
+        CallbackFree(this.vtbl.PlayChapterInTitle)
+        CallbackFree(this.vtbl.PlayChapter)
+        CallbackFree(this.vtbl.PlayChaptersAutoStop)
+        CallbackFree(this.vtbl.PlayAtTime)
+        CallbackFree(this.vtbl.PlayAtTimeInTitle)
+        CallbackFree(this.vtbl.PlayPeriodInTitleAutoStop)
+        CallbackFree(this.vtbl.ReplayChapter)
+        CallbackFree(this.vtbl.PlayPrevChapter)
+        CallbackFree(this.vtbl.PlayNextChapter)
+        CallbackFree(this.vtbl.StillOff)
+        CallbackFree(this.vtbl.get_AudioLanguage)
+        CallbackFree(this.vtbl.ShowMenu)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.ReturnFromSubmenu)
+        CallbackFree(this.vtbl.get_ButtonsAvailable)
+        CallbackFree(this.vtbl.get_CurrentButton)
+        CallbackFree(this.vtbl.SelectAndActivateButton)
+        CallbackFree(this.vtbl.ActivateButton)
+        CallbackFree(this.vtbl.SelectRightButton)
+        CallbackFree(this.vtbl.SelectLeftButton)
+        CallbackFree(this.vtbl.SelectLowerButton)
+        CallbackFree(this.vtbl.SelectUpperButton)
+        CallbackFree(this.vtbl.ActivateAtPosition)
+        CallbackFree(this.vtbl.SelectAtPosition)
+        CallbackFree(this.vtbl.get_ButtonAtPosition)
+        CallbackFree(this.vtbl.get_NumberOfChapters)
+        CallbackFree(this.vtbl.get_TotalTitleTime)
+        CallbackFree(this.vtbl.get_TitlesAvailable)
+        CallbackFree(this.vtbl.get_VolumesAvailable)
+        CallbackFree(this.vtbl.get_CurrentVolume)
+        CallbackFree(this.vtbl.get_CurrentDiscSide)
+        CallbackFree(this.vtbl.get_CurrentDomain)
+        CallbackFree(this.vtbl.get_CurrentChapter)
+        CallbackFree(this.vtbl.get_CurrentTitle)
+        CallbackFree(this.vtbl.get_CurrentTime)
+        CallbackFree(this.vtbl.DVDTimeCode2bstr)
+        CallbackFree(this.vtbl.get_DVDDirectory)
+        CallbackFree(this.vtbl.put_DVDDirectory)
+        CallbackFree(this.vtbl.IsSubpictureStreamEnabled)
+        CallbackFree(this.vtbl.IsAudioStreamEnabled)
+        CallbackFree(this.vtbl.get_CurrentSubpictureStream)
+        CallbackFree(this.vtbl.put_CurrentSubpictureStream)
+        CallbackFree(this.vtbl.get_SubpictureLanguage)
+        CallbackFree(this.vtbl.get_CurrentAudioStream)
+        CallbackFree(this.vtbl.put_CurrentAudioStream)
+        CallbackFree(this.vtbl.get_AudioStreamsAvailable)
+        CallbackFree(this.vtbl.get_AnglesAvailable)
+        CallbackFree(this.vtbl.get_CurrentAngle)
+        CallbackFree(this.vtbl.put_CurrentAngle)
+        CallbackFree(this.vtbl.get_SubpictureStreamsAvailable)
+        CallbackFree(this.vtbl.get_SubpictureOn)
+        CallbackFree(this.vtbl.put_SubpictureOn)
+        CallbackFree(this.vtbl.get_DVDUniqueID)
+        CallbackFree(this.vtbl.AcceptParentalLevelChange)
+        CallbackFree(this.vtbl.NotifyParentalLevelChange)
+        CallbackFree(this.vtbl.SelectParentalCountry)
+        CallbackFree(this.vtbl.SelectParentalLevel)
+        CallbackFree(this.vtbl.get_TitleParentalLevels)
+        CallbackFree(this.vtbl.get_PlayerParentalCountry)
+        CallbackFree(this.vtbl.get_PlayerParentalLevel)
+        CallbackFree(this.vtbl.Eject)
+        CallbackFree(this.vtbl.UOPValid)
+        CallbackFree(this.vtbl.get_SPRM)
+        CallbackFree(this.vtbl.get_GPRM)
+        CallbackFree(this.vtbl.put_GPRM)
+        CallbackFree(this.vtbl.get_DVDTextStringType)
+        CallbackFree(this.vtbl.get_DVDTextString)
+        CallbackFree(this.vtbl.get_DVDTextNumberOfStrings)
+        CallbackFree(this.vtbl.get_DVDTextNumberOfLanguages)
+        CallbackFree(this.vtbl.get_DVDTextLanguageLCID)
+        CallbackFree(this.vtbl.RegionChange)
+        CallbackFree(this.vtbl.get_DVDAdm)
+        CallbackFree(this.vtbl.DeleteBookmark)
+        CallbackFree(this.vtbl.RestoreBookmark)
+        CallbackFree(this.vtbl.SaveBookmark)
+        CallbackFree(this.vtbl.SelectDefaultAudioLanguage)
+        CallbackFree(this.vtbl.SelectDefaultSubpictureLanguage)
+        CallbackFree(this.vtbl.get_PreferredSubpictureStream)
+        CallbackFree(this.vtbl.get_DefaultMenuLanguage)
+        CallbackFree(this.vtbl.put_DefaultMenuLanguage)
+        CallbackFree(this.vtbl.get_DefaultSubpictureLanguage)
+        CallbackFree(this.vtbl.get_DefaultAudioLanguage)
+        CallbackFree(this.vtbl.get_DefaultSubpictureLanguageExt)
+        CallbackFree(this.vtbl.get_DefaultAudioLanguageExt)
+        CallbackFree(this.vtbl.get_LanguageFromLCID)
+        CallbackFree(this.vtbl.get_KaraokeAudioPresentationMode)
+        CallbackFree(this.vtbl.put_KaraokeAudioPresentationMode)
+        CallbackFree(this.vtbl.get_KaraokeChannelContent)
+        CallbackFree(this.vtbl.get_KaraokeChannelAssignment)
+        CallbackFree(this.vtbl.RestorePreferredSettings)
+        CallbackFree(this.vtbl.get_ButtonRect)
+        CallbackFree(this.vtbl.get_DVDScreenInMouseCoordinates)
+        CallbackFree(this.vtbl.put_DVDScreenInMouseCoordinates)
     }
 }

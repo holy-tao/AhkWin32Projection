@@ -1,60 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AAL_TYPE.ahk
-#Include .\AAL5_PARAMETERS.ahk
-#Include .\AALUSER_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AAL_TYPE.ahk" { AAL_TYPE }
+#Import ".\AALUSER_PARAMETERS.ahk" { AALUSER_PARAMETERS }
+#Import ".\AAL5_PARAMETERS.ahk" { AAL5_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class AAL_PARAMETERS_IE extends Win32Struct {
-    static sizeof => 16
+export default struct AAL_PARAMETERS_IE {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _AALSpecificParameters_e__Union extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _AALSpecificParameters {
+        AAL5Parameters : AAL5_PARAMETERS
 
-        /**
-         * @type {AAL5_PARAMETERS}
-         */
-        AAL5Parameters {
-            get {
-                if(!this.HasProp("__AAL5Parameters"))
-                    this.__AAL5Parameters := AAL5_PARAMETERS(0, this)
-                return this.__AAL5Parameters
-            }
-        }
-
-        /**
-         * @type {AALUSER_PARAMETERS}
-         */
-        AALUserParameters {
-            get {
-                if(!this.HasProp("__AALUserParameters"))
-                    this.__AALUserParameters := AALUSER_PARAMETERS(0, this)
-                return this.__AALUserParameters
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'AALUserParameters', { type: AALUSER_PARAMETERS, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {AAL_TYPE}
-     */
-    AALType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AALType : AAL_TYPE
 
-    /**
-     * @type {_AALSpecificParameters_e__Union}
-     */
-    AALSpecificParameters {
-        get {
-            if(!this.HasProp("__AALSpecificParameters"))
-                this.__AALSpecificParameters := AAL_PARAMETERS_IE._AALSpecificParameters_e__Union(4, this)
-            return this.__AALSpecificParameters
-        }
-    }
+    AALSpecificParameters : AAL_PARAMETERS_IE._AALSpecificParameters
+
 }

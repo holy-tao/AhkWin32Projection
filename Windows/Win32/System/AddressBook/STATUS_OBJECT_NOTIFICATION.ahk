@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENTRYID.ahk
-#Include .\SPropValue.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Describes a status object that has been affected by a change.
@@ -18,44 +17,27 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/status_object_notification
  * @namespace Windows.Win32.System.AddressBook
  */
-class STATUS_OBJECT_NOTIFICATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct STATUS_OBJECT_NOTIFICATION {
+    #StructPack 8
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpEntryID** member.
-     * @type {Integer}
      */
-    cbEntryID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbEntryID : UInt32
 
     /**
      * > Pointer to the entry identifier of the changed status object.
-     * @type {Pointer<ENTRYID>}
      */
-    lpEntryID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpEntryID : ENTRYID.Ptr
 
     /**
      * > Count of [SPropValue](spropvalue.md) structures in the array pointed to by the **lpPropVals** member.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cValues : UInt32
 
     /**
      * > Pointer to an array of **SPropValue** structures that describe the properties of the changed status object.
-     * @type {Pointer<SPropValue>}
      */
-    lpPropVals {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpPropVals : SPropValue.Ptr
+
 }

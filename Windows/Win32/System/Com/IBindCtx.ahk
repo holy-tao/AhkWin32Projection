@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IRunningObjectTable.ahk
-#Include .\IEnumString.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumString.ahk" { IEnumString }
+#Import ".\IRunningObjectTable.ahk" { IRunningObjectTable }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a bind context, which is an object that stores information about a particular moniker binding operation.
@@ -21,26 +24,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ibindctx
  * @namespace Windows.Win32.System.Com
  */
-class IBindCtx extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBindCtx extends IUnknown {
     /**
      * The interface identifier for IBindCtx
      * @type {Guid}
      */
-    static IID => Guid("{0000000e-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000000e-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBindCtx interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterObjectBound   : IntPtr
+        RevokeObjectBound     : IntPtr
+        ReleaseBoundObjects   : IntPtr
+        SetBindOptions        : IntPtr
+        GetBindOptions        : IntPtr
+        GetRunningObjectTable : IntPtr
+        RegisterObjectParam   : IntPtr
+        GetObjectParam        : IntPtr
+        EnumObjectParam       : IntPtr
+        RevokeObjectParam     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterObjectBound", "RevokeObjectBound", "ReleaseBoundObjects", "SetBindOptions", "GetBindOptions", "GetRunningObjectTable", "RegisterObjectParam", "GetObjectParam", "EnumObjectParam", "RevokeObjectParam"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBindCtx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers an object with the bind context to ensure that the object remains active until the bind context is released.
@@ -147,7 +166,7 @@ class IBindCtx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-setbindoptions
      */
     SetBindOptions(pbindopts) {
-        result := ComCall(6, this, "ptr", pbindopts, "HRESULT")
+        result := ComCall(6, this, BIND_OPTS.Ptr, pbindopts, "HRESULT")
         return result
     }
 
@@ -165,7 +184,7 @@ class IBindCtx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-getbindoptions
      */
     GetBindOptions(pbindopts) {
-        result := ComCall(7, this, "ptr", pbindopts, "HRESULT")
+        result := ComCall(7, this, BIND_OPTS.Ptr, pbindopts, "HRESULT")
         return result
     }
 
@@ -313,5 +332,43 @@ class IBindCtx extends IUnknown {
 
         result := ComCall(12, this, "ptr", pszKey, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBindCtx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterObjectBound := CallbackCreate(GetMethod(implObj, "RegisterObjectBound"), flags, 2)
+        this.vtbl.RevokeObjectBound := CallbackCreate(GetMethod(implObj, "RevokeObjectBound"), flags, 2)
+        this.vtbl.ReleaseBoundObjects := CallbackCreate(GetMethod(implObj, "ReleaseBoundObjects"), flags, 1)
+        this.vtbl.SetBindOptions := CallbackCreate(GetMethod(implObj, "SetBindOptions"), flags, 2)
+        this.vtbl.GetBindOptions := CallbackCreate(GetMethod(implObj, "GetBindOptions"), flags, 2)
+        this.vtbl.GetRunningObjectTable := CallbackCreate(GetMethod(implObj, "GetRunningObjectTable"), flags, 2)
+        this.vtbl.RegisterObjectParam := CallbackCreate(GetMethod(implObj, "RegisterObjectParam"), flags, 3)
+        this.vtbl.GetObjectParam := CallbackCreate(GetMethod(implObj, "GetObjectParam"), flags, 3)
+        this.vtbl.EnumObjectParam := CallbackCreate(GetMethod(implObj, "EnumObjectParam"), flags, 2)
+        this.vtbl.RevokeObjectParam := CallbackCreate(GetMethod(implObj, "RevokeObjectParam"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterObjectBound)
+        CallbackFree(this.vtbl.RevokeObjectBound)
+        CallbackFree(this.vtbl.ReleaseBoundObjects)
+        CallbackFree(this.vtbl.SetBindOptions)
+        CallbackFree(this.vtbl.GetBindOptions)
+        CallbackFree(this.vtbl.GetRunningObjectTable)
+        CallbackFree(this.vtbl.RegisterObjectParam)
+        CallbackFree(this.vtbl.GetObjectParam)
+        CallbackFree(this.vtbl.EnumObjectParam)
+        CallbackFree(this.vtbl.RevokeObjectParam)
     }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_RESPONSE_INFO_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_RESPONSE_INFO_TYPE.ahk" { HTTP_RESPONSE_INFO_TYPE }
 
 /**
  * Extends the HTTP_RESPONSE structure with additional information for the response.
@@ -9,35 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_RESPONSE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct HTTP_RESPONSE_INFO {
+    #StructPack 8
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_response_info_type">HTTP_RESPONSE_INFO_TYPE</a> enumeration specifying the type of information contained in this structure.
-     * @type {HTTP_RESPONSE_INFO_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : HTTP_RESPONSE_INFO_TYPE
 
     /**
      * The length, in bytes, of the <b>pInfo</b> member.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_multiple_known_headers">HTTP_MULTIPLE_KNOWN_HEADERS</a> structure when the <b>InfoType</b> member is <b>HttpResponseInfoTypeMultipleKnownHeaders</b>; otherwise <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pInfo : IntPtr
+
 }

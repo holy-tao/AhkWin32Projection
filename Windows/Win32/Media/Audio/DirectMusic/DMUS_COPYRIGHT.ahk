@@ -1,35 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_COPYRIGHT extends Win32Struct {
-    static sizeof => 8
+export default struct DMUS_COPYRIGHT {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    byCopyright : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    byCopyright {
-        get {
-            if(!this.HasProp("__byCopyrightProxyArray"))
-                this.__byCopyrightProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__byCopyrightProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 8
-    }
 }

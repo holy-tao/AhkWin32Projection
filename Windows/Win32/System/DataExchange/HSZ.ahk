@@ -1,16 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Contains a DDE service name and topic name. A DDE server application can use this structure during an XTYP_WILDCONNECT transaction to enumerate the service-topic pairs that it supports.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-hszpair
  * @namespace Windows.Win32.System.DataExchange
  */
-class HSZ extends Win32Handle {
-    static sizeof => 8
+export default struct HSZ {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is HSZ) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -18,11 +23,7 @@ class HSZ extends Win32Handle {
      */
     static invalidValues => [-1, 0]
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := -1) {
+        this.Value := Value
     }
 }

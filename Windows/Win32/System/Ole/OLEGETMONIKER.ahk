@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Controls aspects of the behavior of the IOleObject::GetMoniker and IOleClientSite::GetMoniker methods.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olegetmoniker
  * @namespace Windows.Win32.System.Ole
  */
-class OLEGETMONIKER extends Win32Enum {
+export default struct OLEGETMONIKER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * If a moniker for the object or container does not exist, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleclientsite-getmoniker">IOleClientSite::GetMoniker</a> should return E_FAIL and not assign a moniker.

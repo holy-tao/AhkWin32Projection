@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class ISimpleConnectionPoint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISimpleConnectionPoint extends IUnknown {
     /**
      * The interface identifier for ISimpleConnectionPoint
      * @type {Guid}
      */
-    static IID => Guid("{51973c3e-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c3e-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISimpleConnectionPoint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEventCount  : IntPtr
+        DescribeEvents : IntPtr
+        Advise         : IntPtr
+        Unadvise       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventCount", "DescribeEvents", "Advise", "Unadvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISimpleConnectionPoint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -49,21 +62,14 @@ class ISimpleConnectionPoint extends IUnknown {
         prgidMarshal := prgid is VarRef ? "int*" : "ptr"
         pcEventsFetchedMarshal := pcEventsFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", iEvent, "uint", cEvents, prgidMarshal, prgid, "ptr", prgbstr, pcEventsFetchedMarshal, pcEventsFetched, "HRESULT")
+        result := ComCall(4, this, "uint", iEvent, "uint", cEvents, prgidMarshal, prgid, BSTR.Ptr, prgbstr, pcEventsFetchedMarshal, pcEventsFetched, "HRESULT")
         return result
     }
 
     /**
-     * Stops the recognizer from processing ink because a stroke has been added or deleted.
-     * @remarks
-     * The <b>AdviseInkChange</b> function signals that there will be additional calls to the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function. This enables any recognition already in progress to stop at any convenient point. Recognition completion is one such point, so <b>AdviseInkChange</b> can safely do nothing.
      * 
-     * For example, if you have two threads, one thread may be using <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-process">Process</a> with other functions to obtain results. The other thread may be collecting ink, echoing it, and queuing tasks for the first thread. The second thread calls <b>AdviseInkChange</b> to notify the recognizer a change is coming. This enables the first thread to return to the caller sooner than without the call to <b>AdviseInkChange</b>. The first thread can then call the recognizer again with more ink.
-     * 
-     * If you set the bNewStroke parameter to <b>FALSE</b> because a stroke was modified or deleted, you must also call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-resetcontext">ResetContext</a> function, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function to add the strokes from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object to the recognizer context. This is done automatically if you attach the recognizer context to the <b>InkDisp</b> object.
      * @param {IDispatch} pdisp 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-adviseinkchange
      */
     Advise(pdisp) {
         result := ComCall(5, this, "ptr", pdisp, "uint*", &pdwCookie := 0, "HRESULT")
@@ -78,5 +84,31 @@ class ISimpleConnectionPoint extends IUnknown {
     Unadvise(dwCookie) {
         result := ComCall(6, this, "uint", dwCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISimpleConnectionPoint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventCount := CallbackCreate(GetMethod(implObj, "GetEventCount"), flags, 2)
+        this.vtbl.DescribeEvents := CallbackCreate(GetMethod(implObj, "DescribeEvents"), flags, 6)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventCount)
+        CallbackFree(this.vtbl.DescribeEvents)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
     }
 }

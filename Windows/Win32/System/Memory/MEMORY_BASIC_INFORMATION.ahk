@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PAGE_PROTECTION_FLAGS.ahk
-#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
-#Include .\PAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
+#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
+#Import ".\PAGE_TYPE.ahk" { PAGE_TYPE }
 
 /**
  * Contains information about a range of pages in the virtual address space of a process.
@@ -37,73 +36,39 @@
  * @namespace Windows.Win32.System.Memory
  * @architecture X64, Arm64
  */
-class MEMORY_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MEMORY_BASIC_INFORMATION {
+    #StructPack 8
 
     /**
      * A pointer to the base address of the region of pages.
-     * @type {Pointer<Void>}
      */
-    BaseAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BaseAddress : IntPtr
 
     /**
      * A pointer to the base address of a range of pages allocated by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a> function. The page pointed to by the <b>BaseAddress</b> member is contained within this allocation range.
-     * @type {Pointer<Void>}
      */
-    AllocationBase {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AllocationBase : IntPtr
 
     /**
      * The memory protection option when the region was initially allocated. This member can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a> or 0 if the caller does not have access.
-     * @type {PAGE_PROTECTION_FLAGS}
      */
-    AllocationProtect {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AllocationProtect : PAGE_PROTECTION_FLAGS
 
-    /**
-     * @type {Integer}
-     */
-    PartitionId {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    PartitionId : UInt16
 
     /**
      * The size of the region beginning at the base address in which all pages have identical attributes, in bytes.
-     * @type {Pointer}
      */
-    RegionSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    RegionSize : IntPtr
 
-    /**
-     * @type {VIRTUAL_ALLOCATION_TYPE}
-     */
-    State {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    State : VIRTUAL_ALLOCATION_TYPE
 
     /**
      * The access protection of the pages in the region. This member is one of the values listed for the <b>AllocationProtect</b> member.
-     * @type {PAGE_PROTECTION_FLAGS}
      */
-    Protect {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Protect : PAGE_PROTECTION_FLAGS
 
     /**
      * The type of pages in the region. The following types are defined. 
@@ -149,10 +114,7 @@ class MEMORY_BASIC_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PAGE_TYPE}
      */
-    Type {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Type : PAGE_TYPE
+
 }

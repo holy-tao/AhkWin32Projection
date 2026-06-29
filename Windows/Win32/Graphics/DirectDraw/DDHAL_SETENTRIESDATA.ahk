@@ -1,70 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDRAWI_DDRAWPALETTE_GBL.ahk
-#Include ..\Gdi\PALETTEENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_SETENTRIESDATA extends Win32Struct {
-    static sizeof => 48
+export default struct DDHAL_SETENTRIESDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDPalette : DDRAWI_DDRAWPALETTE_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWPALETTE_GBL>}
-     */
-    lpDDPalette {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwBase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBase {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumEntries {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    lpEntries : PALETTEENTRY.Ptr
 
-    /**
-     * @type {Pointer<PALETTEENTRY>}
-     */
-    lpEntries {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    SetEntries : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALPALCB_SETENTRIES>}
-     */
-    SetEntries {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

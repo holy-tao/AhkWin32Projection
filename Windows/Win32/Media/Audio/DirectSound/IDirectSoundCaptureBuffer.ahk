@@ -1,32 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\DSCBCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
+#Import ".\IDirectSoundCapture.ahk" { IDirectSoundCapture }
+#Import ".\DSCBCAPS.ahk" { DSCBCAPS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class IDirectSoundCaptureBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectSoundCaptureBuffer extends IUnknown {
     /**
      * The interface identifier for IDirectSoundCaptureBuffer
      * @type {Guid}
      */
-    static IID => Guid("{b0210782-89cd-11d0-af08-00a0c925cd16}")
+    static IID := Guid("{b0210782-89cd-11d0-af08-00a0c925cd16}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectSoundCaptureBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCaps            : IntPtr
+        GetCurrentPosition : IntPtr
+        GetFormat          : IntPtr
+        GetStatus          : IntPtr
+        Initialize         : IntPtr
+        Lock               : IntPtr
+        Start              : IntPtr
+        Stop               : IntPtr
+        Unlock             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCaps", "GetCurrentPosition", "GetFormat", "GetStatus", "Initialize", "Lock", "Start", "Stop", "Unlock"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectSoundCaptureBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,18 +52,15 @@ class IDirectSoundCaptureBuffer extends IUnknown {
      */
     GetCaps() {
         pDSCBCaps := DSCBCAPS()
-        result := ComCall(3, this, "ptr", pDSCBCaps, "HRESULT")
+        result := ComCall(3, this, DSCBCAPS.Ptr, pDSCBCaps, "HRESULT")
         return pDSCBCaps
     }
 
     /**
-     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
+     * 
      * @param {Pointer<Integer>} pdwCapturePosition 
      * @param {Pointer<Integer>} pdwReadPosition 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @returns {HRESULT} 
      */
     GetCurrentPosition(pdwCapturePosition, pdwReadPosition) {
         pdwCapturePositionMarshal := pdwCapturePosition is VarRef ? "uint*" : "ptr"
@@ -56,11 +71,10 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
+     * 
      * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pwfxFormat, dwSizeAllocated) {
         result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
@@ -107,7 +121,7 @@ class IDirectSoundCaptureBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pDirectSoundCapture, pcDSCBufferDesc) {
-        result := ComCall(7, this, "ptr", pDirectSoundCapture, "ptr", pcDSCBufferDesc, "HRESULT")
+        result := ComCall(7, this, "ptr", pDirectSoundCapture, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, "HRESULT")
         return result
     }
 
@@ -148,16 +162,9 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * Specifies the date and time when the trigger is activated.
-     * @remarks
-     * The **&lt;StartBoundary&gt;** element is a required element for time and calendar triggers ([**&lt;TimeTrigger&gt;**](taskschedulerschema-timetrigger-triggergroup-element.md) and [**&lt;CalendarTrigger&gt;**](taskschedulerschema-calendartrigger-triggergroup-element.md)).
      * 
-     * For scripting development, the end boundary is specified using the [**Trigger.StartBoundary**](trigger-startboundary.md) property that is inherited by the all trigger objects.
-     * 
-     * For C++ development, the end boundary is specified using the [**ITrigger::StartBoundary**](/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary) property that is inherited by the all trigger interfaces.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element
      */
     Start(dwFlags) {
         result := ComCall(9, this, "uint", dwFlags, "HRESULT")
@@ -165,13 +172,8 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(10, this, "HRESULT")
@@ -179,84 +181,51 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * Unlocks a region in an open file.
-     * @remarks
-     * This function always operates synchronously, but may not queue a completion entry when a completion port is associated with the file handle.
      * 
-     * Unlocking a region of a file releases a previously acquired lock on the file. The region to unlock must correspond exactly to an existing locked region. Two adjacent regions of a file cannot be locked separately and then unlocked using a single region that spans both locked regions.
-     * 
-     * If a process terminates with a portion of a file locked or closes a file that has outstanding locks, the locks are unlocked by the operating system. However, the time it takes for the operating system to unlock these locks depends upon available system resources. Therefore, it is recommended that your process explicitly unlock all files it has locked when it terminates. If this is not done, access to these files may be denied if the operating system has not yet unlocked them.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
      * @param {Integer} pvAudioPtr2 
      * @param {Integer} dwAudioBytes2 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-unlockfile
+     * @returns {HRESULT} 
      */
     Unlock(pvAudioPtr1, dwAudioBytes1, pvAudioPtr2, dwAudioBytes2) {
         result := ComCall(11, this, "ptr", pvAudioPtr1, "uint", dwAudioBytes1, "ptr", pvAudioPtr2, "uint", dwAudioBytes2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectSoundCaptureBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 8)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetCurrentPosition)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Lock)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Unlock)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines how the performance counter data is graphed, for example, as a line graph or a histogram.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-displaytypeconstants
  * @namespace Windows.Win32.System.Performance
  */
-class DisplayTypeConstants extends Win32Enum {
+export default struct DisplayTypeConstants {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Counter values are displayed in a line graph. Each marker on the line graph represents a data value.

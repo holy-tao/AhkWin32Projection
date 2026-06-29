@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12
  */
-class D3D9ON12_ARGS extends Win32Struct {
-    static sizeof => 40
+export default struct D3D9ON12_ARGS {
+    #StructPack 8
 
-    static packingSize => 8
+    Enable9On12 : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enable9On12 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    pD3D12Device : IUnknown
 
-    /**
-     * @type {IUnknown}
-     */
-    pD3D12Device {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ppD3D12Queues : IUnknown[2]
 
-    /**
-     * @type {Array<IUnknown>}
-     */
-    ppD3D12Queues {
-        get {
-            if(!this.HasProp("__ppD3D12QueuesProxyArray"))
-                this.__ppD3D12QueuesProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
-            return this.__ppD3D12QueuesProxyArray
-        }
-    }
+    NumQueues : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumQueues {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NodeMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeMask {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

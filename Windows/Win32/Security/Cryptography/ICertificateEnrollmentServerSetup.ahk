@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CESSetupProperty.ahk" { CESSetupProperty }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ICertificateEnrollmentServerSetup interface represents the Certificate Enrollment Web Service (CES) within Active Directory Certificate Services (ADCS).
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertificateenrollmentserversetup
  * @namespace Windows.Win32.Security.Cryptography
  */
-class ICertificateEnrollmentServerSetup extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertificateEnrollmentServerSetup extends IDispatch {
     /**
      * The interface identifier for ICertificateEnrollmentServerSetup
      * @type {Guid}
      */
-    static IID => Guid("{70027fdb-9dd9-4921-8944-b35cb31bd2ec}")
+    static IID := Guid("{70027fdb-9dd9-4921-8944-b35cb31bd2ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertificateEnrollmentServerSetup interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ErrorString               : IntPtr
+        InitializeInstallDefaults     : IntPtr
+        GetProperty                   : IntPtr
+        SetProperty                   : IntPtr
+        SetApplicationPoolCredentials : IntPtr
+        Install                       : IntPtr
+        UnInstall                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ErrorString", "InitializeInstallDefaults", "GetProperty", "SetProperty", "SetApplicationPoolCredentials", "Install", "UnInstall"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertificateEnrollmentServerSetup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -46,8 +61,8 @@ class ICertificateEnrollmentServerSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentserversetup-get_errorstring
      */
     get_ErrorString() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -203,7 +218,7 @@ class ICertificateEnrollmentServerSetup extends IDispatch {
      */
     GetProperty(propertyId) {
         pPropertyValue := VARIANT()
-        result := ComCall(9, this, "int", propertyId, "ptr", pPropertyValue, "HRESULT")
+        result := ComCall(9, this, CESSetupProperty, propertyId, VARIANT.Ptr, pPropertyValue, "HRESULT")
         return pPropertyValue
     }
 
@@ -290,7 +305,7 @@ class ICertificateEnrollmentServerSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentserversetup-setproperty
      */
     SetProperty(propertyId, pPropertyValue) {
-        result := ComCall(10, this, "int", propertyId, "ptr", pPropertyValue, "HRESULT")
+        result := ComCall(10, this, CESSetupProperty, propertyId, VARIANT.Ptr, pPropertyValue, "HRESULT")
         return result
     }
 
@@ -342,7 +357,7 @@ class ICertificateEnrollmentServerSetup extends IDispatch {
         bstrUsername := bstrUsername is String ? BSTR.Alloc(bstrUsername).Value : bstrUsername
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(11, this, "ptr", bstrUsername, "ptr", bstrPassword, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrUsername, BSTR, bstrPassword, "HRESULT")
         return result
     }
 
@@ -524,7 +539,39 @@ class ICertificateEnrollmentServerSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentserversetup-uninstall
      */
     UnInstall(pCAConfig, pAuthentication) {
-        result := ComCall(13, this, "ptr", pCAConfig, "ptr", pAuthentication, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pCAConfig, VARIANT.Ptr, pAuthentication, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertificateEnrollmentServerSetup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ErrorString := CallbackCreate(GetMethod(implObj, "get_ErrorString"), flags, 2)
+        this.vtbl.InitializeInstallDefaults := CallbackCreate(GetMethod(implObj, "InitializeInstallDefaults"), flags, 1)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetApplicationPoolCredentials := CallbackCreate(GetMethod(implObj, "SetApplicationPoolCredentials"), flags, 3)
+        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 1)
+        this.vtbl.UnInstall := CallbackCreate(GetMethod(implObj, "UnInstall"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ErrorString)
+        CallbackFree(this.vtbl.InitializeInstallDefaults)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.SetApplicationPoolCredentials)
+        CallbackFree(this.vtbl.Install)
+        CallbackFree(this.vtbl.UnInstall)
     }
 }

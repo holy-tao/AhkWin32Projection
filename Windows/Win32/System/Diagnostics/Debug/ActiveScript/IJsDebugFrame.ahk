@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IJsDebugProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IJsDebugProperty.ahk" { IJsDebugProperty }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IJsDebugFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IJsDebugFrame extends IUnknown {
     /**
      * The interface identifier for IJsDebugFrame
      * @type {Guid}
      */
-    static IID => Guid("{c9196637-ab9d-44b2-bad2-13b95b3f390e}")
+    static IID := Guid("{c9196637-ab9d-44b2-bad2-13b95b3f390e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IJsDebugFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStackRange               : IntPtr
+        GetName                     : IntPtr
+        GetDocumentPositionWithId   : IntPtr
+        GetDocumentPositionWithName : IntPtr
+        GetDebugProperty            : IntPtr
+        GetReturnAddress            : IntPtr
+        Evaluate                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStackRange", "GetName", "GetDocumentPositionWithId", "GetDocumentPositionWithName", "GetDebugProperty", "GetReturnAddress", "Evaluate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IJsDebugFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -49,8 +64,8 @@ class IJsDebugFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pName := BSTR()
-        result := ComCall(4, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -81,7 +96,7 @@ class IJsDebugFrame extends IUnknown {
         pLineMarshal := pLine is VarRef ? "uint*" : "ptr"
         pColumnMarshal := pColumn is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pDocumentName, pLineMarshal, pLine, pColumnMarshal, pColumn, "HRESULT")
+        result := ComCall(6, this, BSTR.Ptr, pDocumentName, pLineMarshal, pLine, pColumnMarshal, pColumn, "HRESULT")
         return result
     }
 
@@ -104,19 +119,48 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * Evaluates at the indexed sample location.
-     * @remarks
-     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
+     * 
      * @param {PWSTR} pExpressionText 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<BSTR>} pError 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pExpressionText, ppDebugProperty, pError) {
         pExpressionText := pExpressionText is String ? StrPtr(pExpressionText) : pExpressionText
 
-        result := ComCall(9, this, "ptr", pExpressionText, "ptr*", ppDebugProperty, "ptr", pError, "HRESULT")
+        result := ComCall(9, this, "ptr", pExpressionText, IJsDebugProperty.Ptr, ppDebugProperty, BSTR.Ptr, pError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IJsDebugFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStackRange := CallbackCreate(GetMethod(implObj, "GetStackRange"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetDocumentPositionWithId := CallbackCreate(GetMethod(implObj, "GetDocumentPositionWithId"), flags, 4)
+        this.vtbl.GetDocumentPositionWithName := CallbackCreate(GetMethod(implObj, "GetDocumentPositionWithName"), flags, 4)
+        this.vtbl.GetDebugProperty := CallbackCreate(GetMethod(implObj, "GetDebugProperty"), flags, 2)
+        this.vtbl.GetReturnAddress := CallbackCreate(GetMethod(implObj, "GetReturnAddress"), flags, 2)
+        this.vtbl.Evaluate := CallbackCreate(GetMethod(implObj, "Evaluate"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStackRange)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetDocumentPositionWithId)
+        CallbackFree(this.vtbl.GetDocumentPositionWithName)
+        CallbackFree(this.vtbl.GetDebugProperty)
+        CallbackFree(this.vtbl.GetReturnAddress)
+        CallbackFree(this.vtbl.Evaluate)
     }
 }

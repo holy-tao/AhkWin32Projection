@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\Direct2D\Common\D2D1_BORDER_MODE.ahk" { D2D1_BORDER_MODE }
+#Import "..\Direct2D\Common\D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE.ahk" { D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE }
+#Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionAffineTransform2DEffect)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionaffinetransform2deffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionAffineTransform2DEffect
      * @type {Guid}
      */
-    static IID => Guid("{0b74b9e8-cdd6-492f-bbbc-5ed32157026d}")
+    static IID := Guid("{0b74b9e8-cdd6-492f-bbbc-5ed32157026d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionAffineTransform2DEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetInterpolationMode       : IntPtr
+        SetBorderMode              : IntPtr
+        SetTransformMatrix         : IntPtr
+        SetTransformMatrixElement  : IntPtr
+        SetTransformMatrixElement1 : IntPtr
+        SetSharpness               : IntPtr
+        SetSharpness1              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetInterpolationMode", "SetBorderMode", "SetTransformMatrix", "SetTransformMatrixElement", "SetTransformMatrixElement1", "SetSharpness", "SetSharpness1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionAffineTransform2DEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the interpolation mode of the effect.
@@ -40,7 +58,7 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
      */
     SetInterpolationMode(_interpolationMode) {
-        result := ComCall(4, this, "int", _interpolationMode, "HRESULT")
+        result := ComCall(4, this, D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE, _interpolationMode, "HRESULT")
         return result
     }
 
@@ -55,7 +73,7 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
      */
     SetBorderMode(borderMode) {
-        result := ComCall(5, this, "int", borderMode, "HRESULT")
+        result := ComCall(5, this, D2D1_BORDER_MODE, borderMode, "HRESULT")
         return result
     }
 
@@ -70,7 +88,7 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
      */
     SetTransformMatrix(transformMatrix) {
-        result := ComCall(6, this, "ptr", transformMatrix, "HRESULT")
+        result := ComCall(6, this, D2D_MATRIX_3X2_F.Ptr, transformMatrix, "HRESULT")
         return result
     }
 
@@ -140,5 +158,37 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
     SetSharpness1(sharpness) {
         result := ComCall(10, this, "float", sharpness, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionAffineTransform2DEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetInterpolationMode := CallbackCreate(GetMethod(implObj, "SetInterpolationMode"), flags, 2)
+        this.vtbl.SetBorderMode := CallbackCreate(GetMethod(implObj, "SetBorderMode"), flags, 2)
+        this.vtbl.SetTransformMatrix := CallbackCreate(GetMethod(implObj, "SetTransformMatrix"), flags, 2)
+        this.vtbl.SetTransformMatrixElement := CallbackCreate(GetMethod(implObj, "SetTransformMatrixElement"), flags, 4)
+        this.vtbl.SetTransformMatrixElement1 := CallbackCreate(GetMethod(implObj, "SetTransformMatrixElement1"), flags, 4)
+        this.vtbl.SetSharpness := CallbackCreate(GetMethod(implObj, "SetSharpness"), flags, 2)
+        this.vtbl.SetSharpness1 := CallbackCreate(GetMethod(implObj, "SetSharpness1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetInterpolationMode)
+        CallbackFree(this.vtbl.SetBorderMode)
+        CallbackFree(this.vtbl.SetTransformMatrix)
+        CallbackFree(this.vtbl.SetTransformMatrixElement)
+        CallbackFree(this.vtbl.SetTransformMatrixElement1)
+        CallbackFree(this.vtbl.SetSharpness)
+        CallbackFree(this.vtbl.SetSharpness1)
     }
 }

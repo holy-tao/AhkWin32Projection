@@ -1,38 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class POWER_ADAPTER_SET_STATUS_BUFFER extends Win32Struct {
-    static sizeof => 4
+export default struct POWER_ADAPTER_SET_STATUS_BUFFER {
+    #StructPack 1
 
-    static packingSize => 1
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    RecOverride : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RecOverride {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

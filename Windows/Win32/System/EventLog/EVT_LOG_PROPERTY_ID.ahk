@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the identifiers that identify the log file metadata properties of a channel or log file.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_log_property_id
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_LOG_PROPERTY_ID extends Win32Enum {
+export default struct EVT_LOG_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Identifies the property that contains the time that the channel or log file was created. The variant type for this property is <b>EvtVarTypeFileTime</b>.

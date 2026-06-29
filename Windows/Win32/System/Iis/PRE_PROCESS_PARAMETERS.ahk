@@ -1,119 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class PRE_PROCESS_PARAMETERS extends Win32Struct {
-    static sizeof => 104
+export default struct PRE_PROCESS_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    pszSessionId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSessionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszSiteName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSiteName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszUserName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszHostName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszHostName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszRemoteIpAddress : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszRemoteIpAddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwRemoteIpPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRemoteIpPort {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pszLocalIpAddress : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszLocalIpAddress {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwLocalIpPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalIpPort {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    pszCommand : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCommand {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pszCommandParameters : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCommandParameters {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    SessionStartTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    SessionStartTime {
-        get {
-            if(!this.HasProp("__SessionStartTime"))
-                this.__SessionStartTime := FILETIME(80, this)
-            return this.__SessionStartTime
-        }
-    }
+    BytesSentPerSession : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesSentPerSession {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    BytesReceivedPerSession : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesReceivedPerSession {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
 }

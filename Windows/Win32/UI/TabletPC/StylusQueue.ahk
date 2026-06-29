@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the queue to which stylus data is added.
@@ -20,7 +19,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/ne-rtscom-stylusqueue
  * @namespace Windows.Win32.UI.TabletPC
  */
-class StylusQueue extends Win32Enum {
+export default struct StylusQueue {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Data is added to the input queue. When data is added to the input queue, it is automatically added to the output queue.

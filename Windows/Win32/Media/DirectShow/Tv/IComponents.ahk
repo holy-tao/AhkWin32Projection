@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\IEnumComponents.ahk
-#Include .\IComponent.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumComponents.ahk" { IEnumComponents }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponent.ahk" { IComponent }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IComponents interface represents a collection of components.
@@ -14,32 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-icomponents
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IComponents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IComponents extends IDispatch {
     /**
      * The interface identifier for IComponents
      * @type {Guid}
      */
-    static IID => Guid("{39a48091-fffe-4182-a161-3ff802640e26}")
+    static IID := Guid("{39a48091-fffe-4182-a161-3ff802640e26}")
 
     /**
      * The class identifier for Components
      * @type {Guid}
      */
-    static CLSID => Guid("{809b6661-94c4-49e6-b6ec-3f0f862215aa}")
+    static CLSID := Guid("{809b6661-94c4-49e6-b6ec-3f0f862215aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComponents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count      : IntPtr
+        get__NewEnum   : IntPtr
+        EnumComponents : IntPtr
+        get_Item       : IntPtr
+        Add            : IntPtr
+        Remove         : IntPtr
+        Clone          : IntPtr
+        put_Item       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "EnumComponents", "get_Item", "Add", "Remove", "Clone", "put_Item"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComponents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -98,7 +113,7 @@ class IComponents extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get_item
      */
     get_Item(Index) {
-        result := ComCall(10, this, "ptr", Index, "ptr*", &ppComponent := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT, Index, "ptr*", &ppComponent := 0, "HRESULT")
         return IComponent(ppComponent)
     }
 
@@ -110,7 +125,7 @@ class IComponents extends IDispatch {
      */
     Add(_Component) {
         NewIndex := VARIANT()
-        result := ComCall(11, this, "ptr", _Component, "ptr", NewIndex, "HRESULT")
+        result := ComCall(11, this, "ptr", _Component, VARIANT.Ptr, NewIndex, "HRESULT")
         return NewIndex
     }
 
@@ -121,7 +136,7 @@ class IComponents extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-remove
      */
     Remove(Index) {
-        result := ComCall(12, this, "ptr", Index, "HRESULT")
+        result := ComCall(12, this, VARIANT, Index, "HRESULT")
         return result
     }
 
@@ -147,7 +162,41 @@ class IComponents extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-put_item
      */
     put_Item(Index, ppComponent) {
-        result := ComCall(14, this, "ptr", Index, "ptr", ppComponent, "HRESULT")
+        result := ComCall(14, this, VARIANT, Index, "ptr", ppComponent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComponents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.EnumComponents := CallbackCreate(GetMethod(implObj, "EnumComponents"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.put_Item := CallbackCreate(GetMethod(implObj, "put_Item"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.EnumComponents)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.put_Item)
     }
 }

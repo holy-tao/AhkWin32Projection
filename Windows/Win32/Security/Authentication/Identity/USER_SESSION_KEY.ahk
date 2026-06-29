@@ -1,23 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk" { CYPHER_BLOCK }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class USER_SESSION_KEY extends Win32Struct {
-    static sizeof => 16
+export default struct USER_SESSION_KEY {
+    #StructPack 2
 
-    static packingSize => 2
+    data : CYPHER_BLOCK[2]
 
-    /**
-     * @type {CYPHER_BLOCK}
-     */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 2, CYPHER_BLOCK, "")
-            return this.__dataProxyArray
-        }
-    }
 }

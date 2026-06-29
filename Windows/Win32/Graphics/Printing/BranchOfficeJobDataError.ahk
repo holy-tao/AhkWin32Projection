@@ -1,107 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BranchOfficeJobDataError extends Win32Struct {
-    static sizeof => 88
+export default struct BranchOfficeJobDataError {
+    #StructPack 8
 
-    static packingSize => 8
+    LastError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LastError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pDocumentName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pDocumentName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pUserName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pPrinterName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pPrinterName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pDataType : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pDataType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    TotalSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalSize {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    PrintedSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PrintedSize {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    TotalPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalPages {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    PrintedPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrintedPages {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    pMachineName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pMachineName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pJobError : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pJobError {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pErrorDescription : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pErrorDescription {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

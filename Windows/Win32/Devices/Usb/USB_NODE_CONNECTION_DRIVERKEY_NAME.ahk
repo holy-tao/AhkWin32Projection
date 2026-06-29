@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_NODE_CONNECTION_DRIVERKEY_NAME extends Win32Struct {
-    static sizeof => 12
+export default struct USB_NODE_CONNECTION_DRIVERKEY_NAME {
+    #StructPack 4
 
-    static packingSize => 4
+    ConnectionIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ActualLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ActualLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DriverKeyName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    DriverKeyName {
-        get => StrGet(this.ptr + 8, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 0, "UTF-16")
-    }
 }

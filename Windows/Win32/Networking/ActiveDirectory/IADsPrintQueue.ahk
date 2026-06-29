@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADs.ahk" { IADs }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsPrintQueue interface represents a printer on a network.
@@ -43,26 +44,58 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsprintqueue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsPrintQueue extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsPrintQueue extends IADs {
     /**
      * The interface identifier for IADsPrintQueue
      * @type {Guid}
      */
-    static IID => Guid("{b15160d0-1226-11cf-a985-00aa006bc149}")
+    static IID := Guid("{b15160d0-1226-11cf-a985-00aa006bc149}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsPrintQueue interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_PrinterPath        : IntPtr
+        put_PrinterPath        : IntPtr
+        get_Model              : IntPtr
+        put_Model              : IntPtr
+        get_Datatype           : IntPtr
+        put_Datatype           : IntPtr
+        get_PrintProcessor     : IntPtr
+        put_PrintProcessor     : IntPtr
+        get_Description        : IntPtr
+        put_Description        : IntPtr
+        get_Location           : IntPtr
+        put_Location           : IntPtr
+        get_StartTime          : IntPtr
+        put_StartTime          : IntPtr
+        get_UntilTime          : IntPtr
+        put_UntilTime          : IntPtr
+        get_DefaultJobPriority : IntPtr
+        put_DefaultJobPriority : IntPtr
+        get_Priority           : IntPtr
+        put_Priority           : IntPtr
+        get_BannerPage         : IntPtr
+        put_BannerPage         : IntPtr
+        get_PrintDevices       : IntPtr
+        put_PrintDevices       : IntPtr
+        get_NetAddresses       : IntPtr
+        put_NetAddresses       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PrinterPath", "put_PrinterPath", "get_Model", "put_Model", "get_Datatype", "put_Datatype", "get_PrintProcessor", "put_PrintProcessor", "get_Description", "put_Description", "get_Location", "put_Location", "get_StartTime", "put_StartTime", "get_UntilTime", "put_UntilTime", "get_DefaultJobPriority", "put_DefaultJobPriority", "get_Priority", "put_Priority", "get_BannerPage", "put_BannerPage", "get_PrintDevices", "put_PrintDevices", "get_NetAddresses", "put_NetAddresses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsPrintQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -173,8 +206,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_PrinterPath() {
-        retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -186,7 +219,7 @@ class IADsPrintQueue extends IADs {
     put_PrinterPath(bstrPrinterPath) {
         bstrPrinterPath := bstrPrinterPath is String ? BSTR.Alloc(bstrPrinterPath).Value : bstrPrinterPath
 
-        result := ComCall(21, this, "ptr", bstrPrinterPath, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrPrinterPath, "HRESULT")
         return result
     }
 
@@ -195,8 +228,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Model() {
-        retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -208,7 +241,7 @@ class IADsPrintQueue extends IADs {
     put_Model(bstrModel) {
         bstrModel := bstrModel is String ? BSTR.Alloc(bstrModel).Value : bstrModel
 
-        result := ComCall(23, this, "ptr", bstrModel, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrModel, "HRESULT")
         return result
     }
 
@@ -217,8 +250,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Datatype() {
-        retval := BSTR()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -230,7 +263,7 @@ class IADsPrintQueue extends IADs {
     put_Datatype(bstrDatatype) {
         bstrDatatype := bstrDatatype is String ? BSTR.Alloc(bstrDatatype).Value : bstrDatatype
 
-        result := ComCall(25, this, "ptr", bstrDatatype, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrDatatype, "HRESULT")
         return result
     }
 
@@ -239,8 +272,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_PrintProcessor() {
-        retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -252,7 +285,7 @@ class IADsPrintQueue extends IADs {
     put_PrintProcessor(bstrPrintProcessor) {
         bstrPrintProcessor := bstrPrintProcessor is String ? BSTR.Alloc(bstrPrintProcessor).Value : bstrPrintProcessor
 
-        result := ComCall(27, this, "ptr", bstrPrintProcessor, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrPrintProcessor, "HRESULT")
         return result
     }
 
@@ -261,8 +294,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -274,7 +307,7 @@ class IADsPrintQueue extends IADs {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(29, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -283,8 +316,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Location() {
-        retval := BSTR()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -296,7 +329,7 @@ class IADsPrintQueue extends IADs {
     put_Location(bstrLocation) {
         bstrLocation := bstrLocation is String ? BSTR.Alloc(bstrLocation).Value : bstrLocation
 
-        result := ComCall(31, this, "ptr", bstrLocation, "HRESULT")
+        result := ComCall(31, this, BSTR, bstrLocation, "HRESULT")
         return result
     }
 
@@ -381,8 +414,8 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_BannerPage() {
-        retval := BSTR()
-        result := ComCall(40, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -394,7 +427,7 @@ class IADsPrintQueue extends IADs {
     put_BannerPage(bstrBannerPage) {
         bstrBannerPage := bstrBannerPage is String ? BSTR.Alloc(bstrBannerPage).Value : bstrBannerPage
 
-        result := ComCall(41, this, "ptr", bstrBannerPage, "HRESULT")
+        result := ComCall(41, this, BSTR, bstrBannerPage, "HRESULT")
         return result
     }
 
@@ -404,7 +437,7 @@ class IADsPrintQueue extends IADs {
      */
     get_PrintDevices() {
         retval := VARIANT()
-        result := ComCall(42, this, "ptr", retval, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -414,7 +447,7 @@ class IADsPrintQueue extends IADs {
      * @returns {HRESULT} 
      */
     put_PrintDevices(vPrintDevices) {
-        result := ComCall(43, this, "ptr", vPrintDevices, "HRESULT")
+        result := ComCall(43, this, VARIANT, vPrintDevices, "HRESULT")
         return result
     }
 
@@ -424,7 +457,7 @@ class IADsPrintQueue extends IADs {
      */
     get_NetAddresses() {
         retval := VARIANT()
-        result := ComCall(44, this, "ptr", retval, "HRESULT")
+        result := ComCall(44, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -434,7 +467,77 @@ class IADsPrintQueue extends IADs {
      * @returns {HRESULT} 
      */
     put_NetAddresses(vNetAddresses) {
-        result := ComCall(45, this, "ptr", vNetAddresses, "HRESULT")
+        result := ComCall(45, this, VARIANT, vNetAddresses, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsPrintQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PrinterPath := CallbackCreate(GetMethod(implObj, "get_PrinterPath"), flags, 2)
+        this.vtbl.put_PrinterPath := CallbackCreate(GetMethod(implObj, "put_PrinterPath"), flags, 2)
+        this.vtbl.get_Model := CallbackCreate(GetMethod(implObj, "get_Model"), flags, 2)
+        this.vtbl.put_Model := CallbackCreate(GetMethod(implObj, "put_Model"), flags, 2)
+        this.vtbl.get_Datatype := CallbackCreate(GetMethod(implObj, "get_Datatype"), flags, 2)
+        this.vtbl.put_Datatype := CallbackCreate(GetMethod(implObj, "put_Datatype"), flags, 2)
+        this.vtbl.get_PrintProcessor := CallbackCreate(GetMethod(implObj, "get_PrintProcessor"), flags, 2)
+        this.vtbl.put_PrintProcessor := CallbackCreate(GetMethod(implObj, "put_PrintProcessor"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.put_Location := CallbackCreate(GetMethod(implObj, "put_Location"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_UntilTime := CallbackCreate(GetMethod(implObj, "get_UntilTime"), flags, 2)
+        this.vtbl.put_UntilTime := CallbackCreate(GetMethod(implObj, "put_UntilTime"), flags, 2)
+        this.vtbl.get_DefaultJobPriority := CallbackCreate(GetMethod(implObj, "get_DefaultJobPriority"), flags, 2)
+        this.vtbl.put_DefaultJobPriority := CallbackCreate(GetMethod(implObj, "put_DefaultJobPriority"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_BannerPage := CallbackCreate(GetMethod(implObj, "get_BannerPage"), flags, 2)
+        this.vtbl.put_BannerPage := CallbackCreate(GetMethod(implObj, "put_BannerPage"), flags, 2)
+        this.vtbl.get_PrintDevices := CallbackCreate(GetMethod(implObj, "get_PrintDevices"), flags, 2)
+        this.vtbl.put_PrintDevices := CallbackCreate(GetMethod(implObj, "put_PrintDevices"), flags, 2)
+        this.vtbl.get_NetAddresses := CallbackCreate(GetMethod(implObj, "get_NetAddresses"), flags, 2)
+        this.vtbl.put_NetAddresses := CallbackCreate(GetMethod(implObj, "put_NetAddresses"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PrinterPath)
+        CallbackFree(this.vtbl.put_PrinterPath)
+        CallbackFree(this.vtbl.get_Model)
+        CallbackFree(this.vtbl.put_Model)
+        CallbackFree(this.vtbl.get_Datatype)
+        CallbackFree(this.vtbl.put_Datatype)
+        CallbackFree(this.vtbl.get_PrintProcessor)
+        CallbackFree(this.vtbl.put_PrintProcessor)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_Location)
+        CallbackFree(this.vtbl.put_Location)
+        CallbackFree(this.vtbl.get_StartTime)
+        CallbackFree(this.vtbl.put_StartTime)
+        CallbackFree(this.vtbl.get_UntilTime)
+        CallbackFree(this.vtbl.put_UntilTime)
+        CallbackFree(this.vtbl.get_DefaultJobPriority)
+        CallbackFree(this.vtbl.put_DefaultJobPriority)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.get_BannerPage)
+        CallbackFree(this.vtbl.put_BannerPage)
+        CallbackFree(this.vtbl.get_PrintDevices)
+        CallbackFree(this.vtbl.put_PrintDevices)
+        CallbackFree(this.vtbl.get_NetAddresses)
+        CallbackFree(this.vtbl.put_NetAddresses)
     }
 }

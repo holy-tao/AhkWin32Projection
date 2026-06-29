@@ -1,229 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include .\DOT11_DS_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_DS_INFO.ahk" { DOT11_DS_INFO }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct {
-    static sizeof => 96
+export default struct DOT11_ASSOCIATION_COMPLETION_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    MacAddr : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MacAddr {
-        get {
-            if(!this.HasProp("__MacAddrProxyArray"))
-                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__MacAddrProxyArray
-        }
-    }
+    uStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uStatus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    bReAssocReq : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bReAssocReq {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bReAssocResp : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bReAssocResp {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    uAssocReqOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uAssocReqOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uAssocReqSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uAssocReqSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uAssocRespOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uAssocRespOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    uAssocRespSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uAssocRespSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    uBeaconOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBeaconOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    uBeaconSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBeaconSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    uIHVDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIHVDataOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    uIHVDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIHVDataSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    AuthAlgo : DOT11_AUTH_ALGORITHM
 
-    /**
-     * @type {DOT11_AUTH_ALGORITHM}
-     */
-    AuthAlgo {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    UnicastCipher : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    UnicastCipher {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    MulticastCipher : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    MulticastCipher {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    uActivePhyListOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uActivePhyListOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    uActivePhyListSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uActivePhyListSize {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    bFourAddressSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bFourAddressSupported {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    bPortAuthorized : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bPortAuthorized {
-        get => NumGet(this, 73, "char")
-        set => NumPut("char", value, this, 73)
-    }
+    ucActiveQoSProtocol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucActiveQoSProtocol {
-        get => NumGet(this, 74, "char")
-        set => NumPut("char", value, this, 74)
-    }
+    DSInfo : DOT11_DS_INFO
 
-    /**
-     * @type {DOT11_DS_INFO}
-     */
-    DSInfo {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    uEncapTableOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uEncapTableOffset {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    uEncapTableSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uEncapTableSize {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    MulticastMgmtCipher : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    MulticastMgmtCipher {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    uAssocComebackTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uAssocComebackTime {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 }

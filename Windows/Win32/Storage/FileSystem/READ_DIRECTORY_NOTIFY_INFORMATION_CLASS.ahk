@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the possible types of information that an application that calls the ReadDirectoryChangesExW function can request.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-read_directory_notify_information_class
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class READ_DIRECTORY_NOTIFY_INFORMATION_CLASS extends Win32Enum {
+export default struct READ_DIRECTORY_NOTIFY_INFORMATION_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readdirectorychangesexw">ReadDirectoryChangesExW</a> function  should provide  information that describes the changes within the specified directory, and return this information in the  output buffer in the form of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_information">FILE_NOTIFY_INFORMATION</a> structures.

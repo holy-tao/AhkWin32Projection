@@ -1,126 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
-#Include .\DBPROPSET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBCONSTRAINTDESC extends Win32Struct {
-    static sizeof => 96
+export default struct DBCONSTRAINTDESC {
+    #StructPack 8
 
-    static packingSize => 8
+    pConstraintID : DBID.Ptr
 
-    /**
-     * @type {Pointer<DBID>}
-     */
-    pConstraintID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ConstraintType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstraintType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cColumns : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cColumns {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    rgColumnList : DBID.Ptr
 
-    /**
-     * @type {Pointer<DBID>}
-     */
-    rgColumnList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pReferencedTableID : DBID.Ptr
 
-    /**
-     * @type {Pointer<DBID>}
-     */
-    pReferencedTableID {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cForeignKeyColumns : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cForeignKeyColumns {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rgForeignKeyColumnList : DBID.Ptr
 
-    /**
-     * @type {Pointer<DBID>}
-     */
-    rgForeignKeyColumnList {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pwszConstraintText : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszConstraintText {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    UpdateRule : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UpdateRule {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    DeleteRule : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeleteRule {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    MatchType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MatchType {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    Deferrability : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Deferrability {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    cReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cReserved {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    rgReserved : DBPROPSET.Ptr
 
-    /**
-     * @type {Pointer<DBPROPSET>}
-     */
-    rgReserved {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
 }

@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESSOR_IDLESTATE_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct PROCESSOR_IDLESTATE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    TimeCheck : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeCheck {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DemotePercent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DemotePercent {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    PromotePercent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PromotePercent {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Spare : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Spare {
-        get {
-            if(!this.HasProp("__SpareProxyArray"))
-                this.__SpareProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
-            return this.__SpareProxyArray
-        }
-    }
 }

@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_DISPOSITION_INFORMATION_EX_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_DISPOSITION_INFORMATION_EX_FLAGS.ahk" { FILE_DISPOSITION_INFORMATION_EX_FLAGS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_DISPOSITION_INFORMATION_EX extends Win32Struct {
-    static sizeof => 4
+export default struct FILE_DISPOSITION_INFORMATION_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : FILE_DISPOSITION_INFORMATION_EX_FLAGS
 
-    /**
-     * @type {FILE_DISPOSITION_INFORMATION_EX_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

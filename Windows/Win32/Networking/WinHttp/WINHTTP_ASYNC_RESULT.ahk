@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WINHTTP_ASYNC_RESULT structure contains the result of a call to an asynchronous function. This structure is used with the WINHTTP_STATUS_CALLBACK prototype.
@@ -9,26 +8,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_async_result
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_ASYNC_RESULT extends Win32Struct {
-    static sizeof => 16
+export default struct WINHTTP_ASYNC_RESULT {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer}
-     */
-    dwResult {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwResult : IntPtr
 
     /**
      * Contains the error code if 
      * <b>dwResult</b> indicates that the function failed.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwError : UInt32
+
 }

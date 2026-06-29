@@ -1,83 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPS.ahk
-#Include .\VMEMHEAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\VMEMHEAP.ahk" { VMEMHEAP }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class VIDMEM extends Win32Struct {
-    static sizeof => 40
+export default struct VIDMEM {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fpStart : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpStart {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    fpEnd : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpEnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ddsCaps : DDSCAPS
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ddsCapsAlt : DDSCAPS
 
-    /**
-     * @type {DDSCAPS}
-     */
-    ddsCaps {
-        get {
-            if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(24, this)
-            return this.__ddsCaps
-        }
-    }
+    lpHeap : VMEMHEAP.Ptr
 
-    /**
-     * @type {DDSCAPS}
-     */
-    ddsCapsAlt {
-        get {
-            if(!this.HasProp("__ddsCapsAlt"))
-                this.__ddsCapsAlt := DDSCAPS(28, this)
-            return this.__ddsCapsAlt
-        }
-    }
-
-    /**
-     * @type {Pointer<VMEMHEAP>}
-     */
-    lpHeap {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'dwWidth', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwHeight', { type: UInt32, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

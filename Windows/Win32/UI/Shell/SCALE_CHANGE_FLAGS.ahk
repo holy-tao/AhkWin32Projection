@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags that are used to indicate the scaling change that occurred.
  * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/ne-shellscalingapi-scale_change_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class SCALE_CHANGE_FLAGS extends Win32BitflagEnum {
+export default struct SCALE_CHANGE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No change.

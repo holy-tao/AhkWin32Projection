@@ -1,51 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcOperationResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcValidator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcValidator extends IUnknown {
     /**
      * The interface identifier for IDxcValidator
      * @type {Guid}
      */
-    static IID => Guid("{a6e82bd2-1fd7-4826-9811-2857e797f49a}")
+    static IID := Guid("{a6e82bd2-1fd7-4826-9811-2857e797f49a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcValidator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Validate : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcValidator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Validate"]
-
-    /**
-     * The ValidateBitmapInfoHeader function checks a BITMAPINFOHEADER structure for certain common errors that can cause buffer overruns or integer overflows.
-     * @remarks
-     * This function guards against the following errors:
      * 
-     * -   Arithmetic overflow in the structure size or an invalid structure size.
-     * -   Invalid value for the **biClrUsed** member.
-     * -   Arithmetic overflow in the image size (**biSizeImage**).
-     * -   Invalid values for the image size (**biSizeImage**) for RGB formats.
-     * 
-     * The function does not check whether the structure describes a valid video format.
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @returns {IDxcOperationResult} 
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/validatebitmapinfoheader
      */
     Validate(pShader, Flags) {
         result := ComCall(3, this, "ptr", pShader, "uint", Flags, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
+    }
+
+    Query(iid) {
+        if (IDxcValidator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Validate)
     }
 }

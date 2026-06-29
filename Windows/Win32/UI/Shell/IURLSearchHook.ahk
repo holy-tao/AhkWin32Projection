@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that is used by the browser to translate the address of an unknown URL protocol.
@@ -23,26 +25,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iurlsearchhook
  * @namespace Windows.Win32.UI.Shell
  */
-class IURLSearchHook extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IURLSearchHook extends IUnknown {
     /**
      * The interface identifier for IURLSearchHook
      * @type {Guid}
      */
-    static IID => Guid("{ac60f6a0-0fd9-11d0-99cb-00c04fd64497}")
+    static IID := Guid("{ac60f6a0-0fd9-11d0-99cb-00c04fd64497}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IURLSearchHook interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Translate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Translate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IURLSearchHook.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the browser when the browser cannot determine the protocol of a URL address.
@@ -102,5 +111,25 @@ class IURLSearchHook extends IUnknown {
 
         result := ComCall(3, this, "ptr", pwszSearchURL, "uint", cchBufferSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IURLSearchHook.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Translate := CallbackCreate(GetMethod(implObj, "Translate"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Translate)
     }
 }

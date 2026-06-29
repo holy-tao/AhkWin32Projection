@@ -1,19 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The ICDRAWBEGIN structure contains decompression parameters used with the ICM_DRAW_BEGIN message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdrawbegin
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICDRAWBEGIN extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct ICDRAWBEGIN {
+    #StructPack 8
 
     /**
      * Applicable flags. The following values are defined:
@@ -123,145 +120,77 @@ class ICDRAWBEGIN extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Handle to the palette used for drawing.
-     * @type {HPALETTE}
      */
-    hpal {
-        get {
-            if(!this.HasProp("__hpal"))
-                this.__hpal := HPALETTE(8, this)
-            return this.__hpal
-        }
-    }
+    hpal : HPALETTE
 
     /**
      * Handle to the window used for drawing.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(16, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * Handle to the DC used for drawing. Specify <b>NULL</b> to use a DC associated with the specified window.
-     * @type {HDC}
      */
-    hdc {
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(24, this)
-            return this.__hdc
-        }
-    }
+    hdc : HDC
 
     /**
      * The x-coordinate of the destination rectangle.
-     * @type {Integer}
      */
-    xDst {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    xDst : Int32
 
     /**
      * The y-coordinate of the destination rectangle.
-     * @type {Integer}
      */
-    yDst {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    yDst : Int32
 
     /**
      * Width of the destination rectangle.
-     * @type {Integer}
      */
-    dxDst {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    dxDst : Int32
 
     /**
      * Height of the destination rectangle.
-     * @type {Integer}
      */
-    dyDst {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    dyDst : Int32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the input format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbi {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpbi : BITMAPINFOHEADER.Ptr
 
     /**
      * The x-coordinate of the source rectangle.
-     * @type {Integer}
      */
-    xSrc {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    xSrc : Int32
 
     /**
      * The y-coordinate of the source rectangle.
-     * @type {Integer}
      */
-    ySrc {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    ySrc : Int32
 
     /**
      * Width of the source rectangle.
-     * @type {Integer}
      */
-    dxSrc {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    dxSrc : Int32
 
     /**
      * Height of the source rectangle.
-     * @type {Integer}
      */
-    dySrc {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    dySrc : Int32
 
     /**
      * Decompression rate in an integer format. To obtain the rate in frames per second, divide this value by the value in <b>dwScale</b>.
-     * @type {Integer}
      */
-    dwRate {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwRate : UInt32
 
     /**
      * Value used to scale <b>dwRate</b> to frames per second.
-     * @type {Integer}
      */
-    dwScale {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwScale : UInt32
+
 }

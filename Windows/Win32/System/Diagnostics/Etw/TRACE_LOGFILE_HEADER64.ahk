@@ -1,240 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
+#Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_LOGFILE_HEADER64 extends Win32Struct {
-    static sizeof => 280
+export default struct TRACE_LOGFILE_HEADER64 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    struct _VersionDetail {
+        MajorVersion : Int8
+
+        MinorVersion : Int8
+
+        SubVersion : Int8
+
+        SubMinorVersion : Int8
+
     }
 
-    class _VersionDetail extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
+    BufferSize : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MajorVersion {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+    Version : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MinorVersion {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+    ProviderVersion : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        SubVersion {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
+    NumberOfProcessors : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        SubMinorVersion {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
-    }
+    EndTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TimerResolution : UInt32
 
-    /**
-     * @type {_VersionDetail}
-     */
-    VersionDetail {
-        get {
-            if(!this.HasProp("__VersionDetail"))
-                this.__VersionDetail := TRACE_LOGFILE_HEADER64._VersionDetail(4, this)
-            return this.__VersionDetail
-        }
-    }
+    MaximumFileSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProviderVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LogFileMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfProcessors {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BuffersWritten : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LogInstanceGuid : Guid
 
-    /**
-     * @type {Integer}
-     */
-    TimerResolution {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    LoggerName : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumFileSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    LogFileName : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LogFileMode {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TimeZone : TIME_ZONE_INFORMATION
 
-    /**
-     * @type {Integer}
-     */
-    BuffersWritten {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    BootTime : Int64
 
-    /**
-     * @type {Pointer}
-     */
-    LogInstanceGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    PerfFreq : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartBuffers {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    StartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PointerSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ReservedFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EventsLost {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BuffersLost : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CpuSpeedInMHz {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LoggerName {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LogFileName {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {TIME_ZONE_INFORMATION}
-     */
-    TimeZone {
-        get {
-            if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(72, this)
-            return this.__TimeZone
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BootTime {
-        get => NumGet(this, 248, "int64")
-        set => NumPut("int64", value, this, 248)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PerfFreq {
-        get => NumGet(this, 256, "int64")
-        set => NumPut("int64", value, this, 256)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StartTime {
-        get => NumGet(this, 264, "int64")
-        set => NumPut("int64", value, this, 264)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReservedFlags {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BuffersLost {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+    static __New() {
+        DefineProp(this.Prototype, 'VersionDetail', { type: TRACE_LOGFILE_HEADER64._VersionDetail, offset: 4 })
+        DefineProp(this.Prototype, 'StartBuffers', { type: UInt32, offset: 40 })
+        DefineProp(this.Prototype, 'PointerSize', { type: UInt32, offset: 44 })
+        DefineProp(this.Prototype, 'EventsLost', { type: UInt32, offset: 48 })
+        DefineProp(this.Prototype, 'CpuSpeedInMHz', { type: UInt32, offset: 52 })
+        this.DeleteProp("__New")
     }
 }

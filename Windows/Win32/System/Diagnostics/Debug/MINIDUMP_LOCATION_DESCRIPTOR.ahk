@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information describing the location of a data stream within a minidump file. (MINIDUMP_LOCATION_DESCRIPTOR)
@@ -19,26 +18,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_LOCATION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MINIDUMP_LOCATION_DESCRIPTOR {
+    #StructPack 4
 
     /**
      * The size of the data stream, in bytes.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataSize : UInt32
 
     /**
      * The relative virtual address (RVA) of the data. This is the byte offset of the data stream from the beginning of the minidump file.
-     * @type {Integer}
      */
-    Rva {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Rva : UInt32
+
 }

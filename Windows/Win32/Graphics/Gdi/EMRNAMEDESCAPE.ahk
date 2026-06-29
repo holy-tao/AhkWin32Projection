@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRNAMEDESCAPE extends Win32Struct {
-    static sizeof => 24
+export default struct EMRNAMEDESCAPE {
+    #StructPack 4
 
-    static packingSize => 4
+    emr : EMR
 
-    /**
-     * @type {EMR}
-     */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    iEscape : Int32
 
-    /**
-     * @type {Integer}
-     */
-    iEscape {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cbDriver : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cbDriver {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    cbEscData : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cbEscData {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    EscData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EscData {
-        get {
-            if(!this.HasProp("__EscDataProxyArray"))
-                this.__EscDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
-            return this.__EscDataProxyArray
-        }
-    }
 }

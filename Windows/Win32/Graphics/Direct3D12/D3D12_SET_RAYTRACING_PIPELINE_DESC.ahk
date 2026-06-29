@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_PROGRAM_IDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_PROGRAM_IDENTIFIER.ahk" { D3D12_PROGRAM_IDENTIFIER }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SET_RAYTRACING_PIPELINE_DESC extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_SET_RAYTRACING_PIPELINE_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    ProgramIdentifier : D3D12_PROGRAM_IDENTIFIER
 
-    /**
-     * @type {D3D12_PROGRAM_IDENTIFIER}
-     */
-    ProgramIdentifier {
-        get {
-            if(!this.HasProp("__ProgramIdentifier"))
-                this.__ProgramIdentifier := D3D12_PROGRAM_IDENTIFIER(0, this)
-            return this.__ProgramIdentifier
-        }
-    }
 }

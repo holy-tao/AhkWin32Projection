@@ -1,145 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_IDENTITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specify the types of service provider event notifications to monitor.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-event-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_EVENT extends Win32Struct {
-    static sizeof => 104
+export default struct WINBIO_EVENT {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+    struct _Parameters {
 
-        class _Unclaimed extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _Unclaimed {
+            UnitId : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            UnitId {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
         }
 
-        class _UnclaimedIdentify extends Win32Struct {
-            static sizeof => 96
-            static packingSize => 8
+        struct _UnclaimedIdentify {
+            UnitId : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            UnitId {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(8, this)
-                    return this.__Identity
-                }
-            }
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 88, "char")
-                set => NumPut("char", value, this, 88)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 92, "uint")
-                set => NumPut("uint", value, this, 92)
-            }
         }
 
-        class _Error extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _Error {
+            ErrorCode : HRESULT
 
-            /**
-             * @type {HRESULT}
-             */
-            ErrorCode {
-                get => NumGet(this, 0, "int")
-                set => NumPut("int", value, this, 0)
-            }
         }
 
-        /**
-         * @type {_Unclaimed}
-         */
-        Unclaimed {
-            get {
-                if(!this.HasProp("__Unclaimed"))
-                    this.__Unclaimed := WINBIO_EVENT._Parameters_e__Union._Unclaimed(0, this)
-                return this.__Unclaimed
-            }
-        }
+        Unclaimed : WINBIO_EVENT._Parameters._Unclaimed
 
-        /**
-         * @type {_UnclaimedIdentify}
-         */
-        UnclaimedIdentify {
-            get {
-                if(!this.HasProp("__UnclaimedIdentify"))
-                    this.__UnclaimedIdentify := WINBIO_EVENT._Parameters_e__Union._UnclaimedIdentify(0, this)
-                return this.__UnclaimedIdentify
-            }
-        }
-
-        /**
-         * @type {_Error}
-         */
-        Error {
-            get {
-                if(!this.HasProp("__Error"))
-                    this.__Error := WINBIO_EVENT._Parameters_e__Union._Error(0, this)
-                return this.__Error
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'UnclaimedIdentify', { type: WINBIO_EVENT._Parameters._UnclaimedIdentify, offset: 0 })
+            DefineProp(this.Prototype, 'Error', { type: WINBIO_EVENT._Parameters._Error, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : UInt32
 
-    /**
-     * @type {_Parameters_e__Union}
-     */
-    Parameters {
-        get {
-            if(!this.HasProp("__Parameters"))
-                this.__Parameters := WINBIO_EVENT._Parameters_e__Union(8, this)
-            return this.__Parameters
-        }
-    }
+    Parameters : WINBIO_EVENT._Parameters
+
 }

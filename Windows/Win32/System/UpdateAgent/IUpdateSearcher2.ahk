@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateSearcher.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUpdateSearcher.ahk" { IUpdateSearcher }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Searches for updates on a server. (IUpdateSearcher2)
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesearcher2
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateSearcher2 extends IUpdateSearcher {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateSearcher2 extends IUpdateSearcher {
     /**
      * The interface identifier for IUpdateSearcher2
      * @type {Guid}
      */
-    static IID => Guid("{4cbdcb2d-1589-4beb-bd1c-3e582ff0add0}")
+    static IID := Guid("{4cbdcb2d-1589-4beb-bd1c-3e582ff0add0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateSearcher2 interfaces
+    */
+    struct Vtbl extends IUpdateSearcher.Vtbl {
+        get_IgnoreDownloadPriority : IntPtr
+        put_IgnoreDownloadPriority : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IgnoreDownloadPriority", "put_IgnoreDownloadPriority"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateSearcher2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -47,7 +57,7 @@ class IUpdateSearcher2 extends IUpdateSearcher {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority
      */
     get_IgnoreDownloadPriority() {
-        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -60,7 +70,29 @@ class IUpdateSearcher2 extends IUpdateSearcher {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-put_ignoredownloadpriority
      */
     put_IgnoreDownloadPriority(value) {
-        result := ComCall(26, this, "short", value, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUpdateSearcher2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IgnoreDownloadPriority := CallbackCreate(GetMethod(implObj, "get_IgnoreDownloadPriority"), flags, 2)
+        this.vtbl.put_IgnoreDownloadPriority := CallbackCreate(GetMethod(implObj, "put_IgnoreDownloadPriority"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IgnoreDownloadPriority)
+        CallbackFree(this.vtbl.put_IgnoreDownloadPriority)
     }
 }

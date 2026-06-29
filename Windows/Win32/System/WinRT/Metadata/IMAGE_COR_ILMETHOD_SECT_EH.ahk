@@ -1,40 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_SMALL.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_SMALL.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_FAT.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_FAT.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk
-#Include .\CorExceptionFlag.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_FAT.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_FAT }
+#Import ".\IMAGE_COR_ILMETHOD_SECT_SMALL.ahk" { IMAGE_COR_ILMETHOD_SECT_SMALL }
+#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_SMALL.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_SMALL }
+#Import ".\CorExceptionFlag.ahk" { CorExceptionFlag }
+#Import ".\IMAGE_COR_ILMETHOD_SECT_FAT.ahk" { IMAGE_COR_ILMETHOD_SECT_FAT }
+#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT }
+#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMAGE_COR_ILMETHOD_SECT_EH extends Win32Struct {
-    static sizeof => 44
+export default struct IMAGE_COR_ILMETHOD_SECT_EH {
+    #StructPack 4
 
-    static packingSize => 4
+    Small : IMAGE_COR_ILMETHOD_SECT_EH_SMALL
 
-    /**
-     * @type {IMAGE_COR_ILMETHOD_SECT_EH_SMALL}
-     */
-    Small {
-        get {
-            if(!this.HasProp("__Small"))
-                this.__Small := IMAGE_COR_ILMETHOD_SECT_EH_SMALL(0, this)
-            return this.__Small
-        }
-    }
-
-    /**
-     * @type {IMAGE_COR_ILMETHOD_SECT_EH_FAT}
-     */
-    Fat {
-        get {
-            if(!this.HasProp("__Fat"))
-                this.__Fat := IMAGE_COR_ILMETHOD_SECT_EH_FAT(0, this)
-            return this.__Fat
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Fat', { type: IMAGE_COR_ILMETHOD_SECT_EH_FAT, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

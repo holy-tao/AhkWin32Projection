@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_PROTOCOL_CACHE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WTS_PROTOCOL_CACHE.ahk" { WTS_PROTOCOL_CACHE }
 
 /**
  * Contains cache statistics.
@@ -9,41 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_cache_stats_un
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_CACHE_STATS_UN extends Win32Struct {
-    static sizeof => 116
-
-    static packingSize => 4
+export default struct WTS_CACHE_STATS_UN {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_cache">WTS_PROTOCOL_CACHE</a> structure that contains information about the number of times that requested data is found in and read from the cache.
-     * @type {WTS_PROTOCOL_CACHE}
      */
-    ProtocolCache {
-        get {
-            if(!this.HasProp("__ProtocolCacheProxyArray"))
-                this.__ProtocolCacheProxyArray := Win32FixedArray(this.ptr + 0, 4, WTS_PROTOCOL_CACHE, "")
-            return this.__ProtocolCacheProxyArray
-        }
-    }
+    ProtocolCache : WTS_PROTOCOL_CACHE[4]
 
-    /**
-     * Share cache statistics.
-     * @type {Integer}
-     */
-    TShareCacheStats {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * Reserved protocol specific data. The maximum size, in bytes, of this data is WTS_MAX_CACHE_RESERVED multiplied by the length of an unsigned long integer.
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'TShareCacheStats', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Reserved', { type: UInt32[20], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

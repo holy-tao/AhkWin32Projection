@@ -1,32 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IClientCaps extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IClientCaps extends IDispatch {
     /**
      * The interface identifier for IClientCaps
      * @type {Guid}
      */
-    static IID => Guid("{7e8bc44d-aeff-11d1-89c2-00c04fb6bfc4}")
+    static IID := Guid("{7e8bc44d-aeff-11d1-89c2-00c04fb6bfc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IClientCaps interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_javaEnabled       : IntPtr
+        get_cookieEnabled     : IntPtr
+        get_cpuClass          : IntPtr
+        get_systemLanguage    : IntPtr
+        get_userLanguage      : IntPtr
+        get_platform          : IntPtr
+        get_connectionSpeed   : IntPtr
+        get_onLine            : IntPtr
+        get_colorDepth        : IntPtr
+        get_bufferDepth       : IntPtr
+        get_width             : IntPtr
+        get_height            : IntPtr
+        get_availHeight       : IntPtr
+        get_availWidth        : IntPtr
+        get_connectionType    : IntPtr
+        isComponentInstalled  : IntPtr
+        getComponentVersion   : IntPtr
+        compareVersions       : IntPtr
+        addComponentRequest   : IntPtr
+        doComponentRequest    : IntPtr
+        clearComponentRequest : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_javaEnabled", "get_cookieEnabled", "get_cpuClass", "get_systemLanguage", "get_userLanguage", "get_platform", "get_connectionSpeed", "get_onLine", "get_colorDepth", "get_bufferDepth", "get_width", "get_height", "get_availHeight", "get_availWidth", "get_connectionType", "isComponentInstalled", "getComponentVersion", "compareVersions", "addComponentRequest", "doComponentRequest", "clearComponentRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IClientCaps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -138,7 +167,7 @@ class IClientCaps extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_javaEnabled() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -147,7 +176,7 @@ class IClientCaps extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -156,8 +185,8 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_cpuClass() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -166,8 +195,8 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_systemLanguage() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -176,8 +205,8 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_userLanguage() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -186,8 +215,8 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_platform() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -205,7 +234,7 @@ class IClientCaps extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -268,8 +297,8 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_connectionType() {
-        p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -285,7 +314,7 @@ class IClientCaps extends IDispatch {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bStrVer := bStrVer is String ? BSTR.Alloc(bStrVer).Value : bStrVer
 
-        result := ComCall(22, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "short*", &p := 0, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrName, BSTR, bstrUrl, BSTR, bStrVer, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -299,8 +328,8 @@ class IClientCaps extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pbstrVer := BSTR()
-        result := ComCall(23, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", pbstrVer, "HRESULT")
+        pbstrVer := BSTR.Owned()
+        result := ComCall(23, this, BSTR, bstrName, BSTR, bstrUrl, BSTR.Ptr, pbstrVer, "HRESULT")
         return pbstrVer
     }
 
@@ -314,7 +343,7 @@ class IClientCaps extends IDispatch {
         bstrVer1 := bstrVer1 is String ? BSTR.Alloc(bstrVer1).Value : bstrVer1
         bstrVer2 := bstrVer2 is String ? BSTR.Alloc(bstrVer2).Value : bstrVer2
 
-        result := ComCall(24, this, "ptr", bstrVer1, "ptr", bstrVer2, "int*", &p := 0, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrVer1, BSTR, bstrVer2, "int*", &p := 0, "HRESULT")
         return p
     }
 
@@ -330,7 +359,7 @@ class IClientCaps extends IDispatch {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bStrVer := bStrVer is String ? BSTR.Alloc(bStrVer).Value : bStrVer
 
-        result := ComCall(25, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrName, BSTR, bstrUrl, BSTR, bStrVer, "HRESULT")
         return result
     }
 
@@ -339,7 +368,7 @@ class IClientCaps extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     doComponentRequest() {
-        result := ComCall(26, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -350,5 +379,65 @@ class IClientCaps extends IDispatch {
     clearComponentRequest() {
         result := ComCall(27, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IClientCaps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_javaEnabled := CallbackCreate(GetMethod(implObj, "get_javaEnabled"), flags, 2)
+        this.vtbl.get_cookieEnabled := CallbackCreate(GetMethod(implObj, "get_cookieEnabled"), flags, 2)
+        this.vtbl.get_cpuClass := CallbackCreate(GetMethod(implObj, "get_cpuClass"), flags, 2)
+        this.vtbl.get_systemLanguage := CallbackCreate(GetMethod(implObj, "get_systemLanguage"), flags, 2)
+        this.vtbl.get_userLanguage := CallbackCreate(GetMethod(implObj, "get_userLanguage"), flags, 2)
+        this.vtbl.get_platform := CallbackCreate(GetMethod(implObj, "get_platform"), flags, 2)
+        this.vtbl.get_connectionSpeed := CallbackCreate(GetMethod(implObj, "get_connectionSpeed"), flags, 2)
+        this.vtbl.get_onLine := CallbackCreate(GetMethod(implObj, "get_onLine"), flags, 2)
+        this.vtbl.get_colorDepth := CallbackCreate(GetMethod(implObj, "get_colorDepth"), flags, 2)
+        this.vtbl.get_bufferDepth := CallbackCreate(GetMethod(implObj, "get_bufferDepth"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_availHeight := CallbackCreate(GetMethod(implObj, "get_availHeight"), flags, 2)
+        this.vtbl.get_availWidth := CallbackCreate(GetMethod(implObj, "get_availWidth"), flags, 2)
+        this.vtbl.get_connectionType := CallbackCreate(GetMethod(implObj, "get_connectionType"), flags, 2)
+        this.vtbl.isComponentInstalled := CallbackCreate(GetMethod(implObj, "isComponentInstalled"), flags, 5)
+        this.vtbl.getComponentVersion := CallbackCreate(GetMethod(implObj, "getComponentVersion"), flags, 4)
+        this.vtbl.compareVersions := CallbackCreate(GetMethod(implObj, "compareVersions"), flags, 4)
+        this.vtbl.addComponentRequest := CallbackCreate(GetMethod(implObj, "addComponentRequest"), flags, 4)
+        this.vtbl.doComponentRequest := CallbackCreate(GetMethod(implObj, "doComponentRequest"), flags, 2)
+        this.vtbl.clearComponentRequest := CallbackCreate(GetMethod(implObj, "clearComponentRequest"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_javaEnabled)
+        CallbackFree(this.vtbl.get_cookieEnabled)
+        CallbackFree(this.vtbl.get_cpuClass)
+        CallbackFree(this.vtbl.get_systemLanguage)
+        CallbackFree(this.vtbl.get_userLanguage)
+        CallbackFree(this.vtbl.get_platform)
+        CallbackFree(this.vtbl.get_connectionSpeed)
+        CallbackFree(this.vtbl.get_onLine)
+        CallbackFree(this.vtbl.get_colorDepth)
+        CallbackFree(this.vtbl.get_bufferDepth)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.get_availHeight)
+        CallbackFree(this.vtbl.get_availWidth)
+        CallbackFree(this.vtbl.get_connectionType)
+        CallbackFree(this.vtbl.isComponentInstalled)
+        CallbackFree(this.vtbl.getComponentVersion)
+        CallbackFree(this.vtbl.compareVersions)
+        CallbackFree(this.vtbl.addComponentRequest)
+        CallbackFree(this.vtbl.doComponentRequest)
+        CallbackFree(this.vtbl.clearComponentRequest)
     }
 }

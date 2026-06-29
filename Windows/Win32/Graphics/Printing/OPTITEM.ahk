@@ -1,159 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EXTCHKBOX.ahk
-#Include .\EXTPUSH.ahk
-#Include .\OPTTYPE.ahk
-#Include .\OIEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EXTCHKBOX.ahk" { EXTCHKBOX }
+#Import ".\OIEXT.ahk" { OIEXT }
+#Import ".\OPTTYPE.ahk" { OPTTYPE }
+#Import ".\EXTPUSH.ahk" { EXTPUSH }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OPTITEM extends Win32Struct {
-    static sizeof => 88
+export default struct OPTITEM {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Level : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    DlgPageIdx : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DlgPageIdx {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    UserData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UserData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Sel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Sel {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    pExtChkBox : EXTCHKBOX.Ptr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pSel {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pOptType : OPTTYPE.Ptr
 
-    /**
-     * @type {Pointer<EXTCHKBOX>}
-     */
-    pExtChkBox {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    HelpIndex : UInt32
 
-    /**
-     * @type {Pointer<EXTPUSH>}
-     */
-    pExtPush {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DMPubID : Int8
 
-    /**
-     * @type {Pointer<OPTTYPE>}
-     */
-    pOptType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    UserItemID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HelpIndex {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    wReserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DMPubID {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
-    }
+    pOIExt : OIEXT.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    UserItemID {
-        get => NumGet(this, 53, "char")
-        set => NumPut("char", value, this, 53)
-    }
+    dwReserved : IntPtr[3]
 
-    /**
-     * @type {Integer}
-     */
-    wReserved {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
-
-    /**
-     * @type {Pointer<OIEXT>}
-     */
-    pOIExt {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Array<Pointer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 64, 3, Primitive, "ptr")
-            return this.__dwReservedProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 88
+    static __New() {
+        DefineProp(this.Prototype, 'pSel', { type: IntPtr, offset: 24 })
+        DefineProp(this.Prototype, 'pExtPush', { type: EXTPUSH.Ptr, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

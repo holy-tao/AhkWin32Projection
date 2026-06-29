@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D2D1_ALPHA_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
+#Import "..\..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Contains the data format and alpha mode for a bitmap or render target.
@@ -10,30 +9,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d1_pixel_format
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  */
-class D2D1_PIXEL_FORMAT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct D2D1_PIXEL_FORMAT {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A value that specifies the size and arrangement of channels in each pixel.
-     * @type {DXGI_FORMAT}
      */
-    format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    format : DXGI_FORMAT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-d2d1_alpha_mode">D2D1_ALPHA_MODE</a></b>
      * 
      * A value that specifies whether the alpha channel is using pre-multiplied alpha, straight alpha, whether it should be ignored and considered opaque, or whether it is unknown.
-     * @type {D2D1_ALPHA_MODE}
      */
-    alphaMode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    alphaMode : D2D1_ALPHA_MODE
+
 }

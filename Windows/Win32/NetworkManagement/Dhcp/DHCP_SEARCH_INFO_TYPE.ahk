@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the set of possible attributes used to search DHCP client information records.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_search_info_type
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_SEARCH_INFO_TYPE extends Win32Enum {
+export default struct DHCP_SEARCH_INFO_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The search will be performed against the assigned DHCP client IP address, represented as a 32-bit unsigned integer value.

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * WCN_PASSWORD_TYPE enumeration defines the authentication that will be used in a WPS session.
  * @see https://learn.microsoft.com/windows/win32/api/wcndevice/ne-wcndevice-wcn_password_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  */
-class WCN_PASSWORD_TYPE extends Win32Enum {
+export default struct WCN_PASSWORD_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the device uses a WPS button interface to put the device into wireless provisioning mode. If this value is specified when calling <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-setpassword">IWCNDevice::SetPassword</a>, set <i>dwPasswordLength</i> to zero and <i>pbPassword</i> to <b>NULL</b>.

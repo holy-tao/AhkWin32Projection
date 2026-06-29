@@ -1,57 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BRIGHTNESS_INTERFACE_VERSION.ahk
-#Include .\PANEL_BRIGHTNESS_SENSOR_DATA.ahk
-#Include .\CHROMATICITY_COORDINATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PANEL_BRIGHTNESS_SENSOR_DATA.ahk" { PANEL_BRIGHTNESS_SENSOR_DATA }
+#Import ".\CHROMATICITY_COORDINATE.ahk" { CHROMATICITY_COORDINATE }
+#Import ".\BRIGHTNESS_INTERFACE_VERSION.ahk" { BRIGHTNESS_INTERFACE_VERSION }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class PANEL_SET_BRIGHTNESS extends Win32Struct {
-    static sizeof => 32
+export default struct PANEL_SET_BRIGHTNESS {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : BRIGHTNESS_INTERFACE_VERSION
 
-    /**
-     * @type {BRIGHTNESS_INTERFACE_VERSION}
-     */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Level : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    TransitionTimeInMs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Millinits {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SensorData : PANEL_BRIGHTNESS_SENSOR_DATA
 
-    /**
-     * @type {Integer}
-     */
-    TransitionTimeInMs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {PANEL_BRIGHTNESS_SENSOR_DATA}
-     */
-    SensorData {
-        get {
-            if(!this.HasProp("__SensorData"))
-                this.__SensorData := PANEL_BRIGHTNESS_SENSOR_DATA(12, this)
-            return this.__SensorData
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Millinits', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

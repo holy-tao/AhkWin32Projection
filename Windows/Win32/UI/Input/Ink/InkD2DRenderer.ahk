@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Implements the IInkD2DRenderer interface.
  * @see https://learn.microsoft.com/windows/win32/input_ink/inkd2drenderer
  * @namespace Windows.Win32.UI.Input.Ink
  */
-class InkD2DRenderer extends Win32Struct {
-    static sizeof => 0
+export default struct InkD2DRenderer {
+    #StructPack 1
 
-    static packingSize => 1
 }

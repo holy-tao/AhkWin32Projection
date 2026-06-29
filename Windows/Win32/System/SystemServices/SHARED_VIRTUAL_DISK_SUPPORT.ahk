@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SharedVirtualDiskSupportType.ahk
-#Include .\SharedVirtualDiskHandleState.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SharedVirtualDiskSupportType.ahk" { SharedVirtualDiskSupportType }
+#Import ".\SharedVirtualDiskHandleState.ahk" { SharedVirtualDiskHandleState }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SHARED_VIRTUAL_DISK_SUPPORT extends Win32Struct {
-    static sizeof => 8
+export default struct SHARED_VIRTUAL_DISK_SUPPORT {
+    #StructPack 4
 
-    static packingSize => 4
+    SharedVirtualDiskSupport : SharedVirtualDiskSupportType
 
-    /**
-     * @type {SharedVirtualDiskSupportType}
-     */
-    SharedVirtualDiskSupport {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    HandleState : SharedVirtualDiskHandleState
 
-    /**
-     * @type {SharedVirtualDiskHandleState}
-     */
-    HandleState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

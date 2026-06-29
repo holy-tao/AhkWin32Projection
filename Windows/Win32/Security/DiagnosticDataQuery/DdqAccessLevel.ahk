@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This resource represents the privilege level for a Diagnostic Data Query session
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  */
-class DdqAccessLevel extends Win32Enum {
+export default struct DdqAccessLevel {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No data can be accessed using this session.

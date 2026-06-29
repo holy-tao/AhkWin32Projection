@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_DESCRIPTION extends Win32Struct {
-    static sizeof => 32
+export default struct KSPROPERTY_DESCRIPTION {
+    #StructPack 8
 
-    static packingSize => 8
+    AccessFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DescriptionSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DescriptionSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PropTypeSet : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    PropTypeSet {
-        get {
-            if(!this.HasProp("__PropTypeSet"))
-                this.__PropTypeSet := KSIDENTIFIER(8, this)
-            return this.__PropTypeSet
-        }
-    }
+    MembersListCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MembersListCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

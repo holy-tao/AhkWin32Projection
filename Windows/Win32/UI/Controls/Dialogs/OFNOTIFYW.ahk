@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\OPENFILENAMEW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\NMHDR.ahk" { NMHDR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information about a WM_NOTIFY message sent to an OFNHookProc hook procedure for an Open or Save As dialog box. The lParam parameter of the WM_NOTIFY message is a pointer to an OFNOTIFY structure. (Unicode)
@@ -20,44 +20,28 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class OFNOTIFYW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct OFNOTIFYW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * The <b>code</b> member of this structure can be one of the following notification messages that identify the message being sent: <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-fileok">CDN_FILEOK</a>, <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-folderchange">CDN_FOLDERCHANGE</a>, <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-help">CDN_HELP</a>, <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-initdone">CDN_INITDONE</a>, <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-selchange">CDN_SELCHANGE</a>, <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-shareviolation">CDN_SHAREVIOLATION</a>, <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-typechange">CDN_TYPECHANGE</a>.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>LPOPENFILENAME</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure that was specified when the <b>Open</b> or <b>Save As</b> dialog box was created. For some of the notification messages, this structure contains additional information about the event that caused the notification.
-     * @type {Pointer<OPENFILENAMEW>}
      */
-    lpOFN {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpOFN : OPENFILENAMEW.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * The file name for which a network sharing violation has occurred. This member is valid only with the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-shareviolation">CDN_SHAREVIOLATION</a> notification message.
-     * @type {PWSTR}
      */
-    pszFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszFile : PWSTR
+
 }

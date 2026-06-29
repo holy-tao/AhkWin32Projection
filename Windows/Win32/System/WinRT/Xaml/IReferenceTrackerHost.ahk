@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include .\IReferenceTrackerTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IReferenceTrackerTarget.ahk" { IReferenceTrackerTarget }
+#Import ".\XAML_REFERENCETRACKER_DISCONNECT.ahk" { XAML_REFERENCETRACKER_DISCONNECT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines an interface that provides the global services used by the garbage collection (GC) system used by the XAML framework.
@@ -11,26 +13,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackerhost
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class IReferenceTrackerHost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IReferenceTrackerHost extends IUnknown {
     /**
      * The interface identifier for IReferenceTrackerHost
      * @type {Guid}
      */
-    static IID => Guid("{29a71c6a-3c42-4416-a39d-e2825a07a773}")
+    static IID := Guid("{29a71c6a-3c42-4416-a39d-e2825a07a773}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IReferenceTrackerHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DisconnectUnusedReferenceSources     : IntPtr
+        ReleaseDisconnectedReferenceSources  : IntPtr
+        NotifyEndOfReferenceTrackingOnThread : IntPtr
+        GetTrackerTarget                     : IntPtr
+        AddMemoryPressure                    : IntPtr
+        RemoveMemoryPressure                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DisconnectUnusedReferenceSources", "ReleaseDisconnectedReferenceSources", "NotifyEndOfReferenceTrackingOnThread", "GetTrackerTarget", "AddMemoryPressure", "RemoveMemoryPressure"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IReferenceTrackerHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests that the host perform a garbage collection and remove all unnecessary reference sources.
@@ -41,7 +55,7 @@ class IReferenceTrackerHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetrackerhost-disconnectunusedreferencesources
      */
     DisconnectUnusedReferenceSources(options) {
-        result := ComCall(3, this, "int", options, "HRESULT")
+        result := ComCall(3, this, XAML_REFERENCETRACKER_DISCONNECT, options, "HRESULT")
         return result
     }
 
@@ -101,5 +115,35 @@ class IReferenceTrackerHost extends IUnknown {
     RemoveMemoryPressure(bytesAllocated) {
         result := ComCall(8, this, "uint", bytesAllocated, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IReferenceTrackerHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DisconnectUnusedReferenceSources := CallbackCreate(GetMethod(implObj, "DisconnectUnusedReferenceSources"), flags, 2)
+        this.vtbl.ReleaseDisconnectedReferenceSources := CallbackCreate(GetMethod(implObj, "ReleaseDisconnectedReferenceSources"), flags, 1)
+        this.vtbl.NotifyEndOfReferenceTrackingOnThread := CallbackCreate(GetMethod(implObj, "NotifyEndOfReferenceTrackingOnThread"), flags, 1)
+        this.vtbl.GetTrackerTarget := CallbackCreate(GetMethod(implObj, "GetTrackerTarget"), flags, 3)
+        this.vtbl.AddMemoryPressure := CallbackCreate(GetMethod(implObj, "AddMemoryPressure"), flags, 2)
+        this.vtbl.RemoveMemoryPressure := CallbackCreate(GetMethod(implObj, "RemoveMemoryPressure"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DisconnectUnusedReferenceSources)
+        CallbackFree(this.vtbl.ReleaseDisconnectedReferenceSources)
+        CallbackFree(this.vtbl.NotifyEndOfReferenceTrackingOnThread)
+        CallbackFree(this.vtbl.GetTrackerTarget)
+        CallbackFree(this.vtbl.AddMemoryPressure)
+        CallbackFree(this.vtbl.RemoveMemoryPressure)
     }
 }

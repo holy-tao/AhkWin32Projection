@@ -1,39 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IInkDisp.ahk
-#Include .\IInkRecognitionResult.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IInkStrokeDisp.ahk
-#Include .\IInkRectangle.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
 
 /**
  * . (IInkStrokes)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkstrokes
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkStrokes extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkStrokes extends IDispatch {
     /**
      * The interface identifier for IInkStrokes
      * @type {Guid}
      */
-    static IID => Guid("{f1f4c9d8-590a-4963-b3ae-1935671bb6f3}")
+    static IID := Guid("{f1f4c9d8-590a-4963-b3ae-1935671bb6f3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkStrokes interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count               : IntPtr
+        get__NewEnum            : IntPtr
+        get_Ink                 : IntPtr
+        get_RecognitionResult   : IntPtr
+        ToString                : IntPtr
+        Item                    : IntPtr
+        Add                     : IntPtr
+        AddStrokes              : IntPtr
+        Remove                  : IntPtr
+        RemoveStrokes           : IntPtr
+        ModifyDrawingAttributes : IntPtr
+        GetBoundingBox          : IntPtr
+        Transform               : IntPtr
+        ScaleToRectangle        : IntPtr
+        Move                    : IntPtr
+        Rotate                  : IntPtr
+        Shear                   : IntPtr
+        ScaleTransform          : IntPtr
+        Clip                    : IntPtr
+        RemoveRecognitionResult : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "get_Ink", "get_RecognitionResult", "ToString", "Item", "Add", "AddStrokes", "Remove", "RemoveStrokes", "ModifyDrawingAttributes", "GetBoundingBox", "Transform", "ScaleToRectangle", "Move", "Rotate", "Shear", "ScaleTransform", "Clip", "RemoveRecognitionResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkStrokes.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -122,8 +153,8 @@ class IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-tostring
      */
     ToString() {
-        ToString := BSTR()
-        result := ComCall(11, this, "ptr", ToString, "HRESULT")
+        ToString := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, ToString, "HRESULT")
         return ToString
     }
 
@@ -601,7 +632,7 @@ class IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-getboundingbox
      */
     GetBoundingBox(BoundingBoxMode) {
-        result := ComCall(18, this, "int", BoundingBoxMode, "ptr*", &BoundingBox := 0, "HRESULT")
+        result := ComCall(18, this, InkBoundingBoxMode, BoundingBoxMode, "ptr*", &BoundingBox := 0, "HRESULT")
         return IInkRectangle(BoundingBox)
     }
 
@@ -675,7 +706,7 @@ class IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-transform
      */
     Transform(Transform, ApplyOnPenWidth) {
-        result := ComCall(19, this, "ptr", Transform, "short", ApplyOnPenWidth, "HRESULT")
+        result := ComCall(19, this, "ptr", Transform, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
         return result
     }
 
@@ -1005,5 +1036,63 @@ class IInkStrokes extends IDispatch {
     RemoveRecognitionResult() {
         result := ComCall(26, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkStrokes.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.get_RecognitionResult := CallbackCreate(GetMethod(implObj, "get_RecognitionResult"), flags, 2)
+        this.vtbl.ToString := CallbackCreate(GetMethod(implObj, "ToString"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.AddStrokes := CallbackCreate(GetMethod(implObj, "AddStrokes"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveStrokes := CallbackCreate(GetMethod(implObj, "RemoveStrokes"), flags, 2)
+        this.vtbl.ModifyDrawingAttributes := CallbackCreate(GetMethod(implObj, "ModifyDrawingAttributes"), flags, 2)
+        this.vtbl.GetBoundingBox := CallbackCreate(GetMethod(implObj, "GetBoundingBox"), flags, 3)
+        this.vtbl.Transform := CallbackCreate(GetMethod(implObj, "Transform"), flags, 3)
+        this.vtbl.ScaleToRectangle := CallbackCreate(GetMethod(implObj, "ScaleToRectangle"), flags, 2)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.Shear := CallbackCreate(GetMethod(implObj, "Shear"), flags, 3)
+        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 3)
+        this.vtbl.Clip := CallbackCreate(GetMethod(implObj, "Clip"), flags, 2)
+        this.vtbl.RemoveRecognitionResult := CallbackCreate(GetMethod(implObj, "RemoveRecognitionResult"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Ink)
+        CallbackFree(this.vtbl.get_RecognitionResult)
+        CallbackFree(this.vtbl.ToString)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.AddStrokes)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.RemoveStrokes)
+        CallbackFree(this.vtbl.ModifyDrawingAttributes)
+        CallbackFree(this.vtbl.GetBoundingBox)
+        CallbackFree(this.vtbl.Transform)
+        CallbackFree(this.vtbl.ScaleToRectangle)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Rotate)
+        CallbackFree(this.vtbl.Shear)
+        CallbackFree(this.vtbl.ScaleTransform)
+        CallbackFree(this.vtbl.Clip)
+        CallbackFree(this.vtbl.RemoveRecognitionResult)
     }
 }

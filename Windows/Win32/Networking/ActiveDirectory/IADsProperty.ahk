@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IADsCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADsCollection.ahk" { IADsCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IADs.ahk" { IADs }
 
 /**
  * The IADsProperty interface is designed to manage a single attribute definition for a schema class object.
@@ -13,26 +15,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsproperty
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsProperty extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsProperty extends IADs {
     /**
      * The interface identifier for IADsProperty
      * @type {Guid}
      */
-    static IID => Guid("{c8f93dd3-4ae0-11cf-9e73-00aa004a5691}")
+    static IID := Guid("{c8f93dd3-4ae0-11cf-9e73-00aa004a5691}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsProperty interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_OID         : IntPtr
+        put_OID         : IntPtr
+        get_Syntax      : IntPtr
+        put_Syntax      : IntPtr
+        get_MaxRange    : IntPtr
+        put_MaxRange    : IntPtr
+        get_MinRange    : IntPtr
+        put_MinRange    : IntPtr
+        get_MultiValued : IntPtr
+        put_MultiValued : IntPtr
+        Qualifiers      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_OID", "put_OID", "get_Syntax", "put_Syntax", "get_MaxRange", "put_MaxRange", "get_MinRange", "put_MinRange", "get_MultiValued", "put_MultiValued", "Qualifiers"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -79,8 +98,8 @@ class IADsProperty extends IADs {
      * @returns {BSTR} 
      */
     get_OID() {
-        retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -92,7 +111,7 @@ class IADsProperty extends IADs {
     put_OID(bstrOID) {
         bstrOID := bstrOID is String ? BSTR.Alloc(bstrOID).Value : bstrOID
 
-        result := ComCall(21, this, "ptr", bstrOID, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrOID, "HRESULT")
         return result
     }
 
@@ -101,8 +120,8 @@ class IADsProperty extends IADs {
      * @returns {BSTR} 
      */
     get_Syntax() {
-        retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -114,7 +133,7 @@ class IADsProperty extends IADs {
     put_Syntax(bstrSyntax) {
         bstrSyntax := bstrSyntax is String ? BSTR.Alloc(bstrSyntax).Value : bstrSyntax
 
-        result := ComCall(23, this, "ptr", bstrSyntax, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrSyntax, "HRESULT")
         return result
     }
 
@@ -161,7 +180,7 @@ class IADsProperty extends IADs {
      * @returns {VARIANT_BOOL} 
      */
     get_MultiValued() {
-        result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -171,7 +190,7 @@ class IADsProperty extends IADs {
      * @returns {HRESULT} 
      */
     put_MultiValued(fMultiValued) {
-        result := ComCall(29, this, "short", fMultiValued, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, fMultiValued, "HRESULT")
         return result
     }
 
@@ -187,5 +206,45 @@ class IADsProperty extends IADs {
     Qualifiers() {
         result := ComCall(30, this, "ptr*", &ppQualifiers := 0, "HRESULT")
         return IADsCollection(ppQualifiers)
+    }
+
+    Query(iid) {
+        if (IADsProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_OID := CallbackCreate(GetMethod(implObj, "get_OID"), flags, 2)
+        this.vtbl.put_OID := CallbackCreate(GetMethod(implObj, "put_OID"), flags, 2)
+        this.vtbl.get_Syntax := CallbackCreate(GetMethod(implObj, "get_Syntax"), flags, 2)
+        this.vtbl.put_Syntax := CallbackCreate(GetMethod(implObj, "put_Syntax"), flags, 2)
+        this.vtbl.get_MaxRange := CallbackCreate(GetMethod(implObj, "get_MaxRange"), flags, 2)
+        this.vtbl.put_MaxRange := CallbackCreate(GetMethod(implObj, "put_MaxRange"), flags, 2)
+        this.vtbl.get_MinRange := CallbackCreate(GetMethod(implObj, "get_MinRange"), flags, 2)
+        this.vtbl.put_MinRange := CallbackCreate(GetMethod(implObj, "put_MinRange"), flags, 2)
+        this.vtbl.get_MultiValued := CallbackCreate(GetMethod(implObj, "get_MultiValued"), flags, 2)
+        this.vtbl.put_MultiValued := CallbackCreate(GetMethod(implObj, "put_MultiValued"), flags, 2)
+        this.vtbl.Qualifiers := CallbackCreate(GetMethod(implObj, "Qualifiers"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_OID)
+        CallbackFree(this.vtbl.put_OID)
+        CallbackFree(this.vtbl.get_Syntax)
+        CallbackFree(this.vtbl.put_Syntax)
+        CallbackFree(this.vtbl.get_MaxRange)
+        CallbackFree(this.vtbl.put_MaxRange)
+        CallbackFree(this.vtbl.get_MinRange)
+        CallbackFree(this.vtbl.put_MinRange)
+        CallbackFree(this.vtbl.get_MultiValued)
+        CallbackFree(this.vtbl.put_MultiValued)
+        CallbackFree(this.vtbl.Qualifiers)
     }
 }

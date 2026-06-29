@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { WINHTTP_WEB_SOCKET_BUFFER_TYPE }
 
 /**
  * The WINHTTP_WEB_SOCKET_STATUS enumeration includes the status of a WebSocket operation.
@@ -11,30 +10,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_web_socket_status
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_WEB_SOCKET_STATUS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WINHTTP_WEB_SOCKET_STATUS {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The amount of bytes transferred in the operation.
-     * @type {Integer}
      */
-    dwBytesTransferred {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBytesTransferred : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ne-winhttp-winhttp_web_socket_buffer_type">WINHTTP_WEB_SOCKET_BUFFER_TYPE</a></b>
      * 
      * The type of data in the buffer.
-     * @type {WINHTTP_WEB_SOCKET_BUFFER_TYPE}
      */
-    eBufferType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    eBufferType : WINHTTP_WEB_SOCKET_BUFFER_TYPE
+
 }

@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HH_GPROPID.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\HH_GPROPID.ahk" { HH_GPROPID }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class HH_GLOBAL_PROPERTY extends Win32Struct {
-    static sizeof => 32
+export default struct HH_GLOBAL_PROPERTY {
+    #StructPack 8
 
-    static packingSize => 8
+    id : HH_GPROPID
 
-    /**
-     * @type {HH_GPROPID}
-     */
-    id {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    var : VARIANT
 
-    /**
-     * @type {VARIANT}
-     */
-    var {
-        get {
-            if(!this.HasProp("__var"))
-                this.__var := VARIANT(8, this)
-            return this.__var
-        }
-    }
 }

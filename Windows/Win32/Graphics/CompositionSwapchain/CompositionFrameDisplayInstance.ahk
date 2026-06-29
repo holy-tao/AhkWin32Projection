@@ -1,102 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\CompositionFrameInstanceKind.ahk
-#Include .\PresentationTransform.ahk
-#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CompositionFrameInstanceKind.ahk" { CompositionFrameInstanceKind }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\PresentationTransform.ahk" { PresentationTransform }
 
 /**
  * Represents a single instance of the content shown on a single output.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/ns-presentation-compositionframedisplayinstance
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  */
-class CompositionFrameDisplayInstance extends Win32Struct {
-    static sizeof => 60
+export default struct CompositionFrameDisplayInstance {
+    #StructPack 4
 
-    static packingSize => 4
+    displayAdapterLUID : LUID
 
-    /**
-     * @type {LUID}
-     */
-    displayAdapterLUID {
-        get {
-            if(!this.HasProp("__displayAdapterLUID"))
-                this.__displayAdapterLUID := LUID(0, this)
-            return this.__displayAdapterLUID
-        }
-    }
+    displayVidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    displayVidPnSourceId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    displayUniqueId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    displayUniqueId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {LUID}
-     */
-    renderAdapterLUID {
-        get {
-            if(!this.HasProp("__renderAdapterLUID"))
-                this.__renderAdapterLUID := LUID(16, this)
-            return this.__renderAdapterLUID
-        }
-    }
+    renderAdapterLUID : LUID
 
     /**
      * Type: **[CompositionFrameInstanceKind](ne-presentation-compositionframeinstancekind.md)**
      * 
      * The kind of instance.
-     * @type {CompositionFrameInstanceKind}
      */
-    instanceKind {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    instanceKind : CompositionFrameInstanceKind
 
     /**
      * Type: **[PresentationTransform](../presentationtypes/ns-presentationtypes-presentationtransform.md)**
      * 
      * The accumulated transform on screen of displayed content, including all transforms of ancestor visuals, if applicable.
-     * @type {PresentationTransform}
      */
-    finalTransform {
-        get {
-            if(!this.HasProp("__finalTransform"))
-                this.__finalTransform := PresentationTransform(28, this)
-            return this.__finalTransform
-        }
-    }
+    finalTransform : PresentationTransform
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if a copy took place to display this instance due to the destination being a different adapter than the allocation's adapter; otherwise, `FALSE`.
-     * @type {Integer}
      */
-    requiredCrossAdapterCopy {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
-    }
+    requiredCrossAdapterCopy : Int8
 
     /**
      * Type: **[DXGI_COLOR_SPACE_TYPE](/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type)**
      * 
      * The color space type of the output this instance was shown on.
-     * @type {DXGI_COLOR_SPACE_TYPE}
      */
-    colorSpace {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    colorSpace : DXGI_COLOR_SPACE_TYPE
+
 }

@@ -1,50 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class SP_BACKUP_QUEUE_PARAMS_V2_A extends Win32Struct {
-    static sizeof => 528
+export default struct SP_BACKUP_QUEUE_PARAMS_V2_A {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FullInfPath : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    FullInfPath {
-        get => StrGet(this.ptr + 4, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-8")
-    }
+    FilenameOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    FilenameOffset {
-        get => NumGet(this, 264, "int")
-        set => NumPut("int", value, this, 264)
-    }
+    ReinstallInstance : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    ReinstallInstance {
-        get => StrGet(this.ptr + 268, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 268, 259, "UTF-8")
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 528
-    }
 }

@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES.ahk" { NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES }
 
 /**
  * Contains a parameter for allocating stream resources for the Directive Receive command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_directive_receive
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW12_DIRECTIVE_RECEIVE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct NVME_CDW12_DIRECTIVE_RECEIVE {
+    #StructPack 4
 
     /**
      * A [NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES](ns-nvme-nvme_cdw12_directive_receive_streams_allocate_resources.md) structure that specifies the number of namespace streams requested.
-     * @type {NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES}
      */
-    AllocateResources {
-        get {
-            if(!this.HasProp("__AllocateResources"))
-                this.__AllocateResources := NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(0, this)
-            return this.__AllocateResources
-        }
-    }
+    AllocateResources : NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

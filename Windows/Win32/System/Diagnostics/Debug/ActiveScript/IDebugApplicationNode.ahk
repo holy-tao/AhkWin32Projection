@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugDocumentProvider.ahk
-#Include .\IEnumDebugApplicationNodes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugDocumentProvider.ahk" { IDebugDocumentProvider }
+#Import ".\IEnumDebugApplicationNodes.ahk" { IEnumDebugApplicationNodes }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IDebugApplicationNode extends IDebugDocumentProvider {
-
-    static sizeof => A_PtrSize
+export default struct IDebugApplicationNode extends IDebugDocumentProvider {
     /**
      * The interface identifier for IDebugApplicationNode
      * @type {Guid}
      */
-    static IID => Guid("{51973c34-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c34-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugApplicationNode interfaces
+    */
+    struct Vtbl extends IDebugDocumentProvider.Vtbl {
+        EnumChildren        : IntPtr
+        GetParent           : IntPtr
+        SetDocumentProvider : IntPtr
+        Close               : IntPtr
+        Attach              : IntPtr
+        Detach              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumChildren", "GetParent", "SetDocumentProvider", "Close", "Attach", "Detach"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugApplicationNode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -60,15 +73,8 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(9, this, "HRESULT")
@@ -76,20 +82,9 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * See reference information about the AttachConsole function, which attaches the calling process to the console of the specified process.
-     * @remarks
-     * A process can be attached to at most one console. If the calling process is already attached to a console, the error code returned is **ERROR\_ACCESS\_DENIED**. If the specified process does not have a console, the error code returned is **ERROR\_INVALID\_HANDLE**. If the specified process does not exist, the error code returned is **ERROR\_INVALID\_PARAMETER**.
      * 
-     * A process can use the [**FreeConsole**](freeconsole.md) function to detach itself from its console. If other processes share the console, the console is not destroyed, but the process that called **FreeConsole** cannot refer to it. A console is closed when the last process attached to it terminates or calls **FreeConsole**. After a process calls **FreeConsole**, it can call the [**AllocConsole**](allocconsole.md) function to create a new console or **AttachConsole** to attach to another console.
-     * 
-     * This function is primarily useful to applications that were linked with [*SUBSYSTEM:WINDOWS**](/cpp/build/reference/subsystem-specify-subsystem), which implies to the operating system that a console is not needed before entering the program's main method. In that instance, the standard handles retrieved with [**GetStdHandle**](getstdhandle.md) will likely be invalid on startup until **AttachConsole** is called. The exception to this is if the application is launched with handle inheritance by its parent process.
-     * 
-     * To compile an application that uses this function, define **\_WIN32\_WINNT** as `0x0501` or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * @param {IDebugApplicationNode} pdanParent 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/attachconsole
+     * @returns {HRESULT} 
      */
     Attach(pdanParent) {
         result := ComCall(10, this, "ptr", pdanParent, "HRESULT")
@@ -97,12 +92,41 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * Learn more about: DetachDatabaseGrbit enumeration
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/detachdatabasegrbit-enumeration
      */
     Detach() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugApplicationNode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumChildren := CallbackCreate(GetMethod(implObj, "EnumChildren"), flags, 2)
+        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.SetDocumentProvider := CallbackCreate(GetMethod(implObj, "SetDocumentProvider"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumChildren)
+        CallbackFree(this.vtbl.GetParent)
+        CallbackFree(this.vtbl.SetDocumentProvider)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Attach)
+        CallbackFree(this.vtbl.Detach)
     }
 }

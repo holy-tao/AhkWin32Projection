@@ -1,39 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLStorage extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLStorage extends IDispatch {
     /**
      * The interface identifier for IHTMLStorage
      * @type {Guid}
      */
-    static IID => Guid("{30510474-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510474-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLStorage
      * @type {Guid}
      */
-    static CLSID => Guid("{30510475-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{30510475-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLStorage interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_length         : IntPtr
+        get_remainingSpace : IntPtr
+        key                : IntPtr
+        getItem            : IntPtr
+        setItem            : IntPtr
+        removeItem         : IntPtr
+        clear              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_length", "get_remainingSpace", "key", "getItem", "setItem", "removeItem", "clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -68,17 +82,13 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * Synthesizes a keystroke.
-     * @remarks
-     * An application can simulate a press of the PRINTSCRN key in order to obtain a screen snapshot and save it to the clipboard. To do this, call <b>keybd_event</b> with the 
-     * 				<i>bVk</i> parameter set to <b>VK_SNAPSHOT</b>.
+     * 
      * @param {Integer} lIndex 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-keybd_event
      */
     key(lIndex) {
-        __MIDL__IHTMLStorage0000 := BSTR()
-        result := ComCall(9, this, "int", lIndex, "ptr", __MIDL__IHTMLStorage0000, "HRESULT")
+        __MIDL__IHTMLStorage0000 := BSTR.Owned()
+        result := ComCall(9, this, "int", lIndex, BSTR.Ptr, __MIDL__IHTMLStorage0000, "HRESULT")
         return __MIDL__IHTMLStorage0000
     }
 
@@ -91,7 +101,7 @@ class IHTMLStorage extends IDispatch {
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
         __MIDL__IHTMLStorage0001 := VARIANT()
-        result := ComCall(10, this, "ptr", bstrKey, "ptr", __MIDL__IHTMLStorage0001, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrKey, VARIANT.Ptr, __MIDL__IHTMLStorage0001, "HRESULT")
         return __MIDL__IHTMLStorage0001
     }
 
@@ -105,7 +115,7 @@ class IHTMLStorage extends IDispatch {
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(11, this, "ptr", bstrKey, "ptr", bstrValue, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrKey, BSTR, bstrValue, "HRESULT")
         return result
     }
 
@@ -117,7 +127,7 @@ class IHTMLStorage extends IDispatch {
     removeItem(bstrKey) {
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
-        result := ComCall(12, this, "ptr", bstrKey, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrKey, "HRESULT")
         return result
     }
 
@@ -128,5 +138,37 @@ class IHTMLStorage extends IDispatch {
     clear() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_remainingSpace := CallbackCreate(GetMethod(implObj, "get_remainingSpace"), flags, 2)
+        this.vtbl.key := CallbackCreate(GetMethod(implObj, "key"), flags, 3)
+        this.vtbl.getItem := CallbackCreate(GetMethod(implObj, "getItem"), flags, 3)
+        this.vtbl.setItem := CallbackCreate(GetMethod(implObj, "setItem"), flags, 3)
+        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 2)
+        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.get_remainingSpace)
+        CallbackFree(this.vtbl.key)
+        CallbackFree(this.vtbl.getItem)
+        CallbackFree(this.vtbl.setItem)
+        CallbackFree(this.vtbl.removeItem)
+        CallbackFree(this.vtbl.clear)
     }
 }

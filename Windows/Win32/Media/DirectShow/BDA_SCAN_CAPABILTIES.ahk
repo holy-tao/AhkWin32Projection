@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_SCAN_CAPABILTIES extends Win32Struct {
-    static sizeof => 16
+export default struct BDA_SCAN_CAPABILTIES {
+    #StructPack 8
 
-    static packingSize => 8
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ul64AnalogStandardsSupported : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ul64AnalogStandardsSupported {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

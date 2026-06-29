@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information about a low-level mouse input event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MSLLHOOKSTRUCT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MSLLHOOKSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The x- and y-coordinates of the cursor, in <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">per-monitor-aware</a> screen coordinates.
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(0, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b>DWORD</b>
      * 
      * If the message is <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-mousewheel">WM_MOUSEWHEEL</a>, the high-order word of this member is the wheel delta. The low-order word is reserved. A positive value indicates that the wheel was rotated forward, away from the user; a negative value indicates that the wheel was rotated backward, toward the user. One wheel click is defined as <b>WHEEL_DELTA</b>, which is 120.
-     * @type {Integer}
      */
-    mouseData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    mouseData : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -70,32 +56,21 @@ class MSLLHOOKSTRUCT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    flags : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The time stamp for this message.
-     * @type {Integer}
      */
-    time {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    time : UInt32
 
     /**
      * Type: <b>ULONG_PTR</b>
      * 
      * Additional information associated with the message.
-     * @type {Pointer}
      */
-    dwExtraInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwExtraInfo : IntPtr
+
 }

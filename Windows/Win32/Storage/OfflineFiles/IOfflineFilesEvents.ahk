@@ -1,33 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\OFFLINEFILES_ITEM_TYPE.ahk" { OFFLINEFILES_ITEM_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OFFLINEFILES_SYNC_STATE.ahk" { OFFLINEFILES_SYNC_STATE }
 
 /**
  * Used to report significant events associated with Offline Files.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesevents
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesEvents extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesEvents
      * @type {Guid}
      */
-    static IID => Guid("{e25585c1-0caa-4eb1-873b-1cae5b77c314}")
+    static IID := Guid("{e25585c1-0caa-4eb1-873b-1cae5b77c314}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CacheMoved              : IntPtr
+        CacheIsFull             : IntPtr
+        CacheIsCorrupted        : IntPtr
+        Enabled                 : IntPtr
+        EncryptionChanged       : IntPtr
+        SyncBegin               : IntPtr
+        SyncFileResult          : IntPtr
+        SyncConflictRecAdded    : IntPtr
+        SyncConflictRecUpdated  : IntPtr
+        SyncConflictRecRemoved  : IntPtr
+        SyncEnd                 : IntPtr
+        NetTransportArrived     : IntPtr
+        NoNetTransports         : IntPtr
+        ItemDisconnected        : IntPtr
+        ItemReconnected         : IntPtr
+        ItemAvailableOffline    : IntPtr
+        ItemNotAvailableOffline : IntPtr
+        ItemPinned              : IntPtr
+        ItemNotPinned           : IntPtr
+        ItemModified            : IntPtr
+        ItemAddedToCache        : IntPtr
+        ItemDeletedFromCache    : IntPtr
+        ItemRenamed             : IntPtr
+        DataLost                : IntPtr
+        Ping                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CacheMoved", "CacheIsFull", "CacheIsCorrupted", "Enabled", "EncryptionChanged", "SyncBegin", "SyncFileResult", "SyncConflictRecAdded", "SyncConflictRecUpdated", "SyncConflictRecRemoved", "SyncEnd", "NetTransportArrived", "NoNetTransports", "ItemDisconnected", "ItemReconnected", "ItemAvailableOffline", "ItemNotAvailableOffline", "ItemPinned", "ItemNotPinned", "ItemModified", "ItemAddedToCache", "ItemDeletedFromCache", "ItemRenamed", "DataLost", "Ping"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method is reserved for future use. (IOfflineFilesEvents.CacheMoved)
@@ -71,7 +108,7 @@ class IOfflineFilesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-enabled
      */
     Enabled(bEnabled) {
-        result := ComCall(6, this, "int", bEnabled, "HRESULT")
+        result := ComCall(6, this, BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -85,7 +122,7 @@ class IOfflineFilesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-encryptionchanged
      */
     EncryptionChanged(bWasEncrypted, bWasPartial, bIsEncrypted, bIsPartial) {
-        result := ComCall(7, this, "int", bWasEncrypted, "int", bWasPartial, "int", bIsEncrypted, "int", bIsPartial, "HRESULT")
+        result := ComCall(7, this, BOOL, bWasEncrypted, BOOL, bWasPartial, BOOL, bIsEncrypted, BOOL, bIsPartial, "HRESULT")
         return result
     }
 
@@ -98,7 +135,7 @@ class IOfflineFilesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-syncbegin
      */
     SyncBegin(rSyncId) {
-        result := ComCall(8, this, "ptr", rSyncId, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rSyncId, "HRESULT")
         return result
     }
 
@@ -113,7 +150,7 @@ class IOfflineFilesEvents extends IUnknown {
     SyncFileResult(rSyncId, pszFile, hrResult) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(9, this, "ptr", rSyncId, "ptr", pszFile, "int", hrResult, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rSyncId, "ptr", pszFile, "int", hrResult, "HRESULT")
         return result
     }
 
@@ -132,7 +169,7 @@ class IOfflineFilesEvents extends IUnknown {
     SyncConflictRecAdded(pszConflictPath, pftConflictDateTime, ConflictSyncState) {
         pszConflictPath := pszConflictPath is String ? StrPtr(pszConflictPath) : pszConflictPath
 
-        result := ComCall(10, this, "ptr", pszConflictPath, "ptr", pftConflictDateTime, "int", ConflictSyncState, "HRESULT")
+        result := ComCall(10, this, "ptr", pszConflictPath, FILETIME.Ptr, pftConflictDateTime, OFFLINEFILES_SYNC_STATE, ConflictSyncState, "HRESULT")
         return result
     }
 
@@ -151,7 +188,7 @@ class IOfflineFilesEvents extends IUnknown {
     SyncConflictRecUpdated(pszConflictPath, pftConflictDateTime, ConflictSyncState) {
         pszConflictPath := pszConflictPath is String ? StrPtr(pszConflictPath) : pszConflictPath
 
-        result := ComCall(11, this, "ptr", pszConflictPath, "ptr", pftConflictDateTime, "int", ConflictSyncState, "HRESULT")
+        result := ComCall(11, this, "ptr", pszConflictPath, FILETIME.Ptr, pftConflictDateTime, OFFLINEFILES_SYNC_STATE, ConflictSyncState, "HRESULT")
         return result
     }
 
@@ -170,7 +207,7 @@ class IOfflineFilesEvents extends IUnknown {
     SyncConflictRecRemoved(pszConflictPath, pftConflictDateTime, ConflictSyncState) {
         pszConflictPath := pszConflictPath is String ? StrPtr(pszConflictPath) : pszConflictPath
 
-        result := ComCall(12, this, "ptr", pszConflictPath, "ptr", pftConflictDateTime, "int", ConflictSyncState, "HRESULT")
+        result := ComCall(12, this, "ptr", pszConflictPath, FILETIME.Ptr, pftConflictDateTime, OFFLINEFILES_SYNC_STATE, ConflictSyncState, "HRESULT")
         return result
     }
 
@@ -184,7 +221,7 @@ class IOfflineFilesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-syncend
      */
     SyncEnd(rSyncId, hrResult) {
-        result := ComCall(13, this, "ptr", rSyncId, "int", hrResult, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, rSyncId, "int", hrResult, "HRESULT")
         return result
     }
 
@@ -218,7 +255,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemDisconnected(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(16, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(16, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -232,7 +269,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemReconnected(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(17, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(17, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -246,7 +283,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemAvailableOffline(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(18, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(18, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -262,7 +299,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemNotAvailableOffline(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(19, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(19, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -276,7 +313,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemPinned(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(20, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(20, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -290,7 +327,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemNotPinned(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(21, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(21, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -306,7 +343,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemModified(pszPath, ItemType, bModifiedData, bModifiedAttributes) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(22, this, "ptr", pszPath, "int", ItemType, "int", bModifiedData, "int", bModifiedAttributes, "HRESULT")
+        result := ComCall(22, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, BOOL, bModifiedData, BOOL, bModifiedAttributes, "HRESULT")
         return result
     }
 
@@ -322,7 +359,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemAddedToCache(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(23, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(23, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -336,7 +373,7 @@ class IOfflineFilesEvents extends IUnknown {
     ItemDeletedFromCache(pszPath, ItemType) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(24, this, "ptr", pszPath, "int", ItemType, "HRESULT")
+        result := ComCall(24, this, "ptr", pszPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -354,7 +391,7 @@ class IOfflineFilesEvents extends IUnknown {
         pszOldPath := pszOldPath is String ? StrPtr(pszOldPath) : pszOldPath
         pszNewPath := pszNewPath is String ? StrPtr(pszNewPath) : pszNewPath
 
-        result := ComCall(25, this, "ptr", pszOldPath, "ptr", pszNewPath, "int", ItemType, "HRESULT")
+        result := ComCall(25, this, "ptr", pszOldPath, "ptr", pszNewPath, OFFLINEFILES_ITEM_TYPE, ItemType, "HRESULT")
         return result
     }
 
@@ -382,5 +419,73 @@ class IOfflineFilesEvents extends IUnknown {
     Ping() {
         result := ComCall(27, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CacheMoved := CallbackCreate(GetMethod(implObj, "CacheMoved"), flags, 3)
+        this.vtbl.CacheIsFull := CallbackCreate(GetMethod(implObj, "CacheIsFull"), flags, 1)
+        this.vtbl.CacheIsCorrupted := CallbackCreate(GetMethod(implObj, "CacheIsCorrupted"), flags, 1)
+        this.vtbl.Enabled := CallbackCreate(GetMethod(implObj, "Enabled"), flags, 2)
+        this.vtbl.EncryptionChanged := CallbackCreate(GetMethod(implObj, "EncryptionChanged"), flags, 5)
+        this.vtbl.SyncBegin := CallbackCreate(GetMethod(implObj, "SyncBegin"), flags, 2)
+        this.vtbl.SyncFileResult := CallbackCreate(GetMethod(implObj, "SyncFileResult"), flags, 4)
+        this.vtbl.SyncConflictRecAdded := CallbackCreate(GetMethod(implObj, "SyncConflictRecAdded"), flags, 4)
+        this.vtbl.SyncConflictRecUpdated := CallbackCreate(GetMethod(implObj, "SyncConflictRecUpdated"), flags, 4)
+        this.vtbl.SyncConflictRecRemoved := CallbackCreate(GetMethod(implObj, "SyncConflictRecRemoved"), flags, 4)
+        this.vtbl.SyncEnd := CallbackCreate(GetMethod(implObj, "SyncEnd"), flags, 3)
+        this.vtbl.NetTransportArrived := CallbackCreate(GetMethod(implObj, "NetTransportArrived"), flags, 1)
+        this.vtbl.NoNetTransports := CallbackCreate(GetMethod(implObj, "NoNetTransports"), flags, 1)
+        this.vtbl.ItemDisconnected := CallbackCreate(GetMethod(implObj, "ItemDisconnected"), flags, 3)
+        this.vtbl.ItemReconnected := CallbackCreate(GetMethod(implObj, "ItemReconnected"), flags, 3)
+        this.vtbl.ItemAvailableOffline := CallbackCreate(GetMethod(implObj, "ItemAvailableOffline"), flags, 3)
+        this.vtbl.ItemNotAvailableOffline := CallbackCreate(GetMethod(implObj, "ItemNotAvailableOffline"), flags, 3)
+        this.vtbl.ItemPinned := CallbackCreate(GetMethod(implObj, "ItemPinned"), flags, 3)
+        this.vtbl.ItemNotPinned := CallbackCreate(GetMethod(implObj, "ItemNotPinned"), flags, 3)
+        this.vtbl.ItemModified := CallbackCreate(GetMethod(implObj, "ItemModified"), flags, 5)
+        this.vtbl.ItemAddedToCache := CallbackCreate(GetMethod(implObj, "ItemAddedToCache"), flags, 3)
+        this.vtbl.ItemDeletedFromCache := CallbackCreate(GetMethod(implObj, "ItemDeletedFromCache"), flags, 3)
+        this.vtbl.ItemRenamed := CallbackCreate(GetMethod(implObj, "ItemRenamed"), flags, 4)
+        this.vtbl.DataLost := CallbackCreate(GetMethod(implObj, "DataLost"), flags, 1)
+        this.vtbl.Ping := CallbackCreate(GetMethod(implObj, "Ping"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CacheMoved)
+        CallbackFree(this.vtbl.CacheIsFull)
+        CallbackFree(this.vtbl.CacheIsCorrupted)
+        CallbackFree(this.vtbl.Enabled)
+        CallbackFree(this.vtbl.EncryptionChanged)
+        CallbackFree(this.vtbl.SyncBegin)
+        CallbackFree(this.vtbl.SyncFileResult)
+        CallbackFree(this.vtbl.SyncConflictRecAdded)
+        CallbackFree(this.vtbl.SyncConflictRecUpdated)
+        CallbackFree(this.vtbl.SyncConflictRecRemoved)
+        CallbackFree(this.vtbl.SyncEnd)
+        CallbackFree(this.vtbl.NetTransportArrived)
+        CallbackFree(this.vtbl.NoNetTransports)
+        CallbackFree(this.vtbl.ItemDisconnected)
+        CallbackFree(this.vtbl.ItemReconnected)
+        CallbackFree(this.vtbl.ItemAvailableOffline)
+        CallbackFree(this.vtbl.ItemNotAvailableOffline)
+        CallbackFree(this.vtbl.ItemPinned)
+        CallbackFree(this.vtbl.ItemNotPinned)
+        CallbackFree(this.vtbl.ItemModified)
+        CallbackFree(this.vtbl.ItemAddedToCache)
+        CallbackFree(this.vtbl.ItemDeletedFromCache)
+        CallbackFree(this.vtbl.ItemRenamed)
+        CallbackFree(this.vtbl.DataLost)
+        CallbackFree(this.vtbl.Ping)
     }
 }

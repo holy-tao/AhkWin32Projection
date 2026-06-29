@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies interpolation mode, which affects how values are calculated during rasterization.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_interpolation_mode
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class D3D_INTERPOLATION_MODE extends Win32Enum {
+export default struct D3D_INTERPOLATION_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The interpolation mode is undefined.

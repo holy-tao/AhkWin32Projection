@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class WMDRMProtectionInfo extends Win32Struct {
-    static sizeof => 80
+export default struct WMDRMProtectionInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    wszKID : UInt16[25]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    wszKID {
-        get {
-            if(!this.HasProp("__wszKIDProxyArray"))
-                this.__wszKIDProxyArray := Win32FixedArray(this.ptr + 0, 25, Primitive, "ushort")
-            return this.__wszKIDProxyArray
-        }
-    }
+    qwCounter : Int64
 
-    /**
-     * @type {Integer}
-     */
-    qwCounter {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    qwIndex : Int64
 
-    /**
-     * @type {Integer}
-     */
-    qwIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    bOffset : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bOffset {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QUEUE_USER_APC_FLAGS enumeration (processthreadsapi.h) specifies the modifier flags for user-mode asynchronous procedure call (APC) objects.
@@ -17,7 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-queue_user_apc_flags
  * @namespace Windows.Win32.System.Threading
  */
-class QUEUE_USER_APC_FLAGS extends Win32Enum {
+export default struct QUEUE_USER_APC_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No flags are passed. Behavior is identical to [QueueUserAPC function](nf-processthreadsapi-queueuserapc.md).

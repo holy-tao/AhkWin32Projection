@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains information about a newly created process and its primary thread. It is used with the CreateProcess, CreateProcessAsUser, CreateProcessWithLogonW, or CreateProcessWithTokenW function.
@@ -9,50 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information
  * @namespace Windows.Win32.System.Threading
  */
-class PROCESS_INFORMATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PROCESS_INFORMATION {
+    #StructPack 8
 
     /**
      * A handle to the newly created process. The handle is used to specify the process in all functions that perform operations on the process object.
-     * @type {HANDLE}
      */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(0, this)
-            return this.__hProcess
-        }
-    }
+    hProcess : HANDLE
 
     /**
      * A handle to the primary thread of the newly created process. The handle is used to specify the thread in all functions that perform operations on the thread object.
-     * @type {HANDLE}
      */
-    hThread {
-        get {
-            if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(8, this)
-            return this.__hThread
-        }
-    }
+    hThread : HANDLE
 
     /**
      * A value that can be used to identify a process. The value is valid from the time the process is created until all handles to the process are closed and the process object is freed; at this point, the identifier may be reused.
-     * @type {Integer}
      */
-    dwProcessId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProcessId : UInt32
 
     /**
      * A value that can be used to identify a thread. The value is valid from the time the thread is created until all handles to the thread are closed and the thread object is freed; at this point, the identifier may be reused.
-     * @type {Integer}
      */
-    dwThreadId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwThreadId : UInt32
+
 }

@@ -1,29 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_FIRMWARE_BUS_CAPS extends Win32Struct {
-    static sizeof => 16
+export default struct PCI_FIRMWARE_BUS_CAPS {
+    #StructPack 2
 
-    static packingSize => 2
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Length : UInt16
 
     /**
      * This bitfield backs the following members:
@@ -32,12 +17,9 @@ class PCI_FIRMWARE_BUS_CAPS extends Win32Struct {
      * - DeviceIdMessagingCapable
      * - ObffWakeSignalCapable
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -78,47 +60,14 @@ class PCI_FIRMWARE_BUS_CAPS extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    CurrentSpeedAndMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CurrentSpeedAndMode {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    SupportedSpeedsAndModesLowByte : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SupportedSpeedsAndModesLowByte {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    SupportedSpeedsAndModesHighByte : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SupportedSpeedsAndModesHighByte {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    Voltage : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Voltage {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Reserved2 : Int8[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
 }

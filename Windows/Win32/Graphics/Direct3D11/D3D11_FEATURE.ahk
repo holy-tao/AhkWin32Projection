@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Direct3D 11 feature options.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_feature
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_FEATURE extends Win32Enum {
+export default struct D3D11_FEATURE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The driver supports <a href="https://docs.microsoft.com/windows/win32/direct3d11/overviews-direct3d-11-render-multi-thread-intro">multithreading</a>. To see an example of testing a driver for multithread support, see <a href="https://docs.microsoft.com/windows/win32/direct3d11/overviews-direct3d-11-render-multi-thread-support">How To: Check for Driver Support</a>. Refer to <a href="https://docs.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_threading">D3D11_FEATURE_DATA_THREADING</a>.

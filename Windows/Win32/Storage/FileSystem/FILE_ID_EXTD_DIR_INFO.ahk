@@ -1,95 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_ID_128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_ID_128.ahk" { FILE_ID_128 }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains identification information for a file. (FILE_ID_EXTD_DIR_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_extd_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_ID_EXTD_DIR_INFO extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct FILE_ID_EXTD_DIR_INFO {
+    #StructPack 8
 
     /**
      * The offset for the next <b>FILE_ID_EXTD_DIR_INFO</b> 
      *       structure that is returned. Contains zero (0) if no other entries follow this one.
-     * @type {Integer}
      */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NextEntryOffset : UInt32
 
     /**
      * The byte offset of the file within the parent directory. This member is undefined for file systems, such as 
      *       NTFS, in which the position of a file within the parent directory is not fixed and can be changed at any time to 
      *       maintain sort order.
-     * @type {Integer}
      */
-    FileIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FileIndex : UInt32
 
     /**
      * The time that the file was created.
-     * @type {Integer}
      */
-    CreationTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    CreationTime : Int64
 
     /**
      * The time that the file was last accessed.
-     * @type {Integer}
      */
-    LastAccessTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LastAccessTime : Int64
 
     /**
      * The time that the file was last written to.
-     * @type {Integer}
      */
-    LastWriteTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    LastWriteTime : Int64
 
     /**
      * The time that the file was last changed.
-     * @type {Integer}
      */
-    ChangeTime {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    ChangeTime : Int64
 
     /**
      * The absolute new end-of-file position as a byte offset from the start of the file to the end of the file. 
      *       Because this value is zero-based, it actually refers to the first free byte in the file. In other words, 
      *       <b>EndOfFile</b> is the offset to the byte that immediately follows the last valid byte in 
      *       the file.
-     * @type {Integer}
      */
-    EndOfFile {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    EndOfFile : Int64
 
     /**
      * The number of bytes that are allocated for the file. This value is usually a multiple of the sector or 
      *       cluster size of the underlying physical device.
-     * @type {Integer}
      */
-    AllocationSize {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    AllocationSize : Int64
 
     /**
      * The file attributes. This member can be any valid combination of the following attributes:
@@ -275,30 +241,18 @@ class FILE_ID_EXTD_DIR_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    FileAttributes {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    FileAttributes : UInt32
 
     /**
      * The length of the file name.
-     * @type {Integer}
      */
-    FileNameLength {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    FileNameLength : UInt32
 
     /**
      * The size of the extended attributes for the file.
-     * @type {Integer}
      */
-    EaSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    EaSize : UInt32
 
     /**
      * If the <b>FileAttributes</b> member includes the 
@@ -308,32 +262,18 @@ class FILE_ID_EXTD_DIR_INFO extends Win32Struct {
      * Otherwise, this value is undefined and should not be used.
      * 
      * For more information see <a href="https://docs.microsoft.com/windows/desktop/FileIO/reparse-point-tags">Reparse Point Tags</a>.
-     * @type {Integer}
      */
-    ReparsePointTag {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    ReparsePointTag : UInt32
 
     /**
      * The file ID.
-     * @type {FILE_ID_128}
      */
-    FileId {
-        get {
-            if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(72, this)
-            return this.__FileId
-        }
-    }
+    FileId : FILE_ID_128
 
     /**
      * The first character of the file name string. This is followed in memory by the remainder of the 
      *       string.
-     * @type {String}
      */
-    FileName {
-        get => StrGet(this.ptr + 88, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 0, "UTF-16")
-    }
+    FileName : WCHAR[1]
+
 }

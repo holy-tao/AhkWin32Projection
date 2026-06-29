@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_CHASE_REFERRALS_ENUM enumeration specifies if, and how, referral chasing occurs.
@@ -15,7 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_chase_referrals_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_CHASE_REFERRALS_ENUM extends Win32Enum {
+export default struct ADS_CHASE_REFERRALS_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The client should never chase the referred-to server. Setting this option prevents a client from contacting other servers in a referral process.

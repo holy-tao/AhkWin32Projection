@@ -1,31 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IComStaThreadPoolKnobs.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IComStaThreadPoolKnobs.ahk" { IComStaThreadPoolKnobs }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
-
-    static sizeof => A_PtrSize
+export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     /**
      * The interface identifier for IComStaThreadPoolKnobs2
      * @type {Guid}
      */
-    static IID => Guid("{73707523-ff9a-4974-bf84-2108dc213740}")
+    static IID := Guid("{73707523-ff9a-4974-bf84-2108dc213740}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComStaThreadPoolKnobs2 interfaces
+    */
+    struct Vtbl extends IComStaThreadPoolKnobs.Vtbl {
+        GetMaxCPULoad                : IntPtr
+        SetMaxCPULoad                : IntPtr
+        GetCPUMetricEnabled          : IntPtr
+        SetCPUMetricEnabled          : IntPtr
+        GetCreateThreadsAggressively : IntPtr
+        SetCreateThreadsAggressively : IntPtr
+        GetMaxCSR                    : IntPtr
+        SetMaxCSR                    : IntPtr
+        GetWaitTimeForThreadCleanup  : IntPtr
+        SetWaitTimeForThreadCleanup  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMaxCPULoad", "SetMaxCPULoad", "GetCPUMetricEnabled", "SetCPUMetricEnabled", "GetCreateThreadsAggressively", "SetCreateThreadsAggressively", "GetMaxCSR", "SetMaxCSR", "GetWaitTimeForThreadCleanup", "SetWaitTimeForThreadCleanup"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComStaThreadPoolKnobs2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -51,7 +69,7 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {BOOL} 
      */
     GetCPUMetricEnabled() {
-        result := ComCall(16, this, "int*", &pbMetricEnabled := 0, "HRESULT")
+        result := ComCall(16, this, BOOL.Ptr, &pbMetricEnabled := 0, "HRESULT")
         return pbMetricEnabled
     }
 
@@ -61,7 +79,7 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {HRESULT} 
      */
     SetCPUMetricEnabled(bMetricEnabled) {
-        result := ComCall(17, this, "int", bMetricEnabled, "HRESULT")
+        result := ComCall(17, this, BOOL, bMetricEnabled, "HRESULT")
         return result
     }
 
@@ -70,7 +88,7 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {BOOL} 
      */
     GetCreateThreadsAggressively() {
-        result := ComCall(18, this, "int*", &pbMetricEnabled := 0, "HRESULT")
+        result := ComCall(18, this, BOOL.Ptr, &pbMetricEnabled := 0, "HRESULT")
         return pbMetricEnabled
     }
 
@@ -80,7 +98,7 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {HRESULT} 
      */
     SetCreateThreadsAggressively(bMetricEnabled) {
-        result := ComCall(19, this, "int", bMetricEnabled, "HRESULT")
+        result := ComCall(19, this, BOOL, bMetricEnabled, "HRESULT")
         return result
     }
 
@@ -120,5 +138,43 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     SetWaitTimeForThreadCleanup(dwThreadCleanupWaitTime) {
         result := ComCall(23, this, "int", dwThreadCleanupWaitTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComStaThreadPoolKnobs2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMaxCPULoad := CallbackCreate(GetMethod(implObj, "GetMaxCPULoad"), flags, 2)
+        this.vtbl.SetMaxCPULoad := CallbackCreate(GetMethod(implObj, "SetMaxCPULoad"), flags, 2)
+        this.vtbl.GetCPUMetricEnabled := CallbackCreate(GetMethod(implObj, "GetCPUMetricEnabled"), flags, 2)
+        this.vtbl.SetCPUMetricEnabled := CallbackCreate(GetMethod(implObj, "SetCPUMetricEnabled"), flags, 2)
+        this.vtbl.GetCreateThreadsAggressively := CallbackCreate(GetMethod(implObj, "GetCreateThreadsAggressively"), flags, 2)
+        this.vtbl.SetCreateThreadsAggressively := CallbackCreate(GetMethod(implObj, "SetCreateThreadsAggressively"), flags, 2)
+        this.vtbl.GetMaxCSR := CallbackCreate(GetMethod(implObj, "GetMaxCSR"), flags, 2)
+        this.vtbl.SetMaxCSR := CallbackCreate(GetMethod(implObj, "SetMaxCSR"), flags, 2)
+        this.vtbl.GetWaitTimeForThreadCleanup := CallbackCreate(GetMethod(implObj, "GetWaitTimeForThreadCleanup"), flags, 2)
+        this.vtbl.SetWaitTimeForThreadCleanup := CallbackCreate(GetMethod(implObj, "SetWaitTimeForThreadCleanup"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMaxCPULoad)
+        CallbackFree(this.vtbl.SetMaxCPULoad)
+        CallbackFree(this.vtbl.GetCPUMetricEnabled)
+        CallbackFree(this.vtbl.SetCPUMetricEnabled)
+        CallbackFree(this.vtbl.GetCreateThreadsAggressively)
+        CallbackFree(this.vtbl.SetCreateThreadsAggressively)
+        CallbackFree(this.vtbl.GetMaxCSR)
+        CallbackFree(this.vtbl.SetMaxCSR)
+        CallbackFree(this.vtbl.GetWaitTimeForThreadCleanup)
+        CallbackFree(this.vtbl.SetWaitTimeForThreadCleanup)
     }
 }

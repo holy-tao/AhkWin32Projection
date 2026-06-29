@@ -1,80 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
-#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_FILE_CHARACTERISTICS.ahk" { IMAGE_FILE_CHARACTERISTICS }
+#Import "..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
 
 /**
  * Represents the COFF header format.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_file_header
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_FILE_HEADER extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct IMAGE_FILE_HEADER {
+    #StructPack 4
 
     /**
      * The architecture type of the computer. An image file can only be run on the specified computer or a system
-     * @type {IMAGE_FILE_MACHINE}
      */
-    Machine {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Machine : IMAGE_FILE_MACHINE
 
     /**
      * The number of sections. This indicates the size of the section table, which immediately follows the 
      *       headers. Note that the Windows loader limits the number of sections to 96.
-     * @type {Integer}
      */
-    NumberOfSections {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NumberOfSections : UInt16
 
     /**
      * The low 32 bits of the time stamp of the image. This represents the date and time the image was created by 
      *       the linker. The value is represented in the number of seconds elapsed since midnight (00:00:00), January 1, 
      *       1970, Universal Coordinated Time, according to the system clock.
-     * @type {Integer}
      */
-    TimeDateStamp {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TimeDateStamp : UInt32
 
     /**
      * The offset of the symbol table, in bytes, or zero if no COFF symbol table exists.
-     * @type {Integer}
      */
-    PointerToSymbolTable {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PointerToSymbolTable : UInt32
 
     /**
      * The number of symbols in the symbol table.
-     * @type {Integer}
      */
-    NumberOfSymbols {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumberOfSymbols : UInt32
 
     /**
      * The size of the optional header, in bytes. This value should be 0 for object files.
-     * @type {Integer}
      */
-    SizeOfOptionalHeader {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    SizeOfOptionalHeader : UInt16
 
-    /**
-     * @type {IMAGE_FILE_CHARACTERISTICS}
-     */
-    Characteristics {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    Characteristics : IMAGE_FILE_CHARACTERISTICS
+
 }

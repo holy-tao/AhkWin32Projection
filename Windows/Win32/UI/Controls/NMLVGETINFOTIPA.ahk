@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NMLVGETINFOTIP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMLVGETINFOTIP_FLAGS.ahk" { NMLVGETINFOTIP_FLAGS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains and receives list-view item information needed to display a tooltip for an item. This structure is used with the LVN_GETINFOTIP notification code. (ANSI)
@@ -18,36 +19,23 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMLVGETINFOTIPA extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct NMLVGETINFOTIPA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information on this notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Either zero or LVGIT_UNFOLDED. See Remarks.
-     * @type {NMLVGETINFOTIP_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : NMLVGETINFOTIP_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
@@ -55,55 +43,36 @@ class NMLVGETINFOTIPA extends Win32Struct {
      * Address of a string buffer that receives any additional text information. If 
      * 					<b>dwFlags</b> is zero, this member will contain the existing item text. In this case, you should append any additional text onto the end of this string. The size of this buffer is specified by the 
      * 					<b>cchTextMax</b> structure.
-     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszText : PSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Size, in characters, of the buffer pointed to by 
      * 					<b>pszText</b>. Although you should never assume that this buffer will be of any particular size, the INFOTIPSIZE value can be used for design purposes.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Zero-based index of the item to which this structure refers.
-     * @type {Integer}
      */
-    iItem {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    iItem : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * One-based index of the subitem to which this structure refers. If this member is zero, the structure is referring to the item and not a subitem. This member is not currently used and will always be zero.
-     * @type {Integer}
      */
-    iSubItem {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    iSubItem : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined value associated with the item. This member is not currently used and will always be zero.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lParam : LPARAM
+
 }

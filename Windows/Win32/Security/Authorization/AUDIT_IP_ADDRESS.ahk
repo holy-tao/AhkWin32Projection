@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUDIT_IP_ADDRESS extends Win32Struct {
-    static sizeof => 128
+export default struct AUDIT_IP_ADDRESS {
+    #StructPack 1
 
-    static packingSize => 1
+    pIpAddress : Int8[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pIpAddress {
-        get {
-            if(!this.HasProp("__pIpAddressProxyArray"))
-                this.__pIpAddressProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
-            return this.__pIpAddressProxyArray
-        }
-    }
 }

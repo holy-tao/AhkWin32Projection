@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Optional parameters for configuring the service proxy. With an exception of WS_PROXY_PROPERTY_STATE all the values are only supported for use with WsCreateServiceProxy as part of the WS_PROXY_PROPERTY* parameter.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_proxy_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_PROXY_PROPERTY_ID extends Win32Enum {
+export default struct WS_PROXY_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The maximum amount of time in milliseconds for a call to remain pending. 

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines how to sort the rows of a table, what column to use as the sort key, and the direction of the sort.
@@ -34,19 +33,13 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssortorder
  * @namespace Windows.Win32.System.AddressBook
  */
-class SSortOrder extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SSortOrder {
+    #StructPack 4
 
     /**
      * > Property tag identifying the sort key or, for a categorized sort, the category column.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulPropTag : UInt32
 
     /**
      * > The order in which the data is to be sorted. Possible values are as follow:
@@ -62,10 +55,7 @@ class SSortOrder extends Win32Struct {
      * - TABLE_SORT_CATEG_MAX: The table should be sorted on the maximum value of the **ulPropTag** member for the data rows in the categories specified by the previous sort order in the **SSortOrderSet** structure.
      * 
      * - TABLE_SORT_CATEG_MIN: The table should be sorted on the minimum value of the **ulPropTag** member for the data rows in the categories specified by the previous sort order in the in **SSortOrderSet** structure.
-     * @type {Integer}
      */
-    ulOrder {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulOrder : UInt32
+
 }

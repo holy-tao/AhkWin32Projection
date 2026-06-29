@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDiscoveredService.ahk" { IWSDiscoveredService }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Is implemented by the client program to receive callback notifications from IWSDiscoveryProvider.
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoveryprovidernotify
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDiscoveryProviderNotify extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDiscoveryProviderNotify extends IUnknown {
     /**
      * The interface identifier for IWSDiscoveryProviderNotify
      * @type {Guid}
      */
-    static IID => Guid("{73ee3ced-b6e6-4329-a546-3e8ad46563d2}")
+    static IID := Guid("{73ee3ced-b6e6-4329-a546-3e8ad46563d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDiscoveryProviderNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Add            : IntPtr
+        Remove         : IntPtr
+        SearchFailed   : IntPtr
+        SearchComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Add", "Remove", "SearchFailed", "SearchComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDiscoveryProviderNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides information on either a newly announced discovery host (from a Hello message), or a match to a user initiated query.
@@ -100,5 +113,31 @@ class IWSDiscoveryProviderNotify extends IUnknown {
 
         result := ComCall(6, this, "ptr", pszTag, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDiscoveryProviderNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.SearchFailed := CallbackCreate(GetMethod(implObj, "SearchFailed"), flags, 3)
+        this.vtbl.SearchComplete := CallbackCreate(GetMethod(implObj, "SearchComplete"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.SearchFailed)
+        CallbackFree(this.vtbl.SearchComplete)
     }
 }

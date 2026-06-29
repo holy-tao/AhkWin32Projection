@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMExtDevice interface controls an external device, such as a DV camera or video tape recoder (VTR).
@@ -15,26 +17,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamextdevice
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMExtDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMExtDevice extends IUnknown {
     /**
      * The interface identifier for IAMExtDevice
      * @type {Guid}
      */
-    static IID => Guid("{b5730a90-1a2c-11cf-8c23-00aa006b6814}")
+    static IID := Guid("{b5730a90-1a2c-11cf-8c23-00aa006b6814}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMExtDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapability             : IntPtr
+        get_ExternalDeviceID      : IntPtr
+        get_ExternalDeviceVersion : IntPtr
+        put_DevicePower           : IntPtr
+        get_DevicePower           : IntPtr
+        Calibrate                 : IntPtr
+        put_DevicePort            : IntPtr
+        get_DevicePort            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapability", "get_ExternalDeviceID", "get_ExternalDeviceVersion", "put_DevicePower", "get_DevicePower", "Calibrate", "put_DevicePort", "get_DevicePort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMExtDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -410,7 +426,7 @@ class IAMExtDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_externaldeviceid
      */
     get_ExternalDeviceID() {
-        result := ComCall(4, this, "ptr*", &ppszData := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszData := 0, "HRESULT")
         return ppszData
     }
 
@@ -420,7 +436,7 @@ class IAMExtDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_externaldeviceversion
      */
     get_ExternalDeviceVersion() {
-        result := ComCall(5, this, "ptr*", &ppszData := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppszData := 0, "HRESULT")
         return ppszData
     }
 
@@ -526,5 +542,39 @@ class IAMExtDevice extends IUnknown {
     get_DevicePort() {
         result := ComCall(10, this, "int*", &pDevicePort := 0, "HRESULT")
         return pDevicePort
+    }
+
+    Query(iid) {
+        if (IAMExtDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapability := CallbackCreate(GetMethod(implObj, "GetCapability"), flags, 4)
+        this.vtbl.get_ExternalDeviceID := CallbackCreate(GetMethod(implObj, "get_ExternalDeviceID"), flags, 2)
+        this.vtbl.get_ExternalDeviceVersion := CallbackCreate(GetMethod(implObj, "get_ExternalDeviceVersion"), flags, 2)
+        this.vtbl.put_DevicePower := CallbackCreate(GetMethod(implObj, "put_DevicePower"), flags, 2)
+        this.vtbl.get_DevicePower := CallbackCreate(GetMethod(implObj, "get_DevicePower"), flags, 2)
+        this.vtbl.Calibrate := CallbackCreate(GetMethod(implObj, "Calibrate"), flags, 4)
+        this.vtbl.put_DevicePort := CallbackCreate(GetMethod(implObj, "put_DevicePort"), flags, 2)
+        this.vtbl.get_DevicePort := CallbackCreate(GetMethod(implObj, "get_DevicePort"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapability)
+        CallbackFree(this.vtbl.get_ExternalDeviceID)
+        CallbackFree(this.vtbl.get_ExternalDeviceVersion)
+        CallbackFree(this.vtbl.put_DevicePower)
+        CallbackFree(this.vtbl.get_DevicePower)
+        CallbackFree(this.vtbl.Calibrate)
+        CallbackFree(this.vtbl.put_DevicePort)
+        CallbackFree(this.vtbl.get_DevicePort)
     }
 }

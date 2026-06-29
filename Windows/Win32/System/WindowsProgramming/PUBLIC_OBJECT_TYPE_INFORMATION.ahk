@@ -1,34 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct {
-    static sizeof => 104
+export default struct PUBLIC_OBJECT_TYPE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TypeName : UNICODE_STRING
 
-    /**
-     * @type {UNICODE_STRING}
-     */
-    TypeName {
-        get {
-            if(!this.HasProp("__TypeName"))
-                this.__TypeName := UNICODE_STRING(0, this)
-            return this.__TypeName
-        }
-    }
+    Reserved : UInt32[22]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 22, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

@@ -1,132 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINDOW_ACTION_KINDS.ahk
-#Include .\WINDOW_ACTION_MODIFIERS.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\WINDOW_PLACEMENT_STATE.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINDOW_ACTION_KINDS.ahk" { WINDOW_ACTION_KINDS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\WINDOW_PLACEMENT_STATE.ahk" { WINDOW_PLACEMENT_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\WINDOW_ACTION_MODIFIERS.ahk" { WINDOW_ACTION_MODIFIERS }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class WINDOW_ACTION extends Win32Struct {
-    static sizeof => 96
+export default struct WINDOW_ACTION {
+    #StructPack 8
 
-    static packingSize => 8
+    kinds : WINDOW_ACTION_KINDS
 
-    /**
-     * @type {WINDOW_ACTION_KINDS}
-     */
-    kinds {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    modifiers : WINDOW_ACTION_MODIFIERS
 
-    /**
-     * @type {WINDOW_ACTION_MODIFIERS}
-     */
-    modifiers {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    visible : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    visible {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    position : POINT
 
-    /**
-     * @type {POINT}
-     */
-    position {
-        get {
-            if(!this.HasProp("__position"))
-                this.__position := POINT(12, this)
-            return this.__position
-        }
-    }
+    size : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    size {
-        get {
-            if(!this.HasProp("__size"))
-                this.__size := SIZE(20, this)
-            return this.__size
-        }
-    }
+    insertAfter : HWND
 
-    /**
-     * @type {HWND}
-     */
-    insertAfter {
-        get {
-            if(!this.HasProp("__insertAfter"))
-                this.__insertAfter := HWND(32, this)
-            return this.__insertAfter
-        }
-    }
+    placementState : WINDOW_PLACEMENT_STATE
 
-    /**
-     * @type {WINDOW_PLACEMENT_STATE}
-     */
-    placementState {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    normalRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    normalRect {
-        get {
-            if(!this.HasProp("__normalRect"))
-                this.__normalRect := RECT(44, this)
-            return this.__normalRect
-        }
-    }
+    workArea : RECT
 
-    /**
-     * @type {RECT}
-     */
-    workArea {
-        get {
-            if(!this.HasProp("__workArea"))
-                this.__workArea := RECT(60, this)
-            return this.__workArea
-        }
-    }
+    dpi : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dpi {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    pointOnMonitor : POINT
 
-    /**
-     * @type {POINT}
-     */
-    pointOnMonitor {
-        get {
-            if(!this.HasProp("__pointOnMonitor"))
-                this.__pointOnMonitor := POINT(80, this)
-            return this.__pointOnMonitor
-        }
-    }
+    monitorTopologyId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    monitorTopologyId {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
 }

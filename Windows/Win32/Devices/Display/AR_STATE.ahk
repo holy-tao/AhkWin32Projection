@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the state of screen auto-rotation for the system. For example, whether auto-rotation is supported, and whether it is enabled by the user.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-ar_state
  * @namespace Windows.Win32.Devices.Display
  */
-class AR_STATE extends Win32BitflagEnum {
+export default struct AR_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Auto-rotation is enabled by the user.

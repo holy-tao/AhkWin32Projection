@@ -1,32 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLBodyElement4 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLBodyElement4 extends IDispatch {
     /**
      * The interface identifier for IHTMLBodyElement4
      * @type {Guid}
      */
-    static IID => Guid("{30510795-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510795-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLBodyElement4 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_onmessage : IntPtr
+        get_onmessage : IntPtr
+        put_onstorage : IntPtr
+        get_onstorage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_onmessage", "get_onmessage", "put_onstorage", "get_onstorage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLBodyElement4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -50,7 +61,7 @@ class IHTMLBodyElement4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onmessage(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -60,7 +71,7 @@ class IHTMLBodyElement4 extends IDispatch {
      */
     get_onmessage() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -70,7 +81,7 @@ class IHTMLBodyElement4 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onstorage(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -80,7 +91,33 @@ class IHTMLBodyElement4 extends IDispatch {
      */
     get_onstorage() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLBodyElement4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_onmessage := CallbackCreate(GetMethod(implObj, "put_onmessage"), flags, 2)
+        this.vtbl.get_onmessage := CallbackCreate(GetMethod(implObj, "get_onmessage"), flags, 2)
+        this.vtbl.put_onstorage := CallbackCreate(GetMethod(implObj, "put_onstorage"), flags, 2)
+        this.vtbl.get_onstorage := CallbackCreate(GetMethod(implObj, "get_onstorage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_onmessage)
+        CallbackFree(this.vtbl.get_onmessage)
+        CallbackFree(this.vtbl.put_onstorage)
+        CallbackFree(this.vtbl.get_onstorage)
     }
 }

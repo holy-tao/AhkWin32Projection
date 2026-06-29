@@ -1,27 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class EX_RUNDOWN_REF extends Win32Struct {
-    static sizeof => 8
+export default struct EX_RUNDOWN_REF {
+    #StructPack 8
 
-    static packingSize => 8
+    Count : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Count {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Ptr {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Ptr', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

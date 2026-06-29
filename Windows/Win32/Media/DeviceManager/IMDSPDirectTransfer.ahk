@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMDSPStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 
 /**
  * The IMDSPDirectTransfer interface enables Windows Media Device Manager to delegate content transfer to the service provider.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdirecttransfer
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IMDSPDirectTransfer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMDSPDirectTransfer extends IUnknown {
     /**
      * The interface identifier for IMDSPDirectTransfer
      * @type {Guid}
      */
-    static IID => Guid("{c2fe57a8-9304-478c-9ee4-47e397b912d7}")
+    static IID := Guid("{c2fe57a8-9304-478c-9ee4-47e397b912d7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMDSPDirectTransfer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TransferToDevice : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TransferToDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMDSPDirectTransfer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The TransferToDevice method is called by Windows Media Device Manager to delegate content transfer content to the service provider. The source can be specified either as a file or as an operation interface.
@@ -55,5 +67,25 @@ class IMDSPDirectTransfer extends IUnknown {
 
         result := ComCall(3, this, "ptr", pwszSourceFilePath, "ptr", pSourceOperation, "uint", fuFlags, "ptr", pwszDestinationName, "ptr", pSourceMetaData, "ptr", pTransferProgress, "ptr*", &ppNewObject := 0, "HRESULT")
         return IMDSPStorage(ppNewObject)
+    }
+
+    Query(iid) {
+        if (IMDSPDirectTransfer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TransferToDevice := CallbackCreate(GetMethod(implObj, "TransferToDevice"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TransferToDevice)
     }
 }

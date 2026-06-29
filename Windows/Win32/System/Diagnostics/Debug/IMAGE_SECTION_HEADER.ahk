@@ -1,125 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_SECTION_CHARACTERISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_SECTION_CHARACTERISTICS.ahk" { IMAGE_SECTION_CHARACTERISTICS }
 
 /**
  * Represents the image section header format.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_section_header
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_SECTION_HEADER extends Win32Struct {
-    static sizeof => 40
+export default struct IMAGE_SECTION_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Misc_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Misc {
+        PhysicalAddress : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        PhysicalAddress {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        VirtualSize {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'VirtualSize', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * An 8-byte, null-padded UTF-8 string. There is no terminating null character if the string is exactly eight characters long. For longer names, this member contains a forward slash (/) followed by an ASCII representation of a decimal number that is an offset into the string table. Executable images do not use a string table and do not support section names longer than eight characters.
-     * @type {Array<Integer>}
      */
-    Name {
-        get {
-            if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__NameProxyArray
-        }
-    }
+    Name : Int8[8]
 
-    /**
-     * @type {_Misc_e__Union}
-     */
-    Misc {
-        get {
-            if(!this.HasProp("__Misc"))
-                this.__Misc := IMAGE_SECTION_HEADER._Misc_e__Union(8, this)
-            return this.__Misc
-        }
-    }
+    Misc : IMAGE_SECTION_HEADER._Misc
 
     /**
      * The address of the first byte of the section when loaded into memory, relative to the image base. For object files, this is the address of the first byte before relocation is applied.
-     * @type {Integer}
      */
-    VirtualAddress {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    VirtualAddress : UInt32
 
     /**
      * The size of the initialized data on disk, in bytes. This value must be a multiple of the <b>FileAlignment</b> member of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header32">IMAGE_OPTIONAL_HEADER</a> structure. If this value is less than the <b>VirtualSize</b> member, the remainder of the section is filled with zeroes. If the section contains only uninitialized data, the member is zero.
-     * @type {Integer}
      */
-    SizeOfRawData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SizeOfRawData : UInt32
 
     /**
      * A file pointer to the first page within the COFF file. This value must be a multiple of the <b>FileAlignment</b> member of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header32">IMAGE_OPTIONAL_HEADER</a> structure. If a section contains only uninitialized data, set this member is zero.
-     * @type {Integer}
      */
-    PointerToRawData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PointerToRawData : UInt32
 
     /**
      * A file pointer to the beginning of the relocation entries for the section. If there are no relocations, this value is zero.
-     * @type {Integer}
      */
-    PointerToRelocations {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PointerToRelocations : UInt32
 
     /**
      * A file pointer to the beginning of the line-number entries for the section. If there are no COFF line numbers, this value is zero.
-     * @type {Integer}
      */
-    PointerToLinenumbers {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PointerToLinenumbers : UInt32
 
     /**
      * The number of relocation entries for the section. This value is zero for executable images.
-     * @type {Integer}
      */
-    NumberOfRelocations {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    NumberOfRelocations : UInt16
 
     /**
      * The number of line-number entries for the section.
-     * @type {Integer}
      */
-    NumberOfLinenumbers {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    NumberOfLinenumbers : UInt16
 
     /**
      * The characteristics of the image. The following values are defined. 
@@ -605,10 +547,7 @@ class IMAGE_SECTION_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IMAGE_SECTION_CHARACTERISTICS}
      */
-    Characteristics {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Characteristics : IMAGE_SECTION_CHARACTERISTICS
+
 }

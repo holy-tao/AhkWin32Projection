@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INetCfgComponent.ahk
-#Include .\IEnumNetCfgBindingInterface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import ".\IEnumNetCfgBindingInterface.ahk" { IEnumNetCfgBindingInterface }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class INetCfgBindingPath extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetCfgBindingPath extends IUnknown {
     /**
      * The interface identifier for INetCfgBindingPath
      * @type {Guid}
      */
-    static IID => Guid("{c0e8ae96-306e-11d1-aacf-00805fc1270e}")
+    static IID := Guid("{c0e8ae96-306e-11d1-aacf-00805fc1270e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetCfgBindingPath interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsSamePathAs          : IntPtr
+        IsSubPathOf           : IntPtr
+        IsEnabled             : IntPtr
+        Enable                : IntPtr
+        GetPathToken          : IntPtr
+        GetOwner              : IntPtr
+        GetDepth              : IntPtr
+        EnumBindingInterfaces : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsSamePathAs", "IsSubPathOf", "IsEnabled", "Enable", "GetPathToken", "GetOwner", "GetDepth", "EnumBindingInterfaces"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetCfgBindingPath.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -110,7 +127,7 @@ class INetCfgBindingPath extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/sr/enable-systemrestore
      */
     Enable(fEnable) {
-        result := ComCall(6, this, "int", fEnable, "HRESULT")
+        result := ComCall(6, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -119,22 +136,13 @@ class INetCfgBindingPath extends IUnknown {
      * @returns {PWSTR} 
      */
     GetPathToken() {
-        result := ComCall(7, this, "ptr*", &ppszwPathToken := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppszwPathToken := 0, "HRESULT")
         return ppszwPathToken
     }
 
     /**
-     * Retrieves data about the module that issued the context bind for a specific IPv6 TCP endpoint in a MIB table row.
-     * @remarks
-     * The <i>Buffer</i> parameter contains not only a structure with pointers to specific data,  for example, pointers to the zero-terminated strings that contain the name and path of the owner module, but the actual data itself; that is the name and path strings. Therefore, when calculating the size of the buffer, ensure that you have enough space for both the structure as well as the data the members of the structure point to.
      * 
-     * The resolution of TCP table entries to owner modules is a best practice. In a few cases, the owner module name returned in the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure can be a process name (such as "svchost.exe"), a service name (such as "RPC"), or a component name (such as "timer.dll").
-     * 
-     * For computers running on Windows Vista or later, the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> retrieved by  <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry">GetOwnerModuleFromTcpEntry</a> function may point to an empty string for some TCP connections. Applications that start TCP connections located in the Windows system folder (C:\Windows\System32, by default) are considered protected. If the <b>GetOwnerModuleFromTcpEntry</b> function is called by a user that is not a member of the Administrators group, the function call will succeed but the <b>pModuleName</b> and <b>pModulePath</b> members will point to memory that contains an empty string for the TCP connections started by protected applications. 
-     * 
-     * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @returns {INetCfgComponent} 
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry
      */
     GetOwner() {
         result := ComCall(8, this, "ptr*", &ppComponent := 0, "HRESULT")
@@ -157,5 +165,39 @@ class INetCfgBindingPath extends IUnknown {
     EnumBindingInterfaces() {
         result := ComCall(10, this, "ptr*", &ppenumInterface := 0, "HRESULT")
         return IEnumNetCfgBindingInterface(ppenumInterface)
+    }
+
+    Query(iid) {
+        if (INetCfgBindingPath.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsSamePathAs := CallbackCreate(GetMethod(implObj, "IsSamePathAs"), flags, 2)
+        this.vtbl.IsSubPathOf := CallbackCreate(GetMethod(implObj, "IsSubPathOf"), flags, 2)
+        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.GetPathToken := CallbackCreate(GetMethod(implObj, "GetPathToken"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetDepth := CallbackCreate(GetMethod(implObj, "GetDepth"), flags, 2)
+        this.vtbl.EnumBindingInterfaces := CallbackCreate(GetMethod(implObj, "EnumBindingInterfaces"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsSamePathAs)
+        CallbackFree(this.vtbl.IsSubPathOf)
+        CallbackFree(this.vtbl.IsEnabled)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.GetPathToken)
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetDepth)
+        CallbackFree(this.vtbl.EnumBindingInterfaces)
     }
 }

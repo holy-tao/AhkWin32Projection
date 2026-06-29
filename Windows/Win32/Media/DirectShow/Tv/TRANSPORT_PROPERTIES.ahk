@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class TRANSPORT_PROPERTIES extends Win32Struct {
-    static sizeof => 24
+export default struct TRANSPORT_PROPERTIES {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Fields_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Fields {
 
-        class _Others extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
-
+        struct _Others {
             /**
              * This bitfield backs the following members:
              * - TransportScramblingControl
              * - Reserved
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
+            _bitfield : Int64
+
 
             /**
              * @type {Integer}
@@ -37,50 +27,18 @@ class TRANSPORT_PROPERTIES extends Win32Struct {
             }
         }
 
-        /**
-         * @type {_Others}
-         */
-        Others {
-            get {
-                if(!this.HasProp("__Others"))
-                    this.__Others := TRANSPORT_PROPERTIES._Fields_e__Union._Others(0, this)
-                return this.__Others
-            }
-        }
+        Others : TRANSPORT_PROPERTIES._Fields._Others
 
-        /**
-         * @type {Integer}
-         */
-        Value {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Value', { type: Int64, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    PID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PCR {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    PCR : Int64
 
-    /**
-     * @type {_Fields_e__Union}
-     */
-    Fields {
-        get {
-            if(!this.HasProp("__Fields"))
-                this.__Fields := TRANSPORT_PROPERTIES._Fields_e__Union(16, this)
-            return this.__Fields
-        }
-    }
+    Fields : TRANSPORT_PROPERTIES._Fields
+
 }

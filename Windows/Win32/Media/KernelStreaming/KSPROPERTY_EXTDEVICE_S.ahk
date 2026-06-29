@@ -1,86 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\DEVCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVCAPS.ahk" { DEVCAPS }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_EXTDEVICE_S extends Win32Struct {
-    static sizeof => 536
+export default struct KSPROPERTY_EXTDEVICE_S {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 520
-        static packingSize => 4
+    struct _u {
+        Capabilities : DEVCAPS
 
-        /**
-         * @type {DEVCAPS}
-         */
-        Capabilities {
-            get {
-                if(!this.HasProp("__Capabilities"))
-                    this.__Capabilities := DEVCAPS(0, this)
-                return this.__Capabilities
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DevPort {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PowerState {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {String}
-         */
-        pawchString {
-            get => StrGet(this.ptr + 0, 259, "UTF-16")
-            set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        NodeUniqueID {
-            get {
-                if(!this.HasProp("__NodeUniqueIDProxyArray"))
-                    this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-                return this.__NodeUniqueIDProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'DevPort', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'PowerState', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'pawchString', { type: WCHAR[260], offset: 0 })
+            DefineProp(this.Prototype, 'NodeUniqueID', { type: UInt32[2], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := KSPROPERTY_EXTDEVICE_S._u_e__Union(16, this)
-            return this.__u
-        }
-    }
+    u : KSPROPERTY_EXTDEVICE_S._u
+
 }

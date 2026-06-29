@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type and size of an access control entry (ACE).
@@ -10,33 +9,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-ace_header
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class ACE_HEADER extends Win32Struct {
-    static sizeof => 4
+export default struct ACE_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    AceType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AceType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AceFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    AceFlags : Int8
 
     /**
      * Specifies the size, in bytes, of the ACE.
-     * @type {Integer}
      */
-    AceSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    AceSize : UInt16
+
 }

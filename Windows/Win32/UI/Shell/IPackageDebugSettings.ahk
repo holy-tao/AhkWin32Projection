@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PACKAGE_EXECUTION_STATE.ahk" { PACKAGE_EXECUTION_STATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPackageExecutionStateChangeNotification.ahk" { IPackageExecutionStateChangeNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables debugger developers to control the life cycle of a Windows Store app, such as suspending or resuming.
@@ -12,32 +16,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipackagedebugsettings
  * @namespace Windows.Win32.UI.Shell
  */
-class IPackageDebugSettings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPackageDebugSettings extends IUnknown {
     /**
      * The interface identifier for IPackageDebugSettings
      * @type {Guid}
      */
-    static IID => Guid("{f27c3930-8029-4ad1-94e3-3dba417810c1}")
+    static IID := Guid("{f27c3930-8029-4ad1-94e3-3dba417810c1}")
 
     /**
      * The class identifier for PackageDebugSettings
      * @type {Guid}
      */
-    static CLSID => Guid("{b1aec16f-2383-4852-b0e9-8f0b1dc66b4d}")
+    static CLSID := Guid("{b1aec16f-2383-4852-b0e9-8f0b1dc66b4d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPackageDebugSettings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnableDebugging                  : IntPtr
+        DisableDebugging                 : IntPtr
+        Suspend                          : IntPtr
+        Resume                           : IntPtr
+        TerminateAllProcesses            : IntPtr
+        SetTargetSessionId               : IntPtr
+        EnumerateBackgroundTasks         : IntPtr
+        ActivateBackgroundTask           : IntPtr
+        StartServicing                   : IntPtr
+        StopServicing                    : IntPtr
+        StartSessionRedirection          : IntPtr
+        StopSessionRedirection           : IntPtr
+        GetPackageExecutionState         : IntPtr
+        RegisterForPackageStateChanges   : IntPtr
+        UnregisterForPackageStateChanges : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnableDebugging", "DisableDebugging", "Suspend", "Resume", "TerminateAllProcesses", "SetTargetSessionId", "EnumerateBackgroundTasks", "ActivateBackgroundTask", "StartServicing", "StopServicing", "StartSessionRedirection", "StopSessionRedirection", "GetPackageExecutionState", "RegisterForPackageStateChanges", "UnregisterForPackageStateChanges"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPackageDebugSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables debug mode for the processes of the specified package.
@@ -184,7 +209,7 @@ class IPackageDebugSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-activatebackgroundtask
      */
     ActivateBackgroundTask(taskId) {
-        result := ComCall(10, this, "ptr", taskId, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, taskId, "HRESULT")
         return result
     }
 
@@ -289,5 +314,53 @@ class IPackageDebugSettings extends IUnknown {
     UnregisterForPackageStateChanges(dwCookie) {
         result := ComCall(17, this, "uint", dwCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPackageDebugSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnableDebugging := CallbackCreate(GetMethod(implObj, "EnableDebugging"), flags, 4)
+        this.vtbl.DisableDebugging := CallbackCreate(GetMethod(implObj, "DisableDebugging"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.TerminateAllProcesses := CallbackCreate(GetMethod(implObj, "TerminateAllProcesses"), flags, 2)
+        this.vtbl.SetTargetSessionId := CallbackCreate(GetMethod(implObj, "SetTargetSessionId"), flags, 2)
+        this.vtbl.EnumerateBackgroundTasks := CallbackCreate(GetMethod(implObj, "EnumerateBackgroundTasks"), flags, 5)
+        this.vtbl.ActivateBackgroundTask := CallbackCreate(GetMethod(implObj, "ActivateBackgroundTask"), flags, 2)
+        this.vtbl.StartServicing := CallbackCreate(GetMethod(implObj, "StartServicing"), flags, 2)
+        this.vtbl.StopServicing := CallbackCreate(GetMethod(implObj, "StopServicing"), flags, 2)
+        this.vtbl.StartSessionRedirection := CallbackCreate(GetMethod(implObj, "StartSessionRedirection"), flags, 3)
+        this.vtbl.StopSessionRedirection := CallbackCreate(GetMethod(implObj, "StopSessionRedirection"), flags, 2)
+        this.vtbl.GetPackageExecutionState := CallbackCreate(GetMethod(implObj, "GetPackageExecutionState"), flags, 3)
+        this.vtbl.RegisterForPackageStateChanges := CallbackCreate(GetMethod(implObj, "RegisterForPackageStateChanges"), flags, 4)
+        this.vtbl.UnregisterForPackageStateChanges := CallbackCreate(GetMethod(implObj, "UnregisterForPackageStateChanges"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnableDebugging)
+        CallbackFree(this.vtbl.DisableDebugging)
+        CallbackFree(this.vtbl.Suspend)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.TerminateAllProcesses)
+        CallbackFree(this.vtbl.SetTargetSessionId)
+        CallbackFree(this.vtbl.EnumerateBackgroundTasks)
+        CallbackFree(this.vtbl.ActivateBackgroundTask)
+        CallbackFree(this.vtbl.StartServicing)
+        CallbackFree(this.vtbl.StopServicing)
+        CallbackFree(this.vtbl.StartSessionRedirection)
+        CallbackFree(this.vtbl.StopSessionRedirection)
+        CallbackFree(this.vtbl.GetPackageExecutionState)
+        CallbackFree(this.vtbl.RegisterForPackageStateChanges)
+        CallbackFree(this.vtbl.UnregisterForPackageStateChanges)
     }
 }

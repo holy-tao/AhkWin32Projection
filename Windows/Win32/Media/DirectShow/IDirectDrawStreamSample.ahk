@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IStreamSample.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\IStreamSample.ahk" { IStreamSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/ddstream/nn-ddstream-idirectdrawstreamsample
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDirectDrawStreamSample extends IStreamSample {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawStreamSample extends IStreamSample {
     /**
      * The interface identifier for IDirectDrawStreamSample
      * @type {Guid}
      */
-    static IID => Guid("{f4104fcf-9a70-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{f4104fcf-9a70-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawStreamSample interfaces
+    */
+    struct Vtbl extends IStreamSample.Vtbl {
+        GetSurface : IntPtr
+        SetRect    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSurface", "SetRect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawStreamSample.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves pointers to the current sample's DirectDraw surface and associated clipping rectangle.
@@ -40,7 +50,7 @@ class IDirectDrawStreamSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawstreamsample-getsurface
      */
     GetSurface(ppDirectDrawSurface, pRect) {
-        result := ComCall(8, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, IDirectDrawSurface.Ptr, ppDirectDrawSurface, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -128,7 +138,29 @@ class IDirectDrawStreamSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawstreamsample-setrect
      */
     SetRect(pRect) {
-        result := ComCall(9, this, "ptr", pRect, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, pRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectDrawStreamSample.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 3)
+        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSurface)
+        CallbackFree(this.vtbl.SetRect)
     }
 }

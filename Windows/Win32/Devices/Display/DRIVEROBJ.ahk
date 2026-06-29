@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDEV.ahk
-#Include .\DHPDEV.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HDEV.ahk" { HDEV }
+#Import ".\DHPDEV.ahk" { DHPDEV }
 
 /**
  * The DRIVEROBJ structure is used to track a resource, allocated by a driver, that requires use GDI services.
@@ -14,19 +13,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-driverobj
  * @namespace Windows.Win32.Devices.Display
  */
-class DRIVEROBJ extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DRIVEROBJ {
+    #StructPack 8
 
     /**
      * Pointer to the driver resource that will be tracked by the DRIVEROBJ structure. The resource is associated with the current client process.
-     * @type {Pointer<Void>}
      */
-    pvObj {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pvObj : IntPtr
 
     /**
      * Pointer to a driver-supplied callback function that frees the resource pointed to by <b>pvObj</b>. This callback function has the following prototype:
@@ -38,34 +31,17 @@ class DRIVEROBJ extends Win32Struct {
      * 
      * 
      * The callback function returns <b>TRUE</b> if it is able to free the resource, and <b>FALSE</b> otherwise.
-     * @type {Pointer<FREEOBJPROC>}
      */
-    pFreeProc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pFreeProc : IntPtr
 
     /**
      * GDI handle to the physical device associated with the object.
-     * @type {HDEV}
      */
-    hdev {
-        get {
-            if(!this.HasProp("__hdev"))
-                this.__hdev := HDEV(16, this)
-            return this.__hdev
-        }
-    }
+    hdev : HDEV
 
     /**
      * Pointer to the driver's private instance data; that is, this member identifies the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a>.
-     * @type {DHPDEV}
      */
-    dhpdev {
-        get {
-            if(!this.HasProp("__dhpdev"))
-                this.__dhpdev := DHPDEV(24, this)
-            return this.__dhpdev
-        }
-    }
+    dhpdev : DHPDEV
+
 }

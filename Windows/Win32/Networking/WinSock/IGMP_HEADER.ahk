@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IGMP_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IGMP_HEADER {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - Type
      * - Version
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -36,55 +30,16 @@ class IGMP_HEADER extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VersionType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Checksum : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    MulticastAddress : IN_ADDR
 
-    /**
-     * @type {Integer}
-     */
-    MaxRespTime {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Code {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Checksum {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {IN_ADDR}
-     */
-    MulticastAddress {
-        get {
-            if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN_ADDR(4, this)
-            return this.__MulticastAddress
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'VersionType', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'MaxRespTime', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'Code', { type: Int8, offset: 1 })
+        this.DeleteProp("__New")
     }
 }

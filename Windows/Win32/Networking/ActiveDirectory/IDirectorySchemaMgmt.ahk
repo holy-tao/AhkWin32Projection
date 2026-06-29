@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ADS_CLASS_DEF.ahk" { ADS_CLASS_DEF }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADS_ATTR_DEF.ahk" { ADS_ATTR_DEF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Not currently implemented and should not be used.
@@ -10,26 +14,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDirectorySchemaMgmt extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectorySchemaMgmt extends IUnknown {
     /**
      * The interface identifier for IDirectorySchemaMgmt
      * @type {Guid}
      */
-    static IID => Guid("{75db3b9c-a4d8-11d0-a79c-00c04fd8d5a8}")
+    static IID := Guid("{75db3b9c-a4d8-11d0-a79c-00c04fd8d5a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectorySchemaMgmt interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumAttributes            : IntPtr
+        CreateAttributeDefinition : IntPtr
+        WriteAttributeDefinition  : IntPtr
+        DeleteAttributeDefinition : IntPtr
+        EnumClasses               : IntPtr
+        WriteClassDefinition      : IntPtr
+        CreateClassDefinition     : IntPtr
+        DeleteClassDefinition     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumAttributes", "CreateAttributeDefinition", "WriteAttributeDefinition", "DeleteAttributeDefinition", "EnumClasses", "WriteClassDefinition", "CreateClassDefinition", "DeleteClassDefinition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectorySchemaMgmt.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Not currently implemented and should not be used.
@@ -63,7 +81,7 @@ class IDirectorySchemaMgmt extends IUnknown {
     CreateAttributeDefinition(pszAttributeName, pAttributeDefinition) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(4, this, "ptr", pszAttributeName, "ptr", pAttributeDefinition, "HRESULT")
+        result := ComCall(4, this, "ptr", pszAttributeName, ADS_ATTR_DEF.Ptr, pAttributeDefinition, "HRESULT")
         return result
     }
 
@@ -79,7 +97,7 @@ class IDirectorySchemaMgmt extends IUnknown {
     WriteAttributeDefinition(pszAttributeName, pAttributeDefinition) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(5, this, "ptr", pszAttributeName, "ptr", pAttributeDefinition, "HRESULT")
+        result := ComCall(5, this, "ptr", pszAttributeName, ADS_ATTR_DEF.Ptr, pAttributeDefinition, "HRESULT")
         return result
     }
 
@@ -130,7 +148,7 @@ class IDirectorySchemaMgmt extends IUnknown {
     WriteClassDefinition(pszClassName, pClassDefinition) {
         pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-        result := ComCall(8, this, "ptr", pszClassName, "ptr", pClassDefinition, "HRESULT")
+        result := ComCall(8, this, "ptr", pszClassName, ADS_CLASS_DEF.Ptr, pClassDefinition, "HRESULT")
         return result
     }
 
@@ -146,7 +164,7 @@ class IDirectorySchemaMgmt extends IUnknown {
     CreateClassDefinition(pszClassName, pClassDefinition) {
         pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-        result := ComCall(9, this, "ptr", pszClassName, "ptr", pClassDefinition, "HRESULT")
+        result := ComCall(9, this, "ptr", pszClassName, ADS_CLASS_DEF.Ptr, pClassDefinition, "HRESULT")
         return result
     }
 
@@ -163,5 +181,39 @@ class IDirectorySchemaMgmt extends IUnknown {
 
         result := ComCall(10, this, "ptr", pszClassName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectorySchemaMgmt.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumAttributes := CallbackCreate(GetMethod(implObj, "EnumAttributes"), flags, 5)
+        this.vtbl.CreateAttributeDefinition := CallbackCreate(GetMethod(implObj, "CreateAttributeDefinition"), flags, 3)
+        this.vtbl.WriteAttributeDefinition := CallbackCreate(GetMethod(implObj, "WriteAttributeDefinition"), flags, 3)
+        this.vtbl.DeleteAttributeDefinition := CallbackCreate(GetMethod(implObj, "DeleteAttributeDefinition"), flags, 2)
+        this.vtbl.EnumClasses := CallbackCreate(GetMethod(implObj, "EnumClasses"), flags, 5)
+        this.vtbl.WriteClassDefinition := CallbackCreate(GetMethod(implObj, "WriteClassDefinition"), flags, 3)
+        this.vtbl.CreateClassDefinition := CallbackCreate(GetMethod(implObj, "CreateClassDefinition"), flags, 3)
+        this.vtbl.DeleteClassDefinition := CallbackCreate(GetMethod(implObj, "DeleteClassDefinition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumAttributes)
+        CallbackFree(this.vtbl.CreateAttributeDefinition)
+        CallbackFree(this.vtbl.WriteAttributeDefinition)
+        CallbackFree(this.vtbl.DeleteAttributeDefinition)
+        CallbackFree(this.vtbl.EnumClasses)
+        CallbackFree(this.vtbl.WriteClassDefinition)
+        CallbackFree(this.vtbl.CreateClassDefinition)
+        CallbackFree(this.vtbl.DeleteClassDefinition)
     }
 }

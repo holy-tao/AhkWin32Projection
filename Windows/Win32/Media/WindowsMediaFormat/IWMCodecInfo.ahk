@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMStreamConfig.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMCodecInfo interface retrieves the number and types of codecs available.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcodecinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMCodecInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMCodecInfo extends IUnknown {
     /**
      * The interface identifier for IWMCodecInfo
      * @type {Guid}
      */
-    static IID => Guid("{a970f41e-34de-4a98-b3ba-e4b3ca7528f0}")
+    static IID := Guid("{a970f41e-34de-4a98-b3ba-e4b3ca7528f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMCodecInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCodecInfoCount   : IntPtr
+        GetCodecFormatCount : IntPtr
+        GetCodecFormat      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCodecInfoCount", "GetCodecFormatCount", "GetCodecFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMCodecInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCodecInfoCount method retrieves the number of supported codecs for a specified major type of digital media (audio or video).
@@ -58,7 +68,7 @@ class IWMCodecInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecinfocount
      */
     GetCodecInfoCount(guidType) {
-        result := ComCall(3, this, "ptr", guidType, "uint*", &pcCodecs := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guidType, "uint*", &pcCodecs := 0, "HRESULT")
         return pcCodecs
     }
 
@@ -93,7 +103,7 @@ class IWMCodecInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformatcount
      */
     GetCodecFormatCount(guidType, dwCodecIndex) {
-        result := ComCall(4, this, "ptr", guidType, "uint", dwCodecIndex, "uint*", &pcFormat := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint*", &pcFormat := 0, "HRESULT")
         return pcFormat
     }
 
@@ -131,7 +141,31 @@ class IWMCodecInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformat
      */
     GetCodecFormat(guidType, dwCodecIndex, dwFormatIndex) {
-        result := ComCall(5, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "HRESULT")
         return IWMStreamConfig(ppIStreamConfig)
+    }
+
+    Query(iid) {
+        if (IWMCodecInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCodecInfoCount := CallbackCreate(GetMethod(implObj, "GetCodecInfoCount"), flags, 3)
+        this.vtbl.GetCodecFormatCount := CallbackCreate(GetMethod(implObj, "GetCodecFormatCount"), flags, 4)
+        this.vtbl.GetCodecFormat := CallbackCreate(GetMethod(implObj, "GetCodecFormat"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCodecInfoCount)
+        CallbackFree(this.vtbl.GetCodecFormatCount)
+        CallbackFree(this.vtbl.GetCodecFormat)
     }
 }

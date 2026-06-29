@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RPC_C_AUTHN_LEVEL.ahk" { RPC_C_AUTHN_LEVEL }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
 
 /**
  * Gives the client control over the security settings for each individual interface proxy of an object.
@@ -12,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iclientsecurity
  * @namespace Windows.Win32.System.Com
  */
-class IClientSecurity extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IClientSecurity extends IUnknown {
     /**
      * The interface identifier for IClientSecurity
      * @type {Guid}
      */
-    static IID => Guid("{0000013d-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000013d-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IClientSecurity interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryBlanket : IntPtr
+        SetBlanket   : IntPtr
+        CopyProxy    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryBlanket", "SetBlanket", "CopyProxy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IClientSecurity.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves authentication information the client uses to make calls on the specified proxy.
@@ -190,7 +203,7 @@ class IClientSecurity extends IUnknown {
 
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
+        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
         return result
     }
 
@@ -213,5 +226,29 @@ class IClientSecurity extends IUnknown {
     CopyProxy(pProxy) {
         result := ComCall(5, this, "ptr", pProxy, "ptr*", &ppCopy := 0, "HRESULT")
         return IUnknown(ppCopy)
+    }
+
+    Query(iid) {
+        if (IClientSecurity.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryBlanket := CallbackCreate(GetMethod(implObj, "QueryBlanket"), flags, 9)
+        this.vtbl.SetBlanket := CallbackCreate(GetMethod(implObj, "SetBlanket"), flags, 9)
+        this.vtbl.CopyProxy := CallbackCreate(GetMethod(implObj, "CopyProxy"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryBlanket)
+        CallbackFree(this.vtbl.SetBlanket)
+        CallbackFree(this.vtbl.CopyProxy)
     }
 }

@@ -1,40 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnhancedStorageACT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnhancedStorageACT.ahk" { IEnhancedStorageACT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface as the top level enumerator for all IEEE 1667 Addressable Contact Targets (ACT).
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienumenhancedstorageact
  * @namespace Windows.Win32.Storage.EnhancedStorage
  */
-class IEnumEnhancedStorageACT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumEnhancedStorageACT extends IUnknown {
     /**
      * The interface identifier for IEnumEnhancedStorageACT
      * @type {Guid}
      */
-    static IID => Guid("{09b224bd-1335-4631-a7ff-cfd3a92646d7}")
+    static IID := Guid("{09b224bd-1335-4631-a7ff-cfd3a92646d7}")
 
     /**
      * The class identifier for EnumEnhancedStorageACT
      * @type {Guid}
      */
-    static CLSID => Guid("{fe841493-835c-4fa3-b6cc-b4b2d4719848}")
+    static CLSID := Guid("{fe841493-835c-4fa3-b6cc-b4b2d4719848}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumEnhancedStorageACT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetACTs        : IntPtr
+        GetMatchingACT : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetACTs", "GetMatchingACT"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumEnhancedStorageACT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns an enumeration of all the Addressable Command Targets (ACT) currently connected to the system. If at least one ACT is present, the Enhanced Storage API allocates an array of 1 or more IEnumEnhancedStorageACT pointers.
@@ -106,5 +116,27 @@ class IEnumEnhancedStorageACT extends IUnknown {
 
         result := ComCall(4, this, "ptr", szVolume, "ptr*", &ppIEnhancedStorageACT := 0, "HRESULT")
         return IEnhancedStorageACT(ppIEnhancedStorageACT)
+    }
+
+    Query(iid) {
+        if (IEnumEnhancedStorageACT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetACTs := CallbackCreate(GetMethod(implObj, "GetACTs"), flags, 3)
+        this.vtbl.GetMatchingACT := CallbackCreate(GetMethod(implObj, "GetMatchingACT"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetACTs)
+        CallbackFree(this.vtbl.GetMatchingACT)
     }
 }

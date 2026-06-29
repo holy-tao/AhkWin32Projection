@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DRESOURCESTATS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DRESOURCESTATS.ahk" { D3DRESOURCESTATS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Resource usage statistics.
@@ -9,23 +9,15 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-resourcemanager
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DDEVINFO_RESOURCEMANAGER extends Win32Struct {
-    static sizeof => 352
-
-    static packingSize => 4
+export default struct D3DDEVINFO_RESOURCEMANAGER {
+    #StructPack 4
 
     /**
      * Type: **[**D3DRESOURCESTATS**](d3dresourcestats.md)**
      * 
      * 
      * Array of resource statistics elements. See [**D3DRESOURCESTATS**](d3dresourcestats.md).
-     * @type {D3DRESOURCESTATS}
      */
-    stats {
-        get {
-            if(!this.HasProp("__statsProxyArray"))
-                this.__statsProxyArray := Win32FixedArray(this.ptr + 0, 8, D3DRESOURCESTATS, "")
-            return this.__statsProxyArray
-        }
-    }
+    stats : D3DRESOURCESTATS[8]
+
 }

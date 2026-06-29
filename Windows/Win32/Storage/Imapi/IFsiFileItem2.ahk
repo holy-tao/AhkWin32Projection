@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsiFileItem.ahk
-#Include .\IFsiNamedStreams.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsiNamedStreams.ahk" { IFsiNamedStreams }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to add, remove and enumerate named streams associated with a file. This interface also provides access to the 'Real-Time' attribute of a file.
@@ -16,26 +20,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsifileitem2
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFsiFileItem2 extends IFsiFileItem {
-
-    static sizeof => A_PtrSize
+export default struct IFsiFileItem2 extends IFsiFileItem {
     /**
      * The interface identifier for IFsiFileItem2
      * @type {Guid}
      */
-    static IID => Guid("{199d0c19-11e1-40eb-8ec2-c8c822a07792}")
+    static IID := Guid("{199d0c19-11e1-40eb-8ec2-c8c822a07792}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsiFileItem2 interfaces
+    */
+    struct Vtbl extends IFsiFileItem.Vtbl {
+        get_FsiNamedStreams : IntPtr
+        get_IsNamedStream   : IntPtr
+        AddStream           : IntPtr
+        RemoveStream        : IntPtr
+        get_IsRealTime      : IntPtr
+        put_IsRealTime      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FsiNamedStreams", "get_IsNamedStream", "AddStream", "RemoveStream", "get_IsRealTime", "put_IsRealTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsiFileItem2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IFsiNamedStreams} 
@@ -85,7 +101,7 @@ class IFsiFileItem2 extends IFsiFileItem {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-get_isnamedstream
      */
     get_IsNamedStream() {
-        result := ComCall(25, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -246,7 +262,7 @@ class IFsiFileItem2 extends IFsiFileItem {
     AddStream(name, streamData) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(26, this, "ptr", name, "ptr", streamData, "HRESULT")
+        result := ComCall(26, this, BSTR, name, "ptr", streamData, "HRESULT")
         return result
     }
 
@@ -404,7 +420,7 @@ class IFsiFileItem2 extends IFsiFileItem {
     RemoveStream(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(27, this, "ptr", name, "HRESULT")
+        result := ComCall(27, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -421,7 +437,7 @@ class IFsiFileItem2 extends IFsiFileItem {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-get_isrealtime
      */
     get_IsRealTime() {
-        result := ComCall(28, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -488,7 +504,37 @@ class IFsiFileItem2 extends IFsiFileItem {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-put_isrealtime
      */
     put_IsRealTime(newVal) {
-        result := ComCall(29, this, "short", newVal, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsiFileItem2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FsiNamedStreams := CallbackCreate(GetMethod(implObj, "get_FsiNamedStreams"), flags, 2)
+        this.vtbl.get_IsNamedStream := CallbackCreate(GetMethod(implObj, "get_IsNamedStream"), flags, 2)
+        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 3)
+        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.get_IsRealTime := CallbackCreate(GetMethod(implObj, "get_IsRealTime"), flags, 2)
+        this.vtbl.put_IsRealTime := CallbackCreate(GetMethod(implObj, "put_IsRealTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FsiNamedStreams)
+        CallbackFree(this.vtbl.get_IsNamedStream)
+        CallbackFree(this.vtbl.AddStream)
+        CallbackFree(this.vtbl.RemoveStream)
+        CallbackFree(this.vtbl.get_IsRealTime)
+        CallbackFree(this.vtbl.put_IsRealTime)
     }
 }

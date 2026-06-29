@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IESEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IESEvent.ahk" { IESEvent }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Implements an event that Protected Broadcast Driver Architecture (PBDA) Media Transform Devices (MTDs) use to inform a Media Sink Device that the MTD has updated the value for a name-value pair or exposed a new name-value pair.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iesvalueupdatedevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IESValueUpdatedEvent extends IESEvent {
-
-    static sizeof => A_PtrSize
+export default struct IESValueUpdatedEvent extends IESEvent {
     /**
      * The interface identifier for IESValueUpdatedEvent
      * @type {Guid}
      */
-    static IID => Guid("{8a24c46e-bb63-4664-8602-5d9c718c146d}")
+    static IID := Guid("{8a24c46e-bb63-4664-8602-5d9c718c146d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IESValueUpdatedEvent interfaces
+    */
+    struct Vtbl extends IESEvent.Vtbl {
+        GetValueNames : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetValueNames"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IESValueUpdatedEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * For a name-value pair in the PBDA General Purpose Name-Value Service, gets the name for the value that has been updated.
@@ -39,5 +48,25 @@ class IESValueUpdatedEvent extends IESEvent {
     GetValueNames() {
         result := ComCall(8, this, "ptr*", &pbstrNames := 0, "HRESULT")
         return pbstrNames
+    }
+
+    Query(iid) {
+        if (IESValueUpdatedEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetValueNames := CallbackCreate(GetMethod(implObj, "GetValueNames"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetValueNames)
     }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleInPlaceSite.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides an additional set of activation and deactivation notification methods that enable an object to avoid unnecessary flashing on the screen when the object is activated and deactivated.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleinplacesiteex
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceSiteEx extends IOleInPlaceSite {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceSiteEx extends IOleInPlaceSite {
     /**
      * The interface identifier for IOleInPlaceSiteEx
      * @type {Guid}
      */
-    static IID => Guid("{9c2cad80-3424-11cf-b670-00aa004cd6d8}")
+    static IID := Guid("{9c2cad80-3424-11cf-b670-00aa004cd6d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceSiteEx interfaces
+    */
+    struct Vtbl extends IOleInPlaceSite.Vtbl {
+        OnInPlaceActivateEx   : IntPtr
+        OnInPlaceDeactivateEx : IntPtr
+        RequestUIActivate     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnInPlaceActivateEx", "OnInPlaceDeactivateEx", "RequestUIActivate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceSiteEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the embedded object to determine whether it needs to redraw itself upon activation.
@@ -45,7 +56,7 @@ class IOleInPlaceSiteEx extends IOleInPlaceSite {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesiteex-oninplaceactivateex
      */
     OnInPlaceActivateEx(dwFlags) {
-        result := ComCall(15, this, "int*", &pfNoRedraw := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pfNoRedraw := 0, "uint", dwFlags, "HRESULT")
         return pfNoRedraw
     }
 
@@ -76,7 +87,7 @@ class IOleInPlaceSiteEx extends IOleInPlaceSite {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesiteex-oninplacedeactivateex
      */
     OnInPlaceDeactivateEx(fNoRedraw) {
-        result := ComCall(16, this, "int", fNoRedraw, "HRESULT")
+        result := ComCall(16, this, BOOL, fNoRedraw, "HRESULT")
         return result
     }
 
@@ -121,5 +132,29 @@ class IOleInPlaceSiteEx extends IOleInPlaceSite {
     RequestUIActivate() {
         result := ComCall(17, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleInPlaceSiteEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnInPlaceActivateEx := CallbackCreate(GetMethod(implObj, "OnInPlaceActivateEx"), flags, 3)
+        this.vtbl.OnInPlaceDeactivateEx := CallbackCreate(GetMethod(implObj, "OnInPlaceDeactivateEx"), flags, 2)
+        this.vtbl.RequestUIActivate := CallbackCreate(GetMethod(implObj, "RequestUIActivate"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnInPlaceActivateEx)
+        CallbackFree(this.vtbl.OnInPlaceDeactivateEx)
+        CallbackFree(this.vtbl.RequestUIActivate)
     }
 }

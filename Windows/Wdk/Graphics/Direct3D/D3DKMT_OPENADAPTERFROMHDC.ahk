@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OPENADAPTERFROMHDC extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMT_OPENADAPTERFROMHDC {
+    #StructPack 8
 
-    static packingSize => 8
+    hDc : HDC
 
-    /**
-     * @type {HDC}
-     */
-    hDc {
-        get {
-            if(!this.HasProp("__hDc"))
-                this.__hDc := HDC(0, this)
-            return this.__hDc
-        }
-    }
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AdapterLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AdapterLuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

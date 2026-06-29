@@ -1,55 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWSETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\JOYREGHWSETTINGS.ahk" { JOYREGHWSETTINGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIJOYTYPEINFO_DX5 extends Win32Struct {
-    static sizeof => 1056
+export default struct DIJOYTYPEINFO_DX5 {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hws : JOYREGHWSETTINGS
 
-    /**
-     * @type {JOYREGHWSETTINGS}
-     */
-    hws {
-        get {
-            if(!this.HasProp("__hws"))
-                this.__hws := JOYREGHWSETTINGS(4, this)
-            return this.__hws
-        }
-    }
+    clsidConfig : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    clsidConfig {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszDisplayName : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    wszDisplayName {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
-    }
+    wszCallout : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    wszCallout {
-        get => StrGet(this.ptr + 536, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 259, "UTF-16")
-    }
 }

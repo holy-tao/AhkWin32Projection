@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains an identifying value associated with a biometric template.
@@ -17,83 +17,27 @@
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-identity
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_IDENTITY extends Win32Struct {
-    static sizeof => 80
+export default struct WINBIO_IDENTITY {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+    struct _Value {
 
-        class _AccountSid extends Win32Struct {
-            static sizeof => 72
-            static packingSize => 4
+        struct _AccountSid {
+            Size : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Size {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Data : Int8[68]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Data {
-                get {
-                    if(!this.HasProp("__DataProxyArray"))
-                        this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 68, Primitive, "char")
-                    return this.__DataProxyArray
-                }
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        Null {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Null : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Wildcard {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        TemplateGuid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {_AccountSid}
-         */
-        AccountSid {
-            get {
-                if(!this.HasProp("__AccountSid"))
-                    this.__AccountSid := WINBIO_IDENTITY._Value_e__Union._AccountSid(0, this)
-                return this.__AccountSid
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        SecureId {
-            get {
-                if(!this.HasProp("__SecureIdProxyArray"))
-                    this.__SecureIdProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
-                return this.__SecureIdProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Wildcard', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'TemplateGuid', { type: Guid, offset: 0 })
+            DefineProp(this.Prototype, 'AccountSid', { type: WINBIO_IDENTITY._Value._AccountSid, offset: 0 })
+            DefineProp(this.Prototype, 'SecureId', { type: Int8[32], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -108,22 +52,12 @@ class WINBIO_IDENTITY extends Win32Struct {
      * | <span id="WINBIO_ID_TYPE_WILDCARD"></span><span id="winbio_id_type_wildcard"></span><dl> <dt>**WINBIO\_ID\_TYPE\_WILDCARD**</dt> </dl> | The structure matches all template identities.<br/>                       |
      * | <span id="WINBIO_ID_TYPE_GUID"></span><span id="winbio_id_type_guid"></span><dl> <dt>**WINBIO\_ID\_TYPE\_GUID**</dt> </dl>             | The structure contains a GUID associated with the template.<br/>          |
      * | <span id="WINBIO_ID_TYPE_SID"></span><span id="winbio_id_type_sid"></span><dl> <dt>**WINBIO\_ID\_TYPE\_SID**</dt> </dl>                | The structure contains the account SID associated with the template.<br/> |
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : UInt32
 
     /**
      * A union that can contain one of the following values:
-     * @type {_Value_e__Union}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := WINBIO_IDENTITY._Value_e__Union(8, this)
-            return this.__Value
-        }
-    }
+    Value : WINBIO_IDENTITY._Value
+
 }

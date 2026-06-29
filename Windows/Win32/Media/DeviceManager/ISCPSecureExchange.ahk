@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISCPSecureExchange interface is used to exchange secured content and rights associated with content. The secure content provider implements this interface and secure Windows Media Device Manager implementations call its methods.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureexchange
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class ISCPSecureExchange extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISCPSecureExchange extends IUnknown {
     /**
      * The interface identifier for ISCPSecureExchange
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a0e-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a0e-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISCPSecureExchange interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TransferContainerData : IntPtr
+        ObjectData            : IntPtr
+        TransferComplete      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TransferContainerData", "ObjectData", "TransferComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISCPSecureExchange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The TransferContainerData method transfers container file data to the secure content provider. The secure content provider breaks down the container internally and reports which parts of the content are available as they are extracted from the container.
@@ -144,5 +154,29 @@ class ISCPSecureExchange extends IUnknown {
     TransferComplete() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISCPSecureExchange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TransferContainerData := CallbackCreate(GetMethod(implObj, "TransferContainerData"), flags, 5)
+        this.vtbl.ObjectData := CallbackCreate(GetMethod(implObj, "ObjectData"), flags, 4)
+        this.vtbl.TransferComplete := CallbackCreate(GetMethod(implObj, "TransferComplete"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TransferContainerData)
+        CallbackFree(this.vtbl.ObjectData)
+        CallbackFree(this.vtbl.TransferComplete)
     }
 }

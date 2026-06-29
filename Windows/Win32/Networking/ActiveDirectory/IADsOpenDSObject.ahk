@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IADsOpenDSObject interface is designed to supply a security context for binding to an object in the underlying directory store.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsopendsobject
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsOpenDSObject extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsOpenDSObject extends IDispatch {
     /**
      * The interface identifier for IADsOpenDSObject
      * @type {Guid}
      */
-    static IID => Guid("{ddf2891e-0f9c-11d0-8ad4-00c04fd8d503}")
+    static IID := Guid("{ddf2891e-0f9c-11d0-8ad4-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsOpenDSObject interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        OpenDSObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenDSObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsOpenDSObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Binds to an ADSI object, using the given credentials, and retrieves an IDispatch pointer to the specified object.
@@ -126,7 +135,27 @@ class IADsOpenDSObject extends IDispatch {
         lpszUserName := lpszUserName is String ? BSTR.Alloc(lpszUserName).Value : lpszUserName
         lpszPassword := lpszPassword is String ? BSTR.Alloc(lpszPassword).Value : lpszPassword
 
-        result := ComCall(7, this, "ptr", lpszDNName, "ptr", lpszUserName, "ptr", lpszPassword, "int", lnReserved, "ptr*", &ppOleDsObj := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, lpszDNName, BSTR, lpszUserName, BSTR, lpszPassword, "int", lnReserved, "ptr*", &ppOleDsObj := 0, "HRESULT")
         return IDispatch(ppOleDsObj)
+    }
+
+    Query(iid) {
+        if (IADsOpenDSObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenDSObject := CallbackCreate(GetMethod(implObj, "OpenDSObject"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenDSObject)
     }
 }

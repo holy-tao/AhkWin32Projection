@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputMouseButtons.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputMouseButtons.ahk" { GameInputMouseButtons }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputMouseState extends Win32Struct {
-    static sizeof => 40
+export default struct GameInputMouseState {
+    #StructPack 8
 
-    static packingSize => 8
+    buttons : GameInputMouseButtons
 
-    /**
-     * @type {GameInputMouseButtons}
-     */
-    buttons {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    positionX : Int64
 
-    /**
-     * @type {Integer}
-     */
-    positionX {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    positionY : Int64
 
-    /**
-     * @type {Integer}
-     */
-    positionY {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    wheelX : Int64
 
-    /**
-     * @type {Integer}
-     */
-    wheelX {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    wheelY : Int64
 
-    /**
-     * @type {Integer}
-     */
-    wheelY {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
 }

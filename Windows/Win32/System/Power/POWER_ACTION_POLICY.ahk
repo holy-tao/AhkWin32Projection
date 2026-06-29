@@ -1,27 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_ACTION.ahk
-#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POWER_ACTION_POLICY_EVENT_CODE.ahk" { POWER_ACTION_POLICY_EVENT_CODE }
+#Import ".\POWER_ACTION.ahk" { POWER_ACTION }
 
 /**
  * Contains information used to set the system power state.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-power_action_policy
  * @namespace Windows.Win32.System.Power
  */
-class POWER_ACTION_POLICY extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct POWER_ACTION_POLICY {
+    #StructPack 4
 
     /**
      * The requested system power state. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_action">POWER_ACTION</a> enumeration type values.
-     * @type {POWER_ACTION}
      */
-    Action {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Action : POWER_ACTION
 
     /**
      * A flag that controls how to switch the power state. This member can be one or more of the following 
@@ -116,18 +109,9 @@ class POWER_ACTION_POLICY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {POWER_ACTION_POLICY_EVENT_CODE}
-     */
-    EventCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EventCode : POWER_ACTION_POLICY_EVENT_CODE
+
 }

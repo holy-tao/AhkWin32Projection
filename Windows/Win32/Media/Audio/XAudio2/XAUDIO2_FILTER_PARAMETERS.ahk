@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XAUDIO2_FILTER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XAUDIO2_FILTER_TYPE.ahk" { XAUDIO2_FILTER_TYPE }
 
 /**
  * Defines filter parameters for a source voice.
@@ -48,36 +47,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_filter_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAUDIO2_FILTER_PARAMETERS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct XAUDIO2_FILTER_PARAMETERS {
+    #StructPack 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ne-xaudio2-xaudio2_filter_type">XAUDIO2_FILTER_TYPE</a>.
-     * @type {XAUDIO2_FILTER_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : XAUDIO2_FILTER_TYPE
 
     /**
      * Filter radian frequency calculated as (2 * sin(pi * (desired filter cutoff frequency) / sampleRate)). The frequency must be greater than or equal to 0 and less than or equal to XAUDIO2_MAX_FILTER_FREQUENCY. The maximum frequency allowable is equal to the source sound's sample rate divided by six which corresponds to the maximum filter radian frequency of 1. For example, if a sound's sample rate is 48000 and the desired cutoff frequency is the maximum allowable value for that sample rate, 8000, the value for <b>Frequency</b> will be 1. 
      * If XAUDIO2_HELPER_FUNCTIONS is defined, XAudio2.h will include the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-xaudio2radianstocutofffrequency">XAudio2RadiansToCutoffFrequency</a> and <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-xaudio2cutofffrequencytoradians">XAudio2CutoffFrequencyToRadians</a> helper functions for converting between hertz and radian frequencies. Defining XAUDIO2_HELPER_FUNCTIONS will also include <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-xaudio2cutofffrequencytoonepolecoefficient">XAudio2CutoffFrequencyToOnePoleCoefficient</a> for converting between hertz and a one-pole coefficient suitable for use with the LowPassOnePoleFilter and HighPassOnePoleFilter.
-     * @type {Float}
      */
-    Frequency {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Frequency : Float32
 
     /**
      * Reciprocal of Q factor. Controls how quickly frequencies beyond Frequency are dampened. Larger values result in quicker dampening while smaller values cause dampening to occur more gradually. Must be greater than 0 and less than or equal to XAUDIO2_MAX_FILTER_ONEOVERQ.
-     * @type {Float}
      */
-    OneOverQ {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    OneOverQ : Float32
+
 }

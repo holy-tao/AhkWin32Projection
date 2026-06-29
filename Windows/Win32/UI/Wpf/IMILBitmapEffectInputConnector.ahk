@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMILBitmapEffectConnector.ahk
-#Include .\IMILBitmapEffectOutputConnector.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffectConnector.ahk" { IMILBitmapEffectConnector }
+#Import ".\IMILBitmapEffectOutputConnector.ahk" { IMILBitmapEffectOutputConnector }
 
 /**
  * Exposes methods that define an input connect.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector
  * @namespace Windows.Win32.UI.Wpf
  */
-class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector {
-
-    static sizeof => A_PtrSize
+export default struct IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector {
     /**
      * The interface identifier for IMILBitmapEffectInputConnector
      * @type {Guid}
      */
-    static IID => Guid("{a9b4ecaa-7a3c-45e7-8573-f4b81b60dd6c}")
+    static IID := Guid("{a9b4ecaa-7a3c-45e7-8573-f4b81b60dd6c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMILBitmapEffectInputConnector interfaces
+    */
+    struct Vtbl extends IMILBitmapEffectConnector.Vtbl {
+        ConnectTo     : IntPtr
+        GetConnection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConnectTo", "GetConnection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMILBitmapEffectInputConnector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Connects the input connector to the given output connector.
@@ -55,5 +64,27 @@ class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector {
     GetConnection() {
         result := ComCall(10, this, "ptr*", &ppConnector := 0, "HRESULT")
         return IMILBitmapEffectOutputConnector(ppConnector)
+    }
+
+    Query(iid) {
+        if (IMILBitmapEffectInputConnector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConnectTo := CallbackCreate(GetMethod(implObj, "ConnectTo"), flags, 2)
+        this.vtbl.GetConnection := CallbackCreate(GetMethod(implObj, "GetConnection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConnectTo)
+        CallbackFree(this.vtbl.GetConnection)
     }
 }

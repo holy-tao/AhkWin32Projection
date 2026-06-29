@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The REPAIR_SCOPE enumeration describes the scope of modification for a given repair.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ne-ndattrib-repair_scope
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class REPAIR_SCOPE extends Win32Enum {
+export default struct REPAIR_SCOPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The repair effect is system-wide.

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPMetadataPicture interface provides methods for retrieving information about the WM/Picture metadata attribute.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmetadatapicture
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPMetadataPicture extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPMetadataPicture extends IDispatch {
     /**
      * The interface identifier for IWMPMetadataPicture
      * @type {Guid}
      */
-    static IID => Guid("{5c29bbe0-f87d-4c45-aa28-a70f0230ffa9}")
+    static IID := Guid("{5c29bbe0-f87d-4c45-aa28-a70f0230ffa9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPMetadataPicture interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_mimeType    : IntPtr
+        get_pictureType : IntPtr
+        get_description : IntPtr
+        get_URL         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_mimeType", "get_pictureType", "get_description", "get_URL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPMetadataPicture.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -82,7 +94,7 @@ class IWMPMetadataPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_mimetype
      */
     get_mimeType(pbstrMimeType) {
-        result := ComCall(7, this, "ptr", pbstrMimeType, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pbstrMimeType, "HRESULT")
         return result
     }
 
@@ -115,7 +127,7 @@ class IWMPMetadataPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_picturetype
      */
     get_pictureType(pbstrPictureType) {
-        result := ComCall(8, this, "ptr", pbstrPictureType, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pbstrPictureType, "HRESULT")
         return result
     }
 
@@ -148,7 +160,7 @@ class IWMPMetadataPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_description
      */
     get_description(pbstrDescription) {
-        result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return result
     }
 
@@ -177,7 +189,33 @@ class IWMPMetadataPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_url
      */
     get_URL(pbstrURL) {
-        result := ComCall(10, this, "ptr", pbstrURL, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pbstrURL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPMetadataPicture.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_pictureType := CallbackCreate(GetMethod(implObj, "get_pictureType"), flags, 2)
+        this.vtbl.get_description := CallbackCreate(GetMethod(implObj, "get_description"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_mimeType)
+        CallbackFree(this.vtbl.get_pictureType)
+        CallbackFree(this.vtbl.get_description)
+        CallbackFree(this.vtbl.get_URL)
     }
 }

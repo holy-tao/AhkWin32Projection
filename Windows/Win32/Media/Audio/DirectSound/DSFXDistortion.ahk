@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSFXDistortion extends Win32Struct {
-    static sizeof => 20
+export default struct DSFXDistortion {
+    #StructPack 4
 
-    static packingSize => 4
+    fGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    fGain {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    fEdge : Float32
 
-    /**
-     * @type {Float}
-     */
-    fEdge {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    fPostEQCenterFrequency : Float32
 
-    /**
-     * @type {Float}
-     */
-    fPostEQCenterFrequency {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    fPostEQBandwidth : Float32
 
-    /**
-     * @type {Float}
-     */
-    fPostEQBandwidth {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    fPreLowpassCutoff : Float32
 
-    /**
-     * @type {Float}
-     */
-    fPreLowpassCutoff {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
 }

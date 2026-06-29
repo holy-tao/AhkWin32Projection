@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\IMMDevice.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\IMMDevice.ahk" { IMMDevice }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR structure (audioengineextensionapo.h) specifies an system effects property change APO notification.
@@ -11,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_systemeffects_property_change_apo_notification_descriptor
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * The [IMMDevice](../mmdeviceapi/nn-mmdeviceapi-immdevice.md) representing the audio endpoint associated with the notification request.
-     * @type {IMMDevice}
      */
-    device {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    device : IMMDevice
 
     /**
      * A GUID identifying the APO property store associated with the notification.
-     * @type {Pointer}
      */
-    propertyStoreContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    propertyStoreContext : Guid
+
 }

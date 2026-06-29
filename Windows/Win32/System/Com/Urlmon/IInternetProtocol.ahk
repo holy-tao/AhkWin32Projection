@@ -1,38 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IInternetProtocolRoot.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IInternetProtocolRoot.ahk" { IInternetProtocolRoot }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetProtocol extends IInternetProtocolRoot {
-
-    static sizeof => A_PtrSize
+export default struct IInternetProtocol extends IInternetProtocolRoot {
     /**
      * The interface identifier for IInternetProtocol
      * @type {Guid}
      */
-    static IID => Guid("{79eac9e4-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9e4-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetProtocol interfaces
+    */
+    struct Vtbl extends IInternetProtocolRoot.Vtbl {
+        Read          : IntPtr
+        Seek          : IntPtr
+        LockRequest   : IntPtr
+        UnlockRequest : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetProtocol.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Read", "Seek", "LockRequest", "UnlockRequest"]
-
-    /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -42,17 +52,10 @@ class IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
-     * @remarks
-     * This is a coded attribute.
      * 
-     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
-     * 
-     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(dlibMove, dwOrigin) {
         result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
@@ -76,5 +79,31 @@ class IInternetProtocol extends IInternetProtocolRoot {
     UnlockRequest() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetProtocol.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.LockRequest := CallbackCreate(GetMethod(implObj, "LockRequest"), flags, 2)
+        this.vtbl.UnlockRequest := CallbackCreate(GetMethod(implObj, "UnlockRequest"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.LockRequest)
+        CallbackFree(this.vtbl.UnlockRequest)
     }
 }

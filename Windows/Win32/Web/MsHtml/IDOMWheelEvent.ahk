@@ -1,37 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEventTarget.ahk" { IEventTarget }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDOMWheelEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDOMWheelEvent extends IDispatch {
     /**
      * The interface identifier for IDOMWheelEvent
      * @type {Guid}
      */
-    static IID => Guid("{305106d2-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305106d2-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for DOMWheelEvent
      * @type {Guid}
      */
-    static CLSID => Guid("{305106d3-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305106d3-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDOMWheelEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_deltaX     : IntPtr
+        get_deltaY     : IntPtr
+        get_deltaZ     : IntPtr
+        get_deltaMode  : IntPtr
+        initWheelEvent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_deltaX", "get_deltaY", "get_deltaZ", "get_deltaMode", "initWheelEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDOMWheelEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -121,7 +137,35 @@ class IDOMWheelEvent extends IDispatch {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
         modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
 
-        result := ComCall(11, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, "ptr", modifiersListArg, "int", deltaX, "int", deltaY, "int", deltaZ, "uint", deltaMode, "HRESULT")
+        result := ComCall(11, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, BSTR, modifiersListArg, "int", deltaX, "int", deltaY, "int", deltaZ, "uint", deltaMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDOMWheelEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_deltaX := CallbackCreate(GetMethod(implObj, "get_deltaX"), flags, 2)
+        this.vtbl.get_deltaY := CallbackCreate(GetMethod(implObj, "get_deltaY"), flags, 2)
+        this.vtbl.get_deltaZ := CallbackCreate(GetMethod(implObj, "get_deltaZ"), flags, 2)
+        this.vtbl.get_deltaMode := CallbackCreate(GetMethod(implObj, "get_deltaMode"), flags, 2)
+        this.vtbl.initWheelEvent := CallbackCreate(GetMethod(implObj, "initWheelEvent"), flags, 17)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_deltaX)
+        CallbackFree(this.vtbl.get_deltaY)
+        CallbackFree(this.vtbl.get_deltaZ)
+        CallbackFree(this.vtbl.get_deltaMode)
+        CallbackFree(this.vtbl.initWheelEvent)
     }
 }

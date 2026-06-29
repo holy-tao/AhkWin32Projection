@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_PLAY_AUDIO_MSF extends Win32Struct {
-    static sizeof => 6
+export default struct CDROM_PLAY_AUDIO_MSF {
+    #StructPack 1
 
-    static packingSize => 1
+    StartingM : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StartingM {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    StartingS : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StartingS {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    StartingF : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StartingF {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    EndingM : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EndingM {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    EndingS : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EndingS {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    EndingF : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EndingF {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
 }

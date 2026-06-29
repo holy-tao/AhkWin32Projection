@@ -1,132 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDIFORMAT.ahk
-#Include .\D3DDDI_POOL.ahk
-#Include .\D3DDDIMULTISAMPLE_TYPE.ahk
-#Include .\D3DDDI_SURFACEINFO.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DDDI_ROTATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
+#Import ".\D3DDDI_POOL.ahk" { D3DDDI_POOL }
+#Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
+#Import ".\D3DDDI_SURFACEINFO.ahk" { D3DDDI_SURFACEINFO }
+#Import ".\D3DDDIMULTISAMPLE_TYPE.ahk" { D3DDDIMULTISAMPLE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDIARG_CREATERESOURCE2 extends Win32Struct {
-    static sizeof => 80
+export default struct D3DDDIARG_CREATERESOURCE2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Format : D3DDDIFORMAT
 
-    /**
-     * @type {D3DDDIFORMAT}
-     */
-    Format {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Pool : D3DDDI_POOL
 
-    /**
-     * @type {D3DDDI_POOL}
-     */
-    Pool {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    MultisampleType : D3DDDIMULTISAMPLE_TYPE
 
-    /**
-     * @type {D3DDDIMULTISAMPLE_TYPE}
-     */
-    MultisampleType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    MultisampleQuality : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MultisampleQuality {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    pSurfList : D3DDDI_SURFACEINFO.Ptr
 
-    /**
-     * @type {Pointer<D3DDDI_SURFACEINFO>}
-     */
-    pSurfList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SurfCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SurfCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MipLevels : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MipLevels {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Fvf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Fvf {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    RefreshRate : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RefreshRate {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    hResource : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hResource {
-        get {
-            if(!this.HasProp("__hResource"))
-                this.__hResource := HANDLE(48, this)
-            return this.__hResource
-        }
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Rotation : D3DDDI_ROTATION
 
-    /**
-     * @type {D3DDDI_ROTATION}
-     */
-    Rotation {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    Flags2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags2 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

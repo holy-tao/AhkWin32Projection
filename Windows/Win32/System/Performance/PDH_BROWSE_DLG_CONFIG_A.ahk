@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\PERF_DETAIL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PDH_BROWSE_DLG_CONFIG structure is used by the PdhBrowseCounters function to configure the Browse Performance Counters dialog box. (ANSI)
@@ -13,10 +13,8 @@
  * @namespace Windows.Win32.System.Performance
  * @charset ANSI
  */
-class PDH_BROWSE_DLG_CONFIG_A extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct PDH_BROWSE_DLG_CONFIG_A {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
@@ -31,12 +29,9 @@ class PDH_BROWSE_DLG_CONFIG_A extends Win32Struct {
      * - bIncludeCostlyObjects
      * - bShowObjectBrowser
      * - bReserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -125,66 +120,38 @@ class PDH_BROWSE_DLG_CONFIG_A extends Win32Struct {
         get => (this._bitfield >> 10) & 0x3FFFFF
         set => this._bitfield := ((value & 0x3FFFFF) << 10) | (this._bitfield & ~(0x3FFFFF << 10))
     }
-
     /**
      * Handle of the window to own the dialog. If <b>NULL</b>, the owner is the desktop.
-     * @type {HWND}
      */
-    hWndOwner {
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(8, this)
-            return this.__hWndOwner
-        }
-    }
+    hWndOwner : HWND
 
     /**
      * Pointer to a <b>null</b>-terminated string that specifies the name of the log file from which the list of counters is retrieved. If <b>NULL</b>, the list of counters is retrieved from the local computer (or remote computer if specified).
-     * @type {PSTR}
      */
-    szDataSource {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szDataSource : PSTR
 
     /**
      * Pointer to a MULTI_SZ that contains the selected counter paths. 
      * 
      * If <b>bInitializePath</b> is <b>TRUE</b>, you can use this member to specify a counter path whose components are used to highlight entries in computer, object, counter, and instance lists when the dialog is first displayed.
-     * @type {PSTR}
      */
-    szReturnPathBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szReturnPathBuffer : PSTR
 
     /**
      * Size of the <b>szReturnPathBuffer</b> buffer, in <b>TCHARs</b>. If the callback function reallocates a new buffer, it must also update this value.
-     * @type {Integer}
      */
-    cchReturnPathLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cchReturnPathLength : UInt32
 
     /**
      * Pointer to the callback function that processes the user's selection. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nc-pdh-counterpathcallback">CounterPathCallBack</a>.
-     * @type {Pointer<CounterPathCallBack>}
      */
-    pCallBack {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pCallBack : IntPtr
 
     /**
      * Caller-defined value that is passed to the callback function.
-     * @type {Pointer}
      */
-    dwCallBackArg {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwCallBackArg : IntPtr
 
     /**
      * On entry to the callback function, this member contains the status of the path buffer. On exit, the callback function sets the status value resulting from processing. 
@@ -197,27 +164,14 @@ class PDH_BROWSE_DLG_CONFIG_A extends Win32Struct {
      * If the callback function reallocates a new buffer, it should set this member to PDH_RETRY so that the dialog will try to load the buffer with the selected paths and call the callback function again.
      * 
      * If some other error occurred, then the callback function should return the appropriate PDH error status value.
-     * @type {Integer}
      */
-    CallBackStatus {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    CallBackStatus : Int32
 
-    /**
-     * @type {PERF_DETAIL}
-     */
-    dwDefaultDetailLevel {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwDefaultDetailLevel : PERF_DETAIL
 
     /**
      * Pointer to a <b>null</b>-terminated string that specifies the optional caption to display in the caption bar of the dialog box. If this member is <b>NULL</b>, the caption will be <b>Browse Performance Counters</b>.
-     * @type {PSTR}
      */
-    szDialogBoxCaption {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    szDialogBoxCaption : PSTR
+
 }

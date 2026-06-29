@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFClock.ahk
-#Include .\IMFPresentationTimeSource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFPresentationTimeSource.ahk" { IMFPresentationTimeSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFClock.ahk" { IMFClock }
+#Import ".\IMFClockStateSink.ahk" { IMFClockStateSink }
 
 /**
  * Represents a presentation clock, which is used to schedule when samples are rendered and to synchronize multiple streams.
@@ -13,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpresentationclock
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFPresentationClock extends IMFClock {
-
-    static sizeof => A_PtrSize
+export default struct IMFPresentationClock extends IMFClock {
     /**
      * The interface identifier for IMFPresentationClock
      * @type {Guid}
      */
-    static IID => Guid("{868ce85c-8ea9-4f55-ab82-b009a910a805}")
+    static IID := Guid("{868ce85c-8ea9-4f55-ab82-b009a910a805}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFPresentationClock interfaces
+    */
+    struct Vtbl extends IMFClock.Vtbl {
+        SetTimeSource        : IntPtr
+        GetTimeSource        : IntPtr
+        GetTime              : IntPtr
+        AddClockStateSink    : IntPtr
+        RemoveClockStateSink : IntPtr
+        Start                : IntPtr
+        Stop                 : IntPtr
+        Pause                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTimeSource", "GetTimeSource", "GetTime", "AddClockStateSink", "RemoveClockStateSink", "Start", "Stop", "Pause"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFPresentationClock.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the time source for the presentation clock. The time source is the object that drives the clock by providing the current time.
@@ -338,5 +354,39 @@ class IMFPresentationClock extends IMFClock {
     Pause() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFPresentationClock.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTimeSource := CallbackCreate(GetMethod(implObj, "SetTimeSource"), flags, 2)
+        this.vtbl.GetTimeSource := CallbackCreate(GetMethod(implObj, "GetTimeSource"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.AddClockStateSink := CallbackCreate(GetMethod(implObj, "AddClockStateSink"), flags, 2)
+        this.vtbl.RemoveClockStateSink := CallbackCreate(GetMethod(implObj, "RemoveClockStateSink"), flags, 2)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTimeSource)
+        CallbackFree(this.vtbl.GetTimeSource)
+        CallbackFree(this.vtbl.GetTime)
+        CallbackFree(this.vtbl.AddClockStateSink)
+        CallbackFree(this.vtbl.RemoveClockStateSink)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Pause)
     }
 }

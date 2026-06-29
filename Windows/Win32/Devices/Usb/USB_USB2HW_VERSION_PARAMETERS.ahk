@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_USB2HW_VERSION_PARAMETERS extends Win32Struct {
-    static sizeof => 1
+export default struct USB_USB2HW_VERSION_PARAMETERS {
+    #StructPack 1
 
-    static packingSize => 1
+    Usb2HwRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Usb2HwRevision {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
 }

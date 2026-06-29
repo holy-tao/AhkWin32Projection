@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\KSTOPOLOGY_CONNECTION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSTOPOLOGY_CONNECTION.ahk" { KSTOPOLOGY_CONNECTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsTopologyInfo interface enumerates the nodes in a stream class driver. The KsProxy filter exposes this interface. Applications can use this interface to examine the internal topology of a kernel-mode filter.
@@ -18,26 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-ikstopologyinfo
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsTopologyInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsTopologyInfo extends IUnknown {
     /**
      * The interface identifier for IKsTopologyInfo
      * @type {Guid}
      */
-    static IID => Guid("{720d4ac0-7533-11d0-a5d6-28db04c10000}")
+    static IID := Guid("{720d4ac0-7533-11d0-a5d6-28db04c10000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsTopologyInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_NumCategories  : IntPtr
+        get_Category       : IntPtr
+        get_NumConnections : IntPtr
+        get_ConnectionInfo : IntPtr
+        get_NodeName       : IntPtr
+        get_NumNodes       : IntPtr
+        get_NodeType       : IntPtr
+        CreateNodeInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_NumCategories", "get_Category", "get_NumConnections", "get_ConnectionInfo", "get_NodeName", "get_NumNodes", "get_NodeType", "CreateNodeInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsTopologyInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -78,7 +92,7 @@ class IKsTopologyInfo extends IUnknown {
      */
     get_Category(dwIndex) {
         pCategory := Guid()
-        result := ComCall(4, this, "uint", dwIndex, "ptr", pCategory, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, Guid.Ptr, pCategory, "HRESULT")
         return pCategory
     }
 
@@ -102,7 +116,7 @@ class IKsTopologyInfo extends IUnknown {
      */
     get_ConnectionInfo(dwIndex) {
         pConnectionInfo := KSTOPOLOGY_CONNECTION()
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pConnectionInfo, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, KSTOPOLOGY_CONNECTION.Ptr, pConnectionInfo, "HRESULT")
         return pConnectionInfo
     }
 
@@ -139,7 +153,7 @@ class IKsTopologyInfo extends IUnknown {
      */
     get_NodeType(dwNodeId) {
         pNodeType := Guid()
-        result := ComCall(9, this, "uint", dwNodeId, "ptr", pNodeType, "HRESULT")
+        result := ComCall(9, this, "uint", dwNodeId, Guid.Ptr, pNodeType, "HRESULT")
         return pNodeType
     }
 
@@ -153,7 +167,41 @@ class IKsTopologyInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-createnodeinstance
      */
     CreateNodeInstance(dwNodeId, iid) {
-        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(10, this, "uint", dwNodeId, Guid.Ptr, iid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
+    }
+
+    Query(iid) {
+        if (IKsTopologyInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_NumCategories := CallbackCreate(GetMethod(implObj, "get_NumCategories"), flags, 2)
+        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 3)
+        this.vtbl.get_NumConnections := CallbackCreate(GetMethod(implObj, "get_NumConnections"), flags, 2)
+        this.vtbl.get_ConnectionInfo := CallbackCreate(GetMethod(implObj, "get_ConnectionInfo"), flags, 3)
+        this.vtbl.get_NodeName := CallbackCreate(GetMethod(implObj, "get_NodeName"), flags, 5)
+        this.vtbl.get_NumNodes := CallbackCreate(GetMethod(implObj, "get_NumNodes"), flags, 2)
+        this.vtbl.get_NodeType := CallbackCreate(GetMethod(implObj, "get_NodeType"), flags, 3)
+        this.vtbl.CreateNodeInstance := CallbackCreate(GetMethod(implObj, "CreateNodeInstance"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_NumCategories)
+        CallbackFree(this.vtbl.get_Category)
+        CallbackFree(this.vtbl.get_NumConnections)
+        CallbackFree(this.vtbl.get_ConnectionInfo)
+        CallbackFree(this.vtbl.get_NodeName)
+        CallbackFree(this.vtbl.get_NumNodes)
+        CallbackFree(this.vtbl.get_NodeType)
+        CallbackFree(this.vtbl.CreateNodeInstance)
     }
 }

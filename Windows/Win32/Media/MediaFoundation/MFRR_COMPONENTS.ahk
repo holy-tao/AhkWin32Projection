@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFRR_COMPONENT_HASH_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFRR_COMPONENT_HASH_INFO.ahk" { MFRR_COMPONENT_HASH_INFO }
 
 /**
  * Contains information about one or more revoked components.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfrr_components
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFRR_COMPONENTS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MFRR_COMPONENTS {
+    #StructPack 8
 
     /**
      * Revocation information version.
-     * @type {Integer}
      */
-    dwRRInfoVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwRRInfoVersion : UInt32
 
     /**
      * Number of elements in the <b>pRRComponents</b> array.
-     * @type {Integer}
      */
-    dwRRComponents {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwRRComponents : UInt32
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mfrr_component_hash_info">MFRR_COMPONENT_HASH_INFO</a> structures.
-     * @type {Pointer<MFRR_COMPONENT_HASH_INFO>}
      */
-    pRRComponents {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pRRComponents : MFRR_COMPONENT_HASH_INFO.Ptr
+
 }

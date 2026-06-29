@@ -1,37 +1,141 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugClient.ahk
-#Include .\IDebugInputCallbacks.ahk
-#Include .\IDebugOutputCallbacks.ahk
-#Include .\IDebugEventCallbacks.ahk
-#Include .\IDebugOutputCallbacksWide.ahk
-#Include .\IDebugEventCallbacksWide.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\IDebugOutputCallbacks.ahk" { IDebugOutputCallbacks }
+#Import ".\IDebugEventCallbacks.ahk" { IDebugEventCallbacks }
+#Import ".\IDebugEventContextCallbacks.ahk" { IDebugEventContextCallbacks }
+#Import ".\IDebugInputCallbacks.ahk" { IDebugInputCallbacks }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugEventCallbacksWide.ahk" { IDebugEventCallbacksWide }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugOutputCallbacksWide.ahk" { IDebugOutputCallbacksWide }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugClient7 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugClient7 extends IUnknown {
     /**
      * The interface identifier for IDebugClient7
      * @type {Guid}
      */
-    static IID => Guid("{13586be3-542e-481e-b1f2-8497ba74f9a9}")
+    static IID := Guid("{13586be3-542e-481e-b1f2-8497ba74f9a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugClient7 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AttachKernel                                  : IntPtr
+        GetKernelConnectionOptions                    : IntPtr
+        SetKernelConnectionOptions                    : IntPtr
+        StartProcessServer                            : IntPtr
+        ConnectProcessServer                          : IntPtr
+        DisconnectProcessServer                       : IntPtr
+        GetRunningProcessSystemIds                    : IntPtr
+        GetRunningProcessSystemIdByExecutableName     : IntPtr
+        GetRunningProcessDescription                  : IntPtr
+        AttachProcess                                 : IntPtr
+        CreateProcessA                                : IntPtr
+        CreateProcessAndAttach                        : IntPtr
+        GetProcessOptions                             : IntPtr
+        AddProcessOptions                             : IntPtr
+        RemoveProcessOptions                          : IntPtr
+        SetProcessOptions                             : IntPtr
+        OpenDumpFile                                  : IntPtr
+        WriteDumpFile                                 : IntPtr
+        ConnectSession                                : IntPtr
+        StartServer                                   : IntPtr
+        OutputServers                                 : IntPtr
+        TerminateProcesses                            : IntPtr
+        DetachProcesses                               : IntPtr
+        EndSession                                    : IntPtr
+        GetExitCode                                   : IntPtr
+        DispatchCallbacks                             : IntPtr
+        ExitDispatch                                  : IntPtr
+        CreateClient                                  : IntPtr
+        GetInputCallbacks                             : IntPtr
+        SetInputCallbacks                             : IntPtr
+        GetOutputCallbacks                            : IntPtr
+        SetOutputCallbacks                            : IntPtr
+        GetOutputMask                                 : IntPtr
+        SetOutputMask                                 : IntPtr
+        GetOtherOutputMask                            : IntPtr
+        SetOtherOutputMask                            : IntPtr
+        GetOutputWidth                                : IntPtr
+        SetOutputWidth                                : IntPtr
+        GetOutputLinePrefix                           : IntPtr
+        SetOutputLinePrefix                           : IntPtr
+        GetIdentity                                   : IntPtr
+        OutputIdentity                                : IntPtr
+        GetEventCallbacks                             : IntPtr
+        SetEventCallbacks                             : IntPtr
+        FlushCallbacks                                : IntPtr
+        WriteDumpFile2                                : IntPtr
+        AddDumpInformationFile                        : IntPtr
+        EndProcessServer                              : IntPtr
+        WaitForProcessServerEnd                       : IntPtr
+        IsKernelDebuggerEnabled                       : IntPtr
+        TerminateCurrentProcess                       : IntPtr
+        DetachCurrentProcess                          : IntPtr
+        AbandonCurrentProcess                         : IntPtr
+        GetRunningProcessSystemIdByExecutableNameWide : IntPtr
+        GetRunningProcessDescriptionWide              : IntPtr
+        CreateProcessWide                             : IntPtr
+        CreateProcessAndAttachWide                    : IntPtr
+        OpenDumpFileWide                              : IntPtr
+        WriteDumpFileWide                             : IntPtr
+        AddDumpInformationFileWide                    : IntPtr
+        GetNumberDumpFiles                            : IntPtr
+        GetDumpFile                                   : IntPtr
+        GetDumpFileWide                               : IntPtr
+        AttachKernelWide                              : IntPtr
+        GetKernelConnectionOptionsWide                : IntPtr
+        SetKernelConnectionOptionsWide                : IntPtr
+        StartProcessServerWide                        : IntPtr
+        ConnectProcessServerWide                      : IntPtr
+        StartServerWide                               : IntPtr
+        OutputServersWide                             : IntPtr
+        GetOutputCallbacksWide                        : IntPtr
+        SetOutputCallbacksWide                        : IntPtr
+        GetOutputLinePrefixWide                       : IntPtr
+        SetOutputLinePrefixWide                       : IntPtr
+        GetIdentityWide                               : IntPtr
+        OutputIdentityWide                            : IntPtr
+        GetEventCallbacksWide                         : IntPtr
+        SetEventCallbacksWide                         : IntPtr
+        CreateProcess2                                : IntPtr
+        CreateProcess2Wide                            : IntPtr
+        CreateProcessAndAttach2                       : IntPtr
+        CreateProcessAndAttach2Wide                   : IntPtr
+        PushOutputLinePrefix                          : IntPtr
+        PushOutputLinePrefixWide                      : IntPtr
+        PopOutputLinePrefix                           : IntPtr
+        GetNumberInputCallbacks                       : IntPtr
+        GetNumberOutputCallbacks                      : IntPtr
+        GetNumberEventCallbacks                       : IntPtr
+        GetQuitLockString                             : IntPtr
+        SetQuitLockString                             : IntPtr
+        GetQuitLockStringWide                         : IntPtr
+        SetQuitLockStringWide                         : IntPtr
+        SetEventContextCallbacks                      : IntPtr
+        SetClientContext                              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AttachKernel", "GetKernelConnectionOptions", "SetKernelConnectionOptions", "StartProcessServer", "ConnectProcessServer", "DisconnectProcessServer", "GetRunningProcessSystemIds", "GetRunningProcessSystemIdByExecutableName", "GetRunningProcessDescription", "AttachProcess", "CreateProcessA", "CreateProcessAndAttach", "GetProcessOptions", "AddProcessOptions", "RemoveProcessOptions", "SetProcessOptions", "OpenDumpFile", "WriteDumpFile", "ConnectSession", "StartServer", "OutputServers", "TerminateProcesses", "DetachProcesses", "EndSession", "GetExitCode", "DispatchCallbacks", "ExitDispatch", "CreateClient", "GetInputCallbacks", "SetInputCallbacks", "GetOutputCallbacks", "SetOutputCallbacks", "GetOutputMask", "SetOutputMask", "GetOtherOutputMask", "SetOtherOutputMask", "GetOutputWidth", "SetOutputWidth", "GetOutputLinePrefix", "SetOutputLinePrefix", "GetIdentity", "OutputIdentity", "GetEventCallbacks", "SetEventCallbacks", "FlushCallbacks", "WriteDumpFile2", "AddDumpInformationFile", "EndProcessServer", "WaitForProcessServerEnd", "IsKernelDebuggerEnabled", "TerminateCurrentProcess", "DetachCurrentProcess", "AbandonCurrentProcess", "GetRunningProcessSystemIdByExecutableNameWide", "GetRunningProcessDescriptionWide", "CreateProcessWide", "CreateProcessAndAttachWide", "OpenDumpFileWide", "WriteDumpFileWide", "AddDumpInformationFileWide", "GetNumberDumpFiles", "GetDumpFile", "GetDumpFileWide", "AttachKernelWide", "GetKernelConnectionOptionsWide", "SetKernelConnectionOptionsWide", "StartProcessServerWide", "ConnectProcessServerWide", "StartServerWide", "OutputServersWide", "GetOutputCallbacksWide", "SetOutputCallbacksWide", "GetOutputLinePrefixWide", "SetOutputLinePrefixWide", "GetIdentityWide", "OutputIdentityWide", "GetEventCallbacksWide", "SetEventCallbacksWide", "CreateProcess2", "CreateProcess2Wide", "CreateProcessAndAttach2", "CreateProcessAndAttach2Wide", "PushOutputLinePrefix", "PushOutputLinePrefixWide", "PopOutputLinePrefix", "GetNumberInputCallbacks", "GetNumberOutputCallbacks", "GetNumberEventCallbacks", "GetQuitLockString", "SetQuitLockString", "GetQuitLockStringWide", "SetQuitLockStringWide", "SetEventContextCallbacks", "SetClientContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugClient7.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -387,10 +491,9 @@ class IDebugClient7 extends IUnknown {
     }
 
     /**
-     * Learn more about: EndSessionGrbit enumeration
+     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/endsessiongrbit-enumeration
      */
     EndSession(Flags) {
         result := ComCall(26, this, "uint", Flags, "HRESULT")
@@ -398,22 +501,8 @@ class IDebugClient7 extends IUnknown {
     }
 
     /**
-     * Retrieves the termination status of the specified process.
-     * @remarks
-     * This function returns immediately. If the process has not terminated and the function succeeds, the status returned is <b>STILL_ACTIVE</b> (a macro for **STATUS_PENDING** (minwinbase.h)). If the process has terminated and the function succeeds, the status returned is one of the following values:
      * 
-     * <ul>
-     * <li>The exit value specified in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminateprocess">TerminateProcess</a> function.</li>
-     * <li>The return value from the <a href="https://docs.microsoft.com/cpp/cpp/main-function-command-line-args">main</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> function of the process.</li>
-     * <li>The exception value for an unhandled exception that caused the process to terminate.</li>
-     * </ul>
-     * 
-     * > [!IMPORTANT]
-     * > The **GetExitCodeProcess** function returns a valid error code defined by the application only after the thread terminates. Therefore, an application should not use **STILL_ACTIVE** (259) as an error code (**STILL_ACTIVE** is a macro for **STATUS_PENDING** (minwinbase.h)). If a thread returns **STILL_ACTIVE** (259) as an error code, then applications that test for that value could interpret it to mean that the thread is still running, and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess
      */
     GetExitCode() {
         result := ComCall(27, this, "uint*", &Code := 0, "HRESULT")
@@ -1266,5 +1355,211 @@ class IDebugClient7 extends IUnknown {
     SetClientContext(_Context, ContextSize) {
         result := ComCall(96, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugClient7.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AttachKernel := CallbackCreate(GetMethod(implObj, "AttachKernel"), flags, 3)
+        this.vtbl.GetKernelConnectionOptions := CallbackCreate(GetMethod(implObj, "GetKernelConnectionOptions"), flags, 4)
+        this.vtbl.SetKernelConnectionOptions := CallbackCreate(GetMethod(implObj, "SetKernelConnectionOptions"), flags, 2)
+        this.vtbl.StartProcessServer := CallbackCreate(GetMethod(implObj, "StartProcessServer"), flags, 4)
+        this.vtbl.ConnectProcessServer := CallbackCreate(GetMethod(implObj, "ConnectProcessServer"), flags, 3)
+        this.vtbl.DisconnectProcessServer := CallbackCreate(GetMethod(implObj, "DisconnectProcessServer"), flags, 2)
+        this.vtbl.GetRunningProcessSystemIds := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIds"), flags, 5)
+        this.vtbl.GetRunningProcessSystemIdByExecutableName := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIdByExecutableName"), flags, 5)
+        this.vtbl.GetRunningProcessDescription := CallbackCreate(GetMethod(implObj, "GetRunningProcessDescription"), flags, 10)
+        this.vtbl.AttachProcess := CallbackCreate(GetMethod(implObj, "AttachProcess"), flags, 4)
+        this.vtbl.CreateProcessA := CallbackCreate(GetMethod(implObj, "CreateProcessA"), flags, 4)
+        this.vtbl.CreateProcessAndAttach := CallbackCreate(GetMethod(implObj, "CreateProcessAndAttach"), flags, 6)
+        this.vtbl.GetProcessOptions := CallbackCreate(GetMethod(implObj, "GetProcessOptions"), flags, 2)
+        this.vtbl.AddProcessOptions := CallbackCreate(GetMethod(implObj, "AddProcessOptions"), flags, 2)
+        this.vtbl.RemoveProcessOptions := CallbackCreate(GetMethod(implObj, "RemoveProcessOptions"), flags, 2)
+        this.vtbl.SetProcessOptions := CallbackCreate(GetMethod(implObj, "SetProcessOptions"), flags, 2)
+        this.vtbl.OpenDumpFile := CallbackCreate(GetMethod(implObj, "OpenDumpFile"), flags, 2)
+        this.vtbl.WriteDumpFile := CallbackCreate(GetMethod(implObj, "WriteDumpFile"), flags, 3)
+        this.vtbl.ConnectSession := CallbackCreate(GetMethod(implObj, "ConnectSession"), flags, 3)
+        this.vtbl.StartServer := CallbackCreate(GetMethod(implObj, "StartServer"), flags, 2)
+        this.vtbl.OutputServers := CallbackCreate(GetMethod(implObj, "OutputServers"), flags, 4)
+        this.vtbl.TerminateProcesses := CallbackCreate(GetMethod(implObj, "TerminateProcesses"), flags, 1)
+        this.vtbl.DetachProcesses := CallbackCreate(GetMethod(implObj, "DetachProcesses"), flags, 1)
+        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
+        this.vtbl.GetExitCode := CallbackCreate(GetMethod(implObj, "GetExitCode"), flags, 2)
+        this.vtbl.DispatchCallbacks := CallbackCreate(GetMethod(implObj, "DispatchCallbacks"), flags, 2)
+        this.vtbl.ExitDispatch := CallbackCreate(GetMethod(implObj, "ExitDispatch"), flags, 2)
+        this.vtbl.CreateClient := CallbackCreate(GetMethod(implObj, "CreateClient"), flags, 2)
+        this.vtbl.GetInputCallbacks := CallbackCreate(GetMethod(implObj, "GetInputCallbacks"), flags, 2)
+        this.vtbl.SetInputCallbacks := CallbackCreate(GetMethod(implObj, "SetInputCallbacks"), flags, 2)
+        this.vtbl.GetOutputCallbacks := CallbackCreate(GetMethod(implObj, "GetOutputCallbacks"), flags, 2)
+        this.vtbl.SetOutputCallbacks := CallbackCreate(GetMethod(implObj, "SetOutputCallbacks"), flags, 2)
+        this.vtbl.GetOutputMask := CallbackCreate(GetMethod(implObj, "GetOutputMask"), flags, 2)
+        this.vtbl.SetOutputMask := CallbackCreate(GetMethod(implObj, "SetOutputMask"), flags, 2)
+        this.vtbl.GetOtherOutputMask := CallbackCreate(GetMethod(implObj, "GetOtherOutputMask"), flags, 3)
+        this.vtbl.SetOtherOutputMask := CallbackCreate(GetMethod(implObj, "SetOtherOutputMask"), flags, 3)
+        this.vtbl.GetOutputWidth := CallbackCreate(GetMethod(implObj, "GetOutputWidth"), flags, 2)
+        this.vtbl.SetOutputWidth := CallbackCreate(GetMethod(implObj, "SetOutputWidth"), flags, 2)
+        this.vtbl.GetOutputLinePrefix := CallbackCreate(GetMethod(implObj, "GetOutputLinePrefix"), flags, 4)
+        this.vtbl.SetOutputLinePrefix := CallbackCreate(GetMethod(implObj, "SetOutputLinePrefix"), flags, 2)
+        this.vtbl.GetIdentity := CallbackCreate(GetMethod(implObj, "GetIdentity"), flags, 4)
+        this.vtbl.OutputIdentity := CallbackCreate(GetMethod(implObj, "OutputIdentity"), flags, 4)
+        this.vtbl.GetEventCallbacks := CallbackCreate(GetMethod(implObj, "GetEventCallbacks"), flags, 2)
+        this.vtbl.SetEventCallbacks := CallbackCreate(GetMethod(implObj, "SetEventCallbacks"), flags, 2)
+        this.vtbl.FlushCallbacks := CallbackCreate(GetMethod(implObj, "FlushCallbacks"), flags, 1)
+        this.vtbl.WriteDumpFile2 := CallbackCreate(GetMethod(implObj, "WriteDumpFile2"), flags, 5)
+        this.vtbl.AddDumpInformationFile := CallbackCreate(GetMethod(implObj, "AddDumpInformationFile"), flags, 3)
+        this.vtbl.EndProcessServer := CallbackCreate(GetMethod(implObj, "EndProcessServer"), flags, 2)
+        this.vtbl.WaitForProcessServerEnd := CallbackCreate(GetMethod(implObj, "WaitForProcessServerEnd"), flags, 2)
+        this.vtbl.IsKernelDebuggerEnabled := CallbackCreate(GetMethod(implObj, "IsKernelDebuggerEnabled"), flags, 1)
+        this.vtbl.TerminateCurrentProcess := CallbackCreate(GetMethod(implObj, "TerminateCurrentProcess"), flags, 1)
+        this.vtbl.DetachCurrentProcess := CallbackCreate(GetMethod(implObj, "DetachCurrentProcess"), flags, 1)
+        this.vtbl.AbandonCurrentProcess := CallbackCreate(GetMethod(implObj, "AbandonCurrentProcess"), flags, 1)
+        this.vtbl.GetRunningProcessSystemIdByExecutableNameWide := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIdByExecutableNameWide"), flags, 5)
+        this.vtbl.GetRunningProcessDescriptionWide := CallbackCreate(GetMethod(implObj, "GetRunningProcessDescriptionWide"), flags, 10)
+        this.vtbl.CreateProcessWide := CallbackCreate(GetMethod(implObj, "CreateProcessWide"), flags, 4)
+        this.vtbl.CreateProcessAndAttachWide := CallbackCreate(GetMethod(implObj, "CreateProcessAndAttachWide"), flags, 6)
+        this.vtbl.OpenDumpFileWide := CallbackCreate(GetMethod(implObj, "OpenDumpFileWide"), flags, 3)
+        this.vtbl.WriteDumpFileWide := CallbackCreate(GetMethod(implObj, "WriteDumpFileWide"), flags, 6)
+        this.vtbl.AddDumpInformationFileWide := CallbackCreate(GetMethod(implObj, "AddDumpInformationFileWide"), flags, 4)
+        this.vtbl.GetNumberDumpFiles := CallbackCreate(GetMethod(implObj, "GetNumberDumpFiles"), flags, 2)
+        this.vtbl.GetDumpFile := CallbackCreate(GetMethod(implObj, "GetDumpFile"), flags, 7)
+        this.vtbl.GetDumpFileWide := CallbackCreate(GetMethod(implObj, "GetDumpFileWide"), flags, 7)
+        this.vtbl.AttachKernelWide := CallbackCreate(GetMethod(implObj, "AttachKernelWide"), flags, 3)
+        this.vtbl.GetKernelConnectionOptionsWide := CallbackCreate(GetMethod(implObj, "GetKernelConnectionOptionsWide"), flags, 4)
+        this.vtbl.SetKernelConnectionOptionsWide := CallbackCreate(GetMethod(implObj, "SetKernelConnectionOptionsWide"), flags, 2)
+        this.vtbl.StartProcessServerWide := CallbackCreate(GetMethod(implObj, "StartProcessServerWide"), flags, 4)
+        this.vtbl.ConnectProcessServerWide := CallbackCreate(GetMethod(implObj, "ConnectProcessServerWide"), flags, 3)
+        this.vtbl.StartServerWide := CallbackCreate(GetMethod(implObj, "StartServerWide"), flags, 2)
+        this.vtbl.OutputServersWide := CallbackCreate(GetMethod(implObj, "OutputServersWide"), flags, 4)
+        this.vtbl.GetOutputCallbacksWide := CallbackCreate(GetMethod(implObj, "GetOutputCallbacksWide"), flags, 2)
+        this.vtbl.SetOutputCallbacksWide := CallbackCreate(GetMethod(implObj, "SetOutputCallbacksWide"), flags, 2)
+        this.vtbl.GetOutputLinePrefixWide := CallbackCreate(GetMethod(implObj, "GetOutputLinePrefixWide"), flags, 4)
+        this.vtbl.SetOutputLinePrefixWide := CallbackCreate(GetMethod(implObj, "SetOutputLinePrefixWide"), flags, 2)
+        this.vtbl.GetIdentityWide := CallbackCreate(GetMethod(implObj, "GetIdentityWide"), flags, 4)
+        this.vtbl.OutputIdentityWide := CallbackCreate(GetMethod(implObj, "OutputIdentityWide"), flags, 4)
+        this.vtbl.GetEventCallbacksWide := CallbackCreate(GetMethod(implObj, "GetEventCallbacksWide"), flags, 2)
+        this.vtbl.SetEventCallbacksWide := CallbackCreate(GetMethod(implObj, "SetEventCallbacksWide"), flags, 2)
+        this.vtbl.CreateProcess2 := CallbackCreate(GetMethod(implObj, "CreateProcess2"), flags, 7)
+        this.vtbl.CreateProcess2Wide := CallbackCreate(GetMethod(implObj, "CreateProcess2Wide"), flags, 7)
+        this.vtbl.CreateProcessAndAttach2 := CallbackCreate(GetMethod(implObj, "CreateProcessAndAttach2"), flags, 9)
+        this.vtbl.CreateProcessAndAttach2Wide := CallbackCreate(GetMethod(implObj, "CreateProcessAndAttach2Wide"), flags, 9)
+        this.vtbl.PushOutputLinePrefix := CallbackCreate(GetMethod(implObj, "PushOutputLinePrefix"), flags, 3)
+        this.vtbl.PushOutputLinePrefixWide := CallbackCreate(GetMethod(implObj, "PushOutputLinePrefixWide"), flags, 3)
+        this.vtbl.PopOutputLinePrefix := CallbackCreate(GetMethod(implObj, "PopOutputLinePrefix"), flags, 2)
+        this.vtbl.GetNumberInputCallbacks := CallbackCreate(GetMethod(implObj, "GetNumberInputCallbacks"), flags, 2)
+        this.vtbl.GetNumberOutputCallbacks := CallbackCreate(GetMethod(implObj, "GetNumberOutputCallbacks"), flags, 2)
+        this.vtbl.GetNumberEventCallbacks := CallbackCreate(GetMethod(implObj, "GetNumberEventCallbacks"), flags, 3)
+        this.vtbl.GetQuitLockString := CallbackCreate(GetMethod(implObj, "GetQuitLockString"), flags, 4)
+        this.vtbl.SetQuitLockString := CallbackCreate(GetMethod(implObj, "SetQuitLockString"), flags, 2)
+        this.vtbl.GetQuitLockStringWide := CallbackCreate(GetMethod(implObj, "GetQuitLockStringWide"), flags, 4)
+        this.vtbl.SetQuitLockStringWide := CallbackCreate(GetMethod(implObj, "SetQuitLockStringWide"), flags, 2)
+        this.vtbl.SetEventContextCallbacks := CallbackCreate(GetMethod(implObj, "SetEventContextCallbacks"), flags, 2)
+        this.vtbl.SetClientContext := CallbackCreate(GetMethod(implObj, "SetClientContext"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AttachKernel)
+        CallbackFree(this.vtbl.GetKernelConnectionOptions)
+        CallbackFree(this.vtbl.SetKernelConnectionOptions)
+        CallbackFree(this.vtbl.StartProcessServer)
+        CallbackFree(this.vtbl.ConnectProcessServer)
+        CallbackFree(this.vtbl.DisconnectProcessServer)
+        CallbackFree(this.vtbl.GetRunningProcessSystemIds)
+        CallbackFree(this.vtbl.GetRunningProcessSystemIdByExecutableName)
+        CallbackFree(this.vtbl.GetRunningProcessDescription)
+        CallbackFree(this.vtbl.AttachProcess)
+        CallbackFree(this.vtbl.CreateProcessA)
+        CallbackFree(this.vtbl.CreateProcessAndAttach)
+        CallbackFree(this.vtbl.GetProcessOptions)
+        CallbackFree(this.vtbl.AddProcessOptions)
+        CallbackFree(this.vtbl.RemoveProcessOptions)
+        CallbackFree(this.vtbl.SetProcessOptions)
+        CallbackFree(this.vtbl.OpenDumpFile)
+        CallbackFree(this.vtbl.WriteDumpFile)
+        CallbackFree(this.vtbl.ConnectSession)
+        CallbackFree(this.vtbl.StartServer)
+        CallbackFree(this.vtbl.OutputServers)
+        CallbackFree(this.vtbl.TerminateProcesses)
+        CallbackFree(this.vtbl.DetachProcesses)
+        CallbackFree(this.vtbl.EndSession)
+        CallbackFree(this.vtbl.GetExitCode)
+        CallbackFree(this.vtbl.DispatchCallbacks)
+        CallbackFree(this.vtbl.ExitDispatch)
+        CallbackFree(this.vtbl.CreateClient)
+        CallbackFree(this.vtbl.GetInputCallbacks)
+        CallbackFree(this.vtbl.SetInputCallbacks)
+        CallbackFree(this.vtbl.GetOutputCallbacks)
+        CallbackFree(this.vtbl.SetOutputCallbacks)
+        CallbackFree(this.vtbl.GetOutputMask)
+        CallbackFree(this.vtbl.SetOutputMask)
+        CallbackFree(this.vtbl.GetOtherOutputMask)
+        CallbackFree(this.vtbl.SetOtherOutputMask)
+        CallbackFree(this.vtbl.GetOutputWidth)
+        CallbackFree(this.vtbl.SetOutputWidth)
+        CallbackFree(this.vtbl.GetOutputLinePrefix)
+        CallbackFree(this.vtbl.SetOutputLinePrefix)
+        CallbackFree(this.vtbl.GetIdentity)
+        CallbackFree(this.vtbl.OutputIdentity)
+        CallbackFree(this.vtbl.GetEventCallbacks)
+        CallbackFree(this.vtbl.SetEventCallbacks)
+        CallbackFree(this.vtbl.FlushCallbacks)
+        CallbackFree(this.vtbl.WriteDumpFile2)
+        CallbackFree(this.vtbl.AddDumpInformationFile)
+        CallbackFree(this.vtbl.EndProcessServer)
+        CallbackFree(this.vtbl.WaitForProcessServerEnd)
+        CallbackFree(this.vtbl.IsKernelDebuggerEnabled)
+        CallbackFree(this.vtbl.TerminateCurrentProcess)
+        CallbackFree(this.vtbl.DetachCurrentProcess)
+        CallbackFree(this.vtbl.AbandonCurrentProcess)
+        CallbackFree(this.vtbl.GetRunningProcessSystemIdByExecutableNameWide)
+        CallbackFree(this.vtbl.GetRunningProcessDescriptionWide)
+        CallbackFree(this.vtbl.CreateProcessWide)
+        CallbackFree(this.vtbl.CreateProcessAndAttachWide)
+        CallbackFree(this.vtbl.OpenDumpFileWide)
+        CallbackFree(this.vtbl.WriteDumpFileWide)
+        CallbackFree(this.vtbl.AddDumpInformationFileWide)
+        CallbackFree(this.vtbl.GetNumberDumpFiles)
+        CallbackFree(this.vtbl.GetDumpFile)
+        CallbackFree(this.vtbl.GetDumpFileWide)
+        CallbackFree(this.vtbl.AttachKernelWide)
+        CallbackFree(this.vtbl.GetKernelConnectionOptionsWide)
+        CallbackFree(this.vtbl.SetKernelConnectionOptionsWide)
+        CallbackFree(this.vtbl.StartProcessServerWide)
+        CallbackFree(this.vtbl.ConnectProcessServerWide)
+        CallbackFree(this.vtbl.StartServerWide)
+        CallbackFree(this.vtbl.OutputServersWide)
+        CallbackFree(this.vtbl.GetOutputCallbacksWide)
+        CallbackFree(this.vtbl.SetOutputCallbacksWide)
+        CallbackFree(this.vtbl.GetOutputLinePrefixWide)
+        CallbackFree(this.vtbl.SetOutputLinePrefixWide)
+        CallbackFree(this.vtbl.GetIdentityWide)
+        CallbackFree(this.vtbl.OutputIdentityWide)
+        CallbackFree(this.vtbl.GetEventCallbacksWide)
+        CallbackFree(this.vtbl.SetEventCallbacksWide)
+        CallbackFree(this.vtbl.CreateProcess2)
+        CallbackFree(this.vtbl.CreateProcess2Wide)
+        CallbackFree(this.vtbl.CreateProcessAndAttach2)
+        CallbackFree(this.vtbl.CreateProcessAndAttach2Wide)
+        CallbackFree(this.vtbl.PushOutputLinePrefix)
+        CallbackFree(this.vtbl.PushOutputLinePrefixWide)
+        CallbackFree(this.vtbl.PopOutputLinePrefix)
+        CallbackFree(this.vtbl.GetNumberInputCallbacks)
+        CallbackFree(this.vtbl.GetNumberOutputCallbacks)
+        CallbackFree(this.vtbl.GetNumberEventCallbacks)
+        CallbackFree(this.vtbl.GetQuitLockString)
+        CallbackFree(this.vtbl.SetQuitLockString)
+        CallbackFree(this.vtbl.GetQuitLockStringWide)
+        CallbackFree(this.vtbl.SetQuitLockStringWide)
+        CallbackFree(this.vtbl.SetEventContextCallbacks)
+        CallbackFree(this.vtbl.SetClientContext)
     }
 }

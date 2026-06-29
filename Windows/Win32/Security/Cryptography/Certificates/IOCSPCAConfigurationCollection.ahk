@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IOCSPCAConfiguration.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IOCSPCAConfiguration.ahk" { IOCSPCAConfiguration }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a set of certificates for which an Online Certificate Status Protocol (OCSP) service has been configured to provide certificate status responses.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspcaconfigurationcollection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IOCSPCAConfigurationCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IOCSPCAConfigurationCollection extends IDispatch {
     /**
      * The interface identifier for IOCSPCAConfigurationCollection
      * @type {Guid}
      */
-    static IID => Guid("{2bebea0b-5ece-4f28-a91c-86b4bb20f0d3}")
+    static IID := Guid("{2bebea0b-5ece-4f28-a91c-86b4bb20f0d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOCSPCAConfigurationCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum          : IntPtr
+        get_Item              : IntPtr
+        get_Count             : IntPtr
+        get_ItemByName        : IntPtr
+        CreateCAConfiguration : IntPtr
+        DeleteCAConfiguration : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_ItemByName", "CreateCAConfiguration", "DeleteCAConfiguration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOCSPCAConfigurationCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -64,7 +78,7 @@ class IOCSPCAConfigurationCollection extends IDispatch {
      */
     get_Item(Index) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -88,7 +102,7 @@ class IOCSPCAConfigurationCollection extends IDispatch {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
 
         pVal := VARIANT()
-        result := ComCall(10, this, "ptr", bstrIdentifier, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrIdentifier, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -102,7 +116,7 @@ class IOCSPCAConfigurationCollection extends IDispatch {
     CreateCAConfiguration(bstrIdentifier, varCACert) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
 
-        result := ComCall(11, this, "ptr", bstrIdentifier, "ptr", varCACert, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrIdentifier, VARIANT, varCACert, "ptr*", &ppVal := 0, "HRESULT")
         return IOCSPCAConfiguration(ppVal)
     }
 
@@ -117,7 +131,37 @@ class IOCSPCAConfigurationCollection extends IDispatch {
     DeleteCAConfiguration(bstrIdentifier) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
 
-        result := ComCall(12, this, "ptr", bstrIdentifier, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrIdentifier, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOCSPCAConfigurationCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_ItemByName := CallbackCreate(GetMethod(implObj, "get_ItemByName"), flags, 3)
+        this.vtbl.CreateCAConfiguration := CallbackCreate(GetMethod(implObj, "CreateCAConfiguration"), flags, 4)
+        this.vtbl.DeleteCAConfiguration := CallbackCreate(GetMethod(implObj, "DeleteCAConfiguration"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_ItemByName)
+        CallbackFree(this.vtbl.CreateCAConfiguration)
+        CallbackFree(this.vtbl.DeleteCAConfiguration)
     }
 }

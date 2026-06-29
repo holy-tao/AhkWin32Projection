@@ -1,35 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_FIND_USAGE_PARA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CTL_FIND_USAGE_PARA.ahk" { CTL_FIND_USAGE_PARA }
 
 /**
  * Contains data used by CertFindCTLInStore with a dwFindType parameter of CTL_FIND_SUBJECT to find a Certificate Trust List (CTL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_find_subject_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CTL_FIND_SUBJECT_PARA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CTL_FIND_SUBJECT_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_find_usage_para">CTL_FIND_USAGE_PARA</a> structure. Can be <b>NULL</b> if there is no need to reference the <b>CTL_FIND_USAGE_PARA</b> parameters when finding a CTL.
-     * @type {Pointer<CTL_FIND_USAGE_PARA>}
      */
-    pUsagePara {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pUsagePara : CTL_FIND_USAGE_PARA.Ptr
 
     /**
      * For CTL_CERT_SUBJECT_TYPE, the <b>pvSubject</b> member points to a 
@@ -40,24 +29,12 @@ class CTL_FIND_SUBJECT_PARA extends Win32Struct {
      * 
      * For CTL_ANY_SUBJECT_TYPE, <b>pvSubject</b> points to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_any_subject_info">CTL_ANY_SUBJECT_INFO</a> structure that contains the <b>SubjectAlgorithm</b> to be matched in the CTL and the <b>SubjectIdentifier</b> to be matched in one of the CTL entries.
-     * @type {Integer}
      */
-    dwSubjectType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSubjectType : UInt32
 
     /**
      * The value of the <b>pvSubject</b> member depends upon the value of the <b>dwSubjectType</b> member. For more information, see <b>dwSubjectType</b>.
-     * @type {Pointer<Void>}
      */
-    pvSubject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvSubject : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

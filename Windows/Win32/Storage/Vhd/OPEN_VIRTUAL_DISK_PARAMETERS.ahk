@@ -1,16 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPEN_VIRTUAL_DISK_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OPEN_VIRTUAL_DISK_VERSION.ahk" { OPEN_VIRTUAL_DISK_VERSION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains virtual disk open request parameters.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-open_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  */
-class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+export default struct OPEN_VIRTUAL_DISK_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 8
+
+    struct _Version1 {
+        RWDepth : UInt32
+
+    }
+
+    struct _Version2 {
+        GetInfoOnly : BOOL
+
+        ReadOnly : BOOL
+
+        ResiliencyGuid : Guid
+
+    }
+
+    struct _Version3 {
+        GetInfoOnly : BOOL
+
+        ReadOnly : BOOL
+
+        ResiliencyGuid : Guid
+
+        SnapshotId : Guid
+
+    }
 
     /**
      * An <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-open_virtual_disk_version">OPEN_VIRTUAL_DISK_VERSION</a> enumeration 
@@ -46,122 +71,14 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {OPEN_VIRTUAL_DISK_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : OPEN_VIRTUAL_DISK_VERSION
 
-    class _Version1 extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    Version1 : OPEN_VIRTUAL_DISK_PARAMETERS._Version1
 
-        /**
-         * @type {Integer}
-         */
-        RWDepth {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _Version2 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {BOOL}
-         */
-        GetInfoOnly {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        ReadOnly {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        ResiliencyGuid {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    class _Version3 extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {BOOL}
-         */
-        GetInfoOnly {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        ReadOnly {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        ResiliencyGuid {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        SnapshotId {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
-
-    /**
-     * @type {_Version1}
-     */
-    Version1 {
-        get {
-            if(!this.HasProp("__Version1"))
-                this.__Version1 := OPEN_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
-            return this.__Version1
-        }
-    }
-
-    /**
-     * @type {_Version2}
-     */
-    Version2 {
-        get {
-            if(!this.HasProp("__Version2"))
-                this.__Version2 := OPEN_VIRTUAL_DISK_PARAMETERS._Version2(8, this)
-            return this.__Version2
-        }
-    }
-
-    /**
-     * @type {_Version3}
-     */
-    Version3 {
-        get {
-            if(!this.HasProp("__Version3"))
-                this.__Version3 := OPEN_VIRTUAL_DISK_PARAMETERS._Version3(8, this)
-            return this.__Version3
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Version2', { type: OPEN_VIRTUAL_DISK_PARAMETERS._Version2, offset: 4 })
+        DefineProp(this.Prototype, 'Version3', { type: OPEN_VIRTUAL_DISK_PARAMETERS._Version3, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

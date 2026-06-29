@@ -1,11 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\IDownloadJob.ahk
-#Include .\IDownloadResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDownloadResult.ahk" { IDownloadResult }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\DownloadPriority.ahk" { DownloadPriority }
+#Import ".\IDownloadJob.ahk" { IDownloadJob }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Downloads updates from the server.
@@ -14,32 +19,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatedownloader
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateDownloader extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateDownloader extends IDispatch {
     /**
      * The interface identifier for IUpdateDownloader
      * @type {Guid}
      */
-    static IID => Guid("{68f1c6f9-7ecc-4666-a464-247fe12496c3}")
+    static IID := Guid("{68f1c6f9-7ecc-4666-a464-247fe12496c3}")
 
     /**
      * The class identifier for UpdateDownloader
      * @type {Guid}
      */
-    static CLSID => Guid("{5baf654a-5a07-4264-a255-9ff54c7151e7}")
+    static CLSID := Guid("{5baf654a-5a07-4264-a255-9ff54c7151e7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateDownloader interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ClientApplicationID : IntPtr
+        put_ClientApplicationID : IntPtr
+        get_IsForced            : IntPtr
+        put_IsForced            : IntPtr
+        get_Priority            : IntPtr
+        put_Priority            : IntPtr
+        get_Updates             : IntPtr
+        put_Updates             : IntPtr
+        BeginDownload           : IntPtr
+        Download                : IntPtr
+        EndDownload             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "get_IsForced", "put_IsForced", "get_Priority", "put_Priority", "get_Updates", "put_Updates", "BeginDownload", "Download", "EndDownload"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateDownloader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -81,8 +103,8 @@ class IUpdateDownloader extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -97,7 +119,7 @@ class IUpdateDownloader extends IDispatch {
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(8, this, "ptr", value, "HRESULT")
+        result := ComCall(8, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -109,7 +131,7 @@ class IUpdateDownloader extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_isforced
      */
     get_IsForced() {
-        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -122,7 +144,7 @@ class IUpdateDownloader extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_isforced
      */
     put_IsForced(value) {
-        result := ComCall(10, this, "short", value, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -143,7 +165,7 @@ class IUpdateDownloader extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_priority
      */
     put_Priority(value) {
-        result := ComCall(12, this, "int", value, "HRESULT")
+        result := ComCall(12, this, DownloadPriority, value, "HRESULT")
         return result
     }
 
@@ -194,7 +216,7 @@ class IUpdateDownloader extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-begindownload
      */
     BeginDownload(onProgressChanged, onCompleted, state) {
-        result := ComCall(15, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", onProgressChanged, "ptr", onCompleted, VARIANT, state, "ptr*", &retval := 0, "HRESULT")
         return IDownloadJob(retval)
     }
 
@@ -227,5 +249,45 @@ class IUpdateDownloader extends IDispatch {
     EndDownload(value) {
         result := ComCall(17, this, "ptr", value, "ptr*", &retval := 0, "HRESULT")
         return IDownloadResult(retval)
+    }
+
+    Query(iid) {
+        if (IUpdateDownloader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.put_ClientApplicationID := CallbackCreate(GetMethod(implObj, "put_ClientApplicationID"), flags, 2)
+        this.vtbl.get_IsForced := CallbackCreate(GetMethod(implObj, "get_IsForced"), flags, 2)
+        this.vtbl.put_IsForced := CallbackCreate(GetMethod(implObj, "put_IsForced"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Updates := CallbackCreate(GetMethod(implObj, "get_Updates"), flags, 2)
+        this.vtbl.put_Updates := CallbackCreate(GetMethod(implObj, "put_Updates"), flags, 2)
+        this.vtbl.BeginDownload := CallbackCreate(GetMethod(implObj, "BeginDownload"), flags, 5)
+        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 2)
+        this.vtbl.EndDownload := CallbackCreate(GetMethod(implObj, "EndDownload"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ClientApplicationID)
+        CallbackFree(this.vtbl.put_ClientApplicationID)
+        CallbackFree(this.vtbl.get_IsForced)
+        CallbackFree(this.vtbl.put_IsForced)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.get_Updates)
+        CallbackFree(this.vtbl.put_Updates)
+        CallbackFree(this.vtbl.BeginDownload)
+        CallbackFree(this.vtbl.Download)
+        CallbackFree(this.vtbl.EndDownload)
     }
 }

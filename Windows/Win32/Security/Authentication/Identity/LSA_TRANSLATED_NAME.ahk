@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\SID_NAME_USE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\SID_NAME_USE.ahk" { SID_NAME_USE }
 
 /**
  * Used with the LsaLookupSids function to return information about the account identified by a SID.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_translated_name
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_TRANSLATED_NAME extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct LSA_TRANSLATED_NAME {
+    #StructPack 8
 
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumeration that identifies the type of SID.
-     * @type {SID_NAME_USE}
      */
-    Use {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Use : SID_NAME_USE
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the isolated name of the translated SID. An isolated name is a user, group, or local group account name without the domain name (for example, user_name, rather than Acctg\user_name).
-     * @type {LSA_UNICODE_STRING}
      */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(8, this)
-            return this.__Name
-        }
-    }
+    Name : LSA_UNICODE_STRING
 
     /**
      * Specifies the zero-based index of an entry in the 
@@ -45,10 +32,7 @@ class LSA_TRANSLATED_NAME extends Win32Struct {
      * 
      * 
      * If there is no corresponding domain for an account, this member contains a negative value.
-     * @type {Integer}
      */
-    DomainIndex {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DomainIndex : Int32
+
 }

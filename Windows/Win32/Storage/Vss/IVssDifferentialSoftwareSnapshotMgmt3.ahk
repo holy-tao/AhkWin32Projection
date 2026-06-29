@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IVssDifferentialSoftwareSnapshotMgmt2.ahk
-#Include .\VSS_VOLUME_PROTECTION_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_VOLUME_PROTECTION_INFO.ahk" { VSS_VOLUME_PROTECTION_INFO }
+#Import ".\VSS_PROTECTION_LEVEL.ahk" { VSS_PROTECTION_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVssDifferentialSoftwareSnapshotMgmt2.ahk" { IVssDifferentialSoftwareSnapshotMgmt2 }
 
 /**
  * Defines methods that allow applications to use the shadow copy protection feature of VSS.
@@ -13,26 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nn-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnapshotMgmt2 {
-
-    static sizeof => A_PtrSize
+export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnapshotMgmt2 {
     /**
      * The interface identifier for IVssDifferentialSoftwareSnapshotMgmt3
      * @type {Guid}
      */
-    static IID => Guid("{383f7e71-a4c5-401f-b27f-f826289f8458}")
+    static IID := Guid("{383f7e71-a4c5-401f-b27f-f826289f8458}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssDifferentialSoftwareSnapshotMgmt3 interfaces
+    */
+    struct Vtbl extends IVssDifferentialSoftwareSnapshotMgmt2.Vtbl {
+        SetVolumeProtectLevel    : IntPtr
+        GetVolumeProtectLevel    : IntPtr
+        ClearVolumeProtectFault  : IntPtr
+        DeleteUnusedDiffAreas    : IntPtr
+        QuerySnapshotDeltaBitmap : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetVolumeProtectLevel", "GetVolumeProtectLevel", "ClearVolumeProtectFault", "DeleteUnusedDiffAreas", "QuerySnapshotDeltaBitmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssDifferentialSoftwareSnapshotMgmt3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the shadow copy protection level for an original volume or a shadow copy storage area volume.
@@ -137,7 +150,7 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     SetVolumeProtectLevel(pwszVolumeName, protectionLevel) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(13, this, pwszVolumeNameMarshal, pwszVolumeName, "int", protectionLevel, "HRESULT")
+        result := ComCall(13, this, pwszVolumeNameMarshal, pwszVolumeName, VSS_PROTECTION_LEVEL, protectionLevel, "HRESULT")
         return result
     }
 
@@ -164,7 +177,7 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
 
         protectionLevel := VSS_VOLUME_PROTECTION_INFO()
-        result := ComCall(14, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", protectionLevel, "HRESULT")
+        result := ComCall(14, this, pwszVolumeNameMarshal, pwszVolumeName, VSS_VOLUME_PROTECTION_INFO.Ptr, protectionLevel, "HRESULT")
         return protectionLevel
     }
 
@@ -387,7 +400,35 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
         pcBitmapLengthMarshal := pcBitmapLength is VarRef ? "uint*" : "ptr"
         ppbBitmapMarshal := ppbBitmap is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "ptr", idSnapshotOlder, "ptr", idSnapshotYounger, pcBlockSizePerBitMarshal, pcBlockSizePerBit, pcBitmapLengthMarshal, pcBitmapLength, ppbBitmapMarshal, ppbBitmap, "HRESULT")
+        result := ComCall(17, this, Guid, idSnapshotOlder, Guid, idSnapshotYounger, pcBlockSizePerBitMarshal, pcBlockSizePerBit, pcBitmapLengthMarshal, pcBitmapLength, ppbBitmapMarshal, ppbBitmap, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssDifferentialSoftwareSnapshotMgmt3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetVolumeProtectLevel := CallbackCreate(GetMethod(implObj, "SetVolumeProtectLevel"), flags, 3)
+        this.vtbl.GetVolumeProtectLevel := CallbackCreate(GetMethod(implObj, "GetVolumeProtectLevel"), flags, 3)
+        this.vtbl.ClearVolumeProtectFault := CallbackCreate(GetMethod(implObj, "ClearVolumeProtectFault"), flags, 2)
+        this.vtbl.DeleteUnusedDiffAreas := CallbackCreate(GetMethod(implObj, "DeleteUnusedDiffAreas"), flags, 2)
+        this.vtbl.QuerySnapshotDeltaBitmap := CallbackCreate(GetMethod(implObj, "QuerySnapshotDeltaBitmap"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetVolumeProtectLevel)
+        CallbackFree(this.vtbl.GetVolumeProtectLevel)
+        CallbackFree(this.vtbl.ClearVolumeProtectFault)
+        CallbackFree(this.vtbl.DeleteUnusedDiffAreas)
+        CallbackFree(this.vtbl.QuerySnapshotDeltaBitmap)
     }
 }

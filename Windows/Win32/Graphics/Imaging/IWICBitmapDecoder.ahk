@@ -1,12 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapDecoderInfo.ahk
-#Include .\IWICMetadataQueryReader.ahk
-#Include .\IWICBitmapSource.ahk
-#Include .\IWICBitmapFrameDecode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
+#Import ".\IWICBitmapDecoderInfo.ahk" { IWICBitmapDecoderInfo }
+#Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
+#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
 
 /**
  * Exposes methods that represent a decoder.
@@ -66,26 +70,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapdecoder
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapDecoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapDecoder extends IUnknown {
     /**
      * The interface identifier for IWICBitmapDecoder
      * @type {Guid}
      */
-    static IID => Guid("{9edde9e7-8dee-47ea-99df-e6faf2ed44bf}")
+    static IID := Guid("{9edde9e7-8dee-47ea-99df-e6faf2ed44bf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapDecoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryCapability        : IntPtr
+        Initialize             : IntPtr
+        GetContainerFormat     : IntPtr
+        GetDecoderInfo         : IntPtr
+        CopyPalette            : IntPtr
+        GetMetadataQueryReader : IntPtr
+        GetPreview             : IntPtr
+        GetColorContexts       : IntPtr
+        GetThumbnail           : IntPtr
+        GetFrameCount          : IntPtr
+        GetFrame               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryCapability", "Initialize", "GetContainerFormat", "GetDecoderInfo", "CopyPalette", "GetMetadataQueryReader", "GetPreview", "GetColorContexts", "GetThumbnail", "GetFrameCount", "GetFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapDecoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the capabilities of the decoder based on the specified stream.
@@ -120,7 +141,7 @@ class IWICBitmapDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-initialize
      */
     Initialize(pIStream, cacheOptions) {
-        result := ComCall(4, this, "ptr", pIStream, "int", cacheOptions, "HRESULT")
+        result := ComCall(4, this, "ptr", pIStream, WICDecodeOptions, cacheOptions, "HRESULT")
         return result
     }
 
@@ -133,7 +154,7 @@ class IWICBitmapDecoder extends IUnknown {
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
-        result := ComCall(5, this, "ptr", pguidContainerFormat, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pguidContainerFormat, "HRESULT")
         return pguidContainerFormat
     }
 
@@ -210,7 +231,7 @@ class IWICBitmapDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts) {
-        result := ComCall(10, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        result := ComCall(10, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
         return pcActualCount
     }
 
@@ -253,5 +274,45 @@ class IWICBitmapDecoder extends IUnknown {
     GetFrame(index) {
         result := ComCall(13, this, "uint", index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
         return IWICBitmapFrameDecode(ppIBitmapFrame)
+    }
+
+    Query(iid) {
+        if (IWICBitmapDecoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryCapability := CallbackCreate(GetMethod(implObj, "QueryCapability"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetDecoderInfo := CallbackCreate(GetMethod(implObj, "GetDecoderInfo"), flags, 2)
+        this.vtbl.CopyPalette := CallbackCreate(GetMethod(implObj, "CopyPalette"), flags, 2)
+        this.vtbl.GetMetadataQueryReader := CallbackCreate(GetMethod(implObj, "GetMetadataQueryReader"), flags, 2)
+        this.vtbl.GetPreview := CallbackCreate(GetMethod(implObj, "GetPreview"), flags, 2)
+        this.vtbl.GetColorContexts := CallbackCreate(GetMethod(implObj, "GetColorContexts"), flags, 4)
+        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 2)
+        this.vtbl.GetFrameCount := CallbackCreate(GetMethod(implObj, "GetFrameCount"), flags, 2)
+        this.vtbl.GetFrame := CallbackCreate(GetMethod(implObj, "GetFrame"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryCapability)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetContainerFormat)
+        CallbackFree(this.vtbl.GetDecoderInfo)
+        CallbackFree(this.vtbl.CopyPalette)
+        CallbackFree(this.vtbl.GetMetadataQueryReader)
+        CallbackFree(this.vtbl.GetPreview)
+        CallbackFree(this.vtbl.GetColorContexts)
+        CallbackFree(this.vtbl.GetThumbnail)
+        CallbackFree(this.vtbl.GetFrameCount)
+        CallbackFree(this.vtbl.GetFrame)
     }
 }

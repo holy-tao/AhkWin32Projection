@@ -1,148 +1,87 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Cipher info structure. This is returned by SECPKG_ATTR_CIPHER_INFO ulAttribute from the QueryContextAttributes (Schannel) function.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_cipherinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_CipherInfo extends Win32Struct {
-    static sizeof => 680
-
-    static packingSize => 4
+export default struct SecPkgContext_CipherInfo {
+    #StructPack 4
 
     /**
      * The dw version.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The dw protocol.
-     * @type {Integer}
      */
-    dwProtocol {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwProtocol : UInt32
 
     /**
      * The dw cipher suite.
-     * @type {Integer}
      */
-    dwCipherSuite {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCipherSuite : UInt32
 
     /**
      * The dw base cipher suite.
-     * @type {Integer}
      */
-    dwBaseCipherSuite {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBaseCipherSuite : UInt32
 
     /**
      * The sz cipher suite.
-     * @type {String}
      */
-    szCipherSuite {
-        get => StrGet(this.ptr + 16, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-16")
-    }
+    szCipherSuite : WCHAR[64]
 
     /**
      * The sz cipher.
-     * @type {String}
      */
-    szCipher {
-        get => StrGet(this.ptr + 144, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
-    }
+    szCipher : WCHAR[64]
 
     /**
      * The dw cipher length.
-     * @type {Integer}
      */
-    dwCipherLen {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    dwCipherLen : UInt32
 
     /**
      * The dw cipher block length in bytes.
-     * @type {Integer}
      */
-    dwCipherBlockLen {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
+    dwCipherBlockLen : UInt32
 
     /**
      * The sz hash.
-     * @type {String}
      */
-    szHash {
-        get => StrGet(this.ptr + 280, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 280, 63, "UTF-16")
-    }
+    szHash : WCHAR[64]
 
     /**
      * The dw hash length.
-     * @type {Integer}
      */
-    dwHashLen {
-        get => NumGet(this, 408, "uint")
-        set => NumPut("uint", value, this, 408)
-    }
+    dwHashLen : UInt32
 
     /**
      * The sz exchange.
-     * @type {String}
      */
-    szExchange {
-        get => StrGet(this.ptr + 412, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 412, 63, "UTF-16")
-    }
+    szExchange : WCHAR[64]
 
     /**
      * The dw min exchange length.
-     * @type {Integer}
      */
-    dwMinExchangeLen {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
-    }
+    dwMinExchangeLen : UInt32
 
     /**
      * The dw max exchange length.
-     * @type {Integer}
      */
-    dwMaxExchangeLen {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
+    dwMaxExchangeLen : UInt32
 
     /**
      * The sz certificate.
-     * @type {String}
      */
-    szCertificate {
-        get => StrGet(this.ptr + 548, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 548, 63, "UTF-16")
-    }
+    szCertificate : WCHAR[64]
 
     /**
      * The dw key type.
-     * @type {Integer}
      */
-    dwKeyType {
-        get => NumGet(this, 676, "uint")
-        set => NumPut("uint", value, this, 676)
-    }
+    dwKeyType : UInt32
+
 }

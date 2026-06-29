@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class ACPI_REAL_TIME extends Win32Struct {
-    static sizeof => 16
+export default struct ACPI_REAL_TIME {
+    #StructPack 2
 
-    static packingSize => 2
+    Year : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Year {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Month : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Month {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Day : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Day {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Hour : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Hour {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Minute : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Minute {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Second : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Second {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    Valid : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Valid {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    Milliseconds : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Milliseconds {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    TimeZone : Int16
 
-    /**
-     * @type {Integer}
-     */
-    TimeZone {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    DayLight : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DayLight {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved1 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
 }

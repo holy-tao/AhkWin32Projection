@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile5.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyFile5.ahk" { IBackgroundCopyFile5 }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 
 /**
  * Use this interface to request file ranges for On Demand download jobs.
@@ -10,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nn-bits10_1-ibackgroundcopyfile6
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
     /**
      * The interface identifier for IBackgroundCopyFile6
      * @type {Guid}
      */
-    static IID => Guid("{cf6784f7-d677-49fd-9368-cb47aee9d1ad}")
+    static IID := Guid("{cf6784f7-d677-49fd-9368-cb47aee9d1ad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyFile6 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyFile5.Vtbl {
+        UpdateDownloadPosition : IntPtr
+        RequestFileRanges      : IntPtr
+        GetFilledFileRanges    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateDownloadPosition", "RequestFileRanges", "GetFilledFileRanges"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyFile6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a position to prioritize downloading missing data from.
@@ -64,7 +75,7 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-requestfileranges
      */
     RequestFileRanges(rangeCount, ranges) {
-        result := ComCall(16, this, "uint", rangeCount, "ptr", ranges, "HRESULT")
+        result := ComCall(16, this, "uint", rangeCount, BG_FILE_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 
@@ -87,5 +98,29 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
 
         result := ComCall(17, this, rangeCountMarshal, rangeCount, rangesMarshal, ranges, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyFile6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateDownloadPosition := CallbackCreate(GetMethod(implObj, "UpdateDownloadPosition"), flags, 2)
+        this.vtbl.RequestFileRanges := CallbackCreate(GetMethod(implObj, "RequestFileRanges"), flags, 3)
+        this.vtbl.GetFilledFileRanges := CallbackCreate(GetMethod(implObj, "GetFilledFileRanges"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateDownloadPosition)
+        CallbackFree(this.vtbl.RequestFileRanges)
+        CallbackFree(this.vtbl.GetFilledFileRanges)
     }
 }

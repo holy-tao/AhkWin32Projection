@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\TTTOOLINFOA.ahk
-#Include .\TOOLTIP_FLAGS.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\TOOLTIP_FLAGS.ahk" { TOOLTIP_FLAGS }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TTTOOLINFOA.ahk" { TTTOOLINFOA }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains information that a tooltip control uses to determine whether a point is in the bounding rectangle of the specified tool. If the point is in the rectangle, the structure receives information about the tool. (ANSI)
@@ -21,38 +22,22 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class TTHITTESTINFOA extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct TTHITTESTINFOA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the tool or window with the specified tool.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(0, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * Client coordinates of the point to test.
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(8, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tttoolinfoa">TOOLINFO</a></b>
@@ -62,13 +47,7 @@ class TTHITTESTINFOA extends Win32Struct {
      * 					<b>pt</b> is in the tool specified by 
      * 					<b>hwnd</b>, this structure receives information about the tool. The 
      * 					<b>cbSize</b> member of this structure must be filled in before sending this message.
-     * @type {TTTOOLINFOA}
      */
-    ti {
-        get {
-            if(!this.HasProp("__ti"))
-                this.__ti := TTTOOLINFOA(16, this)
-            return this.__ti
-        }
-    }
+    ti : TTTOOLINFOA
+
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IImePadApplet.ahk" { IImePadApplet }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The IImePad interface inserts text into apps from IMEPadApplets that implement the IImePadApplet interface.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/nn-imepad-iimepad
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IImePad extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IImePad extends IUnknown {
     /**
      * The interface identifier for IImePad
      * @type {Guid}
      */
-    static IID => Guid("{5d8e643a-c3a9-11d1-afef-00805f0c8b6d}")
+    static IID := Guid("{5d8e643a-c3a9-11d1-afef-00805f0c8b6d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImePad interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Request : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Request"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImePad.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by an IImePadApplet to insert text into an app.
@@ -198,7 +209,27 @@ class IImePad extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepad-request
      */
     Request(pIImePadApplet, reqId, _wParam, _lParam) {
-        result := ComCall(3, this, "ptr", pIImePadApplet, "int", reqId, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", pIImePadApplet, "int", reqId, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IImePad.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Request)
     }
 }

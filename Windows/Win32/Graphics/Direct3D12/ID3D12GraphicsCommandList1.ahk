@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12GraphicsCommandList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
+#Import ".\D3D12_RESOLVE_MODE.ahk" { D3D12_RESOLVE_MODE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_SAMPLE_POSITION.ahk" { D3D12_SAMPLE_POSITION }
+#Import ".\D3D12_SUBRESOURCE_RANGE_UINT64.ahk" { D3D12_SUBRESOURCE_RANGE_UINT64 }
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support programmable sample positions, atomic copies for implementing late-latch techniques, and optional depth-bounds testing.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
     /**
      * The interface identifier for ID3D12GraphicsCommandList1
      * @type {Guid}
      */
-    static IID => Guid("{553103fb-1fe7-4557-bb38-946d7d0e7ca7}")
+    static IID := Guid("{553103fb-1fe7-4557-bb38-946d7d0e7ca7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 60
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12GraphicsCommandList1 interfaces
+    */
+    struct Vtbl extends ID3D12GraphicsCommandList.Vtbl {
+        AtomicCopyBufferUINT     : IntPtr
+        AtomicCopyBufferUINT64   : IntPtr
+        OMSetDepthBounds         : IntPtr
+        SetSamplePositions       : IntPtr
+        ResolveSubresourceRegion : IntPtr
+        SetViewInstanceMask      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AtomicCopyBufferUINT", "AtomicCopyBufferUINT64", "OMSetDepthBounds", "SetSamplePositions", "ResolveSubresourceRegion", "SetViewInstanceMask"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12GraphicsCommandList1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Atomically copies a primary data element of type UINT from one resource to another, along with optional dependent resources.
@@ -66,7 +84,7 @@ class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint
      */
     AtomicCopyBufferUINT(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, Dependencies, ppDependentResources, pDependentSubresourceRanges) {
-        ComCall(60, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", Dependencies, "ptr*", ppDependentResources, "ptr", pDependentSubresourceRanges)
+        ComCall(60, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", Dependencies, ID3D12Resource.Ptr, ppDependentResources, D3D12_SUBRESOURCE_RANGE_UINT64.Ptr, pDependentSubresourceRanges)
     }
 
     /**
@@ -106,7 +124,7 @@ class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint64
      */
     AtomicCopyBufferUINT64(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, Dependencies, ppDependentResources, pDependentSubresourceRanges) {
-        ComCall(61, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", Dependencies, "ptr*", ppDependentResources, "ptr", pDependentSubresourceRanges)
+        ComCall(61, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", Dependencies, ID3D12Resource.Ptr, ppDependentResources, D3D12_SUBRESOURCE_RANGE_UINT64.Ptr, pDependentSubresourceRanges)
     }
 
     /**
@@ -207,7 +225,7 @@ class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-setsamplepositions
      */
     SetSamplePositions(NumSamplesPerPixel, NumPixels, pSamplePositions) {
-        ComCall(63, this, "uint", NumSamplesPerPixel, "uint", NumPixels, "ptr", pSamplePositions)
+        ComCall(63, this, "uint", NumSamplesPerPixel, "uint", NumPixels, D3D12_SAMPLE_POSITION.Ptr, pSamplePositions)
     }
 
     /**
@@ -267,7 +285,7 @@ class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-resolvesubresourceregion
      */
     ResolveSubresourceRegion(pDstResource, DstSubresource, DstX, DstY, pSrcResource, SrcSubresource, pSrcRect, Format, ResolveMode) {
-        ComCall(64, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "ptr", pSrcResource, "uint", SrcSubresource, "ptr", pSrcRect, "int", Format, "int", ResolveMode)
+        ComCall(64, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "ptr", pSrcResource, "uint", SrcSubresource, RECT.Ptr, pSrcRect, DXGI_FORMAT, Format, D3D12_RESOLVE_MODE, ResolveMode)
     }
 
     /**
@@ -288,5 +306,35 @@ class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
      */
     SetViewInstanceMask(Mask) {
         ComCall(65, this, "uint", Mask)
+    }
+
+    Query(iid) {
+        if (ID3D12GraphicsCommandList1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AtomicCopyBufferUINT := CallbackCreate(GetMethod(implObj, "AtomicCopyBufferUINT"), flags, 8)
+        this.vtbl.AtomicCopyBufferUINT64 := CallbackCreate(GetMethod(implObj, "AtomicCopyBufferUINT64"), flags, 8)
+        this.vtbl.OMSetDepthBounds := CallbackCreate(GetMethod(implObj, "OMSetDepthBounds"), flags, 3)
+        this.vtbl.SetSamplePositions := CallbackCreate(GetMethod(implObj, "SetSamplePositions"), flags, 4)
+        this.vtbl.ResolveSubresourceRegion := CallbackCreate(GetMethod(implObj, "ResolveSubresourceRegion"), flags, 10)
+        this.vtbl.SetViewInstanceMask := CallbackCreate(GetMethod(implObj, "SetViewInstanceMask"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AtomicCopyBufferUINT)
+        CallbackFree(this.vtbl.AtomicCopyBufferUINT64)
+        CallbackFree(this.vtbl.OMSetDepthBounds)
+        CallbackFree(this.vtbl.SetSamplePositions)
+        CallbackFree(this.vtbl.ResolveSubresourceRegion)
+        CallbackFree(this.vtbl.SetViewInstanceMask)
     }
 }

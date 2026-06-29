@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows applications to decrypt a key attestation challenge received from a server.
@@ -11,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertificateattestationchallenge
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertificateAttestationChallenge extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertificateAttestationChallenge extends IDispatch {
     /**
      * The interface identifier for ICertificateAttestationChallenge
      * @type {Guid}
      */
-    static IID => Guid("{6f175a7c-4a3a-40ae-9dba-592fd6bbf9b8}")
+    static IID := Guid("{6f175a7c-4a3a-40ae-9dba-592fd6bbf9b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertificateAttestationChallenge interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize       : IntPtr
+        DecryptChallenge : IntPtr
+        get_RequestID    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "DecryptChallenge", "get_RequestID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertificateAttestationChallenge.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -51,7 +62,7 @@ class ICertificateAttestationChallenge extends IDispatch {
     Initialize(Encoding, strPendingFullCmcResponseWithChallenge) {
         strPendingFullCmcResponseWithChallenge := strPendingFullCmcResponseWithChallenge is String ? BSTR.Alloc(strPendingFullCmcResponseWithChallenge).Value : strPendingFullCmcResponseWithChallenge
 
-        result := ComCall(7, this, "int", Encoding, "ptr", strPendingFullCmcResponseWithChallenge, "HRESULT")
+        result := ComCall(7, this, EncodingType, Encoding, BSTR, strPendingFullCmcResponseWithChallenge, "HRESULT")
         return result
     }
 
@@ -62,8 +73,8 @@ class ICertificateAttestationChallenge extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-decryptchallenge
      */
     DecryptChallenge(Encoding) {
-        pstrEnvelopedPkcs7ReencryptedToCA := BSTR()
-        result := ComCall(8, this, "int", Encoding, "ptr", pstrEnvelopedPkcs7ReencryptedToCA, "HRESULT")
+        pstrEnvelopedPkcs7ReencryptedToCA := BSTR.Owned()
+        result := ComCall(8, this, EncodingType, Encoding, BSTR.Ptr, pstrEnvelopedPkcs7ReencryptedToCA, "HRESULT")
         return pstrEnvelopedPkcs7ReencryptedToCA
     }
 
@@ -73,8 +84,32 @@ class ICertificateAttestationChallenge extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-get_requestid
      */
     get_RequestID() {
-        pstrRequestID := BSTR()
-        result := ComCall(9, this, "ptr", pstrRequestID, "HRESULT")
+        pstrRequestID := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pstrRequestID, "HRESULT")
         return pstrRequestID
+    }
+
+    Query(iid) {
+        if (ICertificateAttestationChallenge.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.DecryptChallenge := CallbackCreate(GetMethod(implObj, "DecryptChallenge"), flags, 3)
+        this.vtbl.get_RequestID := CallbackCreate(GetMethod(implObj, "get_RequestID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.DecryptChallenge)
+        CallbackFree(this.vtbl.get_RequestID)
     }
 }

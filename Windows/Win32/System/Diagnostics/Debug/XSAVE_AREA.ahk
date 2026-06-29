@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XSAVE_FORMAT.ahk
-#Include .\M128A.ahk
-#Include .\XSAVE_AREA_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XSAVE_AREA_HEADER.ahk" { XSAVE_AREA_HEADER }
+#Import ".\M128A.ahk" { M128A }
+#Import ".\XSAVE_FORMAT.ahk" { XSAVE_FORMAT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class XSAVE_AREA extends Win32Struct {
-    static sizeof => 576
+export default struct XSAVE_AREA {
+    #StructPack 8
 
-    static packingSize => 8
+    LegacyState : XSAVE_FORMAT
 
-    /**
-     * @type {XSAVE_FORMAT}
-     */
-    LegacyState {
-        get {
-            if(!this.HasProp("__LegacyState"))
-                this.__LegacyState := XSAVE_FORMAT(0, this)
-            return this.__LegacyState
-        }
-    }
+    Header : XSAVE_AREA_HEADER
 
-    /**
-     * @type {XSAVE_AREA_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := XSAVE_AREA_HEADER(512, this)
-            return this.__Header
-        }
-    }
 }

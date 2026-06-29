@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_ADAPTERREGISTRYINFO extends Win32Struct {
-    static sizeof => 2080
+export default struct D3DKMT_ADAPTERREGISTRYINFO {
+    #StructPack 2
 
-    static packingSize => 2
+    AdapterString : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    AdapterString {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
+    BiosString : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    BiosString {
-        get => StrGet(this.ptr + 520, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 259, "UTF-16")
-    }
+    DacType : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    DacType {
-        get => StrGet(this.ptr + 1040, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1040, 259, "UTF-16")
-    }
+    ChipType : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    ChipType {
-        get => StrGet(this.ptr + 1560, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1560, 259, "UTF-16")
-    }
 }

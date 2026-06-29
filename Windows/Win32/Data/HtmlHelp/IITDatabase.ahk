@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface for opening and closing the database object, and for instantiating objects stored in the database.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitdatabase
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class IITDatabase extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IITDatabase extends IUnknown {
     /**
      * The interface identifier for IITDatabase
      * @type {Guid}
      */
-    static IID => Guid("{8fa0d5a2-dedf-11d0-9a61-00c04fb68bf7}")
+    static IID := Guid("{8fa0d5a2-dedf-11d0-9a61-00c04fb68bf7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IITDatabase interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open                 : IntPtr
+        Close                : IntPtr
+        CreateObject         : IntPtr
+        GetObject            : IntPtr
+        GetObjectPersistence : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "CreateObject", "GetObject", "GetObjectPersistence"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IITDatabase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a database.
@@ -174,7 +188,7 @@ class IITDatabase extends IUnknown {
     CreateObject(rclsid, pdwObjInstance) {
         pdwObjInstanceMarshal := pdwObjInstance is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", rclsid, pdwObjInstanceMarshal, pdwObjInstance, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsid, pdwObjInstanceMarshal, pdwObjInstance, "HRESULT")
         return result
     }
 
@@ -244,7 +258,7 @@ class IITDatabase extends IUnknown {
     GetObject(dwObjInstance, riid, ppvObj) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwObjInstance, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
+        result := ComCall(6, this, "uint", dwObjInstance, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 
@@ -261,7 +275,35 @@ class IITDatabase extends IUnknown {
 
         ppvPersistenceMarshal := ppvPersistence is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", lpwszObject, "uint", dwObjInstance, ppvPersistenceMarshal, ppvPersistence, "int", fStream, "HRESULT")
+        result := ComCall(7, this, "ptr", lpwszObject, "uint", dwObjInstance, ppvPersistenceMarshal, ppvPersistence, BOOL, fStream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IITDatabase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.CreateObject := CallbackCreate(GetMethod(implObj, "CreateObject"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetObjectPersistence := CallbackCreate(GetMethod(implObj, "GetObjectPersistence"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.CreateObject)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetObjectPersistence)
     }
 }

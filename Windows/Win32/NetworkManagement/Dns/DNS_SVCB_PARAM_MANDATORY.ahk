@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SVCB_PARAM_MANDATORY extends Win32Struct {
-    static sizeof => 4
+export default struct DNS_SVCB_PARAM_MANDATORY {
+    #StructPack 2
 
-    static packingSize => 2
+    cMandatoryKeys : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cMandatoryKeys {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    rgwMandatoryKeys : UInt16[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgwMandatoryKeys {
-        get {
-            if(!this.HasProp("__rgwMandatoryKeysProxyArray"))
-                this.__rgwMandatoryKeysProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ushort")
-            return this.__rgwMandatoryKeysProxyArray
-        }
-    }
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D12\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Direct3D12\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk" { D3D12_COMMAND_LIST_SUPPORT_FLAGS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes a video extension command. (D3D12_VIDEO_EXTENSION_COMMAND_INFO)
@@ -9,35 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_extension_command_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_EXTENSION_COMMAND_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_VIDEO_EXTENSION_COMMAND_INFO {
+    #StructPack 8
 
     /**
      * The unique identifier for the video extension command.
-     * @type {Pointer}
      */
-    CommandId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CommandId : Guid
 
     /**
      * A pointer to a wide string containing the name of the command.
-     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Name : PWSTR
 
     /**
      * A member of the [D3D12_COMMAND_LIST_SUPPORT_FLAGS](../d3d12/ne-d3d12-d3d12_command_list_support_flags.md) enumeration.  Indicates the video command queue that the video extension targets. Only one value from the enumeration can be set.
-     * @type {D3D12_COMMAND_LIST_SUPPORT_FLAGS}
      */
-    CommandListSupportFlags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    CommandListSupportFlags : D3D12_COMMAND_LIST_SUPPORT_FLAGS
+
 }

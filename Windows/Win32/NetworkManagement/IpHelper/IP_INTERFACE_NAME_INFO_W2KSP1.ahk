@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about an IPv4 interface on the local computer.
@@ -12,21 +12,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IP_INTERFACE_NAME_INFO_W2KSP1 {
+    #StructPack 4
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The index of the IP interface for the active instance.
-     * @type {Integer}
      */
-    Index {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Index : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -145,12 +139,8 @@ class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    MediaType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MediaType : UInt32
 
     /**
      * Type: <b>UCHAR</b>
@@ -201,12 +191,8 @@ class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ConnectionType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ConnectionType : Int8
 
     /**
      * Type: <b>UCHAR</b>
@@ -278,32 +264,21 @@ class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AccessType {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    AccessType : Int8
 
     /**
      * Type: <b>GUID</b>
      * 
      * The GUID that identifies the underlying device for the interface. This member can be a zero GUID.
-     * @type {Pointer}
      */
-    DeviceGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DeviceGuid : Guid
 
     /**
      * Type: <b>GUID</b>
      * 
      * The GUID that identifies the interface mapped to the device. Optional. This member can be a zero GUID.
-     * @type {Pointer}
      */
-    InterfaceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InterfaceGuid : Guid
+
 }

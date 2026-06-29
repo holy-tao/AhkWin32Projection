@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies hardware overlay capabilities for a Direct3D device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3doverlaycaps
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3DOVERLAYCAPS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3DOVERLAYCAPS {
+    #StructPack 4
 
     /**
      * Contains a bitwise <b>OR</b> of the following flags.
@@ -108,28 +105,17 @@ class D3DOVERLAYCAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Caps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Caps : UInt32
 
     /**
      * The maximum overlay width after stretching.
-     * @type {Integer}
      */
-    MaxOverlayDisplayWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxOverlayDisplayWidth : UInt32
 
     /**
      * The maximum overlay height after stretching.
-     * @type {Integer}
      */
-    MaxOverlayDisplayHeight {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxOverlayDisplayHeight : UInt32
+
 }

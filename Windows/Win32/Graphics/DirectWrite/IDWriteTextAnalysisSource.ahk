@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the text analyzer's client to provide text to the analyzer.
@@ -11,26 +14,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextAnalysisSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextAnalysisSource extends IUnknown {
     /**
      * The interface identifier for IDWriteTextAnalysisSource
      * @type {Guid}
      */
-    static IID => Guid("{688e1a58-5094-47c8-adc8-fbcea60ae92b}")
+    static IID := Guid("{688e1a58-5094-47c8-adc8-fbcea60ae92b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextAnalysisSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTextAtPosition            : IntPtr
+        GetTextBeforePosition        : IntPtr
+        GetParagraphReadingDirection : IntPtr
+        GetLocaleName                : IntPtr
+        GetNumberSubstitution        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTextAtPosition", "GetTextBeforePosition", "GetParagraphReadingDirection", "GetLocaleName", "GetNumberSubstitution"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextAnalysisSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a block of text starting at the specified text position.
@@ -105,7 +119,7 @@ class IDWriteTextAnalysisSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-getparagraphreadingdirection
      */
     GetParagraphReadingDirection() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, DWRITE_READING_DIRECTION)
         return result
     }
 
@@ -158,7 +172,35 @@ class IDWriteTextAnalysisSource extends IUnknown {
     GetNumberSubstitution(textPosition, textLength, numberSubstitution) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", textPosition, textLengthMarshal, textLength, "ptr*", numberSubstitution, "HRESULT")
+        result := ComCall(7, this, "uint", textPosition, textLengthMarshal, textLength, IDWriteNumberSubstitution.Ptr, numberSubstitution, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextAnalysisSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTextAtPosition := CallbackCreate(GetMethod(implObj, "GetTextAtPosition"), flags, 4)
+        this.vtbl.GetTextBeforePosition := CallbackCreate(GetMethod(implObj, "GetTextBeforePosition"), flags, 4)
+        this.vtbl.GetParagraphReadingDirection := CallbackCreate(GetMethod(implObj, "GetParagraphReadingDirection"), flags, 1)
+        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 4)
+        this.vtbl.GetNumberSubstitution := CallbackCreate(GetMethod(implObj, "GetNumberSubstitution"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTextAtPosition)
+        CallbackFree(this.vtbl.GetTextBeforePosition)
+        CallbackFree(this.vtbl.GetParagraphReadingDirection)
+        CallbackFree(this.vtbl.GetLocaleName)
+        CallbackFree(this.vtbl.GetNumberSubstitution)
     }
 }

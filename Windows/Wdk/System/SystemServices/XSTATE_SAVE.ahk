@@ -1,77 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\XSTATE_SAVE.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\XSAVE_AREA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\System\Diagnostics\Debug\XSAVE_AREA.ahk" { XSAVE_AREA }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class XSTATE_SAVE extends Win32Struct {
-    static sizeof => 56
+export default struct XSTATE_SAVE {
+    #StructPack 8
 
-    static packingSize => 8
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Prev : XSTATE_SAVE.Ptr
 
-    /**
-     * @type {Pointer<XSTATE_SAVE>}
-     */
-    Prev {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Reserved3 : XSAVE_AREA.Ptr
 
-    /**
-     * @type {Pointer<XSAVE_AREA>}
-     */
-    Reserved3 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Thread : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    Thread {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Reserved4 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved4 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Level : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    XStateContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'XStateContext', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

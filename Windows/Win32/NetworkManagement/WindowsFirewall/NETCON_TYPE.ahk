@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NETCON_TYPE type enumerates the various kinds of network connections.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NETCON_TYPE extends Win32Enum {
+export default struct NETCON_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Direct serial connection through a serial port.

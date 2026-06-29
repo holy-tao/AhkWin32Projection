@@ -1,12 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRegistrationInfo.ahk
-#Include .\ITriggerCollection.ahk
-#Include .\ITaskSettings.ahk
-#Include .\IPrincipal.ahk
-#Include .\IActionCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrincipal.ahk" { IPrincipal }
+#Import ".\IActionCollection.ahk" { IActionCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITriggerCollection.ahk" { ITriggerCollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRegistrationInfo.ahk" { IRegistrationInfo }
+#Import ".\ITaskSettings.ahk" { ITaskSettings }
 
 /**
  * Defines all the components of a task, such as the task settings, triggers, actions, and registration information.
@@ -15,26 +17,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskdefinition
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskDefinition extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITaskDefinition extends IDispatch {
     /**
      * The interface identifier for ITaskDefinition
      * @type {Guid}
      */
-    static IID => Guid("{f5bc8fc5-536d-4f77-b852-fbc1356fdeb6}")
+    static IID := Guid("{f5bc8fc5-536d-4f77-b852-fbc1356fdeb6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskDefinition interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_RegistrationInfo : IntPtr
+        put_RegistrationInfo : IntPtr
+        get_Triggers         : IntPtr
+        put_Triggers         : IntPtr
+        get_Settings         : IntPtr
+        put_Settings         : IntPtr
+        get_Data             : IntPtr
+        put_Data             : IntPtr
+        get_Principal        : IntPtr
+        put_Principal        : IntPtr
+        get_Actions          : IntPtr
+        put_Actions          : IntPtr
+        get_XmlText          : IntPtr
+        put_XmlText          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_RegistrationInfo", "put_RegistrationInfo", "get_Triggers", "put_Triggers", "get_Settings", "put_Settings", "get_Data", "put_Data", "get_Principal", "put_Principal", "get_Actions", "put_Actions", "get_XmlText", "put_XmlText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRegistrationInfo} 
@@ -162,7 +184,7 @@ class ITaskDefinition extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_data
      */
     get_Data(pData) {
-        result := ComCall(13, this, "ptr", pData, "HRESULT")
+        result := ComCall(13, this, BSTR.Ptr, pData, "HRESULT")
         return result
     }
 
@@ -175,7 +197,7 @@ class ITaskDefinition extends IDispatch {
     put_Data(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(14, this, "ptr", data, "HRESULT")
+        result := ComCall(14, this, BSTR, data, "HRESULT")
         return result
     }
 
@@ -230,7 +252,7 @@ class ITaskDefinition extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_xmltext
      */
     get_XmlText(pXml) {
-        result := ComCall(19, this, "ptr", pXml, "HRESULT")
+        result := ComCall(19, this, BSTR.Ptr, pXml, "HRESULT")
         return result
     }
 
@@ -245,7 +267,53 @@ class ITaskDefinition extends IDispatch {
     put_XmlText(xml) {
         xml := xml is String ? BSTR.Alloc(xml).Value : xml
 
-        result := ComCall(20, this, "ptr", xml, "HRESULT")
+        result := ComCall(20, this, BSTR, xml, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_RegistrationInfo := CallbackCreate(GetMethod(implObj, "get_RegistrationInfo"), flags, 2)
+        this.vtbl.put_RegistrationInfo := CallbackCreate(GetMethod(implObj, "put_RegistrationInfo"), flags, 2)
+        this.vtbl.get_Triggers := CallbackCreate(GetMethod(implObj, "get_Triggers"), flags, 2)
+        this.vtbl.put_Triggers := CallbackCreate(GetMethod(implObj, "put_Triggers"), flags, 2)
+        this.vtbl.get_Settings := CallbackCreate(GetMethod(implObj, "get_Settings"), flags, 2)
+        this.vtbl.put_Settings := CallbackCreate(GetMethod(implObj, "put_Settings"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.get_Principal := CallbackCreate(GetMethod(implObj, "get_Principal"), flags, 2)
+        this.vtbl.put_Principal := CallbackCreate(GetMethod(implObj, "put_Principal"), flags, 2)
+        this.vtbl.get_Actions := CallbackCreate(GetMethod(implObj, "get_Actions"), flags, 2)
+        this.vtbl.put_Actions := CallbackCreate(GetMethod(implObj, "put_Actions"), flags, 2)
+        this.vtbl.get_XmlText := CallbackCreate(GetMethod(implObj, "get_XmlText"), flags, 2)
+        this.vtbl.put_XmlText := CallbackCreate(GetMethod(implObj, "put_XmlText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_RegistrationInfo)
+        CallbackFree(this.vtbl.put_RegistrationInfo)
+        CallbackFree(this.vtbl.get_Triggers)
+        CallbackFree(this.vtbl.put_Triggers)
+        CallbackFree(this.vtbl.get_Settings)
+        CallbackFree(this.vtbl.put_Settings)
+        CallbackFree(this.vtbl.get_Data)
+        CallbackFree(this.vtbl.put_Data)
+        CallbackFree(this.vtbl.get_Principal)
+        CallbackFree(this.vtbl.put_Principal)
+        CallbackFree(this.vtbl.get_Actions)
+        CallbackFree(this.vtbl.put_Actions)
+        CallbackFree(this.vtbl.get_XmlText)
+        CallbackFree(this.vtbl.put_XmlText)
     }
 }

@@ -1,88 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about an available wireless network. (WLAN_AVAILABLE_NETWORK)
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_available_network
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_AVAILABLE_NETWORK extends Win32Struct {
-    static sizeof => 628
-
-    static packingSize => 4
+export default struct WLAN_AVAILABLE_NETWORK {
+    #StructPack 4
 
     /**
      * Contains the profile name associated with the network.  If the network does not have a profile, this member will be empty.  If multiple profiles are associated with the network, there will be multiple entries with the same SSID in the visible network list. Profile names are case-sensitive. This string must be NULL-terminated.
-     * @type {String}
      */
-    strProfileName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    strProfileName : WCHAR[256]
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the visible wireless network.
-     * @type {DOT11_SSID}
      */
-    dot11Ssid {
-        get {
-            if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(512, this)
-            return this.__dot11Ssid
-        }
-    }
+    dot11Ssid : DOT11_SSID
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that specifies whether the network is infrastructure or ad hoc.
-     * @type {DOT11_BSS_TYPE}
      */
-    dot11BssType {
-        get => NumGet(this, 548, "int")
-        set => NumPut("int", value, this, 548)
-    }
+    dot11BssType : DOT11_BSS_TYPE
 
     /**
      * Indicates the number of BSSIDs in the network.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b><b>uNumberofBssids</b> is at most 1, regardless of the number of access points broadcasting the SSID.
-     * @type {Integer}
      */
-    uNumberOfBssids {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    uNumberOfBssids : UInt32
 
     /**
      * Indicates whether the network is connectable or not.    If set to <b>TRUE</b>, the network is connectable, otherwise the network cannot be connected to.
-     * @type {BOOL}
      */
-    bNetworkConnectable {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
-    }
+    bNetworkConnectable : BOOL
 
     /**
      * A WLAN_REASON_CODE value that indicates why a network cannot be connected to.  This member is only valid when  <b>bNetworkConnectable</b> is <b>FALSE</b>.
-     * @type {Integer}
      */
-    wlanNotConnectableReason {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    wlanNotConnectableReason : UInt32
 
     /**
      * The number of PHY types supported on available networks. The maximum value of <i>uNumberOfPhyTypes</i> is <b>WLAN_MAX_PHY_TYPE_NUMBER</b>, which has a value of 8. If more than <b>WLAN_MAX_PHY_TYPE_NUMBER</b> PHY types are supported, <i>bMorePhyTypes</i> must be set to <b>TRUE</b>.
-     * @type {Integer}
      */
-    uNumberOfPhyTypes {
-        get => NumGet(this, 564, "uint")
-        set => NumPut("uint", value, this, 564)
-    }
+    uNumberOfPhyTypes : UInt32
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-phy-type">DOT11_PHY_TYPE</a> values that represent the PHY types supported by the available networks. When <i>uNumberOfPhyTypes</i> is greater than <b>WLAN_MAX_PHY_TYPE_NUMBER</b>, this array contains only the first <b>WLAN_MAX_PHY_TYPE_NUMBER</b> PHY types.
@@ -217,62 +185,35 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Array<DOT11_PHY_TYPE>}
      */
-    dot11PhyTypes {
-        get {
-            if(!this.HasProp("__dot11PhyTypesProxyArray"))
-                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "int")
-            return this.__dot11PhyTypesProxyArray
-        }
-    }
+    dot11PhyTypes : DOT11_PHY_TYPE[8]
 
     /**
      * Specifies if there are more than <b>WLAN_MAX_PHY_TYPE_NUMBER</b> PHY types supported. 
      * 
      * When this member is set to <b>TRUE</b>, an application must call <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetnetworkbsslist">WlanGetNetworkBssList</a> to get the complete list of PHY types. The returned  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_list">WLAN_BSS_LIST</a> structure has an array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_entry">WLAN_BSS_ENTRY</a> structures. The <i>uPhyId</i> member of the <b>WLAN_BSS_ENTRY</b>   structure contains the PHY type for an entry.
-     * @type {BOOL}
      */
-    bMorePhyTypes {
-        get => NumGet(this, 600, "int")
-        set => NumPut("int", value, this, 600)
-    }
+    bMorePhyTypes : BOOL
 
     /**
      * A percentage value that represents the signal quality of the network.  <b>WLAN_SIGNAL_QUALITY</b> is of type <b>ULONG</b>.  This member contains a value between 0 and 100. A value of 0 implies an actual RSSI signal strength of -100 dbm. A value of 100 implies an actual RSSI signal strength of -50 dbm. You can calculate the RSSI signal strength value for <b>wlanSignalQuality</b> values between 1 and 99 using linear interpolation.
-     * @type {Integer}
      */
-    wlanSignalQuality {
-        get => NumGet(this, 604, "uint")
-        set => NumPut("uint", value, this, 604)
-    }
+    wlanSignalQuality : UInt32
 
     /**
      * Indicates whether security is enabled on the network.  A value of <b>TRUE</b> indicates that security is enabled, otherwise it is not.
-     * @type {BOOL}
      */
-    bSecurityEnabled {
-        get => NumGet(this, 608, "int")
-        set => NumPut("int", value, this, 608)
-    }
+    bSecurityEnabled : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-auth-algorithm">DOT11_AUTH_ALGORITHM</a> value that indicates the default authentication algorithm used to join this network for the first time.
-     * @type {DOT11_AUTH_ALGORITHM}
      */
-    dot11DefaultAuthAlgorithm {
-        get => NumGet(this, 612, "int")
-        set => NumPut("int", value, this, 612)
-    }
+    dot11DefaultAuthAlgorithm : DOT11_AUTH_ALGORITHM
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-cipher-algorithm">DOT11_CIPHER_ALGORITHM</a> value that indicates the default cipher algorithm to be used when joining this network.
-     * @type {DOT11_CIPHER_ALGORITHM}
      */
-    dot11DefaultCipherAlgorithm {
-        get => NumGet(this, 616, "int")
-        set => NumPut("int", value, this, 616)
-    }
+    dot11DefaultCipherAlgorithm : DOT11_CIPHER_ALGORITHM
 
     /**
      * Contains various flags for the network.
@@ -303,19 +244,12 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 620, "uint")
-        set => NumPut("uint", value, this, 620)
-    }
+    dwFlags : UInt32
 
     /**
      * Reserved for future use.  Must be set to <b>NULL</b>.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 624, "uint")
-        set => NumPut("uint", value, this, 624)
-    }
+    dwReserved : UInt32
+
 }

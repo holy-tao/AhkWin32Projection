@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MapiRecipDesc.ahk
-#Include .\MapiFileDesc.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MapiFileDesc.ahk" { MapiFileDesc }
+#Import ".\MapiRecipDesc.ahk" { MapiRecipDesc }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A MapiMessage structure contains information about a message. For Unicode support, use the MapiMessageW structure.
@@ -9,64 +9,38 @@
  * @namespace Windows.Win32.System.Mapi
  * @charset ANSI
  */
-class MapiMessage extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct MapiMessage {
+    #StructPack 8
 
     /**
      * Reserved; must be zero or <b>CP_UTF8</b>. If <b>CP_UTF8</b>, the following are UTF-8 instead of ANSI strings: <b>lpszSubject</b>, <b>lpszNoteText</b>, <b>lpszMessageType</b>, <b>lpszDateReceived</b>, <b>lpszConversationID</b>.
-     * @type {Integer}
      */
-    ulReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved : UInt32
 
     /**
      * Pointer to the text string describing the message subject, typically limited to 256 characters or less. If this member is empty or <b>NULL</b>, the user has not entered subject text.
-     * @type {PSTR}
      */
-    lpszSubject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszSubject : PSTR
 
     /**
      * Pointer to a string containing the message text. If this member is empty or <b>NULL</b>, there is no message text.
-     * @type {PSTR}
      */
-    lpszNoteText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszNoteText : PSTR
 
     /**
      * Pointer to a string indicating a non-IPM type of message. Client applications can select message types for their non-IPM messages. Clients that only support IPM messages can ignore the <b>lpszMessageType</b> member when reading messages and set it to empty or <b>NULL</b> when sending messages.
-     * @type {PSTR}
      */
-    lpszMessageType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszMessageType : PSTR
 
     /**
      * Pointer to a string indicating the date when the message was received. The format is YYYY/MM/DD HH:MM, using a 24-hour clock.
-     * @type {PSTR}
      */
-    lpszDateReceived {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszDateReceived : PSTR
 
     /**
      * Pointer to a string identifying the conversation thread to which the message belongs. Some messaging systems can ignore and not return this member.
-     * @type {PSTR}
      */
-    lpszConversationID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszConversationID : PSTR
 
     /**
      * Bitmask of message status flags. The following flags can be set.
@@ -107,55 +81,32 @@ class MapiMessage extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    flFlags : UInt32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdesc">MapiRecipDesc</a> structure containing information about the sender of the message.
-     * @type {Pointer<MapiRecipDesc>}
      */
-    lpOriginator {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpOriginator : MapiRecipDesc.Ptr
 
     /**
      * The number of message recipient structures in the array pointed to by the <b>lpRecips</b> member. A value of zero indicates no recipients are included.
-     * @type {Integer}
      */
-    nRecipCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    nRecipCount : UInt32
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdesc">MapiRecipDesc</a> structures, each containing information about a message recipient.
-     * @type {Pointer<MapiRecipDesc>}
      */
-    lpRecips {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpRecips : MapiRecipDesc.Ptr
 
     /**
      * The number of structures describing file attachments in the array pointed to by the <b>lpFiles</b> member. A value of zero indicates no file attachments are included.
-     * @type {Integer}
      */
-    nFileCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    nFileCount : UInt32
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapifiledesc">MapiFileDesc</a> structures, each containing information about a file attachment.
-     * @type {Pointer<MapiFileDesc>}
      */
-    lpFiles {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpFiles : MapiFileDesc.Ptr
+
 }

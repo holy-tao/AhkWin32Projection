@@ -1,76 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_SECURITY_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SOCKET_SECURITY_PROTOCOL.ahk" { SOCKET_SECURITY_PROTOCOL }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_SECURITY_QUERY_INFO_IPSEC2 extends Win32Struct {
-    static sizeof => 56
+export default struct SOCKET_SECURITY_QUERY_INFO_IPSEC2 {
+    #StructPack 8
 
-    static packingSize => 8
+    SecurityProtocol : SOCKET_SECURITY_PROTOCOL
 
-    /**
-     * @type {SOCKET_SECURITY_PROTOCOL}
-     */
-    SecurityProtocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PeerApplicationAccessTokenHandle : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeerApplicationAccessTokenHandle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PeerMachineAccessTokenHandle : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeerMachineAccessTokenHandle {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MmSaId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MmSaId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    QmSaId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QmSaId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NegotiationWinerr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NegotiationWinerr {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SaLookupContext : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SaLookupContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

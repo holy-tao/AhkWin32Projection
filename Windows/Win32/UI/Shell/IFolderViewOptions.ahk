@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FOLDERVIEWOPTIONS.ahk" { FOLDERVIEWOPTIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow control of folder view options specific to the Windows 7 and later views.
@@ -20,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifolderviewoptions
  * @namespace Windows.Win32.UI.Shell
  */
-class IFolderViewOptions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFolderViewOptions extends IUnknown {
     /**
      * The interface identifier for IFolderViewOptions
      * @type {Guid}
      */
-    static IID => Guid("{3cc974d2-b302-4d36-ad3e-06d93f695d3f}")
+    static IID := Guid("{3cc974d2-b302-4d36-ad3e-06d93f695d3f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderViewOptions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFolderViewOptions : IntPtr
+        GetFolderViewOptions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFolderViewOptions", "GetFolderViewOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderViewOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets specified options for the view.
@@ -55,7 +65,7 @@ class IFolderViewOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderviewoptions-setfolderviewoptions
      */
     SetFolderViewOptions(fvoMask, fvoFlags) {
-        result := ComCall(3, this, "int", fvoMask, "int", fvoFlags, "HRESULT")
+        result := ComCall(3, this, FOLDERVIEWOPTIONS, fvoMask, FOLDERVIEWOPTIONS, fvoFlags, "HRESULT")
         return result
     }
 
@@ -69,5 +79,27 @@ class IFolderViewOptions extends IUnknown {
     GetFolderViewOptions() {
         result := ComCall(4, this, "int*", &pfvoFlags := 0, "HRESULT")
         return pfvoFlags
+    }
+
+    Query(iid) {
+        if (IFolderViewOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFolderViewOptions := CallbackCreate(GetMethod(implObj, "SetFolderViewOptions"), flags, 3)
+        this.vtbl.GetFolderViewOptions := CallbackCreate(GetMethod(implObj, "GetFolderViewOptions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFolderViewOptions)
+        CallbackFree(this.vtbl.GetFolderViewOptions)
     }
 }

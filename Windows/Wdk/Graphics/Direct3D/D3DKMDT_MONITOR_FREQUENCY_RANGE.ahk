@@ -1,69 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk
-#Include .\D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk" { D3DKMDT_MONITOR_CAPABILITIES_ORIGIN }
+#Import ".\D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT.ahk" { D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMDT_MONITOR_FREQUENCY_RANGE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Constraint_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Constraint {
+        ActiveSize : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        ActiveSize {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        MaxPixelRate {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'MaxPixelRate', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {D3DKMDT_MONITOR_CAPABILITIES_ORIGIN}
-     */
-    Origin {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Origin : D3DKMDT_MONITOR_CAPABILITIES_ORIGIN
 
-    /**
-     * @type {Pointer}
-     */
-    RangeLimits {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RangeLimits : IntPtr
 
-    /**
-     * @type {D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT}
-     */
-    ConstraintType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ConstraintType : D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT
 
-    /**
-     * @type {_Constraint_e__Union}
-     */
-    Constraint {
-        get {
-            if(!this.HasProp("__Constraint"))
-                this.__Constraint := D3DKMDT_MONITOR_FREQUENCY_RANGE._Constraint_e__Union(24, this)
-            return this.__Constraint
-        }
-    }
+    Constraint : D3DKMDT_MONITOR_FREQUENCY_RANGE._Constraint
+
 }

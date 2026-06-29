@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyJob1.ahk" { IBackgroundCopyJob1 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
 
 /**
  * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyCallback1 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyCallback1 extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyCallback1
      * @type {Guid}
      */
-    static IID => Guid("{084f6593-3800-4e08-9b59-99fa59addf82}")
+    static IID := Guid("{084f6593-3800-4e08-9b59-99fa59addf82}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyCallback1 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnStatus     : IntPtr
+        OnProgress   : IntPtr
+        OnProgressEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnStatus", "OnProgress", "OnProgressEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyCallback1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Implement the OnStatus method to receive notification when the group is complete or an error occurs.
@@ -78,5 +90,29 @@ class IBackgroundCopyCallback1 extends IUnknown {
 
         result := ComCall(5, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "uint", dwByteArraySize, pByteMarshal, pByte, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyCallback1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnStatus := CallbackCreate(GetMethod(implObj, "OnStatus"), flags, 8)
+        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 6)
+        this.vtbl.OnProgressEx := CallbackCreate(GetMethod(implObj, "OnProgressEx"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnStatus)
+        CallbackFree(this.vtbl.OnProgress)
+        CallbackFree(this.vtbl.OnProgressEx)
     }
 }

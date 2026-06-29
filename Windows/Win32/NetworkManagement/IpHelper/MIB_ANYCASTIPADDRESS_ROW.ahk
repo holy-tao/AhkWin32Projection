@@ -1,13 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Stores information about an anycast IP address.
@@ -18,53 +18,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_anycastipaddress_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_ANYCASTIPADDRESS_ROW extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct MIB_ANYCASTIPADDRESS_ROW {
+    #StructPack 8
 
     /**
      * The anycast IP address. This member can be an IPv6 address or an IPv4 address.
-     * @type {SOCKADDR_INET}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(0, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKADDR_INET
 
     /**
      * The locally unique identifier (LUID) for the network interface associated with this IP address.
-     * @type {NET_LUID_LH}
      */
-    InterfaceLuid {
-        get {
-            if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(48, this)
-            return this.__InterfaceLuid
-        }
-    }
+    InterfaceLuid : NET_LUID_LH
 
     /**
      * The local index value for the network interface associated with this IP address. This index value may change when a network adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * The scope ID of the anycast IP address. This member is applicable only to an IPv6 address. This member cannot be set. It is automatically determined by the interface on which the address was added.
-     * @type {SCOPE_ID}
      */
-    ScopeId {
-        get {
-            if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(68, this)
-            return this.__ScopeId
-        }
-    }
+    ScopeId : SCOPE_ID
+
 }

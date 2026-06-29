@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the characteristics of a media source.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfmediasource_characteristics
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFMEDIASOURCE_CHARACTERISTICS extends Win32Enum {
+export default struct MFMEDIASOURCE_CHARACTERISTICS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This flag indicates a data source that runs constantly, such as a live presentation. If the source is stopped and then restarted, there will be a gap in the content.

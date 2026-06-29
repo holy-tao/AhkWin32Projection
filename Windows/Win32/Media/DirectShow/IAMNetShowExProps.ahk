@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IAMNetShowExProps interface configures the legacy Windows Media Player 6.4 source filter. The Windows Media Source filter implements this interface.
@@ -12,26 +15,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamnetshowexprops
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMNetShowExProps extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAMNetShowExProps extends IDispatch {
     /**
      * The interface identifier for IAMNetShowExProps
      * @type {Guid}
      */
-    static IID => Guid("{fa2aa8f5-8b62-11d0-a520-000000000000}")
+    static IID := Guid("{fa2aa8f5-8b62-11d0-a520-000000000000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMNetShowExProps interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_SourceProtocol  : IntPtr
+        get_Bandwidth       : IntPtr
+        get_ErrorCorrection : IntPtr
+        get_CodecCount      : IntPtr
+        GetCodecInstalled   : IntPtr
+        GetCodecDescription : IntPtr
+        GetCodecURL         : IntPtr
+        get_CreationDate    : IntPtr
+        get_SourceLink      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SourceProtocol", "get_Bandwidth", "get_ErrorCorrection", "get_CodecCount", "GetCodecInstalled", "GetCodecDescription", "GetCodecURL", "get_CreationDate", "get_SourceLink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMNetShowExProps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -104,7 +122,7 @@ class IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_errorcorrection
      */
     get_ErrorCorrection(pbstrErrorCorrection) {
-        result := ComCall(9, this, "ptr", pbstrErrorCorrection, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pbstrErrorCorrection, "HRESULT")
         return result
     }
 
@@ -145,7 +163,7 @@ class IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecdescription
      */
     GetCodecDescription(CodecNum, pbstrCodecDescription) {
-        result := ComCall(12, this, "int", CodecNum, "ptr", pbstrCodecDescription, "HRESULT")
+        result := ComCall(12, this, "int", CodecNum, BSTR.Ptr, pbstrCodecDescription, "HRESULT")
         return result
     }
 
@@ -159,7 +177,7 @@ class IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecurl
      */
     GetCodecURL(CodecNum, pbstrCodecURL) {
-        result := ComCall(13, this, "int", CodecNum, "ptr", pbstrCodecURL, "HRESULT")
+        result := ComCall(13, this, "int", CodecNum, BSTR.Ptr, pbstrCodecURL, "HRESULT")
         return result
     }
 
@@ -185,7 +203,43 @@ class IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_sourcelink
      */
     get_SourceLink(pbstrSourceLink) {
-        result := ComCall(15, this, "ptr", pbstrSourceLink, "HRESULT")
+        result := ComCall(15, this, BSTR.Ptr, pbstrSourceLink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMNetShowExProps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SourceProtocol := CallbackCreate(GetMethod(implObj, "get_SourceProtocol"), flags, 2)
+        this.vtbl.get_Bandwidth := CallbackCreate(GetMethod(implObj, "get_Bandwidth"), flags, 2)
+        this.vtbl.get_ErrorCorrection := CallbackCreate(GetMethod(implObj, "get_ErrorCorrection"), flags, 2)
+        this.vtbl.get_CodecCount := CallbackCreate(GetMethod(implObj, "get_CodecCount"), flags, 2)
+        this.vtbl.GetCodecInstalled := CallbackCreate(GetMethod(implObj, "GetCodecInstalled"), flags, 3)
+        this.vtbl.GetCodecDescription := CallbackCreate(GetMethod(implObj, "GetCodecDescription"), flags, 3)
+        this.vtbl.GetCodecURL := CallbackCreate(GetMethod(implObj, "GetCodecURL"), flags, 3)
+        this.vtbl.get_CreationDate := CallbackCreate(GetMethod(implObj, "get_CreationDate"), flags, 2)
+        this.vtbl.get_SourceLink := CallbackCreate(GetMethod(implObj, "get_SourceLink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SourceProtocol)
+        CallbackFree(this.vtbl.get_Bandwidth)
+        CallbackFree(this.vtbl.get_ErrorCorrection)
+        CallbackFree(this.vtbl.get_CodecCount)
+        CallbackFree(this.vtbl.GetCodecInstalled)
+        CallbackFree(this.vtbl.GetCodecDescription)
+        CallbackFree(this.vtbl.GetCodecURL)
+        CallbackFree(this.vtbl.get_CreationDate)
+        CallbackFree(this.vtbl.get_SourceLink)
     }
 }

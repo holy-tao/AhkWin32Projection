@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMemAllocator.ahk
-#Include .\ALLOCATOR_PROPERTIES.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMemAllocator.ahk" { IMemAllocator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
 
 /**
  * The IMemInputPin interface delivers media data to an input pin.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imeminputpin
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMemInputPin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMemInputPin extends IUnknown {
     /**
      * The interface identifier for IMemInputPin
      * @type {Guid}
      */
-    static IID => Guid("{56a8689d-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a8689d-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMemInputPin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAllocator             : IntPtr
+        NotifyAllocator          : IntPtr
+        GetAllocatorRequirements : IntPtr
+        Receive                  : IntPtr
+        ReceiveMultiple          : IntPtr
+        ReceiveCanBlock          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAllocator", "NotifyAllocator", "GetAllocatorRequirements", "Receive", "ReceiveMultiple", "ReceiveCanBlock"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMemInputPin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetAllocator method retrieves the memory allocator proposed by this pin. After the allocator has been selected, this method returns a pointer to the selected allocator.
@@ -57,7 +72,7 @@ class IMemInputPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-notifyallocator
      */
     NotifyAllocator(pAllocator, bReadOnly) {
-        result := ComCall(4, this, "ptr", pAllocator, "int", bReadOnly, "HRESULT")
+        result := ComCall(4, this, "ptr", pAllocator, BOOL, bReadOnly, "HRESULT")
         return result
     }
 
@@ -70,7 +85,7 @@ class IMemInputPin extends IUnknown {
      */
     GetAllocatorRequirements() {
         pProps := ALLOCATOR_PROPERTIES()
-        result := ComCall(5, this, "ptr", pProps, "HRESULT")
+        result := ComCall(5, this, ALLOCATOR_PROPERTIES.Ptr, pProps, "HRESULT")
         return pProps
     }
 
@@ -186,7 +201,7 @@ class IMemInputPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-receivemultiple
      */
     ReceiveMultiple(pSamples, nSamples) {
-        result := ComCall(7, this, "ptr*", pSamples, "int", nSamples, "int*", &nSamplesProcessed := 0, "HRESULT")
+        result := ComCall(7, this, IMediaSample.Ptr, pSamples, "int", nSamples, "int*", &nSamplesProcessed := 0, "HRESULT")
         return nSamplesProcessed
     }
 
@@ -229,5 +244,35 @@ class IMemInputPin extends IUnknown {
     ReceiveCanBlock() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMemInputPin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAllocator := CallbackCreate(GetMethod(implObj, "GetAllocator"), flags, 2)
+        this.vtbl.NotifyAllocator := CallbackCreate(GetMethod(implObj, "NotifyAllocator"), flags, 3)
+        this.vtbl.GetAllocatorRequirements := CallbackCreate(GetMethod(implObj, "GetAllocatorRequirements"), flags, 2)
+        this.vtbl.Receive := CallbackCreate(GetMethod(implObj, "Receive"), flags, 2)
+        this.vtbl.ReceiveMultiple := CallbackCreate(GetMethod(implObj, "ReceiveMultiple"), flags, 4)
+        this.vtbl.ReceiveCanBlock := CallbackCreate(GetMethod(implObj, "ReceiveCanBlock"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAllocator)
+        CallbackFree(this.vtbl.NotifyAllocator)
+        CallbackFree(this.vtbl.GetAllocatorRequirements)
+        CallbackFree(this.vtbl.Receive)
+        CallbackFree(this.vtbl.ReceiveMultiple)
+        CallbackFree(this.vtbl.ReceiveCanBlock)
     }
 }

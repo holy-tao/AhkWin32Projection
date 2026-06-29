@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaType.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets and sets media types on an object, such as a media source or media sink.
@@ -25,26 +25,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediatypehandler
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaTypeHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaTypeHandler extends IUnknown {
     /**
      * The interface identifier for IMFMediaTypeHandler
      * @type {Guid}
      */
-    static IID => Guid("{e93dcf6c-4b07-4e1e-8123-aa16ed6eadf5}")
+    static IID := Guid("{e93dcf6c-4b07-4e1e-8123-aa16ed6eadf5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaTypeHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsMediaTypeSupported : IntPtr
+        GetMediaTypeCount    : IntPtr
+        GetMediaTypeByIndex  : IntPtr
+        SetCurrentMediaType  : IntPtr
+        GetCurrentMediaType  : IntPtr
+        GetMajorType         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsMediaTypeSupported", "GetMediaTypeCount", "GetMediaTypeByIndex", "SetCurrentMediaType", "GetCurrentMediaType", "GetMajorType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaTypeHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries whether the object supports a specified media type.
@@ -205,7 +217,37 @@ class IMFMediaTypeHandler extends IUnknown {
      */
     GetMajorType() {
         pguidMajorType := Guid()
-        result := ComCall(8, this, "ptr", pguidMajorType, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pguidMajorType, "HRESULT")
         return pguidMajorType
+    }
+
+    Query(iid) {
+        if (IMFMediaTypeHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsMediaTypeSupported := CallbackCreate(GetMethod(implObj, "IsMediaTypeSupported"), flags, 3)
+        this.vtbl.GetMediaTypeCount := CallbackCreate(GetMethod(implObj, "GetMediaTypeCount"), flags, 2)
+        this.vtbl.GetMediaTypeByIndex := CallbackCreate(GetMethod(implObj, "GetMediaTypeByIndex"), flags, 3)
+        this.vtbl.SetCurrentMediaType := CallbackCreate(GetMethod(implObj, "SetCurrentMediaType"), flags, 2)
+        this.vtbl.GetCurrentMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentMediaType"), flags, 2)
+        this.vtbl.GetMajorType := CallbackCreate(GetMethod(implObj, "GetMajorType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsMediaTypeSupported)
+        CallbackFree(this.vtbl.GetMediaTypeCount)
+        CallbackFree(this.vtbl.GetMediaTypeByIndex)
+        CallbackFree(this.vtbl.SetCurrentMediaType)
+        CallbackFree(this.vtbl.GetCurrentMediaType)
+        CallbackFree(this.vtbl.GetMajorType)
     }
 }

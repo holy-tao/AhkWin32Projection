@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the behavior of the CoWaitForMultipleHandles function.
  * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-cowait_flags
  * @namespace Windows.Win32.System.Com
  */
-class COWAIT_FLAGS extends Win32BitflagEnum {
+export default struct COWAIT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Dispatch calls needed for marshaling without dispatching arbitrary calls.

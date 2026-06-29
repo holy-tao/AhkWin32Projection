@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionVisual.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DCOMPOSITION_OPACITY_MODE.ahk" { DCOMPOSITION_OPACITY_MODE }
+#Import ".\DCOMPOSITION_BACKFACE_VISIBILITY.ahk" { DCOMPOSITION_BACKFACE_VISIBILITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
 
 /**
  * Represents one DirectComposition visual in a visual tree. (IDCompositionVisual2)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvisual2
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionVisual2 extends IDCompositionVisual {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionVisual2 extends IDCompositionVisual {
     /**
      * The interface identifier for IDCompositionVisual2
      * @type {Guid}
      */
-    static IID => Guid("{e8de1639-4331-4b26-bc5f-6a321d347a85}")
+    static IID := Guid("{e8de1639-4331-4b26-bc5f-6a321d347a85}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionVisual2 interfaces
+    */
+    struct Vtbl extends IDCompositionVisual.Vtbl {
+        SetOpacityMode        : IntPtr
+        SetBackFaceVisibility : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOpacityMode", "SetBackFaceVisibility"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionVisual2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the opacity mode for this visual.
@@ -46,7 +57,7 @@ class IDCompositionVisual2 extends IDCompositionVisual {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual2-setopacitymode
      */
     SetOpacityMode(_mode) {
-        result := ComCall(20, this, "int", _mode, "HRESULT")
+        result := ComCall(20, this, DCOMPOSITION_OPACITY_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -65,7 +76,29 @@ class IDCompositionVisual2 extends IDCompositionVisual {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual2-setbackfacevisibility
      */
     SetBackFaceVisibility(visibility) {
-        result := ComCall(21, this, "int", visibility, "HRESULT")
+        result := ComCall(21, this, DCOMPOSITION_BACKFACE_VISIBILITY, visibility, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionVisual2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOpacityMode := CallbackCreate(GetMethod(implObj, "SetOpacityMode"), flags, 2)
+        this.vtbl.SetBackFaceVisibility := CallbackCreate(GetMethod(implObj, "SetBackFaceVisibility"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOpacityMode)
+        CallbackFree(this.vtbl.SetBackFaceVisibility)
     }
 }

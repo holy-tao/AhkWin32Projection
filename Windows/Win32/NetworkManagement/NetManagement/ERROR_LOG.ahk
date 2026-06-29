@@ -1,83 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class ERROR_LOG extends Win32Struct {
-    static sizeof => 48
+export default struct ERROR_LOG {
+    #StructPack 8
 
-    static packingSize => 8
+    el_len : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    el_len {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    el_reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    el_reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    el_time : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    el_time {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    el_error : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    el_error {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    el_name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    el_name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    el_text : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    el_text {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    el_data : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    el_data {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    el_data_size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    el_data_size {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    el_nstrings : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    el_nstrings {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

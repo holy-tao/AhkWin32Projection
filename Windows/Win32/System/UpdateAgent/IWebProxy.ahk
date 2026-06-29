@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStringCollection.ahk" { IStringCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains the HTTP proxy settings.
@@ -15,32 +19,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwebproxy
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IWebProxy extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWebProxy extends IDispatch {
     /**
      * The interface identifier for IWebProxy
      * @type {Guid}
      */
-    static IID => Guid("{174c81fe-aecd-4dae-b8a0-2c6318dd86a8}")
+    static IID := Guid("{174c81fe-aecd-4dae-b8a0-2c6318dd86a8}")
 
     /**
      * The class identifier for WebProxy
      * @type {Guid}
      */
-    static CLSID => Guid("{650503cf-9108-4ddc-a2ce-6c2341e1c582}")
+    static CLSID := Guid("{650503cf-9108-4ddc-a2ce-6c2341e1c582}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebProxy interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Address                  : IntPtr
+        put_Address                  : IntPtr
+        get_BypassList               : IntPtr
+        put_BypassList               : IntPtr
+        get_BypassProxyOnLocal       : IntPtr
+        put_BypassProxyOnLocal       : IntPtr
+        get_ReadOnly                 : IntPtr
+        get_UserName                 : IntPtr
+        put_UserName                 : IntPtr
+        SetPassword                  : IntPtr
+        PromptForCredentials         : IntPtr
+        PromptForCredentialsFromHwnd : IntPtr
+        get_AutoDetect               : IntPtr
+        put_AutoDetect               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Address", "put_Address", "get_BypassList", "put_BypassList", "get_BypassProxyOnLocal", "put_BypassProxyOnLocal", "get_ReadOnly", "get_UserName", "put_UserName", "SetPassword", "PromptForCredentials", "PromptForCredentialsFromHwnd", "get_AutoDetect", "put_AutoDetect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebProxy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -98,8 +122,8 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_address
      */
     get_Address() {
-        retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -115,7 +139,7 @@ class IWebProxy extends IDispatch {
     put_Address(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(8, this, "ptr", value, "HRESULT")
+        result := ComCall(8, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -152,7 +176,7 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_bypassproxyonlocal
      */
     get_BypassProxyOnLocal() {
-        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -165,7 +189,7 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_bypassproxyonlocal
      */
     put_BypassProxyOnLocal(value) {
-        result := ComCall(12, this, "short", value, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -175,7 +199,7 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_readonly
      */
     get_ReadOnly() {
-        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -185,8 +209,8 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_username
      */
     get_UserName() {
-        retval := BSTR()
-        result := ComCall(14, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -199,7 +223,7 @@ class IWebProxy extends IDispatch {
     put_UserName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(15, this, "ptr", value, "HRESULT")
+        result := ComCall(15, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -212,7 +236,7 @@ class IWebProxy extends IDispatch {
     SetPassword(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(16, this, "ptr", value, "HRESULT")
+        result := ComCall(16, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -230,7 +254,7 @@ class IWebProxy extends IDispatch {
     PromptForCredentials(parentWindow, title) {
         title := title is String ? BSTR.Alloc(title).Value : title
 
-        result := ComCall(17, this, "ptr", parentWindow, "ptr", title, "HRESULT")
+        result := ComCall(17, this, "ptr", parentWindow, BSTR, title, "HRESULT")
         return result
     }
 
@@ -246,10 +270,9 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-promptforcredentialsfromhwnd
      */
     PromptForCredentialsFromHwnd(parentWindow, title) {
-        parentWindow := parentWindow is Win32Handle ? NumGet(parentWindow, "ptr") : parentWindow
         title := title is String ? BSTR.Alloc(title).Value : title
 
-        result := ComCall(18, this, "ptr", parentWindow, "ptr", title, "HRESULT")
+        result := ComCall(18, this, HWND, parentWindow, BSTR, title, "HRESULT")
         return result
     }
 
@@ -261,7 +284,7 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_autodetect
      */
     get_AutoDetect() {
-        result := ComCall(19, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -274,7 +297,53 @@ class IWebProxy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_autodetect
      */
     put_AutoDetect(value) {
-        result := ComCall(20, this, "short", value, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWebProxy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.put_Address := CallbackCreate(GetMethod(implObj, "put_Address"), flags, 2)
+        this.vtbl.get_BypassList := CallbackCreate(GetMethod(implObj, "get_BypassList"), flags, 2)
+        this.vtbl.put_BypassList := CallbackCreate(GetMethod(implObj, "put_BypassList"), flags, 2)
+        this.vtbl.get_BypassProxyOnLocal := CallbackCreate(GetMethod(implObj, "get_BypassProxyOnLocal"), flags, 2)
+        this.vtbl.put_BypassProxyOnLocal := CallbackCreate(GetMethod(implObj, "put_BypassProxyOnLocal"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.put_UserName := CallbackCreate(GetMethod(implObj, "put_UserName"), flags, 2)
+        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
+        this.vtbl.PromptForCredentials := CallbackCreate(GetMethod(implObj, "PromptForCredentials"), flags, 3)
+        this.vtbl.PromptForCredentialsFromHwnd := CallbackCreate(GetMethod(implObj, "PromptForCredentialsFromHwnd"), flags, 3)
+        this.vtbl.get_AutoDetect := CallbackCreate(GetMethod(implObj, "get_AutoDetect"), flags, 2)
+        this.vtbl.put_AutoDetect := CallbackCreate(GetMethod(implObj, "put_AutoDetect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Address)
+        CallbackFree(this.vtbl.put_Address)
+        CallbackFree(this.vtbl.get_BypassList)
+        CallbackFree(this.vtbl.put_BypassList)
+        CallbackFree(this.vtbl.get_BypassProxyOnLocal)
+        CallbackFree(this.vtbl.put_BypassProxyOnLocal)
+        CallbackFree(this.vtbl.get_ReadOnly)
+        CallbackFree(this.vtbl.get_UserName)
+        CallbackFree(this.vtbl.put_UserName)
+        CallbackFree(this.vtbl.SetPassword)
+        CallbackFree(this.vtbl.PromptForCredentials)
+        CallbackFree(this.vtbl.PromptForCredentialsFromHwnd)
+        CallbackFree(this.vtbl.get_AutoDetect)
+        CallbackFree(this.vtbl.put_AutoDetect)
     }
 }

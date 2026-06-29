@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_PANOSE_TOOL_KIND enumeration contains values that specify the kind of tool that is used to create character forms.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_tool_kind
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_PANOSE_TOOL_KIND extends Win32Enum {
+export default struct DWRITE_PANOSE_TOOL_KIND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Any kind of tool.

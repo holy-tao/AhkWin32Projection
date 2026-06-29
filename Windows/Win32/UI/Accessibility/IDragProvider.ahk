@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Enables a Microsoft UI Automation element to describe itself as an element that can be dragged as part of a drag-and-drop operation.
@@ -11,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-idragprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IDragProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDragProvider extends IUnknown {
     /**
      * The interface identifier for IDragProvider
      * @type {Guid}
      */
-    static IID => Guid("{6aa7bbbb-7ff9-497d-904f-d20b897929d8}")
+    static IID := Guid("{6aa7bbbb-7ff9-497d-904f-d20b897929d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDragProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_IsGrabbed   : IntPtr
+        get_DropEffect  : IntPtr
+        get_DropEffects : IntPtr
+        GetGrabbedItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IsGrabbed", "get_DropEffect", "get_DropEffects", "GetGrabbedItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDragProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -61,7 +74,7 @@ class IDragProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idragprovider-get_isgrabbed
      */
     get_IsGrabbed() {
-        result := ComCall(3, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -75,8 +88,8 @@ class IDragProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idragprovider-get_dropeffect
      */
     get_DropEffect() {
-        pRetVal := BSTR()
-        result := ComCall(4, this, "ptr", pRetVal, "HRESULT")
+        pRetVal := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -103,5 +116,31 @@ class IDragProvider extends IUnknown {
     GetGrabbedItems() {
         result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
         return pRetVal
+    }
+
+    Query(iid) {
+        if (IDragProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IsGrabbed := CallbackCreate(GetMethod(implObj, "get_IsGrabbed"), flags, 2)
+        this.vtbl.get_DropEffect := CallbackCreate(GetMethod(implObj, "get_DropEffect"), flags, 2)
+        this.vtbl.get_DropEffects := CallbackCreate(GetMethod(implObj, "get_DropEffects"), flags, 2)
+        this.vtbl.GetGrabbedItems := CallbackCreate(GetMethod(implObj, "GetGrabbedItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IsGrabbed)
+        CallbackFree(this.vtbl.get_DropEffect)
+        CallbackFree(this.vtbl.get_DropEffects)
+        CallbackFree(this.vtbl.GetGrabbedItems)
     }
 }

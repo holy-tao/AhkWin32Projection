@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a mapping for a class ID.
@@ -35,7 +34,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-tyspec
  * @namespace Windows.Win32.System.Com
  */
-class TYSPEC extends Win32Enum {
+export default struct TYSPEC {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A CLSID.

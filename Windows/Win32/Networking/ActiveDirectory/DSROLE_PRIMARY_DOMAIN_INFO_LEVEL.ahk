@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to specify the type of data to retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DSROLE_PRIMARY_DOMAIN_INFO_LEVEL extends Win32Enum {
+export default struct DSROLE_PRIMARY_DOMAIN_INFO_LEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolegetprimarydomaininformation">DsRoleGetPrimaryDomainInformation</a> function retrieves data from a <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ns-dsrole-dsrole_primary_domain_info_basic">DSROLE_PRIMARY_DOMAIN_INFO_BASIC</a> structure.

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes compute shader support, which is an option on D3D10 feature level.
@@ -8,17 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_feature_data_d3d10_x_hardware_options
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS {
+    #StructPack 4
 
     /**
      * Shader model 4 compute shaders are supported.
-     * @type {BOOL}
      */
-    computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x : BOOL
+
 }

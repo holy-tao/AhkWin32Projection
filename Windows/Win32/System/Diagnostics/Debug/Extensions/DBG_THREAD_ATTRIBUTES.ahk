@@ -1,99 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DBG_THREAD_ATTRIBUTES extends Win32Struct {
-    static sizeof => 272
+export default struct DBG_THREAD_ATTRIBUTES {
+    #StructPack 8
 
-    static packingSize => 8
+    ThreadIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ThreadIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProcessID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ProcessID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ThreadID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ThreadID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AttributeBits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AttributeBits {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BoolBits : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BoolBits {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BlockedOnPID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BlockedOnPID {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BlockedOnTID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BlockedOnTID {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    CritSecAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CritSecAddress {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Timeout_msec : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Timeout_msec {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    StringData : CHAR[100]
 
-    /**
-     * @type {String}
-     */
-    StringData {
-        get => StrGet(this.ptr + 68, 99, "UTF-8")
-        set => StrPut(value, this.ptr + 68, 99, "UTF-8")
-    }
+    SymName : CHAR[100]
 
-    /**
-     * @type {String}
-     */
-    SymName {
-        get => StrGet(this.ptr + 168, 99, "UTF-8")
-        set => StrPut(value, this.ptr + 168, 99, "UTF-8")
-    }
 }

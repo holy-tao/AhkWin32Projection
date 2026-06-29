@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWorkspaceScriptable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWorkspaceScriptable.ahk" { IWorkspaceScriptable }
 
 /**
  * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable2)
  * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nn-workspaceruntime-iworkspacescriptable2
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWorkspaceScriptable2 extends IWorkspaceScriptable {
-
-    static sizeof => A_PtrSize
+export default struct IWorkspaceScriptable2 extends IWorkspaceScriptable {
     /**
      * The interface identifier for IWorkspaceScriptable2
      * @type {Guid}
      */
-    static IID => Guid("{efea49a2-dda5-429d-8f42-b33ba2c4c348}")
+    static IID := Guid("{efea49a2-dda5-429d-8f42-b33ba2c4c348}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWorkspaceScriptable2 interfaces
+    */
+    struct Vtbl extends IWorkspaceScriptable.Vtbl {
+        StartWorkspaceEx  : IntPtr
+        ResourceDismissed : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartWorkspaceEx", "ResourceDismissed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWorkspaceScriptable2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Associates user credentials and certificates with a connection ID; also contains additional security and UI elements.
@@ -52,7 +62,7 @@ class IWorkspaceScriptable2 extends IWorkspaceScriptable {
         bstrAppContainer := bstrAppContainer is String ? BSTR.Alloc(bstrAppContainer).Value : bstrAppContainer
         bstrWorkspaceParams := bstrWorkspaceParams is String ? BSTR.Alloc(bstrWorkspaceParams).Value : bstrWorkspaceParams
 
-        result := ComCall(14, this, "ptr", bstrWorkspaceId, "ptr", bstrWorkspaceFriendlyName, "ptr", bstrRedirectorName, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", bstrAppContainer, "ptr", bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrWorkspaceId, BSTR, bstrWorkspaceFriendlyName, BSTR, bstrRedirectorName, BSTR, bstrUserName, BSTR, bstrPassword, BSTR, bstrAppContainer, BSTR, bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "HRESULT")
         return result
     }
 
@@ -67,7 +77,29 @@ class IWorkspaceScriptable2 extends IWorkspaceScriptable {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
         bstrWorkspaceFriendlyName := bstrWorkspaceFriendlyName is String ? BSTR.Alloc(bstrWorkspaceFriendlyName).Value : bstrWorkspaceFriendlyName
 
-        result := ComCall(15, this, "ptr", bstrWorkspaceId, "ptr", bstrWorkspaceFriendlyName, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrWorkspaceId, BSTR, bstrWorkspaceFriendlyName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWorkspaceScriptable2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartWorkspaceEx := CallbackCreate(GetMethod(implObj, "StartWorkspaceEx"), flags, 10)
+        this.vtbl.ResourceDismissed := CallbackCreate(GetMethod(implObj, "ResourceDismissed"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartWorkspaceEx)
+        CallbackFree(this.vtbl.ResourceDismissed)
     }
 }

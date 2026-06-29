@@ -1,40 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The EMRSETVIEWPORTEXTEX and EMRSETWINDOWEXTEX structures contains members for the SetViewportExtEx and SetWindowExtEx enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetviewportextex
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRSETVIEWPORTEXTEX extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct EMRSETVIEWPORTEXTEX {
+    #StructPack 4
 
     /**
      * Base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Horizontal and vertical extents. For <b>SetViewportExtEx</b>, the extents are in device units, and for <b>SetWindowExtEx</b>, the extents are in logical units.
-     * @type {SIZE}
      */
-    szlExtent {
-        get {
-            if(!this.HasProp("__szlExtent"))
-                this.__szlExtent := SIZE(8, this)
-            return this.__szlExtent
-        }
-    }
+    szlExtent : SIZE
+
 }

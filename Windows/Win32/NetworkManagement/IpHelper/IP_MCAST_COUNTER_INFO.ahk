@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IP_MCAST_COUNTER_INFO structure stores statistical information about Multicast traffic.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_mcast_counter_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_MCAST_COUNTER_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IP_MCAST_COUNTER_INFO {
+    #StructPack 8
 
     /**
      * The number of  multicast octets received.
-     * @type {Integer}
      */
-    InMcastOctets {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InMcastOctets : Int64
 
     /**
      * The number of  multicast octets transmitted.
-     * @type {Integer}
      */
-    OutMcastOctets {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    OutMcastOctets : Int64
 
     /**
      * The number of multicast packets received.
-     * @type {Integer}
      */
-    InMcastPkts {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InMcastPkts : Int64
 
     /**
      * The number of multicast packets transmitted.
-     * @type {Integer}
      */
-    OutMcastPkts {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OutMcastPkts : Int64
+
 }

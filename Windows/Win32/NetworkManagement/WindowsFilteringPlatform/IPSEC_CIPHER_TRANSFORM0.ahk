@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
-#Include .\IPSEC_CIPHER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_CIPHER_TYPE.ahk" { IPSEC_CIPHER_TYPE }
+#Import ".\IPSEC_CIPHER_TRANSFORM_ID0.ahk" { IPSEC_CIPHER_TRANSFORM_ID0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Is used to store encryption specific information for an SA transform in an IPsec quick mode policy.
@@ -10,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_cipher_transform0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_CIPHER_TRANSFORM0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct IPSEC_CIPHER_TRANSFORM0 {
+    #StructPack 8
 
     /**
      * The identifier of the encryption algorithm as specified by [IPSEC_CIPHER_TRANSFORM_ID0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_cipher_transform_id0).
@@ -128,22 +126,12 @@ class IPSEC_CIPHER_TRANSFORM0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IPSEC_CIPHER_TRANSFORM_ID0}
      */
-    cipherTransformId {
-        get {
-            if(!this.HasProp("__cipherTransformId"))
-                this.__cipherTransformId := IPSEC_CIPHER_TRANSFORM_ID0(0, this)
-            return this.__cipherTransformId
-        }
-    }
+    cipherTransformId : IPSEC_CIPHER_TRANSFORM_ID0
 
     /**
      * Unused parameter, always set this to <b>NULL</b>.
-     * @type {Pointer<Guid>}
      */
-    cryptoModuleId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cryptoModuleId : Guid.Ptr
+
 }

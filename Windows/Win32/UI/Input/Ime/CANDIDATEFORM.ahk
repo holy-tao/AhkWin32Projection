@@ -1,56 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The CANDIDATEFORM structure (immdev.h) contains position information for the candidate window.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-candidateform
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class CANDIDATEFORM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct CANDIDATEFORM {
+    #StructPack 4
 
     /**
      * Candidate list identifier. It is 0 for the first list, 1 for the second, and so on. The maximum index is 3.
-     * @type {Integer}
      */
-    dwIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStyle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStyle : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinates of the upper left corner of the candidate window or the caret position, depending on the value of <b>dwStyle</b>.
-     * @type {POINT}
      */
-    ptCurrentPos {
-        get {
-            if(!this.HasProp("__ptCurrentPos"))
-                this.__ptCurrentPos := POINT(8, this)
-            return this.__ptCurrentPos
-        }
-    }
+    ptCurrentPos : POINT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the upper left and lower right corners of the exclusion area.
-     * @type {RECT}
      */
-    rcArea {
-        get {
-            if(!this.HasProp("__rcArea"))
-                this.__rcArea := RECT(16, this)
-            return this.__rcArea
-        }
-    }
+    rcArea : RECT
+
 }

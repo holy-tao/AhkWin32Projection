@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MXDC\_S0\_PAGE\_ENUMS enumeration is used to specify types of resources that can be associated with pages in XPS documents and that can be processed, or passed unprocessed, by Microsoft XPS Document Converter (MXDC) to its output.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pageenums
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_S0_PAGE_ENUMS extends Win32Enum {
+export default struct MXDC_S0_PAGE_ENUMS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

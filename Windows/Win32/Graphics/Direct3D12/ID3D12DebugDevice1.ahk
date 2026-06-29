@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_RLDO_FLAGS.ahk" { D3D12_RLDO_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk" { D3D12_DEBUG_DEVICE_PARAMETER_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Specifies device-wide debug layer settings.
@@ -10,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12DebugDevice1 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12DebugDevice1 extends IUnknown {
     /**
      * The interface identifier for ID3D12DebugDevice1
      * @type {Guid}
      */
-    static IID => Guid("{a9b71770-d099-4a65-a698-3dee10020f88}")
+    static IID := Guid("{a9b71770-d099-4a65-a698-3dee10020f88}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12DebugDevice1 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDebugParameter       : IntPtr
+        GetDebugParameter       : IntPtr
+        ReportLiveDeviceObjects : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDebugParameter", "GetDebugParameter", "ReportLiveDeviceObjects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12DebugDevice1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Modifies the D3D12 optional device-wide Debug Layer settings.
@@ -48,7 +60,7 @@ class ID3D12DebugDevice1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-setdebugparameter
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(3, this, "int", Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(3, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
         return result
     }
 
@@ -69,7 +81,7 @@ class ID3D12DebugDevice1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-getdebugparameter
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(4, this, "int", Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(4, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
         return result
     }
 
@@ -84,7 +96,31 @@ class ID3D12DebugDevice1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-reportlivedeviceobjects
      */
     ReportLiveDeviceObjects(Flags) {
-        result := ComCall(5, this, "int", Flags, "HRESULT")
+        result := ComCall(5, this, D3D12_RLDO_FLAGS, Flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12DebugDevice1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDebugParameter := CallbackCreate(GetMethod(implObj, "SetDebugParameter"), flags, 4)
+        this.vtbl.GetDebugParameter := CallbackCreate(GetMethod(implObj, "GetDebugParameter"), flags, 4)
+        this.vtbl.ReportLiveDeviceObjects := CallbackCreate(GetMethod(implObj, "ReportLiveDeviceObjects"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDebugParameter)
+        CallbackFree(this.vtbl.GetDebugParameter)
+        CallbackFree(this.vtbl.ReportLiveDeviceObjects)
     }
 }

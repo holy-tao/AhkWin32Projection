@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_BASELINE enumeration contains values that specify the baseline for text alignment.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_baseline
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_BASELINE extends Win32Enum {
+export default struct DWRITE_BASELINE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Roman baseline for horizontal; the Central baseline for vertical.

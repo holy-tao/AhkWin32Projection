@@ -1,60 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBLITERALINFO extends Win32Struct {
-    static sizeof => 40
+export default struct DBLITERALINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszLiteralValue : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszLiteralValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszInvalidChars : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszInvalidChars {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszInvalidStartingChars : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszInvalidStartingChars {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lt {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    fSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSupported {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    cchMaxLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cchMaxLen {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

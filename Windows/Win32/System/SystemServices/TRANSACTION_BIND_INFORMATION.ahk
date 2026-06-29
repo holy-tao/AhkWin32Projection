@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class TRANSACTION_BIND_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct TRANSACTION_BIND_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TmHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    TmHandle {
-        get {
-            if(!this.HasProp("__TmHandle"))
-                this.__TmHandle := HANDLE(0, this)
-            return this.__TmHandle
-        }
-    }
 }

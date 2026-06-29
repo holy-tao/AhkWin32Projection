@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the level of an APO event logged with IAudioProcessingObjectLoggingService::ApoLog.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ne-audioengineextensionapo-apo_log_level
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APO_LOG_LEVEL extends Win32Enum {
+export default struct APO_LOG_LEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * All events.

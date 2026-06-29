@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IAccessible.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAccessibleHandler.ahk" { IAccessibleHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * A Microsoft ActiveX control site implements this interface to enable a windowless ActiveX control that has a Microsoft Active Accessibility implementation to express its accessibility.
@@ -11,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccessiblewindowlesssite
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IAccessibleWindowlessSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAccessibleWindowlessSite extends IUnknown {
     /**
      * The interface identifier for IAccessibleWindowlessSite
      * @type {Guid}
      */
-    static IID => Guid("{bf3abd9c-76da-4389-9eb6-1427d25abab7}")
+    static IID := Guid("{bf3abd9c-76da-4389-9eb6-1427d25abab7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAccessibleWindowlessSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AcquireObjectIdRange : IntPtr
+        ReleaseObjectIdRange : IntPtr
+        QueryObjectIdRanges  : IntPtr
+        GetParentAccessible  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AcquireObjectIdRange", "ReleaseObjectIdRange", "QueryObjectIdRanges", "GetParentAccessible"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAccessibleWindowlessSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Acquires a range of object IDs from the control host and marks them as reserved by a specific windowless control.
@@ -97,5 +110,31 @@ class IAccessibleWindowlessSite extends IUnknown {
     GetParentAccessible() {
         result := ComCall(6, this, "ptr*", &ppParent := 0, "HRESULT")
         return IAccessible(ppParent)
+    }
+
+    Query(iid) {
+        if (IAccessibleWindowlessSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AcquireObjectIdRange := CallbackCreate(GetMethod(implObj, "AcquireObjectIdRange"), flags, 4)
+        this.vtbl.ReleaseObjectIdRange := CallbackCreate(GetMethod(implObj, "ReleaseObjectIdRange"), flags, 3)
+        this.vtbl.QueryObjectIdRanges := CallbackCreate(GetMethod(implObj, "QueryObjectIdRanges"), flags, 3)
+        this.vtbl.GetParentAccessible := CallbackCreate(GetMethod(implObj, "GetParentAccessible"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AcquireObjectIdRange)
+        CallbackFree(this.vtbl.ReleaseObjectIdRange)
+        CallbackFree(this.vtbl.QueryObjectIdRanges)
+        CallbackFree(this.vtbl.GetParentAccessible)
     }
 }

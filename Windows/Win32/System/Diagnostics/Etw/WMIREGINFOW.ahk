@@ -1,63 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WMIREGGUIDW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WMIREGGUIDW.ahk" { WMIREGGUIDW }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class WMIREGINFOW extends Win32Struct {
-    static sizeof => 48
+export default struct WMIREGINFOW {
+    #StructPack 8
 
-    static packingSize => 8
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NextWmiRegInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextWmiRegInfo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RegistryPath : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegistryPath {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MofResourceName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MofResourceName {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    GuidCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuidCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    WmiRegGuid : WMIREGGUIDW[1]
 
-    /**
-     * @type {WMIREGGUIDW}
-     */
-    WmiRegGuid {
-        get {
-            if(!this.HasProp("__WmiRegGuidProxyArray"))
-                this.__WmiRegGuidProxyArray := Win32FixedArray(this.ptr + 24, 1, WMIREGGUIDW, "")
-            return this.__WmiRegGuidProxyArray
-        }
-    }
 }

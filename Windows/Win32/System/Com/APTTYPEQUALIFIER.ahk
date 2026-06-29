@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The APTTYPEQUALIFIER (objidlbase.h) enumeration specifies the set of possible COM apartment type qualifiers.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-apttypequalifier
  * @namespace Windows.Win32.System.Com
  */
-class APTTYPEQUALIFIER extends Win32Enum {
+export default struct APTTYPEQUALIFIER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No qualifier information for the current COM apartment type is available.

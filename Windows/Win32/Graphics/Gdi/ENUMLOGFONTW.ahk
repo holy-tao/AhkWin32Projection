@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGFONTW.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The ENUMLOGFONT structure defines the attributes of a font, the complete name of a font, and the style of a font. (Unicode)
@@ -15,38 +15,22 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset Unicode
  */
-class ENUMLOGFONTW extends Win32Struct {
-    static sizeof => 284
-
-    static packingSize => 4
+export default struct ENUMLOGFONTW {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that defines the attributes of a font.
-     * @type {LOGFONTW}
      */
-    elfLogFont {
-        get {
-            if(!this.HasProp("__elfLogFont"))
-                this.__elfLogFont := LOGFONTW(0, this)
-            return this.__elfLogFont
-        }
-    }
+    elfLogFont : LOGFONTW
 
     /**
      * A unique name for the font. For example, ABCD Font Company TrueType Bold Italic Sans Serif.
-     * @type {String}
      */
-    elfFullName {
-        get => StrGet(this.ptr + 92, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 92, 63, "UTF-16")
-    }
+    elfFullName : WCHAR[64]
 
     /**
      * The style of the font. For example, Bold Italic.
-     * @type {String}
      */
-    elfStyle {
-        get => StrGet(this.ptr + 220, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 220, 31, "UTF-16")
-    }
+    elfStyle : WCHAR[32]
+
 }

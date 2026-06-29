@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GPIOBUTTONS_BUTTON_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GPIOBUTTONS_BUTTON_TYPE.ahk" { GPIOBUTTONS_BUTTON_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class INPUT_BUTTON_ENABLE_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct INPUT_BUTTON_ENABLE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    ButtonType : GPIOBUTTONS_BUTTON_TYPE
 
-    /**
-     * @type {GPIOBUTTONS_BUTTON_TYPE}
-     */
-    ButtonType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Enabled {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

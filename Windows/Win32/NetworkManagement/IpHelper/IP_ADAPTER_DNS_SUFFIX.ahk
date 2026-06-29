@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_DNS_SUFFIX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The IP_ADAPTER_DNS_SUFFIX structure stores a DNS suffix in a linked list of DNS suffixes for a particular adapter.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_dns_suffix
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_DNS_SUFFIX extends Win32Struct {
-    static sizeof => 520
-
-    static packingSize => 8
+export default struct IP_ADAPTER_DNS_SUFFIX {
+    #StructPack 8
 
     /**
      * A pointer to the next DNS suffix in the linked list.
-     * @type {Pointer<IP_ADAPTER_DNS_SUFFIX>}
      */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Next : IP_ADAPTER_DNS_SUFFIX.Ptr
 
     /**
      * The DNS suffix for this DNS suffix entry.
-     * @type {String}
      */
-    String {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
-    }
+    String : WCHAR[256]
+
 }

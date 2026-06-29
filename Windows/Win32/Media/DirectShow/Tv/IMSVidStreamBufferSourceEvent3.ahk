@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSourceEvent2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSVidStreamBufferSourceEvent2.ahk" { IMSVidStreamBufferSourceEvent2 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -10,26 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersourceevent3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2 {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2 {
     /**
      * The interface identifier for IMSVidStreamBufferSourceEvent3
      * @type {Guid}
      */
-    static IID => Guid("{ceabd6ab-9b90-4570-adf1-3ce76e00a763}")
+    static IID := Guid("{ceabd6ab-9b90-4570-adf1-3ce76e00a763}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSourceEvent3 interfaces
+    */
+    struct Vtbl extends IMSVidStreamBufferSourceEvent2.Vtbl {
+        BroadcastEvent        : IntPtr
+        BroadcastEventEx      : IntPtr
+        COPPBlocked           : IntPtr
+        COPPUnblocked         : IntPtr
+        ContentPrimarilyAudio : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BroadcastEvent", "BroadcastEventEx", "COPPBlocked", "COPPUnblocked", "ContentPrimarilyAudio"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSourceEvent3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -40,7 +53,7 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2 {
     BroadcastEvent(Guid) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(18, this, "ptr", Guid, "HRESULT")
+        result := ComCall(18, this, BSTR, Guid, "HRESULT")
         return result
     }
 
@@ -59,7 +72,7 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2 {
     BroadcastEventEx(Guid, Param1, Param2, Param3, Param4) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(19, this, "ptr", Guid, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(19, this, BSTR, Guid, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
         return result
     }
 
@@ -113,5 +126,33 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2 {
     ContentPrimarilyAudio() {
         result := ComCall(22, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSourceEvent3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BroadcastEvent := CallbackCreate(GetMethod(implObj, "BroadcastEvent"), flags, 2)
+        this.vtbl.BroadcastEventEx := CallbackCreate(GetMethod(implObj, "BroadcastEventEx"), flags, 6)
+        this.vtbl.COPPBlocked := CallbackCreate(GetMethod(implObj, "COPPBlocked"), flags, 1)
+        this.vtbl.COPPUnblocked := CallbackCreate(GetMethod(implObj, "COPPUnblocked"), flags, 1)
+        this.vtbl.ContentPrimarilyAudio := CallbackCreate(GetMethod(implObj, "ContentPrimarilyAudio"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BroadcastEvent)
+        CallbackFree(this.vtbl.BroadcastEventEx)
+        CallbackFree(this.vtbl.COPPBlocked)
+        CallbackFree(this.vtbl.COPPUnblocked)
+        CallbackFree(this.vtbl.ContentPrimarilyAudio)
     }
 }

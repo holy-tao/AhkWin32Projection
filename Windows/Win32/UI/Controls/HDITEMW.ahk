@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDI_MASK.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\HEADER_CONTROL_FORMAT_FLAGS.ahk
-#Include .\HEADER_CONTROL_FORMAT_TYPE.ahk
-#Include .\HEADER_CONTROL_FORMAT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\HDI_MASK.ahk" { HDI_MASK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HEADER_CONTROL_FORMAT_TYPE.ahk" { HEADER_CONTROL_FORMAT_TYPE }
+#Import ".\HEADER_CONTROL_FORMAT_FLAGS.ahk" { HEADER_CONTROL_FORMAT_FLAGS }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\HEADER_CONTROL_FORMAT_STATE.ahk" { HEADER_CONTROL_FORMAT_STATE }
 
 /**
  * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure. (Unicode)
@@ -20,66 +21,41 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class HDITEMW extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct HDITEMW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {HDI_MASK}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : HDI_MASK
 
     /**
      * Type: <b>int</b>
      * 
      * The width or height of the item.
-     * @type {Integer}
      */
-    cxy {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cxy : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * A pointer to an item string. If the text is being retrieved from the control, this member must be initialized to point to a character buffer. If this member is set to LPSTR_TEXTCALLBACK, the control will request text information for this item by sending an <a href="https://docs.microsoft.com/windows/desktop/Controls/hdn-getdispinfo">HDN_GETDISPINFO</a> notification code. Note that although the header control allows a string of any length to be stored as item text, only the first 260 <b>TCHAR</b><b>s</b> are displayed.
-     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszText : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to the item bitmap.
-     * @type {HBITMAP}
      */
-    hbm {
-        get {
-            if(!this.HasProp("__hbm"))
-                this.__hbm := HBITMAP(16, this)
-            return this.__hbm
-        }
-    }
+    hbm : HBITMAP
 
     /**
      * Type: <b>int</b>
      * 
      * The length of the item string, in <b>TCHAR</b><b>s</b>. If the text is being retrieved from the control, this member must contain the number of <b>TCHAR</b><b>s</b> at the address specified by <b>pszText</b>.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
@@ -294,45 +270,29 @@ class HDITEMW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HEADER_CONTROL_FORMAT_FLAGS}
      */
-    fmt {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fmt : HEADER_CONTROL_FORMAT_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined item data.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lParam : LPARAM
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of an image within the image list. The specified image will be displayed in the header item in addition to any image specified in the <b>hbm</b>  field. If <b>iImage</b> is set to I_IMAGECALLBACK, the control requests text information for this item by using an <a href="https://docs.microsoft.com/windows/desktop/Controls/hdn-getdispinfo">HDN_GETDISPINFO</a> notification code. To clear the image, set this value to I_IMAGENONE.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    iImage : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The order in which the item appears within the header control, from left to right. That is, the value for the far left item is 0. The value for the next item to the right is 1, and so on.
-     * @type {Integer}
      */
-    iOrder {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    iOrder : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -387,23 +347,15 @@ class HDITEMW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HEADER_CONTROL_FORMAT_TYPE}
      */
-    type {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    type : HEADER_CONTROL_FORMAT_TYPE
 
     /**
      * Type: <b>void*</b>
      * 
      * The address of an application-defined data item. The data filter type is determined by setting the flag value of the  member. Use the HDFT_ISSTRING flag to indicate a string and HDFT_ISNUMBER to indicate an integer. When the HDFT_ISSTRING flag is used <b>pvFilter</b> is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-hd_textfiltera">HDTEXTFILTER</a> structure.
-     * @type {Pointer<Void>}
      */
-    pvFilter {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pvFilter : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -427,10 +379,7 @@ class HDITEMW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HEADER_CONTROL_FORMAT_STATE}
      */
-    state {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    state : HEADER_CONTROL_FORMAT_STATE
+
 }

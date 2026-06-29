@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONNECTION_CHANGE_NOTIFICATION.ahk" { CONNECTION_CHANGE_NOTIFICATION }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import ".\ITsSbClientConnection.ahk" { ITsSbClientConnection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects. (ITsSbResourceNotification)
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbresourcenotification
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbResourceNotification extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbResourceNotification extends IUnknown {
     /**
      * The interface identifier for ITsSbResourceNotification
      * @type {Guid}
      */
-    static IID => Guid("{65d3e85a-c39b-11dc-b92d-3cd255d89593}")
+    static IID := Guid("{65d3e85a-c39b-11dc-b92d-3cd255d89593}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbResourceNotification interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NotifySessionChange               : IntPtr
+        NotifyTargetChange                : IntPtr
+        NotifyClientConnectionStateChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NotifySessionChange", "NotifyTargetChange", "NotifyClientConnectionStateChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbResourceNotification.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies registered plug-ins about state changes in a session object. (ITsSbResourceNotification.NotifySessionChange)
@@ -39,7 +54,7 @@ class ITsSbResourceNotification extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotification-notifysessionchange
      */
     NotifySessionChange(_changeType, pSession) {
-        result := ComCall(3, this, "int", _changeType, "ptr", pSession, "HRESULT")
+        result := ComCall(3, this, TSSESSION_STATE, _changeType, "ptr", pSession, "HRESULT")
         return result
     }
 
@@ -67,7 +82,31 @@ class ITsSbResourceNotification extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotification-notifyclientconnectionstatechange
      */
     NotifyClientConnectionStateChange(_ChangeType, pConnection) {
-        result := ComCall(5, this, "int", _ChangeType, "ptr", pConnection, "HRESULT")
+        result := ComCall(5, this, CONNECTION_CHANGE_NOTIFICATION, _ChangeType, "ptr", pConnection, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITsSbResourceNotification.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NotifySessionChange := CallbackCreate(GetMethod(implObj, "NotifySessionChange"), flags, 3)
+        this.vtbl.NotifyTargetChange := CallbackCreate(GetMethod(implObj, "NotifyTargetChange"), flags, 3)
+        this.vtbl.NotifyClientConnectionStateChange := CallbackCreate(GetMethod(implObj, "NotifyClientConnectionStateChange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NotifySessionChange)
+        CallbackFree(this.vtbl.NotifyTargetChange)
+        CallbackFree(this.vtbl.NotifyClientConnectionStateChange)
     }
 }

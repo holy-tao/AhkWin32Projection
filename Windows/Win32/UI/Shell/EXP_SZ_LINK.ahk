@@ -1,60 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds expandable environment strings for the icon or target.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_sz_link
  * @namespace Windows.Win32.UI.Shell
  */
-class EXP_SZ_LINK extends Win32Struct {
-    static sizeof => 788
-
-    static packingSize => 4
+export default struct EXP_SZ_LINK {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the <b>EXP_SZ_LINK</b> structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwSignature {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSignature : UInt32
 
     /**
      * Type: <b>__wchar_t[MAX_PATH]</b>
      * 
      * The null-terminated ANSI string with the path of the target or icon.
-     * @type {String}
      */
-    szTarget {
-        get => StrGet(this.ptr + 8, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
-    }
+    szTarget : CHAR[260]
 
     /**
      * Type: <b>WCHAR[MAX_PATH]</b>
      * 
      * The null-terminated Unicode string with the path of the target or icon.
-     * @type {String}
      */
-    swzTarget {
-        get => StrGet(this.ptr + 268, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 268, 259, "UTF-16")
-    }
+    swzTarget : WCHAR[260]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 788
-    }
 }

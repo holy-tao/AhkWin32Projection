@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_SET_INDICATOR extends Win32Struct {
-    static sizeof => 8
+export default struct WINBIO_SET_INDICATOR {
+    #StructPack 4
 
-    static packingSize => 4
+    PayloadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PayloadSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IndicatorStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IndicatorStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

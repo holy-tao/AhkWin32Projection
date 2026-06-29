@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the type of a minidump data stream.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_STREAM_TYPE extends Win32Enum {
+export default struct MINIDUMP_STREAM_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Reserved. Do not use this enumeration value.

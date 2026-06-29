@@ -1,24 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Specifies an algorithm used to encrypt a private key.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct {
-    static sizeof => 24
+export default struct CRYPT_ALGORITHM_IDENTIFIER {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {PSTR}
-     */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszObjId : PSTR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a>  that provides encoded algorithm-specific parameters. In many cases, there are no parameters. This is indicated by setting the <b>cbData</b> member of the <b>Parameters</b> BLOB to zero. 
@@ -105,13 +97,7 @@ class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Parameters {
-        get {
-            if(!this.HasProp("__Parameters"))
-                this.__Parameters := CRYPT_INTEGER_BLOB(8, this)
-            return this.__Parameters
-        }
-    }
+    Parameters : CRYPT_INTEGER_BLOB
+
 }

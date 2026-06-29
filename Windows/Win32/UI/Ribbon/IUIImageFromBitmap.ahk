@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIImage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UI_OWNERSHIP.ahk" { UI_OWNERSHIP }
+#Import ".\IUIImage.ahk" { IUIImage }
 
 /**
  * IUIImageFromBitmap is a factory interface implemented by the Windows Ribbon framework that defines the method for creating an IUIImage object.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiimagefrombitmap
  * @namespace Windows.Win32.UI.Ribbon
  */
-class IUIImageFromBitmap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIImageFromBitmap extends IUnknown {
     /**
      * The interface identifier for IUIImageFromBitmap
      * @type {Guid}
      */
-    static IID => Guid("{18aba7f3-4c1c-4ba2-bf6c-f5c3326fa816}")
+    static IID := Guid("{18aba7f3-4c1c-4ba2-bf6c-f5c3326fa816}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIImageFromBitmap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateImage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIImageFromBitmap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IUIImage object from a bitmap image.
@@ -96,9 +106,27 @@ class IUIImageFromBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
      */
     CreateImage(_bitmap, options) {
-        _bitmap := _bitmap is Win32Handle ? NumGet(_bitmap, "ptr") : _bitmap
-
-        result := ComCall(3, this, "ptr", _bitmap, "int", options, "ptr*", &_image := 0, "HRESULT")
+        result := ComCall(3, this, HBITMAP, _bitmap, UI_OWNERSHIP, options, "ptr*", &_image := 0, "HRESULT")
         return IUIImage(_image)
+    }
+
+    Query(iid) {
+        if (IUIImageFromBitmap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateImage := CallbackCreate(GetMethod(implObj, "CreateImage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateImage)
     }
 }

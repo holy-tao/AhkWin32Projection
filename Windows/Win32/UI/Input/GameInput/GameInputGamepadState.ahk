@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputGamepadButtons.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputGamepadButtons.ahk" { GameInputGamepadButtons }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputGamepadState extends Win32Struct {
-    static sizeof => 28
+export default struct GameInputGamepadState {
+    #StructPack 4
 
-    static packingSize => 4
+    buttons : GameInputGamepadButtons
 
-    /**
-     * @type {GameInputGamepadButtons}
-     */
-    buttons {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    leftTrigger : Float32
 
-    /**
-     * @type {Float}
-     */
-    leftTrigger {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    rightTrigger : Float32
 
-    /**
-     * @type {Float}
-     */
-    rightTrigger {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    leftThumbstickX : Float32
 
-    /**
-     * @type {Float}
-     */
-    leftThumbstickX {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    leftThumbstickY : Float32
 
-    /**
-     * @type {Float}
-     */
-    leftThumbstickY {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    rightThumbstickX : Float32
 
-    /**
-     * @type {Float}
-     */
-    rightThumbstickX {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    rightThumbstickY : Float32
 
-    /**
-     * @type {Float}
-     */
-    rightThumbstickY {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
 }

@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_FOREST_TRUST_RECORD2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_FOREST_TRUST_RECORD2.ahk" { LSA_FOREST_TRUST_RECORD2 }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_FOREST_TRUST_INFORMATION2 extends Win32Struct {
-    static sizeof => 16
+export default struct LSA_FOREST_TRUST_INFORMATION2 {
+    #StructPack 8
 
-    static packingSize => 8
+    RecordCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RecordCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Entries : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<LSA_FOREST_TRUST_RECORD2>>}
-     */
-    Entries {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

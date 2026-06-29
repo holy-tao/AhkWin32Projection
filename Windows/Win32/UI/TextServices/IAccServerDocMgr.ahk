@@ -1,39 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that make documents accessible to client applications.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iaccserverdocmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class IAccServerDocMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAccServerDocMgr extends IUnknown {
     /**
      * The interface identifier for IAccServerDocMgr
      * @type {Guid}
      */
-    static IID => Guid("{ad7c73cf-6dd5-4855-abc2-b04bad5b9153}")
+    static IID := Guid("{ad7c73cf-6dd5-4855-abc2-b04bad5b9153}")
 
     /**
      * The class identifier for AccServerDocMgr
      * @type {Guid}
      */
-    static CLSID => Guid("{6089a37e-eb8a-482d-bd6f-f9f46904d16d}")
+    static CLSID := Guid("{6089a37e-eb8a-482d-bd6f-f9f46904d16d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAccServerDocMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NewDocument     : IntPtr
+        RevokeDocument  : IntPtr
+        OnDocumentFocus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NewDocument", "RevokeDocument", "OnDocumentFocus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAccServerDocMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Server applications call the IAccServerDocMgr::NewDocument method when it is available. The adapter creates a wrapped document and registers it with the store, so clients can access information about the text in the document.
@@ -51,7 +61,7 @@ class IAccServerDocMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccserverdocmgr-newdocument
      */
     NewDocument(riid, punk) {
-        result := ComCall(3, this, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, "HRESULT")
         return result
     }
 
@@ -85,5 +95,29 @@ class IAccServerDocMgr extends IUnknown {
     OnDocumentFocus(punk) {
         result := ComCall(5, this, "ptr", punk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAccServerDocMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NewDocument := CallbackCreate(GetMethod(implObj, "NewDocument"), flags, 3)
+        this.vtbl.RevokeDocument := CallbackCreate(GetMethod(implObj, "RevokeDocument"), flags, 2)
+        this.vtbl.OnDocumentFocus := CallbackCreate(GetMethod(implObj, "OnDocumentFocus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NewDocument)
+        CallbackFree(this.vtbl.RevokeDocument)
+        CallbackFree(this.vtbl.OnDocumentFocus)
     }
 }

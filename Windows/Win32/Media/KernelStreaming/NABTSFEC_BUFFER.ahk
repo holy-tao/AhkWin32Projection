@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class NABTSFEC_BUFFER extends Win32Struct {
-    static sizeof => 456
+export default struct NABTSFEC_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    dataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dataSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    groupID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    groupID {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    data : Int8[448]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 8, 448, Primitive, "char")
-            return this.__dataProxyArray
-        }
-    }
 }

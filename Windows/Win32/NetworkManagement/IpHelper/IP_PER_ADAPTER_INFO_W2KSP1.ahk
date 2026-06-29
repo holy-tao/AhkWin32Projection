@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADDR_STRING.ahk
-#Include .\IP_ADDRESS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP_ADDRESS_STRING.ahk" { IP_ADDRESS_STRING }
+#Import ".\IP_ADDR_STRING.ahk" { IP_ADDR_STRING }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The IP_PER_ADAPTER_INFO structure contains information specific to a particular adapter.
@@ -10,48 +10,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_PER_ADAPTER_INFO_W2KSP1 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct IP_PER_ADAPTER_INFO_W2KSP1 {
+    #StructPack 8
 
     /**
      * Specifies whether IP address auto-configuration (APIPA) is enabled on this adapter. See Remarks.
-     * @type {Integer}
      */
-    AutoconfigEnabled {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AutoconfigEnabled : UInt32
 
     /**
      * Specifies whether this adapter's IP address is currently auto-configured by APIPA.
-     * @type {Integer}
      */
-    AutoconfigActive {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AutoconfigActive : UInt32
 
     /**
      * Reserved. Use the <b>DnsServerList</b> member to obtain the DNS servers for the local computer.
-     * @type {Pointer<IP_ADDR_STRING>}
      */
-    CurrentDnsServer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CurrentDnsServer : IP_ADDR_STRING.Ptr
 
     /**
      * A linked list of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_addr_string">IP_ADDR_STRING</a> structures that specify the set of DNS servers used by the local computer.
-     * @type {IP_ADDR_STRING}
      */
-    DnsServerList {
-        get {
-            if(!this.HasProp("__DnsServerList"))
-                this.__DnsServerList := IP_ADDR_STRING(16, this)
-            return this.__DnsServerList
-        }
-    }
+    DnsServerList : IP_ADDR_STRING
+
 }

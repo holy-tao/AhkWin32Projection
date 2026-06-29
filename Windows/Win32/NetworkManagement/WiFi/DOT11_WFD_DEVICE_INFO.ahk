@@ -1,66 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_WFD_DEVICE_TYPE.ahk
-#Include .\DOT11_WPS_DEVICE_NAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_WFD_DEVICE_TYPE.ahk" { DOT11_WFD_DEVICE_TYPE }
+#Import ".\DOT11_WPS_DEVICE_NAME.ahk" { DOT11_WPS_DEVICE_NAME }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_DEVICE_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct DOT11_WFD_DEVICE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    DeviceAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DeviceAddress {
-        get {
-            if(!this.HasProp("__DeviceAddressProxyArray"))
-                this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__DeviceAddressProxyArray
-        }
-    }
+    ConfigMethods : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ConfigMethods {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    PrimaryDeviceType : DOT11_WFD_DEVICE_TYPE
 
-    /**
-     * @type {DOT11_WFD_DEVICE_TYPE}
-     */
-    PrimaryDeviceType {
-        get {
-            if(!this.HasProp("__PrimaryDeviceType"))
-                this.__PrimaryDeviceType := DOT11_WFD_DEVICE_TYPE(12, this)
-            return this.__PrimaryDeviceType
-        }
-    }
+    DeviceName : DOT11_WPS_DEVICE_NAME
 
-    /**
-     * @type {DOT11_WPS_DEVICE_NAME}
-     */
-    DeviceName {
-        get {
-            if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := DOT11_WPS_DEVICE_NAME(20, this)
-            return this.__DeviceName
-        }
-    }
 }

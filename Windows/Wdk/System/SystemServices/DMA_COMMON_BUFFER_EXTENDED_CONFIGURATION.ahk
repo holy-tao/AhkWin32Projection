@@ -1,104 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE.ahk
-#Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE.ahk" { DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE }
+#Import ".\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE.ahk" { DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct {
-    static sizeof => 40
+export default struct DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE}
-     */
-    ConfigType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _LogicalAddressLimits {
+        MinimumAddress : Int64
+
+        MaximumAddress : Int64
+
     }
 
-    class _LogicalAddressLimits extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _SubSection {
+        Offset : Int64
 
-        /**
-         * @type {Integer}
-         */
-        MinimumAddress {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MaximumAddress {
-            get => NumGet(this, 8, "int64")
-            set => NumPut("int64", value, this, 8)
-        }
     }
 
-    class _SubSection extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    ConfigType : DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE
 
-        /**
-         * @type {Integer}
-         */
-        Offset {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    LogicalAddressLimits : DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION._LogicalAddressLimits
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-    }
-
-    /**
-     * @type {_LogicalAddressLimits}
-     */
-    LogicalAddressLimits {
-        get {
-            if(!this.HasProp("__LogicalAddressLimits"))
-                this.__LogicalAddressLimits := DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION._LogicalAddressLimits(8, this)
-            return this.__LogicalAddressLimits
-        }
-    }
-
-    /**
-     * @type {_SubSection}
-     */
-    SubSection {
-        get {
-            if(!this.HasProp("__SubSection"))
-                this.__SubSection := DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION._SubSection(8, this)
-            return this.__SubSection
-        }
-    }
-
-    /**
-     * @type {DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE}
-     */
-    HardwareAccessType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'SubSection', { type: DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION._SubSection, offset: 8 })
+        DefineProp(this.Prototype, 'HardwareAccessType', { type: DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE, offset: 8 })
+        DefineProp(this.Prototype, 'Reserved', { type: Int64[4], offset: 8 })
+        this.DeleteProp("__New")
     }
 }

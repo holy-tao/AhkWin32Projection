@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.Registry
  */
-class KEY_VALUE_ENTRY extends Win32Struct {
-    static sizeof => 24
+export default struct KEY_VALUE_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    ValueName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    ValueName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

@@ -1,257 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_VALUE extends Win32Struct {
-    static sizeof => 32
+export default struct DEBUG_VALUE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _I64Parts32 extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _I64Parts32 {
+        LowPart : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        LowPart {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        HighPart : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        HighPart {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
     }
 
-    class _F128Parts64 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _F128Parts64 {
+        LowPart : Int64
 
-        /**
-         * @type {Integer}
-         */
-        LowPart {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        HighPart : Int64
 
-        /**
-         * @type {Integer}
-         */
-        HighPart {
-            get => NumGet(this, 8, "int64")
-            set => NumPut("int64", value, this, 8)
-        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    I8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    I8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    I16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Nat : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    I32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TailOfRawBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    I64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : UInt32
 
-    /**
-     * @type {BOOL}
-     */
-    Nat {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    F32 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    F64 {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    F80Bytes {
-        get {
-            if(!this.HasProp("__F80BytesProxyArray"))
-                this.__F80BytesProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
-            return this.__F80BytesProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    F82Bytes {
-        get {
-            if(!this.HasProp("__F82BytesProxyArray"))
-                this.__F82BytesProxyArray := Win32FixedArray(this.ptr + 0, 11, Primitive, "char")
-            return this.__F82BytesProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    F128Bytes {
-        get {
-            if(!this.HasProp("__F128BytesProxyArray"))
-                this.__F128BytesProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__F128BytesProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    VI8 {
-        get {
-            if(!this.HasProp("__VI8ProxyArray"))
-                this.__VI8ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__VI8ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    VI16 {
-        get {
-            if(!this.HasProp("__VI16ProxyArray"))
-                this.__VI16ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
-            return this.__VI16ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    VI32 {
-        get {
-            if(!this.HasProp("__VI32ProxyArray"))
-                this.__VI32ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__VI32ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    VI64 {
-        get {
-            if(!this.HasProp("__VI64ProxyArray"))
-                this.__VI64ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-            return this.__VI64ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Float>}
-     */
-    VF32 {
-        get {
-            if(!this.HasProp("__VF32ProxyArray"))
-                this.__VF32ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
-            return this.__VF32ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Float>}
-     */
-    VF64 {
-        get {
-            if(!this.HasProp("__VF64ProxyArray"))
-                this.__VF64ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "double")
-            return this.__VF64ProxyArray
-        }
-    }
-
-    /**
-     * @type {_I64Parts32}
-     */
-    I64Parts32 {
-        get {
-            if(!this.HasProp("__I64Parts32"))
-                this.__I64Parts32 := DEBUG_VALUE._I64Parts32(0, this)
-            return this.__I64Parts32
-        }
-    }
-
-    /**
-     * @type {_F128Parts64}
-     */
-    F128Parts64 {
-        get {
-            if(!this.HasProp("__F128Parts64"))
-                this.__F128Parts64 := DEBUG_VALUE._F128Parts64(0, this)
-            return this.__F128Parts64
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    RawBytes {
-        get {
-            if(!this.HasProp("__RawBytesProxyArray"))
-                this.__RawBytesProxyArray := Win32FixedArray(this.ptr + 0, 24, Primitive, "char")
-            return this.__RawBytesProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TailOfRawBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    static __New() {
+        DefineProp(this.Prototype, 'I16', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'I32', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'I64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'F32', { type: Float32, offset: 0 })
+        DefineProp(this.Prototype, 'F64', { type: Float64, offset: 0 })
+        DefineProp(this.Prototype, 'F80Bytes', { type: Int8[10], offset: 0 })
+        DefineProp(this.Prototype, 'F82Bytes', { type: Int8[11], offset: 0 })
+        DefineProp(this.Prototype, 'F128Bytes', { type: Int8[16], offset: 0 })
+        DefineProp(this.Prototype, 'VI8', { type: Int8[16], offset: 0 })
+        DefineProp(this.Prototype, 'VI16', { type: UInt16[8], offset: 0 })
+        DefineProp(this.Prototype, 'VI32', { type: UInt32[4], offset: 0 })
+        DefineProp(this.Prototype, 'VI64', { type: Int64[2], offset: 0 })
+        DefineProp(this.Prototype, 'VF32', { type: Float32[4], offset: 0 })
+        DefineProp(this.Prototype, 'VF64', { type: Float64[2], offset: 0 })
+        DefineProp(this.Prototype, 'I64Parts32', { type: DEBUG_VALUE._I64Parts32, offset: 0 })
+        DefineProp(this.Prototype, 'F128Parts64', { type: DEBUG_VALUE._F128Parts64, offset: 0 })
+        DefineProp(this.Prototype, 'RawBytes', { type: Int8[24], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

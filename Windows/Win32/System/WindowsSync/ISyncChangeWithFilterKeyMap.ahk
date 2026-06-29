@@ -1,32 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISyncKnowledge.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumItemIds.ahk" { IEnumItemIds }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_FILTER_CHANGE.ahk" { SYNC_FILTER_CHANGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncChangeWithFilterKeyMap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     /**
      * The interface identifier for ISyncChangeWithFilterKeyMap
      * @type {Guid}
      */
-    static IID => Guid("{bfe1ef00-e87d-42fd-a4e9-242d70414aef}")
+    static IID := Guid("{bfe1ef00-e87d-42fd-a4e9-242d70414aef}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncChangeWithFilterKeyMap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFilterCount                                                   : IntPtr
+        GetFilterChange                                                  : IntPtr
+        GetAllChangeUnitsPresentFlag                                     : IntPtr
+        GetFilterForgottenKnowledge                                      : IntPtr
+        GetFilteredReplicaLearnedKnowledge                               : IntPtr
+        GetLearnedFilterForgottenKnowledge                               : IntPtr
+        GetFilteredReplicaLearnedForgottenKnowledge                      : IntPtr
+        GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete : IntPtr
+        GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFilterCount", "GetFilterChange", "GetAllChangeUnitsPresentFlag", "GetFilterForgottenKnowledge", "GetFilteredReplicaLearnedKnowledge", "GetLearnedFilterForgottenKnowledge", "GetFilteredReplicaLearnedForgottenKnowledge", "GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete", "GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncChangeWithFilterKeyMap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -47,7 +66,7 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
      * @returns {HRESULT} 
      */
     GetFilterChange(dwFilterKey, pFilterChange) {
-        result := ComCall(4, this, "uint", dwFilterKey, "ptr", pFilterChange, "HRESULT")
+        result := ComCall(4, this, "uint", dwFilterKey, SYNC_FILTER_CHANGE.Ptr, pFilterChange, "HRESULT")
         return result
     }
 
@@ -128,5 +147,41 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
         result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
         return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
+    }
+
+    Query(iid) {
+        if (ISyncChangeWithFilterKeyMap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFilterCount := CallbackCreate(GetMethod(implObj, "GetFilterCount"), flags, 2)
+        this.vtbl.GetFilterChange := CallbackCreate(GetMethod(implObj, "GetFilterChange"), flags, 3)
+        this.vtbl.GetAllChangeUnitsPresentFlag := CallbackCreate(GetMethod(implObj, "GetAllChangeUnitsPresentFlag"), flags, 2)
+        this.vtbl.GetFilterForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetFilterForgottenKnowledge"), flags, 3)
+        this.vtbl.GetFilteredReplicaLearnedKnowledge := CallbackCreate(GetMethod(implObj, "GetFilteredReplicaLearnedKnowledge"), flags, 4)
+        this.vtbl.GetLearnedFilterForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedFilterForgottenKnowledge"), flags, 5)
+        this.vtbl.GetFilteredReplicaLearnedForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetFilteredReplicaLearnedForgottenKnowledge"), flags, 4)
+        this.vtbl.GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete"), flags, 4)
+        this.vtbl.GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFilterCount)
+        CallbackFree(this.vtbl.GetFilterChange)
+        CallbackFree(this.vtbl.GetAllChangeUnitsPresentFlag)
+        CallbackFree(this.vtbl.GetFilterForgottenKnowledge)
+        CallbackFree(this.vtbl.GetFilteredReplicaLearnedKnowledge)
+        CallbackFree(this.vtbl.GetLearnedFilterForgottenKnowledge)
+        CallbackFree(this.vtbl.GetFilteredReplicaLearnedForgottenKnowledge)
+        CallbackFree(this.vtbl.GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete)
+        CallbackFree(this.vtbl.GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete)
     }
 }

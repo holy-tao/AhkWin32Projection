@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_BOGUS_ARRAY_HEADER_FORMAT.ahk
-#Include .\NDR64_ARRAY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR64_ARRAY_FLAGS.ahk" { NDR64_ARRAY_FLAGS }
+#Import ".\NDR64_BOGUS_ARRAY_HEADER_FORMAT.ahk" { NDR64_BOGUS_ARRAY_HEADER_FORMAT }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT extends Win32Struct {
-    static sizeof => 40
+export default struct NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    FixedArrayFormat : NDR64_BOGUS_ARRAY_HEADER_FORMAT
 
-    /**
-     * @type {NDR64_BOGUS_ARRAY_HEADER_FORMAT}
-     */
-    FixedArrayFormat {
-        get {
-            if(!this.HasProp("__FixedArrayFormat"))
-                this.__FixedArrayFormat := NDR64_BOGUS_ARRAY_HEADER_FORMAT(0, this)
-            return this.__FixedArrayFormat
-        }
-    }
+    ConfDescription : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ConfDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    VarDescription : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    VarDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    OffsetDescription : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OffsetDescription {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

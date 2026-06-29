@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_SECURITY_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SOCKET_SECURITY_PROTOCOL.ahk" { SOCKET_SECURITY_PROTOCOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Specifies various security requirements and settings that are specific to IPsec.
@@ -18,21 +19,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_settings_ipsec
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct SOCKET_SECURITY_SETTINGS_IPSEC {
+    #StructPack 8
 
     /**
      * Type: <b>SOCKET_SECURITY_PROTOCOL</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the type of security protocol to be used on the socket. This member must be set to <b>SOCKET_SECURITY_PROTOCOL_IPSEC</b>.
-     * @type {SOCKET_SECURITY_PROTOCOL}
      */
-    SecurityProtocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SecurityProtocol : SOCKET_SECURITY_PROTOCOL
 
     /**
      * Type: <b>ULONG</b>
@@ -69,12 +64,8 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SecurityFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SecurityFlags : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -98,98 +89,63 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    IpsecFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IpsecFlags : UInt32
 
     /**
      * Type: <b>GUID</b>
      * 
      * The GUID for the Windows Filtering Platform key of the AuthIP main mode provider context.  If an application wishes to use a custom main mode policy, it should first use the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0">FwpmProviderContextAdd0</a> function to add the corresponding provider context and specify the returned key in this member.  This field is ignored for a GUID of zero.
-     * @type {Pointer}
      */
-    AuthipMMPolicyKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AuthipMMPolicyKey : Guid
 
     /**
      * Type: <b>GUID</b>
      * 
      * The Windows Filtering Platform key of the AuthIp quick mode provider context.  If an application wishes to use a custom quick mode policy, it should first use the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0">FwpmProviderContextAdd0</a> function to add the corresponding provider context and specify the returned key in this field.  This field is ignored for a GUID of zero.
-     * @type {Pointer}
      */
-    AuthipQMPolicyKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AuthipQMPolicyKey : Guid
 
     /**
      * Type: <b>GUID</b>
      * 
      * Reserved for future use.
-     * @type {Pointer}
      */
-    Reserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Reserved : Guid
 
     /**
      * Type: <b>UINT64</b>
      * 
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved2 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Reserved2 : Int64
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The length, in bytes, of the user name in the <b>AllStrings</b> member.
-     * @type {Integer}
      */
-    UserNameStringLen {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    UserNameStringLen : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The length, in bytes, of the domain name in the <b>AllStrings</b> member.
-     * @type {Integer}
      */
-    DomainNameStringLen {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    DomainNameStringLen : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The length, in bytes, of the password in the <b>AllStrings</b> member.
-     * @type {Integer}
      */
-    PasswordStringLen {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    PasswordStringLen : UInt32
 
     /**
      * Type: <b>wchar_t[]</b>
      * 
      * A string that contains the user name, the domain name, and the password concatenated in this order.
-     * @type {String}
      */
-    AllStrings {
-        get => StrGet(this.ptr + 60, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 0, "UTF-16")
-    }
+    AllStrings : WCHAR[1]
+
 }

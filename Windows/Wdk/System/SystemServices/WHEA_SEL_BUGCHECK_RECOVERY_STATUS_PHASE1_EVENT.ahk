@@ -1,78 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT extends Win32Struct {
-    static sizeof => 16
+export default struct WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Data extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
+    struct _Data {
+        DumpPolicy : Int8
 
-        /**
-         * @type {Integer}
-         */
-        DumpPolicy {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        Reserved : Int8[3]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Reserved {
-            get {
-                if(!this.HasProp("__ReservedProxyArray"))
-                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-                return this.__ReservedProxyArray
-            }
-        }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Success {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Success : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EntryCount {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    EntryCount : UInt16
 
-    /**
-     * @type {_Data}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT._Data(12, this)
-            return this.__Data
-        }
-    }
+    Data : WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT._Data
+
 }

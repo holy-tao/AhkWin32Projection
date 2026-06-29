@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_UDPROW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_UDPROW.ahk" { MIB_UDPROW }
 
 /**
  * Contains the User Datagram Protocol (UDP) listener table for IPv4 on the local computer.
@@ -22,30 +21,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udptable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPTABLE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct MIB_UDPTABLE {
+    #StructPack 4
 
     /**
      * The number of entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow">MIB_UDPROW</a> structures.
-     * @type {MIB_UDPROW}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_UDPROW, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_UDPROW[1]
+
 }

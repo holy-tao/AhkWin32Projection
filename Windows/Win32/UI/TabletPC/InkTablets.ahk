@@ -1,13 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Gets the number of objects or collections contained in a collection. (IInkTablets.get_Count)
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-get_count
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkTablets extends Win32Struct {
-    static sizeof => 0
+export default struct InkTablets {
+    #StructPack 1
 
-    static packingSize => 1
 }

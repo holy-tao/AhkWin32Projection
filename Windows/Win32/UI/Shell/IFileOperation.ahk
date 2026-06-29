@@ -1,7 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FILEOPERATION_FLAGS.ahk" { FILEOPERATION_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\IOperationsProgressDialog.ahk" { IOperationsProgressDialog }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
 
 /**
  * Exposes methods to copy, move, rename, create, and delete Shell items as well as methods to provide progress and error dialogs. This interface replaces the SHFileOperation function.
@@ -94,32 +103,58 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileoperation
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileOperation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileOperation extends IUnknown {
     /**
      * The interface identifier for IFileOperation
      * @type {Guid}
      */
-    static IID => Guid("{947aab5f-0a5c-4c13-b4d6-4bf7836fc9f8}")
+    static IID := Guid("{947aab5f-0a5c-4c13-b4d6-4bf7836fc9f8}")
 
     /**
      * The class identifier for FileOperation
      * @type {Guid}
      */
-    static CLSID => Guid("{3ad05575-8857-4850-9277-11b85bdb8e09}")
+    static CLSID := Guid("{3ad05575-8857-4850-9277-11b85bdb8e09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileOperation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise                  : IntPtr
+        Unadvise                : IntPtr
+        SetOperationFlags       : IntPtr
+        SetProgressMessage      : IntPtr
+        SetProgressDialog       : IntPtr
+        SetProperties           : IntPtr
+        SetOwnerWindow          : IntPtr
+        ApplyPropertiesToItem   : IntPtr
+        ApplyPropertiesToItems  : IntPtr
+        RenameItem              : IntPtr
+        RenameItems             : IntPtr
+        MoveItem                : IntPtr
+        MoveItems               : IntPtr
+        CopyItem                : IntPtr
+        CopyItems               : IntPtr
+        DeleteItem              : IntPtr
+        DeleteItems             : IntPtr
+        NewItem                 : IntPtr
+        PerformOperations       : IntPtr
+        GetAnyOperationsAborted : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise", "SetOperationFlags", "SetProgressMessage", "SetProgressDialog", "SetProperties", "SetOwnerWindow", "ApplyPropertiesToItem", "ApplyPropertiesToItems", "RenameItem", "RenameItems", "MoveItem", "MoveItems", "CopyItem", "CopyItems", "DeleteItem", "DeleteItems", "NewItem", "PerformOperations", "GetAnyOperationsAborted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileOperation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables a handler to provide status and error information for all operations.
@@ -200,7 +235,7 @@ class IFileOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setoperationflags
      */
     SetOperationFlags(dwOperationFlags) {
-        result := ComCall(5, this, "uint", dwOperationFlags, "HRESULT")
+        result := ComCall(5, this, FILEOPERATION_FLAGS, dwOperationFlags, "HRESULT")
         return result
     }
 
@@ -272,9 +307,7 @@ class IFileOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setownerwindow
      */
     SetOwnerWindow(hwndOwner) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
-        result := ComCall(9, this, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(9, this, HWND, hwndOwner, "HRESULT")
         return result
     }
 
@@ -634,7 +667,65 @@ class IFileOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-getanyoperationsaborted
      */
     GetAnyOperationsAborted() {
-        result := ComCall(22, this, "int*", &pfAnyOperationsAborted := 0, "HRESULT")
+        result := ComCall(22, this, BOOL.Ptr, &pfAnyOperationsAborted := 0, "HRESULT")
         return pfAnyOperationsAborted
+    }
+
+    Query(iid) {
+        if (IFileOperation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SetOperationFlags := CallbackCreate(GetMethod(implObj, "SetOperationFlags"), flags, 2)
+        this.vtbl.SetProgressMessage := CallbackCreate(GetMethod(implObj, "SetProgressMessage"), flags, 2)
+        this.vtbl.SetProgressDialog := CallbackCreate(GetMethod(implObj, "SetProgressDialog"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 2)
+        this.vtbl.SetOwnerWindow := CallbackCreate(GetMethod(implObj, "SetOwnerWindow"), flags, 2)
+        this.vtbl.ApplyPropertiesToItem := CallbackCreate(GetMethod(implObj, "ApplyPropertiesToItem"), flags, 2)
+        this.vtbl.ApplyPropertiesToItems := CallbackCreate(GetMethod(implObj, "ApplyPropertiesToItems"), flags, 2)
+        this.vtbl.RenameItem := CallbackCreate(GetMethod(implObj, "RenameItem"), flags, 4)
+        this.vtbl.RenameItems := CallbackCreate(GetMethod(implObj, "RenameItems"), flags, 3)
+        this.vtbl.MoveItem := CallbackCreate(GetMethod(implObj, "MoveItem"), flags, 5)
+        this.vtbl.MoveItems := CallbackCreate(GetMethod(implObj, "MoveItems"), flags, 3)
+        this.vtbl.CopyItem := CallbackCreate(GetMethod(implObj, "CopyItem"), flags, 5)
+        this.vtbl.CopyItems := CallbackCreate(GetMethod(implObj, "CopyItems"), flags, 3)
+        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 3)
+        this.vtbl.DeleteItems := CallbackCreate(GetMethod(implObj, "DeleteItems"), flags, 2)
+        this.vtbl.NewItem := CallbackCreate(GetMethod(implObj, "NewItem"), flags, 6)
+        this.vtbl.PerformOperations := CallbackCreate(GetMethod(implObj, "PerformOperations"), flags, 1)
+        this.vtbl.GetAnyOperationsAborted := CallbackCreate(GetMethod(implObj, "GetAnyOperationsAborted"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.SetOperationFlags)
+        CallbackFree(this.vtbl.SetProgressMessage)
+        CallbackFree(this.vtbl.SetProgressDialog)
+        CallbackFree(this.vtbl.SetProperties)
+        CallbackFree(this.vtbl.SetOwnerWindow)
+        CallbackFree(this.vtbl.ApplyPropertiesToItem)
+        CallbackFree(this.vtbl.ApplyPropertiesToItems)
+        CallbackFree(this.vtbl.RenameItem)
+        CallbackFree(this.vtbl.RenameItems)
+        CallbackFree(this.vtbl.MoveItem)
+        CallbackFree(this.vtbl.MoveItems)
+        CallbackFree(this.vtbl.CopyItem)
+        CallbackFree(this.vtbl.CopyItems)
+        CallbackFree(this.vtbl.DeleteItem)
+        CallbackFree(this.vtbl.DeleteItems)
+        CallbackFree(this.vtbl.NewItem)
+        CallbackFree(this.vtbl.PerformOperations)
+        CallbackFree(this.vtbl.GetAnyOperationsAborted)
     }
 }

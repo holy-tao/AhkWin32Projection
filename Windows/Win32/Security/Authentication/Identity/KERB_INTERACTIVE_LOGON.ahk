@@ -1,60 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\KERB_LOGON_SUBMIT_TYPE.ahk" { KERB_LOGON_SUBMIT_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about an interactive logon session.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_interactive_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_INTERACTIVE_LOGON extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct KERB_INTERACTIVE_LOGON {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type">KERB_LOGON_SUBMIT_TYPE</a> value identifying the type of logon request being made. This member must be set to <b>KerbInteractiveLogon</b>.
-     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_LOGON_SUBMIT_TYPE
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the name of the target logon domain.
-     * @type {LSA_UNICODE_STRING}
      */
-    LogonDomainName {
-        get {
-            if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(8, this)
-            return this.__LogonDomainName
-        }
-    }
+    LogonDomainName : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the user name.
-     * @type {LSA_UNICODE_STRING}
      */
-    UserName {
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(24, this)
-            return this.__UserName
-        }
-    }
+    UserName : LSA_UNICODE_STRING
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the user password. When you have finished using the password, remove the sensitive information from memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a>. For more information on protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @type {LSA_UNICODE_STRING}
      */
-    Password {
-        get {
-            if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(40, this)
-            return this.__Password
-        }
-    }
+    Password : LSA_UNICODE_STRING
+
 }

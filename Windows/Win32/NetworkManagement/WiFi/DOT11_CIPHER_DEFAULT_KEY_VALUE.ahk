@@ -1,86 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_CIPHER_DEFAULT_KEY_VALUE extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_CIPHER_DEFAULT_KEY_VALUE {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    uKeyIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uKeyIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AlgorithmId : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    AlgorithmId {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    MacAddr : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MacAddr {
-        get {
-            if(!this.HasProp("__MacAddrProxyArray"))
-                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
-            return this.__MacAddrProxyArray
-        }
-    }
+    bDelete : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDelete {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    bStatic : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bStatic {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    usKeyLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usKeyLength {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    ucKey : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucKey {
-        get {
-            if(!this.HasProp("__ucKeyProxyArray"))
-                this.__ucKeyProxyArray := Win32FixedArray(this.ptr + 22, 1, Primitive, "char")
-            return this.__ucKeyProxyArray
-        }
-    }
 }

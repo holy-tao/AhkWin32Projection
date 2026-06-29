@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaTimeRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a buffer which contains media data for a IMFMediaSourceExtension.
@@ -11,26 +14,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfsourcebuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSourceBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSourceBuffer extends IUnknown {
     /**
      * The interface identifier for IMFSourceBuffer
      * @type {Guid}
      */
-    static IID => Guid("{e2cd3a4b-af25-4d3d-9110-da0e6f8ee877}")
+    static IID := Guid("{e2cd3a4b-af25-4d3d-9110-da0e6f8ee877}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSourceBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetUpdating          : IntPtr
+        GetBuffered          : IntPtr
+        GetTimeStampOffset   : IntPtr
+        SetTimeStampOffset   : IntPtr
+        GetAppendWindowStart : IntPtr
+        SetAppendWindowStart : IntPtr
+        GetAppendWindowEnd   : IntPtr
+        SetAppendWindowEnd   : IntPtr
+        Append               : IntPtr
+        AppendByteStream     : IntPtr
+        Abort                : IntPtr
+        Remove               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUpdating", "GetBuffered", "GetTimeStampOffset", "SetTimeStampOffset", "GetAppendWindowStart", "SetAppendWindowStart", "GetAppendWindowEnd", "SetAppendWindowEnd", "Append", "AppendByteStream", "Abort", "Remove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSourceBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a value that indicates if Append, AppendByteStream, or Remove is in process.
@@ -38,7 +59,7 @@ class IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getupdating
      */
     GetUpdating() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, BOOL)
         return result
     }
 
@@ -58,7 +79,7 @@ class IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-gettimestampoffset
      */
     GetTimeStampOffset() {
-        result := ComCall(5, this, "double")
+        result := ComCall(5, this, Float64)
         return result
     }
 
@@ -79,7 +100,7 @@ class IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getappendwindowstart
      */
     GetAppendWindowStart() {
-        result := ComCall(7, this, "double")
+        result := ComCall(7, this, Float64)
         return result
     }
 
@@ -100,7 +121,7 @@ class IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getappendwindowend
      */
     GetAppendWindowEnd() {
-        result := ComCall(9, this, "double")
+        result := ComCall(9, this, Float64)
         return result
     }
 
@@ -161,5 +182,47 @@ class IMFSourceBuffer extends IUnknown {
     Remove(start, end) {
         result := ComCall(14, this, "double", start, "double", end, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSourceBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUpdating := CallbackCreate(GetMethod(implObj, "GetUpdating"), flags, 1)
+        this.vtbl.GetBuffered := CallbackCreate(GetMethod(implObj, "GetBuffered"), flags, 2)
+        this.vtbl.GetTimeStampOffset := CallbackCreate(GetMethod(implObj, "GetTimeStampOffset"), flags, 1)
+        this.vtbl.SetTimeStampOffset := CallbackCreate(GetMethod(implObj, "SetTimeStampOffset"), flags, 2)
+        this.vtbl.GetAppendWindowStart := CallbackCreate(GetMethod(implObj, "GetAppendWindowStart"), flags, 1)
+        this.vtbl.SetAppendWindowStart := CallbackCreate(GetMethod(implObj, "SetAppendWindowStart"), flags, 2)
+        this.vtbl.GetAppendWindowEnd := CallbackCreate(GetMethod(implObj, "GetAppendWindowEnd"), flags, 1)
+        this.vtbl.SetAppendWindowEnd := CallbackCreate(GetMethod(implObj, "SetAppendWindowEnd"), flags, 2)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
+        this.vtbl.AppendByteStream := CallbackCreate(GetMethod(implObj, "AppendByteStream"), flags, 3)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUpdating)
+        CallbackFree(this.vtbl.GetBuffered)
+        CallbackFree(this.vtbl.GetTimeStampOffset)
+        CallbackFree(this.vtbl.SetTimeStampOffset)
+        CallbackFree(this.vtbl.GetAppendWindowStart)
+        CallbackFree(this.vtbl.SetAppendWindowStart)
+        CallbackFree(this.vtbl.GetAppendWindowEnd)
+        CallbackFree(this.vtbl.SetAppendWindowEnd)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.AppendByteStream)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.Remove)
     }
 }

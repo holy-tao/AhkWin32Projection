@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFSinkWriterCallback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSinkWriterCallback.ahk" { IMFSinkWriterCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IMFSinkWriterCallback interface.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwritercallback2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
-
-    static sizeof => A_PtrSize
+export default struct IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
     /**
      * The interface identifier for IMFSinkWriterCallback2
      * @type {Guid}
      */
-    static IID => Guid("{2456bd58-c067-4513-84fe-8d0c88ffdc61}")
+    static IID := Guid("{2456bd58-c067-4513-84fe-8d0c88ffdc61}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSinkWriterCallback2 interfaces
+    */
+    struct Vtbl extends IMFSinkWriterCallback.Vtbl {
+        OnTransformChange : IntPtr
+        OnStreamError     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnTransformChange", "OnStreamError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSinkWriterCallback2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when the transform chain in the IMFSourceReader is built or modified. (IMFSinkWriterCallback2.OnTransformChange)
@@ -51,5 +60,27 @@ class IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
     OnStreamError(dwStreamIndex, hrStatus) {
         result := ComCall(6, this, "uint", dwStreamIndex, "int", hrStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSinkWriterCallback2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnTransformChange := CallbackCreate(GetMethod(implObj, "OnTransformChange"), flags, 1)
+        this.vtbl.OnStreamError := CallbackCreate(GetMethod(implObj, "OnStreamError"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnTransformChange)
+        CallbackFree(this.vtbl.OnStreamError)
     }
 }

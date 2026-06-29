@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
-#Include .\IAudioStreamSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IAudioData.ahk" { IAudioData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IAudioStreamSample.ahk" { IAudioStreamSample }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/austream/nn-austream-iaudiomediastream
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAudioMediaStream extends IMediaStream {
-
-    static sizeof => A_PtrSize
+export default struct IAudioMediaStream extends IMediaStream {
     /**
      * The interface identifier for IAudioMediaStream
      * @type {Guid}
      */
-    static IID => Guid("{f7537560-a3be-11d0-8212-00c04fc32c45}")
+    static IID := Guid("{f7537560-a3be-11d0-8212-00c04fc32c45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioMediaStream interfaces
+    */
+    struct Vtbl extends IMediaStream.Vtbl {
+        GetFormat    : IntPtr
+        SetFormat    : IntPtr
+        CreateSample : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFormat", "SetFormat", "CreateSample"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioMediaStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the stream data's current format.
@@ -40,7 +51,7 @@ class IAudioMediaStream extends IMediaStream {
      */
     GetFormat() {
         pWaveFormatCurrent := WAVEFORMATEX()
-        result := ComCall(9, this, "ptr", pWaveFormatCurrent, "HRESULT")
+        result := ComCall(9, this, WAVEFORMATEX.Ptr, pWaveFormatCurrent, "HRESULT")
         return pWaveFormatCurrent
     }
 
@@ -102,7 +113,7 @@ class IAudioMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiomediastream-setformat
      */
     SetFormat(lpWaveFormat) {
-        result := ComCall(10, this, "ptr", lpWaveFormat, "HRESULT")
+        result := ComCall(10, this, WAVEFORMATEX.Ptr, lpWaveFormat, "HRESULT")
         return result
     }
 
@@ -118,5 +129,29 @@ class IAudioMediaStream extends IMediaStream {
     CreateSample(pAudioData, dwFlags) {
         result := ComCall(11, this, "ptr", pAudioData, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
         return IAudioStreamSample(ppSample)
+    }
+
+    Query(iid) {
+        if (IAudioMediaStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.CreateSample := CallbackCreate(GetMethod(implObj, "CreateSample"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.SetFormat)
+        CallbackFree(this.vtbl.CreateSample)
     }
 }

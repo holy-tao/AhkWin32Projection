@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SZ.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Accesses the beginning of a property list.
@@ -11,29 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_list
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_LIST extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct CLUSPROP_LIST {
+    #StructPack 4
 
     /**
      * Number of properties in the property list.
-     * @type {Integer}
      */
-    nPropertyCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nPropertyCount : UInt32
 
     /**
      * Structure describing the name of the first property in the list.
-     * @type {CLUSPROP_SZ}
      */
-    PropertyName {
-        get {
-            if(!this.HasProp("__PropertyName"))
-                this.__PropertyName := CLUSPROP_SZ(4, this)
-            return this.__PropertyName
-        }
-    }
+    PropertyName : CLUSPROP_SZ
+
 }

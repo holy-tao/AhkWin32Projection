@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class L2TP_TUNNEL_CONFIG_PARAMS1 extends Win32Struct {
-    static sizeof => 24
+export default struct L2TP_TUNNEL_CONFIG_PARAMS1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwIdleTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIdleTimeout {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwEncryptionType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEncryptionType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSaLifeTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSaLifeTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSaDataSizeForRenegotiation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSaDataSizeForRenegotiation {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    customPolicy : ROUTER_CUSTOM_IKEv2_POLICY0.Ptr
 
-    /**
-     * @type {Pointer<ROUTER_CUSTOM_IKEv2_POLICY0>}
-     */
-    customPolicy {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

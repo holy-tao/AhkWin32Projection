@@ -1,45 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IRowset.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRowset.ahk" { IRowset }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IRowsetLocate extends IRowset {
-
-    static sizeof => A_PtrSize
+export default struct IRowsetLocate extends IRowset {
     /**
      * The interface identifier for IRowsetLocate
      * @type {Guid}
      */
-    static IID => Guid("{0c733a7d-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a7d-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowsetLocate interfaces
+    */
+    struct Vtbl extends IRowset.Vtbl {
+        Compare           : IntPtr
+        GetRowsAt         : IntPtr
+        GetRowsByBookmark : IntPtr
+        Hash              : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowsetLocate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Compare", "GetRowsAt", "GetRowsByBookmark", "Hash"]
-
-    /**
-     * The CompareAddresses function compares two addresses, indicating that one of the addresses is greater than, less than, or equal to the other address.
-     * @remarks
-     * An address that is less than another address indicates a previous frame. An address that is greater than another address indicates a later frame.
      * 
-     * Network Monitor provides two other functions, [CompareFrameDestAddress](compareframedestaddress.md) and [CompareFrameSourceAddress](compareframesourceaddress.md), which you can use to compare addresses. The **CompareFrameDestAddress** function compares a given address to the frame's destination address, and the **CompareFrameSourceAddress** function compares a given address to the frame's source address.
      * @param {Pointer} hReserved 
      * @param {Pointer} cbBookmark1 
      * @param {Pointer<Integer>} pBookmark1 
      * @param {Pointer} cbBookmark2 
      * @param {Pointer<Integer>} pBookmark2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/compareaddresses
      */
     Compare(hReserved, cbBookmark1, pBookmark1, cbBookmark2, pBookmark2) {
         pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : "ptr"
@@ -91,17 +97,14 @@ class IRowsetLocate extends IRowset {
     }
 
     /**
-     * Hashes an array of data.
+     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cBookmarks 
      * @param {Pointer<Pointer>} rgcbBookmarks 
      * @param {Pointer<Pointer<Integer>>} rgpBookmarks 
      * @param {Pointer<Pointer>} rgHashedValues 
      * @param {Pointer<Integer>} rgBookmarkStatus 
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-hashdata
+     * @returns {HRESULT} 
      */
     Hash(hReserved, cBookmarks, rgcbBookmarks, rgpBookmarks, rgHashedValues, rgBookmarkStatus) {
         rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : "ptr"
@@ -111,5 +114,31 @@ class IRowsetLocate extends IRowset {
 
         result := ComCall(11, this, "ptr", hReserved, "ptr", cBookmarks, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rgHashedValuesMarshal, rgHashedValues, rgBookmarkStatusMarshal, rgBookmarkStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowsetLocate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 7)
+        this.vtbl.GetRowsAt := CallbackCreate(GetMethod(implObj, "GetRowsAt"), flags, 9)
+        this.vtbl.GetRowsByBookmark := CallbackCreate(GetMethod(implObj, "GetRowsByBookmark"), flags, 7)
+        this.vtbl.Hash := CallbackCreate(GetMethod(implObj, "Hash"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Compare)
+        CallbackFree(this.vtbl.GetRowsAt)
+        CallbackFree(this.vtbl.GetRowsByBookmark)
+        CallbackFree(this.vtbl.Hash)
     }
 }

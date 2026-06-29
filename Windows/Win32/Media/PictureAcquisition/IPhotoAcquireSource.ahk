@@ -1,36 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IPhotoAcquireItem.ahk
-#Include .\IPhotoAcquireSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPhotoAcquireSettings.ahk" { IPhotoAcquireSettings }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPhotoAcquireProgressCB.ahk" { IPhotoAcquireProgressCB }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The IPhotoAcquireSource interface is used for acquisition of items from a device.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiresource
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoAcquireSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoAcquireSource extends IUnknown {
     /**
      * The interface identifier for IPhotoAcquireSource
      * @type {Guid}
      */
-    static IID => Guid("{00f2c703-8613-4282-a53b-6ec59c5883ac}")
+    static IID := Guid("{00f2c703-8613-4282-a53b-6ec59c5883ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoAcquireSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFriendlyName         : IntPtr
+        GetDeviceIcons          : IntPtr
+        InitializeItemList      : IntPtr
+        GetItemCount            : IntPtr
+        GetItemAt               : IntPtr
+        GetPhotoAcquireSettings : IntPtr
+        GetDeviceId             : IntPtr
+        BindToObject            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFriendlyName", "GetDeviceIcons", "InitializeItemList", "GetItemCount", "GetItemAt", "GetPhotoAcquireSettings", "GetDeviceId", "BindToObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoAcquireSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetFriendlyName method retrieves the name of the device, formatted for display.
@@ -38,8 +56,8 @@ class IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getfriendlyname
      */
     GetFriendlyName() {
-        pbstrFriendlyName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrFriendlyName, "HRESULT")
+        pbstrFriendlyName := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pbstrFriendlyName, "HRESULT")
         return pbstrFriendlyName
     }
 
@@ -81,7 +99,7 @@ class IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceicons
      */
     GetDeviceIcons(nSize, phLargeIcon, phSmallIcon) {
-        result := ComCall(4, this, "uint", nSize, "ptr", phLargeIcon, "ptr", phSmallIcon, "HRESULT")
+        result := ComCall(4, this, "uint", nSize, HICON.Ptr, phLargeIcon, HICON.Ptr, phSmallIcon, "HRESULT")
         return result
     }
 
@@ -129,7 +147,7 @@ class IPhotoAcquireSource extends IUnknown {
     InitializeItemList(fForceEnumeration, pPhotoAcquireProgressCB, pnItemCount) {
         pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", fForceEnumeration, "ptr", pPhotoAcquireProgressCB, pnItemCountMarshal, pnItemCount, "HRESULT")
+        result := ComCall(5, this, BOOL, fForceEnumeration, "ptr", pPhotoAcquireProgressCB, pnItemCountMarshal, pnItemCount, "HRESULT")
         return result
     }
 
@@ -174,8 +192,8 @@ class IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceid
      */
     GetDeviceId() {
-        pbstrDeviceId := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDeviceId, "HRESULT")
+        pbstrDeviceId := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrDeviceId, "HRESULT")
         return pbstrDeviceId
     }
 
@@ -185,7 +203,41 @@ class IPhotoAcquireSource extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     BindToObject(riid) {
-        result := ComCall(10, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IPhotoAcquireSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.GetDeviceIcons := CallbackCreate(GetMethod(implObj, "GetDeviceIcons"), flags, 4)
+        this.vtbl.InitializeItemList := CallbackCreate(GetMethod(implObj, "InitializeItemList"), flags, 4)
+        this.vtbl.GetItemCount := CallbackCreate(GetMethod(implObj, "GetItemCount"), flags, 2)
+        this.vtbl.GetItemAt := CallbackCreate(GetMethod(implObj, "GetItemAt"), flags, 3)
+        this.vtbl.GetPhotoAcquireSettings := CallbackCreate(GetMethod(implObj, "GetPhotoAcquireSettings"), flags, 2)
+        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFriendlyName)
+        CallbackFree(this.vtbl.GetDeviceIcons)
+        CallbackFree(this.vtbl.InitializeItemList)
+        CallbackFree(this.vtbl.GetItemCount)
+        CallbackFree(this.vtbl.GetItemAt)
+        CallbackFree(this.vtbl.GetPhotoAcquireSettings)
+        CallbackFree(this.vtbl.GetDeviceId)
+        CallbackFree(this.vtbl.BindToObject)
     }
 }

@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_HANDLE_DATA_BASIC extends Win32Struct {
-    static sizeof => 24
+export default struct DEBUG_HANDLE_DATA_BASIC {
+    #StructPack 4
 
-    static packingSize => 4
+    TypeNameSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TypeNameSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ObjectNameSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectNameSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Attributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Attributes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    GrantedAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GrantedAccess {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HandleCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandleCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PointerCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PointerCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

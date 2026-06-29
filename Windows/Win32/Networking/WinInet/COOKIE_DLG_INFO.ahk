@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_COOKIE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\INTERNET_COOKIE.ahk" { INTERNET_COOKIE }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class COOKIE_DLG_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct COOKIE_DLG_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pszServer : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszServer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pic : INTERNET_COOKIE.Ptr
 
-    /**
-     * @type {Pointer<INTERNET_COOKIE>}
-     */
-    pic {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwStopWarning : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStopWarning {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cx : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cx {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cy : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cy {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    pszHeader : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszHeader {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwOperation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOperation {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

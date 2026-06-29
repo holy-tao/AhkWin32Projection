@@ -1,34 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVssWMFiledesc.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_FILE_RESTORE_STATUS.ahk" { VSS_FILE_RESTORE_STATUS }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\VSS_RESTORE_TARGET.ahk" { VSS_RESTORE_TARGET }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The IVssComponent interface is a C++ (not COM) interface containing methods for examining and modifying information about components contained in a requester's Backup Components Document.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponent
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssComponent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssComponent extends IUnknown {
     /**
      * The interface identifier for IVssComponent
      * @type {Guid}
      */
-    static IID => Guid("{d2c72c96-c121-4518-b627-e5a93d010ead}")
+    static IID := Guid("{d2c72c96-c121-4518-b627-e5a93d010ead}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssComponent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLogicalPath                      : IntPtr
+        GetComponentType                    : IntPtr
+        GetComponentName                    : IntPtr
+        GetBackupSucceeded                  : IntPtr
+        GetAlternateLocationMappingCount    : IntPtr
+        GetAlternateLocationMapping         : IntPtr
+        SetBackupMetadata                   : IntPtr
+        GetBackupMetadata                   : IntPtr
+        AddPartialFile                      : IntPtr
+        GetPartialFileCount                 : IntPtr
+        GetPartialFile                      : IntPtr
+        IsSelectedForRestore                : IntPtr
+        GetAdditionalRestores               : IntPtr
+        GetNewTargetCount                   : IntPtr
+        GetNewTarget                        : IntPtr
+        AddDirectedTarget                   : IntPtr
+        GetDirectedTargetCount              : IntPtr
+        GetDirectedTarget                   : IntPtr
+        SetRestoreMetadata                  : IntPtr
+        GetRestoreMetadata                  : IntPtr
+        SetRestoreTarget                    : IntPtr
+        GetRestoreTarget                    : IntPtr
+        SetPreRestoreFailureMsg             : IntPtr
+        GetPreRestoreFailureMsg             : IntPtr
+        SetPostRestoreFailureMsg            : IntPtr
+        GetPostRestoreFailureMsg            : IntPtr
+        SetBackupStamp                      : IntPtr
+        GetBackupStamp                      : IntPtr
+        GetPreviousBackupStamp              : IntPtr
+        GetBackupOptions                    : IntPtr
+        GetRestoreOptions                   : IntPtr
+        GetRestoreSubcomponentCount         : IntPtr
+        GetRestoreSubcomponent              : IntPtr
+        GetFileRestoreStatus                : IntPtr
+        AddDifferencedFilesByLastModifyTime : IntPtr
+        AddDifferencedFilesByLastModifyLSN  : IntPtr
+        GetDifferencedFilesCount            : IntPtr
+        GetDifferencedFile                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLogicalPath", "GetComponentType", "GetComponentName", "GetBackupSucceeded", "GetAlternateLocationMappingCount", "GetAlternateLocationMapping", "SetBackupMetadata", "GetBackupMetadata", "AddPartialFile", "GetPartialFileCount", "GetPartialFile", "IsSelectedForRestore", "GetAdditionalRestores", "GetNewTargetCount", "GetNewTarget", "AddDirectedTarget", "GetDirectedTargetCount", "GetDirectedTarget", "SetRestoreMetadata", "GetRestoreMetadata", "SetRestoreTarget", "GetRestoreTarget", "SetPreRestoreFailureMsg", "GetPreRestoreFailureMsg", "SetPostRestoreFailureMsg", "GetPostRestoreFailureMsg", "SetBackupStamp", "GetBackupStamp", "GetPreviousBackupStamp", "GetBackupOptions", "GetRestoreOptions", "GetRestoreSubcomponentCount", "GetRestoreSubcomponent", "GetFileRestoreStatus", "AddDifferencedFilesByLastModifyTime", "AddDifferencedFilesByLastModifyLSN", "GetDifferencedFilesCount", "GetDifferencedFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssComponent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetLogicalPath method returns the logical path of this component.
@@ -104,7 +156,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getlogicalpath
      */
     GetLogicalPath(pbstrPath) {
-        result := ComCall(3, this, "ptr", pbstrPath, "HRESULT")
+        result := ComCall(3, this, BSTR.Ptr, pbstrPath, "HRESULT")
         return result
     }
 
@@ -246,7 +298,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getcomponentname
      */
     GetComponentName(pbstrName) {
-        result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(5, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -616,7 +668,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupmetadata
      */
     GetBackupMetadata(pbstrData) {
-        result := ComCall(10, this, "ptr", pbstrData, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pbstrData, "HRESULT")
         return result
     }
 
@@ -923,7 +975,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpartialfile
      */
     GetPartialFile(iPartialFile, pbstrPath, pbstrFilename, pbstrRange, pbstrMetadata) {
-        result := ComCall(13, this, "uint", iPartialFile, "ptr", pbstrPath, "ptr", pbstrFilename, "ptr", pbstrRange, "ptr", pbstrMetadata, "HRESULT")
+        result := ComCall(13, this, "uint", iPartialFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilename, BSTR.Ptr, pbstrRange, BSTR.Ptr, pbstrMetadata, "HRESULT")
         return result
     }
 
@@ -1422,7 +1474,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtarget
      */
     GetDirectedTarget(iDirectedTarget, pbstrSourcePath, pbstrSourceFileName, pbstrSourceRangeList, pbstrDestinationPath, pbstrDestinationFilename, pbstrDestinationRangeList) {
-        result := ComCall(20, this, "uint", iDirectedTarget, "ptr", pbstrSourcePath, "ptr", pbstrSourceFileName, "ptr", pbstrSourceRangeList, "ptr", pbstrDestinationPath, "ptr", pbstrDestinationFilename, "ptr", pbstrDestinationRangeList, "HRESULT")
+        result := ComCall(20, this, "uint", iDirectedTarget, BSTR.Ptr, pbstrSourcePath, BSTR.Ptr, pbstrSourceFileName, BSTR.Ptr, pbstrSourceRangeList, BSTR.Ptr, pbstrDestinationPath, BSTR.Ptr, pbstrDestinationFilename, BSTR.Ptr, pbstrDestinationRangeList, "HRESULT")
         return result
     }
 
@@ -1591,7 +1643,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoremetadata
      */
     GetRestoreMetadata(pbstrRestoreMetadata) {
-        result := ComCall(22, this, "ptr", pbstrRestoreMetadata, "HRESULT")
+        result := ComCall(22, this, BSTR.Ptr, pbstrRestoreMetadata, "HRESULT")
         return result
     }
 
@@ -1657,7 +1709,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setrestoretarget
      */
     SetRestoreTarget(target) {
-        result := ComCall(23, this, "int", target, "HRESULT")
+        result := ComCall(23, this, VSS_RESTORE_TARGET, target, "HRESULT")
         return result
     }
 
@@ -1887,7 +1939,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getprerestorefailuremsg
      */
     GetPreRestoreFailureMsg(pbstrPreRestoreFailureMsg) {
-        result := ComCall(26, this, "ptr", pbstrPreRestoreFailureMsg, "HRESULT")
+        result := ComCall(26, this, BSTR.Ptr, pbstrPreRestoreFailureMsg, "HRESULT")
         return result
     }
 
@@ -2037,7 +2089,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpostrestorefailuremsg
      */
     GetPostRestoreFailureMsg(pbstrPostRestoreFailureMsg) {
-        result := ComCall(28, this, "ptr", pbstrPostRestoreFailureMsg, "HRESULT")
+        result := ComCall(28, this, BSTR.Ptr, pbstrPostRestoreFailureMsg, "HRESULT")
         return result
     }
 
@@ -2205,7 +2257,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupstamp
      */
     GetBackupStamp(pbstrBackupStamp) {
-        result := ComCall(30, this, "ptr", pbstrBackupStamp, "HRESULT")
+        result := ComCall(30, this, BSTR.Ptr, pbstrBackupStamp, "HRESULT")
         return result
     }
 
@@ -2295,7 +2347,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpreviousbackupstamp
      */
     GetPreviousBackupStamp(pbstrBackupStamp) {
-        result := ComCall(31, this, "ptr", pbstrBackupStamp, "HRESULT")
+        result := ComCall(31, this, BSTR.Ptr, pbstrBackupStamp, "HRESULT")
         return result
     }
 
@@ -2373,7 +2425,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupoptions
      */
     GetBackupOptions(pbstrBackupOptions) {
-        result := ComCall(32, this, "ptr", pbstrBackupOptions, "HRESULT")
+        result := ComCall(32, this, BSTR.Ptr, pbstrBackupOptions, "HRESULT")
         return result
     }
 
@@ -2451,7 +2503,7 @@ class IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoreoptions
      */
     GetRestoreOptions(pbstrRestoreOptions) {
-        result := ComCall(33, this, "ptr", pbstrRestoreOptions, "HRESULT")
+        result := ComCall(33, this, BSTR.Ptr, pbstrRestoreOptions, "HRESULT")
         return result
     }
 
@@ -2587,7 +2639,7 @@ class IVssComponent extends IUnknown {
     GetRestoreSubcomponent(_iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
         pbRepairMarshal := pbRepair is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, "uint", _iComponent, "ptr", pbstrLogicalPath, "ptr", pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
+        result := ComCall(35, this, "uint", _iComponent, BSTR.Ptr, pbstrLogicalPath, BSTR.Ptr, pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
         return result
     }
 
@@ -2853,7 +2905,7 @@ class IVssComponent extends IUnknown {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(37, this, "ptr", wszPath, "ptr", wszFilespec, "int", bRecursive, "ptr", ftLastModifyTime, "HRESULT")
+        result := ComCall(37, this, "ptr", wszPath, "ptr", wszFilespec, BOOL, bRecursive, FILETIME, ftLastModifyTime, "HRESULT")
         return result
     }
 
@@ -2871,7 +2923,7 @@ class IVssComponent extends IUnknown {
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
         bstrLsnString := bstrLsnString is String ? BSTR.Alloc(bstrLsnString).Value : bstrLsnString
 
-        result := ComCall(38, this, "ptr", wszPath, "ptr", wszFilespec, "int", bRecursive, "ptr", bstrLsnString, "HRESULT")
+        result := ComCall(38, this, "ptr", wszPath, "ptr", wszFilespec, BOOL, bRecursive, BSTR, bstrLsnString, "HRESULT")
         return result
     }
 
@@ -3086,7 +3138,101 @@ class IVssComponent extends IUnknown {
     GetDifferencedFile(iDifferencedFile, pbstrPath, pbstrFilespec, pbRecursive, pbstrLsnString, pftLastModifyTime) {
         pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"
 
-        result := ComCall(40, this, "uint", iDifferencedFile, "ptr", pbstrPath, "ptr", pbstrFilespec, pbRecursiveMarshal, pbRecursive, "ptr", pbstrLsnString, "ptr", pftLastModifyTime, "HRESULT")
+        result := ComCall(40, this, "uint", iDifferencedFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilespec, pbRecursiveMarshal, pbRecursive, BSTR.Ptr, pbstrLsnString, FILETIME.Ptr, pftLastModifyTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssComponent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLogicalPath := CallbackCreate(GetMethod(implObj, "GetLogicalPath"), flags, 2)
+        this.vtbl.GetComponentType := CallbackCreate(GetMethod(implObj, "GetComponentType"), flags, 2)
+        this.vtbl.GetComponentName := CallbackCreate(GetMethod(implObj, "GetComponentName"), flags, 2)
+        this.vtbl.GetBackupSucceeded := CallbackCreate(GetMethod(implObj, "GetBackupSucceeded"), flags, 2)
+        this.vtbl.GetAlternateLocationMappingCount := CallbackCreate(GetMethod(implObj, "GetAlternateLocationMappingCount"), flags, 2)
+        this.vtbl.GetAlternateLocationMapping := CallbackCreate(GetMethod(implObj, "GetAlternateLocationMapping"), flags, 3)
+        this.vtbl.SetBackupMetadata := CallbackCreate(GetMethod(implObj, "SetBackupMetadata"), flags, 2)
+        this.vtbl.GetBackupMetadata := CallbackCreate(GetMethod(implObj, "GetBackupMetadata"), flags, 2)
+        this.vtbl.AddPartialFile := CallbackCreate(GetMethod(implObj, "AddPartialFile"), flags, 5)
+        this.vtbl.GetPartialFileCount := CallbackCreate(GetMethod(implObj, "GetPartialFileCount"), flags, 2)
+        this.vtbl.GetPartialFile := CallbackCreate(GetMethod(implObj, "GetPartialFile"), flags, 6)
+        this.vtbl.IsSelectedForRestore := CallbackCreate(GetMethod(implObj, "IsSelectedForRestore"), flags, 2)
+        this.vtbl.GetAdditionalRestores := CallbackCreate(GetMethod(implObj, "GetAdditionalRestores"), flags, 2)
+        this.vtbl.GetNewTargetCount := CallbackCreate(GetMethod(implObj, "GetNewTargetCount"), flags, 2)
+        this.vtbl.GetNewTarget := CallbackCreate(GetMethod(implObj, "GetNewTarget"), flags, 3)
+        this.vtbl.AddDirectedTarget := CallbackCreate(GetMethod(implObj, "AddDirectedTarget"), flags, 7)
+        this.vtbl.GetDirectedTargetCount := CallbackCreate(GetMethod(implObj, "GetDirectedTargetCount"), flags, 2)
+        this.vtbl.GetDirectedTarget := CallbackCreate(GetMethod(implObj, "GetDirectedTarget"), flags, 8)
+        this.vtbl.SetRestoreMetadata := CallbackCreate(GetMethod(implObj, "SetRestoreMetadata"), flags, 2)
+        this.vtbl.GetRestoreMetadata := CallbackCreate(GetMethod(implObj, "GetRestoreMetadata"), flags, 2)
+        this.vtbl.SetRestoreTarget := CallbackCreate(GetMethod(implObj, "SetRestoreTarget"), flags, 2)
+        this.vtbl.GetRestoreTarget := CallbackCreate(GetMethod(implObj, "GetRestoreTarget"), flags, 2)
+        this.vtbl.SetPreRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "SetPreRestoreFailureMsg"), flags, 2)
+        this.vtbl.GetPreRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "GetPreRestoreFailureMsg"), flags, 2)
+        this.vtbl.SetPostRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "SetPostRestoreFailureMsg"), flags, 2)
+        this.vtbl.GetPostRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "GetPostRestoreFailureMsg"), flags, 2)
+        this.vtbl.SetBackupStamp := CallbackCreate(GetMethod(implObj, "SetBackupStamp"), flags, 2)
+        this.vtbl.GetBackupStamp := CallbackCreate(GetMethod(implObj, "GetBackupStamp"), flags, 2)
+        this.vtbl.GetPreviousBackupStamp := CallbackCreate(GetMethod(implObj, "GetPreviousBackupStamp"), flags, 2)
+        this.vtbl.GetBackupOptions := CallbackCreate(GetMethod(implObj, "GetBackupOptions"), flags, 2)
+        this.vtbl.GetRestoreOptions := CallbackCreate(GetMethod(implObj, "GetRestoreOptions"), flags, 2)
+        this.vtbl.GetRestoreSubcomponentCount := CallbackCreate(GetMethod(implObj, "GetRestoreSubcomponentCount"), flags, 2)
+        this.vtbl.GetRestoreSubcomponent := CallbackCreate(GetMethod(implObj, "GetRestoreSubcomponent"), flags, 5)
+        this.vtbl.GetFileRestoreStatus := CallbackCreate(GetMethod(implObj, "GetFileRestoreStatus"), flags, 2)
+        this.vtbl.AddDifferencedFilesByLastModifyTime := CallbackCreate(GetMethod(implObj, "AddDifferencedFilesByLastModifyTime"), flags, 5)
+        this.vtbl.AddDifferencedFilesByLastModifyLSN := CallbackCreate(GetMethod(implObj, "AddDifferencedFilesByLastModifyLSN"), flags, 5)
+        this.vtbl.GetDifferencedFilesCount := CallbackCreate(GetMethod(implObj, "GetDifferencedFilesCount"), flags, 2)
+        this.vtbl.GetDifferencedFile := CallbackCreate(GetMethod(implObj, "GetDifferencedFile"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLogicalPath)
+        CallbackFree(this.vtbl.GetComponentType)
+        CallbackFree(this.vtbl.GetComponentName)
+        CallbackFree(this.vtbl.GetBackupSucceeded)
+        CallbackFree(this.vtbl.GetAlternateLocationMappingCount)
+        CallbackFree(this.vtbl.GetAlternateLocationMapping)
+        CallbackFree(this.vtbl.SetBackupMetadata)
+        CallbackFree(this.vtbl.GetBackupMetadata)
+        CallbackFree(this.vtbl.AddPartialFile)
+        CallbackFree(this.vtbl.GetPartialFileCount)
+        CallbackFree(this.vtbl.GetPartialFile)
+        CallbackFree(this.vtbl.IsSelectedForRestore)
+        CallbackFree(this.vtbl.GetAdditionalRestores)
+        CallbackFree(this.vtbl.GetNewTargetCount)
+        CallbackFree(this.vtbl.GetNewTarget)
+        CallbackFree(this.vtbl.AddDirectedTarget)
+        CallbackFree(this.vtbl.GetDirectedTargetCount)
+        CallbackFree(this.vtbl.GetDirectedTarget)
+        CallbackFree(this.vtbl.SetRestoreMetadata)
+        CallbackFree(this.vtbl.GetRestoreMetadata)
+        CallbackFree(this.vtbl.SetRestoreTarget)
+        CallbackFree(this.vtbl.GetRestoreTarget)
+        CallbackFree(this.vtbl.SetPreRestoreFailureMsg)
+        CallbackFree(this.vtbl.GetPreRestoreFailureMsg)
+        CallbackFree(this.vtbl.SetPostRestoreFailureMsg)
+        CallbackFree(this.vtbl.GetPostRestoreFailureMsg)
+        CallbackFree(this.vtbl.SetBackupStamp)
+        CallbackFree(this.vtbl.GetBackupStamp)
+        CallbackFree(this.vtbl.GetPreviousBackupStamp)
+        CallbackFree(this.vtbl.GetBackupOptions)
+        CallbackFree(this.vtbl.GetRestoreOptions)
+        CallbackFree(this.vtbl.GetRestoreSubcomponentCount)
+        CallbackFree(this.vtbl.GetRestoreSubcomponent)
+        CallbackFree(this.vtbl.GetFileRestoreStatus)
+        CallbackFree(this.vtbl.AddDifferencedFilesByLastModifyTime)
+        CallbackFree(this.vtbl.AddDifferencedFilesByLastModifyLSN)
+        CallbackFree(this.vtbl.GetDifferencedFilesCount)
+        CallbackFree(this.vtbl.GetDifferencedFile)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines options for placing the cluster.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-placement_options
  * @namespace Windows.Win32.Networking.Clustering
  */
-class PLACEMENT_OPTIONS extends Win32Enum {
+export default struct PLACEMENT_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Minimum value

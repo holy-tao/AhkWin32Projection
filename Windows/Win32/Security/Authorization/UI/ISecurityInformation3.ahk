@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods necessary for displaying an elevated access control editor when a user clicks the Edit button on an access control editor page that displays an image of a shield on that Edit button.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation3
  * @namespace Windows.Win32.Security.Authorization.UI
  */
-class ISecurityInformation3 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISecurityInformation3 extends IUnknown {
     /**
      * The interface identifier for ISecurityInformation3
      * @type {Guid}
      */
-    static IID => Guid("{e2cdc9cc-31bd-4f8f-8c8b-b641af516a1a}")
+    static IID := Guid("{e2cdc9cc-31bd-4f8f-8c8b-b641af516a1a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISecurityInformation3 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFullResourceName : IntPtr
+        OpenElevatedEditor  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFullResourceName", "OpenElevatedEditor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISecurityInformation3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the full path and file name of the object associated with the access control editor that is displayed by calling the OpenElevatedEditor method.
@@ -35,7 +47,7 @@ class ISecurityInformation3 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation3-getfullresourcename
      */
     GetFullResourceName() {
-        result := ComCall(3, this, "ptr*", &ppszResourceName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszResourceName := 0, "HRESULT")
         return ppszResourceName
     }
 
@@ -49,9 +61,29 @@ class ISecurityInformation3 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation3-openelevatededitor
      */
     OpenElevatedEditor(_hWnd, uPage) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(4, this, "ptr", _hWnd, "int", uPage, "HRESULT")
+        result := ComCall(4, this, HWND, _hWnd, SI_PAGE_TYPE, uPage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISecurityInformation3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFullResourceName := CallbackCreate(GetMethod(implObj, "GetFullResourceName"), flags, 2)
+        this.vtbl.OpenElevatedEditor := CallbackCreate(GetMethod(implObj, "OpenElevatedEditor"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFullResourceName)
+        CallbackFree(this.vtbl.OpenElevatedEditor)
     }
 }

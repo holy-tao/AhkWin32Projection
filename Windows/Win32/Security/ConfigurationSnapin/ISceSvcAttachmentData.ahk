@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISceSvcAttachmentPersistInfo.ahk" { ISceSvcAttachmentPersistInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SCESVC_INFO_TYPE.ahk" { SCESVC_INFO_TYPE }
 
 /**
  * The ISceSvcAttachmentData interface retrieves configuration and analysis data about a specified security service from the Security Configuration snap-ins.
  * @see https://learn.microsoft.com/windows/win32/api/scesvc/nn-scesvc-iscesvcattachmentdata
  * @namespace Windows.Win32.Security.ConfigurationSnapin
  */
-class ISceSvcAttachmentData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISceSvcAttachmentData extends IUnknown {
     /**
      * The interface identifier for ISceSvcAttachmentData
      * @type {Guid}
      */
-    static IID => Guid("{17c35fde-200d-11d1-affb-00c04fb984f9}")
+    static IID := Guid("{17c35fde-200d-11d1-affb-00c04fb984f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISceSvcAttachmentData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetData     : IntPtr
+        Initialize  : IntPtr
+        FreeBuffer  : IntPtr
+        CloseHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetData", "Initialize", "FreeBuffer", "CloseHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISceSvcAttachmentData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetData method retrieves configuration information from the Security Configuration snap-in.
@@ -55,7 +68,7 @@ class ISceSvcAttachmentData extends IUnknown {
         ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
         psceEnumHandleMarshal := psceEnumHandle is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, scesvcHandleMarshal, scesvcHandle, "int", sceType, ppvDataMarshal, ppvData, psceEnumHandleMarshal, psceEnumHandle, "HRESULT")
+        result := ComCall(3, this, scesvcHandleMarshal, scesvcHandle, SCESVC_INFO_TYPE, sceType, ppvDataMarshal, ppvData, psceEnumHandleMarshal, psceEnumHandle, "HRESULT")
         return result
     }
 
@@ -111,5 +124,31 @@ class ISceSvcAttachmentData extends IUnknown {
 
         result := ComCall(6, this, scesvcHandleMarshal, scesvcHandle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISceSvcAttachmentData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.CloseHandle := CallbackCreate(GetMethod(implObj, "CloseHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.FreeBuffer)
+        CallbackFree(this.vtbl.CloseHandle)
     }
 }

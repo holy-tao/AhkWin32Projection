@@ -1,58 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class GENERIC_XML_TOKEN extends Win32Struct {
-    static sizeof => 40
+export default struct GENERIC_XML_TOKEN {
+    #StructPack 8
 
-    static packingSize => 8
+    createDate : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    createDate {
-        get {
-            if(!this.HasProp("__createDate"))
-                this.__createDate := FILETIME(0, this)
-            return this.__createDate
-        }
-    }
+    expiryDate : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    expiryDate {
-        get {
-            if(!this.HasProp("__expiryDate"))
-                this.__expiryDate := FILETIME(8, this)
-            return this.__expiryDate
-        }
-    }
+    xmlToken : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    xmlToken {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    internalTokenReference : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    internalTokenReference {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    externalTokenReference : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    externalTokenReference {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

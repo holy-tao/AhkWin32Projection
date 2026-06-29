@@ -1,197 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_PERFORMANCE_COUNTER extends Win32Struct {
-    static sizeof => 600
+export default struct VIDEO_PERFORMANCE_COUNTER {
+    #StructPack 8
 
-    static packingSize => 8
+    NbOfAllocationEvicted : Int64[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NbOfAllocationEvicted {
-        get {
-            if(!this.HasProp("__NbOfAllocationEvictedProxyArray"))
-                this.__NbOfAllocationEvictedProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "uint")
-            return this.__NbOfAllocationEvictedProxyArray
-        }
-    }
+    NbOfAllocationMarked : Int64[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NbOfAllocationMarked {
-        get {
-            if(!this.HasProp("__NbOfAllocationMarkedProxyArray"))
-                this.__NbOfAllocationMarkedProxyArray := Win32FixedArray(this.ptr + 80, 10, Primitive, "uint")
-            return this.__NbOfAllocationMarkedProxyArray
-        }
-    }
+    NbOfAllocationRestored : Int64[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NbOfAllocationRestored {
-        get {
-            if(!this.HasProp("__NbOfAllocationRestoredProxyArray"))
-                this.__NbOfAllocationRestoredProxyArray := Win32FixedArray(this.ptr + 160, 10, Primitive, "uint")
-            return this.__NbOfAllocationRestoredProxyArray
-        }
-    }
+    KBytesEvicted : Int64[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    KBytesEvicted {
-        get {
-            if(!this.HasProp("__KBytesEvictedProxyArray"))
-                this.__KBytesEvictedProxyArray := Win32FixedArray(this.ptr + 240, 10, Primitive, "uint")
-            return this.__KBytesEvictedProxyArray
-        }
-    }
+    KBytesMarked : Int64[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    KBytesMarked {
-        get {
-            if(!this.HasProp("__KBytesMarkedProxyArray"))
-                this.__KBytesMarkedProxyArray := Win32FixedArray(this.ptr + 320, 10, Primitive, "uint")
-            return this.__KBytesMarkedProxyArray
-        }
-    }
+    KBytesRestored : Int64[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    KBytesRestored {
-        get {
-            if(!this.HasProp("__KBytesRestoredProxyArray"))
-                this.__KBytesRestoredProxyArray := Win32FixedArray(this.ptr + 400, 10, Primitive, "uint")
-            return this.__KBytesRestoredProxyArray
-        }
-    }
+    NbProcessCommited : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NbProcessCommited {
-        get => NumGet(this, 480, "uint")
-        set => NumPut("uint", value, this, 480)
-    }
+    NbAllocationCommited : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationCommited {
-        get => NumGet(this, 488, "uint")
-        set => NumPut("uint", value, this, 488)
-    }
+    NbAllocationMarked : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationMarked {
-        get => NumGet(this, 496, "uint")
-        set => NumPut("uint", value, this, 496)
-    }
+    KBytesAllocated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KBytesAllocated {
-        get => NumGet(this, 504, "uint")
-        set => NumPut("uint", value, this, 504)
-    }
+    KBytesAvailable : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KBytesAvailable {
-        get => NumGet(this, 512, "uint")
-        set => NumPut("uint", value, this, 512)
-    }
+    KBytesCurMarked : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KBytesCurMarked {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
-    }
+    Reference : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reference {
-        get => NumGet(this, 528, "uint")
-        set => NumPut("uint", value, this, 528)
-    }
+    Unreference : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Unreference {
-        get => NumGet(this, 536, "uint")
-        set => NumPut("uint", value, this, 536)
-    }
+    TrueReference : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TrueReference {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
+    NbOfPageIn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NbOfPageIn {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    KBytesPageIn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KBytesPageIn {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    NbOfPageOut : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NbOfPageOut {
-        get => NumGet(this, 568, "uint")
-        set => NumPut("uint", value, this, 568)
-    }
+    KBytesPageOut : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KBytesPageOut {
-        get => NumGet(this, 576, "uint")
-        set => NumPut("uint", value, this, 576)
-    }
+    NbOfRotateOut : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NbOfRotateOut {
-        get => NumGet(this, 584, "uint")
-        set => NumPut("uint", value, this, 584)
-    }
+    KBytesRotateOut : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KBytesRotateOut {
-        get => NumGet(this, 592, "uint")
-        set => NumPut("uint", value, this, 592)
-    }
 }

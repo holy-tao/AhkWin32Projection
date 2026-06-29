@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the shaders that can access the contents of a given root signature slot.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_visibility
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SHADER_VISIBILITY extends Win32Enum {
+export default struct D3D12_SHADER_VISIBILITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that all shader stages can access whatever is bound at the root signature slot.

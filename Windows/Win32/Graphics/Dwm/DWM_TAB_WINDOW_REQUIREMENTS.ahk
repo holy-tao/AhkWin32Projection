@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This enumeration supported an experimental feature that was never implemented in Windows. It has no effect and should not be used.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_tab_window_requirements
  * @namespace Windows.Win32.Graphics.Dwm
  */
-class DWM_TAB_WINDOW_REQUIREMENTS extends Win32BitflagEnum {
+export default struct DWM_TAB_WINDOW_REQUIREMENTS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This field is not used.

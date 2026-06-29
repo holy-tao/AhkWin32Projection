@@ -1,7 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EFFPERM_RESULT_LIST.ahk" { EFFPERM_RESULT_LIST }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SECURITY_OBJECT.ahk" { SECURITY_OBJECT }
+#Import "..\..\PSID.ahk" { PSID }
+#Import "..\AUTHZ_SID_OPERATION.ahk" { AUTHZ_SID_OPERATION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
+#Import "..\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OPERATION }
 
 /**
  * Provides a way to determine effective permission for a security principal on an object.
@@ -14,26 +23,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-ieffectivepermission2
  * @namespace Windows.Win32.Security.Authorization.UI
  */
-class IEffectivePermission2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEffectivePermission2 extends IUnknown {
     /**
      * The interface identifier for IEffectivePermission2
      * @type {Guid}
      */
-    static IID => Guid("{941fabca-dd47-4fca-90bb-b0e10255f20d}")
+    static IID := Guid("{941fabca-dd47-4fca-90bb-b0e10255f20d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEffectivePermission2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ComputeEffectivePermissionWithSecondarySecurity : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ComputeEffectivePermissionWithSecondarySecurity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEffectivePermission2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Computes the effective permissions by using the secondary security for an object.
@@ -74,7 +90,27 @@ class IEffectivePermission2 extends IUnknown {
         pAuthzUserClaimsOperationsMarshal := pAuthzUserClaimsOperations is VarRef ? "int*" : "ptr"
         pAuthzDeviceClaimsOperationsMarshal := pAuthzDeviceClaimsOperations is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _pSid, "ptr", pDeviceSid, "ptr", pszServerName, "ptr", pSecurityObjects, "uint", dwSecurityObjectCount, "ptr", pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, "ptr", pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, "ptr", pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, "ptr", pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, "ptr", pEffpermResultLists, "HRESULT")
+        result := ComCall(3, this, PSID, _pSid, PSID, pDeviceSid, "ptr", pszServerName, SECURITY_OBJECT.Ptr, pSecurityObjects, "uint", dwSecurityObjectCount, TOKEN_GROUPS.Ptr, pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, TOKEN_GROUPS.Ptr, pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, EFFPERM_RESULT_LIST.Ptr, pEffpermResultLists, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEffectivePermission2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ComputeEffectivePermissionWithSecondarySecurity := CallbackCreate(GetMethod(implObj, "ComputeEffectivePermissionWithSecondarySecurity"), flags, 15)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ComputeEffectivePermissionWithSecondarySecurity)
     }
 }

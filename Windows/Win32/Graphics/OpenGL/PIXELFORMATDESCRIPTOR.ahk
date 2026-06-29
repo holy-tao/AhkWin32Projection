@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PFD_FLAGS.ahk
-#Include .\PFD_PIXEL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFD_FLAGS.ahk" { PFD_FLAGS }
+#Import ".\PFD_PIXEL_TYPE.ahk" { PFD_PIXEL_TYPE }
 
 /**
  * The PIXELFORMATDESCRIPTOR structure describes the pixel format of a drawing surface.
@@ -10,28 +9,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pixelformatdescriptor
  * @namespace Windows.Win32.Graphics.OpenGL
  */
-class PIXELFORMATDESCRIPTOR extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct PIXELFORMATDESCRIPTOR {
+    #StructPack 8
 
     /**
      * Specifies the size of this data structure. This value should be set to <b>sizeof</b>(<b>PIXELFORMATDESCRIPTOR</b>).
-     * @type {Integer}
      */
-    nSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    nSize : UInt16
 
     /**
      * Specifies the version of this data structure. This value should be set to 1.
-     * @type {Integer}
      */
-    nVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    nVersion : UInt16
 
     /**
      * A set of bit flags that specify properties of the pixel buffer. The properties are generally not mutually exclusive; you can set any combination of bit flags, with the exceptions noted. The following bit flag constants are defined.
@@ -162,12 +151,8 @@ class PIXELFORMATDESCRIPTOR extends Win32Struct {
      * <td>Specifies the content of the back buffer in the double-buffered main color plane following a buffer swap. Swapping the color buffers causes the exchange of the back buffer's content with the front buffer's content. Following the swap, the back buffer's content contains the front buffer's content before the swap. PFD_SWAP_EXCHANGE is a hint only and might not be provided by a driver.</td>
      * </tr>
      * </table>
-     * @type {PFD_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : PFD_FLAGS
 
     /**
      * Specifies the type of pixel data. The following types are defined.
@@ -190,208 +175,117 @@ class PIXELFORMATDESCRIPTOR extends Win32Struct {
      * <td>Color-index pixels. Each pixel uses a color-index value.</td>
      * </tr>
      * </table>
-     * @type {PFD_PIXEL_TYPE}
      */
-    iPixelType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    iPixelType : PFD_PIXEL_TYPE
 
     /**
      * Specifies the number of color bitplanes in each color buffer. For RGBA pixel types, it is the size of the color buffer, excluding the alpha bitplanes. For color-index pixels, it is the size of the color-index buffer.
-     * @type {Integer}
      */
-    cColorBits {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    cColorBits : Int8
 
     /**
      * Specifies the number of red bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cRedBits {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    cRedBits : Int8
 
     /**
      * Specifies the shift count for red bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cRedShift {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    cRedShift : Int8
 
     /**
      * Specifies the number of green bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cGreenBits {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    cGreenBits : Int8
 
     /**
      * Specifies the shift count for green bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cGreenShift {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    cGreenShift : Int8
 
     /**
      * Specifies the number of blue bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cBlueBits {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    cBlueBits : Int8
 
     /**
      * Specifies the shift count for blue bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cBlueShift {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    cBlueShift : Int8
 
     /**
      * Specifies the number of alpha bitplanes in each RGBA color buffer. Alpha bitplanes are not supported.
-     * @type {Integer}
      */
-    cAlphaBits {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    cAlphaBits : Int8
 
     /**
      * Specifies the shift count for alpha bitplanes in each RGBA color buffer. Alpha bitplanes are not supported.
-     * @type {Integer}
      */
-    cAlphaShift {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    cAlphaShift : Int8
 
     /**
      * Specifies the total number of bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumBits {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    cAccumBits : Int8
 
     /**
      * Specifies the number of red bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumRedBits {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    cAccumRedBits : Int8
 
     /**
      * Specifies the number of green bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumGreenBits {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    cAccumGreenBits : Int8
 
     /**
      * Specifies the number of blue bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumBlueBits {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    cAccumBlueBits : Int8
 
     /**
      * Specifies the number of alpha bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumAlphaBits {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    cAccumAlphaBits : Int8
 
     /**
      * Specifies the depth of the depth (z-axis) buffer.
-     * @type {Integer}
      */
-    cDepthBits {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    cDepthBits : Int8
 
     /**
      * Specifies the depth of the stencil buffer.
-     * @type {Integer}
      */
-    cStencilBits {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    cStencilBits : Int8
 
     /**
      * Specifies the number of auxiliary buffers. Auxiliary buffers are not supported.
-     * @type {Integer}
      */
-    cAuxBuffers {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    cAuxBuffers : Int8
 
     /**
      * Ignored. Earlier implementations of OpenGL used this member, but it is no longer used.
-     * @type {Integer}
      */
-    iLayerType {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    iLayerType : Int8
 
     /**
      * Specifies the number of overlay and underlay planes. Bits 0 through 3 specify up to 15 overlay planes and bits 4 through 7 specify up to 15 underlay planes.
-     * @type {Integer}
      */
-    bReserved {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
+    bReserved : Int8
 
     /**
      * Ignored. Earlier implementations of OpenGL used this member, but it is no longer used.
-     * @type {Integer}
      */
-    dwLayerMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwLayerMask : UInt32
 
     /**
      * Specifies the transparent color or index of an underlay plane. When the pixel type is RGBA, <b>dwVisibleMask</b> is a transparent RGB color value. When the pixel type is color index, it is a transparent index value.
-     * @type {Integer}
      */
-    dwVisibleMask {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwVisibleMask : UInt32
 
     /**
      * Ignored. Earlier implementations of OpenGL used this member, but it is no longer used.
-     * @type {Integer}
      */
-    dwDamageMask {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwDamageMask : UInt32
+
 }

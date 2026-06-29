@@ -1,46 +1,100 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\Node.ahk
-#Include .\Nodes.ahk
-#Include .\Document.ahk
-#Include .\ContextMenu.ahk
-#Include .\Frame.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\Columns.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\Document.ahk" { Document }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\_ExportListOptions.ahk" { _ExportListOptions }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Columns.ahk" { Columns }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\_ListViewMode.ahk" { _ListViewMode }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\Nodes.ahk" { Nodes }
+#Import ".\Frame.ahk" { Frame }
+#Import ".\Node.ahk" { Node }
+#Import ".\ContextMenu.ahk" { ContextMenu }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The View object represents a result set obtained when processing a query using the OpenView method of the Database object.
  * @see https://learn.microsoft.com/windows/win32/Msi/view-object
  * @namespace Windows.Win32.System.Mmc
  */
-class View extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct View extends IDispatch {
     /**
      * The interface identifier for View
      * @type {Guid}
      */
-    static IID => Guid("{6efc2da2-b38c-457e-9abb-ed2d189b8c38}")
+    static IID := Guid("{6efc2da2-b38c-457e-9abb-ed2d189b8c38}")
 
     /**
      * The class identifier for View
      * @type {Guid}
      */
-    static CLSID => Guid("{6efc2da2-b38c-457e-9abb-ed2d189b8c38}")
+    static CLSID := Guid("{6efc2da2-b38c-457e-9abb-ed2d189b8c38}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for View interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ActiveScopeNode           : IntPtr
+        put_ActiveScopeNode           : IntPtr
+        get_Selection                 : IntPtr
+        get_ListItems                 : IntPtr
+        SnapinScopeObject             : IntPtr
+        SnapinSelectionObject         : IntPtr
+        Is                            : IntPtr
+        get_Document                  : IntPtr
+        SelectAll                     : IntPtr
+        Select                        : IntPtr
+        Deselect                      : IntPtr
+        IsSelected                    : IntPtr
+        DisplayScopeNodePropertySheet : IntPtr
+        DisplaySelectionPropertySheet : IntPtr
+        CopyScopeNode                 : IntPtr
+        CopySelection                 : IntPtr
+        DeleteScopeNode               : IntPtr
+        DeleteSelection               : IntPtr
+        RenameScopeNode               : IntPtr
+        RenameSelectedItem            : IntPtr
+        get_ScopeNodeContextMenu      : IntPtr
+        get_SelectionContextMenu      : IntPtr
+        RefreshScopeNode              : IntPtr
+        RefreshSelection              : IntPtr
+        ExecuteSelectionMenuItem      : IntPtr
+        ExecuteScopeNodeMenuItem      : IntPtr
+        ExecuteShellCommand           : IntPtr
+        get_Frame                     : IntPtr
+        Close                         : IntPtr
+        get_ScopeTreeVisible          : IntPtr
+        put_ScopeTreeVisible          : IntPtr
+        Back                          : IntPtr
+        Forward                       : IntPtr
+        put_StatusBarText             : IntPtr
+        get_Memento                   : IntPtr
+        ViewMemento                   : IntPtr
+        get_Columns                   : IntPtr
+        get_CellContents              : IntPtr
+        ExportList                    : IntPtr
+        get_ListViewMode              : IntPtr
+        put_ListViewMode              : IntPtr
+        get_ControlObject             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ActiveScopeNode", "put_ActiveScopeNode", "get_Selection", "get_ListItems", "SnapinScopeObject", "SnapinSelectionObject", "Is", "get_Document", "SelectAll", "Select", "Deselect", "IsSelected", "DisplayScopeNodePropertySheet", "DisplaySelectionPropertySheet", "CopyScopeNode", "CopySelection", "DeleteScopeNode", "DeleteSelection", "RenameScopeNode", "RenameSelectedItem", "get_ScopeNodeContextMenu", "get_SelectionContextMenu", "RefreshScopeNode", "RefreshSelection", "ExecuteSelectionMenuItem", "ExecuteScopeNodeMenuItem", "ExecuteShellCommand", "get_Frame", "Close", "get_ScopeTreeVisible", "put_ScopeTreeVisible", "Back", "Forward", "put_StatusBarText", "get_Memento", "ViewMemento", "get_Columns", "get_CellContents", "ExportList", "get_ListViewMode", "put_ListViewMode", "get_ControlObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := View.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Node} 
@@ -172,7 +226,7 @@ class View extends IDispatch {
      * @returns {IDispatch} 
      */
     SnapinScopeObject(ScopeNode) {
-        result := ComCall(11, this, "ptr", ScopeNode, "ptr*", &ScopeNodeObject := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT, ScopeNode, "ptr*", &ScopeNodeObject := 0, "HRESULT")
         return IDispatch(ScopeNodeObject)
     }
 
@@ -186,21 +240,12 @@ class View extends IDispatch {
     }
 
     /**
-     * The Is\_Protected attribute indicates whether the content is protected using digital rights management (DRM).
-     * @remarks
-     * This attribute is stored in both the library and the digital media file.
      * 
-     * **DigitallySecure** is an alias for this attribute.
-     * 
-     * The Windows Media Format SDK constant for this attribute is g\_wszWMProtected.
-     * 
-     * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
      * @param {View} _View 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/WMP/is-protected-attribute
      */
     Is(_View) {
-        result := ComCall(13, this, "ptr", _View, "short*", &TheSame := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", _View, VARIANT_BOOL.Ptr, &TheSame := 0, "HRESULT")
         return TheSame
     }
 
@@ -249,7 +294,7 @@ class View extends IDispatch {
      * @returns {BOOL} 
      */
     IsSelected(_Node) {
-        result := ComCall(18, this, "ptr", _Node, "int*", &IsSelected := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", _Node, BOOL.Ptr, &IsSelected := 0, "HRESULT")
         return IsSelected
     }
 
@@ -259,7 +304,7 @@ class View extends IDispatch {
      * @returns {HRESULT} 
      */
     DisplayScopeNodePropertySheet(ScopeNode) {
-        result := ComCall(19, this, "ptr", ScopeNode, "HRESULT")
+        result := ComCall(19, this, VARIANT, ScopeNode, "HRESULT")
         return result
     }
 
@@ -278,7 +323,7 @@ class View extends IDispatch {
      * @returns {HRESULT} 
      */
     CopyScopeNode(ScopeNode) {
-        result := ComCall(21, this, "ptr", ScopeNode, "HRESULT")
+        result := ComCall(21, this, VARIANT, ScopeNode, "HRESULT")
         return result
     }
 
@@ -297,7 +342,7 @@ class View extends IDispatch {
      * @returns {HRESULT} 
      */
     DeleteScopeNode(ScopeNode) {
-        result := ComCall(23, this, "ptr", ScopeNode, "HRESULT")
+        result := ComCall(23, this, VARIANT, ScopeNode, "HRESULT")
         return result
     }
 
@@ -319,7 +364,7 @@ class View extends IDispatch {
     RenameScopeNode(NewName, ScopeNode) {
         NewName := NewName is String ? BSTR.Alloc(NewName).Value : NewName
 
-        result := ComCall(25, this, "ptr", NewName, "ptr", ScopeNode, "HRESULT")
+        result := ComCall(25, this, BSTR, NewName, VARIANT, ScopeNode, "HRESULT")
         return result
     }
 
@@ -331,7 +376,7 @@ class View extends IDispatch {
     RenameSelectedItem(NewName) {
         NewName := NewName is String ? BSTR.Alloc(NewName).Value : NewName
 
-        result := ComCall(26, this, "ptr", NewName, "HRESULT")
+        result := ComCall(26, this, BSTR, NewName, "HRESULT")
         return result
     }
 
@@ -341,7 +386,7 @@ class View extends IDispatch {
      * @returns {ContextMenu} 
      */
     get_ScopeNodeContextMenu(ScopeNode) {
-        result := ComCall(27, this, "ptr", ScopeNode, "ptr*", &_ContextMenu := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT, ScopeNode, "ptr*", &_ContextMenu := 0, "HRESULT")
         return ContextMenu(_ContextMenu)
     }
 
@@ -360,7 +405,7 @@ class View extends IDispatch {
      * @returns {HRESULT} 
      */
     RefreshScopeNode(ScopeNode) {
-        result := ComCall(29, this, "ptr", ScopeNode, "HRESULT")
+        result := ComCall(29, this, VARIANT, ScopeNode, "HRESULT")
         return result
     }
 
@@ -381,7 +426,7 @@ class View extends IDispatch {
     ExecuteSelectionMenuItem(MenuItemPath) {
         MenuItemPath := MenuItemPath is String ? BSTR.Alloc(MenuItemPath).Value : MenuItemPath
 
-        result := ComCall(31, this, "ptr", MenuItemPath, "HRESULT")
+        result := ComCall(31, this, BSTR, MenuItemPath, "HRESULT")
         return result
     }
 
@@ -394,7 +439,7 @@ class View extends IDispatch {
     ExecuteScopeNodeMenuItem(MenuItemPath, ScopeNode) {
         MenuItemPath := MenuItemPath is String ? BSTR.Alloc(MenuItemPath).Value : MenuItemPath
 
-        result := ComCall(32, this, "ptr", MenuItemPath, "ptr", ScopeNode, "HRESULT")
+        result := ComCall(32, this, BSTR, MenuItemPath, VARIANT, ScopeNode, "HRESULT")
         return result
     }
 
@@ -412,7 +457,7 @@ class View extends IDispatch {
         Parameters := Parameters is String ? BSTR.Alloc(Parameters).Value : Parameters
         WindowState := WindowState is String ? BSTR.Alloc(WindowState).Value : WindowState
 
-        result := ComCall(33, this, "ptr", Command, "ptr", Directory, "ptr", Parameters, "ptr", WindowState, "HRESULT")
+        result := ComCall(33, this, BSTR, Command, BSTR, Directory, BSTR, Parameters, BSTR, WindowState, "HRESULT")
         return result
     }
 
@@ -445,7 +490,7 @@ class View extends IDispatch {
      * @returns {BOOL} 
      */
     get_ScopeTreeVisible() {
-        result := ComCall(36, this, "int*", &Visible := 0, "HRESULT")
+        result := ComCall(36, this, BOOL.Ptr, &Visible := 0, "HRESULT")
         return Visible
     }
 
@@ -455,16 +500,13 @@ class View extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ScopeTreeVisible(Visible) {
-        result := ComCall(37, this, "int", Visible, "HRESULT")
+        result := ComCall(37, this, BOOL, Visible, "HRESULT")
         return result
     }
 
     /**
-     * The BackColor property sets or retrieves the color of the bars that appear around the edges of the video rectangle when the aspect ratio of the native video is not the same as that of the object's display area.
-     * @remarks
-     * This property is read/write with a default value of off-black (0x100010).
-     * @returns {HRESULT} Returns an integer value representing the RGB values of the back color.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/backcolor-property
+     * 
+     * @returns {HRESULT} 
      */
     Back() {
         result := ComCall(38, this, "HRESULT")
@@ -488,7 +530,7 @@ class View extends IDispatch {
     put_StatusBarText(StatusBarText) {
         StatusBarText := StatusBarText is String ? BSTR.Alloc(StatusBarText).Value : StatusBarText
 
-        result := ComCall(40, this, "ptr", StatusBarText, "HRESULT")
+        result := ComCall(40, this, BSTR, StatusBarText, "HRESULT")
         return result
     }
 
@@ -497,8 +539,8 @@ class View extends IDispatch {
      * @returns {BSTR} 
      */
     get_Memento() {
-        Memento := BSTR()
-        result := ComCall(41, this, "ptr", Memento, "HRESULT")
+        Memento := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, Memento, "HRESULT")
         return Memento
     }
 
@@ -510,7 +552,7 @@ class View extends IDispatch {
     ViewMemento(Memento) {
         Memento := Memento is String ? BSTR.Alloc(Memento).Value : Memento
 
-        result := ComCall(42, this, "ptr", Memento, "HRESULT")
+        result := ComCall(42, this, BSTR, Memento, "HRESULT")
         return result
     }
 
@@ -530,8 +572,8 @@ class View extends IDispatch {
      * @returns {BSTR} 
      */
     get_CellContents(_Node, _Column) {
-        CellContents := BSTR()
-        result := ComCall(44, this, "ptr", _Node, "int", _Column, "ptr", CellContents, "HRESULT")
+        CellContents := BSTR.Owned()
+        result := ComCall(44, this, "ptr", _Node, "int", _Column, BSTR.Ptr, CellContents, "HRESULT")
         return CellContents
     }
 
@@ -544,7 +586,7 @@ class View extends IDispatch {
     ExportList(_File, exportoptions) {
         _File := _File is String ? BSTR.Alloc(_File).Value : _File
 
-        result := ComCall(45, this, "ptr", _File, "int", exportoptions, "HRESULT")
+        result := ComCall(45, this, BSTR, _File, _ExportListOptions, exportoptions, "HRESULT")
         return result
     }
 
@@ -563,7 +605,7 @@ class View extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ListViewMode(_mode) {
-        result := ComCall(47, this, "int", _mode, "HRESULT")
+        result := ComCall(47, this, _ListViewMode, _mode, "HRESULT")
         return result
     }
 
@@ -574,5 +616,107 @@ class View extends IDispatch {
     get_ControlObject() {
         result := ComCall(48, this, "ptr*", &Control := 0, "HRESULT")
         return IDispatch(Control)
+    }
+
+    Query(iid) {
+        if (View.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ActiveScopeNode := CallbackCreate(GetMethod(implObj, "get_ActiveScopeNode"), flags, 2)
+        this.vtbl.put_ActiveScopeNode := CallbackCreate(GetMethod(implObj, "put_ActiveScopeNode"), flags, 2)
+        this.vtbl.get_Selection := CallbackCreate(GetMethod(implObj, "get_Selection"), flags, 2)
+        this.vtbl.get_ListItems := CallbackCreate(GetMethod(implObj, "get_ListItems"), flags, 2)
+        this.vtbl.SnapinScopeObject := CallbackCreate(GetMethod(implObj, "SnapinScopeObject"), flags, 3)
+        this.vtbl.SnapinSelectionObject := CallbackCreate(GetMethod(implObj, "SnapinSelectionObject"), flags, 2)
+        this.vtbl.Is := CallbackCreate(GetMethod(implObj, "Is"), flags, 3)
+        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.SelectAll := CallbackCreate(GetMethod(implObj, "SelectAll"), flags, 1)
+        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 2)
+        this.vtbl.Deselect := CallbackCreate(GetMethod(implObj, "Deselect"), flags, 2)
+        this.vtbl.IsSelected := CallbackCreate(GetMethod(implObj, "IsSelected"), flags, 3)
+        this.vtbl.DisplayScopeNodePropertySheet := CallbackCreate(GetMethod(implObj, "DisplayScopeNodePropertySheet"), flags, 2)
+        this.vtbl.DisplaySelectionPropertySheet := CallbackCreate(GetMethod(implObj, "DisplaySelectionPropertySheet"), flags, 1)
+        this.vtbl.CopyScopeNode := CallbackCreate(GetMethod(implObj, "CopyScopeNode"), flags, 2)
+        this.vtbl.CopySelection := CallbackCreate(GetMethod(implObj, "CopySelection"), flags, 1)
+        this.vtbl.DeleteScopeNode := CallbackCreate(GetMethod(implObj, "DeleteScopeNode"), flags, 2)
+        this.vtbl.DeleteSelection := CallbackCreate(GetMethod(implObj, "DeleteSelection"), flags, 1)
+        this.vtbl.RenameScopeNode := CallbackCreate(GetMethod(implObj, "RenameScopeNode"), flags, 3)
+        this.vtbl.RenameSelectedItem := CallbackCreate(GetMethod(implObj, "RenameSelectedItem"), flags, 2)
+        this.vtbl.get_ScopeNodeContextMenu := CallbackCreate(GetMethod(implObj, "get_ScopeNodeContextMenu"), flags, 3)
+        this.vtbl.get_SelectionContextMenu := CallbackCreate(GetMethod(implObj, "get_SelectionContextMenu"), flags, 2)
+        this.vtbl.RefreshScopeNode := CallbackCreate(GetMethod(implObj, "RefreshScopeNode"), flags, 2)
+        this.vtbl.RefreshSelection := CallbackCreate(GetMethod(implObj, "RefreshSelection"), flags, 1)
+        this.vtbl.ExecuteSelectionMenuItem := CallbackCreate(GetMethod(implObj, "ExecuteSelectionMenuItem"), flags, 2)
+        this.vtbl.ExecuteScopeNodeMenuItem := CallbackCreate(GetMethod(implObj, "ExecuteScopeNodeMenuItem"), flags, 3)
+        this.vtbl.ExecuteShellCommand := CallbackCreate(GetMethod(implObj, "ExecuteShellCommand"), flags, 5)
+        this.vtbl.get_Frame := CallbackCreate(GetMethod(implObj, "get_Frame"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_ScopeTreeVisible := CallbackCreate(GetMethod(implObj, "get_ScopeTreeVisible"), flags, 2)
+        this.vtbl.put_ScopeTreeVisible := CallbackCreate(GetMethod(implObj, "put_ScopeTreeVisible"), flags, 2)
+        this.vtbl.Back := CallbackCreate(GetMethod(implObj, "Back"), flags, 1)
+        this.vtbl.Forward := CallbackCreate(GetMethod(implObj, "Forward"), flags, 1)
+        this.vtbl.put_StatusBarText := CallbackCreate(GetMethod(implObj, "put_StatusBarText"), flags, 2)
+        this.vtbl.get_Memento := CallbackCreate(GetMethod(implObj, "get_Memento"), flags, 2)
+        this.vtbl.ViewMemento := CallbackCreate(GetMethod(implObj, "ViewMemento"), flags, 2)
+        this.vtbl.get_Columns := CallbackCreate(GetMethod(implObj, "get_Columns"), flags, 2)
+        this.vtbl.get_CellContents := CallbackCreate(GetMethod(implObj, "get_CellContents"), flags, 4)
+        this.vtbl.ExportList := CallbackCreate(GetMethod(implObj, "ExportList"), flags, 3)
+        this.vtbl.get_ListViewMode := CallbackCreate(GetMethod(implObj, "get_ListViewMode"), flags, 2)
+        this.vtbl.put_ListViewMode := CallbackCreate(GetMethod(implObj, "put_ListViewMode"), flags, 2)
+        this.vtbl.get_ControlObject := CallbackCreate(GetMethod(implObj, "get_ControlObject"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ActiveScopeNode)
+        CallbackFree(this.vtbl.put_ActiveScopeNode)
+        CallbackFree(this.vtbl.get_Selection)
+        CallbackFree(this.vtbl.get_ListItems)
+        CallbackFree(this.vtbl.SnapinScopeObject)
+        CallbackFree(this.vtbl.SnapinSelectionObject)
+        CallbackFree(this.vtbl.Is)
+        CallbackFree(this.vtbl.get_Document)
+        CallbackFree(this.vtbl.SelectAll)
+        CallbackFree(this.vtbl.Select)
+        CallbackFree(this.vtbl.Deselect)
+        CallbackFree(this.vtbl.IsSelected)
+        CallbackFree(this.vtbl.DisplayScopeNodePropertySheet)
+        CallbackFree(this.vtbl.DisplaySelectionPropertySheet)
+        CallbackFree(this.vtbl.CopyScopeNode)
+        CallbackFree(this.vtbl.CopySelection)
+        CallbackFree(this.vtbl.DeleteScopeNode)
+        CallbackFree(this.vtbl.DeleteSelection)
+        CallbackFree(this.vtbl.RenameScopeNode)
+        CallbackFree(this.vtbl.RenameSelectedItem)
+        CallbackFree(this.vtbl.get_ScopeNodeContextMenu)
+        CallbackFree(this.vtbl.get_SelectionContextMenu)
+        CallbackFree(this.vtbl.RefreshScopeNode)
+        CallbackFree(this.vtbl.RefreshSelection)
+        CallbackFree(this.vtbl.ExecuteSelectionMenuItem)
+        CallbackFree(this.vtbl.ExecuteScopeNodeMenuItem)
+        CallbackFree(this.vtbl.ExecuteShellCommand)
+        CallbackFree(this.vtbl.get_Frame)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.get_ScopeTreeVisible)
+        CallbackFree(this.vtbl.put_ScopeTreeVisible)
+        CallbackFree(this.vtbl.Back)
+        CallbackFree(this.vtbl.Forward)
+        CallbackFree(this.vtbl.put_StatusBarText)
+        CallbackFree(this.vtbl.get_Memento)
+        CallbackFree(this.vtbl.ViewMemento)
+        CallbackFree(this.vtbl.get_Columns)
+        CallbackFree(this.vtbl.get_CellContents)
+        CallbackFree(this.vtbl.ExportList)
+        CallbackFree(this.vtbl.get_ListViewMode)
+        CallbackFree(this.vtbl.put_ListViewMode)
+        CallbackFree(this.vtbl.get_ControlObject)
     }
 }

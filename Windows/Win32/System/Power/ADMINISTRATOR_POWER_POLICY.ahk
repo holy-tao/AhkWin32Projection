@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 
 /**
  * Represents the administrator override power policy settings.
@@ -15,70 +14,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-administrator_power_policy
  * @namespace Windows.Win32.System.Power
  */
-class ADMINISTRATOR_POWER_POLICY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct ADMINISTRATOR_POWER_POLICY {
+    #StructPack 4
 
     /**
      * The minimum system power sleep state. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values between 
      *       <b>PowerSystemSleeping1</b> (power state S1) and 
      *       <b>PowerSystemHibernate</b> (power state S4).
-     * @type {SYSTEM_POWER_STATE}
      */
-    MinSleep {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MinSleep : SYSTEM_POWER_STATE
 
     /**
      * The maximum system power sleep state. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values between 
      *       <b>PowerSystemSleeping1</b> (power state S1) and 
      *       <b>PowerSystemHibernate</b> (power state S4).
-     * @type {SYSTEM_POWER_STATE}
      */
-    MaxSleep {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    MaxSleep : SYSTEM_POWER_STATE
 
     /**
      * The minimum allowable video idle time-out before turning the display device off, in seconds.
-     * @type {Integer}
      */
-    MinVideoTimeout {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinVideoTimeout : UInt32
 
     /**
      * The maximum allowable video idle time-out before turning the display device off, in seconds.
-     * @type {Integer}
      */
-    MaxVideoTimeout {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MaxVideoTimeout : UInt32
 
     /**
      * The minimum allowable disk idle time before flushing the cache manager and spinning down a hard disk 
      *       device, in seconds.
-     * @type {Integer}
      */
-    MinSpindownTimeout {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinSpindownTimeout : UInt32
 
     /**
      * The maximum allowable disk idle time before flushing the cache manager and spinning down a hard disk 
      *       device, in seconds.
-     * @type {Integer}
      */
-    MaxSpindownTimeout {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxSpindownTimeout : UInt32
+
 }

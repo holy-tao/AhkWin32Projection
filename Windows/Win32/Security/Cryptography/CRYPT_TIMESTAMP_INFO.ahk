@@ -1,20 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CRYPT_TIMESTAMP_ACCURACY.ahk
-#Include .\CERT_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_TIMESTAMP_ACCURACY.ahk" { CRYPT_TIMESTAMP_ACCURACY }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains a signed data content type in Cryptographic Message Syntax (CMS) format.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_TIMESTAMP_INFO extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct CRYPT_TIMESTAMP_INFO {
+    #StructPack 8
 
     /**
      * A <b>DWORD</b> value that specifies the version of the time stamp request.
@@ -36,128 +35,63 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token was provided. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
-     * @type {PSTR}
      */
-    pszTSAPolicyId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszTSAPolicyId : PSTR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains information about the algorithm used to calculate the hash. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm {
-        get {
-            if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
-            return this.__HashAlgorithm
-        }
-    }
+    HashAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPT_DER_BLOB</a> structure that specifies the hash values to be time stamped.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    HashedMessage {
-        get {
-            if(!this.HasProp("__HashedMessage"))
-                this.__HashedMessage := CRYPT_INTEGER_BLOB(40, this)
-            return this.__HashedMessage
-        }
-    }
+    HashedMessage : CRYPT_INTEGER_BLOB
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_INTEGER_BLOB</a> structure that contains the serial number assigned by the TSA to each time stamp token.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    SerialNumber {
-        get {
-            if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(56, this)
-            return this.__SerialNumber
-        }
-    }
+    SerialNumber : CRYPT_INTEGER_BLOB
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> value that specifies the time at which the time stamp token was produced by the TSA.
-     * @type {FILETIME}
      */
-    ftTime {
-        get {
-            if(!this.HasProp("__ftTime"))
-                this.__ftTime := FILETIME(72, this)
-            return this.__ftTime
-        }
-    }
+    ftTime : FILETIME
 
     /**
      * Optional. A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_accuracy">CRYPT_TIMESTAMP_ACCURACY</a>   structure that contains the time deviation around the UTC time at which the time stamp token was created by the TSA.
-     * @type {Pointer<CRYPT_TIMESTAMP_ACCURACY>}
      */
-    pvAccuracy {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pvAccuracy : CRYPT_TIMESTAMP_ACCURACY.Ptr
 
     /**
      * This member is reserved.
-     * @type {BOOL}
      */
-    fOrdering {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    fOrdering : BOOL
 
     /**
      * Optional. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DER_BLOB</a> structure that contains the nonce value used by the client to verify the
      * timeliness of the response when no local clock is available. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Nonce {
-        get {
-            if(!this.HasProp("__Nonce"))
-                this.__Nonce := CRYPT_INTEGER_BLOB(96, this)
-            return this.__Nonce
-        }
-    }
+    Nonce : CRYPT_INTEGER_BLOB
 
     /**
      * Optional. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DER_BLOB</a> structure that contains the subject name of the TSA certificate.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Tsa {
-        get {
-            if(!this.HasProp("__Tsa"))
-                this.__Tsa := CRYPT_INTEGER_BLOB(112, this)
-            return this.__Tsa
-        }
-    }
+    Tsa : CRYPT_INTEGER_BLOB
 
     /**
      * The number of elements in the array pointed to by the <b>rgExtension</b> member.
-     * @type {Integer}
      */
-    cExtension {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    cExtension : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a> structures that contain extension information returned from the request.
-     * @type {Pointer<CERT_EXTENSION>}
      */
-    rgExtension {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    rgExtension : CERT_EXTENSION.Ptr
+
 }

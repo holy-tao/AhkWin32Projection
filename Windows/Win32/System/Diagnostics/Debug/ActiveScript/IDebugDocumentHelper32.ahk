@@ -1,49 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugApplicationNode.ahk
-#Include .\IDebugDocumentContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugDocumentHost.ahk" { IDebugDocumentHost }
+#Import ".\IActiveScript.ahk" { IActiveScript }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IDebugDocumentHelper32 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugDocumentHelper32 extends IUnknown {
     /**
      * The interface identifier for IDebugDocumentHelper32
      * @type {Guid}
      */
-    static IID => Guid("{51973c26-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c26-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugDocumentHelper32 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init                       : IntPtr
+        Attach                     : IntPtr
+        Detach                     : IntPtr
+        AddUnicodeText             : IntPtr
+        AddDBCSText                : IntPtr
+        SetDebugDocumentHost       : IntPtr
+        AddDeferredText            : IntPtr
+        DefineScriptBlock          : IntPtr
+        SetDefaultTextAttr         : IntPtr
+        SetTextAttributes          : IntPtr
+        SetLongName                : IntPtr
+        SetShortName               : IntPtr
+        SetDocumentAttr            : IntPtr
+        GetDebugApplicationNode    : IntPtr
+        GetScriptBlockInfo         : IntPtr
+        CreateDebugDocumentContext : IntPtr
+        BringDocumentToTop         : IntPtr
+        BringDocumentContextToTop  : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugDocumentHelper32.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "Attach", "Detach", "AddUnicodeText", "AddDBCSText", "SetDebugDocumentHost", "AddDeferredText", "DefineScriptBlock", "SetDefaultTextAttr", "SetTextAttributes", "SetLongName", "SetShortName", "SetDocumentAttr", "GetDebugApplicationNode", "GetScriptBlockInfo", "CreateDebugDocumentContext", "BringDocumentToTop", "BringDocumentContextToTop"]
-
-    /**
-     * Initializes the trace.
-     * @remarks
-     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
-     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {IDebugApplication32} pda 
      * @param {PWSTR} pszShortName 
      * @param {PWSTR} pszLongName 
      * @param {Integer} docAttr 
-     * @returns {HRESULT} This function has no parameters.
-     * 
-     * 
-     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
+     * @returns {HRESULT} 
      */
     Init(pda, pszShortName, pszLongName, docAttr) {
         pszShortName := pszShortName is String ? StrPtr(pszShortName) : pszShortName
@@ -54,20 +77,9 @@ class IDebugDocumentHelper32 extends IUnknown {
     }
 
     /**
-     * See reference information about the AttachConsole function, which attaches the calling process to the console of the specified process.
-     * @remarks
-     * A process can be attached to at most one console. If the calling process is already attached to a console, the error code returned is **ERROR\_ACCESS\_DENIED**. If the specified process does not have a console, the error code returned is **ERROR\_INVALID\_HANDLE**. If the specified process does not exist, the error code returned is **ERROR\_INVALID\_PARAMETER**.
      * 
-     * A process can use the [**FreeConsole**](freeconsole.md) function to detach itself from its console. If other processes share the console, the console is not destroyed, but the process that called **FreeConsole** cannot refer to it. A console is closed when the last process attached to it terminates or calls **FreeConsole**. After a process calls **FreeConsole**, it can call the [**AllocConsole**](allocconsole.md) function to create a new console or **AttachConsole** to attach to another console.
-     * 
-     * This function is primarily useful to applications that were linked with [*SUBSYSTEM:WINDOWS**](/cpp/build/reference/subsystem-specify-subsystem), which implies to the operating system that a console is not needed before entering the program's main method. In that instance, the standard handles retrieved with [**GetStdHandle**](getstdhandle.md) will likely be invalid on startup until **AttachConsole** is called. The exception to this is if the application is launched with handle inheritance by its parent process.
-     * 
-     * To compile an application that uses this function, define **\_WIN32\_WINNT** as `0x0501` or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * @param {IDebugDocumentHelper32} pddhParent 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/attachconsole
+     * @returns {HRESULT} 
      */
     Attach(pddhParent) {
         result := ComCall(4, this, "ptr", pddhParent, "HRESULT")
@@ -75,9 +87,8 @@ class IDebugDocumentHelper32 extends IUnknown {
     }
 
     /**
-     * Learn more about: DetachDatabaseGrbit enumeration
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/detachdatabasegrbit-enumeration
      */
     Detach() {
         result := ComCall(5, this, "HRESULT")
@@ -138,7 +149,7 @@ class IDebugDocumentHelper32 extends IUnknown {
      * @returns {Integer} 
      */
     DefineScriptBlock(ulCharOffset, cChars, pas, fScriptlet) {
-        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, "uint*", &pdwSourceContext := 0, "HRESULT")
+        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, BOOL, fScriptlet, "uint*", &pdwSourceContext := 0, "HRESULT")
         return pdwSourceContext
     }
 
@@ -221,7 +232,7 @@ class IDebugDocumentHelper32 extends IUnknown {
         piCharPosMarshal := piCharPos is VarRef ? "uint*" : "ptr"
         pcCharsMarshal := pcChars is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwSourceContext, "ptr*", ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
+        result := ComCall(17, this, "uint", dwSourceContext, IActiveScript.Ptr, ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
         return result
     }
 
@@ -253,5 +264,59 @@ class IDebugDocumentHelper32 extends IUnknown {
     BringDocumentContextToTop(pddc) {
         result := ComCall(20, this, "ptr", pddc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugDocumentHelper32.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
+        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.AddUnicodeText := CallbackCreate(GetMethod(implObj, "AddUnicodeText"), flags, 2)
+        this.vtbl.AddDBCSText := CallbackCreate(GetMethod(implObj, "AddDBCSText"), flags, 2)
+        this.vtbl.SetDebugDocumentHost := CallbackCreate(GetMethod(implObj, "SetDebugDocumentHost"), flags, 2)
+        this.vtbl.AddDeferredText := CallbackCreate(GetMethod(implObj, "AddDeferredText"), flags, 3)
+        this.vtbl.DefineScriptBlock := CallbackCreate(GetMethod(implObj, "DefineScriptBlock"), flags, 6)
+        this.vtbl.SetDefaultTextAttr := CallbackCreate(GetMethod(implObj, "SetDefaultTextAttr"), flags, 2)
+        this.vtbl.SetTextAttributes := CallbackCreate(GetMethod(implObj, "SetTextAttributes"), flags, 4)
+        this.vtbl.SetLongName := CallbackCreate(GetMethod(implObj, "SetLongName"), flags, 2)
+        this.vtbl.SetShortName := CallbackCreate(GetMethod(implObj, "SetShortName"), flags, 2)
+        this.vtbl.SetDocumentAttr := CallbackCreate(GetMethod(implObj, "SetDocumentAttr"), flags, 2)
+        this.vtbl.GetDebugApplicationNode := CallbackCreate(GetMethod(implObj, "GetDebugApplicationNode"), flags, 2)
+        this.vtbl.GetScriptBlockInfo := CallbackCreate(GetMethod(implObj, "GetScriptBlockInfo"), flags, 5)
+        this.vtbl.CreateDebugDocumentContext := CallbackCreate(GetMethod(implObj, "CreateDebugDocumentContext"), flags, 4)
+        this.vtbl.BringDocumentToTop := CallbackCreate(GetMethod(implObj, "BringDocumentToTop"), flags, 1)
+        this.vtbl.BringDocumentContextToTop := CallbackCreate(GetMethod(implObj, "BringDocumentContextToTop"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.Attach)
+        CallbackFree(this.vtbl.Detach)
+        CallbackFree(this.vtbl.AddUnicodeText)
+        CallbackFree(this.vtbl.AddDBCSText)
+        CallbackFree(this.vtbl.SetDebugDocumentHost)
+        CallbackFree(this.vtbl.AddDeferredText)
+        CallbackFree(this.vtbl.DefineScriptBlock)
+        CallbackFree(this.vtbl.SetDefaultTextAttr)
+        CallbackFree(this.vtbl.SetTextAttributes)
+        CallbackFree(this.vtbl.SetLongName)
+        CallbackFree(this.vtbl.SetShortName)
+        CallbackFree(this.vtbl.SetDocumentAttr)
+        CallbackFree(this.vtbl.GetDebugApplicationNode)
+        CallbackFree(this.vtbl.GetScriptBlockInfo)
+        CallbackFree(this.vtbl.CreateDebugDocumentContext)
+        CallbackFree(this.vtbl.BringDocumentToTop)
+        CallbackFree(this.vtbl.BringDocumentContextToTop)
     }
 }

@@ -1,33 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OCSP_CERT_ID.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\OCSP_BASIC_REVOKED_INFO.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CERT_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\OCSP_CERT_ID.ahk" { OCSP_CERT_ID }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\OCSP_BASIC_REVOKED_INFO.ahk" { OCSP_BASIC_REVOKED_INFO }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains the current certificate status for a single certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_basic_response_entry
  * @namespace Windows.Win32.Security.Cryptography
  */
-class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct OCSP_BASIC_RESPONSE_ENTRY {
+    #StructPack 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_cert_id">OCSP_CERT_ID</a> structure that specifies the target certificate of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">online certificate status protocol</a> (OCSP) response.
-     * @type {OCSP_CERT_ID}
      */
-    CertId {
-        get {
-            if(!this.HasProp("__CertId"))
-                this.__CertId := OCSP_CERT_ID(0, this)
-            return this.__CertId
-        }
-    }
+    CertId : OCSP_CERT_ID
 
     /**
      * A value that indicates the target certificate revocation status.
@@ -76,60 +67,29 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCertStatus {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwCertStatus : UInt32
 
-    /**
-     * @type {Pointer<OCSP_BASIC_REVOKED_INFO>}
-     */
-    pRevokedInfo {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pRevokedInfo : OCSP_BASIC_REVOKED_INFO.Ptr
 
     /**
      * The date and time at which the response indicated by <i>dwCertStatus</i> is known to be correct.
-     * @type {FILETIME}
      */
-    ThisUpdate {
-        get {
-            if(!this.HasProp("__ThisUpdate"))
-                this.__ThisUpdate := FILETIME(88, this)
-            return this.__ThisUpdate
-        }
-    }
+    ThisUpdate : FILETIME
 
     /**
      * The date and time on or before which newer information will be available for the certificate status. A value of zero indicates that the certificate status never expires.
-     * @type {FILETIME}
      */
-    NextUpdate {
-        get {
-            if(!this.HasProp("__NextUpdate"))
-                this.__NextUpdate := FILETIME(96, this)
-            return this.__NextUpdate
-        }
-    }
+    NextUpdate : FILETIME
 
     /**
      * The number of elements in the <b>rgExtension</b> array.
-     * @type {Integer}
      */
-    cExtension {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    cExtension : UInt32
 
     /**
      * An array of pointers to  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a> structures, each of which contains additional information about the response.
-     * @type {Pointer<CERT_EXTENSION>}
      */
-    rgExtension {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    rgExtension : CERT_EXTENSION.Ptr
+
 }

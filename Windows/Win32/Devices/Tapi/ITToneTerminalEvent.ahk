@@ -1,35 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITTerminal.ahk
-#Include .\ITCallInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITToneTerminalEvent interface contains methods that retrieve the description of tone terminal events that have occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittoneterminalevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITToneTerminalEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITToneTerminalEvent extends IDispatch {
     /**
      * The interface identifier for ITToneTerminalEvent
      * @type {Guid}
      */
-    static IID => Guid("{e6f56009-611f-4945-bbd2-2d0ce5612056}")
+    static IID := Guid("{e6f56009-611f-4945-bbd2-2d0ce5612056}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITToneTerminalEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Terminal : IntPtr
+        get_Call     : IntPtr
+        get_Error    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Terminal", "get_Call", "get_Error"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITToneTerminalEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITTerminal} 
@@ -90,5 +100,29 @@ class ITToneTerminalEvent extends IDispatch {
     get_Error() {
         result := ComCall(9, this, "int*", &phrErrorCode := 0, "HRESULT")
         return phrErrorCode
+    }
+
+    Query(iid) {
+        if (ITToneTerminalEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Terminal := CallbackCreate(GetMethod(implObj, "get_Terminal"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Terminal)
+        CallbackFree(this.vtbl.get_Call)
+        CallbackFree(this.vtbl.get_Error)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes how a property should be treated. These values are defined in Shtypes.h.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-shcolstate
  * @namespace Windows.Win32.UI.Shell.Common
  */
-class SHCOLSTATE extends Win32Enum {
+export default struct SHCOLSTATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The value is displayed according to default settings for the column.

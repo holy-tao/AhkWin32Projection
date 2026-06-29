@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AlignmentShift : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlignmentShift {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FileOffsetToAlign : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileOffsetToAlign {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FallbackAlignmentShift : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FallbackAlignmentShift {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

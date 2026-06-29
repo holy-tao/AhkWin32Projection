@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISensorCollection.ahk
-#Include .\ISensor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISensor.ahk" { ISensor }
+#Import ".\ISensorManagerEvents.ahk" { ISensorManagerEvents }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISensorCollection.ahk" { ISensorCollection }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for discovering and retrieving available sensors and a method to request sensor manager events.
@@ -13,32 +17,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensormanager
  * @namespace Windows.Win32.Devices.Sensors
  */
-class ISensorManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISensorManager extends IUnknown {
     /**
      * The interface identifier for ISensorManager
      * @type {Guid}
      */
-    static IID => Guid("{bd77db67-45a8-42dc-8d00-6dcf15f8377a}")
+    static IID := Guid("{bd77db67-45a8-42dc-8d00-6dcf15f8377a}")
 
     /**
      * The class identifier for SensorManager
      * @type {Guid}
      */
-    static CLSID => Guid("{77a1c827-fcd2-4689-8915-9d613cc5fa3e}")
+    static CLSID := Guid("{77a1c827-fcd2-4689-8915-9d613cc5fa3e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISensorManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSensorsByCategory : IntPtr
+        GetSensorsByType     : IntPtr
+        GetSensorByID        : IntPtr
+        SetEventSink         : IntPtr
+        RequestPermissions   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSensorsByCategory", "GetSensorsByType", "GetSensorByID", "SetEventSink", "RequestPermissions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISensorManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a collection containing all sensors associated with the specified category.
@@ -47,7 +62,7 @@ class ISensorManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorsbycategory
      */
     GetSensorsByCategory(sensorCategory) {
-        result := ComCall(3, this, "ptr", sensorCategory, "ptr*", &ppSensorsFound := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, sensorCategory, "ptr*", &ppSensorsFound := 0, "HRESULT")
         return ISensorCollection(ppSensorsFound)
     }
 
@@ -58,7 +73,7 @@ class ISensorManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorsbytype
      */
     GetSensorsByType(sensorType) {
-        result := ComCall(4, this, "ptr", sensorType, "ptr*", &ppSensorsFound := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, sensorType, "ptr*", &ppSensorsFound := 0, "HRESULT")
         return ISensorCollection(ppSensorsFound)
     }
 
@@ -69,7 +84,7 @@ class ISensorManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorbyid
      */
     GetSensorByID(sensorID) {
-        result := ComCall(5, this, "ptr", sensorID, "ptr*", &ppSensor := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, sensorID, "ptr*", &ppSensor := 0, "HRESULT")
         return ISensor(ppSensor)
     }
 
@@ -260,9 +275,35 @@ class ISensorManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-requestpermissions
      */
     RequestPermissions(hParent, pSensors, fModal) {
-        hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
-
-        result := ComCall(7, this, "ptr", hParent, "ptr", pSensors, "int", fModal, "HRESULT")
+        result := ComCall(7, this, HWND, hParent, "ptr", pSensors, BOOL, fModal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISensorManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSensorsByCategory := CallbackCreate(GetMethod(implObj, "GetSensorsByCategory"), flags, 3)
+        this.vtbl.GetSensorsByType := CallbackCreate(GetMethod(implObj, "GetSensorsByType"), flags, 3)
+        this.vtbl.GetSensorByID := CallbackCreate(GetMethod(implObj, "GetSensorByID"), flags, 3)
+        this.vtbl.SetEventSink := CallbackCreate(GetMethod(implObj, "SetEventSink"), flags, 2)
+        this.vtbl.RequestPermissions := CallbackCreate(GetMethod(implObj, "RequestPermissions"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSensorsByCategory)
+        CallbackFree(this.vtbl.GetSensorsByType)
+        CallbackFree(this.vtbl.GetSensorByID)
+        CallbackFree(this.vtbl.SetEventSink)
+        CallbackFree(this.vtbl.RequestPermissions)
     }
 }

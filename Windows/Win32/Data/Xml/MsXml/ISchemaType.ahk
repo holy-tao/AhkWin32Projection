@@ -1,35 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaItem.ahk
-#Include .\ISchemaItemCollection.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\ISchemaStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
+#Import ".\ISchemaStringCollection.ahk" { ISchemaStringCollection }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SCHEMAWHITESPACE.ahk" { SCHEMAWHITESPACE }
+#Import ".\ISchemaItem.ahk" { ISchemaItem }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SCHEMATYPEVARIETY.ahk" { SCHEMATYPEVARIETY }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class ISchemaType extends ISchemaItem {
-
-    static sizeof => A_PtrSize
+export default struct ISchemaType extends ISchemaItem {
     /**
      * The interface identifier for ISchemaType
      * @type {Guid}
      */
-    static IID => Guid("{50ea08b8-dd1b-4664-9a50-c2f40f4bd79a}")
+    static IID := Guid("{50ea08b8-dd1b-4664-9a50-c2f40f4bd79a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISchemaType interfaces
+    */
+    struct Vtbl extends ISchemaItem.Vtbl {
+        get_baseTypes      : IntPtr
+        get_final          : IntPtr
+        get_variety        : IntPtr
+        get_derivedBy      : IntPtr
+        isValid            : IntPtr
+        get_minExclusive   : IntPtr
+        get_minInclusive   : IntPtr
+        get_maxExclusive   : IntPtr
+        get_maxInclusive   : IntPtr
+        get_totalDigits    : IntPtr
+        get_fractionDigits : IntPtr
+        get_length         : IntPtr
+        get_minLength      : IntPtr
+        get_maxLength      : IntPtr
+        get_enumeration    : IntPtr
+        get_whitespace     : IntPtr
+        get_patterns       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_baseTypes", "get_final", "get_variety", "get_derivedBy", "isValid", "get_minExclusive", "get_minInclusive", "get_maxExclusive", "get_maxInclusive", "get_totalDigits", "get_fractionDigits", "get_length", "get_minLength", "get_maxLength", "get_enumeration", "get_whitespace", "get_patterns"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISchemaType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISchemaItemCollection} 
@@ -187,7 +215,7 @@ class ISchemaType extends ISchemaItem {
     isValid(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(18, this, "ptr", data, "short*", &valid := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, data, VARIANT_BOOL.Ptr, &valid := 0, "HRESULT")
         return valid
     }
 
@@ -196,8 +224,8 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_minExclusive() {
-        minExclusive := BSTR()
-        result := ComCall(19, this, "ptr", minExclusive, "HRESULT")
+        minExclusive := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, minExclusive, "HRESULT")
         return minExclusive
     }
 
@@ -206,8 +234,8 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_minInclusive() {
-        minInclusive := BSTR()
-        result := ComCall(20, this, "ptr", minInclusive, "HRESULT")
+        minInclusive := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, minInclusive, "HRESULT")
         return minInclusive
     }
 
@@ -216,8 +244,8 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_maxExclusive() {
-        maxExclusive := BSTR()
-        result := ComCall(21, this, "ptr", maxExclusive, "HRESULT")
+        maxExclusive := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, maxExclusive, "HRESULT")
         return maxExclusive
     }
 
@@ -226,8 +254,8 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_maxInclusive() {
-        maxInclusive := BSTR()
-        result := ComCall(22, this, "ptr", maxInclusive, "HRESULT")
+        maxInclusive := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, maxInclusive, "HRESULT")
         return maxInclusive
     }
 
@@ -237,7 +265,7 @@ class ISchemaType extends ISchemaItem {
      */
     get_totalDigits() {
         totalDigits := VARIANT()
-        result := ComCall(23, this, "ptr", totalDigits, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, totalDigits, "HRESULT")
         return totalDigits
     }
 
@@ -247,7 +275,7 @@ class ISchemaType extends ISchemaItem {
      */
     get_fractionDigits() {
         fractionDigits := VARIANT()
-        result := ComCall(24, this, "ptr", fractionDigits, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, fractionDigits, "HRESULT")
         return fractionDigits
     }
 
@@ -257,7 +285,7 @@ class ISchemaType extends ISchemaItem {
      */
     get_length() {
         length := VARIANT()
-        result := ComCall(25, this, "ptr", length, "HRESULT")
+        result := ComCall(25, this, VARIANT.Ptr, length, "HRESULT")
         return length
     }
 
@@ -267,7 +295,7 @@ class ISchemaType extends ISchemaItem {
      */
     get_minLength() {
         minLength := VARIANT()
-        result := ComCall(26, this, "ptr", minLength, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, minLength, "HRESULT")
         return minLength
     }
 
@@ -277,7 +305,7 @@ class ISchemaType extends ISchemaItem {
      */
     get_maxLength() {
         maxLength := VARIANT()
-        result := ComCall(27, this, "ptr", maxLength, "HRESULT")
+        result := ComCall(27, this, VARIANT.Ptr, maxLength, "HRESULT")
         return maxLength
     }
 
@@ -306,5 +334,57 @@ class ISchemaType extends ISchemaItem {
     get_patterns() {
         result := ComCall(30, this, "ptr*", &patterns := 0, "HRESULT")
         return ISchemaStringCollection(patterns)
+    }
+
+    Query(iid) {
+        if (ISchemaType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_baseTypes := CallbackCreate(GetMethod(implObj, "get_baseTypes"), flags, 2)
+        this.vtbl.get_final := CallbackCreate(GetMethod(implObj, "get_final"), flags, 2)
+        this.vtbl.get_variety := CallbackCreate(GetMethod(implObj, "get_variety"), flags, 2)
+        this.vtbl.get_derivedBy := CallbackCreate(GetMethod(implObj, "get_derivedBy"), flags, 2)
+        this.vtbl.isValid := CallbackCreate(GetMethod(implObj, "isValid"), flags, 3)
+        this.vtbl.get_minExclusive := CallbackCreate(GetMethod(implObj, "get_minExclusive"), flags, 2)
+        this.vtbl.get_minInclusive := CallbackCreate(GetMethod(implObj, "get_minInclusive"), flags, 2)
+        this.vtbl.get_maxExclusive := CallbackCreate(GetMethod(implObj, "get_maxExclusive"), flags, 2)
+        this.vtbl.get_maxInclusive := CallbackCreate(GetMethod(implObj, "get_maxInclusive"), flags, 2)
+        this.vtbl.get_totalDigits := CallbackCreate(GetMethod(implObj, "get_totalDigits"), flags, 2)
+        this.vtbl.get_fractionDigits := CallbackCreate(GetMethod(implObj, "get_fractionDigits"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_minLength := CallbackCreate(GetMethod(implObj, "get_minLength"), flags, 2)
+        this.vtbl.get_maxLength := CallbackCreate(GetMethod(implObj, "get_maxLength"), flags, 2)
+        this.vtbl.get_enumeration := CallbackCreate(GetMethod(implObj, "get_enumeration"), flags, 2)
+        this.vtbl.get_whitespace := CallbackCreate(GetMethod(implObj, "get_whitespace"), flags, 2)
+        this.vtbl.get_patterns := CallbackCreate(GetMethod(implObj, "get_patterns"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_baseTypes)
+        CallbackFree(this.vtbl.get_final)
+        CallbackFree(this.vtbl.get_variety)
+        CallbackFree(this.vtbl.get_derivedBy)
+        CallbackFree(this.vtbl.isValid)
+        CallbackFree(this.vtbl.get_minExclusive)
+        CallbackFree(this.vtbl.get_minInclusive)
+        CallbackFree(this.vtbl.get_maxExclusive)
+        CallbackFree(this.vtbl.get_maxInclusive)
+        CallbackFree(this.vtbl.get_totalDigits)
+        CallbackFree(this.vtbl.get_fractionDigits)
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.get_minLength)
+        CallbackFree(this.vtbl.get_maxLength)
+        CallbackFree(this.vtbl.get_enumeration)
+        CallbackFree(this.vtbl.get_whitespace)
+        CallbackFree(this.vtbl.get_patterns)
     }
 }

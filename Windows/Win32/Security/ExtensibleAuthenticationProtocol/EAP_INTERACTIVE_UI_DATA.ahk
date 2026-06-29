@@ -1,19 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_INTERACTIVE_UI_DATA_TYPE.ahk
-#Include .\EAP_UI_DATA_FORMAT.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
-#Include .\EAP_CRED_EXPIRY_REQ.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_INTERACTIVE_UI_DATA_TYPE.ahk" { EAP_INTERACTIVE_UI_DATA_TYPE }
+#Import ".\EAP_UI_DATA_FORMAT.ahk" { EAP_UI_DATA_FORMAT }
+#Import ".\EAP_CRED_EXPIRY_REQ.ahk" { EAP_CRED_EXPIRY_REQ }
+#Import ".\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk" { EAP_CONFIG_INPUT_FIELD_ARRAY }
 
 /**
  * Contains configuration information for interactive UI components raised on an EAP supplicant.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_interactive_ui_data
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_INTERACTIVE_UI_DATA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct EAP_INTERACTIVE_UI_DATA {
+    #StructPack 8
 
     /**
      * The version of this data structure.
@@ -35,49 +32,27 @@ class EAP_INTERACTIVE_UI_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size of this entire structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSize : UInt32
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ne-eaptypes-eap_interactive_ui_data_type">EAP_INTERACTIVE_UI_DATA_TYPE</a> value that specifies the type of data pointed to by <i>pbUiData</i>.
-     * @type {EAP_INTERACTIVE_UI_DATA_TYPE}
      */
-    dwDataType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwDataType : EAP_INTERACTIVE_UI_DATA_TYPE
 
     /**
      * The size of the data pointed to by <i>pbUiData</i>, in bytes.
-     * @type {Integer}
      */
-    cbUiData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbUiData : UInt32
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaptypes/ns-eaptypes-eap_ui_data_format">EAP_UI_DATA_FORMAT</a> union that contains information about specific user interface components that correspond to the type specified in <i>dwDataType</i>.
-     * @type {EAP_UI_DATA_FORMAT}
      */
-    pbUiData {
-        get {
-            if(!this.HasProp("__pbUiData"))
-                this.__pbUiData := EAP_UI_DATA_FORMAT(16, this)
-            return this.__pbUiData
-        }
-    }
+    pbUiData : EAP_UI_DATA_FORMAT
+
 }

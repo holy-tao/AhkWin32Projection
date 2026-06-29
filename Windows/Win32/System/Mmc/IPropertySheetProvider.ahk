@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IComponent.ahk" { IComponent }
 
 /**
  * The IPropertySheetProvider interface implements Windows property sheets as COM objects.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-ipropertysheetprovider
  * @namespace Windows.Win32.System.Mmc
  */
-class IPropertySheetProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertySheetProvider extends IUnknown {
     /**
      * The interface identifier for IPropertySheetProvider
      * @type {Guid}
      */
-    static IID => Guid("{85de64de-ef21-11cf-a285-00c04fd8dbe6}")
+    static IID := Guid("{85de64de-ef21-11cf-a285-00c04fd8dbe6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertySheetProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePropertySheet : IntPtr
+        FindPropertySheet   : IntPtr
+        AddPrimaryPages     : IntPtr
+        AddExtensionPages   : IntPtr
+        Show                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePropertySheet", "FindPropertySheet", "AddPrimaryPages", "AddExtensionPages", "Show"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertySheetProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a property sheet frame.
@@ -104,9 +121,7 @@ class IPropertySheetProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ipropertysheetprovider-addprimarypages
      */
     AddPrimaryPages(lpUnknown, bCreateHandle, hNotifyWindow, bScopePane) {
-        hNotifyWindow := hNotifyWindow is Win32Handle ? NumGet(hNotifyWindow, "ptr") : hNotifyWindow
-
-        result := ComCall(5, this, "ptr", lpUnknown, "int", bCreateHandle, "ptr", hNotifyWindow, "int", bScopePane, "HRESULT")
+        result := ComCall(5, this, "ptr", lpUnknown, BOOL, bCreateHandle, HWND, hNotifyWindow, BOOL, bScopePane, "HRESULT")
         return result
     }
 
@@ -143,5 +158,33 @@ class IPropertySheetProvider extends IUnknown {
     Show(window, page) {
         result := ComCall(7, this, "ptr", window, "int", page, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertySheetProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePropertySheet := CallbackCreate(GetMethod(implObj, "CreatePropertySheet"), flags, 6)
+        this.vtbl.FindPropertySheet := CallbackCreate(GetMethod(implObj, "FindPropertySheet"), flags, 4)
+        this.vtbl.AddPrimaryPages := CallbackCreate(GetMethod(implObj, "AddPrimaryPages"), flags, 5)
+        this.vtbl.AddExtensionPages := CallbackCreate(GetMethod(implObj, "AddExtensionPages"), flags, 1)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePropertySheet)
+        CallbackFree(this.vtbl.FindPropertySheet)
+        CallbackFree(this.vtbl.AddPrimaryPages)
+        CallbackFree(this.vtbl.AddExtensionPages)
+        CallbackFree(this.vtbl.Show)
     }
 }

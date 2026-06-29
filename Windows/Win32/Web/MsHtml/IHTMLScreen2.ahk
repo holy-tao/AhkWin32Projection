@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLScreen2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLScreen2 extends IDispatch {
     /**
      * The interface identifier for IHTMLScreen2
      * @type {Guid}
      */
-    static IID => Guid("{3050f84a-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f84a-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLScreen2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_logicalXDPI : IntPtr
+        get_logicalYDPI : IntPtr
+        get_deviceXDPI  : IntPtr
+        get_deviceYDPI  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_logicalXDPI", "get_logicalYDPI", "get_deviceXDPI", "get_deviceYDPI"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLScreen2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -89,5 +100,31 @@ class IHTMLScreen2 extends IDispatch {
     get_deviceYDPI() {
         result := ComCall(10, this, "int*", &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLScreen2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_logicalXDPI := CallbackCreate(GetMethod(implObj, "get_logicalXDPI"), flags, 2)
+        this.vtbl.get_logicalYDPI := CallbackCreate(GetMethod(implObj, "get_logicalYDPI"), flags, 2)
+        this.vtbl.get_deviceXDPI := CallbackCreate(GetMethod(implObj, "get_deviceXDPI"), flags, 2)
+        this.vtbl.get_deviceYDPI := CallbackCreate(GetMethod(implObj, "get_deviceYDPI"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_logicalXDPI)
+        CallbackFree(this.vtbl.get_logicalYDPI)
+        CallbackFree(this.vtbl.get_deviceXDPI)
+        CallbackFree(this.vtbl.get_deviceYDPI)
     }
 }

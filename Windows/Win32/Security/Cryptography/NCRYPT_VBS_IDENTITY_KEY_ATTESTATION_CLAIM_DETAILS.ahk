@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_VBS_IDENTITY_KEY_ATTESTATION_CLAIM_DETAILS extends Win32Struct {
-    static sizeof => 40
+export default struct NCRYPT_VBS_IDENTITY_KEY_ATTESTATION_CLAIM_DETAILS {
+    #StructPack 8
 
-    static packingSize => 8
+    ulKeyFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulKeyFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pszSignatureHashAlg : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSignatureHashAlg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulPaddingScheme : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPaddingScheme {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pszPaddingHashAlg : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszPaddingHashAlg {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ulPaddingSalt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPaddingSalt {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

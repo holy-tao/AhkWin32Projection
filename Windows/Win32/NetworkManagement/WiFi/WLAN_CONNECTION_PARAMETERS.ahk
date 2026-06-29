@@ -1,30 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_CONNECTION_MODE.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSSID_LIST.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_BSSID_LIST.ahk" { DOT11_BSSID_LIST }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * Specifies the parameters used when using the WlanConnect function.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_connection_parameters
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_CONNECTION_PARAMETERS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WLAN_CONNECTION_PARAMETERS {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of connection.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_connection_mode_profile</b>  value is supported.
-     * @type {WLAN_CONNECTION_MODE}
      */
-    wlanConnectionMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    wlanConnectionMode : WLAN_CONNECTION_MODE
 
     /**
      * Specifies the profile being used for the connection. 
@@ -32,41 +26,25 @@ class WLAN_CONNECTION_PARAMETERS extends Win32Struct {
      * If  <b>wlanConnectionMode</b> is set to <b>wlan_connection_mode_profile</b>, then <b>strProfile</b> specifies the name of the profile used for the connection. If <b>wlanConnectionMode</b> is set to <b>wlan_connection_mode_temporary_profile</b>, then <b>strProfile</b> specifies the XML representation of the profile used for the connection. If <b>wlanConnectionMode</b> is set to <b>wlan_connection_mode_discovery_secure</b> or <b>wlan_connection_mode_discovery_unsecure</b>, then <b>strProfile</b> should be set to <b>NULL</b>.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The profile must meet the compatibility criteria described in <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wireless-profile-compatibility">Wireless Profile Compatibility</a>.
-     * @type {PWSTR}
      */
-    strProfile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    strProfile : PWSTR
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that specifies the SSID of the network to connect to.  This parameter is optional. When set to <b>NULL</b>, all SSIDs in the profile will be tried.  This parameter must not be <b>NULL</b> if <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> is set to <b>wlan_connection_mode_discovery_secure</b> or <b>wlan_connection_mode_discovery_unsecure</b>.
-     * @type {Pointer<DOT11_SSID>}
      */
-    pDot11Ssid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDot11Ssid : DOT11_SSID.Ptr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bssid-list">DOT11_BSSID_LIST</a> structure that contains the list of basic service set (BSS) identifiers desired for the connection.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>This member must be <b>NULL</b>.
-     * @type {Pointer<DOT11_BSSID_LIST>}
      */
-    pDesiredBssidList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pDesiredBssidList : DOT11_BSSID_LIST.Ptr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that indicates the BSS type of the network.  If a profile is provided, this BSS type must be the same as the one in the profile.
-     * @type {DOT11_BSS_TYPE}
      */
-    dot11BssType {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    dot11BssType : DOT11_BSS_TYPE
 
     /**
      * The following table shows flags used to specify the connection parameters.
@@ -126,10 +104,7 @@ class WLAN_CONNECTION_PARAMETERS extends Win32Struct {
      *  
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>This member must be set to 0.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwFlags : UInt32
+
 }

@@ -1,53 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes timing and composition information.
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class COMPOSITION_STATS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct COMPOSITION_STATS {
+    #StructPack 8
 
     /**
      * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * 
      * The running total count of times that a frame was presented to the target.
-     * @type {Integer}
      */
-    presentCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    presentCount : UInt32
 
     /**
      * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * 
      * The running total count of v-blanks at which the last frame was presented to the target.
-     * @type {Integer}
      */
-    refreshCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    refreshCount : UInt32
 
     /**
      * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
-     * @type {Integer}
      */
-    virtualRefreshCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    virtualRefreshCount : UInt32
 
     /**
      * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
-     * @type {Integer}
      */
-    time {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    time : Int64
+
 }

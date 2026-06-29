@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VRAM_SURFACE_INFO extends Win32Struct {
-    static sizeof => 168
+export default struct VRAM_SURFACE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hSurface : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hSurface {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    VramPhysicalAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VramPhysicalAddress {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    cbCaptured : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbCaptured {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLinearSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLinearSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    lPitch : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPitch {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    ullReserved : Int64[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ullReserved {
-        get {
-            if(!this.HasProp("__ullReservedProxyArray"))
-                this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "uint")
-            return this.__ullReservedProxyArray
-        }
-    }
 }

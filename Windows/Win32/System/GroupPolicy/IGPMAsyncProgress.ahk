@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMStatusMsgCollection.ahk" { IGPMStatusMsgCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMAsyncProgress interface can be implemented by the client and passed as an input parameter to the Group Policy Management Console (GPMC) methods that can execute asynchronously.
@@ -25,26 +28,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmasyncprogress
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMAsyncProgress extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMAsyncProgress extends IDispatch {
     /**
      * The interface identifier for IGPMAsyncProgress
      * @type {Guid}
      */
-    static IID => Guid("{6aac29f8-5948-4324-bf70-423818942dbc}")
+    static IID := Guid("{6aac29f8-5948-4324-bf70-423818942dbc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMAsyncProgress interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Status : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Status"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMAsyncProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The server calls this method to notify the client about the status of a Group Policy Management Console (GPMC) operation.
@@ -62,7 +72,27 @@ class IGPMAsyncProgress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmasyncprogress-status
      */
     Status(lProgressNumerator, lProgressDenominator, hrStatus, pResult, ppIGPMStatusMsgCollection) {
-        result := ComCall(7, this, "int", lProgressNumerator, "int", lProgressDenominator, "int", hrStatus, "ptr", pResult, "ptr", ppIGPMStatusMsgCollection, "HRESULT")
+        result := ComCall(7, this, "int", lProgressNumerator, "int", lProgressDenominator, "int", hrStatus, VARIANT.Ptr, pResult, "ptr", ppIGPMStatusMsgCollection, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPMAsyncProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Status := CallbackCreate(GetMethod(implObj, "Status"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Status)
     }
 }

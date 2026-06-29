@@ -1,112 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class SPLCLIENT_INFO_INTERNAL extends Win32Struct {
-    static sizeof => 64
+export default struct SPLCLIENT_INFO_INTERNAL {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pMachineName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pMachineName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pUserName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwBuildNum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBuildNum {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwMajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMajorVersion {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwMinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinorVersion {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    wProcessorArchitecture : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wProcessorArchitecture {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    hSplPrinter : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hSplPrinter {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwSessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSessionId {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 64
-    }
 }

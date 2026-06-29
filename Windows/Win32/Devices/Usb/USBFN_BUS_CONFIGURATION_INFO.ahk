@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBFN_BUS_CONFIGURATION_INFO extends Win32Struct {
-    static sizeof => 82
+export default struct USBFN_BUS_CONFIGURATION_INFO {
+    #StructPack 2
 
-    static packingSize => 2
+    ConfigurationName : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    ConfigurationName {
-        get => StrGet(this.ptr + 0, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 39, "UTF-16")
-    }
+    IsCurrent : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsCurrent {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
-    }
+    IsActive : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsActive {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
-    }
 }

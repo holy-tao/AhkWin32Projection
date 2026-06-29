@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class ARRAY_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct ARRAY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Dimension : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Dimension {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    BufferConformanceMark : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    BufferConformanceMark {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BufferVarianceMark : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    BufferVarianceMark {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MaxCountArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    MaxCountArray {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    OffsetArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    OffsetArray {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ActualCountArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ActualCountArray {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

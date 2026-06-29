@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains credentials used to authorize a client session.
  * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class WDS_CLI_CRED extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WDS_CLI_CRED {
+    #StructPack 8
 
     /**
      * The user name associated with the credentials.
-     * @type {PWSTR}
      */
-    pwszUserName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszUserName : PWSTR
 
     /**
      * The domain for the user name associated with the credentials.
-     * @type {PWSTR}
      */
-    pwszDomain {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszDomain : PWSTR
 
     /**
      * The password for the user name associated with the credentials.
-     * @type {PWSTR}
      */
-    pwszPassword {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszPassword : PWSTR
+
 }

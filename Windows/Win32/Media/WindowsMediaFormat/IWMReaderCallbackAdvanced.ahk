@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INSSBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WM_MEDIA_TYPE.ahk" { WM_MEDIA_TYPE }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMReaderCallback interface is implemented by the application to handle data being read from a file.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadercallbackadvanced
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderCallbackAdvanced extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderCallbackAdvanced extends IUnknown {
     /**
      * The interface identifier for IWMReaderCallbackAdvanced
      * @type {Guid}
      */
-    static IID => Guid("{96406beb-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406beb-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderCallbackAdvanced interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnStreamSample       : IntPtr
+        OnTime               : IntPtr
+        OnStreamSelection    : IntPtr
+        OnOutputPropsChanged : IntPtr
+        AllocateForStream    : IntPtr
+        AllocateForOutput    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnStreamSample", "OnTime", "OnStreamSelection", "OnOutputPropsChanged", "AllocateForStream", "AllocateForOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderCallbackAdvanced.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnStreamSample method delivers stream samples from the source file without decompressing them first.
@@ -136,7 +151,7 @@ class IWMReaderCallbackAdvanced extends IUnknown {
     OnOutputPropsChanged(dwOutputNum, pMediaType, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", dwOutputNum, "ptr", pMediaType, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(6, this, "uint", dwOutputNum, WM_MEDIA_TYPE.Ptr, pMediaType, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -186,5 +201,35 @@ class IWMReaderCallbackAdvanced extends IUnknown {
 
         result := ComCall(8, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
+    }
+
+    Query(iid) {
+        if (IWMReaderCallbackAdvanced.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnStreamSample := CallbackCreate(GetMethod(implObj, "OnStreamSample"), flags, 7)
+        this.vtbl.OnTime := CallbackCreate(GetMethod(implObj, "OnTime"), flags, 3)
+        this.vtbl.OnStreamSelection := CallbackCreate(GetMethod(implObj, "OnStreamSelection"), flags, 5)
+        this.vtbl.OnOutputPropsChanged := CallbackCreate(GetMethod(implObj, "OnOutputPropsChanged"), flags, 4)
+        this.vtbl.AllocateForStream := CallbackCreate(GetMethod(implObj, "AllocateForStream"), flags, 5)
+        this.vtbl.AllocateForOutput := CallbackCreate(GetMethod(implObj, "AllocateForOutput"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnStreamSample)
+        CallbackFree(this.vtbl.OnTime)
+        CallbackFree(this.vtbl.OnStreamSelection)
+        CallbackFree(this.vtbl.OnOutputPropsChanged)
+        CallbackFree(this.vtbl.AllocateForStream)
+        CallbackFree(this.vtbl.AllocateForOutput)
     }
 }

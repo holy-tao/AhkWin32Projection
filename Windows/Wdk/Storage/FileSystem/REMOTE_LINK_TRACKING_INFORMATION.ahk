@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class REMOTE_LINK_TRACKING_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct REMOTE_LINK_TRACKING_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TargetFileObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TargetFileObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TargetLinkTrackingInformationLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetLinkTrackingInformationLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TargetLinkTrackingInformationBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TargetLinkTrackingInformationBuffer {
-        get {
-            if(!this.HasProp("__TargetLinkTrackingInformationBufferProxyArray"))
-                this.__TargetLinkTrackingInformationBufferProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__TargetLinkTrackingInformationBufferProxyArray
-        }
-    }
 }

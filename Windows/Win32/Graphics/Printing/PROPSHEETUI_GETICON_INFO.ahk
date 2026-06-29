@@ -1,60 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PROPSHEETUI_GETICON_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct PROPSHEETUI_GETICON_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    cxIcon : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cxIcon {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    cyIcon : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cyIcon {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    hIcon : HICON
 
-    /**
-     * @type {HICON}
-     */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(8, this)
-            return this.__hIcon
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

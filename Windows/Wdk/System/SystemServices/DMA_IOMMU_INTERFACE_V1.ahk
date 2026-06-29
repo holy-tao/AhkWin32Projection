@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DMA_IOMMU_INTERFACE_V1 extends Win32Struct {
-    static sizeof => 104
+export default struct DMA_IOMMU_INTERFACE_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    CreateDomain : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_DOMAIN_CREATE>}
-     */
-    CreateDomain {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DeleteDomain : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_DOMAIN_DELETE>}
-     */
-    DeleteDomain {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AttachDevice : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_DOMAIN_ATTACH_DEVICE>}
-     */
-    AttachDevice {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DetachDevice : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_DOMAIN_DETACH_DEVICE>}
-     */
-    DetachDevice {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FlushDomain : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_FLUSH_DOMAIN>}
-     */
-    FlushDomain {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FlushDomainByVaList : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_FLUSH_DOMAIN_VA_LIST>}
-     */
-    FlushDomainByVaList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    QueryInputMappings : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_QUERY_INPUT_MAPPINGS>}
-     */
-    QueryInputMappings {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    MapLogicalRange : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_MAP_LOGICAL_RANGE>}
-     */
-    MapLogicalRange {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    UnmapLogicalRange : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_UNMAP_LOGICAL_RANGE>}
-     */
-    UnmapLogicalRange {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    MapIdentityRange : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_MAP_IDENTITY_RANGE>}
-     */
-    MapIdentityRange {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    UnmapIdentityRange : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_UNMAP_IDENTITY_RANGE>}
-     */
-    UnmapIdentityRange {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    SetDeviceFaultReporting : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_SET_DEVICE_FAULT_REPORTING>}
-     */
-    SetDeviceFaultReporting {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ConfigureDomain : IntPtr
 
-    /**
-     * @type {Pointer<PIOMMU_DOMAIN_CONFIGURE>}
-     */
-    ConfigureDomain {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

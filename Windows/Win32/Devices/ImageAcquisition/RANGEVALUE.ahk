@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class RANGEVALUE extends Win32Struct {
-    static sizeof => 12
+export default struct RANGEVALUE {
+    #StructPack 4
 
-    static packingSize => 4
+    lMin : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lMin {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lMax : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lMax {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lStep : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lStep {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

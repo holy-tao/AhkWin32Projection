@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains dynamic enforced address ranges used by various features related to user-mode Hardware-enforced Stack Protection (HSP).
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_dynamic_enforced_address_range
  * @namespace Windows.Win32.System.Threading
  */
-class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE {
+    #StructPack 8
 
     /**
      * The base address of a dynamic enforced address range.
-     * @type {Pointer}
      */
-    BaseAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BaseAddress : IntPtr
 
     /**
      * The size in bytes of a dynamic enforced address range.
-     * @type {Pointer}
      */
-    Size {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Size : IntPtr
 
     /**
      * Flags that apply to the dynamic enforced address range described by <i>BaseAddress</i> and <i>Size</i>.
@@ -61,10 +50,7 @@ class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
+
 }

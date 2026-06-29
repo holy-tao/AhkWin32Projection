@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVCOLUMNW_MASK.ahk
-#Include .\LVCOLUMNW_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LVCOLUMNW_MASK.ahk" { LVCOLUMNW_MASK }
+#Import ".\LVCOLUMNW_FORMAT.ahk" { LVCOLUMNW_FORMAT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about a column in report view. This structure is used both for creating and manipulating columns. This structure supersedes the LV_COLUMN structure. (ANSI)
@@ -18,127 +18,82 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class LVCOLUMNA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct LVCOLUMNA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {LVCOLUMNW_MASK}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : LVCOLUMNW_MASK
 
     /**
      * Type: <b>int</b>
-     * @type {LVCOLUMNW_FORMAT}
      */
-    fmt {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fmt : LVCOLUMNW_FORMAT
 
     /**
      * Type: <b>int</b>
      * 
      * Width of the column, in pixels.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cx : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * If column information is being set, this member is the address of a null-terminated string that contains the column header text. If the structure is receiving information about a column, this member specifies the address of the buffer that receives the column header text.
-     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszText : PSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Size in <b>TCHAR</b>s of the buffer pointed to by the <b>pszText</b> member. If the structure is not receiving information about a column, this member is ignored.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Index of subitem associated with the column.
-     * @type {Integer}
      */
-    iSubItem {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    iSubItem : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Zero-based index of an image within the image list. The specified image will appear within the column.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    iImage : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Zero-based column offset. Column offset is in left-to-right order. For example, zero indicates the leftmost column.
-     * @type {Integer}
      */
-    iOrder {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    iOrder : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * <b>Windows Vista</b>. Minimum width of the column in pixels.
-     * @type {Integer}
      */
-    cxMin {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    cxMin : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * <b>Windows Vista</b>. Application-defined value typically used to store the default width of the column. This member is ignored by the list-view control.
-     * @type {Integer}
      */
-    cxDefault {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    cxDefault : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * <b>Windows Vista</b>. Read-only. The ideal width of the column in pixels, as the column may currently be autosized to a lesser width.
-     * @type {Integer}
      */
-    cxIdeal {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    cxIdeal : Int32
+
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
 
 /**
  * Contains information used to verify a message signature. It contains the signer index and signer public key.
@@ -9,42 +8,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_verify_signature_ex_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * This member is not used and should be set to <b>NULL</b>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic provider</a> used to verify the signature. If <b>NULL</b>, the cryptographic provider specified in <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentodecode">CryptMsgOpenToDecode</a> is used. If the <i>hCryptProv</i> in <b>CryptMsgOpenToDecode</b> is also <b>NULL</b>, the default provider according to the signer's public key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is used.This member's data type is <b>HCRYPTPROV</b>.
-     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get {
-            if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
-            return this.__hCryptProv
-        }
-    }
+    hCryptProv : HCRYPTPROV_LEGACY
 
     /**
      * The index of the signer in the message.
-     * @type {Integer}
      */
-    dwSignerIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSignerIndex : UInt32
 
     /**
      * The structure that contains the signer information. The following table shows the predefined values and the structures indicated.
@@ -101,24 +83,12 @@ class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSignerType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwSignerType : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure, a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a>, a chain context, or <b>NULL</b> depending on the value of <b>dwSignerType</b>.
-     * @type {Pointer<Void>}
      */
-    pvSigner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvSigner : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

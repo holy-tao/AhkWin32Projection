@@ -1,74 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_ANTIALIAS_MODE.ahk
-#Include .\D2D1_TEXT_ANTIALIAS_MODE.ahk
-#Include Common\D2D_MATRIX_3X2_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
 
 /**
  * Describes the drawing state of a render target.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_drawing_state_description
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_DRAWING_STATE_DESCRIPTION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D2D1_DRAWING_STATE_DESCRIPTION {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode for subsequent nontext drawing operations.
-     * @type {D2D1_ANTIALIAS_MODE}
      */
-    antialiasMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    antialiasMode : D2D1_ANTIALIAS_MODE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode for subsequent text and glyph drawing operations.
-     * @type {D2D1_TEXT_ANTIALIAS_MODE}
      */
-    textAntialiasMode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    textAntialiasMode : D2D1_TEXT_ANTIALIAS_MODE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-tag">D2D1_TAG</a></b>
      * 
      * A label for subsequent drawing operations.
-     * @type {Integer}
      */
-    tag1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    tag1 : Int64
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-tag">D2D1_TAG</a></b>
      * 
      * A label for subsequent drawing operations.
-     * @type {Integer}
      */
-    tag2 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    tag2 : Int64
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
      * The transformation to apply to subsequent drawing operations.
-     * @type {D2D_MATRIX_3X2_F}
      */
-    transform {
-        get {
-            if(!this.HasProp("__transform"))
-                this.__transform := D2D_MATRIX_3X2_F(24, this)
-            return this.__transform
-        }
-    }
+    transform : D2D_MATRIX_3X2_F
+
 }

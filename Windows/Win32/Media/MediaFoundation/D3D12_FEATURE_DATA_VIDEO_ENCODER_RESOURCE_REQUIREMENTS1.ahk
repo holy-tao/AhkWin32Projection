@@ -1,177 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk" { D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk" { D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk" { D3D12_VIDEO_ENCODER_PROFILE_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk" { D3D12_VIDEO_ENCODER_AV1_PROFILE }
+#Import ".\D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS.ahk" { D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_HEVC }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struct {
-    static sizeof => 112
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Codec : D3D12_VIDEO_ENCODER_CODEC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC}
-     */
-    Codec {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Profile : D3D12_VIDEO_ENCODER_PROFILE_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
-     */
-    Profile {
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
-            return this.__Profile
-        }
-    }
+    InputFormat : DXGI_FORMAT
 
-    /**
-     * @type {DXGI_FORMAT}
-     */
-    InputFormat {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    PictureTargetResolution : D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
-     */
-    PictureTargetResolution {
-        get {
-            if(!this.HasProp("__PictureTargetResolution"))
-                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(28, this)
-            return this.__PictureTargetResolution
-        }
-    }
+    IsSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsSupported {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    CompressedBitstreamBufferAccessAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CompressedBitstreamBufferAccessAlignment {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    EncoderMetadataBufferAccessAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncoderMetadataBufferAccessAlignment {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    MaxEncoderOutputMetadataBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxEncoderOutputMetadataBufferSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    OptionalMetadata : D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS}
-     */
-    OptionalMetadata {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    CodecConfiguration : D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
-     */
-    CodecConfiguration {
-        get {
-            if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(56, this)
-            return this.__CodecConfiguration
-        }
-    }
+    EncoderOutputMetadataQPMapTextureDimensions : D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
-     */
-    EncoderOutputMetadataQPMapTextureDimensions {
-        get {
-            if(!this.HasProp("__EncoderOutputMetadataQPMapTextureDimensions"))
-                this.__EncoderOutputMetadataQPMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(72, this)
-            return this.__EncoderOutputMetadataQPMapTextureDimensions
-        }
-    }
+    EncoderOutputMetadataSATDMapTextureDimensions : D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
-     */
-    EncoderOutputMetadataSATDMapTextureDimensions {
-        get {
-            if(!this.HasProp("__EncoderOutputMetadataSATDMapTextureDimensions"))
-                this.__EncoderOutputMetadataSATDMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(80, this)
-            return this.__EncoderOutputMetadataSATDMapTextureDimensions
-        }
-    }
+    EncoderOutputMetadataBitAllocationMapTextureDimensions : D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
-     */
-    EncoderOutputMetadataBitAllocationMapTextureDimensions {
-        get {
-            if(!this.HasProp("__EncoderOutputMetadataBitAllocationMapTextureDimensions"))
-                this.__EncoderOutputMetadataBitAllocationMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(88, this)
-            return this.__EncoderOutputMetadataBitAllocationMapTextureDimensions
-        }
-    }
+    EncoderOutputMetadataFramePSNRComponentsNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncoderOutputMetadataFramePSNRComponentsNumber {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    EncoderOutputMetadataSubregionsPSNRComponentsNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncoderOutputMetadataSubregionsPSNRComponentsNumber {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    EncoderOutputMetadataSubregionsPSNRResolvedMetadataBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncoderOutputMetadataSubregionsPSNRResolvedMetadataBufferSize {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
 }

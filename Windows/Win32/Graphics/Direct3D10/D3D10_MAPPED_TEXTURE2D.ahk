@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides access to subresource data in a 2D texture.
@@ -58,30 +57,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_mapped_texture2d
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_MAPPED_TEXTURE2D extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D10_MAPPED_TEXTURE2D {
+    #StructPack 8
 
     /**
      * Type: <b>void*</b>
      * 
      * Pointer to the data.
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pData : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The pitch, or width, or physical size (in bytes), of one row of an uncompressed texture. A block-compressed texture is encoded in 4x4 blocks (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">virtual size vs physical size</a>) ; therefore, <b>RowPitch</b> is the number of bytes in a block of 4x4 texels.
-     * @type {Integer}
      */
-    RowPitch {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RowPitch : UInt32
+
 }

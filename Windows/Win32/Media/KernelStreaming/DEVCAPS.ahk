@@ -1,195 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class DEVCAPS extends Win32Struct {
-    static sizeof => 92
+export default struct DEVCAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    CanRecord : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CanRecord {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CanRecordStrobe : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CanRecordStrobe {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    HasAudio : Int32
 
-    /**
-     * @type {Integer}
-     */
-    HasAudio {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    HasVideo : Int32
 
-    /**
-     * @type {Integer}
-     */
-    HasVideo {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    UsesFiles : Int32
 
-    /**
-     * @type {Integer}
-     */
-    UsesFiles {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    CanSave : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CanSave {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DeviceType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    TCRead : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TCRead {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    TCWrite : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TCWrite {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    CTLRead : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CTLRead {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    IndexRead : Int32
 
-    /**
-     * @type {Integer}
-     */
-    IndexRead {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    Preroll : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Preroll {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    Postroll : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Postroll {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    SyncAcc : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SyncAcc {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    NormRate : Int32
 
-    /**
-     * @type {Integer}
-     */
-    NormRate {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    CanPreview : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CanPreview {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    CanMonitorSrc : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CanMonitorSrc {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    CanTest : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CanTest {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    VideoIn : Int32
 
-    /**
-     * @type {Integer}
-     */
-    VideoIn {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    AudioIn : Int32
 
-    /**
-     * @type {Integer}
-     */
-    AudioIn {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    Calibrate : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Calibrate {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    SeekType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SeekType {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    SimulatedHardware : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SimulatedHardware {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
 }

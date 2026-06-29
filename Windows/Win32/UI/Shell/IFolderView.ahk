@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderview
  * @namespace Windows.Win32.UI.Shell
  */
-class IFolderView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFolderView extends IUnknown {
     /**
      * The interface identifier for IFolderView
      * @type {Guid}
      */
-    static IID => Guid("{cde725b0-ccc9-4519-917e-325d72fab4ce}")
+    static IID := Guid("{cde725b0-ccc9-4519-917e-325d72fab4ce}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentViewMode     : IntPtr
+        SetCurrentViewMode     : IntPtr
+        GetFolder              : IntPtr
+        Item                   : IntPtr
+        ItemCount              : IntPtr
+        Items                  : IntPtr
+        GetSelectionMarkedItem : IntPtr
+        GetFocusedItem         : IntPtr
+        GetItemPosition        : IntPtr
+        GetSpacing             : IntPtr
+        GetDefaultSpacing      : IntPtr
+        GetAutoArrange         : IntPtr
+        SelectItem             : IntPtr
+        SelectAndPositionItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentViewMode", "SetCurrentViewMode", "GetFolder", "Item", "ItemCount", "Items", "GetSelectionMarkedItem", "GetFocusedItem", "GetItemPosition", "GetSpacing", "GetDefaultSpacing", "GetAutoArrange", "SelectItem", "SelectAndPositionItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an address containing a value representing the folder's current view mode.
@@ -66,7 +88,7 @@ class IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getfolder
      */
     GetFolder(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -117,7 +139,7 @@ class IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-items
      */
     Items(uFlags, riid) {
-        result := ComCall(8, this, "uint", uFlags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "uint", uFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -157,7 +179,7 @@ class IFolderView extends IUnknown {
      */
     GetItemPosition(pidl) {
         ppt := POINT()
-        result := ComCall(11, this, "ptr", pidl, "ptr", ppt, "HRESULT")
+        result := ComCall(11, this, ITEMIDLIST.Ptr, pidl, POINT.Ptr, ppt, "HRESULT")
         return ppt
     }
 
@@ -174,7 +196,7 @@ class IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getspacing
      */
     GetSpacing(ppt) {
-        result := ComCall(12, this, "ptr", ppt, "HRESULT")
+        result := ComCall(12, this, POINT.Ptr, ppt, "HRESULT")
         return result
     }
 
@@ -187,7 +209,7 @@ class IFolderView extends IUnknown {
      */
     GetDefaultSpacing() {
         ppt := POINT()
-        result := ComCall(13, this, "ptr", ppt, "HRESULT")
+        result := ComCall(13, this, POINT.Ptr, ppt, "HRESULT")
         return ppt
     }
 
@@ -243,7 +265,53 @@ class IFolderView extends IUnknown {
     SelectAndPositionItems(cidl, apidl, apt, dwFlags) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(16, this, "uint", cidl, apidlMarshal, apidl, "ptr", apt, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "uint", cidl, apidlMarshal, apidl, POINT.Ptr, apt, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFolderView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentViewMode := CallbackCreate(GetMethod(implObj, "GetCurrentViewMode"), flags, 2)
+        this.vtbl.SetCurrentViewMode := CallbackCreate(GetMethod(implObj, "SetCurrentViewMode"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.ItemCount := CallbackCreate(GetMethod(implObj, "ItemCount"), flags, 3)
+        this.vtbl.Items := CallbackCreate(GetMethod(implObj, "Items"), flags, 4)
+        this.vtbl.GetSelectionMarkedItem := CallbackCreate(GetMethod(implObj, "GetSelectionMarkedItem"), flags, 2)
+        this.vtbl.GetFocusedItem := CallbackCreate(GetMethod(implObj, "GetFocusedItem"), flags, 2)
+        this.vtbl.GetItemPosition := CallbackCreate(GetMethod(implObj, "GetItemPosition"), flags, 3)
+        this.vtbl.GetSpacing := CallbackCreate(GetMethod(implObj, "GetSpacing"), flags, 2)
+        this.vtbl.GetDefaultSpacing := CallbackCreate(GetMethod(implObj, "GetDefaultSpacing"), flags, 2)
+        this.vtbl.GetAutoArrange := CallbackCreate(GetMethod(implObj, "GetAutoArrange"), flags, 1)
+        this.vtbl.SelectItem := CallbackCreate(GetMethod(implObj, "SelectItem"), flags, 3)
+        this.vtbl.SelectAndPositionItems := CallbackCreate(GetMethod(implObj, "SelectAndPositionItems"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentViewMode)
+        CallbackFree(this.vtbl.SetCurrentViewMode)
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.ItemCount)
+        CallbackFree(this.vtbl.Items)
+        CallbackFree(this.vtbl.GetSelectionMarkedItem)
+        CallbackFree(this.vtbl.GetFocusedItem)
+        CallbackFree(this.vtbl.GetItemPosition)
+        CallbackFree(this.vtbl.GetSpacing)
+        CallbackFree(this.vtbl.GetDefaultSpacing)
+        CallbackFree(this.vtbl.GetAutoArrange)
+        CallbackFree(this.vtbl.SelectItem)
+        CallbackFree(this.vtbl.SelectAndPositionItems)
     }
 }

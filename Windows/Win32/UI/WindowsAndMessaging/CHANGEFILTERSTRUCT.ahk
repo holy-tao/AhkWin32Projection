@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MSGFLTINFO_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MSGFLTINFO_STATUS.ahk" { MSGFLTINFO_STATUS }
 
 /**
  * Contains extended result information obtained by calling the ChangeWindowMessageFilterEx function.
@@ -101,34 +100,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-changefilterstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class CHANGEFILTERSTRUCT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CHANGEFILTERSTRUCT {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure, in bytes. 
      * 				Must be set to <c>sizeof(CHANGEFILTERSTRUCT)</c>, otherwise the function fails with <b>ERROR_INVALID_PARAMETER</b>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
-     * @type {MSGFLTINFO_STATUS}
      */
-    ExtStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ExtStatus : MSGFLTINFO_STATUS
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 8
-    }
 }

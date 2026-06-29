@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPI_FEATURE_PAGE_TYPE.ahk" { IMAPI_FEATURE_PAGE_TYPE }
+#Import ".\IMAPI_READ_TRACK_ADDRESS_TYPE.ahk" { IMAPI_READ_TRACK_ADDRESS_TYPE }
+#Import ".\IMAPI_PROFILE_TYPE.ahk" { IMAPI_PROFILE_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMAPI_MODE_PAGE_REQUEST_TYPE.ahk" { IMAPI_MODE_PAGE_REQUEST_TYPE }
+#Import ".\IMAPI_MODE_PAGE_TYPE.ahk" { IMAPI_MODE_PAGE_TYPE }
 
 /**
  * This interface represents a physical device.
@@ -10,26 +17,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscrecorder2ex
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscRecorder2Ex extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDiscRecorder2Ex extends IUnknown {
     /**
      * The interface identifier for IDiscRecorder2Ex
      * @type {Guid}
      */
-    static IID => Guid("{27354132-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354132-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscRecorder2Ex interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SendCommandNoData                    : IntPtr
+        SendCommandSendDataToDevice          : IntPtr
+        SendCommandGetDataFromDevice         : IntPtr
+        ReadDvdStructure                     : IntPtr
+        SendDvdStructure                     : IntPtr
+        GetAdapterDescriptor                 : IntPtr
+        GetDeviceDescriptor                  : IntPtr
+        GetDiscInformation                   : IntPtr
+        GetTrackInformation                  : IntPtr
+        GetFeaturePage                       : IntPtr
+        GetModePage                          : IntPtr
+        SetModePage                          : IntPtr
+        GetSupportedFeaturePages             : IntPtr
+        GetSupportedProfiles                 : IntPtr
+        GetSupportedModePages                : IntPtr
+        GetByteAlignmentMask                 : IntPtr
+        GetMaximumNonPageAlignedTransferSize : IntPtr
+        GetMaximumPageAlignedTransferSize    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SendCommandNoData", "SendCommandSendDataToDevice", "SendCommandGetDataFromDevice", "ReadDvdStructure", "SendDvdStructure", "GetAdapterDescriptor", "GetDeviceDescriptor", "GetDiscInformation", "GetTrackInformation", "GetFeaturePage", "GetModePage", "SetModePage", "GetSupportedFeaturePages", "GetSupportedProfiles", "GetSupportedModePages", "GetByteAlignmentMask", "GetMaximumNonPageAlignedTransferSize", "GetMaximumPageAlignedTransferSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscRecorder2Ex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends a MMC command to the recording device. Use this function when no data buffer is sent to nor received from the device.
@@ -1980,7 +2011,7 @@ class IDiscRecorder2Ex extends IUnknown {
         trackInformationMarshal := trackInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", _address, "int", addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(11, this, "uint", _address, IMAPI_READ_TRACK_ADDRESS_TYPE, addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -2307,7 +2338,7 @@ class IDiscRecorder2Ex extends IUnknown {
         featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(12, this, IMAPI_FEATURE_PAGE_TYPE, requestedFeature, BOOLEAN, currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -2621,7 +2652,7 @@ class IDiscRecorder2Ex extends IUnknown {
         modePageDataMarshal := modePageData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "int", requestedModePage, "int", requestType, modePageDataMarshal, modePageData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(13, this, IMAPI_MODE_PAGE_TYPE, requestedModePage, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, modePageDataMarshal, modePageData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -2944,7 +2975,7 @@ class IDiscRecorder2Ex extends IUnknown {
     SetModePage(requestType, data, byteSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, "int", requestType, dataMarshal, data, "uint", byteSize, "HRESULT")
+        result := ComCall(14, this, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, dataMarshal, data, "uint", byteSize, "HRESULT")
         return result
     }
 
@@ -3270,7 +3301,7 @@ class IDiscRecorder2Ex extends IUnknown {
         featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(15, this, BOOLEAN, currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -3594,7 +3625,7 @@ class IDiscRecorder2Ex extends IUnknown {
         profileTypesMarshal := profileTypes is VarRef ? "ptr*" : "ptr"
         validProfilesMarshal := validProfiles is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "char", currentOnly, profileTypesMarshal, profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
+        result := ComCall(16, this, BOOLEAN, currentOnly, profileTypesMarshal, profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
         return result
     }
 
@@ -3907,7 +3938,7 @@ class IDiscRecorder2Ex extends IUnknown {
         modePageTypesMarshal := modePageTypes is VarRef ? "ptr*" : "ptr"
         validPagesMarshal := validPages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "int", requestType, modePageTypesMarshal, modePageTypes, validPagesMarshal, validPages, "HRESULT")
+        result := ComCall(17, this, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, modePageTypesMarshal, modePageTypes, validPagesMarshal, validPages, "HRESULT")
         return result
     }
 
@@ -3953,5 +3984,59 @@ class IDiscRecorder2Ex extends IUnknown {
     GetMaximumPageAlignedTransferSize() {
         result := ComCall(20, this, "uint*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IDiscRecorder2Ex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SendCommandNoData := CallbackCreate(GetMethod(implObj, "SendCommandNoData"), flags, 5)
+        this.vtbl.SendCommandSendDataToDevice := CallbackCreate(GetMethod(implObj, "SendCommandSendDataToDevice"), flags, 7)
+        this.vtbl.SendCommandGetDataFromDevice := CallbackCreate(GetMethod(implObj, "SendCommandGetDataFromDevice"), flags, 8)
+        this.vtbl.ReadDvdStructure := CallbackCreate(GetMethod(implObj, "ReadDvdStructure"), flags, 7)
+        this.vtbl.SendDvdStructure := CallbackCreate(GetMethod(implObj, "SendDvdStructure"), flags, 4)
+        this.vtbl.GetAdapterDescriptor := CallbackCreate(GetMethod(implObj, "GetAdapterDescriptor"), flags, 3)
+        this.vtbl.GetDeviceDescriptor := CallbackCreate(GetMethod(implObj, "GetDeviceDescriptor"), flags, 3)
+        this.vtbl.GetDiscInformation := CallbackCreate(GetMethod(implObj, "GetDiscInformation"), flags, 3)
+        this.vtbl.GetTrackInformation := CallbackCreate(GetMethod(implObj, "GetTrackInformation"), flags, 5)
+        this.vtbl.GetFeaturePage := CallbackCreate(GetMethod(implObj, "GetFeaturePage"), flags, 5)
+        this.vtbl.GetModePage := CallbackCreate(GetMethod(implObj, "GetModePage"), flags, 5)
+        this.vtbl.SetModePage := CallbackCreate(GetMethod(implObj, "SetModePage"), flags, 4)
+        this.vtbl.GetSupportedFeaturePages := CallbackCreate(GetMethod(implObj, "GetSupportedFeaturePages"), flags, 4)
+        this.vtbl.GetSupportedProfiles := CallbackCreate(GetMethod(implObj, "GetSupportedProfiles"), flags, 4)
+        this.vtbl.GetSupportedModePages := CallbackCreate(GetMethod(implObj, "GetSupportedModePages"), flags, 4)
+        this.vtbl.GetByteAlignmentMask := CallbackCreate(GetMethod(implObj, "GetByteAlignmentMask"), flags, 2)
+        this.vtbl.GetMaximumNonPageAlignedTransferSize := CallbackCreate(GetMethod(implObj, "GetMaximumNonPageAlignedTransferSize"), flags, 2)
+        this.vtbl.GetMaximumPageAlignedTransferSize := CallbackCreate(GetMethod(implObj, "GetMaximumPageAlignedTransferSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SendCommandNoData)
+        CallbackFree(this.vtbl.SendCommandSendDataToDevice)
+        CallbackFree(this.vtbl.SendCommandGetDataFromDevice)
+        CallbackFree(this.vtbl.ReadDvdStructure)
+        CallbackFree(this.vtbl.SendDvdStructure)
+        CallbackFree(this.vtbl.GetAdapterDescriptor)
+        CallbackFree(this.vtbl.GetDeviceDescriptor)
+        CallbackFree(this.vtbl.GetDiscInformation)
+        CallbackFree(this.vtbl.GetTrackInformation)
+        CallbackFree(this.vtbl.GetFeaturePage)
+        CallbackFree(this.vtbl.GetModePage)
+        CallbackFree(this.vtbl.SetModePage)
+        CallbackFree(this.vtbl.GetSupportedFeaturePages)
+        CallbackFree(this.vtbl.GetSupportedProfiles)
+        CallbackFree(this.vtbl.GetSupportedModePages)
+        CallbackFree(this.vtbl.GetByteAlignmentMask)
+        CallbackFree(this.vtbl.GetMaximumNonPageAlignedTransferSize)
+        CallbackFree(this.vtbl.GetMaximumPageAlignedTransferSize)
     }
 }

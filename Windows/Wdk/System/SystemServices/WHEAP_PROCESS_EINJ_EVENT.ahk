@@ -1,115 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_PROCESS_EINJ_EVENT extends Win32Struct {
-    static sizeof => 88
+export default struct WHEAP_PROCESS_EINJ_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Error : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    Error {
-        get => StrGet(this.ptr + 8, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
-    }
+    InjectionActionTableValid : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    InjectionActionTableValid {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    BeginInjectionInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BeginInjectionInstructionCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    GetTriggerErrorActionTableInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GetTriggerErrorActionTableInstructionCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SetErrorTypeInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SetErrorTypeInstructionCount {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    GetErrorTypeInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GetErrorTypeInstructionCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    EndOperationInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndOperationInstructionCount {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ExecuteOperationInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExecuteOperationInstructionCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    CheckBusyStatusInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CheckBusyStatusInstructionCount {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    GetCommandStatusInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GetCommandStatusInstructionCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    SetErrorTypeWithAddressInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SetErrorTypeWithAddressInstructionCount {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    GetExecuteOperationTimingsInstructionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GetExecuteOperationTimingsInstructionCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

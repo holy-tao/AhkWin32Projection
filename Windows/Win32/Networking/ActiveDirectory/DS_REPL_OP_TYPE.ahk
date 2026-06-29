@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to indicate the type of replication operation that a given entry in the replication queue represents.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repl_op_type
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_REPL_OP_TYPE extends Win32Enum {
+export default struct DS_REPL_OP_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates an inbound replication over an existing replication agreement from a direct replication partner.

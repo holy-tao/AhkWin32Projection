@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by methods of the ITransferSource and ITransferDestination interfaces to control their file operations.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_transfer_source_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class _TRANSFER_SOURCE_FLAGS extends Win32Enum {
+export default struct _TRANSFER_SOURCE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Fail if the destination already exists, unless TSF_OVERWRITE_EXIST is specified. This is a default behavior.

@@ -1,50 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk" { WHV_SYNTHETIC_PROCESSOR_FEATURES }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS extends Win32Struct {
-    static sizeof => 24
+export default struct WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS {
+    #StructPack 8
 
-    static packingSize => 8
+    BanksCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BanksCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Bank0 : WHV_SYNTHETIC_PROCESSOR_FEATURES
 
-    /**
-     * @type {WHV_SYNTHETIC_PROCESSOR_FEATURES}
-     */
-    Bank0 {
-        get {
-            if(!this.HasProp("__Bank0"))
-                this.__Bank0 := WHV_SYNTHETIC_PROCESSOR_FEATURES(8, this)
-            return this.__Bank0
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    AsUINT64 {
-        get {
-            if(!this.HasProp("__AsUINT64ProxyArray"))
-                this.__AsUINT64ProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
-            return this.__AsUINT64ProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'AsUINT64', { type: Int64[1], offset: 8 })
+        this.DeleteProp("__New")
     }
 }

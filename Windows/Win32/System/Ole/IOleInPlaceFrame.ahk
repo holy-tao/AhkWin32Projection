@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleInPlaceUIWindow.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Controls the container's top-level frame window.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceframe
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceFrame extends IOleInPlaceUIWindow {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceFrame extends IOleInPlaceUIWindow {
     /**
      * The interface identifier for IOleInPlaceFrame
      * @type {Guid}
      */
-    static IID => Guid("{00000116-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000116-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceFrame interfaces
+    */
+    struct Vtbl extends IOleInPlaceUIWindow.Vtbl {
+        InsertMenus          : IntPtr
+        SetMenu              : IntPtr
+        RemoveMenus          : IntPtr
+        SetStatusText        : IntPtr
+        EnableModeless       : IntPtr
+        TranslateAccelerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertMenus", "SetMenu", "RemoveMenus", "SetStatusText", "EnableModeless", "TranslateAccelerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables the container to insert menu groups into the composite menu to be used during the in-place session.
@@ -60,9 +79,7 @@ class IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-insertmenus
      */
     InsertMenus(hmenuShared, lpMenuWidths) {
-        hmenuShared := hmenuShared is Win32Handle ? NumGet(hmenuShared, "ptr") : hmenuShared
-
-        result := ComCall(9, this, "ptr", hmenuShared, "ptr", lpMenuWidths, "HRESULT")
+        result := ComCall(9, this, HMENU, hmenuShared, OLEMENUGROUPWIDTHS.Ptr, lpMenuWidths, "HRESULT")
         return result
     }
 
@@ -115,10 +132,7 @@ class IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-setmenu
      */
     SetMenu(hmenuShared, holemenu, hwndActiveObject) {
-        hmenuShared := hmenuShared is Win32Handle ? NumGet(hmenuShared, "ptr") : hmenuShared
-        hwndActiveObject := hwndActiveObject is Win32Handle ? NumGet(hwndActiveObject, "ptr") : hwndActiveObject
-
-        result := ComCall(10, this, "ptr", hmenuShared, "ptr", holemenu, "ptr", hwndActiveObject, "HRESULT")
+        result := ComCall(10, this, HMENU, hmenuShared, "ptr", holemenu, HWND, hwndActiveObject, "HRESULT")
         return result
     }
 
@@ -163,9 +177,7 @@ class IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-removemenus
      */
     RemoveMenus(hmenuShared) {
-        hmenuShared := hmenuShared is Win32Handle ? NumGet(hmenuShared, "ptr") : hmenuShared
-
-        result := ComCall(11, this, "ptr", hmenuShared, "HRESULT")
+        result := ComCall(11, this, HMENU, hmenuShared, "HRESULT")
         return result
     }
 
@@ -251,7 +263,7 @@ class IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-enablemodeless
      */
     EnableModeless(fEnable) {
-        result := ComCall(13, this, "int", fEnable, "HRESULT")
+        result := ComCall(13, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -320,7 +332,37 @@ class IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-translateaccelerator
      */
     TranslateAccelerator(lpmsg, wID) {
-        result := ComCall(14, this, "ptr", lpmsg, "ushort", wID, "HRESULT")
+        result := ComCall(14, this, MSG.Ptr, lpmsg, "ushort", wID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleInPlaceFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertMenus := CallbackCreate(GetMethod(implObj, "InsertMenus"), flags, 3)
+        this.vtbl.SetMenu := CallbackCreate(GetMethod(implObj, "SetMenu"), flags, 4)
+        this.vtbl.RemoveMenus := CallbackCreate(GetMethod(implObj, "RemoveMenus"), flags, 2)
+        this.vtbl.SetStatusText := CallbackCreate(GetMethod(implObj, "SetStatusText"), flags, 2)
+        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertMenus)
+        CallbackFree(this.vtbl.SetMenu)
+        CallbackFree(this.vtbl.RemoveMenus)
+        CallbackFree(this.vtbl.SetStatusText)
+        CallbackFree(this.vtbl.EnableModeless)
+        CallbackFree(this.vtbl.TranslateAccelerator)
     }
 }

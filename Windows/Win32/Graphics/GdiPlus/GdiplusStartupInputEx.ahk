@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GdiplusStartupInput.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GdiplusStartupInput.ahk" { GdiplusStartupInput }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class GdiplusStartupInputEx extends Win32Struct {
-    static sizeof => 32
+export default struct GdiplusStartupInputEx {
+    #StructPack 8
 
-    static packingSize => 8
+    Base : GdiplusStartupInput
 
-    /**
-     * @type {GdiplusStartupInput}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := GdiplusStartupInput(0, this)
-            return this.__Base
-        }
-    }
+    StartupParameters : Int32
 
-    /**
-     * @type {Integer}
-     */
-    StartupParameters {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

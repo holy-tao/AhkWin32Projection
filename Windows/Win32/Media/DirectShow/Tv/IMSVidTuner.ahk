@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidVideoInputDevice.ahk
-#Include .\ITuneRequest.ahk
-#Include .\ITuningSpace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import ".\IMSVidVideoInputDevice.ahk" { IMSVidVideoInputDevice }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidTuner interface manages tuning devices.
@@ -12,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidtuner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidTuner extends IMSVidVideoInputDevice {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidTuner extends IMSVidVideoInputDevice {
     /**
      * The interface identifier for IMSVidTuner
      * @type {Guid}
      */
-    static IID => Guid("{1c15d47d-911d-11d2-b632-00c04f79498e}")
+    static IID := Guid("{1c15d47d-911d-11d2-b632-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidTuner interfaces
+    */
+    struct Vtbl extends IMSVidVideoInputDevice.Vtbl {
+        get_Tune        : IntPtr
+        put_Tune        : IntPtr
+        get_TuningSpace : IntPtr
+        put_TuningSpace : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Tune", "put_Tune", "get_TuningSpace", "put_TuningSpace"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidTuner.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITuneRequest} 
@@ -93,5 +104,31 @@ class IMSVidTuner extends IMSVidVideoInputDevice {
     put_TuningSpace(plTS) {
         result := ComCall(21, this, "ptr", plTS, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidTuner.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Tune := CallbackCreate(GetMethod(implObj, "get_Tune"), flags, 2)
+        this.vtbl.put_Tune := CallbackCreate(GetMethod(implObj, "put_Tune"), flags, 2)
+        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.put_TuningSpace := CallbackCreate(GetMethod(implObj, "put_TuningSpace"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Tune)
+        CallbackFree(this.vtbl.put_Tune)
+        CallbackFree(this.vtbl.get_TuningSpace)
+        CallbackFree(this.vtbl.put_TuningSpace)
     }
 }

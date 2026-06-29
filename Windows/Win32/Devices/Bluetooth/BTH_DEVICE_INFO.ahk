@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Stores information about a Bluetooth device.
  * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_device_info
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_DEVICE_INFO extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 8
+export default struct BTH_DEVICE_INFO {
+    #StructPack 8
 
     /**
      * A combination of one or more of the  flags listed in the following table.
@@ -110,21 +108,13 @@ class BTH_DEVICE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
 
     /**
      * Address of the remote Bluetooth device.
-     * @type {Integer}
      */
-    address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    address : Int64
 
     /**
      * Bit field that describes the device class of device (COD) of the remote device. The COD consists of the following four fields:
@@ -137,20 +127,13 @@ class BTH_DEVICE_INFO extends Win32Struct {
      * 
      * <a id="COD_MAJOR_MISCELLANEOUS"></a>
      * <a id="cod_major_miscellaneous"></a>
-     * @type {Integer}
      */
-    classOfDevice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    classOfDevice : UInt32
 
     /**
      * Name of the remote Bluetooth device, as reported by the device, encoded in UTF8.  The user may have locally provided a display name for the remote Bluetooth device; that name is overridden, and does not appear in this member; it is accessible only with a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothgetdeviceinfo">BluetoothGetDeviceInfo</a> function.
-     * @type {String}
      */
-    name {
-        get => StrGet(this.ptr + 20, 247, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 247, "UTF-8")
-    }
+    name : CHAR[248]
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidTuner.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidTuner.ahk" { IMSVidTuner }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IMSVidAnalogTuner interface represents an analog-only tuner card that does not support the Broadcast Driver Architecture (BDA). This interface provides Automation access to the IAMTVTuner and IAMTVAudio interfaces.
@@ -10,26 +12,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidanalogtuner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidAnalogTuner extends IMSVidTuner {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidAnalogTuner extends IMSVidTuner {
     /**
      * The interface identifier for IMSVidAnalogTuner
      * @type {Guid}
      */
-    static IID => Guid("{1c15d47e-911d-11d2-b632-00c04f79498e}")
+    static IID := Guid("{1c15d47e-911d-11d2-b632-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidAnalogTuner interfaces
+    */
+    struct Vtbl extends IMSVidTuner.Vtbl {
+        get_Channel        : IntPtr
+        put_Channel        : IntPtr
+        get_VideoFrequency : IntPtr
+        get_AudioFrequency : IntPtr
+        get_CountryCode    : IntPtr
+        put_CountryCode    : IntPtr
+        get_SAP            : IntPtr
+        put_SAP            : IntPtr
+        ChannelAvailable   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Channel", "put_Channel", "get_VideoFrequency", "get_AudioFrequency", "get_CountryCode", "put_CountryCode", "get_SAP", "put_SAP", "ChannelAvailable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidAnalogTuner.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -145,7 +162,7 @@ class IMSVidAnalogTuner extends IMSVidTuner {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_sap
      */
     get_SAP() {
-        result := ComCall(28, this, "short*", &pfSapOn := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &pfSapOn := 0, "HRESULT")
         return pfSapOn
     }
 
@@ -156,7 +173,7 @@ class IMSVidAnalogTuner extends IMSVidTuner {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-put_sap
      */
     put_SAP(fSapOn) {
-        result := ComCall(29, this, "short", fSapOn, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, fSapOn, "HRESULT")
         return result
     }
 
@@ -170,7 +187,43 @@ class IMSVidAnalogTuner extends IMSVidTuner {
     ChannelAvailable(nChannel, SignalStrength) {
         SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(30, this, "int", nChannel, SignalStrengthMarshal, SignalStrength, "short*", &fSignalPresent := 0, "HRESULT")
+        result := ComCall(30, this, "int", nChannel, SignalStrengthMarshal, SignalStrength, VARIANT_BOOL.Ptr, &fSignalPresent := 0, "HRESULT")
         return fSignalPresent
+    }
+
+    Query(iid) {
+        if (IMSVidAnalogTuner.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Channel := CallbackCreate(GetMethod(implObj, "get_Channel"), flags, 2)
+        this.vtbl.put_Channel := CallbackCreate(GetMethod(implObj, "put_Channel"), flags, 2)
+        this.vtbl.get_VideoFrequency := CallbackCreate(GetMethod(implObj, "get_VideoFrequency"), flags, 2)
+        this.vtbl.get_AudioFrequency := CallbackCreate(GetMethod(implObj, "get_AudioFrequency"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_SAP := CallbackCreate(GetMethod(implObj, "get_SAP"), flags, 2)
+        this.vtbl.put_SAP := CallbackCreate(GetMethod(implObj, "put_SAP"), flags, 2)
+        this.vtbl.ChannelAvailable := CallbackCreate(GetMethod(implObj, "ChannelAvailable"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Channel)
+        CallbackFree(this.vtbl.put_Channel)
+        CallbackFree(this.vtbl.get_VideoFrequency)
+        CallbackFree(this.vtbl.get_AudioFrequency)
+        CallbackFree(this.vtbl.get_CountryCode)
+        CallbackFree(this.vtbl.put_CountryCode)
+        CallbackFree(this.vtbl.get_SAP)
+        CallbackFree(this.vtbl.put_SAP)
+        CallbackFree(this.vtbl.ChannelAvailable)
     }
 }

@@ -1,58 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_DEPENDENCY_INFO_VERSION.ahk
-#Include .\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk
-#Include .\DEPENDENT_DISK_FLAG.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
-#Include .\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk" { STORAGE_DEPENDENCY_INFO_TYPE_2 }
+#Import ".\STORAGE_DEPENDENCY_INFO_VERSION.ahk" { STORAGE_DEPENDENCY_INFO_VERSION }
+#Import ".\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk" { STORAGE_DEPENDENCY_INFO_TYPE_1 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import ".\DEPENDENT_DISK_FLAG.ahk" { DEPENDENT_DISK_FLAG }
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-storage_dependency_info
  * @namespace Windows.Win32.Storage.Vhd
  */
-class STORAGE_DEPENDENCY_INFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct STORAGE_DEPENDENCY_INFO {
+    #StructPack 8
 
     /**
      * A [STORAGE_DEPENDENCY_INFO_TYPE_1](./ns-virtdisk-storage_dependency_info_type_1.md) or [STORAGE_DEPENDENCY_INFO_TYPE_2](./ns-virtdisk-storage_dependency_info_type_2.md).
-     * @type {STORAGE_DEPENDENCY_INFO_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : STORAGE_DEPENDENCY_INFO_VERSION
 
     /**
      * Number of entries returned in the following unioned members.
-     * @type {Integer}
      */
-    NumberEntries {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberEntries : UInt32
 
-    /**
-     * @type {STORAGE_DEPENDENCY_INFO_TYPE_1}
-     */
-    Version1Entries {
-        get {
-            if(!this.HasProp("__Version1EntriesProxyArray"))
-                this.__Version1EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_DEPENDENCY_INFO_TYPE_1, "")
-            return this.__Version1EntriesProxyArray
-        }
-    }
+    Version1Entries : STORAGE_DEPENDENCY_INFO_TYPE_1[1]
 
-    /**
-     * @type {STORAGE_DEPENDENCY_INFO_TYPE_2}
-     */
-    Version2Entries {
-        get {
-            if(!this.HasProp("__Version2EntriesProxyArray"))
-                this.__Version2EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_DEPENDENCY_INFO_TYPE_2, "")
-            return this.__Version2EntriesProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Version2Entries', { type: STORAGE_DEPENDENCY_INFO_TYPE_2[1], offset: 8 })
+        this.DeleteProp("__New")
     }
 }

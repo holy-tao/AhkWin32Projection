@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 
 /**
  * Contains global computer power policy settings that apply to all power schemes for all users.
  * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-global_machine_power_policy
  * @namespace Windows.Win32.System.Power
  */
-class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct GLOBAL_MACHINE_POWER_POLICY {
+    #StructPack 4
 
     /**
      * The current structure revision level. Set this value by calling 
@@ -18,12 +15,8 @@ class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-readglobalpwrpolicy">ReadGlobalPwrPolicy</a> before using a 
      *       <b>GLOBAL_MACHINE_POWER_POLICY</b> structure 
      *       to set power policy.
-     * @type {Integer}
      */
-    Revision {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Revision : UInt32
 
     /**
      * The maximum power state (highest Sx value) from which a lid-open event should wake the system when running 
@@ -31,12 +24,8 @@ class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. A value 
      *       of <b>PowerSystemUnspecified</b> indicates that a lid-open event does not wake the 
      *       system.
-     * @type {SYSTEM_POWER_STATE}
      */
-    LidOpenWakeAc {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    LidOpenWakeAc : SYSTEM_POWER_STATE
 
     /**
      * The maximum power state (highest Sx value) from which a lid-open event should wake the system when running 
@@ -44,20 +33,13 @@ class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. A value 
      *       of <b>PowerSystemUnspecified</b> indicates that a lid-open event does not wake the 
      *       system.
-     * @type {SYSTEM_POWER_STATE}
      */
-    LidOpenWakeDc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    LidOpenWakeDc : SYSTEM_POWER_STATE
 
     /**
      * The resolution of change in the current battery capacity that should cause the system to be notified of a 
      *       system power state changed event.
-     * @type {Integer}
      */
-    BroadcastCapacityResolution {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BroadcastCapacityResolution : UInt32
+
 }

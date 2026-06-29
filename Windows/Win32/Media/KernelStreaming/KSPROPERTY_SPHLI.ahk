@@ -1,87 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_COLCON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_COLCON.ahk" { KS_COLCON }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_SPHLI extends Win32Struct {
-    static sizeof => 24
+export default struct KSPROPERTY_SPHLI {
+    #StructPack 4
 
-    static packingSize => 4
+    HLISS : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HLISS {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    StartPTM : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartPTM {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EndPTM : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndPTM {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StartX : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StartX {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    StartY : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StartY {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    StopX : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StopX {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    StopY : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StopY {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    ColCon : KS_COLCON
 
-    /**
-     * @type {KS_COLCON}
-     */
-    ColCon {
-        get {
-            if(!this.HasProp("__ColCon"))
-                this.__ColCon := KS_COLCON(20, this)
-            return this.__ColCon
-        }
-    }
 }

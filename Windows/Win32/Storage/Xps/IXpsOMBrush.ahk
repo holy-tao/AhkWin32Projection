@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
 
 /**
  * Defines objects that are used to paint graphical objects. Classes that derive from IXpsOMBrush describe how the area is painted.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMBrush extends IXpsOMShareable {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMBrush extends IXpsOMShareable {
     /**
      * The interface identifier for IXpsOMBrush
      * @type {Guid}
      */
-    static IID => Guid("{56a3f80c-ea4c-4187-a57b-a2a473b2b42b}")
+    static IID := Guid("{56a3f80c-ea4c-4187-a57b-a2a473b2b42b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMBrush interfaces
+    */
+    struct Vtbl extends IXpsOMShareable.Vtbl {
+        GetOpacity : IntPtr
+        SetOpacity : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOpacity", "SetOpacity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the opacity of the brush.
@@ -83,5 +92,27 @@ class IXpsOMBrush extends IXpsOMShareable {
     SetOpacity(opacity) {
         result := ComCall(6, this, "float", opacity, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOpacity := CallbackCreate(GetMethod(implObj, "GetOpacity"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOpacity)
+        CallbackFree(this.vtbl.SetOpacity)
     }
 }

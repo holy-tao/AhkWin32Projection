@@ -1,355 +1,97 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_598 extends Win32Struct {
-    static sizeof => 176
+export default struct SERVER_INFO_598 {
+    #StructPack 4
 
-    static packingSize => 8
+    sv598_maxrawworkitems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxrawworkitems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sv598_maxthreadsperqueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxthreadsperqueue {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    sv598_producttype : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_producttype {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    sv598_serversize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_serversize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    sv598_connectionlessautodisc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_connectionlessautodisc {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sv598_sharingviolationretries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_sharingviolationretries {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    sv598_sharingviolationdelay : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_sharingviolationdelay {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sv598_maxglobalopensearch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxglobalopensearch {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    sv598_removeduplicatesearches : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_removeduplicatesearches {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    sv598_lockviolationoffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_lockviolationoffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    sv598_lockviolationdelay : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_lockviolationdelay {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    sv598_mdlreadswitchover : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_mdlreadswitchover {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    sv598_cachedopenlimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_cachedopenlimit {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    sv598_otherqueueaffinity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_otherqueueaffinity {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    sv598_restrictnullsessaccess : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_restrictnullsessaccess {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    sv598_enablewfw311directipx : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_enablewfw311directipx {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    sv598_queuesamplesecs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_queuesamplesecs {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    sv598_balancecount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_balancecount {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    sv598_preferredaffinity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_preferredaffinity {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    sv598_maxfreerfcbs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxfreerfcbs {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    sv598_maxfreemfcbs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxfreemfcbs {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    sv598_maxfreelfcbs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxfreelfcbs {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    sv598_maxfreepagedpoolchunks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxfreepagedpoolchunks {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    sv598_minpagedpoolchunksize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_minpagedpoolchunksize {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    sv598_maxpagedpoolchunksize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxpagedpoolchunksize {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    sv598_sendsfrompreferredprocessor : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_sendsfrompreferredprocessor {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    sv598_cacheddirectorylimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_cacheddirectorylimit {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    sv598_maxcopylength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_maxcopylength {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    sv598_enablecompression : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_enablecompression {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    sv598_autosharewks : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_autosharewks {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    sv598_autoshareserver : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_autoshareserver {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    sv598_enablesecuritysignature : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_enablesecuritysignature {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
+    sv598_requiresecuritysignature : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_requiresecuritysignature {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
-    }
+    sv598_minclientbuffersize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_minclientbuffersize {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    sv598_serverguid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    sv598_serverguid {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    sv598_ConnectionNoSessionsTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_ConnectionNoSessionsTimeout {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    sv598_IdleThreadTimeOut : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_IdleThreadTimeOut {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    sv598_enableW9xsecuritysignature : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_enableW9xsecuritysignature {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
-    }
+    sv598_enforcekerberosreauthentication : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_enforcekerberosreauthentication {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
-    }
+    sv598_disabledos : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_disabledos {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
-    }
+    sv598_lowdiskspaceminimum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv598_lowdiskspaceminimum {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    sv598_disablestrictnamechecking : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_disablestrictnamechecking {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
-    }
+    sv598_enableauthenticateusersharing : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv598_enableauthenticateusersharing {
-        get => NumGet(this, 172, "int")
-        set => NumPut("int", value, this, 172)
-    }
 }

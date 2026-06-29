@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVICE_DATA_SET_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_DATA_SET_RANGE.ahk" { DEVICE_DATA_SET_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DATA_SET_REPAIR_OUTPUT extends Win32Struct {
-    static sizeof => 16
+export default struct DEVICE_DATA_SET_REPAIR_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    ParityExtent : DEVICE_DATA_SET_RANGE
 
-    /**
-     * @type {DEVICE_DATA_SET_RANGE}
-     */
-    ParityExtent {
-        get {
-            if(!this.HasProp("__ParityExtent"))
-                this.__ParityExtent := DEVICE_DATA_SET_RANGE(0, this)
-            return this.__ParityExtent
-        }
-    }
 }

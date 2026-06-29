@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The HOSTENT (winsock.h) structure is used by functions to store information about a given host, such as host name, IPv4 address, and so forth.
@@ -15,53 +15,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-hostent
  * @namespace Windows.Win32.Networking.WinSock
  */
-class HOSTENT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct HOSTENT {
+    #StructPack 8
 
     /**
      * The official name of the host (PC). If using the DNS or similar resolution system, it is the Fully Qualified Domain Name (FQDN) that caused the server to return a reply. If using a local hosts file, it is the first entry after the IPv4 address.
-     * @type {PSTR}
      */
-    h_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    h_name : PSTR
 
     /**
      * A <b>NULL</b>-terminated array of alternate names.
-     * @type {Pointer<Pointer<Integer>>}
      */
-    h_aliases {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    h_aliases : IntPtr
 
     /**
      * The type of address being returned.
-     * @type {Integer}
      */
-    h_addrtype {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    h_addrtype : Int16
 
     /**
      * The length, in bytes, of each address.
-     * @type {Integer}
      */
-    h_length {
-        get => NumGet(this, 18, "short")
-        set => NumPut("short", value, this, 18)
-    }
+    h_length : Int16
 
     /**
      * A <b>NULL</b>-terminated list of addresses for the host. Addresses are returned in network byte order. The macro <b>h_addr</b> is defined to be <c>h_addr_list[0]</c> for compatibility with older software.
-     * @type {Pointer<Pointer<Integer>>}
      */
-    h_addr_list {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    h_addr_list : IntPtr
+
 }

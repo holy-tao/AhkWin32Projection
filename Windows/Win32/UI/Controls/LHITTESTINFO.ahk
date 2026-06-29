@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\LITEM.ahk
-#Include .\LIST_ITEM_FLAGS.ahk
-#Include .\LIST_ITEM_STATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIST_ITEM_FLAGS.ahk" { LIST_ITEM_FLAGS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\LITEM.ahk" { LITEM }
+#Import ".\LIST_ITEM_STATE_FLAGS.ahk" { LIST_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used to get information about the link corresponding to a given location.
@@ -15,36 +15,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lhittestinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class LHITTESTINFO extends Win32Struct {
-    static sizeof => 4288
-
-    static packingSize => 4
+export default struct LHITTESTINFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * Location for the hit-test, in client coordinates (not screen coordinates).
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(0, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-litem">LITEM</a></b>
      * 
      * Receives information about the link corresponding to <b>pt</b>.
-     * @type {LITEM}
      */
-    item {
-        get {
-            if(!this.HasProp("__item"))
-                this.__item := LITEM(8, this)
-            return this.__item
-        }
-    }
+    item : LITEM
+
 }

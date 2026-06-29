@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the way a file will be faxed from within an application. With Windows Vista there is only one possible value.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fxsutility/ne-fxsutility-sendtomode
  * @namespace Windows.Win32.Devices.Fax
  */
-class SendToMode extends Win32Enum {
+export default struct SendToMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The file is faxed as it is. The user cannot add typed material preceding it or following it.

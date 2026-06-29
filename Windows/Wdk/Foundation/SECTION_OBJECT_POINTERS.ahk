@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class SECTION_OBJECT_POINTERS extends Win32Struct {
-    static sizeof => 24
+export default struct SECTION_OBJECT_POINTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    DataSectionObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DataSectionObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SharedCacheMap : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SharedCacheMap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ImageSectionObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ImageSectionObject {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DedupHash.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DedupHash.ahk" { DedupHash }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class DedupStreamEntry extends Win32Struct {
-    static sizeof => 48
+export default struct DedupStreamEntry {
+    #StructPack 8
 
-    static packingSize => 8
+    Hash : DedupHash
 
-    /**
-     * @type {DedupHash}
-     */
-    Hash {
-        get {
-            if(!this.HasProp("__Hash"))
-                this.__Hash := DedupHash(0, this)
-            return this.__Hash
-        }
-    }
+    LogicalSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogicalSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Offset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

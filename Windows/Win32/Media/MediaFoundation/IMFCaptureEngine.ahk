@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFCaptureSink.ahk
-#Include .\IMFCaptureSource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCaptureEngineOnEventCallback.ahk" { IMFCaptureEngineOnEventCallback }
+#Import ".\MF_CAPTURE_ENGINE_SINK_TYPE.ahk" { MF_CAPTURE_ENGINE_SINK_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import ".\IMFCaptureSource.ahk" { IMFCaptureSource }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls one or more capture devices.
@@ -12,26 +17,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengine
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCaptureEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCaptureEngine extends IUnknown {
     /**
      * The interface identifier for IMFCaptureEngine
      * @type {Guid}
      */
-    static IID => Guid("{a6bba433-176b-48b2-b375-53aa03473207}")
+    static IID := Guid("{a6bba433-176b-48b2-b375-53aa03473207}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCaptureEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize   : IntPtr
+        StartPreview : IntPtr
+        StopPreview  : IntPtr
+        StartRecord  : IntPtr
+        StopRecord   : IntPtr
+        TakePhoto    : IntPtr
+        GetSink      : IntPtr
+        GetSource    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "StartPreview", "StopPreview", "StartRecord", "StopRecord", "TakePhoto", "GetSink", "GetSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCaptureEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the capture engine.
@@ -299,7 +318,7 @@ class IMFCaptureEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-stoprecord
      */
     StopRecord(bFinalize, bFlushUnprocessedSamples) {
-        result := ComCall(7, this, "int", bFinalize, "int", bFlushUnprocessedSamples, "HRESULT")
+        result := ComCall(7, this, BOOL, bFinalize, BOOL, bFlushUnprocessedSamples, "HRESULT")
         return result
     }
 
@@ -324,7 +343,7 @@ class IMFCaptureEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-getsink
      */
     GetSink(mfCaptureEngineSinkType) {
-        result := ComCall(9, this, "int", mfCaptureEngineSinkType, "ptr*", &ppSink := 0, "HRESULT")
+        result := ComCall(9, this, MF_CAPTURE_ENGINE_SINK_TYPE, mfCaptureEngineSinkType, "ptr*", &ppSink := 0, "HRESULT")
         return IMFCaptureSink(ppSink)
     }
 
@@ -336,5 +355,39 @@ class IMFCaptureEngine extends IUnknown {
     GetSource() {
         result := ComCall(10, this, "ptr*", &ppSource := 0, "HRESULT")
         return IMFCaptureSource(ppSource)
+    }
+
+    Query(iid) {
+        if (IMFCaptureEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.StartPreview := CallbackCreate(GetMethod(implObj, "StartPreview"), flags, 1)
+        this.vtbl.StopPreview := CallbackCreate(GetMethod(implObj, "StopPreview"), flags, 1)
+        this.vtbl.StartRecord := CallbackCreate(GetMethod(implObj, "StartRecord"), flags, 1)
+        this.vtbl.StopRecord := CallbackCreate(GetMethod(implObj, "StopRecord"), flags, 3)
+        this.vtbl.TakePhoto := CallbackCreate(GetMethod(implObj, "TakePhoto"), flags, 1)
+        this.vtbl.GetSink := CallbackCreate(GetMethod(implObj, "GetSink"), flags, 3)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.StartPreview)
+        CallbackFree(this.vtbl.StopPreview)
+        CallbackFree(this.vtbl.StartRecord)
+        CallbackFree(this.vtbl.StopRecord)
+        CallbackFree(this.vtbl.TakePhoto)
+        CallbackFree(this.vtbl.GetSink)
+        CallbackFree(this.vtbl.GetSource)
     }
 }

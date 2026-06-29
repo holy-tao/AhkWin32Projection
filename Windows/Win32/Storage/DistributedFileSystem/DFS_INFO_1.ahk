@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the name of a Distributed File System (DFS) root or link.
@@ -9,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_1
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_INFO_1 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct DFS_INFO_1 {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the Universal Naming Convention (UNC) path of a DFS root or link.
@@ -38,10 +36,7 @@ class DFS_INFO_1 extends Win32Struct {
      * &#92;&#92;<i>DomainName</i>&#92;<i>DomDfsname</i>
      * 
      * where the values of the names are the same as those described previously.
-     * @type {PWSTR}
      */
-    EntryPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    EntryPath : PWSTR
+
 }

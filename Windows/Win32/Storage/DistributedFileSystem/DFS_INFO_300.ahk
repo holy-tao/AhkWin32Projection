@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the name and type (domain-based or stand-alone) of a DFS namespace.
@@ -9,18 +9,10 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_300
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_INFO_300 extends Win32Struct {
-    static sizeof => 16
+export default struct DFS_INFO_300 {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * Pointer to a null-terminated Unicode string that contains the name of a DFS namespace. This member can have one of the following two formats.
@@ -36,10 +28,7 @@ class DFS_INFO_300 extends Win32Struct {
      * &#92;<i>DomainName</i>&#92;<i>DomDfsName</i>
      * 
      * where <i>DomainName</i> is the name of the domain that hosts the domain-based DFS namespace and <i>DomDfsname</i> is the name of the DFS namespace.
-     * @type {PWSTR}
      */
-    DfsName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DfsName : PWSTR
+
 }

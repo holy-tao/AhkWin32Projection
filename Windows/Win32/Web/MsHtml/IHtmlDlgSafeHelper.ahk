@@ -1,38 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHtmlDlgSafeHelper extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHtmlDlgSafeHelper extends IDispatch {
     /**
      * The interface identifier for IHtmlDlgSafeHelper
      * @type {Guid}
      */
-    static IID => Guid("{3050f81a-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f81a-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HtmlDlgSafeHelper
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f819-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f819-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHtmlDlgSafeHelper interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        choosecolordlg   : IntPtr
+        getCharset       : IntPtr
+        get_Fonts        : IntPtr
+        get_BlockFormats : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["choosecolordlg", "getCharset", "get_Fonts", "get_BlockFormats"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHtmlDlgSafeHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -55,7 +67,7 @@ class IHtmlDlgSafeHelper extends IDispatch {
      */
     choosecolordlg(initColor) {
         _rgbColor := VARIANT()
-        result := ComCall(7, this, "ptr", initColor, "ptr", _rgbColor, "HRESULT")
+        result := ComCall(7, this, VARIANT, initColor, VARIANT.Ptr, _rgbColor, "HRESULT")
         return _rgbColor
     }
 
@@ -68,7 +80,7 @@ class IHtmlDlgSafeHelper extends IDispatch {
         fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
 
         charset := VARIANT()
-        result := ComCall(8, this, "ptr", fontName, "ptr", charset, "HRESULT")
+        result := ComCall(8, this, BSTR, fontName, VARIANT.Ptr, charset, "HRESULT")
         return charset
     }
 
@@ -88,5 +100,31 @@ class IHtmlDlgSafeHelper extends IDispatch {
     get_BlockFormats() {
         result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
         return IDispatch(p)
+    }
+
+    Query(iid) {
+        if (IHtmlDlgSafeHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.choosecolordlg := CallbackCreate(GetMethod(implObj, "choosecolordlg"), flags, 3)
+        this.vtbl.getCharset := CallbackCreate(GetMethod(implObj, "getCharset"), flags, 3)
+        this.vtbl.get_Fonts := CallbackCreate(GetMethod(implObj, "get_Fonts"), flags, 2)
+        this.vtbl.get_BlockFormats := CallbackCreate(GetMethod(implObj, "get_BlockFormats"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.choosecolordlg)
+        CallbackFree(this.vtbl.getCharset)
+        CallbackFree(this.vtbl.get_Fonts)
+        CallbackFree(this.vtbl.get_BlockFormats)
     }
 }

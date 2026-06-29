@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_INTERFACE_ASSOCIATION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 8
+export default struct USB_INTERFACE_ASSOCIATION_DESCRIPTOR {
+    #StructPack 1
 
-    static packingSize => 1
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bFirstInterface : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFirstInterface {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bInterfaceCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bInterfaceCount {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bFunctionClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFunctionClass {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bFunctionSubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFunctionSubClass {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bFunctionProtocol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFunctionProtocol {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    iFunction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iFunction {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
 }

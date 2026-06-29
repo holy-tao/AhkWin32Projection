@@ -1,7 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGR_SYNC_CONTROL_FLAGS.ahk" { SYNCMGR_SYNC_CONTROL_FLAGS }
+#Import ".\ISyncMgrSyncResult.ahk" { ISyncMgrSyncResult }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_UPDATE_REASON.ahk" { SYNCMGR_UPDATE_REASON }
+#Import ".\SYNCMGR_CONTROL_FLAGS.ahk" { SYNCMGR_CONTROL_FLAGS }
+#Import ".\ISyncMgrConflict.ahk" { ISyncMgrConflict }
 
 /**
  * Exposes methods that allow an application or handler to start or stop a synchronization, notify Sync Center of changes to the set of handlers or items, or notify of changes to property values.
@@ -14,32 +23,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrcontrol
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrControl extends IUnknown {
     /**
      * The interface identifier for ISyncMgrControl
      * @type {Guid}
      */
-    static IID => Guid("{9b63616c-36b2-46bc-959f-c1593952d19b}")
+    static IID := Guid("{9b63616c-36b2-46bc-959f-c1593952d19b}")
 
     /**
      * The class identifier for SyncMgrControl
      * @type {Guid}
      */
-    static CLSID => Guid("{1a1f4206-0688-4e7f-be03-d82ec69df9a5}")
+    static CLSID := Guid("{1a1f4206-0688-4e7f-be03-d82ec69df9a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartHandlerSync        : IntPtr
+        StartItemSync           : IntPtr
+        StartSyncAll            : IntPtr
+        StopHandlerSync         : IntPtr
+        StopItemSync            : IntPtr
+        StopSyncAll             : IntPtr
+        UpdateHandlerCollection : IntPtr
+        UpdateHandler           : IntPtr
+        UpdateItem              : IntPtr
+        UpdateEvents            : IntPtr
+        UpdateConflict          : IntPtr
+        UpdateConflicts         : IntPtr
+        ActivateHandler         : IntPtr
+        EnableHandler           : IntPtr
+        EnableItem              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartHandlerSync", "StartItemSync", "StartSyncAll", "StopHandlerSync", "StopItemSync", "StopSyncAll", "UpdateHandlerCollection", "UpdateHandler", "UpdateItem", "UpdateEvents", "UpdateConflict", "UpdateConflicts", "ActivateHandler", "EnableHandler", "EnableItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initiates the synchronization of all items managed by a particular handler.
@@ -65,9 +95,8 @@ class ISyncMgrControl extends IUnknown {
      */
     StartHandlerSync(pszHandlerID, hwndOwner, punk, nSyncControlFlags, pResult) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "HRESULT")
+        result := ComCall(3, this, "ptr", pszHandlerID, HWND, hwndOwner, "ptr", punk, SYNCMGR_SYNC_CONTROL_FLAGS, nSyncControlFlags, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -103,11 +132,10 @@ class ISyncMgrControl extends IUnknown {
      */
     StartItemSync(pszHandlerID, ppszItemIDs, cItems, hwndOwner, punk, nSyncControlFlags, pResult) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, HWND, hwndOwner, "ptr", punk, SYNCMGR_SYNC_CONTROL_FLAGS, nSyncControlFlags, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -124,9 +152,7 @@ class ISyncMgrControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrcontrol-startsyncall
      */
     StartSyncAll(hwndOwner) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
-        result := ComCall(5, this, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(5, this, HWND, hwndOwner, "HRESULT")
         return result
     }
 
@@ -200,7 +226,7 @@ class ISyncMgrControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandlercollection
      */
     UpdateHandlerCollection(rclsidCollectionID, nControlFlags) {
-        result := ComCall(9, this, "ptr", rclsidCollectionID, "int", nControlFlags, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rclsidCollectionID, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
@@ -222,7 +248,7 @@ class ISyncMgrControl extends IUnknown {
     UpdateHandler(pszHandlerID, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(10, this, "ptr", pszHandlerID, "int", nControlFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pszHandlerID, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
@@ -248,7 +274,7 @@ class ISyncMgrControl extends IUnknown {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(11, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", pszHandlerID, "ptr", pszItemID, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
@@ -274,32 +300,23 @@ class ISyncMgrControl extends IUnknown {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(12, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", pszHandlerID, "ptr", pszItemID, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
     /**
-     * Informs Sync Center that conflicts have been added for a specific handler or item.
-     * @remarks
-     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateConflicts</b> does not return until Sync Center has loaded the specified handler, retrieved the handler's conflict store, and reloaded all conflicts from that store. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
-     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * A pointer to a buffer containing the unique ID of the handler that manages the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
-     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
-     * 
-     * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character. This parameter can be <b>NULL</b> if the event occurred on the handler rather than on a specific item.
+     * @param {PWSTR} pszHandlerID 
+     * @param {PWSTR} pszItemID 
      * @param {ISyncMgrConflict} pConflict 
      * @param {SYNCMGR_UPDATE_REASON} nReason 
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts
+     * @returns {HRESULT} 
      */
     UpdateConflict(pszHandlerID, pszItemID, pConflict, nReason) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(13, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", pConflict, "int", nReason, "HRESULT")
+        result := ComCall(13, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", pConflict, SYNCMGR_UPDATE_REASON, nReason, "HRESULT")
         return result
     }
 
@@ -325,7 +342,7 @@ class ISyncMgrControl extends IUnknown {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(14, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", pszHandlerID, "ptr", pszItemID, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
@@ -356,9 +373,8 @@ class ISyncMgrControl extends IUnknown {
      */
     ActivateHandler(fActivate, pszHandlerID, hwndOwner, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(15, this, "int", fActivate, "ptr", pszHandlerID, "ptr", hwndOwner, "int", nControlFlags, "HRESULT")
+        result := ComCall(15, this, BOOL, fActivate, "ptr", pszHandlerID, HWND, hwndOwner, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
@@ -389,9 +405,8 @@ class ISyncMgrControl extends IUnknown {
      */
     EnableHandler(fEnable, pszHandlerID, hwndOwner, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(16, this, "int", fEnable, "ptr", pszHandlerID, "ptr", hwndOwner, "int", nControlFlags, "HRESULT")
+        result := ComCall(16, this, BOOL, fEnable, "ptr", pszHandlerID, HWND, hwndOwner, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
     }
 
@@ -426,9 +441,56 @@ class ISyncMgrControl extends IUnknown {
     EnableItem(fEnable, pszHandlerID, pszItemID, hwndOwner, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(17, this, "int", fEnable, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", hwndOwner, "int", nControlFlags, "HRESULT")
+        result := ComCall(17, this, BOOL, fEnable, "ptr", pszHandlerID, "ptr", pszItemID, HWND, hwndOwner, SYNCMGR_CONTROL_FLAGS, nControlFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartHandlerSync := CallbackCreate(GetMethod(implObj, "StartHandlerSync"), flags, 6)
+        this.vtbl.StartItemSync := CallbackCreate(GetMethod(implObj, "StartItemSync"), flags, 8)
+        this.vtbl.StartSyncAll := CallbackCreate(GetMethod(implObj, "StartSyncAll"), flags, 2)
+        this.vtbl.StopHandlerSync := CallbackCreate(GetMethod(implObj, "StopHandlerSync"), flags, 2)
+        this.vtbl.StopItemSync := CallbackCreate(GetMethod(implObj, "StopItemSync"), flags, 4)
+        this.vtbl.StopSyncAll := CallbackCreate(GetMethod(implObj, "StopSyncAll"), flags, 1)
+        this.vtbl.UpdateHandlerCollection := CallbackCreate(GetMethod(implObj, "UpdateHandlerCollection"), flags, 3)
+        this.vtbl.UpdateHandler := CallbackCreate(GetMethod(implObj, "UpdateHandler"), flags, 3)
+        this.vtbl.UpdateItem := CallbackCreate(GetMethod(implObj, "UpdateItem"), flags, 4)
+        this.vtbl.UpdateEvents := CallbackCreate(GetMethod(implObj, "UpdateEvents"), flags, 4)
+        this.vtbl.UpdateConflict := CallbackCreate(GetMethod(implObj, "UpdateConflict"), flags, 5)
+        this.vtbl.UpdateConflicts := CallbackCreate(GetMethod(implObj, "UpdateConflicts"), flags, 4)
+        this.vtbl.ActivateHandler := CallbackCreate(GetMethod(implObj, "ActivateHandler"), flags, 5)
+        this.vtbl.EnableHandler := CallbackCreate(GetMethod(implObj, "EnableHandler"), flags, 5)
+        this.vtbl.EnableItem := CallbackCreate(GetMethod(implObj, "EnableItem"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartHandlerSync)
+        CallbackFree(this.vtbl.StartItemSync)
+        CallbackFree(this.vtbl.StartSyncAll)
+        CallbackFree(this.vtbl.StopHandlerSync)
+        CallbackFree(this.vtbl.StopItemSync)
+        CallbackFree(this.vtbl.StopSyncAll)
+        CallbackFree(this.vtbl.UpdateHandlerCollection)
+        CallbackFree(this.vtbl.UpdateHandler)
+        CallbackFree(this.vtbl.UpdateItem)
+        CallbackFree(this.vtbl.UpdateEvents)
+        CallbackFree(this.vtbl.UpdateConflict)
+        CallbackFree(this.vtbl.UpdateConflicts)
+        CallbackFree(this.vtbl.ActivateHandler)
+        CallbackFree(this.vtbl.EnableHandler)
+        CallbackFree(this.vtbl.EnableItem)
     }
 }

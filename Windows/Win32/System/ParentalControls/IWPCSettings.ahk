@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\WPCFLAG_RESTRICTION.ahk" { WPCFLAG_RESTRICTION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Accesses general settings for the user.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcsettings
  * @namespace Windows.Win32.System.ParentalControls
  */
-class IWPCSettings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWPCSettings extends IUnknown {
     /**
      * The interface identifier for IWPCSettings
      * @type {Guid}
      */
-    static IID => Guid("{8fdf6ca1-0189-47e4-b670-1a8a4636e340}")
+    static IID := Guid("{8fdf6ca1-0189-47e4-b670-1a8a4636e340}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWPCSettings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsLoggingRequired         : IntPtr
+        GetLastSettingsChangeTime : IntPtr
+        GetRestrictions           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsLoggingRequired", "GetLastSettingsChangeTime", "GetRestrictions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWPCSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether activity logging should be performed when obtaining the IWPCSettings interface.
@@ -36,7 +48,7 @@ class IWPCSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-isloggingrequired
      */
     IsLoggingRequired() {
-        result := ComCall(3, this, "int*", &pfRequired := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfRequired := 0, "HRESULT")
         return pfRequired
     }
 
@@ -47,7 +59,7 @@ class IWPCSettings extends IUnknown {
      */
     GetLastSettingsChangeTime() {
         pTime := SYSTEMTIME()
-        result := ComCall(4, this, "ptr", pTime, "HRESULT")
+        result := ComCall(4, this, SYSTEMTIME.Ptr, pTime, "HRESULT")
         return pTime
     }
 
@@ -59,5 +71,29 @@ class IWPCSettings extends IUnknown {
     GetRestrictions() {
         result := ComCall(5, this, "int*", &pdwRestrictions := 0, "HRESULT")
         return pdwRestrictions
+    }
+
+    Query(iid) {
+        if (IWPCSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsLoggingRequired := CallbackCreate(GetMethod(implObj, "IsLoggingRequired"), flags, 2)
+        this.vtbl.GetLastSettingsChangeTime := CallbackCreate(GetMethod(implObj, "GetLastSettingsChangeTime"), flags, 2)
+        this.vtbl.GetRestrictions := CallbackCreate(GetMethod(implObj, "GetRestrictions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsLoggingRequired)
+        CallbackFree(this.vtbl.GetLastSettingsChangeTime)
+        CallbackFree(this.vtbl.GetRestrictions)
     }
 }

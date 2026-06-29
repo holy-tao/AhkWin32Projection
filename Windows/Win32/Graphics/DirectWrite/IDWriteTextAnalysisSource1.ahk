@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextAnalysisSource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk" { DWRITE_VERTICAL_GLYPH_ORIENTATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
 
 /**
  * The interface you implement to provide needed information to the text analyzer, like the text and associated text properties.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextanalysissource1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource {
     /**
      * The interface identifier for IDWriteTextAnalysisSource1
      * @type {Guid}
      */
-    static IID => Guid("{639cfad8-0fb4-4b21-a58a-067920120009}")
+    static IID := Guid("{639cfad8-0fb4-4b21-a58a-067920120009}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextAnalysisSource1 interfaces
+    */
+    struct Vtbl extends IDWriteTextAnalysisSource.Vtbl {
+        GetVerticalGlyphOrientation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVerticalGlyphOrientation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextAnalysisSource1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Used by the text analyzer to obtain the desired glyph orientation and resolved bidi level.
@@ -62,5 +71,25 @@ class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource {
 
         result := ComCall(8, this, "uint", textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextAnalysisSource1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "GetVerticalGlyphOrientation"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVerticalGlyphOrientation)
     }
 }

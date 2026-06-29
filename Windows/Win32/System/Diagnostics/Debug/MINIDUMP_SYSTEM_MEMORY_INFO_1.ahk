@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_SYSTEM_BASIC_INFORMATION.ahk
-#Include .\MINIDUMP_SYSTEM_FILECACHE_INFORMATION.ahk
-#Include .\MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION.ahk
-#Include .\MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_SYSTEM_BASIC_INFORMATION.ahk" { MINIDUMP_SYSTEM_BASIC_INFORMATION }
+#Import ".\MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION.ahk" { MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION }
+#Import ".\MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION.ahk" { MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION }
+#Import ".\MINIDUMP_SYSTEM_FILECACHE_INFORMATION.ahk" { MINIDUMP_SYSTEM_FILECACHE_INFORMATION }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct {
-    static sizeof => 504
+export default struct MINIDUMP_SYSTEM_MEMORY_INFO_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Revision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    BasicInfo : MINIDUMP_SYSTEM_BASIC_INFORMATION
 
-    /**
-     * @type {MINIDUMP_SYSTEM_BASIC_INFORMATION}
-     */
-    BasicInfo {
-        get {
-            if(!this.HasProp("__BasicInfo"))
-                this.__BasicInfo := MINIDUMP_SYSTEM_BASIC_INFORMATION(8, this)
-            return this.__BasicInfo
-        }
-    }
+    FileCacheInfo : MINIDUMP_SYSTEM_FILECACHE_INFORMATION
 
-    /**
-     * @type {MINIDUMP_SYSTEM_FILECACHE_INFORMATION}
-     */
-    FileCacheInfo {
-        get {
-            if(!this.HasProp("__FileCacheInfo"))
-                this.__FileCacheInfo := MINIDUMP_SYSTEM_FILECACHE_INFORMATION(64, this)
-            return this.__FileCacheInfo
-        }
-    }
+    BasicPerfInfo : MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION
 
-    /**
-     * @type {MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION}
-     */
-    BasicPerfInfo {
-        get {
-            if(!this.HasProp("__BasicPerfInfo"))
-                this.__BasicPerfInfo := MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION(128, this)
-            return this.__BasicPerfInfo
-        }
-    }
+    PerfInfo : MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION
 
-    /**
-     * @type {MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION}
-     */
-    PerfInfo {
-        get {
-            if(!this.HasProp("__PerfInfo"))
-                this.__PerfInfo := MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION(160, this)
-            return this.__PerfInfo
-        }
-    }
 }

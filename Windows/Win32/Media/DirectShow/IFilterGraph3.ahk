@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFilterGraph2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IReferenceClock.ahk" { IReferenceClock }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFilterGraph2.ahk" { IFilterGraph2 }
 
 /**
  * The IFilterGraph3 interface extends the IFilterGraph2 interface, which contains methods for building filter graphs.The Filter Graph Manager implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltergraph3
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFilterGraph3 extends IFilterGraph2 {
-
-    static sizeof => A_PtrSize
+export default struct IFilterGraph3 extends IFilterGraph2 {
     /**
      * The interface identifier for IFilterGraph3
      * @type {Guid}
      */
-    static IID => Guid("{aaf38154-b80b-422f-91e6-b66467509a07}")
+    static IID := Guid("{aaf38154-b80b-422f-91e6-b66467509a07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilterGraph3 interfaces
+    */
+    struct Vtbl extends IFilterGraph2.Vtbl {
+        SetSyncSourceEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSyncSourceEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilterGraph3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetSyncSourceEx method establishes two reference clocks for the filter graph:\_a primary clock that is used by most of the filters, and a secondary clock that is used only by one specified filter.
@@ -73,5 +83,25 @@ class IFilterGraph3 extends IFilterGraph2 {
     SetSyncSourceEx(pClockForMostOfFilterGraph, pClockForFilter, pFilter) {
         result := ComCall(21, this, "ptr", pClockForMostOfFilterGraph, "ptr", pClockForFilter, "ptr", pFilter, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFilterGraph3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSyncSourceEx := CallbackCreate(GetMethod(implObj, "SetSyncSourceEx"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSyncSourceEx)
     }
 }

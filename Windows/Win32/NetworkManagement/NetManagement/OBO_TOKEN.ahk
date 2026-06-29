@@ -1,61 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OBO_TOKEN_TYPE.ahk
-#Include .\INetCfgComponent.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import ".\OBO_TOKEN_TYPE.ahk" { OBO_TOKEN_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class OBO_TOKEN extends Win32Struct {
-    static sizeof => 48
+export default struct OBO_TOKEN {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : OBO_TOKEN_TYPE
 
-    /**
-     * @type {OBO_TOKEN_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    pncc : INetCfgComponent
 
-    /**
-     * @type {INetCfgComponent}
-     */
-    pncc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszwManufacturer : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszwManufacturer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszwProduct : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszwProduct {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszwDisplayName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszwDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    fRegistered : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fRegistered {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
 }

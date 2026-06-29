@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_TCPROW2.ahk
-#Include .\TCP_CONNECTION_OFFLOAD_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TCP_CONNECTION_OFFLOAD_STATE.ahk" { TCP_CONNECTION_OFFLOAD_STATE }
+#Import ".\MIB_TCPROW2.ahk" { MIB_TCPROW2 }
 
 /**
  * Contains a table of IPv4 TCP connections on the local computer.
@@ -14,30 +13,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcptable2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_TCPTABLE2 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct MIB_TCPTABLE2 {
+    #StructPack 4
 
     /**
      * The number of entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of TCP connections implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcprow2">MIB_TCPROW2</a> structures.
-     * @type {MIB_TCPROW2}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_TCPROW2, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_TCPROW2[1]
+
 }

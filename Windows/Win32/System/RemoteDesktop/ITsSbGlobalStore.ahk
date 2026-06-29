@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITsSbTarget.ahk
-#Include .\ITsSbSession.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Exposes methods that query for target computers, sessions, environments, and farms that have been added to the Remote Desktop Connection Broker (RD Connection Broker) store.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbglobalstore
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbGlobalStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbGlobalStore extends IUnknown {
     /**
      * The interface identifier for ITsSbGlobalStore
      * @type {Guid}
      */
-    static IID => Guid("{9ab60f7b-bd72-4d9f-8a3a-a0ea5574e635}")
+    static IID := Guid("{9ab60f7b-bd72-4d9f-8a3a-a0ea5574e635}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbGlobalStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryTarget                     : IntPtr
+        QuerySessionBySessionId         : IntPtr
+        EnumerateFarms                  : IntPtr
+        EnumerateTargets                : IntPtr
+        EnumerateEnvironmentsByProvider : IntPtr
+        EnumerateSessions               : IntPtr
+        GetFarmProperty                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryTarget", "QuerySessionBySessionId", "EnumerateFarms", "EnumerateTargets", "EnumerateEnvironmentsByProvider", "EnumerateSessions", "GetFarmProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbGlobalStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the ITsSbTarget object for the given parameters.
@@ -47,7 +66,7 @@ class ITsSbGlobalStore extends IUnknown {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
 
-        result := ComCall(3, this, "ptr", ProviderName, "ptr", TargetName, "ptr", FarmName, "ptr*", &ppTarget := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, ProviderName, BSTR, TargetName, BSTR, FarmName, "ptr*", &ppTarget := 0, "HRESULT")
         return ITsSbTarget(ppTarget)
     }
 
@@ -66,7 +85,7 @@ class ITsSbGlobalStore extends IUnknown {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "ptr", ProviderName, "uint", dwSessionId, "ptr", TargetName, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(4, this, BSTR, ProviderName, "uint", dwSessionId, BSTR, TargetName, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
     }
 
@@ -84,7 +103,7 @@ class ITsSbGlobalStore extends IUnknown {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
         pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
+        result := ComCall(5, this, BSTR, ProviderName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -104,7 +123,7 @@ class ITsSbGlobalStore extends IUnknown {
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(6, this, BSTR, ProviderName, BSTR, FarmName, BSTR, EnvName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -120,7 +139,7 @@ class ITsSbGlobalStore extends IUnknown {
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, ProviderName, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
         return ppVal
     }
 
@@ -148,7 +167,7 @@ class ITsSbGlobalStore extends IUnknown {
         pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, ProviderName, BSTR, targetName, BSTR, userName, BSTR, userDomain, BSTR, poolName, BSTR, initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
         return ppVal
     }
 
@@ -164,7 +183,39 @@ class ITsSbGlobalStore extends IUnknown {
         farmName := farmName is String ? BSTR.Alloc(farmName).Value : farmName
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(9, this, "ptr", farmName, "ptr", propertyName, "ptr", pVarValue, "HRESULT")
+        result := ComCall(9, this, BSTR, farmName, BSTR, propertyName, VARIANT.Ptr, pVarValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITsSbGlobalStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryTarget := CallbackCreate(GetMethod(implObj, "QueryTarget"), flags, 5)
+        this.vtbl.QuerySessionBySessionId := CallbackCreate(GetMethod(implObj, "QuerySessionBySessionId"), flags, 5)
+        this.vtbl.EnumerateFarms := CallbackCreate(GetMethod(implObj, "EnumerateFarms"), flags, 4)
+        this.vtbl.EnumerateTargets := CallbackCreate(GetMethod(implObj, "EnumerateTargets"), flags, 6)
+        this.vtbl.EnumerateEnvironmentsByProvider := CallbackCreate(GetMethod(implObj, "EnumerateEnvironmentsByProvider"), flags, 4)
+        this.vtbl.EnumerateSessions := CallbackCreate(GetMethod(implObj, "EnumerateSessions"), flags, 10)
+        this.vtbl.GetFarmProperty := CallbackCreate(GetMethod(implObj, "GetFarmProperty"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryTarget)
+        CallbackFree(this.vtbl.QuerySessionBySessionId)
+        CallbackFree(this.vtbl.EnumerateFarms)
+        CallbackFree(this.vtbl.EnumerateTargets)
+        CallbackFree(this.vtbl.EnumerateEnvironmentsByProvider)
+        CallbackFree(this.vtbl.EnumerateSessions)
+        CallbackFree(this.vtbl.GetFarmProperty)
     }
 }

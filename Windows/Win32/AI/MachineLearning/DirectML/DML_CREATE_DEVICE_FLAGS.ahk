@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Supplies additional device creation options to DMLCreateDevice. Values can be bitwise OR'd together.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_create_device_flags
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_CREATE_DEVICE_FLAGS extends Win32BitflagEnum {
+export default struct DML_CREATE_DEVICE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No creation options are specified.

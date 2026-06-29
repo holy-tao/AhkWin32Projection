@@ -1,107 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class TXFS_START_RM_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct TXFS_START_RM_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LogContainerSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LogContainerSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LogContainerCountMin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogContainerCountMin {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LogContainerCountMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogContainerCountMax {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    LogGrowthIncrement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogGrowthIncrement {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    LogAutoShrinkPercentage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogAutoShrinkPercentage {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    TmLogPathOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TmLogPathOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TmLogPathLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TmLogPathLength {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    LoggingMode : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LoggingMode {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    LogPathLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogPathLength {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    LogPath : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    LogPath {
-        get => StrGet(this.ptr + 44, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 0, "UTF-16")
-    }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow clients to reset or query the display state of the autocomplete drop-down list, which contains possible completions to a string entered by the user in an edit control.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iautocompletedropdown
  * @namespace Windows.Win32.UI.Shell
  */
-class IAutoCompleteDropDown extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAutoCompleteDropDown extends IUnknown {
     /**
      * The interface identifier for IAutoCompleteDropDown
      * @type {Guid}
      */
-    static IID => Guid("{3cd141f4-3c6a-11d2-bcaa-00c04fd929db}")
+    static IID := Guid("{3cd141f4-3c6a-11d2-bcaa-00c04fd929db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAutoCompleteDropDown interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDropDownStatus : IntPtr
+        ResetEnumerator   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDropDownStatus", "ResetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAutoCompleteDropDown.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the current display status of the autocomplete drop-down list.
@@ -68,5 +78,27 @@ class IAutoCompleteDropDown extends IUnknown {
     ResetEnumerator() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAutoCompleteDropDown.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDropDownStatus := CallbackCreate(GetMethod(implObj, "GetDropDownStatus"), flags, 3)
+        this.vtbl.ResetEnumerator := CallbackCreate(GetMethod(implObj, "ResetEnumerator"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDropDownStatus)
+        CallbackFree(this.vtbl.ResetEnumerator)
     }
 }

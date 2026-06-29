@@ -1,129 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include .\DOT11_ASSOCIATION_STATE.ahk
-#Include .\DOT11_POWER_MODE.ahk
-#Include .\DOT11_PEER_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_POWER_MODE.ahk" { DOT11_POWER_MODE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import ".\DOT11_PEER_STATISTICS.ahk" { DOT11_PEER_STATISTICS }
+#Import ".\DOT11_ASSOCIATION_STATE.ahk" { DOT11_ASSOCIATION_STATE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PEER_INFO extends Win32Struct {
-    static sizeof => 352
+export default struct DOT11_PEER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    MacAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MacAddress {
-        get {
-            if(!this.HasProp("__MacAddressProxyArray"))
-                this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__MacAddressProxyArray
-        }
-    }
+    usCapabilityInformation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usCapabilityInformation {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    AuthAlgo : DOT11_AUTH_ALGORITHM
 
-    /**
-     * @type {DOT11_AUTH_ALGORITHM}
-     */
-    AuthAlgo {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    UnicastCipherAlgo : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    UnicastCipherAlgo {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    MulticastCipherAlgo : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    MulticastCipherAlgo {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bWpsEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bWpsEnabled {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    usListenInterval : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usListenInterval {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    ucSupportedRates : Int8[255]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucSupportedRates {
-        get {
-            if(!this.HasProp("__ucSupportedRatesProxyArray"))
-                this.__ucSupportedRatesProxyArray := Win32FixedArray(this.ptr + 24, 255, Primitive, "char")
-            return this.__ucSupportedRatesProxyArray
-        }
-    }
+    usAssociationID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usAssociationID {
-        get => NumGet(this, 280, "ushort")
-        set => NumPut("ushort", value, this, 280)
-    }
+    AssociationState : DOT11_ASSOCIATION_STATE
 
-    /**
-     * @type {DOT11_ASSOCIATION_STATE}
-     */
-    AssociationState {
-        get => NumGet(this, 284, "int")
-        set => NumPut("int", value, this, 284)
-    }
+    PowerMode : DOT11_POWER_MODE
 
-    /**
-     * @type {DOT11_POWER_MODE}
-     */
-    PowerMode {
-        get => NumGet(this, 288, "int")
-        set => NumPut("int", value, this, 288)
-    }
+    liAssociationUpTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    liAssociationUpTime {
-        get => NumGet(this, 296, "int64")
-        set => NumPut("int64", value, this, 296)
-    }
+    Statistics : DOT11_PEER_STATISTICS
 
-    /**
-     * @type {DOT11_PEER_STATISTICS}
-     */
-    Statistics {
-        get {
-            if(!this.HasProp("__Statistics"))
-                this.__Statistics := DOT11_PEER_STATISTICS(304, this)
-            return this.__Statistics
-        }
-    }
 }

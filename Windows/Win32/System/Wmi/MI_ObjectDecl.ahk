@@ -1,87 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Qualifier.ahk
-#Include .\MI_PropertyDecl.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_PropertyDecl.ahk" { MI_PropertyDecl }
+#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 
 /**
  * Contains properties common to the MI_ClassDecl and MI_PropertyDecl structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_objectdecl
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_ObjectDecl extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MI_ObjectDecl {
+    #StructPack 8
 
     /**
      * Flags.
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
 
     /**
      * Hash code.
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    code : UInt32
 
     /**
      * Name of this feature.
-     * @type {Pointer<Integer>}
      */
-    name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    name : IntPtr
 
     /**
      * Describes metadata for classes and properties.
-     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
-    qualifiers {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    qualifiers : IntPtr
 
     /**
      * Length of <b>qualifiers</b> array.
-     * @type {Integer}
      */
-    numQualifiers {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    numQualifiers : UInt32
 
     /**
      * The properties of this object.
-     * @type {Pointer<Pointer<MI_PropertyDecl>>}
      */
-    properties {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    properties : IntPtr
 
     /**
      * The number of properties of this object.
-     * @type {Integer}
      */
-    numProperties {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    numProperties : UInt32
 
     /**
      * Size of the structure.
-     * @type {Integer}
      */
-    size {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    size : UInt32
+
 }

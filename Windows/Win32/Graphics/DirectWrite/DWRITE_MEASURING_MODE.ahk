@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the measuring method used for text layout.
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_MEASURING_MODE extends Win32Enum {
+export default struct DWRITE_MEASURING_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that text is measured using glyph ideal metrics whose values are independent to the current display resolution.

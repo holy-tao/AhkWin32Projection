@@ -1,33 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPEvents2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPBurnState.ahk" { WMPBurnState }
+#Import ".\WMPRipState.ahk" { WMPRipState }
+#Import ".\IWMPCdromRip.ahk" { IWMPCdromRip }
+#Import ".\IWMPEvents2.ahk" { IWMPEvents2 }
+#Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
+#Import ".\WMPStringCollectionChangeEventType.ahk" { WMPStringCollectionChangeEventType }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWMPCdromBurn.ahk" { IWMPCdromBurn }
+#Import ".\IWMPLibrary.ahk" { IWMPLibrary }
 
 /**
  * The IWMPEvents3 interface provides access to events originating from the Windows Media Player 11 control so that an application that has this control embedded in it can respond to these events.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents3
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPEvents3 extends IWMPEvents2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMPEvents3 extends IWMPEvents2 {
     /**
      * The interface identifier for IWMPEvents3
      * @type {Guid}
      */
-    static IID => Guid("{1f504270-a66b-4223-8e96-26a06c63d69f}")
+    static IID := Guid("{1f504270-a66b-4223-8e96-26a06c63d69f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 54
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPEvents3 interfaces
+    */
+    struct Vtbl extends IWMPEvents2.Vtbl {
+        CdromRipStateChange         : IntPtr
+        CdromRipMediaError          : IntPtr
+        CdromBurnStateChange        : IntPtr
+        CdromBurnMediaError         : IntPtr
+        CdromBurnError              : IntPtr
+        LibraryConnect              : IntPtr
+        LibraryDisconnect           : IntPtr
+        FolderScanStateChange       : IntPtr
+        StringCollectionChange      : IntPtr
+        MediaCollectionMediaAdded   : IntPtr
+        MediaCollectionMediaRemoved : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CdromRipStateChange", "CdromRipMediaError", "CdromBurnStateChange", "CdromBurnMediaError", "CdromBurnError", "LibraryConnect", "LibraryDisconnect", "FolderScanStateChange", "StringCollectionChange", "MediaCollectionMediaAdded", "MediaCollectionMediaRemoved"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPEvents3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The CdromRipStateChange event occurs when a CD ripping operation changes state.
@@ -41,7 +67,7 @@ class IWMPEvents3 extends IWMPEvents2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-cdromripstatechange
      */
     CdromRipStateChange(pCdromRip, wmprs) {
-        ComCall(54, this, "ptr", pCdromRip, "int", wmprs)
+        ComCall(54, this, "ptr", pCdromRip, WMPRipState, wmprs)
     }
 
     /**
@@ -71,7 +97,7 @@ class IWMPEvents3 extends IWMPEvents2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-cdromburnstatechange
      */
     CdromBurnStateChange(pCdromBurn, wmpbs) {
-        ComCall(56, this, "ptr", pCdromBurn, "int", wmpbs)
+        ComCall(56, this, "ptr", pCdromBurn, WMPBurnState, wmpbs)
     }
 
     /**
@@ -151,7 +177,7 @@ class IWMPEvents3 extends IWMPEvents2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-folderscanstatechange
      */
     FolderScanStateChange(wmpfss) {
-        ComCall(61, this, "int", wmpfss)
+        ComCall(61, this, WMPFolderScanState, wmpfss)
     }
 
     /**
@@ -175,7 +201,7 @@ class IWMPEvents3 extends IWMPEvents2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-stringcollectionchange
      */
     StringCollectionChange(pdispStringCollection, change, lCollectionIndex) {
-        ComCall(62, this, "ptr", pdispStringCollection, "int", change, "int", lCollectionIndex)
+        ComCall(62, this, "ptr", pdispStringCollection, WMPStringCollectionChangeEventType, change, "int", lCollectionIndex)
     }
 
     /**
@@ -208,5 +234,45 @@ class IWMPEvents3 extends IWMPEvents2 {
      */
     MediaCollectionMediaRemoved(pdispMedia) {
         ComCall(64, this, "ptr", pdispMedia)
+    }
+
+    Query(iid) {
+        if (IWMPEvents3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CdromRipStateChange := CallbackCreate(GetMethod(implObj, "CdromRipStateChange"), flags, 3)
+        this.vtbl.CdromRipMediaError := CallbackCreate(GetMethod(implObj, "CdromRipMediaError"), flags, 3)
+        this.vtbl.CdromBurnStateChange := CallbackCreate(GetMethod(implObj, "CdromBurnStateChange"), flags, 3)
+        this.vtbl.CdromBurnMediaError := CallbackCreate(GetMethod(implObj, "CdromBurnMediaError"), flags, 3)
+        this.vtbl.CdromBurnError := CallbackCreate(GetMethod(implObj, "CdromBurnError"), flags, 3)
+        this.vtbl.LibraryConnect := CallbackCreate(GetMethod(implObj, "LibraryConnect"), flags, 2)
+        this.vtbl.LibraryDisconnect := CallbackCreate(GetMethod(implObj, "LibraryDisconnect"), flags, 2)
+        this.vtbl.FolderScanStateChange := CallbackCreate(GetMethod(implObj, "FolderScanStateChange"), flags, 2)
+        this.vtbl.StringCollectionChange := CallbackCreate(GetMethod(implObj, "StringCollectionChange"), flags, 4)
+        this.vtbl.MediaCollectionMediaAdded := CallbackCreate(GetMethod(implObj, "MediaCollectionMediaAdded"), flags, 2)
+        this.vtbl.MediaCollectionMediaRemoved := CallbackCreate(GetMethod(implObj, "MediaCollectionMediaRemoved"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CdromRipStateChange)
+        CallbackFree(this.vtbl.CdromRipMediaError)
+        CallbackFree(this.vtbl.CdromBurnStateChange)
+        CallbackFree(this.vtbl.CdromBurnMediaError)
+        CallbackFree(this.vtbl.CdromBurnError)
+        CallbackFree(this.vtbl.LibraryConnect)
+        CallbackFree(this.vtbl.LibraryDisconnect)
+        CallbackFree(this.vtbl.FolderScanStateChange)
+        CallbackFree(this.vtbl.StringCollectionChange)
+        CallbackFree(this.vtbl.MediaCollectionMediaAdded)
+        CallbackFree(this.vtbl.MediaCollectionMediaRemoved)
     }
 }

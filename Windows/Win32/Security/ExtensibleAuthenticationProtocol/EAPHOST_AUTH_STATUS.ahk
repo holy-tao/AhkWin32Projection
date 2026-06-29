@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the set of possible EAP authentication session status values during the authentication process.
  * @see https://learn.microsoft.com/windows/win32/api/eaphostpeertypes/ne-eaphostpeertypes-eaphost_auth_status
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAPHOST_AUTH_STATUS extends Win32Enum {
+export default struct EAPHOST_AUTH_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The EAP authentication session is no longer valid.

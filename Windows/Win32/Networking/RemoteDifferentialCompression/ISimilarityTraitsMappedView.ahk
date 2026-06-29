@@ -1,40 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SimilarityMappedViewInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SimilarityMappedViewInfo.ahk" { SimilarityMappedViewInfo }
 
 /**
  * Provides methods that an RDC application can implement for manipulating a mapped view of a similarity traits table file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilaritytraitsmappedview
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  */
-class ISimilarityTraitsMappedView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISimilarityTraitsMappedView extends IUnknown {
     /**
      * The interface identifier for ISimilarityTraitsMappedView
      * @type {Guid}
      */
-    static IID => Guid("{96236a7c-9dbc-11da-9e3f-0011114ae311}")
+    static IID := Guid("{96236a7c-9dbc-11da-9e3f-0011114ae311}")
 
     /**
      * The class identifier for SimilarityTraitsMappedView
      * @type {Guid}
      */
-    static CLSID => Guid("{96236a95-9dbc-11da-9e3f-0011114ae311}")
+    static CLSID := Guid("{96236a95-9dbc-11da-9e3f-0011114ae311}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISimilarityTraitsMappedView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Flush   : IntPtr
+        Unmap   : IntPtr
+        Get     : IntPtr
+        GetView : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Flush", "Unmap", "Get", "GetView"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISimilarityTraitsMappedView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Writes to the disk any dirty pages within a mapped view of a similarity traits table file.
@@ -68,7 +80,7 @@ class ISimilarityTraitsMappedView extends IUnknown {
      */
     Get(index, dirty, numElements) {
         viewInfo := SimilarityMappedViewInfo()
-        result := ComCall(5, this, "uint", index, "int", dirty, "uint", numElements, "ptr", viewInfo, "HRESULT")
+        result := ComCall(5, this, "uint", index, BOOL, dirty, "uint", numElements, SimilarityMappedViewInfo.Ptr, viewInfo, "HRESULT")
         return viewInfo
     }
 
@@ -86,5 +98,31 @@ class ISimilarityTraitsMappedView extends IUnknown {
         mappedPageEndMarshal := mappedPageEnd is VarRef ? "ptr*" : "ptr"
 
         ComCall(6, this, mappedPageBeginMarshal, mappedPageBegin, mappedPageEndMarshal, mappedPageEnd)
+    }
+
+    Query(iid) {
+        if (ISimilarityTraitsMappedView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 5)
+        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.Unmap)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.GetView)
     }
 }

@@ -1,190 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_PD_DEVICE_INFO extends Win32Struct {
-    static sizeof => 112
+export default struct SCM_PD_DEVICE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DeviceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    UnsafeShutdownCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UnsafeShutdownCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PersistentMemorySizeInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PersistentMemorySizeInBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VolatileMemorySizeInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VolatileMemorySizeInBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TotalMemorySizeInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalMemorySizeInBytes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SlotNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SlotNumber {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DeviceHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceHandle {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    PhysicalId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalId {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    NumberOfFormatInterfaceCodes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfFormatInterfaceCodes {
-        get => NumGet(this, 58, "char")
-        set => NumPut("char", value, this, 58)
-    }
+    FormatInterfaceCodes : UInt16[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FormatInterfaceCodes {
-        get {
-            if(!this.HasProp("__FormatInterfaceCodesProxyArray"))
-                this.__FormatInterfaceCodesProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "ushort")
-            return this.__FormatInterfaceCodesProxyArray
-        }
-    }
+    VendorId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VendorId {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ProductId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProductId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SubsystemDeviceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubsystemDeviceId {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    SubsystemVendorId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubsystemVendorId {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ManufacturingLocation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ManufacturingLocation {
-        get => NumGet(this, 92, "char")
-        set => NumPut("char", value, this, 92)
-    }
+    ManufacturingWeek : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ManufacturingWeek {
-        get => NumGet(this, 93, "char")
-        set => NumPut("char", value, this, 93)
-    }
+    ManufacturingYear : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ManufacturingYear {
-        get => NumGet(this, 94, "char")
-        set => NumPut("char", value, this, 94)
-    }
+    SerialNumber4Byte : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SerialNumber4Byte {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    SerialNumberLengthInChars : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SerialNumberLengthInChars {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    SerialNumber : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    SerialNumber {
-        get => StrGet(this.ptr + 104, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 104, 0, "UTF-8")
-    }
 }

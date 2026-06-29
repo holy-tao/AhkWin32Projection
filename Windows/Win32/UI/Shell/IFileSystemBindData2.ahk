@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFileSystemBindData.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileSystemBindData.ahk" { IFileSystemBindData }
 
 /**
  * Extends IFileSystemBindData, which stores file system information for optimizing calls to IShellFolder::ParseDisplayName. This interface adds the ability set or get file ID or junction class identifier (CLSID).
@@ -36,26 +36,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata2
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileSystemBindData2 extends IFileSystemBindData {
-
-    static sizeof => A_PtrSize
+export default struct IFileSystemBindData2 extends IFileSystemBindData {
     /**
      * The interface identifier for IFileSystemBindData2
      * @type {Guid}
      */
-    static IID => Guid("{3acf075f-71db-4afa-81f0-3fc4fdf2a5b8}")
+    static IID := Guid("{3acf075f-71db-4afa-81f0-3fc4fdf2a5b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSystemBindData2 interfaces
+    */
+    struct Vtbl extends IFileSystemBindData.Vtbl {
+        SetFileID        : IntPtr
+        GetFileID        : IntPtr
+        SetJunctionCLSID : IntPtr
+        GetJunctionCLSID : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFileID", "GetFileID", "SetJunctionCLSID", "GetJunctionCLSID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSystemBindData2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the unique file identifier for the current file.
@@ -95,7 +105,7 @@ class IFileSystemBindData2 extends IFileSystemBindData {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-setjunctionclsid
      */
     SetJunctionCLSID(clsid) {
-        result := ComCall(7, this, "ptr", clsid, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -108,7 +118,33 @@ class IFileSystemBindData2 extends IFileSystemBindData {
      */
     GetJunctionCLSID() {
         pclsid := Guid()
-        result := ComCall(8, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pclsid, "HRESULT")
         return pclsid
+    }
+
+    Query(iid) {
+        if (IFileSystemBindData2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFileID := CallbackCreate(GetMethod(implObj, "SetFileID"), flags, 2)
+        this.vtbl.GetFileID := CallbackCreate(GetMethod(implObj, "GetFileID"), flags, 2)
+        this.vtbl.SetJunctionCLSID := CallbackCreate(GetMethod(implObj, "SetJunctionCLSID"), flags, 2)
+        this.vtbl.GetJunctionCLSID := CallbackCreate(GetMethod(implObj, "GetJunctionCLSID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFileID)
+        CallbackFree(this.vtbl.GetFileID)
+        CallbackFree(this.vtbl.SetJunctionCLSID)
+        CallbackFree(this.vtbl.GetJunctionCLSID)
     }
 }

@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class D3COLD_SUPPORT_INTERFACE extends Win32Struct {
-    static sizeof => 72
+export default struct D3COLD_SUPPORT_INTERFACE {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InterfaceReference : IntPtr
 
-    /**
-     * @type {Pointer<PINTERFACE_REFERENCE>}
-     */
-    InterfaceReference {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InterfaceDereference : IntPtr
 
-    /**
-     * @type {Pointer<PINTERFACE_DEREFERENCE>}
-     */
-    InterfaceDereference {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SetD3ColdSupport : IntPtr
 
-    /**
-     * @type {Pointer<PSET_D3COLD_SUPPORT>}
-     */
-    SetD3ColdSupport {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    GetIdleWakeInfo : IntPtr
 
-    /**
-     * @type {Pointer<PGET_IDLE_WAKE_INFO>}
-     */
-    GetIdleWakeInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    GetD3ColdCapability : IntPtr
 
-    /**
-     * @type {Pointer<PGET_D3COLD_CAPABILITY>}
-     */
-    GetD3ColdCapability {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    GetBusDriverD3ColdSupport : IntPtr
 
-    /**
-     * @type {Pointer<PGET_D3COLD_CAPABILITY>}
-     */
-    GetBusDriverD3ColdSupport {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    GetLastTransitionStatus : IntPtr
 
-    /**
-     * @type {Pointer<PGET_D3COLD_LAST_TRANSITION_STATUS>}
-     */
-    GetLastTransitionStatus {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

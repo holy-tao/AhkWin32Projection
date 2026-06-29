@@ -1,44 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_NODE_TYPE.ahk
-#Include .\D3D12_SHADER_NODE.ahk
-#Include .\D3D12_NODE_OVERRIDES_TYPE.ahk
-#Include .\D3D12_BROADCASTING_LAUNCH_OVERRIDES.ahk
-#Include .\D3D12_COALESCING_LAUNCH_OVERRIDES.ahk
-#Include .\D3D12_THREAD_LAUNCH_OVERRIDES.ahk
-#Include .\D3D12_COMMON_COMPUTE_NODE_OVERRIDES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_NODE_OVERRIDES_TYPE.ahk" { D3D12_NODE_OVERRIDES_TYPE }
+#Import ".\D3D12_THREAD_LAUNCH_OVERRIDES.ahk" { D3D12_THREAD_LAUNCH_OVERRIDES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_COMMON_COMPUTE_NODE_OVERRIDES.ahk" { D3D12_COMMON_COMPUTE_NODE_OVERRIDES }
+#Import ".\D3D12_COALESCING_LAUNCH_OVERRIDES.ahk" { D3D12_COALESCING_LAUNCH_OVERRIDES }
+#Import ".\D3D12_SHADER_NODE.ahk" { D3D12_SHADER_NODE }
+#Import ".\D3D12_BROADCASTING_LAUNCH_OVERRIDES.ahk" { D3D12_BROADCASTING_LAUNCH_OVERRIDES }
+#Import ".\D3D12_NODE_TYPE.ahk" { D3D12_NODE_TYPE }
 
 /**
- * A state subobject that identifies the GPU nodes to which the state object applies.
- * @remarks
- * This subobject is optional. In its absence, the state object applies to all available nodes.  If a node mask subobject has been associated with any part of a state object, a node mask association must be made to all exports in a state object (including imported collections) and all node mask subobjects that are referenced must have matching content.
- * 
- * > [!IMPORTANT]
- * > On some versions of the DirectX Runtime, specifying a node via **D3D12_NODE_MASK** in a [**D3D12_STATE_SUBOBJECT**](/windows/win32/api/d3d12/ns-d3d12-d3d12_state_subobject) with type [**D3D12_STATE_SUBOBJECT_TYPE_NODE_MASK**](/windows/win32/api/d3d12/ne-d3d12-d3d12_state_subobject_type), the runtime will incorrectly handle a node mask value of `0`, which should use node #1, which will lead to errors when attempting to use the state object later. Specify an explicit node value of 1, or omit the **D3D12_NODE_MASK** subobject to avoid this issue.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_node_mask
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_NODE extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_NODE {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeType : D3D12_NODE_TYPE
 
-    /**
-     * @type {D3D12_NODE_TYPE}
-     */
-    NodeType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Shader : D3D12_SHADER_NODE
 
-    /**
-     * @type {D3D12_SHADER_NODE}
-     */
-    Shader {
-        get {
-            if(!this.HasProp("__Shader"))
-                this.__Shader := D3D12_SHADER_NODE(8, this)
-            return this.__Shader
-        }
-    }
 }

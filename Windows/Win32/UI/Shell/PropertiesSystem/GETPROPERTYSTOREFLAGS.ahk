@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates flags that modify the property store object retrieved by methods that create a property store, such as IShellItem2::GetPropertyStore or IPropertyStoreFactory::GetPropertyStore.
@@ -19,7 +18,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-getpropertystoreflags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class GETPROPERTYSTOREFLAGS extends Win32BitflagEnum {
+export default struct GETPROPERTYSTOREFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Meaning to a calling process: Return a read-only property store that contains all properties. Slow items (offline files) are not opened. 

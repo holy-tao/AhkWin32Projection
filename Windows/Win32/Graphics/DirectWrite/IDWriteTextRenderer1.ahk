@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextRenderer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_UNDERLINE.ahk" { DWRITE_UNDERLINE }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_STRIKETHROUGH.ahk" { DWRITE_STRIKETHROUGH }
+#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwritetextrenderer1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextRenderer1 extends IDWriteTextRenderer {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
     /**
      * The interface identifier for IDWriteTextRenderer1
      * @type {Guid}
      */
-    static IID => Guid("{d3e0e934-22a0-427e-aae4-7d9574b59db1}")
+    static IID := Guid("{d3e0e934-22a0-427e-aae4-7d9574b59db1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextRenderer1 interfaces
+    */
+    struct Vtbl extends IDWriteTextRenderer.Vtbl {
+        DrawGlyphRun      : IntPtr
+        DrawUnderline     : IntPtr
+        DrawStrikethrough : IntPtr
+        DrawInlineObject  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DrawGlyphRun", "DrawUnderline", "DrawStrikethrough", "DrawInlineObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextRenderer1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IDWriteTextLayout::Draw calls this function to instruct the client to render a run of glyphs. (IDWriteTextRenderer1.DrawGlyphRun)
@@ -67,7 +87,7 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, measuringMode, _glyphRun, glyphRunDescription, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "int", measuringMode, "ptr", _glyphRun, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -112,7 +132,7 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, underline, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", underline, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_UNDERLINE.Ptr, underline, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -153,7 +173,7 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, strikethrough, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_STRIKETHROUGH.Ptr, strikethrough, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -191,7 +211,33 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawInlineObject(clientDrawingContext, originX, originY, orientationAngle, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, "int", orientationAngle, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextRenderer1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 9)
+        this.vtbl.DrawUnderline := CallbackCreate(GetMethod(implObj, "DrawUnderline"), flags, 7)
+        this.vtbl.DrawStrikethrough := CallbackCreate(GetMethod(implObj, "DrawStrikethrough"), flags, 7)
+        this.vtbl.DrawInlineObject := CallbackCreate(GetMethod(implObj, "DrawInlineObject"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DrawGlyphRun)
+        CallbackFree(this.vtbl.DrawUnderline)
+        CallbackFree(this.vtbl.DrawStrikethrough)
+        CallbackFree(this.vtbl.DrawInlineObject)
     }
 }

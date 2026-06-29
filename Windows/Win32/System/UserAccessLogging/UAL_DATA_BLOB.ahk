@@ -1,63 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Specifies information about a User Access Logging (UAL) session.
  * @see https://learn.microsoft.com/windows/win32/api/ual/ns-ual-ual_data_blob
  * @namespace Windows.Win32.System.UserAccessLogging
  */
-class UAL_DATA_BLOB extends Win32Struct {
-    static sizeof => 672
-
-    static packingSize => 8
+export default struct UAL_DATA_BLOB {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that represents the role or minor product name associated with a UAL session.
-     * @type {Pointer}
      */
-    RoleGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RoleGuid : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies a tenant of a hosted environment. This can be used to differentiate client tenants when more than one tenant uses the same host service.
-     * @type {Pointer}
      */
-    TenantId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    TenantId : Guid
 
     /**
      * The IP address of the client that accompanies the UAL payload from installed roles and products.
-     * @type {SOCKADDR_STORAGE}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_STORAGE(24, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKADDR_STORAGE
 
     /**
      * The name of the client user that accompanies the UAL payload from installed roles and products..
-     * @type {String}
      */
-    UserName {
-        get => StrGet(this.ptr + 152, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 152, 259, "UTF-16")
-    }
+    UserName : WCHAR[260]
+
 }

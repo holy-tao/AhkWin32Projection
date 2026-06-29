@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_NAMES_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_NAMES_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FileIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FileNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileNameLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FileName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
-    }
 }

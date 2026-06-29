@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellFolderViewDual.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellFolderViewDual.ahk" { IShellFolderViewDual }
 
 /**
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual2)
@@ -10,26 +11,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-ishellfolderviewdual2
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFolderViewDual2 extends IShellFolderViewDual {
-
-    static sizeof => A_PtrSize
+export default struct IShellFolderViewDual2 extends IShellFolderViewDual {
     /**
      * The interface identifier for IShellFolderViewDual2
      * @type {Guid}
      */
-    static IID => Guid("{31c147b6-0ade-4a3c-b514-ddf932ef6d17}")
+    static IID := Guid("{31c147b6-0ade-4a3c-b514-ddf932ef6d17}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFolderViewDual2 interfaces
+    */
+    struct Vtbl extends IShellFolderViewDual.Vtbl {
+        get_CurrentViewMode : IntPtr
+        put_CurrentViewMode : IntPtr
+        SelectItemRelative  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentViewMode", "put_CurrentViewMode", "SelectItemRelative"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFolderViewDual2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -81,5 +91,29 @@ class IShellFolderViewDual2 extends IShellFolderViewDual {
     SelectItemRelative(iRelative) {
         result := ComCall(18, this, "int", iRelative, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellFolderViewDual2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentViewMode := CallbackCreate(GetMethod(implObj, "get_CurrentViewMode"), flags, 2)
+        this.vtbl.put_CurrentViewMode := CallbackCreate(GetMethod(implObj, "put_CurrentViewMode"), flags, 2)
+        this.vtbl.SelectItemRelative := CallbackCreate(GetMethod(implObj, "SelectItemRelative"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentViewMode)
+        CallbackFree(this.vtbl.put_CurrentViewMode)
+        CallbackFree(this.vtbl.SelectItemRelative)
     }
 }

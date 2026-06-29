@@ -1,52 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PROCESS_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class PROCESS_LIST extends Win32Struct {
-    static sizeof => 24
+export default struct PROCESS_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    lpLink : PROCESS_LIST.Ptr
 
-    /**
-     * @type {Pointer<PROCESS_LIST>}
-     */
-    lpLink {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRefCnt {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwAlphaDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaDepth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwZDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwZDepth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

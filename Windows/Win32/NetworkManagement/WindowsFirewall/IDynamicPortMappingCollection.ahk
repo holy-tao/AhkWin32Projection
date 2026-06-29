@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDynamicPortMapping.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDynamicPortMapping.ahk" { IDynamicPortMapping }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class IDynamicPortMappingCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDynamicPortMappingCollection extends IDispatch {
     /**
      * The interface identifier for IDynamicPortMappingCollection
      * @type {Guid}
      */
-    static IID => Guid("{b60de00f-156e-4e8d-9ec1-3a2342c10899}")
+    static IID := Guid("{b60de00f-156e-4e8d-9ec1-3a2342c10899}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDynamicPortMappingCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        get_Count    : IntPtr
+        Remove       : IntPtr
+        Add          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Remove", "Add"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDynamicPortMappingCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -63,7 +77,7 @@ class IDynamicPortMappingCollection extends IDispatch {
         bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(8, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", &ppDPM := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrRemoteHost, "int", lExternalPort, BSTR, bstrProtocol, "ptr*", &ppDPM := 0, "HRESULT")
         return IDynamicPortMapping(ppDPM)
     }
 
@@ -77,42 +91,22 @@ class IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(bstrRemoteHost, lExternalPort, bstrProtocol) {
         bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(10, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrRemoteHost, "int", lExternalPort, BSTR, bstrProtocol, "HRESULT")
         return result
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -122,7 +116,6 @@ class IDynamicPortMappingCollection extends IDispatch {
      * @param {BSTR} bstrDescription 
      * @param {Integer} lLeaseDuration 
      * @returns {IDynamicPortMapping} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(bstrRemoteHost, lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription, lLeaseDuration) {
         bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
@@ -130,7 +123,35 @@ class IDynamicPortMappingCollection extends IDispatch {
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(11, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "int", lLeaseDuration, "ptr*", &ppDPM := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrRemoteHost, "int", lExternalPort, BSTR, bstrProtocol, "int", lInternalPort, BSTR, bstrInternalClient, VARIANT_BOOL, bEnabled, BSTR, bstrDescription, "int", lLeaseDuration, "ptr*", &ppDPM := 0, "HRESULT")
         return IDynamicPortMapping(ppDPM)
+    }
+
+    Query(iid) {
+        if (IDynamicPortMappingCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 5)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 4)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Add)
     }
 }

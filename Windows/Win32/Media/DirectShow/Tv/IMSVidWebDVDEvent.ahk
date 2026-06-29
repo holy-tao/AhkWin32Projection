@@ -1,31 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidPlaybackEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DVDMenuIDConstants.ahk" { DVDMenuIDConstants }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMSVidPlaybackEvent.ahk" { IMSVidPlaybackEvent }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     /**
      * The interface identifier for IMSVidWebDVDEvent
      * @type {Guid}
      */
-    static IID => Guid("{b4f7a674-9b83-49cb-a357-c63b871be958}")
+    static IID := Guid("{b4f7a674-9b83-49cb-a357-c63b871be958}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidWebDVDEvent interfaces
+    */
+    struct Vtbl extends IMSVidPlaybackEvent.Vtbl {
+        DVDNotify                     : IntPtr
+        PlayForwards                  : IntPtr
+        PlayBackwards                 : IntPtr
+        ShowMenu                      : IntPtr
+        Resume                        : IntPtr
+        SelectOrActivateButton        : IntPtr
+        StillOff                      : IntPtr
+        PauseOn                       : IntPtr
+        ChangeCurrentAudioStream      : IntPtr
+        ChangeCurrentSubpictureStream : IntPtr
+        ChangeCurrentAngle            : IntPtr
+        PlayAtTimeInTitle             : IntPtr
+        PlayAtTime                    : IntPtr
+        PlayChapterInTitle            : IntPtr
+        PlayChapter                   : IntPtr
+        ReplayChapter                 : IntPtr
+        PlayNextChapter               : IntPtr
+        Stop                          : IntPtr
+        ReturnFromSubmenu             : IntPtr
+        PlayTitle                     : IntPtr
+        PlayPrevChapter               : IntPtr
+        ChangeKaraokePresMode         : IntPtr
+        ChangeVideoPresMode           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DVDNotify", "PlayForwards", "PlayBackwards", "ShowMenu", "Resume", "SelectOrActivateButton", "StillOff", "PauseOn", "ChangeCurrentAudioStream", "ChangeCurrentSubpictureStream", "ChangeCurrentAngle", "PlayAtTimeInTitle", "PlayAtTime", "PlayChapterInTitle", "PlayChapter", "ReplayChapter", "PlayNextChapter", "Stop", "ReturnFromSubmenu", "PlayTitle", "PlayPrevChapter", "ChangeKaraokePresMode", "ChangeVideoPresMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidWebDVDEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The DVDNotify event notifies an application of many different DVD events and disc instructions.
@@ -54,7 +87,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/dvdnotify
      */
     DVDNotify(lEventCode, lParam1, lParam2) {
-        result := ComCall(8, this, "int", lEventCode, "ptr", lParam1, "ptr", lParam2, "HRESULT")
+        result := ComCall(8, this, "int", lEventCode, VARIANT, lParam1, VARIANT, lParam2, "HRESULT")
         return result
     }
 
@@ -71,7 +104,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playforwards-method
      */
     PlayForwards(bEnabled) {
-        result := ComCall(9, this, "short", bEnabled, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -88,7 +121,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playbackwards-method
      */
     PlayBackwards(bEnabled) {
-        result := ComCall(10, this, "short", bEnabled, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -123,7 +156,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/showmenu-method
      */
     ShowMenu(MenuID, bEnabled) {
-        result := ComCall(11, this, "int", MenuID, "short", bEnabled, "HRESULT")
+        result := ComCall(11, this, DVDMenuIDConstants, MenuID, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -134,7 +167,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume(bEnabled) {
-        result := ComCall(12, this, "short", bEnabled, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -144,7 +177,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @returns {HRESULT} 
      */
     SelectOrActivateButton(bEnabled) {
-        result := ComCall(13, this, "short", bEnabled, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -157,7 +190,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/stilloff-method
      */
     StillOff(bEnabled) {
-        result := ComCall(14, this, "short", bEnabled, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -167,7 +200,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @returns {HRESULT} 
      */
     PauseOn(bEnabled) {
-        result := ComCall(15, this, "short", bEnabled, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -178,7 +211,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/changecurrentaudiostream
      */
     ChangeCurrentAudioStream(bEnabled) {
-        result := ComCall(16, this, "short", bEnabled, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -189,7 +222,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/changecurrentsubpicturestream
      */
     ChangeCurrentSubpictureStream(bEnabled) {
-        result := ComCall(17, this, "short", bEnabled, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -200,7 +233,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/changecurrentangle
      */
     ChangeCurrentAngle(bEnabled) {
-        result := ComCall(18, this, "short", bEnabled, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -222,7 +255,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playattimeintitle-method
      */
     PlayAtTimeInTitle(bEnabled) {
-        result := ComCall(19, this, "short", bEnabled, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -239,7 +272,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playattime-method
      */
     PlayAtTime(bEnabled) {
-        result := ComCall(20, this, "short", bEnabled, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -263,7 +296,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playchapterintitle-method
      */
     PlayChapterInTitle(bEnabled) {
-        result := ComCall(21, this, "short", bEnabled, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -282,7 +315,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playchapter-method
      */
     PlayChapter(bEnabled) {
-        result := ComCall(22, this, "short", bEnabled, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -293,7 +326,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/replaychapter-method
      */
     ReplayChapter(bEnabled) {
-        result := ComCall(23, this, "short", bEnabled, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -304,22 +337,17 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playnextchapter-method
      */
     PlayNextChapter(bEnabled) {
-        result := ComCall(24, this, "short", bEnabled, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop(bEnabled) {
-        result := ComCall(25, this, "short", bEnabled, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -330,7 +358,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/returnfromsubmenu-method
      */
     ReturnFromSubmenu(bEnabled) {
-        result := ComCall(26, this, "short", bEnabled, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -347,7 +375,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playtitle-method
      */
     PlayTitle(bEnabled) {
-        result := ComCall(27, this, "short", bEnabled, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -358,7 +386,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playprevchapter-method
      */
     PlayPrevChapter(bEnabled) {
-        result := ComCall(28, this, "short", bEnabled, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -368,7 +396,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @returns {HRESULT} 
      */
     ChangeKaraokePresMode(bEnabled) {
-        result := ComCall(29, this, "short", bEnabled, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -378,7 +406,71 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @returns {HRESULT} 
      */
     ChangeVideoPresMode(bEnabled) {
-        result := ComCall(30, this, "short", bEnabled, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidWebDVDEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DVDNotify := CallbackCreate(GetMethod(implObj, "DVDNotify"), flags, 4)
+        this.vtbl.PlayForwards := CallbackCreate(GetMethod(implObj, "PlayForwards"), flags, 2)
+        this.vtbl.PlayBackwards := CallbackCreate(GetMethod(implObj, "PlayBackwards"), flags, 2)
+        this.vtbl.ShowMenu := CallbackCreate(GetMethod(implObj, "ShowMenu"), flags, 3)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.SelectOrActivateButton := CallbackCreate(GetMethod(implObj, "SelectOrActivateButton"), flags, 2)
+        this.vtbl.StillOff := CallbackCreate(GetMethod(implObj, "StillOff"), flags, 2)
+        this.vtbl.PauseOn := CallbackCreate(GetMethod(implObj, "PauseOn"), flags, 2)
+        this.vtbl.ChangeCurrentAudioStream := CallbackCreate(GetMethod(implObj, "ChangeCurrentAudioStream"), flags, 2)
+        this.vtbl.ChangeCurrentSubpictureStream := CallbackCreate(GetMethod(implObj, "ChangeCurrentSubpictureStream"), flags, 2)
+        this.vtbl.ChangeCurrentAngle := CallbackCreate(GetMethod(implObj, "ChangeCurrentAngle"), flags, 2)
+        this.vtbl.PlayAtTimeInTitle := CallbackCreate(GetMethod(implObj, "PlayAtTimeInTitle"), flags, 2)
+        this.vtbl.PlayAtTime := CallbackCreate(GetMethod(implObj, "PlayAtTime"), flags, 2)
+        this.vtbl.PlayChapterInTitle := CallbackCreate(GetMethod(implObj, "PlayChapterInTitle"), flags, 2)
+        this.vtbl.PlayChapter := CallbackCreate(GetMethod(implObj, "PlayChapter"), flags, 2)
+        this.vtbl.ReplayChapter := CallbackCreate(GetMethod(implObj, "ReplayChapter"), flags, 2)
+        this.vtbl.PlayNextChapter := CallbackCreate(GetMethod(implObj, "PlayNextChapter"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.ReturnFromSubmenu := CallbackCreate(GetMethod(implObj, "ReturnFromSubmenu"), flags, 2)
+        this.vtbl.PlayTitle := CallbackCreate(GetMethod(implObj, "PlayTitle"), flags, 2)
+        this.vtbl.PlayPrevChapter := CallbackCreate(GetMethod(implObj, "PlayPrevChapter"), flags, 2)
+        this.vtbl.ChangeKaraokePresMode := CallbackCreate(GetMethod(implObj, "ChangeKaraokePresMode"), flags, 2)
+        this.vtbl.ChangeVideoPresMode := CallbackCreate(GetMethod(implObj, "ChangeVideoPresMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DVDNotify)
+        CallbackFree(this.vtbl.PlayForwards)
+        CallbackFree(this.vtbl.PlayBackwards)
+        CallbackFree(this.vtbl.ShowMenu)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.SelectOrActivateButton)
+        CallbackFree(this.vtbl.StillOff)
+        CallbackFree(this.vtbl.PauseOn)
+        CallbackFree(this.vtbl.ChangeCurrentAudioStream)
+        CallbackFree(this.vtbl.ChangeCurrentSubpictureStream)
+        CallbackFree(this.vtbl.ChangeCurrentAngle)
+        CallbackFree(this.vtbl.PlayAtTimeInTitle)
+        CallbackFree(this.vtbl.PlayAtTime)
+        CallbackFree(this.vtbl.PlayChapterInTitle)
+        CallbackFree(this.vtbl.PlayChapter)
+        CallbackFree(this.vtbl.ReplayChapter)
+        CallbackFree(this.vtbl.PlayNextChapter)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.ReturnFromSubmenu)
+        CallbackFree(this.vtbl.PlayTitle)
+        CallbackFree(this.vtbl.PlayPrevChapter)
+        CallbackFree(this.vtbl.ChangeKaraokePresMode)
+        CallbackFree(this.vtbl.ChangeVideoPresMode)
     }
 }

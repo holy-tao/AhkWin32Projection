@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Texture3D.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11Texture3D.ahk" { ID3D11Texture3D }
+#Import ".\D3D11_TEXTURE3D_DESC1.ahk" { D3D11_TEXTURE3D_DESC1 }
 
 /**
  * A 3D texture interface represents texel data, which is structured memory.
@@ -12,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11texture3d1
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Texture3D1 extends ID3D11Texture3D {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Texture3D1 extends ID3D11Texture3D {
     /**
      * The interface identifier for ID3D11Texture3D1
      * @type {Guid}
      */
-    static IID => Guid("{0c711683-2853-4846-9bb0-f3e60639e46a}")
+    static IID := Guid("{0c711683-2853-4846-9bb0-f3e60639e46a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Texture3D1 interfaces
+    */
+    struct Vtbl extends ID3D11Texture3D.Vtbl {
+        GetDesc1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Texture3D1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the properties of the texture resource. (ID3D11Texture3D1.GetDesc1)
@@ -42,6 +50,26 @@ class ID3D11Texture3D1 extends ID3D11Texture3D {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11texture3d1-getdesc1
      */
     GetDesc1(pDesc) {
-        ComCall(11, this, "ptr", pDesc)
+        ComCall(11, this, D3D11_TEXTURE3D_DESC1.Ptr, pDesc)
+    }
+
+    Query(iid) {
+        if (ID3D11Texture3D1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc1)
     }
 }

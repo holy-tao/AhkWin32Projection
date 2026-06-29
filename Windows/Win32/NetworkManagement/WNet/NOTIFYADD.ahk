@@ -1,51 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NETRESOURCEA.ahk
-#Include .\NET_RESOURCE_SCOPE.ahk
-#Include .\NET_RESOURCE_TYPE.ahk
-#Include .\NET_CONNECT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
+#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NET_CONNECT_FLAGS.ahk" { NET_CONNECT_FLAGS }
+#Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The NOTIFYADD structure contains the details of a network connect operation. It is used by the AddConnectNotify function.
  * @see https://learn.microsoft.com/windows/win32/api/npapi/ns-npapi-notifyadd
  * @namespace Windows.Win32.NetworkManagement.WNet
  */
-class NOTIFYADD extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct NOTIFYADD {
+    #StructPack 8
 
     /**
      * A handle to a window which should own any messages or dialog boxes the application receiving the notification might display.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(0, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Specifies the network resource to connect to. The valid fields are the same as for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> function.
-     * @type {NETRESOURCEA}
      */
-    NetResource {
-        get {
-            if(!this.HasProp("__NetResource"))
-                this.__NetResource := NETRESOURCEA(8, this)
-            return this.__NetResource
-        }
-    }
+    NetResource : NETRESOURCEA
 
-    /**
-     * @type {NET_CONNECT_FLAGS}
-     */
-    dwAddFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwAddFlags : NET_CONNECT_FLAGS
+
 }

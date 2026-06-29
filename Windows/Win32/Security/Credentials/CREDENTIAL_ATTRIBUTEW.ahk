@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The CREDENTIAL_ATTRIBUTE structure contains an application-defined attribute of the credential. An attribute is a keyword-value pair. It is up to the application to define the meaning of the attribute. (Unicode)
@@ -10,10 +10,8 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class CREDENTIAL_ATTRIBUTEW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CREDENTIAL_ATTRIBUTEW {
+    #StructPack 8
 
     /**
      * Name of the application-specific attribute. Names should be of the form &lt;CompanyName&gt;_&lt;Name&gt;. 
@@ -22,30 +20,18 @@ class CREDENTIAL_ATTRIBUTEW extends Win32Struct {
      * 
      * 
      * This member cannot be longer than CRED_MAX_STRING_LENGTH (256) characters.
-     * @type {PWSTR}
      */
-    Keyword {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Keyword : PWSTR
 
     /**
      * Identifies characteristics of the credential attribute. This member is reserved and should be originally initialized as zero and not otherwise altered to permit future enhancement.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * Length of <b>Value</b> in bytes. This member cannot be larger than CRED_MAX_VALUE_SIZE (256).
-     * @type {Integer}
      */
-    ValueSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ValueSize : UInt32
 
     /**
      * Data associated with the attribute. By convention, if <b>Value</b> is a text string, then  <b>Value</b> should not include the trailing zero character and should be in UNICODE. 
@@ -54,10 +40,7 @@ class CREDENTIAL_ATTRIBUTEW extends Win32Struct {
      * 
      * 
      * Credentials are expected to be portable. The application should take care to ensure that the data in value is portable. It is the responsibility of the application to define the byte-endian and alignment of the data in <b>Value</b>.
-     * @type {Pointer<Integer>}
      */
-    Value {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Value : IntPtr
+
 }

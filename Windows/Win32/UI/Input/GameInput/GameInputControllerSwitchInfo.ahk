@@ -1,91 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputKind.ahk
-#Include .\GameInputLabel.ahk
-#Include .\GameInputSwitchKind.ahk
-#Include .\GameInputRawDeviceReportInfo.ahk
-#Include .\GameInputRawDeviceReportItemInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputSwitchKind.ahk" { GameInputSwitchKind }
+#Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputRawDeviceReportItemInfo.ahk" { GameInputRawDeviceReportItemInfo }
+#Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputControllerSwitchInfo extends Win32Struct {
-    static sizeof => 72
+export default struct GameInputControllerSwitchInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    mappedInputKinds : GameInputKind
 
-    /**
-     * @type {GameInputKind}
-     */
-    mappedInputKinds {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    label {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    positionLabels : GameInputLabel[9]
 
-    /**
-     * @type {Array<GameInputLabel>}
-     */
-    positionLabels {
-        get {
-            if(!this.HasProp("__positionLabelsProxyArray"))
-                this.__positionLabelsProxyArray := Win32FixedArray(this.ptr + 8, 9, Primitive, "int")
-            return this.__positionLabelsProxyArray
-        }
-    }
+    kind : GameInputSwitchKind
 
-    /**
-     * @type {GameInputSwitchKind}
-     */
-    kind {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    legacyDInputIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    legacyDInputIndex {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    legacyHidIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    legacyHidIndex {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    rawReportIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rawReportIndex {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    inputReport : GameInputRawDeviceReportInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportInfo>}
-     */
-    inputReport {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    inputReportItem : GameInputRawDeviceReportItemInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportItemInfo>}
-     */
-    inputReportItem {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

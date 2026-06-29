@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAzTask.ahk
-#Include .\IAzRoleAssignments.ahk
-#Include .\IAzRoleDefinitions.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IAzTask.ahk" { IAzTask }
+#Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
 
 /**
  * Represents one or more IAzRoleDefinition, IAzTask, and IAzOperation objects that specify a set of operations.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazroledefinition
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzRoleDefinition extends IAzTask {
-
-    static sizeof => A_PtrSize
+export default struct IAzRoleDefinition extends IAzTask {
     /**
      * The interface identifier for IAzRoleDefinition
      * @type {Guid}
      */
-    static IID => Guid("{d97fcea1-2599-44f1-9fc3-58e9fbe09466}")
+    static IID := Guid("{d97fcea1-2599-44f1-9fc3-58e9fbe09466}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzRoleDefinition interfaces
+    */
+    struct Vtbl extends IAzTask.Vtbl {
+        RoleAssignments      : IntPtr
+        AddRoleDefinition    : IntPtr
+        DeleteRoleDefinition : IntPtr
+        get_RoleDefinitions  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RoleAssignments", "AddRoleDefinition", "DeleteRoleDefinition", "get_RoleDefinitions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzRoleDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IAzRoleDefinitions} 
@@ -48,7 +61,7 @@ class IAzRoleDefinition extends IAzTask {
     RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(33, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrScopeName, VARIANT_BOOL, bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
         return IAzRoleAssignments(ppRoleAssignments)
     }
 
@@ -65,7 +78,7 @@ class IAzRoleDefinition extends IAzTask {
     AddRoleDefinition(bstrRoleDefinition) {
         bstrRoleDefinition := bstrRoleDefinition is String ? BSTR.Alloc(bstrRoleDefinition).Value : bstrRoleDefinition
 
-        result := ComCall(34, this, "ptr", bstrRoleDefinition, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrRoleDefinition, "HRESULT")
         return result
     }
 
@@ -82,7 +95,7 @@ class IAzRoleDefinition extends IAzTask {
     DeleteRoleDefinition(bstrRoleDefinition) {
         bstrRoleDefinition := bstrRoleDefinition is String ? BSTR.Alloc(bstrRoleDefinition).Value : bstrRoleDefinition
 
-        result := ComCall(35, this, "ptr", bstrRoleDefinition, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrRoleDefinition, "HRESULT")
         return result
     }
 
@@ -94,5 +107,31 @@ class IAzRoleDefinition extends IAzTask {
     get_RoleDefinitions() {
         result := ComCall(36, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
         return IAzRoleDefinitions(ppRoleDefinitions)
+    }
+
+    Query(iid) {
+        if (IAzRoleDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RoleAssignments := CallbackCreate(GetMethod(implObj, "RoleAssignments"), flags, 4)
+        this.vtbl.AddRoleDefinition := CallbackCreate(GetMethod(implObj, "AddRoleDefinition"), flags, 2)
+        this.vtbl.DeleteRoleDefinition := CallbackCreate(GetMethod(implObj, "DeleteRoleDefinition"), flags, 2)
+        this.vtbl.get_RoleDefinitions := CallbackCreate(GetMethod(implObj, "get_RoleDefinitions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RoleAssignments)
+        CallbackFree(this.vtbl.AddRoleDefinition)
+        CallbackFree(this.vtbl.DeleteRoleDefinition)
+        CallbackFree(this.vtbl.get_RoleDefinitions)
     }
 }

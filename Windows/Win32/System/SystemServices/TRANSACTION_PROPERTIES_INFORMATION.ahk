@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class TRANSACTION_PROPERTIES_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct TRANSACTION_PROPERTIES_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    IsolationLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IsolationLevel {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IsolationFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IsolationFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Timeout : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Timeout {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Outcome : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Outcome {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DescriptionLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DescriptionLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Description : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Description {
-        get => StrGet(this.ptr + 24, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-16")
-    }
 }

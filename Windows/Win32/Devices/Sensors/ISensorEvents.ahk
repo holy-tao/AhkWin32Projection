@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISensor.ahk" { ISensor }
+#Import "..\PortableDevices\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISensorDataReport.ahk" { ISensorDataReport }
+#Import ".\SensorState.ahk" { SensorState }
 
 /**
  * The callback interface you must implement if you want to receive sensor events.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensorevents
  * @namespace Windows.Win32.Devices.Sensors
  */
-class ISensorEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISensorEvents extends IUnknown {
     /**
      * The interface identifier for ISensorEvents
      * @type {Guid}
      */
-    static IID => Guid("{5d8dcc91-4641-47e7-b7c3-b74f48a6c391}")
+    static IID := Guid("{5d8dcc91-4641-47e7-b7c3-b74f48a6c391}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISensorEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnStateChanged : IntPtr
+        OnDataUpdated  : IntPtr
+        OnEvent        : IntPtr
+        OnLeave        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnStateChanged", "OnDataUpdated", "OnEvent", "OnLeave"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISensorEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides a notification that a sensor state has changed.
@@ -55,7 +70,7 @@ class ISensorEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onstatechanged
      */
     OnStateChanged(pSensor, state) {
-        result := ComCall(3, this, "ptr", pSensor, "int", state, "HRESULT")
+        result := ComCall(3, this, "ptr", pSensor, SensorState, state, "HRESULT")
         return result
     }
 
@@ -102,7 +117,7 @@ class ISensorEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onevent
      */
     OnEvent(pSensor, eventID, pEventData) {
-        result := ComCall(5, this, "ptr", pSensor, "ptr", eventID, "ptr", pEventData, "HRESULT")
+        result := ComCall(5, this, "ptr", pSensor, Guid.Ptr, eventID, "ptr", pEventData, "HRESULT")
         return result
     }
 
@@ -133,7 +148,33 @@ class ISensorEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onleave
      */
     OnLeave(ID) {
-        result := ComCall(6, this, "ptr", ID, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, ID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISensorEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 3)
+        this.vtbl.OnDataUpdated := CallbackCreate(GetMethod(implObj, "OnDataUpdated"), flags, 3)
+        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 4)
+        this.vtbl.OnLeave := CallbackCreate(GetMethod(implObj, "OnLeave"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnStateChanged)
+        CallbackFree(this.vtbl.OnDataUpdated)
+        CallbackFree(this.vtbl.OnEvent)
+        CallbackFree(this.vtbl.OnLeave)
     }
 }

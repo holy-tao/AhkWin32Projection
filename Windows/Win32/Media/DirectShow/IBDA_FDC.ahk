@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a device's Forward Data Channel (FDC) Service. The FDC is an out-of-band channel that carries configuration and control messages.
@@ -11,26 +13,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_fdc
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_FDC extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_FDC extends IUnknown {
     /**
      * The interface identifier for IBDA_FDC
      * @type {Guid}
      */
-    static IID => Guid("{138adc7e-58ae-437f-b0b4-c9fe19d5b4ac}")
+    static IID := Guid("{138adc7e-58ae-437f-b0b4-c9fe19d5b4ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_FDC interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStatus       : IntPtr
+        RequestTables   : IntPtr
+        AddPid          : IntPtr
+        RemovePid       : IntPtr
+        AddTid          : IntPtr
+        RemoveTid       : IntPtr
+        GetTableSection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "RequestTables", "AddPid", "RemovePid", "AddTid", "RemoveTid", "GetTableSection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_FDC.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tuning status of the Forward Data Channel (FDC) stream.
@@ -51,7 +66,7 @@ class IBDA_FDC extends IUnknown {
         CurrentSpectrumInversionMarshal := CurrentSpectrumInversion is VarRef ? "int*" : "ptr"
         OverflowMarshal := Overflow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, CurrentBitrateMarshal, CurrentBitrate, CarrierLockMarshal, CarrierLock, CurrentFrequencyMarshal, CurrentFrequency, CurrentSpectrumInversionMarshal, CurrentSpectrumInversion, "ptr", CurrentPIDList, "ptr", CurrentTIDList, OverflowMarshal, Overflow, "HRESULT")
+        result := ComCall(3, this, CurrentBitrateMarshal, CurrentBitrate, CarrierLockMarshal, CarrierLock, CurrentFrequencyMarshal, CurrentFrequency, CurrentSpectrumInversionMarshal, CurrentSpectrumInversion, BSTR.Ptr, CurrentPIDList, BSTR.Ptr, CurrentTIDList, OverflowMarshal, Overflow, "HRESULT")
         return result
     }
 
@@ -64,7 +79,7 @@ class IBDA_FDC extends IUnknown {
     RequestTables(TableIDs) {
         TableIDs := TableIDs is String ? BSTR.Alloc(TableIDs).Value : TableIDs
 
-        result := ComCall(4, this, "ptr", TableIDs, "HRESULT")
+        result := ComCall(4, this, BSTR, TableIDs, "HRESULT")
         return result
     }
 
@@ -79,7 +94,7 @@ class IBDA_FDC extends IUnknown {
     AddPid(PidsToAdd) {
         PidsToAdd := PidsToAdd is String ? BSTR.Alloc(PidsToAdd).Value : PidsToAdd
 
-        result := ComCall(5, this, "ptr", PidsToAdd, "uint*", &RemainingFilterEntries := 0, "HRESULT")
+        result := ComCall(5, this, BSTR, PidsToAdd, "uint*", &RemainingFilterEntries := 0, "HRESULT")
         return RemainingFilterEntries
     }
 
@@ -94,7 +109,7 @@ class IBDA_FDC extends IUnknown {
     RemovePid(PidsToRemove) {
         PidsToRemove := PidsToRemove is String ? BSTR.Alloc(PidsToRemove).Value : PidsToRemove
 
-        result := ComCall(6, this, "ptr", PidsToRemove, "HRESULT")
+        result := ComCall(6, this, BSTR, PidsToRemove, "HRESULT")
         return result
     }
 
@@ -107,8 +122,8 @@ class IBDA_FDC extends IUnknown {
     AddTid(TidsToAdd) {
         TidsToAdd := TidsToAdd is String ? BSTR.Alloc(TidsToAdd).Value : TidsToAdd
 
-        CurrentTidList := BSTR()
-        result := ComCall(7, this, "ptr", TidsToAdd, "ptr", CurrentTidList, "HRESULT")
+        CurrentTidList := BSTR.Owned()
+        result := ComCall(7, this, BSTR, TidsToAdd, BSTR.Ptr, CurrentTidList, "HRESULT")
         return CurrentTidList
     }
 
@@ -121,7 +136,7 @@ class IBDA_FDC extends IUnknown {
     RemoveTid(TidsToRemove) {
         TidsToRemove := TidsToRemove is String ? BSTR.Alloc(TidsToRemove).Value : TidsToRemove
 
-        result := ComCall(8, this, "ptr", TidsToRemove, "HRESULT")
+        result := ComCall(8, this, BSTR, TidsToRemove, "HRESULT")
         return result
     }
 
@@ -141,5 +156,37 @@ class IBDA_FDC extends IUnknown {
 
         result := ComCall(9, this, PidMarshal, Pid, "uint", MaxBufferSize, ActualSizeMarshal, ActualSize, _SecBufferMarshal, _SecBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_FDC.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 8)
+        this.vtbl.RequestTables := CallbackCreate(GetMethod(implObj, "RequestTables"), flags, 2)
+        this.vtbl.AddPid := CallbackCreate(GetMethod(implObj, "AddPid"), flags, 3)
+        this.vtbl.RemovePid := CallbackCreate(GetMethod(implObj, "RemovePid"), flags, 2)
+        this.vtbl.AddTid := CallbackCreate(GetMethod(implObj, "AddTid"), flags, 3)
+        this.vtbl.RemoveTid := CallbackCreate(GetMethod(implObj, "RemoveTid"), flags, 2)
+        this.vtbl.GetTableSection := CallbackCreate(GetMethod(implObj, "GetTableSection"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.RequestTables)
+        CallbackFree(this.vtbl.AddPid)
+        CallbackFree(this.vtbl.RemovePid)
+        CallbackFree(this.vtbl.AddTid)
+        CallbackFree(this.vtbl.RemoveTid)
+        CallbackFree(this.vtbl.GetTableSection)
     }
 }

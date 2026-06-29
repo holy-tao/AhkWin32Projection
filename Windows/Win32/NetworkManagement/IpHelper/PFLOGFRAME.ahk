@@ -1,87 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PFFRAMETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFFRAMETYPE.ahk" { PFFRAMETYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class PFLOGFRAME extends Win32Struct {
-    static sizeof => 40
+export default struct PFLOGFRAME {
+    #StructPack 8
 
-    static packingSize => 8
+    Timestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Timestamp {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    pfeTypeOfFrame : PFFRAMETYPE
 
-    /**
-     * @type {PFFRAMETYPE}
-     */
-    pfeTypeOfFrame {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwTotalSizeUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotalSizeUsed {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFilterRule : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFilterRule {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    wSizeOfAdditionalData : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSizeOfAdditionalData {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    wSizeOfIpHeader : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSizeOfIpHeader {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    dwInterfaceName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInterfaceName {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwIPIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIPIndex {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    bPacketData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bPacketData {
-        get {
-            if(!this.HasProp("__bPacketDataProxyArray"))
-                this.__bPacketDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__bPacketDataProxyArray
-        }
-    }
 }

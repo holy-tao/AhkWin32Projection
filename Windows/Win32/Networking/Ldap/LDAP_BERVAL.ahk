@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The berval structure represents arbitrary binary data that is encoded according to Basic Encoding Rules (BER). Use a berval to represent any attribute that cannot be represented by a null-terminated string.
@@ -8,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval
  * @namespace Windows.Win32.Networking.Ldap
  */
-class LDAP_BERVAL extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct LDAP_BERVAL {
+    #StructPack 8
 
     /**
      * Length, in bytes,  of binary data.
-     * @type {Integer}
      */
-    bv_len {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bv_len : UInt32
 
     /**
      * Pointer to the binary data.
-     * @type {PSTR}
      */
-    bv_val {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    bv_val : PSTR
+
 }

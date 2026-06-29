@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * Specifies parameters to describe IPsec traffic. (IPSEC_TRAFFIC0)
@@ -14,94 +13,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_traffic0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TRAFFIC0 extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct IPSEC_TRAFFIC0 {
+    #StructPack 8
 
     /**
      * Internet Protocol (IP) version. 
      * 
      * See [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) for more information.
-     * @type {FWP_IP_VERSION}
      */
-    ipVersion {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ipVersion : FWP_IP_VERSION
 
-    /**
-     * @type {Integer}
-     */
-    localV4Address {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    localV4Address : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    localV6Address {
-        get {
-            if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__localV6AddressProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    remoteV4Address {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    remoteV6Address {
-        get {
-            if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
-            return this.__remoteV6AddressProxyArray
-        }
-    }
+    remoteV4Address : UInt32
 
     /**
      * Type of IPsec traffic.
      * 
      * See [IPSEC_TRAFFIC_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_traffic_type) for more information.
-     * @type {IPSEC_TRAFFIC_TYPE}
      */
-    trafficType {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    trafficType : IPSEC_TRAFFIC_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    ipsecFilterId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    tunnelPolicyId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ipsecFilterId : Int64
 
     /**
      * The remote TCP/UDP port for this traffic. This is used when the remote port condition in the transport
      *    layer filter is more generic than the actual remote port.
-     * @type {Integer}
      */
-    remotePort {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+    remotePort : UInt16
+
+    static __New() {
+        DefineProp(this.Prototype, 'localV6Address', { type: Int8[16], offset: 4 })
+        DefineProp(this.Prototype, 'remoteV6Address', { type: Int8[16], offset: 20 })
+        DefineProp(this.Prototype, 'tunnelPolicyId', { type: Int64, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class MEM_LARGE_RANGE extends Win32Struct {
-    static sizeof => 40
+export default struct MEM_LARGE_RANGE {
+    #StructPack 8
 
-    static packingSize => 8
+    MLR_Align : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MLR_Align {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MLR_nBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MLR_nBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MLR_Min : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MLR_Min {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MLR_Max : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MLR_Max {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MLR_Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MLR_Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MLR_Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MLR_Reserved {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

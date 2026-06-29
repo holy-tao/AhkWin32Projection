@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDMObjectInfo interface gets and sets information that controls how playable files on device are handled by the IWMDMDeviceControl interface.This interface is not intended for non-playable files.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmobjectinfo
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMObjectInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMObjectInfo extends IUnknown {
     /**
      * The interface identifier for IWMDMObjectInfo
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a09-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a09-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMObjectInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPlayLength          : IntPtr
+        SetPlayLength          : IntPtr
+        GetPlayOffset          : IntPtr
+        SetPlayOffset          : IntPtr
+        GetTotalLength         : IntPtr
+        GetLastPlayPosition    : IntPtr
+        GetLongestPlayPosition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPlayLength", "SetPlayLength", "GetPlayOffset", "SetPlayOffset", "GetTotalLength", "GetLastPlayPosition", "GetLongestPlayPosition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMObjectInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPlayLength method retrieves the play length of the object in units appropriate to the format. This is the remaining length that the file can play, not its total length.
@@ -149,5 +163,37 @@ class IWMDMObjectInfo extends IUnknown {
     GetLongestPlayPosition() {
         result := ComCall(9, this, "uint*", &pdwLongestPos := 0, "HRESULT")
         return pdwLongestPos
+    }
+
+    Query(iid) {
+        if (IWMDMObjectInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPlayLength := CallbackCreate(GetMethod(implObj, "GetPlayLength"), flags, 2)
+        this.vtbl.SetPlayLength := CallbackCreate(GetMethod(implObj, "SetPlayLength"), flags, 2)
+        this.vtbl.GetPlayOffset := CallbackCreate(GetMethod(implObj, "GetPlayOffset"), flags, 2)
+        this.vtbl.SetPlayOffset := CallbackCreate(GetMethod(implObj, "SetPlayOffset"), flags, 2)
+        this.vtbl.GetTotalLength := CallbackCreate(GetMethod(implObj, "GetTotalLength"), flags, 2)
+        this.vtbl.GetLastPlayPosition := CallbackCreate(GetMethod(implObj, "GetLastPlayPosition"), flags, 2)
+        this.vtbl.GetLongestPlayPosition := CallbackCreate(GetMethod(implObj, "GetLongestPlayPosition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPlayLength)
+        CallbackFree(this.vtbl.SetPlayLength)
+        CallbackFree(this.vtbl.GetPlayOffset)
+        CallbackFree(this.vtbl.SetPlayOffset)
+        CallbackFree(this.vtbl.GetTotalLength)
+        CallbackFree(this.vtbl.GetLastPlayPosition)
+        CallbackFree(this.vtbl.GetLongestPlayPosition)
     }
 }

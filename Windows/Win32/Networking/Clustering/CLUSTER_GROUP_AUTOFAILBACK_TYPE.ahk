@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * AutoFailbackType group common property uses CLUSTER_GROUP_AUTOFAILBACK_TYPE to specify if the group should fail back to the node owner after coming back online.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_autofailback_type
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_GROUP_AUTOFAILBACK_TYPE extends Win32Enum {
+export default struct CLUSTER_GROUP_AUTOFAILBACK_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Prevents <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failback">failback</a>.

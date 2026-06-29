@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPPHRASEALTREQUEST.ahk" { SPPHRASEALTREQUEST }
+#Import ".\SPPHRASEALT.ahk" { SPPHRASEALT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpSRAlternates extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpSRAlternates extends IUnknown {
     /**
      * The interface identifier for ISpSRAlternates
      * @type {Guid}
      */
-    static IID => Guid("{fece8294-2be1-408f-8e68-2de377092f0e}")
+    static IID := Guid("{fece8294-2be1-408f-8e68-2de377092f0e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpSRAlternates interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAlternates : IntPtr
+        Commit        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAlternates", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpSRAlternates.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -38,31 +49,45 @@ class ISpSRAlternates extends IUnknown {
         ppAltsMarshal := ppAlts is VarRef ? "ptr*" : "ptr"
         pcAltsMarshal := pcAlts is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pAltRequest, ppAltsMarshal, ppAlts, pcAltsMarshal, pcAlts, "HRESULT")
+        result := ComCall(3, this, SPPHRASEALTREQUEST.Ptr, pAltRequest, ppAltsMarshal, ppAlts, pcAltsMarshal, pcAlts, "HRESULT")
         return result
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<SPPHRASEALT>} pAlt 
      * @param {Pointer<Pointer<Void>>} ppvResultExtra 
      * @param {Pointer<Integer>} pcbResultExtra 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
-     * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit(pAltRequest, pAlt, ppvResultExtra, pcbResultExtra) {
         ppvResultExtraMarshal := ppvResultExtra is VarRef ? "ptr*" : "ptr"
         pcbResultExtraMarshal := pcbResultExtra is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pAltRequest, "ptr", pAlt, ppvResultExtraMarshal, ppvResultExtra, pcbResultExtraMarshal, pcbResultExtra, "HRESULT")
+        result := ComCall(4, this, SPPHRASEALTREQUEST.Ptr, pAltRequest, SPPHRASEALT.Ptr, pAlt, ppvResultExtraMarshal, ppvResultExtra, pcbResultExtraMarshal, pcbResultExtra, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpSRAlternates.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAlternates := CallbackCreate(GetMethod(implObj, "GetAlternates"), flags, 4)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAlternates)
+        CallbackFree(this.vtbl.Commit)
     }
 }

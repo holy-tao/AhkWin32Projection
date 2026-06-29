@@ -1,40 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\XFORM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XFORM.ahk" { XFORM }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRSETWORLDTRANSFORM structure contains members for the SetWorldTransform enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetworldtransform
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRSETWORLDTRANSFORM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct EMRSETWORLDTRANSFORM {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * World-space to page-space transformation data.
-     * @type {XFORM}
      */
-    xform {
-        get {
-            if(!this.HasProp("__xform"))
-                this.__xform := XFORM(8, this)
-            return this.__xform
-        }
-    }
+    xform : XFORM
+
 }

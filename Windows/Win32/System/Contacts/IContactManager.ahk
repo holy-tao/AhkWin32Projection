@@ -1,41 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IContact.ahk
-#Include .\IContactCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IContact.ahk" { IContact }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IContactCollection.ahk" { IContactCollection }
 
 /**
  * Do not use. Used for retrieving a contact, based on a contact ID string.
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactmanager
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactManager extends IUnknown {
     /**
      * The interface identifier for IContactManager
      * @type {Guid}
      */
-    static IID => Guid("{ad553d98-deb1-474a-8e17-fc0c2075b738}")
+    static IID := Guid("{ad553d98-deb1-474a-8e17-fc0c2075b738}")
 
     /**
      * The class identifier for ContactManager
      * @type {Guid}
      */
-    static CLSID => Guid("{7165c8ab-af88-42bd-86fd-5310b4285a02}")
+    static CLSID := Guid("{7165c8ab-af88-42bd-86fd-5310b4285a02}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize           : IntPtr
+        Load                 : IntPtr
+        MergeContactIDs      : IntPtr
+        GetMeContact         : IntPtr
+        SetMeContact         : IntPtr
+        GetContactCollection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Load", "MergeContactIDs", "GetMeContact", "SetMeContact", "GetContactCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the contact manager with the unique application name and application version being used to manipulate contacts.
@@ -193,5 +207,35 @@ class IContactManager extends IUnknown {
     GetContactCollection() {
         result := ComCall(8, this, "ptr*", &ppContactCollection := 0, "HRESULT")
         return IContactCollection(ppContactCollection)
+    }
+
+    Query(iid) {
+        if (IContactManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
+        this.vtbl.MergeContactIDs := CallbackCreate(GetMethod(implObj, "MergeContactIDs"), flags, 3)
+        this.vtbl.GetMeContact := CallbackCreate(GetMethod(implObj, "GetMeContact"), flags, 2)
+        this.vtbl.SetMeContact := CallbackCreate(GetMethod(implObj, "SetMeContact"), flags, 2)
+        this.vtbl.GetContactCollection := CallbackCreate(GetMethod(implObj, "GetContactCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.MergeContactIDs)
+        CallbackFree(this.vtbl.GetMeContact)
+        CallbackFree(this.vtbl.SetMeContact)
+        CallbackFree(this.vtbl.GetContactCollection)
     }
 }

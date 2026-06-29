@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR_SCONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR_SCONTEXT.ahk" { NDR_SCONTEXT }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class SCONTEXT_QUEUE extends Win32Struct {
-    static sizeof => 16
+export default struct SCONTEXT_QUEUE {
+    #StructPack 8
 
-    static packingSize => 8
+    NumberOfObjects : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfObjects {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ArrayOfObjects : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<NDR_SCONTEXT>>}
-     */
-    ArrayOfObjects {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

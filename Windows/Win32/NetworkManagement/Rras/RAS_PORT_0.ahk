@@ -1,102 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\RAS_PORT_CONDITION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RAS_PORT_CONDITION.ahk" { RAS_PORT_CONDITION }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The RAS_PORT_0 structure contains general information regarding a specific RAS port, such as port condition and port name. For more detailed information about a specific port, such as line speed or errors, see RAS_PORT_1.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_port_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RAS_PORT_0 extends Win32Struct {
-    static sizeof => 392
-
-    static packingSize => 8
+export default struct RAS_PORT_0 {
+    #StructPack 8
 
     /**
      * Handle to the port.
-     * @type {HANDLE}
      */
-    hPort {
-        get {
-            if(!this.HasProp("__hPort"))
-                this.__hPort := HANDLE(0, this)
-            return this.__hPort
-        }
-    }
+    hPort : HANDLE
 
     /**
      * Handle to the connection.
-     * @type {HANDLE}
      */
-    hConnection {
-        get {
-            if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(8, this)
-            return this.__hConnection
-        }
-    }
+    hConnection : HANDLE
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-ras_port_condition">RAS_PORT_CONDITION</a> structure.
-     * @type {RAS_PORT_CONDITION}
      */
-    dwPortCondition {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    dwPortCondition : RAS_PORT_CONDITION
 
     /**
      * Specifies the cumulative number of calls this port has serviced.
-     * @type {Integer}
      */
-    dwTotalNumberOfCalls {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwTotalNumberOfCalls : UInt32
 
     /**
      * Specifies the duration of the current connection, in seconds.
-     * @type {Integer}
      */
-    dwConnectDuration {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwConnectDuration : UInt32
 
     /**
      * Specifies the port name.
-     * @type {String}
      */
-    wszPortName {
-        get => StrGet(this.ptr + 28, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 16, "UTF-16")
-    }
+    wszPortName : WCHAR[17]
 
     /**
      * Specifies the media name.
-     * @type {String}
      */
-    wszMediaName {
-        get => StrGet(this.ptr + 62, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 62, 16, "UTF-16")
-    }
+    wszMediaName : WCHAR[17]
 
     /**
      * Specifies the device name.
-     * @type {String}
      */
-    wszDeviceName {
-        get => StrGet(this.ptr + 96, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 96, 128, "UTF-16")
-    }
+    wszDeviceName : WCHAR[129]
 
     /**
      * Specifies the device type.
-     * @type {String}
      */
-    wszDeviceType {
-        get => StrGet(this.ptr + 354, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 354, 16, "UTF-16")
-    }
+    wszDeviceType : WCHAR[17]
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the rectangle used to enclose glyphs on a monochrome surface.
@@ -8,56 +7,39 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dcomposerectdesc
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DCOMPOSERECTDESC extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct D3DCOMPOSERECTDESC {
+    #StructPack 2
 
     /**
      * Type: **[**USHORT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Left coordinate to begin copy at.
-     * @type {Integer}
      */
-    X {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    X : UInt16
 
     /**
      * Type: **[**USHORT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Top coordinate to begin copy at.
-     * @type {Integer}
      */
-    Y {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Y : UInt16
 
     /**
      * Type: **[**USHORT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of texels from left coordinate.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Width : UInt16
 
     /**
      * Type: **[**USHORT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of texels from the top coordinate.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Height : UInt16
+
 }

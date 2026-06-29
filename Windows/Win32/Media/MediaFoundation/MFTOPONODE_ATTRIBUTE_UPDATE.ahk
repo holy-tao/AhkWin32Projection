@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MF_ATTRIBUTE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies a new attribute value for a topology node.
@@ -9,59 +9,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mftoponode_attribute_update
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MFTOPONODE_ATTRIBUTE_UPDATE {
+    #StructPack 8
 
     /**
      * The identifier of the topology node to update. To get the identifier of a topology node, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopologynode-gettoponodeid">IMFTopologyNode::GetTopoNodeID</a>.
-     * @type {Integer}
      */
-    NodeId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeId : Int64
 
     /**
      * GUID that specifies the attribute to update.
-     * @type {Pointer}
      */
-    guidAttributeKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidAttributeKey : Guid
 
     /**
      * Attribute type, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attribute_type">MF_ATTRIBUTE_TYPE</a> enumeration.
-     * @type {MF_ATTRIBUTE_TYPE}
      */
-    attrType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    attrType : MF_ATTRIBUTE_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    u32 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    u32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    u64 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Float}
-     */
-    d {
-        get => NumGet(this, 24, "double")
-        set => NumPut("double", value, this, 24)
+    static __New() {
+        DefineProp(this.Prototype, 'u64', { type: Int64, offset: 32 })
+        DefineProp(this.Prototype, 'd', { type: Float64, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

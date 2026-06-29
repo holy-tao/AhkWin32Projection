@@ -1,53 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Receives information about a band object. This structure is used with the deprecated IDeskBand::GetBandInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-deskbandinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class DESKBANDINFO extends Win32Struct {
-    static sizeof => 556
-
-    static packingSize => 4
+export default struct DESKBANDINFO {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMask : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the minimum size of the band object. The minimum width is given in the <b>POINTL</b> structure's <b>x</b> member and the minimum height is given in the <b>y</b> member.
-     * @type {POINTL}
      */
-    ptMinSize {
-        get {
-            if(!this.HasProp("__ptMinSize"))
-                this.__ptMinSize := POINTL(4, this)
-            return this.__ptMinSize
-        }
-    }
+    ptMinSize : POINTL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the maximum size of the band object. The maximum height is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored. If the band object has no limit for its maximum height, (LONG)-1 should be used.
-     * @type {POINTL}
      */
-    ptMaxSize {
-        get {
-            if(!this.HasProp("__ptMaxSize"))
-                this.__ptMaxSize := POINTL(12, this)
-            return this.__ptMaxSize
-        }
-    }
+    ptMaxSize : POINTL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
@@ -55,58 +36,33 @@ class DESKBANDINFO extends Win32Struct {
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the sizing step value (increment) in which the band object is resized. The vertical step value is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored.
      * 
      * The <b>dwModeFlags</b> member must contain the DBIMF_VARIABLEHEIGHT flag; otherwise, <b>ptIntegral</b> is ignored.
-     * @type {POINTL}
      */
-    ptIntegral {
-        get {
-            if(!this.HasProp("__ptIntegral"))
-                this.__ptIntegral := POINTL(20, this)
-            return this.__ptIntegral
-        }
-    }
+    ptIntegral : POINTL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the ideal size of the band object. The ideal width is given in the <b>POINTL</b> structure's <b>x</b> member and the ideal height is given in the <b>y</b> member. The band container attempts to use these values, but the band is not guaranteed to be this size.
-     * @type {POINTL}
      */
-    ptActual {
-        get {
-            if(!this.HasProp("__ptActual"))
-                this.__ptActual := POINTL(28, this)
-            return this.__ptActual
-        }
-    }
+    ptActual : POINTL
 
     /**
      * Type: <b>WCHAR[256]</b>
      * 
      * A <b>WCHAR</b> buffer that receives the title of the band.
-     * @type {String}
      */
-    wszTitle {
-        get => StrGet(this.ptr + 36, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 255, "UTF-16")
-    }
+    wszTitle : WCHAR[256]
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwModeFlags {
-        get => NumGet(this, 548, "uint")
-        set => NumPut("uint", value, this, 548)
-    }
+    dwModeFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that receives the background color of the band. The <b>dwModeFlags</b> member must contain the <b>DBIMF_BKCOLOR</b> flag; otherwise, <b>crBkgnd</b> is ignored.
-     * @type {COLORREF}
      */
-    crBkgnd {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    crBkgnd : COLORREF
+
 }

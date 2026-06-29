@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D12_RESIDENCY_FLAGS.ahk" { D3D12_RESIDENCY_FLAGS }
+#Import ".\ID3D12Device2.ahk" { ID3D12Device2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a virtual adapter. This interface extends ID3D12Device2 to support the creation of special-purpose diagnostic heaps in system memory that persist even in the event of a GPU-fault or device-removed scenario.
@@ -10,26 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device3
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device3 extends ID3D12Device2 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device3 extends ID3D12Device2 {
     /**
      * The interface identifier for ID3D12Device3
      * @type {Guid}
      */
-    static IID => Guid("{81dadc15-2bad-4392-93c5-101345c4aa98}")
+    static IID := Guid("{81dadc15-2bad-4392-93c5-101345c4aa98}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 48
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device3 interfaces
+    */
+    struct Vtbl extends ID3D12Device2.Vtbl {
+        OpenExistingHeapFromAddress     : IntPtr
+        OpenExistingHeapFromFileMapping : IntPtr
+        EnqueueMakeResident             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenExistingHeapFromAddress", "OpenExistingHeapFromFileMapping", "EnqueueMakeResident"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a special-purpose diagnostic heap in system memory from an address. The created heap can persist even in the event of a GPU-fault or device-removed scenario.
@@ -55,7 +69,7 @@ class ID3D12Device3 extends ID3D12Device2 {
     OpenExistingHeapFromAddress(pAddress, riid) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(48, this, pAddressMarshal, pAddress, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(48, this, pAddressMarshal, pAddress, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -81,9 +95,7 @@ class ID3D12Device3 extends ID3D12Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-openexistingheapfromfilemapping
      */
     OpenExistingHeapFromFileMapping(hFileMapping, riid) {
-        hFileMapping := hFileMapping is Win32Handle ? NumGet(hFileMapping, "ptr") : hFileMapping
-
-        result := ComCall(49, this, "ptr", hFileMapping, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(49, this, HANDLE, hFileMapping, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -124,7 +136,31 @@ class ID3D12Device3 extends ID3D12Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-enqueuemakeresident
      */
     EnqueueMakeResident(Flags, NumObjects, ppObjects, pFenceToSignal, FenceValueToSignal) {
-        result := ComCall(50, this, "int", Flags, "uint", NumObjects, "ptr*", ppObjects, "ptr", pFenceToSignal, "uint", FenceValueToSignal, "HRESULT")
+        result := ComCall(50, this, D3D12_RESIDENCY_FLAGS, Flags, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, "ptr", pFenceToSignal, "uint", FenceValueToSignal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12Device3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenExistingHeapFromAddress := CallbackCreate(GetMethod(implObj, "OpenExistingHeapFromAddress"), flags, 4)
+        this.vtbl.OpenExistingHeapFromFileMapping := CallbackCreate(GetMethod(implObj, "OpenExistingHeapFromFileMapping"), flags, 4)
+        this.vtbl.EnqueueMakeResident := CallbackCreate(GetMethod(implObj, "EnqueueMakeResident"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenExistingHeapFromAddress)
+        CallbackFree(this.vtbl.OpenExistingHeapFromFileMapping)
+        CallbackFree(this.vtbl.EnqueueMakeResident)
     }
 }

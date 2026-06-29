@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines how folders are deleted when one of the disk resource limits is exceeded.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-resourcepolicy
  * @namespace Windows.Win32.System.Performance
  */
-class ResourcePolicy extends Win32Enum {
+export default struct ResourcePolicy {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Delete folders from largest to smallest.

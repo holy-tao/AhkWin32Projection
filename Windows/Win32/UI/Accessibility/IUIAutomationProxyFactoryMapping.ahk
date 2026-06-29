@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationProxyFactoryEntry.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Exposes properties and methods for a table of proxy factories. Each table entry is represented by an IUIAutomationProxyFactoryEntry interface. The entries are in the order in which the system will attempt to use the proxies.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactorymapping
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationProxyFactoryMapping extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationProxyFactoryMapping extends IUnknown {
     /**
      * The interface identifier for IUIAutomationProxyFactoryMapping
      * @type {Guid}
      */
-    static IID => Guid("{09e31e18-872d-4873-93d1-1e541ec133fd}")
+    static IID := Guid("{09e31e18-872d-4873-93d1-1e541ec133fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationProxyFactoryMapping interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Count           : IntPtr
+        GetTable            : IntPtr
+        GetEntry            : IntPtr
+        SetTable            : IntPtr
+        InsertEntries       : IntPtr
+        InsertEntry         : IntPtr
+        RemoveEntry         : IntPtr
+        ClearTable          : IntPtr
+        RestoreDefaultTable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "GetTable", "GetEntry", "SetTable", "InsertEntries", "InsertEntry", "RemoveEntry", "ClearTable", "RestoreDefaultTable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationProxyFactoryMapping.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -85,7 +102,7 @@ class IUIAutomationProxyFactoryMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-settable
      */
     SetTable(factoryList) {
-        result := ComCall(6, this, "ptr", factoryList, "HRESULT")
+        result := ComCall(6, this, SAFEARRAY.Ptr, factoryList, "HRESULT")
         return result
     }
 
@@ -103,7 +120,7 @@ class IUIAutomationProxyFactoryMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-insertentries
      */
     InsertEntries(before, factoryList) {
-        result := ComCall(7, this, "uint", before, "ptr", factoryList, "HRESULT")
+        result := ComCall(7, this, "uint", before, SAFEARRAY.Ptr, factoryList, "HRESULT")
         return result
     }
 
@@ -162,5 +179,41 @@ class IUIAutomationProxyFactoryMapping extends IUnknown {
     RestoreDefaultTable() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomationProxyFactoryMapping.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 2)
+        this.vtbl.GetEntry := CallbackCreate(GetMethod(implObj, "GetEntry"), flags, 3)
+        this.vtbl.SetTable := CallbackCreate(GetMethod(implObj, "SetTable"), flags, 2)
+        this.vtbl.InsertEntries := CallbackCreate(GetMethod(implObj, "InsertEntries"), flags, 3)
+        this.vtbl.InsertEntry := CallbackCreate(GetMethod(implObj, "InsertEntry"), flags, 3)
+        this.vtbl.RemoveEntry := CallbackCreate(GetMethod(implObj, "RemoveEntry"), flags, 2)
+        this.vtbl.ClearTable := CallbackCreate(GetMethod(implObj, "ClearTable"), flags, 1)
+        this.vtbl.RestoreDefaultTable := CallbackCreate(GetMethod(implObj, "RestoreDefaultTable"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.GetTable)
+        CallbackFree(this.vtbl.GetEntry)
+        CallbackFree(this.vtbl.SetTable)
+        CallbackFree(this.vtbl.InsertEntries)
+        CallbackFree(this.vtbl.InsertEntry)
+        CallbackFree(this.vtbl.RemoveEntry)
+        CallbackFree(this.vtbl.ClearTable)
+        CallbackFree(this.vtbl.RestoreDefaultTable)
     }
 }

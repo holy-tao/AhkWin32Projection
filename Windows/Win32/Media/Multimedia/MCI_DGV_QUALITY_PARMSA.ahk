@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_QUALITY_PARMSA (ANSI) structure (digitalv.h) contains parameters for the MCI_QUALITY command for digital-video devices.
@@ -16,19 +16,13 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class MCI_DGV_QUALITY_PARMSA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MCI_DGV_QUALITY_PARMSA {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * One of the following constants indicating the type of algorithm:
@@ -69,37 +63,22 @@ class MCI_DGV_QUALITY_PARMSA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwItem {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwItem : UInt32
 
     /**
      * String naming description.
-     * @type {PSTR}
      */
-    lpstrName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpstrName : PSTR
 
     /**
      * String naming algorithm.
-     * @type {Integer}
      */
-    lpstrAlgorithm {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lpstrAlgorithm : UInt32
 
     /**
      * Handle to a structure containing information describing the quality attributes.
-     * @type {Integer}
      */
-    dwHandle {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwHandle : UInt32
+
 }

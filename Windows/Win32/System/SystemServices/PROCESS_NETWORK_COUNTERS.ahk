@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESS_NETWORK_COUNTERS extends Win32Struct {
-    static sizeof => 16
+export default struct PROCESS_NETWORK_COUNTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    BytesIn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesIn {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BytesOut : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesOut {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

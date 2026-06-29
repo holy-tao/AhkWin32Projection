@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS structure holds the minimum output protection levels (OPL) for playback of various types of content. A device must support the minimum OPL for a type of data to receive that type of data from the reader.
@@ -8,53 +7,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-drm_minimum_output_protection_levels
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS extends Win32Struct {
-    static sizeof => 10
-
-    static packingSize => 2
+export default struct DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS {
+    #StructPack 2
 
     /**
      * Minimum OPL required to receive compressed digital video.
-     * @type {Integer}
      */
-    wCompressedDigitalVideo {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wCompressedDigitalVideo : UInt16
 
     /**
      * Minimum OPL required to receive uncompressed digital video.
-     * @type {Integer}
      */
-    wUncompressedDigitalVideo {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wUncompressedDigitalVideo : UInt16
 
     /**
      * Minimum OPL required to receive analog video.
-     * @type {Integer}
      */
-    wAnalogVideo {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wAnalogVideo : UInt16
 
     /**
      * Minimum OPL required to receive compressed digital audio.
-     * @type {Integer}
      */
-    wCompressedDigitalAudio {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wCompressedDigitalAudio : UInt16
 
     /**
      * Minimum OPL required to receive uncompressed digital audio.
-     * @type {Integer}
      */
-    wUncompressedDigitalAudio {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wUncompressedDigitalAudio : UInt16
+
 }

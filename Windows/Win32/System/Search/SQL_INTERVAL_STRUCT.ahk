@@ -1,68 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SQLINTERVAL.ahk
-#Include .\SQL_YEAR_MONTH_STRUCT.ahk
-#Include .\SQL_DAY_SECOND_STRUCT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SQLINTERVAL.ahk" { SQLINTERVAL }
+#Import ".\SQL_DAY_SECOND_STRUCT.ahk" { SQL_DAY_SECOND_STRUCT }
+#Import ".\SQL_YEAR_MONTH_STRUCT.ahk" { SQL_YEAR_MONTH_STRUCT }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SQL_INTERVAL_STRUCT extends Win32Struct {
-    static sizeof => 28
+export default struct SQL_INTERVAL_STRUCT {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _intval_e__Union extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _intval {
+        year_month : SQL_YEAR_MONTH_STRUCT
 
-        /**
-         * @type {SQL_YEAR_MONTH_STRUCT}
-         */
-        year_month {
-            get {
-                if(!this.HasProp("__year_month"))
-                    this.__year_month := SQL_YEAR_MONTH_STRUCT(0, this)
-                return this.__year_month
-            }
-        }
-
-        /**
-         * @type {SQL_DAY_SECOND_STRUCT}
-         */
-        day_second {
-            get {
-                if(!this.HasProp("__day_second"))
-                    this.__day_second := SQL_DAY_SECOND_STRUCT(0, this)
-                return this.__day_second
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'day_second', { type: SQL_DAY_SECOND_STRUCT, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {SQLINTERVAL}
-     */
-    interval_type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    interval_type : SQLINTERVAL
 
-    /**
-     * @type {Integer}
-     */
-    interval_sign {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    interval_sign : Int16
 
-    /**
-     * @type {_intval_e__Union}
-     */
-    intval {
-        get {
-            if(!this.HasProp("__intval"))
-                this.__intval := SQL_INTERVAL_STRUCT._intval_e__Union(8, this)
-            return this.__intval
-        }
-    }
+    intval : SQL_INTERVAL_STRUCT._intval
+
 }

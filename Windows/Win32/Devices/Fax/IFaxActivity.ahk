@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxActivity interface defines a read-only configuration object.
@@ -12,32 +13,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxactivity
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxActivity extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxActivity extends IDispatch {
     /**
      * The interface identifier for IFaxActivity
      * @type {Guid}
      */
-    static IID => Guid("{4b106f97-3df5-40f2-bc3c-44cb8115ebdf}")
+    static IID := Guid("{4b106f97-3df5-40f2-bc3c-44cb8115ebdf}")
 
     /**
      * The class identifier for FaxActivity
      * @type {Guid}
      */
-    static CLSID => Guid("{cfef5d0e-e84d-462e-aabb-87d31eb04fef}")
+    static CLSID := Guid("{cfef5d0e-e84d-462e-aabb-87d31eb04fef}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxActivity interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_IncomingMessages : IntPtr
+        get_RoutingMessages  : IntPtr
+        get_OutgoingMessages : IntPtr
+        get_QueuedMessages   : IntPtr
+        Refresh              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IncomingMessages", "get_RoutingMessages", "get_OutgoingMessages", "get_QueuedMessages", "Refresh"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxActivity.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -127,5 +139,33 @@ class IFaxActivity extends IDispatch {
     Refresh() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxActivity.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IncomingMessages := CallbackCreate(GetMethod(implObj, "get_IncomingMessages"), flags, 2)
+        this.vtbl.get_RoutingMessages := CallbackCreate(GetMethod(implObj, "get_RoutingMessages"), flags, 2)
+        this.vtbl.get_OutgoingMessages := CallbackCreate(GetMethod(implObj, "get_OutgoingMessages"), flags, 2)
+        this.vtbl.get_QueuedMessages := CallbackCreate(GetMethod(implObj, "get_QueuedMessages"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IncomingMessages)
+        CallbackFree(this.vtbl.get_RoutingMessages)
+        CallbackFree(this.vtbl.get_OutgoingMessages)
+        CallbackFree(this.vtbl.get_QueuedMessages)
+        CallbackFree(this.vtbl.Refresh)
     }
 }

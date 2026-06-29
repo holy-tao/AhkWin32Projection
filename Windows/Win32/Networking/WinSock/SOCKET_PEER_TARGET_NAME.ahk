@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_SECURITY_PROTOCOL.ahk
-#Include .\SOCKADDR_STORAGE.ahk
-#Include .\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import ".\SOCKET_SECURITY_PROTOCOL.ahk" { SOCKET_SECURITY_PROTOCOL }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains the IP address and name for a peer target and the type of security protocol to be used on a socket.
@@ -17,47 +18,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_peer_target_name
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_PEER_TARGET_NAME extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct SOCKET_PEER_TARGET_NAME {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the type of protocol used to secure the traffic on the socket.
-     * @type {SOCKET_SECURITY_PROTOCOL}
      */
-    SecurityProtocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SecurityProtocol : SOCKET_SECURITY_PROTOCOL
 
     /**
      * The IP address of the peer for the socket.
-     * @type {SOCKADDR_STORAGE}
      */
-    PeerAddress {
-        get {
-            if(!this.HasProp("__PeerAddress"))
-                this.__PeerAddress := SOCKADDR_STORAGE(8, this)
-            return this.__PeerAddress
-        }
-    }
+    PeerAddress : SOCKADDR_STORAGE
 
     /**
      * The length, in bytes, of the peer target name in the <b>AllStrings</b> member.
-     * @type {Integer}
      */
-    PeerTargetNameStringLen {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    PeerTargetNameStringLen : UInt32
 
     /**
      * The peer target name for the socket.
-     * @type {String}
      */
-    AllStrings {
-        get => StrGet(this.ptr + 140, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 0, "UTF-16")
-    }
+    AllStrings : WCHAR[1]
+
 }

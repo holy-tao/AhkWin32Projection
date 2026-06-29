@@ -1,33 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\Memory\MEMORY_BASIC_INFORMATION64.ahk
-#Include ..\IMAGE_NT_HEADERS64.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IMAGE_NT_HEADERS64.ahk" { IMAGE_NT_HEADERS64 }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Memory\MEMORY_BASIC_INFORMATION64.ahk" { MEMORY_BASIC_INFORMATION64 }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugDataSpaces4 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugDataSpaces4 extends IUnknown {
     /**
      * The interface identifier for IDebugDataSpaces4
      * @type {Guid}
      */
-    static IID => Guid("{d98ada1f-29e9-4ef5-a6c0-e53349883212}")
+    static IID := Guid("{d98ada1f-29e9-4ef5-a6c0-e53349883212}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugDataSpaces4 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReadVirtual                          : IntPtr
+        WriteVirtual                         : IntPtr
+        SearchVirtual                        : IntPtr
+        ReadVirtualUncached                  : IntPtr
+        WriteVirtualUncached                 : IntPtr
+        ReadPointersVirtual                  : IntPtr
+        WritePointersVirtual                 : IntPtr
+        ReadPhysical                         : IntPtr
+        WritePhysical                        : IntPtr
+        ReadControl                          : IntPtr
+        WriteControl                         : IntPtr
+        ReadIo                               : IntPtr
+        WriteIo                              : IntPtr
+        ReadMsr                              : IntPtr
+        WriteMsr                             : IntPtr
+        ReadBusData                          : IntPtr
+        WriteBusData                         : IntPtr
+        CheckLowMemory                       : IntPtr
+        ReadDebuggerData                     : IntPtr
+        ReadProcessorSystemData              : IntPtr
+        VirtualToPhysical                    : IntPtr
+        GetVirtualTranslationPhysicalOffsets : IntPtr
+        ReadHandleData                       : IntPtr
+        FillVirtual                          : IntPtr
+        FillPhysical                         : IntPtr
+        QueryVirtual                         : IntPtr
+        ReadImageNtHeaders                   : IntPtr
+        ReadTagged                           : IntPtr
+        StartEnumTagged                      : IntPtr
+        GetNextTagged                        : IntPtr
+        EndEnumTagged                        : IntPtr
+        GetOffsetInformation                 : IntPtr
+        GetNextDifferentlyValidOffsetVirtual : IntPtr
+        GetValidRegionVirtual                : IntPtr
+        SearchVirtual2                       : IntPtr
+        ReadMultiByteStringVirtual           : IntPtr
+        ReadMultiByteStringVirtualWide       : IntPtr
+        ReadUnicodeStringVirtual             : IntPtr
+        ReadUnicodeStringVirtualWide         : IntPtr
+        ReadPhysical2                        : IntPtr
+        WritePhysical2                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadVirtual", "WriteVirtual", "SearchVirtual", "ReadVirtualUncached", "WriteVirtualUncached", "ReadPointersVirtual", "WritePointersVirtual", "ReadPhysical", "WritePhysical", "ReadControl", "WriteControl", "ReadIo", "WriteIo", "ReadMsr", "WriteMsr", "ReadBusData", "WriteBusData", "CheckLowMemory", "ReadDebuggerData", "ReadProcessorSystemData", "VirtualToPhysical", "GetVirtualTranslationPhysicalOffsets", "ReadHandleData", "FillVirtual", "FillPhysical", "QueryVirtual", "ReadImageNtHeaders", "ReadTagged", "StartEnumTagged", "GetNextTagged", "EndEnumTagged", "GetOffsetInformation", "GetNextDifferentlyValidOffsetVirtual", "GetValidRegionVirtual", "SearchVirtual2", "ReadMultiByteStringVirtual", "ReadMultiByteStringVirtualWide", "ReadUnicodeStringVirtual", "ReadUnicodeStringVirtualWide", "ReadPhysical2", "WritePhysical2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugDataSpaces4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -347,16 +397,13 @@ class IDebugDataSpaces4 extends IUnknown {
     }
 
     /**
-     * The QueryVirtualMemoryInformation function returns information about a page or a set of pages within the virtual address space of the specified process.
-     * @remarks
-     * If the <i>MemoryInformationClass</i> parameter has a value of <b>MemoryRegionInfo</b>, the <i>MemoryInformation</i> parameter must point to a <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/ns-memoryapi-win32_memory_region_information">WIN32_MEMORY_REGION_INFORMATION</a> structure. The <i>VirtualAddress</i> parameter must point to an address within a valid memory allocation. If the <i>VirtualAddress</i> parameter points to an unallocated memory region, the function fails.
+     * 
      * @param {Integer} Offset 
      * @returns {MEMORY_BASIC_INFORMATION64} 
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-queryvirtualmemoryinformation
      */
     QueryVirtual(Offset) {
         Info := MEMORY_BASIC_INFORMATION64()
-        result := ComCall(28, this, "uint", Offset, "ptr", Info, "HRESULT")
+        result := ComCall(28, this, "uint", Offset, MEMORY_BASIC_INFORMATION64.Ptr, Info, "HRESULT")
         return Info
     }
 
@@ -367,7 +414,7 @@ class IDebugDataSpaces4 extends IUnknown {
      */
     ReadImageNtHeaders(ImageBase) {
         Headers := IMAGE_NT_HEADERS64()
-        result := ComCall(29, this, "uint", ImageBase, "ptr", Headers, "HRESULT")
+        result := ComCall(29, this, "uint", ImageBase, IMAGE_NT_HEADERS64.Ptr, Headers, "HRESULT")
         return Headers
     }
 
@@ -380,7 +427,7 @@ class IDebugDataSpaces4 extends IUnknown {
      * @returns {Integer} 
      */
     ReadTagged(Tag, Offset, _Buffer, BufferSize) {
-        result := ComCall(30, this, "ptr", Tag, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &TotalSize := 0, "HRESULT")
+        result := ComCall(30, this, Guid.Ptr, Tag, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &TotalSize := 0, "HRESULT")
         return TotalSize
     }
 
@@ -403,7 +450,7 @@ class IDebugDataSpaces4 extends IUnknown {
     GetNextTagged(_Handle, Tag, _Size) {
         _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, "uint", _Handle, "ptr", Tag, _SizeMarshal, _Size, "HRESULT")
+        result := ComCall(32, this, "uint", _Handle, Guid.Ptr, Tag, _SizeMarshal, _Size, "HRESULT")
         return result
     }
 
@@ -558,5 +605,105 @@ class IDebugDataSpaces4 extends IUnknown {
     WritePhysical2(Offset, Flags, _Buffer, BufferSize) {
         result := ComCall(43, this, "uint", Offset, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
+    }
+
+    Query(iid) {
+        if (IDebugDataSpaces4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadVirtual := CallbackCreate(GetMethod(implObj, "ReadVirtual"), flags, 5)
+        this.vtbl.WriteVirtual := CallbackCreate(GetMethod(implObj, "WriteVirtual"), flags, 5)
+        this.vtbl.SearchVirtual := CallbackCreate(GetMethod(implObj, "SearchVirtual"), flags, 7)
+        this.vtbl.ReadVirtualUncached := CallbackCreate(GetMethod(implObj, "ReadVirtualUncached"), flags, 5)
+        this.vtbl.WriteVirtualUncached := CallbackCreate(GetMethod(implObj, "WriteVirtualUncached"), flags, 5)
+        this.vtbl.ReadPointersVirtual := CallbackCreate(GetMethod(implObj, "ReadPointersVirtual"), flags, 4)
+        this.vtbl.WritePointersVirtual := CallbackCreate(GetMethod(implObj, "WritePointersVirtual"), flags, 4)
+        this.vtbl.ReadPhysical := CallbackCreate(GetMethod(implObj, "ReadPhysical"), flags, 5)
+        this.vtbl.WritePhysical := CallbackCreate(GetMethod(implObj, "WritePhysical"), flags, 5)
+        this.vtbl.ReadControl := CallbackCreate(GetMethod(implObj, "ReadControl"), flags, 6)
+        this.vtbl.WriteControl := CallbackCreate(GetMethod(implObj, "WriteControl"), flags, 6)
+        this.vtbl.ReadIo := CallbackCreate(GetMethod(implObj, "ReadIo"), flags, 8)
+        this.vtbl.WriteIo := CallbackCreate(GetMethod(implObj, "WriteIo"), flags, 8)
+        this.vtbl.ReadMsr := CallbackCreate(GetMethod(implObj, "ReadMsr"), flags, 3)
+        this.vtbl.WriteMsr := CallbackCreate(GetMethod(implObj, "WriteMsr"), flags, 3)
+        this.vtbl.ReadBusData := CallbackCreate(GetMethod(implObj, "ReadBusData"), flags, 8)
+        this.vtbl.WriteBusData := CallbackCreate(GetMethod(implObj, "WriteBusData"), flags, 8)
+        this.vtbl.CheckLowMemory := CallbackCreate(GetMethod(implObj, "CheckLowMemory"), flags, 1)
+        this.vtbl.ReadDebuggerData := CallbackCreate(GetMethod(implObj, "ReadDebuggerData"), flags, 5)
+        this.vtbl.ReadProcessorSystemData := CallbackCreate(GetMethod(implObj, "ReadProcessorSystemData"), flags, 6)
+        this.vtbl.VirtualToPhysical := CallbackCreate(GetMethod(implObj, "VirtualToPhysical"), flags, 3)
+        this.vtbl.GetVirtualTranslationPhysicalOffsets := CallbackCreate(GetMethod(implObj, "GetVirtualTranslationPhysicalOffsets"), flags, 5)
+        this.vtbl.ReadHandleData := CallbackCreate(GetMethod(implObj, "ReadHandleData"), flags, 6)
+        this.vtbl.FillVirtual := CallbackCreate(GetMethod(implObj, "FillVirtual"), flags, 6)
+        this.vtbl.FillPhysical := CallbackCreate(GetMethod(implObj, "FillPhysical"), flags, 6)
+        this.vtbl.QueryVirtual := CallbackCreate(GetMethod(implObj, "QueryVirtual"), flags, 3)
+        this.vtbl.ReadImageNtHeaders := CallbackCreate(GetMethod(implObj, "ReadImageNtHeaders"), flags, 3)
+        this.vtbl.ReadTagged := CallbackCreate(GetMethod(implObj, "ReadTagged"), flags, 6)
+        this.vtbl.StartEnumTagged := CallbackCreate(GetMethod(implObj, "StartEnumTagged"), flags, 2)
+        this.vtbl.GetNextTagged := CallbackCreate(GetMethod(implObj, "GetNextTagged"), flags, 4)
+        this.vtbl.EndEnumTagged := CallbackCreate(GetMethod(implObj, "EndEnumTagged"), flags, 2)
+        this.vtbl.GetOffsetInformation := CallbackCreate(GetMethod(implObj, "GetOffsetInformation"), flags, 7)
+        this.vtbl.GetNextDifferentlyValidOffsetVirtual := CallbackCreate(GetMethod(implObj, "GetNextDifferentlyValidOffsetVirtual"), flags, 3)
+        this.vtbl.GetValidRegionVirtual := CallbackCreate(GetMethod(implObj, "GetValidRegionVirtual"), flags, 5)
+        this.vtbl.SearchVirtual2 := CallbackCreate(GetMethod(implObj, "SearchVirtual2"), flags, 8)
+        this.vtbl.ReadMultiByteStringVirtual := CallbackCreate(GetMethod(implObj, "ReadMultiByteStringVirtual"), flags, 6)
+        this.vtbl.ReadMultiByteStringVirtualWide := CallbackCreate(GetMethod(implObj, "ReadMultiByteStringVirtualWide"), flags, 7)
+        this.vtbl.ReadUnicodeStringVirtual := CallbackCreate(GetMethod(implObj, "ReadUnicodeStringVirtual"), flags, 7)
+        this.vtbl.ReadUnicodeStringVirtualWide := CallbackCreate(GetMethod(implObj, "ReadUnicodeStringVirtualWide"), flags, 6)
+        this.vtbl.ReadPhysical2 := CallbackCreate(GetMethod(implObj, "ReadPhysical2"), flags, 6)
+        this.vtbl.WritePhysical2 := CallbackCreate(GetMethod(implObj, "WritePhysical2"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadVirtual)
+        CallbackFree(this.vtbl.WriteVirtual)
+        CallbackFree(this.vtbl.SearchVirtual)
+        CallbackFree(this.vtbl.ReadVirtualUncached)
+        CallbackFree(this.vtbl.WriteVirtualUncached)
+        CallbackFree(this.vtbl.ReadPointersVirtual)
+        CallbackFree(this.vtbl.WritePointersVirtual)
+        CallbackFree(this.vtbl.ReadPhysical)
+        CallbackFree(this.vtbl.WritePhysical)
+        CallbackFree(this.vtbl.ReadControl)
+        CallbackFree(this.vtbl.WriteControl)
+        CallbackFree(this.vtbl.ReadIo)
+        CallbackFree(this.vtbl.WriteIo)
+        CallbackFree(this.vtbl.ReadMsr)
+        CallbackFree(this.vtbl.WriteMsr)
+        CallbackFree(this.vtbl.ReadBusData)
+        CallbackFree(this.vtbl.WriteBusData)
+        CallbackFree(this.vtbl.CheckLowMemory)
+        CallbackFree(this.vtbl.ReadDebuggerData)
+        CallbackFree(this.vtbl.ReadProcessorSystemData)
+        CallbackFree(this.vtbl.VirtualToPhysical)
+        CallbackFree(this.vtbl.GetVirtualTranslationPhysicalOffsets)
+        CallbackFree(this.vtbl.ReadHandleData)
+        CallbackFree(this.vtbl.FillVirtual)
+        CallbackFree(this.vtbl.FillPhysical)
+        CallbackFree(this.vtbl.QueryVirtual)
+        CallbackFree(this.vtbl.ReadImageNtHeaders)
+        CallbackFree(this.vtbl.ReadTagged)
+        CallbackFree(this.vtbl.StartEnumTagged)
+        CallbackFree(this.vtbl.GetNextTagged)
+        CallbackFree(this.vtbl.EndEnumTagged)
+        CallbackFree(this.vtbl.GetOffsetInformation)
+        CallbackFree(this.vtbl.GetNextDifferentlyValidOffsetVirtual)
+        CallbackFree(this.vtbl.GetValidRegionVirtual)
+        CallbackFree(this.vtbl.SearchVirtual2)
+        CallbackFree(this.vtbl.ReadMultiByteStringVirtual)
+        CallbackFree(this.vtbl.ReadMultiByteStringVirtualWide)
+        CallbackFree(this.vtbl.ReadUnicodeStringVirtual)
+        CallbackFree(this.vtbl.ReadUnicodeStringVirtualWide)
+        CallbackFree(this.vtbl.ReadPhysical2)
+        CallbackFree(this.vtbl.WritePhysical2)
     }
 }

@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
-#Include ..\System\Com\IEnumString.ahk
-#Include .\ISpellCheckProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpellCheckProvider.ahk" { ISpellCheckProvider }
+#Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A factory for instantiating a spell checker (ISpellCheckProvider) as well as providing functionality for determining which languages are supported.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-ispellcheckproviderfactory
  * @namespace Windows.Win32.Globalization
  */
-class ISpellCheckProviderFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpellCheckProviderFactory extends IUnknown {
     /**
      * The interface identifier for ISpellCheckProviderFactory
      * @type {Guid}
      */
-    static IID => Guid("{9f671e11-77d6-4c92-aefb-615215e3a4be}")
+    static IID := Guid("{9f671e11-77d6-4c92-aefb-615215e3a4be}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpellCheckProviderFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_SupportedLanguages   : IntPtr
+        IsSupported              : IntPtr
+        CreateSpellCheckProvider : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SupportedLanguages", "IsSupported", "CreateSpellCheckProvider"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpellCheckProviderFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IEnumString} 
@@ -59,7 +71,7 @@ class ISpellCheckProviderFactory extends IUnknown {
     IsSupported(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-        result := ComCall(4, this, "ptr", languageTag, "int*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", languageTag, BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -76,5 +88,29 @@ class ISpellCheckProviderFactory extends IUnknown {
 
         result := ComCall(5, this, "ptr", languageTag, "ptr*", &value := 0, "HRESULT")
         return ISpellCheckProvider(value)
+    }
+
+    Query(iid) {
+        if (ISpellCheckProviderFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SupportedLanguages := CallbackCreate(GetMethod(implObj, "get_SupportedLanguages"), flags, 2)
+        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 3)
+        this.vtbl.CreateSpellCheckProvider := CallbackCreate(GetMethod(implObj, "CreateSpellCheckProvider"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SupportedLanguages)
+        CallbackFree(this.vtbl.IsSupported)
+        CallbackFree(this.vtbl.CreateSpellCheckProvider)
     }
 }

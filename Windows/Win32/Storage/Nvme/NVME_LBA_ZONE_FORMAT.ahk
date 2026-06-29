@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_LBA_ZONE_FORMAT extends Win32Struct {
-    static sizeof => 16
+export default struct NVME_LBA_ZONE_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    ZoneSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZoneSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ZDES : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ZDES {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Reserved : Int8[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

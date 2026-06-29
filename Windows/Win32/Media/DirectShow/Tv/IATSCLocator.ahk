@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDigitalLocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDigitalLocator.ahk" { IDigitalLocator }
 
 /**
  * The IATSCLocator interface is implemented on the ATSCLocator object and contains methods that enable the network provider to determine the physical channel and transport stream ID of an ATSC transmission.
@@ -10,32 +11,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iatsclocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IATSCLocator extends IDigitalLocator {
-
-    static sizeof => A_PtrSize
+export default struct IATSCLocator extends IDigitalLocator {
     /**
      * The interface identifier for IATSCLocator
      * @type {Guid}
      */
-    static IID => Guid("{bf8d986f-8c2b-4131-94d7-4d3d9fcc21ef}")
+    static IID := Guid("{bf8d986f-8c2b-4131-94d7-4d3d9fcc21ef}")
 
     /**
      * The class identifier for ATSCLocator
      * @type {Guid}
      */
-    static CLSID => Guid("{8872ff1b-98fa-4d7a-8d93-c9f1055f85bb}")
+    static CLSID := Guid("{8872ff1b-98fa-4d7a-8d93-c9f1055f85bb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IATSCLocator interfaces
+    */
+    struct Vtbl extends IDigitalLocator.Vtbl {
+        get_PhysicalChannel : IntPtr
+        put_PhysicalChannel : IntPtr
+        get_TSID            : IntPtr
+        put_TSID            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PhysicalChannel", "put_PhysicalChannel", "get_TSID", "put_TSID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IATSCLocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -101,5 +112,31 @@ class IATSCLocator extends IDigitalLocator {
     put_TSID(TSID) {
         result := ComCall(25, this, "int", TSID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IATSCLocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PhysicalChannel := CallbackCreate(GetMethod(implObj, "get_PhysicalChannel"), flags, 2)
+        this.vtbl.put_PhysicalChannel := CallbackCreate(GetMethod(implObj, "put_PhysicalChannel"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PhysicalChannel)
+        CallbackFree(this.vtbl.put_PhysicalChannel)
+        CallbackFree(this.vtbl.get_TSID)
+        CallbackFree(this.vtbl.put_TSID)
     }
 }

@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ITextRange2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITextStrings interface represents a collection of rich-text strings that are useful for manipulating rich text.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstrings
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextStrings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextStrings extends IDispatch {
     /**
      * The interface identifier for ITextStrings
      * @type {Guid}
      */
-    static IID => Guid("{c241f5e7-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5e7-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextStrings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Item             : IntPtr
+        GetCount         : IntPtr
+        Add              : IntPtr
+        Append           : IntPtr
+        Cat2             : IntPtr
+        CatTop2          : IntPtr
+        DeleteRange      : IntPtr
+        EncodeFunction   : IntPtr
+        GetCch           : IntPtr
+        InsertNullStr    : IntPtr
+        MoveBoundary     : IntPtr
+        PrefixTop        : IntPtr
+        Remove           : IntPtr
+        SetFormattedText : IntPtr
+        SetOpCp          : IntPtr
+        SuffixTop        : IntPtr
+        Swap             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Item", "GetCount", "Add", "Append", "Cat2", "CatTop2", "DeleteRange", "EncodeFunction", "GetCch", "InsertNullStr", "MoveBoundary", "PrefixTop", "Remove", "SetFormattedText", "SetOpCp", "SuffixTop", "Swap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextStrings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an ITextRange2 object for a selected index in a string collection.
@@ -103,7 +128,7 @@ class ITextStrings extends IDispatch {
     Add(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(9, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(9, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -184,7 +209,7 @@ class ITextStrings extends IDispatch {
     CatTop2(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(12, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(12, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -360,7 +385,7 @@ class ITextStrings extends IDispatch {
     PrefixTop(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(18, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(18, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -521,7 +546,7 @@ class ITextStrings extends IDispatch {
     SuffixTop(_bstr, pRange) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(22, this, "ptr", _bstr, "ptr", pRange, "HRESULT")
+        result := ComCall(22, this, BSTR, _bstr, "ptr", pRange, "HRESULT")
         return result
     }
 
@@ -535,5 +560,57 @@ class ITextStrings extends IDispatch {
     Swap() {
         result := ComCall(23, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextStrings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
+        this.vtbl.Cat2 := CallbackCreate(GetMethod(implObj, "Cat2"), flags, 2)
+        this.vtbl.CatTop2 := CallbackCreate(GetMethod(implObj, "CatTop2"), flags, 2)
+        this.vtbl.DeleteRange := CallbackCreate(GetMethod(implObj, "DeleteRange"), flags, 2)
+        this.vtbl.EncodeFunction := CallbackCreate(GetMethod(implObj, "EncodeFunction"), flags, 10)
+        this.vtbl.GetCch := CallbackCreate(GetMethod(implObj, "GetCch"), flags, 3)
+        this.vtbl.InsertNullStr := CallbackCreate(GetMethod(implObj, "InsertNullStr"), flags, 2)
+        this.vtbl.MoveBoundary := CallbackCreate(GetMethod(implObj, "MoveBoundary"), flags, 3)
+        this.vtbl.PrefixTop := CallbackCreate(GetMethod(implObj, "PrefixTop"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.SetFormattedText := CallbackCreate(GetMethod(implObj, "SetFormattedText"), flags, 3)
+        this.vtbl.SetOpCp := CallbackCreate(GetMethod(implObj, "SetOpCp"), flags, 3)
+        this.vtbl.SuffixTop := CallbackCreate(GetMethod(implObj, "SuffixTop"), flags, 3)
+        this.vtbl.Swap := CallbackCreate(GetMethod(implObj, "Swap"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.Cat2)
+        CallbackFree(this.vtbl.CatTop2)
+        CallbackFree(this.vtbl.DeleteRange)
+        CallbackFree(this.vtbl.EncodeFunction)
+        CallbackFree(this.vtbl.GetCch)
+        CallbackFree(this.vtbl.InsertNullStr)
+        CallbackFree(this.vtbl.MoveBoundary)
+        CallbackFree(this.vtbl.PrefixTop)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.SetFormattedText)
+        CallbackFree(this.vtbl.SetOpCp)
+        CallbackFree(this.vtbl.SuffixTop)
+        CallbackFree(this.vtbl.Swap)
     }
 }

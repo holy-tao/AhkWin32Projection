@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IPin.ahk" { IPin }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_TIF_REGISTRATION interface is exposed by the BDA Network Provider.
@@ -11,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-ibda_tif_registration
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IBDA_TIF_REGISTRATION extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_TIF_REGISTRATION extends IUnknown {
     /**
      * The interface identifier for IBDA_TIF_REGISTRATION
      * @type {Guid}
      */
-    static IID => Guid("{dfef4a68-ee61-415f-9ccb-cd95f2f98a3a}")
+    static IID := Guid("{dfef4a68-ee61-415f-9ccb-cd95f2f98a3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_TIF_REGISTRATION interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterTIFEx : IntPtr
+        UnregisterTIF : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterTIFEx", "UnregisterTIF"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_TIF_REGISTRATION.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RegisterTIFEx method registers a Transport Information Filter (TIF) with the Network Provider.
@@ -43,7 +53,7 @@ class IBDA_TIF_REGISTRATION extends IUnknown {
     RegisterTIFEx(pTIFInputPin, ppvRegistrationContext, ppMpeg2DataControl) {
         ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pTIFInputPin, ppvRegistrationContextMarshal, ppvRegistrationContext, "ptr*", ppMpeg2DataControl, "HRESULT")
+        result := ComCall(3, this, "ptr", pTIFInputPin, ppvRegistrationContextMarshal, ppvRegistrationContext, IUnknown.Ptr, ppMpeg2DataControl, "HRESULT")
         return result
     }
 
@@ -56,5 +66,27 @@ class IBDA_TIF_REGISTRATION extends IUnknown {
     UnregisterTIF(pvRegistrationContext) {
         result := ComCall(4, this, "uint", pvRegistrationContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_TIF_REGISTRATION.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterTIFEx := CallbackCreate(GetMethod(implObj, "RegisterTIFEx"), flags, 4)
+        this.vtbl.UnregisterTIF := CallbackCreate(GetMethod(implObj, "UnregisterTIF"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterTIFEx)
+        CallbackFree(this.vtbl.UnregisterTIF)
     }
 }

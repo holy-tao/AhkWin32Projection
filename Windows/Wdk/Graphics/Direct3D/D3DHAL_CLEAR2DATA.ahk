@@ -1,76 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DRECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DRECT.ahk" { D3DRECT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_CLEAR2DATA extends Win32Struct {
-    static sizeof => 40
+export default struct D3DHAL_CLEAR2DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwhContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFillColor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFillColor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dvFillDepth : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvFillDepth {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    dwFillStencil : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFillStencil {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    lpRects : D3DRECT.Ptr
 
-    /**
-     * @type {Pointer<D3DRECT>}
-     */
-    lpRects {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwNumRects : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumRects {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ddrval : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
 }

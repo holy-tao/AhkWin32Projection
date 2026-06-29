@@ -1,90 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_X509DATA_TYPE.ahk
-#Include .\CRYPT_XML_ISSUER_SERIAL.ahk
-#Include .\CRYPT_XML_DATA_BLOB.ahk
-#Include .\CRYPT_XML_BLOB.ahk
-#Include .\CRYPT_XML_CHARSET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_XML_X509DATA_TYPE.ahk" { CRYPT_XML_X509DATA_TYPE }
+#Import ".\CRYPT_XML_DATA_BLOB.ahk" { CRYPT_XML_DATA_BLOB }
+#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_XML_ISSUER_SERIAL.ahk" { CRYPT_XML_ISSUER_SERIAL }
+#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
 
 /**
  * Represents X.509 data that is to be encoded in an X509Data named element.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_x509data_item
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_XML_X509DATA_ITEM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPT_XML_X509DATA_ITEM {
+    #StructPack 8
 
     /**
      * Specifies the data item type.
-     * @type {CRYPT_XML_X509DATA_TYPE}
      */
-    dwType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwType : CRYPT_XML_X509DATA_TYPE
 
-    /**
-     * @type {CRYPT_XML_ISSUER_SERIAL}
-     */
-    IssuerSerial {
-        get {
-            if(!this.HasProp("__IssuerSerial"))
-                this.__IssuerSerial := CRYPT_XML_ISSUER_SERIAL(8, this)
-            return this.__IssuerSerial
-        }
-    }
+    IssuerSerial : CRYPT_XML_ISSUER_SERIAL
 
-    /**
-     * @type {CRYPT_XML_DATA_BLOB}
-     */
-    SKI {
-        get {
-            if(!this.HasProp("__SKI"))
-                this.__SKI := CRYPT_XML_DATA_BLOB(8, this)
-            return this.__SKI
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    wszSubjectName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {CRYPT_XML_DATA_BLOB}
-     */
-    Certificate {
-        get {
-            if(!this.HasProp("__Certificate"))
-                this.__Certificate := CRYPT_XML_DATA_BLOB(8, this)
-            return this.__Certificate
-        }
-    }
-
-    /**
-     * @type {CRYPT_XML_DATA_BLOB}
-     */
-    CRL {
-        get {
-            if(!this.HasProp("__CRL"))
-                this.__CRL := CRYPT_XML_DATA_BLOB(8, this)
-            return this.__CRL
-        }
-    }
-
-    /**
-     * @type {CRYPT_XML_BLOB}
-     */
-    Custom {
-        get {
-            if(!this.HasProp("__Custom"))
-                this.__Custom := CRYPT_XML_BLOB(8, this)
-            return this.__Custom
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'SKI', { type: CRYPT_XML_DATA_BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'wszSubjectName', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'Certificate', { type: CRYPT_XML_DATA_BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'CRL', { type: CRYPT_XML_DATA_BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'Custom', { type: CRYPT_XML_BLOB, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

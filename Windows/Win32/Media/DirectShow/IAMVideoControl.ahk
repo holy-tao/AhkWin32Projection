@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The IAMVideoControl interface controls certain video capture operations such as enumerating available frame rates and image orientation.
@@ -10,26 +13,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvideocontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMVideoControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMVideoControl extends IUnknown {
     /**
      * The interface identifier for IAMVideoControl
      * @type {Guid}
      */
-    static IID => Guid("{6a2e0670-28e4-11d0-a18c-00a0c9118956}")
+    static IID := Guid("{6a2e0670-28e4-11d0-a18c-00a0c9118956}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMVideoControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCaps                   : IntPtr
+        SetMode                   : IntPtr
+        GetMode                   : IntPtr
+        GetCurrentActualFrameRate : IntPtr
+        GetMaxAvailableFrameRate  : IntPtr
+        GetFrameRateList          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCaps", "SetMode", "GetMode", "GetCurrentActualFrameRate", "GetMaxAvailableFrameRate", "GetFrameRateList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMVideoControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCaps method retrieves the capabilities of the underlying hardware.
@@ -91,7 +106,7 @@ class IAMVideoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getmaxavailableframerate
      */
     GetMaxAvailableFrameRate(pPin, iIndex, Dimensions) {
-        result := ComCall(7, this, "ptr", pPin, "int", iIndex, "ptr", Dimensions, "int64*", &MaxAvailableFrameRate := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pPin, "int", iIndex, SIZE, Dimensions, "int64*", &MaxAvailableFrameRate := 0, "HRESULT")
         return MaxAvailableFrameRate
     }
 
@@ -111,7 +126,37 @@ class IAMVideoControl extends IUnknown {
         ListSizeMarshal := ListSize is VarRef ? "int*" : "ptr"
         FrameRatesMarshal := FrameRates is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pPin, "int", iIndex, "ptr", Dimensions, ListSizeMarshal, ListSize, FrameRatesMarshal, FrameRates, "HRESULT")
+        result := ComCall(8, this, "ptr", pPin, "int", iIndex, SIZE, Dimensions, ListSizeMarshal, ListSize, FrameRatesMarshal, FrameRates, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMVideoControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 3)
+        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 3)
+        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 3)
+        this.vtbl.GetCurrentActualFrameRate := CallbackCreate(GetMethod(implObj, "GetCurrentActualFrameRate"), flags, 3)
+        this.vtbl.GetMaxAvailableFrameRate := CallbackCreate(GetMethod(implObj, "GetMaxAvailableFrameRate"), flags, 5)
+        this.vtbl.GetFrameRateList := CallbackCreate(GetMethod(implObj, "GetFrameRateList"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.SetMode)
+        CallbackFree(this.vtbl.GetMode)
+        CallbackFree(this.vtbl.GetCurrentActualFrameRate)
+        CallbackFree(this.vtbl.GetMaxAvailableFrameRate)
+        CallbackFree(this.vtbl.GetFrameRateList)
     }
 }

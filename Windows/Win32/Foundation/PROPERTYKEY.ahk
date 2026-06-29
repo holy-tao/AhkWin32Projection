@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies the FMTID/PID identifier that programmatically identifies a property. Replaces SHCOLUMNID.
@@ -19,21 +19,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-propertykey
  * @namespace Windows.Win32.Foundation
  */
-class PROPERTYKEY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PROPERTYKEY {
+    #StructPack 4
 
     /**
      * Type: <b>GUID</b>
      * 
      * A unique GUID for the property.
-     * @type {Pointer}
      */
-    fmtid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    fmtid : Guid
 
     /**
      * Type: <b>DWORD</b>
@@ -42,10 +36,7 @@ class PROPERTYKEY extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Values of 0 and 1 are reserved and should not be used.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    pid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pid : UInt32
+
 }

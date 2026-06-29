@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Identifies a provider function by DLL name and function name.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_trust_reg_entry
  * @namespace Windows.Win32.Security.WinTrust
  */
-class CRYPT_TRUST_REG_ENTRY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPT_TRUST_REG_ENTRY {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * A pointer to a null-terminated string for the DLL name.
-     * @type {PWSTR}
      */
-    pwszDLLName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszDLLName : PWSTR
 
     /**
      * A pointer to a null-terminated string for the function name.
-     * @type {PWSTR}
      */
-    pwszFunctionName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszFunctionName : PWSTR
+
 }

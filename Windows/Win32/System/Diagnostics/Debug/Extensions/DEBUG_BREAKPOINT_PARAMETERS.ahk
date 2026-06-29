@@ -1,107 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_BREAKPOINT_PARAMETERS extends Win32Struct {
-    static sizeof => 56
+export default struct DEBUG_BREAKPOINT_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Offset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BreakType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BreakType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DataAccessType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataAccessType {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PassCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PassCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CurrentPassCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentPassCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MatchThread : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MatchThread {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CommandSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CommandSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    OffsetExpressionSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetExpressionSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

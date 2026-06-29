@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Diagnostics\Debug\VER_PLATFORM.ahk
-#Include ..\..\System\SystemInformation\PROCESSOR_ARCHITECTURE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Diagnostics\Debug\VER_PLATFORM.ahk" { VER_PLATFORM }
+#Import "..\..\System\SystemInformation\PROCESSOR_ARCHITECTURE.ahk" { PROCESSOR_ARCHITECTURE }
 
 /**
  * The SP_ALTPLATFORM_INFO_V2 structure is used to pass information for an alternate platform to SetupQueryInfOriginalFileInformation.
@@ -9,91 +8,45 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_ALTPLATFORM_INFO_V2 extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct SP_ALTPLATFORM_INFO_V2 {
+    #StructPack 4
 
     /**
      * Size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {VER_PLATFORM}
-     */
-    Platform {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Platform : VER_PLATFORM
 
     /**
      * Major version of the operating system.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MajorVersion : UInt32
 
     /**
      * Minor version of the operating system.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MinorVersion : UInt32
 
     /**
      * Processor architecture. This must be PROCESSOR_ARCHITECTURE_INTEL, PROCESSOR_ARCHITECTURE_ALPHA, PROCESSOR_ARCHITECTURE_IA64, PROCESSOR_ARCHITECTURE_ALPHA64.
-     * @type {PROCESSOR_ARCHITECTURE}
      */
-    ProcessorArchitecture {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    ProcessorArchitecture : PROCESSOR_ARCHITECTURE
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    Reserved : UInt16
 
     /**
      * Major version of the oldest previous operating system for which this package's digital signature is valid. For example, if the alternate platform is VER_PLATFORM_WIN32_NT, version 5.1, and you want a driver package signed with a 5.0 osattr to also be valid, set MajorVersion to 5, MinorVersion to 1, <b>FirstValidatedMajorVersion</b> to 5, and <b>FirstValidatedMinorVersion</b> 0. To validate packages signed for any previous operating system, specify 0 for these fields. To only validate against the target alternate platform, specify the same values as those in the MajorVersion and MinorVersion fields. Available with Windows XP or later only. The Flags member must be set to SP_ALTPLATFORM_FLAGS_VERSION_RANGE to use <b>FirstValidatedMajorVersion</b>.
-     * @type {Integer}
      */
-    FirstValidatedMajorVersion {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    FirstValidatedMajorVersion : UInt32
 
     /**
      * Minor version of the oldest previous operating system for which this package's digital signature is valid. For information see <b>FirstValidatedMajorVersion</b>. Available with Windows Server 2003 or Windows XP. The <b>Flags</b> member must be set to SP_ALTPLATFORM_FLAGS_VERSION_RANGE to use <b>FirstValidatedMinorVersion</b>.
-     * @type {Integer}
      */
-    FirstValidatedMinorVersion {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FirstValidatedMinorVersion : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 28
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: UInt16, offset: 18 })
+        this.DeleteProp("__New")
     }
 }

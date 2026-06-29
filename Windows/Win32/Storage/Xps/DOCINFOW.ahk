@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DOCINFO structure contains the input and output file names and other information used by the StartDoc function. (Unicode)
@@ -10,57 +10,29 @@
  * @namespace Windows.Win32.Storage.Xps
  * @charset Unicode
  */
-class DOCINFOW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DOCINFOW {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cbSize : Int32 := this.Size
 
     /**
      * Pointer to a null-terminated string that specifies the name of the document.
-     * @type {PWSTR}
      */
-    lpszDocName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszDocName : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the name of an output file. If this pointer is <b>NULL</b>, the output will be sent to the device identified by the device context handle that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startdoca">StartDoc</a> function.
-     * @type {PWSTR}
      */
-    lpszOutput {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszOutput : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the type of data used to record the print job. The legal values for this member can be found by calling <a href="https://docs.microsoft.com/windows/desktop/printdocs/enumprintprocessordatatypes">EnumPrintProcessorDatatypes</a> and can include such values as raw, emf, or XPS_PASS. This member can be <b>NULL</b>. Note that the requested data type might be ignored.
-     * @type {PWSTR}
      */
-    lpszDatatype {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszDatatype : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    fwType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    fwType : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

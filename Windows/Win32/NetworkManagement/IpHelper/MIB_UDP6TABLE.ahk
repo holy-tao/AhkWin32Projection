@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_UDP6ROW.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_UDP6ROW.ahk" { MIB_UDP6ROW }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Contains the User Datagram Protocol (UDP) listener table for IPv6 on the local computer.
@@ -23,30 +22,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDP6TABLE extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct MIB_UDP6TABLE {
+    #StructPack 4
 
     /**
      * The number of entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6row">MIB_UDP6ROW</a> structures.
-     * @type {MIB_UDP6ROW}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_UDP6ROW, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_UDP6ROW[1]
+
 }

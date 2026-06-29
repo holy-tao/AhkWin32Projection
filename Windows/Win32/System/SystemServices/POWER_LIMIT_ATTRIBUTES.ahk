@@ -1,29 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_LIMIT_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POWER_LIMIT_TYPES.ahk" { POWER_LIMIT_TYPES }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class POWER_LIMIT_ATTRIBUTES extends Win32Struct {
-    static sizeof => 36
+export default struct POWER_LIMIT_ATTRIBUTES {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - SupportTimeParameter
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -32,88 +24,28 @@ class POWER_LIMIT_ATTRIBUTES extends Win32Struct {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {POWER_LIMIT_TYPES}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : POWER_LIMIT_TYPES
 
-    /**
-     * @type {Integer}
-     */
-    DomainId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DomainId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MinValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinTimeParameter {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinTimeParameter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTimeParameter {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxTimeParameter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultACValue {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DefaultACValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultDCValue {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DefaultDCValue : UInt32
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := POWER_LIMIT_ATTRIBUTES._Flags_e__Union(32, this)
-            return this.__Flags
-        }
-    }
+    Flags : POWER_LIMIT_ATTRIBUTES._Flags
+
 }

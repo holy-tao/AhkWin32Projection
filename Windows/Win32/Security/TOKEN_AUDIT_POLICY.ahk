@@ -1,25 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the per user audit policy for a token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_audit_policy
  * @namespace Windows.Win32.Security
  */
-class TOKEN_AUDIT_POLICY extends Win32Struct {
-    static sizeof => 31
-
-    static packingSize => 1
+export default struct TOKEN_AUDIT_POLICY {
+    #StructPack 1
 
     /**
      * Specifies the per user audit policy for the token.
-     * @type {Array<Integer>}
      */
-    PerUserPolicy {
-        get {
-            if(!this.HasProp("__PerUserPolicyProxyArray"))
-                this.__PerUserPolicyProxyArray := Win32FixedArray(this.ptr + 0, 31, Primitive, "char")
-            return this.__PerUserPolicyProxyArray
-        }
-    }
+    PerUserPolicy : Int8[31]
+
 }

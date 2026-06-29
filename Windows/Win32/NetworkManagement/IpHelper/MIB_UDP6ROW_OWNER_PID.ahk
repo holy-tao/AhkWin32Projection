@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an entry from the User Datagram Protocol (UDP) listener table for IPv6 on the local computer. The entry also includes the process ID (PID) that issued the call to the bind function for the UDP endpoint.
@@ -19,50 +18,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6row_owner_pid
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDP6ROW_OWNER_PID extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct MIB_UDP6ROW_OWNER_PID {
+    #StructPack 4
 
     /**
      * The IPv6 address for the local UDP endpoint. This member is stored in  a character array in network byte order. 
      * 
      * A value of zero indicates a UDP listener  willing to accept datagrams for any IP interface associated
      *                       with the local computer.
-     * @type {Array<Integer>}
      */
-    ucLocalAddr {
-        get {
-            if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ucLocalAddrProxyArray
-        }
-    }
+    ucLocalAddr : Int8[16]
 
     /**
      * The scope ID for the IPv6 address of the UDP endpoint on the local computer. This member is stored in network byte order.
-     * @type {Integer}
      */
-    dwLocalScopeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLocalScopeId : UInt32
 
     /**
      * The port number of the UDP endpoint on the local computer. This member is stored in network byte order.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwLocalPort : UInt32
 
     /**
      * The PID of the process that issued a context bind for this endpoint. If this value is set to 0, the information for this endpoint is unavailable.
-     * @type {Integer}
      */
-    dwOwningPid {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwOwningPid : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines flags for the IMFTransform::ProcessOutput method.
@@ -24,7 +23,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_data_buffer_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class _MFT_OUTPUT_DATA_BUFFER_FLAGS extends Win32Enum {
+export default struct _MFT_OUTPUT_DATA_BUFFER_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The MFT can still generate output from this stream without receiving any more input. Call <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> again to process the next batch of input data.

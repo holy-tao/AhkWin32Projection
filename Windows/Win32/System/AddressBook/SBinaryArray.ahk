@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SBinary.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SBinary.ahk" { SBinary }
 
 /**
  * Contains an array of binary values. The SBinaryArray structure is used to describe properties of type PT_MV_BINARY.
@@ -11,26 +10,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinaryarray
  * @namespace Windows.Win32.System.AddressBook
  */
-class SBinaryArray extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SBinaryArray {
+    #StructPack 8
 
     /**
      * > Count of values in the array pointed to by the **lpbin** member.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cValues : UInt32
 
     /**
      * > Pointer to an array of [SBinary](sbinary.md) structures that holds the binary values.
-     * @type {Pointer<SBinary>}
      */
-    lpbin {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpbin : SBinary.Ptr
+
 }

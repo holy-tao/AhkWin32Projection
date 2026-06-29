@@ -1,63 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct {
-    static sizeof => 32
+export default struct KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S {
+    #StructPack 4
 
-    static packingSize => 4
+    FocusRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    FocusRect {
-        get {
-            if(!this.HasProp("__FocusRect"))
-                this.__FocusRect := RECT(0, this)
-            return this.__FocusRect
-        }
-    }
+    AutoFocusLock : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    AutoFocusLock {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    AutoExposureLock : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    AutoExposureLock {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    AutoWhitebalanceLock : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    AutoWhitebalanceLock {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Capabilities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Capabilities {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Configuration {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    static __New() {
+        DefineProp(this.Prototype, 'Configuration', { type: UInt32, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

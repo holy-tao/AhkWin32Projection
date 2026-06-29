@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
 
 /**
  * The QOS_TCP_TRAFFIC structure is used to indicate that IP Precedence and UserPriority mappings for a given flow must be set to system defaults for TCP traffic.
@@ -9,20 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_tcp_traffic
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_TCP_TRAFFIC extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct QOS_TCP_TRAFFIC {
+    #StructPack 4
 
     /**
      * A QOS object header.
-     * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr {
-        get {
-            if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
-            return this.__ObjectHdr
-        }
-    }
+    ObjectHdr : QOS_OBJECT_HDR
+
 }

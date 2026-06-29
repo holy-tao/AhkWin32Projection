@@ -1,79 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class XACTSTATS extends Win32Struct {
-    static sizeof => 36
+export default struct XACTSTATS {
+    #StructPack 4
 
-    static packingSize => 4
+    cOpen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cOpen {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cCommitting : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCommitting {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cCommitted : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCommitted {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cAborting : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cAborting {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cAborted : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cAborted {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cInDoubt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cInDoubt {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cHeuristicDecision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cHeuristicDecision {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    timeTransactionsUp : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    timeTransactionsUp {
-        get {
-            if(!this.HasProp("__timeTransactionsUp"))
-                this.__timeTransactionsUp := FILETIME(28, this)
-            return this.__timeTransactionsUp
-        }
-    }
 }

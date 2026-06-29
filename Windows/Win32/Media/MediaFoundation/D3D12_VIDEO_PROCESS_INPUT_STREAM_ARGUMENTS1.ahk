@@ -1,101 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk
-#Include .\D3D12_VIDEO_PROCESS_TRANSFORM.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\D3D12_VIDEO_PROCESS_ORIENTATION.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk
-#Include .\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk
-#Include .\D3D12_VIDEO_FIELD_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_PROCESS_ORIENTATION.ahk" { D3D12_VIDEO_PROCESS_ORIENTATION }
+#Import ".\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk" { D3D12_VIDEO_PROCESS_ALPHA_BLENDING }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS }
+#Import ".\D3D12_VIDEO_FIELD_TYPE.ahk" { D3D12_VIDEO_FIELD_TYPE }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3D12_VIDEO_PROCESS_TRANSFORM.ahk" { D3D12_VIDEO_PROCESS_TRANSFORM }
+#Import ".\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk" { D3D12_VIDEO_PROCESS_REFERENCE_SET }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM }
 
 /**
  * Specifies input stream arguments for an input stream passed to ID3D12VideoProcessCommandList1::ProcessFrames1, which supports changing the field type for each call.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_input_stream_arguments1
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 extends Win32Struct {
-    static sizeof => 320
-
-    static packingSize => 8
+export default struct D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 {
+    #StructPack 8
 
     /**
      * An array of [D3D12_VIDEO_PROCESS_INPUT_STREAM](ns-d3d12video-d3d12_video_process_input_stream.md) structures containing the set of references for video processing. If the stereo format is [D3D12_VIDEO_PROCESS_STEREO_FORMAT_SEPARATE](ne-d3d12video-d3d12_video_frame_stereo_format.md), then two sets of input streams must be supplied.  For all other stereo formats, the first set of reference must be supplied, and the second should be zero initialized.
-     * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM}
      */
-    InputStream {
-        get {
-            if(!this.HasProp("__InputStreamProxyArray"))
-                this.__InputStreamProxyArray := Win32FixedArray(this.ptr + 0, 2, D3D12_VIDEO_PROCESS_INPUT_STREAM, "")
-            return this.__InputStreamProxyArray
-        }
-    }
+    InputStream : D3D12_VIDEO_PROCESS_INPUT_STREAM[2]
 
     /**
      * A [D3D12_VIDEO_PROCESS_TRANSFORM](ns-d3d12video-d3d12_video_process_transform.md) structure specifying the flip, rotation, scale and destination translation for the video input.
-     * @type {D3D12_VIDEO_PROCESS_TRANSFORM}
      */
-    Transform {
-        get {
-            if(!this.HasProp("__Transform"))
-                this.__Transform := D3D12_VIDEO_PROCESS_TRANSFORM(128, this)
-            return this.__Transform
-        }
-    }
+    Transform : D3D12_VIDEO_PROCESS_TRANSFORM
 
     /**
      * A value from the [D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS](ne-d3d12video-d3d12_video_process_input_stream_flags.md) enumeration specifying the options for the input stream.
-     * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
-    }
+    Flags : D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS
 
     /**
      * A [D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE](ns-d3d12video-d3d12_video_process_input_stream_rate.md) structure specifying the framerate and input and output indices for framerate conversion and deinterlacing.
-     * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE}
      */
-    RateInfo {
-        get {
-            if(!this.HasProp("__RateInfo"))
-                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(168, this)
-            return this.__RateInfo
-        }
-    }
+    RateInfo : D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE
 
     /**
      * The level to apply for each enabled filter.  The filter level is specified in the order that filters appear in the [D3D12_VIDEO_PROCESS_FILTER_FLAGS](ne-d3d12video-d3d12_video_process_filter_flags.md) enumeration.  Specify 0 if a filter is not enabled or the filter index is reserved.
-     * @type {Array<Integer>}
      */
-    FilterLevels {
-        get {
-            if(!this.HasProp("__FilterLevelsProxyArray"))
-                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 176, 32, Primitive, "int")
-            return this.__FilterLevelsProxyArray
-        }
-    }
+    FilterLevels : Int32[32]
 
     /**
      * A [D3D12_VIDEO_PROCESS_ALPHA_BLENDING](ns-d3d12video-d3d12_video_process_alpha_blending.md) structure specifying the planar alpha for an input stream on the video processor.
-     * @type {D3D12_VIDEO_PROCESS_ALPHA_BLENDING}
      */
-    AlphaBlending {
-        get {
-            if(!this.HasProp("__AlphaBlending"))
-                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(304, this)
-            return this.__AlphaBlending
-        }
-    }
+    AlphaBlending : D3D12_VIDEO_PROCESS_ALPHA_BLENDING
 
     /**
      * A value from the [D3D12_VIDEO_FIELD_TYPE](ne-d3d12video-d3d12_video_field_type.md) enumeration specfying the interlaced field type of the input source. When working with mixed content, use [ID3D12VideoProcessCommandList1::ProcessFrames1](nf-d3d12video-id3d12videoprocesscommandlist1-processframes1.md) which supports changing the field type for each call.
-     * @type {D3D12_VIDEO_FIELD_TYPE}
      */
-    FieldType {
-        get => NumGet(this, 312, "int")
-        set => NumPut("int", value, this, 312)
-    }
+    FieldType : D3D12_VIDEO_FIELD_TYPE
+
 }

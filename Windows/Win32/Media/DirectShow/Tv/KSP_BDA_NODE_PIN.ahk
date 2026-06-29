@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSP_BDA_NODE_PIN extends Win32Struct {
-    static sizeof => 32
+export default struct KSP_BDA_NODE_PIN {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    ulNodeType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNodeType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulInputPinId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulInputPinId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulOutputPinId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulOutputPinId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

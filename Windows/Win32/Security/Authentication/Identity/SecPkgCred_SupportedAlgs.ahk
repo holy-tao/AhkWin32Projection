@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Cryptography\ALG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgCred_SupportedAlgs extends Win32Struct {
-    static sizeof => 16
+export default struct SecPkgCred_SupportedAlgs {
+    #StructPack 8
 
-    static packingSize => 8
+    cSupportedAlgs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cSupportedAlgs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    palgSupportedAlgs : ALG_ID.Ptr
 
-    /**
-     * @type {Pointer<ALG_ID>}
-     */
-    palgSupportedAlgs {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

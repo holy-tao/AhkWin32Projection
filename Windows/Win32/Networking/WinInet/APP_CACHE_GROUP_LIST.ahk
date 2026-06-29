@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\APP_CACHE_GROUP_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APP_CACHE_GROUP_INFO.ahk" { APP_CACHE_GROUP_INFO }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class APP_CACHE_GROUP_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct APP_CACHE_GROUP_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    dwAppCacheGroupCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAppCacheGroupCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pAppCacheGroups : APP_CACHE_GROUP_INFO.Ptr
 
-    /**
-     * @type {Pointer<APP_CACHE_GROUP_INFO>}
-     */
-    pAppCacheGroups {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_FS_DRIVER_PATH_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct FILE_FS_DRIVER_PATH_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    DriverInPath : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DriverInPath {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    DriverNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DriverNameLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DriverName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    DriverName {
-        get => StrGet(this.ptr + 8, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 0, "UTF-16")
-    }
 }

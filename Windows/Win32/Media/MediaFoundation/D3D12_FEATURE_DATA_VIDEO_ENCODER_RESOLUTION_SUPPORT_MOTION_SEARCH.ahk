@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH extends Win32Struct {
-    static sizeof => 24
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH {
+    #StructPack 4
 
-    static packingSize => 4
+    MaxMotionHints : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxMotionHints {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MinDeviation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinDeviation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxDeviation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxDeviation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MapSourcePreferenceRanking : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MapSourcePreferenceRanking {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MotionUnitPrecisionSupportFlags : D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS}
-     */
-    MotionUnitPrecisionSupportFlags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    SupportFlags : D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS}
-     */
-    SupportFlags {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

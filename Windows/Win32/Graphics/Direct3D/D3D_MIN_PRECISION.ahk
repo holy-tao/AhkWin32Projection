@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values that indicate the minimum desired interpolation precision.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_min_precision
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class D3D_MIN_PRECISION extends Win32Enum {
+export default struct D3D_MIN_PRECISION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default minimum precision, which is 32-bit precision.

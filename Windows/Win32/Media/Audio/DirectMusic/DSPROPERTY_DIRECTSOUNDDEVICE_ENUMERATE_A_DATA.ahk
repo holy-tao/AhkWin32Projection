@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA extends Win32Struct {
-    static sizeof => 16
+export default struct DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Callback : IntPtr
 
-    /**
-     * @type {Pointer<LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA>}
-     */
-    Callback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

@@ -1,41 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_DESCRIPTOR_HEADER extends Win32Struct {
-    static sizeof => 6
+export default struct DVD_DESCRIPTOR_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

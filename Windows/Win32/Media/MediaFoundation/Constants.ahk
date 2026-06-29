@@ -1,0 +1,10595 @@
+#Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+
+/**
+ * @namespace Windows.Win32.Media.MediaFoundation
+ */
+
+;@region Constants
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_VERSION := 131184
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_None := Guid("{e436eb8e-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Video := Guid("{73646976-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Audio := Guid("{73647561-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Text := Guid("{73747874-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Midi := Guid("{7364696d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Stream := Guid("{e436eb83-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Interleaved := Guid("{73766169-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_File := Guid("{656c6966-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_ScriptCommand := Guid("{73636d64-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_AUXLine21Data := Guid("{670aea80-3a82-11d0-b79b-00aa003767a7}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_AUXTeletextPage := Guid("{11264acb-37de-4eba-8c35-7f04a1a68332}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_CC_CONTAINER := Guid("{aeb312e9-3357-43ca-b701-97ec198e2b62}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_DTVCCData := Guid("{fb77e152-53b2-499c-b46b-509fc33edfd7}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_MSTVCaption := Guid("{b88b8a89-b049-4c80-adcf-5898985e22c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_VBI := Guid("{f72a76e1-eb0a-11d0-ace4-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DVB_SUBTITLES := Guid("{34ffcbc3-d5b3-4171-9002-d4c60301697f}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ISDB_CAPTIONS := Guid("{059dd67d-2e55-4d41-8d1b-01f5e4f50607}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ISDB_SUPERIMPOSE := Guid("{36dc6d28-f1a6-4216-9048-9cfcefeb5eba}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_Timecode := Guid("{0482dee3-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_LMRT := Guid("{74726c6d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_URL_STREAM := Guid("{736c7275-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_CLPL := Guid("{4c504c43-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_YUYV := Guid("{56595559-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IYUV := Guid("{56555949-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_YVU9 := Guid("{39555659-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y411 := Guid("{31313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y41P := Guid("{50313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_YUY2 := Guid("{32595559-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_YVYU := Guid("{55595659-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_UYVY := Guid("{59565955-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y211 := Guid("{31313259-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_CLJR := Guid("{524a4c43-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IF09 := Guid("{39304649-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_CPLA := Guid("{414c5043-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MJPG := Guid("{47504a4d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_TVMJ := Guid("{4a4d5654-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WAKE := Guid("{454b4157-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_CFCC := Guid("{43434643-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IJPG := Guid("{47504a49-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Plum := Guid("{6d756c50-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DVCS := Guid("{53435644-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_H264 := Guid("{34363248-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DVSD := Guid("{44535644-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MDVF := Guid("{4656444d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB1 := Guid("{e436eb78-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB4 := Guid("{e436eb79-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB8 := Guid("{e436eb7a-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB565 := Guid("{e436eb7b-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB555 := Guid("{e436eb7c-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB24 := Guid("{e436eb7d-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB32 := Guid("{e436eb7e-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB1555 := Guid("{297c55af-e209-4cb3-b757-c76d6b9c88a8}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB4444 := Guid("{6e6415e6-5c24-425f-93cd-80102b3d1cca}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB32 := Guid("{773c9ac0-3274-11d0-b724-00aa006c1a01}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_A2R10G10B10 := Guid("{2f8bb76d-b644-4550-acf3-d30caa65d5c5}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_A2B10G10R10 := Guid("{576f7893-bdf6-48c4-875f-ae7b81834567}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AYUV := Guid("{56555941-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AI44 := Guid("{34344941-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IA44 := Guid("{34344149-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB32_D3D_DX7_RT := Guid("{32335237-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB16_D3D_DX7_RT := Guid("{36315237-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB32_D3D_DX7_RT := Guid("{38384137-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB4444_D3D_DX7_RT := Guid("{34344137-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB1555_D3D_DX7_RT := Guid("{35314137-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB32_D3D_DX9_RT := Guid("{32335239-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RGB16_D3D_DX9_RT := Guid("{36315239-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB32_D3D_DX9_RT := Guid("{38384139-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB4444_D3D_DX9_RT := Guid("{34344139-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_ARGB1555_D3D_DX9_RT := Guid("{35314139-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_YV12 := Guid("{32315659-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_NV12 := Guid("{3231564e-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_NV11 := Guid("{3131564e-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_P208 := Guid("{38303250-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_P210 := Guid("{30313250-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_P216 := Guid("{36313250-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_P010 := Guid("{30313050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_P016 := Guid("{36313050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y210 := Guid("{30313259-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y216 := Guid("{36313259-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_P408 := Guid("{38303450-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_NV24 := Guid("{3432564e-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_420O := Guid("{4f303234-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IMC1 := Guid("{31434d49-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IMC2 := Guid("{32434d49-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IMC3 := Guid("{33434d49-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IMC4 := Guid("{34434d49-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_S340 := Guid("{30343353-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_S342 := Guid("{32343353-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Overlay := Guid("{e436eb7f-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1Packet := Guid("{e436eb80-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1Payload := Guid("{e436eb81-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1AudioPayload := Guid("{00000050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_MPEG1SystemStream := Guid("{e436eb82-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1System := Guid("{e436eb84-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1VideoCD := Guid("{e436eb85-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1Video := Guid("{e436eb86-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG1Audio := Guid("{e436eb87-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Avi := Guid("{e436eb88-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Asf := Guid("{3db80f90-9412-11d1-aded-0000f8754b99}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_QTMovie := Guid("{e436eb89-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_QTRpza := Guid("{617a7072-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_QTSmc := Guid("{20636d73-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_QTRle := Guid("{20656c72-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_QTJpeg := Guid("{6765706a-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_PCMAudio_Obsolete := Guid("{e436eb8a-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_PCM := Guid("{00000001-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WAVE := Guid("{e436eb8b-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AU := Guid("{e436eb8c-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AIFF := Guid("{e436eb8d-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_dvhd := Guid("{64687664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_dvsl := Guid("{6c737664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_dv25 := Guid("{35327664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_dv50 := Guid("{30357664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_dvh1 := Guid("{31687664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Line21_BytePair := Guid("{6e8d4a22-310c-11d0-b79a-00aa003767a7}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Line21_GOPPacket := Guid("{6e8d4a23-310c-11d0-b79a-00aa003767a7}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Line21_VBIRawData := Guid("{6e8d4a24-310c-11d0-b79a-00aa003767a7}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_708_608Data := Guid("{0af414bc-4ed2-445e-9839-8f095568ab3c}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DtvCcData := Guid("{f52addaa-36f0-43f5-95ea-6d866484262a}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_CC_CONTAINER := Guid("{7ea626db-54da-437b-be9f-f73073adfa3c}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_TELETEXT := Guid("{f72a76e3-eb0a-11d0-ace4-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_VBI := Guid("{663da43c-03e8-4e9a-9cd5-bf11ed0def76}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WSS := Guid("{2791d576-8e7a-466f-9e90-5d3f3083738b}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_XDS := Guid("{01ca73e3-dce6-4575-afe1-2bf1c902caf3}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_VPS := Guid("{a1b3f620-9792-4d8d-81a4-86af25772090}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DRM_Audio := Guid("{00000009-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_IEEE_FLOAT := Guid("{00000003-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DOLBY_AC3_SPDIF := Guid("{00000092-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RAW_SPORT := Guid("{00000240-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_SPDIF_TAG_241h := Guid("{00000241-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DssVideo := Guid("{a0af4f81-e163-11d0-bad9-00609744111a}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DssAudio := Guid("{a0af4f82-e163-11d0-bad9-00609744111a}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_VPVideo := Guid("{5a9b6a40-1a22-11d1-bad9-00609744111a}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_VPVBI := Guid("{5a9b6a41-1a22-11d1-bad9-00609744111a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CaptureGraphBuilder := Guid("{bf87b6e0-8c27-11d0-b3f0-00aa003761c5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CaptureGraphBuilder2 := Guid("{bf87b6e1-8c27-11d0-b3f0-00aa003761c5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ProtoFilterGraph := Guid("{e436ebb0-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SystemClock := Guid("{e436ebb1-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FilterMapper := Guid("{e436ebb2-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FilterGraph := Guid("{e436ebb3-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FilterGraphNoThread := Guid("{e436ebb8-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FilterGraphPrivateThread := Guid("{a3ecbc41-581a-4476-b693-a63340462d8b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG1Doc := Guid("{e4bbd160-4269-11ce-838d-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FileSource := Guid("{701722e0-8ae3-11ce-a85c-00aa002feab5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG1PacketPlayer := Guid("{26c25940-4ca9-11ce-a828-00aa002feab5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG1Splitter := Guid("{336475d0-942a-11ce-a870-00aa002feab5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CMpegVideoCodec := Guid("{feb50740-7bef-11ce-9bd9-0000e202599c}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CMpegAudioCodec := Guid("{4a2286e0-7bef-11ce-9bd9-0000e202599c}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TextRender := Guid("{e30629d3-27e5-11ce-875d-00608cb78066}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_InfTee := Guid("{f8388a40-d5bb-11d0-be5a-0080c706568e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AviSplitter := Guid("{1b544c20-fd0b-11ce-8c63-00aa0044b51e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AviReader := Guid("{1b544c21-fd0b-11ce-8c63-00aa0044b51e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VfwCapture := Guid("{1b544c22-fd0b-11ce-8c63-00aa0044b51e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CaptureProperties := Guid("{1b544c22-fd0b-11ce-8c63-00aa0044b51f}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FGControl := Guid("{e436ebb4-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MOVReader := Guid("{44584800-f8ee-11ce-b2d4-00dd01101b85}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_QuickTimeParser := Guid("{d51bd5a0-7548-11cf-a520-0080c77ef58a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_QTDec := Guid("{fdfe9681-74a3-11d0-afa7-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AVIDoc := Guid("{d3588ab0-0781-11ce-b03a-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoRenderer := Guid("{70e102b0-5556-11ce-97c0-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_Colour := Guid("{1643e180-90f5-11ce-97d5-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_Dither := Guid("{1da08500-9edc-11cf-bc10-00aa00ac74f6}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ModexRenderer := Guid("{07167665-5011-11cf-bf33-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioRender := Guid("{e30629d1-27e5-11ce-875d-00608cb78066}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioProperties := Guid("{05589faf-c356-11ce-bf01-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DSoundRender := Guid("{79376820-07d0-11cf-a24d-0020afd79767}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioRecord := Guid("{e30629d2-27e5-11ce-875d-00608cb78066}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioInputMixerProperties := Guid("{2ca8ca52-3c3f-11d2-b73d-00c04fb6bd3d}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AVIDec := Guid("{cf49d4e0-1115-11ce-b03a-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AVIDraw := Guid("{a888df60-1e90-11cf-ac98-00aa004c0fa9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ACMWrapper := Guid("{6a08cf80-0e18-11cf-a24d-0020afd79767}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AsyncReader := Guid("{e436ebb5-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_URLReader := Guid("{e436ebb6-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_PersistMonikerPID := Guid("{e436ebb7-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AVICo := Guid("{d76e2820-1563-11cf-ac98-00aa004c0fa9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FileWriter := Guid("{8596e5f0-0da5-11d0-bd21-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AviDest := Guid("{e2510970-f137-11ce-8b67-00aa00a3f1a6}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AviMuxProptyPage := Guid("{c647b5c0-157c-11d0-bd23-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AviMuxProptyPage1 := Guid("{0a9ae910-85c0-11d0-bd42-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AVIMIDIRender := Guid("{07b65360-c445-11ce-afde-00aa006c14f4}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WMAsfReader := Guid("{187463a0-5bb7-11d3-acbe-0080c75e246e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WMAsfWriter := Guid("{7c23220e-55bb-11d3-8b16-00c04fb6bd3d}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG2Demultiplexer := Guid("{afb6c280-2c41-11d3-8a60-0000f81e0e4a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG2Demultiplexer_NoClock := Guid("{687d3367-3644-467a-adfe-6cd7a85c4a2c}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MMSPLITTER := Guid("{3ae86b20-7be8-11d1-abe6-00a0c905f375}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferSink := Guid("{2db47ae5-cf39-43c2-b4d6-0cd8d90946f4}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SBE2Sink := Guid("{e2448508-95da-4205-9a27-7ec81e723b1a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferSource := Guid("{c9f5fe02-f851-4eb5-99ee-ad602af1e619}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferConfig := Guid("{fa8a68b2-c864-4ba2-ad53-d3876a87494b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferPropertyHandler := Guid("{e37a73f8-fb01-43dc-914e-aaee76095ab9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferThumbnailHandler := Guid("{713790ee-5ee1-45ba-8070-a1337d2762fa}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_Mpeg2VideoStreamAnalyzer := Guid("{6cfad761-735d-4aa5-8afc-af91a7d61eba}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferRecordingAttributes := Guid("{ccaa63ac-1057-4778-ae92-1206ab9acee6}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_StreamBufferComposeRecording := Guid("{d682c4ba-a90a-42fe-b9e1-03109849c423}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SBE2File := Guid("{93a094d7-51e8-485b-904a-8d6b97dc6b39}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVVideoCodec := Guid("{b1b77c00-c3e4-11cf-af79-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVVideoEnc := Guid("{13aa3650-bb6f-11d0-afb9-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVSplitter := Guid("{4eb31670-9fc6-11cf-af6e-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVMux := Guid("{129d7e40-c10d-11d0-afb9-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SeekingPassThru := Guid("{060af76c-68dd-11d0-8fc1-00c04fd9189d}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_Line21Decoder := Guid("{6e8d4a20-310c-11d0-b79a-00aa003767a7}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_Line21Decoder2 := Guid("{e4206432-01a1-4bee-b3e1-3702c8edc574}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CCAFilter := Guid("{3d07a539-35ca-447c-9b05-8d85ce924f9e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_OverlayMixer := Guid("{cd8743a1-3736-11d0-9e69-00c04fd7c15b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VBISurfaces := Guid("{814b9800-1c88-11d1-bad9-00609744111a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WSTDecoder := Guid("{70bc06e0-5666-11d3-a184-00105aef9f33}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MjpegDec := Guid("{301056d0-6dff-11d2-9eeb-006008039e37}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MJPGEnc := Guid("{b80ab0a0-7416-11d2-9eeb-006008039e37}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SystemDeviceEnum := Guid("{62be5d10-60eb-11d0-bd3b-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CDeviceMoniker := Guid("{4315d437-5b8c-11d0-bd3b-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoInputDeviceCategory := Guid("{860bb310-5d01-11d0-bd3b-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CVidCapClassManager := Guid("{860bb310-5d01-11d0-bd3b-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_LegacyAmFilterCategory := Guid("{083863f1-70de-11d0-bd40-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CQzFilterClassManager := Guid("{083863f1-70de-11d0-bd40-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoCompressorCategory := Guid("{33d9a760-90c8-11d0-bd43-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CIcmCoClassManager := Guid("{33d9a760-90c8-11d0-bd43-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioCompressorCategory := Guid("{33d9a761-90c8-11d0-bd43-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CAcmCoClassManager := Guid("{33d9a761-90c8-11d0-bd43-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioInputDeviceCategory := Guid("{33d9a762-90c8-11d0-bd43-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CWaveinClassManager := Guid("{33d9a762-90c8-11d0-bd43-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioRendererCategory := Guid("{e0f158e1-cb04-11d0-bd4e-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CWaveOutClassManager := Guid("{e0f158e1-cb04-11d0-bd4e-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MidiRendererCategory := Guid("{4efe2452-168a-11d1-bc76-00c04fb9453b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CMidiOutClassManager := Guid("{4efe2452-168a-11d1-bc76-00c04fb9453b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TransmitCategory := Guid("{cc7bfb41-f175-11d1-a392-00e0291f3959}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DeviceControlCategory := Guid("{cc7bfb46-f175-11d1-a392-00e0291f3959}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ActiveMovieCategories := Guid("{da4e3da0-d07d-11d0-bd50-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVDHWDecodersCategory := Guid("{2721ae20-7e70-11d0-a5d6-28db04c10000}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MediaEncoderCategory := Guid("{7d22e920-5ca9-4787-8c2b-a6779bd11781}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MediaMultiplexerCategory := Guid("{236c9559-adce-4736-bf72-bab34e392196}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FilterMapper2 := Guid("{cda42200-bd88-11d0-bd4e-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MemoryAllocator := Guid("{1e651cc0-b199-11d0-8212-00c04fc32c45}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MediaPropertyBag := Guid("{cdbd8d00-c193-11d0-bd4e-00a0c911ce86}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DvdGraphBuilder := Guid("{fcc152b7-f372-11d0-8e00-00c04fd7c08b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVDNavigator := Guid("{9b8c4620-2c1a-11d0-8493-00a02438ad48}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVDState := Guid("{f963c5cf-a659-4a93-9638-caf3cd277d13}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SmartTee := Guid("{cc58e280-8aa1-11d1-b3f1-00aa003761c5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DtvCcFilter := Guid("{fb056ba0-2502-45b9-8e86-2b40de84ad29}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CaptionsFilter := Guid("{2f7ee4b6-6ff5-4eb4-b24a-2bfc41117171}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SubtitlesFilter := Guid("{9f22cfea-ce07-41ab-8ba0-c7364af90af9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DirectShowPluginControl := Guid("{8670c736-f614-427b-8ada-bbadc587194b}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_None := Guid("{0f6417d6-c318-11d0-a43f-00a0c9223196}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_VideoInfo := Guid("{05589f80-c356-11ce-bf01-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_VideoInfo2 := Guid("{f72a76a0-eb0a-11d0-ace4-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_WaveFormatEx := Guid("{05589f81-c356-11ce-bf01-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_MPEGVideo := Guid("{05589f82-c356-11ce-bf01-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_MPEGStreams := Guid("{05589f83-c356-11ce-bf01-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_DvInfo := Guid("{05589f84-c356-11ce-bf01-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_525WSS := Guid("{c7ecf04d-4582-4869-9abb-bfb523b62edf}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DirectDrawProperties := Guid("{944d4c00-dd52-11ce-bf0e-00aa0055595a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_PerformanceProperties := Guid("{59ce6880-acf8-11cf-b56e-0080c7c4b68a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_QualityProperties := Guid("{418afb70-f8b8-11ce-aac6-0020af0b99a3}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VPObject := Guid("{ce292861-fc88-11d0-9e69-00c04fd7c15b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VPVBIObject := Guid("{814b9801-1c88-11d1-bad9-00609744111a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVDecPropertiesPage := Guid("{101193c0-0bfe-11d0-af91-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVEncPropertiesPage := Guid("{4150f050-bb6f-11d0-afb9-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVMuxPropertyPage := Guid("{4db880e0-c10d-11d0-afb9-00aa00b67a42}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WstDecoderPropertyPage := Guid("{04e27f80-91e4-11d3-a184-00105aef9f33}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_AnalogVideo := Guid("{0482dde0-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_AnalogVideo := Guid("{0482dde1-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_NTSC_M := Guid("{0482dde2-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_B := Guid("{0482dde5-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_D := Guid("{0482dde6-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_G := Guid("{0482dde7-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_H := Guid("{0482dde8-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_I := Guid("{0482dde9-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_M := Guid("{0482ddea-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_N := Guid("{0482ddeb-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_PAL_N_COMBO := Guid("{0482ddec-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_B := Guid("{0482ddf0-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_D := Guid("{0482ddf1-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_G := Guid("{0482ddf2-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_H := Guid("{0482ddf3-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_K := Guid("{0482ddf4-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_K1 := Guid("{0482ddf5-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AnalogVideo_SECAM_L := Guid("{0482ddf6-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIATYPE_AnalogAudio := Guid("{0482dee1-7817-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_CAPTIONED_H264VIDEO := Guid("{a4efc024-873e-4da3-898b-474ddbd79fd0}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_CC_CONTAINER := Guid("{50997a4a-e508-4054-a2b2-10ff0ac1a69a}")
+
+/**
+ * @type {Guid}
+ */
+export global CAPTION_FORMAT_ATSC := Guid("{3ed9cb31-fd10-4ade-bccc-fb9105d2f3ef}")
+
+/**
+ * @type {Guid}
+ */
+export global CAPTION_FORMAT_DVB := Guid("{12230db4-ff2a-447e-bb88-6841c416d068}")
+
+/**
+ * @type {Guid}
+ */
+export global CAPTION_FORMAT_DIRECTV := Guid("{e9ca1ce7-915e-47be-9bb9-bf1d8a13a5ec}")
+
+/**
+ * @type {Guid}
+ */
+export global CAPTION_FORMAT_ECHOSTAR := Guid("{ebb1a262-1158-4b99-ae80-92ac776952c4}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_CAPTIONED_MPEG2VIDEO := Guid("{7ab2ada2-81b6-4f14-b3c8-d0c486393b67}")
+
+/**
+ * @type {Guid}
+ */
+export global TIME_FORMAT_NONE := Guid("{00000000-0000-0000-0000-000000000000}")
+
+/**
+ * @type {Guid}
+ */
+export global TIME_FORMAT_FRAME := Guid("{7b785570-8c82-11cf-bc0c-00aa00ac74f6}")
+
+/**
+ * @type {Guid}
+ */
+export global TIME_FORMAT_BYTE := Guid("{7b785571-8c82-11cf-bc0c-00aa00ac74f6}")
+
+/**
+ * @type {Guid}
+ */
+export global TIME_FORMAT_SAMPLE := Guid("{7b785572-8c82-11cf-bc0c-00aa00ac74f6}")
+
+/**
+ * @type {Guid}
+ */
+export global TIME_FORMAT_FIELD := Guid("{7b785573-8c82-11cf-bc0c-00aa00ac74f6}")
+
+/**
+ * @type {Guid}
+ */
+export global TIME_FORMAT_MEDIA_TIME := Guid("{7b785574-8c82-11cf-bc0c-00aa00ac74f6}")
+
+/**
+ * @type {Guid}
+ */
+export global AMPROPSETID_Pin := Guid("{9b00f101-1567-11d1-b3f1-00aa003761c5}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_CAPTURE := Guid("{fb6c4281-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_PREVIEW := Guid("{fb6c4282-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_ANALOGVIDEOIN := Guid("{fb6c4283-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_VBI := Guid("{fb6c4284-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_VIDEOPORT := Guid("{fb6c4285-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_NABTS := Guid("{fb6c4286-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_EDS := Guid("{fb6c4287-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_TELETEXT := Guid("{fb6c4288-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_CC := Guid("{fb6c4289-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_STILL := Guid("{fb6c428a-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_TIMECODE := Guid("{fb6c428b-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global PIN_CATEGORY_VIDEOPORT_VBI := Guid("{fb6c428c-0353-11d1-905f-0000c0cc16ba}")
+
+/**
+ * @type {Guid}
+ */
+export global LOOK_UPSTREAM_ONLY := Guid("{ac798be0-98e3-11d1-b3f1-00aa003761c5}")
+
+/**
+ * @type {Guid}
+ */
+export global LOOK_DOWNSTREAM_ONLY := Guid("{ac798be1-98e3-11d1-b3f1-00aa003761c5}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TVTunerFilterPropertyPage := Guid("{266eee41-6c63-11cf-8a03-00aa006ecb65}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CrossbarFilterPropertyPage := Guid("{71f96461-78f3-11d0-a18c-00a0c9118956}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TVAudioFilterPropertyPage := Guid("{71f96463-78f3-11d0-a18c-00a0c9118956}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoProcAmpPropertyPage := Guid("{71f96464-78f3-11d0-a18c-00a0c9118956}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CameraControlPropertyPage := Guid("{71f96465-78f3-11d0-a18c-00a0c9118956}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AnalogVideoDecoderPropertyPage := Guid("{71f96466-78f3-11d0-a18c-00a0c9118956}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoStreamConfigPropertyPage := Guid("{71f96467-78f3-11d0-a18c-00a0c9118956}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioRendererAdvancedProperties := Guid("{37e92a92-d9aa-11d2-bf84-8ef2b1555aed}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoMixingRenderer := Guid("{b87beb7b-8d29-423f-ae4d-6582c10175ac}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoRendererDefault := Guid("{6bc1cffa-8fc1-4261-ac22-cfb4cc38db50}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AllocPresenter := Guid("{99d54f63-1a69-41ae-aa4d-c976eb3f0713}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AllocPresenterDDXclMode := Guid("{4444ac9e-242e-471b-a3c7-45dcd46352bc}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoPortManager := Guid("{6f26a6cd-967b-47fd-874a-7aed2c9d25a2}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoMixingRenderer9 := Guid("{51b4abf3-748f-4e3b-a276-c828330e926a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_EnhancedVideoRenderer := Guid("{fa10746c-9b63-4b6c-bc49-fc300ea5f256}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFVideoMixer9 := Guid("{e474e05a-ab65-4f6a-827c-218b1baaf31f}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFVideoPresenter9 := Guid("{98455561-5136-4d28-ab08-4cee40ea2781}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_EVRTearlessWindowPresenter9 := Guid("{a0a7a57b-59b2-4919-a694-add0a526c373}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_EVRPlaybackPipelineOptimizer := Guid("{62079164-233b-41f8-a80f-f01705f514a8}")
+
+/**
+ * @type {Guid}
+ */
+export global EVRConfig_ForceBob := Guid("{e447df01-10ca-4d17-b17e-6a840f8a3a4c}")
+
+/**
+ * @type {Guid}
+ */
+export global EVRConfig_ForceThrottle := Guid("{e447df03-10ca-4d17-b17e-6a840f8a3a4c}")
+
+/**
+ * @type {Guid}
+ */
+export global EVRConfig_ForceHalfInterlace := Guid("{e447df05-10ca-4d17-b17e-6a840f8a3a4c}")
+
+/**
+ * @type {Guid}
+ */
+export global EVRConfig_ForceScaling := Guid("{e447df07-10ca-4d17-b17e-6a840f8a3a4c}")
+
+/**
+ * @type {Guid}
+ */
+export global EVRConfig_ForceBatching := Guid("{e447df09-10ca-4d17-b17e-6a840f8a3a4c}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_NetworkProvider := Guid("{b2f3a67c-29da-4c78-8831-091ed509a475}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ATSCNetworkProvider := Guid("{0dad2fdd-5fd7-11d3-8f50-00c04f7971e2}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ATSCNetworkPropertyPage := Guid("{e3444d16-5ac4-4386-88df-13fd230e1dda}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVBSNetworkProvider := Guid("{fa4b375a-45b4-4d45-8440-263957b11623}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVBTNetworkProvider := Guid("{216c62df-6d7f-4e9a-8571-05f14edb766a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DVBCNetworkProvider := Guid("{dc0c0fe7-0485-4266-b93f-68fbf80ed834}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_UDCRTag := Guid("{eb7836ca-14ff-4919-bce7-3af12319e50c}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_PicSampleSeq := Guid("{2f5bae02-7b8f-4f60-82d6-e4ea2f1f4c99}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_OptionalVideoAttributes := Guid("{5a5f08ca-55c2-4033-92ab-55db8f781226}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_CC_CONTAINER_INFO := Guid("{e7e050fb-dd5d-40dd-9915-35dcb81bdc8a}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_TRANSPORT_PROPERTIES := Guid("{b622f612-47ad-4671-ad6c-05a98e65de3a}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_PBDATAG_ATTRIBUTE := Guid("{e0b56679-12b9-43cc-b7df-578caa5a7b63}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_CAPTURE_STREAMTIME := Guid("{0c1a5614-30cd-4f40-bcbf-d03e52306207}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_DSHOW_STREAM_DESC := Guid("{5fb5673b-0a2a-4565-827b-6853fd75e611}")
+
+/**
+ * @type {Guid}
+ */
+export global DSATTRIB_SAMPLE_LIVE_STREAM_TIME := Guid("{892cd111-72f3-411d-8b91-a9e9123ac29a}")
+
+/**
+ * @type {Guid}
+ */
+export global UUID_UdriTagTables := Guid("{e1b98d74-9778-4878-b664-eb2020364d88}")
+
+/**
+ * @type {Guid}
+ */
+export global UUID_WMDRMTagTables := Guid("{5dcd1101-9263-45bb-a4d5-c415ab8c589c}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_DShowTVEFilter := Guid("{05500280-faa5-4df9-8246-bfc23ac5cea8}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TVEFilterTuneProperties := Guid("{05500281-faa5-4df9-8246-bfc23ac5cea8}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TVEFilterCCProperties := Guid("{05500282-faa5-4df9-8246-bfc23ac5cea8}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_TVEFilterStatsProperties := Guid("{05500283-faa5-4df9-8246-bfc23ac5cea8}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_IVideoEncoderProxy := Guid("{b43c4eec-8c32-4791-9102-508ada5ee8e7}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_ICodecAPIProxy := Guid("{7ff0997a-1999-4286-a73c-622b8814e7eb}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_IVideoEncoderCodecAPIProxy := Guid("{b05dabd9-56e5-4fdc-afa4-8a47e91f1c9c}")
+
+/**
+ * @type {Guid}
+ */
+export global ENCAPIPARAM_BITRATE := Guid("{49cc4c43-ca83-4ad4-a9af-f3696af666df}")
+
+/**
+ * @type {Guid}
+ */
+export global ENCAPIPARAM_PEAK_BITRATE := Guid("{703f16a9-3d48-44a1-b077-018dff915d19}")
+
+/**
+ * @type {Guid}
+ */
+export global ENCAPIPARAM_BITRATE_MODE := Guid("{ee5fb25c-c713-40d1-9d58-c0d7241e250f}")
+
+/**
+ * @type {Guid}
+ */
+export global ENCAPIPARAM_SAP_MODE := Guid("{0c0171db-fefc-4af7-9991-a5657c191cd1}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_CHANGELISTS := Guid("{62b12acf-f6b0-47d9-9456-96f22c4e0b9d}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_VIDEO_ENCODER := Guid("{7112e8e1-3d03-47ef-8e60-03f1cf537301}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_AUDIO_ENCODER := Guid("{b9d19a3e-f897-429c-bc46-8138b7272b2d}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_SETALLDEFAULTS := Guid("{6c5e6a7c-acf8-4f55-a999-1a628109051b}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_ALLSETTINGS := Guid("{6a577e92-83e1-4113-adc2-4fcec32f83a1}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_SUPPORTSEVENTS := Guid("{0581af97-7693-4dbd-9dca-3f9ebd6585a1}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_CURRENTCHANGELIST := Guid("{1cb14e83-7d72-4657-83fd-47a2c5b9d13d}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SBE2MediaTypeProfile := Guid("{1f26a602-2b5c-4b63-b8e8-9ea5c1a7dc2e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_SBE2FileScan := Guid("{3e458037-0ca6-41aa-a594-2aa6c02d709b}")
+
+/**
+ * @type {Guid}
+ */
+export global CODECAPI_AVDecMmcssClass := Guid("{e0ad4828-df66-4893-9f33-788aa4ec4082}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global AVENC_H263V_LEVELCOUNT := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global AVENC_H264V_LEVELCOUNT := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global AVENC_H264V_MAX_MBBITS := 3200
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MPEG2 := Guid("{ee27417f-5e28-4e65-beea-1d26b508adc9}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MPEG1_AND_MPEG2 := Guid("{86695f12-340e-4f04-9fd3-9253dd327460}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_H264 := Guid("{1b81be68-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_H264_STEREO_PROGRESSIVE := Guid("{d79be8da-0cf1-4c81-b82a-69a4e236f43d}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_H264_STEREO := Guid("{f9aaccbb-c2b6-4cfc-8779-5707b1760552}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_H264_MULTIVIEW := Guid("{705b9d82-76cf-49d6-b7e6-ac8872db013c}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_VC1 := Guid("{1b81bea3-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_VC1_D2010 := Guid("{1b81bea4-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MPEG4PT2_SIMPLE := Guid("{efd64d74-c9e8-41d7-a5e9-e9b0e39fa319}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MPEG4PT2_ADVSIMPLE_NOGMC := Guid("{ed418a9f-010d-4eda-9ae3-9a65358d8d2e}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN := Guid("{5b11d51b-2f4c-4452-bcc3-09f2a1160cc0}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10 := Guid("{107af0e0-ef1a-4d19-aba8-67a163073d13}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MONOCHROME := Guid("{0685b993-3d8c-43a0-8b28-d74c2d6899a4}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MONOCHROME10 := Guid("{142a1d0f-69dd-4ec9-8591-b12ffcb91a29}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN12 := Guid("{1a72925f-0c2c-4f15-96fb-b17d1473603f}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10_422 := Guid("{0bac4fe5-1532-4429-a854-f84de04953db}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN12_422 := Guid("{55bcac81-f311-4093-a7d0-1cbc0b849bee}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN_444 := Guid("{4008018f-f537-4b36-98cf-61af8a2c1a33}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10_EXT := Guid("{9cc55490-e37c-4932-8684-4920f9f6409c}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN10_444 := Guid("{0dabeffa-4458-4602-bc03-0795659d617c}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN12_444 := Guid("{9798634d-fe9d-48e5-b4da-dbec45b3df01}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_HEVC_MAIN16 := Guid("{a4fbdbb0-a113-482b-a232-635cc0697f6d}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_VP9 := Guid("{463707f8-a1d0-4585-876d-83aa6d60b89e}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_VP9_10BIT_PROFILE2 := Guid("{a4c749ef-6ecf-48aa-8448-50a7a1165ff7}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_VP8 := Guid("{90b899ea-3a62-4705-88b3-8df04b2744e7}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_AV1_PROFILE0 := Guid("{b8be4ccb-cf53-46ba-8d59-d6b8a6da5d2a}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_AV1_PROFILE1 := Guid("{6936ff0f-45b1-4163-9cc1-646ef6946108}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_AV1_PROFILE2 := Guid("{0c5f2aa1-e541-4089-bb7b-98110a19d7c8}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_AV1_12BIT_PROFILE2 := Guid("{17127009-a00f-4ce1-994e-bf4081f6f3f0}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_AV1_12BIT_PROFILE2_420 := Guid("{2d80bed6-9cac-4835-9e91-327bbc4f9ee8}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MJPEG_VLD_420 := Guid("{725cb506-0c29-43c4-9440-8e9397903a04}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MJPEG_VLD_422 := Guid("{5b77b9cd-1a35-4c30-9fd8-ef4b60c035dd}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MJPEG_VLD_444 := Guid("{d95161f9-0d44-47e6-bcf5-1bfbfb268f97}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_MJPEG_VLD_4444 := Guid("{c91748d5-fd18-4aca-9db3-3a6634ab547d}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_JPEG_VLD_420 := Guid("{cf782c83-bef5-4a2c-87cb-6019e7b175ac}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_JPEG_VLD_422 := Guid("{f04df417-eee2-4067-a778-f35c15ab9721}")
+
+/**
+ * @type {Guid}
+ */
+export global D3D12_VIDEO_DECODE_PROFILE_JPEG_VLD_444 := Guid("{4cd00e17-89ba-48ef-b9f9-edcb82713f65}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG2_MoComp := Guid("{e6a9f44b-61b0-4563-9ea4-63d2a3c6fe66}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG2_IDCT := Guid("{bf22ad00-03ea-4690-8077-473346209b7e}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG2_VLD := Guid("{ee27417f-5e28-4e65-beea-1d26b508adc9}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG1_VLD := Guid("{6f3ec719-3735-42cc-8063-65cc3cb36616}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG2and1_VLD := Guid("{86695f12-340e-4f04-9fd3-9253dd327460}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_A := Guid("{1b81be64-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_B := Guid("{1b81be65-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_C := Guid("{1b81be66-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_D := Guid("{1b81be67-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_E := Guid("{1b81be68-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_F := Guid("{1b81be69-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_VLD_WithFMOASO_NoFGT := Guid("{d5f04ff9-3418-45d8-9561-32a76aae2ddd}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_VLD_Stereo_Progressive_NoFGT := Guid("{d79be8da-0cf1-4c81-b82a-69a4e236f43d}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_VLD_Stereo_NoFGT := Guid("{f9aaccbb-c2b6-4cfc-8779-5707b1760552}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeH264_VLD_Multiview_NoFGT := Guid("{705b9d82-76cf-49d6-b7e6-ac8872db013c}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeWMV8_A := Guid("{1b81be80-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeWMV8_B := Guid("{1b81be81-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeWMV9_A := Guid("{1b81be90-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeWMV9_B := Guid("{1b81be91-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeWMV9_C := Guid("{1b81be94-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVC1_A := Guid("{1b81bea0-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVC1_B := Guid("{1b81bea1-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVC1_C := Guid("{1b81bea2-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVC1_D := Guid("{1b81bea3-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVC1_D2010 := Guid("{1b81bea4-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_NoEncrypt := Guid("{1b81bed0-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_VideoProcProgressiveDevice := Guid("{5a54a0c9-c7ec-4bd9-8ede-f3c75dc4393b}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_VideoProcBobDevice := Guid("{335aa36e-7884-43a4-9c91-7f87faf3e37e}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_VideoProcSoftwareDevice := Guid("{4553d47f-ee7e-4e3f-9475-dbf1376c4810}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG4pt2_VLD_Simple := Guid("{efd64d74-c9e8-41d7-a5e9-e9b0e39fa319}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG4pt2_VLD_AdvSimple_NoGMC := Guid("{ed418a9f-010d-4eda-9ae3-9a65358d8d2e}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeMPEG4pt2_VLD_AdvSimple_GMC := Guid("{ab998b5b-4258-44a9-9feb-94e597a6baae}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeHEVC_VLD_Main := Guid("{5b11d51b-2f4c-4452-bcc3-09f2a1160cc0}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeHEVC_VLD_Main10 := Guid("{107af0e0-ef1a-4d19-aba8-67a163073d13}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVP9_VLD_Profile0 := Guid("{463707f8-a1d0-4585-876d-83aa6d60b89e}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVP9_VLD_10bit_Profile2 := Guid("{a4c749ef-6ecf-48aa-8448-50a7a1165ff7}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVA2_ModeVP8_VLD := Guid("{90b899ea-3a62-4705-88b3-8df04b2744e7}")
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global DXVA2_E_NOT_INITIALIZED := -2147217408
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global DXVA2_E_NEW_VIDEO_DEVICE := -2147217407
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global DXVA2_E_VIDEO_DEVICE_LOCKED := -2147217406
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global DXVA2_E_NOT_AVAILABLE := -2147217405
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MAX_SUBSTREAMS := 15
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global DXVA2_DECODE_GET_DRIVER_HANDLE := 1829
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global DXVA2_DECODE_SPECIFY_ENCRYPTED_BLOCKS := 1828
+
+/**
+ * @type {Guid}
+ */
+export global DXVAp_ModeMPEG2_A := Guid("{1b81be0a-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAp_ModeMPEG2_C := Guid("{1b81be0c-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAp_NoEncrypt := Guid("{1b81bed0-a0c7-11d3-b984-00c04f2e73c5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAp_DeinterlaceBobDevice := Guid("{335aa36e-7884-43a4-9c91-7f87faf3e37e}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAp_DeinterlaceContainerDevice := Guid("{0e85cb93-3046-4ff0-aecc-d58cb5f035fd}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHD_STREAM_STATE_PRIVATE_IVTC := Guid("{9c601e3c-0f33-414c-a739-99540ee42da5}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDControlGuid := Guid("{a0386e75-f70c-464c-a9ce-33c44e091623}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDETWGUID_CREATEVIDEOPROCESSOR := Guid("{681e3d1e-5674-4fb3-a503-2f2055e91f60}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDETWGUID_VIDEOPROCESSBLTSTATE := Guid("{76c94b5a-193f-4692-9484-a4d999da81a8}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDETWGUID_VIDEOPROCESSSTREAMSTATE := Guid("{262c0b02-209d-47ed-94d8-82ae02b84aa7}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDETWGUID_VIDEOPROCESSBLTHD := Guid("{bef3d435-78c7-4de3-9707-cd1b083b160a}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDETWGUID_VIDEOPROCESSBLTHD_STREAM := Guid("{27ae473e-a5fc-4be5-b4e3-f24994d3c495}")
+
+/**
+ * @type {Guid}
+ */
+export global DXVAHDETWGUID_DESTROYVIDEOPROCESSOR := Guid("{f943f0a0-3f16-43e0-8093-105a986aa5f1}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_VIDEO_RENDER_SERVICE := Guid("{1092a86c-ab1a-459a-a336-831fbc4d11ff}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_VIDEO_MIXER_SERVICE := Guid("{073cd2fc-6cf4-40b7-8859-e89552c841f8}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_VIDEO_ACCELERATION_SERVICE := Guid("{efef5175-5c7d-4ce2-bbbd-34ff8bca6554}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_BUFFER_SERVICE := Guid("{a562248c-9ac6-4ffc-9fba-3af8f8ad1a4d}")
+
+/**
+ * @type {Guid}
+ */
+export global VIDEO_ZOOM_RECT := Guid("{7aaa1638-1b7f-4c93-bd89-5b9c9fb6fcf0}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFEVRDLL := 0
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_SDK_VERSION := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_API_VERSION := 112
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSTARTUP_NOSOCKET := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSTARTUP_LITE := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSTARTUP_FULL := 0
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DXGI_DEVICE_NOT_INITIALIZED := -2147217408
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DXGI_NEW_VIDEO_DEVICE := -2147217407
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DXGI_VIDEO_DEVICE_LOCKED := -2147217406
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_1_BYTE_ALIGNMENT := 0
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_2_BYTE_ALIGNMENT := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_4_BYTE_ALIGNMENT := 3
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_8_BYTE_ALIGNMENT := 7
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_16_BYTE_ALIGNMENT := 15
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_32_BYTE_ALIGNMENT := 31
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_64_BYTE_ALIGNMENT := 63
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_128_BYTE_ALIGNMENT := 127
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_256_BYTE_ALIGNMENT := 255
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_512_BYTE_ALIGNMENT := 511
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_1024_BYTE_ALIGNMENT := 1023
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_2048_BYTE_ALIGNMENT := 2047
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_4096_BYTE_ALIGNMENT := 4095
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_8192_BYTE_ALIGNMENT := 8191
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SESSIONCAPS := Guid("{7e5ebcd0-11b8-4abe-afad-10f6599a7f42}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SESSIONCAPS_DELTA := Guid("{7e5ebcd1-11b8-4abe-afad-10f6599a7f42}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSESSIONCAP_START := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSESSIONCAP_SEEK := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSESSIONCAP_PAUSE := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSESSIONCAP_RATE_FORWARD := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSESSIONCAP_RATE_REVERSE := 32
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSESSIONCAP_DOES_NOT_USE_NETWORK := 64
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_TOPOLOGY_STATUS := Guid("{30c5018d-9a53-454b-ad9e-6d5f8fa7c43b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_START_PRESENTATION_TIME := Guid("{5ad914d0-9b45-4a8d-a2c0-81d1e50bfb07}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_PRESENTATION_TIME_OFFSET := Guid("{5ad914d1-9b45-4a8d-a2c0-81d1e50bfb07}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_START_PRESENTATION_TIME_AT_OUTPUT := Guid("{5ad914d2-9b45-4a8d-a2c0-81d1e50bfb07}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SOURCE_FAKE_START := Guid("{a8cc55a7-6b31-419f-845d-ffb351a2434b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SOURCE_PROJECTSTART := Guid("{a8cc55a8-6b31-419f-845d-ffb351a2434b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SOURCE_ACTUAL_START := Guid("{a8cc55a9-6b31-419f-845d-ffb351a2434b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SOURCE_TOPOLOGY_CANCELED := Guid("{db62f650-9a5e-4704-acf3-563bc6a73364}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SOURCE_CHARACTERISTICS := Guid("{47db8490-8b22-4f52-afda-9ce1b2d3cfa8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SOURCE_CHARACTERISTICS_OLD := Guid("{47db8491-8b22-4f52-afda-9ce1b2d3cfa8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_DO_THINNING := Guid("{321ea6fb-dad9-46e4-b31d-d2eae7090e30}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_SCRUBSAMPLE_TIME := Guid("{9ac712b3-dcb8-44d5-8d0c-37455a2782e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_OUTPUT_NODE := Guid("{830f1a8b-c060-46dd-a801-1c95dec9b107}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_MFT_INPUT_STREAM_ID := Guid("{f29c2cca-7ae6-42d2-b284-bf837cc874e2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_MFT_CONTEXT := Guid("{b7cd31f1-899e-4b41-80c9-26a896d32977}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_STREAM_METADATA_KEYDATA := Guid("{cd59a4a1-4a3b-4bbd-8665-72a40fbea776}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_STREAM_METADATA_CONTENT_KEYIDS := Guid("{5063449d-cc29-4fc6-a75a-d247b35af85c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_EVENT_STREAM_METADATA_SYSTEMID := Guid("{1ea2ef64-ba16-4a36-8719-fe7560ba32ad}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_MaxDecodeFrameSize := Guid("{d3cc654f-f9f3-4a13-889f-f04eb2b5b957}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_AccumulatedNonRefPicPercent := Guid("{79ea74df-a740-445b-bc98-c9ed1f260eee}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_ProtectionScheme := Guid("{d054d096-28bb-45da-87ec-74f351871406}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_CryptByteBlock := Guid("{9d84289b-0c7f-4713-ab95-108ab42ad801}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_SkipByteBlock := Guid("{0d550548-8317-4ab1-845f-d06306e293e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_SubSample_Mapping := Guid("{8444f27a-69a1-48da-bd08-11cef36830d2}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_ClearSliceHeaderData := Guid("{5509a4f4-320d-4e6c-8d1a-94c66dd20cb0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_HardwareProtection_KeyInfoID := Guid("{8cbfcceb-94a5-4de1-8231-a85e47cf81e7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_HardwareProtection_KeyInfo := Guid("{b2372080-455b-4dd7-9989-1a955784b754}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_HardwareProtection_VideoDecryptorContext := Guid("{693470c8-e837-47a0-88cb-535b905e3582}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_Opaque_Data := Guid("{224d77e5-1391-4ffb-9f41-b432f68c611d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_NALULengthInfo := Guid("{19124e7c-ad4b-465f-bb18-20186287b6af}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_ResumeVideoOutput := Guid("{a435aba5-afde-4cf5-bc1c-f6acaf13949d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_NALUTypes := Guid("{b0f067c7-714c-416c-8d59-5f4ddf8913b6}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_SPSPPSData := Guid("{aede0fa2-0e0c-453c-b7f3-de8693364d11}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_SEIData := Guid("{3cf0e972-4542-4687-9999-585f565fba7d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_HardwareProtection := Guid("{9a2b2d2b-8270-43e3-8448-994f426e8886}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_CleanPoint := Guid("{9cdf01d8-a0f0-43ba-b077-eaa06cbd728a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Discontinuity := Guid("{9cdf01d9-a0f0-43ba-b077-eaa06cbd728a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Token := Guid("{8294da66-f328-4805-b551-00deb4c57a61}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_ClosedCaption_CEA708 := Guid("{26f09068-e744-47dc-aa03-dbf20403bde6}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSampleExtension_ClosedCaption_CEA708_MAX_SIZE := 256
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_DecodeTimestamp := Guid("{73a954d4-09e2-4861-befc-94bd97c08e6e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodeQP := Guid("{b2efe478-f979-4c66-b95e-ee2b82c82f36}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodePictureType := Guid("{973704e6-cd14-483c-8f20-c9fc0928bad5}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_FrameCorruption := Guid("{b4dd4a8c-0beb-44c4-8b75-b02b913b04f0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_DirtyRects := Guid("{9ba70225-b342-4e97-9126-0b566ab7ea7e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_MoveRegions := Guid("{e2a6c693-3a8b-4b8d-95d0-f60281a12fb7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_HDCP_OptionalHeader := Guid("{9a2e7390-121f-455f-8376-c97428e0b540}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_HDCP_FrameCounter := Guid("{9d389c60-f507-4aa6-a40a-71027a02f3de}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_HDCP_StreamID := Guid("{177e5d74-c370-4a7a-95a2-36833c01d0af}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Timestamp := Guid("{1e436999-69be-4c7a-9369-70068c0260cb}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_RepeatFrame := Guid("{88be738f-0711-4f42-b458-344aed42ec2f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENCODER_ERROR := Guid("{c8d1eda4-98e4-41d5-9297-44f53852f90e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_GFX_DRIVER_VERSION_ID_Attribute := Guid("{f34b9093-05e0-4b16-993d-3e2a2cde6ad3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_DescrambleData := Guid("{43483be6-4903-4314-b032-2951365936fc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_SampleKeyID := Guid("{9ed713c8-9b87-4b26-8297-a93b0c5a8acc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_GenKeyFunc := Guid("{441ca1ee-6b1f-4501-903a-de87df42f6ed}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_GenKeyCtx := Guid("{188120cb-d7da-4b59-9b3e-9252fd37301c}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_PacketCrossOffsets := Guid("{2789671d-389f-40bb-90d9-c282f77f9abd}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_SampleID := Guid("{6698b84e-0afa-4330-aeb2-1c0a98d7a44d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_KeyID := Guid("{76376591-795f-4da1-86ed-9d46eca109a9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Content_KeyID := Guid("{c6c7f5b0-acca-415b-87d9-10441469efc6}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Encryption_SubSampleMappingSplit := Guid("{fe0254b9-2aa5-4edc-99f7-17e89dbf9174}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Interlaced := Guid("{b1d5830a-deb8-40e3-90fa-389943716461}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_BottomFieldFirst := Guid("{941ce0a3-6ae3-4dda-9a08-a64298340617}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_RepeatFirstField := Guid("{304d257c-7493-4fbd-b149-9228de8d9a99}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_SingleField := Guid("{9d85f816-658b-455a-bde0-9fa7e15ab8f9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_DerivedFromTopField := Guid("{6852465a-ae1c-4553-8e9b-c3420fcb1637}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_MeanAbsoluteDifference := Guid("{1cdbde11-08b4-4311-a6dd-0f9f371907aa}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_LongTermReferenceFrameInfo := Guid("{9154733f-e1bd-41bf-81d3-fcd918f71332}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_ROIRectangle := Guid("{3414a438-4998-4d2c-be82-be3ca0b24d43}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_LastSlice := Guid("{2b5d5457-5547-4f07-b8c8-b4a3a9a1daac}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MACROBLOCK_FLAG_SKIP := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MACROBLOCK_FLAG_DIRTY := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MACROBLOCK_FLAG_MOTION := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MACROBLOCK_FLAG_VIDEO := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MACROBLOCK_FLAG_HAS_MOTION_VECTOR := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MACROBLOCK_FLAG_HAS_QP := 32
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_FeatureMap := Guid("{a032d165-46fc-400a-b449-49de53e62a6e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_ChromaOnly := Guid("{1eb9179c-a01f-4845-8c04-0e65a26eb04f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_SpatialLayerId := Guid("{b7aabc7b-2396-457a-879e-623bfab6e0ac}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_TemporalLayerId := Guid("{b3c1fcd2-b331-4376-b974-ad647769b2b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_FramePsnrYuv := Guid("{1c633a3d-566f-4752-833b-2907df5415e1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodeQPMap := Guid("{2c68a331-b712-49ca-860a-3a1d58237d88}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodeBitsUsedMap := Guid("{6894263d-e6e2-4bcc-849d-8570365f5114}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodeSatdMap := Guid("{adf61d96-c2d3-4b57-a138-dde4d351eaa9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodeInputDeltaQPMap := Guid("{dab419c3-bf21-4b46-8692-9a7bf0a71769}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoEncodeInputAbsoluteQPMap := Guid("{432a6e9a-f1ed-456e-8dc3-6f8985649eb9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_PhotoThumbnail := Guid("{74bbc85c-c8bb-42dc-b586-da17ffd35dcc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_PhotoThumbnailMediaType := Guid("{61ad5420-ebf8-4143-89af-6bf25f672def}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_CaptureMetadata := Guid("{2ebe23a8-faf5-444a-a6a2-eb810880ab5d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_MDLCacheCookie := Guid("{5f002af9-d8f9-41a3-b6c3-a2ad43f647ad}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_PHOTO_FRAME_FLASH := Guid("{0f9dd6c6-6003-45d8-bd59-f1f53e3d04e8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FRAME_RAWSTREAM := Guid("{9252077b-2680-49b9-ae02-b19075973b70}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FOCUSSTATE := Guid("{a87ee154-997f-465d-b91f-29d53b982b88}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_REQUESTED_FRAME_SETTING_ID := Guid("{bb3716d9-8a61-47a4-8197-459c7ff174d5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_EXPOSURE_TIME := Guid("{16b9ae99-cd84-4063-879d-a28c7633729e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_EXPOSURE_COMPENSATION := Guid("{d198aa75-4b62-4345-abf3-3c31fa12c299}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_ISO_SPEED := Guid("{e528a68f-b2e3-44fe-8b65-07bf4b5a13ff}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_LENS_POSITION := Guid("{b5fc8e86-11d1-4e70-819b-723a89fa4520}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_SCENE_MODE := Guid("{9cc3b54d-5ed3-4bae-b388-7670aef59e13}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FLASH := Guid("{4a51520b-fb36-446c-9df2-68171b9a0389}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FLASH_POWER := Guid("{9c0e0d49-0205-491a-bc9d-2d6e1f4d5684}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_WHITEBALANCE := Guid("{c736fd77-0fb9-4e2e-97a2-fcd490739ee9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_ZOOMFACTOR := Guid("{e50b0b81-e501-42c2-abf2-857ecb13fa5c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FACEROIS := Guid("{864f25a6-349f-46b1-a30e-54cc22928a47}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FACEROITIMESTAMPS := Guid("{e94d50cc-3da0-44d4-bb34-83198a741868}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FACEROICHARACTERIZATIONS := Guid("{b927a1a8-18ef-46d3-b3af-69372f94d9b2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_ISO_GAINS := Guid("{05802ac9-0e1d-41c7-a8c8-7e7369f84e1e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_SENSORFRAMERATE := Guid("{db51357e-9d3d-4962-b06d-07ce650d9a0a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_WHITEBALANCE_GAINS := Guid("{e7570c8f-2dcb-4c7c-aace-22ece7cce647}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_HISTOGRAM := Guid("{85358432-2ef6-4ba9-a3fb-06d82974b895}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_EXIF := Guid("{2e9575b8-8c31-4a02-8575-42b197b71592}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FRAME_ILLUMINATION := Guid("{6d688ffc-63d3-46fe-bada-5b947db0d080}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_UVC_PAYLOADHEADER := Guid("{f9f88a87-e1dd-441e-95cb-42e21a64f1d9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Depth_MinReliableDepth := Guid("{5f8582b2-e36b-47c8-9b87-fee1ca72c5b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Depth_MaxReliableDepth := Guid("{e45545d1-1f0f-4a32-a8a7-6101a24ea8be}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FIRST_SCANLINE_START_TIME_QPC := Guid("{6a2c49f1-e052-46b6-b2d9-73c1558709af}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_LAST_SCANLINE_END_TIME_QPC := Guid("{dccadecb-c4d4-400d-b418-10e88525e1f6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_SCANLINE_TIME_QPC_ACCURACY := Guid("{4cd79c51-f765-4b09-b1e1-27d1f7ebea09}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_SCANLINE_DIRECTION := Guid("{6496a3ba-1907-49e6-b0c3-123795f380a9}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCAPTURE_METADATA_SCAN_RIGHT_LEFT := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCAPTURE_METADATA_SCAN_BOTTOM_TOP := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCAPTURE_METADATA_SCANLINE_VERTICAL := 4
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_DIGITALWINDOW := Guid("{276f72a2-59c8-4f69-97b4-068b8c0ec044}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_METADATA_FRAME_BACKGROUND_MASK := Guid("{03f14dd3-75dd-433a-a8e2-1e3f5f2a50a0}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_METADATAFACIALEXPRESSION_SMILE := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_METADATATIMESTAMPS_DEVICE := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_METADATATIMESTAMPS_PRESENTATION := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_HISTOGRAM_CHANNEL_Y := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_HISTOGRAM_CHANNEL_R := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_HISTOGRAM_CHANNEL_G := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_HISTOGRAM_CHANNEL_B := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_HISTOGRAM_CHANNEL_Cb := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_HISTOGRAM_CHANNEL_Cr := 32
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_VIDEO_DECODER := Guid("{d6c02d4b-6833-45b4-971a-05a4b04bab91}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_VIDEO_ENCODER := Guid("{f79eac7d-e545-4387-bdee-d647d7bde42a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_VIDEO_EFFECT := Guid("{12e17c21-532c-4a6e-8a1c-40825a736397}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_MULTIPLEXER := Guid("{059c561e-05ae-4b61-b69d-55b61ee54a7b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_DEMULTIPLEXER := Guid("{a8700a7a-939b-44c5-99d7-76226b23b3f1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_AUDIO_DECODER := Guid("{9ea73fb4-ef7a-4559-8d5d-719d8f0426c7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_AUDIO_ENCODER := Guid("{91c64bd0-f91e-4d8c-9276-db248279d975}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_AUDIO_EFFECT := Guid("{11064c48-3648-4ed0-932e-05ce8ac811b7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_VIDEO_PROCESSOR := Guid("{302ea3fc-aa5f-47f9-9f7a-c2188bb16302}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_OTHER := Guid("{90175d57-b7ea-4901-aeb3-933a8747756f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_ENCRYPTOR := Guid("{b0c687be-01cd-44b5-b8b2-7c1d7e058b1f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CATEGORY_VIDEO_RENDERER_EFFECT := Guid("{145cd8b4-92f4-4b23-8ae7-e0df06c2da95}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENUM_VIDEO_RENDERER_EXTENSION_PROFILE := Guid("{62c56928-9a4e-443b-b9dc-cac830c24100}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENUM_ADAPTER_LUID := Guid("{1d39518c-e220-4da8-a07f-ba172552d6b1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_SUPPORT_DYNAMIC_FORMAT_CHANGE := Guid("{53476a11-3f13-49fb-ac42-ee2733c96741}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global LOCAL_D3DFMT_DEFINES := 1
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Base := Guid("{00000000-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_RGB32 := Guid("{00000016-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_ARGB32 := Guid("{00000015-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_RGB24 := Guid("{00000014-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_RGB555 := Guid("{00000018-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_RGB565 := Guid("{00000017-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_RGB8 := Guid("{00000029-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_L8 := Guid("{00000032-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_L16 := Guid("{00000051-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_D16 := Guid("{00000050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_AI44 := Guid("{34344941-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_AYUV := Guid("{56555941-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_YUY2 := Guid("{32595559-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_YVYU := Guid("{55595659-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_YVU9 := Guid("{39555659-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_UYVY := Guid("{59565955-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_NV11 := Guid("{3131564e-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_NV12 := Guid("{3231564e-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_NV21 := Guid("{3132564e-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_YV12 := Guid("{32315659-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_I420 := Guid("{30323449-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_I422 := Guid("{32323449-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_I444 := Guid("{34343449-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_IYUV := Guid("{56555949-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y210 := Guid("{30313259-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y216 := Guid("{36313259-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y410 := Guid("{30313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y416 := Guid("{36313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y41P := Guid("{50313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y41T := Guid("{54313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Y42T := Guid("{54323459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_P210 := Guid("{30313250-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_P216 := Guid("{36313250-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_P010 := Guid("{30313050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_P016 := Guid("{36313050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_v210 := Guid("{30313276-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_v216 := Guid("{36313276-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_v410 := Guid("{30313476-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MP43 := Guid("{3334504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MP4S := Guid("{5334504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_M4S2 := Guid("{3253344d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MP4V := Guid("{5634504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_WMV1 := Guid("{31564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_WMV2 := Guid("{32564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_WMV3 := Guid("{33564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_WVC1 := Guid("{31435657-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MSS1 := Guid("{3153534d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MSS2 := Guid("{3253534d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MPG1 := Guid("{3147504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_DVSL := Guid("{6c737664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_DVSD := Guid("{64737664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_DVHD := Guid("{64687664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_DV25 := Guid("{35327664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_DV50 := Guid("{30357664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_DVH1 := Guid("{31687664-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_H264 := Guid("{34363248-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_H265 := Guid("{35363248-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MJPG := Guid("{47504a4d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_420O := Guid("{4f303234-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_HEVC := Guid("{43564548-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_HEVC_ES := Guid("{53564548-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_VP80 := Guid("{30385056-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_VP90 := Guid("{30395056-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_ORAW := Guid("{5741524f-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_H263 := Guid("{33363248-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_A2R10G10B10 := Guid("{0000001f-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_A16B16G16R16F := Guid("{00000071-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_VP10 := Guid("{30315056-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_AV1 := Guid("{31305641-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Theora := Guid("{6f656874-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_H264_ES := Guid("{3f40f4f0-5622-4ff8-b6d8-a17a584bee5e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_MPEG2 := Guid("{e06d8026-db46-11cf-b4d1-00805f6cbbea}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Base := Guid("{00000000-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_PCM := Guid("{00000001-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Float := Guid("{00000003-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS := Guid("{00000008-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC3_SPDIF := Guid("{00000092-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DRM := Guid("{00000009-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_WMAudioV8 := Guid("{00000161-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_WMAudioV9 := Guid("{00000162-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_WMAudio_Lossless := Guid("{00000163-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_WMASPDIF := Guid("{00000164-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_MSP1 := Guid("{0000000a-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_MP3 := Guid("{00000055-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_MPEG := Guid("{00000050-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_AAC := Guid("{00001610-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_ADTS := Guid("{00001600-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_AMR_NB := Guid("{00007361-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_AMR_WB := Guid("{00007362-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_AMR_WP := Guid("{00007363-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_FLAC := Guid("{0000f1ac-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_ALAC := Guid("{00006c61-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Opus := Guid("{0000704f-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC4 := Guid("{0000ac40-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC3 := Guid("{e06d802c-db46-11cf-b4d1-00805f6cbbea}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_DDPlus := Guid("{a7fb87af-2d02-42fb-a4d4-05cd93843bdd}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC4_V1 := Guid("{36b7927c-3d87-4a2a-9196-a21ad9e935e6}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC4_V2 := Guid("{7998b2a0-17dd-49b6-8dfa-9b278552a2ac}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC4_V1_ES := Guid("{9d8dccc6-d156-4fb8-979c-a85be7d21dfa}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC4_V2_ES := Guid("{7e58c9f9-b070-45f4-8ccd-a99a0417c1ac}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_MPEGH := Guid("{7c13c441-ebf8-4931-b678-800b19242236}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_MPEGH_ES := Guid("{19ee97fe-1be0-4255-a876-e99f53a42ae3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Vorbis := Guid("{8d2fd10b-5841-4a6b-8905-588fec1aded9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS_RAW := Guid("{e06d8033-db46-11cf-b4d1-00805f6cbbea}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS_HD := Guid("{a2e58eb7-0fa9-48bb-a40c-fa0e156d0645}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS_XLL := Guid("{45b37c1b-8c70-4e59-a7be-a1e42c81c80d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS_LBR := Guid("{c2fe6f0a-4e3c-4df1-9b60-50863091e4b9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS_UHD := Guid("{87020117-ace3-42de-b73e-c656706263f8}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_DTS_UHDY := Guid("{9b9cca00-91b9-4ccc-883a-8f787ac3cc86}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_IAMF := Guid("{78a8eba0-f446-4851-a55d-5372280e6b0b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Float_SpatialObjects := Guid("{fa39cd94-bc64-4ab1-9b71-dcd09d5a7e7a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_LPCM := Guid("{e06d8032-db46-11cf-b4d1-00805f6cbbea}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_PCM_HDCP := Guid("{a5e7ff01-8411-4acc-a865-5f4941288d80}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Dolby_AC3_HDCP := Guid("{97663a80-8ffb-4445-a6ba-792d908f497f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_AAC_HDCP := Guid("{419bce76-8b72-400f-adeb-84b57d63484d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_ADTS_HDCP := Guid("{da4963a3-14d8-4dcf-92b7-193eb84363db}")
+
+/**
+ * @type {Guid}
+ */
+export global MFAudioFormat_Base_HDCP := Guid("{3884b5bc-e277-43fd-983d-038aa8d9b605}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_H264_HDCP := Guid("{5d0ce9dd-9817-49da-bdfd-f5f5b98f18a6}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_HEVC_HDCP := Guid("{3cfe0fe6-05c4-47dc-9d70-4bdb2959720f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFVideoFormat_Base_HDCP := Guid("{eac3b9d5-bd14-4237-8f1f-bab428e49312}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMPEG4Format_Base := Guid("{00000000-767a-494d-b478-f29d25dc9037}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_XML := Guid("{2006f94f-29ca-4195-b8db-00ded8ff0c97}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_TTML := Guid("{73e73992-9a10-4356-9557-7194e91e3e54}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_ATSC := Guid("{7fa7faa3-feae-4e16-aedf-36b9acfbb099}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_WebVTT := Guid("{c886d215-f485-40bb-8db6-fadbc619a45d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_SRT := Guid("{5e467f2e-77ca-4ca5-8391-d142ed4b76c8}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_SSA := Guid("{57176a1b-1a9e-4eea-abef-c61760198ac4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_CustomUserData := Guid("{1bb3d849-6614-4d80-8882-ed24aa82da92}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_PGS := Guid("{71f40e4a-1278-4442-b30d-39dd1d7722bc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSubtitleFormat_VobSub := Guid("{6b8e40f4-8d2c-4ced-ad91-5960e45b4433}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MAJOR_TYPE := Guid("{48eba18e-f8c9-4687-bf11-0a74c9f96a8f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SUBTYPE := Guid("{f7e34c9a-42e8-4714-b74b-cb29d72c35e5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_ALL_SAMPLES_INDEPENDENT := Guid("{c9173739-5e56-461c-b713-46fb995cb95f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FIXED_SIZE_SAMPLES := Guid("{b8ebefaf-b718-4e04-b0a9-116775e3321b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_COMPRESSED := Guid("{3afd0cee-18f2-4ba5-a110-8bea502e1f92}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SAMPLE_SIZE := Guid("{dad3ab78-1990-408b-bce2-eba673dacc10}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_WRAPPED_TYPE := Guid("{4d3f7b23-d02f-4e6c-9bee-e4bf2c6c695d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_3D := Guid("{cb5e88cf-7b5b-476b-85aa-1ca5ae187555}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_3D_FORMAT := Guid("{5315d8a0-87c5-4697-b793-6606c67c049b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_3D_NUM_VIEWS := Guid("{bb077e8a-dcbf-42eb-af60-418df98aa495}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_3D_LEFT_IS_BASE := Guid("{6d4b7bff-5629-4404-948c-c634f4ce26d4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_3D_FIRST_IS_LEFT := Guid("{ec298493-0ada-4ea1-a4fe-cbbd36ce9331}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_3DVideo := Guid("{f86f97a4-dd54-4e2e-9a5e-55fc2d74a005}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_3DVideo_SampleFormat := Guid("{08671772-e36f-4cff-97b3-d72e20987a48}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_ROTATION := Guid("{c380465d-2271-428c-9b83-ecea3b4a85c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_MULTIPLEXED_MANAGER := Guid("{6ea542b0-281f-4231-a464-fe2f5022501c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIATYPE_MULTIPLEXED_MANAGER := Guid("{13c78fb5-f275-4ea0-bb5f-0249832b0d6e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_MULTIPLEXED_MANAGER := Guid("{8dcdee79-6b5a-4c45-8db9-20b395f02fcf}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SECURE := Guid("{c5acc4fd-0304-4ecf-809f-47bc97ff63bd}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_ATTRIBUTE_FRAMESOURCE_TYPES := Guid("{17145fd1-1b2b-423c-8001-2b6833ed3588}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_ALPHA_MODE := Guid("{5d959b0d-4cbf-4d04-919f-3f5f7f284211}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DEPTH_MEASUREMENT := Guid("{fd5ac489-0917-4bb6-9d54-3122bf70144b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DEPTH_VALUE_UNIT := Guid("{21a800f5-3189-4797-beba-f13cd9a31a5e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_NO_FRAME_ORDERING := Guid("{3f5b106f-6bc2-4ee3-b7ed-8902c18f5351}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_H264_NO_FMOASO := Guid("{ed461cd6-ec9f-416a-a8a3-26d7d31018d7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_ForwardedDecodeUnits := Guid("{424c754c-97c8-48d6-8777-fc41f7b60879}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_TargetGlobalLuminance := Guid("{3f60ef36-31ef-4daf-8360-940397e41ef3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_ForwardedDecodeUnitType := Guid("{089e57c7-47d3-4a26-bf9c-4b64fafb5d1e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FORWARD_CUSTOM_NALU := Guid("{ed336efd-244f-428d-9153-28f399458890}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FORWARD_CUSTOM_SEI := Guid("{e27362f1-b136-41d1-9594-3a7e4febf2d1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_RENDERER_EXTENSION_PROFILE := Guid("{8437d4b9-d448-4fcd-9b6b-839bf96c7798}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DECODER_FWD_CUSTOM_SEI_DECODE_ORDER := Guid("{f13bbe3c-36d4-410a-b985-7a951a1e6294}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIDEO_RENDERER_EFFECT_APP_SERVICE_NAME := Guid("{c6052a80-6d9c-40a3-9db8-f027a25c9ab9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_NUM_CHANNELS := Guid("{37e48bf5-645e-4c5b-89de-ada9e29b696a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_SAMPLES_PER_SECOND := Guid("{5faeeae7-0290-4c31-9e8a-c534f68d9dba}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_FLOAT_SAMPLES_PER_SECOND := Guid("{fb3b724a-cfb5-4319-aefe-6e42b2406132}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_AVG_BYTES_PER_SECOND := Guid("{1aab75c8-cfef-451c-ab95-ac034b8e1731}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_BLOCK_ALIGNMENT := Guid("{322de230-9eeb-43bd-ab7a-ff412251541d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_BITS_PER_SAMPLE := Guid("{f2deb57f-40fa-4764-aa33-ed4f2d1ff669}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_VALID_BITS_PER_SAMPLE := Guid("{d9bf8d6a-9530-4b7c-9ddf-ff6fd58bbd06}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_SAMPLES_PER_BLOCK := Guid("{aab15aac-e13a-4995-9222-501ea15c6877}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_CHANNEL_MASK := Guid("{55fb5765-644a-4caf-8479-938983bb1588}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_FOLDDOWN_MATRIX := Guid("{9d62927c-36be-4cf2-b5c4-a3926e3e8711}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_WMADRC_PEAKREF := Guid("{9d62927d-36be-4cf2-b5c4-a3926e3e8711}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_WMADRC_PEAKTARGET := Guid("{9d62927e-36be-4cf2-b5c4-a3926e3e8711}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_WMADRC_AVGREF := Guid("{9d62927f-36be-4cf2-b5c4-a3926e3e8711}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_WMADRC_AVGTARGET := Guid("{9d629280-36be-4cf2-b5c4-a3926e3e8711}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_PREFER_WAVEFORMATEX := Guid("{a901aaba-e037-458a-bdf6-545be2074042}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AAC_PAYLOAD_TYPE := Guid("{bfbabe79-7434-4d1c-94f0-72a3b9e17188}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AAC_AUDIO_PROFILE_LEVEL_INDICATION := Guid("{7632f0e6-9538-4d61-acda-ea29c8c14456}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AUDIO_FLAC_MAX_BLOCK_SIZE := Guid("{8b81adae-4b5a-4d40-8022-f38d09ca3c5c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_MAX_DYNAMIC_OBJECTS := Guid("{dcfba24a-2609-4240-a721-3faea76a4df9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_OBJECT_METADATA_FORMAT_ID := Guid("{2ab71bc0-6223-4ba7-ad64-7b94b47ae792}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_OBJECT_METADATA_LENGTH := Guid("{094ba8be-d723-489f-92fa-766777b34726}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_MAX_METADATA_ITEMS := Guid("{11aa80b4-e0da-47c6-8060-96c1259ae50d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_MIN_METADATA_ITEM_OFFSET_SPACING := Guid("{83e96ec9-1184-417e-8254-9f269158fc06}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_DATA_PRESENT := Guid("{6842f6e7-d43e-4ebb-9c9c-c96f41784863}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SPATIAL_AUDIO_IS_PREVIRTUALIZED := Guid("{4eacab51-ffe5-421a-a2a7-8b7409a1cac4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEGH_AUDIO_PROFILE_LEVEL_INDICATION := Guid("{51267a39-dd0c-4bb9-a7bd-9173ad4b131c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FRAME_SIZE := Guid("{1652c33d-d6b2-4012-b834-72030849a37d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FRAME_RATE := Guid("{c459a2e8-3d2c-4e44-b132-fee5156c7bb0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_PIXEL_ASPECT_RATIO := Guid("{c6376a1e-8d0a-4027-be45-6d9a0ad39bb6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DRM_FLAGS := Guid("{8772f323-355a-4cc7-bb78-6d61a048ae82}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_TIMESTAMP_CAN_BE_DTS := Guid("{24974215-1b7b-41e4-8625-ac469f2dedaa}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_PAD_CONTROL_FLAGS := Guid("{4d0e73e5-80ea-4354-a9d0-1176ceb028ea}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_SOURCE_CONTENT_HINT := Guid("{68aca3cc-22d0-44e6-85f8-28167197fa38}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_CHROMA_SITING := Guid("{65df2370-c773-4c33-aa64-843e068efb0c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_INTERLACE_MODE := Guid("{e2724bb8-e676-4806-b4b2-a8d6efb44ccd}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_TRANSFER_FUNCTION := Guid("{5fb0fce9-be5c-4935-a811-ec838f8eed93}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_PRIMARIES := Guid("{dbfbe4d7-0740-4ee0-8192-850ab0e21935}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MAX_LUMINANCE_LEVEL := Guid("{50253128-c110-4de4-98ae-46a324fae6da}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MAX_FRAME_AVERAGE_LUMINANCE_LEVEL := Guid("{58d4bf57-6f52-4733-a195-a9e29ecf9e27}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MAX_MASTERING_LUMINANCE := Guid("{d6c6b997-272f-4ca1-8d00-8042111a0ff6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MIN_MASTERING_LUMINANCE := Guid("{839a4460-4e7e-4b4f-ae79-cc08905c7b27}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DECODER_USE_MAX_RESOLUTION := Guid("{4c547c24-af9a-4f38-96ad-978773cf53e7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DECODER_MAX_DPB_COUNT := Guid("{67be144c-88b7-4ca9-9628-c808d5262217}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_CUSTOM_VIDEO_PRIMARIES := Guid("{47537213-8cfb-4722-aa34-fbc9e24d77b8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_YUV_MATRIX := Guid("{3e23d450-2c75-4d25-a00e-b91670d12327}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_LIGHTING := Guid("{53a0529c-890b-4216-8bf9-599367ad6d20}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_NOMINAL_RANGE := Guid("{c21b8ee5-b956-4071-8daf-325edf5cab11}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_GEOMETRIC_APERTURE := Guid("{66758743-7e5f-400d-980a-aa8596c85696}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MINIMUM_DISPLAY_APERTURE := Guid("{d7388766-18fe-48c6-a177-ee894867c8c4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_PAN_SCAN_APERTURE := Guid("{79614dde-9187-48fb-b8c7-4d52689de649}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_PAN_SCAN_ENABLED := Guid("{4b7f6bc3-8b13-40b2-a993-abf630b8204e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AVG_BITRATE := Guid("{20332624-fb0d-4d9e-bd0d-cbf6786c102e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AVG_BIT_ERROR_RATE := Guid("{799cabd6-3508-4db4-a3c7-569cd533deb1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MAX_KEYFRAME_SPACING := Guid("{c16eb52b-73a1-476f-8d62-839d6a020652}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_USER_DATA := Guid("{b6bc765f-4c3b-40a4-bd51-2535b66fe09d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_OUTPUT_BUFFER_NUM := Guid("{a505d3ac-f930-436e-8ede-93a509ce23b2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_REALTIME_CONTENT := Guid("{bb12d222-2bdb-425e-91ec-2308e189a58f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DEFAULT_STRIDE := Guid("{644b4e48-1e02-4516-b0eb-c01ca9d49ac6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_PALETTE := Guid("{6d283f42-9846-4410-afd9-654d503b1a54}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_AM_FORMAT_TYPE := Guid("{73d1072d-1870-4174-a063-29ff4ff6c11e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_PROFILE := Guid("{ad76a80b-2d5c-4e0b-b375-64e520137036}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_VIDEO_LEVEL := Guid("{96f66574-11c5-4015-8666-bff516436da7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG_START_TIME_CODE := Guid("{91f67885-4333-4280-97cd-bd5a6c03a06e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_PROFILE := Guid("{ad76a80b-2d5c-4e0b-b375-64e520137036}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_LEVEL := Guid("{96f66574-11c5-4015-8666-bff516436da7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_FLAGS := Guid("{31e3991d-f701-4b2f-b426-8ae3bda9e04b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG_SEQUENCE_HEADER := Guid("{3c036de7-3ad0-4c9e-9216-ee6d6ac21cb3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_STANDARD := Guid("{a20af9e8-928a-4b26-aaa9-f05c74cac47c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_TIMECODE := Guid("{5229ba10-e29d-4f80-a59c-df4f180207d2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_CONTENT_PACKET := Guid("{825d55e4-4f12-4197-9eb3-59b6e4710f06}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_ONE_FRAME_PER_PACKET := Guid("{91a49eb5-1d20-4b42-ace8-804269bf95ed}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG2_HDCP := Guid("{168f1b4a-3e91-450f-aea7-e4baeadae5ba}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_MAX_CODEC_CONFIG_DELAY := Guid("{f5929986-4c45-4fbb-bb49-6cc534d05b9b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_SUPPORTED_SLICE_MODES := Guid("{c8be1937-4d64-4549-8343-a8086c0bfda5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_SUPPORTED_SYNC_FRAME_TYPES := Guid("{89a52c01-f282-48d2-b522-22e6ae633199}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_RESOLUTION_SCALING := Guid("{e3854272-f715-4757-ba90-1b696c773457}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_SIMULCAST_SUPPORT := Guid("{9ea2d63d-53f0-4a34-b94e-9de49a078cb3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_SUPPORTED_RATE_CONTROL_MODES := Guid("{6a8ac47e-519c-4f18-9bb3-7eeaaea5594d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_MAX_MB_PER_SEC := Guid("{45256d30-7215-4576-9336-b0f1bcd59bb2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_SUPPORTED_USAGES := Guid("{60b1a998-dc01-40ce-9736-aba845a2dbdc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_CAPABILITIES := Guid("{bb3bd508-490a-11e0-99e4-1316dfd72085}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_SVC_CAPABILITIES := Guid("{f8993abe-d937-4a8f-bbca-6966fe9e1152}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_USAGE := Guid("{359ce3a5-af00-49ca-a2f4-2ac94ca82b61}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_RATE_CONTROL_MODES := Guid("{705177d8-45cb-11e0-ac7d-b91ce0d72085}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_H264_LAYOUT_PER_STREAM := Guid("{85e299b2-90e3-4fe8-b2f5-c067e0bfe57a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_IN_BAND_PARAMETER_SET := Guid("{75da5090-910b-4a03-896c-7b898feea5af}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG4_TRACK_TYPE := Guid("{54f486dd-9327-4f6d-80ab-6f709ebb4cce}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_CONTAINER_RATE_SCALING := Guid("{83877f5e-0444-4e28-8479-6db0989b8c09}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DV_AAUX_SRC_PACK_0 := Guid("{84bd5d88-0fb8-4ac8-be4b-a8848bef98f3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DV_AAUX_CTRL_PACK_0 := Guid("{f731004e-1dd1-4515-aabe-f0c06aa536ac}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DV_AAUX_SRC_PACK_1 := Guid("{720e6544-0225-4003-a651-0196563a958e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DV_AAUX_CTRL_PACK_1 := Guid("{cd1f470d-1f04-4fe0-bfb9-d07ae0386ad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DV_VAUX_SRC_PACK := Guid("{41402d9d-7b57-43c6-b129-2cb997f15009}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_DV_VAUX_CTRL_PACK := Guid("{2f84e1c4-0da1-4788-938e-0dfbfbb34b48}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_ARBITRARY_HEADER := Guid("{9e6bd6f5-0109-4f95-84ac-9309153a19fc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_ARBITRARY_FORMAT := Guid("{5a75b249-0d7d-49a1-a1c3-e0d87f0cade5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_IMAGE_LOSS_TOLERANT := Guid("{ed062cf4-e34e-4922-be99-934032133d7c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG4_SAMPLE_DESCRIPTION := Guid("{261e9d83-9529-4b8f-a111-8b9c950a81a9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_MPEG4_CURRENT_SAMPLE_ENTRY := Guid("{9aa7e155-b64a-4c1d-a500-455d600b6560}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_AMBISONICS_SAMPLE3D_DESCRIPTION := Guid("{f715cf3e-a964-4c3f-94ae-9d6ba7264641}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_ORIGINAL_4CC := Guid("{d7be3fe0-2bc7-492d-b843-61a1919b70c3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_ORIGINAL_WAVE_FORMAT_TAG := Guid("{8cbbc843-9fd9-49c2-882f-a72586c408ad}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FRAME_RATE_RANGE_MIN := Guid("{d2e7558c-dc1f-403f-9a72-d28bb1eb3b5e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_FRAME_RATE_RANGE_MAX := Guid("{e3371d41-b4cf-4a05-bd4e-20b88bb2c4d6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_LOW_LATENCY := Guid("{9c27891a-ed7a-40e1-88e8-b22727a024ee}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIDEO_MAX_MB_PER_SEC := Guid("{e3f2e203-d445-4b8c-9211-ae390d3ba017}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DISABLE_FRAME_CORRUPTION_INFO := Guid("{7086e16c-49c5-4201-882a-8538f38cf13a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFStreamExtension_CameraExtrinsics := Guid("{686196d0-13e2-41d9-9638-ef032c272a52}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_CameraExtrinsics := Guid("{6b761658-b7ec-4c3b-8225-8623cabec31d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFStreamExtension_PinholeCameraIntrinsics := Guid("{dbac0455-0ec8-4aef-9c32-7a3ee3456f53}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_PinholeCameraIntrinsics := Guid("{4ee3b6c5-6a15-4e72-9761-70c1db8b9fe3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Default := Guid("{81a412e6-8103-4b06-857f-1862781024ac}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Audio := Guid("{73647561-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Video := Guid("{73646976-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Protected := Guid("{7b4b6fe6-9d04-4494-be14-7e0bd076c8e4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_SAMI := Guid("{e69669a0-3dcd-40cb-9e2e-3708387c0616}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Script := Guid("{72178c22-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Image := Guid("{72178c23-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_HTML := Guid("{72178c24-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Binary := Guid("{72178c25-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_FileTransfer := Guid("{72178c26-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Stream := Guid("{e436eb83-524f-11ce-9f53-0020af0ba770}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_MultiplexedFrames := Guid("{6ea542b0-281f-4231-a464-fe2f5022501c}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Subtitle := Guid("{a6d13581-ed50-4e65-ae08-26065576aacc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Perception := Guid("{597ff6f9-6ea2-4670-85b4-ea84073fe940}")
+
+/**
+ * @type {Guid}
+ */
+export global MFImageFormat_JPEG := Guid("{19e4a5aa-5662-4fc5-a0c0-1758028e1057}")
+
+/**
+ * @type {Guid}
+ */
+export global MFImageFormat_RGB32 := Guid("{00000016-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFStreamFormat_MPEG2Transport := Guid("{e06d8023-db46-11cf-b4d1-00805f6cbbea}")
+
+/**
+ * @type {Guid}
+ */
+export global MFStreamFormat_MPEG2Program := Guid("{263067d1-d330-45dc-b669-34d986e4e3e1}")
+
+/**
+ * @type {Guid}
+ */
+export global AM_MEDIA_TYPE_REPRESENTATION := Guid("{e2e42ad2-132c-491e-a268-3c7c2dca181f}")
+
+/**
+ * @type {Guid}
+ */
+export global FORMAT_MFVideoFormat := Guid("{aed4ab2d-7326-43cb-9464-c879cab9c43d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFMediaType_Metadata := Guid("{2c8fa20c-82bb-4782-90a0-98a2a5bd8ef8}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFSourceResolver := Guid("{90eab60f-e43a-4188-bcc4-e47fdf04868c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_ATTRIBUTE_FACEAUTH_CAPABILITY := Guid("{cb6fd12a-2248-4e41-ad46-e78bb90ab9fc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_ATTRIBUTE_SECURE_CAPABILITY := Guid("{940fd626-ea6e-4684-9840-36bd6ec9fbef}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MEDIASINK_FIXED_STREAMS := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MEDIASINK_CANNOT_MATCH_CLOCK := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MEDIASINK_RATELESS := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MEDIASINK_CLOCK_REQUIRED := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MEDIASINK_CAN_PREROLL := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MEDIASINK_REQUIRE_REFERENCE_MEDIATYPE := 32
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCLOCK_FREQUENCY_HNS := 10000000
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCLOCK_TOLERANCE_UNKNOWN := 50000
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCLOCK_JITTER_ISR := 1000
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCLOCK_JITTER_DPC := 4000
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCLOCK_JITTER_PASSIVE := 10000
+
+/**
+ * @type {Integer (UInt64)}
+ */
+export global PRESENTATION_CURRENT_POSITION := 9223372036854775807
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ADAPTIVE_STREAMING := Guid("{ea0d5d97-29f9-488b-ae6b-7d6b4136112b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_SUPPORTS_PROTECTED_CODEC_SWITCH := Guid("{8fb6b117-862e-4b31-8dab-5e0a434caef0}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_FLAGS_CROSSPROCESS := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_FLAGS_NOPERSIST := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_FLAGS_DONT_ALLOW_FORMAT_CHANGES := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFRR_INFO_VERSION := 0
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_USER_MODE_COMPONENT_LOAD := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_KERNEL_MODE_COMPONENT_LOAD := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_GRL_LOAD_FAILED := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_INVALID_GRL_SIGNATURE := 32
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_GRL_ABSENT := 4096
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_COMPONENT_REVOKED := 8192
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_COMPONENT_INVALID_EKU := 16384
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_COMPONENT_CERT_REVOKED := 32768
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_COMPONENT_INVALID_ROOT := 65536
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_COMPONENT_HS_CERT_REVOKED := 131072
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_COMPONENT_LS_CERT_REVOKED := 262144
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_BOOT_DRIVER_VERIFICATION_FAILED := 1048576
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_TEST_SIGNED_COMPONENT_LOADING := 16777216
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_MINCRYPT_FAILURE := 268435456
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SHA_HASH_LEN := 20
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFSEQUENCER_INVALID_ELEMENT_ID := 4294967295
+
+/**
+ * @type {Guid}
+ */
+export global MF_WRAPPED_BUFFER_SERVICE := Guid("{ab544072-c269-4ebc-a552-1c3b32bed5ca}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG2ByteStreamPlugin := Guid("{40871c59-ab40-471f-8dc3-1f259d862479}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCONTENTPROTECTIONDEVICE_FUNCTIONID_START := 67108864
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFCONTENTPROTECTIONDEVICE_REALTIMECLIENT_DATA_FUNCTIONID := 67108864
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_UNKNOWN_DURATION := 0
+
+/**
+ * @type {Guid}
+ */
+export global MFStreamExtension_ExtendedCameraIntrinsics := Guid("{aa74b3df-9a2c-48d6-8393-5bd1c1a81e6e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_ExtendedCameraIntrinsics := Guid("{560bc4a5-4de0-4113-9cdc-832db9740f3d}")
+
+/**
+ * @type {Integer (UInt64)}
+ */
+export global MF_INVALID_PRESENTATION_TIME := 9223372036854775808
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_MEDIATYPE_EQUAL_MAJOR_TYPES := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_MEDIATYPE_EQUAL_FORMAT_TYPES := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_MEDIATYPE_EQUAL_FORMAT_DATA := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_MEDIATYPE_EQUAL_FORMAT_USER_DATA := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_FAST_IO_PROCESSING_CALLBACK := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_SIGNAL_CALLBACK := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_BLOCKING_CALLBACK := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_REPLY_CALLBACK := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_LOCALIZE_REMOTE_CALLBACK := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_UNDEFINED := 0
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_STANDARD := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_RT := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_IO := 3
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_TIMER := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_MULTITHREADED := 5
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_LONG_FUNCTION := 7
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_PRIVATE_MASK := 4294901760
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASYNC_CALLBACK_QUEUE_ALL := 4294967295
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_IS_READABLE := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_IS_WRITABLE := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_IS_SEEKABLE := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_IS_REMOTE := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_IS_DIRECTORY := 128
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_HAS_SLOW_SEEK := 256
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_IS_PARTIALLY_DOWNLOADED := 512
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_SHARE_WRITE := 1024
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_DOES_NOT_USE_NETWORK := 2048
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFBYTESTREAM_SEEK_FLAG_CANCEL_PENDING_IO := 1
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_SHARING_ENGINE_INITIAL_SEEK_TIME := Guid("{6f3497f5-d528-4a4f-8dd7-db36657ec4c9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SHUTDOWN_RENDERER_ON_ENGINE_SHUTDOWN := Guid("{c112d94d-6b9c-48f8-b6f9-7950ff9ab71e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PREFERRED_SOURCE_URI := Guid("{5fc85488-436a-4db8-90af-4db402ae5c57}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SHARING_ENGINE_SHAREDRENDERER := Guid("{efa446a0-73e7-404e-8ae2-fef60af5a32b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SHARING_ENGINE_CALLBACK := Guid("{57dc1e95-d252-43fa-9bbc-180070eefe6d}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFT_STREAMS_UNLIMITED := 4294967295
+
+/**
+ * @type {Integer (UInt64)}
+ */
+export global MFT_OUTPUT_BOUND_UPPER_UNBOUNDED := 9223372036854775807
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_CURRENT_HDCP_SRM_VERSION := Guid("{99c5ceff-5f1d-4879-81c1-c52443c9482b}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_CONNECTED_HDCP_DEVICE_INFORMATION := Guid("{0db59d74-a992-492e-a0bd-c23fda564e00}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_ACP_AND_CGMSA_SIGNALING := Guid("{6629a591-3b79-4cf3-924a-11e8e7811671}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_CONNECTOR_TYPE := Guid("{81d0bfd5-6afe-48c2-99c0-95a08f97c5da}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_SUPPORTED_PROTECTION_TYPES := Guid("{38f2a801-9a6c-48bb-9107-b6696e6f1797}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_VIRTUAL_PROTECTION_LEVEL := Guid("{b2075857-3eda-4d5d-88db-748f8c1a0549}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_ACTUAL_PROTECTION_LEVEL := Guid("{1957210a-7766-452a-b99a-d27aed54f03a}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_ACTUAL_OUTPUT_FORMAT := Guid("{d7bf1ba3-ad13-4f8e-af98-0dcb3ca204cc}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_ADAPTER_BUS_TYPE := Guid("{c6f4d673-6174-4184-8e35-f6db5200bcba}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_OUTPUT_ID := Guid("{72cb6df3-244f-40ce-b09e-20506af6302f}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_DVI_CHARACTERISTICS := Guid("{a470b3bb-5dd7-4172-839c-3d3776e0ebf5}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_CODEC_INFO := Guid("{4f374491-8f5f-4445-9dba-95588f6b58b4}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_GET_OUTPUT_HARDWARE_PROTECTION_SUPPORT := Guid("{3b129589-2af8-4ef0-96a2-704a845a218e}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_SET_PROTECTION_LEVEL := Guid("{9bb9327c-4eb5-4727-9f00-b42b0919c0da}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_SET_ACP_AND_CGMSA_SIGNALING := Guid("{09a631a5-d684-4c60-8e4d-d3bb0f0be3ee}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_SET_HDCP_SRM := Guid("{8b5ef5d1-c30d-44ff-84a5-ea71dce78f13}")
+
+/**
+ * @type {Guid}
+ */
+export global OPM_SET_PROTECTION_LEVEL_ACCORDING_TO_CSS_DVD := Guid("{39ce333e-4cc0-44ae-bfcc-da50b5f82e72}")
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global WM_CODEC_ONEPASS_CBR := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global WM_CODEC_ONEPASS_VBR := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global WM_CODEC_TWOPASS_CBR := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global WM_CODEC_TWOPASS_VBR_UNCONSTRAINED := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global WM_CODEC_TWOPASS_VBR_PEAKCONSTRAINED := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_LOUDNESSEQUALIZATION := 1
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_ROOMCORRECTION := 2
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_BASSMANAGEMENT := 4
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_BASSBOOST := 8
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_HEADPHONEVIRTUALIZATION := 16
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_VIRTUALSURROUND := 32
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_SPEAKERFILLING := 64
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global SYSFXUI_DONOTSHOW_CHANNELPHANTOMING := 128
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global AEC_MAX_SYSTEM_MODES := 6
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global WMAAECMA_E_NO_ACTIVE_RENDER_STREAM := 2278293514
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y41T := Guid("{54313459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_Y42T := Guid("{54323459-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_V216 := Guid("{36313256-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_V410 := Guid("{30313456-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_v210 := Guid("{30313276-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_I420 := Guid("{30323449-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WVC1 := Guid("{31435657-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMVA := Guid("{41564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMVB := Guid("{42564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMVR := Guid("{52564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMVP := Guid("{50564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WVP2 := Guid("{32505657-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMV3 := Guid("{33564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMV2 := Guid("{32564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMV1 := Guid("{31564d57-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPG4 := Guid("{3447504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MP42 := Guid("{3234504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MP43 := Guid("{3334504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MP4S := Guid("{5334504d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_M4S2 := Guid("{3253344d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MSS1 := Guid("{3153534d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MSS2 := Guid("{3253534d-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MSAUDIO1 := Guid("{00000160-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMAUDIO2 := Guid("{00000161-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMAUDIO3 := Guid("{00000162-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMAUDIO_LOSSLESS := Guid("{00000163-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMASPDIF := Guid("{00000164-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_WMAUDIO4 := Guid("{00000168-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG_ADTS_AAC := Guid("{00001600-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG_RAW_AAC := Guid("{00001601-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG_LOAS := Guid("{00001602-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_NOKIA_MPEG_ADTS_AAC := Guid("{00001608-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_NOKIA_MPEG_RAW_AAC := Guid("{00001609-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_VODAFONE_MPEG_ADTS_AAC := Guid("{0000160a-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_VODAFONE_MPEG_RAW_AAC := Guid("{0000160b-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_MPEG_HEAAC := Guid("{00001610-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_RAW_AAC1 := Guid("{000000ff-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DVM := Guid("{00002000-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DTS2 := Guid("{00002001-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DOLBY_DDPLUS := Guid("{a7fb87af-2d02-42fb-a4d4-05cd93843bdd}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DOLBY_TRUEHD := Guid("{eb27cec4-163e-4ca3-8b74-8e25f91b517e}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DTS_HD := Guid("{a2e58eb7-0fa9-48bb-a40c-fa0e156d0645}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_DTS_HD_HRA := Guid("{a61ac364-ad0e-4744-89ff-213ce0df8804}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_AVC1 := Guid("{31435641-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDIASUBTYPE_X264 := Guid("{34363258-0000-0010-8000-00aa00389b71}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIDEODSP_MODE := Guid("{16d720f0-768c-11de-8a39-0800200c9a66}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_VideoDSPMode := Guid("{c12d55cb-d7d9-476d-81f3-69117f163ea0}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CTocEntry := Guid("{f22f5e05-585c-4def-8523-6555cfbc0cb3}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CTocEntryList := Guid("{3a8cccbc-0efd-43a3-b838-f38a552ba237}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CToc := Guid("{4fe24495-28ce-4920-a4c4-e556e1f0df2a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CTocCollection := Guid("{5058292d-a244-4840-ab44-480975c4ffe4}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CTocParser := Guid("{499eaeea-2737-4849-8bb6-47f107eaf358}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CAsfTocParser := Guid("{9b77c0f2-8735-46c5-b90f-5f0b303ef6ab}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CAviTocParser := Guid("{3adce5cc-13c8-4573-b328-ed438eb694f9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CFileIo := Guid("{11993195-1244-4840-ab44-480975c4ffe4}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CFileClient := Guid("{bfccd195-1244-4840-ab44-480975c4ffe4}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CClusterDetectorEx := Guid("{47354492-827e-4b8a-b318-c80eba1381f0}")
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global E_TOCPARSER_INVALIDASFFILE := -1728053247
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global E_TOCPARSER_INVALIDRIFFFILE := -1728053246
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global TOC_MAX_DESCRIPTION_SIZE := 65535
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global TOC_ENTRY_MAX_TITLE_SIZE := 65535
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASFINDEXER_PER_ENTRY_BYTES_DYNAMIC := 65535
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASFINDEXER_NO_FIXED_INTERVAL := 4294967295
+
+/**
+ * @type {Integer (UInt64)}
+ */
+export global MFASFINDEXER_READ_FOR_REVERSEPLAYBACK_OUTOFDATASEGMENT := 18446744073709551615
+
+/**
+ * @type {Integer (UInt64)}
+ */
+export global MFASFINDEXER_APPROX_SEEK_TIME_UNKNOWN := 18446744073709551615
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASF_MAX_STREAM_NUMBER := 127
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASF_INVALID_STREAM_NUMBER := 128
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASF_PAYLOADEXTENSION_MAX_SIZE := 255
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASF_PAYLOADEXTENSION_VARIABLE_SIZE := 65535
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MFASF_DEFAULT_BUFFER_WINDOW_MS := 3000
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global FACILITY_MF := 13
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global FACILITY_MF_WIN32 := 7
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PLATFORM_NOT_INITIALIZED := -1072875856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BUFFERTOOSMALL := -1072875855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALIDREQUEST := -1072875854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALIDSTREAMNUMBER := -1072875853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALIDMEDIATYPE := -1072875852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NOTACCEPTING := -1072875851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NOT_INITIALIZED := -1072875850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_REPRESENTATION := -1072875849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_MORE_TYPES := -1072875847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_SERVICE := -1072875846
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNEXPECTED := -1072875845
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALIDNAME := -1072875844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALIDTYPE := -1072875843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_FILE_FORMAT := -1072875842
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALIDINDEX := -1072875841
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_TIMESTAMP := -1072875840
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_SCHEME := -1072875837
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_BYTESTREAM_TYPE := -1072875836
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_TIME_FORMAT := -1072875835
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_SAMPLE_TIMESTAMP := -1072875832
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_SAMPLE_DURATION := -1072875831
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_STREAM_DATA := -1072875829
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RT_UNAVAILABLE := -1072875825
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_RATE := -1072875824
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_THINNING_UNSUPPORTED := -1072875823
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_REVERSE_UNSUPPORTED := -1072875822
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_RATE_TRANSITION := -1072875821
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RATE_CHANGE_PREEMPTED := -1072875820
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NOT_FOUND := -1072875819
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NOT_AVAILABLE := -1072875818
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_CLOCK := -1072875817
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_MULTIPLE_BEGIN := 866008
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MULTIPLE_BEGIN := -1072875815
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MULTIPLE_SUBSCRIBERS := -1072875814
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TIMER_ORPHANED := -1072875813
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_STATE_TRANSITION_PENDING := -1072875812
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_STATE_TRANSITION := -1072875811
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNRECOVERABLE_ERROR_OCCURRED := -1072875810
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SAMPLE_HAS_TOO_MANY_BUFFERS := -1072875809
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SAMPLE_NOT_WRITABLE := -1072875808
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_KEY := -1072875806
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BAD_STARTUP_VERSION := -1072875805
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_CAPTION := -1072875804
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_POSITION := -1072875803
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ATTRIBUTENOTFOUND := -1072875802
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_TYPE_NOT_ALLOWED := -1072875801
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_TYPE_NOT_SUPPORTED := -1072875800
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_EMPTY := -1072875799
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_NOT_EMPTY := -1072875798
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_VECTOR_NOT_ALLOWED := -1072875797
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_VECTOR_REQUIRED := -1072875796
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_OPERATION_CANCELLED := -1072875795
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BYTESTREAM_NOT_SEEKABLE := -1072875794
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DISABLED_IN_SAFEMODE := -1072875793
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CANNOT_PARSE_BYTESTREAM := -1072875792
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SOURCERESOLVER_MUTUALLY_EXCLUSIVE_FLAGS := -1072875791
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIAPROC_WRONGSTATE := -1072875790
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RT_THROUGHPUT_NOT_AVAILABLE := -1072875789
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RT_TOO_MANY_CLASSES := -1072875788
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RT_WOULDBLOCK := -1072875787
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_BITPUMP := -1072875786
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RT_OUTOFMEMORY := -1072875785
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RT_WORKQUEUE_CLASS_NOT_SPECIFIED := -1072875784
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INSUFFICIENT_BUFFER := -1072860816
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CANNOT_CREATE_SINK := -1072875782
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BYTESTREAM_UNKNOWN_LENGTH := -1072875781
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SESSION_PAUSEWHILESTOPPED := -1072875780
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_ACTIVATE_REPLACED := 866045
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_FORMAT_CHANGE_NOT_SUPPORTED := -1072875778
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_WORKQUEUE := -1072875777
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DRM_UNSUPPORTED := -1072875776
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNAUTHORIZED := -1072875775
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_OUT_OF_RANGE := -1072875774
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_CODEC_MERIT := -1072875773
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HW_MFT_FAILED_START_STREAMING := -1072875772
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_OPERATION_IN_PROGRESS := -1072875771
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HARDWARE_DRM_UNSUPPORTED := -1072875770
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DURATION_TOO_LONG := -1072875769
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_OPERATION_UNSUPPORTED_AT_D3D_FEATURE_LEVEL := -1072875768
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_MEDIATYPE_AT_D3D_FEATURE_LEVEL := -1072875767
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_ASF_PARSEINPROGRESS := 1074608792
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_PARSINGINCOMPLETE := -1072874856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_MISSINGDATA := -1072874855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_INVALIDDATA := -1072874854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_OPAQUEPACKET := -1072874853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_NOINDEX := -1072874852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_OUTOFRANGE := -1072874851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_INDEXNOTLOADED := -1072874850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_TOO_MANY_PAYLOADS := -1072874849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_UNSUPPORTED_STREAM_TYPE := -1072874848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_DROPPED_PACKET := -1072874847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_EVENTS_AVAILABLE := -1072873856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_STATE_TRANSITION := -1072873854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_END_OF_STREAM := -1072873852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SHUTDOWN := -1072873851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MP3_NOTFOUND := -1072873850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MP3_OUTOFDATA := -1072873849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MP3_NOTMP3 := -1072873848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MP3_NOTSUPPORTED := -1072873847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_DURATION := -1072873846
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_FORMAT := -1072873844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_NOT_FOUND := -1072873843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_READ_ONLY := -1072873842
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROPERTY_NOT_ALLOWED := -1072873841
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_SOURCE_NOT_STARTED := -1072873839
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_FORMAT := -1072873832
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MP3_BAD_CRC := -1072873831
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NOT_PROTECTED := -1072873830
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_SOURCE_WRONGSTATE := -1072873829
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_SOURCE_NO_STREAMS_SELECTED := -1072873828
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CANNOT_FIND_KEYFRAME_SAMPLE := -1072873827
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_CHARACTERISTICS := -1072873826
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_AUDIO_RECORDING_DEVICE := -1072873825
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_RECORDING_DEVICE_IN_USE := -1072873824
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_RECORDING_DEVICE_INVALIDATED := -1072873823
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_RECORDING_DEVICE_INVALIDATED := -1072873822
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_RECORDING_DEVICE_PREEMPTED := -1072873821
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NETWORK_RESOURCE_FAILURE := -1072872856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_WRITE := -1072872855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_READ := -1072872854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_REQUIRE_NETWORK := -1072872853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_REQUIRE_ASYNC := -1072872852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_BWLEVEL_NOT_SUPPORTED := -1072872851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_STREAMGROUPS_NOT_SUPPORTED := -1072872850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_MANUALSS_NOT_SUPPORTED := -1072872849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_INVALID_PRESENTATION_DESCRIPTOR := -1072872848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_CACHESTREAM_NOT_FOUND := -1072872847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_I_MANUAL_PROXY := 1074610802
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_REQUIRE_INPUT := -1072872844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_REDIRECT := -1072872843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_REDIRECT_TO_PROXY := -1072872842
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_TOO_MANY_REDIRECTS := -1072872841
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_TIMEOUT := -1072872840
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_CLIENT_CLOSE := -1072872839
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_BAD_CONTROL_DATA := -1072872838
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_INCOMPATIBLE_SERVER := -1072872837
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_UNSAFE_URL := -1072872836
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_CACHE_NO_DATA := -1072872835
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_EOL := -1072872834
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_BAD_REQUEST := -1072872833
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_INTERNAL_SERVER_ERROR := -1072872832
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_SESSION_NOT_FOUND := -1072872831
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_NOCONNECTION := -1072872830
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_CONNECTION_FAILURE := -1072872829
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_INCOMPATIBLE_PUSHSERVER := -1072872828
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_SERVER_ACCESSDENIED := -1072872827
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_PROXY_ACCESSDENIED := -1072872826
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_CANNOTCONNECT := -1072872825
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_INVALID_PUSH_TEMPLATE := -1072872824
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_INVALID_PUSH_PUBLISHING_POINT := -1072872823
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_BUSY := -1072872822
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_RESOURCE_GONE := -1072872821
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_ERROR_FROM_PROXY := -1072872820
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_PROXY_TIMEOUT := -1072872819
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_SERVER_UNAVAILABLE := -1072872818
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_TOO_MUCH_DATA := -1072872817
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_SESSION_INVALID := -1072872816
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_OFFLINE_MODE := -1072872815
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_UDP_BLOCKED := -1072872814
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_UNSUPPORTED_CONFIGURATION := -1072872813
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_PROTOCOL_DISABLED := -1072872812
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NET_COMPANION_DRIVER_DISCONNECT := -1072872811
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ALREADY_INITIALIZED := -1072871856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BANDWIDTH_OVERRUN := -1072871855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_LATE_SAMPLE := -1072871854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_FLUSH_NEEDED := -1072871853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_PROFILE := -1072871852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INDEX_NOT_COMMITTED := -1072871851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_INDEX := -1072871850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CANNOT_INDEX_IN_PLACE := -1072871849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MISSING_ASF_LEAKYBUCKET := -1072871848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_ASF_STREAMID := -1072871847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_STREAMSINK_REMOVED := -1072870856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_STREAMSINKS_OUT_OF_SYNC := -1072870854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_STREAMSINKS_FIXED := -1072870853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_STREAMSINK_EXISTS := -1072870852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SAMPLEALLOCATOR_CANCELED := -1072870851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SAMPLEALLOCATOR_EMPTY := -1072870850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SINK_ALREADYSTOPPED := -1072870849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ASF_FILESINK_BITRATE_UNKNOWN := -1072870848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SINK_NO_STREAMS := -1072870847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_SINK_NOT_FINALIZED := 870978
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_METADATA_TOO_LONG := -1072870845
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SINK_NO_SAMPLES_PROCESSED := -1072870844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SINK_HEADERS_NOT_FOUND := -1072870843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_REN_NO_PROCAMP_HW := -1072869856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_REN_NO_DEINTERLACE_HW := -1072869855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_REN_COPYPROT_FAILED := -1072869854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_REN_SURFACE_NOT_SHARED := -1072869853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_VIDEO_DEVICE_LOCKED := -1072869852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NEW_VIDEO_DEVICE := -1072869851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_VIDEO_SAMPLE_AVAILABLE := -1072869850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_AUDIO_PLAYBACK_DEVICE := -1072869756
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_PLAYBACK_DEVICE_IN_USE := -1072869755
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_PLAYBACK_DEVICE_INVALIDATED := -1072869754
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_SERVICE_NOT_RUNNING := -1072869753
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_BUFFER_SIZE_ERROR := -1072869752
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_AUDIO_CLIENT_WRAPPER_SPOOF_ERROR := -1072869751
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_INVALID_OPTIONAL_NODE := -1072868850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_CANNOT_FIND_DECRYPTOR := -1072868847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_CODEC_NOT_FOUND := -1072868846
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_CANNOT_CONNECT := -1072868845
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_UNSUPPORTED := -1072868844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_INVALID_TIME_ATTRIBUTES := -1072868843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_LOOPS_IN_TOPOLOGY := -1072868842
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_MISSING_PRESENTATION_DESCRIPTOR := -1072868841
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_MISSING_STREAM_DESCRIPTOR := -1072868840
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_STREAM_DESCRIPTOR_NOT_SELECTED := -1072868839
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_MISSING_SOURCE := -1072868838
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPO_SINK_ACTIVATES_UNSUPPORTED := -1072868837
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SEQUENCER_UNKNOWN_SEGMENT_ID := -1072864852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_SEQUENCER_CONTEXT_CANCELED := 876973
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_SOURCE_IN_CACHE := -1072864850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_SEQUENCER_SEGMENT_AT_END_OF_STREAM := 876975
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_TYPE_NOT_SET := -1072861856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_STREAM_CHANGE := -1072861855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_INPUT_REMAINING := -1072861854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROFILE_MISSING := -1072861853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROFILE_INVALID_OR_CORRUPT := -1072861852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROFILE_TRUNCATED := -1072861851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_PID_NOT_RECOGNIZED := -1072861850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_VARIANT_TYPE_WRONG := -1072861849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_NOT_WRITEABLE := -1072861848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_ARRAY_VALUE_WRONG_NUM_DIM := -1072861847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_VALUE_SIZE_WRONG := -1072861846
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_VALUE_OUT_OF_RANGE := -1072861845
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_PROPERTY_VALUE_INCOMPATIBLE := -1072861844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_NOT_POSSIBLE_FOR_CURRENT_OUTPUT_MEDIATYPE := -1072861843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_NOT_POSSIBLE_FOR_CURRENT_INPUT_MEDIATYPE := -1072861842
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_NOT_POSSIBLE_FOR_CURRENT_MEDIATYPE_COMBINATION := -1072861841
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_CONFLICTS_WITH_OTHER_CURRENTLY_ENABLED_FEATURES := -1072861840
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_NEED_MORE_INPUT := -1072861838
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_NOT_POSSIBLE_FOR_CURRENT_SPKR_CONFIG := -1072861837
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_CANNOT_CHANGE_MEDIATYPE_WHILE_PROCESSING := -1072861836
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_TRANSFORM_DO_NOT_PROPAGATE_EVENT := 879989
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_D3D_TYPE := -1072861834
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_ASYNC_LOCKED := -1072861833
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_CANNOT_INITIALIZE_ACM_DRIVER := -1072861832
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_STREAM_INVALID_RESOLUTION := -1072861831
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_ASYNC_MFT_NOT_SUPPORTED := -1072861830
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSFORM_EXATTRIBUTE_NOT_SUPPORTED := -1072861828
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_LICENSE_INCORRECT_RIGHTS := -1072860856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_LICENSE_OUTOFDATE := -1072860855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_LICENSE_REQUIRED := -1072860854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DRM_HARDWARE_INCONSISTENT := -1072860853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_CONTENT_PROTECTION_MANAGER := -1072860852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_LICENSE_RESTORE_NO_RIGHTS := -1072860851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BACKUP_RESTRICTED_LICENSE := -1072860850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_LICENSE_RESTORE_NEEDS_INDIVIDUALIZATION := -1072860849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_PROTECTION_NOT_REQUIRED := 880976
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_COMPONENT_REVOKED := -1072860847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRUST_DISABLED := -1072860846
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_WMDRMOTA_NO_ACTION := -1072860845
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_WMDRMOTA_ACTION_ALREADY_SET := -1072860844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_WMDRMOTA_DRM_HEADER_NOT_AVAILABLE := -1072860843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_WMDRMOTA_DRM_ENCRYPTION_SCHEME_NOT_SUPPORTED := -1072860842
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_WMDRMOTA_ACTION_MISMATCH := -1072860841
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_WMDRMOTA_INVALID_POLICY := -1072860840
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_POLICY_UNSUPPORTED := -1072860839
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_OPL_NOT_SUPPORTED := -1072860838
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TOPOLOGY_VERIFICATION_FAILED := -1072860837
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_SIGNATURE_VERIFICATION_FAILED := -1072860836
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DEBUGGING_NOT_ALLOWED := -1072860835
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CODE_EXPIRED := -1072860834
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_GRL_VERSION_TOO_LOW := -1072860833
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_GRL_RENEWAL_NOT_FOUND := -1072860832
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_GRL_EXTENSIBLE_ENTRY_NOT_FOUND := -1072860831
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_KERNEL_UNTRUSTED := -1072860830
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PEAUTH_UNTRUSTED := -1072860829
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NON_PE_PROCESS := -1072860827
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_REBOOT_REQUIRED := -1072860825
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_WAIT_FOR_POLICY_SET := 881000
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_VIDEO_DISABLED_WITH_UNKNOWN_SOFTWARE_OUTPUT := 881001
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_GRL_INVALID_FORMAT := -1072860822
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_GRL_UNRECOGNIZED_FORMAT := -1072860821
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ALL_PROCESS_RESTART_REQUIRED := -1072860820
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PROCESS_RESTART_REQUIRED := -1072860819
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_USERMODE_UNTRUSTED := -1072860818
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PEAUTH_SESSION_NOT_STARTED := -1072860817
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PEAUTH_PUBLICKEY_REVOKED := -1072860815
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_GRL_ABSENT := -1072860814
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_PE_TRUSTED := 881011
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PE_UNTRUSTED := -1072860812
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PEAUTH_NOT_STARTED := -1072860811
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INCOMPATIBLE_SAMPLE_PROTECTION := -1072860810
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_PE_SESSIONS_MAXED := -1072860809
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HIGH_SECURITY_LEVEL_CONTENT_NOT_ALLOWED := -1072860808
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TEST_SIGNED_COMPONENTS_NOT_ALLOWED := -1072860807
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ITA_UNSUPPORTED_ACTION := -1072860806
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ITA_ERROR_PARSING_SAP_PARAMETERS := -1072860805
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_POLICY_MGR_ACTION_OUTOFBOUNDS := -1072860804
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_BAD_OPL_STRUCTURE_FORMAT := -1072860803
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ITA_UNRECOGNIZED_ANALOG_VIDEO_PROTECTION_GUID := -1072860802
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_PMP_HOST := -1072860801
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ITA_OPL_DATA_NOT_INITIALIZED := -1072860800
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ITA_UNRECOGNIZED_ANALOG_VIDEO_OUTPUT := -1072860799
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ITA_UNRECOGNIZED_DIGITAL_VIDEO_OUTPUT := -1072860798
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_RESOLUTION_REQUIRES_PMP_CREATION_CALLBACK := -1072860797
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_AKE_CHANNEL_PARAMETERS := -1072860796
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CONTENT_PROTECTION_SYSTEM_NOT_ENABLED := -1072860795
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_CONTENT_PROTECTION_SYSTEM := -1072860794
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DRM_MIGRATION_NOT_SUPPORTED := -1072860793
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HDCP_AUTHENTICATION_FAILURE := -1072860792
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HDCP_LINK_FAILURE := -1072860791
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_INVALID_CONTINUITY_KEY := -1072849856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_NO_TIME_SOURCE := -1072849855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_STATE_ALREADY_SET := -1072849854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_NOT_SIMPLE := -1072849853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_S_CLOCK_STOPPED := 891972
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_AUDIO_DEVICE_POSITION_UNEXPECTED := 891973
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_AUDIO_RENDER_POSITION_UNEXPECTED := 891974
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CLOCK_AUDIO_RENDER_TIME_UNEXPECTED := 891975
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_MORE_DROP_MODES := -1072848856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_MORE_QUALITY_LEVELS := -1072848855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_DROPTIME_NOT_SUPPORTED := -1072848854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_QUALITYKNOB_WAIT_LONGER := -1072848853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_QM_INVALIDSTATE := -1072848852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSCODE_NO_CONTAINERTYPE := -1072847856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSCODE_PROFILE_NO_MATCHING_STREAMS := -1072847855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSCODE_NO_MATCHING_ENCODER := -1072847854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TRANSCODE_INVALID_PROFILE := -1072847853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ALLOCATOR_NOT_INITIALIZED := -1072846856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ALLOCATOR_NOT_COMMITED := -1072846855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_ALLOCATOR_ALREADY_COMMITED := -1072846854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_STREAM_ERROR := -1072846853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_INVALID_STREAM_STATE := -1072846852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HW_STREAM_NOT_CONNECTED := -1072846851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_NO_CAPTURE_DEVICES_AVAILABLE := -1072845856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SINK_OUTPUT_NOT_SET := -1072845855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SINK_MIRROR_ERROR := -1072845854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SINK_ROTATE_ERROR := -1072845853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_ENGINE_INVALID_OP := -1072845852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_ENGINE_ALL_EFFECTS_REMOVED := -1072845851
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SOURCE_NO_INDEPENDENT_PHOTO_STREAM_PRESENT := -1072845850
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SOURCE_NO_VIDEO_STREAM_PRESENT := -1072845849
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SOURCE_NO_AUDIO_STREAM_PRESENT := -1072845848
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_SOURCE_DEVICE_EXTENDEDPROP_OP_IN_PROGRESS := -1072845847
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_PROPERTY_SET_DURING_PHOTO := -1072845846
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAPTURE_NO_SAMPLES_IN_QUEUE := -1072845845
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_HW_ACCELERATED_THUMBNAIL_NOT_SUPPORTED := -1072845844
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_UNSUPPORTED_CAPTURE_DEVICE_PRESENT := -1072845843
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TIMELINECONTROLLER_UNSUPPORTED_SOURCE_TYPE := -1072844856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TIMELINECONTROLLER_NOT_ALLOWED := -1072844855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_TIMELINECONTROLLER_CANNOT_ATTACH := -1072844854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_EXTENSION_APPSERVICE_CONNECTION_FAILED := -1072843856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_EXTENSION_APPSERVICE_REQUEST_FAILED := -1072843855
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_EXTENSION_PACKAGE_INTEGRITY_CHECK_FAILED := -1072843854
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_EXTENSION_PACKAGE_LICENSE_INVALID := -1072843853
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_MEDIA_EXTENSION_PACKAGE_BAD_STATUS := -1072843852
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAMERA_PRIVACY_NOT_ALLOWED := -1072842856
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global MF_E_CAMERA_FSPROFILE_INVALID := -1072842854
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_INDEX_SIZE_ERR := 2154823681
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_NOT_FOUND_ERR := 2154823688
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_NOT_SUPPORTED_ERR := 2154823689
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_INVALID_STATE_ERR := 2154823691
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_SYNTAX_ERR := 2154823692
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_INVALID_ACCESS_ERR := 2154823695
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_QUOTA_EXCEEDED_ERR := 2154823702
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_PARSE_ERR := 2154823761
+
+/**
+ * @type {Integer (UInt32)}
+ */
+export global MF_TYPE_ERR := 2154840069
+
+/**
+ * @type {DEVPROPKEY}
+ */
+export global DEVPKEY_DeviceInterface_IsVirtualCamera := DEVPROPKEY()
+DllCall("NtDll.dll\RtlCopyMemory",
+    IntPtr, ObjGetDataPtr(DEVPKEY_DeviceInterface_IsVirtualCamera.fmtid),
+    Guid.Ptr, Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}"),
+    UInt32, 16)
+DEVPKEY_DeviceInterface_IsVirtualCamera.pid := 3
+
+/**
+ * @type {DEVPROPKEY}
+ */
+export global DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable := DEVPROPKEY()
+DllCall("NtDll.dll\RtlCopyMemory",
+    IntPtr, ObjGetDataPtr(DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable.fmtid),
+    Guid.Ptr, Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}"),
+    UInt32, 16)
+DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable.pid := 4
+
+/**
+ * @type {DEVPROPKEY}
+ */
+export global DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras := DEVPROPKEY()
+DllCall("NtDll.dll\RtlCopyMemory",
+    IntPtr, ObjGetDataPtr(DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras.fmtid),
+    Guid.Ptr, Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}"),
+    UInt32, 16)
+DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras.pid := 5
+
+/**
+ * @type {String}
+ */
+export global g_wszSpeechFormatCaps := "SpeechFormatCap"
+
+/**
+ * @type {String}
+ */
+export global g_wszWMCPCodecName := "_CODECNAME"
+
+/**
+ * @type {String}
+ */
+export global g_wszWMCPSupportedVBRModes := "_SUPPORTEDVBRMODES"
+
+/**
+ * @type {String}
+ */
+export global g_wszWMCPAudioVBRSupported := "_VBRENABLED"
+
+/**
+ * @type {String}
+ */
+export global g_wszWMCPAudioVBRQuality := "_VBRQUALITY"
+
+/**
+ * @type {String}
+ */
+export global g_wszWMCPMaxPasses := "_PASSESRECOMMENDED"
+
+/**
+ * @type {String}
+ */
+export global g_wszWMCPDefaultCrisp := "_DEFAULTCRISP"
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_Unknown := -2147483648
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_None := 0
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_HDCP := 1
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_ACP := 2
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_CGMSA := 4
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_Mask := -2147483641
+
+/**
+ * @type {Integer (Int32)}
+ */
+export global COPP_ProtectionType_Reserved := 2147483640
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_ORIGIN_NAME := Guid("{fc358288-3cb6-460c-a424-b6681260375a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_CONTENT_TYPE := Guid("{fc358289-3cb6-460c-a424-b6681260375a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_DURATION := Guid("{fc35828a-3cb6-460c-a424-b6681260375a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_LAST_MODIFIED_TIME := Guid("{fc35828b-3cb6-460c-a424-b6681260375a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_IFO_FILE_URI := Guid("{fc35828c-3cb6-460c-a424-b6681260375a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_DLNA_PROFILE_ID := Guid("{fc35828d-3cb6-460c-a424-b6681260375a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_EFFECTIVE_URL := Guid("{9afa0209-89d1-42af-8456-1de6b562d691}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_TRANSCODED := Guid("{b6c5c282-4dc9-4db9-ab48-cf3b6d8bc5e0}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFByteStreamProxyClassFactory := Guid("{770e8e77-4916-441c-a9a7-b342d0eebc71}")
+
+/**
+ * @type {Guid}
+ */
+export global MEDeviceStreamCreated := Guid("{0252a1cf-3540-43b4-9164-d72eb405fa40}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D_AWARE := Guid("{eaa35c29-775e-488e-9b61-b3283e49583b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_REQUIRED_SAMPLE_COUNT := Guid("{18802c61-324b-4952-abd0-176ff5c696ff}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_END_STREAMING_AWARE := Guid("{70fbc845-b07e-4089-b064-399dc6110f29}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_AUDIO_ENDPOINT_AWARE := Guid("{c0381701-805c-42b2-ac8d-e2b4bf21f4f8}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_AUDIO_DECODER_AUDIO_ENDPOINT_ID := Guid("{c7ccdd6e-5398-4695-8be7-51b3e95111bd}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_AUDIO_DECODER_SPATIAL_METADATA_CLIENT := Guid("{05987df4-1270-4999-925f-8e939a7c0af7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_AUDIO_DECODER_AUDIO_ENDPOINT_FORMFACTOR := Guid("{8d574310-909a-433a-ace7-eee74719f901}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_AUDIO_DECODER_AUDIO_ENDPOINT_IS_DIGITAL_STEREO_ONLY := Guid("{26e5a90d-4ad1-4f8c-b8af-adf14d2178f1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DMFT_FRAME_BUFFER_INFO := Guid("{396ce1c9-67a9-454c-8797-95a45799d804}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_REQUIRED_SAMPLE_COUNT_PROGRESSIVE := Guid("{b172d58e-fa77-4e48-8d2a-1df2d850eac2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_MINIMUM_OUTPUT_SAMPLE_COUNT := Guid("{851745d5-c3d6-476d-9527-498ef2d10d18}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_MINIMUM_OUTPUT_SAMPLE_COUNT_PROGRESSIVE := Guid("{0f5523a5-1cb2-47c5-a550-2eeb84b4d14a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_SUPPORT_3DVIDEO := Guid("{093f81b1-4f2e-4631-8168-7934032a01d3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ENABLE_3DVIDEO_OUTPUT := Guid("{bdad7bca-0e5f-4b10-ab16-26de381b6293}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_BINDFLAGS := Guid("{eacf97ad-065c-4408-bee3-fdcbfd128be2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_USAGE := Guid("{e85fe442-2ca3-486e-a9c7-109dda609880}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_AWARE := Guid("{206b4fc8-fcf9-4c51-afe3-9764369e33a0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_SHARED := Guid("{7b8f32c3-6d96-4b89-9203-dd38b61414f3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_SHARED_WITHOUT_MUTEX := Guid("{39dbd44d-2e44-4931-a4c8-352d3dc42115}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_ALLOW_DYNAMIC_YUV_TEXTURE := Guid("{ce06d49f-0613-4b9d-86a6-d8c4f9c10075}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_HW_PROTECTED := Guid("{3a8ba9d9-92ca-4307-a391-6999dbf3b6ce}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_BUFFERS_PER_SAMPLE := Guid("{873c5171-1e3d-4e25-988d-b433ce041983}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D11_ALLOCATE_DISPLAYABLE_RESOURCES := Guid("{eeface6d-2ea9-4adf-bbdf-7bbc482a1b6d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_DECODER_EXPOSE_OUTPUT_TYPES_IN_NATIVE_ORDER := Guid("{ef80833f-f8fa-44d9-80d8-41ed6232670c}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_DECODER_QUALITY_MANAGEMENT_CUSTOM_CONTROL := Guid("{a24e30d7-de25-4558-bbfb-71070a2d332e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_DECODER_QUALITY_MANAGEMENT_RECOVERY_WITHOUT_ARTIFACTS := Guid("{d8980deb-0a48-425f-8623-611db41d3810}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_DECODER_OPERATING_POINT := Guid("{a1230334-55d4-4d97-82a7-26d3e6456725}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_DECODER_AUTOMATIC_SOFTWARE_FALLBACK := Guid("{41f34f53-1bf6-49ed-b95d-02d2a1d7115a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_REMUX_MARK_I_PICTURE_AS_CLEAN_POINT := Guid("{364e8f85-3f2e-436c-b2a2-4440a012a9e8}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_DECODER_FINAL_VIDEO_RESOLUTION_HINT := Guid("{dc2f8496-15c4-407a-b6f0-1b66ab5fbf53}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENCODER_SUPPORTS_CONFIG_EVENT := Guid("{86a355ae-3a77-4ec4-9f31-01149a4e92de}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENUM_HARDWARE_VENDOR_ID_Attribute := Guid("{3aecb0cc-035b-4bcc-8185-2b8d551ef3af}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSFORM_ASYNC := Guid("{f81a699a-649a-497d-8c73-29f8fed6ad7a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSFORM_ASYNC_UNLOCK := Guid("{e5666d6b-3422-4eb6-a421-da7db1f8e207}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSFORM_FLAGS_Attribute := Guid("{9359bb7e-6275-46c4-a025-1c01e45f1a86}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSFORM_CATEGORY_Attribute := Guid("{ceabba49-506d-4757-a6ff-66c184987e4e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_TRANSFORM_CLSID_Attribute := Guid("{6821c42b-65a4-4e82-99bc-9a88205ecd0c}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_INPUT_TYPES_Attributes := Guid("{4276c9b1-759d-4bf3-9cd0-0d723d138f96}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_OUTPUT_TYPES_Attributes := Guid("{8eae8cf3-a44f-4306-ba5c-bf5dda242818}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENUM_HARDWARE_URL_Attribute := Guid("{2fb866ac-b078-4942-ab6c-003d05cda674}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_FRIENDLY_NAME_Attribute := Guid("{314ffbae-5b41-4c95-9c19-4e7d586face3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CONNECTED_STREAM_ATTRIBUTE := Guid("{71eeb820-a59f-4de2-bcec-38db1dd611a4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CONNECTED_TO_HW_STREAM := Guid("{34e6e728-06d6-4491-a553-4795650db912}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_PREFERRED_OUTPUTTYPE_Attribute := Guid("{7e700499-396a-49ee-b1b4-f628021e8c9d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_PROCESS_LOCAL_Attribute := Guid("{543186e4-4649-4e65-b588-4aa352aff379}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_PREFERRED_ENCODER_PROFILE := Guid("{53004909-1ef5-46d7-a18e-5a75f8b5905f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_HW_TIMESTAMP_WITH_QPC_Attribute := Guid("{8d030fb8-cc43-4258-a22e-9210bef89be4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_FIELDOFUSE_UNLOCK_Attribute := Guid("{8ec2e9fd-9148-410d-831e-702439461a8e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_CODEC_MERIT_Attribute := Guid("{88a7cb15-7b07-4a34-9128-e64c6703c4d3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_ENUM_TRANSCODE_ONLY_ATTRIBUTE := Guid("{111ea8cd-b62a-4bdb-89f6-67ffcdc2458b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_AUDIO_DECODER_DEGRADATION_INFO_ATTRIBUTE := Guid("{6c3386ad-ec20-430d-b2a5-505c7178d9c4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_POLICY_SET_AWARE := Guid("{5a633b19-cc39-4fa8-8ca5-59981b7a0018}")
+
+/**
+ * @type {Guid}
+ */
+export global MFT_USING_HARDWARE_DRM := Guid("{34faa77d-d79e-4957-b8ce-362b2684996c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACOUSTIC_ECHO_CANCELLATION_CONTROL_SERVICE := Guid("{7f6c3b29-2d12-4f6f-ac05-c1a89b8d5288}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_AUDIO_EFFECTS_MANAGER_SERVICE := Guid("{1f541943-d5df-455e-a2e5-7d64d3bbbdb5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_WVC1_PROG_SINGLE_SLICE_CONTENT := Guid("{67ec2559-0f2f-4420-a4dd-2f8ee7a5738b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PROGRESSIVE_CODING_CONTENT := Guid("{8f020eea-1508-471f-9da6-507d7cfa40db}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_NALU_LENGTH_SET := Guid("{a7911d53-12a4-4965-ae70-6eadd6ff0551}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_NALU_LENGTH_INFORMATION := Guid("{19124e7c-ad4b-465f-bb18-20186287b6af}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_USER_DATA_PAYLOAD := Guid("{d1d4985d-dc92-457a-b3a0-651a33a31047}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MPEG4SINK_SPSPPS_PASSTHROUGH := Guid("{5601a134-2005-4ad2-b37d-22a6c554deb2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MPEG4SINK_MOOV_BEFORE_MDAT := Guid("{f672e3ac-e1e6-4f10-b5ec-5f3b30828816}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MPEG4SINK_MINIMUM_PROPERTIES_SIZE := Guid("{dca1ed52-450e-4a22-8c62-4ed452f7a187}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MPEG4SINK_MIN_FRAGMENT_DURATION := Guid("{a30b570c-8efd-45e8-94fe-27c84b5bdff6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MPEG4SINK_MAX_CODED_SEQUENCES_PER_FRAGMENT := Guid("{fc1b3bd6-692d-4ce5-9299-738aa5463e9a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_TOPOLOADER := Guid("{1e83d482-1f1c-4571-8405-88f4b2181f71}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_GLOBAL_TIME := Guid("{1e83d482-1f1c-4571-8405-88f4b2181f72}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_QUALITY_MANAGER := Guid("{1e83d482-1f1c-4571-8405-88f4b2181f73}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_CONTENT_PROTECTION_MANAGER := Guid("{1e83d482-1f1c-4571-8405-88f4b2181f74}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_SERVER_CONTEXT := Guid("{afe5b291-50fa-46e8-b9be-0c0c3ce4b3a5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_REMOTE_SOURCE_MODE := Guid("{f4033ef4-9bb3-4378-941f-85a0856bc244}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SESSION_APPROX_EVENT_OCCURRENCE_TIME := Guid("{190e852f-6238-42d1-b5af-69ea338ef850}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PMP_SERVER_CONTEXT := Guid("{2f00c910-d2cf-4278-8b6a-d077fac3a25f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TIME_FORMAT_ENTRY_RELATIVE := Guid("{4399f178-46d3-4504-afda-20d32e9ba360}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_STREAM_SUPPORTS_HW_CONNECTION := Guid("{a38253aa-6314-42fd-a3ce-bb27b6859946}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_STREAM_SINK_SUPPORTS_HW_CONNECTION := Guid("{9b465cbf-0597-4f9e-9f3c-b97eeef90359}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_STREAM_SINK_SUPPORTS_ROTATION := Guid("{b3e96280-bd05-41a5-97ad-8a7fee24b912}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_VIDEO_PTS := Guid("{2162bde7-421e-4b90-9b33-e58fbf1d58b6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_VIDEO_NATIVE_WIDTH := Guid("{e6d6a707-1505-4747-9b10-72d2d158cb3a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_VIDEO_NATIVE_HEIGHT := Guid("{f0ca6705-490c-43e8-941c-c0b3206b9a65}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_VIDEO_DISPLAY_ASPECT_RATIO_NUMERATOR := Guid("{d0f33b22-b78a-4879-b455-f03ef3fa82cd}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_VIDEO_DISPLAY_ASPECT_RATIO_DENOMINATOR := Guid("{6ea1eb97-1fe0-4f10-a6e4-1f4f661564e0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BD_MVC_PLANE_OFFSET_METADATA := Guid("{62a654e4-b76c-4901-9823-2cb615d47318}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_LUMA_KEY_ENABLE := Guid("{7369820f-76de-43ca-9284-47b8f37e0649}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_LUMA_KEY_LOWER := Guid("{93d7b8d5-0b81-4715-aea0-8725871621e9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_LUMA_KEY_UPPER := Guid("{d09f39bb-4602-4c31-a706-a12171a5110a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_USER_EXTENDED_ATTRIBUTES := Guid("{c02abac6-feb2-4541-922f-920b43702722}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_INDEPENDENT_STILL_IMAGE := Guid("{ea12af41-0710-42c9-a127-daa3e78483a5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_XVP_SAMPLE_LOCK_TIMEOUT := Guid("{aa4ddb29-5134-4363-ac72-83ec4bc10426}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_PROJECTSTART := Guid("{7ed3f802-86bb-4b3f-b7e4-7cb43afd4b80}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_PROJECTSTOP := Guid("{7ed3f803-86bb-4b3f-b7e4-7cb43afd4b80}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_NO_MARKIN_MARKOUT := Guid("{7ed3f804-86bb-4b3f-b7e4-7cb43afd4b80}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_DXVA_MODE := Guid("{1e8d34f6-f5ab-4e23-bb88-874aa3a1a74d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_ENABLE_XVP_FOR_PLAYBACK := Guid("{1967731f-cd78-42fc-b026-0992a56e5693}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_STATIC_PLAYBACK_OPTIMIZATIONS := Guid("{b86cac42-41a6-4b79-897a-1ab0e52b4a1b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_PLAYBACK_MAX_DIMS := Guid("{5715cf19-5768-44aa-ad6e-8721f1b0f9bb}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_HARDWARE_MODE := Guid("{d2d362fd-4e4f-4191-a579-c618b66706af}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_PLAYBACK_FRAMERATE := Guid("{c164737a-c2b1-4553-83bb-5a526072448f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_DYNAMIC_CHANGE_NOT_ALLOWED := Guid("{d529950b-d484-4527-a9cd-b1909532b5b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_ENUMERATE_SOURCE_TYPES := Guid("{6248c36d-5d0b-4f40-a0bb-b0b305f77698}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_START_TIME_ON_PRESENTATION_SWITCH := Guid("{c8cc113f-7951-4548-aad6-9ed6202e62b3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DISABLE_LOCALLY_REGISTERED_PLUGINS := Guid("{66b16da9-add4-47e0-a16b-5af1fb483634}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_LOCAL_PLUGIN_CONTROL_POLICY := Guid("{d91b0085-c86d-4f81-8822-8c68e1d7fa04}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_FLUSH := Guid("{494bbce8-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_DRAIN := Guid("{494bbce9-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_D3DAWARE := Guid("{494bbced-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPOLOGY_RESOLUTION_STATUS := Guid("{494bbcde-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_ERRORCODE := Guid("{494bbcee-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_CONNECT_METHOD := Guid("{494bbcf1-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_LOCKED := Guid("{494bbcf7-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_WORKQUEUE_ID := Guid("{494bbcf8-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_WORKQUEUE_MMCSS_CLASS := Guid("{494bbcf9-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_DECRYPTOR := Guid("{494bbcfa-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_DISCARDABLE := Guid("{494bbcfb-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_ERROR_MAJORTYPE := Guid("{494bbcfd-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_ERROR_SUBTYPE := Guid("{494bbcfe-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_WORKQUEUE_MMCSS_TASKID := Guid("{494bbcff-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_WORKQUEUE_MMCSS_PRIORITY := Guid("{5001f840-2816-48f4-9364-ad1ef661a123}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_WORKQUEUE_ITEM_PRIORITY := Guid("{a1ff99be-5e97-4a53-b494-568c642c0ff3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_MARKIN_HERE := Guid("{494bbd00-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_MARKOUT_HERE := Guid("{494bbd01-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_DECODER := Guid("{494bbd02-b031-4e38-97c4-d5422dd618dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_MEDIASTART := Guid("{835c58ea-e075-4bc7-bcba-4de000df9ae6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_MEDIASTOP := Guid("{835c58eb-e075-4bc7-bcba-4de000df9ae6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_SOURCE := Guid("{835c58ec-e075-4bc7-bcba-4de000df9ae6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_PRESENTATION_DESCRIPTOR := Guid("{835c58ed-e075-4bc7-bcba-4de000df9ae6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_STREAM_DESCRIPTOR := Guid("{835c58ee-e075-4bc7-bcba-4de000df9ae6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_SEQUENCE_ELEMENTID := Guid("{835c58ef-e075-4bc7-bcba-4de000df9ae6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_TRANSFORM_OBJECTID := Guid("{88dcc0c9-293e-4e8b-9aeb-0ad64cc016b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_STREAMID := Guid("{14932f9b-9087-4bb4-8412-5167145cbe04}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_NOSHUTDOWN_ON_REMOVE := Guid("{14932f9c-9087-4bb4-8412-5167145cbe04}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_RATELESS := Guid("{14932f9d-9087-4bb4-8412-5167145cbe04}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_DISABLE_PREROLL := Guid("{14932f9e-9087-4bb4-8412-5167145cbe04}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_PRIMARYOUTPUT := Guid("{6304ef99-16b2-4ebe-9d67-e4c539b3a259}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_PMPHOST_CONTEXT := Guid("{6c990d31-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_APP_CONTEXT := Guid("{6c990d32-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_DURATION := Guid("{6c990d33-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_TOTAL_FILE_SIZE := Guid("{6c990d34-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_AUDIO_ENCODING_BITRATE := Guid("{6c990d35-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_VIDEO_ENCODING_BITRATE := Guid("{6c990d36-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_MIME_TYPE := Guid("{6c990d37-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_LAST_MODIFIED_TIME := Guid("{6c990d38-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_PLAYBACK_ELEMENT_ID := Guid("{6c990d39-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_PREFERRED_LANGUAGE := Guid("{6c990d3a-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_PLAYBACK_BOUNDARY_TIME := Guid("{6c990d3b-bb8e-477a-8598-0d5d96fcd88a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_AUDIO_ISVARIABLEBITRATE := Guid("{33026ee0-e387-4582-ae0a-34a2ad3baa18}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_LANGUAGE := Guid("{00af2180-bdc2-423c-abca-f503593bc121}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_PROTECTED := Guid("{00af2181-bdc2-423c-abca-f503593bc121}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_STREAM_NAME := Guid("{4f1b099d-d314-41e5-a781-7fefaa4c501f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_MUTUALLY_EXCLUSIVE := Guid("{023ef79c-388d-487f-ac17-696cd6e3c6f5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_CUSTOM_VIDEO_MIXER_CLSID := Guid("{ba491360-be50-451e-95ab-6d4accc7dad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_CUSTOM_VIDEO_MIXER_ACTIVATE := Guid("{ba491361-be50-451e-95ab-6d4accc7dad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_CUSTOM_VIDEO_MIXER_FLAGS := Guid("{ba491362-be50-451e-95ab-6d4accc7dad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_CUSTOM_VIDEO_PRESENTER_CLSID := Guid("{ba491364-be50-451e-95ab-6d4accc7dad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_CUSTOM_VIDEO_PRESENTER_ACTIVATE := Guid("{ba491365-be50-451e-95ab-6d4accc7dad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_CUSTOM_VIDEO_PRESENTER_FLAGS := Guid("{ba491366-be50-451e-95ab-6d4accc7dad8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_MFT_LOCKED := Guid("{c1f6093c-7f65-4fbd-9e39-5faec3c4fbd7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACTIVATE_VIDEO_WINDOW := Guid("{9a2dbbdd-f57e-4162-82b9-6831377682d3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_FLAGS := Guid("{ede4b5e0-f805-4d6c-99b3-db01bf95dfab}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_SESSION_ID := Guid("{ede4b5e3-f805-4d6c-99b3-db01bf95dfab}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_ENDPOINT_ID := Guid("{b10aaec3-ef71-4cc3-b873-05a9a08b9f8e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_ENDPOINT_ROLE := Guid("{6ba644ff-27c5-4d02-9887-c28619fdb91b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_AUDIO_RENDERER_ATTRIBUTE_STREAM_CATEGORY := Guid("{a9770471-92ec-4df4-94fe-81c36f0c3a7a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFENABLETYPE_WMDRMV1_LicenseAcquisition := Guid("{4ff6eeaf-0b43-4797-9b85-abf31815e7b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFENABLETYPE_WMDRMV7_LicenseAcquisition := Guid("{003306df-4a06-4884-a097-ef6d22ec84a3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFENABLETYPE_WMDRMV7_Individualization := Guid("{acd2c84a-b303-4f65-bc2c-2c848d01a989}")
+
+/**
+ * @type {Guid}
+ */
+export global MFENABLETYPE_MF_UpdateRevocationInformation := Guid("{e558b0b5-b3c4-44a0-924c-50d178932385}")
+
+/**
+ * @type {Guid}
+ */
+export global MFENABLETYPE_MF_UpdateUntrustedComponent := Guid("{9879f3d6-cee2-48e6-b573-9767ab172f16}")
+
+/**
+ * @type {Guid}
+ */
+export global MFENABLETYPE_MF_RebootRequired := Guid("{6d4d3d4b-0ece-4652-8b3a-f2d24260d887}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_METADATA_PROVIDER_SERVICE := Guid("{db214084-58a4-4d2e-b84f-6f755b2f7a0d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PROPERTY_HANDLER_SERVICE := Guid("{a3face02-32b8-41dd-90e7-5fef7c8991b5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_RATE_CONTROL_SERVICE := Guid("{866fa297-b802-4bf8-9dc9-5e3b6a9f53c9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TIMECODE_SERVICE := Guid("{a0d502a7-0eb3-4885-b1b9-9feb0d083454}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_POLICY_VOLUME_SERVICE := Guid("{1abaa2ac-9d3b-47c6-ab48-c59506de784d}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_CAPTURE_POLICY_VOLUME_SERVICE := Guid("{24030acd-107a-4265-975c-414e33e65f2a}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_STREAM_VOLUME_SERVICE := Guid("{f8b5fa2f-32ef-46f5-b172-1321212fb2c4}")
+
+/**
+ * @type {Guid}
+ */
+export global MR_AUDIO_POLICY_SERVICE := Guid("{911fd737-6775-4ab0-a614-297862fdac88}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SAMPLEGRABBERSINK_SAMPLE_TIME_OFFSET := Guid("{62e3d776-8100-4e03-a6e8-bd3857ac9c47}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SAMPLEGRABBERSINK_IGNORE_CLOCK := Guid("{0efda2c0-2b69-4e2e-ab8d-46dcbff7d25d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_QUALITY_SERVICES := Guid("{b7e2be11-2f96-4640-b52c-282365bdf16c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_WORKQUEUE_SERVICES := Guid("{8e37d489-41e0-413a-9068-287c886d8dda}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_QUALITY_NOTIFY_PROCESSING_LATENCY := Guid("{f6b44af8-604d-46fe-a95d-45479b10c9bc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_QUALITY_NOTIFY_SAMPLE_LAG := Guid("{30d15206-ed2a-4760-be17-eb4a9f12295c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TIME_FORMAT_SEGMENT_OFFSET := Guid("{c8b8be77-869c-431d-812e-169693f65a39}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_PRESENTATION_PROVIDER_SERVICE := Guid("{e002aadc-f4af-4ee5-9847-053edf840426}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TOPONODE_ATTRIBUTE_EDITOR_SERVICE := Guid("{65656e1a-077f-4472-83ef-316f11d5087a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_SSLCERTIFICATE_MANAGER := Guid("{55e6cb27-e69b-4267-940c-2d7ec5bb8a0f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_RESOURCE_FILTER := Guid("{815d0ff6-265a-4477-9e46-7b80ad80b5fb}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNET_SAVEJOB_SERVICE := Guid("{b85a587f-3d02-4e52-9565-55d3ec1e7ff7}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_STATISTICS_SERVICE := Guid("{3cb1f275-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_STATISTICS := Guid("{3cb1f274-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_BUFFERINGTIME := Guid("{3cb1f276-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ACCELERATEDSTREAMINGDURATION := Guid("{3cb1f277-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_MAXUDPACCELERATEDSTREAMINGDURATION := Guid("{4aab2879-bbe1-4994-9ff0-5495bd250129}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_MAXBUFFERTIMEMS := Guid("{408b24e6-4038-4401-b5b2-fe701a9ebf10}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_CONNECTIONBANDWIDTH := Guid("{3cb1f278-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_CACHEENABLED := Guid("{3cb1f279-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_AUTORECONNECTLIMIT := Guid("{3cb1f27a-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_RESENDSENABLED := Guid("{3cb1f27b-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_THINNINGENABLED := Guid("{3cb1f27c-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROTOCOL := Guid("{3cb1f27d-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_TRANSPORT := Guid("{3cb1f27e-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PREVIEWMODEENABLED := Guid("{3cb1f27f-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_CREDENTIAL_MANAGER := Guid("{3cb1f280-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PPBANDWIDTH := Guid("{3cb1f281-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_AUTORECONNECTPROGRESS := Guid("{3cb1f282-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYLOCATORFACTORY := Guid("{3cb1f283-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_BROWSERUSERAGENT := Guid("{3cb1f28b-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_BROWSERWEBPAGE := Guid("{3cb1f28c-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PLAYERVERSION := Guid("{3cb1f28d-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PLAYERID := Guid("{3cb1f28e-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_HOSTEXE := Guid("{3cb1f28f-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_HOSTVERSION := Guid("{3cb1f291-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PLAYERUSERAGENT := Guid("{3cb1f292-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_CLIENTGUID := Guid("{60a2c4a6-f197-4c14-a5bf-88830d2458af}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_LOGURL := Guid("{3cb1f293-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_UDP := Guid("{3cb1f294-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_TCP := Guid("{3cb1f295-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_MSB := Guid("{3cb1f296-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_RTSP := Guid("{3cb1f298-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_HTTP := Guid("{3cb1f299-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_STREAMING := Guid("{3cb1f29c-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_DOWNLOAD := Guid("{3cb1f29d-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_ENABLE_PRIVATEMODE := Guid("{824779d8-f18b-4405-8cf1-464fb5aa8f71}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_UDP_PORT_RANGE := Guid("{3cb1f29a-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYINFO := Guid("{3cb1f29b-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_DRMNET_LICENSE_REPRESENTATION := Guid("{47eae1bd-bdfe-42e2-82f3-54a48c17962d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYSETTINGS := Guid("{3cb1f287-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYHOSTNAME := Guid("{3cb1f284-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYPORT := Guid("{3cb1f288-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYEXCEPTIONLIST := Guid("{3cb1f285-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYBYPASSFORLOCAL := Guid("{3cb1f286-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PROXYRERUNAUTODETECTION := Guid("{3cb1f289-0505-4c5d-ae71-0a556344efa1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_STREAM_LANGUAGE := Guid("{9ab44318-f7cd-4f2d-8d6d-fa35b492cecb}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_LOGPARAMS := Guid("{64936ae8-9418-453a-8cda-3e0a668b353b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_PEERMANAGER := Guid("{48b29adb-febf-45ee-a9bf-efb81c492efc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_FRIENDLYNAME := Guid("{5b2a7757-bc6b-447e-aa06-0dda1c646e2f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAMHANDLER_ACCEPTS_SHARE_WRITE := Guid("{a6e1f733-3001-4915-8150-1558a2180ec8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_BYTESTREAM_SERVICE := Guid("{ab025e2b-16d9-4180-a127-ba6c70156161}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_PROTECTION_MANAGER_PROPERTIES := Guid("{38bd81a9-acea-4c73-89b2-5532c0aeca79}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_SPDIF := Guid("{0b94a712-ad3e-4cee-83ce-ce32e3db6522}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_UNKNOWN := Guid("{ac3aef5c-ce43-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_PCI := Guid("{ac3aef5d-ce43-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_PCIX := Guid("{ac3aef5e-ce43-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_PCI_Express := Guid("{ac3aef5f-ce43-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_AGP := Guid("{ac3aef60-ce43-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_VGA := Guid("{57cd5968-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_SVIDEO := Guid("{57cd5969-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_COMPOSITE := Guid("{57cd596a-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_COMPONENT := Guid("{57cd596b-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_DVI := Guid("{57cd596c-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_HDMI := Guid("{57cd596d-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_LVDS := Guid("{57cd596e-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_D_JPN := Guid("{57cd5970-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_SDI := Guid("{57cd5971-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_DISPLAYPORT_EXTERNAL := Guid("{57cd5972-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_DISPLAYPORT_EMBEDDED := Guid("{57cd5973-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_UDI_EXTERNAL := Guid("{57cd5974-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_UDI_EMBEDDED := Guid("{57cd5975-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_MIRACAST := Guid("{57cd5977-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_TRANSPORT_AGNOSTIC_DIGITAL_MODE_A := Guid("{57cd5978-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MFCONNECTOR_TRANSPORT_AGNOSTIC_DIGITAL_MODE_B := Guid("{57cd5979-ce47-11d9-92db-000bdb28ff98}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_POLICY_ID := Guid("{b160c24d-c059-48f1-a901-9ee298a9a8c3}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_DISABLE := Guid("{8cc6d81b-fec6-4d8f-964b-cfba0b0dad0d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_CONSTRICTVIDEO := Guid("{193370ce-c5e4-4c3a-8a66-6959b4da4442}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_CONSTRICTVIDEO_NOOPM := Guid("{a580e8cd-c247-4957-b983-3c2eebd1ff59}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_CONSTRICTAUDIO := Guid("{ffc99b44-df48-4e16-8e66-096892c1578a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_TRUSTEDAUDIODRIVERS := Guid("{65bdf3d2-0168-4816-a533-55d47b027101}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_HDCP := Guid("{ae7cc03d-c828-4021-acb7-d578d27aaf13}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_CGMSA := Guid("{e57e69e9-226b-4d31-b4e3-d3db008736dd}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_ACP := Guid("{c3fd11c6-f8b7-4d20-b008-1db17d61f2da}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_WMDRMOTA := Guid("{a267a6a1-362e-47d0-8805-4628598a23e4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_FFT := Guid("{462a56b2-2866-4bb6-980d-6d8d9edb1a8c}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_PROTECTED_SURFACE := Guid("{4f5d9566-e742-4a25-8d1f-d287b5fa0ade}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_DISABLE_SCREEN_SCRAPE := Guid("{a21179a4-b7cd-40d8-9614-8ef2371ba78d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_VIDEO_FRAMES := Guid("{36a59cbc-7401-4a8c-bc20-46a7c9e597f0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_HARDWARE := Guid("{4ee7f0c1-9ed7-424f-b6be-996b33528856}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_HDCP_WITH_TYPE_ENFORCEMENT := Guid("{a4a585e8-ed60-442d-814d-db4d4220a06d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTIONATTRIBUTE_BEST_EFFORT := Guid("{c8e06331-75f0-4ec1-8e77-17578f773b46}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTIONATTRIBUTE_FAIL_OVER := Guid("{8536abc5-38f1-4151-9cce-f55d941229ac}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTION_GRAPHICS_TRANSFER_AES_ENCRYPTION := Guid("{c873de64-d8a5-49e6-88bb-fb963fd3d4ce}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTIONATTRIBUTE_CONSTRICTVIDEO_IMAGESIZE := Guid("{008476fc-4b58-4d80-a790-e7297673161d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFPROTECTIONATTRIBUTE_HDCP_SRM := Guid("{6f302107-3477-4468-8a08-eef9db10e20f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SampleProtectionSalt := Guid("{5403deee-b9ee-438f-aa83-3804997e569d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_REMOTE_PROXY := Guid("{2f00c90e-d2cf-4278-8b6a-d077fac3a25f}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CreateMediaExtensionObject := Guid("{ef65a54d-0788-45b8-8b14-bc0f6a6b5137}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SAMI_SERVICE := Guid("{49a89ae7-b4d9-4ef2-aa5c-f65a3e05ae4e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_SAMI_STYLELIST := Guid("{e0b73c7f-486d-484e-9872-4de5192a7bf8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_SAMI_LANGUAGE := Guid("{36fcb98a-6cd0-44cb-acb9-a8f5600dd0bb}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_CONTAINERTYPE := Guid("{150ff23f-4abc-478b-ac4f-e1916fba1cca}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_ASF := Guid("{430f6f6e-b6bf-4fc1-a0bd-9ee46eee2afb}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_MPEG4 := Guid("{dc6cd05d-b9d0-40ef-bd35-fa622c1ab28a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_MP3 := Guid("{e438b912-83f1-4de6-9e3a-9ffbc6dd24d1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_FLAC := Guid("{31344aa3-05a9-42b5-901b-8e9d4257f75e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_3GP := Guid("{34c50167-4472-4f34-9ea0-c49fbacf037d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_AC3 := Guid("{6d8d91c3-8c91-4ed1-8742-8c347d5b44d0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_ADTS := Guid("{132fd27d-0f02-43de-a301-38fbbbb3834e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_MPEG2 := Guid("{bfc2dbf9-7bb4-4f8f-afde-e112c44ba882}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_WAVE := Guid("{64c3453c-0f26-4741-be63-87bdf8bb935b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_AVI := Guid("{7edfe8af-402f-4d76-a33c-619fd157d0f1}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_FMPEG4 := Guid("{9ba876f1-419f-4b77-a1e0-35959d9d4004}")
+
+/**
+ * @type {Guid}
+ */
+export global MFTranscodeContainerType_AMR := Guid("{025d5ad3-621a-475b-964d-66b1c824f079}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_SKIP_METADATA_TRANSFER := Guid("{4e4469ef-b571-4959-8f83-3dcfba33a393}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_TOPOLOGYMODE := Guid("{3e3df610-394a-40b2-9dea-3bab650bebf2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_ADJUST_PROFILE := Guid("{9c37c21b-060f-487c-a690-80d7f50d1c72}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_ENCODINGPROFILE := Guid("{6947787c-f508-4ea9-b1e9-a1fe3a49fbc9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_QUALITYVSSPEED := Guid("{98332df8-03cd-476b-89fa-3f9e442dec9f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_TRANSCODE_DONOT_INSERT_ENCODER := Guid("{f45aa7ce-ab24-4012-a11b-dc8220201410}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIDEO_PROCESSOR_ALGORITHM := Guid("{4a0a1e1f-272c-4fb6-9eb1-db330cbc97ca}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_XVP_DISABLE_FRC := Guid("{2c0afa19-7a97-4d5a-9ee8-16d4fc518d8c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_XVP_CALLER_ALLOCATES_OUTPUT := Guid("{04a2cabc-0cab-40b1-a1b9-75bc3658f000}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_LOCAL_MFT_REGISTRATION_SERVICE := Guid("{ddf5cf9c-4506-45aa-abf0-6d5d94dd1b4a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_WRAPPED_SAMPLE_SERVICE := Guid("{31f52bf2-d03e-4048-80d0-9c1046d87c61}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_WRAPPED_OBJECT := Guid("{2b182c4c-d6ac-49f4-8915-f71887db70cd}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_HttpSchemePlugin := Guid("{44cb442b-9da9-49df-b3fd-023777b16e50}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_UrlmonSchemePlugin := Guid("{9ec4b4f9-3029-45ad-947b-344de2a249e2}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_NetSchemePlugin := Guid("{e9f4ebab-d97b-463e-a2b1-c54ee3f9414d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE := Guid("{c60ac5fe-252a-478f-a0ef-bc8fa5f7cad3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_HW_SOURCE := Guid("{de7046ba-54d6-4487-a2a4-ec7c0d1bd163}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME := Guid("{60d0e559-52f8-4fa2-bbce-acdb34a8ec01}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_MEDIA_TYPE := Guid("{56a819ca-0c78-4de4-a0a7-3ddaba0f24d4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_CATEGORY := Guid("{77f0ae69-c3bd-4509-941d-467e4d24899e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_SYMBOLIC_LINK := Guid("{58f0aad8-22bf-4f8a-bb3d-d2c4978c6e2f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_AUDCAP_SYMBOLIC_LINK := Guid("{98d24b5e-5930-4614-b5a1-f600f9355a78}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_MAX_BUFFERS := Guid("{7dd9b730-4f2d-41d5-8f95-0cc9a912ba26}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_AUDCAP_ENDPOINT_ID := Guid("{30da9258-feb9-47a7-a453-763a7a8e1c5f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_AUDCAP_ROLE := Guid("{bc9d118e-8c67-4a18-85d4-12d300400552}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_PROVIDER_DEVICE_ID := Guid("{36689d42-a06c-40ae-84cf-f5a034067cc4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_XADDRESS := Guid("{bca0be52-c327-44c7-9b7d-7fa8d9b5bcda}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_STREAM_URL := Guid("{9d7b40d2-3617-4043-93e3-8d6da9bb3492}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_USERNAME := Guid("{05d01add-949f-46eb-bc8e-8b0d2b32d79d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_PASSWORD := Guid("{a0fd7e16-42d9-49df-84c0-e82c5eab8874}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FrameServerNetworkCameraSource := Guid("{7a213aa7-866f-414a-8c1a-275c7283a395}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_AUDCAP_GUID := Guid("{14dd9a1c-7cff-41be-b1b9-ba1ac6ecb571}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_GUID := Guid("{8ac3587a-4ae7-42d8-99e0-0a6013eef90f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_IMAGE_STREAM := Guid("{a7ffb865-e7b2-43b0-9f6f-9af2a0e50fc0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_INDEPENDENT_IMAGE_STREAM := Guid("{03eeec7e-d605-4576-8b29-6580b490d7d3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_STREAM_ID := Guid("{11bd5120-d124-446b-88e6-17060257fff9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_STREAM_CATEGORY := Guid("{2939e7b8-a62e-4579-b674-d4073dfabbba}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_FRAMESERVER_SHARED := Guid("{1cb378e9-b279-41d4-af97-34a243e68320}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_TRANSFORM_STREAM_ID := Guid("{e63937b7-daaf-4d49-815f-d826f8ad31e7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_EXTENSION_PLUGIN_CLSID := Guid("{048e6558-60c4-4173-bd5b-6a3ca2896aee}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICEMFT_EXTENSION_PLUGIN_CLSID := Guid("{0844dbae-34fa-48a0-a783-8e696fb1c9a8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_EXTENSION_PLUGIN_CONNECTION_POINT := Guid("{37f9375c-e664-4ea4-aae4-cb6d1daca1f4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_TAKEPHOTO_TRIGGER := Guid("{1d180e34-538c-4fbb-a75a-859af7d261a6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_MAX_FRAME_BUFFERS := Guid("{1684cebe-3175-4985-882c-0efd3e8ac11e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICEMFT_CONNECTED_FILTER_KSCONTROL := Guid("{6a2c4fa6-d179-41cd-9523-822371ea40e5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICEMFT_CONNECTED_PIN_KSCONTROL := Guid("{e63310f7-b244-4ef8-9a7d-24c74e32ebd0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICE_THERMAL_STATE_CHANGED := Guid("{70ccd0af-fc9f-4deb-a875-9fecd16c5bd4}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_DeviceTimestamp := Guid("{8f3e35e7-2dcd-4887-8622-2a58baa652b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Spatial_CameraViewTransform := Guid("{4e251fa4-830f-4770-859a-4b8d99aa809b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Spatial_CameraCoordinateSystem := Guid("{9d13c82f-2199-4e67-91cd-d1a4181f2534}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_Spatial_CameraProjectionTransform := Guid("{47f9fcb5-2a02-4f26-a477-792fdf95886a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIASOURCE_SERVICE := Guid("{f09992f7-9fba-4c4a-a37f-8c47b4e1dfe7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ACCESS_CONTROLLED_MEDIASOURCE_SERVICE := Guid("{014a5031-2f05-4c6a-9f9c-7d0dc4eda5f4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CONTENT_DECRYPTOR_SERVICE := Guid("{68a72927-fc7b-44ee-85f4-7c51bd55a659}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CONTENT_PROTECTION_DEVICE_SERVICE := Guid("{ff58436f-76a0-41fe-b566-10cc53962edd}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_AUDIO_ENCODER_DELAY := Guid("{8e85422c-73de-403f-9a35-550ad6e8b951}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_AUDIO_ENCODER_PADDING := Guid("{529c7f2c-ac4b-4e3f-bfc3-0902194982cb}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSH264DecoderMFT := Guid("{62ce7e72-4c71-4d20-b15d-452831a87d9d}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSH264EncoderMFT := Guid("{6ca50344-051a-4ded-9779-a43305165e35}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSDDPlusDecMFT := Guid("{177c0afe-900b-48d4-9e4c-57add250b3d4}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MP3DecMediaObject := Guid("{bbeea841-0a63-4f52-a7ab-a9b3a84ed38a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSAACDecMFT := Guid("{32d186a7-218f-4c75-8876-dd77273a8999}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSH265DecoderMFT := Guid("{420a51a3-d605-430c-b4fc-45274fa6c562}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WMVDecoderMFT := Guid("{82d353df-90bd-4382-8bc2-3f6192b76e34}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WMADecMediaObject := Guid("{2eeb4adf-4578-4d10-bca7-bb955f56320a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSMPEGAudDecMFT := Guid("{70707b39-b2ca-4015-abea-f8447d22d88b}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSMPEGDecoderMFT := Guid("{2d709e52-123f-49b5-9cbc-9af5cde28fb9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_AudioResamplerMediaObject := Guid("{f447b69e-1884-4a7e-8055-346f74d6edb3}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSVPxDecoder := Guid("{e3aaf548-c9a4-4c6e-234d-5ada374b0000}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MSOpusDecoder := Guid("{63e17c10-2d43-4c42-8fe3-8d8b63e46a6a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_VideoProcessorMFT := Guid("{88753b26-5b24-49bd-b2e7-0c445c78c982}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_CROSS_ORIGIN_SUPPORT := Guid("{9842207c-b02c-4271-a2fc-72e49308e5c2}")
+
+/**
+ * @type {Guid}
+ */
+export global MFNETSOURCE_HTTP_DOWNLOAD_SESSION_PROVIDER := Guid("{7d55081e-307d-4d6d-a663-a93be97c4b5c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_MEDIASOURCE_STATUS := Guid("{1913678b-fc0f-44da-8f43-1ba3b526f4ae}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_VIDEO_SPHERICAL := Guid("{a51da449-3fdc-478c-bcb5-30be76595f55}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_VIDEO_SPHERICAL_FORMAT := Guid("{4a8fc407-6ea1-46c8-b567-6971d4a139c3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_VIDEO_SPHERICAL_INITIAL_VIEWDIRECTION := Guid("{11d25a49-bb62-467f-9db1-c17165716c49}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIASOURCE_EXPOSE_ALL_STREAMS := Guid("{e7f250b8-8fd9-4a09-b6c1-6a315c7c720e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ST_MEDIASOURCE_COLLECTION := Guid("{616de972-83ad-4950-8170-630d19cbe307}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_FILTER_KSCONTROL := Guid("{46783cca-3df5-4923-a9ef-36b7223edde0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_PIN_KSCONTROL := Guid("{ef3ef9a7-87f2-48ca-be02-674878918e98}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_SOURCE_ATTRIBUTES := Guid("{2f8cb617-361b-434f-85ea-99a03e1ce4e0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_FRAMESERVER_HIDDEN := Guid("{f402567b-4d91-4179-96d1-74c8480c2034}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_STF_VERSION_INFO := Guid("{6770bd39-ef82-44ee-a49b-934beb24aef7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_STF_VERSION_DATE := Guid("{31a165d5-df67-4095-8e44-8868fc20dbfd}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_REQUIRED_CAPABILITIES := Guid("{6d8b957e-7cf6-43f4-af56-9c0e1e4fcbe1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_REQUIRED_SDDL := Guid("{331ae85d-c0d3-49ba-83ba-82a12d63cdd6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICEMFT_SENSORPROFILE_COLLECTION := Guid("{36ebdc44-b12c-441b-89f4-08b2f41a9cfc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVICESTREAM_SENSORSTREAM_ID := Guid("{e35b9fe4-0659-4cad-bb51-33160be7e413}")
+
+/**
+ * @type {Guid}
+ */
+export global KSPROPERTYSETID_ANYCAMERACONTROL := Guid("{94dd0c30-28c7-4efb-9d6b-812300fb0c7f}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_CameraConfigurationManager := Guid("{6c92b540-5854-4a17-92b6-ac89c96e9683}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FaceDetectionMFT := Guid("{c1e565e2-f2de-4537-9612-2f30a160eb5c}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_FrameServerClassFactory := Guid("{9a93092c-9cdc-49b8-8349-cbcf3145fe0a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAMERASOURCE_PROVIDE_SELECTED_PROFILE_ON_START := Guid("{a9b46058-82f2-4e5c-bf6e-25b4b09f22ed}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_FRAMESERVER_SHARE_MODE := Guid("{44d1a9bc-2999-4238-ae43-0730ceb2ab1b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_FILE_ID := Guid("{3de649b4-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_CREATION_TIME := Guid("{3de649b6-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_PACKETS := Guid("{3de649b7-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_PLAY_DURATION := Guid("{3de649b8-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_SEND_DURATION := Guid("{3de649b9-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_PREROLL := Guid("{3de649ba-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_FLAGS := Guid("{3de649bb-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_MIN_PACKET_SIZE := Guid("{3de649bc-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_MAX_PACKET_SIZE := Guid("{3de649bd-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_FILEPROPERTIES_MAX_BITRATE := Guid("{3de649be-d76d-4e66-9ec9-78120fb4c7e3}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_WMDRMSystemID := Guid("{8948bb22-11bd-4796-93e3-974d1b575678}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_CONTENTENCRYPTION_TYPE := Guid("{8520fe3d-277e-46ea-99e4-e30a86db12be}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_CONTENTENCRYPTION_KEYID := Guid("{8520fe3e-277e-46ea-99e4-e30a86db12be}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_CONTENTENCRYPTION_SECRET_DATA := Guid("{8520fe3f-277e-46ea-99e4-e30a86db12be}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_CONTENTENCRYPTION_LICENSE_URL := Guid("{8520fe40-277e-46ea-99e4-e30a86db12be}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_CONTENTENCRYPTIONEX_ENCRYPTION_DATA := Guid("{62508be5-ecdf-4924-a359-72bab3397b9d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_LANGLIST := Guid("{f23de43c-9977-460d-a6ec-32937f160f7d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_LANGLIST_LEGACYORDER := Guid("{f23de43d-9977-460d-a6ec-32937f160f7d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_MARKER := Guid("{5134330e-83a6-475e-a9d5-4fb875fb2e31}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_SCRIPT := Guid("{e29cd0d7-d602-4923-a7fe-73fd97ecc650}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_CODECLIST := Guid("{e4bb3509-c18d-4df1-bb99-7a36b3cc4119}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_METADATA_IS_VBR := Guid("{5fc6947a-ef60-445d-b449-442ecc78b4c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_METADATA_V8_VBRPEAK := Guid("{5fc6947b-ef60-445d-b449-442ecc78b4c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_METADATA_V8_BUFFERAVERAGE := Guid("{5fc6947c-ef60-445d-b449-442ecc78b4c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_METADATA_LEAKY_BUCKET_PAIRS := Guid("{5fc6947d-ef60-445d-b449-442ecc78b4c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_DATA_START_OFFSET := Guid("{e7d5b3e7-1f29-45d3-8822-3e78fae272ed}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_DATA_LENGTH := Guid("{e7d5b3e8-1f29-45d3-8822-3e78fae272ed}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_EXTSTRMPROP_LANGUAGE_ID_INDEX := Guid("{48f8a522-305d-422d-8524-2502dda33680}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_EXTSTRMPROP_AVG_DATA_BITRATE := Guid("{48f8a523-305d-422d-8524-2502dda33680}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_EXTSTRMPROP_AVG_BUFFERSIZE := Guid("{48f8a524-305d-422d-8524-2502dda33680}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_EXTSTRMPROP_MAX_DATA_BITRATE := Guid("{48f8a525-305d-422d-8524-2502dda33680}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_EXTSTRMPROP_MAX_BUFFERSIZE := Guid("{48f8a526-305d-422d-8524-2502dda33680}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_STREAMBITRATES_BITRATE := Guid("{a8e182ed-afc8-43d0-b0d1-f65bad9da558}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SD_ASF_METADATA_DEVICE_CONFORMANCE_TEMPLATE := Guid("{245e929d-c44e-4f7e-bb3c-77d4dfd27f8a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_INFO_HAS_AUDIO := Guid("{80e62295-2296-4a44-b31c-d103c6fed23c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_INFO_HAS_VIDEO := Guid("{80e62296-2296-4a44-b31c-d103c6fed23c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_PD_ASF_INFO_HAS_NON_AUDIO_VIDEO := Guid("{80e62297-2296-4a44-b31c-d103c6fed23c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ASFPROFILE_MINPACKETSIZE := Guid("{22587626-47de-4168-87f5-b5aa9b12a8f0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ASFPROFILE_MAXPACKETSIZE := Guid("{22587627-47de-4168-87f5-b5aa9b12a8f0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ASFSTREAMCONFIG_LEAKYBUCKET1 := Guid("{c69b5901-ea1a-4c9b-b692-e2a0d29a8add}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ASFSTREAMCONFIG_LEAKYBUCKET2 := Guid("{c69b5902-ea1a-4c9b-b692-e2a0d29a8add}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_SampleDuration := Guid("{c6bd9450-867f-4907-83a3-c77921b733ad}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_OutputCleanPoint := Guid("{f72a3c6f-6eb4-4ebc-b192-09ad9759e828}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_SMPTE := Guid("{399595ec-8667-4e2d-8fdb-98814ce76c1e}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_FileName := Guid("{e165ec0e-19ed-45d7-b4a7-25cbd1e28e9b}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_ContentType := Guid("{d590dc20-07bc-436c-9cf7-f3bbfbf1a4dc}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_PixelAspectRatio := Guid("{1b1ee554-f9ea-4bc8-821a-376b74e4c4b8}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_Encryption_SampleID := Guid("{6698b84e-0afa-4330-aeb2-1c0a98d7a44d}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSampleExtension_Encryption_KeyID := Guid("{76376591-795f-4da1-86ed-9d46eca109a9}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFMutexType_Language := Guid("{72178c2b-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFMutexType_Bitrate := Guid("{72178c2c-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFMutexType_Presentation := Guid("{72178c2d-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFMutexType_Unknown := Guid("{72178c2e-e45b-11d5-bc2a-00b0d0f3f4ab}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFSPLITTER_PACKET_BOUNDARY := Guid("{fe584a05-e8d6-42e3-b176-f1211705fb6f}")
+
+/**
+ * @type {Guid}
+ */
+export global MFASFINDEXER_TYPE_TIMECODE := Guid("{49815231-6bad-44fd-810a-3f60984ec7fd}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_INITIALIZED := Guid("{219992bc-cf92-4531-a1ae-96e1e886c8f1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_PREVIEW_STARTED := Guid("{a416df21-f9d3-4a74-991b-b817298952c4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_PREVIEW_STOPPED := Guid("{13d5143c-1edd-4e50-a2ef-350a47678060}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_RECORD_STARTED := Guid("{ac2b027b-ddf9-48a0-89be-38ab35ef45c0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_RECORD_STOPPED := Guid("{55e5200a-f98f-4c0d-a9ec-9eb25ed3d773}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_PHOTO_TAKEN := Guid("{3c50c445-7304-48eb-865d-bba19ba3af5c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_SOURCE_CURRENT_DEVICE_MEDIA_TYPE_SET := Guid("{e7e75e4c-039c-4410-815b-8741307b63aa}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_ERROR := Guid("{46b89fc6-33cc-4399-9dad-784de77d587c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_EFFECT_ADDED := Guid("{aa8dc7b5-a048-4e13-8ebe-f23c46c830c1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_EFFECT_REMOVED := Guid("{c6e8db07-fb09-4a48-89c6-bf92a04222c9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_ALL_EFFECTS_REMOVED := Guid("{fded7521-8ed8-431a-a96b-f3e2565e981c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_SINK_PREPARED := Guid("{7bfce257-12b1-4409-8c34-d445daab7578}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_OUTPUT_MEDIA_TYPE_SET := Guid("{caaad994-83ec-45e9-a30a-1f20aadb9831}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_CAMERA_STREAM_BLOCKED := Guid("{a4209417-8d39-46f3-b759-5912528f4207}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_CAMERA_STREAM_UNBLOCKED := Guid("{9be9eef0-cdaf-4717-8564-834aae66415c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_D3D_MANAGER := Guid("{76e25e7b-d595-4283-962c-c594afd78ddf}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_RECORD_SINK_VIDEO_MAX_UNPROCESSED_SAMPLES := Guid("{b467f705-7913-4894-9d42-a215fea23da9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_RECORD_SINK_AUDIO_MAX_UNPROCESSED_SAMPLES := Guid("{1cddb141-a7f4-4d58-9896-4d15a53c4efe}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_RECORD_SINK_VIDEO_MAX_PROCESSED_SAMPLES := Guid("{e7b4a49e-382c-4aef-a946-aed5490b7111}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_RECORD_SINK_AUDIO_MAX_PROCESSED_SAMPLES := Guid("{9896e12a-f707-4500-b6bd-db8eb810b50f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_USE_AUDIO_DEVICE_ONLY := Guid("{1c8077da-8466-4dc4-8b8e-276b3f85923b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_USE_VIDEO_DEVICE_ONLY := Guid("{7e025171-cf32-4f2e-8f19-410577b73a66}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_DISABLE_HARDWARE_TRANSFORMS := Guid("{b7c42a6b-3207-4495-b4e7-81f9c35d5991}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_DISABLE_DXVA := Guid("{f9818862-179d-433f-a32f-74cbcf74466d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_MEDIASOURCE_CONFIG := Guid("{bc6989d2-0fc1-46e1-a74f-efd36bc788de}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_DECODER_MFT_FIELDOFUSE_UNLOCK_Attribute := Guid("{2b8ad2e8-7acb-4321-a606-325c4249f4fc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_ENCODER_MFT_FIELDOFUSE_UNLOCK_Attribute := Guid("{54c63a00-78d5-422f-aa3e-5e99ac649269}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_ENABLE_CAMERA_STREAMSTATE_NOTIFICATION := Guid("{4c808e9d-aaed-4713-90fb-cb24064ab8da}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_MEDIA_CATEGORY := Guid("{8e3f5bd5-dbbf-42f0-8542-d07a3971762a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_AUDIO_PROCESSING := Guid("{10f1be5e-7e11-410b-973d-f4b6109000fe}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_EVENT_GENERATOR_GUID := Guid("{abfa8ad5-fc6d-4911-87e0-961945f8f7ce}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_EVENT_STREAM_INDEX := Guid("{82697f44-b1cf-42eb-9753-f86d649c8865}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_SELECTEDCAMERAPROFILE := Guid("{03160b7e-1c6f-4db2-ad56-a7c430f82392}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CAPTURE_ENGINE_SELECTEDCAMERAPROFILE_INDEX := Guid("{3ce88613-2214-46c3-b417-82f8a313c9c3}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFCaptureEngine := Guid("{efce38d3-8914-4674-a7df-ae1b3d654b8a}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFCaptureEngineClassFactory := Guid("{efce38d3-8914-4674-a7df-ae1b3d654b8a}")
+
+/**
+ * @type {Guid}
+ */
+export global MFSampleExtension_DeviceReferenceSystemTime := Guid("{6523775a-ba2d-405f-b2c5-01ff88e2e8f6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_D3D12_SYNCHRONIZATION_OBJECT := Guid("{2a7c8d6a-85a6-494d-a046-06ea1a138f4b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D_RESOURCE_VERSION := Guid("{174f1e85-fe26-453d-b52e-5bdd4e55b944}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_CPU_READBACK := Guid("{28ee9fe3-d481-46a6-b98a-7f69d5280e82}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_TEXTURE_LAYOUT := Guid("{97c85caa-0beb-4ee1-9715-f22fad8c10f5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET := Guid("{eeac2585-3430-498c-84a2-77b1bba570f6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL := Guid("{b1138dc3-01d5-4c14-9bdc-cdc9336f55b9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS := Guid("{82c85647-5057-4960-9559-f45b8e271427}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE := Guid("{ba06bfac-ffe3-474a-ab55-161ee4417a2e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER := Guid("{a6a1e439-2f96-4ab5-98dc-adf74973505d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS := Guid("{0a4940b2-cfd6-4738-9d02-98113734015a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MT_D3D12_RESOURCE_DIMENSION := Guid("{5f772624-16ca-4b89-9651-5ddf769f8ab8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D12_HEAP_FLAGS := Guid("{496b3266-d28f-4f8c-93a7-4a596b1a31a1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D12_HEAP_TYPE := Guid("{56f26a76-bbc1-4ce0-bb11-e22368d874ed}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D12_CLEAR_VALUE := Guid("{86ba9a39-0526-495d-9ab5-54ec9fad6fc3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SA_D3D12_AWARE := Guid("{77f0bacb-17a8-4a50-9a7d-a5cc09d39d44}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MSE_CALLBACK := Guid("{9063a7c0-42c5-4ffd-a8a8-6fcf9ea3d00c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MSE_ACTIVELIST_CALLBACK := Guid("{949bda0f-4549-46d5-ad7f-b846e1ab1652}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MSE_BUFFERLIST_CALLBACK := Guid("{42e669b0-d60e-4afb-a85b-d8e5fe6bdab5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MSE_VP9_SUPPORT := Guid("{92d78429-d88b-4ff0-8322-803efa6e9626}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MSE_OPUS_SUPPORT := Guid("{4d224cc1-8cc4-48a3-a7a7-e4c16ce6388a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_NEEDKEY_CALLBACK := Guid("{7ea80843-b6e4-432c-8ea4-7848ffe4220e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_CALLBACK := Guid("{c60381b8-83a4-41f8-a3d0-de05076849a9}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_DXGI_MANAGER := Guid("{065702da-1094-486d-8617-ee7cc4ee4648}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_EXTENSION := Guid("{3109fd46-060d-4b62-8dcf-faff811318d2}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_PLAYBACK_HWND := Guid("{d988879b-67c9-4d92-baa7-6eadd446039d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_OPM_HWND := Guid("{a0be8ee7-0572-4f2c-a801-2a151bd3e726}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_PLAYBACK_VISUAL := Guid("{6debd26f-6ab9-4d7e-b0ee-c61a73ffad15}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_COREWINDOW := Guid("{fccae4dc-0b7f-41c2-9f96-4659948acddc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_VIDEO_OUTPUT_FORMAT := Guid("{5066893c-8cf9-42bc-8b8a-472212e52726}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_CONTENT_PROTECTION_FLAGS := Guid("{e0350223-5aaf-4d76-a7c3-06de70894db4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_CONTENT_PROTECTION_MANAGER := Guid("{fdd6dfaa-bd85-4af3-9e0f-a01d539d876a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_AUDIO_ENDPOINT_ROLE := Guid("{d2cb93d1-116a-44f2-9385-f7d0fda2fb46}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_AUDIO_CATEGORY := Guid("{c8d4c51d-350e-41f2-ba46-faebbb0857f6}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_STREAM_CONTAINS_ALPHA_CHANNEL := Guid("{5cbfaf44-d2b2-4cfb-80a7-d429c74c789d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_BROWSER_COMPATIBILITY_MODE := Guid("{4e0212e2-e18f-41e1-95e5-c0e7e9235bc3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_BROWSER_COMPATIBILITY_MODE_IE9 := Guid("{052c2d39-40c0-4188-ab86-f828273b7522}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_BROWSER_COMPATIBILITY_MODE_IE10 := Guid("{11a47afd-6589-4124-b312-6158ec517fc3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_BROWSER_COMPATIBILITY_MODE_IE11 := Guid("{1cf1315f-ce3f-4035-9391-16142f775189}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_BROWSER_COMPATIBILITY_MODE_IE_EDGE := Guid("{a6f3e465-3aca-442c-a3f0-ad6ddad839ae}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_COMPATIBILITY_MODE := Guid("{3ef26ad4-dc54-45de-b9af-76c8c66bfa8e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_COMPATIBILITY_MODE_WWA_EDGE := Guid("{15b29098-9f01-4e4d-b65a-c06c6c89da2a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_COMPATIBILITY_MODE_WIN10 := Guid("{5b25e089-6ca7-4139-a2cb-fcaab39552a3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_SOURCE_RESOLVER_CONFIG_STORE := Guid("{0ac0c497-b3c4-48c9-9cde-bb8ca2442ca3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_TRACK_ID := Guid("{65bea312-4043-4815-8eab-44dce2ef8f2a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_TELEMETRY_APPLICATION_ID := Guid("{1e7b273b-a7e4-402a-8f51-c48e88a2cabc}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_SYNCHRONOUS_CLOSE := Guid("{c3c2e12f-7e0e-4e43-b91c-dc992ccdfa5e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_MEDIA_PLAYER_MODE := Guid("{3ddd8d45-5aa1-4112-82e5-36f6a2197e6e}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFMediaEngineClassFactory := Guid("{b44392da-499b-446b-a4cb-005fead0e6d5}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_TIMEDTEXT := Guid("{805ea411-92e0-4e59-9b6e-5c7d7915e64f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_CONTINUE_ON_CODEC_ERROR := Guid("{dbcdb7f9-48e4-4295-b70d-d518234eeb38}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_ENGINE_EME_CALLBACK := Guid("{494553a7-a481-4cb7-bec5-380903513731}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MPEG2DLNASink := Guid("{fa5fe7c5-6a1d-4b11-b41f-f959d6c76500}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MP2DLNA_USE_MMCSS := Guid("{54f3e2ee-a2a2-497d-9834-973afde521eb}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MP2DLNA_VIDEO_BIT_RATE := Guid("{e88548de-73b4-42d7-9c75-adfa0a2a6e4c}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MP2DLNA_AUDIO_BIT_RATE := Guid("{2d1c070e-2b5f-4ab3-a7e6-8d943ba8d00a}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MP2DLNA_ENCODE_QUALITY := Guid("{b52379d7-1d46-4fb6-a317-a4a5f60959f8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MP2DLNA_STATISTICS := Guid("{75e488a3-d5ad-4898-85e0-bcce24a722d7}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFReadWriteClassFactory := Guid("{48e2ed0f-98c2-4a37-bed5-166312ddd83f}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFSourceReader := Guid("{1777133c-0881-411b-a577-ad545f0714c4}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_ASYNC_CALLBACK := Guid("{1e3dbeac-bb43-4c35-b507-cd644464c965}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_D3D_MANAGER := Guid("{ec822da2-e1e9-4b29-a0d8-563c719f5269}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_DISABLE_DXVA := Guid("{aa456cfd-3943-4a1e-a77d-1838c0ea2e35}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_MEDIASOURCE_CONFIG := Guid("{9085abeb-0354-48f9-abb5-200df838c68e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_MEDIASOURCE_CHARACTERISTICS := Guid("{6d23f5c8-c5d7-4a9b-9971-5d11f8bca880}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_ENABLE_VIDEO_PROCESSING := Guid("{fb394f3d-ccf1-42ee-bbb3-f9b845d5681d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_ENABLE_ADVANCED_VIDEO_PROCESSING := Guid("{0f81da2c-b537-4672-a8b2-a681b17307a3}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_DISABLE_CAMERA_PLUGINS := Guid("{9d3365dd-058f-4cfb-9f97-b314cc99c8ad}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_DISCONNECT_MEDIASOURCE_ON_SHUTDOWN := Guid("{56b67165-219e-456d-a22e-2d3004c7fe56}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_ENABLE_TRANSCODE_ONLY_TRANSFORMS := Guid("{dfd4f008-b5fd-4e78-ae44-62a1e67bbe27}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_D3D11_BIND_FLAGS := Guid("{33f3197b-f73a-4e14-8d85-0e4c4368788d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SOURCE_READER_PASSTHROUGH_MODE := Guid("{043ff126-fe2c-4708-a09b-da2ab435ced9}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFSinkWriter := Guid("{a3bbfb17-8273-4e52-9e0e-9739dc887990}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_WRITER_ASYNC_CALLBACK := Guid("{48cb183e-7b0b-46f4-822e-5e1d2dda4354}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_WRITER_DISABLE_THROTTLING := Guid("{08b845d8-2b74-4afe-9d53-be16d2d5ae4f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_WRITER_D3D_MANAGER := Guid("{ec822da2-e1e9-4b29-a0d8-563c719f5269}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_SINK_WRITER_ENCODER_CONFIG := Guid("{ad91cd04-a7cc-4ac7-99b6-a57b9a4a7c70}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_DISABLE_CONVERTERS := Guid("{98d5b065-1374-4847-8d5d-31520fee7156}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_ENABLE_HARDWARE_TRANSFORMS := Guid("{a634a91c-822b-41b9-a494-4de4643612b0}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_MMCSS_CLASS := Guid("{39384300-d0eb-40b1-87a0-3318871b5a53}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_MMCSS_PRIORITY := Guid("{43ad19ce-f33f-4ba9-a580-e4cd12f2d144}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_MMCSS_CLASS_AUDIO := Guid("{430847da-0890-4b0e-938c-054332c547e1}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_MMCSS_PRIORITY_AUDIO := Guid("{273db885-2de2-4db2-a6a7-fdb66fb40b61}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_D3D_OPTIONAL := Guid("{216479d9-3071-42ca-bb6c-4c22102e1d18}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIASINK_AUTOFINALIZE_SUPPORTED := Guid("{48c131be-135a-41cb-8290-03652509c999}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIASINK_ENABLE_AUTOFINALIZE := Guid("{34014265-cb7e-4cde-ac7c-effd3b3c2530}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_READWRITE_ENABLE_AUTOFINALIZE := Guid("{dd7ca129-8cd1-4dc5-9dde-ce168675de61}")
+
+/**
+ * @type {Guid}
+ */
+export global MFP_POSITIONTYPE_100NS := Guid("{00000000-0000-0000-0000-000000000000}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_SHARING_ENGINE_DEVICE_NAME := Guid("{771e05d1-862f-4299-95ac-ae81fd14f3e7}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_MEDIA_SHARING_ENGINE_DEVICE := Guid("{b461c58a-7a08-4b98-99a8-70fd5f3badfd}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFMediaSharingEngineClassFactory := Guid("{f8e307fb-6d45-4ad3-9993-66cd5a529659}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_MFImageSharingEngineClassFactory := Guid("{b22c3339-87f3-4059-a0c5-037aa9707eaf}")
+
+/**
+ * @type {Guid}
+ */
+export global CLSID_PlayToSourceClassFactory := Guid("{da17539a-3dc3-42c1-a749-a183b51f085e}")
+
+/**
+ * @type {Guid}
+ */
+export global GUID_PlayToService := Guid("{f6a8ff9d-9e14-41c9-bf0f-120a2b3ce120}")
+
+/**
+ * @type {Guid}
+ */
+export global GUID_NativeDeviceService := Guid("{ef71e53c-52f4-43c5-b86a-ad6cb216a61e}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_CONTENTDECRYPTIONMODULE_SERVICE := Guid("{15320c45-ff80-484a-9dcb-0df894e69a01}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ENCRYPTEDMEDIAEXTENSIONS_ACTIVATE := Guid("{2df7b51e-797b-4d06-be71-d14a52cf8421}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ENCRYPTEDMEDIAEXTENSIONS_ACTIVATABLE_CLASS_ID := Guid("{77631a31-e5e7-4785-bf17-20f57b224802}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_ENCRYPTEDMEDIAEXTENSIONS_INITIALIZATION_DATA := Guid("{3e73735c-e6c0-481d-8260-ee5db1343b5f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_DEVSOURCE_ATTRIBUTE_ENABLE_MS_CAMERA_EFFECTS := Guid("{28a5531a-57dd-4fd5-aaa7-385abf57d785}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIRTUALCAMERA_ASSOCIATED_CAMERA_SOURCES := Guid("{1bb79e7c-5d83-438c-94d8-e5f0df6d3279}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIRTUALCAMERA_PROVIDE_ASSOCIATED_CAMERA_SOURCES := Guid("{f0273718-4a4d-4ac5-a15d-305eb5e90667}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_VIRTUALCAMERA_CONFIGURATION_APP_PACKAGE_FAMILY_NAME := Guid("{658abe51-8044-462e-97ea-e676fd72055f}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_FRAMESERVER_VCAMEVENT_EXTENDED_SOURCE_INITIALIZE := Guid("{e52c4dff-e46d-4d0b-bc75-ddd4c8723f96}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_FRAMESERVER_VCAMEVENT_EXTENDED_SOURCE_START := Guid("{b1eeb989-b456-4f4a-ae40-079c28e24af8}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_FRAMESERVER_VCAMEVENT_EXTENDED_SOURCE_STOP := Guid("{b7fe7a61-fe91-415e-8608-d37dedb1a58b}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_FRAMESERVER_VCAMEVENT_EXTENDED_SOURCE_UNINITIALIZE := Guid("{a0ebaba7-a422-4e33-8401-b37d2800aa67}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_FRAMESERVER_VCAMEVENT_EXTENDED_PIPELINE_SHUTDOWN := Guid("{45a81b31-43f8-4e5d-8ce2-22dce026996d}")
+
+/**
+ * @type {Guid}
+ */
+export global MF_FRAMESERVER_VCAMEVENT_EXTENDED_CUSTOM_EVENT := Guid("{6e59489c-47d3-4467-83ef-12d34e871665}")
+;@endregion Constants

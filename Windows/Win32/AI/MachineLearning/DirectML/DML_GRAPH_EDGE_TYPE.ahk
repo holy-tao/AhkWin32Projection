@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify a type of graph edge. See [DML_GRAPH_EDGE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_edge_desc) for the usage of this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_graph_edge_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_GRAPH_EDGE_TYPE extends Win32Enum {
+export default struct DML_GRAPH_EDGE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies an unknown graph edge type, and is never valid. Using this value results in an error.

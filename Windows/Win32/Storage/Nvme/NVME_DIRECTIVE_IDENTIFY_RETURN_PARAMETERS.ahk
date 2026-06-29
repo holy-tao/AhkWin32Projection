@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR.ahk" { NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR }
 
 /**
  * Contains fields that describe return parameters for the Identify Directive.
@@ -9,32 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_identify_return_parameters
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 1
+export default struct NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS {
+    #StructPack 1
 
     /**
      * A [NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR](ns-nvme-nvme_directive_identify_return_parameters_descriptor.md) structure containing values that indicate which directives are supported.
-     * @type {NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR}
      */
-    DirectivesSupported {
-        get {
-            if(!this.HasProp("__DirectivesSupported"))
-                this.__DirectivesSupported := NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(0, this)
-            return this.__DirectivesSupported
-        }
-    }
+    DirectivesSupported : NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR
 
     /**
      * A [NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR](ns-nvme-nvme_directive_identify_return_parameters_descriptor.md) structure containing values that indicate which directives are enabled.
-     * @type {NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR}
      */
-    DirectivesEnabled {
-        get {
-            if(!this.HasProp("__DirectivesEnabled"))
-                this.__DirectivesEnabled := NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(32, this)
-            return this.__DirectivesEnabled
-        }
-    }
+    DirectivesEnabled : NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR
+
 }

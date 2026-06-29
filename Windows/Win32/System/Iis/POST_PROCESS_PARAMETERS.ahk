@@ -1,175 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class POST_PROCESS_PARAMETERS extends Win32Struct {
-    static sizeof => 152
+export default struct POST_PROCESS_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    pszSessionId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSessionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszSiteName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSiteName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszUserName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszHostName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszHostName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszRemoteIpAddress : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszRemoteIpAddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwRemoteIpPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRemoteIpPort {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pszLocalIpAddress : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszLocalIpAddress {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwLocalIpPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalIpPort {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    BytesSent : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesSent {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    BytesReceived : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesReceived {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    pszCommand : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCommand {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pszCommandParameters : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCommandParameters {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pszFullPath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszFullPath {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pszPhysicalPath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszPhysicalPath {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    FtpStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FtpStatus {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    FtpSubStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FtpSubStatus {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    hrStatus : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    hrStatus {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    SessionStartTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    SessionStartTime {
-        get {
-            if(!this.HasProp("__SessionStartTime"))
-                this.__SessionStartTime := FILETIME(124, this)
-            return this.__SessionStartTime
-        }
-    }
+    BytesSentPerSession : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesSentPerSession {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    BytesReceivedPerSession : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesReceivedPerSession {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
 }

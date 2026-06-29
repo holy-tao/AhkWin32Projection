@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide options for an application to display a progress dialog box.
@@ -42,26 +47,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iprogressdialog
  * @namespace Windows.Win32.UI.Shell
  */
-class IProgressDialog extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProgressDialog extends IUnknown {
     /**
      * The interface identifier for IProgressDialog
      * @type {Guid}
      */
-    static IID => Guid("{ebbc7c04-315e-11d2-b62f-006097df5bd4}")
+    static IID := Guid("{ebbc7c04-315e-11d2-b62f-006097df5bd4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProgressDialog interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartProgressDialog : IntPtr
+        StopProgressDialog  : IntPtr
+        SetTitle            : IntPtr
+        SetAnimation        : IntPtr
+        HasUserCancelled    : IntPtr
+        SetProgress         : IntPtr
+        SetProgress64       : IntPtr
+        SetLine             : IntPtr
+        SetCancelMsg        : IntPtr
+        Timer               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartProgressDialog", "StopProgressDialog", "SetTitle", "SetAnimation", "HasUserCancelled", "SetProgress", "SetProgress64", "SetLine", "SetCancelMsg", "Timer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProgressDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts the progress dialog box.
@@ -80,9 +101,7 @@ class IProgressDialog extends IUnknown {
     StartProgressDialog(hwndParent, punkEnableModless, dwFlags) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
 
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", punkEnableModless, "uint", dwFlags, "ptr", pvResevered, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, "ptr", punkEnableModless, "uint", dwFlags, "ptr", pvResevered, "HRESULT")
         return result
     }
 
@@ -141,9 +160,7 @@ class IProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setanimation
      */
     SetAnimation(hInstAnimation, idAnimation) {
-        hInstAnimation := hInstAnimation is Win32Handle ? NumGet(hInstAnimation, "ptr") : hInstAnimation
-
-        result := ComCall(6, this, "ptr", hInstAnimation, "uint", idAnimation, "HRESULT")
+        result := ComCall(6, this, HINSTANCE, hInstAnimation, "uint", idAnimation, "HRESULT")
         return result
     }
 
@@ -157,7 +174,7 @@ class IProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-hasusercancelled
      */
     HasUserCancelled() {
-        result := ComCall(7, this, "int")
+        result := ComCall(7, this, BOOL)
         return result
     }
 
@@ -224,7 +241,7 @@ class IProgressDialog extends IUnknown {
 
         pwzString := pwzString is String ? StrPtr(pwzString) : pwzString
 
-        result := ComCall(10, this, "uint", dwLineNum, "ptr", pwzString, "int", fCompactPath, "ptr", pvResevered, "HRESULT")
+        result := ComCall(10, this, "uint", dwLineNum, "ptr", pwzString, BOOL, fCompactPath, "ptr", pvResevered, "HRESULT")
         return result
     }
 
@@ -264,5 +281,43 @@ class IProgressDialog extends IUnknown {
 
         result := ComCall(12, this, "uint", dwTimerAction, "ptr", pvResevered, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProgressDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartProgressDialog := CallbackCreate(GetMethod(implObj, "StartProgressDialog"), flags, 5)
+        this.vtbl.StopProgressDialog := CallbackCreate(GetMethod(implObj, "StopProgressDialog"), flags, 1)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetAnimation := CallbackCreate(GetMethod(implObj, "SetAnimation"), flags, 3)
+        this.vtbl.HasUserCancelled := CallbackCreate(GetMethod(implObj, "HasUserCancelled"), flags, 1)
+        this.vtbl.SetProgress := CallbackCreate(GetMethod(implObj, "SetProgress"), flags, 3)
+        this.vtbl.SetProgress64 := CallbackCreate(GetMethod(implObj, "SetProgress64"), flags, 3)
+        this.vtbl.SetLine := CallbackCreate(GetMethod(implObj, "SetLine"), flags, 5)
+        this.vtbl.SetCancelMsg := CallbackCreate(GetMethod(implObj, "SetCancelMsg"), flags, 3)
+        this.vtbl.Timer := CallbackCreate(GetMethod(implObj, "Timer"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartProgressDialog)
+        CallbackFree(this.vtbl.StopProgressDialog)
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.SetAnimation)
+        CallbackFree(this.vtbl.HasUserCancelled)
+        CallbackFree(this.vtbl.SetProgress)
+        CallbackFree(this.vtbl.SetProgress64)
+        CallbackFree(this.vtbl.SetLine)
+        CallbackFree(this.vtbl.SetCancelMsg)
+        CallbackFree(this.vtbl.Timer)
     }
 }

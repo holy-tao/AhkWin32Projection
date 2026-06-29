@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class MEM_LARGE_DES extends Win32Struct {
-    static sizeof => 32
+export default struct MEM_LARGE_DES {
+    #StructPack 8
 
-    static packingSize => 8
+    MLD_Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MLD_Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MLD_Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MLD_Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MLD_Alloc_Base : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MLD_Alloc_Base {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MLD_Alloc_End : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MLD_Alloc_End {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MLD_Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MLD_Flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MLD_Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MLD_Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

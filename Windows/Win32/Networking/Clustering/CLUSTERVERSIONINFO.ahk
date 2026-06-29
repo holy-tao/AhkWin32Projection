@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Describes information about the version of the Cluster service installed locally on a node.
@@ -30,106 +30,65 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusterversioninfo
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTERVERSIONINFO extends Win32Struct {
-    static sizeof => 284
-
-    static packingSize => 4
+export default struct CLUSTERVERSIONINFO {
+    #StructPack 4
 
     /**
      * Size, in bytes, of the data structure. Users must set this size prior to calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusterinformation">GetClusterInformation</a>.
-     * @type {Integer}
      */
-    dwVersionInfoSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersionInfoSize : UInt32
 
     /**
      * Identifies the major version number of the operating system installed on the local node. For example, for 
      *       version X.Y, the major version number is X.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    MajorVersion : UInt16
 
     /**
      * Identifies the minor version number of the operating system installed on the local node. For example, for 
      *       version X.Y, the minor version number is Y.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    MinorVersion : UInt16
 
     /**
      * Identifies the build number of the operating system installed on the local node, such as 224.
-     * @type {Integer}
      */
-    BuildNumber {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    BuildNumber : UInt16
 
     /**
      * Contains the vendor identifier information for the Cluster service installed on the local node.
-     * @type {String}
      */
-    szVendorId {
-        get => StrGet(this.ptr + 10, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 10, 63, "UTF-16")
-    }
+    szVendorId : WCHAR[64]
 
     /**
      * Contains the latest service pack installed on the node. If a Service Pack has not been installed, the 
      *       <b>szCSDVersion</b> member is empty.
-     * @type {String}
      */
-    szCSDVersion {
-        get => StrGet(this.ptr + 138, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 138, 63, "UTF-16")
-    }
+    szCSDVersion : WCHAR[64]
 
     /**
      * Identifies the highest version of the Cluster service with which the Cluster service installed on the local 
      *       node can join to form a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @type {Integer}
      */
-    dwClusterHighestVersion {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    dwClusterHighestVersion : UInt32
 
     /**
      * Identifies the lowest version of the Cluster service with which the Cluster service installed on the local 
      *       node can join to form a cluster.
-     * @type {Integer}
      */
-    dwClusterLowestVersion {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    dwClusterLowestVersion : UInt32
 
     /**
      * If the cluster nodes are running different versions of the Cluster service, this value is set to 
      *       <b>CLUSTER_VERSION_FLAG_MIXED_MODE</b>. If all cluster nodes are running the same version of 
      *       the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>, this value is 0.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
+    dwFlags : UInt32
 
     /**
      * This value is reserved for internal use.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    dwReserved : UInt32
+
 }

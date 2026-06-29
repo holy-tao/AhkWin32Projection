@@ -1,50 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_ARRAY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_OPTION_ARRAY.ahk" { DHCP_OPTION_ARRAY }
 
 /**
  * Defines the set of all options available on a DHCP server.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_all_options
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_ALL_OPTIONS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DHCP_ALL_OPTIONS {
+    #StructPack 8
 
     /**
      * Reserved. This value should be set to 0.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_array">DHCP_OPTION_ARRAY</a> structure that contains the set of non-vendor options.
-     * @type {Pointer<DHCP_OPTION_ARRAY>}
      */
-    NonVendorOptions {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NonVendorOptions : DHCP_OPTION_ARRAY.Ptr
 
     /**
      * Specifies the number of vendor options listed in <b>VendorOptions</b>.
-     * @type {Integer}
      */
-    NumVendorOptions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumVendorOptions : UInt32
 
     /**
      * Pointer to a list of structures that contain the following fields.
-     * @type {Pointer<_Anonymous_e__Struct>}
      */
-    VendorOptions {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    VendorOptions : _Anonymous.Ptr
+
 }

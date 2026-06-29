@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_LLCP_SERVICE_NAME_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NFC_LLCP_SERVICE_NAME_ENTRY.ahk" { NFC_LLCP_SERVICE_NAME_ENTRY }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_LLCP_SERVICE_DISCOVER_REQUEST extends Win32Struct {
-    static sizeof => 24
+export default struct NFC_LLCP_SERVICE_DISCOVER_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    hRemoteDev : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hRemoteDev {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NumberOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ServiceNameEntries : NFC_LLCP_SERVICE_NAME_ENTRY[1]
 
-    /**
-     * @type {NFC_LLCP_SERVICE_NAME_ENTRY}
-     */
-    ServiceNameEntries {
-        get {
-            if(!this.HasProp("__ServiceNameEntriesProxyArray"))
-                this.__ServiceNameEntriesProxyArray := Win32FixedArray(this.ptr + 12, 1, NFC_LLCP_SERVICE_NAME_ENTRY, "")
-            return this.__ServiceNameEntriesProxyArray
-        }
-    }
 }

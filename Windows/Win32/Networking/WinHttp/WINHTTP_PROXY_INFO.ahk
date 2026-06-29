@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_ACCESS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINHTTP_ACCESS_TYPE.ahk" { WINHTTP_ACCESS_TYPE }
 
 /**
  * The WINHTTP_PROXY_INFO structure contains the session or default proxy configuration.
@@ -28,34 +28,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_info
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_PROXY_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct WINHTTP_PROXY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {WINHTTP_ACCESS_TYPE}
-     */
-    dwAccessType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAccessType : WINHTTP_ACCESS_TYPE
 
     /**
      * Pointer to a string value that contains the proxy server list.
-     * @type {PWSTR}
      */
-    lpszProxy {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszProxy : PWSTR
 
     /**
      * Pointer to a string value that contains the proxy bypass list.
-     * @type {PWSTR}
      */
-    lpszProxyBypass {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszProxyBypass : PWSTR
+
 }

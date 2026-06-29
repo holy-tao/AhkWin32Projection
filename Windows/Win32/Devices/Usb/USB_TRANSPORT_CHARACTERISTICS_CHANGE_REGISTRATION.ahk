@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_TRANSPORT_CHARACTERISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_CHANGE_REGISTRATION_HANDLE.ahk" { USB_CHANGE_REGISTRATION_HANDLE }
+#Import ".\USB_TRANSPORT_CHARACTERISTICS.ahk" { USB_TRANSPORT_CHARACTERISTICS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct {
-    static sizeof => 40
+export default struct USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ChangeNotificationInputFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ChangeNotificationInputFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Handle : USB_CHANGE_REGISTRATION_HANDLE
 
-    /**
-     * @type {USB_CHANGE_REGISTRATION_HANDLE}
-     */
-    Handle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    UsbTransportCharacteristics : USB_TRANSPORT_CHARACTERISTICS
 
-    /**
-     * @type {USB_TRANSPORT_CHARACTERISTICS}
-     */
-    UsbTransportCharacteristics {
-        get {
-            if(!this.HasProp("__UsbTransportCharacteristics"))
-                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(16, this)
-            return this.__UsbTransportCharacteristics
-        }
-    }
 }

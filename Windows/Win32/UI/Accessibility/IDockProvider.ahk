@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DockPosition.ahk" { DockPosition }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to an element in a docking container.
@@ -16,26 +18,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-idockprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IDockProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDockProvider extends IUnknown {
     /**
      * The interface identifier for IDockProvider
      * @type {Guid}
      */
-    static IID => Guid("{159bc72c-4ad3-485e-9637-d7052edf0146}")
+    static IID := Guid("{159bc72c-4ad3-485e-9637-d7052edf0146}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDockProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDockPosition  : IntPtr
+        get_DockPosition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDockPosition", "get_DockPosition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDockProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {DockPosition} 
@@ -57,7 +67,7 @@ class IDockProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idockprovider-setdockposition
      */
     SetDockPosition(_dockPosition) {
-        result := ComCall(3, this, "int", _dockPosition, "HRESULT")
+        result := ComCall(3, this, DockPosition, _dockPosition, "HRESULT")
         return result
     }
 
@@ -71,5 +81,27 @@ class IDockProvider extends IUnknown {
     get_DockPosition() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
         return pRetVal
+    }
+
+    Query(iid) {
+        if (IDockProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDockPosition := CallbackCreate(GetMethod(implObj, "SetDockPosition"), flags, 2)
+        this.vtbl.get_DockPosition := CallbackCreate(GetMethod(implObj, "get_DockPosition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDockPosition)
+        CallbackFree(this.vtbl.get_DockPosition)
     }
 }

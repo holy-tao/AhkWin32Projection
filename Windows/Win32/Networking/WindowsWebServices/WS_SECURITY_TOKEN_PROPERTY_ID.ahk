@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the keys for the fields and properties that can be extracted from a security token. Not all properties are valid for all security token types. The function WsGetSecurityTokenProperty uses the values defined here as keys.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_token_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
+export default struct WS_SECURITY_TOKEN_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The accompanying <b>value</b> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetsecuritytokenproperty">WsGetSecurityTokenProperty</a> function is a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_key_type">WS_SECURITY_KEY_TYPE</a> value indicating the type of the proof key of the security token.

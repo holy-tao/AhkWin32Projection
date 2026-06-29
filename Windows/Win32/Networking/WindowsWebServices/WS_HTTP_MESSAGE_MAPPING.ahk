@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_HTTP_HEADER_MAPPING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_HTTP_HEADER_MAPPING.ahk" { WS_HTTP_HEADER_MAPPING }
 
 /**
  * How an HTTP request or response should be represented in a message object.
@@ -56,66 +55,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_message_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_HTTP_MESSAGE_MAPPING extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_HTTP_MESSAGE_MAPPING {
+    #StructPack 8
 
     /**
      * Options that control how information in the HTTP request is mapped to the message object.
-     * @type {Integer}
      */
-    requestMappingOptions {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    requestMappingOptions : UInt32
 
     /**
      * Options that control how information in the HTTP response is mapped to the message object.
-     * @type {Integer}
      */
-    responseMappingOptions {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    responseMappingOptions : UInt32
 
     /**
      * An array of pointers to mappings which describe which
      *                     HTTP headers are mapped to/from headers in the message object
      *                     for an HTTP request.  The pointers in the array may not be <b>NULL</b>.
-     * @type {Pointer<Pointer<WS_HTTP_HEADER_MAPPING>>}
      */
-    requestHeaderMappings {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    requestHeaderMappings : IntPtr
 
     /**
      * The number of items in the requestHeaderMappings array.
-     * @type {Integer}
      */
-    requestHeaderMappingCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    requestHeaderMappingCount : UInt32
 
     /**
      * An array of pointers to mappings which describe which
      *                     HTTP headers are mapped to/from headers in the message object
      *                     for an HTTP response.  The pointers in the array may not be <b>NULL</b>.
-     * @type {Pointer<Pointer<WS_HTTP_HEADER_MAPPING>>}
      */
-    responseHeaderMappings {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    responseHeaderMappings : IntPtr
 
     /**
      * The number of items in the responseHeaderMappings array.
-     * @type {Integer}
      */
-    responseHeaderMappingCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    responseHeaderMappingCount : UInt32
+
 }

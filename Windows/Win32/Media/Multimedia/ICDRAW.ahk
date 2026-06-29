@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ICDRAW structure contains parameters for drawing video data to the screen. This structure is used with the ICM_DRAW message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdraw
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICDRAW extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ICDRAW {
+    #StructPack 8
 
     /**
      * Flags from the AVI file index. The following values are defined:
@@ -76,46 +73,27 @@ class ICDRAW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a structure containing the data format. For video streams, this is a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure.
-     * @type {Pointer<Void>}
      */
-    lpFormat {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpFormat : IntPtr
 
     /**
      * Pointer to the data to render.
-     * @type {Pointer<Void>}
      */
-    lpData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpData : IntPtr
 
     /**
      * Number of data bytes to render.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbData : UInt32
 
     /**
      * Time, in samples, when this data should be drawn. For video data this is normally a frame number.
-     * @type {Integer}
      */
-    lTime {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    lTime : Int32
+
 }

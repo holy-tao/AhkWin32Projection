@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
+#Import ".\IMAPI_FORMAT2_DATA_MEDIA_STATE.ahk" { IMAPI_FORMAT2_DATA_MEDIA_STATE }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IMAPI_MEDIA_WRITE_PROTECT_STATE.ahk" { IMAPI_MEDIA_WRITE_PROTECT_STATE }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to write a data stream to a disc.
@@ -14,26 +21,64 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2data
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscFormat2Data extends IDiscFormat2 {
-
-    static sizeof => A_PtrSize
+export default struct IDiscFormat2Data extends IDiscFormat2 {
     /**
      * The interface identifier for IDiscFormat2Data
      * @type {Guid}
      */
-    static IID => Guid("{27354153-9f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354153-9f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscFormat2Data interfaces
+    */
+    struct Vtbl extends IDiscFormat2.Vtbl {
+        put_Recorder                            : IntPtr
+        get_Recorder                            : IntPtr
+        put_BufferUnderrunFreeDisabled          : IntPtr
+        get_BufferUnderrunFreeDisabled          : IntPtr
+        put_PostgapAlreadyInImage               : IntPtr
+        get_PostgapAlreadyInImage               : IntPtr
+        get_CurrentMediaStatus                  : IntPtr
+        get_WriteProtectStatus                  : IntPtr
+        get_TotalSectorsOnMedia                 : IntPtr
+        get_FreeSectorsOnMedia                  : IntPtr
+        get_NextWritableAddress                 : IntPtr
+        get_StartAddressOfPreviousSession       : IntPtr
+        get_LastWrittenAddressOfPreviousSession : IntPtr
+        put_ForceMediaToBeClosed                : IntPtr
+        get_ForceMediaToBeClosed                : IntPtr
+        put_DisableConsumerDvdCompatibilityMode : IntPtr
+        get_DisableConsumerDvdCompatibilityMode : IntPtr
+        get_CurrentPhysicalMediaType            : IntPtr
+        put_ClientName                          : IntPtr
+        get_ClientName                          : IntPtr
+        get_RequestedWriteSpeed                 : IntPtr
+        get_RequestedRotationTypeIsPureCAV      : IntPtr
+        get_CurrentWriteSpeed                   : IntPtr
+        get_CurrentRotationTypeIsPureCAV        : IntPtr
+        get_SupportedWriteSpeeds                : IntPtr
+        get_SupportedWriteSpeedDescriptors      : IntPtr
+        put_ForceOverwrite                      : IntPtr
+        get_ForceOverwrite                      : IntPtr
+        get_MultisessionInterfaces              : IntPtr
+        Write                                   : IntPtr
+        CancelWrite                             : IntPtr
+        SetWriteSpeed                           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Recorder", "get_Recorder", "put_BufferUnderrunFreeDisabled", "get_BufferUnderrunFreeDisabled", "put_PostgapAlreadyInImage", "get_PostgapAlreadyInImage", "get_CurrentMediaStatus", "get_WriteProtectStatus", "get_TotalSectorsOnMedia", "get_FreeSectorsOnMedia", "get_NextWritableAddress", "get_StartAddressOfPreviousSession", "get_LastWrittenAddressOfPreviousSession", "put_ForceMediaToBeClosed", "get_ForceMediaToBeClosed", "put_DisableConsumerDvdCompatibilityMode", "get_DisableConsumerDvdCompatibilityMode", "get_CurrentPhysicalMediaType", "put_ClientName", "get_ClientName", "get_RequestedWriteSpeed", "get_RequestedRotationTypeIsPureCAV", "get_CurrentWriteSpeed", "get_CurrentRotationTypeIsPureCAV", "get_SupportedWriteSpeeds", "get_SupportedWriteSpeedDescriptors", "put_ForceOverwrite", "get_ForceOverwrite", "get_MultisessionInterfaces", "Write", "CancelWrite", "SetWriteSpeed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscFormat2Data.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDiscRecorder2} 
@@ -281,7 +326,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-put_bufferunderrunfreedisabled
      */
     put_BufferUnderrunFreeDisabled(value) {
-        result := ComCall(14, this, "short", value, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -291,7 +336,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_bufferunderrunfreedisabled
      */
     get_BufferUnderrunFreeDisabled() {
-        result := ComCall(15, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -324,7 +369,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-put_postgapalreadyinimage
      */
     put_PostgapAlreadyInImage(value) {
-        result := ComCall(16, this, "short", value, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -334,7 +379,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_postgapalreadyinimage
      */
     get_PostgapAlreadyInImage() {
-        result := ComCall(17, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -469,7 +514,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-put_forcemediatobeclosed
      */
     put_ForceMediaToBeClosed(value) {
-        result := ComCall(25, this, "short", value, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -479,7 +524,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_forcemediatobeclosed
      */
     get_ForceMediaToBeClosed() {
-        result := ComCall(26, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -546,7 +591,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-put_disableconsumerdvdcompatibilitymode
      */
     put_DisableConsumerDvdCompatibilityMode(value) {
-        result := ComCall(27, this, "short", value, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -560,7 +605,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_disableconsumerdvdcompatibilitymode
      */
     get_DisableConsumerDvdCompatibilityMode() {
-        result := ComCall(28, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -633,7 +678,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
     put_ClientName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(30, this, "ptr", value, "HRESULT")
+        result := ComCall(30, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -643,8 +688,8 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
-        result := ComCall(31, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -670,7 +715,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_requestedrotationtypeispurecav
      */
     get_RequestedRotationTypeIsPureCAV() {
-        result := ComCall(33, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -707,7 +752,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_currentrotationtypeispurecav
      */
     get_CurrentRotationTypeIsPureCAV() {
-        result := ComCall(35, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -744,7 +789,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-put_forceoverwrite
      */
     put_ForceOverwrite(value) {
-        result := ComCall(38, this, "short", value, "HRESULT")
+        result := ComCall(38, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -754,7 +799,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_forceoverwrite
      */
     get_ForceOverwrite() {
-        result := ComCall(39, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -1654,7 +1699,89 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
-        result := ComCall(43, this, "int", RequestedSectorsPerSecond, "short", RotationTypeIsPureCAV, "HRESULT")
+        result := ComCall(43, this, "int", RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDiscFormat2Data.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_BufferUnderrunFreeDisabled := CallbackCreate(GetMethod(implObj, "put_BufferUnderrunFreeDisabled"), flags, 2)
+        this.vtbl.get_BufferUnderrunFreeDisabled := CallbackCreate(GetMethod(implObj, "get_BufferUnderrunFreeDisabled"), flags, 2)
+        this.vtbl.put_PostgapAlreadyInImage := CallbackCreate(GetMethod(implObj, "put_PostgapAlreadyInImage"), flags, 2)
+        this.vtbl.get_PostgapAlreadyInImage := CallbackCreate(GetMethod(implObj, "get_PostgapAlreadyInImage"), flags, 2)
+        this.vtbl.get_CurrentMediaStatus := CallbackCreate(GetMethod(implObj, "get_CurrentMediaStatus"), flags, 2)
+        this.vtbl.get_WriteProtectStatus := CallbackCreate(GetMethod(implObj, "get_WriteProtectStatus"), flags, 2)
+        this.vtbl.get_TotalSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_TotalSectorsOnMedia"), flags, 2)
+        this.vtbl.get_FreeSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_FreeSectorsOnMedia"), flags, 2)
+        this.vtbl.get_NextWritableAddress := CallbackCreate(GetMethod(implObj, "get_NextWritableAddress"), flags, 2)
+        this.vtbl.get_StartAddressOfPreviousSession := CallbackCreate(GetMethod(implObj, "get_StartAddressOfPreviousSession"), flags, 2)
+        this.vtbl.get_LastWrittenAddressOfPreviousSession := CallbackCreate(GetMethod(implObj, "get_LastWrittenAddressOfPreviousSession"), flags, 2)
+        this.vtbl.put_ForceMediaToBeClosed := CallbackCreate(GetMethod(implObj, "put_ForceMediaToBeClosed"), flags, 2)
+        this.vtbl.get_ForceMediaToBeClosed := CallbackCreate(GetMethod(implObj, "get_ForceMediaToBeClosed"), flags, 2)
+        this.vtbl.put_DisableConsumerDvdCompatibilityMode := CallbackCreate(GetMethod(implObj, "put_DisableConsumerDvdCompatibilityMode"), flags, 2)
+        this.vtbl.get_DisableConsumerDvdCompatibilityMode := CallbackCreate(GetMethod(implObj, "get_DisableConsumerDvdCompatibilityMode"), flags, 2)
+        this.vtbl.get_CurrentPhysicalMediaType := CallbackCreate(GetMethod(implObj, "get_CurrentPhysicalMediaType"), flags, 2)
+        this.vtbl.put_ClientName := CallbackCreate(GetMethod(implObj, "put_ClientName"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.get_RequestedWriteSpeed := CallbackCreate(GetMethod(implObj, "get_RequestedWriteSpeed"), flags, 2)
+        this.vtbl.get_RequestedRotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_RequestedRotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_CurrentWriteSpeed := CallbackCreate(GetMethod(implObj, "get_CurrentWriteSpeed"), flags, 2)
+        this.vtbl.get_CurrentRotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_CurrentRotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_SupportedWriteSpeeds := CallbackCreate(GetMethod(implObj, "get_SupportedWriteSpeeds"), flags, 2)
+        this.vtbl.get_SupportedWriteSpeedDescriptors := CallbackCreate(GetMethod(implObj, "get_SupportedWriteSpeedDescriptors"), flags, 2)
+        this.vtbl.put_ForceOverwrite := CallbackCreate(GetMethod(implObj, "put_ForceOverwrite"), flags, 2)
+        this.vtbl.get_ForceOverwrite := CallbackCreate(GetMethod(implObj, "get_ForceOverwrite"), flags, 2)
+        this.vtbl.get_MultisessionInterfaces := CallbackCreate(GetMethod(implObj, "get_MultisessionInterfaces"), flags, 2)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 2)
+        this.vtbl.CancelWrite := CallbackCreate(GetMethod(implObj, "CancelWrite"), flags, 1)
+        this.vtbl.SetWriteSpeed := CallbackCreate(GetMethod(implObj, "SetWriteSpeed"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Recorder)
+        CallbackFree(this.vtbl.get_Recorder)
+        CallbackFree(this.vtbl.put_BufferUnderrunFreeDisabled)
+        CallbackFree(this.vtbl.get_BufferUnderrunFreeDisabled)
+        CallbackFree(this.vtbl.put_PostgapAlreadyInImage)
+        CallbackFree(this.vtbl.get_PostgapAlreadyInImage)
+        CallbackFree(this.vtbl.get_CurrentMediaStatus)
+        CallbackFree(this.vtbl.get_WriteProtectStatus)
+        CallbackFree(this.vtbl.get_TotalSectorsOnMedia)
+        CallbackFree(this.vtbl.get_FreeSectorsOnMedia)
+        CallbackFree(this.vtbl.get_NextWritableAddress)
+        CallbackFree(this.vtbl.get_StartAddressOfPreviousSession)
+        CallbackFree(this.vtbl.get_LastWrittenAddressOfPreviousSession)
+        CallbackFree(this.vtbl.put_ForceMediaToBeClosed)
+        CallbackFree(this.vtbl.get_ForceMediaToBeClosed)
+        CallbackFree(this.vtbl.put_DisableConsumerDvdCompatibilityMode)
+        CallbackFree(this.vtbl.get_DisableConsumerDvdCompatibilityMode)
+        CallbackFree(this.vtbl.get_CurrentPhysicalMediaType)
+        CallbackFree(this.vtbl.put_ClientName)
+        CallbackFree(this.vtbl.get_ClientName)
+        CallbackFree(this.vtbl.get_RequestedWriteSpeed)
+        CallbackFree(this.vtbl.get_RequestedRotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_CurrentWriteSpeed)
+        CallbackFree(this.vtbl.get_CurrentRotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_SupportedWriteSpeeds)
+        CallbackFree(this.vtbl.get_SupportedWriteSpeedDescriptors)
+        CallbackFree(this.vtbl.put_ForceOverwrite)
+        CallbackFree(this.vtbl.get_ForceOverwrite)
+        CallbackFree(this.vtbl.get_MultisessionInterfaces)
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.CancelWrite)
+        CallbackFree(this.vtbl.SetWriteSpeed)
     }
 }

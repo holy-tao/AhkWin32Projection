@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsContainer interface enables an ADSI container object to create, delete, and manage contained ADSI objects. Container objects represent hierarchical directory trees, such as in a file system, and to organize the directory hierarchy.
@@ -53,26 +55,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadscontainer
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsContainer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsContainer extends IDispatch {
     /**
      * The interface identifier for IADsContainer
      * @type {Guid}
      */
-    static IID => Guid("{001677d0-fd16-11ce-abc4-02608c9e7553}")
+    static IID := Guid("{001677d0-fd16-11ce-abc4-02608c9e7553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsContainer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        get__NewEnum : IntPtr
+        get_Filter   : IntPtr
+        put_Filter   : IntPtr
+        get_Hints    : IntPtr
+        put_Hints    : IntPtr
+        GetObject    : IntPtr
+        Create       : IntPtr
+        Delete       : IntPtr
+        CopyHere     : IntPtr
+        MoveHere     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "get_Filter", "put_Filter", "get_Hints", "put_Hints", "GetObject", "Create", "Delete", "CopyHere", "MoveHere"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -135,7 +154,7 @@ class IADsContainer extends IDispatch {
      */
     get_Filter() {
         pVar := VARIANT()
-        result := ComCall(9, this, "ptr", pVar, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pVar, "HRESULT")
         return pVar
     }
 
@@ -145,7 +164,7 @@ class IADsContainer extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Filter(Var) {
-        result := ComCall(10, this, "ptr", Var, "HRESULT")
+        result := ComCall(10, this, VARIANT, Var, "HRESULT")
         return result
     }
 
@@ -155,7 +174,7 @@ class IADsContainer extends IDispatch {
      */
     get_Hints() {
         pvFilter := VARIANT()
-        result := ComCall(11, this, "ptr", pvFilter, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, pvFilter, "HRESULT")
         return pvFilter
     }
 
@@ -165,7 +184,7 @@ class IADsContainer extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Hints(vHints) {
-        result := ComCall(12, this, "ptr", vHints, "HRESULT")
+        result := ComCall(12, this, VARIANT, vHints, "HRESULT")
         return result
     }
 
@@ -186,7 +205,7 @@ class IADsContainer extends IDispatch {
         ClassName := ClassName is String ? BSTR.Alloc(ClassName).Value : ClassName
         RelativeName := RelativeName is String ? BSTR.Alloc(RelativeName).Value : RelativeName
 
-        result := ComCall(13, this, "ptr", ClassName, "ptr", RelativeName, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, ClassName, BSTR, RelativeName, "ptr*", &ppObject := 0, "HRESULT")
         return IDispatch(ppObject)
     }
 
@@ -201,7 +220,7 @@ class IADsContainer extends IDispatch {
         ClassName := ClassName is String ? BSTR.Alloc(ClassName).Value : ClassName
         RelativeName := RelativeName is String ? BSTR.Alloc(RelativeName).Value : RelativeName
 
-        result := ComCall(14, this, "ptr", ClassName, "ptr", RelativeName, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, ClassName, BSTR, RelativeName, "ptr*", &ppObject := 0, "HRESULT")
         return IDispatch(ppObject)
     }
 
@@ -222,7 +241,7 @@ class IADsContainer extends IDispatch {
         bstrClassName := bstrClassName is String ? BSTR.Alloc(bstrClassName).Value : bstrClassName
         bstrRelativeName := bstrRelativeName is String ? BSTR.Alloc(bstrRelativeName).Value : bstrRelativeName
 
-        result := ComCall(15, this, "ptr", bstrClassName, "ptr", bstrRelativeName, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrClassName, BSTR, bstrRelativeName, "HRESULT")
         return result
     }
 
@@ -241,7 +260,7 @@ class IADsContainer extends IDispatch {
         SourceName := SourceName is String ? BSTR.Alloc(SourceName).Value : SourceName
         NewName := NewName is String ? BSTR.Alloc(NewName).Value : NewName
 
-        result := ComCall(16, this, "ptr", SourceName, "ptr", NewName, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, SourceName, BSTR, NewName, "ptr*", &ppObject := 0, "HRESULT")
         return IDispatch(ppObject)
     }
 
@@ -352,7 +371,47 @@ class IADsContainer extends IDispatch {
         SourceName := SourceName is String ? BSTR.Alloc(SourceName).Value : SourceName
         NewName := NewName is String ? BSTR.Alloc(NewName).Value : NewName
 
-        result := ComCall(17, this, "ptr", SourceName, "ptr", NewName, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, SourceName, BSTR, NewName, "ptr*", &ppObject := 0, "HRESULT")
         return IDispatch(ppObject)
+    }
+
+    Query(iid) {
+        if (IADsContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Filter := CallbackCreate(GetMethod(implObj, "get_Filter"), flags, 2)
+        this.vtbl.put_Filter := CallbackCreate(GetMethod(implObj, "put_Filter"), flags, 2)
+        this.vtbl.get_Hints := CallbackCreate(GetMethod(implObj, "get_Hints"), flags, 2)
+        this.vtbl.put_Hints := CallbackCreate(GetMethod(implObj, "put_Hints"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.CopyHere := CallbackCreate(GetMethod(implObj, "CopyHere"), flags, 4)
+        this.vtbl.MoveHere := CallbackCreate(GetMethod(implObj, "MoveHere"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Filter)
+        CallbackFree(this.vtbl.put_Filter)
+        CallbackFree(this.vtbl.get_Hints)
+        CallbackFree(this.vtbl.put_Hints)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.CopyHere)
+        CallbackFree(this.vtbl.MoveHere)
     }
 }

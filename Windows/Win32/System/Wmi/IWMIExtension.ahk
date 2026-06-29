@@ -1,40 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISWbemObject.ahk
-#Include .\ISWbemServices.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISWbemObject.ahk" { ISWbemObject }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISWbemServices.ahk" { ISWbemServices }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class IWMIExtension extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMIExtension extends IDispatch {
     /**
      * The interface identifier for IWMIExtension
      * @type {Guid}
      */
-    static IID => Guid("{adc1f06e-5c7e-11d2-8b74-00104b2afb41}")
+    static IID := Guid("{adc1f06e-5c7e-11d2-8b74-00104b2afb41}")
 
     /**
      * The class identifier for WMIExtension
      * @type {Guid}
      */
-    static CLSID => Guid("{f0975afe-5c7f-11d2-8b74-00104b2afb41}")
+    static CLSID := Guid("{f0975afe-5c7f-11d2-8b74-00104b2afb41}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMIExtension interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_WMIObjectPath : IntPtr
+        GetWMIObject      : IntPtr
+        GetWMIServices    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_WMIObjectPath", "GetWMIObject", "GetWMIServices"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMIExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -48,8 +58,8 @@ class IWMIExtension extends IDispatch {
      * @returns {BSTR} 
      */
     get_WMIObjectPath() {
-        strWMIObjectPath := BSTR()
-        result := ComCall(7, this, "ptr", strWMIObjectPath, "HRESULT")
+        strWMIObjectPath := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, strWMIObjectPath, "HRESULT")
         return strWMIObjectPath
     }
 
@@ -69,5 +79,29 @@ class IWMIExtension extends IDispatch {
     GetWMIServices() {
         result := ComCall(9, this, "ptr*", &objWMIServices := 0, "HRESULT")
         return ISWbemServices(objWMIServices)
+    }
+
+    Query(iid) {
+        if (IWMIExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_WMIObjectPath := CallbackCreate(GetMethod(implObj, "get_WMIObjectPath"), flags, 2)
+        this.vtbl.GetWMIObject := CallbackCreate(GetMethod(implObj, "GetWMIObject"), flags, 2)
+        this.vtbl.GetWMIServices := CallbackCreate(GetMethod(implObj, "GetWMIServices"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_WMIObjectPath)
+        CallbackFree(this.vtbl.GetWMIObject)
+        CallbackFree(this.vtbl.GetWMIServices)
     }
 }

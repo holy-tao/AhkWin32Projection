@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_RECPOS constructor
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-recpos-constructor
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_RECPOS extends Win32Struct {
-    static sizeof => 16
+export default struct JET_RECPOS {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    centriesLT : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    centriesLT {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    centriesInRange : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    centriesInRange {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    centriesTotal : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    centriesTotal {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

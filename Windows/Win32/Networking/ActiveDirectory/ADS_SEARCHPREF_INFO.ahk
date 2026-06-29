@@ -1,27 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADS_SEARCHPREF_ENUM.ahk
-#Include .\ADSVALUE.ahk
-#Include .\ADSTYPE.ahk
-#Include .\ADS_OCTET_STRING.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\ADS_PROV_SPECIFIC.ahk
-#Include .\ADS_CASEIGNORE_LIST.ahk
-#Include .\ADS_OCTET_LIST.ahk
-#Include .\ADS_PATH.ahk
-#Include .\ADS_POSTALADDRESS.ahk
-#Include .\ADS_TIMESTAMP.ahk
-#Include .\ADS_BACKLINK.ahk
-#Include .\ADS_TYPEDNAME.ahk
-#Include .\ADS_HOLD.ahk
-#Include .\ADS_NETADDRESS.ahk
-#Include .\ADS_REPLICAPOINTER.ahk
-#Include .\ADS_FAXNUMBER.ahk
-#Include .\ADS_EMAIL.ahk
-#Include .\ADS_NT_SECURITY_DESCRIPTOR.ahk
-#Include .\ADS_DN_WITH_BINARY.ahk
-#Include .\ADS_DN_WITH_STRING.ahk
-#Include .\ADS_STATUSENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADSVALUE.ahk" { ADSVALUE }
+#Import ".\ADS_OCTET_STRING.ahk" { ADS_OCTET_STRING }
+#Import ".\ADS_SEARCHPREF_ENUM.ahk" { ADS_SEARCHPREF_ENUM }
+#Import ".\ADS_DN_WITH_BINARY.ahk" { ADS_DN_WITH_BINARY }
+#Import ".\ADS_DN_WITH_STRING.ahk" { ADS_DN_WITH_STRING }
+#Import ".\ADS_TYPEDNAME.ahk" { ADS_TYPEDNAME }
+#Import ".\ADS_FAXNUMBER.ahk" { ADS_FAXNUMBER }
+#Import ".\ADS_STATUSENUM.ahk" { ADS_STATUSENUM }
+#Import ".\ADS_OCTET_LIST.ahk" { ADS_OCTET_LIST }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\ADS_PROV_SPECIFIC.ahk" { ADS_PROV_SPECIFIC }
+#Import ".\ADS_CASEIGNORE_LIST.ahk" { ADS_CASEIGNORE_LIST }
+#Import ".\ADS_HOLD.ahk" { ADS_HOLD }
+#Import ".\ADS_PATH.ahk" { ADS_PATH }
+#Import ".\ADS_NT_SECURITY_DESCRIPTOR.ahk" { ADS_NT_SECURITY_DESCRIPTOR }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADS_NETADDRESS.ahk" { ADS_NETADDRESS }
+#Import ".\ADS_TIMESTAMP.ahk" { ADS_TIMESTAMP }
+#Import ".\ADS_POSTALADDRESS.ahk" { ADS_POSTALADDRESS }
+#Import ".\ADS_BACKLINK.ahk" { ADS_BACKLINK }
+#Import ".\ADS_EMAIL.ahk" { ADS_EMAIL }
+#Import ".\ADS_REPLICAPOINTER.ahk" { ADS_REPLICAPOINTER }
 
 /**
  * The ADS_SEARCHPREF_INFO structure specifies the query preferences.
@@ -139,38 +139,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_searchpref_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_SEARCHPREF_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ADS_SEARCHPREF_INFO {
+    #StructPack 8
 
     /**
      * Contains one of the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumeration values that specifies the search option to set.
-     * @type {ADS_SEARCHPREF_ENUM}
      */
-    dwSearchPref {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwSearchPref : ADS_SEARCHPREF_ENUM
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure that specifies the data type and value of the search preference.
-     * @type {ADSVALUE}
      */
-    vValue {
-        get {
-            if(!this.HasProp("__vValue"))
-                this.__vValue := ADSVALUE(8, this)
-            return this.__vValue
-        }
-    }
+    vValue : ADSVALUE
 
     /**
      * Receives one of the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_statusenum">ADS_STATUSENUM</a> enumeration values that indicates the status of the search preference. The <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">IDirectorySearch::SetSearchPreference</a> method will fill in this member when it is called.
-     * @type {ADS_STATUSENUM}
      */
-    dwStatus {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    dwStatus : ADS_STATUSENUM
+
 }

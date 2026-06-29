@@ -1,39 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITsSbLoadBalanceResult.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\ITsSbEnvironment.ahk
-#Include .\ITsSbClientConnectionPropertySet.ahk
-#Include .\ITsSbSession.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RD_FARM_TYPE.ahk" { RD_FARM_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITsSbClientConnectionPropertySet.ahk" { ITsSbClientConnectionPropertySet }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
 
 /**
  * Exposes methods and properties that store state information about an incoming connection request from a Remote Desktop Connection (RDC) client.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbclientconnection
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbClientConnection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbClientConnection extends IUnknown {
     /**
      * The interface identifier for ITsSbClientConnection
      * @type {Guid}
      */
-    static IID => Guid("{18857499-ad61-4b1b-b7df-cbcd41fb8338}")
+    static IID := Guid("{18857499-ad61-4b1b-b7df-cbcd41fb8338}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbClientConnection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_UserName                    : IntPtr
+        get_Domain                      : IntPtr
+        get_InitialProgram              : IntPtr
+        get_LoadBalanceResult           : IntPtr
+        get_FarmName                    : IntPtr
+        PutContext                      : IntPtr
+        GetContext                      : IntPtr
+        get_Environment                 : IntPtr
+        get_ConnectionError             : IntPtr
+        get_SamUserAccount              : IntPtr
+        get_ClientConnectionPropertySet : IntPtr
+        get_IsFirstAssignment           : IntPtr
+        get_RdFarmType                  : IntPtr
+        get_UserSidString               : IntPtr
+        GetDisconnectedSession          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UserName", "get_Domain", "get_InitialProgram", "get_LoadBalanceResult", "get_FarmName", "PutContext", "GetContext", "get_Environment", "get_ConnectionError", "get_SamUserAccount", "get_ClientConnectionPropertySet", "get_IsFirstAssignment", "get_RdFarmType", "get_UserSidString", "GetDisconnectedSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbClientConnection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -118,8 +142,8 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_username
      */
     get_UserName() {
-        pVal := BSTR()
-        result := ComCall(3, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -129,8 +153,8 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_domain
      */
     get_Domain() {
-        pVal := BSTR()
-        result := ComCall(4, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -140,8 +164,8 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_initialprogram
      */
     get_InitialProgram() {
-        pVal := BSTR()
-        result := ComCall(5, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -163,8 +187,8 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_farmname
      */
     get_FarmName() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -181,7 +205,7 @@ class ITsSbClientConnection extends IUnknown {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
         existingContext := VARIANT()
-        result := ComCall(8, this, "ptr", contextId, "ptr", _context, "ptr", existingContext, "HRESULT")
+        result := ComCall(8, this, BSTR, contextId, VARIANT, _context, VARIANT.Ptr, existingContext, "HRESULT")
         return existingContext
     }
 
@@ -195,7 +219,7 @@ class ITsSbClientConnection extends IUnknown {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
         _context := VARIANT()
-        result := ComCall(9, this, "ptr", contextId, "ptr", _context, "HRESULT")
+        result := ComCall(9, this, BSTR, contextId, VARIANT.Ptr, _context, "HRESULT")
         return _context
     }
 
@@ -227,8 +251,8 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_samuseraccount
      */
     get_SamUserAccount() {
-        pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -253,7 +277,7 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_isfirstassignment
      */
     get_IsFirstAssignment() {
-        result := ComCall(14, this, "int*", &ppVal := 0, "HRESULT")
+        result := ComCall(14, this, BOOL.Ptr, &ppVal := 0, "HRESULT")
         return ppVal
     }
 
@@ -285,5 +309,53 @@ class ITsSbClientConnection extends IUnknown {
     GetDisconnectedSession() {
         result := ComCall(17, this, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
+    }
+
+    Query(iid) {
+        if (ITsSbClientConnection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.get_Domain := CallbackCreate(GetMethod(implObj, "get_Domain"), flags, 2)
+        this.vtbl.get_InitialProgram := CallbackCreate(GetMethod(implObj, "get_InitialProgram"), flags, 2)
+        this.vtbl.get_LoadBalanceResult := CallbackCreate(GetMethod(implObj, "get_LoadBalanceResult"), flags, 2)
+        this.vtbl.get_FarmName := CallbackCreate(GetMethod(implObj, "get_FarmName"), flags, 2)
+        this.vtbl.PutContext := CallbackCreate(GetMethod(implObj, "PutContext"), flags, 4)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
+        this.vtbl.get_Environment := CallbackCreate(GetMethod(implObj, "get_Environment"), flags, 2)
+        this.vtbl.get_ConnectionError := CallbackCreate(GetMethod(implObj, "get_ConnectionError"), flags, 1)
+        this.vtbl.get_SamUserAccount := CallbackCreate(GetMethod(implObj, "get_SamUserAccount"), flags, 2)
+        this.vtbl.get_ClientConnectionPropertySet := CallbackCreate(GetMethod(implObj, "get_ClientConnectionPropertySet"), flags, 2)
+        this.vtbl.get_IsFirstAssignment := CallbackCreate(GetMethod(implObj, "get_IsFirstAssignment"), flags, 2)
+        this.vtbl.get_RdFarmType := CallbackCreate(GetMethod(implObj, "get_RdFarmType"), flags, 2)
+        this.vtbl.get_UserSidString := CallbackCreate(GetMethod(implObj, "get_UserSidString"), flags, 2)
+        this.vtbl.GetDisconnectedSession := CallbackCreate(GetMethod(implObj, "GetDisconnectedSession"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UserName)
+        CallbackFree(this.vtbl.get_Domain)
+        CallbackFree(this.vtbl.get_InitialProgram)
+        CallbackFree(this.vtbl.get_LoadBalanceResult)
+        CallbackFree(this.vtbl.get_FarmName)
+        CallbackFree(this.vtbl.PutContext)
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.get_Environment)
+        CallbackFree(this.vtbl.get_ConnectionError)
+        CallbackFree(this.vtbl.get_SamUserAccount)
+        CallbackFree(this.vtbl.get_ClientConnectionPropertySet)
+        CallbackFree(this.vtbl.get_IsFirstAssignment)
+        CallbackFree(this.vtbl.get_RdFarmType)
+        CallbackFree(this.vtbl.get_UserSidString)
+        CallbackFree(this.vtbl.GetDisconnectedSession)
     }
 }

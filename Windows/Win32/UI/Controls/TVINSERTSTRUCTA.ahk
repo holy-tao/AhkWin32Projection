@@ -1,11 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TVITEMEXA.ahk
-#Include .\TVITEM_MASK.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\TVITEMA.ahk
-#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TVITEMEXA.ahk" { TVITEMEXA }
+#Import ".\TVITEMA.ahk" { TVITEMA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
 
 /**
  * Contains information used to add a new item to a tree-view control. This structure is used with the TVM_INSERTITEM message. The structure is identical to the TV_INSERTSTRUCT structure, but it has been renamed to follow current naming conventions. (ANSI)
@@ -23,50 +25,25 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class TVINSERTSTRUCTA extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct TVINSERTSTRUCTA {
+    #StructPack 8
 
     /**
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the parent item. If this member is the TVI_ROOT value or <b>NULL</b>, the item is inserted at the root of the tree-view control.
-     * @type {HTREEITEM}
      */
-    hParent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    hParent : HTREEITEM
 
     /**
      * Type: <b>HTREEITEM</b>
-     * @type {HTREEITEM}
      */
-    hInsertAfter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hInsertAfter : HTREEITEM
 
-    /**
-     * @type {TVITEMEXA}
-     */
-    itemex {
-        get {
-            if(!this.HasProp("__itemex"))
-                this.__itemex := TVITEMEXA(16, this)
-            return this.__itemex
-        }
-    }
+    itemex : TVITEMEXA
 
-    /**
-     * @type {TVITEMA}
-     */
-    item {
-        get {
-            if(!this.HasProp("__item"))
-                this.__item := TVITEMA(16, this)
-            return this.__item
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'item', { type: TVITEMA, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,18 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Controls\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IInkRecognitionResult.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Controls\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
 
 /**
  * Contains information about an IInkRecognitionResult Interface object.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ns-inked-iec_recognitionresultinfo
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IEC_RECOGNITIONRESULTINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IEC_RECOGNITIONRESULTINFO {
+    #StructPack 8
 
     /**
      * The NMHDR structure that contains standard information about the WM_NOTIFY message. The NMHDR structure contains the handle and identifier of the control that is sending the message and the notification code, which in this case is <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-messages--win32-only-">IECN_RECOGNITIONRESULT</a>. The format of the NMHDR structure is:
@@ -25,22 +22,12 @@ class IEC_RECOGNITIONRESULTINFO extends Win32Struct {
      *       UINT code;
      *   } NMHDR;
      * ```
-     * @type {NMHDR}
      */
-    nmhdr {
-        get {
-            if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(0, this)
-            return this.__nmhdr
-        }
-    }
+    nmhdr : NMHDR
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionresult">IInkRecognitionResult</a> object that contains recognition results.
-     * @type {IInkRecognitionResult}
      */
-    RecognitionResult {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    RecognitionResult : IInkRecognitionResult
+
 }

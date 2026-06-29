@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1RenderTarget.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_WINDOW_STATE.ahk" { D2D1_WINDOW_STATE }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
 
 /**
  * Renders drawing instructions to a window.
@@ -35,26 +38,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1hwndrendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1HwndRenderTarget extends ID2D1RenderTarget {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1HwndRenderTarget extends ID2D1RenderTarget {
     /**
      * The interface identifier for ID2D1HwndRenderTarget
      * @type {Guid}
      */
-    static IID => Guid("{2cd90698-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd90698-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 57
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1HwndRenderTarget interfaces
+    */
+    struct Vtbl extends ID2D1RenderTarget.Vtbl {
+        CheckWindowState : IntPtr
+        Resize           : IntPtr
+        GetHwnd          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckWindowState", "Resize", "GetHwnd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1HwndRenderTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates whether the HWND associated with this render target is occluded.
@@ -67,7 +79,7 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-checkwindowstate
      */
     CheckWindowState() {
-        result := ComCall(57, this, "int")
+        result := ComCall(57, this, D2D1_WINDOW_STATE)
         return result
     }
 
@@ -80,7 +92,7 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1hwndrendertarget-resize
      */
     Resize(pixelSize) {
-        result := ComCall(58, this, "ptr", pixelSize, "HRESULT")
+        result := ComCall(58, this, D2D_SIZE_U.Ptr, pixelSize, "HRESULT")
         return result
     }
 
@@ -92,8 +104,31 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-gethwnd
      */
     GetHwnd() {
-        result := ComCall(59, this, "ptr")
-        resultHandle := HWND({Value: result}, True)
-        return resultHandle
+        result := ComCall(59, this, HWND)
+        return result
+    }
+
+    Query(iid) {
+        if (ID2D1HwndRenderTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckWindowState := CallbackCreate(GetMethod(implObj, "CheckWindowState"), flags, 1)
+        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 2)
+        this.vtbl.GetHwnd := CallbackCreate(GetMethod(implObj, "GetHwnd"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckWindowState)
+        CallbackFree(this.vtbl.Resize)
+        CallbackFree(this.vtbl.GetHwnd)
     }
 }

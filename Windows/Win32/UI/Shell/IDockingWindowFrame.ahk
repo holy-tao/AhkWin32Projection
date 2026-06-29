@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that support the addition of IDockingWindow objects to a frame. Implemented by the browser.
@@ -33,26 +36,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-idockingwindowframe
  * @namespace Windows.Win32.UI.Shell
  */
-class IDockingWindowFrame extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IDockingWindowFrame extends IOleWindow {
     /**
      * The interface identifier for IDockingWindowFrame
      * @type {Guid}
      */
-    static IID => Guid("{47d2657a-7b27-11d0-8ca9-00a0c92dbfe8}")
+    static IID := Guid("{47d2657a-7b27-11d0-8ca9-00a0c92dbfe8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDockingWindowFrame interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        AddToolbar    : IntPtr
+        RemoveToolbar : IntPtr
+        FindToolbar   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddToolbar", "RemoveToolbar", "FindToolbar"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDockingWindowFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds the specified IDockingWindow object to the frame.
@@ -107,7 +119,31 @@ class IDockingWindowFrame extends IOleWindow {
     FindToolbar(pwszItem, riid) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
 
-        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IDockingWindowFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddToolbar := CallbackCreate(GetMethod(implObj, "AddToolbar"), flags, 4)
+        this.vtbl.RemoveToolbar := CallbackCreate(GetMethod(implObj, "RemoveToolbar"), flags, 3)
+        this.vtbl.FindToolbar := CallbackCreate(GetMethod(implObj, "FindToolbar"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddToolbar)
+        CallbackFree(this.vtbl.RemoveToolbar)
+        CallbackFree(this.vtbl.FindToolbar)
     }
 }

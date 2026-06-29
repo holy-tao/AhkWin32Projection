@@ -1,53 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIMAGELIST.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\BUTTON_IMAGELIST_ALIGN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BUTTON_IMAGELIST_ALIGN.ahk" { BUTTON_IMAGELIST_ALIGN }
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains information about an image list that is used with a button control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_imagelist
  * @namespace Windows.Win32.UI.Controls
  */
-class BUTTON_IMAGELIST extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct BUTTON_IMAGELIST {
+    #StructPack 8
 
     /**
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list. The provider retains ownership of the image list and is ultimately responsible for its disposal. Under Windows Vista, you can pass BCCL_NOGLYPH in this parameter to indicate that no glyph should be displayed.
-     * @type {HIMAGELIST}
      */
-    himl {
-        get {
-            if(!this.HasProp("__himl"))
-                this.__himl := HIMAGELIST(0, this)
-            return this.__himl
-        }
-    }
+    himl : HIMAGELIST
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> that specifies the margin around the icon.
-     * @type {RECT}
      */
-    margin {
-        get {
-            if(!this.HasProp("__margin"))
-                this.__margin := RECT(8, this)
-            return this.__margin
-        }
-    }
+    margin : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {BUTTON_IMAGELIST_ALIGN}
      */
-    uAlign {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uAlign : BUTTON_IMAGELIST_ALIGN
+
 }

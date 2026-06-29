@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the dimensions and style of a control in a dialog box. One or more of these structures are combined with a DLGTEMPLATE structure to form a standard template for a dialog box.
@@ -62,87 +61,58 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgitemtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class DLGITEMTEMPLATE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DLGITEMTEMPLATE {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The style of the control. This member can be a combination of <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style values</a> (such as <b>WS_BORDER</b>) and one or more of the <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-styles">control style values</a> (such as <b>BS_PUSHBUTTON</b> and <b>ES_LEFT</b>).
-     * @type {Integer}
      */
-    style {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    style : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The extended styles for a window. This member is not used to create controls in dialog boxes, but applications that use dialog box templates can use it to create other types of windows. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @type {Integer}
      */
-    dwExtendedStyle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwExtendedStyle : UInt32
 
     /**
      * Type: <b>short</b>
      * 
      * The 
      * 					<i>x</i>-coordinate, in dialog box units, of the upper-left corner of the control. This coordinate is always relative to the upper-left corner of the dialog box's client area.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    x : Int16
 
     /**
      * Type: <b>short</b>
      * 
      * The 
      * 					<i>y</i>-coordinate, in dialog box units, of the upper-left corner of the control. This coordinate is always relative to the upper-left corner of the dialog box's client area.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    y : Int16
 
     /**
      * Type: <b>short</b>
      * 
      * The width, in dialog box units, of the control.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
+    cx : Int16
 
     /**
      * Type: <b>short</b>
      * 
      * The height, in dialog box units, of the control.
-     * @type {Integer}
      */
-    cy {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
+    cy : Int16
 
     /**
      * Type: <b>WORD</b>
      * 
      * The control identifier.
-     * @type {Integer}
      */
-    id {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    id : UInt16
+
 }

@@ -1,38 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509CertificateTemplates.ahk
-#Include .\ICertificationAuthorities.ahk
-#Include .\IObjectIds.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509CertificateTemplates.ahk" { IX509CertificateTemplates }
+#Import ".\ICertificationAuthorities.ahk" { ICertificationAuthorities }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\X509EnrollmentPolicyLoadOption.ahk" { X509EnrollmentPolicyLoadOption }
+#Import ".\X509EnrollmentPolicyExportFlags.ahk" { X509EnrollmentPolicyExportFlags }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509EnrollmentPolicyServer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509EnrollmentPolicyServer extends IDispatch {
     /**
      * The interface identifier for IX509EnrollmentPolicyServer
      * @type {Guid}
      */
-    static IID => Guid("{13b79026-2181-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{13b79026-2181-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509EnrollmentPolicyServer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize          : IntPtr
+        LoadPolicy          : IntPtr
+        GetTemplates        : IntPtr
+        GetCAsForTemplate   : IntPtr
+        GetCAs              : IntPtr
+        Validate            : IntPtr
+        GetCustomOids       : IntPtr
+        GetNextUpdateTime   : IntPtr
+        GetLastUpdateTime   : IntPtr
+        GetPolicyServerUrl  : IntPtr
+        GetPolicyServerId   : IntPtr
+        GetFriendlyName     : IntPtr
+        GetIsDefaultCEP     : IntPtr
+        GetUseClientId      : IntPtr
+        GetAllowUnTrustedCA : IntPtr
+        GetCachePath        : IntPtr
+        GetCacheDir         : IntPtr
+        GetAuthFlags        : IntPtr
+        SetCredential       : IntPtr
+        QueryChanges        : IntPtr
+        InitializeImport    : IntPtr
+        Export              : IntPtr
+        get_Cost            : IntPtr
+        put_Cost            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "LoadPolicy", "GetTemplates", "GetCAsForTemplate", "GetCAs", "Validate", "GetCustomOids", "GetNextUpdateTime", "GetLastUpdateTime", "GetPolicyServerUrl", "GetPolicyServerId", "GetFriendlyName", "GetIsDefaultCEP", "GetUseClientId", "GetAllowUnTrustedCA", "GetCachePath", "GetCacheDir", "GetAuthFlags", "SetCredential", "QueryChanges", "InitializeImport", "Export", "get_Cost", "put_Cost"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509EnrollmentPolicyServer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -109,7 +146,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
         bstrPolicyServerUrl := bstrPolicyServerUrl is String ? BSTR.Alloc(bstrPolicyServerUrl).Value : bstrPolicyServerUrl
         bstrPolicyServerId := bstrPolicyServerId is String ? BSTR.Alloc(bstrPolicyServerId).Value : bstrPolicyServerId
 
-        result := ComCall(7, this, "ptr", bstrPolicyServerUrl, "ptr", bstrPolicyServerId, "int", authFlags, "short", fIsUnTrusted, "int", _context, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrPolicyServerUrl, BSTR, bstrPolicyServerId, X509EnrollmentAuthFlags, authFlags, VARIANT_BOOL, fIsUnTrusted, X509CertificateEnrollmentContext, _context, "HRESULT")
         return result
     }
 
@@ -151,7 +188,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy
      */
     LoadPolicy(option) {
-        result := ComCall(8, this, "int", option, "HRESULT")
+        result := ComCall(8, this, X509EnrollmentPolicyLoadOption, option, "HRESULT")
         return result
     }
 
@@ -269,8 +306,8 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverurl
      */
     GetPolicyServerUrl() {
-        pValue := BSTR()
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -280,8 +317,8 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverid
      */
     GetPolicyServerId() {
-        pValue := BSTR()
-        result := ComCall(17, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -291,8 +328,8 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getfriendlyname
      */
     GetFriendlyName() {
-        pValue := BSTR()
-        result := ComCall(18, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -304,7 +341,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getisdefaultcep
      */
     GetIsDefaultCEP() {
-        result := ComCall(19, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -316,7 +353,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getuseclientid
      */
     GetUseClientId() {
-        result := ComCall(20, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -326,7 +363,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getallowuntrustedca
      */
     GetAllowUnTrustedCA() {
-        result := ComCall(21, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -336,8 +373,8 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachepath
      */
     GetCachePath() {
-        pValue := BSTR()
-        result := ComCall(22, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -347,8 +384,8 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachedir
      */
     GetCacheDir() {
-        pValue := BSTR()
-        result := ComCall(23, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -425,7 +462,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
         strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(25, this, "int", hWndParent, "int", flag, "ptr", strCredential, "ptr", strPassword, "HRESULT")
+        result := ComCall(25, this, "int", hWndParent, X509EnrollmentAuthFlags, flag, BSTR, strCredential, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -442,7 +479,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-querychanges
      */
     QueryChanges() {
-        result := ComCall(26, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -486,7 +523,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initializeimport
      */
     InitializeImport(_val) {
-        result := ComCall(27, this, "ptr", _val, "HRESULT")
+        result := ComCall(27, this, VARIANT, _val, "HRESULT")
         return result
     }
 
@@ -502,7 +539,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      */
     Export(exportFlags) {
         pVal := VARIANT()
-        result := ComCall(28, this, "int", exportFlags, "ptr", pVal, "HRESULT")
+        result := ComCall(28, this, X509EnrollmentPolicyExportFlags, exportFlags, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -529,5 +566,71 @@ class IX509EnrollmentPolicyServer extends IDispatch {
     put_Cost(value) {
         result := ComCall(30, this, "uint", value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509EnrollmentPolicyServer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.LoadPolicy := CallbackCreate(GetMethod(implObj, "LoadPolicy"), flags, 2)
+        this.vtbl.GetTemplates := CallbackCreate(GetMethod(implObj, "GetTemplates"), flags, 2)
+        this.vtbl.GetCAsForTemplate := CallbackCreate(GetMethod(implObj, "GetCAsForTemplate"), flags, 3)
+        this.vtbl.GetCAs := CallbackCreate(GetMethod(implObj, "GetCAs"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 1)
+        this.vtbl.GetCustomOids := CallbackCreate(GetMethod(implObj, "GetCustomOids"), flags, 2)
+        this.vtbl.GetNextUpdateTime := CallbackCreate(GetMethod(implObj, "GetNextUpdateTime"), flags, 2)
+        this.vtbl.GetLastUpdateTime := CallbackCreate(GetMethod(implObj, "GetLastUpdateTime"), flags, 2)
+        this.vtbl.GetPolicyServerUrl := CallbackCreate(GetMethod(implObj, "GetPolicyServerUrl"), flags, 2)
+        this.vtbl.GetPolicyServerId := CallbackCreate(GetMethod(implObj, "GetPolicyServerId"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.GetIsDefaultCEP := CallbackCreate(GetMethod(implObj, "GetIsDefaultCEP"), flags, 2)
+        this.vtbl.GetUseClientId := CallbackCreate(GetMethod(implObj, "GetUseClientId"), flags, 2)
+        this.vtbl.GetAllowUnTrustedCA := CallbackCreate(GetMethod(implObj, "GetAllowUnTrustedCA"), flags, 2)
+        this.vtbl.GetCachePath := CallbackCreate(GetMethod(implObj, "GetCachePath"), flags, 2)
+        this.vtbl.GetCacheDir := CallbackCreate(GetMethod(implObj, "GetCacheDir"), flags, 2)
+        this.vtbl.GetAuthFlags := CallbackCreate(GetMethod(implObj, "GetAuthFlags"), flags, 2)
+        this.vtbl.SetCredential := CallbackCreate(GetMethod(implObj, "SetCredential"), flags, 5)
+        this.vtbl.QueryChanges := CallbackCreate(GetMethod(implObj, "QueryChanges"), flags, 2)
+        this.vtbl.InitializeImport := CallbackCreate(GetMethod(implObj, "InitializeImport"), flags, 2)
+        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 3)
+        this.vtbl.get_Cost := CallbackCreate(GetMethod(implObj, "get_Cost"), flags, 2)
+        this.vtbl.put_Cost := CallbackCreate(GetMethod(implObj, "put_Cost"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.LoadPolicy)
+        CallbackFree(this.vtbl.GetTemplates)
+        CallbackFree(this.vtbl.GetCAsForTemplate)
+        CallbackFree(this.vtbl.GetCAs)
+        CallbackFree(this.vtbl.Validate)
+        CallbackFree(this.vtbl.GetCustomOids)
+        CallbackFree(this.vtbl.GetNextUpdateTime)
+        CallbackFree(this.vtbl.GetLastUpdateTime)
+        CallbackFree(this.vtbl.GetPolicyServerUrl)
+        CallbackFree(this.vtbl.GetPolicyServerId)
+        CallbackFree(this.vtbl.GetFriendlyName)
+        CallbackFree(this.vtbl.GetIsDefaultCEP)
+        CallbackFree(this.vtbl.GetUseClientId)
+        CallbackFree(this.vtbl.GetAllowUnTrustedCA)
+        CallbackFree(this.vtbl.GetCachePath)
+        CallbackFree(this.vtbl.GetCacheDir)
+        CallbackFree(this.vtbl.GetAuthFlags)
+        CallbackFree(this.vtbl.SetCredential)
+        CallbackFree(this.vtbl.QueryChanges)
+        CallbackFree(this.vtbl.InitializeImport)
+        CallbackFree(this.vtbl.Export)
+        CallbackFree(this.vtbl.get_Cost)
+        CallbackFree(this.vtbl.put_Cost)
     }
 }

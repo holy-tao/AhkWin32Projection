@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that are used by a disk cleanup handler to communicate with the disk cleanup manager.
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nn-emptyvc-iemptyvolumecachecallback
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  */
-class IEmptyVolumeCacheCallBack extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEmptyVolumeCacheCallBack extends IUnknown {
     /**
      * The interface identifier for IEmptyVolumeCacheCallBack
      * @type {Guid}
      */
-    static IID => Guid("{6e793361-73c6-11d0-8469-00aa00442901}")
+    static IID := Guid("{6e793361-73c6-11d0-8469-00aa00442901}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEmptyVolumeCacheCallBack interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ScanProgress  : IntPtr
+        PurgeProgress : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ScanProgress", "PurgeProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEmptyVolumeCacheCallBack.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by a disk cleanup handler to update the disk cleanup manager on the progress of a scan for deletable files.
@@ -140,5 +150,27 @@ class IEmptyVolumeCacheCallBack extends IUnknown {
 
         result := ComCall(4, this, "uint", dwlSpaceFreed, "uint", dwlSpaceToFree, "uint", dwFlags, "ptr", pcwszStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEmptyVolumeCacheCallBack.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ScanProgress := CallbackCreate(GetMethod(implObj, "ScanProgress"), flags, 4)
+        this.vtbl.PurgeProgress := CallbackCreate(GetMethod(implObj, "PurgeProgress"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ScanProgress)
+        CallbackFree(this.vtbl.PurgeProgress)
     }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_SESSLOGON extends Win32Struct {
-    static sizeof => 12
+export default struct AE_SESSLOGON {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_so_compname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_so_compname {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_so_username : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_so_username {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_so_privilege : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_so_privilege {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

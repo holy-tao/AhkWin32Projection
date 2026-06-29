@@ -1,28 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SdpQueryUuidUnion.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SdpQueryUuidUnion.ahk" { SdpQueryUuidUnion }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The SdpQueryUuid structure facilitates searching for UUIDs.
  * @see https://learn.microsoft.com/windows/win32/api/bthsdpdef/ns-bthsdpdef-sdpqueryuuid
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class SdpQueryUuid extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SdpQueryUuid {
+    #StructPack 4
 
     /**
      * Union containing the UUID on which to search.
-     * @type {SdpQueryUuidUnion}
      */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := SdpQueryUuidUnion(0, this)
-            return this.__u
-        }
-    }
+    u : SdpQueryUuidUnion
 
     /**
      * Type of UUID being searched. Must be one of the three valid values from the SDP_SPECIFICTYPE enumeration:
@@ -33,10 +24,7 @@ class SdpQueryUuid extends Win32Struct {
      * <li>SDP_ST_UUID32 - indicates u.uuid32 will be used in the search.</li>
      * <li>SDP_ST_UUID128 - indicates u.uuid128 will be used in the search.</li>
      * </ul>
-     * @type {Integer}
      */
-    uuidType {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    uuidType : UInt16
+
 }

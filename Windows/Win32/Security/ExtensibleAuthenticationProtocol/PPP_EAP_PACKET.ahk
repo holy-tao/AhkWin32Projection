@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PPP_EAP_PACKET structure specifies information about a packet being processed by the authentication protocol.
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_packet
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class PPP_EAP_PACKET extends Win32Struct {
-    static sizeof => 5
-
-    static packingSize => 1
+export default struct PPP_EAP_PACKET {
+    #StructPack 1
 
     /**
      * Specifies the type of packet that is sent or received by the authentication protocol. This parameter is one of the four following values. 
@@ -62,44 +59,23 @@ class PPP_EAP_PACKET extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Code {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Code : Int8
 
     /**
      * Specifies the identifier of the packet. The authentication protocol is responsible for maintaining packet counts for sessions, as that packet count pertains to EAP activity.
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Id : Int8
 
     /**
      * Specifies the length of the packet.
-     * @type {Array<Integer>}
      */
-    Length {
-        get {
-            if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__LengthProxyArray
-        }
-    }
+    Length : Int8[2]
 
     /**
      * Specifies the data transmitted by this packet. If the packet is a request or a response packet, the first byte of this member signifies its type. For more information about packet types and requirements for type reservation, refer to 
      * <a href="https://www.ietf.org/rfc/rfc2284.txt">RFC 2284</a>.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

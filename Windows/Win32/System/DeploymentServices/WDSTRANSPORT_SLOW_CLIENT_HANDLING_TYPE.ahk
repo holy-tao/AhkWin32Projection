@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of automatic actions a WDS transport server, running on Windows Server 2008 R2, should use to handle a client computer that is slowing the multicast transmission.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_slow_client_handling_type
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE extends Win32Enum {
+export default struct WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default value that indicates the automatic action used to handle slow client computers is not known.

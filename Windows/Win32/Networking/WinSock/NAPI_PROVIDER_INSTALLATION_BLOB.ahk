@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the information required to install a namespace provider for the NS_EMAIL namespace.
@@ -23,32 +22,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/nsemail/ns-nsemail-napi_provider_installation_blob
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NAPI_PROVIDER_INSTALLATION_BLOB extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct NAPI_PROVIDER_INSTALLATION_BLOB {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The version number of the NS_EMAIL namespace provider. This member is specific to the namespace provider.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The type of namespace provider for the NS_EMAIL namespace. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ne-nsemail-napi_provider_type">NAPI_PROVIDER_TYPE</a> enumeration type defined in the <i>Nsemail.h</i> header file.
-     * @type {Integer}
      */
-    dwProviderType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwProviderType : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -56,32 +45,21 @@ class NAPI_PROVIDER_INSTALLATION_BLOB extends Win32Struct {
      * A Boolean value that indicates if this NS_EMAIL namespace provider supports wildcard names. If this member is nonzero, then an NS_EMAIL provider claims to be potentially able to resolve or register any name that does not belong to any domains the provider is specifically registered for as primary or secondary. If this member is nonzero, then the NS_EMAIL provider may be called to resolve or register any address, if  no primary or secondary provider for the domain is available. 
      * 
      * There may be multiple providers that claim to be able to resolve any address (the <b>fSupportsWildCard</b> set to nonzero). If there are namespace providers with this value that also registered as a wildcard provider, the providers are called in the order that they appear in the Winsock namespace catalog.
-     * @type {Integer}
      */
-    fSupportsWildCard {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fSupportsWildCard : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_domain_description_blob">NAPI_DOMAIN_DESCRIPTION_BLOB</a> structures the starting at the <b>OffsetFirstDomain</b> member used to describe domains that are supported by this NS_EMAIL namespace provider.
-     * @type {Integer}
      */
-    cDomains {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cDomains : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The offset,  in bytes, to the first of multiple <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_domain_description_blob">NAPI_DOMAIN_DESCRIPTION_BLOB</a> structures used to describe domains that are supported by this NS_EMAIL namespace provider. This offset must be aligned on a minimum of a four-byte boundary.
-     * @type {Integer}
      */
-    OffsetFirstDomain {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OffsetFirstDomain : UInt32
+
 }

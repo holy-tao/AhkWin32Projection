@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITrigger.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Represents a trigger that starts a task when a user logs on.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-ilogontrigger
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ILogonTrigger extends ITrigger {
-
-    static sizeof => A_PtrSize
+export default struct ILogonTrigger extends ITrigger {
     /**
      * The interface identifier for ILogonTrigger
      * @type {Guid}
      */
-    static IID => Guid("{72dade38-fae4-4b3e-baf4-5d009af02b1c}")
+    static IID := Guid("{72dade38-fae4-4b3e-baf4-5d009af02b1c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILogonTrigger interfaces
+    */
+    struct Vtbl extends ITrigger.Vtbl {
+        get_Delay  : IntPtr
+        put_Delay  : IntPtr
+        get_UserId : IntPtr
+        put_UserId : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Delay", "put_Delay", "get_UserId", "put_UserId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILogonTrigger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -58,7 +70,7 @@ class ILogonTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ilogontrigger-get_delay
      */
     get_Delay(pDelay) {
-        result := ComCall(20, this, "ptr", pDelay, "HRESULT")
+        result := ComCall(20, this, BSTR.Ptr, pDelay, "HRESULT")
         return result
     }
 
@@ -73,7 +85,7 @@ class ILogonTrigger extends ITrigger {
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay
 
-        result := ComCall(21, this, "ptr", delay, "HRESULT")
+        result := ComCall(21, this, BSTR, delay, "HRESULT")
         return result
     }
 
@@ -88,7 +100,7 @@ class ILogonTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ilogontrigger-get_userid
      */
     get_UserId(pUser) {
-        result := ComCall(22, this, "ptr", pUser, "HRESULT")
+        result := ComCall(22, this, BSTR.Ptr, pUser, "HRESULT")
         return result
     }
 
@@ -105,7 +117,33 @@ class ILogonTrigger extends ITrigger {
     put_UserId(user) {
         user := user is String ? BSTR.Alloc(user).Value : user
 
-        result := ComCall(23, this, "ptr", user, "HRESULT")
+        result := ComCall(23, this, BSTR, user, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILogonTrigger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Delay := CallbackCreate(GetMethod(implObj, "get_Delay"), flags, 2)
+        this.vtbl.put_Delay := CallbackCreate(GetMethod(implObj, "put_Delay"), flags, 2)
+        this.vtbl.get_UserId := CallbackCreate(GetMethod(implObj, "get_UserId"), flags, 2)
+        this.vtbl.put_UserId := CallbackCreate(GetMethod(implObj, "put_UserId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Delay)
+        CallbackFree(this.vtbl.put_Delay)
+        CallbackFree(this.vtbl.get_UserId)
+        CallbackFree(this.vtbl.put_UserId)
     }
 }

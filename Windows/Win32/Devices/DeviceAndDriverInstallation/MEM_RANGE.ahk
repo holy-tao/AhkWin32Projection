@@ -1,68 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MD_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MD_FLAGS.ahk" { MD_FLAGS }
 
 /**
  * The MEM_RANGE structure specifies a resource requirements list that describes memory usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-mem_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class MEM_RANGE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MEM_RANGE {
+    #StructPack 8
 
     /**
      * Mask used to specify the memory address boundary on which the first allocated memory address must be aligned.
-     * @type {Integer}
      */
-    MR_Align {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MR_Align : Int64
 
     /**
      * The number of bytes of memory required by the device.
-     * @type {Integer}
      */
-    MR_nBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MR_nBytes : UInt32
 
     /**
      * The lowest-numbered of a range of contiguous memory addresses that can be allocated to the device.
-     * @type {Integer}
      */
-    MR_Min {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MR_Min : Int64
 
     /**
      * The highest-numbered of a range of contiguous memory addresses that can be allocated to the device.
-     * @type {Integer}
      */
-    MR_Max {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MR_Max : Int64
 
     /**
      * One bit flag from [MEM_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-mem_des) structure.
-     * @type {MD_FLAGS}
      */
-    MR_Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MR_Flags : MD_FLAGS
 
     /**
      * <i>For internal use only.</i>
-     * @type {Integer}
      */
-    MR_Reserved {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MR_Reserved : UInt32
+
 }

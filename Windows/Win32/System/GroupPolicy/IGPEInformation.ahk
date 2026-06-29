@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
+#Import ".\GROUP_POLICY_HINT_TYPE.ahk" { GROUP_POLICY_HINT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Registry\HKEY.ahk" { HKEY }
 
 /**
  * The IGPEInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the Group Policy Object Editor. For more information about MMC, see the Microsoft Management Console.
@@ -11,26 +17,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/nn-gpedit-igpeinformation
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPEInformation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGPEInformation extends IUnknown {
     /**
      * The interface identifier for IGPEInformation
      * @type {Guid}
      */
-    static IID => Guid("{8fc0b735-a0e1-11d1-a7d3-0000f87571e3}")
+    static IID := Guid("{8fc0b735-a0e1-11d1-a7d3-0000f87571e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPEInformation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName        : IntPtr
+        GetDisplayName : IntPtr
+        GetRegistryKey : IntPtr
+        GetDSPath      : IntPtr
+        GetFileSysPath : IntPtr
+        GetOptions     : IntPtr
+        GetType        : IntPtr
+        GetHint        : IntPtr
+        PolicyChanged  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetDisplayName", "GetRegistryKey", "GetDSPath", "GetFileSysPath", "GetOptions", "GetType", "GetHint", "PolicyChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPEInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetName method retrieves the unique name for the GPO. This value is usually a GUID.
@@ -82,7 +103,7 @@ class IGPEInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-getregistrykey
      */
     GetRegistryKey(dwSection, _hKey) {
-        result := ComCall(5, this, "uint", dwSection, "ptr", _hKey, "HRESULT")
+        result := ComCall(5, this, "uint", dwSection, HKEY.Ptr, _hKey, "HRESULT")
         return result
     }
 
@@ -208,7 +229,43 @@ class IGPEInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-policychanged
      */
     PolicyChanged(bMachine, bAdd, pGuidExtension, pGuidSnapin) {
-        result := ComCall(11, this, "int", bMachine, "int", bAdd, "ptr", pGuidExtension, "ptr", pGuidSnapin, "HRESULT")
+        result := ComCall(11, this, BOOL, bMachine, BOOL, bAdd, Guid.Ptr, pGuidExtension, Guid.Ptr, pGuidSnapin, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPEInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 3)
+        this.vtbl.GetRegistryKey := CallbackCreate(GetMethod(implObj, "GetRegistryKey"), flags, 3)
+        this.vtbl.GetDSPath := CallbackCreate(GetMethod(implObj, "GetDSPath"), flags, 4)
+        this.vtbl.GetFileSysPath := CallbackCreate(GetMethod(implObj, "GetFileSysPath"), flags, 4)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetHint := CallbackCreate(GetMethod(implObj, "GetHint"), flags, 2)
+        this.vtbl.PolicyChanged := CallbackCreate(GetMethod(implObj, "PolicyChanged"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.GetRegistryKey)
+        CallbackFree(this.vtbl.GetDSPath)
+        CallbackFree(this.vtbl.GetFileSysPath)
+        CallbackFree(this.vtbl.GetOptions)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetHint)
+        CallbackFree(this.vtbl.PolicyChanged)
     }
 }

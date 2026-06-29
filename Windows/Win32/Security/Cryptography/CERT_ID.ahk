@@ -1,57 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ID_OPTION.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
 
 /**
  * Is used as a flexible means of uniquely identifying a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_id
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_ID extends Win32Struct {
-    static sizeof => 40
+export default struct CERT_ID {
+    #StructPack 8
 
-    static packingSize => 8
+    dwIdChoice : CERT_ID_OPTION
 
-    /**
-     * @type {CERT_ID_OPTION}
-     */
-    dwIdChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IssuerSerialNumber : CERT_ISSUER_SERIAL_NUMBER
 
-    /**
-     * @type {CERT_ISSUER_SERIAL_NUMBER}
-     */
-    IssuerSerialNumber {
-        get {
-            if(!this.HasProp("__IssuerSerialNumber"))
-                this.__IssuerSerialNumber := CERT_ISSUER_SERIAL_NUMBER(8, this)
-            return this.__IssuerSerialNumber
-        }
-    }
-
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    KeyId {
-        get {
-            if(!this.HasProp("__KeyId"))
-                this.__KeyId := CRYPT_INTEGER_BLOB(8, this)
-            return this.__KeyId
-        }
-    }
-
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    HashId {
-        get {
-            if(!this.HasProp("__HashId"))
-                this.__HashId := CRYPT_INTEGER_BLOB(8, this)
-            return this.__HashId
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'KeyId', { type: CRYPT_INTEGER_BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'HashId', { type: CRYPT_INTEGER_BLOB, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

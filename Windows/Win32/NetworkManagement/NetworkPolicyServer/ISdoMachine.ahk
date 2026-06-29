@@ -1,41 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IASDATASTORE.ahk" { IASDATASTORE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IASDOMAINTYPE.ahk" { IASDOMAINTYPE }
+#Import ".\IASOSTYPE.ahk" { IASOSTYPE }
 
 /**
  * Use the ISdoMachine interface to attach to an SDO computer, obtain information about the SDO computer, and obtain interfaces to other SDO objects.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdomachine
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class ISdoMachine extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISdoMachine extends IDispatch {
     /**
      * The interface identifier for ISdoMachine
      * @type {Guid}
      */
-    static IID => Guid("{479f6e75-49a2-11d2-8eca-00c04fc2f519}")
+    static IID := Guid("{479f6e75-49a2-11d2-8eca-00c04fc2f519}")
 
     /**
      * The class identifier for SdoMachine
      * @type {Guid}
      */
-    static CLSID => Guid("{e9218ae7-9e91-11d1-bf60-0080c7846bc0}")
+    static CLSID := Guid("{e9218ae7-9e91-11d1-bf60-0080c7846bc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISdoMachine interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Attach               : IntPtr
+        GetDictionarySDO     : IntPtr
+        GetServiceSDO        : IntPtr
+        GetUserSDO           : IntPtr
+        GetOSType            : IntPtr
+        GetDomainType        : IntPtr
+        IsDirectoryAvailable : IntPtr
+        GetAttachedComputer  : IntPtr
+        GetSDOSchema         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Attach", "GetDictionarySDO", "GetServiceSDO", "GetUserSDO", "GetOSType", "GetDomainType", "IsDirectoryAvailable", "GetAttachedComputer", "GetSDOSchema"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISdoMachine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Attach method attaches to an SDO computer. Attaching to an SDO computer is the first step is using the SDO API to administer that computer.
@@ -54,7 +74,7 @@ class ISdoMachine extends IDispatch {
     Attach(bstrComputerName) {
         bstrComputerName := bstrComputerName is String ? BSTR.Alloc(bstrComputerName).Value : bstrComputerName
 
-        result := ComCall(7, this, "ptr", bstrComputerName, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrComputerName, "HRESULT")
         return result
     }
 
@@ -93,7 +113,7 @@ class ISdoMachine extends IDispatch {
     GetServiceSDO(eDataStore, bstrServiceName) {
         bstrServiceName := bstrServiceName is String ? BSTR.Alloc(bstrServiceName).Value : bstrServiceName
 
-        result := ComCall(9, this, "int", eDataStore, "ptr", bstrServiceName, "ptr*", &ppServiceSDO := 0, "HRESULT")
+        result := ComCall(9, this, IASDATASTORE, eDataStore, BSTR, bstrServiceName, "ptr*", &ppServiceSDO := 0, "HRESULT")
         return IUnknown(ppServiceSDO)
     }
 
@@ -126,7 +146,7 @@ class ISdoMachine extends IDispatch {
     GetUserSDO(eDataStore, bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(10, this, "int", eDataStore, "ptr", bstrUserName, "ptr*", &ppUserSDO := 0, "HRESULT")
+        result := ComCall(10, this, IASDATASTORE, eDataStore, BSTR, bstrUserName, "ptr*", &ppUserSDO := 0, "HRESULT")
         return IUnknown(ppUserSDO)
     }
 
@@ -171,7 +191,7 @@ class ISdoMachine extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-isdirectoryavailable
      */
     IsDirectoryAvailable() {
-        result := ComCall(13, this, "short*", &boolDirectoryAvailable := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &boolDirectoryAvailable := 0, "HRESULT")
         return boolDirectoryAvailable
     }
 
@@ -187,8 +207,8 @@ class ISdoMachine extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getattachedcomputer
      */
     GetAttachedComputer() {
-        bstrComputerName := BSTR()
-        result := ComCall(14, this, "ptr", bstrComputerName, "HRESULT")
+        bstrComputerName := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, bstrComputerName, "HRESULT")
         return bstrComputerName
     }
 
@@ -199,5 +219,41 @@ class ISdoMachine extends IDispatch {
     GetSDOSchema() {
         result := ComCall(15, this, "ptr*", &ppSDOSchema := 0, "HRESULT")
         return IUnknown(ppSDOSchema)
+    }
+
+    Query(iid) {
+        if (ISdoMachine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.GetDictionarySDO := CallbackCreate(GetMethod(implObj, "GetDictionarySDO"), flags, 2)
+        this.vtbl.GetServiceSDO := CallbackCreate(GetMethod(implObj, "GetServiceSDO"), flags, 4)
+        this.vtbl.GetUserSDO := CallbackCreate(GetMethod(implObj, "GetUserSDO"), flags, 4)
+        this.vtbl.GetOSType := CallbackCreate(GetMethod(implObj, "GetOSType"), flags, 2)
+        this.vtbl.GetDomainType := CallbackCreate(GetMethod(implObj, "GetDomainType"), flags, 2)
+        this.vtbl.IsDirectoryAvailable := CallbackCreate(GetMethod(implObj, "IsDirectoryAvailable"), flags, 2)
+        this.vtbl.GetAttachedComputer := CallbackCreate(GetMethod(implObj, "GetAttachedComputer"), flags, 2)
+        this.vtbl.GetSDOSchema := CallbackCreate(GetMethod(implObj, "GetSDOSchema"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Attach)
+        CallbackFree(this.vtbl.GetDictionarySDO)
+        CallbackFree(this.vtbl.GetServiceSDO)
+        CallbackFree(this.vtbl.GetUserSDO)
+        CallbackFree(this.vtbl.GetOSType)
+        CallbackFree(this.vtbl.GetDomainType)
+        CallbackFree(this.vtbl.IsDirectoryAvailable)
+        CallbackFree(this.vtbl.GetAttachedComputer)
+        CallbackFree(this.vtbl.GetSDOSchema)
     }
 }

@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMSMQManagement.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IMSMQCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSMQCollection.ahk" { IMSMQCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSMQManagement.ahk" { IMSMQManagement }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQOutgoingQueueManagement extends IMSMQManagement {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQOutgoingQueueManagement extends IMSMQManagement {
     /**
      * The interface identifier for IMSMQOutgoingQueueManagement
      * @type {Guid}
      */
-    static IID => Guid("{64c478fb-f9b0-4695-8a7f-439ac94326d3}")
+    static IID := Guid("{64c478fb-f9b0-4695-8a7f-439ac94326d3}")
 
     /**
      * The class identifier for MSMQOutgoingQueueManagement
      * @type {Guid}
      */
-    static CLSID => Guid("{0188401c-247a-4fed-99c6-bf14119d7055}")
+    static CLSID := Guid("{0188401c-247a-4fed-99c6-bf14119d7055}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQOutgoingQueueManagement interfaces
+    */
+    struct Vtbl extends IMSMQManagement.Vtbl {
+        get_State      : IntPtr
+        get_NextHops   : IntPtr
+        EodGetSendInfo : IntPtr
+        Resume         : IntPtr
+        Pause          : IntPtr
+        EodResend      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_State", "get_NextHops", "EodGetSendInfo", "Resume", "Pause", "EodResend"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQOutgoingQueueManagement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -64,7 +77,7 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement {
      */
     get_NextHops() {
         pvNextHops := VARIANT()
-        result := ComCall(17, this, "ptr", pvNextHops, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, pvNextHops, "HRESULT")
         return pvNextHops
     }
 
@@ -106,5 +119,35 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement {
     EodResend() {
         result := ComCall(21, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSMQOutgoingQueueManagement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_NextHops := CallbackCreate(GetMethod(implObj, "get_NextHops"), flags, 2)
+        this.vtbl.EodGetSendInfo := CallbackCreate(GetMethod(implObj, "EodGetSendInfo"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.EodResend := CallbackCreate(GetMethod(implObj, "EodResend"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_NextHops)
+        CallbackFree(this.vtbl.EodGetSendInfo)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.EodResend)
     }
 }

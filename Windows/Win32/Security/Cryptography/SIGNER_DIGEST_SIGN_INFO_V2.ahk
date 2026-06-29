@@ -1,55 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * contains information about digest signing.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-digest-sign-info-v2
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SIGNER_DIGEST_SIGN_INFO_V2 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SIGNER_DIGEST_SIGN_INFO_V2 {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Pointer to the [**PFN_AUTHENTICODE_DIGEST_SIGN**](pfn-authenticode-digest-sign.md) callback function. Required if the caller of SignerSignEx3 specifies SPC_DIGEST_SIGN_FLAG in the dwFlags parameter.
-     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN>}
      */
-    pfnAuthenticodeDigestSign {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnAuthenticodeDigestSign : IntPtr
 
     /**
      * Pointer to the [**PFN_AUTHENTICODE_DIGEST_SIGN_EX**](pfn-authenticode-digest-sign-ex.md) callback function. Required if the caller of SignerSignEx3 specifies SPC_DIGEST_SIGN_EX_FLAG in the dwFlags parameter.
-     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_EX>}
      */
-    pfnAuthenticodeDigestSignEx {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pfnAuthenticodeDigestSignEx : IntPtr
 
     /**
      * Optional pointer to [**CRYPT_DATA_BLOB**](/windows/win32/api/wincrypt/ns-wincrypt-crypt_integer_blob) specifying metadata.
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
      */
-    pMetadataBlob {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pMetadataBlob : CRYPT_INTEGER_BLOB.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

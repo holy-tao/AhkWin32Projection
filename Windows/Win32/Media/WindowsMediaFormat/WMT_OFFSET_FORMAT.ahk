@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMT_OFFSET_FORMAT enumeration type defines the types of offsets used in this SDK.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_offset_format
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMT_OFFSET_FORMAT extends Win32Enum {
+export default struct WMT_OFFSET_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An offset into a file is specified by presentation time in 100-nanosecond units.

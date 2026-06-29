@@ -1,120 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\VIDMEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VIDMEM.ahk" { VIDMEM }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class VIDMEMINFO extends Win32Struct {
-    static sizeof => 88
+export default struct VIDMEMINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    fpPrimary : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpPrimary {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDisplayWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDisplayWidth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDisplayHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDisplayHeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lDisplayPitch : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lDisplayPitch {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ddpfDisplay : DDPIXELFORMAT
 
-    /**
-     * @type {DDPIXELFORMAT}
-     */
-    ddpfDisplay {
-        get {
-            if(!this.HasProp("__ddpfDisplay"))
-                this.__ddpfDisplay := DDPIXELFORMAT(24, this)
-            return this.__ddpfDisplay
-        }
-    }
+    dwOffscreenAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOffscreenAlign {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwOverlayAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOverlayAlign {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwTextureAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTextureAlign {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwZBufferAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwZBufferAlign {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwAlphaAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaAlign {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwNumHeaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumHeaps {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    pvmList : VIDMEM.Ptr
 
-    /**
-     * @type {Pointer<VIDMEM>}
-     */
-    pvmList {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_CURRENT_OPTIONAL_CAPABILITY extends Win32Struct {
-    static sizeof => 8
+export default struct DOT11_CURRENT_OPTIONAL_CAPABILITY {
+    #StructPack 4
 
-    static packingSize => 4
+    uReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bDot11CFPollable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDot11CFPollable {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bDot11PCF : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDot11PCF {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bDot11PCFMPDUTransferToPC : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDot11PCFMPDUTransferToPC {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bStrictlyOrderedServiceClass : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bStrictlyOrderedServiceClass {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
 }

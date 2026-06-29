@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_PROPERTY_SNI extends Win32Struct {
-    static sizeof => 516
+export default struct HTTP_REQUEST_PROPERTY_SNI {
+    #StructPack 4
 
-    static packingSize => 4
+    Hostname : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    Hostname {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 512, "uint")
-        set => NumPut("uint", value, this, 512)
-    }
 }

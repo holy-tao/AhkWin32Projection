@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that indicate how events are delivered in a subscription.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_delivery_mode
  * @namespace Windows.Win32.System.EventCollector
  */
-class EC_SUBSCRIPTION_DELIVERY_MODE extends Win32Enum {
+export default struct EC_SUBSCRIPTION_DELIVERY_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Events are delivered through the subscription using the pull model.

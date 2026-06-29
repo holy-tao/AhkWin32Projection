@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct {
-    static sizeof => 4
+export default struct NDIS_TCP_IP_CHECKSUM_PACKET_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Transmit extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Transmit {
         /**
          * This bitfield backs the following members:
          * - NdisPacketChecksumV4
@@ -20,12 +15,9 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct {
          * - NdisPacketTcpChecksum
          * - NdisPacketUdpChecksum
          * - NdisPacketIpChecksum
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -68,10 +60,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct {
         }
     }
 
-    class _Receive extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Receive {
         /**
          * This bitfield backs the following members:
          * - NdisPacketTcpChecksumFailed
@@ -81,12 +70,9 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct {
          * - NdisPacketUdpChecksumSucceeded
          * - NdisPacketIpChecksumSucceeded
          * - NdisPacketLoopback
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -145,33 +131,11 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Transmit}
-     */
-    Transmit {
-        get {
-            if(!this.HasProp("__Transmit"))
-                this.__Transmit := NDIS_TCP_IP_CHECKSUM_PACKET_INFO._Transmit(0, this)
-            return this.__Transmit
-        }
-    }
+    Transmit : NDIS_TCP_IP_CHECKSUM_PACKET_INFO._Transmit
 
-    /**
-     * @type {_Receive}
-     */
-    Receive {
-        get {
-            if(!this.HasProp("__Receive"))
-                this.__Receive := NDIS_TCP_IP_CHECKSUM_PACKET_INFO._Receive(0, this)
-            return this.__Receive
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Receive', { type: NDIS_TCP_IP_CHECKSUM_PACKET_INFO._Receive, offset: 0 })
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

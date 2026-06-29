@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SdpQueryUuid.ahk
-#Include .\SdpQueryUuidUnion.ahk
-#Include .\SdpAttributeRange.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SdpAttributeRange.ahk" { SdpAttributeRange }
+#Import ".\SdpQueryUuidUnion.ahk" { SdpQueryUuidUnion }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SdpQueryUuid.ahk" { SdpQueryUuid }
 
 /**
  * The BTH_QUERY_SERVICE structure is used to query a Bluetooth service.
@@ -14,10 +14,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_query_service
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_QUERY_SERVICE extends Win32Struct {
-    static sizeof => 304
-
-    static packingSize => 8
+export default struct BTH_QUERY_SERVICE {
+    #StructPack 4
 
     /**
      * Type of service to perform. Choose from the following:
@@ -27,53 +25,28 @@ class BTH_QUERY_SERVICE extends Win32Struct {
      * <li>SDP_SERVICE_ATTRIBUTE_REQUEST</li>
      * <li>SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST</li>
      * </ul>
-     * @type {Integer}
      */
-    type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    type : UInt32
 
     /**
      * Service handle on which to query the attributes specified in the <b>pRange</b> member. Used only for attribute searches.
-     * @type {Integer}
      */
-    serviceHandle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    serviceHandle : UInt32
 
     /**
      * UUIDs that a record must contain to match the search. Used for service and service attribute searches. When querying less than MAX_UUIDS_IN_QUERY UUIDs, set the <b>SdpQueryUuid</b> element immediately following the last valid UUID to all zeros. Used only for attribute and service attribute searches.
-     * @type {SdpQueryUuid}
      */
-    uuids {
-        get {
-            if(!this.HasProp("__uuidsProxyArray"))
-                this.__uuidsProxyArray := Win32FixedArray(this.ptr + 8, 12, SdpQueryUuid, "")
-            return this.__uuidsProxyArray
-        }
-    }
+    uuids : SdpQueryUuid[12]
 
     /**
      * Number of elements in <b>pRange</b>. Used only for attribute and service attribute searches.
-     * @type {Integer}
      */
-    numRange {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    numRange : UInt32
 
     /**
      * Attribute values to retrieve for any matching records, in the form of an array of 
      * <b>SdpAttributeRange</b> structures. Attributes are defined in the Bluetooth specification. See Remarks.
-     * @type {SdpAttributeRange}
      */
-    pRange {
-        get {
-            if(!this.HasProp("__pRangeProxyArray"))
-                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 300, 1, SdpAttributeRange, "")
-            return this.__pRangeProxyArray
-        }
-    }
+    pRange : SdpAttributeRange[1]
+
 }

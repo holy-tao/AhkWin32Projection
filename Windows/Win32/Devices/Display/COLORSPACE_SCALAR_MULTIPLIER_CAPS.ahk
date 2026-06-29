@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_SCALAR_MULTIPLIER_CAPS extends Win32Struct {
-    static sizeof => 12
+export default struct COLORSPACE_SCALAR_MULTIPLIER_CAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    Valid : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Valid {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    NumericRangeMin : Float32
 
-    /**
-     * @type {Float}
-     */
-    NumericRangeMin {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    NumericRangeMax : Float32
 
-    /**
-     * @type {Float}
-     */
-    NumericRangeMax {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
 }

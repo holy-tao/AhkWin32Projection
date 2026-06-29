@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidPlayback.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSVidPlayback.ahk" { IMSVidPlayback }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidFilePlayback interface enables the client to specify a local file for playback. It is implemented by the MSVidFilePlaybackDevice object.
@@ -13,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidfileplayback
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidFilePlayback extends IMSVidPlayback {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidFilePlayback extends IMSVidPlayback {
     /**
      * The interface identifier for IMSVidFilePlayback
      * @type {Guid}
      */
-    static IID => Guid("{37b03539-a4c8-11d2-b634-00c04f79498e}")
+    static IID := Guid("{37b03539-a4c8-11d2-b634-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidFilePlayback interfaces
+    */
+    struct Vtbl extends IMSVidPlayback.Vtbl {
+        get_FileName : IntPtr
+        put_FileName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FileName", "put_FileName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidFilePlayback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -50,8 +59,8 @@ class IMSVidFilePlayback extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback-get_filename
      */
     get_FileName() {
-        FileName := BSTR()
-        result := ComCall(32, this, "ptr", FileName, "HRESULT")
+        FileName := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, FileName, "HRESULT")
         return FileName
     }
 
@@ -82,7 +91,29 @@ class IMSVidFilePlayback extends IMSVidPlayback {
     put_FileName(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
-        result := ComCall(33, this, "ptr", FileName, "HRESULT")
+        result := ComCall(33, this, BSTR, FileName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidFilePlayback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FileName := CallbackCreate(GetMethod(implObj, "get_FileName"), flags, 2)
+        this.vtbl.put_FileName := CallbackCreate(GetMethod(implObj, "put_FileName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FileName)
+        CallbackFree(this.vtbl.put_FileName)
     }
 }

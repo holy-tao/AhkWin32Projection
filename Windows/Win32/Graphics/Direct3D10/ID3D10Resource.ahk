@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10DeviceChild.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D10DeviceChild.ahk" { ID3D10DeviceChild }
+#Import ".\D3D10_RESOURCE_DIMENSION.ahk" { D3D10_RESOURCE_DIMENSION }
 
 /**
  * A resource interface provides common actions on all resources. (ID3D10Resource)
@@ -10,26 +11,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10resource
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10Resource extends ID3D10DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10Resource extends ID3D10DeviceChild {
     /**
      * The interface identifier for ID3D10Resource
      * @type {Guid}
      */
-    static IID => Guid("{9b7e4c01-342c-4106-a19f-4f2704f689f0}")
+    static IID := Guid("{9b7e4c01-342c-4106-a19f-4f2704f689f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10Resource interfaces
+    */
+    struct Vtbl extends ID3D10DeviceChild.Vtbl {
+        GetType             : IntPtr
+        SetEvictionPriority : IntPtr
+        GetEvictionPriority : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "SetEvictionPriority", "GetEvictionPriority"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10Resource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get the type of the resource. (ID3D10Resource.GetType)
@@ -81,7 +91,31 @@ class ID3D10Resource extends ID3D10DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10resource-getevictionpriority
      */
     GetEvictionPriority() {
-        result := ComCall(9, this, "uint")
+        result := ComCall(9, this, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10Resource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetEvictionPriority := CallbackCreate(GetMethod(implObj, "SetEvictionPriority"), flags, 2)
+        this.vtbl.GetEvictionPriority := CallbackCreate(GetMethod(implObj, "GetEvictionPriority"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.SetEvictionPriority)
+        CallbackFree(this.vtbl.GetEvictionPriority)
     }
 }

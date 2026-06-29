@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHUNK_BREAKTYPE.ahk
-#Include .\CHUNKSTATE.ahk
-#Include .\FULLPROPSPEC.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import ".\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
+#Import ".\CHUNKSTATE.ahk" { CHUNKSTATE }
+#Import ".\CHUNK_BREAKTYPE.ahk" { CHUNK_BREAKTYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes the characteristics of a chunk.
@@ -93,58 +94,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-stat_chunk
  * @namespace Windows.Win32.Storage.IndexServer
  */
-class STAT_CHUNK extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct STAT_CHUNK {
+    #StructPack 8
 
     /**
      * The chunk identifier. Chunk identifiers must be unique for the current instance of the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface. Chunk identifiers must be in ascending order. The order in which chunks are numbered should correspond to the order in which they appear in the source document. Some search engines can take advantage of the proximity of chunks of various properties. If so, the order in which chunks with different properties are emitted will be important to the search engine.
-     * @type {Integer}
      */
-    idChunk {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    idChunk : UInt32
 
     /**
      * The type of break that separates the previous chunk from the current chunk. Values are from the <a href="https://docs.microsoft.com/windows/desktop/api/filter/ne-filter-chunk_breaktype">CHUNK_BREAKTYPE</a> enumeration.
-     * @type {CHUNK_BREAKTYPE}
      */
-    breakType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    breakType : CHUNK_BREAKTYPE
 
     /**
      * Indicates whether this chunk contains a text-type or a value-type property. Flag values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/filter/ne-filter-chunkstate">CHUNKSTATE</a> enumeration. If the CHUNK_TEXT flag is set, <a href="https://docs.microsoft.com/windows/desktop/api/filter/nf-filter-ifilter-gettext">IFilter::GetText</a> should be used to retrieve the contents of the chunk as a series of words. If the CHUNK_VALUE flag is set, <a href="https://docs.microsoft.com/windows/desktop/api/filter/nf-filter-ifilter-getvalue">IFilter::GetValue</a> should be used to retrieve the value and treat it as a single property value. If the filter dictates that the same content be treated as both text and as a value, the chunk should be emitted twice in two different chunks, each with one flag set.
-     * @type {CHUNKSTATE}
      */
-    flags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    flags : CHUNKSTATE
 
     /**
      * The language and sublanguage associated with a chunk of text. Chunk locale is used by document indexers to perform proper word breaking of text. If the chunk is neither text-type nor a value-type with data type VT_LPWSTR, VT_LPSTR or VT_BSTR, this field is ignored.
-     * @type {Integer}
      */
-    locale {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    locale : UInt32
 
     /**
      * The property to be applied to the chunk. See <a href="https://docs.microsoft.com/windows/desktop/api/filter/ns-filter-fullpropspec">FULLPROPSPEC</a>. If a filter requires that the same text have more than one property, it needs to emit the text once for each property in separate chunks.
-     * @type {FULLPROPSPEC}
      */
-    attribute {
-        get {
-            if(!this.HasProp("__attribute"))
-                this.__attribute := FULLPROPSPEC(16, this)
-            return this.__attribute
-        }
-    }
+    attribute : FULLPROPSPEC
 
     /**
      * The ID of the source of a chunk. The value of the <b>idChunkSource</b> member depends on the nature of the chunk: 
@@ -154,28 +130,17 @@ class STAT_CHUNK extends Win32Struct {
      * <li>If the chunk is an internal value-type property derived from textual content, the value of the <b>idChunkSource</b> member is the chunk ID for the text-type chunk from which it is derived.</li>
      * <li>If the filter attributes specify to return only internal value-type properties, there is no content chunk from which to derive the current internal value-type property. In this case, the value of the <b>idChunkSource</b> member must be set to zero, which is an invalid chunk.</li>
      * </ul>
-     * @type {Integer}
      */
-    idChunkSource {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    idChunkSource : UInt32
 
     /**
      * The offset from which the source text for a derived chunk starts in the source chunk.
-     * @type {Integer}
      */
-    cwcStartSource {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    cwcStartSource : UInt32
 
     /**
      * The length in characters of the source text from which the current chunk was derived. A zero value signifies character-by-character correspondence between the source text and the derived text. A nonzero value means that no such direct correspondence exists.
-     * @type {Integer}
      */
-    cwcLenSource {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cwcLenSource : UInt32
+
 }

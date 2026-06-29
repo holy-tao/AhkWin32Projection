@@ -1,11 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XINPUT_DEVTYPE.ahk
-#Include .\XINPUT_DEVSUBTYPE.ahk
-#Include .\XINPUT_CAPABILITIES_FLAGS.ahk
-#Include .\XINPUT_GAMEPAD.ahk
-#Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
-#Include .\XINPUT_VIBRATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XINPUT_DEVTYPE.ahk" { XINPUT_DEVTYPE }
+#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
+#Import ".\XINPUT_DEVSUBTYPE.ahk" { XINPUT_DEVSUBTYPE }
+#Import ".\XINPUT_CAPABILITIES_FLAGS.ahk" { XINPUT_CAPABILITIES_FLAGS }
+#Import ".\XINPUT_GAMEPAD.ahk" { XINPUT_GAMEPAD }
+#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
 
 /**
  * Describes the capabilities of a connected controller. The XInputGetCapabilities function returns XINPUT_CAPABILITIES.
@@ -27,30 +26,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_capabilities
  * @namespace Windows.Win32.UI.Input.XboxController
  */
-class XINPUT_CAPABILITIES extends Win32Struct {
-    static sizeof => 20
+export default struct XINPUT_CAPABILITIES {
+    #StructPack 8
 
-    static packingSize => 2
-
-    /**
-     * @type {XINPUT_DEVTYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Type : XINPUT_DEVTYPE
 
     /**
      * Subtype of the game controller. See <a href="https://docs.microsoft.com/windows/desktop/xinput/xinput-and-controller-subtypes">XINPUT and Controller Subtypes</a> for a list of allowed subtypes.
      * 
      * <div class="alert"><b>Note</b>  For restrictions on the use of this subtype value, see Remarks. More subtypes may be added in the future.</div>
      * <div> </div>
-     * @type {XINPUT_DEVSUBTYPE}
      */
-    SubType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    SubType : XINPUT_DEVSUBTYPE
 
     /**
      * Features of the controller.
@@ -83,34 +70,17 @@ class XINPUT_CAPABILITIES extends Win32Struct {
      * <td>Device lacks menu navigation buttons (START, BACK, DPAD).</td>
      * </tr>
      * </table>
-     * @type {XINPUT_CAPABILITIES_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : XINPUT_CAPABILITIES_FLAGS
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_gamepad">XINPUT_GAMEPAD</a> structure that describes available controller features and control resolutions.
-     * @type {XINPUT_GAMEPAD}
      */
-    Gamepad {
-        get {
-            if(!this.HasProp("__Gamepad"))
-                this.__Gamepad := XINPUT_GAMEPAD(4, this)
-            return this.__Gamepad
-        }
-    }
+    Gamepad : XINPUT_GAMEPAD
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_vibration">XINPUT_VIBRATION</a> structure that describes available vibration functionality and resolutions.
-     * @type {XINPUT_VIBRATION}
      */
-    Vibration {
-        get {
-            if(!this.HasProp("__Vibration"))
-                this.__Vibration := XINPUT_VIBRATION(16, this)
-            return this.__Vibration
-        }
-    }
+    Vibration : XINPUT_VIBRATION
+
 }

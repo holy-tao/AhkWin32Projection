@@ -1,35 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFaceReference.ahk
-#Include .\IDWriteStringList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteStringList.ahk" { IDWriteStringList }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_FONT_PROPERTY_ID.ahk" { DWRITE_FONT_PROPERTY_ID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 
 /**
  * Represents a font set. (IDWriteFontSet)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontSet extends IUnknown {
     /**
      * The interface identifier for IDWriteFontSet
      * @type {Guid}
      */
-    static IID => Guid("{53585141-d9f8-4095-8321-d73cf6bd116b}")
+    static IID := Guid("{53585141-d9f8-4095-8321-d73cf6bd116b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFontCount               : IntPtr
+        GetFontFaceReference       : IntPtr
+        FindFontFaceReference      : IntPtr
+        FindFontFace               : IntPtr
+        GetPropertyValues          : IntPtr
+        GetPropertyValues1         : IntPtr
+        GetPropertyValues2         : IntPtr
+        GetPropertyOccurrenceCount : IntPtr
+        GetMatchingFonts           : IntPtr
+        GetMatchingFonts1          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontCount", "GetFontFaceReference", "FindFontFaceReference", "FindFontFace", "GetPropertyValues", "GetPropertyValues1", "GetPropertyValues2", "GetPropertyOccurrenceCount", "GetMatchingFonts", "GetMatchingFonts1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get the number of total fonts in the set.
@@ -39,7 +65,7 @@ class IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
      */
     GetFontCount() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -117,7 +143,7 @@ class IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
      */
     GetPropertyValues(propertyID) {
-        result := ComCall(7, this, "int", propertyID, "ptr*", &values := 0, "HRESULT")
+        result := ComCall(7, this, DWRITE_FONT_PROPERTY_ID, propertyID, "ptr*", &values := 0, "HRESULT")
         return IDWriteStringList(values)
     }
 
@@ -137,7 +163,7 @@ class IDWriteFontSet extends IUnknown {
     GetPropertyValues1(propertyID, preferredLocaleNames) {
         preferredLocaleNames := preferredLocaleNames is String ? StrPtr(preferredLocaleNames) : preferredLocaleNames
 
-        result := ComCall(8, this, "int", propertyID, "ptr", preferredLocaleNames, "ptr*", &values := 0, "HRESULT")
+        result := ComCall(8, this, DWRITE_FONT_PROPERTY_ID, propertyID, "ptr", preferredLocaleNames, "ptr*", &values := 0, "HRESULT")
         return IDWriteStringList(values)
     }
 
@@ -157,7 +183,7 @@ class IDWriteFontSet extends IUnknown {
     GetPropertyValues2(listIndex, propertyId, exists, values) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "uint", listIndex, "int", propertyId, existsMarshal, exists, "ptr*", values, "HRESULT")
+        result := ComCall(9, this, "uint", listIndex, DWRITE_FONT_PROPERTY_ID, propertyId, existsMarshal, exists, IDWriteLocalizedStrings.Ptr, values, "HRESULT")
         return result
     }
 
@@ -172,7 +198,7 @@ class IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
      */
     GetPropertyOccurrenceCount(_property) {
-        result := ComCall(10, this, "ptr", _property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")
+        result := ComCall(10, this, DWRITE_FONT_PROPERTY.Ptr, _property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")
         return propertyOccurrenceCount
     }
 
@@ -193,7 +219,7 @@ class IDWriteFontSet extends IUnknown {
     GetMatchingFonts(familyName, fontWeight, fontStretch, _fontStyle) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(11, this, "ptr", familyName, "int", fontWeight, "int", fontStretch, "int", _fontStyle, "ptr*", &filteredSet := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", familyName, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STRETCH, fontStretch, DWRITE_FONT_STYLE, _fontStyle, "ptr*", &filteredSet := 0, "HRESULT")
         return IDWriteFontSet(filteredSet)
     }
 
@@ -214,7 +240,45 @@ class IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
      */
     GetMatchingFonts1(_properties, propertyCount) {
-        result := ComCall(12, this, "ptr", _properties, "uint", propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
+        result := ComCall(12, this, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
         return IDWriteFontSet(filteredSet)
+    }
+
+    Query(iid) {
+        if (IDWriteFontSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontCount := CallbackCreate(GetMethod(implObj, "GetFontCount"), flags, 1)
+        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 3)
+        this.vtbl.FindFontFaceReference := CallbackCreate(GetMethod(implObj, "FindFontFaceReference"), flags, 4)
+        this.vtbl.FindFontFace := CallbackCreate(GetMethod(implObj, "FindFontFace"), flags, 4)
+        this.vtbl.GetPropertyValues := CallbackCreate(GetMethod(implObj, "GetPropertyValues"), flags, 3)
+        this.vtbl.GetPropertyValues1 := CallbackCreate(GetMethod(implObj, "GetPropertyValues1"), flags, 4)
+        this.vtbl.GetPropertyValues2 := CallbackCreate(GetMethod(implObj, "GetPropertyValues2"), flags, 5)
+        this.vtbl.GetPropertyOccurrenceCount := CallbackCreate(GetMethod(implObj, "GetPropertyOccurrenceCount"), flags, 3)
+        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 6)
+        this.vtbl.GetMatchingFonts1 := CallbackCreate(GetMethod(implObj, "GetMatchingFonts1"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontCount)
+        CallbackFree(this.vtbl.GetFontFaceReference)
+        CallbackFree(this.vtbl.FindFontFaceReference)
+        CallbackFree(this.vtbl.FindFontFace)
+        CallbackFree(this.vtbl.GetPropertyValues)
+        CallbackFree(this.vtbl.GetPropertyValues1)
+        CallbackFree(this.vtbl.GetPropertyValues2)
+        CallbackFree(this.vtbl.GetPropertyOccurrenceCount)
+        CallbackFree(this.vtbl.GetMatchingFonts)
+        CallbackFree(this.vtbl.GetMatchingFonts1)
     }
 }

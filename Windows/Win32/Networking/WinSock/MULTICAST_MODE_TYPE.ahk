@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the filter mode for multicast group addresses.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ne-ws2ipdef-multicast_mode_type
  * @namespace Windows.Win32.Networking.WinSock
  */
-class MULTICAST_MODE_TYPE extends Win32Enum {
+export default struct MULTICAST_MODE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The filter contains a list of IP addresses to include.

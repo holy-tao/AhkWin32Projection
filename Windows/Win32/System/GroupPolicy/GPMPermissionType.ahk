@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The categories, permissions included in the categories, and the object to which they can be applied.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmpermissiontype
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class GPMPermissionType extends Win32Enum {
+export default struct GPMPermissionType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The trustee can apply the GPO; corresponds to the READ and APPLY Group Policy access rights being set to "Allow" for a user.

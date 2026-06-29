@@ -1,86 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FLOATING_SAVE_AREA extends Win32Struct {
-    static sizeof => 112
+export default struct FLOATING_SAVE_AREA {
+    #StructPack 4
 
-    static packingSize => 4
+    ControlWord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ControlWord {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StatusWord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StatusWord {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TagWord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TagWord {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ErrorOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ErrorSelector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorSelector {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DataSelector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSelector {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RegisterArea : Int8[80]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RegisterArea {
-        get {
-            if(!this.HasProp("__RegisterAreaProxyArray"))
-                this.__RegisterAreaProxyArray := Win32FixedArray(this.ptr + 28, 80, Primitive, "char")
-            return this.__RegisterAreaProxyArray
-        }
-    }
+    Spare0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Spare0 {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
 }

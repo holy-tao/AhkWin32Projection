@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
-#Include .\AMVACompBufferInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AMVAUncompDataInfo.ahk" { AMVAUncompDataInfo }
+#Import ".\AMVABUFFERINFO.ahk" { AMVABUFFERINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\AMVAInternalMemInfo.ahk" { AMVAInternalMemInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AMVABeginFrameInfo.ahk" { AMVABeginFrameInfo }
+#Import ".\AMVAEndFrameInfo.ahk" { AMVAEndFrameInfo }
+#Import ".\AMVACompBufferInfo.ahk" { AMVACompBufferInfo }
 
 /**
  * The IAMVideoAccelerator interface enables a video decoder filter to access DirectX Video Acceleration (DXVA) 1.0 functionality.
  * @see https://learn.microsoft.com/windows/win32/api/videoacc/nn-videoacc-iamvideoaccelerator
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMVideoAccelerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMVideoAccelerator extends IUnknown {
     /**
      * The interface identifier for IAMVideoAccelerator
      * @type {Guid}
      */
-    static IID => Guid("{256a6a22-fbad-11d1-82bf-00a0c9696c8f}")
+    static IID := Guid("{256a6a22-fbad-11d1-82bf-00a0c9696c8f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMVideoAccelerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetVideoAcceleratorGUIDs  : IntPtr
+        GetUncompFormatsSupported : IntPtr
+        GetInternalMemInfo        : IntPtr
+        GetCompBufferInfo         : IntPtr
+        GetInternalCompBufferInfo : IntPtr
+        BeginFrame                : IntPtr
+        EndFrame                  : IntPtr
+        GetBuffer                 : IntPtr
+        ReleaseBuffer             : IntPtr
+        Execute                   : IntPtr
+        QueryRenderStatus         : IntPtr
+        DisplayFrame              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVideoAcceleratorGUIDs", "GetUncompFormatsSupported", "GetInternalMemInfo", "GetCompBufferInfo", "GetInternalCompBufferInfo", "BeginFrame", "EndFrame", "GetBuffer", "ReleaseBuffer", "Execute", "QueryRenderStatus", "DisplayFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMVideoAccelerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetVideoAcceleratorGUIDs method gets a list of DirectX Video Acceleration (DXVA) profiles supported by the display driver.
@@ -47,7 +72,7 @@ class IAMVideoAccelerator extends IUnknown {
         pdwNumGuidsSupportedMarshal := pdwNumGuidsSupported is VarRef ? "uint*" : "ptr"
 
         pGuidsSupported := Guid()
-        result := ComCall(3, this, pdwNumGuidsSupportedMarshal, pdwNumGuidsSupported, "ptr", pGuidsSupported, "HRESULT")
+        result := ComCall(3, this, pdwNumGuidsSupportedMarshal, pdwNumGuidsSupported, Guid.Ptr, pGuidsSupported, "HRESULT")
         return pGuidsSupported
     }
 
@@ -70,7 +95,7 @@ class IAMVideoAccelerator extends IUnknown {
         pdwNumFormatsSupportedMarshal := pdwNumFormatsSupported is VarRef ? "uint*" : "ptr"
 
         pFormatsSupported := DDPIXELFORMAT()
-        result := ComCall(4, this, "ptr", pGuid, pdwNumFormatsSupportedMarshal, pdwNumFormatsSupported, "ptr", pFormatsSupported, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pGuid, pdwNumFormatsSupportedMarshal, pdwNumFormatsSupported, DDPIXELFORMAT.Ptr, pFormatsSupported, "HRESULT")
         return pFormatsSupported
     }
 
@@ -145,7 +170,7 @@ class IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalmeminfo
      */
     GetInternalMemInfo(pGuid, pamvaUncompDataInfo, pamvaInternalMemInfo) {
-        result := ComCall(5, this, "ptr", pGuid, "ptr", pamvaUncompDataInfo, "ptr", pamvaInternalMemInfo, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pGuid, AMVAUncompDataInfo.Ptr, pamvaUncompDataInfo, AMVAInternalMemInfo.Ptr, pamvaInternalMemInfo, "HRESULT")
         return result
     }
 
@@ -173,7 +198,7 @@ class IAMVideoAccelerator extends IUnknown {
         pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
 
         pamvaCompBufferInfo := AMVACompBufferInfo()
-        result := ComCall(6, this, "ptr", pGuid, "ptr", pamvaUncompDataInfo, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pGuid, AMVAUncompDataInfo.Ptr, pamvaUncompDataInfo, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, AMVACompBufferInfo.Ptr, pamvaCompBufferInfo, "HRESULT")
         return pamvaCompBufferInfo
     }
 
@@ -196,7 +221,7 @@ class IAMVideoAccelerator extends IUnknown {
         pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
 
         pamvaCompBufferInfo := AMVACompBufferInfo()
-        result := ComCall(7, this, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
+        result := ComCall(7, this, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, AMVACompBufferInfo.Ptr, pamvaCompBufferInfo, "HRESULT")
         return pamvaCompBufferInfo
     }
 
@@ -297,7 +322,7 @@ class IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-beginframe
      */
     BeginFrame(_amvaBeginFrameInfo) {
-        result := ComCall(8, this, "ptr", _amvaBeginFrameInfo, "HRESULT")
+        result := ComCall(8, this, AMVABeginFrameInfo.Ptr, _amvaBeginFrameInfo, "HRESULT")
         return result
     }
 
@@ -396,7 +421,7 @@ class IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-endframe
      */
     EndFrame(pEndFrameInfo) {
-        result := ComCall(9, this, "ptr", pEndFrameInfo, "HRESULT")
+        result := ComCall(9, this, AMVAEndFrameInfo.Ptr, pEndFrameInfo, "HRESULT")
         return result
     }
 
@@ -518,7 +543,7 @@ class IAMVideoAccelerator extends IUnknown {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         lpStrideMarshal := lpStride is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "int", bReadOnly, ppBufferMarshal, ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
+        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, BOOL, bReadOnly, ppBufferMarshal, ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
         return result
     }
 
@@ -732,7 +757,7 @@ class IAMVideoAccelerator extends IUnknown {
         lpPrivateInputDataMarshal := lpPrivateInputData is VarRef ? "ptr" : "ptr"
         lpPrivateOutputDatMarshal := lpPrivateOutputDat is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "uint", dwFunction, lpPrivateInputDataMarshal, lpPrivateInputData, "uint", cbPrivateInputData, lpPrivateOutputDatMarshal, lpPrivateOutputDat, "uint", cbPrivateOutputData, "uint", dwNumBuffers, "ptr", pamvaBufferInfo, "HRESULT")
+        result := ComCall(12, this, "uint", dwFunction, lpPrivateInputDataMarshal, lpPrivateInputData, "uint", cbPrivateInputData, lpPrivateOutputDatMarshal, lpPrivateOutputDat, "uint", cbPrivateOutputData, "uint", dwNumBuffers, AMVABUFFERINFO.Ptr, pamvaBufferInfo, "HRESULT")
         return result
     }
 
@@ -936,5 +961,47 @@ class IAMVideoAccelerator extends IUnknown {
     DisplayFrame(dwFlipToIndex, pMediaSample) {
         result := ComCall(14, this, "uint", dwFlipToIndex, "ptr", pMediaSample, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMVideoAccelerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVideoAcceleratorGUIDs := CallbackCreate(GetMethod(implObj, "GetVideoAcceleratorGUIDs"), flags, 3)
+        this.vtbl.GetUncompFormatsSupported := CallbackCreate(GetMethod(implObj, "GetUncompFormatsSupported"), flags, 4)
+        this.vtbl.GetInternalMemInfo := CallbackCreate(GetMethod(implObj, "GetInternalMemInfo"), flags, 4)
+        this.vtbl.GetCompBufferInfo := CallbackCreate(GetMethod(implObj, "GetCompBufferInfo"), flags, 5)
+        this.vtbl.GetInternalCompBufferInfo := CallbackCreate(GetMethod(implObj, "GetInternalCompBufferInfo"), flags, 3)
+        this.vtbl.BeginFrame := CallbackCreate(GetMethod(implObj, "BeginFrame"), flags, 2)
+        this.vtbl.EndFrame := CallbackCreate(GetMethod(implObj, "EndFrame"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 6)
+        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 3)
+        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 8)
+        this.vtbl.QueryRenderStatus := CallbackCreate(GetMethod(implObj, "QueryRenderStatus"), flags, 4)
+        this.vtbl.DisplayFrame := CallbackCreate(GetMethod(implObj, "DisplayFrame"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVideoAcceleratorGUIDs)
+        CallbackFree(this.vtbl.GetUncompFormatsSupported)
+        CallbackFree(this.vtbl.GetInternalMemInfo)
+        CallbackFree(this.vtbl.GetCompBufferInfo)
+        CallbackFree(this.vtbl.GetInternalCompBufferInfo)
+        CallbackFree(this.vtbl.BeginFrame)
+        CallbackFree(this.vtbl.EndFrame)
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.ReleaseBuffer)
+        CallbackFree(this.vtbl.Execute)
+        CallbackFree(this.vtbl.QueryRenderStatus)
+        CallbackFree(this.vtbl.DisplayFrame)
     }
 }

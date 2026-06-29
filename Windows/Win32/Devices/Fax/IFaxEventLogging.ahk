@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FAX_LOG_LEVEL_ENUM.ahk" { FAX_LOG_LEVEL_ENUM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxEventLogging interface defines a configuration object used by a fax client application to configure the event logging categories used by the fax service.
@@ -10,32 +12,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxeventlogging
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxEventLogging extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxEventLogging extends IDispatch {
     /**
      * The interface identifier for IFaxEventLogging
      * @type {Guid}
      */
-    static IID => Guid("{0880d965-20e8-42e4-8e17-944f192caad4}")
+    static IID := Guid("{0880d965-20e8-42e4-8e17-944f192caad4}")
 
     /**
      * The class identifier for FaxEventLogging
      * @type {Guid}
      */
-    static CLSID => Guid("{a6850930-a0f6-4a6f-95b7-db2ebf3d02e3}")
+    static CLSID := Guid("{a6850930-a0f6-4a6f-95b7-db2ebf3d02e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxEventLogging interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_InitEventsLevel     : IntPtr
+        put_InitEventsLevel     : IntPtr
+        get_InboundEventsLevel  : IntPtr
+        put_InboundEventsLevel  : IntPtr
+        get_OutboundEventsLevel : IntPtr
+        put_OutboundEventsLevel : IntPtr
+        get_GeneralEventsLevel  : IntPtr
+        put_GeneralEventsLevel  : IntPtr
+        Refresh                 : IntPtr
+        Save                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_InitEventsLevel", "put_InitEventsLevel", "get_InboundEventsLevel", "put_InboundEventsLevel", "get_OutboundEventsLevel", "put_OutboundEventsLevel", "get_GeneralEventsLevel", "put_GeneralEventsLevel", "Refresh", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxEventLogging.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {FAX_LOG_LEVEL_ENUM} 
@@ -90,7 +108,7 @@ class IFaxEventLogging extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_initeventslevel
      */
     put_InitEventsLevel(InitEventLevel) {
-        result := ComCall(8, this, "int", InitEventLevel, "HRESULT")
+        result := ComCall(8, this, FAX_LOG_LEVEL_ENUM, InitEventLevel, "HRESULT")
         return result
     }
 
@@ -115,7 +133,7 @@ class IFaxEventLogging extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_inboundeventslevel
      */
     put_InboundEventsLevel(InboundEventLevel) {
-        result := ComCall(10, this, "int", InboundEventLevel, "HRESULT")
+        result := ComCall(10, this, FAX_LOG_LEVEL_ENUM, InboundEventLevel, "HRESULT")
         return result
     }
 
@@ -140,7 +158,7 @@ class IFaxEventLogging extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_outboundeventslevel
      */
     put_OutboundEventsLevel(OutboundEventLevel) {
-        result := ComCall(12, this, "int", OutboundEventLevel, "HRESULT")
+        result := ComCall(12, this, FAX_LOG_LEVEL_ENUM, OutboundEventLevel, "HRESULT")
         return result
     }
 
@@ -165,7 +183,7 @@ class IFaxEventLogging extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_generaleventslevel
      */
     put_GeneralEventsLevel(GeneralEventLevel) {
-        result := ComCall(14, this, "int", GeneralEventLevel, "HRESULT")
+        result := ComCall(14, this, FAX_LOG_LEVEL_ENUM, GeneralEventLevel, "HRESULT")
         return result
     }
 
@@ -197,5 +215,43 @@ class IFaxEventLogging extends IDispatch {
     Save() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxEventLogging.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_InitEventsLevel := CallbackCreate(GetMethod(implObj, "get_InitEventsLevel"), flags, 2)
+        this.vtbl.put_InitEventsLevel := CallbackCreate(GetMethod(implObj, "put_InitEventsLevel"), flags, 2)
+        this.vtbl.get_InboundEventsLevel := CallbackCreate(GetMethod(implObj, "get_InboundEventsLevel"), flags, 2)
+        this.vtbl.put_InboundEventsLevel := CallbackCreate(GetMethod(implObj, "put_InboundEventsLevel"), flags, 2)
+        this.vtbl.get_OutboundEventsLevel := CallbackCreate(GetMethod(implObj, "get_OutboundEventsLevel"), flags, 2)
+        this.vtbl.put_OutboundEventsLevel := CallbackCreate(GetMethod(implObj, "put_OutboundEventsLevel"), flags, 2)
+        this.vtbl.get_GeneralEventsLevel := CallbackCreate(GetMethod(implObj, "get_GeneralEventsLevel"), flags, 2)
+        this.vtbl.put_GeneralEventsLevel := CallbackCreate(GetMethod(implObj, "put_GeneralEventsLevel"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_InitEventsLevel)
+        CallbackFree(this.vtbl.put_InitEventsLevel)
+        CallbackFree(this.vtbl.get_InboundEventsLevel)
+        CallbackFree(this.vtbl.put_InboundEventsLevel)
+        CallbackFree(this.vtbl.get_OutboundEventsLevel)
+        CallbackFree(this.vtbl.put_OutboundEventsLevel)
+        CallbackFree(this.vtbl.get_GeneralEventsLevel)
+        CallbackFree(this.vtbl.put_GeneralEventsLevel)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
     }
 }

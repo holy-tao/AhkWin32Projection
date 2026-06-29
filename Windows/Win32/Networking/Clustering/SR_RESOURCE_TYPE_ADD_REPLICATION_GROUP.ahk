@@ -1,115 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP extends Win32Struct {
-    static sizeof => 2632
+export default struct SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP {
+    #StructPack 8
 
-    static packingSize => 8
+    ReplicationGroupName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    ReplicationGroupName {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
+    Description : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    Description {
-        get => StrGet(this.ptr + 520, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 259, "UTF-16")
-    }
+    LogPath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    LogPath {
-        get => StrGet(this.ptr + 1040, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1040, 259, "UTF-16")
-    }
+    MaxLogSizeInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxLogSizeInBytes {
-        get => NumGet(this, 1560, "uint")
-        set => NumPut("uint", value, this, 1560)
-    }
+    LogType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogType {
-        get => NumGet(this, 1568, "ushort")
-        set => NumPut("ushort", value, this, 1568)
-    }
+    ReplicationMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReplicationMode {
-        get => NumGet(this, 1572, "uint")
-        set => NumPut("uint", value, this, 1572)
-    }
+    MinimumPartnersInSync : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinimumPartnersInSync {
-        get => NumGet(this, 1576, "uint")
-        set => NumPut("uint", value, this, 1576)
-    }
+    EnableWriteConsistency : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    EnableWriteConsistency {
-        get => NumGet(this, 1580, "char")
-        set => NumPut("char", value, this, 1580)
-    }
+    EnableEncryption : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    EnableEncryption {
-        get => NumGet(this, 1581, "char")
-        set => NumPut("char", value, this, 1581)
-    }
+    EnableCompression : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    EnableCompression {
-        get => NumGet(this, 1582, "char")
-        set => NumPut("char", value, this, 1582)
-    }
+    CertificateThumbprint : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    CertificateThumbprint {
-        get => StrGet(this.ptr + 1584, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1584, 259, "UTF-16")
-    }
+    VolumeNameCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VolumeNameCount {
-        get => NumGet(this, 2104, "uint")
-        set => NumPut("uint", value, this, 2104)
-    }
+    VolumeNames : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    VolumeNames {
-        get => StrGet(this.ptr + 2108, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 2108, 259, "UTF-16")
-    }
 }

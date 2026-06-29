@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_OFFLOAD_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DOT11_IV48_COUNTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DOT11_OFFLOAD_TYPE.ahk" { DOT11_OFFLOAD_TYPE }
+#Import ".\DOT11_IV48_COUNTER.ahk" { DOT11_IV48_COUNTER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WPA_TSC extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_WPA_TSC {
+    #StructPack 8
 
-    static packingSize => 8
+    uReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dot11OffloadType : DOT11_OFFLOAD_TYPE
 
-    /**
-     * @type {DOT11_OFFLOAD_TYPE}
-     */
-    dot11OffloadType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    hOffload : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hOffload {
-        get {
-            if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(8, this)
-            return this.__hOffload
-        }
-    }
+    dot11IV48Counter : DOT11_IV48_COUNTER
 
-    /**
-     * @type {DOT11_IV48_COUNTER}
-     */
-    dot11IV48Counter {
-        get {
-            if(!this.HasProp("__dot11IV48Counter"))
-                this.__dot11IV48Counter := DOT11_IV48_COUNTER(16, this)
-            return this.__dot11IV48Counter
-        }
-    }
 }

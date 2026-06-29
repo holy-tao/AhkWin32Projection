@@ -1,34 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPDESTROW.ahk
-#Include .\MIB_IPFORWARDROW.ahk
-#Include .\MIB_IPFORWARD_TYPE.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPFORWARD_TYPE.ahk" { MIB_IPFORWARD_TYPE }
+#Import ".\MIB_IPDESTROW.ahk" { MIB_IPDESTROW }
+#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
+#Import "..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk" { NL_ROUTE_PROTOCOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPDESTTABLE extends Win32Struct {
-    static sizeof => 68
+export default struct MIB_IPDESTTABLE {
+    #StructPack 4
 
-    static packingSize => 4
+    dwNumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    table : MIB_IPDESTROW[1]
 
-    /**
-     * @type {MIB_IPDESTROW}
-     */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPDESTROW, "")
-            return this.__tableProxyArray
-        }
-    }
 }

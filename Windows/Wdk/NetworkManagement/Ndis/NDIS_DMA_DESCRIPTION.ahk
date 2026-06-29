@@ -1,69 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\SystemServices\DMA_WIDTH.ahk
-#Include ..\..\System\SystemServices\DMA_SPEED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\SystemServices\DMA_SPEED.ahk" { DMA_SPEED }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\System\SystemServices\DMA_WIDTH.ahk" { DMA_WIDTH }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_DMA_DESCRIPTION extends Win32Struct {
-    static sizeof => 20
+export default struct NDIS_DMA_DESCRIPTION {
+    #StructPack 4
 
-    static packingSize => 4
+    DemandMode : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DemandMode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AutoInitialize : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AutoInitialize {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    DmaChannelSpecified : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DmaChannelSpecified {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    DmaWidth : DMA_WIDTH
 
-    /**
-     * @type {DMA_WIDTH}
-     */
-    DmaWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DmaSpeed : DMA_SPEED
 
-    /**
-     * @type {DMA_SPEED}
-     */
-    DmaSpeed {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DmaPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaPort {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DmaChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaChannel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

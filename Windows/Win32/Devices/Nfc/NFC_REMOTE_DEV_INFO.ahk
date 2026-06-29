@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_DEVICE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NFC_DEVICE_TYPE.ahk" { NFC_DEVICE_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_REMOTE_DEV_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct NFC_REMOTE_DEV_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hRemoteDev : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hRemoteDev {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    eType : NFC_DEVICE_TYPE
 
-    /**
-     * @type {NFC_DEVICE_TYPE}
-     */
-    eType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    eRFTech : Int8
 
-    /**
-     * @type {Integer}
-     */
-    eRFTech {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    eProtocol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    eProtocol {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    cbUid : Int8
 
-    /**
-     * @type {Integer}
-     */
-    cbUid {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    pbUid : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbUid {
-        get {
-            if(!this.HasProp("__pbUidProxyArray"))
-                this.__pbUidProxyArray := Win32FixedArray(this.ptr + 15, 16, Primitive, "char")
-            return this.__pbUidProxyArray
-        }
-    }
 }

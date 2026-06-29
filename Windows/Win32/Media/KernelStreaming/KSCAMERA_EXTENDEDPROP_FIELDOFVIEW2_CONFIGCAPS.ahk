@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_FIELDOFVIEW2_CONFIGCAPS extends Win32Struct {
-    static sizeof => 728
+export default struct KSCAMERA_EXTENDEDPROP_FIELDOFVIEW2_CONFIGCAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    DefaultDiagonalFieldOfViewInDegrees : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DefaultDiagonalFieldOfViewInDegrees {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    DiscreteFoVStopsCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DiscreteFoVStopsCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DiscreteFoVStops : UInt16[360]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DiscreteFoVStops {
-        get {
-            if(!this.HasProp("__DiscreteFoVStopsProxyArray"))
-                this.__DiscreteFoVStopsProxyArray := Win32FixedArray(this.ptr + 4, 360, Primitive, "ushort")
-            return this.__DiscreteFoVStopsProxyArray
-        }
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 724, "uint")
-        set => NumPut("uint", value, this, 724)
-    }
 }

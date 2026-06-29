@@ -1,171 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_SMBIOS_INFO extends Win32Struct {
-    static sizeof => 720
+export default struct DEBUG_SMBIOS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SmbiosMajorVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SmbiosMajorVersion {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    SmbiosMinorVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SmbiosMinorVersion {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    DMIVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DMIVersion {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    TableSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TableSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BiosMajorRelease : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BiosMajorRelease {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    BiosMinorRelease : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BiosMinorRelease {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    FirmwareMajorRelease : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FirmwareMajorRelease {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    FirmwareMinorRelease : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FirmwareMinorRelease {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    BaseBoardManufacturer : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    BaseBoardManufacturer {
-        get => StrGet(this.ptr + 16, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-8")
-    }
+    BaseBoardProduct : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    BaseBoardProduct {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
-    }
+    BaseBoardVersion : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    BaseBoardVersion {
-        get => StrGet(this.ptr + 144, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 144, 63, "UTF-8")
-    }
+    BiosReleaseDate : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    BiosReleaseDate {
-        get => StrGet(this.ptr + 208, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 208, 63, "UTF-8")
-    }
+    BiosVendor : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    BiosVendor {
-        get => StrGet(this.ptr + 272, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 272, 63, "UTF-8")
-    }
+    BiosVersion : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    BiosVersion {
-        get => StrGet(this.ptr + 336, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 336, 63, "UTF-8")
-    }
+    SystemFamily : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    SystemFamily {
-        get => StrGet(this.ptr + 400, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 400, 63, "UTF-8")
-    }
+    SystemManufacturer : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    SystemManufacturer {
-        get => StrGet(this.ptr + 464, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 464, 63, "UTF-8")
-    }
+    SystemProductName : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    SystemProductName {
-        get => StrGet(this.ptr + 528, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 528, 63, "UTF-8")
-    }
+    SystemSKU : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    SystemSKU {
-        get => StrGet(this.ptr + 592, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 592, 63, "UTF-8")
-    }
+    SystemVersion : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    SystemVersion {
-        get => StrGet(this.ptr + 656, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 656, 63, "UTF-8")
-    }
 }

@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BAND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BAND.ahk" { DOT11_BAND }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC {
+    #StructPack 4
 
-    static packingSize => 4
+    Dot11Band : DOT11_BAND
 
-    /**
-     * @type {DOT11_BAND}
-     */
-    Dot11Band {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uChannel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ADCPowerLevel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ADCPowerLevel {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

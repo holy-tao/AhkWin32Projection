@@ -1,39 +1,226 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLStyle extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLStyle extends IDispatch {
     /**
      * The interface identifier for IHTMLStyle
      * @type {Guid}
      */
-    static IID => Guid("{3050f25e-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f25e-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLStyle
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f285-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f285-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLStyle interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_fontFamily                : IntPtr
+        get_fontFamily                : IntPtr
+        put_fontStyle                 : IntPtr
+        get_fontStyle                 : IntPtr
+        put_fontVariant               : IntPtr
+        get_fontVariant               : IntPtr
+        put_fontWeight                : IntPtr
+        get_fontWeight                : IntPtr
+        put_fontSize                  : IntPtr
+        get_fontSize                  : IntPtr
+        put_font                      : IntPtr
+        get_font                      : IntPtr
+        put_color                     : IntPtr
+        get_color                     : IntPtr
+        put_background                : IntPtr
+        get_background                : IntPtr
+        put_backgroundColor           : IntPtr
+        get_backgroundColor           : IntPtr
+        put_backgroundImage           : IntPtr
+        get_backgroundImage           : IntPtr
+        put_backgroundRepeat          : IntPtr
+        get_backgroundRepeat          : IntPtr
+        put_backgroundAttachment      : IntPtr
+        get_backgroundAttachment      : IntPtr
+        put_backgroundPosition        : IntPtr
+        get_backgroundPosition        : IntPtr
+        put_backgroundPositionX       : IntPtr
+        get_backgroundPositionX       : IntPtr
+        put_backgroundPositionY       : IntPtr
+        get_backgroundPositionY       : IntPtr
+        put_wordSpacing               : IntPtr
+        get_wordSpacing               : IntPtr
+        put_letterSpacing             : IntPtr
+        get_letterSpacing             : IntPtr
+        put_textDecoration            : IntPtr
+        get_textDecoration            : IntPtr
+        put_textDecorationNone        : IntPtr
+        get_textDecorationNone        : IntPtr
+        put_textDecorationUnderline   : IntPtr
+        get_textDecorationUnderline   : IntPtr
+        put_textDecorationOverline    : IntPtr
+        get_textDecorationOverline    : IntPtr
+        put_textDecorationLineThrough : IntPtr
+        get_textDecorationLineThrough : IntPtr
+        put_textDecorationBlink       : IntPtr
+        get_textDecorationBlink       : IntPtr
+        put_verticalAlign             : IntPtr
+        get_verticalAlign             : IntPtr
+        put_textTransform             : IntPtr
+        get_textTransform             : IntPtr
+        put_textAlign                 : IntPtr
+        get_textAlign                 : IntPtr
+        put_textIndent                : IntPtr
+        get_textIndent                : IntPtr
+        put_lineHeight                : IntPtr
+        get_lineHeight                : IntPtr
+        put_marginTop                 : IntPtr
+        get_marginTop                 : IntPtr
+        put_marginRight               : IntPtr
+        get_marginRight               : IntPtr
+        put_marginBottom              : IntPtr
+        get_marginBottom              : IntPtr
+        put_marginLeft                : IntPtr
+        get_marginLeft                : IntPtr
+        put_margin                    : IntPtr
+        get_margin                    : IntPtr
+        put_paddingTop                : IntPtr
+        get_paddingTop                : IntPtr
+        put_paddingRight              : IntPtr
+        get_paddingRight              : IntPtr
+        put_paddingBottom             : IntPtr
+        get_paddingBottom             : IntPtr
+        put_paddingLeft               : IntPtr
+        get_paddingLeft               : IntPtr
+        put_padding                   : IntPtr
+        get_padding                   : IntPtr
+        put_border                    : IntPtr
+        get_border                    : IntPtr
+        put_borderTop                 : IntPtr
+        get_borderTop                 : IntPtr
+        put_borderRight               : IntPtr
+        get_borderRight               : IntPtr
+        put_borderBottom              : IntPtr
+        get_borderBottom              : IntPtr
+        put_borderLeft                : IntPtr
+        get_borderLeft                : IntPtr
+        put_borderColor               : IntPtr
+        get_borderColor               : IntPtr
+        put_borderTopColor            : IntPtr
+        get_borderTopColor            : IntPtr
+        put_borderRightColor          : IntPtr
+        get_borderRightColor          : IntPtr
+        put_borderBottomColor         : IntPtr
+        get_borderBottomColor         : IntPtr
+        put_borderLeftColor           : IntPtr
+        get_borderLeftColor           : IntPtr
+        put_borderWidth               : IntPtr
+        get_borderWidth               : IntPtr
+        put_borderTopWidth            : IntPtr
+        get_borderTopWidth            : IntPtr
+        put_borderRightWidth          : IntPtr
+        get_borderRightWidth          : IntPtr
+        put_borderBottomWidth         : IntPtr
+        get_borderBottomWidth         : IntPtr
+        put_borderLeftWidth           : IntPtr
+        get_borderLeftWidth           : IntPtr
+        put_borderStyle               : IntPtr
+        get_borderStyle               : IntPtr
+        put_borderTopStyle            : IntPtr
+        get_borderTopStyle            : IntPtr
+        put_borderRightStyle          : IntPtr
+        get_borderRightStyle          : IntPtr
+        put_borderBottomStyle         : IntPtr
+        get_borderBottomStyle         : IntPtr
+        put_borderLeftStyle           : IntPtr
+        get_borderLeftStyle           : IntPtr
+        put_width                     : IntPtr
+        get_width                     : IntPtr
+        put_height                    : IntPtr
+        get_height                    : IntPtr
+        put_styleFloat                : IntPtr
+        get_styleFloat                : IntPtr
+        put_clear                     : IntPtr
+        get_clear                     : IntPtr
+        put_display                   : IntPtr
+        get_display                   : IntPtr
+        put_visibility                : IntPtr
+        get_visibility                : IntPtr
+        put_listStyleType             : IntPtr
+        get_listStyleType             : IntPtr
+        put_listStylePosition         : IntPtr
+        get_listStylePosition         : IntPtr
+        put_listStyleImage            : IntPtr
+        get_listStyleImage            : IntPtr
+        put_listStyle                 : IntPtr
+        get_listStyle                 : IntPtr
+        put_whiteSpace                : IntPtr
+        get_whiteSpace                : IntPtr
+        put_top                       : IntPtr
+        get_top                       : IntPtr
+        put_left                      : IntPtr
+        get_left                      : IntPtr
+        get_position                  : IntPtr
+        put_zIndex                    : IntPtr
+        get_zIndex                    : IntPtr
+        put_overflow                  : IntPtr
+        get_overflow                  : IntPtr
+        put_pageBreakBefore           : IntPtr
+        get_pageBreakBefore           : IntPtr
+        put_pageBreakAfter            : IntPtr
+        get_pageBreakAfter            : IntPtr
+        put_cssText                   : IntPtr
+        get_cssText                   : IntPtr
+        put_pixelTop                  : IntPtr
+        get_pixelTop                  : IntPtr
+        put_pixelLeft                 : IntPtr
+        get_pixelLeft                 : IntPtr
+        put_pixelWidth                : IntPtr
+        get_pixelWidth                : IntPtr
+        put_pixelHeight               : IntPtr
+        get_pixelHeight               : IntPtr
+        put_posTop                    : IntPtr
+        get_posTop                    : IntPtr
+        put_posLeft                   : IntPtr
+        get_posLeft                   : IntPtr
+        put_posWidth                  : IntPtr
+        get_posWidth                  : IntPtr
+        put_posHeight                 : IntPtr
+        get_posHeight                 : IntPtr
+        put_cursor                    : IntPtr
+        get_cursor                    : IntPtr
+        put_clip                      : IntPtr
+        get_clip                      : IntPtr
+        put_filter                    : IntPtr
+        get_filter                    : IntPtr
+        setAttribute                  : IntPtr
+        getAttribute                  : IntPtr
+        removeAttribute               : IntPtr
+        toString                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_fontFamily", "get_fontFamily", "put_fontStyle", "get_fontStyle", "put_fontVariant", "get_fontVariant", "put_fontWeight", "get_fontWeight", "put_fontSize", "get_fontSize", "put_font", "get_font", "put_color", "get_color", "put_background", "get_background", "put_backgroundColor", "get_backgroundColor", "put_backgroundImage", "get_backgroundImage", "put_backgroundRepeat", "get_backgroundRepeat", "put_backgroundAttachment", "get_backgroundAttachment", "put_backgroundPosition", "get_backgroundPosition", "put_backgroundPositionX", "get_backgroundPositionX", "put_backgroundPositionY", "get_backgroundPositionY", "put_wordSpacing", "get_wordSpacing", "put_letterSpacing", "get_letterSpacing", "put_textDecoration", "get_textDecoration", "put_textDecorationNone", "get_textDecorationNone", "put_textDecorationUnderline", "get_textDecorationUnderline", "put_textDecorationOverline", "get_textDecorationOverline", "put_textDecorationLineThrough", "get_textDecorationLineThrough", "put_textDecorationBlink", "get_textDecorationBlink", "put_verticalAlign", "get_verticalAlign", "put_textTransform", "get_textTransform", "put_textAlign", "get_textAlign", "put_textIndent", "get_textIndent", "put_lineHeight", "get_lineHeight", "put_marginTop", "get_marginTop", "put_marginRight", "get_marginRight", "put_marginBottom", "get_marginBottom", "put_marginLeft", "get_marginLeft", "put_margin", "get_margin", "put_paddingTop", "get_paddingTop", "put_paddingRight", "get_paddingRight", "put_paddingBottom", "get_paddingBottom", "put_paddingLeft", "get_paddingLeft", "put_padding", "get_padding", "put_border", "get_border", "put_borderTop", "get_borderTop", "put_borderRight", "get_borderRight", "put_borderBottom", "get_borderBottom", "put_borderLeft", "get_borderLeft", "put_borderColor", "get_borderColor", "put_borderTopColor", "get_borderTopColor", "put_borderRightColor", "get_borderRightColor", "put_borderBottomColor", "get_borderBottomColor", "put_borderLeftColor", "get_borderLeftColor", "put_borderWidth", "get_borderWidth", "put_borderTopWidth", "get_borderTopWidth", "put_borderRightWidth", "get_borderRightWidth", "put_borderBottomWidth", "get_borderBottomWidth", "put_borderLeftWidth", "get_borderLeftWidth", "put_borderStyle", "get_borderStyle", "put_borderTopStyle", "get_borderTopStyle", "put_borderRightStyle", "get_borderRightStyle", "put_borderBottomStyle", "get_borderBottomStyle", "put_borderLeftStyle", "get_borderLeftStyle", "put_width", "get_width", "put_height", "get_height", "put_styleFloat", "get_styleFloat", "put_clear", "get_clear", "put_display", "get_display", "put_visibility", "get_visibility", "put_listStyleType", "get_listStyleType", "put_listStylePosition", "get_listStylePosition", "put_listStyleImage", "get_listStyleImage", "put_listStyle", "get_listStyle", "put_whiteSpace", "get_whiteSpace", "put_top", "get_top", "put_left", "get_left", "get_position", "put_zIndex", "get_zIndex", "put_overflow", "get_overflow", "put_pageBreakBefore", "get_pageBreakBefore", "put_pageBreakAfter", "get_pageBreakAfter", "put_cssText", "get_cssText", "put_pixelTop", "get_pixelTop", "put_pixelLeft", "get_pixelLeft", "put_pixelWidth", "get_pixelWidth", "put_pixelHeight", "get_pixelHeight", "put_posTop", "get_posTop", "put_posLeft", "get_posLeft", "put_posWidth", "get_posWidth", "put_posHeight", "get_posHeight", "put_cursor", "get_cursor", "put_clip", "get_clip", "put_filter", "get_filter", "setAttribute", "getAttribute", "removeAttribute", "toString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLStyle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -746,7 +933,7 @@ class IHTMLStyle extends IDispatch {
     put_fontFamily(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -755,8 +942,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontFamily() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -768,7 +955,7 @@ class IHTMLStyle extends IDispatch {
     put_fontStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -777,8 +964,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontStyle() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -790,7 +977,7 @@ class IHTMLStyle extends IDispatch {
     put_fontVariant(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -799,8 +986,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontVariant() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -812,7 +999,7 @@ class IHTMLStyle extends IDispatch {
     put_fontWeight(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -821,8 +1008,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontWeight() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -832,7 +1019,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_fontSize(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -842,7 +1029,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_fontSize() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -854,7 +1041,7 @@ class IHTMLStyle extends IDispatch {
     put_font(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -863,8 +1050,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_font() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -874,7 +1061,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_color(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -884,7 +1071,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_color() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -896,7 +1083,7 @@ class IHTMLStyle extends IDispatch {
     put_background(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -905,8 +1092,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_background() {
-        p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -916,7 +1103,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_backgroundColor(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -926,7 +1113,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_backgroundColor() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -938,7 +1125,7 @@ class IHTMLStyle extends IDispatch {
     put_backgroundImage(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -947,8 +1134,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundImage() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -960,7 +1147,7 @@ class IHTMLStyle extends IDispatch {
     put_backgroundRepeat(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -969,8 +1156,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundRepeat() {
-        p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -982,7 +1169,7 @@ class IHTMLStyle extends IDispatch {
     put_backgroundAttachment(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -991,8 +1178,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundAttachment() {
-        p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1004,7 +1191,7 @@ class IHTMLStyle extends IDispatch {
     put_backgroundPosition(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1013,8 +1200,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundPosition() {
-        p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1024,7 +1211,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_backgroundPositionX(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1034,7 +1221,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_backgroundPositionX() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1044,7 +1231,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_backgroundPositionY(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1054,7 +1241,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_backgroundPositionY() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1064,7 +1251,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_wordSpacing(v) {
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1074,7 +1261,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_wordSpacing() {
         p := VARIANT()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1084,7 +1271,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_letterSpacing(v) {
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1094,7 +1281,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_letterSpacing() {
         p := VARIANT()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        result := ComCall(40, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1106,7 +1293,7 @@ class IHTMLStyle extends IDispatch {
     put_textDecoration(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(41, this, "ptr", v, "HRESULT")
+        result := ComCall(41, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1115,8 +1302,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textDecoration() {
-        p := BSTR()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(42, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1126,7 +1313,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_textDecorationNone(v) {
-        result := ComCall(43, this, "short", v, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -1135,7 +1322,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationNone() {
-        result := ComCall(44, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(44, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -1145,7 +1332,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_textDecorationUnderline(v) {
-        result := ComCall(45, this, "short", v, "HRESULT")
+        result := ComCall(45, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -1154,7 +1341,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationUnderline() {
-        result := ComCall(46, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(46, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -1164,7 +1351,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_textDecorationOverline(v) {
-        result := ComCall(47, this, "short", v, "HRESULT")
+        result := ComCall(47, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -1173,7 +1360,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationOverline() {
-        result := ComCall(48, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -1183,7 +1370,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_textDecorationLineThrough(v) {
-        result := ComCall(49, this, "short", v, "HRESULT")
+        result := ComCall(49, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -1192,7 +1379,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationLineThrough() {
-        result := ComCall(50, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -1202,7 +1389,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_textDecorationBlink(v) {
-        result := ComCall(51, this, "short", v, "HRESULT")
+        result := ComCall(51, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -1211,7 +1398,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationBlink() {
-        result := ComCall(52, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(52, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -1221,7 +1408,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_verticalAlign(v) {
-        result := ComCall(53, this, "ptr", v, "HRESULT")
+        result := ComCall(53, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1231,7 +1418,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_verticalAlign() {
         p := VARIANT()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        result := ComCall(54, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1243,7 +1430,7 @@ class IHTMLStyle extends IDispatch {
     put_textTransform(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(55, this, "ptr", v, "HRESULT")
+        result := ComCall(55, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1252,8 +1439,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textTransform() {
-        p := BSTR()
-        result := ComCall(56, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(56, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1265,7 +1452,7 @@ class IHTMLStyle extends IDispatch {
     put_textAlign(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(57, this, "ptr", v, "HRESULT")
+        result := ComCall(57, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1274,8 +1461,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlign() {
-        p := BSTR()
-        result := ComCall(58, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(58, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1285,7 +1472,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_textIndent(v) {
-        result := ComCall(59, this, "ptr", v, "HRESULT")
+        result := ComCall(59, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1295,7 +1482,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_textIndent() {
         p := VARIANT()
-        result := ComCall(60, this, "ptr", p, "HRESULT")
+        result := ComCall(60, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1305,7 +1492,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_lineHeight(v) {
-        result := ComCall(61, this, "ptr", v, "HRESULT")
+        result := ComCall(61, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1315,7 +1502,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_lineHeight() {
         p := VARIANT()
-        result := ComCall(62, this, "ptr", p, "HRESULT")
+        result := ComCall(62, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1325,7 +1512,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginTop(v) {
-        result := ComCall(63, this, "ptr", v, "HRESULT")
+        result := ComCall(63, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1335,7 +1522,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_marginTop() {
         p := VARIANT()
-        result := ComCall(64, this, "ptr", p, "HRESULT")
+        result := ComCall(64, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1345,7 +1532,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginRight(v) {
-        result := ComCall(65, this, "ptr", v, "HRESULT")
+        result := ComCall(65, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1355,7 +1542,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_marginRight() {
         p := VARIANT()
-        result := ComCall(66, this, "ptr", p, "HRESULT")
+        result := ComCall(66, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1365,7 +1552,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginBottom(v) {
-        result := ComCall(67, this, "ptr", v, "HRESULT")
+        result := ComCall(67, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1375,7 +1562,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_marginBottom() {
         p := VARIANT()
-        result := ComCall(68, this, "ptr", p, "HRESULT")
+        result := ComCall(68, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1385,7 +1572,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginLeft(v) {
-        result := ComCall(69, this, "ptr", v, "HRESULT")
+        result := ComCall(69, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1395,7 +1582,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_marginLeft() {
         p := VARIANT()
-        result := ComCall(70, this, "ptr", p, "HRESULT")
+        result := ComCall(70, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1407,7 +1594,7 @@ class IHTMLStyle extends IDispatch {
     put_margin(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(71, this, "ptr", v, "HRESULT")
+        result := ComCall(71, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1416,8 +1603,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_margin() {
-        p := BSTR()
-        result := ComCall(72, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(72, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1427,7 +1614,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_paddingTop(v) {
-        result := ComCall(73, this, "ptr", v, "HRESULT")
+        result := ComCall(73, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1437,7 +1624,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_paddingTop() {
         p := VARIANT()
-        result := ComCall(74, this, "ptr", p, "HRESULT")
+        result := ComCall(74, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1447,7 +1634,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_paddingRight(v) {
-        result := ComCall(75, this, "ptr", v, "HRESULT")
+        result := ComCall(75, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1457,7 +1644,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_paddingRight() {
         p := VARIANT()
-        result := ComCall(76, this, "ptr", p, "HRESULT")
+        result := ComCall(76, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1467,7 +1654,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_paddingBottom(v) {
-        result := ComCall(77, this, "ptr", v, "HRESULT")
+        result := ComCall(77, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1477,7 +1664,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_paddingBottom() {
         p := VARIANT()
-        result := ComCall(78, this, "ptr", p, "HRESULT")
+        result := ComCall(78, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1487,7 +1674,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_paddingLeft(v) {
-        result := ComCall(79, this, "ptr", v, "HRESULT")
+        result := ComCall(79, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1497,7 +1684,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_paddingLeft() {
         p := VARIANT()
-        result := ComCall(80, this, "ptr", p, "HRESULT")
+        result := ComCall(80, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1509,7 +1696,7 @@ class IHTMLStyle extends IDispatch {
     put_padding(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(81, this, "ptr", v, "HRESULT")
+        result := ComCall(81, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1518,8 +1705,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_padding() {
-        p := BSTR()
-        result := ComCall(82, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(82, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1531,7 +1718,7 @@ class IHTMLStyle extends IDispatch {
     put_border(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(83, this, "ptr", v, "HRESULT")
+        result := ComCall(83, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1540,8 +1727,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_border() {
-        p := BSTR()
-        result := ComCall(84, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(84, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1553,7 +1740,7 @@ class IHTMLStyle extends IDispatch {
     put_borderTop(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(85, this, "ptr", v, "HRESULT")
+        result := ComCall(85, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1562,8 +1749,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderTop() {
-        p := BSTR()
-        result := ComCall(86, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(86, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1575,7 +1762,7 @@ class IHTMLStyle extends IDispatch {
     put_borderRight(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(87, this, "ptr", v, "HRESULT")
+        result := ComCall(87, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1584,8 +1771,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderRight() {
-        p := BSTR()
-        result := ComCall(88, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(88, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1597,7 +1784,7 @@ class IHTMLStyle extends IDispatch {
     put_borderBottom(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(89, this, "ptr", v, "HRESULT")
+        result := ComCall(89, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1606,8 +1793,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderBottom() {
-        p := BSTR()
-        result := ComCall(90, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(90, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1619,7 +1806,7 @@ class IHTMLStyle extends IDispatch {
     put_borderLeft(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(91, this, "ptr", v, "HRESULT")
+        result := ComCall(91, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1628,8 +1815,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderLeft() {
-        p := BSTR()
-        result := ComCall(92, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(92, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1641,7 +1828,7 @@ class IHTMLStyle extends IDispatch {
     put_borderColor(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(93, this, "ptr", v, "HRESULT")
+        result := ComCall(93, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1650,8 +1837,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderColor() {
-        p := BSTR()
-        result := ComCall(94, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(94, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1661,7 +1848,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderTopColor(v) {
-        result := ComCall(95, this, "ptr", v, "HRESULT")
+        result := ComCall(95, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1671,7 +1858,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderTopColor() {
         p := VARIANT()
-        result := ComCall(96, this, "ptr", p, "HRESULT")
+        result := ComCall(96, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1681,7 +1868,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderRightColor(v) {
-        result := ComCall(97, this, "ptr", v, "HRESULT")
+        result := ComCall(97, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1691,7 +1878,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderRightColor() {
         p := VARIANT()
-        result := ComCall(98, this, "ptr", p, "HRESULT")
+        result := ComCall(98, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1701,7 +1888,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderBottomColor(v) {
-        result := ComCall(99, this, "ptr", v, "HRESULT")
+        result := ComCall(99, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1711,7 +1898,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderBottomColor() {
         p := VARIANT()
-        result := ComCall(100, this, "ptr", p, "HRESULT")
+        result := ComCall(100, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1721,7 +1908,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderLeftColor(v) {
-        result := ComCall(101, this, "ptr", v, "HRESULT")
+        result := ComCall(101, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1731,7 +1918,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderLeftColor() {
         p := VARIANT()
-        result := ComCall(102, this, "ptr", p, "HRESULT")
+        result := ComCall(102, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1743,7 +1930,7 @@ class IHTMLStyle extends IDispatch {
     put_borderWidth(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(103, this, "ptr", v, "HRESULT")
+        result := ComCall(103, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1752,8 +1939,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderWidth() {
-        p := BSTR()
-        result := ComCall(104, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(104, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1763,7 +1950,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderTopWidth(v) {
-        result := ComCall(105, this, "ptr", v, "HRESULT")
+        result := ComCall(105, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1773,7 +1960,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderTopWidth() {
         p := VARIANT()
-        result := ComCall(106, this, "ptr", p, "HRESULT")
+        result := ComCall(106, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1783,7 +1970,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderRightWidth(v) {
-        result := ComCall(107, this, "ptr", v, "HRESULT")
+        result := ComCall(107, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1793,7 +1980,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderRightWidth() {
         p := VARIANT()
-        result := ComCall(108, this, "ptr", p, "HRESULT")
+        result := ComCall(108, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1803,7 +1990,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderBottomWidth(v) {
-        result := ComCall(109, this, "ptr", v, "HRESULT")
+        result := ComCall(109, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1813,7 +2000,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderBottomWidth() {
         p := VARIANT()
-        result := ComCall(110, this, "ptr", p, "HRESULT")
+        result := ComCall(110, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1823,7 +2010,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderLeftWidth(v) {
-        result := ComCall(111, this, "ptr", v, "HRESULT")
+        result := ComCall(111, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1833,7 +2020,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_borderLeftWidth() {
         p := VARIANT()
-        result := ComCall(112, this, "ptr", p, "HRESULT")
+        result := ComCall(112, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1845,7 +2032,7 @@ class IHTMLStyle extends IDispatch {
     put_borderStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(113, this, "ptr", v, "HRESULT")
+        result := ComCall(113, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1854,8 +2041,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderStyle() {
-        p := BSTR()
-        result := ComCall(114, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(114, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1867,7 +2054,7 @@ class IHTMLStyle extends IDispatch {
     put_borderTopStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(115, this, "ptr", v, "HRESULT")
+        result := ComCall(115, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1876,8 +2063,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderTopStyle() {
-        p := BSTR()
-        result := ComCall(116, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(116, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1889,7 +2076,7 @@ class IHTMLStyle extends IDispatch {
     put_borderRightStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(117, this, "ptr", v, "HRESULT")
+        result := ComCall(117, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1898,8 +2085,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderRightStyle() {
-        p := BSTR()
-        result := ComCall(118, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(118, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1911,7 +2098,7 @@ class IHTMLStyle extends IDispatch {
     put_borderBottomStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(119, this, "ptr", v, "HRESULT")
+        result := ComCall(119, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1920,8 +2107,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderBottomStyle() {
-        p := BSTR()
-        result := ComCall(120, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(120, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1933,7 +2120,7 @@ class IHTMLStyle extends IDispatch {
     put_borderLeftStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(121, this, "ptr", v, "HRESULT")
+        result := ComCall(121, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1942,8 +2129,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderLeftStyle() {
-        p := BSTR()
-        result := ComCall(122, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(122, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1953,7 +2140,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(123, this, "ptr", v, "HRESULT")
+        result := ComCall(123, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1963,7 +2150,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(124, this, "ptr", p, "HRESULT")
+        result := ComCall(124, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1973,7 +2160,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(125, this, "ptr", v, "HRESULT")
+        result := ComCall(125, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1983,7 +2170,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(126, this, "ptr", p, "HRESULT")
+        result := ComCall(126, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1995,7 +2182,7 @@ class IHTMLStyle extends IDispatch {
     put_styleFloat(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(127, this, "ptr", v, "HRESULT")
+        result := ComCall(127, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2004,8 +2191,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_styleFloat() {
-        p := BSTR()
-        result := ComCall(128, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(128, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2017,7 +2204,7 @@ class IHTMLStyle extends IDispatch {
     put_clear(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(129, this, "ptr", v, "HRESULT")
+        result := ComCall(129, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2026,8 +2213,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_clear() {
-        p := BSTR()
-        result := ComCall(130, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(130, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2039,7 +2226,7 @@ class IHTMLStyle extends IDispatch {
     put_display(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(131, this, "ptr", v, "HRESULT")
+        result := ComCall(131, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2048,8 +2235,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_display() {
-        p := BSTR()
-        result := ComCall(132, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(132, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2061,7 +2248,7 @@ class IHTMLStyle extends IDispatch {
     put_visibility(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(133, this, "ptr", v, "HRESULT")
+        result := ComCall(133, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2070,8 +2257,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_visibility() {
-        p := BSTR()
-        result := ComCall(134, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(134, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2083,7 +2270,7 @@ class IHTMLStyle extends IDispatch {
     put_listStyleType(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(135, this, "ptr", v, "HRESULT")
+        result := ComCall(135, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2092,8 +2279,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleType() {
-        p := BSTR()
-        result := ComCall(136, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(136, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2105,7 +2292,7 @@ class IHTMLStyle extends IDispatch {
     put_listStylePosition(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(137, this, "ptr", v, "HRESULT")
+        result := ComCall(137, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2114,8 +2301,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStylePosition() {
-        p := BSTR()
-        result := ComCall(138, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(138, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2127,7 +2314,7 @@ class IHTMLStyle extends IDispatch {
     put_listStyleImage(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(139, this, "ptr", v, "HRESULT")
+        result := ComCall(139, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2136,8 +2323,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleImage() {
-        p := BSTR()
-        result := ComCall(140, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(140, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2149,7 +2336,7 @@ class IHTMLStyle extends IDispatch {
     put_listStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(141, this, "ptr", v, "HRESULT")
+        result := ComCall(141, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2158,8 +2345,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyle() {
-        p := BSTR()
-        result := ComCall(142, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(142, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2171,7 +2358,7 @@ class IHTMLStyle extends IDispatch {
     put_whiteSpace(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(143, this, "ptr", v, "HRESULT")
+        result := ComCall(143, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2180,8 +2367,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_whiteSpace() {
-        p := BSTR()
-        result := ComCall(144, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(144, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2191,7 +2378,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_top(v) {
-        result := ComCall(145, this, "ptr", v, "HRESULT")
+        result := ComCall(145, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -2201,7 +2388,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_top() {
         p := VARIANT()
-        result := ComCall(146, this, "ptr", p, "HRESULT")
+        result := ComCall(146, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2211,7 +2398,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_left(v) {
-        result := ComCall(147, this, "ptr", v, "HRESULT")
+        result := ComCall(147, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -2221,7 +2408,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_left() {
         p := VARIANT()
-        result := ComCall(148, this, "ptr", p, "HRESULT")
+        result := ComCall(148, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2230,8 +2417,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_position() {
-        p := BSTR()
-        result := ComCall(149, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(149, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2241,7 +2428,7 @@ class IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_zIndex(v) {
-        result := ComCall(150, this, "ptr", v, "HRESULT")
+        result := ComCall(150, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -2251,7 +2438,7 @@ class IHTMLStyle extends IDispatch {
      */
     get_zIndex() {
         p := VARIANT()
-        result := ComCall(151, this, "ptr", p, "HRESULT")
+        result := ComCall(151, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2263,7 +2450,7 @@ class IHTMLStyle extends IDispatch {
     put_overflow(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(152, this, "ptr", v, "HRESULT")
+        result := ComCall(152, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2272,8 +2459,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflow() {
-        p := BSTR()
-        result := ComCall(153, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(153, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2285,7 +2472,7 @@ class IHTMLStyle extends IDispatch {
     put_pageBreakBefore(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(154, this, "ptr", v, "HRESULT")
+        result := ComCall(154, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2294,8 +2481,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakBefore() {
-        p := BSTR()
-        result := ComCall(155, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(155, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2307,7 +2494,7 @@ class IHTMLStyle extends IDispatch {
     put_pageBreakAfter(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(156, this, "ptr", v, "HRESULT")
+        result := ComCall(156, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2316,8 +2503,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakAfter() {
-        p := BSTR()
-        result := ComCall(157, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(157, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2329,7 +2516,7 @@ class IHTMLStyle extends IDispatch {
     put_cssText(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(158, this, "ptr", v, "HRESULT")
+        result := ComCall(158, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2338,8 +2525,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_cssText() {
-        p := BSTR()
-        result := ComCall(159, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(159, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2503,7 +2690,7 @@ class IHTMLStyle extends IDispatch {
     put_cursor(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(176, this, "ptr", v, "HRESULT")
+        result := ComCall(176, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2512,8 +2699,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_cursor() {
-        p := BSTR()
-        result := ComCall(177, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(177, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2525,7 +2712,7 @@ class IHTMLStyle extends IDispatch {
     put_clip(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(178, this, "ptr", v, "HRESULT")
+        result := ComCall(178, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2534,8 +2721,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_clip() {
-        p := BSTR()
-        result := ComCall(179, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(179, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2547,7 +2734,7 @@ class IHTMLStyle extends IDispatch {
     put_filter(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(180, this, "ptr", v, "HRESULT")
+        result := ComCall(180, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -2556,8 +2743,8 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_filter() {
-        p := BSTR()
-        result := ComCall(181, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(181, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -2571,7 +2758,7 @@ class IHTMLStyle extends IDispatch {
     setAttribute(strAttributeName, AttributeValue, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(182, this, "ptr", strAttributeName, "ptr", AttributeValue, "int", lFlags, "HRESULT")
+        result := ComCall(182, this, BSTR, strAttributeName, VARIANT, AttributeValue, "int", lFlags, "HRESULT")
         return result
     }
 
@@ -2585,7 +2772,7 @@ class IHTMLStyle extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(183, this, "ptr", strAttributeName, "int", lFlags, "ptr", AttributeValue, "HRESULT")
+        result := ComCall(183, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -2598,7 +2785,7 @@ class IHTMLStyle extends IDispatch {
     removeAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(184, this, "ptr", strAttributeName, "int", lFlags, "short*", &pfSuccess := 0, "HRESULT")
+        result := ComCall(184, this, BSTR, strAttributeName, "int", lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
         return pfSuccess
     }
 
@@ -2607,8 +2794,384 @@ class IHTMLStyle extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        _String := BSTR()
-        result := ComCall(185, this, "ptr", _String, "HRESULT")
+        _String := BSTR.Owned()
+        result := ComCall(185, this, BSTR.Ptr, _String, "HRESULT")
         return _String
+    }
+
+    Query(iid) {
+        if (IHTMLStyle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_fontFamily := CallbackCreate(GetMethod(implObj, "put_fontFamily"), flags, 2)
+        this.vtbl.get_fontFamily := CallbackCreate(GetMethod(implObj, "get_fontFamily"), flags, 2)
+        this.vtbl.put_fontStyle := CallbackCreate(GetMethod(implObj, "put_fontStyle"), flags, 2)
+        this.vtbl.get_fontStyle := CallbackCreate(GetMethod(implObj, "get_fontStyle"), flags, 2)
+        this.vtbl.put_fontVariant := CallbackCreate(GetMethod(implObj, "put_fontVariant"), flags, 2)
+        this.vtbl.get_fontVariant := CallbackCreate(GetMethod(implObj, "get_fontVariant"), flags, 2)
+        this.vtbl.put_fontWeight := CallbackCreate(GetMethod(implObj, "put_fontWeight"), flags, 2)
+        this.vtbl.get_fontWeight := CallbackCreate(GetMethod(implObj, "get_fontWeight"), flags, 2)
+        this.vtbl.put_fontSize := CallbackCreate(GetMethod(implObj, "put_fontSize"), flags, 2)
+        this.vtbl.get_fontSize := CallbackCreate(GetMethod(implObj, "get_fontSize"), flags, 2)
+        this.vtbl.put_font := CallbackCreate(GetMethod(implObj, "put_font"), flags, 2)
+        this.vtbl.get_font := CallbackCreate(GetMethod(implObj, "get_font"), flags, 2)
+        this.vtbl.put_color := CallbackCreate(GetMethod(implObj, "put_color"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_backgroundColor := CallbackCreate(GetMethod(implObj, "put_backgroundColor"), flags, 2)
+        this.vtbl.get_backgroundColor := CallbackCreate(GetMethod(implObj, "get_backgroundColor"), flags, 2)
+        this.vtbl.put_backgroundImage := CallbackCreate(GetMethod(implObj, "put_backgroundImage"), flags, 2)
+        this.vtbl.get_backgroundImage := CallbackCreate(GetMethod(implObj, "get_backgroundImage"), flags, 2)
+        this.vtbl.put_backgroundRepeat := CallbackCreate(GetMethod(implObj, "put_backgroundRepeat"), flags, 2)
+        this.vtbl.get_backgroundRepeat := CallbackCreate(GetMethod(implObj, "get_backgroundRepeat"), flags, 2)
+        this.vtbl.put_backgroundAttachment := CallbackCreate(GetMethod(implObj, "put_backgroundAttachment"), flags, 2)
+        this.vtbl.get_backgroundAttachment := CallbackCreate(GetMethod(implObj, "get_backgroundAttachment"), flags, 2)
+        this.vtbl.put_backgroundPosition := CallbackCreate(GetMethod(implObj, "put_backgroundPosition"), flags, 2)
+        this.vtbl.get_backgroundPosition := CallbackCreate(GetMethod(implObj, "get_backgroundPosition"), flags, 2)
+        this.vtbl.put_backgroundPositionX := CallbackCreate(GetMethod(implObj, "put_backgroundPositionX"), flags, 2)
+        this.vtbl.get_backgroundPositionX := CallbackCreate(GetMethod(implObj, "get_backgroundPositionX"), flags, 2)
+        this.vtbl.put_backgroundPositionY := CallbackCreate(GetMethod(implObj, "put_backgroundPositionY"), flags, 2)
+        this.vtbl.get_backgroundPositionY := CallbackCreate(GetMethod(implObj, "get_backgroundPositionY"), flags, 2)
+        this.vtbl.put_wordSpacing := CallbackCreate(GetMethod(implObj, "put_wordSpacing"), flags, 2)
+        this.vtbl.get_wordSpacing := CallbackCreate(GetMethod(implObj, "get_wordSpacing"), flags, 2)
+        this.vtbl.put_letterSpacing := CallbackCreate(GetMethod(implObj, "put_letterSpacing"), flags, 2)
+        this.vtbl.get_letterSpacing := CallbackCreate(GetMethod(implObj, "get_letterSpacing"), flags, 2)
+        this.vtbl.put_textDecoration := CallbackCreate(GetMethod(implObj, "put_textDecoration"), flags, 2)
+        this.vtbl.get_textDecoration := CallbackCreate(GetMethod(implObj, "get_textDecoration"), flags, 2)
+        this.vtbl.put_textDecorationNone := CallbackCreate(GetMethod(implObj, "put_textDecorationNone"), flags, 2)
+        this.vtbl.get_textDecorationNone := CallbackCreate(GetMethod(implObj, "get_textDecorationNone"), flags, 2)
+        this.vtbl.put_textDecorationUnderline := CallbackCreate(GetMethod(implObj, "put_textDecorationUnderline"), flags, 2)
+        this.vtbl.get_textDecorationUnderline := CallbackCreate(GetMethod(implObj, "get_textDecorationUnderline"), flags, 2)
+        this.vtbl.put_textDecorationOverline := CallbackCreate(GetMethod(implObj, "put_textDecorationOverline"), flags, 2)
+        this.vtbl.get_textDecorationOverline := CallbackCreate(GetMethod(implObj, "get_textDecorationOverline"), flags, 2)
+        this.vtbl.put_textDecorationLineThrough := CallbackCreate(GetMethod(implObj, "put_textDecorationLineThrough"), flags, 2)
+        this.vtbl.get_textDecorationLineThrough := CallbackCreate(GetMethod(implObj, "get_textDecorationLineThrough"), flags, 2)
+        this.vtbl.put_textDecorationBlink := CallbackCreate(GetMethod(implObj, "put_textDecorationBlink"), flags, 2)
+        this.vtbl.get_textDecorationBlink := CallbackCreate(GetMethod(implObj, "get_textDecorationBlink"), flags, 2)
+        this.vtbl.put_verticalAlign := CallbackCreate(GetMethod(implObj, "put_verticalAlign"), flags, 2)
+        this.vtbl.get_verticalAlign := CallbackCreate(GetMethod(implObj, "get_verticalAlign"), flags, 2)
+        this.vtbl.put_textTransform := CallbackCreate(GetMethod(implObj, "put_textTransform"), flags, 2)
+        this.vtbl.get_textTransform := CallbackCreate(GetMethod(implObj, "get_textTransform"), flags, 2)
+        this.vtbl.put_textAlign := CallbackCreate(GetMethod(implObj, "put_textAlign"), flags, 2)
+        this.vtbl.get_textAlign := CallbackCreate(GetMethod(implObj, "get_textAlign"), flags, 2)
+        this.vtbl.put_textIndent := CallbackCreate(GetMethod(implObj, "put_textIndent"), flags, 2)
+        this.vtbl.get_textIndent := CallbackCreate(GetMethod(implObj, "get_textIndent"), flags, 2)
+        this.vtbl.put_lineHeight := CallbackCreate(GetMethod(implObj, "put_lineHeight"), flags, 2)
+        this.vtbl.get_lineHeight := CallbackCreate(GetMethod(implObj, "get_lineHeight"), flags, 2)
+        this.vtbl.put_marginTop := CallbackCreate(GetMethod(implObj, "put_marginTop"), flags, 2)
+        this.vtbl.get_marginTop := CallbackCreate(GetMethod(implObj, "get_marginTop"), flags, 2)
+        this.vtbl.put_marginRight := CallbackCreate(GetMethod(implObj, "put_marginRight"), flags, 2)
+        this.vtbl.get_marginRight := CallbackCreate(GetMethod(implObj, "get_marginRight"), flags, 2)
+        this.vtbl.put_marginBottom := CallbackCreate(GetMethod(implObj, "put_marginBottom"), flags, 2)
+        this.vtbl.get_marginBottom := CallbackCreate(GetMethod(implObj, "get_marginBottom"), flags, 2)
+        this.vtbl.put_marginLeft := CallbackCreate(GetMethod(implObj, "put_marginLeft"), flags, 2)
+        this.vtbl.get_marginLeft := CallbackCreate(GetMethod(implObj, "get_marginLeft"), flags, 2)
+        this.vtbl.put_margin := CallbackCreate(GetMethod(implObj, "put_margin"), flags, 2)
+        this.vtbl.get_margin := CallbackCreate(GetMethod(implObj, "get_margin"), flags, 2)
+        this.vtbl.put_paddingTop := CallbackCreate(GetMethod(implObj, "put_paddingTop"), flags, 2)
+        this.vtbl.get_paddingTop := CallbackCreate(GetMethod(implObj, "get_paddingTop"), flags, 2)
+        this.vtbl.put_paddingRight := CallbackCreate(GetMethod(implObj, "put_paddingRight"), flags, 2)
+        this.vtbl.get_paddingRight := CallbackCreate(GetMethod(implObj, "get_paddingRight"), flags, 2)
+        this.vtbl.put_paddingBottom := CallbackCreate(GetMethod(implObj, "put_paddingBottom"), flags, 2)
+        this.vtbl.get_paddingBottom := CallbackCreate(GetMethod(implObj, "get_paddingBottom"), flags, 2)
+        this.vtbl.put_paddingLeft := CallbackCreate(GetMethod(implObj, "put_paddingLeft"), flags, 2)
+        this.vtbl.get_paddingLeft := CallbackCreate(GetMethod(implObj, "get_paddingLeft"), flags, 2)
+        this.vtbl.put_padding := CallbackCreate(GetMethod(implObj, "put_padding"), flags, 2)
+        this.vtbl.get_padding := CallbackCreate(GetMethod(implObj, "get_padding"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_borderTop := CallbackCreate(GetMethod(implObj, "put_borderTop"), flags, 2)
+        this.vtbl.get_borderTop := CallbackCreate(GetMethod(implObj, "get_borderTop"), flags, 2)
+        this.vtbl.put_borderRight := CallbackCreate(GetMethod(implObj, "put_borderRight"), flags, 2)
+        this.vtbl.get_borderRight := CallbackCreate(GetMethod(implObj, "get_borderRight"), flags, 2)
+        this.vtbl.put_borderBottom := CallbackCreate(GetMethod(implObj, "put_borderBottom"), flags, 2)
+        this.vtbl.get_borderBottom := CallbackCreate(GetMethod(implObj, "get_borderBottom"), flags, 2)
+        this.vtbl.put_borderLeft := CallbackCreate(GetMethod(implObj, "put_borderLeft"), flags, 2)
+        this.vtbl.get_borderLeft := CallbackCreate(GetMethod(implObj, "get_borderLeft"), flags, 2)
+        this.vtbl.put_borderColor := CallbackCreate(GetMethod(implObj, "put_borderColor"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.put_borderTopColor := CallbackCreate(GetMethod(implObj, "put_borderTopColor"), flags, 2)
+        this.vtbl.get_borderTopColor := CallbackCreate(GetMethod(implObj, "get_borderTopColor"), flags, 2)
+        this.vtbl.put_borderRightColor := CallbackCreate(GetMethod(implObj, "put_borderRightColor"), flags, 2)
+        this.vtbl.get_borderRightColor := CallbackCreate(GetMethod(implObj, "get_borderRightColor"), flags, 2)
+        this.vtbl.put_borderBottomColor := CallbackCreate(GetMethod(implObj, "put_borderBottomColor"), flags, 2)
+        this.vtbl.get_borderBottomColor := CallbackCreate(GetMethod(implObj, "get_borderBottomColor"), flags, 2)
+        this.vtbl.put_borderLeftColor := CallbackCreate(GetMethod(implObj, "put_borderLeftColor"), flags, 2)
+        this.vtbl.get_borderLeftColor := CallbackCreate(GetMethod(implObj, "get_borderLeftColor"), flags, 2)
+        this.vtbl.put_borderWidth := CallbackCreate(GetMethod(implObj, "put_borderWidth"), flags, 2)
+        this.vtbl.get_borderWidth := CallbackCreate(GetMethod(implObj, "get_borderWidth"), flags, 2)
+        this.vtbl.put_borderTopWidth := CallbackCreate(GetMethod(implObj, "put_borderTopWidth"), flags, 2)
+        this.vtbl.get_borderTopWidth := CallbackCreate(GetMethod(implObj, "get_borderTopWidth"), flags, 2)
+        this.vtbl.put_borderRightWidth := CallbackCreate(GetMethod(implObj, "put_borderRightWidth"), flags, 2)
+        this.vtbl.get_borderRightWidth := CallbackCreate(GetMethod(implObj, "get_borderRightWidth"), flags, 2)
+        this.vtbl.put_borderBottomWidth := CallbackCreate(GetMethod(implObj, "put_borderBottomWidth"), flags, 2)
+        this.vtbl.get_borderBottomWidth := CallbackCreate(GetMethod(implObj, "get_borderBottomWidth"), flags, 2)
+        this.vtbl.put_borderLeftWidth := CallbackCreate(GetMethod(implObj, "put_borderLeftWidth"), flags, 2)
+        this.vtbl.get_borderLeftWidth := CallbackCreate(GetMethod(implObj, "get_borderLeftWidth"), flags, 2)
+        this.vtbl.put_borderStyle := CallbackCreate(GetMethod(implObj, "put_borderStyle"), flags, 2)
+        this.vtbl.get_borderStyle := CallbackCreate(GetMethod(implObj, "get_borderStyle"), flags, 2)
+        this.vtbl.put_borderTopStyle := CallbackCreate(GetMethod(implObj, "put_borderTopStyle"), flags, 2)
+        this.vtbl.get_borderTopStyle := CallbackCreate(GetMethod(implObj, "get_borderTopStyle"), flags, 2)
+        this.vtbl.put_borderRightStyle := CallbackCreate(GetMethod(implObj, "put_borderRightStyle"), flags, 2)
+        this.vtbl.get_borderRightStyle := CallbackCreate(GetMethod(implObj, "get_borderRightStyle"), flags, 2)
+        this.vtbl.put_borderBottomStyle := CallbackCreate(GetMethod(implObj, "put_borderBottomStyle"), flags, 2)
+        this.vtbl.get_borderBottomStyle := CallbackCreate(GetMethod(implObj, "get_borderBottomStyle"), flags, 2)
+        this.vtbl.put_borderLeftStyle := CallbackCreate(GetMethod(implObj, "put_borderLeftStyle"), flags, 2)
+        this.vtbl.get_borderLeftStyle := CallbackCreate(GetMethod(implObj, "get_borderLeftStyle"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_styleFloat := CallbackCreate(GetMethod(implObj, "put_styleFloat"), flags, 2)
+        this.vtbl.get_styleFloat := CallbackCreate(GetMethod(implObj, "get_styleFloat"), flags, 2)
+        this.vtbl.put_clear := CallbackCreate(GetMethod(implObj, "put_clear"), flags, 2)
+        this.vtbl.get_clear := CallbackCreate(GetMethod(implObj, "get_clear"), flags, 2)
+        this.vtbl.put_display := CallbackCreate(GetMethod(implObj, "put_display"), flags, 2)
+        this.vtbl.get_display := CallbackCreate(GetMethod(implObj, "get_display"), flags, 2)
+        this.vtbl.put_visibility := CallbackCreate(GetMethod(implObj, "put_visibility"), flags, 2)
+        this.vtbl.get_visibility := CallbackCreate(GetMethod(implObj, "get_visibility"), flags, 2)
+        this.vtbl.put_listStyleType := CallbackCreate(GetMethod(implObj, "put_listStyleType"), flags, 2)
+        this.vtbl.get_listStyleType := CallbackCreate(GetMethod(implObj, "get_listStyleType"), flags, 2)
+        this.vtbl.put_listStylePosition := CallbackCreate(GetMethod(implObj, "put_listStylePosition"), flags, 2)
+        this.vtbl.get_listStylePosition := CallbackCreate(GetMethod(implObj, "get_listStylePosition"), flags, 2)
+        this.vtbl.put_listStyleImage := CallbackCreate(GetMethod(implObj, "put_listStyleImage"), flags, 2)
+        this.vtbl.get_listStyleImage := CallbackCreate(GetMethod(implObj, "get_listStyleImage"), flags, 2)
+        this.vtbl.put_listStyle := CallbackCreate(GetMethod(implObj, "put_listStyle"), flags, 2)
+        this.vtbl.get_listStyle := CallbackCreate(GetMethod(implObj, "get_listStyle"), flags, 2)
+        this.vtbl.put_whiteSpace := CallbackCreate(GetMethod(implObj, "put_whiteSpace"), flags, 2)
+        this.vtbl.get_whiteSpace := CallbackCreate(GetMethod(implObj, "get_whiteSpace"), flags, 2)
+        this.vtbl.put_top := CallbackCreate(GetMethod(implObj, "put_top"), flags, 2)
+        this.vtbl.get_top := CallbackCreate(GetMethod(implObj, "get_top"), flags, 2)
+        this.vtbl.put_left := CallbackCreate(GetMethod(implObj, "put_left"), flags, 2)
+        this.vtbl.get_left := CallbackCreate(GetMethod(implObj, "get_left"), flags, 2)
+        this.vtbl.get_position := CallbackCreate(GetMethod(implObj, "get_position"), flags, 2)
+        this.vtbl.put_zIndex := CallbackCreate(GetMethod(implObj, "put_zIndex"), flags, 2)
+        this.vtbl.get_zIndex := CallbackCreate(GetMethod(implObj, "get_zIndex"), flags, 2)
+        this.vtbl.put_overflow := CallbackCreate(GetMethod(implObj, "put_overflow"), flags, 2)
+        this.vtbl.get_overflow := CallbackCreate(GetMethod(implObj, "get_overflow"), flags, 2)
+        this.vtbl.put_pageBreakBefore := CallbackCreate(GetMethod(implObj, "put_pageBreakBefore"), flags, 2)
+        this.vtbl.get_pageBreakBefore := CallbackCreate(GetMethod(implObj, "get_pageBreakBefore"), flags, 2)
+        this.vtbl.put_pageBreakAfter := CallbackCreate(GetMethod(implObj, "put_pageBreakAfter"), flags, 2)
+        this.vtbl.get_pageBreakAfter := CallbackCreate(GetMethod(implObj, "get_pageBreakAfter"), flags, 2)
+        this.vtbl.put_cssText := CallbackCreate(GetMethod(implObj, "put_cssText"), flags, 2)
+        this.vtbl.get_cssText := CallbackCreate(GetMethod(implObj, "get_cssText"), flags, 2)
+        this.vtbl.put_pixelTop := CallbackCreate(GetMethod(implObj, "put_pixelTop"), flags, 2)
+        this.vtbl.get_pixelTop := CallbackCreate(GetMethod(implObj, "get_pixelTop"), flags, 2)
+        this.vtbl.put_pixelLeft := CallbackCreate(GetMethod(implObj, "put_pixelLeft"), flags, 2)
+        this.vtbl.get_pixelLeft := CallbackCreate(GetMethod(implObj, "get_pixelLeft"), flags, 2)
+        this.vtbl.put_pixelWidth := CallbackCreate(GetMethod(implObj, "put_pixelWidth"), flags, 2)
+        this.vtbl.get_pixelWidth := CallbackCreate(GetMethod(implObj, "get_pixelWidth"), flags, 2)
+        this.vtbl.put_pixelHeight := CallbackCreate(GetMethod(implObj, "put_pixelHeight"), flags, 2)
+        this.vtbl.get_pixelHeight := CallbackCreate(GetMethod(implObj, "get_pixelHeight"), flags, 2)
+        this.vtbl.put_posTop := CallbackCreate(GetMethod(implObj, "put_posTop"), flags, 2)
+        this.vtbl.get_posTop := CallbackCreate(GetMethod(implObj, "get_posTop"), flags, 2)
+        this.vtbl.put_posLeft := CallbackCreate(GetMethod(implObj, "put_posLeft"), flags, 2)
+        this.vtbl.get_posLeft := CallbackCreate(GetMethod(implObj, "get_posLeft"), flags, 2)
+        this.vtbl.put_posWidth := CallbackCreate(GetMethod(implObj, "put_posWidth"), flags, 2)
+        this.vtbl.get_posWidth := CallbackCreate(GetMethod(implObj, "get_posWidth"), flags, 2)
+        this.vtbl.put_posHeight := CallbackCreate(GetMethod(implObj, "put_posHeight"), flags, 2)
+        this.vtbl.get_posHeight := CallbackCreate(GetMethod(implObj, "get_posHeight"), flags, 2)
+        this.vtbl.put_cursor := CallbackCreate(GetMethod(implObj, "put_cursor"), flags, 2)
+        this.vtbl.get_cursor := CallbackCreate(GetMethod(implObj, "get_cursor"), flags, 2)
+        this.vtbl.put_clip := CallbackCreate(GetMethod(implObj, "put_clip"), flags, 2)
+        this.vtbl.get_clip := CallbackCreate(GetMethod(implObj, "get_clip"), flags, 2)
+        this.vtbl.put_filter := CallbackCreate(GetMethod(implObj, "put_filter"), flags, 2)
+        this.vtbl.get_filter := CallbackCreate(GetMethod(implObj, "get_filter"), flags, 2)
+        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 4)
+        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 4)
+        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 4)
+        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_fontFamily)
+        CallbackFree(this.vtbl.get_fontFamily)
+        CallbackFree(this.vtbl.put_fontStyle)
+        CallbackFree(this.vtbl.get_fontStyle)
+        CallbackFree(this.vtbl.put_fontVariant)
+        CallbackFree(this.vtbl.get_fontVariant)
+        CallbackFree(this.vtbl.put_fontWeight)
+        CallbackFree(this.vtbl.get_fontWeight)
+        CallbackFree(this.vtbl.put_fontSize)
+        CallbackFree(this.vtbl.get_fontSize)
+        CallbackFree(this.vtbl.put_font)
+        CallbackFree(this.vtbl.get_font)
+        CallbackFree(this.vtbl.put_color)
+        CallbackFree(this.vtbl.get_color)
+        CallbackFree(this.vtbl.put_background)
+        CallbackFree(this.vtbl.get_background)
+        CallbackFree(this.vtbl.put_backgroundColor)
+        CallbackFree(this.vtbl.get_backgroundColor)
+        CallbackFree(this.vtbl.put_backgroundImage)
+        CallbackFree(this.vtbl.get_backgroundImage)
+        CallbackFree(this.vtbl.put_backgroundRepeat)
+        CallbackFree(this.vtbl.get_backgroundRepeat)
+        CallbackFree(this.vtbl.put_backgroundAttachment)
+        CallbackFree(this.vtbl.get_backgroundAttachment)
+        CallbackFree(this.vtbl.put_backgroundPosition)
+        CallbackFree(this.vtbl.get_backgroundPosition)
+        CallbackFree(this.vtbl.put_backgroundPositionX)
+        CallbackFree(this.vtbl.get_backgroundPositionX)
+        CallbackFree(this.vtbl.put_backgroundPositionY)
+        CallbackFree(this.vtbl.get_backgroundPositionY)
+        CallbackFree(this.vtbl.put_wordSpacing)
+        CallbackFree(this.vtbl.get_wordSpacing)
+        CallbackFree(this.vtbl.put_letterSpacing)
+        CallbackFree(this.vtbl.get_letterSpacing)
+        CallbackFree(this.vtbl.put_textDecoration)
+        CallbackFree(this.vtbl.get_textDecoration)
+        CallbackFree(this.vtbl.put_textDecorationNone)
+        CallbackFree(this.vtbl.get_textDecorationNone)
+        CallbackFree(this.vtbl.put_textDecorationUnderline)
+        CallbackFree(this.vtbl.get_textDecorationUnderline)
+        CallbackFree(this.vtbl.put_textDecorationOverline)
+        CallbackFree(this.vtbl.get_textDecorationOverline)
+        CallbackFree(this.vtbl.put_textDecorationLineThrough)
+        CallbackFree(this.vtbl.get_textDecorationLineThrough)
+        CallbackFree(this.vtbl.put_textDecorationBlink)
+        CallbackFree(this.vtbl.get_textDecorationBlink)
+        CallbackFree(this.vtbl.put_verticalAlign)
+        CallbackFree(this.vtbl.get_verticalAlign)
+        CallbackFree(this.vtbl.put_textTransform)
+        CallbackFree(this.vtbl.get_textTransform)
+        CallbackFree(this.vtbl.put_textAlign)
+        CallbackFree(this.vtbl.get_textAlign)
+        CallbackFree(this.vtbl.put_textIndent)
+        CallbackFree(this.vtbl.get_textIndent)
+        CallbackFree(this.vtbl.put_lineHeight)
+        CallbackFree(this.vtbl.get_lineHeight)
+        CallbackFree(this.vtbl.put_marginTop)
+        CallbackFree(this.vtbl.get_marginTop)
+        CallbackFree(this.vtbl.put_marginRight)
+        CallbackFree(this.vtbl.get_marginRight)
+        CallbackFree(this.vtbl.put_marginBottom)
+        CallbackFree(this.vtbl.get_marginBottom)
+        CallbackFree(this.vtbl.put_marginLeft)
+        CallbackFree(this.vtbl.get_marginLeft)
+        CallbackFree(this.vtbl.put_margin)
+        CallbackFree(this.vtbl.get_margin)
+        CallbackFree(this.vtbl.put_paddingTop)
+        CallbackFree(this.vtbl.get_paddingTop)
+        CallbackFree(this.vtbl.put_paddingRight)
+        CallbackFree(this.vtbl.get_paddingRight)
+        CallbackFree(this.vtbl.put_paddingBottom)
+        CallbackFree(this.vtbl.get_paddingBottom)
+        CallbackFree(this.vtbl.put_paddingLeft)
+        CallbackFree(this.vtbl.get_paddingLeft)
+        CallbackFree(this.vtbl.put_padding)
+        CallbackFree(this.vtbl.get_padding)
+        CallbackFree(this.vtbl.put_border)
+        CallbackFree(this.vtbl.get_border)
+        CallbackFree(this.vtbl.put_borderTop)
+        CallbackFree(this.vtbl.get_borderTop)
+        CallbackFree(this.vtbl.put_borderRight)
+        CallbackFree(this.vtbl.get_borderRight)
+        CallbackFree(this.vtbl.put_borderBottom)
+        CallbackFree(this.vtbl.get_borderBottom)
+        CallbackFree(this.vtbl.put_borderLeft)
+        CallbackFree(this.vtbl.get_borderLeft)
+        CallbackFree(this.vtbl.put_borderColor)
+        CallbackFree(this.vtbl.get_borderColor)
+        CallbackFree(this.vtbl.put_borderTopColor)
+        CallbackFree(this.vtbl.get_borderTopColor)
+        CallbackFree(this.vtbl.put_borderRightColor)
+        CallbackFree(this.vtbl.get_borderRightColor)
+        CallbackFree(this.vtbl.put_borderBottomColor)
+        CallbackFree(this.vtbl.get_borderBottomColor)
+        CallbackFree(this.vtbl.put_borderLeftColor)
+        CallbackFree(this.vtbl.get_borderLeftColor)
+        CallbackFree(this.vtbl.put_borderWidth)
+        CallbackFree(this.vtbl.get_borderWidth)
+        CallbackFree(this.vtbl.put_borderTopWidth)
+        CallbackFree(this.vtbl.get_borderTopWidth)
+        CallbackFree(this.vtbl.put_borderRightWidth)
+        CallbackFree(this.vtbl.get_borderRightWidth)
+        CallbackFree(this.vtbl.put_borderBottomWidth)
+        CallbackFree(this.vtbl.get_borderBottomWidth)
+        CallbackFree(this.vtbl.put_borderLeftWidth)
+        CallbackFree(this.vtbl.get_borderLeftWidth)
+        CallbackFree(this.vtbl.put_borderStyle)
+        CallbackFree(this.vtbl.get_borderStyle)
+        CallbackFree(this.vtbl.put_borderTopStyle)
+        CallbackFree(this.vtbl.get_borderTopStyle)
+        CallbackFree(this.vtbl.put_borderRightStyle)
+        CallbackFree(this.vtbl.get_borderRightStyle)
+        CallbackFree(this.vtbl.put_borderBottomStyle)
+        CallbackFree(this.vtbl.get_borderBottomStyle)
+        CallbackFree(this.vtbl.put_borderLeftStyle)
+        CallbackFree(this.vtbl.get_borderLeftStyle)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.put_styleFloat)
+        CallbackFree(this.vtbl.get_styleFloat)
+        CallbackFree(this.vtbl.put_clear)
+        CallbackFree(this.vtbl.get_clear)
+        CallbackFree(this.vtbl.put_display)
+        CallbackFree(this.vtbl.get_display)
+        CallbackFree(this.vtbl.put_visibility)
+        CallbackFree(this.vtbl.get_visibility)
+        CallbackFree(this.vtbl.put_listStyleType)
+        CallbackFree(this.vtbl.get_listStyleType)
+        CallbackFree(this.vtbl.put_listStylePosition)
+        CallbackFree(this.vtbl.get_listStylePosition)
+        CallbackFree(this.vtbl.put_listStyleImage)
+        CallbackFree(this.vtbl.get_listStyleImage)
+        CallbackFree(this.vtbl.put_listStyle)
+        CallbackFree(this.vtbl.get_listStyle)
+        CallbackFree(this.vtbl.put_whiteSpace)
+        CallbackFree(this.vtbl.get_whiteSpace)
+        CallbackFree(this.vtbl.put_top)
+        CallbackFree(this.vtbl.get_top)
+        CallbackFree(this.vtbl.put_left)
+        CallbackFree(this.vtbl.get_left)
+        CallbackFree(this.vtbl.get_position)
+        CallbackFree(this.vtbl.put_zIndex)
+        CallbackFree(this.vtbl.get_zIndex)
+        CallbackFree(this.vtbl.put_overflow)
+        CallbackFree(this.vtbl.get_overflow)
+        CallbackFree(this.vtbl.put_pageBreakBefore)
+        CallbackFree(this.vtbl.get_pageBreakBefore)
+        CallbackFree(this.vtbl.put_pageBreakAfter)
+        CallbackFree(this.vtbl.get_pageBreakAfter)
+        CallbackFree(this.vtbl.put_cssText)
+        CallbackFree(this.vtbl.get_cssText)
+        CallbackFree(this.vtbl.put_pixelTop)
+        CallbackFree(this.vtbl.get_pixelTop)
+        CallbackFree(this.vtbl.put_pixelLeft)
+        CallbackFree(this.vtbl.get_pixelLeft)
+        CallbackFree(this.vtbl.put_pixelWidth)
+        CallbackFree(this.vtbl.get_pixelWidth)
+        CallbackFree(this.vtbl.put_pixelHeight)
+        CallbackFree(this.vtbl.get_pixelHeight)
+        CallbackFree(this.vtbl.put_posTop)
+        CallbackFree(this.vtbl.get_posTop)
+        CallbackFree(this.vtbl.put_posLeft)
+        CallbackFree(this.vtbl.get_posLeft)
+        CallbackFree(this.vtbl.put_posWidth)
+        CallbackFree(this.vtbl.get_posWidth)
+        CallbackFree(this.vtbl.put_posHeight)
+        CallbackFree(this.vtbl.get_posHeight)
+        CallbackFree(this.vtbl.put_cursor)
+        CallbackFree(this.vtbl.get_cursor)
+        CallbackFree(this.vtbl.put_clip)
+        CallbackFree(this.vtbl.get_clip)
+        CallbackFree(this.vtbl.put_filter)
+        CallbackFree(this.vtbl.get_filter)
+        CallbackFree(this.vtbl.setAttribute)
+        CallbackFree(this.vtbl.getAttribute)
+        CallbackFree(this.vtbl.removeAttribute)
+        CallbackFree(this.vtbl.toString)
     }
 }

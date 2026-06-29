@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Stores the state associated with a callout.
@@ -14,34 +15,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_callout0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_CALLOUT0 extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct FWPM_CALLOUT0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the session. 
      * 
      * If the GUID is initialized to zero in the
      *    call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutadd0">FwpmCalloutAdd0</a>, the base filtering engine (BFE) will generate one.
-     * @type {Pointer}
      */
-    calloutKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    calloutKey : Guid
 
     /**
      * A [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) structure that contains human-readable annotations associated with the callout.  The <b>name</b> member of the <b>FWPM_DISPLAY_DATA0</b> structure is required.
-     * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData {
-        get {
-            if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
-            return this.__displayData
-        }
-    }
+    displayData : FWPM_DISPLAY_DATA0
 
     /**
      * <table>
@@ -81,50 +69,28 @@ class FWPM_CALLOUT0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    flags : UInt32
 
     /**
      * Uniquely identifies the provider associated with the callout. If the member is non-NULL, only objects associated with the specified provider will be returned.
-     * @type {Pointer<Guid>}
      */
-    providerKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    providerKey : Guid.Ptr
 
     /**
      * A [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) structure that contains optional provider-specific data that allows providers to store additional context information with the object.
-     * @type {FWP_BYTE_BLOB}
      */
-    providerData {
-        get {
-            if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(40, this)
-            return this.__providerData
-        }
-    }
+    providerData : FWP_BYTE_BLOB
 
     /**
      * Specifies the layer in which the callout can be used. Only filters in this layer can invoke the callout. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FWP/management-filtering-layer-identifiers-">Filtering Layer Identifiers</a>.
-     * @type {Pointer}
      */
-    applicableLayer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    applicableLayer : Guid
 
     /**
      * LUID identifying the callout. This is the <b>calloutId</b> stored in the
      *    <b>FWPS_ACTION0</b> structure for filters that invoke a callout. The <b>FWPS_ACTION0</b> structure is documented in the WDK.
-     * @type {Integer}
      */
-    calloutId {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    calloutId : UInt32
+
 }

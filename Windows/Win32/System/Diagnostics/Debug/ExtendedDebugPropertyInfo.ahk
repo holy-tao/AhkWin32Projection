@@ -1,122 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IDebugProperty.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include ..\..\Variant\VARENUM.ahk
-#Include ..\..\Com\CY.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\Com\IDispatch.ahk
-#Include ..\..\Com\SAFEARRAY.ahk
-#Include ..\..\..\Foundation\DECIMAL.ahk
-#Include ..\..\Ole\IRecordInfo.ahk
-#Include ..\..\Com\StructuredStorage\ILockBytes.ahk
-#Include .\IDebugExtendedProperty.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Com\StructuredStorage\ILockBytes.ahk" { ILockBytes }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IDebugExtendedProperty.ahk" { IDebugExtendedProperty }
+#Import "..\..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\IDebugProperty.ahk" { IDebugProperty }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Com\CY.ahk" { CY }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class ExtendedDebugPropertyInfo extends Win32Struct {
-    static sizeof => 104
+export default struct ExtendedDebugPropertyInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    dwValidFields : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwValidFields {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszType : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszValue : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszFullName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszFullName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwAttrib : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAttrib {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pDebugProp : IDebugProperty
 
-    /**
-     * @type {IDebugProperty}
-     */
-    pDebugProp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    nDISPID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nDISPID {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    nType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nType {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    varValue : VARIANT
 
-    /**
-     * @type {VARIANT}
-     */
-    varValue {
-        get {
-            if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(64, this)
-            return this.__varValue
-        }
-    }
+    plbValue : ILockBytes
 
-    /**
-     * @type {ILockBytes}
-     */
-    plbValue {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pDebugExtProp : IDebugExtendedProperty
 
-    /**
-     * @type {IDebugExtendedProperty}
-     */
-    pDebugExtProp {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

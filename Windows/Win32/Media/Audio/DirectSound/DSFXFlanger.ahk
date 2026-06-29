@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSFXFlanger extends Win32Struct {
-    static sizeof => 28
+export default struct DSFXFlanger {
+    #StructPack 4
 
-    static packingSize => 4
+    fWetDryMix : Float32
 
-    /**
-     * @type {Float}
-     */
-    fWetDryMix {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    fDepth : Float32
 
-    /**
-     * @type {Float}
-     */
-    fDepth {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    fFeedback : Float32
 
-    /**
-     * @type {Float}
-     */
-    fFeedback {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    fFrequency : Float32
 
-    /**
-     * @type {Float}
-     */
-    fFrequency {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    lWaveform : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lWaveform {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fDelay : Float32
 
-    /**
-     * @type {Float}
-     */
-    fDelay {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    lPhase : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPhase {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

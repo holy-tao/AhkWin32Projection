@@ -1,48 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\LITEM.ahk
-#Include .\LIST_ITEM_FLAGS.ahk
-#Include .\LIST_ITEM_STATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\LIST_ITEM_FLAGS.ahk" { LIST_ITEM_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\LITEM.ahk" { LITEM }
+#Import ".\LIST_ITEM_STATE_FLAGS.ahk" { LIST_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NMLINK Contains notification information. Send this structure with the NM_CLICK or NM_RETURN messages.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlink
  * @namespace Windows.Win32.UI.Controls
  */
-class NMLINK extends Win32Struct {
-    static sizeof => 4304
-
-    static packingSize => 8
+export default struct NMLINK {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-litem">LITEM</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-litem">LITEM</a> structure that contains information about the link item.
-     * @type {LITEM}
      */
-    item {
-        get {
-            if(!this.HasProp("__item"))
-                this.__item := LITEM(24, this)
-            return this.__item
-        }
-    }
+    item : LITEM
+
 }

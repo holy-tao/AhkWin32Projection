@@ -1,50 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_TOC_FULL_TOC_DATA_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CDROM_TOC_FULL_TOC_DATA_BLOCK.ahk" { CDROM_TOC_FULL_TOC_DATA_BLOCK }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_TOC_FULL_TOC_DATA extends Win32Struct {
-    static sizeof => 15
+export default struct CDROM_TOC_FULL_TOC_DATA {
+    #StructPack 1
 
-    static packingSize => 1
+    Length : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Length {
-        get {
-            if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
-            return this.__LengthProxyArray
-        }
-    }
+    FirstCompleteSession : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FirstCompleteSession {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    LastCompleteSession : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LastCompleteSession {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Descriptors : CDROM_TOC_FULL_TOC_DATA_BLOCK[1]
 
-    /**
-     * @type {CDROM_TOC_FULL_TOC_DATA_BLOCK}
-     */
-    Descriptors {
-        get {
-            if(!this.HasProp("__DescriptorsProxyArray"))
-                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 4, 1, CDROM_TOC_FULL_TOC_DATA_BLOCK, "")
-            return this.__DescriptorsProxyArray
-        }
-    }
 }

@@ -1,48 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HSE_VECTOR_ELEMENT extends Win32Struct {
-    static sizeof => 32
+export default struct HSE_VECTOR_ELEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    ElementType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ElementType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pvContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbSize : Int64 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

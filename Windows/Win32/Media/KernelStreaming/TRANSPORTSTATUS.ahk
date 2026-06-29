@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class TRANSPORTSTATUS extends Win32Struct {
-    static sizeof => 52
+export default struct TRANSPORTSTATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    Mode : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Mode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    LastError : Int32
 
-    /**
-     * @type {Integer}
-     */
-    LastError {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    RecordInhibit : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RecordInhibit {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ServoLock : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ServoLock {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    MediaPresent : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaPresent {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    MediaLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaLength {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    MediaSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaSize {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    MediaTrackCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaTrackCount {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    MediaTrackLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaTrackLength {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    MediaTrackSide : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaTrackSide {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    MediaType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MediaType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    LinkMode : Int32
 
-    /**
-     * @type {Integer}
-     */
-    LinkMode {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    NotifyOn : Int32
 
-    /**
-     * @type {Integer}
-     */
-    NotifyOn {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
 }

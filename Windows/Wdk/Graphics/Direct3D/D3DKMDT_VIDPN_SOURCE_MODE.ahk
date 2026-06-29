@@ -1,61 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDPN_SOURCE_MODE_TYPE.ahk
-#Include .\D3DKMDT_TEXT_RENDERING_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_TEXT_RENDERING_FORMAT.ahk" { D3DKMDT_TEXT_RENDERING_FORMAT }
+#Import ".\D3DKMDT_VIDPN_SOURCE_MODE_TYPE.ahk" { D3DKMDT_VIDPN_SOURCE_MODE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_VIDPN_SOURCE_MODE extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMDT_VIDPN_SOURCE_MODE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Format_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Format {
+        Graphics : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        Graphics {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {D3DKMDT_TEXT_RENDERING_FORMAT}
-         */
-        Text {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Text', { type: D3DKMDT_TEXT_RENDERING_FORMAT, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Id : UInt32
 
-    /**
-     * @type {D3DKMDT_VIDPN_SOURCE_MODE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Type : D3DKMDT_VIDPN_SOURCE_MODE_TYPE
 
-    /**
-     * @type {_Format_e__Union}
-     */
-    Format {
-        get {
-            if(!this.HasProp("__Format"))
-                this.__Format := D3DKMDT_VIDPN_SOURCE_MODE._Format_e__Union(8, this)
-            return this.__Format
-        }
-    }
+    Format : D3DKMDT_VIDPN_SOURCE_MODE._Format
+
 }

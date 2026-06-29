@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_STRUCTURE_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DVD_STRUCTURE_FORMAT.ahk" { DVD_STRUCTURE_FORMAT }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_READ_STRUCTURE extends Win32Struct {
-    static sizeof => 24
+export default struct DVD_READ_STRUCTURE {
+    #StructPack 8
 
-    static packingSize => 8
+    BlockByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BlockByteOffset {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Format : DVD_STRUCTURE_FORMAT
 
-    /**
-     * @type {DVD_STRUCTURE_FORMAT}
-     */
-    Format {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    LayerNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LayerNumber {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

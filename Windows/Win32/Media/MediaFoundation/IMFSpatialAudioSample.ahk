@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFSample.ahk
-#Include .\IMFSpatialAudioObjectBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSpatialAudioObjectBuffer.ahk" { IMFSpatialAudioObjectBuffer }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a multimedia sample with spatial sound information. Every IMFSpatialAudioSample contains one or more IMFSpatialAudioObjectBuffer objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudiosample
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSpatialAudioSample extends IMFSample {
-
-    static sizeof => A_PtrSize
+export default struct IMFSpatialAudioSample extends IMFSample {
     /**
      * The interface identifier for IMFSpatialAudioSample
      * @type {Guid}
      */
-    static IID => Guid("{abf28a9b-3393-4290-ba79-5ffc46d986b2}")
+    static IID := Guid("{abf28a9b-3393-4290-ba79-5ffc46d986b2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 47
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSpatialAudioSample interfaces
+    */
+    struct Vtbl extends IMFSample.Vtbl {
+        GetObjectCount               : IntPtr
+        AddSpatialAudioObject        : IntPtr
+        GetSpatialAudioObjectByIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetObjectCount", "AddSpatialAudioObject", "GetSpatialAudioObjectByIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSpatialAudioSample.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the count of spatial audio objects, represented by IMFSpatialAudioObjectBuffer objects, in the sample.
@@ -89,5 +99,29 @@ class IMFSpatialAudioSample extends IMFSample {
     GetSpatialAudioObjectByIndex(dwIndex) {
         result := ComCall(49, this, "uint", dwIndex, "ptr*", &ppAudioObjBuffer := 0, "HRESULT")
         return IMFSpatialAudioObjectBuffer(ppAudioObjBuffer)
+    }
+
+    Query(iid) {
+        if (IMFSpatialAudioSample.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetObjectCount := CallbackCreate(GetMethod(implObj, "GetObjectCount"), flags, 2)
+        this.vtbl.AddSpatialAudioObject := CallbackCreate(GetMethod(implObj, "AddSpatialAudioObject"), flags, 2)
+        this.vtbl.GetSpatialAudioObjectByIndex := CallbackCreate(GetMethod(implObj, "GetSpatialAudioObjectByIndex"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetObjectCount)
+        CallbackFree(this.vtbl.AddSpatialAudioObject)
+        CallbackFree(this.vtbl.GetSpatialAudioObjectByIndex)
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_SERVER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NET_SERVER_TYPE.ahk" { NET_SERVER_TYPE }
 
 /**
  * The SERVER_INFO_101 structure contains information about the specified server, including name, platform, type of server, and associated software.
@@ -10,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_101
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_101 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SERVER_INFO_101 {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -84,23 +82,15 @@ class SERVER_INFO_101 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    sv101_platform_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sv101_platform_id : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the name of a server.
-     * @type {PWSTR}
      */
-    sv101_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sv101_name : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -108,23 +98,15 @@ class SERVER_INFO_101 extends Win32Struct {
      * The major version number and the server type. 
      * 
      * The major release version number of the operating system is specified in the least significant 4 bits. The server type is specified in the most significant 4 bits. The <b>MAJOR_VERSION_MASK</b> bitmask defined in the <i>Lmserver.h</i> header should be used by an  application to obtain the major version number from this member.
-     * @type {Integer}
      */
-    sv101_version_major {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sv101_version_major : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The minor release version number of the operating system.
-     * @type {Integer}
      */
-    sv101_version_minor {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    sv101_version_minor : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -132,21 +114,14 @@ class SERVER_INFO_101 extends Win32Struct {
      * The type of software the computer is running. 
      * 
      * Possible values for this member are listed in the <i>Lmserver.h</i> header file.
-     * @type {NET_SERVER_TYPE}
      */
-    sv101_type {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sv101_type : NET_SERVER_TYPE
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying a comment describing the server. The comment can be null.
-     * @type {PWSTR}
      */
-    sv101_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    sv101_comment : PWSTR
+
 }

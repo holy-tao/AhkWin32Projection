@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SETUP_DI_DRIVER_INSTALL_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SETUP_DI_DRIVER_INSTALL_FLAGS.ahk" { SETUP_DI_DRIVER_INSTALL_FLAGS }
 
 /**
  * An SP_DRVINSTALL_PARAMS structure contains driver installation parameters associated with a particular driver information element.
@@ -30,58 +29,32 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_DRVINSTALL_PARAMS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SP_DRVINSTALL_PARAMS {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the SP_DRVINSTALL_PARAMS structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The rank match of this driver. Ranges from 0 to <i>n</i>, where 0 is the most compatible.
-     * @type {Integer}
      */
-    Rank {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Rank : UInt32
 
     /**
      * Flags that control functions operating on this driver. Can be a combination of the following:
-     * @type {SETUP_DI_DRIVER_INSTALL_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : SETUP_DI_DRIVER_INSTALL_FLAGS
 
     /**
      * A field a class installer can use to store private data. Co-installers should not use this field.
-     * @type {Pointer}
      */
-    PrivateData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PrivateData : IntPtr
 
     /**
      * Reserved. For internal use only.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

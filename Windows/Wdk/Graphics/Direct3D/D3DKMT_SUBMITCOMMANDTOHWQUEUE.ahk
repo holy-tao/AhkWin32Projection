@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SUBMITCOMMANDTOHWQUEUE extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_SUBMITCOMMANDTOHWQUEUE {
+    #StructPack 8
 
-    static packingSize => 8
+    hHwQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hHwQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    HwQueueProgressFenceId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HwQueueProgressFenceId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CommandBuffer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CommandBuffer {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CommandLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CommandLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateDriverDataSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    pPrivateDriverData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateDriverData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    NumPrimaries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumPrimaries {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    WrittenPrimaries : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    WrittenPrimaries {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

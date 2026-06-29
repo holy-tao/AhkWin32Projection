@@ -1,43 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IEnumNetworks.ahk
-#Include .\INetwork.ahk
-#Include .\IEnumNetworkConnections.ahk
-#Include .\INetworkConnection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumNetworkConnections.ahk" { IEnumNetworkConnections }
+#Import ".\INetwork.ahk" { INetwork }
+#Import ".\NLM_ENUM_NETWORK.ahk" { NLM_ENUM_NETWORK }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NLM_SIMULATED_PROFILE_INFO.ahk" { NLM_SIMULATED_PROFILE_INFO }
+#Import ".\IEnumNetworks.ahk" { IEnumNetworks }
+#Import ".\INetworkConnection.ahk" { INetworkConnection }
 
 /**
  * The INetworkListManager interface provides a set of methods to perform network list management functions.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworklistmanager
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class INetworkListManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetworkListManager extends IDispatch {
     /**
      * The interface identifier for INetworkListManager
      * @type {Guid}
      */
-    static IID => Guid("{dcb00000-570f-4a9b-8d69-199fdba5723b}")
+    static IID := Guid("{dcb00000-570f-4a9b-8d69-199fdba5723b}")
 
     /**
      * The class identifier for NetworkListManager
      * @type {Guid}
      */
-    static CLSID => Guid("{dcb00c01-570f-4a9b-8d69-199fdba5723b}")
+    static CLSID := Guid("{dcb00c01-570f-4a9b-8d69-199fdba5723b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetworkListManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetNetworks               : IntPtr
+        GetNetwork                : IntPtr
+        GetNetworkConnections     : IntPtr
+        GetNetworkConnection      : IntPtr
+        get_IsConnectedToInternet : IntPtr
+        get_IsConnected           : IntPtr
+        GetConnectivity           : IntPtr
+        SetSimulatedProfileInfo   : IntPtr
+        ClearSimulatedProfileInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNetworks", "GetNetwork", "GetNetworkConnections", "GetNetworkConnection", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "SetSimulatedProfileInfo", "ClearSimulatedProfileInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetworkListManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -60,7 +80,7 @@ class INetworkListManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetworks
      */
     GetNetworks(Flags) {
-        result := ComCall(7, this, "int", Flags, "ptr*", &ppEnumNetwork := 0, "HRESULT")
+        result := ComCall(7, this, NLM_ENUM_NETWORK, Flags, "ptr*", &ppEnumNetwork := 0, "HRESULT")
         return IEnumNetworks(ppEnumNetwork)
     }
 
@@ -71,7 +91,7 @@ class INetworkListManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetwork
      */
     GetNetwork(gdNetworkId) {
-        result := ComCall(8, this, "ptr", gdNetworkId, "ptr*", &ppNetwork := 0, "HRESULT")
+        result := ComCall(8, this, Guid, gdNetworkId, "ptr*", &ppNetwork := 0, "HRESULT")
         return INetwork(ppNetwork)
     }
 
@@ -95,7 +115,7 @@ class INetworkListManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetworkconnection
      */
     GetNetworkConnection(gdNetworkConnectionId) {
-        result := ComCall(10, this, "ptr", gdNetworkConnectionId, "ptr*", &ppNetworkConnection := 0, "HRESULT")
+        result := ComCall(10, this, Guid, gdNetworkConnectionId, "ptr*", &ppNetworkConnection := 0, "HRESULT")
         return INetworkConnection(ppNetworkConnection)
     }
 
@@ -105,7 +125,7 @@ class INetworkListManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-get_isconnectedtointernet
      */
     get_IsConnectedToInternet() {
-        result := ComCall(11, this, "short*", &pbIsConnected := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbIsConnected := 0, "HRESULT")
         return pbIsConnected
     }
 
@@ -117,7 +137,7 @@ class INetworkListManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-get_isconnected
      */
     get_IsConnected() {
-        result := ComCall(12, this, "short*", &pbIsConnected := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pbIsConnected := 0, "HRESULT")
         return pbIsConnected
     }
 
@@ -138,7 +158,7 @@ class INetworkListManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-setsimulatedprofileinfo
      */
     SetSimulatedProfileInfo(pSimulatedInfo) {
-        result := ComCall(14, this, "ptr", pSimulatedInfo, "HRESULT")
+        result := ComCall(14, this, NLM_SIMULATED_PROFILE_INFO.Ptr, pSimulatedInfo, "HRESULT")
         return result
     }
 
@@ -150,5 +170,41 @@ class INetworkListManager extends IDispatch {
     ClearSimulatedProfileInfo() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetworkListManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNetworks := CallbackCreate(GetMethod(implObj, "GetNetworks"), flags, 3)
+        this.vtbl.GetNetwork := CallbackCreate(GetMethod(implObj, "GetNetwork"), flags, 3)
+        this.vtbl.GetNetworkConnections := CallbackCreate(GetMethod(implObj, "GetNetworkConnections"), flags, 2)
+        this.vtbl.GetNetworkConnection := CallbackCreate(GetMethod(implObj, "GetNetworkConnection"), flags, 3)
+        this.vtbl.get_IsConnectedToInternet := CallbackCreate(GetMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.GetConnectivity := CallbackCreate(GetMethod(implObj, "GetConnectivity"), flags, 2)
+        this.vtbl.SetSimulatedProfileInfo := CallbackCreate(GetMethod(implObj, "SetSimulatedProfileInfo"), flags, 2)
+        this.vtbl.ClearSimulatedProfileInfo := CallbackCreate(GetMethod(implObj, "ClearSimulatedProfileInfo"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNetworks)
+        CallbackFree(this.vtbl.GetNetwork)
+        CallbackFree(this.vtbl.GetNetworkConnections)
+        CallbackFree(this.vtbl.GetNetworkConnection)
+        CallbackFree(this.vtbl.get_IsConnectedToInternet)
+        CallbackFree(this.vtbl.get_IsConnected)
+        CallbackFree(this.vtbl.GetConnectivity)
+        CallbackFree(this.vtbl.SetSimulatedProfileInfo)
+        CallbackFree(this.vtbl.ClearSimulatedProfileInfo)
     }
 }

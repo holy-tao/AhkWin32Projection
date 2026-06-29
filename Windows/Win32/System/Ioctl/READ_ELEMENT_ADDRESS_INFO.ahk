@@ -1,19 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT_STATUS.ahk
-#Include .\CHANGER_ELEMENT.ahk
-#Include .\ELEMENT_TYPE.ahk
-#Include .\CHANGER_ELEMENT_STATUS_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
+#Import ".\CHANGER_ELEMENT_STATUS_FLAGS.ahk" { CHANGER_ELEMENT_STATUS_FLAGS }
+#Import ".\CHANGER_ELEMENT_STATUS.ahk" { CHANGER_ELEMENT_STATUS }
 
 /**
  * Represents the volume tag information. It is used by the IOCTL_CHANGER_QUERY_VOLUME_TAGS control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_element_address_info
  * @namespace Windows.Win32.System.Ioctl
  */
-class READ_ELEMENT_ADDRESS_INFO extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 4
+export default struct READ_ELEMENT_ADDRESS_INFO {
+    #StructPack 4
 
     /**
      * The number of elements matching criteria set forth by the <b>ActionCode</b> member of 
@@ -24,24 +21,14 @@ class READ_ELEMENT_ADDRESS_INFO extends Win32Struct {
      * 
      * For information on compatibility with the current device, see the <b>Features0</b> member of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a>.
-     * @type {Integer}
      */
-    NumberOfElements {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfElements : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-changer_element_status">CHANGER_ELEMENT_STATUS</a> structures, one for each element that corresponded with the information passed in with the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_send_volume_tag_information">CHANGER_SEND_VOLUME_TAG_INFORMATION</a> structure.
-     * @type {CHANGER_ELEMENT_STATUS}
      */
-    ElementStatus {
-        get {
-            if(!this.HasProp("__ElementStatusProxyArray"))
-                this.__ElementStatusProxyArray := Win32FixedArray(this.ptr + 4, 1, CHANGER_ELEMENT_STATUS, "")
-            return this.__ElementStatusProxyArray
-        }
-    }
+    ElementStatus : CHANGER_ELEMENT_STATUS[1]
+
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSAPROTOCOLCHAIN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSAPROTOCOLCHAIN.ahk" { WSAPROTOCOLCHAIN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used to store or retrieve complete information for a given protocol. (Unicode)
@@ -11,10 +12,8 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset Unicode
  */
-class WSAPROTOCOL_INFOW extends Win32Struct {
-    static sizeof => 624
-
-    static packingSize => 8
+export default struct WSAPROTOCOL_INFOW {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
@@ -256,45 +255,29 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Only one of XP1_UNI_SEND or XP1_UNI_RECV values may be set. If a protocol can be unidirectional in either direction, two <b>WSAPROTOCOL_INFOW</b> structures should be used. When neither bit is set, the protocol is considered to be bidirectional.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwServiceFlags1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwServiceFlags1 : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved for additional protocol-attribute definitions.
-     * @type {Integer}
      */
-    dwServiceFlags2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwServiceFlags2 : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved for additional protocol-attribute definitions.
-     * @type {Integer}
      */
-    dwServiceFlags3 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwServiceFlags3 : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved for additional protocol-attribute definitions.
-     * @type {Integer}
      */
-    dwServiceFlags4 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwServiceFlags4 : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -369,60 +352,37 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwProviderFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProviderFlags : UInt32
 
     /**
      * Type: <b>GUID</b>
      * 
      * A globally unique identifier (GUID) assigned to the provider by the service provider vendor. This value is useful for instances where more than one service provider is able to implement a particular protocol. An application can use the <b>ProviderId</b> member to distinguish between providers that might otherwise be indistinguishable.
-     * @type {Pointer}
      */
-    ProviderId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ProviderId : Guid
 
     /**
      * Type: <b>DWORD</b>
      * 
      * A unique identifier assigned by the WS2_32.DLL for each <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure.
-     * @type {Integer}
      */
-    dwCatalogEntryId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwCatalogEntryId : UInt32
 
     /**
      * Type: <b>WSAPROTOCOLCHAIN</b>
      * 
      * The 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocolchain">WSAPROTOCOLCHAIN</a> structure associated with the protocol. If the length of the chain is 0, this <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> entry represents a layered protocol which has Windows Sockets 2 SPI as both its top and bottom edges. If the length of the chain equals 1, this entry represents a base protocol whose Catalog Entry identifier is in the <b>dwCatalogEntryId</b> member of the <b>WSAPROTOCOL_INFO</b> structure. If the length of the chain is larger than 1, this entry represents a protocol chain which consists of one or more layered protocols on top of a base protocol. The corresponding Catalog Entry identifiers are in the ProtocolChain.ChainEntries array starting with the layered protocol at the top (the zero element in the ProtocolChain.ChainEntries array) and ending with the base protocol. Refer to the Windows Sockets 2 Service Provider Interface specification for more information on protocol chains.
-     * @type {WSAPROTOCOLCHAIN}
      */
-    ProtocolChain {
-        get {
-            if(!this.HasProp("__ProtocolChain"))
-                this.__ProtocolChain := WSAPROTOCOLCHAIN(36, this)
-            return this.__ProtocolChain
-        }
-    }
+    ProtocolChain : WSAPROTOCOLCHAIN
 
     /**
      * Type: <b>int</b>
      * 
      * The protocol version identifier.
-     * @type {Integer}
      */
-    iVersion {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    iVersion : Int32
 
     /**
      * Type: <b>int</b>
@@ -538,34 +498,22 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iAddressFamily {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    iAddressFamily : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The maximum address length, in bytes.
-     * @type {Integer}
      */
-    iMaxSockAddr {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    iMaxSockAddr : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The minimum address length, in bytes.
-     * @type {Integer}
      */
-    iMinSockAddr {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    iMinSockAddr : Int32
 
     /**
      * Type: <b>int</b>
@@ -638,12 +586,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iSocketType {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    iSocketType : Int32
 
     /**
      * Type: <b>int</b>
@@ -750,12 +694,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iProtocol {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    iProtocol : Int32
 
     /**
      * Type: <b>int</b>
@@ -763,34 +703,22 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * The maximum value that may be added to <b>iProtocol</b> member when supplying a value for the <i>protocol</i> parameter to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasocketa">WSASocket</a>. Not all protocols allow a range of values. When this is the case <b>iProtocolMaxOffset</b> is zero.
-     * @type {Integer}
      */
-    iProtocolMaxOffset {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    iProtocolMaxOffset : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Currently these values are manifest constants (BIGENDIAN and LITTLEENDIAN) that indicate either big-endian or little-endian with the values 0 and 1 respectively.
-     * @type {Integer}
      */
-    iNetworkByteOrder {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    iNetworkByteOrder : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The type of security scheme employed (if any). A value of SECURITY_PROTOCOL_NONE (0) is used for protocols that do not incorporate security provisions.
-     * @type {Integer}
      */
-    iSecurityScheme {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    iSecurityScheme : Int32
 
     /**
      * Type: <b>DWORD</b>
@@ -837,32 +765,21 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMessageSize {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwMessageSize : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved for use by service providers.
-     * @type {Integer}
      */
-    dwProviderReserved {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    dwProviderReserved : UInt32
 
     /**
      * Type: <b>WCHAR[WSAPROTOCOL_LEN+1]</b>
      * 
      * An array of Unicode characters that contains a human-readable name identifying the protocol, for example "MSAFD Tcpip [UDP/IP]". The maximum number of characters allowed is WSAPROTOCOL_LEN, which is defined to be 255.
-     * @type {String}
      */
-    szProtocol {
-        get => StrGet(this.ptr + 112, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 112, 255, "UTF-16")
-    }
+    szProtocol : WCHAR[256]
+
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The WM_STREAM_PRIORITY_RECORD structure contains a stream number and specifies whether delivery of that stream is mandatory.
@@ -8,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_stream_priority_record
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WM_STREAM_PRIORITY_RECORD extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WM_STREAM_PRIORITY_RECORD {
+    #StructPack 4
 
     /**
      * <b>WORD</b> containing the stream number.
-     * @type {Integer}
      */
-    wStreamNumber {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wStreamNumber : UInt16
 
     /**
      * Flag indicating whether the listed stream is mandatory. Mandatory streams will not be dropped regardless of their position in the priority list.
-     * @type {BOOL}
      */
-    fMandatory {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fMandatory : BOOL
+
 }

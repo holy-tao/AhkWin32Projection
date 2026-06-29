@@ -1,130 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The CLUSTER_RESOURCE_ENUM_ITEM structure represents the properties of a cluster resource and is used to enumerate cluster resources in the ClusterResourceEnumEx function.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_resource_enum_item
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct CLUSTER_RESOURCE_ENUM_ITEM {
+    #StructPack 8
 
     /**
      * The version of this structure.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size, in bytes, of the <b>lpszId</b> field.
-     * @type {Integer}
      */
-    cbId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbId : UInt32
 
     /**
      * The ID of the cluster resource.
-     * @type {PWSTR}
      */
-    lpszId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszId : PWSTR
 
     /**
      * The size, in bytes, of the <b>IpszName</b> field.
-     * @type {Integer}
      */
-    cbName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbName : UInt32
 
     /**
      * The name of the cluster resource.
-     * @type {PWSTR}
      */
-    lpszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszName : PWSTR
 
     /**
      * The size, in bytes, of the <b>IpszOwnerNode</b> field.
-     * @type {Integer}
      */
-    cbOwnerGroupName {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbOwnerGroupName : UInt32
 
     /**
      * The name of the cluster resource that  hosts the group.
-     * @type {PWSTR}
      */
-    lpszOwnerGroupName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszOwnerGroupName : PWSTR
 
     /**
      * The size, in bytes, of the <b>lpszOwnerGroupId</b> field.
-     * @type {Integer}
      */
-    cbOwnerGroupId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbOwnerGroupId : UInt32
 
     /**
      * The group ID of the cluster group for the resource.
-     * @type {PWSTR}
      */
-    lpszOwnerGroupId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpszOwnerGroupId : PWSTR
 
     /**
      * The size, in bytes, of the <b>pProperties</b> field.
-     * @type {Integer}
      */
-    cbProperties {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cbProperties : UInt32
 
     /**
      * A pointer to a list of names of common properties.
-     * @type {Pointer<Void>}
      */
-    pProperties {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pProperties : IntPtr
 
     /**
      * The size, in bytes, of the <b>pRoProperties</b> field.
-     * @type {Integer}
      */
-    cbRoProperties {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    cbRoProperties : UInt32
 
     /**
      * A pointer to a list of names of read-only common properties.
-     * @type {Pointer<Void>}
      */
-    pRoProperties {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pRoProperties : IntPtr
+
 }

@@ -1,66 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCS_CREATE_OPTIONS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Security\SECURITY_DESCRIPTOR.ahk
-#Include .\HCS_EVENT_OPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
+#Import ".\HCS_CREATE_OPTIONS.ahk" { HCS_CREATE_OPTIONS }
+#Import ".\HCS_EVENT_OPTIONS.ahk" { HCS_EVENT_OPTIONS }
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
  */
-class HCS_CREATE_OPTIONS_1 extends Win32Struct {
-    static sizeof => 48
+export default struct HCS_CREATE_OPTIONS_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : HCS_CREATE_OPTIONS
 
-    /**
-     * @type {HCS_CREATE_OPTIONS}
-     */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    UserToken : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    UserToken {
-        get {
-            if(!this.HasProp("__UserToken"))
-                this.__UserToken := HANDLE(8, this)
-            return this.__UserToken
-        }
-    }
+    SecurityDescriptor : SECURITY_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<SECURITY_DESCRIPTOR>}
-     */
-    SecurityDescriptor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CallbackOptions : HCS_EVENT_OPTIONS
 
-    /**
-     * @type {HCS_EVENT_OPTIONS}
-     */
-    CallbackOptions {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    CallbackContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallbackContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Callback : IntPtr
 
-    /**
-     * @type {Pointer<HCS_EVENT_CALLBACK>}
-     */
-    Callback {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

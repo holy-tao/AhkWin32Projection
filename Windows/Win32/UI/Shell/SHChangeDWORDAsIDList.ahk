@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * SHChangeDWORDAsIDList may be altered or unavailable.
@@ -57,50 +56,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shchangedwordasidlist
  * @namespace Windows.Win32.UI.Shell
  */
-class SHChangeDWORDAsIDList extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct SHChangeDWORDAsIDList {
+    #StructPack 4
 
     /**
      * Type: <b>USHORT</b>
      * 
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cb : UInt16
 
     /**
      * Type: <b>DWORD</b>
      * 
      * First <b>DWORD</b> value.
-     * @type {Integer}
      */
-    dwItem1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwItem1 : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Second <b>DWORD</b> value.
-     * @type {Integer}
      */
-    dwItem2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwItem2 : UInt32
 
     /**
      * Type: <b>USHORT</b>
-     * @type {Integer}
      */
-    cbZero {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    cbZero : UInt16
+
 }

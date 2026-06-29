@@ -1,41 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TA_TRANSFORM.ahk
-#Include .\TA_TRANSFORM_TYPE.ahk
-#Include .\TA_TRANSFORM_FLAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TA_TRANSFORM_TYPE.ahk" { TA_TRANSFORM_TYPE }
+#Import ".\TA_TRANSFORM_FLAG.ahk" { TA_TRANSFORM_FLAG }
+#Import ".\TA_TRANSFORM.ahk" { TA_TRANSFORM }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  */
-class TA_TRANSFORM_OPACITY extends Win32Struct {
-    static sizeof => 28
+export default struct TA_TRANSFORM_OPACITY {
+    #StructPack 4
 
-    static packingSize => 4
+    header : TA_TRANSFORM
 
-    /**
-     * @type {TA_TRANSFORM}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := TA_TRANSFORM(0, this)
-            return this.__header
-        }
-    }
+    rOpacity : Float32
 
-    /**
-     * @type {Float}
-     */
-    rOpacity {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    rInitialOpacity : Float32
 
-    /**
-     * @type {Float}
-     */
-    rInitialOpacity {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
 }

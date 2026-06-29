@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COAUTHINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COAUTHINFO.ahk" { COAUTHINFO }
 
 /**
  * The COSERVERINFO (objidlbase.h) structure identifies a remote computer resource to the activation functions.
@@ -28,44 +28,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-coserverinfo
  * @namespace Windows.Win32.System.Com
  */
-class COSERVERINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct COSERVERINFO {
+    #StructPack 8
 
     /**
      * This member is reserved and must be 0.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwReserved1 : UInt32
 
     /**
      * The name of the computer.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszName : PWSTR
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ns-wtypesbase-coauthinfo">COAUTHINFO</a> structure to override the default activation security for machine remote activations. Otherwise, set to <b>NULL</b> to indicate that default values should be used. For more information, see the Remarks section.
-     * @type {Pointer<COAUTHINFO>}
      */
-    pAuthInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pAuthInfo : COAUTHINFO.Ptr
 
     /**
      * This member is reserved and must be 0.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved2 : UInt32
+
 }

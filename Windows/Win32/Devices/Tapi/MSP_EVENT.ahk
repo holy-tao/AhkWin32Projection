@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MSP_EVENT (msp.h) enumerator defines the type of event information contained in MSP_EVENT_INFO.
  * @see https://learn.microsoft.com/windows/win32/api/msp/ne-msp-msp_event
  * @namespace Windows.Win32.Devices.Tapi
  */
-class MSP_EVENT extends Win32Enum {
+export default struct MSP_EVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The event buffer is an 

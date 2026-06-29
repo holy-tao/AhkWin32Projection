@@ -1,32 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ICLRIoCompletionManager.ahk" { ICLRIoCompletionManager }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostIoCompletionManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostIoCompletionManager extends IUnknown {
     /**
      * The interface identifier for IHostIoCompletionManager
      * @type {Guid}
      */
-    static IID => Guid("{8bde9d80-ec06-41d6-83e6-22580effcc20}")
+    static IID := Guid("{8bde9d80-ec06-41d6-83e6-22580effcc20}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostIoCompletionManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateIoCompletionPort    : IntPtr
+        CloseIoCompletionPort     : IntPtr
+        SetMaxThreads             : IntPtr
+        GetMaxThreads             : IntPtr
+        GetAvailableThreads       : IntPtr
+        GetHostOverlappedSize     : IntPtr
+        SetCLRIoCompletionManager : IntPtr
+        InitializeHostOverlapped  : IntPtr
+        Bind                      : IntPtr
+        SetMinThreads             : IntPtr
+        GetMinThreads             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateIoCompletionPort", "CloseIoCompletionPort", "SetMaxThreads", "GetMaxThreads", "GetAvailableThreads", "GetHostOverlappedSize", "SetCLRIoCompletionManager", "InitializeHostOverlapped", "Bind", "SetMinThreads", "GetMinThreads"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostIoCompletionManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an input/output (I/O) completion port and associates it with a specified file handle, or creates an I/O completion port that is not yet associated with a file handle, allowing association at a later time.
@@ -125,8 +144,8 @@ class IHostIoCompletionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-createiocompletionport
      */
     CreateIoCompletionPort() {
-        phPort := HANDLE()
-        result := ComCall(3, this, "ptr", phPort, "HRESULT")
+        phPort := HANDLE.Owned()
+        result := ComCall(3, this, HANDLE.Ptr, phPort, "HRESULT")
         return phPort
     }
 
@@ -136,9 +155,7 @@ class IHostIoCompletionManager extends IUnknown {
      * @returns {HRESULT} 
      */
     CloseIoCompletionPort(hPort) {
-        hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
-
-        result := ComCall(4, this, "ptr", hPort, "HRESULT")
+        result := ComCall(4, this, HANDLE, hPort, "HRESULT")
         return result
     }
 
@@ -236,10 +253,7 @@ class IHostIoCompletionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/shell/str-constants
      */
     Bind(hPort, hHandle) {
-        hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
-        hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle
-
-        result := ComCall(11, this, "ptr", hPort, "ptr", hHandle, "HRESULT")
+        result := ComCall(11, this, HANDLE, hPort, HANDLE, hHandle, "HRESULT")
         return result
     }
 
@@ -260,5 +274,45 @@ class IHostIoCompletionManager extends IUnknown {
     GetMinThreads() {
         result := ComCall(13, this, "uint*", &pdwMinIOCompletionThreads := 0, "HRESULT")
         return pdwMinIOCompletionThreads
+    }
+
+    Query(iid) {
+        if (IHostIoCompletionManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateIoCompletionPort := CallbackCreate(GetMethod(implObj, "CreateIoCompletionPort"), flags, 2)
+        this.vtbl.CloseIoCompletionPort := CallbackCreate(GetMethod(implObj, "CloseIoCompletionPort"), flags, 2)
+        this.vtbl.SetMaxThreads := CallbackCreate(GetMethod(implObj, "SetMaxThreads"), flags, 2)
+        this.vtbl.GetMaxThreads := CallbackCreate(GetMethod(implObj, "GetMaxThreads"), flags, 2)
+        this.vtbl.GetAvailableThreads := CallbackCreate(GetMethod(implObj, "GetAvailableThreads"), flags, 2)
+        this.vtbl.GetHostOverlappedSize := CallbackCreate(GetMethod(implObj, "GetHostOverlappedSize"), flags, 2)
+        this.vtbl.SetCLRIoCompletionManager := CallbackCreate(GetMethod(implObj, "SetCLRIoCompletionManager"), flags, 2)
+        this.vtbl.InitializeHostOverlapped := CallbackCreate(GetMethod(implObj, "InitializeHostOverlapped"), flags, 2)
+        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 3)
+        this.vtbl.SetMinThreads := CallbackCreate(GetMethod(implObj, "SetMinThreads"), flags, 2)
+        this.vtbl.GetMinThreads := CallbackCreate(GetMethod(implObj, "GetMinThreads"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateIoCompletionPort)
+        CallbackFree(this.vtbl.CloseIoCompletionPort)
+        CallbackFree(this.vtbl.SetMaxThreads)
+        CallbackFree(this.vtbl.GetMaxThreads)
+        CallbackFree(this.vtbl.GetAvailableThreads)
+        CallbackFree(this.vtbl.GetHostOverlappedSize)
+        CallbackFree(this.vtbl.SetCLRIoCompletionManager)
+        CallbackFree(this.vtbl.InitializeHostOverlapped)
+        CallbackFree(this.vtbl.Bind)
+        CallbackFree(this.vtbl.SetMinThreads)
+        CallbackFree(this.vtbl.GetMinThreads)
     }
 }

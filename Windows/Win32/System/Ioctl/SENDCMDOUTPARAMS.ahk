@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRIVERSTATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRIVERSTATUS.ahk" { DRIVERSTATUS }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SENDCMDOUTPARAMS extends Win32Struct {
-    static sizeof => 20
+export default struct SENDCMDOUTPARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    cBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cBufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DriverStatus : DRIVERSTATUS
 
-    /**
-     * @type {DRIVERSTATUS}
-     */
-    DriverStatus {
-        get {
-            if(!this.HasProp("__DriverStatus"))
-                this.__DriverStatus := DRIVERSTATUS(4, this)
-            return this.__DriverStatus
-        }
-    }
+    bBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bBuffer {
-        get {
-            if(!this.HasProp("__bBufferProxyArray"))
-                this.__bBufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__bBufferProxyArray
-        }
-    }
 }

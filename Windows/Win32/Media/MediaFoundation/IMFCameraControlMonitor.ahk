@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a camera control monitor that is used to subscribe and unsubscribe to notifications when the state of a camera control changes.
@@ -10,26 +11,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameracontrolmonitor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCameraControlMonitor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCameraControlMonitor extends IUnknown {
     /**
      * The interface identifier for IMFCameraControlMonitor
      * @type {Guid}
      */
-    static IID => Guid("{4d46f2c9-28ba-4970-8c7b-1f0c9d80af69}")
+    static IID := Guid("{4d46f2c9-28ba-4970-8c7b-1f0c9d80af69}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCameraControlMonitor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Start                     : IntPtr
+        Stop                      : IntPtr
+        AddControlSubscription    : IntPtr
+        RemoveControlSubscription : IntPtr
+        Shutdown                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "AddControlSubscription", "RemoveControlSubscription", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCameraControlMonitor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts the camera control monitor, raising IMFCameraControlNotify::OnChange events for changes to controls registered with IMFCameraControlMonitor::AddControlSubscription.
@@ -92,7 +104,7 @@ class IMFCameraControlMonitor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontrolmonitor-addcontrolsubscription
      */
     AddControlSubscription(controlSet, id) {
-        result := ComCall(5, this, "ptr", controlSet, "uint", id, "HRESULT")
+        result := ComCall(5, this, Guid, controlSet, "uint", id, "HRESULT")
         return result
     }
 
@@ -121,7 +133,7 @@ class IMFCameraControlMonitor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontrolmonitor-removecontrolsubscription
      */
     RemoveControlSubscription(controlSet, id) {
-        result := ComCall(6, this, "ptr", controlSet, "uint", id, "HRESULT")
+        result := ComCall(6, this, Guid, controlSet, "uint", id, "HRESULT")
         return result
     }
 
@@ -136,5 +148,33 @@ class IMFCameraControlMonitor extends IUnknown {
      */
     Shutdown() {
         ComCall(7, this)
+    }
+
+    Query(iid) {
+        if (IMFCameraControlMonitor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.AddControlSubscription := CallbackCreate(GetMethod(implObj, "AddControlSubscription"), flags, 3)
+        this.vtbl.RemoveControlSubscription := CallbackCreate(GetMethod(implObj, "RemoveControlSubscription"), flags, 3)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.AddControlSubscription)
+        CallbackFree(this.vtbl.RemoveControlSubscription)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

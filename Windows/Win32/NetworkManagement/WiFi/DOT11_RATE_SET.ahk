@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_RATE_SET extends Win32Struct {
-    static sizeof => 132
+export default struct DOT11_RATE_SET {
+    #StructPack 4
 
-    static packingSize => 4
+    uRateSetLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRateSetLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ucRateSet : Int8[126]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucRateSet {
-        get {
-            if(!this.HasProp("__ucRateSetProxyArray"))
-                this.__ucRateSetProxyArray := Win32FixedArray(this.ptr + 4, 126, Primitive, "char")
-            return this.__ucRateSetProxyArray
-        }
-    }
 }

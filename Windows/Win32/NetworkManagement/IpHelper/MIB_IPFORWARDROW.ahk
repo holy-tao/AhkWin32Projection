@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPFORWARD_TYPE.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPFORWARD_TYPE.ahk" { MIB_IPFORWARD_TYPE }
+#Import "..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk" { NL_ROUTE_PROTOCOL }
 
 /**
  * Contains information that describes an IPv4 network route.
@@ -39,10 +38,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipforwardrow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPFORWARDROW extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct MIB_IPFORWARDROW {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
@@ -51,12 +48,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 entry  with  a IPv4 address of 0.0.0.0 is considered a
      *                 default route.
      * This member cannot be set to a multicast (class D) IPv4 address.
-     * @type {Integer}
      */
-    dwForwardDest {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwForwardDest : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -66,12 +59,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 the value  in  the  <b>dwForwardDest</b>  member. 
      * 
      * The <b>dwForwardMask</b> value should be applied to the destination  IPv4 address (logical and operation) before a comparison with the  value  in  the  <b>dwForwardDest</b> member.
-     * @type {Integer}
      */
-    dwForwardMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwForwardMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -80,79 +69,35 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 next hops for a given destination). This member is typically in IP TOS format. This encoding of this member is described in 
      * RFC 1354. For more information, see 
      * <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>.
-     * @type {Integer}
      */
-    dwForwardPolicy {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwForwardPolicy : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * For remote routes, the IPv4 address of the next system en route. Otherwise, this member should be an IPv4 address of 0.0.0.0.
-     * @type {Integer}
      */
-    dwForwardNextHop {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwForwardNextHop : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The index of the local interface through  which  the next hop of this
      *                 route should be reached.
-     * @type {Integer}
      */
-    dwForwardIfIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwForwardIfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwForwardType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwForwardType : UInt32
 
-    /**
-     * @type {MIB_IPFORWARD_TYPE}
-     */
-    ForwardType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwForwardProto {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {NL_ROUTE_PROTOCOL}
-     */
-    ForwardProto {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dwForwardProto : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of seconds  since  the  route  was
      *                 added or modified in the network routing table.
-     * @type {Integer}
      */
-    dwForwardAge {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwForwardAge : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -160,12 +105,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      * The autonomous system number of the next hop. When  this  member is  unknown  or not relevant to the
      *                 protocol or routing mechanism specified in <b>dwForwardProto</b>, this value  should be set to zero. This value is documented in 
      * RFC 1354. For more information, see <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>
-     * @type {Integer}
      */
-    dwForwardNextHopAS {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwForwardNextHopAS : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -175,12 +116,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 used, its value should be set to -1. This value is documented in 
      * in 
      * RFC 1354. For more information, see <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>
-     * @type {Integer}
      */
-    dwForwardMetric1 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwForwardMetric1 : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -189,12 +126,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 the routing protocol specified in  the  <b>dwForwardProto</b>  member. If  this metric is not
      *                 used, its value should be set to -1. This value is documented in 
      * RFC 1354. For more information, see <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>
-     * @type {Integer}
      */
-    dwForwardMetric2 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwForwardMetric2 : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -203,12 +136,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 the routing protocol specified in  the  <b>dwForwardProto</b>  member. If  this metric is not
      *                 used, its value should be set to -1. This value is documented in 
      * RFC 1354. For more information, see <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>
-     * @type {Integer}
      */
-    dwForwardMetric3 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwForwardMetric3 : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -217,12 +146,8 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 the routing protocol specified in  the  <b>dwForwardProto</b>  member. If  this metric is not
      *                 used, its value should be set to -1. This value is documented in 
      * RFC 1354. For more information, see <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>
-     * @type {Integer}
      */
-    dwForwardMetric4 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwForwardMetric4 : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -231,10 +156,12 @@ class MIB_IPFORWARDROW extends Win32Struct {
      *                 the routing protocol specified in  the  <b>dwForwardProto</b>  member. If  this metric is not
      *                 used, its value should be set to -1. This value is documented in 
      * RFC 1354. For more information, see <a href="https://www.ietf.org/rfc/rfc1354.txt">http://www.ietf.org/rfc/rfc1354.txt</a>
-     * @type {Integer}
      */
-    dwForwardMetric5 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    dwForwardMetric5 : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'ForwardType', { type: MIB_IPFORWARD_TYPE, offset: 20 })
+        DefineProp(this.Prototype, 'ForwardProto', { type: NL_ROUTE_PROTOCOL, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

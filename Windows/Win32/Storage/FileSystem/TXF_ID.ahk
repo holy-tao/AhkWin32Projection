@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a unique identifier within the context of the Resource Manager.
  * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_id
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class TXF_ID extends Win32Struct {
-    static sizeof => 16
+export default struct TXF_ID {
+    #StructPack 8
 
-    static packingSize => 8
+    LowPart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LowPart {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    HighPart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HighPart {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
 }

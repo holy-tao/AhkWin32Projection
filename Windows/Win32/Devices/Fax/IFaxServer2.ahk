@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFaxServer.ahk
-#Include .\IFaxConfiguration.ahk
-#Include .\IFaxAccount.ahk
-#Include .\IFaxAccountSet.ahk
-#Include .\IFaxSecurity2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFaxAccountSet.ahk" { IFaxAccountSet }
+#Import ".\IFaxSecurity2.ahk" { IFaxSecurity2 }
+#Import ".\IFaxConfiguration.ahk" { IFaxConfiguration }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxServer.ahk" { IFaxServer }
+#Import ".\IFaxAccount.ahk" { IFaxAccount }
 
 /**
  * Inherits all the functionality of the IFaxServer interface and adds read-only properties for the server's configuration, account management, security objects, and the current account.
@@ -14,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxserver2
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxServer2 extends IFaxServer {
-
-    static sizeof => A_PtrSize
+export default struct IFaxServer2 extends IFaxServer {
     /**
      * The interface identifier for IFaxServer2
      * @type {Guid}
      */
-    static IID => Guid("{571ced0f-5609-4f40-9176-547e3a72ca7c}")
+    static IID := Guid("{571ced0f-5609-4f40-9176-547e3a72ca7c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxServer2 interfaces
+    */
+    struct Vtbl extends IFaxServer.Vtbl {
+        get_Configuration  : IntPtr
+        get_CurrentAccount : IntPtr
+        get_FaxAccountSet  : IntPtr
+        get_Security2      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Configuration", "get_CurrentAccount", "get_FaxAccountSet", "get_Security2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxServer2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IFaxConfiguration} 
@@ -101,5 +112,31 @@ class IFaxServer2 extends IFaxServer {
     get_Security2() {
         result := ComCall(36, this, "ptr*", &ppFaxSecurity2 := 0, "HRESULT")
         return IFaxSecurity2(ppFaxSecurity2)
+    }
+
+    Query(iid) {
+        if (IFaxServer2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Configuration := CallbackCreate(GetMethod(implObj, "get_Configuration"), flags, 2)
+        this.vtbl.get_CurrentAccount := CallbackCreate(GetMethod(implObj, "get_CurrentAccount"), flags, 2)
+        this.vtbl.get_FaxAccountSet := CallbackCreate(GetMethod(implObj, "get_FaxAccountSet"), flags, 2)
+        this.vtbl.get_Security2 := CallbackCreate(GetMethod(implObj, "get_Security2"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Configuration)
+        CallbackFree(this.vtbl.get_CurrentAccount)
+        CallbackFree(this.vtbl.get_FaxAccountSet)
+        CallbackFree(this.vtbl.get_Security2)
     }
 }

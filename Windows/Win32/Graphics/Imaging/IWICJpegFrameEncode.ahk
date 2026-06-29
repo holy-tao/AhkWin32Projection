@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk
-#Include ..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk
-#Include ..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
+#Import "..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_DC_HUFFMAN_TABLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk" { DXGI_JPEG_QUANTIZATION_TABLE }
 
 /**
  * Exposes methods for writing compressed JPEG scan data directly to the WIC encoder's output stream. Also provides access to the Huffman and quantization tables.
@@ -23,26 +24,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicjpegframeencode
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICJpegFrameEncode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICJpegFrameEncode extends IUnknown {
     /**
      * The interface identifier for IWICJpegFrameEncode
      * @type {Guid}
      */
-    static IID => Guid("{2f0c601f-d2c6-468c-abfa-49495d983ed1}")
+    static IID := Guid("{2f0c601f-d2c6-468c-abfa-49495d983ed1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICJpegFrameEncode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAcHuffmanTable    : IntPtr
+        GetDcHuffmanTable    : IntPtr
+        GetQuantizationTable : IntPtr
+        WriteScan            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAcHuffmanTable", "GetDcHuffmanTable", "GetQuantizationTable", "WriteScan"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICJpegFrameEncode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a copy of the AC Huffman table for the specified scan and table. (IWICJpegFrameEncode.GetAcHuffmanTable)
@@ -59,7 +70,7 @@ class IWICJpegFrameEncode extends IUnknown {
      */
     GetAcHuffmanTable(scanIndex, tableIndex) {
         pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
-        result := ComCall(3, this, "uint", scanIndex, "uint", tableIndex, "ptr", pAcHuffmanTable, "HRESULT")
+        result := ComCall(3, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_AC_HUFFMAN_TABLE.Ptr, pAcHuffmanTable, "HRESULT")
         return pAcHuffmanTable
     }
 
@@ -72,7 +83,7 @@ class IWICJpegFrameEncode extends IUnknown {
      */
     GetDcHuffmanTable(scanIndex, tableIndex) {
         pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
-        result := ComCall(4, this, "uint", scanIndex, "uint", tableIndex, "ptr", pDcHuffmanTable, "HRESULT")
+        result := ComCall(4, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_DC_HUFFMAN_TABLE.Ptr, pDcHuffmanTable, "HRESULT")
         return pDcHuffmanTable
     }
 
@@ -91,7 +102,7 @@ class IWICJpegFrameEncode extends IUnknown {
      */
     GetQuantizationTable(scanIndex, tableIndex) {
         pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
-        result := ComCall(5, this, "uint", scanIndex, "uint", tableIndex, "ptr", pQuantizationTable, "HRESULT")
+        result := ComCall(5, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_QUANTIZATION_TABLE.Ptr, pQuantizationTable, "HRESULT")
         return pQuantizationTable
     }
 
@@ -119,5 +130,31 @@ class IWICJpegFrameEncode extends IUnknown {
 
         result := ComCall(6, this, "uint", cbScanData, pbScanDataMarshal, pbScanData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICJpegFrameEncode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetAcHuffmanTable"), flags, 4)
+        this.vtbl.GetDcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetDcHuffmanTable"), flags, 4)
+        this.vtbl.GetQuantizationTable := CallbackCreate(GetMethod(implObj, "GetQuantizationTable"), flags, 4)
+        this.vtbl.WriteScan := CallbackCreate(GetMethod(implObj, "WriteScan"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAcHuffmanTable)
+        CallbackFree(this.vtbl.GetDcHuffmanTable)
+        CallbackFree(this.vtbl.GetQuantizationTable)
+        CallbackFree(this.vtbl.WriteScan)
     }
 }

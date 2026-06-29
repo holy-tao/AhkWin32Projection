@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IVssHardwareSnapshotProvider.ahk
-#Include .\IVssAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVssAsync.ahk" { IVssAsync }
+#Import ".\IVssHardwareSnapshotProvider.ahk" { IVssHardwareSnapshotProvider }
 
 /**
  * Provides an additional method used by VSS to notify hardware providers of LUN state changes.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivsshardwaresnapshotproviderex
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider {
-
-    static sizeof => A_PtrSize
+export default struct IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider {
     /**
      * The interface identifier for IVssHardwareSnapshotProviderEx
      * @type {Guid}
      */
-    static IID => Guid("{7f5ba925-cdb1-4d11-a71f-339eb7e709fd}")
+    static IID := Guid("{7f5ba925-cdb1-4d11-a71f-339eb7e709fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssHardwareSnapshotProviderEx interfaces
+    */
+    struct Vtbl extends IVssHardwareSnapshotProvider.Vtbl {
+        GetProviderCapabilities : IntPtr
+        OnLunStateChange        : IntPtr
+        ResyncLuns              : IntPtr
+        OnReuseLuns             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProviderCapabilities", "OnLunStateChange", "ResyncLuns", "OnReuseLuns"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssHardwareSnapshotProviderEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method is reserved for future use. (IVssHardwareSnapshotProviderEx.GetProviderCapabilities)
@@ -157,7 +169,7 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onlunstatechange
      */
     OnLunStateChange(pSnapshotLuns, pOriginalLuns, dwCount, dwFlags) {
-        result := ComCall(10, this, "ptr", pSnapshotLuns, "ptr", pOriginalLuns, "uint", dwCount, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, VDS_LUN_INFORMATION.Ptr, pSnapshotLuns, VDS_LUN_INFORMATION.Ptr, pOriginalLuns, "uint", dwCount, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -182,7 +194,7 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-resyncluns
      */
     ResyncLuns(pSourceLuns, pTargetLuns, dwCount) {
-        result := ComCall(11, this, "ptr", pSourceLuns, "ptr", pTargetLuns, "uint", dwCount, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, VDS_LUN_INFORMATION.Ptr, pSourceLuns, VDS_LUN_INFORMATION.Ptr, pTargetLuns, "uint", dwCount, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
     }
 
@@ -195,7 +207,33 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onreuseluns
      */
     OnReuseLuns(pSnapshotLuns, pOriginalLuns, dwCount) {
-        result := ComCall(12, this, "ptr", pSnapshotLuns, "ptr", pOriginalLuns, "uint", dwCount, "HRESULT")
+        result := ComCall(12, this, VDS_LUN_INFORMATION.Ptr, pSnapshotLuns, VDS_LUN_INFORMATION.Ptr, pOriginalLuns, "uint", dwCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssHardwareSnapshotProviderEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProviderCapabilities := CallbackCreate(GetMethod(implObj, "GetProviderCapabilities"), flags, 2)
+        this.vtbl.OnLunStateChange := CallbackCreate(GetMethod(implObj, "OnLunStateChange"), flags, 5)
+        this.vtbl.ResyncLuns := CallbackCreate(GetMethod(implObj, "ResyncLuns"), flags, 5)
+        this.vtbl.OnReuseLuns := CallbackCreate(GetMethod(implObj, "OnReuseLuns"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProviderCapabilities)
+        CallbackFree(this.vtbl.OnLunStateChange)
+        CallbackFree(this.vtbl.ResyncLuns)
+        CallbackFree(this.vtbl.OnReuseLuns)
     }
 }

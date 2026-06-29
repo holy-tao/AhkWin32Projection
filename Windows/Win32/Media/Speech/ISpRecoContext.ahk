@@ -1,35 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpEventSource.ahk
-#Include .\ISpRecognizer.ahk
-#Include .\ISpRecoGrammar.ahk
-#Include .\ISpRecoResult.ahk
-#Include .\ISpVoice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
+#Import ".\ISpRecoResult.ahk" { ISpRecoResult }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\ISpRecoGrammar.ahk" { ISpRecoGrammar }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISpRecognizer.ahk" { ISpRecognizer }
+#Import ".\SPRECOCONTEXTSTATUS.ahk" { SPRECOCONTEXTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpEventSource.ahk" { ISpEventSource }
+#Import ".\SPBOOKMARKOPTIONS.ahk" { SPBOOKMARKOPTIONS }
+#Import ".\SPAUDIOOPTIONS.ahk" { SPAUDIOOPTIONS }
+#Import ".\ISpVoice.ahk" { ISpVoice }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpRecoContext extends ISpEventSource {
-
-    static sizeof => A_PtrSize
+export default struct ISpRecoContext extends ISpEventSource {
     /**
      * The interface identifier for ISpRecoContext
      * @type {Guid}
      */
-    static IID => Guid("{f740a62f-7c15-489e-8234-940a33d9272d}")
+    static IID := Guid("{f740a62f-7c15-489e-8234-940a33d9272d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpRecoContext interfaces
+    */
+    struct Vtbl extends ISpEventSource.Vtbl {
+        GetRecognizer      : IntPtr
+        CreateGrammar      : IntPtr
+        GetStatus          : IntPtr
+        GetMaxAlternates   : IntPtr
+        SetMaxAlternates   : IntPtr
+        SetAudioOptions    : IntPtr
+        GetAudioOptions    : IntPtr
+        DeserializeResult  : IntPtr
+        Bookmark           : IntPtr
+        SetAdaptationData  : IntPtr
+        Pause              : IntPtr
+        Resume             : IntPtr
+        SetVoice           : IntPtr
+        GetVoice           : IntPtr
+        SetVoicePurgeEvent : IntPtr
+        GetVoicePurgeEvent : IntPtr
+        SetContextState    : IntPtr
+        GetContextState    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRecognizer", "CreateGrammar", "GetStatus", "GetMaxAlternates", "SetMaxAlternates", "SetAudioOptions", "GetAudioOptions", "DeserializeResult", "Bookmark", "SetAdaptationData", "Pause", "Resume", "SetVoice", "GetVoice", "SetVoicePurgeEvent", "GetVoicePurgeEvent", "SetContextState", "GetContextState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpRecoContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -56,7 +90,7 @@ class ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     GetStatus(pStatus) {
-        result := ComCall(15, this, "ptr", pStatus, "HRESULT")
+        result := ComCall(15, this, SPRECOCONTEXTSTATUS.Ptr, pStatus, "HRESULT")
         return result
     }
 
@@ -90,7 +124,7 @@ class ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetAudioOptions(Options, pAudioFormatId, pWaveFormatEx) {
-        result := ComCall(18, this, "int", Options, "ptr", pAudioFormatId, "ptr", pWaveFormatEx, "HRESULT")
+        result := ComCall(18, this, SPAUDIOOPTIONS, Options, Guid.Ptr, pAudioFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, "HRESULT")
         return result
     }
 
@@ -105,7 +139,7 @@ class ISpRecoContext extends ISpEventSource {
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
         ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, pOptionsMarshal, pOptions, "ptr", pAudioFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
+        result := ComCall(19, this, pOptionsMarshal, pOptions, Guid.Ptr, pAudioFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
         return result
     }
 
@@ -115,22 +149,19 @@ class ISpRecoContext extends ISpEventSource {
      * @returns {ISpRecoResult} 
      */
     DeserializeResult(pSerializedResult) {
-        result := ComCall(20, this, "ptr", pSerializedResult, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(20, this, SPSERIALIZEDRESULT.Ptr, pSerializedResult, "ptr*", &ppResult := 0, "HRESULT")
         return ISpRecoResult(ppResult)
     }
 
     /**
-     * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
-     * @remarks
-     * This property is read/write with a default value of true.
+     * 
      * @param {SPBOOKMARKOPTIONS} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
-     * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/bookmarkonclose-property
+     * @returns {HRESULT} 
      */
     Bookmark(Options, ullStreamPosition, lparamEvent) {
-        result := ComCall(21, this, "int", Options, "uint", ullStreamPosition, "ptr", lparamEvent, "HRESULT")
+        result := ComCall(21, this, SPBOOKMARKOPTIONS, Options, "uint", ullStreamPosition, LPARAM, lparamEvent, "HRESULT")
         return result
     }
 
@@ -178,7 +209,7 @@ class ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetVoice(pVoice, fAllowFormatChanges) {
-        result := ComCall(25, this, "ptr", pVoice, "int", fAllowFormatChanges, "HRESULT")
+        result := ComCall(25, this, "ptr", pVoice, BOOL, fAllowFormatChanges, "HRESULT")
         return result
     }
 
@@ -219,7 +250,7 @@ class ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetContextState(eContextState) {
-        result := ComCall(29, this, "int", eContextState, "HRESULT")
+        result := ComCall(29, this, SPCONTEXTSTATE, eContextState, "HRESULT")
         return result
     }
 
@@ -233,5 +264,59 @@ class ISpRecoContext extends ISpEventSource {
 
         result := ComCall(30, this, peContextStateMarshal, peContextState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpRecoContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRecognizer := CallbackCreate(GetMethod(implObj, "GetRecognizer"), flags, 2)
+        this.vtbl.CreateGrammar := CallbackCreate(GetMethod(implObj, "CreateGrammar"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetMaxAlternates := CallbackCreate(GetMethod(implObj, "GetMaxAlternates"), flags, 2)
+        this.vtbl.SetMaxAlternates := CallbackCreate(GetMethod(implObj, "SetMaxAlternates"), flags, 2)
+        this.vtbl.SetAudioOptions := CallbackCreate(GetMethod(implObj, "SetAudioOptions"), flags, 4)
+        this.vtbl.GetAudioOptions := CallbackCreate(GetMethod(implObj, "GetAudioOptions"), flags, 4)
+        this.vtbl.DeserializeResult := CallbackCreate(GetMethod(implObj, "DeserializeResult"), flags, 3)
+        this.vtbl.Bookmark := CallbackCreate(GetMethod(implObj, "Bookmark"), flags, 4)
+        this.vtbl.SetAdaptationData := CallbackCreate(GetMethod(implObj, "SetAdaptationData"), flags, 3)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.SetVoice := CallbackCreate(GetMethod(implObj, "SetVoice"), flags, 3)
+        this.vtbl.GetVoice := CallbackCreate(GetMethod(implObj, "GetVoice"), flags, 2)
+        this.vtbl.SetVoicePurgeEvent := CallbackCreate(GetMethod(implObj, "SetVoicePurgeEvent"), flags, 2)
+        this.vtbl.GetVoicePurgeEvent := CallbackCreate(GetMethod(implObj, "GetVoicePurgeEvent"), flags, 2)
+        this.vtbl.SetContextState := CallbackCreate(GetMethod(implObj, "SetContextState"), flags, 2)
+        this.vtbl.GetContextState := CallbackCreate(GetMethod(implObj, "GetContextState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRecognizer)
+        CallbackFree(this.vtbl.CreateGrammar)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetMaxAlternates)
+        CallbackFree(this.vtbl.SetMaxAlternates)
+        CallbackFree(this.vtbl.SetAudioOptions)
+        CallbackFree(this.vtbl.GetAudioOptions)
+        CallbackFree(this.vtbl.DeserializeResult)
+        CallbackFree(this.vtbl.Bookmark)
+        CallbackFree(this.vtbl.SetAdaptationData)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.SetVoice)
+        CallbackFree(this.vtbl.GetVoice)
+        CallbackFree(this.vtbl.SetVoicePurgeEvent)
+        CallbackFree(this.vtbl.GetVoicePurgeEvent)
+        CallbackFree(this.vtbl.SetContextState)
+        CallbackFree(this.vtbl.GetContextState)
     }
 }

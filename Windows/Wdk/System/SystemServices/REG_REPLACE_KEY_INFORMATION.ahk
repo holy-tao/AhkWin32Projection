@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class REG_REPLACE_KEY_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct REG_REPLACE_KEY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    OldFileName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    OldFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NewFileName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    NewFileName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CallContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ObjectContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ObjectContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

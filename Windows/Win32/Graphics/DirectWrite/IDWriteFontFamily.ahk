@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontList.ahk
-#Include .\IDWriteLocalizedStrings.ahk
-#Include .\IDWriteFont.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import ".\IDWriteFontList.ahk" { IDWriteFontList }
 
 /**
  * Represents a family of related fonts. (IDWriteFontFamily)
@@ -44,26 +48,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFamily extends IDWriteFontList {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFamily extends IDWriteFontList {
     /**
      * The interface identifier for IDWriteFontFamily
      * @type {Guid}
      */
-    static IID => Guid("{da20d8ef-812a-4c43-9802-62ec4abd7add}")
+    static IID := Guid("{da20d8ef-812a-4c43-9802-62ec4abd7add}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFamily interfaces
+    */
+    struct Vtbl extends IDWriteFontList.Vtbl {
+        GetFamilyNames       : IntPtr
+        GetFirstMatchingFont : IntPtr
+        GetMatchingFonts     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFamilyNames", "GetFirstMatchingFont", "GetMatchingFonts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFamily.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a localized strings object that contains the family names for the font family, indexed by locale name. (IDWriteFontFamily.GetFamilyNames)
@@ -154,7 +167,7 @@ class IDWriteFontFamily extends IDWriteFontList {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getfirstmatchingfont
      */
     GetFirstMatchingFont(weight, stretch, style) {
-        result := ComCall(7, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFont := 0, "HRESULT")
+        result := ComCall(7, this, DWRITE_FONT_WEIGHT, weight, DWRITE_FONT_STRETCH, stretch, DWRITE_FONT_STYLE, style, "ptr*", &matchingFont := 0, "HRESULT")
         return IDWriteFont(matchingFont)
     }
 
@@ -175,7 +188,31 @@ class IDWriteFontFamily extends IDWriteFontList {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getmatchingfonts
      */
     GetMatchingFonts(weight, stretch, style) {
-        result := ComCall(8, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFonts := 0, "HRESULT")
+        result := ComCall(8, this, DWRITE_FONT_WEIGHT, weight, DWRITE_FONT_STRETCH, stretch, DWRITE_FONT_STYLE, style, "ptr*", &matchingFonts := 0, "HRESULT")
         return IDWriteFontList(matchingFonts)
+    }
+
+    Query(iid) {
+        if (IDWriteFontFamily.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFamilyNames := CallbackCreate(GetMethod(implObj, "GetFamilyNames"), flags, 2)
+        this.vtbl.GetFirstMatchingFont := CallbackCreate(GetMethod(implObj, "GetFirstMatchingFont"), flags, 5)
+        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFamilyNames)
+        CallbackFree(this.vtbl.GetFirstMatchingFont)
+        CallbackFree(this.vtbl.GetMatchingFonts)
     }
 }

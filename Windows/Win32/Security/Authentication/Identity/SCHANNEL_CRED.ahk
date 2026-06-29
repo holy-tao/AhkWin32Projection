@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Cryptography\HCERTSTORE.ahk
-#Include ..\..\Cryptography\ALG_ID.ahk
-#Include .\SCHANNEL_CRED_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\SCHANNEL_CRED_FLAGS.ahk" { SCHANNEL_CRED_FLAGS }
+#Import ".\_HMAPPER.ahk" { _HMAPPER }
+#Import "..\..\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**
  * Contains the data for an Schannel credential. (SCHANNEL_CRED)
@@ -33,79 +33,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SCHANNEL_CRED extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct SCHANNEL_CRED {
+    #StructPack 8
 
     /**
      * Set to SCHANNEL_CRED_VERSION.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The number of structures in the <b>paCred</b> array.
-     * @type {Integer}
      */
-    cCreds {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cCreds : UInt32
 
     /**
      * An array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures. Each pointer specifies a certificate that contains a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to be used in authenticating the application. Typically, this array contains one structure for each key exchange method supported by the application.
      * 
      * Client applications often pass in an empty list and either depend on Schannel to find an appropriate certificate or create a certificate later if needed.
-     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
-    paCred {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    paCred : IntPtr
 
     /**
      * Optional. Valid for server applications only. Handle to a certificate store that contains self-signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root certificates</a> for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authorities</a> (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
-     * @type {HCERTSTORE}
      */
-    hRootStore {
-        get {
-            if(!this.HasProp("__hRootStore"))
-                this.__hRootStore := HCERTSTORE(16, this)
-            return this.__hRootStore
-        }
-    }
+    hRootStore : HCERTSTORE
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    cMappers {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cMappers : UInt32
 
     /**
      * Reserved.
-     * @type {Pointer<Pointer<_HMAPPER>>}
      */
-    aphMappers {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    aphMappers : IntPtr
 
     /**
      * Number of algorithms in the <b>palgSupportedAlgs</b> array.
-     * @type {Integer}
      */
-    cSupportedAlgs {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cSupportedAlgs : UInt32
 
     /**
      * Optional. A pointer to an array of 
@@ -114,12 +81,8 @@ class SCHANNEL_CRED extends Win32Struct {
      * Currently, the algorithm identifiers <b>CALG_AES</b>,
      * <b>CALG_AES_128</b>, and
      * <b>CALG_AES_256</b> are not supported.
-     * @type {Pointer<ALG_ID>}
      */
-    palgSupportedAlgs {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    palgSupportedAlgs : ALG_ID.Ptr
 
     /**
      * Optional. A <b>DWORD</b> that contains a bit string that represents the protocols supported by connections made with credentials acquired by using this structure. If this member is zero, Schannel selects the protocol. For new development, applications should set <b>grbitEnabledProtocols</b> to zero and use the protocol versions enabled on the system by default.
@@ -410,23 +373,15 @@ class SCHANNEL_CRED extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    grbitEnabledProtocols {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    grbitEnabledProtocols : UInt32
 
     /**
      * Minimum bulk encryption cipher strength, in bits, allowed for connections.
      * 
      * If this member is zero, Schannel uses the system default. If this member is –1, only the SSL3/TLS MAC–only cipher suites (also known as <b>NULL</b> cipher) are enabled.
-     * @type {Integer}
      */
-    dwMinimumCipherStrength {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwMinimumCipherStrength : UInt32
 
     /**
      * Maximum bulk encryption cipher strength, in bits, allowed for connections.
@@ -434,29 +389,15 @@ class SCHANNEL_CRED extends Win32Struct {
      * If this member is zero, Schannel uses the system default.
      * 
      * If this member is –1, only the SSL3/TLS MAC–only cipher suites (also known as <b>NULL</b> cipher) are enabled. In this case, <i>dwMinimumCipherStrength</i> must be set to –1.
-     * @type {Integer}
      */
-    dwMaximumCipherStrength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwMaximumCipherStrength : UInt32
 
     /**
      * The number of milliseconds that Schannel keeps the session in its session cache. After this time has passed, any new connections between the client and the server require a new Schannel  session. Set the value of this member to zero to use the default value of 36000000 milliseconds (ten hours).
-     * @type {Integer}
      */
-    dwSessionLifespan {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwSessionLifespan : UInt32
 
-    /**
-     * @type {SCHANNEL_CRED_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwFlags : SCHANNEL_CRED_FLAGS
 
     /**
      * Kernel-mode Schannel supports the following values.
@@ -491,10 +432,7 @@ class SCHANNEL_CRED extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCredFormat {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwCredFormat : UInt32
+
 }

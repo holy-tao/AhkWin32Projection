@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether a user interface is displayed during private key verification and whether verification can proceed if the cryptographic provider is a smart card provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyverify
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class X509PrivateKeyVerify extends Win32Enum {
+export default struct X509PrivateKeyVerify {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No option is identified.

@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an attribute that contains a SHA-1 hash of the encrypted private key to be archived by a certification authority.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributearchivekeyhash
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509AttributeArchiveKeyHash extends IX509Attribute {
-
-    static sizeof => A_PtrSize
+export default struct IX509AttributeArchiveKeyHash extends IX509Attribute {
     /**
      * The interface identifier for IX509AttributeArchiveKeyHash
      * @type {Guid}
      */
-    static IID => Guid("{728ab328-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab328-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509AttributeArchiveKeyHash interfaces
+    */
+    struct Vtbl extends IX509Attribute.Vtbl {
+        InitializeEncodeFromEncryptedKeyBlob : IntPtr
+        InitializeDecode                     : IntPtr
+        get_EncryptedKeyHashBlob             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncodeFromEncryptedKeyBlob", "InitializeDecode", "get_EncryptedKeyHashBlob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509AttributeArchiveKeyHash.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the attribute from an encrypted private key.
@@ -46,7 +57,7 @@ class IX509AttributeArchiveKeyHash extends IX509Attribute {
     InitializeEncodeFromEncryptedKeyBlob(Encoding, strEncryptedKeyBlob) {
         strEncryptedKeyBlob := strEncryptedKeyBlob is String ? BSTR.Alloc(strEncryptedKeyBlob).Value : strEncryptedKeyBlob
 
-        result := ComCall(10, this, "int", Encoding, "ptr", strEncryptedKeyBlob, "HRESULT")
+        result := ComCall(10, this, EncodingType, Encoding, BSTR, strEncryptedKeyBlob, "HRESULT")
         return result
     }
 
@@ -68,7 +79,7 @@ class IX509AttributeArchiveKeyHash extends IX509Attribute {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -81,8 +92,32 @@ class IX509AttributeArchiveKeyHash extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekeyhash-get_encryptedkeyhashblob
      */
     get_EncryptedKeyHashBlob(Encoding) {
-        pValue := BSTR()
-        result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(12, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509AttributeArchiveKeyHash.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncodeFromEncryptedKeyBlob := CallbackCreate(GetMethod(implObj, "InitializeEncodeFromEncryptedKeyBlob"), flags, 3)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_EncryptedKeyHashBlob := CallbackCreate(GetMethod(implObj, "get_EncryptedKeyHashBlob"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncodeFromEncryptedKeyBlob)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_EncryptedKeyHashBlob)
     }
 }

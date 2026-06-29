@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The NTMS_CHANGERTYPEINFORMATION structure defines the properties specific to a type of robotic changer supported by RSM. (ANSI)
@@ -18,28 +18,18 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset ANSI
  */
-class NTMS_CHANGERTYPEINFORMATIONA extends Win32Struct {
-    static sizeof => 260
-
-    static packingSize => 4
+export default struct NTMS_CHANGERTYPEINFORMATIONA {
+    #StructPack 4
 
     /**
      * Name of the vendor of the changer. This is acquired directly from the device inquiry data.
-     * @type {String}
      */
-    szVendor {
-        get => StrGet(this.ptr + 0, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 127, "UTF-8")
-    }
+    szVendor : CHAR[128]
 
     /**
      * Product name of the changer. This is acquired directly from the device inquiry data.
-     * @type {String}
      */
-    szProduct {
-        get => StrGet(this.ptr + 128, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 128, 127, "UTF-8")
-    }
+    szProduct : CHAR[128]
 
     /**
      * SCSI device type as reported from device inquiry data. From Winioctl.h. This can be the following value. 
@@ -62,10 +52,7 @@ class NTMS_CHANGERTYPEINFORMATIONA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DeviceType {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    DeviceType : UInt32
+
 }

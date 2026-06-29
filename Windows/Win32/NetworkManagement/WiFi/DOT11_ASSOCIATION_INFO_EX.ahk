@@ -1,126 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_ASSOCIATION_STATE.ahk
-#Include .\DOT11_POWER_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_POWER_MODE.ahk" { DOT11_POWER_MODE }
+#Import ".\DOT11_ASSOCIATION_STATE.ahk" { DOT11_ASSOCIATION_STATE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ASSOCIATION_INFO_EX extends Win32Struct {
-    static sizeof => 328
+export default struct DOT11_ASSOCIATION_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    PeerMacAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerMacAddress {
-        get {
-            if(!this.HasProp("__PeerMacAddressProxyArray"))
-                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__PeerMacAddressProxyArray
-        }
-    }
+    BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BSSID {
-        get {
-            if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 6, 6, Primitive, "char")
-            return this.__BSSIDProxyArray
-        }
-    }
+    usCapabilityInformation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usCapabilityInformation {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    usListenInterval : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usListenInterval {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    ucPeerSupportedRates : Int8[255]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucPeerSupportedRates {
-        get {
-            if(!this.HasProp("__ucPeerSupportedRatesProxyArray"))
-                this.__ucPeerSupportedRatesProxyArray := Win32FixedArray(this.ptr + 16, 255, Primitive, "char")
-            return this.__ucPeerSupportedRatesProxyArray
-        }
-    }
+    usAssociationID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usAssociationID {
-        get => NumGet(this, 272, "ushort")
-        set => NumPut("ushort", value, this, 272)
-    }
+    dot11AssociationState : DOT11_ASSOCIATION_STATE
 
-    /**
-     * @type {DOT11_ASSOCIATION_STATE}
-     */
-    dot11AssociationState {
-        get => NumGet(this, 276, "int")
-        set => NumPut("int", value, this, 276)
-    }
+    dot11PowerMode : DOT11_POWER_MODE
 
-    /**
-     * @type {DOT11_POWER_MODE}
-     */
-    dot11PowerMode {
-        get => NumGet(this, 280, "int")
-        set => NumPut("int", value, this, 280)
-    }
+    liAssociationUpTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    liAssociationUpTime {
-        get => NumGet(this, 288, "int64")
-        set => NumPut("int64", value, this, 288)
-    }
+    ullNumOfTxPacketSuccesses : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullNumOfTxPacketSuccesses {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    ullNumOfTxPacketFailures : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullNumOfTxPacketFailures {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
-    }
+    ullNumOfRxPacketSuccesses : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullNumOfRxPacketSuccesses {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
-    }
+    ullNumOfRxPacketFailures : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullNumOfRxPacketFailures {
-        get => NumGet(this, 320, "uint")
-        set => NumPut("uint", value, this, 320)
-    }
 }

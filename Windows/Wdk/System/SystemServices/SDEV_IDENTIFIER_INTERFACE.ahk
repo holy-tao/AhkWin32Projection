@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class SDEV_IDENTIFIER_INTERFACE extends Win32Struct {
-    static sizeof => 16
+export default struct SDEV_IDENTIFIER_INTERFACE {
+    #StructPack 8
 
-    static packingSize => 8
+    InterfaceHeader : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InterfaceHeader {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    GetIdentifier : IntPtr
 
-    /**
-     * @type {Pointer<PGET_SDEV_IDENTIFIER>}
-     */
-    GetIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

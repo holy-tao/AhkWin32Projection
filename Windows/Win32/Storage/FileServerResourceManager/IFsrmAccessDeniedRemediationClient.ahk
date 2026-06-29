@@ -1,39 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AdrClientErrorType.ahk" { AdrClientErrorType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to show the Access Denied Remediation (ADR) client user interface.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmaccessdeniedremediationclient
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmAccessDeniedRemediationClient extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmAccessDeniedRemediationClient extends IDispatch {
     /**
      * The interface identifier for IFsrmAccessDeniedRemediationClient
      * @type {Guid}
      */
-    static IID => Guid("{40002314-590b-45a5-8e1b-8c05da527e52}")
+    static IID := Guid("{40002314-590b-45a5-8e1b-8c05da527e52}")
 
     /**
      * The class identifier for FsrmAccessDeniedRemediationClient
      * @type {Guid}
      */
-    static CLSID => Guid("{100b4fc8-74c1-470f-b1b7-dd7b6bae79bd}")
+    static CLSID := Guid("{100b4fc8-74c1-470f-b1b7-dd7b6bae79bd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmAccessDeniedRemediationClient interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Show : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Show"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmAccessDeniedRemediationClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Displays the Access Denied Remediation (ADR) client dialog.
@@ -53,7 +63,27 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch {
         windowTitle := windowTitle is String ? BSTR.Alloc(windowTitle).Value : windowTitle
         windowMessage := windowMessage is String ? BSTR.Alloc(windowMessage).Value : windowMessage
 
-        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, "int*", &result := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", parentWnd, BSTR, accessPath, AdrClientErrorType, errorType, "int", flags, BSTR, windowTitle, BSTR, windowMessage, "int*", &result := 0, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmAccessDeniedRemediationClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Show)
     }
 }

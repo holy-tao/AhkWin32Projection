@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk" { IMAPI_CD_TRACK_DIGITAL_COPY_SETTING }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMAPI_CD_SECTOR_TYPE.ahk" { IMAPI_CD_SECTOR_TYPE }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Use this interface to track per-track properties that are applied to CD media.
@@ -11,26 +16,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-irawcdimagetrackinfo
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IRawCDImageTrackInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRawCDImageTrackInfo extends IDispatch {
     /**
      * The interface identifier for IRawCDImageTrackInfo
      * @type {Guid}
      */
-    static IID => Guid("{25983551-9d65-49ce-b335-40630d901227}")
+    static IID := Guid("{25983551-9d65-49ce-b335-40630d901227}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRawCDImageTrackInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StartingLba             : IntPtr
+        get_SectorCount             : IntPtr
+        get_TrackNumber             : IntPtr
+        get_SectorType              : IntPtr
+        get_ISRC                    : IntPtr
+        put_ISRC                    : IntPtr
+        get_DigitalAudioCopySetting : IntPtr
+        put_DigitalAudioCopySetting : IntPtr
+        get_AudioHasPreemphasis     : IntPtr
+        put_AudioHasPreemphasis     : IntPtr
+        get_TrackIndexes            : IntPtr
+        AddTrackIndex               : IntPtr
+        ClearTrackIndex             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StartingLba", "get_SectorCount", "get_TrackNumber", "get_SectorType", "get_ISRC", "put_ISRC", "get_DigitalAudioCopySetting", "put_DigitalAudioCopySetting", "get_AudioHasPreemphasis", "put_AudioHasPreemphasis", "get_TrackIndexes", "AddTrackIndex", "ClearTrackIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRawCDImageTrackInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -155,8 +179,8 @@ class IRawCDImageTrackInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
      */
     get_ISRC() {
-        value := BSTR()
-        result := ComCall(11, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -173,7 +197,7 @@ class IRawCDImageTrackInfo extends IDispatch {
     put_ISRC(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(12, this, "ptr", value, "HRESULT")
+        result := ComCall(12, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -202,7 +226,7 @@ class IRawCDImageTrackInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-put_digitalaudiocopysetting
      */
     put_DigitalAudioCopySetting(value) {
-        result := ComCall(14, this, "int", value, "HRESULT")
+        result := ComCall(14, this, IMAPI_CD_TRACK_DIGITAL_COPY_SETTING, value, "HRESULT")
         return result
     }
 
@@ -214,7 +238,7 @@ class IRawCDImageTrackInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_audiohaspreemphasis
      */
     get_AudioHasPreemphasis() {
-        result := ComCall(15, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -227,7 +251,7 @@ class IRawCDImageTrackInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-put_audiohaspreemphasis
      */
     put_AudioHasPreemphasis(value) {
-        result := ComCall(16, this, "short", value, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -261,5 +285,49 @@ class IRawCDImageTrackInfo extends IDispatch {
     ClearTrackIndex(lbaOffset) {
         result := ComCall(19, this, "int", lbaOffset, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRawCDImageTrackInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StartingLba := CallbackCreate(GetMethod(implObj, "get_StartingLba"), flags, 2)
+        this.vtbl.get_SectorCount := CallbackCreate(GetMethod(implObj, "get_SectorCount"), flags, 2)
+        this.vtbl.get_TrackNumber := CallbackCreate(GetMethod(implObj, "get_TrackNumber"), flags, 2)
+        this.vtbl.get_SectorType := CallbackCreate(GetMethod(implObj, "get_SectorType"), flags, 2)
+        this.vtbl.get_ISRC := CallbackCreate(GetMethod(implObj, "get_ISRC"), flags, 2)
+        this.vtbl.put_ISRC := CallbackCreate(GetMethod(implObj, "put_ISRC"), flags, 2)
+        this.vtbl.get_DigitalAudioCopySetting := CallbackCreate(GetMethod(implObj, "get_DigitalAudioCopySetting"), flags, 2)
+        this.vtbl.put_DigitalAudioCopySetting := CallbackCreate(GetMethod(implObj, "put_DigitalAudioCopySetting"), flags, 2)
+        this.vtbl.get_AudioHasPreemphasis := CallbackCreate(GetMethod(implObj, "get_AudioHasPreemphasis"), flags, 2)
+        this.vtbl.put_AudioHasPreemphasis := CallbackCreate(GetMethod(implObj, "put_AudioHasPreemphasis"), flags, 2)
+        this.vtbl.get_TrackIndexes := CallbackCreate(GetMethod(implObj, "get_TrackIndexes"), flags, 2)
+        this.vtbl.AddTrackIndex := CallbackCreate(GetMethod(implObj, "AddTrackIndex"), flags, 2)
+        this.vtbl.ClearTrackIndex := CallbackCreate(GetMethod(implObj, "ClearTrackIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StartingLba)
+        CallbackFree(this.vtbl.get_SectorCount)
+        CallbackFree(this.vtbl.get_TrackNumber)
+        CallbackFree(this.vtbl.get_SectorType)
+        CallbackFree(this.vtbl.get_ISRC)
+        CallbackFree(this.vtbl.put_ISRC)
+        CallbackFree(this.vtbl.get_DigitalAudioCopySetting)
+        CallbackFree(this.vtbl.put_DigitalAudioCopySetting)
+        CallbackFree(this.vtbl.get_AudioHasPreemphasis)
+        CallbackFree(this.vtbl.put_AudioHasPreemphasis)
+        CallbackFree(this.vtbl.get_TrackIndexes)
+        CallbackFree(this.vtbl.AddTrackIndex)
+        CallbackFree(this.vtbl.ClearTrackIndex)
     }
 }

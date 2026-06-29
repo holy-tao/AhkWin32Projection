@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WinSNMP smiOCTETS structure passes context strings to multiple WinSNMP functions. The structure also describes and receives encoded SNMP messages.
@@ -14,26 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smioctets
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
-class smiOCTETS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct smiOCTETS {
+    #StructPack 8
 
     /**
      * Specifies an unsigned long integer value that indicates the number of bytes in the octet string array pointed to by the <b>ptr</b> member.
-     * @type {Integer}
      */
-    len {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    len : UInt32
 
     /**
      * Pointer to a byte array that contains the octet string of interest. A <b>NULL</b>-terminating byte is not required.
-     * @type {Pointer<Integer>}
      */
-    ptr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ptr : IntPtr
+
 }

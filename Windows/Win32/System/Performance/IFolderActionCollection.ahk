@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IFolderAction.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFolderAction.ahk" { IFolderAction }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Manages a collection of FolderAction objects.To get this interface, access the IDataManager::FolderActions property.
@@ -12,26 +14,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ifolderactioncollection
  * @namespace Windows.Win32.System.Performance
  */
-class IFolderActionCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFolderActionCollection extends IDispatch {
     /**
      * The interface identifier for IFolderActionCollection
      * @type {Guid}
      */
-    static IID => Guid("{03837544-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837544-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderActionCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count          : IntPtr
+        get_Item           : IntPtr
+        get__NewEnum       : IntPtr
+        Add                : IntPtr
+        Remove             : IntPtr
+        Clear              : IntPtr
+        AddRange           : IntPtr
+        CreateFolderAction : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "Add", "Remove", "Clear", "AddRange", "CreateFolderAction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderActionCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -66,7 +82,7 @@ class IFolderActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get_item
      */
     get_Item(Index) {
-        result := ComCall(8, this, "ptr", Index, "ptr*", &Action := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, Index, "ptr*", &Action := 0, "HRESULT")
         return IFolderAction(Action)
     }
 
@@ -106,7 +122,7 @@ class IFolderActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "ptr", Index, "HRESULT")
+        result := ComCall(11, this, VARIANT, Index, "HRESULT")
         return result
     }
 
@@ -139,5 +155,39 @@ class IFolderActionCollection extends IDispatch {
     CreateFolderAction() {
         result := ComCall(14, this, "ptr*", &FolderAction := 0, "HRESULT")
         return IFolderAction(FolderAction)
+    }
+
+    Query(iid) {
+        if (IFolderActionCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.CreateFolderAction := CallbackCreate(GetMethod(implObj, "CreateFolderAction"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.AddRange)
+        CallbackFree(this.vtbl.CreateFolderAction)
     }
 }

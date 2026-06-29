@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow an application to remove one or all destinations from the Recent or Frequent categories in a Jump List.
@@ -30,32 +32,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdestinations
  * @namespace Windows.Win32.UI.Shell
  */
-class IApplicationDestinations extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IApplicationDestinations extends IUnknown {
     /**
      * The interface identifier for IApplicationDestinations
      * @type {Guid}
      */
-    static IID => Guid("{12337d35-94c6-48a0-bce7-6a9c69d4d600}")
+    static IID := Guid("{12337d35-94c6-48a0-bce7-6a9c69d4d600}")
 
     /**
      * The class identifier for ApplicationDestinations
      * @type {Guid}
      */
-    static CLSID => Guid("{86c14003-4d6b-4ef3-a7b4-0506663b2e68}")
+    static CLSID := Guid("{86c14003-4d6b-4ef3-a7b4-0506663b2e68}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IApplicationDestinations interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAppID              : IntPtr
+        RemoveDestination     : IntPtr
+        RemoveAllDestinations : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAppID", "RemoveDestination", "RemoveAllDestinations"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IApplicationDestinations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a unique Application User Model ID (AppUserModelID) for the application from whose taskbar button's Jump List the methods of this interface will remove destinations. This method is optional.
@@ -117,5 +128,29 @@ class IApplicationDestinations extends IUnknown {
     RemoveAllDestinations() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IApplicationDestinations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.RemoveDestination := CallbackCreate(GetMethod(implObj, "RemoveDestination"), flags, 2)
+        this.vtbl.RemoveAllDestinations := CallbackCreate(GetMethod(implObj, "RemoveAllDestinations"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAppID)
+        CallbackFree(this.vtbl.RemoveDestination)
+        CallbackFree(this.vtbl.RemoveAllDestinations)
     }
 }

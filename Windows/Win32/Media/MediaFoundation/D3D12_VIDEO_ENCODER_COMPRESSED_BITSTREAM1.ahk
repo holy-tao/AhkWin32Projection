@@ -1,47 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE.ahk
-#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM.ahk
-#Include .\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Fence.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM.ahk" { D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM }
+#Import ".\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE.ahk" { D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE }
+#Import ".\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE.ahk" { D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM.ahk" { D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 extends Win32Struct {
-    static sizeof => 64
+export default struct D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 {
+    #StructPack 8
 
-    static packingSize => 8
+    NotificationMode : D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM_NOTIFICATION_MODE}
-     */
-    NotificationMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    FrameOutputBuffer : D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM}
-     */
-    FrameOutputBuffer {
-        get {
-            if(!this.HasProp("__FrameOutputBuffer"))
-                this.__FrameOutputBuffer := D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM(8, this)
-            return this.__FrameOutputBuffer
-        }
-    }
-
-    /**
-     * @type {D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM}
-     */
-    SubregionOutputBuffers {
-        get {
-            if(!this.HasProp("__SubregionOutputBuffers"))
-                this.__SubregionOutputBuffers := D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM(8, this)
-            return this.__SubregionOutputBuffers
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'SubregionOutputBuffers', { type: D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

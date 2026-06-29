@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DTBLBUTTON contains information about a button control for a dialog box built from a display table.
@@ -14,19 +13,13 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblbutton
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLBUTTON extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DTBLBUTTON {
+    #StructPack 4
 
     /**
      * > Position in memory of the character string that is displayed on the button.
-     * @type {Integer}
      */
-    ulbLpszLabel {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulbLpszLabel : UInt32
 
     /**
      * > Bitmask of flags used to designate the format of the label pointed to by the **ulbLpszLabel** member. The following flag can be set: 
@@ -34,19 +27,12 @@ class DTBLBUTTON extends Win32Struct {
      * MAPI_UNICODE 
      *   
      * > The label is in Unicode format. If the MAPI_UNICODE flag is not set, the label is in ANSI format.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFlags : UInt32
 
     /**
      * > Property tag for a property of type PT_OBJECT that implements the [IMAPIControl](imapicontroliunknown.md) interface. When the button is clicked, MAPI calls the [IMAPIProp::OpenProperty](imapiprop-openproperty.md) method for the display table's [IMAPIProp](imapipropiunknown.md) implementation to retrieve this property.
-     * @type {Integer}
      */
-    ulPRControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPRControl : UInt32
+
 }

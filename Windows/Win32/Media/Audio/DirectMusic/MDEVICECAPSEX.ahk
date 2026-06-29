@@ -1,36 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MDEVICECAPSEX structure contains device capability information for Plug and Play (PnP) device drivers.
  * @see https://learn.microsoft.com/windows/win32/api/mmddk/ns-mmddk-mdevicecapsex
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class MDEVICECAPSEX extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MDEVICECAPSEX {
+    #StructPack 8
 
     /**
      * Specifies the size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Specifies the capabilities of the device. The format of this data is device specific.
-     * @type {Pointer<Void>}
      */
-    pCaps {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCaps : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RECONVERTSTRING structure (immdev.h) defines the strings for IME reconversion.
@@ -10,80 +9,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-reconvertstring
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class RECONVERTSTRING extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct RECONVERTSTRING {
+    #StructPack 4
 
     /**
      * Size of this structure and the memory block it heads.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Version number. Must be 0.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVersion : UInt32
 
     /**
      * Length of the string that contains the composition string.
-     * @type {Integer}
      */
-    dwStrLen {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwStrLen : UInt32
 
     /**
      * Offset from the start position of this structure.
-     * @type {Integer}
      */
-    dwStrOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwStrOffset : UInt32
 
     /**
      * Length of the string that will be the composition string.
-     * @type {Integer}
      */
-    dwCompStrLen {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwCompStrLen : UInt32
 
     /**
      * Offset of the string that will be the composition string.
-     * @type {Integer}
      */
-    dwCompStrOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwCompStrOffset : UInt32
 
     /**
      * Length of the string that is related to the target clause in the composition string.
-     * @type {Integer}
      */
-    dwTargetStrLen {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwTargetStrLen : UInt32
 
     /**
      * Offset of the target string.
-     * @type {Integer}
      */
-    dwTargetStrOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwTargetStrOffset : UInt32
+
 }

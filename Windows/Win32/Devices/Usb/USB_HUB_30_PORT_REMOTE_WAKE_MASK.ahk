@@ -1,34 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_30_PORT_REMOTE_WAKE_MASK extends Win32Struct {
-    static sizeof => 2
+export default struct USB_HUB_30_PORT_REMOTE_WAKE_MASK {
+    #StructPack 1
 
-    static packingSize => 1
+    AsUchar8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AsUchar8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - ConnectRemoteWakeEnable
-     * - DisconnectRemoteWakeEnable
-     * - OverCurrentRemoteWakeEnable
-     * - Reserved0
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -60,5 +39,9 @@ class USB_HUB_30_PORT_REMOTE_WAKE_MASK extends Win32Struct {
     Reserved0 {
         get => (this._bitfield >> 3) & 0x1F
         set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

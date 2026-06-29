@@ -1,41 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMSOM.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IGPMSOM.ahk" { IGPMSOM }
 
 /**
  * The IGPMGPOLink interface supports methods that allow you to remove a GPO link from the scope of management (SOM), and to set and retrieve various properties of GPO links, including enabling and enforcing links.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmgpolink
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMGPOLink extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMGPOLink extends IDispatch {
     /**
      * The interface identifier for IGPMGPOLink
      * @type {Guid}
      */
-    static IID => Guid("{434b99bd-5de7-478a-809c-c251721df70c}")
+    static IID := Guid("{434b99bd-5de7-478a-809c-c251721df70c}")
 
     /**
      * The class identifier for GPMGPOLink
      * @type {Guid}
      */
-    static CLSID => Guid("{c1df9880-5303-42c6-8a3c-0488e1bf7364}")
+    static CLSID := Guid("{c1df9880-5303-42c6-8a3c-0488e1bf7364}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMGPOLink interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_GPOID        : IntPtr
+        get_GPODomain    : IntPtr
+        get_Enabled      : IntPtr
+        put_Enabled      : IntPtr
+        get_Enforced     : IntPtr
+        put_Enforced     : IntPtr
+        get_SOMLinkOrder : IntPtr
+        get_SOM          : IntPtr
+        Delete           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_GPOID", "get_GPODomain", "get_Enabled", "put_Enabled", "get_Enforced", "put_Enforced", "get_SOMLinkOrder", "get_SOM", "Delete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMGPOLink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -86,8 +103,8 @@ class IGPMGPOLink extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPOID() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -96,8 +113,8 @@ class IGPMGPOLink extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPODomain() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -106,7 +123,7 @@ class IGPMGPOLink extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Enabled() {
-        result := ComCall(9, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -161,7 +178,7 @@ class IGPMGPOLink extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_enabled
      */
     put_Enabled(newVal) {
-        result := ComCall(10, this, "short", newVal, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -170,7 +187,7 @@ class IGPMGPOLink extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Enforced() {
-        result := ComCall(11, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -180,7 +197,7 @@ class IGPMGPOLink extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Enforced(newVal) {
-        result := ComCall(12, this, "short", newVal, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -214,5 +231,41 @@ class IGPMGPOLink extends IDispatch {
     Delete() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPMGPOLink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_GPOID := CallbackCreate(GetMethod(implObj, "get_GPOID"), flags, 2)
+        this.vtbl.get_GPODomain := CallbackCreate(GetMethod(implObj, "get_GPODomain"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Enforced := CallbackCreate(GetMethod(implObj, "get_Enforced"), flags, 2)
+        this.vtbl.put_Enforced := CallbackCreate(GetMethod(implObj, "put_Enforced"), flags, 2)
+        this.vtbl.get_SOMLinkOrder := CallbackCreate(GetMethod(implObj, "get_SOMLinkOrder"), flags, 2)
+        this.vtbl.get_SOM := CallbackCreate(GetMethod(implObj, "get_SOM"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_GPOID)
+        CallbackFree(this.vtbl.get_GPODomain)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_Enforced)
+        CallbackFree(this.vtbl.put_Enforced)
+        CallbackFree(this.vtbl.get_SOMLinkOrder)
+        CallbackFree(this.vtbl.get_SOM)
+        CallbackFree(this.vtbl.Delete)
     }
 }

@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information on physical certificate stores.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_physical_store_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_PHYSICAL_STORE_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CERT_PHYSICAL_STORE_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a string that names a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> provider type. This string is passed in a system call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> and determines the provider type of a certificate store to be opened. For the names of predefined certificate store types, see 
@@ -32,12 +26,8 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress">CryptInstallOIDFunctionAddress</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/extending-certopenstore-functionality">CertOpenStore</a>.
-     * @type {PSTR}
      */
-    pszOpenStoreProvider {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszOpenStoreProvider : PSTR
 
     /**
      * This member is applicable only when CERT_STORE_PROV_MSG, CERT_STORE_PROV_PKCS7, or CERT_STORE_PROV_FILENAME is passed in <i>lpszStoreProvider</i>. Otherwise, this member is not used. 
@@ -53,34 +43,19 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
      */
-    dwOpenEncodingType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwOpenEncodingType : UInt32
 
     /**
      * If a system store is opened with the SERVICES or USERS store location, the <b>dwOpenFlags</b> store location is set to CERT_SYSTEM_STORE_USERS or CERT_SYSTEM_STORE_SERVICES.
-     * @type {Integer}
      */
-    dwOpenFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwOpenFlags : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that contains data to be passed to the <i>pvPara</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> function. The data type depends on the provider specified. For detailed information about the type and content to be passed, see descriptions of available providers in 
      * <b>CertOpenStore</b>.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    OpenParameters {
-        get {
-            if(!this.HasProp("__OpenParameters"))
-                this.__OpenParameters := CRYPT_INTEGER_BLOB(24, this)
-            return this.__OpenParameters
-        }
-    }
+    OpenParameters : CRYPT_INTEGER_BLOB
 
     /**
      * The following <b>dwFlags</b> values for CERT_PHYSICAL_STORE_INFO are defined.
@@ -144,25 +119,13 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwFlags : UInt32
 
     /**
      * When a system store is opened, its physical stores are ordered according to their <b>dwPriority</b> settings. A higher <b>dwPriority</b> indicates higher priority. The <b>dwPriority</b> member is passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddstoretocollection">CertAddStoreToCollection</a>.
-     * @type {Integer}
      */
-    dwPriority {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwPriority : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

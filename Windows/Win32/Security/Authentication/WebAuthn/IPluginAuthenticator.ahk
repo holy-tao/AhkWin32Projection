@@ -1,32 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\WEBAUTHN_PLUGIN_OPERATION_RESPONSE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PLUGIN_LOCK_STATUS.ahk" { PLUGIN_LOCK_STATUS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WEBAUTHN_PLUGIN_OPERATION_RESPONSE.ahk" { WEBAUTHN_PLUGIN_OPERATION_RESPONSE }
+#Import ".\WEBAUTHN_PLUGIN_OPERATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_OPERATION_REQUEST }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class IPluginAuthenticator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPluginAuthenticator extends IUnknown {
     /**
      * The interface identifier for IPluginAuthenticator
      * @type {Guid}
      */
-    static IID => Guid("{d26bcf6f-b54c-43ff-9f06-d5bf148625f7}")
+    static IID := Guid("{d26bcf6f-b54c-43ff-9f06-d5bf148625f7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPluginAuthenticator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MakeCredential  : IntPtr
+        GetAssertion    : IntPtr
+        CancelOperation : IntPtr
+        GetLockStatus   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MakeCredential", "GetAssertion", "CancelOperation", "GetLockStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPluginAuthenticator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,7 +49,7 @@ class IPluginAuthenticator extends IUnknown {
      */
     MakeCredential(request) {
         response := WEBAUTHN_PLUGIN_OPERATION_RESPONSE()
-        result := ComCall(3, this, "ptr", request, "ptr", response, "HRESULT")
+        result := ComCall(3, this, WEBAUTHN_PLUGIN_OPERATION_REQUEST.Ptr, request, WEBAUTHN_PLUGIN_OPERATION_RESPONSE.Ptr, response, "HRESULT")
         return response
     }
 
@@ -46,7 +60,7 @@ class IPluginAuthenticator extends IUnknown {
      */
     GetAssertion(request) {
         response := WEBAUTHN_PLUGIN_OPERATION_RESPONSE()
-        result := ComCall(4, this, "ptr", request, "ptr", response, "HRESULT")
+        result := ComCall(4, this, WEBAUTHN_PLUGIN_OPERATION_REQUEST.Ptr, request, WEBAUTHN_PLUGIN_OPERATION_RESPONSE.Ptr, response, "HRESULT")
         return response
     }
 
@@ -56,7 +70,7 @@ class IPluginAuthenticator extends IUnknown {
      * @returns {HRESULT} 
      */
     CancelOperation(request) {
-        result := ComCall(5, this, "ptr", request, "HRESULT")
+        result := ComCall(5, this, WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST.Ptr, request, "HRESULT")
         return result
     }
 
@@ -74,5 +88,31 @@ class IPluginAuthenticator extends IUnknown {
     GetLockStatus() {
         result := ComCall(6, this, "int*", &lockStatus := 0, "HRESULT")
         return lockStatus
+    }
+
+    Query(iid) {
+        if (IPluginAuthenticator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MakeCredential := CallbackCreate(GetMethod(implObj, "MakeCredential"), flags, 3)
+        this.vtbl.GetAssertion := CallbackCreate(GetMethod(implObj, "GetAssertion"), flags, 3)
+        this.vtbl.CancelOperation := CallbackCreate(GetMethod(implObj, "CancelOperation"), flags, 2)
+        this.vtbl.GetLockStatus := CallbackCreate(GetMethod(implObj, "GetLockStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MakeCredential)
+        CallbackFree(this.vtbl.GetAssertion)
+        CallbackFree(this.vtbl.CancelOperation)
+        CallbackFree(this.vtbl.GetLockStatus)
     }
 }

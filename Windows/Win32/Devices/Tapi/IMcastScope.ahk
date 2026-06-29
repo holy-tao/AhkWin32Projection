@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMcastScope interface is obtained by calling IMcastAddressAllocation::EnumerateScopes or IMcastAddressAllocation::get_Scopes.
  * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nn-mdhcp-imcastscope
  * @namespace Windows.Win32.Devices.Tapi
  */
-class IMcastScope extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMcastScope extends IDispatch {
     /**
      * The interface identifier for IMcastScope
      * @type {Guid}
      */
-    static IID => Guid("{df0daef4-a289-11d1-8697-006008b0e5d2}")
+    static IID := Guid("{df0daef4-a289-11d1-8697-006008b0e5d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMcastScope interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ScopeID          : IntPtr
+        get_ServerID         : IntPtr
+        get_InterfaceID      : IntPtr
+        get_ScopeDescription : IntPtr
+        get_TTL              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ScopeID", "get_ServerID", "get_InterfaceID", "get_ScopeDescription", "get_TTL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMcastScope.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -106,8 +118,8 @@ class IMcastScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopedescription
      */
     get_ScopeDescription() {
-        ppDescription := BSTR()
-        result := ComCall(10, this, "ptr", ppDescription, "HRESULT")
+        ppDescription := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, ppDescription, "HRESULT")
         return ppDescription
     }
 
@@ -119,5 +131,33 @@ class IMcastScope extends IDispatch {
     get_TTL() {
         result := ComCall(11, this, "int*", &pTTL := 0, "HRESULT")
         return pTTL
+    }
+
+    Query(iid) {
+        if (IMcastScope.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ScopeID := CallbackCreate(GetMethod(implObj, "get_ScopeID"), flags, 2)
+        this.vtbl.get_ServerID := CallbackCreate(GetMethod(implObj, "get_ServerID"), flags, 2)
+        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.get_ScopeDescription := CallbackCreate(GetMethod(implObj, "get_ScopeDescription"), flags, 2)
+        this.vtbl.get_TTL := CallbackCreate(GetMethod(implObj, "get_TTL"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ScopeID)
+        CallbackFree(this.vtbl.get_ServerID)
+        CallbackFree(this.vtbl.get_InterfaceID)
+        CallbackFree(this.vtbl.get_ScopeDescription)
+        CallbackFree(this.vtbl.get_TTL)
     }
 }

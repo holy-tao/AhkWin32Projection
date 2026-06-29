@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Identifies a particular property sheet in a printer's property pages and whether that property sheet should be modal. Optionally used with the SHInvokePrinterCommand function. (Unicode)
@@ -16,63 +17,42 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class OPEN_PRINTER_PROPS_INFOW extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct OPEN_PRINTER_PROPS_INFOW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b>LPSTR</b>
      * 
      * The name of the property sheet. If the specified sheet is not found, the property sheet still appears with the default first page.
-     * @type {PWSTR}
      */
-    pszSheetName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszSheetName : PWSTR
 
     /**
      * Type: <b>UINT</b>
      * 
      * The index of the property sheet in the array of property sheets that makes up the window. If empty or invalid, the default first page is displayed.
-     * @type {Integer}
      */
-    uSheetIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uSheetIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Not used.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the property sheet should be modal; otherwise, <b>FALSE</b>.
-     * @type {BOOL}
      */
-    bModal {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bModal : BOOL
+
 }

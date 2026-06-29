@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_BSS_ENTRY.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\WLAN_RATE_SET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_RATE_SET.ahk" { WLAN_RATE_SET }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WLAN_BSS_ENTRY.ahk" { WLAN_BSS_ENTRY }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * Contains a list of basic service set (BSS) entries.
@@ -24,38 +24,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_bss_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_BSS_LIST extends Win32Struct {
-    static sizeof => 368
-
-    static packingSize => 8
+export default struct WLAN_BSS_LIST {
+    #StructPack 8
 
     /**
      * The total size of this structure, in bytes.
-     * @type {Integer}
      */
-    dwTotalSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTotalSize : UInt32
 
     /**
      * The number of items in the <b>wlanBssEntries</b> member.
-     * @type {Integer}
      */
-    dwNumberOfItems {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNumberOfItems : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_entry">WLAN_BSS_ENTRY</a> structures that contains information about a BSS.
-     * @type {WLAN_BSS_ENTRY}
      */
-    wlanBssEntries {
-        get {
-            if(!this.HasProp("__wlanBssEntriesProxyArray"))
-                this.__wlanBssEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_BSS_ENTRY, "")
-            return this.__wlanBssEntriesProxyArray
-        }
-    }
+    wlanBssEntries : WLAN_BSS_ENTRY[1]
+
 }

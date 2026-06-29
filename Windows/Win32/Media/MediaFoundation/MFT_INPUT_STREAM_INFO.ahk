@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about an input stream on a Media Foundation transform (MFT). To get these values, call IMFTransform::GetInputStreamInfo.
@@ -20,58 +19,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-mft_input_stream_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFT_INPUT_STREAM_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MFT_INPUT_STREAM_INFO {
+    #StructPack 8
 
     /**
      * Maximum amount of time between an input sample and the corresponding output sample, in 100-nanosecond units. For example, an MFT that buffers two samples, each with a duration of 1 second, has a maximum latency of two seconds. If the MFT always turns input samples directly into output samples, with no buffering, the latency is zero.
-     * @type {Integer}
      */
-    hnsMaxLatency {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    hnsMaxLatency : Int64
 
     /**
      * Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_input_stream_info_flags">_MFT_INPUT_STREAM_INFO_FLAGS</a> enumeration.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : UInt32
 
     /**
      * The minimum size of each input buffer, in bytes. If the size is variable or the MFT does not require a specific size, the value is zero. For uncompressed audio, the value should be the audio frame size, which you can get from the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-audio-block-alignment-attribute">MF_MT_AUDIO_BLOCK_ALIGNMENT</a> attribute in the media type.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Maximum amount of input data, in bytes, that the MFT holds to perform lookahead. <i>Lookahead</i> is the action of looking forward in the data before processing it. This value should be the worst-case value. If the MFT does not keep a lookahead buffer, the value is zero.
-     * @type {Integer}
      */
-    cbMaxLookahead {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbMaxLookahead : UInt32
 
     /**
      * The memory alignment required for input buffers. If the MFT does not require a specific alignment, the value is zero.
-     * @type {Integer}
      */
-    cbAlignment {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbAlignment : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

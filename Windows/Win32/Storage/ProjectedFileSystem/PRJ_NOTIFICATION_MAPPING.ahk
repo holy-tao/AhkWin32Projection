@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRJ_NOTIFY_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PRJ_NOTIFY_TYPES.ahk" { PRJ_NOTIFY_TYPES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Describes a notification mapping, which is a pairing between a directory (referred to as a &quot;notification root&quot;) and a set of notifications, expressed as a bit mask.
@@ -21,26 +21,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_notification_mapping
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  */
-class PRJ_NOTIFICATION_MAPPING extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PRJ_NOTIFICATION_MAPPING {
+    #StructPack 8
 
     /**
      * A bit mask representing a set of notifications.
-     * @type {PRJ_NOTIFY_TYPES}
      */
-    NotificationBitMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NotificationBitMask : PRJ_NOTIFY_TYPES
 
     /**
      * The directory that the notification mapping is paired to.
-     * @type {PWSTR}
      */
-    NotificationRoot {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NotificationRoot : PWSTR
+
 }

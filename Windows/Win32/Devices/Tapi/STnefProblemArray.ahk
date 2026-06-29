@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STnefProblem.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STnefProblem.ahk" { STnefProblem }
 
 /**
  * Contains an array of STnefProblem structures describing one or more processing problems that occurred during the encoding or decoding of a TNEF stream.
@@ -11,29 +10,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/stnefproblemarray
  * @namespace Windows.Win32.Devices.Tapi
  */
-class STnefProblemArray extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct STnefProblemArray {
+    #StructPack 4
 
     /**
      * > Count of elements in the array specified in the **aProblem** member.
-     * @type {Integer}
      */
-    cProblem {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cProblem : UInt32
 
     /**
      * > Array of [STnefProblem](stnefproblem.md) structures. Each structure contains information about a property or attribute processing problem.
-     * @type {STnefProblem}
      */
-    aProblem {
-        get {
-            if(!this.HasProp("__aProblemProxyArray"))
-                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 4, 1, STnefProblem, "")
-            return this.__aProblemProxyArray
-        }
-    }
+    aProblem : STnefProblem[1]
+
 }

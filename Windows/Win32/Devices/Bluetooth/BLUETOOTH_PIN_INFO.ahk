@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * BLUETOOTH_PIN_INFO structure contains information used for authentication via PIN.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_pin_info
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_PIN_INFO extends Win32Struct {
-    static sizeof => 17
-
-    static packingSize => 1
+export default struct BLUETOOTH_PIN_INFO {
+    #StructPack 1
 
     /**
      * The PIN  used for authentication.
-     * @type {Array<Integer>}
      */
-    pin {
-        get {
-            if(!this.HasProp("__pinProxyArray"))
-                this.__pinProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__pinProxyArray
-        }
-    }
+    pin : Int8[16]
 
     /**
      * The length of <i>pin</i>.
-     * @type {Integer}
      */
-    pinLength {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    pinLength : Int8
+
 }

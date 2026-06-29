@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_HARDWARE_CROSSTIMESTAMP extends Win32Struct {
-    static sizeof => 40
+export default struct NDIS_HARDWARE_CROSSTIMESTAMP {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SystemTimestamp1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SystemTimestamp1 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    HardwareClockTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HardwareClockTimestamp {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SystemTimestamp2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SystemTimestamp2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

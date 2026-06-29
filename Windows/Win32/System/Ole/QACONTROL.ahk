@@ -1,72 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies control information for IQuickActivate::QuickActivate.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-qacontrol
  * @namespace Windows.Win32.System.Ole
  */
-class QACONTROL extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct QACONTROL {
+    #StructPack 4
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The control's miscellaneous status bits that can also be returned by <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getmiscstatus">IOleObject::GetMiscStatus</a>. See <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olemisc">OLEMISC</a> for more information.
-     * @type {Integer}
      */
-    dwMiscStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMiscStatus : UInt32
 
     /**
      * The control's view status that can also be returned by <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iviewobjectex-getviewstatus">IViewObjectEx::GetViewStatus</a>. See <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-viewstatus">VIEWSTATUS</a> for more information.
-     * @type {Integer}
      */
-    dwViewStatus {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwViewStatus : UInt32
 
     /**
      * A unique identifier for control-defined events.
-     * @type {Integer}
      */
-    dwEventCookie {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwEventCookie : UInt32
 
     /**
      * A unique identifier for control-defined properties.
-     * @type {Integer}
      */
-    dwPropNotifyCookie {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwPropNotifyCookie : UInt32
 
     /**
      * The control's activation policy that can also be returned by <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipointerinactive-getactivationpolicy">IPointerInactive::GetActivationPolicy</a>. If all the bits of <b>dwPointerActivationPolicy</b> are set, then the IPointerInactive interface may not be supported. The container should <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to obtain the interface pointer in the standard manner.
-     * @type {Integer}
      */
-    dwPointerActivationPolicy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwPointerActivationPolicy : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

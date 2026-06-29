@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IADs.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IADsContainer.ahk" { IADsContainer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADs.ahk" { IADs }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by an application or component to programmatically start a creation wizard for a specified object class.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadmincreateobj
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsAdminCreateObj extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsAdminCreateObj extends IUnknown {
     /**
      * The interface identifier for IDsAdminCreateObj
      * @type {Guid}
      */
-    static IID => Guid("{53554a38-f902-11d2-82b9-00c04f68928b}")
+    static IID := Guid("{53554a38-f902-11d2-82b9-00c04f68928b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsAdminCreateObj interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize  : IntPtr
+        CreateModal : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "CreateModal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsAdminCreateObj.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDsAdminCreateObj::Initialize method initializes an IDsAdminCreateObj object with data about the container where the object will be created, the class of the object to be created and, possibly, the source object to copy from.
@@ -57,9 +69,29 @@ class IDsAdminCreateObj extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadmincreateobj-createmodal
      */
     CreateModal(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(4, this, "ptr", hwndParent, "ptr*", &ppADsObj := 0, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, "ptr*", &ppADsObj := 0, "HRESULT")
         return IADs(ppADsObj)
+    }
+
+    Query(iid) {
+        if (IDsAdminCreateObj.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.CreateModal := CallbackCreate(GetMethod(implObj, "CreateModal"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.CreateModal)
     }
 }

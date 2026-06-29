@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the DFS metadata version and capabilities of an existing DFS namespace.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_50
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_INFO_50 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DFS_INFO_50 {
+    #StructPack 8
 
     /**
      * The major version of the DFS metadata.
-     * @type {Integer}
      */
-    NamespaceMajorVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NamespaceMajorVersion : UInt32
 
     /**
      * The minor version of the DFS metadata.
-     * @type {Integer}
      */
-    NamespaceMinorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NamespaceMinorVersion : UInt32
 
     /**
      * Specifies a set of flags that describe specific capabilities of a DFS namespace.
-     * @type {Integer}
      */
-    NamespaceCapabilities {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NamespaceCapabilities : Int64
+
 }

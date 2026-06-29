@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TCITEMHEADERA_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TCITEMHEADERA_MASK.ahk" { TCITEMHEADERA_MASK }
 
 /**
  * Specifies or receives the attributes of a tab. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEMHEADER structure. (ANSI)
@@ -19,72 +19,47 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class TCITEMHEADERA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TCITEMHEADERA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {TCITEMHEADERA_MASK}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : TCITEMHEADERA_MASK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Reserved member. Do not use.
-     * @type {Integer}
      */
-    lpReserved1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lpReserved1 : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Reserved member. Do not use.
-     * @type {Integer}
      */
-    lpReserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lpReserved2 : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a null-terminated string that contains the tab text if item information is being set. If item information is being retrieved, this member specifies the address of the buffer that receives the tab text.
-     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszText : PSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Size of the buffer pointed to by the pszText member. If the structure is not receiving information, this member is ignored.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Index into the tab control's image list, or -1 if there is no image for the tab.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    iImage : Int32
+
 }

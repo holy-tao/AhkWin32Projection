@@ -1,31 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TRANSMSG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\TRANSMSG.ahk" { TRANSMSG }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class TRANSMSGLIST extends Win32Struct {
-    static sizeof => 32
+export default struct TRANSMSGLIST {
+    #StructPack 8
 
-    static packingSize => 8
+    uMsgCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMsgCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TransMsg : TRANSMSG[1]
 
-    /**
-     * @type {TRANSMSG}
-     */
-    TransMsg {
-        get {
-            if(!this.HasProp("__TransMsgProxyArray"))
-                this.__TransMsgProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSMSG, "")
-            return this.__TransMsgProxyArray
-        }
-    }
 }

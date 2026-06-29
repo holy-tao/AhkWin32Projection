@@ -1,121 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKMDT_OPM_ACP_AND_CGMSA_SIGNALING extends Win32Struct {
-    static sizeof => 80
+export default struct DXGKMDT_OPM_ACP_AND_CGMSA_SIGNALING {
+    #StructPack 8
 
-    static packingSize => 8
+    rnRandomNumber : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    rnRandomNumber {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulStatusFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStatusFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulAvailableTVProtectionStandards : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAvailableTVProtectionStandards {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulActiveTVProtectionStandard : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulActiveTVProtectionStandard {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulReserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulAspectRatioValidMask1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAspectRatioValidMask1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulAspectRatioData1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAspectRatioData1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulAspectRatioValidMask2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAspectRatioValidMask2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulAspectRatioData2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAspectRatioData2 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulAspectRatioValidMask3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAspectRatioValidMask3 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulAspectRatioData3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAspectRatioData3 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulReserved2 : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ulReserved2 {
-        get {
-            if(!this.HasProp("__ulReserved2ProxyArray"))
-                this.__ulReserved2ProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
-            return this.__ulReserved2ProxyArray
-        }
-    }
+    ulReserved3 : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ulReserved3 {
-        get {
-            if(!this.HasProp("__ulReserved3ProxyArray"))
-                this.__ulReserved3ProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")
-            return this.__ulReserved3ProxyArray
-        }
-    }
 }

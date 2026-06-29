@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElementArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Provides access to information exposed by a UI Automation provider for an element that can be dragged as part of a drag-and-drop operation.
@@ -12,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationdragpattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationDragPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationDragPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationDragPattern
      * @type {Guid}
      */
-    static IID => Guid("{1dc7b570-1f54-4bad-bcda-d36a722fb7bd}")
+    static IID := Guid("{1dc7b570-1f54-4bad-bcda-d36a722fb7bd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationDragPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_CurrentIsGrabbed   : IntPtr
+        get_CachedIsGrabbed    : IntPtr
+        get_CurrentDropEffect  : IntPtr
+        get_CachedDropEffect   : IntPtr
+        get_CurrentDropEffects : IntPtr
+        get_CachedDropEffects  : IntPtr
+        GetCurrentGrabbedItems : IntPtr
+        GetCachedGrabbedItems  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentIsGrabbed", "get_CachedIsGrabbed", "get_CurrentDropEffect", "get_CachedDropEffect", "get_CurrentDropEffects", "get_CachedDropEffects", "GetCurrentGrabbedItems", "GetCachedGrabbedItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationDragPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -81,7 +98,7 @@ class IUIAutomationDragPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentisgrabbed
      */
     get_CurrentIsGrabbed() {
-        result := ComCall(3, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -91,7 +108,7 @@ class IUIAutomationDragPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cachedisgrabbed
      */
     get_CachedIsGrabbed() {
-        result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -103,8 +120,8 @@ class IUIAutomationDragPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentdropeffect
      */
     get_CurrentDropEffect() {
-        retVal := BSTR()
-        result := ComCall(5, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -116,8 +133,8 @@ class IUIAutomationDragPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cacheddropeffect
      */
     get_CachedDropEffect() {
-        retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -171,5 +188,39 @@ class IUIAutomationDragPattern extends IUnknown {
     GetCachedGrabbedItems() {
         result := ComCall(10, this, "ptr*", &retVal := 0, "HRESULT")
         return IUIAutomationElementArray(retVal)
+    }
+
+    Query(iid) {
+        if (IUIAutomationDragPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentIsGrabbed := CallbackCreate(GetMethod(implObj, "get_CurrentIsGrabbed"), flags, 2)
+        this.vtbl.get_CachedIsGrabbed := CallbackCreate(GetMethod(implObj, "get_CachedIsGrabbed"), flags, 2)
+        this.vtbl.get_CurrentDropEffect := CallbackCreate(GetMethod(implObj, "get_CurrentDropEffect"), flags, 2)
+        this.vtbl.get_CachedDropEffect := CallbackCreate(GetMethod(implObj, "get_CachedDropEffect"), flags, 2)
+        this.vtbl.get_CurrentDropEffects := CallbackCreate(GetMethod(implObj, "get_CurrentDropEffects"), flags, 2)
+        this.vtbl.get_CachedDropEffects := CallbackCreate(GetMethod(implObj, "get_CachedDropEffects"), flags, 2)
+        this.vtbl.GetCurrentGrabbedItems := CallbackCreate(GetMethod(implObj, "GetCurrentGrabbedItems"), flags, 2)
+        this.vtbl.GetCachedGrabbedItems := CallbackCreate(GetMethod(implObj, "GetCachedGrabbedItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentIsGrabbed)
+        CallbackFree(this.vtbl.get_CachedIsGrabbed)
+        CallbackFree(this.vtbl.get_CurrentDropEffect)
+        CallbackFree(this.vtbl.get_CachedDropEffect)
+        CallbackFree(this.vtbl.get_CurrentDropEffects)
+        CallbackFree(this.vtbl.get_CachedDropEffects)
+        CallbackFree(this.vtbl.GetCurrentGrabbedItems)
+        CallbackFree(this.vtbl.GetCachedGrabbedItems)
     }
 }

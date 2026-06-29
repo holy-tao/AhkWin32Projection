@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WDMUSB_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WDMUSB_POWER_STATE.ahk" { WDMUSB_POWER_STATE }
 
 /**
  * The USB_POWER_INFO structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve device power state that the host controller power policy specifies for the indicated system power state.
@@ -9,98 +9,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_power_info
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_POWER_INFO extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct USB_POWER_INFO {
+    #StructPack 4
 
     /**
      * On input, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the system power state.
-     * @type {WDMUSB_POWER_STATE}
      */
-    SystemState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SystemState : WDMUSB_POWER_STATE
 
     /**
      * On output, an <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the device power state of the host controller.
-     * @type {WDMUSB_POWER_STATE}
      */
-    HcDevicePowerState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    HcDevicePowerState : WDMUSB_POWER_STATE
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the host controller is in a wake state.
-     * @type {WDMUSB_POWER_STATE}
      */
-    HcDeviceWake {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    HcDeviceWake : WDMUSB_POWER_STATE
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the host controller can wake the system.
-     * @type {WDMUSB_POWER_STATE}
      */
-    HcSystemWake {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    HcSystemWake : WDMUSB_POWER_STATE
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the device power state of the root hub.
-     * @type {WDMUSB_POWER_STATE}
      */
-    RhDevicePowerState {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    RhDevicePowerState : WDMUSB_POWER_STATE
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the root hub is in a wake state.
-     * @type {WDMUSB_POWER_STATE}
      */
-    RhDeviceWake {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    RhDeviceWake : WDMUSB_POWER_STATE
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the root hub can wake the system.
-     * @type {WDMUSB_POWER_STATE}
      */
-    RhSystemWake {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    RhSystemWake : WDMUSB_POWER_STATE
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the last system sleep state.
-     * @type {WDMUSB_POWER_STATE}
      */
-    LastSystemSleepState {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    LastSystemSleepState : WDMUSB_POWER_STATE
 
     /**
      * A Boolean value that indicates whether the host controller device can wake up the system from the specified system power state. If <b>TRUE</b>, the host controller device can wake up the system. If <b>FALSE</b>, the host controller cannot wake up the system.
-     * @type {BOOLEAN}
      */
-    CanWakeup {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    CanWakeup : BOOLEAN
 
     /**
      * A Boolean value that indicates whether the host controller is powered when in the specified system power state. If <b>TRUE</b>, the host controller is powered. If <b>FALSE</b>, the host controller is not powered.
-     * @type {BOOLEAN}
      */
-    IsPowered {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    IsPowered : BOOLEAN
+
 }

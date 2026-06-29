@@ -1,187 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSP_NODE.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\MEDIUM_INFO.ahk
-#Include .\TRANSPORT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\MEDIUM_INFO.ahk" { MEDIUM_INFO }
+#Import ".\KSP_NODE.ahk" { KSP_NODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TRANSPORT_STATE.ahk" { TRANSPORT_STATE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct {
-    static sizeof => 544
+export default struct KSPROPERTY_EXTXPORT_NODE_S {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 516
-        static packingSize => 4
+    struct _u {
 
-        class _Timecode extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 1
+        struct _Timecode {
+            frame : Int8
 
-            /**
-             * @type {Integer}
-             */
-            frame {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            second : Int8
 
-            /**
-             * @type {Integer}
-             */
-            second {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
+            minute : Int8
 
-            /**
-             * @type {Integer}
-             */
-            minute {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
+            hour : Int8
 
-            /**
-             * @type {Integer}
-             */
-            hour {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
         }
 
-        class _RawAVC extends Win32Struct {
-            static sizeof => 516
-            static packingSize => 4
+        struct _RawAVC {
+            PayloadSize : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PayloadSize {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Payload : Int8[512]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Payload {
-                get {
-                    if(!this.HasProp("__PayloadProxyArray"))
-                        this.__PayloadProxyArray := Win32FixedArray(this.ptr + 4, 512, Primitive, "char")
-                    return this.__PayloadProxyArray
-                }
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        Capabilities {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Capabilities : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        SignalMode {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        LoadMedium {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {MEDIUM_INFO}
-         */
-        MediumInfo {
-            get {
-                if(!this.HasProp("__MediumInfo"))
-                    this.__MediumInfo := MEDIUM_INFO(0, this)
-                return this.__MediumInfo
-            }
-        }
-
-        /**
-         * @type {TRANSPORT_STATE}
-         */
-        XPrtState {
-            get {
-                if(!this.HasProp("__XPrtState"))
-                    this.__XPrtState := TRANSPORT_STATE(0, this)
-                return this.__XPrtState
-            }
-        }
-
-        /**
-         * @type {_Timecode}
-         */
-        Timecode {
-            get {
-                if(!this.HasProp("__Timecode"))
-                    this.__Timecode := KSPROPERTY_EXTXPORT_NODE_S._u_e__Union._Timecode(0, this)
-                return this.__Timecode
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwTimecode {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwAbsTrackNumber {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {_RawAVC}
-         */
-        RawAVC {
-            get {
-                if(!this.HasProp("__RawAVC"))
-                    this.__RawAVC := KSPROPERTY_EXTXPORT_NODE_S._u_e__Union._RawAVC(0, this)
-                return this.__RawAVC
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'SignalMode', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'LoadMedium', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'MediumInfo', { type: MEDIUM_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'XPrtState', { type: TRANSPORT_STATE, offset: 0 })
+            DefineProp(this.Prototype, 'Timecode', { type: KSPROPERTY_EXTXPORT_NODE_S._u._Timecode, offset: 0 })
+            DefineProp(this.Prototype, 'dwTimecode', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'dwAbsTrackNumber', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'RawAVC', { type: KSPROPERTY_EXTXPORT_NODE_S._u._RawAVC, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {KSP_NODE}
-     */
-    NodeProperty {
-        get {
-            if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSP_NODE(0, this)
-            return this.__NodeProperty
-        }
-    }
+    NodeProperty : KSP_NODE
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := KSPROPERTY_EXTXPORT_NODE_S._u_e__Union(24, this)
-            return this.__u
-        }
-    }
+    u : KSPROPERTY_EXTXPORT_NODE_S._u
+
 }

@@ -1,82 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class STATURL extends Win32Struct {
-    static sizeof => 56
+export default struct STATURL {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pwcsUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwcsUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwcsTitle : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwcsTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ftLastVisited : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastVisited {
-        get {
-            if(!this.HasProp("__ftLastVisited"))
-                this.__ftLastVisited := FILETIME(24, this)
-            return this.__ftLastVisited
-        }
-    }
+    ftLastUpdated : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastUpdated {
-        get {
-            if(!this.HasProp("__ftLastUpdated"))
-                this.__ftLastUpdated := FILETIME(32, this)
-            return this.__ftLastUpdated
-        }
-    }
+    ftExpires : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftExpires {
-        get {
-            if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(40, this)
-            return this.__ftExpires
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

@@ -1,75 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a 3x3 matrix.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milmatrix3x2d
  * @namespace Windows.Win32.Graphics.Dwm
  */
-class MilMatrix3x2D extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MilMatrix3x2D {
+    #StructPack 8
 
     /**
      * Type: <b>DOUBLE</b>
      * 
      * The value of the first row and first column of the matrix.
-     * @type {Float}
      */
-    S_11 {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
+    S_11 : Float64
 
     /**
      * Type: <b>DOUBLE</b>
      * 
      * The value of the first row and first second of the matrix.
-     * @type {Float}
      */
-    S_12 {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
+    S_12 : Float64
 
     /**
      * Type: <b>DOUBLE</b>
      * 
      * The value of the second row and first column of the matrix.
-     * @type {Float}
      */
-    S_21 {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
+    S_21 : Float64
 
     /**
      * Type: <b>DOUBLE</b>
      * 
      * The value of the second row and second column of the matrix.
-     * @type {Float}
      */
-    S_22 {
-        get => NumGet(this, 24, "double")
-        set => NumPut("double", value, this, 24)
-    }
+    S_22 : Float64
 
     /**
      * Type: <b>DOUBLE</b>
-     * @type {Float}
      */
-    DX {
-        get => NumGet(this, 32, "double")
-        set => NumPut("double", value, this, 32)
-    }
+    DX : Float64
 
     /**
      * Type: <b>DOUBLE</b>
-     * @type {Float}
      */
-    DY {
-        get => NumGet(this, 40, "double")
-        set => NumPut("double", value, this, 40)
-    }
+    DY : Float64
+
 }

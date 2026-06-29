@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemBackupRestore interface backs up and restores the contents of the WMI repository.
@@ -16,32 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbembackuprestore
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemBackupRestore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemBackupRestore extends IUnknown {
     /**
      * The interface identifier for IWbemBackupRestore
      * @type {Guid}
      */
-    static IID => Guid("{c49e32c7-bc8b-11d2-85d4-00105a1f8304}")
+    static IID := Guid("{c49e32c7-bc8b-11d2-85d4-00105a1f8304}")
 
     /**
      * The class identifier for WbemBackupRestore
      * @type {Guid}
      */
-    static CLSID => Guid("{c49e32c6-bc8b-11d2-85d4-00105a1f8304}")
+    static CLSID := Guid("{c49e32c6-bc8b-11d2-85d4-00105a1f8304}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemBackupRestore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Backup  : IntPtr
+        Restore : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Backup", "Restore"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemBackupRestore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemBackupRestore::Backup method backs up the contents of the static repository to a separate file.
@@ -72,5 +82,27 @@ class IWbemBackupRestore extends IUnknown {
 
         result := ComCall(4, this, "ptr", strRestoreFromFile, "int", lFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemBackupRestore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 3)
+        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Backup)
+        CallbackFree(this.vtbl.Restore)
     }
 }

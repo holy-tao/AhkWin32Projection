@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_NODE_CHANGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_NODE_CHANGE_TYPE.ahk" { PEER_NODE_CHANGE_TYPE }
 
 /**
  * The PEER_EVENT_NODE_CHANGE_DATA structure contains a pointer to the data if a PEER_GRAPH_EVENT_NODE_CHANGE event is triggered.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_node_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_EVENT_NODE_CHANGE_DATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PEER_EVENT_NODE_CHANGE_DATA {
+    #StructPack 8
 
     /**
      * Specifies the size of the structure. Should  set to the size of PEER_EVENT_NODE_CHANGE_DATA.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies the  new  state of the node. Valid values are the following.
@@ -61,28 +55,17 @@ class PEER_EVENT_NODE_CHANGE_DATA extends Win32Struct {
      * </tr>
      * </table>
      * @deprecated
-     * @type {PEER_NODE_CHANGE_TYPE}
      */
-    changeType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    changeType : PEER_NODE_CHANGE_TYPE
 
     /**
      * Specifies the  unique ID of the node that has changed.
-     * @type {Integer}
      */
-    ullNodeId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullNodeId : Int64
 
     /**
      * Specifies the peer ID of the node that has  changed.
-     * @type {PWSTR}
      */
-    pwzPeerId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwzPeerId : PWSTR
+
 }

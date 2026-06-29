@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes Direct3D 11.4 feature options in the current graphics driver.
@@ -10,17 +10,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ns-d3d11_4-d3d11_feature_data_d3d11_options4
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_FEATURE_DATA_D3D11_OPTIONS4 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3D11_FEATURE_DATA_D3D11_OPTIONS4 {
+    #StructPack 4
 
     /**
      * Specifies a BOOL that determines if NV12 textures can be shared across processes and D3D devices.
-     * @type {BOOL}
      */
-    ExtendedNV12SharedTextureSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ExtendedNV12SharedTextureSupported : BOOL
+
 }

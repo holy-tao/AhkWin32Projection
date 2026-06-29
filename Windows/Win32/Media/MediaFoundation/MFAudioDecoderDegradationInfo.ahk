@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFT_AUDIO_DECODER_DEGRADATION_REASON.ahk
-#Include .\MFT_AUDIO_DECODER_DEGRADATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFT_AUDIO_DECODER_DEGRADATION_TYPE.ahk" { MFT_AUDIO_DECODER_DEGRADATION_TYPE }
+#Import ".\MFT_AUDIO_DECODER_DEGRADATION_REASON.ahk" { MFT_AUDIO_DECODER_DEGRADATION_REASON }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFAudioDecoderDegradationInfo extends Win32Struct {
-    static sizeof => 8
+export default struct MFAudioDecoderDegradationInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    eDegradationReason : MFT_AUDIO_DECODER_DEGRADATION_REASON
 
-    /**
-     * @type {MFT_AUDIO_DECODER_DEGRADATION_REASON}
-     */
-    eDegradationReason {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    eType : MFT_AUDIO_DECODER_DEGRADATION_TYPE
 
-    /**
-     * @type {MFT_AUDIO_DECODER_DEGRADATION_TYPE}
-     */
-    eType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

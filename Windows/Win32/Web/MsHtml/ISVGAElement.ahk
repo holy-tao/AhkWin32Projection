@@ -1,38 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedString.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGAnimatedString.ahk" { ISVGAnimatedString }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGAElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGAElement extends IDispatch {
     /**
      * The interface identifier for ISVGAElement
      * @type {Guid}
      */
-    static IID => Guid("{3051054b-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051054b-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGAElement
      * @type {Guid}
      */
-    static CLSID => Guid("{305105db-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105db-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGAElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_target : IntPtr
+        get_target    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_target", "get_target"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGAElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGAnimatedString} 
@@ -58,5 +67,27 @@ class ISVGAElement extends IDispatch {
     get_target() {
         result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
         return ISVGAnimatedString(p)
+    }
+
+    Query(iid) {
+        if (ISVGAElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_target := CallbackCreate(GetMethod(implObj, "putref_target"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_target)
+        CallbackFree(this.vtbl.get_target)
     }
 }

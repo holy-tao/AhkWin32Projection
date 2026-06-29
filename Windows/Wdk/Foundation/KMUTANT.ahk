@@ -1,56 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class KMUTANT extends Win32Struct {
-    static sizeof => 32
+export default struct KMUTANT {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MutantListEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MutantListEntry {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OwnerThread : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    OwnerThread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MutantFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MutantFlags {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Abandoned
-     * - Spare1
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
 
     /**
      * @type {Integer}
@@ -67,12 +30,10 @@ class KMUTANT extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7F
         set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
+    ApcDisable : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ApcDisable {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DHVERTEX extends Win32Struct {
-    static sizeof => 16
+export default struct D3DHVERTEX {
+    #StructPack 4
 
-    static packingSize => 4
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hx : Float32
 
-    /**
-     * @type {Float}
-     */
-    hx {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    hy : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvHX {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    hz : Float32
 
-    /**
-     * @type {Float}
-     */
-    hy {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvHY {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    hz {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvHZ {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
+    static __New() {
+        DefineProp(this.Prototype, 'dvHX', { type: Float32, offset: 4 })
+        DefineProp(this.Prototype, 'dvHY', { type: Float32, offset: 8 })
+        DefineProp(this.Prototype, 'dvHZ', { type: Float32, offset: 12 })
+        this.DeleteProp("__New")
     }
 }

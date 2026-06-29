@@ -1,18 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID2D1RectangleGeometry.ahk
-#Include .\ID2D1RoundedRectangleGeometry.ahk
-#Include .\ID2D1EllipseGeometry.ahk
-#Include .\ID2D1GeometryGroup.ahk
-#Include .\ID2D1TransformedGeometry.ahk
-#Include .\ID2D1PathGeometry.ahk
-#Include .\ID2D1StrokeStyle.ahk
-#Include .\ID2D1DrawingStateBlock.ahk
-#Include .\ID2D1RenderTarget.ahk
-#Include .\ID2D1HwndRenderTarget.ahk
-#Include .\ID2D1DCRenderTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
+#Import ".\ID2D1GeometryGroup.ahk" { ID2D1GeometryGroup }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_ELLIPSE.ahk" { D2D1_ELLIPSE }
+#Import ".\ID2D1DCRenderTarget.ahk" { ID2D1DCRenderTarget }
+#Import ".\D2D1_HWND_RENDER_TARGET_PROPERTIES.ahk" { D2D1_HWND_RENDER_TARGET_PROPERTIES }
+#Import ".\D2D1_RENDER_TARGET_PROPERTIES.ahk" { D2D1_RENDER_TARGET_PROPERTIES }
+#Import ".\ID2D1DrawingStateBlock.ahk" { ID2D1DrawingStateBlock }
+#Import "..\Imaging\IWICBitmap.ahk" { IWICBitmap }
+#Import ".\ID2D1TransformedGeometry.ahk" { ID2D1TransformedGeometry }
+#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import ".\D2D1_STROKE_STYLE_PROPERTIES.ahk" { D2D1_STROKE_STYLE_PROPERTIES }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
+#Import ".\D2D1_DRAWING_STATE_DESCRIPTION.ahk" { D2D1_DRAWING_STATE_DESCRIPTION }
+#Import ".\ID2D1RoundedRectangleGeometry.ahk" { ID2D1RoundedRectangleGeometry }
+#Import ".\ID2D1HwndRenderTarget.ahk" { ID2D1HwndRenderTarget }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID2D1RectangleGeometry.ahk" { ID2D1RectangleGeometry }
+#Import ".\ID2D1PathGeometry.ahk" { ID2D1PathGeometry }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import ".\ID2D1EllipseGeometry.ahk" { ID2D1EllipseGeometry }
 
 /**
  * Creates Direct2D resources. (ID2D1Factory)
@@ -44,26 +58,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Factory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Factory extends IUnknown {
     /**
      * The interface identifier for ID2D1Factory
      * @type {Guid}
      */
-    static IID => Guid("{06152247-6f50-465a-9245-118bfd3b6007}")
+    static IID := Guid("{06152247-6f50-465a-9245-118bfd3b6007}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Factory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReloadSystemMetrics            : IntPtr
+        GetDesktopDpi                  : IntPtr
+        CreateRectangleGeometry        : IntPtr
+        CreateRoundedRectangleGeometry : IntPtr
+        CreateEllipseGeometry          : IntPtr
+        CreateGeometryGroup            : IntPtr
+        CreateTransformedGeometry      : IntPtr
+        CreatePathGeometry             : IntPtr
+        CreateStrokeStyle              : IntPtr
+        CreateDrawingStateBlock        : IntPtr
+        CreateWicBitmapRenderTarget    : IntPtr
+        CreateHwndRenderTarget         : IntPtr
+        CreateDxgiSurfaceRenderTarget  : IntPtr
+        CreateDCRenderTarget           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReloadSystemMetrics", "GetDesktopDpi", "CreateRectangleGeometry", "CreateRoundedRectangleGeometry", "CreateEllipseGeometry", "CreateGeometryGroup", "CreateTransformedGeometry", "CreatePathGeometry", "CreateStrokeStyle", "CreateDrawingStateBlock", "CreateWicBitmapRenderTarget", "CreateHwndRenderTarget", "CreateDxgiSurfaceRenderTarget", "CreateDCRenderTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Factory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Forces the factory to refresh any system defaults that it might have changed since factory creation.
@@ -107,7 +141,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createrectanglegeometry
      */
     CreateRectangleGeometry(rectangle) {
-        result := ComCall(5, this, "ptr", rectangle, "ptr*", &rectangleGeometry := 0, "HRESULT")
+        result := ComCall(5, this, D2D_RECT_F.Ptr, rectangle, "ptr*", &rectangleGeometry := 0, "HRESULT")
         return ID2D1RectangleGeometry(rectangleGeometry)
     }
 
@@ -118,7 +152,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createroundedrectanglegeometry
      */
     CreateRoundedRectangleGeometry(roundedRectangle) {
-        result := ComCall(6, this, "ptr", roundedRectangle, "ptr*", &roundedRectangleGeometry := 0, "HRESULT")
+        result := ComCall(6, this, D2D1_ROUNDED_RECT.Ptr, roundedRectangle, "ptr*", &roundedRectangleGeometry := 0, "HRESULT")
         return ID2D1RoundedRectangleGeometry(roundedRectangleGeometry)
     }
 
@@ -129,7 +163,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createellipsegeometry
      */
     CreateEllipseGeometry(ellipse) {
-        result := ComCall(7, this, "ptr", ellipse, "ptr*", &ellipseGeometry := 0, "HRESULT")
+        result := ComCall(7, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr*", &ellipseGeometry := 0, "HRESULT")
         return ID2D1EllipseGeometry(ellipseGeometry)
     }
 
@@ -152,7 +186,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup
      */
     CreateGeometryGroup(_fillMode, geometries, geometriesCount) {
-        result := ComCall(8, this, "int", _fillMode, "ptr*", geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
+        result := ComCall(8, this, D2D1_FILL_MODE, _fillMode, ID2D1Geometry.Ptr, geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
         return ID2D1GeometryGroup(geometryGroup)
     }
 
@@ -168,7 +202,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createtransformedgeometry
      */
     CreateTransformedGeometry(sourceGeometry, transform) {
-        result := ComCall(9, this, "ptr", sourceGeometry, "ptr", transform, "ptr*", &transformedGeometry := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", sourceGeometry, D2D_MATRIX_3X2_F.Ptr, transform, "ptr*", &transformedGeometry := 0, "HRESULT")
         return ID2D1TransformedGeometry(transformedGeometry)
     }
 
@@ -195,7 +229,7 @@ class ID2D1Factory extends IUnknown {
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
+        result := ComCall(11, this, D2D1_STROKE_STYLE_PROPERTIES.Ptr, strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
         return ID2D1StrokeStyle(strokeStyle)
     }
 
@@ -207,7 +241,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createdrawingstateblock
      */
     CreateDrawingStateBlock(drawingStateDescription, textRenderingParams) {
-        result := ComCall(12, this, "ptr", drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
+        result := ComCall(12, this, D2D1_DRAWING_STATE_DESCRIPTION.Ptr, drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
         return ID2D1DrawingStateBlock(drawingStateBlock)
     }
 
@@ -223,7 +257,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createwicbitmaprendertarget
      */
     CreateWicBitmapRenderTarget(target, renderTargetProperties) {
-        result := ComCall(13, this, "ptr", target, "ptr", renderTargetProperties, "ptr*", &renderTarget := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", target, D2D1_RENDER_TARGET_PROPERTIES.Ptr, renderTargetProperties, "ptr*", &renderTarget := 0, "HRESULT")
         return ID2D1RenderTarget(renderTarget)
     }
 
@@ -237,7 +271,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createhwndrendertarget
      */
     CreateHwndRenderTarget(renderTargetProperties, hwndRenderTargetProperties) {
-        result := ComCall(14, this, "ptr", renderTargetProperties, "ptr", hwndRenderTargetProperties, "ptr*", &hwndRenderTarget := 0, "HRESULT")
+        result := ComCall(14, this, D2D1_RENDER_TARGET_PROPERTIES.Ptr, renderTargetProperties, D2D1_HWND_RENDER_TARGET_PROPERTIES.Ptr, hwndRenderTargetProperties, "ptr*", &hwndRenderTarget := 0, "HRESULT")
         return ID2D1HwndRenderTarget(hwndRenderTarget)
     }
 
@@ -269,7 +303,7 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createdxgisurfacerendertarget(idxgisurface_constd2d1_render_target_properties__id2d1rendertarget)
      */
     CreateDxgiSurfaceRenderTarget(dxgiSurface, renderTargetProperties) {
-        result := ComCall(15, this, "ptr", dxgiSurface, "ptr", renderTargetProperties, "ptr*", &renderTarget := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", dxgiSurface, D2D1_RENDER_TARGET_PROPERTIES.Ptr, renderTargetProperties, "ptr*", &renderTarget := 0, "HRESULT")
         return ID2D1RenderTarget(renderTarget)
     }
 
@@ -290,7 +324,53 @@ class ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createdcrendertarget
      */
     CreateDCRenderTarget(renderTargetProperties) {
-        result := ComCall(16, this, "ptr", renderTargetProperties, "ptr*", &dcRenderTarget := 0, "HRESULT")
+        result := ComCall(16, this, D2D1_RENDER_TARGET_PROPERTIES.Ptr, renderTargetProperties, "ptr*", &dcRenderTarget := 0, "HRESULT")
         return ID2D1DCRenderTarget(dcRenderTarget)
+    }
+
+    Query(iid) {
+        if (ID2D1Factory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReloadSystemMetrics := CallbackCreate(GetMethod(implObj, "ReloadSystemMetrics"), flags, 1)
+        this.vtbl.GetDesktopDpi := CallbackCreate(GetMethod(implObj, "GetDesktopDpi"), flags, 3)
+        this.vtbl.CreateRectangleGeometry := CallbackCreate(GetMethod(implObj, "CreateRectangleGeometry"), flags, 3)
+        this.vtbl.CreateRoundedRectangleGeometry := CallbackCreate(GetMethod(implObj, "CreateRoundedRectangleGeometry"), flags, 3)
+        this.vtbl.CreateEllipseGeometry := CallbackCreate(GetMethod(implObj, "CreateEllipseGeometry"), flags, 3)
+        this.vtbl.CreateGeometryGroup := CallbackCreate(GetMethod(implObj, "CreateGeometryGroup"), flags, 5)
+        this.vtbl.CreateTransformedGeometry := CallbackCreate(GetMethod(implObj, "CreateTransformedGeometry"), flags, 4)
+        this.vtbl.CreatePathGeometry := CallbackCreate(GetMethod(implObj, "CreatePathGeometry"), flags, 2)
+        this.vtbl.CreateStrokeStyle := CallbackCreate(GetMethod(implObj, "CreateStrokeStyle"), flags, 5)
+        this.vtbl.CreateDrawingStateBlock := CallbackCreate(GetMethod(implObj, "CreateDrawingStateBlock"), flags, 4)
+        this.vtbl.CreateWicBitmapRenderTarget := CallbackCreate(GetMethod(implObj, "CreateWicBitmapRenderTarget"), flags, 4)
+        this.vtbl.CreateHwndRenderTarget := CallbackCreate(GetMethod(implObj, "CreateHwndRenderTarget"), flags, 4)
+        this.vtbl.CreateDxgiSurfaceRenderTarget := CallbackCreate(GetMethod(implObj, "CreateDxgiSurfaceRenderTarget"), flags, 4)
+        this.vtbl.CreateDCRenderTarget := CallbackCreate(GetMethod(implObj, "CreateDCRenderTarget"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReloadSystemMetrics)
+        CallbackFree(this.vtbl.GetDesktopDpi)
+        CallbackFree(this.vtbl.CreateRectangleGeometry)
+        CallbackFree(this.vtbl.CreateRoundedRectangleGeometry)
+        CallbackFree(this.vtbl.CreateEllipseGeometry)
+        CallbackFree(this.vtbl.CreateGeometryGroup)
+        CallbackFree(this.vtbl.CreateTransformedGeometry)
+        CallbackFree(this.vtbl.CreatePathGeometry)
+        CallbackFree(this.vtbl.CreateStrokeStyle)
+        CallbackFree(this.vtbl.CreateDrawingStateBlock)
+        CallbackFree(this.vtbl.CreateWicBitmapRenderTarget)
+        CallbackFree(this.vtbl.CreateHwndRenderTarget)
+        CallbackFree(this.vtbl.CreateDxgiSurfaceRenderTarget)
+        CallbackFree(this.vtbl.CreateDCRenderTarget)
     }
 }

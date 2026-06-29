@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMediaEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMediaEvent.ahk" { IMediaEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaEventEx interface inherits the IMediaEvent interface, which contains methods for retrieving event notifications and for overriding the filter graph's default handling of events.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-imediaeventex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaEventEx extends IMediaEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMediaEventEx extends IMediaEvent {
     /**
      * The interface identifier for IMediaEventEx
      * @type {Guid}
      */
-    static IID => Guid("{56a868c0-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868c0-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaEventEx interfaces
+    */
+    struct Vtbl extends IMediaEvent.Vtbl {
+        SetNotifyWindow : IntPtr
+        SetNotifyFlags  : IntPtr
+        GetNotifyFlags  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNotifyWindow", "SetNotifyFlags", "GetNotifyFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaEventEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetNotifyWindow method registers a window to process event notifications.
@@ -73,5 +83,29 @@ class IMediaEventEx extends IMediaEvent {
     GetNotifyFlags() {
         result := ComCall(15, this, "int*", &lplNoNotifyFlags := 0, "HRESULT")
         return lplNoNotifyFlags
+    }
+
+    Query(iid) {
+        if (IMediaEventEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNotifyWindow := CallbackCreate(GetMethod(implObj, "SetNotifyWindow"), flags, 4)
+        this.vtbl.SetNotifyFlags := CallbackCreate(GetMethod(implObj, "SetNotifyFlags"), flags, 2)
+        this.vtbl.GetNotifyFlags := CallbackCreate(GetMethod(implObj, "GetNotifyFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNotifyWindow)
+        CallbackFree(this.vtbl.SetNotifyFlags)
+        CallbackFree(this.vtbl.GetNotifyFlags)
     }
 }

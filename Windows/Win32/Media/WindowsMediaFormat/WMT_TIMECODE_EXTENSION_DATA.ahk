@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMT_TIMECODE_EXTENSION_DATA structure contains information needed for a single SMPTE time code sample extension. One of these structures will be attached to every video frame that requires a SMPTE time code.
@@ -12,43 +11,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_timecode_extension_data
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct WMT_TIMECODE_EXTENSION_DATA {
+    #StructPack 4
 
     /**
      * <b>WORD</b> specifying the range to which the time code belongs. See Remarks.
-     * @type {Integer}
      */
-    wRange {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wRange : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    dwTimecode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTimecode : UInt32
 
     /**
      * <b>DWORD</b> containing any information that the user desires. Typically, this member is used to store shot or take numbers, or other information pertinent to the production process.
-     * @type {Integer}
      */
-    dwUserbits {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwUserbits : UInt32
 
     /**
      * <b>DWORD</b> provided for maintaining any AM_TIMECODE flags that are present in source material. These flags are not used by any of the objects in the Windows Media Format SDK. For more information about AM_TIMECODE flags, refer to the SMPTE time code specification.
-     * @type {Integer}
      */
-    dwAmFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwAmFlags : UInt32
+
 }

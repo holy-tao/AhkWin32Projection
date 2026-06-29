@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class CookieDecision extends Win32Struct {
-    static sizeof => 8
+export default struct CookieDecision {
+    #StructPack 4
 
-    static packingSize => 4
+    dwCookieState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCookieState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fAllowSession : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fAllowSession {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A callback interface implemented by clients to receive notifications when audio system effect properties change.
@@ -12,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-iaudiosystemeffectspropertychangenotificationclient
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioSystemEffectsPropertyChangeNotificationClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSystemEffectsPropertyChangeNotificationClient extends IUnknown {
     /**
      * The interface identifier for IAudioSystemEffectsPropertyChangeNotificationClient
      * @type {Guid}
      */
-    static IID => Guid("{20049d40-56d5-400e-a2ef-385599feed49}")
+    static IID := Guid("{20049d40-56d5-400e-a2ef-385599feed49}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSystemEffectsPropertyChangeNotificationClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnPropertyChanged : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnPropertyChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSystemEffectsPropertyChangeNotificationClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the system when an audio system effects property changes.
@@ -47,7 +57,27 @@ class IAudioSystemEffectsPropertyChangeNotificationClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertychangenotificationclient-onpropertychanged
      */
     OnPropertyChanged(type, key) {
-        result := ComCall(3, this, "int", type, "ptr", key, "HRESULT")
+        result := ComCall(3, this, AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE, type, PROPERTYKEY, key, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioSystemEffectsPropertyChangeNotificationClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnPropertyChanged := CallbackCreate(GetMethod(implObj, "OnPropertyChanged"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnPropertyChanged)
     }
 }

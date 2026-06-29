@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPSTATS_FORWARDING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPSTATS_FORWARDING.ahk" { MIB_IPSTATS_FORWARDING }
 
 /**
  * MIB_IPSTATS_LH (ipmib.h) stores information about the IP protocol running on a particular computer.
@@ -19,26 +18,10 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipstats_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPSTATS_LH extends Win32Struct {
-    static sizeof => 92
+export default struct MIB_IPSTATS_LH {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    dwForwarding {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {MIB_IPSTATS_FORWARDING}
-     */
-    Forwarding {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwForwarding : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -46,241 +29,158 @@ class MIB_IPSTATS_LH extends Win32Struct {
      * The default initial time-to-live (TTL) for datagrams originating on a particular computer.
      * 
      * This member can be set to <b>MIB_USE_CURRENT_TTL</b> to use the current default TTL value when setting the forwarding and time-to-live (TTL) options using the <b>SetIpStatistics</b> and <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-setipstatisticsex">SetIpStatisticsEx</a> functions.
-     * @type {Integer}
      */
-    dwDefaultTTL {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDefaultTTL : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams received.
-     * @type {Integer}
      */
-    dwInReceives {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwInReceives : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams received that have header errors.
-     * @type {Integer}
      */
-    dwInHdrErrors {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwInHdrErrors : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams received that have address errors.
-     * @type {Integer}
      */
-    dwInAddrErrors {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwInAddrErrors : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams forwarded.
-     * @type {Integer}
      */
-    dwForwDatagrams {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwForwDatagrams : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams received that have an unknown protocol.
-     * @type {Integer}
      */
-    dwInUnknownProtos {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwInUnknownProtos : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of received datagrams discarded.
-     * @type {Integer}
      */
-    dwInDiscards {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwInDiscards : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of received datagrams delivered.
-     * @type {Integer}
      */
-    dwInDelivers {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwInDelivers : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of outgoing datagrams that IP is requested to transmit. This number does not include forwarded datagrams.
-     * @type {Integer}
      */
-    dwOutRequests {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwOutRequests : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of outgoing datagrams discarded.
-     * @type {Integer}
      */
-    dwRoutingDiscards {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwRoutingDiscards : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of transmitted datagrams discarded.
-     * @type {Integer}
      */
-    dwOutDiscards {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwOutDiscards : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams for which this computer did not have a route to the destination IP address. These datagrams were discarded.
-     * @type {Integer}
      */
-    dwOutNoRoutes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwOutNoRoutes : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The amount of time allowed for all pieces of a fragmented datagram to arrive. If all pieces do not arrive within this time, the datagram is discarded.
-     * @type {Integer}
      */
-    dwReasmTimeout {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwReasmTimeout : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams that require re-assembly.
-     * @type {Integer}
      */
-    dwReasmReqds {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwReasmReqds : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams that were successfully reassembled.
-     * @type {Integer}
      */
-    dwReasmOks {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwReasmOks : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams that cannot be reassembled.
-     * @type {Integer}
      */
-    dwReasmFails {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwReasmFails : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams that were fragmented successfully.
-     * @type {Integer}
      */
-    dwFragOks {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwFragOks : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of datagrams that have not been fragmented because the IP header specifies no fragmentation. These datagrams are discarded.
-     * @type {Integer}
      */
-    dwFragFails {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwFragFails : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of fragments created.
-     * @type {Integer}
      */
-    dwFragCreates {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwFragCreates : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of interfaces.
-     * @type {Integer}
      */
-    dwNumIf {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwNumIf : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of IP addresses associated with this computer.
-     * @type {Integer}
      */
-    dwNumAddr {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwNumAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of routes in the IP routing table.
-     * @type {Integer}
      */
-    dwNumRoutes {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+    dwNumRoutes : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'Forwarding', { type: MIB_IPSTATS_FORWARDING, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

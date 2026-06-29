@@ -1,89 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
-#Include .\USB_HUB_CAPABILITIES.ahk
-#Include .\USB_HUB_PORT_INFORMATION.ahk
-#Include .\USB_DEVICE_STATE.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
+#Import ".\USB_HUB_CAPABILITIES.ahk" { USB_HUB_CAPABILITIES }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
+#Import ".\USB_HUB_PORT_INFORMATION.ahk" { USB_HUB_PORT_INFORMATION }
+#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_DEVICE_INFO extends Win32Struct {
-    static sizeof => 104
+export default struct USB_HUB_DEVICE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    HubDescriptor : USB_HUB_DESCRIPTOR
 
-    /**
-     * @type {USB_HUB_DESCRIPTOR}
-     */
-    HubDescriptor {
-        get {
-            if(!this.HasProp("__HubDescriptor"))
-                this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)
-            return this.__HubDescriptor
-        }
-    }
+    HubNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HubNumber {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    DeviceAddress : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAddress {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    HubIsSelfPowered : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HubIsSelfPowered {
-        get => NumGet(this, 78, "char")
-        set => NumPut("char", value, this, 78)
-    }
+    HubIsRootHub : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HubIsRootHub {
-        get => NumGet(this, 79, "char")
-        set => NumPut("char", value, this, 79)
-    }
+    HubCapabilities : USB_HUB_CAPABILITIES
 
-    /**
-     * @type {USB_HUB_CAPABILITIES}
-     */
-    HubCapabilities {
-        get {
-            if(!this.HasProp("__HubCapabilities"))
-                this.__HubCapabilities := USB_HUB_CAPABILITIES(80, this)
-            return this.__HubCapabilities
-        }
-    }
+    NumberOfHubPorts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfHubPorts {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    PortInfo : USB_HUB_PORT_INFORMATION[1]
 
-    /**
-     * @type {USB_HUB_PORT_INFORMATION}
-     */
-    PortInfo {
-        get {
-            if(!this.HasProp("__PortInfoProxyArray"))
-                this.__PortInfoProxyArray := Win32FixedArray(this.ptr + 88, 1, USB_HUB_PORT_INFORMATION, "")
-            return this.__PortInfoProxyArray
-        }
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values indicating the type of status code that is posted by the controller in a completion queue entry when a command is completed.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_types
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_STATUS_TYPES extends Win32Enum {
+export default struct NVME_STATUS_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the command specified by the Command and Submission Queue identifiers in the completion queue entry has completed. These status values are generic across all command types, and include such conditions as success, opcode not supported, and invalid field.

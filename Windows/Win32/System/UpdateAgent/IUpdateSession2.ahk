@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateSession.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUpdateSession.ahk" { IUpdateSession }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession2)
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesession2
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateSession2 extends IUpdateSession {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateSession2 extends IUpdateSession {
     /**
      * The interface identifier for IUpdateSession2
      * @type {Guid}
      */
-    static IID => Guid("{91caf7b0-eb23-49ed-9937-c52d817f46f7}")
+    static IID := Guid("{91caf7b0-eb23-49ed-9937-c52d817f46f7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateSession2 interfaces
+    */
+    struct Vtbl extends IUpdateSession.Vtbl {
+        get_UserLocale : IntPtr
+        put_UserLocale : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UserLocale", "put_UserLocale"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateSession2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -72,5 +81,27 @@ class IUpdateSession2 extends IUpdateSession {
     put_UserLocale(lcid) {
         result := ComCall(16, this, "uint", lcid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUpdateSession2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UserLocale := CallbackCreate(GetMethod(implObj, "get_UserLocale"), flags, 2)
+        this.vtbl.put_UserLocale := CallbackCreate(GetMethod(implObj, "put_UserLocale"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UserLocale)
+        CallbackFree(this.vtbl.put_UserLocale)
     }
 }

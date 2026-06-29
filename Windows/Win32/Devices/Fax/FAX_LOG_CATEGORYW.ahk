@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The FAX_LOG_CATEGORY structure describes one logging category. (Unicode)
@@ -16,41 +16,28 @@
  * @namespace Windows.Win32.Devices.Fax
  * @charset Unicode
  */
-class FAX_LOG_CATEGORYW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FAX_LOG_CATEGORYW {
+    #StructPack 8
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is a descriptive name for the logging category.
-     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Name : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that is a unique value that identifies a logging category. This member can be one of the following predefined values.
-     * @type {Integer}
      */
-    Category {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Category : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the current logging level for the logging category. This member can be one of the following predefined logging levels.
-     * @type {Integer}
      */
-    Level {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Level : UInt32
+
 }

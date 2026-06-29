@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * VIRTUAL_DISK_ACCESS_MASK contains the bitmask for specifying access rights to a virtual hard disk (VHD) or CD or DVD image file (ISO).
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask~r1
  * @namespace Windows.Win32.Storage.Vhd
  */
-class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
+export default struct VIRTUAL_DISK_ACCESS_MASK {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Open the virtual disk with no access. This is the only supported value when calling 

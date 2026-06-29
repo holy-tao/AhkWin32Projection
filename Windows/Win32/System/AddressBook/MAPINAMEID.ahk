@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes a named property. Named properties enable clients to define custom properties in a larger namespace than the MAPI-defined property identifier range.
@@ -12,29 +13,16 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapinameid
  * @namespace Windows.Win32.System.AddressBook
  */
-class MAPINAMEID extends Win32Struct {
-    static sizeof => 24
+export default struct MAPINAMEID {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Kind_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Kind {
+        lID : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lID {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        lpwstrName {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'lpwstrName', { type: PWSTR, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -52,12 +40,8 @@ class MAPINAMEID extends Win32Struct {
      * A client-defined value
      *   
      * >
-     * @type {Pointer<Guid>}
      */
-    lpguid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpguid : Guid.Ptr
 
     /**
      * > Value describing the type of value in the **Kind** member. Valid values are as follows: 
@@ -69,22 +53,12 @@ class MAPINAMEID extends Win32Struct {
      * MNID_STRING 
      *   
      * > The **Kind** member contains a Unicode character string representing the property name.
-     * @type {Integer}
      */
-    ulKind {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulKind : UInt32
 
     /**
      * > Union describing the name of the named property. The name can be either an integer value, stored in **lID**, or a Unicode character string, stored in **lpwstrName**.
-     * @type {_Kind_e__Union}
      */
-    Kind {
-        get {
-            if(!this.HasProp("__Kind"))
-                this.__Kind := MAPINAMEID._Kind_e__Union(16, this)
-            return this.__Kind
-        }
-    }
+    Kind : MAPINAMEID._Kind
+
 }

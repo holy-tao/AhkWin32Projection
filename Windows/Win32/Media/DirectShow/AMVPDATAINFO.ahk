@@ -1,135 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AMVPDIMINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AMVPDIMINFO.ahk" { AMVPDIMINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.
  * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdatainfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMVPDATAINFO extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 4
+export default struct AMVPDATAINFO {
+    #StructPack 4
 
     /**
      * Size of the structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Time taken by each field.
-     * @type {Integer}
      */
-    dwMicrosecondsPerField {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMicrosecondsPerField : UInt32
 
     /**
      * Dimensional information.
-     * @type {AMVPDIMINFO}
      */
-    amvpDimInfo {
-        get {
-            if(!this.HasProp("__amvpDimInfo"))
-                this.__amvpDimInfo := AMVPDIMINFO(8, this)
-            return this.__amvpDimInfo
-        }
-    }
+    amvpDimInfo : AMVPDIMINFO
 
     /**
      * The X dimension of picture aspect ratio.
-     * @type {Integer}
      */
-    dwPictAspectRatioX {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwPictAspectRatioX : UInt32
 
     /**
      * The Y dimension of picture aspect ratio.
-     * @type {Integer}
      */
-    dwPictAspectRatioY {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwPictAspectRatioY : UInt32
 
     /**
      * Video port should enable double clocking.
-     * @type {BOOL}
      */
-    bEnableDoubleClock {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    bEnableDoubleClock : BOOL
 
     /**
      * Video port should use an external VACT signal.
-     * @type {BOOL}
      */
-    bEnableVACT {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    bEnableVACT : BOOL
 
     /**
      * Indicates that the signal is interlaced.
-     * @type {BOOL}
      */
-    bDataIsInterlaced {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    bDataIsInterlaced : BOOL
 
     /**
      * Number of half lines in the odd field.
-     * @type {Integer}
      */
-    lHalfLinesOdd {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    lHalfLinesOdd : Int32
 
     /**
      * Video port should invert the field polarity.
-     * @type {BOOL}
      */
-    bFieldPolarityInverted {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    bFieldPolarityInverted : BOOL
 
     /**
      * Number of lines of data in VREF.
-     * @type {Integer}
      */
-    dwNumLinesInVREF {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwNumLinesInVREF : UInt32
 
     /**
      * Number of half lines in the even field.
-     * @type {Integer}
      */
-    lHalfLinesEven {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    lHalfLinesEven : Int32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwReserved1 : UInt32
+
 }

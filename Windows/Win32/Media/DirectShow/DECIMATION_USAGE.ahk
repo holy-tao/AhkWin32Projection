@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the strategy that the Overlay Mixer Filter filter uses to scale the video image down to a smaller size.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-decimation_usage
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DECIMATION_USAGE extends Win32Enum {
+export default struct DECIMATION_USAGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Decimate the video by taking the following steps, in the order listed, until one of them succeeds.

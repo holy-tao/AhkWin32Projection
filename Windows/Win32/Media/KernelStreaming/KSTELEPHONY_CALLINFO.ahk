@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TELEPHONY_CALLTYPE.ahk
-#Include .\TELEPHONY_CALLSTATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TELEPHONY_CALLSTATE.ahk" { TELEPHONY_CALLSTATE }
+#Import ".\TELEPHONY_CALLTYPE.ahk" { TELEPHONY_CALLTYPE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSTELEPHONY_CALLINFO extends Win32Struct {
-    static sizeof => 8
+export default struct KSTELEPHONY_CALLINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    CallType : TELEPHONY_CALLTYPE
 
-    /**
-     * @type {TELEPHONY_CALLTYPE}
-     */
-    CallType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CallState : TELEPHONY_CALLSTATE
 
-    /**
-     * @type {TELEPHONY_CALLSTATE}
-     */
-    CallState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

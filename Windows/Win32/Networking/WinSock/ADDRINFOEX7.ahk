@@ -1,178 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
-#Include .\ADDRINFOEX7.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ADDRINFO_DNS_SERVER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADDRINFO_DNS_SERVER.ahk" { ADDRINFO_DNS_SERVER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ADDRINFOEX7 extends Win32Struct {
-    static sizeof => 136
+export default struct ADDRINFOEX7 {
+    #StructPack 8
 
-    static packingSize => 8
+    ai_flags : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ai_flags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ai_family : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ai_family {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ai_socktype : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ai_socktype {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ai_protocol : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ai_protocol {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ai_addrlen : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ai_addrlen {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ai_canonname : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ai_canonname {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ai_addr : SOCKADDR.Ptr
 
-    /**
-     * @type {Pointer<SOCKADDR>}
-     */
-    ai_addr {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ai_blob : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ai_blob {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ai_bloblen : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ai_bloblen {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ai_provider : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    ai_provider {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ai_next : ADDRINFOEX7.Ptr
 
-    /**
-     * @type {Pointer<ADDRINFOEX7>}
-     */
-    ai_next {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ai_version : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ai_version {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    ai_fqdn : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ai_fqdn {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ai_interfaceindex : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ai_interfaceindex {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    ai_resolutionhandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    ai_resolutionhandle {
-        get {
-            if(!this.HasProp("__ai_resolutionhandle"))
-                this.__ai_resolutionhandle := HANDLE(96, this)
-            return this.__ai_resolutionhandle
-        }
-    }
+    ai_ttl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ai_ttl {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ai_numservers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ai_numservers {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    ai_servers : ADDRINFO_DNS_SERVER.Ptr
 
-    /**
-     * @type {Pointer<ADDRINFO_DNS_SERVER>}
-     */
-    ai_servers {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    ai_responseflags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ai_responseflags {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    ai_extraflags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ai_extraflags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
 }

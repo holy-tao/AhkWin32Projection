@@ -1,54 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU extends Win32Struct {
-    static sizeof => 80
+export default struct D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU {
+    #StructPack 8
 
-    static packingSize => 8
+    hContext : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hContext {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ObjectCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ObjectHandleArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ObjectHandleArray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MonitoredFenceValueArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    MonitoredFenceValueArray {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved', { type: Int64[8], offset: 16 })
+        this.DeleteProp("__New")
     }
 }

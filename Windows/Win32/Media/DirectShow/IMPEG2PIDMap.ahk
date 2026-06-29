@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumPIDMap.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MEDIA_SAMPLE_CONTENT.ahk" { MEDIA_SAMPLE_CONTENT }
+#Import ".\IEnumPIDMap.ahk" { IEnumPIDMap }
 
 /**
  * This interface is implemented on each output pin of the MPEG-2 Demultiplexer filter (Demux) and is used in transport stream mode only.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-impeg2pidmap
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMPEG2PIDMap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMPEG2PIDMap extends IUnknown {
     /**
      * The interface identifier for IMPEG2PIDMap
      * @type {Guid}
      */
-    static IID => Guid("{afb6c2a1-2c41-11d3-8a60-0000f81e0e4a}")
+    static IID := Guid("{afb6c2a1-2c41-11d3-8a60-0000f81e0e4a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMPEG2PIDMap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MapPID     : IntPtr
+        UnmapPID   : IntPtr
+        EnumPIDMap : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MapPID", "UnmapPID", "EnumPIDMap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMPEG2PIDMap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The MapPID method maps one or more PIDs to the pin.
@@ -43,7 +54,7 @@ class IMPEG2PIDMap extends IUnknown {
     MapPID(culPID, pulPID, MediaSampleContent) {
         pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", culPID, pulPIDMarshal, pulPID, "int", MediaSampleContent, "HRESULT")
+        result := ComCall(3, this, "uint", culPID, pulPIDMarshal, pulPID, MEDIA_SAMPLE_CONTENT, MediaSampleContent, "HRESULT")
         return result
     }
 
@@ -71,5 +82,29 @@ class IMPEG2PIDMap extends IUnknown {
     EnumPIDMap() {
         result := ComCall(5, this, "ptr*", &pIEnumPIDMap := 0, "HRESULT")
         return IEnumPIDMap(pIEnumPIDMap)
+    }
+
+    Query(iid) {
+        if (IMPEG2PIDMap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MapPID := CallbackCreate(GetMethod(implObj, "MapPID"), flags, 4)
+        this.vtbl.UnmapPID := CallbackCreate(GetMethod(implObj, "UnmapPID"), flags, 3)
+        this.vtbl.EnumPIDMap := CallbackCreate(GetMethod(implObj, "EnumPIDMap"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MapPID)
+        CallbackFree(this.vtbl.UnmapPID)
+        CallbackFree(this.vtbl.EnumPIDMap)
     }
 }

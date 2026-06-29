@@ -1,41 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\IShellItemArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DESKTOP_SLIDESHOW_DIRECTION.ahk" { DESKTOP_SLIDESHOW_DIRECTION }
+#Import ".\DESKTOP_SLIDESHOW_STATE.ahk" { DESKTOP_SLIDESHOW_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import ".\DESKTOP_WALLPAPER_POSITION.ahk" { DESKTOP_WALLPAPER_POSITION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DESKTOP_SLIDESHOW_OPTIONS.ahk" { DESKTOP_SLIDESHOW_OPTIONS }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * . (IDesktopWallpaper)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idesktopwallpaper
  * @namespace Windows.Win32.UI.Shell
  */
-class IDesktopWallpaper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDesktopWallpaper extends IUnknown {
     /**
      * The interface identifier for IDesktopWallpaper
      * @type {Guid}
      */
-    static IID => Guid("{b92b56a9-8b55-4e14-9a89-0199bbb6f93b}")
+    static IID := Guid("{b92b56a9-8b55-4e14-9a89-0199bbb6f93b}")
 
     /**
      * The class identifier for DesktopWallpaper
      * @type {Guid}
      */
-    static CLSID => Guid("{c2cf3110-460e-4fc1-b9d0-8a1c0c9cc4bd}")
+    static CLSID := Guid("{c2cf3110-460e-4fc1-b9d0-8a1c0c9cc4bd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDesktopWallpaper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetWallpaper              : IntPtr
+        GetWallpaper              : IntPtr
+        GetMonitorDevicePathAt    : IntPtr
+        GetMonitorDevicePathCount : IntPtr
+        GetMonitorRECT            : IntPtr
+        SetBackgroundColor        : IntPtr
+        GetBackgroundColor        : IntPtr
+        SetPosition               : IntPtr
+        GetPosition               : IntPtr
+        SetSlideshow              : IntPtr
+        GetSlideshow              : IntPtr
+        SetSlideshowOptions       : IntPtr
+        GetSlideshowOptions       : IntPtr
+        AdvanceSlideshow          : IntPtr
+        GetStatus                 : IntPtr
+        Enable                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWallpaper", "GetWallpaper", "GetMonitorDevicePathAt", "GetMonitorDevicePathCount", "GetMonitorRECT", "SetBackgroundColor", "GetBackgroundColor", "SetPosition", "GetPosition", "SetSlideshow", "GetSlideshow", "SetSlideshowOptions", "GetSlideshowOptions", "AdvanceSlideshow", "GetStatus", "Enable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDesktopWallpaper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the desktop wallpaper.
@@ -65,7 +95,7 @@ class IDesktopWallpaper extends IUnknown {
     GetWallpaper(monitorID) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
-        result := ComCall(4, this, "ptr", monitorID, "ptr*", &wallpaper := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", monitorID, PWSTR.Ptr, &wallpaper := 0, "HRESULT")
         return wallpaper
     }
 
@@ -78,7 +108,7 @@ class IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat
      */
     GetMonitorDevicePathAt(monitorIndex) {
-        result := ComCall(5, this, "uint", monitorIndex, "ptr*", &monitorID := 0, "HRESULT")
+        result := ComCall(5, this, "uint", monitorIndex, PWSTR.Ptr, &monitorID := 0, "HRESULT")
         return monitorID
     }
 
@@ -104,7 +134,7 @@ class IDesktopWallpaper extends IUnknown {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
         displayRect := RECT()
-        result := ComCall(7, this, "ptr", monitorID, "ptr", displayRect, "HRESULT")
+        result := ComCall(7, this, "ptr", monitorID, RECT.Ptr, displayRect, "HRESULT")
         return displayRect
     }
 
@@ -115,7 +145,7 @@ class IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setbackgroundcolor
      */
     SetBackgroundColor(_color) {
-        result := ComCall(8, this, "uint", _color, "HRESULT")
+        result := ComCall(8, this, COLORREF, _color, "HRESULT")
         return result
     }
 
@@ -125,7 +155,7 @@ class IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor
      */
     GetBackgroundColor() {
-        result := ComCall(9, this, "uint*", &_color := 0, "HRESULT")
+        result := ComCall(9, this, COLORREF.Ptr, &_color := 0, "HRESULT")
         return _color
     }
 
@@ -154,7 +184,7 @@ class IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setposition
      */
     SetPosition(position) {
-        result := ComCall(10, this, "int", position, "HRESULT")
+        result := ComCall(10, this, DESKTOP_WALLPAPER_POSITION, position, "HRESULT")
         return result
     }
 
@@ -197,7 +227,7 @@ class IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshowoptions
      */
     SetSlideshowOptions(options, slideshowTick) {
-        result := ComCall(14, this, "int", options, "uint", slideshowTick, "HRESULT")
+        result := ComCall(14, this, DESKTOP_SLIDESHOW_OPTIONS, options, "uint", slideshowTick, "HRESULT")
         return result
     }
 
@@ -250,7 +280,7 @@ class IDesktopWallpaper extends IUnknown {
     AdvanceSlideshow(monitorID, _direction) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
-        result := ComCall(16, this, "ptr", monitorID, "int", _direction, "HRESULT")
+        result := ComCall(16, this, "ptr", monitorID, DESKTOP_SLIDESHOW_DIRECTION, _direction, "HRESULT")
         return result
     }
 
@@ -307,7 +337,57 @@ class IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-enable
      */
     Enable(enable) {
-        result := ComCall(18, this, "int", enable, "HRESULT")
+        result := ComCall(18, this, BOOL, enable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDesktopWallpaper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWallpaper := CallbackCreate(GetMethod(implObj, "SetWallpaper"), flags, 3)
+        this.vtbl.GetWallpaper := CallbackCreate(GetMethod(implObj, "GetWallpaper"), flags, 3)
+        this.vtbl.GetMonitorDevicePathAt := CallbackCreate(GetMethod(implObj, "GetMonitorDevicePathAt"), flags, 3)
+        this.vtbl.GetMonitorDevicePathCount := CallbackCreate(GetMethod(implObj, "GetMonitorDevicePathCount"), flags, 2)
+        this.vtbl.GetMonitorRECT := CallbackCreate(GetMethod(implObj, "GetMonitorRECT"), flags, 3)
+        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 2)
+        this.vtbl.SetSlideshow := CallbackCreate(GetMethod(implObj, "SetSlideshow"), flags, 2)
+        this.vtbl.GetSlideshow := CallbackCreate(GetMethod(implObj, "GetSlideshow"), flags, 2)
+        this.vtbl.SetSlideshowOptions := CallbackCreate(GetMethod(implObj, "SetSlideshowOptions"), flags, 3)
+        this.vtbl.GetSlideshowOptions := CallbackCreate(GetMethod(implObj, "GetSlideshowOptions"), flags, 3)
+        this.vtbl.AdvanceSlideshow := CallbackCreate(GetMethod(implObj, "AdvanceSlideshow"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWallpaper)
+        CallbackFree(this.vtbl.GetWallpaper)
+        CallbackFree(this.vtbl.GetMonitorDevicePathAt)
+        CallbackFree(this.vtbl.GetMonitorDevicePathCount)
+        CallbackFree(this.vtbl.GetMonitorRECT)
+        CallbackFree(this.vtbl.SetBackgroundColor)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.SetSlideshow)
+        CallbackFree(this.vtbl.GetSlideshow)
+        CallbackFree(this.vtbl.SetSlideshowOptions)
+        CallbackFree(this.vtbl.GetSlideshowOptions)
+        CallbackFree(this.vtbl.AdvanceSlideshow)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.Enable)
     }
 }

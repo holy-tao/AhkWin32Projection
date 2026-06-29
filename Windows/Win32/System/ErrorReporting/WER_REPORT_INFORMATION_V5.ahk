@@ -1,141 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\WER_SUBMIT_RESULT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
  */
-class WER_REPORT_INFORMATION_V5 extends Win32Struct {
-    static sizeof => 2504
+export default struct WER_REPORT_INFORMATION_V5 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hProcess : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(8, this)
-            return this.__hProcess
-        }
-    }
+    wzConsentKey : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    wzConsentKey {
-        get => StrGet(this.ptr + 16, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-16")
-    }
+    wzFriendlyEventName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    wzFriendlyEventName {
-        get => StrGet(this.ptr + 144, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 127, "UTF-16")
-    }
+    wzApplicationName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    wzApplicationName {
-        get => StrGet(this.ptr + 400, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 400, 127, "UTF-16")
-    }
+    wzApplicationPath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    wzApplicationPath {
-        get => StrGet(this.ptr + 656, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 656, 259, "UTF-16")
-    }
+    wzDescription : WCHAR[512]
 
-    /**
-     * @type {String}
-     */
-    wzDescription {
-        get => StrGet(this.ptr + 1176, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 1176, 511, "UTF-16")
-    }
+    hwndParent : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(2200, this)
-            return this.__hwndParent
-        }
-    }
+    wzNamespacePartner : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    wzNamespacePartner {
-        get => StrGet(this.ptr + 2208, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 2208, 63, "UTF-16")
-    }
+    wzNamespaceGroup : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    wzNamespaceGroup {
-        get => StrGet(this.ptr + 2336, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 2336, 63, "UTF-16")
-    }
+    rgbApplicationIdentity : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbApplicationIdentity {
-        get {
-            if(!this.HasProp("__rgbApplicationIdentityProxyArray"))
-                this.__rgbApplicationIdentityProxyArray := Win32FixedArray(this.ptr + 2464, 16, Primitive, "char")
-            return this.__rgbApplicationIdentityProxyArray
-        }
-    }
+    hSnapshot : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSnapshot {
-        get {
-            if(!this.HasProp("__hSnapshot"))
-                this.__hSnapshot := HANDLE(2480, this)
-            return this.__hSnapshot
-        }
-    }
+    hDeleteFilesImpersonationToken : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hDeleteFilesImpersonationToken {
-        get {
-            if(!this.HasProp("__hDeleteFilesImpersonationToken"))
-                this.__hDeleteFilesImpersonationToken := HANDLE(2488, this)
-            return this.__hDeleteFilesImpersonationToken
-        }
-    }
+    submitResultMax : WER_SUBMIT_RESULT
 
-    /**
-     * @type {WER_SUBMIT_RESULT}
-     */
-    submitResultMax {
-        get => NumGet(this, 2496, "int")
-        set => NumPut("int", value, this, 2496)
-    }
 }

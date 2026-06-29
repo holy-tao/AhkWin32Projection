@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AMVAInternalMemInfo structure specifies the amount of scratch memory the hardware abstraction layer (HAL) will allocate for its private use.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvainternalmeminfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMVAInternalMemInfo extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct AMVAInternalMemInfo {
+    #StructPack 4
 
     /**
      * Amount of scratch memory the HAL will allocate for its private use.
-     * @type {Integer}
      */
-    dwScratchMemAlloc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwScratchMemAlloc : UInt32
+
 }

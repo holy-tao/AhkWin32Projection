@@ -1,122 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
  */
-class GLOBALENTRY extends Win32Struct {
-    static sizeof => 64
+export default struct GLOBALENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwBlockSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBlockSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    hBlock : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hBlock {
-        get {
-            if(!this.HasProp("__hBlock"))
-                this.__hBlock := HANDLE(16, this)
-            return this.__hBlock
-        }
-    }
+    wcLock : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wcLock {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    wcPageLock : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wcPageLock {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    wFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFlags {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    wHeapPresent : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    wHeapPresent {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    hOwner : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hOwner {
-        get {
-            if(!this.HasProp("__hOwner"))
-                this.__hOwner := HANDLE(40, this)
-            return this.__hOwner
-        }
-    }
+    wType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    wData : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wData {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    dwNext : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNext {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwNextAlt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNextAlt {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

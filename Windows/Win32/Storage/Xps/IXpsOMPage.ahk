@@ -1,13 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
-#Include .\IXpsOMPageReference.ahk
-#Include .\IXpsOMVisualCollection.ahk
-#Include .\XPS_SIZE.ahk
-#Include .\XPS_RECT.ahk
-#Include .\IXpsOMDictionary.ahk
-#Include .\IXpsOMRemoteDictionaryResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_OBJECT_TYPE.ahk" { XPS_OBJECT_TYPE }
+#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import ".\IXpsOMVisualCollection.ahk" { IXpsOMVisualCollection }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import ".\XPS_RECT.ahk" { XPS_RECT }
 
 /**
  * Provides the root node of a tree of objects that hold the contents of a single page.
@@ -67,26 +72,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompage
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPage extends IXpsOMPart {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPage extends IXpsOMPart {
     /**
      * The interface identifier for IXpsOMPage
      * @type {Guid}
      */
-    static IID => Guid("{d3e18888-f120-4fee-8c68-35296eae91d4}")
+    static IID := Guid("{d3e18888-f120-4fee-8c68-35296eae91d4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPage interfaces
+    */
+    struct Vtbl extends IXpsOMPart.Vtbl {
+        GetOwner                : IntPtr
+        GetVisuals              : IntPtr
+        GetPageDimensions       : IntPtr
+        SetPageDimensions       : IntPtr
+        GetContentBox           : IntPtr
+        SetContentBox           : IntPtr
+        GetBleedBox             : IntPtr
+        SetBleedBox             : IntPtr
+        GetLanguage             : IntPtr
+        SetLanguage             : IntPtr
+        GetName                 : IntPtr
+        SetName                 : IntPtr
+        GetIsHyperlinkTarget    : IntPtr
+        SetIsHyperlinkTarget    : IntPtr
+        GetDictionary           : IntPtr
+        GetDictionaryLocal      : IntPtr
+        SetDictionaryLocal      : IntPtr
+        GetDictionaryResource   : IntPtr
+        SetDictionaryResource   : IntPtr
+        Write                   : IntPtr
+        GenerateUnusedLookupKey : IntPtr
+        Clone                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetVisuals", "GetPageDimensions", "SetPageDimensions", "GetContentBox", "SetContentBox", "GetBleedBox", "SetBleedBox", "GetLanguage", "SetLanguage", "GetName", "SetName", "GetIsHyperlinkTarget", "SetIsHyperlinkTarget", "GetDictionary", "GetDictionaryLocal", "SetDictionaryLocal", "GetDictionaryResource", "SetDictionaryResource", "Write", "GenerateUnusedLookupKey", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMPageReference interface that contains the page.
@@ -121,7 +154,7 @@ class IXpsOMPage extends IXpsOMPart {
      */
     GetPageDimensions() {
         pageDimensions := XPS_SIZE()
-        result := ComCall(7, this, "ptr", pageDimensions, "HRESULT")
+        result := ComCall(7, this, XPS_SIZE.Ptr, pageDimensions, "HRESULT")
         return pageDimensions
     }
 
@@ -176,7 +209,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setpagedimensions
      */
     SetPageDimensions(pageDimensions) {
-        result := ComCall(8, this, "ptr", pageDimensions, "HRESULT")
+        result := ComCall(8, this, XPS_SIZE.Ptr, pageDimensions, "HRESULT")
         return result
     }
 
@@ -215,7 +248,7 @@ class IXpsOMPage extends IXpsOMPart {
      */
     GetContentBox() {
         contentBox := XPS_RECT()
-        result := ComCall(9, this, "ptr", contentBox, "HRESULT")
+        result := ComCall(9, this, XPS_RECT.Ptr, contentBox, "HRESULT")
         return contentBox
     }
 
@@ -293,7 +326,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setcontentbox
      */
     SetContentBox(contentBox) {
-        result := ComCall(10, this, "ptr", contentBox, "HRESULT")
+        result := ComCall(10, this, XPS_RECT.Ptr, contentBox, "HRESULT")
         return result
     }
 
@@ -330,7 +363,7 @@ class IXpsOMPage extends IXpsOMPart {
      */
     GetBleedBox() {
         bleedBox := XPS_RECT()
-        result := ComCall(11, this, "ptr", bleedBox, "HRESULT")
+        result := ComCall(11, this, XPS_RECT.Ptr, bleedBox, "HRESULT")
         return bleedBox
     }
 
@@ -385,7 +418,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setbleedbox
      */
     SetBleedBox(bleedBox) {
-        result := ComCall(12, this, "ptr", bleedBox, "HRESULT")
+        result := ComCall(12, this, XPS_RECT.Ptr, bleedBox, "HRESULT")
         return result
     }
 
@@ -401,7 +434,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getlanguage
      */
     GetLanguage() {
-        result := ComCall(13, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &language := 0, "HRESULT")
         return language
     }
 
@@ -457,7 +490,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getname
      */
     GetName() {
-        result := ComCall(15, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(15, this, PWSTR.Ptr, &name := 0, "HRESULT")
         return name
     }
 
@@ -540,7 +573,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getishyperlinktarget
      */
     GetIsHyperlinkTarget() {
-        result := ComCall(17, this, "int*", &isHyperlinkTarget := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &isHyperlinkTarget := 0, "HRESULT")
         return isHyperlinkTarget
     }
 
@@ -611,7 +644,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setishyperlinktarget
      */
     SetIsHyperlinkTarget(isHyperlinkTarget) {
-        result := ComCall(18, this, "int", isHyperlinkTarget, "HRESULT")
+        result := ComCall(18, this, BOOL, isHyperlinkTarget, "HRESULT")
         return result
     }
 
@@ -1066,7 +1099,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-write
      */
     Write(stream, optimizeMarkupSize) {
-        result := ComCall(24, this, "ptr", stream, "int", optimizeMarkupSize, "HRESULT")
+        result := ComCall(24, this, "ptr", stream, BOOL, optimizeMarkupSize, "HRESULT")
         return result
     }
 
@@ -1196,7 +1229,7 @@ class IXpsOMPage extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-generateunusedlookupkey
      */
     GenerateUnusedLookupKey(type) {
-        result := ComCall(25, this, "int", type, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(25, this, XPS_OBJECT_TYPE, type, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -1212,5 +1245,67 @@ class IXpsOMPage extends IXpsOMPart {
     Clone() {
         result := ComCall(26, this, "ptr*", &page := 0, "HRESULT")
         return IXpsOMPage(page)
+    }
+
+    Query(iid) {
+        if (IXpsOMPage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetVisuals := CallbackCreate(GetMethod(implObj, "GetVisuals"), flags, 2)
+        this.vtbl.GetPageDimensions := CallbackCreate(GetMethod(implObj, "GetPageDimensions"), flags, 2)
+        this.vtbl.SetPageDimensions := CallbackCreate(GetMethod(implObj, "SetPageDimensions"), flags, 2)
+        this.vtbl.GetContentBox := CallbackCreate(GetMethod(implObj, "GetContentBox"), flags, 2)
+        this.vtbl.SetContentBox := CallbackCreate(GetMethod(implObj, "SetContentBox"), flags, 2)
+        this.vtbl.GetBleedBox := CallbackCreate(GetMethod(implObj, "GetBleedBox"), flags, 2)
+        this.vtbl.SetBleedBox := CallbackCreate(GetMethod(implObj, "SetBleedBox"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.SetLanguage := CallbackCreate(GetMethod(implObj, "SetLanguage"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetIsHyperlinkTarget := CallbackCreate(GetMethod(implObj, "GetIsHyperlinkTarget"), flags, 2)
+        this.vtbl.SetIsHyperlinkTarget := CallbackCreate(GetMethod(implObj, "SetIsHyperlinkTarget"), flags, 2)
+        this.vtbl.GetDictionary := CallbackCreate(GetMethod(implObj, "GetDictionary"), flags, 2)
+        this.vtbl.GetDictionaryLocal := CallbackCreate(GetMethod(implObj, "GetDictionaryLocal"), flags, 2)
+        this.vtbl.SetDictionaryLocal := CallbackCreate(GetMethod(implObj, "SetDictionaryLocal"), flags, 2)
+        this.vtbl.GetDictionaryResource := CallbackCreate(GetMethod(implObj, "GetDictionaryResource"), flags, 2)
+        this.vtbl.SetDictionaryResource := CallbackCreate(GetMethod(implObj, "SetDictionaryResource"), flags, 2)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 3)
+        this.vtbl.GenerateUnusedLookupKey := CallbackCreate(GetMethod(implObj, "GenerateUnusedLookupKey"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetVisuals)
+        CallbackFree(this.vtbl.GetPageDimensions)
+        CallbackFree(this.vtbl.SetPageDimensions)
+        CallbackFree(this.vtbl.GetContentBox)
+        CallbackFree(this.vtbl.SetContentBox)
+        CallbackFree(this.vtbl.GetBleedBox)
+        CallbackFree(this.vtbl.SetBleedBox)
+        CallbackFree(this.vtbl.GetLanguage)
+        CallbackFree(this.vtbl.SetLanguage)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.GetIsHyperlinkTarget)
+        CallbackFree(this.vtbl.SetIsHyperlinkTarget)
+        CallbackFree(this.vtbl.GetDictionary)
+        CallbackFree(this.vtbl.GetDictionaryLocal)
+        CallbackFree(this.vtbl.SetDictionaryLocal)
+        CallbackFree(this.vtbl.GetDictionaryResource)
+        CallbackFree(this.vtbl.SetDictionaryResource)
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.GenerateUnusedLookupKey)
+        CallbackFree(this.vtbl.Clone)
     }
 }

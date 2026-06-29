@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITLocationInfo interface is used to get information related to the location of the calling party. This is the location information that is entered by using the Telephony applet under the Control Panel.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlocationinfo
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITLocationInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITLocationInfo extends IDispatch {
     /**
      * The interface identifier for ITLocationInfo
      * @type {Guid}
      */
-    static IID => Guid("{0c4d8eff-8ddb-11d1-a09e-00805fc147d3}")
+    static IID := Guid("{0c4d8eff-8ddb-11d1-a09e-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITLocationInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_PermanentLocationID    : IntPtr
+        get_CountryCode            : IntPtr
+        get_CountryID              : IntPtr
+        get_Options                : IntPtr
+        get_PreferredCardID        : IntPtr
+        get_LocationName           : IntPtr
+        get_CityCode               : IntPtr
+        get_LocalAccessCode        : IntPtr
+        get_LongDistanceAccessCode : IntPtr
+        get_TollPrefixList         : IntPtr
+        get_CancelCallWaitingCode  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PermanentLocationID", "get_CountryCode", "get_CountryID", "get_Options", "get_PreferredCardID", "get_LocationName", "get_CityCode", "get_LocalAccessCode", "get_LongDistanceAccessCode", "get_TollPrefixList", "get_CancelCallWaitingCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITLocationInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -186,8 +204,8 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_locationname
      */
     get_LocationName() {
-        ppLocationName := BSTR()
-        result := ComCall(12, this, "ptr", ppLocationName, "HRESULT")
+        ppLocationName := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, ppLocationName, "HRESULT")
         return ppLocationName
     }
 
@@ -204,8 +222,8 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_citycode
      */
     get_CityCode() {
-        ppCode := BSTR()
-        result := ComCall(13, this, "ptr", ppCode, "HRESULT")
+        ppCode := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, ppCode, "HRESULT")
         return ppCode
     }
 
@@ -222,8 +240,8 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_localaccesscode
      */
     get_LocalAccessCode() {
-        ppCode := BSTR()
-        result := ComCall(14, this, "ptr", ppCode, "HRESULT")
+        ppCode := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, ppCode, "HRESULT")
         return ppCode
     }
 
@@ -240,8 +258,8 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_longdistanceaccesscode
      */
     get_LongDistanceAccessCode() {
-        ppCode := BSTR()
-        result := ComCall(15, this, "ptr", ppCode, "HRESULT")
+        ppCode := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, ppCode, "HRESULT")
         return ppCode
     }
 
@@ -258,8 +276,8 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_tollprefixlist
      */
     get_TollPrefixList() {
-        ppTollList := BSTR()
-        result := ComCall(16, this, "ptr", ppTollList, "HRESULT")
+        ppTollList := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, ppTollList, "HRESULT")
         return ppTollList
     }
 
@@ -276,8 +294,48 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_cancelcallwaitingcode
      */
     get_CancelCallWaitingCode() {
-        ppCode := BSTR()
-        result := ComCall(17, this, "ptr", ppCode, "HRESULT")
+        ppCode := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, ppCode, "HRESULT")
         return ppCode
+    }
+
+    Query(iid) {
+        if (ITLocationInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PermanentLocationID := CallbackCreate(GetMethod(implObj, "get_PermanentLocationID"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.get_CountryID := CallbackCreate(GetMethod(implObj, "get_CountryID"), flags, 2)
+        this.vtbl.get_Options := CallbackCreate(GetMethod(implObj, "get_Options"), flags, 2)
+        this.vtbl.get_PreferredCardID := CallbackCreate(GetMethod(implObj, "get_PreferredCardID"), flags, 2)
+        this.vtbl.get_LocationName := CallbackCreate(GetMethod(implObj, "get_LocationName"), flags, 2)
+        this.vtbl.get_CityCode := CallbackCreate(GetMethod(implObj, "get_CityCode"), flags, 2)
+        this.vtbl.get_LocalAccessCode := CallbackCreate(GetMethod(implObj, "get_LocalAccessCode"), flags, 2)
+        this.vtbl.get_LongDistanceAccessCode := CallbackCreate(GetMethod(implObj, "get_LongDistanceAccessCode"), flags, 2)
+        this.vtbl.get_TollPrefixList := CallbackCreate(GetMethod(implObj, "get_TollPrefixList"), flags, 2)
+        this.vtbl.get_CancelCallWaitingCode := CallbackCreate(GetMethod(implObj, "get_CancelCallWaitingCode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PermanentLocationID)
+        CallbackFree(this.vtbl.get_CountryCode)
+        CallbackFree(this.vtbl.get_CountryID)
+        CallbackFree(this.vtbl.get_Options)
+        CallbackFree(this.vtbl.get_PreferredCardID)
+        CallbackFree(this.vtbl.get_LocationName)
+        CallbackFree(this.vtbl.get_CityCode)
+        CallbackFree(this.vtbl.get_LocalAccessCode)
+        CallbackFree(this.vtbl.get_LongDistanceAccessCode)
+        CallbackFree(this.vtbl.get_TollPrefixList)
+        CallbackFree(this.vtbl.get_CancelCallWaitingCode)
     }
 }

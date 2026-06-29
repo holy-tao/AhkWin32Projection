@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputMotionInfo extends Win32Struct {
-    static sizeof => 12
+export default struct GameInputMotionInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    maxAcceleration : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxAcceleration {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    maxAngularVelocity : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxAngularVelocity {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    maxMagneticFieldStrength : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxMagneticFieldStrength {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
 }

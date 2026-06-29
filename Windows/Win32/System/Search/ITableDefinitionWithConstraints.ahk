@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITableCreation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DBCONSTRAINTDESC.ahk" { DBCONSTRAINTDESC }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import ".\ITableCreation.ahk" { ITableCreation }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ITableDefinitionWithConstraints extends ITableCreation {
-
-    static sizeof => A_PtrSize
+export default struct ITableDefinitionWithConstraints extends ITableCreation {
     /**
      * The interface identifier for ITableDefinitionWithConstraints
      * @type {Guid}
      */
-    static IID => Guid("{0c733aab-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733aab-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITableDefinitionWithConstraints interfaces
+    */
+    struct Vtbl extends ITableCreation.Vtbl {
+        AddConstraint              : IntPtr
+        CreateTableWithConstraints : IntPtr
+        DropConstraint             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddConstraint", "CreateTableWithConstraints", "DropConstraint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITableDefinitionWithConstraints.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,7 +49,7 @@ class ITableDefinitionWithConstraints extends ITableCreation {
      * @returns {HRESULT} 
      */
     AddConstraint(pTableID, pConstraintDesc) {
-        result := ComCall(8, this, "ptr", pTableID, "ptr", pConstraintDesc, "HRESULT")
+        result := ComCall(8, this, DBID.Ptr, pTableID, DBCONSTRAINTDESC.Ptr, pConstraintDesc, "HRESULT")
         return result
     }
 
@@ -56,7 +71,7 @@ class ITableDefinitionWithConstraints extends ITableCreation {
     CreateTableWithConstraints(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, cConstraintDescs, rgConstraintDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
         ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "uint", cConstraintDescs, "ptr", rgConstraintDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, "ptr", cColumnDescs, DBCOLUMNDESC.Ptr, rgColumnDescs, "uint", cConstraintDescs, DBCONSTRAINTDESC.Ptr, rgConstraintDescs, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, ppTableIDMarshal, ppTableID, IUnknown.Ptr, ppRowset, "HRESULT")
         return result
     }
 
@@ -67,7 +82,31 @@ class ITableDefinitionWithConstraints extends ITableCreation {
      * @returns {HRESULT} 
      */
     DropConstraint(pTableID, pConstraintID) {
-        result := ComCall(10, this, "ptr", pTableID, "ptr", pConstraintID, "HRESULT")
+        result := ComCall(10, this, DBID.Ptr, pTableID, DBID.Ptr, pConstraintID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITableDefinitionWithConstraints.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddConstraint := CallbackCreate(GetMethod(implObj, "AddConstraint"), flags, 3)
+        this.vtbl.CreateTableWithConstraints := CallbackCreate(GetMethod(implObj, "CreateTableWithConstraints"), flags, 12)
+        this.vtbl.DropConstraint := CallbackCreate(GetMethod(implObj, "DropConstraint"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddConstraint)
+        CallbackFree(this.vtbl.CreateTableWithConstraints)
+        CallbackFree(this.vtbl.DropConstraint)
     }
 }

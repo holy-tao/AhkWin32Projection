@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISwapChain2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGISwapChain2.ahk" { IDXGISwapChain2 }
 
 /**
  * Extends IDXGISwapChain2 with methods to support getting the index of the swap chain's current back buffer and support for color space.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nn-dxgi1_4-idxgiswapchain3
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISwapChain3 extends IDXGISwapChain2 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISwapChain3 extends IDXGISwapChain2 {
     /**
      * The interface identifier for IDXGISwapChain3
      * @type {Guid}
      */
-    static IID => Guid("{94d99bdb-f1f8-4ab0-b236-7da0170edab1}")
+    static IID := Guid("{94d99bdb-f1f8-4ab0-b236-7da0170edab1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 36
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISwapChain3 interfaces
+    */
+    struct Vtbl extends IDXGISwapChain2.Vtbl {
+        GetCurrentBackBufferIndex : IntPtr
+        CheckColorSpaceSupport    : IntPtr
+        SetColorSpace1            : IntPtr
+        ResizeBuffers1            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentBackBufferIndex", "CheckColorSpaceSupport", "SetColorSpace1", "ResizeBuffers1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISwapChain3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the index of the swap chain's current back buffer.
@@ -37,7 +51,7 @@ class IDXGISwapChain3 extends IDXGISwapChain2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex
      */
     GetCurrentBackBufferIndex() {
-        result := ComCall(36, this, "uint")
+        result := ComCall(36, this, UInt32)
         return result
     }
 
@@ -52,7 +66,7 @@ class IDXGISwapChain3 extends IDXGISwapChain2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport
      */
     CheckColorSpaceSupport(ColorSpace) {
-        result := ComCall(37, this, "int", ColorSpace, "uint*", &pColorSpaceSupport := 0, "HRESULT")
+        result := ComCall(37, this, DXGI_COLOR_SPACE_TYPE, ColorSpace, "uint*", &pColorSpaceSupport := 0, "HRESULT")
         return pColorSpaceSupport
     }
 
@@ -67,7 +81,7 @@ class IDXGISwapChain3 extends IDXGISwapChain2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-setcolorspace1
      */
     SetColorSpace1(ColorSpace) {
-        result := ComCall(38, this, "int", ColorSpace, "HRESULT")
+        result := ComCall(38, this, DXGI_COLOR_SPACE_TYPE, ColorSpace, "HRESULT")
         return result
     }
 
@@ -129,7 +143,33 @@ class IDXGISwapChain3 extends IDXGISwapChain2 {
     ResizeBuffers1(BufferCount, Width, Height, Format, SwapChainFlags, pCreationNodeMask, ppPresentQueue) {
         pCreationNodeMaskMarshal := pCreationNodeMask is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "uint", BufferCount, "uint", Width, "uint", Height, "int", Format, "uint", SwapChainFlags, pCreationNodeMaskMarshal, pCreationNodeMask, "ptr*", ppPresentQueue, "HRESULT")
+        result := ComCall(39, this, "uint", BufferCount, "uint", Width, "uint", Height, DXGI_FORMAT, Format, "uint", SwapChainFlags, pCreationNodeMaskMarshal, pCreationNodeMask, IUnknown.Ptr, ppPresentQueue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGISwapChain3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentBackBufferIndex := CallbackCreate(GetMethod(implObj, "GetCurrentBackBufferIndex"), flags, 1)
+        this.vtbl.CheckColorSpaceSupport := CallbackCreate(GetMethod(implObj, "CheckColorSpaceSupport"), flags, 3)
+        this.vtbl.SetColorSpace1 := CallbackCreate(GetMethod(implObj, "SetColorSpace1"), flags, 2)
+        this.vtbl.ResizeBuffers1 := CallbackCreate(GetMethod(implObj, "ResizeBuffers1"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentBackBufferIndex)
+        CallbackFree(this.vtbl.CheckColorSpaceSupport)
+        CallbackFree(this.vtbl.SetColorSpace1)
+        CallbackFree(this.vtbl.ResizeBuffers1)
     }
 }

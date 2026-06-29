@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMResource.ahk
-#Include .\IXpsOMDictionary.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
+#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides an interface that enables pages in an XPS package to share resources.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMRemoteDictionaryResource extends IXpsOMResource {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMRemoteDictionaryResource extends IXpsOMResource {
     /**
      * The interface identifier for IXpsOMRemoteDictionaryResource
      * @type {Guid}
      */
-    static IID => Guid("{c9bd7cd4-e16a-4bf8-8c84-c950af7a3061}")
+    static IID := Guid("{c9bd7cd4-e16a-4bf8-8c84-c950af7a3061}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMRemoteDictionaryResource interfaces
+    */
+    struct Vtbl extends IXpsOMResource.Vtbl {
+        GetDictionary : IntPtr
+        SetDictionary : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDictionary", "SetDictionary"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMRemoteDictionaryResource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMDictionary interface of the remote dictionary that is associated with this resource.
@@ -80,5 +89,27 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource {
     SetDictionary(dictionary) {
         result := ComCall(6, this, "ptr", dictionary, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMRemoteDictionaryResource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDictionary := CallbackCreate(GetMethod(implObj, "GetDictionary"), flags, 2)
+        this.vtbl.SetDictionary := CallbackCreate(GetMethod(implObj, "SetDictionary"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDictionary)
+        CallbackFree(this.vtbl.SetDictionary)
     }
 }

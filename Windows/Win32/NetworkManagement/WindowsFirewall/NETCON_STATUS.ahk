@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NETCON_STATUS type enumerates possible status conditions for a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_status
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NETCON_STATUS extends Win32Enum {
+export default struct NETCON_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The connection is disconnected.

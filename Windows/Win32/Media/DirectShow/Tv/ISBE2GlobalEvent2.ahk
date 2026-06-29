@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ISBE2GlobalEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISBE2GlobalEvent.ahk" { ISBE2GlobalEvent }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Offers access to global spanning events and their data from the Stream Buffer Source filters. A global spanning event contains state information that applies to all the streams in a pipeline. This interface extends the ISBE2GlobalEvent interface.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2globalevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ISBE2GlobalEvent2 extends ISBE2GlobalEvent {
-
-    static sizeof => A_PtrSize
+export default struct ISBE2GlobalEvent2 extends ISBE2GlobalEvent {
     /**
      * The interface identifier for ISBE2GlobalEvent2
      * @type {Guid}
      */
-    static IID => Guid("{6d8309bf-00fe-4506-8b03-f8c65b5c9b39}")
+    static IID := Guid("{6d8309bf-00fe-4506-8b03-f8c65b5c9b39}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISBE2GlobalEvent2 interfaces
+    */
+    struct Vtbl extends ISBE2GlobalEvent.Vtbl {
+        GetEventEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISBE2GlobalEvent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a global spanning event and its data from a Stream Buffer Source filter.
@@ -52,7 +61,27 @@ class ISBE2GlobalEvent2 extends ISBE2GlobalEvent {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
         pStreamTimeMarshal := pStreamTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, "ptr", idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISBE2GlobalEvent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventEx := CallbackCreate(GetMethod(implObj, "GetEventEx"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventEx)
     }
 }

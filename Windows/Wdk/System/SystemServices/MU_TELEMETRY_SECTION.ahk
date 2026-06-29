@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MU_TELEMETRY_SECTION extends Win32Struct {
-    static sizeof => 40
+export default struct MU_TELEMETRY_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ComponentID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ComponentID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SubComponentID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SubComponentID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ErrorStatusValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorStatusValue {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    AdditionalInfo1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AdditionalInfo1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AdditionalInfo2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AdditionalInfo2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains information about an XAPO for use in an effect chain.
@@ -16,35 +16,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_effect_descriptor
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAUDIO2_EFFECT_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct XAUDIO2_EFFECT_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * Pointer to the <b>IUnknown</b> interface of the <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xapo-overview">XAPO</a> object.
-     * @type {IUnknown}
      */
-    pEffect {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pEffect : IUnknown
 
     /**
      * TRUE if the effect should begin in the enabled state. Otherwise, FALSE.
-     * @type {BOOL}
      */
-    InitialState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    InitialState : BOOL
 
     /**
      * Number of output channels the effect should produce.
-     * @type {Integer}
      */
-    OutputChannels {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    OutputChannels : UInt32
+
 }

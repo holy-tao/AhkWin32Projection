@@ -1,73 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class HIDP_LINK_COLLECTION_NODE extends Win32Struct {
-    static sizeof => 24
+export default struct HIDP_LINK_COLLECTION_NODE {
+    #StructPack 8
 
-    static packingSize => 8
+    LinkUsage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LinkUsage {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    LinkUsagePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LinkUsagePage {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Parent : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Parent {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NumberOfChildren : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfChildren {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    NextSibling : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NextSibling {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FirstChild {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    FirstChild : UInt16
 
     /**
      * This bitfield backs the following members:
      * - CollectionType
      * - IsAlias
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -84,12 +42,6 @@ class HIDP_LINK_COLLECTION_NODE extends Win32Struct {
         get => (this._bitfield >> 8) & 0x1
         set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
     }
+    UserContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    UserContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

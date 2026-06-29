@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IPinInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IPinInfo extends IDispatch {
     /**
      * The interface identifier for IPinInfo
      * @type {Guid}
      */
-    static IID => Guid("{56a868bd-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868bd-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPinInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Pin                 : IntPtr
+        get_ConnectedTo         : IntPtr
+        get_ConnectionMediaType : IntPtr
+        get_FilterInfo          : IntPtr
+        get_Name                : IntPtr
+        get_Direction           : IntPtr
+        get_PinID               : IntPtr
+        get_MediaTypes          : IntPtr
+        Connect                 : IntPtr
+        ConnectDirect           : IntPtr
+        ConnectWithType         : IntPtr
+        Disconnect              : IntPtr
+        Render                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Pin", "get_ConnectedTo", "get_ConnectionMediaType", "get_FilterInfo", "get_Name", "get_Direction", "get_PinID", "get_MediaTypes", "Connect", "ConnectDirect", "ConnectWithType", "Disconnect", "Render"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPinInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -126,8 +146,8 @@ class IPinInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        ppUnk := BSTR()
-        result := ComCall(11, this, "ptr", ppUnk, "HRESULT")
+        ppUnk := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, ppUnk, "HRESULT")
         return ppUnk
     }
 
@@ -145,8 +165,8 @@ class IPinInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_PinID() {
-        strPinID := BSTR()
-        result := ComCall(13, this, "ptr", strPinID, "HRESULT")
+        strPinID := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, strPinID, "HRESULT")
         return strPinID
     }
 
@@ -160,10 +180,9 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * Defines each configuration setting and associates it with a name. The Connection element is optional.
+     * 
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect(pPin) {
         result := ComCall(15, this, "ptr", pPin, "HRESULT")
@@ -230,5 +249,49 @@ class IPinInfo extends IDispatch {
     Render() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPinInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Pin := CallbackCreate(GetMethod(implObj, "get_Pin"), flags, 2)
+        this.vtbl.get_ConnectedTo := CallbackCreate(GetMethod(implObj, "get_ConnectedTo"), flags, 2)
+        this.vtbl.get_ConnectionMediaType := CallbackCreate(GetMethod(implObj, "get_ConnectionMediaType"), flags, 2)
+        this.vtbl.get_FilterInfo := CallbackCreate(GetMethod(implObj, "get_FilterInfo"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_PinID := CallbackCreate(GetMethod(implObj, "get_PinID"), flags, 2)
+        this.vtbl.get_MediaTypes := CallbackCreate(GetMethod(implObj, "get_MediaTypes"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.ConnectDirect := CallbackCreate(GetMethod(implObj, "ConnectDirect"), flags, 2)
+        this.vtbl.ConnectWithType := CallbackCreate(GetMethod(implObj, "ConnectWithType"), flags, 3)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Pin)
+        CallbackFree(this.vtbl.get_ConnectedTo)
+        CallbackFree(this.vtbl.get_ConnectionMediaType)
+        CallbackFree(this.vtbl.get_FilterInfo)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Direction)
+        CallbackFree(this.vtbl.get_PinID)
+        CallbackFree(this.vtbl.get_MediaTypes)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.ConnectDirect)
+        CallbackFree(this.vtbl.ConnectWithType)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Render)
     }
 }

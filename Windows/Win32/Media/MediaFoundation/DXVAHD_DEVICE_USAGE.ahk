@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the intended use for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_usage
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_DEVICE_USAGE extends Win32Enum {
+export default struct DXVAHD_DEVICE_USAGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Normal video playback. The graphics driver should expose a set of capabilities that are appropriate for real-time video playback.

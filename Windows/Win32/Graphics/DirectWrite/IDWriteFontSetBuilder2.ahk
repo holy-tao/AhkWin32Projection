@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSetBuilder1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontSetBuilder1.ahk" { IDWriteFontSetBuilder1 }
+#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder2)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder2
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1 {
     /**
      * The interface identifier for IDWriteFontSetBuilder2
      * @type {Guid}
      */
-    static IID => Guid("{ee5ba612-b131-463c-8f4f-3189b9401e45}")
+    static IID := Guid("{ee5ba612-b131-463c-8f4f-3189b9401e45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontSetBuilder2 interfaces
+    */
+    struct Vtbl extends IDWriteFontSetBuilder1.Vtbl {
+        AddFont     : IntPtr
+        AddFontFile : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddFont", "AddFontFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontSetBuilder2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a font to the set being built.
@@ -66,7 +81,7 @@ class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder2-addfont
      */
     AddFont(fontFile, fontFaceIndex, fontSimulations, fontAxisValues, fontAxisValueCount, fontAxisRanges, fontAxisRangeCount, _properties, propertyCount) {
-        result := ComCall(8, this, "ptr", fontFile, "uint", fontFaceIndex, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "ptr", _properties, "uint", propertyCount, "HRESULT")
+        result := ComCall(8, this, "ptr", fontFile, "uint", fontFaceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, "HRESULT")
         return result
     }
 
@@ -85,5 +100,27 @@ class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1 {
 
         result := ComCall(9, this, "ptr", filePath, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontSetBuilder2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddFont := CallbackCreate(GetMethod(implObj, "AddFont"), flags, 10)
+        this.vtbl.AddFontFile := CallbackCreate(GetMethod(implObj, "AddFontFile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddFont)
+        CallbackFree(this.vtbl.AddFontFile)
     }
 }

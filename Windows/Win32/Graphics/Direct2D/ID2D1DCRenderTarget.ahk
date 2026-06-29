@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1RenderTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
 
 /**
  * Issues drawing commands to a GDI device context.
@@ -35,26 +38,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1dcrendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1DCRenderTarget extends ID2D1RenderTarget {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1DCRenderTarget extends ID2D1RenderTarget {
     /**
      * The interface identifier for ID2D1DCRenderTarget
      * @type {Guid}
      */
-    static IID => Guid("{1c51bc64-de61-46fd-9899-63a5d8f03950}")
+    static IID := Guid("{1c51bc64-de61-46fd-9899-63a5d8f03950}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 57
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1DCRenderTarget interfaces
+    */
+    struct Vtbl extends ID2D1RenderTarget.Vtbl {
+        BindDC : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BindDC"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1DCRenderTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Binds the render target to the device context to which it issues drawing commands.
@@ -72,9 +82,27 @@ class ID2D1DCRenderTarget extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1dcrendertarget-binddc
      */
     BindDC(_hDC, pSubRect) {
-        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
-
-        result := ComCall(57, this, "ptr", _hDC, "ptr", pSubRect, "HRESULT")
+        result := ComCall(57, this, HDC, _hDC, RECT.Ptr, pSubRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1DCRenderTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BindDC := CallbackCreate(GetMethod(implObj, "BindDC"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BindDC)
     }
 }

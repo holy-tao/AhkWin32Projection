@@ -1,127 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE.ahk
-#Include .\PROFILER_HEAP_OBJECT_SCOPE_LIST.ahk
-#Include .\PROFILER_HEAP_OBJECT_RELATIONSHIP.ahk
-#Include .\PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.ahk" { PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST }
+#Import ".\PROFILER_HEAP_OBJECT_SCOPE_LIST.ahk" { PROFILER_HEAP_OBJECT_SCOPE_LIST }
+#Import ".\PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE.ahk" { PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE }
+#Import ".\PROFILER_HEAP_OBJECT_RELATIONSHIP.ahk" { PROFILER_HEAP_OBJECT_RELATIONSHIP }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class PROFILER_HEAP_OBJECT_OPTIONAL_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct PROFILER_HEAP_OBJECT_OPTIONAL_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    infoType : PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE
 
-    /**
-     * @type {PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE}
-     */
-    infoType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    prototype : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    prototype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    functionName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    elementAttributesSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    elementTextChildrenSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_SCOPE_LIST>}
-     */
-    scopeList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP>}
-     */
-    internalProperty {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    namePropertyList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    indexPropertyList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    relationshipList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    eventList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    weakMapCollectionList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    mapCollectionList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST>}
-     */
-    setCollectionList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'functionName', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'elementAttributesSize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'elementTextChildrenSize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'scopeList', { type: PROFILER_HEAP_OBJECT_SCOPE_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'internalProperty', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'namePropertyList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'indexPropertyList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'relationshipList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'eventList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'weakMapCollectionList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'mapCollectionList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'setCollectionList', { type: PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,41 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Storage\IndexServer\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\StructuredStorage\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SORTKEY extends Win32Struct {
-    static sizeof => 32
+export default struct SORTKEY {
+    #StructPack 8
 
-    static packingSize => 8
+    propColumn : FULLPROPSPEC
 
-    /**
-     * @type {FULLPROPSPEC}
-     */
-    propColumn {
-        get {
-            if(!this.HasProp("__propColumn"))
-                this.__propColumn := FULLPROPSPEC(0, this)
-            return this.__propColumn
-        }
-    }
+    dwOrder : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOrder {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    locale : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    locale {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

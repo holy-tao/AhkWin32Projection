@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDescriptionDocumentCallback interface allows the UPnP framework to communicate the results of an asynchronous load operation to an application.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdescriptiondocumentcallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPDescriptionDocumentCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPDescriptionDocumentCallback extends IUnknown {
     /**
      * The interface identifier for IUPnPDescriptionDocumentCallback
      * @type {Guid}
      */
-    static IID => Guid("{77394c69-5486-40d6-9bc3-4991983e02da}")
+    static IID := Guid("{77394c69-5486-40d6-9bc3-4991983e02da}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPDescriptionDocumentCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LoadComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPDescriptionDocumentCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The LoadComplete method is invoked when the UPnP framework has finished loading a device description.
@@ -115,5 +123,25 @@ class IUPnPDescriptionDocumentCallback extends IUnknown {
     LoadComplete(hrLoadResult) {
         result := ComCall(3, this, "int", hrLoadResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPDescriptionDocumentCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadComplete := CallbackCreate(GetMethod(implObj, "LoadComplete"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadComplete)
     }
 }

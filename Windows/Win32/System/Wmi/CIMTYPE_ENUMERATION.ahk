@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that specify different CIM data types.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-cimtype_enumeration
  * @namespace Windows.Win32.System.Wmi
  */
-class CIMTYPE_ENUMERATION extends Win32Enum {
+export default struct CIMTYPE_ENUMERATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An illegal value.

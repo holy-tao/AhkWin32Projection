@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMReaderAdvanced2.ahk" { IWMReaderAdvanced2 }
+#Import ".\WMT_OFFSET_FORMAT.ahk" { WMT_OFFSET_FORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderAdvanced3 interface provides additional functionality to the reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
     /**
      * The interface identifier for IWMReaderAdvanced3
      * @type {Guid}
      */
-    static IID => Guid("{5dc0674b-f04b-4a4e-9f2a-b1afde2c8100}")
+    static IID := Guid("{5dc0674b-f04b-4a4e-9f2a-b1afde2c8100}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 38
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderAdvanced3 interfaces
+    */
+    struct Vtbl extends IWMReaderAdvanced2.Vtbl {
+        StopNetStreaming : IntPtr
+        StartAtPosition  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StopNetStreaming", "StartAtPosition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderAdvanced3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StopNetStreaming method halts network streaming. Any samples that have already been received from the network are delivered as usual.
@@ -222,7 +232,29 @@ class IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
         pvDurationMarshal := pvDuration is VarRef ? "ptr" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(39, this, "ushort", wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, "int", dwOffsetFormat, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(39, this, "ushort", wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, WMT_OFFSET_FORMAT, dwOffsetFormat, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderAdvanced3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StopNetStreaming := CallbackCreate(GetMethod(implObj, "StopNetStreaming"), flags, 1)
+        this.vtbl.StartAtPosition := CallbackCreate(GetMethod(implObj, "StartAtPosition"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StopNetStreaming)
+        CallbackFree(this.vtbl.StartAtPosition)
     }
 }

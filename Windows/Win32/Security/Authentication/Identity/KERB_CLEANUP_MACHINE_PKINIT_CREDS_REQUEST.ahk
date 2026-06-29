@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include ..\..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Cleans up the PKINIT device credentials from the computer.
@@ -10,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_cleanup_machine_pkinit_creds_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST {
+    #StructPack 4
 
     /**
      * The type of the message. You should set this to <b>KerbCleanupMachinePkinitCredsMessage</b>.
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
     /**
      * The logon session identifier. You should set this to SYSTEM LUID or NETWORKSERVICE LUID. TCB is required if this field is different from the caller's LUID.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
+
 }

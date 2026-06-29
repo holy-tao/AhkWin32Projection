@@ -1,43 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_INTERFACE_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_INTERFACE_STATE.ahk" { WLAN_INTERFACE_STATE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a wireless LAN interface.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_interface_info
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_INTERFACE_INFO extends Win32Struct {
-    static sizeof => 528
-
-    static packingSize => 8
+export default struct WLAN_INTERFACE_INFO {
+    #StructPack 4
 
     /**
      * Contains the GUID of the interface.
-     * @type {Pointer}
      */
-    InterfaceGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InterfaceGuid : Guid
 
     /**
      * Contains the description of the interface.
-     * @type {String}
      */
-    strInterfaceDescription {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
-    }
+    strInterfaceDescription : WCHAR[256]
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_interface_state-r1">WLAN_INTERFACE_STATE</a> value that indicates the current state of the interface.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_interface_state_connected</b>, <b>wlan_interface_state_disconnected</b>, and <b>wlan_interface_state_authenticating</b> values are supported.
-     * @type {WLAN_INTERFACE_STATE}
      */
-    isState {
-        get => NumGet(this, 520, "int")
-        set => NumPut("int", value, this, 520)
-    }
+    isState : WLAN_INTERFACE_STATE
+
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Represents a set of unique strings. This information is used by the binary encoding to write a more compact xml document.
@@ -50,38 +51,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_dictionary
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_DICTIONARY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WS_XML_DICTIONARY {
+    #StructPack 8
 
     /**
      * A guid that uniquely identifies the set of strings represented by the dictionary.
      *           The guid is never transmitted or persisted, and needs to only be unique for the lifetime of the process.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
+    __strings_ptr : IntPtr
     /**
      * The set of unique strings that comprise the dictionary.
-     * @type {Pointer<WS_XML_STRING>}
      */
     strings {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__strings_ptr) ? WS_XML_STRING.At(addr) : unset
+        set => this.__strings_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * Specifies the number of strings in the dictionary.
-     * @type {Integer}
      */
-    stringCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    stringCount : UInt32
 
     /**
      * Indicates if the dictionary and its contents are declared const and that they will be kept valid for the
@@ -89,10 +80,7 @@ class WS_XML_DICTIONARY extends Win32Struct {
      *         
      * 
      * If this is <b>TRUE</b>, then the strings can be manipulated more efficiently.
-     * @type {BOOL}
      */
-    isConst {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    isConst : BOOL
+
 }

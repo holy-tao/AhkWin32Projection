@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FILE_STANDARD_INFORMATION_EX extends Win32Struct {
-    static sizeof => 24
+export default struct FILE_STANDARD_INFORMATION_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    EndOfFile : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndOfFile {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    NumberOfLinks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfLinks {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DeletePending : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DeletePending {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    Directory : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Directory {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    AlternateStream : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AlternateStream {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    MetadataAttribute : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    MetadataAttribute {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
 }

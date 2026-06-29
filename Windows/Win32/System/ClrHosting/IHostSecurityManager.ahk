@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IHostSecurityContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EContextType.ahk" { EContextType }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHostSecurityContext.ahk" { IHostSecurityContext }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostSecurityManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostSecurityManager extends IUnknown {
     /**
      * The interface identifier for IHostSecurityManager
      * @type {Guid}
      */
-    static IID => Guid("{75ad2468-a349-4d02-a764-76a68aee0c4f}")
+    static IID := Guid("{75ad2468-a349-4d02-a764-76a68aee0c4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostSecurityManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ImpersonateLoggedOnUser : IntPtr
+        RevertToSelf            : IntPtr
+        OpenThreadToken         : IntPtr
+        SetThreadToken          : IntPtr
+        GetSecurityContext      : IntPtr
+        SetSecurityContext      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ImpersonateLoggedOnUser", "RevertToSelf", "OpenThreadToken", "SetThreadToken", "GetSecurityContext", "SetSecurityContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostSecurityManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Lets the calling thread impersonate the security context of a logged-on user. The user is represented by a token handle.
@@ -67,9 +82,7 @@ class IHostSecurityManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser
      */
     ImpersonateLoggedOnUser(hToken) {
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
-
-        result := ComCall(3, this, "ptr", hToken, "HRESULT")
+        result := ComCall(3, this, HANDLE, hToken, "HRESULT")
         return result
     }
 
@@ -109,8 +122,8 @@ class IHostSecurityManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-openthreadtoken
      */
     OpenThreadToken(dwDesiredAccess, bOpenAsSelf) {
-        phThreadToken := HANDLE()
-        result := ComCall(5, this, "uint", dwDesiredAccess, "int", bOpenAsSelf, "ptr", phThreadToken, "HRESULT")
+        phThreadToken := HANDLE.Owned()
+        result := ComCall(5, this, "uint", dwDesiredAccess, BOOL, bOpenAsSelf, HANDLE.Ptr, phThreadToken, "HRESULT")
         return phThreadToken
     }
 
@@ -126,9 +139,7 @@ class IHostSecurityManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadtoken
      */
     SetThreadToken(hToken) {
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
-
-        result := ComCall(6, this, "ptr", hToken, "HRESULT")
+        result := ComCall(6, this, HANDLE, hToken, "HRESULT")
         return result
     }
 
@@ -138,7 +149,7 @@ class IHostSecurityManager extends IUnknown {
      * @returns {IHostSecurityContext} 
      */
     GetSecurityContext(_eContextType) {
-        result := ComCall(7, this, "int", _eContextType, "ptr*", &ppSecurityContext := 0, "HRESULT")
+        result := ComCall(7, this, EContextType, _eContextType, "ptr*", &ppSecurityContext := 0, "HRESULT")
         return IHostSecurityContext(ppSecurityContext)
     }
 
@@ -149,7 +160,37 @@ class IHostSecurityManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSecurityContext(_eContextType, pSecurityContext) {
-        result := ComCall(8, this, "int", _eContextType, "ptr", pSecurityContext, "HRESULT")
+        result := ComCall(8, this, EContextType, _eContextType, "ptr", pSecurityContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHostSecurityManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ImpersonateLoggedOnUser := CallbackCreate(GetMethod(implObj, "ImpersonateLoggedOnUser"), flags, 2)
+        this.vtbl.RevertToSelf := CallbackCreate(GetMethod(implObj, "RevertToSelf"), flags, 1)
+        this.vtbl.OpenThreadToken := CallbackCreate(GetMethod(implObj, "OpenThreadToken"), flags, 4)
+        this.vtbl.SetThreadToken := CallbackCreate(GetMethod(implObj, "SetThreadToken"), flags, 2)
+        this.vtbl.GetSecurityContext := CallbackCreate(GetMethod(implObj, "GetSecurityContext"), flags, 3)
+        this.vtbl.SetSecurityContext := CallbackCreate(GetMethod(implObj, "SetSecurityContext"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ImpersonateLoggedOnUser)
+        CallbackFree(this.vtbl.RevertToSelf)
+        CallbackFree(this.vtbl.OpenThreadToken)
+        CallbackFree(this.vtbl.SetThreadToken)
+        CallbackFree(this.vtbl.GetSecurityContext)
+        CallbackFree(this.vtbl.SetSecurityContext)
     }
 }

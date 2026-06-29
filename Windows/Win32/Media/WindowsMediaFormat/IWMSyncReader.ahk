@@ -1,34 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMOutputMediaProps.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
 
 /**
  * The IWMSyncReader interface provides the ability to read ASF files using synchronous calls.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmsyncreader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMSyncReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMSyncReader extends IUnknown {
     /**
      * The interface identifier for IWMSyncReader
      * @type {Guid}
      */
-    static IID => Guid("{9397f121-7705-4dc9-b049-98b698188414}")
+    static IID := Guid("{9397f121-7705-4dc9-b049-98b698188414}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMSyncReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open                     : IntPtr
+        Close                    : IntPtr
+        SetRange                 : IntPtr
+        SetRangeByFrame          : IntPtr
+        GetNextSample            : IntPtr
+        SetStreamsSelected       : IntPtr
+        GetStreamSelected        : IntPtr
+        SetReadStreamSamples     : IntPtr
+        GetReadStreamSamples     : IntPtr
+        GetOutputSetting         : IntPtr
+        SetOutputSetting         : IntPtr
+        GetOutputCount           : IntPtr
+        GetOutputProps           : IntPtr
+        SetOutputProps           : IntPtr
+        GetOutputFormatCount     : IntPtr
+        GetOutputFormat          : IntPtr
+        GetOutputNumberForStream : IntPtr
+        GetStreamNumberForOutput : IntPtr
+        GetMaxOutputSampleSize   : IntPtr
+        GetMaxStreamSampleSize   : IntPtr
+        OpenStream               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "SetRange", "SetRangeByFrame", "GetNextSample", "SetStreamsSelected", "GetStreamSelected", "SetReadStreamSamples", "GetReadStreamSamples", "GetOutputSetting", "SetOutputSetting", "GetOutputCount", "GetOutputProps", "SetOutputProps", "GetOutputFormatCount", "GetOutputFormat", "GetOutputNumberForStream", "GetStreamNumberForOutput", "GetMaxOutputSampleSize", "GetMaxStreamSampleSize", "OpenStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMSyncReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Open method opens a file for reading. Unlike IWMReader::Open, this method is a synchronous call.
@@ -316,7 +350,7 @@ class IWMSyncReader extends IUnknown {
         pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
         pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ushort", wStreamNum, "ptr*", ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
+        result := ComCall(7, this, "ushort", wStreamNum, INSSBuffer.Ptr, ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
     }
 
@@ -469,7 +503,7 @@ class IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setreadstreamsamples
      */
     SetReadStreamSamples(wStreamNum, fCompressed) {
-        result := ComCall(10, this, "ushort", wStreamNum, "int", fCompressed, "HRESULT")
+        result := ComCall(10, this, "ushort", wStreamNum, BOOL, fCompressed, "HRESULT")
         return result
     }
 
@@ -482,7 +516,7 @@ class IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getreadstreamsamples
      */
     GetReadStreamSamples(wStreamNum) {
-        result := ComCall(11, this, "ushort", wStreamNum, "int*", &pfCompressed := 0, "HRESULT")
+        result := ComCall(11, this, "ushort", wStreamNum, BOOL.Ptr, &pfCompressed := 0, "HRESULT")
         return pfCompressed
     }
 
@@ -651,7 +685,7 @@ class IWMSyncReader extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -828,5 +862,65 @@ class IWMSyncReader extends IUnknown {
     OpenStream(pStream) {
         result := ComCall(23, this, "ptr", pStream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMSyncReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetRange := CallbackCreate(GetMethod(implObj, "SetRange"), flags, 3)
+        this.vtbl.SetRangeByFrame := CallbackCreate(GetMethod(implObj, "SetRangeByFrame"), flags, 4)
+        this.vtbl.GetNextSample := CallbackCreate(GetMethod(implObj, "GetNextSample"), flags, 8)
+        this.vtbl.SetStreamsSelected := CallbackCreate(GetMethod(implObj, "SetStreamsSelected"), flags, 4)
+        this.vtbl.GetStreamSelected := CallbackCreate(GetMethod(implObj, "GetStreamSelected"), flags, 3)
+        this.vtbl.SetReadStreamSamples := CallbackCreate(GetMethod(implObj, "SetReadStreamSamples"), flags, 3)
+        this.vtbl.GetReadStreamSamples := CallbackCreate(GetMethod(implObj, "GetReadStreamSamples"), flags, 3)
+        this.vtbl.GetOutputSetting := CallbackCreate(GetMethod(implObj, "GetOutputSetting"), flags, 6)
+        this.vtbl.SetOutputSetting := CallbackCreate(GetMethod(implObj, "SetOutputSetting"), flags, 6)
+        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.GetOutputProps := CallbackCreate(GetMethod(implObj, "GetOutputProps"), flags, 3)
+        this.vtbl.SetOutputProps := CallbackCreate(GetMethod(implObj, "SetOutputProps"), flags, 3)
+        this.vtbl.GetOutputFormatCount := CallbackCreate(GetMethod(implObj, "GetOutputFormatCount"), flags, 3)
+        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 4)
+        this.vtbl.GetOutputNumberForStream := CallbackCreate(GetMethod(implObj, "GetOutputNumberForStream"), flags, 3)
+        this.vtbl.GetStreamNumberForOutput := CallbackCreate(GetMethod(implObj, "GetStreamNumberForOutput"), flags, 3)
+        this.vtbl.GetMaxOutputSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxOutputSampleSize"), flags, 3)
+        this.vtbl.GetMaxStreamSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxStreamSampleSize"), flags, 3)
+        this.vtbl.OpenStream := CallbackCreate(GetMethod(implObj, "OpenStream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.SetRange)
+        CallbackFree(this.vtbl.SetRangeByFrame)
+        CallbackFree(this.vtbl.GetNextSample)
+        CallbackFree(this.vtbl.SetStreamsSelected)
+        CallbackFree(this.vtbl.GetStreamSelected)
+        CallbackFree(this.vtbl.SetReadStreamSamples)
+        CallbackFree(this.vtbl.GetReadStreamSamples)
+        CallbackFree(this.vtbl.GetOutputSetting)
+        CallbackFree(this.vtbl.SetOutputSetting)
+        CallbackFree(this.vtbl.GetOutputCount)
+        CallbackFree(this.vtbl.GetOutputProps)
+        CallbackFree(this.vtbl.SetOutputProps)
+        CallbackFree(this.vtbl.GetOutputFormatCount)
+        CallbackFree(this.vtbl.GetOutputFormat)
+        CallbackFree(this.vtbl.GetOutputNumberForStream)
+        CallbackFree(this.vtbl.GetStreamNumberForOutput)
+        CallbackFree(this.vtbl.GetMaxOutputSampleSize)
+        CallbackFree(this.vtbl.GetMaxStreamSampleSize)
+        CallbackFree(this.vtbl.OpenStream)
     }
 }

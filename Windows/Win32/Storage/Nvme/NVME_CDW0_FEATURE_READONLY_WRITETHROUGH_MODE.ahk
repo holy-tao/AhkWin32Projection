@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW0_FEATURE_READONLY_WRITETHROUGH_MODE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_CDW0_FEATURE_READONLY_WRITETHROUGH_MODE {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - EOLBehavior
      * - Reserved0
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -35,12 +29,8 @@ class NVME_CDW0_FEATURE_READONLY_WRITETHROUGH_MODE extends Win32Struct {
         get => (this._bitfield >> 3) & 0x1FFFFFFF
         set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

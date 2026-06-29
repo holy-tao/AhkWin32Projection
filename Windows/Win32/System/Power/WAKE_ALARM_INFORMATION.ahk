@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class WAKE_ALARM_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct WAKE_ALARM_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    TimerIdentifier : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimerIdentifier {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Timeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Timeout {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

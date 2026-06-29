@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\TF_DISPLAYATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TF_DISPLAYATTRIBUTE.ahk" { TF_DISPLAYATTRIBUTE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfDisplayAttributeInfo interface is implemented by a text service to provide display attribute data. This interface is used by any component, most often an application, that must determine how text displays.
@@ -15,26 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdisplayattributeinfo
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfDisplayAttributeInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfDisplayAttributeInfo extends IUnknown {
     /**
      * The interface identifier for ITfDisplayAttributeInfo
      * @type {Guid}
      */
-    static IID => Guid("{70528852-2f26-4aea-8c96-215150578932}")
+    static IID := Guid("{70528852-2f26-4aea-8c96-215150578932}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfDisplayAttributeInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetGUID          : IntPtr
+        GetDescription   : IntPtr
+        GetAttributeInfo : IntPtr
+        SetAttributeInfo : IntPtr
+        Reset            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGUID", "GetDescription", "GetAttributeInfo", "SetAttributeInfo", "Reset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfDisplayAttributeInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfDisplayAttributeInfo::GetGUID method
@@ -43,7 +54,7 @@ class ITfDisplayAttributeInfo extends IUnknown {
      */
     GetGUID() {
         pguid := Guid()
-        result := ComCall(3, this, "ptr", pguid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -53,8 +64,8 @@ class ITfDisplayAttributeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getdescription
      */
     GetDescription() {
-        pbstrDesc := BSTR()
-        result := ComCall(4, this, "ptr", pbstrDesc, "HRESULT")
+        pbstrDesc := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pbstrDesc, "HRESULT")
         return pbstrDesc
     }
 
@@ -65,7 +76,7 @@ class ITfDisplayAttributeInfo extends IUnknown {
      */
     GetAttributeInfo() {
         pda := TF_DISPLAYATTRIBUTE()
-        result := ComCall(5, this, "ptr", pda, "HRESULT")
+        result := ComCall(5, this, TF_DISPLAYATTRIBUTE.Ptr, pda, "HRESULT")
         return pda
     }
 
@@ -118,7 +129,7 @@ class ITfDisplayAttributeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-setattributeinfo
      */
     SetAttributeInfo(pda) {
-        result := ComCall(6, this, "ptr", pda, "HRESULT")
+        result := ComCall(6, this, TF_DISPLAYATTRIBUTE.Ptr, pda, "HRESULT")
         return result
     }
 
@@ -161,5 +172,33 @@ class ITfDisplayAttributeInfo extends IUnknown {
     Reset() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfDisplayAttributeInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetAttributeInfo := CallbackCreate(GetMethod(implObj, "GetAttributeInfo"), flags, 2)
+        this.vtbl.SetAttributeInfo := CallbackCreate(GetMethod(implObj, "SetAttributeInfo"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGUID)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.GetAttributeInfo)
+        CallbackFree(this.vtbl.SetAttributeInfo)
+        CallbackFree(this.vtbl.Reset)
     }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class FAST_MUTEX extends Win32Struct {
-    static sizeof => 40
+export default struct FAST_MUTEX {
+    #StructPack 8
 
-    static packingSize => 8
+    Count : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Owner : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Owner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Contention : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Contention {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Event : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Event {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    OldIrql : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OldIrql {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

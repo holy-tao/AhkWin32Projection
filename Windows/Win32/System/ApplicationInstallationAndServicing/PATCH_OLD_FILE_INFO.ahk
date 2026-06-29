@@ -1,81 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\PATCH_IGNORE_RANGE.ahk
-#Include .\PATCH_RETAIN_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PATCH_RETAIN_RANGE.ahk" { PATCH_RETAIN_RANGE }
+#Import ".\PATCH_IGNORE_RANGE.ahk" { PATCH_IGNORE_RANGE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class PATCH_OLD_FILE_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct PATCH_OLD_FILE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfThisStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfThisStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OldFileNameA : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    OldFileNameA {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IgnoreRangeCount : UInt32
 
-    /**
-     * @type {PWSTR}
-     */
-    OldFileNameW {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IgnoreRangeArray : PATCH_IGNORE_RANGE.Ptr
 
-    /**
-     * @type {HANDLE}
-     */
-    OldFileHandle {
-        get {
-            if(!this.HasProp("__OldFileHandle"))
-                this.__OldFileHandle := HANDLE(8, this)
-            return this.__OldFileHandle
-        }
-    }
+    RetainRangeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IgnoreRangeCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RetainRangeArray : PATCH_RETAIN_RANGE.Ptr
 
-    /**
-     * @type {Pointer<PATCH_IGNORE_RANGE>}
-     */
-    IgnoreRangeArray {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RetainRangeCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<PATCH_RETAIN_RANGE>}
-     */
-    RetainRangeArray {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'OldFileNameW', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'OldFileHandle', { type: HANDLE, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

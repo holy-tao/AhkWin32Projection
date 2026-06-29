@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of password encoding used with the ADS_OPTION_PASSWORD_METHOD option in the IADsObjectOptions::GetOption and IADsObjectOptions::SetOption methods.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_password_encoding_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_PASSWORD_ENCODING_ENUM extends Win32Enum {
+export default struct ADS_PASSWORD_ENCODING_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Passwords are encoded using SSL.

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * Defines the application-specific connection timeout limits.
@@ -63,84 +62,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_timeout_limit_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_TIMEOUT_LIMIT_INFO extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct HTTP_TIMEOUT_LIMIT_INFO {
+    #StructPack 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies whether the property is present.
-     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : HTTP_PROPERTY_FLAGS
 
     /**
      * The time, in seconds, allowed for the request entity body to arrive.
      * 
      *  The HTTP Server API turns on this timer when the request has an entity body. The timer expiration is initially set to the configured value. When the  HTTP Server API receives additional data indications on the request, it resets the timer to give the connection another interval.
-     * @type {Integer}
      */
-    EntityBody {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    EntityBody : UInt16
 
     /**
      * The time, in seconds, allowed for the HTTP Server API to drain the entity body on a Keep-Alive connection.
      * 
      * On a Keep-Alive connection, after the application has sent a response for a request and before the request entity body has completely arrived, the HTTP Server API starts draining the remainder of the entity body to reach another potentially pipelined request from the client. If the time to drain the remaining entity body exceeds the allowed period the connection is timed out.
-     * @type {Integer}
      */
-    DrainEntityBody {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    DrainEntityBody : UInt16
 
     /**
      * The time, in seconds, allowed  for the request to remain in the request queue before the application picks it up.
-     * @type {Integer}
      */
-    RequestQueue {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    RequestQueue : UInt16
 
     /**
      * The time, in seconds, allowed for an idle connection.
      * 
      * This timeout is only enforced after the first request on the connection is routed to the application. For more information, see the Remarks section.
-     * @type {Integer}
      */
-    IdleConnection {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    IdleConnection : UInt16
 
     /**
      * The time, in seconds, allowed for the HTTP Server API to  parse the request header.
      * 
      * This timeout is only enforced after the first request on the connection is routed to the application. For more information, see the Remarks section.
-     * @type {Integer}
      */
-    HeaderWait {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    HeaderWait : UInt16
 
     /**
      * The minimum send rate, in bytes-per-second, for the response. The default response send rate is 150 bytes-per-second.
      * 
      * To disable this timer, set <b>MinSendRate</b> to <b>MAXULONG</b>.
-     * @type {Integer}
      */
-    MinSendRate {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinSendRate : UInt32
+
 }

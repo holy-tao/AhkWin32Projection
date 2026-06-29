@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies multiple wait flags for multiple fences.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_multiple_fence_wait_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_MULTIPLE_FENCE_WAIT_FLAGS extends Win32BitflagEnum {
+export default struct D3D12_MULTIPLE_FENCE_WAIT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No flags are being passed. This means to use the default behavior, which is to wait for all fences before signaling the event.

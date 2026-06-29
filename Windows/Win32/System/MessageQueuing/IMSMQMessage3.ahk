@@ -1,36 +1,135 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMSMQQueueInfo.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IMSMQQueueInfo3.ahk
-#Include .\IMSMQQueueInfo2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSMQQueueInfo2.ahk" { IMSMQQueueInfo2 }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMSMQQueueInfo3.ahk" { IMSMQQueueInfo3 }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMSMQQueueInfo.ahk" { IMSMQQueueInfo }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQMessage3 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQMessage3 extends IDispatch {
     /**
      * The interface identifier for IMSMQMessage3
      * @type {Guid}
      */
-    static IID => Guid("{eba96b1a-2168-11d3-898c-00e02c074f6b}")
+    static IID := Guid("{eba96b1a-2168-11d3-898c-00e02c074f6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQMessage3 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Class                       : IntPtr
+        get_PrivLevel                   : IntPtr
+        put_PrivLevel                   : IntPtr
+        get_AuthLevel                   : IntPtr
+        put_AuthLevel                   : IntPtr
+        get_IsAuthenticated             : IntPtr
+        get_Delivery                    : IntPtr
+        put_Delivery                    : IntPtr
+        get_Trace                       : IntPtr
+        put_Trace                       : IntPtr
+        get_Priority                    : IntPtr
+        put_Priority                    : IntPtr
+        get_Journal                     : IntPtr
+        put_Journal                     : IntPtr
+        get_ResponseQueueInfo_v1        : IntPtr
+        putref_ResponseQueueInfo_v1     : IntPtr
+        get_AppSpecific                 : IntPtr
+        put_AppSpecific                 : IntPtr
+        get_SourceMachineGuid           : IntPtr
+        get_BodyLength                  : IntPtr
+        get_Body                        : IntPtr
+        put_Body                        : IntPtr
+        get_AdminQueueInfo_v1           : IntPtr
+        putref_AdminQueueInfo_v1        : IntPtr
+        get_Id                          : IntPtr
+        get_CorrelationId               : IntPtr
+        put_CorrelationId               : IntPtr
+        get_Ack                         : IntPtr
+        put_Ack                         : IntPtr
+        get_Label                       : IntPtr
+        put_Label                       : IntPtr
+        get_MaxTimeToReachQueue         : IntPtr
+        put_MaxTimeToReachQueue         : IntPtr
+        get_MaxTimeToReceive            : IntPtr
+        put_MaxTimeToReceive            : IntPtr
+        get_HashAlgorithm               : IntPtr
+        put_HashAlgorithm               : IntPtr
+        get_EncryptAlgorithm            : IntPtr
+        put_EncryptAlgorithm            : IntPtr
+        get_SentTime                    : IntPtr
+        get_ArrivedTime                 : IntPtr
+        get_DestinationQueueInfo        : IntPtr
+        get_SenderCertificate           : IntPtr
+        put_SenderCertificate           : IntPtr
+        get_SenderId                    : IntPtr
+        get_SenderIdType                : IntPtr
+        put_SenderIdType                : IntPtr
+        Send                            : IntPtr
+        AttachCurrentSecurityContext    : IntPtr
+        get_SenderVersion               : IntPtr
+        get_Extension                   : IntPtr
+        put_Extension                   : IntPtr
+        get_ConnectorTypeGuid           : IntPtr
+        put_ConnectorTypeGuid           : IntPtr
+        get_TransactionStatusQueueInfo  : IntPtr
+        get_DestinationSymmetricKey     : IntPtr
+        put_DestinationSymmetricKey     : IntPtr
+        get_Signature                   : IntPtr
+        put_Signature                   : IntPtr
+        get_AuthenticationProviderType  : IntPtr
+        put_AuthenticationProviderType  : IntPtr
+        get_AuthenticationProviderName  : IntPtr
+        put_AuthenticationProviderName  : IntPtr
+        put_SenderId                    : IntPtr
+        get_MsgClass                    : IntPtr
+        put_MsgClass                    : IntPtr
+        get_Properties                  : IntPtr
+        get_TransactionId               : IntPtr
+        get_IsFirstInTransaction        : IntPtr
+        get_IsLastInTransaction         : IntPtr
+        get_ResponseQueueInfo_v2        : IntPtr
+        putref_ResponseQueueInfo_v2     : IntPtr
+        get_AdminQueueInfo_v2           : IntPtr
+        putref_AdminQueueInfo_v2        : IntPtr
+        get_ReceivedAuthenticationLevel : IntPtr
+        get_ResponseQueueInfo           : IntPtr
+        putref_ResponseQueueInfo        : IntPtr
+        get_AdminQueueInfo              : IntPtr
+        putref_AdminQueueInfo           : IntPtr
+        get_ResponseDestination         : IntPtr
+        putref_ResponseDestination      : IntPtr
+        get_Destination                 : IntPtr
+        get_LookupId                    : IntPtr
+        get_IsAuthenticated2            : IntPtr
+        get_IsFirstInTransaction2       : IntPtr
+        get_IsLastInTransaction2        : IntPtr
+        AttachCurrentSecurityContext2   : IntPtr
+        get_SoapEnvelope                : IntPtr
+        get_CompoundMessage             : IntPtr
+        put_SoapHeader                  : IntPtr
+        put_SoapBody                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Class", "get_PrivLevel", "put_PrivLevel", "get_AuthLevel", "put_AuthLevel", "get_IsAuthenticated", "get_Delivery", "put_Delivery", "get_Trace", "put_Trace", "get_Priority", "put_Priority", "get_Journal", "put_Journal", "get_ResponseQueueInfo_v1", "putref_ResponseQueueInfo_v1", "get_AppSpecific", "put_AppSpecific", "get_SourceMachineGuid", "get_BodyLength", "get_Body", "put_Body", "get_AdminQueueInfo_v1", "putref_AdminQueueInfo_v1", "get_Id", "get_CorrelationId", "put_CorrelationId", "get_Ack", "put_Ack", "get_Label", "put_Label", "get_MaxTimeToReachQueue", "put_MaxTimeToReachQueue", "get_MaxTimeToReceive", "put_MaxTimeToReceive", "get_HashAlgorithm", "put_HashAlgorithm", "get_EncryptAlgorithm", "put_EncryptAlgorithm", "get_SentTime", "get_ArrivedTime", "get_DestinationQueueInfo", "get_SenderCertificate", "put_SenderCertificate", "get_SenderId", "get_SenderIdType", "put_SenderIdType", "Send", "AttachCurrentSecurityContext", "get_SenderVersion", "get_Extension", "put_Extension", "get_ConnectorTypeGuid", "put_ConnectorTypeGuid", "get_TransactionStatusQueueInfo", "get_DestinationSymmetricKey", "put_DestinationSymmetricKey", "get_Signature", "put_Signature", "get_AuthenticationProviderType", "put_AuthenticationProviderType", "get_AuthenticationProviderName", "put_AuthenticationProviderName", "put_SenderId", "get_MsgClass", "put_MsgClass", "get_Properties", "get_TransactionId", "get_IsFirstInTransaction", "get_IsLastInTransaction", "get_ResponseQueueInfo_v2", "putref_ResponseQueueInfo_v2", "get_AdminQueueInfo_v2", "putref_AdminQueueInfo_v2", "get_ReceivedAuthenticationLevel", "get_ResponseQueueInfo", "putref_ResponseQueueInfo", "get_AdminQueueInfo", "putref_AdminQueueInfo", "get_ResponseDestination", "putref_ResponseDestination", "get_Destination", "get_LookupId", "get_IsAuthenticated2", "get_IsFirstInTransaction2", "get_IsLastInTransaction2", "AttachCurrentSecurityContext2", "get_SoapEnvelope", "get_CompoundMessage", "put_SoapHeader", "put_SoapBody"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQMessage3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -624,8 +723,8 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_SourceMachineGuid() {
-        pbstrGuidSrcMachine := BSTR()
-        result := ComCall(25, this, "ptr", pbstrGuidSrcMachine, "HRESULT")
+        pbstrGuidSrcMachine := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, pbstrGuidSrcMachine, "HRESULT")
         return pbstrGuidSrcMachine
     }
 
@@ -644,7 +743,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_Body() {
         pvarBody := VARIANT()
-        result := ComCall(27, this, "ptr", pvarBody, "HRESULT")
+        result := ComCall(27, this, VARIANT.Ptr, pvarBody, "HRESULT")
         return pvarBody
     }
 
@@ -654,7 +753,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Body(varBody) {
-        result := ComCall(28, this, "ptr", varBody, "HRESULT")
+        result := ComCall(28, this, VARIANT, varBody, "HRESULT")
         return result
     }
 
@@ -683,7 +782,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_Id() {
         pvarMsgId := VARIANT()
-        result := ComCall(31, this, "ptr", pvarMsgId, "HRESULT")
+        result := ComCall(31, this, VARIANT.Ptr, pvarMsgId, "HRESULT")
         return pvarMsgId
     }
 
@@ -693,7 +792,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_CorrelationId() {
         pvarMsgId := VARIANT()
-        result := ComCall(32, this, "ptr", pvarMsgId, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, pvarMsgId, "HRESULT")
         return pvarMsgId
     }
 
@@ -703,7 +802,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_CorrelationId(varMsgId) {
-        result := ComCall(33, this, "ptr", varMsgId, "HRESULT")
+        result := ComCall(33, this, VARIANT, varMsgId, "HRESULT")
         return result
     }
 
@@ -731,8 +830,8 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_Label() {
-        pbstrLabel := BSTR()
-        result := ComCall(36, this, "ptr", pbstrLabel, "HRESULT")
+        pbstrLabel := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, pbstrLabel, "HRESULT")
         return pbstrLabel
     }
 
@@ -744,7 +843,7 @@ class IMSMQMessage3 extends IDispatch {
     put_Label(bstrLabel) {
         bstrLabel := bstrLabel is String ? BSTR.Alloc(bstrLabel).Value : bstrLabel
 
-        result := ComCall(37, this, "ptr", bstrLabel, "HRESULT")
+        result := ComCall(37, this, BSTR, bstrLabel, "HRESULT")
         return result
     }
 
@@ -830,7 +929,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_SentTime() {
         pvarSentTime := VARIANT()
-        result := ComCall(46, this, "ptr", pvarSentTime, "HRESULT")
+        result := ComCall(46, this, VARIANT.Ptr, pvarSentTime, "HRESULT")
         return pvarSentTime
     }
 
@@ -840,7 +939,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_ArrivedTime() {
         plArrivedTime := VARIANT()
-        result := ComCall(47, this, "ptr", plArrivedTime, "HRESULT")
+        result := ComCall(47, this, VARIANT.Ptr, plArrivedTime, "HRESULT")
         return plArrivedTime
     }
 
@@ -859,7 +958,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_SenderCertificate() {
         pvarSenderCert := VARIANT()
-        result := ComCall(49, this, "ptr", pvarSenderCert, "HRESULT")
+        result := ComCall(49, this, VARIANT.Ptr, pvarSenderCert, "HRESULT")
         return pvarSenderCert
     }
 
@@ -869,7 +968,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SenderCertificate(varSenderCert) {
-        result := ComCall(50, this, "ptr", varSenderCert, "HRESULT")
+        result := ComCall(50, this, VARIANT, varSenderCert, "HRESULT")
         return result
     }
 
@@ -879,7 +978,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_SenderId() {
         pvarSenderId := VARIANT()
-        result := ComCall(51, this, "ptr", pvarSenderId, "HRESULT")
+        result := ComCall(51, this, VARIANT.Ptr, pvarSenderId, "HRESULT")
         return pvarSenderId
     }
 
@@ -903,145 +1002,13 @@ class IMSMQMessage3 extends IDispatch {
     }
 
     /**
-     * The SendARP function sends an Address Resolution Protocol (ARP) request to obtain the physical address that corresponds to the specified destination IPv4 address.
-     * @remarks
-     * The <b>SendARP</b> function is used to request the physical hardware address (sometimes referred to as the MAC address) that corresponds to a specified destination IPv4 address. If the information requested is not in the ARP table on the local computer, then the <b>SendARP</b> function will cause an ARP request to be sent to obtain the physical address. If the function is successful, the physical address that corresponds to the specified destination IPv4 address is returned in the array pointed to by the <i>pMacAddr</i> parameter. 
      * 
-     * The physical address of an IPv4 address is only available if the destination IPv4 address is on the local subnet (the IPv4 address can be reached directly without going through any routers). The <b>SendARP</b> function will fail if the destination IPv4 address is not on the local subnet. 
-     * 
-     * If the <b>SendARP</b> function is successful on Windows Vista and later, the ARP table on the local computer is updated with the results.  If the <b>SendARP</b> function is successful on Windows Server 2003 and earlier, the ARP table on the local computer is not affected. 
-     * 
-     * The <b>SendARP</b> function on Windows Vista and later returns different error return values  than the  <b>SendARP</b> function on    Windows Server 2003 and earlier. 
-     * 
-     *  On Windows Vista and later, a <b>NULL</b> pointer passed as the <i>pMacAddr</i> or <i>PhyAddrLen</i> parameter to the <b>SendARP</b> function causes an access violation and the application is terminated. If an error occurs on Windows Vista and later and <b>ERROR_BAD_NET_NAME</b>,  <b>ERROR_BUFFER_OVERFLOW</b>, or <b>ERROR_NOT_FOUND</b> is returned, the <b>ULONG</b> value pointed to by the <i>PhyAddrLen</i> parameter is set to zero. If the <b>ULONG</b> value pointed to by the <i>PhyAddrLen</i> parameter is less than 6 on  Windows Vista and later, <b>SendARP</b> function returns  <b>ERROR_BUFFER_OVERFLOW</b> indicating the buffer to receive the physical address is too small. If the <i>SrcIp</i> parameter specifies an IPv4 address that is not an interface on the local computer, the <b>SendARP</b> function on    Windows Vista and later  returns <b>ERROR_NOT_FOUND</b>. 
-     * 
-     *  On Windows Server 2003 and earlier, a <b>NULL</b> pointer passed as the <i>pMacAddr</i> or <i>PhyAddrLen</i> parameter to the <b>SendARP</b> function returns <b>ERROR_INVALID_PARAMETER</b>. If an error occurs on Windows Server 2003 and earlier and <b>ERROR_GEN_FAILURE</b> or   <b>ERROR_INVALID_USER_BUFFER</b> is returned, the <b>ULONG</b> value pointed to by the <i>PhyAddrLen</i> parameter is set to zero. If the <b>ULONG</b> value pointed to by the <i>PhyAddrLen</i> parameter is less than 6 on  Windows Server 2003 and earlier, the <b>SendARP</b> function does not return an error but only returns part of the hardware address in the array pointed to by the <i>pMacAddr</i> parameter. So if the value pointed to by the <i>PhyAddrLen</i> parameter is 4, then only the first 4 bytes of the hardware address are returned in the array pointed to by the <i>pMacAddr</i> parameter. If the <i>SrcIp</i> parameter specifies an IPv4 address that is not an interface on the local computer, the <b>SendARP</b> function on    Windows Server 2003 and  earlier ignores the <i>SrcIp</i> parameter and uses an IPv4 address on the local computer for the source IPv4 address. 
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipnettable">GetIpNetTable</a> function retrieves the ARP table on the local computer that maps IPv4 addresses to physical addresses.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-createipnetentry">CreateIpNetEntry</a> function creates an ARP entry in the ARP table on the local computer.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-deleteipnetentry">DeleteIpNetEntry</a> function deletes an ARP entry from the ARP table on the local computer.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-setipnetentry">SetIpNetEntry</a> function modifies an existing ARP entry in the ARP table on the local computer.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-flushipnettable">FlushIpNetTable</a> function deletes all ARP entries for the specified interface from the ARP table on the local computer. 
-     * 
-     * 
-     * 
-     * On Windows Vista and later, the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-resolveipnetentry2">ResolveIpNetEntry2</a> function can used to replace the <b>SendARP</b> function. An ARP request is sent if the <b>Address</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure passed to the <b>ResolveIpNetEntry2</b> function is an IPv4 address.  
-     * 
-     * On Windows Vista, a new group of functions can be used to access, modify, and delete the ARP table entries when the <b>Address</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure passed to these functions is an IPv4 address.  The new functions include the following: <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipnettable2">GetIpNetTable2</a>, <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createipnetentry2">CreateIpNetEntry2</a>, <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-deleteipnetentry2">DeleteIpNetEntry2</a>,  <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-flushipnettable2">FlushIpNetTable2</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-setipnetentry2">SetIpNetEntry2</a>.
-     * 
-     * For information about the <b>IPAddr</b> data type, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">Windows Data Types</a>. To convert an IP address between dotted decimal notation and <b>IPAddr</b> format, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_addr">inet_addr</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_ntoa">inet_ntoa</a> functions.
      * @param {IDispatch} DestinationQueue 
      * @param {Pointer<VARIANT>} Transaction 
-     * @returns {HRESULT} If the function succeeds, the return value is NO_ERROR.
-     * 
-     * If the function fails, the return value is one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_NET_NAME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The network name cannot be found. This error is returned on Windows Vista and later when an ARP reply to the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-sendarp">SendARP</a> request was not received. This error occurs  if the destination IPv4 address could not be reached because it is not on the same subnet or  the destination computer is not operating. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BUFFER_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file name is too long. This error is returned on Windows Vista if the  <b>ULONG</b> value pointed to by the <i>PhyAddrLen</i> parameter is less than 6, the size required to store a complete physical address. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_GEN_FAILURE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A device attached to the system is not functioning. This error is returned on Windows Server 2003 and earlier when an ARP reply to the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-sendarp">SendARP</a> request was not received. This error can occur if destination IPv4 address could not be reached because it is not on the same subnet or  the destination computer is not operating. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is invalid. This error is returned on Windows Server 2003 and earlier if either the  <i>pMacAddr</i> or <i>PhyAddrLen</i> parameter is a <b>NULL</b> pointer. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The supplied user buffer is not valid for the requested operation. This error is returned on Windows Server 2003 and earlier if the  <b>ULONG</b> value pointed to by the <i>PhyAddrLen</i> parameter is zero. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Element not found. This error is returned on Windows Vista if the  the <i>SrcIp</i> parameter does not specify a source IPv4 address on an interface on the local computer or the <b>INADDR_ANY</b> IP address (an IPv4 address of 0.0.0.0). 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-sendarp">SendARP</a> function is not supported by the operating system running on the local computer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>Other</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * If the function fails, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-sendarp
+     * @returns {HRESULT} 
      */
     Send(DestinationQueue, Transaction) {
-        result := ComCall(54, this, "ptr", DestinationQueue, "ptr", Transaction, "HRESULT")
+        result := ComCall(54, this, "ptr", DestinationQueue, VARIANT.Ptr, Transaction, "HRESULT")
         return result
     }
 
@@ -1069,7 +1036,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_Extension() {
         pvarExtension := VARIANT()
-        result := ComCall(57, this, "ptr", pvarExtension, "HRESULT")
+        result := ComCall(57, this, VARIANT.Ptr, pvarExtension, "HRESULT")
         return pvarExtension
     }
 
@@ -1079,7 +1046,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Extension(varExtension) {
-        result := ComCall(58, this, "ptr", varExtension, "HRESULT")
+        result := ComCall(58, this, VARIANT, varExtension, "HRESULT")
         return result
     }
 
@@ -1088,8 +1055,8 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ConnectorTypeGuid() {
-        pbstrGuidConnectorType := BSTR()
-        result := ComCall(59, this, "ptr", pbstrGuidConnectorType, "HRESULT")
+        pbstrGuidConnectorType := BSTR.Owned()
+        result := ComCall(59, this, BSTR.Ptr, pbstrGuidConnectorType, "HRESULT")
         return pbstrGuidConnectorType
     }
 
@@ -1101,7 +1068,7 @@ class IMSMQMessage3 extends IDispatch {
     put_ConnectorTypeGuid(bstrGuidConnectorType) {
         bstrGuidConnectorType := bstrGuidConnectorType is String ? BSTR.Alloc(bstrGuidConnectorType).Value : bstrGuidConnectorType
 
-        result := ComCall(60, this, "ptr", bstrGuidConnectorType, "HRESULT")
+        result := ComCall(60, this, BSTR, bstrGuidConnectorType, "HRESULT")
         return result
     }
 
@@ -1120,7 +1087,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_DestinationSymmetricKey() {
         pvarDestSymmKey := VARIANT()
-        result := ComCall(62, this, "ptr", pvarDestSymmKey, "HRESULT")
+        result := ComCall(62, this, VARIANT.Ptr, pvarDestSymmKey, "HRESULT")
         return pvarDestSymmKey
     }
 
@@ -1130,7 +1097,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DestinationSymmetricKey(varDestSymmKey) {
-        result := ComCall(63, this, "ptr", varDestSymmKey, "HRESULT")
+        result := ComCall(63, this, VARIANT, varDestSymmKey, "HRESULT")
         return result
     }
 
@@ -1140,7 +1107,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_Signature() {
         pvarSignature := VARIANT()
-        result := ComCall(64, this, "ptr", pvarSignature, "HRESULT")
+        result := ComCall(64, this, VARIANT.Ptr, pvarSignature, "HRESULT")
         return pvarSignature
     }
 
@@ -1150,7 +1117,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Signature(varSignature) {
-        result := ComCall(65, this, "ptr", varSignature, "HRESULT")
+        result := ComCall(65, this, VARIANT, varSignature, "HRESULT")
         return result
     }
 
@@ -1178,8 +1145,8 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_AuthenticationProviderName() {
-        pbstrAuthProvName := BSTR()
-        result := ComCall(68, this, "ptr", pbstrAuthProvName, "HRESULT")
+        pbstrAuthProvName := BSTR.Owned()
+        result := ComCall(68, this, BSTR.Ptr, pbstrAuthProvName, "HRESULT")
         return pbstrAuthProvName
     }
 
@@ -1191,7 +1158,7 @@ class IMSMQMessage3 extends IDispatch {
     put_AuthenticationProviderName(bstrAuthProvName) {
         bstrAuthProvName := bstrAuthProvName is String ? BSTR.Alloc(bstrAuthProvName).Value : bstrAuthProvName
 
-        result := ComCall(69, this, "ptr", bstrAuthProvName, "HRESULT")
+        result := ComCall(69, this, BSTR, bstrAuthProvName, "HRESULT")
         return result
     }
 
@@ -1201,7 +1168,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SenderId(varSenderId) {
-        result := ComCall(70, this, "ptr", varSenderId, "HRESULT")
+        result := ComCall(70, this, VARIANT, varSenderId, "HRESULT")
         return result
     }
 
@@ -1239,7 +1206,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_TransactionId() {
         pvarXactId := VARIANT()
-        result := ComCall(74, this, "ptr", pvarXactId, "HRESULT")
+        result := ComCall(74, this, VARIANT.Ptr, pvarXactId, "HRESULT")
         return pvarXactId
     }
 
@@ -1380,7 +1347,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_LookupId() {
         pvarLookupId := VARIANT()
-        result := ComCall(89, this, "ptr", pvarLookupId, "HRESULT")
+        result := ComCall(89, this, VARIANT.Ptr, pvarLookupId, "HRESULT")
         return pvarLookupId
     }
 
@@ -1389,7 +1356,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsAuthenticated2() {
-        result := ComCall(90, this, "short*", &pisAuthenticated := 0, "HRESULT")
+        result := ComCall(90, this, VARIANT_BOOL.Ptr, &pisAuthenticated := 0, "HRESULT")
         return pisAuthenticated
     }
 
@@ -1398,7 +1365,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsFirstInTransaction2() {
-        result := ComCall(91, this, "short*", &pisFirstInXact := 0, "HRESULT")
+        result := ComCall(91, this, VARIANT_BOOL.Ptr, &pisFirstInXact := 0, "HRESULT")
         return pisFirstInXact
     }
 
@@ -1407,7 +1374,7 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsLastInTransaction2() {
-        result := ComCall(92, this, "short*", &pisLastInXact := 0, "HRESULT")
+        result := ComCall(92, this, VARIANT_BOOL.Ptr, &pisLastInXact := 0, "HRESULT")
         return pisLastInXact
     }
 
@@ -1425,8 +1392,8 @@ class IMSMQMessage3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_SoapEnvelope() {
-        pbstrSoapEnvelope := BSTR()
-        result := ComCall(94, this, "ptr", pbstrSoapEnvelope, "HRESULT")
+        pbstrSoapEnvelope := BSTR.Owned()
+        result := ComCall(94, this, BSTR.Ptr, pbstrSoapEnvelope, "HRESULT")
         return pbstrSoapEnvelope
     }
 
@@ -1436,7 +1403,7 @@ class IMSMQMessage3 extends IDispatch {
      */
     get_CompoundMessage() {
         pvarCompoundMessage := VARIANT()
-        result := ComCall(95, this, "ptr", pvarCompoundMessage, "HRESULT")
+        result := ComCall(95, this, VARIANT.Ptr, pvarCompoundMessage, "HRESULT")
         return pvarCompoundMessage
     }
 
@@ -1448,7 +1415,7 @@ class IMSMQMessage3 extends IDispatch {
     put_SoapHeader(bstrSoapHeader) {
         bstrSoapHeader := bstrSoapHeader is String ? BSTR.Alloc(bstrSoapHeader).Value : bstrSoapHeader
 
-        result := ComCall(96, this, "ptr", bstrSoapHeader, "HRESULT")
+        result := ComCall(96, this, BSTR, bstrSoapHeader, "HRESULT")
         return result
     }
 
@@ -1460,7 +1427,207 @@ class IMSMQMessage3 extends IDispatch {
     put_SoapBody(bstrSoapBody) {
         bstrSoapBody := bstrSoapBody is String ? BSTR.Alloc(bstrSoapBody).Value : bstrSoapBody
 
-        result := ComCall(97, this, "ptr", bstrSoapBody, "HRESULT")
+        result := ComCall(97, this, BSTR, bstrSoapBody, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSMQMessage3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Class := CallbackCreate(GetMethod(implObj, "get_Class"), flags, 2)
+        this.vtbl.get_PrivLevel := CallbackCreate(GetMethod(implObj, "get_PrivLevel"), flags, 2)
+        this.vtbl.put_PrivLevel := CallbackCreate(GetMethod(implObj, "put_PrivLevel"), flags, 2)
+        this.vtbl.get_AuthLevel := CallbackCreate(GetMethod(implObj, "get_AuthLevel"), flags, 2)
+        this.vtbl.put_AuthLevel := CallbackCreate(GetMethod(implObj, "put_AuthLevel"), flags, 2)
+        this.vtbl.get_IsAuthenticated := CallbackCreate(GetMethod(implObj, "get_IsAuthenticated"), flags, 2)
+        this.vtbl.get_Delivery := CallbackCreate(GetMethod(implObj, "get_Delivery"), flags, 2)
+        this.vtbl.put_Delivery := CallbackCreate(GetMethod(implObj, "put_Delivery"), flags, 2)
+        this.vtbl.get_Trace := CallbackCreate(GetMethod(implObj, "get_Trace"), flags, 2)
+        this.vtbl.put_Trace := CallbackCreate(GetMethod(implObj, "put_Trace"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Journal := CallbackCreate(GetMethod(implObj, "get_Journal"), flags, 2)
+        this.vtbl.put_Journal := CallbackCreate(GetMethod(implObj, "put_Journal"), flags, 2)
+        this.vtbl.get_ResponseQueueInfo_v1 := CallbackCreate(GetMethod(implObj, "get_ResponseQueueInfo_v1"), flags, 2)
+        this.vtbl.putref_ResponseQueueInfo_v1 := CallbackCreate(GetMethod(implObj, "putref_ResponseQueueInfo_v1"), flags, 2)
+        this.vtbl.get_AppSpecific := CallbackCreate(GetMethod(implObj, "get_AppSpecific"), flags, 2)
+        this.vtbl.put_AppSpecific := CallbackCreate(GetMethod(implObj, "put_AppSpecific"), flags, 2)
+        this.vtbl.get_SourceMachineGuid := CallbackCreate(GetMethod(implObj, "get_SourceMachineGuid"), flags, 2)
+        this.vtbl.get_BodyLength := CallbackCreate(GetMethod(implObj, "get_BodyLength"), flags, 2)
+        this.vtbl.get_Body := CallbackCreate(GetMethod(implObj, "get_Body"), flags, 2)
+        this.vtbl.put_Body := CallbackCreate(GetMethod(implObj, "put_Body"), flags, 2)
+        this.vtbl.get_AdminQueueInfo_v1 := CallbackCreate(GetMethod(implObj, "get_AdminQueueInfo_v1"), flags, 2)
+        this.vtbl.putref_AdminQueueInfo_v1 := CallbackCreate(GetMethod(implObj, "putref_AdminQueueInfo_v1"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_CorrelationId := CallbackCreate(GetMethod(implObj, "get_CorrelationId"), flags, 2)
+        this.vtbl.put_CorrelationId := CallbackCreate(GetMethod(implObj, "put_CorrelationId"), flags, 2)
+        this.vtbl.get_Ack := CallbackCreate(GetMethod(implObj, "get_Ack"), flags, 2)
+        this.vtbl.put_Ack := CallbackCreate(GetMethod(implObj, "put_Ack"), flags, 2)
+        this.vtbl.get_Label := CallbackCreate(GetMethod(implObj, "get_Label"), flags, 2)
+        this.vtbl.put_Label := CallbackCreate(GetMethod(implObj, "put_Label"), flags, 2)
+        this.vtbl.get_MaxTimeToReachQueue := CallbackCreate(GetMethod(implObj, "get_MaxTimeToReachQueue"), flags, 2)
+        this.vtbl.put_MaxTimeToReachQueue := CallbackCreate(GetMethod(implObj, "put_MaxTimeToReachQueue"), flags, 2)
+        this.vtbl.get_MaxTimeToReceive := CallbackCreate(GetMethod(implObj, "get_MaxTimeToReceive"), flags, 2)
+        this.vtbl.put_MaxTimeToReceive := CallbackCreate(GetMethod(implObj, "put_MaxTimeToReceive"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_EncryptAlgorithm := CallbackCreate(GetMethod(implObj, "get_EncryptAlgorithm"), flags, 2)
+        this.vtbl.put_EncryptAlgorithm := CallbackCreate(GetMethod(implObj, "put_EncryptAlgorithm"), flags, 2)
+        this.vtbl.get_SentTime := CallbackCreate(GetMethod(implObj, "get_SentTime"), flags, 2)
+        this.vtbl.get_ArrivedTime := CallbackCreate(GetMethod(implObj, "get_ArrivedTime"), flags, 2)
+        this.vtbl.get_DestinationQueueInfo := CallbackCreate(GetMethod(implObj, "get_DestinationQueueInfo"), flags, 2)
+        this.vtbl.get_SenderCertificate := CallbackCreate(GetMethod(implObj, "get_SenderCertificate"), flags, 2)
+        this.vtbl.put_SenderCertificate := CallbackCreate(GetMethod(implObj, "put_SenderCertificate"), flags, 2)
+        this.vtbl.get_SenderId := CallbackCreate(GetMethod(implObj, "get_SenderId"), flags, 2)
+        this.vtbl.get_SenderIdType := CallbackCreate(GetMethod(implObj, "get_SenderIdType"), flags, 2)
+        this.vtbl.put_SenderIdType := CallbackCreate(GetMethod(implObj, "put_SenderIdType"), flags, 2)
+        this.vtbl.Send := CallbackCreate(GetMethod(implObj, "Send"), flags, 3)
+        this.vtbl.AttachCurrentSecurityContext := CallbackCreate(GetMethod(implObj, "AttachCurrentSecurityContext"), flags, 1)
+        this.vtbl.get_SenderVersion := CallbackCreate(GetMethod(implObj, "get_SenderVersion"), flags, 2)
+        this.vtbl.get_Extension := CallbackCreate(GetMethod(implObj, "get_Extension"), flags, 2)
+        this.vtbl.put_Extension := CallbackCreate(GetMethod(implObj, "put_Extension"), flags, 2)
+        this.vtbl.get_ConnectorTypeGuid := CallbackCreate(GetMethod(implObj, "get_ConnectorTypeGuid"), flags, 2)
+        this.vtbl.put_ConnectorTypeGuid := CallbackCreate(GetMethod(implObj, "put_ConnectorTypeGuid"), flags, 2)
+        this.vtbl.get_TransactionStatusQueueInfo := CallbackCreate(GetMethod(implObj, "get_TransactionStatusQueueInfo"), flags, 2)
+        this.vtbl.get_DestinationSymmetricKey := CallbackCreate(GetMethod(implObj, "get_DestinationSymmetricKey"), flags, 2)
+        this.vtbl.put_DestinationSymmetricKey := CallbackCreate(GetMethod(implObj, "put_DestinationSymmetricKey"), flags, 2)
+        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 2)
+        this.vtbl.put_Signature := CallbackCreate(GetMethod(implObj, "put_Signature"), flags, 2)
+        this.vtbl.get_AuthenticationProviderType := CallbackCreate(GetMethod(implObj, "get_AuthenticationProviderType"), flags, 2)
+        this.vtbl.put_AuthenticationProviderType := CallbackCreate(GetMethod(implObj, "put_AuthenticationProviderType"), flags, 2)
+        this.vtbl.get_AuthenticationProviderName := CallbackCreate(GetMethod(implObj, "get_AuthenticationProviderName"), flags, 2)
+        this.vtbl.put_AuthenticationProviderName := CallbackCreate(GetMethod(implObj, "put_AuthenticationProviderName"), flags, 2)
+        this.vtbl.put_SenderId := CallbackCreate(GetMethod(implObj, "put_SenderId"), flags, 2)
+        this.vtbl.get_MsgClass := CallbackCreate(GetMethod(implObj, "get_MsgClass"), flags, 2)
+        this.vtbl.put_MsgClass := CallbackCreate(GetMethod(implObj, "put_MsgClass"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_TransactionId := CallbackCreate(GetMethod(implObj, "get_TransactionId"), flags, 2)
+        this.vtbl.get_IsFirstInTransaction := CallbackCreate(GetMethod(implObj, "get_IsFirstInTransaction"), flags, 2)
+        this.vtbl.get_IsLastInTransaction := CallbackCreate(GetMethod(implObj, "get_IsLastInTransaction"), flags, 2)
+        this.vtbl.get_ResponseQueueInfo_v2 := CallbackCreate(GetMethod(implObj, "get_ResponseQueueInfo_v2"), flags, 2)
+        this.vtbl.putref_ResponseQueueInfo_v2 := CallbackCreate(GetMethod(implObj, "putref_ResponseQueueInfo_v2"), flags, 2)
+        this.vtbl.get_AdminQueueInfo_v2 := CallbackCreate(GetMethod(implObj, "get_AdminQueueInfo_v2"), flags, 2)
+        this.vtbl.putref_AdminQueueInfo_v2 := CallbackCreate(GetMethod(implObj, "putref_AdminQueueInfo_v2"), flags, 2)
+        this.vtbl.get_ReceivedAuthenticationLevel := CallbackCreate(GetMethod(implObj, "get_ReceivedAuthenticationLevel"), flags, 2)
+        this.vtbl.get_ResponseQueueInfo := CallbackCreate(GetMethod(implObj, "get_ResponseQueueInfo"), flags, 2)
+        this.vtbl.putref_ResponseQueueInfo := CallbackCreate(GetMethod(implObj, "putref_ResponseQueueInfo"), flags, 2)
+        this.vtbl.get_AdminQueueInfo := CallbackCreate(GetMethod(implObj, "get_AdminQueueInfo"), flags, 2)
+        this.vtbl.putref_AdminQueueInfo := CallbackCreate(GetMethod(implObj, "putref_AdminQueueInfo"), flags, 2)
+        this.vtbl.get_ResponseDestination := CallbackCreate(GetMethod(implObj, "get_ResponseDestination"), flags, 2)
+        this.vtbl.putref_ResponseDestination := CallbackCreate(GetMethod(implObj, "putref_ResponseDestination"), flags, 2)
+        this.vtbl.get_Destination := CallbackCreate(GetMethod(implObj, "get_Destination"), flags, 2)
+        this.vtbl.get_LookupId := CallbackCreate(GetMethod(implObj, "get_LookupId"), flags, 2)
+        this.vtbl.get_IsAuthenticated2 := CallbackCreate(GetMethod(implObj, "get_IsAuthenticated2"), flags, 2)
+        this.vtbl.get_IsFirstInTransaction2 := CallbackCreate(GetMethod(implObj, "get_IsFirstInTransaction2"), flags, 2)
+        this.vtbl.get_IsLastInTransaction2 := CallbackCreate(GetMethod(implObj, "get_IsLastInTransaction2"), flags, 2)
+        this.vtbl.AttachCurrentSecurityContext2 := CallbackCreate(GetMethod(implObj, "AttachCurrentSecurityContext2"), flags, 1)
+        this.vtbl.get_SoapEnvelope := CallbackCreate(GetMethod(implObj, "get_SoapEnvelope"), flags, 2)
+        this.vtbl.get_CompoundMessage := CallbackCreate(GetMethod(implObj, "get_CompoundMessage"), flags, 2)
+        this.vtbl.put_SoapHeader := CallbackCreate(GetMethod(implObj, "put_SoapHeader"), flags, 2)
+        this.vtbl.put_SoapBody := CallbackCreate(GetMethod(implObj, "put_SoapBody"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Class)
+        CallbackFree(this.vtbl.get_PrivLevel)
+        CallbackFree(this.vtbl.put_PrivLevel)
+        CallbackFree(this.vtbl.get_AuthLevel)
+        CallbackFree(this.vtbl.put_AuthLevel)
+        CallbackFree(this.vtbl.get_IsAuthenticated)
+        CallbackFree(this.vtbl.get_Delivery)
+        CallbackFree(this.vtbl.put_Delivery)
+        CallbackFree(this.vtbl.get_Trace)
+        CallbackFree(this.vtbl.put_Trace)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.get_Journal)
+        CallbackFree(this.vtbl.put_Journal)
+        CallbackFree(this.vtbl.get_ResponseQueueInfo_v1)
+        CallbackFree(this.vtbl.putref_ResponseQueueInfo_v1)
+        CallbackFree(this.vtbl.get_AppSpecific)
+        CallbackFree(this.vtbl.put_AppSpecific)
+        CallbackFree(this.vtbl.get_SourceMachineGuid)
+        CallbackFree(this.vtbl.get_BodyLength)
+        CallbackFree(this.vtbl.get_Body)
+        CallbackFree(this.vtbl.put_Body)
+        CallbackFree(this.vtbl.get_AdminQueueInfo_v1)
+        CallbackFree(this.vtbl.putref_AdminQueueInfo_v1)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_CorrelationId)
+        CallbackFree(this.vtbl.put_CorrelationId)
+        CallbackFree(this.vtbl.get_Ack)
+        CallbackFree(this.vtbl.put_Ack)
+        CallbackFree(this.vtbl.get_Label)
+        CallbackFree(this.vtbl.put_Label)
+        CallbackFree(this.vtbl.get_MaxTimeToReachQueue)
+        CallbackFree(this.vtbl.put_MaxTimeToReachQueue)
+        CallbackFree(this.vtbl.get_MaxTimeToReceive)
+        CallbackFree(this.vtbl.put_MaxTimeToReceive)
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
+        CallbackFree(this.vtbl.get_EncryptAlgorithm)
+        CallbackFree(this.vtbl.put_EncryptAlgorithm)
+        CallbackFree(this.vtbl.get_SentTime)
+        CallbackFree(this.vtbl.get_ArrivedTime)
+        CallbackFree(this.vtbl.get_DestinationQueueInfo)
+        CallbackFree(this.vtbl.get_SenderCertificate)
+        CallbackFree(this.vtbl.put_SenderCertificate)
+        CallbackFree(this.vtbl.get_SenderId)
+        CallbackFree(this.vtbl.get_SenderIdType)
+        CallbackFree(this.vtbl.put_SenderIdType)
+        CallbackFree(this.vtbl.Send)
+        CallbackFree(this.vtbl.AttachCurrentSecurityContext)
+        CallbackFree(this.vtbl.get_SenderVersion)
+        CallbackFree(this.vtbl.get_Extension)
+        CallbackFree(this.vtbl.put_Extension)
+        CallbackFree(this.vtbl.get_ConnectorTypeGuid)
+        CallbackFree(this.vtbl.put_ConnectorTypeGuid)
+        CallbackFree(this.vtbl.get_TransactionStatusQueueInfo)
+        CallbackFree(this.vtbl.get_DestinationSymmetricKey)
+        CallbackFree(this.vtbl.put_DestinationSymmetricKey)
+        CallbackFree(this.vtbl.get_Signature)
+        CallbackFree(this.vtbl.put_Signature)
+        CallbackFree(this.vtbl.get_AuthenticationProviderType)
+        CallbackFree(this.vtbl.put_AuthenticationProviderType)
+        CallbackFree(this.vtbl.get_AuthenticationProviderName)
+        CallbackFree(this.vtbl.put_AuthenticationProviderName)
+        CallbackFree(this.vtbl.put_SenderId)
+        CallbackFree(this.vtbl.get_MsgClass)
+        CallbackFree(this.vtbl.put_MsgClass)
+        CallbackFree(this.vtbl.get_Properties)
+        CallbackFree(this.vtbl.get_TransactionId)
+        CallbackFree(this.vtbl.get_IsFirstInTransaction)
+        CallbackFree(this.vtbl.get_IsLastInTransaction)
+        CallbackFree(this.vtbl.get_ResponseQueueInfo_v2)
+        CallbackFree(this.vtbl.putref_ResponseQueueInfo_v2)
+        CallbackFree(this.vtbl.get_AdminQueueInfo_v2)
+        CallbackFree(this.vtbl.putref_AdminQueueInfo_v2)
+        CallbackFree(this.vtbl.get_ReceivedAuthenticationLevel)
+        CallbackFree(this.vtbl.get_ResponseQueueInfo)
+        CallbackFree(this.vtbl.putref_ResponseQueueInfo)
+        CallbackFree(this.vtbl.get_AdminQueueInfo)
+        CallbackFree(this.vtbl.putref_AdminQueueInfo)
+        CallbackFree(this.vtbl.get_ResponseDestination)
+        CallbackFree(this.vtbl.putref_ResponseDestination)
+        CallbackFree(this.vtbl.get_Destination)
+        CallbackFree(this.vtbl.get_LookupId)
+        CallbackFree(this.vtbl.get_IsAuthenticated2)
+        CallbackFree(this.vtbl.get_IsFirstInTransaction2)
+        CallbackFree(this.vtbl.get_IsLastInTransaction2)
+        CallbackFree(this.vtbl.AttachCurrentSecurityContext2)
+        CallbackFree(this.vtbl.get_SoapEnvelope)
+        CallbackFree(this.vtbl.get_CompoundMessage)
+        CallbackFree(this.vtbl.put_SoapHeader)
+        CallbackFree(this.vtbl.put_SoapBody)
     }
 }

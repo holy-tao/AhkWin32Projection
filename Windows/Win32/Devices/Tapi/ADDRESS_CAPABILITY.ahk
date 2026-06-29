@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A member of the ADDRESS_CAPABILITY enum is used by the ITAddressCapabilities::get_AddressCapability method to indicate the address capability required.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_capability
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ADDRESS_CAPABILITY extends Win32Enum {
+export default struct ADDRESS_CAPABILITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An address may support more than one 

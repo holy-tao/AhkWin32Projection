@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidDevice.ahk" { IMSVidDevice }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Windows XP or later. The IMSVidDeviceEvent interface is the base interface for device events. Do not implement this interface directly. Other event interfaces derive from this interface.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsviddeviceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidDeviceEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidDeviceEvent extends IDispatch {
     /**
      * The interface identifier for IMSVidDeviceEvent
      * @type {Guid}
      */
-    static IID => Guid("{1c15d480-911d-11d2-b632-00c04f79498e}")
+    static IID := Guid("{1c15d480-911d-11d2-b632-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidDeviceEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        StateChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StateChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidDeviceEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Windows XP or later.
@@ -44,5 +53,25 @@ class IMSVidDeviceEvent extends IDispatch {
     StateChange(lpd, oldState, newState) {
         result := ComCall(7, this, "ptr", lpd, "int", oldState, "int", newState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidDeviceEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StateChange := CallbackCreate(GetMethod(implObj, "StateChange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StateChange)
     }
 }

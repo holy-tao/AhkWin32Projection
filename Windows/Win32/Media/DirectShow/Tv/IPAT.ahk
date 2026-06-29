@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * The IPAT interface enables the client to get information from a Program Association Table (PAT). The IAtscPsipParser::GetPAT method returns a pointer to this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-ipat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IPAT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPAT extends IUnknown {
     /**
      * The interface identifier for IPAT
      * @type {Guid}
      */
-    static IID => Guid("{6623b511-4b5f-43c3-9a01-e8ff84188060}")
+    static IID := Guid("{6623b511-4b5f-43c3-9a01-e8ff84188060}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPAT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize              : IntPtr
+        GetTransportStreamId    : IntPtr
+        GetVersionNumber        : IntPtr
+        GetCountOfRecords       : IntPtr
+        GetRecordProgramNumber  : IntPtr
+        GetRecordProgramMapPid  : IntPtr
+        FindRecordProgramMapPid : IntPtr
+        RegisterForNextTable    : IntPtr
+        GetNextTable            : IntPtr
+        RegisterForWhenCurrent  : IntPtr
+        ConvertNextToCurrent    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetTransportStreamId", "GetVersionNumber", "GetCountOfRecords", "GetRecordProgramNumber", "GetRecordProgramMapPid", "FindRecordProgramMapPid", "RegisterForNextTable", "GetNextTable", "RegisterForWhenCurrent", "ConvertNextToCurrent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPAT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes the object using captured table section data. This method is called internally by the IAtscPsipParser::GetPAT method, so applications typically should not call it.
@@ -204,9 +225,7 @@ class IPAT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
-        hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
-
-        result := ComCall(10, this, "ptr", hNextTableAvailable, "HRESULT")
+        result := ComCall(10, this, HANDLE, hNextTableAvailable, "HRESULT")
         return result
     }
 
@@ -282,9 +301,7 @@ class IPAT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
-        hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
-
-        result := ComCall(12, this, "ptr", hNextTableIsCurrent, "HRESULT")
+        result := ComCall(12, this, HANDLE, hNextTableIsCurrent, "HRESULT")
         return result
     }
 
@@ -349,5 +366,45 @@ class IPAT extends IUnknown {
     ConvertNextToCurrent() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPAT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetTransportStreamId := CallbackCreate(GetMethod(implObj, "GetTransportStreamId"), flags, 2)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordProgramNumber := CallbackCreate(GetMethod(implObj, "GetRecordProgramNumber"), flags, 3)
+        this.vtbl.GetRecordProgramMapPid := CallbackCreate(GetMethod(implObj, "GetRecordProgramMapPid"), flags, 3)
+        this.vtbl.FindRecordProgramMapPid := CallbackCreate(GetMethod(implObj, "FindRecordProgramMapPid"), flags, 3)
+        this.vtbl.RegisterForNextTable := CallbackCreate(GetMethod(implObj, "RegisterForNextTable"), flags, 2)
+        this.vtbl.GetNextTable := CallbackCreate(GetMethod(implObj, "GetNextTable"), flags, 2)
+        this.vtbl.RegisterForWhenCurrent := CallbackCreate(GetMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
+        this.vtbl.ConvertNextToCurrent := CallbackCreate(GetMethod(implObj, "ConvertNextToCurrent"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetTransportStreamId)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordProgramNumber)
+        CallbackFree(this.vtbl.GetRecordProgramMapPid)
+        CallbackFree(this.vtbl.FindRecordProgramMapPid)
+        CallbackFree(this.vtbl.RegisterForNextTable)
+        CallbackFree(this.vtbl.GetNextTable)
+        CallbackFree(this.vtbl.RegisterForWhenCurrent)
+        CallbackFree(this.vtbl.ConvertNextToCurrent)
     }
 }

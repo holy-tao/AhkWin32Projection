@@ -1,11 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\Gdi\HDC.ahk
-#Include .\DWRITE_MATRIX.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which can be used for rendering glyphs.
@@ -66,26 +71,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritebitmaprendertarget
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteBitmapRenderTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteBitmapRenderTarget extends IUnknown {
     /**
      * The interface identifier for IDWriteBitmapRenderTarget
      * @type {Guid}
      */
-    static IID => Guid("{5e5a32a3-8dff-4773-9ff6-0696eab77267}")
+    static IID := Guid("{5e5a32a3-8dff-4773-9ff6-0696eab77267}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteBitmapRenderTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DrawGlyphRun        : IntPtr
+        GetMemoryDC         : IntPtr
+        GetPixelsPerDip     : IntPtr
+        SetPixelsPerDip     : IntPtr
+        GetCurrentTransform : IntPtr
+        SetCurrentTransform : IntPtr
+        GetSize             : IntPtr
+        Resize              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DrawGlyphRun", "GetMemoryDC", "GetPixelsPerDip", "SetPixelsPerDip", "GetCurrentTransform", "SetCurrentTransform", "GetSize", "Resize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteBitmapRenderTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Draws a run of glyphs to a bitmap target at the specified position.
@@ -155,7 +174,7 @@ class IDWriteBitmapRenderTarget extends IUnknown {
      */
     DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, renderingParams, textColor) {
         blackBoxRect := RECT()
-        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", _glyphRun, "ptr", renderingParams, "uint", textColor, "ptr", blackBoxRect, "HRESULT")
+        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", renderingParams, COLORREF, textColor, RECT.Ptr, blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 
@@ -183,9 +202,8 @@ class IDWriteBitmapRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getmemorydc
      */
     GetMemoryDC() {
-        result := ComCall(4, this, "ptr")
-        resultHandle := HDC({Value: result}, True)
-        return resultHandle
+        result := ComCall(4, this, HDC)
+        return result
     }
 
     /**
@@ -199,7 +217,7 @@ class IDWriteBitmapRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getpixelsperdip
      */
     GetPixelsPerDip() {
-        result := ComCall(5, this, "float")
+        result := ComCall(5, this, Float32)
         return result
     }
 
@@ -227,7 +245,7 @@ class IDWriteBitmapRenderTarget extends IUnknown {
      */
     GetCurrentTransform() {
         transform := DWRITE_MATRIX()
-        result := ComCall(7, this, "ptr", transform, "HRESULT")
+        result := ComCall(7, this, DWRITE_MATRIX.Ptr, transform, "HRESULT")
         return transform
     }
 
@@ -243,7 +261,7 @@ class IDWriteBitmapRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-setcurrenttransform
      */
     SetCurrentTransform(transform) {
-        result := ComCall(8, this, "ptr", transform, "HRESULT")
+        result := ComCall(8, this, DWRITE_MATRIX.Ptr, transform, "HRESULT")
         return result
     }
 
@@ -256,7 +274,7 @@ class IDWriteBitmapRenderTarget extends IUnknown {
      */
     GetSize() {
         _size := SIZE()
-        result := ComCall(9, this, "ptr", _size, "HRESULT")
+        result := ComCall(9, this, SIZE.Ptr, _size, "HRESULT")
         return _size
     }
 
@@ -276,5 +294,39 @@ class IDWriteBitmapRenderTarget extends IUnknown {
     Resize(width, height) {
         result := ComCall(10, this, "uint", width, "uint", height, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteBitmapRenderTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 8)
+        this.vtbl.GetMemoryDC := CallbackCreate(GetMethod(implObj, "GetMemoryDC"), flags, 1)
+        this.vtbl.GetPixelsPerDip := CallbackCreate(GetMethod(implObj, "GetPixelsPerDip"), flags, 1)
+        this.vtbl.SetPixelsPerDip := CallbackCreate(GetMethod(implObj, "SetPixelsPerDip"), flags, 2)
+        this.vtbl.GetCurrentTransform := CallbackCreate(GetMethod(implObj, "GetCurrentTransform"), flags, 2)
+        this.vtbl.SetCurrentTransform := CallbackCreate(GetMethod(implObj, "SetCurrentTransform"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DrawGlyphRun)
+        CallbackFree(this.vtbl.GetMemoryDC)
+        CallbackFree(this.vtbl.GetPixelsPerDip)
+        CallbackFree(this.vtbl.SetPixelsPerDip)
+        CallbackFree(this.vtbl.GetCurrentTransform)
+        CallbackFree(this.vtbl.SetCurrentTransform)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.Resize)
     }
 }

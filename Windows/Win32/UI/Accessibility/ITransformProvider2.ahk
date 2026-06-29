@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITransformProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ZoomUnit.ahk" { ZoomUnit }
+#Import ".\ITransformProvider.ahk" { ITransformProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extends the ITransformProvider interface to enable Microsoft UI Automation providers to expose properties to support the viewport zooming functionality of a control.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itransformprovider2
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ITransformProvider2 extends ITransformProvider {
-
-    static sizeof => A_PtrSize
+export default struct ITransformProvider2 extends ITransformProvider {
     /**
      * The interface identifier for ITransformProvider2
      * @type {Guid}
      */
-    static IID => Guid("{4758742f-7ac2-460c-bc48-09fc09308a93}")
+    static IID := Guid("{4758742f-7ac2-460c-bc48-09fc09308a93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransformProvider2 interfaces
+    */
+    struct Vtbl extends ITransformProvider.Vtbl {
+        Zoom            : IntPtr
+        get_CanZoom     : IntPtr
+        get_ZoomLevel   : IntPtr
+        get_ZoomMinimum : IntPtr
+        get_ZoomMaximum : IntPtr
+        ZoomByUnit      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Zoom", "get_CanZoom", "get_ZoomLevel", "get_ZoomMinimum", "get_ZoomMaximum", "ZoomByUnit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransformProvider2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -78,7 +93,7 @@ class ITransformProvider2 extends ITransformProvider {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_canzoom
      */
     get_CanZoom() {
-        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -119,7 +134,37 @@ class ITransformProvider2 extends ITransformProvider {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-zoombyunit
      */
     ZoomByUnit(_zoomUnit) {
-        result := ComCall(14, this, "int", _zoomUnit, "HRESULT")
+        result := ComCall(14, this, ZoomUnit, _zoomUnit, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITransformProvider2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Zoom := CallbackCreate(GetMethod(implObj, "Zoom"), flags, 2)
+        this.vtbl.get_CanZoom := CallbackCreate(GetMethod(implObj, "get_CanZoom"), flags, 2)
+        this.vtbl.get_ZoomLevel := CallbackCreate(GetMethod(implObj, "get_ZoomLevel"), flags, 2)
+        this.vtbl.get_ZoomMinimum := CallbackCreate(GetMethod(implObj, "get_ZoomMinimum"), flags, 2)
+        this.vtbl.get_ZoomMaximum := CallbackCreate(GetMethod(implObj, "get_ZoomMaximum"), flags, 2)
+        this.vtbl.ZoomByUnit := CallbackCreate(GetMethod(implObj, "ZoomByUnit"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Zoom)
+        CallbackFree(this.vtbl.get_CanZoom)
+        CallbackFree(this.vtbl.get_ZoomLevel)
+        CallbackFree(this.vtbl.get_ZoomMinimum)
+        CallbackFree(this.vtbl.get_ZoomMaximum)
+        CallbackFree(this.vtbl.ZoomByUnit)
     }
 }

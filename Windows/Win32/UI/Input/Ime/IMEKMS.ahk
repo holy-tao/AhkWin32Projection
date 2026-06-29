@@ -1,53 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HIMC.ahk
-#Include .\IMEKMSKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HIMC.ahk" { HIMC }
+#Import ".\IMEKMSKEY.ahk" { IMEKMSKEY }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEKMS extends Win32Struct {
-    static sizeof => 32
+export default struct IMEKMS {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : Int32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hIMC : HIMC
 
-    /**
-     * @type {HIMC}
-     */
-    hIMC {
-        get {
-            if(!this.HasProp("__hIMC"))
-                this.__hIMC := HIMC(8, this)
-            return this.__hIMC
-        }
-    }
+    cKeyList : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cKeyList {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pKeyList : IMEKMSKEY.Ptr
 
-    /**
-     * @type {Pointer<IMEKMSKEY>}
-     */
-    pKeyList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

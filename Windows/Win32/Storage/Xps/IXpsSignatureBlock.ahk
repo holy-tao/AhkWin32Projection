@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsSignatureRequestCollection.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include .\IXpsSignatureRequest.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsSignatureRequestCollection.ahk" { IXpsSignatureRequestCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsSignatureRequest.ahk" { IXpsSignatureRequest }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a block of signature requests that are stored in a SignatureDefinitions part.
@@ -13,26 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblock
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsSignatureBlock extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsSignatureBlock extends IUnknown {
     /**
      * The interface identifier for IXpsSignatureBlock
      * @type {Guid}
      */
-    static IID => Guid("{151fac09-0b97-4ac6-a323-5e4297d4322b}")
+    static IID := Guid("{151fac09-0b97-4ac6-a323-5e4297d4322b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsSignatureBlock interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRequests      : IntPtr
+        GetPartName      : IntPtr
+        GetDocumentIndex : IntPtr
+        GetDocumentName  : IntPtr
+        CreateRequest    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRequests", "GetPartName", "GetDocumentIndex", "GetDocumentName", "CreateRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsSignatureBlock.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsSignatureRequestCollection interface that contains a collection of signature requests.
@@ -92,5 +105,33 @@ class IXpsSignatureBlock extends IUnknown {
 
         result := ComCall(7, this, "ptr", requestId, "ptr*", &signatureRequest := 0, "HRESULT")
         return IXpsSignatureRequest(signatureRequest)
+    }
+
+    Query(iid) {
+        if (IXpsSignatureBlock.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRequests := CallbackCreate(GetMethod(implObj, "GetRequests"), flags, 2)
+        this.vtbl.GetPartName := CallbackCreate(GetMethod(implObj, "GetPartName"), flags, 2)
+        this.vtbl.GetDocumentIndex := CallbackCreate(GetMethod(implObj, "GetDocumentIndex"), flags, 2)
+        this.vtbl.GetDocumentName := CallbackCreate(GetMethod(implObj, "GetDocumentName"), flags, 2)
+        this.vtbl.CreateRequest := CallbackCreate(GetMethod(implObj, "CreateRequest"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRequests)
+        CallbackFree(this.vtbl.GetPartName)
+        CallbackFree(this.vtbl.GetDocumentIndex)
+        CallbackFree(this.vtbl.GetDocumentName)
+        CallbackFree(this.vtbl.CreateRequest)
     }
 }

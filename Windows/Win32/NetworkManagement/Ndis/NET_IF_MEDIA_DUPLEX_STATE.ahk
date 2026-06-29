@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NET_IF_MEDIA_DUPLEX_STATE enumeration type specifies the NDIS network interface duplex state.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_media_duplex_state
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NET_IF_MEDIA_DUPLEX_STATE extends Win32Enum {
+export default struct NET_IF_MEDIA_DUPLEX_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The duplex state of the miniport adapter is unknown.

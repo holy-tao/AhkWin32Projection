@@ -1,119 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains pointers to the Local Security Authority (LSA) functions that Windows authentication packages can call.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_dispatch_table
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_DISPATCH_TABLE extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct LSA_DISPATCH_TABLE {
+    #StructPack 8
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_create_logon_session">CreateLogonSession</a> function.
-     * @type {Pointer<PLSA_CREATE_LOGON_SESSION>}
      */
-    CreateLogonSession {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CreateLogonSession : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_delete_logon_session">DeleteLogonSession</a> function.
-     * @type {Pointer<PLSA_DELETE_LOGON_SESSION>}
      */
-    DeleteLogonSession {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DeleteLogonSession : IntPtr
 
     /**
      * Pointer to the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_add_credential">AddCredential</a> function.
-     * @type {Pointer<PLSA_ADD_CREDENTIAL>}
      */
-    AddCredential {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AddCredential : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_get_credentials">GetCredentials</a> function.
-     * @type {Pointer<PLSA_GET_CREDENTIALS>}
      */
-    GetCredentials {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GetCredentials : IntPtr
 
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_delete_credential">DeleteCredential</a> function.
-     * @type {Pointer<PLSA_DELETE_CREDENTIAL>}
      */
-    DeleteCredential {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DeleteCredential : IntPtr
 
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_allocate_lsa_heap">AllocateLsaHeap</a> function.
-     * @type {Pointer<PLSA_ALLOCATE_LSA_HEAP>}
      */
-    AllocateLsaHeap {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    AllocateLsaHeap : IntPtr
 
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntlsa/nc-ntlsa-lsa_free_lsa_heap">FreeLsaHeap</a> function.
-     * @type {Pointer<PLSA_FREE_LSA_HEAP>}
      */
-    FreeLsaHeap {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    FreeLsaHeap : IntPtr
 
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_allocate_client_buffer">AllocateClientBuffer</a> function.
-     * @type {Pointer<PLSA_ALLOCATE_CLIENT_BUFFER>}
      */
-    AllocateClientBuffer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    AllocateClientBuffer : IntPtr
 
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_free_client_buffer">FreeClientBuffer</a> function.
-     * @type {Pointer<PLSA_FREE_CLIENT_BUFFER>}
      */
-    FreeClientBuffer {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    FreeClientBuffer : IntPtr
 
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_copy_to_client_buffer">CopyToClientBuffer</a>  function.
-     * @type {Pointer<PLSA_COPY_TO_CLIENT_BUFFER>}
      */
-    CopyToClientBuffer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    CopyToClientBuffer : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_copy_from_client_buffer">CopyFromClientBuffer</a> function.
-     * @type {Pointer<PLSA_COPY_FROM_CLIENT_BUFFER>}
      */
-    CopyFromClientBuffer {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    CopyFromClientBuffer : IntPtr
+
 }

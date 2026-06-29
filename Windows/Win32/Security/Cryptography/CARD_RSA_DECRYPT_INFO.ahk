@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CARD_RSA_DECRYPT_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct CARD_RSA_DECRYPT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bContainerIndex : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bContainerIndex {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    dwKeySpec : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKeySpec {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pbData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pPaddingInfo : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPaddingInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwPaddingType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPaddingType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

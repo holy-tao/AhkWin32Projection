@@ -1,38 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITAgent.ahk
-#Include .\IEnumACDGroup.ahk
-#Include .\IEnumAddress.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
+#Import ".\IEnumACDGroup.ahk" { IEnumACDGroup }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITAgent.ahk" { ITAgent }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAgentHandler interface (tapi3cc.h) provides methods to create Agent objects and enumerate Automatic Call Distribution (ACD) groups.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagenthandler
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAgentHandler extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAgentHandler extends IDispatch {
     /**
      * The interface identifier for ITAgentHandler
      * @type {Guid}
      */
-    static IID => Guid("{587e8c22-9802-11d1-a0a4-00805fc147d3}")
+    static IID := Guid("{587e8c22-9802-11d1-a0a4-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAgentHandler interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                 : IntPtr
+        CreateAgent              : IntPtr
+        CreateAgentWithID        : IntPtr
+        EnumerateACDGroups       : IntPtr
+        EnumerateUsableAddresses : IntPtr
+        get_ACDGroups            : IntPtr
+        get_UsableAddresses      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "CreateAgent", "CreateAgentWithID", "EnumerateACDGroups", "EnumerateUsableAddresses", "get_ACDGroups", "get_UsableAddresses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAgentHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -64,8 +78,8 @@ class ITAgentHandler extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-get_name
      */
     get_Name() {
-        ppName := BSTR()
-        result := ComCall(7, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
     }
 
@@ -104,7 +118,7 @@ class ITAgentHandler extends IDispatch {
         pID := pID is String ? BSTR.Alloc(pID).Value : pID
         pPIN := pPIN is String ? BSTR.Alloc(pPIN).Value : pPIN
 
-        result := ComCall(9, this, "ptr", pID, "ptr", pPIN, "ptr*", &ppAgent := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, pID, BSTR, pPIN, "ptr*", &ppAgent := 0, "HRESULT")
         return ITAgent(ppAgent)
     }
 
@@ -151,7 +165,7 @@ class ITAgentHandler extends IDispatch {
      */
     get_ACDGroups() {
         pVariant := VARIANT()
-        result := ComCall(12, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -168,7 +182,39 @@ class ITAgentHandler extends IDispatch {
      */
     get_UsableAddresses() {
         pVariant := VARIANT()
-        result := ComCall(13, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
+    }
+
+    Query(iid) {
+        if (ITAgentHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.CreateAgent := CallbackCreate(GetMethod(implObj, "CreateAgent"), flags, 2)
+        this.vtbl.CreateAgentWithID := CallbackCreate(GetMethod(implObj, "CreateAgentWithID"), flags, 4)
+        this.vtbl.EnumerateACDGroups := CallbackCreate(GetMethod(implObj, "EnumerateACDGroups"), flags, 2)
+        this.vtbl.EnumerateUsableAddresses := CallbackCreate(GetMethod(implObj, "EnumerateUsableAddresses"), flags, 2)
+        this.vtbl.get_ACDGroups := CallbackCreate(GetMethod(implObj, "get_ACDGroups"), flags, 2)
+        this.vtbl.get_UsableAddresses := CallbackCreate(GetMethod(implObj, "get_UsableAddresses"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.CreateAgent)
+        CallbackFree(this.vtbl.CreateAgentWithID)
+        CallbackFree(this.vtbl.EnumerateACDGroups)
+        CallbackFree(this.vtbl.EnumerateUsableAddresses)
+        CallbackFree(this.vtbl.get_ACDGroups)
+        CallbackFree(this.vtbl.get_UsableAddresses)
     }
 }

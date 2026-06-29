@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IMoniker.ahk
-#Include .\IOleContainer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOleContainer.ahk" { IOleContainer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the primary means by which an embedded object obtains information about the location and extent of its display site, its moniker, its user interface, and other resources provided by its container.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleclientsite
  * @namespace Windows.Win32.System.Ole
  */
-class IOleClientSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleClientSite extends IUnknown {
     /**
      * The interface identifier for IOleClientSite
      * @type {Guid}
      */
-    static IID => Guid("{00000118-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000118-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleClientSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SaveObject             : IntPtr
+        GetMoniker             : IntPtr
+        GetContainer           : IntPtr
+        ShowObject             : IntPtr
+        OnShowWindow           : IntPtr
+        RequestNewObjectLayout : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SaveObject", "GetMoniker", "GetContainer", "ShowObject", "OnShowWindow", "RequestNewObjectLayout"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleClientSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Saves the embedded object associated with the client site. This function is synchronous; by the time it returns, the save will be completed.
@@ -142,7 +156,7 @@ class IOleClientSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleclientsite-onshowwindow
      */
     OnShowWindow(fShow) {
-        result := ComCall(7, this, "int", fShow, "HRESULT")
+        result := ComCall(7, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -174,5 +188,35 @@ class IOleClientSite extends IUnknown {
     RequestNewObjectLayout() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleClientSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SaveObject := CallbackCreate(GetMethod(implObj, "SaveObject"), flags, 1)
+        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 4)
+        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 2)
+        this.vtbl.ShowObject := CallbackCreate(GetMethod(implObj, "ShowObject"), flags, 1)
+        this.vtbl.OnShowWindow := CallbackCreate(GetMethod(implObj, "OnShowWindow"), flags, 2)
+        this.vtbl.RequestNewObjectLayout := CallbackCreate(GetMethod(implObj, "RequestNewObjectLayout"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SaveObject)
+        CallbackFree(this.vtbl.GetMoniker)
+        CallbackFree(this.vtbl.GetContainer)
+        CallbackFree(this.vtbl.ShowObject)
+        CallbackFree(this.vtbl.OnShowWindow)
+        CallbackFree(this.vtbl.RequestNewObjectLayout)
     }
 }

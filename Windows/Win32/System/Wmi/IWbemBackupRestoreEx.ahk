@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWbemBackupRestore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemBackupRestore.ahk" { IWbemBackupRestore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWbemBackupRestoreEx interface backs up and restores the contents of the repository.
@@ -16,26 +17,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbembackuprestoreex
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemBackupRestoreEx extends IWbemBackupRestore {
-
-    static sizeof => A_PtrSize
+export default struct IWbemBackupRestoreEx extends IWbemBackupRestore {
     /**
      * The interface identifier for IWbemBackupRestoreEx
      * @type {Guid}
      */
-    static IID => Guid("{a359dec5-e813-4834-8a2a-ba7f1d777d76}")
+    static IID := Guid("{a359dec5-e813-4834-8a2a-ba7f1d777d76}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemBackupRestoreEx interfaces
+    */
+    struct Vtbl extends IWbemBackupRestore.Vtbl {
+        Pause  : IntPtr
+        Resume : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Pause", "Resume"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemBackupRestoreEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemBackupRestoreEx::Pause method locks out write operations from the Windows Management Instrumentation (WMI) repository, and may cause read operations to be blocked.
@@ -65,5 +74,27 @@ class IWbemBackupRestoreEx extends IWbemBackupRestore {
     Resume() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemBackupRestoreEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
     }
 }

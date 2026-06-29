@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Options for handling pixels in a display surface after calling IDXGISwapChain1::Present1.
@@ -26,7 +25,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_SWAP_EFFECT extends Win32Enum {
+export default struct DXGI_SWAP_EFFECT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use this flag to specify the bit-block transfer (bitblt) model and to specify that DXGI discard the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.

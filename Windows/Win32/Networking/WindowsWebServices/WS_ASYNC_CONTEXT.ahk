@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with the Async Model to specify the asynchronous callback and a pointer which will be passed to the asynchronous callback.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_async_context
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ASYNC_CONTEXT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WS_ASYNC_CONTEXT {
+    #StructPack 8
 
     /**
      * The callback function to call if the operation completes asynchronously.
      *                     This field may not be <b>NULL</b>.
-     * @type {Pointer<WS_ASYNC_CALLBACK>}
      */
-    callback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    callback : IntPtr
 
     /**
      * A pointer to user-defined data which will passed to the asynchronous callback
      *                     function if the operation completes asynchronously.
-     * @type {Pointer<Void>}
      */
-    callbackState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    callbackState : IntPtr
+
 }

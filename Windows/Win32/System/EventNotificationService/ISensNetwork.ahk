@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SENS_QOCINFO.ahk" { SENS_QOCINFO }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SENS_CONNECTION_TYPE.ahk" { SENS_CONNECTION_TYPE }
 
 /**
  * The ISensNetwork interface handles network events fired by the System Event Notification Service (SENS).
  * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isensnetwork
  * @namespace Windows.Win32.System.EventNotificationService
  */
-class ISensNetwork extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISensNetwork extends IDispatch {
     /**
      * The interface identifier for ISensNetwork
      * @type {Guid}
      */
-    static IID => Guid("{d597bab1-5b9f-11d1-8dd2-00aa004abd5e}")
+    static IID := Guid("{d597bab1-5b9f-11d1-8dd2-00aa004abd5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISensNetwork interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        ConnectionMade                : IntPtr
+        ConnectionMadeNoQOCInfo       : IntPtr
+        ConnectionLost                : IntPtr
+        DestinationReachable          : IntPtr
+        DestinationReachableNoQOCInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConnectionMade", "ConnectionMadeNoQOCInfo", "ConnectionLost", "DestinationReachable", "DestinationReachableNoQOCInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISensNetwork.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ConnectionMade method notifies your application that the specified connection has been established.
@@ -64,7 +79,7 @@ class ISensNetwork extends IDispatch {
     ConnectionMade(bstrConnection, ulType, lpQOCInfo) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(7, this, "ptr", bstrConnection, "uint", ulType, "ptr", lpQOCInfo, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrConnection, "uint", ulType, SENS_QOCINFO.Ptr, lpQOCInfo, "HRESULT")
         return result
     }
 
@@ -101,7 +116,7 @@ class ISensNetwork extends IDispatch {
     ConnectionMadeNoQOCInfo(bstrConnection, ulType) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(8, this, "ptr", bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrConnection, "uint", ulType, "HRESULT")
         return result
     }
 
@@ -139,7 +154,7 @@ class ISensNetwork extends IDispatch {
     ConnectionLost(bstrConnection, ulType) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(9, this, "ptr", bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrConnection, SENS_CONNECTION_TYPE, ulType, "HRESULT")
         return result
     }
 
@@ -155,7 +170,7 @@ class ISensNetwork extends IDispatch {
         bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(10, this, "ptr", bstrDestination, "ptr", bstrConnection, "uint", ulType, "ptr", lpQOCInfo, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrDestination, BSTR, bstrConnection, "uint", ulType, SENS_QOCINFO.Ptr, lpQOCInfo, "HRESULT")
         return result
     }
 
@@ -170,7 +185,35 @@ class ISensNetwork extends IDispatch {
         bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(11, this, "ptr", bstrDestination, "ptr", bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrDestination, BSTR, bstrConnection, "uint", ulType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISensNetwork.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConnectionMade := CallbackCreate(GetMethod(implObj, "ConnectionMade"), flags, 4)
+        this.vtbl.ConnectionMadeNoQOCInfo := CallbackCreate(GetMethod(implObj, "ConnectionMadeNoQOCInfo"), flags, 3)
+        this.vtbl.ConnectionLost := CallbackCreate(GetMethod(implObj, "ConnectionLost"), flags, 3)
+        this.vtbl.DestinationReachable := CallbackCreate(GetMethod(implObj, "DestinationReachable"), flags, 5)
+        this.vtbl.DestinationReachableNoQOCInfo := CallbackCreate(GetMethod(implObj, "DestinationReachableNoQOCInfo"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConnectionMade)
+        CallbackFree(this.vtbl.ConnectionMadeNoQOCInfo)
+        CallbackFree(this.vtbl.ConnectionLost)
+        CallbackFree(this.vtbl.DestinationReachable)
+        CallbackFree(this.vtbl.DestinationReachableNoQOCInfo)
     }
 }

@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class REPL_EDIR_INFO_2 extends Win32Struct {
-    static sizeof => 24
+export default struct REPL_EDIR_INFO_2 {
+    #StructPack 8
 
-    static packingSize => 8
+    rped2_dirname : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rped2_dirname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rped2_integrity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rped2_integrity {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    rped2_extent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rped2_extent {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    rped2_lockcount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rped2_lockcount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    rped2_locktime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rped2_locktime {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

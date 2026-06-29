@@ -1,11 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
-#Include .\ODA_FLAGS.ahk
-#Include .\ODS_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ODA_FLAGS.ahk" { ODA_FLAGS }
+#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ODS_FLAGS.ahk" { ODS_FLAGS }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Provides information that the owner window uses to determine how to paint an owner-drawn control or menu item.
@@ -14,41 +13,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-drawitemstruct
  * @namespace Windows.Win32.UI.Controls
  */
-class DRAWITEMSTRUCT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct DRAWITEMSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
-    CtlType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CtlType : DRAWITEMSTRUCT_CTL_TYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The identifier of the combo box, list box, button, or static control. This member is not used for a menu item.
-     * @type {Integer}
      */
-    CtlID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CtlID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The menu item identifier for a menu item or the index of the item in a list box or combo box. For an empty list box or combo box, this member can be <c>-1</c>. This allows the application to draw only the focus rectangle at the coordinates specified by the <b>rcItem</b> member even though there are no items in the control. This indicates to the user whether the list box or combo box has the focus. How the bits are set in the <b>itemAction</b> member determines whether the rectangle is to be drawn as though the list box or combo box has the focus.
-     * @type {Integer}
      */
-    itemID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    itemID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -91,12 +76,8 @@ class DRAWITEMSTRUCT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ODA_FLAGS}
      */
-    itemAction {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    itemAction : ODA_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -219,54 +200,29 @@ class DRAWITEMSTRUCT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ODS_FLAGS}
      */
-    itemState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    itemState : ODS_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the control for combo boxes, list boxes, buttons, and static controls. For menus, this member is a handle to the menu that contains the item.
-     * @type {HWND}
      */
-    hwndItem {
-        get {
-            if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(24, this)
-            return this.__hwndItem
-        }
-    }
+    hwndItem : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to a device context; this device context must be used when performing drawing operations on the control.
-     * @type {HDC}
      */
-    hDC {
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(32, this)
-            return this.__hDC
-        }
-    }
+    hDC : HDC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * A rectangle that defines the boundaries of the control to be drawn. This rectangle is in the device context specified by the <b>hDC</b> member. The system automatically clips anything that the owner window draws in the device context for combo boxes, list boxes, and buttons, but does not clip menu items. When drawing menu items, the owner window must not draw outside the boundaries of the rectangle defined by the <b>rcItem</b> member.
-     * @type {RECT}
      */
-    rcItem {
-        get {
-            if(!this.HasProp("__rcItem"))
-                this.__rcItem := RECT(40, this)
-            return this.__rcItem
-        }
-    }
+    rcItem : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG_PTR</a></b>
@@ -289,10 +245,7 @@ class DRAWITEMSTRUCT extends Win32Struct {
      * </li>
      * </ul>
      * If <b>CtlType</b> is <b>ODT_BUTTON</b> or <b>ODT_STATIC</b>, <b>itemData</b> is zero.
-     * @type {Pointer}
      */
-    itemData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    itemData : IntPtr
+
 }

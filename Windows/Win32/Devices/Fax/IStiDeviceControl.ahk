@@ -1,31 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class IStiDeviceControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStiDeviceControl extends IUnknown {
     /**
      * The interface identifier for IStiDeviceControl
      * @type {Guid}
      */
-    static IID => Guid("{128a9860-52dc-11d0-9edf-444553540000}")
+    static IID := Guid("{128a9860-52dc-11d0-9edf-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStiDeviceControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize          : IntPtr
+        RawReadData         : IntPtr
+        RawWriteData        : IntPtr
+        RawReadCommand      : IntPtr
+        RawWriteCommand     : IntPtr
+        RawDeviceControl    : IntPtr
+        GetLastError        : IntPtr
+        GetMyDevicePortName : IntPtr
+        GetMyDeviceHandle   : IntPtr
+        GetMyDeviceOpenMode : IntPtr
+        WriteToErrorLog     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "RawReadData", "RawWriteData", "RawReadCommand", "RawWriteCommand", "RawDeviceControl", "GetLastError", "GetMyDevicePortName", "GetMyDeviceHandle", "GetMyDeviceOpenMode", "WriteToErrorLog"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStiDeviceControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -77,7 +98,7 @@ class IStiDeviceControl extends IUnknown {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(4, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -91,7 +112,7 @@ class IStiDeviceControl extends IUnknown {
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(5, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -106,7 +127,7 @@ class IStiDeviceControl extends IUnknown {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(6, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -120,7 +141,7 @@ class IStiDeviceControl extends IUnknown {
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(7, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -193,7 +214,7 @@ class IStiDeviceControl extends IUnknown {
      * @returns {HRESULT} 
      */
     GetMyDeviceHandle(lph) {
-        result := ComCall(11, this, "ptr", lph, "HRESULT")
+        result := ComCall(11, this, HANDLE.Ptr, lph, "HRESULT")
         return result
     }
 
@@ -221,5 +242,45 @@ class IStiDeviceControl extends IUnknown {
 
         result := ComCall(13, this, "uint", dwMessageType, "ptr", pszMessage, "uint", dwErrorCode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStiDeviceControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.RawReadData := CallbackCreate(GetMethod(implObj, "RawReadData"), flags, 4)
+        this.vtbl.RawWriteData := CallbackCreate(GetMethod(implObj, "RawWriteData"), flags, 4)
+        this.vtbl.RawReadCommand := CallbackCreate(GetMethod(implObj, "RawReadCommand"), flags, 4)
+        this.vtbl.RawWriteCommand := CallbackCreate(GetMethod(implObj, "RawWriteCommand"), flags, 4)
+        this.vtbl.RawDeviceControl := CallbackCreate(GetMethod(implObj, "RawDeviceControl"), flags, 7)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 2)
+        this.vtbl.GetMyDevicePortName := CallbackCreate(GetMethod(implObj, "GetMyDevicePortName"), flags, 3)
+        this.vtbl.GetMyDeviceHandle := CallbackCreate(GetMethod(implObj, "GetMyDeviceHandle"), flags, 2)
+        this.vtbl.GetMyDeviceOpenMode := CallbackCreate(GetMethod(implObj, "GetMyDeviceOpenMode"), flags, 2)
+        this.vtbl.WriteToErrorLog := CallbackCreate(GetMethod(implObj, "WriteToErrorLog"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.RawReadData)
+        CallbackFree(this.vtbl.RawWriteData)
+        CallbackFree(this.vtbl.RawReadCommand)
+        CallbackFree(this.vtbl.RawWriteCommand)
+        CallbackFree(this.vtbl.RawDeviceControl)
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.GetMyDevicePortName)
+        CallbackFree(this.vtbl.GetMyDeviceHandle)
+        CallbackFree(this.vtbl.GetMyDeviceOpenMode)
+        CallbackFree(this.vtbl.WriteToErrorLog)
     }
 }

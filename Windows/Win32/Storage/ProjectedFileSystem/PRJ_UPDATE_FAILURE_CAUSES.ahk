@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Descriptions for the reason an update failed.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_update_failure_causes
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  */
-class PRJ_UPDATE_FAILURE_CAUSES extends Win32BitflagEnum {
+export default struct PRJ_UPDATE_FAILURE_CAUSES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The update did not fail.

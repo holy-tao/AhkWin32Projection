@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This enumeration identifies the various ways to move about an xml document.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_move_to
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_MOVE_TO extends Win32Enum {
+export default struct WS_MOVE_TO {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Moves to the topmost element in the document.  If there is no root element, then the position is left unchanged.

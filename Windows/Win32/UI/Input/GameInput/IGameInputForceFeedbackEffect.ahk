@@ -1,87 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
+#Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GameInputFeedbackEffectState.ahk" { GameInputFeedbackEffectState }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class IGameInputForceFeedbackEffect extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGameInputForceFeedbackEffect extends IUnknown {
     /**
      * The interface identifier for IGameInputForceFeedbackEffect
      * @type {Guid}
      */
-    static IID => Guid("{51bda05e-f742-45d9-b085-9444ae48381d}")
+    static IID := Guid("{51bda05e-f742-45d9-b085-9444ae48381d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGameInputForceFeedbackEffect interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice     : IntPtr
+        GetMotorIndex : IntPtr
+        GetGain       : IntPtr
+        SetGain       : IntPtr
+        GetParams     : IntPtr
+        SetParams     : IntPtr
+        GetState      : IntPtr
+        SetState      : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGameInputForceFeedbackEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "GetMotorIndex", "GetGain", "SetGain", "GetParams", "SetParams", "GetState", "SetState"]
-
-    /**
-     * The GetDeviceCaps function retrieves device-specific information for the specified device.
-     * @remarks
-     * When <i>nIndex</i> is SHADEBLENDCAPS:
      * 
-     * <ul>
-     * <li>For a printer, <b>GetDeviceCaps</b> returns whatever the printer reports.</li>
-     * <li>For a display device, all blending operations are available; besides SB_NONE, the only return values are SB_CONST_ALPHA and SB_PIXEL_ALPHA, which indicate whether these operations are accelerated.</li>
-     * </ul>
-     * On a multiple monitor system, if <i>hdc</i> is the desktop, <b>GetDeviceCaps</b> returns the capabilities of the primary monitor. If you want info for other monitors, you must use the <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors-reference">multi-monitor APIs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> to get a HDC for the device context (DC) of a specific monitor.  
-     * 
-     * <div class="alert"><b>Note</b>  Display1 is typically the primary monitor, but not always.</div>
-     * <div> </div>
-     * <b>GetDeviceCaps</b> provides the following six indexes in place of printer escapes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Index</th>
-     * <th>Printer escape replaced</th>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALWIDTH</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALHEIGHT</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETX</td>
-     * <td>GETPRINTINGOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETY</td>
-     * <td>GETPHYSICALOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORX</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORY</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  <b>GetDeviceCaps</b> reports info that the display driver provides. If the display driver declines to report any info, <b>GetDeviceCaps</b> calculates the info based on fixed calculations. If the display driver reports invalid info, <b>GetDeviceCaps</b> returns the invalid info. Also, if the display driver declines to report info, <b>GetDeviceCaps</b> might calculate incorrect info because it assumes either fixed DPI (96 DPI) or a fixed size (depending on the info that the display driver did and didn’t provide). Unfortunately, a display driver that is implemented to the Windows Display Driver Model (WDDM) (introduced in Windows Vista) causes GDI to not get the info, so <b>GetDeviceCaps</b> must always calculate the info.</div>
-     * <div> </div>
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicecaps
      */
     GetDevice(device) {
-        ComCall(3, this, "ptr*", device)
+        ComCall(3, this, IGameInputDevice.Ptr, device)
     }
 
     /**
@@ -89,7 +58,7 @@ class IGameInputForceFeedbackEffect extends IUnknown {
      * @returns {Integer} 
      */
     GetMotorIndex() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -98,7 +67,7 @@ class IGameInputForceFeedbackEffect extends IUnknown {
      * @returns {Float} 
      */
     GetGain() {
-        result := ComCall(5, this, "float")
+        result := ComCall(5, this, Float32)
         return result
     }
 
@@ -117,7 +86,7 @@ class IGameInputForceFeedbackEffect extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     GetParams(params) {
-        ComCall(7, this, "ptr", params)
+        ComCall(7, this, GameInputForceFeedbackParams.Ptr, params)
     }
 
     /**
@@ -126,21 +95,16 @@ class IGameInputForceFeedbackEffect extends IUnknown {
      * @returns {Boolean} 
      */
     SetParams(params) {
-        result := ComCall(8, this, "ptr", params, "int")
+        result := ComCall(8, this, GameInputForceFeedbackParams.Ptr, params, Int32)
         return result
     }
 
     /**
-     * Gets current Interaction Context state and the time when the context will return to idle state.
-     * @remarks
-     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
-     * @returns {GameInputFeedbackEffectState} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
+     * 
+     * @returns {GameInputFeedbackEffectState} 
      */
     GetState() {
-        result := ComCall(9, this, "int")
+        result := ComCall(9, this, GameInputFeedbackEffectState)
         return result
     }
 
@@ -150,6 +114,40 @@ class IGameInputForceFeedbackEffect extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     SetState(state) {
-        ComCall(10, this, "int", state)
+        ComCall(10, this, GameInputFeedbackEffectState, state)
+    }
+
+    Query(iid) {
+        if (IGameInputForceFeedbackEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetMotorIndex := CallbackCreate(GetMethod(implObj, "GetMotorIndex"), flags, 1)
+        this.vtbl.GetGain := CallbackCreate(GetMethod(implObj, "GetGain"), flags, 1)
+        this.vtbl.SetGain := CallbackCreate(GetMethod(implObj, "SetGain"), flags, 2)
+        this.vtbl.GetParams := CallbackCreate(GetMethod(implObj, "GetParams"), flags, 2)
+        this.vtbl.SetParams := CallbackCreate(GetMethod(implObj, "SetParams"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 1)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetMotorIndex)
+        CallbackFree(this.vtbl.GetGain)
+        CallbackFree(this.vtbl.SetGain)
+        CallbackFree(this.vtbl.GetParams)
+        CallbackFree(this.vtbl.SetParams)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.SetState)
     }
 }

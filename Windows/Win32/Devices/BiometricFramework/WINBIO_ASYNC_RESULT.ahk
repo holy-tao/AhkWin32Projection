@@ -1,15 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_IDENTITY.ahk
-#Include .\WINBIO_BIR.ahk
-#Include .\WINBIO_EVENT.ahk
-#Include .\WINBIO_COMPONENT.ahk
-#Include .\WINBIO_BSP_SCHEMA.ahk
-#Include .\WINBIO_UNIT_SCHEMA.ahk
-#Include .\WINBIO_STORAGE_SCHEMA.ahk
-#Include .\WINBIO_PRESENCE.ahk
-#Include .\WINBIO_PROTECTION_POLICY.ahk
-#Include .\WINBIO_EXTENDED_UNIT_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINBIO_COMPONENT.ahk" { WINBIO_COMPONENT }
+#Import ".\WINBIO_UNIT_SCHEMA.ahk" { WINBIO_UNIT_SCHEMA }
+#Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WINBIO_BIR.ahk" { WINBIO_BIR }
+#Import ".\WINBIO_PROTECTION_POLICY.ahk" { WINBIO_PROTECTION_POLICY }
+#Import ".\WINBIO_PRESENCE.ahk" { WINBIO_PRESENCE }
+#Import ".\WINBIO_EXTENDED_UNIT_STATUS.ahk" { WINBIO_EXTENDED_UNIT_STATUS }
+#Import ".\WINBIO_EVENT.ahk" { WINBIO_EVENT }
+#Import ".\WINBIO_STORAGE_SCHEMA.ahk" { WINBIO_STORAGE_SCHEMA }
+#Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
 
 /**
  * Contains the results of an asynchronous operation.
@@ -146,921 +148,256 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbio/ns-winbio-winbio_async_result
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_ASYNC_RESULT extends Win32Struct {
-    static sizeof => 360
+export default struct WINBIO_ASYNC_RESULT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
-        static sizeof => 320
-        static packingSize => 8
+    struct _Parameters {
 
-        class _Verify extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _Verify {
+            Match : BOOLEAN
 
-            /**
-             * @type {BOOLEAN}
-             */
-            Match {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
         }
 
-        class _Identify extends Win32Struct {
-            static sizeof => 88
-            static packingSize => 8
+        struct _Identify {
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(0, this)
-                    return this.__Identity
-                }
-            }
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 84, "uint")
-                set => NumPut("uint", value, this, 84)
-            }
         }
 
-        class _EnrollBegin extends Win32Struct {
-            static sizeof => 1
-            static packingSize => 1
+        struct _EnrollBegin {
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
         }
 
-        class _EnrollCapture extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _EnrollCapture {
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _EnrollCommit extends Win32Struct {
-            static sizeof => 88
-            static packingSize => 8
+        struct _EnrollCommit {
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(0, this)
-                    return this.__Identity
-                }
-            }
+            IsNewTemplate : BOOLEAN
 
-            /**
-             * @type {BOOLEAN}
-             */
-            IsNewTemplate {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
-            }
         }
 
-        class _EnumEnrollments extends Win32Struct {
-            static sizeof => 96
-            static packingSize => 8
+        struct _EnumEnrollments {
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(0, this)
-                    return this.__Identity
-                }
-            }
+            SubFactorCount : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            SubFactorCount {
-                get => NumGet(this, 80, "ptr")
-                set => NumPut("ptr", value, this, 80)
-            }
+            SubFactorArray : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            SubFactorArray {
-                get => NumGet(this, 88, "ptr")
-                set => NumPut("ptr", value, this, 88)
-            }
         }
 
-        class _CaptureSample extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
+        struct _CaptureSample {
+            Sample : WINBIO_BIR.Ptr
 
-            /**
-             * @type {Pointer<WINBIO_BIR>}
-             */
-            Sample {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            SampleSize : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            SampleSize {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
         }
 
-        class _DeleteTemplate extends Win32Struct {
-            static sizeof => 88
-            static packingSize => 8
+        struct _DeleteTemplate {
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(0, this)
-                    return this.__Identity
-                }
-            }
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
-            }
         }
 
-        class _GetProperty extends Win32Struct {
-            static sizeof => 112
-            static packingSize => 8
+        struct _GetProperty {
+            PropertyType : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PropertyType {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            PropertyId : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PropertyId {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(8, this)
-                    return this.__Identity
-                }
-            }
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 88, "char")
-                set => NumPut("char", value, this, 88)
-            }
+            PropertyBufferSize : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            PropertyBufferSize {
-                get => NumGet(this, 96, "ptr")
-                set => NumPut("ptr", value, this, 96)
-            }
+            PropertyBuffer : IntPtr
 
-            /**
-             * @type {Pointer<Void>}
-             */
-            PropertyBuffer {
-                get => NumGet(this, 104, "ptr")
-                set => NumPut("ptr", value, this, 104)
-            }
         }
 
-        class _SetProperty extends Win32Struct {
-            static sizeof => 112
-            static packingSize => 8
+        struct _SetProperty {
+            PropertyType : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PropertyType {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            PropertyId : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PropertyId {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(8, this)
-                    return this.__Identity
-                }
-            }
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 88, "char")
-                set => NumPut("char", value, this, 88)
-            }
+            PropertyBufferSize : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            PropertyBufferSize {
-                get => NumGet(this, 96, "ptr")
-                set => NumPut("ptr", value, this, 96)
-            }
+            PropertyBuffer : IntPtr
 
-            /**
-             * @type {Pointer<Void>}
-             */
-            PropertyBuffer {
-                get => NumGet(this, 104, "ptr")
-                set => NumPut("ptr", value, this, 104)
-            }
         }
 
-        class _GetEvent extends Win32Struct {
-            static sizeof => 104
-            static packingSize => 8
+        struct _GetEvent {
+            Event : WINBIO_EVENT
 
-            /**
-             * @type {WINBIO_EVENT}
-             */
-            Event {
-                get {
-                    if(!this.HasProp("__Event"))
-                        this.__Event := WINBIO_EVENT(0, this)
-                    return this.__Event
-                }
-            }
         }
 
-        class _ControlUnit extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+        struct _ControlUnit {
+            Component : WINBIO_COMPONENT
 
-            /**
-             * @type {WINBIO_COMPONENT}
-             */
-            Component {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            ControlCode : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ControlCode {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            OperationStatus : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            OperationStatus {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SendBuffer : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            SendBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
+            SendBufferSize : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            SendBufferSize {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
+            ReceiveBuffer : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            ReceiveBuffer {
-                get => NumGet(this, 32, "ptr")
-                set => NumPut("ptr", value, this, 32)
-            }
+            ReceiveBufferSize : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            ReceiveBufferSize {
-                get => NumGet(this, 40, "ptr")
-                set => NumPut("ptr", value, this, 40)
-            }
+            ReceiveDataSize : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            ReceiveDataSize {
-                get => NumGet(this, 48, "ptr")
-                set => NumPut("ptr", value, this, 48)
-            }
         }
 
-        class _EnumServiceProviders extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _EnumServiceProviders {
+            BspCount : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            BspCount {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            BspSchemaArray : WINBIO_BSP_SCHEMA.Ptr
 
-            /**
-             * @type {Pointer<WINBIO_BSP_SCHEMA>}
-             */
-            BspSchemaArray {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        class _EnumBiometricUnits extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _EnumBiometricUnits {
+            UnitCount : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            UnitCount {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            UnitSchemaArray : WINBIO_UNIT_SCHEMA.Ptr
 
-            /**
-             * @type {Pointer<WINBIO_UNIT_SCHEMA>}
-             */
-            UnitSchemaArray {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        class _EnumDatabases extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _EnumDatabases {
+            StorageCount : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            StorageCount {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            StorageSchemaArray : WINBIO_STORAGE_SCHEMA.Ptr
 
-            /**
-             * @type {Pointer<WINBIO_STORAGE_SCHEMA>}
-             */
-            StorageSchemaArray {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        class _VerifyAndReleaseTicket extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _VerifyAndReleaseTicket {
+            Match : BOOLEAN
 
-            /**
-             * @type {BOOLEAN}
-             */
-            Match {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            Ticket : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Ticket {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _IdentifyAndReleaseTicket extends Win32Struct {
-            static sizeof => 96
-            static packingSize => 8
+        struct _IdentifyAndReleaseTicket {
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(0, this)
-                    return this.__Identity
-                }
-            }
+            SubFactor : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubFactor {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
-            }
+            RejectDetail : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RejectDetail {
-                get => NumGet(this, 84, "uint")
-                set => NumPut("uint", value, this, 84)
-            }
+            Ticket : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Ticket {
-                get => NumGet(this, 88, "uint")
-                set => NumPut("uint", value, this, 88)
-            }
         }
 
-        class _EnrollSelect extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+        struct _EnrollSelect {
+            SelectorValue : Int64
 
-            /**
-             * @type {Integer}
-             */
-            SelectorValue {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _MonitorPresence extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
+        struct _MonitorPresence {
+            ChangeType : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ChangeType {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            PresenceCount : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            PresenceCount {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
+            PresenceArray : WINBIO_PRESENCE.Ptr
 
-            /**
-             * @type {Pointer<WINBIO_PRESENCE>}
-             */
-            PresenceArray {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
         }
 
-        class _GetProtectionPolicy extends Win32Struct {
-            static sizeof => 320
-            static packingSize => 8
+        struct _GetProtectionPolicy {
+            Identity : WINBIO_IDENTITY
 
-            /**
-             * @type {WINBIO_IDENTITY}
-             */
-            Identity {
-                get {
-                    if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(0, this)
-                    return this.__Identity
-                }
-            }
+            Policy : WINBIO_PROTECTION_POLICY
 
-            /**
-             * @type {WINBIO_PROTECTION_POLICY}
-             */
-            Policy {
-                get {
-                    if(!this.HasProp("__Policy"))
-                        this.__Policy := WINBIO_PROTECTION_POLICY(80, this)
-                    return this.__Policy
-                }
-            }
         }
 
-        class _NotifyUnitStatusChange extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _NotifyUnitStatusChange {
+            ExtendedStatus : WINBIO_EXTENDED_UNIT_STATUS
 
-            /**
-             * @type {WINBIO_EXTENDED_UNIT_STATUS}
-             */
-            ExtendedStatus {
-                get {
-                    if(!this.HasProp("__ExtendedStatus"))
-                        this.__ExtendedStatus := WINBIO_EXTENDED_UNIT_STATUS(0, this)
-                    return this.__ExtendedStatus
-                }
-            }
         }
 
-        /**
-         * @type {_Verify}
-         */
-        Verify {
-            get {
-                if(!this.HasProp("__Verify"))
-                    this.__Verify := WINBIO_ASYNC_RESULT._Parameters_e__Union._Verify(0, this)
-                return this.__Verify
-            }
-        }
+        Verify : WINBIO_ASYNC_RESULT._Parameters._Verify
 
-        /**
-         * @type {_Identify}
-         */
-        Identify {
-            get {
-                if(!this.HasProp("__Identify"))
-                    this.__Identify := WINBIO_ASYNC_RESULT._Parameters_e__Union._Identify(0, this)
-                return this.__Identify
-            }
-        }
-
-        /**
-         * @type {_EnrollBegin}
-         */
-        EnrollBegin {
-            get {
-                if(!this.HasProp("__EnrollBegin"))
-                    this.__EnrollBegin := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollBegin(0, this)
-                return this.__EnrollBegin
-            }
-        }
-
-        /**
-         * @type {_EnrollCapture}
-         */
-        EnrollCapture {
-            get {
-                if(!this.HasProp("__EnrollCapture"))
-                    this.__EnrollCapture := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollCapture(0, this)
-                return this.__EnrollCapture
-            }
-        }
-
-        /**
-         * @type {_EnrollCommit}
-         */
-        EnrollCommit {
-            get {
-                if(!this.HasProp("__EnrollCommit"))
-                    this.__EnrollCommit := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollCommit(0, this)
-                return this.__EnrollCommit
-            }
-        }
-
-        /**
-         * @type {_EnumEnrollments}
-         */
-        EnumEnrollments {
-            get {
-                if(!this.HasProp("__EnumEnrollments"))
-                    this.__EnumEnrollments := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumEnrollments(0, this)
-                return this.__EnumEnrollments
-            }
-        }
-
-        /**
-         * @type {_CaptureSample}
-         */
-        CaptureSample {
-            get {
-                if(!this.HasProp("__CaptureSample"))
-                    this.__CaptureSample := WINBIO_ASYNC_RESULT._Parameters_e__Union._CaptureSample(0, this)
-                return this.__CaptureSample
-            }
-        }
-
-        /**
-         * @type {_DeleteTemplate}
-         */
-        DeleteTemplate {
-            get {
-                if(!this.HasProp("__DeleteTemplate"))
-                    this.__DeleteTemplate := WINBIO_ASYNC_RESULT._Parameters_e__Union._DeleteTemplate(0, this)
-                return this.__DeleteTemplate
-            }
-        }
-
-        /**
-         * @type {_GetProperty}
-         */
-        GetProperty {
-            get {
-                if(!this.HasProp("__GetProperty"))
-                    this.__GetProperty := WINBIO_ASYNC_RESULT._Parameters_e__Union._GetProperty(0, this)
-                return this.__GetProperty
-            }
-        }
-
-        /**
-         * @type {_SetProperty}
-         */
-        SetProperty {
-            get {
-                if(!this.HasProp("__SetProperty"))
-                    this.__SetProperty := WINBIO_ASYNC_RESULT._Parameters_e__Union._SetProperty(0, this)
-                return this.__SetProperty
-            }
-        }
-
-        /**
-         * @type {_GetEvent}
-         */
-        GetEvent {
-            get {
-                if(!this.HasProp("__GetEvent"))
-                    this.__GetEvent := WINBIO_ASYNC_RESULT._Parameters_e__Union._GetEvent(0, this)
-                return this.__GetEvent
-            }
-        }
-
-        /**
-         * @type {_ControlUnit}
-         */
-        ControlUnit {
-            get {
-                if(!this.HasProp("__ControlUnit"))
-                    this.__ControlUnit := WINBIO_ASYNC_RESULT._Parameters_e__Union._ControlUnit(0, this)
-                return this.__ControlUnit
-            }
-        }
-
-        /**
-         * @type {_EnumServiceProviders}
-         */
-        EnumServiceProviders {
-            get {
-                if(!this.HasProp("__EnumServiceProviders"))
-                    this.__EnumServiceProviders := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumServiceProviders(0, this)
-                return this.__EnumServiceProviders
-            }
-        }
-
-        /**
-         * @type {_EnumBiometricUnits}
-         */
-        EnumBiometricUnits {
-            get {
-                if(!this.HasProp("__EnumBiometricUnits"))
-                    this.__EnumBiometricUnits := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumBiometricUnits(0, this)
-                return this.__EnumBiometricUnits
-            }
-        }
-
-        /**
-         * @type {_EnumDatabases}
-         */
-        EnumDatabases {
-            get {
-                if(!this.HasProp("__EnumDatabases"))
-                    this.__EnumDatabases := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumDatabases(0, this)
-                return this.__EnumDatabases
-            }
-        }
-
-        /**
-         * @type {_VerifyAndReleaseTicket}
-         */
-        VerifyAndReleaseTicket {
-            get {
-                if(!this.HasProp("__VerifyAndReleaseTicket"))
-                    this.__VerifyAndReleaseTicket := WINBIO_ASYNC_RESULT._Parameters_e__Union._VerifyAndReleaseTicket(0, this)
-                return this.__VerifyAndReleaseTicket
-            }
-        }
-
-        /**
-         * @type {_IdentifyAndReleaseTicket}
-         */
-        IdentifyAndReleaseTicket {
-            get {
-                if(!this.HasProp("__IdentifyAndReleaseTicket"))
-                    this.__IdentifyAndReleaseTicket := WINBIO_ASYNC_RESULT._Parameters_e__Union._IdentifyAndReleaseTicket(0, this)
-                return this.__IdentifyAndReleaseTicket
-            }
-        }
-
-        /**
-         * @type {_EnrollSelect}
-         */
-        EnrollSelect {
-            get {
-                if(!this.HasProp("__EnrollSelect"))
-                    this.__EnrollSelect := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollSelect(0, this)
-                return this.__EnrollSelect
-            }
-        }
-
-        /**
-         * @type {_MonitorPresence}
-         */
-        MonitorPresence {
-            get {
-                if(!this.HasProp("__MonitorPresence"))
-                    this.__MonitorPresence := WINBIO_ASYNC_RESULT._Parameters_e__Union._MonitorPresence(0, this)
-                return this.__MonitorPresence
-            }
-        }
-
-        /**
-         * @type {_GetProtectionPolicy}
-         */
-        GetProtectionPolicy {
-            get {
-                if(!this.HasProp("__GetProtectionPolicy"))
-                    this.__GetProtectionPolicy := WINBIO_ASYNC_RESULT._Parameters_e__Union._GetProtectionPolicy(0, this)
-                return this.__GetProtectionPolicy
-            }
-        }
-
-        /**
-         * @type {_NotifyUnitStatusChange}
-         */
-        NotifyUnitStatusChange {
-            get {
-                if(!this.HasProp("__NotifyUnitStatusChange"))
-                    this.__NotifyUnitStatusChange := WINBIO_ASYNC_RESULT._Parameters_e__Union._NotifyUnitStatusChange(0, this)
-                return this.__NotifyUnitStatusChange
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Identify', { type: WINBIO_ASYNC_RESULT._Parameters._Identify, offset: 0 })
+            DefineProp(this.Prototype, 'EnrollBegin', { type: WINBIO_ASYNC_RESULT._Parameters._EnrollBegin, offset: 0 })
+            DefineProp(this.Prototype, 'EnrollCapture', { type: WINBIO_ASYNC_RESULT._Parameters._EnrollCapture, offset: 0 })
+            DefineProp(this.Prototype, 'EnrollCommit', { type: WINBIO_ASYNC_RESULT._Parameters._EnrollCommit, offset: 0 })
+            DefineProp(this.Prototype, 'EnumEnrollments', { type: WINBIO_ASYNC_RESULT._Parameters._EnumEnrollments, offset: 0 })
+            DefineProp(this.Prototype, 'CaptureSample', { type: WINBIO_ASYNC_RESULT._Parameters._CaptureSample, offset: 0 })
+            DefineProp(this.Prototype, 'DeleteTemplate', { type: WINBIO_ASYNC_RESULT._Parameters._DeleteTemplate, offset: 0 })
+            DefineProp(this.Prototype, 'GetProperty', { type: WINBIO_ASYNC_RESULT._Parameters._GetProperty, offset: 0 })
+            DefineProp(this.Prototype, 'SetProperty', { type: WINBIO_ASYNC_RESULT._Parameters._SetProperty, offset: 0 })
+            DefineProp(this.Prototype, 'GetEvent', { type: WINBIO_ASYNC_RESULT._Parameters._GetEvent, offset: 0 })
+            DefineProp(this.Prototype, 'ControlUnit', { type: WINBIO_ASYNC_RESULT._Parameters._ControlUnit, offset: 0 })
+            DefineProp(this.Prototype, 'EnumServiceProviders', { type: WINBIO_ASYNC_RESULT._Parameters._EnumServiceProviders, offset: 0 })
+            DefineProp(this.Prototype, 'EnumBiometricUnits', { type: WINBIO_ASYNC_RESULT._Parameters._EnumBiometricUnits, offset: 0 })
+            DefineProp(this.Prototype, 'EnumDatabases', { type: WINBIO_ASYNC_RESULT._Parameters._EnumDatabases, offset: 0 })
+            DefineProp(this.Prototype, 'VerifyAndReleaseTicket', { type: WINBIO_ASYNC_RESULT._Parameters._VerifyAndReleaseTicket, offset: 0 })
+            DefineProp(this.Prototype, 'IdentifyAndReleaseTicket', { type: WINBIO_ASYNC_RESULT._Parameters._IdentifyAndReleaseTicket, offset: 0 })
+            DefineProp(this.Prototype, 'EnrollSelect', { type: WINBIO_ASYNC_RESULT._Parameters._EnrollSelect, offset: 0 })
+            DefineProp(this.Prototype, 'MonitorPresence', { type: WINBIO_ASYNC_RESULT._Parameters._MonitorPresence, offset: 0 })
+            DefineProp(this.Prototype, 'GetProtectionPolicy', { type: WINBIO_ASYNC_RESULT._Parameters._GetProtectionPolicy, offset: 0 })
+            DefineProp(this.Prototype, 'NotifyUnitStatusChange', { type: WINBIO_ASYNC_RESULT._Parameters._NotifyUnitStatusChange, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Handle of an asynchronous session started by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a> function.
-     * @type {Integer}
      */
-    SessionHandle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SessionHandle : UInt32
 
     /**
      * Type of the asynchronous operation. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-operation-type-constants">WINBIO_OPERATION_TYPE Constants</a>.
-     * @type {Integer}
      */
-    Operation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Operation : UInt32
 
     /**
      * Sequence number of the asynchronous operation. The integers are assigned sequentially for each operation in a biometric session, starting at one (1). For any session, the open operation is always assigned the first sequence number and the close operation is assigned the last sequence number. If your application queues multiple operations, you can use sequence numbers to perform error handling. For example, you can ignore operation results until a specific sequence number is sent to the application.
-     * @type {Integer}
      */
-    SequenceNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SequenceNumber : Int64
 
     /**
      * System date and time at which the biometric operation began. For more information, see the <b>GetSystemTimeAsFileTime</b> function.
-     * @type {Integer}
      */
-    TimeStamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TimeStamp : Int64
 
     /**
      * Error code returned by the operation.
-     * @type {HRESULT}
      */
-    ApiStatus {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ApiStatus : HRESULT
 
     /**
      * The numeric unit identifier of the biometric unit that performed the operation.
-     * @type {Integer}
      */
-    UnitId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    UnitId : UInt32
 
     /**
      * Address of an optional buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
-     * @type {Pointer<Void>}
      */
-    UserData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    UserData : IntPtr
 
     /**
      * Union that encloses nested structures that contain additional information about the success or failure of asynchronous operations begun by the client application.
-     * @type {_Parameters_e__Union}
      */
-    Parameters {
-        get {
-            if(!this.HasProp("__Parameters"))
-                this.__Parameters := WINBIO_ASYNC_RESULT._Parameters_e__Union(40, this)
-            return this.__Parameters
-        }
-    }
+    Parameters : WINBIO_ASYNC_RESULT._Parameters
+
 }

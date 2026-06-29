@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type of the value.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype
  * @namespace Windows.Win32.System.Performance
  */
-class ValueMapType extends Win32Enum {
+export default struct ValueMapType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Only one item in the collection can be enabled. The enabled item is the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_value">IValueMap::Value</a> property. If more than one item is enabled, the first enabled item is used as the value.

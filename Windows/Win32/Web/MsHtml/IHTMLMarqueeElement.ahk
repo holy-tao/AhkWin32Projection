@@ -1,39 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLMarqueeElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLMarqueeElement extends IDispatch {
     /**
      * The interface identifier for IHTMLMarqueeElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f2b5-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2b5-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLMarqueeElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f2b9-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f2b9-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLMarqueeElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_bgColor      : IntPtr
+        get_bgColor      : IntPtr
+        put_scrollDelay  : IntPtr
+        get_scrollDelay  : IntPtr
+        put_direction    : IntPtr
+        get_direction    : IntPtr
+        put_behavior     : IntPtr
+        get_behavior     : IntPtr
+        put_scrollAmount : IntPtr
+        get_scrollAmount : IntPtr
+        put_loop         : IntPtr
+        get_loop         : IntPtr
+        put_vspace       : IntPtr
+        get_vspace       : IntPtr
+        put_hspace       : IntPtr
+        get_hspace       : IntPtr
+        put_onfinish     : IntPtr
+        get_onfinish     : IntPtr
+        put_onstart      : IntPtr
+        get_onstart      : IntPtr
+        put_onbounce     : IntPtr
+        get_onbounce     : IntPtr
+        put_width        : IntPtr
+        get_width        : IntPtr
+        put_height       : IntPtr
+        get_height       : IntPtr
+        put_trueSpeed    : IntPtr
+        get_trueSpeed    : IntPtr
+        start            : IntPtr
+        stop             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_bgColor", "get_bgColor", "put_scrollDelay", "get_scrollDelay", "put_direction", "get_direction", "put_behavior", "get_behavior", "put_scrollAmount", "get_scrollAmount", "put_loop", "get_loop", "put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_onfinish", "get_onfinish", "put_onstart", "get_onstart", "put_onbounce", "get_onbounce", "put_width", "get_width", "put_height", "get_height", "put_trueSpeed", "get_trueSpeed", "start", "stop"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLMarqueeElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -153,7 +191,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -163,7 +201,7 @@ class IHTMLMarqueeElement extends IDispatch {
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -194,7 +232,7 @@ class IHTMLMarqueeElement extends IDispatch {
     put_direction(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -203,8 +241,8 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_direction() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -216,7 +254,7 @@ class IHTMLMarqueeElement extends IDispatch {
     put_behavior(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -225,8 +263,8 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_behavior() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -312,7 +350,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onfinish(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -322,7 +360,7 @@ class IHTMLMarqueeElement extends IDispatch {
      */
     get_onfinish() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -332,7 +370,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onstart(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -342,7 +380,7 @@ class IHTMLMarqueeElement extends IDispatch {
      */
     get_onstart() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -352,7 +390,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onbounce(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -362,7 +400,7 @@ class IHTMLMarqueeElement extends IDispatch {
      */
     get_onbounce() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -372,7 +410,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -382,7 +420,7 @@ class IHTMLMarqueeElement extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -392,7 +430,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -402,7 +440,7 @@ class IHTMLMarqueeElement extends IDispatch {
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -412,7 +450,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_trueSpeed(v) {
-        result := ComCall(33, this, "short", v, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -421,14 +459,13 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_trueSpeed() {
-        result := ComCall(34, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
     /**
-     * Specifies the length of time, in seconds, to wait before an EAPOL-Start is sent.
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/NativeWiFi/onexschema-startperiod-onex-element
      */
     start() {
         result := ComCall(35, this, "HRESULT")
@@ -471,5 +508,83 @@ class IHTMLMarqueeElement extends IDispatch {
     stop() {
         result := ComCall(36, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLMarqueeElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.put_scrollDelay := CallbackCreate(GetMethod(implObj, "put_scrollDelay"), flags, 2)
+        this.vtbl.get_scrollDelay := CallbackCreate(GetMethod(implObj, "get_scrollDelay"), flags, 2)
+        this.vtbl.put_direction := CallbackCreate(GetMethod(implObj, "put_direction"), flags, 2)
+        this.vtbl.get_direction := CallbackCreate(GetMethod(implObj, "get_direction"), flags, 2)
+        this.vtbl.put_behavior := CallbackCreate(GetMethod(implObj, "put_behavior"), flags, 2)
+        this.vtbl.get_behavior := CallbackCreate(GetMethod(implObj, "get_behavior"), flags, 2)
+        this.vtbl.put_scrollAmount := CallbackCreate(GetMethod(implObj, "put_scrollAmount"), flags, 2)
+        this.vtbl.get_scrollAmount := CallbackCreate(GetMethod(implObj, "get_scrollAmount"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_onfinish := CallbackCreate(GetMethod(implObj, "put_onfinish"), flags, 2)
+        this.vtbl.get_onfinish := CallbackCreate(GetMethod(implObj, "get_onfinish"), flags, 2)
+        this.vtbl.put_onstart := CallbackCreate(GetMethod(implObj, "put_onstart"), flags, 2)
+        this.vtbl.get_onstart := CallbackCreate(GetMethod(implObj, "get_onstart"), flags, 2)
+        this.vtbl.put_onbounce := CallbackCreate(GetMethod(implObj, "put_onbounce"), flags, 2)
+        this.vtbl.get_onbounce := CallbackCreate(GetMethod(implObj, "get_onbounce"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_trueSpeed := CallbackCreate(GetMethod(implObj, "put_trueSpeed"), flags, 2)
+        this.vtbl.get_trueSpeed := CallbackCreate(GetMethod(implObj, "get_trueSpeed"), flags, 2)
+        this.vtbl.start := CallbackCreate(GetMethod(implObj, "start"), flags, 1)
+        this.vtbl.stop := CallbackCreate(GetMethod(implObj, "stop"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_bgColor)
+        CallbackFree(this.vtbl.get_bgColor)
+        CallbackFree(this.vtbl.put_scrollDelay)
+        CallbackFree(this.vtbl.get_scrollDelay)
+        CallbackFree(this.vtbl.put_direction)
+        CallbackFree(this.vtbl.get_direction)
+        CallbackFree(this.vtbl.put_behavior)
+        CallbackFree(this.vtbl.get_behavior)
+        CallbackFree(this.vtbl.put_scrollAmount)
+        CallbackFree(this.vtbl.get_scrollAmount)
+        CallbackFree(this.vtbl.put_loop)
+        CallbackFree(this.vtbl.get_loop)
+        CallbackFree(this.vtbl.put_vspace)
+        CallbackFree(this.vtbl.get_vspace)
+        CallbackFree(this.vtbl.put_hspace)
+        CallbackFree(this.vtbl.get_hspace)
+        CallbackFree(this.vtbl.put_onfinish)
+        CallbackFree(this.vtbl.get_onfinish)
+        CallbackFree(this.vtbl.put_onstart)
+        CallbackFree(this.vtbl.get_onstart)
+        CallbackFree(this.vtbl.put_onbounce)
+        CallbackFree(this.vtbl.get_onbounce)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.put_trueSpeed)
+        CallbackFree(this.vtbl.get_trueSpeed)
+        CallbackFree(this.vtbl.start)
+        CallbackFree(this.vtbl.stop)
     }
 }

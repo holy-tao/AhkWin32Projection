@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to dynamically filter credential providers based on information available at runtime.
@@ -11,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialproviderfilter
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderFilter extends IUnknown {
     /**
      * The interface identifier for ICredentialProviderFilter
      * @type {Guid}
      */
-    static IID => Guid("{a5da53f9-d475-4080-a120-910c4a739880}")
+    static IID := Guid("{a5da53f9-d475-4080-a120-910c4a739880}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Filter                 : IntPtr
+        UpdateRemoteCredential : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Filter", "UpdateRemoteCredential"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Evaluates whether a list of credential providers should be allowed to provide credential tiles.
@@ -69,7 +80,7 @@ class ICredentialProviderFilter extends IUnknown {
     Filter(cpus, dwFlags, rgclsidProviders, rgbAllow, cProviders) {
         rgbAllowMarshal := rgbAllow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", cpus, "uint", dwFlags, "ptr", rgclsidProviders, rgbAllowMarshal, rgbAllow, "uint", cProviders, "HRESULT")
+        result := ComCall(3, this, CREDENTIAL_PROVIDER_USAGE_SCENARIO, cpus, "uint", dwFlags, Guid.Ptr, rgclsidProviders, rgbAllowMarshal, rgbAllow, "uint", cProviders, "HRESULT")
         return result
     }
 
@@ -85,7 +96,29 @@ class ICredentialProviderFilter extends IUnknown {
      */
     UpdateRemoteCredential(pcpcsIn) {
         pcpcsOut := CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION()
-        result := ComCall(4, this, "ptr", pcpcsIn, "ptr", pcpcsOut, "HRESULT")
+        result := ComCall(4, this, CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.Ptr, pcpcsIn, CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.Ptr, pcpcsOut, "HRESULT")
         return pcpcsOut
+    }
+
+    Query(iid) {
+        if (ICredentialProviderFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Filter := CallbackCreate(GetMethod(implObj, "Filter"), flags, 6)
+        this.vtbl.UpdateRemoteCredential := CallbackCreate(GetMethod(implObj, "UpdateRemoteCredential"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Filter)
+        CallbackFree(this.vtbl.UpdateRemoteCredential)
     }
 }

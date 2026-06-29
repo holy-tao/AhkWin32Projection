@@ -1,49 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_ASYNC_RESULT.ahk
-#Include .\HTTP_WEB_SOCKET_OPERATION.ahk
-#Include .\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { HTTP_WEB_SOCKET_BUFFER_TYPE }
+#Import ".\INTERNET_ASYNC_RESULT.ahk" { INTERNET_ASYNC_RESULT }
+#Import ".\HTTP_WEB_SOCKET_OPERATION.ahk" { HTTP_WEB_SOCKET_OPERATION }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct {
-    static sizeof => 32
+export default struct HTTP_WEB_SOCKET_ASYNC_RESULT {
+    #StructPack 8
 
-    static packingSize => 8
+    AsyncResult : INTERNET_ASYNC_RESULT
 
-    /**
-     * @type {INTERNET_ASYNC_RESULT}
-     */
-    AsyncResult {
-        get {
-            if(!this.HasProp("__AsyncResult"))
-                this.__AsyncResult := INTERNET_ASYNC_RESULT(0, this)
-            return this.__AsyncResult
-        }
-    }
+    Operation : HTTP_WEB_SOCKET_OPERATION
 
-    /**
-     * @type {HTTP_WEB_SOCKET_OPERATION}
-     */
-    Operation {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    BufferType : HTTP_WEB_SOCKET_BUFFER_TYPE
 
-    /**
-     * @type {HTTP_WEB_SOCKET_BUFFER_TYPE}
-     */
-    BufferType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    dwBytesTransferred : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBytesTransferred {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

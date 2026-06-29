@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapCodecInfo.ahk
-#Include .\IWICBitmapDecoder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
 
 /**
  * Exposes methods that provide information about a decoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapdecoderinfo
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
     /**
      * The interface identifier for IWICBitmapDecoderInfo
      * @type {Guid}
      */
-    static IID => Guid("{d8cd007f-d08f-4191-9bfc-236ea7f0e4b5}")
+    static IID := Guid("{d8cd007f-d08f-4191-9bfc-236ea7f0e4b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 23
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapDecoderInfo interfaces
+    */
+    struct Vtbl extends IWICBitmapCodecInfo.Vtbl {
+        GetPatterns    : IntPtr
+        MatchesPattern : IntPtr
+        CreateInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPatterns", "MatchesPattern", "CreateInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapDecoderInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the file pattern signatures supported by the decoder.
@@ -71,7 +83,7 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-matchespattern
      */
     MatchesPattern(pIStream) {
-        result := ComCall(24, this, "ptr", pIStream, "int*", &pfMatches := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", pIStream, BOOL.Ptr, &pfMatches := 0, "HRESULT")
         return pfMatches
     }
 
@@ -85,5 +97,29 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
     CreateInstance() {
         result := ComCall(25, this, "ptr*", &ppIBitmapDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIBitmapDecoder)
+    }
+
+    Query(iid) {
+        if (IWICBitmapDecoderInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPatterns := CallbackCreate(GetMethod(implObj, "GetPatterns"), flags, 5)
+        this.vtbl.MatchesPattern := CallbackCreate(GetMethod(implObj, "MatchesPattern"), flags, 3)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPatterns)
+        CallbackFree(this.vtbl.MatchesPattern)
+        CallbackFree(this.vtbl.CreateInstance)
     }
 }

@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISearchCatalogManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROXY_ACCESS.ahk" { PROXY_ACCESS }
 
 /**
  * Provides methods for controlling the Search service. This interface manages settings and objects that affect the search engine across catalogs.
@@ -11,26 +16,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchmanager
  * @namespace Windows.Win32.System.Search
  */
-class ISearchManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchManager extends IUnknown {
     /**
      * The interface identifier for ISearchManager
      * @type {Guid}
      */
-    static IID => Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef69}")
+    static IID := Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef69}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIndexerVersionStr : IntPtr
+        GetIndexerVersion    : IntPtr
+        GetParameter         : IntPtr
+        SetParameter         : IntPtr
+        get_ProxyName        : IntPtr
+        get_BypassList       : IntPtr
+        SetProxy             : IntPtr
+        GetCatalog           : IntPtr
+        get_UserAgent        : IntPtr
+        put_UserAgent        : IntPtr
+        get_UseProxy         : IntPtr
+        get_LocalBypass      : IntPtr
+        get_PortNumber       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIndexerVersionStr", "GetIndexerVersion", "GetParameter", "SetParameter", "get_ProxyName", "get_BypassList", "SetProxy", "GetCatalog", "get_UserAgent", "put_UserAgent", "get_UseProxy", "get_LocalBypass", "get_PortNumber"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -85,7 +109,7 @@ class ISearchManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversionstr
      */
     GetIndexerVersionStr() {
-        result := ComCall(3, this, "ptr*", &ppszVersionString := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszVersionString := 0, "HRESULT")
         return ppszVersionString
     }
 
@@ -149,7 +173,7 @@ class ISearchManager extends IUnknown {
     SetParameter(pszName, pValue) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ptr", pszName, "ptr", pValue, "HRESULT")
+        result := ComCall(6, this, "ptr", pszName, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -163,7 +187,7 @@ class ISearchManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_proxyname
      */
     get_ProxyName() {
-        result := ComCall(7, this, "ptr*", &ppszProxyName := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppszProxyName := 0, "HRESULT")
         return ppszProxyName
     }
 
@@ -177,7 +201,7 @@ class ISearchManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_bypasslist
      */
     get_BypassList() {
-        result := ComCall(8, this, "ptr*", &ppszBypassList := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &ppszBypassList := 0, "HRESULT")
         return ppszBypassList
     }
 
@@ -209,7 +233,7 @@ class ISearchManager extends IUnknown {
         pszProxyName := pszProxyName is String ? StrPtr(pszProxyName) : pszProxyName
         pszByPassList := pszByPassList is String ? StrPtr(pszByPassList) : pszByPassList
 
-        result := ComCall(9, this, "int", sUseProxy, "int", fLocalByPassProxy, "uint", dwPortNumber, "ptr", pszProxyName, "ptr", pszByPassList, "HRESULT")
+        result := ComCall(9, this, PROXY_ACCESS, sUseProxy, BOOL, fLocalByPassProxy, "uint", dwPortNumber, "ptr", pszProxyName, "ptr", pszByPassList, "HRESULT")
         return result
     }
 
@@ -244,7 +268,7 @@ class ISearchManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useragent
      */
     get_UserAgent() {
-        result := ComCall(11, this, "ptr*", &ppszUserAgent := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszUserAgent := 0, "HRESULT")
         return ppszUserAgent
     }
 
@@ -301,7 +325,7 @@ class ISearchManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_localbypass
      */
     get_LocalBypass() {
-        result := ComCall(14, this, "int*", &pfLocalBypass := 0, "HRESULT")
+        result := ComCall(14, this, BOOL.Ptr, &pfLocalBypass := 0, "HRESULT")
         return pfLocalBypass
     }
 
@@ -317,5 +341,49 @@ class ISearchManager extends IUnknown {
     get_PortNumber() {
         result := ComCall(15, this, "uint*", &pdwPortNumber := 0, "HRESULT")
         return pdwPortNumber
+    }
+
+    Query(iid) {
+        if (ISearchManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIndexerVersionStr := CallbackCreate(GetMethod(implObj, "GetIndexerVersionStr"), flags, 2)
+        this.vtbl.GetIndexerVersion := CallbackCreate(GetMethod(implObj, "GetIndexerVersion"), flags, 3)
+        this.vtbl.GetParameter := CallbackCreate(GetMethod(implObj, "GetParameter"), flags, 3)
+        this.vtbl.SetParameter := CallbackCreate(GetMethod(implObj, "SetParameter"), flags, 3)
+        this.vtbl.get_ProxyName := CallbackCreate(GetMethod(implObj, "get_ProxyName"), flags, 2)
+        this.vtbl.get_BypassList := CallbackCreate(GetMethod(implObj, "get_BypassList"), flags, 2)
+        this.vtbl.SetProxy := CallbackCreate(GetMethod(implObj, "SetProxy"), flags, 6)
+        this.vtbl.GetCatalog := CallbackCreate(GetMethod(implObj, "GetCatalog"), flags, 3)
+        this.vtbl.get_UserAgent := CallbackCreate(GetMethod(implObj, "get_UserAgent"), flags, 2)
+        this.vtbl.put_UserAgent := CallbackCreate(GetMethod(implObj, "put_UserAgent"), flags, 2)
+        this.vtbl.get_UseProxy := CallbackCreate(GetMethod(implObj, "get_UseProxy"), flags, 2)
+        this.vtbl.get_LocalBypass := CallbackCreate(GetMethod(implObj, "get_LocalBypass"), flags, 2)
+        this.vtbl.get_PortNumber := CallbackCreate(GetMethod(implObj, "get_PortNumber"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIndexerVersionStr)
+        CallbackFree(this.vtbl.GetIndexerVersion)
+        CallbackFree(this.vtbl.GetParameter)
+        CallbackFree(this.vtbl.SetParameter)
+        CallbackFree(this.vtbl.get_ProxyName)
+        CallbackFree(this.vtbl.get_BypassList)
+        CallbackFree(this.vtbl.SetProxy)
+        CallbackFree(this.vtbl.GetCatalog)
+        CallbackFree(this.vtbl.get_UserAgent)
+        CallbackFree(this.vtbl.put_UserAgent)
+        CallbackFree(this.vtbl.get_UseProxy)
+        CallbackFree(this.vtbl.get_LocalBypass)
+        CallbackFree(this.vtbl.get_PortNumber)
     }
 }

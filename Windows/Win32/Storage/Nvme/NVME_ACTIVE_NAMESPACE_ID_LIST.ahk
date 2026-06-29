@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_ACTIVE_NAMESPACE_ID_LIST extends Win32Struct {
-    static sizeof => 4096
+export default struct NVME_ACTIVE_NAMESPACE_ID_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    NSID : UInt32[1024]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NSID {
-        get {
-            if(!this.HasProp("__NSIDProxyArray"))
-                this.__NSIDProxyArray := Win32FixedArray(this.ptr + 0, 1024, Primitive, "uint")
-            return this.__NSIDProxyArray
-        }
-    }
 }

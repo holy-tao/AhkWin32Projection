@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Encapsulates certificates for use with Internet Key Exchange messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_or_crl_blob
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_OR_CRL_BLOB extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CERT_OR_CRL_BLOB {
+    #StructPack 8
 
     /**
      * A <b>DWORD</b> value that specifies the content type of the buffer pointed to by the <b>pbEncoded</b> member.
@@ -42,28 +39,17 @@ class CERT_OR_CRL_BLOB extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwChoice : UInt32
 
     /**
      * The size, in bytes, of the buffer pointed to by the <b>pbEncoded</b> member.
-     * @type {Integer}
      */
-    cbEncoded {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbEncoded : UInt32
 
     /**
      * A pointer to a buffer that contains a certificate or a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_or_crl_bundle">CERT_OR_CRL_BUNDLE</a> structure that contains an array of certificates as specified by the <b>dwChoice</b> member.
-     * @type {Pointer<Integer>}
      */
-    pbEncoded {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbEncoded : IntPtr
+
 }

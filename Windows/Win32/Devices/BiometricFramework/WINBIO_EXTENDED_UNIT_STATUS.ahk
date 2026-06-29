@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_EXTENDED_UNIT_STATUS extends Win32Struct {
-    static sizeof => 8
+export default struct WINBIO_EXTENDED_UNIT_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    Availability : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Availability {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReasonCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReasonCode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

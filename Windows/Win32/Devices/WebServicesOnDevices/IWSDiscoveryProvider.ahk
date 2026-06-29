@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWSDXMLContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\IWSDiscoveryProviderNotify.ahk" { IWSDiscoveryProviderNotify }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to discover services on the network advertised by WS-Discovery.
@@ -11,26 +16,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDiscoveryProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDiscoveryProvider extends IUnknown {
     /**
      * The interface identifier for IWSDiscoveryProvider
      * @type {Guid}
      */
-    static IID => Guid("{8ffc8e55-f0eb-480f-88b7-b435dd281d45}")
+    static IID := Guid("{8ffc8e55-f0eb-480f-88b7-b435dd281d45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDiscoveryProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAddressFamily : IntPtr
+        Attach           : IntPtr
+        Detach           : IntPtr
+        SearchById       : IntPtr
+        SearchByAddress  : IntPtr
+        SearchByType     : IntPtr
+        GetXMLContext    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAddressFamily", "Attach", "Detach", "SearchById", "SearchByAddress", "SearchByType", "GetXMLContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDiscoveryProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the IP address family (IPv4, IPv6, or both) to search when discovering WSD devices.
@@ -451,7 +469,7 @@ class IWSDiscoveryProvider extends IUnknown {
         pszMatchBy := pszMatchBy is String ? StrPtr(pszMatchBy) : pszMatchBy
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
 
-        result := ComCall(8, this, "ptr", pTypesList, "ptr", pScopesList, "ptr", pszMatchBy, "ptr", pszTag, "HRESULT")
+        result := ComCall(8, this, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, "ptr", pszMatchBy, "ptr", pszTag, "HRESULT")
         return result
     }
 
@@ -468,5 +486,37 @@ class IWSDiscoveryProvider extends IUnknown {
     GetXMLContext() {
         result := ComCall(9, this, "ptr*", &ppContext := 0, "HRESULT")
         return IWSDXMLContext(ppContext)
+    }
+
+    Query(iid) {
+        if (IWSDiscoveryProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAddressFamily := CallbackCreate(GetMethod(implObj, "SetAddressFamily"), flags, 2)
+        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.SearchById := CallbackCreate(GetMethod(implObj, "SearchById"), flags, 3)
+        this.vtbl.SearchByAddress := CallbackCreate(GetMethod(implObj, "SearchByAddress"), flags, 3)
+        this.vtbl.SearchByType := CallbackCreate(GetMethod(implObj, "SearchByType"), flags, 5)
+        this.vtbl.GetXMLContext := CallbackCreate(GetMethod(implObj, "GetXMLContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAddressFamily)
+        CallbackFree(this.vtbl.Attach)
+        CallbackFree(this.vtbl.Detach)
+        CallbackFree(this.vtbl.SearchById)
+        CallbackFree(this.vtbl.SearchByAddress)
+        CallbackFree(this.vtbl.SearchByType)
+        CallbackFree(this.vtbl.GetXMLContext)
     }
 }

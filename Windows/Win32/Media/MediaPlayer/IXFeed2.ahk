@@ -1,32 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXFeed.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXFeed.ahk" { IXFeed }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IXFeed2 extends IXFeed {
-
-    static sizeof => A_PtrSize
+export default struct IXFeed2 extends IXFeed {
     /**
      * The interface identifier for IXFeed2
      * @type {Guid}
      */
-    static IID => Guid("{ce528e77-3716-4eb7-956d-f5e37502e12a}")
+    static IID := Guid("{ce528e77-3716-4eb7-956d-f5e37502e12a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 47
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXFeed2 interfaces
+    */
+    struct Vtbl extends IXFeed.Vtbl {
+        GetItemByEffectiveId : IntPtr
+        LastItemDownloadTime : IntPtr
+        Username             : IntPtr
+        Password             : IntPtr
+        SetCredentials       : IntPtr
+        ClearCredentials     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItemByEffectiveId", "LastItemDownloadTime", "Username", "Password", "SetCredentials", "ClearCredentials"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXFeed2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,7 +49,7 @@ class IXFeed2 extends IXFeed {
      * @returns {Pointer<Void>} 
      */
     GetItemByEffectiveId(uiEffectiveId, riid) {
-        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(47, this, "uint", uiEffectiveId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -45,7 +59,7 @@ class IXFeed2 extends IXFeed {
      */
     LastItemDownloadTime() {
         pstLastItemDownloadTime := SYSTEMTIME()
-        result := ComCall(48, this, "ptr", pstLastItemDownloadTime, "HRESULT")
+        result := ComCall(48, this, SYSTEMTIME.Ptr, pstLastItemDownloadTime, "HRESULT")
         return pstLastItemDownloadTime
     }
 
@@ -55,7 +69,7 @@ class IXFeed2 extends IXFeed {
      * @see https://learn.microsoft.com/windows/win32/eaphost/eaptlsuserpropertiesv1schema-username-element
      */
     Username() {
-        result := ComCall(49, this, "ptr*", &ppszUsername := 0, "HRESULT")
+        result := ComCall(49, this, PWSTR.Ptr, &ppszUsername := 0, "HRESULT")
         return ppszUsername
     }
 
@@ -67,61 +81,15 @@ class IXFeed2 extends IXFeed {
      * @see https://learn.microsoft.com/windows/win32/eaphost/mschapv2userpropertiesv1schema-password-eaptype-element
      */
     Password() {
-        result := ComCall(50, this, "ptr*", &ppszPassword := 0, "HRESULT")
+        result := ComCall(50, this, PWSTR.Ptr, &ppszPassword := 0, "HRESULT")
         return ppszPassword
     }
 
     /**
-     * Sets the attributes of a credential, such as the name associated with the credential. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszPassword 
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
-     * 
-     * If the function fails, the return value may be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle passed to the function is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not enough memory is available to complete the request.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcredentialsattributesa
+     * @returns {HRESULT} 
      */
     SetCredentials(pszUsername, pszPassword) {
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
@@ -138,5 +106,35 @@ class IXFeed2 extends IXFeed {
     ClearCredentials() {
         result := ComCall(52, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXFeed2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItemByEffectiveId := CallbackCreate(GetMethod(implObj, "GetItemByEffectiveId"), flags, 4)
+        this.vtbl.LastItemDownloadTime := CallbackCreate(GetMethod(implObj, "LastItemDownloadTime"), flags, 2)
+        this.vtbl.Username := CallbackCreate(GetMethod(implObj, "Username"), flags, 2)
+        this.vtbl.Password := CallbackCreate(GetMethod(implObj, "Password"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 3)
+        this.vtbl.ClearCredentials := CallbackCreate(GetMethod(implObj, "ClearCredentials"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItemByEffectiveId)
+        CallbackFree(this.vtbl.LastItemDownloadTime)
+        CallbackFree(this.vtbl.Username)
+        CallbackFree(this.vtbl.Password)
+        CallbackFree(this.vtbl.SetCredentials)
+        CallbackFree(this.vtbl.ClearCredentials)
     }
 }

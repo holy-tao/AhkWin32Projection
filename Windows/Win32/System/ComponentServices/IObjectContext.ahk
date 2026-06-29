@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to the current object's context. An object's context is primarily used when working with transactions or dealing with the security of an object. (IObjectContext)
@@ -10,32 +13,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontext
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IObjectContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IObjectContext extends IUnknown {
     /**
      * The interface identifier for IObjectContext
      * @type {Guid}
      */
-    static IID => Guid("{51372ae0-cae7-11cf-be81-00aa00a2fa25}")
+    static IID := Guid("{51372ae0-cae7-11cf-be81-00aa00a2fa25}")
 
     /**
      * The class identifier for ObjectContext
      * @type {Guid}
      */
-    static CLSID => Guid("{74c08646-cedb-11cf-8b49-00aa00b8a790}")
+    static CLSID := Guid("{74c08646-cedb-11cf-8b49-00aa00b8a790}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IObjectContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateInstance    : IntPtr
+        SetComplete       : IntPtr
+        SetAbort          : IntPtr
+        EnableCommit      : IntPtr
+        DisableCommit     : IntPtr
+        IsInTransaction   : IntPtr
+        IsSecurityEnabled : IntPtr
+        IsCallerInRole    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateInstance", "SetComplete", "SetAbort", "EnableCommit", "DisableCommit", "IsInTransaction", "IsSecurityEnabled", "IsCallerInRole"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IObjectContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an object using current object's context. (IObjectContext.CreateInstance)
@@ -119,7 +136,7 @@ class IObjectContext extends IUnknown {
     CreateInstance(rclsid, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -314,7 +331,7 @@ class IObjectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontext-isintransaction
      */
     IsInTransaction() {
-        result := ComCall(8, this, "int")
+        result := ComCall(8, this, BOOL)
         return result
     }
 
@@ -328,7 +345,7 @@ class IObjectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontext-issecurityenabled
      */
     IsSecurityEnabled() {
-        result := ComCall(9, this, "int")
+        result := ComCall(9, this, BOOL)
         return result
     }
 
@@ -401,7 +418,41 @@ class IObjectContext extends IUnknown {
 
         pfIsInRoleMarshal := pfIsInRole is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "ptr", bstrRole, pfIsInRoleMarshal, pfIsInRole, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrRole, pfIsInRoleMarshal, pfIsInRole, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IObjectContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.SetComplete := CallbackCreate(GetMethod(implObj, "SetComplete"), flags, 1)
+        this.vtbl.SetAbort := CallbackCreate(GetMethod(implObj, "SetAbort"), flags, 1)
+        this.vtbl.EnableCommit := CallbackCreate(GetMethod(implObj, "EnableCommit"), flags, 1)
+        this.vtbl.DisableCommit := CallbackCreate(GetMethod(implObj, "DisableCommit"), flags, 1)
+        this.vtbl.IsInTransaction := CallbackCreate(GetMethod(implObj, "IsInTransaction"), flags, 1)
+        this.vtbl.IsSecurityEnabled := CallbackCreate(GetMethod(implObj, "IsSecurityEnabled"), flags, 1)
+        this.vtbl.IsCallerInRole := CallbackCreate(GetMethod(implObj, "IsCallerInRole"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateInstance)
+        CallbackFree(this.vtbl.SetComplete)
+        CallbackFree(this.vtbl.SetAbort)
+        CallbackFree(this.vtbl.EnableCommit)
+        CallbackFree(this.vtbl.DisableCommit)
+        CallbackFree(this.vtbl.IsInTransaction)
+        CallbackFree(this.vtbl.IsSecurityEnabled)
+        CallbackFree(this.vtbl.IsCallerInRole)
     }
 }

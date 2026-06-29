@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a container to control the running of its embedded objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-irunnableobject
  * @namespace Windows.Win32.System.Com
  */
-class IRunnableObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRunnableObject extends IUnknown {
     /**
      * The interface identifier for IRunnableObject
      * @type {Guid}
      */
-    static IID => Guid("{00000126-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000126-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRunnableObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRunningClass    : IntPtr
+        Run                : IntPtr
+        IsRunning          : IntPtr
+        LockRunning        : IntPtr
+        SetContainedObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRunningClass", "Run", "IsRunning", "LockRunning", "SetContainedObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRunnableObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the CLSID of a running object.
@@ -39,7 +52,7 @@ class IRunnableObject extends IUnknown {
      */
     GetRunningClass() {
         lpClsid := Guid()
-        result := ComCall(3, this, "ptr", lpClsid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, lpClsid, "HRESULT")
         return lpClsid
     }
 
@@ -80,7 +93,7 @@ class IRunnableObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-isrunning
      */
     IsRunning() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, BOOL)
         return result
     }
 
@@ -97,7 +110,7 @@ class IRunnableObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-lockrunning
      */
     LockRunning(fLock, fLastUnlockCloses) {
-        result := ComCall(6, this, "int", fLock, "int", fLastUnlockCloses, "HRESULT")
+        result := ComCall(6, this, BOOL, fLock, BOOL, fLastUnlockCloses, "HRESULT")
         return result
     }
 
@@ -118,7 +131,35 @@ class IRunnableObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-setcontainedobject
      */
     SetContainedObject(fContained) {
-        result := ComCall(7, this, "int", fContained, "HRESULT")
+        result := ComCall(7, this, BOOL, fContained, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRunnableObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRunningClass := CallbackCreate(GetMethod(implObj, "GetRunningClass"), flags, 2)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
+        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 1)
+        this.vtbl.LockRunning := CallbackCreate(GetMethod(implObj, "LockRunning"), flags, 3)
+        this.vtbl.SetContainedObject := CallbackCreate(GetMethod(implObj, "SetContainedObject"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRunningClass)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.IsRunning)
+        CallbackFree(this.vtbl.LockRunning)
+        CallbackFree(this.vtbl.SetContainedObject)
     }
 }

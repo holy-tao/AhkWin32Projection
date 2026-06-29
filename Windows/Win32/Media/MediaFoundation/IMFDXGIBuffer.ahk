@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a buffer that contains a Microsoft DirectX Graphics Infrastructure (DXGI)surface.
@@ -10,26 +11,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfdxgibuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFDXGIBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFDXGIBuffer extends IUnknown {
     /**
      * The interface identifier for IMFDXGIBuffer
      * @type {Guid}
      */
-    static IID => Guid("{e7174cfa-1c9e-48b1-8866-626226bfc258}")
+    static IID := Guid("{e7174cfa-1c9e-48b1-8866-626226bfc258}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFDXGIBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetResource         : IntPtr
+        GetSubresourceIndex : IntPtr
+        GetUnknown          : IntPtr
+        SetUnknown          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResource", "GetSubresourceIndex", "GetUnknown", "SetUnknown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFDXGIBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries the Microsoft DirectX Graphics Infrastructure (DXGI)surface for an interface.
@@ -40,7 +51,7 @@ class IMFDXGIBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getresource
      */
     GetResource(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -66,7 +77,7 @@ class IMFDXGIBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getunknown
      */
     GetUnknown(guid, riid) {
-        result := ComCall(5, this, "ptr", guid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guid, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -109,7 +120,33 @@ class IMFDXGIBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-setunknown
      */
     SetUnknown(guid, pUnkData) {
-        result := ComCall(6, this, "ptr", guid, "ptr", pUnkData, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guid, "ptr", pUnkData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFDXGIBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 3)
+        this.vtbl.GetSubresourceIndex := CallbackCreate(GetMethod(implObj, "GetSubresourceIndex"), flags, 2)
+        this.vtbl.GetUnknown := CallbackCreate(GetMethod(implObj, "GetUnknown"), flags, 4)
+        this.vtbl.SetUnknown := CallbackCreate(GetMethod(implObj, "SetUnknown"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResource)
+        CallbackFree(this.vtbl.GetSubresourceIndex)
+        CallbackFree(this.vtbl.GetUnknown)
+        CallbackFree(this.vtbl.SetUnknown)
     }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is no longer supported by the AVI Splitter. Note  It was defined to support certain older hardware decoders that required AVI files to be read directly into hardware memory.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdevmemorycontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMDevMemoryControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMDevMemoryControl extends IUnknown {
     /**
      * The interface identifier for IAMDevMemoryControl
      * @type {Guid}
      */
-    static IID => Guid("{c6545bf1-e76b-11d0-bd52-00a0c911ce86}")
+    static IID := Guid("{c6545bf1-e76b-11d0-bd52-00a0c911ce86}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMDevMemoryControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryWriteSync : IntPtr
+        WriteSync      : IntPtr
+        GetDevId       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryWriteSync", "WriteSync", "GetDevId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMDevMemoryControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  The IAMDevMemoryControl interface is deprecated. Checks if the memory supported by the allocator requires the use of the IAMDevMemoryControl::WriteSync method.
@@ -107,5 +117,29 @@ class IAMDevMemoryControl extends IUnknown {
     GetDevId() {
         result := ComCall(5, this, "uint*", &pdwDevId := 0, "HRESULT")
         return pdwDevId
+    }
+
+    Query(iid) {
+        if (IAMDevMemoryControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryWriteSync := CallbackCreate(GetMethod(implObj, "QueryWriteSync"), flags, 1)
+        this.vtbl.WriteSync := CallbackCreate(GetMethod(implObj, "WriteSync"), flags, 1)
+        this.vtbl.GetDevId := CallbackCreate(GetMethod(implObj, "GetDevId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryWriteSync)
+        CallbackFree(this.vtbl.WriteSync)
+        CallbackFree(this.vtbl.GetDevId)
     }
 }

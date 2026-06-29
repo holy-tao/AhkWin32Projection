@@ -1,35 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_SE_ROUTING_TABLE_ENTRY.ahk
-#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
-#Include .\NFC_SE_TECH_ROUTING_INFO.ahk
-#Include .\NFC_SE_PROTO_ROUTING_INFO.ahk
-#Include .\NFC_SE_AID_ROUTING_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NFC_SE_AID_ROUTING_INFO.ahk" { NFC_SE_AID_ROUTING_INFO }
+#Import ".\NFC_SE_TECH_ROUTING_INFO.ahk" { NFC_SE_TECH_ROUTING_INFO }
+#Import ".\NFC_SE_PROTO_ROUTING_INFO.ahk" { NFC_SE_PROTO_ROUTING_INFO }
+#Import ".\SECURE_ELEMENT_ROUTING_TYPE.ahk" { SECURE_ELEMENT_ROUTING_TYPE }
+#Import ".\NFC_SE_ROUTING_TABLE_ENTRY.ahk" { NFC_SE_ROUTING_TABLE_ENTRY }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_SE_ROUTING_TABLE extends Win32Struct {
-    static sizeof => 48
+export default struct NFC_SE_ROUTING_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    NumberOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TableEntries : NFC_SE_ROUTING_TABLE_ENTRY[1]
 
-    /**
-     * @type {NFC_SE_ROUTING_TABLE_ENTRY}
-     */
-    TableEntries {
-        get {
-            if(!this.HasProp("__TableEntriesProxyArray"))
-                this.__TableEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, NFC_SE_ROUTING_TABLE_ENTRY, "")
-            return this.__TableEntriesProxyArray
-        }
-    }
 }

@@ -1,115 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class xa_switch_t extends Win32Struct {
-    static sizeof => 120
+export default struct xa_switch_t {
+    #StructPack 8
 
-    static packingSize => 8
+    name : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    name {
-        get => StrGet(this.ptr + 0, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-8")
-    }
+    flags : Int32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    version : Int32
 
-    /**
-     * @type {Integer}
-     */
-    version {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    xa_open_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_open_entry {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    xa_close_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_close_entry {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    xa_start_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_start_entry {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    xa_end_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_end_entry {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    xa_rollback_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_rollback_entry {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    xa_prepare_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_prepare_entry {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    xa_commit_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_commit_entry {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    xa_recover_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_recover_entry {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    xa_forget_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_forget_entry {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    xa_complete_entry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    xa_complete_entry {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
 }

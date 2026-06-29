@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\IMSVidOutputDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IMSVidOutputDevices interface represents a collection of output devices.Output devices include video and audio renderers, and the Stream Buffer Sink object.
@@ -12,32 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidoutputdevices
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidOutputDevices extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidOutputDevices extends IDispatch {
     /**
      * The interface identifier for IMSVidOutputDevices
      * @type {Guid}
      */
-    static IID => Guid("{c5702cd2-9b79-11d3-b654-00c04f79498e}")
+    static IID := Guid("{c5702cd2-9b79-11d3-b654-00c04f79498e}")
 
     /**
      * The class identifier for MSVidOutputDevices
      * @type {Guid}
      */
-    static CLSID => Guid("{c5702ccd-9b79-11d3-b654-00c04f79498e}")
+    static CLSID := Guid("{c5702ccd-9b79-11d3-b654-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidOutputDevices interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        Add          : IntPtr
+        Remove       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "get_Item", "Add", "Remove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidOutputDevices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -90,7 +103,7 @@ class IMSVidOutputDevices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidoutputdevices-get_item
      */
     get_Item(v) {
-        result := ComCall(9, this, "ptr", v, "ptr*", &pDB := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "ptr*", &pDB := 0, "HRESULT")
         return IMSVidOutputDevice(pDB)
     }
 
@@ -227,7 +240,35 @@ class IMSVidOutputDevices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidoutputdevices-remove
      */
     Remove(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, VARIANT, v, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidOutputDevices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
     }
 }

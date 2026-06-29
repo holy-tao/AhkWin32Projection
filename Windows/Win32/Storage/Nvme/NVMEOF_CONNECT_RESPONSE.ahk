@@ -1,38 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
-    static sizeof => 16
+export default struct NVMEOF_CONNECT_RESPONSE {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _SCSpecific_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _SCSpecific {
 
-        class _Success extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 2
+        struct _Success {
 
-            class _AUTHREQ_e__Union extends Win32Struct {
-                static sizeof => 2
-                static packingSize => 2
-
+            struct _AUTHREQ {
                 /**
                  * This bitfield backs the following members:
                  * - Obsolete
                  * - ATR
                  * - ASCR
                  * - Reserved
-                 * @type {Integer}
                  */
-                _bitfield {
-                    get => NumGet(this, 0, "ushort")
-                    set => NumPut("ushort", value, this, 0)
-                }
+                _bitfield : Int16
+
 
                 /**
                  * @type {Integer}
@@ -57,104 +45,36 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
                     get => (this._bitfield >> 2) & 0x1
                     set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
                 }
-
-                /**
-                 * @type {Integer}
-                 */
-                AsUshort {
-                    get => NumGet(this, 0, "ushort")
-                    set => NumPut("ushort", value, this, 0)
+                static __New() {
+                    DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+                    this.DeleteProp("__New")
                 }
             }
 
-            /**
-             * @type {Integer}
-             */
-            CNTLID {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            CNTLID : UInt16
 
-            /**
-             * @type {_AUTHREQ_e__Union}
-             */
-            AUTHREQ {
-                get {
-                    if(!this.HasProp("__AUTHREQ"))
-                        this.__AUTHREQ := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union._Success._AUTHREQ_e__Union(2, this)
-                    return this.__AUTHREQ
-                }
-            }
+            AUTHREQ : NVMEOF_CONNECT_RESPONSE._SCSpecific._Success._AUTHREQ
+
         }
 
-        /**
-         * @type {_Success}
-         */
-        Success {
-            get {
-                if(!this.HasProp("__Success"))
-                    this.__Success := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union._Success(0, this)
-                return this.__Success
-            }
-        }
+        Success : NVMEOF_CONNECT_RESPONSE._SCSpecific._Success
 
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_SCSpecific_e__Union}
-     */
-    SCSpecific {
-        get {
-            if(!this.HasProp("__SCSpecific"))
-                this.__SCSpecific := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union(0, this)
-            return this.__SCSpecific
-        }
-    }
+    SCSpecific : NVMEOF_CONNECT_RESPONSE._SCSpecific
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SQHD {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    SQHD : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Reserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CID {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    CID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    STS {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    STS : UInt16
+
 }

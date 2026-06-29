@@ -1,50 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PROCESS_HANDLE_TRACING_ENTRY extends Win32Struct {
-    static sizeof => 152
+export default struct PROCESS_HANDLE_TRACING_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    Handle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    Handle {
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(0, this)
-            return this.__Handle
-        }
-    }
+    ClientId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ClientId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Stacks : IntPtr[16]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Stacks {
-        get {
-            if(!this.HasProp("__StacksProxyArray"))
-                this.__StacksProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "ptr")
-            return this.__StacksProxyArray
-        }
-    }
 }

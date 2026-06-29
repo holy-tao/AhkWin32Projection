@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMStreamConfig interface is the primary interface of a stream configuration object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMStreamConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMStreamConfig extends IUnknown {
     /**
      * The interface identifier for IWMStreamConfig
      * @type {Guid}
      */
-    static IID => Guid("{96406bdc-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bdc-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMStreamConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStreamType     : IntPtr
+        GetStreamNumber   : IntPtr
+        SetStreamNumber   : IntPtr
+        GetStreamName     : IntPtr
+        SetStreamName     : IntPtr
+        GetConnectionName : IntPtr
+        SetConnectionName : IntPtr
+        GetBitrate        : IntPtr
+        SetBitrate        : IntPtr
+        GetBufferWindow   : IntPtr
+        SetBufferWindow   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStreamType", "GetStreamNumber", "SetStreamNumber", "GetStreamName", "SetStreamName", "GetConnectionName", "SetConnectionName", "GetBitrate", "SetBitrate", "GetBufferWindow", "SetBufferWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMStreamConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetStreamType method retrieves the major type of the stream (audio, video, or script).
@@ -39,7 +57,7 @@ class IWMStreamConfig extends IUnknown {
      */
     GetStreamType() {
         pguidStreamType := Guid()
-        result := ComCall(3, this, "ptr", pguidStreamType, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidStreamType, "HRESULT")
         return pguidStreamType
     }
 
@@ -332,5 +350,45 @@ class IWMStreamConfig extends IUnknown {
     SetBufferWindow(msBufferWindow) {
         result := ComCall(13, this, "uint", msBufferWindow, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMStreamConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStreamType := CallbackCreate(GetMethod(implObj, "GetStreamType"), flags, 2)
+        this.vtbl.GetStreamNumber := CallbackCreate(GetMethod(implObj, "GetStreamNumber"), flags, 2)
+        this.vtbl.SetStreamNumber := CallbackCreate(GetMethod(implObj, "SetStreamNumber"), flags, 2)
+        this.vtbl.GetStreamName := CallbackCreate(GetMethod(implObj, "GetStreamName"), flags, 3)
+        this.vtbl.SetStreamName := CallbackCreate(GetMethod(implObj, "SetStreamName"), flags, 2)
+        this.vtbl.GetConnectionName := CallbackCreate(GetMethod(implObj, "GetConnectionName"), flags, 3)
+        this.vtbl.SetConnectionName := CallbackCreate(GetMethod(implObj, "SetConnectionName"), flags, 2)
+        this.vtbl.GetBitrate := CallbackCreate(GetMethod(implObj, "GetBitrate"), flags, 2)
+        this.vtbl.SetBitrate := CallbackCreate(GetMethod(implObj, "SetBitrate"), flags, 2)
+        this.vtbl.GetBufferWindow := CallbackCreate(GetMethod(implObj, "GetBufferWindow"), flags, 2)
+        this.vtbl.SetBufferWindow := CallbackCreate(GetMethod(implObj, "SetBufferWindow"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStreamType)
+        CallbackFree(this.vtbl.GetStreamNumber)
+        CallbackFree(this.vtbl.SetStreamNumber)
+        CallbackFree(this.vtbl.GetStreamName)
+        CallbackFree(this.vtbl.SetStreamName)
+        CallbackFree(this.vtbl.GetConnectionName)
+        CallbackFree(this.vtbl.SetConnectionName)
+        CallbackFree(this.vtbl.GetBitrate)
+        CallbackFree(this.vtbl.SetBitrate)
+        CallbackFree(this.vtbl.GetBufferWindow)
+        CallbackFree(this.vtbl.SetBufferWindow)
     }
 }

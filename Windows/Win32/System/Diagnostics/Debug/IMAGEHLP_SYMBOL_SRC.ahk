@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGEHLP_SYMBOL_SRC extends Win32Struct {
-    static sizeof => 268
+export default struct IMAGEHLP_SYMBOL_SRC {
+    #StructPack 4
 
-    static packingSize => 4
+    sizeofstruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sizeofstruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    file : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    file {
-        get => StrGet(this.ptr + 8, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
-    }
 }

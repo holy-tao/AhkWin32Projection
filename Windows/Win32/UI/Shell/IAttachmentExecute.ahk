@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ATTACHMENT_ACTION.ahk" { ATTACHMENT_ACTION }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ATTACHMENT_PROMPT.ahk" { ATTACHMENT_PROMPT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that work with client applications to present a user environment that provides safe download and exchange of files through email and messaging attachments.
@@ -156,26 +161,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iattachmentexecute
  * @namespace Windows.Win32.UI.Shell
  */
-class IAttachmentExecute extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAttachmentExecute extends IUnknown {
     /**
      * The interface identifier for IAttachmentExecute
      * @type {Guid}
      */
-    static IID => Guid("{73db1241-1e85-4581-8e4f-a81e1d0f8c57}")
+    static IID := Guid("{73db1241-1e85-4581-8e4f-a81e1d0f8c57}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAttachmentExecute interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetClientTitle   : IntPtr
+        SetClientGuid    : IntPtr
+        SetLocalPath     : IntPtr
+        SetFileName      : IntPtr
+        SetSource        : IntPtr
+        SetReferrer      : IntPtr
+        CheckPolicy      : IntPtr
+        Prompt           : IntPtr
+        Save             : IntPtr
+        Execute          : IntPtr
+        SaveWithUI       : IntPtr
+        ClearClientState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetClientTitle", "SetClientGuid", "SetLocalPath", "SetFileName", "SetSource", "SetReferrer", "CheckPolicy", "Prompt", "Save", "Execute", "SaveWithUI", "ClearClientState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAttachmentExecute.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies and stores the title of the prompt window.
@@ -209,7 +232,7 @@ class IAttachmentExecute extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setclientguid
      */
     SetClientGuid(guid) {
-        result := ComCall(4, this, "ptr", guid, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guid, "HRESULT")
         return result
     }
 
@@ -411,9 +434,7 @@ class IAttachmentExecute extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt
      */
     Prompt(_hwnd, prompt) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(10, this, "ptr", _hwnd, "int", prompt, "int*", &paction := 0, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, ATTACHMENT_PROMPT, prompt, "int*", &paction := 0, "HRESULT")
         return paction
     }
 
@@ -463,11 +484,10 @@ class IAttachmentExecute extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-execute
      */
     Execute(_hwnd, pszVerb) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
 
-        phProcess := HANDLE()
-        result := ComCall(12, this, "ptr", _hwnd, "ptr", pszVerb, "ptr", phProcess, "HRESULT")
+        phProcess := HANDLE.Owned()
+        result := ComCall(12, this, HWND, _hwnd, "ptr", pszVerb, HANDLE.Ptr, phProcess, "HRESULT")
         return phProcess
     }
 
@@ -490,9 +510,7 @@ class IAttachmentExecute extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-savewithui
      */
     SaveWithUI(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(13, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(13, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -508,5 +526,47 @@ class IAttachmentExecute extends IUnknown {
     ClearClientState() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAttachmentExecute.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetClientTitle := CallbackCreate(GetMethod(implObj, "SetClientTitle"), flags, 2)
+        this.vtbl.SetClientGuid := CallbackCreate(GetMethod(implObj, "SetClientGuid"), flags, 2)
+        this.vtbl.SetLocalPath := CallbackCreate(GetMethod(implObj, "SetLocalPath"), flags, 2)
+        this.vtbl.SetFileName := CallbackCreate(GetMethod(implObj, "SetFileName"), flags, 2)
+        this.vtbl.SetSource := CallbackCreate(GetMethod(implObj, "SetSource"), flags, 2)
+        this.vtbl.SetReferrer := CallbackCreate(GetMethod(implObj, "SetReferrer"), flags, 2)
+        this.vtbl.CheckPolicy := CallbackCreate(GetMethod(implObj, "CheckPolicy"), flags, 1)
+        this.vtbl.Prompt := CallbackCreate(GetMethod(implObj, "Prompt"), flags, 4)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 4)
+        this.vtbl.SaveWithUI := CallbackCreate(GetMethod(implObj, "SaveWithUI"), flags, 2)
+        this.vtbl.ClearClientState := CallbackCreate(GetMethod(implObj, "ClearClientState"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetClientTitle)
+        CallbackFree(this.vtbl.SetClientGuid)
+        CallbackFree(this.vtbl.SetLocalPath)
+        CallbackFree(this.vtbl.SetFileName)
+        CallbackFree(this.vtbl.SetSource)
+        CallbackFree(this.vtbl.SetReferrer)
+        CallbackFree(this.vtbl.CheckPolicy)
+        CallbackFree(this.vtbl.Prompt)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.Execute)
+        CallbackFree(this.vtbl.SaveWithUI)
+        CallbackFree(this.vtbl.ClearClientState)
     }
 }

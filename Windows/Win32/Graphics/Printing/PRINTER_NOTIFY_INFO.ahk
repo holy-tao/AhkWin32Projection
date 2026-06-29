@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRINTER_NOTIFY_INFO_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PRINTER_NOTIFY_INFO_DATA.ahk" { PRINTER_NOTIFY_INFO_DATA }
 
 /**
  * The PRINTER\_NOTIFY\_INFO structure contains printer information returned by the FindNextPrinterChangeNotification function. The function returns this information after a wait operation on a printer change notification object has been satisfied.
@@ -9,47 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-info
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PRINTER_NOTIFY_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PRINTER_NOTIFY_INFO {
+    #StructPack 8
 
     /**
      * The version of this structure. Set this member to 2.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * A bit flag that indicates the state of the notification structure. If the PRINTER\_NOTIFY\_INFO\_DISCARDED bit is set, it indicates that some notifications had to be discarded.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * The number of [**PRINTER\_NOTIFY\_INFO\_DATA**](printer-notify-info-data.md) elements in the **aData** array.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Count : UInt32
 
     /**
      * An array of [**PRINTER\_NOTIFY\_INFO\_DATA**](printer-notify-info-data.md) structures. Each element of the array identifies a single job or printer information field, and provides the current data for that field.
-     * @type {PRINTER_NOTIFY_INFO_DATA}
      */
-    aData {
-        get {
-            if(!this.HasProp("__aDataProxyArray"))
-                this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 1, PRINTER_NOTIFY_INFO_DATA, "")
-            return this.__aDataProxyArray
-        }
-    }
+    aData : PRINTER_NOTIFY_INFO_DATA[1]
+
 }

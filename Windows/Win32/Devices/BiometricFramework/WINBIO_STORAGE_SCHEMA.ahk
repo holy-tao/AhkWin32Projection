@@ -1,42 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes the capabilities of a biometric storage adapter.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-storage-schema
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_STORAGE_SCHEMA extends Win32Struct {
-    static sizeof => 1056
-
-    static packingSize => 8
+export default struct WINBIO_STORAGE_SCHEMA {
+    #StructPack 4
 
     /**
      * The type of biometric measurement saved in the database.
-     * @type {Integer}
      */
-    BiometricFactor {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BiometricFactor : UInt32
 
     /**
      * A GUID that identifies the database.
-     * @type {Pointer}
      */
-    DatabaseId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DatabaseId : Guid
 
     /**
      * A GUID that identifies the format of the templates in the database.
-     * @type {Pointer}
      */
-    DataFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DataFormat : Guid
 
     /**
      * Information about the characteristics of the database. This can be a bitwise **OR** of the following constants.
@@ -53,34 +39,17 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct {
      * | <span id="WINBIO_DATABASE_TYPE_MASK"></span><span id="winbio_database_type_mask"></span><dl> <dt>**WINBIO\_DATABASE\_TYPE\_MASK**</dt> <dt>0x0000FFFF</dt> </dl>                | Represents a mask for the type bits.<br/>                     |
      * | <span id="WINBIO_DATABASE_TYPE_ONCHIP"></span><span id="winbio_database_type_onchip"></span><dl> <dt>**WINBIO\_DATABASE\_TYPE\_ONCHIP**</dt> <dt>0x00000003</dt> </dl>          | The database resides on the biometric sensor.<br/>            |
      * | <span id="WINBIO_DATABASE_TYPE_SMARTCARD"></span><span id="winbio_database_type_smartcard"></span><dl> <dt>**WINBIO\_DATABASE\_TYPE\_SMARTCARD**</dt> <dt>0x00000004</dt> </dl> | The database resides on a smart card.<br/>                    |
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Attributes : UInt32
 
     /**
      * The path and file name of the database if it resides on the computer disk.
-     * @type {Array<Integer>}
      */
-    FilePath {
-        get {
-            if(!this.HasProp("__FilePathProxyArray"))
-                this.__FilePathProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
-            return this.__FilePathProxyArray
-        }
-    }
+    FilePath : UInt16[256]
 
     /**
      * A string value that can be sent to a database server to identify the database.
-     * @type {Array<Integer>}
      */
-    ConnectionString {
-        get {
-            if(!this.HasProp("__ConnectionStringProxyArray"))
-                this.__ConnectionStringProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")
-            return this.__ConnectionStringProxyArray
-        }
-    }
+    ConnectionString : UInt16[256]
+
 }

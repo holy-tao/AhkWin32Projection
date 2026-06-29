@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfUIElementSink interface is implemented by an application to receive notifications when the UI element is changed.
@@ -10,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfuielementsink
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfUIElementSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfUIElementSink extends IUnknown {
     /**
      * The interface identifier for ITfUIElementSink
      * @type {Guid}
      */
-    static IID => Guid("{ea1ea136-19df-11d7-a6d2-00065b84435c}")
+    static IID := Guid("{ea1ea136-19df-11d7-a6d2-00065b84435c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfUIElementSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginUIElement  : IntPtr
+        UpdateUIElement : IntPtr
+        EndUIElement    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginUIElement", "UpdateUIElement", "EndUIElement"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfUIElementSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfUIElementSink::BeginUIElement method is called when the UIElement started. This sink can let the textservice to draw or not to draw the UI element.
@@ -94,5 +105,29 @@ class ITfUIElementSink extends IUnknown {
     EndUIElement(dwUIElementId) {
         result := ComCall(5, this, "uint", dwUIElementId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfUIElementSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginUIElement := CallbackCreate(GetMethod(implObj, "BeginUIElement"), flags, 3)
+        this.vtbl.UpdateUIElement := CallbackCreate(GetMethod(implObj, "UpdateUIElement"), flags, 2)
+        this.vtbl.EndUIElement := CallbackCreate(GetMethod(implObj, "EndUIElement"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginUIElement)
+        CallbackFree(this.vtbl.UpdateUIElement)
+        CallbackFree(this.vtbl.EndUIElement)
     }
 }

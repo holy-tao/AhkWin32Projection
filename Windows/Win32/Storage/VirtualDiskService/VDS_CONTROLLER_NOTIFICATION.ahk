@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_NF_CONTROLLER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_CONTROLLER.ahk" { VDS_NF_CONTROLLER }
 
 /**
  * The VDS_CONTROLLER_NOTIFICATION structure (vdshwprv.h) defines the details of controller events.
@@ -13,25 +13,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_controller_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_CONTROLLER_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
+export default struct VDS_CONTROLLER_NOTIFICATION {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {VDS_NF_CONTROLLER}
-     */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulEvent : VDS_NF_CONTROLLER
 
     /**
      * The GUID of the controller that triggered the event.
-     * @type {Pointer}
      */
-    controllerId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    controllerId : Guid
+
 }

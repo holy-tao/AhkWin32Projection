@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_INTERFACE_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class DNS_INTERFACE_SETTINGS_EX extends Win32Struct {
-    static sizeof => 80
+export default struct DNS_INTERFACE_SETTINGS_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    SettingsV1 : DNS_INTERFACE_SETTINGS
 
-    /**
-     * @type {DNS_INTERFACE_SETTINGS}
-     */
-    SettingsV1 {
-        get {
-            if(!this.HasProp("__SettingsV1"))
-                this.__SettingsV1 := DNS_INTERFACE_SETTINGS(0, this)
-            return this.__SettingsV1
-        }
-    }
+    DisableUnconstrainedQueries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DisableUnconstrainedQueries {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SupplementalSearchList : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    SupplementalSearchList {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

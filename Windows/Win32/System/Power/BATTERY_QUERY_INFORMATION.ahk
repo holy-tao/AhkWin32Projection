@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BATTERY_QUERY_INFORMATION_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BATTERY_QUERY_INFORMATION_LEVEL.ahk" { BATTERY_QUERY_INFORMATION_LEVEL }
 
 /**
  * Contains battery query information.
@@ -9,21 +8,15 @@
  * @see https://learn.microsoft.com/windows/win32/Power/battery-query-information-str
  * @namespace Windows.Win32.System.Power
  */
-class BATTERY_QUERY_INFORMATION extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct BATTERY_QUERY_INFORMATION {
+    #StructPack 4
 
     /**
      * The current battery tag for the battery. Only information for a battery matching the tag can be returned. Whenever this value does not match the battery's current tag, the IOCTL request will be completed with ERROR\_FILE\_NOT\_FOUND. This indicates to the caller that the battery associated with the tag longer exists. The caller may opt to use the [**IOCTL\_BATTERY\_QUERY\_TAG**](ioctl-battery-query-tag.md) operation to determine the tag of the newly installed battery, if one exists. (See [Battery Tags](battery-information.md) for more information.)
      * 
      * When a query information request is made, this value is verified. In addition, if the request is in progress while this value changes, the request is aborted with the status of ERROR\_FILE\_NOT\_FOUND.
-     * @type {Integer}
      */
-    BatteryTag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BatteryTag : UInt32
 
     /**
      * The level of the battery information being queried. The data returned by the IOCTL depends on this value. This member can be one of the following values.
@@ -41,21 +34,14 @@ class BATTERY_QUERY_INFORMATION extends Win32Struct {
      * | <span id="BatterySerialNumber"></span><span id="batteryserialnumber"></span><span id="BATTERYSERIALNUMBER"></span><dl> <dt>**BatterySerialNumber**</dt> <dt>8</dt> </dl>                                         | Null-terminated Unicode string that specifies the battery's serial number.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
      * | <span id="BatteryTemperature"></span><span id="batterytemperature"></span><span id="BATTERYTEMPERATURE"></span><dl> <dt>**BatteryTemperature**</dt> <dt>2</dt> </dl>                                             | A **ULONG** that specifies the battery's current temperature, in 10ths of a degree Kelvin.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
      * | <span id="BatteryUniqueID"></span><span id="batteryuniqueid"></span><span id="BATTERYUNIQUEID"></span><dl> <dt>**BatteryUniqueID**</dt> <dt>7</dt> </dl>                                                         | Null-terminated Unicode string that uniquely identifies the battery. This value can be used to track a specific battery. In the case of smart batteries, this ID would be the concatenation of the manufacturer's name, device name, date of manufacture, and a printable representation of the serial number. <br/> This value is not intended to be displayed to the user.<br/>                                                                                                                                                                                                                                                                                                                                                                            |
-     * @type {BATTERY_QUERY_INFORMATION_LEVEL}
      */
-    InformationLevel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    InformationLevel : BATTERY_QUERY_INFORMATION_LEVEL
 
     /**
      * This member is used only if **InformationLevel** is BatteryEstimatedTime.
      * 
      * If this member is nonzero, it is a rate of drain that will be used to calculate the time until the battery is discharged for the BatteryEstimatedTime of an individual battery. It must be specified in mW, and must be a negative value to represent a battery discharge rate.
-     * @type {Integer}
      */
-    AtRate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AtRate : UInt32
+
 }

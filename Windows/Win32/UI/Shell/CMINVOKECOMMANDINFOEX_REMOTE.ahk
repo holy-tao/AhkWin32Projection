@@ -1,152 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct {
-    static sizeof => 104
+export default struct CMINVOKECOMMANDINFOEX_REMOTE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hwnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(8, this)
-            return this.__hwnd
-        }
-    }
+    lpVerbString : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpVerbString {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpParameters : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpParameters {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpDirectory : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpDirectory {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    nShow : Int32
 
-    /**
-     * @type {Integer}
-     */
-    nShow {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    dwHotKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHotKey {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    lpTitle : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpTitle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpVerbWString : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpVerbWString {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpParametersW : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpParametersW {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpDirectoryW : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpDirectoryW {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpTitleW : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpTitleW {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ptInvoke : POINT
 
-    /**
-     * @type {POINT}
-     */
-    ptInvoke {
-        get {
-            if(!this.HasProp("__ptInvoke"))
-                this.__ptInvoke := POINT(88, this)
-            return this.__ptInvoke
-        }
-    }
+    lpVerbInt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lpVerbInt {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    lpVerbWInt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lpVerbWInt {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 104
-    }
 }

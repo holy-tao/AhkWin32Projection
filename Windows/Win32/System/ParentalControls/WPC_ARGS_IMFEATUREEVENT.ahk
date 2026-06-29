@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates information about the features of the instant messaging interaction.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_imfeatureevent
  * @namespace Windows.Win32.System.ParentalControls
  */
-class WPC_ARGS_IMFEATUREEVENT extends Win32Enum {
+export default struct WPC_ARGS_IMFEATUREEVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The name of the application used for the instant messaging interaction.

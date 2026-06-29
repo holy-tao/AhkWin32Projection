@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\UNCOMPRESSEDAUDIOFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UNCOMPRESSEDAUDIOFORMAT.ahk" { UNCOMPRESSEDAUDIOFORMAT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioMediaType interface exposes methods that allow an sAPO to get information that is used to negotiate with the audio engine for the appropriate audio data format.
  * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nn-audiomediatype-iaudiomediatype
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioMediaType extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioMediaType extends IUnknown {
     /**
      * The interface identifier for IAudioMediaType
      * @type {Guid}
      */
-    static IID => Guid("{4e997f73-b71f-4798-873b-ed7dfcf15b4d}")
+    static IID := Guid("{4e997f73-b71f-4798-873b-ed7dfcf15b4d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioMediaType interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsCompressedFormat         : IntPtr
+        IsEqual                    : IntPtr
+        GetAudioFormat             : IntPtr
+        GetUncompressedAudioFormat : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsCompressedFormat", "IsEqual", "GetAudioFormat", "GetUncompressedAudioFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioMediaType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsCompressedFormat method determines whether the audio data format is a compressed format.
@@ -38,7 +51,7 @@ class IAudioMediaType extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-iscompressedformat
      */
     IsCompressedFormat() {
-        result := ComCall(3, this, "int*", &pfCompressed := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfCompressed := 0, "HRESULT")
         return pfCompressed
     }
 
@@ -104,7 +117,7 @@ class IAudioMediaType extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-getaudioformat
      */
     GetAudioFormat() {
-        result := ComCall(5, this, "ptr")
+        result := ComCall(5, this, WAVEFORMATEX.Ptr)
         return result
     }
 
@@ -117,7 +130,33 @@ class IAudioMediaType extends IUnknown {
      */
     GetUncompressedAudioFormat() {
         pUncompressedAudioFormat := UNCOMPRESSEDAUDIOFORMAT()
-        result := ComCall(6, this, "ptr", pUncompressedAudioFormat, "HRESULT")
+        result := ComCall(6, this, UNCOMPRESSEDAUDIOFORMAT.Ptr, pUncompressedAudioFormat, "HRESULT")
         return pUncompressedAudioFormat
+    }
+
+    Query(iid) {
+        if (IAudioMediaType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsCompressedFormat := CallbackCreate(GetMethod(implObj, "IsCompressedFormat"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.GetAudioFormat := CallbackCreate(GetMethod(implObj, "GetAudioFormat"), flags, 1)
+        this.vtbl.GetUncompressedAudioFormat := CallbackCreate(GetMethod(implObj, "GetUncompressedAudioFormat"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsCompressedFormat)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.GetAudioFormat)
+        CallbackFree(this.vtbl.GetUncompressedAudioFormat)
     }
 }

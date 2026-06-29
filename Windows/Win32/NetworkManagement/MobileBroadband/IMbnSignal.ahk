@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Get radio signal quality of a Mobile Broadband connection.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsignal
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnSignal extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnSignal extends IUnknown {
     /**
      * The interface identifier for IMbnSignal
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2003-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2003-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnSignal interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSignalStrength : IntPtr
+        GetSignalError    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSignalStrength", "GetSignalError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnSignal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the signal strength received by the device.
@@ -152,5 +161,27 @@ class IMbnSignal extends IUnknown {
     GetSignalError() {
         result := ComCall(4, this, "uint*", &signalError := 0, "HRESULT")
         return signalError
+    }
+
+    Query(iid) {
+        if (IMbnSignal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSignalStrength := CallbackCreate(GetMethod(implObj, "GetSignalStrength"), flags, 2)
+        this.vtbl.GetSignalError := CallbackCreate(GetMethod(implObj, "GetSignalError"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSignalStrength)
+        CallbackFree(this.vtbl.GetSignalError)
     }
 }

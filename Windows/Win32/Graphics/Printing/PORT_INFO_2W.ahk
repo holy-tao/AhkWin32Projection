@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PORT\_INFO\_2 structure identifies a supported printer port.
@@ -11,37 +11,23 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class PORT_INFO_2W extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PORT_INFO_2W {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that identifies a supported printer port (for example, "LPT1:").
-     * @type {PWSTR}
      */
-    pPortName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pPortName : PWSTR
 
     /**
      * Pointer to a null-terminated string that identifies an installed monitor (for example, "PJL monitor"). This can be **NULL**.
-     * @type {PWSTR}
      */
-    pMonitorName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pMonitorName : PWSTR
 
     /**
      * Pointer to a null-terminated string that describes the port in more detail (for example, if **pPortName** is "LPT1:", **pDescription** is "printer port"). This can be **NULL**.
-     * @type {PWSTR}
      */
-    pDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDescription : PWSTR
 
     /**
      * Bitmask describing the type of port. This member can be a combination of the following values:
@@ -54,19 +40,12 @@ class PORT_INFO_2W extends Win32Struct {
      * **PORT\_TYPE\_REDIRECTED**
      * 
      * **PORT\_TYPE\_NET\_ATTACHED**
-     * @type {Integer}
      */
-    fPortType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    fPortType : UInt32
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Reserved : UInt32
+
 }

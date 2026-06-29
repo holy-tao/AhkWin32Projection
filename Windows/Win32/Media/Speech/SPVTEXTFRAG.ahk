@@ -1,60 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPVTEXTFRAG.ahk
-#Include .\SPVSTATE.ahk
-#Include .\SPVACTIONS.ahk
-#Include .\SPVPITCH.ahk
-#Include .\SPPARTOFSPEECH.ahk
-#Include .\SPVCONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPVACTIONS.ahk" { SPVACTIONS }
+#Import ".\SPVCONTEXT.ahk" { SPVCONTEXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
+#Import ".\SPVPITCH.ahk" { SPVPITCH }
+#Import ".\SPVSTATE.ahk" { SPVSTATE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPVTEXTFRAG extends Win32Struct {
-    static sizeof => 96
+export default struct SPVTEXTFRAG {
+    #StructPack 8
 
-    static packingSize => 8
+    pNext : SPVTEXTFRAG.Ptr
 
-    /**
-     * @type {Pointer<SPVTEXTFRAG>}
-     */
-    pNext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    State : SPVSTATE
 
-    /**
-     * @type {SPVSTATE}
-     */
-    State {
-        get {
-            if(!this.HasProp("__State"))
-                this.__State := SPVSTATE(8, this)
-            return this.__State
-        }
-    }
+    pTextStart : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pTextStart {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ulTextLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTextLen {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ulTextSrcOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTextSrcOffset {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 }

@@ -1,37 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFT_INPUT_STREAM_INFO.ahk
-#Include .\MFT_OUTPUT_STREAM_INFO.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\MFT_INPUT_STREAM_INFO.ahk" { MFT_INPUT_STREAM_INFO }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\MFT_OUTPUT_DATA_BUFFER.ahk" { MFT_OUTPUT_DATA_BUFFER }
+#Import ".\MFT_MESSAGE_TYPE.ahk" { MFT_MESSAGE_TYPE }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MFT_OUTPUT_STREAM_INFO.ahk" { MFT_OUTPUT_STREAM_INFO }
 
 /**
  * Implemented by all Media Foundation Transforms (MFTs).
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/nn-mftransform-imftransform
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTransform extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTransform extends IUnknown {
     /**
      * The interface identifier for IMFTransform
      * @type {Guid}
      */
-    static IID => Guid("{bf94c121-5b05-4e6f-8000-ba598961414d}")
+    static IID := Guid("{bf94c121-5b05-4e6f-8000-ba598961414d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTransform interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStreamLimits           : IntPtr
+        GetStreamCount            : IntPtr
+        GetStreamIDs              : IntPtr
+        GetInputStreamInfo        : IntPtr
+        GetOutputStreamInfo       : IntPtr
+        GetAttributes             : IntPtr
+        GetInputStreamAttributes  : IntPtr
+        GetOutputStreamAttributes : IntPtr
+        DeleteInputStream         : IntPtr
+        AddInputStreams           : IntPtr
+        GetInputAvailableType     : IntPtr
+        GetOutputAvailableType    : IntPtr
+        SetInputType              : IntPtr
+        SetOutputType             : IntPtr
+        GetInputCurrentType       : IntPtr
+        GetOutputCurrentType      : IntPtr
+        GetInputStatus            : IntPtr
+        GetOutputStatus           : IntPtr
+        SetOutputBounds           : IntPtr
+        ProcessEvent              : IntPtr
+        ProcessMessage            : IntPtr
+        ProcessInput              : IntPtr
+        ProcessOutput             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStreamLimits", "GetStreamCount", "GetStreamIDs", "GetInputStreamInfo", "GetOutputStreamInfo", "GetAttributes", "GetInputStreamAttributes", "GetOutputStreamAttributes", "DeleteInputStream", "AddInputStreams", "GetInputAvailableType", "GetOutputAvailableType", "SetInputType", "SetOutputType", "GetInputCurrentType", "GetOutputCurrentType", "GetInputStatus", "GetOutputStatus", "SetOutputBounds", "ProcessEvent", "ProcessMessage", "ProcessInput", "ProcessOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the minimum and maximum number of input and output streams for this Media Foundation transform (MFT).
@@ -199,7 +233,7 @@ class IMFTransform extends IUnknown {
      */
     GetInputStreamInfo(dwInputStreamID) {
         pStreamInfo := MFT_INPUT_STREAM_INFO()
-        result := ComCall(6, this, "uint", dwInputStreamID, "ptr", pStreamInfo, "HRESULT")
+        result := ComCall(6, this, "uint", dwInputStreamID, MFT_INPUT_STREAM_INFO.Ptr, pStreamInfo, "HRESULT")
         return pStreamInfo
     }
 
@@ -215,7 +249,7 @@ class IMFTransform extends IUnknown {
      */
     GetOutputStreamInfo(dwOutputStreamID) {
         pStreamInfo := MFT_OUTPUT_STREAM_INFO()
-        result := ComCall(7, this, "uint", dwOutputStreamID, "ptr", pStreamInfo, "HRESULT")
+        result := ComCall(7, this, "uint", dwOutputStreamID, MFT_OUTPUT_STREAM_INFO.Ptr, pStreamInfo, "HRESULT")
         return pStreamInfo
     }
 
@@ -1061,7 +1095,7 @@ class IMFTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-processmessage
      */
     ProcessMessage(eMessage, ulParam) {
-        result := ComCall(23, this, "int", eMessage, "ptr", ulParam, "HRESULT")
+        result := ComCall(23, this, MFT_MESSAGE_TYPE, eMessage, "ptr", ulParam, "HRESULT")
         return result
     }
 
@@ -1332,7 +1366,71 @@ class IMFTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-processoutput
      */
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputSamples) {
-        result := ComCall(25, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSamples, "uint*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(25, this, "uint", dwFlags, "uint", cOutputBufferCount, MFT_OUTPUT_DATA_BUFFER.Ptr, pOutputSamples, "uint*", &pdwStatus := 0, "HRESULT")
         return pdwStatus
+    }
+
+    Query(iid) {
+        if (IMFTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStreamLimits := CallbackCreate(GetMethod(implObj, "GetStreamLimits"), flags, 5)
+        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 3)
+        this.vtbl.GetStreamIDs := CallbackCreate(GetMethod(implObj, "GetStreamIDs"), flags, 5)
+        this.vtbl.GetInputStreamInfo := CallbackCreate(GetMethod(implObj, "GetInputStreamInfo"), flags, 3)
+        this.vtbl.GetOutputStreamInfo := CallbackCreate(GetMethod(implObj, "GetOutputStreamInfo"), flags, 3)
+        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 2)
+        this.vtbl.GetInputStreamAttributes := CallbackCreate(GetMethod(implObj, "GetInputStreamAttributes"), flags, 3)
+        this.vtbl.GetOutputStreamAttributes := CallbackCreate(GetMethod(implObj, "GetOutputStreamAttributes"), flags, 3)
+        this.vtbl.DeleteInputStream := CallbackCreate(GetMethod(implObj, "DeleteInputStream"), flags, 2)
+        this.vtbl.AddInputStreams := CallbackCreate(GetMethod(implObj, "AddInputStreams"), flags, 3)
+        this.vtbl.GetInputAvailableType := CallbackCreate(GetMethod(implObj, "GetInputAvailableType"), flags, 4)
+        this.vtbl.GetOutputAvailableType := CallbackCreate(GetMethod(implObj, "GetOutputAvailableType"), flags, 4)
+        this.vtbl.SetInputType := CallbackCreate(GetMethod(implObj, "SetInputType"), flags, 4)
+        this.vtbl.SetOutputType := CallbackCreate(GetMethod(implObj, "SetOutputType"), flags, 4)
+        this.vtbl.GetInputCurrentType := CallbackCreate(GetMethod(implObj, "GetInputCurrentType"), flags, 3)
+        this.vtbl.GetOutputCurrentType := CallbackCreate(GetMethod(implObj, "GetOutputCurrentType"), flags, 3)
+        this.vtbl.GetInputStatus := CallbackCreate(GetMethod(implObj, "GetInputStatus"), flags, 3)
+        this.vtbl.GetOutputStatus := CallbackCreate(GetMethod(implObj, "GetOutputStatus"), flags, 2)
+        this.vtbl.SetOutputBounds := CallbackCreate(GetMethod(implObj, "SetOutputBounds"), flags, 3)
+        this.vtbl.ProcessEvent := CallbackCreate(GetMethod(implObj, "ProcessEvent"), flags, 3)
+        this.vtbl.ProcessMessage := CallbackCreate(GetMethod(implObj, "ProcessMessage"), flags, 3)
+        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 4)
+        this.vtbl.ProcessOutput := CallbackCreate(GetMethod(implObj, "ProcessOutput"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStreamLimits)
+        CallbackFree(this.vtbl.GetStreamCount)
+        CallbackFree(this.vtbl.GetStreamIDs)
+        CallbackFree(this.vtbl.GetInputStreamInfo)
+        CallbackFree(this.vtbl.GetOutputStreamInfo)
+        CallbackFree(this.vtbl.GetAttributes)
+        CallbackFree(this.vtbl.GetInputStreamAttributes)
+        CallbackFree(this.vtbl.GetOutputStreamAttributes)
+        CallbackFree(this.vtbl.DeleteInputStream)
+        CallbackFree(this.vtbl.AddInputStreams)
+        CallbackFree(this.vtbl.GetInputAvailableType)
+        CallbackFree(this.vtbl.GetOutputAvailableType)
+        CallbackFree(this.vtbl.SetInputType)
+        CallbackFree(this.vtbl.SetOutputType)
+        CallbackFree(this.vtbl.GetInputCurrentType)
+        CallbackFree(this.vtbl.GetOutputCurrentType)
+        CallbackFree(this.vtbl.GetInputStatus)
+        CallbackFree(this.vtbl.GetOutputStatus)
+        CallbackFree(this.vtbl.SetOutputBounds)
+        CallbackFree(this.vtbl.ProcessEvent)
+        CallbackFree(this.vtbl.ProcessMessage)
+        CallbackFree(this.vtbl.ProcessInput)
+        CallbackFree(this.vtbl.ProcessOutput)
     }
 }

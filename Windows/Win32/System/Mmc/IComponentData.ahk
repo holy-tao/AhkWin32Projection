@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IComponent.ahk
-#Include ..\Com\IDataObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IComponent.ahk" { IComponent }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SCOPEDATAITEM.ahk" { SCOPEDATAITEM }
+#Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
 
 /**
  * The IComponentData interface enables MMC to communicate with snap-ins. Similar to the IComponent interface, IComponentData is typically implemented at the document level and is closely associated with items (folders) being displayed in the scope pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icomponentdata
  * @namespace Windows.Win32.System.Mmc
  */
-class IComponentData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComponentData extends IUnknown {
     /**
      * The interface identifier for IComponentData
      * @type {Guid}
      */
-    static IID => Guid("{955ab28a-5218-11d0-a985-00c04fd8d565}")
+    static IID := Guid("{955ab28a-5218-11d0-a985-00c04fd8d565}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComponentData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize      : IntPtr
+        CreateComponent : IntPtr
+        Notify          : IntPtr
+        Destroy         : IntPtr
+        QueryDataObject : IntPtr
+        GetDisplayInfo  : IntPtr
+        CompareObjects  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "CreateComponent", "Notify", "Destroy", "QueryDataObject", "GetDisplayInfo", "CompareObjects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComponentData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IComponentData::Initialize method provides an entry point to the console.
@@ -103,7 +121,7 @@ class IComponentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-notify
      */
     Notify(lpDataObject, event, arg, param3) {
-        result := ComCall(5, this, "ptr", lpDataObject, "int", event, "ptr", arg, "ptr", param3, "HRESULT")
+        result := ComCall(5, this, "ptr", lpDataObject, MMC_NOTIFY_TYPE, event, LPARAM, arg, LPARAM, param3, "HRESULT")
         return result
     }
 
@@ -138,7 +156,7 @@ class IComponentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-querydataobject
      */
     QueryDataObject(cookie, type) {
-        result := ComCall(7, this, "ptr", cookie, "int", type, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDataObject := 0, "HRESULT")
         return IDataObject(ppDataObject)
     }
 
@@ -160,7 +178,7 @@ class IComponentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-getdisplayinfo
      */
     GetDisplayInfo(pScopeDataItem) {
-        result := ComCall(8, this, "ptr", pScopeDataItem, "HRESULT")
+        result := ComCall(8, this, SCOPEDATAITEM.Ptr, pScopeDataItem, "HRESULT")
         return result
     }
 
@@ -175,5 +193,37 @@ class IComponentData extends IUnknown {
     CompareObjects(lpDataObjectA, lpDataObjectB) {
         result := ComCall(9, this, "ptr", lpDataObjectA, "ptr", lpDataObjectB, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComponentData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.CreateComponent := CallbackCreate(GetMethod(implObj, "CreateComponent"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 5)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.QueryDataObject := CallbackCreate(GetMethod(implObj, "QueryDataObject"), flags, 4)
+        this.vtbl.GetDisplayInfo := CallbackCreate(GetMethod(implObj, "GetDisplayInfo"), flags, 2)
+        this.vtbl.CompareObjects := CallbackCreate(GetMethod(implObj, "CompareObjects"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.CreateComponent)
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.QueryDataObject)
+        CallbackFree(this.vtbl.GetDisplayInfo)
+        CallbackFree(this.vtbl.CompareObjects)
     }
 }

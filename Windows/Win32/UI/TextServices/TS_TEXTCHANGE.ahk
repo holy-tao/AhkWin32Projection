@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TS_TEXTCHANGE structure contains text change data.
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_textchange
  * @namespace Windows.Win32.UI.TextServices
  */
-class TS_TEXTCHANGE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct TS_TEXTCHANGE {
+    #StructPack 4
 
     /**
      * Contains the starting character position of the change.
-     * @type {Integer}
      */
-    acpStart {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    acpStart : Int32
 
     /**
      * Contains the ending character position before the text is changed.
-     * @type {Integer}
      */
-    acpOldEnd {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    acpOldEnd : Int32
 
     /**
      * Contains the ending character position after the text is changed.
-     * @type {Integer}
      */
-    acpNewEnd {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    acpNewEnd : Int32
+
 }

@@ -1,81 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENDPOINTADDRESS2.ahk
-#Include .\CLAIMLIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENDPOINTADDRESS2.ahk" { ENDPOINTADDRESS2 }
+#Import ".\CLAIMLIST.ahk" { CLAIMLIST }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class RECIPIENTPOLICY2 extends Win32Struct {
-    static sizeof => 120
+export default struct RECIPIENTPOLICY2 {
+    #StructPack 8
 
-    static packingSize => 8
+    recipient : ENDPOINTADDRESS2
 
-    /**
-     * @type {ENDPOINTADDRESS2}
-     */
-    recipient {
-        get {
-            if(!this.HasProp("__recipient"))
-                this.__recipient := ENDPOINTADDRESS2(0, this)
-            return this.__recipient
-        }
-    }
+    issuer : ENDPOINTADDRESS2
 
-    /**
-     * @type {ENDPOINTADDRESS2}
-     */
-    issuer {
-        get {
-            if(!this.HasProp("__issuer"))
-                this.__issuer := ENDPOINTADDRESS2(32, this)
-            return this.__issuer
-        }
-    }
+    tokenType : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    tokenType {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    requiredClaims : CLAIMLIST
 
-    /**
-     * @type {CLAIMLIST}
-     */
-    requiredClaims {
-        get {
-            if(!this.HasProp("__requiredClaims"))
-                this.__requiredClaims := CLAIMLIST(72, this)
-            return this.__requiredClaims
-        }
-    }
+    optionalClaims : CLAIMLIST
 
-    /**
-     * @type {CLAIMLIST}
-     */
-    optionalClaims {
-        get {
-            if(!this.HasProp("__optionalClaims"))
-                this.__optionalClaims := CLAIMLIST(88, this)
-            return this.__optionalClaims
-        }
-    }
+    privacyUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    privacyUrl {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    privacyVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    privacyVersion {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\KSRATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSRATE.ahk" { KSRATE }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSRATE_CAPABILITY extends Win32Struct {
-    static sizeof => 56
+export default struct KSRATE_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    Rate : KSRATE
 
-    /**
-     * @type {KSRATE}
-     */
-    Rate {
-        get {
-            if(!this.HasProp("__Rate"))
-                this.__Rate := KSRATE(16, this)
-            return this.__Rate
-        }
-    }
 }

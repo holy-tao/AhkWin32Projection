@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFMediaSource.ahk
-#Include .\IMFCameraSyncObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\Devices\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFCameraSyncObject.ahk" { IMFCameraSyncObject }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 
 /**
  * Represents a virtual camera that can be plugged into the Media Foundation frame server pipeline.
@@ -12,26 +18,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nn-mfvirtualcamera-imfvirtualcamera
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVirtualCamera extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFVirtualCamera extends IMFAttributes {
     /**
      * The interface identifier for IMFVirtualCamera
      * @type {Guid}
      */
-    static IID => Guid("{1c08a864-ef6c-4c75-af59-5f2d68da9563}")
+    static IID := Guid("{1c08a864-ef6c-4c75-af59-5f2d68da9563}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVirtualCamera interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        AddDeviceSourceInfo : IntPtr
+        AddProperty         : IntPtr
+        AddRegistryEntry    : IntPtr
+        Start               : IntPtr
+        Stop                : IntPtr
+        Remove              : IntPtr
+        GetMediaSource      : IntPtr
+        SendCameraProperty  : IntPtr
+        CreateSyncEvent     : IntPtr
+        CreateSyncSemaphore : IntPtr
+        Shutdown            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddDeviceSourceInfo", "AddProperty", "AddRegistryEntry", "Start", "Stop", "Remove", "GetMediaSource", "SendCameraProperty", "CreateSyncEvent", "CreateSyncSemaphore", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVirtualCamera.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs the pipeline the virtual camera will require exclusive control to the physical camera specified by the specified device symbolic name.
@@ -78,7 +101,7 @@ class IMFVirtualCamera extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-addproperty
      */
     AddProperty(pKey, Type, pbData, cbData) {
-        result := ComCall(34, this, "ptr", pKey, "uint", Type, "ptr", pbData, "uint", cbData, "HRESULT")
+        result := ComCall(34, this, DEVPROPKEY.Ptr, pKey, DEVPROPTYPE, Type, "ptr", pbData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -205,7 +228,7 @@ class IMFVirtualCamera extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-sendcameraproperty
      */
     SendCameraProperty(propertySet, propertyId, propertyFlags, propertyPayload, propertyPayloadLength, data, dataLength) {
-        result := ComCall(40, this, "ptr", propertySet, "uint", propertyId, "uint", propertyFlags, "ptr", propertyPayload, "uint", propertyPayloadLength, "ptr", data, "uint", dataLength, "uint*", &dataWritten := 0, "HRESULT")
+        result := ComCall(40, this, Guid.Ptr, propertySet, "uint", propertyId, "uint", propertyFlags, "ptr", propertyPayload, "uint", propertyPayloadLength, "ptr", data, "uint", dataLength, "uint*", &dataWritten := 0, "HRESULT")
         return dataWritten
     }
 
@@ -226,9 +249,7 @@ class IMFVirtualCamera extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-createsyncevent
      */
     CreateSyncEvent(kseventSet, kseventId, kseventFlags, eventHandle) {
-        eventHandle := eventHandle is Win32Handle ? NumGet(eventHandle, "ptr") : eventHandle
-
-        result := ComCall(41, this, "ptr", kseventSet, "uint", kseventId, "uint", kseventFlags, "ptr", eventHandle, "ptr*", &cameraSyncObject := 0, "HRESULT")
+        result := ComCall(41, this, Guid.Ptr, kseventSet, "uint", kseventId, "uint", kseventFlags, HANDLE, eventHandle, "ptr*", &cameraSyncObject := 0, "HRESULT")
         return IMFCameraSyncObject(cameraSyncObject)
     }
 
@@ -250,9 +271,7 @@ class IMFVirtualCamera extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-createsyncsemaphore
      */
     CreateSyncSemaphore(kseventSet, kseventId, kseventFlags, semaphoreHandle, semaphoreAdjustment) {
-        semaphoreHandle := semaphoreHandle is Win32Handle ? NumGet(semaphoreHandle, "ptr") : semaphoreHandle
-
-        result := ComCall(42, this, "ptr", kseventSet, "uint", kseventId, "uint", kseventFlags, "ptr", semaphoreHandle, "int", semaphoreAdjustment, "ptr*", &cameraSyncObject := 0, "HRESULT")
+        result := ComCall(42, this, Guid.Ptr, kseventSet, "uint", kseventId, "uint", kseventFlags, HANDLE, semaphoreHandle, "int", semaphoreAdjustment, "ptr*", &cameraSyncObject := 0, "HRESULT")
         return IMFCameraSyncObject(cameraSyncObject)
     }
 
@@ -272,5 +291,45 @@ class IMFVirtualCamera extends IMFAttributes {
     Shutdown() {
         result := ComCall(43, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFVirtualCamera.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddDeviceSourceInfo := CallbackCreate(GetMethod(implObj, "AddDeviceSourceInfo"), flags, 2)
+        this.vtbl.AddProperty := CallbackCreate(GetMethod(implObj, "AddProperty"), flags, 5)
+        this.vtbl.AddRegistryEntry := CallbackCreate(GetMethod(implObj, "AddRegistryEntry"), flags, 6)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 1)
+        this.vtbl.GetMediaSource := CallbackCreate(GetMethod(implObj, "GetMediaSource"), flags, 2)
+        this.vtbl.SendCameraProperty := CallbackCreate(GetMethod(implObj, "SendCameraProperty"), flags, 9)
+        this.vtbl.CreateSyncEvent := CallbackCreate(GetMethod(implObj, "CreateSyncEvent"), flags, 6)
+        this.vtbl.CreateSyncSemaphore := CallbackCreate(GetMethod(implObj, "CreateSyncSemaphore"), flags, 7)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddDeviceSourceInfo)
+        CallbackFree(this.vtbl.AddProperty)
+        CallbackFree(this.vtbl.AddRegistryEntry)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.GetMediaSource)
+        CallbackFree(this.vtbl.SendCameraProperty)
+        CallbackFree(this.vtbl.CreateSyncEvent)
+        CallbackFree(this.vtbl.CreateSyncSemaphore)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

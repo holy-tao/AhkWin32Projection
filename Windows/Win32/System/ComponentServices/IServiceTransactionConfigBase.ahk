@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMAdminTxIsolationLevelOptions.ahk" { COMAdminTxIsolationLevelOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CSC_TransactionConfig.ahk" { CSC_TransactionConfig }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures the transaction services for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain. (IServiceTransactionConfigBase)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicetransactionconfigbase
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IServiceTransactionConfigBase extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IServiceTransactionConfigBase extends IUnknown {
     /**
      * The interface identifier for IServiceTransactionConfigBase
      * @type {Guid}
      */
-    static IID => Guid("{772b3fbe-6ffd-42fb-b5f8-8f9b260f3810}")
+    static IID := Guid("{772b3fbe-6ffd-42fb-b5f8-8f9b260f3810}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IServiceTransactionConfigBase interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ConfigureTransaction      : IntPtr
+        IsolationLevel            : IntPtr
+        TransactionTimeout        : IntPtr
+        BringYourOwnTransaction   : IntPtr
+        NewTransactionDescription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConfigureTransaction", "IsolationLevel", "TransactionTimeout", "BringYourOwnTransaction", "NewTransactionDescription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IServiceTransactionConfigBase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Configures how transactions are used in the enclosed work.
@@ -36,7 +51,7 @@ class IServiceTransactionConfigBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-configuretransaction
      */
     ConfigureTransaction(transactionConfig) {
-        result := ComCall(3, this, "int", transactionConfig, "HRESULT")
+        result := ComCall(3, this, CSC_TransactionConfig, transactionConfig, "HRESULT")
         return result
     }
 
@@ -49,7 +64,7 @@ class IServiceTransactionConfigBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-isolationlevel
      */
     IsolationLevel(option) {
-        result := ComCall(4, this, "int", option, "HRESULT")
+        result := ComCall(4, this, COMAdminTxIsolationLevelOptions, option, "HRESULT")
         return result
     }
 
@@ -96,5 +111,33 @@ class IServiceTransactionConfigBase extends IUnknown {
 
         result := ComCall(7, this, "ptr", szTxDesc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IServiceTransactionConfigBase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConfigureTransaction := CallbackCreate(GetMethod(implObj, "ConfigureTransaction"), flags, 2)
+        this.vtbl.IsolationLevel := CallbackCreate(GetMethod(implObj, "IsolationLevel"), flags, 2)
+        this.vtbl.TransactionTimeout := CallbackCreate(GetMethod(implObj, "TransactionTimeout"), flags, 2)
+        this.vtbl.BringYourOwnTransaction := CallbackCreate(GetMethod(implObj, "BringYourOwnTransaction"), flags, 2)
+        this.vtbl.NewTransactionDescription := CallbackCreate(GetMethod(implObj, "NewTransactionDescription"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConfigureTransaction)
+        CallbackFree(this.vtbl.IsolationLevel)
+        CallbackFree(this.vtbl.TransactionTimeout)
+        CallbackFree(this.vtbl.BringYourOwnTransaction)
+        CallbackFree(this.vtbl.NewTransactionDescription)
     }
 }

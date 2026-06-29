@@ -1,43 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPRECORESULTINFO.ahk
-#Include .\SPRESULTTYPE.ahk
-#Include .\SPGRAMMARHANDLE.ahk
-#Include .\ISpPhraseBuilder.ahk
-#Include .\SPPHRASEALT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPGRAMMARHANDLE.ahk" { SPGRAMMARHANDLE }
+#Import ".\SPRESULTTYPE.ahk" { SPRESULTTYPE }
+#Import ".\SPPHRASEALT.ahk" { SPPHRASEALT }
+#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
+#Import ".\SPRECORESULTINFO.ahk" { SPRECORESULTINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPRECORESULTINFOEX extends Win32Struct {
-    static sizeof => 96
+export default struct SPRECORESULTINFOEX {
+    #StructPack 8
 
-    static packingSize => 8
+    Base : SPRECORESULTINFO
 
-    /**
-     * @type {SPRECORESULTINFO}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := SPRECORESULTINFO(0, this)
-            return this.__Base
-        }
-    }
+    ullStreamTimeStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullStreamTimeStart {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ullStreamTimeEnd : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullStreamTimeEnd {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
 }

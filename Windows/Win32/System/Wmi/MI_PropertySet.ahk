@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_PropertySetFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_PropertySetFT.ahk" { MI_PropertySetFT }
 
 /**
  * Implements a set of property names.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_propertyset
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_PropertySet extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MI_PropertySet {
+    #StructPack 8
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_propertysetft">MI_PropertySetFT</a> function table.
-     * @type {Pointer<MI_PropertySetFT>}
      */
-    ft {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ft : MI_PropertySetFT.Ptr
 
     /**
      * Reserved for internal use.
-     * @type {Array<Pointer>}
      */
-    reserved {
-        get {
-            if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")
-            return this.__reservedProxyArray
-        }
-    }
+    reserved : IntPtr[3]
+
 }

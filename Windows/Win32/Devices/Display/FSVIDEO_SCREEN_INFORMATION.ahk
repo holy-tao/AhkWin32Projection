@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Console\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Console\COORD.ahk" { COORD }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FSVIDEO_SCREEN_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct FSVIDEO_SCREEN_INFORMATION {
+    #StructPack 2
 
-    static packingSize => 2
+    ScreenSize : COORD
 
-    /**
-     * @type {COORD}
-     */
-    ScreenSize {
-        get {
-            if(!this.HasProp("__ScreenSize"))
-                this.__ScreenSize := COORD(0, this)
-            return this.__ScreenSize
-        }
-    }
+    FontSize : COORD
 
-    /**
-     * @type {COORD}
-     */
-    FontSize {
-        get {
-            if(!this.HasProp("__FontSize"))
-                this.__FontSize := COORD(4, this)
-            return this.__FontSize
-        }
-    }
 }

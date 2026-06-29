@@ -1,15 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_VERSION.ahk
-#Include .\HTTP_VERB.ahk
-#Include .\HTTP_COOKED_URL.ahk
-#Include .\HTTP_TRANSPORT_ADDRESS.ahk
-#Include ..\WinSock\SOCKADDR.ahk
-#Include .\HTTP_REQUEST_HEADERS.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
-#Include .\HTTP_KNOWN_HEADER.ahk
-#Include .\HTTP_DATA_CHUNK.ahk
-#Include .\HTTP_SSL_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_TRANSPORT_ADDRESS.ahk" { HTTP_TRANSPORT_ADDRESS }
+#Import ".\HTTP_VERSION.ahk" { HTTP_VERSION }
+#Import ".\HTTP_SSL_INFO.ahk" { HTTP_SSL_INFO }
+#Import ".\HTTP_REQUEST_HEADERS.ahk" { HTTP_REQUEST_HEADERS }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_COOKED_URL.ahk" { HTTP_COOKED_URL }
+#Import "..\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\HTTP_VERB.ahk" { HTTP_VERB }
+#Import ".\HTTP_DATA_CHUNK.ahk" { HTTP_DATA_CHUNK }
 
 /**
  * Uses the HTTP_REQUEST structure to return data associated with a specific request.
@@ -18,10 +19,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_v1
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_V1 extends Win32Struct {
-    static sizeof => 848
-
-    static packingSize => 8
+export default struct HTTP_REQUEST_V1 {
+    #StructPack 8
 
     /**
      * A combination of zero or more of the following flag values may be combined, with OR, as appropriate.
@@ -67,190 +66,107 @@ class HTTP_REQUEST_V1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * An identifier for the connection on which the request was received. Use this value when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpwaitfordisconnect">HttpWaitForDisconnect</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceiveclientcertificate">HttpReceiveClientCertificate</a>.
-     * @type {Integer}
      */
-    ConnectionId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ConnectionId : Int64
 
     /**
      * A value used to identify the request when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceiverequestentitybody">HttpReceiveRequestEntityBody</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a>, and/or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a>.
-     * @type {Integer}
      */
-    RequestId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RequestId : Int64
 
     /**
      * The context that is associated with the URL in the <i>pRawUrl</i> parameter.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>
-     * @type {Integer}
      */
-    UrlContext {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    UrlContext : Int64
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_version">HTTP_VERSION</a> structure that contains the version of HTTP specified by this request.
-     * @type {HTTP_VERSION}
      */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := HTTP_VERSION(32, this)
-            return this.__Version
-        }
-    }
+    Version : HTTP_VERSION
 
     /**
      * An HTTP verb associated with this request. This member can be one of the values from the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_verb">HTTP_VERB</a> enumeration.
-     * @type {HTTP_VERB}
      */
-    Verb {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    Verb : HTTP_VERB
 
     /**
      * If the <b>Verb</b> member contains a value equal to <b>HttpVerbUnknown</b>, the <b>UnknownVerbLength</b> member contains the size, in bytes, of the string pointed to by the <b>pUnknownVerb</b> member, not including the terminating null character. If <b>Verb</b> is not equal to <b>HttpVerbUnknown</b>, <b>UnknownVerbLength</b> is equal to zero.
-     * @type {Integer}
      */
-    UnknownVerbLength {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    UnknownVerbLength : UInt16
 
     /**
      * The size, in bytes, of the unprocessed URL string pointed to by the <b>pRawUrl</b> member, not including the terminating null character.
-     * @type {Integer}
      */
-    RawUrlLength {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    RawUrlLength : UInt16
 
     /**
      * If the <b>Verb</b> member is equal to <b>HttpVerbUnknown</b>, <b>pUnknownVerb</b>, points to a null-terminated string of octets that contains the HTTP verb for this request; otherwise, the application ignores this parameter.
-     * @type {PSTR}
      */
-    pUnknownVerb {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pUnknownVerb : PSTR
 
     /**
      * A pointer to a string of octets that contains the original, unprocessed URL targeted by this request.  Use this unprocessed URL only for tracking or statistical purposes; the  <b>CookedUrl</b> member contains the canonical form of the URL for general use.
-     * @type {PSTR}
      */
-    pRawUrl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pRawUrl : PSTR
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_cooked_url">HTTP_COOKED_URL</a> structure that contains a parsed canonical wide-character version of the URL targeted by this request. This is the version of the URL HTTP Listeners should act upon, rather than the raw URL.
-     * @type {HTTP_COOKED_URL}
      */
-    CookedUrl {
-        get {
-            if(!this.HasProp("__CookedUrl"))
-                this.__CookedUrl := HTTP_COOKED_URL(64, this)
-            return this.__CookedUrl
-        }
-    }
+    CookedUrl : HTTP_COOKED_URL
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_transport_address">HTTP_TRANSPORT_ADDRESS</a> structure that contains the transport addresses for the connection for this request.
-     * @type {HTTP_TRANSPORT_ADDRESS}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := HTTP_TRANSPORT_ADDRESS(104, this)
-            return this.__Address
-        }
-    }
+    Address : HTTP_TRANSPORT_ADDRESS
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_headers">HTTP_REQUEST_HEADERS</a> structure that contains the headers specified in this request.
-     * @type {HTTP_REQUEST_HEADERS}
      */
-    Headers {
-        get {
-            if(!this.HasProp("__Headers"))
-                this.__Headers := HTTP_REQUEST_HEADERS(120, this)
-            return this.__Headers
-        }
-    }
+    Headers : HTTP_REQUEST_HEADERS
 
     /**
      * The total number of bytes received from the network comprising this request.
-     * @type {Integer}
      */
-    BytesReceived {
-        get => NumGet(this, 808, "uint")
-        set => NumPut("uint", value, this, 808)
-    }
+    BytesReceived : Int64
 
     /**
      * The number of elements in the <b>pEntityChunks</b> array. If no entity body was copied, this value is zero.
-     * @type {Integer}
      */
-    EntityChunkCount {
-        get => NumGet(this, 816, "ushort")
-        set => NumPut("ushort", value, this, 816)
-    }
+    EntityChunkCount : UInt16
 
     /**
      * A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_data_chunk">HTTP_DATA_CHUNK</a> structures that contains the data blocks making up the entity body. 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceivehttprequest">HttpReceiveHttpRequest</a> does not copy the entity body unless called with the HTTP_RECEIVE_REQUEST_FLAG_COPY_BODY flag set.
-     * @type {Pointer<HTTP_DATA_CHUNK>}
      */
-    pEntityChunks {
-        get => NumGet(this, 824, "ptr")
-        set => NumPut("ptr", value, this, 824)
-    }
+    pEntityChunks : HTTP_DATA_CHUNK.Ptr
 
     /**
      * Raw connection ID for an Secure Sockets Layer (SSL) request.
-     * @type {Integer}
      */
-    RawConnectionId {
-        get => NumGet(this, 832, "uint")
-        set => NumPut("uint", value, this, 832)
-    }
+    RawConnectionId : Int64
 
     /**
      * A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_ssl_info">HTTP_SSL_INFO</a> structure that contains Secure Sockets Layer (SSL) information about the connection on which the request was received.
-     * @type {Pointer<HTTP_SSL_INFO>}
      */
-    pSslInfo {
-        get => NumGet(this, 840, "ptr")
-        set => NumPut("ptr", value, this, 840)
-    }
+    pSslInfo : HTTP_SSL_INFO.Ptr
+
 }

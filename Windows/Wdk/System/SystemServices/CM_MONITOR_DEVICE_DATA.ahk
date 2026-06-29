@@ -1,227 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_MONITOR_DEVICE_DATA extends Win32Struct {
-    static sizeof => 54
+export default struct CM_MONITOR_DEVICE_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Revision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    HorizontalScreenSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalScreenSize {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    VerticalScreenSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalScreenSize {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    HorizontalResolution : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalResolution {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    VerticalResolution : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalResolution {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    HorizontalDisplayTimeLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalDisplayTimeLow {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    HorizontalDisplayTime : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalDisplayTime {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    HorizontalDisplayTimeHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalDisplayTimeHigh {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    HorizontalBackPorchLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalBackPorchLow {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    HorizontalBackPorch : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalBackPorch {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    HorizontalBackPorchHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalBackPorchHigh {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    HorizontalFrontPorchLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalFrontPorchLow {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    HorizontalFrontPorch : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalFrontPorch {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    HorizontalFrontPorchHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalFrontPorchHigh {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    HorizontalSyncLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalSyncLow {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    HorizontalSync : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalSync {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    HorizontalSyncHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalSyncHigh {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    VerticalBackPorchLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalBackPorchLow {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    VerticalBackPorch : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalBackPorch {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    VerticalBackPorchHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalBackPorchHigh {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    VerticalFrontPorchLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalFrontPorchLow {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    VerticalFrontPorch : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalFrontPorch {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    VerticalFrontPorchHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalFrontPorchHigh {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    VerticalSyncLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalSyncLow {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    VerticalSync : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalSync {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    VerticalSyncHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VerticalSyncHigh {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
 }

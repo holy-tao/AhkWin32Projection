@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_SHADER_CACHE_SUPPORT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_SHADER_CACHE_SUPPORT_FLAGS.ahk" { D3D12_SHADER_CACHE_SUPPORT_FLAGS }
 
 /**
  * Describes the level of shader caching supported in the current graphics driver. (D3D12_FEATURE_DATA_SHADER_CACHE)
@@ -11,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_shader_cache
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_SHADER_CACHE extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_SHADER_CACHE {
+    #StructPack 4
 
     /**
      * Type: [**D3D12_SHADER_CACHE_SUPPORT_FLAGS**](./ne-d3d12-d3d12_shader_cache_support_flags.md)
@@ -22,10 +19,7 @@ class D3D12_FEATURE_DATA_SHADER_CACHE extends Win32Struct {
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes">SAL</a>: <c>_Out_</c>
      * 
      * Indicates the level of caching supported.
-     * @type {D3D12_SHADER_CACHE_SUPPORT_FLAGS}
      */
-    SupportFlags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SupportFlags : D3D12_SHADER_CACHE_SUPPORT_FLAGS
+
 }

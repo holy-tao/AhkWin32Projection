@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KMTUMDVERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KMTUMDVERSION.ahk" { KMTUMDVERSION }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_UMDFILENAMEINFO extends Win32Struct {
-    static sizeof => 524
+export default struct D3DKMT_UMDFILENAMEINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : KMTUMDVERSION
 
-    /**
-     * @type {KMTUMDVERSION}
-     */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    UmdFileName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    UmdFileName {
-        get => StrGet(this.ptr + 4, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-16")
-    }
 }

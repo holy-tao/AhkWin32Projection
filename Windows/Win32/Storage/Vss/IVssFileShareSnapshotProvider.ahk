@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
-#Include .\IVssEnumObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_SNAPSHOT_PROPERTY_ID.ahk" { VSS_SNAPSHOT_PROPERTY_ID }
+#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
+#Import ".\VSS_OBJECT_TYPE.ahk" { VSS_OBJECT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * . (IVssFileShareSnapshotProvider)
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivssfilesharesnapshotprovider
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssFileShareSnapshotProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssFileShareSnapshotProvider extends IUnknown {
     /**
      * The interface identifier for IVssFileShareSnapshotProvider
      * @type {Guid}
      */
-    static IID => Guid("{c8636060-7c2e-11df-8c4a-0800200c9a66}")
+    static IID := Guid("{c8636060-7c2e-11df-8c4a-0800200c9a66}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssFileShareSnapshotProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetContext            : IntPtr
+        GetSnapshotProperties : IntPtr
+        Query                 : IntPtr
+        DeleteSnapshots       : IntPtr
+        BeginPrepareSnapshot  : IntPtr
+        IsPathSupported       : IntPtr
+        IsPathSnapshotted     : IntPtr
+        SetSnapshotProperty   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetContext", "GetSnapshotProperties", "Query", "DeleteSnapshots", "BeginPrepareSnapshot", "IsPathSupported", "IsPathSnapshotted", "SetSnapshotProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssFileShareSnapshotProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the context for the subsequent shadow copy-related operations.
@@ -135,7 +154,7 @@ class IVssFileShareSnapshotProvider extends IUnknown {
      */
     GetSnapshotProperties(SnapshotId) {
         pProp := VSS_SNAPSHOT_PROP()
-        result := ComCall(4, this, "ptr", SnapshotId, "ptr", pProp, "HRESULT")
+        result := ComCall(4, this, Guid, SnapshotId, VSS_SNAPSHOT_PROP.Ptr, pProp, "HRESULT")
         return pProp
     }
 
@@ -157,7 +176,7 @@ class IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-query
      */
     Query(QueriedObjectId, eQueriedObjectType, eReturnedObjectsType) {
-        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, Guid, QueriedObjectId, VSS_OBJECT_TYPE, eQueriedObjectType, VSS_OBJECT_TYPE, eReturnedObjectsType, "ptr*", &ppEnum := 0, "HRESULT")
         return IVssEnumObject(ppEnum)
     }
 
@@ -251,7 +270,7 @@ class IVssFileShareSnapshotProvider extends IUnknown {
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
         plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "HRESULT")
+        result := ComCall(6, this, Guid, SourceObjectId, VSS_OBJECT_TYPE, eSourceObjectType, BOOL, bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, Guid.Ptr, pNondeletedSnapshotID, "HRESULT")
         return result
     }
 
@@ -379,7 +398,7 @@ class IVssFileShareSnapshotProvider extends IUnknown {
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszSharePath, lNewContext, ProviderId) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, pwszSharePathMarshal, pwszSharePath, "int", lNewContext, "ptr", ProviderId, "HRESULT")
+        result := ComCall(7, this, Guid, SnapshotSetId, Guid, SnapshotId, pwszSharePathMarshal, pwszSharePath, "int", lNewContext, Guid, ProviderId, "HRESULT")
         return result
     }
 
@@ -394,7 +413,7 @@ class IVssFileShareSnapshotProvider extends IUnknown {
     IsPathSupported(pwszSharePath) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, "int*", &pbSupportedByThisProvider := 0, "HRESULT")
+        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, BOOL.Ptr, &pbSupportedByThisProvider := 0, "HRESULT")
         return pbSupportedByThisProvider
     }
 
@@ -575,7 +594,41 @@ class IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-setsnapshotproperty
      */
     SetSnapshotProperty(SnapshotId, eSnapshotPropertyId, vProperty) {
-        result := ComCall(10, this, "ptr", SnapshotId, "int", eSnapshotPropertyId, "ptr", vProperty, "HRESULT")
+        result := ComCall(10, this, Guid, SnapshotId, VSS_SNAPSHOT_PROPERTY_ID, eSnapshotPropertyId, VARIANT, vProperty, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssFileShareSnapshotProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetSnapshotProperties := CallbackCreate(GetMethod(implObj, "GetSnapshotProperties"), flags, 3)
+        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
+        this.vtbl.DeleteSnapshots := CallbackCreate(GetMethod(implObj, "DeleteSnapshots"), flags, 6)
+        this.vtbl.BeginPrepareSnapshot := CallbackCreate(GetMethod(implObj, "BeginPrepareSnapshot"), flags, 6)
+        this.vtbl.IsPathSupported := CallbackCreate(GetMethod(implObj, "IsPathSupported"), flags, 3)
+        this.vtbl.IsPathSnapshotted := CallbackCreate(GetMethod(implObj, "IsPathSnapshotted"), flags, 4)
+        this.vtbl.SetSnapshotProperty := CallbackCreate(GetMethod(implObj, "SetSnapshotProperty"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetContext)
+        CallbackFree(this.vtbl.GetSnapshotProperties)
+        CallbackFree(this.vtbl.Query)
+        CallbackFree(this.vtbl.DeleteSnapshots)
+        CallbackFree(this.vtbl.BeginPrepareSnapshot)
+        CallbackFree(this.vtbl.IsPathSupported)
+        CallbackFree(this.vtbl.IsPathSnapshotted)
+        CallbackFree(this.vtbl.SetSnapshotProperty)
     }
 }

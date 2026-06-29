@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class I_RpcProxyCallbackInterface extends Win32Struct {
-    static sizeof => 72
+export default struct I_RpcProxyCallbackInterface {
+    #StructPack 8
 
-    static packingSize => 8
+    IsValidMachineFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyIsValidMachineFn>}
-     */
-    IsValidMachineFn {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    GetClientAddressFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyGetClientAddressFn>}
-     */
-    GetClientAddressFn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    GetConnectionTimeoutFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyGetConnectionTimeoutFn>}
-     */
-    GetConnectionTimeoutFn {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PerformCalloutFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcPerformCalloutFn>}
-     */
-    PerformCalloutFn {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FreeCalloutStateFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcFreeCalloutStateFn>}
-     */
-    FreeCalloutStateFn {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    GetClientSessionAndResourceUUIDFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyGetClientSessionAndResourceUUID>}
-     */
-    GetClientSessionAndResourceUUIDFn {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ProxyFilterIfFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyFilterIfFn>}
-     */
-    ProxyFilterIfFn {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    RpcProxyUpdatePerfCounterFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyUpdatePerfCounterFn>}
-     */
-    RpcProxyUpdatePerfCounterFn {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    RpcProxyUpdatePerfCounterBackendServerFn : IntPtr
 
-    /**
-     * @type {Pointer<I_RpcProxyUpdatePerfCounterBackendServerFn>}
-     */
-    RpcProxyUpdatePerfCounterBackendServerFn {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

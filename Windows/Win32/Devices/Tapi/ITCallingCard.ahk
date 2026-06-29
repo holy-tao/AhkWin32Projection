@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITCallingCard interface provides methods to retrieve information concerning telephony calling cards.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallingcard
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCallingCard extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCallingCard extends IDispatch {
     /**
      * The interface identifier for ITCallingCard
      * @type {Guid}
      */
-    static IID => Guid("{0c4d8f00-8ddb-11d1-a09e-00805fc147d3}")
+    static IID := Guid("{0c4d8f00-8ddb-11d1-a09e-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCallingCard interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_PermanentCardID          : IntPtr
+        get_NumberOfDigits           : IntPtr
+        get_Options                  : IntPtr
+        get_CardName                 : IntPtr
+        get_SameAreaDialingRule      : IntPtr
+        get_LongDistanceDialingRule  : IntPtr
+        get_InternationalDialingRule : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PermanentCardID", "get_NumberOfDigits", "get_Options", "get_CardName", "get_SameAreaDialingRule", "get_LongDistanceDialingRule", "get_InternationalDialingRule"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCallingCard.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -121,8 +135,8 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_cardname
      */
     get_CardName() {
-        ppCardName := BSTR()
-        result := ComCall(10, this, "ptr", ppCardName, "HRESULT")
+        ppCardName := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, ppCardName, "HRESULT")
         return ppCardName
     }
 
@@ -135,8 +149,8 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
      */
     get_SameAreaDialingRule() {
-        ppRule := BSTR()
-        result := ComCall(11, this, "ptr", ppRule, "HRESULT")
+        ppRule := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, ppRule, "HRESULT")
         return ppRule
     }
 
@@ -149,8 +163,8 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
      */
     get_LongDistanceDialingRule() {
-        ppRule := BSTR()
-        result := ComCall(12, this, "ptr", ppRule, "HRESULT")
+        ppRule := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, ppRule, "HRESULT")
         return ppRule
     }
 
@@ -163,8 +177,40 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
      */
     get_InternationalDialingRule() {
-        ppRule := BSTR()
-        result := ComCall(13, this, "ptr", ppRule, "HRESULT")
+        ppRule := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, ppRule, "HRESULT")
         return ppRule
+    }
+
+    Query(iid) {
+        if (ITCallingCard.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PermanentCardID := CallbackCreate(GetMethod(implObj, "get_PermanentCardID"), flags, 2)
+        this.vtbl.get_NumberOfDigits := CallbackCreate(GetMethod(implObj, "get_NumberOfDigits"), flags, 2)
+        this.vtbl.get_Options := CallbackCreate(GetMethod(implObj, "get_Options"), flags, 2)
+        this.vtbl.get_CardName := CallbackCreate(GetMethod(implObj, "get_CardName"), flags, 2)
+        this.vtbl.get_SameAreaDialingRule := CallbackCreate(GetMethod(implObj, "get_SameAreaDialingRule"), flags, 2)
+        this.vtbl.get_LongDistanceDialingRule := CallbackCreate(GetMethod(implObj, "get_LongDistanceDialingRule"), flags, 2)
+        this.vtbl.get_InternationalDialingRule := CallbackCreate(GetMethod(implObj, "get_InternationalDialingRule"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PermanentCardID)
+        CallbackFree(this.vtbl.get_NumberOfDigits)
+        CallbackFree(this.vtbl.get_Options)
+        CallbackFree(this.vtbl.get_CardName)
+        CallbackFree(this.vtbl.get_SameAreaDialingRule)
+        CallbackFree(this.vtbl.get_LongDistanceDialingRule)
+        CallbackFree(this.vtbl.get_InternationalDialingRule)
     }
 }

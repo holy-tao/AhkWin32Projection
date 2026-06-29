@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DVERTEXBUFFERDESC extends Win32Struct {
-    static sizeof => 16
+export default struct D3DVERTEXBUFFERDESC {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFVF : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFVF {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNumVertices : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumVertices {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

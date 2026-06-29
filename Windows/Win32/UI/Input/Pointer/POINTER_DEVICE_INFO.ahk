@@ -1,88 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\POINTER_DEVICE_TYPE.ahk
-#Include ..\..\..\Graphics\Gdi\HMONITOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\POINTER_DEVICE_TYPE.ahk" { POINTER_DEVICE_TYPE }
+#Import "..\..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a pointer device. An array of these structures is returned from the GetPointerDevices function. A single structure is returned from a call to the GetPointerDevice function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_device_info
  * @namespace Windows.Win32.UI.Input.Pointer
  */
-class POINTER_DEVICE_INFO extends Win32Struct {
-    static sizeof => 1080
-
-    static packingSize => 8
+export default struct POINTER_DEVICE_INFO {
+    #StructPack 8
 
     /**
      * One of the values from <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_rotation">DISPLAYCONFIG_ROTATION</a>, which identifies the orientation of the input digitizer.
      * 
      * <div class="alert"><b>Note</b>  This value is 0 when the source of input is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_touchinjection/touch-injection-portal">Touch Injection</a>.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    displayOrientation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    displayOrientation : UInt32
 
     /**
      * The handle to the pointer device.
-     * @type {HANDLE}
      */
-    device {
-        get {
-            if(!this.HasProp("__device"))
-                this.__device := HANDLE(8, this)
-            return this.__device
-        }
-    }
+    device : HANDLE
 
     /**
      * The device type.
-     * @type {POINTER_DEVICE_TYPE}
      */
-    pointerDeviceType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    pointerDeviceType : POINTER_DEVICE_TYPE
 
     /**
      * The HMONITOR for the display that the device is mapped to. This is not necessarily the monitor that the pointer device is physically connected to.
-     * @type {HMONITOR}
      */
-    monitor {
-        get {
-            if(!this.HasProp("__monitor"))
-                this.__monitor := HMONITOR(24, this)
-            return this.__monitor
-        }
-    }
+    monitor : HMONITOR
 
     /**
      * The lowest ID that's assigned to the device.
-     * @type {Integer}
      */
-    startingCursorId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    startingCursorId : UInt32
 
     /**
      * The number of supported simultaneous contacts.
-     * @type {Integer}
      */
-    maxActiveContacts {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    maxActiveContacts : UInt16
 
     /**
      * The string that identifies the product.
-     * @type {String}
      */
-    productString {
-        get => StrGet(this.ptr + 38, 519, "UTF-16")
-        set => StrPut(value, this.ptr + 38, 519, "UTF-16")
-    }
+    productString : WCHAR[520]
+
 }

@@ -1,12 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcUri.ahk
-#Include .\IOpcPartUri.ahk
-#Include ..\..\..\System\Com\IStream.ahk
-#Include .\IOpcPackage.ahk
-#Include .\IOpcDigitalSignatureManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpcDigitalSignatureManager.ahk" { IOpcDigitalSignatureManager }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPC_READ_FLAGS.ahk" { OPC_READ_FLAGS }
+#Import ".\OPC_WRITE_FLAGS.ahk" { OPC_WRITE_FLAGS }
+#Import ".\OPC_STREAM_IO_MODE.ahk" { OPC_STREAM_IO_MODE }
+#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcPackage.ahk" { IOpcPackage }
+#Import ".\IOpcUri.ahk" { IOpcUri }
 
 /**
  * Creates Packaging API objects and provides support for saving and loading packages.
@@ -22,32 +28,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcfactory
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcFactory extends IUnknown {
     /**
      * The interface identifier for IOpcFactory
      * @type {Guid}
      */
-    static IID => Guid("{6d0b4446-cd73-4ab3-94f4-8ccdf6116154}")
+    static IID := Guid("{6d0b4446-cd73-4ab3-94f4-8ccdf6116154}")
 
     /**
      * The class identifier for OpcFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{6b2d6ba0-9f3e-4f27-920b-313cc426a39e}")
+    static CLSID := Guid("{6b2d6ba0-9f3e-4f27-920b-313cc426a39e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePackageRootUri          : IntPtr
+        CreatePartUri                 : IntPtr
+        CreateStreamOnFile            : IntPtr
+        CreatePackage                 : IntPtr
+        ReadPackageFromStream         : IntPtr
+        WritePackageToStream          : IntPtr
+        CreateDigitalSignatureManager : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePackageRootUri", "CreatePartUri", "CreateStreamOnFile", "CreatePackage", "ReadPackageFromStream", "WritePackageToStream", "CreateDigitalSignatureManager"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an OPC URI object that represents the root of a package.
@@ -103,7 +122,7 @@ class IOpcFactory extends IUnknown {
     CreateStreamOnFile(filename, ioMode, securityAttributes, dwFlagsAndAttributes) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(5, this, "ptr", filename, "int", ioMode, "ptr", securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", &stream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", filename, OPC_STREAM_IO_MODE, ioMode, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", &stream := 0, "HRESULT")
         return IStream(stream)
     }
 
@@ -139,7 +158,7 @@ class IOpcFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-readpackagefromstream
      */
     ReadPackageFromStream(stream, flags) {
-        result := ComCall(7, this, "ptr", stream, "int", flags, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", stream, OPC_READ_FLAGS, flags, "ptr*", &package := 0, "HRESULT")
         return IOpcPackage(package)
     }
 
@@ -243,7 +262,7 @@ class IOpcFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-writepackagetostream
      */
     WritePackageToStream(package, flags, stream) {
-        result := ComCall(8, this, "ptr", package, "int", flags, "ptr", stream, "HRESULT")
+        result := ComCall(8, this, "ptr", package, OPC_WRITE_FLAGS, flags, "ptr", stream, "HRESULT")
         return result
     }
 
@@ -263,5 +282,37 @@ class IOpcFactory extends IUnknown {
     CreateDigitalSignatureManager(package) {
         result := ComCall(9, this, "ptr", package, "ptr*", &signatureManager := 0, "HRESULT")
         return IOpcDigitalSignatureManager(signatureManager)
+    }
+
+    Query(iid) {
+        if (IOpcFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePackageRootUri := CallbackCreate(GetMethod(implObj, "CreatePackageRootUri"), flags, 2)
+        this.vtbl.CreatePartUri := CallbackCreate(GetMethod(implObj, "CreatePartUri"), flags, 3)
+        this.vtbl.CreateStreamOnFile := CallbackCreate(GetMethod(implObj, "CreateStreamOnFile"), flags, 6)
+        this.vtbl.CreatePackage := CallbackCreate(GetMethod(implObj, "CreatePackage"), flags, 2)
+        this.vtbl.ReadPackageFromStream := CallbackCreate(GetMethod(implObj, "ReadPackageFromStream"), flags, 4)
+        this.vtbl.WritePackageToStream := CallbackCreate(GetMethod(implObj, "WritePackageToStream"), flags, 4)
+        this.vtbl.CreateDigitalSignatureManager := CallbackCreate(GetMethod(implObj, "CreateDigitalSignatureManager"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePackageRootUri)
+        CallbackFree(this.vtbl.CreatePartUri)
+        CallbackFree(this.vtbl.CreateStreamOnFile)
+        CallbackFree(this.vtbl.CreatePackage)
+        CallbackFree(this.vtbl.ReadPackageFromStream)
+        CallbackFree(this.vtbl.WritePackageToStream)
+        CallbackFree(this.vtbl.CreateDigitalSignatureManager)
     }
 }

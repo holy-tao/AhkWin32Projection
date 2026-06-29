@@ -1,37 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SID_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
+#Import ".\SID_INFO.ahk" { SID_INFO }
 
 /**
  * Contains a list of SID_INFO structures.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-sid_info_list
  * @namespace Windows.Win32.Security.Authorization.UI
  */
-class SID_INFO_LIST extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SID_INFO_LIST {
+    #StructPack 8
 
     /**
      * The number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-sid_info">SID_INFO</a> structures contained in the <b>aSidInfo</b> member.
-     * @type {Integer}
      */
-    cItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cItems : UInt32
 
     /**
      * A pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-sid_info">SID_INFO</a> structures that is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation2-lookupsids">ISecurityInformation2::LookupSids</a> method.
-     * @type {SID_INFO}
      */
-    aSidInfo {
-        get {
-            if(!this.HasProp("__aSidInfoProxyArray"))
-                this.__aSidInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, SID_INFO, "")
-            return this.__aSidInfoProxyArray
-        }
-    }
+    aSidInfo : SID_INFO[1]
+
 }

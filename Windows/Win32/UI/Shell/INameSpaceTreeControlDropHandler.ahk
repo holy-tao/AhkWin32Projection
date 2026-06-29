@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
 
 /**
  * Exposes handler methods for drag-and-drop.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontroldrophandler
  * @namespace Windows.Win32.UI.Shell
  */
-class INameSpaceTreeControlDropHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INameSpaceTreeControlDropHandler extends IUnknown {
     /**
      * The interface identifier for INameSpaceTreeControlDropHandler
      * @type {Guid}
      */
-    static IID => Guid("{f9c665d6-c2f2-4c19-bf33-8322d7352f51}")
+    static IID := Guid("{f9c665d6-c2f2-4c19-bf33-8322d7352f51}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INameSpaceTreeControlDropHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDragEnter    : IntPtr
+        OnDragOver     : IntPtr
+        OnDragPosition : IntPtr
+        OnDrop         : IntPtr
+        OnDropPosition : IntPtr
+        OnDragLeave    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDragEnter", "OnDragOver", "OnDragPosition", "OnDrop", "OnDropPosition", "OnDragLeave"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INameSpaceTreeControlDropHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called on drag enter to set drag effect, as specified.
@@ -56,7 +72,7 @@ class INameSpaceTreeControlDropHandler extends IUnknown {
     OnDragEnter(psiOver, psiaData, fOutsideSource, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, "int", fOutsideSource, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, BOOL, fOutsideSource, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -185,5 +201,35 @@ class INameSpaceTreeControlDropHandler extends IUnknown {
     OnDragLeave(psiOver) {
         result := ComCall(8, this, "ptr", psiOver, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INameSpaceTreeControlDropHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDragEnter := CallbackCreate(GetMethod(implObj, "OnDragEnter"), flags, 6)
+        this.vtbl.OnDragOver := CallbackCreate(GetMethod(implObj, "OnDragOver"), flags, 5)
+        this.vtbl.OnDragPosition := CallbackCreate(GetMethod(implObj, "OnDragPosition"), flags, 5)
+        this.vtbl.OnDrop := CallbackCreate(GetMethod(implObj, "OnDrop"), flags, 6)
+        this.vtbl.OnDropPosition := CallbackCreate(GetMethod(implObj, "OnDropPosition"), flags, 5)
+        this.vtbl.OnDragLeave := CallbackCreate(GetMethod(implObj, "OnDragLeave"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDragEnter)
+        CallbackFree(this.vtbl.OnDragOver)
+        CallbackFree(this.vtbl.OnDragPosition)
+        CallbackFree(this.vtbl.OnDrop)
+        CallbackFree(this.vtbl.OnDropPosition)
+        CallbackFree(this.vtbl.OnDragLeave)
     }
 }

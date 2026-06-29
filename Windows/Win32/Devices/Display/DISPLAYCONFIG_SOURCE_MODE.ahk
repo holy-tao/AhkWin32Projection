@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_PIXELFORMAT.ahk
-#Include ..\..\Foundation\POINTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_PIXELFORMAT.ahk" { DISPLAYCONFIG_PIXELFORMAT }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**
  * The DISPLAYCONFIG_SOURCE_MODE structure represents a point or an offset in a two-dimensional space.
@@ -12,47 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_source_mode
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_SOURCE_MODE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DISPLAYCONFIG_SOURCE_MODE {
+    #StructPack 4
 
     /**
      * The width in pixels of the source mode.
-     * @type {Integer}
      */
-    width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    width : UInt32
 
     /**
      * The height in pixels of the source mode.
-     * @type {Integer}
      */
-    height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    height : UInt32
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_pixelformat">DISPLAYCONFIG_PIXELFORMAT</a> enumeration that specifies the pixel format of the source mode.
-     * @type {DISPLAYCONFIG_PIXELFORMAT}
      */
-    pixelFormat {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    pixelFormat : DISPLAYCONFIG_PIXELFORMAT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that specifies the position in the desktop coordinate space of the  upper-left corner of this source surface. The source surface that is located at (0, 0) is always the primary source surface.
-     * @type {POINTL}
      */
-    position {
-        get {
-            if(!this.HasProp("__position"))
-                this.__position := POINTL(12, this)
-            return this.__position
-        }
-    }
+    position : POINTL
+
 }

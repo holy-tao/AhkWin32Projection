@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWPM_FIELD0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_FIELD0.ahk" { FWPM_FIELD0 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Schema information for a layer.
@@ -10,31 +11,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_layer0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_LAYER0 extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct FWPM_LAYER0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the layer.
-     * @type {Pointer}
      */
-    layerKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    layerKey : Guid
 
     /**
      * Allows layers to be annotated in a human-readable form. The [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) structure is not <b>NULL</b>.
-     * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData {
-        get {
-            if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
-            return this.__displayData
-        }
-    }
+    displayData : FWPM_DISPLAY_DATA0
 
     /**
      * Possible values:
@@ -85,48 +73,29 @@ class FWPM_LAYER0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    flags : UInt32
 
     /**
      * Number of fields in the layer.
-     * @type {Integer}
      */
-    numFields {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    numFields : UInt32
 
     /**
      * Schema information for the layer's fields.
      * 
      * See [FWPM_FIELD0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_field0) for more information.
-     * @type {Pointer<FWPM_FIELD0>}
      */
-    field {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    field : FWPM_FIELD0.Ptr
 
     /**
      * Sublayer used when a filter is added with a null sublayer.
-     * @type {Pointer}
      */
-    defaultSubLayerKey {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    defaultSubLayerKey : Guid
 
     /**
      * LUID that identifies this layer.
-     * @type {Integer}
      */
-    layerId {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    layerId : UInt16
+
 }

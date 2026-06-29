@@ -1,67 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class SWbemRpnConst extends Win32Struct {
-    static sizeof => 48
+export default struct SWbemRpnConst {
+    #StructPack 8
 
-    static packingSize => 8
+    m_pszStrVal : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    m_pszStrVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    m_bBoolVal {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    m_lLongVal {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    m_uLongVal {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    m_dblVal {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    m_lVal64 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    m_uVal64 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'm_bBoolVal', { type: BOOL, offset: 0 })
+        DefineProp(this.Prototype, 'm_lLongVal', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'm_uLongVal', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'm_dblVal', { type: Float64, offset: 0 })
+        DefineProp(this.Prototype, 'm_lVal64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'm_uVal64', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

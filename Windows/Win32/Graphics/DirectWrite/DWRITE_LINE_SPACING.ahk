@@ -1,28 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_LINE_SPACING_METHOD.ahk
-#Include .\DWRITE_FONT_LINE_GAP_USAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DWRITE_FONT_LINE_GAP_USAGE.ahk" { DWRITE_FONT_LINE_GAP_USAGE }
+#Import ".\DWRITE_LINE_SPACING_METHOD.ahk" { DWRITE_LINE_SPACING_METHOD }
 
 /**
  * Sets the vertical spacing between lines of text.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_line_spacing
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_LINE_SPACING extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DWRITE_LINE_SPACING {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a></b>
      * 
      * Method used to determine line spacing.
-     * @type {DWRITE_LINE_SPACING_METHOD}
      */
-    method {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    method : DWRITE_LINE_SPACING_METHOD
 
     /**
      * Type: <b>FLOAT</b>
@@ -35,12 +28,8 @@ class DWRITE_LINE_SPACING extends Win32Struct {
      * <li>proportional line spacing: a scaling factor to be applied to the computed line height; 
      *        for each line, the height of the line is computed as for default line spacing, and the scaling factor is applied to that value.</li>
      * </ul>
-     * @type {Float}
      */
-    height {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    height : Float32
 
     /**
      * Type: <b>FLOAT</b>
@@ -54,12 +43,8 @@ class DWRITE_LINE_SPACING extends Win32Struct {
      * <li>proportional line spacing: a scaling factor applied to the computed baseline; for each line, 
      *        the baseline distance is computed as for default line spacing, and the scaling factor is applied to that value.</li>
      * </ul>
-     * @type {Float}
      */
-    baseline {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    baseline : Float32
 
     /**
      * Type: <b>FLOAT</b>
@@ -68,21 +53,14 @@ class DWRITE_LINE_SPACING extends Win32Struct {
      *      leading is distributed after the line. It is ignored for the default and uniform line spacing methods.
      *      The leading that is available to distribute before or after the line depends on the values of the height and
      *      baseline parameters.
-     * @type {Float}
      */
-    leadingBefore {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    leadingBefore : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_line_gap_usage">DWRITE_FONT_LINE_GAP_USAGE</a></b>
      * 
      * Specify whether <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a>::lineGap value should be part of the line metrics.
-     * @type {DWRITE_FONT_LINE_GAP_USAGE}
      */
-    fontLineGapUsage {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fontLineGapUsage : DWRITE_FONT_LINE_GAP_USAGE
+
 }

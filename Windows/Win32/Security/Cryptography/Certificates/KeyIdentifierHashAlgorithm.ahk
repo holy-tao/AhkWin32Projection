@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the algorithm used to hash the public key in a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-keyidentifierhashalgorithm
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class KeyIdentifierHashAlgorithm extends Win32Enum {
+export default struct KeyIdentifierHashAlgorithm {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The default hash algorithm. This is redundant with the <b>SKIHashSha1</b> value.

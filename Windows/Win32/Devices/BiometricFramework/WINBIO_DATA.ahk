@@ -1,32 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Flags that can be used for the Attributes member of the WINBIO\_STORAGE\_SCHEMA structure.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-database-type-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_DATA extends Win32Struct {
-    static sizeof => 8
+export default struct WINBIO_DATA {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

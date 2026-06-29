@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DRIVER_VERIFIER_THUNK_PAIRS extends Win32Struct {
-    static sizeof => 16
+export default struct DRIVER_VERIFIER_THUNK_PAIRS {
+    #StructPack 8
 
-    static packingSize => 8
+    PristineRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PDRIVER_VERIFIER_THUNK_ROUTINE>}
-     */
-    PristineRoutine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NewRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PDRIVER_VERIFIER_THUNK_ROUTINE>}
-     */
-    NewRoutine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

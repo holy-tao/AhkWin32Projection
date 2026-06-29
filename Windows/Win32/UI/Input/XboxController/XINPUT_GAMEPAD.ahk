@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
 
 /**
  * Describes the current state of the Xbox 360 Controller.
@@ -17,10 +16,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_gamepad
  * @namespace Windows.Win32.UI.Input.XboxController
  */
-class XINPUT_GAMEPAD extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 2
+export default struct XINPUT_GAMEPAD {
+    #StructPack 2
 
     /**
      * Bitmask of the device digital buttons, as follows. A set bit indicates that the corresponding button is pressed. 
@@ -91,64 +88,37 @@ class XINPUT_GAMEPAD extends Win32Struct {
      *  
      * 
      * Bits that are set but not defined above are reserved, and their state is undefined.
-     * @type {XINPUT_GAMEPAD_BUTTON_FLAGS}
      */
-    wButtons {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wButtons : XINPUT_GAMEPAD_BUTTON_FLAGS
 
     /**
      * The current value of the left trigger analog control. The value is between 0 and 255.
-     * @type {Integer}
      */
-    bLeftTrigger {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bLeftTrigger : Int8
 
     /**
      * The current value of the right trigger analog control. The value is between 0 and 255.
-     * @type {Integer}
      */
-    bRightTrigger {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bRightTrigger : Int8
 
     /**
      * Left thumbstick x-axis value. Each of the thumbstick axis members is a signed value between -32768 and 32767 describing the position of the thumbstick. A value of 0 is centered. Negative values signify down or to the left. Positive values signify up or to the right. The constants XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE or XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE can be used as a positive and negative value to filter a thumbstick input.
-     * @type {Integer}
      */
-    sThumbLX {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    sThumbLX : Int16
 
     /**
      * Left thumbstick y-axis value. The value is between -32768 and 32767.
-     * @type {Integer}
      */
-    sThumbLY {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
+    sThumbLY : Int16
 
     /**
      * Right thumbstick x-axis value. The value is between -32768 and 32767.
-     * @type {Integer}
      */
-    sThumbRX {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    sThumbRX : Int16
 
     /**
      * Right thumbstick y-axis value. The value is between -32768 and 32767.
-     * @type {Integer}
      */
-    sThumbRY {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    sThumbRY : Int16
+
 }

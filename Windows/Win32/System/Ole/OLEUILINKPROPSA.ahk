@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OLEUIOBJECTPROPSA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
 
 /**
  * Contains information that is used to initialize the Link tab of the Object Properties dialog box. (ANSI)
@@ -11,77 +11,46 @@
  * @namespace Windows.Win32.System.Ole
  * @charset ANSI
  */
-class OLEUILINKPROPSA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct OLEUILINKPROPSA {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Contains in/out flags specific to the <b>Links</b> page.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    dwReserved1 {
-        get {
-            if(!this.HasProp("__dwReserved1ProxyArray"))
-                this.__dwReserved1ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
-            return this.__dwReserved1ProxyArray
-        }
-    }
+    dwReserved1 : UInt32[2]
 
     /**
      * Pointer to the hook callback (not used in this dialog box).
-     * @type {Pointer<LPFNOLEUIHOOK>}
      */
-    lpfnHook {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpfnHook : IntPtr
 
     /**
      * Custom data to pass to hook (not used in this dialog box).
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lCustData : LPARAM
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    dwReserved2 {
-        get {
-            if(!this.HasProp("__dwReserved2ProxyArray"))
-                this.__dwReserved2ProxyArray := Win32FixedArray(this.ptr + 32, 3, Primitive, "uint")
-            return this.__dwReserved2ProxyArray
-        }
-    }
+    dwReserved2 : UInt32[3]
 
+    __lpOP_ptr : IntPtr
     /**
      * Used internally.
-     * @type {Pointer<OLEUIOBJECTPROPSA>}
      */
     lpOP {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => (addr := this.__lpOP_ptr) ? OLEUIOBJECTPROPSA.At(addr) : unset
+        set => this.__lpOP_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

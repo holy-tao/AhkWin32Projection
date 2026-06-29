@@ -1,68 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PrintDocumentPackageCompletion.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PrintDocumentPackageCompletion.ahk" { PrintDocumentPackageCompletion }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a payload to be used by the PackageStatusUpdated method. This structure is a generic version of XPS_JOB_STATUS.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/ns-documenttarget-printdocumentpackagestatus
  * @namespace Windows.Win32.Storage.Xps.Printing
  */
-class PrintDocumentPackageStatus extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct PrintDocumentPackageStatus {
+    #StructPack 4
 
     /**
      * The job ID.
-     * @type {Integer}
      */
-    JobId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    JobId : UInt32
 
     /**
      * The zero-based index of the most recently processed document.
-     * @type {Integer}
      */
-    CurrentDocument {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    CurrentDocument : Int32
 
     /**
      * The zero-based index of the most recently processed page in the current document
-     * @type {Integer}
      */
-    CurrentPage {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    CurrentPage : Int32
 
     /**
      * A running total of the number of pages that have been processed by the print job.
-     * @type {Integer}
      */
-    CurrentPageTotal {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    CurrentPageTotal : Int32
 
     /**
      * The completion status of the job.
-     * @type {PrintDocumentPackageCompletion}
      */
-    Completion {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Completion : PrintDocumentPackageCompletion
 
     /**
      * The error state of the job.
-     * @type {HRESULT}
      */
-    PackageStatus {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    PackageStatus : HRESULT
+
 }

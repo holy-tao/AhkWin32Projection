@@ -1,291 +1,89 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLFS_MGMT_POLICY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLFS_MGMT_POLICY_TYPE.ahk" { CLFS_MGMT_POLICY_TYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The CLFS_MGMT_POLICY structure specifies a Common Log File System (CLFS) management policy. The PolicyType member specifies the members used for a policy.
  * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CLFS_MGMT_POLICY extends Win32Struct {
-    static sizeof => 24
+export default struct CLFS_MGMT_POLICY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _PolicyParameters_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _PolicyParameters {
 
-        class _MaximumSize extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _MaximumSize {
+            Containers : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Containers {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _MinimumSize extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _MinimumSize {
+            Containers : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Containers {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _NewContainerSize extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _NewContainerSize {
+            SizeInBytes : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SizeInBytes {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _GrowthRate extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _GrowthRate {
+            AbsoluteGrowthInContainers : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            AbsoluteGrowthInContainers {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            RelativeGrowthPercentage : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RelativeGrowthPercentage {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
         }
 
-        class _LogTail extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _LogTail {
+            MinimumAvailablePercentage : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MinimumAvailablePercentage {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            MinimumAvailableContainers : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MinimumAvailableContainers {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
         }
 
-        class _AutoShrink extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _AutoShrink {
+            Percentage : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Percentage {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _AutoGrow extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _AutoGrow {
+            Enabled : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Enabled {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _NewContainerPrefix extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 2
+        struct _NewContainerPrefix {
+            PrefixLengthInBytes : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            PrefixLengthInBytes {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            PrefixString : WCHAR[1]
 
-            /**
-             * @type {String}
-             */
-            PrefixString {
-                get => StrGet(this.ptr + 2, 0, "UTF-16")
-                set => StrPut(value, this.ptr + 2, 0, "UTF-16")
-            }
         }
 
-        class _NewContainerSuffix extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+        struct _NewContainerSuffix {
+            NextContainerSuffix : Int64
 
-            /**
-             * @type {Integer}
-             */
-            NextContainerSuffix {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _NewContainerExtension extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 2
+        struct _NewContainerExtension {
+            ExtensionLengthInBytes : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            ExtensionLengthInBytes {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            ExtensionString : WCHAR[1]
 
-            /**
-             * @type {String}
-             */
-            ExtensionString {
-                get => StrGet(this.ptr + 2, 0, "UTF-16")
-                set => StrPut(value, this.ptr + 2, 0, "UTF-16")
-            }
         }
 
-        /**
-         * @type {_MaximumSize}
-         */
-        MaximumSize {
-            get {
-                if(!this.HasProp("__MaximumSize"))
-                    this.__MaximumSize := CLFS_MGMT_POLICY._PolicyParameters_e__Union._MaximumSize(0, this)
-                return this.__MaximumSize
-            }
-        }
+        MaximumSize : CLFS_MGMT_POLICY._PolicyParameters._MaximumSize
 
-        /**
-         * @type {_MinimumSize}
-         */
-        MinimumSize {
-            get {
-                if(!this.HasProp("__MinimumSize"))
-                    this.__MinimumSize := CLFS_MGMT_POLICY._PolicyParameters_e__Union._MinimumSize(0, this)
-                return this.__MinimumSize
-            }
-        }
-
-        /**
-         * @type {_NewContainerSize}
-         */
-        NewContainerSize {
-            get {
-                if(!this.HasProp("__NewContainerSize"))
-                    this.__NewContainerSize := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerSize(0, this)
-                return this.__NewContainerSize
-            }
-        }
-
-        /**
-         * @type {_GrowthRate}
-         */
-        GrowthRate {
-            get {
-                if(!this.HasProp("__GrowthRate"))
-                    this.__GrowthRate := CLFS_MGMT_POLICY._PolicyParameters_e__Union._GrowthRate(0, this)
-                return this.__GrowthRate
-            }
-        }
-
-        /**
-         * @type {_LogTail}
-         */
-        LogTail {
-            get {
-                if(!this.HasProp("__LogTail"))
-                    this.__LogTail := CLFS_MGMT_POLICY._PolicyParameters_e__Union._LogTail(0, this)
-                return this.__LogTail
-            }
-        }
-
-        /**
-         * @type {_AutoShrink}
-         */
-        AutoShrink {
-            get {
-                if(!this.HasProp("__AutoShrink"))
-                    this.__AutoShrink := CLFS_MGMT_POLICY._PolicyParameters_e__Union._AutoShrink(0, this)
-                return this.__AutoShrink
-            }
-        }
-
-        /**
-         * @type {_AutoGrow}
-         */
-        AutoGrow {
-            get {
-                if(!this.HasProp("__AutoGrow"))
-                    this.__AutoGrow := CLFS_MGMT_POLICY._PolicyParameters_e__Union._AutoGrow(0, this)
-                return this.__AutoGrow
-            }
-        }
-
-        /**
-         * @type {_NewContainerPrefix}
-         */
-        NewContainerPrefix {
-            get {
-                if(!this.HasProp("__NewContainerPrefix"))
-                    this.__NewContainerPrefix := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerPrefix(0, this)
-                return this.__NewContainerPrefix
-            }
-        }
-
-        /**
-         * @type {_NewContainerSuffix}
-         */
-        NewContainerSuffix {
-            get {
-                if(!this.HasProp("__NewContainerSuffix"))
-                    this.__NewContainerSuffix := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerSuffix(0, this)
-                return this.__NewContainerSuffix
-            }
-        }
-
-        /**
-         * @type {_NewContainerExtension}
-         */
-        NewContainerExtension {
-            get {
-                if(!this.HasProp("__NewContainerExtension"))
-                    this.__NewContainerExtension := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerExtension(0, this)
-                return this.__NewContainerExtension
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'MinimumSize', { type: CLFS_MGMT_POLICY._PolicyParameters._MinimumSize, offset: 0 })
+            DefineProp(this.Prototype, 'NewContainerSize', { type: CLFS_MGMT_POLICY._PolicyParameters._NewContainerSize, offset: 0 })
+            DefineProp(this.Prototype, 'GrowthRate', { type: CLFS_MGMT_POLICY._PolicyParameters._GrowthRate, offset: 0 })
+            DefineProp(this.Prototype, 'LogTail', { type: CLFS_MGMT_POLICY._PolicyParameters._LogTail, offset: 0 })
+            DefineProp(this.Prototype, 'AutoShrink', { type: CLFS_MGMT_POLICY._PolicyParameters._AutoShrink, offset: 0 })
+            DefineProp(this.Prototype, 'AutoGrow', { type: CLFS_MGMT_POLICY._PolicyParameters._AutoGrow, offset: 0 })
+            DefineProp(this.Prototype, 'NewContainerPrefix', { type: CLFS_MGMT_POLICY._PolicyParameters._NewContainerPrefix, offset: 0 })
+            DefineProp(this.Prototype, 'NewContainerSuffix', { type: CLFS_MGMT_POLICY._PolicyParameters._NewContainerSuffix, offset: 0 })
+            DefineProp(this.Prototype, 'NewContainerExtension', { type: CLFS_MGMT_POLICY._PolicyParameters._NewContainerExtension, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -293,49 +91,27 @@ class CLFS_MGMT_POLICY extends Win32Struct {
      * Specifies the version of the log manager headers that the application is compiled with.
      * 
      * Set this to CLFS_MGMT_POLICY_VERSION.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Specifies the length of the entire structure.
-     * @type {Integer}
      */
-    LengthInBytes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    LengthInBytes : UInt32
 
     /**
      * Reserved. Specify zero.
-     * @type {Integer}
      */
-    PolicyFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PolicyFlags : UInt32
 
     /**
      * Specifies the members used for a specific policy. Valid values are specified by <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
-     * @type {CLFS_MGMT_POLICY_TYPE}
      */
-    PolicyType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    PolicyType : CLFS_MGMT_POLICY_TYPE
 
     /**
      * Specifies the specific policy this structure describes.
-     * @type {_PolicyParameters_e__Union}
      */
-    PolicyParameters {
-        get {
-            if(!this.HasProp("__PolicyParameters"))
-                this.__PolicyParameters := CLFS_MGMT_POLICY._PolicyParameters_e__Union(16, this)
-            return this.__PolicyParameters
-        }
-    }
+    PolicyParameters : CLFS_MGMT_POLICY._PolicyParameters
+
 }

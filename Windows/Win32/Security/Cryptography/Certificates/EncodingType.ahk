@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of encoding applied to a byte array for display purposes.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-encodingtype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class EncodingType extends Win32Enum {
+export default struct EncodingType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The string is base64 encoded with beginning and ending certificate headers. Base64 is an encoding scheme  used to transmit binary data. The data to be encoded is examined three bytes at a time. Every six bits in the 24-bit buffer is used as an index into a text string. The strings used vary depending on the type of data being encoded. The following string is commonly used for Multipurpose Internet Mail Extensions (MIME) email base64 encoding.

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRANSPORT_SETTING_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TRANSPORT_SETTING_ID.ahk" { TRANSPORT_SETTING_ID }
 
 /**
  * Contains the transport setting ID and handle to a fully qualified domain name.
@@ -9,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-associate_nameres_context_input
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ASSOCIATE_NAMERES_CONTEXT_INPUT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ASSOCIATE_NAMERES_CONTEXT_INPUT {
+    #StructPack 8
 
     /**
      * The transport setting ID.
-     * @type {TRANSPORT_SETTING_ID}
      */
-    TransportSettingId {
-        get {
-            if(!this.HasProp("__TransportSettingId"))
-                this.__TransportSettingId := TRANSPORT_SETTING_ID(0, this)
-            return this.__TransportSettingId
-        }
-    }
+    TransportSettingId : TRANSPORT_SETTING_ID
 
     /**
      * Handle to a fully qualified domain name.
-     * @type {Integer}
      */
-    Handle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Handle : Int64
+
 }

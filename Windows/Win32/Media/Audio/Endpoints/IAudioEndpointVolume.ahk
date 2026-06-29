@@ -1,33 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAudioEndpointVolumeCallback.ahk" { IAudioEndpointVolumeCallback }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioEndpointVolume interface represents the volume controls on the audio stream to or from an audio endpoint device.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nn-endpointvolume-iaudioendpointvolume
  * @namespace Windows.Win32.Media.Audio.Endpoints
  */
-class IAudioEndpointVolume extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEndpointVolume extends IUnknown {
     /**
      * The interface identifier for IAudioEndpointVolume
      * @type {Guid}
      */
-    static IID => Guid("{5cdf2c82-841e-4546-9722-0cf74078229a}")
+    static IID := Guid("{5cdf2c82-841e-4546-9722-0cf74078229a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEndpointVolume interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterControlChangeNotify   : IntPtr
+        UnregisterControlChangeNotify : IntPtr
+        GetChannelCount               : IntPtr
+        SetMasterVolumeLevel          : IntPtr
+        SetMasterVolumeLevelScalar    : IntPtr
+        GetMasterVolumeLevel          : IntPtr
+        GetMasterVolumeLevelScalar    : IntPtr
+        SetChannelVolumeLevel         : IntPtr
+        SetChannelVolumeLevelScalar   : IntPtr
+        GetChannelVolumeLevel         : IntPtr
+        GetChannelVolumeLevelScalar   : IntPtr
+        SetMute                       : IntPtr
+        GetMute                       : IntPtr
+        GetVolumeStepInfo             : IntPtr
+        VolumeStepUp                  : IntPtr
+        VolumeStepDown                : IntPtr
+        QueryHardwareSupport          : IntPtr
+        GetVolumeRange                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterControlChangeNotify", "UnregisterControlChangeNotify", "GetChannelCount", "SetMasterVolumeLevel", "SetMasterVolumeLevelScalar", "GetMasterVolumeLevel", "GetMasterVolumeLevelScalar", "SetChannelVolumeLevel", "SetChannelVolumeLevelScalar", "GetChannelVolumeLevel", "GetChannelVolumeLevelScalar", "SetMute", "GetMute", "GetVolumeStepInfo", "VolumeStepUp", "VolumeStepDown", "QueryHardwareSupport", "GetVolumeRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEndpointVolume.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RegisterControlChangeNotify method registers a client's notification callback interface.
@@ -150,7 +177,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setmastervolumelevel
      */
     SetMasterVolumeLevel(fLevelDB, pguidEventContext) {
-        result := ComCall(6, this, "float", fLevelDB, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(6, this, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -197,7 +224,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setmastervolumelevelscalar
      */
     SetMasterVolumeLevelScalar(fLevel, pguidEventContext) {
-        result := ComCall(7, this, "float", fLevel, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(7, this, "float", fLevel, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -267,7 +294,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setchannelvolumelevel
      */
     SetChannelVolumeLevel(nChannel, fLevelDB, pguidEventContext) {
-        result := ComCall(10, this, "uint", nChannel, "float", fLevelDB, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(10, this, "uint", nChannel, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -313,7 +340,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setchannelvolumelevelscalar
      */
     SetChannelVolumeLevelScalar(nChannel, fLevel, pguidEventContext) {
-        result := ComCall(11, this, "uint", nChannel, "float", fLevel, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(11, this, "uint", nChannel, "float", fLevel, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -371,7 +398,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setmute
      */
     SetMute(bMute, pguidEventContext) {
-        result := ComCall(14, this, "int", bMute, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(14, this, BOOL, bMute, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -383,7 +410,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getmute
      */
     GetMute() {
-        result := ComCall(15, this, "int*", &pbMute := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pbMute := 0, "HRESULT")
         return pbMute
     }
 
@@ -457,7 +484,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-volumestepup
      */
     VolumeStepUp(pguidEventContext) {
-        result := ComCall(17, this, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -492,7 +519,7 @@ class IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-volumestepdown
      */
     VolumeStepDown(pguidEventContext) {
-        result := ComCall(18, this, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -559,5 +586,59 @@ class IAudioEndpointVolume extends IUnknown {
 
         result := ComCall(20, this, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioEndpointVolume.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterControlChangeNotify := CallbackCreate(GetMethod(implObj, "RegisterControlChangeNotify"), flags, 2)
+        this.vtbl.UnregisterControlChangeNotify := CallbackCreate(GetMethod(implObj, "UnregisterControlChangeNotify"), flags, 2)
+        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.SetMasterVolumeLevel := CallbackCreate(GetMethod(implObj, "SetMasterVolumeLevel"), flags, 3)
+        this.vtbl.SetMasterVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "SetMasterVolumeLevelScalar"), flags, 3)
+        this.vtbl.GetMasterVolumeLevel := CallbackCreate(GetMethod(implObj, "GetMasterVolumeLevel"), flags, 2)
+        this.vtbl.GetMasterVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "GetMasterVolumeLevelScalar"), flags, 2)
+        this.vtbl.SetChannelVolumeLevel := CallbackCreate(GetMethod(implObj, "SetChannelVolumeLevel"), flags, 4)
+        this.vtbl.SetChannelVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "SetChannelVolumeLevelScalar"), flags, 4)
+        this.vtbl.GetChannelVolumeLevel := CallbackCreate(GetMethod(implObj, "GetChannelVolumeLevel"), flags, 3)
+        this.vtbl.GetChannelVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "GetChannelVolumeLevelScalar"), flags, 3)
+        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 3)
+        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.GetVolumeStepInfo := CallbackCreate(GetMethod(implObj, "GetVolumeStepInfo"), flags, 3)
+        this.vtbl.VolumeStepUp := CallbackCreate(GetMethod(implObj, "VolumeStepUp"), flags, 2)
+        this.vtbl.VolumeStepDown := CallbackCreate(GetMethod(implObj, "VolumeStepDown"), flags, 2)
+        this.vtbl.QueryHardwareSupport := CallbackCreate(GetMethod(implObj, "QueryHardwareSupport"), flags, 2)
+        this.vtbl.GetVolumeRange := CallbackCreate(GetMethod(implObj, "GetVolumeRange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterControlChangeNotify)
+        CallbackFree(this.vtbl.UnregisterControlChangeNotify)
+        CallbackFree(this.vtbl.GetChannelCount)
+        CallbackFree(this.vtbl.SetMasterVolumeLevel)
+        CallbackFree(this.vtbl.SetMasterVolumeLevelScalar)
+        CallbackFree(this.vtbl.GetMasterVolumeLevel)
+        CallbackFree(this.vtbl.GetMasterVolumeLevelScalar)
+        CallbackFree(this.vtbl.SetChannelVolumeLevel)
+        CallbackFree(this.vtbl.SetChannelVolumeLevelScalar)
+        CallbackFree(this.vtbl.GetChannelVolumeLevel)
+        CallbackFree(this.vtbl.GetChannelVolumeLevelScalar)
+        CallbackFree(this.vtbl.SetMute)
+        CallbackFree(this.vtbl.GetMute)
+        CallbackFree(this.vtbl.GetVolumeStepInfo)
+        CallbackFree(this.vtbl.VolumeStepUp)
+        CallbackFree(this.vtbl.VolumeStepDown)
+        CallbackFree(this.vtbl.QueryHardwareSupport)
+        CallbackFree(this.vtbl.GetVolumeRange)
     }
 }

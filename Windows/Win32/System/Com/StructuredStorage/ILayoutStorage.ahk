@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ILockBytes.ahk" { ILockBytes }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\StorageLayout.ahk" { StorageLayout }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * The ILayoutStorage interface enables an application to optimize the layout of its compound files for efficient downloading across a slow link.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ilayoutstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class ILayoutStorage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ILayoutStorage extends IUnknown {
     /**
      * The interface identifier for ILayoutStorage
      * @type {Guid}
      */
-    static IID => Guid("{0e6d4d90-6738-11cf-9608-00aa00680db4}")
+    static IID := Guid("{0e6d4d90-6738-11cf-9608-00aa00680db4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILayoutStorage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LayoutScript                : IntPtr
+        BeginMonitor                : IntPtr
+        EndMonitor                  : IntPtr
+        ReLayoutDocfile             : IntPtr
+        ReLayoutDocfileOnILockBytes : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LayoutScript", "BeginMonitor", "EndMonitor", "ReLayoutDocfile", "ReLayoutDocfileOnILockBytes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILayoutStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The LayoutScript method provides explicit directions for reordering the storages, streams, and controls in a compound file to match the order in which they are accessed during the download.
@@ -59,7 +74,7 @@ class ILayoutStorage extends IUnknown {
     LayoutScript(pStorageLayout, nEntries) {
         static glfInterleavedFlag := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, "ptr", pStorageLayout, "uint", nEntries, "uint", glfInterleavedFlag, "HRESULT")
+        result := ComCall(3, this, StorageLayout.Ptr, pStorageLayout, "uint", nEntries, "uint", glfInterleavedFlag, "HRESULT")
         return result
     }
 
@@ -150,5 +165,33 @@ class ILayoutStorage extends IUnknown {
     ReLayoutDocfileOnILockBytes(pILockBytes) {
         result := ComCall(7, this, "ptr", pILockBytes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILayoutStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LayoutScript := CallbackCreate(GetMethod(implObj, "LayoutScript"), flags, 4)
+        this.vtbl.BeginMonitor := CallbackCreate(GetMethod(implObj, "BeginMonitor"), flags, 1)
+        this.vtbl.EndMonitor := CallbackCreate(GetMethod(implObj, "EndMonitor"), flags, 1)
+        this.vtbl.ReLayoutDocfile := CallbackCreate(GetMethod(implObj, "ReLayoutDocfile"), flags, 2)
+        this.vtbl.ReLayoutDocfileOnILockBytes := CallbackCreate(GetMethod(implObj, "ReLayoutDocfileOnILockBytes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LayoutScript)
+        CallbackFree(this.vtbl.BeginMonitor)
+        CallbackFree(this.vtbl.EndMonitor)
+        CallbackFree(this.vtbl.ReLayoutDocfile)
+        CallbackFree(this.vtbl.ReLayoutDocfileOnILockBytes)
     }
 }

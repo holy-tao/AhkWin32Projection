@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISensLogon2 interface handles logon events fired by SENS.
  * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isenslogon2
  * @namespace Windows.Win32.System.EventNotificationService
  */
-class ISensLogon2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISensLogon2 extends IDispatch {
     /**
      * The interface identifier for ISensLogon2
      * @type {Guid}
      */
-    static IID => Guid("{d597bab4-5b9f-11d1-8dd2-00aa004abd5e}")
+    static IID := Guid("{d597bab4-5b9f-11d1-8dd2-00aa004abd5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISensLogon2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Logon             : IntPtr
+        Logoff            : IntPtr
+        SessionDisconnect : IntPtr
+        SessionReconnect  : IntPtr
+        PostShell         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Logon", "Logoff", "SessionDisconnect", "SessionReconnect", "PostShell"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISensLogon2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Logon method notifies an application that a user is logged on. (ISensLogon2.Logon)
@@ -59,7 +72,7 @@ class ISensLogon2 extends IDispatch {
     Logon(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(7, this, "ptr", bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
         return result
     }
 
@@ -93,7 +106,7 @@ class ISensLogon2 extends IDispatch {
     Logoff(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(8, this, "ptr", bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
         return result
     }
 
@@ -127,7 +140,7 @@ class ISensLogon2 extends IDispatch {
     SessionDisconnect(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(9, this, "ptr", bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
         return result
     }
 
@@ -161,7 +174,7 @@ class ISensLogon2 extends IDispatch {
     SessionReconnect(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(10, this, "ptr", bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
         return result
     }
 
@@ -195,7 +208,35 @@ class ISensLogon2 extends IDispatch {
     PostShell(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(11, this, "ptr", bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISensLogon2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Logon := CallbackCreate(GetMethod(implObj, "Logon"), flags, 3)
+        this.vtbl.Logoff := CallbackCreate(GetMethod(implObj, "Logoff"), flags, 3)
+        this.vtbl.SessionDisconnect := CallbackCreate(GetMethod(implObj, "SessionDisconnect"), flags, 3)
+        this.vtbl.SessionReconnect := CallbackCreate(GetMethod(implObj, "SessionReconnect"), flags, 3)
+        this.vtbl.PostShell := CallbackCreate(GetMethod(implObj, "PostShell"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Logon)
+        CallbackFree(this.vtbl.Logoff)
+        CallbackFree(this.vtbl.SessionDisconnect)
+        CallbackFree(this.vtbl.SessionReconnect)
+        CallbackFree(this.vtbl.PostShell)
     }
 }

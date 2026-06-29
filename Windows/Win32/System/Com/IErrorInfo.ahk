@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides detailed contextual error information.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ierrorinfo
  * @namespace Windows.Win32.System.Com
  */
-class IErrorInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IErrorInfo extends IUnknown {
     /**
      * The interface identifier for IErrorInfo
      * @type {Guid}
      */
-    static IID => Guid("{1cf2b120-547d-101b-8e65-08002b2bd119}")
+    static IID := Guid("{1cf2b120-547d-101b-8e65-08002b2bd119}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IErrorInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetGUID        : IntPtr
+        GetSource      : IntPtr
+        GetDescription : IntPtr
+        GetHelpFile    : IntPtr
+        GetHelpContext : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGUID", "GetSource", "GetDescription", "GetHelpFile", "GetHelpContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IErrorInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the globally unique identifier (GUID) of the interface that defined the error.
@@ -44,7 +55,7 @@ class IErrorInfo extends IUnknown {
      */
     GetGUID() {
         pGUID := Guid()
-        result := ComCall(3, this, "ptr", pGUID, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pGUID, "HRESULT")
         return pGUID
     }
 
@@ -56,8 +67,8 @@ class IErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getsource
      */
     GetSource() {
-        pBstrSource := BSTR()
-        result := ComCall(4, this, "ptr", pBstrSource, "HRESULT")
+        pBstrSource := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pBstrSource, "HRESULT")
         return pBstrSource
     }
 
@@ -69,8 +80,8 @@ class IErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getdescription
      */
     GetDescription() {
-        pBstrDescription := BSTR()
-        result := ComCall(5, this, "ptr", pBstrDescription, "HRESULT")
+        pBstrDescription := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pBstrDescription, "HRESULT")
         return pBstrDescription
     }
 
@@ -82,8 +93,8 @@ class IErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpfile
      */
     GetHelpFile() {
-        pBstrHelpFile := BSTR()
-        result := ComCall(6, this, "ptr", pBstrHelpFile, "HRESULT")
+        pBstrHelpFile := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pBstrHelpFile, "HRESULT")
         return pBstrHelpFile
     }
 
@@ -97,5 +108,33 @@ class IErrorInfo extends IUnknown {
     GetHelpContext() {
         result := ComCall(7, this, "uint*", &pdwHelpContext := 0, "HRESULT")
         return pdwHelpContext
+    }
+
+    Query(iid) {
+        if (IErrorInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetHelpFile := CallbackCreate(GetMethod(implObj, "GetHelpFile"), flags, 2)
+        this.vtbl.GetHelpContext := CallbackCreate(GetMethod(implObj, "GetHelpContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGUID)
+        CallbackFree(this.vtbl.GetSource)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.GetHelpFile)
+        CallbackFree(this.vtbl.GetHelpContext)
     }
 }

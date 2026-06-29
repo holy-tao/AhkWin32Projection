@@ -1,40 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMLOperatorAttributes.ahk
-#Include .\MLOperatorEdgeDescription.ahk
-#Include .\IMLOperatorTensorShapeDescription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMLOperatorAttributes.ahk" { IMLOperatorAttributes }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MLOperatorEdgeDescription.ahk" { MLOperatorEdgeDescription }
+#Import ".\IMLOperatorTensorShapeDescription.ahk" { IMLOperatorTensorShapeDescription }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     /**
      * The interface identifier for IMLOperatorKernelCreationContext
      * @type {Guid}
      */
-    static IID => Guid("{5459b53d-a0fc-4665-addd-70171ef7e631}")
+    static IID := Guid("{5459b53d-a0fc-4665-addd-70171ef7e631}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMLOperatorKernelCreationContext interfaces
+    */
+    struct Vtbl extends IMLOperatorAttributes.Vtbl {
+        GetInputCount             : IntPtr
+        GetOutputCount            : IntPtr
+        IsInputValid              : IntPtr
+        IsOutputValid             : IntPtr
+        GetInputEdgeDescription   : IntPtr
+        GetOutputEdgeDescription  : IntPtr
+        HasTensorShapeDescription : IntPtr
+        GetTensorShapeDescription : IntPtr
+        GetExecutionInterface     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputCount", "GetOutputCount", "IsInputValid", "IsOutputValid", "GetInputEdgeDescription", "GetOutputEdgeDescription", "HasTensorShapeDescription", "GetTensorShapeDescription", "GetExecutionInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMLOperatorKernelCreationContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Integer} 
      */
     GetInputCount() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
     }
 
@@ -43,7 +60,7 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      * @returns {Integer} 
      */
     GetOutputCount() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, UInt32)
         return result
     }
 
@@ -53,7 +70,7 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      * @returns {Boolean} 
      */
     IsInputValid(inputIndex) {
-        result := ComCall(9, this, "uint", inputIndex, "int")
+        result := ComCall(9, this, "uint", inputIndex, Int32)
         return result
     }
 
@@ -63,7 +80,7 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      * @returns {Boolean} 
      */
     IsOutputValid(outputIndex) {
-        result := ComCall(10, this, "uint", outputIndex, "int")
+        result := ComCall(10, this, "uint", outputIndex, Int32)
         return result
     }
 
@@ -74,7 +91,7 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      */
     GetInputEdgeDescription(inputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(11, this, "uint", inputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
         return edgeDescription
     }
 
@@ -85,7 +102,7 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      */
     GetOutputEdgeDescription(outputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(12, this, "uint", outputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(12, this, "uint", outputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
         return edgeDescription
     }
 
@@ -94,7 +111,7 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      * @returns {Boolean} 
      */
     HasTensorShapeDescription() {
-        result := ComCall(13, this, "int")
+        result := ComCall(13, this, Int32)
         return result
     }
 
@@ -113,6 +130,42 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
      * @returns {String} Nothing - always returns an empty string
      */
     GetExecutionInterface(executionObject) {
-        ComCall(15, this, "ptr*", executionObject)
+        ComCall(15, this, IUnknown.Ptr, executionObject)
+    }
+
+    Query(iid) {
+        if (IMLOperatorKernelCreationContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 1)
+        this.vtbl.IsInputValid := CallbackCreate(GetMethod(implObj, "IsInputValid"), flags, 2)
+        this.vtbl.IsOutputValid := CallbackCreate(GetMethod(implObj, "IsOutputValid"), flags, 2)
+        this.vtbl.GetInputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetInputEdgeDescription"), flags, 3)
+        this.vtbl.GetOutputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetOutputEdgeDescription"), flags, 3)
+        this.vtbl.HasTensorShapeDescription := CallbackCreate(GetMethod(implObj, "HasTensorShapeDescription"), flags, 1)
+        this.vtbl.GetTensorShapeDescription := CallbackCreate(GetMethod(implObj, "GetTensorShapeDescription"), flags, 2)
+        this.vtbl.GetExecutionInterface := CallbackCreate(GetMethod(implObj, "GetExecutionInterface"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputCount)
+        CallbackFree(this.vtbl.GetOutputCount)
+        CallbackFree(this.vtbl.IsInputValid)
+        CallbackFree(this.vtbl.IsOutputValid)
+        CallbackFree(this.vtbl.GetInputEdgeDescription)
+        CallbackFree(this.vtbl.GetOutputEdgeDescription)
+        CallbackFree(this.vtbl.HasTensorShapeDescription)
+        CallbackFree(this.vtbl.GetTensorShapeDescription)
+        CallbackFree(this.vtbl.GetExecutionInterface)
     }
 }

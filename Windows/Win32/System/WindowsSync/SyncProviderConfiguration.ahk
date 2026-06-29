@@ -1,60 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Represents the information for a synchronization provider configuration.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguration
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SyncProviderConfiguration extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct SyncProviderConfiguration {
+    #StructPack 4
 
     /**
      * The version of the synchronization provider. The constant value <b>SYNC_PROVIDER_CONFIGURATION_VERSION.</b>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The unique instance ID of the synchronization provider.
-     * @type {Pointer}
      */
-    guidInstanceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidInstanceId : Guid
 
     /**
      * The COM CLSID of the synchronization provider.
-     * @type {Pointer}
      */
-    clsidProvider {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    clsidProvider : Guid
 
     /**
      * The instance ID of the configuration UI used to create this synchronization provider, or <b>GUID_NULL</b> if no configuration UI was used.
-     * @type {Pointer}
      */
-    guidConfigUIInstanceId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    guidConfigUIInstanceId : Guid
 
     /**
      * The GUID that identifies the content type.
-     * @type {Pointer}
      */
-    guidContentType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    guidContentType : Guid
 
     /**
      * One of the following constants that represent the capabilities of the synchronization provider.
@@ -62,12 +40,8 @@ class SyncProviderConfiguration extends Win32Struct {
      * <ul>
      * <li><b>SPC_DEFAULT</b> ((DWORD)0x00000000)</li>
      * </ul>
-     * @type {Integer}
      */
-    dwCapabilities {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwCapabilities : UInt32
 
     /**
      * One of the following constants that represent the architectures supported by the synchronization provider. This value corresponds to the architectures that the synchronization provider CLSID (<b>clsidProvider</b>) is registered for.   These values can be combined, and can be used as bitmasks.
@@ -76,10 +50,7 @@ class SyncProviderConfiguration extends Win32Struct {
      * <li><b>SYNC_32_BIT_SUPPORTED</b> ((DWORD)0x00000001)</li>
      * <li><b>SYNC_64_BIT_SUPPORTED</b> ((DWORD)0x00000002)</li>
      * </ul>
-     * @type {Integer}
      */
-    dwSupportedArchitecture {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwSupportedArchitecture : UInt32
+
 }

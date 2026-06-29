@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ND_OPTION_RD_HDR extends Win32Struct {
-    static sizeof => 8
+export default struct ND_OPTION_RD_HDR {
+    #StructPack 4
 
-    static packingSize => 4
+    nd_opt_rh_type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_rh_type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    nd_opt_rh_len : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_rh_len {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    nd_opt_rh_reserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_rh_reserved1 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    nd_opt_rh_reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_rh_reserved2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains extended statistics for either incoming or outgoing Internet Control Message Protocol (ICMP) messages on a particular computer.
@@ -14,44 +13,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mibicmpstats_ex_xpsp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIBICMPSTATS_EX_XPSP1 extends Win32Struct {
-    static sizeof => 1032
-
-    static packingSize => 4
+export default struct MIBICMPSTATS_EX_XPSP1 {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the number of messages received or sent.
-     * @type {Integer}
      */
-    dwMsgs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMsgs : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      *  The number of errors received or sent.
-     * @type {Integer}
      */
-    dwErrors {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwErrors : UInt32
 
     /**
      * Type: <b>DWORD[256]</b>
      * 
      * The type count.
-     * @type {Array<Integer>}
      */
-    rgdwTypeCount {
-        get {
-            if(!this.HasProp("__rgdwTypeCountProxyArray"))
-                this.__rgdwTypeCountProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "uint")
-            return this.__rgdwTypeCountProxyArray
-        }
-    }
+    rgdwTypeCount : UInt32[256]
+
 }

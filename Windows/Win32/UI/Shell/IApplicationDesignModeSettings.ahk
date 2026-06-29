@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APPLICATION_VIEW_STATE.ahk" { APPLICATION_VIEW_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EDGE_GESTURE_KIND.ahk" { EDGE_GESTURE_KIND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "Common\DEVICE_SCALE_FACTOR.ahk" { DEVICE_SCALE_FACTOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Enables development tool applications to dynamically spoof system and user states, such as native display resolution, device scale factor, and application view state, for the purpose of testing Windows Store apps running in design mode for a wide range of form factors without the need for the actual hardware. Also enables testing of changes in normally user-controlled state to test Windows Store apps under a variety of scenarios.
@@ -28,32 +33,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings
  * @namespace Windows.Win32.UI.Shell
  */
-class IApplicationDesignModeSettings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IApplicationDesignModeSettings extends IUnknown {
     /**
      * The interface identifier for IApplicationDesignModeSettings
      * @type {Guid}
      */
-    static IID => Guid("{2a3dee9a-e31d-46d6-8508-bcc597db3557}")
+    static IID := Guid("{2a3dee9a-e31d-46d6-8508-bcc597db3557}")
 
     /**
      * The class identifier for ApplicationDesignModeSettings
      * @type {Guid}
      */
-    static CLSID => Guid("{958a6fb5-dcb2-4faf-aafd-7fb054ad1a3b}")
+    static CLSID := Guid("{958a6fb5-dcb2-4faf-aafd-7fb054ad1a3b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IApplicationDesignModeSettings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetNativeDisplaySize            : IntPtr
+        SetScaleFactor                  : IntPtr
+        SetApplicationViewState         : IntPtr
+        ComputeApplicationSize          : IntPtr
+        IsApplicationViewStateSupported : IntPtr
+        TriggerEdgeGesture              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNativeDisplaySize", "SetScaleFactor", "SetApplicationViewState", "ComputeApplicationSize", "IsApplicationViewStateSupported", "TriggerEdgeGesture"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IApplicationDesignModeSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a spoofed native display size to be used for a Windows Store app running in design mode.
@@ -92,7 +109,7 @@ class IApplicationDesignModeSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setnativedisplaysize
      */
     SetNativeDisplaySize(nativeDisplaySizePixels) {
-        result := ComCall(3, this, "ptr", nativeDisplaySizePixels, "HRESULT")
+        result := ComCall(3, this, SIZE, nativeDisplaySizePixels, "HRESULT")
         return result
     }
 
@@ -122,7 +139,7 @@ class IApplicationDesignModeSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setscalefactor
      */
     SetScaleFactor(scaleFactor) {
-        result := ComCall(4, this, "int", scaleFactor, "HRESULT")
+        result := ComCall(4, this, DEVICE_SCALE_FACTOR, scaleFactor, "HRESULT")
         return result
     }
 
@@ -152,7 +169,7 @@ class IApplicationDesignModeSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate
      */
     SetApplicationViewState(viewState) {
-        result := ComCall(5, this, "int", viewState, "HRESULT")
+        result := ComCall(5, this, APPLICATION_VIEW_STATE, viewState, "HRESULT")
         return result
     }
 
@@ -163,7 +180,7 @@ class IApplicationDesignModeSettings extends IUnknown {
      */
     ComputeApplicationSize() {
         applicationSizePixels := SIZE()
-        result := ComCall(6, this, "ptr", applicationSizePixels, "HRESULT")
+        result := ComCall(6, this, SIZE.Ptr, applicationSizePixels, "HRESULT")
         return applicationSizePixels
     }
 
@@ -176,7 +193,7 @@ class IApplicationDesignModeSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
      */
     IsApplicationViewStateSupported(viewState, nativeDisplaySizePixels, scaleFactor) {
-        result := ComCall(7, this, "int", viewState, "ptr", nativeDisplaySizePixels, "int", scaleFactor, "int*", &supported := 0, "HRESULT")
+        result := ComCall(7, this, APPLICATION_VIEW_STATE, viewState, SIZE, nativeDisplaySizePixels, DEVICE_SCALE_FACTOR, scaleFactor, BOOL.Ptr, &supported := 0, "HRESULT")
         return supported
     }
 
@@ -206,7 +223,37 @@ class IApplicationDesignModeSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-triggeredgegesture
      */
     TriggerEdgeGesture(edgeGestureKind) {
-        result := ComCall(8, this, "int", edgeGestureKind, "HRESULT")
+        result := ComCall(8, this, EDGE_GESTURE_KIND, edgeGestureKind, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IApplicationDesignModeSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNativeDisplaySize := CallbackCreate(GetMethod(implObj, "SetNativeDisplaySize"), flags, 2)
+        this.vtbl.SetScaleFactor := CallbackCreate(GetMethod(implObj, "SetScaleFactor"), flags, 2)
+        this.vtbl.SetApplicationViewState := CallbackCreate(GetMethod(implObj, "SetApplicationViewState"), flags, 2)
+        this.vtbl.ComputeApplicationSize := CallbackCreate(GetMethod(implObj, "ComputeApplicationSize"), flags, 2)
+        this.vtbl.IsApplicationViewStateSupported := CallbackCreate(GetMethod(implObj, "IsApplicationViewStateSupported"), flags, 5)
+        this.vtbl.TriggerEdgeGesture := CallbackCreate(GetMethod(implObj, "TriggerEdgeGesture"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNativeDisplaySize)
+        CallbackFree(this.vtbl.SetScaleFactor)
+        CallbackFree(this.vtbl.SetApplicationViewState)
+        CallbackFree(this.vtbl.ComputeApplicationSize)
+        CallbackFree(this.vtbl.IsApplicationViewStateSupported)
+        CallbackFree(this.vtbl.TriggerEdgeGesture)
     }
 }

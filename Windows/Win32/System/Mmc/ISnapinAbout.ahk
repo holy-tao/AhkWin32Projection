@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISnapinAbout interface enables the console to get copyright and version information from a snap-in. The console also uses this interface to obtain images for the static folder from the snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-isnapinabout
  * @namespace Windows.Win32.System.Mmc
  */
-class ISnapinAbout extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISnapinAbout extends IUnknown {
     /**
      * The interface identifier for ISnapinAbout
      * @type {Guid}
      */
-    static IID => Guid("{1245208c-a151-11d0-a7d7-00c04fd909dd}")
+    static IID := Guid("{1245208c-a151-11d0-a7d7-00c04fd909dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISnapinAbout interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSnapinDescription : IntPtr
+        GetProvider          : IntPtr
+        GetSnapinVersion     : IntPtr
+        GetSnapinImage       : IntPtr
+        GetStaticFolderImage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSnapinDescription", "GetProvider", "GetSnapinVersion", "GetSnapinImage", "GetStaticFolderImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISnapinAbout.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables the console to obtain the text for the snap-in's description box.
@@ -41,7 +56,7 @@ class ISnapinAbout extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapindescription
      */
     GetSnapinDescription() {
-        result := ComCall(3, this, "ptr*", &lpDescription := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &lpDescription := 0, "HRESULT")
         return lpDescription
     }
 
@@ -54,7 +69,7 @@ class ISnapinAbout extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getprovider
      */
     GetProvider() {
-        result := ComCall(4, this, "ptr*", &lpName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &lpName := 0, "HRESULT")
         return lpName
     }
 
@@ -67,7 +82,7 @@ class ISnapinAbout extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinversion
      */
     GetSnapinVersion() {
-        result := ComCall(5, this, "ptr*", &lpVersion := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &lpVersion := 0, "HRESULT")
         return lpVersion
     }
 
@@ -82,8 +97,8 @@ class ISnapinAbout extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinimage
      */
     GetSnapinImage() {
-        hAppIcon := HICON()
-        result := ComCall(6, this, "ptr", hAppIcon, "HRESULT")
+        hAppIcon := HICON.Owned()
+        result := ComCall(6, this, HICON.Ptr, hAppIcon, "HRESULT")
         return hAppIcon
     }
 
@@ -105,7 +120,35 @@ class ISnapinAbout extends IUnknown {
     GetStaticFolderImage(hSmallImage, hSmallImageOpen, hLargeImage, cMask) {
         cMaskMarshal := cMask is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hSmallImage, "ptr", hSmallImageOpen, "ptr", hLargeImage, cMaskMarshal, cMask, "HRESULT")
+        result := ComCall(7, this, HBITMAP.Ptr, hSmallImage, HBITMAP.Ptr, hSmallImageOpen, HBITMAP.Ptr, hLargeImage, cMaskMarshal, cMask, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISnapinAbout.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSnapinDescription := CallbackCreate(GetMethod(implObj, "GetSnapinDescription"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.GetSnapinVersion := CallbackCreate(GetMethod(implObj, "GetSnapinVersion"), flags, 2)
+        this.vtbl.GetSnapinImage := CallbackCreate(GetMethod(implObj, "GetSnapinImage"), flags, 2)
+        this.vtbl.GetStaticFolderImage := CallbackCreate(GetMethod(implObj, "GetStaticFolderImage"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSnapinDescription)
+        CallbackFree(this.vtbl.GetProvider)
+        CallbackFree(this.vtbl.GetSnapinVersion)
+        CallbackFree(this.vtbl.GetSnapinImage)
+        CallbackFree(this.vtbl.GetStaticFolderImage)
     }
 }

@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class BlurParams extends Win32Struct {
-    static sizeof => 8
+export default struct BlurParams {
+    #StructPack 4
 
-    static packingSize => 4
+    radius : Float32
 
-    /**
-     * @type {Float}
-     */
-    radius {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    expandEdge : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    expandEdge {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

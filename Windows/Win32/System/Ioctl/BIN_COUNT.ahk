@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BIN_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BIN_RANGE.ahk" { BIN_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class BIN_COUNT extends Win32Struct {
-    static sizeof => 24
+export default struct BIN_COUNT {
+    #StructPack 8
 
-    static packingSize => 8
+    BinRange : BIN_RANGE
 
-    /**
-     * @type {BIN_RANGE}
-     */
-    BinRange {
-        get {
-            if(!this.HasProp("__BinRange"))
-                this.__BinRange := BIN_RANGE(0, this)
-            return this.__BinRange
-        }
-    }
+    BinCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BinCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

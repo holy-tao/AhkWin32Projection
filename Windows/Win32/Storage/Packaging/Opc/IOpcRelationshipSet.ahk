@@ -1,10 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcRelationship.ahk
-#Include .\IOpcRelationshipEnumerator.ahk
-#Include ..\..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OPC_URI_TARGET_MODE.ahk" { OPC_URI_TARGET_MODE }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcRelationship.ahk" { IOpcRelationship }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcRelationshipEnumerator.ahk" { IOpcRelationshipEnumerator }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a Relationships part as an unordered set of IOpcRelationship interface pointers to relationship objects.
@@ -23,26 +28,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcRelationshipSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcRelationshipSet extends IUnknown {
     /**
      * The interface identifier for IOpcRelationshipSet
      * @type {Guid}
      */
-    static IID => Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee74}")
+    static IID := Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee74}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcRelationshipSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRelationship               : IntPtr
+        CreateRelationship            : IntPtr
+        DeleteRelationship            : IntPtr
+        RelationshipExists            : IntPtr
+        GetEnumerator                 : IntPtr
+        GetEnumeratorForType          : IntPtr
+        GetRelationshipsContentStream : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRelationship", "CreateRelationship", "DeleteRelationship", "RelationshipExists", "GetEnumerator", "GetEnumeratorForType", "GetRelationshipsContentStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcRelationshipSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a relationship object from the set that represents a specified relationship.
@@ -86,7 +104,7 @@ class IOpcRelationshipSet extends IUnknown {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
         relationshipType := relationshipType is String ? StrPtr(relationshipType) : relationshipType
 
-        result := ComCall(4, this, "ptr", relationshipIdentifier, "ptr", relationshipType, "ptr", targetUri, "int", targetMode, "ptr*", &relationship := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", relationshipIdentifier, "ptr", relationshipType, "ptr", targetUri, OPC_URI_TARGET_MODE, targetMode, "ptr*", &relationship := 0, "HRESULT")
         return IOpcRelationship(relationship)
     }
 
@@ -181,7 +199,7 @@ class IOpcRelationshipSet extends IUnknown {
     RelationshipExists(relationshipIdentifier) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
 
-        result := ComCall(6, this, "ptr", relationshipIdentifier, "int*", &relationshipExists := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", relationshipIdentifier, BOOL.Ptr, &relationshipExists := 0, "HRESULT")
         return relationshipExists
     }
 
@@ -228,5 +246,37 @@ class IOpcRelationshipSet extends IUnknown {
     GetRelationshipsContentStream() {
         result := ComCall(9, this, "ptr*", &contents := 0, "HRESULT")
         return IStream(contents)
+    }
+
+    Query(iid) {
+        if (IOpcRelationshipSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRelationship := CallbackCreate(GetMethod(implObj, "GetRelationship"), flags, 3)
+        this.vtbl.CreateRelationship := CallbackCreate(GetMethod(implObj, "CreateRelationship"), flags, 6)
+        this.vtbl.DeleteRelationship := CallbackCreate(GetMethod(implObj, "DeleteRelationship"), flags, 2)
+        this.vtbl.RelationshipExists := CallbackCreate(GetMethod(implObj, "RelationshipExists"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.GetEnumeratorForType := CallbackCreate(GetMethod(implObj, "GetEnumeratorForType"), flags, 3)
+        this.vtbl.GetRelationshipsContentStream := CallbackCreate(GetMethod(implObj, "GetRelationshipsContentStream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRelationship)
+        CallbackFree(this.vtbl.CreateRelationship)
+        CallbackFree(this.vtbl.DeleteRelationship)
+        CallbackFree(this.vtbl.RelationshipExists)
+        CallbackFree(this.vtbl.GetEnumerator)
+        CallbackFree(this.vtbl.GetEnumeratorForType)
+        CallbackFree(this.vtbl.GetRelationshipsContentStream)
     }
 }

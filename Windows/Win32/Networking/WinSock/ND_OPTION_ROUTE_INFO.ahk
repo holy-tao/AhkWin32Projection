@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ND_OPTION_ROUTE_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct ND_OPTION_ROUTE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_ri_type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    nd_opt_ri_len {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    nd_opt_ri_prefix_len {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    class _Flags extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - Reserved
          * - Preference
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -58,41 +26,20 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_ri_flags_reserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    nd_opt_ri_type : Int8
 
-    /**
-     * @type {_Flags}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := ND_OPTION_ROUTE_INFO._Flags(3, this)
-            return this.__Flags
-        }
-    }
+    nd_opt_ri_len : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_ri_route_lifetime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    nd_opt_ri_prefix_len : Int8
 
-    /**
-     * @type {IN6_ADDR}
-     */
-    nd_opt_ri_prefix {
-        get {
-            if(!this.HasProp("__nd_opt_ri_prefix"))
-                this.__nd_opt_ri_prefix := IN6_ADDR(8, this)
-            return this.__nd_opt_ri_prefix
-        }
+    nd_opt_ri_flags_reserved : Int8
+
+    nd_opt_ri_route_lifetime : UInt32
+
+    nd_opt_ri_prefix : IN6_ADDR
+
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: ND_OPTION_ROUTE_INFO._Flags, offset: 3 })
+        this.DeleteProp("__New")
     }
 }

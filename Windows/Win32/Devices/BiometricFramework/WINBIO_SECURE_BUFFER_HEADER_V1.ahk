@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_SECURE_BUFFER_HEADER_V1 extends Win32Struct {
-    static sizeof => 24
+export default struct WINBIO_SECURE_BUFFER_HEADER_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ValidationTag : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ValidationTag {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

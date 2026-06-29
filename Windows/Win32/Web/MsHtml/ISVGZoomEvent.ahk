@@ -1,39 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGRect.ahk
-#Include .\ISVGPoint.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGPoint.ahk" { ISVGPoint }
+#Import ".\ISVGRect.ahk" { ISVGRect }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGZoomEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGZoomEvent extends IDispatch {
     /**
      * The interface identifier for ISVGZoomEvent
      * @type {Guid}
      */
-    static IID => Guid("{3051054e-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051054e-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGZoomEvent
      * @type {Guid}
      */
-    static CLSID => Guid("{305105d9-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105d9-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGZoomEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_zoomRectScreen    : IntPtr
+        get_previousScale     : IntPtr
+        get_previousTranslate : IntPtr
+        get_newScale          : IntPtr
+        get_newTranslate      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_zoomRectScreen", "get_previousScale", "get_previousTranslate", "get_newScale", "get_newTranslate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGZoomEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGRect} 
@@ -113,5 +125,33 @@ class ISVGZoomEvent extends IDispatch {
     get_newTranslate() {
         result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
         return ISVGPoint(p)
+    }
+
+    Query(iid) {
+        if (ISVGZoomEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_zoomRectScreen := CallbackCreate(GetMethod(implObj, "get_zoomRectScreen"), flags, 2)
+        this.vtbl.get_previousScale := CallbackCreate(GetMethod(implObj, "get_previousScale"), flags, 2)
+        this.vtbl.get_previousTranslate := CallbackCreate(GetMethod(implObj, "get_previousTranslate"), flags, 2)
+        this.vtbl.get_newScale := CallbackCreate(GetMethod(implObj, "get_newScale"), flags, 2)
+        this.vtbl.get_newTranslate := CallbackCreate(GetMethod(implObj, "get_newTranslate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_zoomRectScreen)
+        CallbackFree(this.vtbl.get_previousScale)
+        CallbackFree(this.vtbl.get_previousTranslate)
+        CallbackFree(this.vtbl.get_newScale)
+        CallbackFree(this.vtbl.get_newTranslate)
     }
 }

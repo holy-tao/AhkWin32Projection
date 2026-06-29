@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Ole\IOleObject.ahk
-#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\..\System\Ole\IOleClientSite.ahk
-#Include ..\..\..\Foundation\SIZE.ahk
-#Include .\REOBJECT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\System\Ole\IOleClientSite.ahk" { IOleClientSite }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import ".\REOBJECT_FLAGS.ahk" { REOBJECT_FLAGS }
+#Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Contains information about an OLE or image object in a rich edit control.
@@ -13,119 +13,75 @@
  * @see https://learn.microsoft.com/windows/win32/api/richole/ns-richole-reobject
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class REOBJECT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct REOBJECT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Structure size, in bytes.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Character position of the object.
-     * @type {Integer}
      */
-    cp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cp : Int32
 
     /**
      * Type: <b>CLSID</b>
      * 
      * Class identifier of the object.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    clsid : Guid
 
     /**
      * Type: <b>LPOLEOBJECT</b>
      * 
      * An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface for the object.
-     * @type {IOleObject}
      */
-    poleobj {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    poleobj : IOleObject
 
     /**
      * Type: <b>LPSTORAGE</b>
      * 
      * An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface. This is the storage object associated with the object.
-     * @type {IStorage}
      */
-    pstg {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pstg : IStorage
 
     /**
      * Type: <b>LPOLECLIENTSITE</b>
      * 
      * An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface. This is the object's client site in the rich edit control. This address must have been obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/richole/nf-richole-iricheditole-getclientsite">GetClientSite</a> method.
-     * @type {IOleClientSite}
      */
-    polesite {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    polesite : IOleClientSite
 
     /**
      * Type: <b>SIZEL</b>
      * 
      * The size of the object. The unit of measure is 0.01 millimeters, which is a HIMETRIC measurement. For more information, see function <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getmapmode">GetMapMode</a>. A 0, 0 on insertion indicates that an object is free to determine its size until the modify flag is turned off.
-     * @type {SIZE}
      */
-    sizel {
-        get {
-            if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(40, this)
-            return this.__sizel
-        }
-    }
+    sizel : SIZE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Display aspect used. See <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> for an explanation of possible values.
-     * @type {Integer}
      */
-    dvaspect {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dvaspect : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {REOBJECT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwFlags : REOBJECT_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Reserved for user-defined values.
-     * @type {Integer}
      */
-    dwUser {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwUser : UInt32
+
 }

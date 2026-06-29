@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_FAST_FORWARD_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct HTTP_FAST_FORWARD_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : HTTP_PROPERTY_FLAGS
 
-    /**
-     * @type {HTTP_PROPERTY_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    EnableFastForwarding : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    EnableFastForwarding {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

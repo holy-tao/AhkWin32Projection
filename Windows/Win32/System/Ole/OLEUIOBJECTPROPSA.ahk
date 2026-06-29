@@ -1,12 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OBJECT_PROPERTIES_FLAGS.ahk
-#Include ..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk
-#Include .\IOleUIObjInfoA.ahk
-#Include .\IOleUILinkInfoA.ahk
-#Include .\OLEUIGNRLPROPSA.ahk
-#Include .\OLEUIVIEWPROPSA.ahk
-#Include .\OLEUILINKPROPSA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
+#Import ".\IOleUILinkInfoA.ahk" { IOleUILinkInfoA }
+#Import ".\OLEUIGNRLPROPSA.ahk" { OLEUIGNRLPROPSA }
+#Import ".\OLEUIVIEWPROPSA.ahk" { OLEUIVIEWPROPSA }
+#Import ".\IOleUIObjInfoA.ahk" { IOleUIObjInfoA }
+#Import ".\OLEUILINKPROPSA.ahk" { OLEUILINKPROPSA }
+#Import ".\OBJECT_PROPERTIES_FLAGS.ahk" { OBJECT_PROPERTIES_FLAGS }
 
 /**
  * Contains information that is used to initialize the standard Object Properties dialog box. (ANSI)
@@ -17,19 +16,13 @@
  * @namespace Windows.Win32.System.Ole
  * @charset ANSI
  */
-class OLEUIOBJECTPROPSA extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct OLEUIOBJECTPROPSA {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Contains in/out global flags for the property sheet.
@@ -80,82 +73,59 @@ class OLEUIOBJECTPROPSA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {OBJECT_PROPERTIES_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : OBJECT_PROPERTIES_FLAGS
 
     /**
      * Pointer to the standard property sheet header (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a>), used for extensibility.
-     * @type {Pointer<PROPSHEETHEADERA_V2>}
      */
-    lpPS {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpPS : PROPSHEETHEADERA_V2.Ptr
 
     /**
      * Identifier for the object.
-     * @type {Integer}
      */
-    dwObject {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwObject : UInt32
 
     /**
      * Pointer to the interface to manipulate object.
-     * @type {IOleUIObjInfoA}
      */
-    lpObjInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpObjInfo : IOleUIObjInfoA
 
     /**
      * Container-defined unique identifier for a single link. Containers can use the pointer to the link's container site for this value.
-     * @type {Integer}
      */
-    dwLink {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwLink : UInt32
 
     /**
      * Pointer to the interface to manipulate link.
-     * @type {IOleUILinkInfoA}
      */
-    lpLinkInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpLinkInfo : IOleUILinkInfoA
 
+    __lpGP_ptr : IntPtr
     /**
      * Pointer to the general page data.
-     * @type {Pointer<OLEUIGNRLPROPSA>}
      */
     lpGP {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => (addr := this.__lpGP_ptr) ? OLEUIGNRLPROPSA.At(addr) : unset
+        set => this.__lpGP_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
+    __lpVP_ptr : IntPtr
     /**
      * Pointer to the view page data.
-     * @type {Pointer<OLEUIVIEWPROPSA>}
      */
     lpVP {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => (addr := this.__lpVP_ptr) ? OLEUIVIEWPROPSA.At(addr) : unset
+        set => this.__lpVP_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
+    __lpLP_ptr : IntPtr
     /**
      * Pointer to the link page data.
-     * @type {Pointer<OLEUILINKPROPSA>}
      */
     lpLP {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => (addr := this.__lpLP_ptr) ? OLEUILINKPROPSA.At(addr) : unset
+        set => this.__lpLP_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

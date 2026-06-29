@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI_DGV_SIGNAL_PARMS structure contains parameters for the MCI_SIGNAL command for digital-video devices.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_signal_parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_DGV_SIGNAL_PARMS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MCI_DGV_SIGNAL_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Position to be marked.
-     * @type {Integer}
      */
-    dwPosition {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwPosition : UInt32
 
     /**
      * Interval of the position marks.
-     * @type {Integer}
      */
-    dwPeriod {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwPeriod : UInt32
 
     /**
      * User value associated with signals.
-     * @type {Integer}
      */
-    dwUserParm {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwUserParm : UInt32
+
 }

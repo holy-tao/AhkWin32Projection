@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_MSR_ACTION_ENTRY extends Win32Struct {
-    static sizeof => 8
+export default struct WHV_MSR_ACTION_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    Index : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Index {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReadAction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ReadAction {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    WriteAction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WriteAction {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

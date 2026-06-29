@@ -1,32 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 24
+export default struct AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION {
+    #StructPack 8
 
-    static packingSize => 8
+    propertyStore : IPropertyStore
 
-    /**
-     * @type {IPropertyStore}
-     */
-    propertyStore {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    propertyKey : PROPERTYKEY
 
-    /**
-     * @type {PROPERTYKEY}
-     */
-    propertyKey {
-        get {
-            if(!this.HasProp("__propertyKey"))
-                this.__propertyKey := PROPERTYKEY(8, this)
-            return this.__propertyKey
-        }
-    }
 }

@@ -1,199 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_UINT128.ahk
-#Include .\WHV_X64_FP_REGISTER.ahk
-#Include .\WHV_X64_FP_CONTROL_STATUS_REGISTER.ahk
-#Include .\WHV_X64_XMM_CONTROL_STATUS_REGISTER.ahk
-#Include .\WHV_X64_SEGMENT_REGISTER.ahk
-#Include .\WHV_X64_TABLE_REGISTER.ahk
-#Include .\WHV_X64_INTERRUPT_STATE_REGISTER.ahk
-#Include .\WHV_X64_PENDING_INTERRUPTION_REGISTER.ahk
-#Include .\WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER.ahk
-#Include .\WHV_X64_PENDING_EXCEPTION_EVENT.ahk
-#Include .\WHV_X64_PENDING_EXT_INT_EVENT.ahk
-#Include .\WHV_INTERNAL_ACTIVITY_REGISTER.ahk
-#Include .\WHV_X64_PENDING_DEBUG_EXCEPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_X64_FP_CONTROL_STATUS_REGISTER.ahk" { WHV_X64_FP_CONTROL_STATUS_REGISTER }
+#Import ".\WHV_X64_INTERRUPT_STATE_REGISTER.ahk" { WHV_X64_INTERRUPT_STATE_REGISTER }
+#Import ".\WHV_X64_TABLE_REGISTER.ahk" { WHV_X64_TABLE_REGISTER }
+#Import ".\WHV_UINT128.ahk" { WHV_UINT128 }
+#Import ".\WHV_X64_FP_REGISTER.ahk" { WHV_X64_FP_REGISTER }
+#Import ".\WHV_X64_PENDING_EXT_INT_EVENT.ahk" { WHV_X64_PENDING_EXT_INT_EVENT }
+#Import ".\WHV_X64_PENDING_DEBUG_EXCEPTION.ahk" { WHV_X64_PENDING_DEBUG_EXCEPTION }
+#Import ".\WHV_INTERNAL_ACTIVITY_REGISTER.ahk" { WHV_INTERNAL_ACTIVITY_REGISTER }
+#Import ".\WHV_X64_PENDING_INTERRUPTION_REGISTER.ahk" { WHV_X64_PENDING_INTERRUPTION_REGISTER }
+#Import ".\WHV_X64_PENDING_EXCEPTION_EVENT.ahk" { WHV_X64_PENDING_EXCEPTION_EVENT }
+#Import ".\WHV_X64_SEGMENT_REGISTER.ahk" { WHV_X64_SEGMENT_REGISTER }
+#Import ".\WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER.ahk" { WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER }
+#Import ".\WHV_X64_XMM_CONTROL_STATUS_REGISTER.ahk" { WHV_X64_XMM_CONTROL_STATUS_REGISTER }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_REGISTER_VALUE extends Win32Struct {
-    static sizeof => 400
+export default struct WHV_REGISTER_VALUE {
+    #StructPack 8
 
-    static packingSize => 8
+    Reg128 : WHV_UINT128
 
-    /**
-     * @type {WHV_UINT128}
-     */
-    Reg128 {
-        get {
-            if(!this.HasProp("__Reg128"))
-                this.__Reg128 := WHV_UINT128(0, this)
-            return this.__Reg128
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reg64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reg32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reg16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reg8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_X64_FP_REGISTER}
-     */
-    Fp {
-        get {
-            if(!this.HasProp("__Fp"))
-                this.__Fp := WHV_X64_FP_REGISTER(0, this)
-            return this.__Fp
-        }
-    }
-
-    /**
-     * @type {WHV_X64_FP_CONTROL_STATUS_REGISTER}
-     */
-    FpControlStatus {
-        get {
-            if(!this.HasProp("__FpControlStatus"))
-                this.__FpControlStatus := WHV_X64_FP_CONTROL_STATUS_REGISTER(0, this)
-            return this.__FpControlStatus
-        }
-    }
-
-    /**
-     * @type {WHV_X64_XMM_CONTROL_STATUS_REGISTER}
-     */
-    XmmControlStatus {
-        get {
-            if(!this.HasProp("__XmmControlStatus"))
-                this.__XmmControlStatus := WHV_X64_XMM_CONTROL_STATUS_REGISTER(0, this)
-            return this.__XmmControlStatus
-        }
-    }
-
-    /**
-     * @type {WHV_X64_SEGMENT_REGISTER}
-     */
-    Segment {
-        get {
-            if(!this.HasProp("__Segment"))
-                this.__Segment := WHV_X64_SEGMENT_REGISTER(0, this)
-            return this.__Segment
-        }
-    }
-
-    /**
-     * @type {WHV_X64_TABLE_REGISTER}
-     */
-    Table {
-        get {
-            if(!this.HasProp("__Table"))
-                this.__Table := WHV_X64_TABLE_REGISTER(0, this)
-            return this.__Table
-        }
-    }
-
-    /**
-     * @type {WHV_X64_INTERRUPT_STATE_REGISTER}
-     */
-    InterruptState {
-        get {
-            if(!this.HasProp("__InterruptState"))
-                this.__InterruptState := WHV_X64_INTERRUPT_STATE_REGISTER(0, this)
-            return this.__InterruptState
-        }
-    }
-
-    /**
-     * @type {WHV_X64_PENDING_INTERRUPTION_REGISTER}
-     */
-    PendingInterruption {
-        get {
-            if(!this.HasProp("__PendingInterruption"))
-                this.__PendingInterruption := WHV_X64_PENDING_INTERRUPTION_REGISTER(0, this)
-            return this.__PendingInterruption
-        }
-    }
-
-    /**
-     * @type {WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER}
-     */
-    DeliverabilityNotifications {
-        get {
-            if(!this.HasProp("__DeliverabilityNotifications"))
-                this.__DeliverabilityNotifications := WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(0, this)
-            return this.__DeliverabilityNotifications
-        }
-    }
-
-    /**
-     * @type {WHV_X64_PENDING_EXCEPTION_EVENT}
-     */
-    ExceptionEvent {
-        get {
-            if(!this.HasProp("__ExceptionEvent"))
-                this.__ExceptionEvent := WHV_X64_PENDING_EXCEPTION_EVENT(0, this)
-            return this.__ExceptionEvent
-        }
-    }
-
-    /**
-     * @type {WHV_X64_PENDING_EXT_INT_EVENT}
-     */
-    ExtIntEvent {
-        get {
-            if(!this.HasProp("__ExtIntEvent"))
-                this.__ExtIntEvent := WHV_X64_PENDING_EXT_INT_EVENT(0, this)
-            return this.__ExtIntEvent
-        }
-    }
-
-    /**
-     * @type {WHV_INTERNAL_ACTIVITY_REGISTER}
-     */
-    InternalActivity {
-        get {
-            if(!this.HasProp("__InternalActivity"))
-                this.__InternalActivity := WHV_INTERNAL_ACTIVITY_REGISTER(0, this)
-            return this.__InternalActivity
-        }
-    }
-
-    /**
-     * @type {WHV_X64_PENDING_DEBUG_EXCEPTION}
-     */
-    PendingDebugException {
-        get {
-            if(!this.HasProp("__PendingDebugException"))
-                this.__PendingDebugException := WHV_X64_PENDING_DEBUG_EXCEPTION(0, this)
-            return this.__PendingDebugException
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Reg64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'Reg32', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Reg16', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'Reg8', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'Fp', { type: WHV_X64_FP_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'FpControlStatus', { type: WHV_X64_FP_CONTROL_STATUS_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'XmmControlStatus', { type: WHV_X64_XMM_CONTROL_STATUS_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'Segment', { type: WHV_X64_SEGMENT_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'Table', { type: WHV_X64_TABLE_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'InterruptState', { type: WHV_X64_INTERRUPT_STATE_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'PendingInterruption', { type: WHV_X64_PENDING_INTERRUPTION_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'DeliverabilityNotifications', { type: WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'ExceptionEvent', { type: WHV_X64_PENDING_EXCEPTION_EVENT, offset: 0 })
+        DefineProp(this.Prototype, 'ExtIntEvent', { type: WHV_X64_PENDING_EXT_INT_EVENT, offset: 0 })
+        DefineProp(this.Prototype, 'InternalActivity', { type: WHV_INTERNAL_ACTIVITY_REGISTER, offset: 0 })
+        DefineProp(this.Prototype, 'PendingDebugException', { type: WHV_X64_PENDING_DEBUG_EXCEPTION, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

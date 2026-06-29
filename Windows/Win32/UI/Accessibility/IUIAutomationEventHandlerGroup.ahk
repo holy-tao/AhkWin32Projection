@@ -1,33 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
+#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
+#Import ".\IUIAutomationTextEditTextChangedEventHandler.ahk" { IUIAutomationTextEditTextChangedEventHandler }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
+#Import ".\IUIAutomationChangesEventHandler.ahk" { IUIAutomationChangesEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
+#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
 
 /**
  * Exposes methods for adding one or more events to a collection for bulk registration through the CreateEventHandlerGroup and AddEventHandlerGroup methods defined in IUIAutomation6.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationeventhandlergroup
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationEventHandlerGroup extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationEventHandlerGroup extends IUnknown {
     /**
      * The interface identifier for IUIAutomationEventHandlerGroup
      * @type {Guid}
      */
-    static IID => Guid("{c9ee12f2-c13b-4408-997c-639914377f4e}")
+    static IID := Guid("{c9ee12f2-c13b-4408-997c-639914377f4e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationEventHandlerGroup interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddActiveTextPositionChangedEventHandler : IntPtr
+        AddAutomationEventHandler                : IntPtr
+        AddChangesEventHandler                   : IntPtr
+        AddNotificationEventHandler              : IntPtr
+        AddPropertyChangedEventHandler           : IntPtr
+        AddStructureChangedEventHandler          : IntPtr
+        AddTextEditTextChangedEventHandler       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddActiveTextPositionChangedEventHandler", "AddAutomationEventHandler", "AddChangesEventHandler", "AddNotificationEventHandler", "AddPropertyChangedEventHandler", "AddStructureChangedEventHandler", "AddTextEditTextChangedEventHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationEventHandlerGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a method (in an event handler group) that handles when the active text position changes.
@@ -57,7 +83,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addactivetextpositionchangedeventhandler
      */
     AddActiveTextPositionChangedEventHandler(scope, cacheRequest, handler) {
-        result := ComCall(3, this, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(3, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -71,7 +97,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addautomationeventhandler
      */
     AddAutomationEventHandler(eventId, scope, cacheRequest, handler) {
-        result := ComCall(4, this, "int", eventId, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(4, this, UIA_EVENT_ID, eventId, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -90,7 +116,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
     AddChangesEventHandler(scope, changeTypes, changesCount, cacheRequest, handler) {
         changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int", scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(5, this, TreeScope, scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -105,7 +131,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addnotificationeventhandler
      */
     AddNotificationEventHandler(scope, cacheRequest, handler) {
-        result := ComCall(6, this, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(6, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -124,7 +150,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
     AddPropertyChangedEventHandler(scope, cacheRequest, handler, propertyArray, propertyCount) {
         propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "int", scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
+        result := ComCall(7, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
         return result
     }
 
@@ -139,7 +165,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addstructurechangedeventhandler
      */
     AddStructureChangedEventHandler(scope, cacheRequest, handler) {
-        result := ComCall(8, this, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(8, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -155,7 +181,39 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addtextedittextchangedeventhandler
      */
     AddTextEditTextChangedEventHandler(scope, _textEditChangeType, cacheRequest, handler) {
-        result := ComCall(9, this, "int", scope, "int", _textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(9, this, TreeScope, scope, TextEditChangeType, _textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomationEventHandlerGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddActiveTextPositionChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddActiveTextPositionChangedEventHandler"), flags, 4)
+        this.vtbl.AddAutomationEventHandler := CallbackCreate(GetMethod(implObj, "AddAutomationEventHandler"), flags, 5)
+        this.vtbl.AddChangesEventHandler := CallbackCreate(GetMethod(implObj, "AddChangesEventHandler"), flags, 6)
+        this.vtbl.AddNotificationEventHandler := CallbackCreate(GetMethod(implObj, "AddNotificationEventHandler"), flags, 4)
+        this.vtbl.AddPropertyChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddPropertyChangedEventHandler"), flags, 6)
+        this.vtbl.AddStructureChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddStructureChangedEventHandler"), flags, 4)
+        this.vtbl.AddTextEditTextChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddTextEditTextChangedEventHandler"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddActiveTextPositionChangedEventHandler)
+        CallbackFree(this.vtbl.AddAutomationEventHandler)
+        CallbackFree(this.vtbl.AddChangesEventHandler)
+        CallbackFree(this.vtbl.AddNotificationEventHandler)
+        CallbackFree(this.vtbl.AddPropertyChangedEventHandler)
+        CallbackFree(this.vtbl.AddStructureChangedEventHandler)
+        CallbackFree(this.vtbl.AddTextEditTextChangedEventHandler)
     }
 }

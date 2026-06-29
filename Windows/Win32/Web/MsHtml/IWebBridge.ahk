@@ -1,32 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IWebBridge extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWebBridge extends IDispatch {
     /**
      * The interface identifier for IWebBridge
      * @type {Guid}
      */
-    static IID => Guid("{ae24fdad-03c6-11d1-8b76-0080c744f389}")
+    static IID := Guid("{ae24fdad-03c6-11d1-8b76-0080c744f389}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebBridge interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_URL        : IntPtr
+        get_URL        : IntPtr
+        put_Scrollbar  : IntPtr
+        get_Scrollbar  : IntPtr
+        put_embed      : IntPtr
+        get_embed      : IntPtr
+        get_event      : IntPtr
+        get_readyState : IntPtr
+        AboutBox       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_URL", "get_URL", "put_Scrollbar", "get_Scrollbar", "put_embed", "get_embed", "get_event", "get_readyState", "AboutBox"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebBridge.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -74,7 +91,7 @@ class IWebBridge extends IDispatch {
     put_URL(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -83,8 +100,8 @@ class IWebBridge extends IDispatch {
      * @returns {BSTR} 
      */
     get_URL() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -94,7 +111,7 @@ class IWebBridge extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Scrollbar(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -103,7 +120,7 @@ class IWebBridge extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Scrollbar() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -113,7 +130,7 @@ class IWebBridge extends IDispatch {
      * @returns {HRESULT} 
      */
     put_embed(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -122,7 +139,7 @@ class IWebBridge extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_embed() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -151,5 +168,41 @@ class IWebBridge extends IDispatch {
     AboutBox() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWebBridge.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_Scrollbar := CallbackCreate(GetMethod(implObj, "put_Scrollbar"), flags, 2)
+        this.vtbl.get_Scrollbar := CallbackCreate(GetMethod(implObj, "get_Scrollbar"), flags, 2)
+        this.vtbl.put_embed := CallbackCreate(GetMethod(implObj, "put_embed"), flags, 2)
+        this.vtbl.get_embed := CallbackCreate(GetMethod(implObj, "get_embed"), flags, 2)
+        this.vtbl.get_event := CallbackCreate(GetMethod(implObj, "get_event"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.AboutBox := CallbackCreate(GetMethod(implObj, "AboutBox"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_URL)
+        CallbackFree(this.vtbl.get_URL)
+        CallbackFree(this.vtbl.put_Scrollbar)
+        CallbackFree(this.vtbl.get_Scrollbar)
+        CallbackFree(this.vtbl.put_embed)
+        CallbackFree(this.vtbl.get_embed)
+        CallbackFree(this.vtbl.get_event)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.AboutBox)
     }
 }

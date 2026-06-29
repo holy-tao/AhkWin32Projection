@@ -1,50 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVPROPCOMPKEY.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include .\DEVPROPSTORE.ahk
-#Include .\DEVPROPTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVPROPSTORE.ahk" { DEVPROPSTORE }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import ".\DEVPROPCOMPKEY.ahk" { DEVPROPCOMPKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Properties
  */
-class DEVPROPERTY extends Win32Struct {
-    static sizeof => 48
+export default struct DEVPROPERTY {
+    #StructPack 8
 
-    static packingSize => 8
+    CompKey : DEVPROPCOMPKEY
 
-    /**
-     * @type {DEVPROPCOMPKEY}
-     */
-    CompKey {
-        get {
-            if(!this.HasProp("__CompKey"))
-                this.__CompKey := DEVPROPCOMPKEY(0, this)
-            return this.__CompKey
-        }
-    }
+    Type : DEVPROPTYPE
 
-    /**
-     * @type {DEVPROPTYPE}
-     */
-    Type {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Buffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Buffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

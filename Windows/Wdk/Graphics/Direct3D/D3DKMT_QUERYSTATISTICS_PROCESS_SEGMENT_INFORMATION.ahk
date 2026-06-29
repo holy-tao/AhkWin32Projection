@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION extends Win32Struct {
-    static sizeof => 112
+export default struct D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    BytesCommitted : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesCommitted {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaximumWorkingSet : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumWorkingSet {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinimumWorkingSet : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumWorkingSet {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NbReferencedAllocationEvictedInPeriod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbReferencedAllocationEvictedInPeriod {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Padding : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Padding {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    VideoMemory : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VideoMemory {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    _Policy : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    _Policy {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

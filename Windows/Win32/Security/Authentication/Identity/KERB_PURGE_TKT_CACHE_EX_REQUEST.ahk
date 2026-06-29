@@ -1,53 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\KERB_TICKET_CACHE_INFO_EX.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_TICKET_CACHE_INFO_EX.ahk" { KERB_TICKET_CACHE_INFO_EX }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct {
-    static sizeof => 112
+export default struct KERB_PURGE_TKT_CACHE_EX_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
-    /**
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    LogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TicketTemplate : KERB_TICKET_CACHE_INFO_EX
 
-    /**
-     * @type {KERB_TICKET_CACHE_INFO_EX}
-     */
-    TicketTemplate {
-        get {
-            if(!this.HasProp("__TicketTemplate"))
-                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(16, this)
-            return this.__TicketTemplate
-        }
-    }
 }

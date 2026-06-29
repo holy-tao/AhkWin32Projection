@@ -1,86 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DESCRIPTOR_REQUEST extends Win32Struct {
-    static sizeof => 16
+export default struct USB_DESCRIPTOR_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _SetupPacket extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 2
+    struct _SetupPacket {
+        bmRequest : Int8
 
-        /**
-         * @type {Integer}
-         */
-        bmRequest {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        bRequest : Int8
 
-        /**
-         * @type {Integer}
-         */
-        bRequest {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+        wValue : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        wValue {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
+        wIndex : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        wIndex {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
+        wLength : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        wLength {
-            get => NumGet(this, 6, "ushort")
-            set => NumPut("ushort", value, this, 6)
-        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ConnectionIndex : UInt32
 
-    /**
-     * @type {_SetupPacket}
-     */
-    SetupPacket {
-        get {
-            if(!this.HasProp("__SetupPacket"))
-                this.__SetupPacket := USB_DESCRIPTOR_REQUEST._SetupPacket(4, this)
-            return this.__SetupPacket
-        }
-    }
+    SetupPacket : USB_DESCRIPTOR_REQUEST._SetupPacket
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

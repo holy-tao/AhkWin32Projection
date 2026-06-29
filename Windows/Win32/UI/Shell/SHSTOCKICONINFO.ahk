@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Receives information used to retrieve a stock Shell icon. This structure is used in a call SHGetStockIconInfo.
@@ -8,71 +8,42 @@
  * @namespace Windows.Win32.UI.Shell
  * @architecture X64, Arm64
  */
-class SHSTOCKICONINFO extends Win32Struct {
-    static sizeof => 544
-
-    static packingSize => 8
+export default struct SHSTOCKICONINFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HICON</b>
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_ICON flag, this member receives a handle to the icon.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(8, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>int</b>
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_SYSICONINDEX flag, this member receives the index of the image in the system icon cache.
-     * @type {Integer}
      */
-    iSysImageIndex {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    iSysImageIndex : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_ICONLOCATION flag, this member receives the index of the icon in the resource whose path is received in <b>szPath</b>.
-     * @type {Integer}
      */
-    iIcon {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    iIcon : Int32
 
     /**
      * Type: <b>WCHAR[MAX_PATH]</b>
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_ICONLOCATION flag, this member receives the path of the resource that contains the icon. The index of the icon within the resource is received in <b>iIcon</b>.
-     * @type {String}
      */
-    szPath {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
-    }
+    szPath : WCHAR[260]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 544
-    }
 }

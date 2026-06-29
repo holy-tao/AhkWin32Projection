@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * HCN_PORT_RANGE_RESERVATION
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_RANGE_RESERVATION
  * @namespace Windows.Win32.System.HostComputeNetwork
  */
-class HCN_PORT_RANGE_RESERVATION extends Win32Struct {
-    static sizeof => 4
+export default struct HCN_PORT_RANGE_RESERVATION {
+    #StructPack 2
 
-    static packingSize => 2
+    startingPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    startingPort {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    endingPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    endingPort {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 }

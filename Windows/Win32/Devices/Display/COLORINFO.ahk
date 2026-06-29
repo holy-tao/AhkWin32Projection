@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CIECHROMA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CIECHROMA.ahk" { CIECHROMA }
 
 /**
  * The COLORINFO structure defines a device's colors in CIE coordinate space.
@@ -15,162 +14,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-colorinfo
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORINFO extends Win32Struct {
-    static sizeof => 120
+export default struct COLORINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Red : CIECHROMA
 
-    /**
-     * @type {CIECHROMA}
-     */
-    Red {
-        get {
-            if(!this.HasProp("__Red"))
-                this.__Red := CIECHROMA(0, this)
-            return this.__Red
-        }
-    }
+    Green : CIECHROMA
 
-    /**
-     * @type {CIECHROMA}
-     */
-    Green {
-        get {
-            if(!this.HasProp("__Green"))
-                this.__Green := CIECHROMA(12, this)
-            return this.__Green
-        }
-    }
+    Blue : CIECHROMA
 
-    /**
-     * @type {CIECHROMA}
-     */
-    Blue {
-        get {
-            if(!this.HasProp("__Blue"))
-                this.__Blue := CIECHROMA(24, this)
-            return this.__Blue
-        }
-    }
+    Cyan : CIECHROMA
 
-    /**
-     * @type {CIECHROMA}
-     */
-    Cyan {
-        get {
-            if(!this.HasProp("__Cyan"))
-                this.__Cyan := CIECHROMA(36, this)
-            return this.__Cyan
-        }
-    }
+    Magenta : CIECHROMA
 
-    /**
-     * @type {CIECHROMA}
-     */
-    Magenta {
-        get {
-            if(!this.HasProp("__Magenta"))
-                this.__Magenta := CIECHROMA(48, this)
-            return this.__Magenta
-        }
-    }
-
-    /**
-     * @type {CIECHROMA}
-     */
-    Yellow {
-        get {
-            if(!this.HasProp("__Yellow"))
-                this.__Yellow := CIECHROMA(60, this)
-            return this.__Yellow
-        }
-    }
+    Yellow : CIECHROMA
 
     /**
      * Specify <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-ciechroma">CIECHROMA</a> structures that each define the x-coordinate, y-coordinate, and Y-coordinate (luminance) of the named color.
      * 
      * The <b>Cyan</b> member can have a special meaning for monochrome printers. <b>Cyan.Y</b> must be set to 65534 (0xFFFE) to enable all of the grayscale halftone pattern sizes. For more information, see the following Remarks section.
-     * @type {CIECHROMA}
      */
-    AlignmentWhite {
-        get {
-            if(!this.HasProp("__AlignmentWhite"))
-                this.__AlignmentWhite := CIECHROMA(72, this)
-            return this.__AlignmentWhite
-        }
-    }
+    AlignmentWhite : CIECHROMA
 
-    /**
-     * @type {Integer}
-     */
-    RedGamma {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    RedGamma : Int32
 
-    /**
-     * @type {Integer}
-     */
-    GreenGamma {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    GreenGamma : Int32
 
     /**
      * Are the gamma corrections of display devices that permit the display device to display colors between the primary colors with accuracy. The values of these members should be in the range from 0 through 6.5535, which means that the numbers that are actually stored in these members must be in the range from 0 through 65535. For more information about these members and this data type, see the following Remarks section.
-     * @type {Integer}
      */
-    BlueGamma {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    BlueGamma : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MagentaInCyanDye {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    MagentaInCyanDye : Int32
 
-    /**
-     * @type {Integer}
-     */
-    YellowInCyanDye {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    YellowInCyanDye : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CyanInMagentaDye {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    CyanInMagentaDye : Int32
 
-    /**
-     * @type {Integer}
-     */
-    YellowInMagentaDye {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
+    YellowInMagentaDye : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CyanInYellowDye {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    CyanInYellowDye : Int32
 
     /**
      * Used for printing devices to describe color purity and concentration. Values should be between zero and one, which means that the numbers actually stored in these members must be in the range 0 through 10000. For more information about this data type, see the following Remarks section.
-     * @type {Integer}
      */
-    MagentaInYellowDye {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    MagentaInYellowDye : Int32
+
 }

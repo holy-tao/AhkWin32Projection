@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a range of bytes in a font file.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_file_fragment
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FILE_FRAGMENT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DWRITE_FILE_FRAGMENT {
+    #StructPack 8
 
     /**
      * Starting offset of the fragment from the beginning of the file.
-     * @type {Integer}
      */
-    fileOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fileOffset : Int64
 
     /**
      * Size of the file fragment, in bytes.
-     * @type {Integer}
      */
-    fragmentSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fragmentSize : Int64
+
 }

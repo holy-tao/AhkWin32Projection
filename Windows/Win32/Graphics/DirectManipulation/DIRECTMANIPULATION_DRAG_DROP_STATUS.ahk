@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the drag-and-drop interaction states for the viewport.
@@ -17,7 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class DIRECTMANIPULATION_DRAG_DROP_STATUS extends Win32Enum {
+export default struct DIRECTMANIPULATION_DRAG_DROP_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The viewport is at rest and ready for input.

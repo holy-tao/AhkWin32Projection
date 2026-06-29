@@ -1,11 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk
-#Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk" { STATPROPSETSTG }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk" { IEnumSTATPROPSTG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
 
 /**
  * The IWiaPropertyStorage interface is used to access information about the IWiaItem object's properties. Applications must query an item to obtain its IWiaPropertyStorage interface.
@@ -124,26 +128,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiapropertystorage
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaPropertyStorage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaPropertyStorage extends IUnknown {
     /**
      * The interface identifier for IWiaPropertyStorage
      * @type {Guid}
      */
-    static IID => Guid("{98b5e8a0-29cc-491a-aac0-e6db4fdcceb6}")
+    static IID := Guid("{98b5e8a0-29cc-491a-aac0-e6db4fdcceb6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaPropertyStorage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReadMultiple          : IntPtr
+        WriteMultiple         : IntPtr
+        DeleteMultiple        : IntPtr
+        ReadPropertyNames     : IntPtr
+        WritePropertyNames    : IntPtr
+        DeletePropertyNames   : IntPtr
+        Commit                : IntPtr
+        Revert                : IntPtr
+        Enum                  : IntPtr
+        SetTimes              : IntPtr
+        SetClass              : IntPtr
+        Stat                  : IntPtr
+        GetPropertyAttributes : IntPtr
+        GetCount              : IntPtr
+        GetPropertyStream     : IntPtr
+        SetPropertyStream     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadMultiple", "WriteMultiple", "DeleteMultiple", "ReadPropertyNames", "WritePropertyNames", "DeletePropertyNames", "Commit", "Revert", "Enum", "SetTimes", "SetClass", "Stat", "GetPropertyAttributes", "GetCount", "GetPropertyStream", "SetPropertyStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaPropertyStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -153,7 +179,7 @@ class IWiaPropertyStorage extends IUnknown {
      */
     ReadMultiple(cpspec, rgpspec) {
         rgpropvar := PROPVARIANT()
-        result := ComCall(3, this, "uint", cpspec, "ptr", rgpspec, "ptr", rgpropvar, "HRESULT")
+        result := ComCall(3, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return rgpropvar
     }
 
@@ -166,7 +192,7 @@ class IWiaPropertyStorage extends IUnknown {
      * @returns {HRESULT} 
      */
     WriteMultiple(cpspec, rgpspec, rgpropvar, propidNameFirst) {
-        result := ComCall(4, this, "uint", cpspec, "ptr", rgpspec, "ptr", rgpropvar, "uint", propidNameFirst, "HRESULT")
+        result := ComCall(4, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "uint", propidNameFirst, "HRESULT")
         return result
     }
 
@@ -177,7 +203,7 @@ class IWiaPropertyStorage extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteMultiple(cpspec, rgpspec) {
-        result := ComCall(5, this, "uint", cpspec, "ptr", rgpspec, "HRESULT")
+        result := ComCall(5, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, "HRESULT")
         return result
     }
 
@@ -190,7 +216,7 @@ class IWiaPropertyStorage extends IUnknown {
     ReadPropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr*", &rglpwstrName := 0, "HRESULT")
+        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
         return rglpwstrName
     }
 
@@ -223,17 +249,9 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * 
      * @param {Integer} grfCommitFlags 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
-     * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit(grfCommitFlags) {
         result := ComCall(9, this, "uint", grfCommitFlags, "HRESULT")
@@ -241,32 +259,8 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * Allows a security package to discontinue the impersonation of the caller and restore its own security context.
-     * @remarks
-     * <b>RevertSecurityContext</b> is not available with all <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security packages</a> on all platforms. Typically, it is implemented only on platforms and with security packages for which a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querysecuritypackageinfoa">QuerySecurityPackageInfo</a> function indicates impersonation support.
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
      * 
-     * If the function fails, the return value can be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle passed to the function is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-revertsecuritycontext
+     * @returns {HRESULT} 
      */
     Revert() {
         result := ComCall(10, this, "HRESULT")
@@ -274,18 +268,8 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * Enumerates calendar information for a specified locale.Note  To receive a calendar identifier in addition to calendar information, the application should use the EnumCalendarInfoEx function. (ANSI)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoexa">EnumCalendarInfoEx</a>.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {IEnumSTATPROPSTG} 
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoa
      */
     Enum() {
         result := ComCall(11, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -300,31 +284,27 @@ class IWiaPropertyStorage extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTimes(pctime, patime, pmtime) {
-        result := ComCall(12, this, "ptr", pctime, "ptr", patime, "ptr", pmtime, "HRESULT")
+        result := ComCall(12, this, FILETIME.Ptr, pctime, FILETIME.Ptr, patime, FILETIME.Ptr, pmtime, "HRESULT")
         return result
     }
 
     /**
-     * The SetClassIDInBlob function sets the named class identifier value of a BLOB.
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/setclassidinblob
+     * @param {Pointer<Guid>} clsid 
+     * @returns {HRESULT} 
      */
     SetClass(clsid) {
-        result := ComCall(13, this, "ptr", clsid, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
     /**
-     * State Variables for Current Values and Associated Data
+     * 
      * @returns {STATPROPSETSTG} 
-     * @see https://learn.microsoft.com/windows/win32/OpenGL/state-variables-for-current-values-and-associated-data
      */
     Stat() {
         pstatpsstg := STATPROPSETSTG()
-        result := ComCall(14, this, "ptr", pstatpsstg, "HRESULT")
+        result := ComCall(14, this, STATPROPSETSTG.Ptr, pstatpsstg, "HRESULT")
         return pstatpsstg
     }
 
@@ -478,7 +458,7 @@ class IWiaPropertyStorage extends IUnknown {
     GetPropertyAttributes(cpspec, rgpspec, rgflags, rgpropvar) {
         rgflagsMarshal := rgflags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", cpspec, "ptr", rgpspec, rgflagsMarshal, rgflags, "ptr", rgpropvar, "HRESULT")
+        result := ComCall(15, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return result
     }
 
@@ -514,7 +494,7 @@ class IWiaPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getpropertystream
      */
     GetPropertyStream(pCompatibilityId, ppIStream) {
-        result := ComCall(17, this, "ptr", pCompatibilityId, "ptr*", ppIStream, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, pCompatibilityId, IStream.Ptr, ppIStream, "HRESULT")
         return result
     }
 
@@ -538,7 +518,57 @@ class IWiaPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-setpropertystream
      */
     SetPropertyStream(pCompatibilityId, pIStream) {
-        result := ComCall(18, this, "ptr", pCompatibilityId, "ptr", pIStream, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, pCompatibilityId, "ptr", pIStream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaPropertyStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadMultiple := CallbackCreate(GetMethod(implObj, "ReadMultiple"), flags, 4)
+        this.vtbl.WriteMultiple := CallbackCreate(GetMethod(implObj, "WriteMultiple"), flags, 5)
+        this.vtbl.DeleteMultiple := CallbackCreate(GetMethod(implObj, "DeleteMultiple"), flags, 3)
+        this.vtbl.ReadPropertyNames := CallbackCreate(GetMethod(implObj, "ReadPropertyNames"), flags, 4)
+        this.vtbl.WritePropertyNames := CallbackCreate(GetMethod(implObj, "WritePropertyNames"), flags, 4)
+        this.vtbl.DeletePropertyNames := CallbackCreate(GetMethod(implObj, "DeletePropertyNames"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.SetTimes := CallbackCreate(GetMethod(implObj, "SetTimes"), flags, 4)
+        this.vtbl.SetClass := CallbackCreate(GetMethod(implObj, "SetClass"), flags, 2)
+        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 2)
+        this.vtbl.GetPropertyAttributes := CallbackCreate(GetMethod(implObj, "GetPropertyAttributes"), flags, 5)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetPropertyStream := CallbackCreate(GetMethod(implObj, "GetPropertyStream"), flags, 3)
+        this.vtbl.SetPropertyStream := CallbackCreate(GetMethod(implObj, "SetPropertyStream"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadMultiple)
+        CallbackFree(this.vtbl.WriteMultiple)
+        CallbackFree(this.vtbl.DeleteMultiple)
+        CallbackFree(this.vtbl.ReadPropertyNames)
+        CallbackFree(this.vtbl.WritePropertyNames)
+        CallbackFree(this.vtbl.DeletePropertyNames)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Revert)
+        CallbackFree(this.vtbl.Enum)
+        CallbackFree(this.vtbl.SetTimes)
+        CallbackFree(this.vtbl.SetClass)
+        CallbackFree(this.vtbl.Stat)
+        CallbackFree(this.vtbl.GetPropertyAttributes)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetPropertyStream)
+        CallbackFree(this.vtbl.SetPropertyStream)
     }
 }

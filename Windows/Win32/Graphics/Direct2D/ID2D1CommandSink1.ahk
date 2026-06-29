@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1CommandSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import ".\ID2D1CommandSink.ahk" { ID2D1CommandSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink interface. It also enables access to the new primitive blend modes, MIN and ADD, through its SetPrimitiveBlend1 method.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nn-d2d1_2-id2d1commandsink1
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1CommandSink1 extends ID2D1CommandSink {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1CommandSink1 extends ID2D1CommandSink {
     /**
      * The interface identifier for ID2D1CommandSink1
      * @type {Guid}
      */
-    static IID => Guid("{9eb767fd-4269-4467-b8c2-eb30cb305743}")
+    static IID := Guid("{9eb767fd-4269-4467-b8c2-eb30cb305743}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1CommandSink1 interfaces
+    */
+    struct Vtbl extends ID2D1CommandSink.Vtbl {
+        SetPrimitiveBlend1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPrimitiveBlend1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1CommandSink1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a new primitive blend mode. (ID2D1CommandSink1.SetPrimitiveBlend1)
@@ -99,7 +108,27 @@ class ID2D1CommandSink1 extends ID2D1CommandSink {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1commandsink1-setprimitiveblend1
      */
     SetPrimitiveBlend1(primitiveBlend) {
-        result := ComCall(28, this, "int", primitiveBlend, "HRESULT")
+        result := ComCall(28, this, D2D1_PRIMITIVE_BLEND, primitiveBlend, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1CommandSink1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPrimitiveBlend1 := CallbackCreate(GetMethod(implObj, "SetPrimitiveBlend1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPrimitiveBlend1)
     }
 }

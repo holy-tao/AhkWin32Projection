@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Describes the software timestamping capabilities of a NIC's miniport driver.
@@ -10,43 +10,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_software_timestamp_capabilities
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES extends Win32Struct {
-    static sizeof => 3
-
-    static packingSize => 1
+export default struct INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES {
+    #StructPack 1
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * Also contains members that describe the software timestamping capabilities of a NIC's miniport driver.
      * Not a hardware capability. **TRUE** indicates that the NIC's miniport driver can generate a software timestamp for all received packets. A value of **FALSE** indicates that the software is not capable of this.
-     * @type {BOOLEAN}
      */
-    AllReceive {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AllReceive : BOOLEAN
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * Not a hardware capability. Analogous to *AllReceiveSw*, except it applies to the transmit direction. **TRUE** indicates that the NIC's miniport driver can generate a software timestamp for all transmitted packets. A value of **FALSE** indicates that the software is not capable of this.
-     * @type {BOOLEAN}
      */
-    AllTransmit {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    AllTransmit : BOOLEAN
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * Not a hardware capability. **TRUE** indicates that the NIC's miniport driver can generate a software timestamp for any specific transmitted packet when indicated to do so by the application. A value of **FALSE** indicates that the software is not capable of this.
      * See [**TIMESTAMPING_CONFIG**](/windows/win32/api/mstcpip/ns-mstcpip-timestamping_config) (and **TIMESTAMPING_FLAG_TX**) to determine how to request a timestamp when sending UDP packets through [Windows Sockets](/windows/win32/winsock/windows-sockets-start-page-2).
-     * @type {BOOLEAN}
      */
-    TaggedTransmit {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    TaggedTransmit : BOOLEAN
+
 }

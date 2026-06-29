@@ -1,17 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\ICategoryCollection.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IUpdateIdentity.ahk
-#Include .\IImageInformation.ahk
-#Include .\IInstallationBehavior.ahk
-#Include .\IStringCollection.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include .\IUpdateDownloadContentCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateIdentity.ahk" { IUpdateIdentity }
+#Import ".\DeploymentAction.ahk" { DeploymentAction }
+#Import ".\IInstallationBehavior.ahk" { IInstallationBehavior }
+#Import ".\ICategoryCollection.ahk" { ICategoryCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUpdateDownloadContentCollection.ahk" { IUpdateDownloadContentCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IStringCollection.ahk" { IStringCollection }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\DownloadPriority.ahk" { DownloadPriority }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import ".\UpdateType.ahk" { UpdateType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IImageInformation.ahk" { IImageInformation }
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate)
@@ -20,26 +25,77 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdate
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdate extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdate extends IDispatch {
     /**
      * The interface identifier for IUpdate
      * @type {Guid}
      */
-    static IID => Guid("{6a92b07a-d821-4682-b423-5c805022cc4d}")
+    static IID := Guid("{6a92b07a-d821-4682-b423-5c805022cc4d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdate interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Title                           : IntPtr
+        get_AutoSelectOnWebSites            : IntPtr
+        get_BundledUpdates                  : IntPtr
+        get_CanRequireSource                : IntPtr
+        get_Categories                      : IntPtr
+        get_Deadline                        : IntPtr
+        get_DeltaCompressedContentAvailable : IntPtr
+        get_DeltaCompressedContentPreferred : IntPtr
+        get_Description                     : IntPtr
+        get_EulaAccepted                    : IntPtr
+        get_EulaText                        : IntPtr
+        get_HandlerID                       : IntPtr
+        get_Identity                        : IntPtr
+        get_Image                           : IntPtr
+        get_InstallationBehavior            : IntPtr
+        get_IsBeta                          : IntPtr
+        get_IsDownloaded                    : IntPtr
+        get_IsHidden                        : IntPtr
+        put_IsHidden                        : IntPtr
+        get_IsInstalled                     : IntPtr
+        get_IsMandatory                     : IntPtr
+        get_IsUninstallable                 : IntPtr
+        get_Languages                       : IntPtr
+        get_LastDeploymentChangeTime        : IntPtr
+        get_MaxDownloadSize                 : IntPtr
+        get_MinDownloadSize                 : IntPtr
+        get_MoreInfoUrls                    : IntPtr
+        get_MsrcSeverity                    : IntPtr
+        get_RecommendedCpuSpeed             : IntPtr
+        get_RecommendedHardDiskSpace        : IntPtr
+        get_RecommendedMemory               : IntPtr
+        get_ReleaseNotes                    : IntPtr
+        get_SecurityBulletinIDs             : IntPtr
+        get_SupersededUpdateIDs             : IntPtr
+        get_SupportUrl                      : IntPtr
+        get_Type                            : IntPtr
+        get_UninstallationNotes             : IntPtr
+        get_UninstallationBehavior          : IntPtr
+        get_UninstallationSteps             : IntPtr
+        get_KBArticleIDs                    : IntPtr
+        AcceptEula                          : IntPtr
+        get_DeploymentAction                : IntPtr
+        CopyFromCache                       : IntPtr
+        get_DownloadPriority                : IntPtr
+        get_DownloadContents                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Title", "get_AutoSelectOnWebSites", "get_BundledUpdates", "get_CanRequireSource", "get_Categories", "get_Deadline", "get_DeltaCompressedContentAvailable", "get_DeltaCompressedContentPreferred", "get_Description", "get_EulaAccepted", "get_EulaText", "get_HandlerID", "get_Identity", "get_Image", "get_InstallationBehavior", "get_IsBeta", "get_IsDownloaded", "get_IsHidden", "put_IsHidden", "get_IsInstalled", "get_IsMandatory", "get_IsUninstallable", "get_Languages", "get_LastDeploymentChangeTime", "get_MaxDownloadSize", "get_MinDownloadSize", "get_MoreInfoUrls", "get_MsrcSeverity", "get_RecommendedCpuSpeed", "get_RecommendedHardDiskSpace", "get_RecommendedMemory", "get_ReleaseNotes", "get_SecurityBulletinIDs", "get_SupersededUpdateIDs", "get_SupportUrl", "get_Type", "get_UninstallationNotes", "get_UninstallationBehavior", "get_UninstallationSteps", "get_KBArticleIDs", "AcceptEula", "get_DeploymentAction", "CopyFromCache", "get_DownloadPriority", "get_DownloadContents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -346,8 +402,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_title
      */
     get_Title() {
-        retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -357,7 +413,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_autoselectonwebsites
      */
     get_AutoSelectOnWebSites() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -377,7 +433,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_canrequiresource
      */
     get_CanRequireSource() {
-        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -408,7 +464,7 @@ class IUpdate extends IDispatch {
      */
     get_Deadline() {
         retval := VARIANT()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -418,7 +474,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deltacompressedcontentavailable
      */
     get_DeltaCompressedContentAvailable() {
-        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -428,7 +484,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deltacompressedcontentpreferred
      */
     get_DeltaCompressedContentPreferred() {
-        result := ComCall(14, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -442,8 +498,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_description
      */
     get_Description() {
-        retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -453,7 +509,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_eulaaccepted
      */
     get_EulaAccepted() {
-        result := ComCall(16, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -467,8 +523,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_eulatext
      */
     get_EulaText() {
-        retval := BSTR()
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -498,8 +554,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_handlerid
      */
     get_HandlerID() {
-        retval := BSTR()
-        result := ComCall(18, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -547,7 +603,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isbeta
      */
     get_IsBeta() {
-        result := ComCall(22, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -557,7 +613,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isdownloaded
      */
     get_IsDownloaded() {
-        result := ComCall(23, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -569,7 +625,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_ishidden
      */
     get_IsHidden() {
-        result := ComCall(24, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -582,7 +638,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-put_ishidden
      */
     put_IsHidden(value) {
-        result := ComCall(25, this, "short", value, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -592,7 +648,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isinstalled
      */
     get_IsInstalled() {
-        result := ComCall(26, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -606,7 +662,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_ismandatory
      */
     get_IsMandatory() {
-        result := ComCall(27, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -616,7 +672,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isuninstallable
      */
     get_IsUninstallable() {
-        result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -653,7 +709,7 @@ class IUpdate extends IDispatch {
      */
     get_MaxDownloadSize() {
         retval := DECIMAL()
-        result := ComCall(31, this, "ptr", retval, "HRESULT")
+        result := ComCall(31, this, DECIMAL.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -666,7 +722,7 @@ class IUpdate extends IDispatch {
      */
     get_MinDownloadSize() {
         retval := DECIMAL()
-        result := ComCall(32, this, "ptr", retval, "HRESULT")
+        result := ComCall(32, this, DECIMAL.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -737,8 +793,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_msrcseverity
      */
     get_MsrcSeverity() {
-        retval := BSTR()
-        result := ComCall(34, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -818,8 +874,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_releasenotes
      */
     get_ReleaseNotes() {
-        retval := BSTR()
-        result := ComCall(38, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -853,8 +909,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_supporturl
      */
     get_SupportUrl() {
-        retval := BSTR()
-        result := ComCall(41, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -878,8 +934,8 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_uninstallationnotes
      */
     get_UninstallationNotes() {
-        retval := BSTR()
-        result := ComCall(43, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(43, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1099,7 +1155,7 @@ class IUpdate extends IDispatch {
     CopyFromCache(_path, toExtractCabFiles) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(49, this, "ptr", _path, "short", toExtractCabFiles, "HRESULT")
+        result := ComCall(49, this, BSTR, _path, VARIANT_BOOL, toExtractCabFiles, "HRESULT")
         return result
     }
 
@@ -1121,5 +1177,113 @@ class IUpdate extends IDispatch {
     get_DownloadContents() {
         result := ComCall(51, this, "ptr*", &retval := 0, "HRESULT")
         return IUpdateDownloadContentCollection(retval)
+    }
+
+    Query(iid) {
+        if (IUpdate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_AutoSelectOnWebSites := CallbackCreate(GetMethod(implObj, "get_AutoSelectOnWebSites"), flags, 2)
+        this.vtbl.get_BundledUpdates := CallbackCreate(GetMethod(implObj, "get_BundledUpdates"), flags, 2)
+        this.vtbl.get_CanRequireSource := CallbackCreate(GetMethod(implObj, "get_CanRequireSource"), flags, 2)
+        this.vtbl.get_Categories := CallbackCreate(GetMethod(implObj, "get_Categories"), flags, 2)
+        this.vtbl.get_Deadline := CallbackCreate(GetMethod(implObj, "get_Deadline"), flags, 2)
+        this.vtbl.get_DeltaCompressedContentAvailable := CallbackCreate(GetMethod(implObj, "get_DeltaCompressedContentAvailable"), flags, 2)
+        this.vtbl.get_DeltaCompressedContentPreferred := CallbackCreate(GetMethod(implObj, "get_DeltaCompressedContentPreferred"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_EulaAccepted := CallbackCreate(GetMethod(implObj, "get_EulaAccepted"), flags, 2)
+        this.vtbl.get_EulaText := CallbackCreate(GetMethod(implObj, "get_EulaText"), flags, 2)
+        this.vtbl.get_HandlerID := CallbackCreate(GetMethod(implObj, "get_HandlerID"), flags, 2)
+        this.vtbl.get_Identity := CallbackCreate(GetMethod(implObj, "get_Identity"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_InstallationBehavior := CallbackCreate(GetMethod(implObj, "get_InstallationBehavior"), flags, 2)
+        this.vtbl.get_IsBeta := CallbackCreate(GetMethod(implObj, "get_IsBeta"), flags, 2)
+        this.vtbl.get_IsDownloaded := CallbackCreate(GetMethod(implObj, "get_IsDownloaded"), flags, 2)
+        this.vtbl.get_IsHidden := CallbackCreate(GetMethod(implObj, "get_IsHidden"), flags, 2)
+        this.vtbl.put_IsHidden := CallbackCreate(GetMethod(implObj, "put_IsHidden"), flags, 2)
+        this.vtbl.get_IsInstalled := CallbackCreate(GetMethod(implObj, "get_IsInstalled"), flags, 2)
+        this.vtbl.get_IsMandatory := CallbackCreate(GetMethod(implObj, "get_IsMandatory"), flags, 2)
+        this.vtbl.get_IsUninstallable := CallbackCreate(GetMethod(implObj, "get_IsUninstallable"), flags, 2)
+        this.vtbl.get_Languages := CallbackCreate(GetMethod(implObj, "get_Languages"), flags, 2)
+        this.vtbl.get_LastDeploymentChangeTime := CallbackCreate(GetMethod(implObj, "get_LastDeploymentChangeTime"), flags, 2)
+        this.vtbl.get_MaxDownloadSize := CallbackCreate(GetMethod(implObj, "get_MaxDownloadSize"), flags, 2)
+        this.vtbl.get_MinDownloadSize := CallbackCreate(GetMethod(implObj, "get_MinDownloadSize"), flags, 2)
+        this.vtbl.get_MoreInfoUrls := CallbackCreate(GetMethod(implObj, "get_MoreInfoUrls"), flags, 2)
+        this.vtbl.get_MsrcSeverity := CallbackCreate(GetMethod(implObj, "get_MsrcSeverity"), flags, 2)
+        this.vtbl.get_RecommendedCpuSpeed := CallbackCreate(GetMethod(implObj, "get_RecommendedCpuSpeed"), flags, 2)
+        this.vtbl.get_RecommendedHardDiskSpace := CallbackCreate(GetMethod(implObj, "get_RecommendedHardDiskSpace"), flags, 2)
+        this.vtbl.get_RecommendedMemory := CallbackCreate(GetMethod(implObj, "get_RecommendedMemory"), flags, 2)
+        this.vtbl.get_ReleaseNotes := CallbackCreate(GetMethod(implObj, "get_ReleaseNotes"), flags, 2)
+        this.vtbl.get_SecurityBulletinIDs := CallbackCreate(GetMethod(implObj, "get_SecurityBulletinIDs"), flags, 2)
+        this.vtbl.get_SupersededUpdateIDs := CallbackCreate(GetMethod(implObj, "get_SupersededUpdateIDs"), flags, 2)
+        this.vtbl.get_SupportUrl := CallbackCreate(GetMethod(implObj, "get_SupportUrl"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_UninstallationNotes := CallbackCreate(GetMethod(implObj, "get_UninstallationNotes"), flags, 2)
+        this.vtbl.get_UninstallationBehavior := CallbackCreate(GetMethod(implObj, "get_UninstallationBehavior"), flags, 2)
+        this.vtbl.get_UninstallationSteps := CallbackCreate(GetMethod(implObj, "get_UninstallationSteps"), flags, 2)
+        this.vtbl.get_KBArticleIDs := CallbackCreate(GetMethod(implObj, "get_KBArticleIDs"), flags, 2)
+        this.vtbl.AcceptEula := CallbackCreate(GetMethod(implObj, "AcceptEula"), flags, 1)
+        this.vtbl.get_DeploymentAction := CallbackCreate(GetMethod(implObj, "get_DeploymentAction"), flags, 2)
+        this.vtbl.CopyFromCache := CallbackCreate(GetMethod(implObj, "CopyFromCache"), flags, 3)
+        this.vtbl.get_DownloadPriority := CallbackCreate(GetMethod(implObj, "get_DownloadPriority"), flags, 2)
+        this.vtbl.get_DownloadContents := CallbackCreate(GetMethod(implObj, "get_DownloadContents"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.get_AutoSelectOnWebSites)
+        CallbackFree(this.vtbl.get_BundledUpdates)
+        CallbackFree(this.vtbl.get_CanRequireSource)
+        CallbackFree(this.vtbl.get_Categories)
+        CallbackFree(this.vtbl.get_Deadline)
+        CallbackFree(this.vtbl.get_DeltaCompressedContentAvailable)
+        CallbackFree(this.vtbl.get_DeltaCompressedContentPreferred)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.get_EulaAccepted)
+        CallbackFree(this.vtbl.get_EulaText)
+        CallbackFree(this.vtbl.get_HandlerID)
+        CallbackFree(this.vtbl.get_Identity)
+        CallbackFree(this.vtbl.get_Image)
+        CallbackFree(this.vtbl.get_InstallationBehavior)
+        CallbackFree(this.vtbl.get_IsBeta)
+        CallbackFree(this.vtbl.get_IsDownloaded)
+        CallbackFree(this.vtbl.get_IsHidden)
+        CallbackFree(this.vtbl.put_IsHidden)
+        CallbackFree(this.vtbl.get_IsInstalled)
+        CallbackFree(this.vtbl.get_IsMandatory)
+        CallbackFree(this.vtbl.get_IsUninstallable)
+        CallbackFree(this.vtbl.get_Languages)
+        CallbackFree(this.vtbl.get_LastDeploymentChangeTime)
+        CallbackFree(this.vtbl.get_MaxDownloadSize)
+        CallbackFree(this.vtbl.get_MinDownloadSize)
+        CallbackFree(this.vtbl.get_MoreInfoUrls)
+        CallbackFree(this.vtbl.get_MsrcSeverity)
+        CallbackFree(this.vtbl.get_RecommendedCpuSpeed)
+        CallbackFree(this.vtbl.get_RecommendedHardDiskSpace)
+        CallbackFree(this.vtbl.get_RecommendedMemory)
+        CallbackFree(this.vtbl.get_ReleaseNotes)
+        CallbackFree(this.vtbl.get_SecurityBulletinIDs)
+        CallbackFree(this.vtbl.get_SupersededUpdateIDs)
+        CallbackFree(this.vtbl.get_SupportUrl)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_UninstallationNotes)
+        CallbackFree(this.vtbl.get_UninstallationBehavior)
+        CallbackFree(this.vtbl.get_UninstallationSteps)
+        CallbackFree(this.vtbl.get_KBArticleIDs)
+        CallbackFree(this.vtbl.AcceptEula)
+        CallbackFree(this.vtbl.get_DeploymentAction)
+        CallbackFree(this.vtbl.CopyFromCache)
+        CallbackFree(this.vtbl.get_DownloadPriority)
+        CallbackFree(this.vtbl.get_DownloadContents)
     }
 }

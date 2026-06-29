@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the state of an element in the visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-visualelementstate
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class VisualElementState extends Win32Enum {
+export default struct VisualElementState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The error has been fixed.

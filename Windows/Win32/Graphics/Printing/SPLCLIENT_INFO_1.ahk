@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class SPLCLIENT_INFO_1 extends Win32Struct {
-    static sizeof => 40
+export default struct SPLCLIENT_INFO_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pMachineName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pMachineName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pUserName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwBuildNum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBuildNum {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwMajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMajorVersion {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwMinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinorVersion {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    wProcessorArchitecture : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wProcessorArchitecture {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
 }

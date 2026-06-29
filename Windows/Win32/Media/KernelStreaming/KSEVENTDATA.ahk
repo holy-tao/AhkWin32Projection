@@ -1,136 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSEVENTDATA extends Win32Struct {
-    static sizeof => 32
+export default struct KSEVENTDATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    NotificationType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    struct _EventHandle {
+        Event : HANDLE
+
+        Reserved : IntPtr[2]
+
     }
 
-    class _EventHandle extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _SemaphoreHandle {
+        Semaphore : HANDLE
 
-        /**
-         * @type {HANDLE}
-         */
-        Event {
-            get {
-                if(!this.HasProp("__Event"))
-                    this.__Event := HANDLE(0, this)
-                return this.__Event
-            }
-        }
+        Reserved : UInt32
 
-        /**
-         * @type {Array<Pointer>}
-         */
-        Reserved {
-            get {
-                if(!this.HasProp("__ReservedProxyArray"))
-                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
-                return this.__ReservedProxyArray
-            }
-        }
+        Adjustment : Int32
+
     }
 
-    class _SemaphoreHandle extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _Alignment {
+        Unused : IntPtr
 
-        /**
-         * @type {HANDLE}
-         */
-        Semaphore {
-            get {
-                if(!this.HasProp("__Semaphore"))
-                    this.__Semaphore := HANDLE(0, this)
-                return this.__Semaphore
-            }
-        }
+        Alignment : IntPtr[2]
 
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Adjustment {
-            get => NumGet(this, 12, "int")
-            set => NumPut("int", value, this, 12)
-        }
     }
 
-    class _Alignment extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    NotificationType : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Unused {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    EventHandle : KSEVENTDATA._EventHandle
 
-        /**
-         * @type {Array<Pointer>}
-         */
-        Alignment {
-            get {
-                if(!this.HasProp("__AlignmentProxyArray"))
-                    this.__AlignmentProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
-                return this.__AlignmentProxyArray
-            }
-        }
-    }
-
-    /**
-     * @type {_EventHandle}
-     */
-    EventHandle {
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := KSEVENTDATA._EventHandle(8, this)
-            return this.__EventHandle
-        }
-    }
-
-    /**
-     * @type {_SemaphoreHandle}
-     */
-    SemaphoreHandle {
-        get {
-            if(!this.HasProp("__SemaphoreHandle"))
-                this.__SemaphoreHandle := KSEVENTDATA._SemaphoreHandle(8, this)
-            return this.__SemaphoreHandle
-        }
-    }
-
-    /**
-     * @type {_Alignment}
-     */
-    Alignment {
-        get {
-            if(!this.HasProp("__Alignment"))
-                this.__Alignment := KSEVENTDATA._Alignment(8, this)
-            return this.__Alignment
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'SemaphoreHandle', { type: KSEVENTDATA._SemaphoreHandle, offset: 8 })
+        DefineProp(this.Prototype, 'Alignment', { type: KSEVENTDATA._Alignment, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

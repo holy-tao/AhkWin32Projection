@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The FORM_INFO_1 structure contains information about a print form. The information includes the print forms origin, its name, its dimensions, and the dimensions of its printable area.
@@ -9,10 +9,8 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset ANSI
  */
-class FORM_INFO_1A extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct FORM_INFO_1A {
+    #StructPack 8
 
     /**
      * The form properties. The following values are defined.
@@ -24,43 +22,22 @@ class FORM_INFO_1A extends Win32Struct {
      * | FORM_USER    | If this bit flag is set, the form has been defined by the user. Forms with this flag set are defined in the registry.        |
      * | FORM_BUILTIN | If this bit-flag is set, the form is part of the spooler. Form definitions with this flag set do not appear in the registry. |
      * | FORM_PRINTER | If this bit flag is set, the form is associated with a certain printer, and its definition appears in the registry.          |
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * Pointer to a null-terminated string that specifies the name of the form. The form name cannot exceed 31 characters.
-     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pName : PSTR
 
     /**
      * The width and height, in thousandths of millimeters, of the form.
-     * @type {SIZE}
      */
-    Size {
-        get {
-            if(!this.HasProp("__Size"))
-                this.__Size := SIZE(16, this)
-            return this.__Size
-        }
-    }
+    Size : SIZE
 
     /**
      * The width and height, in thousandths of millimeters, of the form.
-     * @type {RECTL}
      */
-    ImageableArea {
-        get {
-            if(!this.HasProp("__ImageableArea"))
-                this.__ImageableArea := RECTL(24, this)
-            return this.__ImageableArea
-        }
-    }
+    ImageableArea : RECTL
+
 }

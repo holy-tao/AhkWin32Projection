@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the header for an extended menu template. This structure definition is for explanation only; it is not present in any standard header file.
@@ -8,44 +7,31 @@
  * @see https://learn.microsoft.com/windows/win32/menurc/menuex-template-header
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MENUEX_TEMPLATE_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MENUEX_TEMPLATE_HEADER {
+    #StructPack 4
 
     /**
      * Type: **WORD**
      * 
      * 
      * The template version number. This member must be 1 for extended menu templates.
-     * @type {Integer}
      */
-    wVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wVersion : UInt16
 
     /**
      * Type: **WORD**
      * 
      * 
      * The offset to the first [**MENUEX\_TEMPLATE\_ITEM**](menuex-template-item.md) structure, relative to the end of this structure member. If the first item definition immediately follows the **dwHelpId** member, this member should be 4.
-     * @type {Integer}
      */
-    wOffset {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wOffset : UInt16
 
     /**
      * Type: **DWORD**
      * 
      * 
      * The help identifier of menu bar.
-     * @type {Integer}
      */
-    dwHelpId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwHelpId : UInt32
+
 }

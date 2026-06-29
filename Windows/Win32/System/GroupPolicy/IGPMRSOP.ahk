@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IGPMResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import ".\GPMReportType.ahk" { GPMReportType }
 
 /**
  * The IGPMRSOP interface provides methods that support making Resultant Set of Policy (RSoP) queries in both logging and planning mode.
@@ -14,32 +17,73 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmrsop
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMRSOP extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMRSOP extends IDispatch {
     /**
      * The interface identifier for IGPMRSOP
      * @type {Guid}
      */
-    static IID => Guid("{49ed785a-3237-4ff2-b1f0-fdf5a8d5a1ee}")
+    static IID := Guid("{49ed785a-3237-4ff2-b1f0-fdf5a8d5a1ee}")
 
     /**
      * The class identifier for GPMRSOP
      * @type {Guid}
      */
-    static CLSID => Guid("{489b0caf-9ec2-4eb7-91f5-b6f71d43da8c}")
+    static CLSID := Guid("{489b0caf-9ec2-4eb7-91f5-b6f71d43da8c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMRSOP interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Mode                           : IntPtr
+        get_Namespace                      : IntPtr
+        put_LoggingComputer                : IntPtr
+        get_LoggingComputer                : IntPtr
+        put_LoggingUser                    : IntPtr
+        get_LoggingUser                    : IntPtr
+        put_LoggingFlags                   : IntPtr
+        get_LoggingFlags                   : IntPtr
+        put_PlanningFlags                  : IntPtr
+        get_PlanningFlags                  : IntPtr
+        put_PlanningDomainController       : IntPtr
+        get_PlanningDomainController       : IntPtr
+        put_PlanningSiteName               : IntPtr
+        get_PlanningSiteName               : IntPtr
+        put_PlanningUser                   : IntPtr
+        get_PlanningUser                   : IntPtr
+        put_PlanningUserSOM                : IntPtr
+        get_PlanningUserSOM                : IntPtr
+        put_PlanningUserWMIFilters         : IntPtr
+        get_PlanningUserWMIFilters         : IntPtr
+        put_PlanningUserSecurityGroups     : IntPtr
+        get_PlanningUserSecurityGroups     : IntPtr
+        put_PlanningComputer               : IntPtr
+        get_PlanningComputer               : IntPtr
+        put_PlanningComputerSOM            : IntPtr
+        get_PlanningComputerSOM            : IntPtr
+        put_PlanningComputerWMIFilters     : IntPtr
+        get_PlanningComputerWMIFilters     : IntPtr
+        put_PlanningComputerSecurityGroups : IntPtr
+        get_PlanningComputerSecurityGroups : IntPtr
+        LoggingEnumerateUsers              : IntPtr
+        CreateQueryResults                 : IntPtr
+        ReleaseQueryResults                : IntPtr
+        GenerateReport                     : IntPtr
+        GenerateReportToFile               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Mode", "get_Namespace", "put_LoggingComputer", "get_LoggingComputer", "put_LoggingUser", "get_LoggingUser", "put_LoggingFlags", "get_LoggingFlags", "put_PlanningFlags", "get_PlanningFlags", "put_PlanningDomainController", "get_PlanningDomainController", "put_PlanningSiteName", "get_PlanningSiteName", "put_PlanningUser", "get_PlanningUser", "put_PlanningUserSOM", "get_PlanningUserSOM", "put_PlanningUserWMIFilters", "get_PlanningUserWMIFilters", "put_PlanningUserSecurityGroups", "get_PlanningUserSecurityGroups", "put_PlanningComputer", "get_PlanningComputer", "put_PlanningComputerSOM", "get_PlanningComputerSOM", "put_PlanningComputerWMIFilters", "get_PlanningComputerWMIFilters", "put_PlanningComputerSecurityGroups", "get_PlanningComputerSecurityGroups", "LoggingEnumerateUsers", "CreateQueryResults", "ReleaseQueryResults", "GenerateReport", "GenerateReportToFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMRSOP.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {GPMRSOPMode} 
@@ -181,8 +225,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_Namespace() {
-        bstrVal := BSTR()
-        result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -194,7 +238,7 @@ class IGPMRSOP extends IDispatch {
     put_LoggingComputer(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(9, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -203,8 +247,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_LoggingComputer() {
-        bstrVal := BSTR()
-        result := ComCall(10, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -216,7 +260,7 @@ class IGPMRSOP extends IDispatch {
     put_LoggingUser(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(11, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -225,8 +269,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_LoggingUser() {
-        bstrVal := BSTR()
-        result := ComCall(12, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -276,7 +320,7 @@ class IGPMRSOP extends IDispatch {
     put_PlanningDomainController(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(17, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -285,8 +329,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningDomainController() {
-        bstrVal := BSTR()
-        result := ComCall(18, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -298,7 +342,7 @@ class IGPMRSOP extends IDispatch {
     put_PlanningSiteName(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(19, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -307,8 +351,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningSiteName() {
-        bstrVal := BSTR()
-        result := ComCall(20, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -320,7 +364,7 @@ class IGPMRSOP extends IDispatch {
     put_PlanningUser(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(21, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -329,8 +373,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningUser() {
-        bstrVal := BSTR()
-        result := ComCall(22, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -342,7 +386,7 @@ class IGPMRSOP extends IDispatch {
     put_PlanningUserSOM(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(23, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -351,8 +395,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningUserSOM() {
-        bstrVal := BSTR()
-        result := ComCall(24, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -362,7 +406,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PlanningUserWMIFilters(varVal) {
-        result := ComCall(25, this, "ptr", varVal, "HRESULT")
+        result := ComCall(25, this, VARIANT, varVal, "HRESULT")
         return result
     }
 
@@ -372,7 +416,7 @@ class IGPMRSOP extends IDispatch {
      */
     get_PlanningUserWMIFilters() {
         varVal := VARIANT()
-        result := ComCall(26, this, "ptr", varVal, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, varVal, "HRESULT")
         return varVal
     }
 
@@ -382,7 +426,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PlanningUserSecurityGroups(varVal) {
-        result := ComCall(27, this, "ptr", varVal, "HRESULT")
+        result := ComCall(27, this, VARIANT, varVal, "HRESULT")
         return result
     }
 
@@ -392,7 +436,7 @@ class IGPMRSOP extends IDispatch {
      */
     get_PlanningUserSecurityGroups() {
         varVal := VARIANT()
-        result := ComCall(28, this, "ptr", varVal, "HRESULT")
+        result := ComCall(28, this, VARIANT.Ptr, varVal, "HRESULT")
         return varVal
     }
 
@@ -404,7 +448,7 @@ class IGPMRSOP extends IDispatch {
     put_PlanningComputer(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(29, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -413,8 +457,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningComputer() {
-        bstrVal := BSTR()
-        result := ComCall(30, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -426,7 +470,7 @@ class IGPMRSOP extends IDispatch {
     put_PlanningComputerSOM(bstrVal) {
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(31, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(31, this, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -435,8 +479,8 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningComputerSOM() {
-        bstrVal := BSTR()
-        result := ComCall(32, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -446,7 +490,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PlanningComputerWMIFilters(varVal) {
-        result := ComCall(33, this, "ptr", varVal, "HRESULT")
+        result := ComCall(33, this, VARIANT, varVal, "HRESULT")
         return result
     }
 
@@ -456,7 +500,7 @@ class IGPMRSOP extends IDispatch {
      */
     get_PlanningComputerWMIFilters() {
         varVal := VARIANT()
-        result := ComCall(34, this, "ptr", varVal, "HRESULT")
+        result := ComCall(34, this, VARIANT.Ptr, varVal, "HRESULT")
         return varVal
     }
 
@@ -466,7 +510,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PlanningComputerSecurityGroups(varVal) {
-        result := ComCall(35, this, "ptr", varVal, "HRESULT")
+        result := ComCall(35, this, VARIANT, varVal, "HRESULT")
         return result
     }
 
@@ -476,7 +520,7 @@ class IGPMRSOP extends IDispatch {
      */
     get_PlanningComputerSecurityGroups() {
         varVal := VARIANT()
-        result := ComCall(36, this, "ptr", varVal, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, varVal, "HRESULT")
         return varVal
     }
 
@@ -488,7 +532,7 @@ class IGPMRSOP extends IDispatch {
      */
     LoggingEnumerateUsers() {
         varVal := VARIANT()
-        result := ComCall(37, this, "ptr", varVal, "HRESULT")
+        result := ComCall(37, this, VARIANT.Ptr, varVal, "HRESULT")
         return varVal
     }
 
@@ -534,7 +578,7 @@ class IGPMRSOP extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmrsop-generatereport
      */
     GenerateReport(_gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(40, this, "int", _gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(40, this, GPMReportType, _gpmReportType, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -554,7 +598,95 @@ class IGPMRSOP extends IDispatch {
     GenerateReportToFile(_gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(41, this, "int", _gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(41, this, GPMReportType, _gpmReportType, BSTR, bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
+    }
+
+    Query(iid) {
+        if (IGPMRSOP.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.get_Namespace := CallbackCreate(GetMethod(implObj, "get_Namespace"), flags, 2)
+        this.vtbl.put_LoggingComputer := CallbackCreate(GetMethod(implObj, "put_LoggingComputer"), flags, 2)
+        this.vtbl.get_LoggingComputer := CallbackCreate(GetMethod(implObj, "get_LoggingComputer"), flags, 2)
+        this.vtbl.put_LoggingUser := CallbackCreate(GetMethod(implObj, "put_LoggingUser"), flags, 2)
+        this.vtbl.get_LoggingUser := CallbackCreate(GetMethod(implObj, "get_LoggingUser"), flags, 2)
+        this.vtbl.put_LoggingFlags := CallbackCreate(GetMethod(implObj, "put_LoggingFlags"), flags, 2)
+        this.vtbl.get_LoggingFlags := CallbackCreate(GetMethod(implObj, "get_LoggingFlags"), flags, 2)
+        this.vtbl.put_PlanningFlags := CallbackCreate(GetMethod(implObj, "put_PlanningFlags"), flags, 2)
+        this.vtbl.get_PlanningFlags := CallbackCreate(GetMethod(implObj, "get_PlanningFlags"), flags, 2)
+        this.vtbl.put_PlanningDomainController := CallbackCreate(GetMethod(implObj, "put_PlanningDomainController"), flags, 2)
+        this.vtbl.get_PlanningDomainController := CallbackCreate(GetMethod(implObj, "get_PlanningDomainController"), flags, 2)
+        this.vtbl.put_PlanningSiteName := CallbackCreate(GetMethod(implObj, "put_PlanningSiteName"), flags, 2)
+        this.vtbl.get_PlanningSiteName := CallbackCreate(GetMethod(implObj, "get_PlanningSiteName"), flags, 2)
+        this.vtbl.put_PlanningUser := CallbackCreate(GetMethod(implObj, "put_PlanningUser"), flags, 2)
+        this.vtbl.get_PlanningUser := CallbackCreate(GetMethod(implObj, "get_PlanningUser"), flags, 2)
+        this.vtbl.put_PlanningUserSOM := CallbackCreate(GetMethod(implObj, "put_PlanningUserSOM"), flags, 2)
+        this.vtbl.get_PlanningUserSOM := CallbackCreate(GetMethod(implObj, "get_PlanningUserSOM"), flags, 2)
+        this.vtbl.put_PlanningUserWMIFilters := CallbackCreate(GetMethod(implObj, "put_PlanningUserWMIFilters"), flags, 2)
+        this.vtbl.get_PlanningUserWMIFilters := CallbackCreate(GetMethod(implObj, "get_PlanningUserWMIFilters"), flags, 2)
+        this.vtbl.put_PlanningUserSecurityGroups := CallbackCreate(GetMethod(implObj, "put_PlanningUserSecurityGroups"), flags, 2)
+        this.vtbl.get_PlanningUserSecurityGroups := CallbackCreate(GetMethod(implObj, "get_PlanningUserSecurityGroups"), flags, 2)
+        this.vtbl.put_PlanningComputer := CallbackCreate(GetMethod(implObj, "put_PlanningComputer"), flags, 2)
+        this.vtbl.get_PlanningComputer := CallbackCreate(GetMethod(implObj, "get_PlanningComputer"), flags, 2)
+        this.vtbl.put_PlanningComputerSOM := CallbackCreate(GetMethod(implObj, "put_PlanningComputerSOM"), flags, 2)
+        this.vtbl.get_PlanningComputerSOM := CallbackCreate(GetMethod(implObj, "get_PlanningComputerSOM"), flags, 2)
+        this.vtbl.put_PlanningComputerWMIFilters := CallbackCreate(GetMethod(implObj, "put_PlanningComputerWMIFilters"), flags, 2)
+        this.vtbl.get_PlanningComputerWMIFilters := CallbackCreate(GetMethod(implObj, "get_PlanningComputerWMIFilters"), flags, 2)
+        this.vtbl.put_PlanningComputerSecurityGroups := CallbackCreate(GetMethod(implObj, "put_PlanningComputerSecurityGroups"), flags, 2)
+        this.vtbl.get_PlanningComputerSecurityGroups := CallbackCreate(GetMethod(implObj, "get_PlanningComputerSecurityGroups"), flags, 2)
+        this.vtbl.LoggingEnumerateUsers := CallbackCreate(GetMethod(implObj, "LoggingEnumerateUsers"), flags, 2)
+        this.vtbl.CreateQueryResults := CallbackCreate(GetMethod(implObj, "CreateQueryResults"), flags, 1)
+        this.vtbl.ReleaseQueryResults := CallbackCreate(GetMethod(implObj, "ReleaseQueryResults"), flags, 1)
+        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Mode)
+        CallbackFree(this.vtbl.get_Namespace)
+        CallbackFree(this.vtbl.put_LoggingComputer)
+        CallbackFree(this.vtbl.get_LoggingComputer)
+        CallbackFree(this.vtbl.put_LoggingUser)
+        CallbackFree(this.vtbl.get_LoggingUser)
+        CallbackFree(this.vtbl.put_LoggingFlags)
+        CallbackFree(this.vtbl.get_LoggingFlags)
+        CallbackFree(this.vtbl.put_PlanningFlags)
+        CallbackFree(this.vtbl.get_PlanningFlags)
+        CallbackFree(this.vtbl.put_PlanningDomainController)
+        CallbackFree(this.vtbl.get_PlanningDomainController)
+        CallbackFree(this.vtbl.put_PlanningSiteName)
+        CallbackFree(this.vtbl.get_PlanningSiteName)
+        CallbackFree(this.vtbl.put_PlanningUser)
+        CallbackFree(this.vtbl.get_PlanningUser)
+        CallbackFree(this.vtbl.put_PlanningUserSOM)
+        CallbackFree(this.vtbl.get_PlanningUserSOM)
+        CallbackFree(this.vtbl.put_PlanningUserWMIFilters)
+        CallbackFree(this.vtbl.get_PlanningUserWMIFilters)
+        CallbackFree(this.vtbl.put_PlanningUserSecurityGroups)
+        CallbackFree(this.vtbl.get_PlanningUserSecurityGroups)
+        CallbackFree(this.vtbl.put_PlanningComputer)
+        CallbackFree(this.vtbl.get_PlanningComputer)
+        CallbackFree(this.vtbl.put_PlanningComputerSOM)
+        CallbackFree(this.vtbl.get_PlanningComputerSOM)
+        CallbackFree(this.vtbl.put_PlanningComputerWMIFilters)
+        CallbackFree(this.vtbl.get_PlanningComputerWMIFilters)
+        CallbackFree(this.vtbl.put_PlanningComputerSecurityGroups)
+        CallbackFree(this.vtbl.get_PlanningComputerSecurityGroups)
+        CallbackFree(this.vtbl.LoggingEnumerateUsers)
+        CallbackFree(this.vtbl.CreateQueryResults)
+        CallbackFree(this.vtbl.ReleaseQueryResults)
+        CallbackFree(this.vtbl.GenerateReport)
+        CallbackFree(this.vtbl.GenerateReportToFile)
     }
 }

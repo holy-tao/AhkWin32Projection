@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMMDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMMDevice.ahk" { IMMDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMMDeviceCollection interface represents a collection of multimedia device resources.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immdevicecollection
  * @namespace Windows.Win32.Media.Audio
  */
-class IMMDeviceCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMMDeviceCollection extends IUnknown {
     /**
      * The interface identifier for IMMDeviceCollection
      * @type {Guid}
      */
-    static IID => Guid("{0bd7a1be-7a1a-44db-8397-cc5392387b5e}")
+    static IID := Guid("{0bd7a1be-7a1a-44db-8397-cc5392387b5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMMDeviceCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        Item     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "Item"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMMDeviceCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCount method retrieves a count of the devices in the device collection.
@@ -55,5 +64,27 @@ class IMMDeviceCollection extends IUnknown {
     Item(nDevice) {
         result := ComCall(4, this, "uint", nDevice, "ptr*", &ppDevice := 0, "HRESULT")
         return IMMDevice(ppDevice)
+    }
+
+    Query(iid) {
+        if (IMMDeviceCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.Item)
     }
 }

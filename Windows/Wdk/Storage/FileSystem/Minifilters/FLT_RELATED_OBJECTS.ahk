@@ -1,68 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\FILE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFLT_VOLUME.ahk" { PFLT_VOLUME }
+#Import "..\..\..\Foundation\KTRANSACTION.ahk" { KTRANSACTION }
+#Import ".\PFLT_FILTER.ahk" { PFLT_FILTER }
+#Import "..\..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_RELATED_OBJECTS extends Win32Struct {
-    static sizeof => 48
+export default struct FLT_RELATED_OBJECTS {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    TransactionContext : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransactionContext {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Filter : PFLT_FILTER
 
-    /**
-     * @type {PFLT_FILTER}
-     */
-    Filter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Volume : PFLT_VOLUME
 
-    /**
-     * @type {PFLT_VOLUME}
-     */
-    Volume {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Instance : PFLT_INSTANCE
 
-    /**
-     * @type {PFLT_INSTANCE}
-     */
-    Instance {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    FileObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Transaction : KTRANSACTION.Ptr
 
-    /**
-     * @type {Pointer<KTRANSACTION>}
-     */
-    Transaction {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

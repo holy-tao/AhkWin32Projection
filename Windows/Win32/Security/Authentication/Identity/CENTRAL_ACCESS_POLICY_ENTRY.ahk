@@ -1,120 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSECURITY_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 
 /**
  * Represents a central access policy entry containing a list of security descriptors and staged security descriptors.
  * @see https://learn.microsoft.com/windows/win32/api/ntlsa/ns-ntlsa-central_access_policy_entry
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct CENTRAL_ACCESS_POLICY_ENTRY {
+    #StructPack 8
 
     /**
      * The name of the central access policy entry.
-     * @type {LSA_UNICODE_STRING}
      */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(0, this)
-            return this.__Name
-        }
-    }
+    Name : LSA_UNICODE_STRING
 
     /**
      * The description of the central access policy entry.
-     * @type {LSA_UNICODE_STRING}
      */
-    Description {
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := LSA_UNICODE_STRING(16, this)
-            return this.__Description
-        }
-    }
+    Description : LSA_UNICODE_STRING
 
     /**
      * An identifier that can be used to version the central access policy entry.
-     * @type {LSA_UNICODE_STRING}
      */
-    ChangeId {
-        get {
-            if(!this.HasProp("__ChangeId"))
-                this.__ChangeId := LSA_UNICODE_STRING(32, this)
-            return this.__ChangeId
-        }
-    }
+    ChangeId : LSA_UNICODE_STRING
 
     /**
      * The length of the buffer pointed to by the <i>AppliesTo</i> field.
-     * @type {Integer}
      */
-    LengthAppliesTo {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    LengthAppliesTo : UInt32
 
     /**
      * A resource condition in binary form.
-     * @type {Pointer<Integer>}
      */
-    AppliesTo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    AppliesTo : IntPtr
 
     /**
      * The length of the buffer pointed to by the <i>SD</i> field.
-     * @type {Integer}
      */
-    LengthSD {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    LengthSD : UInt32
 
     /**
      * A buffer of security descriptors associated with the entry.
-     * @type {PSECURITY_DESCRIPTOR}
      */
-    SD {
-        get {
-            if(!this.HasProp("__SD"))
-                this.__SD := PSECURITY_DESCRIPTOR(72, this)
-            return this.__SD
-        }
-    }
+    SD : PSECURITY_DESCRIPTOR
 
     /**
      * The length of the buffer pointed to by the <i>StagedSD</i> field.
-     * @type {Integer}
      */
-    LengthStagedSD {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    LengthStagedSD : UInt32
 
     /**
      * A buffer of staged security descriptors associated with the entry.
-     * @type {PSECURITY_DESCRIPTOR}
      */
-    StagedSD {
-        get {
-            if(!this.HasProp("__StagedSD"))
-                this.__StagedSD := PSECURITY_DESCRIPTOR(88, this)
-            return this.__StagedSD
-        }
-    }
+    StagedSD : PSECURITY_DESCRIPTOR
 
     /**
      * This field is reserved.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    Flags : UInt32
+
 }

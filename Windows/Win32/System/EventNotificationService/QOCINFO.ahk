@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QOCINFO structure is returned by the IsDestinationReachable function and provides Quality of Connection information to the caller.
  * @see https://learn.microsoft.com/windows/win32/api/sensapi/ns-sensapi-qocinfo
  * @namespace Windows.Win32.System.EventNotificationService
  */
-class QOCINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct QOCINFO {
+    #StructPack 4
 
     /**
      * Upon calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/nf-sensapi-isdestinationreachablea">IsDestinationReachable</a>, the caller must specify the size of the <b>QOCINFO</b> structure being provided to the function using dwSize. The size should be specified in bytes. Upon return from <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/nf-sensapi-isdestinationreachablea">IsDestinationReachable</a>, dwSize contains the size of the provided structure in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Provides information on the type of network connection available. The following table lists the possible values.
@@ -63,28 +56,17 @@ class QOCINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Speed of data coming in from the destination in bytes per second.
-     * @type {Integer}
      */
-    dwInSpeed {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwInSpeed : UInt32
 
     /**
      * Speed of data sent to the destination in bytes per second.
-     * @type {Integer}
      */
-    dwOutSpeed {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwOutSpeed : UInt32
+
 }

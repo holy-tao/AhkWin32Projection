@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPersistStream.ahk
-#Include .\IEnumMoniker.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPersistStream.ahk" { IPersistStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBindCtx.ahk" { IBindCtx }
+#Import ".\IEnumMoniker.ahk" { IEnumMoniker }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Enables you to use a moniker object, which contains information that uniquely identifies a COM object.
@@ -119,26 +123,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-imoniker
  * @namespace Windows.Win32.System.Com
  */
-class IMoniker extends IPersistStream {
-
-    static sizeof => A_PtrSize
+export default struct IMoniker extends IPersistStream {
     /**
      * The interface identifier for IMoniker
      * @type {Guid}
      */
-    static IID => Guid("{0000000f-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000000f-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMoniker interfaces
+    */
+    struct Vtbl extends IPersistStream.Vtbl {
+        BindToObject        : IntPtr
+        BindToStorage       : IntPtr
+        Reduce              : IntPtr
+        ComposeWith         : IntPtr
+        Enum                : IntPtr
+        IsEqual             : IntPtr
+        Hash                : IntPtr
+        IsRunning           : IntPtr
+        GetTimeOfLastChange : IntPtr
+        Inverse             : IntPtr
+        CommonPrefixWith    : IntPtr
+        RelativePathTo      : IntPtr
+        GetDisplayName      : IntPtr
+        ParseDisplayName    : IntPtr
+        IsSystemMoniker     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BindToObject", "BindToStorage", "Reduce", "ComposeWith", "Enum", "IsEqual", "Hash", "IsRunning", "GetTimeOfLastChange", "Inverse", "CommonPrefixWith", "RelativePathTo", "GetDisplayName", "ParseDisplayName", "IsSystemMoniker"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMoniker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Binds to the specified object. The binding process involves finding the object, putting it into the running state if necessary, and providing the caller with a pointer to a specified interface on the identified object.
@@ -358,7 +383,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtoobject
      */
     BindToObject(pbc, pmkToLeft, riidResult) {
-        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riidResult, "ptr*", &ppvResult := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, Guid.Ptr, riidResult, "ptr*", &ppvResult := 0, "HRESULT")
         return ppvResult
     }
 
@@ -463,7 +488,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtostorage
      */
     BindToStorage(pbc, pmkToLeft, riid) {
-        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, Guid.Ptr, riid, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
     }
 
@@ -546,7 +571,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-reduce
      */
     Reduce(pbc, dwReduceHowFar, ppmkToLeft) {
-        result := ComCall(10, this, "ptr", pbc, "uint", dwReduceHowFar, "ptr*", ppmkToLeft, "ptr*", &ppmkReduced := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pbc, "uint", dwReduceHowFar, IMoniker.Ptr, ppmkToLeft, "ptr*", &ppmkReduced := 0, "HRESULT")
         return IMoniker(ppmkReduced)
     }
 
@@ -625,7 +650,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-composewith
      */
     ComposeWith(pmkRight, fOnlyIfNotGeneric) {
-        result := ComCall(11, this, "ptr", pmkRight, "int", fOnlyIfNotGeneric, "ptr*", &ppmkComposite := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pmkRight, BOOL, fOnlyIfNotGeneric, "ptr*", &ppmkComposite := 0, "HRESULT")
         return IMoniker(ppmkComposite)
     }
 
@@ -684,7 +709,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-enum
      */
     Enum(fForward) {
-        result := ComCall(12, this, "int", fForward, "ptr*", &ppenumMoniker := 0, "HRESULT")
+        result := ComCall(12, this, BOOL, fForward, "ptr*", &ppenumMoniker := 0, "HRESULT")
         return IEnumMoniker(ppenumMoniker)
     }
 
@@ -745,7 +770,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-isequal
      */
     IsEqual(pmkOtherMoniker) {
-        result := ComCall(13, this, "ptr", pmkOtherMoniker, "int")
+        result := ComCall(13, this, "ptr", pmkOtherMoniker, Int32)
         return result
     }
 
@@ -1006,7 +1031,7 @@ class IMoniker extends IPersistStream {
      */
     GetTimeOfLastChange(pbc, pmkToLeft) {
         pFileTime := FILETIME()
-        result := ComCall(16, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pFileTime, "HRESULT")
+        result := ComCall(16, this, "ptr", pbc, "ptr", pmkToLeft, FILETIME.Ptr, pFileTime, "HRESULT")
         return pFileTime
     }
 
@@ -1310,7 +1335,7 @@ class IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-getdisplayname
      */
     GetDisplayName(pbc, pmkToLeft) {
-        result := ComCall(20, this, "ptr", pbc, "ptr", pmkToLeft, "ptr*", &ppszDisplayName := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pbc, "ptr", pmkToLeft, PWSTR.Ptr, &ppszDisplayName := 0, "HRESULT")
         return ppszDisplayName
     }
 
@@ -1456,7 +1481,7 @@ class IMoniker extends IPersistStream {
 
         pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pszDisplayName, pchEatenMarshal, pchEaten, "ptr*", ppmkOut, "HRESULT")
+        result := ComCall(21, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pszDisplayName, pchEatenMarshal, pchEaten, IMoniker.Ptr, ppmkOut, "HRESULT")
         return result
     }
 
@@ -1521,5 +1546,53 @@ class IMoniker extends IPersistStream {
     IsSystemMoniker() {
         result := ComCall(22, this, "uint*", &pdwMksys := 0, "HRESULT")
         return pdwMksys
+    }
+
+    Query(iid) {
+        if (IMoniker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 5)
+        this.vtbl.BindToStorage := CallbackCreate(GetMethod(implObj, "BindToStorage"), flags, 5)
+        this.vtbl.Reduce := CallbackCreate(GetMethod(implObj, "Reduce"), flags, 5)
+        this.vtbl.ComposeWith := CallbackCreate(GetMethod(implObj, "ComposeWith"), flags, 4)
+        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 3)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 2)
+        this.vtbl.Hash := CallbackCreate(GetMethod(implObj, "Hash"), flags, 2)
+        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 4)
+        this.vtbl.GetTimeOfLastChange := CallbackCreate(GetMethod(implObj, "GetTimeOfLastChange"), flags, 4)
+        this.vtbl.Inverse := CallbackCreate(GetMethod(implObj, "Inverse"), flags, 2)
+        this.vtbl.CommonPrefixWith := CallbackCreate(GetMethod(implObj, "CommonPrefixWith"), flags, 3)
+        this.vtbl.RelativePathTo := CallbackCreate(GetMethod(implObj, "RelativePathTo"), flags, 3)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 4)
+        this.vtbl.ParseDisplayName := CallbackCreate(GetMethod(implObj, "ParseDisplayName"), flags, 6)
+        this.vtbl.IsSystemMoniker := CallbackCreate(GetMethod(implObj, "IsSystemMoniker"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BindToObject)
+        CallbackFree(this.vtbl.BindToStorage)
+        CallbackFree(this.vtbl.Reduce)
+        CallbackFree(this.vtbl.ComposeWith)
+        CallbackFree(this.vtbl.Enum)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.Hash)
+        CallbackFree(this.vtbl.IsRunning)
+        CallbackFree(this.vtbl.GetTimeOfLastChange)
+        CallbackFree(this.vtbl.Inverse)
+        CallbackFree(this.vtbl.CommonPrefixWith)
+        CallbackFree(this.vtbl.RelativePathTo)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.ParseDisplayName)
+        CallbackFree(this.vtbl.IsSystemMoniker)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FAX_JOB_STATUS_ENUM enumeration defines the status values for a fax job.Note  The members fjsPAUSED and fjsNOLINE are modifiers; they can be used in combination with any other member of this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_job_status_enum
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_JOB_STATUS_ENUM extends Win32Enum {
+export default struct FAX_JOB_STATUS_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The fax job is in the queue and pending service.

@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMemAllocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMemAllocator.ahk" { IMemAllocator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
 
 /**
  * The IAsyncReader interface performs an asynchronous data request on a filter.This interface is exposed by output pins that perform asynchronous read operations.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iasyncreader
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAsyncReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAsyncReader extends IUnknown {
     /**
      * The interface identifier for IAsyncReader
      * @type {Guid}
      */
-    static IID => Guid("{56a868aa-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868aa-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAsyncReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RequestAllocator : IntPtr
+        Request          : IntPtr
+        WaitForNext      : IntPtr
+        SyncReadAligned  : IntPtr
+        SyncRead         : IntPtr
+        Length           : IntPtr
+        BeginFlush       : IntPtr
+        EndFlush         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestAllocator", "Request", "WaitForNext", "SyncReadAligned", "SyncRead", "Length", "BeginFlush", "EndFlush"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAsyncReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RequestAllocator method requests an allocator during the pin connection.
@@ -44,7 +61,7 @@ class IAsyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-requestallocator
      */
     RequestAllocator(pPreferred, pProps) {
-        result := ComCall(3, this, "ptr", pPreferred, "ptr", pProps, "ptr*", &ppActual := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pPreferred, ALLOCATOR_PROPERTIES.Ptr, pProps, "ptr*", &ppActual := 0, "HRESULT")
         return IMemAllocator(ppActual)
     }
 
@@ -220,7 +237,7 @@ class IAsyncReader extends IUnknown {
     WaitForNext(dwTimeout, ppSample, pdwUser) {
         pdwUserMarshal := pdwUser is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppSample, pdwUserMarshal, pdwUser, "HRESULT")
+        result := ComCall(5, this, "uint", dwTimeout, IMediaSample.Ptr, ppSample, pdwUserMarshal, pdwUser, "HRESULT")
         return result
     }
 
@@ -408,5 +425,39 @@ class IAsyncReader extends IUnknown {
     EndFlush() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAsyncReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestAllocator := CallbackCreate(GetMethod(implObj, "RequestAllocator"), flags, 4)
+        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 3)
+        this.vtbl.WaitForNext := CallbackCreate(GetMethod(implObj, "WaitForNext"), flags, 4)
+        this.vtbl.SyncReadAligned := CallbackCreate(GetMethod(implObj, "SyncReadAligned"), flags, 2)
+        this.vtbl.SyncRead := CallbackCreate(GetMethod(implObj, "SyncRead"), flags, 4)
+        this.vtbl.Length := CallbackCreate(GetMethod(implObj, "Length"), flags, 3)
+        this.vtbl.BeginFlush := CallbackCreate(GetMethod(implObj, "BeginFlush"), flags, 1)
+        this.vtbl.EndFlush := CallbackCreate(GetMethod(implObj, "EndFlush"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestAllocator)
+        CallbackFree(this.vtbl.Request)
+        CallbackFree(this.vtbl.WaitForNext)
+        CallbackFree(this.vtbl.SyncReadAligned)
+        CallbackFree(this.vtbl.SyncRead)
+        CallbackFree(this.vtbl.Length)
+        CallbackFree(this.vtbl.BeginFlush)
+        CallbackFree(this.vtbl.EndFlush)
     }
 }

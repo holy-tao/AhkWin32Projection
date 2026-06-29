@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmRuleType.ahk" { FsrmRuleType }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Defines a rule.
@@ -12,26 +15,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmrule
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmRule extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmRule extends IFsrmObject {
     /**
      * The interface identifier for IFsrmRule
      * @type {Guid}
      */
-    static IID => Guid("{cb0df960-16f5-4495-9079-3f9360d831df}")
+    static IID := Guid("{cb0df960-16f5-4495-9079-3f9360d831df}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmRule interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_Name                 : IntPtr
+        put_Name                 : IntPtr
+        get_RuleType             : IntPtr
+        get_ModuleDefinitionName : IntPtr
+        put_ModuleDefinitionName : IntPtr
+        get_NamespaceRoots       : IntPtr
+        put_NamespaceRoots       : IntPtr
+        get_RuleFlags            : IntPtr
+        put_RuleFlags            : IntPtr
+        get_Parameters           : IntPtr
+        put_Parameters           : IntPtr
+        get_LastModified         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_RuleType", "get_ModuleDefinitionName", "put_ModuleDefinitionName", "get_NamespaceRoots", "put_NamespaceRoots", "get_RuleFlags", "put_RuleFlags", "get_Parameters", "put_Parameters", "get_LastModified"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmRule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -95,8 +116,8 @@ class IFsrmRule extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(12, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -111,7 +132,7 @@ class IFsrmRule extends IFsrmObject {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, "ptr", name, "HRESULT")
+        result := ComCall(13, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -139,8 +160,8 @@ class IFsrmRule extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_moduledefinitionname
      */
     get_ModuleDefinitionName() {
-        moduleDefinitionName := BSTR()
-        result := ComCall(15, this, "ptr", moduleDefinitionName, "HRESULT")
+        moduleDefinitionName := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, moduleDefinitionName, "HRESULT")
         return moduleDefinitionName
     }
 
@@ -157,7 +178,7 @@ class IFsrmRule extends IFsrmObject {
     put_ModuleDefinitionName(moduleDefinitionName) {
         moduleDefinitionName := moduleDefinitionName is String ? BSTR.Alloc(moduleDefinitionName).Value : moduleDefinitionName
 
-        result := ComCall(16, this, "ptr", moduleDefinitionName, "HRESULT")
+        result := ComCall(16, this, BSTR, moduleDefinitionName, "HRESULT")
         return result
     }
 
@@ -188,7 +209,7 @@ class IFsrmRule extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-put_namespaceroots
      */
     put_NamespaceRoots(namespaceRoots) {
-        result := ComCall(18, this, "ptr", namespaceRoots, "HRESULT")
+        result := ComCall(18, this, SAFEARRAY.Ptr, namespaceRoots, "HRESULT")
         return result
     }
 
@@ -242,7 +263,7 @@ class IFsrmRule extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-put_parameters
      */
     put_Parameters(parameters) {
-        result := ComCall(22, this, "ptr", parameters, "HRESULT")
+        result := ComCall(22, this, SAFEARRAY.Ptr, parameters, "HRESULT")
         return result
     }
 
@@ -257,7 +278,49 @@ class IFsrmRule extends IFsrmObject {
      */
     get_LastModified() {
         lastModified := VARIANT()
-        result := ComCall(23, this, "ptr", lastModified, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, lastModified, "HRESULT")
         return lastModified
+    }
+
+    Query(iid) {
+        if (IFsrmRule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_RuleType := CallbackCreate(GetMethod(implObj, "get_RuleType"), flags, 2)
+        this.vtbl.get_ModuleDefinitionName := CallbackCreate(GetMethod(implObj, "get_ModuleDefinitionName"), flags, 2)
+        this.vtbl.put_ModuleDefinitionName := CallbackCreate(GetMethod(implObj, "put_ModuleDefinitionName"), flags, 2)
+        this.vtbl.get_NamespaceRoots := CallbackCreate(GetMethod(implObj, "get_NamespaceRoots"), flags, 2)
+        this.vtbl.put_NamespaceRoots := CallbackCreate(GetMethod(implObj, "put_NamespaceRoots"), flags, 2)
+        this.vtbl.get_RuleFlags := CallbackCreate(GetMethod(implObj, "get_RuleFlags"), flags, 2)
+        this.vtbl.put_RuleFlags := CallbackCreate(GetMethod(implObj, "put_RuleFlags"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
+        this.vtbl.get_LastModified := CallbackCreate(GetMethod(implObj, "get_LastModified"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_RuleType)
+        CallbackFree(this.vtbl.get_ModuleDefinitionName)
+        CallbackFree(this.vtbl.put_ModuleDefinitionName)
+        CallbackFree(this.vtbl.get_NamespaceRoots)
+        CallbackFree(this.vtbl.put_NamespaceRoots)
+        CallbackFree(this.vtbl.get_RuleFlags)
+        CallbackFree(this.vtbl.put_RuleFlags)
+        CallbackFree(this.vtbl.get_Parameters)
+        CallbackFree(this.vtbl.put_Parameters)
+        CallbackFree(this.vtbl.get_LastModified)
     }
 }

@@ -1,90 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_DISC_CONTROL_BLOCK_HEADER.ahk
-#Include .\DVD_DISC_CONTROL_BLOCK_SESSION_ITEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DVD_DISC_CONTROL_BLOCK_SESSION_ITEM.ahk" { DVD_DISC_CONTROL_BLOCK_SESSION_ITEM }
+#Import ".\DVD_DISC_CONTROL_BLOCK_HEADER.ahk" { DVD_DISC_CONTROL_BLOCK_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct {
-    static sizeof => 32768
+export default struct DVD_DISC_CONTROL_BLOCK_SESSION {
+    #StructPack 1
 
-    static packingSize => 1
+    header : DVD_DISC_CONTROL_BLOCK_HEADER
 
-    /**
-     * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(0, this)
-            return this.__header
-        }
-    }
+    SessionNumber : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SessionNumber {
-        get {
-            if(!this.HasProp("__SessionNumberProxyArray"))
-                this.__SessionNumberProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "char")
-            return this.__SessionNumberProxyArray
-        }
-    }
+    Reserved0 : Int8[22]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 42, 22, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    DiscID : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DiscID {
-        get {
-            if(!this.HasProp("__DiscIDProxyArray"))
-                this.__DiscIDProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
-            return this.__DiscIDProxyArray
-        }
-    }
+    Reserved1 : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 32, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    SessionItem : DVD_DISC_CONTROL_BLOCK_SESSION_ITEM[504]
 
-    /**
-     * @type {DVD_DISC_CONTROL_BLOCK_SESSION_ITEM}
-     */
-    SessionItem {
-        get {
-            if(!this.HasProp("__SessionItemProxyArray"))
-                this.__SessionItemProxyArray := Win32FixedArray(this.ptr + 128, 504, DVD_DISC_CONTROL_BLOCK_SESSION_ITEM, "")
-            return this.__SessionItemProxyArray
-        }
-    }
+    Reserved2 : Int8[24576]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8192, 24576, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
 }

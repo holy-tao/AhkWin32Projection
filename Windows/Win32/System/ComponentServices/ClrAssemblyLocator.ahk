@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Retrieves information about an assembly when using managed code in the .NET Framework common language runtime.
@@ -10,8 +9,7 @@
  * @see https://learn.microsoft.com/windows/win32/cossdk/clrassemblylocator
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ClrAssemblyLocator extends Win32Struct {
-    static sizeof => 0
+export default struct ClrAssemblyLocator {
+    #StructPack 1
 
-    static packingSize => 1
 }

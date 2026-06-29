@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains virtual disk compact request flags.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-compact_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
  */
-class COMPACT_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
+export default struct COMPACT_VIRTUAL_DISK_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No flags are specified.

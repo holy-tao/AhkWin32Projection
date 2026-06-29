@@ -1,37 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IBackgroundCopyJob1.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumBackgroundCopyJobs1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumBackgroundCopyJobs1.ahk" { IEnumBackgroundCopyJobs1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyJob1.ahk" { IBackgroundCopyJob1 }
+#Import ".\GROUPPROP.ahk" { GROUPPROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyGroup extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyGroup extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyGroup
      * @type {Guid}
      */
-    static IID => Guid("{1ded80a7-53ea-424f-8a04-17fea9adc4f5}")
+    static IID := Guid("{1ded80a7-53ea-424f-8a04-17fea9adc4f5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyGroup interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProp                : IntPtr
+        SetProp                : IntPtr
+        GetProgress            : IntPtr
+        GetStatus              : IntPtr
+        GetJob                 : IntPtr
+        SuspendGroup           : IntPtr
+        ResumeGroup            : IntPtr
+        CancelGroup            : IntPtr
+        get_Size               : IntPtr
+        get_GroupID            : IntPtr
+        CreateJob              : IntPtr
+        EnumJobs               : IntPtr
+        SwitchToForeground     : IntPtr
+        QueryNewJobInterface   : IntPtr
+        SetNotificationPointer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProp", "SetProp", "GetProgress", "GetStatus", "GetJob", "SuspendGroup", "ResumeGroup", "CancelGroup", "get_Size", "get_GroupID", "CreateJob", "EnumJobs", "SwitchToForeground", "QueryNewJobInterface", "SetNotificationPointer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -55,7 +77,7 @@ class IBackgroundCopyGroup extends IUnknown {
      */
     GetProp(propID) {
         pvarVal := VARIANT()
-        result := ComCall(3, this, "int", propID, "ptr", pvarVal, "HRESULT")
+        result := ComCall(3, this, GROUPPROP, propID, VARIANT.Ptr, pvarVal, "HRESULT")
         return pvarVal
     }
 
@@ -107,7 +129,7 @@ class IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-setprop
      */
     SetProp(propID, pvarVal) {
-        result := ComCall(4, this, "int", propID, "ptr", pvarVal, "HRESULT")
+        result := ComCall(4, this, GROUPPROP, propID, VARIANT.Ptr, pvarVal, "HRESULT")
         return result
     }
 
@@ -246,7 +268,7 @@ class IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getjob
      */
     GetJob(jobID) {
-        result := ComCall(7, this, "ptr", jobID, "ptr*", &ppJob := 0, "HRESULT")
+        result := ComCall(7, this, Guid, jobID, "ptr*", &ppJob := 0, "HRESULT")
         return IBackgroundCopyJob1(ppJob)
     }
 
@@ -351,7 +373,7 @@ class IBackgroundCopyGroup extends IUnknown {
      */
     get_GroupID() {
         pguidGroupID := Guid()
-        result := ComCall(12, this, "ptr", pguidGroupID, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, pguidGroupID, "HRESULT")
         return pguidGroupID
     }
 
@@ -362,7 +384,7 @@ class IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-createjob
      */
     CreateJob(guidJobID) {
-        result := ComCall(13, this, "ptr", guidJobID, "ptr*", &ppJob := 0, "HRESULT")
+        result := ComCall(13, this, Guid, guidJobID, "ptr*", &ppJob := 0, "HRESULT")
         return IBackgroundCopyJob1(ppJob)
     }
 
@@ -412,7 +434,7 @@ class IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
      */
     QueryNewJobInterface(iid) {
-        result := ComCall(16, this, "ptr", iid, "ptr*", &pUnk := 0, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, iid, "ptr*", &pUnk := 0, "HRESULT")
         return IUnknown(pUnk)
     }
 
@@ -424,7 +446,55 @@ class IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
      */
     SetNotificationPointer(iid, pUnk) {
-        result := ComCall(17, this, "ptr", iid, "ptr", pUnk, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, iid, "ptr", pUnk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProp := CallbackCreate(GetMethod(implObj, "GetProp"), flags, 3)
+        this.vtbl.SetProp := CallbackCreate(GetMethod(implObj, "SetProp"), flags, 3)
+        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+        this.vtbl.SuspendGroup := CallbackCreate(GetMethod(implObj, "SuspendGroup"), flags, 1)
+        this.vtbl.ResumeGroup := CallbackCreate(GetMethod(implObj, "ResumeGroup"), flags, 1)
+        this.vtbl.CancelGroup := CallbackCreate(GetMethod(implObj, "CancelGroup"), flags, 1)
+        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_GroupID := CallbackCreate(GetMethod(implObj, "get_GroupID"), flags, 2)
+        this.vtbl.CreateJob := CallbackCreate(GetMethod(implObj, "CreateJob"), flags, 3)
+        this.vtbl.EnumJobs := CallbackCreate(GetMethod(implObj, "EnumJobs"), flags, 3)
+        this.vtbl.SwitchToForeground := CallbackCreate(GetMethod(implObj, "SwitchToForeground"), flags, 1)
+        this.vtbl.QueryNewJobInterface := CallbackCreate(GetMethod(implObj, "QueryNewJobInterface"), flags, 3)
+        this.vtbl.SetNotificationPointer := CallbackCreate(GetMethod(implObj, "SetNotificationPointer"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProp)
+        CallbackFree(this.vtbl.SetProp)
+        CallbackFree(this.vtbl.GetProgress)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetJob)
+        CallbackFree(this.vtbl.SuspendGroup)
+        CallbackFree(this.vtbl.ResumeGroup)
+        CallbackFree(this.vtbl.CancelGroup)
+        CallbackFree(this.vtbl.get_Size)
+        CallbackFree(this.vtbl.get_GroupID)
+        CallbackFree(this.vtbl.CreateJob)
+        CallbackFree(this.vtbl.EnumJobs)
+        CallbackFree(this.vtbl.SwitchToForeground)
+        CallbackFree(this.vtbl.QueryNewJobInterface)
+        CallbackFree(this.vtbl.SetNotificationPointer)
     }
 }

@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDISPLAYCHANGE extends Win32Struct {
-    static sizeof => 16
+export default struct KSDISPLAYCHANGE {
+    #StructPack 4
 
-    static packingSize => 4
+    PelsWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PelsWidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PelsHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PelsHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BitsPerPel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BitsPerPel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeviceID : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    DeviceID {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
-    }
 }

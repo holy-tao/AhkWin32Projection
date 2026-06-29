@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides access to subresource data.
@@ -24,10 +23,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_mapped_subresource
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_MAPPED_SUBRESOURCE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D11_MAPPED_SUBRESOURCE {
+    #StructPack 8
 
     /**
      * Type: <b>void*</b>
@@ -38,32 +35,21 @@ class D3D11_MAPPED_SUBRESOURCE extends Win32Struct {
      * <li>For <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL_10_0</a> and higher, the pointer is aligned to 16 bytes.</li>
      * <li>For lower than <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL_10_0</a>, the pointer is aligned to 4 bytes.</li>
      * </ul>
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pData : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The row pitch, or width, or physical size (in bytes) of the data.
-     * @type {Integer}
      */
-    RowPitch {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RowPitch : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The depth pitch, or width, or physical size (in bytes)of the data.
-     * @type {Integer}
      */
-    DepthPitch {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DepthPitch : UInt32
+
 }

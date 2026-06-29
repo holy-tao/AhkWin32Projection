@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\pluginResource.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\pluginResource.ahk" { pluginResource }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes properties and methods that provide information about resources available to users of RemoteApp and Desktop Connections.
@@ -26,26 +28,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nn-tspubplugincom-itspubplugin
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ItsPubPlugin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ItsPubPlugin extends IUnknown {
     /**
      * The interface identifier for ItsPubPlugin
      * @type {Guid}
      */
-    static IID => Guid("{70c04b05-f347-412b-822f-36c99c54ca45}")
+    static IID := Guid("{70c04b05-f347-412b-822f-36c99c54ca45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ItsPubPlugin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetResourceList        : IntPtr
+        GetResource            : IntPtr
+        GetCacheLastUpdateTime : IntPtr
+        get_pluginName         : IntPtr
+        get_pluginVersion      : IntPtr
+        ResolveResource        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResourceList", "GetResource", "GetCacheLastUpdateTime", "get_pluginName", "get_pluginVersion", "ResolveResource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ItsPubPlugin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -90,7 +104,7 @@ class ItsPubPlugin extends IUnknown {
         alias := alias is String ? StrPtr(alias) : alias
 
         resource := pluginResource()
-        result := ComCall(4, this, "ptr", alias, "int", flags, "ptr", resource, "HRESULT")
+        result := ComCall(4, this, "ptr", alias, "int", flags, pluginResource.Ptr, resource, "HRESULT")
         return resource
     }
 
@@ -112,8 +126,8 @@ class ItsPubPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginname
      */
     get_pluginName() {
-        pVal := BSTR()
-        result := ComCall(6, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -123,8 +137,8 @@ class ItsPubPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginversion
      */
     get_pluginVersion() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -147,5 +161,35 @@ class ItsPubPlugin extends IUnknown {
 
         result := ComCall(8, this, "uint*", &_resourceType := 0, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
         return _resourceType
+    }
+
+    Query(iid) {
+        if (ItsPubPlugin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResourceList := CallbackCreate(GetMethod(implObj, "GetResourceList"), flags, 4)
+        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 4)
+        this.vtbl.GetCacheLastUpdateTime := CallbackCreate(GetMethod(implObj, "GetCacheLastUpdateTime"), flags, 2)
+        this.vtbl.get_pluginName := CallbackCreate(GetMethod(implObj, "get_pluginName"), flags, 2)
+        this.vtbl.get_pluginVersion := CallbackCreate(GetMethod(implObj, "get_pluginVersion"), flags, 2)
+        this.vtbl.ResolveResource := CallbackCreate(GetMethod(implObj, "ResolveResource"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResourceList)
+        CallbackFree(this.vtbl.GetResource)
+        CallbackFree(this.vtbl.GetCacheLastUpdateTime)
+        CallbackFree(this.vtbl.get_pluginName)
+        CallbackFree(this.vtbl.get_pluginVersion)
+        CallbackFree(this.vtbl.ResolveResource)
     }
 }

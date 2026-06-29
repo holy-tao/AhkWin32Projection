@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IGraphBuilder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
+#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
  * Note  This interface has been deprecated. (ICaptureGraphBuilder)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-icapturegraphbuilder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class ICaptureGraphBuilder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICaptureGraphBuilder extends IUnknown {
     /**
      * The interface identifier for ICaptureGraphBuilder
      * @type {Guid}
      */
-    static IID => Guid("{bf87b6e0-8c27-11d0-b3f0-00aa003761c5}")
+    static IID := Guid("{bf87b6e0-8c27-11d0-b3f0-00aa003761c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICaptureGraphBuilder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFiltergraph    : IntPtr
+        GetFiltergraph    : IntPtr
+        SetOutputFileName : IntPtr
+        FindInterface     : IntPtr
+        RenderStream      : IntPtr
+        ControlStream     : IntPtr
+        AllocCapFile      : IntPtr
+        CopyCaptureFile   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFiltergraph", "GetFiltergraph", "SetOutputFileName", "FindInterface", "RenderStream", "ControlStream", "AllocCapFile", "CopyCaptureFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICaptureGraphBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  The ICaptureGraphBuilder interface is deprecated. Use ICaptureGraphBuilder2 instead. Tells the graph builder object which filter graph to use.
@@ -157,7 +176,7 @@ class ICaptureGraphBuilder extends IUnknown {
     SetOutputFileName(pType, lpstrFile, ppf, ppSink) {
         lpstrFile := lpstrFile is String ? StrPtr(lpstrFile) : lpstrFile
 
-        result := ComCall(5, this, "ptr", pType, "ptr", lpstrFile, "ptr*", ppf, "ptr*", ppSink, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pType, "ptr", lpstrFile, IBaseFilter.Ptr, ppf, IFileSinkFilter.Ptr, ppSink, "HRESULT")
         return result
     }
 
@@ -176,7 +195,7 @@ class ICaptureGraphBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder-findinterface
      */
     FindInterface(pCategory, pf, riid) {
-        result := ComCall(6, this, "ptr", pCategory, "ptr", pf, "ptr", riid, "ptr*", &ppint := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pCategory, "ptr", pf, Guid.Ptr, riid, "ptr*", &ppint := 0, "HRESULT")
         return ppint
     }
 
@@ -204,7 +223,7 @@ class ICaptureGraphBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder-renderstream
      */
     RenderStream(pCategory, pSource, pfCompressor, pfRenderer) {
-        result := ComCall(7, this, "ptr", pCategory, "ptr", pSource, "ptr", pfCompressor, "ptr", pfRenderer, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pCategory, "ptr", pSource, "ptr", pfCompressor, "ptr", pfRenderer, "HRESULT")
         return result
     }
 
@@ -235,7 +254,7 @@ class ICaptureGraphBuilder extends IUnknown {
         pstartMarshal := pstart is VarRef ? "int64*" : "ptr"
         pstopMarshal := pstop is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pCategory, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, "ushort", wStartCookie, "ushort", wStopCookie, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pCategory, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, "ushort", wStartCookie, "ushort", wStopCookie, "HRESULT")
         return result
     }
 
@@ -274,5 +293,39 @@ class ICaptureGraphBuilder extends IUnknown {
 
         result := ComCall(10, this, "ptr", lpwstrOld, "ptr", lpwstrNew, "int", fAllowEscAbort, "ptr", pCallback, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICaptureGraphBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFiltergraph := CallbackCreate(GetMethod(implObj, "SetFiltergraph"), flags, 2)
+        this.vtbl.GetFiltergraph := CallbackCreate(GetMethod(implObj, "GetFiltergraph"), flags, 2)
+        this.vtbl.SetOutputFileName := CallbackCreate(GetMethod(implObj, "SetOutputFileName"), flags, 5)
+        this.vtbl.FindInterface := CallbackCreate(GetMethod(implObj, "FindInterface"), flags, 5)
+        this.vtbl.RenderStream := CallbackCreate(GetMethod(implObj, "RenderStream"), flags, 5)
+        this.vtbl.ControlStream := CallbackCreate(GetMethod(implObj, "ControlStream"), flags, 7)
+        this.vtbl.AllocCapFile := CallbackCreate(GetMethod(implObj, "AllocCapFile"), flags, 3)
+        this.vtbl.CopyCaptureFile := CallbackCreate(GetMethod(implObj, "CopyCaptureFile"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFiltergraph)
+        CallbackFree(this.vtbl.GetFiltergraph)
+        CallbackFree(this.vtbl.SetOutputFileName)
+        CallbackFree(this.vtbl.FindInterface)
+        CallbackFree(this.vtbl.RenderStream)
+        CallbackFree(this.vtbl.ControlStream)
+        CallbackFree(this.vtbl.AllocCapFile)
+        CallbackFree(this.vtbl.CopyCaptureFile)
     }
 }

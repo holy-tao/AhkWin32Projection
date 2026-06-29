@@ -1,33 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_COMMAND_LIST_TYPE.ahk" { D3D12_COMMAND_LIST_TYPE }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
+#Import ".\D3D12_COMMAND_LIST_FLAGS.ahk" { D3D12_COMMAND_LIST_FLAGS }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
+#Import ".\ID3D12Device3.ahk" { ID3D12Device3 }
+#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device3](../d3d12/nn-d3d12-id3d12device3.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device4
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device4 extends ID3D12Device3 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device4 extends ID3D12Device3 {
     /**
      * The interface identifier for ID3D12Device4
      * @type {Guid}
      */
-    static IID => Guid("{e865df17-a9ee-46f9-a463-3098315aa2e5}")
+    static IID := Guid("{e865df17-a9ee-46f9-a463-3098315aa2e5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 51
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device4 interfaces
+    */
+    struct Vtbl extends ID3D12Device3.Vtbl {
+        CreateCommandList1             : IntPtr
+        CreateProtectedResourceSession : IntPtr
+        CreateCommittedResource1       : IntPtr
+        CreateHeap1                    : IntPtr
+        CreateReservedResource1        : IntPtr
+        GetResourceAllocationInfo1     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateCommandList1", "CreateProtectedResourceSession", "CreateCommittedResource1", "CreateHeap1", "CreateReservedResource1", "GetResourceAllocationInfo1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a command list in the closed state.
@@ -49,7 +74,7 @@ class ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1
      */
     CreateCommandList1(nodeMask, type, flags, riid) {
-        result := ComCall(51, this, "uint", nodeMask, "int", type, "int", flags, "ptr", riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        result := ComCall(51, this, "uint", nodeMask, D3D12_COMMAND_LIST_TYPE, type, D3D12_COMMAND_LIST_FLAGS, flags, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
         return ppCommandList
     }
 
@@ -67,7 +92,7 @@ class ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createprotectedresourcesession
      */
     CreateProtectedResourceSession(pDesc, riid) {
-        result := ComCall(52, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(52, this, D3D12_PROTECTED_RESOURCE_SESSION_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppSession := 0, "HRESULT")
         return ppSession
     }
 
@@ -120,7 +145,7 @@ class ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommittedresource1
      */
     CreateCommittedResource1(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource) {
-        result := ComCall(53, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(53, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -153,7 +178,7 @@ class ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createheap1
      */
     CreateHeap1(pDesc, pProtectedSession, riid) {
-        result := ComCall(54, this, "ptr", pDesc, "ptr", pProtectedSession, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(54, this, D3D12_HEAP_DESC.Ptr, pDesc, "ptr", pProtectedSession, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -194,7 +219,7 @@ class ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createreservedresource1
      */
     CreateReservedResource1(pDesc, InitialState, pOptimizedClearValue, pProtectedSession, riid) {
-        result := ComCall(55, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(55, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -228,7 +253,37 @@ class ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-getresourceallocationinfo1
      */
     GetResourceAllocationInfo1(visibleMask, numResourceDescs, pResourceDescs, pResourceAllocationInfo1) {
-        result := ComCall(56, this, "uint", visibleMask, "uint", numResourceDescs, "ptr", pResourceDescs, "ptr", pResourceAllocationInfo1, "ptr")
+        result := ComCall(56, this, "uint", visibleMask, "uint", numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12Device4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateCommandList1 := CallbackCreate(GetMethod(implObj, "CreateCommandList1"), flags, 6)
+        this.vtbl.CreateProtectedResourceSession := CallbackCreate(GetMethod(implObj, "CreateProtectedResourceSession"), flags, 4)
+        this.vtbl.CreateCommittedResource1 := CallbackCreate(GetMethod(implObj, "CreateCommittedResource1"), flags, 9)
+        this.vtbl.CreateHeap1 := CallbackCreate(GetMethod(implObj, "CreateHeap1"), flags, 5)
+        this.vtbl.CreateReservedResource1 := CallbackCreate(GetMethod(implObj, "CreateReservedResource1"), flags, 7)
+        this.vtbl.GetResourceAllocationInfo1 := CallbackCreate(GetMethod(implObj, "GetResourceAllocationInfo1"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateCommandList1)
+        CallbackFree(this.vtbl.CreateProtectedResourceSession)
+        CallbackFree(this.vtbl.CreateCommittedResource1)
+        CallbackFree(this.vtbl.CreateHeap1)
+        CallbackFree(this.vtbl.CreateReservedResource1)
+        CallbackFree(this.vtbl.GetResourceAllocationInfo1)
     }
 }

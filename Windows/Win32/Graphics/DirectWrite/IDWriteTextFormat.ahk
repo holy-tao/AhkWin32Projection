@@ -1,9 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteInlineObject.ahk
-#Include .\IDWriteFontCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
+#Import ".\DWRITE_FLOW_DIRECTION.ahk" { DWRITE_FLOW_DIRECTION }
+#Import ".\DWRITE_LINE_SPACING_METHOD.ahk" { DWRITE_LINE_SPACING_METHOD }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import ".\DWRITE_TRIMMING.ahk" { DWRITE_TRIMMING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_WORD_WRAPPING.ahk" { DWRITE_WORD_WRAPPING }
+#Import ".\DWRITE_TEXT_ALIGNMENT.ahk" { DWRITE_TEXT_ALIGNMENT }
+#Import ".\DWRITE_PARAGRAPH_ALIGNMENT.ahk" { DWRITE_PARAGRAPH_ALIGNMENT }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 
 /**
  * The IDWriteTextFormat interface describes the font and paragraph properties used to format text, and it describes locale information.
@@ -48,26 +60,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextFormat extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextFormat extends IUnknown {
     /**
      * The interface identifier for IDWriteTextFormat
      * @type {Guid}
      */
-    static IID => Guid("{9c906818-31d7-4fd3-a151-7c5e225db55a}")
+    static IID := Guid("{9c906818-31d7-4fd3-a151-7c5e225db55a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextFormat interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTextAlignment        : IntPtr
+        SetParagraphAlignment   : IntPtr
+        SetWordWrapping         : IntPtr
+        SetReadingDirection     : IntPtr
+        SetFlowDirection        : IntPtr
+        SetIncrementalTabStop   : IntPtr
+        SetTrimming             : IntPtr
+        SetLineSpacing          : IntPtr
+        GetTextAlignment        : IntPtr
+        GetParagraphAlignment   : IntPtr
+        GetWordWrapping         : IntPtr
+        GetReadingDirection     : IntPtr
+        GetFlowDirection        : IntPtr
+        GetIncrementalTabStop   : IntPtr
+        GetTrimming             : IntPtr
+        GetLineSpacing          : IntPtr
+        GetFontCollection       : IntPtr
+        GetFontFamilyNameLength : IntPtr
+        GetFontFamilyName       : IntPtr
+        GetFontWeight           : IntPtr
+        GetFontStyle            : IntPtr
+        GetFontStretch          : IntPtr
+        GetFontSize             : IntPtr
+        GetLocaleNameLength     : IntPtr
+        GetLocaleName           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTextAlignment", "SetParagraphAlignment", "SetWordWrapping", "SetReadingDirection", "SetFlowDirection", "SetIncrementalTabStop", "SetTrimming", "SetLineSpacing", "GetTextAlignment", "GetParagraphAlignment", "GetWordWrapping", "GetReadingDirection", "GetFlowDirection", "GetIncrementalTabStop", "GetTrimming", "GetLineSpacing", "GetFontCollection", "GetFontFamilyNameLength", "GetFontFamilyName", "GetFontWeight", "GetFontStyle", "GetFontStretch", "GetFontSize", "GetLocaleNameLength", "GetLocaleName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextFormat.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the alignment of text in a paragraph, relative to the leading and trailing edge of a layout box for a IDWriteTextFormat interface.
@@ -117,7 +160,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-settextalignment
      */
     SetTextAlignment(textAlignment) {
-        result := ComCall(3, this, "int", textAlignment, "HRESULT")
+        result := ComCall(3, this, DWRITE_TEXT_ALIGNMENT, textAlignment, "HRESULT")
         return result
     }
 
@@ -132,7 +175,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setparagraphalignment
      */
     SetParagraphAlignment(paragraphAlignment) {
-        result := ComCall(4, this, "int", paragraphAlignment, "HRESULT")
+        result := ComCall(4, this, DWRITE_PARAGRAPH_ALIGNMENT, paragraphAlignment, "HRESULT")
         return result
     }
 
@@ -147,7 +190,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setwordwrapping
      */
     SetWordWrapping(wordWrapping) {
-        result := ComCall(5, this, "int", wordWrapping, "HRESULT")
+        result := ComCall(5, this, DWRITE_WORD_WRAPPING, wordWrapping, "HRESULT")
         return result
     }
 
@@ -167,7 +210,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setreadingdirection
      */
     SetReadingDirection(readingDirection) {
-        result := ComCall(6, this, "int", readingDirection, "HRESULT")
+        result := ComCall(6, this, DWRITE_READING_DIRECTION, readingDirection, "HRESULT")
         return result
     }
 
@@ -182,7 +225,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setflowdirection
      */
     SetFlowDirection(flowDirection) {
-        result := ComCall(7, this, "int", flowDirection, "HRESULT")
+        result := ComCall(7, this, DWRITE_FLOW_DIRECTION, flowDirection, "HRESULT")
         return result
     }
 
@@ -215,7 +258,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-settrimming
      */
     SetTrimming(trimmingOptions, trimmingSign) {
-        result := ComCall(9, this, "ptr", trimmingOptions, "ptr", trimmingSign, "HRESULT")
+        result := ComCall(9, this, DWRITE_TRIMMING.Ptr, trimmingOptions, "ptr", trimmingSign, "HRESULT")
         return result
     }
 
@@ -239,7 +282,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setlinespacing
      */
     SetLineSpacing(lineSpacingMethod, lineSpacing, baseline) {
-        result := ComCall(10, this, "int", lineSpacingMethod, "float", lineSpacing, "float", baseline, "HRESULT")
+        result := ComCall(10, this, DWRITE_LINE_SPACING_METHOD, lineSpacingMethod, "float", lineSpacing, "float", baseline, "HRESULT")
         return result
     }
 
@@ -251,7 +294,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-gettextalignment
      */
     GetTextAlignment() {
-        result := ComCall(11, this, "int")
+        result := ComCall(11, this, DWRITE_TEXT_ALIGNMENT)
         return result
     }
 
@@ -263,7 +306,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getparagraphalignment
      */
     GetParagraphAlignment() {
-        result := ComCall(12, this, "int")
+        result := ComCall(12, this, DWRITE_PARAGRAPH_ALIGNMENT)
         return result
     }
 
@@ -275,7 +318,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getwordwrapping
      */
     GetWordWrapping() {
-        result := ComCall(13, this, "int")
+        result := ComCall(13, this, DWRITE_WORD_WRAPPING)
         return result
     }
 
@@ -287,7 +330,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getreadingdirection
      */
     GetReadingDirection() {
-        result := ComCall(14, this, "int")
+        result := ComCall(14, this, DWRITE_READING_DIRECTION)
         return result
     }
 
@@ -299,7 +342,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getflowdirection
      */
     GetFlowDirection() {
-        result := ComCall(15, this, "int")
+        result := ComCall(15, this, DWRITE_FLOW_DIRECTION)
         return result
     }
 
@@ -311,7 +354,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getincrementaltabstop
      */
     GetIncrementalTabStop() {
-        result := ComCall(16, this, "float")
+        result := ComCall(16, this, Float32)
         return result
     }
 
@@ -329,7 +372,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-gettrimming
      */
     GetTrimming(trimmingOptions, trimmingSign) {
-        result := ComCall(17, this, "ptr", trimmingOptions, "ptr*", trimmingSign, "HRESULT")
+        result := ComCall(17, this, DWRITE_TRIMMING.Ptr, trimmingOptions, IDWriteInlineObject.Ptr, trimmingSign, "HRESULT")
         return result
     }
 
@@ -378,7 +421,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontfamilynamelength
      */
     GetFontFamilyNameLength() {
-        result := ComCall(20, this, "uint")
+        result := ComCall(20, this, UInt32)
         return result
     }
 
@@ -410,7 +453,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontweight
      */
     GetFontWeight() {
-        result := ComCall(22, this, "int")
+        result := ComCall(22, this, DWRITE_FONT_WEIGHT)
         return result
     }
 
@@ -422,7 +465,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontstyle
      */
     GetFontStyle() {
-        result := ComCall(23, this, "int")
+        result := ComCall(23, this, DWRITE_FONT_STYLE)
         return result
     }
 
@@ -434,7 +477,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontstretch
      */
     GetFontStretch() {
-        result := ComCall(24, this, "int")
+        result := ComCall(24, this, DWRITE_FONT_STRETCH)
         return result
     }
 
@@ -446,7 +489,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontsize
      */
     GetFontSize() {
-        result := ComCall(25, this, "float")
+        result := ComCall(25, this, Float32)
         return result
     }
 
@@ -458,7 +501,7 @@ class IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlocalenamelength
      */
     GetLocaleNameLength() {
-        result := ComCall(26, this, "uint")
+        result := ComCall(26, this, UInt32)
         return result
     }
 
@@ -480,5 +523,73 @@ class IDWriteTextFormat extends IUnknown {
 
         result := ComCall(27, this, "ptr", localeName, "uint", nameSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextFormat.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTextAlignment := CallbackCreate(GetMethod(implObj, "SetTextAlignment"), flags, 2)
+        this.vtbl.SetParagraphAlignment := CallbackCreate(GetMethod(implObj, "SetParagraphAlignment"), flags, 2)
+        this.vtbl.SetWordWrapping := CallbackCreate(GetMethod(implObj, "SetWordWrapping"), flags, 2)
+        this.vtbl.SetReadingDirection := CallbackCreate(GetMethod(implObj, "SetReadingDirection"), flags, 2)
+        this.vtbl.SetFlowDirection := CallbackCreate(GetMethod(implObj, "SetFlowDirection"), flags, 2)
+        this.vtbl.SetIncrementalTabStop := CallbackCreate(GetMethod(implObj, "SetIncrementalTabStop"), flags, 2)
+        this.vtbl.SetTrimming := CallbackCreate(GetMethod(implObj, "SetTrimming"), flags, 3)
+        this.vtbl.SetLineSpacing := CallbackCreate(GetMethod(implObj, "SetLineSpacing"), flags, 4)
+        this.vtbl.GetTextAlignment := CallbackCreate(GetMethod(implObj, "GetTextAlignment"), flags, 1)
+        this.vtbl.GetParagraphAlignment := CallbackCreate(GetMethod(implObj, "GetParagraphAlignment"), flags, 1)
+        this.vtbl.GetWordWrapping := CallbackCreate(GetMethod(implObj, "GetWordWrapping"), flags, 1)
+        this.vtbl.GetReadingDirection := CallbackCreate(GetMethod(implObj, "GetReadingDirection"), flags, 1)
+        this.vtbl.GetFlowDirection := CallbackCreate(GetMethod(implObj, "GetFlowDirection"), flags, 1)
+        this.vtbl.GetIncrementalTabStop := CallbackCreate(GetMethod(implObj, "GetIncrementalTabStop"), flags, 1)
+        this.vtbl.GetTrimming := CallbackCreate(GetMethod(implObj, "GetTrimming"), flags, 3)
+        this.vtbl.GetLineSpacing := CallbackCreate(GetMethod(implObj, "GetLineSpacing"), flags, 4)
+        this.vtbl.GetFontCollection := CallbackCreate(GetMethod(implObj, "GetFontCollection"), flags, 2)
+        this.vtbl.GetFontFamilyNameLength := CallbackCreate(GetMethod(implObj, "GetFontFamilyNameLength"), flags, 1)
+        this.vtbl.GetFontFamilyName := CallbackCreate(GetMethod(implObj, "GetFontFamilyName"), flags, 3)
+        this.vtbl.GetFontWeight := CallbackCreate(GetMethod(implObj, "GetFontWeight"), flags, 1)
+        this.vtbl.GetFontStyle := CallbackCreate(GetMethod(implObj, "GetFontStyle"), flags, 1)
+        this.vtbl.GetFontStretch := CallbackCreate(GetMethod(implObj, "GetFontStretch"), flags, 1)
+        this.vtbl.GetFontSize := CallbackCreate(GetMethod(implObj, "GetFontSize"), flags, 1)
+        this.vtbl.GetLocaleNameLength := CallbackCreate(GetMethod(implObj, "GetLocaleNameLength"), flags, 1)
+        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTextAlignment)
+        CallbackFree(this.vtbl.SetParagraphAlignment)
+        CallbackFree(this.vtbl.SetWordWrapping)
+        CallbackFree(this.vtbl.SetReadingDirection)
+        CallbackFree(this.vtbl.SetFlowDirection)
+        CallbackFree(this.vtbl.SetIncrementalTabStop)
+        CallbackFree(this.vtbl.SetTrimming)
+        CallbackFree(this.vtbl.SetLineSpacing)
+        CallbackFree(this.vtbl.GetTextAlignment)
+        CallbackFree(this.vtbl.GetParagraphAlignment)
+        CallbackFree(this.vtbl.GetWordWrapping)
+        CallbackFree(this.vtbl.GetReadingDirection)
+        CallbackFree(this.vtbl.GetFlowDirection)
+        CallbackFree(this.vtbl.GetIncrementalTabStop)
+        CallbackFree(this.vtbl.GetTrimming)
+        CallbackFree(this.vtbl.GetLineSpacing)
+        CallbackFree(this.vtbl.GetFontCollection)
+        CallbackFree(this.vtbl.GetFontFamilyNameLength)
+        CallbackFree(this.vtbl.GetFontFamilyName)
+        CallbackFree(this.vtbl.GetFontWeight)
+        CallbackFree(this.vtbl.GetFontStyle)
+        CallbackFree(this.vtbl.GetFontStretch)
+        CallbackFree(this.vtbl.GetFontSize)
+        CallbackFree(this.vtbl.GetLocaleNameLength)
+        CallbackFree(this.vtbl.GetLocaleName)
     }
 }

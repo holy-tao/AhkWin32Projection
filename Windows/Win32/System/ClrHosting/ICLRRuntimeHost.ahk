@@ -1,49 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICLRControl.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHostControl.ahk" { IHostControl }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ICLRControl.ahk" { ICLRControl }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRRuntimeHost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRRuntimeHost extends IUnknown {
     /**
      * The interface identifier for ICLRRuntimeHost
      * @type {Guid}
      */
-    static IID => Guid("{90f1a06c-7712-4762-86b5-7a5eba6bdb02}")
+    static IID := Guid("{90f1a06c-7712-4762-86b5-7a5eba6bdb02}")
 
     /**
      * The class identifier for CLRRuntimeHost
      * @type {Guid}
      */
-    static CLSID => Guid("{90f1a06e-7712-4762-86b5-7a5eba6bdb02}")
+    static CLSID := Guid("{90f1a06e-7712-4762-86b5-7a5eba6bdb02}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRRuntimeHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Start                     : IntPtr
+        Stop                      : IntPtr
+        SetHostControl            : IntPtr
+        GetCLRControl             : IntPtr
+        UnloadAppDomain           : IntPtr
+        ExecuteInAppDomain        : IntPtr
+        GetCurrentAppDomainId     : IntPtr
+        ExecuteApplication        : IntPtr
+        ExecuteInDefaultAppDomain : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRRuntimeHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "SetHostControl", "GetCLRControl", "UnloadAppDomain", "ExecuteInAppDomain", "GetCurrentAppDomainId", "ExecuteApplication", "ExecuteInDefaultAppDomain"]
-
-    /**
-     * Specifies the date and time when the trigger is activated.
-     * @remarks
-     * The **&lt;StartBoundary&gt;** element is a required element for time and calendar triggers ([**&lt;TimeTrigger&gt;**](taskschedulerschema-timetrigger-triggergroup-element.md) and [**&lt;CalendarTrigger&gt;**](taskschedulerschema-calendartrigger-triggergroup-element.md)).
      * 
-     * For scripting development, the end boundary is specified using the [**Trigger.StartBoundary**](trigger-startboundary.md) property that is inherited by the all trigger objects.
-     * 
-     * For C++ development, the end boundary is specified using the [**ITrigger::StartBoundary**](/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary) property that is inherited by the all trigger interfaces.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element
      */
     Start() {
         result := ComCall(3, this, "HRESULT")
@@ -51,13 +63,8 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(4, this, "HRESULT")
@@ -90,7 +97,7 @@ class ICLRRuntimeHost extends IUnknown {
      * @returns {HRESULT} 
      */
     UnloadAppDomain(dwAppDomainId, fWaitUntilDone) {
-        result := ComCall(7, this, "uint", dwAppDomainId, "int", fWaitUntilDone, "HRESULT")
+        result := ComCall(7, this, "uint", dwAppDomainId, BOOL, fWaitUntilDone, "HRESULT")
         return result
     }
 
@@ -152,5 +159,41 @@ class ICLRRuntimeHost extends IUnknown {
 
         result := ComCall(11, this, "ptr", pwzAssemblyPath, "ptr", pwzTypeName, "ptr", pwzMethodName, "ptr", pwzArgument, "uint*", &pReturnValue := 0, "HRESULT")
         return pReturnValue
+    }
+
+    Query(iid) {
+        if (ICLRRuntimeHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.SetHostControl := CallbackCreate(GetMethod(implObj, "SetHostControl"), flags, 2)
+        this.vtbl.GetCLRControl := CallbackCreate(GetMethod(implObj, "GetCLRControl"), flags, 2)
+        this.vtbl.UnloadAppDomain := CallbackCreate(GetMethod(implObj, "UnloadAppDomain"), flags, 3)
+        this.vtbl.ExecuteInAppDomain := CallbackCreate(GetMethod(implObj, "ExecuteInAppDomain"), flags, 4)
+        this.vtbl.GetCurrentAppDomainId := CallbackCreate(GetMethod(implObj, "GetCurrentAppDomainId"), flags, 2)
+        this.vtbl.ExecuteApplication := CallbackCreate(GetMethod(implObj, "ExecuteApplication"), flags, 7)
+        this.vtbl.ExecuteInDefaultAppDomain := CallbackCreate(GetMethod(implObj, "ExecuteInDefaultAppDomain"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.SetHostControl)
+        CallbackFree(this.vtbl.GetCLRControl)
+        CallbackFree(this.vtbl.UnloadAppDomain)
+        CallbackFree(this.vtbl.ExecuteInAppDomain)
+        CallbackFree(this.vtbl.GetCurrentAppDomainId)
+        CallbackFree(this.vtbl.ExecuteApplication)
+        CallbackFree(this.vtbl.ExecuteInDefaultAppDomain)
     }
 }

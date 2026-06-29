@@ -1,45 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IRemoteDebugApplication.ahk
-#Include .\IDebugApplicationThread.ahk
-#Include .\IDebugAsyncOperation.ahk
-#Include .\IDebugApplicationNode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugAsyncOperation.ahk" { IDebugAsyncOperation }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IProvideExpressionContexts.ahk" { IProvideExpressionContexts }
+#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
+#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
+#Import ".\IDebugStackFrameSniffer.ahk" { IDebugStackFrameSniffer }
+#Import ".\IDebugThreadCall64.ahk" { IDebugThreadCall64 }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
+#Import ".\BREAKREASON.ahk" { BREAKREASON }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugSyncOperation.ahk" { IDebugSyncOperation }
+#Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IDebugApplication64 extends IRemoteDebugApplication {
-
-    static sizeof => A_PtrSize
+export default struct IDebugApplication64 extends IRemoteDebugApplication {
     /**
      * The interface identifier for IDebugApplication64
      * @type {Guid}
      */
-    static IID => Guid("{4dedc754-04c7-4f10-9e60-16a390fe6e62}")
+    static IID := Guid("{4dedc754-04c7-4f10-9e60-16a390fe6e62}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugApplication64 interfaces
+    */
+    struct Vtbl extends IRemoteDebugApplication.Vtbl {
+        SetName                               : IntPtr
+        StepOutComplete                       : IntPtr
+        DebugOutput                           : IntPtr
+        StartDebugSession                     : IntPtr
+        HandleBreakPoint                      : IntPtr
+        Close                                 : IntPtr
+        GetBreakFlags                         : IntPtr
+        GetCurrentThread                      : IntPtr
+        CreateAsyncDebugOperation             : IntPtr
+        AddStackFrameSniffer                  : IntPtr
+        RemoveStackFrameSniffer               : IntPtr
+        QueryCurrentThreadIsDebuggerThread    : IntPtr
+        SynchronousCallInDebuggerThread       : IntPtr
+        CreateApplicationNode                 : IntPtr
+        FireDebuggerEvent                     : IntPtr
+        HandleRuntimeError                    : IntPtr
+        FCanJitDebug                          : IntPtr
+        FIsAutoJitDebugEnabled                : IntPtr
+        AddGlobalExpressionContextProvider    : IntPtr
+        RemoveGlobalExpressionContextProvider : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugApplication64.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetName", "StepOutComplete", "DebugOutput", "StartDebugSession", "HandleBreakPoint", "Close", "GetBreakFlags", "GetCurrentThread", "CreateAsyncDebugOperation", "AddStackFrameSniffer", "RemoveStackFrameSniffer", "QueryCurrentThreadIsDebuggerThread", "SynchronousCallInDebuggerThread", "CreateApplicationNode", "FireDebuggerEvent", "HandleRuntimeError", "FCanJitDebug", "FIsAutoJitDebugEnabled", "AddGlobalExpressionContextProvider", "RemoveGlobalExpressionContextProvider"]
-
-    /**
-     * Sets the read mode and the blocking mode of the specified named pipe. If the specified handle is to the client end of a named pipe and if the named pipe server process is on a remote computer, the function can also be used to control local buffering.
-     * @remarks
-     * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {PWSTR} pstrName 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-setnamedpipehandlestate
+     * @param {PWSTR} pstrName 
+     * @returns {HRESULT} 
      */
     SetName(pstrName) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
@@ -84,20 +118,13 @@ class IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {BREAKRESUMEACTION} 
      */
     HandleBreakPoint(br) {
-        result := ComCall(18, this, "int", br, "int*", &pbra := 0, "HRESULT")
+        result := ComCall(18, this, BREAKREASON, br, "int*", &pbra := 0, "HRESULT")
         return pbra
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(19, this, "HRESULT")
@@ -113,7 +140,7 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     GetBreakFlags(pabf, pprdatSteppingThread) {
         pabfMarshal := pabf is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, pabfMarshal, pabf, "ptr*", pprdatSteppingThread, "HRESULT")
+        result := ComCall(20, this, pabfMarshal, pabf, IRemoteDebugApplicationThread.Ptr, pprdatSteppingThread, "HRESULT")
         return result
     }
 
@@ -210,7 +237,7 @@ class IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {HRESULT} 
      */
     FireDebuggerEvent(riid, punk) {
-        result := ComCall(28, this, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(28, this, Guid.Ptr, riid, "ptr", punk, "HRESULT")
         return result
     }
 
@@ -237,7 +264,7 @@ class IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {BOOL} 
      */
     FCanJitDebug() {
-        result := ComCall(30, this, "int")
+        result := ComCall(30, this, BOOL)
         return result
     }
 
@@ -246,7 +273,7 @@ class IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {BOOL} 
      */
     FIsAutoJitDebugEnabled() {
-        result := ComCall(31, this, "int")
+        result := ComCall(31, this, BOOL)
         return result
     }
 
@@ -268,5 +295,63 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     RemoveGlobalExpressionContextProvider(dwCookie) {
         result := ComCall(33, this, "uint", dwCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugApplication64.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.StepOutComplete := CallbackCreate(GetMethod(implObj, "StepOutComplete"), flags, 1)
+        this.vtbl.DebugOutput := CallbackCreate(GetMethod(implObj, "DebugOutput"), flags, 2)
+        this.vtbl.StartDebugSession := CallbackCreate(GetMethod(implObj, "StartDebugSession"), flags, 1)
+        this.vtbl.HandleBreakPoint := CallbackCreate(GetMethod(implObj, "HandleBreakPoint"), flags, 3)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetBreakFlags := CallbackCreate(GetMethod(implObj, "GetBreakFlags"), flags, 3)
+        this.vtbl.GetCurrentThread := CallbackCreate(GetMethod(implObj, "GetCurrentThread"), flags, 2)
+        this.vtbl.CreateAsyncDebugOperation := CallbackCreate(GetMethod(implObj, "CreateAsyncDebugOperation"), flags, 3)
+        this.vtbl.AddStackFrameSniffer := CallbackCreate(GetMethod(implObj, "AddStackFrameSniffer"), flags, 3)
+        this.vtbl.RemoveStackFrameSniffer := CallbackCreate(GetMethod(implObj, "RemoveStackFrameSniffer"), flags, 2)
+        this.vtbl.QueryCurrentThreadIsDebuggerThread := CallbackCreate(GetMethod(implObj, "QueryCurrentThreadIsDebuggerThread"), flags, 1)
+        this.vtbl.SynchronousCallInDebuggerThread := CallbackCreate(GetMethod(implObj, "SynchronousCallInDebuggerThread"), flags, 5)
+        this.vtbl.CreateApplicationNode := CallbackCreate(GetMethod(implObj, "CreateApplicationNode"), flags, 2)
+        this.vtbl.FireDebuggerEvent := CallbackCreate(GetMethod(implObj, "FireDebuggerEvent"), flags, 3)
+        this.vtbl.HandleRuntimeError := CallbackCreate(GetMethod(implObj, "HandleRuntimeError"), flags, 6)
+        this.vtbl.FCanJitDebug := CallbackCreate(GetMethod(implObj, "FCanJitDebug"), flags, 1)
+        this.vtbl.FIsAutoJitDebugEnabled := CallbackCreate(GetMethod(implObj, "FIsAutoJitDebugEnabled"), flags, 1)
+        this.vtbl.AddGlobalExpressionContextProvider := CallbackCreate(GetMethod(implObj, "AddGlobalExpressionContextProvider"), flags, 3)
+        this.vtbl.RemoveGlobalExpressionContextProvider := CallbackCreate(GetMethod(implObj, "RemoveGlobalExpressionContextProvider"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.StepOutComplete)
+        CallbackFree(this.vtbl.DebugOutput)
+        CallbackFree(this.vtbl.StartDebugSession)
+        CallbackFree(this.vtbl.HandleBreakPoint)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.GetBreakFlags)
+        CallbackFree(this.vtbl.GetCurrentThread)
+        CallbackFree(this.vtbl.CreateAsyncDebugOperation)
+        CallbackFree(this.vtbl.AddStackFrameSniffer)
+        CallbackFree(this.vtbl.RemoveStackFrameSniffer)
+        CallbackFree(this.vtbl.QueryCurrentThreadIsDebuggerThread)
+        CallbackFree(this.vtbl.SynchronousCallInDebuggerThread)
+        CallbackFree(this.vtbl.CreateApplicationNode)
+        CallbackFree(this.vtbl.FireDebuggerEvent)
+        CallbackFree(this.vtbl.HandleRuntimeError)
+        CallbackFree(this.vtbl.FCanJitDebug)
+        CallbackFree(this.vtbl.FIsAutoJitDebugEnabled)
+        CallbackFree(this.vtbl.AddGlobalExpressionContextProvider)
+        CallbackFree(this.vtbl.RemoveGlobalExpressionContextProvider)
     }
 }

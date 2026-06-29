@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about an authentication identity.
@@ -21,95 +20,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_WINNT_AUTH_IDENTITY_EX2 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct SEC_WINNT_AUTH_IDENTITY_EX2 {
+    #StructPack 4
 
     /**
      * The version number of the structure. This must be <b>SEC_WINNT_AUTH_IDENTITY_VERSION_2</b>.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The size, in bytes, of the structure header.
-     * @type {Integer}
      */
-    cbHeaderLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    cbHeaderLength : UInt16
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbStructureLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbStructureLength : UInt32
 
     /**
      * The offset from the beginning of the structure to the beginning of the user name string.
-     * @type {Integer}
      */
-    UserOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    UserOffset : UInt32
 
     /**
      * The size, in bytes, of the user name string.
-     * @type {Integer}
      */
-    UserLength {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    UserLength : UInt16
 
     /**
      * The offset from the beginning of the structure to the beginning of the domain name string. 
      * 
      * An identity credential should contain the identity provider name instead of the domain name.
-     * @type {Integer}
      */
-    DomainOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DomainOffset : UInt32
 
     /**
      * The size, in bytes, of the domain name string.
-     * @type {Integer}
      */
-    DomainLength {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    DomainLength : UInt16
 
     /**
      * The offset from the beginning of the structure to the beginning of the packed credentials.
      * 
      * The packed credential is a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_packed_credentials">SEC_WINNT_AUTH_PACKED_CREDENTIALS</a> structure that contains a credential type that uniquely specifies the credential type.
-     * @type {Integer}
      */
-    PackedCredentialsOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PackedCredentialsOffset : UInt32
 
     /**
      * The size, in bytes, of the packed credentials string.
-     * @type {Integer}
      */
-    PackedCredentialsLength {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    PackedCredentialsLength : UInt16
 
     /**
      * An <b>unsigned long</b> flag that indicates the type used by negotiable <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security packages</a>.
@@ -227,28 +188,17 @@ class SEC_WINNT_AUTH_IDENTITY_EX2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Flags : UInt32
 
     /**
      * The offset from the beginning of the structure to the beginning of the list of supported packages.
-     * @type {Integer}
      */
-    PackageListOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PackageListOffset : UInt32
 
     /**
      * The size, in bytes, of the supported package list.
-     * @type {Integer}
      */
-    PackageListLength {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    PackageListLength : UInt16
+
 }

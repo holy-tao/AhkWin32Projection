@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of structure that a Remote Desktop Services function has returned in a buffer.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ne-wtsapi32-wts_type_class
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_TYPE_CLASS extends Win32Enum {
+export default struct WTS_TYPE_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The buffer contains one or more <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures.

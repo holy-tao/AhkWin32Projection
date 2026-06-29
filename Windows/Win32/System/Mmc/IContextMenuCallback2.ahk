@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CONTEXTMENUITEM2.ahk" { CONTEXTMENUITEM2 }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IContextMenuCallback2 interface is used to add menu items to a context menu. This interface supersedes IContextMenuCallback.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icontextmenucallback2
  * @namespace Windows.Win32.System.Mmc
  */
-class IContextMenuCallback2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContextMenuCallback2 extends IUnknown {
     /**
      * The interface identifier for IContextMenuCallback2
      * @type {Guid}
      */
-    static IID => Guid("{e178bc0e-2ed0-4b5e-8097-42c9087e8b33}")
+    static IID := Guid("{e178bc0e-2ed0-4b5e-8097-42c9087e8b33}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContextMenuCallback2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContextMenuCallback2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IContextMenuCallback2::AddItem method adds a single item to a context menu.
@@ -37,7 +46,27 @@ class IContextMenuCallback2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontextmenucallback2-additem
      */
     AddItem(pItem) {
-        result := ComCall(3, this, "ptr", pItem, "HRESULT")
+        result := ComCall(3, this, CONTEXTMENUITEM2.Ptr, pItem, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContextMenuCallback2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddItem)
     }
 }

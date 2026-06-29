@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VOLUME_PHYSICAL_OFFSET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VOLUME_PHYSICAL_OFFSET.ahk" { VOLUME_PHYSICAL_OFFSET }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class VOLUME_PHYSICAL_OFFSETS extends Win32Struct {
-    static sizeof => 24
+export default struct VOLUME_PHYSICAL_OFFSETS {
+    #StructPack 8
 
-    static packingSize => 8
+    NumberOfPhysicalOffsets : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPhysicalOffsets {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PhysicalOffset : VOLUME_PHYSICAL_OFFSET[1]
 
-    /**
-     * @type {VOLUME_PHYSICAL_OFFSET}
-     */
-    PhysicalOffset {
-        get {
-            if(!this.HasProp("__PhysicalOffsetProxyArray"))
-                this.__PhysicalOffsetProxyArray := Win32FixedArray(this.ptr + 8, 1, VOLUME_PHYSICAL_OFFSET, "")
-            return this.__PhysicalOffsetProxyArray
-        }
-    }
 }

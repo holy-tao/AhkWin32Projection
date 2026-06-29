@@ -1,186 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MCA_EXCEPTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MCA_EXCEPTION_TYPE.ahk" { MCA_EXCEPTION_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MCA_EXCEPTION extends Win32Struct {
-    static sizeof => 256
+export default struct MCA_EXCEPTION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+    struct _u {
 
-        class _Mca extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
+        struct _Mca {
+            BankNumber : Int8
 
-            /**
-             * @type {Integer}
-             */
-            BankNumber {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            Reserved2 : Int8[7]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Reserved2 {
-                get {
-                    if(!this.HasProp("__Reserved2ProxyArray"))
-                        this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")
-                    return this.__Reserved2ProxyArray
-                }
-            }
+            Status : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            Status {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
+            Address : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            Address {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
+            Misc : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Misc {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
         }
 
-        class _Mce extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Mce {
+            Address : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Address {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Type : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Type {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        /**
-         * @type {_Mca}
-         */
-        Mca {
-            get {
-                if(!this.HasProp("__Mca"))
-                    this.__Mca := MCA_EXCEPTION._u_e__Union._Mca(0, this)
-                return this.__Mca
-            }
-        }
+        Mca : MCA_EXCEPTION._u._Mca
 
-        /**
-         * @type {_Mce}
-         */
-        Mce {
-            get {
-                if(!this.HasProp("__Mce"))
-                    this.__Mce := MCA_EXCEPTION._u_e__Union._Mce(0, this)
-                return this.__Mce
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Mce', { type: MCA_EXCEPTION._u._Mce, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    VersionNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VersionNumber : UInt32
 
-    /**
-     * @type {MCA_EXCEPTION_TYPE}
-     */
-    ExceptionType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ExceptionType : MCA_EXCEPTION_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    TimeStamp {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    TimeStamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProcessorNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Reserved1 : UInt32
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := MCA_EXCEPTION._u_e__Union(24, this)
-            return this.__u
-        }
-    }
+    u : MCA_EXCEPTION._u
 
-    /**
-     * @type {Integer}
-     */
-    ExtCnt {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ExtCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Reserved3 : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ExtReg {
-        get {
-            if(!this.HasProp("__ExtRegProxyArray"))
-                this.__ExtRegProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "uint")
-            return this.__ExtRegProxyArray
-        }
-    }
+    ExtReg : Int64[24]
+
 }

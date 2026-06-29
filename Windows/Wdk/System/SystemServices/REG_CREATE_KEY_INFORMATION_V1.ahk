@@ -1,164 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class REG_CREATE_KEY_INFORMATION_V1 extends Win32Struct {
-    static sizeof => 136
+export default struct REG_CREATE_KEY_INFORMATION_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    CompleteName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    CompleteName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RootObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    RootObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ObjectType : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Options : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Options {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Class : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    Class {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SecurityDescriptor : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SecurityDescriptor {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SecurityQualityOfService : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SecurityQualityOfService {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    DesiredAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DesiredAccess {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    GrantedAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GrantedAccess {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Disposition : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Disposition {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ResultObject : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Void>>}
-     */
-    ResultObject {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    CallContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallContext {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    RootObjectContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    RootObjectContext {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    Transaction : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Transaction {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Version : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Version {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    RemainingName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    RemainingName {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    Wow64Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Wow64Flags {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    Attributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Attributes {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    CheckAccessMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CheckAccessMode {
-        get => NumGet(this, 128, "char")
-        set => NumPut("char", value, this, 128)
-    }
 }

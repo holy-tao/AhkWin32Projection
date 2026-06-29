@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate types of rich edit control actions that can be undone or redone. The EM_GETREDONAME and EM_GETUNDONAME messages use this enumeration type to return a value.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ne-richedit-undonameid
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class UNDONAMEID extends Win32Enum {
+export default struct UNDONAMEID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The type of undo action is unknown.

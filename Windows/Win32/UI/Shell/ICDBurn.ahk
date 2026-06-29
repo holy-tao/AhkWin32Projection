@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that determine whether a system has hardware for writing to CD, the drive letter of a CD writer device, and programmatically initiate a CD writing session.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-icdburn
  * @namespace Windows.Win32.UI.Shell
  */
-class ICDBurn extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICDBurn extends IUnknown {
     /**
      * The interface identifier for ICDBurn
      * @type {Guid}
      */
-    static IID => Guid("{3d73a659-e5d0-4d42-afc0-5121ba425c8d}")
+    static IID := Guid("{3d73a659-e5d0-4d42-afc0-5121ba425c8d}")
 
     /**
      * The class identifier for CDBurn
      * @type {Guid}
      */
-    static CLSID => Guid("{fbeb8a05-beee-4442-804e-409d6c4515e9}")
+    static CLSID := Guid("{fbeb8a05-beee-4442-804e-409d6c4515e9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICDBurn interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRecorderDriveLetter : IntPtr
+        Burn                   : IntPtr
+        HasRecordableDrive     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRecorderDriveLetter", "Burn", "HasRecordableDrive"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICDBurn.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the drive letter of a CD drive that has been marked as write-enabled.
@@ -73,9 +86,7 @@ class ICDBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburn-burn
      */
     Burn(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(4, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(4, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -89,7 +100,31 @@ class ICDBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburn-hasrecordabledrive
      */
     HasRecordableDrive() {
-        result := ComCall(5, this, "int*", &pfHasRecorder := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &pfHasRecorder := 0, "HRESULT")
         return pfHasRecorder
+    }
+
+    Query(iid) {
+        if (ICDBurn.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRecorderDriveLetter := CallbackCreate(GetMethod(implObj, "GetRecorderDriveLetter"), flags, 3)
+        this.vtbl.Burn := CallbackCreate(GetMethod(implObj, "Burn"), flags, 2)
+        this.vtbl.HasRecordableDrive := CallbackCreate(GetMethod(implObj, "HasRecordableDrive"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRecorderDriveLetter)
+        CallbackFree(this.vtbl.Burn)
+        CallbackFree(this.vtbl.HasRecordableDrive)
     }
 }

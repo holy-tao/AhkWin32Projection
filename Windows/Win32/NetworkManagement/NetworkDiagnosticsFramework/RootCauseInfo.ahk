@@ -1,38 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RepairInfoEx.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RepairInfoEx.ahk" { RepairInfoEx }
 
 /**
  * Contains detailed information about the root cause of an incident.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-rootcauseinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class RootCauseInfo extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct RootCauseInfo {
+    #StructPack 8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A string that describes the problem that caused the incident.
-     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszDescription : PWSTR
 
     /**
      * Type: <b>GUID</b>
      * 
      * The GUID that corresponds to the problem identified.
-     * @type {Pointer}
      */
-    rootCauseID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rootCauseID : Guid
 
     /**
      * Type: <b>DWORD</b>
@@ -78,43 +69,28 @@ class RootCauseInfo extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    rootCauseFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    rootCauseFlags : UInt32
 
     /**
      * Type: <b>GUID</b>
      * 
      * GUID of the network interface on which the problem occurred. If the problem is not interface-specific, this value is zero (0).
-     * @type {Pointer}
      */
-    networkInterfaceID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    networkInterfaceID : Guid
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-repairinfoex">RepairInfoEx</a>*</b>
      * 
      * The repairs that are available to try and fix the problem.
-     * @type {Pointer<RepairInfoEx>}
      */
-    pRepairs {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pRepairs : RepairInfoEx.Ptr
 
     /**
      * Type: <b>USHORT</b>
      * 
      * The number of repairs available.
-     * @type {Integer}
      */
-    repairCount {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    repairCount : UInt16
+
 }

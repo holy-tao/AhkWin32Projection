@@ -1,65 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\EXTLOGFONTW.ahk
-#Include .\LOGFONTW.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
-#Include .\PANOSE.ahk
-#Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
-#Include .\PAN_WEIGHT.ahk
-#Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
-#Include .\PAN_MIDLINE.ahk
-#Include .\PAN_XHEIGHT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\PANOSE.ahk" { PANOSE }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\EXTLOGFONTW.ahk" { EXTLOGFONTW }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The EMREXTCREATEFONTINDIRECTW structure contains members for the CreateFontIndirect enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatefontindirectw
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMREXTCREATEFONTINDIRECTW extends Win32Struct {
-    static sizeof => 332
-
-    static packingSize => 4
+export default struct EMREXTCREATEFONTINDIRECTW {
+    #StructPack 8
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Index to the font in handle table.
-     * @type {Integer}
      */
-    ihFont {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ihFont : UInt32
 
     /**
      * Logical font.
-     * @type {EXTLOGFONTW}
      */
-    elfw {
-        get {
-            if(!this.HasProp("__elfw"))
-                this.__elfw := EXTLOGFONTW(12, this)
-            return this.__elfw
-        }
-    }
+    elfw : EXTLOGFONTW
+
 }

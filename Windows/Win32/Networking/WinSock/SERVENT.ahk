@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The SERVENT (winsock.h) structure is used to store or return the name and service number for a given service name.
@@ -7,44 +7,27 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @architecture X64, Arm64
  */
-class SERVENT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SERVENT {
+    #StructPack 8
 
     /**
      * The official name of the service.
-     * @type {PSTR}
      */
-    s_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    s_name : PSTR
 
     /**
      * A <b>NULL</b>-terminated array of alternate names.
-     * @type {Pointer<Pointer<Integer>>}
      */
-    s_aliases {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    s_aliases : IntPtr
 
     /**
      * The name of the protocol to use when contacting the service.
-     * @type {PSTR}
      */
-    s_proto {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    s_proto : PSTR
 
     /**
      * The port number at which the service can be contacted. Port numbers are returned in network byte order.
-     * @type {Integer}
      */
-    s_port {
-        get => NumGet(this, 24, "short")
-        set => NumPut("short", value, this, 24)
-    }
+    s_port : Int16
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RECO_LATTICE_COLUMN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RECO_LATTICE_COLUMN.ahk" { RECO_LATTICE_COLUMN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Serves as the entry point into a lattice.
@@ -9,71 +9,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice
  * @namespace Windows.Win32.UI.TabletPC
  */
-class RECO_LATTICE extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct RECO_LATTICE {
+    #StructPack 8
 
     /**
      * The number of columns in the lattice.
-     * @type {Integer}
      */
-    ulColumnCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulColumnCount : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_lattice_column">RECO_LATTICE_COLUMN</a> structures contained by the lattice.
-     * @type {Pointer<RECO_LATTICE_COLUMN>}
      */
-    pLatticeColumns {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pLatticeColumns : RECO_LATTICE_COLUMN.Ptr
 
     /**
      * The number of properties assigned to the lattice. For details about properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_lattice_properties">RECO_LATTICE_PROPERTIES</a> structure.
-     * @type {Integer}
      */
-    ulPropertyCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulPropertyCount : UInt32
 
     /**
      * An array of property GUIDs. The GUIDS for these properties can either be the properties defined in the Msinkaut.h header file (for example, line metrics) or custom properties defined by your recognizer.
-     * @type {Pointer<Guid>}
      */
-    pGuidProperties {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pGuidProperties : Guid.Ptr
 
     /**
      * The number of columns that the best result consists of.
-     * @type {Integer}
      */
-    ulBestResultColumnCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulBestResultColumnCount : UInt32
 
     /**
      * An array containing the indexes of the columns in the <i>pLatticeColumns</i> array that makes up the best result.
-     * @type {Pointer<Integer>}
      */
-    pulBestResultColumns {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pulBestResultColumns : IntPtr
 
     /**
      * An array of indexes of the elements in the <i>pLatticeElements</i> array of the corresponding column designated by <i>pulBestResultColumn</i>.
-     * @type {Pointer<Integer>}
      */
-    pulBestResultIndexes {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pulBestResultIndexes : IntPtr
+
 }

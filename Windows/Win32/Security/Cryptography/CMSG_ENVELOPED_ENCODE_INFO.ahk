@@ -1,28 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_INFO.ahk" { CERT_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information needed to encode an enveloped message. It is passed to CryptMsgOpenToEncode if the dwMsgType parameter is CMSG_ENVELOPED.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CMSG_ENVELOPED_ENCODE_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * This member is not used and should be set to <b>NULL</b>.
@@ -33,15 +27,8 @@ class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct {
      * This member's data type is <b>HCRYPTPROV</b>.
      * 
      * Unless there is a strong reason for passing in a specific cryptographic provider in <b>hCryptProv</b>, pass zero to use the default RSA or DSS provider.
-     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get {
-            if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
-            return this.__hCryptProv
-        }
-    }
+    hCryptProv : HCRYPTPROV_LEGACY
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the signature algorithm type and any associated additional parameters in encoded form. 
@@ -92,15 +79,8 @@ class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct {
      * <div class="alert"><b>Note</b>  On decryption, if an IV exists, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsetkeyparam">CryptSetKeyParam</a> is called with the IV before decryption begins.</div>
      * <div> </div>
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    ContentEncryptionAlgorithm {
-        get {
-            if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
-            return this.__ContentEncryptionAlgorithm
-        }
-    }
+    ContentEncryptionAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A pointer to a structure depending on the encryption algorithm. 
@@ -162,34 +142,18 @@ class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Void>}
      */
-    pvEncryptionAuxInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pvEncryptionAuxInfo : IntPtr
 
     /**
      * Number of elements in the <b>rgpRecipients</b> or <b>rgCmsRecipients</b> array.
-     * @type {Integer}
      */
-    cRecipients {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cRecipients : UInt32
 
     /**
      * An array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structures, each containing a recipient's certificate Issuer, SerialNumber, and SubjectPublicKeyInfo. This array can only be used for recipients identified by their Issuer and serial number. If <b>rgpRecipients</b> is not <b>NULL</b>, <b>rgCmsRecipients</b> must be <b>NULL</b>.
-     * @type {Pointer<Pointer<CERT_INFO>>}
      */
-    rgpRecipients {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    rgpRecipients : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 64
-    }
 }

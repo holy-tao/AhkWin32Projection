@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AsnObjectIdentifier structure represents object identifiers. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.
@@ -7,26 +6,17 @@
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @architecture X64, Arm64
  */
-class AsnObjectIdentifier extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AsnObjectIdentifier {
+    #StructPack 8
 
     /**
      * Specifies the number of integers in the object identifier.
-     * @type {Integer}
      */
-    idLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    idLength : UInt32
 
     /**
      * Pointer to an array of integers that represents the object identifier.
-     * @type {Pointer<Integer>}
      */
-    ids {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ids : IntPtr
+
 }

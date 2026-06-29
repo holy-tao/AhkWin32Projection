@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TF_INPUTPROCESSORPROFILE.ahk
-#Include .\IEnumTfInputProcessorProfiles.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTfInputProcessorProfiles.ahk" { IEnumTfInputProcessorProfiles }
+#Import ".\TF_INPUTPROCESSORPROFILE.ahk" { TF_INPUTPROCESSORPROFILE }
 
 /**
  * The ITfInputProcessorProfileMgr interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -24,26 +28,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofilemgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfInputProcessorProfileMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfInputProcessorProfileMgr extends IUnknown {
     /**
      * The interface identifier for ITfInputProcessorProfileMgr
      * @type {Guid}
      */
-    static IID => Guid("{71c6e74c-0f28-11d8-a82a-00065b84435c}")
+    static IID := Guid("{71c6e74c-0f28-11d8-a82a-00065b84435c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfInputProcessorProfileMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ActivateProfile       : IntPtr
+        DeactivateProfile     : IntPtr
+        GetProfile            : IntPtr
+        EnumProfiles          : IntPtr
+        ReleaseInputProcessor : IntPtr
+        RegisterProfile       : IntPtr
+        UnregisterProfile     : IntPtr
+        GetActiveProfile      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateProfile", "DeactivateProfile", "GetProfile", "EnumProfiles", "ReleaseInputProcessor", "RegisterProfile", "UnregisterProfile", "GetActiveProfile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfInputProcessorProfileMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfInputProcessorProfileMgr::ActivateProfile method activates the specified text service's profile or keyboard layout.
@@ -189,9 +207,7 @@ class ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-activateprofile
      */
     ActivateProfile(dwProfileType, langid, clsid, guidProfile, _hkl, dwFlags) {
-        _hkl := _hkl is Win32Handle ? NumGet(_hkl, "ptr") : _hkl
-
-        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", _hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -308,9 +324,7 @@ class ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-deactivateprofile
      */
     DeactivateProfile(dwProfileType, langid, clsid, guidProfile, _hkl, dwFlags) {
-        _hkl := _hkl is Win32Handle ? NumGet(_hkl, "ptr") : _hkl
-
-        result := ComCall(4, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", _hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -352,10 +366,8 @@ class ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-getprofile
      */
     GetProfile(dwProfileType, langid, clsid, guidProfile, _hkl) {
-        _hkl := _hkl is Win32Handle ? NumGet(_hkl, "ptr") : _hkl
-
         pProfile := TF_INPUTPROCESSORPROFILE()
-        result := ComCall(5, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", _hkl, "ptr", pProfile, "HRESULT")
+        result := ComCall(5, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, TF_INPUTPROCESSORPROFILE.Ptr, pProfile, "HRESULT")
         return pProfile
     }
 
@@ -435,7 +447,7 @@ class ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-releaseinputprocessor
      */
     ReleaseInputProcessor(rclsid, dwFlags) {
-        result := ComCall(7, this, "ptr", rclsid, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rclsid, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -536,9 +548,8 @@ class ITfInputProcessorProfileMgr extends IUnknown {
     RegisterProfile(rclsid, langid, guidProfile, pchDesc, cchDesc, pchIconFile, cchFile, uIconIndex, hklsubstitute, dwPreferredLayout, bEnabledByDefault, dwFlags) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
         pchIconFile := pchIconFile is String ? StrPtr(pchIconFile) : pchIconFile
-        hklsubstitute := hklsubstitute is Win32Handle ? NumGet(hklsubstitute, "ptr") : hklsubstitute
 
-        result := ComCall(8, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "ptr", hklsubstitute, "uint", dwPreferredLayout, "int", bEnabledByDefault, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, HKL, hklsubstitute, "uint", dwPreferredLayout, BOOL, bEnabledByDefault, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -629,7 +640,7 @@ class ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-unregisterprofile
      */
     UnregisterProfile(rclsid, langid, guidProfile, dwFlags) {
-        result := ComCall(9, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -641,7 +652,41 @@ class ITfInputProcessorProfileMgr extends IUnknown {
      */
     GetActiveProfile(catid) {
         pProfile := TF_INPUTPROCESSORPROFILE()
-        result := ComCall(10, this, "ptr", catid, "ptr", pProfile, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, catid, TF_INPUTPROCESSORPROFILE.Ptr, pProfile, "HRESULT")
         return pProfile
+    }
+
+    Query(iid) {
+        if (ITfInputProcessorProfileMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateProfile := CallbackCreate(GetMethod(implObj, "ActivateProfile"), flags, 7)
+        this.vtbl.DeactivateProfile := CallbackCreate(GetMethod(implObj, "DeactivateProfile"), flags, 7)
+        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 7)
+        this.vtbl.EnumProfiles := CallbackCreate(GetMethod(implObj, "EnumProfiles"), flags, 3)
+        this.vtbl.ReleaseInputProcessor := CallbackCreate(GetMethod(implObj, "ReleaseInputProcessor"), flags, 3)
+        this.vtbl.RegisterProfile := CallbackCreate(GetMethod(implObj, "RegisterProfile"), flags, 13)
+        this.vtbl.UnregisterProfile := CallbackCreate(GetMethod(implObj, "UnregisterProfile"), flags, 5)
+        this.vtbl.GetActiveProfile := CallbackCreate(GetMethod(implObj, "GetActiveProfile"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateProfile)
+        CallbackFree(this.vtbl.DeactivateProfile)
+        CallbackFree(this.vtbl.GetProfile)
+        CallbackFree(this.vtbl.EnumProfiles)
+        CallbackFree(this.vtbl.ReleaseInputProcessor)
+        CallbackFree(this.vtbl.RegisterProfile)
+        CallbackFree(this.vtbl.UnregisterProfile)
+        CallbackFree(this.vtbl.GetActiveProfile)
     }
 }

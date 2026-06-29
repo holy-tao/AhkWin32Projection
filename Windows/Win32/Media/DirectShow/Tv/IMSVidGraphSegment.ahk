@@ -1,41 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IPersist.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\IEnumFilters.ahk
-#Include .\IMSVidGraphSegmentContainer.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IEnumFilters.ahk" { IEnumFilters }
+#Import ".\MSVidSegmentType.ahk" { MSVidSegmentType }
+#Import ".\IMSVidGraphSegmentContainer.ahk" { IMSVidGraphSegmentContainer }
+#Import "..\..\..\System\Com\IPersist.ahk" { IPersist }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * The IMSVidGraphSegmentContainer interface is exposed by the Video Control and contains one supported method, get_Graph, which obtains a pointer to the Filter Graph Manager.
- * @remarks
- * This interface has additional methods besides the one shown here, but they are not supported.
- * 
- * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGraphSegmentContainer)</c>.
- * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidgraphsegmentcontainer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidGraphSegment extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidGraphSegment extends IPersist {
     /**
      * The interface identifier for IMSVidGraphSegment
      * @type {Guid}
      */
-    static IID => Guid("{238dec54-adeb-4005-a349-f772b9afebc4}")
+    static IID := Guid("{238dec54-adeb-4005-a349-f772b9afebc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidGraphSegment interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        get_Init      : IntPtr
+        put_Init      : IntPtr
+        EnumFilters   : IntPtr
+        get_Container : IntPtr
+        put_Container : IntPtr
+        get_Type      : IntPtr
+        get_Category  : IntPtr
+        Build         : IntPtr
+        PostBuild     : IntPtr
+        PreRun        : IntPtr
+        PostRun       : IntPtr
+        PreStop       : IntPtr
+        PostStop      : IntPtr
+        OnEventNotify : IntPtr
+        Decompose     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Init", "put_Init", "EnumFilters", "get_Container", "put_Container", "get_Type", "get_Category", "Build", "PostBuild", "PreRun", "PostRun", "PreStop", "PostStop", "OnEventNotify", "Decompose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidGraphSegment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -129,78 +145,13 @@ class IMSVidGraphSegment extends IPersist {
      */
     get_Category() {
         pGuid := Guid()
-        result := ComCall(10, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
     /**
-     * Fills a specified DCB structure with values specified in a device-control string. (ANSI)
-     * @remarks
-     * The 
-     * <b>BuildCommDCB</b> function adjusts only those members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that are specifically affected by the <i>lpDef</i> parameter, with the following exceptions:
      * 
-     * <ul>
-     * <li>If the specified baud rate is 110, the function sets the stop bits to 2 to remain compatible with the system's <b>mode</b> command.</li>
-     * <li>By default, 
-     * <b>BuildCommDCB</b> disables XON/XOFF and hardware flow control. To enable flow control, you must explicitly set the appropriate members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure.</li>
-     * </ul>
-     * The 
-     * <b>BuildCommDCB</b> function only fills in the members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure. To apply these settings to a serial port, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommstate">SetCommState</a> function.
-     * 
-     * There are older and newer forms of the <b>mode</b> syntax. The 
-     * <b>BuildCommDCB</b> function supports both forms. However, you cannot mix the two forms together.
-     * 
-     * The newer form of the <b>mode</b> syntax lets you explicitly set the values of the flow control members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure. If you use an older form of the <b>mode</b> syntax, the 
-     * <b>BuildCommDCB</b> function sets the flow control members of the 
-     * <b>DCB</b> structure, as follows:
-     * 
-     * <ul>
-     * <li>For a string that does not end with an x or a p: 
-     * 
-     * 
-     * <ul>
-     * <li><b>fInX</b>, <b>fOutX</b>, <b>fOutXDsrFlow</b>, and <b>fOutXCtsFlow</b> are all set to <b>FALSE</b></li>
-     * <li><b>fDtrControl</b> is set to DTR_CONTROL_ENABLE</li>
-     * <li><b>fRtsControl</b> is set to RTS_CONTROL_ENABLE</li>
-     * </ul>
-     * </li>
-     * <li>For a string that ends with an x: 
-     * 
-     * 
-     * <ul>
-     * <li><b>fInX</b> and <b>fOutX</b> are both set to <b>TRUE</b></li>
-     * <li><b>fOutXDsrFlow</b> and <b>fOutXCtsFlow</b> are both set to <b>FALSE</b></li>
-     * <li><b>fDtrControl</b> is set to DTR_CONTROL_ENABLE</li>
-     * <li><b>fRtsControl</b> is set to RTS_CONTROL_ENABLE</li>
-     * </ul>
-     * </li>
-     * <li>For a string that ends with a p: 
-     * 
-     * 
-     * <ul>
-     * <li><b>fInX</b> and <b>fOutX</b> are both set to <b>FALSE</b></li>
-     * <li><b>fOutXDsrFlow</b> and <b>fOutXCtsFlow</b> are both set to <b>TRUE</b></li>
-     * <li><b>fDtrControl</b> is set to DTR_CONTROL_HANDSHAKE</li>
-     * <li><b>fRtsControl</b> is set to RTS_CONTROL_HANDSHAKE</li>
-     * </ul>
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines BuildCommDCB as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-buildcommdcba
+     * @returns {HRESULT} 
      */
     Build() {
         result := ComCall(11, this, "HRESULT")
@@ -271,5 +222,53 @@ class IMSVidGraphSegment extends IPersist {
     Decompose() {
         result := ComCall(18, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidGraphSegment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Init := CallbackCreate(GetMethod(implObj, "get_Init"), flags, 2)
+        this.vtbl.put_Init := CallbackCreate(GetMethod(implObj, "put_Init"), flags, 2)
+        this.vtbl.EnumFilters := CallbackCreate(GetMethod(implObj, "EnumFilters"), flags, 2)
+        this.vtbl.get_Container := CallbackCreate(GetMethod(implObj, "get_Container"), flags, 2)
+        this.vtbl.put_Container := CallbackCreate(GetMethod(implObj, "put_Container"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 2)
+        this.vtbl.Build := CallbackCreate(GetMethod(implObj, "Build"), flags, 1)
+        this.vtbl.PostBuild := CallbackCreate(GetMethod(implObj, "PostBuild"), flags, 1)
+        this.vtbl.PreRun := CallbackCreate(GetMethod(implObj, "PreRun"), flags, 1)
+        this.vtbl.PostRun := CallbackCreate(GetMethod(implObj, "PostRun"), flags, 1)
+        this.vtbl.PreStop := CallbackCreate(GetMethod(implObj, "PreStop"), flags, 1)
+        this.vtbl.PostStop := CallbackCreate(GetMethod(implObj, "PostStop"), flags, 1)
+        this.vtbl.OnEventNotify := CallbackCreate(GetMethod(implObj, "OnEventNotify"), flags, 4)
+        this.vtbl.Decompose := CallbackCreate(GetMethod(implObj, "Decompose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Init)
+        CallbackFree(this.vtbl.put_Init)
+        CallbackFree(this.vtbl.EnumFilters)
+        CallbackFree(this.vtbl.get_Container)
+        CallbackFree(this.vtbl.put_Container)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Category)
+        CallbackFree(this.vtbl.Build)
+        CallbackFree(this.vtbl.PostBuild)
+        CallbackFree(this.vtbl.PreRun)
+        CallbackFree(this.vtbl.PostRun)
+        CallbackFree(this.vtbl.PreStop)
+        CallbackFree(this.vtbl.PostStop)
+        CallbackFree(this.vtbl.OnEventNotify)
+        CallbackFree(this.vtbl.Decompose)
     }
 }

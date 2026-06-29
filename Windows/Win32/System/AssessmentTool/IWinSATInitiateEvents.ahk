@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implement this interface to receive notifications when an assessment is complete or making progress.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iwinsatinitiateevents
  * @namespace Windows.Win32.System.AssessmentTool
  */
-class IWinSATInitiateEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWinSATInitiateEvents extends IUnknown {
     /**
      * The interface identifier for IWinSATInitiateEvents
      * @type {Guid}
      */
-    static IID => Guid("{262a1918-ba0d-41d5-92c2-fab4633ee74f}")
+    static IID := Guid("{262a1918-ba0d-41d5-92c2-fab4633ee74f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWinSATInitiateEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        WinSATComplete : IntPtr
+        WinSATUpdate   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WinSATComplete", "WinSATUpdate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWinSATInitiateEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Receives notification when an assessment succeeds, fails, or is canceled.
@@ -149,5 +159,27 @@ class IWinSATInitiateEvents extends IUnknown {
 
         result := ComCall(4, this, "uint", uCurrentTick, "uint", uTickTotal, "ptr", strCurrentState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWinSATInitiateEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WinSATComplete := CallbackCreate(GetMethod(implObj, "WinSATComplete"), flags, 3)
+        this.vtbl.WinSATUpdate := CallbackCreate(GetMethod(implObj, "WinSATUpdate"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WinSATComplete)
+        CallbackFree(this.vtbl.WinSATUpdate)
     }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRWindowlessControl9 interface controls how the Video Mixing Renderer Filter 9 (VMR-9) renders a video stream within a container window.
@@ -12,26 +17,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrwindowlesscontrol9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRWindowlessControl9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRWindowlessControl9 extends IUnknown {
     /**
      * The interface identifier for IVMRWindowlessControl9
      * @type {Guid}
      */
-    static IID => Guid("{8f537d09-f85e-4414-b23b-502e54c79927}")
+    static IID := Guid("{8f537d09-f85e-4414-b23b-502e54c79927}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRWindowlessControl9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNativeVideoSize     : IntPtr
+        GetMinIdealVideoSize   : IntPtr
+        GetMaxIdealVideoSize   : IntPtr
+        SetVideoPosition       : IntPtr
+        GetVideoPosition       : IntPtr
+        GetAspectRatioMode     : IntPtr
+        SetAspectRatioMode     : IntPtr
+        SetVideoClippingWindow : IntPtr
+        RepaintVideo           : IntPtr
+        DisplayModeChanged     : IntPtr
+        GetCurrentImage        : IntPtr
+        SetBorderColor         : IntPtr
+        GetBorderColor         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNativeVideoSize", "GetMinIdealVideoSize", "GetMaxIdealVideoSize", "SetVideoPosition", "GetVideoPosition", "GetAspectRatioMode", "SetAspectRatioMode", "SetVideoClippingWindow", "RepaintVideo", "DisplayModeChanged", "GetCurrentImage", "SetBorderColor", "GetBorderColor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRWindowlessControl9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetNativeVideoSize method retrieves the un-stretched video size and aspect ratio of the video.
@@ -218,7 +242,7 @@ class IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoposition
      */
     SetVideoPosition(lpSRCRect, lpDSTRect) {
-        result := ComCall(6, this, "ptr", lpSRCRect, "ptr", lpDSTRect, "HRESULT")
+        result := ComCall(6, this, RECT.Ptr, lpSRCRect, RECT.Ptr, lpDSTRect, "HRESULT")
         return result
     }
 
@@ -261,7 +285,7 @@ class IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getvideoposition
      */
     GetVideoPosition(lpSRCRect, lpDSTRect) {
-        result := ComCall(7, this, "ptr", lpSRCRect, "ptr", lpDSTRect, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, lpSRCRect, RECT.Ptr, lpDSTRect, "HRESULT")
         return result
     }
 
@@ -368,9 +392,7 @@ class IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoclippingwindow
      */
     SetVideoClippingWindow(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(10, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -413,10 +435,7 @@ class IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-repaintvideo
      */
     RepaintVideo(_hwnd, _hdc) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(11, this, "ptr", _hwnd, "ptr", _hdc, "HRESULT")
+        result := ComCall(11, this, HWND, _hwnd, HDC, _hdc, "HRESULT")
         return result
     }
 
@@ -503,7 +522,7 @@ class IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setbordercolor
      */
     SetBorderColor(Clr) {
-        result := ComCall(14, this, "uint", Clr, "HRESULT")
+        result := ComCall(14, this, COLORREF, Clr, "HRESULT")
         return result
     }
 
@@ -515,7 +534,51 @@ class IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getbordercolor
      */
     GetBorderColor() {
-        result := ComCall(15, this, "uint*", &lpClr := 0, "HRESULT")
+        result := ComCall(15, this, COLORREF.Ptr, &lpClr := 0, "HRESULT")
         return lpClr
+    }
+
+    Query(iid) {
+        if (IVMRWindowlessControl9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 5)
+        this.vtbl.GetMinIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetMinIdealVideoSize"), flags, 3)
+        this.vtbl.GetMaxIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetMaxIdealVideoSize"), flags, 3)
+        this.vtbl.SetVideoPosition := CallbackCreate(GetMethod(implObj, "SetVideoPosition"), flags, 3)
+        this.vtbl.GetVideoPosition := CallbackCreate(GetMethod(implObj, "GetVideoPosition"), flags, 3)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.SetVideoClippingWindow := CallbackCreate(GetMethod(implObj, "SetVideoClippingWindow"), flags, 2)
+        this.vtbl.RepaintVideo := CallbackCreate(GetMethod(implObj, "RepaintVideo"), flags, 3)
+        this.vtbl.DisplayModeChanged := CallbackCreate(GetMethod(implObj, "DisplayModeChanged"), flags, 1)
+        this.vtbl.GetCurrentImage := CallbackCreate(GetMethod(implObj, "GetCurrentImage"), flags, 2)
+        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.GetBorderColor := CallbackCreate(GetMethod(implObj, "GetBorderColor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNativeVideoSize)
+        CallbackFree(this.vtbl.GetMinIdealVideoSize)
+        CallbackFree(this.vtbl.GetMaxIdealVideoSize)
+        CallbackFree(this.vtbl.SetVideoPosition)
+        CallbackFree(this.vtbl.GetVideoPosition)
+        CallbackFree(this.vtbl.GetAspectRatioMode)
+        CallbackFree(this.vtbl.SetAspectRatioMode)
+        CallbackFree(this.vtbl.SetVideoClippingWindow)
+        CallbackFree(this.vtbl.RepaintVideo)
+        CallbackFree(this.vtbl.DisplayModeChanged)
+        CallbackFree(this.vtbl.GetCurrentImage)
+        CallbackFree(this.vtbl.SetBorderColor)
+        CallbackFree(this.vtbl.GetBorderColor)
     }
 }

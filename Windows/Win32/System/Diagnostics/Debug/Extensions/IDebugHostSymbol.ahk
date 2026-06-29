@@ -1,41 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugHostContext.ahk
-#Include .\IDebugHostSymbolEnumerator.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IDebugHostType.ahk
-#Include .\IDebugHostModule.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\SymbolKind.ahk" { SymbolKind }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugHostModule.ahk" { IDebugHostModule }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostSymbol extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostSymbol extends IUnknown {
     /**
      * The interface identifier for IDebugHostSymbol
      * @type {Guid}
      */
-    static IID => Guid("{0f819103-87de-4e96-8277-e05cd441fb22}")
+    static IID := Guid("{0f819103-87de-4e96-8277-e05cd441fb22}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostSymbol interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContext          : IntPtr
+        EnumerateChildren   : IntPtr
+        GetSymbolKind       : IntPtr
+        GetName             : IntPtr
+        GetType             : IntPtr
+        GetContainingModule : IntPtr
+        CompareAgainst      : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostSymbol.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContext", "EnumerateChildren", "GetSymbolKind", "GetName", "GetType", "GetContainingModule", "CompareAgainst"]
-
-    /**
-     * Gets the context preference flags.
+     * 
      * @returns {IDebugHostContext} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext() {
         result := ComCall(3, this, "ptr*", &_context := 0, "HRESULT")
@@ -51,7 +66,7 @@ class IDebugHostSymbol extends IUnknown {
     EnumerateChildren(kind, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "int", kind, "ptr", name, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, SymbolKind, kind, "ptr", name, "ptr*", &ppEnum := 0, "HRESULT")
         return IDebugHostSymbolEnumerator(ppEnum)
     }
 
@@ -70,18 +85,14 @@ class IDebugHostSymbol extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        symbolName := BSTR()
-        result := ComCall(6, this, "ptr", symbolName, "HRESULT")
+        symbolName := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, symbolName, "HRESULT")
         return symbolName
     }
 
     /**
-     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @returns {IDebugHostType} 
-     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      */
     GetType() {
         result := ComCall(7, this, "ptr*", &type := 0, "HRESULT")
@@ -106,5 +117,37 @@ class IDebugHostSymbol extends IUnknown {
     CompareAgainst(pComparisonSymbol, comparisonFlags) {
         result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, "int*", &pMatches := 0, "HRESULT")
         return pMatches
+    }
+
+    Query(iid) {
+        if (IDebugHostSymbol.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.EnumerateChildren := CallbackCreate(GetMethod(implObj, "EnumerateChildren"), flags, 4)
+        this.vtbl.GetSymbolKind := CallbackCreate(GetMethod(implObj, "GetSymbolKind"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetContainingModule := CallbackCreate(GetMethod(implObj, "GetContainingModule"), flags, 2)
+        this.vtbl.CompareAgainst := CallbackCreate(GetMethod(implObj, "CompareAgainst"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.EnumerateChildren)
+        CallbackFree(this.vtbl.GetSymbolKind)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetContainingModule)
+        CallbackFree(this.vtbl.CompareAgainst)
     }
 }

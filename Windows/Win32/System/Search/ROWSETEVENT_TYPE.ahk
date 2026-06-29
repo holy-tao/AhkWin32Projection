@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the type of change to the rowset's data.
@@ -18,7 +17,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type
  * @namespace Windows.Win32.System.Search
  */
-class ROWSETEVENT_TYPE extends Win32Enum {
+export default struct ROWSETEVENT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that data backing the rowset has expired, and that a new rowset should be requested.

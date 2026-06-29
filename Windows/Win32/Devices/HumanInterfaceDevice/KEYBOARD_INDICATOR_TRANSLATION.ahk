@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INDICATOR_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INDICATOR_LIST.ahk" { INDICATOR_LIST }
 
 /**
  * KEYBOARD_INDICATOR_TRANSLATION specifies a device-specific, variable length array of mappings between keyboard scan codes and LED indicators.
@@ -9,19 +8,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_indicator_translation
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class KEYBOARD_INDICATOR_TRANSLATION extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct KEYBOARD_INDICATOR_TRANSLATION {
+    #StructPack 2
 
     /**
      * Specifies the number of elements in the <b>IndicatorList</b> array.
-     * @type {Integer}
      */
-    NumberOfIndicatorKeys {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    NumberOfIndicatorKeys : UInt16
 
     /**
      * Specifies a device-specific, variable-length array of INDICATOR_LIST structures.
@@ -33,13 +26,7 @@ class KEYBOARD_INDICATOR_TRANSLATION extends Win32Struct {
      *   USHORT  IndicatorFlags;
      * } INDICATOR_LIST, *PINDICATOR_LIST;
      * ```
-     * @type {INDICATOR_LIST}
      */
-    IndicatorList {
-        get {
-            if(!this.HasProp("__IndicatorListProxyArray"))
-                this.__IndicatorListProxyArray := Win32FixedArray(this.ptr + 2, 1, INDICATOR_LIST, "")
-            return this.__IndicatorListProxyArray
-        }
-    }
+    IndicatorList : INDICATOR_LIST[1]
+
 }

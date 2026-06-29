@@ -1,23 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_RESERVED_AUTHENTICATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_RESERVED_AUTHENTICATION_FLAGS.ahk" { IKEEXT_RESERVED_AUTHENTICATION_FLAGS }
 
 /**
  * Reserved for internal use.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_reserved_authentication0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_RESERVED_AUTHENTICATION0 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct IKEEXT_RESERVED_AUTHENTICATION0 {
+    #StructPack 4
 
     /**
      * Type: <b>UINT32</b>
-     * @type {IKEEXT_RESERVED_AUTHENTICATION_FLAGS}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : IKEEXT_RESERVED_AUTHENTICATION_FLAGS
+
 }

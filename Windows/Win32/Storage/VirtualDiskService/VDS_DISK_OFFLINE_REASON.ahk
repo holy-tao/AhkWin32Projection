@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the set of reasons for a disk to be offline.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_disk_offline_reason
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_DISK_OFFLINE_REASON extends Win32Enum {
+export default struct VDS_DISK_OFFLINE_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The reason is unknown.

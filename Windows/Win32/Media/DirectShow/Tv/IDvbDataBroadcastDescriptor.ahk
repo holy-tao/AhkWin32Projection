@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) data broadcast descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbdatabroadcastdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbDataBroadcastDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbDataBroadcastDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbDataBroadcastDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{d1ebc1d6-8b60-4c20-9caf-e59382e7c400}")
+    static IID := Guid("{d1ebc1d6-8b60-4c20-9caf-e59382e7c400}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbDataBroadcastDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag             : IntPtr
+        GetLength          : IntPtr
+        GetDataBroadcastID : IntPtr
+        GetComponentTag    : IntPtr
+        GetSelectorLength  : IntPtr
+        GetSelectorBytes   : IntPtr
+        GetLangID          : IntPtr
+        GetTextLength      : IntPtr
+        GetText            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetDataBroadcastID", "GetComponentTag", "GetSelectorLength", "GetSelectorBytes", "GetLangID", "GetTextLength", "GetText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbDataBroadcastDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tag that identifies a Digital Video Broadcast (DVB) data broadcast descriptor.
@@ -124,5 +140,41 @@ class IDvbDataBroadcastDescriptor extends IUnknown {
 
         result := ComCall(11, this, pbLenMarshal, pbLen, "char*", &pbVal := 0, "HRESULT")
         return pbVal
+    }
+
+    Query(iid) {
+        if (IDvbDataBroadcastDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetDataBroadcastID := CallbackCreate(GetMethod(implObj, "GetDataBroadcastID"), flags, 2)
+        this.vtbl.GetComponentTag := CallbackCreate(GetMethod(implObj, "GetComponentTag"), flags, 2)
+        this.vtbl.GetSelectorLength := CallbackCreate(GetMethod(implObj, "GetSelectorLength"), flags, 2)
+        this.vtbl.GetSelectorBytes := CallbackCreate(GetMethod(implObj, "GetSelectorBytes"), flags, 3)
+        this.vtbl.GetLangID := CallbackCreate(GetMethod(implObj, "GetLangID"), flags, 2)
+        this.vtbl.GetTextLength := CallbackCreate(GetMethod(implObj, "GetTextLength"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetDataBroadcastID)
+        CallbackFree(this.vtbl.GetComponentTag)
+        CallbackFree(this.vtbl.GetSelectorLength)
+        CallbackFree(this.vtbl.GetSelectorBytes)
+        CallbackFree(this.vtbl.GetLangID)
+        CallbackFree(this.vtbl.GetTextLength)
+        CallbackFree(this.vtbl.GetText)
     }
 }

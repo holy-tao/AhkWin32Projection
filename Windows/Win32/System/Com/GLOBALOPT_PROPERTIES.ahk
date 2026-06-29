@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The GLOBALOPT_PROPERTIES (objidlbase.h) enumeration identifies process-global options that you can set or query by using the IGlobalOptions interface.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-globalopt_properties
  * @namespace Windows.Win32.System.Com
  */
-class GLOBALOPT_PROPERTIES extends Win32Enum {
+export default struct GLOBALOPT_PROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Defines COM exception-handling behavior.

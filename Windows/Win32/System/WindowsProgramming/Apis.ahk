@@ -1,9364 +1,6409 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include .\HWINWATCH.ahk
+#Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
+
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\WLDP_POLICY_SETTING.ahk" { WLDP_POLICY_SETTING }
+#Import ".\CABINFOW.ahk" { CABINFOW }
+#Import ".\PERUSERSECTIONA.ahk" { PERUSERSECTIONA }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import ".\HWINWATCH.ahk" { HWINWATCH }
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\STRTABLEW.ahk" { STRTABLEW }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\WLDP_DEVICE_SECURITY_INFORMATION.ahk" { WLDP_DEVICE_SECURITY_INFORMATION }
+#Import ".\FEATURE_ERROR.ahk" { FEATURE_ERROR }
+#Import ".\HW_PROFILE_INFOA.ahk" { HW_PROFILE_INFOA }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IMEPROW.ahk" { IMEPROW }
+#Import ".\WLDP_SECURE_SETTING_VALUE_TYPE.ahk" { WLDP_SECURE_SETTING_VALUE_TYPE }
+#Import ".\DCISURFACEINFO.ahk" { DCISURFACEINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HW_PROFILE_INFOW.ahk" { HW_PROFILE_INFOW }
+#Import ".\WLDP_WINDOWS_LOCKDOWN_MODE.ahk" { WLDP_WINDOWS_LOCKDOWN_MODE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WLDP_EXECUTION_EVALUATION_OPTIONS.ahk" { WLDP_EXECUTION_EVALUATION_OPTIONS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\PERUSERSECTIONW.ahk" { PERUSERSECTIONW }
+#Import ".\STRTABLEA.ahk" { STRTABLEA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\FEATURE_CHANGE_TIME.ahk" { FEATURE_CHANGE_TIME }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMEPROA.ahk" { IMEPROA }
+#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\WLDP_HOST_INFORMATION.ahk" { WLDP_HOST_INFORMATION }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DCIOVERLAY.ahk" { DCIOVERLAY }
+#Import ".\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk" { WLDP_WINDOWS_LOCKDOWN_RESTRICTION }
+#Import ".\FEATURE_ENABLED_STATE.ahk" { FEATURE_ENABLED_STATE }
+#Import "..\..\Foundation\HLOCAL.ahk" { HLOCAL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WLDP_EXECUTION_POLICY.ahk" { WLDP_EXECUTION_POLICY }
+#Import ".\CABINFOA.ahk" { CABINFOA }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\Kernel\STRING.ahk" { STRING }
+#Import ".\FEATURE_STATE_CHANGE_SUBSCRIPTION.ahk" { FEATURE_STATE_CHANGE_SUBSCRIPTION }
+#Import ".\CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.ahk" { CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG }
+#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import ".\DCIOFFSCREEN.ahk" { DCIOFFSCREEN }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class WindowsProgramming {
 
-;@region Constants
-
-    /**
-     * @type {String}
-     */
-    static WLDP_DLL => "WLDP.DLL"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_GETLOCKDOWNPOLICY_FN => "WldpGetLockdownPolicy"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_ISCLASSINAPPROVEDLIST_FN => "WldpIsClassInApprovedList"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_SETDYNAMICCODETRUST_FN => "WldpSetDynamicCodeTrust"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_ISDYNAMICCODEPOLICYENABLED_FN => "WldpIsDynamicCodePolicyEnabled"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYDANAMICCODETRUST_FN => "WldpQueryDynamicCodeTrust"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYDYNAMICCODETRUST_FN => "WldpQueryDynamicCodeTrust"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYWINDOWSLOCKDOWNMODE_FN => "WldpQueryWindowsLockdownMode"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_SETWINDOWSLOCKDOWNRESTRICTION_FN => "WldpSetWindowsLockdownRestriction"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYDEVICESECURITYINFORMATION_FN => "WldpQueryDeviceSecurityInformation"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_FN => "WldpQueryWindowsLockdownRestriction"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_ISAPPAPPROVEDBYPOLICY_FN => "WldpIsAppApprovedByPolicy"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYPOLICYSETTINGENABLED_FN => "WldpQueryPolicySettingEnabled"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYPOLICYSETTINGENABLED2_FN => "WldpQueryPolicySettingEnabled2"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_ISWCOSPRODUCTIONCONFIGURATION_FN => "WldpIsWcosProductionConfiguration"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_RESETWCOSPRODUCTIONCONFIGURATION_FN => "WldpResetWcosProductionConfiguration"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_ISPRODUCTIONCONFIGURATION_FN => "WldpIsProductionConfiguration"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_RESETPRODUCTIONCONFIGURATION_FN => "WldpResetProductionConfiguration"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_CANEXECUTEBUFFER_FN => "WldpCanExecuteBuffer"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_CANEXECUTEFILE_FN => "WldpCanExecuteFile"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_CANEXECUTEFILEFROMDETACHEDSIGNATURE_FN => "WldpCanExecuteFileFromDetachedSignature"
-
-    /**
-     * @type {String}
-     */
-    static WLDP_QUERYSECURITYPOLICY_FN => "WldpQuerySecurityPolicy"
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_UNDEFINED => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_DEFINED_FLAG => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_CONFIG_CI_FLAG => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_CONFIG_CI_AUDIT_FLAG => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_UMCIENFORCE_FLAG => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_AUDIT_FLAG => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_EXCLUSION_FLAG => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_LOCKDOWN_OFF => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_HOST_INFORMATION_REVISION => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WLDP_FLAGS_SKIPSIGNATUREVALIDATION => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MAX_TDI_ENTITIES => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INFO_CLASS_GENERIC => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INFO_CLASS_PROTOCOL => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INFO_CLASS_IMPLEMENTATION => 768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INFO_TYPE_PROVIDER => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INFO_TYPE_ADDRESS_OBJECT => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INFO_TYPE_CONNECTION => 768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ENTITY_LIST_ID => 0
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static INVALID_ENTITY_INSTANCE => -1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CONTEXT_SIZE => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ENTITY_TYPE_ID => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CO_TL_NBF => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CO_TL_SPX => 1026
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CO_TL_TCP => 1028
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CO_TL_SPP => 1030
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CL_TL_NBF => 1025
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CL_TL_UDP => 1027
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ER_ICMP => 896
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CL_NL_IPX => 769
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CL_NL_IP => 771
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AT_ARP => 640
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AT_NULL => 642
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IF_GENERIC => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IF_MIB => 514
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IOCTL_TDI_TL_IO_CONTROL_ENDPOINT => 2162744
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_VERSION => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCICREATEPRIMARYSURFACE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCICREATEOFFSCREENSURFACE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCICREATEOVERLAYSURFACE => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCIENUMSURFACE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCIESCAPE => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_OK => 0
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_FAIL_GENERIC => -1
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_FAIL_UNSUPPORTEDVERSION => -2
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_FAIL_INVALIDSURFACE => -3
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_FAIL_UNSUPPORTED => -4
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_CURRENTLYNOTAVAIL => -5
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_INVALIDRECT => -6
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_UNSUPPORTEDFORMAT => -7
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_UNSUPPORTEDMASK => -8
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_TOOBIGHEIGHT => -9
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_TOOBIGWIDTH => -10
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_TOOBIGSIZE => -11
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_OUTOFMEMORY => -12
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_INVALIDPOSITION => -13
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_INVALIDSTRETCH => -14
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_INVALIDCLIPLIST => -15
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_SURFACEISOBSCURED => -16
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_XALIGN => -17
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_YALIGN => -18
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_XYALIGN => -19
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_WIDTHALIGN => -20
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static DCI_ERR_HEIGHTALIGN => -21
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_STATUS_POINTERCHANGED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_STATUS_STRIDECHANGED => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_STATUS_FORMATCHANGED => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_STATUS_SURFACEINFOCHANGED => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_STATUS_CHROMAKEYCHANGED => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_STATUS_WASSTILLDRAWING => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_SURFACE_TYPE => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_PRIMARY => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_OFFSCREEN => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_OVERLAY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_VISIBLE => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_CHROMAKEY => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_1632_ACCESS => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_DWORDSIZE => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_DWORDALIGN => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_WRITEONLY => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_ASYNC => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_CAN_STRETCHX => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_CAN_STRETCHY => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_CAN_STRETCHXN => 16384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_CAN_STRETCHYN => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DCI_CANOVERLAY => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_FLAG_OPEN_REQUIRING_OPLOCK => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_FLAG_IGNORE_IMPERSONATED_DEVICEMAP => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_FLAG_DISALLOW_PATH_REDIRECTS => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FAIL_FAST_GENERATE_EXCEPTION_ADDRESS => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FAIL_FAST_NO_HARD_ERROR_DLG => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_SERIALCOMM => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_UNSPECIFIED => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_RS232 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_PARALLELPORT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_RS422 => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_RS423 => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_RS449 => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_MODEM => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_FAX => 33
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_SCANNER => 34
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_NETWORK_BRIDGE => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_LAT => 257
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_TCPIP_TELNET => 258
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PST_X25 => 259
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_DTRDSR => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_RTSCTS => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_RLSD => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_PARITY_CHECK => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_XONXOFF => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_SETXCHAR => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_TOTALTIMEOUTS => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_INTTIMEOUTS => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_SPECIALCHARS => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCF_16BITMODE => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_PARITY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_BAUD => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_DATABITS => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_STOPBITS => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_HANDSHAKING => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_PARITY_CHECK => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SP_RLSD => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_075 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_110 => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_134_5 => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_150 => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_300 => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_600 => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_1200 => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_1800 => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_2400 => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_4800 => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_7200 => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_9600 => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_14400 => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_19200 => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_38400 => 16384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_56K => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_128K => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_115200 => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_57600 => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BAUD_USER => 268435456
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static COMMPROP_INITIALIZED => 3879531822
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DTR_CONTROL_DISABLE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DTR_CONTROL_ENABLE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DTR_CONTROL_HANDSHAKE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTS_CONTROL_DISABLE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTS_CONTROL_ENABLE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTS_CONTROL_HANDSHAKE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTS_CONTROL_TOGGLE => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_NOCOMPACT => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_NODISCARD => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_MODIFY => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_DISCARDABLE => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_NOT_BANKED => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_SHARE => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_DDESHARE => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_NOTIFY => 16384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_LOWER => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_VALID_FLAGS => 32626
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_INVALID_HANDLE => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_DISCARDED => 16384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GMEM_LOCKCOUNT => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static THREAD_PRIORITY_ERROR_RETURN => 2147483647
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_UNKNOWN => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_NO_ROOT_DIR => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_REMOVABLE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_FIXED => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_REMOTE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_CDROM => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DRIVE_RAMDISK => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IGNORE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_110 => 110
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_300 => 300
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_600 => 600
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_1200 => 1200
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_2400 => 2400
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_4800 => 4800
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_9600 => 9600
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_14400 => 14400
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_19200 => 19200
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_38400 => 38400
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_56000 => 56000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_57600 => 57600
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_115200 => 115200
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_128000 => 128000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CBR_256000 => 256000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CE_TXFULL => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CE_PTO => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CE_IOE => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CE_DNS => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CE_OOP => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CE_MODE => 32768
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_BADID => -1
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_OPEN => -2
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_NOPEN => -3
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_MEMORY => -4
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_DEFAULT => -5
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_HARDWARE => -10
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_BYTESIZE => -11
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IE_BAUDRATE => -12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RESETDEV => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPTx => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_QUEUEEMPTY => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_THRESHOLD => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_ALLTHRESHOLD => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_NORMAL => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_LEGATO => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_STACCATO => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_PERIOD512 => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_PERIOD1024 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_PERIOD2048 => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_PERIODVOICE => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_WHITE512 => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_WHITE1024 => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_WHITE2048 => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static S_WHITEVOICE => 7
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDVNA => -1
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SEROFM => -2
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERMACT => -3
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERQFUL => -4
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERBDNT => -5
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDLN => -6
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDCC => -7
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDTP => -8
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDVL => -9
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDMD => -10
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDSH => -11
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDPT => -12
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDFQ => -13
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDDR => -14
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDSR => -15
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static S_SERDST => -16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_CASE_IS_PRESERVED => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_CASE_SENSITIVE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_UNICODE_STORED_ON_DISK => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_PERSISTENT_ACLS => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_VOL_IS_COMPRESSED => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_FILE_COMPRESSION => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FS_FILE_ENCRYPTION => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static OFS_MAXPATHNAME => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MAXINTATOM => 49152
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_32BIT_BINARY => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_DOS_BINARY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_WOW_BINARY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_PIF_BINARY => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_POSIX_BINARY => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_OS216_BINARY => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_64BIT_BINARY => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SCS_THIS_PLATFORM_BINARY => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FIBER_FLAG_FLOAT_SWITCH => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static UMS_VERSION => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_SKIP_COMPLETION_PORT_ON_SUCCESS => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_SKIP_SET_EVENT_ON_HANDLE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CRITICAL_SECTION_NO_DEBUG_INFO => 16777216
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static HINSTANCE_ERROR => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FORMAT_MESSAGE_MAX_WIDTH_MASK => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_ENCRYPTABLE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_IS_ENCRYPTED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_SYSTEM_ATTR => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_ROOT_DIR => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_SYSTEM_DIR => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_UNKNOWN => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_SYSTEM_NOT_SUPPORT => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_USER_DISALLOWED => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_READ_ONLY => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_DIR_DISALLOWED => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EFS_USE_RECOVERY_KEYS => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CREATE_FOR_IMPORT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CREATE_FOR_DIR => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static OVERWRITE_HIDDEN => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EFSRPC_SECURE_ONLY => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EFS_DROP_ALTERNATE_STREAMS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BACKUP_INVALID => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BACKUP_GHOSTED_FILE_EXTENTS => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STREAM_NORMAL_ATTRIBUTE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STREAM_MODIFIED_WHEN_READ => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STREAM_CONTAINS_SECURITY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STREAM_CONTAINS_PROPERTIES => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STREAM_SPARSE_ATTRIBUTE => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STREAM_CONTAINS_GHOSTED_FILE_EXTENTS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STARTF_HOLOGRAPHIC => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SHUTDOWN_NORETRY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROTECTION_LEVEL_SAME => 4294967295
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ATOM_FLAG_GLOBAL => 2
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A => "GetSystemWow64DirectoryA"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W => "GetSystemWow64DirectoryA"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T => "GetSystemWow64DirectoryA"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A => "GetSystemWow64DirectoryW"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W => "GetSystemWow64DirectoryW"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T => "GetSystemWow64DirectoryW"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A => "GetSystemWow64DirectoryW"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W => "GetSystemWow64DirectoryW"
-
-    /**
-     * @type {String}
-     */
-    static GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T => "GetSystemWow64DirectoryW"
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BASE_SEARCH_PATH_PERMANENT => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EVENTLOG_FULL_INFO => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static OPERATION_API_VERSION => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MAX_COMPUTERNAME_LENGTH => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LOGON32_PROVIDER_WINNT35 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LOGON32_PROVIDER_VIRTUAL => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LOGON_ZERO_PASSWORD_BUFFER => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static HW_PROFILE_GUIDLEN => 39
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DOCKINFO_UNDOCKED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DOCKINFO_DOCKED => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DOCKINFO_USER_SUPPLIED => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static TC_NORMAL => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static TC_HARDERR => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static TC_GP_TRAP => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static TC_SIGNAL => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AC_LINE_OFFLINE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AC_LINE_ONLINE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AC_LINE_BACKUP_POWER => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AC_LINE_UNKNOWN => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_FLAG_HIGH => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_FLAG_LOW => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_FLAG_CRITICAL => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_FLAG_CHARGING => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_FLAG_NO_BATTERY => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_FLAG_UNKNOWN => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_PERCENTAGE_UNKNOWN => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SYSTEM_STATUS_FLAG_POWER_SAVING_ON => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static BATTERY_LIFE_UNKNOWN => 4294967295
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_LANGID_VALID => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_RESOURCE_NAME_VALID => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_SET_PROCESS_DEFAULT => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_APPLICATION_NAME_VALID => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_SOURCE_IS_ASSEMBLYREF => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTCTX_FLAG_HMODULE_VALID => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FIND_ACTCTX_SECTION_KEY_RETURN_HACTCTX => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FIND_ACTCTX_SECTION_KEY_RETURN_FLAGS => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FIND_ACTCTX_SECTION_KEY_RETURN_ASSEMBLY_METADATA => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static QUERY_ACTCTX_FLAG_USE_ACTIVE_ACTCTX => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static QUERY_ACTCTX_FLAG_ACTCTX_IS_HMODULE => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static QUERY_ACTCTX_FLAG_ACTCTX_IS_ADDRESS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static QUERY_ACTCTX_FLAG_NO_ADDREF => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RESTART_MAX_CMD_LINE => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RECOVERY_DEFAULT_PING_INTERVAL => 5000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_RENAME_FLAG_REPLACE_IF_EXISTS => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_RENAME_FLAG_POSIX_SEMANTICS => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STORAGE_INFO_FLAGS_ALIGNED_DEVICE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STORAGE_INFO_OFFSET_UNKNOWN => 4294967295
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static REMOTE_PROTOCOL_INFO_FLAG_OFFLINE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_FLAG_SMB2_SHARECAP_TIMEWARP => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_FLAG_SMB2_SHARECAP_DFS => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_FLAG_SMB2_SHARECAP_SCALEOUT => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_FLAG_SMB2_SHARECAP_CLUSTER => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_SHAREFLAG_ENCRYPT_DATA => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_SHAREFLAG_COMPRESS_DATA => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_FLAG_SERVERCAP_DFS => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_FLAG_SERVERCAP_LEASING => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_FLAG_SERVERCAP_LARGEMTU => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_ENABLED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_TESTSIGN => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_UMCI_ENABLED => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_UMCI_AUDITMODE_ENABLED => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_UMCI_EXCLUSIONPATHS_ENABLED => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_TEST_BUILD => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_PREPRODUCTION_BUILD => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_DEBUGMODE_ENABLED => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_FLIGHT_BUILD => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_FLIGHTING_ENABLED => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_HVCI_KMCI_ENABLED => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_HVCI_KMCI_AUDITMODE_ENABLED => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_HVCI_KMCI_STRICTMODE_ENABLED => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CODEINTEGRITY_OPTION_HVCI_IUM_ENABLED => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_MAXIMUM_DISPOSITION => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_OPEN_REMOTE_INSTANCE => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_NO_COMPRESSION => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_OPEN_NO_RECALL => 4194304
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_VALID_OPTION_FLAGS => 16777215
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_VALID_PIPE_OPTION_FLAGS => 50
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_VALID_MAILSLOT_OPTION_FLAGS => 50
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_VALID_SET_FLAGS => 54
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_SUPERSEDED => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_OPENED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_CREATED => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_OVERWRITTEN => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_EXISTS => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FILE_DOES_NOT_EXIST => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WINWATCHNOTIFY_START => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WINWATCHNOTIFY_STOP => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WINWATCHNOTIFY_DESTROY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WINWATCHNOTIFY_CHANGING => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WINWATCHNOTIFY_CHANGED => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_INF => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_SKIPDISKSPACECHECK => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_QUIET => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_NGCONV => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_UPDHLPDLLS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_DELAYREGISTEROCX => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSC_FLAG_SETUPAPI => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_QUIET => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_NGCONV => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_UPDHLPDLLS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_BKINSTALL => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_ROLLBACK => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_CHECKBKDATA => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_ROLLBKDOALL => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ALINF_DELAYREGISTEROCX => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_WARNIFSKIP => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_NOSKIP => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_NOVERSIONCHECK => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_FORCE_FILE_IN_USE => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_NOOVERWRITE => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_NO_VERSION_DIALOG => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_REPLACEONLY => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_NOLANGUAGECHECK => 268435456
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AIF_QUIET => 536870912
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_RESTORE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_BACKNEW => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_NODELETENEW => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_NOMESSAGES => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_NOPROGRESS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_NOENUMKEY => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_NO_CRC_MAPPING => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_REGSECTION => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_FRDOALL => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_UPDREFCNT => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_USEREFCNT => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_EXTRAINCREFCNT => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IE4_REMOVREGBKDATA => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ARSR_RESTORE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ARSR_NOMESSAGES => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ARSR_REGSECTION => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ARSR_REMOVREGBKDATA => 4096
-
-    /**
-     * @type {String}
-     */
-    static REG_SAVE_LOG_KEY => "RegSaveLogFile"
-
-    /**
-     * @type {String}
-     */
-    static REG_RESTORE_LOG_KEY => "RegRestoreLogFile"
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_RESTORE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_BACKNEW => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_NODELETENEW => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_NOMESSAGES => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_NOPROGRESS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_UPDREFCNT => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_USEREFCNT => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AFSR_EXTRAINCREFCNT => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AADBE_ADD_ENTRY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static AADBE_DEL_ENTRY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ADN_DEL_IF_EMPTY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ADN_DONT_DEL_SUBDIRS => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ADN_DONT_DEL_DIR => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ADN_DEL_UNC_PATHS => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LIS_QUIET => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LIS_NOGRPCONV => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RUNCMDS_QUIET => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RUNCMDS_NOWAIT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RUNCMDS_DELAYPOSTCMD => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MAXPROCESS => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CP_HWND => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CP_OPEN => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CP_DIRECT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CP_LEVEL => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MCW_DEFAULT => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MCW_RECT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MCW_WINDOW => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MCW_SCREEN => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MCW_VERTICAL => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MCW_HIDDEN => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_ALPHANUMERIC => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_SBCSCHAR => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_KATAKANA => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_HIRAGANA => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_HANJACONVERT => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_DBCSCHAR => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_ROMAN => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_NOROMAN => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_CODEINPUT => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MODE_NOCODEINPUT => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_GETIMECAPS => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_SETOPEN => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_GETOPEN => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_GETVERSION => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_SETCONVERSIONWINDOW => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_MOVEIMEWINDOW => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_SETCONVERSIONMODE => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_GETCONVERSIONMODE => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_SET_MODE => 18
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_SENDVKEY => 19
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_ENTERWORDREGISTERMODE => 24
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_SETCONVERSIONFONTEX => 25
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_BANJAtoJUNJA => 19
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_JUNJAtoBANJA => 20
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_JOHABtoKS => 21
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_KStoJOHAB => 22
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IMEA_INIT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IMEA_NEXT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IMEA_PREV => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_REQUEST_CONVERT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_ENABLE_CONVERT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INTERIM_WINDOW => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MODE_WINDOW => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static HANJA_WINDOW => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_ERROR => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_NOIME => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_TOOLONG => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_ILLEGAL => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_NOTFOUND => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_NOROOM => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_DISKERROR => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_INVALID => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_NEST => 18
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IME_RS_SYSTEMMODAL => 19
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_IME_REPORT => 640
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_STRINGSTART => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_STRINGEND => 257
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_OPENCONVERT => 288
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_CHANGECONVERT => 289
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_CLOSECONVERT => 290
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_FULLCONVERT => 291
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_IMESELECT => 304
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_STRING => 320
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_DBCSCHAR => 352
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_UNDETERMINE => 368
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_STRINGEX => 384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IR_MODEINFO => 400
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_WNT_CONVERTREQUESTEX => 265
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_CONVERTREQUEST => 266
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_CONVERTRESULT => 267
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_INTERIM => 268
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_IMEKEYDOWN => 656
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WM_IMEKEYUP => 657
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELAYLOAD_GPA_FAILURE => 4
-
-    /**
-     * @type {Guid}
-     */
-    static CATID_DeleteBrowsingHistory => Guid("{31caf6e4-d6aa-4090-a050-a5ac8972e9ef}")
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_HISTORY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_COOKIES => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_TIF => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_FORMDATA => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_PASSWORDS => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_PRESERVEFAVORITES => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DELETE_BROWSING_HISTORY_DOWNLOADHISTORY => 64
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_CMD => Guid("{5baea1d6-6f1c-488e-8490-347fa5c5067f}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_POWERSHELL => Guid("{8e9aaa7c-198b-4879-ae41-a50d47ad6458}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_PYTHON => Guid("{bfd557ef-2448-42ec-810b-0d9f09352d4a}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_WINDOWS_SCRIPT_HOST => Guid("{d30b84c5-29ce-4ff3-86ec-a30007a82e49}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_JAVASCRIPT => Guid("{5629f0d5-1cca-4fed-a1a3-36a8c18d74c0}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_HTML => Guid("{b35a71b6-fe56-48d6-9543-2dff0ecded66}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_XML => Guid("{5594be58-c6bf-4295-82f4-d494d20e3a36}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_MSI => Guid("{624eb611-6e7e-4eec-9bfe-f0ecdbfcf390}")
-
-    /**
-     * @type {Guid}
-     */
-    static WLDP_HOST_OTHER => Guid("{626cbec3-e1fa-4227-9800-ed210274cf7c}")
-;@endregion Constants
-
-;@region Methods
-    /**
-     * 
-     * @param {Pointer<Integer>} String1 
-     * @param {Pointer<Integer>} String2 
-     * @returns {Integer} 
-     */
-    static uaw_lstrcmpW(String1, String2) {
-        String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
-        String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_lstrcmpW", String1Marshal, String1, String2Marshal, String2, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Integer>} String1 
-     * @param {Pointer<Integer>} String2 
-     * @returns {Integer} 
-     */
-    static uaw_lstrcmpiW(String1, String2) {
-        String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
-        String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_lstrcmpiW", String1Marshal, String1, String2Marshal, String2, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Integer>} _String 
-     * @returns {Integer} 
-     */
-    static uaw_lstrlenW(_String) {
-        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_lstrlenW", _StringMarshal, _String, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Integer>} _String 
-     * @param {Integer} Character 
-     * @returns {Pointer<Integer>} 
-     */
-    static uaw_wcschr(_String, Character) {
-        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_wcschr", _StringMarshal, _String, "char", Character, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Integer>} Destination 
-     * @param {Pointer<Integer>} Source 
-     * @returns {Pointer<Integer>} 
-     */
-    static uaw_wcscpy(Destination, Source) {
-        DestinationMarshal := Destination is VarRef ? "ushort*" : "ptr"
-        SourceMarshal := Source is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_wcscpy", DestinationMarshal, Destination, SourceMarshal, Source, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Integer>} String1 
-     * @param {Pointer<Integer>} String2 
-     * @returns {Integer} 
-     */
-    static uaw_wcsicmp(String1, String2) {
-        String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
-        String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_wcsicmp", String1Marshal, String1, String2Marshal, String2, "int")
-        return result
-    }
-
-    /**
-     * Retrieves the number of characters in a null-terminated Unicode string.
-     * @remarks
-     * This function is available only on 64-bit Windows.
-     * @param {Pointer<Integer>} _String A pointer to a null-terminated Unicode string.
-     * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
-     */
-    static uaw_wcslen(_String) {
-        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_wcslen", _StringMarshal, _String, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Integer>} _String 
-     * @param {Integer} Character 
-     * @returns {Pointer<Integer>} 
-     */
-    static uaw_wcsrchr(_String, Character) {
-        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\uaw_wcsrchr", _StringMarshal, _String, "char", Character, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @returns {Pointer} 
-     */
-    static RtlGetReturnAddressHijackTarget() {
-        result := DllCall("ntdll.dll\RtlGetReturnAddressHijackTarget", "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} TriggerConfig 
-     * @returns {Integer} 
-     */
-    static RtlRaiseCustomSystemEventTrigger(TriggerConfig) {
-        result := DllCall("ntdll.dll\RtlRaiseCustomSystemEventTrigger", "ptr", TriggerConfig, "uint")
-        return result
-    }
-
-    /**
-     * The IsApiSetImplemented function tests if a specified API set is present on the computer.
-     * @remarks
-     * All versions of Windows 10 share a common base of OS components that is called the *core OS* (in some contexts this is also called *OneCore*). In core OS components, Win32 APIs are organized into functional groups called [API sets](/windows/win32/apiindex/windows-apisets).
-     * 
-     * Some API sets are not available on all Windows 10 platforms. For example, although the full breadth of the Win32 API is supported on PCs, only a subset of the Win32 API is available on other devices such as HoloLens, Xbox, and other devices running Windows 10x.
-     * 
-     * When writing code that targets both desktop and non-desktop Windows 10 devices, wrap the API call in **IsApiSetImplemented**. This function tests at runtime if the API set that the API belongs to is present on the target platform. For more details see [Detect API set availability](/windows/win32/apiindex/detect-api-set-availability).
-     * 
-     * To identify whether a given Win32 API belongs to an API set, review the requirements table in the reference documentation for the API. If the API belongs to an API set, the requirements table in the article lists the API set name.
-     * @param {PSTR} Contract Specifies the name of the API set to query. For more info, see the Remarks section.
-     * @returns {BOOL} **IsApiSetImplemented** returns **TRUE** if the specified API set is present. In this case, APIs in the target API set have valid implementations on the current platform.
-     * 
-     * Otherwise, this function returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/apiquery2/nf-apiquery2-isapisetimplemented
-     */
-    static IsApiSetImplemented(Contract) {
-        Contract := Contract is String ? StrPtr(Contract) : Contract
-
-        result := DllCall("api-ms-win-core-apiquery-l2-1-0.dll\IsApiSetImplemented", "ptr", Contract, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} contractName 
-     * @param {Integer} bufferLength 
-     * @param {PWSTR} moduleBaseName 
-     * @returns {Integer} 
-     */
-    static GetApiSetModuleBaseName(contractName, bufferLength, moduleBaseName) {
-        contractName := contractName is String ? StrPtr(contractName) : contractName
-        moduleBaseName := moduleBaseName is String ? StrPtr(moduleBaseName) : moduleBaseName
-
-        result := DllCall("api-ms-win-core-apiquery-l2-1-1.dll\GetApiSetModuleBaseName", "ptr", contractName, "uint", bufferLength, "ptr", moduleBaseName, "uint*", &actualNameLength := 0, "HRESULT")
-        return actualNameLength
-    }
-
-    /**
-     * Retrieves the cycle time for the specified thread.
-     * @remarks
-     * To enumerate the threads of the process, use the <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32first">Thread32First</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32next">Thread32Next</a> functions. To get the thread handle for a thread identifier, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthread">OpenThread</a> function.
-     * 
-     * Do not attempt to convert the CPU clock cycles returned by <b>QueryThreadCycleTime</b> to elapsed time. This function uses timer services provided by the CPU, which can vary in implementation. For example, some CPUs will vary the frequency of the timer when changing the frequency at which the CPU runs and others will leave it at a fixed rate. The behavior of each CPU is described in the documentation provided by the CPU vendor.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
-     * @param {HANDLE} ThreadHandle A handle to the thread. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<Integer>} CycleTime The number of CPU clock cycles used by the thread. This value includes cycles spent in both user mode and kernel mode.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-querythreadcycletime
-     * @since windows6.0.6000
-     */
-    static QueryThreadCycleTime(ThreadHandle, CycleTime) {
-        ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
-
-        CycleTimeMarshal := CycleTime is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\QueryThreadCycleTime", "ptr", ThreadHandle, CycleTimeMarshal, CycleTime, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the sum of the cycle time of all threads of the specified process.
-     * @remarks
-     * To enumerate the processes in the system, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-enumprocesses">EnumProcesses</a> function.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
-     * @param {HANDLE} ProcessHandle A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<Integer>} CycleTime The number of CPU clock cycles used by the threads of the process. This value includes cycles spent in both user mode and kernel mode.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryprocesscycletime
-     * @since windows6.0.6000
-     */
-    static QueryProcessCycleTime(ProcessHandle, CycleTime) {
-        ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
-
-        CycleTimeMarshal := CycleTime is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\QueryProcessCycleTime", "ptr", ProcessHandle, CycleTimeMarshal, CycleTime, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the cycle time for the idle thread of each processor in the system.
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
-     * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group.
-     * 
-     * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
-     * @param {Integer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletime
-     * @since windows6.0.6000
-     */
-    static QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
-        BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", BufferLengthMarshal, BufferLength, "ptr", ProcessorIdleCycleTime, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the accumulated cycle time for the idle thread on each logical processor in the specified processor group.
-     * @remarks
-     * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0601. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group. 
-     * 
-     * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
-     * @param {Integer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, use <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletimeex
-     * @since windows6.1
-     */
-    static QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime) {
-        BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", "ushort", Group, BufferLengthMarshal, BufferLength, "ptr", ProcessorIdleCycleTime, "int")
-        return result
-    }
-
-    /**
-     * Gets the current interrupt-time count, in a more precise form than QueryInterruptTime does.
-     * @remarks
-     * <b>QueryInterruptTimePrecise</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime">QueryInterruptTime</a> routine, but is more precise. The interrupt time reported by <b>QueryInterruptTime</b> is based on the latest tick of the system clock timer. The system clock timer is the hardware timer that periodically generates interrupts for the system clock. The uniform period between system clock timer interrupts is referred to as a system clock tick, and is typically in the range of 0.5 milliseconds to 15.625 milliseconds, depending on the hardware platform. The interrupt time value retrieved by <b>QueryInterruptTime</b> is accurate within a system clock tick.
-     * 
-     * To provide a system time value that is more precise than that of <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime">QueryInterruptTime</a>, <b>QueryInterruptTimePrecise</b> reads the timer hardware directly,  therefore a <b>QueryInterruptTimePrecise</b> call can be slower than a <b>QueryInterruptTime</b> call.
-     * 
-     * Call the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-kequerytimeincrement">KeQueryTimeIncrement</a> routine to determine the duration of a system clock tick.
-     * 
-     * Also see Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime">QueryInterruptTime</a>.
-     * 
-     * <div class="alert"><b>Note</b>  The <b>QueryInterruptTimePrecise</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
-     * <div> </div>
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
-     * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<Integer>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
-     * @since windows10.0.10240
-     */
-    static QueryInterruptTimePrecise(lpInterruptTimePrecise) {
-        lpInterruptTimePreciseMarshal := lpInterruptTimePrecise is VarRef ? "uint*" : "ptr"
-
-        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", lpInterruptTimePreciseMarshal, lpInterruptTimePrecise)
-    }
-
-    /**
-     * Gets the current unbiased interrupt-time count, in a more precise form than QueryUnbiasedInterruptTime does. The unbiased interrupt-time count does not include time the system spends in sleep or hibernation.
-     * @remarks
-     * <b>QueryUnbiasedInterruptTimePrecise</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a> routine, but is more precise. The interrupt time reported by <b>QueryUnbiasedInterruptTime</b> is based on the latest tick of the system clock timer. The system clock timer is the hardware timer that periodically generates interrupts for the system clock. The uniform period between system clock timer interrupts is referred to as a system clock tick, and is typically in the range of 0.5 milliseconds to 15.625 milliseconds, depending on the hardware platform. The interrupt time value retrieved by <b>QueryUnbiasedInterruptTime</b> is accurate within a system clock tick.
-     * 
-     * To provide a system time value that is more precise than that of <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a>, <b>QueryUnbiasedInterruptTimePrecise</b> reads the timer hardware directly,  therefore a <b>QueryUnbiasedInterruptTimePrecise</b> call can be slower than a <b>QueryUnbiasedInterruptTime</b> call.
-     * 
-     * Call the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-kequerytimeincrement">KeQueryTimeIncrement</a> routine to determine the duration of a system clock tick.
-     * 
-     * Also see Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a>.
-     * 
-     * <div class="alert"><b>Note</b>  The <b>QueryUnbiasedInterruptTimePrecise</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
-     * <div> </div>
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
-     * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<Integer>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
-     * @since windows10.0.10240
-     */
-    static QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
-        lpUnbiasedInterruptTimePreciseMarshal := lpUnbiasedInterruptTimePrecise is VarRef ? "uint*" : "ptr"
-
-        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", lpUnbiasedInterruptTimePreciseMarshal, lpUnbiasedInterruptTimePrecise)
-    }
-
-    /**
-     * Gets the current interrupt-time count.
-     * @remarks
-     * The interrupt-time count begins at zero when the system starts and is incremented at each clock interrupt by the length of a clock tick. The exact length of a clock tick depends on underlying hardware and can vary between systems.
-     * 
-     * Unlike system time, the interrupt-time count is not subject to adjustments by users or the Windows time service. Applications can use the interrupt-time count to measure finer durations than are possible with system time. Applications that require greater precision than the interrupt-time count should use a <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-timers">high-resolution timer</a>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancefrequency">QueryPerformanceFrequency</a> function to retrieve the frequency of the high-resolution timer and the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> function to retrieve the counter's value.
-     * 
-     * The  timer resolution set by the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> and <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timeendperiod">timeEndPeriod</a> functions affects the resolution of  the <b>QueryInterruptTime</b> function. However, increasing the timer resolution is not recommended because it can reduce overall system performance and   increase system power consumption by preventing the processor from entering power-saving states. Instead, applications should use a high-resolution timer.
-     * 
-     * <div class="alert"><b>Note</b>  The <b>QueryInterruptTime</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
-     * <div> </div>
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<Integer>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime
-     * @since windows10.0.10240
-     */
-    static QueryInterruptTime(lpInterruptTime) {
-        lpInterruptTimeMarshal := lpInterruptTime is VarRef ? "uint*" : "ptr"
-
-        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", lpInterruptTimeMarshal, lpInterruptTime)
-    }
-
-    /**
-     * Gets the current unbiased interrupt-time count, in units of 100 nanoseconds. The unbiased interrupt-time count does not include time the system spends in sleep or hibernation.
-     * @remarks
-     * The interrupt-time count begins at zero when the system starts and is incremented at each clock interrupt by the length of a clock tick. The exact length of a clock tick depends on underlying hardware and can vary between systems.
-     * 
-     * The interrupt-time count retrieved by the <b>QueryUnbiasedInterruptTime</b> function reflects only the time that the system is in the working state. Therefore, the interrupt-time count is not "biased" by time the system spends in sleep or hibernation. The system uses biased interrupt time for some operations, such as ensuring that relative timers that would have expired during sleep expire immediately upon waking.
-     * 
-     * Unlike system time, the interrupt-time count is not subject to adjustments by users or the Windows time service. Applications can use the interrupt-time count to measure finer durations than are possible with system time. Applications that require greater precision than the interrupt-time count should use a <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-timers">high-resolution timer</a>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancefrequency">QueryPerformanceFrequency</a> function to retrieve the frequency of the high-resolution timer and the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> function to retrieve the counter's value.
-     * 
-     * The  timer resolution set by the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> and <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timeendperiod">timeEndPeriod</a> functions affects the resolution of  the <b>QueryUnbiasedInterruptTime</b> function. However, increasing the timer resolution is not recommended because it can reduce overall system performance and   increase system power consumption by preventing the processor from entering power-saving states. Instead, applications should use a high-resolution timer.
-     * 
-     * <div class="alert"><b>Note</b>  The <b>QueryUnbiasedInterruptTime</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
-     * <div> </div>
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<Integer>} UnbiasedTime TBD
-     * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails because it is called with a null parameter, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime
-     * @since windows6.1
-     */
-    static QueryUnbiasedInterruptTime(UnbiasedTime) {
-        UnbiasedTimeMarshal := UnbiasedTime is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", UnbiasedTimeMarshal, UnbiasedTime, "int")
-        return result
-    }
-
-    /**
-     * Queries the auxiliary counter frequency.
-     * @remarks
-     * You can determine the availability of the auxiliary counter by comparing the returned value against <b>E_NOTIMPL</b>.
-     * @returns {Integer} Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
-     * @since windows10.0.15063
-     */
-    static QueryAuxiliaryCounterFrequency() {
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", "uint*", &lpAuxiliaryCounterFrequency := 0, "HRESULT")
-        return lpAuxiliaryCounterFrequency
-    }
-
-    /**
-     * Converts the specified auxiliary counter value to the corresponding performance counter value; optionally provides the estimated conversion error in nanoseconds due to latencies and maximum possible drift.
-     * @param {Integer} ullAuxiliaryCounterValue The auxiliary counter value to convert.
-     * @param {Pointer<Integer>} lpPerformanceCounterValue On success, contains the converted performance counter value. Will be undefined if the function fails.
-     * @param {Pointer<Integer>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
-     * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The auxiliary counter is not supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BOUNDS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value to convert is outside the permitted range (+/- 10 seconds from when the called occurred).
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-convertauxiliarycountertoperformancecounter
-     * @since windows10.0.15063
-     */
-    static ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpPerformanceCounterValue, lpConversionError) {
-        lpPerformanceCounterValueMarshal := lpPerformanceCounterValue is VarRef ? "uint*" : "ptr"
-        lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertAuxiliaryCounterToPerformanceCounter", "uint", ullAuxiliaryCounterValue, lpPerformanceCounterValueMarshal, lpPerformanceCounterValue, lpConversionErrorMarshal, lpConversionError, "HRESULT")
-        return result
-    }
-
-    /**
-     * Converts the specified performance counter value to the corresponding auxiliary counter value; optionally provides the estimated conversion error in nanoseconds due to latencies and maximum possible drift.
-     * @param {Integer} ullPerformanceCounterValue The performance counter value to convert.
-     * @param {Pointer<Integer>} lpAuxiliaryCounterValue On success, contains the converted auxiliary counter value. Will be undefined if the function fails.
-     * @param {Pointer<Integer>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
-     * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The auxiliary counter is not supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BOUNDS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value to convert is outside the permitted range (+/- 10 seconds from when the called occurred).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BOUNDS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value to convert is prior to the last system boot or S3/S4 transition.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-convertperformancecountertoauxiliarycounter
-     * @since windows10.0.15063
-     */
-    static ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue, lpAuxiliaryCounterValue, lpConversionError) {
-        lpAuxiliaryCounterValueMarshal := lpAuxiliaryCounterValue is VarRef ? "uint*" : "ptr"
-        lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertPerformanceCounterToAuxiliaryCounter", "uint", ullPerformanceCounterValue, lpAuxiliaryCounterValueMarshal, lpAuxiliaryCounterValue, lpConversionErrorMarshal, lpConversionError, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} dwMinFree 
-     * @returns {Pointer} 
-     */
-    static GlobalCompact(dwMinFree) {
-        result := DllCall("KERNEL32.dll\GlobalCompact", "uint", dwMinFree, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HGLOBAL} hMem 
-     * @returns {String} Nothing - always returns an empty string
-     */
-    static GlobalFix(hMem) {
-        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
-
-        DllCall("KERNEL32.dll\GlobalFix", "ptr", hMem)
-    }
-
-    /**
-     * 
-     * @param {HGLOBAL} hMem 
-     * @returns {String} Nothing - always returns an empty string
-     */
-    static GlobalUnfix(hMem) {
-        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
-
-        DllCall("KERNEL32.dll\GlobalUnfix", "ptr", hMem)
-    }
-
-    /**
-     * 
-     * @param {HGLOBAL} hMem 
-     * @returns {Pointer<Void>} 
-     */
-    static GlobalWire(hMem) {
-        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
-
-        result := DllCall("KERNEL32.dll\GlobalWire", "ptr", hMem, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HGLOBAL} hMem 
-     * @returns {BOOL} 
-     */
-    static GlobalUnWire(hMem) {
-        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
-
-        result := DllCall("KERNEL32.dll\GlobalUnWire", "ptr", hMem, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HLOCAL} hMem 
-     * @param {Integer} cbNewSize 
-     * @returns {Pointer} 
-     */
-    static LocalShrink(hMem, cbNewSize) {
-        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
-
-        result := DllCall("KERNEL32.dll\LocalShrink", "ptr", hMem, "uint", cbNewSize, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} uMinFree 
-     * @returns {Pointer} 
-     */
-    static LocalCompact(uMinFree) {
-        result := DllCall("KERNEL32.dll\LocalCompact", "uint", uMinFree, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} NewEnvironment 
-     * @returns {BOOL} 
-     */
-    static SetEnvironmentStringsA(NewEnvironment) {
-        NewEnvironment := NewEnvironment is String ? StrPtr(NewEnvironment) : NewEnvironment
-
-        result := DllCall("KERNEL32.dll\SetEnvironmentStringsA", "ptr", NewEnvironment, "int")
-        return result
-    }
-
-    /**
-     * The SetHandleCount function changes the number of file handles available to a process.
-     * @param {Integer} uNumber The requested number of available file handles.
-     * @returns {Integer} The number of available file handles.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-sethandlecount
-     */
-    static SetHandleCount(uNumber) {
-        result := DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HANDLE} hDevice 
-     * @returns {BOOL} 
-     */
-    static RequestDeviceWakeup(hDevice) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := DllCall("KERNEL32.dll\RequestDeviceWakeup", "ptr", hDevice, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HANDLE} hDevice 
-     * @returns {BOOL} 
-     */
-    static CancelDeviceWakeupRequest(hDevice) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := DllCall("KERNEL32.dll\CancelDeviceWakeupRequest", "ptr", hDevice, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HANDLE} hMsgIndicator 
-     * @param {Integer} ulMsgCount 
-     * @returns {BOOL} 
-     */
-    static SetMessageWaitingIndicator(hMsgIndicator, ulMsgCount) {
-        hMsgIndicator := hMsgIndicator is Win32Handle ? NumGet(hMsgIndicator, "ptr") : hMsgIndicator
-
-        result := DllCall("KERNEL32.dll\SetMessageWaitingIndicator", "ptr", hMsgIndicator, "uint", ulMsgCount, "int")
-        return result
-    }
-
-    /**
-     * Multiplies two 32-bit values and then divides the 64-bit result by a third 32-bit value.
-     * @param {Integer} nNumber The multiplicand.
-     * @param {Integer} nNumerator The multiplier.
-     * @param {Integer} nDenominator The number by which the result of the multiplication operation is to be divided.
-     * @returns {Integer} If the function succeeds, the return value is the result of the multiplication and division, rounded to the nearest integer. If the result is a positive half integer (ends in .5), it is rounded up. If the result is a negative half integer, it is rounded down.
-     * 
-     * If either an overflow occurred or <i>nDenominator</i> was 0, the return value is -1.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-muldiv
-     * @since windows5.1.2600
-     */
-    static MulDiv(nNumber, nNumerator, nDenominator) {
-        result := DllCall("KERNEL32.dll\MulDiv", "int", nNumber, "int", nNumerator, "int", nDenominator, "int")
-        return result
-    }
-
-    /**
-     * Retrieves the current size of the registry and the maximum size that the registry is allowed to attain on the system.
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0501 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<Integer>} pdwQuotaAllowed A pointer to a variable that receives the maximum size that the registry is allowed to attain on this system, in bytes.
-     * @param {Pointer<Integer>} pdwQuotaUsed A pointer to a variable that receives the current size of  the registry, in bytes.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getsystemregistryquota
-     * @since windows6.0.6000
-     */
-    static GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
-        pdwQuotaAllowedMarshal := pdwQuotaAllowed is VarRef ? "uint*" : "ptr"
-        pdwQuotaUsedMarshal := pdwQuotaUsed is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", pdwQuotaAllowedMarshal, pdwQuotaAllowed, pdwQuotaUsedMarshal, pdwQuotaUsed, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Converts a file time to MS-DOS date and time values.
-     * @remarks
-     * The MS-DOS date format can represent only dates between 1/1/1980 and 12/31/2107; this conversion fails if the input file time is outside this range.
-     * @param {Pointer<FILETIME>} lpFileTime A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the file time to convert to MS-DOS date and time format.
-     * @param {Pointer<Integer>} lpFatDate A pointer to a variable to receive the MS-DOS date. The date is a packed value with the following format. 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bits</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>0–4</td>
-     * <td>Day of the month (1–31)</td>
-     * </tr>
-     * <tr>
-     * <td>5–8</td>
-     * <td>Month (1 = January, 2 = February, etc.)</td>
-     * </tr>
-     * <tr>
-     * <td>9-15</td>
-     * <td>Year offset from 1980 (add 1980 to get actual year)</td>
-     * </tr>
-     * </table>
-     * @param {Pointer<Integer>} lpFatTime A pointer to a variable to receive the MS-DOS time. The time is a packed value with the following format. 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bits</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>0–4</td>
-     * <td>Second divided by 2</td>
-     * </tr>
-     * <tr>
-     * <td>5–10</td>
-     * <td>Minute (0–59)</td>
-     * </tr>
-     * <tr>
-     * <td>11–15</td>
-     * <td>Hour (0–23 on a 24-hour clock)</td>
-     * </tr>
-     * </table>
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-filetimetodosdatetime
-     * @since windows5.0
-     */
-    static FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime) {
-        lpFatDateMarshal := lpFatDate is VarRef ? "ushort*" : "ptr"
-        lpFatTimeMarshal := lpFatTime is VarRef ? "ushort*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", "ptr", lpFileTime, lpFatDateMarshal, lpFatDate, lpFatTimeMarshal, lpFatTime, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Converts MS-DOS date and time values to a file time.
-     * @param {Integer} wFatDate The MS-DOS date. The date is a packed value with the following format. 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bits</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>0-4</td>
-     * <td>Day of the month (1–31)</td>
-     * </tr>
-     * <tr>
-     * <td>5-8</td>
-     * <td>Month (1 = January, 2 = February, and so on)</td>
-     * </tr>
-     * <tr>
-     * <td>9-15</td>
-     * <td>Year offset from 1980 (add 1980 to get actual year)</td>
-     * </tr>
-     * </table>
-     * @param {Integer} wFatTime The MS-DOS time. The time is a packed value with the following format. 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bits</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>0-4</td>
-     * <td>Second divided by 2</td>
-     * </tr>
-     * <tr>
-     * <td>5-10</td>
-     * <td>Minute (0–59)</td>
-     * </tr>
-     * <tr>
-     * <td>11-15</td>
-     * <td>Hour (0–23 on a 24-hour clock)</td>
-     * </tr>
-     * </table>
-     * @param {Pointer<FILETIME>} lpFileTime A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the converted file time.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dosdatetimetofiletime
-     * @since windows5.0
-     */
-    static DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime) {
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\DosDateTimeToFileTime", "ushort", wFatDate, "ushort", wFatTime, "ptr", lpFileTime, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * The _lopen function opens an existing file and sets the file pointer to the beginning of the file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the CreateFile function.
-     * @param {PSTR} lpPathName Pointer to a null-terminated string that names the file to open. The string must consist of characters from the Windows ANSI character set.
-     * @param {Integer} iReadWrite 
-     * @returns {Integer} If the function succeeds, the return value is a file handle.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lopen
-     */
-    static _lopen(lpPathName, iReadWrite) {
-        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
-
-        result := DllCall("KERNEL32.dll\_lopen", "ptr", lpPathName, "int", iReadWrite, "int")
-        return result
-    }
-
-    /**
-     * Creates or opens the specified file.
-     * @remarks
-     * If the file does not exist, <b>_lcreat</b> creates and opens a new file for writing. If the file does exist, <b>_lcreat</b> truncates the file size to zero and opens it for reading and writing.
-     * 
-     * When the function opens a file, the pointer is set to the beginning of the file.
-     * 
-     * Use the <b>_lcreat</b> function with care. It can open any file, even one already opened by another function.
-     * @param {PSTR} lpPathName The name of the file. The string must consist of characters from the Windows ANSI character set.
-     * @param {Integer} iAttribute The attributes of the file.
-     * @returns {Integer} If the function succeeds, the return value is a file handle. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat
-     */
-    static _lcreat(lpPathName, iAttribute) {
-        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\_lcreat", "ptr", lpPathName, "int", iAttribute, "int")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * The _lread function reads data from the specified file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the ReadFile function.
-     * @param {Integer} hFile Identifies the specified file.
-     * @param {Integer} lpBuffer Pointer to a buffer that contains the data read from the file.
-     * @param {Integer} uBytes Specifies the number of bytes to be read from the file.
-     * @returns {Integer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lread
-     */
-    static _lread(hFile, lpBuffer, uBytes) {
-        result := DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes, "uint")
-        return result
-    }
-
-    /**
-     * Writes data to the specified file.
-     * @param {Integer} hFile A handle to the file that receives the data. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
-     * @param {Integer} lpBuffer The buffer that contains the data to be added.
-     * @param {Integer} uBytes The number of bytes to write to the file.
-     * @returns {Integer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
-     */
-    static _lwrite(hFile, lpBuffer, uBytes) {
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} hFile 
-     * @param {Integer} lpBuffer 
-     * @param {Integer} lBytes 
-     * @returns {Integer} 
-     */
-    static _hread(hFile, lpBuffer, lBytes) {
-        result := DllCall("KERNEL32.dll\_hread", "int", hFile, "ptr", lpBuffer, "int", lBytes, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} hFile 
-     * @param {Integer} lpBuffer 
-     * @param {Integer} lBytes 
-     * @returns {Integer} 
-     */
-    static _hwrite(hFile, lpBuffer, lBytes) {
-        result := DllCall("KERNEL32.dll\_hwrite", "int", hFile, "ptr", lpBuffer, "int", lBytes, "int")
-        return result
-    }
-
-    /**
-     * The _lclose function closes the specified file so that it is no longer available for reading or writing. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the CloseHandle function.
-     * @param {Integer} hFile Identifies the file to be closed. This handle is returned by the function that created or last opened the file.
-     * @returns {Integer} Handle to file to close.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lclose
-     */
-    static _lclose(hFile) {
-        result := DllCall("KERNEL32.dll\_lclose", "int", hFile, "int")
-        return result
-    }
-
-    /**
-     * Repositions the file pointer for the specified file.
-     * @remarks
-     * When a file is initially opened, the file pointer is set to the beginning of the file. The <b>_llseek</b> function moves the pointer without reading data, which allows random access to the content of the file.
-     * @param {Integer} hFile A handle to an open file. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
-     * @param {Integer} lOffset The number of bytes that the file pointer is to be moved.
-     * @param {Integer} iOrigin The starting point and the direction that the pointer will be moved.
-     * @returns {Integer} If the function succeeds, the return value specifies the new offset. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_llseek
-     */
-    static _llseek(hFile, lOffset, iOrigin) {
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\_llseek", "int", hFile, "int", lOffset, "int", iOrigin, "int")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Opens an existing named mutex object.
-     * @remarks
-     * The 
-     * <b>OpenMutex</b> function enables multiple processes to open handles of the same mutex object. The function succeeds only if some process has already created the mutex by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createmutexa">CreateMutex</a> function. The calling process can use the returned handle in any function that requires a handle to a mutex object, such as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>, subject to the limitations of the access specified in the <i>dwDesiredAccess</i> parameter.
-     * 
-     * The handle can be duplicated by using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a> function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle. The system closes the handle automatically when the process terminates. The mutex object is destroyed when its last handle has been closed.
-     * 
-     * If your multithreaded application must repeatedly create, open, and close a named mutex object, a race condition can occur. In this situation, it is better to use <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createmutexa">CreateMutex</a> instead of <b>OpenMutex</b>, because <b>CreateMutex</b> opens a mutex if it exists and creates it if it does not.
-     * @param {Integer} dwDesiredAccess The access to the mutex object. Only the <b>SYNCHRONIZE</b> access right is required to use a mutex; to change the mutex's security, specify <b>MUTEX_ALL_ACCESS</b>. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {PSTR} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
-     * 
-     * 
-     * 
-     * 
-     * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * 
-     * <b>Terminal Services:  </b>The name can have a "Global\" or "Local\" prefix to explicitly open an object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
-     * 
-     * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {HANDLE} If the function succeeds, the return value is a handle to the mutex object.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * If a named mutex does not exist, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_FILE_NOT_FOUND</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openmutexw
-     */
-    static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-
-        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
-    }
-
-    /**
-     * Opens an existing named semaphore object.
-     * @remarks
-     * The 
-     * <b>OpenSemaphore</b> function enables multiple processes to open handles of the same semaphore object. The function succeeds only if some process has already created the semaphore by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createsemaphorea">CreateSemaphore</a> function. The calling process can use the returned handle in any function that requires a handle to a semaphore object, such as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>, subject to the limitations of the access specified in the <i>dwDesiredAccess</i> parameter.
-     * 
-     * The handle can be duplicated by using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a> function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle. The system closes the handle automatically when the process terminates. The semaphore object is destroyed when its last handle has been closed.
-     * @param {Integer} dwDesiredAccess The access to the semaphore object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {PSTR} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
-     * 
-     * 
-     * 
-     * 
-     * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * 
-     * <b>Terminal Services:  </b>The name can have a "Global\" or "Local\" prefix to explicitly open an object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
-     * 
-     * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew
-     */
-    static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-
-        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
-    }
-
-    /**
-     * Retrieves the value of the specified firmware environment variable. (ANSI)
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write Unified Extensible Firmware Interface (UEFI) firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * To read a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
-     * 
-     * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
-     * 	 function if needed. 
-     * 
-     * <b>GetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exgetfirmwareenvironmentvariable">ExGetFirmwareEnvironmentVariable</a> kernel-mode routine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
-     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariablea
-     * @since windows6.0.6000
-     */
-    static GetFirmwareEnvironmentVariableA(lpName, lpGuid, pBuffer, nSize) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the value of the specified firmware environment variable. (Unicode)
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write Unified Extensible Firmware Interface (UEFI) firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * To read a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
-     * 
-     * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
-     * 	 function if needed. 
-     * 
-     * <b>GetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exgetfirmwareenvironmentvariable">ExGetFirmwareEnvironmentVariable</a> kernel-mode routine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
-     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariablew
-     * @since windows6.0.6000
-     */
-    static GetFirmwareEnvironmentVariableW(lpName, lpGuid, pBuffer, nSize) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the value of the specified firmware environment variable and its attributes. (ANSI)
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * To read a UEFI firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
-     * 
-     * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
-     * 	 function if needed. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
-     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
-     * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
-     * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariableexa
-     * @since windows8.0
-     */
-    static GetFirmwareEnvironmentVariableExA(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, pdwAttribubutesMarshal, pdwAttribubutes, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the value of the specified firmware environment variable and its attributes. (Unicode)
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * To read a UEFI firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
-     * 
-     * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
-     * 	 function if needed. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
-     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
-     * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
-     * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariableexw
-     * @since windows8.0
-     */
-    static GetFirmwareEnvironmentVariableExW(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, pdwAttribubutesMarshal, pdwAttribubutes, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Sets the value of the specified firmware environment variable. (ANSI)
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
-     * 
-     * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
-     * 
-     * <b>SetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exsetfirmwareenvironmentvariable">ExSetFirmwareEnvironmentVariable</a> kernel-mode routine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
-     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariablea
-     * @since windows6.0.6000
-     */
-    static SetFirmwareEnvironmentVariableA(lpName, lpGuid, pValue, nSize) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Sets the value of the specified firmware environment variable. (Unicode)
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
-     * 
-     * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
-     * 
-     * <b>SetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exsetfirmwareenvironmentvariable">ExSetFirmwareEnvironmentVariable</a> kernel-mode routine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
-     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariablew
-     * @since windows6.0.6000
-     */
-    static SetFirmwareEnvironmentVariableW(lpName, lpGuid, pValue, nSize) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Sets the value of the specified firmware environment variable as the attributes that indicate how this variable is stored and maintained.
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
-     * 
-     * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * The correct method of changing the attributes of a variable is to delete the
-     * variable and recreate it with different attributes.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
-     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
-     * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
-     * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
-     * setting this value to zero will result in the deletion of this variable.
-     * @param {Integer} dwAttributes Bitmask to set UEFI variable attributes associated with the variable. See also <a href="https://www.uefi.org/specifications">UEFI Spec 2.3.1, Section 7.2</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_NON_VOLATILE"></a><a id="variable_attribute_non_volatile"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_NON_VOLATILE</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The firmware environment variable is stored in non-volatile memory (e.g. NVRAM).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS"></a><a id="variable_attribute_bootservice_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b></dt>
-     * <dt>0x00000002</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The firmware environment variable can be accessed during boot service.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_RUNTIME_ACCESS"></a><a id="variable_attribute_runtime_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_RUNTIME_ACCESS</b></dt>
-     * <dt>0x00000004</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The firmware environment variable can be accessed at runtime.
-     * 
-     * <div class="alert"><b>Note</b>  Variables with this attribute set, must also have
-     * <b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b> set.</div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD"></a><a id="variable_attribute_hardware_error_record"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD</b></dt>
-     * <dt>0x00000008</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates hardware related errors encountered at runtime.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_authenticated_write_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS</b></dt>
-     * <dt>0x00000010</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates an authentication requirement that must be met before writing to this firmware environment variable. For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_time_based_authenticated_write_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS</b></dt>
-     * <dt>0x00000020</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates authentication and time stamp requirements that must be met before writing to this firmware environment variable. When this attribute is set, the buffer, represented by <i>pValue</i>, will begin with an instance of a complete (and serialized) EFI_VARIABLE_AUTHENTICATION_2 descriptor.  For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_APPEND_WRITE"></a><a id="variable_attribute_append_write"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_APPEND_WRITE</b></dt>
-     * <dt>0x00000040</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     *  Append an existing environment variable with the value of <i>pValue</i>. If the
-     * firmware does not support the operation, then <b>SetFirmwareEnvironmentVariableEx</b> will return
-     * ERROR_INVALID_FUNCTION.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa
-     * @since windows8.0
-     */
-    static SetFirmwareEnvironmentVariableExA(lpName, lpGuid, pValue, nSize, dwAttributes) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Sets the value of the specified firmware environment variable and the attributes that indicate how this variable is stored and maintained.
-     * @remarks
-     * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
-     * 
-     * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
-     * 
-     * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
-     * 
-     * The correct method of changing the attributes of a variable is to delete the
-     * variable and recreate it with different attributes.
-     * 
-     * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
-     * 
-     * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
-     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
-     * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
-     * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
-     * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
-     * setting this value to zero will result in the deletion of this variable.
-     * @param {Integer} dwAttributes Bitmask to set UEFI variable attributes associated with the variable. See also <a href="https://www.uefi.org/specifications">UEFI Spec 2.3.1, Section 7.2</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_NON_VOLATILE"></a><a id="variable_attribute_non_volatile"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_NON_VOLATILE</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The firmware environment variable is stored in non-volatile memory (e.g. NVRAM).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS"></a><a id="variable_attribute_bootservice_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b></dt>
-     * <dt>0x00000002</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The firmware environment variable can be accessed during boot service.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_RUNTIME_ACCESS"></a><a id="variable_attribute_runtime_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_RUNTIME_ACCESS</b></dt>
-     * <dt>0x00000004</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The firmware environment variable can be accessed at runtime.
-     * 
-     * <div class="alert"><b>Note</b>  Variables with this attribute set, must also have
-     * <b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b> set.</div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD"></a><a id="variable_attribute_hardware_error_record"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD</b></dt>
-     * <dt>0x00000008</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates hardware related errors encountered at runtime.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_authenticated_write_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS</b></dt>
-     * <dt>0x00000010</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates an authentication requirement that must be met before writing to this firmware environment variable. For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_time_based_authenticated_write_access"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS</b></dt>
-     * <dt>0x00000020</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates authentication and time stamp requirements that must be met before writing to this firmware environment variable. When this attribute is set, the buffer, represented by <i>pValue</i>, will begin with an instance of a complete (and serialized) EFI_VARIABLE_AUTHENTICATION_2 descriptor.  For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="VARIABLE_ATTRIBUTE_APPEND_WRITE"></a><a id="variable_attribute_append_write"></a><dl>
-     * <dt><b>VARIABLE_ATTRIBUTE_APPEND_WRITE</b></dt>
-     * <dt>0x00000040</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     *  Append an existing environment variable with the value of <i>pValue</i>. If the
-     * firmware does not support the operation, then <b>SetFirmwareEnvironmentVariableEx</b> will return
-     * ERROR_INVALID_FUNCTION.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariableexw
-     * @since windows8.0
-     */
-    static SetFirmwareEnvironmentVariableExW(lpName, lpGuid, pValue, nSize, dwAttributes) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
-        lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Indicates if the OS was booted from a VHD container.
-     * @param {Pointer<BOOL>} NativeVhdBoot Pointer to a variable that receives a boolean
-     *         indicating if the OS was booted from a VHD.
-     * @returns {BOOL} TRUE if the OS was a native VHD boot; otherwise, FALSE.
-     * 
-     * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isnativevhdboot
-     * @since windows8.0
-     */
-    static IsNativeVhdBoot(NativeVhdBoot) {
-        NativeVhdBootMarshal := NativeVhdBoot is VarRef ? "int*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", NativeVhdBootMarshal, NativeVhdBoot, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves an integer from a key in the specified section of the Win.ini file. (ANSI)
-     * @remarks
-     * If the key name consists of digits followed by characters that are not numeric, the function returns only the value of the digits. For example, the function returns 102 for the following line: KeyName=102abc.
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key:<b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileInt</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 			
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section containing the key name.
-     * @param {PSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
-     * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
-     * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileinta
-     * @since windows5.0
-     */
-    static GetProfileIntA(lpAppName, lpKeyName, nDefault) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-
-        result := DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "uint")
-        return result
-    }
-
-    /**
-     * Retrieves an integer from a key in the specified section of the Win.ini file. (Unicode)
-     * @remarks
-     * If the key name consists of digits followed by characters that are not numeric, the function returns only the value of the digits. For example, the function returns 102 for the following line: KeyName=102abc.
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key:<b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileInt</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 			
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section containing the key name.
-     * @param {PWSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
-     * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
-     * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileintw
-     * @since windows5.0
-     */
-    static GetProfileIntW(lpAppName, lpKeyName, nDefault) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-
-        result := DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "uint")
-        return result
-    }
-
-    /**
-     * Retrieves the string associated with a key in the specified section of the Win.ini file. (ANSI)
-     * @remarks
-     * If the string associated with the <i>lpKeyName</i> parameter is enclosed in single or double quotation marks, the marks are discarded when the 
-     * <b>GetProfileString</b> function returns the string.
-     * 
-     * The 
-     * <b>GetProfileString</b> function is not case-sensitive; the strings can contain a combination of uppercase and lowercase letters.
-     * 
-     * A section in the Win.ini file must have the following form: 
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a> function to retrieve a string from a specified initialization file.
-     * 
-     * The <i>lpDefault</i> parameter must point to a valid string, even if the string is empty (that is, even if its first character is a <b>null</b> character).
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following keys:<p class="note">
-     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileString</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information: 
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping: 
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
-     * @param {PSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
-     * @param {PSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
-     * <b>GetProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer. If this parameter is <b>NULL</b>, the default is an empty string, "". 
-     * 
-     * 
-     * 
-     * 
-     * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {PSTR} lpReturnedString A pointer to a buffer that receives the character string.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
-     * @returns {Integer} The return value is the number of characters copied to the buffer, not including the <b>null</b>-terminating character.
-     * 
-     * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
-     * 
-     * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilestringa
-     * @since windows5.0
-     */
-    static GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-
-        result := DllCall("KERNEL32.dll\GetProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "uint")
-        return result
-    }
-
-    /**
-     * Retrieves the string associated with a key in the specified section of the Win.ini file. (Unicode)
-     * @remarks
-     * If the string associated with the <i>lpKeyName</i> parameter is enclosed in single or double quotation marks, the marks are discarded when the 
-     * <b>GetProfileString</b> function returns the string.
-     * 
-     * The 
-     * <b>GetProfileString</b> function is not case-sensitive; the strings can contain a combination of uppercase and lowercase letters.
-     * 
-     * A section in the Win.ini file must have the following form: 
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a> function to retrieve a string from a specified initialization file.
-     * 
-     * The <i>lpDefault</i> parameter must point to a valid string, even if the string is empty (that is, even if its first character is a <b>null</b> character).
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following keys:<p class="note">
-     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileString</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information: 
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping: 
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
-     * @param {PWSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
-     * @param {PWSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
-     * <b>GetProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer. If this parameter is <b>NULL</b>, the default is an empty string, "". 
-     * 
-     * 
-     * 
-     * 
-     * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {PWSTR} lpReturnedString A pointer to a buffer that receives the character string.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
-     * @returns {Integer} The return value is the number of characters copied to the buffer, not including the <b>null</b>-terminating character.
-     * 
-     * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
-     * 
-     * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilestringw
-     * @since windows5.0
-     */
-    static GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-
-        result := DllCall("KERNEL32.dll\GetProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "uint")
-        return result
-    }
-
-    /**
-     * Copies a string into the specified section of the Win.ini file. (ANSI)
-     * @remarks
-     * A section in the Win.ini file must have the following form: <i>key</i>=<i>string</i>.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * When the operation has been mapped, the 
-     * <b>WriteProfileString</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WriteProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
-     * @param {PSTR} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
-     * @param {PSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
-     * @returns {BOOL} If the function successfully copies the string to the Win.ini file, the return value is nonzero.
-     * 
-     * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilestringa
-     * @since windows5.0
-     */
-    static WriteProfileStringA(lpAppName, lpKeyName, lpString) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Copies a string into the specified section of the Win.ini file. (Unicode)
-     * @remarks
-     * A section in the Win.ini file must have the following form: <i>key</i>=<i>string</i>.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * When the operation has been mapped, the 
-     * <b>WriteProfileString</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WriteProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
-     * @param {PWSTR} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
-     * @param {PWSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
-     * @returns {BOOL} If the function successfully copies the string to the Win.ini file, the return value is nonzero.
-     * 
-     * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilestringw
-     * @since windows5.0
-     */
-    static WriteProfileStringW(lpAppName, lpKeyName, lpString) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves all the keys and values for the specified section of the Win.ini file. (ANSI)
-     * @remarks
-     * The format of the returned keys and values is one or more null-terminated strings, followed by a final null character. Each string has the following form: <i>key</i>=<i>string</i>
-     * 
-     * The 
-     * <b>GetProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
-     * 
-     * This operation is atomic; no updates to the Win.ini file are allowed while the keys and values for the section are being copied to the buffer.
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key: <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileSection</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section in the Win.ini file.
-     * @param {PSTR} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
-     * 
-     * 
-     *  
-     * 
-     * 
-     * The maximum profile section size is 32,767 characters.
-     * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilesectiona
-     * @since windows5.0
-     */
-    static GetProfileSectionA(lpAppName, lpReturnedString, nSize) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-
-        result := DllCall("KERNEL32.dll\GetProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "uint")
-        return result
-    }
-
-    /**
-     * Retrieves all the keys and values for the specified section of the Win.ini file. (Unicode)
-     * @remarks
-     * The format of the returned keys and values is one or more null-terminated strings, followed by a final null character. Each string has the following form: <i>key</i>=<i>string</i>
-     * 
-     * The 
-     * <b>GetProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
-     * 
-     * This operation is atomic; no updates to the Win.ini file are allowed while the keys and values for the section are being copied to the buffer.
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key: <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileSection</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section in the Win.ini file.
-     * @param {PWSTR} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
-     * 
-     * 
-     *  
-     * 
-     * 
-     * The maximum profile section size is 32,767 characters.
-     * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilesectionw
-     * @since windows5.0
-     */
-    static GetProfileSectionW(lpAppName, lpReturnedString, nSize) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-
-        result := DllCall("KERNEL32.dll\GetProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "uint")
-        return result
-    }
-
-    /**
-     * Replaces the contents of the specified section in the Win.ini file with specified keys and values. (ANSI)
-     * @remarks
-     * Keys and values in the <i>lpString</i> buffer consist of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form: <i>key</i>=<i>string</i>.
-     * 
-     * The 
-     * <b>WriteProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
-     * 
-     * <b>WriteProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by <i>lpString</i>. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
-     * 
-     * This operation is atomic; no other operations that read from or write to the initialization file are allowed while the information is being written.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * When the operation has been mapped, the 
-     * <b>WriteProfileSection</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WriteProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section. This section name is typically the name of the calling application.
-     * @param {PSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
-     * 
-     * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilesectiona
-     * @since windows5.0
-     */
-    static WriteProfileSectionA(lpAppName, lpString) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WriteProfileSectionA", "ptr", lpAppName, "ptr", lpString, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Replaces the contents of the specified section in the Win.ini file with specified keys and values. (Unicode)
-     * @remarks
-     * Keys and values in the <i>lpString</i> buffer consist of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form: <i>key</i>=<i>string</i>.
-     * 
-     * The 
-     * <b>WriteProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
-     * 
-     * <b>WriteProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by <i>lpString</i>. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
-     * 
-     * This operation is atomic; no other operations that read from or write to the initialization file are allowed while the information is being written.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * When the operation has been mapped, the 
-     * <b>WriteProfileSection</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WriteProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section. This section name is typically the name of the calling application.
-     * @param {PWSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
-     * 
-     * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilesectionw
-     * @since windows5.0
-     */
-    static WriteProfileSectionW(lpAppName, lpString) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WriteProfileSectionW", "ptr", lpAppName, "ptr", lpString, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves an integer associated with a key in the specified section of an initialization file. (GetPrivateProfileIntA)
-     * @remarks
-     * The function searches the file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section name specified by the <i>lpAppName</i> parameter. A section in the initialization file must have the following form:
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=value
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * The 
-     * <b>GetPrivateProfileInt</b> function is not case-sensitive; the strings in <i>lpAppName</i> and <i>lpKeyName</i> can be a combination of uppercase and lowercase letters.
-     * 
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofileinta">GetProfileInt</a> function to retrieve an integer value from the Win.ini file.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section in the initialization file.
-     * @param {PSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
-     * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
-     * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileinta
-     * @since windows5.0
-     */
-    static GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName, "uint")
-        return result
-    }
-
-    /**
-     * The GetPrivateProfileIntW (Unicode) function (winbase.h) retrieves an integer associated with a key in the specified section of an initialization file.
-     * @remarks
-     * The function searches the file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section name specified by the <i>lpAppName</i> parameter. A section in the initialization file must have the following form:
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=value
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * The 
-     * <b>GetPrivateProfileInt</b> function is not case-sensitive; the strings in <i>lpAppName</i> and <i>lpKeyName</i> can be a combination of uppercase and lowercase letters.
-     * 
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofileinta">GetProfileInt</a> function to retrieve an integer value from the Win.ini file.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section in the initialization file.
-     * @param {PWSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
-     * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
-     * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileintw
-     * @since windows5.0
-     */
-    static GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName, "int")
-        return result
-    }
-
-    /**
-     * Retrieves a string from the specified section in an initialization file. (GetPrivateProfileStringA)
-     * @remarks
-     * The 
-     * <b>GetPrivateProfileString</b> function searches the specified initialization file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section heading specified by the <i>lpAppName</i> parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the <i>lpDefault</i> parameter. A section in the initialization file must have the following form:
-     * 				
-     * 			
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * If <i>lpAppName</i> is <b>NULL</b>, 
-     * <b>GetPrivateProfileString</b> copies all section names in the specified file to the supplied buffer. If <i>lpKeyName</i> is <b>NULL</b>, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a <b>null</b> character and the final string is followed by a second <b>null</b> character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters.
-     * 
-     * If the string associated with <i>lpKeyName</i> is enclosed in single or double quotation marks, the marks are discarded when the 
-     * <b>GetPrivateProfileString</b> function retrieves the string.
-     * 
-     * The 
-     * <b>GetPrivateProfileString</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
-     * 
-     * To retrieve a string from the Win.ini file, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofilestringa">GetProfileString</a> function.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * @param {PSTR} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
-     * <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.
-     * @param {PSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
-     * @param {PSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
-     * <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.  
-     * 
-     * 
-     * If this parameter is <b>NULL</b>, the default is an empty string, "".
-     * 
-     * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {PSTR} lpReturnedString A pointer to the buffer that receives the retrieved string.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
-     * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character.
-     * 
-     * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
-     * 
-     * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
-     * 
-     * In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringa
-     * @since windows5.0
-     */
-    static GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * The GetPrivateProfileStringW (Unicode) function (winbase.h) retrieves a string from the specified section in an initialization file.
-     * @remarks
-     * The 
-     * <b>GetPrivateProfileString</b> function searches the specified initialization file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section heading specified by the <i>lpAppName</i> parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the <i>lpDefault</i> parameter. A section in the initialization file must have the following form:
-     * 				
-     * 			
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * If <i>lpAppName</i> is <b>NULL</b>, 
-     * <b>GetPrivateProfileString</b> copies all section names in the specified file to the supplied buffer. If <i>lpKeyName</i> is <b>NULL</b>, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a <b>null</b> character and the final string is followed by a second <b>null</b> character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters.
-     * 
-     * If the string associated with <i>lpKeyName</i> is enclosed in single or double quotation marks, the marks are discarded when the 
-     * <b>GetPrivateProfileString</b> function retrieves the string.
-     * 
-     * The 
-     * <b>GetPrivateProfileString</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
-     * 
-     * To retrieve a string from the Win.ini file, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofilestringa">GetProfileString</a> function.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * @param {PWSTR} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
-     * <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.
-     * @param {PWSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
-     * @param {PWSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
-     * <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.  
-     * 
-     * 
-     * If this parameter is <b>NULL</b>, the default is an empty string, "".
-     * 
-     * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {PWSTR} lpReturnedString A pointer to the buffer that receives the retrieved string.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
-     * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character.
-     * 
-     * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
-     * 
-     * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
-     * 
-     * In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw
-     * @since windows5.0
-     */
-    static GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
-        if(A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Copies a string into the specified section of an initialization file. (ANSI)
-     * @remarks
-     * A section in the initialization file must have the following form:
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * If the <i>lpFileName</i> parameter does not contain a full path and file name for the file, 
-     * <b>WritePrivateProfileString</b> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
-     * 
-     * If <i>lpFileName</i> contains a full path and file name and the file does not exist, 
-     * <b>WritePrivateProfileString</b> creates the file. The specified directory must already exist.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
-     * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * An application using the <b>WritePrivateProfileString</b> function to enter .ini file information into the registry should follow these guidelines:
-     * 
-     * <ul>
-     * <li>Ensure that no .ini file of the specified name exists on the system.</li>
-     * <li>Ensure that there is a key entry in the registry that specifies the .ini file. This entry should be under the path <b>HKEY_LOCAL_MACHINE\SOFTWARE \Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.</li>
-     * <li>Specify a value for that .ini file key entry that specifies a section. That is to say, an application must specify a section name, as it would appear within an .ini file or registry entry. Here is an example: [My Section].</li>
-     * <li>For system files, specify SYS for an added value.</li>
-     * <li>For application files, specify USR within the added value. Here is an example: "My Section: USR: App Name\Section". And, since USR indicates a mapping under <b>HKEY_CURRENT_USER</b>, the application should also create a key under <b>HKEY_CURRENT_USER</b> that specifies the application name listed in the added value. For the example just given, that would be "App Name".</li>
-     * <li>After following the preceding steps, an application setup program should call <b>WritePrivateProfileString</b> with the first three parameters set to <b>NULL</b>, and the fourth parameter set to the INI file name. For example: 
-     * 
-     * 
-     * <c>WritePrivateProfileString( NULL, NULL, NULL, L"appname.ini" );</c>
-     * 
-     * </li>
-     * <li>Such a call causes the mapping of an .ini file to the registry to take effect before the next system reboot. The system rereads the mapping information into shared memory. A user will not have to reboot their computer after installing an application in order to have future invocations of the application see the mapping of the .ini file to the registry.</li>
-     * </ul>
-     * @param {PSTR} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
-     * @param {PSTR} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
-     * @param {PSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
-     * @param {PSTR} lpFileName The name of the initialization file.
-     * 
-     * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
-     * @returns {BOOL} If the function successfully copies the string to the initialization file, the return value is nonzero.
-     * 
-     * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa
-     * @since windows5.0
-     */
-    static WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Copies a string into the specified section of an initialization file. (Unicode)
-     * @remarks
-     * A section in the initialization file must have the following form:
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * If the <i>lpFileName</i> parameter does not contain a full path and file name for the file, 
-     * <b>WritePrivateProfileString</b> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
-     * 
-     * If <i>lpFileName</i> contains a full path and file name and the file does not exist, 
-     * <b>WritePrivateProfileString</b> creates the file. The specified directory must already exist.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
-     * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * An application using the <b>WritePrivateProfileString</b> function to enter .ini file information into the registry should follow these guidelines:
-     * 
-     * <ul>
-     * <li>Ensure that no .ini file of the specified name exists on the system.</li>
-     * <li>Ensure that there is a key entry in the registry that specifies the .ini file. This entry should be under the path <b>HKEY_LOCAL_MACHINE\SOFTWARE \Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.</li>
-     * <li>Specify a value for that .ini file key entry that specifies a section. That is to say, an application must specify a section name, as it would appear within an .ini file or registry entry. Here is an example: [My Section].</li>
-     * <li>For system files, specify SYS for an added value.</li>
-     * <li>For application files, specify USR within the added value. Here is an example: "My Section: USR: App Name\Section". And, since USR indicates a mapping under <b>HKEY_CURRENT_USER</b>, the application should also create a key under <b>HKEY_CURRENT_USER</b> that specifies the application name listed in the added value. For the example just given, that would be "App Name".</li>
-     * <li>After following the preceding steps, an application setup program should call <b>WritePrivateProfileString</b> with the first three parameters set to <b>NULL</b>, and the fourth parameter set to the INI file name. For example: 
-     * 
-     * 
-     * <c>WritePrivateProfileString( NULL, NULL, NULL, L"appname.ini" );</c>
-     * 
-     * </li>
-     * <li>Such a call causes the mapping of an .ini file to the registry to take effect before the next system reboot. The system rereads the mapping information into shared memory. A user will not have to reboot their computer after installing an application in order to have future invocations of the application see the mapping of the .ini file to the registry.</li>
-     * </ul>
-     * @param {PWSTR} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
-     * @param {PWSTR} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
-     * @param {PWSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
-     * @param {PWSTR} lpFileName The name of the initialization file.
-     * 
-     * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
-     * @returns {BOOL} If the function successfully copies the string to the initialization file, the return value is nonzero.
-     * 
-     * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw
-     * @since windows5.0
-     */
-    static WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves all the keys and values for the specified section of an initialization file. (GetPrivateProfileSectionA)
-     * @remarks
-     * The data in the buffer pointed to by the <i>lpReturnedString</i> parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:
-     * 
-     * <i>key</i><b>=</b><i>string</i>
-     * 
-     * The 
-     * <b>GetPrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
-     * 
-     * This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the <i>lpReturnedString</i> parameter.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * Comments (any line that starts with a semicolon) are stripped out and not returned in the <i>lpReturnedString</i> buffer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section in the initialization file.
-     * @param {PSTR} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
-     * 
-     * 
-     * The maximum profile section size is 32,767 characters.
-     * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectiona
-     * @since windows5.0
-     */
-    static GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
-        return result
-    }
-
-    /**
-     * The GetPrivateProfileSectionW (Unicode) function (winbase.h) retrieves all the keys and values for the specified section of an initialization file.
-     * @remarks
-     * The data in the buffer pointed to by the <i>lpReturnedString</i> parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:
-     * 
-     * <i>key</i><b>=</b><i>string</i>
-     * 
-     * The 
-     * <b>GetPrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
-     * 
-     * This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the <i>lpReturnedString</i> parameter.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * Comments (any line that starts with a semicolon) are stripped out and not returned in the <i>lpReturnedString</i> buffer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section in the initialization file.
-     * @param {PWSTR} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
-     * 
-     * 
-     * The maximum profile section size is 32,767 characters.
-     * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionw
-     * @since windows5.0
-     */
-    static GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
-        return result
-    }
-
-    /**
-     * Replaces the keys and values for the specified section in an initialization file. (ANSI)
-     * @remarks
-     * The data in the buffer pointed to by the <i>lpString</i> parameter consists of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form:
-     * 
-     * <i>key</i><b>=</b><i>string</i>
-     * 
-     * The 
-     * <b>WritePrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
-     * 
-     * If no section name matches the string pointed to by the <i>lpAppName</i> parameter, 
-     * <b>WritePrivateProfileSection</b> creates the section at the end of the specified initialization file and initializes the new section with the specified key name and value pairs.
-     * 
-     * <b>WritePrivateProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by the <i>lpString</i> parameter. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
-     * 
-     * This operation is atomic; no operations that read from or write to the specified initialization file are allowed while the information is being written.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
-     * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WritePrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
-     * @param {PSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
-     * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
-     * 
-     * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectiona
-     * @since windows5.0
-     */
-    static WritePrivateProfileSectionA(lpAppName, lpString, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Replaces the keys and values for the specified section in an initialization file. (Unicode)
-     * @remarks
-     * The data in the buffer pointed to by the <i>lpString</i> parameter consists of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form:
-     * 
-     * <i>key</i><b>=</b><i>string</i>
-     * 
-     * The 
-     * <b>WritePrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
-     * 
-     * If no section name matches the string pointed to by the <i>lpAppName</i> parameter, 
-     * <b>WritePrivateProfileSection</b> creates the section at the end of the specified initialization file and initializes the new section with the specified key name and value pairs.
-     * 
-     * <b>WritePrivateProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by the <i>lpString</i> parameter. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
-     * 
-     * This operation is atomic; no operations that read from or write to the specified initialization file are allowed while the information is being written.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
-     * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WritePrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
-     * @param {PWSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
-     * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
-     * 
-     * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectionw
-     * @since windows5.0
-     */
-    static WritePrivateProfileSectionW(lpAppName, lpString, lpFileName) {
-        lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
-        lpString := lpString is String ? StrPtr(lpString) : lpString
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the names of all sections in an initialization file. (GetPrivateProfileSectionNamesA)
-     * @remarks
-     * This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileSectionNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
-     * @param {PSTR} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesa
-     * @since windows5.0
-     */
-    static GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName) {
-        lpszReturnBuffer := lpszReturnBuffer is String ? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesA", "ptr", lpszReturnBuffer, "uint", nSize, "ptr", lpFileName, "uint")
-        return result
-    }
-
-    /**
-     * The GetPrivateProfileSectionNamesW (Unicode) function (winbase.h) retrieves the names of all sections in an initialization file.
-     * @remarks
-     * This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileSectionNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
-     * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
-     * @param {PWSTR} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesw
-     * @since windows5.0
-     */
-    static GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName) {
-        lpszReturnBuffer := lpszReturnBuffer is String ? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesW", "ptr", lpszReturnBuffer, "uint", nSize, "ptr", lpFileName, "uint")
-        return result
-    }
-
-    /**
-     * Retrieves the data associated with a key in the specified section of an initialization file. (GetPrivateProfileStructA)
-     * @remarks
-     * A section in the initialization file must have the following form:
-     * 				
-     * 			
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=data
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     *  function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file, say MyFile.ini, under <b>IniFileMapping</b>.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under <b>myfile.ini</b>, or a subkey of <b>myfile.ini</b>, or will not exist.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value under <b>myfile.ini</b>, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey of <b>myfile.ini</b>, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey under <b>myfile.ini</b>, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) under <b>myfile.ini</b> that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no <b>myfile.ini</b> subkey, or if it does not contain an entry for the section name, then look for the actual MyFile.ini on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpszSection The name of the section in the initialization file.
-     * @param {PSTR} lpszKey The name of the key whose data is to be retrieved.
-     * @param {Integer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
-     * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {PSTR} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestructa
-     * @since windows5.0
-     */
-    static GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
-        lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
-        lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
-        szFile := szFile is String ? StrPtr(szFile) : szFile
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
-        return result
-    }
-
-    /**
-     * The GetPrivateProfileStructW (Unicode) function (winbase.h) retrieves the data associated with a key in the specified section of an initialization file.
-     * @remarks
-     * A section in the initialization file must have the following form:
-     * 				
-     * 			
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=data
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
-     * 
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
-     *  function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file, say MyFile.ini, under <b>IniFileMapping</b>.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under <b>myfile.ini</b>, or a subkey of <b>myfile.ini</b>, or will not exist.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value under <b>myfile.ini</b>, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey of <b>myfile.ini</b>, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey under <b>myfile.ini</b>, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) under <b>myfile.ini</b> that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no <b>myfile.ini</b> subkey, or if it does not contain an entry for the section name, then look for the actual MyFile.ini on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpszSection The name of the section in the initialization file.
-     * @param {PWSTR} lpszKey The name of the key whose data is to be retrieved.
-     * @param {Integer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
-     * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {PWSTR} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestructw
-     * @since windows5.0
-     */
-    static GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
-        lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
-        lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
-        szFile := szFile is String ? StrPtr(szFile) : szFile
-
-        result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
-        return result
-    }
-
-    /**
-     * Copies data into a key in the specified section of an initialization file. As it copies the data, the function calculates a checksum and appends it to the end of the data. (ANSI)
-     * @remarks
-     * A section in the initialization file must have the following form:
-     * 				
-     * 			
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=string
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * If the <i>szFile</i> parameter does not contain a full path and file name for the file, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
-     * 
-     * If <i>szFile</i> contains a full path and file name and the file does not exist, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprofilestringa">WriteProfileString</a> creates the file. The specified directory must already exist.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
-     * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} lpszSection The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case independent, the string can be any combination of uppercase and lowercase letters.
-     * @param {PSTR} lpszKey The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
-     * @param {Integer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
-     * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {PSTR} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
-     * 
-     * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
-     * @returns {BOOL} If the function successfully copies the string to the initialization file, the return value is nonzero.
-     * 
-     * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestructa
-     * @since windows5.0
-     */
-    static WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
-        lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
-        lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
-        szFile := szFile is String ? StrPtr(szFile) : szFile
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Copies data into a key in the specified section of an initialization file. As it copies the data, the function calculates a checksum and appends it to the end of the data. (Unicode)
-     * @remarks
-     * A section in the initialization file must have the following form:
-     * 				
-     * 			
-     * 
-     * 
-     * 
-     * ``` syntax
-     * [section]
-     * key=struct
-     * 
-     *       .
-     *       .
-     *       .
-     * ```
-     * 
-     * If the <i>szFile</i> parameter does not contain a full path and file name for the file, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
-     * 
-     * If <i>szFile</i> contains a full path and file name and the file does not exist, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprofilestringa">WriteProfileString</a> creates the file. The specified directory must already exist.
-     * 
-     * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
-     * 
-     * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Microsoft</b>
-     *          <b>Windows NT</b>
-     *             <b>CurrentVersion</b>
-     *                <b>IniFileMapping</b></pre>
-     * 
-     * 
-     * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
-     * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} lpszSection The name of the section to which the struct data will be copied. If the section does not exist, it is created. The name of the section is case independent.
-     * @param {PWSTR} lpszKey The name of the key to be associated with a struct. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
-     * @param {Integer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
-     * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {PWSTR} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
-     * 
-     * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
-     * @returns {BOOL} If the function successfully copies the struct to the initialization file, the return value is nonzero.
-     * 
-     * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestructw
-     * @since windows5.0
-     */
-    static WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
-        lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
-        lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
-        szFile := szFile is String ? StrPtr(szFile) : szFile
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Void>} lp 
-     * @param {Pointer} ucb 
-     * @returns {BOOL} 
-     */
-    static IsBadHugeReadPtr(lp, ucb) {
-        lpMarshal := lp is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("KERNEL32.dll\IsBadHugeReadPtr", lpMarshal, lp, "ptr", ucb, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Void>} lp 
-     * @param {Pointer} ucb 
-     * @returns {BOOL} 
-     */
-    static IsBadHugeWritePtr(lp, ucb) {
-        lpMarshal := lp is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("KERNEL32.dll\IsBadHugeWritePtr", lpMarshal, lp, "ptr", ucb, "int")
-        return result
-    }
-
-    /**
-     * Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry. (ANSI)
-     * @remarks
-     * The 
-     * <b>GetComputerName</b> function retrieves the NetBIOS name established at system startup. Name changes made by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernamea">SetComputerName</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> functions do not take effect until the user restarts the computer.
-     * 
-     * If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function.
-     * @param {PSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
-     * 
-     * 
-     * 
-     * 
-     * If the buffer is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_BUFFER_OVERFLOW. The <i>lpnSize</i> parameter specifies the size of the buffer required, including the terminating null character.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcomputernamea
-     * @since windows5.0
-     */
-    static GetComputerNameA(lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
-
-        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry. (Unicode)
-     * @remarks
-     * The 
-     * <b>GetComputerName</b> function retrieves the NetBIOS name established at system startup. Name changes made by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernamea">SetComputerName</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> functions do not take effect until the user restarts the computer.
-     * 
-     * If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function.
-     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
-     * 
-     * 
-     * 
-     * 
-     * If the buffer is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_BUFFER_OVERFLOW. The <i>lpnSize</i> parameter specifies the size of the buffer required, including the terminating null character.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcomputernamew
-     * @since windows5.0
-     */
-    static GetComputerNameW(lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
-
-        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Converts a DNS-style host name to a NetBIOS-style computer name. (ANSI)
-     * @remarks
-     * This function performs a textual mapping of the name. This convention limits the names of computers to be the common subset of the names. (Specifically, the leftmost label of the DNS name is truncated to 15-bytes of OEM characters.) Therefore, do not use this function to convert a DNS domain name to a NetBIOS domain name. There is no textual mapping for domain names.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines DnsHostnameToComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
-     * @param {PSTR} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
-     * 
-     * 
-     * 
-     * 
-     * If the buffer is too small, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and <i>nSize</i> receives the required buffer size, not including the terminating null character.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>ComputerName</i> buffer is too small. The <i>nSize</i> parameter contains the number of bytes required to receive the name.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dnshostnametocomputernamea
-     * @since windows5.0
-     */
-    static DnsHostnameToComputerNameA(Hostname, ComputerName, nSize) {
-        Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
-        ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
-
-        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Converts a DNS-style host name to a NetBIOS-style computer name. (Unicode)
-     * @remarks
-     * This function performs a textual mapping of the name. This convention limits the names of computers to be the common subset of the names. (Specifically, the leftmost label of the DNS name is truncated to 15-bytes of OEM characters.) Therefore, do not use this function to convert a DNS domain name to a NetBIOS domain name. There is no textual mapping for domain names.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines DnsHostnameToComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
-     * @param {PWSTR} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
-     * 
-     * 
-     * 
-     * 
-     * If the buffer is too small, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and <i>nSize</i> receives the required buffer size, not including the terminating null character.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>ComputerName</i> buffer is too small. The <i>nSize</i> parameter contains the number of bytes required to receive the name.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dnshostnametocomputernamew
-     * @since windows5.0
-     */
-    static DnsHostnameToComputerNameW(Hostname, ComputerName, nSize) {
-        Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
-        ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
-
-        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the name of the user associated with the current thread. (ANSI)
-     * @remarks
-     * If the current thread is impersonating another client, the 
-     * <b>GetUserName</b> function returns the user name of the client that the thread is impersonating.
-     * 
-     * If <b>GetUserName</b> is called from a process that is running under the  "NETWORK SERVICE" account, the string returned in <i>lpBuffer</i> may be different depending on the version of Windows.  On Windows XP, the "NETWORK SERVICE" string is returned. On Windows Vista, the “&lt;HOSTNAME&gt;$” string is returned.
-     * @param {PSTR} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
-     * @param {Pointer<Integer>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
-     * 
-     * 
-     * 
-     * 
-     * If <i>lpBuffer</i> is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER. This parameter receives the required buffer size, including the terminating null character.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value, and the variable pointed to by <i>lpnSize</i> contains the number of <b>TCHARs</b> copied to the buffer specified by <i>lpBuffer</i>, including the terminating null character.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamea
-     * @since windows5.0
-     */
-    static GetUserNameA(lpBuffer, pcbBuffer) {
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
-
-        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves the name of the user associated with the current thread. (Unicode)
-     * @remarks
-     * If the current thread is impersonating another client, the 
-     * <b>GetUserName</b> function returns the user name of the client that the thread is impersonating.
-     * 
-     * If <b>GetUserName</b> is called from a process that is running under the  "NETWORK SERVICE" account, the string returned in <i>lpBuffer</i> may be different depending on the version of Windows.  On Windows XP, the "NETWORK SERVICE" string is returned. On Windows Vista, the “&lt;HOSTNAME&gt;$” string is returned.
-     * @param {PWSTR} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
-     * @param {Pointer<Integer>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
-     * 
-     * 
-     * 
-     * 
-     * If <i>lpBuffer</i> is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER. This parameter receives the required buffer size, including the terminating null character.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value, and the variable pointed to by <i>lpnSize</i> contains the number of <b>TCHARs</b> copied to the buffer specified by <i>lpBuffer</i>, including the terminating null character.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamew
-     * @since windows5.0
-     */
-    static GetUserNameW(lpBuffer, pcbBuffer) {
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
-
-        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
-
-        A_LastError := 0
-
-        result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {HANDLE} TokenHandle 
-     * @returns {BOOL} 
-     */
-    static IsTokenUntrusted(TokenHandle) {
-        TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
-
-        result := DllCall("ADVAPI32.dll\IsTokenUntrusted", "ptr", TokenHandle, "int")
-        return result
-    }
-
-    /**
-     * Retrieves information about the current hardware profile for the local computer. (ANSI)
-     * @remarks
-     * The 
-     * <b>GetCurrentHwProfile</b> function retrieves the display name and globally unique identifier (GUID) string for the hardware profile. The function also retrieves the reported docking state for portable computers with docking stations.
-     * 
-     * The system generates a GUID for each hardware profile and stores it as a string in the registry. You can use 
-     * <b>GetCurrentHwProfile</b> to retrieve the GUID string to use as a registry subkey under your application's configuration settings key in <b>HKEY_CURRENT_USER</b>. This enables you to store each user's settings for each hardware profile. For example, the Colors control panel application could use the subkey to store each user's color preferences for different hardware profiles, such as profiles for the docked and undocked states. Applications that use this functionality can check the current hardware profile when they start up, and update their settings accordingly.
-     * 
-     * Applications can also update their settings when a system device message, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/DevIO/dbt-configchanged">DBT_CONFIGCHANGED</a>, indicates that the hardware profile has changed.
-     * 
-     * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<HW_PROFILE_INFOA>} lpHwProfileInfo A pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-hw_profile_infoa">HW_PROFILE_INFO</a> structure that receives information about the current hardware profile.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilea
-     * @since windows5.0
-     */
-    static GetCurrentHwProfileA(lpHwProfileInfo) {
-        A_LastError := 0
-
-        result := DllCall("ADVAPI32.dll\GetCurrentHwProfileA", "ptr", lpHwProfileInfo, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * Retrieves information about the current hardware profile for the local computer. (Unicode)
-     * @remarks
-     * The 
-     * <b>GetCurrentHwProfile</b> function retrieves the display name and globally unique identifier (GUID) string for the hardware profile. The function also retrieves the reported docking state for portable computers with docking stations.
-     * 
-     * The system generates a GUID for each hardware profile and stores it as a string in the registry. You can use 
-     * <b>GetCurrentHwProfile</b> to retrieve the GUID string to use as a registry subkey under your application's configuration settings key in <b>HKEY_CURRENT_USER</b>. This enables you to store each user's settings for each hardware profile. For example, the Colors control panel application could use the subkey to store each user's color preferences for different hardware profiles, such as profiles for the docked and undocked states. Applications that use this functionality can check the current hardware profile when they start up, and update their settings accordingly.
-     * 
-     * Applications can also update their settings when a system device message, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/DevIO/dbt-configchanged">DBT_CONFIGCHANGED</a>, indicates that the hardware profile has changed.
-     * 
-     * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<HW_PROFILE_INFOW>} lpHwProfileInfo A pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-hw_profile_infoa">HW_PROFILE_INFO</a> structure that receives information about the current hardware profile.
-     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilew
-     * @since windows5.0
-     */
-    static GetCurrentHwProfileW(lpHwProfileInfo) {
-        A_LastError := 0
-
-        result := DllCall("ADVAPI32.dll\GetCurrentHwProfileW", "ptr", lpHwProfileInfo, "int")
-        if(!result && A_LastError) {
-            throw OSError(A_LastError)
-        }
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} TargetPartition 
-     * @param {PWSTR} SparePartition 
-     * @param {Integer} Flags 
-     * @returns {BOOL} 
-     */
-    static ReplacePartitionUnit(TargetPartition, SparePartition, Flags) {
-        TargetPartition := TargetPartition is String ? StrPtr(TargetPartition) : TargetPartition
-        SparePartition := SparePartition is String ? StrPtr(SparePartition) : SparePartition
-
-        result := DllCall("KERNEL32.dll\ReplacePartitionUnit", "ptr", TargetPartition, "ptr", SparePartition, "uint", Flags, "int")
-        return result
-    }
-
-    /**
-     * The GetThreadEnabledXStateFeatures function returns the set of XState features that are currently enabled for the current thread.
-     * @remarks
-     * This function is related to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getenabledxstatefeatures">GetEnabledXStateFeatures</a>, which returns the set of XState features enabled in the system.
-     * Prior to the introduction of optional XState features, the set of enabled XState features is the same for every thread in the system because all supported features are always enabled, thus the result returned from GetEnabledXStateFeatures and this function are identical.
-     * With optional XState features, it is possible for optional XState features to be disabled by default for newly created threads and enabled on demand later. Optional XState features that are currently disabled for the current thread will not be returned by this function, but will still be returned by GetEnabledXStateFeatures.
-     * @returns {Integer} The return value is a bitmask in which each bit represents an XState feature that is currently enabled for the current thread.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getthreadenabledxstatefeatures
-     */
-    static GetThreadEnabledXStateFeatures() {
-        result := DllCall("KERNEL32.dll\GetThreadEnabledXStateFeatures", "uint")
-        return result
-    }
-
-    /**
-     * The EnableProcessOptionalXStateFeatures function enables a set of optional XState features for the current process.
-     * @remarks
-     * In general, optional XState features are disabled by default for newly created threads and enabled on demand later.
-     * When this function returns, the specified optional XState features will be enabled for all existing threads in the current process, and all future threads created in the process will have the specified optional XState features enabled at thread creation time.
-     * 
-     * Only XState feature bits supported by the system are allowed to be supplied to this function, otherwise an error is returned. The XState feature bits supported by the system can be obtained via the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getenabledxstatefeatures">GetEnabledXStateFeatures</a> routine.
-     * If non-optional XState feature bits supported by the system are supplied (for example AVX, AVX2, etc. are non-optional XState features), those are ignored and will not cause this function to return an error. Note that all non-optional XState features supported by the system are always enabled for every thread by default.
-     * @param {Integer} Features A bitmask in which each bit represents an optional XState feature to enable for the current process.
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enableprocessoptionalxstatefeatures
-     */
-    static EnableProcessOptionalXStateFeatures(Features) {
-        result := DllCall("KERNEL32.dll\EnableProcessOptionalXStateFeatures", "uint", Features, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} CustomSystemEventTriggerConfig 
-     * @returns {Integer} 
-     */
-    static RaiseCustomSystemEventTrigger(CustomSystemEventTriggerConfig) {
-        result := DllCall("api-ms-win-core-backgroundtask-l1-1-0.dll\RaiseCustomSystemEventTrigger", "ptr", CustomSystemEventTriggerConfig, "uint")
-        return result
-    }
-
-    /**
-     * Determines whether or not a specified name can be used to create a file on the FAT file system.
-     * @remarks
-     * This function does not have an associated import library. You must use the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to
-     *     NtDll.dll.
-     * @param {Pointer<UNICODE_STRING>} Name The file name, in 8.3 format.
-     * @param {Pointer<STRING>} OemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>.
-     * 
-     * This parameter can be <b>NULL</b>.
-     * @param {Pointer<BOOLEAN>} NameContainsSpaces If the function returns <b>TRUE</b>, this parameter indicates whether or not the name 
-     *        contains spaces.
-     * 
-     * If the function returns <b>FALSE</b>, this parameter is undefined.
-     * @returns {BOOLEAN} If the specified name forms a valid 8.3 FAT file system name in the current OEM code page, the function 
-     *       returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlisnamelegaldos8dot3
-     */
-    static RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
-        NameContainsSpacesMarshal := NameContainsSpaces is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, NameContainsSpacesMarshal, NameContainsSpaces, "char")
-        return result
-    }
-
-    /**
-     * Converts the specified local time to system time.
-     * @remarks
-     * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {Pointer<Integer>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
-     * @param {Pointer<Integer>} _SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
-     * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
-     */
-    static RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
-        LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
-        _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Converts the specified 64-bit system time to the number of seconds since the beginning of January 1, 1970.
-     * @remarks
-     * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * 
-     * There is no single equivalent public  function. To perform this task using public  functions, use the following steps:
-     * 
-     * 
-     * 
-     * <ol>
-     * <li>Call  <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-systemtimetofiletime">SystemTimeToFileTime</a> to copy the system time to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure. Call <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemtime">GetSystemTime</a> to get the current system time to pass to <b>SystemTimeToFileTime</b>.</li>
-     * <li>Copy the contents of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a> structure.</li>
-     * <li>Initialize a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure with the date and time of the first second of January 1, 1970.</li>
-     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-systemtimetofiletime">SystemTimeToFileTime</a>, passing the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure initialized in Step 3 to the call.</li>
-     * <li>Copy the contents of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure returned by <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-systemtimetofiletime">SystemTimeToFileTime</a> in Step 4 to a second <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a>.
-     * The copied value should be less than or equal to the value copied in Step 2.</li>
-     * <li>Subtract the 64-bit value in the <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a> structure initialized in Step 5 (January 1, 1970) from the 64-bit value of the <b>ULARGE_INTEGER</b> structure initialized in Step 2 (the current system time). This produces a value in 100-nanosecond intervals since January 1, 1970. To convert this value to seconds, divide by 10,000,000.</li>
-     * </ol>
-     * @param {Pointer<Integer>} Time A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the system time. The valid years for this value are 1970 to  2105 inclusive.
-     * @param {Pointer<Integer>} ElapsedSeconds A pointer to a variable that receives the number of seconds.
-     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>. If it fails, it returns <b>FALSE</b>. Typically, this function will fail if the specified value of the  <i>Time</i> parameter is not within the valid timeframe specified in the parameter description.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtltimetosecondssince1970
-     */
-    static RtlTimeToSecondsSince1970(Time, ElapsedSeconds) {
-        TimeMarshal := Time is VarRef ? "int64*" : "ptr"
-        ElapsedSecondsMarshal := ElapsedSeconds is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", TimeMarshal, Time, ElapsedSecondsMarshal, ElapsedSeconds, "char")
-        return result
-    }
-
-    /**
-     * Frees the string buffer allocated by RtlUnicodeStringToAnsiString.
-     * @remarks
-     * This routine does not release the Unicode string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
-     * @param {Pointer<STRING>} AnsiString A pointer to an ANSI string whose buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeansistring
-     * @since windows5.0
-     */
-    static RtlFreeAnsiString(AnsiString) {
-        DllCall("ntdll.dll\RtlFreeAnsiString", "ptr", AnsiString)
-    }
-
-    /**
-     * Frees the string buffer allocated by RtlAnsiStringToUnicodeString or by RtlUpcaseUnicodeString.
-     * @remarks
-     * This routine does not release the ANSI string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a> or <b>RtlUpcaseUnicodeString</b>.
-     * 		
-     * 
-     * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode string whose
-     *         buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a>.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeunicodestring
-     * @since windows5.0
-     */
-    static RtlFreeUnicodeString(UnicodeString) {
-        DllCall("ntdll.dll\RtlFreeUnicodeString", "ptr", UnicodeString)
-    }
-
-    /**
-     * Frees the string buffer allocated by RtlUnicodeStringToOemString.
-     * @remarks
-     * This routine releases the <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure. The <b>Length</b> and <b>MaximumLength</b> members are not affected by this routine.
-     * @param {Pointer<STRING>} OemString Address of the OEM string whose buffer
-     *         was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtooemstring">RtlUnicodeStringToOemString</a>.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeoemstring
-     * @since windows5.0
-     */
-    static RtlFreeOemString(OemString) {
-        DllCall("ntdll.dll\RtlFreeOemString", "ptr", OemString)
-    }
-
-    /**
-     * Initializes a counted string.
-     * @remarks
-     * <b>Security Warning:  </b>Do not allow the <i>SourceString</i> parameter size to exceed <b>MAX_USHORT</b> characters.
-     * 
-     * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * 
-     * 
-     * 		
-     * 
-     * <div class="alert"><b>Note</b>  <b>RtlInitString</b> is available in Windows XP. It might be altered or unavailable in subsequent versions.</div>
-     * <div> </div>
-     * @param {Pointer<STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
-     * @param {Pointer<Integer>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitstring
-     */
-    static RtlInitString(DestinationString, SourceString) {
-        SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
-
-        DllCall("ntdll.dll\RtlInitString", "ptr", DestinationString, SourceStringMarshal, SourceString)
-    }
-
-    /**
-     * 
-     * @param {Pointer<STRING>} DestinationString 
-     * @param {Pointer<Integer>} SourceString 
-     * @returns {NTSTATUS} 
-     */
-    static RtlInitStringEx(DestinationString, SourceString) {
-        SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<STRING>} DestinationString 
-     * @param {Pointer<Integer>} SourceString 
-     * @returns {String} Nothing - always returns an empty string
-     */
-    static RtlInitAnsiString(DestinationString, SourceString) {
-        SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
-
-        DllCall("ntdll.dll\RtlInitAnsiString", "ptr", DestinationString, SourceStringMarshal, SourceString)
-    }
-
-    /**
-     * 
-     * @param {Pointer<STRING>} DestinationString 
-     * @param {Pointer<Integer>} SourceString 
-     * @returns {NTSTATUS} 
-     */
-    static RtlInitAnsiStringEx(DestinationString, SourceString) {
-        SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Initializes a counted Unicode string.
-     * @param {Pointer<UNICODE_STRING>} DestinationString The buffer for a counted Unicode string to be initialized. The length is initialized to zero if the <i>SourceString</i> is not specified.
-     * @param {PWSTR} SourceString Optional pointer to a null-terminated Unicode string with
-     *         which to initialize the counted string.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitunicodestring
-     * @since windows5.0
-     */
-    static RtlInitUnicodeString(DestinationString, SourceString) {
-        SourceString := SourceString is String ? StrPtr(SourceString) : SourceString
-
-        DllCall("ntdll.dll\RtlInitUnicodeString", "ptr", DestinationString, "ptr", SourceString)
-    }
-
-    /**
-     * Converts the specified ANSI source string into a Unicode string.
-     * @remarks
-     * The translation is done with respect to the
-     *     current system locale information.
-     * 		
-     * 
-     * If caller sets <i>AllocateDestinationString</i> to <b>TRUE</b>, the routine replaces the <b>Buffer</b> member of <i>DestinationString</i> with a pointer to the buffer it allocates. The old value can be overwritten even when the routine returns an error status code.
-     * 		
-     * 
-     * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {Pointer<UNICODE_STRING>} DestinationString A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure to hold the converted Unicode string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data, and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
-     * @param {Pointer<STRING>} SourceString A pointer to the <b>ANSI_STRING</b> structure that contains the ANSI string to be converted to Unicode.
-     * @param {BOOLEAN} AllocateDestinationString Controls allocation of buffer space for the destination string.
-     * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STATUS_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The ANSI string was converted to Unicode. On failure, the routine does not allocate any memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlansistringtounicodestring
-     * @since windows5.0
-     */
-    static RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Converts the specified Unicode source string into an ANSI string.
-     * @remarks
-     * The translation is done with respect to the
-     *     current system locale information.
-     * 		
-     * 
-     * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {Pointer<STRING>} DestinationString A pointer to an <b>ANSI_STRING</b> structure to hold the converted ANSI string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
-     * @param {Pointer<UNICODE_STRING>} SourceString The <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the source string to be converted to ANSI.
-     * @param {BOOLEAN} AllocateDestinationString Controls allocation of the buffer space for the <i>DestinationString</i>.
-     * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the DDK.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STATUS_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The Unicode string was converted to ANSI. Otherwise, no storage was allocated and no conversion was done.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodestringtoansistring
-     * @since windows5.0
-     */
-    static RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Converts the specified Unicode source string into an OEM string. The translation is done with respect to the OEM code page (OCP).
-     * @remarks
-     * This routine allocates a buffer for the <i>DestinationString</i> only.
-     * @param {Pointer<STRING>} DestinationString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure that is contains the OEM equivalent to the Unicode source string. The <b>MaximumLength</b> field is set if <i>AllocateDestinationString</i> is <b>TRUE</b>.
-     * @param {Pointer<UNICODE_STRING>} SourceString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that is to be
-     *         converted to OEM.
-     * @param {BOOLEAN} AllocateDestinationString Controls allocation of the buffer space for the destination
-     *         string.
-     * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STATUS_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The Unicode string was converted to OEM. Otherwise, no storage was allocated, and no conversion was done.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodestringtooemstring
-     * @since windows5.0
-     */
-    static RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Determines how many bytes are needed to represent a Unicode string as an ANSI string.
-     * @remarks
-     * It is recommended that you use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> instead of <b>RtlUnicodeToMultiByteSize</b>. When its <i>cbMultiByte</i> parameter is set to zero, the <b>WideCharToMultiByte</b> function returns the number of bytes required for the buffer.
-     * @param {Pointer<Integer>} BytesInMultiByteString Returns the number of bytes for the ANSI equivalent of the Unicode string pointed to by <i>UnicodeString</i>. This number does not include the terminating <b>NULL</b> character.
-     * @param {Integer} UnicodeString The Unicode source string for which the ANSI length is calculated.
-     * @param {Integer} BytesInUnicodeString The number of bytes in the string pointed to by
-     *         <i>UnicodeString</i>.
-     * @returns {NTSTATUS} <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STATUS_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The count was successful. The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodetomultibytesize
-     * @since windows5.0
-     */
-    static RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-        BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Converts a character string to an integer.
-     * @remarks
-     * When converting strings to integers the preferred function to use is <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2010/w4z2wdyc(v=vs.100)">strtol, wcstol</a>.
-     * 
-     * There is no import library for this function. Use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> rather than linking to the function directly.
-     * @param {Pointer<Integer>} _String A pointer to the string to convert. The format of the string is as follows: 
-     * 
-     * [whitespace] [{+ | -}] [0 [{x | o | b}]] [digits]
-     * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
-     * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
-     * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlchartointeger
-     * @since windows5.0
-     */
-    static RtlCharToInteger(_String, Base, Value) {
-        _StringMarshal := _String is VarRef ? "char*" : "ptr"
-        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, "uint", Base, ValueMarshal, Value, "int")
-        NTSTATUS.ThrowIfError(result)
-        return result
-    }
-
-    /**
-     * Generates a uniform random number using D.H. Lehmer's 1948 algorithm.
-     * @remarks
-     * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {Pointer<Integer>} Seed The seed value.
-     * @returns {Integer} The function returns a random number uniformly distributed over [0..MAXLONG].
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtluniform
-     */
-    static RtlUniform(Seed) {
-        SeedMarshal := Seed is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ntdll.dll\RtlUniform", SeedMarshal, Seed, "uint")
-        return result
-    }
-
-    /**
-     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
-     * @param {Integer} featureId Infrastructure use only.
-     * @param {FEATURE_CHANGE_TIME} changeTime Infrastructure use only.
-     * @returns {FEATURE_ENABLED_STATE} Infrastructure use only.
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
-     */
-    static GetFeatureEnabledState(featureId, changeTime) {
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, "int", changeTime, "int")
-        return result
-    }
-
-    /**
-     * This function is intended for infrastructure use only. (RecordFeatureUsage)
-     * @param {Integer} featureId Infrastructure use only.
-     * @param {Integer} kind Infrastructure use only.
-     * @param {Integer} addend Infrastructure use only.
-     * @param {PSTR} originName Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureusage
-     */
-    static RecordFeatureUsage(featureId, kind, addend, originName) {
-        originName := originName is String ? StrPtr(originName) : originName
-
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
-    }
-
-    /**
-     * This function is intended for infrastructure use only. (RecordFeatureError)
-     * @param {Integer} featureId Infrastructure use only.
-     * @param {Pointer<FEATURE_ERROR>} _error Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureerror
-     */
-    static RecordFeatureError(featureId, _error) {
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", _error)
-    }
-
-    /**
-     * This function is intended for infrastructure use only. (SubscribeFeatureStateChangeNotification)
-     * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
-     * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
-     * @param {Pointer<Void>} _context Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
-     */
-    static SubscribeFeatureStateChangeNotification(subscription, callback, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, _contextMarshal, _context)
-    }
-
-    /**
-     * This function is intended for infrastructure use only. (UnsubscribeFeatureStateChangeNotification)
-     * @param {FEATURE_STATE_CHANGE_SUBSCRIPTION} subscription Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-unsubscribefeaturestatechangenotification
-     */
-    static UnsubscribeFeatureStateChangeNotification(subscription) {
-        subscription := subscription is Win32Handle ? NumGet(subscription, "ptr") : subscription
-
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\UnsubscribeFeatureStateChangeNotification", "ptr", subscription)
-    }
-
-    /**
-     * This function is intended for infrastructure use only. (GetFeatureVariant)
-     * @param {Integer} featureId Infrastructure use only.
-     * @param {FEATURE_CHANGE_TIME} changeTime Infrastructure use only.
-     * @param {Pointer<Integer>} payloadId Infrastructure use only.
-     * @param {Pointer<BOOL>} hasNotification Infrastructure use only.
-     * @returns {Integer} Infrastructure use only.
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeaturevariant
-     */
-    static GetFeatureVariant(featureId, changeTime, payloadId, hasNotification) {
-        payloadIdMarshal := payloadId is VarRef ? "uint*" : "ptr"
-        hasNotificationMarshal := hasNotification is VarRef ? "int*" : "ptr"
-
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", "uint", featureId, "int", changeTime, payloadIdMarshal, payloadId, hasNotificationMarshal, hasNotification, "uint")
-        return result
-    }
-
-    /**
-     * Obtains a device context handle of display.
-     * @returns {HDC} Device context handle of display.
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciopenprovider
-     * @since windows5.0
-     */
-    static DCIOpenProvider() {
-        result := DllCall("DCIMAN32.dll\DCIOpenProvider", "ptr")
-        resultHandle := HDC({Value: result}, True)
-        return resultHandle
-    }
-
-    /**
-     * Closes a device context of a display.
-     * @param {HDC} _hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
-     * @since windows5.0
-     */
-    static DCICloseProvider(_hdc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", _hdc)
-    }
-
-    /**
-     * Creates a primary surface and obtains surface information.
-     * @param {HDC} _hdc The device context handle of the device for the primary surface to be created.
-     * @param {Pointer<Pointer<DCISURFACEINFO>>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
-     * @since windows5.0
-     */
-    static DCICreatePrimary(_hdc, lplpSurface) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", _hdc, lplpSurfaceMarshal, lplpSurface, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HDC} _hdc 
-     * @param {Integer} dwCompression 
-     * @param {Integer} dwRedMask 
-     * @param {Integer} dwGreenMask 
-     * @param {Integer} dwBlueMask 
-     * @param {Integer} dwWidth 
-     * @param {Integer} dwHeight 
-     * @param {Integer} dwDCICaps 
-     * @param {Integer} dwBitCount 
-     * @param {Pointer<Pointer<DCIOFFSCREEN>>} lplpSurface 
-     * @returns {Integer} 
-     */
-    static DCICreateOffscreen(_hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", _hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HDC} _hdc 
-     * @param {Pointer<Void>} lpOffscreenSurf 
-     * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
-     * @returns {Integer} 
-     */
-    static DCICreateOverlay(_hdc, lpOffscreenSurf, lplpSurface) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : "ptr"
-        lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", _hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HDC} _hdc 
-     * @param {Pointer<RECT>} lprDst 
-     * @param {Pointer<RECT>} lprSrc 
-     * @param {Pointer<Void>} lpFnCallback 
-     * @param {Pointer<Void>} lpContext 
-     * @returns {Integer} 
-     */
-    static DCIEnum(_hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        lpFnCallbackMarshal := lpFnCallback is VarRef ? "ptr" : "ptr"
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", _hdc, "ptr", lprDst, "ptr", lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<DCIOFFSCREEN>} pdci 
-     * @param {Pointer<RECT>} srcrc 
-     * @param {Pointer<RECT>} destrc 
-     * @param {Pointer<RGNDATA>} prd 
-     * @returns {Integer} 
-     */
-    static DCISetSrcDestClip(pdci, srcrc, destrc, prd) {
-        result := DllCall("DCIMAN32.dll\DCISetSrcDestClip", "ptr", pdci, "ptr", srcrc, "ptr", destrc, "ptr", prd, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @returns {HWINWATCH} 
-     */
-    static WinWatchOpen(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", _hwnd, "ptr")
-        resultHandle := HWINWATCH({Value: result}, True)
-        return resultHandle
-    }
-
-    /**
-     * 
-     * @param {HWINWATCH} hWW 
-     * @returns {String} Nothing - always returns an empty string
-     */
-    static WinWatchClose(hWW) {
-        hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
-
-        DllCall("DCIMAN32.dll\WinWatchClose", "ptr", hWW)
-    }
-
-    /**
-     * 
-     * @param {HWINWATCH} hWW 
-     * @param {Pointer<RECT>} prc 
-     * @param {Integer} _size 
-     * @param {Pointer<RGNDATA>} prd 
-     * @returns {Integer} 
-     */
-    static WinWatchGetClipList(hWW, prc, _size, prd) {
-        hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
-
-        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", _size, "ptr", prd, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWINWATCH} hWW 
-     * @returns {BOOL} 
-     */
-    static WinWatchDidStatusChange(hWW) {
-        hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
-
-        result := DllCall("DCIMAN32.dll\WinWatchDidStatusChange", "ptr", hWW, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {Integer} _size 
-     * @param {Pointer<RGNDATA>} prd 
-     * @returns {Integer} 
-     */
-    static GetWindowRegionData(_hwnd, _size, prd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := DllCall("DCIMAN32.dll\GetWindowRegionData", "ptr", _hwnd, "uint", _size, "ptr", prd, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HDC} _hdc 
-     * @param {Integer} _size 
-     * @param {Pointer<RGNDATA>} prd 
-     * @returns {Integer} 
-     */
-    static GetDCRegionData(_hdc, _size, prd) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := DllCall("DCIMAN32.dll\GetDCRegionData", "ptr", _hdc, "uint", _size, "ptr", prd, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWINWATCH} hWW 
-     * @param {Pointer<WINWATCHNOTIFYPROC>} NotifyCallback 
-     * @param {LPARAM} NotifyParam 
-     * @returns {BOOL} 
-     */
-    static WinWatchNotify(hWW, NotifyCallback, NotifyParam) {
-        hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
-
-        result := DllCall("DCIMAN32.dll\WinWatchNotify", "ptr", hWW, "ptr", NotifyCallback, "ptr", NotifyParam, "int")
-        return result
-    }
-
-    /**
-     * Releases access to display frame buffer.
-     * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciendaccess
-     * @since windows5.0
-     */
-    static DCIEndAccess(pdci) {
-        DllCall("DCIMAN32.dll\DCIEndAccess", "ptr", pdci)
-    }
-
-    /**
-     * Obtains an access pointer to display frame buffer based on the given rectangle.
-     * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @param {Integer} x The x-coordinate of the upper-left corner of the rectangle.
-     * @param {Integer} y The y-coordinate of the upper-left corner of the rectangle.
-     * @param {Integer} dx The width of the rectangle.
-     * @param {Integer} dy The height of the rectangle.
-     * @returns {Integer} If the function succeeds, the return value is DCI_OK or DCI_STATUS_POINTERCHANGED.  DCI_STATUS_POINTERCHANGED indicates that the virtual address of the frame buffer could have been changed since the last call.  So the application should not assume the consistency of the virtual address of the display frame buffer.  If the function fails, the return value is one of the DCI errors.
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcibeginaccess
-     * @since windows5.0
-     */
-    static DCIBeginAccess(pdci, x, y, dx, dy) {
-        result := DllCall("DCIMAN32.dll\DCIBeginAccess", "ptr", pdci, "int", x, "int", y, "int", dx, "int", dy, "int")
-        return result
-    }
-
-    /**
-     * Destroys a primary surface on the display device.
-     * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcidestroy
-     * @since windows5.0
-     */
-    static DCIDestroy(pdci) {
-        DllCall("DCIMAN32.dll\DCIDestroy", "ptr", pdci)
-    }
-
-    /**
-     * 
-     * @param {Pointer<DCIOFFSCREEN>} pdci 
-     * @returns {Integer} 
-     */
-    static DCIDraw(pdci) {
-        result := DllCall("DCIMAN32.dll\DCIDraw", "ptr", pdci, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<DCIOFFSCREEN>} pdci 
-     * @param {Pointer<RGNDATA>} prd 
-     * @returns {Integer} 
-     */
-    static DCISetClipList(pdci, prd) {
-        result := DllCall("DCIMAN32.dll\DCISetClipList", "ptr", pdci, "ptr", prd, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<DCIOFFSCREEN>} pdci 
-     * @param {Pointer<RECT>} dst 
-     * @param {Pointer<RECT>} src 
-     * @returns {Integer} 
-     */
-    static DCISetDestination(pdci, dst, src) {
-        result := DllCall("DCIMAN32.dll\DCISetDestination", "ptr", pdci, "ptr", dst, "ptr", src, "int")
-        return result
-    }
-
-    /**
-     * Returns the current value of an integer that is incremented whenever a mode switch occurs, such as when there is a desktop switch, a Fast User Switch, or a full-screen Microsoft MS-DOS box.
-     * @returns {Integer} The current value of the mode switch integer is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/ddrawgdi/nf-ddrawgdi-ddquerydisplaysettingsuniqueness
-     */
-    static GdiEntry13() {
-        result := DllCall("api-ms-win-dx-d3dkmt-l1-1-0.dll\GdiEntry13", "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PSTR} szCmdName 
-     * @param {PSTR} szInfSection 
-     * @param {PSTR} szDir 
-     * @param {PSTR} lpszTitle 
-     * @param {Pointer<HANDLE>} phEXE 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} pvReserved 
-     * @returns {HRESULT} 
-     */
-    static RunSetupCommandA(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
-        szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
-        szDir := szDir is String ? StrPtr(szDir) : szDir
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
-
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PWSTR} szCmdName 
-     * @param {PWSTR} szInfSection 
-     * @param {PWSTR} szDir 
-     * @param {PWSTR} lpszTitle 
-     * @param {Pointer<HANDLE>} phEXE 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} pvReserved 
-     * @returns {HRESULT} 
-     */
-    static RunSetupCommandW(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
-        szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
-        szDir := szDir is String ? StrPtr(szDir) : szDir
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
-
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @returns {Integer} 
-     */
-    static NeedRebootInit() {
-        result := DllCall("ADVPACK.dll\NeedRebootInit", "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} dwRebootCheck 
-     * @returns {BOOL} 
-     */
-    static NeedReboot(dwRebootCheck) {
-        result := DllCall("ADVPACK.dll\NeedReboot", "uint", dwRebootCheck, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {PSTR} pszINF 
-     * @param {PSTR} pszSec 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     */
-    static RebootCheckOnInstallA(_hwnd, pszINF, pszSec, dwReserved) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
-        pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
-
-        result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", _hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {PWSTR} pszINF 
-     * @param {PWSTR} pszSec 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     */
-    static RebootCheckOnInstallW(_hwnd, pszINF, pszSec, dwReserved) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
-        pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
-
-        result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", _hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} pszInfFilename 
-     * @param {PSTR} pszInstallSection 
-     * @param {PSTR} pszTranslateSection 
-     * @param {PSTR} pszTranslateKey 
-     * @param {PSTR} pszBuffer 
-     * @param {Integer} cchBuffer 
-     * @returns {Integer} 
-     */
-    static TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer) {
-        static pvReserved := 0 ;Reserved parameters must always be NULL
-
-        pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
-        pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
-        pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
-        pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
-        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
-
-        result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
-        return pdwRequiredSize
-    }
-
-    /**
-     * 
-     * @param {PWSTR} pszInfFilename 
-     * @param {PWSTR} pszInstallSection 
-     * @param {PWSTR} pszTranslateSection 
-     * @param {PWSTR} pszTranslateKey 
-     * @param {PWSTR} pszBuffer 
-     * @param {Integer} cchBuffer 
-     * @returns {Integer} 
-     */
-    static TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer) {
-        static pvReserved := 0 ;Reserved parameters must always be NULL
-
-        pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
-        pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
-        pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
-        pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
-        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
-
-        result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
-        return pdwRequiredSize
-    }
-
-    /**
-     * Updates the string registry values in the provided table. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The advpub.h header defines RegInstall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMODULE} hmod The module containing the values to be updated.
-     * @param {PSTR} pszSection The sections containing the values to be updated.
-     * @param {Pointer<STRTABLEA>} pstTable The table of values to be updated.
-     * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstalla
-     * @since windows10.0.10240
-     */
-    static RegInstallA(hmod, pszSection, pstTable) {
-        hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-
-        result := DllCall("ADVPACK.dll\RegInstallA", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "HRESULT")
-        return result
-    }
-
-    /**
-     * Updates the string registry values in the provided table. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The advpub.h header defines RegInstall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMODULE} hmod The module containing the values to be updated.
-     * @param {PWSTR} pszSection The sections containing the values to be updated.
-     * @param {Pointer<STRTABLEW>} pstTable The table of values to be updated.
-     * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstallw
-     * @since windows10.0.10240
-     */
-    static RegInstallW(hmod, pszSection, pstTable) {
-        hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-
-        result := DllCall("ADVPACK.dll\RegInstallW", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PWSTR} pszParms 
-     * @param {Integer} nShow 
-     * @returns {HRESULT} 
-     */
-    static LaunchINFSectionExW(_hwnd, _hInstance, pszParms, nShow) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
-
-        result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {Pointer<CABINFOA>} pCab 
-     * @param {Pointer<Void>} pReserved 
-     * @returns {HRESULT} 
-     */
-    static ExecuteCabA(_hwnd, pCab, pReserved) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\ExecuteCabA", "ptr", _hwnd, "ptr", pCab, pReservedMarshal, pReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {Pointer<CABINFOW>} pCab 
-     * @param {Pointer<Void>} pReserved 
-     * @returns {HRESULT} 
-     */
-    static ExecuteCabW(_hwnd, pCab, pReserved) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\ExecuteCabW", "ptr", _hwnd, "ptr", pCab, pReservedMarshal, pReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {PSTR} lpszSourceDir 
-     * @param {PSTR} lpszSourceFile 
-     * @param {PSTR} lpszDestDir 
-     * @param {PSTR} lpszDestFile 
-     * @param {Integer} dwFlags 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     */
-    static AdvInstallFileA(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
-        lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
-        lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
-        lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
-
-        result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", _hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {PWSTR} lpszSourceDir 
-     * @param {PWSTR} lpszSourceFile 
-     * @param {PWSTR} lpszDestDir 
-     * @param {PWSTR} lpszDestFile 
-     * @param {Integer} dwFlags 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     */
-    static AdvInstallFileW(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
-        lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
-        lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
-        lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
-
-        result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", _hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PSTR} pszTitleString 
-     * @param {HKEY} hkBckupKey 
-     * @param {PSTR} pcszRootKey 
-     * @param {PSTR} pcszSubKey 
-     * @param {PSTR} pcszValueName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static RegSaveRestoreA(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
-        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
-        pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
-        pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
-        pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
-
-        result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PWSTR} pszTitleString 
-     * @param {HKEY} hkBckupKey 
-     * @param {PWSTR} pcszRootKey 
-     * @param {PWSTR} pcszSubKey 
-     * @param {PWSTR} pcszValueName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static RegSaveRestoreW(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
-        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
-        pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
-        pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
-        pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
-
-        result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PSTR} pszTitle 
-     * @param {PSTR} pszINF 
-     * @param {PSTR} pszSection 
-     * @param {HKEY} hHKLMBackKey 
-     * @param {HKEY} hHKCUBackKey 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static RegSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
-        pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-        hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
-        hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
-
-        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PWSTR} pszTitle 
-     * @param {PWSTR} pszINF 
-     * @param {PWSTR} pszSection 
-     * @param {HKEY} hHKLMBackKey 
-     * @param {HKEY} hHKCUBackKey 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static RegSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
-        pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-        hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
-        hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
-
-        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PSTR} pszTitleString 
-     * @param {HKEY} hkBckupKey 
-     * @returns {HRESULT} 
-     */
-    static RegRestoreAllA(_hWnd, pszTitleString, hkBckupKey) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
-        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
-
-        result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PWSTR} pszTitleString 
-     * @param {HKEY} hkBckupKey 
-     * @returns {HRESULT} 
-     */
-    static RegRestoreAllW(_hWnd, pszTitleString, hkBckupKey) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
-        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
-
-        result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} hDlg 
-     * @param {PWSTR} lpFileList 
-     * @param {PWSTR} lpDir 
-     * @param {PWSTR} lpBaseName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static FileSaveRestoreW(hDlg, lpFileList, lpDir, lpBaseName, dwFlags) {
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
-        lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
-        lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
-
-        result := DllCall("ADVPACK.dll\FileSaveRestoreW", "ptr", hDlg, "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PSTR} pszTitle 
-     * @param {PSTR} pszINF 
-     * @param {PSTR} pszSection 
-     * @param {PSTR} pszBackupDir 
-     * @param {PSTR} pszBaseBackupFile 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static FileSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
-        pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-        pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
-        pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
-
-        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hWnd 
-     * @param {PWSTR} pszTitle 
-     * @param {PWSTR} pszINF 
-     * @param {PWSTR} pszSection 
-     * @param {PWSTR} pszBackupDir 
-     * @param {PWSTR} pszBaseBackupFile 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static FileSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
-        pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-        pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
-        pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
-
-        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} lpcszFileList 
-     * @param {PSTR} lpcszBackupDir 
-     * @param {PSTR} lpcszBaseName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static AddDelBackupEntryA(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
-        lpcszFileList := lpcszFileList is String ? StrPtr(lpcszFileList) : lpcszFileList
-        lpcszBackupDir := lpcszBackupDir is String ? StrPtr(lpcszBackupDir) : lpcszBackupDir
-        lpcszBaseName := lpcszBaseName is String ? StrPtr(lpcszBaseName) : lpcszBaseName
-
-        result := DllCall("ADVPACK.dll\AddDelBackupEntryA", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} lpcszFileList 
-     * @param {PWSTR} lpcszBackupDir 
-     * @param {PWSTR} lpcszBaseName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static AddDelBackupEntryW(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
-        lpcszFileList := lpcszFileList is String ? StrPtr(lpcszFileList) : lpcszFileList
-        lpcszBackupDir := lpcszBackupDir is String ? StrPtr(lpcszBackupDir) : lpcszBackupDir
-        lpcszBaseName := lpcszBaseName is String ? StrPtr(lpcszBaseName) : lpcszBaseName
-
-        result := DllCall("ADVPACK.dll\AddDelBackupEntryW", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} lpFileList 
-     * @param {PSTR} lpDir 
-     * @param {PSTR} lpBaseName 
-     * @returns {HRESULT} 
-     */
-    static FileSaveMarkNotExistA(lpFileList, lpDir, lpBaseName) {
-        lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
-        lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
-
-        result := DllCall("ADVPACK.dll\FileSaveMarkNotExistA", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} lpFileList 
-     * @param {PWSTR} lpDir 
-     * @param {PWSTR} lpBaseName 
-     * @returns {HRESULT} 
-     */
-    static FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
-        lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
-        lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
-
-        result := DllCall("ADVPACK.dll\FileSaveMarkNotExistW", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} lpszFilename 
-     * @param {Pointer<Integer>} pdwMSVer 
-     * @param {Pointer<Integer>} pdwLSVer 
-     * @param {BOOL} bVersion 
-     * @returns {HRESULT} 
-     */
-    static GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
-        lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
-
-        pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-        pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, "int", bVersion, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} lpszFilename 
-     * @param {Pointer<Integer>} pdwMSVer 
-     * @param {Pointer<Integer>} pdwLSVer 
-     * @param {BOOL} bVersion 
-     * @returns {HRESULT} 
-     */
-    static GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
-        lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
-
-        pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-        pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, "int", bVersion, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} lpszFilename 
-     * @param {Pointer<Integer>} pdwMSVer 
-     * @param {Pointer<Integer>} pdwLSVer 
-     * @param {BOOL} bVersion 
-     * @returns {HRESULT} 
-     */
-    static GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
-        lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
-
-        pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-        pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, "int", bVersion, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} lpszFilename 
-     * @param {Pointer<Integer>} pdwMSVer 
-     * @param {Pointer<Integer>} pdwLSVer 
-     * @param {BOOL} bVersion 
-     * @returns {HRESULT} 
-     */
-    static GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
-        lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
-
-        pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-        pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, "int", bVersion, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} dwReserved 
-     * @param {Pointer<Integer>} lpdwReserved 
-     * @returns {BOOL} 
-     */
-    static IsNTAdmin(dwReserved, lpdwReserved) {
-        lpdwReservedMarshal := lpdwReserved is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\IsNTAdmin", "uint", dwReserved, lpdwReservedMarshal, lpdwReserved, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} pszFileOrDirName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static DelNodeA(pszFileOrDirName, dwFlags) {
-        pszFileOrDirName := pszFileOrDirName is String ? StrPtr(pszFileOrDirName) : pszFileOrDirName
-
-        result := DllCall("ADVPACK.dll\DelNodeA", "ptr", pszFileOrDirName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} pszFileOrDirName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     */
-    static DelNodeW(pszFileOrDirName, dwFlags) {
-        pszFileOrDirName := pszFileOrDirName is String ? StrPtr(pszFileOrDirName) : pszFileOrDirName
-
-        result := DllCall("ADVPACK.dll\DelNodeW", "ptr", pszFileOrDirName, "uint", dwFlags, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PWSTR} pszParms 
-     * @param {Integer} nShow 
-     * @returns {HRESULT} 
-     */
-    static DelNodeRunDLL32W(_hwnd, _hInstance, pszParms, nShow) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
-
-        result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} pszInfFilename 
-     * @param {PSTR} pszInstallSection 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Pointer<Void>>} phInf 
-     * @param {Pointer<Void>} pvReserved 
-     * @returns {HRESULT} 
-     */
-    static OpenINFEngineA(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
-        pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
-        pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
-
-        phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} pszInfFilename 
-     * @param {PWSTR} pszInstallSection 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Pointer<Void>>} phInf 
-     * @param {Pointer<Void>} pvReserved 
-     * @returns {HRESULT} 
-     */
-    static OpenINFEngineW(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
-        pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
-        pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
-
-        phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Void>} hInf 
-     * @param {PSTR} pszInfFilename 
-     * @param {PSTR} pszTranslateSection 
-     * @param {PSTR} pszTranslateKey 
-     * @param {PSTR} pszBuffer 
-     * @param {Integer} dwBufferSize 
-     * @returns {Integer} 
-     */
-    static TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize) {
-        static pvReserved := 0 ;Reserved parameters must always be NULL
-
-        pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
-        pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
-        pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
-        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
-
-        hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\TranslateInfStringExA", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
-        return pdwRequiredSize
-    }
-
-    /**
-     * 
-     * @param {Pointer<Void>} hInf 
-     * @param {PWSTR} pszInfFilename 
-     * @param {PWSTR} pszTranslateSection 
-     * @param {PWSTR} pszTranslateKey 
-     * @param {PWSTR} pszBuffer 
-     * @param {Integer} dwBufferSize 
-     * @returns {Integer} 
-     */
-    static TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize) {
-        static pvReserved := 0 ;Reserved parameters must always be NULL
-
-        pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
-        pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
-        pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
-        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
-
-        hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\TranslateInfStringExW", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
-        return pdwRequiredSize
-    }
-
-    /**
-     * 
-     * @param {Pointer<Void>} hInf 
-     * @returns {HRESULT} 
-     */
-    static CloseINFEngine(hInf) {
-        hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\CloseINFEngine", hInfMarshal, hInf, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PSTR} pszCabName 
-     * @param {PSTR} pszExpandDir 
-     * @param {Integer} dwFlags 
-     * @param {PSTR} pszFileList 
-     * @param {Pointer<Void>} lpReserved 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     */
-    static ExtractFilesA(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
-        pszCabName := pszCabName is String ? StrPtr(pszCabName) : pszCabName
-        pszExpandDir := pszExpandDir is String ? StrPtr(pszExpandDir) : pszExpandDir
-        pszFileList := pszFileList is String ? StrPtr(pszFileList) : pszFileList
-
-        lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\ExtractFilesA", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, lpReservedMarshal, lpReserved, "uint", dwReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} pszCabName 
-     * @param {PWSTR} pszExpandDir 
-     * @param {Integer} dwFlags 
-     * @param {PWSTR} pszFileList 
-     * @param {Pointer<Void>} lpReserved 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     */
-    static ExtractFilesW(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
-        pszCabName := pszCabName is String ? StrPtr(pszCabName) : pszCabName
-        pszExpandDir := pszExpandDir is String ? StrPtr(pszExpandDir) : pszExpandDir
-        pszFileList := pszFileList is String ? StrPtr(pszFileList) : pszFileList
-
-        lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ADVPACK.dll\ExtractFilesW", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, lpReservedMarshal, lpReserved, "uint", dwReserved, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} hwndOwner 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PWSTR} pszParams 
-     * @param {Integer} nShow 
-     * @returns {Integer} 
-     */
-    static LaunchINFSectionW(hwndOwner, _hInstance, pszParams, nShow) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
-
-        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", _hInstance, "ptr", pszParams, "int", nShow, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PSTR} pszParms 
-     * @param {Integer} nShow 
-     * @returns {HRESULT} 
-     */
-    static UserInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
-
-        result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PWSTR} pszParms 
-     * @param {Integer} nShow 
-     * @returns {HRESULT} 
-     */
-    static UserInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
-
-        result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PSTR} pszParms 
-     * @param {Integer} nShow 
-     * @returns {HRESULT} 
-     */
-    static UserUnInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
-
-        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} _hwnd 
-     * @param {HINSTANCE} _hInstance 
-     * @param {PWSTR} pszParms 
-     * @param {Integer} nShow 
-     * @returns {HRESULT} 
-     */
-    static UserUnInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
-
-        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<PERUSERSECTIONA>} pPerUser 
-     * @returns {HRESULT} 
-     */
-    static SetPerUserSecValuesA(pPerUser) {
-        result := DllCall("ADVPACK.dll\SetPerUserSecValuesA", "ptr", pPerUser, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<PERUSERSECTIONW>} pPerUser 
-     * @returns {HRESULT} 
-     */
-    static SetPerUserSecValuesW(pPerUser) {
-        result := DllCall("ADVPACK.dll\SetPerUserSecValuesW", "ptr", pPerUser, "HRESULT")
-        return result
-    }
-
-    /**
-     * Specifies an action or processing for the Input Method Editor (IME) through a specified subfunction. (ANSI)
-     * @remarks
-     * <b>SendIMEMessageEx</b> guarantees the action stipulated in the specifications only for IMEs that support the <b>WM_CONVERTREQUESTEX</b> message. For an IME that does not support <b>WM_CONVERTREQUESTEX</b>, <b>SendIMEMessageEx</b> sends a <b>WM_CONVERTREQUEST</b> message to the IME and returns the contents of the <b>wParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure. If the processing of the subfunction has not been completed normally, these functions set <b>IME_RS_ERROR</b> into <b>wParam</b>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The ime.h header defines SendIMEMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} param0 
-     * @param {LPARAM} param1 
-     * @returns {LRESULT} The result of processing of the subfunction. If the result is not success, one of the following error codes is stored into the <b>wParam</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_DISKERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Disk error.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * General error.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_ILLEGAL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Contains an illegal character.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_INVALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid subfunction.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NEST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Subfunction is nested and, therefore, cannot be used.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NOIME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The IME has not been selected (has not been installed).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NOROOM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Short of area.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No candidate found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_SYSTEMMODAL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Windows is in system mode, data cannot be passed to the IME.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_TOOLONG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Characters too long.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ime/nf-ime-sendimemessageexa
-     * @since windows5.0
-     */
-    static SendIMEMessageExA(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\SendIMEMessageExA", "ptr", param0, "ptr", param1, "ptr")
-        return result
-    }
-
-    /**
-     * Specifies an action or processing for the Input Method Editor (IME) through a specified subfunction. (Unicode)
-     * @remarks
-     * <b>SendIMEMessageEx</b> guarantees the action stipulated in the specifications only for IMEs that support the <b>WM_CONVERTREQUESTEX</b> message. For an IME that does not support <b>WM_CONVERTREQUESTEX</b>, <b>SendIMEMessageEx</b> sends a <b>WM_CONVERTREQUEST</b> message to the IME and returns the contents of the <b>wParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure. If the processing of the subfunction has not been completed normally, these functions set <b>IME_RS_ERROR</b> into <b>wParam</b>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The ime.h header defines SendIMEMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} param0 
-     * @param {LPARAM} param1 
-     * @returns {LRESULT} The result of processing of the subfunction. If the result is not success, one of the following error codes is stored into the <b>wParam</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_DISKERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Disk error.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * General error.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_ILLEGAL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Contains an illegal character.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_INVALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid subfunction.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NEST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Subfunction is nested and, therefore, cannot be used.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NOIME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The IME has not been selected (has not been installed).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NOROOM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Short of area.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_NOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No candidate found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_SYSTEMMODAL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Windows is in system mode, data cannot be passed to the IME.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IME_RS_TOOLONG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Characters too long.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ime/nf-ime-sendimemessageexw
-     * @since windows5.0
-     */
-    static SendIMEMessageExW(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\SendIMEMessageExW", "ptr", param0, "ptr", param1, "ptr")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} param0 
-     * @param {Pointer<IMEPROA>} param1 
-     * @returns {BOOL} 
-     */
-    static IMPGetIMEA(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\IMPGetIMEA", "ptr", param0, "ptr", param1, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} param0 
-     * @param {Pointer<IMEPROW>} param1 
-     * @returns {BOOL} 
-     */
-    static IMPGetIMEW(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\IMPGetIMEW", "ptr", param0, "ptr", param1, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<IMEPROA>} param0 
-     * @returns {BOOL} 
-     */
-    static IMPQueryIMEA(param0) {
-        result := DllCall("USER32.dll\IMPQueryIMEA", "ptr", param0, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<IMEPROW>} param0 
-     * @returns {BOOL} 
-     */
-    static IMPQueryIMEW(param0) {
-        result := DllCall("USER32.dll\IMPQueryIMEW", "ptr", param0, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} param0 
-     * @param {Pointer<IMEPROA>} param1 
-     * @returns {BOOL} 
-     */
-    static IMPSetIMEA(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\IMPSetIMEA", "ptr", param0, "ptr", param1, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} param0 
-     * @param {Pointer<IMEPROW>} param1 
-     * @returns {BOOL} 
-     */
-    static IMPSetIMEW(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\IMPSetIMEW", "ptr", param0, "ptr", param1, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} param0 
-     * @returns {Integer} 
-     */
-    static WINNLSGetIMEHotkey(param0) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\WINNLSGetIMEHotkey", "ptr", param0, "uint")
-        return result
-    }
-
-    /**
-     * Temporarily enables or disables an Input Method Editor (IME) and, at the same time, turns on or off the display of all windows owned by the IME.
-     * @remarks
-     * The terms "enabled" and "disabled" in regard to this function are defined as follows:
-     *             
-     *                 
-     * 
-     * If an IME is disabled, <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IME_WINDOWUPDATE(FALSE)</a> is issued to the IME, which responds by deleting the conversion and system windows. With the IME disabled, keyboard messages are not sent to the IME, but are sent directly to the application. Even if the IME is disabled, the API that uses the <a href="https://docs.microsoft.com/windows/desktop/api/ime/nf-ime-sendimemessageexa">SendIMEMessageEx</a> function is still valid.
-     * 
-     * If an IME is enabled, <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IME_WINDOWUPDATE(TRUE)</a> is issued to the IME, which responds by redisplaying the conversion and system windows. With the IME enabled, keyboard messages are sent to the IME.
-     * @param {HWND} param0 
-     * @param {BOOL} param1 
-     * @returns {BOOL} The previous state of the IME. <b>TRUE</b> if it was enabled before this call, otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls32/nf-winnls32-winnlsenableime
-     * @since windows5.0
-     */
-    static WINNLSEnableIME(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\WINNLSEnableIME", "ptr", param0, "int", param1, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {HWND} param0 
-     * @returns {BOOL} 
-     */
-    static WINNLSGetEnableStatus(param0) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := DllCall("USER32.dll\WINNLSGetEnableStatus", "ptr", param0, "int")
-        return result
-    }
-
-    /**
-     * Enables applications to detect bad extension objects and either block them from running or fix them.
-     * @remarks
-     * This is a helper function for Explorer and Internet Explorer that allows those applications to detect bad extension objects and either block them from running or fix them.
-     * 
-     * 
-     * If the database indicates that a shim should be used to fix the extension
-     * and <i>bShimIfNecessary</i> is <b>TRUE</b>, this function  loads Shimeng.dll and
-     * applies the fix.
-     * 
-     * This function has no associated import library or header file; you must call it using the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions.
-     * @param {Pointer<Guid>} ObjectCLSID The GUID of a register class.
-     * @param {BOOL} bShimIfNecessary This parameter is <b>TRUE</b> if a shim is needed; <b>FALSE</b> otherwise.
-     * @param {Pointer<Integer>} pullFlags This parameter is filled with a 64-bit flag mask that can be used to turn on application modification flags in Explorer/IE. These are located in the application compatibility database.
-     * @returns {BOOL} <b>FALSE</b> if the object should be blocked from instantiating; <b>TRUE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/appcompatapi/nf-appcompatapi-apphelpcheckshellobject
-     */
-    static ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
-        pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("APPHELP.dll\ApphelpCheckShellObject", "ptr", ObjectCLSID, "int", bShimIfNecessary, pullFlagsMarshal, pullFlags, "int")
-        return result
-    }
-
-    /**
-     * Calls the library to get the security state relative to the host, and script or msi to be used.
-     * @remarks
-     * > [!NOTE]
-     * > [WldpCanExecuteBuffer](nf-wldp-wldpcanexecutebuffer.md), [WldpCanExecuteFile](nf-wldp-wldpcanexecutefile.md), and [WldpCanExecuteStream](nf-wldp-wldpcanexecutestream.md) are newer APIs that enable the same scenarios as **WldpGetLockdownPolicy** but with an improved implementation.
-     * 
-     * When called with WLDP\_HOST\_INFORMATION.szSource = NULL, the generic policy for the host is returned.
-     * 
-     * When called with WLDP\_HOST\_INFORMATION.dwHostId = WLDP\_HOST\_ID\_GLOBAL, WLDP\_HOST\_INFORMATION.szSource must be NULL, and the function will return the global system policy.
-     * 
-     * The dwFlag WLDP\_FLAGS\_SKIPSIGNATUREVALIDATION can be used to skip the SaferIdentifyLevel() validation, which will ignore whether a script is signed.
-     * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host and source file to be evaluated.
-     * @param {Integer} lockdownFlags The following flag values are defined WLDP\_FLAGS\_SKIPSIGNATUREVALIDATION 0x00000100 – when set, skip the SaferIdentifyLevel validation, which will ignore whether a script is signed.
-     * @returns {Integer} Provides the resulting policy secure value. If !WLDP_LOCKDOWN_IS_OFF, then UMCI is enabled. You can also check WLDP_LOCKDOWN_IS_AUDIT and WLDP_LOCKDOWN_IS_ENFORCE to determine if a policy is in audit or enforce mode.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
-     */
-    static WldpGetLockdownPolicy(hostInformation, lockdownFlags) {
-        result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "uint*", &lockdownState := 0, "uint", lockdownFlags, "HRESULT")
-        return lockdownState
-    }
-
-    /**
-     * Calls the library to validate if a particular CLSID is safe to be called.
-     * @param {Pointer<Guid>} classID The COM class ID to check for approval.
-     * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host to be evaluated.
-     * @param {Integer} optionalFlags This parameter is reserved and must be set to zero.
-     * @returns {BOOL} On successful completion, contains **TRUE** if the class ID is approved; otherwise, **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
-     */
-    static WldpIsClassInApprovedList(classID, hostInformation, optionalFlags) {
-        result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "int*", &isApproved := 0, "uint", optionalFlags, "HRESULT")
-        return isApproved
-    }
-
-    /**
-     * 
-     * @param {Pointer<UNICODE_STRING>} providerName 
-     * @param {Pointer<UNICODE_STRING>} keyName 
-     * @param {Pointer<UNICODE_STRING>} _valueName 
-     * @param {Integer} valueAddress 
-     * @param {Pointer<Integer>} valueSize 
-     * @returns {WLDP_SECURE_SETTING_VALUE_TYPE} 
-     */
-    static WldpQuerySecurityPolicy(providerName, keyName, _valueName, valueAddress, valueSize) {
-        valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", _valueName, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "HRESULT")
-        return valueType
-    }
-
-    /**
-     * Sets an on-disk .NET CRL Dynamic Code trustable for .NET.
-     * @param {HANDLE} fileHandle Handle to a on-disk dynamic code file.
-     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpsetdynamiccodetrust
-     */
-    static WldpSetDynamicCodeTrust(fileHandle) {
-        fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
-
-        result := DllCall("Wldp.dll\WldpSetDynamicCodeTrust", "ptr", fileHandle, "HRESULT")
-        return result
-    }
-
-    /**
-     * Retrieves a value that describes the Device Guard policy enforcement status for .NET dynamic code.
-     * @remarks
-     * Dynamic code refers to .NET CRL dynamically-generated code.
-     * @returns {BOOL} On success, returns **true** if the Device Guard policy enforces .NET Dynamic Code policy; otherwise, returns **false**.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
-     */
-    static WldpIsDynamicCodePolicyEnabled() {
-        result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "int*", &isEnabled := 0, "HRESULT")
-        return isEnabled
-    }
-
-    /**
-     * Retrieves a value that determines if the specified in-memory or on-disk .NET CRL dynamic code is trusted by Device Guard policy.
-     * @param {HANDLE} fileHandle Handle to the on-disk dynamic code file to check. If *fileHandle* is non-**NULL**, *baseImage* should be **NULL**.
-     * @param {Integer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
-     * @param {Integer} imageSize When *baseImage* is non-**NULL**, indicates the buffer size that *baseImage* points to.
-     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
-     */
-    static WldpQueryDynamicCodeTrust(fileHandle, baseImage, imageSize) {
-        fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
-
-        result := DllCall("Wldp.dll\WldpQueryDynamicCodeTrust", "ptr", fileHandle, "ptr", baseImage, "uint", imageSize, "HRESULT")
-        return result
-    }
-
-    /**
-     * Retrieves the current Windows secure mode. Windows can be in locked mode, unlocked normal mode, or trial mode.
-     * @returns {WLDP_WINDOWS_LOCKDOWN_MODE} On success, returns a [**PWLDP\_WINDOWS\_LOCKDOWN\_MODE**](ne-wldp-wldp_windows_lockdown_mode.md) that indicates the secure mode for the current Windows 10 device.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
-     */
-    static WldpQueryWindowsLockdownMode() {
-        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", "int*", &lockdownMode := 0, "HRESULT")
-        return lockdownMode
-    }
-
-    /**
-     * 
-     * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
-     * @param {Integer} informationLength 
-     * @returns {Integer} 
-     */
-    static WldpQueryDeviceSecurityInformation(information, informationLength) {
-        result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, "uint*", &returnLength := 0, "HRESULT")
-        return returnLength
-    }
-
-    /**
-     * 
-     * @returns {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} 
-     */
-    static WldpQueryWindowsLockdownRestriction() {
-        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownRestriction", "int*", &LockdownRestriction := 0, "HRESULT")
-        return LockdownRestriction
-    }
-
-    /**
-     * 
-     * @param {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} LockdownRestriction 
-     * @returns {HRESULT} 
-     */
-    static WldpSetWindowsLockdownRestriction(LockdownRestriction) {
-        result := DllCall("Wldp.dll\WldpSetWindowsLockdownRestriction", "int", LockdownRestriction, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} PackageFamilyName 
-     * @param {Integer} PackageVersion 
-     * @returns {HRESULT} 
-     */
-    static WldpIsAppApprovedByPolicy(PackageFamilyName, PackageVersion) {
-        PackageFamilyName := PackageFamilyName is String ? StrPtr(PackageFamilyName) : PackageFamilyName
-
-        result := DllCall("Wldp.dll\WldpIsAppApprovedByPolicy", "ptr", PackageFamilyName, "uint", PackageVersion, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {WLDP_POLICY_SETTING} Setting 
-     * @returns {BOOL} 
-     */
-    static WldpQueryPolicySettingEnabled(Setting) {
-        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled", "int", Setting, "int*", &Enabled := 0, "HRESULT")
-        return Enabled
-    }
-
-    /**
-     * 
-     * @param {PWSTR} SettingString 
-     * @returns {BOOL} 
-     */
-    static WldpQueryPolicySettingEnabled2(SettingString) {
-        SettingString := SettingString is String ? StrPtr(SettingString) : SettingString
-
-        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled2", "ptr", SettingString, "int*", &Enabled := 0, "HRESULT")
-        return Enabled
-    }
-
-    /**
-     * 
-     * @returns {BOOL} 
-     */
-    static WldpIsWcosProductionConfiguration() {
-        result := DllCall("Wldp.dll\WldpIsWcosProductionConfiguration", "int*", &IsProductionConfiguration := 0, "HRESULT")
-        return IsProductionConfiguration
-    }
-
-    /**
-     * 
-     * @returns {HRESULT} 
-     */
-    static WldpResetWcosProductionConfiguration() {
-        result := DllCall("Wldp.dll\WldpResetWcosProductionConfiguration", "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @returns {BOOL} 
-     */
-    static WldpIsProductionConfiguration() {
-        result := DllCall("Wldp.dll\WldpIsProductionConfiguration", "int*", &IsProductionConfiguration := 0, "HRESULT")
-        return IsProductionConfiguration
-    }
-
-    /**
-     * 
-     * @returns {HRESULT} 
-     */
-    static WldpResetProductionConfiguration() {
-        result := DllCall("Wldp.dll\WldpResetProductionConfiguration", "HRESULT")
-        return result
-    }
-
-    /**
-     * Queries whether the execution policy allows execution of the code in the supplied file.
-     * @remarks
-     * This method is provided as a replacement for [WldpGetLockdownPolicy](nf-wldp-wldpgetlockdownpolicy.md). This interface is differentiated from **WldpGetLockdownPolicy** in the following ways:
-     * 
-     * - Encourages callers to ensure that the subject (file, buffer, or stream) passes os execution policy.  
-     * - Allows calling apps to provide additional audit information for diagnostic purposes.
-     * - Allows verification of buffers and streams of code.
-     * - Simplifies the calling pattern. 
-     * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
-     * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
-     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {HANDLE} fileHandle The handle to the file being validated for execution approval. 
-     * 
-     * > [!IMPORTANT]
-     * > Callers should only pass open file handles to **WldpCanExecuteFile** and should not cache the security authorization on a specific file. It should be assumed that authorization to run a particular file is revoked when its file handle is closed. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
-     * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
-     */
-    static WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
-        fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
-        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
-
-        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
-        return result
-    }
-
-    /**
-     * Queries whether the execution policy allows execution of the code in the supplied buffer.
-     * @remarks
-     * This method is provided as a replacement for [WldpGetLockdownPolicy](nf-wldp-wldpgetlockdownpolicy.md). This interface is differentiated from **WldpGetLockdownPolicy** in the following ways:
-     * 
-     * - Encourages callers to ensure that the subject (file, buffer, or stream) passes os execution policy.  
-     * - Allows calling apps to provide additional audit information for diagnostic purposes.
-     * - Allows verification of buffers and streams of code.
-     * - Simplifies the calling pattern. 
-     * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
-     * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
-     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {Pointer<Integer>} _buffer The buffer containing script code to be validated. 
-     * 
-     * > [!IMPORTANT]
-     * > Buffers passed to **WldpCanExecuteBuffer** should be read-only and the caller should not cache the security authorization on a specific buffer. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
-     * @param {Integer} bufferSize The size of *buffer*, in bytes.
-     * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
-     */
-    static WldpCanExecuteBuffer(host, options, _buffer, bufferSize, auditInfo) {
-        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
-
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, _bufferMarshal, _buffer, "uint", bufferSize, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
-        return result
-    }
-
-    /**
-     * Queries whether the execution policy allows execution of the code in the supplied stream.
-     * @remarks
-     * This method is provided as a replacement for [WldpGetLockdownPolicy](nf-wldp-wldpgetlockdownpolicy.md). This interface is differentiated from **WldpGetLockdownPolicy** in the following ways:
-     * 
-     * - Encourages callers to ensure that the subject (file, buffer, or stream) passes os execution policy.  
-     * - Allows calling apps to provide additional audit information for diagnostic purposes.
-     * - Allows verification of buffers and streams of code.
-     * - Simplifies the calling pattern. 
-     * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
-     * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
-     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {IStream} stream 
-     * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
-     */
-    static WldpCanExecuteStream(host, options, stream, auditInfo) {
-        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
-
-        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Guid>} host 
-     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
-     * @param {HANDLE} contentFileHandle 
-     * @param {HANDLE} signatureFileHandle 
-     * @param {PWSTR} auditInfo 
-     * @returns {WLDP_EXECUTION_POLICY} 
-     */
-    static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo) {
-        contentFileHandle := contentFileHandle is Win32Handle ? NumGet(contentFileHandle, "ptr") : contentFileHandle
-        signatureFileHandle := signatureFileHandle is Win32Handle ? NumGet(signatureFileHandle, "ptr") : signatureFileHandle
-        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
-
-        result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} id 
-     * @param {PWSTR} setting 
-     * @returns {BOOL} 
-     */
-    static WldpGetApplicationSettingBoolean(id, setting) {
-        id := id is String ? StrPtr(id) : id
-        setting := setting is String ? StrPtr(setting) : setting
-
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, "int*", &result := 0, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} id 
-     * @param {PWSTR} setting 
-     * @param {Pointer} dataCount 
-     * @param {PWSTR} result 
-     * @returns {Pointer} 
-     */
-    static WldpGetApplicationSettingStringList(id, setting, dataCount, result) {
-        id := id is String ? StrPtr(id) : id
-        setting := setting is String ? StrPtr(setting) : setting
-        result := result is String ? StrPtr(result) : result
-
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
-        return requiredCount
-    }
-
-    /**
-     * 
-     * @param {PWSTR} id 
-     * @param {PWSTR} setting 
-     * @param {Pointer} dataCount 
-     * @param {PWSTR} result 
-     * @returns {Pointer} 
-     */
-    static WldpGetApplicationSettingStringSet(id, setting, dataCount, result) {
-        id := id is String ? StrPtr(id) : id
-        setting := setting is String ? StrPtr(setting) : setting
-        result := result is String ? StrPtr(result) : result
-
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
-        return requiredCount
-    }
-
-;@endregion Methods
+;@region Functions
+/**
+ * 
+ * @param {Pointer<Integer>} String1 
+ * @param {Pointer<Integer>} String2 
+ * @returns {Integer} 
+ */
+export uaw_lstrcmpW(String1, String2) {
+    String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
+    String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_lstrcmpW", String1Marshal, String1, String2Marshal, String2, Int32)
+    return result
 }
+
+/**
+ * 
+ * @param {Pointer<Integer>} String1 
+ * @param {Pointer<Integer>} String2 
+ * @returns {Integer} 
+ */
+export uaw_lstrcmpiW(String1, String2) {
+    String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
+    String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_lstrcmpiW", String1Marshal, String1, String2Marshal, String2, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Integer>} _String 
+ * @returns {Integer} 
+ */
+export uaw_lstrlenW(_String) {
+    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_lstrlenW", _StringMarshal, _String, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Integer>} _String 
+ * @param {Integer} Character 
+ * @returns {Pointer<Integer>} 
+ */
+export uaw_wcschr(_String, Character) {
+    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_wcschr", _StringMarshal, _String, "char", Character, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Integer>} Destination 
+ * @param {Pointer<Integer>} Source 
+ * @returns {Pointer<Integer>} 
+ */
+export uaw_wcscpy(Destination, Source) {
+    DestinationMarshal := Destination is VarRef ? "ushort*" : "ptr"
+    SourceMarshal := Source is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_wcscpy", DestinationMarshal, Destination, SourceMarshal, Source, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Integer>} String1 
+ * @param {Pointer<Integer>} String2 
+ * @returns {Integer} 
+ */
+export uaw_wcsicmp(String1, String2) {
+    String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
+    String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_wcsicmp", String1Marshal, String1, String2Marshal, String2, Int32)
+    return result
+}
+
+/**
+ * Retrieves the number of characters in a null-terminated Unicode string.
+ * @remarks
+ * This function is available only on 64-bit Windows.
+ * @param {Pointer<Integer>} _String A pointer to a null-terminated Unicode string.
+ * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
+ * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
+ */
+export uaw_wcslen(_String) {
+    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_wcslen", _StringMarshal, _String, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Integer>} _String 
+ * @param {Integer} Character 
+ * @returns {Pointer<Integer>} 
+ */
+export uaw_wcsrchr(_String, Character) {
+    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\uaw_wcsrchr", _StringMarshal, _String, "char", Character, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @returns {Pointer} 
+ */
+export RtlGetReturnAddressHijackTarget() {
+    result := DllCall("ntdll.dll\RtlGetReturnAddressHijackTarget", IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} TriggerConfig 
+ * @returns {Integer} 
+ */
+export RtlRaiseCustomSystemEventTrigger(TriggerConfig) {
+    result := DllCall("ntdll.dll\RtlRaiseCustomSystemEventTrigger", CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.Ptr, TriggerConfig, UInt32)
+    return result
+}
+
+/**
+ * The IsApiSetImplemented function tests if a specified API set is present on the computer.
+ * @remarks
+ * All versions of Windows 10 share a common base of OS components that is called the *core OS* (in some contexts this is also called *OneCore*). In core OS components, Win32 APIs are organized into functional groups called [API sets](/windows/win32/apiindex/windows-apisets).
+ * 
+ * Some API sets are not available on all Windows 10 platforms. For example, although the full breadth of the Win32 API is supported on PCs, only a subset of the Win32 API is available on other devices such as HoloLens, Xbox, and other devices running Windows 10x.
+ * 
+ * When writing code that targets both desktop and non-desktop Windows 10 devices, wrap the API call in **IsApiSetImplemented**. This function tests at runtime if the API set that the API belongs to is present on the target platform. For more details see [Detect API set availability](/windows/win32/apiindex/detect-api-set-availability).
+ * 
+ * To identify whether a given Win32 API belongs to an API set, review the requirements table in the reference documentation for the API. If the API belongs to an API set, the requirements table in the article lists the API set name.
+ * @param {PSTR} Contract Specifies the name of the API set to query. For more info, see the Remarks section.
+ * @returns {BOOL} **IsApiSetImplemented** returns **TRUE** if the specified API set is present. In this case, APIs in the target API set have valid implementations on the current platform.
+ * 
+ * Otherwise, this function returns **FALSE**.
+ * @see https://learn.microsoft.com/windows/win32/api/apiquery2/nf-apiquery2-isapisetimplemented
+ */
+export IsApiSetImplemented(Contract) {
+    Contract := Contract is String ? StrPtr(Contract) : Contract
+
+    result := DllCall("api-ms-win-core-apiquery-l2-1-0.dll\IsApiSetImplemented", "ptr", Contract, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} contractName 
+ * @param {Integer} bufferLength 
+ * @param {PWSTR} moduleBaseName 
+ * @returns {Integer} 
+ */
+export GetApiSetModuleBaseName(contractName, bufferLength, moduleBaseName) {
+    contractName := contractName is String ? StrPtr(contractName) : contractName
+    moduleBaseName := moduleBaseName is String ? StrPtr(moduleBaseName) : moduleBaseName
+
+    result := DllCall("api-ms-win-core-apiquery-l2-1-1.dll\GetApiSetModuleBaseName", "ptr", contractName, "uint", bufferLength, "ptr", moduleBaseName, "uint*", &actualNameLength := 0, "HRESULT")
+    return actualNameLength
+}
+
+/**
+ * Retrieves the cycle time for the specified thread.
+ * @remarks
+ * To enumerate the threads of the process, use the <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32first">Thread32First</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32next">Thread32Next</a> functions. To get the thread handle for a thread identifier, use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthread">OpenThread</a> function.
+ * 
+ * Do not attempt to convert the CPU clock cycles returned by <b>QueryThreadCycleTime</b> to elapsed time. This function uses timer services provided by the CPU, which can vary in implementation. For example, some CPUs will vary the frequency of the timer when changing the frequency at which the CPU runs and others will leave it at a fixed rate. The behavior of each CPU is described in the documentation provided by the CPU vendor.
+ * 
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
+ * @param {HANDLE} ThreadHandle A handle to the thread. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+ * @param {Pointer<Integer>} CycleTime The number of CPU clock cycles used by the thread. This value includes cycles spent in both user mode and kernel mode.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-querythreadcycletime
+ * @since windows6.0.6000
+ */
+export QueryThreadCycleTime(ThreadHandle, CycleTime) {
+    CycleTimeMarshal := CycleTime is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\QueryThreadCycleTime", HANDLE, ThreadHandle, CycleTimeMarshal, CycleTime, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the sum of the cycle time of all threads of the specified process.
+ * @remarks
+ * To enumerate the processes in the system, use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-enumprocesses">EnumProcesses</a> function.
+ * 
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
+ * @param {HANDLE} ProcessHandle A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+ * @param {Pointer<Integer>} CycleTime The number of CPU clock cycles used by the threads of the process. This value includes cycles spent in both user mode and kernel mode.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryprocesscycletime
+ * @since windows6.0.6000
+ */
+export QueryProcessCycleTime(ProcessHandle, CycleTime) {
+    CycleTimeMarshal := CycleTime is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\QueryProcessCycleTime", HANDLE, ProcessHandle, CycleTimeMarshal, CycleTime, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the cycle time for the idle thread of each processor in the system.
+ * @remarks
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
+ * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group.
+ * 
+ * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
+ * @param {Integer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletime
+ * @since windows6.0.6000
+ */
+export QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
+    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", BufferLengthMarshal, BufferLength, "ptr", ProcessorIdleCycleTime, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the accumulated cycle time for the idle thread on each logical processor in the specified processor group.
+ * @remarks
+ * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0601. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
+ * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group. 
+ * 
+ * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
+ * @param {Integer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, use <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletimeex
+ * @since windows6.1
+ */
+export QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime) {
+    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", "ushort", Group, BufferLengthMarshal, BufferLength, "ptr", ProcessorIdleCycleTime, BOOL)
+    return result
+}
+
+/**
+ * Gets the current interrupt-time count, in a more precise form than QueryInterruptTime does.
+ * @remarks
+ * <b>QueryInterruptTimePrecise</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime">QueryInterruptTime</a> routine, but is more precise. The interrupt time reported by <b>QueryInterruptTime</b> is based on the latest tick of the system clock timer. The system clock timer is the hardware timer that periodically generates interrupts for the system clock. The uniform period between system clock timer interrupts is referred to as a system clock tick, and is typically in the range of 0.5 milliseconds to 15.625 milliseconds, depending on the hardware platform. The interrupt time value retrieved by <b>QueryInterruptTime</b> is accurate within a system clock tick.
+ * 
+ * To provide a system time value that is more precise than that of <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime">QueryInterruptTime</a>, <b>QueryInterruptTimePrecise</b> reads the timer hardware directly,  therefore a <b>QueryInterruptTimePrecise</b> call can be slower than a <b>QueryInterruptTime</b> call.
+ * 
+ * Call the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-kequerytimeincrement">KeQueryTimeIncrement</a> routine to determine the duration of a system clock tick.
+ * 
+ * Also see Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime">QueryInterruptTime</a>.
+ * 
+ * <div class="alert"><b>Note</b>  The <b>QueryInterruptTimePrecise</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
+ * <div> </div>
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
+ * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<Integer>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
+ * @since windows10.0.10240
+ */
+export QueryInterruptTimePrecise(lpInterruptTimePrecise) {
+    lpInterruptTimePreciseMarshal := lpInterruptTimePrecise is VarRef ? "uint*" : "ptr"
+
+    DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", lpInterruptTimePreciseMarshal, lpInterruptTimePrecise)
+}
+
+/**
+ * Gets the current unbiased interrupt-time count, in a more precise form than QueryUnbiasedInterruptTime does. The unbiased interrupt-time count does not include time the system spends in sleep or hibernation.
+ * @remarks
+ * <b>QueryUnbiasedInterruptTimePrecise</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a> routine, but is more precise. The interrupt time reported by <b>QueryUnbiasedInterruptTime</b> is based on the latest tick of the system clock timer. The system clock timer is the hardware timer that periodically generates interrupts for the system clock. The uniform period between system clock timer interrupts is referred to as a system clock tick, and is typically in the range of 0.5 milliseconds to 15.625 milliseconds, depending on the hardware platform. The interrupt time value retrieved by <b>QueryUnbiasedInterruptTime</b> is accurate within a system clock tick.
+ * 
+ * To provide a system time value that is more precise than that of <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a>, <b>QueryUnbiasedInterruptTimePrecise</b> reads the timer hardware directly,  therefore a <b>QueryUnbiasedInterruptTimePrecise</b> call can be slower than a <b>QueryUnbiasedInterruptTime</b> call.
+ * 
+ * Call the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-kequerytimeincrement">KeQueryTimeIncrement</a> routine to determine the duration of a system clock tick.
+ * 
+ * Also see Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a>.
+ * 
+ * <div class="alert"><b>Note</b>  The <b>QueryUnbiasedInterruptTimePrecise</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
+ * <div> </div>
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
+ * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<Integer>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
+ * @since windows10.0.10240
+ */
+export QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
+    lpUnbiasedInterruptTimePreciseMarshal := lpUnbiasedInterruptTimePrecise is VarRef ? "uint*" : "ptr"
+
+    DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", lpUnbiasedInterruptTimePreciseMarshal, lpUnbiasedInterruptTimePrecise)
+}
+
+/**
+ * Gets the current interrupt-time count.
+ * @remarks
+ * The interrupt-time count begins at zero when the system starts and is incremented at each clock interrupt by the length of a clock tick. The exact length of a clock tick depends on underlying hardware and can vary between systems.
+ * 
+ * Unlike system time, the interrupt-time count is not subject to adjustments by users or the Windows time service. Applications can use the interrupt-time count to measure finer durations than are possible with system time. Applications that require greater precision than the interrupt-time count should use a <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-timers">high-resolution timer</a>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancefrequency">QueryPerformanceFrequency</a> function to retrieve the frequency of the high-resolution timer and the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> function to retrieve the counter's value.
+ * 
+ * The  timer resolution set by the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> and <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timeendperiod">timeEndPeriod</a> functions affects the resolution of  the <b>QueryInterruptTime</b> function. However, increasing the timer resolution is not recommended because it can reduce overall system performance and   increase system power consumption by preventing the processor from entering power-saving states. Instead, applications should use a high-resolution timer.
+ * 
+ * <div class="alert"><b>Note</b>  The <b>QueryInterruptTime</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
+ * <div> </div>
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<Integer>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime
+ * @since windows10.0.10240
+ */
+export QueryInterruptTime(lpInterruptTime) {
+    lpInterruptTimeMarshal := lpInterruptTime is VarRef ? "uint*" : "ptr"
+
+    DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", lpInterruptTimeMarshal, lpInterruptTime)
+}
+
+/**
+ * Gets the current unbiased interrupt-time count, in units of 100 nanoseconds. The unbiased interrupt-time count does not include time the system spends in sleep or hibernation.
+ * @remarks
+ * The interrupt-time count begins at zero when the system starts and is incremented at each clock interrupt by the length of a clock tick. The exact length of a clock tick depends on underlying hardware and can vary between systems.
+ * 
+ * The interrupt-time count retrieved by the <b>QueryUnbiasedInterruptTime</b> function reflects only the time that the system is in the working state. Therefore, the interrupt-time count is not "biased" by time the system spends in sleep or hibernation. The system uses biased interrupt time for some operations, such as ensuring that relative timers that would have expired during sleep expire immediately upon waking.
+ * 
+ * Unlike system time, the interrupt-time count is not subject to adjustments by users or the Windows time service. Applications can use the interrupt-time count to measure finer durations than are possible with system time. Applications that require greater precision than the interrupt-time count should use a <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-timers">high-resolution timer</a>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancefrequency">QueryPerformanceFrequency</a> function to retrieve the frequency of the high-resolution timer and the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> function to retrieve the counter's value.
+ * 
+ * The  timer resolution set by the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> and <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timeendperiod">timeEndPeriod</a> functions affects the resolution of  the <b>QueryUnbiasedInterruptTime</b> function. However, increasing the timer resolution is not recommended because it can reduce overall system performance and   increase system power consumption by preventing the processor from entering power-saving states. Instead, applications should use a high-resolution timer.
+ * 
+ * <div class="alert"><b>Note</b>  The <b>QueryUnbiasedInterruptTime</b> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
+ * <div> </div>
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<Integer>} UnbiasedTime TBD
+ * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails because it is called with a null parameter, the return value is zero.
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime
+ * @since windows6.1
+ */
+export QueryUnbiasedInterruptTime(UnbiasedTime) {
+    UnbiasedTimeMarshal := UnbiasedTime is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", UnbiasedTimeMarshal, UnbiasedTime, BOOL)
+    return result
+}
+
+/**
+ * Queries the auxiliary counter frequency.
+ * @remarks
+ * You can determine the availability of the auxiliary counter by comparing the returned value against <b>E_NOTIMPL</b>.
+ * @returns {Integer} Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
+ * @since windows10.0.15063
+ */
+export QueryAuxiliaryCounterFrequency() {
+    result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", "uint*", &lpAuxiliaryCounterFrequency := 0, "HRESULT")
+    return lpAuxiliaryCounterFrequency
+}
+
+/**
+ * Converts the specified auxiliary counter value to the corresponding performance counter value; optionally provides the estimated conversion error in nanoseconds due to latencies and maximum possible drift.
+ * @param {Integer} ullAuxiliaryCounterValue The auxiliary counter value to convert.
+ * @param {Pointer<Integer>} lpPerformanceCounterValue On success, contains the converted performance counter value. Will be undefined if the function fails.
+ * @param {Pointer<Integer>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
+ * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
+ * 
+ * <table>
+ * <tr>
+ * <th>Return value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>S_OK</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The function succeeded.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>E_NOTIMPL</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The auxiliary counter is not supported.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>E_BOUNDS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The value to convert is outside the permitted range (+/- 10 seconds from when the called occurred).
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-convertauxiliarycountertoperformancecounter
+ * @since windows10.0.15063
+ */
+export ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpPerformanceCounterValue, lpConversionError) {
+    lpPerformanceCounterValueMarshal := lpPerformanceCounterValue is VarRef ? "uint*" : "ptr"
+    lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertAuxiliaryCounterToPerformanceCounter", "uint", ullAuxiliaryCounterValue, lpPerformanceCounterValueMarshal, lpPerformanceCounterValue, lpConversionErrorMarshal, lpConversionError, "HRESULT")
+    return result
+}
+
+/**
+ * Converts the specified performance counter value to the corresponding auxiliary counter value; optionally provides the estimated conversion error in nanoseconds due to latencies and maximum possible drift.
+ * @param {Integer} ullPerformanceCounterValue The performance counter value to convert.
+ * @param {Pointer<Integer>} lpAuxiliaryCounterValue On success, contains the converted auxiliary counter value. Will be undefined if the function fails.
+ * @param {Pointer<Integer>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
+ * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
+ * 
+ * <table>
+ * <tr>
+ * <th>Return value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>S_OK</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The function succeeded.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>E_NOTIMPL</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The auxiliary counter is not supported.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>E_BOUNDS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The value to convert is outside the permitted range (+/- 10 seconds from when the called occurred).
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>E_BOUNDS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The value to convert is prior to the last system boot or S3/S4 transition.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-convertperformancecountertoauxiliarycounter
+ * @since windows10.0.15063
+ */
+export ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue, lpAuxiliaryCounterValue, lpConversionError) {
+    lpAuxiliaryCounterValueMarshal := lpAuxiliaryCounterValue is VarRef ? "uint*" : "ptr"
+    lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertPerformanceCounterToAuxiliaryCounter", "uint", ullPerformanceCounterValue, lpAuxiliaryCounterValueMarshal, lpAuxiliaryCounterValue, lpConversionErrorMarshal, lpConversionError, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} dwMinFree 
+ * @returns {Pointer} 
+ */
+export GlobalCompact(dwMinFree) {
+    result := DllCall("KERNEL32.dll\GlobalCompact", "uint", dwMinFree, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {HGLOBAL} hMem 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export GlobalFix(hMem) {
+    DllCall("KERNEL32.dll\GlobalFix", HGLOBAL, hMem)
+}
+
+/**
+ * 
+ * @param {HGLOBAL} hMem 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export GlobalUnfix(hMem) {
+    DllCall("KERNEL32.dll\GlobalUnfix", HGLOBAL, hMem)
+}
+
+/**
+ * 
+ * @param {HGLOBAL} hMem 
+ * @returns {Pointer<Void>} 
+ */
+export GlobalWire(hMem) {
+    result := DllCall("KERNEL32.dll\GlobalWire", HGLOBAL, hMem, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {HGLOBAL} hMem 
+ * @returns {BOOL} 
+ */
+export GlobalUnWire(hMem) {
+    result := DllCall("KERNEL32.dll\GlobalUnWire", HGLOBAL, hMem, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HLOCAL} hMem 
+ * @param {Integer} cbNewSize 
+ * @returns {Pointer} 
+ */
+export LocalShrink(hMem, cbNewSize) {
+    result := DllCall("KERNEL32.dll\LocalShrink", HLOCAL, hMem, "uint", cbNewSize, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} uMinFree 
+ * @returns {Pointer} 
+ */
+export LocalCompact(uMinFree) {
+    result := DllCall("KERNEL32.dll\LocalCompact", "uint", uMinFree, IntPtr)
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} NewEnvironment 
+ * @returns {BOOL} 
+ */
+export SetEnvironmentStringsA(NewEnvironment) {
+    NewEnvironment := NewEnvironment is String ? StrPtr(NewEnvironment) : NewEnvironment
+
+    result := DllCall("KERNEL32.dll\SetEnvironmentStringsA", "ptr", NewEnvironment, BOOL)
+    return result
+}
+
+/**
+ * The SetHandleCount function changes the number of file handles available to a process.
+ * @param {Integer} uNumber The requested number of available file handles.
+ * @returns {Integer} The number of available file handles.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-sethandlecount
+ */
+export SetHandleCount(uNumber) {
+    result := DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber, UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {HANDLE} hDevice 
+ * @returns {BOOL} 
+ */
+export RequestDeviceWakeup(hDevice) {
+    result := DllCall("KERNEL32.dll\RequestDeviceWakeup", HANDLE, hDevice, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HANDLE} hDevice 
+ * @returns {BOOL} 
+ */
+export CancelDeviceWakeupRequest(hDevice) {
+    result := DllCall("KERNEL32.dll\CancelDeviceWakeupRequest", HANDLE, hDevice, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HANDLE} hMsgIndicator 
+ * @param {Integer} ulMsgCount 
+ * @returns {BOOL} 
+ */
+export SetMessageWaitingIndicator(hMsgIndicator, ulMsgCount) {
+    result := DllCall("KERNEL32.dll\SetMessageWaitingIndicator", HANDLE, hMsgIndicator, "uint", ulMsgCount, BOOL)
+    return result
+}
+
+/**
+ * Multiplies two 32-bit values and then divides the 64-bit result by a third 32-bit value.
+ * @param {Integer} nNumber The multiplicand.
+ * @param {Integer} nNumerator The multiplier.
+ * @param {Integer} nDenominator The number by which the result of the multiplication operation is to be divided.
+ * @returns {Integer} If the function succeeds, the return value is the result of the multiplication and division, rounded to the nearest integer. If the result is a positive half integer (ends in .5), it is rounded up. If the result is a negative half integer, it is rounded down.
+ * 
+ * If either an overflow occurred or <i>nDenominator</i> was 0, the return value is -1.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-muldiv
+ * @since windows5.1.2600
+ */
+export MulDiv(nNumber, nNumerator, nDenominator) {
+    result := DllCall("KERNEL32.dll\MulDiv", "int", nNumber, "int", nNumerator, "int", nDenominator, Int32)
+    return result
+}
+
+/**
+ * Retrieves the current size of the registry and the maximum size that the registry is allowed to attain on the system.
+ * @remarks
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0501 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<Integer>} pdwQuotaAllowed A pointer to a variable that receives the maximum size that the registry is allowed to attain on this system, in bytes.
+ * @param {Pointer<Integer>} pdwQuotaUsed A pointer to a variable that receives the current size of  the registry, in bytes.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero. 
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getsystemregistryquota
+ * @since windows6.0.6000
+ */
+export GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
+    pdwQuotaAllowedMarshal := pdwQuotaAllowed is VarRef ? "uint*" : "ptr"
+    pdwQuotaUsedMarshal := pdwQuotaUsed is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", pdwQuotaAllowedMarshal, pdwQuotaAllowed, pdwQuotaUsedMarshal, pdwQuotaUsed, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Converts a file time to MS-DOS date and time values.
+ * @remarks
+ * The MS-DOS date format can represent only dates between 1/1/1980 and 12/31/2107; this conversion fails if the input file time is outside this range.
+ * @param {Pointer<FILETIME>} lpFileTime A pointer to a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the file time to convert to MS-DOS date and time format.
+ * @param {Pointer<Integer>} lpFatDate A pointer to a variable to receive the MS-DOS date. The date is a packed value with the following format. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Bits</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>0–4</td>
+ * <td>Day of the month (1–31)</td>
+ * </tr>
+ * <tr>
+ * <td>5–8</td>
+ * <td>Month (1 = January, 2 = February, etc.)</td>
+ * </tr>
+ * <tr>
+ * <td>9-15</td>
+ * <td>Year offset from 1980 (add 1980 to get actual year)</td>
+ * </tr>
+ * </table>
+ * @param {Pointer<Integer>} lpFatTime A pointer to a variable to receive the MS-DOS time. The time is a packed value with the following format. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Bits</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>0–4</td>
+ * <td>Second divided by 2</td>
+ * </tr>
+ * <tr>
+ * <td>5–10</td>
+ * <td>Minute (0–59)</td>
+ * </tr>
+ * <tr>
+ * <td>11–15</td>
+ * <td>Hour (0–23 on a 24-hour clock)</td>
+ * </tr>
+ * </table>
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-filetimetodosdatetime
+ * @since windows5.0
+ */
+export FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime) {
+    lpFatDateMarshal := lpFatDate is VarRef ? "ushort*" : "ptr"
+    lpFatTimeMarshal := lpFatTime is VarRef ? "ushort*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", FILETIME.Ptr, lpFileTime, lpFatDateMarshal, lpFatDate, lpFatTimeMarshal, lpFatTime, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Converts MS-DOS date and time values to a file time.
+ * @param {Integer} wFatDate The MS-DOS date. The date is a packed value with the following format. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Bits</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>0-4</td>
+ * <td>Day of the month (1–31)</td>
+ * </tr>
+ * <tr>
+ * <td>5-8</td>
+ * <td>Month (1 = January, 2 = February, and so on)</td>
+ * </tr>
+ * <tr>
+ * <td>9-15</td>
+ * <td>Year offset from 1980 (add 1980 to get actual year)</td>
+ * </tr>
+ * </table>
+ * @param {Integer} wFatTime The MS-DOS time. The time is a packed value with the following format. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Bits</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>0-4</td>
+ * <td>Second divided by 2</td>
+ * </tr>
+ * <tr>
+ * <td>5-10</td>
+ * <td>Minute (0–59)</td>
+ * </tr>
+ * <tr>
+ * <td>11-15</td>
+ * <td>Hour (0–23 on a 24-hour clock)</td>
+ * </tr>
+ * </table>
+ * @param {Pointer<FILETIME>} lpFileTime A pointer to a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the converted file time.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dosdatetimetofiletime
+ * @since windows5.0
+ */
+export DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime) {
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\DosDateTimeToFileTime", "ushort", wFatDate, "ushort", wFatTime, FILETIME.Ptr, lpFileTime, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * The _lopen function opens an existing file and sets the file pointer to the beginning of the file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the CreateFile function.
+ * @param {PSTR} lpPathName Pointer to a null-terminated string that names the file to open. The string must consist of characters from the Windows ANSI character set.
+ * @param {Integer} iReadWrite 
+ * @returns {Integer} If the function succeeds, the return value is a file handle.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lopen
+ */
+export _lopen(lpPathName, iReadWrite) {
+    lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+
+    result := DllCall("KERNEL32.dll\_lopen", "ptr", lpPathName, "int", iReadWrite, Int32)
+    return result
+}
+
+/**
+ * Creates or opens the specified file.
+ * @remarks
+ * If the file does not exist, <b>_lcreat</b> creates and opens a new file for writing. If the file does exist, <b>_lcreat</b> truncates the file size to zero and opens it for reading and writing.
+ * 
+ * When the function opens a file, the pointer is set to the beginning of the file.
+ * 
+ * Use the <b>_lcreat</b> function with care. It can open any file, even one already opened by another function.
+ * @param {PSTR} lpPathName The name of the file. The string must consist of characters from the Windows ANSI character set.
+ * @param {Integer} iAttribute The attributes of the file.
+ * @returns {Integer} If the function succeeds, the return value is a file handle. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat
+ */
+export _lcreat(lpPathName, iAttribute) {
+    lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\_lcreat", "ptr", lpPathName, "int", iAttribute, Int32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * The _lread function reads data from the specified file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the ReadFile function.
+ * @param {Integer} hFile Identifies the specified file.
+ * @param {Integer} lpBuffer Pointer to a buffer that contains the data read from the file.
+ * @param {Integer} uBytes Specifies the number of bytes to be read from the file.
+ * @returns {Integer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lread
+ */
+export _lread(hFile, lpBuffer, uBytes) {
+    result := DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes, UInt32)
+    return result
+}
+
+/**
+ * Writes data to the specified file.
+ * @param {Integer} hFile A handle to the file that receives the data. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
+ * @param {Integer} lpBuffer The buffer that contains the data to be added.
+ * @param {Integer} uBytes The number of bytes to write to the file.
+ * @returns {Integer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
+ */
+export _lwrite(hFile, lpBuffer, uBytes) {
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} hFile 
+ * @param {Integer} lpBuffer 
+ * @param {Integer} lBytes 
+ * @returns {Integer} 
+ */
+export _hread(hFile, lpBuffer, lBytes) {
+    result := DllCall("KERNEL32.dll\_hread", "int", hFile, "ptr", lpBuffer, "int", lBytes, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} hFile 
+ * @param {Integer} lpBuffer 
+ * @param {Integer} lBytes 
+ * @returns {Integer} 
+ */
+export _hwrite(hFile, lpBuffer, lBytes) {
+    result := DllCall("KERNEL32.dll\_hwrite", "int", hFile, "ptr", lpBuffer, "int", lBytes, Int32)
+    return result
+}
+
+/**
+ * The _lclose function closes the specified file so that it is no longer available for reading or writing. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the CloseHandle function.
+ * @param {Integer} hFile Identifies the file to be closed. This handle is returned by the function that created or last opened the file.
+ * @returns {Integer} Handle to file to close.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lclose
+ */
+export _lclose(hFile) {
+    result := DllCall("KERNEL32.dll\_lclose", "int", hFile, Int32)
+    return result
+}
+
+/**
+ * Repositions the file pointer for the specified file.
+ * @remarks
+ * When a file is initially opened, the file pointer is set to the beginning of the file. The <b>_llseek</b> function moves the pointer without reading data, which allows random access to the content of the file.
+ * @param {Integer} hFile A handle to an open file. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
+ * @param {Integer} lOffset The number of bytes that the file pointer is to be moved.
+ * @param {Integer} iOrigin The starting point and the direction that the pointer will be moved.
+ * @returns {Integer} If the function succeeds, the return value specifies the new offset. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_llseek
+ */
+export _llseek(hFile, lOffset, iOrigin) {
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\_llseek", "int", hFile, "int", lOffset, "int", iOrigin, Int32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Opens an existing named mutex object.
+ * @remarks
+ * The 
+ * <b>OpenMutex</b> function enables multiple processes to open handles of the same mutex object. The function succeeds only if some process has already created the mutex by using the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createmutexa">CreateMutex</a> function. The calling process can use the returned handle in any function that requires a handle to a mutex object, such as the 
+ * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>, subject to the limitations of the access specified in the <i>dwDesiredAccess</i> parameter.
+ * 
+ * The handle can be duplicated by using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a> function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle. The system closes the handle automatically when the process terminates. The mutex object is destroyed when its last handle has been closed.
+ * 
+ * If your multithreaded application must repeatedly create, open, and close a named mutex object, a race condition can occur. In this situation, it is better to use <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createmutexa">CreateMutex</a> instead of <b>OpenMutex</b>, because <b>CreateMutex</b> opens a mutex if it exists and creates it if it does not.
+ * @param {Integer} dwDesiredAccess The access to the mutex object. Only the <b>SYNCHRONIZE</b> access right is required to use a mutex; to change the mutex's security, specify <b>MUTEX_ALL_ACCESS</b>. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
+ * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+ * @param {PSTR} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
+ * 
+ * 
+ * 
+ * 
+ * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
+ * 
+ * <b>Terminal Services:  </b>The name can have a "Global\" or "Local\" prefix to explicitly open an object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
+ * 
+ * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
+ * @returns {HANDLE} If the function succeeds, the return value is a handle to the mutex object.
+ * 
+ * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * 
+ * If a named mutex does not exist, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_FILE_NOT_FOUND</b>.
+ * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openmutexw
+ */
+export OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+
+    result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, BOOL, bInheritHandle, "ptr", lpName, HANDLE.Owned)
+    return result
+}
+
+/**
+ * Opens an existing named semaphore object.
+ * @remarks
+ * The 
+ * <b>OpenSemaphore</b> function enables multiple processes to open handles of the same semaphore object. The function succeeds only if some process has already created the semaphore by using the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createsemaphorea">CreateSemaphore</a> function. The calling process can use the returned handle in any function that requires a handle to a semaphore object, such as the 
+ * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>, subject to the limitations of the access specified in the <i>dwDesiredAccess</i> parameter.
+ * 
+ * The handle can be duplicated by using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a> function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle. The system closes the handle automatically when the process terminates. The semaphore object is destroyed when its last handle has been closed.
+ * @param {Integer} dwDesiredAccess The access to the semaphore object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
+ * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+ * @param {PSTR} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
+ * 
+ * 
+ * 
+ * 
+ * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
+ * 
+ * <b>Terminal Services:  </b>The name can have a "Global\" or "Local\" prefix to explicitly open an object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
+ * 
+ * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
+ * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object.
+ * 
+ * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew
+ */
+export OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+
+    result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, BOOL, bInheritHandle, "ptr", lpName, HANDLE.Owned)
+    return result
+}
+
+/**
+ * Retrieves the value of the specified firmware environment variable. (ANSI)
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write Unified Extensible Firmware Interface (UEFI) firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * To read a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
+ * 
+ * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
+ * 	 function if needed. 
+ * 
+ * <b>GetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exgetfirmwareenvironmentvariable">ExGetFirmwareEnvironmentVariable</a> kernel-mode routine.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
+ * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
+ * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariablea
+ * @since windows6.0.6000
+ */
+export GetFirmwareEnvironmentVariableA(lpName, lpGuid, pBuffer, nSize) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the value of the specified firmware environment variable. (Unicode)
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write Unified Extensible Firmware Interface (UEFI) firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * To read a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
+ * 
+ * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
+ * 	 function if needed. 
+ * 
+ * <b>GetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exgetfirmwareenvironmentvariable">ExGetFirmwareEnvironmentVariable</a> kernel-mode routine.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
+ * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
+ * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariablew
+ * @since windows6.0.6000
+ */
+export GetFirmwareEnvironmentVariableW(lpName, lpGuid, pBuffer, nSize) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the value of the specified firmware environment variable and its attributes. (ANSI)
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * To read a UEFI firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
+ * 
+ * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
+ * 	 function if needed. 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
+ * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
+ * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
+ * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariableexa
+ * @since windows8.0
+ */
+export GetFirmwareEnvironmentVariableExA(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, pdwAttribubutesMarshal, pdwAttribubutes, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the value of the specified firmware environment variable and its attributes. (Unicode)
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * To read a UEFI firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>GetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist. 
+ * 
+ * If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariablea">SetFirmwareEnvironmentVariable</a> 
+ * 	 function if needed. 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
+ * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
+ * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
+ * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariableexw
+ * @since windows8.0
+ */
+export GetFirmwareEnvironmentVariableExW(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, pdwAttribubutesMarshal, pdwAttribubutes, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Sets the value of the specified firmware environment variable. (ANSI)
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
+ * 
+ * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
+ * 
+ * <b>SetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exsetfirmwareenvironmentvariable">ExSetFirmwareEnvironmentVariable</a> kernel-mode routine.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
+ * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariablea
+ * @since windows6.0.6000
+ */
+export SetFirmwareEnvironmentVariableA(lpName, lpGuid, pValue, nSize) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Sets the value of the specified firmware environment variable. (Unicode)
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
+ * 
+ * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariable</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
+ * 
+ * <b>SetFirmwareEnvironmentVariable</b> is the user-mode equivalent of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exsetfirmwareenvironmentvariable">ExSetFirmwareEnvironmentVariable</a> kernel-mode routine.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
+ * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariablew
+ * @since windows6.0.6000
+ */
+export SetFirmwareEnvironmentVariableW(lpName, lpGuid, pValue, nSize) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Sets the value of the specified firmware environment variable as the attributes that indicate how this variable is stored and maintained.
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
+ * 
+ * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * The correct method of changing the attributes of a variable is to delete the
+ * variable and recreate it with different attributes.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
+ * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
+ * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
+ * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
+ * setting this value to zero will result in the deletion of this variable.
+ * @param {Integer} dwAttributes Bitmask to set UEFI variable attributes associated with the variable. See also <a href="https://www.uefi.org/specifications">UEFI Spec 2.3.1, Section 7.2</a>.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_NON_VOLATILE"></a><a id="variable_attribute_non_volatile"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_NON_VOLATILE</b></dt>
+ * <dt>0x00000001</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The firmware environment variable is stored in non-volatile memory (e.g. NVRAM).
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS"></a><a id="variable_attribute_bootservice_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b></dt>
+ * <dt>0x00000002</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The firmware environment variable can be accessed during boot service.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_RUNTIME_ACCESS"></a><a id="variable_attribute_runtime_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_RUNTIME_ACCESS</b></dt>
+ * <dt>0x00000004</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The firmware environment variable can be accessed at runtime.
+ * 
+ * <div class="alert"><b>Note</b>  Variables with this attribute set, must also have
+ * <b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b> set.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD"></a><a id="variable_attribute_hardware_error_record"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD</b></dt>
+ * <dt>0x00000008</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Indicates hardware related errors encountered at runtime.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_authenticated_write_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS</b></dt>
+ * <dt>0x00000010</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Indicates an authentication requirement that must be met before writing to this firmware environment variable. For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_time_based_authenticated_write_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS</b></dt>
+ * <dt>0x00000020</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Indicates authentication and time stamp requirements that must be met before writing to this firmware environment variable. When this attribute is set, the buffer, represented by <i>pValue</i>, will begin with an instance of a complete (and serialized) EFI_VARIABLE_AUTHENTICATION_2 descriptor.  For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_APPEND_WRITE"></a><a id="variable_attribute_append_write"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_APPEND_WRITE</b></dt>
+ * <dt>0x00000040</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ *  Append an existing environment variable with the value of <i>pValue</i>. If the
+ * firmware does not support the operation, then <b>SetFirmwareEnvironmentVariableEx</b> will return
+ * ERROR_INVALID_FUNCTION.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa
+ * @since windows8.0
+ */
+export SetFirmwareEnvironmentVariableExA(lpName, lpGuid, pValue, nSize, dwAttributes) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Sets the value of the specified firmware environment variable and the attributes that indicate how this variable is stored and maintained.
+ * @remarks
+ * Starting with Windows 10, version 1803, Universal Windows apps can read and write UEFI firmware variables. See <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a> for details.
+ * 
+ * Starting with Windows 10, version 1803, reading UEFI firmware variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI firmware variables from UMDF drivers is not supported.
+ * 
+ * To write a firmware environment variable, the user account that the app is running under must have the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">SE_SYSTEM_ENVIRONMENT_NAME</a> privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/access-uefi-firmware-variables-from-a-universal-windows-app">Access UEFI firmware variables from a Universal Windows App</a>.
+ * 
+ * The correct method of changing the attributes of a variable is to delete the
+ * variable and recreate it with different attributes.
+ * 
+ * The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware.  For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the <a href="https://www.uefi.org/specifications">UEFI specification</a>. For more information about UEFI and Windows, see <a href="https://docs.microsoft.com/windows-hardware/drivers/bringup/uefi-in-windows">UEFI and Windows</a>.
+ * 
+ * Firmware variables are not supported on a legacy BIOS-based system. The <b>SetFirmwareEnvironmentVariableEx</b> function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI.  To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the <i>lpName</i> parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the <i>lpGuid</i> parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with  ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will  fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+ * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
+ * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
+ * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
+ * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
+ * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
+ * setting this value to zero will result in the deletion of this variable.
+ * @param {Integer} dwAttributes Bitmask to set UEFI variable attributes associated with the variable. See also <a href="https://www.uefi.org/specifications">UEFI Spec 2.3.1, Section 7.2</a>.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_NON_VOLATILE"></a><a id="variable_attribute_non_volatile"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_NON_VOLATILE</b></dt>
+ * <dt>0x00000001</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The firmware environment variable is stored in non-volatile memory (e.g. NVRAM).
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS"></a><a id="variable_attribute_bootservice_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b></dt>
+ * <dt>0x00000002</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The firmware environment variable can be accessed during boot service.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_RUNTIME_ACCESS"></a><a id="variable_attribute_runtime_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_RUNTIME_ACCESS</b></dt>
+ * <dt>0x00000004</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The firmware environment variable can be accessed at runtime.
+ * 
+ * <div class="alert"><b>Note</b>  Variables with this attribute set, must also have
+ * <b>VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS</b> set.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD"></a><a id="variable_attribute_hardware_error_record"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_HARDWARE_ERROR_RECORD</b></dt>
+ * <dt>0x00000008</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Indicates hardware related errors encountered at runtime.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_authenticated_write_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS</b></dt>
+ * <dt>0x00000010</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Indicates an authentication requirement that must be met before writing to this firmware environment variable. For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS"></a><a id="variable_attribute_time_based_authenticated_write_access"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS</b></dt>
+ * <dt>0x00000020</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Indicates authentication and time stamp requirements that must be met before writing to this firmware environment variable. When this attribute is set, the buffer, represented by <i>pValue</i>, will begin with an instance of a complete (and serialized) EFI_VARIABLE_AUTHENTICATION_2 descriptor.  For more information see, <a href="https://www.uefi.org/specifications">UEFI spec 2.3.1</a>.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="VARIABLE_ATTRIBUTE_APPEND_WRITE"></a><a id="variable_attribute_append_write"></a><dl>
+ * <dt><b>VARIABLE_ATTRIBUTE_APPEND_WRITE</b></dt>
+ * <dt>0x00000040</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ *  Append an existing environment variable with the value of <i>pValue</i>. If the
+ * firmware does not support the operation, then <b>SetFirmwareEnvironmentVariableEx</b> will return
+ * ERROR_INVALID_FUNCTION.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariableexw
+ * @since windows8.0
+ */
+export SetFirmwareEnvironmentVariableExW(lpName, lpGuid, pValue, nSize, dwAttributes) {
+    lpName := lpName is String ? StrPtr(lpName) : lpName
+    lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Indicates if the OS was booted from a VHD container.
+ * @param {Pointer<BOOL>} NativeVhdBoot Pointer to a variable that receives a boolean
+ *         indicating if the OS was booted from a VHD.
+ * @returns {BOOL} TRUE if the OS was a native VHD boot; otherwise, FALSE.
+ * 
+ * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isnativevhdboot
+ * @since windows8.0
+ */
+export IsNativeVhdBoot(NativeVhdBoot) {
+    NativeVhdBootMarshal := NativeVhdBoot is VarRef ? "int*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\IsNativeVhdBoot", NativeVhdBootMarshal, NativeVhdBoot, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves an integer from a key in the specified section of the Win.ini file. (ANSI)
+ * @remarks
+ * If the key name consists of digits followed by characters that are not numeric, the function returns only the value of the digits. For example, the function returns 102 for the following line: KeyName=102abc.
+ * 
+ * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key:<b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>
+ * 
+ * When the operation has been mapped, the 
+ * <b>GetProfileInt</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 				
+ * 			
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 				
+ * 			
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section containing the key name.
+ * @param {PSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+ * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
+ * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
+ * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileinta
+ * @since windows5.0
+ */
+export GetProfileIntA(lpAppName, lpKeyName, nDefault) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+
+    result := DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, UInt32)
+    return result
+}
+
+/**
+ * Retrieves an integer from a key in the specified section of the Win.ini file. (Unicode)
+ * @remarks
+ * If the key name consists of digits followed by characters that are not numeric, the function returns only the value of the digits. For example, the function returns 102 for the following line: KeyName=102abc.
+ * 
+ * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key:<b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>
+ * 
+ * When the operation has been mapped, the 
+ * <b>GetProfileInt</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 				
+ * 			
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 				
+ * 			
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section containing the key name.
+ * @param {PWSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+ * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
+ * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
+ * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileintw
+ * @since windows5.0
+ */
+export GetProfileIntW(lpAppName, lpKeyName, nDefault) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+
+    result := DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, UInt32)
+    return result
+}
+
+/**
+ * Retrieves the string associated with a key in the specified section of the Win.ini file. (ANSI)
+ * @remarks
+ * If the string associated with the <i>lpKeyName</i> parameter is enclosed in single or double quotation marks, the marks are discarded when the 
+ * <b>GetProfileString</b> function returns the string.
+ * 
+ * The 
+ * <b>GetProfileString</b> function is not case-sensitive; the strings can contain a combination of uppercase and lowercase letters.
+ * 
+ * A section in the Win.ini file must have the following form: 
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * An application can use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a> function to retrieve a string from a specified initialization file.
+ * 
+ * The <i>lpDefault</i> parameter must point to a valid string, even if the string is empty (that is, even if its first character is a <b>null</b> character).
+ * 
+ * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following keys:<p class="note">
+ * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * 
+ * 
+ * When the operation has been mapped, the 
+ * <b>GetProfileString</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information: 
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping: 
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
+ * @param {PSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
+ * @param {PSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+ * <b>GetProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer. If this parameter is <b>NULL</b>, the default is an empty string, "". 
+ * 
+ * 
+ * 
+ * 
+ * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
+ * @param {PSTR} lpReturnedString A pointer to a buffer that receives the character string.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
+ * @returns {Integer} The return value is the number of characters copied to the buffer, not including the <b>null</b>-terminating character.
+ * 
+ * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
+ * 
+ * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilestringa
+ * @since windows5.0
+ */
+export GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+
+    result := DllCall("KERNEL32.dll\GetProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, UInt32)
+    return result
+}
+
+/**
+ * Retrieves the string associated with a key in the specified section of the Win.ini file. (Unicode)
+ * @remarks
+ * If the string associated with the <i>lpKeyName</i> parameter is enclosed in single or double quotation marks, the marks are discarded when the 
+ * <b>GetProfileString</b> function returns the string.
+ * 
+ * The 
+ * <b>GetProfileString</b> function is not case-sensitive; the strings can contain a combination of uppercase and lowercase letters.
+ * 
+ * A section in the Win.ini file must have the following form: 
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * An application can use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a> function to retrieve a string from a specified initialization file.
+ * 
+ * The <i>lpDefault</i> parameter must point to a valid string, even if the string is empty (that is, even if its first character is a <b>null</b> character).
+ * 
+ * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following keys:<p class="note">
+ * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * 
+ * 
+ * When the operation has been mapped, the 
+ * <b>GetProfileString</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information: 
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping: 
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
+ * @param {PWSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
+ * @param {PWSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+ * <b>GetProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer. If this parameter is <b>NULL</b>, the default is an empty string, "". 
+ * 
+ * 
+ * 
+ * 
+ * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
+ * @param {PWSTR} lpReturnedString A pointer to a buffer that receives the character string.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
+ * @returns {Integer} The return value is the number of characters copied to the buffer, not including the <b>null</b>-terminating character.
+ * 
+ * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
+ * 
+ * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilestringw
+ * @since windows5.0
+ */
+export GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+
+    result := DllCall("KERNEL32.dll\GetProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, UInt32)
+    return result
+}
+
+/**
+ * Copies a string into the specified section of the Win.ini file. (ANSI)
+ * @remarks
+ * A section in the Win.ini file must have the following form: <i>key</i>=<i>string</i>.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * When the operation has been mapped, the 
+ * <b>WriteProfileString</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WriteProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
+ * @param {PSTR} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
+ * @param {PSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+ * @returns {BOOL} If the function successfully copies the string to the Win.ini file, the return value is nonzero.
+ * 
+ * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilestringa
+ * @since windows5.0
+ */
+export WriteProfileStringA(lpAppName, lpKeyName, lpString) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Copies a string into the specified section of the Win.ini file. (Unicode)
+ * @remarks
+ * A section in the Win.ini file must have the following form: <i>key</i>=<i>string</i>.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * When the operation has been mapped, the 
+ * <b>WriteProfileString</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WriteProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
+ * @param {PWSTR} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
+ * @param {PWSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+ * @returns {BOOL} If the function successfully copies the string to the Win.ini file, the return value is nonzero.
+ * 
+ * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilestringw
+ * @since windows5.0
+ */
+export WriteProfileStringW(lpAppName, lpKeyName, lpString) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves all the keys and values for the specified section of the Win.ini file. (ANSI)
+ * @remarks
+ * The format of the returned keys and values is one or more null-terminated strings, followed by a final null character. Each string has the following form: <i>key</i>=<i>string</i>
+ * 
+ * The 
+ * <b>GetProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
+ * 
+ * This operation is atomic; no updates to the Win.ini file are allowed while the keys and values for the section are being copied to the buffer.
+ * 
+ * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key: <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.
+ * 
+ * When the operation has been mapped, the 
+ * <b>GetProfileSection</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section in the Win.ini file.
+ * @param {PSTR} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
+ * 
+ * 
+ *  
+ * 
+ * 
+ * The maximum profile section size is 32,767 characters.
+ * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilesectiona
+ * @since windows5.0
+ */
+export GetProfileSectionA(lpAppName, lpReturnedString, nSize) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+
+    result := DllCall("KERNEL32.dll\GetProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, UInt32)
+    return result
+}
+
+/**
+ * Retrieves all the keys and values for the specified section of the Win.ini file. (Unicode)
+ * @remarks
+ * The format of the returned keys and values is one or more null-terminated strings, followed by a final null character. Each string has the following form: <i>key</i>=<i>string</i>
+ * 
+ * The 
+ * <b>GetProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
+ * 
+ * This operation is atomic; no updates to the Win.ini file are allowed while the keys and values for the section are being copied to the buffer.
+ * 
+ * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key: <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.
+ * 
+ * When the operation has been mapped, the 
+ * <b>GetProfileSection</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section in the Win.ini file.
+ * @param {PWSTR} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
+ * 
+ * 
+ *  
+ * 
+ * 
+ * The maximum profile section size is 32,767 characters.
+ * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilesectionw
+ * @since windows5.0
+ */
+export GetProfileSectionW(lpAppName, lpReturnedString, nSize) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+
+    result := DllCall("KERNEL32.dll\GetProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, UInt32)
+    return result
+}
+
+/**
+ * Replaces the contents of the specified section in the Win.ini file with specified keys and values. (ANSI)
+ * @remarks
+ * Keys and values in the <i>lpString</i> buffer consist of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form: <i>key</i>=<i>string</i>.
+ * 
+ * The 
+ * <b>WriteProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
+ * 
+ * <b>WriteProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by <i>lpString</i>. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
+ * 
+ * This operation is atomic; no other operations that read from or write to the initialization file are allowed while the information is being written.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * When the operation has been mapped, the 
+ * <b>WriteProfileSection</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WriteProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section. This section name is typically the name of the calling application.
+ * @param {PSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+ * 
+ * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilesectiona
+ * @since windows5.0
+ */
+export WriteProfileSectionA(lpAppName, lpString) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WriteProfileSectionA", "ptr", lpAppName, "ptr", lpString, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Replaces the contents of the specified section in the Win.ini file with specified keys and values. (Unicode)
+ * @remarks
+ * Keys and values in the <i>lpString</i> buffer consist of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form: <i>key</i>=<i>string</i>.
+ * 
+ * The 
+ * <b>WriteProfileSection</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
+ * 
+ * <b>WriteProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by <i>lpString</i>. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
+ * 
+ * This operation is atomic; no other operations that read from or write to the initialization file are allowed while the information is being written.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key: <pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * When the operation has been mapped, the 
+ * <b>WriteProfileSection</b> function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WriteProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section. This section name is typically the name of the calling application.
+ * @param {PWSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+ * 
+ * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilesectionw
+ * @since windows5.0
+ */
+export WriteProfileSectionW(lpAppName, lpString) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WriteProfileSectionW", "ptr", lpAppName, "ptr", lpString, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves an integer associated with a key in the specified section of an initialization file. (GetPrivateProfileIntA)
+ * @remarks
+ * The function searches the file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section name specified by the <i>lpAppName</i> parameter. A section in the initialization file must have the following form:
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=value
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * The 
+ * <b>GetPrivateProfileInt</b> function is not case-sensitive; the strings in <i>lpAppName</i> and <i>lpKeyName</i> can be a combination of uppercase and lowercase letters.
+ * 
+ * An application can use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofileinta">GetProfileInt</a> function to retrieve an integer value from the Win.ini file.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section in the initialization file.
+ * @param {PSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+ * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
+ * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
+ * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileinta
+ * @since windows5.0
+ */
+export GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName, UInt32)
+    return result
+}
+
+/**
+ * The GetPrivateProfileIntW (Unicode) function (winbase.h) retrieves an integer associated with a key in the specified section of an initialization file.
+ * @remarks
+ * The function searches the file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section name specified by the <i>lpAppName</i> parameter. A section in the initialization file must have the following form:
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=value
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * The 
+ * <b>GetPrivateProfileInt</b> function is not case-sensitive; the strings in <i>lpAppName</i> and <i>lpKeyName</i> can be a combination of uppercase and lowercase letters.
+ * 
+ * An application can use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofileinta">GetProfileInt</a> function to retrieve an integer value from the Win.ini file.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section in the initialization file.
+ * @param {PWSTR} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+ * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
+ * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
+ * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileintw
+ * @since windows5.0
+ */
+export GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName, Int32)
+    return result
+}
+
+/**
+ * Retrieves a string from the specified section in an initialization file. (GetPrivateProfileStringA)
+ * @remarks
+ * The 
+ * <b>GetPrivateProfileString</b> function searches the specified initialization file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section heading specified by the <i>lpAppName</i> parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the <i>lpDefault</i> parameter. A section in the initialization file must have the following form:
+ * 				
+ * 			
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * If <i>lpAppName</i> is <b>NULL</b>, 
+ * <b>GetPrivateProfileString</b> copies all section names in the specified file to the supplied buffer. If <i>lpKeyName</i> is <b>NULL</b>, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a <b>null</b> character and the final string is followed by a second <b>null</b> character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters.
+ * 
+ * If the string associated with <i>lpKeyName</i> is enclosed in single or double quotation marks, the marks are discarded when the 
+ * <b>GetPrivateProfileString</b> function retrieves the string.
+ * 
+ * The 
+ * <b>GetPrivateProfileString</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
+ * 
+ * To retrieve a string from the Win.ini file, use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofilestringa">GetProfileString</a> function.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * @param {PSTR} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
+ * <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.
+ * @param {PSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
+ * @param {PSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+ * <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.  
+ * 
+ * 
+ * If this parameter is <b>NULL</b>, the default is an empty string, "".
+ * 
+ * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
+ * @param {PSTR} lpReturnedString A pointer to the buffer that receives the retrieved string.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
+ * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character.
+ * 
+ * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
+ * 
+ * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
+ * 
+ * In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringa
+ * @since windows5.0
+ */
+export GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * The GetPrivateProfileStringW (Unicode) function (winbase.h) retrieves a string from the specified section in an initialization file.
+ * @remarks
+ * The 
+ * <b>GetPrivateProfileString</b> function searches the specified initialization file for a key that matches the name specified by the <i>lpKeyName</i> parameter under the section heading specified by the <i>lpAppName</i> parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the <i>lpDefault</i> parameter. A section in the initialization file must have the following form:
+ * 				
+ * 			
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * If <i>lpAppName</i> is <b>NULL</b>, 
+ * <b>GetPrivateProfileString</b> copies all section names in the specified file to the supplied buffer. If <i>lpKeyName</i> is <b>NULL</b>, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a <b>null</b> character and the final string is followed by a second <b>null</b> character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters.
+ * 
+ * If the string associated with <i>lpKeyName</i> is enclosed in single or double quotation marks, the marks are discarded when the 
+ * <b>GetPrivateProfileString</b> function retrieves the string.
+ * 
+ * The 
+ * <b>GetPrivateProfileString</b> function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.
+ * 
+ * To retrieve a string from the Win.ini file, use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprofilestringa">GetProfileString</a> function.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * @param {PWSTR} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
+ * <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.
+ * @param {PWSTR} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
+ * @param {PWSTR} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+ * <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.  
+ * 
+ * 
+ * If this parameter is <b>NULL</b>, the default is an empty string, "".
+ * 
+ * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
+ * @param {PWSTR} lpReturnedString A pointer to the buffer that receives the retrieved string.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
+ * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character.
+ * 
+ * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
+ * 
+ * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
+ * 
+ * In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw
+ * @since windows5.0
+ */
+export GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, UInt32)
+    if(A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Copies a string into the specified section of an initialization file. (ANSI)
+ * @remarks
+ * A section in the initialization file must have the following form:
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * If the <i>lpFileName</i> parameter does not contain a full path and file name for the file, 
+ * <b>WritePrivateProfileString</b> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
+ * 
+ * If <i>lpFileName</i> contains a full path and file name and the file does not exist, 
+ * <b>WritePrivateProfileString</b> creates the file. The specified directory must already exist.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
+ * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 				
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 				
+ * 			
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * An application using the <b>WritePrivateProfileString</b> function to enter .ini file information into the registry should follow these guidelines:
+ * 
+ * <ul>
+ * <li>Ensure that no .ini file of the specified name exists on the system.</li>
+ * <li>Ensure that there is a key entry in the registry that specifies the .ini file. This entry should be under the path <b>HKEY_LOCAL_MACHINE\SOFTWARE \Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.</li>
+ * <li>Specify a value for that .ini file key entry that specifies a section. That is to say, an application must specify a section name, as it would appear within an .ini file or registry entry. Here is an example: [My Section].</li>
+ * <li>For system files, specify SYS for an added value.</li>
+ * <li>For application files, specify USR within the added value. Here is an example: "My Section: USR: App Name\Section". And, since USR indicates a mapping under <b>HKEY_CURRENT_USER</b>, the application should also create a key under <b>HKEY_CURRENT_USER</b> that specifies the application name listed in the added value. For the example just given, that would be "App Name".</li>
+ * <li>After following the preceding steps, an application setup program should call <b>WritePrivateProfileString</b> with the first three parameters set to <b>NULL</b>, and the fourth parameter set to the INI file name. For example: 
+ * 
+ * 
+ * <c>WritePrivateProfileString( NULL, NULL, NULL, L"appname.ini" );</c>
+ * 
+ * </li>
+ * <li>Such a call causes the mapping of an .ini file to the registry to take effect before the next system reboot. The system rereads the mapping information into shared memory. A user will not have to reboot their computer after installing an application in order to have future invocations of the application see the mapping of the .ini file to the registry.</li>
+ * </ul>
+ * @param {PSTR} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
+ * @param {PSTR} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
+ * @param {PSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+ * @param {PSTR} lpFileName The name of the initialization file.
+ * 
+ * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
+ * @returns {BOOL} If the function successfully copies the string to the initialization file, the return value is nonzero.
+ * 
+ * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa
+ * @since windows5.0
+ */
+export WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Copies a string into the specified section of an initialization file. (Unicode)
+ * @remarks
+ * A section in the initialization file must have the following form:
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * If the <i>lpFileName</i> parameter does not contain a full path and file name for the file, 
+ * <b>WritePrivateProfileString</b> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
+ * 
+ * If <i>lpFileName</i> contains a full path and file name and the file does not exist, 
+ * <b>WritePrivateProfileString</b> creates the file. The specified directory must already exist.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
+ * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 				
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 				
+ * 			
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * An application using the <b>WritePrivateProfileString</b> function to enter .ini file information into the registry should follow these guidelines:
+ * 
+ * <ul>
+ * <li>Ensure that no .ini file of the specified name exists on the system.</li>
+ * <li>Ensure that there is a key entry in the registry that specifies the .ini file. This entry should be under the path <b>HKEY_LOCAL_MACHINE\SOFTWARE \Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>.</li>
+ * <li>Specify a value for that .ini file key entry that specifies a section. That is to say, an application must specify a section name, as it would appear within an .ini file or registry entry. Here is an example: [My Section].</li>
+ * <li>For system files, specify SYS for an added value.</li>
+ * <li>For application files, specify USR within the added value. Here is an example: "My Section: USR: App Name\Section". And, since USR indicates a mapping under <b>HKEY_CURRENT_USER</b>, the application should also create a key under <b>HKEY_CURRENT_USER</b> that specifies the application name listed in the added value. For the example just given, that would be "App Name".</li>
+ * <li>After following the preceding steps, an application setup program should call <b>WritePrivateProfileString</b> with the first three parameters set to <b>NULL</b>, and the fourth parameter set to the INI file name. For example: 
+ * 
+ * 
+ * <c>WritePrivateProfileString( NULL, NULL, NULL, L"appname.ini" );</c>
+ * 
+ * </li>
+ * <li>Such a call causes the mapping of an .ini file to the registry to take effect before the next system reboot. The system rereads the mapping information into shared memory. A user will not have to reboot their computer after installing an application in order to have future invocations of the application see the mapping of the .ini file to the registry.</li>
+ * </ul>
+ * @param {PWSTR} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
+ * @param {PWSTR} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
+ * @param {PWSTR} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+ * @param {PWSTR} lpFileName The name of the initialization file.
+ * 
+ * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
+ * @returns {BOOL} If the function successfully copies the string to the initialization file, the return value is nonzero.
+ * 
+ * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw
+ * @since windows5.0
+ */
+export WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves all the keys and values for the specified section of an initialization file. (GetPrivateProfileSectionA)
+ * @remarks
+ * The data in the buffer pointed to by the <i>lpReturnedString</i> parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:
+ * 
+ * <i>key</i><b>=</b><i>string</i>
+ * 
+ * The 
+ * <b>GetPrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
+ * 
+ * This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the <i>lpReturnedString</i> parameter.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * Comments (any line that starts with a semicolon) are stripped out and not returned in the <i>lpReturnedString</i> buffer.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section in the initialization file.
+ * @param {PSTR} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
+ * 
+ * 
+ * The maximum profile section size is 32,767 characters.
+ * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectiona
+ * @since windows5.0
+ */
+export GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, UInt32)
+    return result
+}
+
+/**
+ * The GetPrivateProfileSectionW (Unicode) function (winbase.h) retrieves all the keys and values for the specified section of an initialization file.
+ * @remarks
+ * The data in the buffer pointed to by the <i>lpReturnedString</i> parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:
+ * 
+ * <i>key</i><b>=</b><i>string</i>
+ * 
+ * The 
+ * <b>GetPrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
+ * 
+ * This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the <i>lpReturnedString</i> parameter.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * Comments (any line that starts with a semicolon) are stripped out and not returned in the <i>lpReturnedString</i> buffer.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section in the initialization file.
+ * @param {PWSTR} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
+ * 
+ * 
+ * The maximum profile section size is 32,767 characters.
+ * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionw
+ * @since windows5.0
+ */
+export GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, UInt32)
+    return result
+}
+
+/**
+ * Replaces the keys and values for the specified section in an initialization file. (ANSI)
+ * @remarks
+ * The data in the buffer pointed to by the <i>lpString</i> parameter consists of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form:
+ * 
+ * <i>key</i><b>=</b><i>string</i>
+ * 
+ * The 
+ * <b>WritePrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
+ * 
+ * If no section name matches the string pointed to by the <i>lpAppName</i> parameter, 
+ * <b>WritePrivateProfileSection</b> creates the section at the end of the specified initialization file and initializes the new section with the specified key name and value pairs.
+ * 
+ * <b>WritePrivateProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by the <i>lpString</i> parameter. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
+ * 
+ * This operation is atomic; no operations that read from or write to the specified initialization file are allowed while the information is being written.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
+ * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 				
+ * 			
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WritePrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
+ * @param {PSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+ * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
+ * 
+ * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectiona
+ * @since windows5.0
+ */
+export WritePrivateProfileSectionA(lpAppName, lpString, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Replaces the keys and values for the specified section in an initialization file. (Unicode)
+ * @remarks
+ * The data in the buffer pointed to by the <i>lpString</i> parameter consists of one or more <b>null</b>-terminated strings, followed by a final <b>null</b> character. Each string has the following form:
+ * 
+ * <i>key</i><b>=</b><i>string</i>
+ * 
+ * The 
+ * <b>WritePrivateProfileSection</b> function is not case-sensitive; the string pointed to by the <i>lpAppName</i> parameter can be a combination of uppercase and lowercase letters.
+ * 
+ * If no section name matches the string pointed to by the <i>lpAppName</i> parameter, 
+ * <b>WritePrivateProfileSection</b> creates the section at the end of the specified initialization file and initializes the new section with the specified key name and value pairs.
+ * 
+ * <b>WritePrivateProfileSection</b> deletes the existing keys and values for the named section and inserts the key names and values in the buffer pointed to by the <i>lpString</i> parameter. The function does not attempt to correlate old and new key names; if the new names appear in a different order from the old names, any comments associated with preexisting keys and values in the initialization file will probably be associated with incorrect keys and values.
+ * 
+ * This operation is atomic; no operations that read from or write to the specified initialization file are allowed while the information is being written.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
+ * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 				
+ * 			
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WritePrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
+ * @param {PWSTR} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+ * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
+ * 
+ * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectionw
+ * @since windows5.0
+ */
+export WritePrivateProfileSectionW(lpAppName, lpString, lpFileName) {
+    lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
+    lpString := lpString is String ? StrPtr(lpString) : lpString
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the names of all sections in an initialization file. (GetPrivateProfileSectionNamesA)
+ * @remarks
+ * This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileSectionNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
+ * @param {PSTR} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesa
+ * @since windows5.0
+ */
+export GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName) {
+    lpszReturnBuffer := lpszReturnBuffer is String ? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesA", "ptr", lpszReturnBuffer, "uint", nSize, "ptr", lpFileName, UInt32)
+    return result
+}
+
+/**
+ * The GetPrivateProfileSectionNamesW (Unicode) function (winbase.h) retrieves the names of all sections in an initialization file.
+ * @remarks
+ * This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ * function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileSectionNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
+ * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
+ * @param {PWSTR} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesw
+ * @since windows5.0
+ */
+export GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName) {
+    lpszReturnBuffer := lpszReturnBuffer is String ? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
+    lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesW", "ptr", lpszReturnBuffer, "uint", nSize, "ptr", lpFileName, UInt32)
+    return result
+}
+
+/**
+ * Retrieves the data associated with a key in the specified section of an initialization file. (GetPrivateProfileStructA)
+ * @remarks
+ * A section in the initialization file must have the following form:
+ * 				
+ * 			
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=data
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ *  function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file, say MyFile.ini, under <b>IniFileMapping</b>.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under <b>myfile.ini</b>, or a subkey of <b>myfile.ini</b>, or will not exist.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value under <b>myfile.ini</b>, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey of <b>myfile.ini</b>, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey under <b>myfile.ini</b>, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) under <b>myfile.ini</b> that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no <b>myfile.ini</b> subkey, or if it does not contain an entry for the section name, then look for the actual MyFile.ini on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpszSection The name of the section in the initialization file.
+ * @param {PSTR} lpszKey The name of the key whose data is to be retrieved.
+ * @param {Integer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
+ * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
+ * @param {PSTR} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestructa
+ * @since windows5.0
+ */
+export GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+    lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
+    lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
+    szFile := szFile is String ? StrPtr(szFile) : szFile
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, BOOL)
+    return result
+}
+
+/**
+ * The GetPrivateProfileStructW (Unicode) function (winbase.h) retrieves the data associated with a key in the specified section of an initialization file.
+ * @remarks
+ * A section in the initialization file must have the following form:
+ * 				
+ * 			
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=data
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows NT</b>&#92;<b>CurrentVersion</b>&#92;<b>IniFileMapping</b>
+ * 
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the 
+ *  function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file, say MyFile.ini, under <b>IniFileMapping</b>.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under <b>myfile.ini</b>, or a subkey of <b>myfile.ini</b>, or will not exist.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value under <b>myfile.ini</b>, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey of <b>myfile.ini</b>, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey under <b>myfile.ini</b>, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) under <b>myfile.ini</b> that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no <b>myfile.ini</b> subkey, or if it does not contain an entry for the section name, then look for the actual MyFile.ini on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpszSection The name of the section in the initialization file.
+ * @param {PWSTR} lpszKey The name of the key whose data is to be retrieved.
+ * @param {Integer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
+ * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
+ * @param {PWSTR} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestructw
+ * @since windows5.0
+ */
+export GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+    lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
+    lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
+    szFile := szFile is String ? StrPtr(szFile) : szFile
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, BOOL)
+    return result
+}
+
+/**
+ * Copies data into a key in the specified section of an initialization file. As it copies the data, the function calculates a checksum and appends it to the end of the data. (ANSI)
+ * @remarks
+ * A section in the initialization file must have the following form:
+ * 				
+ * 			
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=string
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * If the <i>szFile</i> parameter does not contain a full path and file name for the file, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
+ * 
+ * If <i>szFile</i> contains a full path and file name and the file does not exist, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprofilestringa">WriteProfileString</a> creates the file. The specified directory must already exist.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
+ * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 				
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} lpszSection The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case independent, the string can be any combination of uppercase and lowercase letters.
+ * @param {PSTR} lpszKey The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
+ * @param {Integer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
+ * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
+ * @param {PSTR} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
+ * 
+ * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
+ * @returns {BOOL} If the function successfully copies the string to the initialization file, the return value is nonzero.
+ * 
+ * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestructa
+ * @since windows5.0
+ */
+export WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+    lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
+    lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
+    szFile := szFile is String ? StrPtr(szFile) : szFile
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Copies data into a key in the specified section of an initialization file. As it copies the data, the function calculates a checksum and appends it to the end of the data. (Unicode)
+ * @remarks
+ * A section in the initialization file must have the following form:
+ * 				
+ * 			
+ * 
+ * 
+ * 
+ * ``` syntax
+ * [section]
+ * key=struct
+ * 
+ *       .
+ *       .
+ *       .
+ * ```
+ * 
+ * If the <i>szFile</i> parameter does not contain a full path and file name for the file, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a> searches the Windows directory for the file. If the file does not exist, this function creates the file in the Windows directory.
+ * 
+ * If <i>szFile</i> contains a full path and file name and the file does not exist, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeprofilestringa">WriteProfileString</a> creates the file. The specified directory must already exist.
+ * 
+ * The system keeps a cached version of the most recent registry file mapping to improve performance. If all parameters are <b>NULL</b>, the function flushes the cache. While the system is editing the cached version of the file, processes that edit the file itself will use the original file until the cache has been cleared.
+ * 
+ * The system maps most .ini file references to the registry, using the mapping defined under the following registry key:<pre><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>IniFileMapping</b></pre>
+ * 
+ * 
+ * This mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In this case, the 
+ * function writes information to the registry, not to the initialization file; the change in the storage location has no effect on the function's behavior.
+ * 
+ * The profile functions use the following steps to locate initialization information:
+ * 				
+ * 
+ * <ol>
+ * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
+ * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
+ * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
+ * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
+ * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
+ * </ol>
+ * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
+ * 
+ * <ul>
+ * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
+ * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
+ * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
+ * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
+ * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} lpszSection The name of the section to which the struct data will be copied. If the section does not exist, it is created. The name of the section is case independent.
+ * @param {PWSTR} lpszKey The name of the key to be associated with a struct. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
+ * @param {Integer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
+ * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
+ * @param {PWSTR} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
+ * 
+ * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
+ * @returns {BOOL} If the function successfully copies the struct to the initialization file, the return value is nonzero.
+ * 
+ * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestructw
+ * @since windows5.0
+ */
+export WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+    lpszSection := lpszSection is String ? StrPtr(lpszSection) : lpszSection
+    lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
+    szFile := szFile is String ? StrPtr(szFile) : szFile
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Void>} lp 
+ * @param {Pointer} ucb 
+ * @returns {BOOL} 
+ */
+export IsBadHugeReadPtr(lp, ucb) {
+    lpMarshal := lp is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("KERNEL32.dll\IsBadHugeReadPtr", lpMarshal, lp, "ptr", ucb, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Void>} lp 
+ * @param {Pointer} ucb 
+ * @returns {BOOL} 
+ */
+export IsBadHugeWritePtr(lp, ucb) {
+    lpMarshal := lp is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("KERNEL32.dll\IsBadHugeWritePtr", lpMarshal, lp, "ptr", ucb, BOOL)
+    return result
+}
+
+/**
+ * Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry. (ANSI)
+ * @remarks
+ * The 
+ * <b>GetComputerName</b> function retrieves the NetBIOS name established at system startup. Name changes made by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernamea">SetComputerName</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> functions do not take effect until the user restarts the computer.
+ * 
+ * If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function.
+ * @param {PSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+ * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+ * 
+ * 
+ * 
+ * 
+ * If the buffer is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_BUFFER_OVERFLOW. The <i>lpnSize</i> parameter specifies the size of the buffer required, including the terminating null character.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcomputernamea
+ * @since windows5.0
+ */
+export GetComputerNameA(lpBuffer, nSize) {
+    lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+
+    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, nSizeMarshal, nSize, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry. (Unicode)
+ * @remarks
+ * The 
+ * <b>GetComputerName</b> function retrieves the NetBIOS name established at system startup. Name changes made by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernamea">SetComputerName</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> functions do not take effect until the user restarts the computer.
+ * 
+ * If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function.
+ * @param {PWSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+ * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+ * 
+ * 
+ * 
+ * 
+ * If the buffer is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_BUFFER_OVERFLOW. The <i>lpnSize</i> parameter specifies the size of the buffer required, including the terminating null character.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcomputernamew
+ * @since windows5.0
+ */
+export GetComputerNameW(lpBuffer, nSize) {
+    lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+
+    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, nSizeMarshal, nSize, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Converts a DNS-style host name to a NetBIOS-style computer name. (ANSI)
+ * @remarks
+ * This function performs a textual mapping of the name. This convention limits the names of computers to be the common subset of the names. (Specifically, the leftmost label of the DNS name is truncated to 15-bytes of OEM characters.) Therefore, do not use this function to convert a DNS domain name to a NetBIOS domain name. There is no textual mapping for domain names.
+ * 
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines DnsHostnameToComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PSTR} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
+ * @param {PSTR} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+ * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+ * 
+ * 
+ * 
+ * 
+ * If the buffer is too small, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and <i>nSize</i> receives the required buffer size, not including the terminating null character.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>ERROR_MORE_DATA</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The <i>ComputerName</i> buffer is too small. The <i>nSize</i> parameter contains the number of bytes required to receive the name.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dnshostnametocomputernamea
+ * @since windows5.0
+ */
+export DnsHostnameToComputerNameA(Hostname, ComputerName, nSize) {
+    Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
+    ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
+
+    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Converts a DNS-style host name to a NetBIOS-style computer name. (Unicode)
+ * @remarks
+ * This function performs a textual mapping of the name. This convention limits the names of computers to be the common subset of the names. (Specifically, the leftmost label of the DNS name is truncated to 15-bytes of OEM characters.) Therefore, do not use this function to convert a DNS domain name to a NetBIOS domain name. There is no textual mapping for domain names.
+ * 
+ * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines DnsHostnameToComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {PWSTR} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
+ * @param {PWSTR} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+ * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+ * 
+ * 
+ * 
+ * 
+ * If the buffer is too small, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and <i>nSize</i> receives the required buffer size, not including the terminating null character.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>ERROR_MORE_DATA</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The <i>ComputerName</i> buffer is too small. The <i>nSize</i> parameter contains the number of bytes required to receive the name.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dnshostnametocomputernamew
+ * @since windows5.0
+ */
+export DnsHostnameToComputerNameW(Hostname, ComputerName, nSize) {
+    Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
+    ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
+
+    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the name of the user associated with the current thread. (ANSI)
+ * @remarks
+ * If the current thread is impersonating another client, the 
+ * <b>GetUserName</b> function returns the user name of the client that the thread is impersonating.
+ * 
+ * If <b>GetUserName</b> is called from a process that is running under the  "NETWORK SERVICE" account, the string returned in <i>lpBuffer</i> may be different depending on the version of Windows.  On Windows XP, the "NETWORK SERVICE" string is returned. On Windows Vista, the “&lt;HOSTNAME&gt;$” string is returned.
+ * @param {PSTR} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
+ * @param {Pointer<Integer>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
+ * 
+ * 
+ * 
+ * 
+ * If <i>lpBuffer</i> is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER. This parameter receives the required buffer size, including the terminating null character.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value, and the variable pointed to by <i>lpnSize</i> contains the number of <b>TCHARs</b> copied to the buffer specified by <i>lpBuffer</i>, including the terminating null character.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamea
+ * @since windows5.0
+ */
+export GetUserNameA(lpBuffer, pcbBuffer) {
+    lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+
+    pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves the name of the user associated with the current thread. (Unicode)
+ * @remarks
+ * If the current thread is impersonating another client, the 
+ * <b>GetUserName</b> function returns the user name of the client that the thread is impersonating.
+ * 
+ * If <b>GetUserName</b> is called from a process that is running under the  "NETWORK SERVICE" account, the string returned in <i>lpBuffer</i> may be different depending on the version of Windows.  On Windows XP, the "NETWORK SERVICE" string is returned. On Windows Vista, the “&lt;HOSTNAME&gt;$” string is returned.
+ * @param {PWSTR} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
+ * @param {Pointer<Integer>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
+ * 
+ * 
+ * 
+ * 
+ * If <i>lpBuffer</i> is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER. This parameter receives the required buffer size, including the terminating null character.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value, and the variable pointed to by <i>lpnSize</i> contains the number of <b>TCHARs</b> copied to the buffer specified by <i>lpBuffer</i>, including the terminating null character.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamew
+ * @since windows5.0
+ */
+export GetUserNameW(lpBuffer, pcbBuffer) {
+    lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+
+    pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+    A_LastError := 0
+
+    result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * 
+ * @param {HANDLE} TokenHandle 
+ * @returns {BOOL} 
+ */
+export IsTokenUntrusted(TokenHandle) {
+    result := DllCall("ADVAPI32.dll\IsTokenUntrusted", HANDLE, TokenHandle, BOOL)
+    return result
+}
+
+/**
+ * Retrieves information about the current hardware profile for the local computer. (ANSI)
+ * @remarks
+ * The 
+ * <b>GetCurrentHwProfile</b> function retrieves the display name and globally unique identifier (GUID) string for the hardware profile. The function also retrieves the reported docking state for portable computers with docking stations.
+ * 
+ * The system generates a GUID for each hardware profile and stores it as a string in the registry. You can use 
+ * <b>GetCurrentHwProfile</b> to retrieve the GUID string to use as a registry subkey under your application's configuration settings key in <b>HKEY_CURRENT_USER</b>. This enables you to store each user's settings for each hardware profile. For example, the Colors control panel application could use the subkey to store each user's color preferences for different hardware profiles, such as profiles for the docked and undocked states. Applications that use this functionality can check the current hardware profile when they start up, and update their settings accordingly.
+ * 
+ * Applications can also update their settings when a system device message, such as 
+ * <a href="https://docs.microsoft.com/windows/desktop/DevIO/dbt-configchanged">DBT_CONFIGCHANGED</a>, indicates that the hardware profile has changed.
+ * 
+ * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<HW_PROFILE_INFOA>} lpHwProfileInfo A pointer to an 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-hw_profile_infoa">HW_PROFILE_INFO</a> structure that receives information about the current hardware profile.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilea
+ * @since windows5.0
+ */
+export GetCurrentHwProfileA(lpHwProfileInfo) {
+    A_LastError := 0
+
+    result := DllCall("ADVAPI32.dll\GetCurrentHwProfileA", HW_PROFILE_INFOA.Ptr, lpHwProfileInfo, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * Retrieves information about the current hardware profile for the local computer. (Unicode)
+ * @remarks
+ * The 
+ * <b>GetCurrentHwProfile</b> function retrieves the display name and globally unique identifier (GUID) string for the hardware profile. The function also retrieves the reported docking state for portable computers with docking stations.
+ * 
+ * The system generates a GUID for each hardware profile and stores it as a string in the registry. You can use 
+ * <b>GetCurrentHwProfile</b> to retrieve the GUID string to use as a registry subkey under your application's configuration settings key in <b>HKEY_CURRENT_USER</b>. This enables you to store each user's settings for each hardware profile. For example, the Colors control panel application could use the subkey to store each user's color preferences for different hardware profiles, such as profiles for the docked and undocked states. Applications that use this functionality can check the current hardware profile when they start up, and update their settings accordingly.
+ * 
+ * Applications can also update their settings when a system device message, such as 
+ * <a href="https://docs.microsoft.com/windows/desktop/DevIO/dbt-configchanged">DBT_CONFIGCHANGED</a>, indicates that the hardware profile has changed.
+ * 
+ * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * @param {Pointer<HW_PROFILE_INFOW>} lpHwProfileInfo A pointer to an 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-hw_profile_infoa">HW_PROFILE_INFO</a> structure that receives information about the current hardware profile.
+ * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilew
+ * @since windows5.0
+ */
+export GetCurrentHwProfileW(lpHwProfileInfo) {
+    A_LastError := 0
+
+    result := DllCall("ADVAPI32.dll\GetCurrentHwProfileW", HW_PROFILE_INFOW.Ptr, lpHwProfileInfo, BOOL)
+    if(!result && A_LastError) {
+        throw OSError(A_LastError)
+    }
+
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} TargetPartition 
+ * @param {PWSTR} SparePartition 
+ * @param {Integer} Flags 
+ * @returns {BOOL} 
+ */
+export ReplacePartitionUnit(TargetPartition, SparePartition, Flags) {
+    TargetPartition := TargetPartition is String ? StrPtr(TargetPartition) : TargetPartition
+    SparePartition := SparePartition is String ? StrPtr(SparePartition) : SparePartition
+
+    result := DllCall("KERNEL32.dll\ReplacePartitionUnit", "ptr", TargetPartition, "ptr", SparePartition, "uint", Flags, BOOL)
+    return result
+}
+
+/**
+ * The GetThreadEnabledXStateFeatures function returns the set of XState features that are currently enabled for the current thread.
+ * @remarks
+ * This function is related to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getenabledxstatefeatures">GetEnabledXStateFeatures</a>, which returns the set of XState features enabled in the system.
+ * Prior to the introduction of optional XState features, the set of enabled XState features is the same for every thread in the system because all supported features are always enabled, thus the result returned from GetEnabledXStateFeatures and this function are identical.
+ * With optional XState features, it is possible for optional XState features to be disabled by default for newly created threads and enabled on demand later. Optional XState features that are currently disabled for the current thread will not be returned by this function, but will still be returned by GetEnabledXStateFeatures.
+ * @returns {Integer} The return value is a bitmask in which each bit represents an XState feature that is currently enabled for the current thread.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getthreadenabledxstatefeatures
+ */
+export GetThreadEnabledXStateFeatures() {
+    result := DllCall("KERNEL32.dll\GetThreadEnabledXStateFeatures", Int64)
+    return result
+}
+
+/**
+ * The EnableProcessOptionalXStateFeatures function enables a set of optional XState features for the current process.
+ * @remarks
+ * In general, optional XState features are disabled by default for newly created threads and enabled on demand later.
+ * When this function returns, the specified optional XState features will be enabled for all existing threads in the current process, and all future threads created in the process will have the specified optional XState features enabled at thread creation time.
+ * 
+ * Only XState feature bits supported by the system are allowed to be supplied to this function, otherwise an error is returned. The XState feature bits supported by the system can be obtained via the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getenabledxstatefeatures">GetEnabledXStateFeatures</a> routine.
+ * If non-optional XState feature bits supported by the system are supplied (for example AVX, AVX2, etc. are non-optional XState features), those are ignored and will not cause this function to return an error. Note that all non-optional XState features supported by the system are always enabled for every thread by default.
+ * @param {Integer} Features A bitmask in which each bit represents an optional XState feature to enable for the current process.
+ * @returns {BOOL} If the function succeeds, the return value is nonzero.
+ * 
+ * If the function fails, the return value is zero. To get extended error information, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enableprocessoptionalxstatefeatures
+ */
+export EnableProcessOptionalXStateFeatures(Features) {
+    result := DllCall("KERNEL32.dll\EnableProcessOptionalXStateFeatures", "uint", Features, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} CustomSystemEventTriggerConfig 
+ * @returns {Integer} 
+ */
+export RaiseCustomSystemEventTrigger(CustomSystemEventTriggerConfig) {
+    result := DllCall("api-ms-win-core-backgroundtask-l1-1-0.dll\RaiseCustomSystemEventTrigger", CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.Ptr, CustomSystemEventTriggerConfig, UInt32)
+    return result
+}
+
+/**
+ * Determines whether or not a specified name can be used to create a file on the FAT file system.
+ * @remarks
+ * This function does not have an associated import library. You must use the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to
+ *     NtDll.dll.
+ * @param {Pointer<UNICODE_STRING>} Name The file name, in 8.3 format.
+ * @param {Pointer<STRING>} OemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>.
+ * 
+ * This parameter can be <b>NULL</b>.
+ * @param {Pointer<BOOLEAN>} NameContainsSpaces If the function returns <b>TRUE</b>, this parameter indicates whether or not the name 
+ *        contains spaces.
+ * 
+ * If the function returns <b>FALSE</b>, this parameter is undefined.
+ * @returns {BOOLEAN} If the specified name forms a valid 8.3 FAT file system name in the current OEM code page, the function 
+ *       returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlisnamelegaldos8dot3
+ */
+export RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
+    NameContainsSpacesMarshal := NameContainsSpaces is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", UNICODE_STRING.Ptr, Name, STRING.Ptr, OemName, NameContainsSpacesMarshal, NameContainsSpaces, BOOLEAN)
+    return result
+}
+
+/**
+ * Converts the specified local time to system time.
+ * @remarks
+ * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
+ * @param {Pointer<Integer>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
+ * @param {Pointer<Integer>} _SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
+ * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code.
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
+ */
+export RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
+    LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
+    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Converts the specified 64-bit system time to the number of seconds since the beginning of January 1, 1970.
+ * @remarks
+ * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
+ * 
+ * There is no single equivalent public  function. To perform this task using public  functions, use the following steps:
+ * 
+ * 
+ * 
+ * <ol>
+ * <li>Call  <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-systemtimetofiletime">SystemTimeToFileTime</a> to copy the system time to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure. Call <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemtime">GetSystemTime</a> to get the current system time to pass to <b>SystemTimeToFileTime</b>.</li>
+ * <li>Copy the contents of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a> structure.</li>
+ * <li>Initialize a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure with the date and time of the first second of January 1, 1970.</li>
+ * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-systemtimetofiletime">SystemTimeToFileTime</a>, passing the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure initialized in Step 3 to the call.</li>
+ * <li>Copy the contents of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure returned by <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-systemtimetofiletime">SystemTimeToFileTime</a> in Step 4 to a second <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a>.
+ * The copied value should be less than or equal to the value copied in Step 2.</li>
+ * <li>Subtract the 64-bit value in the <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a> structure initialized in Step 5 (January 1, 1970) from the 64-bit value of the <b>ULARGE_INTEGER</b> structure initialized in Step 2 (the current system time). This produces a value in 100-nanosecond intervals since January 1, 1970. To convert this value to seconds, divide by 10,000,000.</li>
+ * </ol>
+ * @param {Pointer<Integer>} Time A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the system time. The valid years for this value are 1970 to  2105 inclusive.
+ * @param {Pointer<Integer>} ElapsedSeconds A pointer to a variable that receives the number of seconds.
+ * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>. If it fails, it returns <b>FALSE</b>. Typically, this function will fail if the specified value of the  <i>Time</i> parameter is not within the valid timeframe specified in the parameter description.
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtltimetosecondssince1970
+ */
+export RtlTimeToSecondsSince1970(Time, ElapsedSeconds) {
+    TimeMarshal := Time is VarRef ? "int64*" : "ptr"
+    ElapsedSecondsMarshal := ElapsedSeconds is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", TimeMarshal, Time, ElapsedSecondsMarshal, ElapsedSeconds, BOOLEAN)
+    return result
+}
+
+/**
+ * Frees the string buffer allocated by RtlUnicodeStringToAnsiString.
+ * @remarks
+ * This routine does not release the Unicode string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
+ * @param {Pointer<STRING>} AnsiString A pointer to an ANSI string whose buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeansistring
+ * @since windows5.0
+ */
+export RtlFreeAnsiString(AnsiString) {
+    DllCall("ntdll.dll\RtlFreeAnsiString", STRING.Ptr, AnsiString)
+}
+
+/**
+ * Frees the string buffer allocated by RtlAnsiStringToUnicodeString or by RtlUpcaseUnicodeString.
+ * @remarks
+ * This routine does not release the ANSI string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a> or <b>RtlUpcaseUnicodeString</b>.
+ * 		
+ * 
+ * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
+ * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode string whose
+ *         buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a>.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeunicodestring
+ * @since windows5.0
+ */
+export RtlFreeUnicodeString(UnicodeString) {
+    DllCall("ntdll.dll\RtlFreeUnicodeString", UNICODE_STRING.Ptr, UnicodeString)
+}
+
+/**
+ * Frees the string buffer allocated by RtlUnicodeStringToOemString.
+ * @remarks
+ * This routine releases the <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure. The <b>Length</b> and <b>MaximumLength</b> members are not affected by this routine.
+ * @param {Pointer<STRING>} OemString Address of the OEM string whose buffer
+ *         was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtooemstring">RtlUnicodeStringToOemString</a>.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeoemstring
+ * @since windows5.0
+ */
+export RtlFreeOemString(OemString) {
+    DllCall("ntdll.dll\RtlFreeOemString", STRING.Ptr, OemString)
+}
+
+/**
+ * Initializes a counted string.
+ * @remarks
+ * <b>Security Warning:  </b>Do not allow the <i>SourceString</i> parameter size to exceed <b>MAX_USHORT</b> characters.
+ * 
+ * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
+ * 
+ * 
+ * 		
+ * 
+ * <div class="alert"><b>Note</b>  <b>RtlInitString</b> is available in Windows XP. It might be altered or unavailable in subsequent versions.</div>
+ * <div> </div>
+ * @param {Pointer<STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
+ * @param {Pointer<Integer>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitstring
+ */
+export RtlInitString(DestinationString, SourceString) {
+    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+
+    DllCall("ntdll.dll\RtlInitString", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString)
+}
+
+/**
+ * 
+ * @param {Pointer<STRING>} DestinationString 
+ * @param {Pointer<Integer>} SourceString 
+ * @returns {NTSTATUS} 
+ */
+export RtlInitStringEx(DestinationString, SourceString) {
+    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlInitStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<STRING>} DestinationString 
+ * @param {Pointer<Integer>} SourceString 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export RtlInitAnsiString(DestinationString, SourceString) {
+    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+
+    DllCall("ntdll.dll\RtlInitAnsiString", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString)
+}
+
+/**
+ * 
+ * @param {Pointer<STRING>} DestinationString 
+ * @param {Pointer<Integer>} SourceString 
+ * @returns {NTSTATUS} 
+ */
+export RtlInitAnsiStringEx(DestinationString, SourceString) {
+    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlInitAnsiStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Initializes a counted Unicode string.
+ * @param {Pointer<UNICODE_STRING>} DestinationString The buffer for a counted Unicode string to be initialized. The length is initialized to zero if the <i>SourceString</i> is not specified.
+ * @param {PWSTR} SourceString Optional pointer to a null-terminated Unicode string with
+ *         which to initialize the counted string.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitunicodestring
+ * @since windows5.0
+ */
+export RtlInitUnicodeString(DestinationString, SourceString) {
+    SourceString := SourceString is String ? StrPtr(SourceString) : SourceString
+
+    DllCall("ntdll.dll\RtlInitUnicodeString", UNICODE_STRING.Ptr, DestinationString, "ptr", SourceString)
+}
+
+/**
+ * Converts the specified ANSI source string into a Unicode string.
+ * @remarks
+ * The translation is done with respect to the
+ *     current system locale information.
+ * 		
+ * 
+ * If caller sets <i>AllocateDestinationString</i> to <b>TRUE</b>, the routine replaces the <b>Buffer</b> member of <i>DestinationString</i> with a pointer to the buffer it allocates. The old value can be overwritten even when the routine returns an error status code.
+ * 		
+ * 
+ * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
+ * @param {Pointer<UNICODE_STRING>} DestinationString A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure to hold the converted Unicode string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data, and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
+ * @param {Pointer<STRING>} SourceString A pointer to the <b>ANSI_STRING</b> structure that contains the ANSI string to be converted to Unicode.
+ * @param {BOOLEAN} AllocateDestinationString Controls allocation of buffer space for the destination string.
+ * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>STATUS_SUCCESS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The ANSI string was converted to Unicode. On failure, the routine does not allocate any memory.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlansistringtounicodestring
+ * @since windows5.0
+ */
+export RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
+    result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", UNICODE_STRING.Ptr, DestinationString, STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Converts the specified Unicode source string into an ANSI string.
+ * @remarks
+ * The translation is done with respect to the
+ *     current system locale information.
+ * 		
+ * 
+ * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
+ * @param {Pointer<STRING>} DestinationString A pointer to an <b>ANSI_STRING</b> structure to hold the converted ANSI string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
+ * @param {Pointer<UNICODE_STRING>} SourceString The <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the source string to be converted to ANSI.
+ * @param {BOOLEAN} AllocateDestinationString Controls allocation of the buffer space for the <i>DestinationString</i>.
+ * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the DDK.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>STATUS_SUCCESS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The Unicode string was converted to ANSI. Otherwise, no storage was allocated and no conversion was done.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodestringtoansistring
+ * @since windows5.0
+ */
+export RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
+    result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Converts the specified Unicode source string into an OEM string. The translation is done with respect to the OEM code page (OCP).
+ * @remarks
+ * This routine allocates a buffer for the <i>DestinationString</i> only.
+ * @param {Pointer<STRING>} DestinationString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure that is contains the OEM equivalent to the Unicode source string. The <b>MaximumLength</b> field is set if <i>AllocateDestinationString</i> is <b>TRUE</b>.
+ * @param {Pointer<UNICODE_STRING>} SourceString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that is to be
+ *         converted to OEM.
+ * @param {BOOLEAN} AllocateDestinationString Controls allocation of the buffer space for the destination
+ *         string.
+ * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>STATUS_SUCCESS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The Unicode string was converted to OEM. Otherwise, no storage was allocated, and no conversion was done.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodestringtooemstring
+ * @since windows5.0
+ */
+export RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
+    result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Determines how many bytes are needed to represent a Unicode string as an ANSI string.
+ * @remarks
+ * It is recommended that you use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> instead of <b>RtlUnicodeToMultiByteSize</b>. When its <i>cbMultiByte</i> parameter is set to zero, the <b>WideCharToMultiByte</b> function returns the number of bytes required for the buffer.
+ * @param {Pointer<Integer>} BytesInMultiByteString Returns the number of bytes for the ANSI equivalent of the Unicode string pointed to by <i>UnicodeString</i>. This number does not include the terminating <b>NULL</b> character.
+ * @param {Integer} UnicodeString The Unicode source string for which the ANSI length is calculated.
+ * @param {Integer} BytesInUnicodeString The number of bytes in the string pointed to by
+ *         <i>UnicodeString</i>.
+ * @returns {NTSTATUS} <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>STATUS_SUCCESS</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The count was successful. The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodetomultibytesize
+ * @since windows5.0
+ */
+export RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
+    BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Converts a character string to an integer.
+ * @remarks
+ * When converting strings to integers the preferred function to use is <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2010/w4z2wdyc(v=vs.100)">strtol, wcstol</a>.
+ * 
+ * There is no import library for this function. Use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> rather than linking to the function directly.
+ * @param {Pointer<Integer>} _String A pointer to the string to convert. The format of the string is as follows: 
+ * 
+ * [whitespace] [{+ | -}] [0 [{x | o | b}]] [digits]
+ * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
+ * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
+ * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlchartointeger
+ * @since windows5.0
+ */
+export RtlCharToInteger(_String, Base, Value) {
+    _StringMarshal := _String is VarRef ? "char*" : "ptr"
+    ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, "uint", Base, ValueMarshal, Value, NTSTATUS)
+    NTSTATUS.ThrowIfError(result)
+    return result
+}
+
+/**
+ * Generates a uniform random number using D.H. Lehmer's 1948 algorithm.
+ * @remarks
+ * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
+ * @param {Pointer<Integer>} Seed The seed value.
+ * @returns {Integer} The function returns a random number uniformly distributed over [0..MAXLONG].
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtluniform
+ */
+export RtlUniform(Seed) {
+    SeedMarshal := Seed is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ntdll.dll\RtlUniform", SeedMarshal, Seed, UInt32)
+    return result
+}
+
+/**
+ * This function is intended for infrastructure use only. (GetFeatureEnabledState)
+ * @param {Integer} featureId Infrastructure use only.
+ * @param {FEATURE_CHANGE_TIME} changeTime Infrastructure use only.
+ * @returns {FEATURE_ENABLED_STATE} Infrastructure use only.
+ * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
+ */
+export GetFeatureEnabledState(featureId, changeTime) {
+    result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, FEATURE_CHANGE_TIME, changeTime, FEATURE_ENABLED_STATE)
+    return result
+}
+
+/**
+ * This function is intended for infrastructure use only. (RecordFeatureUsage)
+ * @param {Integer} featureId Infrastructure use only.
+ * @param {Integer} kind Infrastructure use only.
+ * @param {Integer} addend Infrastructure use only.
+ * @param {PSTR} originName Infrastructure use only.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureusage
+ */
+export RecordFeatureUsage(featureId, kind, addend, originName) {
+    originName := originName is String ? StrPtr(originName) : originName
+
+    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
+}
+
+/**
+ * This function is intended for infrastructure use only. (RecordFeatureError)
+ * @param {Integer} featureId Infrastructure use only.
+ * @param {Pointer<FEATURE_ERROR>} _error Infrastructure use only.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureerror
+ */
+export RecordFeatureError(featureId, _error) {
+    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, FEATURE_ERROR.Ptr, _error)
+}
+
+/**
+ * This function is intended for infrastructure use only. (SubscribeFeatureStateChangeNotification)
+ * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
+ * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
+ * @param {Pointer<Void>} _context Infrastructure use only.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
+ */
+export SubscribeFeatureStateChangeNotification(subscription, callback, _context) {
+    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+
+    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION.Ptr, subscription, "ptr", callback, _contextMarshal, _context)
+}
+
+/**
+ * This function is intended for infrastructure use only. (UnsubscribeFeatureStateChangeNotification)
+ * @param {FEATURE_STATE_CHANGE_SUBSCRIPTION} subscription Infrastructure use only.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-unsubscribefeaturestatechangenotification
+ */
+export UnsubscribeFeatureStateChangeNotification(subscription) {
+    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\UnsubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION, subscription)
+}
+
+/**
+ * This function is intended for infrastructure use only. (GetFeatureVariant)
+ * @param {Integer} featureId Infrastructure use only.
+ * @param {FEATURE_CHANGE_TIME} changeTime Infrastructure use only.
+ * @param {Pointer<Integer>} payloadId Infrastructure use only.
+ * @param {Pointer<BOOL>} hasNotification Infrastructure use only.
+ * @returns {Integer} Infrastructure use only.
+ * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeaturevariant
+ */
+export GetFeatureVariant(featureId, changeTime, payloadId, hasNotification) {
+    payloadIdMarshal := payloadId is VarRef ? "uint*" : "ptr"
+    hasNotificationMarshal := hasNotification is VarRef ? "int*" : "ptr"
+
+    result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", "uint", featureId, FEATURE_CHANGE_TIME, changeTime, payloadIdMarshal, payloadId, hasNotificationMarshal, hasNotification, UInt32)
+    return result
+}
+
+/**
+ * Obtains a device context handle of display.
+ * @returns {HDC} Device context handle of display.
+ * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciopenprovider
+ * @since windows5.0
+ */
+export DCIOpenProvider() {
+    result := DllCall("DCIMAN32.dll\DCIOpenProvider", HDC)
+    return result
+}
+
+/**
+ * Closes a device context of a display.
+ * @param {HDC} _hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
+ * @since windows5.0
+ */
+export DCICloseProvider(_hdc) {
+    DllCall("DCIMAN32.dll\DCICloseProvider", HDC, _hdc)
+}
+
+/**
+ * Creates a primary surface and obtains surface information.
+ * @param {HDC} _hdc The device context handle of the device for the primary surface to be created.
+ * @param {Pointer<Pointer<DCISURFACEINFO>>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
+ * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
+ * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
+ * @since windows5.0
+ */
+export DCICreatePrimary(_hdc, lplpSurface) {
+    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("DCIMAN32.dll\DCICreatePrimary", HDC, _hdc, lplpSurfaceMarshal, lplpSurface, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {HDC} _hdc 
+ * @param {Integer} dwCompression 
+ * @param {Integer} dwRedMask 
+ * @param {Integer} dwGreenMask 
+ * @param {Integer} dwBlueMask 
+ * @param {Integer} dwWidth 
+ * @param {Integer} dwHeight 
+ * @param {Integer} dwDCICaps 
+ * @param {Integer} dwBitCount 
+ * @param {Pointer<Pointer<DCIOFFSCREEN>>} lplpSurface 
+ * @returns {Integer} 
+ */
+export DCICreateOffscreen(_hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
+    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("DCIMAN32.dll\DCICreateOffscreen", HDC, _hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {HDC} _hdc 
+ * @param {Pointer<Void>} lpOffscreenSurf 
+ * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
+ * @returns {Integer} 
+ */
+export DCICreateOverlay(_hdc, lpOffscreenSurf, lplpSurface) {
+    lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : "ptr"
+    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("DCIMAN32.dll\DCICreateOverlay", HDC, _hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {HDC} _hdc 
+ * @param {Pointer<RECT>} lprDst 
+ * @param {Pointer<RECT>} lprSrc 
+ * @param {Pointer<Void>} lpFnCallback 
+ * @param {Pointer<Void>} lpContext 
+ * @returns {Integer} 
+ */
+export DCIEnum(_hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
+    lpFnCallbackMarshal := lpFnCallback is VarRef ? "ptr" : "ptr"
+    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("DCIMAN32.dll\DCIEnum", HDC, _hdc, RECT.Ptr, lprDst, RECT.Ptr, lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<DCIOFFSCREEN>} pdci 
+ * @param {Pointer<RECT>} srcrc 
+ * @param {Pointer<RECT>} destrc 
+ * @param {Pointer<RGNDATA>} prd 
+ * @returns {Integer} 
+ */
+export DCISetSrcDestClip(pdci, srcrc, destrc, prd) {
+    result := DllCall("DCIMAN32.dll\DCISetSrcDestClip", DCIOFFSCREEN.Ptr, pdci, RECT.Ptr, srcrc, RECT.Ptr, destrc, RGNDATA.Ptr, prd, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @returns {HWINWATCH} 
+ */
+export WinWatchOpen(_hwnd) {
+    result := DllCall("DCIMAN32.dll\WinWatchOpen", HWND, _hwnd, HWINWATCH)
+    return result
+}
+
+/**
+ * 
+ * @param {HWINWATCH} hWW 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WinWatchClose(hWW) {
+    DllCall("DCIMAN32.dll\WinWatchClose", HWINWATCH, hWW)
+}
+
+/**
+ * 
+ * @param {HWINWATCH} hWW 
+ * @param {Pointer<RECT>} prc 
+ * @param {Integer} _size 
+ * @param {Pointer<RGNDATA>} prd 
+ * @returns {Integer} 
+ */
+export WinWatchGetClipList(hWW, prc, _size, prd) {
+    result := DllCall("DCIMAN32.dll\WinWatchGetClipList", HWINWATCH, hWW, RECT.Ptr, prc, "uint", _size, RGNDATA.Ptr, prd, UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {HWINWATCH} hWW 
+ * @returns {BOOL} 
+ */
+export WinWatchDidStatusChange(hWW) {
+    result := DllCall("DCIMAN32.dll\WinWatchDidStatusChange", HWINWATCH, hWW, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {Integer} _size 
+ * @param {Pointer<RGNDATA>} prd 
+ * @returns {Integer} 
+ */
+export GetWindowRegionData(_hwnd, _size, prd) {
+    result := DllCall("DCIMAN32.dll\GetWindowRegionData", HWND, _hwnd, "uint", _size, RGNDATA.Ptr, prd, UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {HDC} _hdc 
+ * @param {Integer} _size 
+ * @param {Pointer<RGNDATA>} prd 
+ * @returns {Integer} 
+ */
+export GetDCRegionData(_hdc, _size, prd) {
+    result := DllCall("DCIMAN32.dll\GetDCRegionData", HDC, _hdc, "uint", _size, RGNDATA.Ptr, prd, UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {HWINWATCH} hWW 
+ * @param {Pointer<WINWATCHNOTIFYPROC>} NotifyCallback 
+ * @param {LPARAM} NotifyParam 
+ * @returns {BOOL} 
+ */
+export WinWatchNotify(hWW, NotifyCallback, NotifyParam) {
+    result := DllCall("DCIMAN32.dll\WinWatchNotify", HWINWATCH, hWW, "ptr", NotifyCallback, LPARAM, NotifyParam, BOOL)
+    return result
+}
+
+/**
+ * Releases access to display frame buffer.
+ * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciendaccess
+ * @since windows5.0
+ */
+export DCIEndAccess(pdci) {
+    DllCall("DCIMAN32.dll\DCIEndAccess", DCISURFACEINFO.Ptr, pdci)
+}
+
+/**
+ * Obtains an access pointer to display frame buffer based on the given rectangle.
+ * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
+ * @param {Integer} x The x-coordinate of the upper-left corner of the rectangle.
+ * @param {Integer} y The y-coordinate of the upper-left corner of the rectangle.
+ * @param {Integer} dx The width of the rectangle.
+ * @param {Integer} dy The height of the rectangle.
+ * @returns {Integer} If the function succeeds, the return value is DCI_OK or DCI_STATUS_POINTERCHANGED.  DCI_STATUS_POINTERCHANGED indicates that the virtual address of the frame buffer could have been changed since the last call.  So the application should not assume the consistency of the virtual address of the display frame buffer.  If the function fails, the return value is one of the DCI errors.
+ * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcibeginaccess
+ * @since windows5.0
+ */
+export DCIBeginAccess(pdci, x, y, dx, dy) {
+    result := DllCall("DCIMAN32.dll\DCIBeginAccess", DCISURFACEINFO.Ptr, pdci, "int", x, "int", y, "int", dx, "int", dy, Int32)
+    return result
+}
+
+/**
+ * Destroys a primary surface on the display device.
+ * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
+ * @returns {String} Nothing - always returns an empty string
+ * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcidestroy
+ * @since windows5.0
+ */
+export DCIDestroy(pdci) {
+    DllCall("DCIMAN32.dll\DCIDestroy", DCISURFACEINFO.Ptr, pdci)
+}
+
+/**
+ * 
+ * @param {Pointer<DCIOFFSCREEN>} pdci 
+ * @returns {Integer} 
+ */
+export DCIDraw(pdci) {
+    result := DllCall("DCIMAN32.dll\DCIDraw", DCIOFFSCREEN.Ptr, pdci, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<DCIOFFSCREEN>} pdci 
+ * @param {Pointer<RGNDATA>} prd 
+ * @returns {Integer} 
+ */
+export DCISetClipList(pdci, prd) {
+    result := DllCall("DCIMAN32.dll\DCISetClipList", DCIOFFSCREEN.Ptr, pdci, RGNDATA.Ptr, prd, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<DCIOFFSCREEN>} pdci 
+ * @param {Pointer<RECT>} dst 
+ * @param {Pointer<RECT>} src 
+ * @returns {Integer} 
+ */
+export DCISetDestination(pdci, dst, src) {
+    result := DllCall("DCIMAN32.dll\DCISetDestination", DCIOFFSCREEN.Ptr, pdci, RECT.Ptr, dst, RECT.Ptr, src, Int32)
+    return result
+}
+
+/**
+ * Returns the current value of an integer that is incremented whenever a mode switch occurs, such as when there is a desktop switch, a Fast User Switch, or a full-screen Microsoft MS-DOS box.
+ * @returns {Integer} The current value of the mode switch integer is returned.
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawgdi/nf-ddrawgdi-ddquerydisplaysettingsuniqueness
+ */
+export GdiEntry13() {
+    result := DllCall("api-ms-win-dx-d3dkmt-l1-1-0.dll\GdiEntry13", UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PSTR} szCmdName 
+ * @param {PSTR} szInfSection 
+ * @param {PSTR} szDir 
+ * @param {PSTR} lpszTitle 
+ * @param {Pointer<HANDLE>} phEXE 
+ * @param {Integer} dwFlags 
+ * @param {Pointer<Void>} pvReserved 
+ * @returns {HRESULT} 
+ */
+export RunSetupCommandA(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+    szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
+    szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
+    szDir := szDir is String ? StrPtr(szDir) : szDir
+    lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
+
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\RunSetupCommandA", HWND, _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, HANDLE.Ptr, phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PWSTR} szCmdName 
+ * @param {PWSTR} szInfSection 
+ * @param {PWSTR} szDir 
+ * @param {PWSTR} lpszTitle 
+ * @param {Pointer<HANDLE>} phEXE 
+ * @param {Integer} dwFlags 
+ * @param {Pointer<Void>} pvReserved 
+ * @returns {HRESULT} 
+ */
+export RunSetupCommandW(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+    szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
+    szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
+    szDir := szDir is String ? StrPtr(szDir) : szDir
+    lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
+
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\RunSetupCommandW", HWND, _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, HANDLE.Ptr, phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @returns {Integer} 
+ */
+export NeedRebootInit() {
+    result := DllCall("ADVPACK.dll\NeedRebootInit", UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} dwRebootCheck 
+ * @returns {BOOL} 
+ */
+export NeedReboot(dwRebootCheck) {
+    result := DllCall("ADVPACK.dll\NeedReboot", "uint", dwRebootCheck, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {PSTR} pszINF 
+ * @param {PSTR} pszSec 
+ * @param {Integer} dwReserved 
+ * @returns {HRESULT} 
+ */
+export RebootCheckOnInstallA(_hwnd, pszINF, pszSec, dwReserved) {
+    pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
+    pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
+
+    result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", HWND, _hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {PWSTR} pszINF 
+ * @param {PWSTR} pszSec 
+ * @param {Integer} dwReserved 
+ * @returns {HRESULT} 
+ */
+export RebootCheckOnInstallW(_hwnd, pszINF, pszSec, dwReserved) {
+    pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
+    pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
+
+    result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", HWND, _hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} pszInfFilename 
+ * @param {PSTR} pszInstallSection 
+ * @param {PSTR} pszTranslateSection 
+ * @param {PSTR} pszTranslateKey 
+ * @param {PSTR} pszBuffer 
+ * @param {Integer} cchBuffer 
+ * @returns {Integer} 
+ */
+export TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer) {
+    static pvReserved := 0 ;Reserved parameters must always be NULL
+
+    pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
+    pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
+    pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
+    pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
+    pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
+
+    result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
+    return pdwRequiredSize
+}
+
+/**
+ * 
+ * @param {PWSTR} pszInfFilename 
+ * @param {PWSTR} pszInstallSection 
+ * @param {PWSTR} pszTranslateSection 
+ * @param {PWSTR} pszTranslateKey 
+ * @param {PWSTR} pszBuffer 
+ * @param {Integer} cchBuffer 
+ * @returns {Integer} 
+ */
+export TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer) {
+    static pvReserved := 0 ;Reserved parameters must always be NULL
+
+    pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
+    pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
+    pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
+    pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
+    pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
+
+    result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
+    return pdwRequiredSize
+}
+
+/**
+ * Updates the string registry values in the provided table. (ANSI)
+ * @remarks
+ * > [!NOTE]
+ * > The advpub.h header defines RegInstall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {HMODULE} hmod The module containing the values to be updated.
+ * @param {PSTR} pszSection The sections containing the values to be updated.
+ * @param {Pointer<STRTABLEA>} pstTable The table of values to be updated.
+ * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
+ * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstalla
+ * @since windows10.0.10240
+ */
+export RegInstallA(hmod, pszSection, pstTable) {
+    pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
+
+    result := DllCall("ADVPACK.dll\RegInstallA", HMODULE, hmod, "ptr", pszSection, STRTABLEA.Ptr, pstTable, "HRESULT")
+    return result
+}
+
+/**
+ * Updates the string registry values in the provided table. (Unicode)
+ * @remarks
+ * > [!NOTE]
+ * > The advpub.h header defines RegInstall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {HMODULE} hmod The module containing the values to be updated.
+ * @param {PWSTR} pszSection The sections containing the values to be updated.
+ * @param {Pointer<STRTABLEW>} pstTable The table of values to be updated.
+ * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
+ * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstallw
+ * @since windows10.0.10240
+ */
+export RegInstallW(hmod, pszSection, pstTable) {
+    pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
+
+    result := DllCall("ADVPACK.dll\RegInstallW", HMODULE, hmod, "ptr", pszSection, STRTABLEW.Ptr, pstTable, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PWSTR} pszParms 
+ * @param {Integer} nShow 
+ * @returns {HRESULT} 
+ */
+export LaunchINFSectionExW(_hwnd, _hInstance, pszParms, nShow) {
+    pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
+
+    result := DllCall("ADVPACK.dll\LaunchINFSectionExW", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {Pointer<CABINFOA>} pCab 
+ * @param {Pointer<Void>} pReserved 
+ * @returns {HRESULT} 
+ */
+export ExecuteCabA(_hwnd, pCab, pReserved) {
+    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\ExecuteCabA", HWND, _hwnd, CABINFOA.Ptr, pCab, pReservedMarshal, pReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {Pointer<CABINFOW>} pCab 
+ * @param {Pointer<Void>} pReserved 
+ * @returns {HRESULT} 
+ */
+export ExecuteCabW(_hwnd, pCab, pReserved) {
+    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\ExecuteCabW", HWND, _hwnd, CABINFOW.Ptr, pCab, pReservedMarshal, pReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {PSTR} lpszSourceDir 
+ * @param {PSTR} lpszSourceFile 
+ * @param {PSTR} lpszDestDir 
+ * @param {PSTR} lpszDestFile 
+ * @param {Integer} dwFlags 
+ * @param {Integer} dwReserved 
+ * @returns {HRESULT} 
+ */
+export AdvInstallFileA(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+    lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
+    lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
+    lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
+    lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
+
+    result := DllCall("ADVPACK.dll\AdvInstallFileA", HWND, _hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {PWSTR} lpszSourceDir 
+ * @param {PWSTR} lpszSourceFile 
+ * @param {PWSTR} lpszDestDir 
+ * @param {PWSTR} lpszDestFile 
+ * @param {Integer} dwFlags 
+ * @param {Integer} dwReserved 
+ * @returns {HRESULT} 
+ */
+export AdvInstallFileW(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+    lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
+    lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
+    lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
+    lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
+
+    result := DllCall("ADVPACK.dll\AdvInstallFileW", HWND, _hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PSTR} pszTitleString 
+ * @param {HKEY} hkBckupKey 
+ * @param {PSTR} pcszRootKey 
+ * @param {PSTR} pcszSubKey 
+ * @param {PSTR} pcszValueName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export RegSaveRestoreA(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+    pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
+    pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
+    pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
+    pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
+
+    result := DllCall("ADVPACK.dll\RegSaveRestoreA", HWND, _hWnd, "ptr", pszTitleString, HKEY, hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PWSTR} pszTitleString 
+ * @param {HKEY} hkBckupKey 
+ * @param {PWSTR} pcszRootKey 
+ * @param {PWSTR} pcszSubKey 
+ * @param {PWSTR} pcszValueName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export RegSaveRestoreW(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+    pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
+    pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
+    pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
+    pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
+
+    result := DllCall("ADVPACK.dll\RegSaveRestoreW", HWND, _hWnd, "ptr", pszTitleString, HKEY, hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PSTR} pszTitle 
+ * @param {PSTR} pszINF 
+ * @param {PSTR} pszSection 
+ * @param {HKEY} hHKLMBackKey 
+ * @param {HKEY} hHKCUBackKey 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export RegSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+    pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
+    pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
+    pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
+
+    result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", HWND, _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, HKEY, hHKLMBackKey, HKEY, hHKCUBackKey, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PWSTR} pszTitle 
+ * @param {PWSTR} pszINF 
+ * @param {PWSTR} pszSection 
+ * @param {HKEY} hHKLMBackKey 
+ * @param {HKEY} hHKCUBackKey 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export RegSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+    pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
+    pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
+    pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
+
+    result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", HWND, _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, HKEY, hHKLMBackKey, HKEY, hHKCUBackKey, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PSTR} pszTitleString 
+ * @param {HKEY} hkBckupKey 
+ * @returns {HRESULT} 
+ */
+export RegRestoreAllA(_hWnd, pszTitleString, hkBckupKey) {
+    pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
+
+    result := DllCall("ADVPACK.dll\RegRestoreAllA", HWND, _hWnd, "ptr", pszTitleString, HKEY, hkBckupKey, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PWSTR} pszTitleString 
+ * @param {HKEY} hkBckupKey 
+ * @returns {HRESULT} 
+ */
+export RegRestoreAllW(_hWnd, pszTitleString, hkBckupKey) {
+    pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
+
+    result := DllCall("ADVPACK.dll\RegRestoreAllW", HWND, _hWnd, "ptr", pszTitleString, HKEY, hkBckupKey, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} hDlg 
+ * @param {PWSTR} lpFileList 
+ * @param {PWSTR} lpDir 
+ * @param {PWSTR} lpBaseName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export FileSaveRestoreW(hDlg, lpFileList, lpDir, lpBaseName, dwFlags) {
+    lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
+    lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
+    lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
+
+    result := DllCall("ADVPACK.dll\FileSaveRestoreW", HWND, hDlg, "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PSTR} pszTitle 
+ * @param {PSTR} pszINF 
+ * @param {PSTR} pszSection 
+ * @param {PSTR} pszBackupDir 
+ * @param {PSTR} pszBaseBackupFile 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export FileSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+    pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
+    pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
+    pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
+    pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
+    pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
+
+    result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", HWND, _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hWnd 
+ * @param {PWSTR} pszTitle 
+ * @param {PWSTR} pszINF 
+ * @param {PWSTR} pszSection 
+ * @param {PWSTR} pszBackupDir 
+ * @param {PWSTR} pszBaseBackupFile 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export FileSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+    pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
+    pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
+    pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
+    pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
+    pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
+
+    result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", HWND, _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} lpcszFileList 
+ * @param {PSTR} lpcszBackupDir 
+ * @param {PSTR} lpcszBaseName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export AddDelBackupEntryA(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
+    lpcszFileList := lpcszFileList is String ? StrPtr(lpcszFileList) : lpcszFileList
+    lpcszBackupDir := lpcszBackupDir is String ? StrPtr(lpcszBackupDir) : lpcszBackupDir
+    lpcszBaseName := lpcszBaseName is String ? StrPtr(lpcszBaseName) : lpcszBaseName
+
+    result := DllCall("ADVPACK.dll\AddDelBackupEntryA", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} lpcszFileList 
+ * @param {PWSTR} lpcszBackupDir 
+ * @param {PWSTR} lpcszBaseName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export AddDelBackupEntryW(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
+    lpcszFileList := lpcszFileList is String ? StrPtr(lpcszFileList) : lpcszFileList
+    lpcszBackupDir := lpcszBackupDir is String ? StrPtr(lpcszBackupDir) : lpcszBackupDir
+    lpcszBaseName := lpcszBaseName is String ? StrPtr(lpcszBaseName) : lpcszBaseName
+
+    result := DllCall("ADVPACK.dll\AddDelBackupEntryW", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} lpFileList 
+ * @param {PSTR} lpDir 
+ * @param {PSTR} lpBaseName 
+ * @returns {HRESULT} 
+ */
+export FileSaveMarkNotExistA(lpFileList, lpDir, lpBaseName) {
+    lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
+    lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
+    lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
+
+    result := DllCall("ADVPACK.dll\FileSaveMarkNotExistA", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} lpFileList 
+ * @param {PWSTR} lpDir 
+ * @param {PWSTR} lpBaseName 
+ * @returns {HRESULT} 
+ */
+export FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
+    lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
+    lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
+    lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
+
+    result := DllCall("ADVPACK.dll\FileSaveMarkNotExistW", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} lpszFilename 
+ * @param {Pointer<Integer>} pdwMSVer 
+ * @param {Pointer<Integer>} pdwLSVer 
+ * @param {BOOL} bVersion 
+ * @returns {HRESULT} 
+ */
+export GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+    lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
+
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} lpszFilename 
+ * @param {Pointer<Integer>} pdwMSVer 
+ * @param {Pointer<Integer>} pdwLSVer 
+ * @param {BOOL} bVersion 
+ * @returns {HRESULT} 
+ */
+export GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+    lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
+
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} lpszFilename 
+ * @param {Pointer<Integer>} pdwMSVer 
+ * @param {Pointer<Integer>} pdwLSVer 
+ * @param {BOOL} bVersion 
+ * @returns {HRESULT} 
+ */
+export GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+    lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
+
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} lpszFilename 
+ * @param {Pointer<Integer>} pdwMSVer 
+ * @param {Pointer<Integer>} pdwLSVer 
+ * @param {BOOL} bVersion 
+ * @returns {HRESULT} 
+ */
+export GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+    lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
+
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} dwReserved 
+ * @param {Pointer<Integer>} lpdwReserved 
+ * @returns {BOOL} 
+ */
+export IsNTAdmin(dwReserved, lpdwReserved) {
+    lpdwReservedMarshal := lpdwReserved is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ADVPACK.dll\IsNTAdmin", "uint", dwReserved, lpdwReservedMarshal, lpdwReserved, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} pszFileOrDirName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export DelNodeA(pszFileOrDirName, dwFlags) {
+    pszFileOrDirName := pszFileOrDirName is String ? StrPtr(pszFileOrDirName) : pszFileOrDirName
+
+    result := DllCall("ADVPACK.dll\DelNodeA", "ptr", pszFileOrDirName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} pszFileOrDirName 
+ * @param {Integer} dwFlags 
+ * @returns {HRESULT} 
+ */
+export DelNodeW(pszFileOrDirName, dwFlags) {
+    pszFileOrDirName := pszFileOrDirName is String ? StrPtr(pszFileOrDirName) : pszFileOrDirName
+
+    result := DllCall("ADVPACK.dll\DelNodeW", "ptr", pszFileOrDirName, "uint", dwFlags, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PWSTR} pszParms 
+ * @param {Integer} nShow 
+ * @returns {HRESULT} 
+ */
+export DelNodeRunDLL32W(_hwnd, _hInstance, pszParms, nShow) {
+    pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
+
+    result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} pszInfFilename 
+ * @param {PSTR} pszInstallSection 
+ * @param {Integer} dwFlags 
+ * @param {Pointer<Pointer<Void>>} phInf 
+ * @param {Pointer<Void>} pvReserved 
+ * @returns {HRESULT} 
+ */
+export OpenINFEngineA(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
+    pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
+    pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
+
+    phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} pszInfFilename 
+ * @param {PWSTR} pszInstallSection 
+ * @param {Integer} dwFlags 
+ * @param {Pointer<Pointer<Void>>} phInf 
+ * @param {Pointer<Void>} pvReserved 
+ * @returns {HRESULT} 
+ */
+export OpenINFEngineW(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
+    pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
+    pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
+
+    phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Void>} hInf 
+ * @param {PSTR} pszInfFilename 
+ * @param {PSTR} pszTranslateSection 
+ * @param {PSTR} pszTranslateKey 
+ * @param {PSTR} pszBuffer 
+ * @param {Integer} dwBufferSize 
+ * @returns {Integer} 
+ */
+export TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize) {
+    static pvReserved := 0 ;Reserved parameters must always be NULL
+
+    pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
+    pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
+    pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
+    pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
+
+    hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\TranslateInfStringExA", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
+    return pdwRequiredSize
+}
+
+/**
+ * 
+ * @param {Pointer<Void>} hInf 
+ * @param {PWSTR} pszInfFilename 
+ * @param {PWSTR} pszTranslateSection 
+ * @param {PWSTR} pszTranslateKey 
+ * @param {PWSTR} pszBuffer 
+ * @param {Integer} dwBufferSize 
+ * @returns {Integer} 
+ */
+export TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize) {
+    static pvReserved := 0 ;Reserved parameters must always be NULL
+
+    pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
+    pszTranslateSection := pszTranslateSection is String ? StrPtr(pszTranslateSection) : pszTranslateSection
+    pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
+    pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
+
+    hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\TranslateInfStringExW", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
+    return pdwRequiredSize
+}
+
+/**
+ * 
+ * @param {Pointer<Void>} hInf 
+ * @returns {HRESULT} 
+ */
+export CloseINFEngine(hInf) {
+    hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\CloseINFEngine", hInfMarshal, hInf, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PSTR} pszCabName 
+ * @param {PSTR} pszExpandDir 
+ * @param {Integer} dwFlags 
+ * @param {PSTR} pszFileList 
+ * @param {Pointer<Void>} lpReserved 
+ * @param {Integer} dwReserved 
+ * @returns {HRESULT} 
+ */
+export ExtractFilesA(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
+    pszCabName := pszCabName is String ? StrPtr(pszCabName) : pszCabName
+    pszExpandDir := pszExpandDir is String ? StrPtr(pszExpandDir) : pszExpandDir
+    pszFileList := pszFileList is String ? StrPtr(pszFileList) : pszFileList
+
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\ExtractFilesA", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, lpReservedMarshal, lpReserved, "uint", dwReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} pszCabName 
+ * @param {PWSTR} pszExpandDir 
+ * @param {Integer} dwFlags 
+ * @param {PWSTR} pszFileList 
+ * @param {Pointer<Void>} lpReserved 
+ * @param {Integer} dwReserved 
+ * @returns {HRESULT} 
+ */
+export ExtractFilesW(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
+    pszCabName := pszCabName is String ? StrPtr(pszCabName) : pszCabName
+    pszExpandDir := pszExpandDir is String ? StrPtr(pszExpandDir) : pszExpandDir
+    pszFileList := pszFileList is String ? StrPtr(pszFileList) : pszFileList
+
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ADVPACK.dll\ExtractFilesW", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, lpReservedMarshal, lpReserved, "uint", dwReserved, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} hwndOwner 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PWSTR} pszParams 
+ * @param {Integer} nShow 
+ * @returns {Integer} 
+ */
+export LaunchINFSectionW(hwndOwner, _hInstance, pszParams, nShow) {
+    pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
+
+    result := DllCall("ADVPACK.dll\LaunchINFSectionW", HWND, hwndOwner, HINSTANCE, _hInstance, "ptr", pszParams, "int", nShow, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PSTR} pszParms 
+ * @param {Integer} nShow 
+ * @returns {HRESULT} 
+ */
+export UserInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
+    pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
+
+    result := DllCall("ADVPACK.dll\UserInstStubWrapperA", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PWSTR} pszParms 
+ * @param {Integer} nShow 
+ * @returns {HRESULT} 
+ */
+export UserInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
+    pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
+
+    result := DllCall("ADVPACK.dll\UserInstStubWrapperW", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PSTR} pszParms 
+ * @param {Integer} nShow 
+ * @returns {HRESULT} 
+ */
+export UserUnInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
+    pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
+
+    result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} _hwnd 
+ * @param {HINSTANCE} _hInstance 
+ * @param {PWSTR} pszParms 
+ * @param {Integer} nShow 
+ * @returns {HRESULT} 
+ */
+export UserUnInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
+    pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
+
+    result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<PERUSERSECTIONA>} pPerUser 
+ * @returns {HRESULT} 
+ */
+export SetPerUserSecValuesA(pPerUser) {
+    result := DllCall("ADVPACK.dll\SetPerUserSecValuesA", PERUSERSECTIONA.Ptr, pPerUser, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<PERUSERSECTIONW>} pPerUser 
+ * @returns {HRESULT} 
+ */
+export SetPerUserSecValuesW(pPerUser) {
+    result := DllCall("ADVPACK.dll\SetPerUserSecValuesW", PERUSERSECTIONW.Ptr, pPerUser, "HRESULT")
+    return result
+}
+
+/**
+ * Specifies an action or processing for the Input Method Editor (IME) through a specified subfunction. (ANSI)
+ * @remarks
+ * <b>SendIMEMessageEx</b> guarantees the action stipulated in the specifications only for IMEs that support the <b>WM_CONVERTREQUESTEX</b> message. For an IME that does not support <b>WM_CONVERTREQUESTEX</b>, <b>SendIMEMessageEx</b> sends a <b>WM_CONVERTREQUEST</b> message to the IME and returns the contents of the <b>wParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure. If the processing of the subfunction has not been completed normally, these functions set <b>IME_RS_ERROR</b> into <b>wParam</b>.
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The ime.h header defines SendIMEMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {HWND} param0 
+ * @param {LPARAM} param1 
+ * @returns {LRESULT} The result of processing of the subfunction. If the result is not success, one of the following error codes is stored into the <b>wParam</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_DISKERROR</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Disk error.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_ERROR</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * General error.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_ILLEGAL</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Contains an illegal character.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_INVALID</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Invalid subfunction.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NEST</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Subfunction is nested and, therefore, cannot be used.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NOIME</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The IME has not been selected (has not been installed).
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NOROOM</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Short of area.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NOTFOUND</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * No candidate found.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_SYSTEMMODAL</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Windows is in system mode, data cannot be passed to the IME.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_TOOLONG</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Characters too long.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/ime/nf-ime-sendimemessageexa
+ * @since windows5.0
+ */
+export SendIMEMessageExA(param0, param1) {
+    result := DllCall("USER32.dll\SendIMEMessageExA", HWND, param0, LPARAM, param1, LRESULT)
+    return result
+}
+
+/**
+ * Specifies an action or processing for the Input Method Editor (IME) through a specified subfunction. (Unicode)
+ * @remarks
+ * <b>SendIMEMessageEx</b> guarantees the action stipulated in the specifications only for IMEs that support the <b>WM_CONVERTREQUESTEX</b> message. For an IME that does not support <b>WM_CONVERTREQUESTEX</b>, <b>SendIMEMessageEx</b> sends a <b>WM_CONVERTREQUEST</b> message to the IME and returns the contents of the <b>wParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure. If the processing of the subfunction has not been completed normally, these functions set <b>IME_RS_ERROR</b> into <b>wParam</b>.
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The ime.h header defines SendIMEMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @param {HWND} param0 
+ * @param {LPARAM} param1 
+ * @returns {LRESULT} The result of processing of the subfunction. If the result is not success, one of the following error codes is stored into the <b>wParam</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure.
+ * 
+ * <table>
+ * <tr>
+ * <th>Return code</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_DISKERROR</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Disk error.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_ERROR</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * General error.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_ILLEGAL</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Contains an illegal character.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_INVALID</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Invalid subfunction.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NEST</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Subfunction is nested and, therefore, cannot be used.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NOIME</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * The IME has not been selected (has not been installed).
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NOROOM</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Short of area.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_NOTFOUND</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * No candidate found.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_SYSTEMMODAL</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Windows is in system mode, data cannot be passed to the IME.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <dl>
+ * <dt><b>IME_RS_TOOLONG</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Characters too long.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @see https://learn.microsoft.com/windows/win32/api/ime/nf-ime-sendimemessageexw
+ * @since windows5.0
+ */
+export SendIMEMessageExW(param0, param1) {
+    result := DllCall("USER32.dll\SendIMEMessageExW", HWND, param0, LPARAM, param1, LRESULT)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} param0 
+ * @param {Pointer<IMEPROA>} param1 
+ * @returns {BOOL} 
+ */
+export IMPGetIMEA(param0, param1) {
+    result := DllCall("USER32.dll\IMPGetIMEA", HWND, param0, IMEPROA.Ptr, param1, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} param0 
+ * @param {Pointer<IMEPROW>} param1 
+ * @returns {BOOL} 
+ */
+export IMPGetIMEW(param0, param1) {
+    result := DllCall("USER32.dll\IMPGetIMEW", HWND, param0, IMEPROW.Ptr, param1, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<IMEPROA>} param0 
+ * @returns {BOOL} 
+ */
+export IMPQueryIMEA(param0) {
+    result := DllCall("USER32.dll\IMPQueryIMEA", IMEPROA.Ptr, param0, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<IMEPROW>} param0 
+ * @returns {BOOL} 
+ */
+export IMPQueryIMEW(param0) {
+    result := DllCall("USER32.dll\IMPQueryIMEW", IMEPROW.Ptr, param0, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} param0 
+ * @param {Pointer<IMEPROA>} param1 
+ * @returns {BOOL} 
+ */
+export IMPSetIMEA(param0, param1) {
+    result := DllCall("USER32.dll\IMPSetIMEA", HWND, param0, IMEPROA.Ptr, param1, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} param0 
+ * @param {Pointer<IMEPROW>} param1 
+ * @returns {BOOL} 
+ */
+export IMPSetIMEW(param0, param1) {
+    result := DllCall("USER32.dll\IMPSetIMEW", HWND, param0, IMEPROW.Ptr, param1, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} param0 
+ * @returns {Integer} 
+ */
+export WINNLSGetIMEHotkey(param0) {
+    result := DllCall("USER32.dll\WINNLSGetIMEHotkey", HWND, param0, UInt32)
+    return result
+}
+
+/**
+ * Temporarily enables or disables an Input Method Editor (IME) and, at the same time, turns on or off the display of all windows owned by the IME.
+ * @remarks
+ * The terms "enabled" and "disabled" in regard to this function are defined as follows:
+ *             
+ *                 
+ * 
+ * If an IME is disabled, <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IME_WINDOWUPDATE(FALSE)</a> is issued to the IME, which responds by deleting the conversion and system windows. With the IME disabled, keyboard messages are not sent to the IME, but are sent directly to the application. Even if the IME is disabled, the API that uses the <a href="https://docs.microsoft.com/windows/desktop/api/ime/nf-ime-sendimemessageexa">SendIMEMessageEx</a> function is still valid.
+ * 
+ * If an IME is enabled, <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IME_WINDOWUPDATE(TRUE)</a> is issued to the IME, which responds by redisplaying the conversion and system windows. With the IME enabled, keyboard messages are sent to the IME.
+ * @param {HWND} param0 
+ * @param {BOOL} param1 
+ * @returns {BOOL} The previous state of the IME. <b>TRUE</b> if it was enabled before this call, otherwise, <b>FALSE</b>.
+ * @see https://learn.microsoft.com/windows/win32/api/winnls32/nf-winnls32-winnlsenableime
+ * @since windows5.0
+ */
+export WINNLSEnableIME(param0, param1) {
+    result := DllCall("USER32.dll\WINNLSEnableIME", HWND, param0, BOOL, param1, BOOL)
+    return result
+}
+
+/**
+ * 
+ * @param {HWND} param0 
+ * @returns {BOOL} 
+ */
+export WINNLSGetEnableStatus(param0) {
+    result := DllCall("USER32.dll\WINNLSGetEnableStatus", HWND, param0, BOOL)
+    return result
+}
+
+/**
+ * Enables applications to detect bad extension objects and either block them from running or fix them.
+ * @remarks
+ * This is a helper function for Explorer and Internet Explorer that allows those applications to detect bad extension objects and either block them from running or fix them.
+ * 
+ * 
+ * If the database indicates that a shim should be used to fix the extension
+ * and <i>bShimIfNecessary</i> is <b>TRUE</b>, this function  loads Shimeng.dll and
+ * applies the fix.
+ * 
+ * This function has no associated import library or header file; you must call it using the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions.
+ * @param {Pointer<Guid>} ObjectCLSID The GUID of a register class.
+ * @param {BOOL} bShimIfNecessary This parameter is <b>TRUE</b> if a shim is needed; <b>FALSE</b> otherwise.
+ * @param {Pointer<Integer>} pullFlags This parameter is filled with a 64-bit flag mask that can be used to turn on application modification flags in Explorer/IE. These are located in the application compatibility database.
+ * @returns {BOOL} <b>FALSE</b> if the object should be blocked from instantiating; <b>TRUE</b> otherwise.
+ * @see https://learn.microsoft.com/windows/win32/api/appcompatapi/nf-appcompatapi-apphelpcheckshellobject
+ */
+export ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
+    pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("APPHELP.dll\ApphelpCheckShellObject", Guid.Ptr, ObjectCLSID, BOOL, bShimIfNecessary, pullFlagsMarshal, pullFlags, BOOL)
+    return result
+}
+
+/**
+ * Calls the library to get the security state relative to the host, and script or msi to be used.
+ * @remarks
+ * > [!NOTE]
+ * > [WldpCanExecuteBuffer](nf-wldp-wldpcanexecutebuffer.md), [WldpCanExecuteFile](nf-wldp-wldpcanexecutefile.md), and [WldpCanExecuteStream](nf-wldp-wldpcanexecutestream.md) are newer APIs that enable the same scenarios as **WldpGetLockdownPolicy** but with an improved implementation.
+ * 
+ * When called with WLDP\_HOST\_INFORMATION.szSource = NULL, the generic policy for the host is returned.
+ * 
+ * When called with WLDP\_HOST\_INFORMATION.dwHostId = WLDP\_HOST\_ID\_GLOBAL, WLDP\_HOST\_INFORMATION.szSource must be NULL, and the function will return the global system policy.
+ * 
+ * The dwFlag WLDP\_FLAGS\_SKIPSIGNATUREVALIDATION can be used to skip the SaferIdentifyLevel() validation, which will ignore whether a script is signed.
+ * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host and source file to be evaluated.
+ * @param {Integer} lockdownFlags The following flag values are defined WLDP\_FLAGS\_SKIPSIGNATUREVALIDATION 0x00000100 – when set, skip the SaferIdentifyLevel validation, which will ignore whether a script is signed.
+ * @returns {Integer} Provides the resulting policy secure value. If !WLDP_LOCKDOWN_IS_OFF, then UMCI is enabled. You can also check WLDP_LOCKDOWN_IS_AUDIT and WLDP_LOCKDOWN_IS_ENFORCE to determine if a policy is in audit or enforce mode.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
+ */
+export WldpGetLockdownPolicy(hostInformation, lockdownFlags) {
+    result := DllCall("Wldp.dll\WldpGetLockdownPolicy", WLDP_HOST_INFORMATION.Ptr, hostInformation, "uint*", &lockdownState := 0, "uint", lockdownFlags, "HRESULT")
+    return lockdownState
+}
+
+/**
+ * Calls the library to validate if a particular CLSID is safe to be called.
+ * @param {Pointer<Guid>} classID The COM class ID to check for approval.
+ * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host to be evaluated.
+ * @param {Integer} optionalFlags This parameter is reserved and must be set to zero.
+ * @returns {BOOL} On successful completion, contains **TRUE** if the class ID is approved; otherwise, **FALSE**.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
+ */
+export WldpIsClassInApprovedList(classID, hostInformation, optionalFlags) {
+    result := DllCall("Wldp.dll\WldpIsClassInApprovedList", Guid.Ptr, classID, WLDP_HOST_INFORMATION.Ptr, hostInformation, BOOL.Ptr, &isApproved := 0, "uint", optionalFlags, "HRESULT")
+    return isApproved
+}
+
+/**
+ * 
+ * @param {Pointer<UNICODE_STRING>} providerName 
+ * @param {Pointer<UNICODE_STRING>} keyName 
+ * @param {Pointer<UNICODE_STRING>} _valueName 
+ * @param {Integer} valueAddress 
+ * @param {Pointer<Integer>} valueSize 
+ * @returns {WLDP_SECURE_SETTING_VALUE_TYPE} 
+ */
+export WldpQuerySecurityPolicy(providerName, keyName, _valueName, valueAddress, valueSize) {
+    valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", UNICODE_STRING.Ptr, providerName, UNICODE_STRING.Ptr, keyName, UNICODE_STRING.Ptr, _valueName, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "HRESULT")
+    return valueType
+}
+
+/**
+ * Sets an on-disk .NET CRL Dynamic Code trustable for .NET.
+ * @param {HANDLE} fileHandle Handle to a on-disk dynamic code file.
+ * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpsetdynamiccodetrust
+ */
+export WldpSetDynamicCodeTrust(fileHandle) {
+    result := DllCall("Wldp.dll\WldpSetDynamicCodeTrust", HANDLE, fileHandle, "HRESULT")
+    return result
+}
+
+/**
+ * Retrieves a value that describes the Device Guard policy enforcement status for .NET dynamic code.
+ * @remarks
+ * Dynamic code refers to .NET CRL dynamically-generated code.
+ * @returns {BOOL} On success, returns **true** if the Device Guard policy enforces .NET Dynamic Code policy; otherwise, returns **false**.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
+ */
+export WldpIsDynamicCodePolicyEnabled() {
+    result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", BOOL.Ptr, &isEnabled := 0, "HRESULT")
+    return isEnabled
+}
+
+/**
+ * Retrieves a value that determines if the specified in-memory or on-disk .NET CRL dynamic code is trusted by Device Guard policy.
+ * @param {HANDLE} fileHandle Handle to the on-disk dynamic code file to check. If *fileHandle* is non-**NULL**, *baseImage* should be **NULL**.
+ * @param {Integer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
+ * @param {Integer} imageSize When *baseImage* is non-**NULL**, indicates the buffer size that *baseImage* points to.
+ * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
+ */
+export WldpQueryDynamicCodeTrust(fileHandle, baseImage, imageSize) {
+    result := DllCall("Wldp.dll\WldpQueryDynamicCodeTrust", HANDLE, fileHandle, "ptr", baseImage, "uint", imageSize, "HRESULT")
+    return result
+}
+
+/**
+ * Retrieves the current Windows secure mode. Windows can be in locked mode, unlocked normal mode, or trial mode.
+ * @returns {WLDP_WINDOWS_LOCKDOWN_MODE} On success, returns a [**PWLDP\_WINDOWS\_LOCKDOWN\_MODE**](ne-wldp-wldp_windows_lockdown_mode.md) that indicates the secure mode for the current Windows 10 device.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
+ */
+export WldpQueryWindowsLockdownMode() {
+    result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", "int*", &lockdownMode := 0, "HRESULT")
+    return lockdownMode
+}
+
+/**
+ * 
+ * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
+ * @param {Integer} informationLength 
+ * @returns {Integer} 
+ */
+export WldpQueryDeviceSecurityInformation(information, informationLength) {
+    result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", WLDP_DEVICE_SECURITY_INFORMATION.Ptr, information, "uint", informationLength, "uint*", &returnLength := 0, "HRESULT")
+    return returnLength
+}
+
+/**
+ * 
+ * @returns {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} 
+ */
+export WldpQueryWindowsLockdownRestriction() {
+    result := DllCall("Wldp.dll\WldpQueryWindowsLockdownRestriction", "int*", &LockdownRestriction := 0, "HRESULT")
+    return LockdownRestriction
+}
+
+/**
+ * 
+ * @param {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} LockdownRestriction 
+ * @returns {HRESULT} 
+ */
+export WldpSetWindowsLockdownRestriction(LockdownRestriction) {
+    result := DllCall("Wldp.dll\WldpSetWindowsLockdownRestriction", WLDP_WINDOWS_LOCKDOWN_RESTRICTION, LockdownRestriction, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} PackageFamilyName 
+ * @param {Integer} PackageVersion 
+ * @returns {HRESULT} 
+ */
+export WldpIsAppApprovedByPolicy(PackageFamilyName, PackageVersion) {
+    PackageFamilyName := PackageFamilyName is String ? StrPtr(PackageFamilyName) : PackageFamilyName
+
+    result := DllCall("Wldp.dll\WldpIsAppApprovedByPolicy", "ptr", PackageFamilyName, "uint", PackageVersion, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {WLDP_POLICY_SETTING} Setting 
+ * @returns {BOOL} 
+ */
+export WldpQueryPolicySettingEnabled(Setting) {
+    result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled", WLDP_POLICY_SETTING, Setting, BOOL.Ptr, &Enabled := 0, "HRESULT")
+    return Enabled
+}
+
+/**
+ * 
+ * @param {PWSTR} SettingString 
+ * @returns {BOOL} 
+ */
+export WldpQueryPolicySettingEnabled2(SettingString) {
+    SettingString := SettingString is String ? StrPtr(SettingString) : SettingString
+
+    result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled2", "ptr", SettingString, BOOL.Ptr, &Enabled := 0, "HRESULT")
+    return Enabled
+}
+
+/**
+ * 
+ * @returns {BOOL} 
+ */
+export WldpIsWcosProductionConfiguration() {
+    result := DllCall("Wldp.dll\WldpIsWcosProductionConfiguration", BOOL.Ptr, &IsProductionConfiguration := 0, "HRESULT")
+    return IsProductionConfiguration
+}
+
+/**
+ * 
+ * @returns {HRESULT} 
+ */
+export WldpResetWcosProductionConfiguration() {
+    result := DllCall("Wldp.dll\WldpResetWcosProductionConfiguration", "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @returns {BOOL} 
+ */
+export WldpIsProductionConfiguration() {
+    result := DllCall("Wldp.dll\WldpIsProductionConfiguration", BOOL.Ptr, &IsProductionConfiguration := 0, "HRESULT")
+    return IsProductionConfiguration
+}
+
+/**
+ * 
+ * @returns {HRESULT} 
+ */
+export WldpResetProductionConfiguration() {
+    result := DllCall("Wldp.dll\WldpResetProductionConfiguration", "HRESULT")
+    return result
+}
+
+/**
+ * Queries whether the execution policy allows execution of the code in the supplied file.
+ * @remarks
+ * This method is provided as a replacement for [WldpGetLockdownPolicy](nf-wldp-wldpgetlockdownpolicy.md). This interface is differentiated from **WldpGetLockdownPolicy** in the following ways:
+ * 
+ * - Encourages callers to ensure that the subject (file, buffer, or stream) passes os execution policy.  
+ * - Allows calling apps to provide additional audit information for diagnostic purposes.
+ * - Allows verification of buffers and streams of code.
+ * - Simplifies the calling pattern. 
+ * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
+ * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
+ * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
+ * @param {HANDLE} fileHandle The handle to the file being validated for execution approval. 
+ * 
+ * > [!IMPORTANT]
+ * > Callers should only pass open file handles to **WldpCanExecuteFile** and should not cache the security authorization on a specific file. It should be assumed that authorization to run a particular file is revoked when its file handle is closed. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
+ * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
+ * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
+ */
+export WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
+    auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
+
+    result := DllCall("Wldp.dll\WldpCanExecuteFile", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, fileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    return result
+}
+
+/**
+ * Queries whether the execution policy allows execution of the code in the supplied buffer.
+ * @remarks
+ * This method is provided as a replacement for [WldpGetLockdownPolicy](nf-wldp-wldpgetlockdownpolicy.md). This interface is differentiated from **WldpGetLockdownPolicy** in the following ways:
+ * 
+ * - Encourages callers to ensure that the subject (file, buffer, or stream) passes os execution policy.  
+ * - Allows calling apps to provide additional audit information for diagnostic purposes.
+ * - Allows verification of buffers and streams of code.
+ * - Simplifies the calling pattern. 
+ * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
+ * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
+ * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
+ * @param {Pointer<Integer>} _buffer The buffer containing script code to be validated. 
+ * 
+ * > [!IMPORTANT]
+ * > Buffers passed to **WldpCanExecuteBuffer** should be read-only and the caller should not cache the security authorization on a specific buffer. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
+ * @param {Integer} bufferSize The size of *buffer*, in bytes.
+ * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
+ * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
+ */
+export WldpCanExecuteBuffer(host, options, _buffer, bufferSize, auditInfo) {
+    auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
+
+    _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+
+    result := DllCall("Wldp.dll\WldpCanExecuteBuffer", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, _bufferMarshal, _buffer, "uint", bufferSize, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    return result
+}
+
+/**
+ * Queries whether the execution policy allows execution of the code in the supplied stream.
+ * @remarks
+ * This method is provided as a replacement for [WldpGetLockdownPolicy](nf-wldp-wldpgetlockdownpolicy.md). This interface is differentiated from **WldpGetLockdownPolicy** in the following ways:
+ * 
+ * - Encourages callers to ensure that the subject (file, buffer, or stream) passes os execution policy.  
+ * - Allows calling apps to provide additional audit information for diagnostic purposes.
+ * - Allows verification of buffers and streams of code.
+ * - Simplifies the calling pattern. 
+ * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
+ * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
+ * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
+ * @param {IStream} stream 
+ * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
+ * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
+ */
+export WldpCanExecuteStream(host, options, stream, auditInfo) {
+    auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
+
+    result := DllCall("Wldp.dll\WldpCanExecuteStream", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, "ptr", stream, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<Guid>} host 
+ * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
+ * @param {HANDLE} contentFileHandle 
+ * @param {HANDLE} signatureFileHandle 
+ * @param {PWSTR} auditInfo 
+ * @returns {WLDP_EXECUTION_POLICY} 
+ */
+export WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo) {
+    auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
+
+    result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, contentFileHandle, HANDLE, signatureFileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} id 
+ * @param {PWSTR} setting 
+ * @returns {BOOL} 
+ */
+export WldpGetApplicationSettingBoolean(id, setting) {
+    id := id is String ? StrPtr(id) : id
+    setting := setting is String ? StrPtr(setting) : setting
+
+    result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, BOOL.Ptr, &result := 0, "HRESULT")
+    return result
+}
+
+/**
+ * 
+ * @param {PWSTR} id 
+ * @param {PWSTR} setting 
+ * @param {Pointer} dataCount 
+ * @param {PWSTR} result 
+ * @returns {Pointer} 
+ */
+export WldpGetApplicationSettingStringList(id, setting, dataCount, result) {
+    id := id is String ? StrPtr(id) : id
+    setting := setting is String ? StrPtr(setting) : setting
+    result := result is String ? StrPtr(result) : result
+
+    result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
+    return requiredCount
+}
+
+/**
+ * 
+ * @param {PWSTR} id 
+ * @param {PWSTR} setting 
+ * @param {Pointer} dataCount 
+ * @param {PWSTR} result 
+ * @returns {Pointer} 
+ */
+export WldpGetApplicationSettingStringSet(id, setting, dataCount, result) {
+    id := id is String ? StrPtr(id) : id
+    setting := setting is String ? StrPtr(setting) : setting
+    result := result is String ? StrPtr(result) : result
+
+    result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
+    return requiredCount
+}
+
+;@endregion Functions

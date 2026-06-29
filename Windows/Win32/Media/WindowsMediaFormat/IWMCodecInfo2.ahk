@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMCodecInfo.ahk
-#Include .\IWMStreamConfig.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMCodecInfo.ahk" { IWMCodecInfo }
 
 /**
  * The IWMCodecInfo2 interface manages the retrieval of information about codecs. To access it, call QueryInterface on a profile manager object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcodecinfo2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMCodecInfo2 extends IWMCodecInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWMCodecInfo2 extends IWMCodecInfo {
     /**
      * The interface identifier for IWMCodecInfo2
      * @type {Guid}
      */
-    static IID => Guid("{aa65e273-b686-4056-91ec-dd768d4df710}")
+    static IID := Guid("{aa65e273-b686-4056-91ec-dd768d4df710}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMCodecInfo2 interfaces
+    */
+    struct Vtbl extends IWMCodecInfo.Vtbl {
+        GetCodecName       : IntPtr
+        GetCodecFormatDesc : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCodecName", "GetCodecFormatDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMCodecInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCodecName method retrieves the name of a specified codec.
@@ -92,7 +102,7 @@ class IWMCodecInfo2 extends IWMCodecInfo {
 
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", wszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", wszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -132,7 +142,29 @@ class IWMCodecInfo2 extends IWMCodecInfo {
 
         pcchDescMarshal := pcchDesc is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
         return IWMStreamConfig(ppIStreamConfig)
+    }
+
+    Query(iid) {
+        if (IWMCodecInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCodecName := CallbackCreate(GetMethod(implObj, "GetCodecName"), flags, 5)
+        this.vtbl.GetCodecFormatDesc := CallbackCreate(GetMethod(implObj, "GetCodecFormatDesc"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCodecName)
+        CallbackFree(this.vtbl.GetCodecFormatDesc)
     }
 }

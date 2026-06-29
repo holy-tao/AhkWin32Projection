@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class SIGNAL_REG_VALUE extends Win32Struct {
-    static sizeof => 48
+export default struct SIGNAL_REG_VALUE {
+    #StructPack 8
 
-    static packingSize => 8
+    RegName : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RegName {
-        get {
-            if(!this.HasProp("__RegNameProxyArray"))
-                this.__RegNameProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
-            return this.__RegNameProxyArray
-        }
-    }
+    MsrAddr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MsrAddr {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Value : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

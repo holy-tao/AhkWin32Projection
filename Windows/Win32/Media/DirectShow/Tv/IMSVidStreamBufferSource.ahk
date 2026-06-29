@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidFilePlayback.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMSVidFilePlayback.ahk" { IMSVidFilePlayback }
 
 /**
  * The IMSVidStreamBufferSource interface represents the Stream Buffer Source filter within the Video Control.
@@ -11,32 +15,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersource
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSource extends IMSVidFilePlayback {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSource extends IMSVidFilePlayback {
     /**
      * The interface identifier for IMSVidStreamBufferSource
      * @type {Guid}
      */
-    static IID => Guid("{eb0c8cf9-6950-4772-87b1-47d11cf3a02f}")
+    static IID := Guid("{eb0c8cf9-6950-4772-87b1-47d11cf3a02f}")
 
     /**
      * The class identifier for MSVidStreamBufferSource
      * @type {Guid}
      */
-    static CLSID => Guid("{ad8e510d-217f-409b-8076-29c5e73b98e8}")
+    static CLSID := Guid("{ad8e510d-217f-409b-8076-29c5e73b98e8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 34
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSource interfaces
+    */
+    struct Vtbl extends IMSVidFilePlayback.Vtbl {
+        get_Start              : IntPtr
+        get_RecordingAttribute : IntPtr
+        CurrentRatings         : IntPtr
+        MaxRatingsLevel        : IntPtr
+        put_BlockUnrated       : IntPtr
+        put_UnratedDelay       : IntPtr
+        get_SBESource          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Start", "get_RecordingAttribute", "CurrentRatings", "MaxRatingsLevel", "put_BlockUnrated", "put_UnratedDelay", "get_SBESource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -157,7 +174,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-maxratingslevel
      */
     MaxRatingsLevel(enSystem, enRating, lbfEnAttr) {
-        result := ComCall(37, this, "int", enSystem, "int", enRating, "int", lbfEnAttr, "HRESULT")
+        result := ComCall(37, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enRating, "int", lbfEnAttr, "HRESULT")
         return result
     }
 
@@ -186,7 +203,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-put_blockunrated
      */
     put_BlockUnrated(bBlock) {
-        result := ComCall(38, this, "short", bBlock, "HRESULT")
+        result := ComCall(38, this, VARIANT_BOOL, bBlock, "HRESULT")
         return result
     }
 
@@ -229,5 +246,37 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback {
     get_SBESource() {
         result := ComCall(40, this, "ptr*", &sbeFilter := 0, "HRESULT")
         return IUnknown(sbeFilter)
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Start := CallbackCreate(GetMethod(implObj, "get_Start"), flags, 2)
+        this.vtbl.get_RecordingAttribute := CallbackCreate(GetMethod(implObj, "get_RecordingAttribute"), flags, 2)
+        this.vtbl.CurrentRatings := CallbackCreate(GetMethod(implObj, "CurrentRatings"), flags, 4)
+        this.vtbl.MaxRatingsLevel := CallbackCreate(GetMethod(implObj, "MaxRatingsLevel"), flags, 4)
+        this.vtbl.put_BlockUnrated := CallbackCreate(GetMethod(implObj, "put_BlockUnrated"), flags, 2)
+        this.vtbl.put_UnratedDelay := CallbackCreate(GetMethod(implObj, "put_UnratedDelay"), flags, 2)
+        this.vtbl.get_SBESource := CallbackCreate(GetMethod(implObj, "get_SBESource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Start)
+        CallbackFree(this.vtbl.get_RecordingAttribute)
+        CallbackFree(this.vtbl.CurrentRatings)
+        CallbackFree(this.vtbl.MaxRatingsLevel)
+        CallbackFree(this.vtbl.put_BlockUnrated)
+        CallbackFree(this.vtbl.put_UnratedDelay)
+        CallbackFree(this.vtbl.get_SBESource)
     }
 }

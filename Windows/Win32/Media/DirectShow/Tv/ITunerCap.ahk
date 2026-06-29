@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The ITunerCap interface provides information about the capabilities of a BDA device filter that represents a TV tuner.
@@ -10,26 +11,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-itunercap
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITunerCap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITunerCap extends IUnknown {
     /**
      * The interface identifier for ITunerCap
      * @type {Guid}
      */
-    static IID => Guid("{e60dfa45-8d56-4e65-a8ab-d6be9412c249}")
+    static IID := Guid("{e60dfa45-8d56-4e65-a8ab-d6be9412c249}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITunerCap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_SupportedNetworkTypes : IntPtr
+        get_SupportedVideoFormats : IntPtr
+        get_AuxInputCount         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SupportedNetworkTypes", "get_SupportedVideoFormats", "get_AuxInputCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITunerCap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -39,7 +49,7 @@ class ITunerCap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercap-get_supportednetworktypes
      */
     get_SupportedNetworkTypes(ulcNetworkTypesMax, pguidNetworkTypes) {
-        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, "ptr", pguidNetworkTypes, "HRESULT")
+        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, Guid.Ptr, pguidNetworkTypes, "HRESULT")
         return pulcNetworkTypes
     }
 
@@ -74,5 +84,29 @@ class ITunerCap extends IUnknown {
 
         result := ComCall(5, this, pulCompositeCountMarshal, pulCompositeCount, pulSvideoCountMarshal, pulSvideoCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITunerCap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SupportedNetworkTypes := CallbackCreate(GetMethod(implObj, "get_SupportedNetworkTypes"), flags, 4)
+        this.vtbl.get_SupportedVideoFormats := CallbackCreate(GetMethod(implObj, "get_SupportedVideoFormats"), flags, 3)
+        this.vtbl.get_AuxInputCount := CallbackCreate(GetMethod(implObj, "get_AuxInputCount"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SupportedNetworkTypes)
+        CallbackFree(this.vtbl.get_SupportedVideoFormats)
+        CallbackFree(this.vtbl.get_AuxInputCount)
     }
 }

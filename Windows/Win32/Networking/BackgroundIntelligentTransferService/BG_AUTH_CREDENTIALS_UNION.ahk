@@ -1,27 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BG_BASIC_CREDENTIALS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BG_BASIC_CREDENTIALS.ahk" { BG_BASIC_CREDENTIALS }
 
 /**
  * Identifies the credentials to use for the authentication scheme specified in the BG_AUTH_CREDENTIALS structure.
  * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_auth_credentials_union
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_AUTH_CREDENTIALS_UNION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct BG_AUTH_CREDENTIALS_UNION {
+    #StructPack 8
 
     /**
      * Identifies the user name and password of the user to authenticate. For details, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/ns-bits1_5-bg_basic_credentials">BG_BASIC_CREDENTIALS</a> structure.
-     * @type {BG_BASIC_CREDENTIALS}
      */
-    Basic {
-        get {
-            if(!this.HasProp("__Basic"))
-                this.__Basic := BG_BASIC_CREDENTIALS(0, this)
-            return this.__Basic
-        }
-    }
+    Basic : BG_BASIC_CREDENTIALS
+
 }

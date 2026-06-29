@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICRect.ahk" { WICRect }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapPlane.ahk" { WICBitmapPlane }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows planar component image pixels to be written to an encoder.
@@ -10,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicplanarbitmapframeencode
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICPlanarBitmapFrameEncode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICPlanarBitmapFrameEncode extends IUnknown {
     /**
      * The interface identifier for IWICPlanarBitmapFrameEncode
      * @type {Guid}
      */
-    static IID => Guid("{f928b7b8-2221-40c1-b72e-7e82f1974d1a}")
+    static IID := Guid("{f928b7b8-2221-40c1-b72e-7e82f1974d1a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICPlanarBitmapFrameEncode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        WritePixels : IntPtr
+        WriteSource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WritePixels", "WriteSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICPlanarBitmapFrameEncode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Writes lines from the source planes to the encoded format. (IWICPlanarBitmapFrameEncode.WritePixels)
@@ -127,7 +139,7 @@ class IWICPlanarBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapframeencode-writepixels
      */
     WritePixels(lineCount, pPlanes, cPlanes) {
-        result := ComCall(3, this, "uint", lineCount, "ptr", pPlanes, "uint", cPlanes, "HRESULT")
+        result := ComCall(3, this, "uint", lineCount, WICBitmapPlane.Ptr, pPlanes, "uint", cPlanes, "HRESULT")
         return result
     }
 
@@ -234,7 +246,29 @@ class IWICPlanarBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapframeencode-writesource
      */
     WriteSource(ppPlanes, cPlanes, prcSource) {
-        result := ComCall(4, this, "ptr*", ppPlanes, "uint", cPlanes, "ptr", prcSource, "HRESULT")
+        result := ComCall(4, this, IWICBitmapSource.Ptr, ppPlanes, "uint", cPlanes, WICRect.Ptr, prcSource, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICPlanarBitmapFrameEncode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WritePixels := CallbackCreate(GetMethod(implObj, "WritePixels"), flags, 4)
+        this.vtbl.WriteSource := CallbackCreate(GetMethod(implObj, "WriteSource"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WritePixels)
+        CallbackFree(this.vtbl.WriteSource)
     }
 }

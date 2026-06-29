@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWindowsMediaLibrarySharingDevices.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWindowsMediaLibrarySharingDevices.ahk" { IWindowsMediaLibrarySharingDevices }
 
 /**
  * The IWindowsMediaLibrarySharingServices interface defines methods that configure the sharing of media libraries among users on the local computer, users on the home network, and users on the Internet.
@@ -12,32 +14,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingservices
  * @namespace Windows.Win32.Media.LibrarySharingServices
  */
-class IWindowsMediaLibrarySharingServices extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWindowsMediaLibrarySharingServices extends IDispatch {
     /**
      * The interface identifier for IWindowsMediaLibrarySharingServices
      * @type {Guid}
      */
-    static IID => Guid("{01f5f85e-0a81-40da-a7c8-21ef3af8440c}")
+    static IID := Guid("{01f5f85e-0a81-40da-a7c8-21ef3af8440c}")
 
     /**
      * The class identifier for WindowsMediaLibrarySharingServices
      * @type {Guid}
      */
-    static CLSID => Guid("{ad581b00-7b64-4e59-a38d-d2c5bf51ddb3}")
+    static CLSID := Guid("{ad581b00-7b64-4e59-a38d-d2c5bf51ddb3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWindowsMediaLibrarySharingServices interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        showShareMediaCPL                            : IntPtr
+        get_userHomeMediaSharingState                : IntPtr
+        put_userHomeMediaSharingState                : IntPtr
+        get_userHomeMediaSharingLibraryName          : IntPtr
+        put_userHomeMediaSharingLibraryName          : IntPtr
+        get_computerHomeMediaSharingAllowedState     : IntPtr
+        put_computerHomeMediaSharingAllowedState     : IntPtr
+        get_userInternetMediaSharingState            : IntPtr
+        put_userInternetMediaSharingState            : IntPtr
+        get_computerInternetMediaSharingAllowedState : IntPtr
+        put_computerInternetMediaSharingAllowedState : IntPtr
+        get_internetMediaSharingSecurityGroup        : IntPtr
+        put_internetMediaSharingSecurityGroup        : IntPtr
+        get_allowSharingToAllDevices                 : IntPtr
+        put_allowSharingToAllDevices                 : IntPtr
+        setDefaultAuthorization                      : IntPtr
+        setAuthorizationState                        : IntPtr
+        getAllDevices                                : IntPtr
+        get_customSettingsApplied                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["showShareMediaCPL", "get_userHomeMediaSharingState", "put_userHomeMediaSharingState", "get_userHomeMediaSharingLibraryName", "put_userHomeMediaSharingLibraryName", "get_computerHomeMediaSharingAllowedState", "put_computerHomeMediaSharingAllowedState", "get_userInternetMediaSharingState", "put_userInternetMediaSharingState", "get_computerInternetMediaSharingAllowedState", "put_computerInternetMediaSharingAllowedState", "get_internetMediaSharingSecurityGroup", "put_internetMediaSharingSecurityGroup", "get_allowSharingToAllDevices", "put_allowSharingToAllDevices", "setDefaultAuthorization", "setAuthorizationState", "getAllDevices", "get_customSettingsApplied"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWindowsMediaLibrarySharingServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -131,7 +158,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
     showShareMediaCPL(device) {
         device := device is String ? BSTR.Alloc(device).Value : device
 
-        result := ComCall(7, this, "ptr", device, "HRESULT")
+        result := ComCall(7, this, BSTR, device, "HRESULT")
         return result
     }
 
@@ -145,7 +172,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userhomemediasharingstate
      */
     get_userHomeMediaSharingState() {
-        result := ComCall(8, this, "short*", &sharingEnabled := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &sharingEnabled := 0, "HRESULT")
         return sharingEnabled
     }
 
@@ -183,7 +210,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-put_userhomemediasharingstate
      */
     put_userHomeMediaSharingState(sharingEnabled) {
-        result := ComCall(9, this, "short", sharingEnabled, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, sharingEnabled, "HRESULT")
         return result
     }
 
@@ -193,8 +220,8 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userhomemediasharinglibraryname
      */
     get_userHomeMediaSharingLibraryName() {
-        libraryName := BSTR()
-        result := ComCall(10, this, "ptr", libraryName, "HRESULT")
+        libraryName := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, libraryName, "HRESULT")
         return libraryName
     }
 
@@ -225,7 +252,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
     put_userHomeMediaSharingLibraryName(libraryName) {
         libraryName := libraryName is String ? BSTR.Alloc(libraryName).Value : libraryName
 
-        result := ComCall(11, this, "ptr", libraryName, "HRESULT")
+        result := ComCall(11, this, BSTR, libraryName, "HRESULT")
         return result
     }
 
@@ -246,7 +273,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_computerhomemediasharingallowedstate
      */
     get_computerHomeMediaSharingAllowedState() {
-        result := ComCall(12, this, "short*", &sharingAllowed := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &sharingAllowed := 0, "HRESULT")
         return sharingAllowed
     }
 
@@ -286,7 +313,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-put_computerhomemediasharingallowedstate
      */
     put_computerHomeMediaSharingAllowedState(sharingAllowed) {
-        result := ComCall(13, this, "short", sharingAllowed, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, sharingAllowed, "HRESULT")
         return result
     }
 
@@ -300,7 +327,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userinternetmediasharingstate
      */
     get_userInternetMediaSharingState() {
-        result := ComCall(14, this, "short*", &sharingEnabled := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &sharingEnabled := 0, "HRESULT")
         return sharingEnabled
     }
 
@@ -333,7 +360,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-put_userinternetmediasharingstate
      */
     put_userInternetMediaSharingState(sharingEnabled) {
-        result := ComCall(15, this, "short", sharingEnabled, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, sharingEnabled, "HRESULT")
         return result
     }
 
@@ -349,7 +376,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_computerinternetmediasharingallowedstate
      */
     get_computerInternetMediaSharingAllowedState() {
-        result := ComCall(16, this, "short*", &sharingAllowed := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &sharingAllowed := 0, "HRESULT")
         return sharingAllowed
     }
 
@@ -384,7 +411,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-put_computerinternetmediasharingallowedstate
      */
     put_computerInternetMediaSharingAllowedState(sharingAllowed) {
-        result := ComCall(17, this, "short", sharingAllowed, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, sharingAllowed, "HRESULT")
         return result
     }
 
@@ -396,8 +423,8 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_internetmediasharingsecuritygroup
      */
     get_internetMediaSharingSecurityGroup() {
-        securityGroup := BSTR()
-        result := ComCall(18, this, "ptr", securityGroup, "HRESULT")
+        securityGroup := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, securityGroup, "HRESULT")
         return securityGroup
     }
 
@@ -430,7 +457,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
     put_internetMediaSharingSecurityGroup(securityGroup) {
         securityGroup := securityGroup is String ? BSTR.Alloc(securityGroup).Value : securityGroup
 
-        result := ComCall(19, this, "ptr", securityGroup, "HRESULT")
+        result := ComCall(19, this, BSTR, securityGroup, "HRESULT")
         return result
     }
 
@@ -440,7 +467,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_allowsharingtoalldevices
      */
     get_allowSharingToAllDevices() {
-        result := ComCall(20, this, "short*", &sharingEnabled := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &sharingEnabled := 0, "HRESULT")
         return sharingEnabled
     }
 
@@ -469,7 +496,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-put_allowsharingtoalldevices
      */
     put_allowSharingToAllDevices(sharingEnabled) {
-        result := ComCall(21, this, "short", sharingEnabled, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, sharingEnabled, "HRESULT")
         return result
     }
 
@@ -503,7 +530,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
         MACAddresses := MACAddresses is String ? BSTR.Alloc(MACAddresses).Value : MACAddresses
         friendlyName := friendlyName is String ? BSTR.Alloc(friendlyName).Value : friendlyName
 
-        result := ComCall(22, this, "ptr", MACAddresses, "ptr", friendlyName, "short", authorization, "HRESULT")
+        result := ComCall(22, this, BSTR, MACAddresses, BSTR, friendlyName, VARIANT_BOOL, authorization, "HRESULT")
         return result
     }
 
@@ -535,7 +562,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
     setAuthorizationState(MACAddress, authorizationState) {
         MACAddress := MACAddress is String ? BSTR.Alloc(MACAddress).Value : MACAddress
 
-        result := ComCall(23, this, "ptr", MACAddress, "short", authorizationState, "HRESULT")
+        result := ComCall(23, this, BSTR, MACAddress, VARIANT_BOOL, authorizationState, "HRESULT")
         return result
     }
 
@@ -555,7 +582,63 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_customsettingsapplied
      */
     get_customSettingsApplied() {
-        result := ComCall(25, this, "short*", &customSettingsApplied := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &customSettingsApplied := 0, "HRESULT")
         return customSettingsApplied
+    }
+
+    Query(iid) {
+        if (IWindowsMediaLibrarySharingServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.showShareMediaCPL := CallbackCreate(GetMethod(implObj, "showShareMediaCPL"), flags, 2)
+        this.vtbl.get_userHomeMediaSharingState := CallbackCreate(GetMethod(implObj, "get_userHomeMediaSharingState"), flags, 2)
+        this.vtbl.put_userHomeMediaSharingState := CallbackCreate(GetMethod(implObj, "put_userHomeMediaSharingState"), flags, 2)
+        this.vtbl.get_userHomeMediaSharingLibraryName := CallbackCreate(GetMethod(implObj, "get_userHomeMediaSharingLibraryName"), flags, 2)
+        this.vtbl.put_userHomeMediaSharingLibraryName := CallbackCreate(GetMethod(implObj, "put_userHomeMediaSharingLibraryName"), flags, 2)
+        this.vtbl.get_computerHomeMediaSharingAllowedState := CallbackCreate(GetMethod(implObj, "get_computerHomeMediaSharingAllowedState"), flags, 2)
+        this.vtbl.put_computerHomeMediaSharingAllowedState := CallbackCreate(GetMethod(implObj, "put_computerHomeMediaSharingAllowedState"), flags, 2)
+        this.vtbl.get_userInternetMediaSharingState := CallbackCreate(GetMethod(implObj, "get_userInternetMediaSharingState"), flags, 2)
+        this.vtbl.put_userInternetMediaSharingState := CallbackCreate(GetMethod(implObj, "put_userInternetMediaSharingState"), flags, 2)
+        this.vtbl.get_computerInternetMediaSharingAllowedState := CallbackCreate(GetMethod(implObj, "get_computerInternetMediaSharingAllowedState"), flags, 2)
+        this.vtbl.put_computerInternetMediaSharingAllowedState := CallbackCreate(GetMethod(implObj, "put_computerInternetMediaSharingAllowedState"), flags, 2)
+        this.vtbl.get_internetMediaSharingSecurityGroup := CallbackCreate(GetMethod(implObj, "get_internetMediaSharingSecurityGroup"), flags, 2)
+        this.vtbl.put_internetMediaSharingSecurityGroup := CallbackCreate(GetMethod(implObj, "put_internetMediaSharingSecurityGroup"), flags, 2)
+        this.vtbl.get_allowSharingToAllDevices := CallbackCreate(GetMethod(implObj, "get_allowSharingToAllDevices"), flags, 2)
+        this.vtbl.put_allowSharingToAllDevices := CallbackCreate(GetMethod(implObj, "put_allowSharingToAllDevices"), flags, 2)
+        this.vtbl.setDefaultAuthorization := CallbackCreate(GetMethod(implObj, "setDefaultAuthorization"), flags, 4)
+        this.vtbl.setAuthorizationState := CallbackCreate(GetMethod(implObj, "setAuthorizationState"), flags, 3)
+        this.vtbl.getAllDevices := CallbackCreate(GetMethod(implObj, "getAllDevices"), flags, 2)
+        this.vtbl.get_customSettingsApplied := CallbackCreate(GetMethod(implObj, "get_customSettingsApplied"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.showShareMediaCPL)
+        CallbackFree(this.vtbl.get_userHomeMediaSharingState)
+        CallbackFree(this.vtbl.put_userHomeMediaSharingState)
+        CallbackFree(this.vtbl.get_userHomeMediaSharingLibraryName)
+        CallbackFree(this.vtbl.put_userHomeMediaSharingLibraryName)
+        CallbackFree(this.vtbl.get_computerHomeMediaSharingAllowedState)
+        CallbackFree(this.vtbl.put_computerHomeMediaSharingAllowedState)
+        CallbackFree(this.vtbl.get_userInternetMediaSharingState)
+        CallbackFree(this.vtbl.put_userInternetMediaSharingState)
+        CallbackFree(this.vtbl.get_computerInternetMediaSharingAllowedState)
+        CallbackFree(this.vtbl.put_computerInternetMediaSharingAllowedState)
+        CallbackFree(this.vtbl.get_internetMediaSharingSecurityGroup)
+        CallbackFree(this.vtbl.put_internetMediaSharingSecurityGroup)
+        CallbackFree(this.vtbl.get_allowSharingToAllDevices)
+        CallbackFree(this.vtbl.put_allowSharingToAllDevices)
+        CallbackFree(this.vtbl.setDefaultAuthorization)
+        CallbackFree(this.vtbl.setAuthorizationState)
+        CallbackFree(this.vtbl.getAllDevices)
+        CallbackFree(this.vtbl.get_customSettingsApplied)
     }
 }

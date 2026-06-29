@@ -1,41 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IWdsTransportSession.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWdsTransportSession.ahk" { IWdsTransportSession }
+#Import ".\WDSTRANSPORT_DISCONNECT_TYPE.ahk" { WDSTRANSPORT_DISCONNECT_TYPE }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a WDS client that is joined to a transport session on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportclient
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportClient extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportClient extends IDispatch {
     /**
      * The interface identifier for IWdsTransportClient
      * @type {Guid}
      */
-    static IID => Guid("{b5dbc93a-cabe-46ca-837f-3e44e93c6545}")
+    static IID := Guid("{b5dbc93a-cabe-46ca-837f-3e44e93c6545}")
 
     /**
      * The class identifier for WdsTransportClient
      * @type {Guid}
      */
-    static CLSID => Guid("{66d2c5e9-0ff6-49ec-9733-dafb1e01df1c}")
+    static CLSID := Guid("{66d2c5e9-0ff6-49ec-9733-dafb1e01df1c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportClient interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Session            : IntPtr
+        get_Id                 : IntPtr
+        get_Name               : IntPtr
+        get_MacAddress         : IntPtr
+        get_IpAddress          : IntPtr
+        get_PercentCompletion  : IntPtr
+        get_JoinDuration       : IntPtr
+        get_CpuUtilization     : IntPtr
+        get_MemoryUtilization  : IntPtr
+        get_NetworkUtilization : IntPtr
+        get_UserIdentity       : IntPtr
+        Disconnect             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Session", "get_Id", "get_Name", "get_MacAddress", "get_IpAddress", "get_PercentCompletion", "get_JoinDuration", "get_CpuUtilization", "get_MemoryUtilization", "get_NetworkUtilization", "get_UserIdentity", "Disconnect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IWdsTransportSession} 
@@ -140,8 +160,8 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_name
      */
     get_Name() {
-        pbszName := BSTR()
-        result := ComCall(9, this, "ptr", pbszName, "HRESULT")
+        pbszName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbszName, "HRESULT")
         return pbszName
     }
 
@@ -151,8 +171,8 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_macaddress
      */
     get_MacAddress() {
-        pbszMacAddress := BSTR()
-        result := ComCall(10, this, "ptr", pbszMacAddress, "HRESULT")
+        pbszMacAddress := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbszMacAddress, "HRESULT")
         return pbszMacAddress
     }
 
@@ -162,8 +182,8 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_ipaddress
      */
     get_IpAddress() {
-        pbszIpAddress := BSTR()
-        result := ComCall(11, this, "ptr", pbszIpAddress, "HRESULT")
+        pbszIpAddress := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbszIpAddress, "HRESULT")
         return pbszIpAddress
     }
 
@@ -223,8 +243,8 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_useridentity
      */
     get_UserIdentity() {
-        pbszUserIdentity := BSTR()
-        result := ComCall(17, this, "ptr", pbszUserIdentity, "HRESULT")
+        pbszUserIdentity := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbszUserIdentity, "HRESULT")
         return pbszUserIdentity
     }
 
@@ -235,7 +255,49 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-disconnect
      */
     Disconnect(DisconnectionType) {
-        result := ComCall(18, this, "int", DisconnectionType, "HRESULT")
+        result := ComCall(18, this, WDSTRANSPORT_DISCONNECT_TYPE, DisconnectionType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_MacAddress := CallbackCreate(GetMethod(implObj, "get_MacAddress"), flags, 2)
+        this.vtbl.get_IpAddress := CallbackCreate(GetMethod(implObj, "get_IpAddress"), flags, 2)
+        this.vtbl.get_PercentCompletion := CallbackCreate(GetMethod(implObj, "get_PercentCompletion"), flags, 2)
+        this.vtbl.get_JoinDuration := CallbackCreate(GetMethod(implObj, "get_JoinDuration"), flags, 2)
+        this.vtbl.get_CpuUtilization := CallbackCreate(GetMethod(implObj, "get_CpuUtilization"), flags, 2)
+        this.vtbl.get_MemoryUtilization := CallbackCreate(GetMethod(implObj, "get_MemoryUtilization"), flags, 2)
+        this.vtbl.get_NetworkUtilization := CallbackCreate(GetMethod(implObj, "get_NetworkUtilization"), flags, 2)
+        this.vtbl.get_UserIdentity := CallbackCreate(GetMethod(implObj, "get_UserIdentity"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Session)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_MacAddress)
+        CallbackFree(this.vtbl.get_IpAddress)
+        CallbackFree(this.vtbl.get_PercentCompletion)
+        CallbackFree(this.vtbl.get_JoinDuration)
+        CallbackFree(this.vtbl.get_CpuUtilization)
+        CallbackFree(this.vtbl.get_MemoryUtilization)
+        CallbackFree(this.vtbl.get_NetworkUtilization)
+        CallbackFree(this.vtbl.get_UserIdentity)
+        CallbackFree(this.vtbl.Disconnect)
     }
 }

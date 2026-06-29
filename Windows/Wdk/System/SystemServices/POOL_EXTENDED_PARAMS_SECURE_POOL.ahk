@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class POOL_EXTENDED_PARAMS_SECURE_POOL extends Win32Struct {
-    static sizeof => 32
+export default struct POOL_EXTENDED_PARAMS_SECURE_POOL {
+    #StructPack 8
 
-    static packingSize => 8
+    SecurePoolHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    SecurePoolHandle {
-        get {
-            if(!this.HasProp("__SecurePoolHandle"))
-                this.__SecurePoolHandle := HANDLE(0, this)
-            return this.__SecurePoolHandle
-        }
-    }
+    Buffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Cookie : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Cookie {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SecurePoolFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecurePoolFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

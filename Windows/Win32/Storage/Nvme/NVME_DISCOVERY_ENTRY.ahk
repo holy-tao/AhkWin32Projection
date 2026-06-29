@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_DISCOVERY_ENTRY extends Win32Struct {
-    static sizeof => 1024
+export default struct NVME_DISCOVERY_ENTRY {
+    #StructPack 2
 
-    static packingSize => 2
 
-    class _TREQ_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _TREQ {
         /**
          * This bitfield backs the following members:
          * - SecureChannel
@@ -20,12 +15,9 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
          * - ZeroHostIdSupport
          * - AuthAndSecureChannel
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -58,32 +50,22 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
             get => (this._bitfield >> 4) & 0x3
             set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _EFLAGS_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _EFLAGS {
         /**
          * This bitfield backs the following members:
          * - DuplicateReturnedInfo
          * - ExplicitPersistentConnectionSupport
          * - NoCDCConnectivity
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -108,149 +90,38 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    TRTYPE {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    TRTYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ADRFAM {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ADRFAM : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SUBTYPE {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    SUBTYPE : Int8
 
-    /**
-     * @type {_TREQ_e__Union}
-     */
-    TREQ {
-        get {
-            if(!this.HasProp("__TREQ"))
-                this.__TREQ := NVME_DISCOVERY_ENTRY._TREQ_e__Union(3, this)
-            return this.__TREQ
-        }
-    }
+    TREQ : NVME_DISCOVERY_ENTRY._TREQ
 
-    /**
-     * @type {Integer}
-     */
-    PORTID {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    PORTID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CNTLID {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    CNTLID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ASQSZ {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ASQSZ : UInt16
 
-    /**
-     * @type {_EFLAGS_e__Union}
-     */
-    EFLAGS {
-        get {
-            if(!this.HasProp("__EFLAGS"))
-                this.__EFLAGS := NVME_DISCOVERY_ENTRY._EFLAGS_e__Union(10, this)
-            return this.__EFLAGS
-        }
-    }
+    EFLAGS : NVME_DISCOVERY_ENTRY._EFLAGS
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TRSVCID {
-        get {
-            if(!this.HasProp("__TRSVCIDProxyArray"))
-                this.__TRSVCIDProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
-            return this.__TRSVCIDProxyArray
-        }
-    }
+    TRSVCID : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 64, 192, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[192]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NQN {
-        get {
-            if(!this.HasProp("__NQNProxyArray"))
-                this.__NQNProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
-            return this.__NQNProxyArray
-        }
-    }
+    NQN : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TRADDR {
-        get {
-            if(!this.HasProp("__TRADDRProxyArray"))
-                this.__TRADDRProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "char")
-            return this.__TRADDRProxyArray
-        }
-    }
+    TRADDR : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TSAS {
-        get {
-            if(!this.HasProp("__TSASProxyArray"))
-                this.__TSASProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")
-            return this.__TSASProxyArray
-        }
-    }
+    TSAS : Int8[256]
+
 }

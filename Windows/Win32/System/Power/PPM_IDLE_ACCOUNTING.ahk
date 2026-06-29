@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPM_IDLE_STATE_ACCOUNTING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPM_IDLE_STATE_ACCOUNTING.ahk" { PPM_IDLE_STATE_ACCOUNTING }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_IDLE_ACCOUNTING extends Win32Struct {
-    static sizeof => 72
+export default struct PPM_IDLE_ACCOUNTING {
+    #StructPack 8
 
-    static packingSize => 8
+    StateCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StateCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TotalTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalTransitions {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ResetCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResetCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    State : PPM_IDLE_STATE_ACCOUNTING[1]
 
-    /**
-     * @type {PPM_IDLE_STATE_ACCOUNTING}
-     */
-    State {
-        get {
-            if(!this.HasProp("__StateProxyArray"))
-                this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_IDLE_STATE_ACCOUNTING, "")
-            return this.__StateProxyArray
-        }
-    }
 }

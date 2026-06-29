@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IPSEC_DOSP_STATISTICS0 structure.
@@ -8,170 +7,97 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_DOSP_STATISTICS0 extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct IPSEC_DOSP_STATISTICS0 {
+    #StructPack 8
 
     /**
      * The total number of state entries that have been created since the computer was last started.
-     * @type {Integer}
      */
-    totalStateEntriesCreated {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    totalStateEntriesCreated : Int64
 
     /**
      * The current number of state entries in the table.
-     * @type {Integer}
      */
-    currentStateEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    currentStateEntries : Int64
 
     /**
      * The total number of inbound IPv6 IPsec unauthenticated packets that have been allowed since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundAllowedIPv6IPsecUnauthPkts {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    totalInboundAllowedIPv6IPsecUnauthPkts : Int64
 
     /**
      * The total number of inbound IPv6 IPsec unauthenticated packets that have been discarded due to rate limiting since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundRatelimitDiscardedIPv6IPsecUnauthPkts {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    totalInboundRatelimitDiscardedIPv6IPsecUnauthPkts : Int64
 
     /**
      * The total number of inbound IPv6 IPsec unauthenticated packets that have been discarded due to per internal IP address rate limiting since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundPerIPRatelimitDiscardedIPv6IPsecUnauthPkts {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    totalInboundPerIPRatelimitDiscardedIPv6IPsecUnauthPkts : Int64
 
     /**
      * The total number of inbound IPV6 IPsec unauthenticated packets that have been discarded due to all other reasons since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundOtherDiscardedIPv6IPsecUnauthPkts {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    totalInboundOtherDiscardedIPv6IPsecUnauthPkts : Int64
 
     /**
      * The total number of inbound IPv6 IPsec authenticated packets that have been allowed since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundAllowedIPv6IPsecAuthPkts {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    totalInboundAllowedIPv6IPsecAuthPkts : Int64
 
     /**
      * The total number of inbound IPv6 IPsec authenticated packets that have been discarded due to rate limiting since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundRatelimitDiscardedIPv6IPsecAuthPkts {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    totalInboundRatelimitDiscardedIPv6IPsecAuthPkts : Int64
 
     /**
      * The total number of inbound IPV6 IPsec authenticated packets that have been discarded due to all other reasons since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundOtherDiscardedIPv6IPsecAuthPkts {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    totalInboundOtherDiscardedIPv6IPsecAuthPkts : Int64
 
     /**
      * The total number of inbound ICMPv6 packets that have been allowed since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundAllowedICMPv6Pkts {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    totalInboundAllowedICMPv6Pkts : Int64
 
     /**
      * The total number of inbound ICMPv6 packets that have been discarded due to rate limiting since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundRatelimitDiscardedICMPv6Pkts {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    totalInboundRatelimitDiscardedICMPv6Pkts : Int64
 
     /**
      * The total number of inbound IPv6 filter exempted packets that have been allowed since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundAllowedIPv6FilterExemptPkts {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    totalInboundAllowedIPv6FilterExemptPkts : Int64
 
     /**
      * The total number of inbound IPv6 filter exempted packets that have been discarded due to rate limiting since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundRatelimitDiscardedIPv6FilterExemptPkts {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    totalInboundRatelimitDiscardedIPv6FilterExemptPkts : Int64
 
     /**
      * The total number of inbound IPv6 filter blocked packets that have been discarded since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundDiscardedIPv6FilterBlockPkts {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    totalInboundDiscardedIPv6FilterBlockPkts : Int64
 
     /**
      * The total number of inbound default-block exempted packets that have been allowed since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundAllowedDefBlockExemptPkts {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    totalInboundAllowedDefBlockExemptPkts : Int64
 
     /**
      * The total number of inbound default-block exempted packets that have been discarded due to rate limiting since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundRatelimitDiscardedDefBlockExemptPkts {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    totalInboundRatelimitDiscardedDefBlockExemptPkts : Int64
 
     /**
      * The total number of inbound default-block packets that have been discarded since the computer was last started.
-     * @type {Integer}
      */
-    totalInboundDiscardedDefBlockPkts {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    totalInboundDiscardedDefBlockPkts : Int64
 
     /**
      * The current number of per internal IP address rate limit queues for inbound IPv6 unauthenticated IPsec traffic.
-     * @type {Integer}
      */
-    currentInboundIPv6IPsecUnauthPerIPRateLimitQueues {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    currentInboundIPv6IPsecUnauthPerIPRateLimitQueues : Int64
+
 }

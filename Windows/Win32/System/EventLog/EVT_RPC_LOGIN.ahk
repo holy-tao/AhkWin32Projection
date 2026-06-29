@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the information used to connect to a remote computer.
@@ -10,53 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ns-winevt-evt_rpc_login
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_RPC_LOGIN extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct EVT_RPC_LOGIN {
+    #StructPack 8
 
     /**
      * The name of the remote computer to connect to.
-     * @type {PWSTR}
      */
-    Server {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Server : PWSTR
 
     /**
      * The user name to use to connect to the remote computer.
-     * @type {PWSTR}
      */
-    User {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    User : PWSTR
 
     /**
      * The domain to which the user account belongs. Optional.
-     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Domain : PWSTR
 
     /**
      * The password for the user account.
-     * @type {PWSTR}
      */
-    Password {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Password : PWSTR
 
     /**
      * The authentication method to use to authenticate the user when connecting to the remote computer. For possible authentication methods, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_rpc_login_flags">EVT_RPC_LOGIN_FLAGS</a> enumeration.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Flags : UInt32
+
 }

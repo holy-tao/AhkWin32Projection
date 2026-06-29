@@ -1,13 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The IWbemDecoupledBasicEventProvider::GetService method retrieves an IWbemService object to be used to call back into WMI. This method provides for fully concurrent access.
- * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
  * @namespace Windows.Win32.System.Wmi
  */
-class WbemDecoupledBasicEventProvider extends Win32Struct {
-    static sizeof => 0
+export default struct WbemDecoupledBasicEventProvider {
+    #StructPack 1
 
-    static packingSize => 1
 }

@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYSTEM_FIRMWARE_TABLE_ACTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYSTEM_FIRMWARE_TABLE_ACTION.ahk" { SYSTEM_FIRMWARE_TABLE_ACTION }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class SYSTEM_FIRMWARE_TABLE_INFORMATION extends Win32Struct {
-    static sizeof => 20
+export default struct SYSTEM_FIRMWARE_TABLE_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    ProviderSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProviderSignature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Action : SYSTEM_FIRMWARE_TABLE_ACTION
 
-    /**
-     * @type {SYSTEM_FIRMWARE_TABLE_ACTION}
-     */
-    Action {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    TableID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TableID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TableBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TableBufferLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TableBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TableBuffer {
-        get {
-            if(!this.HasProp("__TableBufferProxyArray"))
-                this.__TableBufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__TableBufferProxyArray
-        }
-    }
 }

@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_HBAPORT_PROP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_PATH_STATUS.ahk" { VDS_PATH_STATUS }
 
 /**
  * Provides methods to query and interact with HBA ports on the local system.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdshbaport
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsHbaPort extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsHbaPort extends IUnknown {
     /**
      * The interface identifier for IVdsHbaPort
      * @type {Guid}
      */
-    static IID => Guid("{2abd757f-2851-4997-9a13-47d2a885d6ca}")
+    static IID := Guid("{2abd757f-2851-4997-9a13-47d2a885d6ca}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsHbaPort interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties      : IntPtr
+        SetAllPathStatuses : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "SetAllPathStatuses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsHbaPort.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the properties of an HBA port.
@@ -38,7 +48,7 @@ class IVdsHbaPort extends IUnknown {
      */
     GetProperties() {
         pHbaPortProp := VDS_HBAPORT_PROP()
-        result := ComCall(3, this, "ptr", pHbaPortProp, "HRESULT")
+        result := ComCall(3, this, VDS_HBAPORT_PROP.Ptr, pHbaPortProp, "HRESULT")
         return pHbaPortProp
     }
 
@@ -80,7 +90,29 @@ class IVdsHbaPort extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdshbaport-setallpathstatuses
      */
     SetAllPathStatuses(_status) {
-        result := ComCall(4, this, "int", _status, "HRESULT")
+        result := ComCall(4, this, VDS_PATH_STATUS, _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsHbaPort.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.SetAllPathStatuses := CallbackCreate(GetMethod(implObj, "SetAllPathStatuses"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.SetAllPathStatuses)
     }
 }

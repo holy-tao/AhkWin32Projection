@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\FILESETINFO.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILESETINFO.ahk" { FILESETINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyjob1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJob1 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJob1 extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyJob1
      * @type {Guid}
      */
-    static IID => Guid("{59f5553c-2031-4629-bb18-2645a6970947}")
+    static IID := Guid("{59f5553c-2031-4629-bb18-2645a6970947}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJob1 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CancelJob          : IntPtr
+        GetProgress        : IntPtr
+        GetStatus          : IntPtr
+        AddFiles           : IntPtr
+        GetFile            : IntPtr
+        GetFileCount       : IntPtr
+        SwitchToForeground : IntPtr
+        get_JobID          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CancelJob", "GetProgress", "GetStatus", "AddFiles", "GetFile", "GetFileCount", "SwitchToForeground", "get_JobID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJob1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Guid} 
@@ -244,7 +258,7 @@ class IBackgroundCopyJob1 extends IUnknown {
      */
     GetFile(cFileIndex) {
         pFileInfo := FILESETINFO()
-        result := ComCall(7, this, "uint", cFileIndex, "ptr", pFileInfo, "HRESULT")
+        result := ComCall(7, this, "uint", cFileIndex, FILESETINFO.Ptr, pFileInfo, "HRESULT")
         return pFileInfo
     }
 
@@ -275,7 +289,41 @@ class IBackgroundCopyJob1 extends IUnknown {
      */
     get_JobID() {
         pguidJobID := Guid()
-        result := ComCall(10, this, "ptr", pguidJobID, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pguidJobID, "HRESULT")
         return pguidJobID
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJob1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CancelJob := CallbackCreate(GetMethod(implObj, "CancelJob"), flags, 1)
+        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 5)
+        this.vtbl.AddFiles := CallbackCreate(GetMethod(implObj, "AddFiles"), flags, 3)
+        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 3)
+        this.vtbl.GetFileCount := CallbackCreate(GetMethod(implObj, "GetFileCount"), flags, 2)
+        this.vtbl.SwitchToForeground := CallbackCreate(GetMethod(implObj, "SwitchToForeground"), flags, 1)
+        this.vtbl.get_JobID := CallbackCreate(GetMethod(implObj, "get_JobID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CancelJob)
+        CallbackFree(this.vtbl.GetProgress)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.AddFiles)
+        CallbackFree(this.vtbl.GetFile)
+        CallbackFree(this.vtbl.GetFileCount)
+        CallbackFree(this.vtbl.SwitchToForeground)
+        CallbackFree(this.vtbl.get_JobID)
     }
 }

@@ -1,150 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk" { DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_DEVICE_ENTRY extends Win32Struct {
-    static sizeof => 104
+export default struct DOT11_WFD_DEVICE_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    uPhyId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPhyId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PhySpecificInfo : DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
 
-    /**
-     * @type {DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO}
-     */
-    PhySpecificInfo {
-        get {
-            if(!this.HasProp("__PhySpecificInfo"))
-                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(4, this)
-            return this.__PhySpecificInfo
-        }
-    }
+    dot11BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dot11BSSID {
-        get {
-            if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
-            return this.__dot11BSSIDProxyArray
-        }
-    }
+    dot11BSSType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    dot11BSSType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    TransmitterAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TransmitterAddress {
-        get {
-            if(!this.HasProp("__TransmitterAddressProxyArray"))
-                this.__TransmitterAddressProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
-            return this.__TransmitterAddressProxyArray
-        }
-    }
+    lRSSI : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRSSI {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    uLinkQuality : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uLinkQuality {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    usBeaconPeriod : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usBeaconPeriod {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    ullTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTimestamp {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ullBeaconHostTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullBeaconHostTimestamp {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ullProbeResponseHostTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullProbeResponseHostTimestamp {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    usCapabilityInformation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usCapabilityInformation {
-        get => NumGet(this, 80, "ushort")
-        set => NumPut("ushort", value, this, 80)
-    }
+    uBeaconIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBeaconIEsOffset {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    uBeaconIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBeaconIEsLength {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    uProbeResponseIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uProbeResponseIEsOffset {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    uProbeResponseIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uProbeResponseIEsLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
 }

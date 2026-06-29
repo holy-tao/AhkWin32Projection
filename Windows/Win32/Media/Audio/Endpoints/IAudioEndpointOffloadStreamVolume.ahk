@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\KernelStreaming\AUDIO_CURVE_TYPE.ahk" { AUDIO_CURVE_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioEndpointOffloadStreamVolume interface allows the client application to manipulate the volume level of the offloaded audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointoffloadstreamvolume
  * @namespace Windows.Win32.Media.Audio.Endpoints
  */
-class IAudioEndpointOffloadStreamVolume extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEndpointOffloadStreamVolume extends IUnknown {
     /**
      * The interface identifier for IAudioEndpointOffloadStreamVolume
      * @type {Guid}
      */
-    static IID => Guid("{64f1dd49-71ca-4281-8672-3a9eddd1d0b6}")
+    static IID := Guid("{64f1dd49-71ca-4281-8672-3a9eddd1d0b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEndpointOffloadStreamVolume interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetVolumeChannelCount : IntPtr
+        SetChannelVolumes     : IntPtr
+        GetChannelVolumes     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVolumeChannelCount", "SetChannelVolumes", "GetChannelVolumes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEndpointOffloadStreamVolume.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetVolumeChannelCount method retrieves the number of available audio channels in the offloaded stream.
@@ -52,7 +63,7 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown {
         pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
         pCurveDurationMarshal := pCurveDuration is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, "int", u32CurveType, pCurveDurationMarshal, pCurveDuration, "HRESULT")
+        result := ComCall(4, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, AUDIO_CURVE_TYPE, u32CurveType, pCurveDurationMarshal, pCurveDuration, "HRESULT")
         return result
     }
 
@@ -65,5 +76,29 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown {
     GetChannelVolumes(u32ChannelCount) {
         result := ComCall(5, this, "uint", u32ChannelCount, "float*", &pf32Volumes := 0, "HRESULT")
         return pf32Volumes
+    }
+
+    Query(iid) {
+        if (IAudioEndpointOffloadStreamVolume.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVolumeChannelCount := CallbackCreate(GetMethod(implObj, "GetVolumeChannelCount"), flags, 2)
+        this.vtbl.SetChannelVolumes := CallbackCreate(GetMethod(implObj, "SetChannelVolumes"), flags, 5)
+        this.vtbl.GetChannelVolumes := CallbackCreate(GetMethod(implObj, "GetChannelVolumes"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVolumeChannelCount)
+        CallbackFree(this.vtbl.SetChannelVolumes)
+        CallbackFree(this.vtbl.GetChannelVolumes)
     }
 }

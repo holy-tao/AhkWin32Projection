@@ -1,21 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVCACHE_STATUS.ahk
-#Include .\NVCACHE_TYPE.ahk
-#Include .\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk" { NVCACHE_PRIORITY_LEVEL_DESCRIPTOR }
+#Import ".\NVCACHE_STATUS.ahk" { NVCACHE_STATUS }
+#Import ".\NVCACHE_TYPE.ahk" { NVCACHE_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class HYBRID_INFORMATION extends Win32Struct {
-    static sizeof => 96
+export default struct HYBRID_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Attributes extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Attributes {
         /**
          * This bitfield backs the following members:
          * - WriteCacheChangeable
@@ -23,12 +19,9 @@ class HYBRID_INFORMATION extends Win32Struct {
          * - FlushCacheSupported
          * - Removable
          * - ReservedBits
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -71,14 +64,9 @@ class HYBRID_INFORMATION extends Win32Struct {
         }
     }
 
-    class _Priorities extends Win32Struct {
-        static sizeof => 52
-        static packingSize => 4
+    struct _Priorities {
 
-        class _SupportedCommands extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 4
-
+        struct _SupportedCommands {
             /**
              * This bitfield backs the following members:
              * - CacheDisable
@@ -87,12 +75,9 @@ class HYBRID_INFORMATION extends Win32Struct {
              * - PriorityChangeByLbaRange
              * - Evict
              * - ReservedBits
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            _bitfield : Int32
+
 
             /**
              * @type {Integer}
@@ -141,186 +126,50 @@ class HYBRID_INFORMATION extends Win32Struct {
                 get => (this._bitfield >> 5) & 0x7FFFFFF
                 set => this._bitfield := ((value & 0x7FFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFF << 5))
             }
+            MaxEvictCommands : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MaxEvictCommands {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            MaxLbaRangeCountForEvict : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MaxLbaRangeCountForEvict {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            MaxLbaRangeCountForChangeLba : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MaxLbaRangeCountForChangeLba {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        PriorityLevelCount {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        PriorityLevelCount : Int8
 
-        /**
-         * @type {BOOLEAN}
-         */
-        MaxPriorityBehavior {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+        MaxPriorityBehavior : BOOLEAN
 
-        /**
-         * @type {Integer}
-         */
-        OptimalWriteGranularity {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
+        OptimalWriteGranularity : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
+        Reserved : Int8
 
-        /**
-         * @type {Integer}
-         */
-        DirtyThresholdLow {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        DirtyThresholdLow : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        DirtyThresholdHigh {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        DirtyThresholdHigh : UInt32
 
-        /**
-         * @type {_SupportedCommands}
-         */
-        SupportedCommands {
-            get {
-                if(!this.HasProp("__SupportedCommands"))
-                    this.__SupportedCommands := HYBRID_INFORMATION._Priorities._SupportedCommands(12, this)
-                return this.__SupportedCommands
-            }
-        }
+        SupportedCommands : HYBRID_INFORMATION._Priorities._SupportedCommands
 
-        /**
-         * @type {NVCACHE_PRIORITY_LEVEL_DESCRIPTOR}
-         */
-        Priority {
-            get {
-                if(!this.HasProp("__PriorityProxyArray"))
-                    this.__PriorityProxyArray := Win32FixedArray(this.ptr + 28, 1, NVCACHE_PRIORITY_LEVEL_DESCRIPTOR, "")
-                return this.__PriorityProxyArray
-            }
-        }
+        Priority : NVCACHE_PRIORITY_LEVEL_DESCRIPTOR[1]
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HybridSupported {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    HybridSupported : BOOLEAN
 
-    /**
-     * @type {NVCACHE_STATUS}
-     */
-    Status {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Status : NVCACHE_STATUS
 
-    /**
-     * @type {NVCACHE_TYPE}
-     */
-    CacheTypeEffective {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    CacheTypeEffective : NVCACHE_TYPE
 
-    /**
-     * @type {NVCACHE_TYPE}
-     */
-    CacheTypeDefault {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    CacheTypeDefault : NVCACHE_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    FractionBase {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FractionBase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CacheSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CacheSize : Int64
 
-    /**
-     * @type {_Attributes}
-     */
-    Attributes {
-        get {
-            if(!this.HasProp("__Attributes"))
-                this.__Attributes := HYBRID_INFORMATION._Attributes(40, this)
-            return this.__Attributes
-        }
-    }
+    Attributes : HYBRID_INFORMATION._Attributes
 
-    /**
-     * @type {_Priorities}
-     */
-    Priorities {
-        get {
-            if(!this.HasProp("__Priorities"))
-                this.__Priorities := HYBRID_INFORMATION._Priorities(44, this)
-            return this.__Priorities
-        }
-    }
+    Priorities : HYBRID_INFORMATION._Priorities
+
 }

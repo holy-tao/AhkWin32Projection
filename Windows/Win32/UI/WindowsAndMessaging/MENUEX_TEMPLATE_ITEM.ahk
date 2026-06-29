@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Defines a menu item in an extended menu template. This structure definition is for explanation only; it is not present in any standard header file.
@@ -8,46 +8,32 @@
  * @see https://learn.microsoft.com/windows/win32/menurc/menuex-template-item
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MENUEX_TEMPLATE_ITEM extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MENUEX_TEMPLATE_ITEM {
+    #StructPack 4
 
     /**
      * Type: **DWORD**
      * 
      * 
      * The menu item type. This member can be a combination of the type (beginning with MFT) values listed with the [**MENUITEMINFO**](/windows/win32/api/winuser/ns-winuser-menuiteminfoa) structure.
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwType : UInt32
 
     /**
      * Type: **DWORD**
      * 
      * 
      * The menu item state. This member can be a combination of the state (beginning with MFS) values listed with the [**MENUITEMINFO**](/windows/win32/api/winuser/ns-winuser-menuiteminfoa) structure.
-     * @type {Integer}
      */
-    dwState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwState : UInt32
 
     /**
      * Type: **UINT**
      * 
      * 
      * The menu item identifier. This is an application-defined value that identifies the menu item. In an extended menu resource, items that open drop-down menus or submenus as well as command items can have identifiers.
-     * @type {Integer}
      */
-    uId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uId : UInt32
 
     /**
      * Type: **WORD**
@@ -64,22 +50,15 @@ class MENUEX_TEMPLATE_ITEM extends Win32Struct {
      * 0x01
      * 
      * The structure defines a item that opens a drop-down menu or submenu. Subsequent structures define menu items in the corresponding drop-down menu or submenu.
-     * @type {Integer}
      */
-    wFlags {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wFlags : UInt16
 
     /**
      * Type: **WCHAR**
      * 
      * 
      * The menu item text. This member is a null-terminated Unicode string, aligned on a word boundary. The size of the menu item definition varies depending on the length of this string.
-     * @type {String}
      */
-    szText {
-        get => StrGet(this.ptr + 14, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 14, 0, "UTF-16")
-    }
+    szText : WCHAR[1]
+
 }

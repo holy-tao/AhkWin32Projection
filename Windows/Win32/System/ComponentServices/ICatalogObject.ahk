@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents items in collections on the COM+ catalog. ICatalogObject enables you to get and put properties exposed by objects in the catalog.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icatalogobject
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICatalogObject extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICatalogObject extends IDispatch {
     /**
      * The interface identifier for ICatalogObject
      * @type {Guid}
      */
-    static IID => Guid("{6eb22871-8a19-11d0-81b6-00a0c9231c29}")
+    static IID := Guid("{6eb22871-8a19-11d0-81b6-00a0c9231c29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICatalogObject interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Value           : IntPtr
+        put_Value           : IntPtr
+        get_Key             : IntPtr
+        get_Name            : IntPtr
+        IsPropertyReadOnly  : IntPtr
+        get_Valid           : IntPtr
+        IsPropertyWriteOnly : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Value", "put_Value", "get_Key", "get_Name", "IsPropertyReadOnly", "get_Valid", "IsPropertyWriteOnly"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICatalogObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -63,7 +79,7 @@ class ICatalogObject extends IDispatch {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
         pvarRetVal := VARIANT()
-        result := ComCall(7, this, "ptr", bstrPropName, "ptr", pvarRetVal, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrPropName, VARIANT.Ptr, pvarRetVal, "HRESULT")
         return pvarRetVal
     }
 
@@ -79,7 +95,7 @@ class ICatalogObject extends IDispatch {
     put_Value(bstrPropName, _val) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(8, this, "ptr", bstrPropName, "ptr", _val, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrPropName, VARIANT, _val, "HRESULT")
         return result
     }
 
@@ -94,7 +110,7 @@ class ICatalogObject extends IDispatch {
      */
     get_Key() {
         pvarRetVal := VARIANT()
-        result := ComCall(9, this, "ptr", pvarRetVal, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pvarRetVal, "HRESULT")
         return pvarRetVal
     }
 
@@ -107,7 +123,7 @@ class ICatalogObject extends IDispatch {
      */
     get_Name() {
         pvarRetVal := VARIANT()
-        result := ComCall(10, this, "ptr", pvarRetVal, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, pvarRetVal, "HRESULT")
         return pvarRetVal
     }
 
@@ -120,7 +136,7 @@ class ICatalogObject extends IDispatch {
     IsPropertyReadOnly(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(11, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrPropName, VARIANT_BOOL.Ptr, &pbRetVal := 0, "HRESULT")
         return pbRetVal
     }
 
@@ -130,7 +146,7 @@ class ICatalogObject extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_valid
      */
     get_Valid() {
-        result := ComCall(12, this, "short*", &pbRetVal := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pbRetVal := 0, "HRESULT")
         return pbRetVal
     }
 
@@ -143,7 +159,39 @@ class ICatalogObject extends IDispatch {
     IsPropertyWriteOnly(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(13, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrPropName, VARIANT_BOOL.Ptr, &pbRetVal := 0, "HRESULT")
         return pbRetVal
+    }
+
+    Query(iid) {
+        if (ICatalogObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 3)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 3)
+        this.vtbl.get_Key := CallbackCreate(GetMethod(implObj, "get_Key"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.IsPropertyReadOnly := CallbackCreate(GetMethod(implObj, "IsPropertyReadOnly"), flags, 3)
+        this.vtbl.get_Valid := CallbackCreate(GetMethod(implObj, "get_Valid"), flags, 2)
+        this.vtbl.IsPropertyWriteOnly := CallbackCreate(GetMethod(implObj, "IsPropertyWriteOnly"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
+        CallbackFree(this.vtbl.get_Key)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.IsPropertyReadOnly)
+        CallbackFree(this.vtbl.get_Valid)
+        CallbackFree(this.vtbl.IsPropertyWriteOnly)
     }
 }

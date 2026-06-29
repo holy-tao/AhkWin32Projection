@@ -1,85 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_NBFCP_INFO.ahk
-#Include .\PPP_IPCP_INFO2.ahk
-#Include .\PPP_IPV6_CP_INFO.ahk
-#Include .\PPP_CCP_INFO.ahk
-#Include .\PPP_LCP_INFO.ahk
-#Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPP_IPCP_INFO2.ahk" { PPP_IPCP_INFO2 }
+#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
+#Import ".\PPP_LCP.ahk" { PPP_LCP }
+#Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
+#Import ".\PPP_LCP_INFO.ahk" { PPP_LCP_INFO }
+#Import ".\PPP_CCP_INFO.ahk" { PPP_CCP_INFO }
+#Import ".\PPP_IPV6_CP_INFO.ahk" { PPP_IPV6_CP_INFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The PPP_INFO_3 structure is used to report the results of the various Point-to-Point (PPP) projection operations for a connection.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_info_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class PPP_INFO_3 extends Win32Struct {
-    static sizeof => 228
-
-    static packingSize => 4
+export default struct PPP_INFO_3 {
+    #StructPack 4
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ppp_nbfcp_info">PPP_NBFCP_INFO</a> structure that contains PPP NetBEUI Framer (NBF) projection information.
-     * @type {PPP_NBFCP_INFO}
      */
-    nbf {
-        get {
-            if(!this.HasProp("__nbf"))
-                this.__nbf := PPP_NBFCP_INFO(0, this)
-            return this.__nbf
-        }
-    }
+    nbf : PPP_NBFCP_INFO
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ppp_ipcp_info2">PPP_IPCP_INFO2</a> structure that contains PPP Internet Protocol (IP) projection information.
-     * @type {PPP_IPCP_INFO2}
      */
-    ip {
-        get {
-            if(!this.HasProp("__ip"))
-                this.__ip := PPP_IPCP_INFO2(40, this)
-            return this.__ip
-        }
-    }
+    ip : PPP_IPCP_INFO2
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ppp_ipv6_cp_info">PPP_IPV6_CP_INFO</a> structure that contains IPv6 control protocol projection information.
-     * @type {PPP_IPV6_CP_INFO}
      */
-    ipv6 {
-        get {
-            if(!this.HasProp("__ipv6"))
-                this.__ipv6 := PPP_IPV6_CP_INFO(116, this)
-            return this.__ipv6
-        }
-    }
+    ipv6 : PPP_IPV6_CP_INFO
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ppp_ccp_info">PPP_CCP_INFO</a> structure that contains Compression Control Protocol (CCP) projection information.
-     * @type {PPP_CCP_INFO}
      */
-    ccp {
-        get {
-            if(!this.HasProp("__ccp"))
-                this.__ccp := PPP_CCP_INFO(164, this)
-            return this.__ccp
-        }
-    }
+    ccp : PPP_CCP_INFO
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ppp_lcp_info">PPP_LCP_INFO</a> structure that contains PPP Link Control Protocol (LCP) projection information.
-     * @type {PPP_LCP_INFO}
      */
-    lcp {
-        get {
-            if(!this.HasProp("__lcp"))
-                this.__lcp := PPP_LCP_INFO(184, this)
-            return this.__lcp
-        }
-    }
+    lcp : PPP_LCP_INFO
+
 }

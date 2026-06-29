@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\LVFINDINFOA.ahk
-#Include .\LVFINDINFOW_FLAGS.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\LVFINDINFOA.ahk" { LVFINDINFOA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information the owner needs to find items requested by a virtual list-view control. This structure is used with the LVN_ODFINDITEM notification code. (ANSI)
@@ -15,49 +16,30 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMLVFINDITEMA extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct NMLVFINDITEMA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information on this notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>int</b>
      * 
      * Index of the item at which the search will start.
-     * @type {Integer}
      */
-    iStart {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iStart : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvfindinfoa">LVFINDINFO</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvfindinfoa">LVFINDINFO</a> structure that contains information necessary to perform a search.
-     * @type {LVFINDINFOA}
      */
-    lvfi {
-        get {
-            if(!this.HasProp("__lvfi"))
-                this.__lvfi := LVFINDINFOA(32, this)
-            return this.__lvfi
-        }
-    }
+    lvfi : LVFINDINFOA
+
 }

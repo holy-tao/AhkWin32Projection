@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIResource.ahk
-#Include .\IDXGISurface2.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGISurface2.ahk" { IDXGISurface2 }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * An IDXGIResource1 interface extends the IDXGIResource interface by adding support for creating a subresource surface object and for creating a handle to a shared resource.
@@ -28,26 +31,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgiresource1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIResource1 extends IDXGIResource {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIResource1 extends IDXGIResource {
     /**
      * The interface identifier for IDXGIResource1
      * @type {Guid}
      */
-    static IID => Guid("{30961379-4609-4a41-998e-54fe567ee0c1}")
+    static IID := Guid("{30961379-4609-4a41-998e-54fe567ee0c1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIResource1 interfaces
+    */
+    struct Vtbl extends IDXGIResource.Vtbl {
+        CreateSubresourceSurface : IntPtr
+        CreateSharedHandle       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSubresourceSurface", "CreateSharedHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIResource1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a subresource surface object.
@@ -113,8 +124,30 @@ class IDXGIResource1 extends IDXGIResource {
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        pHandle := HANDLE()
-        result := ComCall(13, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "HRESULT")
+        pHandle := HANDLE.Owned()
+        result := ComCall(13, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, "uint", dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
+    }
+
+    Query(iid) {
+        if (IDXGIResource1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSubresourceSurface := CallbackCreate(GetMethod(implObj, "CreateSubresourceSurface"), flags, 3)
+        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSubresourceSurface)
+        CallbackFree(this.vtbl.CreateSharedHandle)
     }
 }

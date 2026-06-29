@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXCoreAdapterEngineIndex.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DXCoreAdapterEngineIndex.ahk" { DXCoreAdapterEngineIndex }
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class DXCoreEngineNamePropertyInput extends Win32Struct {
-    static sizeof => 24
+export default struct DXCoreEngineNamePropertyInput {
+    #StructPack 8
 
-    static packingSize => 8
+    adapterEngineIndex : DXCoreAdapterEngineIndex
 
-    /**
-     * @type {DXCoreAdapterEngineIndex}
-     */
-    adapterEngineIndex {
-        get {
-            if(!this.HasProp("__adapterEngineIndex"))
-                this.__adapterEngineIndex := DXCoreAdapterEngineIndex(0, this)
-            return this.__adapterEngineIndex
-        }
-    }
+    engineNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    engineNameLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    engineName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    engineName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

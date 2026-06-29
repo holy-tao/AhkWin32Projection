@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class DEVPRIVATE_DES extends Win32Struct {
-    static sizeof => 24
+export default struct DEVPRIVATE_DES {
+    #StructPack 4
 
-    static packingSize => 4
+    PD_Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PD_Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PD_Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PD_Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PD_Data1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PD_Data1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PD_Data2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PD_Data2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PD_Data3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PD_Data3 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PD_Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PD_Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

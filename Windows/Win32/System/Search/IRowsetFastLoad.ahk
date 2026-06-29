@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IRowsetFastLoad extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRowsetFastLoad extends IUnknown {
     /**
      * The interface identifier for IRowsetFastLoad
      * @type {Guid}
      */
-    static IID => Guid("{5cf4ca13-ef21-11d0-97e7-00c04fc2ad98}")
+    static IID := Guid("{5cf4ca13-ef21-11d0-97e7-00c04fc2ad98}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowsetFastLoad interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InsertRow : IntPtr
+        Commit    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertRow", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowsetFastLoad.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,29 +45,41 @@ class IRowsetFastLoad extends IUnknown {
      * @returns {HRESULT} 
      */
     InsertRow(_hAccessor, pData) {
-        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
-
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", _hAccessor, pDataMarshal, pData, "HRESULT")
+        result := ComCall(3, this, HACCESSOR, _hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * 
      * @param {BOOL} fDone 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
-     * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit(fDone) {
-        result := ComCall(4, this, "int", fDone, "HRESULT")
+        result := ComCall(4, this, BOOL, fDone, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowsetFastLoad.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertRow := CallbackCreate(GetMethod(implObj, "InsertRow"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertRow)
+        CallbackFree(this.vtbl.Commit)
     }
 }

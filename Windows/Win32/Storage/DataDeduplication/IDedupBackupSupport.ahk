@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDedupReadFileCallback.ahk" { IDedupReadFileCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method for restoring a file from a backup store containing copies of Data Deduplication reparse points, metadata, and container files.
@@ -19,32 +22,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nn-ddpbackup-idedupbackupsupport
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class IDedupBackupSupport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDedupBackupSupport extends IUnknown {
     /**
      * The interface identifier for IDedupBackupSupport
      * @type {Guid}
      */
-    static IID => Guid("{c719d963-2b2d-415e-acf7-7eb7ca596ff4}")
+    static IID := Guid("{c719d963-2b2d-415e-acf7-7eb7ca596ff4}")
 
     /**
      * The class identifier for DedupBackupSupport
      * @type {Guid}
      */
-    static CLSID => Guid("{73d6b2ad-2984-4715-b2e3-924c149744dd}")
+    static CLSID := Guid("{73d6b2ad-2984-4715-b2e3-924c149744dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDedupBackupSupport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RestoreFiles : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RestoreFiles"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDedupBackupSupport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reconstructs a set of files from a backup store that contains the fully optimized version of the files (reparse points) and the Data Deduplication store.
@@ -68,7 +78,27 @@ class IDedupBackupSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
      */
     RestoreFiles(NumberOfFiles, FileFullPaths, Store, Flags) {
-        result := ComCall(3, this, "uint", NumberOfFiles, "ptr", FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "HRESULT")
+        result := ComCall(3, this, "uint", NumberOfFiles, BSTR.Ptr, FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "HRESULT")
         return FileResults
+    }
+
+    Query(iid) {
+        if (IDedupBackupSupport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RestoreFiles := CallbackCreate(GetMethod(implObj, "RestoreFiles"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RestoreFiles)
     }
 }

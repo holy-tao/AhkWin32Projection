@@ -1,136 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MBN_BAND_CLASS.ahk
-#Include .\MBN_CONTEXT_CONSTANTS.ahk
-#Include .\MBN_CTRL_CAPS.ahk
-#Include .\MBN_DATA_CLASS.ahk
-#Include .\MBN_INTERFACE_CAPS_CONSTANTS.ahk
-#Include .\MBN_PIN_CONSTANTS.ahk
-#Include .\MBN_PROVIDER_CONSTANTS.ahk
-#Include .\MBN_PROVIDER_STATE.ahk
-#Include .\MBN_REGISTRATION_CONSTANTS.ahk
-#Include .\MBN_SIGNAL_CONSTANTS.ahk
-#Include .\MBN_SMS_CAPS.ahk
-#Include .\WWAEXT_SMS_CONSTANTS.ahk
-#Include .\MBN_SMS_STATUS_FLAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MBN_BAND_CLASS.ahk" { MBN_BAND_CLASS }
+#Import ".\MBN_PIN_CONSTANTS.ahk" { MBN_PIN_CONSTANTS }
+#Import ".\MBN_PROVIDER_CONSTANTS.ahk" { MBN_PROVIDER_CONSTANTS }
+#Import ".\MBN_DATA_CLASS.ahk" { MBN_DATA_CLASS }
+#Import ".\MBN_SMS_CAPS.ahk" { MBN_SMS_CAPS }
+#Import ".\MBN_CONTEXT_CONSTANTS.ahk" { MBN_CONTEXT_CONSTANTS }
+#Import ".\WWAEXT_SMS_CONSTANTS.ahk" { WWAEXT_SMS_CONSTANTS }
+#Import ".\MBN_CTRL_CAPS.ahk" { MBN_CTRL_CAPS }
+#Import ".\MBN_INTERFACE_CAPS_CONSTANTS.ahk" { MBN_INTERFACE_CAPS_CONSTANTS }
+#Import ".\MBN_SIGNAL_CONSTANTS.ahk" { MBN_SIGNAL_CONSTANTS }
+#Import ".\MBN_PROVIDER_STATE.ahk" { MBN_PROVIDER_STATE }
+#Import ".\MBN_SMS_STATUS_FLAG.ahk" { MBN_SMS_STATUS_FLAG }
+#Import ".\MBN_REGISTRATION_CONSTANTS.ahk" { MBN_REGISTRATION_CONSTANTS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct {
-    static sizeof => 56
+export default struct __mbnapi_ReferenceRemainingTypes__ {
+    #StructPack 4
 
-    static packingSize => 4
+    bandClass : MBN_BAND_CLASS
 
-    /**
-     * @type {MBN_BAND_CLASS}
-     */
-    bandClass {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    contextConstants : MBN_CONTEXT_CONSTANTS
 
-    /**
-     * @type {MBN_CONTEXT_CONSTANTS}
-     */
-    contextConstants {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ctrlCaps : MBN_CTRL_CAPS
 
-    /**
-     * @type {MBN_CTRL_CAPS}
-     */
-    ctrlCaps {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dataClass : MBN_DATA_CLASS
 
-    /**
-     * @type {MBN_DATA_CLASS}
-     */
-    dataClass {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    interfaceCapsConstants : MBN_INTERFACE_CAPS_CONSTANTS
 
-    /**
-     * @type {MBN_INTERFACE_CAPS_CONSTANTS}
-     */
-    interfaceCapsConstants {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    pinConstants : MBN_PIN_CONSTANTS
 
-    /**
-     * @type {MBN_PIN_CONSTANTS}
-     */
-    pinConstants {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    providerConstants : MBN_PROVIDER_CONSTANTS
 
-    /**
-     * @type {MBN_PROVIDER_CONSTANTS}
-     */
-    providerConstants {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    providerState : MBN_PROVIDER_STATE
 
-    /**
-     * @type {MBN_PROVIDER_STATE}
-     */
-    providerState {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    registrationConstants : MBN_REGISTRATION_CONSTANTS
 
-    /**
-     * @type {MBN_REGISTRATION_CONSTANTS}
-     */
-    registrationConstants {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    signalConstants : MBN_SIGNAL_CONSTANTS
 
-    /**
-     * @type {MBN_SIGNAL_CONSTANTS}
-     */
-    signalConstants {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    smsCaps : MBN_SMS_CAPS
 
-    /**
-     * @type {MBN_SMS_CAPS}
-     */
-    smsCaps {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    smsConstants : WWAEXT_SMS_CONSTANTS
 
-    /**
-     * @type {WWAEXT_SMS_CONSTANTS}
-     */
-    smsConstants {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    wwaextSmsConstants : WWAEXT_SMS_CONSTANTS
 
-    /**
-     * @type {WWAEXT_SMS_CONSTANTS}
-     */
-    wwaextSmsConstants {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    smsStatusFlag : MBN_SMS_STATUS_FLAG
 
-    /**
-     * @type {MBN_SMS_STATUS_FLAG}
-     */
-    smsStatusFlag {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
 }

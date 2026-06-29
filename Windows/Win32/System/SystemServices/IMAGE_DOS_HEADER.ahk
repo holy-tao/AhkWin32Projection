@@ -1,169 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_DOS_HEADER extends Win32Struct {
-    static sizeof => 64
+export default struct IMAGE_DOS_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    e_magic : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_magic {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    e_cblp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_cblp {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    e_cp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_cp {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    e_crlc : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_crlc {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    e_cparhdr : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_cparhdr {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    e_minalloc : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_minalloc {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    e_maxalloc : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_maxalloc {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    e_ss : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_ss {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    e_sp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_sp {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    e_csum : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_csum {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    e_ip : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_ip {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    e_cs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_cs {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    e_lfarlc : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_lfarlc {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    e_ovno : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_ovno {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    e_res : UInt16[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    e_res {
-        get {
-            if(!this.HasProp("__e_resProxyArray"))
-                this.__e_resProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "ushort")
-            return this.__e_resProxyArray
-        }
-    }
+    e_oemid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_oemid {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    e_oeminfo : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    e_oeminfo {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    e_res2 : UInt16[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    e_res2 {
-        get {
-            if(!this.HasProp("__e_res2ProxyArray"))
-                this.__e_res2ProxyArray := Win32FixedArray(this.ptr + 40, 10, Primitive, "ushort")
-            return this.__e_res2ProxyArray
-        }
-    }
+    e_lfanew : Int32
 
-    /**
-     * @type {Integer}
-     */
-    e_lfanew {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
 }

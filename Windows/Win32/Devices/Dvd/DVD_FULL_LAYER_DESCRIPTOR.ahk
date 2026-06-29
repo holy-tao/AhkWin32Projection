@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_LAYER_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DVD_LAYER_DESCRIPTOR.ahk" { DVD_LAYER_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct {
-    static sizeof => 2052
+export default struct DVD_FULL_LAYER_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    commonHeader : DVD_LAYER_DESCRIPTOR
 
-    /**
-     * @type {DVD_LAYER_DESCRIPTOR}
-     */
-    commonHeader {
-        get {
-            if(!this.HasProp("__commonHeader"))
-                this.__commonHeader := DVD_LAYER_DESCRIPTOR(0, this)
-            return this.__commonHeader
-        }
-    }
+    MediaSpecific : Int8[2031]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MediaSpecific {
-        get {
-            if(!this.HasProp("__MediaSpecificProxyArray"))
-                this.__MediaSpecificProxyArray := Win32FixedArray(this.ptr + 20, 2031, Primitive, "char")
-            return this.__MediaSpecificProxyArray
-        }
-    }
 }

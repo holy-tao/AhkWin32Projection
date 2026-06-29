@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Database operations are performed within the domain of the system. The calling application must have appropriate access permissions for any database actions.
- * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardestablishcontext
  * @namespace Windows.Win32.Security.Credentials
  */
-class SCARD_SCOPE extends Win32Enum {
+export default struct SCARD_SCOPE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

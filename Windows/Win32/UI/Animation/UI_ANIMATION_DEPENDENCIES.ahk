@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines which aspects of an interpolator depend on a given input.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_dependencies
  * @namespace Windows.Win32.UI.Animation
  */
-class UI_ANIMATION_DEPENDENCIES extends Win32BitflagEnum {
+export default struct UI_ANIMATION_DEPENDENCIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No aspect depends on the input.

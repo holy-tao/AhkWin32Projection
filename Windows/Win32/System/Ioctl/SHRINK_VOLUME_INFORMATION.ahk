@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SHRINK_VOLUME_REQUEST_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SHRINK_VOLUME_REQUEST_TYPES.ahk" { SHRINK_VOLUME_REQUEST_TYPES }
 
 /**
  * Specifies the volume shrink operation to perform.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-shrink_volume_information
  * @namespace Windows.Win32.System.Ioctl
  */
-class SHRINK_VOLUME_INFORMATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SHRINK_VOLUME_INFORMATION {
+    #StructPack 8
 
     /**
      * Indicates the operation to perform. The valid values are as follows. 
@@ -51,28 +48,17 @@ class SHRINK_VOLUME_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {SHRINK_VOLUME_REQUEST_TYPES}
      */
-    ShrinkRequestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ShrinkRequestType : SHRINK_VOLUME_REQUEST_TYPES
 
     /**
      * This member must be zero.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : Int64
 
     /**
      * The number of sectors that should be in the shrunken volume. Used only when the <b>ShrinkRequestType</b> member is <b>ShrinkPrepare</b>, otherwise this member should be initialized to zero.
-     * @type {Integer}
      */
-    NewNumberOfSectors {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    NewNumberOfSectors : Int64
+
 }

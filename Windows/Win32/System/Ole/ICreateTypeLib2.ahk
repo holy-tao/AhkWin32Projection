@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICreateTypeLib.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICreateTypeLib.ahk" { ICreateTypeLib }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypelib2
  * @namespace Windows.Win32.System.Ole
  */
-class ICreateTypeLib2 extends ICreateTypeLib {
-
-    static sizeof => A_PtrSize
+export default struct ICreateTypeLib2 extends ICreateTypeLib {
     /**
      * The interface identifier for ICreateTypeLib2
      * @type {Guid}
      */
-    static IID => Guid("{0002040f-0000-0000-c000-000000000046}")
+    static IID := Guid("{0002040f-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateTypeLib2 interfaces
+    */
+    struct Vtbl extends ICreateTypeLib.Vtbl {
+        DeleteTypeInfo       : IntPtr
+        SetCustData          : IntPtr
+        SetHelpStringContext : IntPtr
+        SetHelpStringDll     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeleteTypeInfo", "SetCustData", "SetHelpStringContext", "SetHelpStringDll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateTypeLib2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deletes a specified type information from the type library.
@@ -134,7 +147,7 @@ class ICreateTypeLib2 extends ICreateTypeLib {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-setcustdata
      */
     SetCustData(guid, pVarVal) {
-        result := ComCall(14, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -244,5 +257,31 @@ class ICreateTypeLib2 extends ICreateTypeLib {
 
         result := ComCall(16, this, "ptr", szFileName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICreateTypeLib2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeleteTypeInfo := CallbackCreate(GetMethod(implObj, "DeleteTypeInfo"), flags, 2)
+        this.vtbl.SetCustData := CallbackCreate(GetMethod(implObj, "SetCustData"), flags, 3)
+        this.vtbl.SetHelpStringContext := CallbackCreate(GetMethod(implObj, "SetHelpStringContext"), flags, 2)
+        this.vtbl.SetHelpStringDll := CallbackCreate(GetMethod(implObj, "SetHelpStringDll"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeleteTypeInfo)
+        CallbackFree(this.vtbl.SetCustData)
+        CallbackFree(this.vtbl.SetHelpStringContext)
+        CallbackFree(this.vtbl.SetHelpStringDll)
     }
 }

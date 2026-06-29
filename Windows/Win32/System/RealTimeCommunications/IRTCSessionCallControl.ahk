@@ -1,32 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCSessionCallControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRTCSessionCallControl extends IUnknown {
     /**
      * The interface identifier for IRTCSessionCallControl
      * @type {Guid}
      */
-    static IID => Guid("{e9a50d94-190b-4f82-9530-3b8ebf60758a}")
+    static IID := Guid("{e9a50d94-190b-4f82-9530-3b8ebf60758a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCSessionCallControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Hold              : IntPtr
+        UnHold            : IntPtr
+        Forward           : IntPtr
+        Refer             : IntPtr
+        put_ReferredByURI : IntPtr
+        get_ReferredByURI : IntPtr
+        put_ReferCookie   : IntPtr
+        get_ReferCookie   : IntPtr
+        get_IsReferred    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Hold", "UnHold", "Forward", "Refer", "put_ReferredByURI", "get_ReferredByURI", "put_ReferCookie", "get_ReferCookie", "get_IsReferred"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCSessionCallControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -80,26 +97,21 @@ class IRTCSessionCallControl extends IUnknown {
     Forward(bstrForwardToURI) {
         bstrForwardToURI := bstrForwardToURI is String ? BSTR.Alloc(bstrForwardToURI).Value : bstrForwardToURI
 
-        result := ComCall(5, this, "ptr", bstrForwardToURI, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrForwardToURI, "HRESULT")
         return result
     }
 
     /**
-     * Obtains a reference to a TCP v4 driver object.
-     * @remarks
-     * This function can be called only from kernel mode. The caller must decrement the reference count by calling the **ObDereferenceObject** function when it has finished with the object.
      * 
-     * This function is implemented in Drvref.lib, which is available for download. See [Windows Network Driver Reference API Library](https://www.microsoft.com/downloads/details.aspx?FamilyID=85037e05-f8f8-46b4-a013-3aa6248396c0).
      * @param {BSTR} bstrReferToURI 
      * @param {BSTR} bstrReferCookie 
-     * @returns {HRESULT} If the function succeeds, it returns **STATUS\_SUCCESS**. If it fails, it will return the appropriate status code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/referencetcpdriver
+     * @returns {HRESULT} 
      */
     Refer(bstrReferToURI, bstrReferCookie) {
         bstrReferToURI := bstrReferToURI is String ? BSTR.Alloc(bstrReferToURI).Value : bstrReferToURI
         bstrReferCookie := bstrReferCookie is String ? BSTR.Alloc(bstrReferCookie).Value : bstrReferCookie
 
-        result := ComCall(6, this, "ptr", bstrReferToURI, "ptr", bstrReferCookie, "HRESULT")
+        result := ComCall(6, this, BSTR, bstrReferToURI, BSTR, bstrReferCookie, "HRESULT")
         return result
     }
 
@@ -111,7 +123,7 @@ class IRTCSessionCallControl extends IUnknown {
     put_ReferredByURI(bstrReferredByURI) {
         bstrReferredByURI := bstrReferredByURI is String ? BSTR.Alloc(bstrReferredByURI).Value : bstrReferredByURI
 
-        result := ComCall(7, this, "ptr", bstrReferredByURI, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrReferredByURI, "HRESULT")
         return result
     }
 
@@ -120,8 +132,8 @@ class IRTCSessionCallControl extends IUnknown {
      * @returns {BSTR} 
      */
     get_ReferredByURI() {
-        pbstrReferredByURI := BSTR()
-        result := ComCall(8, this, "ptr", pbstrReferredByURI, "HRESULT")
+        pbstrReferredByURI := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrReferredByURI, "HRESULT")
         return pbstrReferredByURI
     }
 
@@ -133,7 +145,7 @@ class IRTCSessionCallControl extends IUnknown {
     put_ReferCookie(bstrReferCookie) {
         bstrReferCookie := bstrReferCookie is String ? BSTR.Alloc(bstrReferCookie).Value : bstrReferCookie
 
-        result := ComCall(9, this, "ptr", bstrReferCookie, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrReferCookie, "HRESULT")
         return result
     }
 
@@ -142,8 +154,8 @@ class IRTCSessionCallControl extends IUnknown {
      * @returns {BSTR} 
      */
     get_ReferCookie() {
-        pbstrReferCookie := BSTR()
-        result := ComCall(10, this, "ptr", pbstrReferCookie, "HRESULT")
+        pbstrReferCookie := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrReferCookie, "HRESULT")
         return pbstrReferCookie
     }
 
@@ -152,7 +164,43 @@ class IRTCSessionCallControl extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_IsReferred() {
-        result := ComCall(11, this, "short*", &pfIsReferred := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pfIsReferred := 0, "HRESULT")
         return pfIsReferred
+    }
+
+    Query(iid) {
+        if (IRTCSessionCallControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Hold := CallbackCreate(GetMethod(implObj, "Hold"), flags, 2)
+        this.vtbl.UnHold := CallbackCreate(GetMethod(implObj, "UnHold"), flags, 2)
+        this.vtbl.Forward := CallbackCreate(GetMethod(implObj, "Forward"), flags, 2)
+        this.vtbl.Refer := CallbackCreate(GetMethod(implObj, "Refer"), flags, 3)
+        this.vtbl.put_ReferredByURI := CallbackCreate(GetMethod(implObj, "put_ReferredByURI"), flags, 2)
+        this.vtbl.get_ReferredByURI := CallbackCreate(GetMethod(implObj, "get_ReferredByURI"), flags, 2)
+        this.vtbl.put_ReferCookie := CallbackCreate(GetMethod(implObj, "put_ReferCookie"), flags, 2)
+        this.vtbl.get_ReferCookie := CallbackCreate(GetMethod(implObj, "get_ReferCookie"), flags, 2)
+        this.vtbl.get_IsReferred := CallbackCreate(GetMethod(implObj, "get_IsReferred"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Hold)
+        CallbackFree(this.vtbl.UnHold)
+        CallbackFree(this.vtbl.Forward)
+        CallbackFree(this.vtbl.Refer)
+        CallbackFree(this.vtbl.put_ReferredByURI)
+        CallbackFree(this.vtbl.get_ReferredByURI)
+        CallbackFree(this.vtbl.put_ReferCookie)
+        CallbackFree(this.vtbl.get_ReferCookie)
+        CallbackFree(this.vtbl.get_IsReferred)
     }
 }

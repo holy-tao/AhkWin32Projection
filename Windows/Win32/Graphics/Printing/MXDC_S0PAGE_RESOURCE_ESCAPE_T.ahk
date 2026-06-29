@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MXDC_ESCAPE_HEADER_T.ahk
-#Include .\MXDC_XPS_S0PAGE_RESOURCE_T.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MXDC_XPS_S0PAGE_RESOURCE_T.ahk" { MXDC_XPS_S0PAGE_RESOURCE_T }
+#Import ".\MXDC_ESCAPE_HEADER_T.ahk" { MXDC_ESCAPE_HEADER_T }
 
 /**
  * The MXDC\_S0PAGE\_RESOURCE\_ESCAPE\_T structure is an MXDC\_ESCAPE\_HEADER\_T structure concatenated with an MXDC\_XPS\_S0PAGE\_RESOURCE\_T structure.
@@ -34,32 +33,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pageresourceescape
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct {
-    static sizeof => 288
-
-    static packingSize => 4
+export default struct MXDC_S0PAGE_RESOURCE_ESCAPE_T {
+    #StructPack 4
 
     /**
      * An [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to MXDCOP\_SET\_S0PAGE\_RESOURCE.
-     * @type {MXDC_ESCAPE_HEADER_T}
      */
-    mxdcEscape {
-        get {
-            if(!this.HasProp("__mxdcEscape"))
-                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
-            return this.__mxdcEscape
-        }
-    }
+    mxdcEscape : MXDC_ESCAPE_HEADER_T
 
     /**
      * An [**MXDC\_XPS\_S0PAGE\_RESOURCE\_T**](mxdcxpss0pageresource.md) structure representing a resource, such as a font or image file, on an XPS document page.
-     * @type {MXDC_XPS_S0PAGE_RESOURCE_T}
      */
-    xpsS0PageResourcePassthrough {
-        get {
-            if(!this.HasProp("__xpsS0PageResourcePassthrough"))
-                this.__xpsS0PageResourcePassthrough := MXDC_XPS_S0PAGE_RESOURCE_T(12, this)
-            return this.__xpsS0PageResourcePassthrough
-        }
-    }
+    xpsS0PageResourcePassthrough : MXDC_XPS_S0PAGE_RESOURCE_T
+
 }

@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAudioSessionManager.ahk
-#Include .\IAudioSessionEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAudioSessionEnumerator.ahk" { IAudioSessionEnumerator }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IAudioSessionManager.ahk" { IAudioSessionManager }
+#Import ".\IAudioVolumeDuckNotification.ahk" { IAudioVolumeDuckNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSessionNotification.ahk" { IAudioSessionNotification }
 
 /**
  * The IAudioSessionManager2 interface enables an application to manage submixes for the audio device.
@@ -22,26 +26,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionmanager2
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioSessionManager2 extends IAudioSessionManager {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSessionManager2 extends IAudioSessionManager {
     /**
      * The interface identifier for IAudioSessionManager2
      * @type {Guid}
      */
-    static IID => Guid("{77aa99a0-1bd6-484f-8bc7-2c654c9a9b6f}")
+    static IID := Guid("{77aa99a0-1bd6-484f-8bc7-2c654c9a9b6f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSessionManager2 interfaces
+    */
+    struct Vtbl extends IAudioSessionManager.Vtbl {
+        GetSessionEnumerator          : IntPtr
+        RegisterSessionNotification   : IntPtr
+        UnregisterSessionNotification : IntPtr
+        RegisterDuckNotification      : IntPtr
+        UnregisterDuckNotification    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSessionEnumerator", "RegisterSessionNotification", "UnregisterSessionNotification", "RegisterDuckNotification", "UnregisterDuckNotification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSessionManager2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSessionEnumerator method gets a pointer to the audio session enumerator object.
@@ -233,5 +248,33 @@ class IAudioSessionManager2 extends IAudioSessionManager {
     UnregisterDuckNotification(duckNotification) {
         result := ComCall(9, this, "ptr", duckNotification, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioSessionManager2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSessionEnumerator := CallbackCreate(GetMethod(implObj, "GetSessionEnumerator"), flags, 2)
+        this.vtbl.RegisterSessionNotification := CallbackCreate(GetMethod(implObj, "RegisterSessionNotification"), flags, 2)
+        this.vtbl.UnregisterSessionNotification := CallbackCreate(GetMethod(implObj, "UnregisterSessionNotification"), flags, 2)
+        this.vtbl.RegisterDuckNotification := CallbackCreate(GetMethod(implObj, "RegisterDuckNotification"), flags, 3)
+        this.vtbl.UnregisterDuckNotification := CallbackCreate(GetMethod(implObj, "UnregisterDuckNotification"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSessionEnumerator)
+        CallbackFree(this.vtbl.RegisterSessionNotification)
+        CallbackFree(this.vtbl.UnregisterSessionNotification)
+        CallbackFree(this.vtbl.RegisterDuckNotification)
+        CallbackFree(this.vtbl.UnregisterDuckNotification)
     }
 }

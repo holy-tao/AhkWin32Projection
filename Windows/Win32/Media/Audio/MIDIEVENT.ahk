@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MIDIEVENT structure describes a MIDI event in a stream buffer.
@@ -66,50 +65,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midievent
  * @namespace Windows.Win32.Media.Audio
  */
-class MIDIEVENT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MIDIEVENT {
+    #StructPack 4
 
     /**
      * Time, in MIDI ticks, between the previous event and the current event. The length of a tick is defined by the time format and possibly the tempo associated with the stream. (The definition is identical to the specification for a tick in a standard MIDI file.)
-     * @type {Integer}
      */
-    dwDeltaTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDeltaTime : UInt32
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    dwStreamID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStreamID : UInt32
 
     /**
      * Event code and event parameters or length. To parse this information, use the <a href="https://docs.microsoft.com/previous-versions/dd798442(v=vs.85)">MEVT_EVENTTYPE</a> and <a href="https://docs.microsoft.com/previous-versions/dd798441(v=vs.85)">MEVT_EVENTPARM</a> macros. See Remarks.
-     * @type {Integer}
      */
-    dwEvent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwEvent : UInt32
 
     /**
      * If <b>dwEvent</b> specifies MEVT_F_LONG and the length of the buffer, this member contains parameters for the event. This parameter data must be padded with zeros so that an integral number of <b>DWORD</b> values are stored. For example, if the event data is five bytes long, three pad bytes must follow the data for a total of eight bytes. In this case, the low 24 bits of <b>dwEvent</b> would contain the value 5.
      *             
      * 
      * If <b>dwEvent</b> specifies MEVT_F_SHORT, do not use this member in the stream buffer.
-     * @type {Array<Integer>}
      */
-    dwParms {
-        get {
-            if(!this.HasProp("__dwParmsProxyArray"))
-                this.__dwParmsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
-            return this.__dwParmsProxyArray
-        }
-    }
+    dwParms : UInt32[1]
+
 }

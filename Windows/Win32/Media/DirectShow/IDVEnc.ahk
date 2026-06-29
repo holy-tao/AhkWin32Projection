@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVINFO.ahk" { DVINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDVEnc interface sets and retrieves properties on the DV Video Encoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvenc
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDVEnc extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDVEnc extends IUnknown {
     /**
      * The interface identifier for IDVEnc
      * @type {Guid}
      */
-    static IID => Guid("{d18e17a0-aacb-11d0-afb0-00aa00b67a42}")
+    static IID := Guid("{d18e17a0-aacb-11d0-afb0-00aa00b67a42}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVEnc interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_IFormatResolution : IntPtr
+        put_IFormatResolution : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IFormatResolution", "put_IFormatResolution"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVEnc.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The get_IFormatResolution method retrieves the encoding resolution.
@@ -44,7 +54,7 @@ class IDVEnc extends IUnknown {
         DVFormatMarshal := DVFormat is VarRef ? "int*" : "ptr"
         ResolutionMarshal := Resolution is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, VideoFormatMarshal, VideoFormat, DVFormatMarshal, DVFormat, ResolutionMarshal, Resolution, "char", fDVInfo, "ptr", sDVInfo, "HRESULT")
+        result := ComCall(3, this, VideoFormatMarshal, VideoFormat, DVFormatMarshal, DVFormat, ResolutionMarshal, Resolution, "char", fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
         return result
     }
 
@@ -59,7 +69,29 @@ class IDVEnc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvenc-put_iformatresolution
      */
     put_IFormatResolution(VideoFormat, DVFormat, Resolution, fDVInfo, sDVInfo) {
-        result := ComCall(4, this, "int", VideoFormat, "int", DVFormat, "int", Resolution, "char", fDVInfo, "ptr", sDVInfo, "HRESULT")
+        result := ComCall(4, this, "int", VideoFormat, "int", DVFormat, "int", Resolution, "char", fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVEnc.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IFormatResolution := CallbackCreate(GetMethod(implObj, "get_IFormatResolution"), flags, 6)
+        this.vtbl.put_IFormatResolution := CallbackCreate(GetMethod(implObj, "put_IFormatResolution"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IFormatResolution)
+        CallbackFree(this.vtbl.put_IFormatResolution)
     }
 }

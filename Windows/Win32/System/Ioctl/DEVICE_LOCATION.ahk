@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_LOCATION extends Win32Struct {
-    static sizeof => 24
+export default struct DEVICE_LOCATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Socket : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Socket {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Slot : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Slot {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Adapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Adapter {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Port : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Port {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Channel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Channel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Device : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Device {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Target {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Lun {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'Target', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'Lun', { type: UInt32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

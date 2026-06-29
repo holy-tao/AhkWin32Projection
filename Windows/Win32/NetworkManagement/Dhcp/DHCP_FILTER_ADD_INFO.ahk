@@ -1,45 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_ADDR_PATTERN.ahk
-#Include .\DHCP_FILTER_LIST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_ADDR_PATTERN.ahk" { DHCP_ADDR_PATTERN }
+#Import ".\DHCP_FILTER_LIST_TYPE.ahk" { DHCP_FILTER_LIST_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information regarding the link-layer filter to be added to the allow and deny filter list.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_add_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_FILTER_ADD_INFO extends Win32Struct {
-    static sizeof => 288
-
-    static packingSize => 8
+export default struct DHCP_FILTER_ADD_INFO {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern">DHCP_ADDR_PATTERN</a> structure that contains the address/pattern-related information of the link-layer filter.
-     * @type {DHCP_ADDR_PATTERN}
      */
-    AddrPatt {
-        get {
-            if(!this.HasProp("__AddrPatt"))
-                this.__AddrPatt := DHCP_ADDR_PATTERN(0, this)
-            return this.__AddrPatt
-        }
-    }
+    AddrPatt : DHCP_ADDR_PATTERN
 
     /**
      * Pointer to a Unicode string that contains a text comment for the filter.
-     * @type {PWSTR}
      */
-    Comment {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    Comment : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_filter_list_type">DHCP_FILTER_LIST_TYPE</a> enumeration value that specifies the list type to which the filter is to be added.
-     * @type {DHCP_FILTER_LIST_TYPE}
      */
-    ListType {
-        get => NumGet(this, 280, "int")
-        set => NumPut("int", value, this, 280)
-    }
+    ListType : DHCP_FILTER_LIST_TYPE
+
 }

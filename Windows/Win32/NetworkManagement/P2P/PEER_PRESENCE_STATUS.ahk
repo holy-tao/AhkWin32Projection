@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PEER_PRESENCE_STATUS enumeration defines the set of possible presence status settings available to a peer that participates in a peer collaboration network.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_presence_status
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_PRESENCE_STATUS extends Win32Enum {
+export default struct PEER_PRESENCE_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The user is offline.

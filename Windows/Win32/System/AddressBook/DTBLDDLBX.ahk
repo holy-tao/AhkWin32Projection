@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * DTBLDDLBX describes a drop-down list control that will be used in a dialog box built from a display table.
@@ -16,44 +15,27 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblddlbx
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLDDLBX extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DTBLDDLBX {
+    #StructPack 4
 
     /**
      * > Reserved, must be zero.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : UInt32
 
     /**
      * > Property tag for a property of type PT_TSTRING. This property is one of the columns in the table identified by the **ulPRTableName** member. The values for this property are displayed in the list.
-     * @type {Integer}
      */
-    ulPRDisplayProperty {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulPRDisplayProperty : UInt32
 
     /**
      * > Property tag for a property of any type. This property is one of the columns in the table identified by the **ulPRTableName** member. When the user of the list selects a property value for the **ulPRDisplayProperty** member from the rows of the table identified by the **ulPRTableName** member, the corresponding **ulPRSetProperty** member is set.
-     * @type {Integer}
      */
-    ulPRSetProperty {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPRSetProperty : UInt32
 
     /**
      * > Property tag for a table property of type PT_OBJECT that can be opened by using an **OpenProperty** call. The table should have two columns: **ulPRDisplayProperty** and **ulPRSetProperty**. The rows of the table should correspond to items in the list.
-     * @type {Integer}
      */
-    ulPRTableName {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulPRTableName : UInt32
+
 }

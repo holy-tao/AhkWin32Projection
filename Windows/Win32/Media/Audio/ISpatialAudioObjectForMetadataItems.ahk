@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioObjectBase.ahk
-#Include .\ISpatialAudioMetadataItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
+#Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
 
 /**
  * Used to write spatial audio metadata for applications that require multiple metadata items per buffer with frame-accurate placement.
@@ -12,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadataitems
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase {
     /**
      * The interface identifier for ISpatialAudioObjectForMetadataItems
      * @type {Guid}
      */
-    static IID => Guid("{ddea49ff-3bc0-4377-8aad-9fbcfd808566}")
+    static IID := Guid("{ddea49ff-3bc0-4377-8aad-9fbcfd808566}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioObjectForMetadataItems interfaces
+    */
+    struct Vtbl extends ISpatialAudioObjectBase.Vtbl {
+        GetSpatialAudioMetadataItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSpatialAudioMetadataItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioObjectForMetadataItems.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the ISpatialAudioMetadataItems object which stores metadata items for the ISpatialAudioObjectForMetadataItems.
@@ -43,5 +51,25 @@ class ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase {
     GetSpatialAudioMetadataItems() {
         result := ComCall(7, this, "ptr*", &metadataItems := 0, "HRESULT")
         return ISpatialAudioMetadataItems(metadataItems)
+    }
+
+    Query(iid) {
+        if (ISpatialAudioObjectForMetadataItems.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSpatialAudioMetadataItems := CallbackCreate(GetMethod(implObj, "GetSpatialAudioMetadataItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSpatialAudioMetadataItems)
     }
 }

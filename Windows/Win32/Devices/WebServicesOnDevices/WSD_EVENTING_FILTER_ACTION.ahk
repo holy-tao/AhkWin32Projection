@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_URI_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
 
 /**
  * Represents a boolean expression used for filtering events.
@@ -9,17 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_filter_action
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_EVENTING_FILTER_ACTION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct WSD_EVENTING_FILTER_ACTION {
+    #StructPack 8
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_uri_list">WSD_URI_LIST</a> structure that specifies the URIs used for filtering notifications.
-     * @type {Pointer<WSD_URI_LIST>}
      */
-    Actions {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Actions : WSD_URI_LIST.Ptr
+
 }

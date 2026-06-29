@@ -1,291 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\M128A.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\M128A.ahk" { M128A }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64
  */
-class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct {
-    static sizeof => 256
+export default struct KNONVOLATILE_CONTEXT_POINTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    FloatingContext : M128A.Ptr[16]
 
-    /**
-     * @type {Array<Pointer<M128A>>}
-     */
-    FloatingContext {
-        get {
-            if(!this.HasProp("__FloatingContextProxyArray"))
-                this.__FloatingContextProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "ptr")
-            return this.__FloatingContextProxyArray
-        }
-    }
+    IntegerContext : IntPtr[16]
 
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm0 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm3 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm4 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm5 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm6 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm7 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm8 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm9 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm10 {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm11 {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm12 {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm13 {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm14 {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
-
-    /**
-     * @type {Pointer<M128A>}
-     */
-    Xmm15 {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
-
-    /**
-     * @type {Array<Pointer<Integer>>}
-     */
-    IntegerContext {
-        get {
-            if(!this.HasProp("__IntegerContextProxyArray"))
-                this.__IntegerContextProxyArray := Win32FixedArray(this.ptr + 128, 16, Primitive, "ptr")
-            return this.__IntegerContextProxyArray
-        }
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rax {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rcx {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rdx {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rbx {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rsp {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rbp {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rsi {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Rdi {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R8 {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R9 {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R10 {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R11 {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R12 {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R13 {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R14 {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    R15 {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+    static __New() {
+        DefineProp(this.Prototype, 'Xmm0', { type: M128A.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'Xmm1', { type: M128A.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'Xmm2', { type: M128A.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'Xmm3', { type: M128A.Ptr, offset: 24 })
+        DefineProp(this.Prototype, 'Xmm4', { type: M128A.Ptr, offset: 32 })
+        DefineProp(this.Prototype, 'Xmm5', { type: M128A.Ptr, offset: 40 })
+        DefineProp(this.Prototype, 'Xmm6', { type: M128A.Ptr, offset: 48 })
+        DefineProp(this.Prototype, 'Xmm7', { type: M128A.Ptr, offset: 56 })
+        DefineProp(this.Prototype, 'Xmm8', { type: M128A.Ptr, offset: 64 })
+        DefineProp(this.Prototype, 'Xmm9', { type: M128A.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'Xmm10', { type: M128A.Ptr, offset: 80 })
+        DefineProp(this.Prototype, 'Xmm11', { type: M128A.Ptr, offset: 88 })
+        DefineProp(this.Prototype, 'Xmm12', { type: M128A.Ptr, offset: 96 })
+        DefineProp(this.Prototype, 'Xmm13', { type: M128A.Ptr, offset: 104 })
+        DefineProp(this.Prototype, 'Xmm14', { type: M128A.Ptr, offset: 112 })
+        DefineProp(this.Prototype, 'Xmm15', { type: M128A.Ptr, offset: 120 })
+        DefineProp(this.Prototype, 'Rax', { type: IntPtr, offset: 128 })
+        DefineProp(this.Prototype, 'Rcx', { type: IntPtr, offset: 136 })
+        DefineProp(this.Prototype, 'Rdx', { type: IntPtr, offset: 144 })
+        DefineProp(this.Prototype, 'Rbx', { type: IntPtr, offset: 152 })
+        DefineProp(this.Prototype, 'Rsp', { type: IntPtr, offset: 160 })
+        DefineProp(this.Prototype, 'Rbp', { type: IntPtr, offset: 168 })
+        DefineProp(this.Prototype, 'Rsi', { type: IntPtr, offset: 176 })
+        DefineProp(this.Prototype, 'Rdi', { type: IntPtr, offset: 184 })
+        DefineProp(this.Prototype, 'R8', { type: IntPtr, offset: 192 })
+        DefineProp(this.Prototype, 'R9', { type: IntPtr, offset: 200 })
+        DefineProp(this.Prototype, 'R10', { type: IntPtr, offset: 208 })
+        DefineProp(this.Prototype, 'R11', { type: IntPtr, offset: 216 })
+        DefineProp(this.Prototype, 'R12', { type: IntPtr, offset: 224 })
+        DefineProp(this.Prototype, 'R13', { type: IntPtr, offset: 232 })
+        DefineProp(this.Prototype, 'R14', { type: IntPtr, offset: 240 })
+        DefineProp(this.Prototype, 'R15', { type: IntPtr, offset: 248 })
+        this.DeleteProp("__New")
     }
 }

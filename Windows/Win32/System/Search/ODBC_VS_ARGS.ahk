@@ -1,67 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ODBC_VS_ARGS extends Win32Struct {
-    static sizeof => 40
+export default struct ODBC_VS_ARGS {
+    #StructPack 8
 
-    static packingSize => 8
+    pguidEvent : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    pguidEvent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wszArg : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    wszArg {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszCorrelation : PWSTR
 
-    /**
-     * @type {PSTR}
-     */
-    szArg {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    RetCode : Int16
 
-    /**
-     * @type {PWSTR}
-     */
-    wszCorrelation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    szCorrelation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RetCode {
-        get => NumGet(this, 32, "short")
-        set => NumPut("short", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'szArg', { type: PSTR, offset: 16 })
+        DefineProp(this.Prototype, 'szCorrelation', { type: PSTR, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

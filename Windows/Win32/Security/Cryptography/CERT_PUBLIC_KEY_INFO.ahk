@@ -1,40 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains a public key and its algorithm.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_public_key_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_PUBLIC_KEY_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CERT_PUBLIC_KEY_INFO {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the public key algorithm type and associated additional parameters.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    Algorithm {
-        get {
-            if(!this.HasProp("__Algorithm"))
-                this.__Algorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
-            return this.__Algorithm
-        }
-    }
+    Algorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * BLOB containing an encoded public key.
-     * @type {CRYPT_BIT_BLOB}
      */
-    PublicKey {
-        get {
-            if(!this.HasProp("__PublicKey"))
-                this.__PublicKey := CRYPT_BIT_BLOB(24, this)
-            return this.__PublicKey
-        }
-    }
+    PublicKey : CRYPT_BIT_BLOB
+
 }

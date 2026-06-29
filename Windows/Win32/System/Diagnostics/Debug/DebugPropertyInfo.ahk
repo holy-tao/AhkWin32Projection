@@ -1,81 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IDebugProperty.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDebugProperty.ahk" { IDebugProperty }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class DebugPropertyInfo extends Win32Struct {
-    static sizeof => 56
+export default struct DebugPropertyInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    m_dwValidFields : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_dwValidFields {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    m_bstrName : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    m_bstrName {
-        get {
-            if(!this.HasProp("__m_bstrName"))
-                this.__m_bstrName := BSTR(8, this)
-            return this.__m_bstrName
-        }
-    }
+    m_bstrType : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    m_bstrType {
-        get {
-            if(!this.HasProp("__m_bstrType"))
-                this.__m_bstrType := BSTR(16, this)
-            return this.__m_bstrType
-        }
-    }
+    m_bstrValue : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    m_bstrValue {
-        get {
-            if(!this.HasProp("__m_bstrValue"))
-                this.__m_bstrValue := BSTR(24, this)
-            return this.__m_bstrValue
-        }
-    }
+    m_bstrFullName : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    m_bstrFullName {
-        get {
-            if(!this.HasProp("__m_bstrFullName"))
-                this.__m_bstrFullName := BSTR(32, this)
-            return this.__m_bstrFullName
-        }
-    }
+    m_dwAttrib : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_dwAttrib {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    m_pDebugProp : IDebugProperty
 
-    /**
-     * @type {IDebugProperty}
-     */
-    m_pDebugProp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

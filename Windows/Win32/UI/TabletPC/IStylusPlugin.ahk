@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRealTimeStylus.ahk" { IRealTimeStylus }
+#Import ".\SYSTEM_EVENT_DATA.ahk" { SYSTEM_EVENT_DATA }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RealTimeStylusDataInterest.ahk" { RealTimeStylusDataInterest }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\StylusInfo.ahk" { StylusInfo }
 
 /**
  * Receives notifications of RealTimeStylus Class events to enable you to perform custom processing based on those events.
@@ -10,26 +17,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-istylusplugin
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IStylusPlugin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStylusPlugin extends IUnknown {
     /**
      * The interface identifier for IStylusPlugin
      * @type {Guid}
      */
-    static IID => Guid("{a81436d8-4757-4fd1-a185-133f97c6c545}")
+    static IID := Guid("{a81436d8-4757-4fd1-a185-133f97c6c545}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStylusPlugin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RealTimeStylusEnabled  : IntPtr
+        RealTimeStylusDisabled : IntPtr
+        StylusInRange          : IntPtr
+        StylusOutOfRange       : IntPtr
+        StylusDown             : IntPtr
+        StylusUp               : IntPtr
+        StylusButtonDown       : IntPtr
+        StylusButtonUp         : IntPtr
+        InAirPackets           : IntPtr
+        Packets                : IntPtr
+        CustomStylusDataAdded  : IntPtr
+        SystemEvent            : IntPtr
+        TabletAdded            : IntPtr
+        TabletRemoved          : IntPtr
+        Error                  : IntPtr
+        UpdateMapping          : IntPtr
+        DataInterest           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RealTimeStylusEnabled", "RealTimeStylusDisabled", "StylusInRange", "StylusOutOfRange", "StylusDown", "StylusUp", "StylusButtonDown", "StylusButtonUp", "InAirPackets", "Packets", "CustomStylusDataAdded", "SystemEvent", "TabletAdded", "TabletRemoved", "Error", "UpdateMapping", "DataInterest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStylusPlugin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the implementing plug-in that the RealTimeStylus Class (RTS) object is enabled.
@@ -119,7 +149,7 @@ class IStylusPlugin extends IUnknown {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
         ppInOutPktMarshal := ppInOutPkt is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
+        result := ComCall(7, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -149,7 +179,7 @@ class IStylusPlugin extends IUnknown {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
         ppInOutPktMarshal := ppInOutPkt is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
+        result := ComCall(8, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -165,7 +195,7 @@ class IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusbuttondown
      */
     StylusButtonDown(piRtsSrc, _sid, pGuidStylusButton, pStylusPos) {
-        result := ComCall(9, this, "ptr", piRtsSrc, "uint", _sid, "ptr", pGuidStylusButton, "ptr", pStylusPos, "HRESULT")
+        result := ComCall(9, this, "ptr", piRtsSrc, "uint", _sid, Guid.Ptr, pGuidStylusButton, POINT.Ptr, pStylusPos, "HRESULT")
         return result
     }
 
@@ -181,7 +211,7 @@ class IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusbuttonup
      */
     StylusButtonUp(piRtsSrc, _sid, pGuidStylusButton, pStylusPos) {
-        result := ComCall(10, this, "ptr", piRtsSrc, "uint", _sid, "ptr", pGuidStylusButton, "ptr", pStylusPos, "HRESULT")
+        result := ComCall(10, this, "ptr", piRtsSrc, "uint", _sid, Guid.Ptr, pGuidStylusButton, POINT.Ptr, pStylusPos, "HRESULT")
         return result
     }
 
@@ -214,7 +244,7 @@ class IStylusPlugin extends IUnknown {
         pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
         ppInOutPktsMarshal := ppInOutPkts is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
+        result := ComCall(11, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -241,7 +271,7 @@ class IStylusPlugin extends IUnknown {
         pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
         ppInOutPktsMarshal := ppInOutPkts is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
+        result := ComCall(12, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -259,7 +289,7 @@ class IStylusPlugin extends IUnknown {
     CustomStylusDataAdded(piRtsSrc, pGuidId, cbData, pbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "ptr", piRtsSrc, "ptr", pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
+        result := ComCall(13, this, "ptr", piRtsSrc, Guid.Ptr, pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 
@@ -279,7 +309,7 @@ class IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-systemevent
      */
     SystemEvent(piRtsSrc, tcid, _sid, event, eventdata) {
-        result := ComCall(14, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "ushort", event, "ptr", eventdata, "HRESULT")
+        result := ComCall(14, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "ushort", event, SYSTEM_EVENT_DATA, eventdata, "HRESULT")
         return result
     }
 
@@ -326,7 +356,7 @@ class IStylusPlugin extends IUnknown {
     Error(piRtsSrc, piPlugin, dataInterest, hrErrorCode, lptrKey) {
         lptrKeyMarshal := lptrKey is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "ptr", piRtsSrc, "ptr", piPlugin, "int", dataInterest, "int", hrErrorCode, lptrKeyMarshal, lptrKey, "HRESULT")
+        result := ComCall(17, this, "ptr", piRtsSrc, "ptr", piPlugin, RealTimeStylusDataInterest, dataInterest, "int", hrErrorCode, lptrKeyMarshal, lptrKey, "HRESULT")
         return result
     }
 
@@ -357,5 +387,57 @@ class IStylusPlugin extends IUnknown {
     DataInterest() {
         result := ComCall(19, this, "int*", &pDataInterest := 0, "HRESULT")
         return pDataInterest
+    }
+
+    Query(iid) {
+        if (IStylusPlugin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RealTimeStylusEnabled := CallbackCreate(GetMethod(implObj, "RealTimeStylusEnabled"), flags, 4)
+        this.vtbl.RealTimeStylusDisabled := CallbackCreate(GetMethod(implObj, "RealTimeStylusDisabled"), flags, 4)
+        this.vtbl.StylusInRange := CallbackCreate(GetMethod(implObj, "StylusInRange"), flags, 4)
+        this.vtbl.StylusOutOfRange := CallbackCreate(GetMethod(implObj, "StylusOutOfRange"), flags, 4)
+        this.vtbl.StylusDown := CallbackCreate(GetMethod(implObj, "StylusDown"), flags, 6)
+        this.vtbl.StylusUp := CallbackCreate(GetMethod(implObj, "StylusUp"), flags, 6)
+        this.vtbl.StylusButtonDown := CallbackCreate(GetMethod(implObj, "StylusButtonDown"), flags, 5)
+        this.vtbl.StylusButtonUp := CallbackCreate(GetMethod(implObj, "StylusButtonUp"), flags, 5)
+        this.vtbl.InAirPackets := CallbackCreate(GetMethod(implObj, "InAirPackets"), flags, 8)
+        this.vtbl.Packets := CallbackCreate(GetMethod(implObj, "Packets"), flags, 8)
+        this.vtbl.CustomStylusDataAdded := CallbackCreate(GetMethod(implObj, "CustomStylusDataAdded"), flags, 5)
+        this.vtbl.SystemEvent := CallbackCreate(GetMethod(implObj, "SystemEvent"), flags, 6)
+        this.vtbl.TabletAdded := CallbackCreate(GetMethod(implObj, "TabletAdded"), flags, 3)
+        this.vtbl.TabletRemoved := CallbackCreate(GetMethod(implObj, "TabletRemoved"), flags, 3)
+        this.vtbl.Error := CallbackCreate(GetMethod(implObj, "Error"), flags, 6)
+        this.vtbl.UpdateMapping := CallbackCreate(GetMethod(implObj, "UpdateMapping"), flags, 2)
+        this.vtbl.DataInterest := CallbackCreate(GetMethod(implObj, "DataInterest"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RealTimeStylusEnabled)
+        CallbackFree(this.vtbl.RealTimeStylusDisabled)
+        CallbackFree(this.vtbl.StylusInRange)
+        CallbackFree(this.vtbl.StylusOutOfRange)
+        CallbackFree(this.vtbl.StylusDown)
+        CallbackFree(this.vtbl.StylusUp)
+        CallbackFree(this.vtbl.StylusButtonDown)
+        CallbackFree(this.vtbl.StylusButtonUp)
+        CallbackFree(this.vtbl.InAirPackets)
+        CallbackFree(this.vtbl.Packets)
+        CallbackFree(this.vtbl.CustomStylusDataAdded)
+        CallbackFree(this.vtbl.SystemEvent)
+        CallbackFree(this.vtbl.TabletAdded)
+        CallbackFree(this.vtbl.TabletRemoved)
+        CallbackFree(this.vtbl.Error)
+        CallbackFree(this.vtbl.UpdateMapping)
+        CallbackFree(this.vtbl.DataInterest)
     }
 }

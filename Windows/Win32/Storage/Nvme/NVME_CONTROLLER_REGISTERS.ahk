@@ -1,17 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_CONTROLLER_CAPABILITIES.ahk
-#Include .\NVME_VERSION.ahk
-#Include .\NVME_CONTROLLER_CONFIGURATION.ahk
-#Include .\NVME_CONTROLLER_STATUS.ahk
-#Include .\NVME_NVM_SUBSYSTEM_RESET.ahk
-#Include .\NVME_ADMIN_QUEUE_ATTRIBUTES.ahk
-#Include .\NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS.ahk
-#Include .\NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS.ahk
-#Include .\NVME_CONTROLLER_MEMORY_BUFFER_LOCATION.ahk
-#Include .\NVME_CONTROLLER_MEMORY_BUFFER_SIZE.ahk
-#Include .\NVME_NVM_SUBSYSTEM_SHUTDOWN.ahk
-#Include .\NVME_CONTROLLER_READY_TIMEOUTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_CONTROLLER_READY_TIMEOUTS.ahk" { NVME_CONTROLLER_READY_TIMEOUTS }
+#Import ".\NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS.ahk" { NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS }
+#Import ".\NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS.ahk" { NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS }
+#Import ".\NVME_CONTROLLER_MEMORY_BUFFER_SIZE.ahk" { NVME_CONTROLLER_MEMORY_BUFFER_SIZE }
+#Import ".\NVME_VERSION.ahk" { NVME_VERSION }
+#Import ".\NVME_CONTROLLER_CONFIGURATION.ahk" { NVME_CONTROLLER_CONFIGURATION }
+#Import ".\NVME_NVM_SUBSYSTEM_SHUTDOWN.ahk" { NVME_NVM_SUBSYSTEM_SHUTDOWN }
+#Import ".\NVME_CONTROLLER_STATUS.ahk" { NVME_CONTROLLER_STATUS }
+#Import ".\NVME_CONTROLLER_CAPABILITIES.ahk" { NVME_CONTROLLER_CAPABILITIES }
+#Import ".\NVME_CONTROLLER_MEMORY_BUFFER_LOCATION.ahk" { NVME_CONTROLLER_MEMORY_BUFFER_LOCATION }
+#Import ".\NVME_ADMIN_QUEUE_ATTRIBUTES.ahk" { NVME_ADMIN_QUEUE_ATTRIBUTES }
+#Import ".\NVME_NVM_SUBSYSTEM_RESET.ahk" { NVME_NVM_SUBSYSTEM_RESET }
 
 /**
  * Specifies the register map for the controller.
@@ -26,38 +25,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_registers
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CONTROLLER_REGISTERS extends Win32Struct {
-    static sizeof => 4152
-
-    static packingSize => 8
+export default struct NVME_CONTROLLER_REGISTERS {
+    #StructPack 8
 
     /**
      * A [NVME_CONTROLLER_CAPABILITIES](ns-nvme-nvme_controller_capabilities.md) structure that indicates the basic capabilities of the controller to host software.
      * 
      * The Controller Capabilities **CAP** register starts at Offset 00h.
-     * @type {NVME_CONTROLLER_CAPABILITIES}
      */
-    CAP {
-        get {
-            if(!this.HasProp("__CAP"))
-                this.__CAP := NVME_CONTROLLER_CAPABILITIES(0, this)
-            return this.__CAP
-        }
-    }
+    CAP : NVME_CONTROLLER_CAPABILITIES
 
     /**
      * a [NVME_VERSION](nvme\ns-nvme-nvme_version.md) structure that indicates the major and minor version of the NVM Express specification that the controller implementation supports. Valid versions of the specification are: 1.0, 1.1, and 1.2.
      * 
      * The Version **VS** register starts at Offset 08h.
-     * @type {NVME_VERSION}
      */
-    VS {
-        get {
-            if(!this.HasProp("__VS"))
-                this.__VS := NVME_VERSION(16, this)
-            return this.__VS
-        }
-    }
+    VS : NVME_VERSION
 
     /**
      * Indicates whether an interrupt vector is masked from generating an interrupt or reporting a pending interrupt in the MSI Capability Structure.
@@ -69,12 +52,8 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct {
      * This register is used to mask interrupts when using pin-based interrupts, single message MSI, or multiple message MSI. When using MSI-X, the interrupt mask table defined as part of MSI-X should be used to mask interrupts. Host software should not access this register when it is configured for MSI-X; any access when configured for MSI-X is undefined.
      * 
      * The Interrupt Mask Set **INTMS** register starts at Offset 0Ch.
-     * @type {Integer}
      */
-    INTMS {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    INTMS : UInt32
 
     /**
      * Indicates whether an interrupt vector is masked.
@@ -86,12 +65,8 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct {
      * This register is used to unmask interrupts when using pin-based interrupts, single message MSI, or multiple message MSI. When using MSI-X, the interrupt mask table defined as part of MSI-X should be used to unmask interrupts. Host software should not access this register when it is configured for MSI-X; any access when configured for MSI-X is undefined.
      * 
      * The Interrupt Mask Clear **INTMS** register starts at Offset 10h.
-     * @type {Integer}
      */
-    INTMC {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    INTMC : UInt32
 
     /**
      * A [NVME_CONTROLLER_CONFIGURATION](ns-nvme-nvme_controller_configuration.md) structure that contains read/write configuration settings for the controller.
@@ -99,40 +74,22 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct {
      * Host software must set the Arbitration Mechanism (**AMS**), Memory Page Size (**MPS**), and Command Set (**CSS**) fields in [NVME_CONTROLLER_CONFIGURATION](ns-nvme-nvme_controller_configuration.md) to valid values prior to enabling the controller by setting the Enable (**EN**) field to `1`.
      * 
      * The Controller Configuration **CC** register starts at Offset 14h.
-     * @type {NVME_CONTROLLER_CONFIGURATION}
      */
-    CC {
-        get {
-            if(!this.HasProp("__CC"))
-                this.__CC := NVME_CONTROLLER_CONFIGURATION(32, this)
-            return this.__CC
-        }
-    }
+    CC : NVME_CONTROLLER_CONFIGURATION
 
     /**
      * Offset 18h is reserved.
      * 
      * All reserved registers and all reserved bits within registers are read-only and return `0h` when read, however, software should not rely on `0h` being returned.
-     * @type {Integer}
      */
-    Reserved0 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Reserved0 : UInt32
 
     /**
      * A [NVME_CONTROLLER_STATUS](ns-nvme-nvme_controller_status.md) structure that indicates controller status.
      * 
      * The Controller Status **CSTS** register starts at Offset 1Ch.
-     * @type {NVME_CONTROLLER_STATUS}
      */
-    CSTS {
-        get {
-            if(!this.HasProp("__CSTS"))
-                this.__CSTS := NVME_CONTROLLER_STATUS(44, this)
-            return this.__CSTS
-        }
-    }
+    CSTS : NVME_CONTROLLER_STATUS
 
     /**
      * A [NVME_NVM_SUBSYSTEM_RESET](ns-nvme-nvme_nvm_subsystem_reset.md) structure that provides host software with the capability to initiate an NVM Subsystem Reset.
@@ -140,57 +97,29 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct {
      * Support for this optional register is indicated by the state of the NVM Subsystem Reset Supported (**NSSRS**) field in the [Controller Capabilities](C:\Users\v-thpra\sdk-api\sdk-api-src\content\nvme\ns-nvme-nvme_controller_capabilities.md). If the register is not supported, then the address range occupied by the register is reserved.
      * 
      * The (Optional) NVM Subsystem Reset register starts at Offset 20h.
-     * @type {NVME_NVM_SUBSYSTEM_RESET}
      */
-    NSSR {
-        get {
-            if(!this.HasProp("__NSSR"))
-                this.__NSSR := NVME_NVM_SUBSYSTEM_RESET(52, this)
-            return this.__NSSR
-        }
-    }
+    NSSR : NVME_NVM_SUBSYSTEM_RESET
 
     /**
      * A [NVME_ADMIN_QUEUE_ATTRIBUTES](ns-nvme-nvme_admin_queue_attributes.md) structure that specifies the Admin Queue Attributes for the Admin Submission Queue and Admin Completion Queue.
      * 
      * The Admin Queue Attributes **AQA** register starts at Offset 24h.
-     * @type {NVME_ADMIN_QUEUE_ATTRIBUTES}
      */
-    AQA {
-        get {
-            if(!this.HasProp("__AQA"))
-                this.__AQA := NVME_ADMIN_QUEUE_ATTRIBUTES(56, this)
-            return this.__AQA
-        }
-    }
+    AQA : NVME_ADMIN_QUEUE_ATTRIBUTES
 
     /**
      * A [NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS](ns-nvme-nvme_admin_submission_queue_base_address.md) structure that specifies the base memory address of the Admin Submission Queue.
      * 
      * The Admin Submission Queue Base Address register starts at Offset 28h.
-     * @type {NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS}
      */
-    ASQ {
-        get {
-            if(!this.HasProp("__ASQ"))
-                this.__ASQ := NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(64, this)
-            return this.__ASQ
-        }
-    }
+    ASQ : NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS
 
     /**
      * A [NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS](ns-nvme-nvme_admin_completion_queue_base_address.md) structure that specifies the base memory address of the Admin Completion Queue.
      * 
      * Admin Completion Queue Base Address register starts at Offset 30h.
-     * @type {NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS}
      */
-    ACQ {
-        get {
-            if(!this.HasProp("__ACQ"))
-                this.__ACQ := NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(80, this)
-            return this.__ACQ
-        }
-    }
+    ACQ : NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS
 
     /**
      * A [NVME_CONTROLLER_MEMORY_BUFFER_LOCATION](ns-nvme-nvme_controller_memory_buffer_location.md) structure that specifies the location of the Controller Memory Buffer.
@@ -198,15 +127,8 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct {
      * If the value of **CMBSZ** is `0`, this register is reserved.
      * 
      * The (Optional) Controller Memory Buffer Location register starts at Offset 38h.
-     * @type {NVME_CONTROLLER_MEMORY_BUFFER_LOCATION}
      */
-    CMBLOC {
-        get {
-            if(!this.HasProp("__CMBLOC"))
-                this.__CMBLOC := NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(96, this)
-            return this.__CMBLOC
-        }
-    }
+    CMBLOC : NVME_CONTROLLER_MEMORY_BUFFER_LOCATION
 
     /**
      * A [NVME_CONTROLLER_MEMORY_BUFFER_SIZE](ns-nvme-nvme_controller_memory_buffer_size.md) structure that specifies the size of the Controller Memory Buffer.
@@ -214,86 +136,32 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct {
      * If the controller does not support the Controller Memory Buffer feature then this register is cleared to `0h`.
      * 
      * The (Optional) Controller Memory Buffer Size register starts at Offset 3Ch.
-     * @type {NVME_CONTROLLER_MEMORY_BUFFER_SIZE}
      */
-    CMBSZ {
-        get {
-            if(!this.HasProp("__CMBSZ"))
-                this.__CMBSZ := NVME_CONTROLLER_MEMORY_BUFFER_SIZE(104, this)
-            return this.__CMBSZ
-        }
-    }
+    CMBSZ : NVME_CONTROLLER_MEMORY_BUFFER_SIZE
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 112, 9, Primitive, "uint")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : UInt32[9]
 
-    /**
-     * @type {NVME_NVM_SUBSYSTEM_SHUTDOWN}
-     */
-    NSSD {
-        get {
-            if(!this.HasProp("__NSSD"))
-                this.__NSSD := NVME_NVM_SUBSYSTEM_SHUTDOWN(148, this)
-            return this.__NSSD
-        }
-    }
+    NSSD : NVME_NVM_SUBSYSTEM_SHUTDOWN
 
-    /**
-     * @type {NVME_CONTROLLER_READY_TIMEOUTS}
-     */
-    CRTO {
-        get {
-            if(!this.HasProp("__CRTO"))
-                this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(152, this)
-            return this.__CRTO
-        }
-    }
+    CRTO : NVME_CONTROLLER_READY_TIMEOUTS
 
     /**
      * Offset 40h to EFFh is reserved.
      * 
      * All reserved registers and all reserved bits within registers are read-only and return `0h` when read, however, software should not rely on `0h` being returned.
-     * @type {Array<Integer>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 160, 933, Primitive, "uint")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : UInt32[933]
 
     /**
      * Offset F00h to FFFh is reserved for Command Set specific registers.
      * 
      * All reserved registers and all reserved bits within registers are read-only and return `0h` when read, however, software should not rely on `0h` being returned.
-     * @type {Array<Integer>}
      */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3892, 64, Primitive, "uint")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : UInt32[64]
 
     /**
      * Specifies the start of the first Doorbell register. The Admin [Submission Queue Tail Doorbell](ns-nvme-nvme_submission_queue_tail_doorbell.md).
-     * @type {Array<Integer>}
      */
-    Doorbells {
-        get {
-            if(!this.HasProp("__DoorbellsProxyArray"))
-                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4148, 1, Primitive, "uint")
-            return this.__DoorbellsProxyArray
-        }
-    }
+    Doorbells : UInt32[1]
+
 }

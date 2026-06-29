@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the types of collision that can occur between Local Security Authority forest trust records.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-lsa_forest_trust_collision_record_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_FOREST_TRUST_COLLISION_RECORD_TYPE extends Win32Enum {
+export default struct LSA_FOREST_TRUST_COLLISION_RECORD_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Collision between <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> objects. This indicates a collision with a namespace element of another forest.

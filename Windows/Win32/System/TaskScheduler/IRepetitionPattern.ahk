@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines how often the task is run and how long the repetition pattern is repeated after the task is started.
@@ -23,26 +26,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irepetitionpattern
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IRepetitionPattern extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRepetitionPattern extends IDispatch {
     /**
      * The interface identifier for IRepetitionPattern
      * @type {Guid}
      */
-    static IID => Guid("{7fb9acf1-26be-400e-85b5-294b9c75dfd6}")
+    static IID := Guid("{7fb9acf1-26be-400e-85b5-294b9c75dfd6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRepetitionPattern interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Interval          : IntPtr
+        put_Interval          : IntPtr
+        get_Duration          : IntPtr
+        put_Duration          : IntPtr
+        get_StopAtDurationEnd : IntPtr
+        put_StopAtDurationEnd : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Interval", "put_Interval", "get_Duration", "put_Duration", "get_StopAtDurationEnd", "put_StopAtDurationEnd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRepetitionPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -79,7 +94,7 @@ class IRepetitionPattern extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_interval
      */
     get_Interval(pInterval) {
-        result := ComCall(7, this, "ptr", pInterval, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pInterval, "HRESULT")
         return result
     }
 
@@ -96,7 +111,7 @@ class IRepetitionPattern extends IDispatch {
     put_Interval(_interval) {
         _interval := _interval is String ? BSTR.Alloc(_interval).Value : _interval
 
-        result := ComCall(8, this, "ptr", _interval, "HRESULT")
+        result := ComCall(8, this, BSTR, _interval, "HRESULT")
         return result
     }
 
@@ -111,7 +126,7 @@ class IRepetitionPattern extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_duration
      */
     get_Duration(pDuration) {
-        result := ComCall(9, this, "ptr", pDuration, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pDuration, "HRESULT")
         return result
     }
 
@@ -128,7 +143,7 @@ class IRepetitionPattern extends IDispatch {
     put_Duration(duration) {
         duration := duration is String ? BSTR.Alloc(duration).Value : duration
 
-        result := ComCall(10, this, "ptr", duration, "HRESULT")
+        result := ComCall(10, this, BSTR, duration, "HRESULT")
         return result
     }
 
@@ -156,7 +171,37 @@ class IRepetitionPattern extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-put_stopatdurationend
      */
     put_StopAtDurationEnd(stop) {
-        result := ComCall(12, this, "short", stop, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, stop, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRepetitionPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Interval := CallbackCreate(GetMethod(implObj, "get_Interval"), flags, 2)
+        this.vtbl.put_Interval := CallbackCreate(GetMethod(implObj, "put_Interval"), flags, 2)
+        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_Duration := CallbackCreate(GetMethod(implObj, "put_Duration"), flags, 2)
+        this.vtbl.get_StopAtDurationEnd := CallbackCreate(GetMethod(implObj, "get_StopAtDurationEnd"), flags, 2)
+        this.vtbl.put_StopAtDurationEnd := CallbackCreate(GetMethod(implObj, "put_StopAtDurationEnd"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Interval)
+        CallbackFree(this.vtbl.put_Interval)
+        CallbackFree(this.vtbl.get_Duration)
+        CallbackFree(this.vtbl.put_Duration)
+        CallbackFree(this.vtbl.get_StopAtDurationEnd)
+        CallbackFree(this.vtbl.put_StopAtDurationEnd)
     }
 }

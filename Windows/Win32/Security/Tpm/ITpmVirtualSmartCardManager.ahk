@@ -1,39 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITpmVirtualSmartCardManagerStatusCallback.ahk" { ITpmVirtualSmartCardManagerStatusCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages the TPM virtual smart cards.
  * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanager
  * @namespace Windows.Win32.Security.Tpm
  */
-class ITpmVirtualSmartCardManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITpmVirtualSmartCardManager extends IUnknown {
     /**
      * The interface identifier for ITpmVirtualSmartCardManager
      * @type {Guid}
      */
-    static IID => Guid("{112b1dff-d9dc-41f7-869f-d67fee7cb591}")
+    static IID := Guid("{112b1dff-d9dc-41f7-869f-d67fee7cb591}")
 
     /**
      * The class identifier for TpmVirtualSmartCardManager
      * @type {Guid}
      */
-    static CLSID => Guid("{16a18e86-7f6e-4c20-ad89-4ffc0db7a96a}")
+    static CLSID := Guid("{16a18e86-7f6e-4c20-ad89-4ffc0db7a96a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITpmVirtualSmartCardManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateVirtualSmartCard  : IntPtr
+        DestroyVirtualSmartCard : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateVirtualSmartCard", "DestroyVirtualSmartCard"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITpmVirtualSmartCardManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a TPM virtual smart card with the given parameters.
@@ -68,7 +80,7 @@ class ITpmVirtualSmartCardManager extends IUnknown {
         ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
         pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, "int", fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
         return result
     }
 
@@ -82,7 +94,29 @@ class ITpmVirtualSmartCardManager extends IUnknown {
     DestroyVirtualSmartCard(pszInstanceId, pStatusCallback) {
         pszInstanceId := pszInstanceId is String ? StrPtr(pszInstanceId) : pszInstanceId
 
-        result := ComCall(4, this, "ptr", pszInstanceId, "ptr", pStatusCallback, "int*", &pfNeedReboot := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszInstanceId, "ptr", pStatusCallback, BOOL.Ptr, &pfNeedReboot := 0, "HRESULT")
         return pfNeedReboot
+    }
+
+    Query(iid) {
+        if (ITpmVirtualSmartCardManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateVirtualSmartCard := CallbackCreate(GetMethod(implObj, "CreateVirtualSmartCard"), flags, 15)
+        this.vtbl.DestroyVirtualSmartCard := CallbackCreate(GetMethod(implObj, "DestroyVirtualSmartCard"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateVirtualSmartCard)
+        CallbackFree(this.vtbl.DestroyVirtualSmartCard)
     }
 }

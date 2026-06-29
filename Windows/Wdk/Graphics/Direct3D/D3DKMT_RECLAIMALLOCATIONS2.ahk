@@ -1,68 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_RECLAIM_RESULT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DDDI_RECLAIM_RESULT.ahk" { D3DDDI_RECLAIM_RESULT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_RECLAIMALLOCATIONS2 extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_RECLAIMALLOCATIONS2 {
+    #StructPack 8
 
-    static packingSize => 8
+    hPagingQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hPagingQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumAllocations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumAllocations {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pResources : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pResources {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    HandleList : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    HandleList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDiscarded : BOOL.Ptr
 
-    /**
-     * @type {Pointer<BOOL>}
-     */
-    pDiscarded {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PagingFenceValue : Int64
 
-    /**
-     * @type {Pointer<D3DDDI_RECLAIM_RESULT>}
-     */
-    pResults {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PagingFenceValue {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'pResults', { type: D3DDDI_RECLAIM_RESULT.Ptr, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

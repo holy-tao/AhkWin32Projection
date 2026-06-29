@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionDevice2.ahk
-#Include .\IDCompositionTarget.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * An application must use the IDCompositionDesktopDevice interface in order to use DirectComposition in a Win32 desktop application.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondesktopdevice
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionDesktopDevice extends IDCompositionDevice2 {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionDesktopDevice extends IDCompositionDevice2 {
     /**
      * The interface identifier for IDCompositionDesktopDevice
      * @type {Guid}
      */
-    static IID => Guid("{5f4633fe-1e08-4cb8-8c75-ce24333f5602}")
+    static IID := Guid("{5f4633fe-1e08-4cb8-8c75-ce24333f5602}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionDesktopDevice interfaces
+    */
+    struct Vtbl extends IDCompositionDevice2.Vtbl {
+        CreateTargetForHwnd     : IntPtr
+        CreateSurfaceFromHandle : IntPtr
+        CreateSurfaceFromHwnd   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTargetForHwnd", "CreateSurfaceFromHandle", "CreateSurfaceFromHwnd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionDesktopDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a composition target object that is bound to the window that is represented by the specified window handle.
@@ -55,9 +68,7 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2 {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createtargetforhwnd
      */
     CreateTargetForHwnd(_hwnd, topmost) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(24, this, "ptr", _hwnd, "int", topmost, "ptr*", &target := 0, "HRESULT")
+        result := ComCall(24, this, HWND, _hwnd, BOOL, topmost, "ptr*", &target := 0, "HRESULT")
         return IDCompositionTarget(target)
     }
 
@@ -68,9 +79,7 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2 {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhandle
      */
     CreateSurfaceFromHandle(_handle) {
-        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
-
-        result := ComCall(25, this, "ptr", _handle, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(25, this, HANDLE, _handle, "ptr*", &surface := 0, "HRESULT")
         return IUnknown(surface)
     }
 
@@ -91,9 +100,31 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2 {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhwnd
      */
     CreateSurfaceFromHwnd(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(26, this, "ptr", _hwnd, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(26, this, HWND, _hwnd, "ptr*", &surface := 0, "HRESULT")
         return IUnknown(surface)
+    }
+
+    Query(iid) {
+        if (IDCompositionDesktopDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTargetForHwnd := CallbackCreate(GetMethod(implObj, "CreateTargetForHwnd"), flags, 4)
+        this.vtbl.CreateSurfaceFromHandle := CallbackCreate(GetMethod(implObj, "CreateSurfaceFromHandle"), flags, 3)
+        this.vtbl.CreateSurfaceFromHwnd := CallbackCreate(GetMethod(implObj, "CreateSurfaceFromHwnd"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTargetForHwnd)
+        CallbackFree(this.vtbl.CreateSurfaceFromHandle)
+        CallbackFree(this.vtbl.CreateSurfaceFromHwnd)
     }
 }

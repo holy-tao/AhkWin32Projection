@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DResource9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
 
 /**
  * The IDirect3DBaseTexture9 (d3d9.h) interface applications use the methods of the IDirect3DBaseTexture9 interface to manipulate texture resources.
@@ -20,26 +22,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dbasetexture9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DBaseTexture9 extends IDirect3DResource9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DBaseTexture9 extends IDirect3DResource9 {
     /**
      * The interface identifier for IDirect3DBaseTexture9
      * @type {Guid}
      */
-    static IID => Guid("{580ca87e-1d3c-4d54-991d-b7d3e3c298ce}")
+    static IID := Guid("{580ca87e-1d3c-4d54-991d-b7d3e3c298ce}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DBaseTexture9 interfaces
+    */
+    struct Vtbl extends IDirect3DResource9.Vtbl {
+        SetLOD               : IntPtr
+        GetLOD               : IntPtr
+        GetLevelCount        : IntPtr
+        SetAutoGenFilterType : IntPtr
+        GetAutoGenFilterType : IntPtr
+        GenerateMipSubLevels : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetLOD", "GetLOD", "GetLevelCount", "SetAutoGenFilterType", "GetAutoGenFilterType", "GenerateMipSubLevels"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DBaseTexture9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DBaseTexture9::SetLOD sets the most detailed level-of-detail for a managed texture.
@@ -74,7 +88,7 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-setlod
      */
     SetLOD(LODNew) {
-        result := ComCall(11, this, "uint", LODNew, "uint")
+        result := ComCall(11, this, "uint", LODNew, UInt32)
         return result
     }
 
@@ -86,7 +100,7 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-getlod
      */
     GetLOD() {
-        result := ComCall(12, this, "uint")
+        result := ComCall(12, this, UInt32)
         return result
     }
 
@@ -114,7 +128,7 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-getlevelcount
      */
     GetLevelCount() {
-        result := ComCall(13, this, "uint")
+        result := ComCall(13, this, UInt32)
         return result
     }
 
@@ -137,7 +151,7 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-setautogenfiltertype
      */
     SetAutoGenFilterType(_FilterType) {
-        result := ComCall(14, this, "int", _FilterType, "HRESULT")
+        result := ComCall(14, this, D3DTEXTUREFILTERTYPE, _FilterType, "HRESULT")
         return result
     }
 
@@ -155,7 +169,7 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-getautogenfiltertype
      */
     GetAutoGenFilterType() {
-        result := ComCall(15, this, "int")
+        result := ComCall(15, this, D3DTEXTUREFILTERTYPE)
         return result
     }
 
@@ -168,5 +182,35 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9 {
      */
     GenerateMipSubLevels() {
         ComCall(16, this)
+    }
+
+    Query(iid) {
+        if (IDirect3DBaseTexture9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetLOD := CallbackCreate(GetMethod(implObj, "SetLOD"), flags, 2)
+        this.vtbl.GetLOD := CallbackCreate(GetMethod(implObj, "GetLOD"), flags, 1)
+        this.vtbl.GetLevelCount := CallbackCreate(GetMethod(implObj, "GetLevelCount"), flags, 1)
+        this.vtbl.SetAutoGenFilterType := CallbackCreate(GetMethod(implObj, "SetAutoGenFilterType"), flags, 2)
+        this.vtbl.GetAutoGenFilterType := CallbackCreate(GetMethod(implObj, "GetAutoGenFilterType"), flags, 1)
+        this.vtbl.GenerateMipSubLevels := CallbackCreate(GetMethod(implObj, "GenerateMipSubLevels"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetLOD)
+        CallbackFree(this.vtbl.GetLOD)
+        CallbackFree(this.vtbl.GetLevelCount)
+        CallbackFree(this.vtbl.SetAutoGenFilterType)
+        CallbackFree(this.vtbl.GetAutoGenFilterType)
+        CallbackFree(this.vtbl.GenerateMipSubLevels)
     }
 }

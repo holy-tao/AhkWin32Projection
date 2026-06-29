@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WBEM_COMPILE_STATUS_INFO.ahk" { WBEM_COMPILE_STATUS_INFO }
 
 /**
  * The IMofCompiler interface, implemented by Mofd.dll, provides a COM interface that is used by the Managed Object Format (MOF) compiler and any other applications that compile MOF files.
@@ -10,32 +13,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-imofcompiler
  * @namespace Windows.Win32.System.Wmi
  */
-class IMofCompiler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMofCompiler extends IUnknown {
     /**
      * The interface identifier for IMofCompiler
      * @type {Guid}
      */
-    static IID => Guid("{6daf974e-2e37-11d2-aec9-00c04fb68820}")
+    static IID := Guid("{6daf974e-2e37-11d2-aec9-00c04fb68820}")
 
     /**
      * The class identifier for MofCompiler
      * @type {Guid}
      */
-    static CLSID => Guid("{6daf9757-2e37-11d2-aec9-00c04fb68820}")
+    static CLSID := Guid("{6daf9757-2e37-11d2-aec9-00c04fb68820}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMofCompiler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CompileFile   : IntPtr
+        CompileBuffer : IntPtr
+        CreateBMOF    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CompileFile", "CompileBuffer", "CreateBMOF"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMofCompiler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IMofCompiler::CompileFile method compiles a MOF file (including binary MOFs) and stores the information in the WMI repository.
@@ -78,7 +90,7 @@ class IMofCompiler extends IUnknown {
         Authority := Authority is String ? StrPtr(Authority) : Authority
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(3, this, "ptr", FileName, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, "ptr", pInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", FileName, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -115,7 +127,7 @@ class IMofCompiler extends IUnknown {
         Authority := Authority is String ? StrPtr(Authority) : Authority
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(4, this, "int", BuffSize, "ptr", pBuffer, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, "ptr", pInfo, "HRESULT")
+        result := ComCall(4, this, "int", BuffSize, "ptr", pBuffer, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -167,7 +179,31 @@ class IMofCompiler extends IUnknown {
         BMOFFileName := BMOFFileName is String ? StrPtr(BMOFFileName) : BMOFFileName
         ServerAndNamespace := ServerAndNamespace is String ? StrPtr(ServerAndNamespace) : ServerAndNamespace
 
-        result := ComCall(5, this, "ptr", TextFileName, "ptr", BMOFFileName, "ptr", ServerAndNamespace, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, "ptr", pInfo, "HRESULT")
+        result := ComCall(5, this, "ptr", TextFileName, "ptr", BMOFFileName, "ptr", ServerAndNamespace, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMofCompiler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CompileFile := CallbackCreate(GetMethod(implObj, "CompileFile"), flags, 10)
+        this.vtbl.CompileBuffer := CallbackCreate(GetMethod(implObj, "CompileBuffer"), flags, 11)
+        this.vtbl.CreateBMOF := CallbackCreate(GetMethod(implObj, "CreateBMOF"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CompileFile)
+        CallbackFree(this.vtbl.CompileBuffer)
+        CallbackFree(this.vtbl.CreateBMOF)
     }
 }

@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SETUP_DI_DEVICE_INSTALL_FLAGS.ahk
-#Include .\SETUP_DI_DEVICE_INSTALL_FLAGS_EX.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SETUP_DI_DEVICE_INSTALL_FLAGS.ahk" { SETUP_DI_DEVICE_INSTALL_FLAGS }
+#Import ".\SETUP_DI_DEVICE_INSTALL_FLAGS_EX.ahk" { SETUP_DI_DEVICE_INSTALL_FLAGS_EX }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * An SP_DEVINSTALL_PARAMS structure contains device installation parameters associated with a particular device information element or associated globally with a device information set. (Unicode)
@@ -14,65 +14,32 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class SP_DEVINSTALL_PARAMS_W extends Win32Struct {
-    static sizeof => 584
-
-    static packingSize => 8
+export default struct SP_DEVINSTALL_PARAMS_W {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the SP_DEVINSTALL_PARAMS structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {SETUP_DI_DEVICE_INSTALL_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : SETUP_DI_DEVICE_INSTALL_FLAGS
 
-    /**
-     * @type {SETUP_DI_DEVICE_INSTALL_FLAGS_EX}
-     */
-    FlagsEx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FlagsEx : SETUP_DI_DEVICE_INSTALL_FLAGS_EX
 
     /**
      * Window handle that will own the user interface dialogs related to this device.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(16, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
     /**
      * Callback used to handle events during file copying. An installer can use a callback, for example, to perform special processing when committing a file queue.
-     * @type {Pointer<PSP_FILE_CALLBACK_W>}
      */
-    InstallMsgHandler {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InstallMsgHandler : IntPtr
 
     /**
      * Private data that is used by the <b>InstallMsgHandler</b> callback.
-     * @type {Pointer<Void>}
      */
-    InstallMsgHandlerContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    InstallMsgHandlerContext : IntPtr
 
     /**
      * A handle to a caller-supplied file queue where file operations should be queued but not committed.
@@ -80,42 +47,22 @@ class SP_DEVINSTALL_PARAMS_W extends Win32Struct {
      * If you associate a file queue with a device information set (<a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetdeviceinstallparamsa">SetupDiSetDeviceInstallParams</a>), you must disassociate the queue from the device information set before you delete the device information set. If you fail to disassociate the file queue, Windows cannot decrement its reference count on the device information set and cannot free the memory.
      * 
      * This queue is only used if the DI_NOVCP flag is set, indicating that file operations should be enqueued but not committed.
-     * @type {Pointer<Void>}
      */
-    FileQueue {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FileQueue : IntPtr
 
     /**
      * A pointer for class-installer data. Co-installers must not use this field.
-     * @type {Pointer}
      */
-    ClassInstallReserved {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ClassInstallReserved : IntPtr
 
     /**
      * Reserved. For internal use only.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Reserved : UInt32
 
     /**
      * This path is used by the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdibuilddriverinfolist">SetupDiBuildDriverInfoList</a> function.
-     * @type {String}
      */
-    DriverPath {
-        get => StrGet(this.ptr + 60, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 259, "UTF-16")
-    }
+    DriverPath : WCHAR[260]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 584
-    }
 }

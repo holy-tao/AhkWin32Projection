@@ -1,144 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset ANSI
  */
-class ACMDRIVERDETAILSA extends Win32Struct {
-    static sizeof => 928
+export default struct ACMDRIVERDETAILSA {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fccType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fccType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fccComp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fccComp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wMid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMid {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wPid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPid {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    vdwACM : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    vdwACM {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    vdwDriver : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    vdwDriver {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    fdwSupport : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwSupport {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cFormatTags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cFormatTags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cFilterTags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cFilterTags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    hicon : HICON
 
-    /**
-     * @type {HICON}
-     */
-    hicon {
-        get {
-            if(!this.HasProp("__hicon"))
-                this.__hicon := HICON(40, this)
-            return this.__hicon
-        }
-    }
+    szShortName : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szShortName {
-        get => StrGet(this.ptr + 48, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 31, "UTF-8")
-    }
+    szLongName : CHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szLongName {
-        get => StrGet(this.ptr + 80, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 127, "UTF-8")
-    }
+    szCopyright : CHAR[80]
 
-    /**
-     * @type {String}
-     */
-    szCopyright {
-        get => StrGet(this.ptr + 208, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 208, 79, "UTF-8")
-    }
+    szLicensing : CHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szLicensing {
-        get => StrGet(this.ptr + 288, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 288, 127, "UTF-8")
-    }
+    szFeatures : CHAR[512]
 
-    /**
-     * @type {String}
-     */
-    szFeatures {
-        get => StrGet(this.ptr + 416, 511, "UTF-8")
-        set => StrPut(value, this.ptr + 416, 511, "UTF-8")
-    }
 }

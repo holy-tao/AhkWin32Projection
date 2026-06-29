@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates flags used by ISyncMgrControl::StartHandlerSync and ISyncMgrControl::StartItemSync.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class SYNCMGR_SYNC_CONTROL_FLAGS extends Win32Enum {
+export default struct SYNCMGR_SYNC_CONTROL_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Sync all items, regardless of whether they were just synced.

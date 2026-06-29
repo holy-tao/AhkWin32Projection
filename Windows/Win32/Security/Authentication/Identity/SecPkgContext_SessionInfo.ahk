@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether the session is a reconnection and retrieves a value that identifies the session.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_sessioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_SessionInfo extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct SecPkgContext_SessionInfo {
+    #StructPack 4
 
     /**
      * Bit flags that specify the type of session. The following value is defined.
@@ -31,31 +28,17 @@ class SecPkgContext_SessionInfo extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * The size, in bytes, of the <b>rgbSessionId</b> array.
-     * @type {Integer}
      */
-    cbSessionId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbSessionId : UInt32
 
     /**
      * An array of up to 32 bytes that identifies the session.
-     * @type {Array<Integer>}
      */
-    rgbSessionId {
-        get {
-            if(!this.HasProp("__rgbSessionIdProxyArray"))
-                this.__rgbSessionIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
-            return this.__rgbSessionIdProxyArray
-        }
-    }
+    rgbSessionId : Int8[32]
+
 }

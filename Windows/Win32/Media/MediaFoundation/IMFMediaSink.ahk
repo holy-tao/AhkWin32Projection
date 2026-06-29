@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFStreamSink.ahk
-#Include .\IMFPresentationClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFStreamSink.ahk" { IMFStreamSink }
+#Import ".\IMFPresentationClock.ahk" { IMFPresentationClock }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by media sink objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasink
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaSink extends IUnknown {
     /**
      * The interface identifier for IMFMediaSink
      * @type {Guid}
      */
-    static IID => Guid("{6ef2a660-47c0-4666-b13d-cbb717f2fa2c}")
+    static IID := Guid("{6ef2a660-47c0-4666-b13d-cbb717f2fa2c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCharacteristics   : IntPtr
+        AddStreamSink        : IntPtr
+        RemoveStreamSink     : IntPtr
+        GetStreamSinkCount   : IntPtr
+        GetStreamSinkByIndex : IntPtr
+        GetStreamSinkById    : IntPtr
+        SetPresentationClock : IntPtr
+        GetPresentationClock : IntPtr
+        Shutdown             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCharacteristics", "AddStreamSink", "RemoveStreamSink", "GetStreamSinkCount", "GetStreamSinkByIndex", "GetStreamSinkById", "SetPresentationClock", "GetPresentationClock", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the characteristics of the media sink.
@@ -383,5 +400,41 @@ class IMFMediaSink extends IUnknown {
     Shutdown() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.AddStreamSink := CallbackCreate(GetMethod(implObj, "AddStreamSink"), flags, 4)
+        this.vtbl.RemoveStreamSink := CallbackCreate(GetMethod(implObj, "RemoveStreamSink"), flags, 2)
+        this.vtbl.GetStreamSinkCount := CallbackCreate(GetMethod(implObj, "GetStreamSinkCount"), flags, 2)
+        this.vtbl.GetStreamSinkByIndex := CallbackCreate(GetMethod(implObj, "GetStreamSinkByIndex"), flags, 3)
+        this.vtbl.GetStreamSinkById := CallbackCreate(GetMethod(implObj, "GetStreamSinkById"), flags, 3)
+        this.vtbl.SetPresentationClock := CallbackCreate(GetMethod(implObj, "SetPresentationClock"), flags, 2)
+        this.vtbl.GetPresentationClock := CallbackCreate(GetMethod(implObj, "GetPresentationClock"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCharacteristics)
+        CallbackFree(this.vtbl.AddStreamSink)
+        CallbackFree(this.vtbl.RemoveStreamSink)
+        CallbackFree(this.vtbl.GetStreamSinkCount)
+        CallbackFree(this.vtbl.GetStreamSinkByIndex)
+        CallbackFree(this.vtbl.GetStreamSinkById)
+        CallbackFree(this.vtbl.SetPresentationClock)
+        CallbackFree(this.vtbl.GetPresentationClock)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

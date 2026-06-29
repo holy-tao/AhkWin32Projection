@@ -1,37 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpDataKey extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpDataKey extends IUnknown {
     /**
      * The interface identifier for ISpDataKey
      * @type {Guid}
      */
-    static IID => Guid("{14056581-e16c-11d2-bb90-00c04f8ee6c0}")
+    static IID := Guid("{14056581-e16c-11d2-bb90-00c04f8ee6c0}")
 
     /**
      * The class identifier for SpDataKey
      * @type {Guid}
      */
-    static CLSID => Guid("{d9f6ee60-58c9-458b-88e1-2f908fd7f87c}")
+    static CLSID := Guid("{d9f6ee60-58c9-458b-88e1-2f908fd7f87c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpDataKey interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetData        : IntPtr
+        GetData        : IntPtr
+        SetStringValue : IntPtr
+        GetStringValue : IntPtr
+        SetDWORD       : IntPtr
+        GetDWORD       : IntPtr
+        OpenKey        : IntPtr
+        CreateKey      : IntPtr
+        DeleteKey      : IntPtr
+        DeleteValue    : IntPtr
+        EnumKeys       : IntPtr
+        EnumValues     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetData", "GetData", "SetStringValue", "GetStringValue", "SetDWORD", "GetDWORD", "OpenKey", "CreateKey", "DeleteKey", "DeleteValue", "EnumKeys", "EnumValues"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpDataKey.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -88,7 +108,7 @@ class ISpDataKey extends IUnknown {
     GetStringValue(pszValueName) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(6, this, "ptr", pszValueName, "ptr*", &ppszValue := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszValueName, PWSTR.Ptr, &ppszValue := 0, "HRESULT")
         return ppszValue
     }
 
@@ -145,25 +165,9 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * Deletes a given key protector for the volume.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {PWSTR} pszSubKey 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * This method returns one of the following codes or another error code if it fails.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
-     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
-     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
-     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
-     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
-     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/deletekeyprotector-win32-encryptablevolume
+     * @returns {HRESULT} 
      */
     DeleteKey(pszSubKey) {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
@@ -190,7 +194,7 @@ class ISpDataKey extends IUnknown {
      * @returns {PWSTR} 
      */
     EnumKeys(Index) {
-        result := ComCall(13, this, "uint", Index, "ptr*", &ppszSubKeyName := 0, "HRESULT")
+        result := ComCall(13, this, "uint", Index, PWSTR.Ptr, &ppszSubKeyName := 0, "HRESULT")
         return ppszSubKeyName
     }
 
@@ -200,7 +204,49 @@ class ISpDataKey extends IUnknown {
      * @returns {PWSTR} 
      */
     EnumValues(Index) {
-        result := ComCall(14, this, "uint", Index, "ptr*", &ppszValueName := 0, "HRESULT")
+        result := ComCall(14, this, "uint", Index, PWSTR.Ptr, &ppszValueName := 0, "HRESULT")
         return ppszValueName
+    }
+
+    Query(iid) {
+        if (ISpDataKey.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
+        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.SetDWORD := CallbackCreate(GetMethod(implObj, "SetDWORD"), flags, 3)
+        this.vtbl.GetDWORD := CallbackCreate(GetMethod(implObj, "GetDWORD"), flags, 3)
+        this.vtbl.OpenKey := CallbackCreate(GetMethod(implObj, "OpenKey"), flags, 3)
+        this.vtbl.CreateKey := CallbackCreate(GetMethod(implObj, "CreateKey"), flags, 3)
+        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 2)
+        this.vtbl.DeleteValue := CallbackCreate(GetMethod(implObj, "DeleteValue"), flags, 2)
+        this.vtbl.EnumKeys := CallbackCreate(GetMethod(implObj, "EnumKeys"), flags, 3)
+        this.vtbl.EnumValues := CallbackCreate(GetMethod(implObj, "EnumValues"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetData)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.SetStringValue)
+        CallbackFree(this.vtbl.GetStringValue)
+        CallbackFree(this.vtbl.SetDWORD)
+        CallbackFree(this.vtbl.GetDWORD)
+        CallbackFree(this.vtbl.OpenKey)
+        CallbackFree(this.vtbl.CreateKey)
+        CallbackFree(this.vtbl.DeleteKey)
+        CallbackFree(this.vtbl.DeleteValue)
+        CallbackFree(this.vtbl.EnumKeys)
+        CallbackFree(this.vtbl.EnumValues)
     }
 }

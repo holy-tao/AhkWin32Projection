@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RECO_LATTICE_PROPERTIES.ahk
-#Include .\RECO_LATTICE_PROPERTY.ahk
-#Include .\RECO_LATTICE_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RECO_LATTICE_PROPERTIES.ahk" { RECO_LATTICE_PROPERTIES }
+#Import ".\RECO_LATTICE_PROPERTY.ahk" { RECO_LATTICE_PROPERTY }
+#Import ".\RECO_LATTICE_ELEMENT.ahk" { RECO_LATTICE_ELEMENT }
 
 /**
  * Represents a column in the lattice.
@@ -11,65 +10,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_column
  * @namespace Windows.Win32.UI.TabletPC
  */
-class RECO_LATTICE_COLUMN extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct RECO_LATTICE_COLUMN {
+    #StructPack 8
 
     /**
      * Unused. Should be set to 0 (zero).
-     * @type {Integer}
      */
-    key {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    key : UInt32
 
     /**
      * Holds the properties for the column.
-     * @type {RECO_LATTICE_PROPERTIES}
      */
-    cpProp {
-        get {
-            if(!this.HasProp("__cpProp"))
-                this.__cpProp := RECO_LATTICE_PROPERTIES(8, this)
-            return this.__cpProp
-        }
-    }
+    cpProp : RECO_LATTICE_PROPERTIES
 
     /**
      * Count of strokes in the <i>pStrokes</i> array for the longest element in the column.
-     * @type {Integer}
      */
-    cStrokes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cStrokes : UInt32
 
     /**
      * An array of stroke indices in the order in which they were fed to the recognizer. For example, imagine you have two strokes, stroke one containing the word "back" and stroke two containing the word "door". The column containing "back" will have a strokes array containing one ULONG {0}. The column for "door" will have a strokes array containing two ULONG items {1,2}.
-     * @type {Pointer<Integer>}
      */
-    pStrokes {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pStrokes : IntPtr
 
     /**
      * Number of members in <i>pLatticeElements</i>.
-     * @type {Integer}
      */
-    cLatticeElements {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cLatticeElements : UInt32
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_lattice_element">RECO_LATTICE_ELEMENT</a> structures.
-     * @type {Pointer<RECO_LATTICE_ELEMENT>}
      */
-    pLatticeElements {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pLatticeElements : RECO_LATTICE_ELEMENT.Ptr
+
 }

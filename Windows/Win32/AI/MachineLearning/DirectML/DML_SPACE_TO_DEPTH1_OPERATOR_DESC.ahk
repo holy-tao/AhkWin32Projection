@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_DEPTH_SPACE_ORDER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import ".\DML_DEPTH_SPACE_ORDER.ahk" { DML_DEPTH_SPACE_ORDER }
 
 /**
  * Rearranges blocks of spatial data into depth. The operator outputs a copy of the input tensor where values from the height and width dimensions are moved to the depth dimension. (DML_SPACE_TO_DEPTH1_OPERATOR_DESC)
@@ -10,52 +9,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_SPACE_TO_DEPTH1_OPERATOR_DESC extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DML_SPACE_TO_DEPTH1_OPERATOR_DESC {
+    #StructPack 8
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * The tensor to read from. The input tensor's dimensions are `{ Batch, Channels, Height, Width }`.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    InputTensor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * The tensor to write the results to. The output tensor's dimensions are `{ Batch, Channels / (BlockSize * BlockSize), Height * BlockSize, Width * BlockSize }`.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputTensor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OutputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The width and height of the Blocks that are moved.
-     * @type {Integer}
      */
-    BlockSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BlockSize : UInt32
 
     /**
      * Type: **[DML_DEPTH_SPACE_ORDER](/windows/win32/api/directml/ne-directml-dml_depth_space_order)**
      * 
      * See [DML_DEPTH_SPACE_ORDER](/windows/win32/api/directml/ne-directml-dml_depth_space_order).
-     * @type {DML_DEPTH_SPACE_ORDER}
      */
-    Order {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Order : DML_DEPTH_SPACE_ORDER
+
 }

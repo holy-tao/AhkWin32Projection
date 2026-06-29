@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEMONITORTONE structure describes a tone to be monitored. This is used as an entry in an array. The lineMonitorTones and TSPI_lineMonitorTones functions use this structure.
@@ -14,53 +13,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemonitortone
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEMONITORTONE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct LINEMONITORTONE {
+    #StructPack 4
 
     /**
      * Used by the application for tagging the tone. When this tone is detected, the value of the <b>dwAppSpecific</b> member is passed back to the application.
-     * @type {Integer}
      */
-    dwAppSpecific {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAppSpecific : UInt32
 
     /**
      * Duration of time during which the tone should be present before a detection is made, in milliseconds.
-     * @type {Integer}
      */
-    dwDuration {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDuration : UInt32
 
     /**
      * First frequency of the tone, in hertz.
-     * @type {Integer}
      */
-    dwFrequency1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFrequency1 : UInt32
 
     /**
      * Second frequency of the tone, in hertz.
-     * @type {Integer}
      */
-    dwFrequency2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFrequency2 : UInt32
 
     /**
      * Third frequency of the tone, in hertz. If fewer than three frequencies are needed in the tone, a value of 0 should be used for the unused frequencies. A tone with all three frequencies set to zero is interpreted as silence and can be use for silence detection.
-     * @type {Integer}
      */
-    dwFrequency3 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFrequency3 : UInt32
+
 }

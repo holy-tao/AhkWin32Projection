@@ -1,48 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FOLDERSETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
 
 /**
  * Deprecated. Data used in IBrowserService2::GetFolderSetData.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-foldersetdata
  * @namespace Windows.Win32.UI.Shell
  */
-class FOLDERSETDATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FOLDERSETDATA {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure containing folder view information.
-     * @type {FOLDERSETTINGS}
      */
-    _fs {
-        get {
-            if(!this.HasProp("___fs"))
-                this.___fs := FOLDERSETTINGS(0, this)
-            return this.___fs
-        }
-    }
+    _fs : FOLDERSETTINGS
 
     /**
      * Type: <b>SHELLVIEWID</b>
      * 
      * The last view used for this folder, used as a suggestion for this visit.
-     * @type {Pointer}
      */
-    _vidRestore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    _vidRestore : Guid
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    _dwViewPriority {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    _dwViewPriority : UInt32
+
 }

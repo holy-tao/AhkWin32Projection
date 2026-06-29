@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_MLKEM_KEY_BLOB extends Win32Struct {
-    static sizeof => 12
+export default struct BCRYPT_MLKEM_KEY_BLOB {
+    #StructPack 4
 
-    static packingSize => 4
+    dwMagic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMagic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbParameterSet : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbParameterSet {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbKey {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

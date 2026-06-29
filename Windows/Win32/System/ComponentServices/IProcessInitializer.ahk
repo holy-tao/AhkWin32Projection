@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods that can be called whenever Dllhost.exe starts up or shuts down.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iprocessinitializer
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IProcessInitializer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProcessInitializer extends IUnknown {
     /**
      * The interface identifier for IProcessInitializer
      * @type {Guid}
      */
-    static IID => Guid("{1113f52d-dc7f-4943-aed6-88d04027e32a}")
+    static IID := Guid("{1113f52d-dc7f-4943-aed6-88d04027e32a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProcessInitializer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Startup  : IntPtr
+        Shutdown : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Startup", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProcessInitializer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when Dllhost.exe starts.
@@ -54,5 +63,27 @@ class IProcessInitializer extends IUnknown {
     Shutdown() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProcessInitializer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Startup := CallbackCreate(GetMethod(implObj, "Startup"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Startup)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

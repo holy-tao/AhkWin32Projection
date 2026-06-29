@@ -1,34 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DMO_MEDIA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DMO_OUTPUT_DATA_BUFFER.ahk" { DMO_OUTPUT_DATA_BUFFER }
+#Import ".\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMediaBuffer.ahk" { IMediaBuffer }
 
 /**
  * The IMediaObject interface provides methods for manipulating a Microsoft DirectX Media Object (DMO).
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediaobject
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class IMediaObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaObject extends IUnknown {
     /**
      * The interface identifier for IMediaObject
      * @type {Guid}
      */
-    static IID => Guid("{d8ad0f58-5494-4102-97c5-ec798e59bcf4}")
+    static IID := Guid("{d8ad0f58-5494-4102-97c5-ec798e59bcf4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStreamCount             : IntPtr
+        GetInputStreamInfo         : IntPtr
+        GetOutputStreamInfo        : IntPtr
+        GetInputType               : IntPtr
+        GetOutputType              : IntPtr
+        SetInputType               : IntPtr
+        SetOutputType              : IntPtr
+        GetInputCurrentType        : IntPtr
+        GetOutputCurrentType       : IntPtr
+        GetInputSizeInfo           : IntPtr
+        GetOutputSizeInfo          : IntPtr
+        GetInputMaxLatency         : IntPtr
+        SetInputMaxLatency         : IntPtr
+        Flush                      : IntPtr
+        Discontinuity              : IntPtr
+        AllocateStreamingResources : IntPtr
+        FreeStreamingResources     : IntPtr
+        GetInputStatus             : IntPtr
+        ProcessInput               : IntPtr
+        ProcessOutput              : IntPtr
+        Lock                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStreamCount", "GetInputStreamInfo", "GetOutputStreamInfo", "GetInputType", "GetOutputType", "SetInputType", "SetOutputType", "GetInputCurrentType", "GetOutputCurrentType", "GetInputSizeInfo", "GetOutputSizeInfo", "GetInputMaxLatency", "SetInputMaxLatency", "Flush", "Discontinuity", "AllocateStreamingResources", "FreeStreamingResources", "GetInputStatus", "ProcessInput", "ProcessOutput", "Lock"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetStreamCount method retrieves the number of input and output streams.
@@ -123,7 +153,7 @@ class IMediaObject extends IUnknown {
      */
     GetInputType(dwInputStreamIndex, dwTypeIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(6, this, "uint", dwInputStreamIndex, "uint", dwTypeIndex, "ptr", pmt, "HRESULT")
+        result := ComCall(6, this, "uint", dwInputStreamIndex, "uint", dwTypeIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -148,7 +178,7 @@ class IMediaObject extends IUnknown {
      */
     GetOutputType(dwOutputStreamIndex, dwTypeIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(7, this, "uint", dwOutputStreamIndex, "uint", dwTypeIndex, "ptr", pmt, "HRESULT")
+        result := ComCall(7, this, "uint", dwOutputStreamIndex, "uint", dwTypeIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -221,7 +251,7 @@ class IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setinputtype
      */
     SetInputType(dwInputStreamIndex, pmt, dwFlags) {
-        result := ComCall(8, this, "uint", dwInputStreamIndex, "ptr", pmt, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, "uint", dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -294,7 +324,7 @@ class IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setoutputtype
      */
     SetOutputType(dwOutputStreamIndex, pmt, dwFlags) {
-        result := ComCall(9, this, "uint", dwOutputStreamIndex, "ptr", pmt, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "uint", dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -310,7 +340,7 @@ class IMediaObject extends IUnknown {
      */
     GetInputCurrentType(dwInputStreamIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(10, this, "uint", dwInputStreamIndex, "ptr", pmt, "HRESULT")
+        result := ComCall(10, this, "uint", dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -326,7 +356,7 @@ class IMediaObject extends IUnknown {
      */
     GetOutputCurrentType(dwOutputStreamIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(11, this, "uint", dwOutputStreamIndex, "ptr", pmt, "HRESULT")
+        result := ComCall(11, this, "uint", dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -885,7 +915,7 @@ class IMediaObject extends IUnknown {
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputBuffers, pdwStatus) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputBuffers, pdwStatusMarshal, pdwStatus, "HRESULT")
+        result := ComCall(22, this, "uint", dwFlags, "uint", cOutputBufferCount, DMO_OUTPUT_DATA_BUFFER.Ptr, pOutputBuffers, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -934,5 +964,65 @@ class IMediaObject extends IUnknown {
     Lock(bLock) {
         result := ComCall(23, this, "int", bLock, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 3)
+        this.vtbl.GetInputStreamInfo := CallbackCreate(GetMethod(implObj, "GetInputStreamInfo"), flags, 3)
+        this.vtbl.GetOutputStreamInfo := CallbackCreate(GetMethod(implObj, "GetOutputStreamInfo"), flags, 3)
+        this.vtbl.GetInputType := CallbackCreate(GetMethod(implObj, "GetInputType"), flags, 4)
+        this.vtbl.GetOutputType := CallbackCreate(GetMethod(implObj, "GetOutputType"), flags, 4)
+        this.vtbl.SetInputType := CallbackCreate(GetMethod(implObj, "SetInputType"), flags, 4)
+        this.vtbl.SetOutputType := CallbackCreate(GetMethod(implObj, "SetOutputType"), flags, 4)
+        this.vtbl.GetInputCurrentType := CallbackCreate(GetMethod(implObj, "GetInputCurrentType"), flags, 3)
+        this.vtbl.GetOutputCurrentType := CallbackCreate(GetMethod(implObj, "GetOutputCurrentType"), flags, 3)
+        this.vtbl.GetInputSizeInfo := CallbackCreate(GetMethod(implObj, "GetInputSizeInfo"), flags, 5)
+        this.vtbl.GetOutputSizeInfo := CallbackCreate(GetMethod(implObj, "GetOutputSizeInfo"), flags, 4)
+        this.vtbl.GetInputMaxLatency := CallbackCreate(GetMethod(implObj, "GetInputMaxLatency"), flags, 3)
+        this.vtbl.SetInputMaxLatency := CallbackCreate(GetMethod(implObj, "SetInputMaxLatency"), flags, 3)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.Discontinuity := CallbackCreate(GetMethod(implObj, "Discontinuity"), flags, 2)
+        this.vtbl.AllocateStreamingResources := CallbackCreate(GetMethod(implObj, "AllocateStreamingResources"), flags, 1)
+        this.vtbl.FreeStreamingResources := CallbackCreate(GetMethod(implObj, "FreeStreamingResources"), flags, 1)
+        this.vtbl.GetInputStatus := CallbackCreate(GetMethod(implObj, "GetInputStatus"), flags, 3)
+        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 6)
+        this.vtbl.ProcessOutput := CallbackCreate(GetMethod(implObj, "ProcessOutput"), flags, 5)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStreamCount)
+        CallbackFree(this.vtbl.GetInputStreamInfo)
+        CallbackFree(this.vtbl.GetOutputStreamInfo)
+        CallbackFree(this.vtbl.GetInputType)
+        CallbackFree(this.vtbl.GetOutputType)
+        CallbackFree(this.vtbl.SetInputType)
+        CallbackFree(this.vtbl.SetOutputType)
+        CallbackFree(this.vtbl.GetInputCurrentType)
+        CallbackFree(this.vtbl.GetOutputCurrentType)
+        CallbackFree(this.vtbl.GetInputSizeInfo)
+        CallbackFree(this.vtbl.GetOutputSizeInfo)
+        CallbackFree(this.vtbl.GetInputMaxLatency)
+        CallbackFree(this.vtbl.SetInputMaxLatency)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.Discontinuity)
+        CallbackFree(this.vtbl.AllocateStreamingResources)
+        CallbackFree(this.vtbl.FreeStreamingResources)
+        CallbackFree(this.vtbl.GetInputStatus)
+        CallbackFree(this.vtbl.ProcessInput)
+        CallbackFree(this.vtbl.ProcessOutput)
+        CallbackFree(this.vtbl.Lock)
     }
 }

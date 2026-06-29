@@ -1,11 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IInkStrokes.ahk
-#Include .\IInkRecognitionAlternates.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents the possible word matches for segments of ink that are compared to a recognizers dictionary.
@@ -28,26 +30,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognitionalternate
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkRecognitionAlternate extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkRecognitionAlternate extends IDispatch {
     /**
      * The interface identifier for IInkRecognitionAlternate
      * @type {Guid}
      */
-    static IID => Guid("{b7e660ad-77e4-429b-adda-873780d1fc4a}")
+    static IID := Guid("{b7e660ad-77e4-429b-adda-873780d1fc4a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkRecognitionAlternate interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_String                           : IntPtr
+        get_Confidence                       : IntPtr
+        get_Baseline                         : IntPtr
+        get_Midline                          : IntPtr
+        get_Ascender                         : IntPtr
+        get_Descender                        : IntPtr
+        get_LineNumber                       : IntPtr
+        get_Strokes                          : IntPtr
+        get_LineAlternates                   : IntPtr
+        get_ConfidenceAlternates             : IntPtr
+        GetStrokesFromStrokeRanges           : IntPtr
+        GetStrokesFromTextRange              : IntPtr
+        GetTextRangeFromStrokes              : IntPtr
+        AlternatesWithConstantPropertyValues : IntPtr
+        GetPropertyValue                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_String", "get_Confidence", "get_Baseline", "get_Midline", "get_Ascender", "get_Descender", "get_LineNumber", "get_Strokes", "get_LineAlternates", "get_ConfidenceAlternates", "GetStrokesFromStrokeRanges", "GetStrokesFromTextRange", "GetTextRangeFromStrokes", "AlternatesWithConstantPropertyValues", "GetPropertyValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkRecognitionAlternate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -125,8 +148,8 @@ class IInkRecognitionAlternate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_string
      */
     get_String() {
-        RecoString := BSTR()
-        result := ComCall(7, this, "ptr", RecoString, "HRESULT")
+        RecoString := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, RecoString, "HRESULT")
         return RecoString
     }
 
@@ -171,7 +194,7 @@ class IInkRecognitionAlternate extends IDispatch {
      */
     get_Baseline() {
         Baseline := VARIANT()
-        result := ComCall(9, this, "ptr", Baseline, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, Baseline, "HRESULT")
         return Baseline
     }
 
@@ -193,7 +216,7 @@ class IInkRecognitionAlternate extends IDispatch {
      */
     get_Midline() {
         Midline := VARIANT()
-        result := ComCall(10, this, "ptr", Midline, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, Midline, "HRESULT")
         return Midline
     }
 
@@ -211,7 +234,7 @@ class IInkRecognitionAlternate extends IDispatch {
      */
     get_Ascender() {
         Ascender := VARIANT()
-        result := ComCall(11, this, "ptr", Ascender, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, Ascender, "HRESULT")
         return Ascender
     }
 
@@ -233,7 +256,7 @@ class IInkRecognitionAlternate extends IDispatch {
      */
     get_Descender() {
         Descender := VARIANT()
-        result := ComCall(12, this, "ptr", Descender, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, Descender, "HRESULT")
         return Descender
     }
 
@@ -383,7 +406,7 @@ class IInkRecognitionAlternate extends IDispatch {
     AlternatesWithConstantPropertyValues(PropertyType) {
         PropertyType := PropertyType is String ? BSTR.Alloc(PropertyType).Value : PropertyType
 
-        result := ComCall(20, this, "ptr", PropertyType, "ptr*", &AlternatesWithConstantPropertyValues := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, PropertyType, "ptr*", &AlternatesWithConstantPropertyValues := 0, "HRESULT")
         return IInkRecognitionAlternates(AlternatesWithConstantPropertyValues)
     }
 
@@ -509,7 +532,55 @@ class IInkRecognitionAlternate extends IDispatch {
         PropertyType := PropertyType is String ? BSTR.Alloc(PropertyType).Value : PropertyType
 
         _PropertyValue := VARIANT()
-        result := ComCall(21, this, "ptr", PropertyType, "ptr", _PropertyValue, "HRESULT")
+        result := ComCall(21, this, BSTR, PropertyType, VARIANT.Ptr, _PropertyValue, "HRESULT")
         return _PropertyValue
+    }
+
+    Query(iid) {
+        if (IInkRecognitionAlternate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_String := CallbackCreate(GetMethod(implObj, "get_String"), flags, 2)
+        this.vtbl.get_Confidence := CallbackCreate(GetMethod(implObj, "get_Confidence"), flags, 2)
+        this.vtbl.get_Baseline := CallbackCreate(GetMethod(implObj, "get_Baseline"), flags, 2)
+        this.vtbl.get_Midline := CallbackCreate(GetMethod(implObj, "get_Midline"), flags, 2)
+        this.vtbl.get_Ascender := CallbackCreate(GetMethod(implObj, "get_Ascender"), flags, 2)
+        this.vtbl.get_Descender := CallbackCreate(GetMethod(implObj, "get_Descender"), flags, 2)
+        this.vtbl.get_LineNumber := CallbackCreate(GetMethod(implObj, "get_LineNumber"), flags, 2)
+        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.get_LineAlternates := CallbackCreate(GetMethod(implObj, "get_LineAlternates"), flags, 2)
+        this.vtbl.get_ConfidenceAlternates := CallbackCreate(GetMethod(implObj, "get_ConfidenceAlternates"), flags, 2)
+        this.vtbl.GetStrokesFromStrokeRanges := CallbackCreate(GetMethod(implObj, "GetStrokesFromStrokeRanges"), flags, 3)
+        this.vtbl.GetStrokesFromTextRange := CallbackCreate(GetMethod(implObj, "GetStrokesFromTextRange"), flags, 4)
+        this.vtbl.GetTextRangeFromStrokes := CallbackCreate(GetMethod(implObj, "GetTextRangeFromStrokes"), flags, 4)
+        this.vtbl.AlternatesWithConstantPropertyValues := CallbackCreate(GetMethod(implObj, "AlternatesWithConstantPropertyValues"), flags, 3)
+        this.vtbl.GetPropertyValue := CallbackCreate(GetMethod(implObj, "GetPropertyValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_String)
+        CallbackFree(this.vtbl.get_Confidence)
+        CallbackFree(this.vtbl.get_Baseline)
+        CallbackFree(this.vtbl.get_Midline)
+        CallbackFree(this.vtbl.get_Ascender)
+        CallbackFree(this.vtbl.get_Descender)
+        CallbackFree(this.vtbl.get_LineNumber)
+        CallbackFree(this.vtbl.get_Strokes)
+        CallbackFree(this.vtbl.get_LineAlternates)
+        CallbackFree(this.vtbl.get_ConfidenceAlternates)
+        CallbackFree(this.vtbl.GetStrokesFromStrokeRanges)
+        CallbackFree(this.vtbl.GetStrokesFromTextRange)
+        CallbackFree(this.vtbl.GetTextRangeFromStrokes)
+        CallbackFree(this.vtbl.AlternatesWithConstantPropertyValues)
+        CallbackFree(this.vtbl.GetPropertyValue)
     }
 }

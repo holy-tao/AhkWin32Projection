@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DD_STEREOMODE structure is used by the runtime with GUID_DDStereoMode in a DdGetDriverInfo call to query whether the driver supports stereo for a given video display mode.
@@ -10,62 +10,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_stereomode
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_STEREOMODE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct DD_STEREOMODE {
+    #StructPack 4
 
     /**
      * Specifies the size in bytes of the DD_STEREOMODE structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies the height in scan lines of the display mode. Has the value D3DGDI2_MAGIC if this structure is, in fact, a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/d3dhal/ns-d3dhal-_dd_getdriverinfo2data">DD_GETDRIVERINFO2DATA</a> call.
-     * @type {Integer}
      */
-    dwHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwHeight : UInt32
 
     /**
      * Specifies the width in pixels of the display mode.
-     * @type {Integer}
      */
-    dwWidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwWidth : UInt32
 
     /**
      * Specifies the bits per pixel of the display mode.
-     * @type {Integer}
      */
-    dwBpp {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBpp : UInt32
 
     /**
      * Specifies the refresh rate in hertz of the display mode.
-     * @type {Integer}
      */
-    dwRefreshRate {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwRefreshRate : UInt32
 
     /**
      * Driver sets to <b>TRUE</b> if stereo is supported with the specified display mode, or <b>FALSE</b> otherwise.
-     * @type {BOOL}
      */
-    bSupported {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    bSupported : BOOL
+
 }

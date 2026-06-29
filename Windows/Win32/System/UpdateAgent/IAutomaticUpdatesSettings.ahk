@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AutomaticUpdatesScheduledInstallationDay.ahk" { AutomaticUpdatesScheduledInstallationDay }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AutomaticUpdatesNotificationLevel.ahk" { AutomaticUpdatesNotificationLevel }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings)
@@ -13,26 +17,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdatessettings
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IAutomaticUpdatesSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAutomaticUpdatesSettings extends IDispatch {
     /**
      * The interface identifier for IAutomaticUpdatesSettings
      * @type {Guid}
      */
-    static IID => Guid("{2ee48f22-af3c-405f-8970-f71be12ee9a2}")
+    static IID := Guid("{2ee48f22-af3c-405f-8970-f71be12ee9a2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAutomaticUpdatesSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_NotificationLevel         : IntPtr
+        put_NotificationLevel         : IntPtr
+        get_ReadOnly                  : IntPtr
+        get_Required                  : IntPtr
+        get_ScheduledInstallationDay  : IntPtr
+        put_ScheduledInstallationDay  : IntPtr
+        get_ScheduledInstallationTime : IntPtr
+        put_ScheduledInstallationTime : IntPtr
+        Refresh                       : IntPtr
+        Save                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_NotificationLevel", "put_NotificationLevel", "get_ReadOnly", "get_Required", "get_ScheduledInstallationDay", "put_ScheduledInstallationDay", "get_ScheduledInstallationTime", "put_ScheduledInstallationTime", "Refresh", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAutomaticUpdatesSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {AutomaticUpdatesNotificationLevel} 
@@ -89,7 +109,7 @@ class IAutomaticUpdatesSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-put_notificationlevel
      */
     put_NotificationLevel(value) {
-        result := ComCall(8, this, "int", value, "HRESULT")
+        result := ComCall(8, this, AutomaticUpdatesNotificationLevel, value, "HRESULT")
         return result
     }
 
@@ -110,7 +130,7 @@ class IAutomaticUpdatesSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_readonly
      */
     get_ReadOnly() {
-        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -120,7 +140,7 @@ class IAutomaticUpdatesSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_required
      */
     get_Required() {
-        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -151,7 +171,7 @@ class IAutomaticUpdatesSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationday
      */
     put_ScheduledInstallationDay(value) {
-        result := ComCall(12, this, "int", value, "HRESULT")
+        result := ComCall(12, this, AutomaticUpdatesScheduledInstallationDay, value, "HRESULT")
         return result
     }
 
@@ -426,5 +446,43 @@ class IAutomaticUpdatesSettings extends IDispatch {
     Save() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAutomaticUpdatesSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_NotificationLevel := CallbackCreate(GetMethod(implObj, "get_NotificationLevel"), flags, 2)
+        this.vtbl.put_NotificationLevel := CallbackCreate(GetMethod(implObj, "put_NotificationLevel"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.get_Required := CallbackCreate(GetMethod(implObj, "get_Required"), flags, 2)
+        this.vtbl.get_ScheduledInstallationDay := CallbackCreate(GetMethod(implObj, "get_ScheduledInstallationDay"), flags, 2)
+        this.vtbl.put_ScheduledInstallationDay := CallbackCreate(GetMethod(implObj, "put_ScheduledInstallationDay"), flags, 2)
+        this.vtbl.get_ScheduledInstallationTime := CallbackCreate(GetMethod(implObj, "get_ScheduledInstallationTime"), flags, 2)
+        this.vtbl.put_ScheduledInstallationTime := CallbackCreate(GetMethod(implObj, "put_ScheduledInstallationTime"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_NotificationLevel)
+        CallbackFree(this.vtbl.put_NotificationLevel)
+        CallbackFree(this.vtbl.get_ReadOnly)
+        CallbackFree(this.vtbl.get_Required)
+        CallbackFree(this.vtbl.get_ScheduledInstallationDay)
+        CallbackFree(this.vtbl.put_ScheduledInstallationDay)
+        CallbackFree(this.vtbl.get_ScheduledInstallationTime)
+        CallbackFree(this.vtbl.put_ScheduledInstallationTime)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
     }
 }

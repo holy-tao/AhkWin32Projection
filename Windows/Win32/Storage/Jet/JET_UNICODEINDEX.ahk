@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_UNICODEINDEX Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-unicodeindex-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_UNICODEINDEX extends Win32Struct {
-    static sizeof => 8
+export default struct JET_UNICODEINDEX {
+    #StructPack 4
 
-    static packingSize => 4
+    lcid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lcid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMapFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMapFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

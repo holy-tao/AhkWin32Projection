@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Describes the data used to initialize a browse dialog box in the directory service query.
@@ -10,70 +10,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryinitparams
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DSQUERYINITPARAMS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DSQUERYINITPARAMS {
+    #StructPack 8
 
     /**
      * Contains the size, in bytes,  of this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a null-terminated Unicode string that contains the ADsPath of the default scope for the search. Set this member to <b>NULL</b> if no default search scope is specified.
-     * @type {PWSTR}
      */
-    pDefaultScope {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDefaultScope : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode string that contains the default file system path where searches will be saved. This member is ignored if the <b>dwFlags</b> member does not contain <b>DSQPF_SAVELOCATION</b>.
-     * @type {PWSTR}
      */
-    pDefaultSaveLocation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDefaultSaveLocation : PWSTR
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the user name in the valid domain notation, for example, "fabrikam\jeffsmith".
-     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pUserName : PWSTR
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the password of the user specified by the <b>pUserName</b> member.
-     * @type {PWSTR}
      */
-    pPassword {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pPassword : PWSTR
 
     /**
      * Pointer to  a  null-terminated Unicode string that contains the name of the server from which the list of trusted domains is read. The list is used to populate the <b>In:</b> drop-down list in the dialog box.
-     * @type {PWSTR}
      */
-    pServer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pServer : PWSTR
+
 }

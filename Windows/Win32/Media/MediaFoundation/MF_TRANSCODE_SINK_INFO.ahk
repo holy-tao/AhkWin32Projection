@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * Contains information about the audio and video streams for the transcode sink activation object.
@@ -9,44 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_transcode_sink_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_TRANSCODE_SINK_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MF_TRANSCODE_SINK_INFO {
+    #StructPack 8
 
     /**
      * The stream identifier of the video stream.
-     * @type {Integer}
      */
-    dwVideoStreamID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVideoStreamID : UInt32
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type for the  video stream. This member can be <b>NULL</b>.
-     * @type {IMFMediaType}
      */
-    pVideoMediaType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pVideoMediaType : IMFMediaType
 
     /**
      * The stream identifier of the audio stream.
-     * @type {Integer}
      */
-    dwAudioStreamID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAudioStreamID : UInt32
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type for the  audio stream. This member can be <b>NULL</b>.
-     * @type {IMFMediaType}
      */
-    pAudioMediaType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pAudioMediaType : IMFMediaType
+
 }

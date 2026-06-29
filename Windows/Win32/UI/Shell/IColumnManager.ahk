@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CM_ENUM_FLAGS.ahk" { CM_ENUM_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CM_COLUMNINFO.ahk" { CM_COLUMNINFO }
 
 /**
  * Exposes methods that enable inspection and manipulation of columns in the Windows Explorer Details view. Each column is referenced by a PROPERTYKEY structure, which names a property.
@@ -13,26 +16,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icolumnmanager
  * @namespace Windows.Win32.UI.Shell
  */
-class IColumnManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IColumnManager extends IUnknown {
     /**
      * The interface identifier for IColumnManager
      * @type {Guid}
      */
-    static IID => Guid("{d8ec27bb-3f3b-4042-b10a-4acfd924d453}")
+    static IID := Guid("{d8ec27bb-3f3b-4042-b10a-4acfd924d453}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IColumnManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetColumnInfo  : IntPtr
+        GetColumnInfo  : IntPtr
+        GetColumnCount : IntPtr
+        GetColumns     : IntPtr
+        SetColumns     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetColumnInfo", "GetColumnInfo", "GetColumnCount", "GetColumns", "SetColumns"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IColumnManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the state for a specified column.
@@ -88,7 +102,7 @@ class IColumnManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumninfo
      */
     SetColumnInfo(propkey, pcmci) {
-        result := ComCall(3, this, "ptr", propkey, "ptr", pcmci, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, propkey, CM_COLUMNINFO.Ptr, pcmci, "HRESULT")
         return result
     }
 
@@ -146,7 +160,7 @@ class IColumnManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumninfo
      */
     GetColumnInfo(propkey, pcmci) {
-        result := ComCall(4, this, "ptr", propkey, "ptr", pcmci, "HRESULT")
+        result := ComCall(4, this, PROPERTYKEY.Ptr, propkey, CM_COLUMNINFO.Ptr, pcmci, "HRESULT")
         return result
     }
 
@@ -161,7 +175,7 @@ class IColumnManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumncount
      */
     GetColumnCount(dwFlags) {
-        result := ComCall(5, this, "int", dwFlags, "uint*", &puCount := 0, "HRESULT")
+        result := ComCall(5, this, CM_ENUM_FLAGS, dwFlags, "uint*", &puCount := 0, "HRESULT")
         return puCount
     }
 
@@ -180,7 +194,7 @@ class IColumnManager extends IUnknown {
      */
     GetColumns(dwFlags, cColumns) {
         rgkeyOrder := PROPERTYKEY()
-        result := ComCall(6, this, "int", dwFlags, "ptr", rgkeyOrder, "uint", cColumns, "HRESULT")
+        result := ComCall(6, this, CM_ENUM_FLAGS, dwFlags, PROPERTYKEY.Ptr, rgkeyOrder, "uint", cColumns, "HRESULT")
         return rgkeyOrder
     }
 
@@ -230,7 +244,35 @@ class IColumnManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumns
      */
     SetColumns(rgkeyOrder, cVisible) {
-        result := ComCall(7, this, "ptr", rgkeyOrder, "uint", cVisible, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, rgkeyOrder, "uint", cVisible, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IColumnManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetColumnInfo := CallbackCreate(GetMethod(implObj, "SetColumnInfo"), flags, 3)
+        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 3)
+        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 3)
+        this.vtbl.GetColumns := CallbackCreate(GetMethod(implObj, "GetColumns"), flags, 4)
+        this.vtbl.SetColumns := CallbackCreate(GetMethod(implObj, "SetColumns"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetColumnInfo)
+        CallbackFree(this.vtbl.GetColumnInfo)
+        CallbackFree(this.vtbl.GetColumnCount)
+        CallbackFree(this.vtbl.GetColumns)
+        CallbackFree(this.vtbl.SetColumns)
     }
 }

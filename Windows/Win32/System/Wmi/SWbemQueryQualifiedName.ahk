@@ -1,76 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The SWbemQueryQualifiedName structure stores property names for the IWbemQuery::GetAnalysis method.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemqueryqualifiedname
  * @namespace Windows.Win32.System.Wmi
  */
-class SWbemQueryQualifiedName extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct SWbemQueryQualifiedName {
+    #StructPack 8
 
     /**
      * Unused. Always 1 (one).
-     * @type {Integer}
      */
-    m_uVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    m_uVersion : UInt32
 
     /**
      * Unused. Always 1 (one).
-     * @type {Integer}
      */
-    m_uTokenType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    m_uTokenType : UInt32
 
     /**
      * Number of elements in the list of names. For example, for the  "propName" property,  <b>m_uNameListSize</b> is 1 (one) and <b>m_ppszNameList</b> is "propName".
-     * @type {Integer}
      */
-    m_uNameListSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    m_uNameListSize : UInt32
 
     /**
      * List of property names. For example, for the  "propName" property, <b>m_uNameListSize</b> is 1 (one) and <b>m_ppszNameList</b> is "propName".
-     * @type {Pointer<PWSTR>}
      */
-    m_ppszNameList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    m_ppszNameList : PWSTR.Ptr
 
     /**
      * Unused. Always <b>false</b>.
-     * @type {BOOL}
      */
-    m_bArraysUsed {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    m_bArraysUsed : BOOL
 
     /**
      * Unused. Always <b>NULL</b>.
-     * @type {Pointer<BOOL>}
      */
-    m_pbArrayElUsed {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    m_pbArrayElUsed : BOOL.Ptr
 
     /**
      * Unused. Always <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    m_puArrayIndex {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    m_puArrayIndex : IntPtr
+
 }

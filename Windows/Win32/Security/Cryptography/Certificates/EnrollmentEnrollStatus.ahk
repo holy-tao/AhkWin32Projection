@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the enrollment status of a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentenrollstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class EnrollmentEnrollStatus extends Win32Enum {
+export default struct EnrollmentEnrollStatus {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The enrollment succeeded, and the certificate has been issued.

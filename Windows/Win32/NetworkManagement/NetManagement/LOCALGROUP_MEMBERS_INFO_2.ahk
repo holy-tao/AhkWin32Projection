@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID_NAME_USE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SID_NAME_USE.ahk" { SID_NAME_USE }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_2 structure contains the security identifier (SID) and account information associated with a local group member.
@@ -9,22 +10,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-localgroup_members_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class LOCALGROUP_MEMBERS_INFO_2 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct LOCALGROUP_MEMBERS_INFO_2 {
+    #StructPack 8
 
     /**
      * Type: <b>PSID</b>
      * 
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of a local group member. The local group member can be a user account or a global group account.
-     * @type {PSID}
      */
-    lgrmi2_sid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lgrmi2_sid : PSID
 
     /**
      * Type: <b>SID_NAME_USE</b>
@@ -90,12 +85,8 @@ class LOCALGROUP_MEMBERS_INFO_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {SID_NAME_USE}
      */
-    lgrmi2_sidusage {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lgrmi2_sidusage : SID_NAME_USE
 
     /**
      * Type: <b>LPWSTR</b>
@@ -110,10 +101,7 @@ class LOCALGROUP_MEMBERS_INFO_2 extends Win32Struct {
      * &lt;DomainName&gt;\&lt;AccountName&gt;
      * 
      * ```
-     * @type {PWSTR}
      */
-    lgrmi2_domainandname {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lgrmi2_domainandname : PWSTR
+
 }

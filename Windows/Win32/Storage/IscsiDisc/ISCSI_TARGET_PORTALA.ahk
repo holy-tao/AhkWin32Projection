@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * ISCSI_TARGET_PORTAL structure contains information about a portal. (ANSI)
@@ -10,35 +10,22 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset ANSI
  */
-class ISCSI_TARGET_PORTALA extends Win32Struct {
-    static sizeof => 514
-
-    static packingSize => 2
+export default struct ISCSI_TARGET_PORTALA {
+    #StructPack 2
 
     /**
      * A string representing the name of the portal.
-     * @type {String}
      */
-    SymbolicName {
-        get => StrGet(this.ptr + 0, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
-    }
+    SymbolicName : CHAR[256]
 
     /**
      * A string representing the IP address or DNS name of the portal.
-     * @type {String}
      */
-    Address {
-        get => StrGet(this.ptr + 256, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 256, 255, "UTF-8")
-    }
+    Address : CHAR[256]
 
     /**
      * The socket number of the portal.
-     * @type {Integer}
      */
-    Socket {
-        get => NumGet(this, 512, "ushort")
-        set => NumPut("ushort", value, this, 512)
-    }
+    Socket : UInt16
+
 }

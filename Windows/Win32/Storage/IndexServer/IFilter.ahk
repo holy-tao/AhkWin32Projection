@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STAT_CHUNK.ahk" { STAT_CHUNK }
+#Import ".\FILTERREGION.ahk" { FILTERREGION }
+#Import ".\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Scans documents for text and properties (also called attributes).
@@ -10,26 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/filter/nn-filter-ifilter
  * @namespace Windows.Win32.Storage.IndexServer
  */
-class IFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFilter extends IUnknown {
     /**
      * The interface identifier for IFilter
      * @type {Guid}
      */
-    static IID => Guid("{89bcb740-6119-101a-bcb7-00dd010655af}")
+    static IID := Guid("{89bcb740-6119-101a-bcb7-00dd010655af}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init       : IntPtr
+        GetChunk   : IntPtr
+        GetText    : IntPtr
+        GetValue   : IntPtr
+        BindRegion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "GetChunk", "GetText", "GetValue", "BindRegion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a filtering session.
@@ -119,7 +135,7 @@ class IFilter extends IUnknown {
     Init(grfFlags, cAttributes, aAttributes, pFlags) {
         pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", grfFlags, "uint", cAttributes, "ptr", aAttributes, pFlagsMarshal, pFlags, "int")
+        result := ComCall(3, this, "uint", grfFlags, "uint", cAttributes, FULLPROPSPEC.Ptr, aAttributes, pFlagsMarshal, pFlags, Int32)
         return result
     }
 
@@ -232,7 +248,7 @@ class IFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-getchunk
      */
     GetChunk(pStat) {
-        result := ComCall(4, this, "ptr", pStat, "int")
+        result := ComCall(4, this, STAT_CHUNK.Ptr, pStat, Int32)
         return result
     }
 
@@ -304,7 +320,7 @@ class IFilter extends IUnknown {
 
         pcwcBufferMarshal := pcwcBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pcwcBufferMarshal, pcwcBuffer, "ptr", awcBuffer, "int")
+        result := ComCall(5, this, pcwcBufferMarshal, pcwcBuffer, "ptr", awcBuffer, Int32)
         return result
     }
 
@@ -368,7 +384,7 @@ class IFilter extends IUnknown {
     GetValue(ppPropValue) {
         ppPropValueMarshal := ppPropValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, ppPropValueMarshal, ppPropValue, "int")
+        result := ComCall(6, this, ppPropValueMarshal, ppPropValue, Int32)
         return result
     }
 
@@ -432,7 +448,35 @@ class IFilter extends IUnknown {
     BindRegion(origPos, riid, ppunk) {
         ppunkMarshal := ppunk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", origPos, "ptr", riid, ppunkMarshal, ppunk, "int")
+        result := ComCall(7, this, FILTERREGION, origPos, Guid.Ptr, riid, ppunkMarshal, ppunk, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
+        this.vtbl.GetChunk := CallbackCreate(GetMethod(implObj, "GetChunk"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.BindRegion := CallbackCreate(GetMethod(implObj, "BindRegion"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.GetChunk)
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.BindRegion)
     }
 }

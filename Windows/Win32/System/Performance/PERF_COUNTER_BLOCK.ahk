@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the block of memory that contains the raw performance counter data for an object's counters.
@@ -12,17 +11,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_counter_block
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_COUNTER_BLOCK extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct PERF_COUNTER_BLOCK {
+    #StructPack 4
 
     /**
      * Size of this structure and the raw counter data that follows, in bytes.
-     * @type {Integer}
      */
-    ByteLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ByteLength : UInt32
+
 }

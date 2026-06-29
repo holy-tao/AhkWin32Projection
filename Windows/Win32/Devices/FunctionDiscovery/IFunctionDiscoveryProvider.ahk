@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFunctionInstanceCollection.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFunctionDiscoveryProviderQuery.ahk" { IFunctionDiscoveryProviderQuery }
+#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import ".\IFunctionDiscoveryProviderFactory.ahk" { IFunctionDiscoveryProviderFactory }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 
 /**
  * This is the main interface implemented by a discovery provider. It is the primary interface the Function Discovery infrastructure uses to communicate with the provider and its resources.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryprovider
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IFunctionDiscoveryProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFunctionDiscoveryProvider extends IUnknown {
     /**
      * The interface identifier for IFunctionDiscoveryProvider
      * @type {Guid}
      */
-    static IID => Guid("{dcde394f-1478-4813-a402-f6fb10657222}")
+    static IID := Guid("{dcde394f-1478-4813-a402-f6fb10657222}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFunctionDiscoveryProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                          : IntPtr
+        Query                               : IntPtr
+        EndQuery                            : IntPtr
+        InstancePropertyStoreValidateAccess : IntPtr
+        InstancePropertyStoreOpen           : IntPtr
+        InstancePropertyStoreFlush          : IntPtr
+        InstanceQueryService                : IntPtr
+        InstanceReleased                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Query", "EndQuery", "InstancePropertyStoreValidateAccess", "InstancePropertyStoreOpen", "InstancePropertyStoreFlush", "InstanceQueryService", "InstanceReleased"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFunctionDiscoveryProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the Function Discovery provider object.
@@ -307,7 +326,7 @@ class IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancequeryservice
      */
     InstanceQueryService(pIFunctionInstance, iProviderInstanceContext, guidService, riid) {
-        result := ComCall(9, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "ptr", guidService, "ptr", riid, "ptr*", &ppIUnknown := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppIUnknown := 0, "HRESULT")
         return IUnknown(ppIUnknown)
     }
 
@@ -368,5 +387,39 @@ class IFunctionDiscoveryProvider extends IUnknown {
     InstanceReleased(pIFunctionInstance, iProviderInstanceContext) {
         result := ComCall(10, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFunctionDiscoveryProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
+        this.vtbl.EndQuery := CallbackCreate(GetMethod(implObj, "EndQuery"), flags, 1)
+        this.vtbl.InstancePropertyStoreValidateAccess := CallbackCreate(GetMethod(implObj, "InstancePropertyStoreValidateAccess"), flags, 4)
+        this.vtbl.InstancePropertyStoreOpen := CallbackCreate(GetMethod(implObj, "InstancePropertyStoreOpen"), flags, 5)
+        this.vtbl.InstancePropertyStoreFlush := CallbackCreate(GetMethod(implObj, "InstancePropertyStoreFlush"), flags, 3)
+        this.vtbl.InstanceQueryService := CallbackCreate(GetMethod(implObj, "InstanceQueryService"), flags, 6)
+        this.vtbl.InstanceReleased := CallbackCreate(GetMethod(implObj, "InstanceReleased"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Query)
+        CallbackFree(this.vtbl.EndQuery)
+        CallbackFree(this.vtbl.InstancePropertyStoreValidateAccess)
+        CallbackFree(this.vtbl.InstancePropertyStoreOpen)
+        CallbackFree(this.vtbl.InstancePropertyStoreFlush)
+        CallbackFree(this.vtbl.InstanceQueryService)
+        CallbackFree(this.vtbl.InstanceReleased)
     }
 }

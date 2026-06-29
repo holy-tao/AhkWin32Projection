@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_STORAGE_TIER_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_STORAGE_TIER_CLASS.ahk" { FILE_STORAGE_TIER_CLASS }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FILE_DESIRED_STORAGE_CLASS_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct FILE_DESIRED_STORAGE_CLASS_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Class : FILE_STORAGE_TIER_CLASS
 
-    /**
-     * @type {FILE_STORAGE_TIER_CLASS}
-     */
-    Class {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

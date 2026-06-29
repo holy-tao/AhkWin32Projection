@@ -1,70 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_DIST_POINT_NAME.ahk
-#Include .\CERT_ALT_NAME_INFO.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
+#Import ".\CRL_DIST_POINT_NAME.ahk" { CRL_DIST_POINT_NAME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CERT_ALT_NAME_INFO.ahk" { CERT_ALT_NAME_INFO }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 
 /**
  * Contains information about the kinds of certificates listed in a certificate revocation list (CRL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_issuing_dist_point
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRL_ISSUING_DIST_POINT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CRL_ISSUING_DIST_POINT {
+    #StructPack 8
 
     /**
      * Optional 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_dist_point_name">CRL_DIST_POINT_NAME</a> member.
-     * @type {CRL_DIST_POINT_NAME}
      */
-    DistPointName {
-        get {
-            if(!this.HasProp("__DistPointName"))
-                this.__DistPointName := CRL_DIST_POINT_NAME(0, this)
-            return this.__DistPointName
-        }
-    }
+    DistPointName : CRL_DIST_POINT_NAME
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only user certificates are contained in the CRL.
-     * @type {BOOL}
      */
-    fOnlyContainsUserCerts {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fOnlyContainsUserCerts : BOOL
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only CA certificates are contained in the CRL.
-     * @type {BOOL}
      */
-    fOnlyContainsCACerts {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fOnlyContainsCACerts : BOOL
 
     /**
      * Optional 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_bit_blob">CRYPT_BIT_BLOB</a> with bits indicating some reasons for certificate revocation.
-     * @type {CRYPT_BIT_BLOB}
      */
-    OnlySomeReasonFlags {
-        get {
-            if(!this.HasProp("__OnlySomeReasonFlags"))
-                this.__OnlySomeReasonFlags := CRYPT_BIT_BLOB(32, this)
-            return this.__OnlySomeReasonFlags
-        }
-    }
+    OnlySomeReasonFlags : CRYPT_BIT_BLOB
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if this is an indirect CRL.
-     * @type {BOOL}
      */
-    fIndirectCRL {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    fIndirectCRL : BOOL
+
 }

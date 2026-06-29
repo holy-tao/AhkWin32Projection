@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS.ahk
-#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk" { DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY }
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk" { DISPLAYCONFIG_DEVICE_INFO_TYPE }
+#Import ".\DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS.ahk" { DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS }
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk" { DISPLAYCONFIG_DEVICE_INFO_HEADER }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The DISPLAYCONFIG_TARGET_DEVICE_NAME structure contains information about the target.
@@ -17,86 +17,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_target_device_name
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct {
-    static sizeof => 420
-
-    static packingSize => 4
+export default struct DISPLAYCONFIG_TARGET_DEVICE_NAME {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_device_info_header">DISPLAYCONFIG_DEVICE_INFO_HEADER</a> structure that contains information about the request for the target device name. The caller should set the <b>type</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER to DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME and the <b>adapterId</b> and <b>id</b> members of DISPLAYCONFIG_DEVICE_INFO_HEADER to the target for which the caller wants the target device name. The caller should set the <b>size</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER to at least the size of the DISPLAYCONFIG_TARGET_DEVICE_NAME structure.
-     * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : DISPLAYCONFIG_DEVICE_INFO_HEADER
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_target_device_name_flags">DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS</a> structure that identifies, in bit-field flags, information about the target.
-     * @type {DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS}
      */
-    flags {
-        get {
-            if(!this.HasProp("__flags"))
-                this.__flags := DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS(20, this)
-            return this.__flags
-        }
-    }
+    flags : DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_video_output_technology">DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY</a> enumeration that specifies the target's connector type.
-     * @type {DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY}
      */
-    outputTechnology {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    outputTechnology : DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY
 
     /**
      * The manufacture identifier from the monitor extended display identification data (EDID). This member is set only when the <b>edidIdsValid</b> bit-field is set in the <b>flags</b> member.
-     * @type {Integer}
      */
-    edidManufactureId {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    edidManufactureId : UInt16
 
     /**
      * The product code from the monitor EDID. This member is set only when the <b>edidIdsValid</b> bit-field is set in the <b>flags</b> member.
-     * @type {Integer}
      */
-    edidProductCodeId {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    edidProductCodeId : UInt16
 
     /**
      * The one-based instance number of this particular target only when the adapter has multiple targets of this type. The connector instance is a consecutive one-based number that is unique within each adapter. If this is the only target of this type on the adapter, this value is zero.
-     * @type {Integer}
      */
-    connectorInstance {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    connectorInstance : UInt32
 
     /**
      * A NULL-terminated WCHAR string that is the  device name for the monitor. This name can be used with <i>SetupAPI.dll</i> to obtain the device name that is contained in the installation package.
-     * @type {String}
      */
-    monitorFriendlyDeviceName {
-        get => StrGet(this.ptr + 36, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 63, "UTF-16")
-    }
+    monitorFriendlyDeviceName : WCHAR[64]
 
     /**
      * A NULL-terminated WCHAR string that is the  path to the device name for the monitor. This path can be used with <i>SetupAPI.dll</i> to obtain the device name that is contained in the installation package.
-     * @type {String}
      */
-    monitorDevicePath {
-        get => StrGet(this.ptr + 164, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 164, 127, "UTF-16")
-    }
+    monitorDevicePath : WCHAR[128]
+
 }

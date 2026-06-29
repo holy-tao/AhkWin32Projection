@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfFunction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfFunction.ahk" { ITfFunction }
 
 /**
  * The ITfFnPropertyUIStatus interface is implemented by a text service and used by an application or text service to obtain and set the status of the text service property UI.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnpropertyuistatus
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfFnPropertyUIStatus extends ITfFunction {
-
-    static sizeof => A_PtrSize
+export default struct ITfFnPropertyUIStatus extends ITfFunction {
     /**
      * The interface identifier for ITfFnPropertyUIStatus
      * @type {Guid}
      */
-    static IID => Guid("{2338ac6e-2b9d-44c0-a75e-ee64f256b3bd}")
+    static IID := Guid("{2338ac6e-2b9d-44c0-a75e-ee64f256b3bd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfFnPropertyUIStatus interfaces
+    */
+    struct Vtbl extends ITfFunction.Vtbl {
+        GetStatus : IntPtr
+        SetStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "SetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfFnPropertyUIStatus.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfFnPropertyUIStatus::GetStatus method
@@ -53,7 +62,7 @@ class ITfFnPropertyUIStatus extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus
      */
     GetStatus(refguidProp) {
-        result := ComCall(4, this, "ptr", refguidProp, "uint*", &pdw := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, refguidProp, "uint*", &pdw := 0, "HRESULT")
         return pdw
     }
 
@@ -94,7 +103,29 @@ class ITfFnPropertyUIStatus extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-setstatus
      */
     SetStatus(refguidProp, dw) {
-        result := ComCall(5, this, "ptr", refguidProp, "uint", dw, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, refguidProp, "uint", dw, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfFnPropertyUIStatus.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetStatus)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only static information for extended TCP statistics on the maximum congestion window for a TCP connection.
@@ -40,18 +39,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_snd_cong_ros_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_SND_CONG_ROS_v0 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct TCP_ESTATS_SND_CONG_ROS_v0 {
+    #StructPack 4
 
     /**
      * The maximum size, in bytes, of the congestion window that may be
      *            used.
-     * @type {Integer}
      */
-    LimCwnd {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LimCwnd : UInt32
+
 }

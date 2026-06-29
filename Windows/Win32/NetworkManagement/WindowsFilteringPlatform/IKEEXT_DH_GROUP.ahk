@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of Diffie Hellman group used for Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) key generation.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_dh_group
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_DH_GROUP extends Win32Enum {
+export default struct IKEEXT_DH_GROUP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies no Diffie Hellman group. Available only for AuthIP.

@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISubscriptionMgr.ahk
-#Include .\ISubscriptionItem.ahk
-#Include .\IEnumSubscription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISubscriptionMgr.ahk" { ISubscriptionMgr }
+#Import ".\IEnumSubscription.ahk" { IEnumSubscription }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISubscriptionItem.ahk" { ISubscriptionItem }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ISubscriptionMgr2 extends ISubscriptionMgr {
-
-    static sizeof => A_PtrSize
+export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     /**
      * The interface identifier for ISubscriptionMgr2
      * @type {Guid}
      */
-    static IID => Guid("{614bc270-aedf-11d1-a1f9-00c04fc2fbe1}")
+    static IID := Guid("{614bc270-aedf-11d1-a1f9-00c04fc2fbe1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISubscriptionMgr2 interfaces
+    */
+    struct Vtbl extends ISubscriptionMgr.Vtbl {
+        GetItemFromURL          : IntPtr
+        GetItemFromCookie       : IntPtr
+        GetSubscriptionRunState : IntPtr
+        EnumSubscriptions       : IntPtr
+        UpdateItems             : IntPtr
+        AbortItems              : IntPtr
+        AbortAll                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItemFromURL", "GetItemFromCookie", "GetSubscriptionRunState", "EnumSubscriptions", "UpdateItems", "AbortItems", "AbortAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISubscriptionMgr2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -47,7 +62,7 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {ISubscriptionItem} 
      */
     GetItemFromCookie(pSubscriptionCookie) {
-        result := ComCall(12, this, "ptr", pSubscriptionCookie, "ptr*", &ppSubscriptionItem := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, pSubscriptionCookie, "ptr*", &ppSubscriptionItem := 0, "HRESULT")
         return ISubscriptionItem(ppSubscriptionItem)
     }
 
@@ -58,7 +73,7 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {Integer} 
      */
     GetSubscriptionRunState(dwNumCookies, pCookies) {
-        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, "uint*", &pdwRunState := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwNumCookies, Guid.Ptr, pCookies, "uint*", &pdwRunState := 0, "HRESULT")
         return pdwRunState
     }
 
@@ -80,7 +95,7 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {HRESULT} 
      */
     UpdateItems(dwFlags, dwNumCookies, pCookies) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", dwNumCookies, "ptr", pCookies, "HRESULT")
+        result := ComCall(15, this, "uint", dwFlags, "uint", dwNumCookies, Guid.Ptr, pCookies, "HRESULT")
         return result
     }
 
@@ -91,7 +106,7 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {HRESULT} 
      */
     AbortItems(dwNumCookies, pCookies) {
-        result := ComCall(16, this, "uint", dwNumCookies, "ptr", pCookies, "HRESULT")
+        result := ComCall(16, this, "uint", dwNumCookies, Guid.Ptr, pCookies, "HRESULT")
         return result
     }
 
@@ -102,5 +117,37 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     AbortAll() {
         result := ComCall(17, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISubscriptionMgr2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItemFromURL := CallbackCreate(GetMethod(implObj, "GetItemFromURL"), flags, 3)
+        this.vtbl.GetItemFromCookie := CallbackCreate(GetMethod(implObj, "GetItemFromCookie"), flags, 3)
+        this.vtbl.GetSubscriptionRunState := CallbackCreate(GetMethod(implObj, "GetSubscriptionRunState"), flags, 4)
+        this.vtbl.EnumSubscriptions := CallbackCreate(GetMethod(implObj, "EnumSubscriptions"), flags, 3)
+        this.vtbl.UpdateItems := CallbackCreate(GetMethod(implObj, "UpdateItems"), flags, 4)
+        this.vtbl.AbortItems := CallbackCreate(GetMethod(implObj, "AbortItems"), flags, 3)
+        this.vtbl.AbortAll := CallbackCreate(GetMethod(implObj, "AbortAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItemFromURL)
+        CallbackFree(this.vtbl.GetItemFromCookie)
+        CallbackFree(this.vtbl.GetSubscriptionRunState)
+        CallbackFree(this.vtbl.EnumSubscriptions)
+        CallbackFree(this.vtbl.UpdateItems)
+        CallbackFree(this.vtbl.AbortItems)
+        CallbackFree(this.vtbl.AbortAll)
     }
 }

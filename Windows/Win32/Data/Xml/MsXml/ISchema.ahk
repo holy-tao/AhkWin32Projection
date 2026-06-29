@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaItem.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISchemaItemCollection.ahk
-#Include .\ISchemaStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
+#Import ".\ISchemaStringCollection.ahk" { ISchemaStringCollection }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISchemaItem.ahk" { ISchemaItem }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
- * Provides a method for localizing keywords in a specified string.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-ischemalocalizersupport
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class ISchema extends ISchemaItem {
-
-    static sizeof => A_PtrSize
+export default struct ISchema extends ISchemaItem {
     /**
      * The interface identifier for ISchema
      * @type {Guid}
      */
-    static IID => Guid("{50ea08b4-dd1b-4664-9a50-c2f40f4bd79a}")
+    static IID := Guid("{50ea08b4-dd1b-4664-9a50-c2f40f4bd79a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISchema interfaces
+    */
+    struct Vtbl extends ISchemaItem.Vtbl {
+        get_targetNamespace : IntPtr
+        get_version         : IntPtr
+        get_types           : IntPtr
+        get_elements        : IntPtr
+        get_attributes      : IntPtr
+        get_attributeGroups : IntPtr
+        get_modelGroups     : IntPtr
+        get_notations       : IntPtr
+        get_schemaLocations : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_targetNamespace", "get_version", "get_types", "get_elements", "get_attributes", "get_attributeGroups", "get_modelGroups", "get_notations", "get_schemaLocations"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISchema.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -100,8 +114,8 @@ class ISchema extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_targetNamespace() {
-        targetNamespace := BSTR()
-        result := ComCall(14, this, "ptr", targetNamespace, "HRESULT")
+        targetNamespace := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, targetNamespace, "HRESULT")
         return targetNamespace
     }
 
@@ -110,8 +124,8 @@ class ISchema extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_version() {
-        _version := BSTR()
-        result := ComCall(15, this, "ptr", _version, "HRESULT")
+        _version := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, _version, "HRESULT")
         return _version
     }
 
@@ -176,5 +190,41 @@ class ISchema extends ISchemaItem {
     get_schemaLocations() {
         result := ComCall(22, this, "ptr*", &schemaLocations := 0, "HRESULT")
         return ISchemaStringCollection(schemaLocations)
+    }
+
+    Query(iid) {
+        if (ISchema.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_targetNamespace := CallbackCreate(GetMethod(implObj, "get_targetNamespace"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.get_types := CallbackCreate(GetMethod(implObj, "get_types"), flags, 2)
+        this.vtbl.get_elements := CallbackCreate(GetMethod(implObj, "get_elements"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.get_attributeGroups := CallbackCreate(GetMethod(implObj, "get_attributeGroups"), flags, 2)
+        this.vtbl.get_modelGroups := CallbackCreate(GetMethod(implObj, "get_modelGroups"), flags, 2)
+        this.vtbl.get_notations := CallbackCreate(GetMethod(implObj, "get_notations"), flags, 2)
+        this.vtbl.get_schemaLocations := CallbackCreate(GetMethod(implObj, "get_schemaLocations"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_targetNamespace)
+        CallbackFree(this.vtbl.get_version)
+        CallbackFree(this.vtbl.get_types)
+        CallbackFree(this.vtbl.get_elements)
+        CallbackFree(this.vtbl.get_attributes)
+        CallbackFree(this.vtbl.get_attributeGroups)
+        CallbackFree(this.vtbl.get_modelGroups)
+        CallbackFree(this.vtbl.get_notations)
+        CallbackFree(this.vtbl.get_schemaLocations)
     }
 }

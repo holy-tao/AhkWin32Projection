@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class IVariantChangeType extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVariantChangeType extends IUnknown {
     /**
      * The interface identifier for IVariantChangeType
      * @type {Guid}
      */
-    static IID => Guid("{a6ef9862-c720-11d0-9337-00a0c90dcaa9}")
+    static IID := Guid("{a6ef9862-c720-11d0-9337-00a0c90dcaa9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVariantChangeType interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ChangeType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ChangeType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVariantChangeType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +46,27 @@ class IVariantChangeType extends IUnknown {
      * @returns {HRESULT} 
      */
     ChangeType(pvarDst, pvarSrc, lcid, vtNew) {
-        result := ComCall(3, this, "ptr", pvarDst, "ptr", pvarSrc, "uint", lcid, "ushort", vtNew, "HRESULT")
+        result := ComCall(3, this, VARIANT.Ptr, pvarDst, VARIANT.Ptr, pvarSrc, "uint", lcid, VARENUM, vtNew, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVariantChangeType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ChangeType := CallbackCreate(GetMethod(implObj, "ChangeType"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ChangeType)
     }
 }

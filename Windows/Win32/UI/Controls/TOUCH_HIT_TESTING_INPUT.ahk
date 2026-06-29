@@ -1,38 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains information about the touch contact area reported by the touch digitizer.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_input
  * @namespace Windows.Win32.UI.Controls
  */
-class TOUCH_HIT_TESTING_INPUT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct TOUCH_HIT_TESTING_INPUT {
+    #StructPack 4
 
     /**
      * The ID of the pointer. You cannot pass this value to the input message process and  retrieve additional pointer info through <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerinfo">GetPointerInfo</a>.
-     * @type {Integer}
      */
-    pointerId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pointerId : UInt32
 
     /**
      * The screen coordinates of the touch point that the touch digitizer reports.
-     * @type {POINT}
      */
-    point {
-        get {
-            if(!this.HasProp("__point"))
-                this.__point := POINT(4, this)
-            return this.__point
-        }
-    }
+    point : POINT
 
     /**
      * The bounding rectangle of the touch contact area. Valid touch targets are identified and scored based on this bounding box. 
@@ -45,34 +31,17 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct {
      * </ul>
      * </div>
      * <div> </div>
-     * @type {RECT}
      */
-    boundingBox {
-        get {
-            if(!this.HasProp("__boundingBox"))
-                this.__boundingBox := RECT(12, this)
-            return this.__boundingBox
-        }
-    }
+    boundingBox : RECT
 
     /**
      * The touch contact area within a specific targeted window that's not occluded by other objects that are higher in the z-order. Any area that's occluded by another object is an invalid target.
-     * @type {RECT}
      */
-    nonOccludedBoundingBox {
-        get {
-            if(!this.HasProp("__nonOccludedBoundingBox"))
-                this.__nonOccludedBoundingBox := RECT(28, this)
-            return this.__nonOccludedBoundingBox
-        }
-    }
+    nonOccludedBoundingBox : RECT
 
     /**
      * The orientation of the touch contact area.
-     * @type {Integer}
      */
-    orientation {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    orientation : UInt32
+
 }

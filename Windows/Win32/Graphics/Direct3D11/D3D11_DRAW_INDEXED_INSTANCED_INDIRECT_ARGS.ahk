@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Arguments for draw indexed instanced indirect.
@@ -9,53 +8,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_draw_indexed_instanced_indirect_args
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_DRAW_INDEXED_INSTANCED_INDIRECT_ARGS extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3D11_DRAW_INDEXED_INSTANCED_INDIRECT_ARGS {
+    #StructPack 4
 
     /**
      * The number of indices read from the index buffer for each instance.
-     * @type {Integer}
      */
-    IndexCountPerInstance {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IndexCountPerInstance : UInt32
 
     /**
      * The number of instances to draw.
-     * @type {Integer}
      */
-    InstanceCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InstanceCount : UInt32
 
     /**
      * The location of the first index read by the GPU from the index buffer.
-     * @type {Integer}
      */
-    StartIndexLocation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StartIndexLocation : UInt32
 
     /**
      * A value added to each index before reading a vertex from the vertex buffer.
-     * @type {Integer}
      */
-    BaseVertexLocation {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    BaseVertexLocation : Int32
 
     /**
      * A value added to each index before reading per-instance data from a vertex buffer.
-     * @type {Integer}
      */
-    StartInstanceLocation {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    StartInstanceLocation : UInt32
+
 }

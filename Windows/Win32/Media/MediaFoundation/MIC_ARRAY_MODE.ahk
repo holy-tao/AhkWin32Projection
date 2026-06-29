@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the voice capture DSP performs microphone array processing. This enumeration is used with the MFPKEY_WMAAECMA_FEATR_MICARR_MODE property.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-mic_array_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MIC_ARRAY_MODE extends Win32Enum {
+export default struct MIC_ARRAY_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use a single channel. Specify the channel number in the last 8 bits of the value.

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsiDirectoryItem.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IBootOptions.ahk
-#Include .\IFileSystemImageResult.ahk
-#Include .\IFsiFileItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBootOptions.ahk" { IBootOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
+#Import ".\IFileSystemImageResult.ahk" { IFileSystemImageResult }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import ".\IFsiDirectoryItem.ahk" { IFsiDirectoryItem }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FsiItemType.ahk" { FsiItemType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to build a file system image, set session parameter, and import or export an image.
@@ -15,26 +22,82 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimage
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFileSystemImage extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFileSystemImage extends IDispatch {
     /**
      * The interface identifier for IFileSystemImage
      * @type {Guid}
      */
-    static IID => Guid("{2c941fe1-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fe1-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSystemImage interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Root                              : IntPtr
+        get_SessionStartBlock                 : IntPtr
+        put_SessionStartBlock                 : IntPtr
+        get_FreeMediaBlocks                   : IntPtr
+        put_FreeMediaBlocks                   : IntPtr
+        SetMaxMediaBlocksFromDevice           : IntPtr
+        get_UsedBlocks                        : IntPtr
+        get_VolumeName                        : IntPtr
+        put_VolumeName                        : IntPtr
+        get_ImportedVolumeName                : IntPtr
+        get_BootImageOptions                  : IntPtr
+        put_BootImageOptions                  : IntPtr
+        get_FileCount                         : IntPtr
+        get_DirectoryCount                    : IntPtr
+        get_WorkingDirectory                  : IntPtr
+        put_WorkingDirectory                  : IntPtr
+        get_ChangePoint                       : IntPtr
+        get_StrictFileSystemCompliance        : IntPtr
+        put_StrictFileSystemCompliance        : IntPtr
+        get_UseRestrictedCharacterSet         : IntPtr
+        put_UseRestrictedCharacterSet         : IntPtr
+        get_FileSystemsToCreate               : IntPtr
+        put_FileSystemsToCreate               : IntPtr
+        get_FileSystemsSupported              : IntPtr
+        put_UDFRevision                       : IntPtr
+        get_UDFRevision                       : IntPtr
+        get_UDFRevisionsSupported             : IntPtr
+        ChooseImageDefaults                   : IntPtr
+        ChooseImageDefaultsForMediaType       : IntPtr
+        put_ISO9660InterchangeLevel           : IntPtr
+        get_ISO9660InterchangeLevel           : IntPtr
+        get_ISO9660InterchangeLevelsSupported : IntPtr
+        CreateResultImage                     : IntPtr
+        Exists                                : IntPtr
+        CalculateDiscIdentifier               : IntPtr
+        IdentifyFileSystemsOnDisc             : IntPtr
+        GetDefaultFileSystemForImport         : IntPtr
+        ImportFileSystem                      : IntPtr
+        ImportSpecificFileSystem              : IntPtr
+        RollbackToChangePoint                 : IntPtr
+        LockInChangePoint                     : IntPtr
+        CreateDirectoryItem                   : IntPtr
+        CreateFileItem                        : IntPtr
+        get_VolumeNameUDF                     : IntPtr
+        get_VolumeNameJoliet                  : IntPtr
+        get_VolumeNameISO9660                 : IntPtr
+        get_StageFiles                        : IntPtr
+        put_StageFiles                        : IntPtr
+        get_MultisessionInterfaces            : IntPtr
+        put_MultisessionInterfaces            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Root", "get_SessionStartBlock", "put_SessionStartBlock", "get_FreeMediaBlocks", "put_FreeMediaBlocks", "SetMaxMediaBlocksFromDevice", "get_UsedBlocks", "get_VolumeName", "put_VolumeName", "get_ImportedVolumeName", "get_BootImageOptions", "put_BootImageOptions", "get_FileCount", "get_DirectoryCount", "get_WorkingDirectory", "put_WorkingDirectory", "get_ChangePoint", "get_StrictFileSystemCompliance", "put_StrictFileSystemCompliance", "get_UseRestrictedCharacterSet", "put_UseRestrictedCharacterSet", "get_FileSystemsToCreate", "put_FileSystemsToCreate", "get_FileSystemsSupported", "put_UDFRevision", "get_UDFRevision", "get_UDFRevisionsSupported", "ChooseImageDefaults", "ChooseImageDefaultsForMediaType", "put_ISO9660InterchangeLevel", "get_ISO9660InterchangeLevel", "get_ISO9660InterchangeLevelsSupported", "CreateResultImage", "Exists", "CalculateDiscIdentifier", "IdentifyFileSystemsOnDisc", "GetDefaultFileSystemForImport", "ImportFileSystem", "ImportSpecificFileSystem", "RollbackToChangePoint", "LockInChangePoint", "CreateDirectoryItem", "CreateFileItem", "get_VolumeNameUDF", "get_VolumeNameJoliet", "get_VolumeNameISO9660", "get_StageFiles", "put_StageFiles", "get_MultisessionInterfaces", "put_MultisessionInterfaces"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSystemImage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IFsiDirectoryItem} 
@@ -361,8 +424,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumename
      */
     get_VolumeName() {
-        pVal := BSTR()
-        result := ComCall(14, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -413,7 +476,7 @@ class IFileSystemImage extends IDispatch {
     put_VolumeName(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(15, this, "ptr", newVal, "HRESULT")
+        result := ComCall(15, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -425,8 +488,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_importedvolumename
      */
     get_ImportedVolumeName() {
-        pVal := BSTR()
-        result := ComCall(16, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -512,8 +575,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_workingdirectory
      */
     get_WorkingDirectory() {
-        pVal := BSTR()
-        result := ComCall(21, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -578,7 +641,7 @@ class IFileSystemImage extends IDispatch {
     put_WorkingDirectory(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(22, this, "ptr", newVal, "HRESULT")
+        result := ComCall(22, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -604,7 +667,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_strictfilesystemcompliance
      */
     get_StrictFileSystemCompliance() {
-        result := ComCall(24, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -621,7 +684,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_strictfilesystemcompliance
      */
     put_StrictFileSystemCompliance(newVal) {
-        result := ComCall(25, this, "short", newVal, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -631,7 +694,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_userestrictedcharacterset
      */
     get_UseRestrictedCharacterSet() {
-        result := ComCall(26, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -646,7 +709,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_userestrictedcharacterset
      */
     put_UseRestrictedCharacterSet(newVal) {
-        result := ComCall(27, this, "short", newVal, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -760,7 +823,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_filesystemstocreate
      */
     put_FileSystemsToCreate(newVal) {
-        result := ComCall(29, this, "int", newVal, "HRESULT")
+        result := ComCall(29, this, FsiFileSystems, newVal, "HRESULT")
         return result
     }
 
@@ -945,7 +1008,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-chooseimagedefaultsformediatype
      */
     ChooseImageDefaultsForMediaType(value) {
-        result := ComCall(35, this, "int", value, "HRESULT")
+        result := ComCall(35, this, IMAPI_MEDIA_PHYSICAL_TYPE, value, "HRESULT")
         return result
     }
 
@@ -1031,7 +1094,7 @@ class IFileSystemImage extends IDispatch {
     Exists(fullPath) {
         fullPath := fullPath is String ? BSTR.Alloc(fullPath).Value : fullPath
 
-        result := ComCall(40, this, "ptr", fullPath, "int*", &itemType := 0, "HRESULT")
+        result := ComCall(40, this, BSTR, fullPath, "int*", &itemType := 0, "HRESULT")
         return itemType
     }
 
@@ -1045,8 +1108,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-calculatediscidentifier
      */
     CalculateDiscIdentifier() {
-        discIdentifier := BSTR()
-        result := ComCall(41, this, "ptr", discIdentifier, "HRESULT")
+        discIdentifier := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, discIdentifier, "HRESULT")
         return discIdentifier
     }
 
@@ -1074,7 +1137,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-getdefaultfilesystemforimport
      */
     GetDefaultFileSystemForImport(fileSystems) {
-        result := ComCall(43, this, "int", fileSystems, "int*", &importDefault := 0, "HRESULT")
+        result := ComCall(43, this, FsiFileSystems, fileSystems, "int*", &importDefault := 0, "HRESULT")
         return importDefault
     }
 
@@ -1244,7 +1307,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importspecificfilesystem
      */
     ImportSpecificFileSystem(fileSystemToUse) {
-        result := ComCall(45, this, "int", fileSystemToUse, "HRESULT")
+        result := ComCall(45, this, FsiFileSystems, fileSystemToUse, "HRESULT")
         return result
     }
 
@@ -1339,7 +1402,7 @@ class IFileSystemImage extends IDispatch {
     CreateDirectoryItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(48, this, "ptr", name, "ptr*", &newItem := 0, "HRESULT")
+        result := ComCall(48, this, BSTR, name, "ptr*", &newItem := 0, "HRESULT")
         return IFsiDirectoryItem(newItem)
     }
 
@@ -1354,7 +1417,7 @@ class IFileSystemImage extends IDispatch {
     CreateFileItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(49, this, "ptr", name, "ptr*", &newItem := 0, "HRESULT")
+        result := ComCall(49, this, BSTR, name, "ptr*", &newItem := 0, "HRESULT")
         return IFsiFileItem(newItem)
     }
 
@@ -1364,8 +1427,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenameudf
      */
     get_VolumeNameUDF() {
-        pVal := BSTR()
-        result := ComCall(50, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(50, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -1375,8 +1438,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenamejoliet
      */
     get_VolumeNameJoliet() {
-        pVal := BSTR()
-        result := ComCall(51, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(51, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -1386,8 +1449,8 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenameiso9660
      */
     get_VolumeNameISO9660() {
-        pVal := BSTR()
-        result := ComCall(52, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(52, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -1409,7 +1472,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_stagefiles
      */
     get_StageFiles() {
-        result := ComCall(53, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(53, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -1452,7 +1515,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_stagefiles
      */
     put_StageFiles(newVal) {
-        result := ComCall(54, this, "short", newVal, "HRESULT")
+        result := ComCall(54, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -1588,7 +1651,125 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_multisessioninterfaces
      */
     put_MultisessionInterfaces(newVal) {
-        result := ComCall(56, this, "ptr", newVal, "HRESULT")
+        result := ComCall(56, this, SAFEARRAY.Ptr, newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileSystemImage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Root := CallbackCreate(GetMethod(implObj, "get_Root"), flags, 2)
+        this.vtbl.get_SessionStartBlock := CallbackCreate(GetMethod(implObj, "get_SessionStartBlock"), flags, 2)
+        this.vtbl.put_SessionStartBlock := CallbackCreate(GetMethod(implObj, "put_SessionStartBlock"), flags, 2)
+        this.vtbl.get_FreeMediaBlocks := CallbackCreate(GetMethod(implObj, "get_FreeMediaBlocks"), flags, 2)
+        this.vtbl.put_FreeMediaBlocks := CallbackCreate(GetMethod(implObj, "put_FreeMediaBlocks"), flags, 2)
+        this.vtbl.SetMaxMediaBlocksFromDevice := CallbackCreate(GetMethod(implObj, "SetMaxMediaBlocksFromDevice"), flags, 2)
+        this.vtbl.get_UsedBlocks := CallbackCreate(GetMethod(implObj, "get_UsedBlocks"), flags, 2)
+        this.vtbl.get_VolumeName := CallbackCreate(GetMethod(implObj, "get_VolumeName"), flags, 2)
+        this.vtbl.put_VolumeName := CallbackCreate(GetMethod(implObj, "put_VolumeName"), flags, 2)
+        this.vtbl.get_ImportedVolumeName := CallbackCreate(GetMethod(implObj, "get_ImportedVolumeName"), flags, 2)
+        this.vtbl.get_BootImageOptions := CallbackCreate(GetMethod(implObj, "get_BootImageOptions"), flags, 2)
+        this.vtbl.put_BootImageOptions := CallbackCreate(GetMethod(implObj, "put_BootImageOptions"), flags, 2)
+        this.vtbl.get_FileCount := CallbackCreate(GetMethod(implObj, "get_FileCount"), flags, 2)
+        this.vtbl.get_DirectoryCount := CallbackCreate(GetMethod(implObj, "get_DirectoryCount"), flags, 2)
+        this.vtbl.get_WorkingDirectory := CallbackCreate(GetMethod(implObj, "get_WorkingDirectory"), flags, 2)
+        this.vtbl.put_WorkingDirectory := CallbackCreate(GetMethod(implObj, "put_WorkingDirectory"), flags, 2)
+        this.vtbl.get_ChangePoint := CallbackCreate(GetMethod(implObj, "get_ChangePoint"), flags, 2)
+        this.vtbl.get_StrictFileSystemCompliance := CallbackCreate(GetMethod(implObj, "get_StrictFileSystemCompliance"), flags, 2)
+        this.vtbl.put_StrictFileSystemCompliance := CallbackCreate(GetMethod(implObj, "put_StrictFileSystemCompliance"), flags, 2)
+        this.vtbl.get_UseRestrictedCharacterSet := CallbackCreate(GetMethod(implObj, "get_UseRestrictedCharacterSet"), flags, 2)
+        this.vtbl.put_UseRestrictedCharacterSet := CallbackCreate(GetMethod(implObj, "put_UseRestrictedCharacterSet"), flags, 2)
+        this.vtbl.get_FileSystemsToCreate := CallbackCreate(GetMethod(implObj, "get_FileSystemsToCreate"), flags, 2)
+        this.vtbl.put_FileSystemsToCreate := CallbackCreate(GetMethod(implObj, "put_FileSystemsToCreate"), flags, 2)
+        this.vtbl.get_FileSystemsSupported := CallbackCreate(GetMethod(implObj, "get_FileSystemsSupported"), flags, 2)
+        this.vtbl.put_UDFRevision := CallbackCreate(GetMethod(implObj, "put_UDFRevision"), flags, 2)
+        this.vtbl.get_UDFRevision := CallbackCreate(GetMethod(implObj, "get_UDFRevision"), flags, 2)
+        this.vtbl.get_UDFRevisionsSupported := CallbackCreate(GetMethod(implObj, "get_UDFRevisionsSupported"), flags, 2)
+        this.vtbl.ChooseImageDefaults := CallbackCreate(GetMethod(implObj, "ChooseImageDefaults"), flags, 2)
+        this.vtbl.ChooseImageDefaultsForMediaType := CallbackCreate(GetMethod(implObj, "ChooseImageDefaultsForMediaType"), flags, 2)
+        this.vtbl.put_ISO9660InterchangeLevel := CallbackCreate(GetMethod(implObj, "put_ISO9660InterchangeLevel"), flags, 2)
+        this.vtbl.get_ISO9660InterchangeLevel := CallbackCreate(GetMethod(implObj, "get_ISO9660InterchangeLevel"), flags, 2)
+        this.vtbl.get_ISO9660InterchangeLevelsSupported := CallbackCreate(GetMethod(implObj, "get_ISO9660InterchangeLevelsSupported"), flags, 2)
+        this.vtbl.CreateResultImage := CallbackCreate(GetMethod(implObj, "CreateResultImage"), flags, 2)
+        this.vtbl.Exists := CallbackCreate(GetMethod(implObj, "Exists"), flags, 3)
+        this.vtbl.CalculateDiscIdentifier := CallbackCreate(GetMethod(implObj, "CalculateDiscIdentifier"), flags, 2)
+        this.vtbl.IdentifyFileSystemsOnDisc := CallbackCreate(GetMethod(implObj, "IdentifyFileSystemsOnDisc"), flags, 3)
+        this.vtbl.GetDefaultFileSystemForImport := CallbackCreate(GetMethod(implObj, "GetDefaultFileSystemForImport"), flags, 3)
+        this.vtbl.ImportFileSystem := CallbackCreate(GetMethod(implObj, "ImportFileSystem"), flags, 2)
+        this.vtbl.ImportSpecificFileSystem := CallbackCreate(GetMethod(implObj, "ImportSpecificFileSystem"), flags, 2)
+        this.vtbl.RollbackToChangePoint := CallbackCreate(GetMethod(implObj, "RollbackToChangePoint"), flags, 2)
+        this.vtbl.LockInChangePoint := CallbackCreate(GetMethod(implObj, "LockInChangePoint"), flags, 1)
+        this.vtbl.CreateDirectoryItem := CallbackCreate(GetMethod(implObj, "CreateDirectoryItem"), flags, 3)
+        this.vtbl.CreateFileItem := CallbackCreate(GetMethod(implObj, "CreateFileItem"), flags, 3)
+        this.vtbl.get_VolumeNameUDF := CallbackCreate(GetMethod(implObj, "get_VolumeNameUDF"), flags, 2)
+        this.vtbl.get_VolumeNameJoliet := CallbackCreate(GetMethod(implObj, "get_VolumeNameJoliet"), flags, 2)
+        this.vtbl.get_VolumeNameISO9660 := CallbackCreate(GetMethod(implObj, "get_VolumeNameISO9660"), flags, 2)
+        this.vtbl.get_StageFiles := CallbackCreate(GetMethod(implObj, "get_StageFiles"), flags, 2)
+        this.vtbl.put_StageFiles := CallbackCreate(GetMethod(implObj, "put_StageFiles"), flags, 2)
+        this.vtbl.get_MultisessionInterfaces := CallbackCreate(GetMethod(implObj, "get_MultisessionInterfaces"), flags, 2)
+        this.vtbl.put_MultisessionInterfaces := CallbackCreate(GetMethod(implObj, "put_MultisessionInterfaces"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Root)
+        CallbackFree(this.vtbl.get_SessionStartBlock)
+        CallbackFree(this.vtbl.put_SessionStartBlock)
+        CallbackFree(this.vtbl.get_FreeMediaBlocks)
+        CallbackFree(this.vtbl.put_FreeMediaBlocks)
+        CallbackFree(this.vtbl.SetMaxMediaBlocksFromDevice)
+        CallbackFree(this.vtbl.get_UsedBlocks)
+        CallbackFree(this.vtbl.get_VolumeName)
+        CallbackFree(this.vtbl.put_VolumeName)
+        CallbackFree(this.vtbl.get_ImportedVolumeName)
+        CallbackFree(this.vtbl.get_BootImageOptions)
+        CallbackFree(this.vtbl.put_BootImageOptions)
+        CallbackFree(this.vtbl.get_FileCount)
+        CallbackFree(this.vtbl.get_DirectoryCount)
+        CallbackFree(this.vtbl.get_WorkingDirectory)
+        CallbackFree(this.vtbl.put_WorkingDirectory)
+        CallbackFree(this.vtbl.get_ChangePoint)
+        CallbackFree(this.vtbl.get_StrictFileSystemCompliance)
+        CallbackFree(this.vtbl.put_StrictFileSystemCompliance)
+        CallbackFree(this.vtbl.get_UseRestrictedCharacterSet)
+        CallbackFree(this.vtbl.put_UseRestrictedCharacterSet)
+        CallbackFree(this.vtbl.get_FileSystemsToCreate)
+        CallbackFree(this.vtbl.put_FileSystemsToCreate)
+        CallbackFree(this.vtbl.get_FileSystemsSupported)
+        CallbackFree(this.vtbl.put_UDFRevision)
+        CallbackFree(this.vtbl.get_UDFRevision)
+        CallbackFree(this.vtbl.get_UDFRevisionsSupported)
+        CallbackFree(this.vtbl.ChooseImageDefaults)
+        CallbackFree(this.vtbl.ChooseImageDefaultsForMediaType)
+        CallbackFree(this.vtbl.put_ISO9660InterchangeLevel)
+        CallbackFree(this.vtbl.get_ISO9660InterchangeLevel)
+        CallbackFree(this.vtbl.get_ISO9660InterchangeLevelsSupported)
+        CallbackFree(this.vtbl.CreateResultImage)
+        CallbackFree(this.vtbl.Exists)
+        CallbackFree(this.vtbl.CalculateDiscIdentifier)
+        CallbackFree(this.vtbl.IdentifyFileSystemsOnDisc)
+        CallbackFree(this.vtbl.GetDefaultFileSystemForImport)
+        CallbackFree(this.vtbl.ImportFileSystem)
+        CallbackFree(this.vtbl.ImportSpecificFileSystem)
+        CallbackFree(this.vtbl.RollbackToChangePoint)
+        CallbackFree(this.vtbl.LockInChangePoint)
+        CallbackFree(this.vtbl.CreateDirectoryItem)
+        CallbackFree(this.vtbl.CreateFileItem)
+        CallbackFree(this.vtbl.get_VolumeNameUDF)
+        CallbackFree(this.vtbl.get_VolumeNameJoliet)
+        CallbackFree(this.vtbl.get_VolumeNameISO9660)
+        CallbackFree(this.vtbl.get_StageFiles)
+        CallbackFree(this.vtbl.put_StageFiles)
+        CallbackFree(this.vtbl.get_MultisessionInterfaces)
+        CallbackFree(this.vtbl.put_MultisessionInterfaces)
     }
 }

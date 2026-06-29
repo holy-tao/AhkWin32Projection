@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUS_RESSUBCLASS enumeration (msclus.h) identifies a resource subclass that manages a shared resource.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_ressubclass
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_RESSUBCLASS extends Win32Enum {
+export default struct CLUS_RESSUBCLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Identifies a resource subclass that manages a shared resource, such as a disk on a shared SCSI bus. The 

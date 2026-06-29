@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines the raw input data coming from the specified mouse.
@@ -8,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info_mouse
  * @namespace Windows.Win32.UI.Input
  */
-class RID_DEVICE_INFO_MOUSE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct RID_DEVICE_INFO_MOUSE {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
@@ -23,34 +21,22 @@ class RID_DEVICE_INFO_MOUSE extends Win32Struct {
      * | 0x0080 | MOUSE\_HID\_HARDWARE       | [HID mouse](/windows-hardware/drivers/hid/keyboard-and-mouse-hid-client-drivers)       |
      * | 0x0100 | WHEELMOUSE\_HID\_HARDWARE  | [HID wheel mouse](/windows-hardware/drivers/hid/keyboard-and-mouse-hid-client-drivers) |
      * | 0x8000 | HORIZONTAL\_WHEEL\_PRESENT | Mouse with horizontal wheel                                                            |
-     * @type {Integer}
      */
-    dwId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of buttons for the mouse.
-     * @type {Integer}
      */
-    dwNumberOfButtons {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNumberOfButtons : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of data points per second. This information may not be applicable for every mouse device.
-     * @type {Integer}
      */
-    dwSampleRate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSampleRate : UInt32
 
     /**
      * Type: <b>BOOL</b>
@@ -58,10 +44,7 @@ class RID_DEVICE_INFO_MOUSE extends Win32Struct {
      * <b>TRUE</b> if the mouse has a wheel for horizontal scrolling; otherwise, <b>FALSE</b>.
      * 
      * <b>Windows XP:</b> This member is only supported starting with Windows Vista.
-     * @type {BOOL}
      */
-    fHasHorizontalWheel {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    fHasHorizontalWheel : BOOL
+
 }

@@ -1,119 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\UCPTrieData.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UCPTrieData.ahk" { UCPTrieData }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UCPTrie extends Win32Struct {
-    static sizeof => 72
+export default struct UCPTrie {
+    #StructPack 8
 
-    static packingSize => 8
+    index : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    index {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    data : UCPTrieData
 
-    /**
-     * @type {UCPTrieData}
-     */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := UCPTrieData(8, this)
-            return this.__data
-        }
-    }
+    indexLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    indexLength {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    dataLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    dataLength {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    highStart : Int32
 
-    /**
-     * @type {Integer}
-     */
-    highStart {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    shifted12HighStart : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    shifted12HighStart {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    type {
-        get => NumGet(this, 54, "char")
-        set => NumPut("char", value, this, 54)
-    }
+    valueWidth : Int8
 
-    /**
-     * @type {Integer}
-     */
-    valueWidth {
-        get => NumGet(this, 55, "char")
-        set => NumPut("char", value, this, 55)
-    }
+    reserved32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    reserved32 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    reserved16 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    reserved16 {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
+    index3NullOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    index3NullOffset {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
+    dataNullOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    dataNullOffset {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    nullValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nullValue {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
 }

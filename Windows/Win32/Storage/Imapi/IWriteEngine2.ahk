@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IDiscRecorder2Ex.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDiscRecorder2Ex.ahk" { IDiscRecorder2Ex }
 
 /**
  * Use this interface to write a data stream to a device.
@@ -13,26 +16,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iwriteengine2
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IWriteEngine2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWriteEngine2 extends IDispatch {
     /**
      * The interface identifier for IWriteEngine2
      * @type {Guid}
      */
-    static IID => Guid("{27354135-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354135-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWriteEngine2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        WriteSection                 : IntPtr
+        CancelWrite                  : IntPtr
+        put_Recorder                 : IntPtr
+        get_Recorder                 : IntPtr
+        put_UseStreamingWrite12      : IntPtr
+        get_UseStreamingWrite12      : IntPtr
+        put_StartingSectorsPerSecond : IntPtr
+        get_StartingSectorsPerSecond : IntPtr
+        put_EndingSectorsPerSecond   : IntPtr
+        get_EndingSectorsPerSecond   : IntPtr
+        put_BytesPerSector           : IntPtr
+        get_BytesPerSector           : IntPtr
+        get_WriteInProgress          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WriteSection", "CancelWrite", "put_Recorder", "get_Recorder", "put_UseStreamingWrite12", "get_UseStreamingWrite12", "put_StartingSectorsPerSecond", "get_StartingSectorsPerSecond", "put_EndingSectorsPerSecond", "get_EndingSectorsPerSecond", "put_BytesPerSector", "get_BytesPerSector", "get_WriteInProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWriteEngine2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDiscRecorder2Ex} 
@@ -577,7 +599,7 @@ class IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-put_usestreamingwrite12
      */
     put_UseStreamingWrite12(value) {
-        result := ComCall(11, this, "short", value, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -587,7 +609,7 @@ class IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_usestreamingwrite12
      */
     get_UseStreamingWrite12() {
-        result := ComCall(12, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -773,7 +795,51 @@ class IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_writeinprogress
      */
     get_WriteInProgress() {
-        result := ComCall(19, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IWriteEngine2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WriteSection := CallbackCreate(GetMethod(implObj, "WriteSection"), flags, 4)
+        this.vtbl.CancelWrite := CallbackCreate(GetMethod(implObj, "CancelWrite"), flags, 1)
+        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_UseStreamingWrite12 := CallbackCreate(GetMethod(implObj, "put_UseStreamingWrite12"), flags, 2)
+        this.vtbl.get_UseStreamingWrite12 := CallbackCreate(GetMethod(implObj, "get_UseStreamingWrite12"), flags, 2)
+        this.vtbl.put_StartingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "put_StartingSectorsPerSecond"), flags, 2)
+        this.vtbl.get_StartingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "get_StartingSectorsPerSecond"), flags, 2)
+        this.vtbl.put_EndingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "put_EndingSectorsPerSecond"), flags, 2)
+        this.vtbl.get_EndingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "get_EndingSectorsPerSecond"), flags, 2)
+        this.vtbl.put_BytesPerSector := CallbackCreate(GetMethod(implObj, "put_BytesPerSector"), flags, 2)
+        this.vtbl.get_BytesPerSector := CallbackCreate(GetMethod(implObj, "get_BytesPerSector"), flags, 2)
+        this.vtbl.get_WriteInProgress := CallbackCreate(GetMethod(implObj, "get_WriteInProgress"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WriteSection)
+        CallbackFree(this.vtbl.CancelWrite)
+        CallbackFree(this.vtbl.put_Recorder)
+        CallbackFree(this.vtbl.get_Recorder)
+        CallbackFree(this.vtbl.put_UseStreamingWrite12)
+        CallbackFree(this.vtbl.get_UseStreamingWrite12)
+        CallbackFree(this.vtbl.put_StartingSectorsPerSecond)
+        CallbackFree(this.vtbl.get_StartingSectorsPerSecond)
+        CallbackFree(this.vtbl.put_EndingSectorsPerSecond)
+        CallbackFree(this.vtbl.get_EndingSectorsPerSecond)
+        CallbackFree(this.vtbl.put_BytesPerSector)
+        CallbackFree(this.vtbl.get_BytesPerSector)
+        CallbackFree(this.vtbl.get_WriteInProgress)
     }
 }

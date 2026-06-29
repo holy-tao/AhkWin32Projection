@@ -1,49 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IGPMDomain.ahk
-#Include .\IGPMBackupDir.ahk
-#Include .\IGPMSitesContainer.ahk
-#Include .\IGPMRSOP.ahk
-#Include .\IGPMPermission.ahk
-#Include .\IGPMSearchCriteria.ahk
-#Include .\IGPMTrustee.ahk
-#Include .\IGPMCSECollection.ahk
-#Include .\IGPMConstants.ahk
-#Include .\IGPMMigrationTable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IGPMBackupDir.ahk" { IGPMBackupDir }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
+#Import ".\IGPMConstants.ahk" { IGPMConstants }
+#Import ".\IGPMCSECollection.ahk" { IGPMCSECollection }
+#Import ".\IGPMRSOP.ahk" { IGPMRSOP }
+#Import ".\IGPMTrustee.ahk" { IGPMTrustee }
+#Import ".\IGPMMigrationTable.ahk" { IGPMMigrationTable }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IGPMSitesContainer.ahk" { IGPMSitesContainer }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMPermission.ahk" { IGPMPermission }
 
 /**
  * The IGPM interface provides methods that access other interfaces of the Group Policy Management Console (GPMC) and methods that create other objects on which various search operations can be performed.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpm
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPM extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPM extends IDispatch {
     /**
      * The interface identifier for IGPM
      * @type {Guid}
      */
-    static IID => Guid("{f5fae809-3bd6-4da9-a65e-17665b41d763}")
+    static IID := Guid("{f5fae809-3bd6-4da9-a65e-17665b41d763}")
 
     /**
      * The class identifier for GPM
      * @type {Guid}
      */
-    static CLSID => Guid("{f5694708-88fe-4b35-babf-e56162d5fbc8}")
+    static CLSID := Guid("{f5694708-88fe-4b35-babf-e56162d5fbc8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPM interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetDomain               : IntPtr
+        GetBackupDir            : IntPtr
+        GetSitesContainer       : IntPtr
+        GetRSOP                 : IntPtr
+        CreatePermission        : IntPtr
+        CreateSearchCriteria    : IntPtr
+        CreateTrustee           : IntPtr
+        GetClientSideExtensions : IntPtr
+        GetConstants            : IntPtr
+        GetMigrationTable       : IntPtr
+        CreateMigrationTable    : IntPtr
+        InitializeReporting     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDomain", "GetBackupDir", "GetSitesContainer", "GetRSOP", "CreatePermission", "CreateSearchCriteria", "CreateTrustee", "GetClientSideExtensions", "GetConstants", "GetMigrationTable", "CreateMigrationTable", "InitializeReporting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPM.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates and returns a GPMDomain object that corresponds to the specified domain.
@@ -67,7 +90,7 @@ class IGPM extends IDispatch {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrDomainController := bstrDomainController is String ? BSTR.Alloc(bstrDomainController).Value : bstrDomainController
 
-        result := ComCall(7, this, "ptr", bstrDomain, "ptr", bstrDomainController, "int", lDCFlags, "ptr*", &pIGPMDomain := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrDomain, BSTR, bstrDomainController, "int", lDCFlags, "ptr*", &pIGPMDomain := 0, "HRESULT")
         return IGPMDomain(pIGPMDomain)
     }
 
@@ -81,7 +104,7 @@ class IGPM extends IDispatch {
     GetBackupDir(bstrBackupDir) {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
 
-        result := ComCall(8, this, "ptr", bstrBackupDir, "ptr*", &pIGPMBackupDir := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrBackupDir, "ptr*", &pIGPMBackupDir := 0, "HRESULT")
         return IGPMBackupDir(pIGPMBackupDir)
     }
 
@@ -100,7 +123,7 @@ class IGPM extends IDispatch {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrDomainController := bstrDomainController is String ? BSTR.Alloc(bstrDomainController).Value : bstrDomainController
 
-        result := ComCall(9, this, "ptr", bstrForest, "ptr", bstrDomain, "ptr", bstrDomainController, "int", lDCFlags, "ptr*", &ppIGPMSitesContainer := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrForest, BSTR, bstrDomain, BSTR, bstrDomainController, "int", lDCFlags, "ptr*", &ppIGPMSitesContainer := 0, "HRESULT")
         return IGPMSitesContainer(ppIGPMSitesContainer)
     }
 
@@ -121,7 +144,7 @@ class IGPM extends IDispatch {
     GetRSOP(_gpmRSoPMode, bstrNamespace, lFlags) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
 
-        result := ComCall(10, this, "int", _gpmRSoPMode, "ptr", bstrNamespace, "int", lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
+        result := ComCall(10, this, GPMRSOPMode, _gpmRSoPMode, BSTR, bstrNamespace, "int", lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
         return IGPMRSOP(ppIGPMRSOP)
     }
 
@@ -160,7 +183,7 @@ class IGPM extends IDispatch {
     CreatePermission(bstrTrustee, perm, bInheritable) {
         bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee
 
-        result := ComCall(11, this, "ptr", bstrTrustee, "int", perm, "short", bInheritable, "ptr*", &ppPerm := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrTrustee, GPMPermissionType, perm, VARIANT_BOOL, bInheritable, "ptr*", &ppPerm := 0, "HRESULT")
         return IGPMPermission(ppPerm)
     }
 
@@ -189,7 +212,7 @@ class IGPM extends IDispatch {
     CreateTrustee(bstrTrustee) {
         bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee
 
-        result := ComCall(13, this, "ptr", bstrTrustee, "ptr*", &ppIGPMTrustee := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrTrustee, "ptr*", &ppIGPMTrustee := 0, "HRESULT")
         return IGPMTrustee(ppIGPMTrustee)
     }
 
@@ -224,7 +247,7 @@ class IGPM extends IDispatch {
     GetMigrationTable(bstrMigrationTablePath) {
         bstrMigrationTablePath := bstrMigrationTablePath is String ? BSTR.Alloc(bstrMigrationTablePath).Value : bstrMigrationTablePath
 
-        result := ComCall(16, this, "ptr", bstrMigrationTablePath, "ptr*", &ppMigrationTable := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrMigrationTablePath, "ptr*", &ppMigrationTable := 0, "HRESULT")
         return IGPMMigrationTable(ppMigrationTable)
     }
 
@@ -248,7 +271,49 @@ class IGPM extends IDispatch {
     InitializeReporting(bstrAdmPath) {
         bstrAdmPath := bstrAdmPath is String ? BSTR.Alloc(bstrAdmPath).Value : bstrAdmPath
 
-        result := ComCall(18, this, "ptr", bstrAdmPath, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrAdmPath, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPM.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDomain := CallbackCreate(GetMethod(implObj, "GetDomain"), flags, 5)
+        this.vtbl.GetBackupDir := CallbackCreate(GetMethod(implObj, "GetBackupDir"), flags, 3)
+        this.vtbl.GetSitesContainer := CallbackCreate(GetMethod(implObj, "GetSitesContainer"), flags, 6)
+        this.vtbl.GetRSOP := CallbackCreate(GetMethod(implObj, "GetRSOP"), flags, 5)
+        this.vtbl.CreatePermission := CallbackCreate(GetMethod(implObj, "CreatePermission"), flags, 5)
+        this.vtbl.CreateSearchCriteria := CallbackCreate(GetMethod(implObj, "CreateSearchCriteria"), flags, 2)
+        this.vtbl.CreateTrustee := CallbackCreate(GetMethod(implObj, "CreateTrustee"), flags, 3)
+        this.vtbl.GetClientSideExtensions := CallbackCreate(GetMethod(implObj, "GetClientSideExtensions"), flags, 2)
+        this.vtbl.GetConstants := CallbackCreate(GetMethod(implObj, "GetConstants"), flags, 2)
+        this.vtbl.GetMigrationTable := CallbackCreate(GetMethod(implObj, "GetMigrationTable"), flags, 3)
+        this.vtbl.CreateMigrationTable := CallbackCreate(GetMethod(implObj, "CreateMigrationTable"), flags, 2)
+        this.vtbl.InitializeReporting := CallbackCreate(GetMethod(implObj, "InitializeReporting"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDomain)
+        CallbackFree(this.vtbl.GetBackupDir)
+        CallbackFree(this.vtbl.GetSitesContainer)
+        CallbackFree(this.vtbl.GetRSOP)
+        CallbackFree(this.vtbl.CreatePermission)
+        CallbackFree(this.vtbl.CreateSearchCriteria)
+        CallbackFree(this.vtbl.CreateTrustee)
+        CallbackFree(this.vtbl.GetClientSideExtensions)
+        CallbackFree(this.vtbl.GetConstants)
+        CallbackFree(this.vtbl.GetMigrationTable)
+        CallbackFree(this.vtbl.CreateMigrationTable)
+        CallbackFree(this.vtbl.InitializeReporting)
     }
 }

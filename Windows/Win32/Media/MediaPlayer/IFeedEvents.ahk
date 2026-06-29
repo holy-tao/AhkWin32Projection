@@ -1,31 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeedEvents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFeedEvents extends IDispatch {
     /**
      * The interface identifier for IFeedEvents
      * @type {Guid}
      */
-    static IID => Guid("{abf35c99-0681-47ea-9a8c-1436a375a99e}")
+    static IID := Guid("{abf35c99-0681-47ea-9a8c-1436a375a99e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeedEvents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Error                 : IntPtr
+        FeedDeleted           : IntPtr
+        FeedRenamed           : IntPtr
+        FeedUrlChanged        : IntPtr
+        FeedMoved             : IntPtr
+        FeedDownloading       : IntPtr
+        FeedDownloadCompleted : IntPtr
+        FeedItemCountChanged  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Error", "FeedDeleted", "FeedRenamed", "FeedUrlChanged", "FeedMoved", "FeedDownloading", "FeedDownloadCompleted", "FeedItemCountChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeedEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Error event occurs when the Windows Media Player control has an error condition.
@@ -45,7 +62,7 @@ class IFeedEvents extends IDispatch {
     FeedDeleted(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(8, this, "ptr", _path, "HRESULT")
+        result := ComCall(8, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -59,7 +76,7 @@ class IFeedEvents extends IDispatch {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
         oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
 
-        result := ComCall(9, this, "ptr", _path, "ptr", oldPath, "HRESULT")
+        result := ComCall(9, this, BSTR, _path, BSTR, oldPath, "HRESULT")
         return result
     }
 
@@ -71,7 +88,7 @@ class IFeedEvents extends IDispatch {
     FeedUrlChanged(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(10, this, "ptr", _path, "HRESULT")
+        result := ComCall(10, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -85,7 +102,7 @@ class IFeedEvents extends IDispatch {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
         oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
 
-        result := ComCall(11, this, "ptr", _path, "ptr", oldPath, "HRESULT")
+        result := ComCall(11, this, BSTR, _path, BSTR, oldPath, "HRESULT")
         return result
     }
 
@@ -97,7 +114,7 @@ class IFeedEvents extends IDispatch {
     FeedDownloading(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(12, this, "ptr", _path, "HRESULT")
+        result := ComCall(12, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -110,7 +127,7 @@ class IFeedEvents extends IDispatch {
     FeedDownloadCompleted(_path, _error) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(13, this, "ptr", _path, "int", _error, "HRESULT")
+        result := ComCall(13, this, BSTR, _path, FEEDS_DOWNLOAD_ERROR, _error, "HRESULT")
         return result
     }
 
@@ -123,7 +140,41 @@ class IFeedEvents extends IDispatch {
     FeedItemCountChanged(_path, itemCountType) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(14, this, "ptr", _path, "int", itemCountType, "HRESULT")
+        result := ComCall(14, this, BSTR, _path, "int", itemCountType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFeedEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Error := CallbackCreate(GetMethod(implObj, "Error"), flags, 1)
+        this.vtbl.FeedDeleted := CallbackCreate(GetMethod(implObj, "FeedDeleted"), flags, 2)
+        this.vtbl.FeedRenamed := CallbackCreate(GetMethod(implObj, "FeedRenamed"), flags, 3)
+        this.vtbl.FeedUrlChanged := CallbackCreate(GetMethod(implObj, "FeedUrlChanged"), flags, 2)
+        this.vtbl.FeedMoved := CallbackCreate(GetMethod(implObj, "FeedMoved"), flags, 3)
+        this.vtbl.FeedDownloading := CallbackCreate(GetMethod(implObj, "FeedDownloading"), flags, 2)
+        this.vtbl.FeedDownloadCompleted := CallbackCreate(GetMethod(implObj, "FeedDownloadCompleted"), flags, 3)
+        this.vtbl.FeedItemCountChanged := CallbackCreate(GetMethod(implObj, "FeedItemCountChanged"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Error)
+        CallbackFree(this.vtbl.FeedDeleted)
+        CallbackFree(this.vtbl.FeedRenamed)
+        CallbackFree(this.vtbl.FeedUrlChanged)
+        CallbackFree(this.vtbl.FeedMoved)
+        CallbackFree(this.vtbl.FeedDownloading)
+        CallbackFree(this.vtbl.FeedDownloadCompleted)
+        CallbackFree(this.vtbl.FeedItemCountChanged)
     }
 }

@@ -1,32 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains parameters for the NVME Read and NVME Write commands that read or write data and metadata, if applicable, to and from the NVM controller for the specified Logical Block Addresses (LBA).
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw13_read_write
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW13_READ_WRITE extends Win32Struct {
-    static sizeof => 8
+export default struct NVME_CDW13_READ_WRITE {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _DSM extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DSM {
         /**
          * This bitfield backs the following members:
          * - AccessFrequency
          * - AccessLatency
          * - SequentialRequest
          * - Incompressible
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -61,38 +53,14 @@ class NVME_CDW13_READ_WRITE extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_DSM}
-     */
-    DSM {
-        get {
-            if(!this.HasProp("__DSM"))
-                this.__DSM := NVME_CDW13_READ_WRITE._DSM(0, this)
-            return this.__DSM
-        }
-    }
+    DSM : NVME_CDW13_READ_WRITE._DSM
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DSPEC {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DSPEC : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

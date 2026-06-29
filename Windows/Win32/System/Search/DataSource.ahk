@@ -1,39 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DataSourceListener.ahk" { DataSourceListener }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * Determines the source of the performance counter data.
- * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-datasourcetypeconstants
  * @namespace Windows.Win32.System.Search
  */
-class DataSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct DataSource extends IUnknown {
     /**
      * The interface identifier for DataSource
      * @type {Guid}
      */
-    static IID => Guid("{7c0ffab3-cd84-11d0-949a-00a0c91110ed}")
+    static IID := Guid("{7c0ffab3-cd84-11d0-949a-00a0c91110ed}")
 
     /**
      * The class identifier for DataSource
      * @type {Guid}
      */
-    static CLSID => Guid("{7c0ffab3-cd84-11d0-949a-00a0c91110ed}")
+    static CLSID := Guid("{7c0ffab3-cd84-11d0-949a-00a0c91110ed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for DataSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        getDataMember            : IntPtr
+        getDataMemberName        : IntPtr
+        getDataMemberCount       : IntPtr
+        addDataSourceListener    : IntPtr
+        removeDataSourceListener : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getDataMember", "getDataMemberName", "getDataMemberCount", "addDataSourceListener", "removeDataSourceListener"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := DataSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -44,7 +55,7 @@ class DataSource extends IUnknown {
     getDataMember(bstrDM, riid) {
         bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, bstrDMMarshal, bstrDM, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(3, this, bstrDMMarshal, bstrDM, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -85,5 +96,33 @@ class DataSource extends IUnknown {
     removeDataSourceListener(pDSL) {
         result := ComCall(7, this, "ptr", pDSL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (DataSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getDataMember := CallbackCreate(GetMethod(implObj, "getDataMember"), flags, 4)
+        this.vtbl.getDataMemberName := CallbackCreate(GetMethod(implObj, "getDataMemberName"), flags, 3)
+        this.vtbl.getDataMemberCount := CallbackCreate(GetMethod(implObj, "getDataMemberCount"), flags, 2)
+        this.vtbl.addDataSourceListener := CallbackCreate(GetMethod(implObj, "addDataSourceListener"), flags, 2)
+        this.vtbl.removeDataSourceListener := CallbackCreate(GetMethod(implObj, "removeDataSourceListener"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getDataMember)
+        CallbackFree(this.vtbl.getDataMemberName)
+        CallbackFree(this.vtbl.getDataMemberCount)
+        CallbackFree(this.vtbl.addDataSourceListener)
+        CallbackFree(this.vtbl.removeDataSourceListener)
     }
 }

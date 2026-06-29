@@ -1,109 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPVACTIONS.ahk
-#Include .\SPVPITCH.ahk
-#Include .\SPPARTOFSPEECH.ahk
-#Include .\SPVCONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPVACTIONS.ahk" { SPVACTIONS }
+#Import ".\SPVCONTEXT.ahk" { SPVCONTEXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
+#Import ".\SPVPITCH.ahk" { SPVPITCH }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPVSTATE extends Win32Struct {
-    static sizeof => 72
+export default struct SPVSTATE {
+    #StructPack 8
 
-    static packingSize => 8
+    eAction : SPVACTIONS
 
-    /**
-     * @type {SPVACTIONS}
-     */
-    eAction {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    LangID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LangID {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wReserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    EmphAdj : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EmphAdj {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    RateAdj : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RateAdj {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Volume : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Volume {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PitchAdj : SPVPITCH
 
-    /**
-     * @type {SPVPITCH}
-     */
-    PitchAdj {
-        get {
-            if(!this.HasProp("__PitchAdj"))
-                this.__PitchAdj := SPVPITCH(20, this)
-            return this.__PitchAdj
-        }
-    }
+    SilenceMSecs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SilenceMSecs {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    pPhoneIds : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pPhoneIds {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ePartOfSpeech : SPPARTOFSPEECH
 
-    /**
-     * @type {SPPARTOFSPEECH}
-     */
-    ePartOfSpeech {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    Context : SPVCONTEXT
 
-    /**
-     * @type {SPVCONTEXT}
-     */
-    Context {
-        get {
-            if(!this.HasProp("__Context"))
-                this.__Context := SPVCONTEXT(48, this)
-            return this.__Context
-        }
-    }
 }

@@ -1,41 +1,99 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRTCSession.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Media\DirectShow\IVideoWindow.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RTC_AUDIO_DEVICE.ahk" { RTC_AUDIO_DEVICE }
+#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
+#Import "..\..\Media\DirectShow\IVideoWindow.ahk" { IVideoWindow }
+#Import ".\RTC_VIDEO_DEVICE.ahk" { RTC_VIDEO_DEVICE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRTCSession.ahk" { IRTCSession }
+#Import ".\RTC_T120_APPLET.ahk" { RTC_T120_APPLET }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RTC_DTMF.ahk" { RTC_DTMF }
+#Import ".\RTC_RING_TYPE.ahk" { RTC_RING_TYPE }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRTCClient extends IUnknown {
     /**
      * The interface identifier for IRTCClient
      * @type {Guid}
      */
-    static IID => Guid("{07829e45-9a34-408e-a011-bddf13487cd1}")
+    static IID := Guid("{07829e45-9a34-408e-a011-bddf13487cd1}")
 
     /**
      * The class identifier for RTCClient
      * @type {Guid}
      */
-    static CLSID => Guid("{7a42ea29-a2b7-40c4-b091-f6f024aa89be}")
+    static CLSID := Guid("{7a42ea29-a2b7-40c4-b091-f6f024aa89be}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                    : IntPtr
+        Shutdown                      : IntPtr
+        PrepareForShutdown            : IntPtr
+        put_EventFilter               : IntPtr
+        get_EventFilter               : IntPtr
+        SetPreferredMediaTypes        : IntPtr
+        get_PreferredMediaTypes       : IntPtr
+        get_MediaCapabilities         : IntPtr
+        CreateSession                 : IntPtr
+        put_ListenForIncomingSessions : IntPtr
+        get_ListenForIncomingSessions : IntPtr
+        get_NetworkAddresses          : IntPtr
+        put_Volume                    : IntPtr
+        get_Volume                    : IntPtr
+        put_AudioMuted                : IntPtr
+        get_AudioMuted                : IntPtr
+        get_IVideoWindow              : IntPtr
+        put_PreferredAudioDevice      : IntPtr
+        get_PreferredAudioDevice      : IntPtr
+        put_PreferredVolume           : IntPtr
+        get_PreferredVolume           : IntPtr
+        put_PreferredAEC              : IntPtr
+        get_PreferredAEC              : IntPtr
+        put_PreferredVideoDevice      : IntPtr
+        get_PreferredVideoDevice      : IntPtr
+        get_ActiveMedia               : IntPtr
+        put_MaxBitrate                : IntPtr
+        get_MaxBitrate                : IntPtr
+        put_TemporalSpatialTradeOff   : IntPtr
+        get_TemporalSpatialTradeOff   : IntPtr
+        get_NetworkQuality            : IntPtr
+        StartT120Applet               : IntPtr
+        StopT120Applets               : IntPtr
+        get_IsT120AppletRunning       : IntPtr
+        get_LocalUserURI              : IntPtr
+        put_LocalUserURI              : IntPtr
+        get_LocalUserName             : IntPtr
+        put_LocalUserName             : IntPtr
+        PlayRing                      : IntPtr
+        SendDTMF                      : IntPtr
+        InvokeTuningWizard            : IntPtr
+        get_IsTuned                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Shutdown", "PrepareForShutdown", "put_EventFilter", "get_EventFilter", "SetPreferredMediaTypes", "get_PreferredMediaTypes", "get_MediaCapabilities", "CreateSession", "put_ListenForIncomingSessions", "get_ListenForIncomingSessions", "get_NetworkAddresses", "put_Volume", "get_Volume", "put_AudioMuted", "get_AudioMuted", "get_IVideoWindow", "put_PreferredAudioDevice", "get_PreferredAudioDevice", "put_PreferredVolume", "get_PreferredVolume", "put_PreferredAEC", "get_PreferredAEC", "put_PreferredVideoDevice", "get_PreferredVideoDevice", "get_ActiveMedia", "put_MaxBitrate", "get_MaxBitrate", "put_TemporalSpatialTradeOff", "get_TemporalSpatialTradeOff", "get_NetworkQuality", "StartT120Applet", "StopT120Applets", "get_IsT120AppletRunning", "get_LocalUserURI", "put_LocalUserURI", "get_LocalUserName", "put_LocalUserName", "PlayRing", "SendDTMF", "InvokeTuningWizard", "get_IsTuned"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -217,7 +275,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPreferredMediaTypes(lMediaTypes, fPersistent) {
-        result := ComCall(8, this, "int", lMediaTypes, "short", fPersistent, "HRESULT")
+        result := ComCall(8, this, "int", lMediaTypes, VARIANT_BOOL, fPersistent, "HRESULT")
         return result
     }
 
@@ -250,7 +308,7 @@ class IRTCClient extends IUnknown {
     CreateSession(enType, bstrLocalPhoneURI, pProfile, lFlags) {
         bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
 
-        result := ComCall(11, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(11, this, RTC_SESSION_TYPE, enType, BSTR, bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession := 0, "HRESULT")
         return IRTCSession(ppSession)
     }
 
@@ -260,7 +318,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ListenForIncomingSessions(enListen) {
-        result := ComCall(12, this, "int", enListen, "HRESULT")
+        result := ComCall(12, this, RTC_LISTEN_MODE, enListen, "HRESULT")
         return result
     }
 
@@ -281,7 +339,7 @@ class IRTCClient extends IUnknown {
      */
     get_NetworkAddresses(fTCP, fExternal) {
         pvAddresses := VARIANT()
-        result := ComCall(14, this, "short", fTCP, "short", fExternal, "ptr", pvAddresses, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, fTCP, VARIANT_BOOL, fExternal, VARIANT.Ptr, pvAddresses, "HRESULT")
         return pvAddresses
     }
 
@@ -292,7 +350,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Volume(enDevice, lVolume) {
-        result := ComCall(15, this, "int", enDevice, "int", lVolume, "HRESULT")
+        result := ComCall(15, this, RTC_AUDIO_DEVICE, enDevice, "int", lVolume, "HRESULT")
         return result
     }
 
@@ -302,7 +360,7 @@ class IRTCClient extends IUnknown {
      * @returns {Integer} 
      */
     get_Volume(enDevice) {
-        result := ComCall(16, this, "int", enDevice, "int*", &plVolume := 0, "HRESULT")
+        result := ComCall(16, this, RTC_AUDIO_DEVICE, enDevice, "int*", &plVolume := 0, "HRESULT")
         return plVolume
     }
 
@@ -313,7 +371,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_AudioMuted(enDevice, fMuted) {
-        result := ComCall(17, this, "int", enDevice, "short", fMuted, "HRESULT")
+        result := ComCall(17, this, RTC_AUDIO_DEVICE, enDevice, VARIANT_BOOL, fMuted, "HRESULT")
         return result
     }
 
@@ -323,7 +381,7 @@ class IRTCClient extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_AudioMuted(enDevice) {
-        result := ComCall(18, this, "int", enDevice, "short*", &pfMuted := 0, "HRESULT")
+        result := ComCall(18, this, RTC_AUDIO_DEVICE, enDevice, VARIANT_BOOL.Ptr, &pfMuted := 0, "HRESULT")
         return pfMuted
     }
 
@@ -333,7 +391,7 @@ class IRTCClient extends IUnknown {
      * @returns {IVideoWindow} 
      */
     get_IVideoWindow(enDevice) {
-        result := ComCall(19, this, "int", enDevice, "ptr*", &ppIVideoWindow := 0, "HRESULT")
+        result := ComCall(19, this, RTC_VIDEO_DEVICE, enDevice, "ptr*", &ppIVideoWindow := 0, "HRESULT")
         return IVideoWindow(ppIVideoWindow)
     }
 
@@ -346,7 +404,7 @@ class IRTCClient extends IUnknown {
     put_PreferredAudioDevice(enDevice, bstrDeviceName) {
         bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
 
-        result := ComCall(20, this, "int", enDevice, "ptr", bstrDeviceName, "HRESULT")
+        result := ComCall(20, this, RTC_AUDIO_DEVICE, enDevice, BSTR, bstrDeviceName, "HRESULT")
         return result
     }
 
@@ -356,8 +414,8 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_PreferredAudioDevice(enDevice) {
-        pbstrDeviceName := BSTR()
-        result := ComCall(21, this, "int", enDevice, "ptr", pbstrDeviceName, "HRESULT")
+        pbstrDeviceName := BSTR.Owned()
+        result := ComCall(21, this, RTC_AUDIO_DEVICE, enDevice, BSTR.Ptr, pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
 
@@ -368,7 +426,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_PreferredVolume(enDevice, lVolume) {
-        result := ComCall(22, this, "int", enDevice, "int", lVolume, "HRESULT")
+        result := ComCall(22, this, RTC_AUDIO_DEVICE, enDevice, "int", lVolume, "HRESULT")
         return result
     }
 
@@ -378,7 +436,7 @@ class IRTCClient extends IUnknown {
      * @returns {Integer} 
      */
     get_PreferredVolume(enDevice) {
-        result := ComCall(23, this, "int", enDevice, "int*", &plVolume := 0, "HRESULT")
+        result := ComCall(23, this, RTC_AUDIO_DEVICE, enDevice, "int*", &plVolume := 0, "HRESULT")
         return plVolume
     }
 
@@ -388,7 +446,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_PreferredAEC(bEnable) {
-        result := ComCall(24, this, "short", bEnable, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -397,7 +455,7 @@ class IRTCClient extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_PreferredAEC() {
-        result := ComCall(25, this, "short*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 
@@ -409,7 +467,7 @@ class IRTCClient extends IUnknown {
     put_PreferredVideoDevice(bstrDeviceName) {
         bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
 
-        result := ComCall(26, this, "ptr", bstrDeviceName, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrDeviceName, "HRESULT")
         return result
     }
 
@@ -418,8 +476,8 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_PreferredVideoDevice() {
-        pbstrDeviceName := BSTR()
-        result := ComCall(27, this, "ptr", pbstrDeviceName, "HRESULT")
+        pbstrDeviceName := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
 
@@ -485,7 +543,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     StartT120Applet(enApplet) {
-        result := ComCall(34, this, "int", enApplet, "HRESULT")
+        result := ComCall(34, this, RTC_T120_APPLET, enApplet, "HRESULT")
         return result
     }
 
@@ -504,7 +562,7 @@ class IRTCClient extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_IsT120AppletRunning(enApplet) {
-        result := ComCall(36, this, "int", enApplet, "short*", &pfRunning := 0, "HRESULT")
+        result := ComCall(36, this, RTC_T120_APPLET, enApplet, VARIANT_BOOL.Ptr, &pfRunning := 0, "HRESULT")
         return pfRunning
     }
 
@@ -513,8 +571,8 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_LocalUserURI() {
-        pbstrUserURI := BSTR()
-        result := ComCall(37, this, "ptr", pbstrUserURI, "HRESULT")
+        pbstrUserURI := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, pbstrUserURI, "HRESULT")
         return pbstrUserURI
     }
 
@@ -526,7 +584,7 @@ class IRTCClient extends IUnknown {
     put_LocalUserURI(bstrUserURI) {
         bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI
 
-        result := ComCall(38, this, "ptr", bstrUserURI, "HRESULT")
+        result := ComCall(38, this, BSTR, bstrUserURI, "HRESULT")
         return result
     }
 
@@ -535,8 +593,8 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_LocalUserName() {
-        pbstrUserName := BSTR()
-        result := ComCall(39, this, "ptr", pbstrUserName, "HRESULT")
+        pbstrUserName := BSTR.Owned()
+        result := ComCall(39, this, BSTR.Ptr, pbstrUserName, "HRESULT")
         return pbstrUserName
     }
 
@@ -548,7 +606,7 @@ class IRTCClient extends IUnknown {
     put_LocalUserName(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(40, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(40, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -559,7 +617,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     PlayRing(enType, bPlay) {
-        result := ComCall(41, this, "int", enType, "short", bPlay, "HRESULT")
+        result := ComCall(41, this, RTC_RING_TYPE, enType, VARIANT_BOOL, bPlay, "HRESULT")
         return result
     }
 
@@ -569,7 +627,7 @@ class IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     SendDTMF(enDTMF) {
-        result := ComCall(42, this, "int", enDTMF, "HRESULT")
+        result := ComCall(42, this, RTC_DTMF, enDTMF, "HRESULT")
         return result
     }
 
@@ -588,7 +646,109 @@ class IRTCClient extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_IsTuned() {
-        result := ComCall(44, this, "short*", &pfTuned := 0, "HRESULT")
+        result := ComCall(44, this, VARIANT_BOOL.Ptr, &pfTuned := 0, "HRESULT")
         return pfTuned
+    }
+
+    Query(iid) {
+        if (IRTCClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.PrepareForShutdown := CallbackCreate(GetMethod(implObj, "PrepareForShutdown"), flags, 1)
+        this.vtbl.put_EventFilter := CallbackCreate(GetMethod(implObj, "put_EventFilter"), flags, 2)
+        this.vtbl.get_EventFilter := CallbackCreate(GetMethod(implObj, "get_EventFilter"), flags, 2)
+        this.vtbl.SetPreferredMediaTypes := CallbackCreate(GetMethod(implObj, "SetPreferredMediaTypes"), flags, 3)
+        this.vtbl.get_PreferredMediaTypes := CallbackCreate(GetMethod(implObj, "get_PreferredMediaTypes"), flags, 2)
+        this.vtbl.get_MediaCapabilities := CallbackCreate(GetMethod(implObj, "get_MediaCapabilities"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 6)
+        this.vtbl.put_ListenForIncomingSessions := CallbackCreate(GetMethod(implObj, "put_ListenForIncomingSessions"), flags, 2)
+        this.vtbl.get_ListenForIncomingSessions := CallbackCreate(GetMethod(implObj, "get_ListenForIncomingSessions"), flags, 2)
+        this.vtbl.get_NetworkAddresses := CallbackCreate(GetMethod(implObj, "get_NetworkAddresses"), flags, 4)
+        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 3)
+        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 3)
+        this.vtbl.put_AudioMuted := CallbackCreate(GetMethod(implObj, "put_AudioMuted"), flags, 3)
+        this.vtbl.get_AudioMuted := CallbackCreate(GetMethod(implObj, "get_AudioMuted"), flags, 3)
+        this.vtbl.get_IVideoWindow := CallbackCreate(GetMethod(implObj, "get_IVideoWindow"), flags, 3)
+        this.vtbl.put_PreferredAudioDevice := CallbackCreate(GetMethod(implObj, "put_PreferredAudioDevice"), flags, 3)
+        this.vtbl.get_PreferredAudioDevice := CallbackCreate(GetMethod(implObj, "get_PreferredAudioDevice"), flags, 3)
+        this.vtbl.put_PreferredVolume := CallbackCreate(GetMethod(implObj, "put_PreferredVolume"), flags, 3)
+        this.vtbl.get_PreferredVolume := CallbackCreate(GetMethod(implObj, "get_PreferredVolume"), flags, 3)
+        this.vtbl.put_PreferredAEC := CallbackCreate(GetMethod(implObj, "put_PreferredAEC"), flags, 2)
+        this.vtbl.get_PreferredAEC := CallbackCreate(GetMethod(implObj, "get_PreferredAEC"), flags, 2)
+        this.vtbl.put_PreferredVideoDevice := CallbackCreate(GetMethod(implObj, "put_PreferredVideoDevice"), flags, 2)
+        this.vtbl.get_PreferredVideoDevice := CallbackCreate(GetMethod(implObj, "get_PreferredVideoDevice"), flags, 2)
+        this.vtbl.get_ActiveMedia := CallbackCreate(GetMethod(implObj, "get_ActiveMedia"), flags, 2)
+        this.vtbl.put_MaxBitrate := CallbackCreate(GetMethod(implObj, "put_MaxBitrate"), flags, 2)
+        this.vtbl.get_MaxBitrate := CallbackCreate(GetMethod(implObj, "get_MaxBitrate"), flags, 2)
+        this.vtbl.put_TemporalSpatialTradeOff := CallbackCreate(GetMethod(implObj, "put_TemporalSpatialTradeOff"), flags, 2)
+        this.vtbl.get_TemporalSpatialTradeOff := CallbackCreate(GetMethod(implObj, "get_TemporalSpatialTradeOff"), flags, 2)
+        this.vtbl.get_NetworkQuality := CallbackCreate(GetMethod(implObj, "get_NetworkQuality"), flags, 2)
+        this.vtbl.StartT120Applet := CallbackCreate(GetMethod(implObj, "StartT120Applet"), flags, 2)
+        this.vtbl.StopT120Applets := CallbackCreate(GetMethod(implObj, "StopT120Applets"), flags, 1)
+        this.vtbl.get_IsT120AppletRunning := CallbackCreate(GetMethod(implObj, "get_IsT120AppletRunning"), flags, 3)
+        this.vtbl.get_LocalUserURI := CallbackCreate(GetMethod(implObj, "get_LocalUserURI"), flags, 2)
+        this.vtbl.put_LocalUserURI := CallbackCreate(GetMethod(implObj, "put_LocalUserURI"), flags, 2)
+        this.vtbl.get_LocalUserName := CallbackCreate(GetMethod(implObj, "get_LocalUserName"), flags, 2)
+        this.vtbl.put_LocalUserName := CallbackCreate(GetMethod(implObj, "put_LocalUserName"), flags, 2)
+        this.vtbl.PlayRing := CallbackCreate(GetMethod(implObj, "PlayRing"), flags, 3)
+        this.vtbl.SendDTMF := CallbackCreate(GetMethod(implObj, "SendDTMF"), flags, 2)
+        this.vtbl.InvokeTuningWizard := CallbackCreate(GetMethod(implObj, "InvokeTuningWizard"), flags, 2)
+        this.vtbl.get_IsTuned := CallbackCreate(GetMethod(implObj, "get_IsTuned"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Shutdown)
+        CallbackFree(this.vtbl.PrepareForShutdown)
+        CallbackFree(this.vtbl.put_EventFilter)
+        CallbackFree(this.vtbl.get_EventFilter)
+        CallbackFree(this.vtbl.SetPreferredMediaTypes)
+        CallbackFree(this.vtbl.get_PreferredMediaTypes)
+        CallbackFree(this.vtbl.get_MediaCapabilities)
+        CallbackFree(this.vtbl.CreateSession)
+        CallbackFree(this.vtbl.put_ListenForIncomingSessions)
+        CallbackFree(this.vtbl.get_ListenForIncomingSessions)
+        CallbackFree(this.vtbl.get_NetworkAddresses)
+        CallbackFree(this.vtbl.put_Volume)
+        CallbackFree(this.vtbl.get_Volume)
+        CallbackFree(this.vtbl.put_AudioMuted)
+        CallbackFree(this.vtbl.get_AudioMuted)
+        CallbackFree(this.vtbl.get_IVideoWindow)
+        CallbackFree(this.vtbl.put_PreferredAudioDevice)
+        CallbackFree(this.vtbl.get_PreferredAudioDevice)
+        CallbackFree(this.vtbl.put_PreferredVolume)
+        CallbackFree(this.vtbl.get_PreferredVolume)
+        CallbackFree(this.vtbl.put_PreferredAEC)
+        CallbackFree(this.vtbl.get_PreferredAEC)
+        CallbackFree(this.vtbl.put_PreferredVideoDevice)
+        CallbackFree(this.vtbl.get_PreferredVideoDevice)
+        CallbackFree(this.vtbl.get_ActiveMedia)
+        CallbackFree(this.vtbl.put_MaxBitrate)
+        CallbackFree(this.vtbl.get_MaxBitrate)
+        CallbackFree(this.vtbl.put_TemporalSpatialTradeOff)
+        CallbackFree(this.vtbl.get_TemporalSpatialTradeOff)
+        CallbackFree(this.vtbl.get_NetworkQuality)
+        CallbackFree(this.vtbl.StartT120Applet)
+        CallbackFree(this.vtbl.StopT120Applets)
+        CallbackFree(this.vtbl.get_IsT120AppletRunning)
+        CallbackFree(this.vtbl.get_LocalUserURI)
+        CallbackFree(this.vtbl.put_LocalUserURI)
+        CallbackFree(this.vtbl.get_LocalUserName)
+        CallbackFree(this.vtbl.put_LocalUserName)
+        CallbackFree(this.vtbl.PlayRing)
+        CallbackFree(this.vtbl.SendDTMF)
+        CallbackFree(this.vtbl.InvokeTuningWizard)
+        CallbackFree(this.vtbl.get_IsTuned)
     }
 }

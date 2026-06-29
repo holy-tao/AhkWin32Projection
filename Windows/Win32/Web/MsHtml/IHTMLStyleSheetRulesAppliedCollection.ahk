@@ -1,38 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLStyleSheetRule.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLStyleSheetRule.ahk" { IHTMLStyleSheetRule }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     /**
      * The interface identifier for IHTMLStyleSheetRulesAppliedCollection
      * @type {Guid}
      */
-    static IID => Guid("{305104c0-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104c0-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLStyleSheetRulesAppliedCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{eb36f845-2395-4719-b85c-d0d80e184bd9}")
+    static CLSID := Guid("{eb36f845-2395-4719-b85c-d0d80e184bd9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLStyleSheetRulesAppliedCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        item                       : IntPtr
+        get_length                 : IntPtr
+        propertyAppliedBy          : IntPtr
+        propertyAppliedTrace       : IntPtr
+        propertyAppliedTraceLength : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["item", "get_length", "propertyAppliedBy", "propertyAppliedTrace", "propertyAppliedTraceLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLStyleSheetRulesAppliedCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -68,7 +81,7 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     propertyAppliedBy(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", &ppRule := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, name, "ptr*", &ppRule := 0, "HRESULT")
         return IHTMLStyleSheetRule(ppRule)
     }
 
@@ -81,7 +94,7 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     propertyAppliedTrace(name, index) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "int", index, "ptr*", &ppRule := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, name, "int", index, "ptr*", &ppRule := 0, "HRESULT")
         return IHTMLStyleSheetRule(ppRule)
     }
 
@@ -93,7 +106,35 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     propertyAppliedTraceLength(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(11, this, "ptr", name, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, name, "int*", &pLength := 0, "HRESULT")
         return pLength
+    }
+
+    Query(iid) {
+        if (IHTMLStyleSheetRulesAppliedCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.propertyAppliedBy := CallbackCreate(GetMethod(implObj, "propertyAppliedBy"), flags, 3)
+        this.vtbl.propertyAppliedTrace := CallbackCreate(GetMethod(implObj, "propertyAppliedTrace"), flags, 4)
+        this.vtbl.propertyAppliedTraceLength := CallbackCreate(GetMethod(implObj, "propertyAppliedTraceLength"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.item)
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.propertyAppliedBy)
+        CallbackFree(this.vtbl.propertyAppliedTrace)
+        CallbackFree(this.vtbl.propertyAppliedTraceLength)
     }
 }

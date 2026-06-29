@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DOMAIN_CONFIGURATION_X64 extends Win32Struct {
-    static sizeof => 16
+export default struct DOMAIN_CONFIGURATION_X64 {
+    #StructPack 8
 
-    static packingSize => 8
+    FirstLevelPageTableRoot : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FirstLevelPageTableRoot {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    TranslationEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TranslationEnabled {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
 }

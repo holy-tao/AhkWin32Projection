@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_ERROR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_ERROR.ahk" { EAP_ERROR }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAPHOST_INTERACTIVE_UI_PARAMS extends Win32Struct {
-    static sizeof => 48
+export default struct EAPHOST_INTERACTIVE_UI_PARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSizeofContextData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeofContextData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pContextData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pContextData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwSizeofInteractiveUIData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeofInteractiveUIData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pInteractiveUIData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pInteractiveUIData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pEapError : EAP_ERROR.Ptr
 
-    /**
-     * @type {Pointer<EAP_ERROR>}
-     */
-    pEapError {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

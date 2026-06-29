@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes a debug message in the information queue.
@@ -13,62 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_message
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DXGI_INFO_QUEUE_MESSAGE {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that produced the message.
-     * @type {Pointer}
      */
-    Producer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Producer : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a>-typed value that specifies the category of the message.
-     * @type {DXGI_INFO_QUEUE_MESSAGE_CATEGORY}
      */
-    Category {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Category : DXGI_INFO_QUEUE_MESSAGE_CATEGORY
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a>-typed value that specifies the severity of the message.
-     * @type {DXGI_INFO_QUEUE_MESSAGE_SEVERITY}
      */
-    Severity {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Severity : DXGI_INFO_QUEUE_MESSAGE_SEVERITY
 
     /**
      * An integer that uniquely identifies the message.
-     * @type {Integer}
      */
-    ID {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ID : Int32
 
     /**
      * The message string.
-     * @type {Pointer<Integer>}
      */
-    pDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pDescription : IntPtr
 
     /**
      * The length of the message string at <b>pDescription</b>, in bytes.
-     * @type {Pointer}
      */
-    DescriptionByteLength {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DescriptionByteLength : IntPtr
+
 }

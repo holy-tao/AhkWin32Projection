@@ -1,41 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_FORTEZZA_DATA_PROP extends Win32Struct {
-    static sizeof => 48
+export default struct CERT_FORTEZZA_DATA_PROP {
+    #StructPack 4
 
-    static packingSize => 4
+    SerialNumber : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SerialNumber {
-        get {
-            if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__SerialNumberProxyArray
-        }
-    }
+    CertIndex : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CertIndex {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    CertLabel : Int8[36]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CertLabel {
-        get {
-            if(!this.HasProp("__CertLabelProxyArray"))
-                this.__CertLabelProxyArray := Win32FixedArray(this.ptr + 12, 36, Primitive, "char")
-            return this.__CertLabelProxyArray
-        }
-    }
 }

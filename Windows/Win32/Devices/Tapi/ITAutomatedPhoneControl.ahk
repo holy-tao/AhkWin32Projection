@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IEnumCall.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PHONE_TONE.ahk" { PHONE_TONE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import ".\IEnumCall.ahk" { IEnumCall }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAutomatedPhoneControl is a fully OLE automatable and scriptable interface exposed by the TAPI phone object.
@@ -14,26 +18,64 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itautomatedphonecontrol
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAutomatedPhoneControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAutomatedPhoneControl extends IDispatch {
     /**
      * The interface identifier for ITAutomatedPhoneControl
      * @type {Guid}
      */
-    static IID => Guid("{1ee1af0e-6159-4a61-b79b-6a4ba3fc9dfc}")
+    static IID := Guid("{1ee1af0e-6159-4a61-b79b-6a4ba3fc9dfc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAutomatedPhoneControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        StartTone                          : IntPtr
+        StopTone                           : IntPtr
+        get_Tone                           : IntPtr
+        StartRinger                        : IntPtr
+        StopRinger                         : IntPtr
+        get_Ringer                         : IntPtr
+        put_PhoneHandlingEnabled           : IntPtr
+        get_PhoneHandlingEnabled           : IntPtr
+        put_AutoEndOfNumberTimeout         : IntPtr
+        get_AutoEndOfNumberTimeout         : IntPtr
+        put_AutoDialtone                   : IntPtr
+        get_AutoDialtone                   : IntPtr
+        put_AutoStopTonesOnOnHook          : IntPtr
+        get_AutoStopTonesOnOnHook          : IntPtr
+        put_AutoStopRingOnOffHook          : IntPtr
+        get_AutoStopRingOnOffHook          : IntPtr
+        put_AutoKeypadTones                : IntPtr
+        get_AutoKeypadTones                : IntPtr
+        put_AutoKeypadTonesMinimumDuration : IntPtr
+        get_AutoKeypadTonesMinimumDuration : IntPtr
+        put_AutoVolumeControl              : IntPtr
+        get_AutoVolumeControl              : IntPtr
+        put_AutoVolumeControlStep          : IntPtr
+        get_AutoVolumeControlStep          : IntPtr
+        put_AutoVolumeControlRepeatDelay   : IntPtr
+        get_AutoVolumeControlRepeatDelay   : IntPtr
+        put_AutoVolumeControlRepeatPeriod  : IntPtr
+        get_AutoVolumeControlRepeatPeriod  : IntPtr
+        SelectCall                         : IntPtr
+        UnselectCall                       : IntPtr
+        EnumerateSelectedCalls             : IntPtr
+        get_SelectedCalls                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartTone", "StopTone", "get_Tone", "StartRinger", "StopRinger", "get_Ringer", "put_PhoneHandlingEnabled", "get_PhoneHandlingEnabled", "put_AutoEndOfNumberTimeout", "get_AutoEndOfNumberTimeout", "put_AutoDialtone", "get_AutoDialtone", "put_AutoStopTonesOnOnHook", "get_AutoStopTonesOnOnHook", "put_AutoStopRingOnOffHook", "get_AutoStopRingOnOffHook", "put_AutoKeypadTones", "get_AutoKeypadTones", "put_AutoKeypadTonesMinimumDuration", "get_AutoKeypadTonesMinimumDuration", "put_AutoVolumeControl", "get_AutoVolumeControl", "put_AutoVolumeControlStep", "get_AutoVolumeControlStep", "put_AutoVolumeControlRepeatDelay", "get_AutoVolumeControlRepeatDelay", "put_AutoVolumeControlRepeatPeriod", "get_AutoVolumeControlRepeatPeriod", "SelectCall", "UnselectCall", "EnumerateSelectedCalls", "get_SelectedCalls"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAutomatedPhoneControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PHONE_TONE} 
@@ -152,7 +194,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-starttone
      */
     StartTone(Tone, lDuration) {
-        result := ComCall(7, this, "int", Tone, "int", lDuration, "HRESULT")
+        result := ComCall(7, this, PHONE_TONE, Tone, "int", lDuration, "HRESULT")
         return result
     }
 
@@ -208,7 +250,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_ringer
      */
     get_Ringer() {
-        result := ComCall(12, this, "short*", &pfRinging := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pfRinging := 0, "HRESULT")
         return pfRinging
     }
 
@@ -232,7 +274,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_phonehandlingenabled
      */
     put_PhoneHandlingEnabled(fEnabled) {
-        result := ComCall(13, this, "short", fEnabled, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -252,7 +294,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_phonehandlingenabled
      */
     get_PhoneHandlingEnabled() {
-        result := ComCall(14, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -303,7 +345,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autodialtone
      */
     put_AutoDialtone(fEnabled) {
-        result := ComCall(17, this, "short", fEnabled, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -318,7 +360,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autodialtone
      */
     get_AutoDialtone() {
-        result := ComCall(18, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -331,7 +373,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autostoptonesononhook
      */
     put_AutoStopTonesOnOnHook(fEnabled) {
-        result := ComCall(19, this, "short", fEnabled, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -343,7 +385,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autostoptonesononhook
      */
     get_AutoStopTonesOnOnHook() {
-        result := ComCall(20, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -356,7 +398,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autostopringonoffhook
      */
     put_AutoStopRingOnOffHook(fEnabled) {
-        result := ComCall(21, this, "short", fEnabled, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -368,7 +410,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autostopringonoffhook
      */
     get_AutoStopRingOnOffHook() {
-        result := ComCall(22, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -385,7 +427,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autokeypadtones
      */
     put_AutoKeypadTones(fEnabled) {
-        result := ComCall(23, this, "short", fEnabled, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -401,7 +443,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autokeypadtones
      */
     get_AutoKeypadTones() {
-        result := ComCall(24, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -439,7 +481,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autovolumecontrol
      */
     put_AutoVolumeControl(fEnabled) {
-        result := ComCall(27, this, "short", fEnabled, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -453,7 +495,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrol
      */
     get_AutoVolumeControl() {
-        result := ComCall(28, this, "short*", &fEnabled := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
         return fEnabled
     }
 
@@ -583,7 +625,7 @@ class ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-selectcall
      */
     SelectCall(pCall, fSelectDefaultTerminals) {
-        result := ComCall(35, this, "ptr", pCall, "short", fSelectDefaultTerminals, "HRESULT")
+        result := ComCall(35, this, "ptr", pCall, VARIANT_BOOL, fSelectDefaultTerminals, "HRESULT")
         return result
     }
 
@@ -623,7 +665,89 @@ class ITAutomatedPhoneControl extends IDispatch {
      */
     get_SelectedCalls() {
         pVariant := VARIANT()
-        result := ComCall(38, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
+    }
+
+    Query(iid) {
+        if (ITAutomatedPhoneControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartTone := CallbackCreate(GetMethod(implObj, "StartTone"), flags, 3)
+        this.vtbl.StopTone := CallbackCreate(GetMethod(implObj, "StopTone"), flags, 1)
+        this.vtbl.get_Tone := CallbackCreate(GetMethod(implObj, "get_Tone"), flags, 2)
+        this.vtbl.StartRinger := CallbackCreate(GetMethod(implObj, "StartRinger"), flags, 3)
+        this.vtbl.StopRinger := CallbackCreate(GetMethod(implObj, "StopRinger"), flags, 1)
+        this.vtbl.get_Ringer := CallbackCreate(GetMethod(implObj, "get_Ringer"), flags, 2)
+        this.vtbl.put_PhoneHandlingEnabled := CallbackCreate(GetMethod(implObj, "put_PhoneHandlingEnabled"), flags, 2)
+        this.vtbl.get_PhoneHandlingEnabled := CallbackCreate(GetMethod(implObj, "get_PhoneHandlingEnabled"), flags, 2)
+        this.vtbl.put_AutoEndOfNumberTimeout := CallbackCreate(GetMethod(implObj, "put_AutoEndOfNumberTimeout"), flags, 2)
+        this.vtbl.get_AutoEndOfNumberTimeout := CallbackCreate(GetMethod(implObj, "get_AutoEndOfNumberTimeout"), flags, 2)
+        this.vtbl.put_AutoDialtone := CallbackCreate(GetMethod(implObj, "put_AutoDialtone"), flags, 2)
+        this.vtbl.get_AutoDialtone := CallbackCreate(GetMethod(implObj, "get_AutoDialtone"), flags, 2)
+        this.vtbl.put_AutoStopTonesOnOnHook := CallbackCreate(GetMethod(implObj, "put_AutoStopTonesOnOnHook"), flags, 2)
+        this.vtbl.get_AutoStopTonesOnOnHook := CallbackCreate(GetMethod(implObj, "get_AutoStopTonesOnOnHook"), flags, 2)
+        this.vtbl.put_AutoStopRingOnOffHook := CallbackCreate(GetMethod(implObj, "put_AutoStopRingOnOffHook"), flags, 2)
+        this.vtbl.get_AutoStopRingOnOffHook := CallbackCreate(GetMethod(implObj, "get_AutoStopRingOnOffHook"), flags, 2)
+        this.vtbl.put_AutoKeypadTones := CallbackCreate(GetMethod(implObj, "put_AutoKeypadTones"), flags, 2)
+        this.vtbl.get_AutoKeypadTones := CallbackCreate(GetMethod(implObj, "get_AutoKeypadTones"), flags, 2)
+        this.vtbl.put_AutoKeypadTonesMinimumDuration := CallbackCreate(GetMethod(implObj, "put_AutoKeypadTonesMinimumDuration"), flags, 2)
+        this.vtbl.get_AutoKeypadTonesMinimumDuration := CallbackCreate(GetMethod(implObj, "get_AutoKeypadTonesMinimumDuration"), flags, 2)
+        this.vtbl.put_AutoVolumeControl := CallbackCreate(GetMethod(implObj, "put_AutoVolumeControl"), flags, 2)
+        this.vtbl.get_AutoVolumeControl := CallbackCreate(GetMethod(implObj, "get_AutoVolumeControl"), flags, 2)
+        this.vtbl.put_AutoVolumeControlStep := CallbackCreate(GetMethod(implObj, "put_AutoVolumeControlStep"), flags, 2)
+        this.vtbl.get_AutoVolumeControlStep := CallbackCreate(GetMethod(implObj, "get_AutoVolumeControlStep"), flags, 2)
+        this.vtbl.put_AutoVolumeControlRepeatDelay := CallbackCreate(GetMethod(implObj, "put_AutoVolumeControlRepeatDelay"), flags, 2)
+        this.vtbl.get_AutoVolumeControlRepeatDelay := CallbackCreate(GetMethod(implObj, "get_AutoVolumeControlRepeatDelay"), flags, 2)
+        this.vtbl.put_AutoVolumeControlRepeatPeriod := CallbackCreate(GetMethod(implObj, "put_AutoVolumeControlRepeatPeriod"), flags, 2)
+        this.vtbl.get_AutoVolumeControlRepeatPeriod := CallbackCreate(GetMethod(implObj, "get_AutoVolumeControlRepeatPeriod"), flags, 2)
+        this.vtbl.SelectCall := CallbackCreate(GetMethod(implObj, "SelectCall"), flags, 3)
+        this.vtbl.UnselectCall := CallbackCreate(GetMethod(implObj, "UnselectCall"), flags, 2)
+        this.vtbl.EnumerateSelectedCalls := CallbackCreate(GetMethod(implObj, "EnumerateSelectedCalls"), flags, 2)
+        this.vtbl.get_SelectedCalls := CallbackCreate(GetMethod(implObj, "get_SelectedCalls"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartTone)
+        CallbackFree(this.vtbl.StopTone)
+        CallbackFree(this.vtbl.get_Tone)
+        CallbackFree(this.vtbl.StartRinger)
+        CallbackFree(this.vtbl.StopRinger)
+        CallbackFree(this.vtbl.get_Ringer)
+        CallbackFree(this.vtbl.put_PhoneHandlingEnabled)
+        CallbackFree(this.vtbl.get_PhoneHandlingEnabled)
+        CallbackFree(this.vtbl.put_AutoEndOfNumberTimeout)
+        CallbackFree(this.vtbl.get_AutoEndOfNumberTimeout)
+        CallbackFree(this.vtbl.put_AutoDialtone)
+        CallbackFree(this.vtbl.get_AutoDialtone)
+        CallbackFree(this.vtbl.put_AutoStopTonesOnOnHook)
+        CallbackFree(this.vtbl.get_AutoStopTonesOnOnHook)
+        CallbackFree(this.vtbl.put_AutoStopRingOnOffHook)
+        CallbackFree(this.vtbl.get_AutoStopRingOnOffHook)
+        CallbackFree(this.vtbl.put_AutoKeypadTones)
+        CallbackFree(this.vtbl.get_AutoKeypadTones)
+        CallbackFree(this.vtbl.put_AutoKeypadTonesMinimumDuration)
+        CallbackFree(this.vtbl.get_AutoKeypadTonesMinimumDuration)
+        CallbackFree(this.vtbl.put_AutoVolumeControl)
+        CallbackFree(this.vtbl.get_AutoVolumeControl)
+        CallbackFree(this.vtbl.put_AutoVolumeControlStep)
+        CallbackFree(this.vtbl.get_AutoVolumeControlStep)
+        CallbackFree(this.vtbl.put_AutoVolumeControlRepeatDelay)
+        CallbackFree(this.vtbl.get_AutoVolumeControlRepeatDelay)
+        CallbackFree(this.vtbl.put_AutoVolumeControlRepeatPeriod)
+        CallbackFree(this.vtbl.get_AutoVolumeControlRepeatPeriod)
+        CallbackFree(this.vtbl.SelectCall)
+        CallbackFree(this.vtbl.UnselectCall)
+        CallbackFree(this.vtbl.EnumerateSelectedCalls)
+        CallbackFree(this.vtbl.get_SelectedCalls)
     }
 }

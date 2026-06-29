@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USE_INFO_ASG_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
 
 /**
  * Contains information about the connection between a local device and a shared resource.
@@ -10,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USE_INFO_1 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct USE_INFO_1 {
+    #StructPack 8
 
     /**
      * Type: <b>LMSTR</b>
@@ -21,12 +19,8 @@ class USE_INFO_1 extends Win32Struct {
      * A pointer to a string that contains the local device name (for example, drive E or LPT1) being redirected to the shared resource. The constant DEVLEN specifies the maximum number of characters in the string. This member can be <b>NULL</b>. For more information, see the following Remarks section.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui1_local {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ui1_local : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -43,12 +37,8 @@ class USE_INFO_1 extends Win32Struct {
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui1_remote {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ui1_remote : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -56,12 +46,8 @@ class USE_INFO_1 extends Win32Struct {
      * A pointer to a string that contains the password needed to establish a session between a specific workstation and a server.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui1_password {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ui1_password : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -147,42 +133,27 @@ class USE_INFO_1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ui1_status {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ui1_status : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {USE_INFO_ASG_TYPE}
      */
-    ui1_asg_type {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ui1_asg_type : USE_INFO_ASG_TYPE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of files, directories, and other processes that are open on the remote resource. This element is not used by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseadd">NetUseAdd</a> function.
-     * @type {Integer}
      */
-    ui1_refcount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ui1_refcount : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of  explicit connections (redirection with a local device name) or implicit UNC connections (redirection without a local device name) that are established with the resource.
-     * @type {Integer}
      */
-    ui1_usecount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ui1_usecount : UInt32
+
 }

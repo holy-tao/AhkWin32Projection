@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAnimationTimerClientEventHandler.ahk" { IUIAnimationTimerClientEventHandler }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for handling timing update events.
@@ -10,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtimerupdatehandler
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationTimerUpdateHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationTimerUpdateHandler extends IUnknown {
     /**
      * The interface identifier for IUIAnimationTimerUpdateHandler
      * @type {Guid}
      */
-    static IID => Guid("{195509b7-5d5e-4e3e-b278-ee3759b367ad}")
+    static IID := Guid("{195509b7-5d5e-4e3e-b278-ee3759b367ad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationTimerUpdateHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnUpdate                     : IntPtr
+        SetTimerClientEventHandler   : IntPtr
+        ClearTimerClientEventHandler : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnUpdate", "SetTimerClientEventHandler", "ClearTimerClientEventHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationTimerUpdateHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Handles update events from the timer.
@@ -66,5 +78,29 @@ class IUIAnimationTimerUpdateHandler extends IUnknown {
     ClearTimerClientEventHandler() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationTimerUpdateHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnUpdate := CallbackCreate(GetMethod(implObj, "OnUpdate"), flags, 3)
+        this.vtbl.SetTimerClientEventHandler := CallbackCreate(GetMethod(implObj, "SetTimerClientEventHandler"), flags, 2)
+        this.vtbl.ClearTimerClientEventHandler := CallbackCreate(GetMethod(implObj, "ClearTimerClientEventHandler"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnUpdate)
+        CallbackFree(this.vtbl.SetTimerClientEventHandler)
+        CallbackFree(this.vtbl.ClearTimerClientEventHandler)
     }
 }

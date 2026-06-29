@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the next step that is to occur in sync manager conflict resolution. Used by ISyncMgrConflictPresenter.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step
  * @namespace Windows.Win32.UI.Shell
  */
-class SYNCMGR_PRESENTER_NEXT_STEP extends Win32Enum {
+export default struct SYNCMGR_PRESENTER_NEXT_STEP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The conflict has been resolved and subsequent

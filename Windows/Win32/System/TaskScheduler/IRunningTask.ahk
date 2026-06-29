@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASK_STATE.ahk" { TASK_STATE }
 
 /**
  * Provides the methods to get information from and control a running task.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irunningtask
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IRunningTask extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRunningTask extends IDispatch {
     /**
      * The interface identifier for IRunningTask
      * @type {Guid}
      */
-    static IID => Guid("{653758fb-7b9a-4f1e-a471-beeb8e9b834e}")
+    static IID := Guid("{653758fb-7b9a-4f1e-a471-beeb8e9b834e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRunningTask interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name          : IntPtr
+        get_InstanceGuid  : IntPtr
+        get_Path          : IntPtr
+        get_State         : IntPtr
+        get_CurrentAction : IntPtr
+        Stop              : IntPtr
+        Refresh           : IntPtr
+        get_EnginePID     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_InstanceGuid", "get_Path", "get_State", "get_CurrentAction", "Stop", "Refresh", "get_EnginePID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRunningTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -80,8 +96,8 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_name
      */
     get_Name() {
-        pName := BSTR()
-        result := ComCall(7, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -93,8 +109,8 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_instanceguid
      */
     get_InstanceGuid() {
-        pGuid := BSTR()
-        result := ComCall(8, this, "ptr", pGuid, "HRESULT")
+        pGuid := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -106,8 +122,8 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_path
      */
     get_Path() {
-        pPath := BSTR()
-        result := ComCall(9, this, "ptr", pPath, "HRESULT")
+        pPath := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pPath, "HRESULT")
         return pPath
     }
 
@@ -131,8 +147,8 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_currentaction
      */
     get_CurrentAction() {
-        pName := BSTR()
-        result := ComCall(11, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -193,5 +209,39 @@ class IRunningTask extends IDispatch {
     get_EnginePID() {
         result := ComCall(14, this, "uint*", &pPID := 0, "HRESULT")
         return pPID
+    }
+
+    Query(iid) {
+        if (IRunningTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_InstanceGuid := CallbackCreate(GetMethod(implObj, "get_InstanceGuid"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_CurrentAction := CallbackCreate(GetMethod(implObj, "get_CurrentAction"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_EnginePID := CallbackCreate(GetMethod(implObj, "get_EnginePID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_InstanceGuid)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_CurrentAction)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.get_EnginePID)
     }
 }

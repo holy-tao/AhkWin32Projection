@@ -1,103 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk
-#Include .\CONTEXT.ahk
-#Include .\UNWIND_HISTORY_TABLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CONTEXT.ahk" { CONTEXT }
+#Import ".\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_RUNTIME_FUNCTION_ENTRY }
+#Import ".\UNWIND_HISTORY_TABLE.ahk" { UNWIND_HISTORY_TABLE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64
  */
-class DISPATCHER_CONTEXT extends Win32Struct {
-    static sizeof => 80
+export default struct DISPATCHER_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    ControlPc : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ControlPc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ImageBase : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ImageBase {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FunctionEntry : IMAGE_RUNTIME_FUNCTION_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<IMAGE_RUNTIME_FUNCTION_ENTRY>}
-     */
-    FunctionEntry {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    EstablisherFrame : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EstablisherFrame {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TargetIp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetIp {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ContextRecord : CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CONTEXT>}
-     */
-    ContextRecord {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    LanguageHandler : IntPtr
 
-    /**
-     * @type {Pointer<EXCEPTION_ROUTINE>}
-     */
-    LanguageHandler {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    HandlerData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    HandlerData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    HistoryTable : UNWIND_HISTORY_TABLE.Ptr
 
-    /**
-     * @type {Pointer<UNWIND_HISTORY_TABLE>}
-     */
-    HistoryTable {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ScopeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ScopeIndex {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    Fill0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Fill0 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
 }

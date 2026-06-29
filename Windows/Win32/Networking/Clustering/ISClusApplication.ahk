@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISDomainNames.ahk
-#Include .\ISClusterNames.ahk
-#Include .\ISCluster.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISDomainNames.ahk" { ISDomainNames }
+#Import ".\ISClusterNames.ahk" { ISClusterNames }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ISClusApplication extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISClusApplication extends IDispatch {
     /**
      * The interface identifier for ISClusApplication
      * @type {Guid}
      */
-    static IID => Guid("{f2e606e6-2631-11d1-89f1-00a0c90d061e}")
+    static IID := Guid("{f2e606e6-2631-11d1-89f1-00a0c90d061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISClusApplication interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DomainNames  : IntPtr
+        get_ClusterNames : IntPtr
+        OpenCluster      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DomainNames", "get_ClusterNames", "OpenCluster"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISClusApplication.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISDomainNames} 
@@ -54,7 +65,7 @@ class ISClusApplication extends IDispatch {
     get_ClusterNames(bstrDomainName) {
         bstrDomainName := bstrDomainName is String ? BSTR.Alloc(bstrDomainName).Value : bstrDomainName
 
-        result := ComCall(8, this, "ptr", bstrDomainName, "ptr*", &ppClusters := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrDomainName, "ptr*", &ppClusters := 0, "HRESULT")
         return ISClusterNames(ppClusters)
     }
 
@@ -82,7 +93,31 @@ class ISClusApplication extends IDispatch {
     OpenCluster(bstrClusterName) {
         bstrClusterName := bstrClusterName is String ? BSTR.Alloc(bstrClusterName).Value : bstrClusterName
 
-        result := ComCall(9, this, "ptr", bstrClusterName, "ptr*", &pCluster := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrClusterName, "ptr*", &pCluster := 0, "HRESULT")
         return ISCluster(pCluster)
+    }
+
+    Query(iid) {
+        if (ISClusApplication.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DomainNames := CallbackCreate(GetMethod(implObj, "get_DomainNames"), flags, 2)
+        this.vtbl.get_ClusterNames := CallbackCreate(GetMethod(implObj, "get_ClusterNames"), flags, 3)
+        this.vtbl.OpenCluster := CallbackCreate(GetMethod(implObj, "OpenCluster"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DomainNames)
+        CallbackFree(this.vtbl.get_ClusterNames)
+        CallbackFree(this.vtbl.OpenCluster)
     }
 }

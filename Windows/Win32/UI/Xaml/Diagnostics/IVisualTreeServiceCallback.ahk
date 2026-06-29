@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VisualElement.ahk" { VisualElement }
+#Import ".\VisualMutationType.ahk" { VisualMutationType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ParentChildRelation.ahk" { ParentChildRelation }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Communicates the state of the visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ivisualtreeservicecallback
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class IVisualTreeServiceCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVisualTreeServiceCallback extends IUnknown {
     /**
      * The interface identifier for IVisualTreeServiceCallback
      * @type {Guid}
      */
-    static IID => Guid("{aa7a8931-80e4-4fec-8f3b-553f87b4966e}")
+    static IID := Guid("{aa7a8931-80e4-4fec-8f3b-553f87b4966e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVisualTreeServiceCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnVisualTreeChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnVisualTreeChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVisualTreeServiceCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Communicates the state of the visual tree when it changes.
@@ -38,7 +49,27 @@ class IVisualTreeServiceCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservicecallback-onvisualtreechange
      */
     OnVisualTreeChange(relation, element, mutationType) {
-        result := ComCall(3, this, "ptr", relation, "ptr", element, "int", mutationType, "HRESULT")
+        result := ComCall(3, this, ParentChildRelation, relation, VisualElement, element, VisualMutationType, mutationType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVisualTreeServiceCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnVisualTreeChange := CallbackCreate(GetMethod(implObj, "OnVisualTreeChange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnVisualTreeChange)
     }
 }

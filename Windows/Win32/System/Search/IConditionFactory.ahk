@@ -1,8 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRichChunk.ahk" { IRichChunk }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\STRUCTURED_QUERY_RESOLVE_OPTION.ahk" { STRUCTURED_QUERY_RESOLVE_OPTION }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import ".\ICondition.ahk" { ICondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for creating or resolving a condition tree that was obtained by parsing a query string.
@@ -11,32 +21,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iconditionfactory
  * @namespace Windows.Win32.System.Search
  */
-class IConditionFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConditionFactory extends IUnknown {
     /**
      * The interface identifier for IConditionFactory
      * @type {Guid}
      */
-    static IID => Guid("{a5efe073-b16f-474f-9f3e-9f8b497a3e08}")
+    static IID := Guid("{a5efe073-b16f-474f-9f3e-9f8b497a3e08}")
 
     /**
      * The class identifier for ConditionFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{e03e85b0-7be3-4000-ba98-6c13de9fa486}")
+    static CLSID := Guid("{e03e85b0-7be3-4000-ba98-6c13de9fa486}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConditionFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MakeNot   : IntPtr
+        MakeAndOr : IntPtr
+        MakeLeaf  : IntPtr
+        Resolve   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MakeNot", "MakeAndOr", "MakeLeaf", "Resolve"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConditionFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a condition node that is a logical negation (NOT) of another condition (a subnode of this node). (IConditionFactory.MakeNot)
@@ -57,7 +77,7 @@ class IConditionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-makenot
      */
     MakeNot(pcSub, fSimplify) {
-        result := ComCall(3, this, "ptr", pcSub, "int", fSimplify, "ptr*", &ppcResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pcSub, BOOL, fSimplify, "ptr*", &ppcResult := 0, "HRESULT")
         return ICondition(ppcResult)
     }
 
@@ -83,7 +103,7 @@ class IConditionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-makeandor
      */
     MakeAndOr(ct, peuSubs, fSimplify) {
-        result := ComCall(4, this, "int", ct, "ptr", peuSubs, "int", fSimplify, "ptr*", &ppcResult := 0, "HRESULT")
+        result := ComCall(4, this, CONDITION_TYPE, ct, "ptr", peuSubs, BOOL, fSimplify, "ptr*", &ppcResult := 0, "HRESULT")
         return ICondition(ppcResult)
     }
 
@@ -127,7 +147,7 @@ class IConditionFactory extends IUnknown {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszValueType := pszValueType is String ? StrPtr(pszValueType) : pszValueType
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "int", cop, "ptr", pszValueType, "ptr", ppropvar, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", fExpand, "ptr*", &ppcResult := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPropertyName, CONDITION_OPERATION, cop, "ptr", pszValueType, PROPVARIANT.Ptr, ppropvar, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, BOOL, fExpand, "ptr*", &ppcResult := 0, "HRESULT")
         return ICondition(ppcResult)
     }
 
@@ -156,7 +176,33 @@ class IConditionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-resolve
      */
     Resolve(pc, sqro, pstReferenceTime) {
-        result := ComCall(6, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr*", &ppcResolved := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pc, STRUCTURED_QUERY_RESOLVE_OPTION, sqro, SYSTEMTIME.Ptr, pstReferenceTime, "ptr*", &ppcResolved := 0, "HRESULT")
         return ICondition(ppcResolved)
+    }
+
+    Query(iid) {
+        if (IConditionFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MakeNot := CallbackCreate(GetMethod(implObj, "MakeNot"), flags, 4)
+        this.vtbl.MakeAndOr := CallbackCreate(GetMethod(implObj, "MakeAndOr"), flags, 5)
+        this.vtbl.MakeLeaf := CallbackCreate(GetMethod(implObj, "MakeLeaf"), flags, 10)
+        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MakeNot)
+        CallbackFree(this.vtbl.MakeAndOr)
+        CallbackFree(this.vtbl.MakeLeaf)
+        CallbackFree(this.vtbl.Resolve)
     }
 }

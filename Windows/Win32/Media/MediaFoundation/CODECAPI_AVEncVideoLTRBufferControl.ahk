@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the maximum number of Long Term Reference (LTR) frames controlled by application.
@@ -10,8 +9,7 @@
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoltrbuffercontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class CODECAPI_AVEncVideoLTRBufferControl extends Win32Struct {
-    static sizeof => 0
+export default struct CODECAPI_AVEncVideoLTRBufferControl {
+    #StructPack 1
 
-    static packingSize => 1
 }

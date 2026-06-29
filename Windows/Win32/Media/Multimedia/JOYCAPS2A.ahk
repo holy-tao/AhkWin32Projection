@@ -1,228 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class JOYCAPS2A extends Win32Struct {
-    static sizeof => 432
+export default struct JOYCAPS2A {
+    #StructPack 4
 
-    static packingSize => 8
+    wMid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wPid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    szPname : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szPname {
-        get => StrGet(this.ptr + 4, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-8")
-    }
+    wXmin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wXmin {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    wXmax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wXmax {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    wYmin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wYmin {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    wYmax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wYmax {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    wZmin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wZmin {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    wZmax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wZmax {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    wNumButtons : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wNumButtons {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    wPeriodMin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wPeriodMin {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    wPeriodMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wPeriodMax {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    wRmin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wRmin {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    wRmax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wRmax {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    wUmin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wUmin {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    wUmax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wUmax {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    wVmin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wVmin {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    wVmax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wVmax {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    wCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wCaps {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    wMaxAxes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wMaxAxes {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    wNumAxes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wNumAxes {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    wMaxButtons : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wMaxButtons {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    szRegKey : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szRegKey {
-        get => StrGet(this.ptr + 112, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 112, 31, "UTF-8")
-    }
+    szOEMVxD : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szOEMVxD {
-        get => StrGet(this.ptr + 144, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 144, 259, "UTF-8")
-    }
+    ManufacturerGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ManufacturerGuid {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
-    }
+    ProductGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProductGuid {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
-    }
+    NameGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    NameGuid {
-        get => NumGet(this, 424, "ptr")
-        set => NumPut("ptr", value, this, 424)
-    }
 }

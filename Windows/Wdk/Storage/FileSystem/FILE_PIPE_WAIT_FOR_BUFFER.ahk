@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_PIPE_WAIT_FOR_BUFFER extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_PIPE_WAIT_FOR_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    Timeout : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Timeout {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    NameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NameLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TimeoutSpecified : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TimeoutSpecified {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Name : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Name {
-        get => StrGet(this.ptr + 14, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 14, 0, "UTF-16")
-    }
 }

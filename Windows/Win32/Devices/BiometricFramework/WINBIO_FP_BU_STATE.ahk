@@ -1,27 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_FP_BU_STATE extends Win32Struct {
-    static sizeof => 8
+export default struct WINBIO_FP_BU_STATE {
+    #StructPack 4
 
-    static packingSize => 4
+    SensorAttached : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SensorAttached {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CreationResult : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    CreationResult {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechResourceLoader extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechResourceLoader extends IDispatch {
     /**
      * The interface identifier for ISpeechResourceLoader
      * @type {Guid}
      */
-    static IID => Guid("{b9ac5783-fcd0-4b21-b119-b4f8da8fd2c3}")
+    static IID := Guid("{b9ac5783-fcd0-4b21-b119-b4f8da8fd2c3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechResourceLoader interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        LoadResource     : IntPtr
+        GetLocalCopy     : IntPtr
+        ReleaseLocalCopy : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadResource", "GetLocalCopy", "ReleaseLocalCopy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechResourceLoader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a handle that can be used to obtain a pointer to the first byte of the specified resource in memory.
@@ -123,7 +136,7 @@ class ISpeechResourceLoader extends IDispatch {
 
         pfModifiedMarshal := pfModified is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "ptr", bstrResourceUri, "short", fAlwaysReload, "ptr*", pStream, "ptr", pbstrMIMEType, pfModifiedMarshal, pfModified, "ptr", pbstrRedirectUrl, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrResourceUri, VARIANT_BOOL, fAlwaysReload, IUnknown.Ptr, pStream, BSTR.Ptr, pbstrMIMEType, pfModifiedMarshal, pfModified, BSTR.Ptr, pbstrRedirectUrl, "HRESULT")
         return result
     }
 
@@ -138,7 +151,7 @@ class ISpeechResourceLoader extends IDispatch {
     GetLocalCopy(bstrResourceUri, pbstrLocalPath, pbstrMIMEType, pbstrRedirectUrl) {
         bstrResourceUri := bstrResourceUri is String ? BSTR.Alloc(bstrResourceUri).Value : bstrResourceUri
 
-        result := ComCall(8, this, "ptr", bstrResourceUri, "ptr", pbstrLocalPath, "ptr", pbstrMIMEType, "ptr", pbstrRedirectUrl, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrResourceUri, BSTR.Ptr, pbstrLocalPath, BSTR.Ptr, pbstrMIMEType, BSTR.Ptr, pbstrRedirectUrl, "HRESULT")
         return result
     }
 
@@ -150,7 +163,31 @@ class ISpeechResourceLoader extends IDispatch {
     ReleaseLocalCopy(pbstrLocalPath) {
         pbstrLocalPath := pbstrLocalPath is String ? BSTR.Alloc(pbstrLocalPath).Value : pbstrLocalPath
 
-        result := ComCall(9, this, "ptr", pbstrLocalPath, "HRESULT")
+        result := ComCall(9, this, BSTR, pbstrLocalPath, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechResourceLoader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadResource := CallbackCreate(GetMethod(implObj, "LoadResource"), flags, 7)
+        this.vtbl.GetLocalCopy := CallbackCreate(GetMethod(implObj, "GetLocalCopy"), flags, 5)
+        this.vtbl.ReleaseLocalCopy := CallbackCreate(GetMethod(implObj, "ReleaseLocalCopy"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadResource)
+        CallbackFree(this.vtbl.GetLocalCopy)
+        CallbackFree(this.vtbl.ReleaseLocalCopy)
     }
 }

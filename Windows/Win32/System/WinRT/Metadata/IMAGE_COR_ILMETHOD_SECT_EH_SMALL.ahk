@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_SMALL.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_COR_ILMETHOD_SECT_SMALL.ahk" { IMAGE_COR_ILMETHOD_SECT_SMALL }
+#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMAGE_COR_ILMETHOD_SECT_EH_SMALL extends Win32Struct {
-    static sizeof => 16
+export default struct IMAGE_COR_ILMETHOD_SECT_EH_SMALL {
+    #StructPack 4
 
-    static packingSize => 4
+    SectSmall : IMAGE_COR_ILMETHOD_SECT_SMALL
 
-    /**
-     * @type {IMAGE_COR_ILMETHOD_SECT_SMALL}
-     */
-    SectSmall {
-        get {
-            if(!this.HasProp("__SectSmall"))
-                this.__SectSmall := IMAGE_COR_ILMETHOD_SECT_SMALL(0, this)
-            return this.__SectSmall
-        }
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Clauses : IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL[1]
 
-    /**
-     * @type {IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL}
-     */
-    Clauses {
-        get {
-            if(!this.HasProp("__ClausesProxyArray"))
-                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 4, 1, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL, "")
-            return this.__ClausesProxyArray
-        }
-    }
 }

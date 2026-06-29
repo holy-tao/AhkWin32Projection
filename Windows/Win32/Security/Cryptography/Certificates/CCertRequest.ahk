@@ -1,15 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Returns the certification authority (CA) certificate for the Certificate Services server.
- * @remarks
- * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
- * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getcacertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CCertRequest extends Win32Struct {
-    static sizeof => 0
+export default struct CCertRequest {
+    #StructPack 1
 
-    static packingSize => 1
 }

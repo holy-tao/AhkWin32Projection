@@ -1,40 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HACCESSOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBPARAMS extends Win32Struct {
-    static sizeof => 24
+export default struct DBPARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    pData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cParamSets : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cParamSets {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hAccessor : HACCESSOR
 
-    /**
-     * @type {HACCESSOR}
-     */
-    hAccessor {
-        get {
-            if(!this.HasProp("__hAccessor"))
-                this.__hAccessor := HACCESSOR(16, this)
-            return this.__hAccessor
-        }
-    }
 }

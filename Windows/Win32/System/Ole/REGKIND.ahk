@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Controls how a type library is registered.
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ne-oleauto-regkind
  * @namespace Windows.Win32.System.Ole
  */
-class REGKIND extends Win32Enum {
+export default struct REGKIND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use default register behavior.

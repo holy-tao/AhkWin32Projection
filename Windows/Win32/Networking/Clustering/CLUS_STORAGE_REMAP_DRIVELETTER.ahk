@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the existing and target drive letter for a disk drive on a node.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_storage_remap_driveletter
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_STORAGE_REMAP_DRIVELETTER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CLUS_STORAGE_REMAP_DRIVELETTER {
+    #StructPack 4
 
     /**
      * A 32-bit bitmask indicating the drive letter to be changed. The least significant bit represents the drive letter 'A' through bit 25, which represents the drive letter 'Z'.
-     * @type {Integer}
      */
-    CurrentDriveLetterMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CurrentDriveLetterMask : UInt32
 
     /**
      * A 32-bit bitmask indicating the new drive letter for the disk drive that corresponds to the drive letter specified in CurrentDriveLetterMask.
-     * @type {Integer}
      */
-    TargetDriveLetterMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TargetDriveLetterMask : UInt32
+
 }

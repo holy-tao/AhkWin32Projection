@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
+#Import ".\ILocationReport.ahk" { ILocationReport }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * ILocationEvents provides callback methods that you must implement if you want to receive event notifications.
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-ilocationevents
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class ILocationEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ILocationEvents extends IUnknown {
     /**
      * The interface identifier for ILocationEvents
      * @type {Guid}
      */
-    static IID => Guid("{cae02bbf-798b-4508-a207-35a7906dc73d}")
+    static IID := Guid("{cae02bbf-798b-4508-a207-35a7906dc73d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILocationEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnLocationChanged : IntPtr
+        OnStatusChanged   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnLocationChanged", "OnStatusChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILocationEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when a new location report is available.
@@ -44,7 +55,7 @@ class ILocationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationevents-onlocationchanged
      */
     OnLocationChanged(reportType, pLocationReport) {
-        result := ComCall(3, this, "ptr", reportType, "ptr", pLocationReport, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, reportType, "ptr", pLocationReport, "HRESULT")
         return result
     }
 
@@ -58,7 +69,29 @@ class ILocationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationevents-onstatuschanged
      */
     OnStatusChanged(reportType, newStatus) {
-        result := ComCall(4, this, "ptr", reportType, "int", newStatus, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, reportType, LOCATION_REPORT_STATUS, newStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILocationEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnLocationChanged := CallbackCreate(GetMethod(implObj, "OnLocationChanged"), flags, 3)
+        this.vtbl.OnStatusChanged := CallbackCreate(GetMethod(implObj, "OnStatusChanged"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnLocationChanged)
+        CallbackFree(this.vtbl.OnStatusChanged)
     }
 }

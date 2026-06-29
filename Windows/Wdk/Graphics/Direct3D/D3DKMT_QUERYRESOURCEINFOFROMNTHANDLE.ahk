@@ -1,71 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE {
+    #StructPack 8
 
-    static packingSize => 8
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hNtHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hNtHandle {
-        get {
-            if(!this.HasProp("__hNtHandle"))
-                this.__hNtHandle := HANDLE(8, this)
-            return this.__hNtHandle
-        }
-    }
+    pPrivateRuntimeData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateRuntimeData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PrivateRuntimeDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateRuntimeDataSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TotalPrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalPrivateDriverDataSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ResourcePrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResourcePrivateDriverDataSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NumAllocations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumAllocations {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

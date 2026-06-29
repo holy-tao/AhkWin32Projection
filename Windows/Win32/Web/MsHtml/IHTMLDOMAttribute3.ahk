@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLElement2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLElement2.ahk" { IHTMLElement2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDOMAttribute3 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDOMAttribute3 extends IDispatch {
     /**
      * The interface identifier for IHTMLDOMAttribute3
      * @type {Guid}
      */
-    static IID => Guid("{30510468-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510468-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDOMAttribute3 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_nodeValue    : IntPtr
+        get_nodeValue    : IntPtr
+        put_value        : IntPtr
+        get_value        : IntPtr
+        get_specified    : IntPtr
+        get_ownerElement : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_nodeValue", "get_nodeValue", "put_value", "get_value", "get_specified", "get_ownerElement"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDOMAttribute3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -66,7 +80,7 @@ class IHTMLDOMAttribute3 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_nodeValue(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -76,7 +90,7 @@ class IHTMLDOMAttribute3 extends IDispatch {
      */
     get_nodeValue() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -88,7 +102,7 @@ class IHTMLDOMAttribute3 extends IDispatch {
     put_value(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -97,8 +111,8 @@ class IHTMLDOMAttribute3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -107,7 +121,7 @@ class IHTMLDOMAttribute3 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -118,5 +132,35 @@ class IHTMLDOMAttribute3 extends IDispatch {
     get_ownerElement() {
         result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
         return IHTMLElement2(p)
+    }
+
+    Query(iid) {
+        if (IHTMLDOMAttribute3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.get_specified := CallbackCreate(GetMethod(implObj, "get_specified"), flags, 2)
+        this.vtbl.get_ownerElement := CallbackCreate(GetMethod(implObj, "get_ownerElement"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_nodeValue)
+        CallbackFree(this.vtbl.get_nodeValue)
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
+        CallbackFree(this.vtbl.get_specified)
+        CallbackFree(this.vtbl.get_ownerElement)
     }
 }

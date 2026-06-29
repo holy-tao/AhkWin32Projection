@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import ".\TfLBIClick.ahk" { TfLBIClick }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITfLangBarItemBitmap interface is implemented by an application or text service and used by the language bar manager to obtain information specific to a bitmap item on the language bar.
@@ -11,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritembitmap
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarItemBitmap extends ITfLangBarItem {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarItemBitmap extends ITfLangBarItem {
     /**
      * The interface identifier for ITfLangBarItemBitmap
      * @type {Guid}
      */
-    static IID => Guid("{73830352-d722-4179-ada5-f045c98df355}")
+    static IID := Guid("{73830352-d722-4179-ada5-f045c98df355}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarItemBitmap interfaces
+    */
+    struct Vtbl extends ITfLangBarItem.Vtbl {
+        OnClick          : IntPtr
+        GetPreferredSize : IntPtr
+        DrawBitmap       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnClick", "GetPreferredSize", "DrawBitmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarItemBitmap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfLangBarItemBitmap::OnClick method
@@ -70,7 +84,7 @@ class ITfLangBarItemBitmap extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmap-onclick
      */
     OnClick(click, pt, prcArea) {
-        result := ComCall(7, this, "int", click, "ptr", pt, "ptr", prcArea, "HRESULT")
+        result := ComCall(7, this, TfLBIClick, click, POINT, pt, RECT.Ptr, prcArea, "HRESULT")
         return result
     }
 
@@ -82,7 +96,7 @@ class ITfLangBarItemBitmap extends ITfLangBarItem {
      */
     GetPreferredSize(pszDefault) {
         psz := SIZE()
-        result := ComCall(8, this, "ptr", pszDefault, "ptr", psz, "HRESULT")
+        result := ComCall(8, this, SIZE.Ptr, pszDefault, SIZE.Ptr, psz, "HRESULT")
         return psz
     }
 
@@ -139,7 +153,31 @@ class ITfLangBarItemBitmap extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmap-drawbitmap
      */
     DrawBitmap(bmWidth, bmHeight, dwFlags, phbmp, phbmpMask) {
-        result := ComCall(9, this, "int", bmWidth, "int", bmHeight, "uint", dwFlags, "ptr", phbmp, "ptr", phbmpMask, "HRESULT")
+        result := ComCall(9, this, "int", bmWidth, "int", bmHeight, "uint", dwFlags, HBITMAP.Ptr, phbmp, HBITMAP.Ptr, phbmpMask, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfLangBarItemBitmap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnClick := CallbackCreate(GetMethod(implObj, "OnClick"), flags, 4)
+        this.vtbl.GetPreferredSize := CallbackCreate(GetMethod(implObj, "GetPreferredSize"), flags, 3)
+        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnClick)
+        CallbackFree(this.vtbl.GetPreferredSize)
+        CallbackFree(this.vtbl.DrawBitmap)
     }
 }

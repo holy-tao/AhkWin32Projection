@@ -1,117 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERACTION_ID.ahk
-#Include .\INTERACTION_FLAGS.ahk
-#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
-#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
-#Include .\MANIPULATION_TRANSFORM.ahk
-#Include .\MANIPULATION_VELOCITY.ahk
-#Include .\MANIPULATION_RAILS_STATE.ahk
-#Include .\INTERACTION_ARGUMENTS_TAP.ahk
-#Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
-#Include .\CROSS_SLIDE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERACTION_ARGUMENTS_TAP.ahk" { INTERACTION_ARGUMENTS_TAP }
+#Import ".\MANIPULATION_RAILS_STATE.ahk" { MANIPULATION_RAILS_STATE }
+#Import ".\INTERACTION_ID.ahk" { INTERACTION_ID }
+#Import ".\MANIPULATION_TRANSFORM.ahk" { MANIPULATION_TRANSFORM }
+#Import ".\INTERACTION_FLAGS.ahk" { INTERACTION_FLAGS }
+#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import ".\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk" { INTERACTION_ARGUMENTS_CROSS_SLIDE }
+#Import ".\INTERACTION_ARGUMENTS_MANIPULATION.ahk" { INTERACTION_ARGUMENTS_MANIPULATION }
+#Import ".\CROSS_SLIDE_FLAGS.ahk" { CROSS_SLIDE_FLAGS }
+#Import ".\MANIPULATION_VELOCITY.ahk" { MANIPULATION_VELOCITY }
 
 /**
  * Defines the output of the Interaction Context object.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_context_output
  * @namespace Windows.Win32.UI.InteractionContext
  */
-class INTERACTION_CONTEXT_OUTPUT extends Win32Struct {
-    static sizeof => 80
+export default struct INTERACTION_CONTEXT_OUTPUT {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _arguments_e__Union extends Win32Struct {
-        static sizeof => 60
-        static packingSize => 4
+    struct _arguments {
+        manipulation : INTERACTION_ARGUMENTS_MANIPULATION
 
-        /**
-         * @type {INTERACTION_ARGUMENTS_MANIPULATION}
-         */
-        manipulation {
-            get {
-                if(!this.HasProp("__manipulation"))
-                    this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(0, this)
-                return this.__manipulation
-            }
-        }
-
-        /**
-         * @type {INTERACTION_ARGUMENTS_TAP}
-         */
-        tap {
-            get {
-                if(!this.HasProp("__tap"))
-                    this.__tap := INTERACTION_ARGUMENTS_TAP(0, this)
-                return this.__tap
-            }
-        }
-
-        /**
-         * @type {INTERACTION_ARGUMENTS_CROSS_SLIDE}
-         */
-        crossSlide {
-            get {
-                if(!this.HasProp("__crossSlide"))
-                    this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(0, this)
-                return this.__crossSlide
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'tap', { type: INTERACTION_ARGUMENTS_TAP, offset: 0 })
+            DefineProp(this.Prototype, 'crossSlide', { type: INTERACTION_ARGUMENTS_CROSS_SLIDE, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * ID of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
-     * @type {INTERACTION_ID}
      */
-    interactionId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    interactionId : INTERACTION_ID
 
     /**
      * One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_flags">INTERACTION_FLAGS</a>.
-     * @type {INTERACTION_FLAGS}
      */
-    interactionFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    interactionFlags : INTERACTION_FLAGS
 
     /**
      * One of the constants from <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a>.
-     * @type {POINTER_INPUT_TYPE}
      */
-    inputType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    inputType : POINTER_INPUT_TYPE
 
     /**
      * The x-coordinate of the input pointer, in HIMETRIC units.
-     * @type {Float}
      */
-    x {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    x : Float32
 
     /**
      * The y-coordinate of the input pointer, in HIMETRIC units.
-     * @type {Float}
      */
-    y {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    y : Float32
 
-    /**
-     * @type {_arguments_e__Union}
-     */
-    arguments {
-        get {
-            if(!this.HasProp("__arguments"))
-                this.__arguments := INTERACTION_CONTEXT_OUTPUT._arguments_e__Union(20, this)
-            return this.__arguments
-        }
-    }
+    arguments : INTERACTION_CONTEXT_OUTPUT._arguments
+
 }

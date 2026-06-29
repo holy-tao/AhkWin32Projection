@@ -1,7 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITaskbarList2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\ITaskbarList2.ahk" { ITaskbarList2 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Controls\HIMAGELIST.ahk" { HIMAGELIST }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\THUMBBUTTON.ahk" { THUMBBUTTON }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\TBPFLAG.ahk" { TBPFLAG }
 
 /**
  * Extends ITaskbarList2 by exposing methods that support the unified launching and switching taskbar button functionality added in Windows 7.
@@ -35,26 +43,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist3
  * @namespace Windows.Win32.UI.Shell
  */
-class ITaskbarList3 extends ITaskbarList2 {
-
-    static sizeof => A_PtrSize
+export default struct ITaskbarList3 extends ITaskbarList2 {
     /**
      * The interface identifier for ITaskbarList3
      * @type {Guid}
      */
-    static IID => Guid("{ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf}")
+    static IID := Guid("{ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskbarList3 interfaces
+    */
+    struct Vtbl extends ITaskbarList2.Vtbl {
+        SetProgressValue      : IntPtr
+        SetProgressState      : IntPtr
+        RegisterTab           : IntPtr
+        UnregisterTab         : IntPtr
+        SetTabOrder           : IntPtr
+        SetTabActive          : IntPtr
+        ThumbBarAddButtons    : IntPtr
+        ThumbBarUpdateButtons : IntPtr
+        ThumbBarSetImageList  : IntPtr
+        SetOverlayIcon        : IntPtr
+        SetThumbnailTooltip   : IntPtr
+        SetThumbnailClip      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProgressValue", "SetProgressState", "RegisterTab", "UnregisterTab", "SetTabOrder", "SetTabActive", "ThumbBarAddButtons", "ThumbBarUpdateButtons", "ThumbBarSetImageList", "SetOverlayIcon", "SetThumbnailTooltip", "SetThumbnailClip"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskbarList3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Displays or updates a progress bar hosted in a taskbar button to show the specific percentage completed of the full operation.
@@ -123,9 +149,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressvalue
      */
     SetProgressValue(_hwnd, ullCompleted, ullTotal) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(9, this, "ptr", _hwnd, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
+        result := ComCall(9, this, HWND, _hwnd, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
         return result
     }
 
@@ -207,9 +231,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressstate
      */
     SetProgressState(_hwnd, tbpFlags) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(10, this, "ptr", _hwnd, "int", tbpFlags, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, TBPFLAG, tbpFlags, "HRESULT")
         return result
     }
 
@@ -229,10 +251,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-registertab
      */
     RegisterTab(hwndTab, hwndMDI) {
-        hwndTab := hwndTab is Win32Handle ? NumGet(hwndTab, "ptr") : hwndTab
-        hwndMDI := hwndMDI is Win32Handle ? NumGet(hwndMDI, "ptr") : hwndMDI
-
-        result := ComCall(11, this, "ptr", hwndTab, "ptr", hwndMDI, "HRESULT")
+        result := ComCall(11, this, HWND, hwndTab, HWND, hwndMDI, "HRESULT")
         return result
     }
 
@@ -249,9 +268,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-unregistertab
      */
     UnregisterTab(hwndTab) {
-        hwndTab := hwndTab is Win32Handle ? NumGet(hwndTab, "ptr") : hwndTab
-
-        result := ComCall(12, this, "ptr", hwndTab, "HRESULT")
+        result := ComCall(12, this, HWND, hwndTab, "HRESULT")
         return result
     }
 
@@ -271,10 +288,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-settaborder
      */
     SetTabOrder(hwndTab, hwndInsertBefore) {
-        hwndTab := hwndTab is Win32Handle ? NumGet(hwndTab, "ptr") : hwndTab
-        hwndInsertBefore := hwndInsertBefore is Win32Handle ? NumGet(hwndInsertBefore, "ptr") : hwndInsertBefore
-
-        result := ComCall(13, this, "ptr", hwndTab, "ptr", hwndInsertBefore, "HRESULT")
+        result := ComCall(13, this, HWND, hwndTab, HWND, hwndInsertBefore, "HRESULT")
         return result
     }
 
@@ -295,10 +309,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-settabactive
      */
     SetTabActive(hwndTab, hwndMDI, dwReserved) {
-        hwndTab := hwndTab is Win32Handle ? NumGet(hwndTab, "ptr") : hwndTab
-        hwndMDI := hwndMDI is Win32Handle ? NumGet(hwndMDI, "ptr") : hwndMDI
-
-        result := ComCall(14, this, "ptr", hwndTab, "ptr", hwndMDI, "uint", dwReserved, "HRESULT")
+        result := ComCall(14, this, HWND, hwndTab, HWND, hwndMDI, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -349,9 +360,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbaraddbuttons
      */
     ThumbBarAddButtons(_hwnd, cButtons, pButton) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(15, this, "ptr", _hwnd, "uint", cButtons, "ptr", pButton, "HRESULT")
+        result := ComCall(15, this, HWND, _hwnd, "uint", cButtons, THUMBBUTTON.Ptr, pButton, "HRESULT")
         return result
     }
 
@@ -376,9 +385,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbarupdatebuttons
      */
     ThumbBarUpdateButtons(_hwnd, cButtons, pButton) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(16, this, "ptr", _hwnd, "uint", cButtons, "ptr", pButton, "HRESULT")
+        result := ComCall(16, this, HWND, _hwnd, "uint", cButtons, THUMBBUTTON.Ptr, pButton, "HRESULT")
         return result
     }
 
@@ -409,10 +416,7 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbarsetimagelist
      */
     ThumbBarSetImageList(_hwnd, himl) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
-
-        result := ComCall(17, this, "ptr", _hwnd, "ptr", himl, "HRESULT")
+        result := ComCall(17, this, HWND, _hwnd, HIMAGELIST, himl, "HRESULT")
         return result
     }
 
@@ -458,11 +462,9 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setoverlayicon
      */
     SetOverlayIcon(_hwnd, _hIcon, pszDescription) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
 
-        result := ComCall(18, this, "ptr", _hwnd, "ptr", _hIcon, "ptr", pszDescription, "HRESULT")
+        result := ComCall(18, this, HWND, _hwnd, HICON, _hIcon, "ptr", pszDescription, "HRESULT")
         return result
     }
 
@@ -480,10 +482,9 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setthumbnailtooltip
      */
     SetThumbnailTooltip(_hwnd, pszTip) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszTip := pszTip is String ? StrPtr(pszTip) : pszTip
 
-        result := ComCall(19, this, "ptr", _hwnd, "ptr", pszTip, "HRESULT")
+        result := ComCall(19, this, HWND, _hwnd, "ptr", pszTip, "HRESULT")
         return result
     }
 
@@ -501,9 +502,49 @@ class ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setthumbnailclip
      */
     SetThumbnailClip(_hwnd, prcClip) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(20, this, "ptr", _hwnd, "ptr", prcClip, "HRESULT")
+        result := ComCall(20, this, HWND, _hwnd, RECT.Ptr, prcClip, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskbarList3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProgressValue := CallbackCreate(GetMethod(implObj, "SetProgressValue"), flags, 4)
+        this.vtbl.SetProgressState := CallbackCreate(GetMethod(implObj, "SetProgressState"), flags, 3)
+        this.vtbl.RegisterTab := CallbackCreate(GetMethod(implObj, "RegisterTab"), flags, 3)
+        this.vtbl.UnregisterTab := CallbackCreate(GetMethod(implObj, "UnregisterTab"), flags, 2)
+        this.vtbl.SetTabOrder := CallbackCreate(GetMethod(implObj, "SetTabOrder"), flags, 3)
+        this.vtbl.SetTabActive := CallbackCreate(GetMethod(implObj, "SetTabActive"), flags, 4)
+        this.vtbl.ThumbBarAddButtons := CallbackCreate(GetMethod(implObj, "ThumbBarAddButtons"), flags, 4)
+        this.vtbl.ThumbBarUpdateButtons := CallbackCreate(GetMethod(implObj, "ThumbBarUpdateButtons"), flags, 4)
+        this.vtbl.ThumbBarSetImageList := CallbackCreate(GetMethod(implObj, "ThumbBarSetImageList"), flags, 3)
+        this.vtbl.SetOverlayIcon := CallbackCreate(GetMethod(implObj, "SetOverlayIcon"), flags, 4)
+        this.vtbl.SetThumbnailTooltip := CallbackCreate(GetMethod(implObj, "SetThumbnailTooltip"), flags, 3)
+        this.vtbl.SetThumbnailClip := CallbackCreate(GetMethod(implObj, "SetThumbnailClip"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProgressValue)
+        CallbackFree(this.vtbl.SetProgressState)
+        CallbackFree(this.vtbl.RegisterTab)
+        CallbackFree(this.vtbl.UnregisterTab)
+        CallbackFree(this.vtbl.SetTabOrder)
+        CallbackFree(this.vtbl.SetTabActive)
+        CallbackFree(this.vtbl.ThumbBarAddButtons)
+        CallbackFree(this.vtbl.ThumbBarUpdateButtons)
+        CallbackFree(this.vtbl.ThumbBarSetImageList)
+        CallbackFree(this.vtbl.SetOverlayIcon)
+        CallbackFree(this.vtbl.SetThumbnailTooltip)
+        CallbackFree(this.vtbl.SetThumbnailClip)
     }
 }

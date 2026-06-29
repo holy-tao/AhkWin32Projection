@@ -1,54 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_GEOFENCE_CREATE_RESPONSE extends Win32Struct {
-    static sizeof => 528
+export default struct GNSS_GEOFENCE_CREATE_RESPONSE {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CreationStatus : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    CreationStatus {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    GeofenceID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GeofenceID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

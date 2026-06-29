@@ -1,34 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_sdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVB_SDT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDVB_SDT extends IUnknown {
     /**
      * The interface identifier for IDVB_SDT
      * @type {Guid}
      */
-    static IID => Guid("{02cad8d3-fe43-48e2-90bd-450ed9a8a5fd}")
+    static IID := Guid("{02cad8d3-fe43-48e2-90bd-450ed9a8a5fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVB_SDT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                       : IntPtr
+        GetVersionNumber                 : IntPtr
+        GetTransportStreamId             : IntPtr
+        GetOriginalNetworkId             : IntPtr
+        GetCountOfRecords                : IntPtr
+        GetRecordServiceId               : IntPtr
+        GetRecordEITScheduleFlag         : IntPtr
+        GetRecordEITPresentFollowingFlag : IntPtr
+        GetRecordRunningStatus           : IntPtr
+        GetRecordFreeCAMode              : IntPtr
+        GetRecordCountOfDescriptors      : IntPtr
+        GetRecordDescriptorByIndex       : IntPtr
+        GetRecordDescriptorByTag         : IntPtr
+        RegisterForNextTable             : IntPtr
+        GetNextTable                     : IntPtr
+        RegisterForWhenCurrent           : IntPtr
+        ConvertNextToCurrent             : IntPtr
+        GetVersionHash                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetTransportStreamId", "GetOriginalNetworkId", "GetCountOfRecords", "GetRecordServiceId", "GetRecordEITScheduleFlag", "GetRecordEITPresentFollowingFlag", "GetRecordRunningStatus", "GetRecordFreeCAMode", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "RegisterForNextTable", "GetNextTable", "RegisterForWhenCurrent", "ConvertNextToCurrent", "GetVersionHash"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVB_SDT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -140,7 +169,7 @@ class IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordeitscheduleflag
      */
     GetRecordEITScheduleFlag(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -151,7 +180,7 @@ class IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordeitpresentfollowingflag
      */
     GetRecordEITPresentFollowingFlag(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(10, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -173,7 +202,7 @@ class IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordfreecamode
      */
     GetRecordFreeCAMode(dwRecordIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(12, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -277,9 +306,7 @@ class IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
-        hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
-
-        result := ComCall(16, this, "ptr", hNextTableAvailable, "HRESULT")
+        result := ComCall(16, this, HANDLE, hNextTableAvailable, "HRESULT")
         return result
     }
 
@@ -355,9 +382,7 @@ class IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
-        hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
-
-        result := ComCall(18, this, "ptr", hNextTableIsCurrent, "HRESULT")
+        result := ComCall(18, this, HANDLE, hNextTableIsCurrent, "HRESULT")
         return result
     }
 
@@ -432,5 +457,59 @@ class IDVB_SDT extends IUnknown {
     GetVersionHash() {
         result := ComCall(20, this, "uint*", &pdwVersionHash := 0, "HRESULT")
         return pdwVersionHash
+    }
+
+    Query(iid) {
+        if (IDVB_SDT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetTransportStreamId := CallbackCreate(GetMethod(implObj, "GetTransportStreamId"), flags, 2)
+        this.vtbl.GetOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetOriginalNetworkId"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordServiceId := CallbackCreate(GetMethod(implObj, "GetRecordServiceId"), flags, 3)
+        this.vtbl.GetRecordEITScheduleFlag := CallbackCreate(GetMethod(implObj, "GetRecordEITScheduleFlag"), flags, 3)
+        this.vtbl.GetRecordEITPresentFollowingFlag := CallbackCreate(GetMethod(implObj, "GetRecordEITPresentFollowingFlag"), flags, 3)
+        this.vtbl.GetRecordRunningStatus := CallbackCreate(GetMethod(implObj, "GetRecordRunningStatus"), flags, 3)
+        this.vtbl.GetRecordFreeCAMode := CallbackCreate(GetMethod(implObj, "GetRecordFreeCAMode"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.RegisterForNextTable := CallbackCreate(GetMethod(implObj, "RegisterForNextTable"), flags, 2)
+        this.vtbl.GetNextTable := CallbackCreate(GetMethod(implObj, "GetNextTable"), flags, 2)
+        this.vtbl.RegisterForWhenCurrent := CallbackCreate(GetMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
+        this.vtbl.ConvertNextToCurrent := CallbackCreate(GetMethod(implObj, "ConvertNextToCurrent"), flags, 1)
+        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetTransportStreamId)
+        CallbackFree(this.vtbl.GetOriginalNetworkId)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordServiceId)
+        CallbackFree(this.vtbl.GetRecordEITScheduleFlag)
+        CallbackFree(this.vtbl.GetRecordEITPresentFollowingFlag)
+        CallbackFree(this.vtbl.GetRecordRunningStatus)
+        CallbackFree(this.vtbl.GetRecordFreeCAMode)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
+        CallbackFree(this.vtbl.RegisterForNextTable)
+        CallbackFree(this.vtbl.GetNextTable)
+        CallbackFree(this.vtbl.RegisterForWhenCurrent)
+        CallbackFree(this.vtbl.ConvertNextToCurrent)
+        CallbackFree(this.vtbl.GetVersionHash)
     }
 }

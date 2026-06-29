@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WICJpegTransferMatrix.ahk
-#Include .\WICJpegScanType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WICJpegTransferMatrix.ahk" { WICJpegTransferMatrix }
+#Import ".\WICJpegScanType.ahk" { WICJpegScanType }
 
 /**
  * Represents a JPEG frame header. (WICJpegFrameHeader)
@@ -10,64 +9,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicjpegframeheader
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICJpegFrameHeader extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct WICJpegFrameHeader {
+    #StructPack 4
 
     /**
      * The width of the JPEG frame.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Width : UInt32
 
     /**
      * The height of the JPEG frame.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Height : UInt32
 
     /**
      * The transfer matrix of the JPEG frame.
-     * @type {WICJpegTransferMatrix}
      */
-    TransferMatrix {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    TransferMatrix : WICJpegTransferMatrix
 
     /**
      * The scan type of the JPEG frame.
-     * @type {WICJpegScanType}
      */
-    ScanType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ScanType : WICJpegScanType
 
     /**
      * The number of components in the frame.
-     * @type {Integer}
      */
-    cComponents {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cComponents : UInt32
 
     /**
      * The component identifiers.
-     * @type {Integer}
      */
-    ComponentIdentifiers {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ComponentIdentifiers : UInt32
 
     /**
      * The sample factors. Use one of the following constants, described in <a href="https://docs.microsoft.com/windows/desktop/wic/iwicjpegframedecode-constants">IWICJpegFrameDecode Constants</a>.
@@ -79,12 +52,8 @@ class WICJpegFrameHeader extends Win32Struct {
      * <li>WIC_JPEG_SAMPLE_FACTORS_THREE_440</li>
      * <li>WIC_JPEG_SAMPLE_FACTORS_THREE_444</li>
      * </ul>
-     * @type {Integer}
      */
-    SampleFactors {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SampleFactors : UInt32
 
     /**
      * The format of the quantization table indices. Use one of the following constants, described in <a href="https://docs.microsoft.com/windows/desktop/wic/iwicjpegframedecode-constants">IWICJpegFrameDecode Constants</a>.
@@ -93,10 +62,7 @@ class WICJpegFrameHeader extends Win32Struct {
      * <li>WIC_JPEG_QUANTIZATION_BASELINE_ONE</li>
      * <li>WIC_JPEG_QUANTIZATION_BASELINE_THREE </li>
      * </ul>
-     * @type {Integer}
      */
-    QuantizationTableIndices {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    QuantizationTableIndices : UInt32
+
 }

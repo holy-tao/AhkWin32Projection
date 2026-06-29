@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFSensorProcessActivity.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFSensorProcessActivity.ahk" { IMFSensorProcessActivity }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an activity report for a sensor.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensoractivityreport
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSensorActivityReport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSensorActivityReport extends IUnknown {
     /**
      * The interface identifier for IMFSensorActivityReport
      * @type {Guid}
      */
-    static IID => Guid("{3e8c4be1-a8c2-4528-90de-2851bde5fead}")
+    static IID := Guid("{3e8c4be1-a8c2-4528-90de-2851bde5fead}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSensorActivityReport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFriendlyName    : IntPtr
+        GetSymbolicLink    : IntPtr
+        GetProcessCount    : IntPtr
+        GetProcessActivity : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFriendlyName", "GetSymbolicLink", "GetProcessCount", "GetProcessActivity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSensorActivityReport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the friendly name for the sensor associated with the report.
@@ -77,5 +89,31 @@ class IMFSensorActivityReport extends IUnknown {
     GetProcessActivity(Index) {
         result := ComCall(6, this, "uint", Index, "ptr*", &ppProcessActivity := 0, "HRESULT")
         return IMFSensorProcessActivity(ppProcessActivity)
+    }
+
+    Query(iid) {
+        if (IMFSensorActivityReport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 4)
+        this.vtbl.GetSymbolicLink := CallbackCreate(GetMethod(implObj, "GetSymbolicLink"), flags, 4)
+        this.vtbl.GetProcessCount := CallbackCreate(GetMethod(implObj, "GetProcessCount"), flags, 2)
+        this.vtbl.GetProcessActivity := CallbackCreate(GetMethod(implObj, "GetProcessActivity"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFriendlyName)
+        CallbackFree(this.vtbl.GetSymbolicLink)
+        CallbackFree(this.vtbl.GetProcessCount)
+        CallbackFree(this.vtbl.GetProcessActivity)
     }
 }

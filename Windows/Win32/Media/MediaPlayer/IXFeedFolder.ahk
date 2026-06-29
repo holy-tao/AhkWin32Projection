@@ -1,32 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXFeedsEnum.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXFeedsEnum.ahk" { IXFeedsEnum }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
+#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IXFeedFolder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXFeedFolder extends IUnknown {
     /**
      * The interface identifier for IXFeedFolder
      * @type {Guid}
      */
-    static IID => Guid("{4c963678-3a51-4b88-8531-98b90b6508f2}")
+    static IID := Guid("{4c963678-3a51-4b88-8531-98b90b6508f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXFeedFolder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Feeds                : IntPtr
+        Subfolders           : IntPtr
+        CreateFeed           : IntPtr
+        CreateSubfolder      : IntPtr
+        ExistsFeed           : IntPtr
+        ExistsSubfolder      : IntPtr
+        GetFeed              : IntPtr
+        GetSubfolder         : IntPtr
+        Delete               : IntPtr
+        Name                 : IntPtr
+        Rename               : IntPtr
+        Path                 : IntPtr
+        Move                 : IntPtr
+        Parent               : IntPtr
+        IsRoot               : IntPtr
+        GetWatcher           : IntPtr
+        TotalUnreadItemCount : IntPtr
+        TotalItemCount       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Feeds", "Subfolders", "CreateFeed", "CreateSubfolder", "ExistsFeed", "ExistsSubfolder", "GetFeed", "GetSubfolder", "Delete", "Name", "Rename", "Path", "Move", "Parent", "IsRoot", "GetWatcher", "TotalUnreadItemCount", "TotalItemCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXFeedFolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -57,7 +86,7 @@ class IXFeedFolder extends IUnknown {
         pszName := pszName is String ? StrPtr(pszName) : pszName
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(5, this, "ptr", pszName, "ptr", pszUrl, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszName, "ptr", pszUrl, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -70,7 +99,7 @@ class IXFeedFolder extends IUnknown {
     CreateSubfolder(pszName, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ptr", pszName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszName, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -113,7 +142,7 @@ class IXFeedFolder extends IUnknown {
     GetFeed(pszName, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(9, this, "ptr", pszName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pszName, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -126,22 +155,13 @@ class IXFeedFolder extends IUnknown {
     GetSubfolder(pszName, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(10, this, "ptr", pszName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pszName, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(11, this, "HRESULT")
@@ -154,15 +174,14 @@ class IXFeedFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-name-headerfieldtype-element
      */
     Name() {
-        result := ComCall(12, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
     /**
-     * Learn more about: RenameColumnGrbit enumeration
+     * 
      * @param {PWSTR} pszName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -177,50 +196,14 @@ class IXFeedFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/tablet/path-element
      */
     Path() {
-        result := ComCall(14, this, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(14, this, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
     /**
-     * Moves a group and all of its resources from one node to another.
-     * @remarks
-     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
      * 
-     * If you want your application to ensure a particular state for a resource or a group after a move:
-     * 
-     * <ol>
-     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
-     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
-     * </ol>
-     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
-     * 
-     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {PWSTR} pszPath 
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
-     * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_IO_PENDING</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The reassignment of ownership of the group is in progress.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
+     * @returns {HRESULT} 
      */
     Move(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -230,13 +213,12 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * Associates a parent object with a child object.
+     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-parentchildrelation
      */
     Parent(riid) {
-        result := ComCall(16, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -245,7 +227,7 @@ class IXFeedFolder extends IUnknown {
      * @returns {BOOL} 
      */
     IsRoot() {
-        result := ComCall(17, this, "int*", &pbIsRootFeedFolder := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &pbIsRootFeedFolder := 0, "HRESULT")
         return pbIsRootFeedFolder
     }
 
@@ -257,7 +239,7 @@ class IXFeedFolder extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetWatcher(scope, mask, riid) {
-        result := ComCall(18, this, "int", scope, "int", mask, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(18, this, FEEDS_EVENTS_SCOPE, scope, FEEDS_EVENTS_MASK, mask, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -277,5 +259,59 @@ class IXFeedFolder extends IUnknown {
     TotalItemCount() {
         result := ComCall(20, this, "uint*", &puiTotalItemCount := 0, "HRESULT")
         return puiTotalItemCount
+    }
+
+    Query(iid) {
+        if (IXFeedFolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Feeds := CallbackCreate(GetMethod(implObj, "Feeds"), flags, 2)
+        this.vtbl.Subfolders := CallbackCreate(GetMethod(implObj, "Subfolders"), flags, 2)
+        this.vtbl.CreateFeed := CallbackCreate(GetMethod(implObj, "CreateFeed"), flags, 5)
+        this.vtbl.CreateSubfolder := CallbackCreate(GetMethod(implObj, "CreateSubfolder"), flags, 4)
+        this.vtbl.ExistsFeed := CallbackCreate(GetMethod(implObj, "ExistsFeed"), flags, 3)
+        this.vtbl.ExistsSubfolder := CallbackCreate(GetMethod(implObj, "ExistsSubfolder"), flags, 3)
+        this.vtbl.GetFeed := CallbackCreate(GetMethod(implObj, "GetFeed"), flags, 4)
+        this.vtbl.GetSubfolder := CallbackCreate(GetMethod(implObj, "GetSubfolder"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.Path := CallbackCreate(GetMethod(implObj, "Path"), flags, 2)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
+        this.vtbl.Parent := CallbackCreate(GetMethod(implObj, "Parent"), flags, 3)
+        this.vtbl.IsRoot := CallbackCreate(GetMethod(implObj, "IsRoot"), flags, 2)
+        this.vtbl.GetWatcher := CallbackCreate(GetMethod(implObj, "GetWatcher"), flags, 5)
+        this.vtbl.TotalUnreadItemCount := CallbackCreate(GetMethod(implObj, "TotalUnreadItemCount"), flags, 2)
+        this.vtbl.TotalItemCount := CallbackCreate(GetMethod(implObj, "TotalItemCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Feeds)
+        CallbackFree(this.vtbl.Subfolders)
+        CallbackFree(this.vtbl.CreateFeed)
+        CallbackFree(this.vtbl.CreateSubfolder)
+        CallbackFree(this.vtbl.ExistsFeed)
+        CallbackFree(this.vtbl.ExistsSubfolder)
+        CallbackFree(this.vtbl.GetFeed)
+        CallbackFree(this.vtbl.GetSubfolder)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Name)
+        CallbackFree(this.vtbl.Rename)
+        CallbackFree(this.vtbl.Path)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Parent)
+        CallbackFree(this.vtbl.IsRoot)
+        CallbackFree(this.vtbl.GetWatcher)
+        CallbackFree(this.vtbl.TotalUnreadItemCount)
+        CallbackFree(this.vtbl.TotalItemCount)
     }
 }

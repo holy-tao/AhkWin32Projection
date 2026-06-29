@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SSortOrder.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SSortOrder.ahk" { SSortOrder }
 
 /**
  * Defines a collection of sort keys for a table that is used for standard or categorized sorting.
@@ -17,47 +16,27 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssortorderset
  * @namespace Windows.Win32.System.AddressBook
  */
-class SSortOrderSet extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct SSortOrderSet {
+    #StructPack 4
 
     /**
      * > Count of [SSortOrder](ssortorder.md) structures that are included in the **aSort** member.
-     * @type {Integer}
      */
-    cSorts {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cSorts : UInt32
 
     /**
      * > Count of columns that are designated as category columns. Possible values range from zero, which indicates a non-categorized or standard sort, to the number indicated by the **cSorts** member.
-     * @type {Integer}
      */
-    cCategories {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cCategories : UInt32
 
     /**
      * > Count of categories that start in an expanded state, where all of the rows that apply to the category are visible in the table view. Possible values range from 0 to the number indicated by **cCategories**.
-     * @type {Integer}
      */
-    cExpanded {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cExpanded : UInt32
 
     /**
      * > Array of **SSortOrder** structures, each defining a sort order.
-     * @type {SSortOrder}
      */
-    aSort {
-        get {
-            if(!this.HasProp("__aSortProxyArray"))
-                this.__aSortProxyArray := Win32FixedArray(this.ptr + 12, 1, SSortOrder, "")
-            return this.__aSortProxyArray
-        }
-    }
+    aSort : SSortOrder[1]
+
 }

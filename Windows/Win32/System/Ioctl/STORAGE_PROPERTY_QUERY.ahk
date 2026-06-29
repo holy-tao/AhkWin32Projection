@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROPERTY_ID.ahk
-#Include .\STORAGE_QUERY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_QUERY_TYPE.ahk" { STORAGE_QUERY_TYPE }
+#Import ".\STORAGE_PROPERTY_ID.ahk" { STORAGE_PROPERTY_ID }
 
 /**
  * Indicates the properties of a storage device or adapter to retrieve as the input buffer passed to the IOCTL_STORAGE_QUERY_PROPERTY control code.
@@ -14,22 +13,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_property_query
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_PROPERTY_QUERY extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct STORAGE_PROPERTY_QUERY {
+    #StructPack 4
 
     /**
      * Indicates whether the caller is requesting a device descriptor, an adapter descriptor, a write cache 
      *       property, a device unique ID (DUID), or the device identifiers provided in the device's SCSI vital product data 
      *       (VPD) page. For a list of the property IDs that can be assigned to this member, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_property_id">STORAGE_PROPERTY_ID</a>.
-     * @type {STORAGE_PROPERTY_ID}
      */
-    PropertyId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    PropertyId : STORAGE_PROPERTY_ID
 
     /**
      * Contains flags indicating the type of query to be performed as enumerated by the 
@@ -64,22 +57,12 @@ class STORAGE_PROPERTY_QUERY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {STORAGE_QUERY_TYPE}
      */
-    QueryType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    QueryType : STORAGE_QUERY_TYPE
 
     /**
      * Contains an array of bytes that can be used to retrieve additional parameters for specific queries.
-     * @type {Array<Integer>}
      */
-    AdditionalParameters {
-        get {
-            if(!this.HasProp("__AdditionalParametersProxyArray"))
-                this.__AdditionalParametersProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__AdditionalParametersProxyArray
-        }
-    }
+    AdditionalParameters : Int8[1]
+
 }

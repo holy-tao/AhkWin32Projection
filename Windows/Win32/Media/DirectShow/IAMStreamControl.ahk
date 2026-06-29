@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\AM_STREAM_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AM_STREAM_INFO.ahk" { AM_STREAM_INFO }
 
 /**
  * The IAMStreamControl interface controls individual streams on a filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamstreamcontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMStreamControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMStreamControl extends IUnknown {
     /**
      * The interface identifier for IAMStreamControl
      * @type {Guid}
      */
-    static IID => Guid("{36b73881-c2c8-11cf-8b46-00805f6cef60}")
+    static IID := Guid("{36b73881-c2c8-11cf-8b46-00805f6cef60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMStreamControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartAt : IntPtr
+        StopAt  : IntPtr
+        GetInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartAt", "StopAt", "GetInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMStreamControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StartAt method informs the pin when to start delivering data.
@@ -89,7 +100,7 @@ class IAMStreamControl extends IUnknown {
     StopAt(ptStop, bSendExtra, dwCookie) {
         ptStopMarshal := ptStop is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, ptStopMarshal, ptStop, "int", bSendExtra, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, ptStopMarshal, ptStop, BOOL, bSendExtra, "uint", dwCookie, "HRESULT")
         return result
     }
 
@@ -100,7 +111,31 @@ class IAMStreamControl extends IUnknown {
      */
     GetInfo() {
         pInfo := AM_STREAM_INFO()
-        result := ComCall(5, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(5, this, AM_STREAM_INFO.Ptr, pInfo, "HRESULT")
         return pInfo
+    }
+
+    Query(iid) {
+        if (IAMStreamControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartAt := CallbackCreate(GetMethod(implObj, "StartAt"), flags, 3)
+        this.vtbl.StopAt := CallbackCreate(GetMethod(implObj, "StopAt"), flags, 4)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartAt)
+        CallbackFree(this.vtbl.StopAt)
+        CallbackFree(this.vtbl.GetInfo)
     }
 }

@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FsrmCollectionState.ahk" { FsrmCollectionState }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines a collection of FSRM objects.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmcollection
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmCollection extends IDispatch {
     /**
      * The interface identifier for IFsrmCollection
      * @type {Guid}
      */
-    static IID => Guid("{f76fbf3b-8ddd-4b42-b05a-cb1c3ff1fee8}")
+    static IID := Guid("{f76fbf3b-8ddd-4b42-b05a-cb1c3ff1fee8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum      : IntPtr
+        get_Item          : IntPtr
+        get_Count         : IntPtr
+        get_State         : IntPtr
+        Cancel            : IntPtr
+        WaitForCompletion : IntPtr
+        GetById           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_State", "Cancel", "WaitForCompletion", "GetById"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -95,7 +111,7 @@ class IFsrmCollection extends IDispatch {
      */
     get_Item(index) {
         item := VARIANT()
-        result := ComCall(8, this, "int", index, "ptr", item, "HRESULT")
+        result := ComCall(8, this, "int", index, VARIANT.Ptr, item, "HRESULT")
         return item
     }
 
@@ -136,7 +152,7 @@ class IFsrmCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
-        result := ComCall(12, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        result := ComCall(12, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -148,7 +164,39 @@ class IFsrmCollection extends IDispatch {
      */
     GetById(id) {
         entry := VARIANT()
-        result := ComCall(13, this, "ptr", id, "ptr", entry, "HRESULT")
+        result := ComCall(13, this, Guid, id, VARIANT.Ptr, entry, "HRESULT")
         return entry
+    }
+
+    Query(iid) {
+        if (IFsrmCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 3)
+        this.vtbl.GetById := CallbackCreate(GetMethod(implObj, "GetById"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.WaitForCompletion)
+        CallbackFree(this.vtbl.GetById)
     }
 }

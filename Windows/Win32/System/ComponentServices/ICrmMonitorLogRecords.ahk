@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CrmLogRecordRead.ahk" { CrmLogRecordRead }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CrmTransactionState.ahk" { CrmTransactionState }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Monitors the individual log records maintained by a specific CRM clerk for a given transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmmonitorlogrecords
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICrmMonitorLogRecords extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICrmMonitorLogRecords extends IUnknown {
     /**
      * The interface identifier for ICrmMonitorLogRecords
      * @type {Guid}
      */
-    static IID => Guid("{70c8e441-c7ed-11d1-82fb-00a0c91eede9}")
+    static IID := Guid("{70c8e441-c7ed-11d1-82fb-00a0c91eede9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICrmMonitorLogRecords interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Count             : IntPtr
+        get_TransactionState  : IntPtr
+        get_StructuredRecords : IntPtr
+        GetLogRecord          : IntPtr
+        GetLogRecordVariants  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_TransactionState", "get_StructuredRecords", "GetLogRecord", "GetLogRecordVariants"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICrmMonitorLogRecords.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -78,7 +93,7 @@ class ICrmMonitorLogRecords extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_structuredrecords
      */
     get_StructuredRecords() {
-        result := ComCall(5, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(5, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -152,7 +167,7 @@ class ICrmMonitorLogRecords extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecord
      */
     GetLogRecord(dwIndex, pCrmLogRec) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pCrmLogRec, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, CrmLogRecordRead.Ptr, pCrmLogRec, "HRESULT")
         return result
     }
 
@@ -164,7 +179,35 @@ class ICrmMonitorLogRecords extends IUnknown {
      */
     GetLogRecordVariants(IndexNumber) {
         pLogRecord := VARIANT()
-        result := ComCall(7, this, "ptr", IndexNumber, "ptr", pLogRecord, "HRESULT")
+        result := ComCall(7, this, VARIANT, IndexNumber, VARIANT.Ptr, pLogRecord, "HRESULT")
         return pLogRecord
+    }
+
+    Query(iid) {
+        if (ICrmMonitorLogRecords.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_TransactionState := CallbackCreate(GetMethod(implObj, "get_TransactionState"), flags, 2)
+        this.vtbl.get_StructuredRecords := CallbackCreate(GetMethod(implObj, "get_StructuredRecords"), flags, 2)
+        this.vtbl.GetLogRecord := CallbackCreate(GetMethod(implObj, "GetLogRecord"), flags, 3)
+        this.vtbl.GetLogRecordVariants := CallbackCreate(GetMethod(implObj, "GetLogRecordVariants"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_TransactionState)
+        CallbackFree(this.vtbl.get_StructuredRecords)
+        CallbackFree(this.vtbl.GetLogRecord)
+        CallbackFree(this.vtbl.GetLogRecordVariants)
     }
 }

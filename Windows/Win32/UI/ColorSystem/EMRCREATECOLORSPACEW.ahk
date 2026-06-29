@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\EMR.ahk
-#Include ..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\LOGCOLORSPACEW.ahk
-#Include .\LCSCSTYPE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LOGCOLORSPACEW.ahk" { LOGCOLORSPACEW }
+#Import ".\LCSCSTYPE.ahk" { LCSCSTYPE }
+#Import "..\..\Graphics\Gdi\EMR.ahk" { EMR }
+#Import "..\..\Graphics\Gdi\CIEXYZ.ahk" { CIEXYZ }
+#Import "..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The EMRCREATECOLORSPACEW structure contains members for the CreateColorSpace enhanced metafile record. It differs from EMRCREATECOLORSPACE in that it has a Unicode logical color space and also has an optional array containing raw source profile data.
@@ -13,43 +13,23 @@
  * @namespace Windows.Win32.UI.ColorSystem
  * @charset Unicode
  */
-class EMRCREATECOLORSPACEW extends Win32Struct {
-    static sizeof => 612
-
-    static packingSize => 4
+export default struct EMRCREATECOLORSPACEW {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Index of the color space in handle table.
-     * @type {Integer}
      */
-    ihCS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ihCS : UInt32
 
     /**
      * Logical color space. Note, this is the Unicode version of the structure.
-     * @type {LOGCOLORSPACEW}
      */
-    lcs {
-        get {
-            if(!this.HasProp("__lcs"))
-                this.__lcs := LOGCOLORSPACEW(12, this)
-            return this.__lcs
-        }
-    }
+    lcs : LOGCOLORSPACEW
 
     /**
      * Can be the following.
@@ -64,31 +44,17 @@ class EMRCREATECOLORSPACEW extends Win32Struct {
      * <td>Indicates that a color space is embedded in the metafile.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 600, "uint")
-        set => NumPut("uint", value, this, 600)
-    }
+    dwFlags : UInt32
 
     /**
      * Size of the raw source profile data in bytes, if it is attached.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 604, "uint")
-        set => NumPut("uint", value, this, 604)
-    }
+    cbData : UInt32
 
     /**
      * An array containing the source profile data. The size of the array is <b>cbData</b>.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 608, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

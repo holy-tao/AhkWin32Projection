@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the dimensions of a viewport. (D3D11_VIEWPORT)
@@ -27,74 +26,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_viewport
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VIEWPORT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D11_VIEWPORT {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * X position of the left hand side of the viewport. Ranges between D3D11_VIEWPORT_BOUNDS_MIN and D3D11_VIEWPORT_BOUNDS_MAX.
-     * @type {Float}
      */
-    TopLeftX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    TopLeftX : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Y position of the top of the viewport. Ranges between D3D11_VIEWPORT_BOUNDS_MIN and D3D11_VIEWPORT_BOUNDS_MAX.
-     * @type {Float}
      */
-    TopLeftY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    TopLeftY : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Width of the viewport.
-     * @type {Float}
      */
-    Width {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Width : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Height of the viewport.
-     * @type {Float}
      */
-    Height {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    Height : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Minimum depth of the viewport. Ranges between 0 and 1.
-     * @type {Float}
      */
-    MinDepth {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MinDepth : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Maximum depth of the viewport. Ranges between 0 and 1.
-     * @type {Float}
      */
-    MaxDepth {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    MaxDepth : Float32
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TBBUTTONINFOW_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TBBUTTONINFOW_MASK.ahk" { TBBUTTONINFOW_MASK }
 
 /**
  * Contains or receives information for a specific button in a toolbar. (Unicode)
@@ -11,41 +11,27 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class TBBUTTONINFOW extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct TBBUTTONINFOW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the structure, in bytes. This member must be filled in prior to sending the associated message.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {TBBUTTONINFOW_MASK}
      */
-    dwMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMask : TBBUTTONINFOW_MASK
 
     /**
      * Type: <b>int</b>
      * 
      * Command identifier of the button.
-     * @type {Integer}
      */
-    idCommand {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    idCommand : Int32
 
     /**
      * Type: <b>int</b>
@@ -55,81 +41,49 @@ class TBBUTTONINFOW extends Win32Struct {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.81</a>. Set this member to I_IMAGENONE to indicate that the button does not have an image. The button layout will not include any space for a bitmap, only text.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    iImage : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * State flags of the button. This can be one or more of the values listed in  <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-button-states">Toolbar Button States</a>.
-     * @type {Integer}
      */
-    fsState {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    fsState : Int8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Style flags of the button. This can be one or more of the values listed in <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-control-and-button-styles">Toolbar Control and Button Styles</a>.
-     * @type {Integer}
      */
-    fsStyle {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    fsStyle : Int8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
      * 
      * Width of the button, in pixels.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    cx : UInt16
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD_PTR</a></b>
      * 
      * Application-defined value associated with the button.
-     * @type {Pointer}
      */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lParam : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that contains or receives the button text.
-     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszText : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Size of the buffer at <b>pszText</b>. If the button information is being set, this member is ignored.
-     * @type {Integer}
      */
-    cchText {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    cchText : Int32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

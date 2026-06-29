@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_DRIVEINFORMATION structure defines properties specific to a drive object. (Unicode)
@@ -19,154 +20,84 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_DRIVEINFORMATIONW extends Win32Struct {
-    static sizeof => 336
-
-    static packingSize => 8
+export default struct NTMS_DRIVEINFORMATIONW {
+    #StructPack 4
 
     /**
      * Number of the drive in the library. This is set zero or one relative the value based on the drive numbering system of the device. Some changers number drives beginning with zero, and some changers begin with one.
-     * @type {Integer}
      */
-    Number {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Number : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    State : UInt32
 
     /**
      * Unique identifier of the drive type object containing the attributes for the drive.
-     * @type {Pointer}
      */
-    DriveType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DriveType : Guid
 
     /**
      * Name of the device used to access the drive. For a tape drive this contains the device name \\.\tape0 or \\.\tape1. Other devices provide the name of a SCSI disk drive or the root of a file system that currently has the device mounted (raw, NTFS, FAT and so forth).
-     * @type {String}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 16, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-16")
-    }
+    szDeviceName : WCHAR[64]
 
     /**
      * Serial number for the drive represented as a string. Devices that do not support serial numbers report NULL for this member.
-     * @type {String}
      */
-    szSerialNumber {
-        get => StrGet(this.ptr + 144, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 31, "UTF-16")
-    }
+    szSerialNumber : WCHAR[32]
 
     /**
      * Revision for the drive represented as a string.
-     * @type {String}
      */
-    szRevision {
-        get => StrGet(this.ptr + 208, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 208, 31, "UTF-16")
-    }
+    szRevision : WCHAR[32]
 
     /**
      * SCSI host adapter to which the drive is connected.
-     * @type {Integer}
      */
-    ScsiPort {
-        get => NumGet(this, 272, "ushort")
-        set => NumPut("ushort", value, this, 272)
-    }
+    ScsiPort : UInt16
 
     /**
      * SCSI bus to which the drive is connected.
-     * @type {Integer}
      */
-    ScsiBus {
-        get => NumGet(this, 274, "ushort")
-        set => NumPut("ushort", value, this, 274)
-    }
+    ScsiBus : UInt16
 
     /**
      * SCSI target ID for the drive.
-     * @type {Integer}
      */
-    ScsiTarget {
-        get => NumGet(this, 276, "ushort")
-        set => NumPut("ushort", value, this, 276)
-    }
+    ScsiTarget : UInt16
 
     /**
      * SCSI logical unit ID for the drive.
-     * @type {Integer}
      */
-    ScsiLun {
-        get => NumGet(this, 278, "ushort")
-        set => NumPut("ushort", value, this, 278)
-    }
+    ScsiLun : UInt16
 
     /**
      * Number of times the drive has had a medium mounted to it. If the drive supports the reporting of a unique serial number, this value is the number of times the drive has been mounted since it was installed. If the drive does not support the reporting of serial numbers, this member reflects the number of mounts to all of the drives at that location.
-     * @type {Integer}
      */
-    dwMountCount {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    dwMountCount : UInt32
 
     /**
      * Last time the drive was cleaned.
-     * @type {SYSTEMTIME}
      */
-    LastCleanedTs {
-        get {
-            if(!this.HasProp("__LastCleanedTs"))
-                this.__LastCleanedTs := SYSTEMTIME(284, this)
-            return this.__LastCleanedTs
-        }
-    }
+    LastCleanedTs : SYSTEMTIME
 
     /**
      * Partition identifier of the medium that is in the drive. If this value is NULL and the drive is found to be full, the media was loaded by a user and needs to be classified.
-     * @type {Pointer}
      */
-    SavedPartitionId {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
+    SavedPartitionId : Guid
 
     /**
      * Unique identifier of the library that contains the drive.
-     * @type {Pointer}
      */
-    Library {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
-    }
+    Library : Guid
 
     /**
      * Reserved.
-     * @type {Pointer}
      */
-    Reserved {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
-    }
+    Reserved : Guid
 
     /**
      * Minimum number of seconds a medium will remain in a drive of a library after a deferred dismount has been performed. The default is 5 minutes. This member does not apply to stand-alone libraries. This member is writable.
-     * @type {Integer}
      */
-    dwDeferDismountDelay {
-        get => NumGet(this, 328, "uint")
-        set => NumPut("uint", value, this, 328)
-    }
+    dwDeferDismountDelay : UInt32
+
 }

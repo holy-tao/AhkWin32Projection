@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDEVTYPE.ahk
-#Include .\D3DVSHADERCAPS2_0.ahk
-#Include .\D3DPSHADERCAPS2_0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import ".\D3DVSHADERCAPS2_0.ahk" { D3DVSHADERCAPS2_0 }
+#Import ".\D3DPSHADERCAPS2_0.ahk" { D3DPSHADERCAPS2_0 }
 
 /**
  * Represents the capabilities of the hardware exposed through the Direct3D object.
@@ -25,32 +24,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3dcaps9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DCAPS9 extends Win32Struct {
-    static sizeof => 304
-
-    static packingSize => 4
+export default struct D3DCAPS9 {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type, which identifies what type of resources are used for processing vertices.
-     * @type {D3DDEVTYPE}
      */
-    DeviceType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DeviceType : D3DDEVTYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Adapter on which this Direct3D device was created. This ordinal is valid only to pass to methods of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a> interface that created this Direct3D device. The <b>IDirect3D9</b> interface can always be retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-getdirect3d">GetDirect3D</a>.
-     * @type {Integer}
      */
-    AdapterOrdinal {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AdapterOrdinal : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -98,34 +87,22 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Caps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Caps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Driver-specific capabilities identified in <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcaps2">D3DCAPS2</a>.
-     * @type {Integer}
      */
-    Caps2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Caps2 : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Driver-specific capabilities identified in <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcaps3">D3DCAPS3</a>.
-     * @type {Integer}
      */
-    Caps3 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Caps3 : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -191,12 +168,8 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    PresentationIntervals {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PresentationIntervals : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -232,12 +205,8 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    CursorCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CursorCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -453,23 +422,15 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DevCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DevCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Miscellaneous driver primitive capabilities. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpmisccaps">D3DPMISCCAPS</a>.
-     * @type {Integer}
      */
-    PrimitiveMiscCaps {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PrimitiveMiscCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -647,12 +608,8 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    RasterCaps {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    RasterCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -748,12 +705,8 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ZCmpCaps {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ZCmpCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -959,34 +912,22 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SrcBlendCaps {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    SrcBlendCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Destination-blending capabilities. This member can be the same capabilities that are defined for the SrcBlendCaps member.
-     * @type {Integer}
      */
-    DestBlendCaps {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DestBlendCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Alpha-test comparison capabilities. This member can include the same capability flags defined for the ZCmpCaps member. If this member contains only the D3DPCMPCAPS_ALWAYS capability or only the D3DPCMPCAPS_NEVER capability, the driver does not support alpha tests. Otherwise, the flags identify the individual comparisons that are supported for alpha testing.
-     * @type {Integer}
      */
-    AlphaCmpCaps {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    AlphaCmpCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1046,12 +987,8 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ShadeCaps {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ShadeCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1244,45 +1181,29 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    TextureCaps {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    TextureCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Texture-filtering capabilities for a texture. Per-stage filtering capabilities reflect which filtering modes are supported for texture stages when performing multiple-texture blending. This member can be any combination of the per-stage texture-filtering flags defined in <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dptfiltercaps">D3DPTFILTERCAPS</a>.
-     * @type {Integer}
      */
-    TextureFilterCaps {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    TextureFilterCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Texture-filtering capabilities for a cube texture. Per-stage filtering capabilities reflect which filtering modes are supported for texture stages when performing multiple-texture blending. This member can be any combination of the per-stage texture-filtering flags defined in <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dptfiltercaps">D3DPTFILTERCAPS</a>.
-     * @type {Integer}
      */
-    CubeTextureFilterCaps {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    CubeTextureFilterCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Texture-filtering capabilities for a volume texture. Per-stage filtering capabilities reflect which filtering modes are supported for texture stages when performing multiple-texture blending. This member can be any combination of the per-stage texture-filtering flags defined in <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dptfiltercaps">D3DPTFILTERCAPS</a>.
-     * @type {Integer}
      */
-    VolumeTextureFilterCaps {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    VolumeTextureFilterCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1358,23 +1279,15 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    TextureAddressCaps {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    TextureAddressCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Texture-addressing capabilities for a volume texture. This member can be one or more of the flags defined for the TextureAddressCaps member.
-     * @type {Integer}
      */
-    VolumeTextureAddressCaps {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    VolumeTextureAddressCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1450,45 +1363,29 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    LineCaps {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    LineCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum texture width for this device.
-     * @type {Integer}
      */
-    MaxTextureWidth {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    MaxTextureWidth : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum texture height for this device.
-     * @type {Integer}
      */
-    MaxTextureHeight {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    MaxTextureHeight : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum value for any of the three dimensions (width, height, and depth) of a volume texture.
-     * @type {Integer}
      */
-    MaxVolumeExtent {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    MaxVolumeExtent : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1500,100 +1397,64 @@ class D3DCAPS9 extends Win32Struct {
      * Less desirably, on some hardware D3DPTEXTURECAPS_TEXREPEATNOTSCALEDBYSIZE is not set and the device scales the texture coordinates by the texture size (using the highest level of detail) prior to interpolation. This limits the number of times a texture can be wrapped to MaxTextureRepeat / texture size.
      * 
      * For example, assume that MaxTextureRepeat is equal to 32k and the size of the texture is 4k. If the hardware sets D3DPTEXTURECAPS_TEXREPEATNOTSCALEDBYSIZE, then the number of times a texture can be wrapped is equal to MaxTextureRepeat, which is 32k in this example. Otherwise, the number of times a texture can be wrapped is equal to MaxTextureRepeat divided by texture size, which is 32k/4k in this example.
-     * @type {Integer}
      */
-    MaxTextureRepeat {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    MaxTextureRepeat : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum texture aspect ratio supported by the hardware, typically a power of 2.
-     * @type {Integer}
      */
-    MaxTextureAspectRatio {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    MaxTextureAspectRatio : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum valid value for the D3DSAMP_MAXANISOTROPY texture-stage state.
-     * @type {Integer}
      */
-    MaxAnisotropy {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    MaxAnisotropy : UInt32
 
     /**
      * Type: <b>float</b>
      * 
      * Maximum W-based depth value that the device supports.
-     * @type {Float}
      */
-    MaxVertexW {
-        get => NumGet(this, 112, "float")
-        set => NumPut("float", value, this, 112)
-    }
+    MaxVertexW : Float32
 
     /**
      * Type: <b>float</b>
      * 
      * Screen-space coordinate of the guard-band clipping region. Coordinates inside this rectangle but outside the viewport rectangle are automatically clipped.
-     * @type {Float}
      */
-    GuardBandLeft {
-        get => NumGet(this, 116, "float")
-        set => NumPut("float", value, this, 116)
-    }
+    GuardBandLeft : Float32
 
     /**
      * Type: <b>float</b>
      * 
      * Screen-space coordinate of the guard-band clipping region. Coordinates inside this rectangle but outside the viewport rectangle are automatically clipped.
-     * @type {Float}
      */
-    GuardBandTop {
-        get => NumGet(this, 120, "float")
-        set => NumPut("float", value, this, 120)
-    }
+    GuardBandTop : Float32
 
     /**
      * Type: <b>float</b>
      * 
      * Screen-space coordinate of the guard-band clipping region. Coordinates inside this rectangle but outside the viewport rectangle are automatically clipped.
-     * @type {Float}
      */
-    GuardBandRight {
-        get => NumGet(this, 124, "float")
-        set => NumPut("float", value, this, 124)
-    }
+    GuardBandRight : Float32
 
     /**
      * Type: <b>float</b>
      * 
      * Screen-space coordinate of the guard-band clipping region. Coordinates inside this rectangle but outside the viewport rectangle are automatically clipped.
-     * @type {Float}
      */
-    GuardBandBottom {
-        get => NumGet(this, 128, "float")
-        set => NumPut("float", value, this, 128)
-    }
+    GuardBandBottom : Float32
 
     /**
      * Type: <b>float</b>
      * 
      * Number of pixels to adjust the extents rectangle outward to accommodate antialiasing kernels.
-     * @type {Float}
      */
-    ExtentsAdjust {
-        get => NumGet(this, 132, "float")
-        set => NumPut("float", value, this, 132)
-    }
+    ExtentsAdjust : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1601,12 +1462,8 @@ class D3DCAPS9 extends Win32Struct {
      * Flags specifying supported stencil-buffer operations. Stencil operations are assumed to be valid for all three stencil-buffer operation render states (D3DRS_STENCILFAIL, D3DRS_STENCILPASS, and D3DRS_STENCILZFAIL).
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dstencilcaps">D3DSTENCILCAPS</a>.
-     * @type {Integer}
      */
-    StencilCaps {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    StencilCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1652,12 +1509,8 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    FVFCaps {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    FVFCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1933,23 +1786,15 @@ class D3DCAPS9 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    TextureOpCaps {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    TextureOpCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of texture-blending stages supported in the fixed function pipeline. This value is the number of blenders available. In the programmable pixel pipeline, this corresponds to the number of unique texture registers used by pixel shader instructions.
-     * @type {Integer}
      */
-    MaxTextureBlendStages {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    MaxTextureBlendStages : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -1957,56 +1802,36 @@ class D3DCAPS9 extends Win32Struct {
      * Maximum number of textures that can be simultaneously bound to the fixed-function pipeline sampler stages. If the same texture is bound to two sampler stages, it counts as two textures. 
      * 
      * This value has no meaning in the programmable pipeline where the number of sampler stages is determined by each pixel shader version. Each pixel shader version also determines the number of texture declaration instructions. See <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-ps">Pixel Shaders</a>.
-     * @type {Integer}
      */
-    MaxSimultaneousTextures {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    MaxSimultaneousTextures : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Vertex processing capabilities. For a given physical device, this capability might vary across Direct3D devices depending on the parameters supplied to <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">CreateDevice</a>. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvtxpcaps">D3DVTXPCAPS</a>.
-     * @type {Integer}
      */
-    VertexProcessingCaps {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    VertexProcessingCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of lights that can be active simultaneously. For a given physical device, this capability might vary across Direct3D devices depending on the parameters supplied to <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">CreateDevice</a>.
-     * @type {Integer}
      */
-    MaxActiveLights {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    MaxActiveLights : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of user-defined clipping planes supported. This member can be 0. For a given physical device, this capability may vary across Direct3D devices depending on the parameters supplied to <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">CreateDevice</a>.
-     * @type {Integer}
      */
-    MaxUserClipPlanes {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    MaxUserClipPlanes : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of matrices that this device can apply when performing multimatrix vertex blending. For a given physical device, this capability may vary across Direct3D devices depending on the parameters supplied to <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">CreateDevice</a>.
-     * @type {Integer}
      */
-    MaxVertexBlendMatrices {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    MaxVertexBlendMatrices : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -2018,23 +1843,15 @@ class D3DCAPS9 extends Win32Struct {
      * When software vertex processing is used, 256 matrices could be used for indexed vertex blending, with or without normal blending.
      * 
      * For a given physical device, this capability may vary across Direct3D devices depending on the parameters supplied to <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">CreateDevice</a>.
-     * @type {Integer}
      */
-    MaxVertexBlendMatrixIndex {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    MaxVertexBlendMatrixIndex : UInt32
 
     /**
      * Type: <b>float</b>
      * 
      * Maximum size of a point primitive. If set to 1.0f then device does not support point size control. The range is greater than or equal to 1.0f.
-     * @type {Float}
      */
-    MaxPointSize {
-        get => NumGet(this, 176, "float")
-        set => NumPut("float", value, this, 176)
-    }
+    MaxPointSize : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -2046,118 +1863,74 @@ class D3DCAPS9 extends Win32Struct {
      * <li>If MaxPrimitiveCount is not equal to 0xffff, you can draw at most MaxPrimitiveCount primitives with each draw call.</li>
      * <li>However, if MaxPrimitiveCount equals 0xffff, you can still draw at most MaxPrimitiveCount primitive, but you may also use no more than MaxPrimitiveCount unique vertices (since each primitive can potentially use three different vertices).</li>
      * </ul>
-     * @type {Integer}
      */
-    MaxPrimitiveCount {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    MaxPrimitiveCount : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum size of indices supported for hardware vertex processing. It is possible to create 32-bit index buffers; however, you will not be able to render with the index buffer unless this value is greater than 0x0000FFFF.
-     * @type {Integer}
      */
-    MaxVertexIndex {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    MaxVertexIndex : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of concurrent data streams for <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setstreamsource">SetStreamSource</a>. The valid range is 1 to 16. Note that if this value is 0, then the driver is not a Direct3D 9 driver.
-     * @type {Integer}
      */
-    MaxStreams {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    MaxStreams : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum stride for <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setstreamsource">SetStreamSource</a>.
-     * @type {Integer}
      */
-    MaxStreamStride {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    MaxStreamStride : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Two numbers that represent the vertex shader main and sub versions. For more information about the instructions supported for each vertex shader version, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-vs-instructions-vs-1-1">Version 1_x</a>, <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-vs-instructions-vs-2-0">Version 2_0</a>, <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-vs-instructions-vs-2-x">Version 2_0 Extended</a>, or <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-vs-instructions-vs-3-0">Version 3_0</a>.
-     * @type {Integer}
      */
-    VertexShaderVersion {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    VertexShaderVersion : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The number of vertex shader <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-vs-registers">Vertex Shader Registers</a> that are reserved for constants.
-     * @type {Integer}
      */
-    MaxVertexShaderConst {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    MaxVertexShaderConst : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Two numbers that represent the pixel shader main and sub versions. For more information about the instructions supported for each pixel shader version, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-ps-instructions-ps-1-x">Version 1_x</a>, <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-ps-instructions-ps-2-0">Version 2_0</a>, <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-ps-instructions-ps-2-x">Version 2_0 Extended</a>, or <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx9-graphics-reference-asm-ps-instructions-ps-3-0">Version 3_0</a>.
-     * @type {Integer}
      */
-    PixelShaderVersion {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    PixelShaderVersion : UInt32
 
     /**
      * Type: <b>float</b>
      * 
      * Maximum value of pixel shader arithmetic component. This value indicates the internal range of values supported for pixel color blending operations. Within the range that they report to, implementations must allow data to pass through pixel processing unmodified (unclamped). Normally, the value of this member is an absolute value. For example, a 1.0 indicates that the range is -1.0 to 1, and an 8.0 indicates that the range is -8.0 to 8.0. The value must be &gt;= 1.0 for any hardware that supports pixel shaders.
-     * @type {Float}
      */
-    PixelShader1xMaxValue {
-        get => NumGet(this, 208, "float")
-        set => NumPut("float", value, this, 208)
-    }
+    PixelShader1xMaxValue : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Device driver capabilities for adaptive tessellation. For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevcaps2">D3DDEVCAPS2</a>
-     * @type {Integer}
      */
-    DevCaps2 {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    DevCaps2 : UInt32
 
     /**
      * TBD
-     * @type {Float}
      */
-    MaxNpatchTessellationLevel {
-        get => NumGet(this, 216, "float")
-        set => NumPut("float", value, this, 216)
-    }
+    MaxNpatchTessellationLevel : Float32
 
     /**
      * TBD
-     * @type {Integer}
      */
-    Reserved5 {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    Reserved5 : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2165,56 +1938,36 @@ class D3DCAPS9 extends Win32Struct {
      * This number indicates which device is the master for this subordinate. This number is taken from the same space as the adapter values.
      * 
      * For multihead support, one head will be denoted the master head, and all other heads on the same card will be denoted subordinate heads. If more than one multihead adapter is present in a system, the master and its subordinates from one multihead adapter are called a group.
-     * @type {Integer}
      */
-    MasterAdapterOrdinal {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    MasterAdapterOrdinal : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * This number indicates the order in which heads are referenced by the API. The value for the master adapter is always 0. These values do not correspond to the adapter ordinals. They apply only to heads within a group.
-     * @type {Integer}
      */
-    AdapterOrdinalInGroup {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
-    }
+    AdapterOrdinalInGroup : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of adapters in this adapter group (only if master). This will be 1 for conventional adapters. The value will be greater than 1 for the master adapter of a  multihead card. The value will be 0 for a subordinate adapter of a multihead card. Each card can have at most one master, but may have many subordinates.
-     * @type {Integer}
      */
-    NumberOfAdaptersInGroup {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
+    NumberOfAdaptersInGroup : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A combination of one or more data types contained in a vertex declaration. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddtcaps">D3DDTCAPS</a>.
-     * @type {Integer}
      */
-    DeclTypes {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
-    }
+    DeclTypes : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Number of simultaneous render targets. This number must be at least one.
-     * @type {Integer}
      */
-    NumSimultaneousRTs {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
-    }
+    NumSimultaneousRTs : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -2246,93 +1999,56 @@ class D3DCAPS9 extends Win32Struct {
      *  
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtexturefiltertype">D3DTEXTUREFILTERTYPE</a> and <b>D3DTEXTUREFILTERTYPE</b>.
-     * @type {Integer}
      */
-    StretchRectFilterCaps {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    StretchRectFilterCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dvshadercaps2_0">D3DVSHADERCAPS2_0</a></b>
      * 
      * Device supports vertex shader version 2_0 extended capability. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dvshadercaps2_0">D3DVSHADERCAPS2_0</a>.
-     * @type {D3DVSHADERCAPS2_0}
      */
-    VS20Caps {
-        get {
-            if(!this.HasProp("__VS20Caps"))
-                this.__VS20Caps := D3DVSHADERCAPS2_0(248, this)
-            return this.__VS20Caps
-        }
-    }
+    VS20Caps : D3DVSHADERCAPS2_0
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dpshadercaps2_0">D3DPSHADERCAPS2_0</a></b>
      * 
      * Device supports pixel shader version 2_0 extended capability. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dpshadercaps2_0">D3DPSHADERCAPS2_0</a>.
-     * @type {D3DPSHADERCAPS2_0}
      */
-    PS20Caps {
-        get {
-            if(!this.HasProp("__PS20Caps"))
-                this.__PS20Caps := D3DPSHADERCAPS2_0(264, this)
-            return this.__PS20Caps
-        }
-    }
+    PS20Caps : D3DPSHADERCAPS2_0
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Device supports vertex shader texture filter capability. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dptfiltercaps">D3DPTFILTERCAPS</a>.
-     * @type {Integer}
      */
-    VertexTextureFilterCaps {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
-    }
+    VertexTextureFilterCaps : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of vertex shader instructions that can be run when using flow control. The maximum number of instructions that can be programmed is MaxVertexShader30InstructionSlots.
-     * @type {Integer}
      */
-    MaxVShaderInstructionsExecuted {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
-    }
+    MaxVShaderInstructionsExecuted : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of pixel shader instructions that can be run when using flow control. The maximum number of instructions that can be programmed is MaxPixelShader30InstructionSlots.
-     * @type {Integer}
      */
-    MaxPShaderInstructionsExecuted {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
-    }
+    MaxPShaderInstructionsExecuted : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of vertex shader instruction slots supported. The maximum value that can be set on this cap is 32768. Devices that support vs_3_0 are required to support at least 512 instruction slots.
-     * @type {Integer}
      */
-    MaxVertexShader30InstructionSlots {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    MaxVertexShader30InstructionSlots : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Maximum number of pixel shader instruction slots supported. The maximum value that can be set on this cap is 32768. Devices that support ps_3_0 are required to support at least 512 instruction slots.
-     * @type {Integer}
      */
-    MaxPixelShader30InstructionSlots {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
-    }
+    MaxPixelShader30InstructionSlots : UInt32
+
 }

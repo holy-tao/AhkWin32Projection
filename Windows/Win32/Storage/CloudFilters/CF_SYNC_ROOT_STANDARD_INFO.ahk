@@ -1,121 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_HYDRATION_POLICY.ahk
-#Include .\CF_HYDRATION_POLICY_PRIMARY.ahk
-#Include .\CF_HYDRATION_POLICY_MODIFIER.ahk
-#Include .\CF_POPULATION_POLICY.ahk
-#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
-#Include .\CF_POPULATION_POLICY_MODIFIER.ahk
-#Include .\CF_INSYNC_POLICY.ahk
-#Include .\CF_HARDLINK_POLICY.ahk
-#Include .\CF_SYNC_PROVIDER_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_HARDLINK_POLICY.ahk" { CF_HARDLINK_POLICY }
+#Import ".\CF_HYDRATION_POLICY_PRIMARY.ahk" { CF_HYDRATION_POLICY_PRIMARY }
+#Import ".\CF_HYDRATION_POLICY.ahk" { CF_HYDRATION_POLICY }
+#Import ".\CF_POPULATION_POLICY.ahk" { CF_POPULATION_POLICY }
+#Import ".\CF_POPULATION_POLICY_MODIFIER.ahk" { CF_POPULATION_POLICY_MODIFIER }
+#Import ".\CF_SYNC_PROVIDER_STATUS.ahk" { CF_SYNC_PROVIDER_STATUS }
+#Import ".\CF_INSYNC_POLICY.ahk" { CF_INSYNC_POLICY }
+#Import ".\CF_POPULATION_POLICY_PRIMARY.ahk" { CF_POPULATION_POLICY_PRIMARY }
+#Import ".\CF_HYDRATION_POLICY_MODIFIER.ahk" { CF_HYDRATION_POLICY_MODIFIER }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Standard sync root information.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_root_standard_info
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct {
-    static sizeof => 1064
-
-    static packingSize => 8
+export default struct CF_SYNC_ROOT_STANDARD_INFO {
+    #StructPack 8
 
     /**
      * File ID of the sync root.
-     * @type {Integer}
      */
-    SyncRootFileId {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    SyncRootFileId : Int64
 
     /**
      * Hydration policy of the sync root. See [CF_HYDRATION_POLICY_PRIMARY](ne-cfapi-cf_hydration_policy_primary.md) for more information.
-     * @type {CF_HYDRATION_POLICY}
      */
-    HydrationPolicy {
-        get {
-            if(!this.HasProp("__HydrationPolicy"))
-                this.__HydrationPolicy := CF_HYDRATION_POLICY(8, this)
-            return this.__HydrationPolicy
-        }
-    }
+    HydrationPolicy : CF_HYDRATION_POLICY
 
     /**
      * Population policy of the sync root. See [CF_POPULATION_POLICY_PRIMARY](ne-cfapi-cf_population_policy_primary.md) for more information.
-     * @type {CF_POPULATION_POLICY}
      */
-    PopulationPolicy {
-        get {
-            if(!this.HasProp("__PopulationPolicy"))
-                this.__PopulationPolicy := CF_POPULATION_POLICY(12, this)
-            return this.__PopulationPolicy
-        }
-    }
+    PopulationPolicy : CF_POPULATION_POLICY
 
     /**
      * In-sync policy of the sync root. See [CF_INSYNC_POLICY](ne-cfapi-cf_insync_policy.md) for possible values.
-     * @type {CF_INSYNC_POLICY}
      */
-    InSyncPolicy {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InSyncPolicy : CF_INSYNC_POLICY
 
     /**
      * Sync root hard linking policy. See [CF_HARDLINK_POLICY](ne-cfapi-cf_hardlink_policy.md) for possible values.
-     * @type {CF_HARDLINK_POLICY}
      */
-    HardLinkPolicy {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    HardLinkPolicy : CF_HARDLINK_POLICY
 
     /**
      * Status of the sync root provider. See [CF_SYNC_PROVIDER_STATUS](ne-cfapi-cf_sync_provider_status.md) for possible values.
-     * @type {CF_SYNC_PROVIDER_STATUS}
      */
-    ProviderStatus {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProviderStatus : CF_SYNC_PROVIDER_STATUS
 
     /**
      * Name of the sync root. *ProviderName* is an end-user facing string with a maximum length of **CF_MAX_PROVIDER_NAME_LENGTH** (255 characters).
-     * @type {String}
      */
-    ProviderName {
-        get => StrGet(this.ptr + 28, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 255, "UTF-16")
-    }
+    ProviderName : WCHAR[256]
 
     /**
      * Version of the sync root. *ProviderVersion* is an end-user facing string with a maximum length of **CF_MAX_PROVIDER_VERSION_LENGTH** (255 characters).
-     * @type {String}
      */
-    ProviderVersion {
-        get => StrGet(this.ptr + 540, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 540, 255, "UTF-16")
-    }
+    ProviderVersion : WCHAR[256]
 
     /**
      * Length, in bytes, of the *SyncRootIdentity*.
-     * @type {Integer}
      */
-    SyncRootIdentityLength {
-        get => NumGet(this, 1052, "uint")
-        set => NumPut("uint", value, this, 1052)
-    }
+    SyncRootIdentityLength : UInt32
 
     /**
      * The identity of the sync root directory.
-     * @type {Array<Integer>}
      */
-    SyncRootIdentity {
-        get {
-            if(!this.HasProp("__SyncRootIdentityProxyArray"))
-                this.__SyncRootIdentityProxyArray := Win32FixedArray(this.ptr + 1056, 1, Primitive, "char")
-            return this.__SyncRootIdentityProxyArray
-        }
-    }
+    SyncRootIdentity : Int8[1]
+
 }

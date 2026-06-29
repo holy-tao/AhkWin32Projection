@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about credentials that can be passed as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_credentials
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_CREDENTIALS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPT_CREDENTIALS {
+    #StructPack 8
 
     /**
      * The size in bytes of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a null-terminated string that contains the type of credential object represented by the <b>pvCredentials</b> member.
@@ -44,24 +38,12 @@ class CRYPT_CREDENTIALS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
      */
-    pszCredentialsOid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszCredentialsOid : PSTR
 
     /**
      * A pointer to a structure as defined by the <b>pszCredentialsOid</b> member.
-     * @type {Pointer<Void>}
      */
-    pvCredentials {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvCredentials : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

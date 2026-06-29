@@ -1,169 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\StructuredStorage\JET_TABLEID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 
 /**
  * Learn more about: JET_INDEXLIST Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-indexlist-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_INDEXLIST extends Win32Struct {
-    static sizeof => 88
+export default struct JET_INDEXLIST {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    tableid : JET_TABLEID
 
-    /**
-     * @type {JET_TABLEID}
-     */
-    tableid {
-        get {
-            if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(8, this)
-            return this.__tableid
-        }
-    }
+    cRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cRecord {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    columnidindexname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidindexname {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    columnidgrbitIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidgrbitIndex {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    columnidcKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcKey {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    columnidcEntry : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcEntry {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    columnidcPage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcPage {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    columnidcColumn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcColumn {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    columnidiColumn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidiColumn {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    columnidcolumnid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcolumnid {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    columnidcoltyp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcoltyp {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    columnidCountry : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidCountry {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    columnidLangid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidLangid {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    columnidCp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidCp {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    columnidCollate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidCollate {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    columnidgrbitColumn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidgrbitColumn {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    columnidcolumnname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcolumnname {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    columnidLCMapFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidLCMapFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

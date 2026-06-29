@@ -1,39 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HACCEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
 
 /**
  * Accelerator table structure. Used by IPreviewHandlerFrame::GetWindowContext.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-previewhandlerframeinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class PREVIEWHANDLERFRAMEINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PREVIEWHANDLERFRAMEINFO {
+    #StructPack 8
 
     /**
      * Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table.
-     * @type {HACCEL}
      */
-    haccel {
-        get {
-            if(!this.HasProp("__haccel"))
-                this.__haccel := HACCEL(0, this)
-            return this.__haccel
-        }
-    }
+    haccel : HACCEL
 
     /**
      * Type: <b>UINT</b>
      * 
      * The number of entries in the accelerator table.
-     * @type {Integer}
      */
-    cAccelEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cAccelEntries : UInt32
+
 }

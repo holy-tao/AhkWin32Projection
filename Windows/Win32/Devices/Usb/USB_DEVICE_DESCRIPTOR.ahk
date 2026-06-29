@@ -1,123 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 18
+export default struct USB_DEVICE_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bcdUSB : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    bcdUSB {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    bDeviceClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDeviceClass {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bDeviceSubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDeviceSubClass {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bDeviceProtocol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDeviceProtocol {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bMaxPacketSize0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMaxPacketSize0 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    idVendor : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    idVendor {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    idProduct : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    idProduct {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    bcdDevice : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    bcdDevice {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    iManufacturer : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iManufacturer {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    iProduct : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iProduct {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    iSerialNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iSerialNumber {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bNumConfigurations : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bNumConfigurations {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
 }

@@ -1,55 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TRAFFIC0.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
-#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_V4_UDP_ENCAPSULATION0.ahk" { IPSEC_V4_UDP_ENCAPSULATION0 }
+#Import ".\IPSEC_TRAFFIC0.ahk" { IPSEC_TRAFFIC0 }
+#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * The IPSEC_GETSPI0 structure contains information that must be supplied when requesting a security parameter index (SPI) from the IPsec driver.Note  IPSEC_GETSPI0 is the specific implementation of IPSEC_GETSPI used in Windows Vista.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_getspi0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_GETSPI0 extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct IPSEC_GETSPI0 {
+    #StructPack 8
 
     /**
      * An [IPSEC_TRAFFIC0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic0) structure that describes traffic characteristics of the inbound IPsec SA.
-     * @type {IPSEC_TRAFFIC0}
      */
-    inboundIpsecTraffic {
-        get {
-            if(!this.HasProp("__inboundIpsecTraffic"))
-                this.__inboundIpsecTraffic := IPSEC_TRAFFIC0(0, this)
-            return this.__inboundIpsecTraffic
-        }
-    }
+    inboundIpsecTraffic : IPSEC_TRAFFIC0
 
     /**
      * A [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) value that indicates the IP version of the inbound IPsec traffic.
-     * @type {FWP_IP_VERSION}
      */
-    ipVersion {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    ipVersion : FWP_IP_VERSION
 
-    /**
-     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
-     */
-    inboundUdpEncapsulation {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    inboundUdpEncapsulation : IPSEC_V4_UDP_ENCAPSULATION0.Ptr
 
     /**
      * Not used. A <b>IPSEC_CRYPTO_MODULE_ID</b> is a <b>GUID</b> value.
-     * @type {Pointer<Guid>}
      */
-    rngCryptoModuleID {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    rngCryptoModuleID : Guid.Ptr
+
 }

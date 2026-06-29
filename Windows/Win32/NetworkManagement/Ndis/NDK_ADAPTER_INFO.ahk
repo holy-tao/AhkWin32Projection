@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDK_VERSION.ahk
-#Include .\NDK_RDMA_TECHNOLOGY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDK_RDMA_TECHNOLOGY.ahk" { NDK_RDMA_TECHNOLOGY }
+#Import ".\NDK_VERSION.ahk" { NDK_VERSION }
 
 /**
  * The NDK_ADAPTER_INFO structure specifies information about limits and capabilities of an NDK adapter.
@@ -10,197 +9,112 @@
  * @see https://learn.microsoft.com/windows/win32/api/ndkinfo/ns-ndkinfo-ndk_adapter_info
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDK_ADAPTER_INFO extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct NDK_ADAPTER_INFO {
+    #StructPack 8
 
     /**
      * The  major and minor versions of the NDK interface (<a href="https://docs.microsoft.com/windows/desktop/api/ndkinfo/ns-ndkinfo-ndk_version">NDK_VERSION</a>).
-     * @type {NDK_VERSION}
      */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := NDK_VERSION(0, this)
-            return this.__Version
-        }
-    }
+    Version : NDK_VERSION
 
     /**
      * A vendor's organizational unique identifier (OUI).
-     * @type {Integer}
      */
-    VendorId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    VendorId : UInt32
 
     /**
      * A vendor defined device identifier.
-     * @type {Integer}
      */
-    DeviceId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeviceId : UInt32
 
     /**
      * The maximum size, in bytes, of a single memory registration that the adapter can address.
-     * @type {Pointer}
      */
-    MaxRegistrationSize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MaxRegistrationSize : IntPtr
 
     /**
      * The maximum size, in bytes, for a single memory window.
-     * @type {Pointer}
      */
-    MaxWindowSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MaxWindowSize : IntPtr
 
     /**
      * The fast-register memory region (FRMR) size (in <b>PAGE_SIZE</b> pages) for which the adapter supports the greatest number of FRMRs. A provider must support at least 16 FRMR pages. This value is typically used by upper layers as an FRMR size that optimizes concurrent FRMR-based I/O operations. Hence, advertising a value greater than 16 should be done only if the total number of FRMRs supported with that size is not meaningfully reduced as a result.
-     * @type {Integer}
      */
-    FRMRPageCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    FRMRPageCount : UInt32
 
     /**
      * The maximum number of scatter-gather entries (SGEs) that can be specified in a single request over an initiator queue.
-     * @type {Integer}
      */
-    MaxInitiatorRequestSge {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaxInitiatorRequestSge : UInt32
 
     /**
      * The maximum number of SGEs that can be specified in a single request over a receive queue.
-     * @type {Integer}
      */
-    MaxReceiveRequestSge {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MaxReceiveRequestSge : UInt32
 
     /**
      * The maximum number of SGEs that can be specified in a read request. 
      * 
      * <div class="alert"><b>Note</b>  This  value overrides the <b>MaxInitiatorRequestSge</b> value for read requests.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    MaxReadRequestSge {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    MaxReadRequestSge : UInt32
 
     /**
      * The maximum total length that can be referenced by all SGEs in a single send, receive, read, or write request.
-     * @type {Integer}
      */
-    MaxTransferLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MaxTransferLength : UInt32
 
     /**
      * The maximum amount of inline data, in bytes, that can be sent in a single send or write request.
-     * @type {Integer}
      */
-    MaxInlineDataSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    MaxInlineDataSize : UInt32
 
     /**
      * The maximum number of in-progress incoming read operations for each QP.
-     * @type {Integer}
      */
-    MaxInboundReadLimit {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    MaxInboundReadLimit : UInt32
 
     /**
      * The maximum number of in-progress outgoing read operations for each QP.
-     * @type {Integer}
      */
-    MaxOutboundReadLimit {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    MaxOutboundReadLimit : UInt32
 
     /**
      * The maximum number of outstanding requests for each receive queue.
-     * @type {Integer}
      */
-    MaxReceiveQueueDepth {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    MaxReceiveQueueDepth : UInt32
 
     /**
      * The maximum number of outstanding requests for each initiator queue.
-     * @type {Integer}
      */
-    MaxInitiatorQueueDepth {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    MaxInitiatorQueueDepth : UInt32
 
     /**
      * The maximum number of outstanding requests for each shared receive queue (SRQ). A value of zero means no SRQ support.
-     * @type {Integer}
      */
-    MaxSrqDepth {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    MaxSrqDepth : UInt32
 
     /**
      * The maximum number of completion entries for each completion queue (CQ).
-     * @type {Integer}
      */
-    MaxCqDepth {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    MaxCqDepth : UInt32
 
     /**
      * The data size hint, in bytes, above which read and write operations will yield better results than send and receive operations.
-     * @type {Integer}
      */
-    LargeRequestThreshold {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    LargeRequestThreshold : UInt32
 
     /**
      * The maximum size, in bytes, of the private data that can be sent with a 
      *     connect request.
-     * @type {Integer}
      */
-    MaxCallerData {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    MaxCallerData : UInt32
 
     /**
      * The maximum size, in bytes, of the private data that can be sent with an accept or reject request.
-     * @type {Integer}
      */
-    MaxCalleeData {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    MaxCalleeData : UInt32
 
     /**
      * A set of  flags that determine adapter properties. The currently defined flags include:
@@ -292,18 +206,9 @@ class NDK_ADAPTER_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AdapterFlags {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    AdapterFlags : UInt32
 
-    /**
-     * @type {NDK_RDMA_TECHNOLOGY}
-     */
-    RdmaTechnology {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    RdmaTechnology : NDK_RDMA_TECHNOLOGY
+
 }

@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2 extends Win32Struct {
-    static sizeof => 40
+export default struct WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FunctionalAreaMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FunctionalAreaMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Callbacks : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Callbacks {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PluginHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PluginHandle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

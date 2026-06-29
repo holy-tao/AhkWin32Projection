@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class SWbemRpnTokenList extends Win32Struct {
-    static sizeof => 12
+export default struct SWbemRpnTokenList {
+    #StructPack 4
 
-    static packingSize => 4
+    m_uVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_uVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    m_uTokenType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_uTokenType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    m_uNumTokens : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_uNumTokens {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

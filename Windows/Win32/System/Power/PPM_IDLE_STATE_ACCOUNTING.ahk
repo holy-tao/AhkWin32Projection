@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_IDLE_STATE_ACCOUNTING extends Win32Struct {
-    static sizeof => 48
+export default struct PPM_IDLE_STATE_ACCOUNTING {
+    #StructPack 8
 
-    static packingSize => 8
+    IdleTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IdleTransitions {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FailedTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FailedTransitions {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InvalidBucketIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InvalidBucketIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TotalTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    IdleTimeBuckets : UInt32[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    IdleTimeBuckets {
-        get {
-            if(!this.HasProp("__IdleTimeBucketsProxyArray"))
-                this.__IdleTimeBucketsProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "uint")
-            return this.__IdleTimeBucketsProxyArray
-        }
-    }
 }

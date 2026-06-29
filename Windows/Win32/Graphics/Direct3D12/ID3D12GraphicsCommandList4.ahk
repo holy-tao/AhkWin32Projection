@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12GraphicsCommandList3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.ahk" { D3D12_RENDER_PASS_DEPTH_STENCIL_DESC }
+#Import ".\D3D12_DISPATCH_RAYS_DESC.ahk" { D3D12_DISPATCH_RAYS_DESC }
+#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC }
+#Import ".\ID3D12MetaCommand.ahk" { ID3D12MetaCommand }
+#Import ".\ID3D12StateObject.ahk" { ID3D12StateObject }
+#Import ".\D3D12_RENDER_PASS_FLAGS.ahk" { D3D12_RENDER_PASS_FLAGS }
+#Import ".\ID3D12GraphicsCommandList3.ahk" { ID3D12GraphicsCommandList3 }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC }
+#Import ".\D3D12_RENDER_PASS_RENDER_TARGET_DESC.ahk" { D3D12_RENDER_PASS_RENDER_TARGET_DESC }
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support ray tracing and render passes.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist4
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
     /**
      * The interface identifier for ID3D12GraphicsCommandList4
      * @type {Guid}
      */
-    static IID => Guid("{8754318e-d3a9-4541-98cf-645b50dc4874}")
+    static IID := Guid("{8754318e-d3a9-4541-98cf-645b50dc4874}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 68
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12GraphicsCommandList4 interfaces
+    */
+    struct Vtbl extends ID3D12GraphicsCommandList3.Vtbl {
+        BeginRenderPass                                  : IntPtr
+        EndRenderPass                                    : IntPtr
+        InitializeMetaCommand                            : IntPtr
+        ExecuteMetaCommand                               : IntPtr
+        BuildRaytracingAccelerationStructure             : IntPtr
+        EmitRaytracingAccelerationStructurePostbuildInfo : IntPtr
+        CopyRaytracingAccelerationStructure              : IntPtr
+        SetPipelineState1                                : IntPtr
+        DispatchRays                                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginRenderPass", "EndRenderPass", "InitializeMetaCommand", "ExecuteMetaCommand", "BuildRaytracingAccelerationStructure", "EmitRaytracingAccelerationStructurePostbuildInfo", "CopyRaytracingAccelerationStructure", "SetPipelineState1", "DispatchRays"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12GraphicsCommandList4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Marks the beginning of a render pass by binding a set of output resources for the duration of the render pass. These bindings are to one or more render target views (RTVs), and/or to a depth stencil view (DSV).
@@ -39,7 +63,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-beginrenderpass
      */
     BeginRenderPass(NumRenderTargets, pRenderTargets, pDepthStencil, Flags) {
-        ComCall(68, this, "uint", NumRenderTargets, "ptr", pRenderTargets, "ptr", pDepthStencil, "int", Flags)
+        ComCall(68, this, "uint", NumRenderTargets, D3D12_RENDER_PASS_RENDER_TARGET_DESC.Ptr, pRenderTargets, D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.Ptr, pDepthStencil, D3D12_RENDER_PASS_FLAGS, Flags)
     }
 
     /**
@@ -93,7 +117,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-buildraytracingaccelerationstructure
      */
     BuildRaytracingAccelerationStructure(pDesc, NumPostbuildInfoDescs, pPostbuildInfoDescs) {
-        ComCall(72, this, "ptr", pDesc, "uint", NumPostbuildInfoDescs, "ptr", pPostbuildInfoDescs)
+        ComCall(72, this, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.Ptr, pDesc, "uint", NumPostbuildInfoDescs, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pPostbuildInfoDescs)
     }
 
     /**
@@ -113,7 +137,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
     EmitRaytracingAccelerationStructurePostbuildInfo(pDesc, NumSourceAccelerationStructures, pSourceAccelerationStructureData) {
         pSourceAccelerationStructureDataMarshal := pSourceAccelerationStructureData is VarRef ? "uint*" : "ptr"
 
-        ComCall(73, this, "ptr", pDesc, "uint", NumSourceAccelerationStructures, pSourceAccelerationStructureDataMarshal, pSourceAccelerationStructureData)
+        ComCall(73, this, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pDesc, "uint", NumSourceAccelerationStructures, pSourceAccelerationStructureDataMarshal, pSourceAccelerationStructureData)
     }
 
     /**
@@ -139,7 +163,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-copyraytracingaccelerationstructure
      */
     CopyRaytracingAccelerationStructure(DestAccelerationStructureData, SourceAccelerationStructureData, _Mode) {
-        ComCall(74, this, "uint", DestAccelerationStructureData, "uint", SourceAccelerationStructureData, "int", _Mode)
+        ComCall(74, this, "uint", DestAccelerationStructureData, "uint", SourceAccelerationStructureData, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE, _Mode)
     }
 
     /**
@@ -172,6 +196,42 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-dispatchrays
      */
     DispatchRays(pDesc) {
-        ComCall(76, this, "ptr", pDesc)
+        ComCall(76, this, D3D12_DISPATCH_RAYS_DESC.Ptr, pDesc)
+    }
+
+    Query(iid) {
+        if (ID3D12GraphicsCommandList4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginRenderPass := CallbackCreate(GetMethod(implObj, "BeginRenderPass"), flags, 5)
+        this.vtbl.EndRenderPass := CallbackCreate(GetMethod(implObj, "EndRenderPass"), flags, 1)
+        this.vtbl.InitializeMetaCommand := CallbackCreate(GetMethod(implObj, "InitializeMetaCommand"), flags, 4)
+        this.vtbl.ExecuteMetaCommand := CallbackCreate(GetMethod(implObj, "ExecuteMetaCommand"), flags, 4)
+        this.vtbl.BuildRaytracingAccelerationStructure := CallbackCreate(GetMethod(implObj, "BuildRaytracingAccelerationStructure"), flags, 4)
+        this.vtbl.EmitRaytracingAccelerationStructurePostbuildInfo := CallbackCreate(GetMethod(implObj, "EmitRaytracingAccelerationStructurePostbuildInfo"), flags, 4)
+        this.vtbl.CopyRaytracingAccelerationStructure := CallbackCreate(GetMethod(implObj, "CopyRaytracingAccelerationStructure"), flags, 4)
+        this.vtbl.SetPipelineState1 := CallbackCreate(GetMethod(implObj, "SetPipelineState1"), flags, 2)
+        this.vtbl.DispatchRays := CallbackCreate(GetMethod(implObj, "DispatchRays"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginRenderPass)
+        CallbackFree(this.vtbl.EndRenderPass)
+        CallbackFree(this.vtbl.InitializeMetaCommand)
+        CallbackFree(this.vtbl.ExecuteMetaCommand)
+        CallbackFree(this.vtbl.BuildRaytracingAccelerationStructure)
+        CallbackFree(this.vtbl.EmitRaytracingAccelerationStructurePostbuildInfo)
+        CallbackFree(this.vtbl.CopyRaytracingAccelerationStructure)
+        CallbackFree(this.vtbl.SetPipelineState1)
+        CallbackFree(this.vtbl.DispatchRays)
     }
 }

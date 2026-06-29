@@ -1,50 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Com\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
 
 /**
  * Encrypted Windows app package settings.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_encrypted_package_settings2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class APPX_ENCRYPTED_PACKAGE_SETTINGS2 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct APPX_ENCRYPTED_PACKAGE_SETTINGS2 {
+    #StructPack 8
 
     /**
      * The key length.
-     * @type {Integer}
      */
-    keyLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    keyLength : UInt32
 
     /**
      * The encryption algorithm used.
-     * @type {PWSTR}
      */
-    encryptionAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    encryptionAlgorithm : PWSTR
 
     /**
      * The Uri of the block map hash algorithm.
-     * @type {IUri}
      */
-    blockMapHashAlgorithm {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    blockMapHashAlgorithm : IUri
 
     /**
      * Additional options for encrypted packages. Options come from the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_encrypted_package_options">APPX_ENCRYPTED_PACKAGE_OPTIONS</a> enum.
-     * @type {Integer}
      */
-    options {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    options : UInt32
+
 }

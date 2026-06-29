@@ -1,64 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class CODEBASEHOLD extends Win32Struct {
-    static sizeof => 40
+export default struct CODEBASEHOLD {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szDistUnit : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    szDistUnit {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szCodeBase : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    szCodeBase {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwVersionMS : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersionMS {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwVersionLS : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersionLS {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStyle {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

@@ -1,147 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class FILE_STAT_LX_INFORMATION extends Win32Struct {
-    static sizeof => 96
+export default struct FILE_STAT_LX_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    FileId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileId {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    CreationTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CreationTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    LastAccessTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastAccessTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LastWriteTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastWriteTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    ChangeTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ChangeTime {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    EndOfFile : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndOfFile {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    FileAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileAttributes {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ReparseTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReparseTag {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    NumberOfLinks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfLinks {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    EffectiveAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EffectiveAccess {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    LxFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxFlags {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    LxUid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxUid {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    LxGid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxGid {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    LxMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxMode {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    LxDeviceIdMajor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxDeviceIdMajor {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    LxDeviceIdMinor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxDeviceIdMinor {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 }

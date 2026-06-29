@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use the ISdoServiceControl interface to control the service being administered on the SDO computer.
@@ -12,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdoservicecontrol
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class ISdoServiceControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISdoServiceControl extends IDispatch {
     /**
      * The interface identifier for ISdoServiceControl
      * @type {Guid}
      */
-    static IID => Guid("{479f6e74-49a2-11d2-8eca-00c04fc2f519}")
+    static IID := Guid("{479f6e74-49a2-11d2-8eca-00c04fc2f519}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISdoServiceControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        StartService     : IntPtr
+        StopService      : IntPtr
+        GetServiceStatus : IntPtr
+        ResetService     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartService", "StopService", "GetServiceStatus", "ResetService"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISdoServiceControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StartService method starts the service administered through SDO.
@@ -87,5 +98,31 @@ class ISdoServiceControl extends IDispatch {
     ResetService() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISdoServiceControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartService := CallbackCreate(GetMethod(implObj, "StartService"), flags, 1)
+        this.vtbl.StopService := CallbackCreate(GetMethod(implObj, "StopService"), flags, 1)
+        this.vtbl.GetServiceStatus := CallbackCreate(GetMethod(implObj, "GetServiceStatus"), flags, 2)
+        this.vtbl.ResetService := CallbackCreate(GetMethod(implObj, "ResetService"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartService)
+        CallbackFree(this.vtbl.StopService)
+        CallbackFree(this.vtbl.GetServiceStatus)
+        CallbackFree(this.vtbl.ResetService)
     }
 }

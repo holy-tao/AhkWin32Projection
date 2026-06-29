@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationTextPattern.ahk
-#Include .\IUIAutomationTextRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationTextPattern.ahk" { IUIAutomationTextPattern }
+#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 
 /**
  * Provides access to a control that modifies text, for example a control that performs auto-correction or enables input composition through an Input Method Editor (IME).
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtexteditpattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationTextEditPattern extends IUIAutomationTextPattern {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationTextEditPattern extends IUIAutomationTextPattern {
     /**
      * The interface identifier for IUIAutomationTextEditPattern
      * @type {Guid}
      */
-    static IID => Guid("{17e21576-996c-4870-99d9-bff323380c06}")
+    static IID := Guid("{17e21576-996c-4870-99d9-bff323380c06}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationTextEditPattern interfaces
+    */
+    struct Vtbl extends IUIAutomationTextPattern.Vtbl {
+        GetActiveComposition : IntPtr
+        GetConversionTarget  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetActiveComposition", "GetConversionTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationTextEditPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the active composition. (IUIAutomationTextEditPattern.GetActiveComposition)
@@ -54,5 +63,27 @@ class IUIAutomationTextEditPattern extends IUIAutomationTextPattern {
     GetConversionTarget() {
         result := ComCall(10, this, "ptr*", &range := 0, "HRESULT")
         return IUIAutomationTextRange(range)
+    }
+
+    Query(iid) {
+        if (IUIAutomationTextEditPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetActiveComposition := CallbackCreate(GetMethod(implObj, "GetActiveComposition"), flags, 2)
+        this.vtbl.GetConversionTarget := CallbackCreate(GetMethod(implObj, "GetConversionTarget"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetActiveComposition)
+        CallbackFree(this.vtbl.GetConversionTarget)
     }
 }

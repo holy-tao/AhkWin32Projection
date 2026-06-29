@@ -1,267 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ARMV8_AARCH64_GPRS extends Win32Struct {
-    static sizeof => 256
+export default struct WHEA_ARMV8_AARCH64_GPRS {
+    #StructPack 8
 
-    static packingSize => 8
+    X0 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X0 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    X1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    X2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X2 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    X3 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X3 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    X4 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X4 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    X5 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X5 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    X6 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X6 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    X7 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X7 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    X8 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X8 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    X9 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X9 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    X10 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X10 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    X11 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X11 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    X12 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X12 {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    X13 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X13 {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    X14 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X14 {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    X15 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X15 {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    X16 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X16 {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    X17 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X17 {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    X18 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X18 {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    X19 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X19 {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    X20 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X20 {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    X21 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X21 {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    X22 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X22 {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    X23 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X23 {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    X24 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X24 {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    X25 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X25 {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    X26 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X26 {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    X27 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X27 {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    X28 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X28 {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    X29 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X29 {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
+    X30 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    X30 {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
-    }
+    SP : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SP {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
-    }
 }

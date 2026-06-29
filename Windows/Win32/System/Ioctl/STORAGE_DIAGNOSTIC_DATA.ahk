@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_DIAGNOSTIC_DATA extends Win32Struct {
-    static sizeof => 32
+export default struct STORAGE_DIAGNOSTIC_DATA {
+    #StructPack 4
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProviderId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProviderId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DiagnosticDataBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DiagnosticDataBuffer {
-        get {
-            if(!this.HasProp("__DiagnosticDataBufferProxyArray"))
-                this.__DiagnosticDataBufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__DiagnosticDataBufferProxyArray
-        }
-    }
 }

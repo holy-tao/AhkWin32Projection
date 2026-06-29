@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_PROVIDER_STATE enumerated type specifies the various states with which a provider entry can be tagged.
@@ -39,7 +38,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_provider_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_PROVIDER_STATE extends Win32Enum {
+export default struct MBN_PROVIDER_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Unknown provider state.

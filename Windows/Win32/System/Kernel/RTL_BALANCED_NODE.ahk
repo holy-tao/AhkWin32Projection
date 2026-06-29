@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTL_BALANCED_NODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class RTL_BALANCED_NODE extends Win32Struct {
-    static sizeof => 24
+export default struct RTL_BALANCED_NODE {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Array<Pointer<RTL_BALANCED_NODE>>}
-     */
-    Children {
-        get {
-            if(!this.HasProp("__ChildrenProxyArray"))
-                this.__ChildrenProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
-            return this.__ChildrenProxyArray
-        }
-    }
-
-    /**
-     * @type {Pointer<RTL_BALANCED_NODE>}
-     */
-    Left {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<RTL_BALANCED_NODE>}
-     */
-    Right {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Children : RTL_BALANCED_NODE.Ptr[2]
 
     /**
      * This bitfield backs the following members:
      * - Red
      * - Balance
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -63,12 +31,10 @@ class RTL_BALANCED_NODE extends Win32Struct {
         get => (this._bitfield >> 1) & 0x3
         set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
     }
-
-    /**
-     * @type {Pointer}
-     */
-    ParentValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'Left', { type: RTL_BALANCED_NODE.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'Right', { type: RTL_BALANCED_NODE.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'ParentValue', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

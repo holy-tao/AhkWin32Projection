@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the alignment of paragraph text along the reading direction axis, relative to the leading and trailing edge of the layout box.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_TEXT_ALIGNMENT extends Win32Enum {
+export default struct DWRITE_TEXT_ALIGNMENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The leading edge of the paragraph text is aligned to the leading edge of the layout box.

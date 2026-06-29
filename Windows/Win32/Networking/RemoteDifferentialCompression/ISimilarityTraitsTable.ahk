@@ -1,40 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISimilarityTableDumpState.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FindSimilarFileIndexResults.ahk" { FindSimilarFileIndexResults }
+#Import ".\SimilarityData.ahk" { SimilarityData }
+#Import ".\ISimilarityTableDumpState.ahk" { ISimilarityTableDumpState }
+#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for storing per-file similarity data and performing similarity lookups.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilaritytraitstable
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  */
-class ISimilarityTraitsTable extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISimilarityTraitsTable extends IUnknown {
     /**
      * The interface identifier for ISimilarityTraitsTable
      * @type {Guid}
      */
-    static IID => Guid("{96236a7e-9dbc-11da-9e3f-0011114ae311}")
+    static IID := Guid("{96236a7e-9dbc-11da-9e3f-0011114ae311}")
 
     /**
      * The class identifier for SimilarityTraitsTable
      * @type {Guid}
      */
-    static CLSID => Guid("{96236a8f-9dbc-11da-9e3f-0011114ae311}")
+    static CLSID := Guid("{96236a8f-9dbc-11da-9e3f-0011114ae311}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISimilarityTraitsTable interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTable          : IntPtr
+        CreateTableIndirect  : IntPtr
+        CloseTable           : IntPtr
+        Append               : IntPtr
+        FindSimilarFileIndex : IntPtr
+        BeginDump            : IntPtr
+        GetLastIndex         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTable", "CreateTableIndirect", "CloseTable", "Append", "FindSimilarFileIndex", "BeginDump", "GetLastIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISimilarityTraitsTable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates or opens a similarity traits table.
@@ -51,7 +71,7 @@ class ISimilarityTraitsTable extends IUnknown {
 
         _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _path, "int", truncate, _securityDescriptorMarshal, _securityDescriptor, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -65,7 +85,7 @@ class ISimilarityTraitsTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-createtableindirect
      */
     CreateTableIndirect(mapping, truncate) {
-        result := ComCall(4, this, "ptr", mapping, "int", truncate, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", mapping, BOOL, truncate, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -80,7 +100,7 @@ class ISimilarityTraitsTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-closetable
      */
     CloseTable(isValid) {
-        result := ComCall(5, this, "int", isValid, "HRESULT")
+        result := ComCall(5, this, BOOL, isValid, "HRESULT")
         return result
     }
 
@@ -94,7 +114,7 @@ class ISimilarityTraitsTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-append
      */
     Append(data, fileIndex) {
-        result := ComCall(6, this, "ptr", data, "uint", fileIndex, "HRESULT")
+        result := ComCall(6, this, SimilarityData.Ptr, data, "uint", fileIndex, "HRESULT")
         return result
     }
 
@@ -113,7 +133,7 @@ class ISimilarityTraitsTable extends IUnknown {
     FindSimilarFileIndex(_similarityData, numberOfMatchesRequired, _findSimilarFileIndexResults, resultsSize, resultsUsed) {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", _similarityData, "ushort", numberOfMatchesRequired, "ptr", _findSimilarFileIndexResults, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
+        result := ComCall(7, this, SimilarityData.Ptr, _similarityData, "ushort", numberOfMatchesRequired, FindSimilarFileIndexResults.Ptr, _findSimilarFileIndexResults, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
         return result
     }
 
@@ -137,5 +157,37 @@ class ISimilarityTraitsTable extends IUnknown {
     GetLastIndex() {
         result := ComCall(9, this, "uint*", &fileIndex := 0, "HRESULT")
         return fileIndex
+    }
+
+    Query(iid) {
+        if (ISimilarityTraitsTable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTable := CallbackCreate(GetMethod(implObj, "CreateTable"), flags, 5)
+        this.vtbl.CreateTableIndirect := CallbackCreate(GetMethod(implObj, "CreateTableIndirect"), flags, 4)
+        this.vtbl.CloseTable := CallbackCreate(GetMethod(implObj, "CloseTable"), flags, 2)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
+        this.vtbl.FindSimilarFileIndex := CallbackCreate(GetMethod(implObj, "FindSimilarFileIndex"), flags, 6)
+        this.vtbl.BeginDump := CallbackCreate(GetMethod(implObj, "BeginDump"), flags, 2)
+        this.vtbl.GetLastIndex := CallbackCreate(GetMethod(implObj, "GetLastIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTable)
+        CallbackFree(this.vtbl.CreateTableIndirect)
+        CallbackFree(this.vtbl.CloseTable)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.FindSimilarFileIndex)
+        CallbackFree(this.vtbl.BeginDump)
+        CallbackFree(this.vtbl.GetLastIndex)
     }
 }

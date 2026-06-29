@@ -1,38 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGMatrix.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGTransform extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGTransform extends IDispatch {
     /**
      * The interface identifier for ISVGTransform
      * @type {Guid}
      */
-    static IID => Guid("{305104f7-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104f7-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGTransform
      * @type {Guid}
      */
-    static CLSID => Guid("{305105af-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105af-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGTransform interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_type      : IntPtr
+        get_type      : IntPtr
+        putref_matrix : IntPtr
+        get_matrix    : IntPtr
+        put_angle     : IntPtr
+        get_angle     : IntPtr
+        setMatrix     : IntPtr
+        setTranslate  : IntPtr
+        setScale      : IntPtr
+        setRotate     : IntPtr
+        setSkewX      : IntPtr
+        setSkewY      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_type", "get_type", "putref_matrix", "get_matrix", "put_angle", "get_angle", "setMatrix", "setTranslate", "setScale", "setRotate", "setSkewX", "setSkewY"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -176,5 +195,47 @@ class ISVGTransform extends IDispatch {
     setSkewY(angle) {
         result := ComCall(18, this, "float", angle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISVGTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.putref_matrix := CallbackCreate(GetMethod(implObj, "putref_matrix"), flags, 2)
+        this.vtbl.get_matrix := CallbackCreate(GetMethod(implObj, "get_matrix"), flags, 2)
+        this.vtbl.put_angle := CallbackCreate(GetMethod(implObj, "put_angle"), flags, 2)
+        this.vtbl.get_angle := CallbackCreate(GetMethod(implObj, "get_angle"), flags, 2)
+        this.vtbl.setMatrix := CallbackCreate(GetMethod(implObj, "setMatrix"), flags, 2)
+        this.vtbl.setTranslate := CallbackCreate(GetMethod(implObj, "setTranslate"), flags, 3)
+        this.vtbl.setScale := CallbackCreate(GetMethod(implObj, "setScale"), flags, 3)
+        this.vtbl.setRotate := CallbackCreate(GetMethod(implObj, "setRotate"), flags, 4)
+        this.vtbl.setSkewX := CallbackCreate(GetMethod(implObj, "setSkewX"), flags, 2)
+        this.vtbl.setSkewY := CallbackCreate(GetMethod(implObj, "setSkewY"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_type)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.putref_matrix)
+        CallbackFree(this.vtbl.get_matrix)
+        CallbackFree(this.vtbl.put_angle)
+        CallbackFree(this.vtbl.get_angle)
+        CallbackFree(this.vtbl.setMatrix)
+        CallbackFree(this.vtbl.setTranslate)
+        CallbackFree(this.vtbl.setScale)
+        CallbackFree(this.vtbl.setRotate)
+        CallbackFree(this.vtbl.setSkewX)
+        CallbackFree(this.vtbl.setSkewY)
     }
 }

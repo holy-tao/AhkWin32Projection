@@ -1,23 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The USER_INFO_1007 structure contains a comment associated with a user network account. This information level is valid only when you call the NetUserSetInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1007
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_1007 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct USER_INFO_1007 {
+    #StructPack 8
 
     /**
      * Pointer to a Unicode string that contains a comment to associate with the user account specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri1007_comment {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    usri1007_comment : PWSTR
+
 }

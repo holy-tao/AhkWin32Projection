@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TCP_BOOLEAN_OPTIONAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TCP_BOOLEAN_OPTIONAL.ahk" { TCP_BOOLEAN_OPTIONAL }
 
 /**
  * Contains read/write configuration information for extended TCP statistics on bandwidth estimation for a TCP connection.
@@ -17,10 +16,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_bandwidth_rw_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_BANDWIDTH_RW_v0 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct TCP_ESTATS_BANDWIDTH_RW_v0 {
+    #StructPack 4
 
     /**
      * A value that indicates if extended statistics on a TCP connection should be collected for outbound bandwidth estimation. 
@@ -28,12 +25,8 @@ class TCP_ESTATS_BANDWIDTH_RW_v0 extends Win32Struct {
      * If this member is set to <b>TcpBoolOptEnabled</b>, extended statistics on the TCP connection for outbound bandwidth estimation are enabled. If this member is set to <b>TcpBoolOptDisabled</b>, extended statistics on the TCP connection for outbound bandwidth estimation are disabled. If this member is set to <b>TcpBoolOptUnchanged</b>, extended statistics on the TCP connection for outbound bandwidth estimation are left unchanged. 
      * 
      * The default state for this member when not set is disabled.
-     * @type {TCP_BOOLEAN_OPTIONAL}
      */
-    EnableCollectionOutbound {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    EnableCollectionOutbound : TCP_BOOLEAN_OPTIONAL
 
     /**
      * A value that indicates if extended statistics on a TCP connection should be collected for inbound bandwidth estimation. 
@@ -41,10 +34,7 @@ class TCP_ESTATS_BANDWIDTH_RW_v0 extends Win32Struct {
      * If this member is set to <b>TcpBoolOptEnabled</b>, extended statistics on the TCP connection for inbound bandwidth estimation are enabled. If this member is set to <b>TcpBoolOptDisabled</b>, extended statistics on the TCP connection for inbound bandwidth estimation are disabled. If this member is set to <b>TcpBoolOptUnchanged</b>, extended statistics on the TCP connection for inbound bandwidth estimation are unchanged. 
      * 
      * The default state for this member when not set is disabled.
-     * @type {TCP_BOOLEAN_OPTIONAL}
      */
-    EnableCollectionInbound {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    EnableCollectionInbound : TCP_BOOLEAN_OPTIONAL
+
 }

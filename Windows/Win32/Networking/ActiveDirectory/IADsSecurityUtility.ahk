@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsSecurityUtility interface is used to get, set, or retrieve the security descriptor on a file, fileshare, or registry key.
@@ -13,32 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadssecurityutility
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsSecurityUtility extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsSecurityUtility extends IDispatch {
     /**
      * The interface identifier for IADsSecurityUtility
      * @type {Guid}
      */
-    static IID => Guid("{a63251b2-5f21-474b-ab52-4a8efad10895}")
+    static IID := Guid("{a63251b2-5f21-474b-ab52-4a8efad10895}")
 
     /**
      * The class identifier for ADsSecurityUtility
      * @type {Guid}
      */
-    static CLSID => Guid("{f270c64a-ffb8-4ae4-85fe-3a75e5347966}")
+    static CLSID := Guid("{f270c64a-ffb8-4ae4-85fe-3a75e5347966}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsSecurityUtility interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetSecurityDescriptor     : IntPtr
+        SetSecurityDescriptor     : IntPtr
+        ConvertSecurityDescriptor : IntPtr
+        get_SecurityMask          : IntPtr
+        put_SecurityMask          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSecurityDescriptor", "SetSecurityDescriptor", "ConvertSecurityDescriptor", "get_SecurityMask", "put_SecurityMask"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsSecurityUtility.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -58,7 +70,7 @@ class IADsSecurityUtility extends IDispatch {
      */
     GetSecurityDescriptor(varPath, lPathFormat, lFormat) {
         pVariant := VARIANT()
-        result := ComCall(7, this, "ptr", varPath, "int", lPathFormat, "int", lFormat, "ptr", pVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT, varPath, "int", lPathFormat, "int", lFormat, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -82,7 +94,7 @@ class IADsSecurityUtility extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-setsecuritydescriptor
      */
     SetSecurityDescriptor(varPath, lPathFormat, varData, lDataFormat) {
-        result := ComCall(8, this, "ptr", varPath, "int", lPathFormat, "ptr", varData, "int", lDataFormat, "HRESULT")
+        result := ComCall(8, this, VARIANT, varPath, "int", lPathFormat, VARIANT, varData, "int", lDataFormat, "HRESULT")
         return result
     }
 
@@ -96,7 +108,7 @@ class IADsSecurityUtility extends IDispatch {
      */
     ConvertSecurityDescriptor(varSD, lDataFormat, lOutFormat) {
         pResult := VARIANT()
-        result := ComCall(9, this, "ptr", varSD, "int", lDataFormat, "int", lOutFormat, "ptr", pResult, "HRESULT")
+        result := ComCall(9, this, VARIANT, varSD, "int", lDataFormat, "int", lOutFormat, VARIANT.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -119,5 +131,33 @@ class IADsSecurityUtility extends IDispatch {
     put_SecurityMask(lnSecurityMask) {
         result := ComCall(11, this, "int", lnSecurityMask, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsSecurityUtility.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 5)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 5)
+        this.vtbl.ConvertSecurityDescriptor := CallbackCreate(GetMethod(implObj, "ConvertSecurityDescriptor"), flags, 5)
+        this.vtbl.get_SecurityMask := CallbackCreate(GetMethod(implObj, "get_SecurityMask"), flags, 2)
+        this.vtbl.put_SecurityMask := CallbackCreate(GetMethod(implObj, "put_SecurityMask"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSecurityDescriptor)
+        CallbackFree(this.vtbl.SetSecurityDescriptor)
+        CallbackFree(this.vtbl.ConvertSecurityDescriptor)
+        CallbackFree(this.vtbl.get_SecurityMask)
+        CallbackFree(this.vtbl.put_SecurityMask)
     }
 }

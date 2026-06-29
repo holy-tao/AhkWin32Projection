@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMNode.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXMLDOMAttribute.ahk
-#Include .\IXMLDOMNodeList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
+#Import ".\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
+#Import ".\IXMLDOMAttribute.ahk" { IXMLDOMAttribute }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLDOMElement extends IXMLDOMNode {
-
-    static sizeof => A_PtrSize
+export default struct IXMLDOMElement extends IXMLDOMNode {
     /**
      * The interface identifier for IXMLDOMElement
      * @type {Guid}
      */
-    static IID => Guid("{2933bf86-7b36-11d2-b20e-00c04f983e60}")
+    static IID := Guid("{2933bf86-7b36-11d2-b20e-00c04f983e60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 43
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLDOMElement interfaces
+    */
+    struct Vtbl extends IXMLDOMNode.Vtbl {
+        get_tagName          : IntPtr
+        getAttribute         : IntPtr
+        setAttribute         : IntPtr
+        removeAttribute      : IntPtr
+        getAttributeNode     : IntPtr
+        setAttributeNode     : IntPtr
+        removeAttributeNode  : IntPtr
+        getElementsByTagName : IntPtr
+        normalize            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_tagName", "getAttribute", "setAttribute", "removeAttribute", "getAttributeNode", "setAttributeNode", "removeAttributeNode", "getElementsByTagName", "normalize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLDOMElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -43,8 +59,8 @@ class IXMLDOMElement extends IXMLDOMNode {
      * @returns {BSTR} 
      */
     get_tagName() {
-        tagName := BSTR()
-        result := ComCall(43, this, "ptr", tagName, "HRESULT")
+        tagName := BSTR.Owned()
+        result := ComCall(43, this, BSTR.Ptr, tagName, "HRESULT")
         return tagName
     }
 
@@ -57,7 +73,7 @@ class IXMLDOMElement extends IXMLDOMNode {
         name := name is String ? BSTR.Alloc(name).Value : name
 
         value := VARIANT()
-        result := ComCall(44, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(44, this, BSTR, name, VARIANT.Ptr, value, "HRESULT")
         return value
     }
 
@@ -70,7 +86,7 @@ class IXMLDOMElement extends IXMLDOMNode {
     setAttribute(name, value) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(45, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(45, this, BSTR, name, VARIANT, value, "HRESULT")
         return result
     }
 
@@ -82,7 +98,7 @@ class IXMLDOMElement extends IXMLDOMNode {
     removeAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(46, this, "ptr", name, "HRESULT")
+        result := ComCall(46, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -94,7 +110,7 @@ class IXMLDOMElement extends IXMLDOMNode {
     getAttributeNode(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(47, this, "ptr", name, "ptr*", &attributeNode := 0, "HRESULT")
+        result := ComCall(47, this, BSTR, name, "ptr*", &attributeNode := 0, "HRESULT")
         return IXMLDOMAttribute(attributeNode)
     }
 
@@ -126,7 +142,7 @@ class IXMLDOMElement extends IXMLDOMNode {
     getElementsByTagName(tagName) {
         tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
 
-        result := ComCall(50, this, "ptr", tagName, "ptr*", &resultList := 0, "HRESULT")
+        result := ComCall(50, this, BSTR, tagName, "ptr*", &resultList := 0, "HRESULT")
         return IXMLDOMNodeList(resultList)
     }
 
@@ -149,5 +165,41 @@ class IXMLDOMElement extends IXMLDOMNode {
     normalize() {
         result := ComCall(51, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXMLDOMElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_tagName := CallbackCreate(GetMethod(implObj, "get_tagName"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.getElementsByTagName := CallbackCreate(GetMethod(implObj, "getElementsByTagName"), flags, 3)
+        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_tagName)
+        CallbackFree(this.vtbl.getAttribute)
+        CallbackFree(this.vtbl.setAttribute)
+        CallbackFree(this.vtbl.removeAttribute)
+        CallbackFree(this.vtbl.getAttributeNode)
+        CallbackFree(this.vtbl.setAttributeNode)
+        CallbackFree(this.vtbl.removeAttributeNode)
+        CallbackFree(this.vtbl.getElementsByTagName)
+        CallbackFree(this.vtbl.normalize)
     }
 }

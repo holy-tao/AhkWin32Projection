@@ -1,122 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_X5C.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WEBAUTHN_X5C.ahk" { WEBAUTHN_X5C }
 
 /**
  * The structure containing the common data for an attestation.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_common_attestation
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct WEBAUTHN_COMMON_ATTESTATION {
+    #StructPack 8
 
     /**
      * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The hash and padding algorithm. This won't be set for _fido-u2f_ which assumes **"ES256"**.
-     * @type {PWSTR}
      */
-    pwszAlg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszAlg : PWSTR
 
     /**
      * The COSE algorithm identifier. This value is a number identifying a cryptographic algorithm. The algorithm identifiers _should_ be values registered in the [IANA COSE Algorithms registry](https://w3c.github.io/webauthn/#biblio-iana-cose-algs-reg), for instance, -7 for "ES256" and -257 for "RS256".
-     * @type {Integer}
      */
-    lAlg {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lAlg : Int32
 
     /**
      * The signature that was generated for this attestation.
-     * @type {Integer}
      */
-    cbSignature {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbSignature : UInt32
 
     /**
      * A pointer to the signature that was generated for this attestation.
-     * @type {Pointer<Integer>}
      */
-    pbSignature {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbSignature : IntPtr
 
     /**
      * Array of X.509 DER encoded certificates. The first certificate is the signer, leaf certificate. This is set for **Full Basic Attestation**. If not set, then this is a **Self Attestation**.
-     * @type {Integer}
      */
-    cX5c {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cX5c : UInt32
 
     /**
      * A pointer to the array of X.509 certificates.
-     * @type {Pointer<WEBAUTHN_X5C>}
      */
-    pX5c {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pX5c : WEBAUTHN_X5C.Ptr
 
     /**
      * A pointer to the version of the attestation statement. (This is set for tpm.)
-     * @type {PWSTR}
      */
-    pwszVer {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pwszVer : PWSTR
 
     /**
      * The size of the certificate information. (This is set for tpm.)
-     * @type {Integer}
      */
-    cbCertInfo {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cbCertInfo : UInt32
 
     /**
      * A pointer to the certificate information. (This is set for tpm.)
-     * @type {Pointer<Integer>}
      */
-    pbCertInfo {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pbCertInfo : IntPtr
 
     /**
      * The size of the public key area. (This is set for tpm.)
-     * @type {Integer}
      */
-    cbPubArea {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cbPubArea : UInt32
 
     /**
      * A pointer to the public key area. (This is set for tpm.)
-     * @type {Pointer<Integer>}
      */
-    pbPubArea {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pbPubArea : IntPtr
+
 }

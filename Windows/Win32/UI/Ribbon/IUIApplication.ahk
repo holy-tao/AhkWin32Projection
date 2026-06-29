@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUICommandHandler.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_VIEWTYPE.ahk" { UI_VIEWTYPE }
+#Import ".\IUICommandHandler.ahk" { IUICommandHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_COMMANDTYPE.ahk" { UI_COMMANDTYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UI_VIEWVERB.ahk" { UI_VIEWVERB }
 
 /**
  * The IUIApplication interface is implemented by the application and defines the callback entry-point methods for the Windows Ribbon framework.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiapplication
  * @namespace Windows.Win32.UI.Ribbon
  */
-class IUIApplication extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIApplication extends IUnknown {
     /**
      * The interface identifier for IUIApplication
      * @type {Guid}
      */
-    static IID => Guid("{d428903c-729a-491d-910d-682a08ff2522}")
+    static IID := Guid("{d428903c-729a-491d-910d-682a08ff2522}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIApplication interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnViewChanged      : IntPtr
+        OnCreateUICommand  : IntPtr
+        OnDestroyUICommand : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnViewChanged", "OnCreateUICommand", "OnDestroyUICommand"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIApplication.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when the state of a View changes.
@@ -61,7 +74,7 @@ class IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-onviewchanged
      */
     OnViewChanged(viewId, typeID, _view, verb, uReasonCode) {
-        result := ComCall(3, this, "uint", viewId, "int", typeID, "ptr", _view, "int", verb, "int", uReasonCode, "HRESULT")
+        result := ComCall(3, this, "uint", viewId, UI_VIEWTYPE, typeID, "ptr", _view, UI_VIEWVERB, verb, "int", uReasonCode, "HRESULT")
         return result
     }
 
@@ -87,7 +100,7 @@ class IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand
      */
     OnCreateUICommand(commandId, typeID) {
-        result := ComCall(4, this, "uint", commandId, "int", typeID, "ptr*", &commandHandler := 0, "HRESULT")
+        result := ComCall(4, this, "uint", commandId, UI_COMMANDTYPE, typeID, "ptr*", &commandHandler := 0, "HRESULT")
         return IUICommandHandler(commandHandler)
     }
 
@@ -113,7 +126,31 @@ class IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-ondestroyuicommand
      */
     OnDestroyUICommand(commandId, typeID, commandHandler) {
-        result := ComCall(5, this, "uint", commandId, "int", typeID, "ptr", commandHandler, "HRESULT")
+        result := ComCall(5, this, "uint", commandId, UI_COMMANDTYPE, typeID, "ptr", commandHandler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIApplication.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnViewChanged := CallbackCreate(GetMethod(implObj, "OnViewChanged"), flags, 6)
+        this.vtbl.OnCreateUICommand := CallbackCreate(GetMethod(implObj, "OnCreateUICommand"), flags, 4)
+        this.vtbl.OnDestroyUICommand := CallbackCreate(GetMethod(implObj, "OnDestroyUICommand"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnViewChanged)
+        CallbackFree(this.vtbl.OnCreateUICommand)
+        CallbackFree(this.vtbl.OnDestroyUICommand)
     }
 }

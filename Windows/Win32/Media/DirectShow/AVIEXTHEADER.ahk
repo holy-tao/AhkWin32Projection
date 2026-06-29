@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVIEXTHEADER extends Win32Struct {
-    static sizeof => 256
+export default struct AVIEXTHEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    fcc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwGrandFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwGrandFrames {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFuture : UInt32[61]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwFuture {
-        get {
-            if(!this.HasProp("__dwFutureProxyArray"))
-                this.__dwFutureProxyArray := Win32FixedArray(this.ptr + 12, 61, Primitive, "uint")
-            return this.__dwFutureProxyArray
-        }
-    }
 }

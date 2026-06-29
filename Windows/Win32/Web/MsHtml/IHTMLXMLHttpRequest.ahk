@@ -1,39 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLXMLHttpRequest extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLXMLHttpRequest extends IDispatch {
     /**
      * The interface identifier for IHTMLXMLHttpRequest
      * @type {Guid}
      */
-    static IID => Guid("{3051040a-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051040a-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLXMLHttpRequest
      * @type {Guid}
      */
-    static CLSID => Guid("{3051040b-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3051040b-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLXMLHttpRequest interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_readyState         : IntPtr
+        get_responseBody       : IntPtr
+        get_responseText       : IntPtr
+        get_responseXML        : IntPtr
+        get_status             : IntPtr
+        get_statusText         : IntPtr
+        put_onreadystatechange : IntPtr
+        get_onreadystatechange : IntPtr
+        abort                  : IntPtr
+        open                   : IntPtr
+        send                   : IntPtr
+        getAllResponseHeaders  : IntPtr
+        getResponseHeader      : IntPtr
+        setRequestHeader       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_readyState", "get_responseBody", "get_responseText", "get_responseXML", "get_status", "get_statusText", "put_onreadystatechange", "get_onreadystatechange", "abort", "open", "send", "getAllResponseHeaders", "getResponseHeader", "setRequestHeader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLXMLHttpRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -100,7 +121,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      */
     get_responseBody() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -109,8 +130,8 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {BSTR} 
      */
     get_responseText() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -137,8 +158,8 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {BSTR} 
      */
     get_statusText() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -148,7 +169,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -158,7 +179,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -273,7 +294,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
         bstrMethod := bstrMethod is String ? BSTR.Alloc(bstrMethod).Value : bstrMethod
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(16, this, "ptr", bstrMethod, "ptr", bstrUrl, "ptr", varAsync, "ptr", varUser, "ptr", varPassword, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrMethod, BSTR, bstrUrl, VARIANT, varAsync, VARIANT, varUser, VARIANT, varPassword, "HRESULT")
         return result
     }
 
@@ -538,7 +559,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-send
      */
     send(varBody) {
-        result := ComCall(17, this, "ptr", varBody, "HRESULT")
+        result := ComCall(17, this, VARIANT, varBody, "HRESULT")
         return result
     }
 
@@ -547,8 +568,8 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {BSTR} 
      */
     getAllResponseHeaders() {
-        __MIDL__IHTMLXMLHttpRequest0000 := BSTR()
-        result := ComCall(18, this, "ptr", __MIDL__IHTMLXMLHttpRequest0000, "HRESULT")
+        __MIDL__IHTMLXMLHttpRequest0000 := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, __MIDL__IHTMLXMLHttpRequest0000, "HRESULT")
         return __MIDL__IHTMLXMLHttpRequest0000
     }
 
@@ -560,8 +581,8 @@ class IHTMLXMLHttpRequest extends IDispatch {
     getResponseHeader(bstrHeader) {
         bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
 
-        __MIDL__IHTMLXMLHttpRequest0001 := BSTR()
-        result := ComCall(19, this, "ptr", bstrHeader, "ptr", __MIDL__IHTMLXMLHttpRequest0001, "HRESULT")
+        __MIDL__IHTMLXMLHttpRequest0001 := BSTR.Owned()
+        result := ComCall(19, this, BSTR, bstrHeader, BSTR.Ptr, __MIDL__IHTMLXMLHttpRequest0001, "HRESULT")
         return __MIDL__IHTMLXMLHttpRequest0001
     }
 
@@ -575,7 +596,53 @@ class IHTMLXMLHttpRequest extends IDispatch {
         bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(20, this, "ptr", bstrHeader, "ptr", bstrValue, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrHeader, BSTR, bstrValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLXMLHttpRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_responseBody := CallbackCreate(GetMethod(implObj, "get_responseBody"), flags, 2)
+        this.vtbl.get_responseText := CallbackCreate(GetMethod(implObj, "get_responseText"), flags, 2)
+        this.vtbl.get_responseXML := CallbackCreate(GetMethod(implObj, "get_responseXML"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.get_statusText := CallbackCreate(GetMethod(implObj, "get_statusText"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
+        this.vtbl.open := CallbackCreate(GetMethod(implObj, "open"), flags, 6)
+        this.vtbl.send := CallbackCreate(GetMethod(implObj, "send"), flags, 2)
+        this.vtbl.getAllResponseHeaders := CallbackCreate(GetMethod(implObj, "getAllResponseHeaders"), flags, 2)
+        this.vtbl.getResponseHeader := CallbackCreate(GetMethod(implObj, "getResponseHeader"), flags, 3)
+        this.vtbl.setRequestHeader := CallbackCreate(GetMethod(implObj, "setRequestHeader"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.get_responseBody)
+        CallbackFree(this.vtbl.get_responseText)
+        CallbackFree(this.vtbl.get_responseXML)
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.get_statusText)
+        CallbackFree(this.vtbl.put_onreadystatechange)
+        CallbackFree(this.vtbl.get_onreadystatechange)
+        CallbackFree(this.vtbl.abort)
+        CallbackFree(this.vtbl.open)
+        CallbackFree(this.vtbl.send)
+        CallbackFree(this.vtbl.getAllResponseHeaders)
+        CallbackFree(this.vtbl.getResponseHeader)
+        CallbackFree(this.vtbl.setRequestHeader)
     }
 }

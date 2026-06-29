@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USN_RECORD_COMMON_HEADER.ahk
-#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
-#Include .\USN_SOURCE_INFO_ID.ahk
-#Include .\USN_RECORD_EXTENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Storage\FileSystem\FILE_ID_128.ahk" { FILE_ID_128 }
+#Import ".\USN_RECORD_EXTENT.ahk" { USN_RECORD_EXTENT }
+#Import ".\USN_RECORD_COMMON_HEADER.ahk" { USN_RECORD_COMMON_HEADER }
+#Import ".\USN_SOURCE_INFO_ID.ahk" { USN_SOURCE_INFO_ID }
 
 /**
  * Contains the information for an update sequence number (USN) change journal version 4.0 record. The version 2.0 and 3.0 records are defined by the USN_RECORD_V2 (also called USN_RECORD) and USN_RECORD_V3 structures respectively.
@@ -23,60 +22,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v4
  * @namespace Windows.Win32.System.Ioctl
  */
-class USN_RECORD_V4 extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct USN_RECORD_V4 {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_common_header">USN_RECORD_COMMON_HEADER</a> structure that describes the record length, major version, and minor  version for the record.
-     * @type {USN_RECORD_COMMON_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USN_RECORD_COMMON_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : USN_RECORD_COMMON_HEADER
 
     /**
      * The 128-bit ordinal number of the file or directory for which this record notes changes.
      * 
      * This value  is an arbitrarily assigned value that associates a journal record with a file.
-     * @type {FILE_ID_128}
      */
-    FileReferenceNumber {
-        get {
-            if(!this.HasProp("__FileReferenceNumber"))
-                this.__FileReferenceNumber := FILE_ID_128(8, this)
-            return this.__FileReferenceNumber
-        }
-    }
+    FileReferenceNumber : FILE_ID_128
 
     /**
      * The 128-bit ordinal number of the directory where the file or directory that is associated with this record 
      *        is located.
      * 
      * This value  is an arbitrarily assigned value that associates a journal record with a parent directory.
-     * @type {FILE_ID_128}
      */
-    ParentFileReferenceNumber {
-        get {
-            if(!this.HasProp("__ParentFileReferenceNumber"))
-                this.__ParentFileReferenceNumber := FILE_ID_128(24, this)
-            return this.__ParentFileReferenceNumber
-        }
-    }
+    ParentFileReferenceNumber : FILE_ID_128
 
     /**
      * The USN of this record.
-     * @type {Integer}
      */
-    Usn {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    Usn : Int64
 
     /**
      * The flags that identify reasons for changes that have accumulated in this file or directory journal record 
@@ -368,12 +340,8 @@ class USN_RECORD_V4 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Reason {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Reason : UInt32
 
     /**
      * Additional information about the source of the change, set by the 
@@ -383,49 +351,27 @@ class USN_RECORD_V4 extends Win32Struct {
      * When a thread writes a new USN record, the source information flags in the prior record continue to be 
      *        present only if the thread also sets those flags.  Therefore, the source information structure allows 
      *        applications to filter out USN records that are set only by a known source, for example, an antivirus filter.
-     * @type {USN_SOURCE_INFO_ID}
      */
-    SourceInfo {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    SourceInfo : USN_SOURCE_INFO_ID
 
     /**
      * The number of extents that remain after the current <b>USN_RECORD_V4</b> record.  Multiple version 4.0  records may be required to describe all of the modified extents for a given file.  When the <b>RemainingExtents</b> member is  0,  the current <b>USN_RECORD_V4</b> record is the last <b>USN_RECORD_V4</b> record for the file.  The last <b>USN_RECORD_V4</b> entry for a given file is always  followed by a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v3">USN_RECORD_V3</a> record with at least the <b>USN_REASON_CLOSE</b> flag set.
-     * @type {Integer}
      */
-    RemainingExtents {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    RemainingExtents : UInt32
 
     /**
      * The number of extents in current <b>USN_RECORD_V4</b> entry.
-     * @type {Integer}
      */
-    NumberOfExtents {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
+    NumberOfExtents : UInt16
 
     /**
      * The size of each <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_extent">USN_RECORD_EXTENT</a> structure in the <b>Extents</b> member, in bytes.
-     * @type {Integer}
      */
-    ExtentSize {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
+    ExtentSize : UInt16
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_extent">USN_RECORD_EXTENT</a> structures that represent the extents in the <b>USN_RECORD_V4</b> entry.
-     * @type {USN_RECORD_EXTENT}
      */
-    Extents {
-        get {
-            if(!this.HasProp("__ExtentsProxyArray"))
-                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 64, 1, USN_RECORD_EXTENT, "")
-            return this.__ExtentsProxyArray
-        }
-    }
+    Extents : USN_RECORD_EXTENT[1]
+
 }

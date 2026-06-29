@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\USER_INPUT_STRING_TYPE.ahk" { USER_INPUT_STRING_TYPE }
 
 /**
  * The IUserInputString interface represents the object created when asking the user for a string�for example, when obtaining the name of a tag.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iuserinputstring
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IUserInputString extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUserInputString extends IUnknown {
     /**
      * The interface identifier for IUserInputString
      * @type {Guid}
      */
-    static IID => Guid("{00f243a1-205b-45ba-ae26-abbc53aa7a6f}")
+    static IID := Guid("{00f243a1-205b-45ba-ae26-abbc53aa7a6f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUserInputString interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSubmitButtonText : IntPtr
+        GetPrompt           : IntPtr
+        GetStringId         : IntPtr
+        GetStringType       : IntPtr
+        GetTooltipText      : IntPtr
+        GetMaxLength        : IntPtr
+        GetDefault          : IntPtr
+        GetMruCount         : IntPtr
+        GetMruEntryAt       : IntPtr
+        GetImage            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSubmitButtonText", "GetPrompt", "GetStringId", "GetStringType", "GetTooltipText", "GetMaxLength", "GetDefault", "GetMruCount", "GetMruEntryAt", "GetImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUserInputString.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSubmitButtonText method retrieves the text for the submit button.
@@ -36,8 +56,8 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getsubmitbuttontext
      */
     GetSubmitButtonText() {
-        pbstrSubmitButtonText := BSTR()
-        result := ComCall(3, this, "ptr", pbstrSubmitButtonText, "HRESULT")
+        pbstrSubmitButtonText := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pbstrSubmitButtonText, "HRESULT")
         return pbstrSubmitButtonText
     }
 
@@ -47,8 +67,8 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getprompt
      */
     GetPrompt() {
-        pbstrPromptTitle := BSTR()
-        result := ComCall(4, this, "ptr", pbstrPromptTitle, "HRESULT")
+        pbstrPromptTitle := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pbstrPromptTitle, "HRESULT")
         return pbstrPromptTitle
     }
 
@@ -58,8 +78,8 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringid
      */
     GetStringId() {
-        pbstrStringId := BSTR()
-        result := ComCall(5, this, "ptr", pbstrStringId, "HRESULT")
+        pbstrStringId := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pbstrStringId, "HRESULT")
         return pbstrStringId
     }
 
@@ -96,8 +116,8 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-gettooltiptext
      */
     GetTooltipText() {
-        pbstrTooltipText := BSTR()
-        result := ComCall(7, this, "ptr", pbstrTooltipText, "HRESULT")
+        pbstrTooltipText := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrTooltipText, "HRESULT")
         return pbstrTooltipText
     }
 
@@ -117,8 +137,8 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getdefault
      */
     GetDefault() {
-        pbstrDefault := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDefault, "HRESULT")
+        pbstrDefault := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrDefault, "HRESULT")
         return pbstrDefault
     }
 
@@ -141,8 +161,8 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmruentryat
      */
     GetMruEntryAt(nIndex) {
-        pbstrMruEntry := BSTR()
-        result := ComCall(11, this, "uint", nIndex, "ptr", pbstrMruEntry, "HRESULT")
+        pbstrMruEntry := BSTR.Owned()
+        result := ComCall(11, this, "uint", nIndex, BSTR.Ptr, pbstrMruEntry, "HRESULT")
         return pbstrMruEntry
     }
 
@@ -184,7 +204,45 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getimage
      */
     GetImage(nSize, phBitmap, phIcon) {
-        result := ComCall(12, this, "uint", nSize, "ptr", phBitmap, "ptr", phIcon, "HRESULT")
+        result := ComCall(12, this, "uint", nSize, HBITMAP.Ptr, phBitmap, HICON.Ptr, phIcon, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUserInputString.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSubmitButtonText := CallbackCreate(GetMethod(implObj, "GetSubmitButtonText"), flags, 2)
+        this.vtbl.GetPrompt := CallbackCreate(GetMethod(implObj, "GetPrompt"), flags, 2)
+        this.vtbl.GetStringId := CallbackCreate(GetMethod(implObj, "GetStringId"), flags, 2)
+        this.vtbl.GetStringType := CallbackCreate(GetMethod(implObj, "GetStringType"), flags, 2)
+        this.vtbl.GetTooltipText := CallbackCreate(GetMethod(implObj, "GetTooltipText"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetDefault := CallbackCreate(GetMethod(implObj, "GetDefault"), flags, 2)
+        this.vtbl.GetMruCount := CallbackCreate(GetMethod(implObj, "GetMruCount"), flags, 2)
+        this.vtbl.GetMruEntryAt := CallbackCreate(GetMethod(implObj, "GetMruEntryAt"), flags, 3)
+        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSubmitButtonText)
+        CallbackFree(this.vtbl.GetPrompt)
+        CallbackFree(this.vtbl.GetStringId)
+        CallbackFree(this.vtbl.GetStringType)
+        CallbackFree(this.vtbl.GetTooltipText)
+        CallbackFree(this.vtbl.GetMaxLength)
+        CallbackFree(this.vtbl.GetDefault)
+        CallbackFree(this.vtbl.GetMruCount)
+        CallbackFree(this.vtbl.GetMruEntryAt)
+        CallbackFree(this.vtbl.GetImage)
     }
 }

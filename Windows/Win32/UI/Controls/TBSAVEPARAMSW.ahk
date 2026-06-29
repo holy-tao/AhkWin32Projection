@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies the location in the registry where the TB_SAVERESTORE message stores and retrieves information about the state of a toolbar. (Unicode)
@@ -11,44 +11,28 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class TBSAVEPARAMSW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TBSAVEPARAMSW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HKEY</a></b>
      * 
      * Handle to the registry key.
-     * @type {HKEY}
      */
-    hkr {
-        get {
-            if(!this.HasProp("__hkr"))
-                this.__hkr := HKEY(0, this)
-            return this.__hkr
-        }
-    }
+    hkr : HKEY
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Subkey name.
-     * @type {PWSTR}
      */
-    pszSubKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszSubKey : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Value name.
-     * @type {PWSTR}
      */
-    pszValueName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszValueName : PWSTR
+
 }

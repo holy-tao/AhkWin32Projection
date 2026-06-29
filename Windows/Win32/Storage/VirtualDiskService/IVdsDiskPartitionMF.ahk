@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_FILE_SYSTEM_PROP.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_FILE_SYSTEM_PROP.ahk" { VDS_FILE_SYSTEM_PROP }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP.ahk" { VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to perform file system management operations on partitions.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdiskpartitionmf
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsDiskPartitionMF extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsDiskPartitionMF extends IUnknown {
     /**
      * The interface identifier for IVdsDiskPartitionMF
      * @type {Guid}
      */
-    static IID => Guid("{538684e0-ba3d-4bc0-aca9-164aff85c2a9}")
+    static IID := Guid("{538684e0-ba3d-4bc0-aca9-164aff85c2a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsDiskPartitionMF interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPartitionFileSystemProperties      : IntPtr
+        GetPartitionFileSystemTypeName        : IntPtr
+        QueryPartitionFileSystemFormatSupport : IntPtr
+        FormatPartitionEx                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPartitionFileSystemProperties", "GetPartitionFileSystemTypeName", "QueryPartitionFileSystemFormatSupport", "FormatPartitionEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsDiskPartitionMF.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns property details about the file system on a partition on the disk at a specified byte offset.
@@ -39,7 +53,7 @@ class IVdsDiskPartitionMF extends IUnknown {
      */
     GetPartitionFileSystemProperties(ullOffset) {
         pFileSystemProp := VDS_FILE_SYSTEM_PROP()
-        result := ComCall(3, this, "uint", ullOffset, "ptr", pFileSystemProp, "HRESULT")
+        result := ComCall(3, this, "uint", ullOffset, VDS_FILE_SYSTEM_PROP.Ptr, pFileSystemProp, "HRESULT")
         return pFileSystemProp
     }
 
@@ -50,7 +64,7 @@ class IVdsDiskPartitionMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
      */
     GetPartitionFileSystemTypeName(ullOffset) {
-        result := ComCall(4, this, "uint", ullOffset, "ptr*", &ppwszFileSystemTypeName := 0, "HRESULT")
+        result := ComCall(4, this, "uint", ullOffset, PWSTR.Ptr, &ppwszFileSystemTypeName := 0, "HRESULT")
         return ppwszFileSystemTypeName
     }
 
@@ -177,7 +191,33 @@ class IVdsDiskPartitionMF extends IUnknown {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsDiskPartitionMF.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPartitionFileSystemProperties := CallbackCreate(GetMethod(implObj, "GetPartitionFileSystemProperties"), flags, 3)
+        this.vtbl.GetPartitionFileSystemTypeName := CallbackCreate(GetMethod(implObj, "GetPartitionFileSystemTypeName"), flags, 3)
+        this.vtbl.QueryPartitionFileSystemFormatSupport := CallbackCreate(GetMethod(implObj, "QueryPartitionFileSystemFormatSupport"), flags, 4)
+        this.vtbl.FormatPartitionEx := CallbackCreate(GetMethod(implObj, "FormatPartitionEx"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPartitionFileSystemProperties)
+        CallbackFree(this.vtbl.GetPartitionFileSystemTypeName)
+        CallbackFree(this.vtbl.QueryPartitionFileSystemFormatSupport)
+        CallbackFree(this.vtbl.FormatPartitionEx)
     }
 }

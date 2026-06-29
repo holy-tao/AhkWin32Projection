@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The operation converts pptfContainer into pptlHimetric. Cannot be used with XFORMCOORDS_HIMETRICTOCONTAINER.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-transformcoords
  * @namespace Windows.Win32.System.Ole
  */
-class XFORMCOORDS extends Win32Enum {
+export default struct XFORMCOORDS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

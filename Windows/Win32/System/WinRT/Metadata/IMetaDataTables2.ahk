@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMetaDataTables.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMetaDataTables.ahk" { IMetaDataTables }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends IMetaDataTables to include methods for working with metadata streams.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatatables2
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataTables2 extends IMetaDataTables {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataTables2 extends IMetaDataTables {
     /**
      * The interface identifier for IMetaDataTables2
      * @type {Guid}
      */
-    static IID => Guid("{badb5f70-58da-43a9-a1c6-d74819f19b15}")
+    static IID := Guid("{badb5f70-58da-43a9-a1c6-d74819f19b15}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataTables2 interfaces
+    */
+    struct Vtbl extends IMetaDataTables.Vtbl {
+        GetMetaDataStorage    : IntPtr
+        GetMetaDataStreamInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMetaDataStorage", "GetMetaDataStreamInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataTables2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the size and contents of the metadata stored in the specified section.
@@ -60,5 +69,27 @@ class IMetaDataTables2 extends IMetaDataTables {
 
         result := ComCall(23, this, "uint", ix, ppchNameMarshal, ppchName, ppvMarshal, ppv, pcbMarshal, pcb, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataTables2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMetaDataStorage := CallbackCreate(GetMethod(implObj, "GetMetaDataStorage"), flags, 3)
+        this.vtbl.GetMetaDataStreamInfo := CallbackCreate(GetMethod(implObj, "GetMetaDataStreamInfo"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMetaDataStorage)
+        CallbackFree(this.vtbl.GetMetaDataStreamInfo)
     }
 }

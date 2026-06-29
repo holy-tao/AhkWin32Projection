@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nn-subscriptionservices-iwmpsubscriptionservice
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSubscriptionService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSubscriptionService extends IUnknown {
     /**
      * The interface identifier for IWMPSubscriptionService
      * @type {Guid}
      */
-    static IID => Guid("{376055f8-2a59-4a73-9501-dca5273a7a10}")
+    static IID := Guid("{376055f8-2a59-4a73-9501-dca5273a7a10}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSubscriptionService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        allowPlay                 : IntPtr
+        allowCDBurn               : IntPtr
+        allowPDATransfer          : IntPtr
+        startBackgroundProcessing : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["allowPlay", "allowCDBurn", "allowPDATransfer", "startBackgroundProcessing"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSubscriptionService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This section describes functionality designed for use by online stores.
@@ -48,11 +63,9 @@ class IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowplay
      */
     allowPlay(_hwnd, pMedia, pfAllowPlay) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         pfAllowPlayMarshal := pfAllowPlay is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", pMedia, pfAllowPlayMarshal, pfAllowPlay, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", pMedia, pfAllowPlayMarshal, pfAllowPlay, "HRESULT")
         return result
     }
 
@@ -75,11 +88,9 @@ class IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowcdburn
      */
     allowCDBurn(_hwnd, pPlaylist, pfAllowBurn) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         pfAllowBurnMarshal := pfAllowBurn is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", _hwnd, "ptr", pPlaylist, pfAllowBurnMarshal, pfAllowBurn, "HRESULT")
+        result := ComCall(4, this, HWND, _hwnd, "ptr", pPlaylist, pfAllowBurnMarshal, pfAllowBurn, "HRESULT")
         return result
     }
 
@@ -104,11 +115,9 @@ class IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowpdatransfer
      */
     allowPDATransfer(_hwnd, pPlaylist, pfAllowTransfer) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         pfAllowTransferMarshal := pfAllowTransfer is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", _hwnd, "ptr", pPlaylist, pfAllowTransferMarshal, pfAllowTransfer, "HRESULT")
+        result := ComCall(5, this, HWND, _hwnd, "ptr", pPlaylist, pfAllowTransferMarshal, pfAllowTransfer, "HRESULT")
         return result
     }
 
@@ -123,9 +132,33 @@ class IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-startbackgroundprocessing
      */
     startBackgroundProcessing(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSubscriptionService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.allowPlay := CallbackCreate(GetMethod(implObj, "allowPlay"), flags, 4)
+        this.vtbl.allowCDBurn := CallbackCreate(GetMethod(implObj, "allowCDBurn"), flags, 4)
+        this.vtbl.allowPDATransfer := CallbackCreate(GetMethod(implObj, "allowPDATransfer"), flags, 4)
+        this.vtbl.startBackgroundProcessing := CallbackCreate(GetMethod(implObj, "startBackgroundProcessing"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.allowPlay)
+        CallbackFree(this.vtbl.allowCDBurn)
+        CallbackFree(this.vtbl.allowPDATransfer)
+        CallbackFree(this.vtbl.startBackgroundProcessing)
     }
 }

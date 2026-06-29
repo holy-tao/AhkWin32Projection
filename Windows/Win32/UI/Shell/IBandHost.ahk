@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create and destroy bands and specify their availability.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ibandhost
  * @namespace Windows.Win32.UI.Shell
  */
-class IBandHost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBandHost extends IUnknown {
     /**
      * The interface identifier for IBandHost
      * @type {Guid}
      */
-    static IID => Guid("{b9075c7c-d48e-403f-ab99-d6c77a1084ac}")
+    static IID := Guid("{b9075c7c-d48e-403f-ab99-d6c77a1084ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBandHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateBand          : IntPtr
+        SetBandAvailability : IntPtr
+        DestroyBand         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateBand", "SetBandAvailability", "DestroyBand"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBandHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a specified band.
@@ -49,7 +60,7 @@ class IBandHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-createband
      */
     CreateBand(rclsidBand, fAvailable, fVisible, riid) {
-        result := ComCall(3, this, "ptr", rclsidBand, "int", fAvailable, "int", fVisible, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsidBand, BOOL, fAvailable, BOOL, fVisible, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -67,7 +78,7 @@ class IBandHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-setbandavailability
      */
     SetBandAvailability(rclsidBand, fAvailable) {
-        result := ComCall(4, this, "ptr", rclsidBand, "int", fAvailable, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rclsidBand, BOOL, fAvailable, "HRESULT")
         return result
     }
 
@@ -82,7 +93,31 @@ class IBandHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-destroyband
      */
     DestroyBand(rclsidBand) {
-        result := ComCall(5, this, "ptr", rclsidBand, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsidBand, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBandHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateBand := CallbackCreate(GetMethod(implObj, "CreateBand"), flags, 6)
+        this.vtbl.SetBandAvailability := CallbackCreate(GetMethod(implObj, "SetBandAvailability"), flags, 3)
+        this.vtbl.DestroyBand := CallbackCreate(GetMethod(implObj, "DestroyBand"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateBand)
+        CallbackFree(this.vtbl.SetBandAvailability)
+        CallbackFree(this.vtbl.DestroyBand)
     }
 }

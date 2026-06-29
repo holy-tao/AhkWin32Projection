@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how to access a resource used in a depth-stencil view. (D3D12_DSV_DIMENSION)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_dsv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DSV_DIMENSION extends Win32Enum {
+export default struct D3D12_DSV_DIMENSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * <b>D3D12_DSV_DIMENSION_UNKNOWN</b> is not a valid value for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc">D3D12_DEPTH_STENCIL_VIEW_DESC</a> and is not used.

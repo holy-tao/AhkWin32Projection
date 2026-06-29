@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_GAMMA_RAMP_DXGI_1 extends Win32Struct {
-    static sizeof => 8216
+export default struct D3DDDI_GAMMA_RAMP_DXGI_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Scale : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Scale {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Offset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Offset {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    GammaCurve : IntPtr[1025]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    GammaCurve {
-        get {
-            if(!this.HasProp("__GammaCurveProxyArray"))
-                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 16, 1025, Primitive, "ptr")
-            return this.__GammaCurveProxyArray
-        }
-    }
 }

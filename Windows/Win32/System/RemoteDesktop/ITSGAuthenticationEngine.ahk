@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITSGAuthenticateUserSink.ahk" { ITSGAuthenticateUserSink }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that authenticate users for Remote Desktop Gateway (RD Gateway).
  * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticationengine
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITSGAuthenticationEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITSGAuthenticationEngine extends IUnknown {
     /**
      * The interface identifier for ITSGAuthenticationEngine
      * @type {Guid}
      */
-    static IID => Guid("{9ee3e5bf-04ab-4691-998c-d7f622321a56}")
+    static IID := Guid("{9ee3e5bf-04ab-4691-998c-d7f622321a56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSGAuthenticationEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AuthenticateUser     : IntPtr
+        CancelAuthentication : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AuthenticateUser", "CancelAuthentication"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSGAuthenticationEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Authenticates a user.
@@ -53,7 +63,7 @@ class ITSGAuthenticationEngine extends IUnknown {
     AuthenticateUser(mainSessionId, cookieData, numCookieBytes, _context, pSink) {
         cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", mainSessionId, cookieDataMarshal, cookieData, "uint", numCookieBytes, "ptr", _context, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, Guid, mainSessionId, cookieDataMarshal, cookieData, "uint", numCookieBytes, "ptr", _context, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -65,7 +75,29 @@ class ITSGAuthenticationEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-cancelauthentication
      */
     CancelAuthentication(mainSessionId, _context) {
-        result := ComCall(4, this, "ptr", mainSessionId, "ptr", _context, "HRESULT")
+        result := ComCall(4, this, Guid, mainSessionId, "ptr", _context, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITSGAuthenticationEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AuthenticateUser := CallbackCreate(GetMethod(implObj, "AuthenticateUser"), flags, 6)
+        this.vtbl.CancelAuthentication := CallbackCreate(GetMethod(implObj, "CancelAuthentication"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AuthenticateUser)
+        CallbackFree(this.vtbl.CancelAuthentication)
     }
 }

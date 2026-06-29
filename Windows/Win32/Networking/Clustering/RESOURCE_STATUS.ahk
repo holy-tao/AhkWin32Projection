@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_RESOURCE_STATE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains information about a resource that is being brought online or taken offline. This structure is used as a parameter to the callback function SetResourceStatus.
@@ -30,49 +29,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resource_status
  * @namespace Windows.Win32.Networking.Clustering
  */
-class RESOURCE_STATUS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct RESOURCE_STATUS {
+    #StructPack 8
 
     /**
      * A value describing the state of a resource enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration.  The possible values for this member are as follows:
-     * @type {CLUSTER_RESOURCE_STATE}
      */
-    ResourceState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ResourceState : CLUSTER_RESOURCE_STATE
 
     /**
      * A value set by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> to flag a status 
      *       report as new.
-     * @type {Integer}
      */
-    CheckPoint {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CheckPoint : UInt32
 
     /**
      * This member is not being used at this time.
-     * @type {Integer}
      */
-    WaitHint {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WaitHint : UInt32
 
     /**
      * Handle to an event that indicates when the resource has failed.
-     * @type {HANDLE}
      */
-    EventHandle {
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(16, this)
-            return this.__EventHandle
-        }
-    }
+    EventHandle : HANDLE
+
 }

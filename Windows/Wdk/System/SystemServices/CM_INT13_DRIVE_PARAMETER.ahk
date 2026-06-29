@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_INT13_DRIVE_PARAMETER extends Win32Struct {
-    static sizeof => 16
+export default struct CM_INT13_DRIVE_PARAMETER {
+    #StructPack 4
 
-    static packingSize => 4
+    DriveSelect : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DriveSelect {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MaxCylinders : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxCylinders {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SectorsPerTrack : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SectorsPerTrack {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MaxHeads : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaxHeads {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    NumberDrives : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberDrives {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
 }

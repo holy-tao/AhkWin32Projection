@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DVD_MUA_MixingInfo structure describes the surround sound mixing information for the channels in one audio stream in a specified title.
@@ -74,53 +74,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_mua_mixinginfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_MUA_MixingInfo extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DVD_MUA_MixingInfo {
+    #StructPack 4
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed to channel 0.
-     * @type {BOOL}
      */
-    fMixTo0 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fMixTo0 : BOOL
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed to channel 1.
-     * @type {BOOL}
      */
-    fMixTo1 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fMixTo1 : BOOL
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed in phase to channel 0.
-     * @type {BOOL}
      */
-    fMix0InPhase {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fMix0InPhase : BOOL
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed in phase to channel 1.
-     * @type {BOOL}
      */
-    fMix1InPhase {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    fMix1InPhase : BOOL
 
     /**
      * The speaker for which this channel is intended. See Remarks.
-     * @type {Integer}
      */
-    dwSpeakerPosition {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSpeakerPosition : UInt32
+
 }

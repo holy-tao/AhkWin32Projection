@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfContextComposition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfContextComposition.ahk" { ITfContextComposition }
+#Import ".\ITfCompositionView.ahk" { ITfCompositionView }
 
 /**
  * The ITfContextOwnerCompositionServices interface is implemented by the TSF manager and used by a context owner to manipulate compositions created by a text service.
@@ -12,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextownercompositionservices
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfContextOwnerCompositionServices extends ITfContextComposition {
-
-    static sizeof => A_PtrSize
+export default struct ITfContextOwnerCompositionServices extends ITfContextComposition {
     /**
      * The interface identifier for ITfContextOwnerCompositionServices
      * @type {Guid}
      */
-    static IID => Guid("{86462810-593b-4916-9764-19c08e9ce110}")
+    static IID := Guid("{86462810-593b-4916-9764-19c08e9ce110}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfContextOwnerCompositionServices interfaces
+    */
+    struct Vtbl extends ITfContextComposition.Vtbl {
+        TerminateComposition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TerminateComposition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfContextOwnerCompositionServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfContextOwnerCompositionServices::TerminateComposition method
@@ -116,5 +125,25 @@ class ITfContextOwnerCompositionServices extends ITfContextComposition {
     TerminateComposition(pComposition) {
         result := ComCall(7, this, "ptr", pComposition, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfContextOwnerCompositionServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TerminateComposition := CallbackCreate(GetMethod(implObj, "TerminateComposition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TerminateComposition)
     }
 }

@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FixupState.ahk
-#Include .\ResultCodes.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ResultCodes.ahk" { ResultCodes }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FixupState.ahk" { FixupState }
 
 /**
  * Contains fix-up information for the Sysytem Health Agent (SHA).
@@ -14,50 +14,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-fixupinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  */
-class FixupInfo extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FixupInfo {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-fixupstate">FixupState</a> value that defines the fix-up state of the SHA.
-     * @type {FixupState}
      */
-    state {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    state : FixupState
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-datatypes">Percentage</a> data type that contains the percentage of remediation that is complete. This member is a nonzero value between 0 (zero) and 100 when <b>state</b> is equal to <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-fixupstate">FixupStateInProgress</a>; otherwise, it is 0 (zero).
      * 
      * <div class="alert"><b>Note</b>  If the SHA does not support percentages, this value is either 0, which indicates the SHA update has not started; or 101, which indicates the SHA is in the process of updating.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    percentage {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    percentage : Int8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-resultcodes">ResultCodes</a> structure that contains the SHA defined HRESULT values returned to the NAP Agent in a call to <a href="https://docs.microsoft.com/windows/desktop/NAP/inapsystemhealthagentcallback-getfixupinfo-method">GetFixupInfo</a>.
-     * @type {ResultCodes}
      */
-    resultCodes {
-        get {
-            if(!this.HasProp("__resultCodes"))
-                this.__resultCodes := ResultCodes(8, this)
-            return this.__resultCodes
-        }
-    }
+    resultCodes : ResultCodes
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-datatypes">MessageID</a> value that contains the SHA defined resource ID of a fix-up status structure.
-     * @type {Integer}
      */
-    fixupMsgId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    fixupMsgId : UInt32
+
 }

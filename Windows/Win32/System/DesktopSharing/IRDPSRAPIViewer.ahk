@@ -1,39 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIAttendeeManager.ahk
-#Include .\IRDPSRAPIInvitationManager.ahk
-#Include .\IRDPSRAPIApplicationFilter.ahk
-#Include .\IRDPSRAPIVirtualChannelManager.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRDPSRAPISessionProperties.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
+#Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
+#Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
+#Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
 
 /**
  * The ActiveX interface that is used on the viewer side.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiviewer
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIViewer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIViewer extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPIViewer
      * @type {Guid}
      */
-    static IID => Guid("{c6bfcd38-8ce9-404d-8ae8-f31d00c65cb5}")
+    static IID := Guid("{c6bfcd38-8ce9-404d-8ae8-f31d00c65cb5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIViewer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Connect                     : IntPtr
+        Disconnect                  : IntPtr
+        get_Attendees               : IntPtr
+        get_Invitations             : IntPtr
+        get_ApplicationFilter       : IntPtr
+        get_VirtualChannelManager   : IntPtr
+        put_SmartSizing             : IntPtr
+        get_SmartSizing             : IntPtr
+        RequestControl              : IntPtr
+        put_DisconnectedText        : IntPtr
+        get_DisconnectedText        : IntPtr
+        RequestColorDepthChange     : IntPtr
+        get_Properties              : IntPtr
+        StartReverseConnectListener : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect", "get_Attendees", "get_Invitations", "get_ApplicationFilter", "get_VirtualChannelManager", "put_SmartSizing", "get_SmartSizing", "RequestControl", "put_DisconnectedText", "get_DisconnectedText", "RequestColorDepthChange", "get_Properties", "StartReverseConnectListener"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIViewer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRDPSRAPIAttendeeManager} 
@@ -119,7 +142,7 @@ class IRDPSRAPIViewer extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(7, this, "ptr", bstrConnectionString, "ptr", bstrName, "ptr", bstrPassword, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrConnectionString, BSTR, bstrName, BSTR, bstrPassword, "HRESULT")
         return result
     }
 
@@ -180,7 +203,7 @@ class IRDPSRAPIViewer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-put_smartsizing
      */
     put_SmartSizing(vbSmartSizing) {
-        result := ComCall(13, this, "short", vbSmartSizing, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, vbSmartSizing, "HRESULT")
         return result
     }
 
@@ -190,7 +213,7 @@ class IRDPSRAPIViewer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_smartsizing
      */
     get_SmartSizing() {
-        result := ComCall(14, this, "short*", &pvbSmartSizing := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &pvbSmartSizing := 0, "HRESULT")
         return pvbSmartSizing
     }
 
@@ -205,7 +228,7 @@ class IRDPSRAPIViewer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-requestcontrol
      */
     RequestControl(CtrlLevel) {
-        result := ComCall(15, this, "int", CtrlLevel, "HRESULT")
+        result := ComCall(15, this, CTRL_LEVEL, CtrlLevel, "HRESULT")
         return result
     }
 
@@ -222,7 +245,7 @@ class IRDPSRAPIViewer extends IDispatch {
     put_DisconnectedText(bstrDisconnectedText) {
         bstrDisconnectedText := bstrDisconnectedText is String ? BSTR.Alloc(bstrDisconnectedText).Value : bstrDisconnectedText
 
-        result := ComCall(16, this, "ptr", bstrDisconnectedText, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrDisconnectedText, "HRESULT")
         return result
     }
 
@@ -236,8 +259,8 @@ class IRDPSRAPIViewer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_disconnectedtext
      */
     get_DisconnectedText() {
-        pbstrDisconnectedText := BSTR()
-        result := ComCall(17, this, "ptr", pbstrDisconnectedText, "HRESULT")
+        pbstrDisconnectedText := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrDisconnectedText, "HRESULT")
         return pbstrDisconnectedText
     }
 
@@ -303,8 +326,54 @@ class IRDPSRAPIViewer extends IDispatch {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        pbstrReverseConnectString := BSTR()
-        result := ComCall(20, this, "ptr", bstrConnectionString, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", pbstrReverseConnectString, "HRESULT")
+        pbstrReverseConnectString := BSTR.Owned()
+        result := ComCall(20, this, BSTR, bstrConnectionString, BSTR, bstrUserName, BSTR, bstrPassword, BSTR.Ptr, pbstrReverseConnectString, "HRESULT")
         return pbstrReverseConnectString
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIViewer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 4)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.get_Attendees := CallbackCreate(GetMethod(implObj, "get_Attendees"), flags, 2)
+        this.vtbl.get_Invitations := CallbackCreate(GetMethod(implObj, "get_Invitations"), flags, 2)
+        this.vtbl.get_ApplicationFilter := CallbackCreate(GetMethod(implObj, "get_ApplicationFilter"), flags, 2)
+        this.vtbl.get_VirtualChannelManager := CallbackCreate(GetMethod(implObj, "get_VirtualChannelManager"), flags, 2)
+        this.vtbl.put_SmartSizing := CallbackCreate(GetMethod(implObj, "put_SmartSizing"), flags, 2)
+        this.vtbl.get_SmartSizing := CallbackCreate(GetMethod(implObj, "get_SmartSizing"), flags, 2)
+        this.vtbl.RequestControl := CallbackCreate(GetMethod(implObj, "RequestControl"), flags, 2)
+        this.vtbl.put_DisconnectedText := CallbackCreate(GetMethod(implObj, "put_DisconnectedText"), flags, 2)
+        this.vtbl.get_DisconnectedText := CallbackCreate(GetMethod(implObj, "get_DisconnectedText"), flags, 2)
+        this.vtbl.RequestColorDepthChange := CallbackCreate(GetMethod(implObj, "RequestColorDepthChange"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.StartReverseConnectListener := CallbackCreate(GetMethod(implObj, "StartReverseConnectListener"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.get_Attendees)
+        CallbackFree(this.vtbl.get_Invitations)
+        CallbackFree(this.vtbl.get_ApplicationFilter)
+        CallbackFree(this.vtbl.get_VirtualChannelManager)
+        CallbackFree(this.vtbl.put_SmartSizing)
+        CallbackFree(this.vtbl.get_SmartSizing)
+        CallbackFree(this.vtbl.RequestControl)
+        CallbackFree(this.vtbl.put_DisconnectedText)
+        CallbackFree(this.vtbl.get_DisconnectedText)
+        CallbackFree(this.vtbl.RequestColorDepthChange)
+        CallbackFree(this.vtbl.get_Properties)
+        CallbackFree(this.vtbl.StartReverseConnectListener)
     }
 }

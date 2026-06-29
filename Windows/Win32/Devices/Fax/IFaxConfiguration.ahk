@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines various methods that provide configuration options for the fax service.
@@ -11,32 +13,80 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxconfiguration
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxConfiguration extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxConfiguration extends IDispatch {
     /**
      * The interface identifier for IFaxConfiguration
      * @type {Guid}
      */
-    static IID => Guid("{10f4d0f7-0994-4543-ab6e-506949128c40}")
+    static IID := Guid("{10f4d0f7-0994-4543-ab6e-506949128c40}")
 
     /**
      * The class identifier for FaxConfiguration
      * @type {Guid}
      */
-    static CLSID => Guid("{5857326f-e7b3-41a7-9c19-a91b463e2d56}")
+    static CLSID := Guid("{5857326f-e7b3-41a7-9c19-a91b463e2d56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxConfiguration interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_UseArchive                 : IntPtr
+        put_UseArchive                 : IntPtr
+        get_ArchiveLocation            : IntPtr
+        put_ArchiveLocation            : IntPtr
+        get_SizeQuotaWarning           : IntPtr
+        put_SizeQuotaWarning           : IntPtr
+        get_HighQuotaWaterMark         : IntPtr
+        put_HighQuotaWaterMark         : IntPtr
+        get_LowQuotaWaterMark          : IntPtr
+        put_LowQuotaWaterMark          : IntPtr
+        get_ArchiveAgeLimit            : IntPtr
+        put_ArchiveAgeLimit            : IntPtr
+        get_ArchiveSizeLow             : IntPtr
+        get_ArchiveSizeHigh            : IntPtr
+        get_OutgoingQueueBlocked       : IntPtr
+        put_OutgoingQueueBlocked       : IntPtr
+        get_OutgoingQueuePaused        : IntPtr
+        put_OutgoingQueuePaused        : IntPtr
+        get_AllowPersonalCoverPages    : IntPtr
+        put_AllowPersonalCoverPages    : IntPtr
+        get_UseDeviceTSID              : IntPtr
+        put_UseDeviceTSID              : IntPtr
+        get_Retries                    : IntPtr
+        put_Retries                    : IntPtr
+        get_RetryDelay                 : IntPtr
+        put_RetryDelay                 : IntPtr
+        get_DiscountRateStart          : IntPtr
+        put_DiscountRateStart          : IntPtr
+        get_DiscountRateEnd            : IntPtr
+        put_DiscountRateEnd            : IntPtr
+        get_OutgoingQueueAgeLimit      : IntPtr
+        put_OutgoingQueueAgeLimit      : IntPtr
+        get_Branding                   : IntPtr
+        put_Branding                   : IntPtr
+        get_IncomingQueueBlocked       : IntPtr
+        put_IncomingQueueBlocked       : IntPtr
+        get_AutoCreateAccountOnConnect : IntPtr
+        put_AutoCreateAccountOnConnect : IntPtr
+        get_IncomingFaxesArePublic     : IntPtr
+        put_IncomingFaxesArePublic     : IntPtr
+        Refresh                        : IntPtr
+        Save                           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UseArchive", "put_UseArchive", "get_ArchiveLocation", "put_ArchiveLocation", "get_SizeQuotaWarning", "put_SizeQuotaWarning", "get_HighQuotaWaterMark", "put_HighQuotaWaterMark", "get_LowQuotaWaterMark", "put_LowQuotaWaterMark", "get_ArchiveAgeLimit", "put_ArchiveAgeLimit", "get_ArchiveSizeLow", "get_ArchiveSizeHigh", "get_OutgoingQueueBlocked", "put_OutgoingQueueBlocked", "get_OutgoingQueuePaused", "put_OutgoingQueuePaused", "get_AllowPersonalCoverPages", "put_AllowPersonalCoverPages", "get_UseDeviceTSID", "put_UseDeviceTSID", "get_Retries", "put_Retries", "get_RetryDelay", "put_RetryDelay", "get_DiscountRateStart", "put_DiscountRateStart", "get_DiscountRateEnd", "put_DiscountRateEnd", "get_OutgoingQueueAgeLimit", "put_OutgoingQueueAgeLimit", "get_Branding", "put_Branding", "get_IncomingQueueBlocked", "put_IncomingQueueBlocked", "get_AutoCreateAccountOnConnect", "put_AutoCreateAccountOnConnect", "get_IncomingFaxesArePublic", "put_IncomingFaxesArePublic", "Refresh", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxConfiguration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -210,7 +260,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_usearchive
      */
     get_UseArchive() {
-        result := ComCall(7, this, "short*", &pbUseArchive := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbUseArchive := 0, "HRESULT")
         return pbUseArchive
     }
 
@@ -221,7 +271,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_usearchive
      */
     put_UseArchive(bUseArchive) {
-        result := ComCall(8, this, "short", bUseArchive, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, bUseArchive, "HRESULT")
         return result
     }
 
@@ -231,8 +281,8 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivelocation
      */
     get_ArchiveLocation() {
-        pbstrArchiveLocation := BSTR()
-        result := ComCall(9, this, "ptr", pbstrArchiveLocation, "HRESULT")
+        pbstrArchiveLocation := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrArchiveLocation, "HRESULT")
         return pbstrArchiveLocation
     }
 
@@ -245,7 +295,7 @@ class IFaxConfiguration extends IDispatch {
     put_ArchiveLocation(bstrArchiveLocation) {
         bstrArchiveLocation := bstrArchiveLocation is String ? BSTR.Alloc(bstrArchiveLocation).Value : bstrArchiveLocation
 
-        result := ComCall(10, this, "ptr", bstrArchiveLocation, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrArchiveLocation, "HRESULT")
         return result
     }
 
@@ -255,7 +305,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_sizequotawarning
      */
     get_SizeQuotaWarning() {
-        result := ComCall(11, this, "short*", &pbSizeQuotaWarning := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbSizeQuotaWarning := 0, "HRESULT")
         return pbSizeQuotaWarning
     }
 
@@ -266,7 +316,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_sizequotawarning
      */
     put_SizeQuotaWarning(bSizeQuotaWarning) {
-        result := ComCall(12, this, "short", bSizeQuotaWarning, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, bSizeQuotaWarning, "HRESULT")
         return result
     }
 
@@ -371,7 +421,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueueblocked
      */
     get_OutgoingQueueBlocked() {
-        result := ComCall(21, this, "short*", &pbOutgoingBlocked := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &pbOutgoingBlocked := 0, "HRESULT")
         return pbOutgoingBlocked
     }
 
@@ -382,7 +432,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueueblocked
      */
     put_OutgoingQueueBlocked(bOutgoingBlocked) {
-        result := ComCall(22, this, "short", bOutgoingBlocked, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, bOutgoingBlocked, "HRESULT")
         return result
     }
 
@@ -392,7 +442,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueuepaused
      */
     get_OutgoingQueuePaused() {
-        result := ComCall(23, this, "short*", &pbOutgoingPaused := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &pbOutgoingPaused := 0, "HRESULT")
         return pbOutgoingPaused
     }
 
@@ -403,7 +453,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueuepaused
      */
     put_OutgoingQueuePaused(bOutgoingPaused) {
-        result := ComCall(24, this, "short", bOutgoingPaused, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, bOutgoingPaused, "HRESULT")
         return result
     }
 
@@ -413,7 +463,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_allowpersonalcoverpages
      */
     get_AllowPersonalCoverPages() {
-        result := ComCall(25, this, "short*", &pbAllowPersonalCoverPages := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &pbAllowPersonalCoverPages := 0, "HRESULT")
         return pbAllowPersonalCoverPages
     }
 
@@ -424,7 +474,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_allowpersonalcoverpages
      */
     put_AllowPersonalCoverPages(bAllowPersonalCoverPages) {
-        result := ComCall(26, this, "short", bAllowPersonalCoverPages, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, bAllowPersonalCoverPages, "HRESULT")
         return result
     }
 
@@ -434,7 +484,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_usedevicetsid
      */
     get_UseDeviceTSID() {
-        result := ComCall(27, this, "short*", &pbUseDeviceTSID := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &pbUseDeviceTSID := 0, "HRESULT")
         return pbUseDeviceTSID
     }
 
@@ -445,7 +495,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_usedevicetsid
      */
     put_UseDeviceTSID(bUseDeviceTSID) {
-        result := ComCall(28, this, "short", bUseDeviceTSID, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL, bUseDeviceTSID, "HRESULT")
         return result
     }
 
@@ -560,7 +610,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_branding
      */
     get_Branding() {
-        result := ComCall(39, this, "short*", &pbBranding := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT_BOOL.Ptr, &pbBranding := 0, "HRESULT")
         return pbBranding
     }
 
@@ -571,7 +621,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_branding
      */
     put_Branding(bBranding) {
-        result := ComCall(40, this, "short", bBranding, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL, bBranding, "HRESULT")
         return result
     }
 
@@ -581,7 +631,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_incomingqueueblocked
      */
     get_IncomingQueueBlocked() {
-        result := ComCall(41, this, "short*", &pbIncomingBlocked := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL.Ptr, &pbIncomingBlocked := 0, "HRESULT")
         return pbIncomingBlocked
     }
 
@@ -592,7 +642,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_incomingqueueblocked
      */
     put_IncomingQueueBlocked(bIncomingBlocked) {
-        result := ComCall(42, this, "short", bIncomingBlocked, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL, bIncomingBlocked, "HRESULT")
         return result
     }
 
@@ -602,7 +652,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_autocreateaccountonconnect
      */
     get_AutoCreateAccountOnConnect() {
-        result := ComCall(43, this, "short*", &pbAutoCreateAccountOnConnect := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL.Ptr, &pbAutoCreateAccountOnConnect := 0, "HRESULT")
         return pbAutoCreateAccountOnConnect
     }
 
@@ -613,7 +663,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_autocreateaccountonconnect
      */
     put_AutoCreateAccountOnConnect(bAutoCreateAccountOnConnect) {
-        result := ComCall(44, this, "short", bAutoCreateAccountOnConnect, "HRESULT")
+        result := ComCall(44, this, VARIANT_BOOL, bAutoCreateAccountOnConnect, "HRESULT")
         return result
     }
 
@@ -623,7 +673,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_incomingfaxesarepublic
      */
     get_IncomingFaxesArePublic() {
-        result := ComCall(45, this, "short*", &pbIncomingFaxesArePublic := 0, "HRESULT")
+        result := ComCall(45, this, VARIANT_BOOL.Ptr, &pbIncomingFaxesArePublic := 0, "HRESULT")
         return pbIncomingFaxesArePublic
     }
 
@@ -634,7 +684,7 @@ class IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_incomingfaxesarepublic
      */
     put_IncomingFaxesArePublic(bIncomingFaxesArePublic) {
-        result := ComCall(46, this, "short", bIncomingFaxesArePublic, "HRESULT")
+        result := ComCall(46, this, VARIANT_BOOL, bIncomingFaxesArePublic, "HRESULT")
         return result
     }
 
@@ -658,5 +708,107 @@ class IFaxConfiguration extends IDispatch {
     Save() {
         result := ComCall(48, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxConfiguration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UseArchive := CallbackCreate(GetMethod(implObj, "get_UseArchive"), flags, 2)
+        this.vtbl.put_UseArchive := CallbackCreate(GetMethod(implObj, "put_UseArchive"), flags, 2)
+        this.vtbl.get_ArchiveLocation := CallbackCreate(GetMethod(implObj, "get_ArchiveLocation"), flags, 2)
+        this.vtbl.put_ArchiveLocation := CallbackCreate(GetMethod(implObj, "put_ArchiveLocation"), flags, 2)
+        this.vtbl.get_SizeQuotaWarning := CallbackCreate(GetMethod(implObj, "get_SizeQuotaWarning"), flags, 2)
+        this.vtbl.put_SizeQuotaWarning := CallbackCreate(GetMethod(implObj, "put_SizeQuotaWarning"), flags, 2)
+        this.vtbl.get_HighQuotaWaterMark := CallbackCreate(GetMethod(implObj, "get_HighQuotaWaterMark"), flags, 2)
+        this.vtbl.put_HighQuotaWaterMark := CallbackCreate(GetMethod(implObj, "put_HighQuotaWaterMark"), flags, 2)
+        this.vtbl.get_LowQuotaWaterMark := CallbackCreate(GetMethod(implObj, "get_LowQuotaWaterMark"), flags, 2)
+        this.vtbl.put_LowQuotaWaterMark := CallbackCreate(GetMethod(implObj, "put_LowQuotaWaterMark"), flags, 2)
+        this.vtbl.get_ArchiveAgeLimit := CallbackCreate(GetMethod(implObj, "get_ArchiveAgeLimit"), flags, 2)
+        this.vtbl.put_ArchiveAgeLimit := CallbackCreate(GetMethod(implObj, "put_ArchiveAgeLimit"), flags, 2)
+        this.vtbl.get_ArchiveSizeLow := CallbackCreate(GetMethod(implObj, "get_ArchiveSizeLow"), flags, 2)
+        this.vtbl.get_ArchiveSizeHigh := CallbackCreate(GetMethod(implObj, "get_ArchiveSizeHigh"), flags, 2)
+        this.vtbl.get_OutgoingQueueBlocked := CallbackCreate(GetMethod(implObj, "get_OutgoingQueueBlocked"), flags, 2)
+        this.vtbl.put_OutgoingQueueBlocked := CallbackCreate(GetMethod(implObj, "put_OutgoingQueueBlocked"), flags, 2)
+        this.vtbl.get_OutgoingQueuePaused := CallbackCreate(GetMethod(implObj, "get_OutgoingQueuePaused"), flags, 2)
+        this.vtbl.put_OutgoingQueuePaused := CallbackCreate(GetMethod(implObj, "put_OutgoingQueuePaused"), flags, 2)
+        this.vtbl.get_AllowPersonalCoverPages := CallbackCreate(GetMethod(implObj, "get_AllowPersonalCoverPages"), flags, 2)
+        this.vtbl.put_AllowPersonalCoverPages := CallbackCreate(GetMethod(implObj, "put_AllowPersonalCoverPages"), flags, 2)
+        this.vtbl.get_UseDeviceTSID := CallbackCreate(GetMethod(implObj, "get_UseDeviceTSID"), flags, 2)
+        this.vtbl.put_UseDeviceTSID := CallbackCreate(GetMethod(implObj, "put_UseDeviceTSID"), flags, 2)
+        this.vtbl.get_Retries := CallbackCreate(GetMethod(implObj, "get_Retries"), flags, 2)
+        this.vtbl.put_Retries := CallbackCreate(GetMethod(implObj, "put_Retries"), flags, 2)
+        this.vtbl.get_RetryDelay := CallbackCreate(GetMethod(implObj, "get_RetryDelay"), flags, 2)
+        this.vtbl.put_RetryDelay := CallbackCreate(GetMethod(implObj, "put_RetryDelay"), flags, 2)
+        this.vtbl.get_DiscountRateStart := CallbackCreate(GetMethod(implObj, "get_DiscountRateStart"), flags, 2)
+        this.vtbl.put_DiscountRateStart := CallbackCreate(GetMethod(implObj, "put_DiscountRateStart"), flags, 2)
+        this.vtbl.get_DiscountRateEnd := CallbackCreate(GetMethod(implObj, "get_DiscountRateEnd"), flags, 2)
+        this.vtbl.put_DiscountRateEnd := CallbackCreate(GetMethod(implObj, "put_DiscountRateEnd"), flags, 2)
+        this.vtbl.get_OutgoingQueueAgeLimit := CallbackCreate(GetMethod(implObj, "get_OutgoingQueueAgeLimit"), flags, 2)
+        this.vtbl.put_OutgoingQueueAgeLimit := CallbackCreate(GetMethod(implObj, "put_OutgoingQueueAgeLimit"), flags, 2)
+        this.vtbl.get_Branding := CallbackCreate(GetMethod(implObj, "get_Branding"), flags, 2)
+        this.vtbl.put_Branding := CallbackCreate(GetMethod(implObj, "put_Branding"), flags, 2)
+        this.vtbl.get_IncomingQueueBlocked := CallbackCreate(GetMethod(implObj, "get_IncomingQueueBlocked"), flags, 2)
+        this.vtbl.put_IncomingQueueBlocked := CallbackCreate(GetMethod(implObj, "put_IncomingQueueBlocked"), flags, 2)
+        this.vtbl.get_AutoCreateAccountOnConnect := CallbackCreate(GetMethod(implObj, "get_AutoCreateAccountOnConnect"), flags, 2)
+        this.vtbl.put_AutoCreateAccountOnConnect := CallbackCreate(GetMethod(implObj, "put_AutoCreateAccountOnConnect"), flags, 2)
+        this.vtbl.get_IncomingFaxesArePublic := CallbackCreate(GetMethod(implObj, "get_IncomingFaxesArePublic"), flags, 2)
+        this.vtbl.put_IncomingFaxesArePublic := CallbackCreate(GetMethod(implObj, "put_IncomingFaxesArePublic"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UseArchive)
+        CallbackFree(this.vtbl.put_UseArchive)
+        CallbackFree(this.vtbl.get_ArchiveLocation)
+        CallbackFree(this.vtbl.put_ArchiveLocation)
+        CallbackFree(this.vtbl.get_SizeQuotaWarning)
+        CallbackFree(this.vtbl.put_SizeQuotaWarning)
+        CallbackFree(this.vtbl.get_HighQuotaWaterMark)
+        CallbackFree(this.vtbl.put_HighQuotaWaterMark)
+        CallbackFree(this.vtbl.get_LowQuotaWaterMark)
+        CallbackFree(this.vtbl.put_LowQuotaWaterMark)
+        CallbackFree(this.vtbl.get_ArchiveAgeLimit)
+        CallbackFree(this.vtbl.put_ArchiveAgeLimit)
+        CallbackFree(this.vtbl.get_ArchiveSizeLow)
+        CallbackFree(this.vtbl.get_ArchiveSizeHigh)
+        CallbackFree(this.vtbl.get_OutgoingQueueBlocked)
+        CallbackFree(this.vtbl.put_OutgoingQueueBlocked)
+        CallbackFree(this.vtbl.get_OutgoingQueuePaused)
+        CallbackFree(this.vtbl.put_OutgoingQueuePaused)
+        CallbackFree(this.vtbl.get_AllowPersonalCoverPages)
+        CallbackFree(this.vtbl.put_AllowPersonalCoverPages)
+        CallbackFree(this.vtbl.get_UseDeviceTSID)
+        CallbackFree(this.vtbl.put_UseDeviceTSID)
+        CallbackFree(this.vtbl.get_Retries)
+        CallbackFree(this.vtbl.put_Retries)
+        CallbackFree(this.vtbl.get_RetryDelay)
+        CallbackFree(this.vtbl.put_RetryDelay)
+        CallbackFree(this.vtbl.get_DiscountRateStart)
+        CallbackFree(this.vtbl.put_DiscountRateStart)
+        CallbackFree(this.vtbl.get_DiscountRateEnd)
+        CallbackFree(this.vtbl.put_DiscountRateEnd)
+        CallbackFree(this.vtbl.get_OutgoingQueueAgeLimit)
+        CallbackFree(this.vtbl.put_OutgoingQueueAgeLimit)
+        CallbackFree(this.vtbl.get_Branding)
+        CallbackFree(this.vtbl.put_Branding)
+        CallbackFree(this.vtbl.get_IncomingQueueBlocked)
+        CallbackFree(this.vtbl.put_IncomingQueueBlocked)
+        CallbackFree(this.vtbl.get_AutoCreateAccountOnConnect)
+        CallbackFree(this.vtbl.put_AutoCreateAccountOnConnect)
+        CallbackFree(this.vtbl.get_IncomingFaxesArePublic)
+        CallbackFree(this.vtbl.put_IncomingFaxesArePublic)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
     }
 }

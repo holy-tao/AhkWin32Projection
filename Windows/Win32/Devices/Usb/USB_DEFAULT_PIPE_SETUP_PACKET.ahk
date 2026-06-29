@@ -1,119 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BM_REQUEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BM_REQUEST_TYPE.ahk" { BM_REQUEST_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct {
-    static sizeof => 14
+export default struct USB_DEFAULT_PIPE_SETUP_PACKET {
+    #StructPack 2
 
-    static packingSize => 2
 
-    class _wValue extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
+    struct _wValue {
+        LowByte : Int8
 
-        /**
-         * @type {Integer}
-         */
-        LowByte {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        HiByte : Int8
 
-        /**
-         * @type {Integer}
-         */
-        HiByte {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        W {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'W', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _wIndex extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
+    struct _wIndex {
+        LowByte : Int8
 
-        /**
-         * @type {Integer}
-         */
-        LowByte {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        HiByte : Int8
 
-        /**
-         * @type {Integer}
-         */
-        HiByte {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        W {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'W', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {BM_REQUEST_TYPE}
-     */
-    bmRequestType {
-        get {
-            if(!this.HasProp("__bmRequestType"))
-                this.__bmRequestType := BM_REQUEST_TYPE(0, this)
-            return this.__bmRequestType
-        }
-    }
+    bmRequestType : BM_REQUEST_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    bRequest {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bRequest : Int8
 
-    /**
-     * @type {_wValue}
-     */
-    wValue {
-        get {
-            if(!this.HasProp("__wValue"))
-                this.__wValue := USB_DEFAULT_PIPE_SETUP_PACKET._wValue(3, this)
-            return this.__wValue
-        }
-    }
+    wValue : USB_DEFAULT_PIPE_SETUP_PACKET._wValue
 
-    /**
-     * @type {_wIndex}
-     */
-    wIndex {
-        get {
-            if(!this.HasProp("__wIndex"))
-                this.__wIndex := USB_DEFAULT_PIPE_SETUP_PACKET._wIndex(7, this)
-            return this.__wIndex
-        }
-    }
+    wIndex : USB_DEFAULT_PIPE_SETUP_PACKET._wIndex
 
-    /**
-     * @type {Integer}
-     */
-    wLength {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wLength : UInt16
+
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The STYLEBUFW (Unicode) structure (immdev.h) contains the identifier and name of a style.
@@ -10,26 +10,17 @@
  * @namespace Windows.Win32.UI.Input.Ime
  * @charset Unicode
  */
-class STYLEBUFW extends Win32Struct {
-    static sizeof => 68
-
-    static packingSize => 4
+export default struct STYLEBUFW {
+    #StructPack 4
 
     /**
      * Style of the register string. Can be IME_REGWORD_STYLE_EUDC to indicate a string in the EUDC range.
-     * @type {Integer}
      */
-    dwStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStyle : UInt32
 
     /**
      * Description of the style.
-     * @type {String}
      */
-    szDescription {
-        get => StrGet(this.ptr + 4, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-16")
-    }
+    szDescription : WCHAR[32]
+
 }

@@ -1,32 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMSMQQueueInfos2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSMQQueueInfos2.ahk" { IMSMQQueueInfos2 }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQQuery2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQQuery2 extends IDispatch {
     /**
      * The interface identifier for IMSMQQuery2
      * @type {Guid}
      */
-    static IID => Guid("{eba96b0e-2168-11d3-898c-00e02c074f6b}")
+    static IID := Guid("{eba96b0e-2168-11d3-898c-00e02c074f6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQQuery2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        LookupQueue    : IntPtr
+        get_Properties : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LookupQueue", "get_Properties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQQuery2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -49,7 +59,7 @@ class IMSMQQuery2 extends IDispatch {
      * @returns {IMSMQQueueInfos2} 
      */
     LookupQueue(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime) {
-        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", &ppqinfos := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, QueueGuid, VARIANT.Ptr, ServiceTypeGuid, VARIANT.Ptr, Label, VARIANT.Ptr, CreateTime, VARIANT.Ptr, ModifyTime, VARIANT.Ptr, RelServiceType, VARIANT.Ptr, RelLabel, VARIANT.Ptr, RelCreateTime, VARIANT.Ptr, RelModifyTime, "ptr*", &ppqinfos := 0, "HRESULT")
         return IMSMQQueueInfos2(ppqinfos)
     }
 
@@ -60,5 +70,27 @@ class IMSMQQuery2 extends IDispatch {
     get_Properties() {
         result := ComCall(8, this, "ptr*", &ppcolProperties := 0, "HRESULT")
         return IDispatch(ppcolProperties)
+    }
+
+    Query(iid) {
+        if (IMSMQQuery2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LookupQueue := CallbackCreate(GetMethod(implObj, "LookupQueue"), flags, 11)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LookupQueue)
+        CallbackFree(this.vtbl.get_Properties)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The SP_FILE_COPY_PARAMS structure describes a single file copy operation. (ANSI)
@@ -11,121 +11,65 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class SP_FILE_COPY_PARAMS_A extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct SP_FILE_COPY_PARAMS_A {
+    #StructPack 8
 
     /**
      * Size of the structure, in bytes. Set to the value: <c>sizeof(SP_FILE_COPY_PARAMS)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Handle to a setup file queue, as returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenfilequeue">SetupOpenFileQueue</a>.
-     * @type {Pointer<Void>}
      */
-    QueueHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    QueueHandle : IntPtr
 
     /**
      * Optional pointer to the root of the source for this copy, such as A:\.
-     * @type {PSTR}
      */
-    SourceRootPath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SourceRootPath : PSTR
 
     /**
      * Optional pointer to the path relative to <b>SourceRootPath</b> where the file can be found.
-     * @type {PSTR}
      */
-    SourcePath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SourcePath : PSTR
 
     /**
      * File name part of the file to be copied.
-     * @type {PSTR}
      */
-    SourceFilename {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SourceFilename : PSTR
 
     /**
      * Optional pointer to a description of the source media to be used during disk prompts.
-     * @type {PSTR}
      */
-    SourceDescription {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SourceDescription : PSTR
 
     /**
      * Optional pointer to a tag file whose presence at <b>SourceRootPath</b> indicates the presence of the source media. If not specified, the file itself will be used as the tag file if required.
-     * @type {PSTR}
      */
-    SourceTagfile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SourceTagfile : PSTR
 
     /**
      * Directory where the file is to be copied.
-     * @type {PSTR}
      */
-    TargetDirectory {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    TargetDirectory : PSTR
 
     /**
      * Optional pointer to the name of the target file. If not specified, the target file will have the same name as the source file.
-     * @type {PSTR}
      */
-    TargetFilename {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    TargetFilename : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    CopyStyle {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    CopyStyle : UInt32
 
     /**
      * Handle to the INF to use to obtain source information.
-     * @type {Pointer<Void>}
      */
-    LayoutInf {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    LayoutInf : IntPtr
 
     /**
      * An optional Security Descriptor String specifying the ACL to apply to the file.
-     * @type {PSTR}
      */
-    SecurityDescriptor {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    SecurityDescriptor : PSTR
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 96
-    }
 }

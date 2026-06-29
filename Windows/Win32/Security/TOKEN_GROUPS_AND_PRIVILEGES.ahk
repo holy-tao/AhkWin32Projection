@@ -1,36 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\SID_AND_ATTRIBUTES.ahk
-#Include .\LUID_AND_ATTRIBUTES.ahk
-#Include ..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
+#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information about the group security identifiers (SIDs) and privileges in an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_groups_and_privileges
  * @namespace Windows.Win32.Security
  */
-class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct TOKEN_GROUPS_AND_PRIVILEGES {
+    #StructPack 8
 
     /**
      * Number of SIDs in the access token.
-     * @type {Integer}
      */
-    SidCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SidCount : UInt32
 
     /**
      * Length, in bytes, required to hold all of the user SIDs and the account SID for the group.
-     * @type {Integer}
      */
-    SidLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SidLength : UInt32
 
     /**
      * A pointer to an array of 
@@ -160,30 +149,18 @@ class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<SID_AND_ATTRIBUTES>}
      */
-    Sids {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Sids : SID_AND_ATTRIBUTES.Ptr
 
     /**
      * Number of restricted SIDs.
-     * @type {Integer}
      */
-    RestrictedSidCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RestrictedSidCount : UInt32
 
     /**
      * Length, in bytes, required to hold all of the restricted SIDs.
-     * @type {Integer}
      */
-    RestrictedSidLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    RestrictedSidLength : UInt32
 
     /**
      * A pointer to an array of 
@@ -193,49 +170,27 @@ class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct {
      * 
      * 
      * The <b>Attributes</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structures can have the same values as those listed for the preceding <b>Sids</b> member.
-     * @type {Pointer<SID_AND_ATTRIBUTES>}
      */
-    RestrictedSids {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    RestrictedSids : SID_AND_ATTRIBUTES.Ptr
 
     /**
      * Number of privileges.
-     * @type {Integer}
      */
-    PrivilegeCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PrivilegeCount : UInt32
 
     /**
      * Length, in bytes, needed to hold the privilege array.
-     * @type {Integer}
      */
-    PrivilegeLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    PrivilegeLength : UInt32
 
     /**
      * Array of privileges.
-     * @type {Pointer<LUID_AND_ATTRIBUTES>}
      */
-    Privileges {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Privileges : LUID_AND_ATTRIBUTES.Ptr
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">Locally unique identifier</a> (LUID) of the authenticator of the token.
-     * @type {LUID}
      */
-    AuthenticationId {
-        get {
-            if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(48, this)
-            return this.__AuthenticationId
-        }
-    }
+    AuthenticationId : LUID
+
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioClock interface enables a client to monitor a stream's data rate and the current position in the stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclock
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioClock extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioClock extends IUnknown {
     /**
      * The interface identifier for IAudioClock
      * @type {Guid}
      */
-    static IID => Guid("{cd63314f-3fba-4a1b-812c-ef96358728e7}")
+    static IID := Guid("{cd63314f-3fba-4a1b-812c-ef96358728e7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioClock interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFrequency       : IntPtr
+        GetPosition        : IntPtr
+        GetCharacteristics : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFrequency", "GetPosition", "GetCharacteristics"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioClock.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetFrequency method gets the device frequency.
@@ -138,5 +148,29 @@ class IAudioClock extends IUnknown {
     GetCharacteristics() {
         result := ComCall(5, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
         return pdwCharacteristics
+    }
+
+    Query(iid) {
+        if (IAudioClock.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 3)
+        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFrequency)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.GetCharacteristics)
     }
 }

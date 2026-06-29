@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIGHCONTRASTW_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HIGHCONTRASTW_FLAGS.ahk" { HIGHCONTRASTW_FLAGS }
 
 /**
  * Contains information about the high contrast accessibility feature. (Unicode)
@@ -14,44 +14,26 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @charset Unicode
  */
-class HIGHCONTRASTW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct HIGHCONTRASTW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Specifies the size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {HIGHCONTRASTW_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : HIGHCONTRASTW_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Points to a string that contains the name of the color scheme that will be set to the default scheme. The system allocates this buffer, free it with LocalFree.
-     * @type {PWSTR}
      */
-    lpszDefaultScheme {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszDefaultScheme : PWSTR
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

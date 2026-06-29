@@ -1,78 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPP_LCP.ahk" { PPP_LCP }
+#Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
 
 /**
  * The PPP_LCP_INFO structure contains information that describes the results of a PPP Link Control Protocol (LCP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_lcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class PPP_LCP_INFO extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct PPP_LCP_INFO {
+    #StructPack 4
 
     /**
      * Specifies the error that occurred if the negotiation was unsuccessful.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {PPP_LCP}
-     */
-    dwAuthenticationProtocol {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAuthenticationProtocol : PPP_LCP
 
-    /**
-     * @type {PPP_LCP_INFO_AUTH_DATA}
-     */
-    dwAuthenticationData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAuthenticationData : PPP_LCP_INFO_AUTH_DATA
 
     /**
      * Specifies the authentication protocol used to authenticate the remote computer. See the <b>dwAuthenticationProtocol</b> member for a list of possible values.
-     * @type {Integer}
      */
-    dwRemoteAuthenticationProtocol {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRemoteAuthenticationProtocol : UInt32
 
     /**
      * Specifies additional information about the authentication protocol specified by <b>dwRemoteAuthenticationProtocol</b>. See the <b>dwAuthenticationData</b> member for a list of possible values.
-     * @type {Integer}
      */
-    dwRemoteAuthenticationData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwRemoteAuthenticationData : UInt32
 
     /**
      * Specifies the reason the connection was terminated by the local computer. This member always has a value of zero.
-     * @type {Integer}
      */
-    dwTerminateReason {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwTerminateReason : UInt32
 
     /**
      * Specifies the reason the connection was terminated by the remote computer. This member always has a value of zero.
-     * @type {Integer}
      */
-    dwRemoteTerminateReason {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwRemoteTerminateReason : UInt32
 
     /**
      * Specifies information about LCP options in use by the local computer. This member is a combination of the following flags. 
@@ -148,12 +113,8 @@ class PPP_LCP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwOptions : UInt32
 
     /**
      * Specifies information about LCP options in use by the remote computer. This member is a combination of the following flags. 
@@ -229,28 +190,17 @@ class PPP_LCP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRemoteOptions {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwRemoteOptions : UInt32
 
     /**
      * Specifies the type identifier of the Extensible Authentication Protocol (EAP) used to authenticate the local computer. The value of this member is valid only if <b>dwAuthenticationProtocol</b> is PPP_LCP_EAP.
-     * @type {Integer}
      */
-    dwEapTypeId {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwEapTypeId : UInt32
 
     /**
      * Specifies the type identifier of the Extensible Authentication Protocol (EAP) used to authenticate the remote computer. The value of this member is valid only if <b>dwRemoteAuthenticationProtocol</b> is PPP_LCP_EAP.
-     * @type {Integer}
      */
-    dwRemoteEapTypeId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwRemoteEapTypeId : UInt32
+
 }

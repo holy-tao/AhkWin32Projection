@@ -1,96 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSP_NODE.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\KernelStreaming\KSP_NODE.ahk" { KSP_NODE }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct {
-    static sizeof => 64
+export default struct KSPROPERTY_BDA_RF_TUNER_CAPS_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSP_NODE
 
-    /**
-     * @type {KSP_NODE}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSP_NODE(0, this)
-            return this.__Property
-        }
-    }
+    Mode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Mode {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AnalogStandardsSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AnalogStandardsSupported {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DigitalStandardsSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DigitalStandardsSupported {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MinFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinFrequency {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaxFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrequency {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SettlingTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SettlingTime {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    AnalogSensingRange : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AnalogSensingRange {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DigitalSensingRange : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DigitalSensingRange {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    MilliSecondsPerMHz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MilliSecondsPerMHz {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumOleUndoUnits.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleUndoUnit.ahk" { IOleUndoUnit }
+#Import ".\IOleParentUndoUnit.ahk" { IOleParentUndoUnit }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumOleUndoUnits.ahk" { IEnumOleUndoUnits }
 
 /**
  * The IOleUndoManager interface enables containers to implement multi-level undo and redo operations for actions that occur within contained controls.
@@ -30,26 +34,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleundomanager
  * @namespace Windows.Win32.System.Ole
  */
-class IOleUndoManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleUndoManager extends IUnknown {
     /**
      * The interface identifier for IOleUndoManager
      * @type {Guid}
      */
-    static IID => Guid("{d001f200-ef97-11ce-9bc9-00aa00608e01}")
+    static IID := Guid("{d001f200-ef97-11ce-9bc9-00aa00608e01}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleUndoManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open                   : IntPtr
+        Close                  : IntPtr
+        Add                    : IntPtr
+        GetOpenParentState     : IntPtr
+        DiscardFrom            : IntPtr
+        UndoTo                 : IntPtr
+        RedoTo                 : IntPtr
+        EnumUndoable           : IntPtr
+        EnumRedoable           : IntPtr
+        GetLastUndoDescription : IntPtr
+        GetLastRedoDescription : IntPtr
+        Enable                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "Add", "GetOpenParentState", "DiscardFrom", "UndoTo", "RedoTo", "EnumUndoable", "EnumRedoable", "GetLastUndoDescription", "GetLastRedoDescription", "Enable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleUndoManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a new parent undo unit, which becomes part of its containing unit's undo stack.
@@ -123,7 +145,7 @@ class IOleUndoManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-close
      */
     Close(pPUU, fCommit) {
-        result := ComCall(4, this, "ptr", pPUU, "int", fCommit, "int")
+        result := ComCall(4, this, "ptr", pPUU, BOOL, fCommit, Int32)
         return result
     }
 
@@ -372,8 +394,8 @@ class IOleUndoManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastundodescription
      */
     GetLastUndoDescription() {
-        pBstr := BSTR()
-        result := ComCall(12, this, "ptr", pBstr, "HRESULT")
+        pBstr := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pBstr, "HRESULT")
         return pBstr
     }
 
@@ -385,8 +407,8 @@ class IOleUndoManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastredodescription
      */
     GetLastRedoDescription() {
-        pBstr := BSTR()
-        result := ComCall(13, this, "ptr", pBstr, "HRESULT")
+        pBstr := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pBstr, "HRESULT")
         return pBstr
     }
 
@@ -419,7 +441,49 @@ class IOleUndoManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-enable
      */
     Enable(fEnable) {
-        result := ComCall(14, this, "int", fEnable, "HRESULT")
+        result := ComCall(14, this, BOOL, fEnable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleUndoManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.GetOpenParentState := CallbackCreate(GetMethod(implObj, "GetOpenParentState"), flags, 2)
+        this.vtbl.DiscardFrom := CallbackCreate(GetMethod(implObj, "DiscardFrom"), flags, 2)
+        this.vtbl.UndoTo := CallbackCreate(GetMethod(implObj, "UndoTo"), flags, 2)
+        this.vtbl.RedoTo := CallbackCreate(GetMethod(implObj, "RedoTo"), flags, 2)
+        this.vtbl.EnumUndoable := CallbackCreate(GetMethod(implObj, "EnumUndoable"), flags, 2)
+        this.vtbl.EnumRedoable := CallbackCreate(GetMethod(implObj, "EnumRedoable"), flags, 2)
+        this.vtbl.GetLastUndoDescription := CallbackCreate(GetMethod(implObj, "GetLastUndoDescription"), flags, 2)
+        this.vtbl.GetLastRedoDescription := CallbackCreate(GetMethod(implObj, "GetLastRedoDescription"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.GetOpenParentState)
+        CallbackFree(this.vtbl.DiscardFrom)
+        CallbackFree(this.vtbl.UndoTo)
+        CallbackFree(this.vtbl.RedoTo)
+        CallbackFree(this.vtbl.EnumUndoable)
+        CallbackFree(this.vtbl.EnumRedoable)
+        CallbackFree(this.vtbl.GetLastUndoDescription)
+        CallbackFree(this.vtbl.GetLastRedoDescription)
+        CallbackFree(this.vtbl.Enable)
     }
 }

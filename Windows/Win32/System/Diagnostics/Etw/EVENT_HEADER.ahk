@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The EVENT_HEADER structure (evntcons.h) defines information about the event.
@@ -11,28 +11,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_HEADER extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct EVENT_HEADER {
+    #StructPack 8
 
     /**
      * Size of the event record, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Size : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    HeaderType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    HeaderType : UInt16
 
     /**
      * Flags that provide information about the event such as the type of session it was logged to and if the event contains extended data. This member can contain one or more of the following flags.
@@ -123,12 +113,8 @@ class EVENT_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Flags : UInt16
 
     /**
      * Indicates the source to use for parsing the event data.
@@ -169,91 +155,45 @@ class EVENT_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    EventProperty {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    EventProperty : UInt16
 
     /**
      * Identifies the thread that generated the event.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ThreadId : UInt32
 
     /**
      * Identifies the process that generated the event.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessId : UInt32
 
     /**
      * Contains the time that the event occurred. The resolution is system time unless the <b>ProcessTraceMode</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-logfile">EVENT_TRACE_LOGFILE</a> contains the PROCESS_TRACE_MODE_RAW_TIMESTAMP flag, in which case the resolution depends on the value of the <b>Wnode.ClientContext</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> at the time the controller created the session.
-     * @type {Integer}
      */
-    TimeStamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TimeStamp : Int64
 
     /**
      * GUID that uniquely identifies the provider that logged the event.
-     * @type {Pointer}
      */
-    ProviderId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ProviderId : Guid
 
     /**
      * Defines the information about the event such as the event identifier and severity level. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a>.
-     * @type {EVENT_DESCRIPTOR}
      */
-    EventDescriptor {
-        get {
-            if(!this.HasProp("__EventDescriptor"))
-                this.__EventDescriptor := EVENT_DESCRIPTOR(32, this)
-            return this.__EventDescriptor
-        }
-    }
+    EventDescriptor : EVENT_DESCRIPTOR
 
-    /**
-     * @type {Integer}
-     */
-    KernelTime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    KernelTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UserTime {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessorTime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    UserTime : UInt32
 
     /**
      * Identifier that relates two events. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nf-evntprov-eventwritetransfer">EventWriteTransfer</a>.
-     * @type {Pointer}
      */
-    ActivityId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    ActivityId : Guid
+
+    static __New() {
+        DefineProp(this.Prototype, 'ProcessorTime', { type: Int64, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

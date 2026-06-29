@@ -1,87 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DXVA_VideoSample.ahk
-#Include .\DXVA_SampleFormat.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA_SampleFormat.ahk" { DXVA_SampleFormat }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DXVA_VideoSample.ahk" { DXVA_VideoSample }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_DeinterlaceBlt extends Win32Struct {
-    static sizeof => 1080
+export default struct DXVA_DeinterlaceBlt {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rtTarget : Int64
 
-    /**
-     * @type {Integer}
-     */
-    rtTarget {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    DstRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    DstRect {
-        get {
-            if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(16, this)
-            return this.__DstRect
-        }
-    }
+    SrcRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    SrcRect {
-        get {
-            if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(32, this)
-            return this.__SrcRect
-        }
-    }
+    NumSourceSurfaces : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumSourceSurfaces {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Alpha : Float32
 
-    /**
-     * @type {Float}
-     */
-    Alpha {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
+    Source : DXVA_VideoSample[32]
 
-    /**
-     * @type {DXVA_VideoSample}
-     */
-    Source {
-        get {
-            if(!this.HasProp("__SourceProxyArray"))
-                this.__SourceProxyArray := Win32FixedArray(this.ptr + 56, 32, DXVA_VideoSample, "")
-            return this.__SourceProxyArray
-        }
-    }
 }

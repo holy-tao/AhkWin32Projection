@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemUnboundObjectSink interface is implemented by all logical event consumers. It is a simple sink interface that accepts delivery of event objects.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemunboundobjectsink
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemUnboundObjectSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemUnboundObjectSink extends IUnknown {
     /**
      * The interface identifier for IWbemUnboundObjectSink
      * @type {Guid}
      */
-    static IID => Guid("{e246107b-b06e-11d0-ad61-00c04fd8fdff}")
+    static IID := Guid("{e246107b-b06e-11d0-ad61-00c04fd8fdff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemUnboundObjectSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IndicateToConsumer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IndicateToConsumer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemUnboundObjectSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by WMI to actually deliver events to a consumer.
@@ -54,7 +63,27 @@ class IWbemUnboundObjectSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemunboundobjectsink-indicatetoconsumer
      */
     IndicateToConsumer(pLogicalConsumer, lNumObjects, apObjects) {
-        result := ComCall(3, this, "ptr", pLogicalConsumer, "int", lNumObjects, "ptr*", apObjects, "HRESULT")
+        result := ComCall(3, this, "ptr", pLogicalConsumer, "int", lNumObjects, IWbemClassObject.Ptr, apObjects, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemUnboundObjectSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IndicateToConsumer := CallbackCreate(GetMethod(implObj, "IndicateToConsumer"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IndicateToConsumer)
     }
 }

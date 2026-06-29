@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the content type of a PERF_COUNTER_HEADER block that the PerfQueryCounterData function includes as part of the PERF_DATA_HEADER block that the function produces as output.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ne-perflib-perfcounterdatatype
  * @namespace Windows.Win32.System.Performance
  */
-class PerfCounterDataType extends Win32Enum {
+export default struct PerfCounterDataType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An error occurred when the performance counter value was queried.

@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class REPL_EDIR_INFO_1001 extends Win32Struct {
-    static sizeof => 4
+export default struct REPL_EDIR_INFO_1001 {
+    #StructPack 4
 
-    static packingSize => 4
+    rped1001_extent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rped1001_extent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDXGIDisplayControl interface exposes methods to indicate user preference for the operating system's stereoscopic 3D display behavior and to set stereoscopic 3D display status to enable or disable.
@@ -29,26 +30,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgidisplaycontrol
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIDisplayControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIDisplayControl extends IUnknown {
     /**
      * The interface identifier for IDXGIDisplayControl
      * @type {Guid}
      */
-    static IID => Guid("{ea9dbf1a-c88e-4486-854a-98aa0138f30c}")
+    static IID := Guid("{ea9dbf1a-c88e-4486-854a-98aa0138f30c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIDisplayControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsStereoEnabled  : IntPtr
+        SetStereoEnabled : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsStereoEnabled", "SetStereoEnabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIDisplayControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a Boolean value that indicates whether the operating system's stereoscopic 3D display behavior is enabled.
@@ -60,7 +69,7 @@ class IDXGIDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidisplaycontrol-isstereoenabled
      */
     IsStereoEnabled() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, BOOL)
         return result
     }
 
@@ -73,6 +82,28 @@ class IDXGIDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidisplaycontrol-setstereoenabled
      */
     SetStereoEnabled(enabled) {
-        ComCall(4, this, "int", enabled)
+        ComCall(4, this, BOOL, enabled)
+    }
+
+    Query(iid) {
+        if (IDXGIDisplayControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsStereoEnabled := CallbackCreate(GetMethod(implObj, "IsStereoEnabled"), flags, 1)
+        this.vtbl.SetStereoEnabled := CallbackCreate(GetMethod(implObj, "SetStereoEnabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsStereoEnabled)
+        CallbackFree(this.vtbl.SetStereoEnabled)
     }
 }

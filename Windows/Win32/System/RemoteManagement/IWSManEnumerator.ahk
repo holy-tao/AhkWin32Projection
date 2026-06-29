@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents a stream of results returned from operations such as a WS-Management protocol WS-Enumeration:Enumerate operation.
@@ -15,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanenumerator
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class IWSManEnumerator extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWSManEnumerator extends IDispatch {
     /**
      * The interface identifier for IWSManEnumerator
      * @type {Guid}
      */
-    static IID => Guid("{f3457ca9-abb9-4fa5-b850-90e8ca300e7f}")
+    static IID := Guid("{f3457ca9-abb9-4fa5-b850-90e8ca300e7f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSManEnumerator interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        ReadItem          : IntPtr
+        get_AtEndOfStream : IntPtr
+        get_Error         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadItem", "get_AtEndOfStream", "get_Error"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSManEnumerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -62,8 +73,8 @@ class IWSManEnumerator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem
      */
     ReadItem() {
-        resource := BSTR()
-        result := ComCall(7, this, "ptr", resource, "HRESULT")
+        resource := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, resource, "HRESULT")
         return resource
     }
 
@@ -73,7 +84,7 @@ class IWSManEnumerator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream
      */
     get_AtEndOfStream() {
-        result := ComCall(8, this, "short*", &eos := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &eos := 0, "HRESULT")
         return eos
     }
 
@@ -83,8 +94,32 @@ class IWSManEnumerator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_error
      */
     get_Error() {
-        value := BSTR()
-        result := ComCall(9, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, value, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IWSManEnumerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadItem := CallbackCreate(GetMethod(implObj, "ReadItem"), flags, 2)
+        this.vtbl.get_AtEndOfStream := CallbackCreate(GetMethod(implObj, "get_AtEndOfStream"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadItem)
+        CallbackFree(this.vtbl.get_AtEndOfStream)
+        CallbackFree(this.vtbl.get_Error)
     }
 }

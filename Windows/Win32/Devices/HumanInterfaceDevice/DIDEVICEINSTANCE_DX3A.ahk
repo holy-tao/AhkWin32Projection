@@ -1,60 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset ANSI
  */
-class DIDEVICEINSTANCE_DX3A extends Win32Struct {
-    static sizeof => 552
+export default struct DIDEVICEINSTANCE_DX3A {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    guidInstance : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidProduct : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidProduct {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwDevType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    tszInstanceName : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszInstanceName {
-        get => StrGet(this.ptr + 28, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
-    }
+    tszProductName : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszProductName {
-        get => StrGet(this.ptr + 288, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 288, 259, "UTF-8")
-    }
 }

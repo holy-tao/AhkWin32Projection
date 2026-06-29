@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11View.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC }
+#Import ".\ID3D11View.ahk" { ID3D11View }
 
 /**
  * Identifies the input surfaces that can be accessed during video processing.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videoprocessorinputview
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoProcessorInputView extends ID3D11View {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoProcessorInputView extends ID3D11View {
     /**
      * The interface identifier for ID3D11VideoProcessorInputView
      * @type {Guid}
      */
-    static IID => Guid("{11ec5a5f-51dc-4945-ab34-6e8c21300ea5}")
+    static IID := Guid("{11ec5a5f-51dc-4945-ab34-6e8c21300ea5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoProcessorInputView interfaces
+    */
+    struct Vtbl extends ID3D11View.Vtbl {
+        GetDesc : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoProcessorInputView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the properties of the video processor input view.
@@ -38,6 +46,26 @@ class ID3D11VideoProcessorInputView extends ID3D11View {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorinputview-getdesc
      */
     GetDesc(pDesc) {
-        ComCall(8, this, "ptr", pDesc)
+        ComCall(8, this, D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.Ptr, pDesc)
+    }
+
+    Query(iid) {
+        if (ID3D11VideoProcessorInputView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
     }
 }

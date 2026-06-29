@@ -1,41 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PMKID_ENTRY extends Win32Struct {
-    static sizeof => 28
+export default struct DOT11_PMKID_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BSSID {
-        get {
-            if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__BSSIDProxyArray
-        }
-    }
+    PMKID : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PMKID {
-        get {
-            if(!this.HasProp("__PMKIDProxyArray"))
-                this.__PMKIDProxyArray := Win32FixedArray(this.ptr + 6, 16, Primitive, "char")
-            return this.__PMKIDProxyArray
-        }
-    }
+    uFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

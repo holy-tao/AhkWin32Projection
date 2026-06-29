@@ -1,69 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SESSION_INFO_USER_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SESSION_INFO_USER_FLAGS.ahk" { SESSION_INFO_USER_FLAGS }
 
 /**
  * Contains information about the session, including name of the computer; name of the user; open files, pipes, and devices on the computer; and the name of the transport the client is using.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-session_info_502
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class SESSION_INFO_502 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct SESSION_INFO_502 {
+    #StructPack 8
 
     /**
      * Pointer to a Unicode string specifying the name of the computer that established the session. This string cannot contain a backslash (\\).
-     * @type {PWSTR}
      */
-    sesi502_cname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    sesi502_cname : PWSTR
 
     /**
      * Pointer to a Unicode string specifying the name of the user who established the session.
-     * @type {PWSTR}
      */
-    sesi502_username {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sesi502_username : PWSTR
 
     /**
      * Specifies the number of files, devices, and pipes opened during the session.
-     * @type {Integer}
      */
-    sesi502_num_opens {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sesi502_num_opens : UInt32
 
     /**
      * Specifies the number of seconds the session has been active.
-     * @type {Integer}
      */
-    sesi502_time {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    sesi502_time : UInt32
 
     /**
      * Specifies the number of seconds the session has been idle.
-     * @type {Integer}
      */
-    sesi502_idle_time {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sesi502_idle_time : UInt32
 
-    /**
-     * @type {SESSION_INFO_USER_FLAGS}
-     */
-    sesi502_user_flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    sesi502_user_flags : SESSION_INFO_USER_FLAGS
 
     /**
      * Pointer to a Unicode string that specifies the type of client that established the session. Following are the defined types for LAN Manager servers. 
@@ -119,19 +91,12 @@ class SESSION_INFO_502 extends Win32Struct {
      *  
      * 
      * Sessions from LAN Manager servers running UNIX also will appear as LAN Manager 2.0.
-     * @type {PWSTR}
      */
-    sesi502_cltype_name {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    sesi502_cltype_name : PWSTR
 
     /**
      * Specifies the name of the transport that the client is using to communicate with the server.
-     * @type {PWSTR}
      */
-    sesi502_transport {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    sesi502_transport : PWSTR
+
 }

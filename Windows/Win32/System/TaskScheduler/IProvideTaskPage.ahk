@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASKPAGE.ahk" { TASKPAGE }
+#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods to access the property sheet settings of a task.
@@ -13,26 +16,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-iprovidetaskpage
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IProvideTaskPage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProvideTaskPage extends IUnknown {
     /**
      * The interface identifier for IProvideTaskPage
      * @type {Guid}
      */
-    static IID => Guid("{4086658a-cbbb-11cf-b604-00c04fd8d565}")
+    static IID := Guid("{4086658a-cbbb-11cf-b604-00c04fd8d565}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProvideTaskPage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProvideTaskPage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method retrieves one or more property sheet pages associated with a task object.
@@ -48,8 +58,28 @@ class IProvideTaskPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-iprovidetaskpage-getpage
      */
     GetPage(tpType, fPersistChanges) {
-        phPage := HPROPSHEETPAGE()
-        result := ComCall(3, this, "int", tpType, "int", fPersistChanges, "ptr", phPage, "HRESULT")
+        phPage := HPROPSHEETPAGE.Owned()
+        result := ComCall(3, this, TASKPAGE, tpType, BOOL, fPersistChanges, HPROPSHEETPAGE.Ptr, phPage, "HRESULT")
         return phPage
+    }
+
+    Query(iid) {
+        if (IProvideTaskPage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPage := CallbackCreate(GetMethod(implObj, "GetPage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPage)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of credentials to use when communicating with event sources.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_credentials_type
  * @namespace Windows.Win32.System.EventCollector
  */
-class EC_SUBSCRIPTION_CREDENTIALS_TYPE extends Win32Enum {
+export default struct EC_SUBSCRIPTION_CREDENTIALS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Negotiate with event sources to specify a proper authentication type without specifying a username and password for the subscription credentials.

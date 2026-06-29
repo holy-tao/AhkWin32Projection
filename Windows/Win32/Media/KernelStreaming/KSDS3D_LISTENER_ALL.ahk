@@ -1,80 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS3DVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DS3DVECTOR.ahk" { DS3DVECTOR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDS3D_LISTENER_ALL extends Win32Struct {
-    static sizeof => 60
+export default struct KSDS3D_LISTENER_ALL {
+    #StructPack 4
 
-    static packingSize => 4
+    Position : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    Position {
-        get {
-            if(!this.HasProp("__Position"))
-                this.__Position := DS3DVECTOR(0, this)
-            return this.__Position
-        }
-    }
+    Velocity : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    Velocity {
-        get {
-            if(!this.HasProp("__Velocity"))
-                this.__Velocity := DS3DVECTOR(12, this)
-            return this.__Velocity
-        }
-    }
+    OrientFront : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    OrientFront {
-        get {
-            if(!this.HasProp("__OrientFront"))
-                this.__OrientFront := DS3DVECTOR(24, this)
-            return this.__OrientFront
-        }
-    }
+    OrientTop : DS3DVECTOR
 
-    /**
-     * @type {DS3DVECTOR}
-     */
-    OrientTop {
-        get {
-            if(!this.HasProp("__OrientTop"))
-                this.__OrientTop := DS3DVECTOR(36, this)
-            return this.__OrientTop
-        }
-    }
+    DistanceFactor : Float32
 
-    /**
-     * @type {Float}
-     */
-    DistanceFactor {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
+    RolloffFactor : Float32
 
-    /**
-     * @type {Float}
-     */
-    RolloffFactor {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
+    DopplerFactor : Float32
 
-    /**
-     * @type {Float}
-     */
-    DopplerFactor {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
-    }
 }

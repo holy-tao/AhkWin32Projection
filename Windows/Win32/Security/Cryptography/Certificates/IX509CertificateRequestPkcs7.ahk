@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISignerCertificate.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509RequestInheritOptions.ahk" { X509RequestInheritOptions }
+#Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IX509CertificateRequestPkcs7 interface represents a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestpkcs7
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
     /**
      * The interface identifier for IX509CertificateRequestPkcs7
      * @type {Guid}
      */
-    static IID => Guid("{728ab344-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab344-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRequestPkcs7 interfaces
+    */
+    struct Vtbl extends IX509CertificateRequest.Vtbl {
+        InitializeFromTemplateName : IntPtr
+        InitializeFromCertificate  : IntPtr
+        InitializeFromInnerRequest : IntPtr
+        InitializeDecode           : IntPtr
+        get_RequesterName          : IntPtr
+        put_RequesterName          : IntPtr
+        get_SignerCertificate      : IntPtr
+        put_SignerCertificate      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromTemplateName", "InitializeFromCertificate", "InitializeFromInnerRequest", "InitializeDecode", "get_RequesterName", "put_RequesterName", "get_SignerCertificate", "put_SignerCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRequestPkcs7.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -147,7 +166,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
     InitializeFromTemplateName(_Context, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(32, this, "int", _Context, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(32, this, X509CertificateEnrollmentContext, _Context, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -208,7 +227,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
     InitializeFromCertificate(_Context, RenewalRequest, strCertificate, Encoding, InheritOptions) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(33, this, "int", _Context, "short", RenewalRequest, "ptr", strCertificate, "int", Encoding, "int", InheritOptions, "HRESULT")
+        result := ComCall(33, this, X509CertificateEnrollmentContext, _Context, VARIANT_BOOL, RenewalRequest, BSTR, strCertificate, EncodingType, Encoding, X509RequestInheritOptions, InheritOptions, "HRESULT")
         return result
     }
 
@@ -337,7 +356,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
     InitializeDecode(strEncodedData, Encoding) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(35, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(35, this, BSTR, strEncodedData, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -365,8 +384,8 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-get_requestername
      */
     get_RequesterName() {
-        pValue := BSTR()
-        result := ComCall(36, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -397,7 +416,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
     put_RequesterName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(37, this, "ptr", Value, "HRESULT")
+        result := ComCall(37, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -456,5 +475,39 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
     put_SignerCertificate(pValue) {
         result := ComCall(39, this, "ptr", pValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509CertificateRequestPkcs7.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromTemplateName"), flags, 3)
+        this.vtbl.InitializeFromCertificate := CallbackCreate(GetMethod(implObj, "InitializeFromCertificate"), flags, 6)
+        this.vtbl.InitializeFromInnerRequest := CallbackCreate(GetMethod(implObj, "InitializeFromInnerRequest"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_RequesterName := CallbackCreate(GetMethod(implObj, "get_RequesterName"), flags, 2)
+        this.vtbl.put_RequesterName := CallbackCreate(GetMethod(implObj, "put_RequesterName"), flags, 2)
+        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromTemplateName)
+        CallbackFree(this.vtbl.InitializeFromCertificate)
+        CallbackFree(this.vtbl.InitializeFromInnerRequest)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_RequesterName)
+        CallbackFree(this.vtbl.put_RequesterName)
+        CallbackFree(this.vtbl.get_SignerCertificate)
+        CallbackFree(this.vtbl.put_SignerCertificate)
     }
 }

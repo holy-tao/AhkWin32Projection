@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The WINHTTP_AUTOPROXY_OPTIONS structure is used to indicate to the WinHttpGetProxyForURL function whether to specify the URL of the Proxy Auto-Configuration (PAC) file or to automatically locate the URL with DHCP or DNS queries to the network.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_autoproxy_options
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WINHTTP_AUTOPROXY_OPTIONS {
+    #StructPack 8
 
     /**
      * Mechanisms should be used to obtain the PAC file.
@@ -163,12 +162,8 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * If <b>dwFlags</b> includes the WINHTTP_AUTOPROXY_AUTO_DETECT flag, then <b>dwAutoDetectFlags</b> specifies what protocols are to be used to locate the PAC file. If both the DHCP and DNS auto detect flags are specified, then DHCP is used first; if no PAC URL is discovered using DHCP, then DNS is used.
@@ -201,50 +196,31 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwAutoDetectFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAutoDetectFlags : UInt32
 
     /**
      * If <b>dwFlags</b> includes the WINHTTP_AUTOPROXY_CONFIG_URL flag, the <b>lpszAutoConfigUrl</b> must point to a <b>null</b>-terminated Unicode string that contains the URL of the proxy auto-configuration (PAC) file.
      * 
      * If <b>dwFlags</b> does not include the WINHTTP_AUTOPROXY_CONFIG_URL flag, then <b>lpszAutoConfigUrl</b> must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    lpszAutoConfigUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszAutoConfigUrl : PWSTR
 
     /**
      * Reserved for future use; must be <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    lpvReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpvReserved : IntPtr
 
     /**
      * Reserved for future use; must be zero.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved : UInt32
 
     /**
      * Specifies whether the client's domain credentials should be automatically sent in response to an NTLM or Negotiate Authentication challenge when WinHTTP requests the PAC file.
      * 
      * If this flag is TRUE, credentials should automatically be sent in response to an authentication challenge. If this flag is FALSE and authentication is required to download the PAC file, the <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyforurl">WinHttpGetProxyForUrl</a> function fails.
-     * @type {BOOL}
      */
-    fAutoLogonIfChallenged {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fAutoLogonIfChallenged : BOOL
+
 }

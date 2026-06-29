@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_PACKET_INFORMATION extends Win32Struct {
-    static sizeof => 96
+export default struct D3DKMT_QUERYSTATISTICS_PACKET_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    QueuePacket : IntPtr[8]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    QueuePacket {
-        get {
-            if(!this.HasProp("__QueuePacketProxyArray"))
-                this.__QueuePacketProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
-            return this.__QueuePacketProxyArray
-        }
-    }
+    DmaPacket : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    DmaPacket {
-        get {
-            if(!this.HasProp("__DmaPacketProxyArray"))
-                this.__DmaPacketProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "ptr")
-            return this.__DmaPacketProxyArray
-        }
-    }
 }

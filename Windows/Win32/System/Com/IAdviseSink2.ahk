@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAdviseSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
+#Import ".\IMoniker.ahk" { IMoniker }
 
 /**
  * The IAdviseSink2 interface is an extension of the IAdviseSink interface, adding the method OnLinkSrcChange to the contract to handle a change in the moniker of a linked object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iadvisesink2
  * @namespace Windows.Win32.System.Com
  */
-class IAdviseSink2 extends IAdviseSink {
-
-    static sizeof => A_PtrSize
+export default struct IAdviseSink2 extends IAdviseSink {
     /**
      * The interface identifier for IAdviseSink2
      * @type {Guid}
      */
-    static IID => Guid("{00000125-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000125-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAdviseSink2 interfaces
+    */
+    struct Vtbl extends IAdviseSink.Vtbl {
+        OnLinkSrcChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnLinkSrcChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAdviseSink2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the container that registered the advise sink that a link source has changed (either name or location), enabling the container to update the link's moniker.
@@ -45,5 +53,25 @@ class IAdviseSink2 extends IAdviseSink {
      */
     OnLinkSrcChange(pmk) {
         ComCall(8, this, "ptr", pmk)
+    }
+
+    Query(iid) {
+        if (IAdviseSink2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnLinkSrcChange := CallbackCreate(GetMethod(implObj, "OnLinkSrcChange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnLinkSrcChange)
     }
 }

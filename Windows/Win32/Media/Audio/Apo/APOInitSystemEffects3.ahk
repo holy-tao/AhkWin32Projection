@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APOInitBaseStruct.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\System\Com\IServiceProvider.ahk
-#Include ..\IMMDeviceCollection.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APOInitBaseStruct.ahk" { APOInitBaseStruct }
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\IMMDeviceCollection.ahk" { IMMDeviceCollection }
+#Import "..\..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Provides APO initialization parameters, extending APOInitSystemEffects2 to add the ability to specify a service provider for logging.
@@ -12,83 +13,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apoinitsystemeffects3
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APOInitSystemEffects3 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct APOInitSystemEffects3 {
+    #StructPack 8
 
     /**
      * An [APOInitBaseStruct](../audioenginebaseapo/ns-audioenginebaseapo-apoinitbasestruct) structure.
-     * @type {APOInitBaseStruct}
      */
-    APOInit {
-        get {
-            if(!this.HasProp("__APOInit"))
-                this.__APOInit := APOInitBaseStruct(0, this)
-            return this.__APOInit
-        }
-    }
+    APOInit : APOInitBaseStruct
 
     /**
      * A pointer to an [IPropertyStore](../propsys/nn-propsys-ipropertystore.md) object.
-     * @type {IPropertyStore}
      */
-    pAPOEndpointProperties {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pAPOEndpointProperties : IPropertyStore
 
     /**
      * An [IServiceProvider](../servprov/nn-servprov-iserviceprovider.md) interface.
-     * @type {IServiceProvider}
      */
-    pServiceProvider {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pServiceProvider : IServiceProvider
 
     /**
      * A pointer to an [IMMDeviceCollection](../mmdeviceapi/nn-mmdeviceapi-immdevicecollection.md) object. The last item in the *pDeviceCollection* is always the [IMMDevice](../mmdeviceapi/nn-mmdeviceapi-immdevice.md) representing the audio endpoint.
-     * @type {IMMDeviceCollection}
      */
-    pDeviceCollection {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pDeviceCollection : IMMDeviceCollection
 
     /**
      * Specifies the **MMDevice** that implements the DeviceTopology that includes the software connector for which the APO is initializing. The **MMDevice** is contained in *pDeviceCollection*.
-     * @type {Integer}
      */
-    nSoftwareIoDeviceInCollection {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    nSoftwareIoDeviceInCollection : UInt32
 
     /**
      * Specifies the index of a **Software_IO** connector in the [DeviceTopology](../devicetopology/nn-devicetopology-idevicetopology.md).
-     * @type {Integer}
      */
-    nSoftwareIoConnectorIndex {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    nSoftwareIoConnectorIndex : UInt32
 
     /**
      * Specifies the processing mode for the audio graph.
-     * @type {Pointer}
      */
-    AudioProcessingMode {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    AudioProcessingMode : Guid
 
     /**
      * Indicates whether the audio system is initializing the APO for effects discovery only.
-     * @type {BOOL}
      */
-    InitializeForDiscoveryOnly {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    InitializeForDiscoveryOnly : BOOL
+
 }

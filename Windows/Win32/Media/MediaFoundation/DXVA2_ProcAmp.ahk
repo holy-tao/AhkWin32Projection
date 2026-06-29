@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Contains values for DirectX Video Acceleration (DXVA) video processing operations.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_procampvalues
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_ProcAmp extends Win32Enum {
+export default struct DXVA2_ProcAmp {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

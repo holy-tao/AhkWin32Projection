@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateHistoryEntry.ahk
-#Include .\ICategoryCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateHistoryEntry.ahk" { IUpdateHistoryEntry }
+#Import ".\ICategoryCollection.ahk" { ICategoryCollection }
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry2)
@@ -11,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatehistoryentry2
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateHistoryEntry2 extends IUpdateHistoryEntry {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateHistoryEntry2 extends IUpdateHistoryEntry {
     /**
      * The interface identifier for IUpdateHistoryEntry2
      * @type {Guid}
      */
-    static IID => Guid("{c2bfb780-4539-4132-ab8c-0a8772013ab6}")
+    static IID := Guid("{c2bfb780-4539-4132-ab8c-0a8772013ab6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateHistoryEntry2 interfaces
+    */
+    struct Vtbl extends IUpdateHistoryEntry.Vtbl {
+        get_Categories : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Categories"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateHistoryEntry2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ICategoryCollection} 
@@ -53,5 +61,25 @@ class IUpdateHistoryEntry2 extends IUpdateHistoryEntry {
     get_Categories() {
         result := ComCall(21, this, "ptr*", &retval := 0, "HRESULT")
         return ICategoryCollection(retval)
+    }
+
+    Query(iid) {
+        if (IUpdateHistoryEntry2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Categories := CallbackCreate(GetMethod(implObj, "get_Categories"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Categories)
     }
 }

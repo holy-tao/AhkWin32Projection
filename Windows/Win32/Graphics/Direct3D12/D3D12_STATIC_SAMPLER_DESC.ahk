@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_FILTER.ahk
-#Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
-#Include .\D3D12_STATIC_BORDER_COLOR.ahk
-#Include .\D3D12_SHADER_VISIBILITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_STATIC_BORDER_COLOR.ahk" { D3D12_STATIC_BORDER_COLOR }
+#Import ".\D3D12_SHADER_VISIBILITY.ahk" { D3D12_SHADER_VISIBILITY }
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
+#Import ".\D3D12_TEXTURE_ADDRESS_MODE.ahk" { D3D12_TEXTURE_ADDRESS_MODE }
+#Import ".\D3D12_FILTER.ahk" { D3D12_FILTER }
 
 /**
  * Describes a static sampler.
@@ -13,102 +12,60 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_static_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_STATIC_SAMPLER_DESC extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct D3D12_STATIC_SAMPLER_DESC {
+    #StructPack 4
 
     /**
      * The filtering method to use when sampling a texture, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter">D3D12_FILTER</a> enumeration constant.
-     * @type {D3D12_FILTER}
      */
-    Filter {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Filter : D3D12_FILTER
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a> mode to use for resolving a <i>u</i> texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
-    AddressU {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    AddressU : D3D12_TEXTURE_ADDRESS_MODE
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a> mode to use for resolving a <i>v</i> texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
-    AddressV {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    AddressV : D3D12_TEXTURE_ADDRESS_MODE
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a> mode to use for resolving a <i>w</i> texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
-    AddressW {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    AddressW : D3D12_TEXTURE_ADDRESS_MODE
 
     /**
      * Offset from the calculated mipmap level. For example, if Direct3D calculates that a texture should be sampled at mipmap level 3 and MipLODBias is 2, then the texture will be sampled at mipmap level 5.
-     * @type {Float}
      */
-    MipLODBias {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MipLODBias : Float32
 
     /**
      * Clamping value used if D3D12_FILTER_ANISOTROPIC or D3D12_FILTER_COMPARISON_ANISOTROPIC is specified as the filter. Valid values are between 1 and 16.
-     * @type {Integer}
      */
-    MaxAnisotropy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxAnisotropy : UInt32
 
     /**
      * A function that compares sampled data against existing sampled data. 
      *             The function options are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func">D3D12_COMPARISON_FUNC</a>.
-     * @type {D3D12_COMPARISON_FUNC}
      */
-    ComparisonFunc {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ComparisonFunc : D3D12_COMPARISON_FUNC
 
     /**
      * One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_static_border_color">D3D12_STATIC_BORDER_COLOR</a>, the border color to use if D3D12_TEXTURE_ADDRESS_MODE_BORDER is specified for AddressU, AddressV, or AddressW. 
      *             Range must be between 0.0 and 1.0 inclusive.
-     * @type {D3D12_STATIC_BORDER_COLOR}
      */
-    BorderColor {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    BorderColor : D3D12_STATIC_BORDER_COLOR
 
     /**
      * Lower end of the mipmap range to clamp access to, where 0 is the largest and most detailed mipmap level and any level higher than that is less detailed.
-     * @type {Float}
      */
-    MinLOD {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    MinLOD : Float32
 
     /**
      * Upper end of the mipmap range to clamp access to, where 0 is the largest and most detailed mipmap level and any level higher than that is less detailed. This value must be greater than or equal to MinLOD. To have no upper limit on LOD set this to a large value such as D3D12_FLOAT32_MAX.
-     * @type {Float}
      */
-    MaxLOD {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    MaxLOD : Float32
 
     /**
      * The <i>ShaderRegister</i> and <i>RegisterSpace</i> parameters correspond to the binding syntax of HLSL.  For example, in HLSL:
@@ -123,29 +80,18 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct {
      *             
      * 
      * The  <i>ShaderRegister</i> and <i>RegisterSpace</i> pair is needed to establish correspondence between shader resources and runtime heap descriptors, using the root signature data structure.
-     * @type {Integer}
      */
-    ShaderRegister {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ShaderRegister : UInt32
 
     /**
      * See the description for <i>ShaderRegister</i>.
      *             Register space is optional; the default register space is 0.
-     * @type {Integer}
      */
-    RegisterSpace {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    RegisterSpace : UInt32
 
     /**
      * Specifies the visibility of the sampler to the pipeline shaders, one member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility">D3D12_SHADER_VISIBILITY</a>.
-     * @type {D3D12_SHADER_VISIBILITY}
      */
-    ShaderVisibility {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    ShaderVisibility : D3D12_SHADER_VISIBILITY
+
 }

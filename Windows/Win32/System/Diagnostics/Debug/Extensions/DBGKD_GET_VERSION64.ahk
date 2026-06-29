@@ -1,126 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DBGKD_GET_VERSION64 extends Win32Struct {
-    static sizeof => 40
+export default struct DBGKD_GET_VERSION64 {
+    #StructPack 8
 
-    static packingSize => 8
+    MajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MinorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ProtocolVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolVersion {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    KdSecondaryVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    KdSecondaryVersion {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    MachineType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MachineType {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MaxPacketType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MaxPacketType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    MaxStateChange : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MaxStateChange {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    MaxManipulate : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MaxManipulate {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Simulation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Simulation {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    Unused : UInt16[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "ushort")
-            return this.__UnusedProxyArray
-        }
-    }
+    KernBase : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KernBase {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PsLoadedModuleList : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PsLoadedModuleList {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DebuggerDataList : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DebuggerDataList {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

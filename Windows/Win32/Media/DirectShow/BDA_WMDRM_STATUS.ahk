@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_WMDRM_STATUS extends Win32Struct {
-    static sizeof => 48
+export default struct BDA_WMDRM_STATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ulMaxCaptureTokenSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxCaptureTokenSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uMaxStreamingPid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMaxStreamingPid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulMaxLicense : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxLicense {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulMinSecurityLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMinSecurityLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulRevInfoSequenceNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRevInfoSequenceNumber {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulRevInfoIssuedTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ulRevInfoIssuedTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulRevListVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRevListVersion {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulRevInfoTTL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRevInfoTTL {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

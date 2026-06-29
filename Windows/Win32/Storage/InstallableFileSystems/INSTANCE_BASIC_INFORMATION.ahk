@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
  */
-class INSTANCE_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct INSTANCE_BASIC_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InstanceNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InstanceNameLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    InstanceNameBufferOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InstanceNameBufferOffset {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the trust level of an activatable class.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/inspectable/ne-inspectable-trustlevel
  * @namespace Windows.Win32.System.WinRT
  */
-class TrustLevel extends Win32Enum {
+export default struct TrustLevel {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The component has access to resources that are not protected.

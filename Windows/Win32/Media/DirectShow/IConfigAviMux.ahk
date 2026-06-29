@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IConfigAviMux interface configures the AVI Mux filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iconfigavimux
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IConfigAviMux extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConfigAviMux extends IUnknown {
     /**
      * The interface identifier for IConfigAviMux
      * @type {Guid}
      */
-    static IID => Guid("{5acd6aa0-f482-11ce-8b67-00aa00a3f1a6}")
+    static IID := Guid("{5acd6aa0-f482-11ce-8b67-00aa00a3f1a6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConfigAviMux interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMasterStream             : IntPtr
+        GetMasterStream             : IntPtr
+        SetOutputCompatibilityIndex : IntPtr
+        GetOutputCompatibilityIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMasterStream", "GetMasterStream", "SetOutputCompatibilityIndex", "GetOutputCompatibilityIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConfigAviMux.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetMasterStream method specifies a stream that will be used to synchronize the other streams in the file.
@@ -96,7 +108,7 @@ class IConfigAviMux extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-setoutputcompatibilityindex
      */
     SetOutputCompatibilityIndex(fOldIndex) {
-        result := ComCall(5, this, "int", fOldIndex, "HRESULT")
+        result := ComCall(5, this, BOOL, fOldIndex, "HRESULT")
         return result
     }
 
@@ -108,7 +120,33 @@ class IConfigAviMux extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-getoutputcompatibilityindex
      */
     GetOutputCompatibilityIndex() {
-        result := ComCall(6, this, "int*", &pfOldIndex := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfOldIndex := 0, "HRESULT")
         return pfOldIndex
+    }
+
+    Query(iid) {
+        if (IConfigAviMux.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMasterStream := CallbackCreate(GetMethod(implObj, "SetMasterStream"), flags, 2)
+        this.vtbl.GetMasterStream := CallbackCreate(GetMethod(implObj, "GetMasterStream"), flags, 2)
+        this.vtbl.SetOutputCompatibilityIndex := CallbackCreate(GetMethod(implObj, "SetOutputCompatibilityIndex"), flags, 2)
+        this.vtbl.GetOutputCompatibilityIndex := CallbackCreate(GetMethod(implObj, "GetOutputCompatibilityIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMasterStream)
+        CallbackFree(this.vtbl.GetMasterStream)
+        CallbackFree(this.vtbl.SetOutputCompatibilityIndex)
+        CallbackFree(this.vtbl.GetOutputCompatibilityIndex)
     }
 }

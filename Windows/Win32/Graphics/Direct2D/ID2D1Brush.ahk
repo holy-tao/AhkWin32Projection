@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * Defines an object that paints an area. Interfaces that derive from ID2D1Brush describe how the area is painted.
@@ -14,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1brush
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Brush extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Brush extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1Brush
      * @type {Guid}
      */
-    static IID => Guid("{2cd906a8-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906a8-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Brush interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        SetOpacity   : IntPtr
+        SetTransform : IntPtr
+        GetOpacity   : IntPtr
+        GetTransform : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOpacity", "SetTransform", "GetOpacity", "GetTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Brush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the degree of opacity of this brush.
@@ -66,7 +77,7 @@ class ID2D1Brush extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1brush-settransform
      */
     SetTransform(transform) {
-        ComCall(5, this, "ptr", transform)
+        ComCall(5, this, D2D_MATRIX_3X2_F.Ptr, transform)
     }
 
     /**
@@ -77,7 +88,7 @@ class ID2D1Brush extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-getopacity
      */
     GetOpacity() {
-        result := ComCall(6, this, "float")
+        result := ComCall(6, this, Float32)
         return result
     }
 
@@ -92,6 +103,32 @@ class ID2D1Brush extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-gettransform
      */
     GetTransform(transform) {
-        ComCall(7, this, "ptr", transform)
+        ComCall(7, this, D2D_MATRIX_3X2_F.Ptr, transform)
+    }
+
+    Query(iid) {
+        if (ID2D1Brush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.GetOpacity := CallbackCreate(GetMethod(implObj, "GetOpacity"), flags, 1)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOpacity)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.GetOpacity)
+        CallbackFree(this.vtbl.GetTransform)
     }
 }

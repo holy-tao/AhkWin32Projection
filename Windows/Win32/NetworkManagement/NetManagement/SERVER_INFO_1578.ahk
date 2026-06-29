@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_1578 extends Win32Struct {
-    static sizeof => 4
+export default struct SERVER_INFO_1578 {
+    #StructPack 4
 
-    static packingSize => 4
+    sv1578_preferredaffinity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv1578_preferredaffinity {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

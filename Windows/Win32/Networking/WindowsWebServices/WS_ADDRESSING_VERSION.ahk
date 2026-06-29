@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the version of the specification used for the addressing headers.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_addressing_version
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ADDRESSING_VERSION extends Win32Enum {
+export default struct WS_ADDRESSING_VERSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The message addressing headers correspond to version 0.9 (August 2004)

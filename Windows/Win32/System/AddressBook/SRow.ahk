@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPropValue.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Describes a row from a table that contains selected properties for a specific object. When more than one row needs to be described, an SRowSet structure is used.
@@ -39,35 +38,22 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/srow
  * @namespace Windows.Win32.System.AddressBook
  */
-class SRow extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SRow {
+    #StructPack 8
 
     /**
      * > Padding bytes to properly align the property values pointed to by the **lpProps** member.
-     * @type {Integer}
      */
-    ulAdrEntryPad {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulAdrEntryPad : UInt32
 
     /**
      * > Count of property values pointed to by **lpProps**.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cValues : UInt32
 
     /**
      * > Pointer to an array of [SPropValue](spropvalue.md) structures that describe the property values for the columns in the row.
-     * @type {Pointer<SPropValue>}
      */
-    lpProps {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpProps : SPropValue.Ptr
+
 }

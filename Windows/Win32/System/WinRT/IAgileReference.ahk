@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables retrieving an agile reference to an object.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iagilereference
  * @namespace Windows.Win32.System.WinRT
  */
-class IAgileReference extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAgileReference extends IUnknown {
     /**
      * The interface identifier for IAgileReference
      * @type {Guid}
      */
-    static IID => Guid("{c03f6a43-65a4-9818-987e-e0b810d2a6f2}")
+    static IID := Guid("{c03f6a43-65a4-9818-987e-e0b810d2a6f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAgileReference interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Resolve : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Resolve"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAgileReference.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the interface ID of an agile reference to an object.
@@ -40,7 +48,27 @@ class IAgileReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WinRT/iagilereference-resolve
      */
     Resolve(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObjectReference := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr*", &ppvObjectReference := 0, "HRESULT")
         return ppvObjectReference
+    }
+
+    Query(iid) {
+        if (IAgileReference.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Resolve)
     }
 }

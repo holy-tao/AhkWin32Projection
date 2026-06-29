@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RADIUS_ATTRIBUTE_ARRAY structure represents an array of attributes.
@@ -22,28 +21,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_attribute_array
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct RADIUS_ATTRIBUTE_ARRAY {
+    #StructPack 8
 
     /**
      * Specifies the size of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688246(v=vs.85)">Add</a> function provided by NPS. NPS sets the value of the member.
-     * @type {Pointer}
      */
-    Add {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Add : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688253(v=vs.85)">AttributeAt</a> function provided by NPS. NPS sets the value of the member.
@@ -51,12 +40,8 @@ class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct {
      * 
      * The 
      * <a href="https://docs.microsoft.com/previous-versions/ms688253(v=vs.85)">AttributeAt</a> function returns a const pointer to the specified attribute within the array.
-     * @type {Pointer}
      */
-    AttributeAt {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AttributeAt : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688277(v=vs.85)">GetSize</a> function provided by NPS. NPS sets the value of the member.
@@ -66,12 +51,8 @@ class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct {
      * 
      * The 
      * <a href="https://docs.microsoft.com/previous-versions/ms688277(v=vs.85)">GetSize</a> function returns the size of the attribute array, not the largest index. Because attribute arrays use zero-based indexes, the size of the array is one greater than the largest index.
-     * @type {Pointer}
      */
-    GetSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GetSize : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688296(v=vs.85)">InsertAt</a> function provided by NPS. NPS sets the value of the member.
@@ -84,12 +65,8 @@ class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct {
      * 
      * To append an attribute to the end of the attribute array, use the 
      * <a href="https://docs.microsoft.com/previous-versions/ms688246(v=vs.85)">Add</a> function.
-     * @type {Pointer}
      */
-    InsertAt {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    InsertAt : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688452(v=vs.85)">RemoveAt</a> function provided by NPS. NPS sets the value of the member.
@@ -98,27 +75,15 @@ class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct {
      * <a href="https://docs.microsoft.com/previous-versions/ms688452(v=vs.85)">RemoveAt</a> function removes the attribute at the specified index in the array.
      * 
      * When the <a href="https://docs.microsoft.com/previous-versions/ms688452(v=vs.85)">RemoveAt</a> function removes an attribute from the array, it decrements the index of any pre-existing attributes at higher indexes.
-     * @type {Pointer}
      */
-    RemoveAt {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    RemoveAt : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688456(v=vs.85)">SetAt</a> function provided by NPS. NPS sets the value of the member.
      * 
      * The 
      * <a href="https://docs.microsoft.com/previous-versions/ms688456(v=vs.85)">SetAt</a> function replaces the attribute at the specified index with the specified attribute.
-     * @type {Pointer}
      */
-    SetAt {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SetAt : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

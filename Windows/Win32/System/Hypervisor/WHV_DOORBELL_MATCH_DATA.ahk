@@ -1,49 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_DOORBELL_MATCH_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct WHV_DOORBELL_MATCH_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    GuestAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GuestAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Value : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Length : UInt32
 
     /**
      * This bitfield backs the following members:
      * - MatchOnValue
      * - MatchOnLength
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

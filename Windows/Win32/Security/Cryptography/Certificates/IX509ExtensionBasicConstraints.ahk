@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Extension.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IX509Extension.ahk" { IX509Extension }
 
 /**
  * Enables you to specify whether the certificate subject is a certification authority and, if so, the depth of the subordinate certification authority chain that can exist beneath the certification authority for which this extension ID is defined.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extensionbasicconstraints
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509ExtensionBasicConstraints extends IX509Extension {
-
-    static sizeof => A_PtrSize
+export default struct IX509ExtensionBasicConstraints extends IX509Extension {
     /**
      * The interface identifier for IX509ExtensionBasicConstraints
      * @type {Guid}
      */
-    static IID => Guid("{728ab316-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab316-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509ExtensionBasicConstraints interfaces
+    */
+    struct Vtbl extends IX509Extension.Vtbl {
+        InitializeEncode      : IntPtr
+        InitializeDecode      : IntPtr
+        get_IsCA              : IntPtr
+        get_PathLenConstraint : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncode", "InitializeDecode", "get_IsCA", "get_PathLenConstraint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509ExtensionBasicConstraints.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -83,7 +97,7 @@ class IX509ExtensionBasicConstraints extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-initializeencode
      */
     InitializeEncode(IsCA, PathLenConstraint) {
-        result := ComCall(12, this, "short", IsCA, "int", PathLenConstraint, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, IsCA, "int", PathLenConstraint, "HRESULT")
         return result
     }
 
@@ -129,7 +143,7 @@ class IX509ExtensionBasicConstraints extends IX509Extension {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(13, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(13, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -141,7 +155,7 @@ class IX509ExtensionBasicConstraints extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-get_isca
      */
     get_IsCA() {
-        result := ComCall(14, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -155,5 +169,31 @@ class IX509ExtensionBasicConstraints extends IX509Extension {
     get_PathLenConstraint() {
         result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509ExtensionBasicConstraints.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 3)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_IsCA := CallbackCreate(GetMethod(implObj, "get_IsCA"), flags, 2)
+        this.vtbl.get_PathLenConstraint := CallbackCreate(GetMethod(implObj, "get_PathLenConstraint"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncode)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_IsCA)
+        CallbackFree(this.vtbl.get_PathLenConstraint)
     }
 }

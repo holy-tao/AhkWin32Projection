@@ -1,32 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSB_OB_STATUS_ENTRY_PAIR_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSB_OB_STATUS_ENTRY_PAIR_TYPE.ahk" { WSB_OB_STATUS_ENTRY_PAIR_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the value and value type for a parameter used to expand the value resource string.
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_entry_value_type_pair
  * @namespace Windows.Win32.System.ServerBackup
  */
-class WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR {
+    #StructPack 8
 
     /**
      * Specifies the value for the parameter.
-     * @type {PWSTR}
      */
-    m_wszObStatusEntryPairValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    m_wszObStatusEntryPairValue : PWSTR
 
     /**
      * Specifies the type of the value for the parameter.
-     * @type {WSB_OB_STATUS_ENTRY_PAIR_TYPE}
      */
-    m_ObStatusEntryPairType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    m_ObStatusEntryPairType : WSB_OB_STATUS_ENTRY_PAIR_TYPE
+
 }

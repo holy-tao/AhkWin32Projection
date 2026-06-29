@@ -1,105 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COPYFILE_FLAGS.ahk
-#Include .\COPYFILE2_V2_FLAGS.ahk
-#Include .\COPYFILE2_CREATE_OPLOCK_KEYS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
+#Import ".\COPYFILE2_V2_FLAGS.ahk" { COPYFILE2_V2_FLAGS }
+#Import ".\COPYFILE2_CREATE_OPLOCK_KEYS.ahk" { COPYFILE2_CREATE_OPLOCK_KEYS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct {
-    static sizeof => 112
+export default struct COPYFILE2_EXTENDED_PARAMETERS_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCopyFlags : COPYFILE_FLAGS
 
-    /**
-     * @type {COPYFILE_FLAGS}
-     */
-    dwCopyFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pfCancel : BOOL.Ptr
 
-    /**
-     * @type {Pointer<BOOL>}
-     */
-    pfCancel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pProgressRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PCOPYFILE2_PROGRESS_ROUTINE>}
-     */
-    pProgressRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvCallbackContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvCallbackContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwCopyFlagsV2 : COPYFILE2_V2_FLAGS
 
-    /**
-     * @type {COPYFILE2_V2_FLAGS}
-     */
-    dwCopyFlagsV2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ioDesiredSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ioDesiredSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ioDesiredRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ioDesiredRate {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pProgressRoutineOld : IntPtr
 
-    /**
-     * @type {Pointer<LPPROGRESS_ROUTINE>}
-     */
-    pProgressRoutineOld {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SourceOplockKeys : COPYFILE2_CREATE_OPLOCK_KEYS.Ptr
 
-    /**
-     * @type {Pointer<COPYFILE2_CREATE_OPLOCK_KEYS>}
-     */
-    SourceOplockKeys {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    reserved : IntPtr[6]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    reserved {
-        get {
-            if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 64, 6, Primitive, "ptr")
-            return this.__reservedProxyArray
-        }
-    }
 }

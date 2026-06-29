@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_CLIENT_INFORMATION1 extends Win32Struct {
-    static sizeof => 24
+export default struct RPC_CLIENT_INFORMATION1 {
+    #StructPack 8
 
-    static packingSize => 8
+    UserName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    UserName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ComputerName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ComputerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Privilege : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Privilege {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    AuthFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AuthFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

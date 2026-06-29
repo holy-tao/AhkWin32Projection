@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the action types returned by WebSocketGetAction.
  * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_action_queue
  * @namespace Windows.Win32.Networking.WebSocket
  */
-class WEB_SOCKET_ACTION_QUEUE extends Win32Enum {
+export default struct WEB_SOCKET_ACTION_QUEUE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> will return only send-related actions.

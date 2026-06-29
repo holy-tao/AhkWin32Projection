@@ -1,32 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID.ahk
-#Include .\WS_REQUEST_SECURITY_TOKEN_PROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_REQUEST_SECURITY_TOKEN_PROPERTY.ahk" { WS_REQUEST_SECURITY_TOKEN_PROPERTY }
+#Import ".\WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID.ahk" { WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID }
 
 /**
  * This structure is used to specify a set of constraints for a particular request security token property. Any property constraints that are not specified will use the default constraints.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_request_security_token_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct {
-    static sizeof => 48
+export default struct WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _out extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _out {
+        requestSecurityTokenProperty : WS_REQUEST_SECURITY_TOKEN_PROPERTY
 
-        /**
-         * @type {WS_REQUEST_SECURITY_TOKEN_PROPERTY}
-         */
-        requestSecurityTokenProperty {
-            get {
-                if(!this.HasProp("__requestSecurityTokenProperty"))
-                    this.__requestSecurityTokenProperty := WS_REQUEST_SECURITY_TOKEN_PROPERTY(0, this)
-                return this.__requestSecurityTokenProperty
-            }
-        }
     }
 
     /**
@@ -51,12 +38,8 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct {
      * 
      * </li>
      * </ul>
-     * @type {WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID}
      */
-    id {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    id : WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID
 
     /**
      * An array of values which are acceptable.  The type of
@@ -64,34 +47,20 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct {
      *                     of the request security token property.  See the documentation for
      *                     a particular request security token property to determine the type of the
      *                     property.
-     * @type {Pointer<Void>}
      */
-    allowedValues {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    allowedValues : IntPtr
 
     /**
      * The total size of the allowedValues array, in bytes.  This
      *                     size must be a multiple of the size of the type of the value
      *                     of the property.
-     * @type {Integer}
      */
-    allowedValuesSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    allowedValuesSize : UInt32
 
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     entire contents of this structure will be filled out.
-     * @type {_out}
      */
-    out {
-        get {
-            if(!this.HasProp("__out"))
-                this.__out := WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT._out(24, this)
-            return this.__out
-        }
-    }
+    out : WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT._out
+
 }

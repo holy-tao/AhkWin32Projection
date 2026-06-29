@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFNETSOURCE_PROTOCOL_TYPE.ahk" { MFNETSOURCE_PROTOCOL_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures a network scheme plug-in.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetschemehandlerconfig
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFNetSchemeHandlerConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFNetSchemeHandlerConfig extends IUnknown {
     /**
      * The interface identifier for IMFNetSchemeHandlerConfig
      * @type {Guid}
      */
-    static IID => Guid("{7be19e73-c9bf-468a-ac5a-a5e8653bec87}")
+    static IID := Guid("{7be19e73-c9bf-468a-ac5a-a5e8653bec87}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFNetSchemeHandlerConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumberOfSupportedProtocols : IntPtr
+        GetSupportedProtocolType      : IntPtr
+        ResetProtocolRolloverSettings : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumberOfSupportedProtocols", "GetSupportedProtocolType", "ResetProtocolRolloverSettings"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFNetSchemeHandlerConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the number of protocols supported by the network scheme plug-in.
@@ -58,5 +69,29 @@ class IMFNetSchemeHandlerConfig extends IUnknown {
     ResetProtocolRolloverSettings() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFNetSchemeHandlerConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumberOfSupportedProtocols := CallbackCreate(GetMethod(implObj, "GetNumberOfSupportedProtocols"), flags, 2)
+        this.vtbl.GetSupportedProtocolType := CallbackCreate(GetMethod(implObj, "GetSupportedProtocolType"), flags, 3)
+        this.vtbl.ResetProtocolRolloverSettings := CallbackCreate(GetMethod(implObj, "ResetProtocolRolloverSettings"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumberOfSupportedProtocols)
+        CallbackFree(this.vtbl.GetSupportedProtocolType)
+        CallbackFree(this.vtbl.ResetProtocolRolloverSettings)
     }
 }

@@ -1,40 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPRemoteMediaServices interface includes methods that provide services to Windows Media Player from a program that hosts the Player control. These methods are designed to be used with C++, and some methods can only be used with remoting.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpremotemediaservices
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPRemoteMediaServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPRemoteMediaServices extends IUnknown {
     /**
      * The interface identifier for IWMPRemoteMediaServices
      * @type {Guid}
      */
-    static IID => Guid("{cbb92747-741f-44fe-ab5b-f1a48f3b2a59}")
+    static IID := Guid("{cbb92747-741f-44fe-ab5b-f1a48f3b2a59}")
 
     /**
      * The class identifier for WMPRemoteMediaServices
      * @type {Guid}
      */
-    static CLSID => Guid("{df333473-2cf7-4be2-907f-9aad5661364f}")
+    static CLSID := Guid("{df333473-2cf7-4be2-907f-9aad5661364f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPRemoteMediaServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetServiceType      : IntPtr
+        GetApplicationName  : IntPtr
+        GetScriptableObject : IntPtr
+        GetCustomUIMode     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetServiceType", "GetApplicationName", "GetScriptableObject", "GetCustomUIMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPRemoteMediaServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetServiceType method is called by Windows Media Player to determine whether a host program wants to run its embedded control remotely.
@@ -68,7 +80,7 @@ class IWMPRemoteMediaServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getservicetype
      */
     GetServiceType(pbstrType) {
-        result := ComCall(3, this, "ptr", pbstrType, "HRESULT")
+        result := ComCall(3, this, BSTR.Ptr, pbstrType, "HRESULT")
         return result
     }
 
@@ -98,7 +110,7 @@ class IWMPRemoteMediaServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getapplicationname
      */
     GetApplicationName(pbstrName) {
-        result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(4, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -115,7 +127,7 @@ class IWMPRemoteMediaServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getscriptableobject
      */
     GetScriptableObject(pbstrName) {
-        result := ComCall(5, this, "ptr", pbstrName, "ptr*", &ppDispatch := 0, "HRESULT")
+        result := ComCall(5, this, BSTR.Ptr, pbstrName, "ptr*", &ppDispatch := 0, "HRESULT")
         return IDispatch(ppDispatch)
     }
 
@@ -147,7 +159,33 @@ class IWMPRemoteMediaServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getcustomuimode
      */
     GetCustomUIMode(pbstrFile) {
-        result := ComCall(6, this, "ptr", pbstrFile, "HRESULT")
+        result := ComCall(6, this, BSTR.Ptr, pbstrFile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPRemoteMediaServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetServiceType := CallbackCreate(GetMethod(implObj, "GetServiceType"), flags, 2)
+        this.vtbl.GetApplicationName := CallbackCreate(GetMethod(implObj, "GetApplicationName"), flags, 2)
+        this.vtbl.GetScriptableObject := CallbackCreate(GetMethod(implObj, "GetScriptableObject"), flags, 3)
+        this.vtbl.GetCustomUIMode := CallbackCreate(GetMethod(implObj, "GetCustomUIMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetServiceType)
+        CallbackFree(this.vtbl.GetApplicationName)
+        CallbackFree(this.vtbl.GetScriptableObject)
+        CallbackFree(this.vtbl.GetCustomUIMode)
     }
 }

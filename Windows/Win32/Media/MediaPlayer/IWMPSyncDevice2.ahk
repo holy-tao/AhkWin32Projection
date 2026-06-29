@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPSyncDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPSyncDevice2 interface provides a method that supplements the IWMPSyncDevice interface.To use this interface, you must create a remoted instance of the Windows Media Player 10 or later control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSyncDevice2 extends IWMPSyncDevice {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSyncDevice2 extends IWMPSyncDevice {
     /**
      * The interface identifier for IWMPSyncDevice2
      * @type {Guid}
      */
-    static IID => Guid("{88afb4b2-140a-44d2-91e6-4543da467cd1}")
+    static IID := Guid("{88afb4b2-140a-44d2-91e6-4543da467cd1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSyncDevice2 interfaces
+    */
+    struct Vtbl extends IWMPSyncDevice.Vtbl {
+        setItemInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["setItemInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSyncDevice2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The setItemInfo method specifies an attribute value for a device.
@@ -170,7 +179,27 @@ class IWMPSyncDevice2 extends IWMPSyncDevice {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(19, this, "ptr", bstrItemName, "ptr", bstrVal, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrItemName, BSTR, bstrVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSyncDevice2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.setItemInfo := CallbackCreate(GetMethod(implObj, "setItemInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.setItemInfo)
     }
 }

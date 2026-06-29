@@ -1,70 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\..\Win32\Networking\WinSock\SOCKADDR_STORAGE.ahk
-#Include .\SRV_INSTANCE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\Win32\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SRV_INSTANCE_TYPE.ahk" { SRV_INSTANCE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class SRV_OPEN_ECP_CONTEXT extends Win32Struct {
-    static sizeof => 32
+export default struct SRV_OPEN_ECP_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    ShareName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    ShareName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SocketAddress : SOCKADDR_STORAGE.Ptr
 
-    /**
-     * @type {Pointer<SOCKADDR_STORAGE>}
-     */
-    SocketAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OplockBlockState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    OplockBlockState {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    OplockAppState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    OplockAppState {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    OplockFinalState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    OplockFinalState {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    InstanceType : SRV_INSTANCE_TYPE
 
-    /**
-     * @type {SRV_INSTANCE_TYPE}
-     */
-    InstanceType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\IFsiFileItem2.ahk
-#Include .\IEnumFsiItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsiFileItem2.ahk" { IFsiFileItem2 }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import ".\IEnumFsiItems.ahk" { IEnumFsiItems }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to enumerate the named streams associated with a file in a file system image.
@@ -19,32 +20,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsinamedstreams
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFsiNamedStreams extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsiNamedStreams extends IDispatch {
     /**
      * The interface identifier for IFsiNamedStreams
      * @type {Guid}
      */
-    static IID => Guid("{ed79ba56-5294-4250-8d46-f9aecee23459}")
+    static IID := Guid("{ed79ba56-5294-4250-8d46-f9aecee23459}")
 
     /**
      * The class identifier for FsiNamedStreams
      * @type {Guid}
      */
-    static CLSID => Guid("{c6b6f8ed-6d19-44b4-b539-b159b793a32d}")
+    static CLSID := Guid("{c6b6f8ed-6d19-44b4-b539-b159b793a32d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsiNamedStreams interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum         : IntPtr
+        get_Item             : IntPtr
+        get_Count            : IntPtr
+        get_EnumNamedStreams : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_EnumNamedStreams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsiNamedStreams.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IEnumVARIANT} 
@@ -123,5 +134,31 @@ class IFsiNamedStreams extends IDispatch {
     get_EnumNamedStreams() {
         result := ComCall(10, this, "ptr*", &NewEnum := 0, "HRESULT")
         return IEnumFsiItems(NewEnum)
+    }
+
+    Query(iid) {
+        if (IFsiNamedStreams.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_EnumNamedStreams := CallbackCreate(GetMethod(implObj, "get_EnumNamedStreams"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_EnumNamedStreams)
     }
 }

@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\IMFContentProtectionManager.ahk" { IMFContentProtectionManager }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables the Media Engine to play protected video content.
@@ -10,26 +16,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineprotectedcontent
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineProtectedContent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineProtectedContent extends IUnknown {
     /**
      * The interface identifier for IMFMediaEngineProtectedContent
      * @type {Guid}
      */
-    static IID => Guid("{9f8021e8-9c8c-487e-bb5c-79aa4779938c}")
+    static IID := Guid("{9f8021e8-9c8c-487e-bb5c-79aa4779938c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineProtectedContent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShareResources              : IntPtr
+        GetRequiredProtections      : IntPtr
+        SetOPMWindow                : IntPtr
+        TransferVideoFrame          : IntPtr
+        SetContentProtectionManager : IntPtr
+        SetApplicationCertificate   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShareResources", "GetRequiredProtections", "SetOPMWindow", "TransferVideoFrame", "SetContentProtectionManager", "SetApplicationCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineProtectedContent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables the Media Engine to access protected content while in frame-server mode.
@@ -63,9 +81,7 @@ class IMFMediaEngineProtectedContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-setopmwindow
      */
     SetOPMWindow(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(5, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(5, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -81,7 +97,7 @@ class IMFMediaEngineProtectedContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-transfervideoframe
      */
     TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr) {
-        result := ComCall(6, this, "ptr", pDstSurf, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "uint*", &pFrameProtectionFlags := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pDstSurf, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, MFARGB.Ptr, pBorderClr, "uint*", &pFrameProtectionFlags := 0, "HRESULT")
         return pFrameProtectionFlags
     }
 
@@ -110,5 +126,35 @@ class IMFMediaEngineProtectedContent extends IUnknown {
     SetApplicationCertificate(pbBlob, cbBlob) {
         result := ComCall(8, this, "ptr", pbBlob, "uint", cbBlob, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineProtectedContent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShareResources := CallbackCreate(GetMethod(implObj, "ShareResources"), flags, 2)
+        this.vtbl.GetRequiredProtections := CallbackCreate(GetMethod(implObj, "GetRequiredProtections"), flags, 2)
+        this.vtbl.SetOPMWindow := CallbackCreate(GetMethod(implObj, "SetOPMWindow"), flags, 2)
+        this.vtbl.TransferVideoFrame := CallbackCreate(GetMethod(implObj, "TransferVideoFrame"), flags, 6)
+        this.vtbl.SetContentProtectionManager := CallbackCreate(GetMethod(implObj, "SetContentProtectionManager"), flags, 2)
+        this.vtbl.SetApplicationCertificate := CallbackCreate(GetMethod(implObj, "SetApplicationCertificate"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShareResources)
+        CallbackFree(this.vtbl.GetRequiredProtections)
+        CallbackFree(this.vtbl.SetOPMWindow)
+        CallbackFree(this.vtbl.TransferVideoFrame)
+        CallbackFree(this.vtbl.SetContentProtectionManager)
+        CallbackFree(this.vtbl.SetApplicationCertificate)
     }
 }

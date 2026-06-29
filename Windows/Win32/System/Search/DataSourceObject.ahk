@@ -1,35 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class DataSourceObject extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct DataSourceObject extends IDispatch {
     /**
      * The interface identifier for DataSourceObject
      * @type {Guid}
      */
-    static IID => Guid("{0ae9a4e4-18d4-11d1-b3b3-00aa00c1a924}")
+    static IID := Guid("{0ae9a4e4-18d4-11d1-b3b3-00aa00c1a924}")
 
     /**
      * The class identifier for DataSourceObject
      * @type {Guid}
      */
-    static CLSID => Guid("{0ae9a4e4-18d4-11d1-b3b3-00aa00c1a924}")
+    static CLSID := Guid("{0ae9a4e4-18d4-11d1-b3b3-00aa00c1a924}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for DataSourceObject interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => []
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := DataSourceObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
+
+    Query(iid) {
+        if (DataSourceObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the format of a video stream.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_extendedformat
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_ExtendedFormat extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DXVA2_ExtendedFormat {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -22,12 +19,9 @@ class DXVA2_ExtendedFormat extends Win32Struct {
      * - VideoLighting
      * - VideoPrimaries
      * - VideoTransferFunction
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -84,12 +78,8 @@ class DXVA2_ExtendedFormat extends Win32Struct {
         get => (this._bitfield >> 27) & 0x1F
         set => this._bitfield := ((value & 0x1F) << 27) | (this._bitfield & ~(0x1F << 27))
     }
-
-    /**
-     * @type {Integer}
-     */
-    value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

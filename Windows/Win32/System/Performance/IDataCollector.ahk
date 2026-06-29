@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IDataCollectorSet.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IValueMap.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
+#Import ".\DataCollectorType.ahk" { DataCollectorType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IValueMap.ahk" { IValueMap }
+#Import ".\IDataCollectorSet.ahk" { IDataCollectorSet }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector
@@ -59,26 +63,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollector
  * @namespace Windows.Win32.System.Performance
  */
-class IDataCollector extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDataCollector extends IDispatch {
     /**
      * The interface identifier for IDataCollector
      * @type {Guid}
      */
-    static IID => Guid("{038374ff-098b-11d8-9414-505054503030}")
+    static IID := Guid("{038374ff-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataCollector interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DataCollectorSet      : IntPtr
+        put_DataCollectorSet      : IntPtr
+        get_DataCollectorType     : IntPtr
+        get_FileName              : IntPtr
+        put_FileName              : IntPtr
+        get_FileNameFormat        : IntPtr
+        put_FileNameFormat        : IntPtr
+        get_FileNameFormatPattern : IntPtr
+        put_FileNameFormatPattern : IntPtr
+        get_LatestOutputLocation  : IntPtr
+        put_LatestOutputLocation  : IntPtr
+        get_LogAppend             : IntPtr
+        put_LogAppend             : IntPtr
+        get_LogCircular           : IntPtr
+        put_LogCircular           : IntPtr
+        get_LogOverwrite          : IntPtr
+        put_LogOverwrite          : IntPtr
+        get_Name                  : IntPtr
+        put_Name                  : IntPtr
+        get_OutputLocation        : IntPtr
+        get_Index                 : IntPtr
+        put_Index                 : IntPtr
+        get_Xml                   : IntPtr
+        SetXml                    : IntPtr
+        CreateOutputLocation      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DataCollectorSet", "put_DataCollectorSet", "get_DataCollectorType", "get_FileName", "put_FileName", "get_FileNameFormat", "put_FileNameFormat", "get_FileNameFormatPattern", "put_FileNameFormatPattern", "get_LatestOutputLocation", "put_LatestOutputLocation", "get_LogAppend", "put_LogAppend", "get_LogCircular", "put_LogCircular", "get_LogOverwrite", "put_LogOverwrite", "get_Name", "put_Name", "get_OutputLocation", "get_Index", "put_Index", "get_Xml", "SetXml", "CreateOutputLocation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDataCollectorSet} 
@@ -247,8 +282,8 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_filename
      */
     get_FileName() {
-        name := BSTR()
-        result := ComCall(10, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -289,7 +324,7 @@ class IDataCollector extends IDispatch {
     put_FileName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(11, this, "ptr", name, "HRESULT")
+        result := ComCall(11, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -314,7 +349,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-put_filenameformat
      */
     put_FileNameFormat(format) {
-        result := ComCall(13, this, "int", format, "HRESULT")
+        result := ComCall(13, this, AutoPathFormat, format, "HRESULT")
         return result
     }
 
@@ -443,8 +478,8 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_filenameformatpattern
      */
     get_FileNameFormatPattern() {
-        pattern := BSTR()
-        result := ComCall(14, this, "ptr", pattern, "HRESULT")
+        pattern := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pattern, "HRESULT")
         return pattern
     }
 
@@ -576,7 +611,7 @@ class IDataCollector extends IDispatch {
     put_FileNameFormatPattern(pattern) {
         pattern := pattern is String ? BSTR.Alloc(pattern).Value : pattern
 
-        result := ComCall(15, this, "ptr", pattern, "HRESULT")
+        result := ComCall(15, this, BSTR, pattern, "HRESULT")
         return result
     }
 
@@ -592,8 +627,8 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        _path := BSTR()
-        result := ComCall(16, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -612,7 +647,7 @@ class IDataCollector extends IDispatch {
     put_LatestOutputLocation(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(17, this, "ptr", _path, "HRESULT")
+        result := ComCall(17, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -624,7 +659,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_logappend
      */
     get_LogAppend() {
-        result := ComCall(18, this, "short*", &append := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &append := 0, "HRESULT")
         return append
     }
 
@@ -637,7 +672,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-put_logappend
      */
     put_LogAppend(append) {
-        result := ComCall(19, this, "short", append, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, append, "HRESULT")
         return result
     }
 
@@ -647,7 +682,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_logcircular
      */
     get_LogCircular() {
-        result := ComCall(20, this, "short*", &circular := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &circular := 0, "HRESULT")
         return circular
     }
 
@@ -658,7 +693,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-put_logcircular
      */
     put_LogCircular(circular) {
-        result := ComCall(21, this, "short", circular, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, circular, "HRESULT")
         return result
     }
 
@@ -668,7 +703,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_logoverwrite
      */
     get_LogOverwrite() {
-        result := ComCall(22, this, "short*", &overwrite := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &overwrite := 0, "HRESULT")
         return overwrite
     }
 
@@ -679,7 +714,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-put_logoverwrite
      */
     put_LogOverwrite(overwrite) {
-        result := ComCall(23, this, "short", overwrite, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL, overwrite, "HRESULT")
         return result
     }
 
@@ -689,8 +724,8 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(24, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -703,7 +738,7 @@ class IDataCollector extends IDispatch {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(25, this, "ptr", name, "HRESULT")
+        result := ComCall(25, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -715,8 +750,8 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_outputlocation
      */
     get_OutputLocation() {
-        _path := BSTR()
-        result := ComCall(26, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -750,8 +785,8 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_xml
      */
     get_Xml() {
-        Xml := BSTR()
-        result := ComCall(29, this, "ptr", Xml, "HRESULT")
+        Xml := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, Xml, "HRESULT")
         return Xml
     }
 
@@ -789,7 +824,7 @@ class IDataCollector extends IDispatch {
     SetXml(Xml) {
         Xml := Xml is String ? BSTR.Alloc(Xml).Value : Xml
 
-        result := ComCall(30, this, "ptr", Xml, "ptr*", &Validation := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, Xml, "ptr*", &Validation := 0, "HRESULT")
         return IValueMap(Validation)
     }
 
@@ -799,8 +834,76 @@ class IDataCollector extends IDispatch {
      * @returns {BSTR} 
      */
     CreateOutputLocation(Latest) {
-        _Location := BSTR()
-        result := ComCall(31, this, "short", Latest, "ptr", _Location, "HRESULT")
+        _Location := BSTR.Owned()
+        result := ComCall(31, this, VARIANT_BOOL, Latest, BSTR.Ptr, _Location, "HRESULT")
         return _Location
+    }
+
+    Query(iid) {
+        if (IDataCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DataCollectorSet := CallbackCreate(GetMethod(implObj, "get_DataCollectorSet"), flags, 2)
+        this.vtbl.put_DataCollectorSet := CallbackCreate(GetMethod(implObj, "put_DataCollectorSet"), flags, 2)
+        this.vtbl.get_DataCollectorType := CallbackCreate(GetMethod(implObj, "get_DataCollectorType"), flags, 2)
+        this.vtbl.get_FileName := CallbackCreate(GetMethod(implObj, "get_FileName"), flags, 2)
+        this.vtbl.put_FileName := CallbackCreate(GetMethod(implObj, "put_FileName"), flags, 2)
+        this.vtbl.get_FileNameFormat := CallbackCreate(GetMethod(implObj, "get_FileNameFormat"), flags, 2)
+        this.vtbl.put_FileNameFormat := CallbackCreate(GetMethod(implObj, "put_FileNameFormat"), flags, 2)
+        this.vtbl.get_FileNameFormatPattern := CallbackCreate(GetMethod(implObj, "get_FileNameFormatPattern"), flags, 2)
+        this.vtbl.put_FileNameFormatPattern := CallbackCreate(GetMethod(implObj, "put_FileNameFormatPattern"), flags, 2)
+        this.vtbl.get_LatestOutputLocation := CallbackCreate(GetMethod(implObj, "get_LatestOutputLocation"), flags, 2)
+        this.vtbl.put_LatestOutputLocation := CallbackCreate(GetMethod(implObj, "put_LatestOutputLocation"), flags, 2)
+        this.vtbl.get_LogAppend := CallbackCreate(GetMethod(implObj, "get_LogAppend"), flags, 2)
+        this.vtbl.put_LogAppend := CallbackCreate(GetMethod(implObj, "put_LogAppend"), flags, 2)
+        this.vtbl.get_LogCircular := CallbackCreate(GetMethod(implObj, "get_LogCircular"), flags, 2)
+        this.vtbl.put_LogCircular := CallbackCreate(GetMethod(implObj, "put_LogCircular"), flags, 2)
+        this.vtbl.get_LogOverwrite := CallbackCreate(GetMethod(implObj, "get_LogOverwrite"), flags, 2)
+        this.vtbl.put_LogOverwrite := CallbackCreate(GetMethod(implObj, "put_LogOverwrite"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_OutputLocation := CallbackCreate(GetMethod(implObj, "get_OutputLocation"), flags, 2)
+        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.put_Index := CallbackCreate(GetMethod(implObj, "put_Index"), flags, 2)
+        this.vtbl.get_Xml := CallbackCreate(GetMethod(implObj, "get_Xml"), flags, 2)
+        this.vtbl.SetXml := CallbackCreate(GetMethod(implObj, "SetXml"), flags, 3)
+        this.vtbl.CreateOutputLocation := CallbackCreate(GetMethod(implObj, "CreateOutputLocation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DataCollectorSet)
+        CallbackFree(this.vtbl.put_DataCollectorSet)
+        CallbackFree(this.vtbl.get_DataCollectorType)
+        CallbackFree(this.vtbl.get_FileName)
+        CallbackFree(this.vtbl.put_FileName)
+        CallbackFree(this.vtbl.get_FileNameFormat)
+        CallbackFree(this.vtbl.put_FileNameFormat)
+        CallbackFree(this.vtbl.get_FileNameFormatPattern)
+        CallbackFree(this.vtbl.put_FileNameFormatPattern)
+        CallbackFree(this.vtbl.get_LatestOutputLocation)
+        CallbackFree(this.vtbl.put_LatestOutputLocation)
+        CallbackFree(this.vtbl.get_LogAppend)
+        CallbackFree(this.vtbl.put_LogAppend)
+        CallbackFree(this.vtbl.get_LogCircular)
+        CallbackFree(this.vtbl.put_LogCircular)
+        CallbackFree(this.vtbl.get_LogOverwrite)
+        CallbackFree(this.vtbl.put_LogOverwrite)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_OutputLocation)
+        CallbackFree(this.vtbl.get_Index)
+        CallbackFree(this.vtbl.put_Index)
+        CallbackFree(this.vtbl.get_Xml)
+        CallbackFree(this.vtbl.SetXml)
+        CallbackFree(this.vtbl.CreateOutputLocation)
     }
 }

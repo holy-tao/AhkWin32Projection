@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Provides access to child controls of containers that implement ITableProvider.
@@ -20,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itableitemprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ITableItemProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITableItemProvider extends IUnknown {
     /**
      * The interface identifier for ITableItemProvider
      * @type {Guid}
      */
-    static IID => Guid("{b9734fa6-771f-4d78-9c90-2517999349cd}")
+    static IID := Guid("{b9734fa6-771f-4d78-9c90-2517999349cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITableItemProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRowHeaderItems    : IntPtr
+        GetColumnHeaderItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRowHeaderItems", "GetColumnHeaderItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITableItemProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a collection of Microsoft UI Automation provider representing all the row headers associated with a table item or cell.
@@ -65,5 +75,27 @@ class ITableItemProvider extends IUnknown {
     GetColumnHeaderItems() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
         return pRetVal
+    }
+
+    Query(iid) {
+        if (ITableItemProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRowHeaderItems := CallbackCreate(GetMethod(implObj, "GetRowHeaderItems"), flags, 2)
+        this.vtbl.GetColumnHeaderItems := CallbackCreate(GetMethod(implObj, "GetColumnHeaderItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRowHeaderItems)
+        CallbackFree(this.vtbl.GetColumnHeaderItems)
     }
 }

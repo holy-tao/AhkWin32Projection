@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_RESOURCE_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct IO_RESOURCE_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Revision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Descriptors : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Descriptors {
-        get {
-            if(!this.HasProp("__DescriptorsProxyArray"))
-                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__DescriptorsProxyArray
-        }
-    }
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICredentialProviderCredential.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
 
 /**
  * Extends the ICredentialProviderCredential interface by adding a method that retrieves the security identifier (SID) of a user. The credential is associated with that user and can be grouped under the user's tile.
@@ -23,26 +25,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential2
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderCredential2 extends ICredentialProviderCredential {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderCredential2 extends ICredentialProviderCredential {
     /**
      * The interface identifier for ICredentialProviderCredential2
      * @type {Guid}
      */
-    static IID => Guid("{fd672c54-40ea-4d6e-9b49-cfb1a7507bd7}")
+    static IID := Guid("{fd672c54-40ea-4d6e-9b49-cfb1a7507bd7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderCredential2 interfaces
+    */
+    struct Vtbl extends ICredentialProviderCredential.Vtbl {
+        GetUserSid : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUserSid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderCredential2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the security identifier (SID) of the user that is associated with this credential.
@@ -52,7 +61,27 @@ class ICredentialProviderCredential2 extends ICredentialProviderCredential {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
      */
     GetUserSid() {
-        result := ComCall(20, this, "ptr*", &_sid := 0, "HRESULT")
+        result := ComCall(20, this, PWSTR.Ptr, &_sid := 0, "HRESULT")
         return _sid
+    }
+
+    Query(iid) {
+        if (ICredentialProviderCredential2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUserSid := CallbackCreate(GetMethod(implObj, "GetUserSid"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUserSid)
     }
 }

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * An authorization error occurred.
- * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetpdudata
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
-class SNMP_ERROR extends Win32Enum {
+export default struct SNMP_ERROR {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

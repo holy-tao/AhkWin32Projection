@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_SIZING_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct HTTP_REQUEST_SIZING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RequestIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RequestSizingCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestSizingCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    RequestSizing : Int64[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RequestSizing {
-        get {
-            if(!this.HasProp("__RequestSizingProxyArray"))
-                this.__RequestSizingProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "uint")
-            return this.__RequestSizingProxyArray
-        }
-    }
 }

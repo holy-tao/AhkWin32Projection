@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Structure that holds all callback function pointers for carrying out operations.
@@ -10,89 +9,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_operationcallbacks
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_OperationCallbacks extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct MI_OperationCallbacks {
+    #StructPack 8
 
     /**
      * A client specific context that is passed to all the callbacks. This is used to correlate the callback to the associated operation. This value will be passed to any operation callbacks.
-     * @type {Pointer<Void>}
      */
-    callbackContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    callbackContext : IntPtr
 
     /**
      * Optional callback to handle prompt user requests from the server.
-     * @type {Pointer<MI_OperationCallback_PromptUser>}
      */
-    promptUser {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    promptUser : IntPtr
 
     /**
      * Optional callback to receive write error messages from the server.
-     * @type {Pointer<MI_OperationCallback_WriteError>}
      */
-    writeError {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    writeError : IntPtr
 
     /**
      * Optional callback to receive write messages from the server.
-     * @type {Pointer<MI_OperationCallback_WriteMessage>}
      */
-    writeMessage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    writeMessage : IntPtr
 
     /**
      * Optional callback to receive progress reports from the server.
-     * @type {Pointer<MI_OperationCallback_WriteProgress>}
      */
-    writeProgress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    writeProgress : IntPtr
 
     /**
      * Optional instance callback to get asynchronous results from an operation.  If this is not specified and the operation is an instance operation, then the client will need to use the synchronous APIs to retrieve the results.
-     * @type {Pointer<MI_OperationCallback_Instance>}
      */
-    instanceResult {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    instanceResult : IntPtr
 
     /**
      * Optional instance callback to get indication (subscribe) results from an operation.  If this is not specified and the operation is an instance operation, then the client will need to use the synchronous APIs to retrieve the results.
-     * @type {Pointer<MI_OperationCallback_Indication>}
      */
-    indicationResult {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    indicationResult : IntPtr
 
     /**
      * Optional instance callback to get classes and class options from an operation.  If this is not specified and the operation is an instance operation, then the client will need to use the synchronous APIs to retrieve the results.
-     * @type {Pointer<MI_OperationCallback_Class>}
      */
-    classResult {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    classResult : IntPtr
 
     /**
      * Optional callback to get streamed parameter results from method invocation operations.
-     * @type {Pointer<MI_OperationCallback_StreamedParameter>}
      */
-    streamedParameterResult {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    streamedParameterResult : IntPtr
+
 }

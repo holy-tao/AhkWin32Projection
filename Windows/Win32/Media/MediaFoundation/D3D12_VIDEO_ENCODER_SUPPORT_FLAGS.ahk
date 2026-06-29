@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies flags for video encoder features.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_support_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_SUPPORT_FLAGS extends Win32BitflagEnum {
+export default struct D3D12_VIDEO_ENCODER_SUPPORT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * None.
@@ -153,4 +162,9 @@ class D3D12_VIDEO_ENCODER_SUPPORT_FLAGS extends Win32BitflagEnum {
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_SPATIAL_ADAPTIVE_QP_AVAILABLE => 8388608
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_INTRA_REFRESH_NO_SUBREGION_LAYOUT_CONSTRAINTS_AVAILABLE => 16777216
 }

@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFX_GFX_MSG_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY extends Win32Struct {
-    static sizeof => 20
+export default struct RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY {
+    #StructPack 4
 
-    static packingSize => 4
+    channelHdr : RFX_GFX_MSG_HEADER
 
-    /**
-     * @type {RFX_GFX_MSG_HEADER}
-     */
-    channelHdr {
-        get {
-            if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
-            return this.__channelHdr
-        }
-    }
+    ulWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulHeight {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulBpp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBpp {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

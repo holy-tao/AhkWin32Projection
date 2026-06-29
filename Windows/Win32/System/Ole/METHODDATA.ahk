@@ -1,72 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARAMDATA.ahk
-#Include ..\Com\CALLCONV.ahk
-#Include ..\Variant\VARENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Com\CALLCONV.ahk" { CALLCONV }
+#Import ".\PARAMDATA.ahk" { PARAMDATA }
 
 /**
  * Describes a method or property.
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-methoddata
  * @namespace Windows.Win32.System.Ole
  */
-class METHODDATA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct METHODDATA {
+    #StructPack 8
 
     /**
      * The method name.
-     * @type {PWSTR}
      */
-    szName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szName : PWSTR
 
     /**
      * An array of method parameters.
-     * @type {Pointer<PARAMDATA>}
      */
-    ppdata {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ppdata : PARAMDATA.Ptr
 
     /**
      * The ID of the method, as used in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>.
-     * @type {Integer}
      */
-    dispid {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    dispid : Int32
 
     /**
      * The index of the method in the VTBL of the interface, starting with 0.
-     * @type {Integer}
      */
-    iMeth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    iMeth : UInt32
 
     /**
      * The calling convention. The CDECL and Pascal calling conventions are supported by the dispatch interface creation functions, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-createstddispatch">CreateStdDispatch</a>.
-     * @type {CALLCONV}
      */
-    cc {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cc : CALLCONV
 
     /**
      * The number of arguments.
-     * @type {Integer}
      */
-    cArgs {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cArgs : UInt32
 
     /**
      * Invoke flags.
@@ -121,19 +95,12 @@ class METHODDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wFlags {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    wFlags : UInt16
 
     /**
      * The return type for the method.
-     * @type {VARENUM}
      */
-    vtReturn {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    vtReturn : VARENUM
+
 }

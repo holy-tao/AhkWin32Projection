@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_LINK_QUALITY_ENTRY extends Win32Struct {
-    static sizeof => 7
+export default struct DOT11_LINK_QUALITY_ENTRY {
+    #StructPack 1
 
-    static packingSize => 1
+    PeerMacAddr : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerMacAddr {
-        get {
-            if(!this.HasProp("__PeerMacAddrProxyArray"))
-                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__PeerMacAddrProxyArray
-        }
-    }
+    ucLinkQuality : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucLinkQuality {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
 }

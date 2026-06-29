@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_PACKET_V2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_PACKET_V2.ahk" { WHEA_ERROR_PACKET_V2 }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_STARTED_REPORT_HW_ERROR extends Win32Struct {
-    static sizeof => 16
+export default struct WHEAP_STARTED_REPORT_HW_ERROR {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorPacket : WHEA_ERROR_PACKET_V2.Ptr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_PACKET_V2>}
-     */
-    ErrorPacket {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

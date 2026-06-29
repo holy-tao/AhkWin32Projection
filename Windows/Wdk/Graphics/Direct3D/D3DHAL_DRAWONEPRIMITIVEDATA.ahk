@@ -1,85 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DVERTEXTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk" { D3DPRIMITIVETYPE }
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DVERTEXTYPE.ahk" { D3DVERTEXTYPE }
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_DRAWONEPRIMITIVEDATA extends Win32Struct {
-    static sizeof => 48
+export default struct D3DHAL_DRAWONEPRIMITIVEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwhContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PrimitiveType : D3DPRIMITIVETYPE
 
-    /**
-     * @type {D3DPRIMITIVETYPE}
-     */
-    PrimitiveType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    VertexType : D3DVERTEXTYPE
 
-    /**
-     * @type {D3DVERTEXTYPE}
-     */
-    VertexType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lpvVertices : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwFVFControl {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNumVertices : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpvVertices {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumVertices {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ddrval : HRESULT
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'dwFVFControl', { type: UInt32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

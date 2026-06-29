@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_MESSAGE.ahk
-#Include .\ICMP_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ICMP_HEADER.ahk" { ICMP_HEADER }
+#Import ".\ICMP_MESSAGE.ahk" { ICMP_MESSAGE }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ICMPV4_TIMESTAMP_MESSAGE extends Win32Struct {
-    static sizeof => 20
+export default struct ICMPV4_TIMESTAMP_MESSAGE {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : ICMP_MESSAGE
 
-    /**
-     * @type {ICMP_MESSAGE}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := ICMP_MESSAGE(0, this)
-            return this.__Header
-        }
-    }
+    OriginateTimestamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OriginateTimestamp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ReceiveTimestamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReceiveTimestamp {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TransmitTimestamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransmitTimestamp {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

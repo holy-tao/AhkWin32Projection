@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOleDocumentView.ahk" { IOleDocumentView }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a document that has been implemented as a document object to bypass the normal activation sequence for in-place-active objects and to directly instruct its client site to activate it as a document object.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-ioledocumentsite
  * @namespace Windows.Win32.System.Ole
  */
-class IOleDocumentSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleDocumentSite extends IUnknown {
     /**
      * The interface identifier for IOleDocumentSite
      * @type {Guid}
      */
-    static IID => Guid("{b722bcc7-4e68-101b-a2bc-00aa00404770}")
+    static IID := Guid("{b722bcc7-4e68-101b-a2bc-00aa00404770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleDocumentSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ActivateMe : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateMe"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleDocumentSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Asks a document site to activate the document making the call as a document object rather than an in-place-active object and, optionally, specifies which view of the object document to activate.
@@ -60,5 +69,25 @@ class IOleDocumentSite extends IUnknown {
     ActivateMe(pViewToActivate) {
         result := ComCall(3, this, "ptr", pViewToActivate, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleDocumentSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateMe := CallbackCreate(GetMethod(implObj, "ActivateMe"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateMe)
     }
 }

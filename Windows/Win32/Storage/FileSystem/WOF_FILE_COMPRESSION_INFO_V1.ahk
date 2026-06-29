@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines metadata specific to files provided by WOF_PROVIDER_FILE.
  * @see https://learn.microsoft.com/windows/win32/api/wofapi/ns-wofapi-wof_file_compression_info_v1
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class WOF_FILE_COMPRESSION_INFO_V1 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WOF_FILE_COMPRESSION_INFO_V1 {
+    #StructPack 4
 
     /**
      * Specifies the compression algorithm that is used to compress this file. Currently defined algorithms are: 
@@ -32,19 +29,12 @@ class WOF_FILE_COMPRESSION_INFO_V1 extends Win32Struct {
      * <td>Indicates that the data for the file should be compressed in 16kb chunks with the XPress algorithm.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Algorithm {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Algorithm : UInt32
 
     /**
      * Specifies flags for the operation. Reserved for future use, should be 0.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
+
 }

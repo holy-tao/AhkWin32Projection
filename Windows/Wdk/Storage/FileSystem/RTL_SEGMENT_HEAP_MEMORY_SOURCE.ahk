@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\RTL_SEGMENT_HEAP_VA_CALLBACKS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RTL_SEGMENT_HEAP_VA_CALLBACKS.ahk" { RTL_SEGMENT_HEAP_VA_CALLBACKS }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class RTL_SEGMENT_HEAP_MEMORY_SOURCE extends Win32Struct {
-    static sizeof => 40
+export default struct RTL_SEGMENT_HEAP_MEMORY_SOURCE {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MemoryTypeMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MemoryTypeMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumaNode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumaNode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PartitionHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    PartitionHandle {
-        get {
-            if(!this.HasProp("__PartitionHandle"))
-                this.__PartitionHandle := HANDLE(16, this)
-            return this.__PartitionHandle
-        }
-    }
+    Reserved : IntPtr[2]
 
-    /**
-     * @type {Pointer<RTL_SEGMENT_HEAP_VA_CALLBACKS>}
-     */
-    Callbacks {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Array<Pointer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "ptr")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Callbacks', { type: RTL_SEGMENT_HEAP_VA_CALLBACKS.Ptr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

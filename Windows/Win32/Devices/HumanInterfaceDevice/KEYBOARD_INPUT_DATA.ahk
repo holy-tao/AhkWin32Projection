@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * KEYBOARD_INPUT_DATA contains one packet of keyboard input data.
@@ -8,28 +7,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_input_data
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class KEYBOARD_INPUT_DATA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct KEYBOARD_INPUT_DATA {
+    #StructPack 4
 
     /**
      * Specifies the unit number of a keyboard device. A keyboard device name has the format \Device\KeyboardPort<i>N</i>, where the suffix <i>N </i> is the unit number of the device. For example, a device, whose name is \Device\KeyboardPort0, has a unit number of zero, and a device, whose name is \Device\KeyboardPort1, has a unit number of one.
-     * @type {Integer}
      */
-    UnitId {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    UnitId : UInt16
 
     /**
      * Specifies the scan code associated with a key press.
-     * @type {Integer}
      */
-    MakeCode {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    MakeCode : UInt16
 
     /**
      * Specifies a bitwise OR of one or more of the following flags that indicate whether a key was pressed or released, and other miscellaneous information.
@@ -80,28 +69,17 @@ class KEYBOARD_INPUT_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Flags : UInt16
 
     /**
      * Reserved for operating system use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : UInt16
 
     /**
      * Specifies device-specific information associated with a keyboard event.
-     * @type {Integer}
      */
-    ExtraInformation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ExtraInformation : UInt32
+
 }

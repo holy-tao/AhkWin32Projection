@@ -1,15 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\Apis.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\Apis.ahk" { DdqFreeDiagnosticRecordPage }
 
 /**
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  */
-class HDIAGNOSTIC_RECORD extends Win32Handle {
-    static sizeof => 8
+export default struct HDIAGNOSTIC_RECORD {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is HDIAGNOSTIC_RECORD) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -17,16 +24,40 @@ class HDIAGNOSTIC_RECORD extends Win32Handle {
      */
     static invalidValues => [-1, 0]
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := -1) {
+        this.Value := Value
     }
 
-    Free(){
-        DiagnosticDataQuery.DdqFreeDiagnosticRecordPage(this.Value)
+    Free() {
+        ; Do nothing if the handle is invalid already
+        if (this.Value != -1 && this.Value != 0) {
+            DdqFreeDiagnosticRecordPage(this.Value)
+            this.Value := -1
+        }
+    }
+
+    /**
+     * A `HDIAGNOSTIC_RECORD` which is owned by the script and which frees itself
+     * in `__Delete`.
+     */
+    struct Owned extends HDIAGNOSTIC_RECORD {
+        __Delete() {
+            this.Free()
+        }
+    }
+
+    /**
+     * Takes ownership of this HDIAGNOSTIC_RECORD, returning an owned handle that frees
+     * itself when it falls out of scope. This is a *move*: the original handle is
+     * invalidated so the underlying resource has exactly one owner.
+     * @returns {HDIAGNOSTIC_RECORD.Owned}
+     */
+    Adopt() {
+        if (this is HDIAGNOSTIC_RECORD.Owned) {
+            throw TypeError("Cannot adopt an owned HDIAGNOSTIC_RECORD", -1)
+        }
+        owned := HDIAGNOSTIC_RECORD.Owned(this.Value)
         this.Value := -1
+        return owned
     }
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Represents a 2D transformation that affects the rotation of a visual around the z-axis. The coordinate system is rotated around the specified center point.
@@ -14,26 +16,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionrotatetransform
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionRotateTransform extends IDCompositionTransform {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionRotateTransform extends IDCompositionTransform {
     /**
      * The interface identifier for IDCompositionRotateTransform
      * @type {Guid}
      */
-    static IID => Guid("{641ed83c-ae96-46c5-90dc-32774cc5c6d5}")
+    static IID := Guid("{641ed83c-ae96-46c5-90dc-32774cc5c6d5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionRotateTransform interfaces
+    */
+    struct Vtbl extends IDCompositionTransform.Vtbl {
+        SetAngle    : IntPtr
+        SetAngle1   : IntPtr
+        SetCenterX  : IntPtr
+        SetCenterX1 : IntPtr
+        SetCenterY  : IntPtr
+        SetCenterY1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAngle", "SetAngle1", "SetCenterX", "SetCenterX1", "SetCenterY", "SetCenterY1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionRotateTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Animates the value of the Angle property of a 2D rotation transform. The Angle property specifies the rotation angle.
@@ -153,5 +167,35 @@ class IDCompositionRotateTransform extends IDCompositionTransform {
     SetCenterY1(centerY) {
         result := ComCall(8, this, "float", centerY, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionRotateTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAngle := CallbackCreate(GetMethod(implObj, "SetAngle"), flags, 2)
+        this.vtbl.SetAngle1 := CallbackCreate(GetMethod(implObj, "SetAngle1"), flags, 2)
+        this.vtbl.SetCenterX := CallbackCreate(GetMethod(implObj, "SetCenterX"), flags, 2)
+        this.vtbl.SetCenterX1 := CallbackCreate(GetMethod(implObj, "SetCenterX1"), flags, 2)
+        this.vtbl.SetCenterY := CallbackCreate(GetMethod(implObj, "SetCenterY"), flags, 2)
+        this.vtbl.SetCenterY1 := CallbackCreate(GetMethod(implObj, "SetCenterY1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAngle)
+        CallbackFree(this.vtbl.SetAngle1)
+        CallbackFree(this.vtbl.SetCenterX)
+        CallbackFree(this.vtbl.SetCenterX1)
+        CallbackFree(this.vtbl.SetCenterY)
+        CallbackFree(this.vtbl.SetCenterY1)
     }
 }

@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UIA_STYLE_ID.ahk" { UIA_STYLE_ID }
 
 /**
  * Provides access to the visual styles associated with the content of a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-istylesprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IStylesProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStylesProvider extends IUnknown {
     /**
      * The interface identifier for IStylesProvider
      * @type {Guid}
      */
-    static IID => Guid("{19b6b649-f5d7-4a6d-bdcb-129252be588a}")
+    static IID := Guid("{19b6b649-f5d7-4a6d-bdcb-129252be588a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStylesProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_StyleId            : IntPtr
+        get_StyleName          : IntPtr
+        get_FillColor          : IntPtr
+        get_FillPatternStyle   : IntPtr
+        get_Shape              : IntPtr
+        get_FillPatternColor   : IntPtr
+        get_ExtendedProperties : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StyleId", "get_StyleName", "get_FillColor", "get_FillPatternStyle", "get_Shape", "get_FillPatternColor", "get_ExtendedProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStylesProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UIA_STYLE_ID} 
@@ -108,8 +123,8 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_stylename
      */
     get_StyleName() {
-        retVal := BSTR()
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -129,8 +144,8 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_fillpatternstyle
      */
     get_FillPatternStyle() {
-        retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -140,8 +155,8 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_shape
      */
     get_Shape() {
-        retVal := BSTR()
-        result := ComCall(7, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -163,8 +178,40 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_extendedproperties
      */
     get_ExtendedProperties() {
-        retVal := BSTR()
-        result := ComCall(9, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IStylesProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StyleId := CallbackCreate(GetMethod(implObj, "get_StyleId"), flags, 2)
+        this.vtbl.get_StyleName := CallbackCreate(GetMethod(implObj, "get_StyleName"), flags, 2)
+        this.vtbl.get_FillColor := CallbackCreate(GetMethod(implObj, "get_FillColor"), flags, 2)
+        this.vtbl.get_FillPatternStyle := CallbackCreate(GetMethod(implObj, "get_FillPatternStyle"), flags, 2)
+        this.vtbl.get_Shape := CallbackCreate(GetMethod(implObj, "get_Shape"), flags, 2)
+        this.vtbl.get_FillPatternColor := CallbackCreate(GetMethod(implObj, "get_FillPatternColor"), flags, 2)
+        this.vtbl.get_ExtendedProperties := CallbackCreate(GetMethod(implObj, "get_ExtendedProperties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StyleId)
+        CallbackFree(this.vtbl.get_StyleName)
+        CallbackFree(this.vtbl.get_FillColor)
+        CallbackFree(this.vtbl.get_FillPatternStyle)
+        CallbackFree(this.vtbl.get_Shape)
+        CallbackFree(this.vtbl.get_FillPatternColor)
+        CallbackFree(this.vtbl.get_ExtendedProperties)
     }
 }

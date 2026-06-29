@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SLOWAPPINFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SLOWAPPINFO.ahk" { SLOWAPPINFO }
+#Import ".\APPINFODATA.ahk" { APPINFODATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide general information about an application to the Add/Remove Programs Application.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ishellapp
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellApp extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellApp extends IUnknown {
     /**
      * The interface identifier for IShellApp
      * @type {Guid}
      */
-    static IID => Guid("{a3e14960-935f-11d1-b8b8-006008059382}")
+    static IID := Guid("{a3e14960-935f-11d1-b8b8-006008059382}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellApp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAppInfo           : IntPtr
+        GetPossibleActions   : IntPtr
+        GetSlowAppInfo       : IntPtr
+        GetCachedSlowAppInfo : IntPtr
+        IsInstalled          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAppInfo", "GetPossibleActions", "GetSlowAppInfo", "GetCachedSlowAppInfo", "IsInstalled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellApp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets general information about an application.
@@ -47,7 +60,7 @@ class IShellApp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getappinfo
      */
     GetAppInfo(pai) {
-        result := ComCall(3, this, "ptr", pai, "HRESULT")
+        result := ComCall(3, this, APPINFODATA.Ptr, pai, "HRESULT")
         return result
     }
 
@@ -76,7 +89,7 @@ class IShellApp extends IUnknown {
      */
     GetSlowAppInfo() {
         psaid := SLOWAPPINFO()
-        result := ComCall(5, this, "ptr", psaid, "HRESULT")
+        result := ComCall(5, this, SLOWAPPINFO.Ptr, psaid, "HRESULT")
         return psaid
     }
 
@@ -91,7 +104,7 @@ class IShellApp extends IUnknown {
      */
     GetCachedSlowAppInfo() {
         psaid := SLOWAPPINFO()
-        result := ComCall(6, this, "ptr", psaid, "HRESULT")
+        result := ComCall(6, this, SLOWAPPINFO.Ptr, psaid, "HRESULT")
         return psaid
     }
 
@@ -136,5 +149,33 @@ class IShellApp extends IUnknown {
     IsInstalled() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellApp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAppInfo := CallbackCreate(GetMethod(implObj, "GetAppInfo"), flags, 2)
+        this.vtbl.GetPossibleActions := CallbackCreate(GetMethod(implObj, "GetPossibleActions"), flags, 2)
+        this.vtbl.GetSlowAppInfo := CallbackCreate(GetMethod(implObj, "GetSlowAppInfo"), flags, 2)
+        this.vtbl.GetCachedSlowAppInfo := CallbackCreate(GetMethod(implObj, "GetCachedSlowAppInfo"), flags, 2)
+        this.vtbl.IsInstalled := CallbackCreate(GetMethod(implObj, "IsInstalled"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAppInfo)
+        CallbackFree(this.vtbl.GetPossibleActions)
+        CallbackFree(this.vtbl.GetSlowAppInfo)
+        CallbackFree(this.vtbl.GetCachedSlowAppInfo)
+        CallbackFree(this.vtbl.IsInstalled)
     }
 }

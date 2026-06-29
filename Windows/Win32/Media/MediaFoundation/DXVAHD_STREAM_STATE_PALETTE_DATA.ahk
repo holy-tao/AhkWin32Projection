@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the color palette entries for an input stream, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -16,26 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_palette_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_PALETTE_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DXVAHD_STREAM_STATE_PALETTE_DATA {
+    #StructPack 8
 
     /**
      * The number of palette entries. The default state value is 0.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
     /**
      * A pointer to an array of <b>D3DCOLOR</b> values. For RGB streams, the palette entries use a D3DFMT_A8R8G8B8 (ARGB-32) representation. For YCbCr streams, the palette entries use an AYUV representation. The alpha channel is used for alpha blending; see <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_alpha_data">DXVAHD_STREAM_STATE_ALPHA_DATA</a>.
-     * @type {Pointer<Integer>}
      */
-    pEntries {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pEntries : IntPtr
+
 }

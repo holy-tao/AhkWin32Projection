@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class ALTERNATE_INTERFACE extends Win32Struct {
-    static sizeof => 4
+export default struct ALTERNATE_INTERFACE {
+    #StructPack 2
 
-    static packingSize => 2
+    InterfaceNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InterfaceNumber {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    AlternateInterfaceNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AlternateInterfaceNumber {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 }

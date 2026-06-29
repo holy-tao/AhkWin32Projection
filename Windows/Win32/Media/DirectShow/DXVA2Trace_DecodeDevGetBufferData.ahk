@@ -1,47 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DXVA2Trace_DecodeDevGetBufferData extends Win32Struct {
-    static sizeof => 56
+export default struct DXVA2Trace_DecodeDevGetBufferData {
+    #StructPack 8
 
-    static packingSize => 8
+    wmiHeader : EVENT_TRACE_HEADER
 
-    /**
-     * @type {EVENT_TRACE_HEADER}
-     */
-    wmiHeader {
-        get {
-            if(!this.HasProp("__wmiHeader"))
-                this.__wmiHeader := EVENT_TRACE_HEADER(0, this)
-            return this.__wmiHeader
-        }
-    }
+    pObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pObject {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BufferType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Enter : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enter {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
 }

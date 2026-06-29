@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_CHANNEL extends Win32Struct {
-    static sizeof => 5
+export default struct DOT11_WFD_CHANNEL {
+    #StructPack 1
 
-    static packingSize => 1
+    CountryRegionString : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CountryRegionString {
-        get {
-            if(!this.HasProp("__CountryRegionStringProxyArray"))
-                this.__CountryRegionStringProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
-            return this.__CountryRegionStringProxyArray
-        }
-    }
+    OperatingClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OperatingClass {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ChannelNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ChannelNumber {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

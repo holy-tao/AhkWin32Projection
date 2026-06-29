@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the filters that you can use to limit the files that are included in a report.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreportfilter
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class FsrmReportFilter extends Win32Enum {
+export default struct FsrmReportFilter {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The report will show only files that meet a minimum size.

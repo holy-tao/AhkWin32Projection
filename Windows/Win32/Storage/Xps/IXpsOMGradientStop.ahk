@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMGradientBrush.ahk
-#Include .\IXpsOMColorProfileResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
+#Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
+#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a single color and location within a gradient.
@@ -72,26 +74,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMGradientStop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMGradientStop extends IUnknown {
     /**
      * The interface identifier for IXpsOMGradientStop
      * @type {Guid}
      */
-    static IID => Guid("{5cf4f5cc-3969-49b5-a70a-5550b618fe49}")
+    static IID := Guid("{5cf4f5cc-3969-49b5-a70a-5550b618fe49}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMGradientStop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwner  : IntPtr
+        GetOffset : IntPtr
+        SetOffset : IntPtr
+        GetColor  : IntPtr
+        SetColor  : IntPtr
+        Clone     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetOffset", "SetOffset", "GetColor", "SetColor", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMGradientStop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMGradientBrush interface that contains the gradient stop.
@@ -166,7 +180,7 @@ class IXpsOMGradientStop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getcolor
      */
     GetColor(_color) {
-        result := ComCall(6, this, "ptr", _color, "ptr*", &colorProfile := 0, "HRESULT")
+        result := ComCall(6, this, XPS_COLOR.Ptr, _color, "ptr*", &colorProfile := 0, "HRESULT")
         return IXpsOMColorProfileResource(colorProfile)
     }
 
@@ -246,7 +260,7 @@ class IXpsOMGradientStop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setcolor
      */
     SetColor(_color, colorProfile) {
-        result := ComCall(7, this, "ptr", _color, "ptr", colorProfile, "HRESULT")
+        result := ComCall(7, this, XPS_COLOR.Ptr, _color, "ptr", colorProfile, "HRESULT")
         return result
     }
 
@@ -262,5 +276,35 @@ class IXpsOMGradientStop extends IUnknown {
     Clone() {
         result := ComCall(8, this, "ptr*", &gradientStop := 0, "HRESULT")
         return IXpsOMGradientStop(gradientStop)
+    }
+
+    Query(iid) {
+        if (IXpsOMGradientStop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 3)
+        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetOffset)
+        CallbackFree(this.vtbl.SetOffset)
+        CallbackFree(this.vtbl.GetColor)
+        CallbackFree(this.vtbl.SetColor)
+        CallbackFree(this.vtbl.Clone)
     }
 }

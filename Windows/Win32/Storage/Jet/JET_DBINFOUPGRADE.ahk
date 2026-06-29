@@ -1,82 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_DBINFOUPGRADE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-dbinfoupgrade-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_DBINFOUPGRADE extends Win32Struct {
-    static sizeof => 28
+export default struct JET_DBINFOUPGRADE {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbFilesizeLow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbFilesizeLow {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbFilesizeHigh : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbFilesizeHigh {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbFreeSpaceRequiredLow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbFreeSpaceRequiredLow {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbFreeSpaceRequiredHigh : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbFreeSpaceRequiredHigh {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    csecToUpgrade : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    csecToUpgrade {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - fUpgradable
-     * - fAlreadyUpgraded
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 
     /**
      * @type {Integer}
@@ -92,5 +37,9 @@ class JET_DBINFOUPGRADE extends Win32Struct {
     fAlreadyUpgraded {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

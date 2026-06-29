@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Server certificates are sent when an HTTPS connection is opened. Use this method to implement a callback to be called to validate those server certificates.
  * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nn-bits10_3-ibackgroundcopyservercertificatevalidationcallback
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyServerCertificateValidationCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyServerCertificateValidationCallback extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyServerCertificateValidationCallback
      * @type {Guid}
      */
-    static IID => Guid("{4cec0d02-def7-4158-813a-c32a46945ff7}")
+    static IID := Guid("{4cec0d02-def7-4158-813a-c32a46945ff7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyServerCertificateValidationCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ValidateServerCertificate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ValidateServerCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyServerCertificateValidationCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * A callback method that you implement that will be called so that you can validate the server certificates sent when an HTTPS connection is opened.
@@ -110,5 +120,25 @@ class IBackgroundCopyServerCertificateValidationCallback extends IUnknown {
 
         result := ComCall(3, this, "ptr", job, "ptr", _file, "uint", certLength, certDataMarshal, certData, "uint", certEncodingType, "uint", certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyServerCertificateValidationCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ValidateServerCertificate := CallbackCreate(GetMethod(implObj, "ValidateServerCertificate"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ValidateServerCertificate)
     }
 }

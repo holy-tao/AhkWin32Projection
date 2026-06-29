@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_STANDARD_LINK_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct FILE_STANDARD_LINK_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NumberOfAccessibleLinks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfAccessibleLinks {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TotalNumberOfLinks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalNumberOfLinks {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DeletePending : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DeletePending {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Directory : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Directory {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

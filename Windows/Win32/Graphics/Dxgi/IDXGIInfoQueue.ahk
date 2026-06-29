@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
+#Import ".\DXGI_INFO_QUEUE_FILTER.ahk" { DXGI_INFO_QUEUE_FILTER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
 
 /**
  * This interface controls the debug information queue, and can only be used if the debug layer is turned on.
@@ -15,26 +21,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nn-dxgidebug-idxgiinfoqueue
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIInfoQueue extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIInfoQueue extends IUnknown {
     /**
      * The interface identifier for IDXGIInfoQueue
      * @type {Guid}
      */
-    static IID => Guid("{d67441c7-672a-476f-9e82-cd55b44949ce}")
+    static IID := Guid("{d67441c7-672a-476f-9e82-cd55b44949ce}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIInfoQueue interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMessageCountLimit                          : IntPtr
+        ClearStoredMessages                           : IntPtr
+        GetMessage                                    : IntPtr
+        GetNumStoredMessagesAllowedByRetrievalFilters : IntPtr
+        GetNumStoredMessages                          : IntPtr
+        GetNumMessagesDiscardedByMessageCountLimit    : IntPtr
+        GetMessageCountLimit                          : IntPtr
+        GetNumMessagesAllowedByStorageFilter          : IntPtr
+        GetNumMessagesDeniedByStorageFilter           : IntPtr
+        AddStorageFilterEntries                       : IntPtr
+        GetStorageFilter                              : IntPtr
+        ClearStorageFilter                            : IntPtr
+        PushEmptyStorageFilter                        : IntPtr
+        PushDenyAllStorageFilter                      : IntPtr
+        PushCopyOfStorageFilter                       : IntPtr
+        PushStorageFilter                             : IntPtr
+        PopStorageFilter                              : IntPtr
+        GetStorageFilterStackSize                     : IntPtr
+        AddRetrievalFilterEntries                     : IntPtr
+        GetRetrievalFilter                            : IntPtr
+        ClearRetrievalFilter                          : IntPtr
+        PushEmptyRetrievalFilter                      : IntPtr
+        PushDenyAllRetrievalFilter                    : IntPtr
+        PushCopyOfRetrievalFilter                     : IntPtr
+        PushRetrievalFilter                           : IntPtr
+        PopRetrievalFilter                            : IntPtr
+        GetRetrievalFilterStackSize                   : IntPtr
+        AddMessage                                    : IntPtr
+        AddApplicationMessage                         : IntPtr
+        SetBreakOnCategory                            : IntPtr
+        SetBreakOnSeverity                            : IntPtr
+        SetBreakOnID                                  : IntPtr
+        GetBreakOnCategory                            : IntPtr
+        GetBreakOnSeverity                            : IntPtr
+        GetBreakOnID                                  : IntPtr
+        SetMuteDebugOutput                            : IntPtr
+        GetMuteDebugOutput                            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMessageCountLimit", "ClearStoredMessages", "GetMessage", "GetNumStoredMessagesAllowedByRetrievalFilters", "GetNumStoredMessages", "GetNumMessagesDiscardedByMessageCountLimit", "GetMessageCountLimit", "GetNumMessagesAllowedByStorageFilter", "GetNumMessagesDeniedByStorageFilter", "AddStorageFilterEntries", "GetStorageFilter", "ClearStorageFilter", "PushEmptyStorageFilter", "PushDenyAllStorageFilter", "PushCopyOfStorageFilter", "PushStorageFilter", "PopStorageFilter", "GetStorageFilterStackSize", "AddRetrievalFilterEntries", "GetRetrievalFilter", "ClearRetrievalFilter", "PushEmptyRetrievalFilter", "PushDenyAllRetrievalFilter", "PushCopyOfRetrievalFilter", "PushRetrievalFilter", "PopRetrievalFilter", "GetRetrievalFilterStackSize", "AddMessage", "AddApplicationMessage", "SetBreakOnCategory", "SetBreakOnSeverity", "SetBreakOnID", "GetBreakOnCategory", "GetBreakOnSeverity", "GetBreakOnID", "SetMuteDebugOutput", "GetMuteDebugOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIInfoQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the maximum number of messages that can be added to the message queue.
@@ -47,7 +96,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmessagecountlimit
      */
     SetMessageCountLimit(Producer, MessageCountLimit) {
-        result := ComCall(3, this, "ptr", Producer, "uint", MessageCountLimit, "HRESULT")
+        result := ComCall(3, this, Guid, Producer, "uint", MessageCountLimit, "HRESULT")
         return result
     }
 
@@ -61,7 +110,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearstoredmessages
      */
     ClearStoredMessages(Producer) {
-        ComCall(4, this, "ptr", Producer)
+        ComCall(4, this, Guid, Producer)
     }
 
     /**
@@ -109,7 +158,7 @@ class IDXGIInfoQueue extends IUnknown {
     GetMessage(Producer, MessageIndex, pMessage, pMessageByteLength) {
         pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", Producer, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
+        result := ComCall(5, this, Guid, Producer, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -123,7 +172,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessagesallowedbyretrievalfilters
      */
     GetNumStoredMessagesAllowedByRetrievalFilters(Producer) {
-        result := ComCall(6, this, "ptr", Producer, "uint")
+        result := ComCall(6, this, Guid, Producer, Int64)
         return result
     }
 
@@ -137,7 +186,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessages
      */
     GetNumStoredMessages(Producer) {
-        result := ComCall(7, this, "ptr", Producer, "uint")
+        result := ComCall(7, this, Guid, Producer, Int64)
         return result
     }
 
@@ -155,7 +204,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesdiscardedbymessagecountlimit
      */
     GetNumMessagesDiscardedByMessageCountLimit(Producer) {
-        result := ComCall(8, this, "ptr", Producer, "uint")
+        result := ComCall(8, this, Guid, Producer, Int64)
         return result
     }
 
@@ -171,7 +220,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmessagecountlimit
      */
     GetMessageCountLimit(Producer) {
-        result := ComCall(9, this, "ptr", Producer, "uint")
+        result := ComCall(9, this, Guid, Producer, Int64)
         return result
     }
 
@@ -185,7 +234,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesallowedbystoragefilter
      */
     GetNumMessagesAllowedByStorageFilter(Producer) {
-        result := ComCall(10, this, "ptr", Producer, "uint")
+        result := ComCall(10, this, Guid, Producer, Int64)
         return result
     }
 
@@ -199,7 +248,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesdeniedbystoragefilter
      */
     GetNumMessagesDeniedByStorageFilter(Producer) {
-        result := ComCall(11, this, "ptr", Producer, "uint")
+        result := ComCall(11, this, Guid, Producer, Int64)
         return result
     }
 
@@ -214,7 +263,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addstoragefilterentries
      */
     AddStorageFilterEntries(Producer, pFilter) {
-        result := ComCall(12, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
+        result := ComCall(12, this, Guid, Producer, DXGI_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -232,7 +281,7 @@ class IDXGIInfoQueue extends IUnknown {
     GetStorageFilter(Producer, pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(13, this, Guid, Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -246,7 +295,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearstoragefilter
      */
     ClearStorageFilter(Producer) {
-        ComCall(14, this, "ptr", Producer)
+        ComCall(14, this, Guid, Producer)
     }
 
     /**
@@ -261,7 +310,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushemptystoragefilter
      */
     PushEmptyStorageFilter(Producer) {
-        result := ComCall(15, this, "ptr", Producer, "HRESULT")
+        result := ComCall(15, this, Guid, Producer, "HRESULT")
         return result
     }
 
@@ -277,7 +326,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushdenyallstoragefilter
      */
     PushDenyAllStorageFilter(Producer) {
-        result := ComCall(16, this, "ptr", Producer, "HRESULT")
+        result := ComCall(16, this, Guid, Producer, "HRESULT")
         return result
     }
 
@@ -291,7 +340,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushcopyofstoragefilter
      */
     PushCopyOfStorageFilter(Producer) {
-        result := ComCall(17, this, "ptr", Producer, "HRESULT")
+        result := ComCall(17, this, Guid, Producer, "HRESULT")
         return result
     }
 
@@ -306,7 +355,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushstoragefilter
      */
     PushStorageFilter(Producer, pFilter) {
-        result := ComCall(18, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
+        result := ComCall(18, this, Guid, Producer, DXGI_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -320,7 +369,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-popstoragefilter
      */
     PopStorageFilter(Producer) {
-        ComCall(19, this, "ptr", Producer)
+        ComCall(19, this, Guid, Producer)
     }
 
     /**
@@ -333,7 +382,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilterstacksize
      */
     GetStorageFilterStackSize(Producer) {
-        result := ComCall(20, this, "ptr", Producer, "uint")
+        result := ComCall(20, this, Guid, Producer, UInt32)
         return result
     }
 
@@ -348,7 +397,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addretrievalfilterentries
      */
     AddRetrievalFilterEntries(Producer, pFilter) {
-        result := ComCall(21, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
+        result := ComCall(21, this, Guid, Producer, DXGI_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -366,7 +415,7 @@ class IDXGIInfoQueue extends IUnknown {
     GetRetrievalFilter(Producer, pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, "ptr", Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(22, this, Guid, Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -380,7 +429,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearretrievalfilter
      */
     ClearRetrievalFilter(Producer) {
-        ComCall(23, this, "ptr", Producer)
+        ComCall(23, this, Guid, Producer)
     }
 
     /**
@@ -395,7 +444,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushemptyretrievalfilter
      */
     PushEmptyRetrievalFilter(Producer) {
-        result := ComCall(24, this, "ptr", Producer, "HRESULT")
+        result := ComCall(24, this, Guid, Producer, "HRESULT")
         return result
     }
 
@@ -411,7 +460,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushdenyallretrievalfilter
      */
     PushDenyAllRetrievalFilter(Producer) {
-        result := ComCall(25, this, "ptr", Producer, "HRESULT")
+        result := ComCall(25, this, Guid, Producer, "HRESULT")
         return result
     }
 
@@ -425,7 +474,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushcopyofretrievalfilter
      */
     PushCopyOfRetrievalFilter(Producer) {
-        result := ComCall(26, this, "ptr", Producer, "HRESULT")
+        result := ComCall(26, this, Guid, Producer, "HRESULT")
         return result
     }
 
@@ -440,7 +489,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushretrievalfilter
      */
     PushRetrievalFilter(Producer, pFilter) {
-        result := ComCall(27, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
+        result := ComCall(27, this, Guid, Producer, DXGI_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -454,7 +503,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-popretrievalfilter
      */
     PopRetrievalFilter(Producer) {
-        ComCall(28, this, "ptr", Producer)
+        ComCall(28, this, Guid, Producer)
     }
 
     /**
@@ -467,7 +516,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilterstacksize
      */
     GetRetrievalFilterStackSize(Producer) {
-        result := ComCall(29, this, "ptr", Producer, "uint")
+        result := ComCall(29, this, Guid, Producer, UInt32)
         return result
     }
 
@@ -487,7 +536,7 @@ class IDXGIInfoQueue extends IUnknown {
     AddMessage(Producer, Category, Severity, ID, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
 
-        result := ComCall(30, this, "ptr", Producer, "int", Category, "int", Severity, "int", ID, "ptr", pDescription, "HRESULT")
+        result := ComCall(30, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_CATEGORY, Category, DXGI_INFO_QUEUE_MESSAGE_SEVERITY, Severity, "int", ID, "ptr", pDescription, "HRESULT")
         return result
     }
 
@@ -504,7 +553,7 @@ class IDXGIInfoQueue extends IUnknown {
     AddApplicationMessage(Severity, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
 
-        result := ComCall(31, this, "int", Severity, "ptr", pDescription, "HRESULT")
+        result := ComCall(31, this, DXGI_INFO_QUEUE_MESSAGE_SEVERITY, Severity, "ptr", pDescription, "HRESULT")
         return result
     }
 
@@ -520,7 +569,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakoncategory
      */
     SetBreakOnCategory(Producer, Category, bEnable) {
-        result := ComCall(32, this, "ptr", Producer, "int", Category, "int", bEnable, "HRESULT")
+        result := ComCall(32, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_CATEGORY, Category, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -536,7 +585,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonseverity
      */
     SetBreakOnSeverity(Producer, Severity, bEnable) {
-        result := ComCall(33, this, "ptr", Producer, "int", Severity, "int", bEnable, "HRESULT")
+        result := ComCall(33, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_SEVERITY, Severity, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -552,7 +601,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonid
      */
     SetBreakOnID(Producer, ID, bEnable) {
-        result := ComCall(34, this, "ptr", Producer, "int", ID, "int", bEnable, "HRESULT")
+        result := ComCall(34, this, Guid, Producer, "int", ID, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -567,7 +616,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakoncategory
      */
     GetBreakOnCategory(Producer, Category) {
-        result := ComCall(35, this, "ptr", Producer, "int", Category, "int")
+        result := ComCall(35, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_CATEGORY, Category, BOOL)
         return result
     }
 
@@ -582,7 +631,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonseverity
      */
     GetBreakOnSeverity(Producer, Severity) {
-        result := ComCall(36, this, "ptr", Producer, "int", Severity, "int")
+        result := ComCall(36, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_SEVERITY, Severity, BOOL)
         return result
     }
 
@@ -597,7 +646,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonid
      */
     GetBreakOnID(Producer, ID) {
-        result := ComCall(37, this, "ptr", Producer, "int", ID, "int")
+        result := ComCall(37, this, Guid, Producer, "int", ID, BOOL)
         return result
     }
 
@@ -612,7 +661,7 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmutedebugoutput
      */
     SetMuteDebugOutput(Producer, bMute) {
-        ComCall(38, this, "ptr", Producer, "int", bMute)
+        ComCall(38, this, Guid, Producer, BOOL, bMute)
     }
 
     /**
@@ -625,7 +674,99 @@ class IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmutedebugoutput
      */
     GetMuteDebugOutput(Producer) {
-        result := ComCall(39, this, "ptr", Producer, "int")
+        result := ComCall(39, this, Guid, Producer, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDXGIInfoQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMessageCountLimit := CallbackCreate(GetMethod(implObj, "SetMessageCountLimit"), flags, 3)
+        this.vtbl.ClearStoredMessages := CallbackCreate(GetMethod(implObj, "ClearStoredMessages"), flags, 2)
+        this.vtbl.GetMessage := CallbackCreate(GetMethod(implObj, "GetMessage"), flags, 5)
+        this.vtbl.GetNumStoredMessagesAllowedByRetrievalFilters := CallbackCreate(GetMethod(implObj, "GetNumStoredMessagesAllowedByRetrievalFilters"), flags, 2)
+        this.vtbl.GetNumStoredMessages := CallbackCreate(GetMethod(implObj, "GetNumStoredMessages"), flags, 2)
+        this.vtbl.GetNumMessagesDiscardedByMessageCountLimit := CallbackCreate(GetMethod(implObj, "GetNumMessagesDiscardedByMessageCountLimit"), flags, 2)
+        this.vtbl.GetMessageCountLimit := CallbackCreate(GetMethod(implObj, "GetMessageCountLimit"), flags, 2)
+        this.vtbl.GetNumMessagesAllowedByStorageFilter := CallbackCreate(GetMethod(implObj, "GetNumMessagesAllowedByStorageFilter"), flags, 2)
+        this.vtbl.GetNumMessagesDeniedByStorageFilter := CallbackCreate(GetMethod(implObj, "GetNumMessagesDeniedByStorageFilter"), flags, 2)
+        this.vtbl.AddStorageFilterEntries := CallbackCreate(GetMethod(implObj, "AddStorageFilterEntries"), flags, 3)
+        this.vtbl.GetStorageFilter := CallbackCreate(GetMethod(implObj, "GetStorageFilter"), flags, 4)
+        this.vtbl.ClearStorageFilter := CallbackCreate(GetMethod(implObj, "ClearStorageFilter"), flags, 2)
+        this.vtbl.PushEmptyStorageFilter := CallbackCreate(GetMethod(implObj, "PushEmptyStorageFilter"), flags, 2)
+        this.vtbl.PushDenyAllStorageFilter := CallbackCreate(GetMethod(implObj, "PushDenyAllStorageFilter"), flags, 2)
+        this.vtbl.PushCopyOfStorageFilter := CallbackCreate(GetMethod(implObj, "PushCopyOfStorageFilter"), flags, 2)
+        this.vtbl.PushStorageFilter := CallbackCreate(GetMethod(implObj, "PushStorageFilter"), flags, 3)
+        this.vtbl.PopStorageFilter := CallbackCreate(GetMethod(implObj, "PopStorageFilter"), flags, 2)
+        this.vtbl.GetStorageFilterStackSize := CallbackCreate(GetMethod(implObj, "GetStorageFilterStackSize"), flags, 2)
+        this.vtbl.AddRetrievalFilterEntries := CallbackCreate(GetMethod(implObj, "AddRetrievalFilterEntries"), flags, 3)
+        this.vtbl.GetRetrievalFilter := CallbackCreate(GetMethod(implObj, "GetRetrievalFilter"), flags, 4)
+        this.vtbl.ClearRetrievalFilter := CallbackCreate(GetMethod(implObj, "ClearRetrievalFilter"), flags, 2)
+        this.vtbl.PushEmptyRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushEmptyRetrievalFilter"), flags, 2)
+        this.vtbl.PushDenyAllRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushDenyAllRetrievalFilter"), flags, 2)
+        this.vtbl.PushCopyOfRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushCopyOfRetrievalFilter"), flags, 2)
+        this.vtbl.PushRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushRetrievalFilter"), flags, 3)
+        this.vtbl.PopRetrievalFilter := CallbackCreate(GetMethod(implObj, "PopRetrievalFilter"), flags, 2)
+        this.vtbl.GetRetrievalFilterStackSize := CallbackCreate(GetMethod(implObj, "GetRetrievalFilterStackSize"), flags, 2)
+        this.vtbl.AddMessage := CallbackCreate(GetMethod(implObj, "AddMessage"), flags, 6)
+        this.vtbl.AddApplicationMessage := CallbackCreate(GetMethod(implObj, "AddApplicationMessage"), flags, 3)
+        this.vtbl.SetBreakOnCategory := CallbackCreate(GetMethod(implObj, "SetBreakOnCategory"), flags, 4)
+        this.vtbl.SetBreakOnSeverity := CallbackCreate(GetMethod(implObj, "SetBreakOnSeverity"), flags, 4)
+        this.vtbl.SetBreakOnID := CallbackCreate(GetMethod(implObj, "SetBreakOnID"), flags, 4)
+        this.vtbl.GetBreakOnCategory := CallbackCreate(GetMethod(implObj, "GetBreakOnCategory"), flags, 3)
+        this.vtbl.GetBreakOnSeverity := CallbackCreate(GetMethod(implObj, "GetBreakOnSeverity"), flags, 3)
+        this.vtbl.GetBreakOnID := CallbackCreate(GetMethod(implObj, "GetBreakOnID"), flags, 3)
+        this.vtbl.SetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "SetMuteDebugOutput"), flags, 3)
+        this.vtbl.GetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "GetMuteDebugOutput"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMessageCountLimit)
+        CallbackFree(this.vtbl.ClearStoredMessages)
+        CallbackFree(this.vtbl.GetMessage)
+        CallbackFree(this.vtbl.GetNumStoredMessagesAllowedByRetrievalFilters)
+        CallbackFree(this.vtbl.GetNumStoredMessages)
+        CallbackFree(this.vtbl.GetNumMessagesDiscardedByMessageCountLimit)
+        CallbackFree(this.vtbl.GetMessageCountLimit)
+        CallbackFree(this.vtbl.GetNumMessagesAllowedByStorageFilter)
+        CallbackFree(this.vtbl.GetNumMessagesDeniedByStorageFilter)
+        CallbackFree(this.vtbl.AddStorageFilterEntries)
+        CallbackFree(this.vtbl.GetStorageFilter)
+        CallbackFree(this.vtbl.ClearStorageFilter)
+        CallbackFree(this.vtbl.PushEmptyStorageFilter)
+        CallbackFree(this.vtbl.PushDenyAllStorageFilter)
+        CallbackFree(this.vtbl.PushCopyOfStorageFilter)
+        CallbackFree(this.vtbl.PushStorageFilter)
+        CallbackFree(this.vtbl.PopStorageFilter)
+        CallbackFree(this.vtbl.GetStorageFilterStackSize)
+        CallbackFree(this.vtbl.AddRetrievalFilterEntries)
+        CallbackFree(this.vtbl.GetRetrievalFilter)
+        CallbackFree(this.vtbl.ClearRetrievalFilter)
+        CallbackFree(this.vtbl.PushEmptyRetrievalFilter)
+        CallbackFree(this.vtbl.PushDenyAllRetrievalFilter)
+        CallbackFree(this.vtbl.PushCopyOfRetrievalFilter)
+        CallbackFree(this.vtbl.PushRetrievalFilter)
+        CallbackFree(this.vtbl.PopRetrievalFilter)
+        CallbackFree(this.vtbl.GetRetrievalFilterStackSize)
+        CallbackFree(this.vtbl.AddMessage)
+        CallbackFree(this.vtbl.AddApplicationMessage)
+        CallbackFree(this.vtbl.SetBreakOnCategory)
+        CallbackFree(this.vtbl.SetBreakOnSeverity)
+        CallbackFree(this.vtbl.SetBreakOnID)
+        CallbackFree(this.vtbl.GetBreakOnCategory)
+        CallbackFree(this.vtbl.GetBreakOnSeverity)
+        CallbackFree(this.vtbl.GetBreakOnID)
+        CallbackFree(this.vtbl.SetMuteDebugOutput)
+        CallbackFree(this.vtbl.GetMuteDebugOutput)
     }
 }

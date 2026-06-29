@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the origin for a seek request.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfbytestream_seek_origin
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFBYTESTREAM_SEEK_ORIGIN extends Win32Enum {
+export default struct MFBYTESTREAM_SEEK_ORIGIN {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The seek position is specified relative to the start of the stream.

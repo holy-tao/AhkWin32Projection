@@ -1,33 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleWindow.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
+#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
 
 /**
  * Manages the interaction between the container and the object's in-place client site. Recall that the client site is the display site for embedded objects, and provides position and conceptual information about the object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplacesite
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceSite extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceSite extends IOleWindow {
     /**
      * The interface identifier for IOleInPlaceSite
      * @type {Guid}
      */
-    static IID => Guid("{00000119-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000119-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceSite interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        CanInPlaceActivate  : IntPtr
+        OnInPlaceActivate   : IntPtr
+        OnUIActivate        : IntPtr
+        GetWindowContext    : IntPtr
+        Scroll              : IntPtr
+        OnUIDeactivate      : IntPtr
+        OnInPlaceDeactivate : IntPtr
+        DiscardUndoState    : IntPtr
+        DeactivateAndUndo   : IntPtr
+        OnPosRectChange     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CanInPlaceActivate", "OnInPlaceActivate", "OnUIActivate", "GetWindowContext", "Scroll", "OnUIDeactivate", "OnInPlaceDeactivate", "DiscardUndoState", "DeactivateAndUndo", "OnPosRectChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the container can activate the object in place.
@@ -190,7 +213,7 @@ class IOleInPlaceSite extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplacesite-getwindowcontext
      */
     GetWindowContext(ppFrame, ppDoc, lprcPosRect, lprcClipRect, lpFrameInfo) {
-        result := ComCall(8, this, "ptr*", ppFrame, "ptr*", ppDoc, "ptr", lprcPosRect, "ptr", lprcClipRect, "ptr", lpFrameInfo, "HRESULT")
+        result := ComCall(8, this, IOleInPlaceFrame.Ptr, ppFrame, IOleInPlaceUIWindow.Ptr, ppDoc, RECT.Ptr, lprcPosRect, RECT.Ptr, lprcClipRect, OLEINPLACEFRAMEINFO.Ptr, lpFrameInfo, "HRESULT")
         return result
     }
 
@@ -235,7 +258,7 @@ class IOleInPlaceSite extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplacesite-scroll
      */
     Scroll(scrollExtant) {
-        result := ComCall(9, this, "ptr", scrollExtant, "HRESULT")
+        result := ComCall(9, this, SIZE, scrollExtant, "HRESULT")
         return result
     }
 
@@ -269,7 +292,7 @@ class IOleInPlaceSite extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplacesite-onuideactivate
      */
     OnUIDeactivate(fUndoable) {
-        result := ComCall(10, this, "int", fUndoable, "HRESULT")
+        result := ComCall(10, this, BOOL, fUndoable, "HRESULT")
         return result
     }
 
@@ -418,7 +441,45 @@ class IOleInPlaceSite extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplacesite-onposrectchange
      */
     OnPosRectChange(lprcPosRect) {
-        result := ComCall(14, this, "ptr", lprcPosRect, "HRESULT")
+        result := ComCall(14, this, RECT.Ptr, lprcPosRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleInPlaceSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CanInPlaceActivate := CallbackCreate(GetMethod(implObj, "CanInPlaceActivate"), flags, 1)
+        this.vtbl.OnInPlaceActivate := CallbackCreate(GetMethod(implObj, "OnInPlaceActivate"), flags, 1)
+        this.vtbl.OnUIActivate := CallbackCreate(GetMethod(implObj, "OnUIActivate"), flags, 1)
+        this.vtbl.GetWindowContext := CallbackCreate(GetMethod(implObj, "GetWindowContext"), flags, 6)
+        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 2)
+        this.vtbl.OnUIDeactivate := CallbackCreate(GetMethod(implObj, "OnUIDeactivate"), flags, 2)
+        this.vtbl.OnInPlaceDeactivate := CallbackCreate(GetMethod(implObj, "OnInPlaceDeactivate"), flags, 1)
+        this.vtbl.DiscardUndoState := CallbackCreate(GetMethod(implObj, "DiscardUndoState"), flags, 1)
+        this.vtbl.DeactivateAndUndo := CallbackCreate(GetMethod(implObj, "DeactivateAndUndo"), flags, 1)
+        this.vtbl.OnPosRectChange := CallbackCreate(GetMethod(implObj, "OnPosRectChange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CanInPlaceActivate)
+        CallbackFree(this.vtbl.OnInPlaceActivate)
+        CallbackFree(this.vtbl.OnUIActivate)
+        CallbackFree(this.vtbl.GetWindowContext)
+        CallbackFree(this.vtbl.Scroll)
+        CallbackFree(this.vtbl.OnUIDeactivate)
+        CallbackFree(this.vtbl.OnInPlaceDeactivate)
+        CallbackFree(this.vtbl.DiscardUndoState)
+        CallbackFree(this.vtbl.DeactivateAndUndo)
+        CallbackFree(this.vtbl.OnPosRectChange)
     }
 }

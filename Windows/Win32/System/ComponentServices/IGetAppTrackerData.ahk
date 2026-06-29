@@ -1,7 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ComponentHangMonitorInfo.ahk" { ComponentHangMonitorInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ApplicationProcessStatistics.ahk" { ApplicationProcessStatistics }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ComponentSummary.ahk" { ComponentSummary }
+#Import ".\ApplicationSummary.ahk" { ApplicationSummary }
+#Import ".\ApplicationProcessRecycleInfo.ahk" { ApplicationProcessRecycleInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ComponentStatistics.ahk" { ComponentStatistics }
+#Import ".\ApplicationProcessSummary.ahk" { ApplicationProcessSummary }
 
 /**
  * Enables administrative applications to retrieve statistical information about running COM+ applications.
@@ -17,26 +26,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-igetapptrackerdata
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IGetAppTrackerData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGetAppTrackerData extends IUnknown {
     /**
      * The interface identifier for IGetAppTrackerData
      * @type {Guid}
      */
-    static IID => Guid("{507c3ac8-3e12-4cb0-9366-653d3e050638}")
+    static IID := Guid("{507c3ac8-3e12-4cb0-9366-653d3e050638}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGetAppTrackerData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetApplicationProcesses          : IntPtr
+        GetApplicationProcessDetails     : IntPtr
+        GetApplicationsInProcess         : IntPtr
+        GetComponentsInProcess           : IntPtr
+        GetComponentDetails              : IntPtr
+        GetTrackerDataAsCollectionObject : IntPtr
+        GetSuggestedPollingInterval      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetApplicationProcesses", "GetApplicationProcessDetails", "GetApplicationsInProcess", "GetComponentsInProcess", "GetComponentDetails", "GetTrackerDataAsCollectionObject", "GetSuggestedPollingInterval"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGetAppTrackerData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves summary information for all processes that are hosting COM+ applications, or for a specified subset of these processes.
@@ -116,7 +138,7 @@ class IGetAppTrackerData extends IUnknown {
         NumApplicationProcessesMarshal := NumApplicationProcesses is VarRef ? "uint*" : "ptr"
         ApplicationProcessesMarshal := ApplicationProcesses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, ApplicationProcessesMarshal, ApplicationProcesses, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, "uint", Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, ApplicationProcessesMarshal, ApplicationProcesses, "HRESULT")
         return result
     }
 
@@ -168,7 +190,7 @@ class IGetAppTrackerData extends IUnknown {
     GetApplicationProcessDetails(ApplicationInstanceId, ProcessId, Flags, Summary, Statistics, RecycleInfo, AnyComponentsHangMonitored) {
         AnyComponentsHangMonitoredMarshal := AnyComponentsHangMonitored is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "uint", Flags, "ptr", Summary, "ptr", Statistics, "ptr", RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, "uint", Flags, ApplicationProcessSummary.Ptr, Summary, ApplicationProcessStatistics.Ptr, Statistics, ApplicationProcessRecycleInfo.Ptr, RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
         return result
     }
 
@@ -231,7 +253,7 @@ class IGetAppTrackerData extends IUnknown {
         NumApplicationsInProcessMarshal := NumApplicationsInProcess is VarRef ? "uint*" : "ptr"
         ApplicationsMarshal := Applications is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "uint", Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, ApplicationsMarshal, Applications, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, Guid.Ptr, PartitionId, "uint", Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, ApplicationsMarshal, Applications, "HRESULT")
         return result
     }
 
@@ -297,7 +319,7 @@ class IGetAppTrackerData extends IUnknown {
         NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : "ptr"
         _ComponentsMarshal := _Components is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, _ComponentsMarshal, _Components, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, _ComponentsMarshal, _Components, "HRESULT")
         return result
     }
 
@@ -360,7 +382,7 @@ class IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getcomponentdetails
      */
     GetComponentDetails(ApplicationInstanceId, ProcessId, Clsid, Flags, Summary, Statistics, HangMonitorInfo) {
-        result := ComCall(7, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", Clsid, "uint", Flags, "ptr", Summary, "ptr", Statistics, "ptr", HangMonitorInfo, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, Guid.Ptr, Clsid, "uint", Flags, ComponentSummary.Ptr, Summary, ComponentStatistics.Ptr, Statistics, ComponentHangMonitorInfo.Ptr, HangMonitorInfo, "HRESULT")
         return result
     }
 
@@ -404,5 +426,37 @@ class IGetAppTrackerData extends IUnknown {
     GetSuggestedPollingInterval() {
         result := ComCall(9, this, "uint*", &PollingIntervalInSeconds := 0, "HRESULT")
         return PollingIntervalInSeconds
+    }
+
+    Query(iid) {
+        if (IGetAppTrackerData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetApplicationProcesses := CallbackCreate(GetMethod(implObj, "GetApplicationProcesses"), flags, 6)
+        this.vtbl.GetApplicationProcessDetails := CallbackCreate(GetMethod(implObj, "GetApplicationProcessDetails"), flags, 8)
+        this.vtbl.GetApplicationsInProcess := CallbackCreate(GetMethod(implObj, "GetApplicationsInProcess"), flags, 7)
+        this.vtbl.GetComponentsInProcess := CallbackCreate(GetMethod(implObj, "GetComponentsInProcess"), flags, 8)
+        this.vtbl.GetComponentDetails := CallbackCreate(GetMethod(implObj, "GetComponentDetails"), flags, 8)
+        this.vtbl.GetTrackerDataAsCollectionObject := CallbackCreate(GetMethod(implObj, "GetTrackerDataAsCollectionObject"), flags, 2)
+        this.vtbl.GetSuggestedPollingInterval := CallbackCreate(GetMethod(implObj, "GetSuggestedPollingInterval"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetApplicationProcesses)
+        CallbackFree(this.vtbl.GetApplicationProcessDetails)
+        CallbackFree(this.vtbl.GetApplicationsInProcess)
+        CallbackFree(this.vtbl.GetComponentsInProcess)
+        CallbackFree(this.vtbl.GetComponentDetails)
+        CallbackFree(this.vtbl.GetTrackerDataAsCollectionObject)
+        CallbackFree(this.vtbl.GetSuggestedPollingInterval)
     }
 }

@@ -1,117 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include ..\QUOTA_LIMITS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains the client credentials returned by a call to WlxGetConsoleSwitchCredentials.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_consoleswitch_credentials_info_v1_0
  * @namespace Windows.Win32.Security.WinWlx
  */
-class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct {
-    static sizeof => 224
-
-    static packingSize => 8
+export default struct WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 {
+    #StructPack 8
 
     /**
      * Identifies the type of credentials structure being allocated. Credential types are defined with the prefix WLX_CONSOLESWITCHCREDENTIAL_TYPE allowing Winlogon to typecast the structure so the remainder of the structure may be referenced.
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwType : UInt32
 
     /**
      * Handle of the users token.
-     * @type {HANDLE}
      */
-    UserToken {
-        get {
-            if(!this.HasProp("__UserToken"))
-                this.__UserToken := HANDLE(8, this)
-            return this.__UserToken
-        }
-    }
+    UserToken : HANDLE
 
     /**
      * Unique logon identifier.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(16, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
 
     /**
      * QUOTA_LIMITS structure containing information on the amount of system resources available to a user.
-     * @type {QUOTA_LIMITS}
      */
-    Quotas {
-        get {
-            if(!this.HasProp("__Quotas"))
-                this.__Quotas := QUOTA_LIMITS(24, this)
-            return this.__Quotas
-        }
-    }
+    Quotas : QUOTA_LIMITS
 
     /**
      * User's name as a string.
-     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    UserName : PWSTR
 
     /**
      * User's domain as a string.
-     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    Domain : PWSTR
 
     /**
      * Exact logon time.
-     * @type {Integer}
      */
-    LogonTime {
-        get => NumGet(this, 88, "int64")
-        set => NumPut("int64", value, this, 88)
-    }
+    LogonTime : Int64
 
     /**
      * <b>TRUE</b> if the logon was done by SmartCard.
-     * @type {BOOL}
      */
-    SmartCardLogon {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    SmartCardLogon : BOOL
 
     /**
      * Length of the user's profile in bytes.
-     * @type {Integer}
      */
-    ProfileLength {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    ProfileLength : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-msv1_0_profile_buffer_type">MSV1_0_PROFILE_BUFFER_TYPE</a> value identifying the type of profile data being returned. This member must be set to <b>MsV1_0InteractiveProfile</b>.
-     * @type {Integer}
      */
-    MessageType {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    MessageType : UInt32
 
     /**
      * Number of times the user is currently logged on. 
@@ -121,129 +71,73 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This value is not guaranteed to be accurate because the domain controller is not notified of all logons and logoffs.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    LogonCount {
-        get => NumGet(this, 108, "ushort")
-        set => NumPut("ushort", value, this, 108)
-    }
+    LogonCount : UInt16
 
     /**
      * Number of times a password that is not valid was applied to the account since the last successful logon.
-     * @type {Integer}
      */
-    BadPasswordCount {
-        get => NumGet(this, 110, "ushort")
-        set => NumPut("ushort", value, this, 110)
-    }
+    BadPasswordCount : UInt16
 
     /**
      * Time when the user last logged on. This is an absolute-format Windows standard time value.
-     * @type {Integer}
      */
-    ProfileLogonTime {
-        get => NumGet(this, 112, "int64")
-        set => NumPut("int64", value, this, 112)
-    }
+    ProfileLogonTime : Int64
 
     /**
      * Time when user should log off. This is an absolute-format Windows standard time value.
-     * @type {Integer}
      */
-    LogoffTime {
-        get => NumGet(this, 120, "int64")
-        set => NumPut("int64", value, this, 120)
-    }
+    LogoffTime : Int64
 
     /**
      * Time when system should force the user to log off. This is an absolute-format Windows standard time value. Note that Windows users are not forced to log off interactively; however, their network connections may be closed.
-     * @type {Integer}
      */
-    KickOffTime {
-        get => NumGet(this, 128, "int64")
-        set => NumPut("int64", value, this, 128)
-    }
+    KickOffTime : Int64
 
     /**
      * Time and date the password was last changed. This is an absolute format Windows standard time value.
-     * @type {Integer}
      */
-    PasswordLastSet {
-        get => NumGet(this, 136, "int64")
-        set => NumPut("int64", value, this, 136)
-    }
+    PasswordLastSet : Int64
 
     /**
      * Time and date when the user should be reminded to change passwords. This is an absolute-format Windows standard time value. This member is used by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/g-gly">GINA</a> to display the prompt asking whether the user wants to change the current password.
-     * @type {Integer}
      */
-    PasswordCanChange {
-        get => NumGet(this, 144, "int64")
-        set => NumPut("int64", value, this, 144)
-    }
+    PasswordCanChange : Int64
 
     /**
      * Time and date when the user must change the password. If the user can never change the password, this member is undefined. This is an absolute-format, Windows, standard time value.
-     * @type {Integer}
      */
-    PasswordMustChange {
-        get => NumGet(this, 152, "int64")
-        set => NumPut("int64", value, this, 152)
-    }
+    PasswordMustChange : Int64
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
-     * @type {PWSTR}
      */
-    LogonScript {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    LogonScript : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home directory for the user.
-     * @type {PWSTR}
      */
-    HomeDirectory {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    HomeDirectory : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the full name of the user.
-     * @type {PWSTR}
      */
-    FullName {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    FullName : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the path to the user's roaming profile if the user has a roaming profile. For example: \\SomeServer\SomeShare\MyUserName
-     * @type {PWSTR}
      */
-    ProfilePath {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    ProfilePath : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive letter (for example, C:\ or D:\) of the home directory.
-     * @type {PWSTR}
      */
-    HomeDirectoryDrive {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    HomeDirectoryDrive : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
-     * @type {PWSTR}
      */
-    LogonServer {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    LogonServer : PWSTR
 
     /**
      * Specifies how this user established the session. This can be the following flag.
@@ -264,28 +158,17 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    UserFlags {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    UserFlags : UInt32
 
     /**
      * Length in bytes of any GINA-specific data. Set to zero if there is no GINA specific data.
-     * @type {Integer}
      */
-    PrivateDataLen {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    PrivateDataLen : UInt32
 
     /**
      * Buffer containing any GINA-specific data.
-     * @type {Pointer<Integer>}
      */
-    PrivateData {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    PrivateData : IntPtr
+
 }

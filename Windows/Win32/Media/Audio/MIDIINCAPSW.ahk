@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MIDIINCAPS structure describes the capabilities of a MIDI input device. (MIDIINCAPSW)
@@ -10,53 +10,32 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class MIDIINCAPSW extends Win32Struct {
-    static sizeof => 76
-
-    static packingSize => 4
+export default struct MIDIINCAPSW {
+    #StructPack 4
 
     /**
      * Manufacturer identifier of the device driver for the MIDI input device. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMid : UInt16
 
     /**
      * Product identifier of the MIDI input device. Product identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPid : UInt16
 
     /**
      * Version number of the device driver for the MIDI input device. The high-order byte is the major version number, and the low-order byte is the minor version number.
-     * @type {Integer}
      */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    vDriverVersion : UInt32
 
     /**
      * Product name in a null-terminated string.
-     * @type {String}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
+    szPname : WCHAR[32]
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    dwSupport {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwSupport : UInt32
+
 }

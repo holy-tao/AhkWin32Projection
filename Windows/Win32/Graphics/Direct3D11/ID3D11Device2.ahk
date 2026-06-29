@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device1.ahk
-#Include .\ID3D11DeviceContext2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\D3D11_PACKED_MIP_DESC.ahk" { D3D11_PACKED_MIP_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11Device1.ahk" { ID3D11Device1 }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_TILE_SHAPE.ahk" { D3D11_TILE_SHAPE }
+#Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
+#Import ".\D3D11_SUBRESOURCE_TILING.ahk" { D3D11_SUBRESOURCE_TILING }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device2 adds new methods to those in ID3D11Device1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nn-d3d11_2-id3d11device2
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Device2 extends ID3D11Device1 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Device2 extends ID3D11Device1 {
     /**
      * The interface identifier for ID3D11Device2
      * @type {Guid}
      */
-    static IID => Guid("{9d06dffa-d1e5-4d07-83a8-1bb123f2f841}")
+    static IID := Guid("{9d06dffa-d1e5-4d07-83a8-1bb123f2f841}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 50
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Device2 interfaces
+    */
+    struct Vtbl extends ID3D11Device1.Vtbl {
+        GetImmediateContext2           : IntPtr
+        CreateDeferredContext2         : IntPtr
+        GetResourceTiling              : IntPtr
+        CheckMultisampleQualityLevels1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetImmediateContext2", "CreateDeferredContext2", "GetResourceTiling", "CheckMultisampleQualityLevels1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Device2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an immediate context, which can play back command lists. (ID3D11Device2.GetImmediateContext2)
@@ -43,7 +59,7 @@ class ID3D11Device2 extends ID3D11Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-getimmediatecontext2
      */
     GetImmediateContext2(ppImmediateContext) {
-        ComCall(50, this, "ptr*", ppImmediateContext)
+        ComCall(50, this, ID3D11DeviceContext2.Ptr, ppImmediateContext)
     }
 
     /**
@@ -116,7 +132,7 @@ class ID3D11Device2 extends ID3D11Device1 {
         pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
         pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
 
-        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, "ptr", pPackedMipDesc, "ptr", pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, "ptr", pSubresourceTilingsForNonPackedMips)
+        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D11_PACKED_MIP_DESC.Ptr, pPackedMipDesc, D3D11_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, D3D11_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
     }
 
     /**
@@ -147,7 +163,33 @@ class ID3D11Device2 extends ID3D11Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-checkmultisamplequalitylevels1
      */
     CheckMultisampleQualityLevels1(Format, SampleCount, Flags) {
-        result := ComCall(53, this, "int", Format, "uint", SampleCount, "uint", Flags, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        result := ComCall(53, this, DXGI_FORMAT, Format, "uint", SampleCount, "uint", Flags, "uint*", &pNumQualityLevels := 0, "HRESULT")
         return pNumQualityLevels
+    }
+
+    Query(iid) {
+        if (ID3D11Device2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetImmediateContext2 := CallbackCreate(GetMethod(implObj, "GetImmediateContext2"), flags, 2)
+        this.vtbl.CreateDeferredContext2 := CallbackCreate(GetMethod(implObj, "CreateDeferredContext2"), flags, 3)
+        this.vtbl.GetResourceTiling := CallbackCreate(GetMethod(implObj, "GetResourceTiling"), flags, 8)
+        this.vtbl.CheckMultisampleQualityLevels1 := CallbackCreate(GetMethod(implObj, "CheckMultisampleQualityLevels1"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetImmediateContext2)
+        CallbackFree(this.vtbl.CreateDeferredContext2)
+        CallbackFree(this.vtbl.GetResourceTiling)
+        CallbackFree(this.vtbl.CheckMultisampleQualityLevels1)
     }
 }

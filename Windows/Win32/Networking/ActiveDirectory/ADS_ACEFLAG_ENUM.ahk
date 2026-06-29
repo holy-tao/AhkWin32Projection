@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_ACEFLAG_ENUM enumeration is used to specify the behavior of an Access Control Entry (ACE) for an Active Directory object.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_aceflag_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_ACEFLAG_ENUM extends Win32Enum {
+export default struct ADS_ACEFLAG_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Child objects will inherit this access-control entry (ACE). The inherited ACE is inheritable unless the ADS_ACEFLAG_NO_PROPAGATE_INHERIT_ACE flag is set.

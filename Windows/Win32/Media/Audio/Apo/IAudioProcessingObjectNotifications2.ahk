@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IAudioProcessingObjectNotifications.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAudioProcessingObjectNotifications.ahk" { IAudioProcessingObjectNotifications }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APO_NOTIFICATION_DESCRIPTOR.ahk" { APO_NOTIFICATION_DESCRIPTOR }
+#Import ".\APO_NOTIFICATION_TYPE.ahk" { APO_NOTIFICATION_TYPE }
 
 /**
  * Implemented by clients to register for and receive common audio-related notifications for APO endpoint and system effect notifications. This interface adds the ability to determine the notifications types supported on the on the version of Windows running on the current device.
@@ -10,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudioprocessingobjectnotifications2
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotifications {
-
-    static sizeof => A_PtrSize
+export default struct IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotifications {
     /**
      * The interface identifier for IAudioProcessingObjectNotifications2
      * @type {Guid}
      */
-    static IID => Guid("{ca2cfbde-a9d6-4eb0-bc95-c4d026b380f0}")
+    static IID := Guid("{ca2cfbde-a9d6-4eb0-bc95-c4d026b380f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioProcessingObjectNotifications2 interfaces
+    */
+    struct Vtbl extends IAudioProcessingObjectNotifications.Vtbl {
+        GetApoNotificationRegistrationInfo2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetApoNotificationRegistrationInfo2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioProcessingObjectNotifications2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the system to allow clients to register to receive notification callbacks for APO endpoint and system effect notifications. This method adds a parameter that can be used to determine the notifications types supported on the version of Windows running on the current device.
@@ -127,7 +137,27 @@ class IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotific
         apoNotificationsMarshal := apoNotifications is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", maxApoNotificationTypeSupported, apoNotificationsMarshal, apoNotifications, countMarshal, count, "HRESULT")
+        result := ComCall(5, this, APO_NOTIFICATION_TYPE, maxApoNotificationTypeSupported, apoNotificationsMarshal, apoNotifications, countMarshal, count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioProcessingObjectNotifications2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetApoNotificationRegistrationInfo2 := CallbackCreate(GetMethod(implObj, "GetApoNotificationRegistrationInfo2"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetApoNotificationRegistrationInfo2)
     }
 }

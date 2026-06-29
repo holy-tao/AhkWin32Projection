@@ -1,32 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IActiveScriptProperty extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveScriptProperty extends IUnknown {
     /**
      * The interface identifier for IActiveScriptProperty
      * @type {Guid}
      */
-    static IID => Guid("{4954e0d0-fbc7-11d1-8410-006008c3fbfc}")
+    static IID := Guid("{4954e0d0-fbc7-11d1-8410-006008c3fbfc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveScriptProperty interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperty : IntPtr
+        SetProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperty", "SetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveScriptProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetProperty function returns a handle to a given property.
@@ -41,22 +50,41 @@ class IActiveScriptProperty extends IUnknown {
      */
     GetProperty(dwProperty, pvarIndex) {
         pvarValue := VARIANT()
-        result := ComCall(3, this, "uint", dwProperty, "ptr", pvarIndex, "ptr", pvarValue, "HRESULT")
+        result := ComCall(3, this, "uint", dwProperty, VARIANT.Ptr, pvarIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {Integer} dwProperty 
      * @param {Pointer<VARIANT>} pvarIndex 
      * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(dwProperty, pvarIndex, pvarValue) {
-        result := ComCall(4, this, "uint", dwProperty, "ptr", pvarIndex, "ptr", pvarValue, "HRESULT")
+        result := ComCall(4, this, "uint", dwProperty, VARIANT.Ptr, pvarIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IActiveScriptProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
     }
 }

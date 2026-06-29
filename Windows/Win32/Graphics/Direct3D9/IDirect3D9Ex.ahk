@@ -1,8 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3D9.ahk
-#Include .\IDirect3DDevice9Ex.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DDevice9Ex.ahk" { IDirect3DDevice9Ex }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import ".\IDirect3D9.ahk" { IDirect3D9 }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\D3DDISPLAYMODEFILTER.ahk" { D3DDISPLAYMODEFILTER }
 
 /**
  * Applications use the methods of the IDirect3D9Ex interface (which inherits from IDirect3D9) to create Microsoft Direct3D 9Ex objects and set up the environment.
@@ -21,26 +29,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3d9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3D9Ex extends IDirect3D9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3D9Ex extends IDirect3D9 {
     /**
      * The interface identifier for IDirect3D9Ex
      * @type {Guid}
      */
-    static IID => Guid("{02177241-69fc-400c-8ff1-93a44df6861d}")
+    static IID := Guid("{02177241-69fc-400c-8ff1-93a44df6861d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3D9Ex interfaces
+    */
+    struct Vtbl extends IDirect3D9.Vtbl {
+        GetAdapterModeCountEx   : IntPtr
+        EnumAdapterModesEx      : IntPtr
+        GetAdapterDisplayModeEx : IntPtr
+        CreateDeviceEx          : IntPtr
+        GetAdapterLUID          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAdapterModeCountEx", "EnumAdapterModesEx", "GetAdapterDisplayModeEx", "CreateDeviceEx", "GetAdapterLUID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3D9Ex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the number of display modes available.
@@ -62,7 +81,7 @@ class IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadaptermodecountex
      */
     GetAdapterModeCountEx(_Adapter, pFilter) {
-        result := ComCall(17, this, "uint", _Adapter, "ptr", pFilter, "uint")
+        result := ComCall(17, this, "uint", _Adapter, D3DDISPLAYMODEFILTER.Ptr, pFilter, UInt32)
         return result
     }
 
@@ -89,7 +108,7 @@ class IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-enumadaptermodesex
      */
     EnumAdapterModesEx(_Adapter, pFilter, _Mode, pMode) {
-        result := ComCall(18, this, "uint", _Adapter, "ptr", pFilter, "uint", _Mode, "ptr", pMode, "HRESULT")
+        result := ComCall(18, this, "uint", _Adapter, D3DDISPLAYMODEFILTER.Ptr, pFilter, "uint", _Mode, D3DDISPLAYMODEEX.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -120,7 +139,7 @@ class IDirect3D9Ex extends IDirect3D9 {
     GetAdapterDisplayModeEx(_Adapter, pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "uint", _Adapter, "ptr", pMode, pRotationMarshal, pRotation, "HRESULT")
+        result := ComCall(19, this, "uint", _Adapter, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 
@@ -157,9 +176,7 @@ class IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex
      */
     CreateDeviceEx(_Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode) {
-        hFocusWindow := hFocusWindow is Win32Handle ? NumGet(hFocusWindow, "ptr") : hFocusWindow
-
-        result := ComCall(20, this, "uint", _Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr", pFullscreenDisplayMode, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        result := ComCall(20, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, HWND, hFocusWindow, "uint", BehaviorFlags, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, D3DDISPLAYMODEEX.Ptr, pFullscreenDisplayMode, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
         return IDirect3DDevice9Ex(ppReturnedDeviceInterface)
     }
 
@@ -177,7 +194,35 @@ class IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadapterluid
      */
     GetAdapterLUID(_Adapter, pLUID) {
-        result := ComCall(21, this, "uint", _Adapter, "ptr", pLUID, "HRESULT")
+        result := ComCall(21, this, "uint", _Adapter, LUID.Ptr, pLUID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3D9Ex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAdapterModeCountEx := CallbackCreate(GetMethod(implObj, "GetAdapterModeCountEx"), flags, 3)
+        this.vtbl.EnumAdapterModesEx := CallbackCreate(GetMethod(implObj, "EnumAdapterModesEx"), flags, 5)
+        this.vtbl.GetAdapterDisplayModeEx := CallbackCreate(GetMethod(implObj, "GetAdapterDisplayModeEx"), flags, 4)
+        this.vtbl.CreateDeviceEx := CallbackCreate(GetMethod(implObj, "CreateDeviceEx"), flags, 8)
+        this.vtbl.GetAdapterLUID := CallbackCreate(GetMethod(implObj, "GetAdapterLUID"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAdapterModeCountEx)
+        CallbackFree(this.vtbl.EnumAdapterModesEx)
+        CallbackFree(this.vtbl.GetAdapterDisplayModeEx)
+        CallbackFree(this.vtbl.CreateDeviceEx)
+        CallbackFree(this.vtbl.GetAdapterLUID)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FD_XFORM structure describes an arbitrary two-dimensional font transform.
@@ -9,41 +8,18 @@
  * @namespace Windows.Win32.Devices.Display
  * @architecture X64, Arm64
  */
-class FD_XFORM extends Win32Struct {
-    static sizeof => 16
+export default struct FD_XFORM {
+    #StructPack 4
 
-    static packingSize => 4
+    eXX : Float32
 
-    /**
-     * @type {Float}
-     */
-    eXX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    eXY : Float32
 
-    /**
-     * @type {Float}
-     */
-    eXY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
-
-    /**
-     * @type {Float}
-     */
-    eYX {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    eYX : Float32
 
     /**
      * Are the four elements that comprise a 2x2 row-major matrix. <b>eXX</b> and <b>eXY</b> are the elements in the first row; <b>eYX</b> and <b>eYY</b> are the elements in the second row.
-     * @type {Float}
      */
-    eYY {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    eYY : Float32
+
 }

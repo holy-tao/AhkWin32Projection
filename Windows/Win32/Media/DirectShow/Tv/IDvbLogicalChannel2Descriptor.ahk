@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDvbLogicalChannelDescriptor2.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import ".\IDvbLogicalChannelDescriptor2.ahk" { IDvbLogicalChannelDescriptor2 }
 
 /**
  * Implements methods that get data from a logical channel descriptor (LCD) in a Digital Video Broadcast (DVB) MPEG-2 stream that uses the format defined in the Nordig specification used in Scandinavian countries.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvblogicalchannel2descriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2 {
-
-    static sizeof => A_PtrSize
+export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2 {
     /**
      * The interface identifier for IDvbLogicalChannel2Descriptor
      * @type {Guid}
      */
-    static IID => Guid("{f69c3747-8a30-4980-998c-01fe7f0ba35a}")
+    static IID := Guid("{f69c3747-8a30-4980-998c-01fe7f0ba35a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbLogicalChannel2Descriptor interfaces
+    */
+    struct Vtbl extends IDvbLogicalChannelDescriptor2.Vtbl {
+        GetCountOfLists                          : IntPtr
+        GetListId                                : IntPtr
+        GetListNameW                             : IntPtr
+        GetListCountryCode                       : IntPtr
+        GetListCountOfRecords                    : IntPtr
+        GetListRecordServiceId                   : IntPtr
+        GetListRecordLogicalChannelNumber        : IntPtr
+        GetListRecordLogicalChannelAndVisibility : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCountOfLists", "GetListId", "GetListNameW", "GetListCountryCode", "GetListCountOfRecords", "GetListRecordServiceId", "GetListRecordLogicalChannelNumber", "GetListRecordLogicalChannelAndVisibility"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbLogicalChannel2Descriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of channel lists in a Digital Video Broadcast (DVB) logical channel descriptor.
@@ -61,8 +77,8 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistnamew
      */
     GetListNameW(bListIndex, convMode) {
-        pbstrName := BSTR()
-        result := ComCall(11, this, "char", bListIndex, "int", convMode, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(11, this, "char", bListIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -168,5 +184,39 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2 {
     GetListRecordLogicalChannelAndVisibility(bListIndex, bRecordIndex) {
         result := ComCall(16, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
+    }
+
+    Query(iid) {
+        if (IDvbLogicalChannel2Descriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCountOfLists := CallbackCreate(GetMethod(implObj, "GetCountOfLists"), flags, 2)
+        this.vtbl.GetListId := CallbackCreate(GetMethod(implObj, "GetListId"), flags, 3)
+        this.vtbl.GetListNameW := CallbackCreate(GetMethod(implObj, "GetListNameW"), flags, 4)
+        this.vtbl.GetListCountryCode := CallbackCreate(GetMethod(implObj, "GetListCountryCode"), flags, 3)
+        this.vtbl.GetListCountOfRecords := CallbackCreate(GetMethod(implObj, "GetListCountOfRecords"), flags, 3)
+        this.vtbl.GetListRecordServiceId := CallbackCreate(GetMethod(implObj, "GetListRecordServiceId"), flags, 4)
+        this.vtbl.GetListRecordLogicalChannelNumber := CallbackCreate(GetMethod(implObj, "GetListRecordLogicalChannelNumber"), flags, 4)
+        this.vtbl.GetListRecordLogicalChannelAndVisibility := CallbackCreate(GetMethod(implObj, "GetListRecordLogicalChannelAndVisibility"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCountOfLists)
+        CallbackFree(this.vtbl.GetListId)
+        CallbackFree(this.vtbl.GetListNameW)
+        CallbackFree(this.vtbl.GetListCountryCode)
+        CallbackFree(this.vtbl.GetListCountOfRecords)
+        CallbackFree(this.vtbl.GetListRecordServiceId)
+        CallbackFree(this.vtbl.GetListRecordLogicalChannelNumber)
+        CallbackFree(this.vtbl.GetListRecordLogicalChannelAndVisibility)
     }
 }

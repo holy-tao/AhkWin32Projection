@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFVideoSampleAllocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * Allocates video samples for a video media sink with specialized functionality for video capture devices.
@@ -10,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideocapturesampleallocator
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoCaptureSampleAllocator extends IMFVideoSampleAllocator {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoCaptureSampleAllocator extends IMFVideoSampleAllocator {
     /**
      * The interface identifier for IMFVideoCaptureSampleAllocator
      * @type {Guid}
      */
-    static IID => Guid("{725b77c7-ca9f-4fe5-9d72-9946bf9b3c70}")
+    static IID := Guid("{725b77c7-ca9f-4fe5-9d72-9946bf9b3c70}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoCaptureSampleAllocator interfaces
+    */
+    struct Vtbl extends IMFVideoSampleAllocator.Vtbl {
+        InitializeCaptureSampleAllocator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeCaptureSampleAllocator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoCaptureSampleAllocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the sample allocator with parameters relevant to video capture scenarios.
@@ -56,5 +66,25 @@ class IMFVideoCaptureSampleAllocator extends IMFVideoSampleAllocator {
     InitializeCaptureSampleAllocator(cbSampleSize, cbCaptureMetadataSize, cbAlignment, cMinimumSamples, pAttributes, pMediaType) {
         result := ComCall(7, this, "uint", cbSampleSize, "uint", cbCaptureMetadataSize, "uint", cbAlignment, "uint", cMinimumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFVideoCaptureSampleAllocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeCaptureSampleAllocator := CallbackCreate(GetMethod(implObj, "InitializeCaptureSampleAllocator"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeCaptureSampleAllocator)
     }
 }

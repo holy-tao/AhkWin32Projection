@@ -1,100 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HISTOGRAM_BUCKET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HISTOGRAM_BUCKET.ahk" { HISTOGRAM_BUCKET }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DISK_HISTOGRAM extends Win32Struct {
-    static sizeof => 72
+export default struct DISK_HISTOGRAM {
+    #StructPack 8
 
-    static packingSize => 8
+    DiskSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DiskSize {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Start : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Start {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    End : Int64
 
-    /**
-     * @type {Integer}
-     */
-    End {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    Average : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Average {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    AverageRead : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AverageRead {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    AverageWrite : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AverageWrite {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    Granularity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Granularity {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ReadCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReadCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    WriteCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WriteCount {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Histogram : HISTOGRAM_BUCKET.Ptr
 
-    /**
-     * @type {Pointer<HISTOGRAM_BUCKET>}
-     */
-    Histogram {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

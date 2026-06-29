@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_ERROR_INFOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class STI_DIAG extends Win32Struct {
-    static sizeof => 540
+export default struct STI_DIAG {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBasicDiagCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBasicDiagCode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVendorDiagCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVendorDiagCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwStatusMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStatusMask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    sErrorInfo : _ERROR_INFOW
 
-    /**
-     * @type {_ERROR_INFOW}
-     */
-    sErrorInfo {
-        get {
-            if(!this.HasProp("__sErrorInfo"))
-                this.__sErrorInfo := _ERROR_INFOW(16, this)
-            return this.__sErrorInfo
-        }
-    }
 }

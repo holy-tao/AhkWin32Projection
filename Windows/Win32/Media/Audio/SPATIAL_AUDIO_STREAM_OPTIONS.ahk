@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies audio stream options for calls to ActivateSpatialAudioStream.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ne-spatialaudioclient-spatial_audio_stream_options
  * @namespace Windows.Win32.Media.Audio
  */
-class SPATIAL_AUDIO_STREAM_OPTIONS extends Win32BitflagEnum {
+export default struct SPATIAL_AUDIO_STREAM_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No stream options.

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the data types used for the codec and DSP properties that are accessed by using the methods of the IWMCodecProps interface.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-wmt_prop_datatype
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class WMT_PROP_DATATYPE extends Win32Enum {
+export default struct WMT_PROP_DATATYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies a double-word value.

@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOB_OBJECT_IO_RATE_CONTROL_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\JOB_OBJECT_IO_RATE_CONTROL_FLAGS.ahk" { JOB_OBJECT_IO_RATE_CONTROL_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1 extends Win32Struct {
-    static sizeof => 48
+export default struct JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    MaxIops : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxIops {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    MaxBandwidth : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxBandwidth {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    ReservationIops : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReservationIops {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    VolumeName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    VolumeName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    BaseIoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BaseIoSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ControlFlags : JOB_OBJECT_IO_RATE_CONTROL_FLAGS
 
-    /**
-     * @type {JOB_OBJECT_IO_RATE_CONTROL_FLAGS}
-     */
-    ControlFlags {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    VolumeNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VolumeNameLength {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
 }

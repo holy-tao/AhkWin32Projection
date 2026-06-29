@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KHYPH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KHYPH.ahk" { KHYPH }
 
 /**
  * Contains information about the result of hyphenation in a Microsoft Rich Edit control.
@@ -9,41 +8,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-hyphresult
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class HYPHRESULT extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct HYPHRESULT {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ne-richedit-khyph">KHYPH</a></b>
      * 
      * The type of hyphenation.
-     * @type {KHYPH}
      */
-    khyph {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    khyph : KHYPH
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * The index of the WCHAR in the passed string where hyphenation occurred.
-     * @type {Integer}
      */
-    ichHyph {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ichHyph : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WCHAR</a></b>
      * 
      * The character used when hyphenation requires a replacement or an addition or a change. If no new character is needed, the value is zero.
-     * @type {Integer}
      */
-    chHyph {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    chHyph : Int8
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the values that specify the type of time stamp to use when logging events channel.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_clock_type
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_CHANNEL_CLOCK_TYPE extends Win32Enum {
+export default struct EVT_CHANNEL_CLOCK_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Uses the system time for the time stamp. The system time provides a low-resolution (10 milliseconds) time stamp but is comparatively less expensive to retrieve. System time is the default. 

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
 
 /**
  * Represents the ability to query particular properties of a gesture returned from a gesture recognition.
@@ -12,26 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkgesture
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkGesture extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkGesture extends IDispatch {
     /**
      * The interface identifier for IInkGesture
      * @type {Guid}
      */
-    static IID => Guid("{3bdc0a97-04e5-4e26-b813-18f052d41def}")
+    static IID := Guid("{3bdc0a97-04e5-4e26-b813-18f052d41def}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkGesture interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Confidence : IntPtr
+        get_Id         : IntPtr
+        GetHotPoint    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Confidence", "get_Id", "GetHotPoint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkGesture.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {InkRecognitionConfidence} 
@@ -144,5 +156,29 @@ class IInkGesture extends IDispatch {
 
         result := ComCall(9, this, XMarshal, X, YMarshal, Y, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkGesture.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Confidence := CallbackCreate(GetMethod(implObj, "get_Confidence"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.GetHotPoint := CallbackCreate(GetMethod(implObj, "GetHotPoint"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Confidence)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.GetHotPoint)
     }
 }

@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_AZCC_ROOT_BUS_LIST_EVENT extends Win32Struct {
-    static sizeof => 48
+export default struct WHEA_AZCC_ROOT_BUS_LIST_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RootBusCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RootBusCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RootBuses : UInt32[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RootBuses {
-        get {
-            if(!this.HasProp("__RootBusesProxyArray"))
-                this.__RootBusesProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "uint")
-            return this.__RootBusesProxyArray
-        }
-    }
 }

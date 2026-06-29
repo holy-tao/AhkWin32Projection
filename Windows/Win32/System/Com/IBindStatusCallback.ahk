@@ -1,31 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBinding.ahk" { IBinding }
+#Import ".\BINDINFO.ahk" { BINDINFO }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FORMATETC.ahk" { FORMATETC }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class IBindStatusCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBindStatusCallback extends IUnknown {
     /**
      * The interface identifier for IBindStatusCallback
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c1-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c1-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBindStatusCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnStartBinding    : IntPtr
+        GetPriority       : IntPtr
+        OnLowResource     : IntPtr
+        OnProgress        : IntPtr
+        OnStopBinding     : IntPtr
+        GetBindInfo       : IntPtr
+        OnDataAvailable   : IntPtr
+        OnObjectAvailable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnStartBinding", "GetPriority", "OnLowResource", "OnProgress", "OnStopBinding", "GetBindInfo", "OnDataAvailable", "OnObjectAvailable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBindStatusCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,15 +59,8 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process, determines each thread's base priority level.
-     * @remarks
-     * Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system uses the base priority level of all executable threads to determine which thread gets the next slice of CPU time. Threads are scheduled in a round-robin fashion at each priority level, and only when there are no executable threads at a higher level will scheduling of threads at a lower level take place.
      * 
-     * For a table that shows the base priority levels for each combination of priority class and thread priority value, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>.
-     * 
-     * Priority class is maintained by the executive, so all processes have a priority class that can be queried.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getpriorityclass
      */
     GetPriority() {
         result := ComCall(4, this, "int*", &pnPriority := 0, "HRESULT")
@@ -98,7 +111,7 @@ class IBindStatusCallback extends IUnknown {
      * @returns {Integer} 
      */
     GetBindInfo(pbindinfo) {
-        result := ComCall(8, this, "uint*", &grfBINDF := 0, "ptr", pbindinfo, "HRESULT")
+        result := ComCall(8, this, "uint*", &grfBINDF := 0, BINDINFO.Ptr, pbindinfo, "HRESULT")
         return grfBINDF
     }
 
@@ -111,7 +124,7 @@ class IBindStatusCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     OnDataAvailable(grfBSCF, dwSize, pformatetc, pstgmed) {
-        result := ComCall(9, this, "uint", grfBSCF, "uint", dwSize, "ptr", pformatetc, "ptr", pstgmed, "HRESULT")
+        result := ComCall(9, this, "uint", grfBSCF, "uint", dwSize, FORMATETC.Ptr, pformatetc, STGMEDIUM.Ptr, pstgmed, "HRESULT")
         return result
     }
 
@@ -122,7 +135,41 @@ class IBindStatusCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     OnObjectAvailable(riid, punk) {
-        result := ComCall(10, this, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, riid, "ptr", punk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBindStatusCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnStartBinding := CallbackCreate(GetMethod(implObj, "OnStartBinding"), flags, 3)
+        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.OnLowResource := CallbackCreate(GetMethod(implObj, "OnLowResource"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 5)
+        this.vtbl.OnStopBinding := CallbackCreate(GetMethod(implObj, "OnStopBinding"), flags, 3)
+        this.vtbl.GetBindInfo := CallbackCreate(GetMethod(implObj, "GetBindInfo"), flags, 3)
+        this.vtbl.OnDataAvailable := CallbackCreate(GetMethod(implObj, "OnDataAvailable"), flags, 5)
+        this.vtbl.OnObjectAvailable := CallbackCreate(GetMethod(implObj, "OnObjectAvailable"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnStartBinding)
+        CallbackFree(this.vtbl.GetPriority)
+        CallbackFree(this.vtbl.OnLowResource)
+        CallbackFree(this.vtbl.OnProgress)
+        CallbackFree(this.vtbl.OnStopBinding)
+        CallbackFree(this.vtbl.GetBindInfo)
+        CallbackFree(this.vtbl.OnDataAvailable)
+        CallbackFree(this.vtbl.OnObjectAvailable)
     }
 }

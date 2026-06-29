@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleWindow.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Implemented by container applications and used by object applications to negotiate border space on the document or frame window.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceuiwindow
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceUIWindow extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceUIWindow extends IOleWindow {
     /**
      * The interface identifier for IOleInPlaceUIWindow
      * @type {Guid}
      */
-    static IID => Guid("{00000115-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000115-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceUIWindow interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        GetBorder          : IntPtr
+        RequestBorderSpace : IntPtr
+        SetBorderSpace     : IntPtr
+        SetActiveObject    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBorder", "RequestBorderSpace", "SetBorderSpace", "SetActiveObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceUIWindow.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the outer rectangle for toolbars and controls while the object is active in place.
@@ -45,7 +58,7 @@ class IOleInPlaceUIWindow extends IOleWindow {
      */
     GetBorder() {
         lprectBorder := RECT()
-        result := ComCall(5, this, "ptr", lprectBorder, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, lprectBorder, "HRESULT")
         return lprectBorder
     }
 
@@ -117,7 +130,7 @@ class IOleInPlaceUIWindow extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceuiwindow-requestborderspace
      */
     RequestBorderSpace(pborderwidths) {
-        result := ComCall(6, this, "ptr", pborderwidths, "HRESULT")
+        result := ComCall(6, this, RECT.Ptr, pborderwidths, "HRESULT")
         return result
     }
 
@@ -160,7 +173,7 @@ class IOleInPlaceUIWindow extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceuiwindow-setborderspace
      */
     SetBorderSpace(pborderwidths) {
-        result := ComCall(7, this, "ptr", pborderwidths, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, pborderwidths, "HRESULT")
         return result
     }
 
@@ -206,5 +219,31 @@ class IOleInPlaceUIWindow extends IOleWindow {
 
         result := ComCall(8, this, "ptr", pActiveObject, "ptr", pszObjName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleInPlaceUIWindow.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBorder := CallbackCreate(GetMethod(implObj, "GetBorder"), flags, 2)
+        this.vtbl.RequestBorderSpace := CallbackCreate(GetMethod(implObj, "RequestBorderSpace"), flags, 2)
+        this.vtbl.SetBorderSpace := CallbackCreate(GetMethod(implObj, "SetBorderSpace"), flags, 2)
+        this.vtbl.SetActiveObject := CallbackCreate(GetMethod(implObj, "SetActiveObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBorder)
+        CallbackFree(this.vtbl.RequestBorderSpace)
+        CallbackFree(this.vtbl.SetBorderSpace)
+        CallbackFree(this.vtbl.SetActiveObject)
     }
 }

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Ask+ item.
- * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-gopher_find_dataa
  * @namespace Windows.Win32.Networking.WinInet
  */
-class GOPHER_TYPE extends Win32Enum {
+export default struct GOPHER_TYPE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The WAVEINCAPS structure describes the capabilities of a waveform-audio input device. (WAVEINCAPSA)
@@ -10,46 +10,28 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset ANSI
  */
-class WAVEINCAPSA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct WAVEINCAPSA {
+    #StructPack 4
 
     /**
      * Manufacturer identifier for the device driver for the waveform-audio input device. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMid : UInt16
 
     /**
      * Product identifier for the waveform-audio input device. Product identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPid : UInt16
 
     /**
      * Version number of the device driver for the waveform-audio input device. The high-order byte is the major version number, and the low-order byte is the minor version number.
-     * @type {Integer}
      */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    vDriverVersion : UInt32
 
     /**
      * Product name in a null-terminated string.
-     * @type {String}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
-    }
+    szPname : CHAR[32]
 
     /**
      * Standard formats that are supported. Can be a combination of the following:
@@ -124,27 +106,14 @@ class WAVEINCAPSA extends Win32Struct {
      * <td>96 kHz, stereo, 16-bit</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFormats {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwFormats : UInt32
 
     /**
      * Number specifying whether the device supports mono (1) or stereo (2) input.
-     * @type {Integer}
      */
-    wChannels {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    wChannels : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    wReserved1 : UInt16
+
 }

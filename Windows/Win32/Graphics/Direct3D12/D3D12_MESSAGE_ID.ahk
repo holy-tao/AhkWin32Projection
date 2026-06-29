@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies debug message IDs for setting up an info-queue filter (see D3D12_INFO_QUEUE_FILTER); use these messages to allow or deny message categories to pass through the storage and retrieval filters.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_MESSAGE_ID extends Win32Enum {
+export default struct D3D12_MESSAGE_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}
@@ -4973,5 +4982,30 @@ class D3D12_MESSAGE_ID extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_ID_D3D12_MESSAGES_END => 1442
+    static D3D12_MESSAGE_ID_STOREPIPELINE_CACHED_BLOB_DISABLED => 1442
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_CREATEQUERYHEAP_INVALID_FLAGS => 1443
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_RESOLVEQUERYDATA_INVALID_QUERYHEAP => 1444
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_NON_UNIFORM_RESOURCE_INDEX => 1451
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_DEGENERATE_SPLIT_BARRIER => 1466
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_D3D12_MESSAGES_END => 1467
 }

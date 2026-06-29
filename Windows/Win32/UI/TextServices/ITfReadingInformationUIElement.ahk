@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfUIElement.ahk
-#Include .\ITfContext.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITfUIElement.ahk" { ITfUIElement }
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has a UI for reading information UI at the near caret.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfreadinginformationuielement
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfReadingInformationUIElement extends ITfUIElement {
-
-    static sizeof => A_PtrSize
+export default struct ITfReadingInformationUIElement extends ITfUIElement {
     /**
      * The interface identifier for ITfReadingInformationUIElement
      * @type {Guid}
      */
-    static IID => Guid("{ea1ea139-19df-11d7-a6d2-00065b84435c}")
+    static IID := Guid("{ea1ea139-19df-11d7-a6d2-00065b84435c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfReadingInformationUIElement interfaces
+    */
+    struct Vtbl extends ITfUIElement.Vtbl {
+        GetUpdatedFlags           : IntPtr
+        GetContext                : IntPtr
+        GetString                 : IntPtr
+        GetMaxReadingStringLength : IntPtr
+        GetErrorIndex             : IntPtr
+        IsVerticalOrderPreferred  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUpdatedFlags", "GetContext", "GetString", "GetMaxReadingStringLength", "GetErrorIndex", "IsVerticalOrderPreferred"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfReadingInformationUIElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method returns the flag that tells which part of this element was updated.
@@ -114,8 +128,8 @@ class ITfReadingInformationUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getstring
      */
     GetString() {
-        _pstr := BSTR()
-        result := ComCall(9, this, "ptr", _pstr, "HRESULT")
+        _pstr := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -145,7 +159,37 @@ class ITfReadingInformationUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-isverticalorderpreferred
      */
     IsVerticalOrderPreferred() {
-        result := ComCall(12, this, "int*", &pfVertical := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfVertical := 0, "HRESULT")
         return pfVertical
+    }
+
+    Query(iid) {
+        if (ITfReadingInformationUIElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUpdatedFlags := CallbackCreate(GetMethod(implObj, "GetUpdatedFlags"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 2)
+        this.vtbl.GetMaxReadingStringLength := CallbackCreate(GetMethod(implObj, "GetMaxReadingStringLength"), flags, 2)
+        this.vtbl.GetErrorIndex := CallbackCreate(GetMethod(implObj, "GetErrorIndex"), flags, 2)
+        this.vtbl.IsVerticalOrderPreferred := CallbackCreate(GetMethod(implObj, "IsVerticalOrderPreferred"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUpdatedFlags)
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetMaxReadingStringLength)
+        CallbackFree(this.vtbl.GetErrorIndex)
+        CallbackFree(this.vtbl.IsVerticalOrderPreferred)
     }
 }

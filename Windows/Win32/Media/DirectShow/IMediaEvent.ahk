@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaEvent interface contains methods for retrieving event notifications and for overriding the Filter Graph Manager's default handling of events.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-imediaevent
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMediaEvent extends IDispatch {
     /**
      * The interface identifier for IMediaEvent
      * @type {Guid}
      */
-    static IID => Guid("{56a868b6-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b6-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetEventHandle         : IntPtr
+        GetEvent               : IntPtr
+        WaitForCompletion      : IntPtr
+        CancelDefaultHandling  : IntPtr
+        RestoreDefaultHandling : IntPtr
+        FreeEventParams        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventHandle", "GetEvent", "WaitForCompletion", "CancelDefaultHandling", "RestoreDefaultHandling", "FreeEventParams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetEventHandle method retrieves a handle to a manual-reset event that remains signaled while the queue contains event notifications.
@@ -238,5 +251,35 @@ class IMediaEvent extends IDispatch {
     FreeEventParams(lEvCode, lParam1, lParam2) {
         result := ComCall(12, this, "int", lEvCode, "ptr", lParam1, "ptr", lParam2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventHandle := CallbackCreate(GetMethod(implObj, "GetEventHandle"), flags, 2)
+        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 5)
+        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 3)
+        this.vtbl.CancelDefaultHandling := CallbackCreate(GetMethod(implObj, "CancelDefaultHandling"), flags, 2)
+        this.vtbl.RestoreDefaultHandling := CallbackCreate(GetMethod(implObj, "RestoreDefaultHandling"), flags, 2)
+        this.vtbl.FreeEventParams := CallbackCreate(GetMethod(implObj, "FreeEventParams"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventHandle)
+        CallbackFree(this.vtbl.GetEvent)
+        CallbackFree(this.vtbl.WaitForCompletion)
+        CallbackFree(this.vtbl.CancelDefaultHandling)
+        CallbackFree(this.vtbl.RestoreDefaultHandling)
+        CallbackFree(this.vtbl.FreeEventParams)
     }
 }

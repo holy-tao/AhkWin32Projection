@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BTH_LE_GATT_CHARACTERISTIC_VALUE structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile characteristic value.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_characteristic_value
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_LE_GATT_CHARACTERISTIC_VALUE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct BTH_LE_GATT_CHARACTERISTIC_VALUE {
+    #StructPack 4
 
     /**
      * The size, in bytes, of the Bluetooth LE GATT characteristic value.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataSize : UInt32
 
     /**
      * A pointer to the Bluetooth LE GATT characteristic value data.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

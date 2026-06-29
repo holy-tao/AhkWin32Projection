@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IP6_ADDRESS structure stores an IPv6 address. (IP6_ADDRESS)
@@ -7,53 +6,15 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @architecture X64, Arm64
  */
-class IP6_ADDRESS extends Win32Struct {
-    static sizeof => 64
+export default struct IP6_ADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
+    IP6Qword : Int64[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    IP6Qword {
-        get {
-            if(!this.HasProp("__IP6QwordProxyArray"))
-                this.__IP6QwordProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-            return this.__IP6QwordProxyArray
-        }
-    }
-
-    /**
-     * An IPv6 address of the form: "ABCD:EF01:2345:6789:ABCD:EF01:2345:6789"as defined in <a href="https://www.ietf.org/rfc/rfc4291.txt">RFC 4291</a>
-     * @type {Array<Integer>}
-     */
-    IP6Dword {
-        get {
-            if(!this.HasProp("__IP6DwordProxyArray"))
-                this.__IP6DwordProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__IP6DwordProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    IP6Word {
-        get {
-            if(!this.HasProp("__IP6WordProxyArray"))
-                this.__IP6WordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
-            return this.__IP6WordProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    IP6Byte {
-        get {
-            if(!this.HasProp("__IP6ByteProxyArray"))
-                this.__IP6ByteProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__IP6ByteProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'IP6Dword', { type: UInt32[4], offset: 0 })
+        DefineProp(this.Prototype, 'IP6Word', { type: UInt16[8], offset: 0 })
+        DefineProp(this.Prototype, 'IP6Byte', { type: Int8[16], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

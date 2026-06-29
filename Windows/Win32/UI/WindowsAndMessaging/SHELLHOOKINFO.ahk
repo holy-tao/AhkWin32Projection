@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class SHELLHOOKINFO extends Win32Struct {
-    static sizeof => 24
+export default struct SHELLHOOKINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hwnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(0, this)
-            return this.__hwnd
-        }
-    }
+    rc : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(8, this)
-            return this.__rc
-        }
-    }
 }

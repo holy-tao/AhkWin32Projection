@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by IObjectWithFolderEnumMode::GetMode and IObjectWithFolderEnumMode::SetMode methods to get and set the display modes for the folders.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode
  * @namespace Windows.Win32.UI.Shell
  */
-class FOLDER_ENUM_MODE extends Win32Enum {
+export default struct FOLDER_ENUM_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Display mode to view the contents of a folder.

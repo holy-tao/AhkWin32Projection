@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumSyncMgrConflict.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumSyncMgrConflict.ahk" { IEnumSyncMgrConflict }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
 
 /**
  * Exposes methods that allow a handler to provide conflicts that appear in the Conflicts folder.
@@ -17,26 +20,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictstore
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrConflictStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrConflictStore extends IUnknown {
     /**
      * The interface identifier for ISyncMgrConflictStore
      * @type {Guid}
      */
-    static IID => Guid("{cf8fc579-c396-4774-85f1-d908a831156e}")
+    static IID := Guid("{cf8fc579-c396-4774-85f1-d908a831156e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrConflictStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumConflicts   : IntPtr
+        BindToConflict  : IntPtr
+        RemoveConflicts : IntPtr
+        GetCount        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumConflicts", "BindToConflict", "RemoveConflicts", "GetCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrConflictStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enumerates conflicts scoped to the provided sync handler and sync item.
@@ -77,7 +90,7 @@ class ISyncMgrConflictStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
      */
     BindToConflict(pConflictIdInfo, riid) {
-        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, SYNCMGR_CONFLICT_ID_INFO.Ptr, pConflictIdInfo, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -97,7 +110,7 @@ class ISyncMgrConflictStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-removeconflicts
      */
     RemoveConflicts(rgConflictIdInfo, cConflicts) {
-        result := ComCall(5, this, "ptr", rgConflictIdInfo, "uint", cConflicts, "HRESULT")
+        result := ComCall(5, this, SYNCMGR_CONFLICT_ID_INFO.Ptr, rgConflictIdInfo, "uint", cConflicts, "HRESULT")
         return result
     }
 
@@ -120,5 +133,31 @@ class ISyncMgrConflictStore extends IUnknown {
 
         result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, "uint*", &pnConflicts := 0, "HRESULT")
         return pnConflicts
+    }
+
+    Query(iid) {
+        if (ISyncMgrConflictStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumConflicts := CallbackCreate(GetMethod(implObj, "EnumConflicts"), flags, 4)
+        this.vtbl.BindToConflict := CallbackCreate(GetMethod(implObj, "BindToConflict"), flags, 4)
+        this.vtbl.RemoveConflicts := CallbackCreate(GetMethod(implObj, "RemoveConflicts"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumConflicts)
+        CallbackFree(this.vtbl.BindToConflict)
+        CallbackFree(this.vtbl.RemoveConflicts)
+        CallbackFree(this.vtbl.GetCount)
     }
 }

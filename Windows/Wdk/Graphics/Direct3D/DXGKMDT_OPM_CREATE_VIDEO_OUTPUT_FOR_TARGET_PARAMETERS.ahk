@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS.ahk" { DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKMDT_OPM_CREATE_VIDEO_OUTPUT_FOR_TARGET_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct DXGKMDT_OPM_CREATE_VIDEO_OUTPUT_FOR_TARGET_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    AdapterLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AdapterLuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TargetId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Vos : DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS
 
-    /**
-     * @type {DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS}
-     */
-    Vos {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

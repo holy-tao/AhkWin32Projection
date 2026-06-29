@@ -1,38 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DedupStream.ahk" { DedupStream }
+#Import ".\DedupHash.ahk" { DedupHash }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\DedupDataPortVolumeStatus.ahk" { DedupDataPortVolumeStatus }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DedupStreamEntry.ahk" { DedupStreamEntry }
+#Import ".\DedupDataPortRequestStatus.ahk" { DedupDataPortRequestStatus }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DedupChunk.ahk" { DedupChunk }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class IDedupDataPort extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDedupDataPort extends IUnknown {
     /**
      * The interface identifier for IDedupDataPort
      * @type {Guid}
      */
-    static IID => Guid("{7963d734-40a9-4ea3-bbf6-5a89d26f7ae8}")
+    static IID := Guid("{7963d734-40a9-4ea3-bbf6-5a89d26f7ae8}")
 
     /**
      * The class identifier for DedupDataPort
      * @type {Guid}
      */
-    static CLSID => Guid("{8f107207-1829-48b2-a64b-e61f8e0d9acb}")
+    static CLSID := Guid("{8f107207-1829-48b2-a64b-e61f8e0d9acb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDedupDataPort interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStatus               : IntPtr
+        LookupChunks            : IntPtr
+        InsertChunks            : IntPtr
+        InsertChunksWithStream  : IntPtr
+        CommitStreams           : IntPtr
+        CommitStreamsWithStream : IntPtr
+        GetStreams              : IntPtr
+        GetStreamsResults       : IntPtr
+        GetChunks               : IntPtr
+        GetChunksResults        : IntPtr
+        GetRequestStatus        : IntPtr
+        GetRequestResults       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "LookupChunks", "InsertChunks", "InsertChunksWithStream", "CommitStreams", "CommitStreamsWithStream", "GetStreams", "GetStreamsResults", "GetChunks", "GetChunksResults", "GetRequestStatus", "GetRequestResults"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDedupDataPort.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -56,7 +82,7 @@ class IDedupDataPort extends IUnknown {
      */
     LookupChunks(Count, pHashes) {
         pRequestId := Guid()
-        result := ComCall(4, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "HRESULT")
+        result := ComCall(4, this, "uint", Count, DedupHash.Ptr, pHashes, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -72,7 +98,7 @@ class IDedupDataPort extends IUnknown {
         pChunkDataMarshal := pChunkData is VarRef ? "char*" : "ptr"
 
         pRequestId := Guid()
-        result := ComCall(5, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, "ptr", pRequestId, "HRESULT")
+        result := ComCall(5, this, "uint", ChunkCount, DedupChunk.Ptr, pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -86,7 +112,7 @@ class IDedupDataPort extends IUnknown {
      */
     InsertChunksWithStream(ChunkCount, pChunkMetadata, DataByteCount, pChunkDataStream) {
         pRequestId := Guid()
-        result := ComCall(6, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, "ptr", pChunkDataStream, "ptr", pRequestId, "HRESULT")
+        result := ComCall(6, this, "uint", ChunkCount, DedupChunk.Ptr, pChunkMetadata, "uint", DataByteCount, "ptr", pChunkDataStream, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -100,7 +126,7 @@ class IDedupDataPort extends IUnknown {
      */
     CommitStreams(StreamCount, pStreams, EntryCount, pEntries) {
         pRequestId := Guid()
-        result := ComCall(7, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntries, "ptr", pRequestId, "HRESULT")
+        result := ComCall(7, this, "uint", StreamCount, DedupStream.Ptr, pStreams, "uint", EntryCount, DedupStreamEntry.Ptr, pEntries, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -114,7 +140,7 @@ class IDedupDataPort extends IUnknown {
      */
     CommitStreamsWithStream(StreamCount, pStreams, EntryCount, pEntriesStream) {
         pRequestId := Guid()
-        result := ComCall(8, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntriesStream, "ptr", pRequestId, "HRESULT")
+        result := ComCall(8, this, "uint", StreamCount, DedupStream.Ptr, pStreams, "uint", EntryCount, "ptr", pEntriesStream, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -126,7 +152,7 @@ class IDedupDataPort extends IUnknown {
      */
     GetStreams(StreamCount, pStreamPaths) {
         pRequestId := Guid()
-        result := ComCall(9, this, "uint", StreamCount, "ptr", pStreamPaths, "ptr", pRequestId, "HRESULT")
+        result := ComCall(9, this, "uint", StreamCount, BSTR.Ptr, pStreamPaths, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -151,7 +177,7 @@ class IDedupDataPort extends IUnknown {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(10, this, Guid, RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 
@@ -163,7 +189,7 @@ class IDedupDataPort extends IUnknown {
      */
     GetChunks(Count, pHashes) {
         pRequestId := Guid()
-        result := ComCall(11, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "HRESULT")
+        result := ComCall(11, this, "uint", Count, DedupHash.Ptr, pHashes, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -188,7 +214,7 @@ class IDedupDataPort extends IUnknown {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(12, this, Guid, RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 
@@ -198,7 +224,7 @@ class IDedupDataPort extends IUnknown {
      * @returns {DedupDataPortRequestStatus} 
      */
     GetRequestStatus(RequestId) {
-        result := ComCall(13, this, "ptr", RequestId, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(13, this, Guid, RequestId, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
@@ -218,7 +244,49 @@ class IDedupDataPort extends IUnknown {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(14, this, Guid, RequestId, "uint", MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDedupDataPort.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.LookupChunks := CallbackCreate(GetMethod(implObj, "LookupChunks"), flags, 4)
+        this.vtbl.InsertChunks := CallbackCreate(GetMethod(implObj, "InsertChunks"), flags, 6)
+        this.vtbl.InsertChunksWithStream := CallbackCreate(GetMethod(implObj, "InsertChunksWithStream"), flags, 6)
+        this.vtbl.CommitStreams := CallbackCreate(GetMethod(implObj, "CommitStreams"), flags, 6)
+        this.vtbl.CommitStreamsWithStream := CallbackCreate(GetMethod(implObj, "CommitStreamsWithStream"), flags, 6)
+        this.vtbl.GetStreams := CallbackCreate(GetMethod(implObj, "GetStreams"), flags, 4)
+        this.vtbl.GetStreamsResults := CallbackCreate(GetMethod(implObj, "GetStreamsResults"), flags, 10)
+        this.vtbl.GetChunks := CallbackCreate(GetMethod(implObj, "GetChunks"), flags, 4)
+        this.vtbl.GetChunksResults := CallbackCreate(GetMethod(implObj, "GetChunksResults"), flags, 10)
+        this.vtbl.GetRequestStatus := CallbackCreate(GetMethod(implObj, "GetRequestStatus"), flags, 3)
+        this.vtbl.GetRequestResults := CallbackCreate(GetMethod(implObj, "GetRequestResults"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.LookupChunks)
+        CallbackFree(this.vtbl.InsertChunks)
+        CallbackFree(this.vtbl.InsertChunksWithStream)
+        CallbackFree(this.vtbl.CommitStreams)
+        CallbackFree(this.vtbl.CommitStreamsWithStream)
+        CallbackFree(this.vtbl.GetStreams)
+        CallbackFree(this.vtbl.GetStreamsResults)
+        CallbackFree(this.vtbl.GetChunks)
+        CallbackFree(this.vtbl.GetChunksResults)
+        CallbackFree(this.vtbl.GetRequestStatus)
+        CallbackFree(this.vtbl.GetRequestResults)
     }
 }

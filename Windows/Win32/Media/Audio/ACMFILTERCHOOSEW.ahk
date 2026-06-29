@@ -1,149 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\WAVEFILTER.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class ACMFILTERCHOOSEW extends Win32Struct {
-    static sizeof => 448
+export default struct ACMFILTERCHOOSEW {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fdwStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwStyle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hwndOwner : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    pwfltr : WAVEFILTER.Ptr
 
-    /**
-     * @type {Pointer<WAVEFILTER>}
-     */
-    pwfltr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbwfltr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbwfltr {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pszTitle : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    szFilterTag : WCHAR[48]
 
-    /**
-     * @type {String}
-     */
-    szFilterTag {
-        get => StrGet(this.ptr + 40, 47, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 47, "UTF-16")
-    }
+    szFilter : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szFilter {
-        get => StrGet(this.ptr + 136, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 136, 127, "UTF-16")
-    }
+    pszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszName {
-        get => NumGet(this, 392, "ptr")
-        set => NumPut("ptr", value, this, 392)
-    }
+    cchName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cchName {
-        get => NumGet(this, 400, "uint")
-        set => NumPut("uint", value, this, 400)
-    }
+    fdwEnum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwEnum {
-        get => NumGet(this, 404, "uint")
-        set => NumPut("uint", value, this, 404)
-    }
+    pwfltrEnum : WAVEFILTER.Ptr
 
-    /**
-     * @type {Pointer<WAVEFILTER>}
-     */
-    pwfltrEnum {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
-    }
+    hInstance : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(416, this)
-            return this.__hInstance
-        }
-    }
+    pszTemplateName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszTemplateName {
-        get => NumGet(this, 424, "ptr")
-        set => NumPut("ptr", value, this, 424)
-    }
+    lCustData : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lCustData {
-        get => NumGet(this, 432, "ptr")
-        set => NumPut("ptr", value, this, 432)
-    }
+    pfnHook : IntPtr
 
-    /**
-     * @type {Pointer<ACMFILTERCHOOSEHOOKPROCW>}
-     */
-    pfnHook {
-        get => NumGet(this, 440, "ptr")
-        set => NumPut("ptr", value, this, 440)
-    }
 }

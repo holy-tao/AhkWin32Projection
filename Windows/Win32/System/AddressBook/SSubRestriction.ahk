@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SRestriction.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SRestriction.ahk" { SRestriction }
 
 /**
  * Describes a sub-object restriction which is used to filter the rows of a message's attachment or recipient table.
@@ -13,10 +12,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssubrestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SSubRestriction extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SSubRestriction {
+    #StructPack 8
 
     /**
      * > Type of sub-object to serve as the target for the restriction. Possible values are as follows:
@@ -28,19 +25,16 @@ class SSubRestriction extends Win32Struct {
      * PR_MESSAGE_ATTACHMENTS
      *   
      * > Apply the restriction to a message's attachment table.
-     * @type {Integer}
      */
-    ulSubObject {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulSubObject : UInt32
 
+    __lpRes_ptr : IntPtr
     /**
      * > Pointer to an [SRestriction](srestriction.md) structure.
-     * @type {Pointer<SRestriction>}
      */
     lpRes {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpRes_ptr) ? SRestriction.At(addr) : unset
+        set => this.__lpRes_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

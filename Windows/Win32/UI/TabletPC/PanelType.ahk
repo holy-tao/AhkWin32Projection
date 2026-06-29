@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type of input currently available in the PenInputPanel object.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-paneltype
  * @namespace Windows.Win32.UI.TabletPC
  */
-class PanelType extends Win32Enum {
+export default struct PanelType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object displays the last panel type used for any pen input panel in any application. If all previous references to the pen input panel have been destroyed in all active applications, a new pen input panel will use the handwriting panel type.

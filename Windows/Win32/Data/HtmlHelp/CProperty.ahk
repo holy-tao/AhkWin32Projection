@@ -1,67 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class CProperty extends Win32Struct {
-    static sizeof => 32
+export default struct CProperty {
+    #StructPack 8
 
-    static packingSize => 8
+    dwPropID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPropID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lpszwData : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpszwData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    fPersist : BOOL
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpvData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwValue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    fPersist {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    static __New() {
+        DefineProp(this.Prototype, 'lpvData', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'dwValue', { type: UInt32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

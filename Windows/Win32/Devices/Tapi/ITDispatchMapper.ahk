@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITDispatchMapper interface allows an application to retrieve the dispatch pointer of another interface on an object, given the dispatch pointer of one interface and the GUID of another.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdispatchmapper
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDispatchMapper extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDispatchMapper extends IDispatch {
     /**
      * The interface identifier for ITDispatchMapper
      * @type {Guid}
      */
-    static IID => Guid("{e9225295-c759-11d1-a02b-00c04fb6809f}")
+    static IID := Guid("{e9225295-c759-11d1-a02b-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDispatchMapper interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        QueryDispatchInterface : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryDispatchInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDispatchMapper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The QueryDispatchInterface method returns a dispatch pointer to a different interface on an object given its GUID and the dispatch pointer of another interface on the object.
@@ -45,7 +54,27 @@ class ITDispatchMapper extends IDispatch {
     QueryDispatchInterface(pIID, pInterfaceToMap) {
         pIID := pIID is String ? BSTR.Alloc(pIID).Value : pIID
 
-        result := ComCall(7, this, "ptr", pIID, "ptr", pInterfaceToMap, "ptr*", &ppReturnedInterface := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, pIID, "ptr", pInterfaceToMap, "ptr*", &ppReturnedInterface := 0, "HRESULT")
         return IDispatch(ppReturnedInterface)
+    }
+
+    Query(iid) {
+        if (ITDispatchMapper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryDispatchInterface := CallbackCreate(GetMethod(implObj, "QueryDispatchInterface"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryDispatchInterface)
     }
 }

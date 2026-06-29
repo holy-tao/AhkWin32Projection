@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The _AUDCLNT_BUFFERFLAGS enumeration defines flags that indicate the status of an audio endpoint buffer.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ne-audioclient-_audclnt_bufferflags
  * @namespace Windows.Win32.Media.Audio
  */
-class _AUDCLNT_BUFFERFLAGS extends Win32Enum {
+export default struct _AUDCLNT_BUFFERFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The data in the packet is not correlated with the previous packet's device position; this is possibly due to a stream state transition or timing glitch.

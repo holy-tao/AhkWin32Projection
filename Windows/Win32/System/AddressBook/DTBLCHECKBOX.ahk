@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * DTBLCHECKBOX contains information about a check box that will be used in a dialog box built from a display table.
@@ -16,19 +15,13 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblcheckbox
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLCHECKBOX extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DTBLCHECKBOX {
+    #StructPack 4
 
     /**
      * > Position in memory of the character string that is displayed with the check box.
-     * @type {Integer}
      */
-    ulbLpszLabel {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulbLpszLabel : UInt32
 
     /**
      * > Bitmask of flags used to designate the format of the check box label. The following flag can be set:
@@ -36,19 +29,12 @@ class DTBLCHECKBOX extends Win32Struct {
      * MAPI_UNICODE 
      *   
      * > The label is in Unicode format. If the MAPI_UNICODE flag is not set, the label is in ANSI format.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFlags : UInt32
 
     /**
      * > Property tag for a property of type PT_BOOLEAN. The value of this property is affected by the state of the check box.
-     * @type {Integer}
      */
-    ulPRPropertyName {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPRPropertyName : UInt32
+
 }

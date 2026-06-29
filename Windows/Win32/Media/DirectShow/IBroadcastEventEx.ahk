@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBroadcastEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBroadcastEvent.ahk" { IBroadcastEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ibroadcasteventex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBroadcastEventEx extends IBroadcastEvent {
-
-    static sizeof => A_PtrSize
+export default struct IBroadcastEventEx extends IBroadcastEvent {
     /**
      * The interface identifier for IBroadcastEventEx
      * @type {Guid}
      */
-    static IID => Guid("{3d9e3887-1929-423f-8021-43682de95448}")
+    static IID := Guid("{3d9e3887-1929-423f-8021-43682de95448}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBroadcastEventEx interfaces
+    */
+    struct Vtbl extends IBroadcastEvent.Vtbl {
+        FireEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FireEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBroadcastEventEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -44,7 +52,27 @@ class IBroadcastEventEx extends IBroadcastEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibroadcasteventex-fireex
      */
     FireEx(EventID, Param1, Param2, Param3, Param4) {
-        result := ComCall(4, this, "ptr", EventID, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(4, this, Guid, EventID, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBroadcastEventEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FireEx := CallbackCreate(GetMethod(implObj, "FireEx"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FireEx)
     }
 }

@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUPnPAsyncResult.ahk" { IUPnPAsyncResult }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Use this interface to asynchronously query state variables and invoke actions on an instance of a service .
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpserviceasync
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPServiceAsync extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPServiceAsync extends IUnknown {
     /**
      * The interface identifier for IUPnPServiceAsync
      * @type {Guid}
      */
-    static IID => Guid("{098bdaf5-5ec1-49e7-a260-b3a11dd8680c}")
+    static IID := Guid("{098bdaf5-5ec1-49e7-a260-b3a11dd8680c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPServiceAsync interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginInvokeAction       : IntPtr
+        EndInvokeAction         : IntPtr
+        BeginQueryStateVariable : IntPtr
+        EndQueryStateVariable   : IntPtr
+        BeginSubscribeToEvents  : IntPtr
+        EndSubscribeToEvents    : IntPtr
+        BeginSCPDDownload       : IntPtr
+        EndSCPDDownload         : IntPtr
+        CancelAsyncOperation    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginInvokeAction", "EndInvokeAction", "BeginQueryStateVariable", "EndQueryStateVariable", "BeginSubscribeToEvents", "EndSubscribeToEvents", "BeginSCPDDownload", "EndSCPDDownload", "CancelAsyncOperation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPServiceAsync.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * BeginInvokeAction method invokes an action on a device in asynchronous mode. Additionally, if a delayed SCPD download and event subscription is opted-in, and it has not taken place already, this method will initiate SCPD download.
@@ -43,7 +61,7 @@ class IUPnPServiceAsync extends IUnknown {
     BeginInvokeAction(bstrActionName, vInActionArgs, pAsyncResult) {
         bstrActionName := bstrActionName is String ? BSTR.Alloc(bstrActionName).Value : bstrActionName
 
-        result := ComCall(3, this, "ptr", bstrActionName, "ptr", vInActionArgs, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrActionName, VARIANT, vInActionArgs, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
         return pullRequestID
     }
 
@@ -153,7 +171,7 @@ class IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endinvokeaction
      */
     EndInvokeAction(ullRequestID, pvOutActionArgs, pvRetVal) {
-        result := ComCall(4, this, "uint", ullRequestID, "ptr", pvOutActionArgs, "ptr", pvRetVal, "HRESULT")
+        result := ComCall(4, this, "uint", ullRequestID, VARIANT.Ptr, pvOutActionArgs, VARIANT.Ptr, pvRetVal, "HRESULT")
         return result
     }
 
@@ -174,7 +192,7 @@ class IUPnPServiceAsync extends IUnknown {
     BeginQueryStateVariable(bstrVariableName, pAsyncResult) {
         bstrVariableName := bstrVariableName is String ? BSTR.Alloc(bstrVariableName).Value : bstrVariableName
 
-        result := ComCall(5, this, "ptr", bstrVariableName, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrVariableName, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
         return pullRequestID
     }
 
@@ -277,7 +295,7 @@ class IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endquerystatevariable
      */
     EndQueryStateVariable(ullRequestID, pValue) {
-        result := ComCall(6, this, "uint", ullRequestID, "ptr", pValue, "HRESULT")
+        result := ComCall(6, this, "uint", ullRequestID, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -386,8 +404,8 @@ class IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endscpddownload
      */
     EndSCPDDownload(ullRequestID) {
-        pbstrSCPDDoc := BSTR()
-        result := ComCall(10, this, "uint", ullRequestID, "ptr", pbstrSCPDDoc, "HRESULT")
+        pbstrSCPDDoc := BSTR.Owned()
+        result := ComCall(10, this, "uint", ullRequestID, BSTR.Ptr, pbstrSCPDDoc, "HRESULT")
         return pbstrSCPDDoc
     }
 
@@ -431,5 +449,41 @@ class IUPnPServiceAsync extends IUnknown {
     CancelAsyncOperation(ullRequestID) {
         result := ComCall(11, this, "uint", ullRequestID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPServiceAsync.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginInvokeAction := CallbackCreate(GetMethod(implObj, "BeginInvokeAction"), flags, 5)
+        this.vtbl.EndInvokeAction := CallbackCreate(GetMethod(implObj, "EndInvokeAction"), flags, 4)
+        this.vtbl.BeginQueryStateVariable := CallbackCreate(GetMethod(implObj, "BeginQueryStateVariable"), flags, 4)
+        this.vtbl.EndQueryStateVariable := CallbackCreate(GetMethod(implObj, "EndQueryStateVariable"), flags, 3)
+        this.vtbl.BeginSubscribeToEvents := CallbackCreate(GetMethod(implObj, "BeginSubscribeToEvents"), flags, 4)
+        this.vtbl.EndSubscribeToEvents := CallbackCreate(GetMethod(implObj, "EndSubscribeToEvents"), flags, 2)
+        this.vtbl.BeginSCPDDownload := CallbackCreate(GetMethod(implObj, "BeginSCPDDownload"), flags, 3)
+        this.vtbl.EndSCPDDownload := CallbackCreate(GetMethod(implObj, "EndSCPDDownload"), flags, 3)
+        this.vtbl.CancelAsyncOperation := CallbackCreate(GetMethod(implObj, "CancelAsyncOperation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginInvokeAction)
+        CallbackFree(this.vtbl.EndInvokeAction)
+        CallbackFree(this.vtbl.BeginQueryStateVariable)
+        CallbackFree(this.vtbl.EndQueryStateVariable)
+        CallbackFree(this.vtbl.BeginSubscribeToEvents)
+        CallbackFree(this.vtbl.EndSubscribeToEvents)
+        CallbackFree(this.vtbl.BeginSCPDDownload)
+        CallbackFree(this.vtbl.EndSCPDDownload)
+        CallbackFree(this.vtbl.CancelAsyncOperation)
     }
 }

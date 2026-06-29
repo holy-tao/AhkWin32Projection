@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITocEntry.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITocEntry.ahk" { ITocEntry }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITocEntryList interface represents a list of entries in a table of contents. It provides methods for adding entries to, and removing entries from the list.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocentrylist
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ITocEntryList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITocEntryList extends IUnknown {
     /**
      * The interface identifier for ITocEntryList
      * @type {Guid}
      */
-    static IID => Guid("{3a8cccbd-0efd-43a3-b838-f38a552ba237}")
+    static IID := Guid("{3a8cccbd-0efd-43a3-b838-f38a552ba237}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITocEntryList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEntryCount      : IntPtr
+        GetEntryByIndex    : IntPtr
+        AddEntry           : IntPtr
+        AddEntryByIndex    : IntPtr
+        RemoveEntryByIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEntryCount", "GetEntryByIndex", "AddEntry", "AddEntryByIndex", "RemoveEntryByIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITocEntryList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetEntryCount method retrieves the number of entries in the list.
@@ -161,5 +173,33 @@ class ITocEntryList extends IUnknown {
     RemoveEntryByIndex(dwEntryIndex) {
         result := ComCall(7, this, "uint", dwEntryIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITocEntryList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEntryCount := CallbackCreate(GetMethod(implObj, "GetEntryCount"), flags, 2)
+        this.vtbl.GetEntryByIndex := CallbackCreate(GetMethod(implObj, "GetEntryByIndex"), flags, 3)
+        this.vtbl.AddEntry := CallbackCreate(GetMethod(implObj, "AddEntry"), flags, 3)
+        this.vtbl.AddEntryByIndex := CallbackCreate(GetMethod(implObj, "AddEntryByIndex"), flags, 3)
+        this.vtbl.RemoveEntryByIndex := CallbackCreate(GetMethod(implObj, "RemoveEntryByIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEntryCount)
+        CallbackFree(this.vtbl.GetEntryByIndex)
+        CallbackFree(this.vtbl.AddEntry)
+        CallbackFree(this.vtbl.AddEntryByIndex)
+        CallbackFree(this.vtbl.RemoveEntryByIndex)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the size and item count information retrieved by the SHQueryRecycleBin function.
@@ -7,46 +6,28 @@
  * @namespace Windows.Win32.UI.Shell
  * @architecture X64, Arm64
  */
-class SHQUERYRBINFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SHQUERYRBINFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure, in bytes. This member must be filled in prior to calling the function.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>__int64</b>
      * 
      * The total size of all the objects in the specified Recycle Bin, in bytes.
-     * @type {Integer}
      */
-    i64Size {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    i64Size : Int64
 
     /**
      * Type: <b>__int64</b>
      * 
      * The total number of items in the specified Recycle Bin.
-     * @type {Integer}
      */
-    i64NumItems {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    i64NumItems : Int64
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

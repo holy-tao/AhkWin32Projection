@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IBackgroundCopyFile.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BG_ERROR_CONTEXT.ahk" { BG_ERROR_CONTEXT }
 
 /**
  * Use the IBackgroundCopyError interface to determine the cause of an error and if the transfer process can proceed.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopyerror
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyError extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyError extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyError
      * @type {Guid}
      */
-    static IID => Guid("{19c613a0-fcb8-4f28-81ae-897c3d078f81}")
+    static IID := Guid("{19c613a0-fcb8-4f28-81ae-897c3d078f81}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyError interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetError                   : IntPtr
+        GetFile                    : IntPtr
+        GetErrorDescription        : IntPtr
+        GetErrorContextDescription : IntPtr
+        GetProtocol                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetError", "GetFile", "GetErrorDescription", "GetErrorContextDescription", "GetProtocol"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the error code and identify the context in which the error occurred.
@@ -81,7 +95,7 @@ class IBackgroundCopyError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterrordescription
      */
     GetErrorDescription(LanguageId) {
-        result := ComCall(5, this, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "HRESULT")
+        result := ComCall(5, this, "uint", LanguageId, PWSTR.Ptr, &pErrorDescription := 0, "HRESULT")
         return pErrorDescription
     }
 
@@ -103,7 +117,7 @@ class IBackgroundCopyError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterrorcontextdescription
      */
     GetErrorContextDescription(LanguageId) {
-        result := ComCall(6, this, "uint", LanguageId, "ptr*", &pContextDescription := 0, "HRESULT")
+        result := ComCall(6, this, "uint", LanguageId, PWSTR.Ptr, &pContextDescription := 0, "HRESULT")
         return pContextDescription
     }
 
@@ -114,7 +128,35 @@ class IBackgroundCopyError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-getprotocol
      */
     GetProtocol() {
-        result := ComCall(7, this, "ptr*", &pProtocol := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &pProtocol := 0, "HRESULT")
         return pProtocol
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 3)
+        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 2)
+        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 3)
+        this.vtbl.GetErrorContextDescription := CallbackCreate(GetMethod(implObj, "GetErrorContextDescription"), flags, 3)
+        this.vtbl.GetProtocol := CallbackCreate(GetMethod(implObj, "GetProtocol"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetError)
+        CallbackFree(this.vtbl.GetFile)
+        CallbackFree(this.vtbl.GetErrorDescription)
+        CallbackFree(this.vtbl.GetErrorContextDescription)
+        CallbackFree(this.vtbl.GetProtocol)
     }
 }

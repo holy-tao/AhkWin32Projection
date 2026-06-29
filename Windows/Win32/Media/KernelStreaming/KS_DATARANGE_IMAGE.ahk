@@ -1,48 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\KS_BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DATARANGE_IMAGE extends Win32Struct {
-    static sizeof => 208
+export default struct KS_DATARANGE_IMAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    DataRange : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataRange {
-        get {
-            if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(0, this)
-            return this.__DataRange
-        }
-    }
+    ConfigCaps : KS_VIDEO_STREAM_CONFIG_CAPS
 
-    /**
-     * @type {KS_VIDEO_STREAM_CONFIG_CAPS}
-     */
-    ConfigCaps {
-        get {
-            if(!this.HasProp("__ConfigCaps"))
-                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(48, this)
-            return this.__ConfigCaps
-        }
-    }
+    ImageInfoHeader : KS_BITMAPINFOHEADER
 
-    /**
-     * @type {KS_BITMAPINFOHEADER}
-     */
-    ImageInfoHeader {
-        get {
-            if(!this.HasProp("__ImageInfoHeader"))
-                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(168, this)
-            return this.__ImageInfoHeader
-        }
-    }
 }

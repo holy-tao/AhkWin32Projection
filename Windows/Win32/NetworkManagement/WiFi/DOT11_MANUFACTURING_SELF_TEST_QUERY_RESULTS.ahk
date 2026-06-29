@@ -1,71 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_MANUFACTURING_SELF_TEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_MANUFACTURING_SELF_TEST_TYPE.ahk" { DOT11_MANUFACTURING_SELF_TEST_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS extends Win32Struct {
-    static sizeof => 32
+export default struct DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS {
+    #StructPack 8
 
-    static packingSize => 8
+    SelfTestType : DOT11_MANUFACTURING_SELF_TEST_TYPE
 
-    /**
-     * @type {DOT11_MANUFACTURING_SELF_TEST_TYPE}
-     */
-    SelfTestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uTestID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uTestID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    bResult : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bResult {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    uPinFailedBitMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPinFailedBitMask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    pvContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    uBytesWrittenOut : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBytesWrittenOut {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ucBufferOut : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucBufferOut {
-        get {
-            if(!this.HasProp("__ucBufferOutProxyArray"))
-                this.__ucBufferOutProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
-            return this.__ucBufferOutProxyArray
-        }
-    }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITrigger.ahk
-#Include .\ITaskNamedValueCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITaskNamedValueCollection.ahk" { ITaskNamedValueCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Represents a trigger that starts a task when a system event occurs.
@@ -13,26 +15,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-ieventtrigger
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IEventTrigger extends ITrigger {
-
-    static sizeof => A_PtrSize
+export default struct IEventTrigger extends ITrigger {
     /**
      * The interface identifier for IEventTrigger
      * @type {Guid}
      */
-    static IID => Guid("{d45b0167-9653-4eef-b94f-0732ca7af251}")
+    static IID := Guid("{d45b0167-9653-4eef-b94f-0732ca7af251}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEventTrigger interfaces
+    */
+    struct Vtbl extends ITrigger.Vtbl {
+        get_Subscription : IntPtr
+        put_Subscription : IntPtr
+        get_Delay        : IntPtr
+        put_Delay        : IntPtr
+        get_ValueQueries : IntPtr
+        put_ValueQueries : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Subscription", "put_Subscription", "get_Delay", "put_Delay", "get_ValueQueries", "put_ValueQueries"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEventTrigger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -69,7 +83,7 @@ class IEventTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ieventtrigger-get_subscription
      */
     get_Subscription(pQuery) {
-        result := ComCall(20, this, "ptr", pQuery, "HRESULT")
+        result := ComCall(20, this, BSTR.Ptr, pQuery, "HRESULT")
         return result
     }
 
@@ -86,7 +100,7 @@ class IEventTrigger extends ITrigger {
     put_Subscription(query) {
         query := query is String ? BSTR.Alloc(query).Value : query
 
-        result := ComCall(21, this, "ptr", query, "HRESULT")
+        result := ComCall(21, this, BSTR, query, "HRESULT")
         return result
     }
 
@@ -99,7 +113,7 @@ class IEventTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ieventtrigger-get_delay
      */
     get_Delay(pDelay) {
-        result := ComCall(22, this, "ptr", pDelay, "HRESULT")
+        result := ComCall(22, this, BSTR.Ptr, pDelay, "HRESULT")
         return result
     }
 
@@ -114,7 +128,7 @@ class IEventTrigger extends ITrigger {
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay
 
-        result := ComCall(23, this, "ptr", delay, "HRESULT")
+        result := ComCall(23, this, BSTR, delay, "HRESULT")
         return result
     }
 
@@ -251,5 +265,35 @@ class IEventTrigger extends ITrigger {
     put_ValueQueries(pNamedXPaths) {
         result := ComCall(25, this, "ptr", pNamedXPaths, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEventTrigger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Subscription := CallbackCreate(GetMethod(implObj, "get_Subscription"), flags, 2)
+        this.vtbl.put_Subscription := CallbackCreate(GetMethod(implObj, "put_Subscription"), flags, 2)
+        this.vtbl.get_Delay := CallbackCreate(GetMethod(implObj, "get_Delay"), flags, 2)
+        this.vtbl.put_Delay := CallbackCreate(GetMethod(implObj, "put_Delay"), flags, 2)
+        this.vtbl.get_ValueQueries := CallbackCreate(GetMethod(implObj, "get_ValueQueries"), flags, 2)
+        this.vtbl.put_ValueQueries := CallbackCreate(GetMethod(implObj, "put_ValueQueries"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Subscription)
+        CallbackFree(this.vtbl.put_Subscription)
+        CallbackFree(this.vtbl.get_Delay)
+        CallbackFree(this.vtbl.put_Delay)
+        CallbackFree(this.vtbl.get_ValueQueries)
+        CallbackFree(this.vtbl.put_ValueQueries)
     }
 }

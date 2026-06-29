@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the DVD menu in a call to IDvdControl2::ShowMenu.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_menu_id
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_MENU_ID extends Win32Enum {
+export default struct DVD_MENU_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the top menu in a DVD-Video volume. This menu is also known as the Title Menu or Video Manager Menu and it provides access to all VTS (Video Title Set) menus on the disc.

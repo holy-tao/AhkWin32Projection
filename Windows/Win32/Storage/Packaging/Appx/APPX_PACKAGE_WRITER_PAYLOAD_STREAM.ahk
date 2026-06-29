@@ -1,51 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Com\IStream.ahk
-#Include .\APPX_COMPRESSION_OPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APPX_COMPRESSION_OPTION.ahk" { APPX_COMPRESSION_OPTION }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the data and metadata of files to write into the app package.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_package_writer_payload_stream
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct APPX_PACKAGE_WRITER_PAYLOAD_STREAM {
+    #StructPack 8
 
     /**
      * The source of the payload file.
-     * @type {IStream}
      */
-    inputStream {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    inputStream : IStream
 
     /**
      * Name of the payload file.
-     * @type {PWSTR}
      */
-    fileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    fileName : PWSTR
 
     /**
      * The content type of the payload file.
-     * @type {PWSTR}
      */
-    contentType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    contentType : PWSTR
 
     /**
      * The degree of compression used for the file in the package.
-     * @type {APPX_COMPRESSION_OPTION}
      */
-    compressionOption {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    compressionOption : APPX_COMPRESSION_OPTION
+
 }

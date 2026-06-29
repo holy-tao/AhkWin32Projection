@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_SUPL_HSLP_CONFIG extends Win32Struct {
-    static sizeof => 1044
+export default struct GNSS_SUPL_HSLP_CONFIG {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SuplHslp : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    SuplHslp {
-        get => StrGet(this.ptr + 8, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
-    }
+    SuplHslpFromImsi : CHAR[260]
 
-    /**
-     * @type {String}
-     */
-    SuplHslpFromImsi {
-        get => StrGet(this.ptr + 268, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 268, 259, "UTF-8")
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 528, "uint")
-        set => NumPut("uint", value, this, 528)
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 532, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

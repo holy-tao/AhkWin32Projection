@@ -1,46 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_DRM_DRMSTATUS extends Win32Struct {
-    static sizeof => 32
+export default struct BDA_DRM_DRMSTATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DRMuuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DRMuuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulDrmUuidListStringSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDrmUuidListStringSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    argbDrmUuidListString : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    argbDrmUuidListString {
-        get {
-            if(!this.HasProp("__argbDrmUuidListStringProxyArray"))
-                this.__argbDrmUuidListStringProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ptr")
-            return this.__argbDrmUuidListStringProxyArray
-        }
-    }
 }

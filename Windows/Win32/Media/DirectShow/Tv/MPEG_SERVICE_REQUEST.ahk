@@ -1,73 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MPEG_REQUEST_TYPE.ahk
-#Include .\MPEG_CONTEXT.ahk
-#Include .\MPEG_CONTEXT_TYPE.ahk
-#Include .\MPEG_BCS_DEMUX.ahk
-#Include .\MPEG_WINSOCK.ahk
-#Include .\MPEG2_FILTER.ahk
-#Include .\DSMCC_FILTER_OPTIONS.ahk
-#Include .\ATSC_FILTER_OPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MPEG_WINSOCK.ahk" { MPEG_WINSOCK }
+#Import ".\DSMCC_FILTER_OPTIONS.ahk" { DSMCC_FILTER_OPTIONS }
+#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
+#Import ".\ATSC_FILTER_OPTIONS.ahk" { ATSC_FILTER_OPTIONS }
+#Import ".\MPEG_CONTEXT_TYPE.ahk" { MPEG_CONTEXT_TYPE }
+#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import ".\MPEG_BCS_DEMUX.ahk" { MPEG_BCS_DEMUX }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class MPEG_SERVICE_REQUEST extends Win32Struct {
-    static sizeof => 168
+export default struct MPEG_SERVICE_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : MPEG_REQUEST_TYPE
 
-    /**
-     * @type {MPEG_REQUEST_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Context : MPEG_CONTEXT
 
-    /**
-     * @type {MPEG_CONTEXT}
-     */
-    Context {
-        get {
-            if(!this.HasProp("__Context"))
-                this.__Context := MPEG_CONTEXT(4, this)
-            return this.__Context
-        }
-    }
+    Pid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Pid {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    TableId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TableId {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    Filter : MPEG2_FILTER
 
-    /**
-     * @type {MPEG2_FILTER}
-     */
-    Filter {
-        get {
-            if(!this.HasProp("__Filter"))
-                this.__Filter := MPEG2_FILTER(16, this)
-            return this.__Filter
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
 }

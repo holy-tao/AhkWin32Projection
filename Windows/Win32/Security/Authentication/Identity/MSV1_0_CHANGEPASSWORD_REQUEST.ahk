@@ -1,73 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk" { MSV1_0_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct {
-    static sizeof => 80
+export default struct MSV1_0_CHANGEPASSWORD_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : MSV1_0_PROTOCOL_MESSAGE_TYPE
 
-    /**
-     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(8, this)
-            return this.__DomainName
-        }
-    }
+    AccountName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    AccountName {
-        get {
-            if(!this.HasProp("__AccountName"))
-                this.__AccountName := LSA_UNICODE_STRING(24, this)
-            return this.__AccountName
-        }
-    }
+    OldPassword : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    OldPassword {
-        get {
-            if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(40, this)
-            return this.__OldPassword
-        }
-    }
+    NewPassword : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    NewPassword {
-        get {
-            if(!this.HasProp("__NewPassword"))
-                this.__NewPassword := LSA_UNICODE_STRING(56, this)
-            return this.__NewPassword
-        }
-    }
+    Impersonating : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Impersonating {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
 }

@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSACOMPLETIONTYPE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\IO\OVERLAPPED.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\WSACOMPLETIONTYPE.ahk" { WSACOMPLETIONTYPE }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
@@ -42,155 +42,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsacompletion
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSACOMPLETION extends Win32Struct {
-    static sizeof => 32
+export default struct WSACOMPLETION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _Parameters {
 
-        class _WindowMessage extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
+        struct _WindowMessage {
+            hWnd : HWND
 
-            /**
-             * @type {HWND}
-             */
-            hWnd {
-                get {
-                    if(!this.HasProp("__hWnd"))
-                        this.__hWnd := HWND(0, this)
-                    return this.__hWnd
-                }
-            }
+            uMsg : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            uMsg {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            context : WPARAM
 
-            /**
-             * @type {WPARAM}
-             */
-            context {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
         }
 
-        class _Event extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+        struct _Event {
+            lpOverlapped : OVERLAPPED.Ptr
 
-            /**
-             * @type {Pointer<OVERLAPPED>}
-             */
-            lpOverlapped {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
         }
 
-        class _Apc extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Apc {
+            lpOverlapped : OVERLAPPED.Ptr
 
-            /**
-             * @type {Pointer<OVERLAPPED>}
-             */
-            lpOverlapped {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            lpfnCompletionProc : IntPtr
 
-            /**
-             * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
-             */
-            lpfnCompletionProc {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        class _Port extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
+        struct _Port {
+            lpOverlapped : OVERLAPPED.Ptr
 
-            /**
-             * @type {Pointer<OVERLAPPED>}
-             */
-            lpOverlapped {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            hPort : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hPort {
-                get {
-                    if(!this.HasProp("__hPort"))
-                        this.__hPort := HANDLE(8, this)
-                    return this.__hPort
-                }
-            }
+            Key : IntPtr
 
-            /**
-             * @type {Pointer}
-             */
-            Key {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
         }
 
-        /**
-         * @type {_WindowMessage}
-         */
-        WindowMessage {
-            get {
-                if(!this.HasProp("__WindowMessage"))
-                    this.__WindowMessage := WSACOMPLETION._Parameters_e__Union._WindowMessage(0, this)
-                return this.__WindowMessage
-            }
-        }
+        WindowMessage : WSACOMPLETION._Parameters._WindowMessage
 
-        /**
-         * @type {_Event}
-         */
-        Event {
-            get {
-                if(!this.HasProp("__Event"))
-                    this.__Event := WSACOMPLETION._Parameters_e__Union._Event(0, this)
-                return this.__Event
-            }
-        }
-
-        /**
-         * @type {_Apc}
-         */
-        Apc {
-            get {
-                if(!this.HasProp("__Apc"))
-                    this.__Apc := WSACOMPLETION._Parameters_e__Union._Apc(0, this)
-                return this.__Apc
-            }
-        }
-
-        /**
-         * @type {_Port}
-         */
-        Port {
-            get {
-                if(!this.HasProp("__Port"))
-                    this.__Port := WSACOMPLETION._Parameters_e__Union._Port(0, this)
-                return this.__Port
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Event', { type: WSACOMPLETION._Parameters._Event, offset: 0 })
+            DefineProp(this.Prototype, 'Apc', { type: WSACOMPLETION._Parameters._Apc, offset: 0 })
+            DefineProp(this.Prototype, 'Port', { type: WSACOMPLETION._Parameters._Port, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -198,22 +92,12 @@ class WSACOMPLETION extends Win32Struct {
      * Type: <b>WSACOMPLETIONTYPE</b>
      * 
      * The type of completion notification required. See Remarks.
-     * @type {WSACOMPLETIONTYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : WSACOMPLETIONTYPE
 
     /**
      * The parameters required to complete the callback. The structures within the Parameters union specify information required for completing the callback of each given type. For example, the <b>WindowMessage</b> structure must be filled  when <b>Type</b> is set to NSP_NOTIFY_HWND.
-     * @type {_Parameters_e__Union}
      */
-    Parameters {
-        get {
-            if(!this.HasProp("__Parameters"))
-                this.__Parameters := WSACOMPLETION._Parameters_e__Union(8, this)
-            return this.__Parameters
-        }
-    }
+    Parameters : WSACOMPLETION._Parameters
+
 }

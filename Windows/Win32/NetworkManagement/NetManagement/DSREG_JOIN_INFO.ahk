@@ -1,124 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DSREG_JOIN_TYPE.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
-#Include .\DSREG_USER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DSREG_JOIN_TYPE.ahk" { DSREG_JOIN_TYPE }
+#Import ".\DSREG_USER_INFO.ahk" { DSREG_USER_INFO }
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ns-lmjoin-dsreg_join_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class DSREG_JOIN_INFO extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct DSREG_JOIN_INFO {
+    #StructPack 8
 
     /**
      * An enumeration value that specifies the type of the join.
-     * @type {DSREG_JOIN_TYPE}
      */
-    joinType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    joinType : DSREG_JOIN_TYPE
 
     /**
      * Representations of the certification for the join.
-     * @type {Pointer<CERT_CONTEXT>}
      */
-    pJoinCertificate {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pJoinCertificate : CERT_CONTEXT.Ptr
 
     /**
      * The identifier of the device.
-     * @type {PWSTR}
      */
-    pszDeviceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDeviceId : PWSTR
 
     /**
      * A string that represents Azure Active Directory (Azure AD).
-     * @type {PWSTR}
      */
-    pszIdpDomain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszIdpDomain : PWSTR
 
     /**
      * The identifier of the joined Azure AD tenant.
-     * @type {PWSTR}
      */
-    pszTenantId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszTenantId : PWSTR
 
     /**
      * The email address for the joined account.
-     * @type {PWSTR}
      */
-    pszJoinUserEmail {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pszJoinUserEmail : PWSTR
 
     /**
      * The display name for the joined account.
-     * @type {PWSTR}
      */
-    pszTenantDisplayName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pszTenantDisplayName : PWSTR
 
     /**
      * The URL to use to enroll in the Mobile Device Management (MDM) service.
-     * @type {PWSTR}
      */
-    pszMdmEnrollmentUrl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pszMdmEnrollmentUrl : PWSTR
 
     /**
      * The URL that provides information about the terms of use for the MDM service.
-     * @type {PWSTR}
      */
-    pszMdmTermsOfUseUrl {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pszMdmTermsOfUseUrl : PWSTR
 
     /**
      * The URL that provides information about compliance for the MDM service.
-     * @type {PWSTR}
      */
-    pszMdmComplianceUrl {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pszMdmComplianceUrl : PWSTR
 
     /**
      * The URL for synchronizing user settings.
-     * @type {PWSTR}
      */
-    pszUserSettingSyncUrl {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pszUserSettingSyncUrl : PWSTR
 
     /**
      * Information about the user account  that was used to join a device to Azure AD.
-     * @type {Pointer<DSREG_USER_INFO>}
      */
-    pUserInfo {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pUserInfo : DSREG_USER_INFO.Ptr
+
 }

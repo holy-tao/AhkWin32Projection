@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a node identifier.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-clfs_node_id
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CLFS_NODE_ID extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CLFS_NODE_ID {
+    #StructPack 4
 
     /**
      * The CLFS node type.
-     * @type {Integer}
      */
-    cType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cType : UInt32
 
     /**
      * The size of the CLFS node, in bytes.
-     * @type {Integer}
      */
-    cbNode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbNode : UInt32
+
 }

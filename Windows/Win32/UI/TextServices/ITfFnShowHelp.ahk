@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfFunction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfFunction.ahk" { ITfFunction }
 
 /**
  * The ITfFnShowHelp interface is implemented by a text service to enable the language bar to place a help command for the text service in the language bar help menu.
@@ -12,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnshowhelp
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfFnShowHelp extends ITfFunction {
-
-    static sizeof => A_PtrSize
+export default struct ITfFnShowHelp extends ITfFunction {
     /**
      * The interface identifier for ITfFnShowHelp
      * @type {Guid}
      */
-    static IID => Guid("{5ab1d30c-094d-4c29-8ea5-0bf59be87bf3}")
+    static IID := Guid("{5ab1d30c-094d-4c29-8ea5-0bf59be87bf3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfFnShowHelp interfaces
+    */
+    struct Vtbl extends ITfFunction.Vtbl {
+        Show : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Show"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfFnShowHelp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfFnShowHelp::Show method
@@ -60,9 +69,27 @@ class ITfFnShowHelp extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnshowhelp-show
      */
     Show(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(4, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfFnShowHelp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Show)
     }
 }

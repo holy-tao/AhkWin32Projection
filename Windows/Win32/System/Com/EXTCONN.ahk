@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EXTCONN (objidlbase.h) enumeration specifies the type of external connection existing on an embedded object.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-extconn
  * @namespace Windows.Win32.System.Com
  */
-class EXTCONN extends Win32Enum {
+export default struct EXTCONN {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The external connection is a link. If this value is specified, the external connection must keep the object alive until all strong external connections are cleared through <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iexternalconnection-releaseconnection">IExternalConnection::ReleaseConnection</a>.

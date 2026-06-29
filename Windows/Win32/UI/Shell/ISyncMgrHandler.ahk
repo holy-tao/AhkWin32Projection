@@ -1,8 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISyncMgrHandlerInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNCMGR_HANDLER_POLICIES.ahk" { SYNCMGR_HANDLER_POLICIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISyncMgrHandlerInfo.ahk" { ISyncMgrHandlerInfo }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGR_HANDLER_CAPABILITIES.ahk" { SYNCMGR_HANDLER_CAPABILITIES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISyncMgrSessionCreator.ahk" { ISyncMgrSessionCreator }
 
 /**
  * Exposes methods that make up the primary interface implemented by a sync handler.
@@ -11,26 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrhandler
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrHandler extends IUnknown {
     /**
      * The interface identifier for ISyncMgrHandler
      * @type {Guid}
      */
-    static IID => Guid("{04ec2e43-ac77-49f9-9b98-0307ef7a72a2}")
+    static IID := Guid("{04ec2e43-ac77-49f9-9b98-0307ef7a72a2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName         : IntPtr
+        GetHandlerInfo  : IntPtr
+        GetObject       : IntPtr
+        GetCapabilities : IntPtr
+        GetPolicies     : IntPtr
+        Activate        : IntPtr
+        Enable          : IntPtr
+        Synchronize     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetHandlerInfo", "GetObject", "GetCapabilities", "GetPolicies", "Activate", "Enable", "Synchronize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the display name of the handler.
@@ -48,7 +69,7 @@ class ISyncMgrHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -82,7 +103,7 @@ class ISyncMgrHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-getobject
      */
     GetObject(rguidObjectID, riid) {
-        result := ComCall(5, this, "ptr", rguidObjectID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rguidObjectID, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -145,7 +166,7 @@ class ISyncMgrHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-activate
      */
     Activate(fActivate) {
-        result := ComCall(8, this, "int", fActivate, "HRESULT")
+        result := ComCall(8, this, BOOL, fActivate, "HRESULT")
         return result
     }
 
@@ -172,7 +193,7 @@ class ISyncMgrHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-enable
      */
     Enable(fEnable) {
-        result := ComCall(9, this, "int", fEnable, "HRESULT")
+        result := ComCall(9, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -225,11 +246,43 @@ class ISyncMgrHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-synchronize
      */
     Synchronize(ppszItemIDs, cItems, hwndOwner, pSessionCreator, punk) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
+        result := ComCall(10, this, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, HWND, hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetHandlerInfo := CallbackCreate(GetMethod(implObj, "GetHandlerInfo"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetPolicies := CallbackCreate(GetMethod(implObj, "GetPolicies"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetHandlerInfo)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetPolicies)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.Synchronize)
     }
 }

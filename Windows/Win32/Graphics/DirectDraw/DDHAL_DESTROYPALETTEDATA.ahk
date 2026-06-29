@@ -1,45 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDRAWI_DDRAWPALETTE_GBL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_DESTROYPALETTEDATA extends Win32Struct {
-    static sizeof => 32
+export default struct DDHAL_DESTROYPALETTEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDPalette : DDRAWI_DDRAWPALETTE_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWPALETTE_GBL>}
-     */
-    lpDDPalette {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    DestroyPalette : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALPALCB_DESTROYPALETTE>}
-     */
-    DestroyPalette {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

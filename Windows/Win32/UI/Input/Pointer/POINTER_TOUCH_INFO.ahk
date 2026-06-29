@@ -1,59 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\POINTER_INFO.ahk
-#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
-#Include .\POINTER_FLAGS.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
-#Include ..\..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POINTER_BUTTON_CHANGE_TYPE.ahk" { POINTER_BUTTON_CHANGE_TYPE }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
+#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\POINTER_FLAGS.ahk" { POINTER_FLAGS }
 
 /**
  * Defines basic touch information common to all pointer types.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_touch_info
  * @namespace Windows.Win32.UI.Input.Pointer
  */
-class POINTER_TOUCH_INFO extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct POINTER_TOUCH_INFO {
+    #StructPack 8
 
     /**
      * Type: **[POINTER_INFO](ns-winuser-pointer_info.md)**
      * 
      * An embedded [POINTER_INFO](ns-winuser-pointer_info.md) header structure.
-     * @type {POINTER_INFO}
      */
-    pointerInfo {
-        get {
-            if(!this.HasProp("__pointerInfo"))
-                this.__pointerInfo := POINTER_INFO(0, this)
-            return this.__pointerInfo
-        }
-    }
+    pointerInfo : POINTER_INFO
 
     /**
      * Type: **[Touch Flags](/windows/win32/inputmsg/touch-flags-constants)**
      * 
      * Currently none.
-     * @type {Integer}
      */
-    touchFlags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    touchFlags : UInt32
 
     /**
      * Type: **[Touch Mask](/windows/win32/inputmsg/touch-mask-constants)**
      * 
      * Indicates which of the optional fields contain valid values. The member can be zero or any combination of the values from the [Touch Mask](/windows/win32/inputmsg/touch-mask-constants) constants.
-     * @type {Integer}
      */
-    touchMask {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    touchMask : UInt32
 
     /**
      * Type: **RECT**
@@ -62,29 +44,15 @@ class POINTER_TOUCH_INFO extends Win32Struct {
      * By default, if the device does not report a contact area, this field defaults to a 0-by-0 rectangle centered around the pointer location.
      * 
      * The predicted value is based on the pointer position reported by the digitizer and the motion of the pointer. This correction can compensate for visual lag due to inherent delays in sensing and processing the pointer location on the digitizer. This is applicable to  pointers of type [PT_TOUCH](ne-winuser-tagpointer_input_type.md).
-     * @type {RECT}
      */
-    rcContact {
-        get {
-            if(!this.HasProp("__rcContact"))
-                this.__rcContact := RECT(104, this)
-            return this.__rcContact
-        }
-    }
+    rcContact : RECT
 
     /**
      * Type: **RECT**
      * 
      * The raw screen coordinates of the contact area, in pixels. For adjusted screen coordinates, see **rcContact**.
-     * @type {RECT}
      */
-    rcContactRaw {
-        get {
-            if(!this.HasProp("__rcContactRaw"))
-                this.__rcContactRaw := RECT(120, this)
-            return this.__rcContactRaw
-        }
-    }
+    rcContactRaw : RECT
 
     /**
      * Type: **UINT32**
@@ -95,21 +63,14 @@ class POINTER_TOUCH_INFO extends Win32Struct {
      * 
      * > [!NOTE]
      * > Some touchscreen devices that support orientation will only report half-range (0-180°) values, while other devices will only report full-range (0-359°) values.
-     * @type {Integer}
      */
-    orientation {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    orientation : UInt32
 
     /**
      * Type: **UINT32**
      * 
      *  A pen pressure normalized to a range between 0 and 1024. The default is 512.
-     * @type {Integer}
      */
-    pressure {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    pressure : UInt32
+
 }

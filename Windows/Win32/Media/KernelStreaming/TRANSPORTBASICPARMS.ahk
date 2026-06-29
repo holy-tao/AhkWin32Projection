@@ -1,257 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class TRANSPORTBASICPARMS extends Win32Struct {
-    static sizeof => 232
+export default struct TRANSPORTBASICPARMS {
+    #StructPack 4
 
-    static packingSize => 4
+    TimeFormat : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimeFormat {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TimeReference : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimeReference {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Superimpose : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Superimpose {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    EndStopAction : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EndStopAction {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    RecordFormat : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RecordFormat {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    StepFrames : Int32
 
-    /**
-     * @type {Integer}
-     */
-    StepFrames {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    SetpField : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SetpField {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Preroll : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Preroll {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    RecPreroll : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RecPreroll {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Postroll : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Postroll {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    EditDelay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EditDelay {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    PlayTCDelay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    PlayTCDelay {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    RecTCDelay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RecTCDelay {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    EditField : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EditField {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    FrameServo : Int32
 
-    /**
-     * @type {Integer}
-     */
-    FrameServo {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    ColorFrameServo : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ColorFrameServo {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    ServoRef : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ServoRef {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    WarnGenlock : Int32
 
-    /**
-     * @type {Integer}
-     */
-    WarnGenlock {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    SetTracking : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SetTracking {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    VolumeName : Int8[40]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VolumeName {
-        get {
-            if(!this.HasProp("__VolumeNameProxyArray"))
-                this.__VolumeNameProxyArray := Win32FixedArray(this.ptr + 76, 40, Primitive, "char")
-            return this.__VolumeNameProxyArray
-        }
-    }
+    Ballistic : Int32[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Ballistic {
-        get {
-            if(!this.HasProp("__BallisticProxyArray"))
-                this.__BallisticProxyArray := Win32FixedArray(this.ptr + 116, 20, Primitive, "int")
-            return this.__BallisticProxyArray
-        }
-    }
+    Speed : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Speed {
-        get => NumGet(this, 196, "int")
-        set => NumPut("int", value, this, 196)
-    }
+    CounterFormat : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CounterFormat {
-        get => NumGet(this, 200, "int")
-        set => NumPut("int", value, this, 200)
-    }
+    TunerChannel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TunerChannel {
-        get => NumGet(this, 204, "int")
-        set => NumPut("int", value, this, 204)
-    }
+    TunerNumber : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TunerNumber {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
-    }
+    TimerEvent : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimerEvent {
-        get => NumGet(this, 212, "int")
-        set => NumPut("int", value, this, 212)
-    }
+    TimerStartDay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimerStartDay {
-        get => NumGet(this, 216, "int")
-        set => NumPut("int", value, this, 216)
-    }
+    TimerStartTime : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimerStartTime {
-        get => NumGet(this, 220, "int")
-        set => NumPut("int", value, this, 220)
-    }
+    TimerStopDay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimerStopDay {
-        get => NumGet(this, 224, "int")
-        set => NumPut("int", value, this, 224)
-    }
+    TimerStopTime : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimerStopTime {
-        get => NumGet(this, 228, "int")
-        set => NumPut("int", value, this, 228)
-    }
 }

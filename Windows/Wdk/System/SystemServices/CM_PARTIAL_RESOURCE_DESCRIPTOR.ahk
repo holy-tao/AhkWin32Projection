@@ -1,662 +1,183 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+export default struct CM_PARTIAL_RESOURCE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _u {
 
-        class _Generic extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Generic {
+            Start : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
+            Length : UInt32
+
+        }
+
+        struct _Port {
+            Start : Int64
+
+            Length : UInt32
+
+        }
+
+        struct _Interrupt {
+            Level : UInt32
+
+            Vector : UInt32
+
+            Affinity : IntPtr
+
+        }
+
+        struct _MessageInterrupt {
+
+            struct _Raw {
+                Reserved : UInt16
+
+                MessageCount : UInt16
+
+                Vector : UInt32
+
+                Affinity : IntPtr
+
             }
 
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
+            struct _Translated {
+                Level : UInt32
+
+                Vector : UInt32
+
+                Affinity : IntPtr
+
+            }
+
+            Raw : CM_PARTIAL_RESOURCE_DESCRIPTOR._u._MessageInterrupt._Raw
+
+            static __New() {
+                DefineProp(this.Prototype, 'Translated', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._MessageInterrupt._Translated, offset: 0 })
+                this.DeleteProp("__New")
             }
         }
 
-        class _Port extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Memory {
+            Start : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
+            Length : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _Interrupt extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Dma {
+            Channel : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Level {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Port : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            Reserved1 : UInt32
 
-            /**
-             * @type {Pointer}
-             */
-            Affinity {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        class _MessageInterrupt extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _DmaV3 {
+            Channel : UInt32
 
-            class _Raw extends Win32Struct {
-                static sizeof => 16
-                static packingSize => 8
+            RequestLine : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Reserved {
-                    get => NumGet(this, 0, "ushort")
-                    set => NumPut("ushort", value, this, 0)
-                }
+            TransferWidth : Int8
 
-                /**
-                 * @type {Integer}
-                 */
-                MessageCount {
-                    get => NumGet(this, 2, "ushort")
-                    set => NumPut("ushort", value, this, 2)
-                }
+            Reserved1 : Int8
 
-                /**
-                 * @type {Integer}
-                 */
-                Vector {
-                    get => NumGet(this, 4, "uint")
-                    set => NumPut("uint", value, this, 4)
-                }
+            Reserved2 : Int8
 
-                /**
-                 * @type {Pointer}
-                 */
-                Affinity {
-                    get => NumGet(this, 8, "ptr")
-                    set => NumPut("ptr", value, this, 8)
-                }
-            }
+            Reserved3 : Int8
 
-            class _Translated extends Win32Struct {
-                static sizeof => 16
-                static packingSize => 8
-
-                /**
-                 * @type {Integer}
-                 */
-                Level {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
-
-                /**
-                 * @type {Integer}
-                 */
-                Vector {
-                    get => NumGet(this, 4, "uint")
-                    set => NumPut("uint", value, this, 4)
-                }
-
-                /**
-                 * @type {Pointer}
-                 */
-                Affinity {
-                    get => NumGet(this, 8, "ptr")
-                    set => NumPut("ptr", value, this, 8)
-                }
-            }
-
-            /**
-             * @type {_Raw}
-             */
-            Raw {
-                get {
-                    if(!this.HasProp("__Raw"))
-                        this.__Raw := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._MessageInterrupt._Raw(0, this)
-                    return this.__Raw
-                }
-            }
-
-            /**
-             * @type {_Translated}
-             */
-            Translated {
-                get {
-                    if(!this.HasProp("__Translated"))
-                        this.__Translated := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._MessageInterrupt._Translated(0, this)
-                    return this.__Translated
-                }
-            }
         }
 
-        class _Memory extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _DevicePrivate {
+            Data : UInt32[3]
 
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _Dma extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+        struct _BusNumber {
+            Start : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Channel {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Length : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Port {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            Reserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved1 {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _DmaV3 extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+        struct _DeviceSpecificData {
+            DataSize : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Channel {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Reserved1 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            RequestLine {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            Reserved2 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            TransferWidth {
-                get => NumGet(this, 8, "char")
-                set => NumPut("char", value, this, 8)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved1 {
-                get => NumGet(this, 9, "char")
-                set => NumPut("char", value, this, 9)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved2 {
-                get => NumGet(this, 10, "char")
-                set => NumPut("char", value, this, 10)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved3 {
-                get => NumGet(this, 11, "char")
-                set => NumPut("char", value, this, 11)
-            }
         }
 
-        class _DevicePrivate extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+        struct _Memory40 {
+            Start : Int64
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Data {
-                get {
-                    if(!this.HasProp("__DataProxyArray"))
-                        this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
-                    return this.__DataProxyArray
-                }
-            }
+            Length40 : UInt32
+
         }
 
-        class _BusNumber extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+        struct _Memory48 {
+            Start : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Length48 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _DeviceSpecificData extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+        struct _Memory64 {
+            Start : Int64
 
-            /**
-             * @type {Integer}
-             */
-            DataSize {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Length64 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved1 {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved2 {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _Memory40 extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Connection {
+            Class : Int8
 
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
+            Type : Int8
 
-            /**
-             * @type {Integer}
-             */
-            Length40 {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            Reserved1 : Int8
+
+            Reserved2 : Int8
+
+            IdLowPart : UInt32
+
+            IdHighPart : UInt32
+
         }
 
-        class _Memory48 extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        Generic : CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Generic
 
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Length48 {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-        }
-
-        class _Memory64 extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            Start {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Length64 {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-        }
-
-        class _Connection extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
-
-            /**
-             * @type {Integer}
-             */
-            Class {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Type {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved1 {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Reserved2 {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IdLowPart {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IdHighPart {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-        }
-
-        /**
-         * @type {_Generic}
-         */
-        Generic {
-            get {
-                if(!this.HasProp("__Generic"))
-                    this.__Generic := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Generic(0, this)
-                return this.__Generic
-            }
-        }
-
-        /**
-         * @type {_Port}
-         */
-        Port {
-            get {
-                if(!this.HasProp("__Port"))
-                    this.__Port := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Port(0, this)
-                return this.__Port
-            }
-        }
-
-        /**
-         * @type {_Interrupt}
-         */
-        Interrupt {
-            get {
-                if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Interrupt(0, this)
-                return this.__Interrupt
-            }
-        }
-
-        /**
-         * @type {_MessageInterrupt}
-         */
-        MessageInterrupt {
-            get {
-                if(!this.HasProp("__MessageInterrupt"))
-                    this.__MessageInterrupt := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._MessageInterrupt(0, this)
-                return this.__MessageInterrupt
-            }
-        }
-
-        /**
-         * @type {_Memory}
-         */
-        Memory {
-            get {
-                if(!this.HasProp("__Memory"))
-                    this.__Memory := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory(0, this)
-                return this.__Memory
-            }
-        }
-
-        /**
-         * @type {_Dma}
-         */
-        Dma {
-            get {
-                if(!this.HasProp("__Dma"))
-                    this.__Dma := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Dma(0, this)
-                return this.__Dma
-            }
-        }
-
-        /**
-         * @type {_DmaV3}
-         */
-        DmaV3 {
-            get {
-                if(!this.HasProp("__DmaV3"))
-                    this.__DmaV3 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._DmaV3(0, this)
-                return this.__DmaV3
-            }
-        }
-
-        /**
-         * @type {_DevicePrivate}
-         */
-        DevicePrivate {
-            get {
-                if(!this.HasProp("__DevicePrivate"))
-                    this.__DevicePrivate := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._DevicePrivate(0, this)
-                return this.__DevicePrivate
-            }
-        }
-
-        /**
-         * @type {_BusNumber}
-         */
-        BusNumber {
-            get {
-                if(!this.HasProp("__BusNumber"))
-                    this.__BusNumber := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._BusNumber(0, this)
-                return this.__BusNumber
-            }
-        }
-
-        /**
-         * @type {_DeviceSpecificData}
-         */
-        DeviceSpecificData {
-            get {
-                if(!this.HasProp("__DeviceSpecificData"))
-                    this.__DeviceSpecificData := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._DeviceSpecificData(0, this)
-                return this.__DeviceSpecificData
-            }
-        }
-
-        /**
-         * @type {_Memory40}
-         */
-        Memory40 {
-            get {
-                if(!this.HasProp("__Memory40"))
-                    this.__Memory40 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory40(0, this)
-                return this.__Memory40
-            }
-        }
-
-        /**
-         * @type {_Memory48}
-         */
-        Memory48 {
-            get {
-                if(!this.HasProp("__Memory48"))
-                    this.__Memory48 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory48(0, this)
-                return this.__Memory48
-            }
-        }
-
-        /**
-         * @type {_Memory64}
-         */
-        Memory64 {
-            get {
-                if(!this.HasProp("__Memory64"))
-                    this.__Memory64 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory64(0, this)
-                return this.__Memory64
-            }
-        }
-
-        /**
-         * @type {_Connection}
-         */
-        Connection {
-            get {
-                if(!this.HasProp("__Connection"))
-                    this.__Connection := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Connection(0, this)
-                return this.__Connection
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Port', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Port, offset: 0 })
+            DefineProp(this.Prototype, 'Interrupt', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Interrupt, offset: 0 })
+            DefineProp(this.Prototype, 'MessageInterrupt', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._MessageInterrupt, offset: 0 })
+            DefineProp(this.Prototype, 'Memory', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory, offset: 0 })
+            DefineProp(this.Prototype, 'Dma', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Dma, offset: 0 })
+            DefineProp(this.Prototype, 'DmaV3', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._DmaV3, offset: 0 })
+            DefineProp(this.Prototype, 'DevicePrivate', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._DevicePrivate, offset: 0 })
+            DefineProp(this.Prototype, 'BusNumber', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._BusNumber, offset: 0 })
+            DefineProp(this.Prototype, 'DeviceSpecificData', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._DeviceSpecificData, offset: 0 })
+            DefineProp(this.Prototype, 'Memory40', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory40, offset: 0 })
+            DefineProp(this.Prototype, 'Memory48', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory48, offset: 0 })
+            DefineProp(this.Prototype, 'Memory64', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory64, offset: 0 })
+            DefineProp(this.Prototype, 'Connection', { type: CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Connection, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ShareDisposition {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ShareDisposition : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : CM_PARTIAL_RESOURCE_DESCRIPTOR._u
+
 }

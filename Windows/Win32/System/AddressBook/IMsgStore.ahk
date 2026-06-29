@@ -1,29 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
-#Include .\IMAPITable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\IMessage.ahk" { IMessage }
+#Import ".\IMAPITable.ahk" { IMAPITable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NOTIFICATION.ahk" { NOTIFICATION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Describes the properties and vtable order of members for IMsgStore IMAPIProp, which provides access to message store information and to messages and folders.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstoreimapiprop
  * @namespace Windows.Win32.System.AddressBook
  */
-class IMsgStore extends IMAPIProp {
+export default struct IMsgStore extends IMAPIProp {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise", "CompareEntryIDs", "OpenEntry", "SetReceiveFolder", "GetReceiveFolder", "GetReceiveFolderTable", "StoreLogoff", "AbortSubmit", "GetOutgoingQueue", "SetLockState", "FinishedMsg", "NotifyNewMail"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMsgStore interfaces
+    */
+    struct Vtbl extends IMAPIProp.Vtbl {
+        Advise                : IntPtr
+        Unadvise              : IntPtr
+        CompareEntryIDs       : IntPtr
+        OpenEntry             : IntPtr
+        SetReceiveFolder      : IntPtr
+        GetReceiveFolder      : IntPtr
+        GetReceiveFolderTable : IntPtr
+        StoreLogoff           : IntPtr
+        AbortSubmit           : IntPtr
+        GetOutgoingQueue      : IntPtr
+        SetLockState          : IntPtr
+        FinishedMsg           : IntPtr
+        NotifyNewMail         : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMsgStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IMsgStore Advise registers to receive notification of specified events that affect the message store.
@@ -118,7 +143,7 @@ class IMsgStore extends IMAPIProp {
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, ppUnk) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(17, this, "uint", cbEntryID, "ptr", lpEntryID, Guid.Ptr, lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -358,7 +383,51 @@ class IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-notifynewmail
      */
     NotifyNewMail(lpNotification) {
-        result := ComCall(26, this, "ptr", lpNotification, "HRESULT")
+        result := ComCall(26, this, NOTIFICATION.Ptr, lpNotification, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMsgStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 6)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.CompareEntryIDs := CallbackCreate(GetMethod(implObj, "CompareEntryIDs"), flags, 7)
+        this.vtbl.OpenEntry := CallbackCreate(GetMethod(implObj, "OpenEntry"), flags, 7)
+        this.vtbl.SetReceiveFolder := CallbackCreate(GetMethod(implObj, "SetReceiveFolder"), flags, 5)
+        this.vtbl.GetReceiveFolder := CallbackCreate(GetMethod(implObj, "GetReceiveFolder"), flags, 6)
+        this.vtbl.GetReceiveFolderTable := CallbackCreate(GetMethod(implObj, "GetReceiveFolderTable"), flags, 3)
+        this.vtbl.StoreLogoff := CallbackCreate(GetMethod(implObj, "StoreLogoff"), flags, 2)
+        this.vtbl.AbortSubmit := CallbackCreate(GetMethod(implObj, "AbortSubmit"), flags, 4)
+        this.vtbl.GetOutgoingQueue := CallbackCreate(GetMethod(implObj, "GetOutgoingQueue"), flags, 3)
+        this.vtbl.SetLockState := CallbackCreate(GetMethod(implObj, "SetLockState"), flags, 3)
+        this.vtbl.FinishedMsg := CallbackCreate(GetMethod(implObj, "FinishedMsg"), flags, 4)
+        this.vtbl.NotifyNewMail := CallbackCreate(GetMethod(implObj, "NotifyNewMail"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.CompareEntryIDs)
+        CallbackFree(this.vtbl.OpenEntry)
+        CallbackFree(this.vtbl.SetReceiveFolder)
+        CallbackFree(this.vtbl.GetReceiveFolder)
+        CallbackFree(this.vtbl.GetReceiveFolderTable)
+        CallbackFree(this.vtbl.StoreLogoff)
+        CallbackFree(this.vtbl.AbortSubmit)
+        CallbackFree(this.vtbl.GetOutgoingQueue)
+        CallbackFree(this.vtbl.SetLockState)
+        CallbackFree(this.vtbl.FinishedMsg)
+        CallbackFree(this.vtbl.NotifyNewMail)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WLAN_AUTOCONF_OPCODE enumeration specifies an automatic configuration parameter.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_autoconf_opcode~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_AUTOCONF_OPCODE extends Win32Enum {
+export default struct WLAN_AUTOCONF_OPCODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not used.

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The AVIFILEINFO structure contains global information for an entire AVI file. (Unicode)
@@ -10,19 +10,13 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset Unicode
  */
-class AVIFILEINFOW extends Win32Struct {
-    static sizeof => 172
-
-    static packingSize => 4
+export default struct AVIFILEINFOW {
+    #StructPack 4
 
     /**
      * Approximate maximum data rate of the AVI file.
-     * @type {Integer}
      */
-    dwMaxBytesPerSec {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMaxBytesPerSec : UInt32
 
     /**
      * A bitwise <b>OR</b> of zero or more flags. The following flags are defined:
@@ -83,12 +77,8 @@ class AVIFILEINFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Capability flags. The following flags are defined:
@@ -139,95 +129,56 @@ class AVIFILEINFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCaps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCaps : UInt32
 
     /**
      * Number of streams in the file. For example, a file with audio and video has at least two streams.
-     * @type {Integer}
      */
-    dwStreams {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwStreams : UInt32
 
     /**
      * Suggested buffer size, in bytes, for reading the file. Generally, this size should be large enough to contain the largest chunk in the file. For an interleaved file, this size should be large enough to read an entire record, not just a chunk.
      * 
      * If the buffer size is too small or is set to zero, the playback software will have to reallocate memory during playback, reducing performance.
-     * @type {Integer}
      */
-    dwSuggestedBufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSuggestedBufferSize : UInt32
 
     /**
      * Width, in pixels, of the AVI file.
-     * @type {Integer}
      */
-    dwWidth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwWidth : UInt32
 
     /**
      * Height, in pixels, of the AVI file.
-     * @type {Integer}
      */
-    dwHeight {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwHeight : UInt32
 
     /**
      * Time scale applicable for the entire file. Dividing <b>dwRate</b> by <b>dwScale</b> gives the number of samples per second.
      * 
      * Any stream can define its own time scale to supersede the file time scale.
-     * @type {Integer}
      */
-    dwScale {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwScale : UInt32
 
     /**
      * Rate in an integer format. To obtain the rate in samples per second, divide this value by the value in <b>dwScale</b>.
-     * @type {Integer}
      */
-    dwRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwRate : UInt32
 
     /**
      * Length of the AVI file. The units are defined by <b>dwRate</b> and <b>dwScale</b>.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwLength : UInt32
 
     /**
      * Number of streams that have been added to or deleted from the AVI file.
-     * @type {Integer}
      */
-    dwEditCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwEditCount : UInt32
 
     /**
      * Null-terminated string containing descriptive information for the file type.
-     * @type {String}
      */
-    szFileType {
-        get => StrGet(this.ptr + 44, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 63, "UTF-16")
-    }
+    szFileType : WCHAR[64]
+
 }

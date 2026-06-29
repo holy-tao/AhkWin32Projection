@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the reason why a cloud file was dehydrated.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_dehydration_reason
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_CALLBACK_DEHYDRATION_REASON extends Win32Enum {
+export default struct CF_CALLBACK_DEHYDRATION_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The cloud file has never been dehydrated after its creation.

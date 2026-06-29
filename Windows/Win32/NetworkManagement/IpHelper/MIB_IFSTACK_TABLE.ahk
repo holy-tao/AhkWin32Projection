@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IFSTACK_ROW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IFSTACK_ROW.ahk" { MIB_IFSTACK_ROW }
 
 /**
  * Contains a table of network interface stack row entries. This specifies the relationship of the network interfaces on an interface stack.
@@ -21,30 +20,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ifstack_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IFSTACK_TABLE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct MIB_IFSTACK_TABLE {
+    #StructPack 4
 
     /**
      * The number of interface stack row entries in the array.
-     * @type {Integer}
      */
-    NumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_row">MIB_IFSTACK_ROW</a> structures containing interface stack row entries.
-     * @type {MIB_IFSTACK_ROW}
      */
-    Table {
-        get {
-            if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IFSTACK_ROW, "")
-            return this.__TableProxyArray
-        }
-    }
+    Table : MIB_IFSTACK_ROW[1]
+
 }

@@ -1,78 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Fence.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE.ahk" { D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM extends Win32Struct {
-    static sizeof => 56
+export default struct D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM {
+    #StructPack 8
 
-    static packingSize => 8
+    BufferMode : D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM_BUFFER_MODE}
-     */
-    BufferMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ExpectedSubregionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExpectedSubregionCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pSubregionBitstreamsBaseOffsets : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pSubregionBitstreamsBaseOffsets {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ppSubregionBitstreams : ID3D12Resource.Ptr
 
-    /**
-     * @type {Pointer<ID3D12Resource>}
-     */
-    ppSubregionBitstreams {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ppSubregionSizes : ID3D12Resource.Ptr
 
-    /**
-     * @type {Pointer<ID3D12Resource>}
-     */
-    ppSubregionSizes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ppSubregionOffsets : ID3D12Resource.Ptr
 
-    /**
-     * @type {Pointer<ID3D12Resource>}
-     */
-    ppSubregionOffsets {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ppSubregionFences : ID3D12Fence.Ptr
 
-    /**
-     * @type {Pointer<ID3D12Fence>}
-     */
-    ppSubregionFences {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pSubregionFenceValues : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pSubregionFenceValues {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

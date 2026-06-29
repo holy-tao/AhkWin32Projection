@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SecPkgContext_Lifespan structure indicates the life span of a security context. The QueryContextAttributes (General) function uses this structure.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_lifespan
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_Lifespan extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SecPkgContext_Lifespan {
+    #StructPack 8
 
     /**
      * Time at which the context was established.
-     * @type {Integer}
      */
-    tsStart {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    tsStart : Int64
 
     /**
      * Time at which the context will expire.
-     * @type {Integer}
      */
-    tsExpiry {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    tsExpiry : Int64
+
 }

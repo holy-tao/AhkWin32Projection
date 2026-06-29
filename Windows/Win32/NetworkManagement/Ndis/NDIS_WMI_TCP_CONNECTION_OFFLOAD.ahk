@@ -1,79 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_WMI_TCP_CONNECTION_OFFLOAD extends Win32Struct {
-    static sizeof => 32
+export default struct NDIS_WMI_TCP_CONNECTION_OFFLOAD {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Encapsulation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Encapsulation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SupportIPv4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportIPv4 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SupportIPv6 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportIPv6 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SupportIPv6ExtensionHeaders : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportIPv6ExtensionHeaders {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SupportSack : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportSack {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    TcpConnectionOffloadCapacity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TcpConnectionOffloadCapacity {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

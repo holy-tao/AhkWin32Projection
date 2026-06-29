@@ -1,40 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for enumerating through running packages.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imtsgrp
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IMtsGrp extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMtsGrp extends IDispatch {
     /**
      * The interface identifier for IMtsGrp
      * @type {Guid}
      */
-    static IID => Guid("{4b2e958c-0393-11d1-b1ab-00aa00ba3258}")
+    static IID := Guid("{4b2e958c-0393-11d1-b1ab-00aa00ba3258}")
 
     /**
      * The class identifier for MtsGrp
      * @type {Guid}
      */
-    static CLSID => Guid("{4b2e958d-0393-11d1-b1ab-00aa00ba3258}")
+    static CLSID := Guid("{4b2e958d-0393-11d1-b1ab-00aa00ba3258}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMtsGrp interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count : IntPtr
+        Item      : IntPtr
+        Refresh   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "Item", "Refresh"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMtsGrp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -72,5 +82,29 @@ class IMtsGrp extends IDispatch {
     Refresh() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMtsGrp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.Refresh)
     }
 }

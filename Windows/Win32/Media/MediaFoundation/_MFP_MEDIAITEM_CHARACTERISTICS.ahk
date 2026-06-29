@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains flags that describe a media item.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_mediaitem_characteristics
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class _MFP_MEDIAITEM_CHARACTERISTICS extends Win32Enum {
+export default struct _MFP_MEDIAITEM_CHARACTERISTICS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The media item represents a live data source, such as video camera. If playback is stopped and then restarted, there will be a gap in the content.

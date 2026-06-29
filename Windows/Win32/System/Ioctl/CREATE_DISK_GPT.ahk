@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information used by the IOCTL_DISK_CREATE_DISK control code to initialize GUID partition table (GPT) disks.
@@ -12,26 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk_gpt
  * @namespace Windows.Win32.System.Ioctl
  */
-class CREATE_DISK_GPT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CREATE_DISK_GPT {
+    #StructPack 4
 
     /**
      * The disk identifier (GUID) of the GPT disk to be initialized.
-     * @type {Pointer}
      */
-    DiskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DiskId : Guid
 
     /**
      * The maximum number of partitions allowed on the GPT disk to be initialized without repartitioning the disk.
-     * @type {Integer}
      */
-    MaxPartitionCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxPartitionCount : UInt32
+
 }

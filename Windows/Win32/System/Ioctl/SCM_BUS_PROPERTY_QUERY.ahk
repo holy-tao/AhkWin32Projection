@@ -1,56 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCM_BUS_PROPERTY_ID.ahk
-#Include .\SCM_BUS_QUERY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCM_BUS_PROPERTY_ID.ahk" { SCM_BUS_PROPERTY_ID }
+#Import ".\SCM_BUS_QUERY_TYPE.ahk" { SCM_BUS_QUERY_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_BUS_PROPERTY_QUERY extends Win32Struct {
-    static sizeof => 20
+export default struct SCM_BUS_PROPERTY_QUERY {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PropertyId : SCM_BUS_PROPERTY_ID
 
-    /**
-     * @type {SCM_BUS_PROPERTY_ID}
-     */
-    PropertyId {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    QueryType : SCM_BUS_QUERY_TYPE
 
-    /**
-     * @type {SCM_BUS_QUERY_TYPE}
-     */
-    QueryType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    AdditionalParameters : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    AdditionalParameters {
-        get {
-            if(!this.HasProp("__AdditionalParametersProxyArray"))
-                this.__AdditionalParametersProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__AdditionalParametersProxyArray
-        }
-    }
 }

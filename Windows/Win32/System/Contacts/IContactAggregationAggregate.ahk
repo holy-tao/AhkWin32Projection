@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IContactAggregationContactCollection.ahk
-#Include .\IContactAggregationGroupCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk" { CONTACT_AGGREGATION_COLLECTION_OPTIONS }
+#Import ".\IContactAggregationContactCollection.ahk" { IContactAggregationContactCollection }
+#Import ".\IContactAggregationGroupCollection.ahk" { IContactAggregationGroupCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactAggregationAggregate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactAggregationAggregate extends IUnknown {
     /**
      * The interface identifier for IContactAggregationAggregate
      * @type {Guid}
      */
-    static IID => Guid("{7ed1c814-cd30-43c8-9b8d-2e489e53d54b}")
+    static IID := Guid("{7ed1c814-cd30-43c8-9b8d-2e489e53d54b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactAggregationAggregate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Save              : IntPtr
+        GetComponentItems : IntPtr
+        Link              : IntPtr
+        get_Groups        : IntPtr
+        get_AntiLink      : IntPtr
+        put_AntiLink      : IntPtr
+        get_FavoriteOrder : IntPtr
+        put_FavoriteOrder : IntPtr
+        get_Id            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Save", "GetComponentItems", "Link", "get_Groups", "get_AntiLink", "put_AntiLink", "get_FavoriteOrder", "put_FavoriteOrder", "get_Id"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactAggregationAggregate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -53,11 +71,8 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * 
+     * @returns {HRESULT} 
      */
     Save() {
         result := ComCall(3, this, "HRESULT")
@@ -74,19 +89,9 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * Registers a window class that allows for the SysLink common control to be used in a window.
-     * @remarks
-     * This function does not have an associated header or library file so it must be called by ordinal value. Call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name Shell32.dll to obtain a module handle. Then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the ordinal number 258 to use this function.
      * 
-     * Use [**LinkWindow\_UnregisterClass**](linkwindow-unregisterclass.md) to unregister the class after use.
      * @param {PWSTR} pAggregateId 
-     * @returns {HRESULT} This function has no parameters.
-     * 
-     * 
-     * Type: **BOOL**
-     * 
-     * Returns **TRUE** if registration was successful; **FALSE** otherwise.
-     * @see https://learn.microsoft.com/windows/win32/shell/linkwindow-registerclass
+     * @returns {HRESULT} 
      */
     Link(pAggregateId) {
         pAggregateId := pAggregateId is String ? StrPtr(pAggregateId) : pAggregateId
@@ -101,7 +106,7 @@ class IContactAggregationAggregate extends IUnknown {
      * @returns {IContactAggregationGroupCollection} 
      */
     get_Groups(options) {
-        result := ComCall(6, this, "int", options, "ptr*", &ppGroups := 0, "HRESULT")
+        result := ComCall(6, this, CONTACT_AGGREGATION_COLLECTION_OPTIONS, options, "ptr*", &ppGroups := 0, "HRESULT")
         return IContactAggregationGroupCollection(ppGroups)
     }
 
@@ -110,7 +115,7 @@ class IContactAggregationAggregate extends IUnknown {
      * @returns {PWSTR} 
      */
     get_AntiLink() {
-        result := ComCall(7, this, "ptr*", &ppAntiLink := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppAntiLink := 0, "HRESULT")
         return ppAntiLink
     }
 
@@ -150,7 +155,43 @@ class IContactAggregationAggregate extends IUnknown {
      * @returns {PWSTR} 
      */
     get_Id() {
-        result := ComCall(11, this, "ptr*", &ppItemId := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppItemId := 0, "HRESULT")
         return ppItemId
+    }
+
+    Query(iid) {
+        if (IContactAggregationAggregate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetComponentItems := CallbackCreate(GetMethod(implObj, "GetComponentItems"), flags, 2)
+        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 3)
+        this.vtbl.get_AntiLink := CallbackCreate(GetMethod(implObj, "get_AntiLink"), flags, 2)
+        this.vtbl.put_AntiLink := CallbackCreate(GetMethod(implObj, "put_AntiLink"), flags, 2)
+        this.vtbl.get_FavoriteOrder := CallbackCreate(GetMethod(implObj, "get_FavoriteOrder"), flags, 2)
+        this.vtbl.put_FavoriteOrder := CallbackCreate(GetMethod(implObj, "put_FavoriteOrder"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetComponentItems)
+        CallbackFree(this.vtbl.Link)
+        CallbackFree(this.vtbl.get_Groups)
+        CallbackFree(this.vtbl.get_AntiLink)
+        CallbackFree(this.vtbl.put_AntiLink)
+        CallbackFree(this.vtbl.get_FavoriteOrder)
+        CallbackFree(this.vtbl.put_FavoriteOrder)
+        CallbackFree(this.vtbl.get_Id)
     }
 }

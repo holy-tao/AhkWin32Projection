@@ -1,175 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.Devices.HumanInterfaceDevice
  */
-class VHF_CONFIG extends Win32Struct {
-    static sizeof => 144
+export default struct VHF_CONFIG {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VhfClientContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    VhfClientContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OperationContextSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OperationContextSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FileHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    FileHandle {
-        get {
-            if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(24, this)
-            return this.__FileHandle
-        }
-    }
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    ProductID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProductID {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    VersionNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VersionNumber {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    ContainerID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ContainerID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    InstanceIDLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InstanceIDLength {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    InstanceID : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    InstanceID {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ReportDescriptorLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReportDescriptorLength {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    ReportDescriptor : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ReportDescriptor {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    EvtVhfReadyForNextReadReport : IntPtr
 
-    /**
-     * @type {Pointer<EVT_VHF_READY_FOR_NEXT_READ_REPORT>}
-     */
-    EvtVhfReadyForNextReadReport {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    EvtVhfAsyncOperationGetFeature : IntPtr
 
-    /**
-     * @type {Pointer<EVT_VHF_ASYNC_OPERATION>}
-     */
-    EvtVhfAsyncOperationGetFeature {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    EvtVhfAsyncOperationSetFeature : IntPtr
 
-    /**
-     * @type {Pointer<EVT_VHF_ASYNC_OPERATION>}
-     */
-    EvtVhfAsyncOperationSetFeature {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    EvtVhfAsyncOperationWriteReport : IntPtr
 
-    /**
-     * @type {Pointer<EVT_VHF_ASYNC_OPERATION>}
-     */
-    EvtVhfAsyncOperationWriteReport {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    EvtVhfAsyncOperationGetInputReport : IntPtr
 
-    /**
-     * @type {Pointer<EVT_VHF_ASYNC_OPERATION>}
-     */
-    EvtVhfAsyncOperationGetInputReport {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    EvtVhfCleanup : IntPtr
 
-    /**
-     * @type {Pointer<EVT_VHF_CLEANUP>}
-     */
-    EvtVhfCleanup {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    HardwareIDsLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HardwareIDsLength {
-        get => NumGet(this, 128, "ushort")
-        set => NumPut("ushort", value, this, 128)
-    }
+    HardwareIDs : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    HardwareIDs {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
 }

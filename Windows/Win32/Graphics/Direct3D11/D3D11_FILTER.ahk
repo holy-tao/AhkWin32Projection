@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Filtering options during texture sampling. (D3D11_FILTER)
@@ -28,7 +27,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_filter
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_FILTER extends Win32Enum {
+export default struct D3D11_FILTER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.

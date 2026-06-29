@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Holds performance counters returned by PssQuerySnapshot.
@@ -8,116 +7,67 @@
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_performance_counters
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  */
-class PSS_PERFORMANCE_COUNTERS extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct PSS_PERFORMANCE_COUNTERS {
+    #StructPack 8
 
     /**
      * The count of clock cycles spent for capture.
-     * @type {Integer}
      */
-    TotalCycleCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TotalCycleCount : Int64
 
     /**
      * The count of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> units spent for capture.
-     * @type {Integer}
      */
-    TotalWallClockPeriod {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TotalWallClockPeriod : Int64
 
     /**
      * The count of clock cycles spent for the capture of the VA clone.
-     * @type {Integer}
      */
-    VaCloneCycleCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    VaCloneCycleCount : Int64
 
     /**
      * The count of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> units spent for the capture of the VA clone.
-     * @type {Integer}
      */
-    VaCloneWallClockPeriod {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VaCloneWallClockPeriod : Int64
 
     /**
      * The count of clock cycles spent for the capture of VA space information.
-     * @type {Integer}
      */
-    VaSpaceCycleCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    VaSpaceCycleCount : Int64
 
     /**
      * The count of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> units spent for the capture VA space information.
-     * @type {Integer}
      */
-    VaSpaceWallClockPeriod {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    VaSpaceWallClockPeriod : Int64
 
     /**
      * The count of clock cycles spent for the capture of auxiliary page information.
-     * @type {Integer}
      */
-    AuxPagesCycleCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    AuxPagesCycleCount : Int64
 
     /**
      * The count of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> units spent for the capture of auxiliary page information.
-     * @type {Integer}
      */
-    AuxPagesWallClockPeriod {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    AuxPagesWallClockPeriod : Int64
 
     /**
      * The count of clock cycles spent for the capture of handle information.
-     * @type {Integer}
      */
-    HandlesCycleCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    HandlesCycleCount : Int64
 
     /**
      * The count of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> units spent for the capture of handle information.
-     * @type {Integer}
      */
-    HandlesWallClockPeriod {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    HandlesWallClockPeriod : Int64
 
     /**
      * The count of clock cycles spent for the capture of thread information.
-     * @type {Integer}
      */
-    ThreadsCycleCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ThreadsCycleCount : Int64
 
     /**
      * The count of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> units spent for the capture of thread information.
-     * @type {Integer}
      */
-    ThreadsWallClockPeriod {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ThreadsWallClockPeriod : Int64
+
 }

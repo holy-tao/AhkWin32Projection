@@ -1,36 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Enrollment.ahk
-#Include .\IX509EnrollmentPolicyServer.ahk
-#Include .\IX509CertificateTemplate.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509Enrollment.ahk" { IX509Enrollment }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
+#Import ".\InstallResponseRestrictionFlags.ahk" { InstallResponseRestrictionFlags }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
 
 /**
  * The IX509Enrollment2 interface enables you to enroll in a certificate hierarchy and install a certificate response.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollment2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509Enrollment2 extends IX509Enrollment {
-
-    static sizeof => A_PtrSize
+export default struct IX509Enrollment2 extends IX509Enrollment {
     /**
      * The interface identifier for IX509Enrollment2
      * @type {Guid}
      */
-    static IID => Guid("{728ab350-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab350-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509Enrollment2 interfaces
+    */
+    struct Vtbl extends IX509Enrollment.Vtbl {
+        InitializeFromTemplate : IntPtr
+        InstallResponse2       : IntPtr
+        get_PolicyServer       : IntPtr
+        get_Template           : IntPtr
+        get_RequestIdString    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromTemplate", "InstallResponse2", "get_PolicyServer", "get_Template", "get_RequestIdString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509Enrollment2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509EnrollmentPolicyServer} 
@@ -115,7 +132,7 @@ class IX509Enrollment2 extends IX509Enrollment {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(30, this, "int", _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        result := ComCall(30, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 
@@ -258,7 +275,7 @@ class IX509Enrollment2 extends IX509Enrollment {
         strEnrollmentPolicyServerUrl := strEnrollmentPolicyServerUrl is String ? BSTR.Alloc(strEnrollmentPolicyServerUrl).Value : strEnrollmentPolicyServerUrl
         strEnrollmentPolicyServerID := strEnrollmentPolicyServerID is String ? BSTR.Alloc(strEnrollmentPolicyServerID).Value : strEnrollmentPolicyServerID
 
-        result := ComCall(31, this, "int", _Restrictions, "ptr", strResponse, "int", Encoding, "ptr", strPassword, "ptr", strEnrollmentPolicyServerUrl, "ptr", strEnrollmentPolicyServerID, "int", EnrollmentPolicyServerFlags, "int", authFlags, "HRESULT")
+        result := ComCall(31, this, InstallResponseRestrictionFlags, _Restrictions, BSTR, strResponse, EncodingType, Encoding, BSTR, strPassword, BSTR, strEnrollmentPolicyServerUrl, BSTR, strEnrollmentPolicyServerID, PolicyServerUrlFlags, EnrollmentPolicyServerFlags, X509EnrollmentAuthFlags, authFlags, "HRESULT")
         return result
     }
 
@@ -290,8 +307,36 @@ class IX509Enrollment2 extends IX509Enrollment {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_requestidstring
      */
     get_RequestIdString() {
-        pValue := BSTR()
-        result := ComCall(34, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509Enrollment2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.InstallResponse2 := CallbackCreate(GetMethod(implObj, "InstallResponse2"), flags, 9)
+        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.get_RequestIdString := CallbackCreate(GetMethod(implObj, "get_RequestIdString"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromTemplate)
+        CallbackFree(this.vtbl.InstallResponse2)
+        CallbackFree(this.vtbl.get_PolicyServer)
+        CallbackFree(this.vtbl.get_Template)
+        CallbackFree(this.vtbl.get_RequestIdString)
     }
 }

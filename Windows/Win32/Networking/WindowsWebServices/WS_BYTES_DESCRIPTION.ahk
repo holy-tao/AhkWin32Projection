@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies constraints on the set of values which can be deserialized. (WS_BYTES_DESCRIPTION)
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_bytes_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_BYTES_DESCRIPTION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WS_BYTES_DESCRIPTION {
+    #StructPack 4
 
     /**
      * Specifies the minimum number of bytes.
-     * @type {Integer}
      */
-    minByteCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    minByteCount : UInt32
 
     /**
      * Specifies the maximum number of bytes.
-     * @type {Integer}
      */
-    maxByteCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    maxByteCount : UInt32
+
 }

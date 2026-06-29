@@ -1,14 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_UINT128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_UINT128.ahk" { WHV_UINT128 }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_PENDING_EXT_INT_EVENT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WHV_X64_PENDING_EXT_INT_EVENT {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
@@ -17,12 +14,9 @@ class WHV_X64_PENDING_EXT_INT_EVENT extends Win32Struct {
      * - Reserved0
      * - Vector
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -63,23 +57,10 @@ class WHV_X64_PENDING_EXT_INT_EVENT extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFFFFFFFFFF
         set => this._bitfield := ((value & 0xFFFFFFFFFFFF) << 16) | (this._bitfield & ~(0xFFFFFFFFFFFF << 16))
     }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {WHV_UINT128}
-     */
-    AsUINT128 {
-        get {
-            if(!this.HasProp("__AsUINT128"))
-                this.__AsUINT128 := WHV_UINT128(0, this)
-            return this.__AsUINT128
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'AsUINT128', { type: WHV_UINT128, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

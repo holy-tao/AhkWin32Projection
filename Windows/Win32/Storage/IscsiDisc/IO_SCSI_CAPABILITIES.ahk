@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class IO_SCSI_CAPABILITIES extends Win32Struct {
-    static sizeof => 24
+export default struct IO_SCSI_CAPABILITIES {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaximumTransferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumTransferLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaximumPhysicalPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumPhysicalPages {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SupportedAsynchronousEvents : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedAsynchronousEvents {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AlignmentMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlignmentMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TaggedQueuing : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TaggedQueuing {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    AdapterScansDown : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AdapterScansDown {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    AdapterUsesPio : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AdapterUsesPio {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
 }

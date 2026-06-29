@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IMXReaderControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMXReaderControl extends IDispatch {
     /**
      * The interface identifier for IMXReaderControl
      * @type {Guid}
      */
-    static IID => Guid("{808f4e35-8d5a-4fbe-8466-33a41279ed30}")
+    static IID := Guid("{808f4e35-8d5a-4fbe-8466-33a41279ed30}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMXReaderControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        abort   : IntPtr
+        resume  : IntPtr
+        suspend : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["abort", "resume", "suspend"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMXReaderControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Submits an error message to the information queue and terminates the current draw or dispatch call being executed.
@@ -71,5 +81,29 @@ class IMXReaderControl extends IDispatch {
     suspend() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMXReaderControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
+        this.vtbl.resume := CallbackCreate(GetMethod(implObj, "resume"), flags, 1)
+        this.vtbl.suspend := CallbackCreate(GetMethod(implObj, "suspend"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.abort)
+        CallbackFree(this.vtbl.resume)
+        CallbackFree(this.vtbl.suspend)
     }
 }

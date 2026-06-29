@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFaxDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxDevice.ahk" { IFaxDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IFaxDevices interface defines a collection used by a fax client application to manage fax devices, where each device is represented by a FaxDevice object.
@@ -12,32 +14,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdevices
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxDevices extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxDevices extends IDispatch {
     /**
      * The interface identifier for IFaxDevices
      * @type {Guid}
      */
-    static IID => Guid("{9e46783e-f34f-482e-a360-0416becbbd96}")
+    static IID := Guid("{9e46783e-f34f-482e-a360-0416becbbd96}")
 
     /**
      * The class identifier for FaxDevices
      * @type {Guid}
      */
-    static CLSID => Guid("{5589e28e-23cb-4919-8808-e6101846e80d}")
+    static CLSID := Guid("{5589e28e-23cb-4919-8808-e6101846e80d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxDevices interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        get_Count    : IntPtr
+        get_ItemById : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_ItemById"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxDevices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -80,7 +92,7 @@ class IFaxDevices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevices-get_item
      */
     get_Item(vIndex) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxDevice := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, vIndex, "ptr*", &pFaxDevice := 0, "HRESULT")
         return IFaxDevice(pFaxDevice)
     }
 
@@ -109,5 +121,31 @@ class IFaxDevices extends IDispatch {
     get_ItemById(lId) {
         result := ComCall(10, this, "int", lId, "ptr*", &ppFaxDevice := 0, "HRESULT")
         return IFaxDevice(ppFaxDevice)
+    }
+
+    Query(iid) {
+        if (IFaxDevices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_ItemById := CallbackCreate(GetMethod(implObj, "get_ItemById"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_ItemById)
     }
 }

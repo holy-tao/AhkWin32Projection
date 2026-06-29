@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DVIEWPORT2 extends Win32Struct {
-    static sizeof => 44
+export default struct D3DVIEWPORT2 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwX : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwX {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwY : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwY {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dvClipX : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvClipX {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    dvClipY : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvClipY {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    dvClipWidth : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvClipWidth {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    dvClipHeight : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvClipHeight {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    dvMinZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvMinZ {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    dvMaxZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvMaxZ {
-        get => NumGet(this, 40, "float")
-        set => NumPut("float", value, this, 40)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how to rotate a video image.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_video_processor_rotation
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_VIDEO_PROCESSOR_ROTATION extends Win32Enum {
+export default struct MF_VIDEO_PROCESSOR_ROTATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not rotate the image.

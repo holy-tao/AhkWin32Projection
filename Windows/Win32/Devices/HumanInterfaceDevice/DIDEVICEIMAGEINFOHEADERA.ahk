@@ -1,85 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIDEVICEIMAGEINFOA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIDEVICEIMAGEINFOA.ahk" { DIDEVICEIMAGEINFOA }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset ANSI
  */
-class DIDEVICEIMAGEINFOHEADERA extends Win32Struct {
-    static sizeof => 40
+export default struct DIDEVICEIMAGEINFOHEADERA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSizeImageInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeImageInfo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwcViews : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcViews {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwcButtons : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcButtons {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwcAxes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcAxes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwcPOVs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcPOVs {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBufferSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwBufferUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBufferUsed {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    lprgImageInfoArray : DIDEVICEIMAGEINFOA.Ptr
 
-    /**
-     * @type {Pointer<DIDEVICEIMAGEINFOA>}
-     */
-    lprgImageInfoArray {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DD_D3DBUFCALLBACKS structure is used only by drivers that implement driver level allocation of command and vertex buffers.
@@ -34,71 +33,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_d3dbufcallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_D3DBUFCALLBACKS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DD_D3DBUFCALLBACKS {
+    #StructPack 8
 
     /**
      * Specifies the size in bytes of this DD_D3DBUFCALLBACKS structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_cancreatesurface">CanCreateD3DBuffer</a> callback.
-     * @type {Pointer<PDD_CANCREATESURFACE>}
      */
-    CanCreateD3DBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CanCreateD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurface">CreateD3DBuffer</a> callback.
-     * @type {Pointer<PDD_CREATESURFACE>}
      */
-    CreateD3DBuffer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CreateD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff552754(v=vs.85)">DestroyD3DBuffer</a> callback.
-     * @type {Pointer<PDD_SURFCB_DESTROYSURFACE>}
      */
-    DestroyD3DBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DestroyD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff568216(v=vs.85)">LockD3DBuffer</a> callback.
-     * @type {Pointer<PDD_SURFCB_LOCK>}
      */
-    LockD3DBuffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    LockD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570106(v=vs.85)">UnlockD3DBuffer</a> callback.
-     * @type {Pointer<PDD_SURFCB_UNLOCK>}
      */
-    UnlockD3DBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    UnlockD3DBuffer : IntPtr
+
 }

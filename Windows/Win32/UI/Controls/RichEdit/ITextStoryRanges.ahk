@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextRange.ahk" { ITextRange }
 
 /**
  * The purpose of the ITextStoryRanges interface is to enumerate the stories in an ITextDocument.
@@ -12,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstoryranges
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextStoryRanges extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextStoryRanges extends IDispatch {
     /**
      * The interface identifier for ITextStoryRanges
      * @type {Guid}
      */
-    static IID => Guid("{8cc497c5-a1df-11ce-8098-00aa0047be5d}")
+    static IID := Guid("{8cc497c5-a1df-11ce-8098-00aa0047be5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextStoryRanges interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        _NewEnum : IntPtr
+        Item     : IntPtr
+        GetCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["_NewEnum", "Item", "GetCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextStoryRanges.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an IEnumVARIANT enumerator interface for this collection of stories.
@@ -88,5 +98,29 @@ class ITextStoryRanges extends IDispatch {
     GetCount() {
         result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")
         return pCount
+    }
+
+    Query(iid) {
+        if (ITextStoryRanges.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl._NewEnum := CallbackCreate(GetMethod(implObj, "_NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl._NewEnum)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.GetCount)
     }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfFunction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfFunction.ahk" { ITfFunction }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ITfFnPlayBack interface is implemented by the Speech API (SAPI) text service. This interface is used by the TSF manager or a client (application or other text service) to control the audio data for speech input text.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnplayback
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfFnPlayBack extends ITfFunction {
-
-    static sizeof => A_PtrSize
+export default struct ITfFnPlayBack extends ITfFunction {
     /**
      * The interface identifier for ITfFnPlayBack
      * @type {Guid}
      */
-    static IID => Guid("{a3a416a4-0f64-11d3-b5b7-00c04fc324a1}")
+    static IID := Guid("{a3a416a4-0f64-11d3-b5b7-00c04fc324a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfFnPlayBack interfaces
+    */
+    struct Vtbl extends ITfFunction.Vtbl {
+        QueryRange : IntPtr
+        Play       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryRange", "Play"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfFnPlayBack.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfFnPlayBack::QueryRange method
@@ -82,7 +93,7 @@ class ITfFnPlayBack extends ITfFunction {
     QueryRange(pRange, ppNewRange, pfPlayable) {
         pfPlayableMarshal := pfPlayable is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, pfPlayableMarshal, pfPlayable, "HRESULT")
+        result := ComCall(4, this, "ptr", pRange, ITfRange.Ptr, ppNewRange, pfPlayableMarshal, pfPlayable, "HRESULT")
         return result
     }
 
@@ -137,5 +148,27 @@ class ITfFnPlayBack extends ITfFunction {
     Play(pRange) {
         result := ComCall(5, this, "ptr", pRange, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfFnPlayBack.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryRange := CallbackCreate(GetMethod(implObj, "QueryRange"), flags, 4)
+        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryRange)
+        CallbackFree(this.vtbl.Play)
     }
 }

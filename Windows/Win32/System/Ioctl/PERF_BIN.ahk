@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BIN_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BIN_RANGE.ahk" { BIN_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class PERF_BIN extends Win32Struct {
-    static sizeof => 24
+export default struct PERF_BIN {
+    #StructPack 8
 
-    static packingSize => 8
+    NumberOfBins : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfBins {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TypeOfBin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TypeOfBin {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BinsRanges : BIN_RANGE[1]
 
-    /**
-     * @type {BIN_RANGE}
-     */
-    BinsRanges {
-        get {
-            if(!this.HasProp("__BinsRangesProxyArray"))
-                this.__BinsRangesProxyArray := Win32FixedArray(this.ptr + 8, 1, BIN_RANGE, "")
-            return this.__BinsRangesProxyArray
-        }
-    }
 }

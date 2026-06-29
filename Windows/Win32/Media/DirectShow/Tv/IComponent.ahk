@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IComponentType.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IComponentType.ahk" { IComponentType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\ComponentStatus.ahk" { ComponentStatus }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.
@@ -12,32 +14,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-icomponent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IComponent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IComponent extends IDispatch {
     /**
      * The interface identifier for IComponent
      * @type {Guid}
      */
-    static IID => Guid("{1a5576fc-0e19-11d3-9d8e-00c04f72d980}")
+    static IID := Guid("{1a5576fc-0e19-11d3-9d8e-00c04f72d980}")
 
     /**
      * The class identifier for Component
      * @type {Guid}
      */
-    static CLSID => Guid("{59dc47a8-116c-11d3-9d8e-00c04f72d980}")
+    static CLSID := Guid("{59dc47a8-116c-11d3-9d8e-00c04f72d980}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComponent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type        : IntPtr
+        put_Type        : IntPtr
+        get_DescLangID  : IntPtr
+        put_DescLangID  : IntPtr
+        get_Status      : IntPtr
+        put_Status      : IntPtr
+        get_Description : IntPtr
+        put_Description : IntPtr
+        Clone           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "put_Type", "get_DescLangID", "put_DescLangID", "get_Status", "put_Status", "get_Description", "put_Description", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComponent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IComponentType} 
@@ -142,7 +159,7 @@ class IComponent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_status
      */
     put_Status(_Status) {
-        result := ComCall(12, this, "int", _Status, "HRESULT")
+        result := ComCall(12, this, ComponentStatus, _Status, "HRESULT")
         return result
     }
 
@@ -154,8 +171,8 @@ class IComponent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_description
      */
     get_Description() {
-        Description := BSTR()
-        result := ComCall(13, this, "ptr", Description, "HRESULT")
+        Description := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, Description, "HRESULT")
         return Description
     }
 
@@ -168,7 +185,7 @@ class IComponent extends IDispatch {
     put_Description(Description) {
         Description := Description is String ? BSTR.Alloc(Description).Value : Description
 
-        result := ComCall(14, this, "ptr", Description, "HRESULT")
+        result := ComCall(14, this, BSTR, Description, "HRESULT")
         return result
     }
 
@@ -180,5 +197,41 @@ class IComponent extends IDispatch {
     Clone() {
         result := ComCall(15, this, "ptr*", &NewComponent := 0, "HRESULT")
         return IComponent(NewComponent)
+    }
+
+    Query(iid) {
+        if (IComponent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_DescLangID := CallbackCreate(GetMethod(implObj, "get_DescLangID"), flags, 2)
+        this.vtbl.put_DescLangID := CallbackCreate(GetMethod(implObj, "put_DescLangID"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.put_Status := CallbackCreate(GetMethod(implObj, "put_Status"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.put_Type)
+        CallbackFree(this.vtbl.get_DescLangID)
+        CallbackFree(this.vtbl.put_DescLangID)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.put_Status)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.Clone)
     }
 }

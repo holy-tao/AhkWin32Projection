@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class OPLOCK_KEY_CONTEXT extends Win32Struct {
-    static sizeof => 32
+export default struct OPLOCK_KEY_CONTEXT {
+    #StructPack 4
 
-    static packingSize => 8
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ParentOplockKey : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ParentOplockKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TargetOplockKey : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    TargetOplockKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

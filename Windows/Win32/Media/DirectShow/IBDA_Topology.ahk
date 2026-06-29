@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BDANODE_DESCRIPTOR.ahk" { BDANODE_DESCRIPTOR }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BDA_TEMPLATE_CONNECTION.ahk" { BDA_TEMPLATE_CONNECTION }
 
 /**
  * The IBDA_Topology interface is implemented on BDA device filters.
@@ -10,26 +15,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_topology
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_Topology extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_Topology extends IUnknown {
     /**
      * The interface identifier for IBDA_Topology
      * @type {Guid}
      */
-    static IID => Guid("{79b56888-7fea-4690-b45d-38fd3c7849be}")
+    static IID := Guid("{79b56888-7fea-4690-b45d-38fd3c7849be}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_Topology interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNodeTypes           : IntPtr
+        GetNodeDescriptors     : IntPtr
+        GetNodeInterfaces      : IntPtr
+        GetPinTypes            : IntPtr
+        GetTemplateConnections : IntPtr
+        CreatePin              : IntPtr
+        DeletePin              : IntPtr
+        SetMediaType           : IntPtr
+        SetMedium              : IntPtr
+        CreateTopology         : IntPtr
+        GetControlNode         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNodeTypes", "GetNodeDescriptors", "GetNodeInterfaces", "GetPinTypes", "GetTemplateConnections", "CreatePin", "DeletePin", "SetMediaType", "SetMedium", "CreateTopology", "GetControlNode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_Topology.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetNodeTypes method retrieves a list of all the node types in the template topology for this filter and network type.
@@ -60,7 +82,7 @@ class IBDA_Topology extends IUnknown {
     GetNodeDescriptors(ulcNodeDescriptors, ulcNodeDescriptorsMax, rgNodeDescriptors) {
         ulcNodeDescriptorsMarshal := ulcNodeDescriptors is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, ulcNodeDescriptorsMarshal, ulcNodeDescriptors, "uint", ulcNodeDescriptorsMax, "ptr", rgNodeDescriptors, "HRESULT")
+        result := ComCall(4, this, ulcNodeDescriptorsMarshal, ulcNodeDescriptors, "uint", ulcNodeDescriptorsMax, BDANODE_DESCRIPTOR.Ptr, rgNodeDescriptors, "HRESULT")
         return result
     }
 
@@ -76,7 +98,7 @@ class IBDA_Topology extends IUnknown {
     GetNodeInterfaces(ulNodeType, pulcInterfaces, ulcInterfacesMax, rgguidInterfaces) {
         pulcInterfacesMarshal := pulcInterfaces is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulNodeType, pulcInterfacesMarshal, pulcInterfaces, "uint", ulcInterfacesMax, "ptr", rgguidInterfaces, "HRESULT")
+        result := ComCall(5, this, "uint", ulNodeType, pulcInterfacesMarshal, pulcInterfaces, "uint", ulcInterfacesMax, Guid.Ptr, rgguidInterfaces, "HRESULT")
         return result
     }
 
@@ -107,7 +129,7 @@ class IBDA_Topology extends IUnknown {
     GetTemplateConnections(pulcConnections, ulcConnectionsMax, rgConnections) {
         pulcConnectionsMarshal := pulcConnections is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pulcConnectionsMarshal, pulcConnections, "uint", ulcConnectionsMax, "ptr", rgConnections, "HRESULT")
+        result := ComCall(7, this, pulcConnectionsMarshal, pulcConnections, "uint", ulcConnectionsMax, BDA_TEMPLATE_CONNECTION.Ptr, rgConnections, "HRESULT")
         return result
     }
 
@@ -144,7 +166,7 @@ class IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-setmediatype
      */
     SetMediaType(ulPinId, pMediaType) {
-        result := ComCall(10, this, "uint", ulPinId, "ptr", pMediaType, "HRESULT")
+        result := ComCall(10, this, "uint", ulPinId, AM_MEDIA_TYPE.Ptr, pMediaType, "HRESULT")
         return result
     }
 
@@ -158,7 +180,7 @@ class IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-setmedium
      */
     SetMedium(ulPinId, pMedium) {
-        result := ComCall(11, this, "uint", ulPinId, "ptr", pMedium, "HRESULT")
+        result := ComCall(11, this, "uint", ulPinId, REGPINMEDIUM.Ptr, pMedium, "HRESULT")
         return result
     }
 
@@ -184,7 +206,47 @@ class IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getcontrolnode
      */
     GetControlNode(ulInputPinId, ulOutputPinId, ulNodeType, ppControlNode) {
-        result := ComCall(13, this, "uint", ulInputPinId, "uint", ulOutputPinId, "uint", ulNodeType, "ptr*", ppControlNode, "HRESULT")
+        result := ComCall(13, this, "uint", ulInputPinId, "uint", ulOutputPinId, "uint", ulNodeType, IUnknown.Ptr, ppControlNode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_Topology.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNodeTypes := CallbackCreate(GetMethod(implObj, "GetNodeTypes"), flags, 4)
+        this.vtbl.GetNodeDescriptors := CallbackCreate(GetMethod(implObj, "GetNodeDescriptors"), flags, 4)
+        this.vtbl.GetNodeInterfaces := CallbackCreate(GetMethod(implObj, "GetNodeInterfaces"), flags, 5)
+        this.vtbl.GetPinTypes := CallbackCreate(GetMethod(implObj, "GetPinTypes"), flags, 4)
+        this.vtbl.GetTemplateConnections := CallbackCreate(GetMethod(implObj, "GetTemplateConnections"), flags, 4)
+        this.vtbl.CreatePin := CallbackCreate(GetMethod(implObj, "CreatePin"), flags, 3)
+        this.vtbl.DeletePin := CallbackCreate(GetMethod(implObj, "DeletePin"), flags, 2)
+        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 3)
+        this.vtbl.SetMedium := CallbackCreate(GetMethod(implObj, "SetMedium"), flags, 3)
+        this.vtbl.CreateTopology := CallbackCreate(GetMethod(implObj, "CreateTopology"), flags, 3)
+        this.vtbl.GetControlNode := CallbackCreate(GetMethod(implObj, "GetControlNode"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNodeTypes)
+        CallbackFree(this.vtbl.GetNodeDescriptors)
+        CallbackFree(this.vtbl.GetNodeInterfaces)
+        CallbackFree(this.vtbl.GetPinTypes)
+        CallbackFree(this.vtbl.GetTemplateConnections)
+        CallbackFree(this.vtbl.CreatePin)
+        CallbackFree(this.vtbl.DeletePin)
+        CallbackFree(this.vtbl.SetMediaType)
+        CallbackFree(this.vtbl.SetMedium)
+        CallbackFree(this.vtbl.CreateTopology)
+        CallbackFree(this.vtbl.GetControlNode)
     }
 }

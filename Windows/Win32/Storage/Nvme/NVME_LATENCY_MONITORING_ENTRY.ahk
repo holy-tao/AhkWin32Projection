@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_LATENCY_MONITORING_ENTRY extends Win32Struct {
-    static sizeof => 4098
+export default struct NVME_LATENCY_MONITORING_ENTRY {
+    #StructPack 2
 
-    static packingSize => 2
+    ActiveBucketTimerThreshold : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ActiveBucketTimerThreshold {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ActiveThresholdA : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdA {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    ActiveThresholdB : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdB {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ActiveThresholdC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdC {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    ActiveThresholdD : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdD {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    ActiveLatencyConfig : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ActiveLatencyConfig {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ActiveLatencyMinimumWindow : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveLatencyMinimumWindow {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    DebugLogTriggerEnable : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DebugLogTriggerEnable {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    DiscardDebugLog : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DiscardDebugLog {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    LatencyMonitorFeatureEnable : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LatencyMonitorFeatureEnable {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    Reserved0 : Int8[4083]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 14, 4083, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
 }

@@ -1,37 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISearchPersistentItemsChangedSink.ahk
-#Include ..\Com\IEnumString.ahk
-#Include .\ISearchQueryHelper.ahk
-#Include .\ISearchCrawlScopeManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISearchQueryHelper.ahk" { ISearchQueryHelper }
+#Import ".\ISearchViewChangedSink.ahk" { ISearchViewChangedSink }
+#Import ".\ISearchPersistentItemsChangedSink.ahk" { ISearchPersistentItemsChangedSink }
+#Import ".\ISearchCrawlScopeManager.ahk" { ISearchCrawlScopeManager }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IEnumString.ahk" { IEnumString }
+#Import ".\CatalogStatus.ahk" { CatalogStatus }
+#Import ".\CatalogPausedReason.ahk" { CatalogPausedReason }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\ISearchNotifyInlineSite.ahk" { ISearchNotifyInlineSite }
 
 /**
  * Provides methods to manage a search catalog for purposes such as re-indexing or setting timeouts.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcatalogmanager
  * @namespace Windows.Win32.System.Search
  */
-class ISearchCatalogManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchCatalogManager extends IUnknown {
     /**
      * The interface identifier for ISearchCatalogManager
      * @type {Guid}
      */
-    static IID => Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef50}")
+    static IID := Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef50}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchCatalogManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Name                      : IntPtr
+        GetParameter                  : IntPtr
+        SetParameter                  : IntPtr
+        GetCatalogStatus              : IntPtr
+        Reset                         : IntPtr
+        Reindex                       : IntPtr
+        ReindexMatchingURLs           : IntPtr
+        ReindexSearchRoot             : IntPtr
+        put_ConnectTimeout            : IntPtr
+        get_ConnectTimeout            : IntPtr
+        put_DataTimeout               : IntPtr
+        get_DataTimeout               : IntPtr
+        NumberOfItems                 : IntPtr
+        NumberOfItemsToIndex          : IntPtr
+        URLBeingIndexed               : IntPtr
+        GetURLIndexingState           : IntPtr
+        GetPersistentItemsChangedSink : IntPtr
+        RegisterViewForNotification   : IntPtr
+        GetItemsChangedSink           : IntPtr
+        UnregisterViewForNotification : IntPtr
+        SetExtensionClusion           : IntPtr
+        EnumerateExcludedExtensions   : IntPtr
+        GetQueryHelper                : IntPtr
+        put_DiacriticSensitivity      : IntPtr
+        get_DiacriticSensitivity      : IntPtr
+        GetCrawlScopeManager          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "GetParameter", "SetParameter", "GetCatalogStatus", "Reset", "Reindex", "ReindexMatchingURLs", "ReindexSearchRoot", "put_ConnectTimeout", "get_ConnectTimeout", "put_DataTimeout", "get_DataTimeout", "NumberOfItems", "NumberOfItemsToIndex", "URLBeingIndexed", "GetURLIndexingState", "GetPersistentItemsChangedSink", "RegisterViewForNotification", "GetItemsChangedSink", "UnregisterViewForNotification", "SetExtensionClusion", "EnumerateExcludedExtensions", "GetQueryHelper", "put_DiacriticSensitivity", "get_DiacriticSensitivity", "GetCrawlScopeManager"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchCatalogManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -72,7 +112,7 @@ class ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_name
      */
     get_Name() {
-        result := ComCall(3, this, "ptr*", &pszName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &pszName := 0, "HRESULT")
         return pszName
     }
 
@@ -109,7 +149,7 @@ class ISearchCatalogManager extends IUnknown {
     SetParameter(pszName, pValue) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", pszName, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pszName, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -309,7 +349,7 @@ class ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-urlbeingindexed
      */
     URLBeingIndexed() {
-        result := ComCall(17, this, "ptr*", &pszUrl := 0, "HRESULT")
+        result := ComCall(17, this, PWSTR.Ptr, &pszUrl := 0, "HRESULT")
         return pszUrl
     }
 
@@ -385,7 +425,7 @@ class ISearchCatalogManager extends IUnknown {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
         pdwLastCheckPointNumberMarshal := pdwLastCheckPointNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, "ptr", riid, ppvMarshal, ppv, "ptr", pGUIDCatalogResetSignature, "ptr", pGUIDCheckPointSignature, pdwLastCheckPointNumberMarshal, pdwLastCheckPointNumber, "HRESULT")
+        result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, Guid.Ptr, riid, ppvMarshal, ppv, Guid.Ptr, pGUIDCatalogResetSignature, Guid.Ptr, pGUIDCheckPointSignature, pdwLastCheckPointNumberMarshal, pdwLastCheckPointNumber, "HRESULT")
         return result
     }
 
@@ -414,7 +454,7 @@ class ISearchCatalogManager extends IUnknown {
     SetExtensionClusion(pszExtension, fExclude) {
         pszExtension := pszExtension is String ? StrPtr(pszExtension) : pszExtension
 
-        result := ComCall(23, this, "ptr", pszExtension, "int", fExclude, "HRESULT")
+        result := ComCall(23, this, "ptr", pszExtension, BOOL, fExclude, "HRESULT")
         return result
     }
 
@@ -455,7 +495,7 @@ class ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-put_diacriticsensitivity
      */
     put_DiacriticSensitivity(fDiacriticSensitive) {
-        result := ComCall(26, this, "int", fDiacriticSensitive, "HRESULT")
+        result := ComCall(26, this, BOOL, fDiacriticSensitive, "HRESULT")
         return result
     }
 
@@ -467,7 +507,7 @@ class ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_diacriticsensitivity
      */
     get_DiacriticSensitivity() {
-        result := ComCall(27, this, "int*", &pfDiacriticSensitive := 0, "HRESULT")
+        result := ComCall(27, this, BOOL.Ptr, &pfDiacriticSensitive := 0, "HRESULT")
         return pfDiacriticSensitive
     }
 
@@ -481,5 +521,75 @@ class ISearchCatalogManager extends IUnknown {
     GetCrawlScopeManager() {
         result := ComCall(28, this, "ptr*", &ppCrawlScopeManager := 0, "HRESULT")
         return ISearchCrawlScopeManager(ppCrawlScopeManager)
+    }
+
+    Query(iid) {
+        if (ISearchCatalogManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.GetParameter := CallbackCreate(GetMethod(implObj, "GetParameter"), flags, 3)
+        this.vtbl.SetParameter := CallbackCreate(GetMethod(implObj, "SetParameter"), flags, 3)
+        this.vtbl.GetCatalogStatus := CallbackCreate(GetMethod(implObj, "GetCatalogStatus"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Reindex := CallbackCreate(GetMethod(implObj, "Reindex"), flags, 1)
+        this.vtbl.ReindexMatchingURLs := CallbackCreate(GetMethod(implObj, "ReindexMatchingURLs"), flags, 2)
+        this.vtbl.ReindexSearchRoot := CallbackCreate(GetMethod(implObj, "ReindexSearchRoot"), flags, 2)
+        this.vtbl.put_ConnectTimeout := CallbackCreate(GetMethod(implObj, "put_ConnectTimeout"), flags, 2)
+        this.vtbl.get_ConnectTimeout := CallbackCreate(GetMethod(implObj, "get_ConnectTimeout"), flags, 2)
+        this.vtbl.put_DataTimeout := CallbackCreate(GetMethod(implObj, "put_DataTimeout"), flags, 2)
+        this.vtbl.get_DataTimeout := CallbackCreate(GetMethod(implObj, "get_DataTimeout"), flags, 2)
+        this.vtbl.NumberOfItems := CallbackCreate(GetMethod(implObj, "NumberOfItems"), flags, 2)
+        this.vtbl.NumberOfItemsToIndex := CallbackCreate(GetMethod(implObj, "NumberOfItemsToIndex"), flags, 4)
+        this.vtbl.URLBeingIndexed := CallbackCreate(GetMethod(implObj, "URLBeingIndexed"), flags, 2)
+        this.vtbl.GetURLIndexingState := CallbackCreate(GetMethod(implObj, "GetURLIndexingState"), flags, 3)
+        this.vtbl.GetPersistentItemsChangedSink := CallbackCreate(GetMethod(implObj, "GetPersistentItemsChangedSink"), flags, 2)
+        this.vtbl.RegisterViewForNotification := CallbackCreate(GetMethod(implObj, "RegisterViewForNotification"), flags, 4)
+        this.vtbl.GetItemsChangedSink := CallbackCreate(GetMethod(implObj, "GetItemsChangedSink"), flags, 7)
+        this.vtbl.UnregisterViewForNotification := CallbackCreate(GetMethod(implObj, "UnregisterViewForNotification"), flags, 2)
+        this.vtbl.SetExtensionClusion := CallbackCreate(GetMethod(implObj, "SetExtensionClusion"), flags, 3)
+        this.vtbl.EnumerateExcludedExtensions := CallbackCreate(GetMethod(implObj, "EnumerateExcludedExtensions"), flags, 2)
+        this.vtbl.GetQueryHelper := CallbackCreate(GetMethod(implObj, "GetQueryHelper"), flags, 2)
+        this.vtbl.put_DiacriticSensitivity := CallbackCreate(GetMethod(implObj, "put_DiacriticSensitivity"), flags, 2)
+        this.vtbl.get_DiacriticSensitivity := CallbackCreate(GetMethod(implObj, "get_DiacriticSensitivity"), flags, 2)
+        this.vtbl.GetCrawlScopeManager := CallbackCreate(GetMethod(implObj, "GetCrawlScopeManager"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.GetParameter)
+        CallbackFree(this.vtbl.SetParameter)
+        CallbackFree(this.vtbl.GetCatalogStatus)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Reindex)
+        CallbackFree(this.vtbl.ReindexMatchingURLs)
+        CallbackFree(this.vtbl.ReindexSearchRoot)
+        CallbackFree(this.vtbl.put_ConnectTimeout)
+        CallbackFree(this.vtbl.get_ConnectTimeout)
+        CallbackFree(this.vtbl.put_DataTimeout)
+        CallbackFree(this.vtbl.get_DataTimeout)
+        CallbackFree(this.vtbl.NumberOfItems)
+        CallbackFree(this.vtbl.NumberOfItemsToIndex)
+        CallbackFree(this.vtbl.URLBeingIndexed)
+        CallbackFree(this.vtbl.GetURLIndexingState)
+        CallbackFree(this.vtbl.GetPersistentItemsChangedSink)
+        CallbackFree(this.vtbl.RegisterViewForNotification)
+        CallbackFree(this.vtbl.GetItemsChangedSink)
+        CallbackFree(this.vtbl.UnregisterViewForNotification)
+        CallbackFree(this.vtbl.SetExtensionClusion)
+        CallbackFree(this.vtbl.EnumerateExcludedExtensions)
+        CallbackFree(this.vtbl.GetQueryHelper)
+        CallbackFree(this.vtbl.put_DiacriticSensitivity)
+        CallbackFree(this.vtbl.get_DiacriticSensitivity)
+        CallbackFree(this.vtbl.GetCrawlScopeManager)
     }
 }

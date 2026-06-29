@@ -1,107 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk
-#Include .\D3D12_VIDEO_ENCODE_REFERENCE_FRAMES.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
-#Include .\D3D12_VIDEO_ENCODER_MOVEREGION_INFO.ahk
-#Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS.ahk
-#Include .\D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO.ahk
-#Include .\D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_ANALYSIS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1 }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_ANALYSIS.ahk" { D3D12_VIDEO_ENCODER_FRAME_ANALYSIS }
+#Import ".\D3D12_VIDEO_ENCODE_REFERENCE_FRAMES.ahk" { D3D12_VIDEO_ENCODE_REFERENCE_FRAMES }
+#Import ".\D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO.ahk" { D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO }
+#Import ".\D3D12_VIDEO_ENCODER_MOVEREGION_INFO.ahk" { D3D12_VIDEO_ENCODER_MOVEREGION_INFO }
+#Import ".\D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP.ahk" { D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk" { D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS.ahk" { D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_DIRTY_REGIONS.ahk" { D3D12_VIDEO_ENCODER_DIRTY_REGIONS }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct {
-    static sizeof => 128
+export default struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 {
+    #StructPack 8
 
-    static packingSize => 8
+    IntraRefreshFrameIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IntraRefreshFrameIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    PictureControlCodecData : D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1}
-     */
-    PictureControlCodecData {
-        get {
-            if(!this.HasProp("__PictureControlCodecData"))
-                this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(8, this)
-            return this.__PictureControlCodecData
-        }
-    }
+    ReferenceFrames : D3D12_VIDEO_ENCODE_REFERENCE_FRAMES
 
-    /**
-     * @type {D3D12_VIDEO_ENCODE_REFERENCE_FRAMES}
-     */
-    ReferenceFrames {
-        get {
-            if(!this.HasProp("__ReferenceFrames"))
-                this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(24, this)
-            return this.__ReferenceFrames
-        }
-    }
+    MotionVectors : D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS}
-     */
-    MotionVectors {
-        get {
-            if(!this.HasProp("__MotionVectors"))
-                this.__MotionVectors := D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS(48, this)
-            return this.__MotionVectors
-        }
-    }
+    DirtyRects : D3D12_VIDEO_ENCODER_DIRTY_REGIONS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_DIRTY_REGIONS}
-     */
-    DirtyRects {
-        get {
-            if(!this.HasProp("__DirtyRects"))
-                this.__DirtyRects := D3D12_VIDEO_ENCODER_DIRTY_REGIONS(64, this)
-            return this.__DirtyRects
-        }
-    }
+    QuantizationTextureMap : D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP}
-     */
-    QuantizationTextureMap {
-        get {
-            if(!this.HasProp("__QuantizationTextureMap"))
-                this.__QuantizationTextureMap := D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP(80, this)
-            return this.__QuantizationTextureMap
-        }
-    }
+    FrameAnalysis : D3D12_VIDEO_ENCODER_FRAME_ANALYSIS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_ANALYSIS}
-     */
-    FrameAnalysis {
-        get {
-            if(!this.HasProp("__FrameAnalysis"))
-                this.__FrameAnalysis := D3D12_VIDEO_ENCODER_FRAME_ANALYSIS(88, this)
-            return this.__FrameAnalysis
-        }
-    }
 }

@@ -1,89 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TA_TRANSFORM.ahk
-#Include .\TA_TRANSFORM_TYPE.ahk
-#Include .\TA_TRANSFORM_FLAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TA_TRANSFORM_TYPE.ahk" { TA_TRANSFORM_TYPE }
+#Import ".\TA_TRANSFORM_FLAG.ahk" { TA_TRANSFORM_FLAG }
+#Import ".\TA_TRANSFORM.ahk" { TA_TRANSFORM }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  */
-class TA_TRANSFORM_CLIP extends Win32Struct {
-    static sizeof => 52
+export default struct TA_TRANSFORM_CLIP {
+    #StructPack 4
 
-    static packingSize => 4
+    header : TA_TRANSFORM
 
-    /**
-     * @type {TA_TRANSFORM}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := TA_TRANSFORM(0, this)
-            return this.__header
-        }
-    }
+    rLeft : Float32
 
-    /**
-     * @type {Float}
-     */
-    rLeft {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    rTop : Float32
 
-    /**
-     * @type {Float}
-     */
-    rTop {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    rRight : Float32
 
-    /**
-     * @type {Float}
-     */
-    rRight {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    rBottom : Float32
 
-    /**
-     * @type {Float}
-     */
-    rBottom {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    rInitialLeft : Float32
 
-    /**
-     * @type {Float}
-     */
-    rInitialLeft {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    rInitialTop : Float32
 
-    /**
-     * @type {Float}
-     */
-    rInitialTop {
-        get => NumGet(this, 40, "float")
-        set => NumPut("float", value, this, 40)
-    }
+    rInitialRight : Float32
 
-    /**
-     * @type {Float}
-     */
-    rInitialRight {
-        get => NumGet(this, 44, "float")
-        set => NumPut("float", value, this, 44)
-    }
+    rInitialBottom : Float32
 
-    /**
-     * @type {Float}
-     */
-    rInitialBottom {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
 }

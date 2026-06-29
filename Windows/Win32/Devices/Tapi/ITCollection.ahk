@@ -1,35 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITCollection interface allows Automation client applications, such as those written in Visual Basic, to retrieve collection information.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcollection
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCollection extends IDispatch {
     /**
      * The interface identifier for ITCollection
      * @type {Guid}
      */
-    static IID => Guid("{5ec5acf2-9c02-11d0-8362-00aa003ccabd}")
+    static IID := Guid("{5ec5acf2-9c02-11d0-8362-00aa003ccabd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        get_Item     : IntPtr
+        get__NewEnum : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -63,7 +73,7 @@ class ITCollection extends IDispatch {
      */
     get_Item(Index) {
         pVariant := VARIANT()
-        result := ComCall(8, this, "int", Index, "ptr", pVariant, "HRESULT")
+        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -93,5 +103,29 @@ class ITCollection extends IDispatch {
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
         return IUnknown(ppNewEnum)
+    }
+
+    Query(iid) {
+        if (ITCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
     }
 }

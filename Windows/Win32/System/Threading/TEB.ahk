@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEB.ahk" { PEB }
 
 /**
  * The Thread Environment Block (TEB structure) describes the state of a thread.
@@ -32,109 +31,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-teb
  * @namespace Windows.Win32.System.Threading
  */
-class TEB extends Win32Struct {
-    static sizeof => 6024
+export default struct TEB {
+    #StructPack 8
 
-    static packingSize => 8
+    Reserved1 : IntPtr[12]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "ptr")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    ProcessEnvironmentBlock : PEB.Ptr
 
-    /**
-     * @type {Pointer<PEB>}
-     */
-    ProcessEnvironmentBlock {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Reserved2 : IntPtr[399]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 104, 399, Primitive, "ptr")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved3 : Int8[1952]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3296, 1952, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    TlsSlots : IntPtr[64]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    TlsSlots {
-        get {
-            if(!this.HasProp("__TlsSlotsProxyArray"))
-                this.__TlsSlotsProxyArray := Win32FixedArray(this.ptr + 5248, 64, Primitive, "ptr")
-            return this.__TlsSlotsProxyArray
-        }
-    }
+    Reserved4 : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved4 {
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 5760, 8, Primitive, "char")
-            return this.__Reserved4ProxyArray
-        }
-    }
+    Reserved5 : IntPtr[26]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved5 {
-        get {
-            if(!this.HasProp("__Reserved5ProxyArray"))
-                this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 5768, 26, Primitive, "ptr")
-            return this.__Reserved5ProxyArray
-        }
-    }
+    ReservedForOle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ReservedForOle {
-        get => NumGet(this, 5976, "ptr")
-        set => NumPut("ptr", value, this, 5976)
-    }
+    Reserved6 : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved6 {
-        get {
-            if(!this.HasProp("__Reserved6ProxyArray"))
-                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 5984, 4, Primitive, "ptr")
-            return this.__Reserved6ProxyArray
-        }
-    }
+    TlsExpansionSlots : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TlsExpansionSlots {
-        get => NumGet(this, 6016, "ptr")
-        set => NumPut("ptr", value, this, 6016)
-    }
 }

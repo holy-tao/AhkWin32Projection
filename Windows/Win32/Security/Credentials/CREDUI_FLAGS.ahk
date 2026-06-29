@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentialsW</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentialsW</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentialsW</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentialsW</see>.
  * @namespace Windows.Win32.Security.Credentials
  */
-class CREDUI_FLAGS extends Win32BitflagEnum {
+export default struct CREDUI_FLAGS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MXDC\_XPS\_S0PAGE\_RESOURCE\_T structure holds information about a resource, such as an image or font, that is associated with an XPS document page, and is to be passed to the Microsoft XPS Document Converter (MXDC) output file.
@@ -12,59 +11,32 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcxpss0pageresource
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct {
-    static sizeof => 276
-
-    static packingSize => 4
+export default struct MXDC_XPS_S0PAGE_RESOURCE_T {
+    #StructPack 4
 
     /**
      * The total size of this structure and the resource to which it points.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * A value of type [**MXDC\_S0\_PAGE\_ENUMS**](mxdcs0pageenums.md) indicating the type of resource, such as TIFF image or TrueType font.
-     * @type {Integer}
      */
-    dwResourceType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwResourceType : UInt32
 
     /**
      * The URI of the resource. This cannot be more than 260 bytes.
-     * @type {Array<Integer>}
      */
-    szUri {
-        get {
-            if(!this.HasProp("__szUriProxyArray"))
-                this.__szUriProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
-            return this.__szUriProxyArray
-        }
-    }
+    szUri : Int8[260]
 
     /**
      * The size of the resource in bytes.
-     * @type {Integer}
      */
-    dwDataSize {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    dwDataSize : UInt32
 
     /**
      * The data of the resource in an array of bytes with size 1 + the size of the resource.
-     * @type {Array<Integer>}
      */
-    bData {
-        get {
-            if(!this.HasProp("__bDataProxyArray"))
-                this.__bDataProxyArray := Win32FixedArray(this.ptr + 272, 1, Primitive, "char")
-            return this.__bDataProxyArray
-        }
-    }
+    bData : Int8[1]
+
 }

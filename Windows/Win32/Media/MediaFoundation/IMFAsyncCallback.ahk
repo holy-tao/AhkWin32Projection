@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Callback interface to notify the application when an asynchronous method completes. (IMFAsyncCallback)
@@ -20,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfasynccallback
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFAsyncCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFAsyncCallback extends IUnknown {
     /**
      * The interface identifier for IMFAsyncCallback
      * @type {Guid}
      */
-    static IID => Guid("{a27003cf-2354-4f2a-8d6a-ab7cff15437e}")
+    static IID := Guid("{a27003cf-2354-4f2a-8d6a-ab7cff15437e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFAsyncCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetParameters : IntPtr
+        Invoke        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetParameters", "Invoke"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFAsyncCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides configuration information to the dispatching thread for a callback. (IMFAsyncCallback.GetParameters)
@@ -211,5 +221,27 @@ class IMFAsyncCallback extends IUnknown {
     Invoke(pAsyncResult) {
         result := ComCall(4, this, "ptr", pAsyncResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFAsyncCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 3)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetParameters)
+        CallbackFree(this.vtbl.Invoke)
     }
 }

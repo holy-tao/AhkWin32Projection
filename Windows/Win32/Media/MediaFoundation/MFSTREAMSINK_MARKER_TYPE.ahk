@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines stream marker information for the IMFStreamSink::PlaceMarker method.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfstreamsink_marker_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFSTREAMSINK_MARKER_TYPE extends Win32Enum {
+export default struct MFSTREAMSINK_MARKER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This marker is for the application's use and does not convey any information to the stream sink.

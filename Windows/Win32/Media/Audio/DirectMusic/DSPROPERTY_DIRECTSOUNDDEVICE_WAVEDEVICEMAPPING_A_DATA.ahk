@@ -1,36 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DIRECTSOUNDDEVICE_DATAFLOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIRECTSOUNDDEVICE_DATAFLOW.ahk" { DIRECTSOUNDDEVICE_DATAFLOW }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    DeviceName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DataFlow : DIRECTSOUNDDEVICE_DATAFLOW
 
-    /**
-     * @type {DIRECTSOUNDDEVICE_DATAFLOW}
-     */
-    DataFlow {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DeviceId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

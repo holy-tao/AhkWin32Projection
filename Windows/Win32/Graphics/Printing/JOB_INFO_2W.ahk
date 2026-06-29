@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEW.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 
 /**
  * The JOB\_INFO\_2 structure describes a full set of values associated with a job.
@@ -12,130 +12,73 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class JOB_INFO_2W extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct JOB_INFO_2W {
+    #StructPack 8
 
     /**
      * A job identifier value.
-     * @type {Integer}
      */
-    JobId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    JobId : UInt32
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer for which the job is spooled.
-     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPrinterName : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the machine that created the print job.
-     * @type {PWSTR}
      */
-    pMachineName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pMachineName : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the user who owns the print job.
-     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pUserName : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print job (for example, "MS-WORD: Review.doc").
-     * @type {PWSTR}
      */
-    pDocument {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pDocument : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the user who should be notified when the job has been printed or when an error occurs while printing the job.
-     * @type {PWSTR}
      */
-    pNotifyName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pNotifyName : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the type of data used to record the print job.
-     * @type {PWSTR}
      */
-    pDatatype {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pDatatype : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print processor that should be used to print the job.
-     * @type {PWSTR}
      */
-    pPrintProcessor {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pPrintProcessor : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies print-processor parameters.
-     * @type {PWSTR}
      */
-    pParameters {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pParameters : PWSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer driver that should be used to process the print job.
-     * @type {PWSTR}
      */
-    pDriverName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pDriverName : PWSTR
 
     /**
      * A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that contains device-initialization and environment data for the printer driver.
-     * @type {Pointer<DEVMODEW>}
      */
-    pDevMode {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pDevMode : DEVMODEW.Ptr
 
     /**
      * A pointer to a null-terminated string that specifies the status of the print job. This member should be checked prior to **Status** and, if **pStatus** is **NULL**, the status is defined by the contents of the Status member.
-     * @type {PWSTR}
      */
-    pStatus {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pStatus : PWSTR
 
     /**
      * The value of this member is **NULL**. Retrieval and setting of document security descriptors is not supported in this release.
-     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
-            return this.__pSecurityDescriptor
-        }
-    }
+    pSecurityDescriptor : PSECURITY_DESCRIPTOR
 
     /**
      * The job status. This member can be one or more of the following values.
@@ -165,12 +108,8 @@ class JOB_INFO_2W extends Win32Struct {
      * |-----------------------|-----------------------------------------------------------------------------------------------|
      * | JOB\_STATUS\_COMPLETE | The job is sent to the printer, but may not be printed yet. See Remarks for more information. |
      * | JOB\_STATUS\_RETAINED | The job has been retained in the print queue following printing.                              |
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    Status : UInt32
 
     /**
      * The job priority. This member can be one of the following values or in the range between 1 through 99 (MIN\_PRIORITY through MAX\_PRIORITY).
@@ -182,87 +121,49 @@ class JOB_INFO_2W extends Win32Struct {
      * | MIN\_PRIORITY | Minimum priority. |
      * | MAX\_PRIORITY | Maximum priority. |
      * | DEF\_PRIORITY | Default priority. |
-     * @type {Integer}
      */
-    Priority {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    Priority : UInt32
 
     /**
      * The job's position in the print queue.
-     * @type {Integer}
      */
-    Position {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    Position : UInt32
 
     /**
      * The earliest time that the job can be printed.
-     * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    StartTime : UInt32
 
     /**
      * The latest time that the job can be printed.
-     * @type {Integer}
      */
-    UntilTime {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    UntilTime : UInt32
 
     /**
      * The number of pages required for the job. This value may be zero if the print job does not contain page delimiting information.
-     * @type {Integer}
      */
-    TotalPages {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    TotalPages : UInt32
 
     /**
      * The size, in bytes, of the job.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    Size : UInt32
 
     /**
      * A [**SYSTEMTIME**](/windows/desktop/api/minwinbase/ns-minwinbase-systemtime) structure that specifies the time when the job was submitted.
      * 
      * This time value is in Universal Time Coordinate (UTC) format. You should convert it to a local time value before displaying it. You can use the [**FileTimeToLocalFileTime**](/windows/desktop/api/fileapi/nf-fileapi-filetimetolocalfiletime) function to perform the conversion.
-     * @type {SYSTEMTIME}
      */
-    Submitted {
-        get {
-            if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(132, this)
-            return this.__Submitted
-        }
-    }
+    Submitted : SYSTEMTIME
 
     /**
      * The total time, in milliseconds, that has elapsed since the job began printing.
-     * @type {Integer}
      */
-    Time {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    Time : UInt32
 
     /**
      * The number of pages that have printed. This value may be zero if the print job does not contain page delimiting information.
-     * @type {Integer}
      */
-    PagesPrinted {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    PagesPrinted : UInt32
+
 }

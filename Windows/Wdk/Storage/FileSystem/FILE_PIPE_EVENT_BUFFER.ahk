@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_PIPE_EVENT_BUFFER extends Win32Struct {
-    static sizeof => 20
+export default struct FILE_PIPE_EVENT_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    NamedPipeState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NamedPipeState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EntryType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntryType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ByteCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    KeyValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumberRequests : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberRequests {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

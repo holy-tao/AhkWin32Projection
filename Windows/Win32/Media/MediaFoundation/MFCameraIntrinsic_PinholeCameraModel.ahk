@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MF_FLOAT2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
 
 /**
  * Represents a pinhole camera model.
@@ -11,32 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraintrinsic_pinholecameramodel
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCameraIntrinsic_PinholeCameraModel extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MFCameraIntrinsic_PinholeCameraModel {
+    #StructPack 4
 
     /**
      * The focal length of the camera.
-     * @type {MF_FLOAT2}
      */
-    FocalLength {
-        get {
-            if(!this.HasProp("__FocalLength"))
-                this.__FocalLength := MF_FLOAT2(0, this)
-            return this.__FocalLength
-        }
-    }
+    FocalLength : MF_FLOAT2
 
     /**
      * The principal point of the camera.
-     * @type {MF_FLOAT2}
      */
-    PrincipalPoint {
-        get {
-            if(!this.HasProp("__PrincipalPoint"))
-                this.__PrincipalPoint := MF_FLOAT2(8, this)
-            return this.__PrincipalPoint
-        }
-    }
+    PrincipalPoint : MF_FLOAT2
+
 }

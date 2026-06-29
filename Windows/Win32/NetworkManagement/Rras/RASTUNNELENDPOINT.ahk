@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASTUNNELENDPOINT extends Win32Struct {
-    static sizeof => 20
+export default struct RASTUNNELENDPOINT {
+    #StructPack 4
 
-    static packingSize => 4
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ipv4 : IN_ADDR
 
-    /**
-     * @type {IN_ADDR}
-     */
-    ipv4 {
-        get {
-            if(!this.HasProp("__ipv4"))
-                this.__ipv4 := IN_ADDR(4, this)
-            return this.__ipv4
-        }
-    }
-
-    /**
-     * @type {IN6_ADDR}
-     */
-    ipv6 {
-        get {
-            if(!this.HasProp("__ipv6"))
-                this.__ipv6 := IN6_ADDR(4, this)
-            return this.__ipv6
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ipv6', { type: IN6_ADDR, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

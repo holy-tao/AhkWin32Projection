@@ -1,32 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\CARET_DIRECTION.ahk" { CARET_DIRECTION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDisplayPointer.ahk" { IDisplayPointer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLCaret extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLCaret extends IUnknown {
     /**
      * The interface identifier for IHTMLCaret
      * @type {Guid}
      */
-    static IID => Guid("{3050f604-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f604-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLCaret interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MoveCaretToPointer        : IntPtr
+        MoveCaretToPointerEx      : IntPtr
+        MoveMarkupPointerToCaret  : IntPtr
+        MoveDisplayPointerToCaret : IntPtr
+        IsVisible                 : IntPtr
+        Show                      : IntPtr
+        Hide                      : IntPtr
+        InsertText                : IntPtr
+        ScrollIntoView            : IntPtr
+        GetLocation               : IntPtr
+        GetCaretDirection         : IntPtr
+        SetCaretDirection         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MoveCaretToPointer", "MoveCaretToPointerEx", "MoveMarkupPointerToCaret", "MoveDisplayPointerToCaret", "IsVisible", "Show", "Hide", "InsertText", "ScrollIntoView", "GetLocation", "GetCaretDirection", "SetCaretDirection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLCaret.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +60,7 @@ class IHTMLCaret extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveCaretToPointer(pDispPointer, fScrollIntoView, eDir) {
-        result := ComCall(3, this, "ptr", pDispPointer, "int", fScrollIntoView, "int", eDir, "HRESULT")
+        result := ComCall(3, this, "ptr", pDispPointer, BOOL, fScrollIntoView, CARET_DIRECTION, eDir, "HRESULT")
         return result
     }
 
@@ -49,7 +73,7 @@ class IHTMLCaret extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveCaretToPointerEx(pDispPointer, fVisible, fScrollIntoView, eDir) {
-        result := ComCall(4, this, "ptr", pDispPointer, "int", fVisible, "int", fScrollIntoView, "int", eDir, "HRESULT")
+        result := ComCall(4, this, "ptr", pDispPointer, BOOL, fVisible, BOOL, fScrollIntoView, CARET_DIRECTION, eDir, "HRESULT")
         return result
     }
 
@@ -78,28 +102,17 @@ class IHTMLCaret extends IUnknown {
      * @returns {BOOL} 
      */
     IsVisible() {
-        result := ComCall(7, this, "int*", &pIsVisible := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pIsVisible := 0, "HRESULT")
         return pIsVisible
     }
 
     /**
-     * Makes the caret visible on the screen at the caret's current position. When the caret becomes visible, it begins flashing automatically.
-     * @remarks
-     * <b>ShowCaret</b> shows the caret only if the specified window owns the caret, the caret has a shape, and the caret has not been hidden two or more times in a row. If one or more of these conditions is not met, <b>ShowCaret</b> does nothing and returns <b>FALSE</b>. 
      * 
-     * Hiding is cumulative. If your application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-hidecaret">HideCaret</a> five times in a row, it must also call <b>ShowCaret</b> five times before the caret reappears. 
-     * 
-     * The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.
      * @param {BOOL} fScrollIntoView 
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcaret
+     * @returns {HRESULT} 
      */
     Show(fScrollIntoView) {
-        result := ComCall(8, this, "int", fScrollIntoView, "HRESULT")
+        result := ComCall(8, this, BOOL, fScrollIntoView, "HRESULT")
         return result
     }
 
@@ -156,7 +169,7 @@ class IHTMLCaret extends IUnknown {
      */
     GetLocation(fTranslate) {
         pPoint := POINT()
-        result := ComCall(12, this, "ptr", pPoint, "int", fTranslate, "HRESULT")
+        result := ComCall(12, this, POINT.Ptr, pPoint, BOOL, fTranslate, "HRESULT")
         return pPoint
     }
 
@@ -175,7 +188,49 @@ class IHTMLCaret extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCaretDirection(eDir) {
-        result := ComCall(14, this, "int", eDir, "HRESULT")
+        result := ComCall(14, this, CARET_DIRECTION, eDir, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLCaret.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MoveCaretToPointer := CallbackCreate(GetMethod(implObj, "MoveCaretToPointer"), flags, 4)
+        this.vtbl.MoveCaretToPointerEx := CallbackCreate(GetMethod(implObj, "MoveCaretToPointerEx"), flags, 5)
+        this.vtbl.MoveMarkupPointerToCaret := CallbackCreate(GetMethod(implObj, "MoveMarkupPointerToCaret"), flags, 2)
+        this.vtbl.MoveDisplayPointerToCaret := CallbackCreate(GetMethod(implObj, "MoveDisplayPointerToCaret"), flags, 2)
+        this.vtbl.IsVisible := CallbackCreate(GetMethod(implObj, "IsVisible"), flags, 2)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Hide := CallbackCreate(GetMethod(implObj, "Hide"), flags, 1)
+        this.vtbl.InsertText := CallbackCreate(GetMethod(implObj, "InsertText"), flags, 3)
+        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 1)
+        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 3)
+        this.vtbl.GetCaretDirection := CallbackCreate(GetMethod(implObj, "GetCaretDirection"), flags, 2)
+        this.vtbl.SetCaretDirection := CallbackCreate(GetMethod(implObj, "SetCaretDirection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MoveCaretToPointer)
+        CallbackFree(this.vtbl.MoveCaretToPointerEx)
+        CallbackFree(this.vtbl.MoveMarkupPointerToCaret)
+        CallbackFree(this.vtbl.MoveDisplayPointerToCaret)
+        CallbackFree(this.vtbl.IsVisible)
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.Hide)
+        CallbackFree(this.vtbl.InsertText)
+        CallbackFree(this.vtbl.ScrollIntoView)
+        CallbackFree(this.vtbl.GetLocation)
+        CallbackFree(this.vtbl.GetCaretDirection)
+        CallbackFree(this.vtbl.SetCaretDirection)
     }
 }

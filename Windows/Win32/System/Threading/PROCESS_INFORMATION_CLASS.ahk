@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates a specific class of process information.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-process_information_class
  * @namespace Windows.Win32.System.Threading
  */
-class PROCESS_INFORMATION_CLASS extends Win32Enum {
+export default struct PROCESS_INFORMATION_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The process information is represented by a <a href="https://docs.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-memory_priority_information">MEMORY_PRIORITY_INFORMATION</a> structure. Allows applications to lower the default memory priority of threads that perform background operations or access files and data that are not expected to be accessed again soon.

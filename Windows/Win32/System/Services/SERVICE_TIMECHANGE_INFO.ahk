@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains system time change settings.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_timechange_info
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_TIMECHANGE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SERVICE_TIMECHANGE_INFO {
+    #StructPack 8
 
     /**
      * The new system time.
-     * @type {Integer}
      */
-    liNewTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    liNewTime : Int64
 
     /**
      * The previous system time.
-     * @type {Integer}
      */
-    liOldTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    liOldTime : Int64
+
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices
  */
-class IEEE1394_VDEV_PNP_REQUEST extends Win32Struct {
-    static sizeof => 24
+export default struct IEEE1394_VDEV_PNP_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    fulFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InstanceId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InstanceId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeviceId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DeviceId {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

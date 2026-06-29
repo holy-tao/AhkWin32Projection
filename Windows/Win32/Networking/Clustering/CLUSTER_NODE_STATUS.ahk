@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSTER_NODE_STATUS enumeration (msclus.h) describes the status of a cluster node.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_node_status
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_NODE_STATUS extends Win32Enum {
+export default struct CLUSTER_NODE_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The node status is normal.

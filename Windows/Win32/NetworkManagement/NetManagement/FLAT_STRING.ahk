@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class FLAT_STRING extends Win32Struct {
-    static sizeof => 6
+export default struct FLAT_STRING {
+    #StructPack 2
 
-    static packingSize => 2
+    MaximumLength : Int16
 
-    /**
-     * @type {Integer}
-     */
-    MaximumLength {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Length : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Buffer : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Buffer {
-        get => StrGet(this.ptr + 4, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 0, "UTF-8")
-    }
 }

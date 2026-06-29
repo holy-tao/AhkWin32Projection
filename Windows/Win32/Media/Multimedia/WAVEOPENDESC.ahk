@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\HWAVE.ahk
-#Include ..\Audio\WAVEFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Audio\WAVEFORMAT.ahk" { WAVEFORMAT }
+#Import "..\Audio\HWAVE.ahk" { HWAVE }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class WAVEOPENDESC extends Win32Struct {
-    static sizeof => 48
+export default struct WAVEOPENDESC {
+    #StructPack 8
 
-    static packingSize => 8
+    hWave : HWAVE
 
-    /**
-     * @type {HWAVE}
-     */
-    hWave {
-        get {
-            if(!this.HasProp("__hWave"))
-                this.__hWave := HWAVE(0, this)
-            return this.__hWave
-        }
-    }
+    lpFormat : WAVEFORMAT.Ptr
 
-    /**
-     * @type {Pointer<WAVEFORMAT>}
-     */
-    lpFormat {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwCallback : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwCallback {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwInstance : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwInstance {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    uMappedDeviceID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMappedDeviceID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dnDevNode : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dnDevNode {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

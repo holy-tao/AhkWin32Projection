@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_RSSI_RANGE extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_RSSI_RANGE {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11PhyType : DOT11_PHY_TYPE
 
-    /**
-     * @type {DOT11_PHY_TYPE}
-     */
-    dot11PhyType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uRSSIMin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRSSIMin {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uRSSIMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRSSIMax {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

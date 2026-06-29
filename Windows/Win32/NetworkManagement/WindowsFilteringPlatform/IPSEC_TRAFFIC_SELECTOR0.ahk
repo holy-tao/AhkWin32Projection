@@ -1,82 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct {
-    static sizeof => 44
+export default struct IPSEC_TRAFFIC_SELECTOR0 {
+    #StructPack 4
 
-    static packingSize => 4
+    protocolId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    protocolId {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    portStart : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    portStart {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    portEnd : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    portEnd {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ipVersion : FWP_IP_VERSION
 
-    /**
-     * @type {FWP_IP_VERSION}
-     */
-    ipVersion {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    startV4Address : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    startV4Address {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    endV4Address : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    startV6Address {
-        get {
-            if(!this.HasProp("__startV6AddressProxyArray"))
-                this.__startV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
-            return this.__startV6AddressProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    endV4Address {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    endV6Address {
-        get {
-            if(!this.HasProp("__endV6AddressProxyArray"))
-                this.__endV6AddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
-            return this.__endV6AddressProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'startV6Address', { type: Int8[16], offset: 12 })
+        DefineProp(this.Prototype, 'endV6Address', { type: Int8[16], offset: 28 })
+        this.DeleteProp("__New")
     }
 }

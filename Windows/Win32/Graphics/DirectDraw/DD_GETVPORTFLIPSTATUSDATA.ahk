@@ -1,50 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The DD_GETVPORTFLIPSTATUSDATA structure contains the flip status information for the specified surface.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportflipstatusdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_GETVPORTFLIPSTATUSDATA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DD_GETVPORTFLIPSTATUSDATA {
+    #StructPack 8
 
     /**
      * Points to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDD : DD_DIRECTDRAW_LOCAL.Ptr
 
     /**
      * Points to the surface for which the flip status information is required.
-     * @type {Pointer}
      */
-    fpSurface {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    fpSurface : IntPtr
 
     /**
      * Specifies the location in which the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getflipstatus">DdVideoPortGetFlipStatus</a> callback. A return code of DD_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">Return Values for DirectDraw</a>.
-     * @type {HRESULT}
      */
-    ddRVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ddRVal : HRESULT
 
     /**
      * Used by the DirectDraw API and should not be filled in by the driver.
-     * @type {Pointer<Void>}
      */
-    GetVideoPortFlipStatus {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GetVideoPortFlipStatus : IntPtr
+
 }

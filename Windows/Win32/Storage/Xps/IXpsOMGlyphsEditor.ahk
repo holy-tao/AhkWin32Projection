@@ -1,35 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\XPS_GLYPH_INDEX.ahk
-#Include .\XPS_GLYPH_MAPPING.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows batch modification of properties that affect the text content in an IXpsOMGlyphs interface.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphseditor
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMGlyphsEditor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMGlyphsEditor extends IUnknown {
     /**
      * The interface identifier for IXpsOMGlyphsEditor
      * @type {Guid}
      */
-    static IID => Guid("{a5ab8616-5b16-4b9f-9629-89b323ed7909}")
+    static IID := Guid("{a5ab8616-5b16-4b9f-9629-89b323ed7909}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMGlyphsEditor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ApplyEdits                  : IntPtr
+        GetUnicodeString            : IntPtr
+        SetUnicodeString            : IntPtr
+        GetGlyphIndexCount          : IntPtr
+        GetGlyphIndices             : IntPtr
+        SetGlyphIndices             : IntPtr
+        GetGlyphMappingCount        : IntPtr
+        GetGlyphMappings            : IntPtr
+        SetGlyphMappings            : IntPtr
+        GetProhibitedCaretStopCount : IntPtr
+        GetProhibitedCaretStops     : IntPtr
+        SetProhibitedCaretStops     : IntPtr
+        GetBidiLevel                : IntPtr
+        SetBidiLevel                : IntPtr
+        GetIsSideways               : IntPtr
+        SetIsSideways               : IntPtr
+        GetDeviceFontName           : IntPtr
+        SetDeviceFontName           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ApplyEdits", "GetUnicodeString", "SetUnicodeString", "GetGlyphIndexCount", "GetGlyphIndices", "SetGlyphIndices", "GetGlyphMappingCount", "GetGlyphMappings", "SetGlyphMappings", "GetProhibitedCaretStopCount", "GetProhibitedCaretStops", "SetProhibitedCaretStops", "GetBidiLevel", "SetBidiLevel", "GetIsSideways", "SetIsSideways", "GetDeviceFontName", "SetDeviceFontName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMGlyphsEditor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Performs cross-property validation and then copies the changes to the parent IXpsOMGlyphs interface.
@@ -161,7 +188,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getunicodestring
      */
     GetUnicodeString() {
-        result := ComCall(4, this, "ptr*", &unicodeString := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &unicodeString := 0, "HRESULT")
         return unicodeString
     }
 
@@ -205,7 +232,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
         indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
 
         glyphIndices := XPS_GLYPH_INDEX()
-        result := ComCall(7, this, indexCountMarshal, indexCount, "ptr", glyphIndices, "HRESULT")
+        result := ComCall(7, this, indexCountMarshal, indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
         return glyphIndices
     }
 
@@ -281,7 +308,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setglyphindices
      */
     SetGlyphIndices(indexCount, glyphIndices) {
-        result := ComCall(8, this, "uint", indexCount, "ptr", glyphIndices, "HRESULT")
+        result := ComCall(8, this, "uint", indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
         return result
     }
 
@@ -309,7 +336,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
         glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
 
         glyphMappings := XPS_GLYPH_MAPPING()
-        result := ComCall(10, this, glyphMappingCountMarshal, glyphMappingCount, "ptr", glyphMappings, "HRESULT")
+        result := ComCall(10, this, glyphMappingCountMarshal, glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
         return glyphMappings
     }
 
@@ -373,7 +400,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setglyphmappings
      */
     SetGlyphMappings(glyphMappingCount, glyphMappings) {
-        result := ComCall(11, this, "uint", glyphMappingCount, "ptr", glyphMappings, "HRESULT")
+        result := ComCall(11, this, "uint", glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
         return result
     }
 
@@ -564,7 +591,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getissideways
      */
     GetIsSideways() {
-        result := ComCall(17, this, "int*", &isSideways := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &isSideways := 0, "HRESULT")
         return isSideways
     }
 
@@ -602,7 +629,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setissideways
      */
     SetIsSideways(isSideways) {
-        result := ComCall(18, this, "int", isSideways, "HRESULT")
+        result := ComCall(18, this, BOOL, isSideways, "HRESULT")
         return result
     }
 
@@ -618,7 +645,7 @@ class IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getdevicefontname
      */
     GetDeviceFontName() {
-        result := ComCall(19, this, "ptr*", &deviceFontName := 0, "HRESULT")
+        result := ComCall(19, this, PWSTR.Ptr, &deviceFontName := 0, "HRESULT")
         return deviceFontName
     }
 
@@ -635,5 +662,59 @@ class IXpsOMGlyphsEditor extends IUnknown {
 
         result := ComCall(20, this, "ptr", deviceFontName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMGlyphsEditor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ApplyEdits := CallbackCreate(GetMethod(implObj, "ApplyEdits"), flags, 1)
+        this.vtbl.GetUnicodeString := CallbackCreate(GetMethod(implObj, "GetUnicodeString"), flags, 2)
+        this.vtbl.SetUnicodeString := CallbackCreate(GetMethod(implObj, "SetUnicodeString"), flags, 2)
+        this.vtbl.GetGlyphIndexCount := CallbackCreate(GetMethod(implObj, "GetGlyphIndexCount"), flags, 2)
+        this.vtbl.GetGlyphIndices := CallbackCreate(GetMethod(implObj, "GetGlyphIndices"), flags, 3)
+        this.vtbl.SetGlyphIndices := CallbackCreate(GetMethod(implObj, "SetGlyphIndices"), flags, 3)
+        this.vtbl.GetGlyphMappingCount := CallbackCreate(GetMethod(implObj, "GetGlyphMappingCount"), flags, 2)
+        this.vtbl.GetGlyphMappings := CallbackCreate(GetMethod(implObj, "GetGlyphMappings"), flags, 3)
+        this.vtbl.SetGlyphMappings := CallbackCreate(GetMethod(implObj, "SetGlyphMappings"), flags, 3)
+        this.vtbl.GetProhibitedCaretStopCount := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStopCount"), flags, 2)
+        this.vtbl.GetProhibitedCaretStops := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStops"), flags, 3)
+        this.vtbl.SetProhibitedCaretStops := CallbackCreate(GetMethod(implObj, "SetProhibitedCaretStops"), flags, 3)
+        this.vtbl.GetBidiLevel := CallbackCreate(GetMethod(implObj, "GetBidiLevel"), flags, 2)
+        this.vtbl.SetBidiLevel := CallbackCreate(GetMethod(implObj, "SetBidiLevel"), flags, 2)
+        this.vtbl.GetIsSideways := CallbackCreate(GetMethod(implObj, "GetIsSideways"), flags, 2)
+        this.vtbl.SetIsSideways := CallbackCreate(GetMethod(implObj, "SetIsSideways"), flags, 2)
+        this.vtbl.GetDeviceFontName := CallbackCreate(GetMethod(implObj, "GetDeviceFontName"), flags, 2)
+        this.vtbl.SetDeviceFontName := CallbackCreate(GetMethod(implObj, "SetDeviceFontName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ApplyEdits)
+        CallbackFree(this.vtbl.GetUnicodeString)
+        CallbackFree(this.vtbl.SetUnicodeString)
+        CallbackFree(this.vtbl.GetGlyphIndexCount)
+        CallbackFree(this.vtbl.GetGlyphIndices)
+        CallbackFree(this.vtbl.SetGlyphIndices)
+        CallbackFree(this.vtbl.GetGlyphMappingCount)
+        CallbackFree(this.vtbl.GetGlyphMappings)
+        CallbackFree(this.vtbl.SetGlyphMappings)
+        CallbackFree(this.vtbl.GetProhibitedCaretStopCount)
+        CallbackFree(this.vtbl.GetProhibitedCaretStops)
+        CallbackFree(this.vtbl.SetProhibitedCaretStops)
+        CallbackFree(this.vtbl.GetBidiLevel)
+        CallbackFree(this.vtbl.SetBidiLevel)
+        CallbackFree(this.vtbl.GetIsSideways)
+        CallbackFree(this.vtbl.SetIsSideways)
+        CallbackFree(this.vtbl.GetDeviceFontName)
+        CallbackFree(this.vtbl.SetDeviceFontName)
     }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\DxMediaObjects\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets the private codec data that must be appended to the output media type. This codec data is required for properly decoding Windows Media Video content.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecprivatedata
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IWMCodecPrivateData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMCodecPrivateData extends IUnknown {
     /**
      * The interface identifier for IWMCodecPrivateData
      * @type {Guid}
      */
-    static IID => Guid("{73f0be8e-57f7-4f01-aa66-9f57340cfe0e}")
+    static IID := Guid("{73f0be8e-57f7-4f01-aa66-9f57340cfe0e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMCodecPrivateData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetPartialOutputType : IntPtr
+        GetPrivateData       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPartialOutputType", "GetPrivateData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMCodecPrivateData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gives the codec the output media type without the codec data. This enables the codec to generate the private data.
@@ -60,7 +70,7 @@ class IWMCodecPrivateData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-setpartialoutputtype
      */
     SetPartialOutputType(pmt) {
-        result := ComCall(3, this, "ptr", pmt, "HRESULT")
+        result := ComCall(3, this, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return result
     }
 
@@ -101,5 +111,27 @@ class IWMCodecPrivateData extends IUnknown {
 
         result := ComCall(4, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMCodecPrivateData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPartialOutputType := CallbackCreate(GetMethod(implObj, "SetPartialOutputType"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPartialOutputType)
+        CallbackFree(this.vtbl.GetPrivateData)
     }
 }

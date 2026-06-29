@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values indicating status that is specific to a particular command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_command_specific_codes
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_STATUS_COMMAND_SPECIFIC_CODES extends Win32Enum {
+export default struct NVME_STATUS_COMMAND_SPECIFIC_CODES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Completion Queue identifier specified in the Create I/O Submission Queue command does not exist.

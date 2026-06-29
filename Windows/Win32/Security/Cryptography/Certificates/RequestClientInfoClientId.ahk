@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of application that created a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class RequestClientInfoClientId extends Win32Enum {
+export default struct RequestClientInfoClientId {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No client identifier is specified.

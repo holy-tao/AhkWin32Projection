@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_READER_ENCODING.ahk
-#Include .\WS_XML_READER_ENCODING_TYPE.ahk
-#Include .\WS_XML_DICTIONARY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_READER_ENCODING.ahk" { WS_XML_READER_ENCODING }
+#Import ".\WS_XML_READER_ENCODING_TYPE.ahk" { WS_XML_READER_ENCODING_TYPE }
+#Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
 
 /**
  * Used to indicate that the reader should interpret the bytes it reads as binary xml.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_binary_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_READER_BINARY_ENCODING extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WS_XML_READER_BINARY_ENCODING {
+    #StructPack 8
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_encoding">WS_XML_READER_ENCODING</a>.
-     * @type {WS_XML_READER_ENCODING}
      */
-    encoding {
-        get {
-            if(!this.HasProp("__encoding"))
-                this.__encoding := WS_XML_READER_ENCODING(0, this)
-            return this.__encoding
-        }
-    }
+    encoding : WS_XML_READER_ENCODING
 
     /**
      * Indicates the dictionary that the reader should use for static strings.  The binary representation of the xml
      *           document references these strings by id (as opposed to embedding the actual string), and therefore they must contain 
      *           the same set of strings used when the document was written.
-     * @type {Pointer<WS_XML_DICTIONARY>}
      */
-    staticDictionary {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    staticDictionary : WS_XML_DICTIONARY.Ptr
 
     /**
      * Indicates the dictionary that the reader should use for dynamic strings. These are strings that were not in the 
@@ -43,10 +29,7 @@ class WS_XML_READER_BINARY_ENCODING extends Win32Struct {
      *           The binary representation of the xml document references these strings by id (as opposed to embedding the actual string), 
      *           and therefore they must contain the same set of strings used when the document was written.
      *           The application that uses the reader and writer must coordinate communicating the values referenced by these strings.
-     * @type {Pointer<WS_XML_DICTIONARY>}
      */
-    dynamicDictionary {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dynamicDictionary : WS_XML_DICTIONARY.Ptr
+
 }

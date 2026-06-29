@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_CPU_SPEED_INFO extends Win32Struct {
-    static sizeof => 524
+export default struct DEBUG_CPU_SPEED_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CurrentSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentSpeed {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RatedSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RatedSpeed {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NameString : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    NameString {
-        get => StrGet(this.ptr + 12, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 255, "UTF-16")
-    }
 }

@@ -1,107 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12GraphicsCommandList.ahk
-#Include .\ID3D12CommandQueue.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_OP.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_NODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
+#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import ".\D3D12_AUTO_BREADCRUMB_OP.ahk" { D3D12_AUTO_BREADCRUMB_OP }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents Device Removed Extended Data (DRED) auto-breadcrumb data as a node in a linked list.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_auto_breadcrumb_node
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct D3D12_AUTO_BREADCRUMB_NODE {
+    #StructPack 8
 
     /**
      * A pointer to the ANSI debug name of the outstanding command list (if any).
-     * @type {Pointer<Integer>}
      */
-    pCommandListDebugNameA {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pCommandListDebugNameA : IntPtr
 
     /**
      * A pointer to the wide debug name of the outstanding command list (if any).
-     * @type {PWSTR}
      */
-    pCommandListDebugNameW {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCommandListDebugNameW : PWSTR
 
     /**
      * A pointer to the ANSI debug name of the outstanding command queue (if any).
-     * @type {Pointer<Integer>}
      */
-    pCommandQueueDebugNameA {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pCommandQueueDebugNameA : IntPtr
 
     /**
      * A pointer to the wide debug name of the outstanding command queue (if any).
-     * @type {PWSTR}
      */
-    pCommandQueueDebugNameW {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pCommandQueueDebugNameW : PWSTR
 
     /**
      * A pointer to the [ID3D12GraphicsCommandList interface](nn-d3d12-id3d12graphicscommandlist.md) representing the outstanding command list at the time of execution.
-     * @type {ID3D12GraphicsCommandList}
      */
-    pCommandList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pCommandList : ID3D12GraphicsCommandList
 
     /**
      * A pointer to the [ID3D12CommandQueue interface](nn-d3d12-id3d12commandqueue.md) representing the outstanding command queue.
-     * @type {ID3D12CommandQueue}
      */
-    pCommandQueue {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pCommandQueue : ID3D12CommandQueue
 
     /**
      * A **UINT32** containing the count of [D3D12_AUTO_BREADCRUMB_OP](ne-d3d12-d3d12_auto_breadcrumb_op.md) values in the array pointed to by `pCommandHistory`.
-     * @type {Integer}
      */
-    BreadcrumbCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BreadcrumbCount : UInt32
 
     /**
      * A pointer to a constant **UINT32** containing the index (within the array pointed to by `pCommandHistory`) of the last render/compute operation that was completed by the GPU while executing the associated command list.
-     * @type {Pointer<Integer>}
      */
-    pLastBreadcrumbValue {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pLastBreadcrumbValue : IntPtr
 
     /**
      * A pointer to a constant array of [D3D12_AUTO_BREADCRUMB_OP](ne-d3d12-d3d12_auto_breadcrumb_op.md) values representing all of the render/compute operations recorded into the associated command list.
-     * @type {Pointer<D3D12_AUTO_BREADCRUMB_OP>}
      */
-    pCommandHistory {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pCommandHistory : D3D12_AUTO_BREADCRUMB_OP.Ptr
 
     /**
      * A pointer to a constant **D3D12_AUTO_BREADCRUMB_NODE** representing the next auto-breadcrumb node in the list, or `nullptr` if this is the last node.
-     * @type {Pointer<D3D12_AUTO_BREADCRUMB_NODE>}
      */
-    pNext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pNext : D3D12_AUTO_BREADCRUMB_NODE.Ptr
+
 }

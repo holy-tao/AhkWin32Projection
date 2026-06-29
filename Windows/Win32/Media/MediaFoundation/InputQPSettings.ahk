@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\eAVEncVideoQPMapElementDataType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\eAVEncVideoQPMapElementDataType.ahk" { eAVEncVideoQPMapElementDataType }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class InputQPSettings extends Win32Struct {
-    static sizeof => 24
+export default struct InputQPSettings {
+    #StructPack 4
 
-    static packingSize => 4
+    minBlockSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    minBlockSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    maxBlockSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    maxBlockSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    stepsBlockSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    stepsBlockSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dataType : eAVEncVideoQPMapElementDataType
 
-    /**
-     * @type {eAVEncVideoQPMapElementDataType}
-     */
-    dataType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    minValue : Int16
 
-    /**
-     * @type {Integer}
-     */
-    minValue {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    maxValue : Int16
 
-    /**
-     * @type {Integer}
-     */
-    maxValue {
-        get => NumGet(this, 18, "short")
-        set => NumPut("short", value, this, 18)
-    }
+    step : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    step {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
 }

@@ -1,65 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_TIER.ahk
-#Include .\STORAGE_TIER_MEDIA_TYPE.ahk
-#Include .\STORAGE_TIER_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_TIER_MEDIA_TYPE.ahk" { STORAGE_TIER_MEDIA_TYPE }
+#Import ".\STORAGE_TIER.ahk" { STORAGE_TIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STORAGE_TIER_CLASS.ahk" { STORAGE_TIER_CLASS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_DEVICE_TIERING_DESCRIPTOR extends Win32Struct {
-    static sizeof => 1080
+export default struct STORAGE_DEVICE_TIERING_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TotalNumberOfTiers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalNumberOfTiers {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumberOfTiersReturned : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfTiersReturned {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Tiers : STORAGE_TIER[1]
 
-    /**
-     * @type {STORAGE_TIER}
-     */
-    Tiers {
-        get {
-            if(!this.HasProp("__TiersProxyArray"))
-                this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_TIER, "")
-            return this.__TiersProxyArray
-        }
-    }
 }

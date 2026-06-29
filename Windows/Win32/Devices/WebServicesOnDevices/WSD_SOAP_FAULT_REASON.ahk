@@ -1,23 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_LOCALIZED_STRING_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
 
 /**
  * A collection of reason codes associated with a WSD_SOAP_FAULT.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_fault_reason
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_SOAP_FAULT_REASON extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct WSD_SOAP_FAULT_REASON {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that contains a collection of localized reason codes.
-     * @type {Pointer<WSD_LOCALIZED_STRING_LIST>}
      */
-    Text {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Text : WSD_LOCALIZED_STRING_LIST.Ptr
+
 }

@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class STISUBSCRIBE extends Win32Struct {
-    static sizeof => 40
+export default struct STISUBSCRIBE {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFilter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFilter {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    hWndNotify : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hWndNotify {
-        get {
-            if(!this.HasProp("__hWndNotify"))
-                this.__hWndNotify := HWND(16, this)
-            return this.__hWndNotify
-        }
-    }
+    hEvent : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hEvent {
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(24, this)
-            return this.__hEvent
-        }
-    }
+    uiNotificationMessage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiNotificationMessage {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

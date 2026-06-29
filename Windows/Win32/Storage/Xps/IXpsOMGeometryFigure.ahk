@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMGeometry.ahk
-#Include .\XPS_POINT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_SEGMENT_STROKE_PATTERN.ahk" { XPS_SEGMENT_STROKE_PATTERN }
+#Import ".\XPS_SEGMENT_TYPE.ahk" { XPS_SEGMENT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes one portion of the path or clipping region that is specified by an IXpsOMGeometry interface.
@@ -51,26 +55,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgeometryfigure
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMGeometryFigure extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMGeometryFigure extends IUnknown {
     /**
      * The interface identifier for IXpsOMGeometryFigure
      * @type {Guid}
      */
-    static IID => Guid("{d410dc83-908c-443e-8947-b1795d3c165a}")
+    static IID := Guid("{d410dc83-908c-443e-8947-b1795d3c165a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMGeometryFigure interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwner                : IntPtr
+        GetSegmentData          : IntPtr
+        GetSegmentTypes         : IntPtr
+        GetSegmentStrokes       : IntPtr
+        SetSegments             : IntPtr
+        GetStartPoint           : IntPtr
+        SetStartPoint           : IntPtr
+        GetIsClosed             : IntPtr
+        SetIsClosed             : IntPtr
+        GetIsFilled             : IntPtr
+        SetIsFilled             : IntPtr
+        GetSegmentCount         : IntPtr
+        GetSegmentDataCount     : IntPtr
+        GetSegmentStrokePattern : IntPtr
+        Clone                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetSegmentData", "GetSegmentTypes", "GetSegmentStrokes", "SetSegments", "GetStartPoint", "SetStartPoint", "GetIsClosed", "SetIsClosed", "GetIsFilled", "SetIsFilled", "GetSegmentCount", "GetSegmentDataCount", "GetSegmentStrokePattern", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMGeometryFigure.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMGeometry interface that contains the geometry figure.
@@ -1126,7 +1151,7 @@ class IXpsOMGeometryFigure extends IUnknown {
      */
     GetStartPoint() {
         startPoint := XPS_POINT()
-        result := ComCall(8, this, "ptr", startPoint, "HRESULT")
+        result := ComCall(8, this, XPS_POINT.Ptr, startPoint, "HRESULT")
         return startPoint
     }
 
@@ -1177,7 +1202,7 @@ class IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-setstartpoint
      */
     SetStartPoint(startPoint) {
-        result := ComCall(9, this, "ptr", startPoint, "HRESULT")
+        result := ComCall(9, this, XPS_POINT.Ptr, startPoint, "HRESULT")
         return result
     }
 
@@ -1220,7 +1245,7 @@ class IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getisclosed
      */
     GetIsClosed() {
-        result := ComCall(10, this, "int*", &isClosed := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &isClosed := 0, "HRESULT")
         return isClosed
     }
 
@@ -1264,7 +1289,7 @@ class IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-setisclosed
      */
     SetIsClosed(isClosed) {
-        result := ComCall(11, this, "int", isClosed, "HRESULT")
+        result := ComCall(11, this, BOOL, isClosed, "HRESULT")
         return result
     }
 
@@ -1303,7 +1328,7 @@ class IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getisfilled
      */
     GetIsFilled() {
-        result := ComCall(12, this, "int*", &isFilled := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &isFilled := 0, "HRESULT")
         return isFilled
     }
 
@@ -1343,7 +1368,7 @@ class IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-setisfilled
      */
     SetIsFilled(isFilled) {
-        result := ComCall(13, this, "int", isFilled, "HRESULT")
+        result := ComCall(13, this, BOOL, isFilled, "HRESULT")
         return result
     }
 
@@ -1393,5 +1418,53 @@ class IXpsOMGeometryFigure extends IUnknown {
     Clone() {
         result := ComCall(17, this, "ptr*", &geometryFigure := 0, "HRESULT")
         return IXpsOMGeometryFigure(geometryFigure)
+    }
+
+    Query(iid) {
+        if (IXpsOMGeometryFigure.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetSegmentData := CallbackCreate(GetMethod(implObj, "GetSegmentData"), flags, 3)
+        this.vtbl.GetSegmentTypes := CallbackCreate(GetMethod(implObj, "GetSegmentTypes"), flags, 3)
+        this.vtbl.GetSegmentStrokes := CallbackCreate(GetMethod(implObj, "GetSegmentStrokes"), flags, 3)
+        this.vtbl.SetSegments := CallbackCreate(GetMethod(implObj, "SetSegments"), flags, 6)
+        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 2)
+        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.GetIsClosed := CallbackCreate(GetMethod(implObj, "GetIsClosed"), flags, 2)
+        this.vtbl.SetIsClosed := CallbackCreate(GetMethod(implObj, "SetIsClosed"), flags, 2)
+        this.vtbl.GetIsFilled := CallbackCreate(GetMethod(implObj, "GetIsFilled"), flags, 2)
+        this.vtbl.SetIsFilled := CallbackCreate(GetMethod(implObj, "SetIsFilled"), flags, 2)
+        this.vtbl.GetSegmentCount := CallbackCreate(GetMethod(implObj, "GetSegmentCount"), flags, 2)
+        this.vtbl.GetSegmentDataCount := CallbackCreate(GetMethod(implObj, "GetSegmentDataCount"), flags, 2)
+        this.vtbl.GetSegmentStrokePattern := CallbackCreate(GetMethod(implObj, "GetSegmentStrokePattern"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetSegmentData)
+        CallbackFree(this.vtbl.GetSegmentTypes)
+        CallbackFree(this.vtbl.GetSegmentStrokes)
+        CallbackFree(this.vtbl.SetSegments)
+        CallbackFree(this.vtbl.GetStartPoint)
+        CallbackFree(this.vtbl.SetStartPoint)
+        CallbackFree(this.vtbl.GetIsClosed)
+        CallbackFree(this.vtbl.SetIsClosed)
+        CallbackFree(this.vtbl.GetIsFilled)
+        CallbackFree(this.vtbl.SetIsFilled)
+        CallbackFree(this.vtbl.GetSegmentCount)
+        CallbackFree(this.vtbl.GetSegmentDataCount)
+        CallbackFree(this.vtbl.GetSegmentStrokePattern)
+        CallbackFree(this.vtbl.Clone)
     }
 }

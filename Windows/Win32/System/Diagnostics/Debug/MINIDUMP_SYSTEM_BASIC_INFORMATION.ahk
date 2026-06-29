@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_SYSTEM_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 56
+export default struct MINIDUMP_SYSTEM_BASIC_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TimerResolution : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimerResolution {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PageSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberOfPhysicalPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPhysicalPages {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LowestPhysicalPageNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LowestPhysicalPageNumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HighestPhysicalPageNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HighestPhysicalPageNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AllocationGranularity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocationGranularity {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MinimumUserModeAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumUserModeAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaximumUserModeAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumUserModeAddress {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ActiveProcessorsAffinityMask : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ActiveProcessorsAffinityMask {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    NumberOfProcessors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfProcessors {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

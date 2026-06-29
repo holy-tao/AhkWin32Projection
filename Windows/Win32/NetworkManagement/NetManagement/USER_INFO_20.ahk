@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USER_ACCOUNT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
 
 /**
  * Contains information about a user account, including the account name, the user's full name, a comment associated with the account, and the user's relative ID (RID).
@@ -9,53 +9,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_20
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_20 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct USER_INFO_20 {
+    #StructPack 8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    usri20_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    usri20_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri20_full_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    usri20_full_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user account. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri20_comment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    usri20_comment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
-     * @type {USER_ACCOUNT_FLAGS}
      */
-    usri20_flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    usri20_flags : USER_ACCOUNT_FLAGS
 
     /**
      * Type: <b>DWORD</b>
@@ -64,10 +46,7 @@ class USER_INFO_20 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member. For more information about RIDs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @type {Integer}
      */
-    usri20_user_id {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    usri20_user_id : UInt32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constant values for the unit of measurement of a property.
  * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ne-tpcshrd-property_units
  * @namespace Windows.Win32.UI.TabletPC
  */
-class PROPERTY_UNITS extends Win32Enum {
+export default struct PROPERTY_UNITS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Units are unknown.

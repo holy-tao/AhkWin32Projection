@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class ENLISTMENT_CRM_INFORMATION extends Win32Struct {
-    static sizeof => 24
+export default struct ENLISTMENT_CRM_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 8
+    CrmTransactionManagerId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CrmTransactionManagerId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CrmResourceManagerId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CrmResourceManagerId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CrmEnlistmentId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CrmEnlistmentId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

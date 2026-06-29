@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow a client to retrieve the icon that is associated with one of the objects in a folder. (Unicode)
@@ -35,26 +38,34 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset Unicode
  */
-class IExtractIconW extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExtractIconW extends IUnknown {
     /**
      * The interface identifier for IExtractIconW
      * @type {Guid}
      */
-    static IID => Guid("{000214fa-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214fa-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtractIconW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIconLocation : IntPtr
+        Extract         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIconLocation", "Extract"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtractIconW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the location and index of an icon. (Unicode)
@@ -115,7 +126,29 @@ class IExtractIconW extends IUnknown {
     Extract(pszFile, nIconIndex, phiconLarge, phiconSmall, nIconSize) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(4, this, "ptr", pszFile, "uint", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pszFile, "uint", nIconIndex, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, "uint", nIconSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExtractIconW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 6)
+        this.vtbl.Extract := CallbackCreate(GetMethod(implObj, "Extract"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIconLocation)
+        CallbackFree(this.vtbl.Extract)
     }
 }

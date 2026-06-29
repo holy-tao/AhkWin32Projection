@@ -1,41 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VK_TO_WCHARS1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VK_TO_WCHARS1.ahk" { VK_TO_WCHARS1 }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class VK_TO_WCHAR_TABLE extends Win32Struct {
-    static sizeof => 16
+export default struct VK_TO_WCHAR_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    pVkToWchars : VK_TO_WCHARS1.Ptr
 
-    /**
-     * @type {Pointer<VK_TO_WCHARS1>}
-     */
-    pVkToWchars {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    nModifications : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nModifications {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    cbSize : Int8 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

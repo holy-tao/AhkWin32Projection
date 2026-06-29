@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmFileScreenBase.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFsrmFileScreenBase.ahk" { IFsrmFileScreenBase }
 
 /**
  * Used to configure a file screen that blocks groups of files from being saved to the specified directory.
@@ -16,26 +18,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreen
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmFileScreen extends IFsrmFileScreenBase {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmFileScreen extends IFsrmFileScreenBase {
     /**
      * The interface identifier for IFsrmFileScreen
      * @type {Guid}
      */
-    static IID => Guid("{5f6325d3-ce88-4733-84c1-2d6aefc5ea07}")
+    static IID := Guid("{5f6325d3-ce88-4733-84c1-2d6aefc5ea07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmFileScreen interfaces
+    */
+    struct Vtbl extends IFsrmFileScreenBase.Vtbl {
+        get_Path                  : IntPtr
+        get_SourceTemplateName    : IntPtr
+        get_MatchesSourceTemplate : IntPtr
+        get_UserSid               : IntPtr
+        get_UserAccount           : IntPtr
+        ApplyTemplate             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Path", "get_SourceTemplateName", "get_MatchesSourceTemplate", "get_UserSid", "get_UserAccount", "ApplyTemplate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmFileScreen.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -81,8 +95,8 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path
      */
     get_Path() {
-        _path := BSTR()
-        result := ComCall(18, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -92,8 +106,8 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_sourcetemplatename
      */
     get_SourceTemplateName() {
-        fileScreenTemplateName := BSTR()
-        result := ComCall(19, this, "ptr", fileScreenTemplateName, "HRESULT")
+        fileScreenTemplateName := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, fileScreenTemplateName, "HRESULT")
         return fileScreenTemplateName
     }
 
@@ -103,7 +117,7 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_matchessourcetemplate
      */
     get_MatchesSourceTemplate() {
-        result := ComCall(20, this, "short*", &matches := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &matches := 0, "HRESULT")
         return matches
     }
 
@@ -113,8 +127,8 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_usersid
      */
     get_UserSid() {
-        userSid := BSTR()
-        result := ComCall(21, this, "ptr", userSid, "HRESULT")
+        userSid := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, userSid, "HRESULT")
         return userSid
     }
 
@@ -124,8 +138,8 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_useraccount
      */
     get_UserAccount() {
-        userAccount := BSTR()
-        result := ComCall(22, this, "ptr", userAccount, "HRESULT")
+        userAccount := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, userAccount, "HRESULT")
         return userAccount
     }
 
@@ -144,7 +158,37 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
     ApplyTemplate(fileScreenTemplateName) {
         fileScreenTemplateName := fileScreenTemplateName is String ? BSTR.Alloc(fileScreenTemplateName).Value : fileScreenTemplateName
 
-        result := ComCall(23, this, "ptr", fileScreenTemplateName, "HRESULT")
+        result := ComCall(23, this, BSTR, fileScreenTemplateName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmFileScreen.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_SourceTemplateName := CallbackCreate(GetMethod(implObj, "get_SourceTemplateName"), flags, 2)
+        this.vtbl.get_MatchesSourceTemplate := CallbackCreate(GetMethod(implObj, "get_MatchesSourceTemplate"), flags, 2)
+        this.vtbl.get_UserSid := CallbackCreate(GetMethod(implObj, "get_UserSid"), flags, 2)
+        this.vtbl.get_UserAccount := CallbackCreate(GetMethod(implObj, "get_UserAccount"), flags, 2)
+        this.vtbl.ApplyTemplate := CallbackCreate(GetMethod(implObj, "ApplyTemplate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.get_SourceTemplateName)
+        CallbackFree(this.vtbl.get_MatchesSourceTemplate)
+        CallbackFree(this.vtbl.get_UserSid)
+        CallbackFree(this.vtbl.get_UserAccount)
+        CallbackFree(this.vtbl.ApplyTemplate)
     }
 }

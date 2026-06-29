@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OFFLINEFILES_OFFLINE_REASON.ahk" { OFFLINEFILES_OFFLINE_REASON }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OFFLINEFILES_CONNECT_STATE.ahk" { OFFLINEFILES_CONNECT_STATE }
 
 /**
  * Presents query and action capabilities associated with the online-offline transition behavior of Offline Files.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesconnectioninfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesConnectionInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesConnectionInfo extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesConnectionInfo
      * @type {Guid}
      */
-    static IID => Guid("{efb23a09-a867-4be8-83a6-86969a7d0856}")
+    static IID := Guid("{efb23a09-a867-4be8-83a6-86969a7d0856}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesConnectionInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConnectState   : IntPtr
+        SetConnectState   : IntPtr
+        TransitionOnline  : IntPtr
+        TransitionOffline : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConnectState", "SetConnectState", "TransitionOnline", "TransitionOffline"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesConnectionInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether an item is online or offline and, if offline, why.
@@ -63,9 +78,7 @@ class IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-setconnectstate
      */
     SetConnectState(hwndParent, dwFlags, ConnectState) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(4, this, "ptr", hwndParent, "uint", dwFlags, "int", ConnectState, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, "uint", dwFlags, OFFLINEFILES_CONNECT_STATE, ConnectState, "HRESULT")
         return result
     }
 
@@ -79,9 +92,7 @@ class IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitiononline
      */
     TransitionOnline(hwndParent, dwFlags) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(5, this, "ptr", hwndParent, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -103,9 +114,33 @@ class IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitionoffline
      */
     TransitionOffline(hwndParent, dwFlags, bForceOpenFilesClosed) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(6, this, "ptr", hwndParent, "uint", dwFlags, "int", bForceOpenFilesClosed, "int*", &pbOpenFilesPreventedTransition := 0, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, "uint", dwFlags, BOOL, bForceOpenFilesClosed, BOOL.Ptr, &pbOpenFilesPreventedTransition := 0, "HRESULT")
         return pbOpenFilesPreventedTransition
+    }
+
+    Query(iid) {
+        if (IOfflineFilesConnectionInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConnectState := CallbackCreate(GetMethod(implObj, "GetConnectState"), flags, 3)
+        this.vtbl.SetConnectState := CallbackCreate(GetMethod(implObj, "SetConnectState"), flags, 4)
+        this.vtbl.TransitionOnline := CallbackCreate(GetMethod(implObj, "TransitionOnline"), flags, 3)
+        this.vtbl.TransitionOffline := CallbackCreate(GetMethod(implObj, "TransitionOffline"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConnectState)
+        CallbackFree(this.vtbl.SetConnectState)
+        CallbackFree(this.vtbl.TransitionOnline)
+        CallbackFree(this.vtbl.TransitionOffline)
     }
 }

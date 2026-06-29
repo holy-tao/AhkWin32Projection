@@ -1,34 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpProperties.ahk
-#Include .\ISpObjectToken.ahk
-#Include .\ISpStreamFormat.ahk
-#Include .\ISpRecoContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPRECOGNIZERSTATUS.ahk" { SPRECOGNIZERSTATUS }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import ".\ISpProperties.ahk" { ISpProperties }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpObjectToken.ahk" { ISpObjectToken }
+#Import ".\SPSTREAMFORMATTYPE.ahk" { SPSTREAMFORMATTYPE }
+#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPRECOSTATE.ahk" { SPRECOSTATE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpRecognizer extends ISpProperties {
-
-    static sizeof => A_PtrSize
+export default struct ISpRecognizer extends ISpProperties {
     /**
      * The interface identifier for ISpRecognizer
      * @type {Guid}
      */
-    static IID => Guid("{c2b5f241-daa0-4507-9e16-5a1eaa2b7a5c}")
+    static IID := Guid("{c2b5f241-daa0-4507-9e16-5a1eaa2b7a5c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpRecognizer interfaces
+    */
+    struct Vtbl extends ISpProperties.Vtbl {
+        SetRecognizer       : IntPtr
+        GetRecognizer       : IntPtr
+        SetInput            : IntPtr
+        GetInputObjectToken : IntPtr
+        GetInputStream      : IntPtr
+        CreateRecoContext   : IntPtr
+        GetRecoProfile      : IntPtr
+        SetRecoProfile      : IntPtr
+        IsSharedInstance    : IntPtr
+        GetRecoState        : IntPtr
+        SetRecoState        : IntPtr
+        GetStatus           : IntPtr
+        GetFormat           : IntPtr
+        IsUISupported       : IntPtr
+        DisplayUI           : IntPtr
+        EmulateRecognition  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRecognizer", "GetRecognizer", "SetInput", "GetInputObjectToken", "GetInputStream", "CreateRecoContext", "GetRecoProfile", "SetRecoProfile", "IsSharedInstance", "GetRecoState", "SetRecoState", "GetStatus", "GetFormat", "IsUISupported", "DisplayUI", "EmulateRecognition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpRecognizer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -50,33 +82,13 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * Sets an input scope for the specified window.
-     * @remarks
-     * Calling this method replaces whatever scope is associated with the window.
      * 
-     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
-     * 
-     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
-     * 
-     * If you call this method on a window (<i>hwnd</i> parameter) that has 
-     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
-     * scope change.
      * @param {IUnknown} pUnkInput 
      * @param {BOOL} fAllowFormatChanges 
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>The method was successful.</td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-setinputscope
+     * @returns {HRESULT} 
      */
     SetInput(pUnkInput, fAllowFormatChanges) {
-        result := ComCall(9, this, "ptr", pUnkInput, "int", fAllowFormatChanges, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnkInput, BOOL, fAllowFormatChanges, "HRESULT")
         return result
     }
 
@@ -153,7 +165,7 @@ class ISpRecognizer extends ISpProperties {
      * @returns {HRESULT} 
      */
     SetRecoState(NewState) {
-        result := ComCall(17, this, "int", NewState, "HRESULT")
+        result := ComCall(17, this, SPRECOSTATE, NewState, "HRESULT")
         return result
     }
 
@@ -163,19 +175,18 @@ class ISpRecognizer extends ISpProperties {
      * @returns {HRESULT} 
      */
     GetStatus(pStatus) {
-        result := ComCall(18, this, "ptr", pStatus, "HRESULT")
+        result := ComCall(18, this, SPRECOGNIZERSTATUS.Ptr, pStatus, "HRESULT")
         return result
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
+     * 
      * @param {SPSTREAMFORMATTYPE} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(WaveFormatType, pFormatId) {
-        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, "ptr*", &ppCoMemWFEX := 0, "HRESULT")
+        result := ComCall(19, this, SPSTREAMFORMATTYPE, WaveFormatType, Guid.Ptr, pFormatId, "ptr*", &ppCoMemWFEX := 0, "HRESULT")
         return ppCoMemWFEX
     }
 
@@ -207,13 +218,12 @@ class ISpRecognizer extends ISpProperties {
      * @returns {HRESULT} 
      */
     DisplayUI(hwndParent, pszTitle, pszTypeOfUI, pvExtraData, cbExtraData) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(21, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
+        result := ComCall(21, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
         return result
     }
 
@@ -225,5 +235,55 @@ class ISpRecognizer extends ISpProperties {
     EmulateRecognition(pPhrase) {
         result := ComCall(22, this, "ptr", pPhrase, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpRecognizer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRecognizer := CallbackCreate(GetMethod(implObj, "SetRecognizer"), flags, 2)
+        this.vtbl.GetRecognizer := CallbackCreate(GetMethod(implObj, "GetRecognizer"), flags, 2)
+        this.vtbl.SetInput := CallbackCreate(GetMethod(implObj, "SetInput"), flags, 3)
+        this.vtbl.GetInputObjectToken := CallbackCreate(GetMethod(implObj, "GetInputObjectToken"), flags, 2)
+        this.vtbl.GetInputStream := CallbackCreate(GetMethod(implObj, "GetInputStream"), flags, 2)
+        this.vtbl.CreateRecoContext := CallbackCreate(GetMethod(implObj, "CreateRecoContext"), flags, 2)
+        this.vtbl.GetRecoProfile := CallbackCreate(GetMethod(implObj, "GetRecoProfile"), flags, 2)
+        this.vtbl.SetRecoProfile := CallbackCreate(GetMethod(implObj, "SetRecoProfile"), flags, 2)
+        this.vtbl.IsSharedInstance := CallbackCreate(GetMethod(implObj, "IsSharedInstance"), flags, 1)
+        this.vtbl.GetRecoState := CallbackCreate(GetMethod(implObj, "GetRecoState"), flags, 2)
+        this.vtbl.SetRecoState := CallbackCreate(GetMethod(implObj, "SetRecoState"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 5)
+        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 6)
+        this.vtbl.EmulateRecognition := CallbackCreate(GetMethod(implObj, "EmulateRecognition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRecognizer)
+        CallbackFree(this.vtbl.GetRecognizer)
+        CallbackFree(this.vtbl.SetInput)
+        CallbackFree(this.vtbl.GetInputObjectToken)
+        CallbackFree(this.vtbl.GetInputStream)
+        CallbackFree(this.vtbl.CreateRecoContext)
+        CallbackFree(this.vtbl.GetRecoProfile)
+        CallbackFree(this.vtbl.SetRecoProfile)
+        CallbackFree(this.vtbl.IsSharedInstance)
+        CallbackFree(this.vtbl.GetRecoState)
+        CallbackFree(this.vtbl.SetRecoState)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.IsUISupported)
+        CallbackFree(this.vtbl.DisplayUI)
+        CallbackFree(this.vtbl.EmulateRecognition)
     }
 }

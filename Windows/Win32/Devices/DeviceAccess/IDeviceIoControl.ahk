@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDeviceRequestCompletionCallback.ahk" { IDeviceRequestCompletionCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Sends a control code to a device driver.This action causes the device to perform the corresponding operation.
  * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nn-deviceaccess-ideviceiocontrol
  * @namespace Windows.Win32.Devices.DeviceAccess
  */
-class IDeviceIoControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDeviceIoControl extends IUnknown {
     /**
      * The interface identifier for IDeviceIoControl
      * @type {Guid}
      */
-    static IID => Guid("{9eefe161-23ab-4f18-9b49-991b586ae970}")
+    static IID := Guid("{9eefe161-23ab-4f18-9b49-991b586ae970}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeviceIoControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DeviceIoControlSync  : IntPtr
+        DeviceIoControlAsync : IntPtr
+        CancelOperation      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeviceIoControlSync", "DeviceIoControlAsync", "CancelOperation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeviceIoControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The DeviceIoControlSync method sends a synchronous device input/output (I/O) control request to the device interface that the call to the CreateDeviceAccessInstance function specified.
@@ -116,5 +127,29 @@ class IDeviceIoControl extends IUnknown {
     CancelOperation(cancelContext) {
         result := ComCall(5, this, "ptr", cancelContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDeviceIoControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeviceIoControlSync := CallbackCreate(GetMethod(implObj, "DeviceIoControlSync"), flags, 7)
+        this.vtbl.DeviceIoControlAsync := CallbackCreate(GetMethod(implObj, "DeviceIoControlAsync"), flags, 8)
+        this.vtbl.CancelOperation := CallbackCreate(GetMethod(implObj, "CancelOperation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeviceIoControlSync)
+        CallbackFree(this.vtbl.DeviceIoControlAsync)
+        CallbackFree(this.vtbl.CancelOperation)
     }
 }

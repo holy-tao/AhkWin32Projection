@@ -1,32 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLApplicationCache extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLApplicationCache extends IDispatch {
     /**
      * The interface identifier for IHTMLApplicationCache
      * @type {Guid}
      */
-    static IID => Guid("{30510828-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510828-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLApplicationCache interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_status        : IntPtr
+        put_onchecking    : IntPtr
+        get_onchecking    : IntPtr
+        put_onerror       : IntPtr
+        get_onerror       : IntPtr
+        put_onnoupdate    : IntPtr
+        get_onnoupdate    : IntPtr
+        put_ondownloading : IntPtr
+        get_ondownloading : IntPtr
+        put_onprogress    : IntPtr
+        get_onprogress    : IntPtr
+        put_onupdateready : IntPtr
+        get_onupdateready : IntPtr
+        put_oncached      : IntPtr
+        get_oncached      : IntPtr
+        put_onobsolete    : IntPtr
+        get_onobsolete    : IntPtr
+        update            : IntPtr
+        swapCache         : IntPtr
+        abort             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_status", "put_onchecking", "get_onchecking", "put_onerror", "get_onerror", "put_onnoupdate", "get_onnoupdate", "put_ondownloading", "get_ondownloading", "put_onprogress", "get_onprogress", "put_onupdateready", "get_onupdateready", "put_oncached", "get_oncached", "put_onobsolete", "get_onobsolete", "update", "swapCache", "abort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLApplicationCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -114,7 +141,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onchecking(v) {
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -124,7 +151,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_onchecking() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -134,7 +161,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -144,7 +171,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -154,7 +181,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onnoupdate(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -164,7 +191,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_onnoupdate() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -174,7 +201,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondownloading(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -184,7 +211,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_ondownloading() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -194,7 +221,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onprogress(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -204,7 +231,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_onprogress() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -214,7 +241,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onupdateready(v) {
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -224,7 +251,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_onupdateready() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -234,7 +261,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_oncached(v) {
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -244,7 +271,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_oncached() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -254,7 +281,7 @@ class IHTMLApplicationCache extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onobsolete(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -264,7 +291,7 @@ class IHTMLApplicationCache extends IDispatch {
      */
     get_onobsolete() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -343,5 +370,63 @@ class IHTMLApplicationCache extends IDispatch {
     abort() {
         result := ComCall(26, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLApplicationCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_onchecking := CallbackCreate(GetMethod(implObj, "put_onchecking"), flags, 2)
+        this.vtbl.get_onchecking := CallbackCreate(GetMethod(implObj, "get_onchecking"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onnoupdate := CallbackCreate(GetMethod(implObj, "put_onnoupdate"), flags, 2)
+        this.vtbl.get_onnoupdate := CallbackCreate(GetMethod(implObj, "get_onnoupdate"), flags, 2)
+        this.vtbl.put_ondownloading := CallbackCreate(GetMethod(implObj, "put_ondownloading"), flags, 2)
+        this.vtbl.get_ondownloading := CallbackCreate(GetMethod(implObj, "get_ondownloading"), flags, 2)
+        this.vtbl.put_onprogress := CallbackCreate(GetMethod(implObj, "put_onprogress"), flags, 2)
+        this.vtbl.get_onprogress := CallbackCreate(GetMethod(implObj, "get_onprogress"), flags, 2)
+        this.vtbl.put_onupdateready := CallbackCreate(GetMethod(implObj, "put_onupdateready"), flags, 2)
+        this.vtbl.get_onupdateready := CallbackCreate(GetMethod(implObj, "get_onupdateready"), flags, 2)
+        this.vtbl.put_oncached := CallbackCreate(GetMethod(implObj, "put_oncached"), flags, 2)
+        this.vtbl.get_oncached := CallbackCreate(GetMethod(implObj, "get_oncached"), flags, 2)
+        this.vtbl.put_onobsolete := CallbackCreate(GetMethod(implObj, "put_onobsolete"), flags, 2)
+        this.vtbl.get_onobsolete := CallbackCreate(GetMethod(implObj, "get_onobsolete"), flags, 2)
+        this.vtbl.update := CallbackCreate(GetMethod(implObj, "update"), flags, 1)
+        this.vtbl.swapCache := CallbackCreate(GetMethod(implObj, "swapCache"), flags, 1)
+        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.put_onchecking)
+        CallbackFree(this.vtbl.get_onchecking)
+        CallbackFree(this.vtbl.put_onerror)
+        CallbackFree(this.vtbl.get_onerror)
+        CallbackFree(this.vtbl.put_onnoupdate)
+        CallbackFree(this.vtbl.get_onnoupdate)
+        CallbackFree(this.vtbl.put_ondownloading)
+        CallbackFree(this.vtbl.get_ondownloading)
+        CallbackFree(this.vtbl.put_onprogress)
+        CallbackFree(this.vtbl.get_onprogress)
+        CallbackFree(this.vtbl.put_onupdateready)
+        CallbackFree(this.vtbl.get_onupdateready)
+        CallbackFree(this.vtbl.put_oncached)
+        CallbackFree(this.vtbl.get_oncached)
+        CallbackFree(this.vtbl.put_onobsolete)
+        CallbackFree(this.vtbl.get_onobsolete)
+        CallbackFree(this.vtbl.update)
+        CallbackFree(this.vtbl.swapCache)
+        CallbackFree(this.vtbl.abort)
     }
 }

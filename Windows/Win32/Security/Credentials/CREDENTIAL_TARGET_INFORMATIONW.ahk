@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The CREDENTIAL_TARGET_INFORMATION structure contains the target computer's name, domain, and tree. (Unicode)
@@ -10,73 +10,43 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct CREDENTIAL_TARGET_INFORMATIONW {
+    #StructPack 8
 
     /**
      * Name of the target server as specified by the caller accessing the target. It is typically the NetBIOS or DNS name of the target server.
-     * @type {PWSTR}
      */
-    TargetName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TargetName : PWSTR
 
     /**
      * NetBIOS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    NetbiosServerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NetbiosServerName : PWSTR
 
     /**
      * DNS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    DnsServerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DnsServerName : PWSTR
 
     /**
      * NetBIOS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    NetbiosDomainName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NetbiosDomainName : PWSTR
 
     /**
      * DNS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    DnsDomainName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DnsDomainName : PWSTR
 
     /**
      * DNS name of the target server's tree. If the tree name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    DnsTreeName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DnsTreeName : PWSTR
 
     /**
      * Name of the authentication package that determined the values <b>NetbiosServerName</b>, <b>DnsServerName</b>, <b>NetbiosDomainName</b>, <b>DnsDomainName</b>, and <b>DnsTreeName</b> as a function of <b>TargetName</b>. This member can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> as the package name.
-     * @type {PWSTR}
      */
-    PackageName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    PackageName : PWSTR
 
     /**
      * Attributes of the target. 
@@ -106,28 +76,17 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct {
      * 
      * </li>
      * </ul>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Flags : UInt32
 
     /**
      * Number of elements in the <b>CredTypes</b> array.
-     * @type {Integer}
      */
-    CredTypeCount {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    CredTypeCount : UInt32
 
     /**
      * Array specifying the credential types acceptable by the authentication package used by the target server. Each element is one of the CRED_TYPE_* defines. The order of this array specifies the preference order of the authentication package. More preferable types are specified earlier in the list.
-     * @type {Pointer<Integer>}
      */
-    CredTypes {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    CredTypes : IntPtr
+
 }

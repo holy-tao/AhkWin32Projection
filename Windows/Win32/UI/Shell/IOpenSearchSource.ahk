@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method to get search results from a custom client-side OpenSearch data source.
@@ -21,26 +24,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iopensearchsource
  * @namespace Windows.Win32.UI.Shell
  */
-class IOpenSearchSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpenSearchSource extends IUnknown {
     /**
      * The interface identifier for IOpenSearchSource
      * @type {Guid}
      */
-    static IID => Guid("{f0ee7333-e6fc-479b-9f25-a860c234a38e}")
+    static IID := Guid("{f0ee7333-e6fc-479b-9f25-a860c234a38e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpenSearchSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetResults : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResults"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpenSearchSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns search results, from an OpenSearch data source, formatted in RSS or Atom format.
@@ -76,10 +86,29 @@ class IOpenSearchSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
      */
     GetResults(_hwnd, pszQuery, dwStartIndex, dwCount, riid) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IOpenSearchSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResults := CallbackCreate(GetMethod(implObj, "GetResults"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResults)
     }
 }

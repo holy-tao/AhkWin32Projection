@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PRINTER\_INFO\_5 structure specifies detailed printer information.
@@ -7,28 +7,18 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class PRINTER_INFO_5W extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PRINTER_INFO_5W {
+    #StructPack 8
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer.
-     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pPrinterName : PWSTR
 
     /**
      * A pointer to a null-terminated string that identifies the port(s) used to transmit data to the printer. If a printer is connected to more than one port, the names of each port must be separated by commas (for example, "LPT1:,LPT2:,LPT3:").
-     * @type {PWSTR}
      */
-    pPortName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPortName : PWSTR
 
     /**
      * The printer attributes. This member can be any reasonable combination of the following values.
@@ -69,28 +59,17 @@ class PRINTER_INFO_5W extends Win32Struct {
      * | PRINTER\_ATTRIBUTE\_MACHINE         | Printer is a per-machine connection.                                             |
      * | PRINTER\_ATTRIBUTE\_PUSHED\_USER    | The printer was installed by using the Push Printer Connections user policy.     |
      * | PRINTER\_ATTRIBUTE\_PUSHED\_MACHINE | The printer was installed by using the Push Printer Connections computer policy. |
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Attributes : UInt32
 
     /**
      * This value is not used.
-     * @type {Integer}
      */
-    DeviceNotSelectedTimeout {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DeviceNotSelectedTimeout : UInt32
 
     /**
      * This value is not used.
-     * @type {Integer}
      */
-    TransmissionRetryTimeout {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TransmissionRetryTimeout : UInt32
+
 }

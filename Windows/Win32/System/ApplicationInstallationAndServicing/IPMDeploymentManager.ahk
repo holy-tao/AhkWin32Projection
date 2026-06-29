@@ -1,31 +1,80 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\PM_INSTALLINFO.ahk" { PM_INSTALLINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PM_UPDATEINFO.ahk" { PM_UPDATEINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PM_UPDATEINFO_LEGACY.ahk" { PM_UPDATEINFO_LEGACY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IPMDeploymentManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPMDeploymentManager extends IUnknown {
     /**
      * The interface identifier for IPMDeploymentManager
      * @type {Guid}
      */
-    static IID => Guid("{35f785fa-1979-4a8b-bc8f-fd70eb0d1544}")
+    static IID := Guid("{35f785fa-1979-4a8b-bc8f-fd70eb0d1544}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPMDeploymentManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReportDownloadBegin                    : IntPtr
+        ReportDownloadProgress                 : IntPtr
+        ReportDownloadComplete                 : IntPtr
+        BeginInstall                           : IntPtr
+        BeginUpdate                            : IntPtr
+        BeginDeployPackage                     : IntPtr
+        BeginUpdateDeployedPackageLegacy       : IntPtr
+        BeginUninstall                         : IntPtr
+        BeginEnterpriseAppInstall              : IntPtr
+        BeginEnterpriseAppUpdate               : IntPtr
+        BeginUpdateLicense                     : IntPtr
+        GetLicenseChallenge                    : IntPtr
+        GetLicenseChallengeByProductID         : IntPtr
+        GetLicenseChallengeByProductID2        : IntPtr
+        RevokeLicense                          : IntPtr
+        RebindMdilBinaries                     : IntPtr
+        RebindAllMdilBinaries                  : IntPtr
+        RegenerateXbf                          : IntPtr
+        GenerateXbfForCurrentLocale            : IntPtr
+        BeginProvision                         : IntPtr
+        BeginDeprovision                       : IntPtr
+        ReindexSQLCEDatabases                  : IntPtr
+        SetApplicationsNeedMaintenance         : IntPtr
+        UpdateChamberProfile                   : IntPtr
+        EnterprisePolicyIsApplicationAllowed   : IntPtr
+        BeginUpdateDeployedPackage             : IntPtr
+        ReportRestoreCancelled                 : IntPtr
+        ResolveResourceString                  : IntPtr
+        UpdateCapabilitiesForModernApps        : IntPtr
+        ReportDownloadStatusUpdate             : IntPtr
+        BeginUninstallWithOptions              : IntPtr
+        BindDeferredMdilBinaries               : IntPtr
+        GenerateXamlLightupXbfForCurrentLocale : IntPtr
+        AddLicenseForAppx                      : IntPtr
+        FixJunctionsForAppsOnSDCard            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReportDownloadBegin", "ReportDownloadProgress", "ReportDownloadComplete", "BeginInstall", "BeginUpdate", "BeginDeployPackage", "BeginUpdateDeployedPackageLegacy", "BeginUninstall", "BeginEnterpriseAppInstall", "BeginEnterpriseAppUpdate", "BeginUpdateLicense", "GetLicenseChallenge", "GetLicenseChallengeByProductID", "GetLicenseChallengeByProductID2", "RevokeLicense", "RebindMdilBinaries", "RebindAllMdilBinaries", "RegenerateXbf", "GenerateXbfForCurrentLocale", "BeginProvision", "BeginDeprovision", "ReindexSQLCEDatabases", "SetApplicationsNeedMaintenance", "UpdateChamberProfile", "EnterprisePolicyIsApplicationAllowed", "BeginUpdateDeployedPackage", "ReportRestoreCancelled", "ResolveResourceString", "UpdateCapabilitiesForModernApps", "ReportDownloadStatusUpdate", "BeginUninstallWithOptions", "BindDeferredMdilBinaries", "GenerateXamlLightupXbfForCurrentLocale", "AddLicenseForAppx", "FixJunctionsForAppsOnSDCard"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPMDeploymentManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -33,7 +82,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportDownloadBegin(productID) {
-        result := ComCall(3, this, "ptr", productID, "HRESULT")
+        result := ComCall(3, this, Guid, productID, "HRESULT")
         return result
     }
 
@@ -44,7 +93,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportDownloadProgress(productID, usProgress) {
-        result := ComCall(4, this, "ptr", productID, "ushort", usProgress, "HRESULT")
+        result := ComCall(4, this, Guid, productID, "ushort", usProgress, "HRESULT")
         return result
     }
 
@@ -55,7 +104,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportDownloadComplete(productID, hrResult) {
-        result := ComCall(5, this, "ptr", productID, "int", hrResult, "HRESULT")
+        result := ComCall(5, this, Guid, productID, "int", hrResult, "HRESULT")
         return result
     }
 
@@ -65,26 +114,17 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginInstall(pInstallInfo) {
-        result := ComCall(6, this, "ptr", pInstallInfo, "HRESULT")
+        result := ComCall(6, this, PM_INSTALLINFO.Ptr, pInstallInfo, "HRESULT")
         return result
     }
 
     /**
-     * Retrieves a handle that can be used by the UpdateResource function to add, delete, or replace resources in a binary module. (Unicode)
-     * @remarks
-     * It is recommended that the resource file is not loaded before this function is called. However, if that file is already loaded, it will not cause an error to be returned.
      * 
-     * There are some restrictions on resource updates in files that contain  Resource Configuration(RC Config) data: LN files and the associated .mui files. Details on which types of resources are allowed to be updated in these files are in the Remarks section for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
-     * 
-     * This function can update resources within modules that contain both code and resources. As noted above, there are restrictions on resource updates in LN files and .mui files, both of which contain RC Config data; details of the restrictions are in the reference for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
-     * @returns {HRESULT} Type: <b>HANDLE</b>
-     * 
-     * If the function succeeds, the return value is a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-endupdateresourcea">EndUpdateResource</a> functions. The return value is <b>NULL</b> if the specified file is not a PE, the file does not exist, or the file cannot be opened for writing. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-beginupdateresourcew
+     * @returns {HRESULT} 
      */
     BeginUpdate(pUpdateInfo) {
-        result := ComCall(7, this, "ptr", pUpdateInfo, "HRESULT")
+        result := ComCall(7, this, PM_UPDATEINFO.Ptr, pUpdateInfo, "HRESULT")
         return result
     }
 
@@ -94,7 +134,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginDeployPackage(pInstallInfo) {
-        result := ComCall(8, this, "ptr", pInstallInfo, "HRESULT")
+        result := ComCall(8, this, PM_INSTALLINFO.Ptr, pInstallInfo, "HRESULT")
         return result
     }
 
@@ -104,7 +144,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginUpdateDeployedPackageLegacy(pUpdateInfo) {
-        result := ComCall(9, this, "ptr", pUpdateInfo, "HRESULT")
+        result := ComCall(9, this, PM_UPDATEINFO_LEGACY.Ptr, pUpdateInfo, "HRESULT")
         return result
     }
 
@@ -114,7 +154,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginUninstall(productID) {
-        result := ComCall(10, this, "ptr", productID, "HRESULT")
+        result := ComCall(10, this, Guid, productID, "HRESULT")
         return result
     }
 
@@ -124,7 +164,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginEnterpriseAppInstall(pInstallInfo) {
-        result := ComCall(11, this, "ptr", pInstallInfo, "HRESULT")
+        result := ComCall(11, this, PM_INSTALLINFO.Ptr, pInstallInfo, "HRESULT")
         return result
     }
 
@@ -134,7 +174,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginEnterpriseAppUpdate(pUpdateInfo) {
-        result := ComCall(12, this, "ptr", pUpdateInfo, "HRESULT")
+        result := ComCall(12, this, PM_UPDATEINFO.Ptr, pUpdateInfo, "HRESULT")
         return result
     }
 
@@ -149,7 +189,7 @@ class IPMDeploymentManager extends IUnknown {
     BeginUpdateLicense(productID, offerID, pbLicense, cbLicense) {
         pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "ptr", productID, "ptr", offerID, pbLicenseMarshal, pbLicense, "uint", cbLicense, "HRESULT")
+        result := ComCall(13, this, Guid, productID, Guid, offerID, pbLicenseMarshal, pbLicense, "uint", cbLicense, "HRESULT")
         return result
     }
 
@@ -182,7 +222,7 @@ class IPMDeploymentManager extends IUnknown {
         ppbKGVValueMarshal := ppbKGVValue is VarRef ? "ptr*" : "ptr"
         pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", PackagePath, ppbChallengeMarshal, ppbChallenge, pcbChallengeMarshal, pcbChallenge, ppbKIDMarshal, ppbKID, pcbKIDMarshal, pcbKID, ppbDeviceIDMarshal, ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, ppbSaltValueMarshal, ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, ppbKGVValueMarshal, ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
+        result := ComCall(14, this, BSTR, PackagePath, ppbChallengeMarshal, ppbChallenge, pcbChallengeMarshal, pcbChallenge, ppbKIDMarshal, ppbKID, pcbKIDMarshal, pcbKID, ppbDeviceIDMarshal, ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, ppbSaltValueMarshal, ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, ppbKGVValueMarshal, ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
         return result
     }
 
@@ -197,7 +237,7 @@ class IPMDeploymentManager extends IUnknown {
         ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : "ptr"
         pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", ProductID, ppbChallengeMarshal, ppbChallenge, pcbLicenseMarshal, pcbLicense, "HRESULT")
+        result := ComCall(15, this, Guid, ProductID, ppbChallengeMarshal, ppbChallenge, pcbLicenseMarshal, pcbLicense, "HRESULT")
         return result
     }
 
@@ -228,7 +268,7 @@ class IPMDeploymentManager extends IUnknown {
         ppbKGVValueMarshal := ppbKGVValue is VarRef ? "ptr*" : "ptr"
         pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", ProductID, ppbChallengeMarshal, ppbChallenge, pcbLicenseMarshal, pcbLicense, ppbKIDMarshal, ppbKID, pcbKIDMarshal, pcbKID, ppbDeviceIDMarshal, ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, ppbSaltValueMarshal, ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, ppbKGVValueMarshal, ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
+        result := ComCall(16, this, Guid, ProductID, ppbChallengeMarshal, ppbChallenge, pcbLicenseMarshal, pcbLicense, ppbKIDMarshal, ppbKID, pcbKIDMarshal, pcbKID, ppbDeviceIDMarshal, ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, ppbSaltValueMarshal, ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, ppbKGVValueMarshal, ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
         return result
     }
 
@@ -238,7 +278,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     RevokeLicense(productID) {
-        result := ComCall(17, this, "ptr", productID, "HRESULT")
+        result := ComCall(17, this, Guid, productID, "HRESULT")
         return result
     }
 
@@ -249,7 +289,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     RebindMdilBinaries(ProductID, FileNames) {
-        result := ComCall(18, this, "ptr", ProductID, "ptr", FileNames, "HRESULT")
+        result := ComCall(18, this, Guid, ProductID, SAFEARRAY.Ptr, FileNames, "HRESULT")
         return result
     }
 
@@ -260,7 +300,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     RebindAllMdilBinaries(ProductID, InstanceID) {
-        result := ComCall(19, this, "ptr", ProductID, "ptr", InstanceID, "HRESULT")
+        result := ComCall(19, this, Guid, ProductID, Guid, InstanceID, "HRESULT")
         return result
     }
 
@@ -271,7 +311,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     RegenerateXbf(ProductID, AssemblyPaths) {
-        result := ComCall(20, this, "ptr", ProductID, "ptr", AssemblyPaths, "HRESULT")
+        result := ComCall(20, this, Guid, ProductID, SAFEARRAY.Ptr, AssemblyPaths, "HRESULT")
         return result
     }
 
@@ -281,7 +321,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GenerateXbfForCurrentLocale(ProductID) {
-        result := ComCall(21, this, "ptr", ProductID, "HRESULT")
+        result := ComCall(21, this, Guid, ProductID, "HRESULT")
         return result
     }
 
@@ -294,7 +334,7 @@ class IPMDeploymentManager extends IUnknown {
     BeginProvision(ProductID, XMLpath) {
         XMLpath := XMLpath is String ? BSTR.Alloc(XMLpath).Value : XMLpath
 
-        result := ComCall(22, this, "ptr", ProductID, "ptr", XMLpath, "HRESULT")
+        result := ComCall(22, this, Guid, ProductID, BSTR, XMLpath, "HRESULT")
         return result
     }
 
@@ -304,7 +344,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginDeprovision(ProductID) {
-        result := ComCall(23, this, "ptr", ProductID, "HRESULT")
+        result := ComCall(23, this, Guid, ProductID, "HRESULT")
         return result
     }
 
@@ -314,7 +354,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReindexSQLCEDatabases(ProductID) {
-        result := ComCall(24, this, "ptr", ProductID, "HRESULT")
+        result := ComCall(24, this, Guid, ProductID, "HRESULT")
         return result
     }
 
@@ -334,7 +374,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateChamberProfile(ProductID) {
-        result := ComCall(26, this, "ptr", ProductID, "HRESULT")
+        result := ComCall(26, this, Guid, ProductID, "HRESULT")
         return result
     }
 
@@ -347,7 +387,7 @@ class IPMDeploymentManager extends IUnknown {
     EnterprisePolicyIsApplicationAllowed(productId, publisherName) {
         publisherName := publisherName is String ? StrPtr(publisherName) : publisherName
 
-        result := ComCall(27, this, "ptr", productId, "ptr", publisherName, "int*", &pIsAllowed := 0, "HRESULT")
+        result := ComCall(27, this, Guid, productId, "ptr", publisherName, BOOL.Ptr, &pIsAllowed := 0, "HRESULT")
         return pIsAllowed
     }
 
@@ -357,7 +397,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginUpdateDeployedPackage(pUpdateInfo) {
-        result := ComCall(28, this, "ptr", pUpdateInfo, "HRESULT")
+        result := ComCall(28, this, PM_UPDATEINFO.Ptr, pUpdateInfo, "HRESULT")
         return result
     }
 
@@ -367,7 +407,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportRestoreCancelled(productID) {
-        result := ComCall(29, this, "ptr", productID, "HRESULT")
+        result := ComCall(29, this, Guid, productID, "HRESULT")
         return result
     }
 
@@ -380,7 +420,7 @@ class IPMDeploymentManager extends IUnknown {
     ResolveResourceString(resourceString, pResolvedResourceString) {
         resourceString := resourceString is String ? StrPtr(resourceString) : resourceString
 
-        result := ComCall(30, this, "ptr", resourceString, "ptr", pResolvedResourceString, "HRESULT")
+        result := ComCall(30, this, "ptr", resourceString, BSTR.Ptr, pResolvedResourceString, "HRESULT")
         return result
     }
 
@@ -399,7 +439,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportDownloadStatusUpdate(productId) {
-        result := ComCall(32, this, "ptr", productId, "HRESULT")
+        result := ComCall(32, this, Guid, productId, "HRESULT")
         return result
     }
 
@@ -410,7 +450,7 @@ class IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginUninstallWithOptions(productID, removalOptions) {
-        result := ComCall(33, this, "ptr", productID, "uint", removalOptions, "HRESULT")
+        result := ComCall(33, this, Guid, productID, "uint", removalOptions, "HRESULT")
         return result
     }
 
@@ -431,7 +471,7 @@ class IPMDeploymentManager extends IUnknown {
     GenerateXamlLightupXbfForCurrentLocale(PackageFamilyName) {
         PackageFamilyName := PackageFamilyName is String ? BSTR.Alloc(PackageFamilyName).Value : PackageFamilyName
 
-        result := ComCall(35, this, "ptr", PackageFamilyName, "HRESULT")
+        result := ComCall(35, this, BSTR, PackageFamilyName, "HRESULT")
         return result
     }
 
@@ -448,7 +488,7 @@ class IPMDeploymentManager extends IUnknown {
         pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
         pbPlayReadyHeaderMarshal := pbPlayReadyHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(36, this, "ptr", productID, pbLicenseMarshal, pbLicense, "uint", cbLicense, pbPlayReadyHeaderMarshal, pbPlayReadyHeader, "uint", cbPlayReadyHeader, "HRESULT")
+        result := ComCall(36, this, Guid, productID, pbLicenseMarshal, pbLicense, "uint", cbLicense, pbPlayReadyHeaderMarshal, pbPlayReadyHeader, "uint", cbPlayReadyHeader, "HRESULT")
         return result
     }
 
@@ -459,5 +499,93 @@ class IPMDeploymentManager extends IUnknown {
     FixJunctionsForAppsOnSDCard() {
         result := ComCall(37, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPMDeploymentManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReportDownloadBegin := CallbackCreate(GetMethod(implObj, "ReportDownloadBegin"), flags, 2)
+        this.vtbl.ReportDownloadProgress := CallbackCreate(GetMethod(implObj, "ReportDownloadProgress"), flags, 3)
+        this.vtbl.ReportDownloadComplete := CallbackCreate(GetMethod(implObj, "ReportDownloadComplete"), flags, 3)
+        this.vtbl.BeginInstall := CallbackCreate(GetMethod(implObj, "BeginInstall"), flags, 2)
+        this.vtbl.BeginUpdate := CallbackCreate(GetMethod(implObj, "BeginUpdate"), flags, 2)
+        this.vtbl.BeginDeployPackage := CallbackCreate(GetMethod(implObj, "BeginDeployPackage"), flags, 2)
+        this.vtbl.BeginUpdateDeployedPackageLegacy := CallbackCreate(GetMethod(implObj, "BeginUpdateDeployedPackageLegacy"), flags, 2)
+        this.vtbl.BeginUninstall := CallbackCreate(GetMethod(implObj, "BeginUninstall"), flags, 2)
+        this.vtbl.BeginEnterpriseAppInstall := CallbackCreate(GetMethod(implObj, "BeginEnterpriseAppInstall"), flags, 2)
+        this.vtbl.BeginEnterpriseAppUpdate := CallbackCreate(GetMethod(implObj, "BeginEnterpriseAppUpdate"), flags, 2)
+        this.vtbl.BeginUpdateLicense := CallbackCreate(GetMethod(implObj, "BeginUpdateLicense"), flags, 5)
+        this.vtbl.GetLicenseChallenge := CallbackCreate(GetMethod(implObj, "GetLicenseChallenge"), flags, 12)
+        this.vtbl.GetLicenseChallengeByProductID := CallbackCreate(GetMethod(implObj, "GetLicenseChallengeByProductID"), flags, 4)
+        this.vtbl.GetLicenseChallengeByProductID2 := CallbackCreate(GetMethod(implObj, "GetLicenseChallengeByProductID2"), flags, 12)
+        this.vtbl.RevokeLicense := CallbackCreate(GetMethod(implObj, "RevokeLicense"), flags, 2)
+        this.vtbl.RebindMdilBinaries := CallbackCreate(GetMethod(implObj, "RebindMdilBinaries"), flags, 3)
+        this.vtbl.RebindAllMdilBinaries := CallbackCreate(GetMethod(implObj, "RebindAllMdilBinaries"), flags, 3)
+        this.vtbl.RegenerateXbf := CallbackCreate(GetMethod(implObj, "RegenerateXbf"), flags, 3)
+        this.vtbl.GenerateXbfForCurrentLocale := CallbackCreate(GetMethod(implObj, "GenerateXbfForCurrentLocale"), flags, 2)
+        this.vtbl.BeginProvision := CallbackCreate(GetMethod(implObj, "BeginProvision"), flags, 3)
+        this.vtbl.BeginDeprovision := CallbackCreate(GetMethod(implObj, "BeginDeprovision"), flags, 2)
+        this.vtbl.ReindexSQLCEDatabases := CallbackCreate(GetMethod(implObj, "ReindexSQLCEDatabases"), flags, 2)
+        this.vtbl.SetApplicationsNeedMaintenance := CallbackCreate(GetMethod(implObj, "SetApplicationsNeedMaintenance"), flags, 3)
+        this.vtbl.UpdateChamberProfile := CallbackCreate(GetMethod(implObj, "UpdateChamberProfile"), flags, 2)
+        this.vtbl.EnterprisePolicyIsApplicationAllowed := CallbackCreate(GetMethod(implObj, "EnterprisePolicyIsApplicationAllowed"), flags, 4)
+        this.vtbl.BeginUpdateDeployedPackage := CallbackCreate(GetMethod(implObj, "BeginUpdateDeployedPackage"), flags, 2)
+        this.vtbl.ReportRestoreCancelled := CallbackCreate(GetMethod(implObj, "ReportRestoreCancelled"), flags, 2)
+        this.vtbl.ResolveResourceString := CallbackCreate(GetMethod(implObj, "ResolveResourceString"), flags, 3)
+        this.vtbl.UpdateCapabilitiesForModernApps := CallbackCreate(GetMethod(implObj, "UpdateCapabilitiesForModernApps"), flags, 1)
+        this.vtbl.ReportDownloadStatusUpdate := CallbackCreate(GetMethod(implObj, "ReportDownloadStatusUpdate"), flags, 2)
+        this.vtbl.BeginUninstallWithOptions := CallbackCreate(GetMethod(implObj, "BeginUninstallWithOptions"), flags, 3)
+        this.vtbl.BindDeferredMdilBinaries := CallbackCreate(GetMethod(implObj, "BindDeferredMdilBinaries"), flags, 1)
+        this.vtbl.GenerateXamlLightupXbfForCurrentLocale := CallbackCreate(GetMethod(implObj, "GenerateXamlLightupXbfForCurrentLocale"), flags, 2)
+        this.vtbl.AddLicenseForAppx := CallbackCreate(GetMethod(implObj, "AddLicenseForAppx"), flags, 6)
+        this.vtbl.FixJunctionsForAppsOnSDCard := CallbackCreate(GetMethod(implObj, "FixJunctionsForAppsOnSDCard"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReportDownloadBegin)
+        CallbackFree(this.vtbl.ReportDownloadProgress)
+        CallbackFree(this.vtbl.ReportDownloadComplete)
+        CallbackFree(this.vtbl.BeginInstall)
+        CallbackFree(this.vtbl.BeginUpdate)
+        CallbackFree(this.vtbl.BeginDeployPackage)
+        CallbackFree(this.vtbl.BeginUpdateDeployedPackageLegacy)
+        CallbackFree(this.vtbl.BeginUninstall)
+        CallbackFree(this.vtbl.BeginEnterpriseAppInstall)
+        CallbackFree(this.vtbl.BeginEnterpriseAppUpdate)
+        CallbackFree(this.vtbl.BeginUpdateLicense)
+        CallbackFree(this.vtbl.GetLicenseChallenge)
+        CallbackFree(this.vtbl.GetLicenseChallengeByProductID)
+        CallbackFree(this.vtbl.GetLicenseChallengeByProductID2)
+        CallbackFree(this.vtbl.RevokeLicense)
+        CallbackFree(this.vtbl.RebindMdilBinaries)
+        CallbackFree(this.vtbl.RebindAllMdilBinaries)
+        CallbackFree(this.vtbl.RegenerateXbf)
+        CallbackFree(this.vtbl.GenerateXbfForCurrentLocale)
+        CallbackFree(this.vtbl.BeginProvision)
+        CallbackFree(this.vtbl.BeginDeprovision)
+        CallbackFree(this.vtbl.ReindexSQLCEDatabases)
+        CallbackFree(this.vtbl.SetApplicationsNeedMaintenance)
+        CallbackFree(this.vtbl.UpdateChamberProfile)
+        CallbackFree(this.vtbl.EnterprisePolicyIsApplicationAllowed)
+        CallbackFree(this.vtbl.BeginUpdateDeployedPackage)
+        CallbackFree(this.vtbl.ReportRestoreCancelled)
+        CallbackFree(this.vtbl.ResolveResourceString)
+        CallbackFree(this.vtbl.UpdateCapabilitiesForModernApps)
+        CallbackFree(this.vtbl.ReportDownloadStatusUpdate)
+        CallbackFree(this.vtbl.BeginUninstallWithOptions)
+        CallbackFree(this.vtbl.BindDeferredMdilBinaries)
+        CallbackFree(this.vtbl.GenerateXamlLightupXbfForCurrentLocale)
+        CallbackFree(this.vtbl.AddLicenseForAppx)
+        CallbackFree(this.vtbl.FixJunctionsForAppsOnSDCard)
     }
 }

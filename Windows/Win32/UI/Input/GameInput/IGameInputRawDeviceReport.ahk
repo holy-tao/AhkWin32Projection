@@ -1,87 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
+#Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class IGameInputRawDeviceReport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGameInputRawDeviceReport extends IUnknown {
     /**
      * The interface identifier for IGameInputRawDeviceReport
      * @type {Guid}
      */
-    static IID => Guid("{61f08cf1-1ffc-40ca-a2b8-e1ab8bc5b6dc}")
+    static IID := Guid("{61f08cf1-1ffc-40ca-a2b8-e1ab8bc5b6dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGameInputRawDeviceReport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice      : IntPtr
+        GetReportInfo  : IntPtr
+        GetRawDataSize : IntPtr
+        GetRawData     : IntPtr
+        SetRawData     : IntPtr
+        GetItemValue   : IntPtr
+        SetItemValue   : IntPtr
+        ResetItemValue : IntPtr
+        ResetAllItems  : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGameInputRawDeviceReport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "GetReportInfo", "GetRawDataSize", "GetRawData", "SetRawData", "GetItemValue", "SetItemValue", "ResetItemValue", "ResetAllItems"]
-
-    /**
-     * The GetDeviceCaps function retrieves device-specific information for the specified device.
-     * @remarks
-     * When <i>nIndex</i> is SHADEBLENDCAPS:
      * 
-     * <ul>
-     * <li>For a printer, <b>GetDeviceCaps</b> returns whatever the printer reports.</li>
-     * <li>For a display device, all blending operations are available; besides SB_NONE, the only return values are SB_CONST_ALPHA and SB_PIXEL_ALPHA, which indicate whether these operations are accelerated.</li>
-     * </ul>
-     * On a multiple monitor system, if <i>hdc</i> is the desktop, <b>GetDeviceCaps</b> returns the capabilities of the primary monitor. If you want info for other monitors, you must use the <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors-reference">multi-monitor APIs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> to get a HDC for the device context (DC) of a specific monitor.  
-     * 
-     * <div class="alert"><b>Note</b>  Display1 is typically the primary monitor, but not always.</div>
-     * <div> </div>
-     * <b>GetDeviceCaps</b> provides the following six indexes in place of printer escapes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Index</th>
-     * <th>Printer escape replaced</th>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALWIDTH</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALHEIGHT</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETX</td>
-     * <td>GETPRINTINGOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETY</td>
-     * <td>GETPHYSICALOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORX</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORY</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  <b>GetDeviceCaps</b> reports info that the display driver provides. If the display driver declines to report any info, <b>GetDeviceCaps</b> calculates the info based on fixed calculations. If the display driver reports invalid info, <b>GetDeviceCaps</b> returns the invalid info. Also, if the display driver declines to report info, <b>GetDeviceCaps</b> might calculate incorrect info because it assumes either fixed DPI (96 DPI) or a fixed size (depending on the info that the display driver did and didn’t provide). Unfortunately, a display driver that is implemented to the Windows Display Driver Model (WDDM) (introduced in Windows Vista) causes GDI to not get the info, so <b>GetDeviceCaps</b> must always calculate the info.</div>
-     * <div> </div>
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicecaps
      */
     GetDevice(device) {
-        ComCall(3, this, "ptr*", device)
+        ComCall(3, this, IGameInputDevice.Ptr, device)
     }
 
     /**
@@ -89,7 +58,7 @@ class IGameInputRawDeviceReport extends IUnknown {
      * @returns {Pointer<GameInputRawDeviceReportInfo>} 
      */
     GetReportInfo() {
-        result := ComCall(4, this, "ptr")
+        result := ComCall(4, this, GameInputRawDeviceReportInfo.Ptr)
         return result
     }
 
@@ -98,7 +67,7 @@ class IGameInputRawDeviceReport extends IUnknown {
      * @returns {Pointer} 
      */
     GetRawDataSize() {
-        result := ComCall(5, this, "ptr")
+        result := ComCall(5, this, IntPtr)
         return result
     }
 
@@ -111,7 +80,7 @@ class IGameInputRawDeviceReport extends IUnknown {
     GetRawData(bufferSize, _buffer) {
         _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", bufferSize, _bufferMarshal, _buffer, "ptr")
+        result := ComCall(6, this, "ptr", bufferSize, _bufferMarshal, _buffer, IntPtr)
         return result
     }
 
@@ -124,7 +93,7 @@ class IGameInputRawDeviceReport extends IUnknown {
     SetRawData(bufferSize, _buffer) {
         _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", bufferSize, _bufferMarshal, _buffer, "int")
+        result := ComCall(7, this, "ptr", bufferSize, _bufferMarshal, _buffer, Int32)
         return result
     }
 
@@ -137,7 +106,7 @@ class IGameInputRawDeviceReport extends IUnknown {
     GetItemValue(itemIndex, value) {
         valueMarshal := value is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, "uint", itemIndex, valueMarshal, value, "int")
+        result := ComCall(8, this, "uint", itemIndex, valueMarshal, value, Int32)
         return result
     }
 
@@ -148,7 +117,7 @@ class IGameInputRawDeviceReport extends IUnknown {
      * @returns {Boolean} 
      */
     SetItemValue(itemIndex, value) {
-        result := ComCall(9, this, "uint", itemIndex, "int64", value, "int")
+        result := ComCall(9, this, "uint", itemIndex, "int64", value, Int32)
         return result
     }
 
@@ -158,7 +127,7 @@ class IGameInputRawDeviceReport extends IUnknown {
      * @returns {Boolean} 
      */
     ResetItemValue(itemIndex) {
-        result := ComCall(10, this, "uint", itemIndex, "int")
+        result := ComCall(10, this, "uint", itemIndex, Int32)
         return result
     }
 
@@ -167,7 +136,43 @@ class IGameInputRawDeviceReport extends IUnknown {
      * @returns {Boolean} 
      */
     ResetAllItems() {
-        result := ComCall(11, this, "int")
+        result := ComCall(11, this, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IGameInputRawDeviceReport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetReportInfo := CallbackCreate(GetMethod(implObj, "GetReportInfo"), flags, 1)
+        this.vtbl.GetRawDataSize := CallbackCreate(GetMethod(implObj, "GetRawDataSize"), flags, 1)
+        this.vtbl.GetRawData := CallbackCreate(GetMethod(implObj, "GetRawData"), flags, 3)
+        this.vtbl.SetRawData := CallbackCreate(GetMethod(implObj, "SetRawData"), flags, 3)
+        this.vtbl.GetItemValue := CallbackCreate(GetMethod(implObj, "GetItemValue"), flags, 3)
+        this.vtbl.SetItemValue := CallbackCreate(GetMethod(implObj, "SetItemValue"), flags, 3)
+        this.vtbl.ResetItemValue := CallbackCreate(GetMethod(implObj, "ResetItemValue"), flags, 2)
+        this.vtbl.ResetAllItems := CallbackCreate(GetMethod(implObj, "ResetAllItems"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetReportInfo)
+        CallbackFree(this.vtbl.GetRawDataSize)
+        CallbackFree(this.vtbl.GetRawData)
+        CallbackFree(this.vtbl.SetRawData)
+        CallbackFree(this.vtbl.GetItemValue)
+        CallbackFree(this.vtbl.SetItemValue)
+        CallbackFree(this.vtbl.ResetItemValue)
+        CallbackFree(this.vtbl.ResetAllItems)
     }
 }

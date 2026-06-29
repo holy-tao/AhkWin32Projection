@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_INTERRUPT_CONTROL extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WHV_INTERRUPT_CONTROL {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
@@ -15,12 +12,9 @@ class WHV_INTERRUPT_CONTROL extends Win32Struct {
      * - DestinationMode
      * - TriggerMode
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -45,20 +39,8 @@ class WHV_INTERRUPT_CONTROL extends Win32Struct {
         get => (this._bitfield >> 12) & 0xF
         set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
     }
+    Destination : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Destination {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Vector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Vector {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

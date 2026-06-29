@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Exposed by a client to specify how to filter the enumeration of a Shell folder by a server application.
@@ -21,26 +24,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderfilter
  * @namespace Windows.Win32.UI.Shell
  */
-class IFolderFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFolderFilter extends IUnknown {
     /**
      * The interface identifier for IFolderFilter
      * @type {Guid}
      */
-    static IID => Guid("{9cc22886-dc8e-11d2-b1d0-00c04f8eeb3e}")
+    static IID := Guid("{9cc22886-dc8e-11d2-b1d0-00c04f8eeb3e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShouldShow   : IntPtr
+        GetEnumFlags : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShouldShow", "GetEnumFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies whether an individual item should be allowed through the filter and which should be blocked.
@@ -86,7 +97,7 @@ class IFolderFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow
      */
     ShouldShow(psf, pidlFolder, pidlItem) {
-        result := ComCall(3, this, "ptr", psf, "ptr", pidlFolder, "ptr", pidlItem, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, ITEMIDLIST.Ptr, pidlItem, "HRESULT")
         return result
     }
 
@@ -110,7 +121,29 @@ class IFolderFilter extends IUnknown {
         pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"
 
         phwnd := HWND()
-        result := ComCall(4, this, "ptr", psf, "ptr", pidlFolder, "ptr", phwnd, pgrfFlagsMarshal, pgrfFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, HWND.Ptr, phwnd, pgrfFlagsMarshal, pgrfFlags, "HRESULT")
         return phwnd
+    }
+
+    Query(iid) {
+        if (IFolderFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShouldShow := CallbackCreate(GetMethod(implObj, "ShouldShow"), flags, 4)
+        this.vtbl.GetEnumFlags := CallbackCreate(GetMethod(implObj, "GetEnumFlags"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShouldShow)
+        CallbackFree(this.vtbl.GetEnumFlags)
     }
 }

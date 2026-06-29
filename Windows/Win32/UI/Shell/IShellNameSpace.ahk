@@ -1,40 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellFavoritesNameSpace.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellFavoritesNameSpace.ahk" { IShellFavoritesNameSpace }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellNameSpace extends IShellFavoritesNameSpace {
-
-    static sizeof => A_PtrSize
+export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     /**
      * The interface identifier for IShellNameSpace
      * @type {Guid}
      */
-    static IID => Guid("{e572d3c9-37be-4ae2-825d-d521763e3108}")
+    static IID := Guid("{e572d3c9-37be-4ae2-825d-d521763e3108}")
 
     /**
      * The class identifier for ShellNameSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{55136805-b2de-11d1-b9f2-00a0c98bc547}")
+    static CLSID := Guid("{55136805-b2de-11d1-b9f2-00a0c98bc547}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellNameSpace interfaces
+    */
+    struct Vtbl extends IShellFavoritesNameSpace.Vtbl {
+        get_EnumOptions    : IntPtr
+        put_EnumOptions    : IntPtr
+        get_SelectedItem   : IntPtr
+        put_SelectedItem   : IntPtr
+        get_Root           : IntPtr
+        put_Root           : IntPtr
+        get_Depth          : IntPtr
+        put_Depth          : IntPtr
+        get_Mode           : IntPtr
+        put_Mode           : IntPtr
+        get_Flags          : IntPtr
+        put_Flags          : IntPtr
+        put_TVFlags        : IntPtr
+        get_TVFlags        : IntPtr
+        get_Columns        : IntPtr
+        put_Columns        : IntPtr
+        get_CountViewTypes : IntPtr
+        SetViewType        : IntPtr
+        SelectedItems      : IntPtr
+        Expand             : IntPtr
+        UnselectAll        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_EnumOptions", "put_EnumOptions", "get_SelectedItem", "put_SelectedItem", "get_Root", "put_Root", "get_Depth", "put_Depth", "get_Mode", "put_Mode", "get_Flags", "put_Flags", "put_TVFlags", "get_TVFlags", "get_Columns", "put_Columns", "get_CountViewTypes", "SetViewType", "SelectedItems", "Expand", "UnselectAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellNameSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -151,7 +179,7 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
      */
     get_Root() {
         pvar := VARIANT()
-        result := ComCall(24, this, "ptr", pvar, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, pvar, "HRESULT")
         return pvar
     }
 
@@ -161,7 +189,7 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     put_Root(var) {
-        result := ComCall(25, this, "ptr", var, "HRESULT")
+        result := ComCall(25, this, VARIANT, var, "HRESULT")
         return result
     }
 
@@ -246,8 +274,8 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {BSTR} 
      */
     get_Columns() {
-        bstrColumns := BSTR()
-        result := ComCall(34, this, "ptr", bstrColumns, "HRESULT")
+        bstrColumns := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, bstrColumns, "HRESULT")
         return bstrColumns
     }
 
@@ -259,7 +287,7 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     put_Columns(bstrColumns) {
         bstrColumns := bstrColumns is String ? BSTR.Alloc(bstrColumns).Value : bstrColumns
 
-        result := ComCall(35, this, "ptr", bstrColumns, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrColumns, "HRESULT")
         return result
     }
 
@@ -292,16 +320,13 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * Hides all descendant nodes, controls, or content of the UI Automation element.
+     * 
      * @param {VARIANT} var 
      * @param {Integer} iDepth 
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
+     * @returns {HRESULT} 
      */
     Expand(var, iDepth) {
-        result := ComCall(39, this, "ptr", var, "int", iDepth, "HRESULT")
+        result := ComCall(39, this, VARIANT, var, "int", iDepth, "HRESULT")
         return result
     }
 
@@ -312,5 +337,65 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     UnselectAll() {
         result := ComCall(40, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellNameSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_EnumOptions := CallbackCreate(GetMethod(implObj, "get_EnumOptions"), flags, 2)
+        this.vtbl.put_EnumOptions := CallbackCreate(GetMethod(implObj, "put_EnumOptions"), flags, 2)
+        this.vtbl.get_SelectedItem := CallbackCreate(GetMethod(implObj, "get_SelectedItem"), flags, 2)
+        this.vtbl.put_SelectedItem := CallbackCreate(GetMethod(implObj, "put_SelectedItem"), flags, 2)
+        this.vtbl.get_Root := CallbackCreate(GetMethod(implObj, "get_Root"), flags, 2)
+        this.vtbl.put_Root := CallbackCreate(GetMethod(implObj, "put_Root"), flags, 2)
+        this.vtbl.get_Depth := CallbackCreate(GetMethod(implObj, "get_Depth"), flags, 2)
+        this.vtbl.put_Depth := CallbackCreate(GetMethod(implObj, "put_Depth"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.put_Flags := CallbackCreate(GetMethod(implObj, "put_Flags"), flags, 2)
+        this.vtbl.put_TVFlags := CallbackCreate(GetMethod(implObj, "put_TVFlags"), flags, 2)
+        this.vtbl.get_TVFlags := CallbackCreate(GetMethod(implObj, "get_TVFlags"), flags, 2)
+        this.vtbl.get_Columns := CallbackCreate(GetMethod(implObj, "get_Columns"), flags, 2)
+        this.vtbl.put_Columns := CallbackCreate(GetMethod(implObj, "put_Columns"), flags, 2)
+        this.vtbl.get_CountViewTypes := CallbackCreate(GetMethod(implObj, "get_CountViewTypes"), flags, 2)
+        this.vtbl.SetViewType := CallbackCreate(GetMethod(implObj, "SetViewType"), flags, 2)
+        this.vtbl.SelectedItems := CallbackCreate(GetMethod(implObj, "SelectedItems"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 3)
+        this.vtbl.UnselectAll := CallbackCreate(GetMethod(implObj, "UnselectAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_EnumOptions)
+        CallbackFree(this.vtbl.put_EnumOptions)
+        CallbackFree(this.vtbl.get_SelectedItem)
+        CallbackFree(this.vtbl.put_SelectedItem)
+        CallbackFree(this.vtbl.get_Root)
+        CallbackFree(this.vtbl.put_Root)
+        CallbackFree(this.vtbl.get_Depth)
+        CallbackFree(this.vtbl.put_Depth)
+        CallbackFree(this.vtbl.get_Mode)
+        CallbackFree(this.vtbl.put_Mode)
+        CallbackFree(this.vtbl.get_Flags)
+        CallbackFree(this.vtbl.put_Flags)
+        CallbackFree(this.vtbl.put_TVFlags)
+        CallbackFree(this.vtbl.get_TVFlags)
+        CallbackFree(this.vtbl.get_Columns)
+        CallbackFree(this.vtbl.put_Columns)
+        CallbackFree(this.vtbl.get_CountViewTypes)
+        CallbackFree(this.vtbl.SetViewType)
+        CallbackFree(this.vtbl.SelectedItems)
+        CallbackFree(this.vtbl.Expand)
+        CallbackFree(this.vtbl.UnselectAll)
     }
 }

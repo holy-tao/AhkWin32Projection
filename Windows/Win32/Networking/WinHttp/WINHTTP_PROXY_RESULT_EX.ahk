@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_PROXY_RESULT_ENTRY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WINHTTP_PROXY_RESULT_ENTRY.ahk" { WINHTTP_PROXY_RESULT_ENTRY }
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_PROXY_RESULT_EX extends Win32Struct {
-    static sizeof => 32
+export default struct WINHTTP_PROXY_RESULT_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    cEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pEntries : WINHTTP_PROXY_RESULT_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<WINHTTP_PROXY_RESULT_ENTRY>}
-     */
-    pEntries {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hProxyDetectionHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hProxyDetectionHandle {
-        get {
-            if(!this.HasProp("__hProxyDetectionHandle"))
-                this.__hProxyDetectionHandle := HANDLE(16, this)
-            return this.__hProxyDetectionHandle
-        }
-    }
+    dwProxyInterfaceAffinity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProxyInterfaceAffinity {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

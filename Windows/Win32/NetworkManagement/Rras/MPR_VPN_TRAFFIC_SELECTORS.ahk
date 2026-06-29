@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPR_VPN_TRAFFIC_SELECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MPR_VPN_TRAFFIC_SELECTOR.ahk" { MPR_VPN_TRAFFIC_SELECTOR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_VPN_TRAFFIC_SELECTORS extends Win32Struct {
-    static sizeof => 24
+export default struct MPR_VPN_TRAFFIC_SELECTORS {
+    #StructPack 8
 
-    static packingSize => 8
+    numTsi : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numTsi {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numTsr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numTsr {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    tsI : MPR_VPN_TRAFFIC_SELECTOR.Ptr
 
-    /**
-     * @type {Pointer<MPR_VPN_TRAFFIC_SELECTOR>}
-     */
-    tsI {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    tsR : MPR_VPN_TRAFFIC_SELECTOR.Ptr
 
-    /**
-     * @type {Pointer<MPR_VPN_TRAFFIC_SELECTOR>}
-     */
-    tsR {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

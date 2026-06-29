@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PEER_GROUP_PROPERTY_FLAGS flags are used to specify various peer group membership settings.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_group_property_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_GROUP_PROPERTY_FLAGS extends Win32Enum {
+export default struct PEER_GROUP_PROPERTY_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A peer's member data (<a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_member">PEER_MEMBER</a>) is only published  when an action if performed, such as publishing a record  or issuing a GMC. If the peer has not performed one of these actions, the membership data will not be available.

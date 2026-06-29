@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MCG_STATUS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct MCG_STATUS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class MCG_STATUS extends Win32Struct {
      * - MachineCheckInProgress
      * - LocalMceValid
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -62,20 +56,10 @@ class MCG_STATUS extends Win32Struct {
         get => (this._bitfield >> 4) & 0xFFFFFFF
         set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
     }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QuadPart {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'QuadPart', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

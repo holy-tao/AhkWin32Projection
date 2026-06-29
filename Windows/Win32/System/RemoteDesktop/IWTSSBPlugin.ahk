@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WTSSBX_MACHINE_CONNECT_INFO.ahk" { WTSSBX_MACHINE_CONNECT_INFO }
+#Import ".\WTSSBX_MACHINE_INFO.ahk" { WTSSBX_MACHINE_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WTSSBX_NOTIFICATION_TYPE.ahk" { WTSSBX_NOTIFICATION_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WTSSBX_IP_ADDRESS.ahk" { WTSSBX_IP_ADDRESS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTSSBX_SESSION_INFO.ahk" { WTSSBX_SESSION_INFO }
 
 /**
  * Used to extend the capabilities of Terminal Services Session Broker (TS�Session Broker). Implement this interface when you want to provide a plug-in that overrides the redirection logic of TS�Session Broker.
@@ -14,26 +21,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/nn-tssbx-iwtssbplugin
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWTSSBPlugin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWTSSBPlugin extends IUnknown {
     /**
      * The interface identifier for IWTSSBPlugin
      * @type {Guid}
      */
-    static IID => Guid("{dc44be78-b18d-4399-b210-641bf67a002c}")
+    static IID := Guid("{dc44be78-b18d-4399-b210-641bf67a002c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWTSSBPlugin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                       : IntPtr
+        WTSSBX_MachineChangeNotification : IntPtr
+        WTSSBX_SessionChangeNotification : IntPtr
+        WTSSBX_GetMostSuitableServer     : IntPtr
+        Terminated                       : IntPtr
+        WTSSBX_GetUserExternalSession    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "WTSSBX_MachineChangeNotification", "WTSSBX_SessionChangeNotification", "WTSSBX_GetMostSuitableServer", "Terminated", "WTSSBX_GetUserExternalSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWTSSBPlugin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the plug-in and returns a value that indicates the redirection capabilities of the plug-in.
@@ -68,7 +87,7 @@ class IWTSSBPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tssbx/nf-tssbx-iwtssbplugin-wtssbx_machinechangenotification
      */
     WTSSBX_MachineChangeNotification(NotificationType, MachineId, pMachineInfo) {
-        result := ComCall(4, this, "int", NotificationType, "int", MachineId, "ptr", pMachineInfo, "HRESULT")
+        result := ComCall(4, this, WTSSBX_NOTIFICATION_TYPE, NotificationType, "int", MachineId, WTSSBX_MACHINE_INFO.Ptr, pMachineInfo, "HRESULT")
         return result
     }
 
@@ -86,7 +105,7 @@ class IWTSSBPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tssbx/nf-tssbx-iwtssbplugin-wtssbx_sessionchangenotification
      */
     WTSSBX_SessionChangeNotification(NotificationType, MachineId, NumOfSessions, SessionInfo) {
-        result := ComCall(5, this, "int", NotificationType, "int", MachineId, "uint", NumOfSessions, "ptr", SessionInfo, "HRESULT")
+        result := ComCall(5, this, WTSSBX_NOTIFICATION_TYPE, NotificationType, "int", MachineId, "uint", NumOfSessions, WTSSBX_SESSION_INFO.Ptr, SessionInfo, "HRESULT")
         return result
     }
 
@@ -154,7 +173,37 @@ class IWTSSBPlugin extends IUnknown {
 
         pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", _ApplicationType, "ptr", RedirectorInternalIP, pSessionIdMarshal, pSessionId, "ptr", pMachineConnectInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", _ApplicationType, WTSSBX_IP_ADDRESS.Ptr, RedirectorInternalIP, pSessionIdMarshal, pSessionId, WTSSBX_MACHINE_CONNECT_INFO.Ptr, pMachineConnectInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWTSSBPlugin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.WTSSBX_MachineChangeNotification := CallbackCreate(GetMethod(implObj, "WTSSBX_MachineChangeNotification"), flags, 4)
+        this.vtbl.WTSSBX_SessionChangeNotification := CallbackCreate(GetMethod(implObj, "WTSSBX_SessionChangeNotification"), flags, 5)
+        this.vtbl.WTSSBX_GetMostSuitableServer := CallbackCreate(GetMethod(implObj, "WTSSBX_GetMostSuitableServer"), flags, 6)
+        this.vtbl.Terminated := CallbackCreate(GetMethod(implObj, "Terminated"), flags, 1)
+        this.vtbl.WTSSBX_GetUserExternalSession := CallbackCreate(GetMethod(implObj, "WTSSBX_GetUserExternalSession"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.WTSSBX_MachineChangeNotification)
+        CallbackFree(this.vtbl.WTSSBX_SessionChangeNotification)
+        CallbackFree(this.vtbl.WTSSBX_GetMostSuitableServer)
+        CallbackFree(this.vtbl.Terminated)
+        CallbackFree(this.vtbl.WTSSBX_GetUserExternalSession)
     }
 }

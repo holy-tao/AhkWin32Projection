@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for applying color and font information to preview handlers.
@@ -11,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewhandlervisuals
  * @namespace Windows.Win32.UI.Shell
  */
-class IPreviewHandlerVisuals extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPreviewHandlerVisuals extends IUnknown {
     /**
      * The interface identifier for IPreviewHandlerVisuals
      * @type {Guid}
      */
-    static IID => Guid("{196bf9a5-b346-4ef0-aa1e-5dcdb76768b1}")
+    static IID := Guid("{196bf9a5-b346-4ef0-aa1e-5dcdb76768b1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPreviewHandlerVisuals interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetBackgroundColor : IntPtr
+        SetFont            : IntPtr
+        SetTextColor       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBackgroundColor", "SetFont", "SetTextColor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPreviewHandlerVisuals.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the background color of the preview handler.
@@ -46,7 +58,7 @@ class IPreviewHandlerVisuals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setbackgroundcolor
      */
     SetBackgroundColor(_color) {
-        result := ComCall(3, this, "uint", _color, "HRESULT")
+        result := ComCall(3, this, COLORREF, _color, "HRESULT")
         return result
     }
 
@@ -64,7 +76,7 @@ class IPreviewHandlerVisuals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setfont
      */
     SetFont(plf) {
-        result := ComCall(4, this, "ptr", plf, "HRESULT")
+        result := ComCall(4, this, LOGFONTW.Ptr, plf, "HRESULT")
         return result
     }
 
@@ -82,7 +94,31 @@ class IPreviewHandlerVisuals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-settextcolor
      */
     SetTextColor(_color) {
-        result := ComCall(5, this, "uint", _color, "HRESULT")
+        result := ComCall(5, this, COLORREF, _color, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPreviewHandlerVisuals.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.SetFont := CallbackCreate(GetMethod(implObj, "SetFont"), flags, 2)
+        this.vtbl.SetTextColor := CallbackCreate(GetMethod(implObj, "SetTextColor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBackgroundColor)
+        CallbackFree(this.vtbl.SetFont)
+        CallbackFree(this.vtbl.SetTextColor)
     }
 }

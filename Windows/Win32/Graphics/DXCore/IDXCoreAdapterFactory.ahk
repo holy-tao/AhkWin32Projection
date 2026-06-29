@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXCoreNotificationType.ahk" { DXCoreNotificationType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * The **IDXCoreAdapterFactory** interface implements methods for generating DXCore adapter enumeration objects, and for retrieving their details.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterfactory
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class IDXCoreAdapterFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXCoreAdapterFactory extends IUnknown {
     /**
      * The interface identifier for IDXCoreAdapterFactory
      * @type {Guid}
      */
-    static IID => Guid("{78ee5945-c36e-4b13-a669-005dd11c0f06}")
+    static IID := Guid("{78ee5945-c36e-4b13-a669-005dd11c0f06}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXCoreAdapterFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateAdapterList           : IntPtr
+        GetAdapterByLuid            : IntPtr
+        IsNotificationTypeSupported : IntPtr
+        RegisterEventNotification   : IntPtr
+        UnregisterEventNotification : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateAdapterList", "GetAdapterByLuid", "IsNotificationTypeSupported", "RegisterEventNotification", "UnregisterEventNotification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXCoreAdapterFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generates a list of adapter objects representing the current adapter state of the system, and meeting the criteria specified.
@@ -50,7 +64,7 @@ class IDXCoreAdapterFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-createadapterlist
      */
     CreateAdapterList(numAttributes, filterAttributes, riid) {
-        result := ComCall(3, this, "uint", numAttributes, "ptr", filterAttributes, "ptr", riid, "ptr*", &ppvAdapterList := 0, "HRESULT")
+        result := ComCall(3, this, "uint", numAttributes, Guid.Ptr, filterAttributes, Guid.Ptr, riid, "ptr*", &ppvAdapterList := 0, "HRESULT")
         return ppvAdapterList
     }
 
@@ -70,7 +84,7 @@ class IDXCoreAdapterFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-getadapterbyluid
      */
     GetAdapterByLuid(adapterLUID, riid) {
-        result := ComCall(4, this, "ptr", adapterLUID, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(4, this, LUID.Ptr, adapterLUID, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
         return ppvAdapter
     }
 
@@ -87,7 +101,7 @@ class IDXCoreAdapterFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-isnotificationtypesupported
      */
     IsNotificationTypeSupported(notificationType) {
-        result := ComCall(5, this, "uint", notificationType, "int")
+        result := ComCall(5, this, DXCoreNotificationType, notificationType, Int32)
         return result
     }
 
@@ -131,7 +145,7 @@ class IDXCoreAdapterFactory extends IUnknown {
     RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", dxCoreObject, "uint", notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", dxCoreObject, DXCoreNotificationType, notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
         return eventCookie
     }
 
@@ -159,5 +173,33 @@ class IDXCoreAdapterFactory extends IUnknown {
     UnregisterEventNotification(eventCookie) {
         result := ComCall(7, this, "uint", eventCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXCoreAdapterFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateAdapterList := CallbackCreate(GetMethod(implObj, "CreateAdapterList"), flags, 5)
+        this.vtbl.GetAdapterByLuid := CallbackCreate(GetMethod(implObj, "GetAdapterByLuid"), flags, 4)
+        this.vtbl.IsNotificationTypeSupported := CallbackCreate(GetMethod(implObj, "IsNotificationTypeSupported"), flags, 2)
+        this.vtbl.RegisterEventNotification := CallbackCreate(GetMethod(implObj, "RegisterEventNotification"), flags, 6)
+        this.vtbl.UnregisterEventNotification := CallbackCreate(GetMethod(implObj, "UnregisterEventNotification"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateAdapterList)
+        CallbackFree(this.vtbl.GetAdapterByLuid)
+        CallbackFree(this.vtbl.IsNotificationTypeSupported)
+        CallbackFree(this.vtbl.RegisterEventNotification)
+        CallbackFree(this.vtbl.UnregisterEventNotification)
     }
 }

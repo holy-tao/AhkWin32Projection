@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NDK_VERSION structure specifies major and minor versions in the NDK interface.
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ndkinfo/ns-ndkinfo-ndk_version
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDK_VERSION extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct NDK_VERSION {
+    #StructPack 2
 
     /**
      * The NDK major version number.
-     * @type {Integer}
      */
-    Major {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Major : UInt16
 
     /**
      * The NDK minor version number.
-     * @type {Integer}
      */
-    Minor {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Minor : UInt16
+
 }

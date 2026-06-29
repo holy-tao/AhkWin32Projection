@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFont1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFont1.ahk" { IDWriteFont1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a physical font in a font collection.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefont2
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFont2 extends IDWriteFont1 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFont2 extends IDWriteFont1 {
     /**
      * The interface identifier for IDWriteFont2
      * @type {Guid}
      */
-    static IID => Guid("{29748ed6-8c9c-4a6a-be0b-d912e8538944}")
+    static IID := Guid("{29748ed6-8c9c-4a6a-be0b-d912e8538944}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFont2 interfaces
+    */
+    struct Vtbl extends IDWriteFont1.Vtbl {
+        IsColorFont : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsColorFont"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFont2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables determining if a color rendering path is potentially necessary.
@@ -40,7 +48,27 @@ class IDWriteFont2 extends IDWriteFont1 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefont2-iscolorfont
      */
     IsColorFont() {
-        result := ComCall(18, this, "int")
+        result := ComCall(18, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFont2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsColorFont := CallbackCreate(GetMethod(implObj, "IsColorFont"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsColorFont)
     }
 }

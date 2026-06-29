@@ -1,34 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\QOS_SERVICE_LEVEL.ahk" { QOS_SERVICE_LEVEL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DISCONNECT_CODE.ahk" { DISCONNECT_CODE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FINISH_MODE.ahk" { FINISH_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The ITBasicCallControl interface is used by the application to connect, answer, and perform basic telephony operations on a call object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itbasiccallcontrol
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITBasicCallControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITBasicCallControl extends IDispatch {
     /**
      * The interface identifier for ITBasicCallControl
      * @type {Guid}
      */
-    static IID => Guid("{b1efc389-9355-11d0-835c-00aa003ccabd}")
+    static IID := Guid("{b1efc389-9355-11d0-835c-00aa003ccabd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITBasicCallControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Connect              : IntPtr
+        Answer               : IntPtr
+        Disconnect           : IntPtr
+        Hold                 : IntPtr
+        HandoffDirect        : IntPtr
+        HandoffIndirect      : IntPtr
+        Conference           : IntPtr
+        Transfer             : IntPtr
+        BlindTransfer        : IntPtr
+        SwapHold             : IntPtr
+        ParkDirect           : IntPtr
+        ParkIndirect         : IntPtr
+        Unpark               : IntPtr
+        SetQOS               : IntPtr
+        Pickup               : IntPtr
+        Dial                 : IntPtr
+        Finish               : IntPtr
+        RemoveFromConference : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Answer", "Disconnect", "Hold", "HandoffDirect", "HandoffIndirect", "Conference", "Transfer", "BlindTransfer", "SwapHold", "ParkDirect", "ParkIndirect", "Unpark", "SetQOS", "Pickup", "Dial", "Finish", "RemoveFromConference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITBasicCallControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Connect method attempts to complete the connection of an outgoing call.
@@ -96,7 +125,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-connect
      */
     Connect(fSync) {
-        result := ComCall(7, this, "short", fSync, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL, fSync, "HRESULT")
         return result
     }
 
@@ -219,7 +248,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-disconnect
      */
     Disconnect(code) {
-        result := ComCall(9, this, "int", code, "HRESULT")
+        result := ComCall(9, this, DISCONNECT_CODE, code, "HRESULT")
         return result
     }
 
@@ -288,7 +317,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-hold
      */
     Hold(fHold) {
-        result := ComCall(10, this, "short", fHold, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, fHold, "HRESULT")
         return result
     }
 
@@ -354,7 +383,7 @@ class ITBasicCallControl extends IDispatch {
     HandoffDirect(pApplicationName) {
         pApplicationName := pApplicationName is String ? BSTR.Alloc(pApplicationName).Value : pApplicationName
 
-        result := ComCall(11, this, "ptr", pApplicationName, "HRESULT")
+        result := ComCall(11, this, BSTR, pApplicationName, "HRESULT")
         return result
     }
 
@@ -506,7 +535,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-conference
      */
     Conference(pCall, fSync) {
-        result := ComCall(13, this, "ptr", pCall, "short", fSync, "HRESULT")
+        result := ComCall(13, this, "ptr", pCall, VARIANT_BOOL, fSync, "HRESULT")
         return result
     }
 
@@ -597,7 +626,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-transfer
      */
     Transfer(pCall, fSync) {
-        result := ComCall(14, this, "ptr", pCall, "short", fSync, "HRESULT")
+        result := ComCall(14, this, "ptr", pCall, VARIANT_BOOL, fSync, "HRESULT")
         return result
     }
 
@@ -686,7 +715,7 @@ class ITBasicCallControl extends IDispatch {
     BlindTransfer(pDestAddress) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
 
-        result := ComCall(15, this, "ptr", pDestAddress, "HRESULT")
+        result := ComCall(15, this, BSTR, pDestAddress, "HRESULT")
         return result
     }
 
@@ -890,7 +919,7 @@ class ITBasicCallControl extends IDispatch {
     ParkDirect(pParkAddress) {
         pParkAddress := pParkAddress is String ? BSTR.Alloc(pParkAddress).Value : pParkAddress
 
-        result := ComCall(17, this, "ptr", pParkAddress, "HRESULT")
+        result := ComCall(17, this, BSTR, pParkAddress, "HRESULT")
         return result
     }
 
@@ -916,8 +945,8 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-parkindirect
      */
     ParkIndirect() {
-        ppNonDirAddress := BSTR()
-        result := ComCall(18, this, "ptr", ppNonDirAddress, "HRESULT")
+        ppNonDirAddress := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, ppNonDirAddress, "HRESULT")
         return ppNonDirAddress
     }
 
@@ -1044,7 +1073,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-setqos
      */
     SetQOS(lMediaType, ServiceLevel) {
-        result := ComCall(20, this, "int", lMediaType, "int", ServiceLevel, "HRESULT")
+        result := ComCall(20, this, "int", lMediaType, QOS_SERVICE_LEVEL, ServiceLevel, "HRESULT")
         return result
     }
 
@@ -1123,7 +1152,7 @@ class ITBasicCallControl extends IDispatch {
     Pickup(pGroupID) {
         pGroupID := pGroupID is String ? BSTR.Alloc(pGroupID).Value : pGroupID
 
-        result := ComCall(21, this, "ptr", pGroupID, "HRESULT")
+        result := ComCall(21, this, BSTR, pGroupID, "HRESULT")
         return result
     }
 
@@ -1200,7 +1229,7 @@ class ITBasicCallControl extends IDispatch {
     Dial(pDestAddress) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
 
-        result := ComCall(22, this, "ptr", pDestAddress, "HRESULT")
+        result := ComCall(22, this, BSTR, pDestAddress, "HRESULT")
         return result
     }
 
@@ -1269,7 +1298,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-finish
      */
     Finish(finishMode) {
-        result := ComCall(23, this, "int", finishMode, "HRESULT")
+        result := ComCall(23, this, FINISH_MODE, finishMode, "HRESULT")
         return result
     }
 
@@ -1327,5 +1356,59 @@ class ITBasicCallControl extends IDispatch {
     RemoveFromConference() {
         result := ComCall(24, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITBasicCallControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Answer := CallbackCreate(GetMethod(implObj, "Answer"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.Hold := CallbackCreate(GetMethod(implObj, "Hold"), flags, 2)
+        this.vtbl.HandoffDirect := CallbackCreate(GetMethod(implObj, "HandoffDirect"), flags, 2)
+        this.vtbl.HandoffIndirect := CallbackCreate(GetMethod(implObj, "HandoffIndirect"), flags, 2)
+        this.vtbl.Conference := CallbackCreate(GetMethod(implObj, "Conference"), flags, 3)
+        this.vtbl.Transfer := CallbackCreate(GetMethod(implObj, "Transfer"), flags, 3)
+        this.vtbl.BlindTransfer := CallbackCreate(GetMethod(implObj, "BlindTransfer"), flags, 2)
+        this.vtbl.SwapHold := CallbackCreate(GetMethod(implObj, "SwapHold"), flags, 2)
+        this.vtbl.ParkDirect := CallbackCreate(GetMethod(implObj, "ParkDirect"), flags, 2)
+        this.vtbl.ParkIndirect := CallbackCreate(GetMethod(implObj, "ParkIndirect"), flags, 2)
+        this.vtbl.Unpark := CallbackCreate(GetMethod(implObj, "Unpark"), flags, 1)
+        this.vtbl.SetQOS := CallbackCreate(GetMethod(implObj, "SetQOS"), flags, 3)
+        this.vtbl.Pickup := CallbackCreate(GetMethod(implObj, "Pickup"), flags, 2)
+        this.vtbl.Dial := CallbackCreate(GetMethod(implObj, "Dial"), flags, 2)
+        this.vtbl.Finish := CallbackCreate(GetMethod(implObj, "Finish"), flags, 2)
+        this.vtbl.RemoveFromConference := CallbackCreate(GetMethod(implObj, "RemoveFromConference"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Answer)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Hold)
+        CallbackFree(this.vtbl.HandoffDirect)
+        CallbackFree(this.vtbl.HandoffIndirect)
+        CallbackFree(this.vtbl.Conference)
+        CallbackFree(this.vtbl.Transfer)
+        CallbackFree(this.vtbl.BlindTransfer)
+        CallbackFree(this.vtbl.SwapHold)
+        CallbackFree(this.vtbl.ParkDirect)
+        CallbackFree(this.vtbl.ParkIndirect)
+        CallbackFree(this.vtbl.Unpark)
+        CallbackFree(this.vtbl.SetQOS)
+        CallbackFree(this.vtbl.Pickup)
+        CallbackFree(this.vtbl.Dial)
+        CallbackFree(this.vtbl.Finish)
+        CallbackFree(this.vtbl.RemoveFromConference)
     }
 }

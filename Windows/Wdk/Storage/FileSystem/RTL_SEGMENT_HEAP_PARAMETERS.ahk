@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class RTL_SEGMENT_HEAP_PARAMETERS extends Win32Struct {
-    static sizeof => 48
+export default struct RTL_SEGMENT_HEAP_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MemorySource : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MemorySource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Reserved : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "ptr")
-            return this.__ReservedProxyArray
-        }
-    }
 }

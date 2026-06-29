@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Brush.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
  * Paints an area with a radial gradient.
@@ -22,26 +24,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1radialgradientbrush
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1RadialGradientBrush extends ID2D1Brush {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1RadialGradientBrush extends ID2D1Brush {
     /**
      * The interface identifier for ID2D1RadialGradientBrush
      * @type {Guid}
      */
-    static IID => Guid("{2cd906ac-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906ac-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1RadialGradientBrush interfaces
+    */
+    struct Vtbl extends ID2D1Brush.Vtbl {
+        SetCenter                 : IntPtr
+        SetGradientOriginOffset   : IntPtr
+        SetRadiusX                : IntPtr
+        SetRadiusY                : IntPtr
+        GetCenter                 : IntPtr
+        GetGradientOriginOffset   : IntPtr
+        GetRadiusX                : IntPtr
+        GetRadiusY                : IntPtr
+        GetGradientStopCollection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCenter", "SetGradientOriginOffset", "SetRadiusX", "SetRadiusY", "GetCenter", "GetGradientOriginOffset", "GetRadiusX", "GetRadiusY", "GetGradientStopCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1RadialGradientBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the center of the gradient ellipse in the brush's coordinate space.
@@ -52,7 +69,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setcenter
      */
     SetCenter(center) {
-        ComCall(8, this, "ptr", center)
+        ComCall(8, this, D2D_POINT_2F, center)
     }
 
     /**
@@ -64,7 +81,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setgradientoriginoffset
      */
     SetGradientOriginOffset(gradientOriginOffset) {
-        ComCall(9, this, "ptr", gradientOriginOffset)
+        ComCall(9, this, D2D_POINT_2F, gradientOriginOffset)
     }
 
     /**
@@ -99,7 +116,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-getcenter
      */
     GetCenter() {
-        result := ComCall(12, this, "ptr")
+        result := ComCall(12, this, D2D_POINT_2F)
         return result
     }
 
@@ -111,7 +128,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-getgradientoriginoffset
      */
     GetGradientOriginOffset() {
-        result := ComCall(13, this, "ptr")
+        result := ComCall(13, this, D2D_POINT_2F)
         return result
     }
 
@@ -123,7 +140,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-getradiusx
      */
     GetRadiusX() {
-        result := ComCall(14, this, "float")
+        result := ComCall(14, this, Float32)
         return result
     }
 
@@ -135,7 +152,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-getradiusy
      */
     GetRadiusY() {
-        result := ComCall(15, this, "float")
+        result := ComCall(15, this, Float32)
         return result
     }
 
@@ -150,6 +167,42 @@ class ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-getgradientstopcollection
      */
     GetGradientStopCollection(gradientStopCollection) {
-        ComCall(16, this, "ptr*", gradientStopCollection)
+        ComCall(16, this, ID2D1GradientStopCollection.Ptr, gradientStopCollection)
+    }
+
+    Query(iid) {
+        if (ID2D1RadialGradientBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCenter := CallbackCreate(GetMethod(implObj, "SetCenter"), flags, 2)
+        this.vtbl.SetGradientOriginOffset := CallbackCreate(GetMethod(implObj, "SetGradientOriginOffset"), flags, 2)
+        this.vtbl.SetRadiusX := CallbackCreate(GetMethod(implObj, "SetRadiusX"), flags, 2)
+        this.vtbl.SetRadiusY := CallbackCreate(GetMethod(implObj, "SetRadiusY"), flags, 2)
+        this.vtbl.GetCenter := CallbackCreate(GetMethod(implObj, "GetCenter"), flags, 1)
+        this.vtbl.GetGradientOriginOffset := CallbackCreate(GetMethod(implObj, "GetGradientOriginOffset"), flags, 1)
+        this.vtbl.GetRadiusX := CallbackCreate(GetMethod(implObj, "GetRadiusX"), flags, 1)
+        this.vtbl.GetRadiusY := CallbackCreate(GetMethod(implObj, "GetRadiusY"), flags, 1)
+        this.vtbl.GetGradientStopCollection := CallbackCreate(GetMethod(implObj, "GetGradientStopCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCenter)
+        CallbackFree(this.vtbl.SetGradientOriginOffset)
+        CallbackFree(this.vtbl.SetRadiusX)
+        CallbackFree(this.vtbl.SetRadiusY)
+        CallbackFree(this.vtbl.GetCenter)
+        CallbackFree(this.vtbl.GetGradientOriginOffset)
+        CallbackFree(this.vtbl.GetRadiusX)
+        CallbackFree(this.vtbl.GetRadiusY)
+        CallbackFree(this.vtbl.GetGradientStopCollection)
     }
 }

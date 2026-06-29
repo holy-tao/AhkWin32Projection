@@ -1,37 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\ITypeInfo.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Describes the structure of a particular UDT.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-irecordinfo
  * @namespace Windows.Win32.System.Ole
  */
-class IRecordInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRecordInfo extends IUnknown {
     /**
      * The interface identifier for IRecordInfo
      * @type {Guid}
      */
-    static IID => Guid("{0000002f-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000002f-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRecordInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RecordInit       : IntPtr
+        RecordClear      : IntPtr
+        RecordCopy       : IntPtr
+        GetGuid          : IntPtr
+        GetName          : IntPtr
+        GetSize          : IntPtr
+        GetTypeInfo      : IntPtr
+        GetField         : IntPtr
+        GetFieldNoCopy   : IntPtr
+        PutField         : IntPtr
+        PutFieldNoCopy   : IntPtr
+        GetFieldNames    : IntPtr
+        IsMatchingType   : IntPtr
+        RecordCreate     : IntPtr
+        RecordCreateCopy : IntPtr
+        RecordDestroy    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RecordInit", "RecordClear", "RecordCopy", "GetGuid", "GetName", "GetSize", "GetTypeInfo", "GetField", "GetFieldNoCopy", "PutField", "PutFieldNoCopy", "GetFieldNames", "IsMatchingType", "RecordCreate", "RecordCreateCopy", "RecordDestroy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRecordInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a new instance of a record.
@@ -115,7 +139,7 @@ class IRecordInfo extends IUnknown {
      */
     GetGuid() {
         pguid := Guid()
-        result := ComCall(6, this, "ptr", pguid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -127,8 +151,8 @@ class IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getname
      */
     GetName() {
-        pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -173,7 +197,7 @@ class IRecordInfo extends IUnknown {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
         pvarField := VARIANT()
-        result := ComCall(10, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
+        result := ComCall(10, this, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return pvarField
     }
 
@@ -227,7 +251,7 @@ class IRecordInfo extends IUnknown {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
         ppvDataCArrayMarshal := ppvDataCArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, ppvDataCArrayMarshal, ppvDataCArray, "HRESULT")
+        result := ComCall(11, this, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, ppvDataCArrayMarshal, ppvDataCArray, "HRESULT")
         return result
     }
 
@@ -280,7 +304,7 @@ class IRecordInfo extends IUnknown {
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
+        result := ComCall(12, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return result
     }
 
@@ -329,7 +353,7 @@ class IRecordInfo extends IUnknown {
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
+        result := ComCall(13, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return result
     }
 
@@ -352,8 +376,8 @@ class IRecordInfo extends IUnknown {
     GetFieldNames(pcNames) {
         pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
 
-        rgBstrNames := BSTR()
-        result := ComCall(14, this, pcNamesMarshal, pcNames, "ptr", rgBstrNames, "HRESULT")
+        rgBstrNames := BSTR.Owned()
+        result := ComCall(14, this, pcNamesMarshal, pcNames, BSTR.Ptr, rgBstrNames, "HRESULT")
         return rgBstrNames
     }
 
@@ -393,7 +417,7 @@ class IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-ismatchingtype
      */
     IsMatchingType(pRecordInfo) {
-        result := ComCall(15, this, "ptr", pRecordInfo, "int")
+        result := ComCall(15, this, "ptr", pRecordInfo, BOOL)
         return result
     }
 
@@ -407,7 +431,7 @@ class IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcreate
      */
     RecordCreate() {
-        result := ComCall(16, this, "ptr")
+        result := ComCall(16, this, IntPtr)
         return result
     }
 
@@ -473,5 +497,55 @@ class IRecordInfo extends IUnknown {
 
         result := ComCall(18, this, pvRecordMarshal, pvRecord, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRecordInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RecordInit := CallbackCreate(GetMethod(implObj, "RecordInit"), flags, 2)
+        this.vtbl.RecordClear := CallbackCreate(GetMethod(implObj, "RecordClear"), flags, 2)
+        this.vtbl.RecordCopy := CallbackCreate(GetMethod(implObj, "RecordCopy"), flags, 3)
+        this.vtbl.GetGuid := CallbackCreate(GetMethod(implObj, "GetGuid"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 2)
+        this.vtbl.GetField := CallbackCreate(GetMethod(implObj, "GetField"), flags, 4)
+        this.vtbl.GetFieldNoCopy := CallbackCreate(GetMethod(implObj, "GetFieldNoCopy"), flags, 5)
+        this.vtbl.PutField := CallbackCreate(GetMethod(implObj, "PutField"), flags, 5)
+        this.vtbl.PutFieldNoCopy := CallbackCreate(GetMethod(implObj, "PutFieldNoCopy"), flags, 5)
+        this.vtbl.GetFieldNames := CallbackCreate(GetMethod(implObj, "GetFieldNames"), flags, 3)
+        this.vtbl.IsMatchingType := CallbackCreate(GetMethod(implObj, "IsMatchingType"), flags, 2)
+        this.vtbl.RecordCreate := CallbackCreate(GetMethod(implObj, "RecordCreate"), flags, 1)
+        this.vtbl.RecordCreateCopy := CallbackCreate(GetMethod(implObj, "RecordCreateCopy"), flags, 3)
+        this.vtbl.RecordDestroy := CallbackCreate(GetMethod(implObj, "RecordDestroy"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RecordInit)
+        CallbackFree(this.vtbl.RecordClear)
+        CallbackFree(this.vtbl.RecordCopy)
+        CallbackFree(this.vtbl.GetGuid)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetTypeInfo)
+        CallbackFree(this.vtbl.GetField)
+        CallbackFree(this.vtbl.GetFieldNoCopy)
+        CallbackFree(this.vtbl.PutField)
+        CallbackFree(this.vtbl.PutFieldNoCopy)
+        CallbackFree(this.vtbl.GetFieldNames)
+        CallbackFree(this.vtbl.IsMatchingType)
+        CallbackFree(this.vtbl.RecordCreate)
+        CallbackFree(this.vtbl.RecordCreateCopy)
+        CallbackFree(this.vtbl.RecordDestroy)
     }
 }

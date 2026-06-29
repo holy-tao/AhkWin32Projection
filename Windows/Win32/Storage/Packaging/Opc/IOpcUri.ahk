@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUri.ahk
-#Include .\IOpcPartUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
 
 /**
  * Represents the URI of the package root or of a part that is relative to the package root.
@@ -12,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcuri
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcUri extends IUri {
-
-    static sizeof => A_PtrSize
+export default struct IOpcUri extends IUri {
     /**
      * The interface identifier for IOpcUri
      * @type {Guid}
      */
-    static IID => Guid("{bc9c1b9b-d62c-49eb-aef0-3b4e0b28ebed}")
+    static IID := Guid("{bc9c1b9b-d62c-49eb-aef0-3b4e0b28ebed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcUri interfaces
+    */
+    struct Vtbl extends IUri.Vtbl {
+        GetRelationshipsPartUri : IntPtr
+        GetRelativeUri          : IntPtr
+        CombinePartUri          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRelationshipsPartUri", "GetRelativeUri", "CombinePartUri"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcUri.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the part name of the Relationships part that stores relationships that have the source URI represented by the current OPC URI object.
@@ -167,5 +177,29 @@ class IOpcUri extends IUri {
     CombinePartUri(relativeUri) {
         result := ComCall(30, this, "ptr", relativeUri, "ptr*", &combinedUri := 0, "HRESULT")
         return IOpcPartUri(combinedUri)
+    }
+
+    Query(iid) {
+        if (IOpcUri.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRelationshipsPartUri := CallbackCreate(GetMethod(implObj, "GetRelationshipsPartUri"), flags, 2)
+        this.vtbl.GetRelativeUri := CallbackCreate(GetMethod(implObj, "GetRelativeUri"), flags, 3)
+        this.vtbl.CombinePartUri := CallbackCreate(GetMethod(implObj, "CombinePartUri"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRelationshipsPartUri)
+        CallbackFree(this.vtbl.GetRelativeUri)
+        CallbackFree(this.vtbl.CombinePartUri)
     }
 }

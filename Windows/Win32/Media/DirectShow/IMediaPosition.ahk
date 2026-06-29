@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaPosition interface contains methods for seeking to a position within a stream.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-imediaposition
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaPosition extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMediaPosition extends IDispatch {
     /**
      * The interface identifier for IMediaPosition
      * @type {Guid}
      */
-    static IID => Guid("{56a868b2-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b2-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaPosition interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Duration        : IntPtr
+        put_CurrentPosition : IntPtr
+        get_CurrentPosition : IntPtr
+        get_StopTime        : IntPtr
+        put_StopTime        : IntPtr
+        get_PrerollTime     : IntPtr
+        put_PrerollTime     : IntPtr
+        put_Rate            : IntPtr
+        get_Rate            : IntPtr
+        CanSeekForward      : IntPtr
+        CanSeekBackward     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Duration", "put_CurrentPosition", "get_CurrentPosition", "get_StopTime", "put_StopTime", "get_PrerollTime", "put_PrerollTime", "put_Rate", "get_Rate", "CanSeekForward", "CanSeekBackward"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaPosition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -368,5 +386,45 @@ class IMediaPosition extends IDispatch {
     CanSeekBackward() {
         result := ComCall(17, this, "int*", &pCanSeekBackward := 0, "HRESULT")
         return pCanSeekBackward
+    }
+
+    Query(iid) {
+        if (IMediaPosition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_CurrentPosition := CallbackCreate(GetMethod(implObj, "put_CurrentPosition"), flags, 2)
+        this.vtbl.get_CurrentPosition := CallbackCreate(GetMethod(implObj, "get_CurrentPosition"), flags, 2)
+        this.vtbl.get_StopTime := CallbackCreate(GetMethod(implObj, "get_StopTime"), flags, 2)
+        this.vtbl.put_StopTime := CallbackCreate(GetMethod(implObj, "put_StopTime"), flags, 2)
+        this.vtbl.get_PrerollTime := CallbackCreate(GetMethod(implObj, "get_PrerollTime"), flags, 2)
+        this.vtbl.put_PrerollTime := CallbackCreate(GetMethod(implObj, "put_PrerollTime"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.CanSeekForward := CallbackCreate(GetMethod(implObj, "CanSeekForward"), flags, 2)
+        this.vtbl.CanSeekBackward := CallbackCreate(GetMethod(implObj, "CanSeekBackward"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Duration)
+        CallbackFree(this.vtbl.put_CurrentPosition)
+        CallbackFree(this.vtbl.get_CurrentPosition)
+        CallbackFree(this.vtbl.get_StopTime)
+        CallbackFree(this.vtbl.put_StopTime)
+        CallbackFree(this.vtbl.get_PrerollTime)
+        CallbackFree(this.vtbl.put_PrerollTime)
+        CallbackFree(this.vtbl.put_Rate)
+        CallbackFree(this.vtbl.get_Rate)
+        CallbackFree(this.vtbl.CanSeekForward)
+        CallbackFree(this.vtbl.CanSeekBackward)
     }
 }

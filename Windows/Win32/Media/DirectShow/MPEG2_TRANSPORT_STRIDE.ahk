@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MPEG2\_TRANSPORT\_STRIDE structure describes the format of MPEG-2 transport stream (TS) packets.
@@ -24,35 +23,22 @@
  * @see https://learn.microsoft.com/windows/win32/DirectShow/mpeg2-transport-stride
  * @namespace Windows.Win32.Media.DirectShow
  */
-class MPEG2_TRANSPORT_STRIDE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct MPEG2_TRANSPORT_STRIDE {
+    #StructPack 4
 
     /**
      * Specifies the offset, in bytes, from the beginning of the packet to the first byte of the embedded transport packet. The value must range from zero to `(dwStride - dwPacketLength)`, inclusive.
-     * @type {Integer}
      */
-    dwOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOffset : UInt32
 
     /**
      * Specifies the length of the embedded transport packet, in bytes. For standard MPEG-2 transport packets, the value must be 188 bytes.
-     * @type {Integer}
      */
-    dwPacketLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPacketLength : UInt32
 
     /**
      * Specifies the length of the entire stride packet, in bytes. The value must be at least `(dwOffset + dwPacketLength)`.
-     * @type {Integer}
      */
-    dwStride {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwStride : UInt32
+
 }

@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\ACCESS_REASONS.ahk
-#Include .\PRIVILEGE_SET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PRIVILEGE_SET.ahk" { PRIVILEGE_SET }
+#Import ".\ACCESS_REASONS.ahk" { ACCESS_REASONS }
 
 /**
  * @namespace Windows.Win32.Security
  */
-class SE_ACCESS_REPLY extends Win32Struct {
-    static sizeof => 40
+export default struct SE_ACCESS_REPLY {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ResultListCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResultListCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    GrantedAccess : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    GrantedAccess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AccessStatus : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    AccessStatus {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AccessReason : ACCESS_REASONS.Ptr
 
-    /**
-     * @type {Pointer<ACCESS_REASONS>}
-     */
-    AccessReason {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Privileges : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<PRIVILEGE_SET>>}
-     */
-    Privileges {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

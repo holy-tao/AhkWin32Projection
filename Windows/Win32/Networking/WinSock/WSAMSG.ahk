@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
-#Include .\WSABUF.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * Used with the WSARecvMsg and WSASendMsg functions to store address and optional control information about connected and unconnected sockets as well as an array of buffers used to store message data.
@@ -18,72 +18,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsamsg
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSAMSG extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct WSAMSG {
+    #StructPack 8
 
     /**
      * Type: <b>LPSOCKADDR</b>
      * 
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure that stores information about the remote address. Used only with unconnected sockets.
-     * @type {Pointer<SOCKADDR>}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    name : SOCKADDR.Ptr
 
     /**
      * Type: <b>INT</b>
      * 
      * The length, in bytes, of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure pointed to in the <b>pAddr</b> member. Used only with unconnected sockets.
-     * @type {Integer}
      */
-    namelen {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    namelen : Int32
 
     /**
      * Type: <b>LPWSABUF</b>
      * 
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures used to receive the message data. The capability of the <b>lpBuffers</b> member to contain multiple buffers enables the use of scatter/gather I/O.
-     * @type {Pointer<WSABUF>}
      */
-    lpBuffers {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpBuffers : WSABUF.Ptr
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of buffers pointed to in the <b>lpBuffers</b> member.
-     * @type {Integer}
      */
-    dwBufferCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwBufferCount : UInt32
 
     /**
      * Type: <b>WSABUF</b>
      * 
      * A structure of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> type used to specify optional control data. See Remarks.
-     * @type {WSABUF}
      */
-    Control {
-        get {
-            if(!this.HasProp("__Control"))
-                this.__Control := WSABUF(32, this)
-            return this.__Control
-        }
-    }
+    Control : WSABUF
 
     /**
      * Type: <b>DWORD</b>
@@ -154,10 +129,7 @@ class WSAMSG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwFlags : UInt32
+
 }

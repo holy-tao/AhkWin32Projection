@@ -1,263 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SOURCE_TYPE.ahk
-#Include .\WHEA_ERROR_SOURCE_STATE.ahk
-#Include .\WHEA_XPF_MCE_DESCRIPTOR.ahk
-#Include .\XPF_MCE_FLAGS.ahk
-#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
-#Include .\WHEA_XPF_CMC_DESCRIPTOR.ahk
-#Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
-#Include .\WHEA_XPF_NMI_DESCRIPTOR.ahk
-#Include .\WHEA_IPF_MCA_DESCRIPTOR.ahk
-#Include .\WHEA_IPF_CMC_DESCRIPTOR.ahk
-#Include .\WHEA_IPF_CPE_DESCRIPTOR.ahk
-#Include .\WHEA_AER_ROOTPORT_DESCRIPTOR.ahk
-#Include .\WHEA_PCI_SLOT_NUMBER.ahk
-#Include .\AER_ROOTPORT_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_AER_ENDPOINT_DESCRIPTOR.ahk
-#Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_AER_BRIDGE_DESCRIPTOR.ahk
-#Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_GENERIC_ERROR_DESCRIPTOR.ahk
-#Include .\WHEA_GENERIC_ERROR_DESCRIPTOR_V2.ahk
-#Include .\WHEA_DEVICE_DRIVER_DESCRIPTOR.ahk
-#Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk" { WHEA_XPF_MC_BANK_DESCRIPTOR }
+#Import ".\AER_ROOTPORT_DESCRIPTOR_FLAGS.ahk" { AER_ROOTPORT_DESCRIPTOR_FLAGS }
+#Import ".\WHEA_XPF_CMC_DESCRIPTOR.ahk" { WHEA_XPF_CMC_DESCRIPTOR }
+#Import ".\WHEA_PCI_SLOT_NUMBER.ahk" { WHEA_PCI_SLOT_NUMBER }
+#Import ".\WHEA_IPF_CMC_DESCRIPTOR.ahk" { WHEA_IPF_CMC_DESCRIPTOR }
+#Import ".\XPF_MCE_FLAGS.ahk" { XPF_MCE_FLAGS }
+#Import ".\WHEA_DEVICE_DRIVER_DESCRIPTOR.ahk" { WHEA_DEVICE_DRIVER_DESCRIPTOR }
+#Import ".\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk" { WHEA_ERROR_SOURCE_CONFIGURATION_DD }
+#Import ".\WHEA_IPF_MCA_DESCRIPTOR.ahk" { WHEA_IPF_MCA_DESCRIPTOR }
+#Import ".\WHEA_XPF_MCE_DESCRIPTOR.ahk" { WHEA_XPF_MCE_DESCRIPTOR }
+#Import ".\WHEA_AER_ENDPOINT_DESCRIPTOR.ahk" { WHEA_AER_ENDPOINT_DESCRIPTOR }
+#Import ".\WHEA_GENERIC_ERROR_DESCRIPTOR_V2.ahk" { WHEA_GENERIC_ERROR_DESCRIPTOR_V2 }
+#Import ".\WHEA_IPF_CPE_DESCRIPTOR.ahk" { WHEA_IPF_CPE_DESCRIPTOR }
+#Import ".\WHEA_ERROR_SOURCE_STATE.ahk" { WHEA_ERROR_SOURCE_STATE }
+#Import ".\WHEA_AER_ROOTPORT_DESCRIPTOR.ahk" { WHEA_AER_ROOTPORT_DESCRIPTOR }
+#Import ".\WHEA_GENERIC_ERROR_DESCRIPTOR.ahk" { WHEA_GENERIC_ERROR_DESCRIPTOR }
+#Import ".\WHEA_AER_BRIDGE_DESCRIPTOR.ahk" { WHEA_AER_BRIDGE_DESCRIPTOR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WHEA_ERROR_SOURCE_TYPE.ahk" { WHEA_ERROR_SOURCE_TYPE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WHEA_XPF_NMI_DESCRIPTOR.ahk" { WHEA_XPF_NMI_DESCRIPTOR }
+#Import ".\XPF_MC_BANK_FLAGS.ahk" { XPF_MC_BANK_FLAGS }
+#Import ".\WHEA_NOTIFICATION_FLAGS.ahk" { WHEA_NOTIFICATION_FLAGS }
+#Import ".\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk" { AER_BRIDGE_DESCRIPTOR_FLAGS }
+#Import ".\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk" { AER_ENDPOINT_DESCRIPTOR_FLAGS }
+#Import ".\WHEA_NOTIFICATION_DESCRIPTOR.ahk" { WHEA_NOTIFICATION_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 1104
+export default struct WHEA_ERROR_SOURCE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
-        static sizeof => 1064
-        static packingSize => 8
+    struct _Info {
+        XpfMceDescriptor : WHEA_XPF_MCE_DESCRIPTOR
 
-        /**
-         * @type {WHEA_XPF_MCE_DESCRIPTOR}
-         */
-        XpfMceDescriptor {
-            get {
-                if(!this.HasProp("__XpfMceDescriptor"))
-                    this.__XpfMceDescriptor := WHEA_XPF_MCE_DESCRIPTOR(0, this)
-                return this.__XpfMceDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_XPF_CMC_DESCRIPTOR}
-         */
-        XpfCmcDescriptor {
-            get {
-                if(!this.HasProp("__XpfCmcDescriptor"))
-                    this.__XpfCmcDescriptor := WHEA_XPF_CMC_DESCRIPTOR(0, this)
-                return this.__XpfCmcDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_XPF_NMI_DESCRIPTOR}
-         */
-        XpfNmiDescriptor {
-            get {
-                if(!this.HasProp("__XpfNmiDescriptor"))
-                    this.__XpfNmiDescriptor := WHEA_XPF_NMI_DESCRIPTOR(0, this)
-                return this.__XpfNmiDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_IPF_MCA_DESCRIPTOR}
-         */
-        IpfMcaDescriptor {
-            get {
-                if(!this.HasProp("__IpfMcaDescriptor"))
-                    this.__IpfMcaDescriptor := WHEA_IPF_MCA_DESCRIPTOR(0, this)
-                return this.__IpfMcaDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_IPF_CMC_DESCRIPTOR}
-         */
-        IpfCmcDescriptor {
-            get {
-                if(!this.HasProp("__IpfCmcDescriptor"))
-                    this.__IpfCmcDescriptor := WHEA_IPF_CMC_DESCRIPTOR(0, this)
-                return this.__IpfCmcDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_IPF_CPE_DESCRIPTOR}
-         */
-        IpfCpeDescriptor {
-            get {
-                if(!this.HasProp("__IpfCpeDescriptor"))
-                    this.__IpfCpeDescriptor := WHEA_IPF_CPE_DESCRIPTOR(0, this)
-                return this.__IpfCpeDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_AER_ROOTPORT_DESCRIPTOR}
-         */
-        AerRootportDescriptor {
-            get {
-                if(!this.HasProp("__AerRootportDescriptor"))
-                    this.__AerRootportDescriptor := WHEA_AER_ROOTPORT_DESCRIPTOR(0, this)
-                return this.__AerRootportDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_AER_ENDPOINT_DESCRIPTOR}
-         */
-        AerEndpointDescriptor {
-            get {
-                if(!this.HasProp("__AerEndpointDescriptor"))
-                    this.__AerEndpointDescriptor := WHEA_AER_ENDPOINT_DESCRIPTOR(0, this)
-                return this.__AerEndpointDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_AER_BRIDGE_DESCRIPTOR}
-         */
-        AerBridgeDescriptor {
-            get {
-                if(!this.HasProp("__AerBridgeDescriptor"))
-                    this.__AerBridgeDescriptor := WHEA_AER_BRIDGE_DESCRIPTOR(0, this)
-                return this.__AerBridgeDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_GENERIC_ERROR_DESCRIPTOR}
-         */
-        GenErrDescriptor {
-            get {
-                if(!this.HasProp("__GenErrDescriptor"))
-                    this.__GenErrDescriptor := WHEA_GENERIC_ERROR_DESCRIPTOR(0, this)
-                return this.__GenErrDescriptor
-            }
-        }
-
-        /**
-         * @type {WHEA_GENERIC_ERROR_DESCRIPTOR_V2}
-         */
-        GenErrDescriptorV2 {
-            get {
-                if(!this.HasProp("__GenErrDescriptorV2"))
-                    this.__GenErrDescriptorV2 := WHEA_GENERIC_ERROR_DESCRIPTOR_V2(0, this)
-                return this.__GenErrDescriptorV2
-            }
-        }
-
-        /**
-         * @type {WHEA_DEVICE_DRIVER_DESCRIPTOR}
-         */
-        DeviceDriverDescriptor {
-            get {
-                if(!this.HasProp("__DeviceDriverDescriptor"))
-                    this.__DeviceDriverDescriptor := WHEA_DEVICE_DRIVER_DESCRIPTOR(0, this)
-                return this.__DeviceDriverDescriptor
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'XpfCmcDescriptor', { type: WHEA_XPF_CMC_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'XpfNmiDescriptor', { type: WHEA_XPF_NMI_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'IpfMcaDescriptor', { type: WHEA_IPF_MCA_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'IpfCmcDescriptor', { type: WHEA_IPF_CMC_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'IpfCpeDescriptor', { type: WHEA_IPF_CPE_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'AerRootportDescriptor', { type: WHEA_AER_ROOTPORT_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'AerEndpointDescriptor', { type: WHEA_AER_ENDPOINT_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'AerBridgeDescriptor', { type: WHEA_AER_BRIDGE_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'GenErrDescriptor', { type: WHEA_GENERIC_ERROR_DESCRIPTOR, offset: 0 })
+            DefineProp(this.Prototype, 'GenErrDescriptorV2', { type: WHEA_GENERIC_ERROR_DESCRIPTOR_V2, offset: 0 })
+            DefineProp(this.Prototype, 'DeviceDriverDescriptor', { type: WHEA_DEVICE_DRIVER_DESCRIPTOR, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Version : UInt32
 
-    /**
-     * @type {WHEA_ERROR_SOURCE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Type : WHEA_ERROR_SOURCE_TYPE
 
-    /**
-     * @type {WHEA_ERROR_SOURCE_STATE}
-     */
-    State {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    State : WHEA_ERROR_SOURCE_STATE
 
-    /**
-     * @type {Integer}
-     */
-    MaxRawDataLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxRawDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumRecordsToPreallocate {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NumRecordsToPreallocate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSectionsPerRecord {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaxSectionsPerRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorSourceId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ErrorSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlatformErrorSourceId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PlatformErrorSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {_Info_e__Union}
-     */
-    Info {
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := WHEA_ERROR_SOURCE_DESCRIPTOR._Info_e__Union(40, this)
-            return this.__Info
-        }
-    }
+    Info : WHEA_ERROR_SOURCE_DESCRIPTOR._Info
+
 }

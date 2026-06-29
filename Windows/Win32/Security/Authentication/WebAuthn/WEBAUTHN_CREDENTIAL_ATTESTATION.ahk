@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include .\WEBAUTHN_EXTENSION.ahk
-#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WEBAUTHN_EXTENSION.ahk" { WEBAUTHN_EXTENSION }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WEBAUTHN_EXTENSIONS.ahk" { WEBAUTHN_EXTENSIONS }
+#Import ".\WEBAUTHN_HMAC_SECRET_SALT.ahk" { WEBAUTHN_HMAC_SECRET_SALT }
 
 /**
  * Contains the attestation data for a credential.
@@ -16,244 +17,112 @@
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_attestation
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct {
-    static sizeof => 192
-
-    static packingSize => 8
+export default struct WEBAUTHN_CREDENTIAL_ATTESTATION {
+    #StructPack 8
 
     /**
      * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The attestation format type.
-     * @type {PWSTR}
      */
-    pwszFormatType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszFormatType : PWSTR
 
     /**
      * The size of **pbAuthenticatorData**.
-     * @type {Integer}
      */
-    cbAuthenticatorData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbAuthenticatorData : UInt32
 
     /**
      * The authenticator data that was created for this credential.
-     * @type {Pointer<Integer>}
      */
-    pbAuthenticatorData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbAuthenticatorData : IntPtr
 
     /**
      * The size of the CBOR encoded attestation information.
-     * @type {Integer}
      */
-    cbAttestation {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbAttestation : UInt32
 
     /**
      * The encoded CBOR attestation information.
-     * @type {Pointer<Integer>}
      */
-    pbAttestation {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pbAttestation : IntPtr
 
     /**
      * The attestation decode type.
-     * @type {Integer}
      */
-    dwAttestationDecodeType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwAttestationDecodeType : UInt32
 
     /**
      * The attestation decode value.
-     * @type {Pointer<Void>}
      */
-    pvAttestationDecode {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pvAttestationDecode : IntPtr
 
     /**
      * The size of **pbAttestationObject**.
-     * @type {Integer}
      */
-    cbAttestationObject {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cbAttestationObject : UInt32
 
     /**
      * The CBOR encoded Attestation Object to be returned to the Relying Party.
-     * @type {Pointer<Integer>}
      */
-    pbAttestationObject {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pbAttestationObject : IntPtr
 
     /**
      * The size of **pbCredentialId**.
-     * @type {Integer}
      */
-    cbCredentialId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    cbCredentialId : UInt32
 
     /**
      * The CredentialId bytes extracted from the Authenticator Data. Used by Edge to return to the Relying Party.
-     * @type {Pointer<Integer>}
      */
-    pbCredentialId {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pbCredentialId : IntPtr
 
     /**
      * The extensions for this credential.
-     * @type {WEBAUTHN_EXTENSIONS}
      */
-    Extensions {
-        get {
-            if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(96, this)
-            return this.__Extensions
-        }
-    }
+    Extensions : WEBAUTHN_EXTENSIONS
 
     /**
      * One of the **WEBAUTHN_CTAP_TRANSPORT** bits is passed, according to the transport that was used.
-     * @type {Integer}
      */
-    dwUsedTransport {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    dwUsedTransport : UInt32
 
     /**
      * The EP attestation flag.
-     * @type {BOOL}
      */
-    bEpAtt {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    bEpAtt : BOOL
 
     /**
      * Indicates whether the authenticator supports large blob attestation.
-     * @type {BOOL}
      */
-    bLargeBlobSupported {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    bLargeBlobSupported : BOOL
 
     /**
      * Indicates whether the relying party requires a resident key.
-     * @type {BOOL}
      */
-    bResidentKey {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
+    bResidentKey : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bPrfEnabled {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
-    }
+    bPrfEnabled : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    cbUnsignedExtensionOutputs {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    cbUnsignedExtensionOutputs : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbUnsignedExtensionOutputs {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    pbUnsignedExtensionOutputs : IntPtr
 
-    /**
-     * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
-     */
-    pHmacSecret {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    pHmacSecret : WEBAUTHN_HMAC_SECRET_SALT.Ptr
 
-    /**
-     * @type {BOOL}
-     */
-    bThirdPartyPayment {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
-    }
+    bThirdPartyPayment : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    dwTransports {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    dwTransports : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbClientDataJSON {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    cbClientDataJSON : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbClientDataJSON {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    pbClientDataJSON : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cbRegistrationResponseJSON {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    cbRegistrationResponseJSON : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbRegistrationResponseJSON {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    pbRegistrationResponseJSON : IntPtr
+
 }

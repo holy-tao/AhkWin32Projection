@@ -1,48 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR extends Win32Struct {
-    static sizeof => 18
+export default struct USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
 
-    class _bmAttributes_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
+    struct _bmAttributes {
+        AsUlong : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * This bitfield backs the following members:
-         * - Reserved1
-         * - BatteryCharging
-         * - USBPowerDelivery
-         * - Provider
-         * - Consumer
-         * - ChargingPolicy
-         * - TypeCCurrent
-         * - Reserved2
-         * - ACSupply
-         * - Battery
-         * - Other
-         * - NumBatteries
-         * - UsesVbus
-         * - Reserved3
-         * @type {Integer}
-         */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
 
         /**
          * @type {Integer}
@@ -155,88 +122,30 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1FFFF
             set => this._bitfield := ((value & 0x1FFFF) << 15) | (this._bitfield & ~(0x1FFFF << 15))
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bDevCapabilityType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {_bmAttributes_e__Union}
-     */
-    bmAttributes {
-        get {
-            if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR._bmAttributes_e__Union(4, this)
-            return this.__bmAttributes
+        static __New() {
+            DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    bmProviderPorts {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmConsumerPorts {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bcdBCVersion {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    bDevCapabilityType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bcdPDVersion {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    bReserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bcdUSBTypeCVersion {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    bmAttributes : USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR._bmAttributes
+
+    bmProviderPorts : UInt16
+
+    bmConsumerPorts : UInt16
+
+    bcdBCVersion : UInt16
+
+    bcdPDVersion : UInt16
+
+    bcdUSBTypeCVersion : UInt16
+
 }

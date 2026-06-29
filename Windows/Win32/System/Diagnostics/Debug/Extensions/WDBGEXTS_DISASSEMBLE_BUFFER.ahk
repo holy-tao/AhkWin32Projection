@@ -1,86 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class WDBGEXTS_DISASSEMBLE_BUFFER extends Win32Struct {
-    static sizeof => 72
+export default struct WDBGEXTS_DISASSEMBLE_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    InOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OutOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AddrFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddrFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FormatFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FormatFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DataBufferBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBufferBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DisasmBufferChars : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DisasmBufferChars {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DataBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DataBuffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DisasmBuffer : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    DisasmBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved0 : Int64[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 48, 3, Primitive, "uint")
-            return this.__Reserved0ProxyArray
-        }
-    }
 }

@@ -1,19 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk" { HTTP_SERVICE_CONFIG_QUERY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk" { HTTP_SERVICE_CONFIG_SSL_SNI_KEY }
+#Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Used to specify a particular Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record to query in the SSL SNI store.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_sni_query
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY extends Win32Struct {
-    static sizeof => 152
-
-    static packingSize => 8
+export default struct HTTP_SERVICE_CONFIG_SSL_SNI_QUERY {
+    #StructPack 8
 
     /**
      * One of the  following values from the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_service_config_query_type">HTTP_SERVICE_CONFIG_QUERY_TYPE</a> enumeration. 
@@ -47,25 +46,14 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HTTP_SERVICE_CONFIG_QUERY_TYPE}
      */
-    QueryDesc {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    QueryDesc : HTTP_SERVICE_CONFIG_QUERY_TYPE
 
     /**
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryExact</b>, then <i>KeyDesc</i> should contain an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_sni_key">HTTP_SERVICE_CONFIG_SSL_SNI_KEY</a> structure that identifies the SSL SNI certificate record queried. If the <i>QueryDesc</i> parameter is equal to <b>HTTPServiceConfigQueryNext</b>, then <i>KeyDesc</i> is ignored.
-     * @type {HTTP_SERVICE_CONFIG_SSL_SNI_KEY}
      */
-    KeyDesc {
-        get {
-            if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(8, this)
-            return this.__KeyDesc
-        }
-    }
+    KeyDesc : HTTP_SERVICE_CONFIG_SSL_SNI_KEY
 
     /**
      * If the <i>QueryDesc</i> parameter is equal to <b>HTTPServiceConfigQueryNext</b>, then <i>dwToken</i> must be equal to zero on the first call to the 
@@ -76,10 +64,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY extends Win32Struct {
      * 
      * 
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryExact</b>, then <i>dwToken</i> is ignored.
-     * @type {Integer}
      */
-    dwToken {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    dwToken : UInt32
+
 }

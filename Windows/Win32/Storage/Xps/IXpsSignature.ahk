@@ -1,11 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Packaging\Opc\IOpcCertificateEnumerator.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include ..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk
-#Include ..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\XPS_SIGNATURE_STATUS.ahk" { XPS_SIGNATURE_STATUS }
+#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Packaging\Opc\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import "..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
 
 /**
  * Represents a single digital signature.
@@ -16,26 +22,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsSignature extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsSignature extends IUnknown {
     /**
      * The interface identifier for IXpsSignature
      * @type {Guid}
      */
-    static IID => Guid("{6ae4c93e-1ade-42fb-898b-3a5658284857}")
+    static IID := Guid("{6ae4c93e-1ade-42fb-898b-3a5658284857}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsSignature interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSignatureId               : IntPtr
+        GetSignatureValue            : IntPtr
+        GetCertificateEnumerator     : IntPtr
+        GetSigningTime               : IntPtr
+        GetSigningTimeFormat         : IntPtr
+        GetSignaturePartName         : IntPtr
+        Verify                       : IntPtr
+        GetPolicy                    : IntPtr
+        GetCustomObjectEnumerator    : IntPtr
+        GetCustomReferenceEnumerator : IntPtr
+        GetSignatureXml              : IntPtr
+        SetSignatureXml              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSignatureId", "GetSignatureValue", "GetCertificateEnumerator", "GetSigningTime", "GetSigningTimeFormat", "GetSignaturePartName", "Verify", "GetPolicy", "GetCustomObjectEnumerator", "GetCustomReferenceEnumerator", "GetSignatureXml", "SetSignatureXml"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsSignature.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the value of the Id attribute of the Signature element. (IXpsSignature.GetSignatureId)
@@ -45,7 +69,7 @@ class IXpsSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignatureid
      */
     GetSignatureId() {
-        result := ComCall(3, this, "ptr*", &sigId := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &sigId := 0, "HRESULT")
         return sigId
     }
 
@@ -119,7 +143,7 @@ class IXpsSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsigningtime
      */
     GetSigningTime() {
-        result := ComCall(6, this, "ptr*", &sigDateTimeString := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &sigDateTimeString := 0, "HRESULT")
         return sigDateTimeString
     }
 
@@ -161,7 +185,7 @@ class IXpsSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-verify
      */
     Verify(_x509Certificate) {
-        result := ComCall(9, this, "ptr", _x509Certificate, "int*", &sigStatus := 0, "HRESULT")
+        result := ComCall(9, this, CERT_CONTEXT.Ptr, _x509Certificate, "int*", &sigStatus := 0, "HRESULT")
         return sigStatus
     }
 
@@ -305,5 +329,47 @@ class IXpsSignature extends IUnknown {
 
         result := ComCall(14, this, signatureXmlMarshal, signatureXml, "uint", count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsSignature.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSignatureId := CallbackCreate(GetMethod(implObj, "GetSignatureId"), flags, 2)
+        this.vtbl.GetSignatureValue := CallbackCreate(GetMethod(implObj, "GetSignatureValue"), flags, 3)
+        this.vtbl.GetCertificateEnumerator := CallbackCreate(GetMethod(implObj, "GetCertificateEnumerator"), flags, 2)
+        this.vtbl.GetSigningTime := CallbackCreate(GetMethod(implObj, "GetSigningTime"), flags, 2)
+        this.vtbl.GetSigningTimeFormat := CallbackCreate(GetMethod(implObj, "GetSigningTimeFormat"), flags, 2)
+        this.vtbl.GetSignaturePartName := CallbackCreate(GetMethod(implObj, "GetSignaturePartName"), flags, 2)
+        this.vtbl.Verify := CallbackCreate(GetMethod(implObj, "Verify"), flags, 3)
+        this.vtbl.GetPolicy := CallbackCreate(GetMethod(implObj, "GetPolicy"), flags, 2)
+        this.vtbl.GetCustomObjectEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomObjectEnumerator"), flags, 2)
+        this.vtbl.GetCustomReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomReferenceEnumerator"), flags, 2)
+        this.vtbl.GetSignatureXml := CallbackCreate(GetMethod(implObj, "GetSignatureXml"), flags, 3)
+        this.vtbl.SetSignatureXml := CallbackCreate(GetMethod(implObj, "SetSignatureXml"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSignatureId)
+        CallbackFree(this.vtbl.GetSignatureValue)
+        CallbackFree(this.vtbl.GetCertificateEnumerator)
+        CallbackFree(this.vtbl.GetSigningTime)
+        CallbackFree(this.vtbl.GetSigningTimeFormat)
+        CallbackFree(this.vtbl.GetSignaturePartName)
+        CallbackFree(this.vtbl.Verify)
+        CallbackFree(this.vtbl.GetPolicy)
+        CallbackFree(this.vtbl.GetCustomObjectEnumerator)
+        CallbackFree(this.vtbl.GetCustomReferenceEnumerator)
+        CallbackFree(this.vtbl.GetSignatureXml)
+        CallbackFree(this.vtbl.SetSignatureXml)
     }
 }

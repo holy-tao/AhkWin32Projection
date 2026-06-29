@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Created and used by the IRDPSRAPITransportStream interface for sending and receiving data.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPITransportStreamBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     /**
      * The interface identifier for IRDPSRAPITransportStreamBuffer
      * @type {Guid}
      */
-    static IID => Guid("{81c80290-5085-44b0-b460-f865c39cb4a9}")
+    static IID := Guid("{81c80290-5085-44b0-b460-f865c39cb4a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPITransportStreamBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Storage       : IntPtr
+        get_StorageSize   : IntPtr
+        get_PayloadSize   : IntPtr
+        put_PayloadSize   : IntPtr
+        get_PayloadOffset : IntPtr
+        put_PayloadOffset : IntPtr
+        get_Flags         : IntPtr
+        put_Flags         : IntPtr
+        get_Context       : IntPtr
+        put_Context       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Storage", "get_StorageSize", "get_PayloadSize", "put_PayloadSize", "get_PayloadOffset", "put_PayloadOffset", "get_Flags", "put_Flags", "get_Context", "put_Context"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPITransportStreamBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<Integer>} 
@@ -169,5 +186,43 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     put_Context(pContext) {
         result := ComCall(12, this, "ptr", pContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRDPSRAPITransportStreamBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Storage := CallbackCreate(GetMethod(implObj, "get_Storage"), flags, 2)
+        this.vtbl.get_StorageSize := CallbackCreate(GetMethod(implObj, "get_StorageSize"), flags, 2)
+        this.vtbl.get_PayloadSize := CallbackCreate(GetMethod(implObj, "get_PayloadSize"), flags, 2)
+        this.vtbl.put_PayloadSize := CallbackCreate(GetMethod(implObj, "put_PayloadSize"), flags, 2)
+        this.vtbl.get_PayloadOffset := CallbackCreate(GetMethod(implObj, "get_PayloadOffset"), flags, 2)
+        this.vtbl.put_PayloadOffset := CallbackCreate(GetMethod(implObj, "put_PayloadOffset"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.put_Flags := CallbackCreate(GetMethod(implObj, "put_Flags"), flags, 2)
+        this.vtbl.get_Context := CallbackCreate(GetMethod(implObj, "get_Context"), flags, 2)
+        this.vtbl.put_Context := CallbackCreate(GetMethod(implObj, "put_Context"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Storage)
+        CallbackFree(this.vtbl.get_StorageSize)
+        CallbackFree(this.vtbl.get_PayloadSize)
+        CallbackFree(this.vtbl.put_PayloadSize)
+        CallbackFree(this.vtbl.get_PayloadOffset)
+        CallbackFree(this.vtbl.put_PayloadOffset)
+        CallbackFree(this.vtbl.get_Flags)
+        CallbackFree(this.vtbl.put_Flags)
+        CallbackFree(this.vtbl.get_Context)
+        CallbackFree(this.vtbl.put_Context)
     }
 }

@@ -1,33 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IPersistStreamInit.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CProperty.ahk" { CProperty }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IPersistStreamInit.ahk" { IPersistStreamInit }
 
 /**
  * Use this interface to set properties for build objects such as word wheels and indexes. Call these methods in the document build process to define properties for all build objects.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitproplist
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class IITPropList extends IPersistStreamInit {
-
-    static sizeof => A_PtrSize
+export default struct IITPropList extends IPersistStreamInit {
     /**
      * The interface identifier for IITPropList
      * @type {Guid}
      */
-    static IID => Guid("{1f403bb1-9997-11d0-a850-00aa006c7d01}")
+    static IID := Guid("{1f403bb1-9997-11d0-a850-00aa006c7d01}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IITPropList interfaces
+    */
+    struct Vtbl extends IPersistStreamInit.Vtbl {
+        Set              : IntPtr
+        Set1             : IntPtr
+        Set2             : IntPtr
+        Add              : IntPtr
+        Get              : IntPtr
+        Clear            : IntPtr
+        SetPersist       : IntPtr
+        SetPersist1      : IntPtr
+        GetFirst         : IntPtr
+        GetNext          : IntPtr
+        GetPropCount     : IntPtr
+        SaveHeader       : IntPtr
+        SaveData         : IntPtr
+        GetHeaderSize    : IntPtr
+        GetDataSize      : IntPtr
+        SaveDataToStream : IntPtr
+        LoadFromMem      : IntPtr
+        SaveToMem        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Set", "Set1", "Set2", "Add", "Get", "Clear", "SetPersist", "SetPersist1", "GetFirst", "GetNext", "GetPropCount", "SaveHeader", "SaveData", "GetHeaderSize", "GetDataSize", "SaveDataToStream", "LoadFromMem", "SaveToMem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IITPropList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a property to a given value or deletes a property from the list. (overload 2/3)
@@ -407,85 +436,12 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {Pointer<CProperty>} Prop 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ALLOTTED_SPACE_EXCEEDED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The new ACE does not fit into the ACL. A larger ACL buffer is required.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_ACL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified ACL is not properly formed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_SID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified SID is not structurally valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_REVISION_MISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified revision is not known or is incompatible with that of the ACL.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The ACE was successfully added.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
+     * @returns {HRESULT} 
      */
     Add(Prop) {
-        result := ComCall(12, this, "ptr", Prop, "HRESULT")
+        result := ComCall(12, this, CProperty.Ptr, Prop, "HRESULT")
         return result
     }
 
@@ -530,7 +486,7 @@ class IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-get
      */
     Get(PropID, _Property) {
-        result := ComCall(13, this, "uint", PropID, "ptr", _Property, "HRESULT")
+        result := ComCall(13, this, "uint", PropID, CProperty.Ptr, _Property, "HRESULT")
         return result
     }
 
@@ -606,7 +562,7 @@ class IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-setpersist(propid_bool)
      */
     SetPersist(fPersist) {
-        result := ComCall(15, this, "int", fPersist, "HRESULT")
+        result := ComCall(15, this, BOOL, fPersist, "HRESULT")
         return result
     }
 
@@ -653,7 +609,7 @@ class IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-setpersist(propid_bool)
      */
     SetPersist1(PropID, fPersist) {
-        result := ComCall(16, this, "uint", PropID, "int", fPersist, "HRESULT")
+        result := ComCall(16, this, "uint", PropID, BOOL, fPersist, "HRESULT")
         return result
     }
 
@@ -695,30 +651,17 @@ class IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getfirst
      */
     GetFirst(_Property) {
-        result := ComCall(17, this, "ptr", _Property, "HRESULT")
+        result := ComCall(17, this, CProperty.Ptr, _Property, "HRESULT")
         return result
     }
 
     /**
-     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
-     * @remarks
-     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
-     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
-     * 
-     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
-     * 
-     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<CProperty>} _Property 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
+     * @returns {HRESULT} 
      */
     GetNext(_Property) {
-        result := ComCall(18, this, "ptr", _Property, "HRESULT")
+        result := ComCall(18, this, CProperty.Ptr, _Property, "HRESULT")
         return result
     }
 
@@ -934,5 +877,59 @@ class IITPropList extends IPersistStreamInit {
 
         result := ComCall(26, this, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IITPropList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 4)
+        this.vtbl.Set1 := CallbackCreate(GetMethod(implObj, "Set1"), flags, 5)
+        this.vtbl.Set2 := CallbackCreate(GetMethod(implObj, "Set2"), flags, 4)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetPersist := CallbackCreate(GetMethod(implObj, "SetPersist"), flags, 2)
+        this.vtbl.SetPersist1 := CallbackCreate(GetMethod(implObj, "SetPersist1"), flags, 3)
+        this.vtbl.GetFirst := CallbackCreate(GetMethod(implObj, "GetFirst"), flags, 2)
+        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 2)
+        this.vtbl.GetPropCount := CallbackCreate(GetMethod(implObj, "GetPropCount"), flags, 2)
+        this.vtbl.SaveHeader := CallbackCreate(GetMethod(implObj, "SaveHeader"), flags, 3)
+        this.vtbl.SaveData := CallbackCreate(GetMethod(implObj, "SaveData"), flags, 5)
+        this.vtbl.GetHeaderSize := CallbackCreate(GetMethod(implObj, "GetHeaderSize"), flags, 2)
+        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 4)
+        this.vtbl.SaveDataToStream := CallbackCreate(GetMethod(implObj, "SaveDataToStream"), flags, 4)
+        this.vtbl.LoadFromMem := CallbackCreate(GetMethod(implObj, "LoadFromMem"), flags, 3)
+        this.vtbl.SaveToMem := CallbackCreate(GetMethod(implObj, "SaveToMem"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.Set1)
+        CallbackFree(this.vtbl.Set2)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.SetPersist)
+        CallbackFree(this.vtbl.SetPersist1)
+        CallbackFree(this.vtbl.GetFirst)
+        CallbackFree(this.vtbl.GetNext)
+        CallbackFree(this.vtbl.GetPropCount)
+        CallbackFree(this.vtbl.SaveHeader)
+        CallbackFree(this.vtbl.SaveData)
+        CallbackFree(this.vtbl.GetHeaderSize)
+        CallbackFree(this.vtbl.GetDataSize)
+        CallbackFree(this.vtbl.SaveDataToStream)
+        CallbackFree(this.vtbl.LoadFromMem)
+        CallbackFree(this.vtbl.SaveToMem)
     }
 }

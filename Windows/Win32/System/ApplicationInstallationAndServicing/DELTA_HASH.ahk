@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class DELTA_HASH extends Win32Struct {
-    static sizeof => 36
+export default struct DELTA_HASH {
+    #StructPack 4
 
-    static packingSize => 4
+    HashSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HashSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    HashValue : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HashValue {
-        get {
-            if(!this.HasProp("__HashValueProxyArray"))
-                this.__HashValueProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
-            return this.__HashValueProxyArray
-        }
-    }
 }

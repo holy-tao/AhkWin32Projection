@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSSTREAM_UVC_METADATATYPE_TIMESTAMP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSSTREAM_UVC_METADATATYPE_TIMESTAMP.ahk" { KSSTREAM_UVC_METADATATYPE_TIMESTAMP }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSSTREAM_UVC_METADATA extends Win32Struct {
-    static sizeof => 32
+export default struct KSSTREAM_UVC_METADATA {
+    #StructPack 4
 
-    static packingSize => 4
+    StartOfFrameTimestamp : KSSTREAM_UVC_METADATATYPE_TIMESTAMP
 
-    /**
-     * @type {KSSTREAM_UVC_METADATATYPE_TIMESTAMP}
-     */
-    StartOfFrameTimestamp {
-        get {
-            if(!this.HasProp("__StartOfFrameTimestamp"))
-                this.__StartOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(0, this)
-            return this.__StartOfFrameTimestamp
-        }
-    }
+    EndOfFrameTimestamp : KSSTREAM_UVC_METADATATYPE_TIMESTAMP
 
-    /**
-     * @type {KSSTREAM_UVC_METADATATYPE_TIMESTAMP}
-     */
-    EndOfFrameTimestamp {
-        get {
-            if(!this.HasProp("__EndOfFrameTimestamp"))
-                this.__EndOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(16, this)
-            return this.__EndOfFrameTimestamp
-        }
-    }
 }

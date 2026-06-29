@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies application management actions supported by an application publisher. These flags are bitmasks passed to IShellApp::GetPossibleActions.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ne-shappmgr-appactionflags
  * @namespace Windows.Win32.UI.Shell
  */
-class APPACTIONFLAGS extends Win32Enum {
+export default struct APPACTIONFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the application can be installed. Published applications always set this bit.

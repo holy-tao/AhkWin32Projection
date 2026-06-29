@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Returns information for the cloud files platform. This is intended for sync providers running on multiple versions of Windows.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_platform_info
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_PLATFORM_INFO extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct CF_PLATFORM_INFO {
+    #StructPack 4
 
     /**
      * The build number of the Windows platform version. Changes when the platform is serviced by a Windows update.
-     * @type {Integer}
      */
-    BuildNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BuildNumber : UInt32
 
     /**
      * The revision number of the Windows platform version. Changes when the platform is serviced by a Windows update.
-     * @type {Integer}
      */
-    RevisionNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RevisionNumber : UInt32
 
     /**
      * The integration number of the Windows platform version. This is indicative of the platform capabilities, both in terms of API contracts and availability of bug fixes.
-     * @type {Integer}
      */
-    IntegrationNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IntegrationNumber : UInt32
+
 }

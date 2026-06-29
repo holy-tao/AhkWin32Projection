@@ -1,31 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains parameters that specify a single entry in a list of Logical Block Address (LBA) ranges, for the LBA Range Type Feature in the Set Features command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_ranget_type_entry
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct {
-    static sizeof => 64
+export default struct NVME_LBA_RANGET_TYPE_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Attributes extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Attributes {
         /**
          * This bitfield backs the following members:
          * - MayOverwritten
          * - Hidden
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -46,12 +38,8 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct {
 
     /**
      * An [NVME_LBA_RANGE_TYPES](ne-nvme-nvme_lba_range_types.md) value that specifies the type of the LBA range.
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Type : Int8
 
     /**
      * Specifies attributes for the LBA range. Each bit defines an attribute, as follows:
@@ -59,65 +47,26 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct {
      * - Bit 0 - If this bit is set to `1`, the LBA range may be overwritten. If this bit is cleared to `0`, the LBA range should not be overwritten.
      * - Bit 1 - If this bit is set to `1`, the LBA range should be hidden from the OS/EFI/BIOS. If this bit is cleared to `0`, the area should be visible to the OS/EFI/BIOS.
      * - Bits 2-7 - Reserved
-     * @type {_Attributes}
      */
-    Attributes {
-        get {
-            if(!this.HasProp("__Attributes"))
-                this.__Attributes := NVME_LBA_RANGET_TYPE_ENTRY._Attributes(1, this)
-            return this.__Attributes
-        }
-    }
+    Attributes : NVME_LBA_RANGET_TYPE_ENTRY._Attributes
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 2, 14, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[14]
 
     /**
      * Specifies the 64-bit address of the first logical block that is part of this LBA range.
-     * @type {Integer}
      */
-    SLBA {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SLBA : Int64
 
     /**
      * Specifies the number of logical blocks that are part of this LBA range. This is a 0s based value.
-     * @type {Integer}
      */
-    NLB {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NLB : Int64
 
     /**
      * A Global Unique Identifier (GUID) that uniquely specifies the type of this LBA range. Well known Types may be defined and are published on the [NVM Express website](https://nvmexpress.org/).
-     * @type {Array<Integer>}
      */
-    GUID {
-        get {
-            if(!this.HasProp("__GUIDProxyArray"))
-                this.__GUIDProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
-            return this.__GUIDProxyArray
-        }
-    }
+    GUID : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[16]
+
 }

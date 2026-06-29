@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEventGenerator.ahk
-#Include .\IMFMediaSink.ahk
-#Include .\IMFMediaTypeHandler.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFSTREAMSINK_MARKER_TYPE.ahk" { MFSTREAMSINK_MARKER_TYPE }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaTypeHandler.ahk" { IMFMediaTypeHandler }
 
 /**
  * Represents a stream on a media sink object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfstreamsink
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFStreamSink extends IMFMediaEventGenerator {
-
-    static sizeof => A_PtrSize
+export default struct IMFStreamSink extends IMFMediaEventGenerator {
     /**
      * The interface identifier for IMFStreamSink
      * @type {Guid}
      */
-    static IID => Guid("{0a97b3cf-8e7c-4a3d-8f8c-0c843dc247fb}")
+    static IID := Guid("{0a97b3cf-8e7c-4a3d-8f8c-0c843dc247fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFStreamSink interfaces
+    */
+    struct Vtbl extends IMFMediaEventGenerator.Vtbl {
+        GetMediaSink        : IntPtr
+        GetIdentifier       : IntPtr
+        GetMediaTypeHandler : IntPtr
+        ProcessSample       : IntPtr
+        PlaceMarker         : IntPtr
+        Flush               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMediaSink", "GetIdentifier", "GetMediaTypeHandler", "ProcessSample", "PlaceMarker", "Flush"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFStreamSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the media sink that owns this stream sink.
@@ -255,7 +271,7 @@ class IMFStreamSink extends IMFMediaEventGenerator {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-placemarker
      */
     PlaceMarker(eMarkerType, pvarMarkerValue, pvarContextValue) {
-        result := ComCall(11, this, "int", eMarkerType, "ptr", pvarMarkerValue, "ptr", pvarContextValue, "HRESULT")
+        result := ComCall(11, this, MFSTREAMSINK_MARKER_TYPE, eMarkerType, PROPVARIANT.Ptr, pvarMarkerValue, PROPVARIANT.Ptr, pvarContextValue, "HRESULT")
         return result
     }
 
@@ -324,5 +340,35 @@ class IMFStreamSink extends IMFMediaEventGenerator {
     Flush() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFStreamSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMediaSink := CallbackCreate(GetMethod(implObj, "GetMediaSink"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.GetMediaTypeHandler := CallbackCreate(GetMethod(implObj, "GetMediaTypeHandler"), flags, 2)
+        this.vtbl.ProcessSample := CallbackCreate(GetMethod(implObj, "ProcessSample"), flags, 2)
+        this.vtbl.PlaceMarker := CallbackCreate(GetMethod(implObj, "PlaceMarker"), flags, 4)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMediaSink)
+        CallbackFree(this.vtbl.GetIdentifier)
+        CallbackFree(this.vtbl.GetMediaTypeHandler)
+        CallbackFree(this.vtbl.ProcessSample)
+        CallbackFree(this.vtbl.PlaceMarker)
+        CallbackFree(this.vtbl.Flush)
     }
 }

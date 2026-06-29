@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_SURFACEINFO extends Win32Struct {
-    static sizeof => 32
+export default struct D3DDDI_SURFACEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Depth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Depth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pSysMem : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pSysMem {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SysMemPitch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SysMemPitch {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SysMemSlicePitch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SysMemSlicePitch {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

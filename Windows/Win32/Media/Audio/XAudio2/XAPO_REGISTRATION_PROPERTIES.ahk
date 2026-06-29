@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Describes general characteristics of an XAPO. Used with IXAPO::GetRegistrationProperties, CXAPOParametersBase::CXAPOParametersBase, and CXAPOBase::CXAPOBase.
@@ -10,55 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_registration_properties
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
-    static sizeof => 1064
-
-    static packingSize => 8
+export default struct XAPO_REGISTRATION_PROPERTIES {
+    #StructPack 4
 
     /**
      * COM class ID for use with the CoCreateInstance function.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    clsid : Guid
 
     /**
      * Friendly name, a unicode string.
-     * @type {String}
      */
-    FriendlyName {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
-    }
+    FriendlyName : WCHAR[256]
 
     /**
      * Copyright information, a unicode string.
-     * @type {String}
      */
-    CopyrightInfo {
-        get => StrGet(this.ptr + 520, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 255, "UTF-16")
-    }
+    CopyrightInfo : WCHAR[256]
 
     /**
      * Major version number.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 1032, "uint")
-        set => NumPut("uint", value, this, 1032)
-    }
+    MajorVersion : UInt32
 
     /**
      * Minor version number.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 1036, "uint")
-        set => NumPut("uint", value, this, 1036)
-    }
+    MinorVersion : UInt32
 
     /**
      * XAPO property flags that describe the general characteristics of process behavior. These flags are described in the following table. 
@@ -120,52 +99,33 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      *             </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 1040, "uint")
-        set => NumPut("uint", value, this, 1040)
-    }
+    Flags : UInt32
 
     /**
      * Minimum number of input streams required for processing.
-     * @type {Integer}
      */
-    MinInputBufferCount {
-        get => NumGet(this, 1044, "uint")
-        set => NumPut("uint", value, this, 1044)
-    }
+    MinInputBufferCount : UInt32
 
     /**
      * Maximum number of input streams required for processing.
      * 
      * <div class="alert"><b>Note</b>  <i>MaxInputBufferCount</i> is currently limited to a value of 1.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    MaxInputBufferCount {
-        get => NumGet(this, 1048, "uint")
-        set => NumPut("uint", value, this, 1048)
-    }
+    MaxInputBufferCount : UInt32
 
     /**
      * Minimum number of output streams required for processing.
-     * @type {Integer}
      */
-    MinOutputBufferCount {
-        get => NumGet(this, 1052, "uint")
-        set => NumPut("uint", value, this, 1052)
-    }
+    MinOutputBufferCount : UInt32
 
     /**
      * Maximum number of output streams required for processing. 
      * 
      * <div class="alert"><b>Note</b>  <i>MaxOutputBufferCount</i> is currently limited to a value of 1.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    MaxOutputBufferCount {
-        get => NumGet(this, 1056, "uint")
-        set => NumPut("uint", value, this, 1056)
-    }
+    MaxOutputBufferCount : UInt32
+
 }

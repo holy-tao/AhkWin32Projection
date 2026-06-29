@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values that indicate the type of data pointed to by the ptstrName member of the TRUSTEE structure.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-trustee_form
  * @namespace Windows.Win32.Security.Authorization
  */
-class TRUSTEE_FORM extends Win32Enum {
+export default struct TRUSTEE_FORM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <b>ptstrName</b> member is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that identifies the trustee.

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include .\IInkDisp.ahk
-#Include .\IInkExtendedProperties.ahk
-#Include .\IInkRectangle.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
+#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.
@@ -15,26 +22,65 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkstrokedisp
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkStrokeDisp extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkStrokeDisp extends IDispatch {
     /**
      * The interface identifier for IInkStrokeDisp
      * @type {Guid}
      */
-    static IID => Guid("{43242fea-91d1-4a72-963e-fbb91829cfa2}")
+    static IID := Guid("{43242fea-91d1-4a72-963e-fbb91829cfa2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkStrokeDisp interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ID                              : IntPtr
+        get_BezierPoints                    : IntPtr
+        get_DrawingAttributes               : IntPtr
+        putref_DrawingAttributes            : IntPtr
+        get_Ink                             : IntPtr
+        get_ExtendedProperties              : IntPtr
+        get_PolylineCusps                   : IntPtr
+        get_BezierCusps                     : IntPtr
+        get_SelfIntersections               : IntPtr
+        get_PacketCount                     : IntPtr
+        get_PacketSize                      : IntPtr
+        get_PacketDescription               : IntPtr
+        get_Deleted                         : IntPtr
+        GetBoundingBox                      : IntPtr
+        FindIntersections                   : IntPtr
+        GetRectangleIntersections           : IntPtr
+        Clip                                : IntPtr
+        HitTestCircle                       : IntPtr
+        NearestPoint                        : IntPtr
+        Split                               : IntPtr
+        GetPacketDescriptionPropertyMetrics : IntPtr
+        GetPoints                           : IntPtr
+        SetPoints                           : IntPtr
+        GetPacketData                       : IntPtr
+        GetPacketValuesByProperty           : IntPtr
+        SetPacketValuesByProperty           : IntPtr
+        GetFlattenedBezierPoints            : IntPtr
+        Transform                           : IntPtr
+        ScaleToRectangle                    : IntPtr
+        Move                                : IntPtr
+        Rotate                              : IntPtr
+        Shear                               : IntPtr
+        ScaleTransform                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ID", "get_BezierPoints", "get_DrawingAttributes", "putref_DrawingAttributes", "get_Ink", "get_ExtendedProperties", "get_PolylineCusps", "get_BezierCusps", "get_SelfIntersections", "get_PacketCount", "get_PacketSize", "get_PacketDescription", "get_Deleted", "GetBoundingBox", "FindIntersections", "GetRectangleIntersections", "Clip", "HitTestCircle", "NearestPoint", "Split", "GetPacketDescriptionPropertyMetrics", "GetPoints", "SetPoints", "GetPacketData", "GetPacketValuesByProperty", "SetPacketValuesByProperty", "GetFlattenedBezierPoints", "Transform", "ScaleToRectangle", "Move", "Rotate", "Shear", "ScaleTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkStrokeDisp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -144,7 +190,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     get_BezierPoints() {
         _Points := VARIANT()
-        result := ComCall(8, this, "ptr", _Points, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, _Points, "HRESULT")
         return _Points
     }
 
@@ -214,7 +260,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     get_PolylineCusps() {
         Cusps := VARIANT()
-        result := ComCall(13, this, "ptr", Cusps, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, Cusps, "HRESULT")
         return Cusps
     }
 
@@ -231,7 +277,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     get_BezierCusps() {
         Cusps := VARIANT()
-        result := ComCall(14, this, "ptr", Cusps, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, Cusps, "HRESULT")
         return Cusps
     }
 
@@ -249,7 +295,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     get_SelfIntersections() {
         Intersections := VARIANT()
-        result := ComCall(15, this, "ptr", Intersections, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, Intersections, "HRESULT")
         return Intersections
     }
 
@@ -282,7 +328,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     get_PacketDescription() {
         PacketDescription := VARIANT()
-        result := ComCall(18, this, "ptr", PacketDescription, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, PacketDescription, "HRESULT")
         return PacketDescription
     }
 
@@ -292,7 +338,7 @@ class IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_deleted
      */
     get_Deleted() {
-        result := ComCall(19, this, "short*", &Deleted := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &Deleted := 0, "HRESULT")
         return Deleted
     }
 
@@ -315,7 +361,7 @@ class IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getboundingbox
      */
     GetBoundingBox(BoundingBoxMode) {
-        result := ComCall(20, this, "int", BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(20, this, InkBoundingBoxMode, BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
         return IInkRectangle(Rectangle)
     }
 
@@ -336,7 +382,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     FindIntersections(Strokes) {
         Intersections := VARIANT()
-        result := ComCall(21, this, "ptr", Strokes, "ptr", Intersections, "HRESULT")
+        result := ComCall(21, this, "ptr", Strokes, VARIANT.Ptr, Intersections, "HRESULT")
         return Intersections
     }
 
@@ -354,7 +400,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     GetRectangleIntersections(Rectangle) {
         Intersections := VARIANT()
-        result := ComCall(22, this, "ptr", Rectangle, "ptr", Intersections, "HRESULT")
+        result := ComCall(22, this, "ptr", Rectangle, VARIANT.Ptr, Intersections, "HRESULT")
         return Intersections
     }
 
@@ -459,7 +505,7 @@ class IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-hittestcircle
      */
     HitTestCircle(X, Y, Radius) {
-        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, "short*", &Intersects := 0, "HRESULT")
+        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, VARIANT_BOOL.Ptr, &Intersects := 0, "HRESULT")
         return Intersects
     }
 
@@ -593,7 +639,7 @@ class IInkStrokeDisp extends IDispatch {
         UnitsMarshal := Units is VarRef ? "int*" : "ptr"
         ResolutionMarshal := Resolution is VarRef ? "float*" : "ptr"
 
-        result := ComCall(27, this, "ptr", PropertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
+        result := ComCall(27, this, BSTR, PropertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
         return result
     }
 
@@ -608,7 +654,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     GetPoints(Index, Count) {
         _Points := VARIANT()
-        result := ComCall(28, this, "int", Index, "int", Count, "ptr", _Points, "HRESULT")
+        result := ComCall(28, this, "int", Index, "int", Count, VARIANT.Ptr, _Points, "HRESULT")
         return _Points
     }
 
@@ -631,7 +677,7 @@ class IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
      */
     SetPoints(_Points, Index, Count) {
-        result := ComCall(29, this, "ptr", _Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT, _Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
         return NumberOfPointsSet
     }
 
@@ -650,7 +696,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     GetPacketData(Index, Count) {
         PacketData := VARIANT()
-        result := ComCall(30, this, "int", Index, "int", Count, "ptr", PacketData, "HRESULT")
+        result := ComCall(30, this, "int", Index, "int", Count, VARIANT.Ptr, PacketData, "HRESULT")
         return PacketData
     }
 
@@ -672,7 +718,7 @@ class IInkStrokeDisp extends IDispatch {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
         PacketValues := VARIANT()
-        result := ComCall(31, this, "ptr", PropertyName, "int", Index, "int", Count, "ptr", PacketValues, "HRESULT")
+        result := ComCall(31, this, BSTR, PropertyName, "int", Index, "int", Count, VARIANT.Ptr, PacketValues, "HRESULT")
         return PacketValues
     }
 
@@ -688,7 +734,7 @@ class IInkStrokeDisp extends IDispatch {
     SetPacketValuesByProperty(bstrPropertyName, PacketValues, Index, Count) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, "int*", &NumberOfPacketsSet := 0, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrPropertyName, VARIANT, PacketValues, "int", Index, "int", Count, "int*", &NumberOfPacketsSet := 0, "HRESULT")
         return NumberOfPacketsSet
     }
 
@@ -704,7 +750,7 @@ class IInkStrokeDisp extends IDispatch {
      */
     GetFlattenedBezierPoints(FittingError) {
         FlattenedBezierPoints := VARIANT()
-        result := ComCall(33, this, "int", FittingError, "ptr", FlattenedBezierPoints, "HRESULT")
+        result := ComCall(33, this, "int", FittingError, VARIANT.Ptr, FlattenedBezierPoints, "HRESULT")
         return FlattenedBezierPoints
     }
 
@@ -778,7 +824,7 @@ class IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-transform
      */
     Transform(Transform, ApplyOnPenWidth) {
-        result := ComCall(34, this, "ptr", Transform, "short", ApplyOnPenWidth, "HRESULT")
+        result := ComCall(34, this, "ptr", Transform, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
         return result
     }
 
@@ -975,5 +1021,89 @@ class IInkStrokeDisp extends IDispatch {
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier) {
         result := ComCall(39, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkStrokeDisp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_BezierPoints := CallbackCreate(GetMethod(implObj, "get_BezierPoints"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.get_ExtendedProperties := CallbackCreate(GetMethod(implObj, "get_ExtendedProperties"), flags, 2)
+        this.vtbl.get_PolylineCusps := CallbackCreate(GetMethod(implObj, "get_PolylineCusps"), flags, 2)
+        this.vtbl.get_BezierCusps := CallbackCreate(GetMethod(implObj, "get_BezierCusps"), flags, 2)
+        this.vtbl.get_SelfIntersections := CallbackCreate(GetMethod(implObj, "get_SelfIntersections"), flags, 2)
+        this.vtbl.get_PacketCount := CallbackCreate(GetMethod(implObj, "get_PacketCount"), flags, 2)
+        this.vtbl.get_PacketSize := CallbackCreate(GetMethod(implObj, "get_PacketSize"), flags, 2)
+        this.vtbl.get_PacketDescription := CallbackCreate(GetMethod(implObj, "get_PacketDescription"), flags, 2)
+        this.vtbl.get_Deleted := CallbackCreate(GetMethod(implObj, "get_Deleted"), flags, 2)
+        this.vtbl.GetBoundingBox := CallbackCreate(GetMethod(implObj, "GetBoundingBox"), flags, 3)
+        this.vtbl.FindIntersections := CallbackCreate(GetMethod(implObj, "FindIntersections"), flags, 3)
+        this.vtbl.GetRectangleIntersections := CallbackCreate(GetMethod(implObj, "GetRectangleIntersections"), flags, 3)
+        this.vtbl.Clip := CallbackCreate(GetMethod(implObj, "Clip"), flags, 2)
+        this.vtbl.HitTestCircle := CallbackCreate(GetMethod(implObj, "HitTestCircle"), flags, 5)
+        this.vtbl.NearestPoint := CallbackCreate(GetMethod(implObj, "NearestPoint"), flags, 5)
+        this.vtbl.Split := CallbackCreate(GetMethod(implObj, "Split"), flags, 3)
+        this.vtbl.GetPacketDescriptionPropertyMetrics := CallbackCreate(GetMethod(implObj, "GetPacketDescriptionPropertyMetrics"), flags, 6)
+        this.vtbl.GetPoints := CallbackCreate(GetMethod(implObj, "GetPoints"), flags, 4)
+        this.vtbl.SetPoints := CallbackCreate(GetMethod(implObj, "SetPoints"), flags, 5)
+        this.vtbl.GetPacketData := CallbackCreate(GetMethod(implObj, "GetPacketData"), flags, 4)
+        this.vtbl.GetPacketValuesByProperty := CallbackCreate(GetMethod(implObj, "GetPacketValuesByProperty"), flags, 5)
+        this.vtbl.SetPacketValuesByProperty := CallbackCreate(GetMethod(implObj, "SetPacketValuesByProperty"), flags, 6)
+        this.vtbl.GetFlattenedBezierPoints := CallbackCreate(GetMethod(implObj, "GetFlattenedBezierPoints"), flags, 3)
+        this.vtbl.Transform := CallbackCreate(GetMethod(implObj, "Transform"), flags, 3)
+        this.vtbl.ScaleToRectangle := CallbackCreate(GetMethod(implObj, "ScaleToRectangle"), flags, 2)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.Shear := CallbackCreate(GetMethod(implObj, "Shear"), flags, 3)
+        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ID)
+        CallbackFree(this.vtbl.get_BezierPoints)
+        CallbackFree(this.vtbl.get_DrawingAttributes)
+        CallbackFree(this.vtbl.putref_DrawingAttributes)
+        CallbackFree(this.vtbl.get_Ink)
+        CallbackFree(this.vtbl.get_ExtendedProperties)
+        CallbackFree(this.vtbl.get_PolylineCusps)
+        CallbackFree(this.vtbl.get_BezierCusps)
+        CallbackFree(this.vtbl.get_SelfIntersections)
+        CallbackFree(this.vtbl.get_PacketCount)
+        CallbackFree(this.vtbl.get_PacketSize)
+        CallbackFree(this.vtbl.get_PacketDescription)
+        CallbackFree(this.vtbl.get_Deleted)
+        CallbackFree(this.vtbl.GetBoundingBox)
+        CallbackFree(this.vtbl.FindIntersections)
+        CallbackFree(this.vtbl.GetRectangleIntersections)
+        CallbackFree(this.vtbl.Clip)
+        CallbackFree(this.vtbl.HitTestCircle)
+        CallbackFree(this.vtbl.NearestPoint)
+        CallbackFree(this.vtbl.Split)
+        CallbackFree(this.vtbl.GetPacketDescriptionPropertyMetrics)
+        CallbackFree(this.vtbl.GetPoints)
+        CallbackFree(this.vtbl.SetPoints)
+        CallbackFree(this.vtbl.GetPacketData)
+        CallbackFree(this.vtbl.GetPacketValuesByProperty)
+        CallbackFree(this.vtbl.SetPacketValuesByProperty)
+        CallbackFree(this.vtbl.GetFlattenedBezierPoints)
+        CallbackFree(this.vtbl.Transform)
+        CallbackFree(this.vtbl.ScaleToRectangle)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Rotate)
+        CallbackFree(this.vtbl.Shear)
+        CallbackFree(this.vtbl.ScaleTransform)
     }
 }

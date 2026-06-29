@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
  */
-class alljoyn_keystorelistener_with_synchronization_callbacks extends Win32Struct {
-    static sizeof => 32
+export default struct alljoyn_keystorelistener_with_synchronization_callbacks {
+    #StructPack 8
 
-    static packingSize => 8
+    load_request : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_keystorelistener_loadrequest_ptr>}
-     */
-    load_request {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    store_request : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_keystorelistener_storerequest_ptr>}
-     */
-    store_request {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    acquire_exclusive_lock : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_keystorelistener_acquireexclusivelock_ptr>}
-     */
-    acquire_exclusive_lock {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    release_exclusive_lock : IntPtr
 
-    /**
-     * @type {Pointer<alljoyn_keystorelistener_releaseexclusivelock_ptr>}
-     */
-    release_exclusive_lock {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

@@ -1,38 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_SUB_SYSTEM_PROP.ahk
-#Include .\IVdsProvider.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsDrive.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_SUB_SYSTEM_PROP.ahk" { VDS_SUB_SYSTEM_PROP }
+#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_SUB_SYSTEM_STATUS.ahk" { VDS_SUB_SYSTEM_STATUS }
+#Import ".\IVdsDrive.ahk" { IVdsDrive }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
+#Import ".\IVdsProvider.ahk" { IVdsProvider }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsSubSystem interface (vdshwprv.h) provides methods for performing query and configuration operations on a subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsystem
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsSubSystem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsSubSystem extends IUnknown {
     /**
      * The interface identifier for IVdsSubSystem
      * @type {Guid}
      */
-    static IID => Guid("{6fcee2d3-6d90-4f91-80e2-a5c7caaca9d8}")
+    static IID := Guid("{6fcee2d3-6d90-4f91-80e2-a5c7caaca9d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsSubSystem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties         : IntPtr
+        GetProvider           : IntPtr
+        QueryControllers      : IntPtr
+        QueryLuns             : IntPtr
+        QueryDrives           : IntPtr
+        GetDrive              : IntPtr
+        Reenumerate           : IntPtr
+        SetControllerStatus   : IntPtr
+        CreateLun             : IntPtr
+        ReplaceDrive          : IntPtr
+        SetStatus             : IntPtr
+        QueryMaxLunCreateSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetProvider", "QueryControllers", "QueryLuns", "QueryDrives", "GetDrive", "Reenumerate", "SetControllerStatus", "CreateLun", "ReplaceDrive", "SetStatus", "QueryMaxLunCreateSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsSubSystem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsSubSystem::GetProperties (vdshwprv.h) method returns the properties of a subsystem.
@@ -45,7 +68,7 @@ class IVdsSubSystem extends IUnknown {
      */
     GetProperties() {
         pSubSystemProp := VDS_SUB_SYSTEM_PROP()
-        result := ComCall(3, this, "ptr", pSubSystemProp, "HRESULT")
+        result := ComCall(3, this, VDS_SUB_SYSTEM_PROP.Ptr, pSubSystemProp, "HRESULT")
         return pSubSystemProp
     }
 
@@ -308,7 +331,7 @@ class IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-setcontrollerstatus
      */
     SetControllerStatus(pOnlineControllerIdArray, lNumberOfOnlineControllers, pOfflineControllerIdArray, lNumberOfOfflineControllers) {
-        result := ComCall(10, this, "ptr", pOnlineControllerIdArray, "int", lNumberOfOnlineControllers, "ptr", pOfflineControllerIdArray, "int", lNumberOfOfflineControllers, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pOnlineControllerIdArray, "int", lNumberOfOnlineControllers, Guid.Ptr, pOfflineControllerIdArray, "int", lNumberOfOfflineControllers, "HRESULT")
         return result
     }
 
@@ -407,7 +430,7 @@ class IVdsSubSystem extends IUnknown {
     CreateLun(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(11, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, VDS_LUN_TYPE, type, "uint", ullSizeInBytes, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, VDS_HINTS.Ptr, pHints, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -499,7 +522,7 @@ class IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-replacedrive
      */
     ReplaceDrive(DriveToBeReplaced, ReplacementDrive) {
-        result := ComCall(12, this, "ptr", DriveToBeReplaced, "ptr", ReplacementDrive, "HRESULT")
+        result := ComCall(12, this, Guid, DriveToBeReplaced, Guid, ReplacementDrive, "HRESULT")
         return result
     }
 
@@ -589,7 +612,7 @@ class IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-setstatus
      */
     SetStatus(_status) {
-        result := ComCall(13, this, "int", _status, "HRESULT")
+        result := ComCall(13, this, VDS_SUB_SYSTEM_STATUS, _status, "HRESULT")
         return result
     }
 
@@ -607,7 +630,49 @@ class IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-querymaxluncreatesize
      */
     QueryMaxLunCreateSize(type, pDriveIdArray, lNumberOfDrives, pHints) {
-        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        result := ComCall(14, this, VDS_LUN_TYPE, type, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, VDS_HINTS.Ptr, pHints, "uint*", &pullMaxLunSize := 0, "HRESULT")
         return pullMaxLunSize
+    }
+
+    Query(iid) {
+        if (IVdsSubSystem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.QueryControllers := CallbackCreate(GetMethod(implObj, "QueryControllers"), flags, 2)
+        this.vtbl.QueryLuns := CallbackCreate(GetMethod(implObj, "QueryLuns"), flags, 2)
+        this.vtbl.QueryDrives := CallbackCreate(GetMethod(implObj, "QueryDrives"), flags, 2)
+        this.vtbl.GetDrive := CallbackCreate(GetMethod(implObj, "GetDrive"), flags, 4)
+        this.vtbl.Reenumerate := CallbackCreate(GetMethod(implObj, "Reenumerate"), flags, 1)
+        this.vtbl.SetControllerStatus := CallbackCreate(GetMethod(implObj, "SetControllerStatus"), flags, 5)
+        this.vtbl.CreateLun := CallbackCreate(GetMethod(implObj, "CreateLun"), flags, 8)
+        this.vtbl.ReplaceDrive := CallbackCreate(GetMethod(implObj, "ReplaceDrive"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.QueryMaxLunCreateSize := CallbackCreate(GetMethod(implObj, "QueryMaxLunCreateSize"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetProvider)
+        CallbackFree(this.vtbl.QueryControllers)
+        CallbackFree(this.vtbl.QueryLuns)
+        CallbackFree(this.vtbl.QueryDrives)
+        CallbackFree(this.vtbl.GetDrive)
+        CallbackFree(this.vtbl.Reenumerate)
+        CallbackFree(this.vtbl.SetControllerStatus)
+        CallbackFree(this.vtbl.CreateLun)
+        CallbackFree(this.vtbl.ReplaceDrive)
+        CallbackFree(this.vtbl.SetStatus)
+        CallbackFree(this.vtbl.QueryMaxLunCreateSize)
     }
 }

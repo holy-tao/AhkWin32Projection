@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the information about the base and latest versions of the specified file.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_get_transacted_version
  * @namespace Windows.Win32.System.Ioctl
  */
-class TXFS_GET_TRANSACTED_VERSION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct TXFS_GET_TRANSACTED_VERSION {
+    #StructPack 4
 
     /**
      * The version of the file that this handle is opened with. This member can be one of the following 
@@ -51,49 +48,30 @@ class TXFS_GET_TRANSACTED_VERSION extends Win32Struct {
      * 
      * If the handle has been opened as a transacted reader, the value returned for this member is a positive 
      *       integer that represents the version number of the file the handle is associated with.
-     * @type {Integer}
      */
-    ThisBaseVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ThisBaseVersion : UInt32
 
     /**
      * The most recently committed version of the file.
-     * @type {Integer}
      */
-    LatestVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    LatestVersion : UInt32
 
     /**
      * If the handle to a miniversion is open, this member contains the ID of the miniversion. If the handle is 
      *       not open, this member is zero (0).
-     * @type {Integer}
      */
-    ThisMiniVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ThisMiniVersion : UInt16
 
     /**
      * The first available miniversion for this file. If there are no miniversions, or they are not visible to 
      *       the transaction bound to the file handle, this field is zero (0).
-     * @type {Integer}
      */
-    FirstMiniVersion {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    FirstMiniVersion : UInt16
 
     /**
      * The latest available miniversion for this file. If there are no miniversions, or they are not visible to 
      *       the transaction bound to the file handle, this field is zero (0).
-     * @type {Integer}
      */
-    LatestMiniVersion {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    LatestMiniVersion : UInt16
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information on the functions implemented by a namespace service provider version-2 (NSPv2) provider.
@@ -38,123 +37,77 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-nspv2_routine
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NSPV2_ROUTINE extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct NSPV2_ROUTINE {
+    #StructPack 8
 
     /**
      * Type: **DWORD**
      * 
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: **DWORD**
      * 
      * The major version of the service provider specification supported by this provider.
-     * @type {Integer}
      */
-    dwMajorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMajorVersion : UInt32
 
     /**
      * Type: **DWORD**
      * 
      * The minor version of the service provider specification supported by this provider.
-     * @type {Integer}
      */
-    dwMinorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMinorVersion : UInt32
 
     /**
      * Type: ** LPNSPV2STARTUP**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2startup">NSPv2Startup</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2STARTUP>}
      */
-    NSPv2Startup {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    NSPv2Startup : IntPtr
 
     /**
      * Type: **LPNSPV2CLEANUP**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2cleanup">NSPv2Cleanup</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2CLEANUP>}
      */
-    NSPv2Cleanup {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NSPv2Cleanup : IntPtr
 
     /**
      * Type: **LPNSPV2LOOKUPSERVICEBEGIN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPv2LookupServiceBegin</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2LOOKUPSERVICEBEGIN>}
      */
-    NSPv2LookupServiceBegin {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    NSPv2LookupServiceBegin : IntPtr
 
     /**
      * Type: **LPNSPV2LOOKUPSERVICENEXTEX**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2lookupservicenextex">NSPv2LookupServiceNextEx</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2LOOKUPSERVICENEXTEX>}
      */
-    NSPv2LookupServiceNextEx {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    NSPv2LookupServiceNextEx : IntPtr
 
     /**
      * Type: **LPNSPV2LOOKUPSERVICEEND**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2lookupserviceend">NSPv2LookupServiceEnd</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2LOOKUPSERVICEEND>}
      */
-    NSPv2LookupServiceEnd {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    NSPv2LookupServiceEnd : IntPtr
 
     /**
      * Type: **LPNSPV2SETSERVICEEX**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2setserviceex">NSPv2SetServiceEx</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2SETSERVICEEX>}
      */
-    NSPv2SetServiceEx {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    NSPv2SetServiceEx : IntPtr
 
     /**
      * Type: **LPNSPV2CLIENTSESSIONRUNDOWN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2clientsessionrundown">NSPv2ClientSessionRundown</a> function for this NSPv2 provider.
-     * @type {Pointer<LPNSPV2CLIENTSESSIONRUNDOWN>}
      */
-    NSPv2ClientSessionRundown {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    NSPv2ClientSessionRundown : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

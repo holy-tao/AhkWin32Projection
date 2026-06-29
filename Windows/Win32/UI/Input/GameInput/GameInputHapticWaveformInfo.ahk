@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputUsage.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputUsage.ahk" { GameInputUsage }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputHapticWaveformInfo extends Win32Struct {
-    static sizeof => 16
+export default struct GameInputHapticWaveformInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    usage : GameInputUsage
 
-    /**
-     * @type {GameInputUsage}
-     */
-    usage {
-        get {
-            if(!this.HasProp("__usage"))
-                this.__usage := GameInputUsage(0, this)
-            return this.__usage
-        }
-    }
+    isDurationSupported : Int8
 
-    /**
-     * @type {Integer}
-     */
-    isDurationSupported {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    isIntensitySupported : Int8
 
-    /**
-     * @type {Integer}
-     */
-    isIntensitySupported {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    isRepeatSupported : Int8
 
-    /**
-     * @type {Integer}
-     */
-    isRepeatSupported {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    isRepeatDelaySupported : Int8
 
-    /**
-     * @type {Integer}
-     */
-    isRepeatDelaySupported {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    defaultDuration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    defaultDuration {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

@@ -1,30 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
-#Include .\IMAPITable.ahk
-#Include .\IAttach.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\IAttach.ahk" { IAttach }
+#Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\ADRLIST.ahk" { ADRLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
 
 /**
  * Manages messages, attachments, and recipients. Read-only properties are set by the provider when a client calls a message's IMAPIProp::SaveChanges method.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessageimapiprop
  * @namespace Windows.Win32.System.AddressBook
  */
-class IMessage extends IMAPIProp {
+export default struct IMessage extends IMAPIProp {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAttachmentTable", "OpenAttach", "CreateAttach", "DeleteAttach", "GetRecipientTable", "ModifyRecipients", "SubmitMessage", "SetReadFlag"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMessage interfaces
+    */
+    struct Vtbl extends IMAPIProp.Vtbl {
+        GetAttachmentTable : IntPtr
+        OpenAttach         : IntPtr
+        CreateAttach       : IntPtr
+        DeleteAttach       : IntPtr
+        GetRecipientTable  : IntPtr
+        ModifyRecipients   : IntPtr
+        SubmitMessage      : IntPtr
+        SetReadFlag        : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMessage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -88,7 +105,7 @@ class IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-openattach
      */
     OpenAttach(ulAttachmentNum, lpInterface, ulFlags) {
-        result := ComCall(15, this, "uint", ulAttachmentNum, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
+        result := ComCall(15, this, "uint", ulAttachmentNum, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
         return IAttach(lppAttach)
     }
 
@@ -114,7 +131,7 @@ class IMessage extends IMAPIProp {
     CreateAttach(lpInterface, ulFlags, lpulAttachmentNum, lppAttach) {
         lpulAttachmentNumMarshal := lpulAttachmentNum is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", lpInterface, "uint", ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, "ptr*", lppAttach, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, lpInterface, "uint", ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, IAttach.Ptr, lppAttach, "HRESULT")
         return result
     }
 
@@ -209,7 +226,7 @@ class IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-modifyrecipients
      */
     ModifyRecipients(ulFlags, lpMods) {
-        result := ComCall(19, this, "uint", ulFlags, "ptr", lpMods, "HRESULT")
+        result := ComCall(19, this, "uint", ulFlags, ADRLIST.Ptr, lpMods, "HRESULT")
         return result
     }
 
@@ -287,5 +304,39 @@ class IMessage extends IMAPIProp {
     SetReadFlag(ulFlags) {
         result := ComCall(21, this, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMessage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAttachmentTable := CallbackCreate(GetMethod(implObj, "GetAttachmentTable"), flags, 3)
+        this.vtbl.OpenAttach := CallbackCreate(GetMethod(implObj, "OpenAttach"), flags, 5)
+        this.vtbl.CreateAttach := CallbackCreate(GetMethod(implObj, "CreateAttach"), flags, 5)
+        this.vtbl.DeleteAttach := CallbackCreate(GetMethod(implObj, "DeleteAttach"), flags, 5)
+        this.vtbl.GetRecipientTable := CallbackCreate(GetMethod(implObj, "GetRecipientTable"), flags, 3)
+        this.vtbl.ModifyRecipients := CallbackCreate(GetMethod(implObj, "ModifyRecipients"), flags, 3)
+        this.vtbl.SubmitMessage := CallbackCreate(GetMethod(implObj, "SubmitMessage"), flags, 2)
+        this.vtbl.SetReadFlag := CallbackCreate(GetMethod(implObj, "SetReadFlag"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAttachmentTable)
+        CallbackFree(this.vtbl.OpenAttach)
+        CallbackFree(this.vtbl.CreateAttach)
+        CallbackFree(this.vtbl.DeleteAttach)
+        CallbackFree(this.vtbl.GetRecipientTable)
+        CallbackFree(this.vtbl.ModifyRecipients)
+        CallbackFree(this.vtbl.SubmitMessage)
+        CallbackFree(this.vtbl.SetReadFlag)
     }
 }

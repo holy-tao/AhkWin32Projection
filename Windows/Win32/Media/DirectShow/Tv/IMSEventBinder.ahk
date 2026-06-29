@@ -1,37 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSEventBinder extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSEventBinder extends IDispatch {
     /**
      * The interface identifier for IMSEventBinder
      * @type {Guid}
      */
-    static IID => Guid("{c3a9f406-2222-436d-86d5-ba3229279efb}")
+    static IID := Guid("{c3a9f406-2222-436d-86d5-ba3229279efb}")
 
     /**
      * The class identifier for MSEventBinder
      * @type {Guid}
      */
-    static CLSID => Guid("{577faa18-4518-445e-8f70-1473f8cf4ba4}")
+    static CLSID := Guid("{577faa18-4518-445e-8f70-1473f8cf4ba4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSEventBinder interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Bind   : IntPtr
+        Unbind : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Bind", "Unbind"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSEventBinder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * A set of string keys that are used with the IBindCtx::RegisterObjectParam method to specify a bind context.
@@ -72,18 +82,39 @@ class IMSEventBinder extends IDispatch {
         EventName := EventName is String ? BSTR.Alloc(EventName).Value : EventName
         EventHandler := EventHandler is String ? BSTR.Alloc(EventHandler).Value : EventHandler
 
-        result := ComCall(7, this, "ptr", pEventObject, "ptr", EventName, "ptr", EventHandler, "int*", &CancelID := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pEventObject, BSTR, EventName, BSTR, EventHandler, "int*", &CancelID := 0, "HRESULT")
         return CancelID
     }
 
     /**
-     * Closes a handle to a print ticket provider.
+     * 
      * @param {Integer} CancelCookie 
-     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/unbindptproviderthunk
+     * @returns {HRESULT} 
      */
     Unbind(CancelCookie) {
         result := ComCall(8, this, "uint", CancelCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSEventBinder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 5)
+        this.vtbl.Unbind := CallbackCreate(GetMethod(implObj, "Unbind"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Bind)
+        CallbackFree(this.vtbl.Unbind)
     }
 }

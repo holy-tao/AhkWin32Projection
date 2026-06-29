@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class CONFIGURATION_ENTRY extends Win32Struct {
-    static sizeof => 16
+export default struct CONFIGURATION_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    bstrKey : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    bstrKey {
-        get {
-            if(!this.HasProp("__bstrKey"))
-                this.__bstrKey := BSTR(0, this)
-            return this.__bstrKey
-        }
-    }
+    bstrValue : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    bstrValue {
-        get {
-            if(!this.HasProp("__bstrValue"))
-                this.__bstrValue := BSTR(8, this)
-            return this.__bstrValue
-        }
-    }
 }

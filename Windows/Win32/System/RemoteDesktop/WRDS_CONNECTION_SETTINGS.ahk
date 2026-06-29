@@ -1,44 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRDS_CONNECTION_SETTING_LEVEL.ahk
-#Include .\WRDS_CONNECTION_SETTING.ahk
-#Include .\WRDS_CONNECTION_SETTINGS_1.ahk
-#Include .\WTS_SOCKADDR.ahk
-#Include .\WTS_TIME_ZONE_INFORMATION.ahk
-#Include .\WTS_SYSTEMTIME.ahk
-#Include .\WRDS_LISTENER_SETTINGS.ahk
-#Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
-#Include .\WRDS_LISTENER_SETTING.ahk
-#Include .\WRDS_LISTENER_SETTINGS_1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WRDS_CONNECTION_SETTINGS_1.ahk" { WRDS_CONNECTION_SETTINGS_1 }
+#Import ".\WRDS_CONNECTION_SETTING_LEVEL.ahk" { WRDS_CONNECTION_SETTING_LEVEL }
+#Import ".\WRDS_LISTENER_SETTING_LEVEL.ahk" { WRDS_LISTENER_SETTING_LEVEL }
+#Import ".\WTS_SYSTEMTIME.ahk" { WTS_SYSTEMTIME }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WRDS_LISTENER_SETTINGS_1.ahk" { WRDS_LISTENER_SETTINGS_1 }
+#Import ".\WRDS_LISTENER_SETTING.ahk" { WRDS_LISTENER_SETTING }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WTS_SOCKADDR.ahk" { WTS_SOCKADDR }
+#Import ".\WRDS_CONNECTION_SETTING.ahk" { WRDS_CONNECTION_SETTING }
+#Import ".\WRDS_LISTENER_SETTINGS.ahk" { WRDS_LISTENER_SETTINGS }
+#Import ".\WTS_TIME_ZONE_INFORMATION.ahk" { WTS_TIME_ZONE_INFORMATION }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS)
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_settings
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WRDS_CONNECTION_SETTINGS extends Win32Struct {
-    static sizeof => 3760
-
-    static packingSize => 8
+export default struct WRDS_CONNECTION_SETTINGS {
+    #StructPack 8
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wrds_connection_setting_level">WRDS_CONNECTION_SETTING_LEVEL</a> enumeration that specifies the type of structure that is contained in the <b>WRdsConnectionSetting</b> member.
-     * @type {WRDS_CONNECTION_SETTING_LEVEL}
      */
-    WRdsConnectionSettingLevel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    WRdsConnectionSettingLevel : WRDS_CONNECTION_SETTING_LEVEL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_connection_setting">WRDS_CONNECTION_SETTING</a> structure that specifies the connection settings.
-     * @type {WRDS_CONNECTION_SETTING}
      */
-    WRdsConnectionSetting {
-        get {
-            if(!this.HasProp("__WRdsConnectionSetting"))
-                this.__WRdsConnectionSetting := WRDS_CONNECTION_SETTING(8, this)
-            return this.__WRdsConnectionSetting
-        }
-    }
+    WRdsConnectionSetting : WRDS_CONNECTION_SETTING
+
 }

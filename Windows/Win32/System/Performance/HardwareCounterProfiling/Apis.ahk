@@ -1,113 +1,103 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
+
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\PERFORMANCE_DATA.ahk" { PERFORMANCE_DATA }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
  */
-class HardwareCounterProfiling {
 
-;@region Constants
-;@endregion Constants
-
-;@region Methods
-    /**
-     * Enables thread profiling on the specified thread.
-     * @remarks
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-disablethreadprofiling">DisableThreadProfiling</a> function before exiting the thread.
-     * 
-     * To profile hardware performance counters, you need a driver to configure the counters. The performance counters are configured globally for the system, so every thread has access to the same hardware counter data. The counters must be configured before you enable profiling. For information on configuring hardware performance counters, see the <b>KeSetHardwareCounterConfiguration</b> function in the Windows Driver Kit (WDK).
-     * @param {HANDLE} ThreadHandle The handle to the thread on which you want to enable profiling. This must be the current thread.
-     * @param {Integer} Flags To receive thread profiling data such as context switch count, set this parameter to THREAD_PROFILING_FLAG_DISPATCH; otherwise, set to 0.
-     * @param {Integer} HardwareCounters To receive hardware performance counter data, set this parameter to a bitmask that identifies the hardware counters to collect. You can specify up to 16 performance counters. Each bit relates directly to the zero-based hardware counter index for the hardware performance counters that you configured. Set to zero if you are not collecting hardware counter data. If you set a bit for a hardware counter that has not been configured, the counter value that is read for that counter is zero.
-     * @param {Pointer<HANDLE>} PerformanceDataHandle An opaque handle that you use when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-disablethreadprofiling">DisableThreadProfiling</a> functions.
-     * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enablethreadprofiling
-     * @since windows6.1
-     */
-    static EnableThreadProfiling(ThreadHandle, Flags, HardwareCounters, PerformanceDataHandle) {
-        ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
-
-        result := DllCall("KERNEL32.dll\EnableThreadProfiling", "ptr", ThreadHandle, "uint", Flags, "uint", HardwareCounters, "ptr", PerformanceDataHandle, "uint")
-        return result
-    }
-
-    /**
-     * Disables thread profiling.
-     * @remarks
-     * You must call this function from the same thread that enabled profiling for the specified handle. You must call this function before exiting the thread; otherwise, you will leak resources (the resources are not reclaimed until the process exits).
-     * @param {HANDLE} PerformanceDataHandle The handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function returned.
-     * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-disablethreadprofiling
-     * @since windows6.1
-     */
-    static DisableThreadProfiling(PerformanceDataHandle) {
-        PerformanceDataHandle := PerformanceDataHandle is Win32Handle ? NumGet(PerformanceDataHandle, "ptr") : PerformanceDataHandle
-
-        result := DllCall("KERNEL32.dll\DisableThreadProfiling", "ptr", PerformanceDataHandle, "uint")
-        return result
-    }
-
-    /**
-     * Determines whether thread profiling is enabled for the specified thread.
-     * @param {HANDLE} ThreadHandle The handle to the thread of interest.
-     * @param {Pointer<BOOLEAN>} Enabled Is <b>TRUE</b> if thread profiling is enabled for the specified thread; otherwise, <b>FALSE</b>.
-     * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-querythreadprofiling
-     * @since windows6.1
-     */
-    static QueryThreadProfiling(ThreadHandle, Enabled) {
-        ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
-
-        EnabledMarshal := Enabled is VarRef ? "char*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\QueryThreadProfiling", "ptr", ThreadHandle, EnabledMarshal, Enabled, "uint")
-        return result
-    }
-
-    /**
-     * Reads the specified profiling data associated with the thread.
-     * @param {HANDLE} PerformanceDataHandle The handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function returned.
-     * @param {Integer} Flags One or more of the following flags that specify the counter data to read. The flags must have been set when you called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="READ_THREAD_PROFILING_FLAG_DISPATCHING"></a><a id="read_thread_profiling_flag_dispatching"></a><dl>
-     * <dt><b>READ_THREAD_PROFILING_FLAG_DISPATCHING</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Get the thread profiling data.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS"></a><a id="read_thread_profiling_flag_hardware_counters"></a><dl>
-     * <dt><b>READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS</b></dt>
-     * <dt>0x00000002</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Get the hardware performance counters data.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<PERFORMANCE_DATA>} PerformanceData A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure that contains the thread profiling and hardware counter data.
-     * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readthreadprofilingdata
-     * @since windows6.1
-     */
-    static ReadThreadProfilingData(PerformanceDataHandle, Flags, PerformanceData) {
-        PerformanceDataHandle := PerformanceDataHandle is Win32Handle ? NumGet(PerformanceDataHandle, "ptr") : PerformanceDataHandle
-
-        result := DllCall("KERNEL32.dll\ReadThreadProfilingData", "ptr", PerformanceDataHandle, "uint", Flags, "ptr", PerformanceData, "uint")
-        return result
-    }
-
-;@endregion Methods
+;@region Functions
+/**
+ * Enables thread profiling on the specified thread.
+ * @remarks
+ * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-disablethreadprofiling">DisableThreadProfiling</a> function before exiting the thread.
+ * 
+ * To profile hardware performance counters, you need a driver to configure the counters. The performance counters are configured globally for the system, so every thread has access to the same hardware counter data. The counters must be configured before you enable profiling. For information on configuring hardware performance counters, see the <b>KeSetHardwareCounterConfiguration</b> function in the Windows Driver Kit (WDK).
+ * @param {HANDLE} ThreadHandle The handle to the thread on which you want to enable profiling. This must be the current thread.
+ * @param {Integer} Flags To receive thread profiling data such as context switch count, set this parameter to THREAD_PROFILING_FLAG_DISPATCH; otherwise, set to 0.
+ * @param {Integer} HardwareCounters To receive hardware performance counter data, set this parameter to a bitmask that identifies the hardware counters to collect. You can specify up to 16 performance counters. Each bit relates directly to the zero-based hardware counter index for the hardware performance counters that you configured. Set to zero if you are not collecting hardware counter data. If you set a bit for a hardware counter that has not been configured, the counter value that is read for that counter is zero.
+ * @param {Pointer<HANDLE>} PerformanceDataHandle An opaque handle that you use when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-disablethreadprofiling">DisableThreadProfiling</a> functions.
+ * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enablethreadprofiling
+ * @since windows6.1
+ */
+export EnableThreadProfiling(ThreadHandle, Flags, HardwareCounters, PerformanceDataHandle) {
+    result := DllCall("KERNEL32.dll\EnableThreadProfiling", HANDLE, ThreadHandle, "uint", Flags, "uint", HardwareCounters, HANDLE.Ptr, PerformanceDataHandle, UInt32)
+    return result
 }
+
+/**
+ * Disables thread profiling.
+ * @remarks
+ * You must call this function from the same thread that enabled profiling for the specified handle. You must call this function before exiting the thread; otherwise, you will leak resources (the resources are not reclaimed until the process exits).
+ * @param {HANDLE} PerformanceDataHandle The handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function returned.
+ * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-disablethreadprofiling
+ * @since windows6.1
+ */
+export DisableThreadProfiling(PerformanceDataHandle) {
+    result := DllCall("KERNEL32.dll\DisableThreadProfiling", HANDLE, PerformanceDataHandle, UInt32)
+    return result
+}
+
+/**
+ * Determines whether thread profiling is enabled for the specified thread.
+ * @param {HANDLE} ThreadHandle The handle to the thread of interest.
+ * @param {Pointer<BOOLEAN>} Enabled Is <b>TRUE</b> if thread profiling is enabled for the specified thread; otherwise, <b>FALSE</b>.
+ * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-querythreadprofiling
+ * @since windows6.1
+ */
+export QueryThreadProfiling(ThreadHandle, Enabled) {
+    EnabledMarshal := Enabled is VarRef ? "char*" : "ptr"
+
+    result := DllCall("KERNEL32.dll\QueryThreadProfiling", HANDLE, ThreadHandle, EnabledMarshal, Enabled, UInt32)
+    return result
+}
+
+/**
+ * Reads the specified profiling data associated with the thread.
+ * @param {HANDLE} PerformanceDataHandle The handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function returned.
+ * @param {Integer} Flags One or more of the following flags that specify the counter data to read. The flags must have been set when you called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="READ_THREAD_PROFILING_FLAG_DISPATCHING"></a><a id="read_thread_profiling_flag_dispatching"></a><dl>
+ * <dt><b>READ_THREAD_PROFILING_FLAG_DISPATCHING</b></dt>
+ * <dt>0x00000001</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Get the thread profiling data.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS"></a><a id="read_thread_profiling_flag_hardware_counters"></a><dl>
+ * <dt><b>READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS</b></dt>
+ * <dt>0x00000002</dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Get the hardware performance counters data.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @param {Pointer<PERFORMANCE_DATA>} PerformanceData A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure that contains the thread profiling and hardware counter data.
+ * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readthreadprofilingdata
+ * @since windows6.1
+ */
+export ReadThreadProfilingData(PerformanceDataHandle, Flags, PerformanceData) {
+    result := DllCall("KERNEL32.dll\ReadThreadProfilingData", HANDLE, PerformanceDataHandle, "uint", Flags, PERFORMANCE_DATA.Ptr, PerformanceData, UInt32)
+    return result
+}
+
+;@endregion Functions

@@ -1,145 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class ENHMETAHEADER3 extends Win32Struct {
-    static sizeof => 88
+export default struct ENHMETAHEADER3 {
+    #StructPack 4
 
-    static packingSize => 4
+    iType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    iType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rclBounds : RECTL
 
-    /**
-     * @type {RECTL}
-     */
-    rclBounds {
-        get {
-            if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(8, this)
-            return this.__rclBounds
-        }
-    }
+    rclFrame : RECTL
 
-    /**
-     * @type {RECTL}
-     */
-    rclFrame {
-        get {
-            if(!this.HasProp("__rclFrame"))
-                this.__rclFrame := RECTL(24, this)
-            return this.__rclFrame
-        }
-    }
+    dSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dSignature {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    nVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nVersion {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    nBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nBytes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    nRecords : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nRecords {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    nHandles : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    nHandles {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    sReserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    sReserved {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    nDescription : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nDescription {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    offDescription : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    offDescription {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    nPalEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nPalEntries {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    szlDevice : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    szlDevice {
-        get {
-            if(!this.HasProp("__szlDevice"))
-                this.__szlDevice := SIZE(72, this)
-            return this.__szlDevice
-        }
-    }
+    szlMillimeters : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    szlMillimeters {
-        get {
-            if(!this.HasProp("__szlMillimeters"))
-                this.__szlMillimeters := SIZE(80, this)
-            return this.__szlMillimeters
-        }
-    }
 }

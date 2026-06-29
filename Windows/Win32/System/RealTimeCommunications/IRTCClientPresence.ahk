@@ -1,36 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRTCEnumBuddies.ahk
-#Include .\IRTCCollection.ahk
-#Include .\IRTCBuddy.ahk
-#Include .\IRTCEnumWatchers.ahk
-#Include .\IRTCWatcher.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RTC_OFFER_WATCHER_MODE.ahk" { RTC_OFFER_WATCHER_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCEnumWatchers.ahk" { IRTCEnumWatchers }
+#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RTC_PRIVACY_MODE.ahk" { RTC_PRIVACY_MODE }
+#Import ".\IRTCBuddy.ahk" { IRTCBuddy }
+#Import ".\IRTCWatcher.ahk" { IRTCWatcher }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCClientPresence extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRTCClientPresence extends IUnknown {
     /**
      * The interface identifier for IRTCClientPresence
      * @type {Guid}
      */
-    static IID => Guid("{11c3cbcc-0744-42d1-968a-51aa1bb274c6}")
+    static IID := Guid("{11c3cbcc-0744-42d1-968a-51aa1bb274c6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCClientPresence interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnablePresence       : IntPtr
+        Export               : IntPtr
+        Import               : IntPtr
+        EnumerateBuddies     : IntPtr
+        get_Buddies          : IntPtr
+        get_Buddy            : IntPtr
+        AddBuddy             : IntPtr
+        RemoveBuddy          : IntPtr
+        EnumerateWatchers    : IntPtr
+        get_Watchers         : IntPtr
+        get_Watcher          : IntPtr
+        AddWatcher           : IntPtr
+        RemoveWatcher        : IntPtr
+        SetLocalPresenceInfo : IntPtr
+        get_OfferWatcherMode : IntPtr
+        put_OfferWatcherMode : IntPtr
+        get_PrivacyMode      : IntPtr
+        put_PrivacyMode      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnablePresence", "Export", "Import", "EnumerateBuddies", "get_Buddies", "get_Buddy", "AddBuddy", "RemoveBuddy", "EnumerateWatchers", "get_Watchers", "get_Watcher", "AddWatcher", "RemoveWatcher", "SetLocalPresenceInfo", "get_OfferWatcherMode", "put_OfferWatcherMode", "get_PrivacyMode", "put_PrivacyMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCClientPresence.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRTCCollection} 
@@ -69,52 +101,28 @@ class IRTCClientPresence extends IUnknown {
      * @returns {HRESULT} 
      */
     EnablePresence(fUseStorage, varStorage) {
-        result := ComCall(3, this, "short", fUseStorage, "ptr", varStorage, "HRESULT")
+        result := ComCall(3, this, VARIANT_BOOL, fUseStorage, VARIANT, varStorage, "HRESULT")
         return result
     }
 
     /**
-     * An application-defined callback function used with ReadEncryptedFileRaw.
-     * @remarks
-     * You can use the application-defined context block for internal tracking of information such as the file handle 
-     *      and the current offset in the file.
-     * @param {VARIANT} varStorage 
-     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
-     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
-     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_export_func
+     * @param {VARIANT} varStorage 
+     * @returns {HRESULT} 
      */
     Export(varStorage) {
-        result := ComCall(4, this, "ptr", varStorage, "HRESULT")
+        result := ComCall(4, this, VARIANT, varStorage, "HRESULT")
         return result
     }
 
     /**
-     * An application-defined callback function used with WriteEncryptedFileRaw. The system calls ImportCallback one or more times, each time to retrieve a portion of a backup file's data.
-     * @remarks
-     * The system calls the <b>ImportCallback</b> function until the 
-     *      callback function indicates there is no more data to restore. To indicate that there is no more data to be 
-     *      restored, set <i>*ulLength</i> to 0 and use a return code of 
-     *      <b>ERROR_SUCCESS</b>. You can use the application-defined context block for internal tracking 
-     *      of information such as the file handle and the current offset in the file.
+     * 
      * @param {VARIANT} varStorage 
      * @param {VARIANT_BOOL} fReplaceAll 
-     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>, and set 
-     *        the value pointed to by the <i>ulLength</i> parameter to the number of bytes copied into 
-     *        <i>pbData</i>.
-     * 
-     * When the end of the backup file is reached, set <i>ulLength</i> to zero to tell the system 
-     *        that the entire file has been processed.
-     * 
-     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
-     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
-     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_import_func
+     * @returns {HRESULT} 
      */
     Import(varStorage, fReplaceAll) {
-        result := ComCall(5, this, "ptr", varStorage, "short", fReplaceAll, "HRESULT")
+        result := ComCall(5, this, VARIANT, varStorage, VARIANT_BOOL, fReplaceAll, "HRESULT")
         return result
     }
 
@@ -144,7 +152,7 @@ class IRTCClientPresence extends IUnknown {
     get_Buddy(bstrPresentityURI) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
 
-        result := ComCall(8, this, "ptr", bstrPresentityURI, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrPresentityURI, "ptr*", &ppBuddy := 0, "HRESULT")
         return IRTCBuddy(ppBuddy)
     }
 
@@ -163,7 +171,7 @@ class IRTCClientPresence extends IUnknown {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(9, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
         return IRTCBuddy(ppBuddy)
     }
 
@@ -203,7 +211,7 @@ class IRTCClientPresence extends IUnknown {
     get_Watcher(bstrPresentityURI) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
 
-        result := ComCall(13, this, "ptr", bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
         return IRTCWatcher(ppWatcher)
     }
 
@@ -221,7 +229,7 @@ class IRTCClientPresence extends IUnknown {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(14, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fBlocked, "short", fPersistent, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fBlocked, VARIANT_BOOL, fPersistent, "ptr*", &ppWatcher := 0, "HRESULT")
         return IRTCWatcher(ppWatcher)
     }
 
@@ -244,7 +252,7 @@ class IRTCClientPresence extends IUnknown {
     SetLocalPresenceInfo(enStatus, bstrNotes) {
         bstrNotes := bstrNotes is String ? BSTR.Alloc(bstrNotes).Value : bstrNotes
 
-        result := ComCall(16, this, "int", enStatus, "ptr", bstrNotes, "HRESULT")
+        result := ComCall(16, this, RTC_PRESENCE_STATUS, enStatus, BSTR, bstrNotes, "HRESULT")
         return result
     }
 
@@ -263,7 +271,7 @@ class IRTCClientPresence extends IUnknown {
      * @returns {HRESULT} 
      */
     put_OfferWatcherMode(enMode) {
-        result := ComCall(18, this, "int", enMode, "HRESULT")
+        result := ComCall(18, this, RTC_OFFER_WATCHER_MODE, enMode, "HRESULT")
         return result
     }
 
@@ -282,7 +290,61 @@ class IRTCClientPresence extends IUnknown {
      * @returns {HRESULT} 
      */
     put_PrivacyMode(enMode) {
-        result := ComCall(20, this, "int", enMode, "HRESULT")
+        result := ComCall(20, this, RTC_PRIVACY_MODE, enMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRTCClientPresence.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnablePresence := CallbackCreate(GetMethod(implObj, "EnablePresence"), flags, 3)
+        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 2)
+        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 3)
+        this.vtbl.EnumerateBuddies := CallbackCreate(GetMethod(implObj, "EnumerateBuddies"), flags, 2)
+        this.vtbl.get_Buddies := CallbackCreate(GetMethod(implObj, "get_Buddies"), flags, 2)
+        this.vtbl.get_Buddy := CallbackCreate(GetMethod(implObj, "get_Buddy"), flags, 3)
+        this.vtbl.AddBuddy := CallbackCreate(GetMethod(implObj, "AddBuddy"), flags, 8)
+        this.vtbl.RemoveBuddy := CallbackCreate(GetMethod(implObj, "RemoveBuddy"), flags, 2)
+        this.vtbl.EnumerateWatchers := CallbackCreate(GetMethod(implObj, "EnumerateWatchers"), flags, 2)
+        this.vtbl.get_Watchers := CallbackCreate(GetMethod(implObj, "get_Watchers"), flags, 2)
+        this.vtbl.get_Watcher := CallbackCreate(GetMethod(implObj, "get_Watcher"), flags, 3)
+        this.vtbl.AddWatcher := CallbackCreate(GetMethod(implObj, "AddWatcher"), flags, 7)
+        this.vtbl.RemoveWatcher := CallbackCreate(GetMethod(implObj, "RemoveWatcher"), flags, 2)
+        this.vtbl.SetLocalPresenceInfo := CallbackCreate(GetMethod(implObj, "SetLocalPresenceInfo"), flags, 3)
+        this.vtbl.get_OfferWatcherMode := CallbackCreate(GetMethod(implObj, "get_OfferWatcherMode"), flags, 2)
+        this.vtbl.put_OfferWatcherMode := CallbackCreate(GetMethod(implObj, "put_OfferWatcherMode"), flags, 2)
+        this.vtbl.get_PrivacyMode := CallbackCreate(GetMethod(implObj, "get_PrivacyMode"), flags, 2)
+        this.vtbl.put_PrivacyMode := CallbackCreate(GetMethod(implObj, "put_PrivacyMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnablePresence)
+        CallbackFree(this.vtbl.Export)
+        CallbackFree(this.vtbl.Import)
+        CallbackFree(this.vtbl.EnumerateBuddies)
+        CallbackFree(this.vtbl.get_Buddies)
+        CallbackFree(this.vtbl.get_Buddy)
+        CallbackFree(this.vtbl.AddBuddy)
+        CallbackFree(this.vtbl.RemoveBuddy)
+        CallbackFree(this.vtbl.EnumerateWatchers)
+        CallbackFree(this.vtbl.get_Watchers)
+        CallbackFree(this.vtbl.get_Watcher)
+        CallbackFree(this.vtbl.AddWatcher)
+        CallbackFree(this.vtbl.RemoveWatcher)
+        CallbackFree(this.vtbl.SetLocalPresenceInfo)
+        CallbackFree(this.vtbl.get_OfferWatcherMode)
+        CallbackFree(this.vtbl.put_OfferWatcherMode)
+        CallbackFree(this.vtbl.get_PrivacyMode)
+        CallbackFree(this.vtbl.put_PrivacyMode)
     }
 }

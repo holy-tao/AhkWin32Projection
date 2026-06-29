@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DDP_FILE_EXTENT.ahk" { DDP_FILE_EXTENT }
+#Import ".\DEDUP_CONTAINER_EXTENT.ahk" { DEDUP_CONTAINER_EXTENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A callback interface, implemented by backup applications, that enables Data Deduplication to read content from metadata and container files residing in a backup store and optionally improve restore efficiency.
@@ -10,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nn-ddpbackup-idedupreadfilecallback
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class IDedupReadFileCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDedupReadFileCallback extends IUnknown {
     /**
      * The interface identifier for IDedupReadFileCallback
      * @type {Guid}
      */
-    static IID => Guid("{7bacc67a-2f1d-42d0-897e-6ff62dd533bb}")
+    static IID := Guid("{7bacc67a-2f1d-42d0-897e-6ff62dd533bb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDedupReadFileCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReadBackupFile         : IntPtr
+        OrderContainersRestore : IntPtr
+        PreviewContainerRead   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadBackupFile", "OrderContainersRestore", "PreviewContainerRead"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDedupReadFileCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reads data from a Data Deduplication store metadata or container file located in the backup store.
@@ -48,7 +61,7 @@ class IDedupReadFileCallback extends IUnknown {
         FileBufferMarshal := FileBuffer is VarRef ? "char*" : "ptr"
         ReturnedSizeMarshal := ReturnedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", FileFullPath, "int64", FileOffset, "uint", SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, BSTR, FileFullPath, "int64", FileOffset, "uint", SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -86,7 +99,7 @@ class IDedupReadFileCallback extends IUnknown {
         ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : "ptr"
         ReadPlanMarshal := ReadPlan is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
+        result := ComCall(4, this, "uint", NumberOfContainers, BSTR.Ptr, ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
         return result
     }
 
@@ -103,7 +116,31 @@ class IDedupReadFileCallback extends IUnknown {
     PreviewContainerRead(FileFullPath, NumberOfReads, ReadOffsets) {
         FileFullPath := FileFullPath is String ? BSTR.Alloc(FileFullPath).Value : FileFullPath
 
-        result := ComCall(5, this, "ptr", FileFullPath, "uint", NumberOfReads, "ptr", ReadOffsets, "HRESULT")
+        result := ComCall(5, this, BSTR, FileFullPath, "uint", NumberOfReads, DDP_FILE_EXTENT.Ptr, ReadOffsets, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDedupReadFileCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadBackupFile := CallbackCreate(GetMethod(implObj, "ReadBackupFile"), flags, 7)
+        this.vtbl.OrderContainersRestore := CallbackCreate(GetMethod(implObj, "OrderContainersRestore"), flags, 5)
+        this.vtbl.PreviewContainerRead := CallbackCreate(GetMethod(implObj, "PreviewContainerRead"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadBackupFile)
+        CallbackFree(this.vtbl.OrderContainersRestore)
+        CallbackFree(this.vtbl.PreviewContainerRead)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI\_STATUS command retrieves information about an MCI device. All devices recognize this command. Information is returned in the dwReturn member of the structure identified by the lpStatus parameter.
@@ -1117,40 +1116,15 @@
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-status
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MCI_STATUS extends Win32Struct {
-    static sizeof => 32
+export default struct MCI_STATUS {
+    #StructPack 1
 
-    static packingSize => 1
+    CommonBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CommonBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    AmdBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    IntelBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QuadPart {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AmdBits', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'IntelBits', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'QuadPart', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

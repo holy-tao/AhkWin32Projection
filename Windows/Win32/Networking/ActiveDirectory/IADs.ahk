@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADs interface defines the basic object features, that is, properties and methods, of any ADSI object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iads
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADs extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADs extends IDispatch {
     /**
      * The interface identifier for IADs
      * @type {Guid}
      */
-    static IID => Guid("{fd8256d0-fd15-11ce-abc4-02608c9e7553}")
+    static IID := Guid("{fd8256d0-fd15-11ce-abc4-02608c9e7553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADs interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name    : IntPtr
+        get_Class   : IntPtr
+        get_GUID    : IntPtr
+        get_ADsPath : IntPtr
+        get_Parent  : IntPtr
+        get_Schema  : IntPtr
+        GetInfo     : IntPtr
+        SetInfo     : IntPtr
+        Get         : IntPtr
+        Put         : IntPtr
+        GetEx       : IntPtr
+        PutEx       : IntPtr
+        GetInfoEx   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Class", "get_GUID", "get_ADsPath", "get_Parent", "get_Schema", "GetInfo", "SetInfo", "Get", "Put", "GetEx", "PutEx", "GetInfoEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -78,8 +98,8 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -88,8 +108,8 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Class() {
-        retval := BSTR()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -98,8 +118,8 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_GUID() {
-        retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -108,8 +128,8 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_ADsPath() {
-        retval := BSTR()
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -118,8 +138,8 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Parent() {
-        retval := BSTR()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -128,8 +148,8 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Schema() {
-        retval := BSTR()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -237,7 +257,7 @@ class IADs extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
         pvProp := VARIANT()
-        result := ComCall(15, this, "ptr", bstrName, "ptr", pvProp, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrName, VARIANT.Ptr, pvProp, "HRESULT")
         return pvProp
     }
 
@@ -258,7 +278,7 @@ class IADs extends IDispatch {
     Put(bstrName, vProp) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(16, this, "ptr", bstrName, "ptr", vProp, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrName, VARIANT, vProp, "HRESULT")
         return result
     }
 
@@ -316,7 +336,7 @@ class IADs extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
         pvProp := VARIANT()
-        result := ComCall(17, this, "ptr", bstrName, "ptr", pvProp, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrName, VARIANT.Ptr, pvProp, "HRESULT")
         return pvProp
     }
 
@@ -345,7 +365,7 @@ class IADs extends IDispatch {
     PutEx(lnControlCode, bstrName, vProp) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(18, this, "int", lnControlCode, "ptr", bstrName, "ptr", vProp, "HRESULT")
+        result := ComCall(18, this, "int", lnControlCode, BSTR, bstrName, VARIANT, vProp, "HRESULT")
         return result
     }
 
@@ -366,7 +386,51 @@ class IADs extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-getinfoex
      */
     GetInfoEx(vProperties, lnReserved) {
-        result := ComCall(19, this, "ptr", vProperties, "int", lnReserved, "HRESULT")
+        result := ComCall(19, this, VARIANT, vProperties, "int", lnReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Class := CallbackCreate(GetMethod(implObj, "get_Class"), flags, 2)
+        this.vtbl.get_GUID := CallbackCreate(GetMethod(implObj, "get_GUID"), flags, 2)
+        this.vtbl.get_ADsPath := CallbackCreate(GetMethod(implObj, "get_ADsPath"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Schema := CallbackCreate(GetMethod(implObj, "get_Schema"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 1)
+        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 1)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
+        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 3)
+        this.vtbl.GetEx := CallbackCreate(GetMethod(implObj, "GetEx"), flags, 3)
+        this.vtbl.PutEx := CallbackCreate(GetMethod(implObj, "PutEx"), flags, 4)
+        this.vtbl.GetInfoEx := CallbackCreate(GetMethod(implObj, "GetInfoEx"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Class)
+        CallbackFree(this.vtbl.get_GUID)
+        CallbackFree(this.vtbl.get_ADsPath)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_Schema)
+        CallbackFree(this.vtbl.GetInfo)
+        CallbackFree(this.vtbl.SetInfo)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.Put)
+        CallbackFree(this.vtbl.GetEx)
+        CallbackFree(this.vtbl.PutEx)
+        CallbackFree(this.vtbl.GetInfoEx)
     }
 }

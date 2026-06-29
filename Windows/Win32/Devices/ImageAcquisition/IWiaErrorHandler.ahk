@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
  * The IWiaErrorHandler interface provides methods to handle errors that may occur when an application requests image data, whether for preview or final bits.
@@ -18,26 +21,34 @@
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaerrorhandler
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaErrorHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaErrorHandler extends IUnknown {
     /**
      * The interface identifier for IWiaErrorHandler
      * @type {Guid}
      */
-    static IID => Guid("{0e4a51b1-bc1f-443d-a835-72e890759ef3}")
+    static IID := Guid("{0e4a51b1-bc1f-443d-a835-72e890759ef3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaErrorHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReportStatus         : IntPtr
+        GetStatusDescription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReportStatus", "GetStatusDescription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaErrorHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Handles status and error messages during image data transfers and displays them to the user.
@@ -66,9 +77,7 @@ class IWiaErrorHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaerrorhandler-reportstatus
      */
     ReportStatus(lFlags, hwndParent, pWiaItem2, hrStatus, lPercentComplete) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "int", lFlags, "ptr", hwndParent, "ptr", pWiaItem2, "int", hrStatus, "int", lPercentComplete, "HRESULT")
+        result := ComCall(3, this, "int", lFlags, HWND, hwndParent, "ptr", pWiaItem2, "int", hrStatus, "int", lPercentComplete, "HRESULT")
         return result
     }
 
@@ -81,8 +90,30 @@ class IWiaErrorHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaerrorhandler-getstatusdescription
      */
     GetStatusDescription(lFlags, pWiaItem2, hrStatus) {
-        pbstrDescription := BSTR()
-        result := ComCall(4, this, "int", lFlags, "ptr", pWiaItem2, "int", hrStatus, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(4, this, "int", lFlags, "ptr", pWiaItem2, "int", hrStatus, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
+    }
+
+    Query(iid) {
+        if (IWiaErrorHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReportStatus := CallbackCreate(GetMethod(implObj, "ReportStatus"), flags, 6)
+        this.vtbl.GetStatusDescription := CallbackCreate(GetMethod(implObj, "GetStatusDescription"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReportStatus)
+        CallbackFree(this.vtbl.GetStatusDescription)
     }
 }

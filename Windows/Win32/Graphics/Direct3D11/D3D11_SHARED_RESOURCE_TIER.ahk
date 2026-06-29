@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the level of support for shared resources in the current graphics driver
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_SHARED_RESOURCE_TIER extends Win32Enum {
+export default struct D3D11_SHARED_RESOURCE_TIER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the support available when [D3D11_FEATURE_DATA_D3D11_OPTIONS::ExtendedResourceSharing](./ns-d3d11-d3d11_feature_data_d3d11_options.md) is `FALSE` (only very old drivers have this value set to `FALSE`).

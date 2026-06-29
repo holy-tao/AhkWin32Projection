@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_PIN_TYPE enumerated type indicates the type of password required for unlocking the information stored on the interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_pin_type
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_PIN_TYPE extends Win32Enum {
+export default struct MBN_PIN_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that no PIN is pending to be entered.

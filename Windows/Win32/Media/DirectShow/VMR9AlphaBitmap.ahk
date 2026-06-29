@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\VMR9NormalizedRect.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\VMR9NormalizedRect.ahk" { VMR9NormalizedRect }
 
 /**
  * The VMR9AlphaBitmap structure is used with the IVMRMixerBitmap9 interface when an application provides a static bitmap for alpha blending with the video frame.
@@ -19,40 +19,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9alphabitmap
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VMR9AlphaBitmap extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct VMR9AlphaBitmap {
+    #StructPack 8
 
     /**
      * Bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9alphabitmapflags">VMR9AlphaBitmapFlags</a> enumeration type.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Handle to the GDI device context (HDC) for the bitmap. If this member contains a non-<b>NULL</b> value, set <b>pDDS</b> to <b>NULL</b> and set the <b>VMR9AlphaBitmap_hDC</b> flag in the <b>dwFlags</b> member. The device context is not compatible with GDI+.
-     * @type {HDC}
      */
-    hdc {
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(8, this)
-            return this.__hdc
-        }
-    }
+    hdc : HDC
 
     /**
      * Pointer to the <b>IDirect3DSurface9</b> interface of a Direct3D surface that contains the bitmap. If this member contains a valid pointer, set the <b>hdc</b> member to <b>NULL</b>. The surface format must be <b>D3DFMT_X8R8G8B8</b> (32-bit RGB) or <b>D3DFMT_A8R8G8B8</b> (32-bit RGB with per-pixel alpha). The surface must be allocated from the <b>D3DPOOL_SYSTEMMEM</b> pool.
-     * @type {IDirect3DSurface9}
      */
-    pDDS {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDDS : IDirect3DSurface9
 
     /**
      * Specifies the rectangle to copy from the source image. This rectangle is specified relative to the GDI device context or the DirectDraw surface.
@@ -60,45 +43,23 @@ class VMR9AlphaBitmap extends Win32Struct {
      * When calling <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrmixerbitmap9-setalphabitmap">IVMRMixerBitmap9::SetAlphaBitmap</a>, the source rectangle must be valid if a GDI bitmap is specified in the <b>hdc</b> member. On the other hand, if a Direct3D surface is specified in the <b>pDDS</b> member, then you can either set <b>rSrc</b> to a valid rectangle, or use the entire surface by setting the VMR9AlphaBitmap_EntireDDS flag in <b>dwFlags</b>.
      * 
      * When calling <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters">IVMRMixerBitmap9::UpdateAlphaBitmapParameters</a>, <b>rSrc</b> is always optional, and is used if <b>dwFlags</b> contains the VMR9AlphaBitmap_SrcRect flag.
-     * @type {RECT}
      */
-    rSrc {
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(24, this)
-            return this.__rSrc
-        }
-    }
+    rSrc : RECT
 
     /**
      * Specifies the destination rectangle in composition space.
-     * @type {VMR9NormalizedRect}
      */
-    rDest {
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := VMR9NormalizedRect(40, this)
-            return this.__rDest
-        }
-    }
+    rDest : VMR9NormalizedRect
 
     /**
      * Specifies the alpha blending value; must be a value from 0.0 to 1.0 (inclusive).
-     * @type {Float}
      */
-    fAlpha {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
-    }
+    fAlpha : Float32
 
     /**
      * Specifies the source color key. This value is used if the <b>dwFlags</b> member contains the <b>VMR9AlphaBitmap_SrcColorKey</b>. A color key cannot be used with a Direct3D surface that contains per-pixel alpha.
-     * @type {COLORREF}
      */
-    clrSrcKey {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    clrSrcKey : COLORREF
 
     /**
      * One of the following flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9mixerprefs">VMR9MixerPrefs</a> enumeration, or zero to specify no filtering.
@@ -169,10 +130,7 @@ class VMR9AlphaBitmap extends Win32Struct {
      * This structure member is used only if the <b>dwFlags</b> member contains the <b>VMR9AlphaBitmap_FilterMode</b> flag. 
      * 
      * Point filtering is particularly useful for images that contain text and do not need to be stretched prior to mixing.
-     * @type {Integer}
      */
-    dwFilterMode {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwFilterMode : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information that describes an IPv4 TCP connection with ownership data, IPv4 addresses, ports used by the TCP connection, and the specific process ID (PID) associated with connection.
@@ -20,97 +19,61 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcprow_owner_module
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_TCPROW_OWNER_MODULE extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct MIB_TCPROW_OWNER_MODULE {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwState : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The local IPv4 address for the TCP connection on the local computer. A value of zero indicates the listener  can accept a connection on any interface.
-     * @type {Integer}
      */
-    dwLocalAddr {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLocalAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The local port number in network byte order for the TCP connection on the local computer.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwLocalPort : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The IPv4 address for the TCP connection on the remote computer. When the <b>dwState</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
-     * @type {Integer}
      */
-    dwRemoteAddr {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRemoteAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The remote port number in network byte order for the TCP connection on the remote computer. When the <b>dwState</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this member has no meaning.
-     * @type {Integer}
      */
-    dwRemotePort {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwRemotePort : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The PID of the process that issued a context bind for this TCP connection.
-     * @type {Integer}
      */
-    dwOwningPid {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwOwningPid : UInt32
 
     /**
      * Type: <b>LARGE_INTEGER</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that indicates when the context bind operation that created this TCP link occurred.
-     * @type {Integer}
      */
-    liCreateTimestamp {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    liCreateTimestamp : Int64
 
     /**
      * Type: <b>ULONGLONG[TCPIP_OWNING_MODULE_SIZE]</b>
      * 
      * An array of opaque data that contains ownership information.
-     * @type {Array<Integer>}
      */
-    OwningModuleInfo {
-        get {
-            if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")
-            return this.__OwningModuleInfoProxyArray
-        }
-    }
+    OwningModuleInfo : Int64[16]
+
 }

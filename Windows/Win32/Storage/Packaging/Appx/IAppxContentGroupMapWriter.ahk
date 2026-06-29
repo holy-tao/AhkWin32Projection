@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a write-only object model for a content group map.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupmapwriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxContentGroupMapWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxContentGroupMapWriter extends IUnknown {
     /**
      * The interface identifier for IAppxContentGroupMapWriter
      * @type {Guid}
      */
-    static IID => Guid("{d07ab776-a9de-4798-8c14-3db31e687c78}")
+    static IID := Guid("{d07ab776-a9de-4798-8c14-3db31e687c78}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxContentGroupMapWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddAutomaticGroup : IntPtr
+        AddAutomaticFile  : IntPtr
+        Close             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddAutomaticGroup", "AddAutomaticFile", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxContentGroupMapWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds an automatic content group to the content group map.
@@ -56,18 +67,35 @@ class IAppxContentGroupMapWriter extends IUnknown {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAppxContentGroupMapWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddAutomaticGroup := CallbackCreate(GetMethod(implObj, "AddAutomaticGroup"), flags, 2)
+        this.vtbl.AddAutomaticFile := CallbackCreate(GetMethod(implObj, "AddAutomaticFile"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddAutomaticGroup)
+        CallbackFree(this.vtbl.AddAutomaticFile)
+        CallbackFree(this.vtbl.Close)
     }
 }

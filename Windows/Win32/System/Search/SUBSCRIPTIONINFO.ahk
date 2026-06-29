@@ -1,180 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SUBSCRIPTIONSCHEDULE.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\SUBSCRIPTIONTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SUBSCRIPTIONSCHEDULE.ahk" { SUBSCRIPTIONSCHEDULE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SUBSCRIPTIONTYPE.ahk" { SUBSCRIPTIONTYPE }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SUBSCRIPTIONINFO extends Win32Struct {
-    static sizeof => 104
+export default struct SUBSCRIPTIONINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fUpdateFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fUpdateFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    schedule : SUBSCRIPTIONSCHEDULE
 
-    /**
-     * @type {SUBSCRIPTIONSCHEDULE}
-     */
-    schedule {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    customGroupCookie : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    customGroupCookie {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pTrigger : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pTrigger {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwRecurseLevels : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRecurseLevels {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    fWebcrawlerFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fWebcrawlerFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    bMailNotification : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bMailNotification {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    bGleam : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bGleam {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    bChangesOnly : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bChangesOnly {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    bNeedPassword : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bNeedPassword {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    fChannelFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fChannelFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    bstrUserName : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    bstrUserName {
-        get {
-            if(!this.HasProp("__bstrUserName"))
-                this.__bstrUserName := BSTR(64, this)
-            return this.__bstrUserName
-        }
-    }
+    bstrPassword : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    bstrPassword {
-        get {
-            if(!this.HasProp("__bstrPassword"))
-                this.__bstrPassword := BSTR(72, this)
-            return this.__bstrPassword
-        }
-    }
+    bstrFriendlyName : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    bstrFriendlyName {
-        get {
-            if(!this.HasProp("__bstrFriendlyName"))
-                this.__bstrFriendlyName := BSTR(80, this)
-            return this.__bstrFriendlyName
-        }
-    }
+    dwMaxSizeKB : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxSizeKB {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    subType : SUBSCRIPTIONTYPE
 
-    /**
-     * @type {SUBSCRIPTIONTYPE}
-     */
-    subType {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    fTaskFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fTaskFlags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 104
-    }
 }

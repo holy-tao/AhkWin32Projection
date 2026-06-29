@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that obtains an icon index for an IShellFolder object.
@@ -19,26 +21,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellicon
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellIcon extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellIcon extends IUnknown {
     /**
      * The interface identifier for IShellIcon
      * @type {Guid}
      */
-    static IID => Guid("{000214e5-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214e5-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellIcon interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIconOf : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIconOf"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellIcon.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an icon for an object inside a specific folder.
@@ -62,7 +71,27 @@ class IShellIcon extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellicon-geticonof
      */
     GetIconOf(pidl, flags) {
-        result := ComCall(3, this, "ptr", pidl, "uint", flags, "int*", &pIconIndex := 0, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, "uint", flags, "int*", &pIconIndex := 0, "HRESULT")
         return pIconIndex
+    }
+
+    Query(iid) {
+        if (IShellIcon.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIconOf := CallbackCreate(GetMethod(implObj, "GetIconOf"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIconOf)
     }
 }

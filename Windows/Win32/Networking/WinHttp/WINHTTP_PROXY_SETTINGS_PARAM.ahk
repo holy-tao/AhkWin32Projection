@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The WINHTTP_PROXY_SETTINGS_PARAM structure represents extended proxy settings.
@@ -7,41 +7,28 @@
  * @namespace Windows.Win32.Networking.WinHttp
  * @architecture X64, Arm64
  */
-class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WINHTTP_PROXY_SETTINGS_PARAM {
+    #StructPack 8
 
     /**
      * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
      * 
      * Flags.
-     * @type {Integer}
      */
-    ullFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ullFlags : Int64
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The WCM connection name for which settings were retrieved.
-     * @type {PWSTR}
      */
-    pcwszConnectionName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pcwszConnectionName : PWSTR
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * TBD
-     * @type {PWSTR}
      */
-    pcwszProbeHost {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pcwszProbeHost : PWSTR
+
 }

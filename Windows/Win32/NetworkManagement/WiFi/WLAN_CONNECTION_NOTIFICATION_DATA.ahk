@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_CONNECTION_MODE.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\WLAN_CONNECTION_NOTIFICATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\WLAN_CONNECTION_NOTIFICATION_FLAGS.ahk" { WLAN_CONNECTION_NOTIFICATION_FLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about connection related notifications.
@@ -18,85 +19,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_connection_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct {
-    static sizeof => 572
-
-    static packingSize => 4
+export default struct WLAN_CONNECTION_NOTIFICATION_DATA {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_connection_mode_profile</b>  value is supported.
-     * @type {WLAN_CONNECTION_MODE}
      */
-    wlanConnectionMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    wlanConnectionMode : WLAN_CONNECTION_MODE
 
     /**
      * The name of the profile used for the connection. WLAN_MAX_NAME_LENGTH is 256. Profile names are case-sensitive. This string must be NULL-terminated.
-     * @type {String}
      */
-    strProfileName {
-        get => StrGet(this.ptr + 4, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 255, "UTF-16")
-    }
+    strProfileName : WCHAR[256]
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the association.
-     * @type {DOT11_SSID}
      */
-    dot11Ssid {
-        get {
-            if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(516, this)
-            return this.__dot11Ssid
-        }
-    }
+    dot11Ssid : DOT11_SSID
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that indicates the BSS network type.
-     * @type {DOT11_BSS_TYPE}
      */
-    dot11BssType {
-        get => NumGet(this, 552, "int")
-        set => NumPut("int", value, this, 552)
-    }
+    dot11BssType : DOT11_BSS_TYPE
 
     /**
      * Indicates whether security is enabled for this connection.  If <b>TRUE</b>, security is enabled.
-     * @type {BOOL}
      */
-    bSecurityEnabled {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
-    }
+    bSecurityEnabled : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> that indicates the reason for an operation failure.  This field has a value of <b>WLAN_REASON_CODE_SUCCESS</b> for all connection-related notifications except <b>wlan_notification_acm_connection_complete</b>.  If the connection fails, this field indicates the reason for the failure.
-     * @type {Integer}
      */
-    wlanReasonCode {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    wlanReasonCode : UInt32
 
     /**
      * A set of flags that provide additional information for the network connection.
-     * @type {WLAN_CONNECTION_NOTIFICATION_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 564, "uint")
-        set => NumPut("uint", value, this, 564)
-    }
+    dwFlags : WLAN_CONNECTION_NOTIFICATION_FLAGS
 
     /**
      * This field contains the XML presentation of the profile used for discovery, if the connection succeeds.
-     * @type {String}
      */
-    strProfileXml {
-        get => StrGet(this.ptr + 568, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 568, 0, "UTF-16")
-    }
+    strProfileXml : WCHAR[1]
+
 }

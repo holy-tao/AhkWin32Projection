@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_AMVPDIMINFO extends Win32Struct {
-    static sizeof => 32
+export default struct KS_AMVPDIMINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwFieldWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFieldWidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFieldHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFieldHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVBIWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVBIWidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwVBIHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVBIHeight {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    rcValidRegion : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcValidRegion {
-        get {
-            if(!this.HasProp("__rcValidRegion"))
-                this.__rcValidRegion := RECT(16, this)
-            return this.__rcValidRegion
-        }
-    }
 }

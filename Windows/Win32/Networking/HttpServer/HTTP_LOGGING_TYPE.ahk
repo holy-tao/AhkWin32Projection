@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type of logging that is performed.
@@ -132,7 +131,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_type
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_LOGGING_TYPE extends Win32Enum {
+export default struct HTTP_LOGGING_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The log format is W3C style extended logging. Applications choose the fields that are logged in the  <b>Fields</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_logging_info">HTTP_LOGGING_INFO</a> structure.

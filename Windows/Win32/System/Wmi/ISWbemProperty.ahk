@@ -1,40 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISWbemQualifierSet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\WbemCimtypeEnum.ahk" { WbemCimtypeEnum }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemProperty extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemProperty extends IDispatch {
     /**
      * The interface identifier for ISWbemProperty
      * @type {Guid}
      */
-    static IID => Guid("{1a388f98-d4ba-11d1-8b09-00600806d9b6}")
+    static IID := Guid("{1a388f98-d4ba-11d1-8b09-00600806d9b6}")
 
     /**
      * The class identifier for SWbemProperty
      * @type {Guid}
      */
-    static CLSID => Guid("{04b83d5d-21ae-11d2-8b33-00600806d9b6}")
+    static CLSID := Guid("{04b83d5d-21ae-11d2-8b33-00600806d9b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemProperty interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Value       : IntPtr
+        put_Value       : IntPtr
+        get_Name        : IntPtr
+        get_IsLocal     : IntPtr
+        get_Origin      : IntPtr
+        get_CIMType     : IntPtr
+        get_Qualifiers_ : IntPtr
+        get_IsArray     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Value", "put_Value", "get_Name", "get_IsLocal", "get_Origin", "get_CIMType", "get_Qualifiers_", "get_IsArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -92,7 +109,7 @@ class ISWbemProperty extends IDispatch {
      */
     get_Value() {
         varValue := VARIANT()
-        result := ComCall(7, this, "ptr", varValue, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, varValue, "HRESULT")
         return varValue
     }
 
@@ -102,7 +119,7 @@ class ISWbemProperty extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Value(varValue) {
-        result := ComCall(8, this, "ptr", varValue, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, varValue, "HRESULT")
         return result
     }
 
@@ -111,8 +128,8 @@ class ISWbemProperty extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        strName := BSTR()
-        result := ComCall(9, this, "ptr", strName, "HRESULT")
+        strName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, strName, "HRESULT")
         return strName
     }
 
@@ -121,7 +138,7 @@ class ISWbemProperty extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
-        result := ComCall(10, this, "short*", &bIsLocal := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &bIsLocal := 0, "HRESULT")
         return bIsLocal
     }
 
@@ -130,8 +147,8 @@ class ISWbemProperty extends IDispatch {
      * @returns {BSTR} 
      */
     get_Origin() {
-        strOrigin := BSTR()
-        result := ComCall(11, this, "ptr", strOrigin, "HRESULT")
+        strOrigin := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, strOrigin, "HRESULT")
         return strOrigin
     }
 
@@ -158,7 +175,41 @@ class ISWbemProperty extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsArray() {
-        result := ComCall(14, this, "short*", &bIsArray := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &bIsArray := 0, "HRESULT")
         return bIsArray
+    }
+
+    Query(iid) {
+        if (ISWbemProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_IsLocal := CallbackCreate(GetMethod(implObj, "get_IsLocal"), flags, 2)
+        this.vtbl.get_Origin := CallbackCreate(GetMethod(implObj, "get_Origin"), flags, 2)
+        this.vtbl.get_CIMType := CallbackCreate(GetMethod(implObj, "get_CIMType"), flags, 2)
+        this.vtbl.get_Qualifiers_ := CallbackCreate(GetMethod(implObj, "get_Qualifiers_"), flags, 2)
+        this.vtbl.get_IsArray := CallbackCreate(GetMethod(implObj, "get_IsArray"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_IsLocal)
+        CallbackFree(this.vtbl.get_Origin)
+        CallbackFree(this.vtbl.get_CIMType)
+        CallbackFree(this.vtbl.get_Qualifiers_)
+        CallbackFree(this.vtbl.get_IsArray)
     }
 }

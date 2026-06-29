@@ -1,63 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OIEXT extends Win32Struct {
-    static sizeof => 56
+export default struct OIEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    hInstCaller : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstCaller {
-        get {
-            if(!this.HasProp("__hInstCaller"))
-                this.__hInstCaller := HINSTANCE(8, this)
-            return this.__hInstCaller
-        }
-    }
+    pHelpFile : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pHelpFile {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwReserved : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "ptr")
-            return this.__dwReservedProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

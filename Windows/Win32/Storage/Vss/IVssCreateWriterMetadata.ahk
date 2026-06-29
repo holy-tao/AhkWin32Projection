@@ -1,28 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
+#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
+#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 
 /**
  * The IVssCreateWriterMetadata interface is a C++ (not COM) interface containing methods to construct the Writer Metadata Document in response to an Identify event. It is used only in the CVssWriter::OnIdentify method.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscreatewritermetadata
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssCreateWriterMetadata extends Win32ComInterface {
+export default struct IVssCreateWriterMetadata extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddIncludeFiles", "AddExcludeFiles", "AddComponent", "AddDatabaseFiles", "AddDatabaseLogFiles", "AddFilesToFileGroup", "SetRestoreMethod", "AddAlternateLocationMapping", "AddComponentDependency", "SetBackupSchema", "GetDocument", "SaveAsXML"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssCreateWriterMetadata interfaces
+    */
+    struct Vtbl {
+        AddIncludeFiles             : IntPtr
+        AddExcludeFiles             : IntPtr
+        AddComponent                : IntPtr
+        AddDatabaseFiles            : IntPtr
+        AddDatabaseLogFiles         : IntPtr
+        AddFilesToFileGroup         : IntPtr
+        SetRestoreMethod            : IntPtr
+        AddAlternateLocationMapping : IntPtr
+        AddComponentDependency      : IntPtr
+        SetBackupSchema             : IntPtr
+        GetDocument                 : IntPtr
+        SaveAsXML                   : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssCreateWriterMetadata.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Not supported. (IVssCreateWriterMetadata.AddIncludeFiles)
@@ -308,7 +332,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface {
 
         pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
 
-        result := ComCall(2, this, "int", ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
+        result := ComCall(2, this, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
         return result
     }
 
@@ -886,7 +910,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface {
         wszService := wszService is String ? StrPtr(wszService) : wszService
         wszUserProcedure := wszUserProcedure is String ? StrPtr(wszUserProcedure) : wszUserProcedure
 
-        result := ComCall(6, this, "int", method, "ptr", wszService, "ptr", wszUserProcedure, "int", writerRestore, "char", bRebootRequired, "HRESULT")
+        result := ComCall(6, this, VSS_RESTOREMETHOD_ENUM, method, "ptr", wszService, "ptr", wszUserProcedure, VSS_WRITERRESTORE_ENUM, writerRestore, "char", bRebootRequired, "HRESULT")
         return result
     }
 
@@ -1158,7 +1182,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface {
         wszOnLogicalPath := wszOnLogicalPath is String ? StrPtr(wszOnLogicalPath) : wszOnLogicalPath
         wszOnComponentName := wszOnComponentName is String ? StrPtr(wszOnComponentName) : wszOnComponentName
 
-        result := ComCall(8, this, "ptr", wszForLogicalPath, "ptr", wszForComponentName, "ptr", onWriterId, "ptr", wszOnLogicalPath, "ptr", wszOnComponentName, "HRESULT")
+        result := ComCall(8, this, "ptr", wszForLogicalPath, "ptr", wszForComponentName, Guid, onWriterId, "ptr", wszOnLogicalPath, "ptr", wszOnComponentName, "HRESULT")
         return result
     }
 
@@ -1334,7 +1358,14 @@ class IVssCreateWriterMetadata extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreatewritermetadata-saveasxml
      */
     SaveAsXML(pbstrXML) {
-        result := ComCall(11, this, "ptr", pbstrXML, "HRESULT")
+        result := ComCall(11, this, BSTR.Ptr, pbstrXML, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssCreateWriterMetadata.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

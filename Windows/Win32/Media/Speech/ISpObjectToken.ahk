@@ -1,72 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpDataKey.ahk
-#Include .\ISpObjectTokenCategory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpObjectTokenCategory.ahk" { ISpObjectTokenCategory }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISpDataKey.ahk" { ISpDataKey }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpObjectToken extends ISpDataKey {
-
-    static sizeof => A_PtrSize
+export default struct ISpObjectToken extends ISpDataKey {
     /**
      * The interface identifier for ISpObjectToken
      * @type {Guid}
      */
-    static IID => Guid("{14056589-e16c-11d2-bb90-00c04f8ee6c0}")
+    static IID := Guid("{14056589-e16c-11d2-bb90-00c04f8ee6c0}")
 
     /**
      * The class identifier for SpObjectToken
      * @type {Guid}
      */
-    static CLSID => Guid("{ef411752-3736-4cb4-9c8c-8ef4ccb58efe}")
+    static CLSID := Guid("{ef411752-3736-4cb4-9c8c-8ef4ccb58efe}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpObjectToken interfaces
+    */
+    struct Vtbl extends ISpDataKey.Vtbl {
+        SetId                 : IntPtr
+        GetId                 : IntPtr
+        GetCategory           : IntPtr
+        CreateInstance        : IntPtr
+        GetStorageFileName    : IntPtr
+        RemoveStorageFileName : IntPtr
+        Remove                : IntPtr
+        IsUISupported         : IntPtr
+        DisplayUI             : IntPtr
+        MatchesAttributes     : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpObjectToken.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetId", "GetId", "GetCategory", "CreateInstance", "GetStorageFileName", "RemoveStorageFileName", "Remove", "IsUISupported", "DisplayUI", "MatchesAttributes"]
-
-    /**
-     * Sets the specified identifier string in the volume's metadata.
+     * 
      * @param {PWSTR} pszCategoryId 
      * @param {PWSTR} pszTokenId 
      * @param {BOOL} fCreateIfNotExist 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * This method returns one of the following codes or another error code if it fails.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
-     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
-     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/setidentificationfield-win32-encryptablevolume
+     * @returns {HRESULT} 
      */
     SetId(pszCategoryId, pszTokenId, fCreateIfNotExist) {
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
         pszTokenId := pszTokenId is String ? StrPtr(pszTokenId) : pszTokenId
 
-        result := ComCall(15, this, "ptr", pszCategoryId, "ptr", pszTokenId, "int", fCreateIfNotExist, "HRESULT")
+        result := ComCall(15, this, "ptr", pszCategoryId, "ptr", pszTokenId, BOOL, fCreateIfNotExist, "HRESULT")
         return result
     }
 
     /**
-     * Returns the identifier string available in the volume's metadata.
+     * 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
-        result := ComCall(16, this, "ptr*", &ppszCoMemTokenId := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &ppszCoMemTokenId := 0, "HRESULT")
         return ppszCoMemTokenId
     }
 
@@ -93,7 +102,7 @@ class ISpObjectToken extends ISpDataKey {
     CreateInstance(pUnkOuter, dwClsContext, riid, ppvObject) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
+        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 
@@ -109,7 +118,7 @@ class ISpObjectToken extends ISpDataKey {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszFileNameSpecifier := pszFileNameSpecifier is String ? StrPtr(pszFileNameSpecifier) : pszFileNameSpecifier
 
-        result := ComCall(19, this, "ptr", clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, "ptr*", &ppszFilePath := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, PWSTR.Ptr, &ppszFilePath := 0, "HRESULT")
         return ppszFilePath
     }
 
@@ -123,30 +132,17 @@ class ISpObjectToken extends ISpDataKey {
     RemoveStorageFileName(clsidCaller, pszKeyName, fDeleteFile) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        result := ComCall(20, this, "ptr", clsidCaller, "ptr", pszKeyName, "int", fDeleteFile, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, clsidCaller, "ptr", pszKeyName, BOOL, fDeleteFile, "HRESULT")
         return result
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {Pointer<Guid>} pclsidCaller 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(pclsidCaller) {
-        result := ComCall(21, this, "ptr", pclsidCaller, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, pclsidCaller, "HRESULT")
         return result
     }
 
@@ -180,13 +176,12 @@ class ISpObjectToken extends ISpDataKey {
      * @returns {HRESULT} 
      */
     DisplayUI(hwndParent, pszTitle, pszTypeOfUI, pvExtraData, cbExtraData, punkObject) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "HRESULT")
+        result := ComCall(23, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "HRESULT")
         return result
     }
 
@@ -203,5 +198,43 @@ class ISpObjectToken extends ISpDataKey {
 
         result := ComCall(24, this, "ptr", pszAttributes, pfMatchesMarshal, pfMatches, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpObjectToken.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetId := CallbackCreate(GetMethod(implObj, "SetId"), flags, 4)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 5)
+        this.vtbl.GetStorageFileName := CallbackCreate(GetMethod(implObj, "GetStorageFileName"), flags, 6)
+        this.vtbl.RemoveStorageFileName := CallbackCreate(GetMethod(implObj, "RemoveStorageFileName"), flags, 4)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 6)
+        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 7)
+        this.vtbl.MatchesAttributes := CallbackCreate(GetMethod(implObj, "MatchesAttributes"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetId)
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetCategory)
+        CallbackFree(this.vtbl.CreateInstance)
+        CallbackFree(this.vtbl.GetStorageFileName)
+        CallbackFree(this.vtbl.RemoveStorageFileName)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.IsUISupported)
+        CallbackFree(this.vtbl.DisplayUI)
+        CallbackFree(this.vtbl.MatchesAttributes)
     }
 }

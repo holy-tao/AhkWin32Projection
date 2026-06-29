@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes the content protection capabilities of a display driver.
@@ -7,10 +7,8 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @architecture X64, Arm64
  */
-class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3DCONTENTPROTECTIONCAPS {
+    #StructPack 8
 
     /**
      * Bitwise <b>OR</b> of zero or more flags.
@@ -120,12 +118,8 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Caps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Caps : UInt32
 
     /**
      * Specifies the type of key exchange required to negotiate the session key. The following GUIDs are defined.
@@ -156,37 +150,22 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    KeyExchangeType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    KeyExchangeType : Guid
 
     /**
      * The memory alignment required for buffers used by the GPU cryptographic engine. If the application uses a system memory buffer to pass encrypted content to the GPU, or to read back encrypted content from the GPU, the buffer's starting address must be a multiple of this value.
-     * @type {Integer}
      */
-    BufferAlignmentStart {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BufferAlignmentStart : UInt32
 
     /**
      * The block alignment required by the GPU cryptographic engine. The size of data to be encrypted must be a multiple of this value.
-     * @type {Integer}
      */
-    BlockAlignmentSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BlockAlignmentSize : UInt32
 
     /**
      * The total amount of memory that can be used to hold protected surfaces.
-     * @type {Integer}
      */
-    ProtectedMemorySize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProtectedMemorySize : Int64
+
 }

@@ -1,36 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IItemEnumerator.ahk
-#Include ..\..\Foundation\HMODULE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WcmTargetMode.ahk" { WcmTargetMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines the offline target information, specifically, file and registry locations as well as wow64 information.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-itargetinfo
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class ITargetInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITargetInfo extends IUnknown {
     /**
      * The interface identifier for ITargetInfo
      * @type {Guid}
      */
-    static IID => Guid("{9f7d7bb8-20b3-11da-81a5-0030f1642e3c}")
+    static IID := Guid("{9f7d7bb8-20b3-11da-81a5-0030f1642e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITargetInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTargetMode                  : IntPtr
+        SetTargetMode                  : IntPtr
+        GetTemporaryStoreLocation      : IntPtr
+        SetTemporaryStoreLocation      : IntPtr
+        GetTargetID                    : IntPtr
+        SetTargetID                    : IntPtr
+        GetTargetProcessorArchitecture : IntPtr
+        SetTargetProcessorArchitecture : IntPtr
+        GetProperty                    : IntPtr
+        SetProperty                    : IntPtr
+        GetEnumerator                  : IntPtr
+        ExpandTarget                   : IntPtr
+        ExpandTargetPath               : IntPtr
+        SetModulePath                  : IntPtr
+        LoadModule                     : IntPtr
+        SetWow64Context                : IntPtr
+        TranslateWow64                 : IntPtr
+        SetSchemaHiveLocation          : IntPtr
+        GetSchemaHiveLocation          : IntPtr
+        SetSchemaHiveMountName         : IntPtr
+        GetSchemaHiveMountName         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTargetMode", "SetTargetMode", "GetTemporaryStoreLocation", "SetTemporaryStoreLocation", "GetTargetID", "SetTargetID", "GetTargetProcessorArchitecture", "SetTargetProcessorArchitecture", "GetProperty", "SetProperty", "GetEnumerator", "ExpandTarget", "ExpandTargetPath", "SetModulePath", "LoadModule", "SetWow64Context", "TranslateWow64", "SetSchemaHiveLocation", "GetSchemaHiveLocation", "SetSchemaHiveMountName", "GetSchemaHiveMountName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITargetInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the current target mode.
@@ -49,7 +80,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settargetmode
      */
     SetTargetMode(TargetMode) {
-        result := ComCall(4, this, "int", TargetMode, "HRESULT")
+        result := ComCall(4, this, WcmTargetMode, TargetMode, "HRESULT")
         return result
     }
 
@@ -59,8 +90,8 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
      */
     GetTemporaryStoreLocation() {
-        TemporaryStoreLocation := BSTR()
-        result := ComCall(5, this, "ptr", TemporaryStoreLocation, "HRESULT")
+        TemporaryStoreLocation := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, TemporaryStoreLocation, "HRESULT")
         return TemporaryStoreLocation
     }
 
@@ -123,8 +154,8 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
      */
     GetTargetID() {
-        TargetID := BSTR()
-        result := ComCall(7, this, "ptr", TargetID, "HRESULT")
+        TargetID := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, TargetID, "HRESULT")
         return TargetID
     }
 
@@ -135,7 +166,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settargetid
      */
     SetTargetID(TargetID) {
-        result := ComCall(8, this, "ptr", TargetID, "HRESULT")
+        result := ComCall(8, this, Guid, TargetID, "HRESULT")
         return result
     }
 
@@ -145,8 +176,8 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
      */
     GetTargetProcessorArchitecture() {
-        ProcessorArchitecture := BSTR()
-        result := ComCall(9, this, "ptr", ProcessorArchitecture, "HRESULT")
+        ProcessorArchitecture := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, ProcessorArchitecture, "HRESULT")
         return ProcessorArchitecture
     }
 
@@ -173,8 +204,8 @@ class ITargetInfo extends IUnknown {
     GetProperty(Offline, _Property) {
         _Property := _Property is String ? StrPtr(_Property) : _Property
 
-        Value := BSTR()
-        result := ComCall(11, this, "int", Offline, "ptr", _Property, "ptr", Value, "HRESULT")
+        Value := BSTR.Owned()
+        result := ComCall(11, this, BOOL, Offline, "ptr", _Property, BSTR.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -190,7 +221,7 @@ class ITargetInfo extends IUnknown {
         _Property := _Property is String ? StrPtr(_Property) : _Property
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(12, this, "int", Offline, "ptr", _Property, "ptr", Value, "HRESULT")
+        result := ComCall(12, this, BOOL, Offline, "ptr", _Property, "ptr", Value, "HRESULT")
         return result
     }
 
@@ -217,8 +248,8 @@ class ITargetInfo extends IUnknown {
     ExpandTarget(Offline, _Location) {
         _Location := _Location is String ? StrPtr(_Location) : _Location
 
-        ExpandedLocation := BSTR()
-        result := ComCall(14, this, "int", Offline, "ptr", _Location, "ptr", ExpandedLocation, "HRESULT")
+        ExpandedLocation := BSTR.Owned()
+        result := ComCall(14, this, BOOL, Offline, "ptr", _Location, BSTR.Ptr, ExpandedLocation, "HRESULT")
         return ExpandedLocation
     }
 
@@ -232,8 +263,8 @@ class ITargetInfo extends IUnknown {
     ExpandTargetPath(Offline, _Location) {
         _Location := _Location is String ? StrPtr(_Location) : _Location
 
-        ExpandedLocation := BSTR()
-        result := ComCall(15, this, "int", Offline, "ptr", _Location, "ptr", ExpandedLocation, "HRESULT")
+        ExpandedLocation := BSTR.Owned()
+        result := ComCall(15, this, BOOL, Offline, "ptr", _Location, BSTR.Ptr, ExpandedLocation, "HRESULT")
         return ExpandedLocation
     }
 
@@ -261,8 +292,8 @@ class ITargetInfo extends IUnknown {
     LoadModule(Module) {
         Module := Module is String ? StrPtr(Module) : Module
 
-        ModuleHandle := HMODULE()
-        result := ComCall(17, this, "ptr", Module, "ptr", ModuleHandle, "HRESULT")
+        ModuleHandle := HMODULE.Owned()
+        result := ComCall(17, this, "ptr", Module, HMODULE.Ptr, ModuleHandle, "HRESULT")
         return ModuleHandle
     }
 
@@ -299,8 +330,8 @@ class ITargetInfo extends IUnknown {
         ClientArchitecture := ClientArchitecture is String ? StrPtr(ClientArchitecture) : ClientArchitecture
         Value := Value is String ? StrPtr(Value) : Value
 
-        TranslatedValue := BSTR()
-        result := ComCall(19, this, "ptr", ClientArchitecture, "ptr", Value, "ptr", TranslatedValue, "HRESULT")
+        TranslatedValue := BSTR.Owned()
+        result := ComCall(19, this, "ptr", ClientArchitecture, "ptr", Value, BSTR.Ptr, TranslatedValue, "HRESULT")
         return TranslatedValue
     }
 
@@ -363,8 +394,8 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
      */
     GetSchemaHiveLocation() {
-        pHiveLocation := BSTR()
-        result := ComCall(21, this, "ptr", pHiveLocation, "HRESULT")
+        pHiveLocation := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pHiveLocation, "HRESULT")
         return pHiveLocation
     }
 
@@ -387,8 +418,68 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
      */
     GetSchemaHiveMountName() {
-        pMountName := BSTR()
-        result := ComCall(23, this, "ptr", pMountName, "HRESULT")
+        pMountName := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pMountName, "HRESULT")
         return pMountName
+    }
+
+    Query(iid) {
+        if (ITargetInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTargetMode := CallbackCreate(GetMethod(implObj, "GetTargetMode"), flags, 2)
+        this.vtbl.SetTargetMode := CallbackCreate(GetMethod(implObj, "SetTargetMode"), flags, 2)
+        this.vtbl.GetTemporaryStoreLocation := CallbackCreate(GetMethod(implObj, "GetTemporaryStoreLocation"), flags, 2)
+        this.vtbl.SetTemporaryStoreLocation := CallbackCreate(GetMethod(implObj, "SetTemporaryStoreLocation"), flags, 2)
+        this.vtbl.GetTargetID := CallbackCreate(GetMethod(implObj, "GetTargetID"), flags, 2)
+        this.vtbl.SetTargetID := CallbackCreate(GetMethod(implObj, "SetTargetID"), flags, 2)
+        this.vtbl.GetTargetProcessorArchitecture := CallbackCreate(GetMethod(implObj, "GetTargetProcessorArchitecture"), flags, 2)
+        this.vtbl.SetTargetProcessorArchitecture := CallbackCreate(GetMethod(implObj, "SetTargetProcessorArchitecture"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.ExpandTarget := CallbackCreate(GetMethod(implObj, "ExpandTarget"), flags, 4)
+        this.vtbl.ExpandTargetPath := CallbackCreate(GetMethod(implObj, "ExpandTargetPath"), flags, 4)
+        this.vtbl.SetModulePath := CallbackCreate(GetMethod(implObj, "SetModulePath"), flags, 3)
+        this.vtbl.LoadModule := CallbackCreate(GetMethod(implObj, "LoadModule"), flags, 3)
+        this.vtbl.SetWow64Context := CallbackCreate(GetMethod(implObj, "SetWow64Context"), flags, 3)
+        this.vtbl.TranslateWow64 := CallbackCreate(GetMethod(implObj, "TranslateWow64"), flags, 4)
+        this.vtbl.SetSchemaHiveLocation := CallbackCreate(GetMethod(implObj, "SetSchemaHiveLocation"), flags, 2)
+        this.vtbl.GetSchemaHiveLocation := CallbackCreate(GetMethod(implObj, "GetSchemaHiveLocation"), flags, 2)
+        this.vtbl.SetSchemaHiveMountName := CallbackCreate(GetMethod(implObj, "SetSchemaHiveMountName"), flags, 2)
+        this.vtbl.GetSchemaHiveMountName := CallbackCreate(GetMethod(implObj, "GetSchemaHiveMountName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTargetMode)
+        CallbackFree(this.vtbl.SetTargetMode)
+        CallbackFree(this.vtbl.GetTemporaryStoreLocation)
+        CallbackFree(this.vtbl.SetTemporaryStoreLocation)
+        CallbackFree(this.vtbl.GetTargetID)
+        CallbackFree(this.vtbl.SetTargetID)
+        CallbackFree(this.vtbl.GetTargetProcessorArchitecture)
+        CallbackFree(this.vtbl.SetTargetProcessorArchitecture)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.GetEnumerator)
+        CallbackFree(this.vtbl.ExpandTarget)
+        CallbackFree(this.vtbl.ExpandTargetPath)
+        CallbackFree(this.vtbl.SetModulePath)
+        CallbackFree(this.vtbl.LoadModule)
+        CallbackFree(this.vtbl.SetWow64Context)
+        CallbackFree(this.vtbl.TranslateWow64)
+        CallbackFree(this.vtbl.SetSchemaHiveLocation)
+        CallbackFree(this.vtbl.GetSchemaHiveLocation)
+        CallbackFree(this.vtbl.SetSchemaHiveMountName)
+        CallbackFree(this.vtbl.GetSchemaHiveMountName)
     }
 }

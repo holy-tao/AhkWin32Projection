@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NETCONNECTINFOSTRUCT structure contains information about the performance of a network. It is used by the NPGetConnectionPerformance function.
  * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netconnectinfostruct
  * @namespace Windows.Win32.NetworkManagement.WNet
  */
-class NETCONNECTINFOSTRUCT extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct NETCONNECTINFOSTRUCT {
+    #StructPack 4
 
     /**
      * The size of the <b>NETCONNECTINFOSTRUCT</b> structure, in bytes. This is filled in by the caller to indicate the size of the structure passed in. The network provider should leave this field unchanged and can assume that the structure is large enough to contain all fields up to and including <b>dwOptDataSize</b>.
-     * @type {Integer}
      */
-    cbStructure {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStructure : UInt32
 
     /**
      * This is a bitmask which may have one or more of the following flags.
@@ -84,37 +77,22 @@ class NETCONNECTINFOSTRUCT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * The speed of the media to the network resource in units of 100bps. For example, a 1,200 baud point-to-point link returns 12.
-     * @type {Integer}
      */
-    dwSpeed {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSpeed : UInt32
 
     /**
      * The delay introduced by the network when sending information, in milliseconds. In other words, the time between when the network starts to send data and the time it is received. This is in addition to any latency that was incorporated into the calculation of <b>dwSpeed</b>, so the value returned will be zero for accessing most resources.
-     * @type {Integer}
      */
-    dwDelay {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDelay : UInt32
 
     /**
      * A recommendation for the size of data, in bytes, that is most efficiently sent through the network when an application makes a single request to the network resource. For example, for a disk network resource, this value might be 2048 or 512 when writing a block of data.
-     * @type {Integer}
      */
-    dwOptDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwOptDataSize : UInt32
+
 }

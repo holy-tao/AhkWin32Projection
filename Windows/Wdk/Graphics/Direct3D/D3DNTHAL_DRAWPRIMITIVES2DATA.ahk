@@ -1,140 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DRAWPRIMITIVES2DATA extends Win32Struct {
-    static sizeof => 72
+export default struct D3DNTHAL_DRAWPRIMITIVES2DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwhContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwVertexType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpDDCommands : DD_SURFACE_LOCAL.Ptr
 
-    /**
-     * @type {Pointer<DD_SURFACE_LOCAL>}
-     */
-    lpDDCommands {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwCommandOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCommandOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwCommandLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCommandLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    lpDDVertex : DD_SURFACE_LOCAL.Ptr
 
-    /**
-     * @type {Pointer<DD_SURFACE_LOCAL>}
-     */
-    lpDDVertex {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwVertexOffset : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpVertices {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwVertexLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwReqVertexBufSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexLength {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwReqCommandBufSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReqVertexBufSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    lpdwRStates : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwReqCommandBufSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwVertexSize : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpdwRStates {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwErrorOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwErrorOffset {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+    static __New() {
+        DefineProp(this.Prototype, 'lpVertices', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'ddrval', { type: HRESULT, offset: 64 })
+        this.DeleteProp("__New")
     }
 }

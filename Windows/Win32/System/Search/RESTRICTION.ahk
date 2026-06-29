@@ -1,180 +1,82 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NODERESTRICTION.ahk
-#Include .\RESTRICTION.ahk
-#Include .\VECTORRESTRICTION.ahk
-#Include .\NOTRESTRICTION.ahk
-#Include .\CONTENTRESTRICTION.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
-#Include .\NATLANGUAGERESTRICTION.ahk
-#Include .\PROPERTYRESTRICTION.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Com\StructuredStorage\CLIPDATA.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\StructuredStorage\BSTRBLOB.ahk
-#Include ..\Com\BLOB.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IStream.ahk
-#Include ..\Com\StructuredStorage\IStorage.ahk
-#Include ..\Com\StructuredStorage\VERSIONEDSTREAM.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\Com\StructuredStorage\CAC.ahk
-#Include ..\Com\StructuredStorage\CAUB.ahk
-#Include ..\Com\StructuredStorage\CAI.ahk
-#Include ..\Com\StructuredStorage\CAUI.ahk
-#Include ..\Com\StructuredStorage\CAL.ahk
-#Include ..\Com\StructuredStorage\CAUL.ahk
-#Include ..\Com\StructuredStorage\CAH.ahk
-#Include ..\Com\StructuredStorage\CAUH.ahk
-#Include ..\Com\StructuredStorage\CAFLT.ahk
-#Include ..\Com\StructuredStorage\CADBL.ahk
-#Include ..\Com\StructuredStorage\CABOOL.ahk
-#Include ..\Com\StructuredStorage\CASCODE.ahk
-#Include ..\Com\StructuredStorage\CACY.ahk
-#Include ..\Com\StructuredStorage\CADATE.ahk
-#Include ..\Com\StructuredStorage\CAFILETIME.ahk
-#Include ..\Com\StructuredStorage\CACLSID.ahk
-#Include ..\Com\StructuredStorage\CACLIPDATA.ahk
-#Include ..\Com\StructuredStorage\CABSTR.ahk
-#Include ..\Com\StructuredStorage\CABSTRBLOB.ahk
-#Include ..\Com\StructuredStorage\CALPSTR.ahk
-#Include ..\Com\StructuredStorage\CALPWSTR.ahk
-#Include ..\Com\StructuredStorage\CAPROPVARIANT.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NODERESTRICTION.ahk" { NODERESTRICTION }
+#Import "..\Com\StructuredStorage\CABSTR.ahk" { CABSTR }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\StructuredStorage\CALPWSTR.ahk" { CALPWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\CLIPDATA.ahk" { CLIPDATA }
+#Import "..\Com\StructuredStorage\CABSTRBLOB.ahk" { CABSTRBLOB }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import ".\PROPERTYRESTRICTION.ahk" { PROPERTYRESTRICTION }
+#Import "..\Com\StructuredStorage\CAL.ahk" { CAL }
+#Import "..\Com\StructuredStorage\CAPROPVARIANT.ahk" { CAPROPVARIANT }
+#Import "..\Com\StructuredStorage\CAUI.ahk" { CAUI }
+#Import "..\Com\StructuredStorage\CAC.ahk" { CAC }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\Com\StructuredStorage\CAFLT.ahk" { CAFLT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\Com\StructuredStorage\VERSIONEDSTREAM.ahk" { VERSIONEDSTREAM }
+#Import "..\Com\StructuredStorage\CAUH.ahk" { CAUH }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\CABOOL.ahk" { CABOOL }
+#Import "..\Com\StructuredStorage\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
+#Import ".\NATLANGUAGERESTRICTION.ahk" { NATLANGUAGERESTRICTION }
+#Import "..\Com\StructuredStorage\CACY.ahk" { CACY }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\Com\StructuredStorage\CACLSID.ahk" { CACLSID }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Com\StructuredStorage\CADBL.ahk" { CADBL }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\StructuredStorage\CAI.ahk" { CAI }
+#Import "..\Com\StructuredStorage\CAFILETIME.ahk" { CAFILETIME }
+#Import "..\Com\StructuredStorage\BSTRBLOB.ahk" { BSTRBLOB }
+#Import "..\Com\StructuredStorage\CASCODE.ahk" { CASCODE }
+#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\Com\StructuredStorage\CAUL.ahk" { CAUL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\VECTORRESTRICTION.ahk" { VECTORRESTRICTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Storage\IndexServer\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import ".\NOTRESTRICTION.ahk" { NOTRESTRICTION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Com\StructuredStorage\CALPSTR.ahk" { CALPSTR }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\Com\BLOB.ahk" { BLOB }
+#Import "..\Com\StructuredStorage\CAUB.ahk" { CAUB }
+#Import "..\Com\StructuredStorage\CACLIPDATA.ahk" { CACLIPDATA }
+#Import "..\Com\StructuredStorage\CAH.ahk" { CAH }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Com\StructuredStorage\CADATE.ahk" { CADATE }
+#Import ".\CONTENTRESTRICTION.ahk" { CONTENTRESTRICTION }
 
 /**
- * These flags are used with the SHRestricted function.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.System.Search
  */
-class RESTRICTION extends Win32Struct {
-    static sizeof => 256
+export default struct RESTRICTION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _URes extends Win32Struct {
-        static sizeof => 248
-        static packingSize => 8
+    struct _URes {
+        ar : NODERESTRICTION
 
-        /**
-         * @type {NODERESTRICTION}
-         */
-        ar {
-            get {
-                if(!this.HasProp("__ar"))
-                    this.__ar := NODERESTRICTION(0, this)
-                return this.__ar
-            }
-        }
-
-        /**
-         * @type {NODERESTRICTION}
-         */
-        orRestriction {
-            get {
-                if(!this.HasProp("__orRestriction"))
-                    this.__orRestriction := NODERESTRICTION(0, this)
-                return this.__orRestriction
-            }
-        }
-
-        /**
-         * @type {NODERESTRICTION}
-         */
-        pxr {
-            get {
-                if(!this.HasProp("__pxr"))
-                    this.__pxr := NODERESTRICTION(0, this)
-                return this.__pxr
-            }
-        }
-
-        /**
-         * @type {VECTORRESTRICTION}
-         */
-        vr {
-            get {
-                if(!this.HasProp("__vr"))
-                    this.__vr := VECTORRESTRICTION(0, this)
-                return this.__vr
-            }
-        }
-
-        /**
-         * @type {NOTRESTRICTION}
-         */
-        nr {
-            get {
-                if(!this.HasProp("__nr"))
-                    this.__nr := NOTRESTRICTION(0, this)
-                return this.__nr
-            }
-        }
-
-        /**
-         * @type {CONTENTRESTRICTION}
-         */
-        cr {
-            get {
-                if(!this.HasProp("__cr"))
-                    this.__cr := CONTENTRESTRICTION(0, this)
-                return this.__cr
-            }
-        }
-
-        /**
-         * @type {NATLANGUAGERESTRICTION}
-         */
-        nlr {
-            get {
-                if(!this.HasProp("__nlr"))
-                    this.__nlr := NATLANGUAGERESTRICTION(0, this)
-                return this.__nlr
-            }
-        }
-
-        /**
-         * @type {PROPERTYRESTRICTION}
-         */
-        pr {
-            get {
-                if(!this.HasProp("__pr"))
-                    this.__pr := PROPERTYRESTRICTION(0, this)
-                return this.__pr
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'orRestriction', { type: NODERESTRICTION, offset: 0 })
+            DefineProp(this.Prototype, 'pxr', { type: NODERESTRICTION, offset: 0 })
+            DefineProp(this.Prototype, 'vr', { type: VECTORRESTRICTION, offset: 0 })
+            DefineProp(this.Prototype, 'nr', { type: NOTRESTRICTION, offset: 0 })
+            DefineProp(this.Prototype, 'cr', { type: CONTENTRESTRICTION, offset: 0 })
+            DefineProp(this.Prototype, 'nlr', { type: NATLANGUAGERESTRICTION, offset: 0 })
+            DefineProp(this.Prototype, 'pr', { type: PROPERTYRESTRICTION, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    rt {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    weight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    weight : UInt32
 
-    /**
-     * @type {_URes}
-     */
-    res {
-        get {
-            if(!this.HasProp("__res"))
-                this.__res := RESTRICTION._URes(8, this)
-            return this.__res
-        }
-    }
+    res : RESTRICTION._URes
+
 }

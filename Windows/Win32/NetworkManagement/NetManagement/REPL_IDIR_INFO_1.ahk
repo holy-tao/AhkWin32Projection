@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class REPL_IDIR_INFO_1 extends Win32Struct {
-    static sizeof => 40
+export default struct REPL_IDIR_INFO_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    rpid1_dirname : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rpid1_dirname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rpid1_state : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rpid1_state {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    rpid1_mastername : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rpid1_mastername {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    rpid1_last_update_time : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rpid1_last_update_time {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    rpid1_lockcount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rpid1_lockcount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    rpid1_locktime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rpid1_locktime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

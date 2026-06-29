@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a service for managing associations between a contact and a viewport.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationDeferContactService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationDeferContactService extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationDeferContactService
      * @type {Guid}
      */
-    static IID => Guid("{652d5c71-fe60-4a98-be70-e5f21291e7f1}")
+    static IID := Guid("{652d5c71-fe60-4a98-be70-e5f21291e7f1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationDeferContactService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DeferContact   : IntPtr
+        CancelContact  : IntPtr
+        CancelDeferral : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeferContact", "CancelContact", "CancelDeferral"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationDeferContactService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the amount of time to defer the execution of a call to SetContact for this pointerId.
@@ -63,5 +73,29 @@ class IDirectManipulationDeferContactService extends IUnknown {
     CancelDeferral(pointerId) {
         result := ComCall(5, this, "uint", pointerId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationDeferContactService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeferContact := CallbackCreate(GetMethod(implObj, "DeferContact"), flags, 3)
+        this.vtbl.CancelContact := CallbackCreate(GetMethod(implObj, "CancelContact"), flags, 2)
+        this.vtbl.CancelDeferral := CallbackCreate(GetMethod(implObj, "CancelDeferral"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeferContact)
+        CallbackFree(this.vtbl.CancelContact)
+        CallbackFree(this.vtbl.CancelDeferral)
     }
 }

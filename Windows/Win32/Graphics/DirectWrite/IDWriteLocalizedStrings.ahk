@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a collection of strings indexed by locale name.
@@ -70,26 +73,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteLocalizedStrings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteLocalizedStrings extends IUnknown {
     /**
      * The interface identifier for IDWriteLocalizedStrings
      * @type {Guid}
      */
-    static IID => Guid("{08256209-099a-4b34-b86d-c22b110e7771}")
+    static IID := Guid("{08256209-099a-4b34-b86d-c22b110e7771}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteLocalizedStrings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount            : IntPtr
+        FindLocaleName      : IntPtr
+        GetLocaleNameLength : IntPtr
+        GetLocaleName       : IntPtr
+        GetStringLength     : IntPtr
+        GetString           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "FindLocaleName", "GetLocaleNameLength", "GetLocaleName", "GetStringLength", "GetString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteLocalizedStrings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of language/string pairs.
@@ -99,7 +114,7 @@ class IDWriteLocalizedStrings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getcount
      */
     GetCount() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -291,5 +306,35 @@ class IDWriteLocalizedStrings extends IUnknown {
 
         result := ComCall(8, this, "uint", index, "ptr", stringBuffer, "uint", _size, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteLocalizedStrings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 1)
+        this.vtbl.FindLocaleName := CallbackCreate(GetMethod(implObj, "FindLocaleName"), flags, 4)
+        this.vtbl.GetLocaleNameLength := CallbackCreate(GetMethod(implObj, "GetLocaleNameLength"), flags, 3)
+        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 4)
+        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.FindLocaleName)
+        CallbackFree(this.vtbl.GetLocaleNameLength)
+        CallbackFree(this.vtbl.GetLocaleName)
+        CallbackFree(this.vtbl.GetStringLength)
+        CallbackFree(this.vtbl.GetString)
     }
 }

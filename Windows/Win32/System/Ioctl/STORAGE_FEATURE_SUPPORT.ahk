@@ -1,28 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_FEATURE_SUPPORT extends Win32Struct {
-    static sizeof => 64
+export default struct STORAGE_FEATURE_SUPPORT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - StorMQMiniportsSupported
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -31,51 +23,18 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUlonglong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUlonglong', { type: Int64, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Version : UInt32
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := STORAGE_FEATURE_SUPPORT._Flags_e__Union(8, this)
-            return this.__Flags
-        }
-    }
+    Flags : STORAGE_FEATURE_SUPPORT._Flags
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int64[6]
+
 }

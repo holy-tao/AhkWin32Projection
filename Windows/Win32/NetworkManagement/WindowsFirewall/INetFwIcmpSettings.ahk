@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The INetFwIcmpSettings interface provides access to the settings controlling ICMP packets.
@@ -16,26 +18,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwicmpsettings
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwIcmpSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwIcmpSettings extends IDispatch {
     /**
      * The interface identifier for INetFwIcmpSettings
      * @type {Guid}
      */
-    static IID => Guid("{a6207b2e-7cdd-426a-951e-5e1cbc5afead}")
+    static IID := Guid("{a6207b2e-7cdd-426a-951e-5e1cbc5afead}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwIcmpSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AllowOutboundDestinationUnreachable : IntPtr
+        put_AllowOutboundDestinationUnreachable : IntPtr
+        get_AllowRedirect                       : IntPtr
+        put_AllowRedirect                       : IntPtr
+        get_AllowInboundEchoRequest             : IntPtr
+        put_AllowInboundEchoRequest             : IntPtr
+        get_AllowOutboundTimeExceeded           : IntPtr
+        put_AllowOutboundTimeExceeded           : IntPtr
+        get_AllowOutboundParameterProblem       : IntPtr
+        put_AllowOutboundParameterProblem       : IntPtr
+        get_AllowOutboundSourceQuench           : IntPtr
+        put_AllowOutboundSourceQuench           : IntPtr
+        get_AllowInboundRouterRequest           : IntPtr
+        put_AllowInboundRouterRequest           : IntPtr
+        get_AllowInboundTimestampRequest        : IntPtr
+        put_AllowInboundTimestampRequest        : IntPtr
+        get_AllowInboundMaskRequest             : IntPtr
+        put_AllowInboundMaskRequest             : IntPtr
+        get_AllowOutboundPacketTooBig           : IntPtr
+        put_AllowOutboundPacketTooBig           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AllowOutboundDestinationUnreachable", "put_AllowOutboundDestinationUnreachable", "get_AllowRedirect", "put_AllowRedirect", "get_AllowInboundEchoRequest", "put_AllowInboundEchoRequest", "get_AllowOutboundTimeExceeded", "put_AllowOutboundTimeExceeded", "get_AllowOutboundParameterProblem", "put_AllowOutboundParameterProblem", "get_AllowOutboundSourceQuench", "put_AllowOutboundSourceQuench", "get_AllowInboundRouterRequest", "put_AllowInboundRouterRequest", "get_AllowInboundTimestampRequest", "put_AllowInboundTimestampRequest", "get_AllowInboundMaskRequest", "put_AllowInboundMaskRequest", "get_AllowOutboundPacketTooBig", "put_AllowOutboundPacketTooBig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwIcmpSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -125,7 +153,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutbounddestinationunreachable
      */
     get_AllowOutboundDestinationUnreachable() {
-        result := ComCall(7, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -138,7 +166,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutbounddestinationunreachable
      */
     put_AllowOutboundDestinationUnreachable(allow) {
-        result := ComCall(8, this, "short", allow, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -150,7 +178,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowredirect
      */
     get_AllowRedirect() {
-        result := ComCall(9, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -163,7 +191,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowredirect
      */
     put_AllowRedirect(allow) {
-        result := ComCall(10, this, "short", allow, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -175,7 +203,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundechorequest
      */
     get_AllowInboundEchoRequest() {
-        result := ComCall(11, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -188,7 +216,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundechorequest
      */
     put_AllowInboundEchoRequest(allow) {
-        result := ComCall(12, this, "short", allow, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -200,7 +228,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundtimeexceeded
      */
     get_AllowOutboundTimeExceeded() {
-        result := ComCall(13, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -213,7 +241,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundtimeexceeded
      */
     put_AllowOutboundTimeExceeded(allow) {
-        result := ComCall(14, this, "short", allow, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -225,7 +253,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundparameterproblem
      */
     get_AllowOutboundParameterProblem() {
-        result := ComCall(15, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -238,7 +266,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundparameterproblem
      */
     put_AllowOutboundParameterProblem(allow) {
-        result := ComCall(16, this, "short", allow, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -250,7 +278,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundsourcequench
      */
     get_AllowOutboundSourceQuench() {
-        result := ComCall(17, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -263,7 +291,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundsourcequench
      */
     put_AllowOutboundSourceQuench(allow) {
-        result := ComCall(18, this, "short", allow, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -275,7 +303,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundrouterrequest
      */
     get_AllowInboundRouterRequest() {
-        result := ComCall(19, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -288,7 +316,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundrouterrequest
      */
     put_AllowInboundRouterRequest(allow) {
-        result := ComCall(20, this, "short", allow, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -300,7 +328,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundtimestamprequest
      */
     get_AllowInboundTimestampRequest() {
-        result := ComCall(21, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -313,7 +341,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundtimestamprequest
      */
     put_AllowInboundTimestampRequest(allow) {
-        result := ComCall(22, this, "short", allow, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -325,7 +353,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundmaskrequest
      */
     get_AllowInboundMaskRequest() {
-        result := ComCall(23, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -338,7 +366,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundmaskrequest
      */
     put_AllowInboundMaskRequest(allow) {
-        result := ComCall(24, this, "short", allow, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, allow, "HRESULT")
         return result
     }
 
@@ -350,7 +378,7 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundpackettoobig
      */
     get_AllowOutboundPacketTooBig() {
-        result := ComCall(25, this, "short*", &allow := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &allow := 0, "HRESULT")
         return allow
     }
 
@@ -363,7 +391,65 @@ class INetFwIcmpSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundpackettoobig
      */
     put_AllowOutboundPacketTooBig(allow) {
-        result := ComCall(26, this, "short", allow, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, allow, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetFwIcmpSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AllowOutboundDestinationUnreachable := CallbackCreate(GetMethod(implObj, "get_AllowOutboundDestinationUnreachable"), flags, 2)
+        this.vtbl.put_AllowOutboundDestinationUnreachable := CallbackCreate(GetMethod(implObj, "put_AllowOutboundDestinationUnreachable"), flags, 2)
+        this.vtbl.get_AllowRedirect := CallbackCreate(GetMethod(implObj, "get_AllowRedirect"), flags, 2)
+        this.vtbl.put_AllowRedirect := CallbackCreate(GetMethod(implObj, "put_AllowRedirect"), flags, 2)
+        this.vtbl.get_AllowInboundEchoRequest := CallbackCreate(GetMethod(implObj, "get_AllowInboundEchoRequest"), flags, 2)
+        this.vtbl.put_AllowInboundEchoRequest := CallbackCreate(GetMethod(implObj, "put_AllowInboundEchoRequest"), flags, 2)
+        this.vtbl.get_AllowOutboundTimeExceeded := CallbackCreate(GetMethod(implObj, "get_AllowOutboundTimeExceeded"), flags, 2)
+        this.vtbl.put_AllowOutboundTimeExceeded := CallbackCreate(GetMethod(implObj, "put_AllowOutboundTimeExceeded"), flags, 2)
+        this.vtbl.get_AllowOutboundParameterProblem := CallbackCreate(GetMethod(implObj, "get_AllowOutboundParameterProblem"), flags, 2)
+        this.vtbl.put_AllowOutboundParameterProblem := CallbackCreate(GetMethod(implObj, "put_AllowOutboundParameterProblem"), flags, 2)
+        this.vtbl.get_AllowOutboundSourceQuench := CallbackCreate(GetMethod(implObj, "get_AllowOutboundSourceQuench"), flags, 2)
+        this.vtbl.put_AllowOutboundSourceQuench := CallbackCreate(GetMethod(implObj, "put_AllowOutboundSourceQuench"), flags, 2)
+        this.vtbl.get_AllowInboundRouterRequest := CallbackCreate(GetMethod(implObj, "get_AllowInboundRouterRequest"), flags, 2)
+        this.vtbl.put_AllowInboundRouterRequest := CallbackCreate(GetMethod(implObj, "put_AllowInboundRouterRequest"), flags, 2)
+        this.vtbl.get_AllowInboundTimestampRequest := CallbackCreate(GetMethod(implObj, "get_AllowInboundTimestampRequest"), flags, 2)
+        this.vtbl.put_AllowInboundTimestampRequest := CallbackCreate(GetMethod(implObj, "put_AllowInboundTimestampRequest"), flags, 2)
+        this.vtbl.get_AllowInboundMaskRequest := CallbackCreate(GetMethod(implObj, "get_AllowInboundMaskRequest"), flags, 2)
+        this.vtbl.put_AllowInboundMaskRequest := CallbackCreate(GetMethod(implObj, "put_AllowInboundMaskRequest"), flags, 2)
+        this.vtbl.get_AllowOutboundPacketTooBig := CallbackCreate(GetMethod(implObj, "get_AllowOutboundPacketTooBig"), flags, 2)
+        this.vtbl.put_AllowOutboundPacketTooBig := CallbackCreate(GetMethod(implObj, "put_AllowOutboundPacketTooBig"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AllowOutboundDestinationUnreachable)
+        CallbackFree(this.vtbl.put_AllowOutboundDestinationUnreachable)
+        CallbackFree(this.vtbl.get_AllowRedirect)
+        CallbackFree(this.vtbl.put_AllowRedirect)
+        CallbackFree(this.vtbl.get_AllowInboundEchoRequest)
+        CallbackFree(this.vtbl.put_AllowInboundEchoRequest)
+        CallbackFree(this.vtbl.get_AllowOutboundTimeExceeded)
+        CallbackFree(this.vtbl.put_AllowOutboundTimeExceeded)
+        CallbackFree(this.vtbl.get_AllowOutboundParameterProblem)
+        CallbackFree(this.vtbl.put_AllowOutboundParameterProblem)
+        CallbackFree(this.vtbl.get_AllowOutboundSourceQuench)
+        CallbackFree(this.vtbl.put_AllowOutboundSourceQuench)
+        CallbackFree(this.vtbl.get_AllowInboundRouterRequest)
+        CallbackFree(this.vtbl.put_AllowInboundRouterRequest)
+        CallbackFree(this.vtbl.get_AllowInboundTimestampRequest)
+        CallbackFree(this.vtbl.put_AllowInboundTimestampRequest)
+        CallbackFree(this.vtbl.get_AllowInboundMaskRequest)
+        CallbackFree(this.vtbl.put_AllowInboundMaskRequest)
+        CallbackFree(this.vtbl.get_AllowOutboundPacketTooBig)
+        CallbackFree(this.vtbl.put_AllowOutboundPacketTooBig)
     }
 }

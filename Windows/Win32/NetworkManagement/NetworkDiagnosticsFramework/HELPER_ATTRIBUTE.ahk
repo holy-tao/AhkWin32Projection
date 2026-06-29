@@ -1,161 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ATTRIBUTE_TYPE.ahk
-#Include .\LIFE_TIME.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\DIAG_SOCKADDR.ahk
-#Include .\OCTET_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIFE_TIME.ahk" { LIFE_TIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\OCTET_STRING.ahk" { OCTET_STRING }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DIAG_SOCKADDR.ahk" { DIAG_SOCKADDR }
+#Import ".\ATTRIBUTE_TYPE.ahk" { ATTRIBUTE_TYPE }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The HELPER_ATTRIBUTE structure contains all NDF supported data types.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-helper_attribute
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class HELPER_ATTRIBUTE extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct HELPER_ATTRIBUTE {
+    #StructPack 8
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the attribute.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszName : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ne-ndattrib-attribute_type">ATTRIBUTE_TYPE</a></b>
      * 
      * The type of helper attribute.
-     * @type {ATTRIBUTE_TYPE}
      */
-    type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    type : ATTRIBUTE_TYPE
 
-    /**
-     * @type {BOOL}
-     */
-    Boolean {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Boolean : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    Char {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Byte {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Short {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Word {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Int {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DWord {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Int64 {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    UInt64 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    PWStr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Guid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {LIFE_TIME}
-     */
-    LifeTime {
-        get {
-            if(!this.HasProp("__LifeTime"))
-                this.__LifeTime := LIFE_TIME(16, this)
-            return this.__LifeTime
-        }
-    }
-
-    /**
-     * @type {DIAG_SOCKADDR}
-     */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := DIAG_SOCKADDR(16, this)
-            return this.__Address
-        }
-    }
-
-    /**
-     * @type {OCTET_STRING}
-     */
-    OctetString {
-        get {
-            if(!this.HasProp("__OctetString"))
-                this.__OctetString := OCTET_STRING(16, this)
-            return this.__OctetString
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Char', { type: Int8, offset: 16 })
+        DefineProp(this.Prototype, 'Byte', { type: Int8, offset: 16 })
+        DefineProp(this.Prototype, 'Short', { type: Int16, offset: 16 })
+        DefineProp(this.Prototype, 'Word', { type: UInt16, offset: 16 })
+        DefineProp(this.Prototype, 'Int', { type: Int32, offset: 16 })
+        DefineProp(this.Prototype, 'DWord', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'Int64', { type: Int64, offset: 16 })
+        DefineProp(this.Prototype, 'UInt64', { type: Int64, offset: 16 })
+        DefineProp(this.Prototype, 'PWStr', { type: PWSTR, offset: 16 })
+        DefineProp(this.Prototype, 'Guid', { type: Guid, offset: 16 })
+        DefineProp(this.Prototype, 'LifeTime', { type: LIFE_TIME, offset: 16 })
+        DefineProp(this.Prototype, 'Address', { type: DIAG_SOCKADDR, offset: 16 })
+        DefineProp(this.Prototype, 'OctetString', { type: OCTET_STRING, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

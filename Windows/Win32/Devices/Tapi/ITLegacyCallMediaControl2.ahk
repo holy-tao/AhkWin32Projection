@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITLegacyCallMediaControl.ahk
-#Include .\ITDetectTone.ahk
-#Include .\ITCustomTone.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TAPI_TONEMODE.ahk" { TAPI_TONEMODE }
+#Import ".\ITDetectTone.ahk" { ITDetectTone }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TAPI_CUSTOMTONE.ahk" { TAPI_CUSTOMTONE }
+#Import ".\ITLegacyCallMediaControl.ahk" { ITLegacyCallMediaControl }
+#Import ".\TAPI_DETECTTONE.ahk" { TAPI_DETECTTONE }
+#Import ".\ITCollection2.ahk" { ITCollection2 }
+#Import ".\ITCustomTone.ahk" { ITCustomTone }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITLegacyCallMediaControl2 interface is an extension of the ITLegacyCallMediaControl interface. ITLegacyCallMediaControl2 provides additional methods, primarily for tone detection and generation.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlegacycallmediacontrol2
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
-
-    static sizeof => A_PtrSize
+export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
     /**
      * The interface identifier for ITLegacyCallMediaControl2
      * @type {Guid}
      */
-    static IID => Guid("{57ca332d-7bc2-44f1-a60c-936fe8d7ce73}")
+    static IID := Guid("{57ca332d-7bc2-44f1-a60c-936fe8d7ce73}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITLegacyCallMediaControl2 interfaces
+    */
+    struct Vtbl extends ITLegacyCallMediaControl.Vtbl {
+        GenerateDigits2                 : IntPtr
+        GatherDigits                    : IntPtr
+        DetectTones                     : IntPtr
+        DetectTonesByCollection         : IntPtr
+        GenerateTone                    : IntPtr
+        GenerateCustomTones             : IntPtr
+        GenerateCustomTonesByCollection : IntPtr
+        CreateDetectToneObject          : IntPtr
+        CreateCustomToneObject          : IntPtr
+        GetIDAsVariant                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GenerateDigits2", "GatherDigits", "DetectTones", "DetectTonesByCollection", "GenerateTone", "GenerateCustomTones", "GenerateCustomTonesByCollection", "CreateDetectToneObject", "CreateCustomToneObject", "GetIDAsVariant"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITLegacyCallMediaControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GenerateDigits2 method causes digits to be output on the current call. This method extends the ITLegacyCallMediaControl::GenerateDigits method by adding a duration parameter.
@@ -89,7 +111,7 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
     GenerateDigits2(pDigits, DigitMode, lDuration) {
         pDigits := pDigits is String ? BSTR.Alloc(pDigits).Value : pDigits
 
-        result := ComCall(12, this, "ptr", pDigits, "int", DigitMode, "int", lDuration, "HRESULT")
+        result := ComCall(12, this, BSTR, pDigits, "int", DigitMode, "int", lDuration, "HRESULT")
         return result
     }
 
@@ -171,7 +193,7 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
     GatherDigits(DigitMode, lNumDigits, pTerminationDigits, lFirstDigitTimeout, lInterDigitTimeout) {
         pTerminationDigits := pTerminationDigits is String ? BSTR.Alloc(pTerminationDigits).Value : pTerminationDigits
 
-        result := ComCall(13, this, "int", DigitMode, "int", lNumDigits, "ptr", pTerminationDigits, "int", lFirstDigitTimeout, "int", lInterDigitTimeout, "HRESULT")
+        result := ComCall(13, this, "int", DigitMode, "int", lNumDigits, BSTR, pTerminationDigits, "int", lFirstDigitTimeout, "int", lInterDigitTimeout, "HRESULT")
         return result
     }
 
@@ -230,7 +252,7 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-detecttones
      */
     DetectTones(pToneList, lNumTones) {
-        result := ComCall(14, this, "ptr", pToneList, "int", lNumTones, "HRESULT")
+        result := ComCall(14, this, TAPI_DETECTTONE.Ptr, pToneList, "int", lNumTones, "HRESULT")
         return result
     }
 
@@ -358,7 +380,7 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-generatetone
      */
     GenerateTone(ToneMode, lDuration) {
-        result := ComCall(16, this, "int", ToneMode, "int", lDuration, "HRESULT")
+        result := ComCall(16, this, TAPI_TONEMODE, ToneMode, "int", lDuration, "HRESULT")
         return result
     }
 
@@ -375,7 +397,7 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-generatecustomtones
      */
     GenerateCustomTones(pToneList, lNumTones, lDuration) {
-        result := ComCall(17, this, "ptr", pToneList, "int", lNumTones, "int", lDuration, "HRESULT")
+        result := ComCall(17, this, TAPI_CUSTOMTONE.Ptr, pToneList, "int", lNumTones, "int", lDuration, "HRESULT")
         return result
     }
 
@@ -490,7 +512,45 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
         bstrDeviceClass := bstrDeviceClass is String ? BSTR.Alloc(bstrDeviceClass).Value : bstrDeviceClass
 
         pVarDeviceID := VARIANT()
-        result := ComCall(21, this, "ptr", bstrDeviceClass, "ptr", pVarDeviceID, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrDeviceClass, VARIANT.Ptr, pVarDeviceID, "HRESULT")
         return pVarDeviceID
+    }
+
+    Query(iid) {
+        if (ITLegacyCallMediaControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GenerateDigits2 := CallbackCreate(GetMethod(implObj, "GenerateDigits2"), flags, 4)
+        this.vtbl.GatherDigits := CallbackCreate(GetMethod(implObj, "GatherDigits"), flags, 6)
+        this.vtbl.DetectTones := CallbackCreate(GetMethod(implObj, "DetectTones"), flags, 3)
+        this.vtbl.DetectTonesByCollection := CallbackCreate(GetMethod(implObj, "DetectTonesByCollection"), flags, 2)
+        this.vtbl.GenerateTone := CallbackCreate(GetMethod(implObj, "GenerateTone"), flags, 3)
+        this.vtbl.GenerateCustomTones := CallbackCreate(GetMethod(implObj, "GenerateCustomTones"), flags, 4)
+        this.vtbl.GenerateCustomTonesByCollection := CallbackCreate(GetMethod(implObj, "GenerateCustomTonesByCollection"), flags, 3)
+        this.vtbl.CreateDetectToneObject := CallbackCreate(GetMethod(implObj, "CreateDetectToneObject"), flags, 2)
+        this.vtbl.CreateCustomToneObject := CallbackCreate(GetMethod(implObj, "CreateCustomToneObject"), flags, 2)
+        this.vtbl.GetIDAsVariant := CallbackCreate(GetMethod(implObj, "GetIDAsVariant"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GenerateDigits2)
+        CallbackFree(this.vtbl.GatherDigits)
+        CallbackFree(this.vtbl.DetectTones)
+        CallbackFree(this.vtbl.DetectTonesByCollection)
+        CallbackFree(this.vtbl.GenerateTone)
+        CallbackFree(this.vtbl.GenerateCustomTones)
+        CallbackFree(this.vtbl.GenerateCustomTonesByCollection)
+        CallbackFree(this.vtbl.CreateDetectToneObject)
+        CallbackFree(this.vtbl.CreateCustomToneObject)
+        CallbackFree(this.vtbl.GetIDAsVariant)
     }
 }

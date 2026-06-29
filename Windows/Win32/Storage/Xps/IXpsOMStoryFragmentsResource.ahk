@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMResource.ahk
-#Include .\IXpsOMPageReference.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the content of the resource stream of a page's StoryFragments part.
@@ -14,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomstoryfragmentsresource
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMStoryFragmentsResource extends IXpsOMResource {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMStoryFragmentsResource extends IXpsOMResource {
     /**
      * The interface identifier for IXpsOMStoryFragmentsResource
      * @type {Guid}
      */
-    static IID => Guid("{c2b3ca09-0473-4282-87ae-1780863223f0}")
+    static IID := Guid("{c2b3ca09-0473-4282-87ae-1780863223f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMStoryFragmentsResource interfaces
+    */
+    struct Vtbl extends IXpsOMResource.Vtbl {
+        GetOwner   : IntPtr
+        GetStream  : IntPtr
+        SetContent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetStream", "SetContent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMStoryFragmentsResource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMPage interface that contains this resource.
@@ -77,5 +88,29 @@ class IXpsOMStoryFragmentsResource extends IXpsOMResource {
     SetContent(sourceStream, partName) {
         result := ComCall(7, this, "ptr", sourceStream, "ptr", partName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMStoryFragmentsResource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.SetContent := CallbackCreate(GetMethod(implObj, "SetContent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetStream)
+        CallbackFree(this.vtbl.SetContent)
     }
 }

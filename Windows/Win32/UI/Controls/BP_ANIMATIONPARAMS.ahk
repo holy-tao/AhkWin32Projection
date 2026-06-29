@@ -1,63 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BP_ANIMATIONSTYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BP_ANIMATIONSTYLE.ahk" { BP_ANIMATIONSTYLE }
 
 /**
  * Defines animation parameters for the BP_PAINTPARAMS structure used by BeginBufferedPaint.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-bp_animationparams
  * @namespace Windows.Win32.UI.Controls
  */
-class BP_ANIMATIONPARAMS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct BP_ANIMATIONPARAMS {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Reserved.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ne-uxtheme-bp_animationstyle">BP_ANIMATIONSTYLE</a></b>
      * 
      * Animation style.
-     * @type {BP_ANIMATIONSTYLE}
      */
-    style {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    style : BP_ANIMATIONSTYLE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Length of the animation, in milliseconds.
-     * @type {Integer}
      */
-    dwDuration {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDuration : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

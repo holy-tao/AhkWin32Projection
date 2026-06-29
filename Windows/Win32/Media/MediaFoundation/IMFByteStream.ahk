@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\MFBYTESTREAM_SEEK_ORIGIN.ahk" { MFBYTESTREAM_SEEK_ORIGIN }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a byte stream from some data source, which might be a local file, a network file, or some other source.
@@ -51,26 +56,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfbytestream
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFByteStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFByteStream extends IUnknown {
     /**
      * The interface identifier for IMFByteStream
      * @type {Guid}
      */
-    static IID => Guid("{ad4c1b00-4bf7-422f-9175-756693d9130d}")
+    static IID := Guid("{ad4c1b00-4bf7-422f-9175-756693d9130d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFByteStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapabilities    : IntPtr
+        GetLength          : IntPtr
+        SetLength          : IntPtr
+        GetCurrentPosition : IntPtr
+        SetCurrentPosition : IntPtr
+        IsEndOfStream      : IntPtr
+        Read               : IntPtr
+        BeginRead          : IntPtr
+        EndRead            : IntPtr
+        Write              : IntPtr
+        BeginWrite         : IntPtr
+        EndWrite           : IntPtr
+        Seek               : IntPtr
+        Flush              : IntPtr
+        Close              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapabilities", "GetLength", "SetLength", "GetCurrentPosition", "SetCurrentPosition", "IsEndOfStream", "Read", "BeginRead", "EndRead", "Write", "BeginWrite", "EndWrite", "Seek", "Flush", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFByteStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the characteristics of the byte stream.
@@ -337,7 +363,7 @@ class IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-isendofstream
      */
     IsEndOfStream() {
-        result := ComCall(8, this, "int*", &pfEndOfStream := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pfEndOfStream := 0, "HRESULT")
         return pfEndOfStream
     }
 
@@ -544,7 +570,7 @@ class IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-seek
      */
     Seek(SeekOrigin, llSeekOffset, dwSeekFlags) {
-        result := ComCall(15, this, "int", SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, "uint*", &pqwCurrentPosition := 0, "HRESULT")
+        result := ComCall(15, this, MFBYTESTREAM_SEEK_ORIGIN, SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, "uint*", &pqwCurrentPosition := 0, "HRESULT")
         return pqwCurrentPosition
     }
 
@@ -582,5 +608,53 @@ class IMFByteStream extends IUnknown {
     Close() {
         result := ComCall(17, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFByteStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 2)
+        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 2)
+        this.vtbl.IsEndOfStream := CallbackCreate(GetMethod(implObj, "IsEndOfStream"), flags, 2)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
+        this.vtbl.BeginRead := CallbackCreate(GetMethod(implObj, "BeginRead"), flags, 5)
+        this.vtbl.EndRead := CallbackCreate(GetMethod(implObj, "EndRead"), flags, 3)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+        this.vtbl.BeginWrite := CallbackCreate(GetMethod(implObj, "BeginWrite"), flags, 5)
+        this.vtbl.EndWrite := CallbackCreate(GetMethod(implObj, "EndWrite"), flags, 3)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 5)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.SetLength)
+        CallbackFree(this.vtbl.GetCurrentPosition)
+        CallbackFree(this.vtbl.SetCurrentPosition)
+        CallbackFree(this.vtbl.IsEndOfStream)
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.BeginRead)
+        CallbackFree(this.vtbl.EndRead)
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.BeginWrite)
+        CallbackFree(this.vtbl.EndWrite)
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.Close)
     }
 }

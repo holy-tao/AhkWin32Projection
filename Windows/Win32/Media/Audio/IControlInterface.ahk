@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IControlInterface interface represents a control interface on a part (connector or subunit) in a device topology. The client obtains a reference to a part's IControlInterface interface by calling the IPart::GetControlInterface method.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-icontrolinterface
  * @namespace Windows.Win32.Media.Audio
  */
-class IControlInterface extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IControlInterface extends IUnknown {
     /**
      * The interface identifier for IControlInterface
      * @type {Guid}
      */
-    static IID => Guid("{45d37c3f-5140-444a-ae24-400789f3cbf3}")
+    static IID := Guid("{45d37c3f-5140-444a-ae24-400789f3cbf3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IControlInterface interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName : IntPtr
+        GetIID  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetIID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IControlInterface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetName method gets the friendly name for the audio function that the control interface encapsulates.
@@ -38,7 +47,7 @@ class IControlInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolinterface-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &ppwstrName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppwstrName := 0, "HRESULT")
         return ppwstrName
     }
 
@@ -158,7 +167,29 @@ class IControlInterface extends IUnknown {
      */
     GetIID() {
         pIID := Guid()
-        result := ComCall(4, this, "ptr", pIID, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pIID, "HRESULT")
         return pIID
+    }
+
+    Query(iid) {
+        if (IControlInterface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetIID := CallbackCreate(GetMethod(implObj, "GetIID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetIID)
     }
 }

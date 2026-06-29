@@ -1,127 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_ApplicationFT.ahk
-#Include .\MI_SessionFT.ahk
-#Include .\MI_OperationFT.ahk
-#Include .\MI_HostedProviderFT.ahk
-#Include .\MI_SerializerFT.ahk
-#Include .\MI_DeserializerFT.ahk
-#Include .\MI_SubscriptionDeliveryOptionsFT.ahk
-#Include .\MI_DestinationOptionsFT.ahk
-#Include .\MI_OperationOptionsFT.ahk
-#Include .\MI_UtilitiesFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_DeserializerFT.ahk" { MI_DeserializerFT }
+#Import ".\MI_OperationFT.ahk" { MI_OperationFT }
+#Import ".\MI_HostedProviderFT.ahk" { MI_HostedProviderFT }
+#Import ".\MI_ApplicationFT.ahk" { MI_ApplicationFT }
+#Import ".\MI_DestinationOptionsFT.ahk" { MI_DestinationOptionsFT }
+#Import ".\MI_UtilitiesFT.ahk" { MI_UtilitiesFT }
+#Import ".\MI_SerializerFT.ahk" { MI_SerializerFT }
+#Import ".\MI_OperationOptionsFT.ahk" { MI_OperationOptionsFT }
+#Import ".\MI_SubscriptionDeliveryOptionsFT.ahk" { MI_SubscriptionDeliveryOptionsFT }
+#Import ".\MI_SessionFT.ahk" { MI_SessionFT }
 
 /**
  * Client function tables.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_clientft_v1
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_ClientFT_V1 extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct MI_ClientFT_V1 {
+    #StructPack 8
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_applicationft">MI_ApplicationFT</a> function table 
      *       used by <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_application">MI_Application</a>.
-     * @type {Pointer<MI_ApplicationFT>}
      */
-    applicationFT {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    applicationFT : MI_ApplicationFT.Ptr
 
     /**
      * Pointer to the <b>MI_SessionFT</b> function table used by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_session">MI_Session</a>.
-     * @type {Pointer<MI_SessionFT>}
      */
-    sessionFT {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sessionFT : MI_SessionFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_operationft">MI_OperationFT</a> function table 
      *       used by <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_operation">MI_Operation</a>.
-     * @type {Pointer<MI_OperationFT>}
      */
-    operationFT {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    operationFT : MI_OperationFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_hostedproviderft">MI_HostedProviderFT</a> function 
      *       table used by <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_hostedprovider">MI_HostedProvider</a>.
-     * @type {Pointer<MI_HostedProviderFT>}
      */
-    hostedProviderFT {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    hostedProviderFT : MI_HostedProviderFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_serializerft">MI_SerializerFT</a> function table 
      *       used by <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_serializer">MI_Serializer</a>.
-     * @type {Pointer<MI_SerializerFT>}
      */
-    serializerFT {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    serializerFT : MI_SerializerFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_deserializerft">MI_DeserializerFT</a> function 
      *       table used by <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_deserializer">MI_Deserializer</a>.
-     * @type {Pointer<MI_DeserializerFT>}
      */
-    deserializerFT {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    deserializerFT : MI_DeserializerFT.Ptr
 
     /**
      * Pointer to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_subscriptiondeliveryoptionsft">MI_SubscriptionDeliveryOptionsFT</a> 
      *       function table used by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_subscriptiondeliveryoptions">MI_SubscriptionDeliveryOptions</a>.
-     * @type {Pointer<MI_SubscriptionDeliveryOptionsFT>}
      */
-    subscribeDeliveryOptionsFT {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    subscribeDeliveryOptionsFT : MI_SubscriptionDeliveryOptionsFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_destinationoptionsft">MI_DestinationOptionsFT</a> 
      *       function table used by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_destinationoptions">MI_DestinationOptions</a>.
-     * @type {Pointer<MI_DestinationOptionsFT>}
      */
-    destinationOptionsFT {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    destinationOptionsFT : MI_DestinationOptionsFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_operationoptionsft">MI_OperationOptionsFT</a> 
      *       function table used by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_operationoptions">MI_OperationOptions</a>.
-     * @type {Pointer<MI_OperationOptionsFT>}
      */
-    operationOptionsFT {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    operationOptionsFT : MI_OperationOptionsFT.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_utilitiesft">MI_UtilitiesFT</a> function 
      *       table.
-     * @type {Pointer<MI_UtilitiesFT>}
      */
-    utilitiesFT {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    utilitiesFT : MI_UtilitiesFT.Ptr
+
 }

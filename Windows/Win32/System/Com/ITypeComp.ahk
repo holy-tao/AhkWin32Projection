@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DESCKIND.ahk" { DESCKIND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\BINDPTR.ahk" { BINDPTR }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures and interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypecomp
  * @namespace Windows.Win32.System.Com
  */
-class ITypeComp extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITypeComp extends IUnknown {
     /**
      * The interface identifier for ITypeComp
      * @type {Guid}
      */
-    static IID => Guid("{00020403-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020403-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeComp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Bind     : IntPtr
+        BindType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Bind", "BindType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeComp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Maps a name to a member of a type, or binds global variables and functions contained in a type library.
@@ -116,7 +129,7 @@ class ITypeComp extends IUnknown {
 
         pDescKindMarshal := pDescKind is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", szName, "uint", lHashVal, "ushort", wFlags, "ptr*", ppTInfo, pDescKindMarshal, pDescKind, "ptr", pBindPtr, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, "uint", lHashVal, "ushort", wFlags, ITypeInfo.Ptr, ppTInfo, pDescKindMarshal, pDescKind, BINDPTR.Ptr, pBindPtr, "HRESULT")
         return result
     }
 
@@ -177,7 +190,29 @@ class ITypeComp extends IUnknown {
     BindType(szName, lHashVal, ppTInfo, ppTComp) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(4, this, "ptr", szName, "uint", lHashVal, "ptr*", ppTInfo, "ptr*", ppTComp, "HRESULT")
+        result := ComCall(4, this, "ptr", szName, "uint", lHashVal, ITypeInfo.Ptr, ppTInfo, ITypeComp.Ptr, ppTComp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITypeComp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 7)
+        this.vtbl.BindType := CallbackCreate(GetMethod(implObj, "BindType"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Bind)
+        CallbackFree(this.vtbl.BindType)
     }
 }

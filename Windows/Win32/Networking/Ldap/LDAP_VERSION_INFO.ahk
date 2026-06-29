@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
  */
-class LDAP_VERSION_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct LDAP_VERSION_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    lv_size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lv_size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lv_major : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lv_major {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lv_minor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lv_minor {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

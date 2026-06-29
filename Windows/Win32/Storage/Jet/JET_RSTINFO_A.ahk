@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_RSTMAP_A.ahk
-#Include .\JET_LGPOS.ahk
-#Include .\JET_LOGTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_LGPOS.ahk" { JET_LGPOS }
+#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
+#Import ".\JET_RSTMAP_A.ahk" { JET_RSTMAP_A }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset ANSI
  */
-class JET_RSTINFO_A extends Win32Struct {
-    static sizeof => 48
+export default struct JET_RSTINFO_A {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rgrstmap : JET_RSTMAP_A.Ptr
 
-    /**
-     * @type {Pointer<JET_RSTMAP_A>}
-     */
-    rgrstmap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    crstmap : Int32
 
-    /**
-     * @type {Integer}
-     */
-    crstmap {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lgposStop : JET_LGPOS
 
-    /**
-     * @type {JET_LGPOS}
-     */
-    lgposStop {
-        get {
-            if(!this.HasProp("__lgposStop"))
-                this.__lgposStop := JET_LGPOS(20, this)
-            return this.__lgposStop
-        }
-    }
+    logtimeStop : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeStop {
-        get {
-            if(!this.HasProp("__logtimeStop"))
-                this.__logtimeStop := JET_LOGTIME(28, this)
-            return this.__logtimeStop
-        }
-    }
+    pfnStatus : IntPtr
 
-    /**
-     * @type {Pointer<JET_PFNSTATUS>}
-     */
-    pfnStatus {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

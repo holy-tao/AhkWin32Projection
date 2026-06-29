@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_OBJECT_TYPE.ahk" { XPS_OBJECT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The base interface for sharable interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMShareable extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMShareable extends IUnknown {
     /**
      * The interface identifier for IXpsOMShareable
      * @type {Guid}
      */
-    static IID => Guid("{7137398f-2fc1-454d-8c6a-2c3115a16ece}")
+    static IID := Guid("{7137398f-2fc1-454d-8c6a-2c3115a16ece}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMShareable interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwner : IntPtr
+        GetType  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMShareable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the IUnknown interface of the parent.
@@ -47,5 +57,27 @@ class IXpsOMShareable extends IUnknown {
     GetType() {
         result := ComCall(4, this, "int*", &type := 0, "HRESULT")
         return type
+    }
+
+    Query(iid) {
+        if (IXpsOMShareable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetType)
     }
 }

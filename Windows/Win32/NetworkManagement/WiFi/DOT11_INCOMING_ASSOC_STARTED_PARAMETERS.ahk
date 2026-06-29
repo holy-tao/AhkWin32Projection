@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_INCOMING_ASSOC_STARTED_PARAMETERS extends Win32Struct {
-    static sizeof => 10
+export default struct DOT11_INCOMING_ASSOC_STARTED_PARAMETERS {
+    #StructPack 2
 
-    static packingSize => 2
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    PeerMacAddr : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerMacAddr {
-        get {
-            if(!this.HasProp("__PeerMacAddrProxyArray"))
-                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__PeerMacAddrProxyArray
-        }
-    }
 }

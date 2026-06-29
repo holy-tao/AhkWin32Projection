@@ -1,40 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLFormElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLOptionButtonElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLOptionButtonElement extends IDispatch {
     /**
      * The interface identifier for IHTMLOptionButtonElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f2bc-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2bc-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLOptionButtonElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f2be-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f2be-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLOptionButtonElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_value          : IntPtr
+        get_value          : IntPtr
+        get_type           : IntPtr
+        put_name           : IntPtr
+        get_name           : IntPtr
+        put_checked        : IntPtr
+        get_checked        : IntPtr
+        put_defaultChecked : IntPtr
+        get_defaultChecked : IntPtr
+        put_onchange       : IntPtr
+        get_onchange       : IntPtr
+        put_disabled       : IntPtr
+        get_disabled       : IntPtr
+        put_status         : IntPtr
+        get_status         : IntPtr
+        put_indeterminate  : IntPtr
+        get_indeterminate  : IntPtr
+        get_form           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_value", "get_value", "get_type", "put_name", "get_name", "put_checked", "get_checked", "put_defaultChecked", "get_defaultChecked", "put_onchange", "get_onchange", "put_disabled", "get_disabled", "put_status", "get_status", "put_indeterminate", "get_indeterminate", "get_form"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLOptionButtonElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -122,7 +148,7 @@ class IHTMLOptionButtonElement extends IDispatch {
     put_value(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -131,8 +157,8 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -141,8 +167,8 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -154,7 +180,7 @@ class IHTMLOptionButtonElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -163,8 +189,8 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -174,7 +200,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_checked(v) {
-        result := ComCall(12, this, "short", v, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -183,7 +209,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -193,7 +219,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_defaultChecked(v) {
-        result := ComCall(14, this, "short", v, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -202,7 +228,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
-        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -212,7 +238,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -222,7 +248,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -232,7 +258,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(18, this, "short", v, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -241,7 +267,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -251,7 +277,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_status(v) {
-        result := ComCall(20, this, "short", v, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -260,7 +286,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
-        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -270,7 +296,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_indeterminate(v) {
-        result := ComCall(22, this, "short", v, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -279,7 +305,7 @@ class IHTMLOptionButtonElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
-        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -290,5 +316,59 @@ class IHTMLOptionButtonElement extends IDispatch {
     get_form() {
         result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
         return IHTMLFormElement(p)
+    }
+
+    Query(iid) {
+        if (IHTMLOptionButtonElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_checked := CallbackCreate(GetMethod(implObj, "put_checked"), flags, 2)
+        this.vtbl.get_checked := CallbackCreate(GetMethod(implObj, "get_checked"), flags, 2)
+        this.vtbl.put_defaultChecked := CallbackCreate(GetMethod(implObj, "put_defaultChecked"), flags, 2)
+        this.vtbl.get_defaultChecked := CallbackCreate(GetMethod(implObj, "get_defaultChecked"), flags, 2)
+        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_indeterminate := CallbackCreate(GetMethod(implObj, "put_indeterminate"), flags, 2)
+        this.vtbl.get_indeterminate := CallbackCreate(GetMethod(implObj, "get_indeterminate"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_checked)
+        CallbackFree(this.vtbl.get_checked)
+        CallbackFree(this.vtbl.put_defaultChecked)
+        CallbackFree(this.vtbl.get_defaultChecked)
+        CallbackFree(this.vtbl.put_onchange)
+        CallbackFree(this.vtbl.get_onchange)
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.put_status)
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.put_indeterminate)
+        CallbackFree(this.vtbl.get_indeterminate)
+        CallbackFree(this.vtbl.get_form)
     }
 }

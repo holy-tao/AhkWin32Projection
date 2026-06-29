@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_EVENTING_FILTER_ACTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSD_EVENTING_FILTER_ACTION.ahk" { WSD_EVENTING_FILTER_ACTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents an event filter used in WS-Eventing Subscribe messages.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_filter
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_EVENTING_FILTER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WSD_EVENTING_FILTER {
+    #StructPack 8
 
     /**
      * Specifies the language or dialect use to represent the boolean expression used by the filter.
@@ -31,27 +29,14 @@ class WSD_EVENTING_FILTER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PWSTR}
      */
-    Dialect {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Dialect : PWSTR
 
-    /**
-     * @type {Pointer<WSD_EVENTING_FILTER_ACTION>}
-     */
-    FilterAction {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FilterAction : WSD_EVENTING_FILTER_ACTION.Ptr
 
     /**
      * A reference to the expression used for filtering.
-     * @type {Pointer<Void>}
      */
-    Data {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data : IntPtr
+
 }

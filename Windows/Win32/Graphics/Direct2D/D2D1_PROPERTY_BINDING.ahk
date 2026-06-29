@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines a property binding to a pair of functions which get and set the corresponding property.
@@ -12,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_PROPERTY_BINDING extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D2D1_PROPERTY_BINDING {
+    #StructPack 8
 
     /**
      * The name of the property.
-     * @type {PWSTR}
      */
-    propertyName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    propertyName : PWSTR
 
     /**
      * The function that will receive the data to set.
-     * @type {Pointer<PD2D1_PROPERTY_SET_FUNCTION>}
      */
-    setFunction {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    setFunction : IntPtr
 
     /**
      * The function that will be asked to write the output data.
-     * @type {Pointer<PD2D1_PROPERTY_GET_FUNCTION>}
      */
-    getFunction {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    getFunction : IntPtr
+
 }

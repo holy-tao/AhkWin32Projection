@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies option settings. Used with IShellLinkDataList::GetFlags and IShellLinkDataList::SetFlags.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-shell_link_data_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class SHELL_LINK_DATA_FLAGS extends Win32BitflagEnum {
+export default struct SHELL_LINK_DATA_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 0x00000000. Default value used when no other flag is explicitly set.

@@ -1,272 +1,91 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_MEDIA_TYPE.ahk
-#Include ..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_MEDIA_TYPE.ahk" { STORAGE_MEDIA_TYPE }
+#Import "..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk" { STORAGE_BUS_TYPE }
 
 /**
  * Provides information about the media supported by a device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_media_info
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_MEDIA_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct DEVICE_MEDIA_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _DeviceSpecific_e__Union extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+    struct _DeviceSpecific {
 
-        class _DiskInfo extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
+        struct _DiskInfo {
+            Cylinders : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Cylinders {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
+            MediaType : STORAGE_MEDIA_TYPE
 
-            /**
-             * @type {STORAGE_MEDIA_TYPE}
-             */
-            MediaType {
-                get => NumGet(this, 8, "int")
-                set => NumPut("int", value, this, 8)
-            }
+            TracksPerCylinder : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            TracksPerCylinder {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            SectorsPerTrack : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SectorsPerTrack {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            BytesPerSector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            BytesPerSector {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
+            NumberMediaSides : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            NumberMediaSides {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            MediaCharacteristics : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MediaCharacteristics {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
-            }
         }
 
-        class _RemovableDiskInfo extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
+        struct _RemovableDiskInfo {
+            Cylinders : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Cylinders {
-                get => NumGet(this, 0, "int64")
-                set => NumPut("int64", value, this, 0)
-            }
+            MediaType : STORAGE_MEDIA_TYPE
 
-            /**
-             * @type {STORAGE_MEDIA_TYPE}
-             */
-            MediaType {
-                get => NumGet(this, 8, "int")
-                set => NumPut("int", value, this, 8)
-            }
+            TracksPerCylinder : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            TracksPerCylinder {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            SectorsPerTrack : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SectorsPerTrack {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            BytesPerSector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            BytesPerSector {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
+            NumberMediaSides : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            NumberMediaSides {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            MediaCharacteristics : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MediaCharacteristics {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
-            }
         }
 
-        class _TapeInfo extends Win32Struct {
-            static sizeof => 20
-            static packingSize => 4
+        struct _TapeInfo {
 
-            class _BusSpecificData_e__Union extends Win32Struct {
-                static sizeof => 2
-                static packingSize => 1
+            struct _BusSpecificData {
 
-                class _ScsiInformation extends Win32Struct {
-                    static sizeof => 2
-                    static packingSize => 1
+                struct _ScsiInformation {
+                    MediumType : Int8
 
-                    /**
-                     * @type {Integer}
-                     */
-                    MediumType {
-                        get => NumGet(this, 0, "char")
-                        set => NumPut("char", value, this, 0)
-                    }
+                    DensityCode : Int8
 
-                    /**
-                     * @type {Integer}
-                     */
-                    DensityCode {
-                        get => NumGet(this, 1, "char")
-                        set => NumPut("char", value, this, 1)
-                    }
                 }
 
-                /**
-                 * @type {_ScsiInformation}
-                 */
-                ScsiInformation {
-                    get {
-                        if(!this.HasProp("__ScsiInformation"))
-                            this.__ScsiInformation := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._TapeInfo._BusSpecificData_e__Union._ScsiInformation(0, this)
-                        return this.__ScsiInformation
-                    }
-                }
+                ScsiInformation : DEVICE_MEDIA_INFO._DeviceSpecific._TapeInfo._BusSpecificData._ScsiInformation
+
             }
 
-            /**
-             * @type {STORAGE_MEDIA_TYPE}
-             */
-            MediaType {
-                get => NumGet(this, 0, "int")
-                set => NumPut("int", value, this, 0)
-            }
+            MediaType : STORAGE_MEDIA_TYPE
 
-            /**
-             * @type {Integer}
-             */
-            MediaCharacteristics {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            MediaCharacteristics : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            CurrentBlockSize {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            CurrentBlockSize : UInt32
 
-            /**
-             * @type {STORAGE_BUS_TYPE}
-             */
-            BusType {
-                get => NumGet(this, 12, "int")
-                set => NumPut("int", value, this, 12)
-            }
+            BusType : STORAGE_BUS_TYPE
 
-            /**
-             * @type {_BusSpecificData_e__Union}
-             */
-            BusSpecificData {
-                get {
-                    if(!this.HasProp("__BusSpecificData"))
-                        this.__BusSpecificData := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._TapeInfo._BusSpecificData_e__Union(16, this)
-                    return this.__BusSpecificData
-                }
-            }
+            BusSpecificData : DEVICE_MEDIA_INFO._DeviceSpecific._TapeInfo._BusSpecificData
+
         }
 
-        /**
-         * @type {_DiskInfo}
-         */
-        DiskInfo {
-            get {
-                if(!this.HasProp("__DiskInfo"))
-                    this.__DiskInfo := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._DiskInfo(0, this)
-                return this.__DiskInfo
-            }
-        }
+        DiskInfo : DEVICE_MEDIA_INFO._DeviceSpecific._DiskInfo
 
-        /**
-         * @type {_RemovableDiskInfo}
-         */
-        RemovableDiskInfo {
-            get {
-                if(!this.HasProp("__RemovableDiskInfo"))
-                    this.__RemovableDiskInfo := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._RemovableDiskInfo(0, this)
-                return this.__RemovableDiskInfo
-            }
-        }
-
-        /**
-         * @type {_TapeInfo}
-         */
-        TapeInfo {
-            get {
-                if(!this.HasProp("__TapeInfo"))
-                    this.__TapeInfo := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._TapeInfo(0, this)
-                return this.__TapeInfo
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'RemovableDiskInfo', { type: DEVICE_MEDIA_INFO._DeviceSpecific._RemovableDiskInfo, offset: 0 })
+            DefineProp(this.Prototype, 'TapeInfo', { type: DEVICE_MEDIA_INFO._DeviceSpecific._TapeInfo, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A union that contains the following members.
-     * @type {_DeviceSpecific_e__Union}
      */
-    DeviceSpecific {
-        get {
-            if(!this.HasProp("__DeviceSpecific"))
-                this.__DeviceSpecific := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union(0, this)
-            return this.__DeviceSpecific
-        }
-    }
+    DeviceSpecific : DEVICE_MEDIA_INFO._DeviceSpecific
+
 }

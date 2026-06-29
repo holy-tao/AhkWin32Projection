@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates information about a safer application that is being blocked.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_saferappblocked
  * @namespace Windows.Win32.System.ParentalControls
  */
-class WPC_ARGS_SAFERAPPBLOCKED extends Win32Enum {
+export default struct WPC_ARGS_SAFERAPPBLOCKED {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The time stamp for the blocked application.

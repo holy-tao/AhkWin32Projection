@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsSignature.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsSignature.ahk" { IXpsSignature }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Accesses the components of a signature request.
@@ -16,26 +19,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsSignatureRequest extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsSignatureRequest extends IUnknown {
     /**
      * The interface identifier for IXpsSignatureRequest
      * @type {Guid}
      */
-    static IID => Guid("{ac58950b-7208-4b2d-b2c4-951083d3b8eb}")
+    static IID := Guid("{ac58950b-7208-4b2d-b2c4-951083d3b8eb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsSignatureRequest interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIntent            : IntPtr
+        SetIntent            : IntPtr
+        GetRequestedSigner   : IntPtr
+        SetRequestedSigner   : IntPtr
+        GetRequestSignByDate : IntPtr
+        SetRequestSignByDate : IntPtr
+        GetSigningLocale     : IntPtr
+        SetSigningLocale     : IntPtr
+        GetSpotLocation      : IntPtr
+        SetSpotLocation      : IntPtr
+        GetRequestId         : IntPtr
+        GetSignature         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIntent", "SetIntent", "GetRequestedSigner", "SetRequestedSigner", "GetRequestSignByDate", "SetRequestSignByDate", "GetSigningLocale", "SetSigningLocale", "GetSpotLocation", "SetSpotLocation", "GetRequestId", "GetSignature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsSignatureRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the string that describes the intent or meaning of the signature. (IXpsSignatureRequest.GetIntent)
@@ -47,7 +68,7 @@ class IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getintent
      */
     GetIntent() {
-        result := ComCall(3, this, "ptr*", &intent := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &intent := 0, "HRESULT")
         return intent
     }
 
@@ -114,7 +135,7 @@ class IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestedsigner
      */
     GetRequestedSigner() {
-        result := ComCall(5, this, "ptr*", &signerName := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &signerName := 0, "HRESULT")
         return signerName
     }
 
@@ -181,7 +202,7 @@ class IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestsignbydate
      */
     GetRequestSignByDate() {
-        result := ComCall(7, this, "ptr*", &dateString := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &dateString := 0, "HRESULT")
         return dateString
     }
 
@@ -248,7 +269,7 @@ class IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsigninglocale
      */
     GetSigningLocale() {
-        result := ComCall(9, this, "ptr*", &place := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &place := 0, "HRESULT")
         return place
     }
 
@@ -361,7 +382,7 @@ class IXpsSignatureRequest extends IUnknown {
         xMarshal := x is VarRef ? "float*" : "ptr"
         yMarshal := y is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, pageIndexMarshal, pageIndex, "ptr*", pagePartName, xMarshal, x, yMarshal, y, "HRESULT")
+        result := ComCall(11, this, pageIndexMarshal, pageIndex, IOpcPartUri.Ptr, pagePartName, xMarshal, x, yMarshal, y, "HRESULT")
         return result
     }
 
@@ -424,7 +445,7 @@ class IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestid
      */
     GetRequestId() {
-        result := ComCall(13, this, "ptr*", &requestId := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &requestId := 0, "HRESULT")
         return requestId
     }
 
@@ -436,5 +457,47 @@ class IXpsSignatureRequest extends IUnknown {
     GetSignature() {
         result := ComCall(14, this, "ptr*", &signature := 0, "HRESULT")
         return IXpsSignature(signature)
+    }
+
+    Query(iid) {
+        if (IXpsSignatureRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIntent := CallbackCreate(GetMethod(implObj, "GetIntent"), flags, 2)
+        this.vtbl.SetIntent := CallbackCreate(GetMethod(implObj, "SetIntent"), flags, 2)
+        this.vtbl.GetRequestedSigner := CallbackCreate(GetMethod(implObj, "GetRequestedSigner"), flags, 2)
+        this.vtbl.SetRequestedSigner := CallbackCreate(GetMethod(implObj, "SetRequestedSigner"), flags, 2)
+        this.vtbl.GetRequestSignByDate := CallbackCreate(GetMethod(implObj, "GetRequestSignByDate"), flags, 2)
+        this.vtbl.SetRequestSignByDate := CallbackCreate(GetMethod(implObj, "SetRequestSignByDate"), flags, 2)
+        this.vtbl.GetSigningLocale := CallbackCreate(GetMethod(implObj, "GetSigningLocale"), flags, 2)
+        this.vtbl.SetSigningLocale := CallbackCreate(GetMethod(implObj, "SetSigningLocale"), flags, 2)
+        this.vtbl.GetSpotLocation := CallbackCreate(GetMethod(implObj, "GetSpotLocation"), flags, 5)
+        this.vtbl.SetSpotLocation := CallbackCreate(GetMethod(implObj, "SetSpotLocation"), flags, 4)
+        this.vtbl.GetRequestId := CallbackCreate(GetMethod(implObj, "GetRequestId"), flags, 2)
+        this.vtbl.GetSignature := CallbackCreate(GetMethod(implObj, "GetSignature"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIntent)
+        CallbackFree(this.vtbl.SetIntent)
+        CallbackFree(this.vtbl.GetRequestedSigner)
+        CallbackFree(this.vtbl.SetRequestedSigner)
+        CallbackFree(this.vtbl.GetRequestSignByDate)
+        CallbackFree(this.vtbl.SetRequestSignByDate)
+        CallbackFree(this.vtbl.GetSigningLocale)
+        CallbackFree(this.vtbl.SetSigningLocale)
+        CallbackFree(this.vtbl.GetSpotLocation)
+        CallbackFree(this.vtbl.SetSpotLocation)
+        CallbackFree(this.vtbl.GetRequestId)
+        CallbackFree(this.vtbl.GetSignature)
     }
 }

@@ -1,43 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectInputDevice8A.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DICONFIGUREDEVICESPARAMSA.ahk" { DICONFIGUREDEVICESPARAMSA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectInputDevice8A.ahk" { IDirectInputDevice8A }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset ANSI
  */
-class IDirectInput8A extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectInput8A extends IUnknown {
     /**
      * The interface identifier for IDirectInput8A
      * @type {Guid}
      */
-    static IID => Guid("{bf798030-483a-4da2-aa99-5d64ed369700}")
+    static IID := Guid("{bf798030-483a-4da2-aa99-5d64ed369700}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectInput8A interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateDevice           : IntPtr
+        EnumDevices            : IntPtr
+        GetDeviceStatus        : IntPtr
+        RunControlPanel        : IntPtr
+        Initialize             : IntPtr
+        FindDevice             : IntPtr
+        EnumDevicesBySemantics : IntPtr
+        ConfigureDevices       : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectInput8A.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateDevice", "EnumDevices", "GetDeviceStatus", "RunControlPanel", "Initialize", "FindDevice", "EnumDevicesBySemantics", "ConfigureDevices"]
-
-    /**
-     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
+     * 
      * @param {Pointer<Guid>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectInputDevice8A} 
-     * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(param0, param2) {
-        result := ComCall(3, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
         return IDirectInputDevice8A(param1)
     }
 
@@ -62,7 +81,7 @@ class IDirectInput8A extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDeviceStatus(param0) {
-        result := ComCall(5, this, "ptr", param0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -73,9 +92,7 @@ class IDirectInput8A extends IUnknown {
      * @returns {HRESULT} 
      */
     RunControlPanel(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(6, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(6, this, HWND, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -110,9 +127,7 @@ class IDirectInput8A extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(7, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(7, this, HINSTANCE, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -126,7 +141,7 @@ class IDirectInput8A extends IUnknown {
     FindDevice(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := ComCall(8, this, "ptr", param0, "ptr", param1, "ptr", param2, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, param0, "ptr", param1, Guid.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -144,7 +159,7 @@ class IDirectInput8A extends IUnknown {
 
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "ptr", param2, param3Marshal, param3, "uint", param4, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, DIACTIONFORMATA.Ptr, param1, "ptr", param2, param3Marshal, param3, "uint", param4, "HRESULT")
         return result
     }
 
@@ -159,7 +174,41 @@ class IDirectInput8A extends IUnknown {
     ConfigureDevices(param0, param1, param2, param3) {
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", param0, "ptr", param1, "uint", param2, param3Marshal, param3, "HRESULT")
+        result := ComCall(10, this, "ptr", param0, DICONFIGUREDEVICESPARAMSA.Ptr, param1, "uint", param2, param3Marshal, param3, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectInput8A.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 4)
+        this.vtbl.EnumDevices := CallbackCreate(GetMethod(implObj, "EnumDevices"), flags, 5)
+        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 2)
+        this.vtbl.RunControlPanel := CallbackCreate(GetMethod(implObj, "RunControlPanel"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.FindDevice := CallbackCreate(GetMethod(implObj, "FindDevice"), flags, 4)
+        this.vtbl.EnumDevicesBySemantics := CallbackCreate(GetMethod(implObj, "EnumDevicesBySemantics"), flags, 6)
+        this.vtbl.ConfigureDevices := CallbackCreate(GetMethod(implObj, "ConfigureDevices"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateDevice)
+        CallbackFree(this.vtbl.EnumDevices)
+        CallbackFree(this.vtbl.GetDeviceStatus)
+        CallbackFree(this.vtbl.RunControlPanel)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.FindDevice)
+        CallbackFree(this.vtbl.EnumDevicesBySemantics)
+        CallbackFree(this.vtbl.ConfigureDevices)
     }
 }

@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\..\Graphics\Dxgi\IDXGISurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Graphics\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Graphics\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the implementation of a shared fixed-size surface for Direct2D drawing.
@@ -21,26 +25,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class ISurfaceImageSourceNative extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISurfaceImageSourceNative extends IUnknown {
     /**
      * The interface identifier for ISurfaceImageSourceNative
      * @type {Guid}
      */
-    static IID => Guid("{f2e9edc1-d307-4525-9886-0fafaa44163c}")
+    static IID := Guid("{f2e9edc1-d307-4525-9886-0fafaa44163c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISurfaceImageSourceNative interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDevice : IntPtr
+        BeginDraw : IntPtr
+        EndDraw   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDevice", "BeginDraw", "EndDraw"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISurfaceImageSourceNative.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the DXGI device, created with D3D11_CREATE_DEVICE_BGRA_SUPPORT, that will draw the surface.
@@ -64,7 +77,7 @@ class ISurfaceImageSourceNative extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenative-begindraw
      */
     BeginDraw(updateRect, surface, offset) {
-        result := ComCall(4, this, "ptr", updateRect, "ptr*", surface, "ptr", offset, "HRESULT")
+        result := ComCall(4, this, RECT, updateRect, IDXGISurface.Ptr, surface, POINT.Ptr, offset, "HRESULT")
         return result
     }
 
@@ -76,5 +89,29 @@ class ISurfaceImageSourceNative extends IUnknown {
     EndDraw() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISurfaceImageSourceNative.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDevice := CallbackCreate(GetMethod(implObj, "SetDevice"), flags, 2)
+        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 4)
+        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDevice)
+        CallbackFree(this.vtbl.BeginDraw)
+        CallbackFree(this.vtbl.EndDraw)
     }
 }

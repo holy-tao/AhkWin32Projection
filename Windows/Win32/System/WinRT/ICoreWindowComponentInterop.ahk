@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT
  */
-class ICoreWindowComponentInterop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICoreWindowComponentInterop extends IUnknown {
     /**
      * The interface identifier for ICoreWindowComponentInterop
      * @type {Guid}
      */
-    static IID => Guid("{0576ab31-a310-4c40-ba31-fd37e0298dfa}")
+    static IID := Guid("{0576ab31-a310-4c40-ba31-fd37e0298dfa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICoreWindowComponentInterop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ConfigureComponentInput : IntPtr
+        GetViewInstanceId       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConfigureComponentInput", "GetViewInstanceId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICoreWindowComponentInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,9 +45,7 @@ class ICoreWindowComponentInterop extends IUnknown {
      * @returns {HRESULT} 
      */
     ConfigureComponentInput(hostViewInstanceId, hwndHost, inputSourceVisual) {
-        hwndHost := hwndHost is Win32Handle ? NumGet(hwndHost, "ptr") : hwndHost
-
-        result := ComCall(3, this, "uint", hostViewInstanceId, "ptr", hwndHost, "ptr", inputSourceVisual, "HRESULT")
+        result := ComCall(3, this, "uint", hostViewInstanceId, HWND, hwndHost, "ptr", inputSourceVisual, "HRESULT")
         return result
     }
 
@@ -48,5 +56,27 @@ class ICoreWindowComponentInterop extends IUnknown {
     GetViewInstanceId() {
         result := ComCall(4, this, "uint*", &componentViewInstanceId := 0, "HRESULT")
         return componentViewInstanceId
+    }
+
+    Query(iid) {
+        if (ICoreWindowComponentInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConfigureComponentInput := CallbackCreate(GetMethod(implObj, "ConfigureComponentInput"), flags, 4)
+        this.vtbl.GetViewInstanceId := CallbackCreate(GetMethod(implObj, "GetViewInstanceId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConfigureComponentInput)
+        CallbackFree(this.vtbl.GetViewInstanceId)
     }
 }

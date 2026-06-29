@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FAX_JOB_OPERATIONS_ENUM enumeration defines the operations that can be performed on a fax job. The members of this enumeration are bit values and can be used in combination.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_job_operations_enum
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_JOB_OPERATIONS_ENUM extends Win32Enum {
+export default struct FAX_JOB_OPERATIONS_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The job's TIFF image can be retrieved.

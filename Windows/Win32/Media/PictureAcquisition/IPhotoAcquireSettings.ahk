@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPhotoAcquireSettings interface is used to work with image acquisition settings, such as file name format.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiresettings
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoAcquireSettings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoAcquireSettings extends IUnknown {
     /**
      * The interface identifier for IPhotoAcquireSettings
      * @type {Guid}
      */
-    static IID => Guid("{00f2b868-dd67-487c-9553-049240767e91}")
+    static IID := Guid("{00f2b868-dd67-487c-9553-049240767e91}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoAcquireSettings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeFromRegistry    : IntPtr
+        SetFlags                  : IntPtr
+        SetOutputFilenameTemplate : IntPtr
+        SetSequencePaddingWidth   : IntPtr
+        SetSequenceZeroPadding    : IntPtr
+        SetGroupTag               : IntPtr
+        SetAcquisitionTime        : IntPtr
+        GetFlags                  : IntPtr
+        GetOutputFilenameTemplate : IntPtr
+        GetSequencePaddingWidth   : IntPtr
+        GetSequenceZeroPadding    : IntPtr
+        GetGroupTag               : IntPtr
+        GetAcquisitionTime        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromRegistry", "SetFlags", "SetOutputFilenameTemplate", "SetSequencePaddingWidth", "SetSequenceZeroPadding", "SetGroupTag", "SetAcquisitionTime", "GetFlags", "GetOutputFilenameTemplate", "GetSequencePaddingWidth", "GetSequenceZeroPadding", "GetGroupTag", "GetAcquisitionTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoAcquireSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The InitializeFromRegistry method specifies a registry key from which to initialize settings.
@@ -288,7 +310,7 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setsequencezeropadding
      */
     SetSequenceZeroPadding(fZeroPad) {
-        result := ComCall(7, this, "int", fZeroPad, "HRESULT")
+        result := ComCall(7, this, BOOL, fZeroPad, "HRESULT")
         return result
     }
 
@@ -352,7 +374,7 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setacquisitiontime
      */
     SetAcquisitionTime(pftAcquisitionTime) {
-        result := ComCall(9, this, "ptr", pftAcquisitionTime, "HRESULT")
+        result := ComCall(9, this, FILETIME.Ptr, pftAcquisitionTime, "HRESULT")
         return result
     }
 
@@ -381,8 +403,8 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getoutputfilenametemplate
      */
     GetOutputFilenameTemplate() {
-        pbstrTemplate := BSTR()
-        result := ComCall(11, this, "ptr", pbstrTemplate, "HRESULT")
+        pbstrTemplate := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrTemplate, "HRESULT")
         return pbstrTemplate
     }
 
@@ -424,7 +446,7 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencezeropadding
      */
     GetSequenceZeroPadding() {
-        result := ComCall(13, this, "int*", &pfZeroPad := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pfZeroPad := 0, "HRESULT")
         return pfZeroPad
     }
 
@@ -436,8 +458,8 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getgrouptag
      */
     GetGroupTag() {
-        pbstrGroupTag := BSTR()
-        result := ComCall(14, this, "ptr", pbstrGroupTag, "HRESULT")
+        pbstrGroupTag := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrGroupTag, "HRESULT")
         return pbstrGroupTag
     }
 
@@ -450,7 +472,51 @@ class IPhotoAcquireSettings extends IUnknown {
      */
     GetAcquisitionTime() {
         pftAcquisitionTime := FILETIME()
-        result := ComCall(15, this, "ptr", pftAcquisitionTime, "HRESULT")
+        result := ComCall(15, this, FILETIME.Ptr, pftAcquisitionTime, "HRESULT")
         return pftAcquisitionTime
+    }
+
+    Query(iid) {
+        if (IPhotoAcquireSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromRegistry := CallbackCreate(GetMethod(implObj, "InitializeFromRegistry"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.SetOutputFilenameTemplate := CallbackCreate(GetMethod(implObj, "SetOutputFilenameTemplate"), flags, 2)
+        this.vtbl.SetSequencePaddingWidth := CallbackCreate(GetMethod(implObj, "SetSequencePaddingWidth"), flags, 2)
+        this.vtbl.SetSequenceZeroPadding := CallbackCreate(GetMethod(implObj, "SetSequenceZeroPadding"), flags, 2)
+        this.vtbl.SetGroupTag := CallbackCreate(GetMethod(implObj, "SetGroupTag"), flags, 2)
+        this.vtbl.SetAcquisitionTime := CallbackCreate(GetMethod(implObj, "SetAcquisitionTime"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetOutputFilenameTemplate := CallbackCreate(GetMethod(implObj, "GetOutputFilenameTemplate"), flags, 2)
+        this.vtbl.GetSequencePaddingWidth := CallbackCreate(GetMethod(implObj, "GetSequencePaddingWidth"), flags, 2)
+        this.vtbl.GetSequenceZeroPadding := CallbackCreate(GetMethod(implObj, "GetSequenceZeroPadding"), flags, 2)
+        this.vtbl.GetGroupTag := CallbackCreate(GetMethod(implObj, "GetGroupTag"), flags, 2)
+        this.vtbl.GetAcquisitionTime := CallbackCreate(GetMethod(implObj, "GetAcquisitionTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromRegistry)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.SetOutputFilenameTemplate)
+        CallbackFree(this.vtbl.SetSequencePaddingWidth)
+        CallbackFree(this.vtbl.SetSequenceZeroPadding)
+        CallbackFree(this.vtbl.SetGroupTag)
+        CallbackFree(this.vtbl.SetAcquisitionTime)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetOutputFilenameTemplate)
+        CallbackFree(this.vtbl.GetSequencePaddingWidth)
+        CallbackFree(this.vtbl.GetSequenceZeroPadding)
+        CallbackFree(this.vtbl.GetGroupTag)
+        CallbackFree(this.vtbl.GetAcquisitionTime)
     }
 }

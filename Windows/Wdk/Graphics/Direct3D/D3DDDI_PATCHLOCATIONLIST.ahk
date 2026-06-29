@@ -1,32 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_PATCHLOCATIONLIST extends Win32Struct {
-    static sizeof => 24
+export default struct D3DDDI_PATCHLOCATIONLIST {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    AllocationIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AllocationIndex : UInt32
 
     /**
      * This bitfield backs the following members:
      * - SlotId
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -35,44 +23,16 @@ class D3DDDI_PATCHLOCATIONLIST extends Win32Struct {
         get => (this._bitfield >> 0) & 0xFFFFFF
         set => this._bitfield := ((value & 0xFFFFFF) << 0) | (this._bitfield & ~(0xFFFFFF << 0))
     }
+    DriverId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AllocationOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DriverId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PatchOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocationOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SplitOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PatchOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SplitOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

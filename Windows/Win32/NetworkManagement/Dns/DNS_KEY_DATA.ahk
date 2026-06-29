@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DNS_KEY_DATA structure represents a DNS key (KEY) resource record (RR) as specified in RFC 3445.
@@ -18,19 +17,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_key_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_KEY_DATA extends Win32Struct {
-    static sizeof => 10
-
-    static packingSize => 2
+export default struct DNS_KEY_DATA {
+    #StructPack 2
 
     /**
      * A set of flags that specify whether this is a zone key as  described in section 4 of <a href="https://www.ietf.org/rfc/rfc3445.txt">RFC 3445</a>.
-     * @type {Integer}
      */
-    wFlags {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wFlags : UInt16
 
     /**
      * A value that specifies the protocol with which <b>Key</b> can be used. The possible values are shown in the following table.
@@ -51,12 +44,8 @@ class DNS_KEY_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    chProtocol {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    chProtocol : Int8
 
     /**
      * A value that specifies the algorithm to use with <b>Key</b>. The possible values are shown in the following table.
@@ -117,40 +106,22 @@ class DNS_KEY_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    chAlgorithm {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    chAlgorithm : Int8
 
     /**
      * The length, in bytes, of <b>Key</b>. This value is determined by the algorithm type in <b>chAlgorithm</b>.
-     * @type {Integer}
      */
-    wKeyLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wKeyLength : UInt16
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    wPad {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wPad : UInt16
 
     /**
      * A <b>BYTE</b> array that contains the public key for the algorithm in <b>chAlgorithm</b>, represented in base 64, as described in Appendix A of <a href="https://www.ietf.org/rfc/rfc2535.txt">RFC 2535</a>.
-     * @type {Array<Integer>}
      */
-    Key {
-        get {
-            if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__KeyProxyArray
-        }
-    }
+    Key : Int8[1]
+
 }

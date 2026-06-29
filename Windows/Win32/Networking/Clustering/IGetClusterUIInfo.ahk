@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HFONT.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\HFONT.ahk" { HFONT }
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about Failover Cluster Administrator's user interface.
@@ -43,26 +45,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusteruiinfo
  * @namespace Windows.Win32.Networking.Clustering
  */
-class IGetClusterUIInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGetClusterUIInfo extends IUnknown {
     /**
      * The interface identifier for IGetClusterUIInfo
      * @type {Guid}
      */
-    static IID => Guid("{97dede50-fc6b-11cf-b5f5-00a0c90ab505}")
+    static IID := Guid("{97dede50-fc6b-11cf-b5f5-00a0c90ab505}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGetClusterUIInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClusterName : IntPtr
+        GetLocale      : IntPtr
+        GetFont        : IntPtr
+        GetIcon        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClusterName", "GetLocale", "GetFont", "GetIcon"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGetClusterUIInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the name of the cluster. (IGetClusterUIInfo.GetClusterName)
@@ -132,7 +144,7 @@ class IGetClusterUIInfo extends IUnknown {
 
         pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", lpszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(3, this, BSTR, lpszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -148,7 +160,7 @@ class IGetClusterUIInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getlocale
      */
     GetLocale() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -164,9 +176,8 @@ class IGetClusterUIInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getfont
      */
     GetFont() {
-        result := ComCall(5, this, "ptr")
-        resultHandle := HFONT({Value: result}, True)
-        return resultHandle
+        result := ComCall(5, this, HFONT.Owned)
+        return result
     }
 
     /**
@@ -179,8 +190,33 @@ class IGetClusterUIInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-geticon
      */
     GetIcon() {
-        result := ComCall(6, this, "ptr")
-        resultHandle := HICON({Value: result}, True)
-        return resultHandle
+        result := ComCall(6, this, HICON.Owned)
+        return result
+    }
+
+    Query(iid) {
+        if (IGetClusterUIInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClusterName := CallbackCreate(GetMethod(implObj, "GetClusterName"), flags, 3)
+        this.vtbl.GetLocale := CallbackCreate(GetMethod(implObj, "GetLocale"), flags, 1)
+        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 1)
+        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClusterName)
+        CallbackFree(this.vtbl.GetLocale)
+        CallbackFree(this.vtbl.GetFont)
+        CallbackFree(this.vtbl.GetIcon)
     }
 }

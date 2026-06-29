@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a certification authority (CA) type.
  * @see https://learn.microsoft.com/windows/win32/api/certsrv/ne-certsrv-enum_catypes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ENUM_CATYPES extends Win32Enum {
+export default struct ENUM_CATYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A root CA that is a member of an Active Directory domain and uses Directory Service to issue and manage certificates.

@@ -1,45 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk" { D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Enabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enabled {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MapSource : D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE}
-     */
-    MapSource {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    MotionSearchMode : D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE}
-     */
-    MotionSearchMode {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    BidirectionalRefFrameEnabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    BidirectionalRefFrameEnabled {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

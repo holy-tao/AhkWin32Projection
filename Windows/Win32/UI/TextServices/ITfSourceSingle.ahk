@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfSourceSingle interface is implemented by the TSF manager.
@@ -22,26 +23,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfsourcesingle
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfSourceSingle extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfSourceSingle extends IUnknown {
     /**
      * The interface identifier for ITfSourceSingle
      * @type {Guid}
      */
-    static IID => Guid("{73131f9c-56a9-49dd-b0ee-d046633f7528}")
+    static IID := Guid("{73131f9c-56a9-49dd-b0ee-d046633f7528}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfSourceSingle interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseSingleSink   : IntPtr
+        UnadviseSingleSink : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseSingleSink", "UnadviseSingleSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfSourceSingle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfSourceSingle::AdviseSingleSink method
@@ -125,7 +134,7 @@ class ITfSourceSingle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink
      */
     AdviseSingleSink(tid, riid, punk) {
-        result := ComCall(3, this, "uint", tid, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, "uint", tid, Guid.Ptr, riid, "ptr", punk, "HRESULT")
         return result
     }
 
@@ -177,7 +186,29 @@ class ITfSourceSingle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-unadvisesinglesink
      */
     UnadviseSingleSink(tid, riid) {
-        result := ComCall(4, this, "uint", tid, "ptr", riid, "HRESULT")
+        result := ComCall(4, this, "uint", tid, Guid.Ptr, riid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfSourceSingle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseSingleSink := CallbackCreate(GetMethod(implObj, "AdviseSingleSink"), flags, 4)
+        this.vtbl.UnadviseSingleSink := CallbackCreate(GetMethod(implObj, "UnadviseSingleSink"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseSingleSink)
+        CallbackFree(this.vtbl.UnadviseSingleSink)
     }
 }

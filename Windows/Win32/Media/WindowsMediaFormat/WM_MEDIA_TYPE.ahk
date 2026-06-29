@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The WM_MEDIA_TYPE structure is the primary structure used to describe media formats for the objects of the Windows Media Format SDK. For more information about media formats and what they are used for, see Formats.
@@ -9,82 +10,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_media_type
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WM_MEDIA_TYPE extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WM_MEDIA_TYPE {
+    #StructPack 8
 
     /**
      * Major type of the media sample. For example, WMMEDIATYPE_Video specifies a video stream. For a list of possible major media types, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/media-types">Media Types</a>.
-     * @type {Pointer}
      */
-    majortype {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    majortype : Guid
 
     /**
      * Subtype of the media sample. The subtype defines a specific format (usually an encoding scheme) within a major media type. For example, WMMEDIASUBTYPE_WMV3 specifies a video stream encoded with the Windows Media Video 9 codec. Subtypes can be uncompressed or compressed. For lists of possible media subtypes, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/uncompressed-media-subtypes">Uncompressed Media Subtypes</a> and <a href="https://docs.microsoft.com/windows/desktop/wmformat/compressed-media-subtypes">Compressed Media Subtypes</a>.
-     * @type {Pointer}
      */
-    subtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    subtype : Guid
 
     /**
      * Set to true if the samples are of a fixed size. Compressed audio samples are of a fixed size while video samples are not.
-     * @type {BOOL}
      */
-    bFixedSizeSamples {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bFixedSizeSamples : BOOL
 
     /**
      * Set to true if the samples are temporally compressed. Temporal compression is compression where some samples describe the changes in content from the previous sample, instead of describing the sample in its entirety. Only compressed video can be temporally compressed. By definition, no media type can use both fixed sized samples and temporal compression.
-     * @type {BOOL}
      */
-    bTemporalCompression {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    bTemporalCompression : BOOL
 
     /**
      * Long integer containing the size of the sample, in bytes. This member is used only if <b>bFixedSizeSamples</b> is true.
-     * @type {Integer}
      */
-    lSampleSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lSampleSize : UInt32
 
     /**
      * GUID of the format type. The format type specifies the additional structure used to identify the media format. This structure is pointed to by <b>pbFormat</b>.
-     * @type {Pointer}
      */
-    formattype {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    formattype : Guid
 
     /**
      * Not used. Should be <b>NULL</b>.
-     * @type {IUnknown}
      */
-    pUnk {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pUnk : IUnknown
 
     /**
      * Size, in bytes, of the structure pointed to by pbFormat.
-     * @type {Integer}
      */
-    cbFormat {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbFormat : UInt32
 
     /**
      * Pointer to the format structure of the media type. The structure referenced is determined by the format type <b>GUID</b>. Format types include:<table>
@@ -123,10 +90,7 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Integer>}
      */
-    pbFormat {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pbFormat : IntPtr
+
 }

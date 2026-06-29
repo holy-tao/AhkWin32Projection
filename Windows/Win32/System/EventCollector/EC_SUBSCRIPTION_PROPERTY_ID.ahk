@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values to identify event subscription properties used for subscription configuration.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_property_id
  * @namespace Windows.Win32.System.EventCollector
  */
-class EC_SUBSCRIPTION_PROPERTY_ID extends Win32Enum {
+export default struct EC_SUBSCRIPTION_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <b>Enabled</b> property of the subscription that is used to enable or disable the subscription or obtain the current status of a subscription. This property is an <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ns-evcoll-ec_variant">EcVarTypeBoolean</a> value.

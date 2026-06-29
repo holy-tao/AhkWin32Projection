@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class DUAL_OPLOCK_KEY_ECP_CONTEXT extends Win32Struct {
-    static sizeof => 24
+export default struct DUAL_OPLOCK_KEY_ECP_CONTEXT {
+    #StructPack 4
 
-    static packingSize => 8
+    ParentOplockKey : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ParentOplockKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TargetOplockKey : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    TargetOplockKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ParentOplockKeySet : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ParentOplockKeySet {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    TargetOplockKeySet : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TargetOplockKeySet {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_BLEND.ahk
-#Include .\D2D1_BLEND_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_BLEND.ahk" { D2D1_BLEND }
+#Import ".\D2D1_BLEND_OPERATION.ahk" { D2D1_BLEND_OPERATION }
 
 /**
  * Defines a blend description to be used in a particular blend transform.
@@ -10,74 +9,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_blend_description
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_BLEND_DESCRIPTION extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct D2D1_BLEND_DESCRIPTION {
+    #StructPack 4
 
     /**
      * Specifies the first RGB data source and includes an optional preblend operation.
-     * @type {D2D1_BLEND}
      */
-    sourceBlend {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    sourceBlend : D2D1_BLEND
 
     /**
      * Specifies the second RGB data source and includes an optional preblend operation.
-     * @type {D2D1_BLEND}
      */
-    destinationBlend {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    destinationBlend : D2D1_BLEND
 
     /**
      * Specifies how to combine the RGB data sources.
-     * @type {D2D1_BLEND_OPERATION}
      */
-    blendOperation {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    blendOperation : D2D1_BLEND_OPERATION
 
     /**
      * Specifies the first alpha data source and includes an optional preblend operation. Blend options that end in _COLOR are not allowed.
-     * @type {D2D1_BLEND}
      */
-    sourceBlendAlpha {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    sourceBlendAlpha : D2D1_BLEND
 
     /**
      * Specifies the second alpha data source and includes an optional preblend operation. Blend options that end in _COLOR are not allowed.
-     * @type {D2D1_BLEND}
      */
-    destinationBlendAlpha {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    destinationBlendAlpha : D2D1_BLEND
 
     /**
      * Specifies how to combine the alpha data sources.
-     * @type {D2D1_BLEND_OPERATION}
      */
-    blendOperationAlpha {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    blendOperationAlpha : D2D1_BLEND_OPERATION
 
     /**
      * Parameters to the blend operations. The blend must use <b>D2D1_BLEND_BLEND_FACTOR</b> for this to be used.
-     * @type {Array<Float>}
      */
-    blendFactor {
-        get {
-            if(!this.HasProp("__blendFactorProxyArray"))
-                this.__blendFactorProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "float")
-            return this.__blendFactorProxyArray
-        }
-    }
+    blendFactor : Float32[4]
+
 }

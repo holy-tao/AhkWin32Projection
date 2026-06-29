@@ -1,39 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the pseudorandom function (PRF) and extracts key data used by the Extensible Authentication Protocol (EAP) Transport Layer Security protocol (TLS) Authentication Protocol.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_eapprfinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_EapPrfInfo extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SecPkgContext_EapPrfInfo {
+    #StructPack 8
 
     /**
      * Reserved. Must be set to zero.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size, in bytes, of the <i>pbPrfData</i> array.
-     * @type {Integer}
      */
-    cbPrfData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbPrfData : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPrfData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbPrfData : IntPtr
+
 }

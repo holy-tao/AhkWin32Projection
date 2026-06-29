@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo10.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerInfo10.ahk" { ICorProfilerInfo10 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class ICorProfilerInfo11 extends ICorProfilerInfo10 {
-
-    static sizeof => A_PtrSize
+export default struct ICorProfilerInfo11 extends ICorProfilerInfo10 {
     /**
      * The interface identifier for ICorProfilerInfo11
      * @type {Guid}
      */
-    static IID => Guid("{06398876-8987-4154-b621-40a00d6e4d04}")
+    static IID := Guid("{06398876-8987-4154-b621-40a00d6e4d04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 99
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICorProfilerInfo11 interfaces
+    */
+    struct Vtbl extends ICorProfilerInfo10.Vtbl {
+        GetEnvironmentVariableA : IntPtr
+        SetEnvironmentVariable  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEnvironmentVariableA", "SetEnvironmentVariable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICorProfilerInfo11.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the contents of the specified variable from the environment block of the calling process. (GetEnvironmentVariableA)
@@ -63,5 +73,27 @@ class ICorProfilerInfo11 extends ICorProfilerInfo10 {
 
         result := ComCall(100, this, "ptr", szName, "ptr", szValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICorProfilerInfo11.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEnvironmentVariableA := CallbackCreate(GetMethod(implObj, "GetEnvironmentVariableA"), flags, 5)
+        this.vtbl.SetEnvironmentVariable := CallbackCreate(GetMethod(implObj, "SetEnvironmentVariable"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEnvironmentVariableA)
+        CallbackFree(this.vtbl.SetEnvironmentVariable)
     }
 }

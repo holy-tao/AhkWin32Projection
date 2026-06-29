@@ -1,32 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_REGISTRATION_STATE.ahk" { RTC_REGISTRATION_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RTC_PROVIDER_URI.ahk" { RTC_PROVIDER_URI }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCProfile extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRTCProfile extends IUnknown {
     /**
      * The interface identifier for IRTCProfile
      * @type {Guid}
      */
-    static IID => Guid("{d07eca9e-4062-4dd4-9e7d-722a49ba7303}")
+    static IID := Guid("{d07eca9e-4062-4dd4-9e7d-722a49ba7303}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCProfile interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Key                 : IntPtr
+        get_Name                : IntPtr
+        get_XML                 : IntPtr
+        get_ProviderName        : IntPtr
+        get_ProviderURI         : IntPtr
+        get_ProviderData        : IntPtr
+        get_ClientName          : IntPtr
+        get_ClientBanner        : IntPtr
+        get_ClientMinVer        : IntPtr
+        get_ClientCurVer        : IntPtr
+        get_ClientUpdateURI     : IntPtr
+        get_ClientData          : IntPtr
+        get_UserURI             : IntPtr
+        get_UserName            : IntPtr
+        get_UserAccount         : IntPtr
+        SetCredentials          : IntPtr
+        get_SessionCapabilities : IntPtr
+        get_State               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Key", "get_Name", "get_XML", "get_ProviderName", "get_ProviderURI", "get_ProviderData", "get_ClientName", "get_ClientBanner", "get_ClientMinVer", "get_ClientCurVer", "get_ClientUpdateURI", "get_ClientData", "get_UserURI", "get_UserName", "get_UserAccount", "SetCredentials", "get_SessionCapabilities", "get_State"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCProfile.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -145,8 +173,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_Key() {
-        pbstrKey := BSTR()
-        result := ComCall(3, this, "ptr", pbstrKey, "HRESULT")
+        pbstrKey := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pbstrKey, "HRESULT")
         return pbstrKey
     }
 
@@ -155,8 +183,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -165,8 +193,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_XML() {
-        pbstrXML := BSTR()
-        result := ComCall(5, this, "ptr", pbstrXML, "HRESULT")
+        pbstrXML := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pbstrXML, "HRESULT")
         return pbstrXML
     }
 
@@ -175,8 +203,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProviderName() {
-        pbstrName := BSTR()
-        result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -186,8 +214,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProviderURI(enURI) {
-        pbstrURI := BSTR()
-        result := ComCall(7, this, "int", enURI, "ptr", pbstrURI, "HRESULT")
+        pbstrURI := BSTR.Owned()
+        result := ComCall(7, this, RTC_PROVIDER_URI, enURI, BSTR.Ptr, pbstrURI, "HRESULT")
         return pbstrURI
     }
 
@@ -196,8 +224,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProviderData() {
-        pbstrData := BSTR()
-        result := ComCall(8, this, "ptr", pbstrData, "HRESULT")
+        pbstrData := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrData, "HRESULT")
         return pbstrData
     }
 
@@ -206,8 +234,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientName() {
-        pbstrName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -216,7 +244,7 @@ class IRTCProfile extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ClientBanner() {
-        result := ComCall(10, this, "short*", &pfBanner := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pfBanner := 0, "HRESULT")
         return pfBanner
     }
 
@@ -225,8 +253,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientMinVer() {
-        pbstrMinVer := BSTR()
-        result := ComCall(11, this, "ptr", pbstrMinVer, "HRESULT")
+        pbstrMinVer := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrMinVer, "HRESULT")
         return pbstrMinVer
     }
 
@@ -235,8 +263,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientCurVer() {
-        pbstrCurVer := BSTR()
-        result := ComCall(12, this, "ptr", pbstrCurVer, "HRESULT")
+        pbstrCurVer := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrCurVer, "HRESULT")
         return pbstrCurVer
     }
 
@@ -245,8 +273,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientUpdateURI() {
-        pbstrUpdateURI := BSTR()
-        result := ComCall(13, this, "ptr", pbstrUpdateURI, "HRESULT")
+        pbstrUpdateURI := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrUpdateURI, "HRESULT")
         return pbstrUpdateURI
     }
 
@@ -255,8 +283,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientData() {
-        pbstrData := BSTR()
-        result := ComCall(14, this, "ptr", pbstrData, "HRESULT")
+        pbstrData := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrData, "HRESULT")
         return pbstrData
     }
 
@@ -265,8 +293,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_UserURI() {
-        pbstrUserURI := BSTR()
-        result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
+        pbstrUserURI := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrUserURI, "HRESULT")
         return pbstrUserURI
     }
 
@@ -275,8 +303,8 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_UserName() {
-        pbstrUserName := BSTR()
-        result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
+        pbstrUserName := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pbstrUserName, "HRESULT")
         return pbstrUserName
     }
 
@@ -285,70 +313,24 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_UserAccount() {
-        pbstrUserAccount := BSTR()
-        result := ComCall(17, this, "ptr", pbstrUserAccount, "HRESULT")
+        pbstrUserAccount := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrUserAccount, "HRESULT")
         return pbstrUserAccount
     }
 
     /**
-     * Sets the attributes of a credential, such as the name associated with the credential. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {BSTR} bstrUserURI 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrPassword 
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
-     * 
-     * If the function fails, the return value may be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle passed to the function is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not enough memory is available to complete the request.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcredentialsattributesa
+     * @returns {HRESULT} 
      */
     SetCredentials(bstrUserURI, bstrUserAccount, bstrPassword) {
         bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI
         bstrUserAccount := bstrUserAccount is String ? BSTR.Alloc(bstrUserAccount).Value : bstrUserAccount
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(18, this, "ptr", bstrUserURI, "ptr", bstrUserAccount, "ptr", bstrPassword, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrUserURI, BSTR, bstrUserAccount, BSTR, bstrPassword, "HRESULT")
         return result
     }
 
@@ -368,5 +350,59 @@ class IRTCProfile extends IUnknown {
     get_State() {
         result := ComCall(20, this, "int*", &penState := 0, "HRESULT")
         return penState
+    }
+
+    Query(iid) {
+        if (IRTCProfile.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Key := CallbackCreate(GetMethod(implObj, "get_Key"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_XML := CallbackCreate(GetMethod(implObj, "get_XML"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.get_ProviderURI := CallbackCreate(GetMethod(implObj, "get_ProviderURI"), flags, 3)
+        this.vtbl.get_ProviderData := CallbackCreate(GetMethod(implObj, "get_ProviderData"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.get_ClientBanner := CallbackCreate(GetMethod(implObj, "get_ClientBanner"), flags, 2)
+        this.vtbl.get_ClientMinVer := CallbackCreate(GetMethod(implObj, "get_ClientMinVer"), flags, 2)
+        this.vtbl.get_ClientCurVer := CallbackCreate(GetMethod(implObj, "get_ClientCurVer"), flags, 2)
+        this.vtbl.get_ClientUpdateURI := CallbackCreate(GetMethod(implObj, "get_ClientUpdateURI"), flags, 2)
+        this.vtbl.get_ClientData := CallbackCreate(GetMethod(implObj, "get_ClientData"), flags, 2)
+        this.vtbl.get_UserURI := CallbackCreate(GetMethod(implObj, "get_UserURI"), flags, 2)
+        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.get_UserAccount := CallbackCreate(GetMethod(implObj, "get_UserAccount"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 4)
+        this.vtbl.get_SessionCapabilities := CallbackCreate(GetMethod(implObj, "get_SessionCapabilities"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Key)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_XML)
+        CallbackFree(this.vtbl.get_ProviderName)
+        CallbackFree(this.vtbl.get_ProviderURI)
+        CallbackFree(this.vtbl.get_ProviderData)
+        CallbackFree(this.vtbl.get_ClientName)
+        CallbackFree(this.vtbl.get_ClientBanner)
+        CallbackFree(this.vtbl.get_ClientMinVer)
+        CallbackFree(this.vtbl.get_ClientCurVer)
+        CallbackFree(this.vtbl.get_ClientUpdateURI)
+        CallbackFree(this.vtbl.get_ClientData)
+        CallbackFree(this.vtbl.get_UserURI)
+        CallbackFree(this.vtbl.get_UserName)
+        CallbackFree(this.vtbl.get_UserAccount)
+        CallbackFree(this.vtbl.SetCredentials)
+        CallbackFree(this.vtbl.get_SessionCapabilities)
+        CallbackFree(this.vtbl.get_State)
     }
 }

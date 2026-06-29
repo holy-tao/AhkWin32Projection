@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DedupHash.ahk
-#Include .\DedupChunkFlags.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DedupHash.ahk" { DedupHash }
+#Import ".\DedupChunkFlags.ahk" { DedupChunkFlags }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class DedupChunk extends Win32Struct {
-    static sizeof => 44
+export default struct DedupChunk {
+    #StructPack 4
 
-    static packingSize => 4
+    Hash : DedupHash
 
-    /**
-     * @type {DedupHash}
-     */
-    Hash {
-        get {
-            if(!this.HasProp("__Hash"))
-                this.__Hash := DedupHash(0, this)
-            return this.__Hash
-        }
-    }
+    Flags : DedupChunkFlags
 
-    /**
-     * @type {DedupChunkFlags}
-     */
-    Flags {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    LogicalSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogicalSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

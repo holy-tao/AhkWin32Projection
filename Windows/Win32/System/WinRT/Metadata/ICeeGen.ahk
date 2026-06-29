@@ -1,31 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CeeSectionRelocType.ahk" { CeeSectionRelocType }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class ICeeGen extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICeeGen extends IUnknown {
     /**
      * The interface identifier for ICeeGen
      * @type {Guid}
      */
-    static IID => Guid("{7ed1bdff-8e36-11d2-9c56-00a0c9b7cc45}")
+    static IID := Guid("{7ed1bdff-8e36-11d2-9c56-00a0c9b7cc45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICeeGen interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EmitString             : IntPtr
+        GetString              : IntPtr
+        AllocateMethodBuffer   : IntPtr
+        GetMethodBuffer        : IntPtr
+        GetIMapTokenIface      : IntPtr
+        GenerateCeeFile        : IntPtr
+        GetIlSection           : IntPtr
+        GetStringSection       : IntPtr
+        AddSectionReloc        : IntPtr
+        GetSectionCreate       : IntPtr
+        GetSectionDataLen      : IntPtr
+        GetSectionBlock        : IntPtr
+        TruncateSection        : IntPtr
+        GenerateCeeMemoryImage : IntPtr
+        ComputePointer         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EmitString", "GetString", "AllocateMethodBuffer", "GetMethodBuffer", "GetIMapTokenIface", "GenerateCeeFile", "GetIlSection", "GetStringSection", "AddSectionReloc", "GetSectionCreate", "GetSectionDataLen", "GetSectionBlock", "TruncateSection", "GenerateCeeMemoryImage", "ComputePointer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICeeGen.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -43,13 +68,12 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * Returns a string located at a given position within a BLOB.
+     * 
      * @param {Integer} RVA 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/getstringfromblob
      */
     GetString(RVA) {
-        result := ComCall(4, this, "uint", RVA, "ptr*", &lpString := 0, "HRESULT")
+        result := ComCall(4, this, "uint", RVA, PWSTR.Ptr, &lpString := 0, "HRESULT")
         return lpString
     }
 
@@ -135,7 +159,7 @@ class ICeeGen extends IUnknown {
         _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         relativeToMarshal := relativeTo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, _sectionMarshal, _section, "uint", offset, relativeToMarshal, relativeTo, "int", relocType, "HRESULT")
+        result := ComCall(11, this, _sectionMarshal, _section, "uint", offset, relativeToMarshal, relativeTo, CeeSectionRelocType, relocType, "HRESULT")
         return result
     }
 
@@ -223,5 +247,53 @@ class ICeeGen extends IUnknown {
 
         result := ComCall(17, this, _sectionMarshal, _section, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICeeGen.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EmitString := CallbackCreate(GetMethod(implObj, "EmitString"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.AllocateMethodBuffer := CallbackCreate(GetMethod(implObj, "AllocateMethodBuffer"), flags, 4)
+        this.vtbl.GetMethodBuffer := CallbackCreate(GetMethod(implObj, "GetMethodBuffer"), flags, 3)
+        this.vtbl.GetIMapTokenIface := CallbackCreate(GetMethod(implObj, "GetIMapTokenIface"), flags, 2)
+        this.vtbl.GenerateCeeFile := CallbackCreate(GetMethod(implObj, "GenerateCeeFile"), flags, 1)
+        this.vtbl.GetIlSection := CallbackCreate(GetMethod(implObj, "GetIlSection"), flags, 2)
+        this.vtbl.GetStringSection := CallbackCreate(GetMethod(implObj, "GetStringSection"), flags, 2)
+        this.vtbl.AddSectionReloc := CallbackCreate(GetMethod(implObj, "AddSectionReloc"), flags, 5)
+        this.vtbl.GetSectionCreate := CallbackCreate(GetMethod(implObj, "GetSectionCreate"), flags, 4)
+        this.vtbl.GetSectionDataLen := CallbackCreate(GetMethod(implObj, "GetSectionDataLen"), flags, 3)
+        this.vtbl.GetSectionBlock := CallbackCreate(GetMethod(implObj, "GetSectionBlock"), flags, 5)
+        this.vtbl.TruncateSection := CallbackCreate(GetMethod(implObj, "TruncateSection"), flags, 3)
+        this.vtbl.GenerateCeeMemoryImage := CallbackCreate(GetMethod(implObj, "GenerateCeeMemoryImage"), flags, 2)
+        this.vtbl.ComputePointer := CallbackCreate(GetMethod(implObj, "ComputePointer"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EmitString)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.AllocateMethodBuffer)
+        CallbackFree(this.vtbl.GetMethodBuffer)
+        CallbackFree(this.vtbl.GetIMapTokenIface)
+        CallbackFree(this.vtbl.GenerateCeeFile)
+        CallbackFree(this.vtbl.GetIlSection)
+        CallbackFree(this.vtbl.GetStringSection)
+        CallbackFree(this.vtbl.AddSectionReloc)
+        CallbackFree(this.vtbl.GetSectionCreate)
+        CallbackFree(this.vtbl.GetSectionDataLen)
+        CallbackFree(this.vtbl.GetSectionBlock)
+        CallbackFree(this.vtbl.TruncateSection)
+        CallbackFree(this.vtbl.GenerateCeeMemoryImage)
+        CallbackFree(this.vtbl.ComputePointer)
     }
 }

@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IElementNamespaceFactory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IElementNamespace.ahk" { IElementNamespace }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IElementNamespaceFactory.ahk" { IElementNamespaceFactory }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IElementNamespaceFactory2 extends IElementNamespaceFactory {
-
-    static sizeof => A_PtrSize
+export default struct IElementNamespaceFactory2 extends IElementNamespaceFactory {
     /**
      * The interface identifier for IElementNamespaceFactory2
      * @type {Guid}
      */
-    static IID => Guid("{3050f805-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f805-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IElementNamespaceFactory2 interfaces
+    */
+    struct Vtbl extends IElementNamespaceFactory.Vtbl {
+        CreateWithImplementation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateWithImplementation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IElementNamespaceFactory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +46,27 @@ class IElementNamespaceFactory2 extends IElementNamespaceFactory {
     CreateWithImplementation(pNamespace, bstrImplementation) {
         bstrImplementation := bstrImplementation is String ? BSTR.Alloc(bstrImplementation).Value : bstrImplementation
 
-        result := ComCall(4, this, "ptr", pNamespace, "ptr", bstrImplementation, "HRESULT")
+        result := ComCall(4, this, "ptr", pNamespace, BSTR, bstrImplementation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IElementNamespaceFactory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateWithImplementation := CallbackCreate(GetMethod(implObj, "CreateWithImplementation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateWithImplementation)
     }
 }

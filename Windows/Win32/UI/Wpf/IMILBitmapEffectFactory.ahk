@@ -1,35 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMILBitmapEffect.ahk
-#Include .\IMILBitmapEffectRenderContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMILBitmapEffect.ahk" { IMILBitmapEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods used to create Windows Presentation Foundation (WPF) Microsoft Win32 bitmap effect objects.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectfactory
  * @namespace Windows.Win32.UI.Wpf
  */
-class IMILBitmapEffectFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMILBitmapEffectFactory extends IUnknown {
     /**
      * The interface identifier for IMILBitmapEffectFactory
      * @type {Guid}
      */
-    static IID => Guid("{33a9df34-a403-4ec7-b07e-bc0682370845}")
+    static IID := Guid("{33a9df34-a403-4ec7-b07e-bc0682370845}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMILBitmapEffectFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateEffect      : IntPtr
+        CreateContext     : IntPtr
+        CreateEffectOuter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateEffect", "CreateContext", "CreateEffectOuter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMILBitmapEffectFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IMILBitmapEffect object.
@@ -42,7 +52,7 @@ class IMILBitmapEffectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectfactory-createeffect
      */
     CreateEffect(pguidEffect) {
-        result := ComCall(3, this, "ptr", pguidEffect, "ptr*", &ppEffect := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidEffect, "ptr*", &ppEffect := 0, "HRESULT")
         return IMILBitmapEffect(ppEffect)
     }
 
@@ -68,5 +78,29 @@ class IMILBitmapEffectFactory extends IUnknown {
     CreateEffectOuter() {
         result := ComCall(5, this, "ptr*", &ppEffect := 0, "HRESULT")
         return IMILBitmapEffect(ppEffect)
+    }
+
+    Query(iid) {
+        if (IMILBitmapEffectFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 3)
+        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 2)
+        this.vtbl.CreateEffectOuter := CallbackCreate(GetMethod(implObj, "CreateEffectOuter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateEffect)
+        CallbackFree(this.vtbl.CreateContext)
+        CallbackFree(this.vtbl.CreateEffectOuter)
     }
 }

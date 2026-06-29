@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the types of Provider Traits supported by Event Tracing for Windows (ETW).
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ne-evntcons-etw_provider_trait_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ETW_PROVIDER_TRAIT_TYPE extends Win32Enum {
+export default struct ETW_PROVIDER_TRAIT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * ETW Provider trait group.

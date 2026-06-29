@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINETERMCAPS structure describes the capabilities of a line's terminal device. The LINEDEVCAPS structure can contain an array of LINETERMCAPS structures.
@@ -8,38 +7,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linetermcaps
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINETERMCAPS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct LINETERMCAPS {
+    #StructPack 4
 
     /**
      * Device type of the terminal. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetermdev--constants">LINETERMDEV_ Constants</a>.
-     * @type {Integer}
      */
-    dwTermDev {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTermDev : UInt32
 
     /**
      * Terminal mode(s) the terminal device is able to deal with. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetermmode--constants">LINETERMMODE_ Constants</a>.
-     * @type {Integer}
      */
-    dwTermModes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTermModes : UInt32
 
     /**
      * Sharing modes for the terminal device. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetermsharing--constants">LINETERMSHARING_ Constants</a>.
-     * @type {Integer}
      */
-    dwTermSharing {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTermSharing : UInt32
+
 }

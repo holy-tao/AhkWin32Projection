@@ -1,32 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FEEDS_XML_INCLUDE_FLAGS.ahk" { FEEDS_XML_INCLUDE_FLAGS }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeedItem extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFeedItem extends IDispatch {
     /**
      * The interface identifier for IFeedItem
      * @type {Guid}
      */
-    static IID => Guid("{0a1e6cad-0a47-4da2-a13d-5baaa5c8bd4f}")
+    static IID := Guid("{0a1e6cad-0a47-4da2-a13d-5baaa5c8bd4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeedItem interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Xml                  : IntPtr
+        get_Title            : IntPtr
+        get_Link             : IntPtr
+        get_Guid             : IntPtr
+        get_Description      : IntPtr
+        get_PubDate          : IntPtr
+        get_Comments         : IntPtr
+        get_Author           : IntPtr
+        get_Enclosure        : IntPtr
+        get_IsRead           : IntPtr
+        put_IsRead           : IntPtr
+        get_LocalId          : IntPtr
+        get_Parent           : IntPtr
+        Delete               : IntPtr
+        get_DownloadUrl      : IntPtr
+        get_LastDownloadTime : IntPtr
+        get_Modified         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Xml", "get_Title", "get_Link", "get_Guid", "get_Description", "get_PubDate", "get_Comments", "get_Author", "get_Enclosure", "get_IsRead", "put_IsRead", "get_LocalId", "get_Parent", "Delete", "get_DownloadUrl", "get_LastDownloadTime", "get_Modified"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeedItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -128,14 +154,13 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * Resource string ids set by caller to be returned in xml data for visualizing objects.
+     * 
      * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */
     Xml(includeFlags) {
-        xml := BSTR()
-        result := ComCall(7, this, "int", includeFlags, "ptr", xml, "HRESULT")
+        xml := BSTR.Owned()
+        result := ComCall(7, this, FEEDS_XML_INCLUDE_FLAGS, includeFlags, BSTR.Ptr, xml, "HRESULT")
         return xml
     }
 
@@ -144,8 +169,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Title() {
-        title := BSTR()
-        result := ComCall(8, this, "ptr", title, "HRESULT")
+        title := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, title, "HRESULT")
         return title
     }
 
@@ -154,8 +179,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Link() {
-        linkUrl := BSTR()
-        result := ComCall(9, this, "ptr", linkUrl, "HRESULT")
+        linkUrl := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, linkUrl, "HRESULT")
         return linkUrl
     }
 
@@ -164,8 +189,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Guid() {
-        itemGuid := BSTR()
-        result := ComCall(10, this, "ptr", itemGuid, "HRESULT")
+        itemGuid := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, itemGuid, "HRESULT")
         return itemGuid
     }
 
@@ -174,8 +199,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        description := BSTR()
-        result := ComCall(11, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -193,8 +218,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Comments() {
-        comments := BSTR()
-        result := ComCall(13, this, "ptr", comments, "HRESULT")
+        comments := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, comments, "HRESULT")
         return comments
     }
 
@@ -203,8 +228,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Author() {
-        author := BSTR()
-        result := ComCall(14, this, "ptr", author, "HRESULT")
+        author := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, author, "HRESULT")
         return author
     }
 
@@ -222,7 +247,7 @@ class IFeedItem extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsRead() {
-        result := ComCall(16, this, "short*", &isRead := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &isRead := 0, "HRESULT")
         return isRead
     }
 
@@ -232,7 +257,7 @@ class IFeedItem extends IDispatch {
      * @returns {HRESULT} 
      */
     put_IsRead(isRead) {
-        result := ComCall(17, this, "short", isRead, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, isRead, "HRESULT")
         return result
     }
 
@@ -255,17 +280,8 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(20, this, "HRESULT")
@@ -277,8 +293,8 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
-        itemUrl := BSTR()
-        result := ComCall(21, this, "ptr", itemUrl, "HRESULT")
+        itemUrl := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, itemUrl, "HRESULT")
         return itemUrl
     }
 
@@ -298,5 +314,57 @@ class IFeedItem extends IDispatch {
     get_Modified() {
         result := ComCall(23, this, "double*", &modified := 0, "HRESULT")
         return modified
+    }
+
+    Query(iid) {
+        if (IFeedItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Xml := CallbackCreate(GetMethod(implObj, "Xml"), flags, 3)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Link := CallbackCreate(GetMethod(implObj, "get_Link"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_PubDate := CallbackCreate(GetMethod(implObj, "get_PubDate"), flags, 2)
+        this.vtbl.get_Comments := CallbackCreate(GetMethod(implObj, "get_Comments"), flags, 2)
+        this.vtbl.get_Author := CallbackCreate(GetMethod(implObj, "get_Author"), flags, 2)
+        this.vtbl.get_Enclosure := CallbackCreate(GetMethod(implObj, "get_Enclosure"), flags, 2)
+        this.vtbl.get_IsRead := CallbackCreate(GetMethod(implObj, "get_IsRead"), flags, 2)
+        this.vtbl.put_IsRead := CallbackCreate(GetMethod(implObj, "put_IsRead"), flags, 2)
+        this.vtbl.get_LocalId := CallbackCreate(GetMethod(implObj, "get_LocalId"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_LastDownloadTime := CallbackCreate(GetMethod(implObj, "get_LastDownloadTime"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Xml)
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.get_Link)
+        CallbackFree(this.vtbl.get_Guid)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.get_PubDate)
+        CallbackFree(this.vtbl.get_Comments)
+        CallbackFree(this.vtbl.get_Author)
+        CallbackFree(this.vtbl.get_Enclosure)
+        CallbackFree(this.vtbl.get_IsRead)
+        CallbackFree(this.vtbl.put_IsRead)
+        CallbackFree(this.vtbl.get_LocalId)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.get_DownloadUrl)
+        CallbackFree(this.vtbl.get_LastDownloadTime)
+        CallbackFree(this.vtbl.get_Modified)
     }
 }

@@ -1,130 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIAS_CHANGED_VALUE_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct WIAS_CHANGED_VALUE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Old_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Old {
+        lVal : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lVal {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Float}
-         */
-        fltVal {
-            get => NumGet(this, 0, "float")
-            set => NumPut("float", value, this, 0)
-        }
-
-        /**
-         * @type {BSTR}
-         */
-        bstrVal {
-            get {
-                if(!this.HasProp("__bstrVal"))
-                    this.__bstrVal := BSTR(0, this)
-                return this.__bstrVal
-            }
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        guidVal {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'fltVal', { type: Float32, offset: 0 })
+            DefineProp(this.Prototype, 'bstrVal', { type: BSTR, offset: 0 })
+            DefineProp(this.Prototype, 'guidVal', { type: Guid, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Current_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Current {
+        lVal : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lVal {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Float}
-         */
-        fltVal {
-            get => NumGet(this, 0, "float")
-            set => NumPut("float", value, this, 0)
-        }
-
-        /**
-         * @type {BSTR}
-         */
-        bstrVal {
-            get {
-                if(!this.HasProp("__bstrVal"))
-                    this.__bstrVal := BSTR(0, this)
-                return this.__bstrVal
-            }
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        guidVal {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'fltVal', { type: Float32, offset: 0 })
+            DefineProp(this.Prototype, 'bstrVal', { type: BSTR, offset: 0 })
+            DefineProp(this.Prototype, 'guidVal', { type: Guid, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {BOOL}
-     */
-    bChanged {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bChanged : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    vt {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    vt : Int32
 
-    /**
-     * @type {_Old_e__Union}
-     */
-    Old {
-        get {
-            if(!this.HasProp("__Old"))
-                this.__Old := WIAS_CHANGED_VALUE_INFO._Old_e__Union(8, this)
-            return this.__Old
-        }
-    }
+    Old : WIAS_CHANGED_VALUE_INFO._Old
 
-    /**
-     * @type {_Current_e__Union}
-     */
-    Current {
-        get {
-            if(!this.HasProp("__Current"))
-                this.__Current := WIAS_CHANGED_VALUE_INFO._Current_e__Union(16, this)
-            return this.__Current
-        }
-    }
+    Current : WIAS_CHANGED_VALUE_INFO._Current
+
 }

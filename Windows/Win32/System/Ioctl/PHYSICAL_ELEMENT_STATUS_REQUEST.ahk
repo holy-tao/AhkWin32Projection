@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class PHYSICAL_ELEMENT_STATUS_REQUEST extends Win32Struct {
-    static sizeof => 16
+export default struct PHYSICAL_ELEMENT_STATUS_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    StartingElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartingElement {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Filter : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Filter {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    ReportType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ReportType {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

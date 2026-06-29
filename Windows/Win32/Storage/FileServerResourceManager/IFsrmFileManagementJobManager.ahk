@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmFileManagementJob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmFileManagementJob.ahk" { IFsrmFileManagementJob }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to manage file management jobs.
@@ -17,32 +21,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjobmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmFileManagementJobManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmFileManagementJobManager extends IDispatch {
     /**
      * The interface identifier for IFsrmFileManagementJobManager
      * @type {Guid}
      */
-    static IID => Guid("{ee321ecb-d95e-48e9-907c-c7685a013235}")
+    static IID := Guid("{ee321ecb-d95e-48e9-907c-c7685a013235}")
 
     /**
      * The class identifier for FsrmFileManagementJobManager
      * @type {Guid}
      */
-    static CLSID => Guid("{eb18f9b2-4c3a-4321-b203-205120cff614}")
+    static CLSID := Guid("{eb18f9b2-4c3a-4321-b203-205120cff614}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmFileManagementJobManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ActionVariables            : IntPtr
+        get_ActionVariableDescriptions : IntPtr
+        EnumFileManagementJobs         : IntPtr
+        CreateFileManagementJob        : IntPtr
+        GetFileManagementJob           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "EnumFileManagementJobs", "CreateFileManagementJob", "GetFileManagementJob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmFileManagementJobManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -90,7 +105,7 @@ class IFsrmFileManagementJobManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-enumfilemanagementjobs
      */
     EnumFileManagementJobs(options) {
-        result := ComCall(9, this, "int", options, "ptr*", &fileManagementJobs := 0, "HRESULT")
+        result := ComCall(9, this, FsrmEnumOptions, options, "ptr*", &fileManagementJobs := 0, "HRESULT")
         return IFsrmCollection(fileManagementJobs)
     }
 
@@ -113,7 +128,35 @@ class IFsrmFileManagementJobManager extends IDispatch {
     GetFileManagementJob(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(11, this, "ptr", name, "ptr*", &fileManagementJob := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, name, "ptr*", &fileManagementJob := 0, "HRESULT")
         return IFsrmFileManagementJob(fileManagementJob)
+    }
+
+    Query(iid) {
+        if (IFsrmFileManagementJobManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ActionVariables := CallbackCreate(GetMethod(implObj, "get_ActionVariables"), flags, 2)
+        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(GetMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
+        this.vtbl.EnumFileManagementJobs := CallbackCreate(GetMethod(implObj, "EnumFileManagementJobs"), flags, 3)
+        this.vtbl.CreateFileManagementJob := CallbackCreate(GetMethod(implObj, "CreateFileManagementJob"), flags, 2)
+        this.vtbl.GetFileManagementJob := CallbackCreate(GetMethod(implObj, "GetFileManagementJob"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ActionVariables)
+        CallbackFree(this.vtbl.get_ActionVariableDescriptions)
+        CallbackFree(this.vtbl.EnumFileManagementJobs)
+        CallbackFree(this.vtbl.CreateFileManagementJob)
+        CallbackFree(this.vtbl.GetFileManagementJob)
     }
 }

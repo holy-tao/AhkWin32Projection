@@ -1,50 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MSV1_0_CREDENTIAL_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MSV1_0_CREDENTIAL_KEY.ahk" { MSV1_0_CREDENTIAL_KEY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct {
-    static sizeof => 44
+export default struct MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NtPassword : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NtPassword {
-        get {
-            if(!this.HasProp("__NtPasswordProxyArray"))
-                this.__NtPasswordProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__NtPasswordProxyArray
-        }
-    }
+    CredentialKey : MSV1_0_CREDENTIAL_KEY
 
-    /**
-     * @type {MSV1_0_CREDENTIAL_KEY}
-     */
-    CredentialKey {
-        get {
-            if(!this.HasProp("__CredentialKey"))
-                this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(24, this)
-            return this.__CredentialKey
-        }
-    }
 }

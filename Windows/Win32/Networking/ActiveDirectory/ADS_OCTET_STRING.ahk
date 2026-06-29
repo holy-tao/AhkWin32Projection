@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_OCTET_STRING structure is an ADSI representation of the Octet String attribute syntax used in Active Directory.
@@ -8,27 +7,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_octet_string
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_OCTET_STRING extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ADS_OCTET_STRING {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the character array.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLength : UInt32
 
     /**
      * Pointer to an array of single byte characters 
      * not interpreted by the underlying directory.
-     * @type {Pointer<Integer>}
      */
-    lpValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpValue : IntPtr
+
 }

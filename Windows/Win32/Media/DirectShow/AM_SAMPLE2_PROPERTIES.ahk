@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 
 /**
  * The AM_SAMPLE2_PROPERTIES structure describes the properties of a media sample. The IMediaSample2 interface uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_sample2_properties
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_SAMPLE2_PROPERTIES extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct AM_SAMPLE2_PROPERTIES {
+    #StructPack 8
 
     /**
      * Length of property data, in bytes. This structure member is for extensibility.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbData : UInt32
 
     /**
      * Type-specific flags. Flags are defined separately for each media type. The default value is AM_VIDEO_FLAG_INTERLEAVED_FRAME (zero). The following flags are used for video streams. They are defined in the header file dvdmedia.h.
@@ -147,82 +140,47 @@ class AM_SAMPLE2_PROPERTIES extends Win32Struct {
      *  
      * 
      * Other flags are defined but not currently used. See dvdmedia.h.
-     * @type {Integer}
      */
-    dwTypeSpecificFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTypeSpecificFlags : UInt32
 
     /**
      * Bitwise combination of flags the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-tagam_sample_property_flags">AM_SAMPLE_PROPERTY_FLAGS</a> enumerated data type. Undefined bits are reserved and must be zero.
-     * @type {Integer}
      */
-    dwSampleFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSampleFlags : UInt32
 
     /**
      * Length of the valid data in the buffer.
-     * @type {Integer}
      */
-    lActual {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lActual : Int32
 
     /**
      * Start time, if valid. The <b>dwSampleFlags</b> member specifies whether this member is valid.
-     * @type {Integer}
      */
-    tStart {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    tStart : Int64
 
     /**
      * Stop time, if valid. The <b>dwSampleFlags</b> member specifies whether this member is valid.
-     * @type {Integer}
      */
-    tStop {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    tStop : Int64
 
     /**
      * Stream identifier. If the value is AM_STREAM_MEDIA, the stream contains media data. If the value is AM_STREAM_CONTROL, the stream contains control information. Applications can define values of 0x80000000 or greater for their own use. (See <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-tagam_sample_property_flags">AM_SAMPLE_PROPERTY_FLAGS</a>.)
-     * @type {Integer}
      */
-    dwStreamId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwStreamId : UInt32
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the media type if the format has changed. If this format has not changed, this member is <b>NULL</b>.
-     * @type {Pointer<AM_MEDIA_TYPE>}
      */
-    pMediaType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pMediaType : AM_MEDIA_TYPE.Ptr
 
     /**
      * Pointer to the sample buffer.
-     * @type {Pointer<Integer>}
      */
-    pbBuffer {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pbBuffer : IntPtr
 
     /**
      * Size of the sample buffer, in bytes.
-     * @type {Integer}
      */
-    cbBuffer {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    cbBuffer : Int32
+
 }

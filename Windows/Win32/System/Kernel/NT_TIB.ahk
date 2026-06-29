@@ -1,77 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EXCEPTION_REGISTRATION_RECORD.ahk
-#Include .\NT_TIB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EXCEPTION_REGISTRATION_RECORD.ahk" { EXCEPTION_REGISTRATION_RECORD }
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class NT_TIB extends Win32Struct {
-    static sizeof => 56
+export default struct NT_TIB {
+    #StructPack 8
 
-    static packingSize => 8
+    ExceptionList : EXCEPTION_REGISTRATION_RECORD.Ptr
 
-    /**
-     * @type {Pointer<EXCEPTION_REGISTRATION_RECORD>}
-     */
-    ExceptionList {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    StackBase : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    StackBase {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    StackLimit : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    StackLimit {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SubSystemTib : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SubSystemTib {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FiberData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FiberData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ArbitraryUserPointer : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Self : NT_TIB.Ptr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ArbitraryUserPointer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<NT_TIB>}
-     */
-    Self {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    static __New() {
+        DefineProp(this.Prototype, 'Version', { type: UInt32, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

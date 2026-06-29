@@ -1,61 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DATA_TYPE.ahk
-#Include .\DML_TENSOR_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_TENSOR_FLAGS.ahk" { DML_TENSOR_FLAGS }
+#Import ".\DML_TENSOR_DATA_TYPE.ahk" { DML_TENSOR_DATA_TYPE }
 
 /**
  * Describes a tensor that will be stored in a Direct3D 12 buffer resource.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_tensor_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_BUFFER_TENSOR_DESC extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DML_BUFFER_TENSOR_DESC {
+    #StructPack 8
 
     /**
      * Type: [**DML_TENSOR_DATA_TYPE**](/windows/win32/api/directml/ne-directml-dml_tensor_data_type)
      * 
      * The type of the values in the tensor.
-     * @type {DML_TENSOR_DATA_TYPE}
      */
-    DataType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DataType : DML_TENSOR_DATA_TYPE
 
     /**
      * Type: [**DML_TENSOR_FLAGS**](/windows/win32/api/directml/ne-directml-dml_tensor_flags)
      * 
      * Specifies additional options for the tensor.
-     * @type {DML_TENSOR_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Flags : DML_TENSOR_FLAGS
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of dimensions of the tensor. This member determines the size of the <i>Sizes</i> and <i>Strides</i> arrays (if provided). In DirectML, all buffer tensors must have a *DimensionCount* of either 4 or 5. Not all operators support a *DimensionCount* of 5.
-     * @type {Integer}
      */
-    DimensionCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DimensionCount : UInt32
 
     /**
      * Type: <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * The size, in elements, of each dimension in the tensor. Specifying a size of zero in any dimension is invalid, and will result in an error. The *Sizes* member is always specified in the order {N, C, H, W} if *DimensionCount* is 4, and {N, C, D, H, W} if *DimensionCount* is 5.
-     * @type {Pointer<Integer>}
      */
-    Sizes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Sizes : IntPtr
 
     /**
      * Type: <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
@@ -65,12 +46,8 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct {
      * <i>Strides</i> can be used to express broadcasting (by specifying a stride of 0) as well as padding (for example, by using a stride larger than the physical size of a row, to pad the end of a row).
      * 
      * If <i>Strides</i> is not specified, each dimension in the tensor is considered to be contiguously packed, with no additional padding.
-     * @type {Pointer<Integer>}
      */
-    Strides {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Strides : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
@@ -82,12 +59,8 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct {
      * When binding this tensor, the size of the buffer range must be at least as large as the <i>TotalTensorSizeInBytes</i>. For output tensors, this has the additional effect of permitting DirectML to write to any memory within the <i>TotalTensorSizeInBytes</i>. That is, your application mustn't assume that DirectML will preserve any padding bytes inside output tensors that are inside the <i>TotalTensorSizeInBytes</i>.
      * 
      * The total size of a buffer tensor may not exceed (2^32 - 1) elements—for example, 16GB for a <b>FLOAT32</b> tensor.
-     * @type {Integer}
      */
-    TotalTensorSizeInBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TotalTensorSizeInBytes : Int64
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
@@ -99,10 +72,7 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct {
      * Buffer tensors always have a minimum alignment of 16 bytes. However, providing a larger value for the <i>GuaranteedBaseOffsetAlignment</i> may allow DirectML to achieve better performance, because a larger alignment enables the use of vectorized load/store instructions.
      * 
      * Although this member is optional, for best performance we recommend that you align tensors to boundaries of 32 bytes or more, where possible.
-     * @type {Integer}
      */
-    GuaranteedBaseOffsetAlignment {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    GuaranteedBaseOffsetAlignment : UInt32
+
 }

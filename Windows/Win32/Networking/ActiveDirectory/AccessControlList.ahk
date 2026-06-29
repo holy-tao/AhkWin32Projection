@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IADsAccessControlList interface is a dual interface that manages individual access-control entries (ACEs).
@@ -29,8 +28,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsaccesscontrollist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class AccessControlList extends Win32Struct {
-    static sizeof => 0
+export default struct AccessControlList {
+    #StructPack 1
 
-    static packingSize => 1
 }

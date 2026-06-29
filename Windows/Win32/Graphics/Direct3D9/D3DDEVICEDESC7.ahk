@@ -1,274 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DPRIMCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DPRIMCAPS.ahk" { D3DPRIMCAPS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DDEVICEDESC7 extends Win32Struct {
-    static sizeof => 232
+export default struct D3DDEVICEDESC7 {
+    #StructPack 4
 
-    static packingSize => 8
+    dwDevCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevCaps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dpcLineCaps : D3DPRIMCAPS
 
-    /**
-     * @type {D3DPRIMCAPS}
-     */
-    dpcLineCaps {
-        get {
-            if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(4, this)
-            return this.__dpcLineCaps
-        }
-    }
+    dpcTriCaps : D3DPRIMCAPS
 
-    /**
-     * @type {D3DPRIMCAPS}
-     */
-    dpcTriCaps {
-        get {
-            if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(60, this)
-            return this.__dpcTriCaps
-        }
-    }
+    dwDeviceRenderBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceRenderBitDepth {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    dwDeviceZBufferBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceZBufferBitDepth {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dwMinTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinTextureWidth {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    dwMinTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinTextureHeight {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwMaxTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureWidth {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    dwMaxTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureHeight {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwMaxTextureRepeat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureRepeat {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    dwMaxTextureAspectRatio : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureAspectRatio {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    dwMaxAnisotropy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxAnisotropy {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    dvGuardBandLeft : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandLeft {
-        get => NumGet(this, 152, "float")
-        set => NumPut("float", value, this, 152)
-    }
+    dvGuardBandTop : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandTop {
-        get => NumGet(this, 156, "float")
-        set => NumPut("float", value, this, 156)
-    }
+    dvGuardBandRight : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandRight {
-        get => NumGet(this, 160, "float")
-        set => NumPut("float", value, this, 160)
-    }
+    dvGuardBandBottom : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandBottom {
-        get => NumGet(this, 164, "float")
-        set => NumPut("float", value, this, 164)
-    }
+    dvExtentsAdjust : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvExtentsAdjust {
-        get => NumGet(this, 168, "float")
-        set => NumPut("float", value, this, 168)
-    }
+    dwStencilCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStencilCaps {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    dwFVFCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFVFCaps {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    dwTextureOpCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTextureOpCaps {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    wMaxTextureBlendStages : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxTextureBlendStages {
-        get => NumGet(this, 184, "ushort")
-        set => NumPut("ushort", value, this, 184)
-    }
+    wMaxSimultaneousTextures : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxSimultaneousTextures {
-        get => NumGet(this, 186, "ushort")
-        set => NumPut("ushort", value, this, 186)
-    }
+    dwMaxActiveLights : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxActiveLights {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    dvMaxVertexW : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvMaxVertexW {
-        get => NumGet(this, 192, "float")
-        set => NumPut("float", value, this, 192)
-    }
+    deviceGUID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    deviceGUID {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    wMaxUserClipPlanes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxUserClipPlanes {
-        get => NumGet(this, 208, "ushort")
-        set => NumPut("ushort", value, this, 208)
-    }
+    wMaxVertexBlendMatrices : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxVertexBlendMatrices {
-        get => NumGet(this, 210, "ushort")
-        set => NumPut("ushort", value, this, 210)
-    }
+    dwVertexProcessingCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexProcessingCaps {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    dwReserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    dwReserved4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved4 {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
-    }
 }

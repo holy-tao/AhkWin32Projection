@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct NDIS_802_11_ASSOCIATION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AvailableRequestFixedIEs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AvailableRequestFixedIEs {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    RequestFixedIEs : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RequestFixedIEs {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RequestIELength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestIELength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OffsetRequestIEs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetRequestIEs {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    AvailableResponseFixedIEs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AvailableResponseFixedIEs {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    ResponseFixedIEs : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ResponseFixedIEs {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ResponseIELength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResponseIELength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    OffsetResponseIEs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetResponseIEs {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

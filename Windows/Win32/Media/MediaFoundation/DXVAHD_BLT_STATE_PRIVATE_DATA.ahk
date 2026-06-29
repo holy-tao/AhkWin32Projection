@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains data for a private blit state for Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -10,35 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_private_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_BLT_STATE_PRIVATE_DATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DXVAHD_BLT_STATE_PRIVATE_DATA {
+    #StructPack 8
 
     /**
      * A GUID that identifies the private state. The meaning of this value is defined by the device.
-     * @type {Pointer}
      */
-    Guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Guid : Guid
 
     /**
      * The size, in bytes, of the buffer pointed to by the <b>pData</b> member.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataSize : UInt32
 
     /**
      * A pointer to a buffer that contains the private state data. The DXVA-HD runtime passes this buffer directly to the device without validation.
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pData : IntPtr
+
 }

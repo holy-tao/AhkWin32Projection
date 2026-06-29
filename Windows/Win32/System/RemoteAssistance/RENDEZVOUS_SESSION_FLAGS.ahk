@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides the list of possible flags for the session invitation.
  * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/ne-rendezvoussession-rendezvous_session_flags
  * @namespace Windows.Win32.System.RemoteAssistance
  */
-class RENDEZVOUS_SESSION_FLAGS extends Win32Enum {
+export default struct RENDEZVOUS_SESSION_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No such value.

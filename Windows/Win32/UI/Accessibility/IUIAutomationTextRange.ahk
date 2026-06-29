@@ -1,37 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IUIAutomationElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElementArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TextUnit.ahk" { TextUnit }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Provides access to a span of continuous text in a container that supports the IUIAutomationTextPattern interface. Client applications can use the IUIAutomationTextRange interface to select, compare, and retrieve embedded objects from the text span.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationTextRange extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationTextRange extends IUnknown {
     /**
      * The interface identifier for IUIAutomationTextRange
      * @type {Guid}
      */
-    static IID => Guid("{a543cc6a-f4ae-494b-8239-c814481187a8}")
+    static IID := Guid("{a543cc6a-f4ae-494b-8239-c814481187a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationTextRange interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Clone                 : IntPtr
+        Compare               : IntPtr
+        CompareEndpoints      : IntPtr
+        ExpandToEnclosingUnit : IntPtr
+        FindAttribute         : IntPtr
+        FindText              : IntPtr
+        GetAttributeValue     : IntPtr
+        GetBoundingRectangles : IntPtr
+        GetEnclosingElement   : IntPtr
+        GetText               : IntPtr
+        Move                  : IntPtr
+        MoveEndpointByUnit    : IntPtr
+        MoveEndpointByRange   : IntPtr
+        Select                : IntPtr
+        AddToSelection        : IntPtr
+        RemoveFromSelection   : IntPtr
+        ScrollIntoView        : IntPtr
+        GetChildren           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clone", "Compare", "CompareEndpoints", "ExpandToEnclosingUnit", "FindAttribute", "FindText", "GetAttributeValue", "GetBoundingRectangles", "GetEnclosingElement", "GetText", "Move", "MoveEndpointByUnit", "MoveEndpointByRange", "Select", "AddToSelection", "RemoveFromSelection", "ScrollIntoView", "GetChildren"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationTextRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a new IUIAutomationTextRange identical to the original and inheriting all properties of the original.
@@ -60,7 +90,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-compare
      */
     Compare(range) {
-        result := ComCall(4, this, "ptr", range, "int*", &areSame := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", range, BOOL.Ptr, &areSame := 0, "HRESULT")
         return areSame
     }
 
@@ -77,7 +107,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-compareendpoints
      */
     CompareEndpoints(srcEndPoint, range, targetEndPoint) {
-        result := ComCall(5, this, "int", srcEndPoint, "ptr", range, "int", targetEndPoint, "int*", &compValue := 0, "HRESULT")
+        result := ComCall(5, this, TextPatternRangeEndpoint, srcEndPoint, "ptr", range, TextPatternRangeEndpoint, targetEndPoint, "int*", &compValue := 0, "HRESULT")
         return compValue
     }
 
@@ -120,7 +150,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-expandtoenclosingunit
      */
     ExpandToEnclosingUnit(_textUnit) {
-        result := ComCall(6, this, "int", _textUnit, "HRESULT")
+        result := ComCall(6, this, TextUnit, _textUnit, "HRESULT")
         return result
     }
 
@@ -143,7 +173,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-findattribute
      */
     FindAttribute(attr, _val, backward) {
-        result := ComCall(7, this, "int", attr, "ptr", _val, "int", backward, "ptr*", &found := 0, "HRESULT")
+        result := ComCall(7, this, UIA_TEXTATTRIBUTE_ID, attr, VARIANT, _val, BOOL, backward, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationTextRange(found)
     }
 
@@ -168,7 +198,7 @@ class IUIAutomationTextRange extends IUnknown {
     FindText(text, backward, ignoreCase) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(8, this, "ptr", text, "int", backward, "int", ignoreCase, "ptr*", &found := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, text, BOOL, backward, BOOL, ignoreCase, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationTextRange(found)
     }
 
@@ -198,7 +228,7 @@ class IUIAutomationTextRange extends IUnknown {
      */
     GetAttributeValue(attr) {
         value := VARIANT()
-        result := ComCall(9, this, "int", attr, "ptr", value, "HRESULT")
+        result := ComCall(9, this, UIA_TEXTATTRIBUTE_ID, attr, VARIANT.Ptr, value, "HRESULT")
         return value
     }
 
@@ -239,8 +269,8 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-gettext
      */
     GetText(maxLength) {
-        text := BSTR()
-        result := ComCall(12, this, "int", maxLength, "ptr", text, "HRESULT")
+        text := BSTR.Owned()
+        result := ComCall(12, this, "int", maxLength, BSTR.Ptr, text, "HRESULT")
         return text
     }
 
@@ -302,7 +332,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-move
      */
     Move(_unit, count) {
-        result := ComCall(13, this, "int", _unit, "int", count, "int*", &moved := 0, "HRESULT")
+        result := ComCall(13, this, TextUnit, _unit, "int", count, "int*", &moved := 0, "HRESULT")
         return moved
     }
 
@@ -343,7 +373,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-moveendpointbyunit
      */
     MoveEndpointByUnit(endpoint, _unit, count) {
-        result := ComCall(14, this, "int", endpoint, "int", _unit, "int", count, "int*", &moved := 0, "HRESULT")
+        result := ComCall(14, this, TextPatternRangeEndpoint, endpoint, TextUnit, _unit, "int", count, "int*", &moved := 0, "HRESULT")
         return moved
     }
 
@@ -362,7 +392,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-moveendpointbyrange
      */
     MoveEndpointByRange(srcEndPoint, range, targetEndPoint) {
-        result := ComCall(15, this, "int", srcEndPoint, "ptr", range, "int", targetEndPoint, "HRESULT")
+        result := ComCall(15, this, TextPatternRangeEndpoint, srcEndPoint, "ptr", range, TextPatternRangeEndpoint, targetEndPoint, "HRESULT")
         return result
     }
 
@@ -423,7 +453,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-scrollintoview
      */
     ScrollIntoView(alignToTop) {
-        result := ComCall(19, this, "int", alignToTop, "HRESULT")
+        result := ComCall(19, this, BOOL, alignToTop, "HRESULT")
         return result
     }
 
@@ -437,5 +467,59 @@ class IUIAutomationTextRange extends IUnknown {
     GetChildren() {
         result := ComCall(20, this, "ptr*", &children := 0, "HRESULT")
         return IUIAutomationElementArray(children)
+    }
+
+    Query(iid) {
+        if (IUIAutomationTextRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 3)
+        this.vtbl.CompareEndpoints := CallbackCreate(GetMethod(implObj, "CompareEndpoints"), flags, 5)
+        this.vtbl.ExpandToEnclosingUnit := CallbackCreate(GetMethod(implObj, "ExpandToEnclosingUnit"), flags, 2)
+        this.vtbl.FindAttribute := CallbackCreate(GetMethod(implObj, "FindAttribute"), flags, 5)
+        this.vtbl.FindText := CallbackCreate(GetMethod(implObj, "FindText"), flags, 5)
+        this.vtbl.GetAttributeValue := CallbackCreate(GetMethod(implObj, "GetAttributeValue"), flags, 3)
+        this.vtbl.GetBoundingRectangles := CallbackCreate(GetMethod(implObj, "GetBoundingRectangles"), flags, 2)
+        this.vtbl.GetEnclosingElement := CallbackCreate(GetMethod(implObj, "GetEnclosingElement"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+        this.vtbl.MoveEndpointByUnit := CallbackCreate(GetMethod(implObj, "MoveEndpointByUnit"), flags, 5)
+        this.vtbl.MoveEndpointByRange := CallbackCreate(GetMethod(implObj, "MoveEndpointByRange"), flags, 4)
+        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 1)
+        this.vtbl.AddToSelection := CallbackCreate(GetMethod(implObj, "AddToSelection"), flags, 1)
+        this.vtbl.RemoveFromSelection := CallbackCreate(GetMethod(implObj, "RemoveFromSelection"), flags, 1)
+        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 2)
+        this.vtbl.GetChildren := CallbackCreate(GetMethod(implObj, "GetChildren"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.Compare)
+        CallbackFree(this.vtbl.CompareEndpoints)
+        CallbackFree(this.vtbl.ExpandToEnclosingUnit)
+        CallbackFree(this.vtbl.FindAttribute)
+        CallbackFree(this.vtbl.FindText)
+        CallbackFree(this.vtbl.GetAttributeValue)
+        CallbackFree(this.vtbl.GetBoundingRectangles)
+        CallbackFree(this.vtbl.GetEnclosingElement)
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.MoveEndpointByUnit)
+        CallbackFree(this.vtbl.MoveEndpointByRange)
+        CallbackFree(this.vtbl.Select)
+        CallbackFree(this.vtbl.AddToSelection)
+        CallbackFree(this.vtbl.RemoveFromSelection)
+        CallbackFree(this.vtbl.ScrollIntoView)
+        CallbackFree(this.vtbl.GetChildren)
     }
 }

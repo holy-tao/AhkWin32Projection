@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IAudioFormatEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IAudioFormatEnumerator.ahk" { IAudioFormatEnumerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * The ISpatialAudioClient interface enables a client to create audio streams that emit audio from a position in 3D space.
@@ -32,26 +36,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioClient extends IUnknown {
     /**
      * The interface identifier for ISpatialAudioClient
      * @type {Guid}
      */
-    static IID => Guid("{bbf8e066-aaaa-49be-9a4d-fd2a858ea27f}")
+    static IID := Guid("{bbf8e066-aaaa-49be-9a4d-fd2a858ea27f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStaticObjectPosition                 : IntPtr
+        GetNativeStaticObjectTypeMask           : IntPtr
+        GetMaxDynamicObjectCount                : IntPtr
+        GetSupportedAudioObjectFormatEnumerator : IntPtr
+        GetMaxFrameCount                        : IntPtr
+        IsAudioObjectFormatSupported            : IntPtr
+        IsSpatialAudioStreamAvailable           : IntPtr
+        ActivateSpatialAudioStream              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStaticObjectPosition", "GetNativeStaticObjectTypeMask", "GetMaxDynamicObjectCount", "GetSupportedAudioObjectFormatEnumerator", "GetMaxFrameCount", "IsAudioObjectFormatSupported", "IsSpatialAudioStreamAvailable", "ActivateSpatialAudioStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the position in 3D space of the specified static spatial audio channel.
@@ -87,7 +105,7 @@ class ISpatialAudioClient extends IUnknown {
         yMarshal := y is VarRef ? "float*" : "ptr"
         zMarshal := z is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "int", type, xMarshal, x, yMarshal, y, zMarshal, z, "HRESULT")
+        result := ComCall(3, this, AudioObjectType, type, xMarshal, x, yMarshal, y, zMarshal, z, "HRESULT")
         return result
     }
 
@@ -134,7 +152,7 @@ class ISpatialAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxframecount
      */
     GetMaxFrameCount(objectFormat) {
-        result := ComCall(7, this, "ptr", objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
+        result := ComCall(7, this, WAVEFORMATEX.Ptr, objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
         return frameCountPerBuffer
     }
 
@@ -145,7 +163,7 @@ class ISpatialAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isaudioobjectformatsupported
      */
     IsAudioObjectFormatSupported(objectFormat) {
-        result := ComCall(8, this, "ptr", objectFormat, "HRESULT")
+        result := ComCall(8, this, WAVEFORMATEX.Ptr, objectFormat, "HRESULT")
         return result
     }
 
@@ -198,7 +216,7 @@ class ISpatialAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isspatialaudiostreamavailable
      */
     IsSpatialAudioStreamAvailable(streamUuid, auxiliaryInfo) {
-        result := ComCall(9, this, "ptr", streamUuid, "ptr", auxiliaryInfo, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, streamUuid, PROPVARIANT.Ptr, auxiliaryInfo, "HRESULT")
         return result
     }
 
@@ -219,7 +237,41 @@ class ISpatialAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream
      */
     ActivateSpatialAudioStream(activationParams, riid) {
-        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, "ptr*", &stream := 0, "HRESULT")
+        result := ComCall(10, this, PROPVARIANT.Ptr, activationParams, Guid.Ptr, riid, "ptr*", &stream := 0, "HRESULT")
         return stream
+    }
+
+    Query(iid) {
+        if (ISpatialAudioClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStaticObjectPosition := CallbackCreate(GetMethod(implObj, "GetStaticObjectPosition"), flags, 5)
+        this.vtbl.GetNativeStaticObjectTypeMask := CallbackCreate(GetMethod(implObj, "GetNativeStaticObjectTypeMask"), flags, 2)
+        this.vtbl.GetMaxDynamicObjectCount := CallbackCreate(GetMethod(implObj, "GetMaxDynamicObjectCount"), flags, 2)
+        this.vtbl.GetSupportedAudioObjectFormatEnumerator := CallbackCreate(GetMethod(implObj, "GetSupportedAudioObjectFormatEnumerator"), flags, 2)
+        this.vtbl.GetMaxFrameCount := CallbackCreate(GetMethod(implObj, "GetMaxFrameCount"), flags, 3)
+        this.vtbl.IsAudioObjectFormatSupported := CallbackCreate(GetMethod(implObj, "IsAudioObjectFormatSupported"), flags, 2)
+        this.vtbl.IsSpatialAudioStreamAvailable := CallbackCreate(GetMethod(implObj, "IsSpatialAudioStreamAvailable"), flags, 3)
+        this.vtbl.ActivateSpatialAudioStream := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioStream"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStaticObjectPosition)
+        CallbackFree(this.vtbl.GetNativeStaticObjectTypeMask)
+        CallbackFree(this.vtbl.GetMaxDynamicObjectCount)
+        CallbackFree(this.vtbl.GetSupportedAudioObjectFormatEnumerator)
+        CallbackFree(this.vtbl.GetMaxFrameCount)
+        CallbackFree(this.vtbl.IsAudioObjectFormatSupported)
+        CallbackFree(this.vtbl.IsSpatialAudioStreamAvailable)
+        CallbackFree(this.vtbl.ActivateSpatialAudioStream)
     }
 }

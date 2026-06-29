@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\View.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\_ViewOptions.ahk" { _ViewOptions }
+#Import ".\View.ahk" { View }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\Node.ahk" { Node }
 
 /**
  * @namespace Windows.Win32.System.Mmc
  */
-class Views extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Views extends IDispatch {
     /**
      * The interface identifier for Views
      * @type {Guid}
      */
-    static IID => Guid("{d6b8c29d-a1ff-4d72-aab0-e381e9b9338d}")
+    static IID := Guid("{d6b8c29d-a1ff-4d72-aab0-e381e9b9338d}")
 
     /**
      * The class identifier for Views
      * @type {Guid}
      */
-    static CLSID => Guid("{d6b8c29d-a1ff-4d72-aab0-e381e9b9338d}")
+    static CLSID := Guid("{d6b8c29d-a1ff-4d72-aab0-e381e9b9338d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Views interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Item         : IntPtr
+        get_Count    : IntPtr
+        Add          : IntPtr
+        get__NewEnum : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Item", "get_Count", "Add", "get__NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Views.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -75,86 +88,13 @@ class Views extends IDispatch {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {Node} _Node 
      * @param {_ViewOptions} viewOptions 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ALLOTTED_SPACE_EXCEEDED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The new ACE does not fit into the ACL. A larger ACL buffer is required.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_ACL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified ACL is not properly formed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_SID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified SID is not structurally valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_REVISION_MISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified revision is not known or is incompatible with that of the ACL.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The ACE was successfully added.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
+     * @returns {HRESULT} 
      */
     Add(_Node, viewOptions) {
-        result := ComCall(9, this, "ptr", _Node, "int", viewOptions, "HRESULT")
+        result := ComCall(9, this, "ptr", _Node, _ViewOptions, viewOptions, "HRESULT")
         return result
     }
 
@@ -165,5 +105,31 @@ class Views extends IDispatch {
     get__NewEnum() {
         result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
         return IUnknown(retval)
+    }
+
+    Query(iid) {
+        if (Views.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.get__NewEnum)
     }
 }

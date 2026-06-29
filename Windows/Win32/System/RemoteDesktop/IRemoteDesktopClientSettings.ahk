@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the methods needed to configure the connection settings for the Remote Desktop Protocol (RDP) app container client control.
  * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclientsettings
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IRemoteDesktopClientSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRemoteDesktopClientSettings extends IDispatch {
     /**
      * The interface identifier for IRemoteDesktopClientSettings
      * @type {Guid}
      */
-    static IID => Guid("{48a0f2a7-2713-431f-bbac-6f4558e7d64d}")
+    static IID := Guid("{48a0f2a7-2713-431f-bbac-6f4558e7d64d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRemoteDesktopClientSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        ApplySettings    : IntPtr
+        RetrieveSettings : IntPtr
+        GetRdpProperty   : IntPtr
+        SetRdpProperty   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ApplySettings", "RetrieveSettings", "GetRdpProperty", "SetRdpProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRemoteDesktopClientSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Stores the specified contents in the RDP file.
@@ -40,7 +51,7 @@ class IRemoteDesktopClientSettings extends IDispatch {
     ApplySettings(rdpFileContents) {
         rdpFileContents := rdpFileContents is String ? BSTR.Alloc(rdpFileContents).Value : rdpFileContents
 
-        result := ComCall(7, this, "ptr", rdpFileContents, "HRESULT")
+        result := ComCall(7, this, BSTR, rdpFileContents, "HRESULT")
         return result
     }
 
@@ -50,8 +61,8 @@ class IRemoteDesktopClientSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
      */
     RetrieveSettings() {
-        rdpFileContents := BSTR()
-        result := ComCall(8, this, "ptr", rdpFileContents, "HRESULT")
+        rdpFileContents := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, rdpFileContents, "HRESULT")
         return rdpFileContents
     }
 
@@ -65,7 +76,7 @@ class IRemoteDesktopClientSettings extends IDispatch {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
         value := VARIANT()
-        result := ComCall(9, this, "ptr", propertyName, "ptr", value, "HRESULT")
+        result := ComCall(9, this, BSTR, propertyName, VARIANT.Ptr, value, "HRESULT")
         return value
     }
 
@@ -84,7 +95,33 @@ class IRemoteDesktopClientSettings extends IDispatch {
     SetRdpProperty(propertyName, value) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(10, this, "ptr", propertyName, "ptr", value, "HRESULT")
+        result := ComCall(10, this, BSTR, propertyName, VARIANT, value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRemoteDesktopClientSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ApplySettings := CallbackCreate(GetMethod(implObj, "ApplySettings"), flags, 2)
+        this.vtbl.RetrieveSettings := CallbackCreate(GetMethod(implObj, "RetrieveSettings"), flags, 2)
+        this.vtbl.GetRdpProperty := CallbackCreate(GetMethod(implObj, "GetRdpProperty"), flags, 3)
+        this.vtbl.SetRdpProperty := CallbackCreate(GetMethod(implObj, "SetRdpProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ApplySettings)
+        CallbackFree(this.vtbl.RetrieveSettings)
+        CallbackFree(this.vtbl.GetRdpProperty)
+        CallbackFree(this.vtbl.SetRdpProperty)
     }
 }

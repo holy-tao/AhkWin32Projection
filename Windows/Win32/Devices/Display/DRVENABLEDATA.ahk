@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRVFN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRVFN.ahk" { DRVFN }
 
 /**
  * The DRVENABLEDATA structure contains a pointer to an array of DRVFN structures and the graphics DDI version number of an NT-based operating system.
@@ -72,34 +71,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-drvenabledata
  * @namespace Windows.Win32.Devices.Display
  */
-class DRVENABLEDATA extends Win32Struct {
-    static sizeof => 16
+export default struct DRVENABLEDATA {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    iDriverVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iDriverVersion : UInt32
 
     /**
      * Specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-drvfn">DRVFN</a> structures in the buffer pointed to by the <b>pdrvfn</b> member.
-     * @type {Integer}
      */
-    c {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    c : UInt32
 
     /**
      * Pointer to a buffer containing an array of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-drvfn">DRVFN</a> structures.
-     * @type {Pointer<DRVFN>}
      */
-    pdrvfn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pdrvfn : DRVFN.Ptr
+
 }

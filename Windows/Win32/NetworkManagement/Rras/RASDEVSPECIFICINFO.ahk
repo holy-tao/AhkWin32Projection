@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to send a cookie for server validation and bypass point-to-point (PPP) authentication.
@@ -7,26 +6,17 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @architecture X64, Arm64
  */
-class RASDEVSPECIFICINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct RASDEVSPECIFICINFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the cookie in <b>pbDevSpecificInfo</b>.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * A pointer to a BLOB that contains the authentication cookie.
-     * @type {Pointer<Integer>}
      */
-    pbDevSpecificInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbDevSpecificInfo : IntPtr
+
 }

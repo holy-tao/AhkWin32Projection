@@ -1,35 +1,80 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechVoiceStatus.ahk
-#Include .\ISpeechObjectToken.ahk
-#Include .\ISpeechBaseStream.ahk
-#Include .\ISpeechObjectTokens.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechVoicePriority.ahk" { SpeechVoicePriority }
+#Import ".\ISpeechVoiceStatus.ahk" { ISpeechVoiceStatus }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
+#Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
+#Import ".\SpeechVoiceEvents.ahk" { SpeechVoiceEvents }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechVoice extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechVoice extends IDispatch {
     /**
      * The interface identifier for ISpeechVoice
      * @type {Guid}
      */
-    static IID => Guid("{269316d8-57bd-11d2-9eee-00c04f797396}")
+    static IID := Guid("{269316d8-57bd-11d2-9eee-00c04f797396}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechVoice interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Status                                 : IntPtr
+        get_Voice                                  : IntPtr
+        putref_Voice                               : IntPtr
+        get_AudioOutput                            : IntPtr
+        putref_AudioOutput                         : IntPtr
+        get_AudioOutputStream                      : IntPtr
+        putref_AudioOutputStream                   : IntPtr
+        get_Rate                                   : IntPtr
+        put_Rate                                   : IntPtr
+        get_Volume                                 : IntPtr
+        put_Volume                                 : IntPtr
+        put_AllowAudioOutputFormatChangesOnNextSet : IntPtr
+        get_AllowAudioOutputFormatChangesOnNextSet : IntPtr
+        get_EventInterests                         : IntPtr
+        put_EventInterests                         : IntPtr
+        put_Priority                               : IntPtr
+        get_Priority                               : IntPtr
+        put_AlertBoundary                          : IntPtr
+        get_AlertBoundary                          : IntPtr
+        put_SynchronousSpeakTimeout                : IntPtr
+        get_SynchronousSpeakTimeout                : IntPtr
+        Speak                                      : IntPtr
+        SpeakStream                                : IntPtr
+        Pause                                      : IntPtr
+        Resume                                     : IntPtr
+        Skip                                       : IntPtr
+        GetVoices                                  : IntPtr
+        GetAudioOutputs                            : IntPtr
+        WaitUntilDone                              : IntPtr
+        SpeakCompleteEvent                         : IntPtr
+        IsUISupported                              : IntPtr
+        DisplayUI                                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Status", "get_Voice", "putref_Voice", "get_AudioOutput", "putref_AudioOutput", "get_AudioOutputStream", "putref_AudioOutputStream", "get_Rate", "put_Rate", "get_Volume", "put_Volume", "put_AllowAudioOutputFormatChangesOnNextSet", "get_AllowAudioOutputFormatChangesOnNextSet", "get_EventInterests", "put_EventInterests", "put_Priority", "get_Priority", "put_AlertBoundary", "get_AlertBoundary", "put_SynchronousSpeakTimeout", "get_SynchronousSpeakTimeout", "Speak", "SpeakStream", "Pause", "Resume", "Skip", "GetVoices", "GetAudioOutputs", "WaitUntilDone", "SpeakCompleteEvent", "IsUISupported", "DisplayUI"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechVoice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISpeechVoiceStatus} 
@@ -225,7 +270,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AllowAudioOutputFormatChangesOnNextSet(Allow) {
-        result := ComCall(18, this, "short", Allow, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, Allow, "HRESULT")
         return result
     }
 
@@ -234,7 +279,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioOutputFormatChangesOnNextSet() {
-        result := ComCall(19, this, "short*", &Allow := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &Allow := 0, "HRESULT")
         return Allow
     }
 
@@ -253,7 +298,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_EventInterests(EventInterestFlags) {
-        result := ComCall(21, this, "int", EventInterestFlags, "HRESULT")
+        result := ComCall(21, this, SpeechVoiceEvents, EventInterestFlags, "HRESULT")
         return result
     }
 
@@ -263,7 +308,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Priority(_Priority) {
-        result := ComCall(22, this, "int", _Priority, "HRESULT")
+        result := ComCall(22, this, SpeechVoicePriority, _Priority, "HRESULT")
         return result
     }
 
@@ -282,7 +327,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AlertBoundary(Boundary) {
-        result := ComCall(24, this, "int", Boundary, "HRESULT")
+        result := ComCall(24, this, SpeechVoiceEvents, Boundary, "HRESULT")
         return result
     }
 
@@ -323,7 +368,7 @@ class ISpeechVoice extends IDispatch {
     Speak(Text, Flags) {
         Text := Text is String ? BSTR.Alloc(Text).Value : Text
 
-        result := ComCall(28, this, "ptr", Text, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(28, this, BSTR, Text, SpeechVoiceSpeakFlags, Flags, "int*", &StreamNumber := 0, "HRESULT")
         return StreamNumber
     }
 
@@ -334,7 +379,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {Integer} 
      */
     SpeakStream(Stream, Flags) {
-        result := ComCall(29, this, "ptr", Stream, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", Stream, SpeechVoiceSpeakFlags, Flags, "int*", &StreamNumber := 0, "HRESULT")
         return StreamNumber
     }
 
@@ -361,32 +406,15 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * Determines which pointer input frame generated the most recently retrieved message for the specified pointer and discards any queued (unretrieved) pointer input messages generated from the same pointer input frame.
-     * @remarks
-     * Parallel-mode devices may report pointer input in frames, that is, they may report the state and position of all pointers from that device in a single input report to the system. Ideally, applications should view the entire frame as a single input unless the application-specific requirements dictate otherwise.
      * 
-     * The <b>SkipPointerFrameMessages</b> function can be used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframeinfo">GetPointerFrameInfo</a> function (or one of its type-specific variants) to consume entire frames as a single input.
-     * 
-     * When an application sees a pointer message, it can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframeinfo">GetPointerFrameInfo</a> function to retrieve the entire pointer input frame to which the pointer message belongs, hence obtaining an updated view of all of the pointers currently owned by the window. Note that the returned frame contains only pointers that are currently owned by the same window as the specified pointer.
-     * 
-     * Having retrieved the entire frame of information, the application can then call the <b>SkipPointerFrameMessages</b> function to skip remaining pointer messages associated with this frame that are pending retrieval. This saves the application the overhead of retrieving and processing the remaining messages one by one.
-     * 
-     * <div class="alert"><b>Warning</b>  The <b>SkipPointerFrameMessages</b> function should be used only when the caller can be sure that no other entity on the caller’s thread (such as  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a>) is expecting to retrieve pending pointer messages. For this reason, <b>SkipPointerFrameMessages</b> should not be used in conjunction with Direct Manipulation when processing multiple, simultaneous interactions.</div>
-     * <div> </div>
-     * Note that the information retrieved is associated with the pointer frame most recently retrieved by the calling thread. Once the calling thread retrieves its next message, the information associated with the previous pointer frame may no longer be available.
-     * 
-     * If the pointer frame contains no additional pointers besides the specified pointer, this function succeeds with no action.
-     * 
-     * If the calling thread does not own the window to which the pointer message has been delivered, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
      * @param {BSTR} Type 
      * @param {Integer} NumItems 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-skippointerframemessages
      */
     Skip(Type, NumItems) {
         Type := Type is String ? BSTR.Alloc(Type).Value : Type
 
-        result := ComCall(32, this, "ptr", Type, "int", NumItems, "int*", &NumSkipped := 0, "HRESULT")
+        result := ComCall(32, this, BSTR, Type, "int", NumItems, "int*", &NumSkipped := 0, "HRESULT")
         return NumSkipped
     }
 
@@ -400,7 +428,7 @@ class ISpeechVoice extends IDispatch {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(33, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(33, this, BSTR, RequiredAttributes, BSTR, OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
         return ISpeechObjectTokens(ObjectTokens)
     }
 
@@ -414,7 +442,7 @@ class ISpeechVoice extends IDispatch {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(34, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(34, this, BSTR, RequiredAttributes, BSTR, OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
         return ISpeechObjectTokens(ObjectTokens)
     }
 
@@ -424,7 +452,7 @@ class ISpeechVoice extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     WaitUntilDone(msTimeout) {
-        result := ComCall(35, this, "int", msTimeout, "short*", &Done := 0, "HRESULT")
+        result := ComCall(35, this, "int", msTimeout, VARIANT_BOOL.Ptr, &Done := 0, "HRESULT")
         return Done
     }
 
@@ -446,7 +474,7 @@ class ISpeechVoice extends IDispatch {
     IsUISupported(TypeOfUI, ExtraData) {
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(37, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(37, this, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
         return Supported
     }
 
@@ -462,7 +490,89 @@ class ISpeechVoice extends IDispatch {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(38, this, "int", hWndParent, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "HRESULT")
+        result := ComCall(38, this, "int", hWndParent, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechVoice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Voice := CallbackCreate(GetMethod(implObj, "get_Voice"), flags, 2)
+        this.vtbl.putref_Voice := CallbackCreate(GetMethod(implObj, "putref_Voice"), flags, 2)
+        this.vtbl.get_AudioOutput := CallbackCreate(GetMethod(implObj, "get_AudioOutput"), flags, 2)
+        this.vtbl.putref_AudioOutput := CallbackCreate(GetMethod(implObj, "putref_AudioOutput"), flags, 2)
+        this.vtbl.get_AudioOutputStream := CallbackCreate(GetMethod(implObj, "get_AudioOutputStream"), flags, 2)
+        this.vtbl.putref_AudioOutputStream := CallbackCreate(GetMethod(implObj, "putref_AudioOutputStream"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.put_AllowAudioOutputFormatChangesOnNextSet := CallbackCreate(GetMethod(implObj, "put_AllowAudioOutputFormatChangesOnNextSet"), flags, 2)
+        this.vtbl.get_AllowAudioOutputFormatChangesOnNextSet := CallbackCreate(GetMethod(implObj, "get_AllowAudioOutputFormatChangesOnNextSet"), flags, 2)
+        this.vtbl.get_EventInterests := CallbackCreate(GetMethod(implObj, "get_EventInterests"), flags, 2)
+        this.vtbl.put_EventInterests := CallbackCreate(GetMethod(implObj, "put_EventInterests"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_AlertBoundary := CallbackCreate(GetMethod(implObj, "put_AlertBoundary"), flags, 2)
+        this.vtbl.get_AlertBoundary := CallbackCreate(GetMethod(implObj, "get_AlertBoundary"), flags, 2)
+        this.vtbl.put_SynchronousSpeakTimeout := CallbackCreate(GetMethod(implObj, "put_SynchronousSpeakTimeout"), flags, 2)
+        this.vtbl.get_SynchronousSpeakTimeout := CallbackCreate(GetMethod(implObj, "get_SynchronousSpeakTimeout"), flags, 2)
+        this.vtbl.Speak := CallbackCreate(GetMethod(implObj, "Speak"), flags, 4)
+        this.vtbl.SpeakStream := CallbackCreate(GetMethod(implObj, "SpeakStream"), flags, 4)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 4)
+        this.vtbl.GetVoices := CallbackCreate(GetMethod(implObj, "GetVoices"), flags, 4)
+        this.vtbl.GetAudioOutputs := CallbackCreate(GetMethod(implObj, "GetAudioOutputs"), flags, 4)
+        this.vtbl.WaitUntilDone := CallbackCreate(GetMethod(implObj, "WaitUntilDone"), flags, 3)
+        this.vtbl.SpeakCompleteEvent := CallbackCreate(GetMethod(implObj, "SpeakCompleteEvent"), flags, 2)
+        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 4)
+        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_Voice)
+        CallbackFree(this.vtbl.putref_Voice)
+        CallbackFree(this.vtbl.get_AudioOutput)
+        CallbackFree(this.vtbl.putref_AudioOutput)
+        CallbackFree(this.vtbl.get_AudioOutputStream)
+        CallbackFree(this.vtbl.putref_AudioOutputStream)
+        CallbackFree(this.vtbl.get_Rate)
+        CallbackFree(this.vtbl.put_Rate)
+        CallbackFree(this.vtbl.get_Volume)
+        CallbackFree(this.vtbl.put_Volume)
+        CallbackFree(this.vtbl.put_AllowAudioOutputFormatChangesOnNextSet)
+        CallbackFree(this.vtbl.get_AllowAudioOutputFormatChangesOnNextSet)
+        CallbackFree(this.vtbl.get_EventInterests)
+        CallbackFree(this.vtbl.put_EventInterests)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_AlertBoundary)
+        CallbackFree(this.vtbl.get_AlertBoundary)
+        CallbackFree(this.vtbl.put_SynchronousSpeakTimeout)
+        CallbackFree(this.vtbl.get_SynchronousSpeakTimeout)
+        CallbackFree(this.vtbl.Speak)
+        CallbackFree(this.vtbl.SpeakStream)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.GetVoices)
+        CallbackFree(this.vtbl.GetAudioOutputs)
+        CallbackFree(this.vtbl.WaitUntilDone)
+        CallbackFree(this.vtbl.SpeakCompleteEvent)
+        CallbackFree(this.vtbl.IsUISupported)
+        CallbackFree(this.vtbl.DisplayUI)
     }
 }

@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMDM_TAG_DATATYPE.ahk" { WMDM_TAG_DATATYPE }
 
 /**
  * The IWMDMMetaData interface sets and retrieves metadata properties (such as artist, album, genre, and so on) of a storage.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmmetadata
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMMetaData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMMetaData extends IUnknown {
     /**
      * The interface identifier for IWMDMMetaData
      * @type {Guid}
      */
-    static IID => Guid("{ec3b0663-0951-460a-9a80-0dceed3c043c}")
+    static IID := Guid("{ec3b0663-0951-460a-9a80-0dceed3c043c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMMetaData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddItem      : IntPtr
+        QueryByName  : IntPtr
+        QueryByIndex : IntPtr
+        GetItemCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddItem", "QueryByName", "QueryByIndex", "GetItemCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMMetaData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AddItem method adds a metadata property to the interface.
@@ -50,7 +63,7 @@ class IWMDMMetaData extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "int", Type, "ptr", pwszTagName, pValueMarshal, pValue, "uint", iLength, "HRESULT")
+        result := ComCall(3, this, WMDM_TAG_DATATYPE, Type, "ptr", pwszTagName, pValueMarshal, pValue, "uint", iLength, "HRESULT")
         return result
     }
 
@@ -118,5 +131,31 @@ class IWMDMMetaData extends IUnknown {
     GetItemCount() {
         result := ComCall(6, this, "uint*", &iCount := 0, "HRESULT")
         return iCount
+    }
+
+    Query(iid) {
+        if (IWMDMMetaData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 5)
+        this.vtbl.QueryByName := CallbackCreate(GetMethod(implObj, "QueryByName"), flags, 5)
+        this.vtbl.QueryByIndex := CallbackCreate(GetMethod(implObj, "QueryByIndex"), flags, 6)
+        this.vtbl.GetItemCount := CallbackCreate(GetMethod(implObj, "GetItemCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddItem)
+        CallbackFree(this.vtbl.QueryByName)
+        CallbackFree(this.vtbl.QueryByIndex)
+        CallbackFree(this.vtbl.GetItemCount)
     }
 }

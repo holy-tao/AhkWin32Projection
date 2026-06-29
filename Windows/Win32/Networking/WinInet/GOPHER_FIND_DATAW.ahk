@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GOPHER_TYPE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GOPHER_TYPE.ahk" { GOPHER_TYPE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information retrieved by the GopherFindFirstFile and InternetFindNextFile functions. (Unicode)
@@ -18,66 +18,36 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset Unicode
  */
-class GOPHER_FIND_DATAW extends Win32Struct {
-    static sizeof => 1588
-
-    static packingSize => 4
+export default struct GOPHER_FIND_DATAW {
+    #StructPack 4
 
     /**
      * Friendly name of an object. An application can display this string to allow the user to select the object.
-     * @type {String}
      */
-    DisplayString {
-        get => StrGet(this.ptr + 0, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 128, "UTF-16")
-    }
+    DisplayString : WCHAR[129]
 
-    /**
-     * @type {GOPHER_TYPE}
-     */
-    GopherType {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
-    }
+    GopherType : GOPHER_TYPE
 
     /**
      * Low 32 bits of the file size.
-     * @type {Integer}
      */
-    SizeLow {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
+    SizeLow : UInt32
 
     /**
      * High 32 bits of the file size.
-     * @type {Integer}
      */
-    SizeHigh {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    SizeHigh : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time when the file was last modified.
-     * @type {FILETIME}
      */
-    LastModificationTime {
-        get {
-            if(!this.HasProp("__LastModificationTime"))
-                this.__LastModificationTime := FILETIME(272, this)
-            return this.__LastModificationTime
-        }
-    }
+    LastModificationTime : FILETIME
 
     /**
      * File locator. An application can pass the locator string to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopheropenfilea">GopherOpenFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a>.
-     * @type {String}
      */
-    Locator {
-        get => StrGet(this.ptr + 280, 653, "UTF-16")
-        set => StrPut(value, this.ptr + 280, 653, "UTF-16")
-    }
+    Locator : WCHAR[654]
+
 }

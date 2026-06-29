@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_STATISTICS_COMMON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VBICODECFILTERING_STATISTICS_COMMON.ahk" { VBICODECFILTERING_STATISTICS_COMMON }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VBICODECFILTERING_STATISTICS_TELETEXT extends Win32Struct {
-    static sizeof => 56
+export default struct VBICODECFILTERING_STATISTICS_TELETEXT {
+    #StructPack 4
 
-    static packingSize => 4
+    Common : VBICODECFILTERING_STATISTICS_COMMON
 
-    /**
-     * @type {VBICODECFILTERING_STATISTICS_COMMON}
-     */
-    Common {
-        get {
-            if(!this.HasProp("__Common"))
-                this.__Common := VBICODECFILTERING_STATISTICS_COMMON(0, this)
-            return this.__Common
-        }
-    }
 }

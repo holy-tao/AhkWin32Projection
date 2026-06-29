@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IObjectId.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\AlternativeNameType.ahk" { AlternativeNameType }
 
 /**
  * Is used by an IX509ExtensionAlternativeNames object to represent an instance of an AlternativeNames extension.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ialternativename
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IAlternativeName extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAlternativeName extends IDispatch {
     /**
      * The interface identifier for IAlternativeName
      * @type {Guid}
      */
-    static IID => Guid("{728ab313-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab313-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAlternativeName interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        InitializeFromString    : IntPtr
+        InitializeFromRawData   : IntPtr
+        InitializeFromOtherName : IntPtr
+        get_Type                : IntPtr
+        get_StrValue            : IntPtr
+        get_ObjectId            : IntPtr
+        get_RawData             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromString", "InitializeFromRawData", "InitializeFromOtherName", "get_Type", "get_StrValue", "get_ObjectId", "get_RawData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAlternativeName.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {AlternativeNameType} 
@@ -98,7 +115,7 @@ class IAlternativeName extends IDispatch {
     InitializeFromString(Type, strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(7, this, "int", Type, "ptr", strValue, "HRESULT")
+        result := ComCall(7, this, AlternativeNameType, Type, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -177,7 +194,7 @@ class IAlternativeName extends IDispatch {
     InitializeFromRawData(Type, Encoding, strRawData) {
         strRawData := strRawData is String ? BSTR.Alloc(strRawData).Value : strRawData
 
-        result := ComCall(8, this, "int", Type, "int", Encoding, "ptr", strRawData, "HRESULT")
+        result := ComCall(8, this, AlternativeNameType, Type, EncodingType, Encoding, BSTR, strRawData, "HRESULT")
         return result
     }
 
@@ -216,7 +233,7 @@ class IAlternativeName extends IDispatch {
     InitializeFromOtherName(pObjectId, Encoding, strRawData, ToBeWrapped) {
         strRawData := strRawData is String ? BSTR.Alloc(strRawData).Value : strRawData
 
-        result := ComCall(9, this, "ptr", pObjectId, "int", Encoding, "ptr", strRawData, "short", ToBeWrapped, "HRESULT")
+        result := ComCall(9, this, "ptr", pObjectId, EncodingType, Encoding, BSTR, strRawData, VARIANT_BOOL, ToBeWrapped, "HRESULT")
         return result
     }
 
@@ -308,8 +325,8 @@ class IAlternativeName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ialternativename-get_strvalue
      */
     get_StrValue() {
-        pValue := BSTR()
-        result := ComCall(11, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -346,8 +363,40 @@ class IAlternativeName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ialternativename-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
-        result := ComCall(13, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(13, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IAlternativeName.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromString := CallbackCreate(GetMethod(implObj, "InitializeFromString"), flags, 3)
+        this.vtbl.InitializeFromRawData := CallbackCreate(GetMethod(implObj, "InitializeFromRawData"), flags, 4)
+        this.vtbl.InitializeFromOtherName := CallbackCreate(GetMethod(implObj, "InitializeFromOtherName"), flags, 5)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_StrValue := CallbackCreate(GetMethod(implObj, "get_StrValue"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromString)
+        CallbackFree(this.vtbl.InitializeFromRawData)
+        CallbackFree(this.vtbl.InitializeFromOtherName)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_StrValue)
+        CallbackFree(this.vtbl.get_ObjectId)
+        CallbackFree(this.vtbl.get_RawData)
     }
 }

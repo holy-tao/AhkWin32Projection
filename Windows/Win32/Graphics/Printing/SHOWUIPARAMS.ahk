@@ -1,32 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UI_TYPE.ahk
-#Include .\MESSAGEBOX_PARAMS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MESSAGEBOX_PARAMS.ahk" { MESSAGEBOX_PARAMS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UI_TYPE.ahk" { UI_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class SHOWUIPARAMS extends Win32Struct {
-    static sizeof => 48
+export default struct SHOWUIPARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    UIType : UI_TYPE
 
-    /**
-     * @type {UI_TYPE}
-     */
-    UIType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageBoxParams : MESSAGEBOX_PARAMS
 
-    /**
-     * @type {MESSAGEBOX_PARAMS}
-     */
-    MessageBoxParams {
-        get {
-            if(!this.HasProp("__MessageBoxParams"))
-                this.__MessageBoxParams := MESSAGEBOX_PARAMS(8, this)
-            return this.__MessageBoxParams
-        }
-    }
 }

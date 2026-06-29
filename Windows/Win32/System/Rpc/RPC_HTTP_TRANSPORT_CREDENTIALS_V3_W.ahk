@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_C_HTTP_FLAGS.ahk
-#Include .\RPC_C_HTTP_AUTHN_TARGET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_C_HTTP_AUTHN_TARGET.ahk" { RPC_C_HTTP_AUTHN_TARGET }
+#Import ".\RPC_C_HTTP_FLAGS.ahk" { RPC_C_HTTP_FLAGS }
 
 /**
  * The RPC_HTTP_TRANSPORT_CREDENTIALS_V3 structure defines additional credentials to authenticate to an RPC proxy server or HTTP proxy server when using RPC/HTTP.RPC_HTTP_TRANSPORT_CREDENTIALS_V3 extends RPC_HTTP_TRANSPORT_CREDENTIALS_V2 by allowing arbitrary credential forms to be used. (Unicode)
@@ -18,19 +17,13 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W {
+    #StructPack 8
 
     /**
      * A pointer to an opaque authentication handle in the form of an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> structure.
-     * @type {Pointer<Void>}
      */
-    TransportCredentials {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TransportCredentials : IntPtr
 
     /**
      * A set of flags that can be combined with the bitwise OR operator. 
@@ -63,79 +56,48 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_HTTP_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : RPC_C_HTTP_FLAGS
 
     /**
      * Specifies the authentication target.
-     * @type {RPC_C_HTTP_AUTHN_TARGET}
      */
-    AuthenticationTarget {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AuthenticationTarget : RPC_C_HTTP_AUTHN_TARGET
 
     /**
      * The number of elements in the <b>AuthnScheme</b> array.
-     * @type {Integer}
      */
-    NumberOfAuthnSchemes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumberOfAuthnSchemes : UInt32
 
     /**
      * A pointer to an array of authentication schemes the client is willing to use. Each element of the array can contain one of the following constants:
      * 
      * <a id="RPC_C_HTTP_AUTHN_SCHEME_BASIC"></a>
      * <a id="rpc_c_http_authn_scheme_basic"></a>
-     * @type {Pointer<Integer>}
      */
-    AuthnSchemes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AuthnSchemes : IntPtr
 
     /**
      * Contains an optional string with the expected server principal name. The principal name is in the same format as that generated for <a href="https://docs.microsoft.com/windows/desktop/api/rpcssl/nf-rpcssl-rpccertgenerateprincipalname">RpcCertGeneratePrincipalName</a> (see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a> for more information). This member is used only when SSL is used. In such cases, the server certificate is checked against the generated principal name. If they do not match, an error is returned. This member enables clients to authenticate the RPC Proxy.
-     * @type {Pointer<Integer>}
      */
-    ServerCertificateSubject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ServerCertificateSubject : IntPtr
 
     /**
      * A pointer to an opaque authentication handle in the form of an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> structure when authenticating against an HTTP proxy server. <b>ProxyCredentials</b> is only valid when <b>AuthenticationTarget</b> contains <b>RPC_C_HTTP_AUTHN_TARGET_PROXY</b>.
-     * @type {Pointer<Void>}
      */
-    ProxyCredentials {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ProxyCredentials : IntPtr
 
     /**
      * The number of elements in the <b>ProxyAuthnSchemes</b> array when authenticating against an HTTP proxy server. <b>NumberOfProxyAuthnSchemes</b> is only valid when <b>AuthenticationTarget</b> contains <b>RPC_C_HTTP_AUTHN_TARGET_PROXY</b>.
-     * @type {Integer}
      */
-    NumberOfProxyAuthnSchemes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    NumberOfProxyAuthnSchemes : UInt32
 
     /**
      * A pointer to an array of authentication schemes the client is willing to use when authenticating against an HTTP proxy server. Each element of the array can contain one of the following constants. <b>ProxyAuthnSchemes</b> is only valid when <b>AuthenticationTarget</b> contains <b>RPC_C_HTTP_AUTHN_TARGET_PROXY</b>.
      * 
      * <a id="RPC_C_HTTP_AUTHN_SCHEME_BASIC"></a>
      * <a id="rpc_c_http_authn_scheme_basic"></a>
-     * @type {Pointer<Integer>}
      */
-    ProxyAuthnSchemes {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ProxyAuthnSchemes : IntPtr
+
 }

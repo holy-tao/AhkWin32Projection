@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DDSCAPS2 structure defines additional capabilities of a Microsoft DirectDraw surface object.
@@ -8,19 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddscaps2
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDSCAPS2 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DDSCAPS2 {
+    #StructPack 4
 
     /**
      * Specifies a set of flags representing the capabilities of the surface. The flags in this member are identical to those in the corresponding member of the [**DDSCAPS**](ns-ddraw-ddscaps.md) structure.
-     * @type {Integer}
      */
-    dwCaps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCaps : UInt32
 
     /**
      * Specifies a set of flags that indicate additional surface capabilities. This member can contain one or more of the following capability flags. Each of these flags, except DDSCAPS2\_TEXTUREMANAGE, are set by the application when the application calls its **CreateSurface** method.
@@ -175,12 +168,8 @@ class DDSCAPS2 extends Win32Struct {
      * </tr>
      * </tbody>
      * </table>
-     * @type {Integer}
      */
-    dwCaps2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCaps2 : UInt32
 
     /**
      * **DirectX 8.0 and DirectX 8.1 versions only.**
@@ -247,26 +236,13 @@ class DDSCAPS2 extends Win32Struct {
      * </tr>
      * </tbody>
      * </table>
-     * @type {Integer}
      */
-    dwCaps3 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCaps3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps4 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwCaps4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVolumeDepth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    static __New() {
+        DefineProp(this.Prototype, 'dwVolumeDepth', { type: UInt32, offset: 12 })
+        this.DeleteProp("__New")
     }
 }

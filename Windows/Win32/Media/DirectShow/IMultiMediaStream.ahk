@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMediaStream.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MMSSF_GET_INFORMATION_FLAGS.ahk" { MMSSF_GET_INFORMATION_FLAGS }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\STREAM_STATE.ahk" { STREAM_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/mmstream/nn-mmstream-imultimediastream
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMultiMediaStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMultiMediaStream extends IUnknown {
     /**
      * The interface identifier for IMultiMediaStream
      * @type {Guid}
      */
-    static IID => Guid("{b502d1bc-9a57-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{b502d1bc-9a57-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultiMediaStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInformation            : IntPtr
+        GetMediaStream            : IntPtr
+        EnumMediaStreams          : IntPtr
+        GetState                  : IntPtr
+        SetState                  : IntPtr
+        GetTime                   : IntPtr
+        GetDuration               : IntPtr
+        Seek                      : IntPtr
+        GetEndOfStreamEventHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInformation", "GetMediaStream", "EnumMediaStreams", "GetState", "SetState", "GetTime", "GetDuration", "Seek", "GetEndOfStreamEventHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultiMediaStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetInformation method retrieves the capabilities of the multimedia stream object.
@@ -108,7 +127,7 @@ class IMultiMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getmediastream
      */
     GetMediaStream(idPurpose) {
-        result := ComCall(4, this, "ptr", idPurpose, "ptr*", &ppMediaStream := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, idPurpose, "ptr*", &ppMediaStream := 0, "HRESULT")
         return IMediaStream(ppMediaStream)
     }
 
@@ -173,7 +192,7 @@ class IMultiMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-setstate
      */
     SetState(NewState) {
-        result := ComCall(7, this, "int", NewState, "HRESULT")
+        result := ComCall(7, this, STREAM_STATE, NewState, "HRESULT")
         return result
     }
 
@@ -245,8 +264,44 @@ class IMultiMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getendofstreameventhandle
      */
     GetEndOfStreamEventHandle() {
-        phEOS := HANDLE()
-        result := ComCall(11, this, "ptr", phEOS, "HRESULT")
+        phEOS := HANDLE.Owned()
+        result := ComCall(11, this, HANDLE.Ptr, phEOS, "HRESULT")
         return phEOS
+    }
+
+    Query(iid) {
+        if (IMultiMediaStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInformation := CallbackCreate(GetMethod(implObj, "GetInformation"), flags, 3)
+        this.vtbl.GetMediaStream := CallbackCreate(GetMethod(implObj, "GetMediaStream"), flags, 3)
+        this.vtbl.EnumMediaStreams := CallbackCreate(GetMethod(implObj, "EnumMediaStreams"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 2)
+        this.vtbl.GetEndOfStreamEventHandle := CallbackCreate(GetMethod(implObj, "GetEndOfStreamEventHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInformation)
+        CallbackFree(this.vtbl.GetMediaStream)
+        CallbackFree(this.vtbl.EnumMediaStreams)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.SetState)
+        CallbackFree(this.vtbl.GetTime)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.GetEndOfStreamEventHandle)
     }
 }

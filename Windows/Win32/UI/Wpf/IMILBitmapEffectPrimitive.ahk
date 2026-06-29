@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Graphics\Dwm\MilMatrix3x2D.ahk" { MilMatrix3x2D }
+#Import ".\MilPoint2D.ahk" { MilPoint2D }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MilRectD.ahk" { MilRectD }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create a bitmap effect's output. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.
@@ -12,26 +18,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectprimitive
  * @namespace Windows.Win32.UI.Wpf
  */
-class IMILBitmapEffectPrimitive extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMILBitmapEffectPrimitive extends IUnknown {
     /**
      * The interface identifier for IMILBitmapEffectPrimitive
      * @type {Guid}
      */
-    static IID => Guid("{67e31025-3091-4dfc-98d6-dd494551461d}")
+    static IID := Guid("{67e31025-3091-4dfc-98d6-dd494551461d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMILBitmapEffectPrimitive interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOutput           : IntPtr
+        TransformPoint      : IntPtr
+        TransformRect       : IntPtr
+        HasAffineTransform  : IntPtr
+        HasInverseTransform : IntPtr
+        GetAffineMatrix     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOutput", "TransformPoint", "TransformRect", "HasAffineTransform", "HasInverseTransform", "GetAffineMatrix"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMILBitmapEffectPrimitive.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Performs pixel processing for the bitmap effect.
@@ -79,7 +97,7 @@ class IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
      */
     TransformPoint(uiIndex, p, fForwardTransform, pContext) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "short*", &pfPointTransformed := 0, "HRESULT")
+        result := ComCall(4, this, "uint", uiIndex, MilPoint2D.Ptr, p, VARIANT_BOOL, fForwardTransform, "ptr", pContext, VARIANT_BOOL.Ptr, &pfPointTransformed := 0, "HRESULT")
         return pfPointTransformed
     }
 
@@ -103,7 +121,7 @@ class IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformrect
      */
     TransformRect(uiIndex, p, fForwardTransform, pContext) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "HRESULT")
+        result := ComCall(5, this, "uint", uiIndex, MilRectD.Ptr, p, VARIANT_BOOL, fForwardTransform, "ptr", pContext, "HRESULT")
         return result
     }
 
@@ -118,7 +136,7 @@ class IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
      */
     HasAffineTransform(uiIndex) {
-        result := ComCall(6, this, "uint", uiIndex, "short*", &pfAffine := 0, "HRESULT")
+        result := ComCall(6, this, "uint", uiIndex, VARIANT_BOOL.Ptr, &pfAffine := 0, "HRESULT")
         return pfAffine
     }
 
@@ -133,7 +151,7 @@ class IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
      */
     HasInverseTransform(uiIndex) {
-        result := ComCall(7, this, "uint", uiIndex, "short*", &pfHasInverse := 0, "HRESULT")
+        result := ComCall(7, this, "uint", uiIndex, VARIANT_BOOL.Ptr, &pfHasInverse := 0, "HRESULT")
         return pfHasInverse
     }
 
@@ -151,7 +169,37 @@ class IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-getaffinematrix
      */
     GetAffineMatrix(uiIndex, pMatrix) {
-        result := ComCall(8, this, "uint", uiIndex, "ptr", pMatrix, "HRESULT")
+        result := ComCall(8, this, "uint", uiIndex, MilMatrix3x2D.Ptr, pMatrix, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMILBitmapEffectPrimitive.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 5)
+        this.vtbl.TransformPoint := CallbackCreate(GetMethod(implObj, "TransformPoint"), flags, 6)
+        this.vtbl.TransformRect := CallbackCreate(GetMethod(implObj, "TransformRect"), flags, 5)
+        this.vtbl.HasAffineTransform := CallbackCreate(GetMethod(implObj, "HasAffineTransform"), flags, 3)
+        this.vtbl.HasInverseTransform := CallbackCreate(GetMethod(implObj, "HasInverseTransform"), flags, 3)
+        this.vtbl.GetAffineMatrix := CallbackCreate(GetMethod(implObj, "GetAffineMatrix"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOutput)
+        CallbackFree(this.vtbl.TransformPoint)
+        CallbackFree(this.vtbl.TransformRect)
+        CallbackFree(this.vtbl.HasAffineTransform)
+        CallbackFree(this.vtbl.HasInverseTransform)
+        CallbackFree(this.vtbl.GetAffineMatrix)
     }
 }

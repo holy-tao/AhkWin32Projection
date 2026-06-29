@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_PRI_CAPABILITY extends Win32Struct {
-    static sizeof => 32
+export default struct PCI_EXPRESS_PRI_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Control : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Control {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Status : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Status {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PRCapacity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PRCapacity {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PRAllocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PRAllocation {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

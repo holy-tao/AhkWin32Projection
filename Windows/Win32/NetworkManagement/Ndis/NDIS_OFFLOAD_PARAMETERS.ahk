@@ -1,119 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_OFFLOAD_PARAMETERS extends Win32Struct {
-    static sizeof => 20
+export default struct NDIS_OFFLOAD_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    IPv4Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IPv4Checksum {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    TCPIPv4Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TCPIPv4Checksum {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    UDPIPv4Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UDPIPv4Checksum {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    TCPIPv6Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TCPIPv6Checksum {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    UDPIPv6Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UDPIPv6Checksum {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    LsoV1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LsoV1 {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    IPsecV1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IPsecV1 {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    LsoV2IPv4 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LsoV2IPv4 {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    LsoV2IPv6 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LsoV2IPv6 {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    TcpConnectionIPv4 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TcpConnectionIPv4 {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    TcpConnectionIPv6 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TcpConnectionIPv6 {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

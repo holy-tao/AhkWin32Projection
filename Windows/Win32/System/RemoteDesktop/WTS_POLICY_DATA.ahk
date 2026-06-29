@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains policy information that is passed by the Remote Desktop Services service to the protocol.
@@ -17,97 +17,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_policy_data
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_POLICY_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct WTS_POLICY_DATA {
+    #StructPack 4
 
     /**
      * Specifies whether to disable encryption for communication between the client and server.
-     * @type {BOOLEAN}
      */
-    fDisableEncryption {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    fDisableEncryption : BOOLEAN
 
     /**
      * Specifies whether to disable automatic reconnect of the client.
-     * @type {BOOLEAN}
      */
-    fDisableAutoReconnect {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    fDisableAutoReconnect : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    ColorDepth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ColorDepth : UInt32
 
     /**
      * Specifies the minimum permitted encryption level.
-     * @type {Integer}
      */
-    MinEncryptionLevel {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    MinEncryptionLevel : Int8
 
     /**
      * Specifies whether to disable printer mapping.
-     * @type {BOOLEAN}
      */
-    fDisableCpm {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    fDisableCpm : BOOLEAN
 
     /**
      * Specifies whether to disable drive mapping.
-     * @type {BOOLEAN}
      */
-    fDisableCdm {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    fDisableCdm : BOOLEAN
 
     /**
      * Specifies whether to disable COM communication port mapping.
-     * @type {BOOLEAN}
      */
-    fDisableCcm {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    fDisableCcm : BOOLEAN
 
     /**
      * Specifies whether to disable LPT (line print terminal) printer redirection.
-     * @type {BOOLEAN}
      */
-    fDisableLPT {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    fDisableLPT : BOOLEAN
 
     /**
      * Specifies whether to disable clipboard redirection.
-     * @type {BOOLEAN}
      */
-    fDisableClip {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    fDisableClip : BOOLEAN
 
     /**
      * Specifies whether to disable Plug and Play redirection.
-     * @type {BOOLEAN}
      */
-    fDisablePNPRedir {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    fDisablePNPRedir : BOOLEAN
+
 }

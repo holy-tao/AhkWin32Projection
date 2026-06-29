@@ -1,9 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Input\Ime\HIMC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\WindowsAndMessaging\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
+#Import "..\..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
+#Import ".\PARAFORMAT.ahk" { PARAFORMAT }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Input\Ime\HIMC.ahk" { HIMC }
+#Import ".\CHARFORMATW.ahk" { CHARFORMATW }
+#Import ".\TXTBACKSTYLE.ahk" { TXTBACKSTYLE }
+#Import "..\..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITextHost interface is used by a text services object to obtain text host services.
@@ -14,21 +29,66 @@
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itexthost
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextHost extends IUnknown {
+export default struct ITextHost extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TxGetDC", "TxReleaseDC", "TxShowScrollBar", "TxEnableScrollBar", "TxSetScrollRange", "TxSetScrollPos", "TxInvalidateRect", "TxViewChange", "TxCreateCaret", "TxShowCaret", "TxSetCaretPos", "TxSetTimer", "TxKillTimer", "TxScrollWindowEx", "TxSetCapture", "TxSetFocus", "TxSetCursor", "TxScreenToClient", "TxClientToScreen", "TxActivate", "TxDeactivate", "TxGetClientRect", "TxGetViewInset", "TxGetCharFormat", "TxGetParaFormat", "TxGetSysColor", "TxGetBackStyle", "TxGetMaxLength", "TxGetScrollBars", "TxGetPasswordChar", "TxGetAcceleratorPos", "TxGetExtent", "OnTxCharFormatChange", "OnTxParaFormatChange", "TxGetPropertyBits", "TxNotify", "TxImmGetContext", "TxImmReleaseContext", "TxGetSelectionBarWidth"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TxGetDC                : IntPtr
+        TxReleaseDC            : IntPtr
+        TxShowScrollBar        : IntPtr
+        TxEnableScrollBar      : IntPtr
+        TxSetScrollRange       : IntPtr
+        TxSetScrollPos         : IntPtr
+        TxInvalidateRect       : IntPtr
+        TxViewChange           : IntPtr
+        TxCreateCaret          : IntPtr
+        TxShowCaret            : IntPtr
+        TxSetCaretPos          : IntPtr
+        TxSetTimer             : IntPtr
+        TxKillTimer            : IntPtr
+        TxScrollWindowEx       : IntPtr
+        TxSetCapture           : IntPtr
+        TxSetFocus             : IntPtr
+        TxSetCursor            : IntPtr
+        TxScreenToClient       : IntPtr
+        TxClientToScreen       : IntPtr
+        TxActivate             : IntPtr
+        TxDeactivate           : IntPtr
+        TxGetClientRect        : IntPtr
+        TxGetViewInset         : IntPtr
+        TxGetCharFormat        : IntPtr
+        TxGetParaFormat        : IntPtr
+        TxGetSysColor          : IntPtr
+        TxGetBackStyle         : IntPtr
+        TxGetMaxLength         : IntPtr
+        TxGetScrollBars        : IntPtr
+        TxGetPasswordChar      : IntPtr
+        TxGetAcceleratorPos    : IntPtr
+        TxGetExtent            : IntPtr
+        OnTxCharFormatChange   : IntPtr
+        OnTxParaFormatChange   : IntPtr
+        TxGetPropertyBits      : IntPtr
+        TxNotify               : IntPtr
+        TxImmGetContext        : IntPtr
+        TxImmReleaseContext    : IntPtr
+        TxGetSelectionBarWidth : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests the device context for the text host window.
@@ -42,9 +102,8 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetdc
      */
     TxGetDC() {
-        result := ComCall(3, this, "ptr")
-        resultHandle := HDC({Value: result}, True)
-        return resultHandle
+        result := ComCall(3, this, HDC)
+        return result
     }
 
     /**
@@ -63,9 +122,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txreleasedc
      */
     TxReleaseDC(_hdc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(4, this, "ptr", _hdc, "int")
+        result := ComCall(4, this, HDC, _hdc, Int32)
         return result
     }
 
@@ -85,7 +142,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txshowscrollbar
      */
     TxShowScrollBar(fnBar, fShow) {
-        result := ComCall(5, this, "int", fnBar, "int", fShow, "int")
+        result := ComCall(5, this, "int", fnBar, BOOL, fShow, BOOL)
         return result
     }
 
@@ -103,7 +160,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txenablescrollbar
      */
     TxEnableScrollBar(fuSBFlags, fuArrowflags) {
-        result := ComCall(6, this, "int", fuSBFlags, "int", fuArrowflags, "int")
+        result := ComCall(6, this, SCROLLBAR_CONSTANTS, fuSBFlags, "int", fuArrowflags, BOOL)
         return result
     }
 
@@ -131,7 +188,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetscrollrange
      */
     TxSetScrollRange(fnBar, nMinPos, nMaxPos, fRedraw) {
-        result := ComCall(7, this, "int", fnBar, "int", nMinPos, "int", nMaxPos, "int", fRedraw, "int")
+        result := ComCall(7, this, "int", fnBar, "int", nMinPos, "int", nMaxPos, BOOL, fRedraw, BOOL)
         return result
     }
 
@@ -156,7 +213,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetscrollpos
      */
     TxSetScrollPos(fnBar, nPos, fRedraw) {
-        result := ComCall(8, this, "int", fnBar, "int", nPos, "int", fRedraw, "int")
+        result := ComCall(8, this, "int", fnBar, "int", nPos, BOOL, fRedraw, BOOL)
         return result
     }
 
@@ -175,7 +232,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txinvalidaterect
      */
     TxInvalidateRect(prc, fMode) {
-        ComCall(9, this, "ptr", prc, "int", fMode)
+        ComCall(9, this, RECT.Ptr, prc, BOOL, fMode)
     }
 
     /**
@@ -196,7 +253,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txviewchange
      */
     TxViewChange(fUpdate) {
-        ComCall(10, this, "int", fUpdate)
+        ComCall(10, this, BOOL, fUpdate)
     }
 
     /**
@@ -220,9 +277,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txcreatecaret
      */
     TxCreateCaret(hbmp, xWidth, yHeight) {
-        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
-
-        result := ComCall(11, this, "ptr", hbmp, "int", xWidth, "int", yHeight, "int")
+        result := ComCall(11, this, HBITMAP, hbmp, "int", xWidth, "int", yHeight, BOOL)
         return result
     }
 
@@ -241,7 +296,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txshowcaret
      */
     TxShowCaret(fShow) {
-        result := ComCall(12, this, "int", fShow, "int")
+        result := ComCall(12, this, BOOL, fShow, BOOL)
         return result
     }
 
@@ -263,7 +318,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetcaretpos
      */
     TxSetCaretPos(x, y) {
-        result := ComCall(13, this, "int", x, "int", y, "int")
+        result := ComCall(13, this, "int", x, "int", y, BOOL)
         return result
     }
 
@@ -285,7 +340,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsettimer
      */
     TxSetTimer(idTimer, uTimeout) {
-        result := ComCall(14, this, "uint", idTimer, "uint", uTimeout, "int")
+        result := ComCall(14, this, "uint", idTimer, "uint", uTimeout, BOOL)
         return result
     }
 
@@ -330,9 +385,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txscrollwindowex
      */
     TxScrollWindowEx(dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate, fuScroll) {
-        hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
-
-        ComCall(16, this, "int", dx, "int", dy, "ptr", lprcScroll, "ptr", lprcClip, "ptr", hrgnUpdate, "ptr", lprcUpdate, "uint", fuScroll)
+        ComCall(16, this, "int", dx, "int", dy, RECT.Ptr, lprcScroll, RECT.Ptr, lprcClip, HRGN, hrgnUpdate, RECT.Ptr, lprcUpdate, SCROLL_WINDOW_FLAGS, fuScroll)
     }
 
     /**
@@ -346,7 +399,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetcapture
      */
     TxSetCapture(fCapture) {
-        ComCall(17, this, "int", fCapture)
+        ComCall(17, this, BOOL, fCapture)
     }
 
     /**
@@ -376,9 +429,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetcursor
      */
     TxSetCursor(hcur, fText) {
-        hcur := hcur is Win32Handle ? NumGet(hcur, "ptr") : hcur
-
-        ComCall(19, this, "ptr", hcur, "int", fText)
+        ComCall(19, this, HCURSOR, hcur, BOOL, fText)
     }
 
     /**
@@ -394,7 +445,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txscreentoclient
      */
     TxScreenToClient(lppt) {
-        result := ComCall(20, this, "ptr", lppt, "int")
+        result := ComCall(20, this, POINT.Ptr, lppt, BOOL)
         return result
     }
 
@@ -415,7 +466,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txclienttoscreen
      */
     TxClientToScreen(lppt) {
-        result := ComCall(21, this, "ptr", lppt, "int")
+        result := ComCall(21, this, POINT.Ptr, lppt, BOOL)
         return result
     }
 
@@ -542,7 +593,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetclientrect
      */
     TxGetClientRect(prc) {
-        result := ComCall(24, this, "ptr", prc, "HRESULT")
+        result := ComCall(24, this, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -570,7 +621,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetviewinset
      */
     TxGetViewInset(prc) {
-        result := ComCall(25, this, "ptr", prc, "HRESULT")
+        result := ComCall(25, this, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -669,7 +720,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetsyscolor
      */
     TxGetSysColor(nIndex) {
-        result := ComCall(28, this, "int", nIndex, "uint")
+        result := ComCall(28, this, SYS_COLOR_INDEX, nIndex, COLORREF)
         return result
     }
 
@@ -866,7 +917,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetextent
      */
     TxGetExtent(lpExtent) {
-        result := ComCall(34, this, "ptr", lpExtent, "HRESULT")
+        result := ComCall(34, this, SIZE.Ptr, lpExtent, "HRESULT")
         return result
     }
 
@@ -912,7 +963,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-ontxcharformatchange
      */
     OnTxCharFormatChange(pCF) {
-        result := ComCall(35, this, "ptr", pCF, "HRESULT")
+        result := ComCall(35, this, CHARFORMATW.Ptr, pCF, "HRESULT")
         return result
     }
 
@@ -958,7 +1009,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-ontxparaformatchange
      */
     OnTxParaFormatChange(pPF) {
-        result := ComCall(36, this, "ptr", pPF, "HRESULT")
+        result := ComCall(36, this, PARAFORMAT.Ptr, pPF, "HRESULT")
         return result
     }
 
@@ -1141,9 +1192,8 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-tximmgetcontext
      */
     TxImmGetContext() {
-        result := ComCall(39, this, "ptr")
-        resultHandle := HIMC({Value: result}, True)
-        return resultHandle
+        result := ComCall(39, this, HIMC.Owned)
+        return result
     }
 
     /**
@@ -1155,9 +1205,7 @@ class ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-tximmreleasecontext
      */
     TxImmReleaseContext(_himc) {
-        _himc := _himc is Win32Handle ? NumGet(_himc, "ptr") : _himc
-
-        ComCall(40, this, "ptr", _himc)
+        ComCall(40, this, HIMC, _himc)
     }
 
     /**
@@ -1175,5 +1223,101 @@ class ITextHost extends IUnknown {
 
         result := ComCall(41, this, lSelBarWidthMarshal, lSelBarWidth, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TxGetDC := CallbackCreate(GetMethod(implObj, "TxGetDC"), flags, 1)
+        this.vtbl.TxReleaseDC := CallbackCreate(GetMethod(implObj, "TxReleaseDC"), flags, 2)
+        this.vtbl.TxShowScrollBar := CallbackCreate(GetMethod(implObj, "TxShowScrollBar"), flags, 3)
+        this.vtbl.TxEnableScrollBar := CallbackCreate(GetMethod(implObj, "TxEnableScrollBar"), flags, 3)
+        this.vtbl.TxSetScrollRange := CallbackCreate(GetMethod(implObj, "TxSetScrollRange"), flags, 5)
+        this.vtbl.TxSetScrollPos := CallbackCreate(GetMethod(implObj, "TxSetScrollPos"), flags, 4)
+        this.vtbl.TxInvalidateRect := CallbackCreate(GetMethod(implObj, "TxInvalidateRect"), flags, 3)
+        this.vtbl.TxViewChange := CallbackCreate(GetMethod(implObj, "TxViewChange"), flags, 2)
+        this.vtbl.TxCreateCaret := CallbackCreate(GetMethod(implObj, "TxCreateCaret"), flags, 4)
+        this.vtbl.TxShowCaret := CallbackCreate(GetMethod(implObj, "TxShowCaret"), flags, 2)
+        this.vtbl.TxSetCaretPos := CallbackCreate(GetMethod(implObj, "TxSetCaretPos"), flags, 3)
+        this.vtbl.TxSetTimer := CallbackCreate(GetMethod(implObj, "TxSetTimer"), flags, 3)
+        this.vtbl.TxKillTimer := CallbackCreate(GetMethod(implObj, "TxKillTimer"), flags, 2)
+        this.vtbl.TxScrollWindowEx := CallbackCreate(GetMethod(implObj, "TxScrollWindowEx"), flags, 8)
+        this.vtbl.TxSetCapture := CallbackCreate(GetMethod(implObj, "TxSetCapture"), flags, 2)
+        this.vtbl.TxSetFocus := CallbackCreate(GetMethod(implObj, "TxSetFocus"), flags, 1)
+        this.vtbl.TxSetCursor := CallbackCreate(GetMethod(implObj, "TxSetCursor"), flags, 3)
+        this.vtbl.TxScreenToClient := CallbackCreate(GetMethod(implObj, "TxScreenToClient"), flags, 2)
+        this.vtbl.TxClientToScreen := CallbackCreate(GetMethod(implObj, "TxClientToScreen"), flags, 2)
+        this.vtbl.TxActivate := CallbackCreate(GetMethod(implObj, "TxActivate"), flags, 2)
+        this.vtbl.TxDeactivate := CallbackCreate(GetMethod(implObj, "TxDeactivate"), flags, 2)
+        this.vtbl.TxGetClientRect := CallbackCreate(GetMethod(implObj, "TxGetClientRect"), flags, 2)
+        this.vtbl.TxGetViewInset := CallbackCreate(GetMethod(implObj, "TxGetViewInset"), flags, 2)
+        this.vtbl.TxGetCharFormat := CallbackCreate(GetMethod(implObj, "TxGetCharFormat"), flags, 2)
+        this.vtbl.TxGetParaFormat := CallbackCreate(GetMethod(implObj, "TxGetParaFormat"), flags, 2)
+        this.vtbl.TxGetSysColor := CallbackCreate(GetMethod(implObj, "TxGetSysColor"), flags, 2)
+        this.vtbl.TxGetBackStyle := CallbackCreate(GetMethod(implObj, "TxGetBackStyle"), flags, 2)
+        this.vtbl.TxGetMaxLength := CallbackCreate(GetMethod(implObj, "TxGetMaxLength"), flags, 2)
+        this.vtbl.TxGetScrollBars := CallbackCreate(GetMethod(implObj, "TxGetScrollBars"), flags, 2)
+        this.vtbl.TxGetPasswordChar := CallbackCreate(GetMethod(implObj, "TxGetPasswordChar"), flags, 2)
+        this.vtbl.TxGetAcceleratorPos := CallbackCreate(GetMethod(implObj, "TxGetAcceleratorPos"), flags, 2)
+        this.vtbl.TxGetExtent := CallbackCreate(GetMethod(implObj, "TxGetExtent"), flags, 2)
+        this.vtbl.OnTxCharFormatChange := CallbackCreate(GetMethod(implObj, "OnTxCharFormatChange"), flags, 2)
+        this.vtbl.OnTxParaFormatChange := CallbackCreate(GetMethod(implObj, "OnTxParaFormatChange"), flags, 2)
+        this.vtbl.TxGetPropertyBits := CallbackCreate(GetMethod(implObj, "TxGetPropertyBits"), flags, 3)
+        this.vtbl.TxNotify := CallbackCreate(GetMethod(implObj, "TxNotify"), flags, 3)
+        this.vtbl.TxImmGetContext := CallbackCreate(GetMethod(implObj, "TxImmGetContext"), flags, 1)
+        this.vtbl.TxImmReleaseContext := CallbackCreate(GetMethod(implObj, "TxImmReleaseContext"), flags, 2)
+        this.vtbl.TxGetSelectionBarWidth := CallbackCreate(GetMethod(implObj, "TxGetSelectionBarWidth"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TxGetDC)
+        CallbackFree(this.vtbl.TxReleaseDC)
+        CallbackFree(this.vtbl.TxShowScrollBar)
+        CallbackFree(this.vtbl.TxEnableScrollBar)
+        CallbackFree(this.vtbl.TxSetScrollRange)
+        CallbackFree(this.vtbl.TxSetScrollPos)
+        CallbackFree(this.vtbl.TxInvalidateRect)
+        CallbackFree(this.vtbl.TxViewChange)
+        CallbackFree(this.vtbl.TxCreateCaret)
+        CallbackFree(this.vtbl.TxShowCaret)
+        CallbackFree(this.vtbl.TxSetCaretPos)
+        CallbackFree(this.vtbl.TxSetTimer)
+        CallbackFree(this.vtbl.TxKillTimer)
+        CallbackFree(this.vtbl.TxScrollWindowEx)
+        CallbackFree(this.vtbl.TxSetCapture)
+        CallbackFree(this.vtbl.TxSetFocus)
+        CallbackFree(this.vtbl.TxSetCursor)
+        CallbackFree(this.vtbl.TxScreenToClient)
+        CallbackFree(this.vtbl.TxClientToScreen)
+        CallbackFree(this.vtbl.TxActivate)
+        CallbackFree(this.vtbl.TxDeactivate)
+        CallbackFree(this.vtbl.TxGetClientRect)
+        CallbackFree(this.vtbl.TxGetViewInset)
+        CallbackFree(this.vtbl.TxGetCharFormat)
+        CallbackFree(this.vtbl.TxGetParaFormat)
+        CallbackFree(this.vtbl.TxGetSysColor)
+        CallbackFree(this.vtbl.TxGetBackStyle)
+        CallbackFree(this.vtbl.TxGetMaxLength)
+        CallbackFree(this.vtbl.TxGetScrollBars)
+        CallbackFree(this.vtbl.TxGetPasswordChar)
+        CallbackFree(this.vtbl.TxGetAcceleratorPos)
+        CallbackFree(this.vtbl.TxGetExtent)
+        CallbackFree(this.vtbl.OnTxCharFormatChange)
+        CallbackFree(this.vtbl.OnTxParaFormatChange)
+        CallbackFree(this.vtbl.TxGetPropertyBits)
+        CallbackFree(this.vtbl.TxNotify)
+        CallbackFree(this.vtbl.TxImmGetContext)
+        CallbackFree(this.vtbl.TxImmReleaseContext)
+        CallbackFree(this.vtbl.TxGetSelectionBarWidth)
     }
 }

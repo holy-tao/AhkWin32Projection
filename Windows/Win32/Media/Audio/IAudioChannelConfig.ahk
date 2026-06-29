@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioChannelConfig interface provides access to a hardware channel-configuration control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiochannelconfig
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioChannelConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioChannelConfig extends IUnknown {
     /**
      * The interface identifier for IAudioChannelConfig
      * @type {Guid}
      */
-    static IID => Guid("{bb11c46f-ec28-493c-b88a-5db88062ce98}")
+    static IID := Guid("{bb11c46f-ec28-493c-b88a-5db88062ce98}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioChannelConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetChannelConfig : IntPtr
+        GetChannelConfig : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetChannelConfig", "GetChannelConfig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioChannelConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetChannelConfig method sets the channel-configuration mask in a channel-configuration control.
@@ -57,7 +66,7 @@ class IAudioChannelConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiochannelconfig-setchannelconfig
      */
     SetChannelConfig(dwConfig, pguidEventContext) {
-        result := ComCall(3, this, "uint", dwConfig, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(3, this, "uint", dwConfig, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -71,5 +80,27 @@ class IAudioChannelConfig extends IUnknown {
     GetChannelConfig() {
         result := ComCall(4, this, "uint*", &pdwConfig := 0, "HRESULT")
         return pdwConfig
+    }
+
+    Query(iid) {
+        if (IAudioChannelConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetChannelConfig := CallbackCreate(GetMethod(implObj, "SetChannelConfig"), flags, 3)
+        this.vtbl.GetChannelConfig := CallbackCreate(GetMethod(implObj, "GetChannelConfig"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetChannelConfig)
+        CallbackFree(this.vtbl.GetChannelConfig)
     }
 }

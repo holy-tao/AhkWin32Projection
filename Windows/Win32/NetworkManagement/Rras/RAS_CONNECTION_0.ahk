@@ -1,102 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include .\RAS_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
+#Import ".\RAS_FLAGS.ahk" { RAS_FLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The RAS_CONNECTION_0 structure contains general information regarding a specific connection, such as user name or domain. For more detailed information about a specific connection, such as bytes sent or received, see RAS_CONNECTION_1.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RAS_CONNECTION_0 extends Win32Struct {
-    static sizeof => 1128
-
-    static packingSize => 8
+export default struct RAS_CONNECTION_0 {
+    #StructPack 8
 
     /**
      * A handle to the connection.
-     * @type {HANDLE}
      */
-    hConnection {
-        get {
-            if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(0, this)
-            return this.__hConnection
-        }
-    }
+    hConnection : HANDLE
 
     /**
      * A handle to the interface.
-     * @type {HANDLE}
      */
-    hInterface {
-        get {
-            if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(8, this)
-            return this.__hInterface
-        }
-    }
+    hInterface : HANDLE
 
     /**
      * A value that represent the duration of the connection, in seconds.
-     * @type {Integer}
      */
-    dwConnectDuration {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwConnectDuration : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">ROUTER_INTERFACE_TYPE</a> enumeration that identifies the type of connection interface.
-     * @type {ROUTER_INTERFACE_TYPE}
      */
-    dwInterfaceType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    dwInterfaceType : ROUTER_INTERFACE_TYPE
 
-    /**
-     * @type {RAS_FLAGS}
-     */
-    dwConnectionFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwConnectionFlags : RAS_FLAGS
 
     /**
      * A null-terminated Unicode string that contains the name of the interface for this connection.
-     * @type {String}
      */
-    wszInterfaceName {
-        get => StrGet(this.ptr + 28, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 256, "UTF-16")
-    }
+    wszInterfaceName : WCHAR[257]
 
     /**
      * A null-terminated Unicode string that contains the name of the user logged on to the connection.
-     * @type {String}
      */
-    wszUserName {
-        get => StrGet(this.ptr + 542, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 542, 256, "UTF-16")
-    }
+    wszUserName : WCHAR[257]
 
     /**
      * A null-terminated Unicode string that contains the domain on which the connected user is authenticated.
-     * @type {String}
      */
-    wszLogonDomain {
-        get => StrGet(this.ptr + 1056, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 1056, 15, "UTF-16")
-    }
+    wszLogonDomain : WCHAR[16]
 
     /**
      * A null-terminated Unicode string that contains the name of the remote computer.
-     * @type {String}
      */
-    wszRemoteComputer {
-        get => StrGet(this.ptr + 1088, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 1088, 16, "UTF-16")
-    }
+    wszRemoteComputer : WCHAR[17]
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the granularity at which the graphics processing unit (GPU) can be preempted from performing its current graphics rendering task.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_graphics_preemption_granularity
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_GRAPHICS_PREEMPTION_GRANULARITY extends Win32Enum {
+export default struct DXGI_GRAPHICS_PREEMPTION_GRANULARITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the preemption granularity as a DMA buffer.

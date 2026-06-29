@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IWICImagingFactory.ahk
-#Include .\IWICImageEncoder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IWICImagingFactory.ahk" { IWICImagingFactory }
+#Import "..\..\Direct2D\ID2D1Device.ahk" { ID2D1Device }
+#Import ".\IWICImageEncoder.ahk" { IWICImageEncoder }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An extension of the WIC factory interface that includes the ability to create an IWICImageEncoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicimagingfactory2
  * @namespace Windows.Win32.Graphics.Imaging.D2D
  */
-class IWICImagingFactory2 extends IWICImagingFactory {
-
-    static sizeof => A_PtrSize
+export default struct IWICImagingFactory2 extends IWICImagingFactory {
     /**
      * The interface identifier for IWICImagingFactory2
      * @type {Guid}
      */
-    static IID => Guid("{7b816b45-1996-4476-b132-de9e247c8af0}")
+    static IID := Guid("{7b816b45-1996-4476-b132-de9e247c8af0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICImagingFactory2 interfaces
+    */
+    struct Vtbl extends IWICImagingFactory.Vtbl {
+        CreateImageEncoder : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateImageEncoder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICImagingFactory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new image encoder object.
@@ -45,5 +54,25 @@ class IWICImagingFactory2 extends IWICImagingFactory {
     CreateImageEncoder(pD2DDevice) {
         result := ComCall(28, this, "ptr", pD2DDevice, "ptr*", &ppWICImageEncoder := 0, "HRESULT")
         return IWICImageEncoder(ppWICImageEncoder)
+    }
+
+    Query(iid) {
+        if (IWICImagingFactory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateImageEncoder := CallbackCreate(GetMethod(implObj, "CreateImageEncoder"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateImageEncoder)
     }
 }

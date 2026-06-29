@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Event identifier codes describing events to be received or excluded by an event sink.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_events
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class OFFLINEFILES_EVENTS extends Win32Enum {
+export default struct OFFLINEFILES_EVENTS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is reserved for future use.

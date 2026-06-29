@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk" { MSV1_0_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_PASSTHROUGH_REQUEST extends Win32Struct {
-    static sizeof => 64
+export default struct MSV1_0_PASSTHROUGH_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : MSV1_0_PROTOCOL_MESSAGE_TYPE
 
-    /**
-     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(8, this)
-            return this.__DomainName
-        }
-    }
+    PackageName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    PackageName {
-        get {
-            if(!this.HasProp("__PackageName"))
-                this.__PackageName := LSA_UNICODE_STRING(24, this)
-            return this.__PackageName
-        }
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    LogonData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    LogonData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Pad : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pad {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

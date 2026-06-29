@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintOemUIMXDC extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintOemUIMXDC extends IUnknown {
     /**
      * The interface identifier for IPrintOemUIMXDC
      * @type {Guid}
      */
-    static IID => Guid("{7349d725-e2c1-4dca-afb5-c13e91bc9306}")
+    static IID := Guid("{7349d725-e2c1-4dca-afb5-c13e91bc9306}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintOemUIMXDC interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdjustImageableArea    : IntPtr
+        AdjustImageCompression : IntPtr
+        AdjustDPI              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdjustImageableArea", "AdjustImageCompression", "AdjustDPI"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintOemUIMXDC.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -38,11 +51,9 @@ class IPrintOemUIMXDC extends IUnknown {
      * @returns {HRESULT} 
      */
     AdjustImageableArea(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, prclImageableArea) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, "ptr", prclImageableArea, "HRESULT")
+        result := ComCall(3, this, PRINTER_HANDLE, hPrinter, "uint", cbDevMode, DEVMODEA.Ptr, pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, RECTL.Ptr, prclImageableArea, "HRESULT")
         return result
     }
 
@@ -57,12 +68,10 @@ class IPrintOemUIMXDC extends IUnknown {
      * @returns {HRESULT} 
      */
     AdjustImageCompression(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, pCompressionMode) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pCompressionModeMarshal := pCompressionMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
+        result := ComCall(4, this, PRINTER_HANDLE, hPrinter, "uint", cbDevMode, DEVMODEA.Ptr, pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
         return result
     }
 
@@ -77,12 +86,34 @@ class IPrintOemUIMXDC extends IUnknown {
      * @returns {HRESULT} 
      */
     AdjustDPI(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, pDPI) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pDPIMarshal := pDPI is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
+        result := ComCall(5, this, PRINTER_HANDLE, hPrinter, "uint", cbDevMode, DEVMODEA.Ptr, pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintOemUIMXDC.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdjustImageableArea := CallbackCreate(GetMethod(implObj, "AdjustImageableArea"), flags, 7)
+        this.vtbl.AdjustImageCompression := CallbackCreate(GetMethod(implObj, "AdjustImageCompression"), flags, 7)
+        this.vtbl.AdjustDPI := CallbackCreate(GetMethod(implObj, "AdjustDPI"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdjustImageableArea)
+        CallbackFree(this.vtbl.AdjustImageCompression)
+        CallbackFree(this.vtbl.AdjustDPI)
     }
 }

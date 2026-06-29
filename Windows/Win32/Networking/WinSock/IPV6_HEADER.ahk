@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV6_HEADER extends Win32Struct {
-    static sizeof => 40
+export default struct IPV6_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    VersionClassFlow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VersionClassFlow {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Anonymous1
-     * - Version
-     * - Anonymous2
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -53,50 +33,18 @@ class IPV6_HEADER extends Win32Struct {
         get => (this._bitfield >> 8) & 0xFFFFFF
         set => this._bitfield := ((value & 0xFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFF << 8))
     }
+    PayloadLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PayloadLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NextHeader : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NextHeader {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    HopLimit : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HopLimit {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    SourceAddress : IN6_ADDR
 
-    /**
-     * @type {IN6_ADDR}
-     */
-    SourceAddress {
-        get {
-            if(!this.HasProp("__SourceAddress"))
-                this.__SourceAddress := IN6_ADDR(8, this)
-            return this.__SourceAddress
-        }
-    }
+    DestinationAddress : IN6_ADDR
 
-    /**
-     * @type {IN6_ADDR}
-     */
-    DestinationAddress {
-        get {
-            if(!this.HasProp("__DestinationAddress"))
-                this.__DestinationAddress := IN6_ADDR(24, this)
-            return this.__DestinationAddress
-        }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

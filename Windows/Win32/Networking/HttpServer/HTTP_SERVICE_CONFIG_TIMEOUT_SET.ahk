@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_TIMEOUT_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_CONFIG_TIMEOUT_KEY.ahk" { HTTP_SERVICE_CONFIG_TIMEOUT_KEY }
 
 /**
  * Used to set the HTTP Server API wide timeout value.
@@ -17,26 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_timeout_set
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_TIMEOUT_SET extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct HTTP_SERVICE_CONFIG_TIMEOUT_SET {
+    #StructPack 4
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_service_config_timeout_key">HTTP_SERVICE_CONFIG_TIMEOUT_KEY</a> enumeration identifying the timer that is set.
-     * @type {HTTP_SERVICE_CONFIG_TIMEOUT_KEY}
      */
-    KeyDesc {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    KeyDesc : HTTP_SERVICE_CONFIG_TIMEOUT_KEY
 
     /**
      * The value, in seconds, for the timer. The value must be greater than zero.
-     * @type {Integer}
      */
-    ParamDesc {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ParamDesc : UInt16
+
 }

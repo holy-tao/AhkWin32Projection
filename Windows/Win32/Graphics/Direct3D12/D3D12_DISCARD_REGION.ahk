@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Describes details for the discard-resource operation.
@@ -12,45 +11,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_discard_region
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DISCARD_REGION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_DISCARD_REGION {
+    #StructPack 8
 
     /**
      * The number of rectangles in the array that the <b>pRects</b> member specifies.
-     * @type {Integer}
      */
-    NumRects {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumRects : UInt32
 
     /**
      * An array of <b>D3D12_RECT</b> structures for the rectangles in the resource to discard.
      *             If <b>NULL</b>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource">DiscardResource</a> discards the entire resource.
-     * @type {Pointer<RECT>}
      */
-    pRects {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pRects : RECT.Ptr
 
     /**
      * Index of the first subresource in the resource to discard.
-     * @type {Integer}
      */
-    FirstSubresource {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FirstSubresource : UInt32
 
     /**
      * The number of subresources in the resource to discard.
-     * @type {Integer}
      */
-    NumSubresources {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NumSubresources : UInt32
+
 }

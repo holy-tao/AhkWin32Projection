@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the size of an object.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_SIZE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct XPS_SIZE {
+    #StructPack 4
 
     /**
      * A non-negative value that represents the  object's size in the horizontal (x) dimension.
-     * @type {Float}
      */
-    width {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    width : Float32
 
     /**
      * A non-negative value that represents the  object's size in the vertical (y) dimension.
-     * @type {Float}
      */
-    height {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    height : Float32
+
 }

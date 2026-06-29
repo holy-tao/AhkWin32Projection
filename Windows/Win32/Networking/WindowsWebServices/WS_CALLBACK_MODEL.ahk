@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the threading behavior of a callback (for example, a WS_ASYNC_CALLBACK).
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_callback_model
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CALLBACK_MODEL extends Win32Enum {
+export default struct WS_CALLBACK_MODEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is used to indicate that a callback is invoked short.

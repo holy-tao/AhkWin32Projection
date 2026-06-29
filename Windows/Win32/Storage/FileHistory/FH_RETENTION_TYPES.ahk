@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies under what conditions previous versions of files and folders can be deleted from a backup target.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_retention_types
  * @namespace Windows.Win32.Storage.FileHistory
  */
-class FH_RETENTION_TYPES extends Win32Enum {
+export default struct FH_RETENTION_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Previous versions are never deleted from the backup target.

@@ -1,96 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_CAP_FLAGS.ahk
-#Include .\USB_ID_STRING.ahk
-#Include .\USB_HUB_DEVICE_UXD_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_HUB_DEVICE_UXD_SETTINGS.ahk" { USB_HUB_DEVICE_UXD_SETTINGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USB_HUB_CAP_FLAGS.ahk" { USB_HUB_CAP_FLAGS }
+#Import ".\USB_ID_STRING.ahk" { USB_ID_STRING }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class HUB_DEVICE_CONFIG_INFO extends Win32Struct {
-    static sizeof => 200
+export default struct HUB_DEVICE_CONFIG_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HubFlags : USB_HUB_CAP_FLAGS
 
-    /**
-     * @type {USB_HUB_CAP_FLAGS}
-     */
-    HubFlags {
-        get {
-            if(!this.HasProp("__HubFlags"))
-                this.__HubFlags := USB_HUB_CAP_FLAGS(8, this)
-            return this.__HubFlags
-        }
-    }
+    HardwareIds : USB_ID_STRING
 
-    /**
-     * @type {USB_ID_STRING}
-     */
-    HardwareIds {
-        get {
-            if(!this.HasProp("__HardwareIds"))
-                this.__HardwareIds := USB_ID_STRING(16, this)
-            return this.__HardwareIds
-        }
-    }
+    CompatibleIds : USB_ID_STRING
 
-    /**
-     * @type {USB_ID_STRING}
-     */
-    CompatibleIds {
-        get {
-            if(!this.HasProp("__CompatibleIds"))
-                this.__CompatibleIds := USB_ID_STRING(32, this)
-            return this.__CompatibleIds
-        }
-    }
+    DeviceDescription : USB_ID_STRING
 
-    /**
-     * @type {USB_ID_STRING}
-     */
-    DeviceDescription {
-        get {
-            if(!this.HasProp("__DeviceDescription"))
-                this.__DeviceDescription := USB_ID_STRING(48, this)
-            return this.__DeviceDescription
-        }
-    }
+    Reserved : UInt32[19]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 19, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    UxdSettings : USB_HUB_DEVICE_UXD_SETTINGS
 
-    /**
-     * @type {USB_HUB_DEVICE_UXD_SETTINGS}
-     */
-    UxdSettings {
-        get {
-            if(!this.HasProp("__UxdSettings"))
-                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(144, this)
-            return this.__UxdSettings
-        }
-    }
 }

@@ -1,7 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
+#Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
+#Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import "Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
+#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 
 /**
  * The command sink is implemented by you for an application when you want to receive a playback of the commands recorded in a command list.
@@ -18,26 +43,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1commandsink
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1CommandSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1CommandSink extends IUnknown {
     /**
      * The interface identifier for ID2D1CommandSink
      * @type {Guid}
      */
-    static IID => Guid("{54d7898a-a061-40a7-bec7-e465bcba2c4f}")
+    static IID := Guid("{54d7898a-a061-40a7-bec7-e465bcba2c4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1CommandSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginDraw              : IntPtr
+        EndDraw                : IntPtr
+        SetAntialiasMode       : IntPtr
+        SetTags                : IntPtr
+        SetTextAntialiasMode   : IntPtr
+        SetTextRenderingParams : IntPtr
+        SetTransform           : IntPtr
+        SetPrimitiveBlend      : IntPtr
+        SetUnitMode            : IntPtr
+        Clear                  : IntPtr
+        DrawGlyphRun           : IntPtr
+        DrawLine               : IntPtr
+        DrawGeometry           : IntPtr
+        DrawRectangle          : IntPtr
+        DrawBitmap             : IntPtr
+        DrawImage              : IntPtr
+        DrawGdiMetafile        : IntPtr
+        FillMesh               : IntPtr
+        FillOpacityMask        : IntPtr
+        FillGeometry           : IntPtr
+        FillRectangle          : IntPtr
+        PushAxisAlignedClip    : IntPtr
+        PushLayer              : IntPtr
+        PopAxisAlignedClip     : IntPtr
+        PopLayer               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginDraw", "EndDraw", "SetAntialiasMode", "SetTags", "SetTextAntialiasMode", "SetTextRenderingParams", "SetTransform", "SetPrimitiveBlend", "SetUnitMode", "Clear", "DrawGlyphRun", "DrawLine", "DrawGeometry", "DrawRectangle", "DrawBitmap", "DrawImage", "DrawGdiMetafile", "FillMesh", "FillOpacityMask", "FillGeometry", "FillRectangle", "PushAxisAlignedClip", "PushLayer", "PopAxisAlignedClip", "PopLayer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1CommandSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the implementation of the command sink that drawing is about to commence.
@@ -78,7 +134,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-setantialiasmode
      */
     SetAntialiasMode(antialiasMode) {
-        result := ComCall(5, this, "int", antialiasMode, "HRESULT")
+        result := ComCall(5, this, D2D1_ANTIALIAS_MODE, antialiasMode, "HRESULT")
         return result
     }
 
@@ -111,7 +167,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-settextantialiasmode
      */
     SetTextAntialiasMode(textAntialiasMode) {
-        result := ComCall(7, this, "int", textAntialiasMode, "HRESULT")
+        result := ComCall(7, this, D2D1_TEXT_ANTIALIAS_MODE, textAntialiasMode, "HRESULT")
         return result
     }
 
@@ -143,7 +199,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-settransform
      */
     SetTransform(transform) {
-        result := ComCall(9, this, "ptr", transform, "HRESULT")
+        result := ComCall(9, this, D2D_MATRIX_3X2_F.Ptr, transform, "HRESULT")
         return result
     }
 
@@ -158,7 +214,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-setprimitiveblend
      */
     SetPrimitiveBlend(primitiveBlend) {
-        result := ComCall(10, this, "int", primitiveBlend, "HRESULT")
+        result := ComCall(10, this, D2D1_PRIMITIVE_BLEND, primitiveBlend, "HRESULT")
         return result
     }
 
@@ -175,7 +231,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-setunitmode
      */
     SetUnitMode(unitMode) {
-        result := ComCall(11, this, "int", unitMode, "HRESULT")
+        result := ComCall(11, this, D2D1_UNIT_MODE, unitMode, "HRESULT")
         return result
     }
 
@@ -200,7 +256,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-clear
      */
     Clear(_color) {
-        result := ComCall(12, this, "ptr", _color, "HRESULT")
+        result := ComCall(12, this, D2D1_COLOR_F.Ptr, _color, "HRESULT")
         return result
     }
 
@@ -229,7 +285,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawglyphrun
      */
     DrawGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, measuringMode) {
-        result := ComCall(13, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "int", measuringMode, "HRESULT")
+        result := ComCall(13, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", foregroundBrush, DWRITE_MEASURING_MODE, measuringMode, "HRESULT")
         return result
     }
 
@@ -258,7 +314,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawline
      */
     DrawLine(point0, point1, brush, strokeWidth, strokeStyle) {
-        result := ComCall(14, this, "ptr", point0, "ptr", point1, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
+        result := ComCall(14, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
         return result
     }
 
@@ -308,7 +364,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawrectangle
      */
     DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
-        result := ComCall(16, this, "ptr", _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
+        result := ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
         return result
     }
 
@@ -346,7 +402,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawbitmap
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle, perspectiveTransform) {
-        result := ComCall(17, this, "ptr", _bitmap, "ptr", destinationRectangle, "float", opacity, "int", _interpolationMode, "ptr", sourceRectangle, "ptr", perspectiveTransform, "HRESULT")
+        result := ComCall(17, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, "float", opacity, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle, D2D_MATRIX_4X4_F.Ptr, perspectiveTransform, "HRESULT")
         return result
     }
 
@@ -375,7 +431,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawimage
      */
     DrawImage(_image, targetOffset, imageRectangle, _interpolationMode, compositeMode) {
-        result := ComCall(18, this, "ptr", _image, "ptr", targetOffset, "ptr", imageRectangle, "int", _interpolationMode, "int", compositeMode, "HRESULT")
+        result := ComCall(18, this, "ptr", _image, D2D_POINT_2F.Ptr, targetOffset, D2D_RECT_F.Ptr, imageRectangle, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D1_COMPOSITE_MODE, compositeMode, "HRESULT")
         return result
     }
 
@@ -393,7 +449,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawgdimetafile
      */
     DrawGdiMetafile(gdiMetafile, targetOffset) {
-        result := ComCall(19, this, "ptr", gdiMetafile, "ptr", targetOffset, "HRESULT")
+        result := ComCall(19, this, "ptr", gdiMetafile, D2D_POINT_2F.Ptr, targetOffset, "HRESULT")
         return result
     }
 
@@ -437,7 +493,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-fillopacitymask
      */
     FillOpacityMask(opacityMask, brush, destinationRectangle, sourceRectangle) {
-        result := ComCall(21, this, "ptr", opacityMask, "ptr", brush, "ptr", destinationRectangle, "ptr", sourceRectangle, "HRESULT")
+        result := ComCall(21, this, "ptr", opacityMask, "ptr", brush, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle, "HRESULT")
         return result
     }
 
@@ -480,7 +536,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-fillrectangle
      */
     FillRectangle(_rect, brush) {
-        result := ComCall(23, this, "ptr", _rect, "ptr", brush, "HRESULT")
+        result := ComCall(23, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, "HRESULT")
         return result
     }
 
@@ -500,7 +556,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-pushaxisalignedclip
      */
     PushAxisAlignedClip(clipRect, antialiasMode) {
-        result := ComCall(24, this, "ptr", clipRect, "int", antialiasMode, "HRESULT")
+        result := ComCall(24, this, D2D_RECT_F.Ptr, clipRect, D2D1_ANTIALIAS_MODE, antialiasMode, "HRESULT")
         return result
     }
 
@@ -518,7 +574,7 @@ class ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-pushlayer
      */
     PushLayer(layerParameters1, layer) {
-        result := ComCall(25, this, "ptr", layerParameters1, "ptr", layer, "HRESULT")
+        result := ComCall(25, this, D2D1_LAYER_PARAMETERS1.Ptr, layerParameters1, "ptr", layer, "HRESULT")
         return result
     }
 
@@ -544,5 +600,73 @@ class ID2D1CommandSink extends IUnknown {
     PopLayer() {
         result := ComCall(27, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1CommandSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 1)
+        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 1)
+        this.vtbl.SetAntialiasMode := CallbackCreate(GetMethod(implObj, "SetAntialiasMode"), flags, 2)
+        this.vtbl.SetTags := CallbackCreate(GetMethod(implObj, "SetTags"), flags, 3)
+        this.vtbl.SetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "SetTextAntialiasMode"), flags, 2)
+        this.vtbl.SetTextRenderingParams := CallbackCreate(GetMethod(implObj, "SetTextRenderingParams"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.SetPrimitiveBlend := CallbackCreate(GetMethod(implObj, "SetPrimitiveBlend"), flags, 2)
+        this.vtbl.SetUnitMode := CallbackCreate(GetMethod(implObj, "SetUnitMode"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 2)
+        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 6)
+        this.vtbl.DrawLine := CallbackCreate(GetMethod(implObj, "DrawLine"), flags, 6)
+        this.vtbl.DrawGeometry := CallbackCreate(GetMethod(implObj, "DrawGeometry"), flags, 5)
+        this.vtbl.DrawRectangle := CallbackCreate(GetMethod(implObj, "DrawRectangle"), flags, 5)
+        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 7)
+        this.vtbl.DrawImage := CallbackCreate(GetMethod(implObj, "DrawImage"), flags, 6)
+        this.vtbl.DrawGdiMetafile := CallbackCreate(GetMethod(implObj, "DrawGdiMetafile"), flags, 3)
+        this.vtbl.FillMesh := CallbackCreate(GetMethod(implObj, "FillMesh"), flags, 3)
+        this.vtbl.FillOpacityMask := CallbackCreate(GetMethod(implObj, "FillOpacityMask"), flags, 5)
+        this.vtbl.FillGeometry := CallbackCreate(GetMethod(implObj, "FillGeometry"), flags, 4)
+        this.vtbl.FillRectangle := CallbackCreate(GetMethod(implObj, "FillRectangle"), flags, 3)
+        this.vtbl.PushAxisAlignedClip := CallbackCreate(GetMethod(implObj, "PushAxisAlignedClip"), flags, 3)
+        this.vtbl.PushLayer := CallbackCreate(GetMethod(implObj, "PushLayer"), flags, 3)
+        this.vtbl.PopAxisAlignedClip := CallbackCreate(GetMethod(implObj, "PopAxisAlignedClip"), flags, 1)
+        this.vtbl.PopLayer := CallbackCreate(GetMethod(implObj, "PopLayer"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginDraw)
+        CallbackFree(this.vtbl.EndDraw)
+        CallbackFree(this.vtbl.SetAntialiasMode)
+        CallbackFree(this.vtbl.SetTags)
+        CallbackFree(this.vtbl.SetTextAntialiasMode)
+        CallbackFree(this.vtbl.SetTextRenderingParams)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.SetPrimitiveBlend)
+        CallbackFree(this.vtbl.SetUnitMode)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.DrawGlyphRun)
+        CallbackFree(this.vtbl.DrawLine)
+        CallbackFree(this.vtbl.DrawGeometry)
+        CallbackFree(this.vtbl.DrawRectangle)
+        CallbackFree(this.vtbl.DrawBitmap)
+        CallbackFree(this.vtbl.DrawImage)
+        CallbackFree(this.vtbl.DrawGdiMetafile)
+        CallbackFree(this.vtbl.FillMesh)
+        CallbackFree(this.vtbl.FillOpacityMask)
+        CallbackFree(this.vtbl.FillGeometry)
+        CallbackFree(this.vtbl.FillRectangle)
+        CallbackFree(this.vtbl.PushAxisAlignedClip)
+        CallbackFree(this.vtbl.PushLayer)
+        CallbackFree(this.vtbl.PopAxisAlignedClip)
+        CallbackFree(this.vtbl.PopLayer)
     }
 }

@@ -1,43 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\IObjectId.ahk
-#Include .\IX509PublicKey.ahk
-#Include .\IX509PrivateKey.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include .\ICspStatuses.ahk
-#Include .\IX509SignatureInformation.ahk
-#Include .\ICryptAttributes.ahk
-#Include .\IX509Extensions.ahk
-#Include .\IObjectIds.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\ICspStatuses.ahk" { ICspStatuses }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\Pkcs10AllowedSignatureTypes.ahk" { Pkcs10AllowedSignatureTypes }
+#Import ".\ICryptAttributes.ahk" { ICryptAttributes }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\X509RequestInheritOptions.ahk" { X509RequestInheritOptions }
+#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IX509CertificateRequestPkcs10 interface represents a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     /**
      * The interface identifier for IX509CertificateRequestPkcs10
      * @type {Guid}
      */
-    static IID => Guid("{728ab342-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab342-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRequestPkcs10 interfaces
+    */
+    struct Vtbl extends IX509CertificateRequest.Vtbl {
+        InitializeFromTemplateName : IntPtr
+        InitializeFromPrivateKey   : IntPtr
+        InitializeFromPublicKey    : IntPtr
+        InitializeFromCertificate  : IntPtr
+        InitializeDecode           : IntPtr
+        CheckSignature             : IntPtr
+        IsSmartCard                : IntPtr
+        get_TemplateObjectId       : IntPtr
+        get_PublicKey              : IntPtr
+        get_PrivateKey             : IntPtr
+        get_NullSigned             : IntPtr
+        get_ReuseKey               : IntPtr
+        get_OldCertificate         : IntPtr
+        get_Subject                : IntPtr
+        put_Subject                : IntPtr
+        get_CspStatuses            : IntPtr
+        get_SmimeCapabilities      : IntPtr
+        put_SmimeCapabilities      : IntPtr
+        get_SignatureInformation   : IntPtr
+        get_KeyContainerNamePrefix : IntPtr
+        put_KeyContainerNamePrefix : IntPtr
+        get_CryptAttributes        : IntPtr
+        get_X509Extensions         : IntPtr
+        get_CriticalExtensions     : IntPtr
+        get_SuppressOids           : IntPtr
+        get_RawDataToBeSigned      : IntPtr
+        get_Signature              : IntPtr
+        GetCspStatuses             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromTemplateName", "InitializeFromPrivateKey", "InitializeFromPublicKey", "InitializeFromCertificate", "InitializeDecode", "CheckSignature", "IsSmartCard", "get_TemplateObjectId", "get_PublicKey", "get_PrivateKey", "get_NullSigned", "get_ReuseKey", "get_OldCertificate", "get_Subject", "put_Subject", "get_CspStatuses", "get_SmimeCapabilities", "put_SmimeCapabilities", "get_SignatureInformation", "get_KeyContainerNamePrefix", "put_KeyContainerNamePrefix", "get_CryptAttributes", "get_X509Extensions", "get_CriticalExtensions", "get_SuppressOids", "get_RawDataToBeSigned", "get_Signature", "GetCspStatuses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRequestPkcs10.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IObjectId} 
@@ -222,7 +263,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     InitializeFromTemplateName(_Context, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(32, this, "int", _Context, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(32, this, X509CertificateEnrollmentContext, _Context, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -273,7 +314,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     InitializeFromPrivateKey(_Context, pPrivateKey, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(33, this, "int", _Context, "ptr", pPrivateKey, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(33, this, X509CertificateEnrollmentContext, _Context, "ptr", pPrivateKey, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -324,7 +365,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     InitializeFromPublicKey(_Context, pPublicKey, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(34, this, "int", _Context, "ptr", pPublicKey, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(34, this, X509CertificateEnrollmentContext, _Context, "ptr", pPublicKey, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -379,7 +420,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     InitializeFromCertificate(_Context, strCertificate, Encoding, InheritOptions) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(35, this, "int", _Context, "ptr", strCertificate, "int", Encoding, "int", InheritOptions, "HRESULT")
+        result := ComCall(35, this, X509CertificateEnrollmentContext, _Context, BSTR, strCertificate, EncodingType, Encoding, X509RequestInheritOptions, InheritOptions, "HRESULT")
         return result
     }
 
@@ -458,7 +499,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     InitializeDecode(strEncodedData, Encoding) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(36, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(36, this, BSTR, strEncodedData, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -513,7 +554,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-checksignature
      */
     CheckSignature(AllowedSignatureTypes) {
-        result := ComCall(37, this, "int", AllowedSignatureTypes, "HRESULT")
+        result := ComCall(37, this, Pkcs10AllowedSignatureTypes, AllowedSignatureTypes, "HRESULT")
         return result
     }
 
@@ -543,7 +584,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-issmartcard
      */
     IsSmartCard() {
-        result := ComCall(38, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(38, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -657,7 +698,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_nullsigned
      */
     get_NullSigned() {
-        result := ComCall(42, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -669,7 +710,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_reusekey
      */
     get_ReuseKey() {
-        result := ComCall(43, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -698,8 +739,8 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_oldcertificate
      */
     get_OldCertificate(Encoding) {
-        pValue := BSTR()
-        result := ComCall(44, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(44, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -842,7 +883,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_smimecapabilities
      */
     get_SmimeCapabilities() {
-        result := ComCall(48, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -859,7 +900,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-put_smimecapabilities
      */
     put_SmimeCapabilities(Value) {
-        result := ComCall(49, this, "short", Value, "HRESULT")
+        result := ComCall(49, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -921,8 +962,8 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_keycontainernameprefix
      */
     get_KeyContainerNamePrefix() {
-        pValue := BSTR()
-        result := ComCall(51, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(51, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -957,7 +998,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
     put_KeyContainerNamePrefix(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(52, this, "ptr", Value, "HRESULT")
+        result := ComCall(52, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -1121,8 +1162,8 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_rawdatatobesigned
      */
     get_RawDataToBeSigned(Encoding) {
-        pValue := BSTR()
-        result := ComCall(57, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(57, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1153,8 +1194,8 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_signature
      */
     get_Signature(Encoding) {
-        pValue := BSTR()
-        result := ComCall(58, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(58, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -1207,7 +1248,81 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-getcspstatuses
      */
     GetCspStatuses(KeySpec) {
-        result := ComCall(59, this, "int", KeySpec, "ptr*", &ppCspStatuses := 0, "HRESULT")
+        result := ComCall(59, this, X509KeySpec, KeySpec, "ptr*", &ppCspStatuses := 0, "HRESULT")
         return ICspStatuses(ppCspStatuses)
+    }
+
+    Query(iid) {
+        if (IX509CertificateRequestPkcs10.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromTemplateName"), flags, 3)
+        this.vtbl.InitializeFromPrivateKey := CallbackCreate(GetMethod(implObj, "InitializeFromPrivateKey"), flags, 4)
+        this.vtbl.InitializeFromPublicKey := CallbackCreate(GetMethod(implObj, "InitializeFromPublicKey"), flags, 4)
+        this.vtbl.InitializeFromCertificate := CallbackCreate(GetMethod(implObj, "InitializeFromCertificate"), flags, 5)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.CheckSignature := CallbackCreate(GetMethod(implObj, "CheckSignature"), flags, 2)
+        this.vtbl.IsSmartCard := CallbackCreate(GetMethod(implObj, "IsSmartCard"), flags, 2)
+        this.vtbl.get_TemplateObjectId := CallbackCreate(GetMethod(implObj, "get_TemplateObjectId"), flags, 2)
+        this.vtbl.get_PublicKey := CallbackCreate(GetMethod(implObj, "get_PublicKey"), flags, 2)
+        this.vtbl.get_PrivateKey := CallbackCreate(GetMethod(implObj, "get_PrivateKey"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.get_ReuseKey := CallbackCreate(GetMethod(implObj, "get_ReuseKey"), flags, 2)
+        this.vtbl.get_OldCertificate := CallbackCreate(GetMethod(implObj, "get_OldCertificate"), flags, 3)
+        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.put_Subject := CallbackCreate(GetMethod(implObj, "put_Subject"), flags, 2)
+        this.vtbl.get_CspStatuses := CallbackCreate(GetMethod(implObj, "get_CspStatuses"), flags, 2)
+        this.vtbl.get_SmimeCapabilities := CallbackCreate(GetMethod(implObj, "get_SmimeCapabilities"), flags, 2)
+        this.vtbl.put_SmimeCapabilities := CallbackCreate(GetMethod(implObj, "put_SmimeCapabilities"), flags, 2)
+        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
+        this.vtbl.get_KeyContainerNamePrefix := CallbackCreate(GetMethod(implObj, "get_KeyContainerNamePrefix"), flags, 2)
+        this.vtbl.put_KeyContainerNamePrefix := CallbackCreate(GetMethod(implObj, "put_KeyContainerNamePrefix"), flags, 2)
+        this.vtbl.get_CryptAttributes := CallbackCreate(GetMethod(implObj, "get_CryptAttributes"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
+        this.vtbl.get_SuppressOids := CallbackCreate(GetMethod(implObj, "get_SuppressOids"), flags, 2)
+        this.vtbl.get_RawDataToBeSigned := CallbackCreate(GetMethod(implObj, "get_RawDataToBeSigned"), flags, 3)
+        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 3)
+        this.vtbl.GetCspStatuses := CallbackCreate(GetMethod(implObj, "GetCspStatuses"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromTemplateName)
+        CallbackFree(this.vtbl.InitializeFromPrivateKey)
+        CallbackFree(this.vtbl.InitializeFromPublicKey)
+        CallbackFree(this.vtbl.InitializeFromCertificate)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.CheckSignature)
+        CallbackFree(this.vtbl.IsSmartCard)
+        CallbackFree(this.vtbl.get_TemplateObjectId)
+        CallbackFree(this.vtbl.get_PublicKey)
+        CallbackFree(this.vtbl.get_PrivateKey)
+        CallbackFree(this.vtbl.get_NullSigned)
+        CallbackFree(this.vtbl.get_ReuseKey)
+        CallbackFree(this.vtbl.get_OldCertificate)
+        CallbackFree(this.vtbl.get_Subject)
+        CallbackFree(this.vtbl.put_Subject)
+        CallbackFree(this.vtbl.get_CspStatuses)
+        CallbackFree(this.vtbl.get_SmimeCapabilities)
+        CallbackFree(this.vtbl.put_SmimeCapabilities)
+        CallbackFree(this.vtbl.get_SignatureInformation)
+        CallbackFree(this.vtbl.get_KeyContainerNamePrefix)
+        CallbackFree(this.vtbl.put_KeyContainerNamePrefix)
+        CallbackFree(this.vtbl.get_CryptAttributes)
+        CallbackFree(this.vtbl.get_X509Extensions)
+        CallbackFree(this.vtbl.get_CriticalExtensions)
+        CallbackFree(this.vtbl.get_SuppressOids)
+        CallbackFree(this.vtbl.get_RawDataToBeSigned)
+        CallbackFree(this.vtbl.get_Signature)
+        CallbackFree(this.vtbl.GetCspStatuses)
     }
 }

@@ -1,12 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\ITuningSpace.ahk
-#Include .\ITuningSpaces.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumTuningSpaces.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITuningSpaces.ahk" { ITuningSpaces }
 
 /**
  * The ITuningSpaceContainer interface is implemented on the SystemTuningSpaces object.
@@ -15,26 +17,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ituningspacecontainer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITuningSpaceContainer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITuningSpaceContainer extends IDispatch {
     /**
      * The interface identifier for ITuningSpaceContainer
      * @type {Guid}
      */
-    static IID => Guid("{5b692e84-e2f1-11d2-9493-00c04f72d980}")
+    static IID := Guid("{5b692e84-e2f1-11d2-9493-00c04f72d980}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITuningSpaceContainer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count              : IntPtr
+        get__NewEnum           : IntPtr
+        get_Item               : IntPtr
+        put_Item               : IntPtr
+        TuningSpacesForCLSID   : IntPtr
+        _TuningSpacesForCLSID2 : IntPtr
+        TuningSpacesForName    : IntPtr
+        FindID                 : IntPtr
+        Add                    : IntPtr
+        get_EnumTuningSpaces   : IntPtr
+        Remove                 : IntPtr
+        get_MaxCount           : IntPtr
+        put_MaxCount           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "get_Item", "put_Item", "TuningSpacesForCLSID", "_TuningSpacesForCLSID2", "TuningSpacesForName", "FindID", "Add", "get_EnumTuningSpaces", "Remove", "get_MaxCount", "put_MaxCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITuningSpaceContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -98,7 +119,7 @@ class ITuningSpaceContainer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_item
      */
     get_Item(varIndex) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", &_TuningSpace := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT, varIndex, "ptr*", &_TuningSpace := 0, "HRESULT")
         return ITuningSpace(_TuningSpace)
     }
 
@@ -157,7 +178,7 @@ class ITuningSpaceContainer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-put_item
      */
     put_Item(varIndex, _TuningSpace) {
-        result := ComCall(10, this, "ptr", varIndex, "ptr", _TuningSpace, "HRESULT")
+        result := ComCall(10, this, VARIANT, varIndex, "ptr", _TuningSpace, "HRESULT")
         return result
     }
 
@@ -170,7 +191,7 @@ class ITuningSpaceContainer extends IDispatch {
     TuningSpacesForCLSID(SpaceCLSID) {
         SpaceCLSID := SpaceCLSID is String ? BSTR.Alloc(SpaceCLSID).Value : SpaceCLSID
 
-        result := ComCall(11, this, "ptr", SpaceCLSID, "ptr*", &NewColl := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, SpaceCLSID, "ptr*", &NewColl := 0, "HRESULT")
         return ITuningSpaces(NewColl)
     }
 
@@ -180,7 +201,7 @@ class ITuningSpaceContainer extends IDispatch {
      * @returns {ITuningSpaces} 
      */
     _TuningSpacesForCLSID2(SpaceCLSID) {
-        result := ComCall(12, this, "ptr", SpaceCLSID, "ptr*", &NewColl := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, SpaceCLSID, "ptr*", &NewColl := 0, "HRESULT")
         return ITuningSpaces(NewColl)
     }
 
@@ -195,7 +216,7 @@ class ITuningSpaceContainer extends IDispatch {
     TuningSpacesForName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(13, this, "ptr", Name, "ptr*", &NewColl := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, Name, "ptr*", &NewColl := 0, "HRESULT")
         return ITuningSpaces(NewColl)
     }
 
@@ -222,7 +243,7 @@ class ITuningSpaceContainer extends IDispatch {
      */
     Add(_TuningSpace) {
         NewIndex := VARIANT()
-        result := ComCall(15, this, "ptr", _TuningSpace, "ptr", NewIndex, "HRESULT")
+        result := ComCall(15, this, "ptr", _TuningSpace, VARIANT.Ptr, NewIndex, "HRESULT")
         return NewIndex
     }
 
@@ -245,7 +266,7 @@ class ITuningSpaceContainer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-remove
      */
     Remove(Index) {
-        result := ComCall(17, this, "ptr", Index, "HRESULT")
+        result := ComCall(17, this, VARIANT, Index, "HRESULT")
         return result
     }
 
@@ -268,5 +289,49 @@ class ITuningSpaceContainer extends IDispatch {
     put_MaxCount(MaxCount) {
         result := ComCall(19, this, "int", MaxCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITuningSpaceContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.put_Item := CallbackCreate(GetMethod(implObj, "put_Item"), flags, 3)
+        this.vtbl.TuningSpacesForCLSID := CallbackCreate(GetMethod(implObj, "TuningSpacesForCLSID"), flags, 3)
+        this.vtbl._TuningSpacesForCLSID2 := CallbackCreate(GetMethod(implObj, "_TuningSpacesForCLSID2"), flags, 3)
+        this.vtbl.TuningSpacesForName := CallbackCreate(GetMethod(implObj, "TuningSpacesForName"), flags, 3)
+        this.vtbl.FindID := CallbackCreate(GetMethod(implObj, "FindID"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
+        this.vtbl.get_EnumTuningSpaces := CallbackCreate(GetMethod(implObj, "get_EnumTuningSpaces"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.get_MaxCount := CallbackCreate(GetMethod(implObj, "get_MaxCount"), flags, 2)
+        this.vtbl.put_MaxCount := CallbackCreate(GetMethod(implObj, "put_MaxCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.put_Item)
+        CallbackFree(this.vtbl.TuningSpacesForCLSID)
+        CallbackFree(this.vtbl._TuningSpacesForCLSID2)
+        CallbackFree(this.vtbl.TuningSpacesForName)
+        CallbackFree(this.vtbl.FindID)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.get_EnumTuningSpaces)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.get_MaxCount)
+        CallbackFree(this.vtbl.put_MaxCount)
     }
 }

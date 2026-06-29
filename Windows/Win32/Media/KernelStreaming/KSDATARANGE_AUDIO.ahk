@@ -1,63 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDATARANGE_AUDIO extends Win32Struct {
-    static sizeof => 72
+export default struct KSDATARANGE_AUDIO {
+    #StructPack 8
 
-    static packingSize => 8
+    DataRange : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataRange {
-        get {
-            if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(0, this)
-            return this.__DataRange
-        }
-    }
+    MaximumChannels : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumChannels {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MinimumBitsPerSample : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinimumBitsPerSample {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    MaximumBitsPerSample : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumBitsPerSample {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    MinimumSampleFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinimumSampleFrequency {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    MaximumSampleFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumSampleFrequency {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

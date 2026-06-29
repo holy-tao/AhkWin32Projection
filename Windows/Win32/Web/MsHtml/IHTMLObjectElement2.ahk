@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLObjectElement2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLObjectElement2 extends IDispatch {
     /**
      * The interface identifier for IHTMLObjectElement2
      * @type {Guid}
      */
-    static IID => Guid("{3050f4cd-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f4cd-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLObjectElement2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        namedRecordset : IntPtr
+        put_classid    : IntPtr
+        get_classid    : IntPtr
+        put_data       : IntPtr
+        get_data       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["namedRecordset", "put_classid", "get_classid", "put_data", "get_data"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLObjectElement2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -53,7 +66,7 @@ class IHTMLObjectElement2 extends IDispatch {
     namedRecordset(dataMember, hierarchy) {
         dataMember := dataMember is String ? BSTR.Alloc(dataMember).Value : dataMember
 
-        result := ComCall(7, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", &ppRecordset := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, dataMember, VARIANT.Ptr, hierarchy, "ptr*", &ppRecordset := 0, "HRESULT")
         return IDispatch(ppRecordset)
     }
 
@@ -65,7 +78,7 @@ class IHTMLObjectElement2 extends IDispatch {
     put_classid(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -74,8 +87,8 @@ class IHTMLObjectElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_classid() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -87,7 +100,7 @@ class IHTMLObjectElement2 extends IDispatch {
     put_data(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -96,8 +109,36 @@ class IHTMLObjectElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_data() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLObjectElement2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.namedRecordset := CallbackCreate(GetMethod(implObj, "namedRecordset"), flags, 4)
+        this.vtbl.put_classid := CallbackCreate(GetMethod(implObj, "put_classid"), flags, 2)
+        this.vtbl.get_classid := CallbackCreate(GetMethod(implObj, "get_classid"), flags, 2)
+        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.namedRecordset)
+        CallbackFree(this.vtbl.put_classid)
+        CallbackFree(this.vtbl.get_classid)
+        CallbackFree(this.vtbl.put_data)
+        CallbackFree(this.vtbl.get_data)
     }
 }

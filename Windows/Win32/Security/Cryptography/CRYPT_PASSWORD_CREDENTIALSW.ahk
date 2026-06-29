@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the user name and password credentials to be used in the CRYPT_CREDENTIALS structure as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject. (Unicode)
@@ -10,40 +10,22 @@
  * @namespace Windows.Win32.Security.Cryptography
  * @charset Unicode
  */
-class CRYPT_PASSWORD_CREDENTIALSW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPT_PASSWORD_CREDENTIALSW {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a null-terminated string that contains the user name credential for the remote session authentication.
-     * @type {PWSTR}
      */
-    pszUsername {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszUsername : PWSTR
 
     /**
      * A pointer to a null-terminated string that contains the password credential for the remote session authentication.
-     * @type {PWSTR}
      */
-    pszPassword {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszPassword : PWSTR
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

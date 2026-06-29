@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DL_EUI48.ahk
-#Include .\DL_OUI.ahk
-#Include .\DL_EI48.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DL_EUI48.ahk" { DL_EUI48 }
+#Import ".\DL_OUI.ahk" { DL_OUI }
+#Import ".\DL_EI48.ahk" { DL_EI48 }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ETHERNET_HEADER extends Win32Struct {
-    static sizeof => 28
+export default struct ETHERNET_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    Destination : DL_EUI48
 
-    /**
-     * @type {DL_EUI48}
-     */
-    Destination {
-        get {
-            if(!this.HasProp("__Destination"))
-                this.__Destination := DL_EUI48(0, this)
-            return this.__Destination
-        }
-    }
+    Source : DL_EUI48
 
-    /**
-     * @type {DL_EUI48}
-     */
-    Source {
-        get {
-            if(!this.HasProp("__Source"))
-                this.__Source := DL_EUI48(13, this)
-            return this.__Source
-        }
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+    static __New() {
+        DefineProp(this.Prototype, 'Length', { type: UInt16, offset: 26 })
+        this.DeleteProp("__New")
     }
 }

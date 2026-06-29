@@ -1,71 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDVIDEOPORTSTATUS extends Win32Struct {
-    static sizeof => 64
+export default struct DDVIDEOPORTSTATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bInUse : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bInUse {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    VideoPortType : DDVIDEOPORTCONNECT
 
-    /**
-     * @type {DDVIDEOPORTCONNECT}
-     */
-    VideoPortType {
-        get {
-            if(!this.HasProp("__VideoPortType"))
-                this.__VideoPortType := DDVIDEOPORTCONNECT(16, this)
-            return this.__VideoPortType
-        }
-    }
+    dwReserved2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwReserved3 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

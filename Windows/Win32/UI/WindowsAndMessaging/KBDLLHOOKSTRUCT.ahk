@@ -1,38 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KBDLLHOOKSTRUCT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KBDLLHOOKSTRUCT_FLAGS.ahk" { KBDLLHOOKSTRUCT_FLAGS }
 
 /**
  * Contains information about a low-level keyboard input event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-kbdllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class KBDLLHOOKSTRUCT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct KBDLLHOOKSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/inputdev/virtual-key-codes">virtual-key code</a>. The code must be a value in the range 1 to 254.
-     * @type {Integer}
      */
-    vkCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    vkCode : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * A hardware scan code for the key.
-     * @type {Integer}
      */
-    scanCode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    scanCode : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -138,32 +127,21 @@ class KBDLLHOOKSTRUCT extends Win32Struct {
      * <td>The transition state. The value is 0 if the key is pressed and 1 if it is being released.</td>
      * </tr>
      * </table>
-     * @type {KBDLLHOOKSTRUCT_FLAGS}
      */
-    flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    flags : KBDLLHOOKSTRUCT_FLAGS
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The time stamp for this message, equivalent to what <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessagetime">GetMessageTime</a> would return for this message.
-     * @type {Integer}
      */
-    time {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    time : UInt32
 
     /**
      * Type: <b>ULONG_PTR</b>
      * 
      * Additional information associated with the message.
-     * @type {Pointer}
      */
-    dwExtraInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwExtraInfo : IntPtr
+
 }

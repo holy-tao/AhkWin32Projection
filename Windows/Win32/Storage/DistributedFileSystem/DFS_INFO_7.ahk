@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a DFS namespace. This structure contains the version GUID for the metadata for the namespace.
@@ -15,17 +15,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_7
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_INFO_7 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct DFS_INFO_7 {
+    #StructPack 4
 
     /**
      * The value of this <b>GUID</b> changes each time the DFS metadata is changed.
-     * @type {Pointer}
      */
-    GenerationGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    GenerationGuid : Guid
+
 }

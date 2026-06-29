@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITextProvider.ahk
-#Include .\ITextRangeProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITextProvider.ahk" { ITextProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose programmatic text-edit actions.
@@ -11,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itexteditprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ITextEditProvider extends ITextProvider {
-
-    static sizeof => A_PtrSize
+export default struct ITextEditProvider extends ITextProvider {
     /**
      * The interface identifier for ITextEditProvider
      * @type {Guid}
      */
-    static IID => Guid("{ea3605b4-3a05-400e-b5f9-4e91b40f6176}")
+    static IID := Guid("{ea3605b4-3a05-400e-b5f9-4e91b40f6176}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextEditProvider interfaces
+    */
+    struct Vtbl extends ITextProvider.Vtbl {
+        GetActiveComposition : IntPtr
+        GetConversionTarget  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetActiveComposition", "GetConversionTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextEditProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the active composition. (ITextEditProvider.GetActiveComposition)
@@ -58,5 +67,27 @@ class ITextEditProvider extends ITextProvider {
     GetConversionTarget() {
         result := ComCall(10, this, "ptr*", &pRetVal := 0, "HRESULT")
         return ITextRangeProvider(pRetVal)
+    }
+
+    Query(iid) {
+        if (ITextEditProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetActiveComposition := CallbackCreate(GetMethod(implObj, "GetActiveComposition"), flags, 2)
+        this.vtbl.GetConversionTarget := CallbackCreate(GetMethod(implObj, "GetConversionTarget"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetActiveComposition)
+        CallbackFree(this.vtbl.GetConversionTarget)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * A variable-size structure that contains information about a menu file name.
@@ -10,44 +10,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenufilename
  * @namespace Windows.Win32.UI.Shell
  */
-class AASHELLMENUFILENAME extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 2
+export default struct AASHELLMENUFILENAME {
+    #StructPack 2
 
     /**
      * Type: <b>SHORT</b>
      * 
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbTotal {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    cbTotal : Int16
 
     /**
      * Type: <b>BYTE[12]</b>
      * 
      * Reserved. Applications should ignore this value.
-     * @type {Array<Integer>}
      */
-    rgbReserved {
-        get {
-            if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 2, 12, Primitive, "char")
-            return this.__rgbReservedProxyArray
-        }
-    }
+    rgbReserved : Int8[12]
 
     /**
      * Type: <b>TCHAR[1]</b>
      * 
      * The menu file name. This string is in Unicode on Windows 2000.
-     * @type {String}
      */
-    szFileName {
-        get => StrGet(this.ptr + 14, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 14, 0, "UTF-16")
-    }
+    szFileName : WCHAR[1]
+
 }

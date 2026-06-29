@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_STREAM_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHDETW_VIDEOPROCESSSTREAMSTATE extends Win32Struct {
-    static sizeof => 24
+export default struct DXVAHDETW_VIDEOPROCESSSTREAMSTATE {
+    #StructPack 8
 
-    static packingSize => 8
+    pObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pObject {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StreamNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    State : DXVAHD_STREAM_STATE
 
-    /**
-     * @type {DXVAHD_STREAM_STATE}
-     */
-    State {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SetState : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SetState {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

@@ -1,116 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct {
-    static sizeof => 176
+export default struct DEVICE_INTERNAL_STATUS_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    T10VendorId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    T10VendorId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataSet1Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSet1Length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DataSet2Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSet2Length {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DataSet3Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSet3Length {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DataSet4Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSet4Length {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    StatusDataVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StatusDataVersion {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 33, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    ReasonIdentifier : Int8[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReasonIdentifier {
-        get {
-            if(!this.HasProp("__ReasonIdentifierProxyArray"))
-                this.__ReasonIdentifierProxyArray := Win32FixedArray(this.ptr + 36, 128, Primitive, "char")
-            return this.__ReasonIdentifierProxyArray
-        }
-    }
+    StatusDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StatusDataLength {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    StatusData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    StatusData {
-        get {
-            if(!this.HasProp("__StatusDataProxyArray"))
-                this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 168, 1, Primitive, "char")
-            return this.__StatusDataProxyArray
-        }
-    }
 }

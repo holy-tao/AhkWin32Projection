@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that are used to specify whether an event occurred on an ink collector and, if so, which event fired.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkcollectoreventinterest
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkCollectorEventInterest extends Win32Enum {
+export default struct InkCollectorEventInterest {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The ink collector is interested in the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursorinrange">CursorInRange</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursoroutofrange">CursorOutOfRange</a> events.

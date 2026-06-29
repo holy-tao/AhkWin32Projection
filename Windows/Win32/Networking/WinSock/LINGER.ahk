@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINGER (winsock.h) structure maintains information about a specific socket that specifies how that socket should behave when data is queued to be sent.
@@ -23,21 +22,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-linger
  * @namespace Windows.Win32.Networking.WinSock
  */
-class LINGER extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct LINGER {
+    #StructPack 2
 
     /**
      * Type: <b>u_short</b>
      * 
      * Specifies whether a socket should remain open for a specified amount of time after a
-     * @type {Integer}
      */
-    l_onoff {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    l_onoff : UInt16
 
     /**
      * Type: <b>u_short</b>
@@ -46,10 +39,7 @@ class LINGER extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-closesocket">closesocket</a> function call to enable queued data to be sent.  This member is only applicable if the <b>l_onoff</b> member of the <b>linger</b> structure is set to a nonzero value.
      * 
      * This value is set if the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> function is called with the <i>optname</i> parameter set to <b>SO_LINGER</b>. The <i>optval</i> parameter passed to the <b>setsockopt</b> function must contain a <b>linger</b> structure that is copied to the internal <b>linger</b> structure maintained for the socket.
-     * @type {Integer}
      */
-    l_linger {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    l_linger : UInt16
+
 }

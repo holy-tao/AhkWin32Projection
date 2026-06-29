@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DVDCOPY_DISCKEY extends Win32Struct {
-    static sizeof => 2048
+export default struct KS_DVDCOPY_DISCKEY {
+    #StructPack 1
 
-    static packingSize => 1
+    DiscKey : Int8[2048]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DiscKey {
-        get {
-            if(!this.HasProp("__DiscKeyProxyArray"))
-                this.__DiscKeyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
-            return this.__DiscKeyProxyArray
-        }
-    }
 }

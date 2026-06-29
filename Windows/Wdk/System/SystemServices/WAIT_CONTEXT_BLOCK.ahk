@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\KDPC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\KDPC.ahk" { KDPC }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WAIT_CONTEXT_BLOCK extends Win32Struct {
-    static sizeof => 64
+export default struct WAIT_CONTEXT_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    WaitQueueEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WaitQueueEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    DmaWaitEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumberOfChannels {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumberOfChannels : UInt32
 
     /**
      * This bitfield backs the following members:
@@ -41,12 +18,9 @@ class WAIT_CONTEXT_BLOCK extends Win32Struct {
      * - ZeroMapRegisters
      * - Reserved
      * - NumberOfRemapPages
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -79,52 +53,20 @@ class WAIT_CONTEXT_BLOCK extends Win32Struct {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
     }
+    DeviceRoutine : IntPtr
 
-    /**
-     * @type {Pointer<DRIVER_CONTROL>}
-     */
-    DeviceRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DeviceContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NumberOfMapRegisters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfMapRegisters {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DeviceObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceObject {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CurrentIrp : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CurrentIrp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    BufferChainingDpc : KDPC.Ptr
 
-    /**
-     * @type {Pointer<KDPC>}
-     */
-    BufferChainingDpc {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    static __New() {
+        DefineProp(this.Prototype, 'DmaWaitEntry', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

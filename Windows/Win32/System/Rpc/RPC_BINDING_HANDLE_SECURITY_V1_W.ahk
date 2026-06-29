@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_W.ahk
-#Include .\RPC_SECURITY_QOS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_SECURITY_QOS.ahk" { RPC_SECURITY_QOS }
+#Import ".\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
 
 /**
  * Contains the basic security options with which to create an RPC binding handle. (Unicode)
@@ -94,40 +93,26 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_BINDING_HANDLE_SECURITY_V1_W extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct RPC_BINDING_HANDLE_SECURITY_V1_W {
+    #StructPack 8
 
     /**
      * The version of this structure. For <b>RPC_BINDING_HANDLE_SECURITY_V1</b> this must be set to 1.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Pointer to a string that contains the server principal name referenced by the binding handle. The content of the name and its syntax are defined by the authentication service in use.
-     * @type {Pointer<Integer>}
      */
-    ServerPrincName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ServerPrincName : IntPtr
 
     /**
      * Level of authentication to be performed on remote procedure calls made using this binding handle. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>.
      * 
      * If <i>AuthnSvc</i> is set to RPC_C_AUTHN_NONE, this member must likewise be set to RPC_C_AUTHN_NONE.
-     * @type {Integer}
      */
-    AuthnLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AuthnLevel : UInt32
 
     /**
      * Authentication service to use when binding. 
@@ -140,21 +125,13 @@ class RPC_BINDING_HANDLE_SECURITY_V1_W extends Win32Struct {
      * If RPC_C_AUTHN_DEFAULT is specified, the RPC run-time library uses the RPC_C_AUTHN_WINNT authentication service for remote procedure calls made using the binding handle.
      * 
      * If <i>AuthnLevel</i> is set to RPC_C_AUTHN_NONE, this member must likewise be set to RPC_C_AUTHN_NONE.
-     * @type {Integer}
      */
-    AuthnSvc {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    AuthnSvc : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structure that contains the client's authentication and authorization credentials appropriate for the selected authentication and authorization service.
-     * @type {Pointer<SEC_WINNT_AUTH_IDENTITY_W>}
      */
-    AuthIdentity {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AuthIdentity : SEC_WINNT_AUTH_IDENTITY_W.Ptr
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos">RPC_SECURITY_QOS</a> structure that contains the security quality-of-service settings for the binding handle. 
@@ -165,10 +142,7 @@ class RPC_BINDING_HANDLE_SECURITY_V1_W extends Win32Struct {
      * <div class="alert"><b>Note</b>  For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.</div>
      * <div> </div>
-     * @type {Pointer<RPC_SECURITY_QOS>}
      */
-    SecurityQos {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SecurityQos : RPC_SECURITY_QOS.Ptr
+
 }

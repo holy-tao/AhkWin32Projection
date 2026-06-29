@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPDVD interface provides methods for working with DVDs.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpdvd
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPDVD extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPDVD extends IDispatch {
     /**
      * The interface identifier for IWMPDVD
      * @type {Guid}
      */
-    static IID => Guid("{8da61686-4668-4a5c-ae5d-803193293dbe}")
+    static IID := Guid("{8da61686-4668-4a5c-ae5d-803193293dbe}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPDVD interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_isAvailable : IntPtr
+        get_domain      : IntPtr
+        topMenu         : IntPtr
+        titleMenu       : IntPtr
+        back            : IntPtr
+        resume          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_isAvailable", "get_domain", "topMenu", "titleMenu", "back", "resume"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPDVD.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -71,7 +86,7 @@ class IWMPDVD extends IDispatch {
 
         pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -104,7 +119,7 @@ class IWMPDVD extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpdvd-get_domain
      */
     get_domain(strDomain) {
-        result := ComCall(8, this, "ptr", strDomain, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, strDomain, "HRESULT")
         return result
     }
 
@@ -232,5 +247,35 @@ class IWMPDVD extends IDispatch {
     resume() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPDVD.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_isAvailable := CallbackCreate(GetMethod(implObj, "get_isAvailable"), flags, 3)
+        this.vtbl.get_domain := CallbackCreate(GetMethod(implObj, "get_domain"), flags, 2)
+        this.vtbl.topMenu := CallbackCreate(GetMethod(implObj, "topMenu"), flags, 1)
+        this.vtbl.titleMenu := CallbackCreate(GetMethod(implObj, "titleMenu"), flags, 1)
+        this.vtbl.back := CallbackCreate(GetMethod(implObj, "back"), flags, 1)
+        this.vtbl.resume := CallbackCreate(GetMethod(implObj, "resume"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_isAvailable)
+        CallbackFree(this.vtbl.get_domain)
+        CallbackFree(this.vtbl.topMenu)
+        CallbackFree(this.vtbl.titleMenu)
+        CallbackFree(this.vtbl.back)
+        CallbackFree(this.vtbl.resume)
     }
 }

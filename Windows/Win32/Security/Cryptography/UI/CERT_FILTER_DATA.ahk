@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CERT_FILTER_EXTENSION_MATCH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_FILTER_EXTENSION_MATCH.ahk" { CERT_FILTER_EXTENSION_MATCH }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
  */
-class CERT_FILTER_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct CERT_FILTER_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cExtensionChecks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cExtensionChecks {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    arrayExtensionChecks : CERT_FILTER_EXTENSION_MATCH.Ptr
 
-    /**
-     * @type {Pointer<CERT_FILTER_EXTENSION_MATCH>}
-     */
-    arrayExtensionChecks {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwCheckingFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCheckingFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

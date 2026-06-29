@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of SID operations that can be made by a call to the AuthzModifySids function.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ne-authz-authz_sid_operation
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_SID_OPERATION extends Win32Enum {
+export default struct AUTHZ_SID_OPERATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not modify anything.

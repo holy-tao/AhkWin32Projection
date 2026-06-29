@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the aspect ratio of a video image in a display window.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_ASPECT_RATIO_MODE extends Win32Enum {
+export default struct AM_ASPECT_RATIO_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No aspect ratio correction.

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesProgress.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOfflineFilesProgress.ahk" { IOfflineFilesProgress }
+#Import ".\IOfflineFilesSyncErrorInfo.ahk" { IOfflineFilesSyncErrorInfo }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OFFLINEFILES_OP_RESPONSE.ahk" { OFFLINEFILES_OP_RESPONSE }
 
 /**
  * Used to report progress back to the caller during synchronization and synchronization-related operations.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessyncprogress
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesSyncProgress extends IOfflineFilesProgress {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesSyncProgress extends IOfflineFilesProgress {
     /**
      * The interface identifier for IOfflineFilesSyncProgress
      * @type {Guid}
      */
-    static IID => Guid("{6931f49a-6fc7-4c1b-b265-56793fc451b7}")
+    static IID := Guid("{6931f49a-6fc7-4c1b-b265-56793fc451b7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesSyncProgress interfaces
+    */
+    struct Vtbl extends IOfflineFilesProgress.Vtbl {
+        SyncItemBegin  : IntPtr
+        SyncItemResult : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SyncItemBegin", "SyncItemResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesSyncProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports that a synchronization operation on an item is beginning.
@@ -55,5 +67,27 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress {
 
         result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "ptr", pErrorInfo, "int*", &pResponse := 0, "HRESULT")
         return pResponse
+    }
+
+    Query(iid) {
+        if (IOfflineFilesSyncProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SyncItemBegin := CallbackCreate(GetMethod(implObj, "SyncItemBegin"), flags, 3)
+        this.vtbl.SyncItemResult := CallbackCreate(GetMethod(implObj, "SyncItemResult"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SyncItemBegin)
+        CallbackFree(this.vtbl.SyncItemResult)
     }
 }

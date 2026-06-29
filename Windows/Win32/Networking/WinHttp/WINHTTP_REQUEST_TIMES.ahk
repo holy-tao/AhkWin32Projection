@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WINHTTP_REQUEST_TIMES structure contains a variety of timing information for an HTTP request.
@@ -9,31 +8,19 @@
  * @namespace Windows.Win32.Networking.WinHttp
  * @architecture X64, Arm64
  */
-class WINHTTP_REQUEST_TIMES extends Win32Struct {
-    static sizeof => 520
-
-    static packingSize => 8
+export default struct WINHTTP_REQUEST_TIMES {
+    #StructPack 8
 
     /**
      * Unsigned long integer value that contains the number of timings to retrieve. This should generally be set to **WinHttpRequestTimeLast**.
-     * @type {Integer}
      */
-    cTimes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cTimes : UInt32
 
     /**
      * Array of unsigned long long integer values that will contain the returned timings, indexed by [**WINHTTP\_REQUEST\_TIME\_ENTRY**](/windows/desktop/api/winhttp/ne-winhttp-winhttp_request_time_entry).
      * 
      * Times are measured as performance counter values; for more information, see [QueryPerformanceCounter](/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter).
-     * @type {Array<Integer>}
      */
-    rgullTimes {
-        get {
-            if(!this.HasProp("__rgullTimesProxyArray"))
-                this.__rgullTimesProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "uint")
-            return this.__rgullTimesProxyArray
-        }
-    }
+    rgullTimes : Int64[64]
+
 }

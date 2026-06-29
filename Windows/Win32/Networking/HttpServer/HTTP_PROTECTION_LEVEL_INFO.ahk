@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
-#Include .\HTTP_PROTECTION_LEVEL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROTECTION_LEVEL_TYPE.ahk" { HTTP_PROTECTION_LEVEL_TYPE }
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_PROTECTION_LEVEL_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct HTTP_PROTECTION_LEVEL_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : HTTP_PROPERTY_FLAGS
 
-    /**
-     * @type {HTTP_PROPERTY_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Level : HTTP_PROTECTION_LEVEL_TYPE
 
-    /**
-     * @type {HTTP_PROTECTION_LEVEL_TYPE}
-     */
-    Level {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

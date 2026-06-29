@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PORT\_INFO\_3 structure specifies the status value of a printer port.
@@ -9,10 +9,8 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class PORT_INFO_3W extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PORT_INFO_3W {
+    #StructPack 8
 
     /**
      * The new port status value. This value is used only if the **pszStatus** member is **NULL**.
@@ -36,21 +34,13 @@ class PORT_INFO_3W extends Win32Struct {
      * | PORT\_STATUS\_TONER\_LOW         | The port's printer is low on toner.                 |
      * | PORT\_STATUS\_WARMING\_UP        | The port's printer is warming up.                   |
      * | PORT\_STATUS\_POWER\_SAVE        | The port's printer is in a power-conservation mode. |
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : UInt32
 
     /**
      * Pointer to a new printer port status value string to set. Use this member if there is no suitable status value among those listed for **dwStatus**.
-     * @type {PWSTR}
      */
-    pszStatus {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszStatus : PWSTR
 
     /**
      * The severity of the port status value.
@@ -64,10 +54,7 @@ class PORT_INFO_3W extends Win32Struct {
      * | PORT\_STATUS\_TYPE\_ERROR   | The port status value indicates an error. |
      * | PORT\_STATUS\_TYPE\_WARNING | The port status value is a warning.       |
      * | PORT\_STATUS\_TYPE\_INFO    | The port status value is informational.   |
-     * @type {Integer}
      */
-    dwSeverity {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSeverity : UInt32
+
 }

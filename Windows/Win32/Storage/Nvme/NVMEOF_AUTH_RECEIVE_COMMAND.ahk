@@ -1,117 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_SGL_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_SGL_DESC.ahk" { NVME_SGL_DESC }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_AUTH_RECEIVE_COMMAND extends Win32Struct {
-    static sizeof => 64
+export default struct NVMEOF_AUTH_RECEIVE_COMMAND {
+    #StructPack 4
 
-    static packingSize => 4
+    OPC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OPC {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    CID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    FCTYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FCTYPE {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Reserved1 : Int8[19]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 19, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    SGL1 : NVME_SGL_DESC
 
-    /**
-     * @type {NVME_SGL_DESC}
-     */
-    SGL1 {
-        get {
-            if(!this.HasProp("__SGL1"))
-                this.__SGL1 := NVME_SGL_DESC(24, this)
-            return this.__SGL1
-        }
-    }
+    Reserved2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    SPSP0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SPSP0 {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    SPSP1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SPSP1 {
-        get => NumGet(this, 42, "char")
-        set => NumPut("char", value, this, 42)
-    }
+    SECP : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SECP {
-        get => NumGet(this, 43, "char")
-        set => NumPut("char", value, this, 43)
-    }
+    AL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AL {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Reserved3 : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
 }

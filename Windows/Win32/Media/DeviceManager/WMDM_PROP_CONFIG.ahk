@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WMDM_PROP_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WMDM_PROP_DESC.ahk" { WMDM_PROP_DESC }
 
 /**
  * The WMDM\_PROP\_CONFIG structure describes a set of compatible property values across all the properties supported by the device for a particular format. This structure contains a number of property descriptions in an array of WMDM\_PROP\_DESC structures.
@@ -13,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-config
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class WMDM_PROP_CONFIG extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WMDM_PROP_CONFIG {
+    #StructPack 8
 
     /**
      * Device's level of preference for this configuration. The lowest value indicates the most preferred configuration.
-     * @type {Integer}
      */
-    nPreference {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nPreference : UInt32
 
     /**
      * Number of property descriptions contained in this configuration. There is a single property description for each property supported for the specified format.
-     * @type {Integer}
      */
-    nPropDesc {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    nPropDesc : UInt32
 
     /**
      * Pointer to an array of [**WMDM\_PROP\_DESC**](wmdm-prop-desc.md) structures containing property descriptions. The size of the array is equal to the value of **nPropDesc**. The application must free this memory when finished with it.
-     * @type {Pointer<WMDM_PROP_DESC>}
      */
-    pPropDesc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPropDesc : WMDM_PROP_DESC.Ptr
+
 }

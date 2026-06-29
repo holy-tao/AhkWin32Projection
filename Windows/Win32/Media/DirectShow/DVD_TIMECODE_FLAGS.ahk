@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the frame rate at which a DVD has been authored to play.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_timecode_flags
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_TIMECODE_FLAGS extends Win32Enum {
+export default struct DVD_TIMECODE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Disc is authored to play at 25 frames per second.

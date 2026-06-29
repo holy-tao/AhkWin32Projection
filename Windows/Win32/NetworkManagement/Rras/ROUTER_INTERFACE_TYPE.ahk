@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ROUTER_INTERFACE_TYPE type enumerates the different kinds of interfaces on a router.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-router_interface_type
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class ROUTER_INTERFACE_TYPE extends Win32Enum {
+export default struct ROUTER_INTERFACE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The interface is for a remote client.

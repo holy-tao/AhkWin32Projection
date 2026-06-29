@@ -1,89 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
+#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_INSTALLWIZARD_DATA extends Win32Struct {
-    static sizeof => 208
+export default struct SP_INSTALLWIZARD_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    ClassInstallHeader : SP_CLASSINSTALL_HEADER
 
-    /**
-     * @type {SP_CLASSINSTALL_HEADER}
-     */
-    ClassInstallHeader {
-        get {
-            if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
-            return this.__ClassInstallHeader
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DynamicPages : HPROPSHEETPAGE[20]
 
-    /**
-     * @type {Array<HPROPSHEETPAGE>}
-     */
-    DynamicPages {
-        get {
-            if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "ptr")
-            return this.__DynamicPagesProxyArray
-        }
-    }
+    NumDynamicPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumDynamicPages {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    DynamicPageFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DynamicPageFlags {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    PrivateFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateFlags {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    PrivateData : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    PrivateData {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    hwndWizardDlg : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndWizardDlg {
-        get {
-            if(!this.HasProp("__hwndWizardDlg"))
-                this.__hwndWizardDlg := HWND(200, this)
-            return this.__hwndWizardDlg
-        }
-    }
 }

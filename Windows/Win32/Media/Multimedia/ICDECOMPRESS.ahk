@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The ICDECOMPRESS structure contains decompression parameters used with the ICM_DECOMPRESS message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdecompress
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICDECOMPRESS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct ICDECOMPRESS {
+    #StructPack 8
 
     /**
      * Applicable flags. The following values are defined:
@@ -76,55 +73,32 @@ class ICDECOMPRESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the input format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiInput {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpbiInput : BITMAPINFOHEADER.Ptr
 
     /**
      * Pointer to a buffer containing the input data.
-     * @type {Pointer<Void>}
      */
-    lpInput {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpInput : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the output format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiOutput {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpbiOutput : BITMAPINFOHEADER.Ptr
 
     /**
      * Pointer to a buffer where the driver should write the decompressed image.
-     * @type {Pointer<Void>}
      */
-    lpOutput {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpOutput : IntPtr
 
     /**
      * Chunk identifier from the AVI file.
-     * @type {Integer}
      */
-    ckid {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ckid : UInt32
+
 }

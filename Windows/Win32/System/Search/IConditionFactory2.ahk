@@ -1,7 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IConditionFactory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
+#Import ".\IConditionFactory.ahk" { IConditionFactory }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\STRUCTURED_QUERY_RESOLVE_OPTION.ahk" { STRUCTURED_QUERY_RESOLVE_OPTION }
+#Import ".\IRichChunk.ahk" { IRichChunk }
+#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CONDITION_CREATION_OPTIONS.ahk" { CONDITION_CREATION_OPTIONS }
+#Import "..\..\UI\Shell\Common\IObjectArray.ahk" { IObjectArray }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * Extends the functionality of IConditionFactory. IConditionFactory2 provides methods for creating or resolving a condition tree that was obtained by parsing a query string.
@@ -10,26 +23,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iconditionfactory2
  * @namespace Windows.Win32.System.Search
  */
-class IConditionFactory2 extends IConditionFactory {
-
-    static sizeof => A_PtrSize
+export default struct IConditionFactory2 extends IConditionFactory {
     /**
      * The interface identifier for IConditionFactory2
      * @type {Guid}
      */
-    static IID => Guid("{71d222e1-432f-429e-8c13-b6dafde5077a}")
+    static IID := Guid("{71d222e1-432f-429e-8c13-b6dafde5077a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConditionFactory2 interfaces
+    */
+    struct Vtbl extends IConditionFactory.Vtbl {
+        CreateTrueFalse               : IntPtr
+        CreateNegation                : IntPtr
+        CreateCompoundFromObjectArray : IntPtr
+        CreateCompoundFromArray       : IntPtr
+        CreateStringLeaf              : IntPtr
+        CreateIntegerLeaf             : IntPtr
+        CreateBooleanLeaf             : IntPtr
+        CreateLeaf                    : IntPtr
+        ResolveCondition              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTrueFalse", "CreateNegation", "CreateCompoundFromObjectArray", "CreateCompoundFromArray", "CreateStringLeaf", "CreateIntegerLeaf", "CreateBooleanLeaf", "CreateLeaf", "ResolveCondition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConditionFactory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a search condition that is either TRUE or FALSE. (IConditionFactory2.CreateTrueFalse)
@@ -50,7 +78,7 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createtruefalse
      */
     CreateTrueFalse(fVal, cco, riid) {
-        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, BOOL, fVal, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -75,7 +103,7 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createnegation
      */
     CreateNegation(pcSub, cco, riid) {
-        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pcSub, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -101,7 +129,7 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromobjectarray
      */
     CreateCompoundFromObjectArray(ct, poaSubs, cco, riid) {
-        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, CONDITION_TYPE, ct, "ptr", poaSubs, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -130,7 +158,7 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromarray
      */
     CreateCompoundFromArray(ct, ppcondSubs, cSubs, cco, riid) {
-        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, CONDITION_TYPE, ct, ICondition.Ptr, ppcondSubs, "uint", cSubs, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -165,7 +193,7 @@ class IConditionFactory2 extends IConditionFactory {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, "ptr", pszValue, "ptr", pszLocaleName, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -194,7 +222,7 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createintegerleaf
      */
     CreateIntegerLeaf(propkey, cop, lValue, cco, riid) {
-        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(12, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, "int", lValue, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -223,7 +251,7 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createbooleanleaf
      */
     CreateBooleanLeaf(propkey, cop, fValue, cco, riid) {
-        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(13, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, BOOL, fValue, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -277,7 +305,7 @@ class IConditionFactory2 extends IConditionFactory {
         pszSemanticType := pszSemanticType is String ? StrPtr(pszSemanticType) : pszSemanticType
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(14, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, PROPVARIANT.Ptr, propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -305,7 +333,43 @@ class IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-resolvecondition
      */
     ResolveCondition(pc, sqro, pstReferenceTime, riid) {
-        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pc, STRUCTURED_QUERY_RESOLVE_OPTION, sqro, SYSTEMTIME.Ptr, pstReferenceTime, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IConditionFactory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTrueFalse := CallbackCreate(GetMethod(implObj, "CreateTrueFalse"), flags, 5)
+        this.vtbl.CreateNegation := CallbackCreate(GetMethod(implObj, "CreateNegation"), flags, 5)
+        this.vtbl.CreateCompoundFromObjectArray := CallbackCreate(GetMethod(implObj, "CreateCompoundFromObjectArray"), flags, 6)
+        this.vtbl.CreateCompoundFromArray := CallbackCreate(GetMethod(implObj, "CreateCompoundFromArray"), flags, 7)
+        this.vtbl.CreateStringLeaf := CallbackCreate(GetMethod(implObj, "CreateStringLeaf"), flags, 8)
+        this.vtbl.CreateIntegerLeaf := CallbackCreate(GetMethod(implObj, "CreateIntegerLeaf"), flags, 7)
+        this.vtbl.CreateBooleanLeaf := CallbackCreate(GetMethod(implObj, "CreateBooleanLeaf"), flags, 7)
+        this.vtbl.CreateLeaf := CallbackCreate(GetMethod(implObj, "CreateLeaf"), flags, 12)
+        this.vtbl.ResolveCondition := CallbackCreate(GetMethod(implObj, "ResolveCondition"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTrueFalse)
+        CallbackFree(this.vtbl.CreateNegation)
+        CallbackFree(this.vtbl.CreateCompoundFromObjectArray)
+        CallbackFree(this.vtbl.CreateCompoundFromArray)
+        CallbackFree(this.vtbl.CreateStringLeaf)
+        CallbackFree(this.vtbl.CreateIntegerLeaf)
+        CallbackFree(this.vtbl.CreateBooleanLeaf)
+        CallbackFree(this.vtbl.CreateLeaf)
+        CallbackFree(this.vtbl.ResolveCondition)
     }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IExtendContextMenu interface enables a snap-in to add items to an existing context menu.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendcontextmenu
  * @namespace Windows.Win32.System.Mmc
  */
-class IExtendContextMenu extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExtendContextMenu extends IUnknown {
     /**
      * The interface identifier for IExtendContextMenu
      * @type {Guid}
      */
-    static IID => Guid("{4f3b7a4f-cfac-11cf-b8e3-00c04fd8d5b0}")
+    static IID := Guid("{4f3b7a4f-cfac-11cf-b8e3-00c04fd8d5b0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtendContextMenu interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddMenuItems : IntPtr
+        Command      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddMenuItems", "Command"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtendContextMenu.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IExtendContextMenu::AddMenuItems method enables a snap-in to add items to a context menu.
@@ -93,5 +104,27 @@ class IExtendContextMenu extends IUnknown {
     Command(lCommandID, piDataObject) {
         result := ComCall(4, this, "int", lCommandID, "ptr", piDataObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExtendContextMenu.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddMenuItems := CallbackCreate(GetMethod(implObj, "AddMenuItems"), flags, 4)
+        this.vtbl.Command := CallbackCreate(GetMethod(implObj, "Command"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddMenuItems)
+        CallbackFree(this.vtbl.Command)
     }
 }

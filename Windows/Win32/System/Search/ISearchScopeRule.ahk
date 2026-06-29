@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to define scope rules for crawling and indexing.
@@ -10,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchscoperule
  * @namespace Windows.Win32.System.Search
  */
-class ISearchScopeRule extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchScopeRule extends IUnknown {
     /**
      * The interface identifier for ISearchScopeRule
      * @type {Guid}
      */
-    static IID => Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef53}")
+    static IID := Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef53}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchScopeRule interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_PatternOrURL : IntPtr
+        get_IsIncluded   : IntPtr
+        get_IsDefault    : IntPtr
+        get_FollowFlags  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PatternOrURL", "get_IsIncluded", "get_IsDefault", "get_FollowFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchScopeRule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -75,7 +88,7 @@ class ISearchScopeRule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_patternorurl
      */
     get_PatternOrURL() {
-        result := ComCall(3, this, "ptr*", &ppszPatternOrURL := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszPatternOrURL := 0, "HRESULT")
         return ppszPatternOrURL
     }
 
@@ -89,7 +102,7 @@ class ISearchScopeRule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_isincluded
      */
     get_IsIncluded() {
-        result := ComCall(4, this, "int*", &pfIsIncluded := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfIsIncluded := 0, "HRESULT")
         return pfIsIncluded
     }
 
@@ -103,7 +116,7 @@ class ISearchScopeRule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_isdefault
      */
     get_IsDefault() {
-        result := ComCall(5, this, "int*", &pfIsDefault := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &pfIsDefault := 0, "HRESULT")
         return pfIsDefault
     }
 
@@ -117,5 +130,31 @@ class ISearchScopeRule extends IUnknown {
     get_FollowFlags() {
         result := ComCall(6, this, "uint*", &pFollowFlags := 0, "HRESULT")
         return pFollowFlags
+    }
+
+    Query(iid) {
+        if (ISearchScopeRule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PatternOrURL := CallbackCreate(GetMethod(implObj, "get_PatternOrURL"), flags, 2)
+        this.vtbl.get_IsIncluded := CallbackCreate(GetMethod(implObj, "get_IsIncluded"), flags, 2)
+        this.vtbl.get_IsDefault := CallbackCreate(GetMethod(implObj, "get_IsDefault"), flags, 2)
+        this.vtbl.get_FollowFlags := CallbackCreate(GetMethod(implObj, "get_FollowFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PatternOrURL)
+        CallbackFree(this.vtbl.get_IsIncluded)
+        CallbackFree(this.vtbl.get_IsDefault)
+        CallbackFree(this.vtbl.get_FollowFlags)
     }
 }

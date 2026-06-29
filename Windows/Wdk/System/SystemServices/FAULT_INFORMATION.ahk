@@ -1,44 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FAULT_INFORMATION_ARCH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FAULT_INFORMATION_ARCH.ahk" { FAULT_INFORMATION_ARCH }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FAULT_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct FAULT_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : FAULT_INFORMATION_ARCH
 
-    /**
-     * @type {FAULT_INFORMATION_ARCH}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    IsStage1 : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsStage1 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Arm64 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Arm64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    X64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'X64', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

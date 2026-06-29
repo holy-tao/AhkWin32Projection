@@ -1,29 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include ..\..\Graphics\Gdi\DISPLAYCONFIG_COLOR_ENCODING.ahk
-#Include ..\..\Graphics\Gdi\DISPLAYCONFIG_ADVANCED_COLOR_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk" { DISPLAYCONFIG_DEVICE_INFO_TYPE }
+#Import "..\..\Graphics\Gdi\DISPLAYCONFIG_COLOR_ENCODING.ahk" { DISPLAYCONFIG_COLOR_ENCODING }
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk" { DISPLAYCONFIG_DEVICE_INFO_HEADER }
+#Import "..\..\Graphics\Gdi\DISPLAYCONFIG_ADVANCED_COLOR_MODE.ahk" { DISPLAYCONFIG_ADVANCED_COLOR_MODE }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 extends Win32Struct {
-    static sizeof => 36
+export default struct DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : DISPLAYCONFIG_DEVICE_INFO_HEADER
 
     /**
      * This bitfield backs the following members:
@@ -36,12 +24,9 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 extends Win32Struct {
      * - wideColorSupported
      * - wideColorUserEnabled
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -114,36 +99,14 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 extends Win32Struct {
         get => (this._bitfield >> 8) & 0xFFFFFF
         set => this._bitfield := ((value & 0xFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFF << 8))
     }
+    colorEncoding : DISPLAYCONFIG_COLOR_ENCODING
 
-    /**
-     * @type {Integer}
-     */
-    value {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    bitsPerColorChannel : UInt32
 
-    /**
-     * @type {DISPLAYCONFIG_COLOR_ENCODING}
-     */
-    colorEncoding {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    activeColorMode : DISPLAYCONFIG_ADVANCED_COLOR_MODE
 
-    /**
-     * @type {Integer}
-     */
-    bitsPerColorChannel {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {DISPLAYCONFIG_ADVANCED_COLOR_MODE}
-     */
-    activeColorMode {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'value', { type: UInt32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

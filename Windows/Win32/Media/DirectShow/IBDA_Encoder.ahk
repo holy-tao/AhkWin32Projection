@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a device's Encoder Service.
@@ -10,26 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_encoder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_Encoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_Encoder extends IUnknown {
     /**
      * The interface identifier for IBDA_Encoder
      * @type {Guid}
      */
-    static IID => Guid("{3a8bad59-59fe-4559-a0ba-396cfaa98ae3}")
+    static IID := Guid("{3a8bad59-59fe-4559-a0ba-396cfaa98ae3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_Encoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryCapabilities   : IntPtr
+        EnumAudioCapability : IntPtr
+        EnumVideoCapability : IntPtr
+        SetParameters       : IntPtr
+        GetState            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryCapabilities", "EnumAudioCapability", "EnumVideoCapability", "SetParameters", "GetState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_Encoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of encoding formats supported by the device.
@@ -320,5 +333,33 @@ class IBDA_Encoder extends IUnknown {
 
         result := ComCall(7, this, AudioBitrateMaxMarshal, AudioBitrateMax, AudioBitrateMinMarshal, AudioBitrateMin, AudioBitrateModeMarshal, AudioBitrateMode, AudioBitrateSteppingMarshal, AudioBitrateStepping, AudioBitrateMarshal, AudioBitrate, AudioMethodIDMarshal, AudioMethodID, AvailableAudioProgramsMarshal, AvailableAudioPrograms, AudioProgramMarshal, AudioProgram, VideoBitrateMaxMarshal, VideoBitrateMax, VideoBitrateMinMarshal, VideoBitrateMin, VideoBitrateModeMarshal, VideoBitrateMode, VideoBitrateMarshal, VideoBitrate, VideoBitrateSteppingMarshal, VideoBitrateStepping, VideoMethodIDMarshal, VideoMethodID, SignalSourceIDMarshal, SignalSourceID, SignalFormatMarshal, SignalFormat, SignalLockMarshal, SignalLock, SignalLevelMarshal, SignalLevel, SignalToNoiseRatioMarshal, SignalToNoiseRatio, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_Encoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryCapabilities := CallbackCreate(GetMethod(implObj, "QueryCapabilities"), flags, 3)
+        this.vtbl.EnumAudioCapability := CallbackCreate(GetMethod(implObj, "EnumAudioCapability"), flags, 7)
+        this.vtbl.EnumVideoCapability := CallbackCreate(GetMethod(implObj, "EnumVideoCapability"), flags, 9)
+        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 8)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 20)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryCapabilities)
+        CallbackFree(this.vtbl.EnumAudioCapability)
+        CallbackFree(this.vtbl.EnumVideoCapability)
+        CallbackFree(this.vtbl.SetParameters)
+        CallbackFree(this.vtbl.GetState)
     }
 }

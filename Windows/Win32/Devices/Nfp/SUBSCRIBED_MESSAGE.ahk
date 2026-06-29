@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Nfp
  */
-class SUBSCRIBED_MESSAGE extends Win32Struct {
-    static sizeof => 8
+export default struct SUBSCRIBED_MESSAGE {
+    #StructPack 4
 
-    static packingSize => 4
+    cbPayloadHint : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPayloadHint {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    payload : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    payload {
-        get {
-            if(!this.HasProp("__payloadProxyArray"))
-                this.__payloadProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__payloadProxyArray
-        }
-    }
 }

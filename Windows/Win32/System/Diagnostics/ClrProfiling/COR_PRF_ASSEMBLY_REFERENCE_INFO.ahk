@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\WinRT\Metadata\ASSEMBLYMETADATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\WinRT\Metadata\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class COR_PRF_ASSEMBLY_REFERENCE_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct COR_PRF_ASSEMBLY_REFERENCE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pbPublicKeyOrToken : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pbPublicKeyOrToken {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cbPublicKeyOrToken : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPublicKeyOrToken {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    szName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    szName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pMetaData : ASSEMBLYMETADATA.Ptr
 
-    /**
-     * @type {Pointer<ASSEMBLYMETADATA>}
-     */
-    pMetaData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbHashValue : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pbHashValue {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cbHashValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbHashValue {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwAssemblyRefFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAssemblyRefFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

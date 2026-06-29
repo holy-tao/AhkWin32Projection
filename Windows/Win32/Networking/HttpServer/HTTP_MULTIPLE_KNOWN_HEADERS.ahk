@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_HEADER_ID.ahk
-#Include .\HTTP_KNOWN_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_HEADER_ID.ahk" { HTTP_HEADER_ID }
+#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
 
 /**
  * Specifies the headers that are included in an HTTP response when more than one header is required.
@@ -14,19 +13,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_multiple_known_headers
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_MULTIPLE_KNOWN_HEADERS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct HTTP_MULTIPLE_KNOWN_HEADERS {
+    #StructPack 8
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_header_id">HTTP_HEADER_ID</a> enumeration specifying the response header ID.
-     * @type {HTTP_HEADER_ID}
      */
-    HeaderId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    HeaderId : HTTP_HEADER_ID
 
     /**
      * The flags corresponding to the response header in the <b>HeaderId</b> member. This member is used only when the WWW-Authenticate header is present. This can be zero or the following:
@@ -47,28 +40,17 @@ class HTTP_MULTIPLE_KNOWN_HEADERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * The number of elements in  the array specified in the  <b>KnownHeaders</b> member.
-     * @type {Integer}
      */
-    KnownHeaderCount {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    KnownHeaderCount : UInt16
 
     /**
      * A pointer to the first element in the array of <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_known_header">HTTP_KNOWN_HEADER</a> structures.
-     * @type {Pointer<HTTP_KNOWN_HEADER>}
      */
-    KnownHeaders {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    KnownHeaders : HTTP_KNOWN_HEADER.Ptr
+
 }

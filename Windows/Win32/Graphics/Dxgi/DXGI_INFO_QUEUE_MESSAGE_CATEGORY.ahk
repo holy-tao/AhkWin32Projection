@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values that specify categories of debug messages.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_INFO_QUEUE_MESSAGE_CATEGORY extends Win32Enum {
+export default struct DXGI_INFO_QUEUE_MESSAGE_CATEGORY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Unknown category.

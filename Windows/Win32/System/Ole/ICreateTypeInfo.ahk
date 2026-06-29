@@ -1,33 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\VARDESC.ahk" { VARDESC }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
+#Import "..\Com\FUNCDESC.ahk" { FUNCDESC }
+#Import "..\Com\IDLDESC.ahk" { IDLDESC }
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypeinfo
  * @namespace Windows.Win32.System.Ole
  */
-class ICreateTypeInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICreateTypeInfo extends IUnknown {
     /**
      * The interface identifier for ICreateTypeInfo
      * @type {Guid}
      */
-    static IID => Guid("{00020405-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020405-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateTypeInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetGuid              : IntPtr
+        SetTypeFlags         : IntPtr
+        SetDocString         : IntPtr
+        SetHelpContext       : IntPtr
+        SetVersion           : IntPtr
+        AddRefTypeInfo       : IntPtr
+        AddFuncDesc          : IntPtr
+        AddImplType          : IntPtr
+        SetImplTypeFlags     : IntPtr
+        SetAlignment         : IntPtr
+        SetSchema            : IntPtr
+        AddVarDesc           : IntPtr
+        SetFuncAndParamNames : IntPtr
+        SetVarName           : IntPtr
+        SetTypeDescAlias     : IntPtr
+        DefineFuncAsDllEntry : IntPtr
+        SetFuncDocString     : IntPtr
+        SetVarDocString      : IntPtr
+        SetFuncHelpContext   : IntPtr
+        SetVarHelpContext    : IntPtr
+        SetMops              : IntPtr
+        SetTypeIdldesc       : IntPtr
+        LayOut               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetGuid", "SetTypeFlags", "SetDocString", "SetHelpContext", "SetVersion", "AddRefTypeInfo", "AddFuncDesc", "AddImplType", "SetImplTypeFlags", "SetAlignment", "SetSchema", "AddVarDesc", "SetFuncAndParamNames", "SetVarName", "SetTypeDescAlias", "DefineFuncAsDllEntry", "SetFuncDocString", "SetVarDocString", "SetFuncHelpContext", "SetVarHelpContext", "SetMops", "SetTypeIdldesc", "LayOut"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateTypeInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the globally unique identifier (GUID) associated with the type description.
@@ -93,7 +131,7 @@ class ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setguid
      */
     SetGuid(guid) {
-        result := ComCall(3, this, "ptr", guid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guid, "HRESULT")
         return result
     }
 
@@ -598,7 +636,7 @@ class ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addfuncdesc
      */
     AddFuncDesc(index, pFuncDesc) {
-        result := ComCall(9, this, "uint", index, "ptr", pFuncDesc, "HRESULT")
+        result := ComCall(9, this, "uint", index, FUNCDESC.Ptr, pFuncDesc, "HRESULT")
         return result
     }
 
@@ -769,7 +807,7 @@ class ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setimpltypeflags
      */
     SetImplTypeFlags(index, _implTypeFlags) {
-        result := ComCall(11, this, "uint", index, "int", _implTypeFlags, "HRESULT")
+        result := ComCall(11, this, "uint", index, IMPLTYPEFLAGS, _implTypeFlags, "HRESULT")
         return result
     }
 
@@ -959,7 +997,7 @@ class ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addvardesc
      */
     AddVarDesc(index, pVarDesc) {
-        result := ComCall(14, this, "uint", index, "ptr", pVarDesc, "HRESULT")
+        result := ComCall(14, this, "uint", index, VARDESC.Ptr, pVarDesc, "HRESULT")
         return result
     }
 
@@ -1228,7 +1266,7 @@ class ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-settypedescalias
      */
     SetTypeDescAlias(pTDescAlias) {
-        result := ComCall(17, this, "ptr", pTDescAlias, "HRESULT")
+        result := ComCall(17, this, TYPEDESC.Ptr, pTDescAlias, "HRESULT")
         return result
     }
 
@@ -1752,7 +1790,7 @@ class ICreateTypeInfo extends IUnknown {
     SetMops(index, bstrMops) {
         bstrMops := bstrMops is String ? BSTR.Alloc(bstrMops).Value : bstrMops
 
-        result := ComCall(23, this, "uint", index, "ptr", bstrMops, "HRESULT")
+        result := ComCall(23, this, "uint", index, BSTR, bstrMops, "HRESULT")
         return result
     }
 
@@ -1762,7 +1800,7 @@ class ICreateTypeInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTypeIdldesc(pIdlDesc) {
-        result := ComCall(24, this, "ptr", pIdlDesc, "HRESULT")
+        result := ComCall(24, this, IDLDESC.Ptr, pIdlDesc, "HRESULT")
         return result
     }
 
@@ -1922,5 +1960,69 @@ class ICreateTypeInfo extends IUnknown {
     LayOut() {
         result := ComCall(25, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICreateTypeInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetGuid := CallbackCreate(GetMethod(implObj, "SetGuid"), flags, 2)
+        this.vtbl.SetTypeFlags := CallbackCreate(GetMethod(implObj, "SetTypeFlags"), flags, 2)
+        this.vtbl.SetDocString := CallbackCreate(GetMethod(implObj, "SetDocString"), flags, 2)
+        this.vtbl.SetHelpContext := CallbackCreate(GetMethod(implObj, "SetHelpContext"), flags, 2)
+        this.vtbl.SetVersion := CallbackCreate(GetMethod(implObj, "SetVersion"), flags, 3)
+        this.vtbl.AddRefTypeInfo := CallbackCreate(GetMethod(implObj, "AddRefTypeInfo"), flags, 3)
+        this.vtbl.AddFuncDesc := CallbackCreate(GetMethod(implObj, "AddFuncDesc"), flags, 3)
+        this.vtbl.AddImplType := CallbackCreate(GetMethod(implObj, "AddImplType"), flags, 3)
+        this.vtbl.SetImplTypeFlags := CallbackCreate(GetMethod(implObj, "SetImplTypeFlags"), flags, 3)
+        this.vtbl.SetAlignment := CallbackCreate(GetMethod(implObj, "SetAlignment"), flags, 2)
+        this.vtbl.SetSchema := CallbackCreate(GetMethod(implObj, "SetSchema"), flags, 2)
+        this.vtbl.AddVarDesc := CallbackCreate(GetMethod(implObj, "AddVarDesc"), flags, 3)
+        this.vtbl.SetFuncAndParamNames := CallbackCreate(GetMethod(implObj, "SetFuncAndParamNames"), flags, 4)
+        this.vtbl.SetVarName := CallbackCreate(GetMethod(implObj, "SetVarName"), flags, 3)
+        this.vtbl.SetTypeDescAlias := CallbackCreate(GetMethod(implObj, "SetTypeDescAlias"), flags, 2)
+        this.vtbl.DefineFuncAsDllEntry := CallbackCreate(GetMethod(implObj, "DefineFuncAsDllEntry"), flags, 4)
+        this.vtbl.SetFuncDocString := CallbackCreate(GetMethod(implObj, "SetFuncDocString"), flags, 3)
+        this.vtbl.SetVarDocString := CallbackCreate(GetMethod(implObj, "SetVarDocString"), flags, 3)
+        this.vtbl.SetFuncHelpContext := CallbackCreate(GetMethod(implObj, "SetFuncHelpContext"), flags, 3)
+        this.vtbl.SetVarHelpContext := CallbackCreate(GetMethod(implObj, "SetVarHelpContext"), flags, 3)
+        this.vtbl.SetMops := CallbackCreate(GetMethod(implObj, "SetMops"), flags, 3)
+        this.vtbl.SetTypeIdldesc := CallbackCreate(GetMethod(implObj, "SetTypeIdldesc"), flags, 2)
+        this.vtbl.LayOut := CallbackCreate(GetMethod(implObj, "LayOut"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetGuid)
+        CallbackFree(this.vtbl.SetTypeFlags)
+        CallbackFree(this.vtbl.SetDocString)
+        CallbackFree(this.vtbl.SetHelpContext)
+        CallbackFree(this.vtbl.SetVersion)
+        CallbackFree(this.vtbl.AddRefTypeInfo)
+        CallbackFree(this.vtbl.AddFuncDesc)
+        CallbackFree(this.vtbl.AddImplType)
+        CallbackFree(this.vtbl.SetImplTypeFlags)
+        CallbackFree(this.vtbl.SetAlignment)
+        CallbackFree(this.vtbl.SetSchema)
+        CallbackFree(this.vtbl.AddVarDesc)
+        CallbackFree(this.vtbl.SetFuncAndParamNames)
+        CallbackFree(this.vtbl.SetVarName)
+        CallbackFree(this.vtbl.SetTypeDescAlias)
+        CallbackFree(this.vtbl.DefineFuncAsDllEntry)
+        CallbackFree(this.vtbl.SetFuncDocString)
+        CallbackFree(this.vtbl.SetVarDocString)
+        CallbackFree(this.vtbl.SetFuncHelpContext)
+        CallbackFree(this.vtbl.SetVarHelpContext)
+        CallbackFree(this.vtbl.SetMops)
+        CallbackFree(this.vtbl.SetTypeIdldesc)
+        CallbackFree(this.vtbl.LayOut)
     }
 }

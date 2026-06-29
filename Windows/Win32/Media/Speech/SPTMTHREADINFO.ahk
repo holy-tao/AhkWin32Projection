@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPTMTHREADINFO extends Win32Struct {
-    static sizeof => 16
+export default struct SPTMTHREADINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    lPoolSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPoolSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lPriority : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPriority {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ulConcurrencyLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulConcurrencyLimit {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulMaxQuickAllocThreads : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxQuickAllocThreads {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

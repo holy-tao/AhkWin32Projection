@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by members of the IColumnManager interface to specify which set of columns are being requested, either all or only those currently visible.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-cm_enum_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class CM_ENUM_FLAGS extends Win32BitflagEnum {
+export default struct CM_ENUM_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Enumerate all.

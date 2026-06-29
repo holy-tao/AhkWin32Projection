@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITravelLogEntry.ahk
-#Include .\IEnumTravelLogEntry.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITravelLogEntry.ahk" { ITravelLogEntry }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TLENUMF.ahk" { TLENUMF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTravelLogEntry.ahk" { IEnumTravelLogEntry }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class ITravelLogStg extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITravelLogStg extends IUnknown {
     /**
      * The interface identifier for ITravelLogStg
      * @type {Guid}
      */
-    static IID => Guid("{7ebfdd80-ad18-11d3-a4c5-00c04f72d6b8}")
+    static IID := Guid("{7ebfdd80-ad18-11d3-a4c5-00c04f72d6b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITravelLogStg interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateEntry      : IntPtr
+        TravelTo         : IntPtr
+        EnumEntries      : IntPtr
+        FindEntries      : IntPtr
+        GetCount         : IntPtr
+        RemoveEntry      : IntPtr
+        GetRelativeEntry : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateEntry", "TravelTo", "EnumEntries", "FindEntries", "GetCount", "RemoveEntry", "GetRelativeEntry"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITravelLogStg.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,7 +58,7 @@ class ITravelLogStg extends IUnknown {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszTitle, "ptr", ptleRelativeTo, "int", fPrepend, "ptr*", &pptle := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszTitle, "ptr", ptleRelativeTo, BOOL, fPrepend, "ptr*", &pptle := 0, "HRESULT")
         return ITravelLogEntry(pptle)
     }
 
@@ -61,7 +78,7 @@ class ITravelLogStg extends IUnknown {
      * @returns {IEnumTravelLogEntry} 
      */
     EnumEntries(flags) {
-        result := ComCall(5, this, "int", flags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(5, this, TLENUMF, flags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumTravelLogEntry(ppenum)
     }
 
@@ -74,22 +91,17 @@ class ITravelLogStg extends IUnknown {
     FindEntries(flags, pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(6, this, "int", flags, "ptr", pszUrl, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, TLENUMF, flags, "ptr", pszUrl, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumTravelLogEntry(ppenum)
     }
 
     /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @param {TLENUMF} flags 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount(flags) {
-        result := ComCall(7, this, "int", flags, "uint*", &pcEntries := 0, "HRESULT")
+        result := ComCall(7, this, TLENUMF, flags, "uint*", &pcEntries := 0, "HRESULT")
         return pcEntries
     }
 
@@ -111,5 +123,37 @@ class ITravelLogStg extends IUnknown {
     GetRelativeEntry(iOffset) {
         result := ComCall(9, this, "int", iOffset, "ptr*", &ptle := 0, "HRESULT")
         return ITravelLogEntry(ptle)
+    }
+
+    Query(iid) {
+        if (ITravelLogStg.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateEntry := CallbackCreate(GetMethod(implObj, "CreateEntry"), flags, 6)
+        this.vtbl.TravelTo := CallbackCreate(GetMethod(implObj, "TravelTo"), flags, 2)
+        this.vtbl.EnumEntries := CallbackCreate(GetMethod(implObj, "EnumEntries"), flags, 3)
+        this.vtbl.FindEntries := CallbackCreate(GetMethod(implObj, "FindEntries"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 3)
+        this.vtbl.RemoveEntry := CallbackCreate(GetMethod(implObj, "RemoveEntry"), flags, 2)
+        this.vtbl.GetRelativeEntry := CallbackCreate(GetMethod(implObj, "GetRelativeEntry"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateEntry)
+        CallbackFree(this.vtbl.TravelTo)
+        CallbackFree(this.vtbl.EnumEntries)
+        CallbackFree(this.vtbl.FindEntries)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.RemoveEntry)
+        CallbackFree(this.vtbl.GetRelativeEntry)
     }
 }

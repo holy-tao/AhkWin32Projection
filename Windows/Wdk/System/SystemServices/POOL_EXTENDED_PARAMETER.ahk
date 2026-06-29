@@ -1,27 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EX_POOL_PRIORITY.ahk
-#Include .\POOL_EXTENDED_PARAMS_SECURE_POOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EX_POOL_PRIORITY.ahk" { EX_POOL_PRIORITY }
+#Import ".\POOL_EXTENDED_PARAMS_SECURE_POOL.ahk" { POOL_EXTENDED_PARAMS_SECURE_POOL }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class POOL_EXTENDED_PARAMETER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct POOL_EXTENDED_PARAMETER {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
      * - Type
      * - Optional
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -38,44 +32,13 @@ class POOL_EXTENDED_PARAMETER extends Win32Struct {
         get => (this._bitfield >> 8) & 0x1
         set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
     }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved3 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {EX_POOL_PRIORITY}
-     */
-    Priority {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<POOL_EXTENDED_PARAMS_SECURE_POOL>}
-     */
-    SecurePoolParams {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PreferredNode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved3', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'Priority', { type: EX_POOL_PRIORITY, offset: 8 })
+        DefineProp(this.Prototype, 'SecurePoolParams', { type: POOL_EXTENDED_PARAMS_SECURE_POOL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'PreferredNode', { type: UInt32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

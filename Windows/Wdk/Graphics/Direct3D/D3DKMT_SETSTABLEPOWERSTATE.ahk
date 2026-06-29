@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SETSTABLEPOWERSTATE extends Win32Struct {
-    static sizeof => 8
+export default struct D3DKMT_SETSTABLEPOWERSTATE {
+    #StructPack 4
 
-    static packingSize => 4
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Enabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enabled {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

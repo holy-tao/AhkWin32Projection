@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OperationResultCode.ahk" { OperationResultCode }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Contains the properties and the methods that are available to the status of an installation or uninstallation of an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstallationresult
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateInstallationResult extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateInstallationResult extends IDispatch {
     /**
      * The interface identifier for IUpdateInstallationResult
      * @type {Guid}
      */
-    static IID => Guid("{d940f0f8-3cbb-4fd0-993f-471e7f2328ad}")
+    static IID := Guid("{d940f0f8-3cbb-4fd0-993f-471e7f2328ad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateInstallationResult interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_HResult        : IntPtr
+        get_RebootRequired : IntPtr
+        get_ResultCode     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_HResult", "get_RebootRequired", "get_ResultCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateInstallationResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -66,7 +78,7 @@ class IUpdateInstallationResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstallationresult-get_rebootrequired
      */
     get_RebootRequired() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -78,5 +90,29 @@ class IUpdateInstallationResult extends IDispatch {
     get_ResultCode() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IUpdateInstallationResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_HResult := CallbackCreate(GetMethod(implObj, "get_HResult"), flags, 2)
+        this.vtbl.get_RebootRequired := CallbackCreate(GetMethod(implObj, "get_RebootRequired"), flags, 2)
+        this.vtbl.get_ResultCode := CallbackCreate(GetMethod(implObj, "get_ResultCode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_HResult)
+        CallbackFree(this.vtbl.get_RebootRequired)
+        CallbackFree(this.vtbl.get_ResultCode)
     }
 }

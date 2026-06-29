@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk" { CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE }
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk" { CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE }
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk" { CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE }
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.
@@ -11,81 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_v1
  * @namespace Windows.Win32.Security
  */
-class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
-    static sizeof => 32
+export default struct CLAIM_SECURITY_ATTRIBUTE_V1 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Values_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Values {
+        pInt64 : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pInt64 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pUint64 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<PWSTR>}
-         */
-        ppString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE>}
-         */
-        pFqbn {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
-         */
-        pOctetString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'pUint64', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'ppString', { type: PWSTR.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'pFqbn', { type: CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'pOctetString', { type: CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A pointer to a string of Unicode characters that contains the name of the security attribute. This string must be at least 4 bytes in length.
-     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Name : PWSTR
 
-    /**
-     * @type {CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE}
-     */
-    ValueType {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ValueType : CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE
 
     /**
      * This member is reserved and must be set to zero when sent and must be ignored when received.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Reserved : UInt16
 
     /**
      * The attribute flags that are a 32-bitmask. Bits 16 through 31 may be set to any value. Bits 0 through 15 must be zero or a combination of one or more of the following mask values.
@@ -162,31 +114,17 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
     /**
      * The number of values specified in the <b>Values</b> member.
-     * @type {Integer}
      */
-    ValueCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ValueCount : UInt32
 
     /**
      * An array of security attribute values of the type specified in the <b>ValueType</b> member.
-     * @type {_Values_e__Union}
      */
-    Values {
-        get {
-            if(!this.HasProp("__Values"))
-                this.__Values := CLAIM_SECURITY_ATTRIBUTE_V1._Values_e__Union(24, this)
-            return this.__Values
-        }
-    }
+    Values : CLAIM_SECURITY_ATTRIBUTE_V1._Values
+
 }

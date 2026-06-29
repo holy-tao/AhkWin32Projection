@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE.ahk" { NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE }
 
 /**
  * Contains a parameter for enabling a directive for the Directive Send command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_directive_send
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW12_DIRECTIVE_SEND extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct NVME_CDW12_DIRECTIVE_SEND {
+    #StructPack 4
 
     /**
      * A [NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE](ns-nvme-nvme_cdw12_directive_send_identify_enable_directive.md) structure that specifies the directive type and whether it is enabled.
-     * @type {NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE}
      */
-    EnableDirective {
-        get {
-            if(!this.HasProp("__EnableDirective"))
-                this.__EnableDirective := NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE(0, this)
-            return this.__EnableDirective
-        }
-    }
+    EnableDirective : NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

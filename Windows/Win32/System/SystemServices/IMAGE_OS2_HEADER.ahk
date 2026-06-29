@@ -1,251 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_OS2_HEADER extends Win32Struct {
-    static sizeof => 64
+export default struct IMAGE_OS2_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    ne_magic : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_magic {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ne_ver : CHAR
 
-    /**
-     * @type {CHAR}
-     */
-    ne_ver {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    ne_rev : CHAR
 
-    /**
-     * @type {CHAR}
-     */
-    ne_rev {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ne_enttab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_enttab {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ne_cbenttab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_cbenttab {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ne_crc : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ne_crc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ne_flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_flags {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    ne_autodata : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_autodata {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    ne_heap : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_heap {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    ne_stack : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_stack {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    ne_csip : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ne_csip {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ne_sssp : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ne_sssp {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ne_cseg : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_cseg {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    ne_cmod : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_cmod {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    ne_cbnrestab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_cbnrestab {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    ne_segtab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_segtab {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    ne_rsrctab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_rsrctab {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    ne_restab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_restab {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    ne_modtab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_modtab {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    ne_imptab : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_imptab {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    ne_nrestab : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ne_nrestab {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    ne_cmovent : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_cmovent {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    ne_align : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_align {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    ne_cres : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_cres {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    ne_exetyp : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ne_exetyp {
-        get => NumGet(this, 54, "char")
-        set => NumPut("char", value, this, 54)
-    }
+    ne_flagsothers : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ne_flagsothers {
-        get => NumGet(this, 55, "char")
-        set => NumPut("char", value, this, 55)
-    }
+    ne_pretthunks : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_pretthunks {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    ne_psegrefbytes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_psegrefbytes {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    ne_swaparea : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_swaparea {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
+    ne_expver : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ne_expver {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
 }

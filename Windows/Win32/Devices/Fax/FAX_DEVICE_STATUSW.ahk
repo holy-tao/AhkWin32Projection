@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The FAX_DEVICE_STATUS structure contains information about the current status of a fax device. (Unicode)
@@ -19,109 +19,71 @@
  * @namespace Windows.Win32.Devices.Fax
  * @charset Unicode
  */
-class FAX_DEVICE_STATUSW extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct FAX_DEVICE_STATUSW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the <b>FAX_DEVICE_STATUS</b> structure. The fax service sets this member to <b>sizeof(FAX_DEVICE_STATUS)</b>.
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * If the <b>JobType</b> member is equal to the <b>JT_RECEIVE</b> job type, <b>CallerId</b> is a pointer to a null-terminated character string that identifies the calling device that sent the active fax document. This string can include the telephone number of the calling device.
-     * @type {PWSTR}
      */
-    CallerId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CallerId : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the called station identifier of the device.
-     * @type {PWSTR}
      */
-    Csid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Csid : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the number of the page in the fax transmission that the fax device is currently sending or receiving. The page count is relative to one.
-     * @type {Integer}
      */
-    CurrentPage {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CurrentPage : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the permanent line identifier for the fax device of interest.
-     * @type {Integer}
      */
-    DeviceId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DeviceId : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
-     * @type {PWSTR}
      */
-    DeviceName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DeviceName : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string to associate with the fax document that the device is currently sending or receiving. This is the user-friendly name that appears in the print spooler.
-     * @type {PWSTR}
      */
-    DocumentName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DocumentName : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that identifies the type of fax job that is currently active on the device. This member can be one of the following job types.
-     * @type {Integer}
      */
-    JobType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    JobType : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * If the <b>JobType</b> member is equal to the <b>JT_SEND</b> job type, <b>PhoneNumber</b> is a pointer to a constant null-terminated character string that is the fax number dialed for the outgoing fax transmission.
-     * @type {PWSTR}
      */
-    PhoneNumber {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PhoneNumber : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
@@ -133,126 +95,77 @@ class FAX_DEVICE_STATUSW extends Win32Struct {
      * <c>Canonical-Phone-Number[|Additional-Routing-Info]</c>
      * 
      * where <c>Canonical-Phone-Number</code> is defined in the <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-ovr">Address</a> topic of the TAPI documentation (see the Canonical Address subheading); and <code>Additional-Routing-Info</c> is the <i>subaddress</i> of a Canonical Address, and uses the subaddress format.
-     * @type {PWSTR}
      */
-    RoutingString {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    RoutingString : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {PWSTR}
      */
-    SenderName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    SenderName : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {PWSTR}
      */
-    RecipientName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    RecipientName : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the size, in bytes, of the active fax document.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    Size : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the starting time of the current fax job expressed in UTC.
-     * @type {FILETIME}
      */
-    StartTime {
-        get {
-            if(!this.HasProp("__StartTime"))
-                this.__StartTime := FILETIME(92, this)
-            return this.__StartTime
-        }
-    }
+    StartTime : FILETIME
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that is a fax device status code or value. This member can be one of the predefined device status codes shown following.
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    Status : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * This member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    StatusString {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    StatusString : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time the client submitted the fax document for transmission to the fax job queue. The time is expressed in UTC.
-     * @type {FILETIME}
      */
-    SubmittedTime {
-        get {
-            if(!this.HasProp("__SubmittedTime"))
-                this.__SubmittedTime := FILETIME(112, this)
-            return this.__SubmittedTime
-        }
-    }
+    SubmittedTime : FILETIME
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the total number of pages in the fax transmission.
-     * @type {Integer}
      */
-    TotalPages {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    TotalPages : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number.
-     * @type {PWSTR}
      */
-    Tsid {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    Tsid : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the user who submitted the active fax job.
-     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    UserName : PWSTR
+
 }

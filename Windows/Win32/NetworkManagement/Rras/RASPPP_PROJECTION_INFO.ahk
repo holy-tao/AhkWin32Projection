@@ -1,51 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL.ahk
-#Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL.ahk" { RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL }
+#Import ".\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk" { RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation of Internet Protocol version 4 (IPv4) and IPv6 projection operations, and PPP Link Control Protocol (LCP)/multilink, and Compression Control Protocol (CCP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-rasppp_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASPPP_PROJECTION_INFO extends Win32Struct {
-    static sizeof => 100
-
-    static packingSize => 4
+export default struct RASPPP_PROJECTION_INFO {
+    #StructPack 4
 
     /**
      * A value that specifies the result of PPP IPv4  network control protocol negotiation. A value of zero indicates Ipv4 has been negotiated successfully. A nonzero value indicates failure, and is the fatal error that occurred during the control protocol negotiation.
-     * @type {Integer}
      */
-    dwIPv4NegotiationError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIPv4NegotiationError : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a> that contains a null-terminated Unicode string that specifies the IPv4 address of the local client. This string has the form "a.b.c.d". <b>ipv4Address</b> is valid only if <b>dwIPv4NegotiationError</b> is zero.
-     * @type {IN_ADDR}
      */
-    ipv4Address {
-        get {
-            if(!this.HasProp("__ipv4Address"))
-                this.__ipv4Address := IN_ADDR(4, this)
-            return this.__ipv4Address
-        }
-    }
+    ipv4Address : IN_ADDR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a> structure that contains a Unicode string that specifies the IPv4 address of the remote server. This string has the form "a.b.c.d". <b>ipv4ServerAddress</b> is valid only if <b>dwIPv4NegotiationError</b> is zero. If the address is not available, this member is an empty string.
-     * @type {IN_ADDR}
      */
-    ipv4ServerAddress {
-        get {
-            if(!this.HasProp("__ipv4ServerAddress"))
-                this.__ipv4ServerAddress := IN_ADDR(8, this)
-            return this.__ipv4ServerAddress
-        }
-    }
+    ipv4ServerAddress : IN_ADDR
 
     /**
      * A value that specifies Internet Protocol Control Protocol (IPCP) options for the local client.
@@ -66,12 +46,8 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwIPv4Options {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwIPv4Options : UInt32
 
     /**
      * A value that specifies IPCP options for the remote server.
@@ -92,113 +68,51 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwIPv4ServerOptions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwIPv4ServerOptions : UInt32
 
     /**
      * A value that specifies the result of PPP IPv6  network control protocol negotiation. A value of zero indicates Ipv6 has been negotiated successfully. A nonzero value indicates failure, and is the fatal error that occurred during the control protocol negotiation.
-     * @type {Integer}
      */
-    dwIPv6NegotiationError {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwIPv6NegotiationError : UInt32
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the client. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bInterfaceIdentifier</b> must not be zero and is valid only if <b>dwIPv6NegotiationError</b> is zero.
-     * @type {Array<Integer>}
      */
-    bInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
-                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
-            return this.__bInterfaceIdentifierProxyArray
-        }
-    }
+    bInterfaceIdentifier : Int8[8]
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the server. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bServerInterfaceIdentifier</b> must not be zero and is valid only if <b>dwIPv6NegotiationError</b> is zero.
-     * @type {Array<Integer>}
      */
-    bServerInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bServerInterfaceIdentifierProxyArray"))
-                this.__bServerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
-            return this.__bServerInterfaceIdentifierProxyArray
-        }
-    }
+    bServerInterfaceIdentifier : Int8[8]
 
     /**
      * A <b>BOOL</b> that is <b>TRUE</b> if the connection is composed of multiple links and <b>FALSE</b> otherwise.
-     * @type {BOOL}
      */
-    fBundled {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    fBundled : BOOL
 
     /**
      * A <b>BOOL</b> that is <b>TRUE</b> if the connection supports multiple links and <b>FALSE</b> otherwise.
-     * @type {BOOL}
      */
-    fMultilink {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    fMultilink : BOOL
 
-    /**
-     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL}
-     */
-    dwAuthenticationProtocol {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwAuthenticationProtocol : RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL
 
-    /**
-     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA}
-     */
-    dwAuthenticationData {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwAuthenticationData : RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA
 
-    /**
-     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL}
-     */
-    dwServerAuthenticationProtocol {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwServerAuthenticationProtocol : RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL
 
-    /**
-     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA}
-     */
-    dwServerAuthenticationData {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwServerAuthenticationData : RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA
 
     /**
      * A value that specifies the type identifier of the Extensible Authentication Protocol (EAP) used to authenticate the local client. The value of this member is valid only if <b>dwAuthenticationProtocol</b> is <b>RASLCPAPP_EAP.</b>.
-     * @type {Integer}
      */
-    dwEapTypeId {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwEapTypeId : UInt32
 
     /**
      * A value that specifies the type identifier of the Extensible Authentication Protocol (EAP) used to authenticate the remote server. The value of this member is valid only if <b>dwRemoteAuthenticationProtocol</b> is <b>RASLCPAPP_EAP.</b>.
-     * @type {Integer}
      */
-    dwServerEapTypeId {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwServerEapTypeId : UInt32
 
     /**
      * A value that specifies information about LCP options in use by the local client. This member is a combination of the following flags:
@@ -259,12 +173,8 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwLcpOptions {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwLcpOptions : UInt32
 
     /**
      * A value that specifies information about LCP options in use by the remote server. This member is a combination of the following flags:
@@ -325,20 +235,10 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwLcpServerOptions {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwLcpServerOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCcpError {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwCcpError : UInt32
 
     /**
      * A value that specifies the compression algorithm used by the local client. The following table shows the possible values for this member.  
@@ -369,12 +269,8 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCcpCompressionAlgorithm {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwCcpCompressionAlgorithm : UInt32
 
     /**
      * A value that specifies the compression algorithm used by the remote server. The following algorithms are supported:
@@ -407,12 +303,8 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCcpServerCompressionAlgorithm {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwCcpServerCompressionAlgorithm : UInt32
 
     /**
      * A value that specifies the compression types available on the local client. The following types are supported:
@@ -483,12 +375,8 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCcpOptions {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwCcpOptions : UInt32
 
     /**
      * A value that specifies the compression types available on the remote server. The following types are supported:
@@ -559,10 +447,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCcpServerOptions {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwCcpServerOptions : UInt32
+
 }

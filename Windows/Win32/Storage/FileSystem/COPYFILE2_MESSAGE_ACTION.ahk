@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Returned by the CopyFile2ProgressRoutine callback function to indicate what action should be taken for the pending copy operation.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_message_action
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class COPYFILE2_MESSAGE_ACTION extends Win32Enum {
+export default struct COPYFILE2_MESSAGE_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Continue the copy operation.

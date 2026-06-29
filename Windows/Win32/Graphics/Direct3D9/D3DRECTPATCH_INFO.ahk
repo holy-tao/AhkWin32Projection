@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DBASISTYPE.ahk
-#Include .\D3DDEGREETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDEGREETYPE.ahk" { D3DDEGREETYPE }
+#Import ".\D3DBASISTYPE.ahk" { D3DBASISTYPE }
 
 /**
  * Describes a rectangular high-order patch.
@@ -31,70 +30,48 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drectpatch-info
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DRECTPATCH_INFO extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct D3DRECTPATCH_INFO {
+    #StructPack 4
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Starting vertex offset width, in number of vertices.
-     * @type {Integer}
      */
-    StartVertexOffsetWidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StartVertexOffsetWidth : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Starting vertex offset height, in number of vertices.
-     * @type {Integer}
      */
-    StartVertexOffsetHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    StartVertexOffsetHeight : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Width of each vertex, in number of vertices.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Width : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Height of each vertex, in number of vertices.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Height : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Width of the imaginary two-dimensional vertex array, which occupies the same space as the vertex buffer. For an example, see the diagram below.
-     * @type {Integer}
      */
-    Stride {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Stride : UInt32
 
     /**
      * Type: **[**D3DBASISTYPE**](./d3dbasistype.md)**
@@ -109,22 +86,15 @@ class D3DRECTPATCH_INFO extends Win32Struct {
      * | D3DBASIS\_BEZIER      | Linear, cubic, and quintic | Width = height = (DWORD)order + 1 |
      * | D3DBASIS\_BSPLINE     | Linear, cubic, and quintic | Width = height > (DWORD)order  |
      * | D3DBASIS\_INTERPOLATE | Cubic                      | Width = height > (DWORD)order  |
-     * @type {D3DBASISTYPE}
      */
-    Basis {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Basis : D3DBASISTYPE
 
     /**
      * Type: **[**D3DDEGREETYPE**](./d3ddegreetype.md)**
      * 
      * 
      * Member of the [**D3DDEGREETYPE**](./d3ddegreetype.md) enumerated type, defining the degree for the rectangular patch.
-     * @type {D3DDEGREETYPE}
      */
-    Degree {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Degree : D3DDEGREETYPE
+
 }

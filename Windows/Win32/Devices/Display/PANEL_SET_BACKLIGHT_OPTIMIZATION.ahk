@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BACKLIGHT_OPTIMIZATION_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BACKLIGHT_OPTIMIZATION_LEVEL.ahk" { BACKLIGHT_OPTIMIZATION_LEVEL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class PANEL_SET_BACKLIGHT_OPTIMIZATION extends Win32Struct {
-    static sizeof => 4
+export default struct PANEL_SET_BACKLIGHT_OPTIMIZATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Level : BACKLIGHT_OPTIMIZATION_LEVEL
 
-    /**
-     * @type {BACKLIGHT_OPTIMIZATION_LEVEL}
-     */
-    Level {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

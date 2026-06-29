@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains process mitigation policy settings for the ???.
@@ -8,30 +7,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process-mitigation-redirection-trust-policy
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY extends Win32Struct {
-    static sizeof => 4
+export default struct PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - EnforceRedirectionTrust
-     * - AuditRedirectionTrust
-     * - ReservedFlags
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -55,5 +35,9 @@ class PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY extends Win32Struct {
     ReservedFlags {
         get => (this._bitfield >> 2) & 0x3FFFFFFF
         set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

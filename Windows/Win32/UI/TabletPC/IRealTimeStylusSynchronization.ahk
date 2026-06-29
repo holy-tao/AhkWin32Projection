@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RealTimeStylusLockType.ahk" { RealTimeStylusLockType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Synchronizes access to the RealTimeStylus Class object.
@@ -12,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-irealtimestylussynchronization
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IRealTimeStylusSynchronization extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRealTimeStylusSynchronization extends IUnknown {
     /**
      * The interface identifier for IRealTimeStylusSynchronization
      * @type {Guid}
      */
-    static IID => Guid("{aa87eab8-ab4a-4cea-b5cb-46d84c6a2509}")
+    static IID := Guid("{aa87eab8-ab4a-4cea-b5cb-46d84c6a2509}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRealTimeStylusSynchronization interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AcquireLock : IntPtr
+        ReleaseLock : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AcquireLock", "ReleaseLock"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRealTimeStylusSynchronization.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the specified lock.
@@ -42,7 +52,7 @@ class IRealTimeStylusSynchronization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylussynchronization-acquirelock
      */
     AcquireLock(lock) {
-        result := ComCall(3, this, "int", lock, "HRESULT")
+        result := ComCall(3, this, RealTimeStylusLockType, lock, "HRESULT")
         return result
     }
 
@@ -55,7 +65,29 @@ class IRealTimeStylusSynchronization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylussynchronization-releaselock
      */
     ReleaseLock(lock) {
-        result := ComCall(4, this, "int", lock, "HRESULT")
+        result := ComCall(4, this, RealTimeStylusLockType, lock, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRealTimeStylusSynchronization.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AcquireLock := CallbackCreate(GetMethod(implObj, "AcquireLock"), flags, 2)
+        this.vtbl.ReleaseLock := CallbackCreate(GetMethod(implObj, "ReleaseLock"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AcquireLock)
+        CallbackFree(this.vtbl.ReleaseLock)
     }
 }

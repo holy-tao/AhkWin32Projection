@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaType.ahk
-#Include .\ISchemaAny.ahk
-#Include .\ISchemaItemCollection.ahk
-#Include .\ISchemaModelGroup.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SCHEMACONTENTTYPE.ahk" { SCHEMACONTENTTYPE }
+#Import ".\ISchemaAny.ahk" { ISchemaAny }
+#Import ".\ISchemaModelGroup.ahk" { ISchemaModelGroup }
+#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
+#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
+#Import ".\ISchemaType.ahk" { ISchemaType }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class ISchemaComplexType extends ISchemaType {
-
-    static sizeof => A_PtrSize
+export default struct ISchemaComplexType extends ISchemaType {
     /**
      * The interface identifier for ISchemaComplexType
      * @type {Guid}
      */
-    static IID => Guid("{50ea08b9-dd1b-4664-9a50-c2f40f4bd79a}")
+    static IID := Guid("{50ea08b9-dd1b-4664-9a50-c2f40f4bd79a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 31
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISchemaComplexType interfaces
+    */
+    struct Vtbl extends ISchemaType.Vtbl {
+        get_isAbstract              : IntPtr
+        get_anyAttribute            : IntPtr
+        get_attributes              : IntPtr
+        get_contentType             : IntPtr
+        get_contentModel            : IntPtr
+        get_prohibitedSubstitutions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_isAbstract", "get_anyAttribute", "get_attributes", "get_contentType", "get_contentModel", "get_prohibitedSubstitutions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISchemaComplexType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -77,7 +93,7 @@ class ISchemaComplexType extends ISchemaType {
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
-        result := ComCall(31, this, "short*", &abstract := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &abstract := 0, "HRESULT")
         return abstract
     }
 
@@ -124,5 +140,35 @@ class ISchemaComplexType extends ISchemaType {
     get_prohibitedSubstitutions() {
         result := ComCall(36, this, "int*", &prohibited := 0, "HRESULT")
         return prohibited
+    }
+
+    Query(iid) {
+        if (ISchemaComplexType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_isAbstract := CallbackCreate(GetMethod(implObj, "get_isAbstract"), flags, 2)
+        this.vtbl.get_anyAttribute := CallbackCreate(GetMethod(implObj, "get_anyAttribute"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.get_contentType := CallbackCreate(GetMethod(implObj, "get_contentType"), flags, 2)
+        this.vtbl.get_contentModel := CallbackCreate(GetMethod(implObj, "get_contentModel"), flags, 2)
+        this.vtbl.get_prohibitedSubstitutions := CallbackCreate(GetMethod(implObj, "get_prohibitedSubstitutions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_isAbstract)
+        CallbackFree(this.vtbl.get_anyAttribute)
+        CallbackFree(this.vtbl.get_attributes)
+        CallbackFree(this.vtbl.get_contentType)
+        CallbackFree(this.vtbl.get_contentModel)
+        CallbackFree(this.vtbl.get_prohibitedSubstitutions)
     }
 }

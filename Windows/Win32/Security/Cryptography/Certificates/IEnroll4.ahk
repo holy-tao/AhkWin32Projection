@@ -1,33 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnroll2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
+#Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\IEnroll2.ahk" { IEnroll2 }
+#Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
 
 /**
  * The IEnroll4 interface represents the Certificate Enrollment Control and is used primarily to generate certificate requests.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll4
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IEnroll4 extends IEnroll2 {
-
-    static sizeof => A_PtrSize
+export default struct IEnroll4 extends IEnroll2 {
     /**
      * The interface identifier for IEnroll4
      * @type {Guid}
      */
-    static IID => Guid("{f8053fe5-78f4-448f-a0db-41d61b73446b}")
+    static IID := Guid("{f8053fe5-78f4-448f-a0db-41d61b73446b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 91
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnroll4 interfaces
+    */
+    struct Vtbl extends IEnroll2.Vtbl {
+        put_ThumbPrintWStr                 : IntPtr
+        get_ThumbPrintWStr                 : IntPtr
+        SetPrivateKeyArchiveCertificate    : IntPtr
+        GetPrivateKeyArchiveCertificate    : IntPtr
+        binaryBlobToString                 : IntPtr
+        stringToBinaryBlob                 : IntPtr
+        addExtensionToRequestWStr          : IntPtr
+        addAttributeToRequestWStr          : IntPtr
+        addNameValuePairToRequestWStr      : IntPtr
+        resetExtensions                    : IntPtr
+        resetAttributes                    : IntPtr
+        createRequestWStr                  : IntPtr
+        createFileRequestWStr              : IntPtr
+        acceptResponseBlob                 : IntPtr
+        acceptFileResponseWStr             : IntPtr
+        getCertContextFromResponseBlob     : IntPtr
+        getCertContextFromFileResponseWStr : IntPtr
+        createPFXWStr                      : IntPtr
+        createFilePFXWStr                  : IntPtr
+        setPendingRequestInfoWStr          : IntPtr
+        enumPendingRequestWStr             : IntPtr
+        removePendingRequestWStr           : IntPtr
+        GetKeyLenEx                        : IntPtr
+        InstallPKCS7BlobEx                 : IntPtr
+        AddCertTypeToRequestWStrEx         : IntPtr
+        getProviderTypeWStr                : IntPtr
+        addBlobPropertyToCertificateWStr   : IntPtr
+        SetSignerCertificate               : IntPtr
+        put_ClientId                       : IntPtr
+        get_ClientId                       : IntPtr
+        put_IncludeSubjectKeyID            : IntPtr
+        get_IncludeSubjectKeyID            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_ThumbPrintWStr", "get_ThumbPrintWStr", "SetPrivateKeyArchiveCertificate", "GetPrivateKeyArchiveCertificate", "binaryBlobToString", "stringToBinaryBlob", "addExtensionToRequestWStr", "addAttributeToRequestWStr", "addNameValuePairToRequestWStr", "resetExtensions", "resetAttributes", "createRequestWStr", "createFileRequestWStr", "acceptResponseBlob", "acceptFileResponseWStr", "getCertContextFromResponseBlob", "getCertContextFromFileResponseWStr", "createPFXWStr", "createFilePFXWStr", "setPendingRequestInfoWStr", "enumPendingRequestWStr", "removePendingRequestWStr", "GetKeyLenEx", "InstallPKCS7BlobEx", "AddCertTypeToRequestWStrEx", "getProviderTypeWStr", "addBlobPropertyToCertificateWStr", "SetSignerCertificate", "put_ClientId", "get_ClientId", "put_IncludeSubjectKeyID", "get_IncludeSubjectKeyID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnroll4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {CRYPT_INTEGER_BLOB} 
@@ -60,7 +108,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-put_thumbprintwstr
      */
     put_ThumbPrintWStr(thumbPrintBlob) {
-        result := ComCall(91, this, "ptr", thumbPrintBlob, "HRESULT")
+        result := ComCall(91, this, CRYPT_INTEGER_BLOB, thumbPrintBlob, "HRESULT")
         return result
     }
 
@@ -71,7 +119,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-get_thumbprintwstr
      */
     get_ThumbPrintWStr(thumbPrintBlob) {
-        result := ComCall(92, this, "ptr", thumbPrintBlob, "HRESULT")
+        result := ComCall(92, this, CRYPT_INTEGER_BLOB.Ptr, thumbPrintBlob, "HRESULT")
         return result
     }
 
@@ -82,7 +130,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-setprivatekeyarchivecertificate
      */
     SetPrivateKeyArchiveCertificate(pPrivateKeyArchiveCert) {
-        result := ComCall(93, this, "ptr", pPrivateKeyArchiveCert, "HRESULT")
+        result := ComCall(93, this, CERT_CONTEXT.Ptr, pPrivateKeyArchiveCert, "HRESULT")
         return result
     }
 
@@ -92,7 +140,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getprivatekeyarchivecertificate
      */
     GetPrivateKeyArchiveCertificate() {
-        result := ComCall(94, this, "ptr")
+        result := ComCall(94, this, CERT_CONTEXT.Ptr)
         return result
     }
 
@@ -111,7 +159,7 @@ class IEnroll4 extends IEnroll2 {
     binaryBlobToString(Flags, pblobBinary, ppwszString) {
         ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(95, this, "int", Flags, "ptr", pblobBinary, ppwszStringMarshal, ppwszString, "HRESULT")
+        result := ComCall(95, this, "int", Flags, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, ppwszStringMarshal, ppwszString, "HRESULT")
         return result
     }
 
@@ -132,7 +180,7 @@ class IEnroll4 extends IEnroll2 {
         pdwSkipMarshal := pdwSkip is VarRef ? "int*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(96, this, "int", Flags, "ptr", pwszString, "ptr", pblobBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(96, this, "int", Flags, "ptr", pwszString, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -148,7 +196,7 @@ class IEnroll4 extends IEnroll2 {
     addExtensionToRequestWStr(Flags, pwszName, pblobValue) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(97, this, "int", Flags, "ptr", pwszName, "ptr", pblobValue, "HRESULT")
+        result := ComCall(97, this, "int", Flags, "ptr", pwszName, CRYPT_INTEGER_BLOB.Ptr, pblobValue, "HRESULT")
         return result
     }
 
@@ -163,7 +211,7 @@ class IEnroll4 extends IEnroll2 {
     addAttributeToRequestWStr(Flags, pwszName, pblobValue) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(98, this, "int", Flags, "ptr", pwszName, "ptr", pblobValue, "HRESULT")
+        result := ComCall(98, this, "int", Flags, "ptr", pwszName, CRYPT_INTEGER_BLOB.Ptr, pblobValue, "HRESULT")
         return result
     }
 
@@ -220,7 +268,7 @@ class IEnroll4 extends IEnroll2 {
         pwszDNName := pwszDNName is String ? StrPtr(pwszDNName) : pwszDNName
         pwszUsage := pwszUsage is String ? StrPtr(pwszUsage) : pwszUsage
 
-        result := ComCall(102, this, "int", Flags, "ptr", pwszDNName, "ptr", pwszUsage, "ptr", pblobRequest, "HRESULT")
+        result := ComCall(102, this, CERT_CREATE_REQUEST_FLAGS, Flags, "ptr", pwszDNName, "ptr", pwszUsage, CRYPT_INTEGER_BLOB.Ptr, pblobRequest, "HRESULT")
         return result
     }
 
@@ -241,7 +289,7 @@ class IEnroll4 extends IEnroll2 {
         pwszUsage := pwszUsage is String ? StrPtr(pwszUsage) : pwszUsage
         pwszRequestFileName := pwszRequestFileName is String ? StrPtr(pwszRequestFileName) : pwszRequestFileName
 
-        result := ComCall(103, this, "int", Flags, "ptr", pwszDNName, "ptr", pwszUsage, "ptr", pwszRequestFileName, "HRESULT")
+        result := ComCall(103, this, CERT_CREATE_REQUEST_FLAGS, Flags, "ptr", pwszDNName, "ptr", pwszUsage, "ptr", pwszRequestFileName, "HRESULT")
         return result
     }
 
@@ -256,7 +304,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-acceptresponseblob
      */
     acceptResponseBlob(pblobResponse) {
-        result := ComCall(104, this, "ptr", pblobResponse, "HRESULT")
+        result := ComCall(104, this, CRYPT_INTEGER_BLOB.Ptr, pblobResponse, "HRESULT")
         return result
     }
 
@@ -291,7 +339,7 @@ class IEnroll4 extends IEnroll2 {
     getCertContextFromResponseBlob(pblobResponse, ppCertContext) {
         ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(106, this, "ptr", pblobResponse, ppCertContextMarshal, ppCertContext, "HRESULT")
+        result := ComCall(106, this, CRYPT_INTEGER_BLOB.Ptr, pblobResponse, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
     }
 
@@ -329,7 +377,7 @@ class IEnroll4 extends IEnroll2 {
     createPFXWStr(pwszPassword, pblobPFX) {
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        result := ComCall(108, this, "ptr", pwszPassword, "ptr", pblobPFX, "HRESULT")
+        result := ComCall(108, this, "ptr", pwszPassword, CRYPT_INTEGER_BLOB.Ptr, pblobPFX, "HRESULT")
         return result
     }
 
@@ -392,7 +440,7 @@ class IEnroll4 extends IEnroll2 {
     enumPendingRequestWStr(lIndex, lDesiredProperty, ppProperty) {
         ppPropertyMarshal := ppProperty is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(111, this, "int", lIndex, "int", lDesiredProperty, ppPropertyMarshal, ppProperty, "HRESULT")
+        result := ComCall(111, this, "int", lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, ppPropertyMarshal, ppProperty, "HRESULT")
         return result
     }
 
@@ -403,7 +451,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-removependingrequestwstr
      */
     removePendingRequestWStr(thumbPrintBlob) {
-        result := ComCall(112, this, "ptr", thumbPrintBlob, "HRESULT")
+        result := ComCall(112, this, CRYPT_INTEGER_BLOB, thumbPrintBlob, "HRESULT")
         return result
     }
 
@@ -423,7 +471,7 @@ class IEnroll4 extends IEnroll2 {
     GetKeyLenEx(lSizeSpec, lKeySpec, pdwKeySize) {
         pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(113, this, "int", lSizeSpec, "int", lKeySpec, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
+        result := ComCall(113, this, XEKL_KEYSIZE, lSizeSpec, XEKL_KEYSPEC, lKeySpec, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
     }
 
@@ -437,7 +485,7 @@ class IEnroll4 extends IEnroll2 {
     InstallPKCS7BlobEx(pBlobPKCS7, plCertInstalled) {
         plCertInstalledMarshal := plCertInstalled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(114, this, "ptr", pBlobPKCS7, plCertInstalledMarshal, plCertInstalled, "HRESULT")
+        result := ComCall(114, this, CRYPT_INTEGER_BLOB.Ptr, pBlobPKCS7, plCertInstalledMarshal, plCertInstalled, "HRESULT")
         return result
     }
 
@@ -460,7 +508,7 @@ class IEnroll4 extends IEnroll2 {
     AddCertTypeToRequestWStrEx(lType, pwszOIDOrName, lMajorVersion, fMinorVersion, lMinorVersion) {
         pwszOIDOrName := pwszOIDOrName is String ? StrPtr(pwszOIDOrName) : pwszOIDOrName
 
-        result := ComCall(115, this, "int", lType, "ptr", pwszOIDOrName, "int", lMajorVersion, "int", fMinorVersion, "int", lMinorVersion, "HRESULT")
+        result := ComCall(115, this, ADDED_CERT_TYPE, lType, "ptr", pwszOIDOrName, "int", lMajorVersion, BOOL, fMinorVersion, "int", lMinorVersion, "HRESULT")
         return result
     }
 
@@ -489,7 +537,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-addblobpropertytocertificatewstr
      */
     addBlobPropertyToCertificateWStr(lPropertyId, lReserved, pBlobProperty) {
-        result := ComCall(117, this, "int", lPropertyId, "int", lReserved, "ptr", pBlobProperty, "HRESULT")
+        result := ComCall(117, this, "int", lPropertyId, "int", lReserved, CRYPT_INTEGER_BLOB.Ptr, pBlobProperty, "HRESULT")
         return result
     }
 
@@ -500,7 +548,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-setsignercertificate
      */
     SetSignerCertificate(pSignerCert) {
-        result := ComCall(118, this, "ptr", pSignerCert, "HRESULT")
+        result := ComCall(118, this, CERT_CONTEXT.Ptr, pSignerCert, "HRESULT")
         return result
     }
 
@@ -535,7 +583,7 @@ class IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-put_includesubjectkeyid
      */
     put_IncludeSubjectKeyID(fInclude) {
-        result := ComCall(121, this, "int", fInclude, "HRESULT")
+        result := ComCall(121, this, BOOL, fInclude, "HRESULT")
         return result
     }
 
@@ -550,5 +598,87 @@ class IEnroll4 extends IEnroll2 {
 
         result := ComCall(122, this, pfIncludeMarshal, pfInclude, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnroll4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_ThumbPrintWStr := CallbackCreate(GetMethod(implObj, "put_ThumbPrintWStr"), flags, 2)
+        this.vtbl.get_ThumbPrintWStr := CallbackCreate(GetMethod(implObj, "get_ThumbPrintWStr"), flags, 2)
+        this.vtbl.SetPrivateKeyArchiveCertificate := CallbackCreate(GetMethod(implObj, "SetPrivateKeyArchiveCertificate"), flags, 2)
+        this.vtbl.GetPrivateKeyArchiveCertificate := CallbackCreate(GetMethod(implObj, "GetPrivateKeyArchiveCertificate"), flags, 1)
+        this.vtbl.binaryBlobToString := CallbackCreate(GetMethod(implObj, "binaryBlobToString"), flags, 4)
+        this.vtbl.stringToBinaryBlob := CallbackCreate(GetMethod(implObj, "stringToBinaryBlob"), flags, 6)
+        this.vtbl.addExtensionToRequestWStr := CallbackCreate(GetMethod(implObj, "addExtensionToRequestWStr"), flags, 4)
+        this.vtbl.addAttributeToRequestWStr := CallbackCreate(GetMethod(implObj, "addAttributeToRequestWStr"), flags, 4)
+        this.vtbl.addNameValuePairToRequestWStr := CallbackCreate(GetMethod(implObj, "addNameValuePairToRequestWStr"), flags, 4)
+        this.vtbl.resetExtensions := CallbackCreate(GetMethod(implObj, "resetExtensions"), flags, 1)
+        this.vtbl.resetAttributes := CallbackCreate(GetMethod(implObj, "resetAttributes"), flags, 1)
+        this.vtbl.createRequestWStr := CallbackCreate(GetMethod(implObj, "createRequestWStr"), flags, 5)
+        this.vtbl.createFileRequestWStr := CallbackCreate(GetMethod(implObj, "createFileRequestWStr"), flags, 5)
+        this.vtbl.acceptResponseBlob := CallbackCreate(GetMethod(implObj, "acceptResponseBlob"), flags, 2)
+        this.vtbl.acceptFileResponseWStr := CallbackCreate(GetMethod(implObj, "acceptFileResponseWStr"), flags, 2)
+        this.vtbl.getCertContextFromResponseBlob := CallbackCreate(GetMethod(implObj, "getCertContextFromResponseBlob"), flags, 3)
+        this.vtbl.getCertContextFromFileResponseWStr := CallbackCreate(GetMethod(implObj, "getCertContextFromFileResponseWStr"), flags, 3)
+        this.vtbl.createPFXWStr := CallbackCreate(GetMethod(implObj, "createPFXWStr"), flags, 3)
+        this.vtbl.createFilePFXWStr := CallbackCreate(GetMethod(implObj, "createFilePFXWStr"), flags, 3)
+        this.vtbl.setPendingRequestInfoWStr := CallbackCreate(GetMethod(implObj, "setPendingRequestInfoWStr"), flags, 5)
+        this.vtbl.enumPendingRequestWStr := CallbackCreate(GetMethod(implObj, "enumPendingRequestWStr"), flags, 4)
+        this.vtbl.removePendingRequestWStr := CallbackCreate(GetMethod(implObj, "removePendingRequestWStr"), flags, 2)
+        this.vtbl.GetKeyLenEx := CallbackCreate(GetMethod(implObj, "GetKeyLenEx"), flags, 4)
+        this.vtbl.InstallPKCS7BlobEx := CallbackCreate(GetMethod(implObj, "InstallPKCS7BlobEx"), flags, 3)
+        this.vtbl.AddCertTypeToRequestWStrEx := CallbackCreate(GetMethod(implObj, "AddCertTypeToRequestWStrEx"), flags, 6)
+        this.vtbl.getProviderTypeWStr := CallbackCreate(GetMethod(implObj, "getProviderTypeWStr"), flags, 3)
+        this.vtbl.addBlobPropertyToCertificateWStr := CallbackCreate(GetMethod(implObj, "addBlobPropertyToCertificateWStr"), flags, 4)
+        this.vtbl.SetSignerCertificate := CallbackCreate(GetMethod(implObj, "SetSignerCertificate"), flags, 2)
+        this.vtbl.put_ClientId := CallbackCreate(GetMethod(implObj, "put_ClientId"), flags, 2)
+        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.put_IncludeSubjectKeyID := CallbackCreate(GetMethod(implObj, "put_IncludeSubjectKeyID"), flags, 2)
+        this.vtbl.get_IncludeSubjectKeyID := CallbackCreate(GetMethod(implObj, "get_IncludeSubjectKeyID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_ThumbPrintWStr)
+        CallbackFree(this.vtbl.get_ThumbPrintWStr)
+        CallbackFree(this.vtbl.SetPrivateKeyArchiveCertificate)
+        CallbackFree(this.vtbl.GetPrivateKeyArchiveCertificate)
+        CallbackFree(this.vtbl.binaryBlobToString)
+        CallbackFree(this.vtbl.stringToBinaryBlob)
+        CallbackFree(this.vtbl.addExtensionToRequestWStr)
+        CallbackFree(this.vtbl.addAttributeToRequestWStr)
+        CallbackFree(this.vtbl.addNameValuePairToRequestWStr)
+        CallbackFree(this.vtbl.resetExtensions)
+        CallbackFree(this.vtbl.resetAttributes)
+        CallbackFree(this.vtbl.createRequestWStr)
+        CallbackFree(this.vtbl.createFileRequestWStr)
+        CallbackFree(this.vtbl.acceptResponseBlob)
+        CallbackFree(this.vtbl.acceptFileResponseWStr)
+        CallbackFree(this.vtbl.getCertContextFromResponseBlob)
+        CallbackFree(this.vtbl.getCertContextFromFileResponseWStr)
+        CallbackFree(this.vtbl.createPFXWStr)
+        CallbackFree(this.vtbl.createFilePFXWStr)
+        CallbackFree(this.vtbl.setPendingRequestInfoWStr)
+        CallbackFree(this.vtbl.enumPendingRequestWStr)
+        CallbackFree(this.vtbl.removePendingRequestWStr)
+        CallbackFree(this.vtbl.GetKeyLenEx)
+        CallbackFree(this.vtbl.InstallPKCS7BlobEx)
+        CallbackFree(this.vtbl.AddCertTypeToRequestWStrEx)
+        CallbackFree(this.vtbl.getProviderTypeWStr)
+        CallbackFree(this.vtbl.addBlobPropertyToCertificateWStr)
+        CallbackFree(this.vtbl.SetSignerCertificate)
+        CallbackFree(this.vtbl.put_ClientId)
+        CallbackFree(this.vtbl.get_ClientId)
+        CallbackFree(this.vtbl.put_IncludeSubjectKeyID)
+        CallbackFree(this.vtbl.get_IncludeSubjectKeyID)
     }
 }

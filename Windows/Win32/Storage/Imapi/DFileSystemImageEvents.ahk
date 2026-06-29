@@ -1,39 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implement this interface to receive notifications of the current write operation. (DFileSystemImageEvents)
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-dfilesystemimageevents
  * @namespace Windows.Win32.Storage.Imapi
  */
-class DFileSystemImageEvents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct DFileSystemImageEvents extends IDispatch {
     /**
      * The interface identifier for DFileSystemImageEvents
      * @type {Guid}
      */
-    static IID => Guid("{2c941fdf-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fdf-975b-59be-a960-9a2a262853a5}")
 
     /**
      * The class identifier for DFileSystemImageEvents
      * @type {Guid}
      */
-    static CLSID => Guid("{2c941fdf-975b-59be-a960-9a2a262853a5}")
+    static CLSID := Guid("{2c941fdf-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for DFileSystemImageEvents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Update : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Update"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := DFileSystemImageEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Implement this method to receive progress notification of the current write operation. The notifications are sent when copying the content of a file or while adding directories or files to the file system image.
@@ -80,7 +89,27 @@ class DFileSystemImageEvents extends IDispatch {
     Update(_object, currentFile, copiedSectors, totalSectors) {
         currentFile := currentFile is String ? BSTR.Alloc(currentFile).Value : currentFile
 
-        result := ComCall(7, this, "ptr", _object, "ptr", currentFile, "int", copiedSectors, "int", totalSectors, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, BSTR, currentFile, "int", copiedSectors, "int", totalSectors, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (DFileSystemImageEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Update)
     }
 }

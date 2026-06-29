@@ -1,34 +1,93 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FEEDS_XML_SORT_ORDER.ahk" { FEEDS_XML_SORT_ORDER }
+#Import ".\FEEDS_XML_SORT_PROPERTY.ahk" { FEEDS_XML_SORT_PROPERTY }
+#Import ".\FEEDS_XML_FILTER_FLAGS.ahk" { FEEDS_XML_FILTER_FLAGS }
+#Import ".\FEEDS_XML_INCLUDE_FLAGS.ahk" { FEEDS_XML_INCLUDE_FLAGS }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FEEDS_SYNC_SETTING.ahk" { FEEDS_SYNC_SETTING }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
+#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
+#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
- * IFeedbackHubAppInfo interface - This API is not available to all apps. Unless your app is specially provisioned by Microsoft, calls to these APIs will fail at runtime.
- * @see https://learn.microsoft.com/windows/win32/DevNotes/ifeebackhubappinfo
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeed extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFeed extends IDispatch {
     /**
      * The interface identifier for IFeed
      * @type {Guid}
      */
-    static IID => Guid("{f7f915d8-2ede-42bc-98e7-a5d05063a757}")
+    static IID := Guid("{f7f915d8-2ede-42bc-98e7-a5d05063a757}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeed interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Xml                                 : IntPtr
+        get_Name                            : IntPtr
+        Rename                              : IntPtr
+        get_Url                             : IntPtr
+        put_Url                             : IntPtr
+        get_LocalId                         : IntPtr
+        get_Path                            : IntPtr
+        Move                                : IntPtr
+        get_Parent                          : IntPtr
+        get_LastWriteTime                   : IntPtr
+        Delete                              : IntPtr
+        Download                            : IntPtr
+        AsyncDownload                       : IntPtr
+        CancelAsyncDownload                 : IntPtr
+        get_SyncSetting                     : IntPtr
+        put_SyncSetting                     : IntPtr
+        get_Interval                        : IntPtr
+        put_Interval                        : IntPtr
+        get_LastDownloadTime                : IntPtr
+        get_LocalEnclosurePath              : IntPtr
+        get_Items                           : IntPtr
+        GetItem                             : IntPtr
+        get_Title                           : IntPtr
+        get_Description                     : IntPtr
+        get_Link                            : IntPtr
+        get_Image                           : IntPtr
+        get_LastBuildDate                   : IntPtr
+        get_PubDate                         : IntPtr
+        get_Ttl                             : IntPtr
+        get_Language                        : IntPtr
+        get_Copyright                       : IntPtr
+        get_MaxItemCount                    : IntPtr
+        put_MaxItemCount                    : IntPtr
+        get_DownloadEnclosuresAutomatically : IntPtr
+        put_DownloadEnclosuresAutomatically : IntPtr
+        get_DownloadStatus                  : IntPtr
+        get_LastDownloadError               : IntPtr
+        Merge                               : IntPtr
+        get_DownloadUrl                     : IntPtr
+        get_IsList                          : IntPtr
+        MarkAllItemsRead                    : IntPtr
+        GetWatcher                          : IntPtr
+        get_UnreadItemCount                 : IntPtr
+        get_ItemCount                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Xml", "get_Name", "Rename", "get_Url", "put_Url", "get_LocalId", "get_Path", "Move", "get_Parent", "get_LastWriteTime", "Delete", "Download", "AsyncDownload", "CancelAsyncDownload", "get_SyncSetting", "put_SyncSetting", "get_Interval", "put_Interval", "get_LastDownloadTime", "get_LocalEnclosurePath", "get_Items", "GetItem", "get_Title", "get_Description", "get_Link", "get_Image", "get_LastBuildDate", "get_PubDate", "get_Ttl", "get_Language", "get_Copyright", "get_MaxItemCount", "put_MaxItemCount", "get_DownloadEnclosuresAutomatically", "put_DownloadEnclosuresAutomatically", "get_DownloadStatus", "get_LastDownloadError", "Merge", "get_DownloadUrl", "get_IsList", "MarkAllItemsRead", "GetWatcher", "get_UnreadItemCount", "get_ItemCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeed.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -232,18 +291,17 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * Resource string ids set by caller to be returned in xml data for visualizing objects.
+     * 
      * @param {Integer} count 
      * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
      * @param {FEEDS_XML_SORT_ORDER} sortOrder 
      * @param {FEEDS_XML_FILTER_FLAGS} filterFlags 
      * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */
     Xml(count, sortProperty, sortOrder, filterFlags, includeFlags) {
-        xml := BSTR()
-        result := ComCall(7, this, "int", count, "int", sortProperty, "int", sortOrder, "int", filterFlags, "int", includeFlags, "ptr", xml, "HRESULT")
+        xml := BSTR.Owned()
+        result := ComCall(7, this, "int", count, FEEDS_XML_SORT_PROPERTY, sortProperty, FEEDS_XML_SORT_ORDER, sortOrder, FEEDS_XML_FILTER_FLAGS, filterFlags, FEEDS_XML_INCLUDE_FLAGS, includeFlags, BSTR.Ptr, xml, "HRESULT")
         return xml
     }
 
@@ -252,21 +310,20 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
     /**
-     * Learn more about: RenameColumnGrbit enumeration
+     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "HRESULT")
+        result := ComCall(9, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -275,8 +332,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Url() {
-        feedUrl := BSTR()
-        result := ComCall(10, this, "ptr", feedUrl, "HRESULT")
+        feedUrl := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, feedUrl, "HRESULT")
         return feedUrl
     }
 
@@ -288,7 +345,7 @@ class IFeed extends IDispatch {
     put_Url(feedUrl) {
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(11, this, "ptr", feedUrl, "HRESULT")
+        result := ComCall(11, this, BSTR, feedUrl, "HRESULT")
         return result
     }
 
@@ -297,8 +354,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocalId() {
-        feedGuid := BSTR()
-        result := ComCall(12, this, "ptr", feedGuid, "HRESULT")
+        feedGuid := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, feedGuid, "HRESULT")
         return feedGuid
     }
 
@@ -307,56 +364,20 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        _path := BSTR()
-        result := ComCall(13, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
     /**
-     * Moves a group and all of its resources from one node to another.
-     * @remarks
-     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
      * 
-     * If you want your application to ensure a particular state for a resource or a group after a move:
-     * 
-     * <ol>
-     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
-     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
-     * </ol>
-     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
-     * 
-     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {BSTR} newParentPath 
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
-     * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_IO_PENDING</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The reassignment of ownership of the group is in progress.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
+     * @returns {HRESULT} 
      */
     Move(newParentPath) {
         newParentPath := newParentPath is String ? BSTR.Alloc(newParentPath).Value : newParentPath
 
-        result := ComCall(14, this, "ptr", newParentPath, "HRESULT")
+        result := ComCall(14, this, BSTR, newParentPath, "HRESULT")
         return result
     }
 
@@ -379,17 +400,8 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(17, this, "HRESULT")
@@ -397,12 +409,8 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
-     * @returns {HRESULT} This method has no parameters.
      * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/WMP/downloadcollection-clear
+     * @returns {HRESULT} 
      */
     Download() {
         result := ComCall(18, this, "HRESULT")
@@ -442,7 +450,7 @@ class IFeed extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SyncSetting(syncSetting) {
-        result := ComCall(22, this, "int", syncSetting, "HRESULT")
+        result := ComCall(22, this, FEEDS_SYNC_SETTING, syncSetting, "HRESULT")
         return result
     }
 
@@ -479,8 +487,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocalEnclosurePath() {
-        _path := BSTR()
-        result := ComCall(26, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -508,8 +516,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Title() {
-        title := BSTR()
-        result := ComCall(29, this, "ptr", title, "HRESULT")
+        title := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, title, "HRESULT")
         return title
     }
 
@@ -518,8 +526,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        description := BSTR()
-        result := ComCall(30, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -528,8 +536,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Link() {
-        _homePage := BSTR()
-        result := ComCall(31, this, "ptr", _homePage, "HRESULT")
+        _homePage := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, _homePage, "HRESULT")
         return _homePage
     }
 
@@ -538,8 +546,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Image() {
-        imageUrl := BSTR()
-        result := ComCall(32, this, "ptr", imageUrl, "HRESULT")
+        imageUrl := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, imageUrl, "HRESULT")
         return imageUrl
     }
 
@@ -575,8 +583,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Language() {
-        language := BSTR()
-        result := ComCall(36, this, "ptr", language, "HRESULT")
+        language := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, language, "HRESULT")
         return language
     }
 
@@ -585,8 +593,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_Copyright() {
-        copyright := BSTR()
-        result := ComCall(37, this, "ptr", copyright, "HRESULT")
+        copyright := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, copyright, "HRESULT")
         return copyright
     }
 
@@ -614,7 +622,7 @@ class IFeed extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_DownloadEnclosuresAutomatically() {
-        result := ComCall(40, this, "short*", &downloadEnclosuresAutomatically := 0, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL.Ptr, &downloadEnclosuresAutomatically := 0, "HRESULT")
         return downloadEnclosuresAutomatically
     }
 
@@ -624,7 +632,7 @@ class IFeed extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DownloadEnclosuresAutomatically(downloadEnclosuresAutomatically) {
-        result := ComCall(41, this, "short", downloadEnclosuresAutomatically, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL, downloadEnclosuresAutomatically, "HRESULT")
         return result
     }
 
@@ -647,19 +655,16 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * The CloseDatabase method of the Merge object closes the currently open Windows Installer database.
-     * @remarks
-     * Closing a database clears all dependency information but does not affect any errors that have not been retrieved.
+     * 
      * @param {BSTR} feedXml 
      * @param {BSTR} feedUrl 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/Msi/merge-closedatabase
+     * @returns {HRESULT} 
      */
     Merge(feedXml, feedUrl) {
         feedXml := feedXml is String ? BSTR.Alloc(feedXml).Value : feedXml
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(44, this, "ptr", feedXml, "ptr", feedUrl, "HRESULT")
+        result := ComCall(44, this, BSTR, feedXml, BSTR, feedUrl, "HRESULT")
         return result
     }
 
@@ -668,8 +673,8 @@ class IFeed extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
-        feedUrl := BSTR()
-        result := ComCall(45, this, "ptr", feedUrl, "HRESULT")
+        feedUrl := BSTR.Owned()
+        result := ComCall(45, this, BSTR.Ptr, feedUrl, "HRESULT")
         return feedUrl
     }
 
@@ -678,7 +683,7 @@ class IFeed extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsList() {
-        result := ComCall(46, this, "short*", &isList := 0, "HRESULT")
+        result := ComCall(46, this, VARIANT_BOOL.Ptr, &isList := 0, "HRESULT")
         return isList
     }
 
@@ -698,7 +703,7 @@ class IFeed extends IDispatch {
      * @returns {IDispatch} 
      */
     GetWatcher(scope, mask) {
-        result := ComCall(48, this, "int", scope, "int", mask, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(48, this, FEEDS_EVENTS_SCOPE, scope, FEEDS_EVENTS_MASK, mask, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -718,5 +723,111 @@ class IFeed extends IDispatch {
     get_ItemCount() {
         result := ComCall(50, this, "int*", &count := 0, "HRESULT")
         return count
+    }
+
+    Query(iid) {
+        if (IFeed.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Xml := CallbackCreate(GetMethod(implObj, "Xml"), flags, 7)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.get_Url := CallbackCreate(GetMethod(implObj, "get_Url"), flags, 2)
+        this.vtbl.put_Url := CallbackCreate(GetMethod(implObj, "put_Url"), flags, 2)
+        this.vtbl.get_LocalId := CallbackCreate(GetMethod(implObj, "get_LocalId"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_LastWriteTime := CallbackCreate(GetMethod(implObj, "get_LastWriteTime"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 1)
+        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.get_SyncSetting := CallbackCreate(GetMethod(implObj, "get_SyncSetting"), flags, 2)
+        this.vtbl.put_SyncSetting := CallbackCreate(GetMethod(implObj, "put_SyncSetting"), flags, 2)
+        this.vtbl.get_Interval := CallbackCreate(GetMethod(implObj, "get_Interval"), flags, 2)
+        this.vtbl.put_Interval := CallbackCreate(GetMethod(implObj, "put_Interval"), flags, 2)
+        this.vtbl.get_LastDownloadTime := CallbackCreate(GetMethod(implObj, "get_LastDownloadTime"), flags, 2)
+        this.vtbl.get_LocalEnclosurePath := CallbackCreate(GetMethod(implObj, "get_LocalEnclosurePath"), flags, 2)
+        this.vtbl.get_Items := CallbackCreate(GetMethod(implObj, "get_Items"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Link := CallbackCreate(GetMethod(implObj, "get_Link"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_LastBuildDate := CallbackCreate(GetMethod(implObj, "get_LastBuildDate"), flags, 2)
+        this.vtbl.get_PubDate := CallbackCreate(GetMethod(implObj, "get_PubDate"), flags, 2)
+        this.vtbl.get_Ttl := CallbackCreate(GetMethod(implObj, "get_Ttl"), flags, 2)
+        this.vtbl.get_Language := CallbackCreate(GetMethod(implObj, "get_Language"), flags, 2)
+        this.vtbl.get_Copyright := CallbackCreate(GetMethod(implObj, "get_Copyright"), flags, 2)
+        this.vtbl.get_MaxItemCount := CallbackCreate(GetMethod(implObj, "get_MaxItemCount"), flags, 2)
+        this.vtbl.put_MaxItemCount := CallbackCreate(GetMethod(implObj, "put_MaxItemCount"), flags, 2)
+        this.vtbl.get_DownloadEnclosuresAutomatically := CallbackCreate(GetMethod(implObj, "get_DownloadEnclosuresAutomatically"), flags, 2)
+        this.vtbl.put_DownloadEnclosuresAutomatically := CallbackCreate(GetMethod(implObj, "put_DownloadEnclosuresAutomatically"), flags, 2)
+        this.vtbl.get_DownloadStatus := CallbackCreate(GetMethod(implObj, "get_DownloadStatus"), flags, 2)
+        this.vtbl.get_LastDownloadError := CallbackCreate(GetMethod(implObj, "get_LastDownloadError"), flags, 2)
+        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 3)
+        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_IsList := CallbackCreate(GetMethod(implObj, "get_IsList"), flags, 2)
+        this.vtbl.MarkAllItemsRead := CallbackCreate(GetMethod(implObj, "MarkAllItemsRead"), flags, 1)
+        this.vtbl.GetWatcher := CallbackCreate(GetMethod(implObj, "GetWatcher"), flags, 4)
+        this.vtbl.get_UnreadItemCount := CallbackCreate(GetMethod(implObj, "get_UnreadItemCount"), flags, 2)
+        this.vtbl.get_ItemCount := CallbackCreate(GetMethod(implObj, "get_ItemCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Xml)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.Rename)
+        CallbackFree(this.vtbl.get_Url)
+        CallbackFree(this.vtbl.put_Url)
+        CallbackFree(this.vtbl.get_LocalId)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_LastWriteTime)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Download)
+        CallbackFree(this.vtbl.AsyncDownload)
+        CallbackFree(this.vtbl.CancelAsyncDownload)
+        CallbackFree(this.vtbl.get_SyncSetting)
+        CallbackFree(this.vtbl.put_SyncSetting)
+        CallbackFree(this.vtbl.get_Interval)
+        CallbackFree(this.vtbl.put_Interval)
+        CallbackFree(this.vtbl.get_LastDownloadTime)
+        CallbackFree(this.vtbl.get_LocalEnclosurePath)
+        CallbackFree(this.vtbl.get_Items)
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.get_Link)
+        CallbackFree(this.vtbl.get_Image)
+        CallbackFree(this.vtbl.get_LastBuildDate)
+        CallbackFree(this.vtbl.get_PubDate)
+        CallbackFree(this.vtbl.get_Ttl)
+        CallbackFree(this.vtbl.get_Language)
+        CallbackFree(this.vtbl.get_Copyright)
+        CallbackFree(this.vtbl.get_MaxItemCount)
+        CallbackFree(this.vtbl.put_MaxItemCount)
+        CallbackFree(this.vtbl.get_DownloadEnclosuresAutomatically)
+        CallbackFree(this.vtbl.put_DownloadEnclosuresAutomatically)
+        CallbackFree(this.vtbl.get_DownloadStatus)
+        CallbackFree(this.vtbl.get_LastDownloadError)
+        CallbackFree(this.vtbl.Merge)
+        CallbackFree(this.vtbl.get_DownloadUrl)
+        CallbackFree(this.vtbl.get_IsList)
+        CallbackFree(this.vtbl.MarkAllItemsRead)
+        CallbackFree(this.vtbl.GetWatcher)
+        CallbackFree(this.vtbl.get_UnreadItemCount)
+        CallbackFree(this.vtbl.get_ItemCount)
     }
 }

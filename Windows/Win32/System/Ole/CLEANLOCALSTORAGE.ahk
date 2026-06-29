@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class CLEANLOCALSTORAGE extends Win32Struct {
-    static sizeof => 24
+export default struct CLEANLOCALSTORAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    pInterface : IUnknown
 
-    /**
-     * @type {IUnknown}
-     */
-    pInterface {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pStorage : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pStorage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

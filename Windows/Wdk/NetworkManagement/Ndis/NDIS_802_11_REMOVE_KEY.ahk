@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_REMOVE_KEY extends Win32Struct {
-    static sizeof => 16
+export default struct NDIS_802_11_REMOVE_KEY {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    KeyIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BSSID {
-        get {
-            if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "char")
-            return this.__BSSIDProxyArray
-        }
-    }
 }

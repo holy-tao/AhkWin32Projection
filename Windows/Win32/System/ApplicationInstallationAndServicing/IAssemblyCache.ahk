@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IAssemblyCacheItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ASSEMBLY_INFO.ahk" { ASSEMBLY_INFO }
+#Import ".\IAssemblyCacheItem.ahk" { IAssemblyCacheItem }
+#Import ".\IASSEMBLYCACHE_UNINSTALL_DISPOSITION.ahk" { IASSEMBLYCACHE_UNINSTALL_DISPOSITION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FUSION_INSTALL_REFERENCE.ahk" { FUSION_INSTALL_REFERENCE }
+#Import ".\QUERYASMINFO_FLAGS.ahk" { QUERYASMINFO_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAssemblyCache interface can be used to install, uninstall, or query a side-by-side assembly. An instance of IAssemblyCache is obtained by calling the CreateAssemblyCache function.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblycache
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IAssemblyCache extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAssemblyCache extends IUnknown {
     /**
      * The interface identifier for IAssemblyCache
      * @type {Guid}
      */
-    static IID => Guid("{e707dcde-d1cd-11d2-bab9-00c04f8eceae}")
+    static IID := Guid("{e707dcde-d1cd-11d2-bab9-00c04f8eceae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAssemblyCache interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        UninstallAssembly       : IntPtr
+        QueryAssemblyInfo       : IntPtr
+        CreateAssemblyCacheItem : IntPtr
+        Reserved                : IntPtr
+        InstallAssembly         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UninstallAssembly", "QueryAssemblyInfo", "CreateAssemblyCacheItem", "Reserved", "InstallAssembly"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAssemblyCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The UnistallAssembly method removes an application reference to an assembly from the side-by-side store.
@@ -76,7 +93,7 @@ class IAssemblyCache extends IUnknown {
 
         pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, FUSION_INSTALL_REFERENCE.Ptr, pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
     }
 
@@ -120,7 +137,7 @@ class IAssemblyCache extends IUnknown {
     QueryAssemblyInfo(dwFlags, pszAssemblyName, pAsmInfo) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
-        result := ComCall(4, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pAsmInfo, "HRESULT")
+        result := ComCall(4, this, QUERYASMINFO_FLAGS, dwFlags, "ptr", pszAssemblyName, ASSEMBLY_INFO.Ptr, pAsmInfo, "HRESULT")
         return result
     }
 
@@ -223,7 +240,35 @@ class IAssemblyCache extends IUnknown {
     InstallAssembly(dwFlags, pszManifestFilePath, pRefData) {
         pszManifestFilePath := pszManifestFilePath is String ? StrPtr(pszManifestFilePath) : pszManifestFilePath
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszManifestFilePath, "ptr", pRefData, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "ptr", pszManifestFilePath, FUSION_INSTALL_REFERENCE.Ptr, pRefData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAssemblyCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UninstallAssembly := CallbackCreate(GetMethod(implObj, "UninstallAssembly"), flags, 5)
+        this.vtbl.QueryAssemblyInfo := CallbackCreate(GetMethod(implObj, "QueryAssemblyInfo"), flags, 4)
+        this.vtbl.CreateAssemblyCacheItem := CallbackCreate(GetMethod(implObj, "CreateAssemblyCacheItem"), flags, 5)
+        this.vtbl.Reserved := CallbackCreate(GetMethod(implObj, "Reserved"), flags, 2)
+        this.vtbl.InstallAssembly := CallbackCreate(GetMethod(implObj, "InstallAssembly"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UninstallAssembly)
+        CallbackFree(this.vtbl.QueryAssemblyInfo)
+        CallbackFree(this.vtbl.CreateAssemblyCacheItem)
+        CallbackFree(this.vtbl.Reserved)
+        CallbackFree(this.vtbl.InstallAssembly)
     }
 }

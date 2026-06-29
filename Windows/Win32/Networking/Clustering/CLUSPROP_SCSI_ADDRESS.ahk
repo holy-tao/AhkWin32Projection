@@ -1,38 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
-#Include .\CLUS_SCSI_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUS_SCSI_ADDRESS.ahk" { CLUS_SCSI_ADDRESS }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 
 /**
  * Describes an address for a SCSI device.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_scsi_address
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_SCSI_ADDRESS extends Win32Struct {
-    static sizeof => 16
+export default struct CLUSPROP_SCSI_ADDRESS {
+    #StructPack 4
 
-    static packingSize => 4
+    Base : CLUSPROP_VALUE
 
-    /**
-     * @type {CLUSPROP_VALUE}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_VALUE(0, this)
-            return this.__Base
-        }
-    }
+    Base2 : CLUS_SCSI_ADDRESS
 
-    /**
-     * @type {CLUS_SCSI_ADDRESS}
-     */
-    Base2 {
-        get {
-            if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUS_SCSI_ADDRESS(12, this)
-            return this.__Base2
-        }
-    }
 }

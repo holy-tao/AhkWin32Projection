@@ -1,36 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used in the CMC_DATA_INFO and CMC_RESPONSE_INFO structures. (CMC_TAGGED_ATTRIBUTE)
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_attribute
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMC_TAGGED_ATTRIBUTE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CMC_TAGGED_ATTRIBUTE {
+    #StructPack 8
 
     /**
      * A <b>DWORD</b> value that identifies the tagged attribute.
-     * @type {Integer}
      */
-    dwBodyPartID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBodyPartID : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structure that contains the attribute.
-     * @type {CRYPT_ATTRIBUTE}
      */
-    Attribute {
-        get {
-            if(!this.HasProp("__Attribute"))
-                this.__Attribute := CRYPT_ATTRIBUTE(8, this)
-            return this.__Attribute
-        }
-    }
+    Attribute : CRYPT_ATTRIBUTE
+
 }

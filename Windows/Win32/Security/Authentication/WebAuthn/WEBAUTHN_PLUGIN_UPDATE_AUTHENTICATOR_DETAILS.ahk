@@ -1,83 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Struct {
-    static sizeof => 72
+export default struct WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszAuthenticatorName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAuthenticatorName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rclsid : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    rclsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rclsidNew : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    rclsidNew {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszLightThemeLogoSvg : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszLightThemeLogoSvg {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszDarkThemeLogoSvg : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszDarkThemeLogoSvg {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cbAuthenticatorInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAuthenticatorInfo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pbAuthenticatorInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbAuthenticatorInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cSupportedRpIds : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cSupportedRpIds {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ppwszSupportedRpIds : PWSTR.Ptr
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    ppwszSupportedRpIds {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

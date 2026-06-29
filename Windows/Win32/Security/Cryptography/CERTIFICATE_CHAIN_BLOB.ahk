@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERTIFICATE_CHAIN_BLOB extends Win32Struct {
-    static sizeof => 16
+export default struct CERTIFICATE_CHAIN_BLOB {
+    #StructPack 8
 
-    static packingSize => 8
+    certCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    certCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rawCertificates : CRYPT_INTEGER_BLOB.Ptr
 
-    /**
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
-     */
-    rawCertificates {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

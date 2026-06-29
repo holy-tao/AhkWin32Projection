@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FolderActionSteps.ahk" { FolderActionSteps }
 
 /**
  * Specifies the actions that the data manager is to take on each folder under the data collector set's root path if both conditions (age and size) are met. To get this interface, call the IFolderActionCollection::CreateFolderAction method.
@@ -13,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ifolderaction
  * @namespace Windows.Win32.System.Performance
  */
-class IFolderAction extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFolderAction extends IDispatch {
     /**
      * The interface identifier for IFolderAction
      * @type {Guid}
      */
-    static IID => Guid("{03837543-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837543-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderAction interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Age       : IntPtr
+        put_Age       : IntPtr
+        get_Size      : IntPtr
+        put_Size      : IntPtr
+        get_Actions   : IntPtr
+        put_Actions   : IntPtr
+        get_SendCabTo : IntPtr
+        put_SendCabTo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Age", "put_Age", "get_Size", "put_Size", "get_Actions", "put_Actions", "get_SendCabTo", "put_SendCabTo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderAction.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -129,7 +145,7 @@ class IFolderAction extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_actions
      */
     put_Actions(Steps) {
-        result := ComCall(12, this, "int", Steps, "HRESULT")
+        result := ComCall(12, this, FolderActionSteps, Steps, "HRESULT")
         return result
     }
 
@@ -141,8 +157,8 @@ class IFolderAction extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_sendcabto
      */
     get_SendCabTo() {
-        pbstrDestination := BSTR()
-        result := ComCall(13, this, "ptr", pbstrDestination, "HRESULT")
+        pbstrDestination := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrDestination, "HRESULT")
         return pbstrDestination
     }
 
@@ -157,7 +173,41 @@ class IFolderAction extends IDispatch {
     put_SendCabTo(bstrDestination) {
         bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
 
-        result := ComCall(14, this, "ptr", bstrDestination, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrDestination, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFolderAction.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Age := CallbackCreate(GetMethod(implObj, "get_Age"), flags, 2)
+        this.vtbl.put_Age := CallbackCreate(GetMethod(implObj, "put_Age"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.put_Size := CallbackCreate(GetMethod(implObj, "put_Size"), flags, 2)
+        this.vtbl.get_Actions := CallbackCreate(GetMethod(implObj, "get_Actions"), flags, 2)
+        this.vtbl.put_Actions := CallbackCreate(GetMethod(implObj, "put_Actions"), flags, 2)
+        this.vtbl.get_SendCabTo := CallbackCreate(GetMethod(implObj, "get_SendCabTo"), flags, 2)
+        this.vtbl.put_SendCabTo := CallbackCreate(GetMethod(implObj, "put_SendCabTo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Age)
+        CallbackFree(this.vtbl.put_Age)
+        CallbackFree(this.vtbl.get_Size)
+        CallbackFree(this.vtbl.put_Size)
+        CallbackFree(this.vtbl.get_Actions)
+        CallbackFree(this.vtbl.put_Actions)
+        CallbackFree(this.vtbl.get_SendCabTo)
+        CallbackFree(this.vtbl.put_SendCabTo)
     }
 }

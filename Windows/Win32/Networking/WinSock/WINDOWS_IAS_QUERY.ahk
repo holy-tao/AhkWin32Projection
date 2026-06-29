@@ -1,148 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WINDOWS_IAS_QUERY extends Win32Struct {
-    static sizeof => 1356
+export default struct WINDOWS_IAS_QUERY {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _irdaAttribute_e__Union extends Win32Struct {
-        static sizeof => 1028
-        static packingSize => 4
+    struct _irdaAttribute {
 
-        class _irdaAttribOctetSeq extends Win32Struct {
-            static sizeof => 1028
-            static packingSize => 4
+        struct _irdaAttribOctetSeq {
+            Len : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Len {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            OctetSeq : Int8[1024]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            OctetSeq {
-                get {
-                    if(!this.HasProp("__OctetSeqProxyArray"))
-                        this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 4, 1024, Primitive, "char")
-                    return this.__OctetSeqProxyArray
-                }
-            }
         }
 
-        class _irdaAttribUsrStr extends Win32Struct {
-            static sizeof => 264
-            static packingSize => 4
+        struct _irdaAttribUsrStr {
+            Len : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Len {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            CharSet : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            CharSet {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            UsrStr : Int8[256]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            UsrStr {
-                get {
-                    if(!this.HasProp("__UsrStrProxyArray"))
-                        this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
-                    return this.__UsrStrProxyArray
-                }
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        irdaAttribInt {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+        irdaAttribInt : Int32
 
-        /**
-         * @type {_irdaAttribOctetSeq}
-         */
-        irdaAttribOctetSeq {
-            get {
-                if(!this.HasProp("__irdaAttribOctetSeq"))
-                    this.__irdaAttribOctetSeq := WINDOWS_IAS_QUERY._irdaAttribute_e__Union._irdaAttribOctetSeq(0, this)
-                return this.__irdaAttribOctetSeq
-            }
-        }
-
-        /**
-         * @type {_irdaAttribUsrStr}
-         */
-        irdaAttribUsrStr {
-            get {
-                if(!this.HasProp("__irdaAttribUsrStr"))
-                    this.__irdaAttribUsrStr := WINDOWS_IAS_QUERY._irdaAttribute_e__Union._irdaAttribUsrStr(0, this)
-                return this.__irdaAttribUsrStr
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'irdaAttribOctetSeq', { type: WINDOWS_IAS_QUERY._irdaAttribute._irdaAttribOctetSeq, offset: 0 })
+            DefineProp(this.Prototype, 'irdaAttribUsrStr', { type: WINDOWS_IAS_QUERY._irdaAttribute._irdaAttribUsrStr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Array<Integer>}
-     */
-    irdaDeviceID {
-        get {
-            if(!this.HasProp("__irdaDeviceIDProxyArray"))
-                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__irdaDeviceIDProxyArray
-        }
-    }
+    irdaDeviceID : Int8[4]
 
-    /**
-     * @type {String}
-     */
-    irdaClassName {
-        get => StrGet(this.ptr + 4, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 63, "UTF-8")
-    }
+    irdaClassName : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    irdaAttribName {
-        get => StrGet(this.ptr + 68, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 68, 255, "UTF-8")
-    }
+    irdaAttribName : CHAR[256]
 
-    /**
-     * @type {Integer}
-     */
-    irdaAttribType {
-        get => NumGet(this, 324, "uint")
-        set => NumPut("uint", value, this, 324)
-    }
+    irdaAttribType : UInt32
 
-    /**
-     * @type {_irdaAttribute_e__Union}
-     */
-    irdaAttribute {
-        get {
-            if(!this.HasProp("__irdaAttribute"))
-                this.__irdaAttribute := WINDOWS_IAS_QUERY._irdaAttribute_e__Union(328, this)
-            return this.__irdaAttribute
-        }
-    }
+    irdaAttribute : WINDOWS_IAS_QUERY._irdaAttribute
+
 }

@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_PMIDINFORMATION structure defines the properties specific to a physical media object. (Unicode)
@@ -18,132 +19,71 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_PMIDINFORMATIONW extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 8
+export default struct NTMS_PMIDINFORMATIONW {
+    #StructPack 4
 
     /**
      * Unique ID of the library in which the media is contained.
-     * @type {Pointer}
      */
-    CurrentLibrary {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CurrentLibrary : Guid
 
     /**
      * Unique ID of the media pool to which the media is assigned.
-     * @type {Pointer}
      */
-    MediaPool {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MediaPool : Guid
 
     /**
      * Unique ID of the physical location object for the media.
-     * @type {Pointer}
      */
-    Location {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Location : Guid
 
     /**
      * Current location type of a piece of physical media. The value of this member can be set to NTMS_STORAGESLOT, NTMS_DRIVE, NTMS_IEPORT. (Offline media are in slots.)
-     * @type {Integer}
      */
-    LocationType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    LocationType : UInt32
 
     /**
      * Unique ID of a media type object.
-     * @type {Pointer}
      */
-    MediaType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    MediaType : Guid
 
     /**
      * Unique ID of the library storage slot in which media is stored.
-     * @type {Pointer}
      */
-    HomeSlot {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    HomeSlot : Guid
 
     /**
      * String that matches the bar-code value on a bar-code label of a piece of physical media.
-     * @type {String}
      */
-    szBarCode {
-        get => StrGet(this.ptr + 48, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-16")
-    }
+    szBarCode : WCHAR[64]
 
-    /**
-     * @type {Integer}
-     */
-    BarCodeState {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    BarCodeState : UInt32
 
     /**
      * Sequential number assigned to the specified medium as a human-readable value that must be transcribed by a user on the medium so that the medium can be located in an offline library.
-     * @type {String}
      */
-    szSequenceNumber {
-        get => StrGet(this.ptr + 180, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 180, 31, "UTF-16")
-    }
+    szSequenceNumber : WCHAR[32]
 
-    /**
-     * @type {Integer}
-     */
-    MediaState {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    MediaState : UInt32
 
     /**
      * Number of sides on the medium.
-     * @type {Integer}
      */
-    dwNumberOfPartitions {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
-    }
+    dwNumberOfPartitions : UInt32
 
     /**
      * SCSI media type code.
-     * @type {Integer}
      */
-    dwMediaTypeCode {
-        get => NumGet(this, 252, "uint")
-        set => NumPut("uint", value, this, 252)
-    }
+    dwMediaTypeCode : UInt32
 
     /**
      * SCSI density code.
-     * @type {Integer}
      */
-    dwDensityCode {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    dwDensityCode : UInt32
 
     /**
      * Globally unique ID of the side of the media that is currently mounted.
-     * @type {Pointer}
      */
-    MountedPartition {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    MountedPartition : Guid
+
 }

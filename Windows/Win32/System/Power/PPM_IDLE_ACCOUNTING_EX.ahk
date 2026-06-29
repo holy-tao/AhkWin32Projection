@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPM_IDLE_STATE_ACCOUNTING_EX.ahk
-#Include .\PPM_IDLE_STATE_BUCKET_EX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPM_IDLE_STATE_ACCOUNTING_EX.ahk" { PPM_IDLE_STATE_ACCOUNTING_EX }
+#Import ".\PPM_IDLE_STATE_BUCKET_EX.ahk" { PPM_IDLE_STATE_BUCKET_EX }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_IDLE_ACCOUNTING_EX extends Win32Struct {
-    static sizeof => 440
+export default struct PPM_IDLE_ACCOUNTING_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    StateCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StateCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TotalTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalTransitions {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ResetCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResetCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AbortCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AbortCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    StartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    State : PPM_IDLE_STATE_ACCOUNTING_EX[1]
 
-    /**
-     * @type {PPM_IDLE_STATE_ACCOUNTING_EX}
-     */
-    State {
-        get {
-            if(!this.HasProp("__StateProxyArray"))
-                this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_IDLE_STATE_ACCOUNTING_EX, "")
-            return this.__StateProxyArray
-        }
-    }
 }

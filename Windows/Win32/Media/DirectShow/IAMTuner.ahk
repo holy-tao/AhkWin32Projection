@@ -1,33 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IAMTunerNotification.ahk" { IAMTunerNotification }
+#Import ".\AMTunerModeType.ahk" { AMTunerModeType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMTuner interface controls a TV tuner.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtuner
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMTuner extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMTuner extends IUnknown {
     /**
      * The interface identifier for IAMTuner
      * @type {Guid}
      */
-    static IID => Guid("{211a8761-03ac-11d1-8d13-00aa00bd8339}")
+    static IID := Guid("{211a8761-03ac-11d1-8d13-00aa00bd8339}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMTuner interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_Channel                    : IntPtr
+        get_Channel                    : IntPtr
+        ChannelMinMax                  : IntPtr
+        put_CountryCode                : IntPtr
+        get_CountryCode                : IntPtr
+        put_TuningSpace                : IntPtr
+        get_TuningSpace                : IntPtr
+        Logon                          : IntPtr
+        Logout                         : IntPtr
+        SignalPresent                  : IntPtr
+        put_Mode                       : IntPtr
+        get_Mode                       : IntPtr
+        GetAvailableModes              : IntPtr
+        RegisterNotificationCallBack   : IntPtr
+        UnRegisterNotificationCallBack : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Channel", "get_Channel", "ChannelMinMax", "put_CountryCode", "get_CountryCode", "put_TuningSpace", "get_TuningSpace", "Logon", "Logout", "SignalPresent", "put_Mode", "get_Mode", "GetAvailableModes", "RegisterNotificationCallBack", "UnRegisterNotificationCallBack"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMTuner.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -226,9 +251,7 @@ class IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-logon
      */
     Logon(hCurrentUser) {
-        hCurrentUser := hCurrentUser is Win32Handle ? NumGet(hCurrentUser, "ptr") : hCurrentUser
-
-        result := ComCall(10, this, "ptr", hCurrentUser, "HRESULT")
+        result := ComCall(10, this, HANDLE, hCurrentUser, "HRESULT")
         return result
     }
 
@@ -261,7 +284,7 @@ class IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-put_mode
      */
     put_Mode(lMode) {
-        result := ComCall(13, this, "int", lMode, "HRESULT")
+        result := ComCall(13, this, AMTunerModeType, lMode, "HRESULT")
         return result
     }
 
@@ -306,5 +329,53 @@ class IAMTuner extends IUnknown {
     UnRegisterNotificationCallBack(pNotify) {
         result := ComCall(17, this, "ptr", pNotify, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMTuner.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Channel := CallbackCreate(GetMethod(implObj, "put_Channel"), flags, 4)
+        this.vtbl.get_Channel := CallbackCreate(GetMethod(implObj, "get_Channel"), flags, 4)
+        this.vtbl.ChannelMinMax := CallbackCreate(GetMethod(implObj, "ChannelMinMax"), flags, 3)
+        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_TuningSpace := CallbackCreate(GetMethod(implObj, "put_TuningSpace"), flags, 2)
+        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.Logon := CallbackCreate(GetMethod(implObj, "Logon"), flags, 2)
+        this.vtbl.Logout := CallbackCreate(GetMethod(implObj, "Logout"), flags, 1)
+        this.vtbl.SignalPresent := CallbackCreate(GetMethod(implObj, "SignalPresent"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.GetAvailableModes := CallbackCreate(GetMethod(implObj, "GetAvailableModes"), flags, 2)
+        this.vtbl.RegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "RegisterNotificationCallBack"), flags, 3)
+        this.vtbl.UnRegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "UnRegisterNotificationCallBack"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Channel)
+        CallbackFree(this.vtbl.get_Channel)
+        CallbackFree(this.vtbl.ChannelMinMax)
+        CallbackFree(this.vtbl.put_CountryCode)
+        CallbackFree(this.vtbl.get_CountryCode)
+        CallbackFree(this.vtbl.put_TuningSpace)
+        CallbackFree(this.vtbl.get_TuningSpace)
+        CallbackFree(this.vtbl.Logon)
+        CallbackFree(this.vtbl.Logout)
+        CallbackFree(this.vtbl.SignalPresent)
+        CallbackFree(this.vtbl.put_Mode)
+        CallbackFree(this.vtbl.get_Mode)
+        CallbackFree(this.vtbl.GetAvailableModes)
+        CallbackFree(this.vtbl.RegisterNotificationCallBack)
+        CallbackFree(this.vtbl.UnRegisterNotificationCallBack)
     }
 }

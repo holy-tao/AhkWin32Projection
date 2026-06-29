@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by WCS functions to indicate the data type of vector content.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-colordatatype
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class COLORDATATYPE extends Win32Enum {
+export default struct COLORDATATYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Color data is stored as 8 bits per channel, with a value from 0 to 255, inclusive.

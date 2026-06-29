@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_LOAD_FONT_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct VIDEO_LOAD_FONT_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    WidthInPixels : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    WidthInPixels {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    HeightInPixels : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HeightInPixels {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    FontSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FontSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Font : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Font {
-        get {
-            if(!this.HasProp("__FontProxyArray"))
-                this.__FontProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__FontProxyArray
-        }
-    }
 }

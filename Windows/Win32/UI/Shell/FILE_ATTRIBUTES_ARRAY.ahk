@@ -1,60 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the clipboard format definition for CFSTR_FILE_ATTRIBUTES_ARRAY.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-file_attributes_array
  * @namespace Windows.Win32.UI.Shell
  */
-class FILE_ATTRIBUTES_ARRAY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct FILE_ATTRIBUTES_ARRAY {
+    #StructPack 4
 
     /**
      * Type: <b>UINT</b>
      * 
      * The number of items in the <b>rgdwFileAttributes</b> array.
-     * @type {Integer}
      */
-    cItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cItems : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * All of the attributes combined using OR.
-     * @type {Integer}
      */
-    dwSumFileAttributes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSumFileAttributes : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * All of the attributes combined using AND.
-     * @type {Integer}
      */
-    dwProductFileAttributes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwProductFileAttributes : UInt32
 
     /**
      * Type: <b>DWORD[1]</b>
      * 
      * An array of file attributes.
-     * @type {Array<Integer>}
      */
-    rgdwFileAttributes {
-        get {
-            if(!this.HasProp("__rgdwFileAttributesProxyArray"))
-                this.__rgdwFileAttributesProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
-            return this.__rgdwFileAttributesProxyArray
-        }
-    }
+    rgdwFileAttributes : UInt32[1]
+
 }

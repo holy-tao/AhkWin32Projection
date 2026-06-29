@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COAUTHIDENTITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COAUTHIDENTITY.ahk" { COAUTHIDENTITY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the authentication settings used while making a remote activation request from the client computer to the server computer.
@@ -22,73 +22,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-coauthinfo
  * @namespace Windows.Win32.System.Com
  */
-class COAUTHINFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct COAUTHINFO {
+    #StructPack 8
 
     /**
      * The authentication service to be used. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-service-constants">Authentication Service Constants</a>. Use RPC_C_AUTHN_NONE if no authentication is required. RPC_C_AUTHN_WINNT is the default and RPC_C_AUTHN_GSS_KERBEROS is also supported.
-     * @type {Integer}
      */
-    dwAuthnSvc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAuthnSvc : UInt32
 
     /**
      * The authorization service to be used. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/com/com-authorization-constants">Authorization Constants</a>. To use the NT authentication service, specify RPC_C_AUTHZ_NONE.
-     * @type {Integer}
      */
-    dwAuthzSvc {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAuthzSvc : UInt32
 
     /**
      * The server principal name to use with the authentication service. If you are using RPC_C_AUTHN_WINNT, the principal name must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pwszServerPrincName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszServerPrincName : PWSTR
 
     /**
      * The authentication level to be used. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-level-constants">Authentication Level Constants</a>.
      * 
      * As of Windows Server 2003, remote activations use the default authentication level specified in the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> <i>dwAuthnLevel</i> parameter. In previous versions of Windows, RPC_C_AUTHN_LEVEL_CONNECT was always used for the security level unless another level was explicitly specified.
-     * @type {Integer}
      */
-    dwAuthnLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAuthnLevel : UInt32
 
     /**
      * The impersonation level to be used. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/com/com-impersonation-level-constants">Impersonation Level Constants</a>. This value must be RPC_C_IMP_LEVEL_IMPERSONATE or above.
-     * @type {Integer}
      */
-    dwImpersonationLevel {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwImpersonationLevel : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ns-wtypesbase-coauthidentity">COAUTHIDENTITY</a> structure that establishes a nondefault client identity. If this parameter is <b>NULL</b>, the actual identity of the client is used. Values of structure members are authentication-service specific. This value must be <b>NULL</b> if <b>dwAuthnSvc</b> does not specify either the NTLMSSP or Kerberos network authentication protocol is used as the authorization service.
-     * @type {Pointer<COAUTHIDENTITY>}
      */
-    pAuthIdentityData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pAuthIdentityData : COAUTHIDENTITY.Ptr
 
     /**
      * Indicates additional capabilities of this proxy. Currently, this member must be EOAC_NONE (0x0) or RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH (0x1). Use RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH if Kerberos is required.
-     * @type {Integer}
      */
-    dwCapabilities {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwCapabilities : UInt32
+
 }

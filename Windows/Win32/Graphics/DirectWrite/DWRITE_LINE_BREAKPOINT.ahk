@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Line breakpoint characteristics of a character.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_breakpoint
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_LINE_BREAKPOINT extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct DWRITE_LINE_BREAKPOINT {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -18,12 +15,9 @@ class DWRITE_LINE_BREAKPOINT extends Win32Struct {
      * - isWhitespace
      * - isSoftHyphen
      * - padding
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}

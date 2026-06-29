@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for performing application-specific restore tasks.
  * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nn-wsbapp-iwsbapplicationrestoresupport
  * @namespace Windows.Win32.System.ServerBackup
  */
-class IWsbApplicationRestoreSupport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWsbApplicationRestoreSupport extends IUnknown {
     /**
      * The interface identifier for IWsbApplicationRestoreSupport
      * @type {Guid}
      */
-    static IID => Guid("{8d3bdb38-4ee8-4718-85f9-c7dbc4ab77aa}")
+    static IID := Guid("{8d3bdb38-4ee8-4718-85f9-c7dbc4ab77aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWsbApplicationRestoreSupport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PreRestore             : IntPtr
+        PostRestore            : IntPtr
+        OrderComponents        : IntPtr
+        IsRollForwardSupported : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PreRestore", "PostRestore", "OrderComponents", "IsRollForwardSupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWsbApplicationRestoreSupport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Performs application-specific PreRestore operations.
@@ -45,7 +58,7 @@ class IWsbApplicationRestoreSupport extends IUnknown {
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszComponentLogicalPath := wszComponentLogicalPath is String ? StrPtr(wszComponentLogicalPath) : wszComponentLogicalPath
 
-        result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, "char", bNoRollForward, "HRESULT")
+        result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, BOOLEAN, bNoRollForward, "HRESULT")
         return result
     }
 
@@ -65,7 +78,7 @@ class IWsbApplicationRestoreSupport extends IUnknown {
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszComponentLogicalPath := wszComponentLogicalPath is String ? StrPtr(wszComponentLogicalPath) : wszComponentLogicalPath
 
-        result := ComCall(4, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, "char", bNoRollForward, "HRESULT")
+        result := ComCall(4, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, BOOLEAN, bNoRollForward, "HRESULT")
         return result
     }
 
@@ -103,5 +116,31 @@ class IWsbApplicationRestoreSupport extends IUnknown {
     IsRollForwardSupported() {
         result := ComCall(6, this, "char*", &pbRollForwardSupported := 0, "HRESULT")
         return pbRollForwardSupported
+    }
+
+    Query(iid) {
+        if (IWsbApplicationRestoreSupport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PreRestore := CallbackCreate(GetMethod(implObj, "PreRestore"), flags, 5)
+        this.vtbl.PostRestore := CallbackCreate(GetMethod(implObj, "PostRestore"), flags, 5)
+        this.vtbl.OrderComponents := CallbackCreate(GetMethod(implObj, "OrderComponents"), flags, 6)
+        this.vtbl.IsRollForwardSupported := CallbackCreate(GetMethod(implObj, "IsRollForwardSupported"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PreRestore)
+        CallbackFree(this.vtbl.PostRestore)
+        CallbackFree(this.vtbl.OrderComponents)
+        CallbackFree(this.vtbl.IsRollForwardSupported)
     }
 }

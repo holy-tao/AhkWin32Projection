@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidVideoRenderer.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidVMR9 interface represents the Video Mixing Renderer Filter 9 (VMR-9) within the Video Control filter graph. The MSVidVMR9 object exposes this interface.
@@ -11,32 +13,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidvmr9
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidVMR9 extends IMSVidVideoRenderer {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidVMR9 extends IMSVidVideoRenderer {
     /**
      * The interface identifier for IMSVidVMR9
      * @type {Guid}
      */
-    static IID => Guid("{d58b0015-ebef-44bb-bbdd-3f3699d76ea1}")
+    static IID := Guid("{d58b0015-ebef-44bb-bbdd-3f3699d76ea1}")
 
     /**
      * The class identifier for MSVidVMR9
      * @type {Guid}
      */
-    static CLSID => Guid("{24dc3975-09bf-4231-8655-3ee71f43837d}")
+    static CLSID := Guid("{24dc3975-09bf-4231-8655-3ee71f43837d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 46
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidVMR9 interfaces
+    */
+    struct Vtbl extends IMSVidVideoRenderer.Vtbl {
+        get_Allocator_ID    : IntPtr
+        SetAllocator        : IntPtr
+        put_SuppressEffects : IntPtr
+        get_SuppressEffects : IntPtr
+        get_Allocator       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Allocator_ID", "SetAllocator", "put_SuppressEffects", "get_SuppressEffects", "get_Allocator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidVMR9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -142,7 +155,7 @@ class IMSVidVMR9 extends IMSVidVideoRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-put_suppresseffects
      */
     put_SuppressEffects(bSuppress) {
-        result := ComCall(48, this, "short", bSuppress, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL, bSuppress, "HRESULT")
         return result
     }
 
@@ -152,7 +165,7 @@ class IMSVidVMR9 extends IMSVidVideoRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_suppresseffects
      */
     get_SuppressEffects() {
-        result := ComCall(49, this, "short*", &bSuppress := 0, "HRESULT")
+        result := ComCall(49, this, VARIANT_BOOL.Ptr, &bSuppress := 0, "HRESULT")
         return bSuppress
     }
 
@@ -166,5 +179,33 @@ class IMSVidVMR9 extends IMSVidVideoRenderer {
     get_Allocator() {
         result := ComCall(50, this, "ptr*", &AllocPresent := 0, "HRESULT")
         return IUnknown(AllocPresent)
+    }
+
+    Query(iid) {
+        if (IMSVidVMR9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Allocator_ID := CallbackCreate(GetMethod(implObj, "get_Allocator_ID"), flags, 2)
+        this.vtbl.SetAllocator := CallbackCreate(GetMethod(implObj, "SetAllocator"), flags, 3)
+        this.vtbl.put_SuppressEffects := CallbackCreate(GetMethod(implObj, "put_SuppressEffects"), flags, 2)
+        this.vtbl.get_SuppressEffects := CallbackCreate(GetMethod(implObj, "get_SuppressEffects"), flags, 2)
+        this.vtbl.get_Allocator := CallbackCreate(GetMethod(implObj, "get_Allocator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Allocator_ID)
+        CallbackFree(this.vtbl.SetAllocator)
+        CallbackFree(this.vtbl.put_SuppressEffects)
+        CallbackFree(this.vtbl.get_SuppressEffects)
+        CallbackFree(this.vtbl.get_Allocator)
     }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputHapticFeedbackParams extends Win32Struct {
-    static sizeof => 32
+export default struct GameInputHapticFeedbackParams {
+    #StructPack 8
 
-    static packingSize => 8
+    waveformIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    waveformIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    duration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    duration {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    intensity : Float32
 
-    /**
-     * @type {Float}
-     */
-    intensity {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    playCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    playCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    repeatDelay : Int64
 
-    /**
-     * @type {Integer}
-     */
-    repeatDelay {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

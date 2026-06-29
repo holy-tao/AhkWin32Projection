@@ -1,14 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Prevents processes associated with the job from creating desktops and switching desktops using the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdesktopa">CreateDesktop</a> and 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-switchdesktop">SwitchDesktop</a> functions.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_ui_restrictions
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOB_OBJECT_UILIMIT extends Win32BitflagEnum {
+export default struct JOB_OBJECT_UILIMIT {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

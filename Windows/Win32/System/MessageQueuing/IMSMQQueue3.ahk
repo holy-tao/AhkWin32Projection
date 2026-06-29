@@ -1,35 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMSMQQueueInfo3.ahk
-#Include .\IMSMQMessage.ahk
-#Include .\IMSMQMessage3.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSMQMessage3.ahk" { IMSMQMessage3 }
+#Import ".\IMSMQMessage.ahk" { IMSMQMessage }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMSMQEvent3.ahk" { IMSMQEvent3 }
+#Import ".\IMSMQQueueInfo3.ahk" { IMSMQQueueInfo3 }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQQueue3 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQQueue3 extends IDispatch {
     /**
      * The interface identifier for IMSMQQueue3
      * @type {Guid}
      */
-    static IID => Guid("{eba96b1b-2168-11d3-898c-00e02c074f6b}")
+    static IID := Guid("{eba96b1b-2168-11d3-898c-00e02c074f6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQQueue3 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Access                : IntPtr
+        get_ShareMode             : IntPtr
+        get_QueueInfo             : IntPtr
+        get_Handle                : IntPtr
+        get_IsOpen                : IntPtr
+        Close                     : IntPtr
+        Receive_v1                : IntPtr
+        Peek_v1                   : IntPtr
+        EnableNotification        : IntPtr
+        Reset                     : IntPtr
+        ReceiveCurrent_v1         : IntPtr
+        PeekNext_v1               : IntPtr
+        PeekCurrent_v1            : IntPtr
+        Receive                   : IntPtr
+        Peek                      : IntPtr
+        ReceiveCurrent            : IntPtr
+        PeekNext                  : IntPtr
+        PeekCurrent               : IntPtr
+        get_Properties            : IntPtr
+        get_Handle2               : IntPtr
+        ReceiveByLookupId         : IntPtr
+        ReceiveNextByLookupId     : IntPtr
+        ReceivePreviousByLookupId : IntPtr
+        ReceiveFirstByLookupId    : IntPtr
+        ReceiveLastByLookupId     : IntPtr
+        PeekByLookupId            : IntPtr
+        PeekNextByLookupId        : IntPtr
+        PeekPreviousByLookupId    : IntPtr
+        PeekFirstByLookupId       : IntPtr
+        PeekLastByLookupId        : IntPtr
+        Purge                     : IntPtr
+        get_IsOpen2               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Access", "get_ShareMode", "get_QueueInfo", "get_Handle", "get_IsOpen", "Close", "Receive_v1", "Peek_v1", "EnableNotification", "Reset", "ReceiveCurrent_v1", "PeekNext_v1", "PeekCurrent_v1", "Receive", "Peek", "ReceiveCurrent", "PeekNext", "PeekCurrent", "get_Properties", "get_Handle2", "ReceiveByLookupId", "ReceiveNextByLookupId", "ReceivePreviousByLookupId", "ReceiveFirstByLookupId", "ReceiveLastByLookupId", "PeekByLookupId", "PeekNextByLookupId", "PeekPreviousByLookupId", "PeekFirstByLookupId", "PeekLastByLookupId", "Purge", "get_IsOpen2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQQueue3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -133,15 +174,8 @@ class IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(12, this, "HRESULT")
@@ -157,7 +191,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     Receive_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(13, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -169,7 +203,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     Peek_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(14, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -181,29 +215,13 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {HRESULT} 
      */
     EnableNotification(Event, Cursor, ReceiveTimeout) {
-        result := ComCall(15, this, "ptr", Event, "ptr", Cursor, "ptr", ReceiveTimeout, "HRESULT")
+        result := ComCall(15, this, "ptr", Event, VARIANT.Ptr, Cursor, VARIANT.Ptr, ReceiveTimeout, "HRESULT")
         return result
     }
 
     /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset() {
         result := ComCall(16, this, "HRESULT")
@@ -219,7 +237,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     ReceiveCurrent_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(17, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -231,7 +249,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     PeekNext_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(18, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -243,7 +261,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     PeekCurrent_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(19, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -257,25 +275,20 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     Receive(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(20, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
     /**
-     * Reads data from the specified console input buffer without removing it from the buffer.
-     * @remarks
-     * If the number of records requested exceeds the number of records available in the buffer, the number available is read. If no data is available, the function returns immediately.
      * 
-     * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
      * @returns {IMSMQMessage3} 
-     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
      */
     Peek(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(21, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -289,7 +302,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     ReceiveCurrent(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(22, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -302,7 +315,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekNext(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(23, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -315,7 +328,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekCurrent(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(24, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -334,7 +347,7 @@ class IMSMQQueue3 extends IDispatch {
      */
     get_Handle2() {
         pvarHandle := VARIANT()
-        result := ComCall(26, this, "ptr", pvarHandle, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, pvarHandle, "HRESULT")
         return pvarHandle
     }
 
@@ -348,7 +361,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     ReceiveByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(27, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT, LookupId, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -362,7 +375,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     ReceiveNextByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(28, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT, LookupId, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -376,7 +389,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     ReceivePreviousByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(29, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT, LookupId, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -389,7 +402,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     ReceiveFirstByLookupId(Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(30, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(30, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -402,7 +415,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     ReceiveLastByLookupId(Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(31, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -415,7 +428,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(32, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(32, this, VARIANT, LookupId, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -428,7 +441,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekNextByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(33, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT, LookupId, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -441,7 +454,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekPreviousByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(34, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT, LookupId, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -453,7 +466,7 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekFirstByLookupId(WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(35, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(35, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
@@ -465,21 +478,13 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {IMSMQMessage3} 
      */
     PeekLastByLookupId(WantDestinationQueue, WantBody, WantConnectorType) {
-        result := ComCall(36, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage3(ppmsg)
     }
 
     /**
-     * Discards all characters from the output or input buffer of a specified communications resource. It can also terminate pending read or write operations on the resource.
-     * @remarks
-     * If a thread uses 
-     * <b>PurgeComm</b> to flush an output buffer, the deleted characters are not transmitted. To empty the output buffer while ensuring that the contents are transmitted, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function (a synchronous operation). Note, however, that <b>FlushFileBuffers</b> is subject to flow control but not to write time-outs, and it will not return until all pending write operations have been transmitted.
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-purgecomm
+     * @returns {HRESULT} 
      */
     Purge() {
         result := ComCall(37, this, "HRESULT")
@@ -491,7 +496,89 @@ class IMSMQQueue3 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsOpen2() {
-        result := ComCall(38, this, "short*", &pisOpen := 0, "HRESULT")
+        result := ComCall(38, this, VARIANT_BOOL.Ptr, &pisOpen := 0, "HRESULT")
         return pisOpen
+    }
+
+    Query(iid) {
+        if (IMSMQQueue3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Access := CallbackCreate(GetMethod(implObj, "get_Access"), flags, 2)
+        this.vtbl.get_ShareMode := CallbackCreate(GetMethod(implObj, "get_ShareMode"), flags, 2)
+        this.vtbl.get_QueueInfo := CallbackCreate(GetMethod(implObj, "get_QueueInfo"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_IsOpen := CallbackCreate(GetMethod(implObj, "get_IsOpen"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Receive_v1 := CallbackCreate(GetMethod(implObj, "Receive_v1"), flags, 6)
+        this.vtbl.Peek_v1 := CallbackCreate(GetMethod(implObj, "Peek_v1"), flags, 5)
+        this.vtbl.EnableNotification := CallbackCreate(GetMethod(implObj, "EnableNotification"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.ReceiveCurrent_v1 := CallbackCreate(GetMethod(implObj, "ReceiveCurrent_v1"), flags, 6)
+        this.vtbl.PeekNext_v1 := CallbackCreate(GetMethod(implObj, "PeekNext_v1"), flags, 5)
+        this.vtbl.PeekCurrent_v1 := CallbackCreate(GetMethod(implObj, "PeekCurrent_v1"), flags, 5)
+        this.vtbl.Receive := CallbackCreate(GetMethod(implObj, "Receive"), flags, 7)
+        this.vtbl.Peek := CallbackCreate(GetMethod(implObj, "Peek"), flags, 6)
+        this.vtbl.ReceiveCurrent := CallbackCreate(GetMethod(implObj, "ReceiveCurrent"), flags, 7)
+        this.vtbl.PeekNext := CallbackCreate(GetMethod(implObj, "PeekNext"), flags, 6)
+        this.vtbl.PeekCurrent := CallbackCreate(GetMethod(implObj, "PeekCurrent"), flags, 6)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Handle2 := CallbackCreate(GetMethod(implObj, "get_Handle2"), flags, 2)
+        this.vtbl.ReceiveByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveByLookupId"), flags, 7)
+        this.vtbl.ReceiveNextByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveNextByLookupId"), flags, 7)
+        this.vtbl.ReceivePreviousByLookupId := CallbackCreate(GetMethod(implObj, "ReceivePreviousByLookupId"), flags, 7)
+        this.vtbl.ReceiveFirstByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveFirstByLookupId"), flags, 6)
+        this.vtbl.ReceiveLastByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveLastByLookupId"), flags, 6)
+        this.vtbl.PeekByLookupId := CallbackCreate(GetMethod(implObj, "PeekByLookupId"), flags, 6)
+        this.vtbl.PeekNextByLookupId := CallbackCreate(GetMethod(implObj, "PeekNextByLookupId"), flags, 6)
+        this.vtbl.PeekPreviousByLookupId := CallbackCreate(GetMethod(implObj, "PeekPreviousByLookupId"), flags, 6)
+        this.vtbl.PeekFirstByLookupId := CallbackCreate(GetMethod(implObj, "PeekFirstByLookupId"), flags, 5)
+        this.vtbl.PeekLastByLookupId := CallbackCreate(GetMethod(implObj, "PeekLastByLookupId"), flags, 5)
+        this.vtbl.Purge := CallbackCreate(GetMethod(implObj, "Purge"), flags, 1)
+        this.vtbl.get_IsOpen2 := CallbackCreate(GetMethod(implObj, "get_IsOpen2"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Access)
+        CallbackFree(this.vtbl.get_ShareMode)
+        CallbackFree(this.vtbl.get_QueueInfo)
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.get_IsOpen)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Receive_v1)
+        CallbackFree(this.vtbl.Peek_v1)
+        CallbackFree(this.vtbl.EnableNotification)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.ReceiveCurrent_v1)
+        CallbackFree(this.vtbl.PeekNext_v1)
+        CallbackFree(this.vtbl.PeekCurrent_v1)
+        CallbackFree(this.vtbl.Receive)
+        CallbackFree(this.vtbl.Peek)
+        CallbackFree(this.vtbl.ReceiveCurrent)
+        CallbackFree(this.vtbl.PeekNext)
+        CallbackFree(this.vtbl.PeekCurrent)
+        CallbackFree(this.vtbl.get_Properties)
+        CallbackFree(this.vtbl.get_Handle2)
+        CallbackFree(this.vtbl.ReceiveByLookupId)
+        CallbackFree(this.vtbl.ReceiveNextByLookupId)
+        CallbackFree(this.vtbl.ReceivePreviousByLookupId)
+        CallbackFree(this.vtbl.ReceiveFirstByLookupId)
+        CallbackFree(this.vtbl.ReceiveLastByLookupId)
+        CallbackFree(this.vtbl.PeekByLookupId)
+        CallbackFree(this.vtbl.PeekNextByLookupId)
+        CallbackFree(this.vtbl.PeekPreviousByLookupId)
+        CallbackFree(this.vtbl.PeekFirstByLookupId)
+        CallbackFree(this.vtbl.PeekLastByLookupId)
+        CallbackFree(this.vtbl.Purge)
+        CallbackFree(this.vtbl.get_IsOpen2)
     }
 }

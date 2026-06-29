@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_EXTENDED_ATTR extends Win32Struct {
-    static sizeof => 6
+export default struct NVME_EXTENDED_ATTR {
+    #StructPack 2
 
-    static packingSize => 2
+    EXATTYPE : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    EXATTYPE {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    EXATLEN : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    EXATLEN {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    EXATVAL : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EXATVAL {
-        get {
-            if(!this.HasProp("__EXATVALProxyArray"))
-                this.__EXATVALProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__EXATVALProxyArray
-        }
-    }
 }

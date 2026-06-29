@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISK_EXTENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISK_EXTENT.ahk" { DISK_EXTENT }
 
 /**
  * Represents a physical location on a disk.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_disk_extents
  * @namespace Windows.Win32.System.Ioctl
  */
-class VOLUME_DISK_EXTENTS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct VOLUME_DISK_EXTENTS {
+    #StructPack 8
 
     /**
      * The number of disks in the volume (a volume can span multiple disks).
@@ -20,22 +17,12 @@ class VOLUME_DISK_EXTENTS extends Win32Struct {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> again, allocating enough buffer 
      *        space based on the value of <b>NumberOfDiskExtents</b> after the first 
      *        <b>DeviceIoControl</b> call.
-     * @type {Integer}
      */
-    NumberOfDiskExtents {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfDiskExtents : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-disk_extent">DISK_EXTENT</a> structures.
-     * @type {DISK_EXTENT}
      */
-    Extents {
-        get {
-            if(!this.HasProp("__ExtentsProxyArray"))
-                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, DISK_EXTENT, "")
-            return this.__ExtentsProxyArray
-        }
-    }
+    Extents : DISK_EXTENT[1]
+
 }

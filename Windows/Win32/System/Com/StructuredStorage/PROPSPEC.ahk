@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PROPSPEC_KIND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
 
 /**
  * The PROPSPEC structure is used by many of the methods of IPropertyStorage to specify a property either by its property identifier (ID) or the associated string name.
@@ -9,32 +9,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-propspec
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class PROPSPEC extends Win32Struct {
-    static sizeof => 16
+export default struct PROPSPEC {
+    #StructPack 8
 
-    static packingSize => 8
+    ulKind : PROPSPEC_KIND
 
-    /**
-     * @type {PROPSPEC_KIND}
-     */
-    ulKind {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    propid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    propid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    lpwstr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'lpwstr', { type: PWSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

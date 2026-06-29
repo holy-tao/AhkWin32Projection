@@ -1,41 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IOpenServiceActivity.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumOpenServiceActivity.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpenServiceActivityInput.ahk" { IOpenServiceActivityInput }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IOpenServiceActivity.ahk" { IOpenServiceActivity }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IOpenServiceActivityOutputContext.ahk" { IOpenServiceActivityOutputContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumOpenServiceActivity.ahk" { IEnumOpenServiceActivity }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IOpenServiceActivityCategory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpenServiceActivityCategory extends IUnknown {
     /**
      * The interface identifier for IOpenServiceActivityCategory
      * @type {Guid}
      */
-    static IID => Guid("{850af9d6-7309-40b5-bdb8-786c106b2153}")
+    static IID := Guid("{850af9d6-7309-40b5-bdb8-786c106b2153}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpenServiceActivityCategory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        HasDefaultActivity    : IntPtr
+        GetDefaultActivity    : IntPtr
+        SetDefaultActivity    : IntPtr
+        GetName               : IntPtr
+        GetActivityEnumerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HasDefaultActivity", "GetDefaultActivity", "SetDefaultActivity", "GetName", "GetActivityEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpenServiceActivityCategory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {BOOL} 
      */
     HasDefaultActivity() {
-        result := ComCall(3, this, "int*", &pfHasDefaultActivity := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfHasDefaultActivity := 0, "HRESULT")
         return pfHasDefaultActivity
     }
 
@@ -55,9 +71,7 @@ class IOpenServiceActivityCategory extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDefaultActivity(pActivity, _hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(5, this, "ptr", pActivity, "ptr", _hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", pActivity, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -67,8 +81,8 @@ class IOpenServiceActivityCategory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pbstrName := BSTR()
-        result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -81,5 +95,33 @@ class IOpenServiceActivityCategory extends IUnknown {
     GetActivityEnumerator(pInput, pOutput) {
         result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "ptr*", &ppEnumActivity := 0, "HRESULT")
         return IEnumOpenServiceActivity(ppEnumActivity)
+    }
+
+    Query(iid) {
+        if (IOpenServiceActivityCategory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HasDefaultActivity := CallbackCreate(GetMethod(implObj, "HasDefaultActivity"), flags, 2)
+        this.vtbl.GetDefaultActivity := CallbackCreate(GetMethod(implObj, "GetDefaultActivity"), flags, 2)
+        this.vtbl.SetDefaultActivity := CallbackCreate(GetMethod(implObj, "SetDefaultActivity"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetActivityEnumerator := CallbackCreate(GetMethod(implObj, "GetActivityEnumerator"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HasDefaultActivity)
+        CallbackFree(this.vtbl.GetDefaultActivity)
+        CallbackFree(this.vtbl.SetDefaultActivity)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetActivityEnumerator)
     }
 }

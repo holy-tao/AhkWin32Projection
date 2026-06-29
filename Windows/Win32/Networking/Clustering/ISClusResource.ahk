@@ -1,44 +1,87 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISClusResPossibleOwnerNodes.ahk
-#Include .\ISClusResDependencies.ahk
-#Include .\ISClusResDependents.ahk
-#Include .\ISClusResGroup.ahk
-#Include .\ISClusNode.ahk
-#Include .\ISCluster.ahk
-#Include .\ISClusDisk.ahk
-#Include .\ISClusRegistryKeys.ahk
-#Include .\ISClusCryptoKeys.ahk
-#Include .\ISClusResType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import ".\ISClusResGroup.ahk" { ISClusResGroup }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISClusRegistryKeys.ahk" { ISClusRegistryKeys }
+#Import ".\ISClusResDependents.ahk" { ISClusResDependents }
+#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
+#Import ".\ISClusCryptoKeys.ahk" { ISClusCryptoKeys }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
+#Import ".\ISClusResType.ahk" { ISClusResType }
+#Import ".\ISClusDisk.ahk" { ISClusDisk }
+#Import ".\ISClusResDependencies.ahk" { ISClusResDependencies }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CLUS_FLAGS.ahk" { CLUS_FLAGS }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISClusResPossibleOwnerNodes.ahk" { ISClusResPossibleOwnerNodes }
+#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
+#Import ".\ISClusNode.ahk" { ISClusNode }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ISClusResource extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISClusResource extends IDispatch {
     /**
      * The interface identifier for ISClusResource
      * @type {Guid}
      */
-    static IID => Guid("{f2e6070a-2631-11d1-89f1-00a0c90d061e}")
+    static IID := Guid("{f2e6070a-2631-11d1-89f1-00a0c90d061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISClusResource interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CommonProperties    : IntPtr
+        get_PrivateProperties   : IntPtr
+        get_CommonROProperties  : IntPtr
+        get_PrivateROProperties : IntPtr
+        get_Handle              : IntPtr
+        get_Name                : IntPtr
+        put_Name                : IntPtr
+        get_State               : IntPtr
+        get_CoreFlag            : IntPtr
+        BecomeQuorumResource    : IntPtr
+        Delete                  : IntPtr
+        Fail                    : IntPtr
+        Online                  : IntPtr
+        Offline                 : IntPtr
+        ChangeResourceGroup     : IntPtr
+        AddResourceNode         : IntPtr
+        RemoveResourceNode      : IntPtr
+        CanResourceBeDependent  : IntPtr
+        get_PossibleOwnerNodes  : IntPtr
+        get_Dependencies        : IntPtr
+        get_Dependents          : IntPtr
+        get_Group               : IntPtr
+        get_OwnerNode           : IntPtr
+        get_Cluster             : IntPtr
+        get_ClassInfo           : IntPtr
+        get_Disk                : IntPtr
+        get_RegistryKeys        : IntPtr
+        get_CryptoKeys          : IntPtr
+        get_TypeName            : IntPtr
+        get_Type                : IntPtr
+        get_MaintenanceMode     : IntPtr
+        put_MaintenanceMode     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Handle", "get_Name", "put_Name", "get_State", "get_CoreFlag", "BecomeQuorumResource", "Delete", "Fail", "Online", "Offline", "ChangeResourceGroup", "AddResourceNode", "RemoveResourceNode", "CanResourceBeDependent", "get_PossibleOwnerNodes", "get_Dependencies", "get_Dependents", "get_Group", "get_OwnerNode", "get_Cluster", "get_ClassInfo", "get_Disk", "get_RegistryKeys", "get_CryptoKeys", "get_TypeName", "get_Type", "get_MaintenanceMode", "put_MaintenanceMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISClusResource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISClusProperties} 
@@ -239,8 +282,8 @@ class ISClusResource extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -252,7 +295,7 @@ class ISClusResource extends IDispatch {
     put_Name(bstrResourceName) {
         bstrResourceName := bstrResourceName is String ? BSTR.Alloc(bstrResourceName).Value : bstrResourceName
 
-        result := ComCall(13, this, "ptr", bstrResourceName, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrResourceName, "HRESULT")
         return result
     }
 
@@ -283,22 +326,13 @@ class ISClusResource extends IDispatch {
     BecomeQuorumResource(bstrDevicePath, lMaxLogSize) {
         bstrDevicePath := bstrDevicePath is String ? BSTR.Alloc(bstrDevicePath).Value : bstrDevicePath
 
-        result := ComCall(16, this, "ptr", bstrDevicePath, "int", lMaxLogSize, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrDevicePath, "int", lMaxLogSize, "HRESULT")
         return result
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(17, this, "HRESULT")
@@ -306,16 +340,8 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * Initiates a resource failure.
-     * @remarks
-     * The resource identified by <i>hResource</i> is treated as inoperable, causing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to initiate the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failover</a> process that would result if the resource had actually failed. Applications call the  <b>FailClusterResource</b> function to test their policies for restarting resources and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a>.
      * 
-     * Do not call  <b>FailClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
-     * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-failclusterresource
+     * @returns {HRESULT} 
      */
     Fail() {
         result := ComCall(18, this, "HRESULT")
@@ -323,36 +349,24 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * Brings a group online. (OnlineClusterGroup)
-     * @remarks
-     * If the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter, the  <b>OnlineClusterGroup</b> function fails.
      * 
-     * If the <i>hDestinationNode</i> parameter is set to <b>NULL</b>,  <b>OnlineClusterGroup</b> brings the group online on the current node.
-     * 
-     * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroup
      */
     Online(nTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(19, this, "int", nTimeout, "ptr", pvarPending, "HRESULT")
+        result := ComCall(19, this, "int", nTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 
     /**
-     * Takes a group offline.
-     * @remarks
-     * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroup
      */
     Offline(nTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(20, this, "int", nTimeout, "ptr", pvarPending, "HRESULT")
+        result := ComCall(20, this, "int", nTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 
@@ -404,7 +418,7 @@ class ISClusResource extends IDispatch {
      */
     CanResourceBeDependent(pResource) {
         pvarDependent := VARIANT()
-        result := ComCall(24, this, "ptr", pResource, "ptr", pvarDependent, "HRESULT")
+        result := ComCall(24, this, "ptr", pResource, VARIANT.Ptr, pvarDependent, "HRESULT")
         return pvarDependent
     }
 
@@ -503,8 +517,8 @@ class ISClusResource extends IDispatch {
      * @returns {BSTR} 
      */
     get_TypeName() {
-        pbstrTypeName := BSTR()
-        result := ComCall(35, this, "ptr", pbstrTypeName, "HRESULT")
+        pbstrTypeName := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, pbstrTypeName, "HRESULT")
         return pbstrTypeName
     }
 
@@ -522,7 +536,7 @@ class ISClusResource extends IDispatch {
      * @returns {BOOL} 
      */
     get_MaintenanceMode() {
-        result := ComCall(37, this, "int*", &pbMaintenanceMode := 0, "HRESULT")
+        result := ComCall(37, this, BOOL.Ptr, &pbMaintenanceMode := 0, "HRESULT")
         return pbMaintenanceMode
     }
 
@@ -532,7 +546,89 @@ class ISClusResource extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MaintenanceMode(bMaintenanceMode) {
-        result := ComCall(38, this, "int", bMaintenanceMode, "HRESULT")
+        result := ComCall(38, this, BOOL, bMaintenanceMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISClusResource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_CoreFlag := CallbackCreate(GetMethod(implObj, "get_CoreFlag"), flags, 2)
+        this.vtbl.BecomeQuorumResource := CallbackCreate(GetMethod(implObj, "BecomeQuorumResource"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Fail := CallbackCreate(GetMethod(implObj, "Fail"), flags, 1)
+        this.vtbl.Online := CallbackCreate(GetMethod(implObj, "Online"), flags, 3)
+        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 3)
+        this.vtbl.ChangeResourceGroup := CallbackCreate(GetMethod(implObj, "ChangeResourceGroup"), flags, 2)
+        this.vtbl.AddResourceNode := CallbackCreate(GetMethod(implObj, "AddResourceNode"), flags, 2)
+        this.vtbl.RemoveResourceNode := CallbackCreate(GetMethod(implObj, "RemoveResourceNode"), flags, 2)
+        this.vtbl.CanResourceBeDependent := CallbackCreate(GetMethod(implObj, "CanResourceBeDependent"), flags, 3)
+        this.vtbl.get_PossibleOwnerNodes := CallbackCreate(GetMethod(implObj, "get_PossibleOwnerNodes"), flags, 2)
+        this.vtbl.get_Dependencies := CallbackCreate(GetMethod(implObj, "get_Dependencies"), flags, 2)
+        this.vtbl.get_Dependents := CallbackCreate(GetMethod(implObj, "get_Dependents"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 2)
+        this.vtbl.get_OwnerNode := CallbackCreate(GetMethod(implObj, "get_OwnerNode"), flags, 2)
+        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_ClassInfo := CallbackCreate(GetMethod(implObj, "get_ClassInfo"), flags, 2)
+        this.vtbl.get_Disk := CallbackCreate(GetMethod(implObj, "get_Disk"), flags, 2)
+        this.vtbl.get_RegistryKeys := CallbackCreate(GetMethod(implObj, "get_RegistryKeys"), flags, 2)
+        this.vtbl.get_CryptoKeys := CallbackCreate(GetMethod(implObj, "get_CryptoKeys"), flags, 2)
+        this.vtbl.get_TypeName := CallbackCreate(GetMethod(implObj, "get_TypeName"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_MaintenanceMode := CallbackCreate(GetMethod(implObj, "get_MaintenanceMode"), flags, 2)
+        this.vtbl.put_MaintenanceMode := CallbackCreate(GetMethod(implObj, "put_MaintenanceMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CommonProperties)
+        CallbackFree(this.vtbl.get_PrivateProperties)
+        CallbackFree(this.vtbl.get_CommonROProperties)
+        CallbackFree(this.vtbl.get_PrivateROProperties)
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_CoreFlag)
+        CallbackFree(this.vtbl.BecomeQuorumResource)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Fail)
+        CallbackFree(this.vtbl.Online)
+        CallbackFree(this.vtbl.Offline)
+        CallbackFree(this.vtbl.ChangeResourceGroup)
+        CallbackFree(this.vtbl.AddResourceNode)
+        CallbackFree(this.vtbl.RemoveResourceNode)
+        CallbackFree(this.vtbl.CanResourceBeDependent)
+        CallbackFree(this.vtbl.get_PossibleOwnerNodes)
+        CallbackFree(this.vtbl.get_Dependencies)
+        CallbackFree(this.vtbl.get_Dependents)
+        CallbackFree(this.vtbl.get_Group)
+        CallbackFree(this.vtbl.get_OwnerNode)
+        CallbackFree(this.vtbl.get_Cluster)
+        CallbackFree(this.vtbl.get_ClassInfo)
+        CallbackFree(this.vtbl.get_Disk)
+        CallbackFree(this.vtbl.get_RegistryKeys)
+        CallbackFree(this.vtbl.get_CryptoKeys)
+        CallbackFree(this.vtbl.get_TypeName)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_MaintenanceMode)
+        CallbackFree(this.vtbl.put_MaintenanceMode)
     }
 }

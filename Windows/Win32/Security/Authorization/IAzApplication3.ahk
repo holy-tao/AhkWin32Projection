@@ -1,38 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAzApplication2.ahk
-#Include .\IAzScope2.ahk
-#Include .\IAzRoleDefinitions.ahk
-#Include .\IAzRoleDefinition.ahk
-#Include .\IAzRoleAssignments.ahk
-#Include .\IAzRoleAssignment.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
+#Import ".\IAzApplication2.ahk" { IAzApplication2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzRoleDefinition.ahk" { IAzRoleDefinition }
+#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
+#Import ".\IAzScope2.ahk" { IAzScope2 }
+#Import ".\IAzRoleAssignment.ahk" { IAzRoleAssignment }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides methods to manage IAzRoleAssignment, IAzRoleDefinition, and IAzScope2 objects.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplication3
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzApplication3 extends IAzApplication2 {
-
-    static sizeof => A_PtrSize
+export default struct IAzApplication3 extends IAzApplication2 {
     /**
      * The interface identifier for IAzApplication3
      * @type {Guid}
      */
-    static IID => Guid("{181c845e-7196-4a7d-ac2e-020c0bb7a303}")
+    static IID := Guid("{181c845e-7196-4a7d-ac2e-020c0bb7a303}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 70
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzApplication3 interfaces
+    */
+    struct Vtbl extends IAzApplication2.Vtbl {
+        ScopeExists          : IntPtr
+        OpenScope2           : IntPtr
+        CreateScope2         : IntPtr
+        DeleteScope2         : IntPtr
+        get_RoleDefinitions  : IntPtr
+        CreateRoleDefinition : IntPtr
+        OpenRoleDefinition   : IntPtr
+        DeleteRoleDefinition : IntPtr
+        get_RoleAssignments  : IntPtr
+        CreateRoleAssignment : IntPtr
+        OpenRoleAssignment   : IntPtr
+        DeleteRoleAssignment : IntPtr
+        get_BizRulesEnabled  : IntPtr
+        put_BizRulesEnabled  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ScopeExists", "OpenScope2", "CreateScope2", "DeleteScope2", "get_RoleDefinitions", "CreateRoleDefinition", "OpenRoleDefinition", "DeleteRoleDefinition", "get_RoleAssignments", "CreateRoleAssignment", "OpenRoleAssignment", "DeleteRoleAssignment", "get_BizRulesEnabled", "put_BizRulesEnabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzApplication3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IAzRoleDefinitions} 
@@ -65,7 +88,7 @@ class IAzApplication3 extends IAzApplication2 {
     ScopeExists(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(70, this, "ptr", bstrScopeName, "short*", &pbExist := 0, "HRESULT")
+        result := ComCall(70, this, BSTR, bstrScopeName, VARIANT_BOOL.Ptr, &pbExist := 0, "HRESULT")
         return pbExist
     }
 
@@ -80,7 +103,7 @@ class IAzApplication3 extends IAzApplication2 {
     OpenScope2(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(71, this, "ptr", bstrScopeName, "ptr*", &ppScope2 := 0, "HRESULT")
+        result := ComCall(71, this, BSTR, bstrScopeName, "ptr*", &ppScope2 := 0, "HRESULT")
         return IAzScope2(ppScope2)
     }
 
@@ -95,7 +118,7 @@ class IAzApplication3 extends IAzApplication2 {
     CreateScope2(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(72, this, "ptr", bstrScopeName, "ptr*", &ppScope2 := 0, "HRESULT")
+        result := ComCall(72, this, BSTR, bstrScopeName, "ptr*", &ppScope2 := 0, "HRESULT")
         return IAzScope2(ppScope2)
     }
 
@@ -112,7 +135,7 @@ class IAzApplication3 extends IAzApplication2 {
     DeleteScope2(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(73, this, "ptr", bstrScopeName, "HRESULT")
+        result := ComCall(73, this, BSTR, bstrScopeName, "HRESULT")
         return result
     }
 
@@ -137,7 +160,7 @@ class IAzApplication3 extends IAzApplication2 {
     CreateRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
 
-        result := ComCall(75, this, "ptr", bstrRoleDefinitionName, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        result := ComCall(75, this, BSTR, bstrRoleDefinitionName, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
         return IAzRoleDefinition(ppRoleDefinitions)
     }
 
@@ -152,7 +175,7 @@ class IAzApplication3 extends IAzApplication2 {
     OpenRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
 
-        result := ComCall(76, this, "ptr", bstrRoleDefinitionName, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        result := ComCall(76, this, BSTR, bstrRoleDefinitionName, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
         return IAzRoleDefinition(ppRoleDefinitions)
     }
 
@@ -169,7 +192,7 @@ class IAzApplication3 extends IAzApplication2 {
     DeleteRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
 
-        result := ComCall(77, this, "ptr", bstrRoleDefinitionName, "HRESULT")
+        result := ComCall(77, this, BSTR, bstrRoleDefinitionName, "HRESULT")
         return result
     }
 
@@ -194,7 +217,7 @@ class IAzApplication3 extends IAzApplication2 {
     CreateRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
 
-        result := ComCall(79, this, "ptr", bstrRoleAssignmentName, "ptr*", &ppRoleAssignment := 0, "HRESULT")
+        result := ComCall(79, this, BSTR, bstrRoleAssignmentName, "ptr*", &ppRoleAssignment := 0, "HRESULT")
         return IAzRoleAssignment(ppRoleAssignment)
     }
 
@@ -209,7 +232,7 @@ class IAzApplication3 extends IAzApplication2 {
     OpenRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
 
-        result := ComCall(80, this, "ptr", bstrRoleAssignmentName, "ptr*", &ppRoleAssignment := 0, "HRESULT")
+        result := ComCall(80, this, BSTR, bstrRoleAssignmentName, "ptr*", &ppRoleAssignment := 0, "HRESULT")
         return IAzRoleAssignment(ppRoleAssignment)
     }
 
@@ -226,7 +249,7 @@ class IAzApplication3 extends IAzApplication2 {
     DeleteRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
 
-        result := ComCall(81, this, "ptr", bstrRoleAssignmentName, "HRESULT")
+        result := ComCall(81, this, BSTR, bstrRoleAssignmentName, "HRESULT")
         return result
     }
 
@@ -236,7 +259,7 @@ class IAzApplication3 extends IAzApplication2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-get_bizrulesenabled
      */
     get_BizRulesEnabled() {
-        result := ComCall(82, this, "short*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(82, this, VARIANT_BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 
@@ -247,7 +270,53 @@ class IAzApplication3 extends IAzApplication2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-put_bizrulesenabled
      */
     put_BizRulesEnabled(bEnabled) {
-        result := ComCall(83, this, "short", bEnabled, "HRESULT")
+        result := ComCall(83, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAzApplication3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ScopeExists := CallbackCreate(GetMethod(implObj, "ScopeExists"), flags, 3)
+        this.vtbl.OpenScope2 := CallbackCreate(GetMethod(implObj, "OpenScope2"), flags, 3)
+        this.vtbl.CreateScope2 := CallbackCreate(GetMethod(implObj, "CreateScope2"), flags, 3)
+        this.vtbl.DeleteScope2 := CallbackCreate(GetMethod(implObj, "DeleteScope2"), flags, 2)
+        this.vtbl.get_RoleDefinitions := CallbackCreate(GetMethod(implObj, "get_RoleDefinitions"), flags, 2)
+        this.vtbl.CreateRoleDefinition := CallbackCreate(GetMethod(implObj, "CreateRoleDefinition"), flags, 3)
+        this.vtbl.OpenRoleDefinition := CallbackCreate(GetMethod(implObj, "OpenRoleDefinition"), flags, 3)
+        this.vtbl.DeleteRoleDefinition := CallbackCreate(GetMethod(implObj, "DeleteRoleDefinition"), flags, 2)
+        this.vtbl.get_RoleAssignments := CallbackCreate(GetMethod(implObj, "get_RoleAssignments"), flags, 2)
+        this.vtbl.CreateRoleAssignment := CallbackCreate(GetMethod(implObj, "CreateRoleAssignment"), flags, 3)
+        this.vtbl.OpenRoleAssignment := CallbackCreate(GetMethod(implObj, "OpenRoleAssignment"), flags, 3)
+        this.vtbl.DeleteRoleAssignment := CallbackCreate(GetMethod(implObj, "DeleteRoleAssignment"), flags, 2)
+        this.vtbl.get_BizRulesEnabled := CallbackCreate(GetMethod(implObj, "get_BizRulesEnabled"), flags, 2)
+        this.vtbl.put_BizRulesEnabled := CallbackCreate(GetMethod(implObj, "put_BizRulesEnabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ScopeExists)
+        CallbackFree(this.vtbl.OpenScope2)
+        CallbackFree(this.vtbl.CreateScope2)
+        CallbackFree(this.vtbl.DeleteScope2)
+        CallbackFree(this.vtbl.get_RoleDefinitions)
+        CallbackFree(this.vtbl.CreateRoleDefinition)
+        CallbackFree(this.vtbl.OpenRoleDefinition)
+        CallbackFree(this.vtbl.DeleteRoleDefinition)
+        CallbackFree(this.vtbl.get_RoleAssignments)
+        CallbackFree(this.vtbl.CreateRoleAssignment)
+        CallbackFree(this.vtbl.OpenRoleAssignment)
+        CallbackFree(this.vtbl.DeleteRoleAssignment)
+        CallbackFree(this.vtbl.get_BizRulesEnabled)
+        CallbackFree(this.vtbl.put_BizRulesEnabled)
     }
 }

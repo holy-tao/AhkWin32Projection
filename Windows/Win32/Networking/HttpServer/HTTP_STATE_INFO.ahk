@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
-#Include .\HTTP_ENABLED_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
+#Import ".\HTTP_ENABLED_STATE.ahk" { HTTP_ENABLED_STATE }
 
 /**
  * Used to enable or disable a Server Session or URL Group.
@@ -10,31 +9,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_state_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_STATE_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct HTTP_STATE_INFO {
+    #StructPack 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure specifying whether the property is present.
-     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : HTTP_PROPERTY_FLAGS
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_enabled_state">HTTP_ENABLED_STATE</a> enumeration specifying the whether the configuration object is enabled or disabled.
      * 
      * This can be used to disable a URL Group or Server Session.
-     * @type {HTTP_ENABLED_STATE}
      */
-    State {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    State : HTTP_ENABLED_STATE
+
 }

@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KTRIAGE_DUMP_DATA_ARRAY extends Win32Struct {
-    static sizeof => 48
+export default struct KTRIAGE_DUMP_DATA_ARRAY {
+    #StructPack 8
 
-    static packingSize => 8
+    List : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    List {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NumBlocksUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumBlocksUsed {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumBlocksTotal : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumBlocksTotal {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxDataSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ComponentNameBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ComponentNameBufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ComponentName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ComponentName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Blocks : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Blocks {
-        get {
-            if(!this.HasProp("__BlocksProxyArray"))
-                this.__BlocksProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "ptr")
-            return this.__BlocksProxyArray
-        }
-    }
 }

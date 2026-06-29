@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the intersecting areas of geometries or figures are combined to form the area of the composite geometry.
@@ -28,7 +27,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  */
-class D2D1_FILL_MODE extends Win32Enum {
+export default struct D2D1_FILL_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Determines whether a point is in the fill region by drawing a ray from that point to infinity in any direction, and then counting the number of path segments within the given shape that the ray crosses. If this number is odd, the point is in the fill region; if even, the point is outside the fill region.

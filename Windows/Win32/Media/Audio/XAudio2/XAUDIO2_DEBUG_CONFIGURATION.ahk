@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains the new global debug configuration for XAudio2. Used with the SetDebugConfiguration function.
@@ -13,10 +13,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_debug_configuration
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct XAUDIO2_DEBUG_CONFIGURATION {
+    #StructPack 4
 
     /**
      * Bitmask of enabled debug message types. Can be 0 or one or more of the following:
@@ -76,12 +74,8 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct {
      * <td>Log audio streaming information. </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    TraceMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TraceMask : UInt32
 
     /**
      * Message types that will cause an immediate break. Can be 0 or one of the following:
@@ -103,46 +97,27 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    BreakMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BreakMask : UInt32
 
     /**
      * Indicates whether to log the thread ID with each message.
-     * @type {BOOL}
      */
-    LogThreadID {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    LogThreadID : BOOL
 
     /**
      * Indicates whether to log source files and line numbers.
-     * @type {BOOL}
      */
-    LogFileline {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    LogFileline : BOOL
 
     /**
      * Indicates whether to log function names.
-     * @type {BOOL}
      */
-    LogFunctionName {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    LogFunctionName : BOOL
 
     /**
      * Indicates whether to log message timestamps.
-     * @type {BOOL}
      */
-    LogTiming {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    LogTiming : BOOL
+
 }

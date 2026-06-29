@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BLENDFUNCTION structure controls blending by specifying the blending functions for source and destination bitmaps.
@@ -119,37 +118,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-blendfunction
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class BLENDFUNCTION extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 1
+export default struct BLENDFUNCTION {
+    #StructPack 1
 
     /**
      * The source blend operation. Currently, the only source and destination blend operation that has been defined is AC_SRC_OVER. For details, see the following Remarks section.
-     * @type {Integer}
      */
-    BlendOp {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    BlendOp : Int8
 
     /**
      * Must be zero.
-     * @type {Integer}
      */
-    BlendFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    BlendFlags : Int8
 
     /**
      * Specifies an alpha transparency value to be used on the entire source bitmap. The <b>SourceConstantAlpha</b> value is combined with any per-pixel alpha values in the source bitmap. If you set <b>SourceConstantAlpha</b> to 0, it is assumed that your image is transparent. Set the <b>SourceConstantAlpha</b> value to 255 (opaque) when you only want to use per-pixel alpha values.
-     * @type {Integer}
      */
-    SourceConstantAlpha {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    SourceConstantAlpha : Int8
 
     /**
      * This member controls the way the source and destination bitmaps are interpreted. <b>AlphaFormat</b> has the following value.
@@ -164,10 +149,7 @@ class BLENDFUNCTION extends Win32Struct {
      * <td>This flag is set when the bitmap has an Alpha channel (that is, per-pixel alpha). Note that the APIs use premultiplied alpha, which means that the red, green and blue channel values in the bitmap must be premultiplied with the alpha channel value. For example, if the alpha channel value is x, the red, green and blue channels must be multiplied by x and divided by 0xff prior to the call.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AlphaFormat {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    AlphaFormat : Int8
+
 }

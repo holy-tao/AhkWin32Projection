@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IOCSPProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOCSPProperty.ahk" { IOCSPProperty }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a set of configurable attribute properties (name-value pairs) for an Online Certificate Status Protocol (OCSP) service.
@@ -27,32 +29,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocsppropertycollection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IOCSPPropertyCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IOCSPPropertyCollection extends IDispatch {
     /**
      * The interface identifier for IOCSPPropertyCollection
      * @type {Guid}
      */
-    static IID => Guid("{2597c18d-54e6-4b74-9fa9-a6bfda99cbbe}")
+    static IID := Guid("{2597c18d-54e6-4b74-9fa9-a6bfda99cbbe}")
 
     /**
      * The class identifier for OCSPPropertyCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{f935a528-ba8a-4dd9-ba79-f283275cb2de}")
+    static CLSID := Guid("{f935a528-ba8a-4dd9-ba79-f283275cb2de}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOCSPPropertyCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum             : IntPtr
+        get_Item                 : IntPtr
+        get_Count                : IntPtr
+        get_ItemByName           : IntPtr
+        CreateProperty           : IntPtr
+        DeleteProperty           : IntPtr
+        InitializeFromProperties : IntPtr
+        GetAllProperties         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_ItemByName", "CreateProperty", "DeleteProperty", "InitializeFromProperties", "GetAllProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOCSPPropertyCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -86,7 +102,7 @@ class IOCSPPropertyCollection extends IDispatch {
      */
     get_Item(Index) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -110,7 +126,7 @@ class IOCSPPropertyCollection extends IDispatch {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
         pVal := VARIANT()
-        result := ComCall(10, this, "ptr", bstrPropName, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrPropName, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -133,7 +149,7 @@ class IOCSPPropertyCollection extends IDispatch {
     CreateProperty(bstrPropName, pVarPropValue) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(11, this, "ptr", bstrPropName, "ptr", pVarPropValue, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrPropName, VARIANT.Ptr, pVarPropValue, "ptr*", &ppVal := 0, "HRESULT")
         return IOCSPProperty(ppVal)
     }
 
@@ -146,7 +162,7 @@ class IOCSPPropertyCollection extends IDispatch {
     DeleteProperty(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(12, this, "ptr", bstrPropName, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrPropName, "HRESULT")
         return result
     }
 
@@ -180,7 +196,7 @@ class IOCSPPropertyCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-initializefromproperties
      */
     InitializeFromProperties(pVarProperties) {
-        result := ComCall(13, this, "ptr", pVarProperties, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pVarProperties, "HRESULT")
         return result
     }
 
@@ -193,7 +209,41 @@ class IOCSPPropertyCollection extends IDispatch {
      */
     GetAllProperties() {
         pVarProperties := VARIANT()
-        result := ComCall(14, this, "ptr", pVarProperties, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, pVarProperties, "HRESULT")
         return pVarProperties
+    }
+
+    Query(iid) {
+        if (IOCSPPropertyCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_ItemByName := CallbackCreate(GetMethod(implObj, "get_ItemByName"), flags, 3)
+        this.vtbl.CreateProperty := CallbackCreate(GetMethod(implObj, "CreateProperty"), flags, 4)
+        this.vtbl.DeleteProperty := CallbackCreate(GetMethod(implObj, "DeleteProperty"), flags, 2)
+        this.vtbl.InitializeFromProperties := CallbackCreate(GetMethod(implObj, "InitializeFromProperties"), flags, 2)
+        this.vtbl.GetAllProperties := CallbackCreate(GetMethod(implObj, "GetAllProperties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_ItemByName)
+        CallbackFree(this.vtbl.CreateProperty)
+        CallbackFree(this.vtbl.DeleteProperty)
+        CallbackFree(this.vtbl.InitializeFromProperties)
+        CallbackFree(this.vtbl.GetAllProperties)
     }
 }

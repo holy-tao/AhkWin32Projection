@@ -1,42 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDot11AdHocNetwork.ahk
-#Include .\IEnumDot11AdHocNetworks.ahk
-#Include .\IEnumDot11AdHocInterfaces.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDot11AdHocSecuritySettings.ahk" { IDot11AdHocSecuritySettings }
+#Import ".\IEnumDot11AdHocInterfaces.ahk" { IEnumDot11AdHocInterfaces }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumDot11AdHocNetworks.ahk" { IEnumDot11AdHocNetworks }
 
 /**
  * Creates and manages 802.11 ad hoc networks.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocmanager
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class IDot11AdHocManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDot11AdHocManager extends IUnknown {
     /**
      * The interface identifier for IDot11AdHocManager
      * @type {Guid}
      */
-    static IID => Guid("{8f10cc26-cf0d-42a0-acbe-e2de7007384d}")
+    static IID := Guid("{8f10cc26-cf0d-42a0-acbe-e2de7007384d}")
 
     /**
      * The class identifier for Dot11AdHocManager
      * @type {Guid}
      */
-    static CLSID => Guid("{dd06a84f-83bd-4d01-8ab9-2389fea0869e}")
+    static CLSID := Guid("{dd06a84f-83bd-4d01-8ab9-2389fea0869e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDot11AdHocManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateNetwork                : IntPtr
+        CommitCreatedNetwork         : IntPtr
+        GetIEnumDot11AdHocNetworks   : IntPtr
+        GetIEnumDot11AdHocInterfaces : IntPtr
+        GetNetwork                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateNetwork", "CommitCreatedNetwork", "GetIEnumDot11AdHocNetworks", "GetIEnumDot11AdHocInterfaces", "GetNetwork"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDot11AdHocManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a wireless ad hoc network.
@@ -85,7 +101,7 @@ class IDot11AdHocManager extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(3, this, "ptr", Name, "ptr", Password, "int", GeographicalId, "ptr", pInterface, "ptr", pSecurity, "ptr", pContextGuid, "ptr*", &pIAdHoc := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", Name, "ptr", Password, "int", GeographicalId, "ptr", pInterface, "ptr", pSecurity, Guid.Ptr, pContextGuid, "ptr*", &pIAdHoc := 0, "HRESULT")
         return IDot11AdHocNetwork(pIAdHoc)
     }
 
@@ -177,7 +193,7 @@ class IDot11AdHocManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-commitcreatednetwork
      */
     CommitCreatedNetwork(pIAdHoc, fSaveProfile, fMakeSavedProfileUserSpecific) {
-        result := ComCall(4, this, "ptr", pIAdHoc, "char", fSaveProfile, "char", fMakeSavedProfileUserSpecific, "HRESULT")
+        result := ComCall(4, this, "ptr", pIAdHoc, BOOLEAN, fSaveProfile, BOOLEAN, fMakeSavedProfileUserSpecific, "HRESULT")
         return result
     }
 
@@ -188,7 +204,7 @@ class IDot11AdHocManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocnetworks
      */
     GetIEnumDot11AdHocNetworks(pContextGuid) {
-        result := ComCall(5, this, "ptr", pContextGuid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pContextGuid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumDot11AdHocNetworks(ppEnum)
     }
 
@@ -209,7 +225,35 @@ class IDot11AdHocManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getnetwork
      */
     GetNetwork(NetworkSignature) {
-        result := ComCall(7, this, "ptr", NetworkSignature, "ptr*", &pNetwork := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, NetworkSignature, "ptr*", &pNetwork := 0, "HRESULT")
         return IDot11AdHocNetwork(pNetwork)
+    }
+
+    Query(iid) {
+        if (IDot11AdHocManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateNetwork := CallbackCreate(GetMethod(implObj, "CreateNetwork"), flags, 8)
+        this.vtbl.CommitCreatedNetwork := CallbackCreate(GetMethod(implObj, "CommitCreatedNetwork"), flags, 4)
+        this.vtbl.GetIEnumDot11AdHocNetworks := CallbackCreate(GetMethod(implObj, "GetIEnumDot11AdHocNetworks"), flags, 3)
+        this.vtbl.GetIEnumDot11AdHocInterfaces := CallbackCreate(GetMethod(implObj, "GetIEnumDot11AdHocInterfaces"), flags, 2)
+        this.vtbl.GetNetwork := CallbackCreate(GetMethod(implObj, "GetNetwork"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateNetwork)
+        CallbackFree(this.vtbl.CommitCreatedNetwork)
+        CallbackFree(this.vtbl.GetIEnumDot11AdHocNetworks)
+        CallbackFree(this.vtbl.GetIEnumDot11AdHocInterfaces)
+        CallbackFree(this.vtbl.GetNetwork)
     }
 }

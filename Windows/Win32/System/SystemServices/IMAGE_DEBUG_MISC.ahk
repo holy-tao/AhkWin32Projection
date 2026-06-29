@@ -1,57 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_DEBUG_MISC extends Win32Struct {
-    static sizeof => 16
+export default struct IMAGE_DEBUG_MISC {
+    #StructPack 4
 
-    static packingSize => 4
+    DataType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Unicode : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Unicode {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

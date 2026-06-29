@@ -1,12 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextFont.ahk
-#Include .\ITextPara.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITextPara.ahk" { ITextPara }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextFont.ahk" { ITextFont }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.
@@ -160,26 +162,83 @@
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextRange extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextRange extends IDispatch {
     /**
      * The interface identifier for ITextRange
      * @type {Guid}
      */
-    static IID => Guid("{8cc497c2-a1df-11ce-8098-00aa0047be5d}")
+    static IID := Guid("{8cc497c2-a1df-11ce-8098-00aa0047be5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextRange interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetText           : IntPtr
+        SetText           : IntPtr
+        GetChar           : IntPtr
+        SetChar           : IntPtr
+        GetDuplicate      : IntPtr
+        GetFormattedText  : IntPtr
+        SetFormattedText  : IntPtr
+        GetStart          : IntPtr
+        SetStart          : IntPtr
+        GetEnd            : IntPtr
+        SetEnd            : IntPtr
+        GetFont           : IntPtr
+        SetFont           : IntPtr
+        GetPara           : IntPtr
+        SetPara           : IntPtr
+        GetStoryLength    : IntPtr
+        GetStoryType      : IntPtr
+        Collapse          : IntPtr
+        Expand            : IntPtr
+        GetIndex          : IntPtr
+        SetIndex          : IntPtr
+        SetRange          : IntPtr
+        InRange           : IntPtr
+        InStory           : IntPtr
+        IsEqual           : IntPtr
+        Select            : IntPtr
+        StartOf           : IntPtr
+        EndOf             : IntPtr
+        Move              : IntPtr
+        MoveStart         : IntPtr
+        MoveEnd           : IntPtr
+        MoveWhile         : IntPtr
+        MoveStartWhile    : IntPtr
+        MoveEndWhile      : IntPtr
+        MoveUntil         : IntPtr
+        MoveStartUntil    : IntPtr
+        MoveEndUntil      : IntPtr
+        FindText          : IntPtr
+        FindTextStart     : IntPtr
+        FindTextEnd       : IntPtr
+        Delete            : IntPtr
+        Cut               : IntPtr
+        Copy              : IntPtr
+        Paste             : IntPtr
+        CanPaste          : IntPtr
+        CanEdit           : IntPtr
+        ChangeCase        : IntPtr
+        GetPoint          : IntPtr
+        SetPoint          : IntPtr
+        ScrollIntoView    : IntPtr
+        GetEmbeddedObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetText", "SetText", "GetChar", "SetChar", "GetDuplicate", "GetFormattedText", "SetFormattedText", "GetStart", "SetStart", "GetEnd", "SetEnd", "GetFont", "SetFont", "GetPara", "SetPara", "GetStoryLength", "GetStoryType", "Collapse", "Expand", "GetIndex", "SetIndex", "SetRange", "InRange", "InStory", "IsEqual", "Select", "StartOf", "EndOf", "Move", "MoveStart", "MoveEnd", "MoveWhile", "MoveStartWhile", "MoveEndWhile", "MoveUntil", "MoveStartUntil", "MoveEndUntil", "FindText", "FindTextStart", "FindTextEnd", "Delete", "Cut", "Copy", "Paste", "CanPaste", "CanEdit", "ChangeCase", "GetPoint", "SetPoint", "ScrollIntoView", "GetEmbeddedObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the plain text in this range. The Text property is the default property of the ITextRange interface.
@@ -209,8 +268,8 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-gettext
      */
     GetText() {
-        pbstr := BSTR()
-        result := ComCall(7, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -271,7 +330,7 @@ class ITextRange extends IDispatch {
     SetText(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(8, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(8, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -1220,7 +1279,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movewhile
      */
     MoveWhile(Cset, Count) {
-        result := ComCall(38, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1244,7 +1303,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestartwhile
      */
     MoveStartWhile(Cset, Count) {
-        result := ComCall(39, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1268,7 +1327,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveendwhile
      */
     MoveEndWhile(Cset, Count) {
-        result := ComCall(40, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(40, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1331,7 +1390,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveuntil
      */
     MoveUntil(Cset, Count) {
-        result := ComCall(41, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1359,7 +1418,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestartuntil
      */
     MoveStartUntil(Cset, Count) {
-        result := ComCall(42, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1383,7 +1442,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveenduntil
      */
     MoveEndUntil(Cset, Count) {
-        result := ComCall(43, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1527,7 +1586,7 @@ class ITextRange extends IDispatch {
     FindText(_bstr, Count, Flags) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(44, this, "ptr", _bstr, "int", Count, "int", Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(44, this, BSTR, _bstr, "int", Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
         return pLength
     }
 
@@ -1564,7 +1623,7 @@ class ITextRange extends IDispatch {
     FindTextStart(_bstr, Count, Flags) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(45, this, "ptr", _bstr, "int", Count, "int", Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(45, this, BSTR, _bstr, "int", Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
         return pLength
     }
 
@@ -1603,7 +1662,7 @@ class ITextRange extends IDispatch {
     FindTextEnd(_bstr, Count, Flags) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(46, this, "ptr", _bstr, "int", Count, "int", Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(46, this, BSTR, _bstr, "int", Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
         return pLength
     }
 
@@ -1684,7 +1743,7 @@ class ITextRange extends IDispatch {
      */
     Cut() {
         pVar := VARIANT()
-        result := ComCall(48, this, "ptr", pVar, "HRESULT")
+        result := ComCall(48, this, VARIANT.Ptr, pVar, "HRESULT")
         return pVar
     }
 
@@ -1719,7 +1778,7 @@ class ITextRange extends IDispatch {
      */
     Copy() {
         pVar := VARIANT()
-        result := ComCall(49, this, "ptr", pVar, "HRESULT")
+        result := ComCall(49, this, VARIANT.Ptr, pVar, "HRESULT")
         return pVar
     }
 
@@ -1777,7 +1836,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-paste
      */
     Paste(pVar, Format) {
-        result := ComCall(50, this, "ptr", pVar, "int", Format, "HRESULT")
+        result := ComCall(50, this, VARIANT.Ptr, pVar, "int", Format, "HRESULT")
         return result
     }
 
@@ -1806,7 +1865,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-canpaste
      */
     CanPaste(pVar, Format) {
-        result := ComCall(51, this, "ptr", pVar, "int", Format, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(51, this, VARIANT.Ptr, pVar, "int", Format, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1903,7 +1962,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-changecase
      */
     ChangeCase(Type) {
-        result := ComCall(53, this, "int", Type, "HRESULT")
+        result := ComCall(53, this, tomConstants, Type, "HRESULT")
         return result
     }
 
@@ -1962,7 +2021,7 @@ class ITextRange extends IDispatch {
         pxMarshal := px is VarRef ? "int*" : "ptr"
         pyMarshal := py is VarRef ? "int*" : "ptr"
 
-        result := ComCall(54, this, "int", Type, pxMarshal, px, pyMarshal, py, "HRESULT")
+        result := ComCall(54, this, tomConstants, Type, pxMarshal, px, pyMarshal, py, "HRESULT")
         return result
     }
 
@@ -2000,7 +2059,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setpoint
      */
     SetPoint(x, y, Type, Extend) {
-        result := ComCall(55, this, "int", x, "int", y, "int", Type, "int", Extend, "HRESULT")
+        result := ComCall(55, this, "int", x, "int", y, tomConstants, Type, "int", Extend, "HRESULT")
         return result
     }
 
@@ -2072,5 +2131,125 @@ class ITextRange extends IDispatch {
     GetEmbeddedObject() {
         result := ComCall(57, this, "ptr*", &ppObject := 0, "HRESULT")
         return IUnknown(ppObject)
+    }
+
+    Query(iid) {
+        if (ITextRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 2)
+        this.vtbl.GetChar := CallbackCreate(GetMethod(implObj, "GetChar"), flags, 2)
+        this.vtbl.SetChar := CallbackCreate(GetMethod(implObj, "SetChar"), flags, 2)
+        this.vtbl.GetDuplicate := CallbackCreate(GetMethod(implObj, "GetDuplicate"), flags, 2)
+        this.vtbl.GetFormattedText := CallbackCreate(GetMethod(implObj, "GetFormattedText"), flags, 2)
+        this.vtbl.SetFormattedText := CallbackCreate(GetMethod(implObj, "SetFormattedText"), flags, 2)
+        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 2)
+        this.vtbl.SetStart := CallbackCreate(GetMethod(implObj, "SetStart"), flags, 2)
+        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 2)
+        this.vtbl.SetEnd := CallbackCreate(GetMethod(implObj, "SetEnd"), flags, 2)
+        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 2)
+        this.vtbl.SetFont := CallbackCreate(GetMethod(implObj, "SetFont"), flags, 2)
+        this.vtbl.GetPara := CallbackCreate(GetMethod(implObj, "GetPara"), flags, 2)
+        this.vtbl.SetPara := CallbackCreate(GetMethod(implObj, "SetPara"), flags, 2)
+        this.vtbl.GetStoryLength := CallbackCreate(GetMethod(implObj, "GetStoryLength"), flags, 2)
+        this.vtbl.GetStoryType := CallbackCreate(GetMethod(implObj, "GetStoryType"), flags, 2)
+        this.vtbl.Collapse := CallbackCreate(GetMethod(implObj, "Collapse"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 3)
+        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 3)
+        this.vtbl.SetIndex := CallbackCreate(GetMethod(implObj, "SetIndex"), flags, 4)
+        this.vtbl.SetRange := CallbackCreate(GetMethod(implObj, "SetRange"), flags, 3)
+        this.vtbl.InRange := CallbackCreate(GetMethod(implObj, "InRange"), flags, 3)
+        this.vtbl.InStory := CallbackCreate(GetMethod(implObj, "InStory"), flags, 3)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 1)
+        this.vtbl.StartOf := CallbackCreate(GetMethod(implObj, "StartOf"), flags, 4)
+        this.vtbl.EndOf := CallbackCreate(GetMethod(implObj, "EndOf"), flags, 4)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+        this.vtbl.MoveStart := CallbackCreate(GetMethod(implObj, "MoveStart"), flags, 4)
+        this.vtbl.MoveEnd := CallbackCreate(GetMethod(implObj, "MoveEnd"), flags, 4)
+        this.vtbl.MoveWhile := CallbackCreate(GetMethod(implObj, "MoveWhile"), flags, 4)
+        this.vtbl.MoveStartWhile := CallbackCreate(GetMethod(implObj, "MoveStartWhile"), flags, 4)
+        this.vtbl.MoveEndWhile := CallbackCreate(GetMethod(implObj, "MoveEndWhile"), flags, 4)
+        this.vtbl.MoveUntil := CallbackCreate(GetMethod(implObj, "MoveUntil"), flags, 4)
+        this.vtbl.MoveStartUntil := CallbackCreate(GetMethod(implObj, "MoveStartUntil"), flags, 4)
+        this.vtbl.MoveEndUntil := CallbackCreate(GetMethod(implObj, "MoveEndUntil"), flags, 4)
+        this.vtbl.FindText := CallbackCreate(GetMethod(implObj, "FindText"), flags, 5)
+        this.vtbl.FindTextStart := CallbackCreate(GetMethod(implObj, "FindTextStart"), flags, 5)
+        this.vtbl.FindTextEnd := CallbackCreate(GetMethod(implObj, "FindTextEnd"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 4)
+        this.vtbl.Cut := CallbackCreate(GetMethod(implObj, "Cut"), flags, 2)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 2)
+        this.vtbl.Paste := CallbackCreate(GetMethod(implObj, "Paste"), flags, 3)
+        this.vtbl.CanPaste := CallbackCreate(GetMethod(implObj, "CanPaste"), flags, 4)
+        this.vtbl.CanEdit := CallbackCreate(GetMethod(implObj, "CanEdit"), flags, 2)
+        this.vtbl.ChangeCase := CallbackCreate(GetMethod(implObj, "ChangeCase"), flags, 2)
+        this.vtbl.GetPoint := CallbackCreate(GetMethod(implObj, "GetPoint"), flags, 4)
+        this.vtbl.SetPoint := CallbackCreate(GetMethod(implObj, "SetPoint"), flags, 5)
+        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 2)
+        this.vtbl.GetEmbeddedObject := CallbackCreate(GetMethod(implObj, "GetEmbeddedObject"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.SetText)
+        CallbackFree(this.vtbl.GetChar)
+        CallbackFree(this.vtbl.SetChar)
+        CallbackFree(this.vtbl.GetDuplicate)
+        CallbackFree(this.vtbl.GetFormattedText)
+        CallbackFree(this.vtbl.SetFormattedText)
+        CallbackFree(this.vtbl.GetStart)
+        CallbackFree(this.vtbl.SetStart)
+        CallbackFree(this.vtbl.GetEnd)
+        CallbackFree(this.vtbl.SetEnd)
+        CallbackFree(this.vtbl.GetFont)
+        CallbackFree(this.vtbl.SetFont)
+        CallbackFree(this.vtbl.GetPara)
+        CallbackFree(this.vtbl.SetPara)
+        CallbackFree(this.vtbl.GetStoryLength)
+        CallbackFree(this.vtbl.GetStoryType)
+        CallbackFree(this.vtbl.Collapse)
+        CallbackFree(this.vtbl.Expand)
+        CallbackFree(this.vtbl.GetIndex)
+        CallbackFree(this.vtbl.SetIndex)
+        CallbackFree(this.vtbl.SetRange)
+        CallbackFree(this.vtbl.InRange)
+        CallbackFree(this.vtbl.InStory)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.Select)
+        CallbackFree(this.vtbl.StartOf)
+        CallbackFree(this.vtbl.EndOf)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.MoveStart)
+        CallbackFree(this.vtbl.MoveEnd)
+        CallbackFree(this.vtbl.MoveWhile)
+        CallbackFree(this.vtbl.MoveStartWhile)
+        CallbackFree(this.vtbl.MoveEndWhile)
+        CallbackFree(this.vtbl.MoveUntil)
+        CallbackFree(this.vtbl.MoveStartUntil)
+        CallbackFree(this.vtbl.MoveEndUntil)
+        CallbackFree(this.vtbl.FindText)
+        CallbackFree(this.vtbl.FindTextStart)
+        CallbackFree(this.vtbl.FindTextEnd)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Cut)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Paste)
+        CallbackFree(this.vtbl.CanPaste)
+        CallbackFree(this.vtbl.CanEdit)
+        CallbackFree(this.vtbl.ChangeCase)
+        CallbackFree(this.vtbl.GetPoint)
+        CallbackFree(this.vtbl.SetPoint)
+        CallbackFree(this.vtbl.ScrollIntoView)
+        CallbackFree(this.vtbl.GetEmbeddedObject)
     }
 }

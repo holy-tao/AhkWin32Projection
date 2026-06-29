@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Gdi\HDC.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CHANGESURFACEPOINTER extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_CHANGESURFACEPOINTER {
+    #StructPack 8
 
-    static packingSize => 8
+    hDC : HDC
 
-    /**
-     * @type {HDC}
-     */
-    hDC {
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(0, this)
-            return this.__hDC
-        }
-    }
+    hBitmap : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hBitmap {
-        get {
-            if(!this.HasProp("__hBitmap"))
-                this.__hBitmap := HANDLE(8, this)
-            return this.__hBitmap
-        }
-    }
+    pSurfacePointer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pSurfacePointer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Pitch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pitch {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

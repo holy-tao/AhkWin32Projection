@@ -1,40 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
-#Include .\IInkExtendedProperties.ahk
-#Include .\IInkCustomStrokes.ahk
-#Include .\IInkRectangle.ahk
-#Include .\IInkStrokeDisp.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDataObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkClipboardFormats.ahk" { InkClipboardFormats }
+#Import ".\InkExtractFlags.ahk" { InkExtractFlags }
+#Import ".\InkPersistenceCompressionMode.ahk" { InkPersistenceCompressionMode }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\InkClipboardModes.ahk" { InkClipboardModes }
+#Import ".\InkPersistenceFormat.ahk" { InkPersistenceFormat }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkCustomStrokes.ahk" { IInkCustomStrokes }
+#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
+#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IInkDisp)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkdisp
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkDisp extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkDisp extends IDispatch {
     /**
      * The interface identifier for IInkDisp
      * @type {Guid}
      */
-    static IID => Guid("{9d398fa0-c4e2-4fcd-9973-975caaf47ea6}")
+    static IID := Guid("{9d398fa0-c4e2-4fcd-9973-975caaf47ea6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkDisp interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Strokes                : IntPtr
+        get_ExtendedProperties     : IntPtr
+        get_Dirty                  : IntPtr
+        put_Dirty                  : IntPtr
+        get_CustomStrokes          : IntPtr
+        GetBoundingBox             : IntPtr
+        DeleteStrokes              : IntPtr
+        DeleteStroke               : IntPtr
+        ExtractStrokes             : IntPtr
+        ExtractWithRectangle       : IntPtr
+        Clip                       : IntPtr
+        Clone                      : IntPtr
+        HitTestCircle              : IntPtr
+        HitTestWithRectangle       : IntPtr
+        HitTestWithLasso           : IntPtr
+        NearestPoint               : IntPtr
+        CreateStrokes              : IntPtr
+        AddStrokesAtRectangle      : IntPtr
+        Save                       : IntPtr
+        Load                       : IntPtr
+        CreateStroke               : IntPtr
+        ClipboardCopyWithRectangle : IntPtr
+        ClipboardCopy              : IntPtr
+        CanPaste                   : IntPtr
+        ClipboardPaste             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Strokes", "get_ExtendedProperties", "get_Dirty", "put_Dirty", "get_CustomStrokes", "GetBoundingBox", "DeleteStrokes", "DeleteStroke", "ExtractStrokes", "ExtractWithRectangle", "Clip", "Clone", "HitTestCircle", "HitTestWithRectangle", "HitTestWithLasso", "NearestPoint", "CreateStrokes", "AddStrokesAtRectangle", "Save", "Load", "CreateStroke", "ClipboardCopyWithRectangle", "ClipboardCopy", "CanPaste", "ClipboardPaste"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkDisp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IInkStrokes} 
@@ -100,7 +139,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_dirty
      */
     get_Dirty() {
-        result := ComCall(9, this, "short*", &Dirty := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &Dirty := 0, "HRESULT")
         return Dirty
     }
 
@@ -113,7 +152,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-put_dirty
      */
     put_Dirty(Dirty) {
-        result := ComCall(10, this, "short", Dirty, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, Dirty, "HRESULT")
         return result
     }
 
@@ -146,7 +185,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-getboundingbox
      */
     GetBoundingBox(BoundingBoxMode) {
-        result := ComCall(12, this, "int", BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(12, this, InkBoundingBoxMode, BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
         return IInkRectangle(Rectangle)
     }
 
@@ -347,7 +386,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-extractstrokes
      */
     ExtractStrokes(Strokes, ExtractFlags) {
-        result := ComCall(15, this, "ptr", Strokes, "int", ExtractFlags, "ptr*", &ExtractedInk := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", Strokes, InkExtractFlags, ExtractFlags, "ptr*", &ExtractedInk := 0, "HRESULT")
         return IInkDisp(ExtractedInk)
     }
 
@@ -369,7 +408,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-extractwithrectangle
      */
     ExtractWithRectangle(Rectangle, extractFlags) {
-        result := ComCall(16, this, "ptr", Rectangle, "int", extractFlags, "ptr*", &ExtractedInk := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", Rectangle, InkExtractFlags, extractFlags, "ptr*", &ExtractedInk := 0, "HRESULT")
         return IInkDisp(ExtractedInk)
     }
 
@@ -532,7 +571,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestwithlasso
      */
     HitTestWithLasso(_Points, IntersectPercent, LassoPoints) {
-        result := ComCall(21, this, "ptr", _Points, "float", IntersectPercent, "ptr", LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT, _Points, "float", IntersectPercent, VARIANT.Ptr, LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 
@@ -568,7 +607,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-createstrokes
      */
     CreateStrokes(StrokeIds) {
-        result := ComCall(23, this, "ptr", StrokeIds, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT, StrokeIds, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 
@@ -779,7 +818,7 @@ class IInkDisp extends IDispatch {
      */
     Save(PersistenceFormat, CompressionMode) {
         Data := VARIANT()
-        result := ComCall(25, this, "int", PersistenceFormat, "int", CompressionMode, "ptr", Data, "HRESULT")
+        result := ComCall(25, this, InkPersistenceFormat, PersistenceFormat, InkPersistenceCompressionMode, CompressionMode, VARIANT.Ptr, Data, "HRESULT")
         return Data
     }
 
@@ -863,7 +902,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-load
      */
     Load(Data) {
-        result := ComCall(26, this, "ptr", Data, "HRESULT")
+        result := ComCall(26, this, VARIANT, Data, "HRESULT")
         return result
     }
 
@@ -879,7 +918,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-createstroke
      */
     CreateStroke(PacketData, PacketDescription) {
-        result := ComCall(27, this, "ptr", PacketData, "ptr", PacketDescription, "ptr*", &Stroke := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT, PacketData, VARIANT, PacketDescription, "ptr*", &Stroke := 0, "HRESULT")
         return IInkStrokeDisp(Stroke)
     }
 
@@ -906,7 +945,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clipboardcopywithrectangle
      */
     ClipboardCopyWithRectangle(Rectangle, ClipboardFormats, ClipboardModes) {
-        result := ComCall(28, this, "ptr", Rectangle, "int", ClipboardFormats, "int", ClipboardModes, "ptr*", &DataObject := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", Rectangle, InkClipboardFormats, ClipboardFormats, InkClipboardModes, ClipboardModes, "ptr*", &DataObject := 0, "HRESULT")
         return IDataObject(DataObject)
     }
 
@@ -928,7 +967,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clipboardcopy
      */
     ClipboardCopy(strokes, ClipboardFormats, ClipboardModes) {
-        result := ComCall(29, this, "ptr", strokes, "int", ClipboardFormats, "int", ClipboardModes, "ptr*", &DataObject := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", strokes, InkClipboardFormats, ClipboardFormats, InkClipboardModes, ClipboardModes, "ptr*", &DataObject := 0, "HRESULT")
         return IDataObject(DataObject)
     }
 
@@ -941,7 +980,7 @@ class IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-canpaste
      */
     CanPaste(DataObject) {
-        result := ComCall(30, this, "ptr", DataObject, "short*", &CanPaste := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", DataObject, VARIANT_BOOL.Ptr, &CanPaste := 0, "HRESULT")
         return CanPaste
     }
 
@@ -958,5 +997,73 @@ class IInkDisp extends IDispatch {
     ClipboardPaste(x, y, DataObject) {
         result := ComCall(31, this, "int", x, "int", y, "ptr", DataObject, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
+    }
+
+    Query(iid) {
+        if (IInkDisp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.get_ExtendedProperties := CallbackCreate(GetMethod(implObj, "get_ExtendedProperties"), flags, 2)
+        this.vtbl.get_Dirty := CallbackCreate(GetMethod(implObj, "get_Dirty"), flags, 2)
+        this.vtbl.put_Dirty := CallbackCreate(GetMethod(implObj, "put_Dirty"), flags, 2)
+        this.vtbl.get_CustomStrokes := CallbackCreate(GetMethod(implObj, "get_CustomStrokes"), flags, 2)
+        this.vtbl.GetBoundingBox := CallbackCreate(GetMethod(implObj, "GetBoundingBox"), flags, 3)
+        this.vtbl.DeleteStrokes := CallbackCreate(GetMethod(implObj, "DeleteStrokes"), flags, 2)
+        this.vtbl.DeleteStroke := CallbackCreate(GetMethod(implObj, "DeleteStroke"), flags, 2)
+        this.vtbl.ExtractStrokes := CallbackCreate(GetMethod(implObj, "ExtractStrokes"), flags, 4)
+        this.vtbl.ExtractWithRectangle := CallbackCreate(GetMethod(implObj, "ExtractWithRectangle"), flags, 4)
+        this.vtbl.Clip := CallbackCreate(GetMethod(implObj, "Clip"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.HitTestCircle := CallbackCreate(GetMethod(implObj, "HitTestCircle"), flags, 5)
+        this.vtbl.HitTestWithRectangle := CallbackCreate(GetMethod(implObj, "HitTestWithRectangle"), flags, 4)
+        this.vtbl.HitTestWithLasso := CallbackCreate(GetMethod(implObj, "HitTestWithLasso"), flags, 5)
+        this.vtbl.NearestPoint := CallbackCreate(GetMethod(implObj, "NearestPoint"), flags, 6)
+        this.vtbl.CreateStrokes := CallbackCreate(GetMethod(implObj, "CreateStrokes"), flags, 3)
+        this.vtbl.AddStrokesAtRectangle := CallbackCreate(GetMethod(implObj, "AddStrokesAtRectangle"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.CreateStroke := CallbackCreate(GetMethod(implObj, "CreateStroke"), flags, 4)
+        this.vtbl.ClipboardCopyWithRectangle := CallbackCreate(GetMethod(implObj, "ClipboardCopyWithRectangle"), flags, 5)
+        this.vtbl.ClipboardCopy := CallbackCreate(GetMethod(implObj, "ClipboardCopy"), flags, 5)
+        this.vtbl.CanPaste := CallbackCreate(GetMethod(implObj, "CanPaste"), flags, 3)
+        this.vtbl.ClipboardPaste := CallbackCreate(GetMethod(implObj, "ClipboardPaste"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Strokes)
+        CallbackFree(this.vtbl.get_ExtendedProperties)
+        CallbackFree(this.vtbl.get_Dirty)
+        CallbackFree(this.vtbl.put_Dirty)
+        CallbackFree(this.vtbl.get_CustomStrokes)
+        CallbackFree(this.vtbl.GetBoundingBox)
+        CallbackFree(this.vtbl.DeleteStrokes)
+        CallbackFree(this.vtbl.DeleteStroke)
+        CallbackFree(this.vtbl.ExtractStrokes)
+        CallbackFree(this.vtbl.ExtractWithRectangle)
+        CallbackFree(this.vtbl.Clip)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.HitTestCircle)
+        CallbackFree(this.vtbl.HitTestWithRectangle)
+        CallbackFree(this.vtbl.HitTestWithLasso)
+        CallbackFree(this.vtbl.NearestPoint)
+        CallbackFree(this.vtbl.CreateStrokes)
+        CallbackFree(this.vtbl.AddStrokesAtRectangle)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.CreateStroke)
+        CallbackFree(this.vtbl.ClipboardCopyWithRectangle)
+        CallbackFree(this.vtbl.ClipboardCopy)
+        CallbackFree(this.vtbl.CanPaste)
+        CallbackFree(this.vtbl.ClipboardPaste)
     }
 }

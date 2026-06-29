@@ -1,55 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRT_MATCH_TYPE.ahk
-#Include .\DRT_REGISTRATION.ahk
-#Include .\DRT_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRT_DATA.ahk" { DRT_DATA }
+#Import ".\DRT_REGISTRATION.ahk" { DRT_REGISTRATION }
+#Import ".\DRT_MATCH_TYPE.ahk" { DRT_MATCH_TYPE }
 
 /**
  * DRT_SEARCH_RESULT.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_search_result
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_SEARCH_RESULT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DRT_SEARCH_RESULT {
+    #StructPack 8
 
     /**
      * The size of the <b>DRT_SEARCH_RESULT</b> structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies  the exactness of the search. This member corresponds to the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ne-drt-drt_match_type">DRT_MATCH_TYPE</a> enumeration.
-     * @type {DRT_MATCH_TYPE}
      */
-    type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    type : DRT_MATCH_TYPE
 
     /**
      * Pointer to the context data passed to the <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtstartsearch">DrtStartSearch</a> API.
-     * @type {Pointer<Void>}
      */
-    pvContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvContext : IntPtr
 
     /**
      * Contains the registration result.
-     * @type {DRT_REGISTRATION}
      */
-    registration {
-        get {
-            if(!this.HasProp("__registration"))
-                this.__registration := DRT_REGISTRATION(16, this)
-            return this.__registration
-        }
-    }
+    registration : DRT_REGISTRATION
+
 }

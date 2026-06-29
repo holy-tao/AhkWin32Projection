@@ -1,79 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BINARY_CONTAINER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BINARY_CONTAINER.ahk" { BINARY_CONTAINER }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BIDI_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct BIDI_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _u {
+        bData : BOOL
 
-        /**
-         * @type {BOOL}
-         */
-        bData {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        iData {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        sData {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Float}
-         */
-        fData {
-            get => NumGet(this, 0, "float")
-            set => NumPut("float", value, this, 0)
-        }
-
-        /**
-         * @type {BINARY_CONTAINER}
-         */
-        biData {
-            get {
-                if(!this.HasProp("__biData"))
-                    this.__biData := BINARY_CONTAINER(0, this)
-                return this.__biData
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'iData', { type: Int32, offset: 0 })
+            DefineProp(this.Prototype, 'sData', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'fData', { type: Float32, offset: 0 })
+            DefineProp(this.Prototype, 'biData', { type: BINARY_CONTAINER, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwBidiType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBidiType : UInt32
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := BIDI_DATA._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : BIDI_DATA._u
+
 }

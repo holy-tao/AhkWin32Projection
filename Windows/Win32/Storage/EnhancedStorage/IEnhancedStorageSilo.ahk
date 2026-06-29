@@ -1,41 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SILO_INFO.ahk
-#Include ..\..\Devices\PortableDevices\IPortableDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnhancedStorageSiloAction.ahk" { IEnhancedStorageSiloAction }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Devices\PortableDevices\IPortableDevice.ahk" { IPortableDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SILO_INFO.ahk" { SILO_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IEnhancedStorageSilo interface is the point of access for an IEEE 1667 silo and is used to obtain information and perform operations at the silo level.
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienhancedstoragesilo
  * @namespace Windows.Win32.Storage.EnhancedStorage
  */
-class IEnhancedStorageSilo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnhancedStorageSilo extends IUnknown {
     /**
      * The interface identifier for IEnhancedStorageSilo
      * @type {Guid}
      */
-    static IID => Guid("{5aef78c6-2242-4703-bf49-44b29357a359}")
+    static IID := Guid("{5aef78c6-2242-4703-bf49-44b29357a359}")
 
     /**
      * The class identifier for EnhancedStorageSilo
      * @type {Guid}
      */
-    static CLSID => Guid("{cb25220c-76c7-4fee-842b-f3383cd022bc}")
+    static CLSID := Guid("{cb25220c-76c7-4fee-842b-f3383cd022bc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnhancedStorageSilo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInfo           : IntPtr
+        GetActions        : IntPtr
+        SendCommand       : IntPtr
+        GetPortableDevice : IntPtr
+        GetDevicePath     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInfo", "GetActions", "SendCommand", "GetPortableDevice", "GetDevicePath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnhancedStorageSilo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the descriptive information associated with the silo object.
@@ -44,7 +58,7 @@ class IEnhancedStorageSilo extends IUnknown {
      */
     GetInfo() {
         pSiloInfo := SILO_INFO()
-        result := ComCall(3, this, "ptr", pSiloInfo, "HRESULT")
+        result := ComCall(3, this, SILO_INFO.Ptr, pSiloInfo, "HRESULT")
         return pSiloInfo
     }
 
@@ -133,7 +147,35 @@ class IEnhancedStorageSilo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getdevicepath
      */
     GetDevicePath() {
-        result := ComCall(7, this, "ptr*", &ppwszSiloDevicePath := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppwszSiloDevicePath := 0, "HRESULT")
         return ppwszSiloDevicePath
+    }
+
+    Query(iid) {
+        if (IEnhancedStorageSilo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.GetActions := CallbackCreate(GetMethod(implObj, "GetActions"), flags, 3)
+        this.vtbl.SendCommand := CallbackCreate(GetMethod(implObj, "SendCommand"), flags, 6)
+        this.vtbl.GetPortableDevice := CallbackCreate(GetMethod(implObj, "GetPortableDevice"), flags, 2)
+        this.vtbl.GetDevicePath := CallbackCreate(GetMethod(implObj, "GetDevicePath"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInfo)
+        CallbackFree(this.vtbl.GetActions)
+        CallbackFree(this.vtbl.SendCommand)
+        CallbackFree(this.vtbl.GetPortableDevice)
+        CallbackFree(this.vtbl.GetDevicePath)
     }
 }

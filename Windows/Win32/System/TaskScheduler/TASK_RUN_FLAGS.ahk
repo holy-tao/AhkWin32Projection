@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines how a task is run.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_run_flags
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TASK_RUN_FLAGS extends Win32Enum {
+export default struct TASK_RUN_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The task is run with all flags ignored.

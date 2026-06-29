@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    keySize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    keySize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    keyExchangeAlgorithm : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    keyExchangeAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    signatureAlgorithm : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    signatureAlgorithm {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

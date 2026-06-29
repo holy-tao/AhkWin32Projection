@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOBOBJECT_IO_ATTRIBUTION_STATS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOBOBJECT_IO_ATTRIBUTION_STATS.ahk" { JOBOBJECT_IO_ATTRIBUTION_STATS }
 
 /**
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct {
-    static sizeof => 72
+export default struct JOBOBJECT_IO_ATTRIBUTION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ControlFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ControlFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReadStats : JOBOBJECT_IO_ATTRIBUTION_STATS
 
-    /**
-     * @type {JOBOBJECT_IO_ATTRIBUTION_STATS}
-     */
-    ReadStats {
-        get {
-            if(!this.HasProp("__ReadStats"))
-                this.__ReadStats := JOBOBJECT_IO_ATTRIBUTION_STATS(8, this)
-            return this.__ReadStats
-        }
-    }
+    WriteStats : JOBOBJECT_IO_ATTRIBUTION_STATS
 
-    /**
-     * @type {JOBOBJECT_IO_ATTRIBUTION_STATS}
-     */
-    WriteStats {
-        get {
-            if(!this.HasProp("__WriteStats"))
-                this.__WriteStats := JOBOBJECT_IO_ATTRIBUTION_STATS(40, this)
-            return this.__WriteStats
-        }
-    }
 }

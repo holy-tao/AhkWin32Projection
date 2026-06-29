@@ -1,8 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * Stores an IP address prefix.I
@@ -13,62 +11,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_prefix_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_PREFIX_XP extends Win32Struct {
-    static sizeof => 40
+export default struct IP_ADAPTER_PREFIX_XP {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Alignment : Int64
 
     /**
      * A pointer to the next adapter prefix structure in the list.
-     * @type {Pointer<IP_ADAPTER_PREFIX_XP>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : IP_ADAPTER_PREFIX_XP.Ptr
 
     /**
      * The address prefix, in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure.
-     * @type {SOCKET_ADDRESS}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKET_ADDRESS(16, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKET_ADDRESS
 
     /**
      * The length of the prefix, in bits.
-     * @type {Integer}
      */
-    PrefixLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    PrefixLength : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'Length', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Flags', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

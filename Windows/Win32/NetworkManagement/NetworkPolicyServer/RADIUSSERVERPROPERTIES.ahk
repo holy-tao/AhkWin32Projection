@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the RADIUSSERVERPROPERTIES enumeration type enumerate the properties of the RADIUS server, that is the SDO computer.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusserverproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUSSERVERPROPERTIES extends Win32Enum {
+export default struct RADIUSSERVERPROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Comma separated list of the UDP ports over which RADIUS authentication packets are sent and received.

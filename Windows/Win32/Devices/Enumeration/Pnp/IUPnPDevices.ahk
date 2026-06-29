@@ -1,41 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IUPnPDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDevices interface enumerates a collection of devices.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevices
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPDevices extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPDevices extends IDispatch {
     /**
      * The interface identifier for IUPnPDevices
      * @type {Guid}
      */
-    static IID => Guid("{fdbc0c73-bda3-4c66-ac4f-f2d96fdad68c}")
+    static IID := Guid("{fdbc0c73-bda3-4c66-ac4f-f2d96fdad68c}")
 
     /**
      * The class identifier for UPnPDevices
      * @type {Guid}
      */
-    static CLSID => Guid("{b9e84ffd-ad3c-40a4-b835-0882ebcbaaa8}")
+    static CLSID := Guid("{b9e84ffd-ad3c-40a4-b835-0882ebcbaaa8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPDevices interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get__NewEnum", "get_Item"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPDevices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -83,7 +94,31 @@ class IUPnPDevices extends IDispatch {
     get_Item(bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(9, this, "ptr", bstrUDN, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrUDN, "ptr*", &ppDevice := 0, "HRESULT")
         return IUPnPDevice(ppDevice)
+    }
+
+    Query(iid) {
+        if (IUPnPDevices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
     }
 }

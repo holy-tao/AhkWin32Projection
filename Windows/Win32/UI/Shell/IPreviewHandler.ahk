@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Exposes methods for the display of rich previews.
@@ -11,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewhandler
  * @namespace Windows.Win32.UI.Shell
  */
-class IPreviewHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPreviewHandler extends IUnknown {
     /**
      * The interface identifier for IPreviewHandler
      * @type {Guid}
      */
-    static IID => Guid("{8895b1c6-b41f-4c1c-a562-0d564250836f}")
+    static IID := Guid("{8895b1c6-b41f-4c1c-a562-0d564250836f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPreviewHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetWindow            : IntPtr
+        SetRect              : IntPtr
+        DoPreview            : IntPtr
+        Unload               : IntPtr
+        SetFocus             : IntPtr
+        QueryFocus           : IntPtr
+        TranslateAccelerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWindow", "SetRect", "DoPreview", "Unload", "SetFocus", "QueryFocus", "TranslateAccelerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPreviewHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the parent window of the previewer window, as well as the area within the parent to be used for the previewer window.
@@ -51,9 +67,7 @@ class IPreviewHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-setwindow
      */
     SetWindow(_hwnd, prc) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", prc, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -74,7 +88,7 @@ class IPreviewHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-setrect
      */
     SetRect(prc) {
-        result := ComCall(4, this, "ptr", prc, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -205,7 +219,7 @@ class IPreviewHandler extends IUnknown {
      */
     QueryFocus() {
         phwnd := HWND()
-        result := ComCall(8, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(8, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -232,7 +246,39 @@ class IPreviewHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-translateaccelerator
      */
     TranslateAccelerator(pmsg) {
-        result := ComCall(9, this, "ptr", pmsg, "HRESULT")
+        result := ComCall(9, this, MSG.Ptr, pmsg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPreviewHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWindow := CallbackCreate(GetMethod(implObj, "SetWindow"), flags, 3)
+        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 2)
+        this.vtbl.DoPreview := CallbackCreate(GetMethod(implObj, "DoPreview"), flags, 1)
+        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 1)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.QueryFocus := CallbackCreate(GetMethod(implObj, "QueryFocus"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWindow)
+        CallbackFree(this.vtbl.SetRect)
+        CallbackFree(this.vtbl.DoPreview)
+        CallbackFree(this.vtbl.Unload)
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.QueryFocus)
+        CallbackFree(this.vtbl.TranslateAccelerator)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The WMT_VIDEOIMAGE_SAMPLE2 structure describes a sample for a Video Image stream.
@@ -8,28 +8,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_videoimage_sample2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMT_VIDEOIMAGE_SAMPLE2 extends Win32Struct {
-    static sizeof => 108
-
-    static packingSize => 4
+export default struct WMT_VIDEOIMAGE_SAMPLE2 {
+    #StructPack 4
 
     /**
      * Reserved. You must set this member to WMT_VIDEOIMAGE_MAGIC_NUMBER_2.
-     * @type {Integer}
      */
-    dwMagic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMagic : UInt32
 
     /**
      * Size of the structure. Set to <c>sizeof(WMT_VIDEOIMAGE_SAMPLE2)</c>.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStructSize : UInt32
 
     /**
      * Specifies the type of sample. Use one or more of the flags in the following table, combined with the bitwise <b>OR</b> operator (|):<table>
@@ -58,226 +48,127 @@ class WMT_VIDEOIMAGE_SAMPLE2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwControlFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwControlFlags : UInt32
 
     /**
      * Width of the output frame.
-     * @type {Integer}
      */
-    dwViewportWidth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwViewportWidth : UInt32
 
     /**
      * Height of the output frame.
-     * @type {Integer}
      */
-    dwViewportHeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwViewportHeight : UInt32
 
     /**
      * Width of the current image.
-     * @type {Integer}
      */
-    dwCurrImageWidth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwCurrImageWidth : UInt32
 
     /**
      * Height of the current image.
-     * @type {Integer}
      */
-    dwCurrImageHeight {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwCurrImageHeight : UInt32
 
     /**
      * X component of the origin point of the region of interest in the current image.
-     * @type {Float}
      */
-    fCurrRegionX0 {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    fCurrRegionX0 : Float32
 
     /**
      * Y component of the origin point of the region of interest in the current image.
-     * @type {Float}
      */
-    fCurrRegionY0 {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    fCurrRegionY0 : Float32
 
     /**
      * Width of the region of interest in the current image. The specified region of interest will be sized to match the size of the output frame.
-     * @type {Float}
      */
-    fCurrRegionWidth {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    fCurrRegionWidth : Float32
 
     /**
      * Height of the region of interest in the current image. The specified region of interest will be sized to match the size of the output frame.
-     * @type {Float}
      */
-    fCurrRegionHeight {
-        get => NumGet(this, 40, "float")
-        set => NumPut("float", value, this, 40)
-    }
+    fCurrRegionHeight : Float32
 
     /**
      * Blending coefficient for the current image. This value specifies the transparency of the current image relative to the previous image. The blending coefficients of the two images must total 1.0.
-     * @type {Float}
      */
-    fCurrBlendCoef {
-        get => NumGet(this, 44, "float")
-        set => NumPut("float", value, this, 44)
-    }
+    fCurrBlendCoef : Float32
 
     /**
      * Width of the previous image.
-     * @type {Integer}
      */
-    dwPrevImageWidth {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwPrevImageWidth : UInt32
 
     /**
      * Height of the previous image.
-     * @type {Integer}
      */
-    dwPrevImageHeight {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwPrevImageHeight : UInt32
 
     /**
      * X component of the origin point of the region of interest in the previous image.
-     * @type {Float}
      */
-    fPrevRegionX0 {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
-    }
+    fPrevRegionX0 : Float32
 
     /**
      * Y component of the origin point of the region of interest in the previous image.
-     * @type {Float}
      */
-    fPrevRegionY0 {
-        get => NumGet(this, 60, "float")
-        set => NumPut("float", value, this, 60)
-    }
+    fPrevRegionY0 : Float32
 
     /**
      * Width of the region of interest in the previous image. The specified region of interest will be sized to match the size of the output frame.
-     * @type {Float}
      */
-    fPrevRegionWidth {
-        get => NumGet(this, 64, "float")
-        set => NumPut("float", value, this, 64)
-    }
+    fPrevRegionWidth : Float32
 
     /**
      * Height of the region of interest in the previous image. The specified region of interest will be sized to match the size of the output frame.
-     * @type {Float}
      */
-    fPrevRegionHeight {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
-    }
+    fPrevRegionHeight : Float32
 
     /**
      * Blending coefficient for the previous image. This value specifies the transparency of the previous image relative to the current image. The blending coefficients of the two images must total 1.0.
-     * @type {Float}
      */
-    fPrevBlendCoef {
-        get => NumGet(this, 72, "float")
-        set => NumPut("float", value, this, 72)
-    }
+    fPrevBlendCoef : Float32
 
     /**
      * The effect identifier of the transition between the previous image and the current image. For more information, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/video-image-transitions">Video Image Transitions</a>.
-     * @type {Integer}
      */
-    dwEffectType {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwEffectType : UInt32
 
     /**
      * The number of effect parameters relevant to the current effect. The final five members of this structure contain the values of effect parameters. This member specifies how many of those parameters contain valid information.
-     * @type {Integer}
      */
-    dwNumEffectParas {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwNumEffectParas : UInt32
 
     /**
      * Effect parameter. The uses of this parameter and the other four parameters in this structure are determined by the effect used, as specified by the value of the <b>dwEffectType</b> member.
-     * @type {Float}
      */
-    fEffectPara0 {
-        get => NumGet(this, 84, "float")
-        set => NumPut("float", value, this, 84)
-    }
+    fEffectPara0 : Float32
 
     /**
      * Effect parameter. The uses of this parameter and the other four parameters in this structure are determined by the effect used, as specified by the value of the <b>dwEffectType</b> member.
-     * @type {Float}
      */
-    fEffectPara1 {
-        get => NumGet(this, 88, "float")
-        set => NumPut("float", value, this, 88)
-    }
+    fEffectPara1 : Float32
 
     /**
      * Effect parameter. The uses of this parameter and the other four parameters in this structure are determined by the effect used, as specified by the value of the <b>dwEffectType</b> member.
-     * @type {Float}
      */
-    fEffectPara2 {
-        get => NumGet(this, 92, "float")
-        set => NumPut("float", value, this, 92)
-    }
+    fEffectPara2 : Float32
 
     /**
      * Effect parameter. The uses of this parameter and the other four parameters in this structure are determined by the effect used, as specified by the value of the <b>dwEffectType</b> member.
-     * @type {Float}
      */
-    fEffectPara3 {
-        get => NumGet(this, 96, "float")
-        set => NumPut("float", value, this, 96)
-    }
+    fEffectPara3 : Float32
 
     /**
      * Effect parameter. The uses of this parameter and the other four parameters in this structure are determined by the effect used, as specified by the value of the <b>dwEffectType</b> member.
-     * @type {Float}
      */
-    fEffectPara4 {
-        get => NumGet(this, 100, "float")
-        set => NumPut("float", value, this, 100)
-    }
+    fEffectPara4 : Float32
 
     /**
      * For input samples, <b>TRUE</b> indicates that the new image should replace the current image and that the current image should be discarded. The default behavior, indicated by setting this member to <b>FALSE</b>, is for the current image to become the previous image and the new image to become the current image.
-     * @type {BOOL}
      */
-    bKeepPrevImage {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    bKeepPrevImage : BOOL
+
 }

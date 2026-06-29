@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_WMI_IDLE_STATE extends Win32Struct {
-    static sizeof => 32
+export default struct PPM_WMI_IDLE_STATE {
+    #StructPack 4
 
-    static packingSize => 4
+    Latency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Latency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Power : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Power {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TimeCheck : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeCheck {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PromotePercent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PromotePercent {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    DemotePercent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DemotePercent {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    StateType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StateType {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    StateFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StateFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Context : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Context {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    IdleHandler : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IdleHandler {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The HTTP_SERVICE_CONFIG_QUERY_TYPE enumeration type defines various types of queries to make. It is used in the HTTP_SERVICE_CONFIG_SSL_QUERY, HTTP_SERVICE_CONFIG_SSL_CCS_QUERY, and HTTP_SERVICE_CONFIG_URLACL_QUERY structures.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_service_config_query_type
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_QUERY_TYPE extends Win32Enum {
+export default struct HTTP_SERVICE_CONFIG_QUERY_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The query returns a single record that matches the specified key value.

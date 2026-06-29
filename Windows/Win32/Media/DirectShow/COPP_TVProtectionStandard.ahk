@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a list of TV protection standards for Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_tvprotectionstandard
  * @namespace Windows.Win32.Media.DirectShow
  */
-class COPP_TVProtectionStandard extends Win32Enum {
+export default struct COPP_TVProtectionStandard {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * None.

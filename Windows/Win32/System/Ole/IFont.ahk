@@ -1,11 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Graphics\Gdi\HFONT.ahk
-#Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Graphics\Gdi\HFONT.ahk" { HFONT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a wrapper around a Windows font object.
@@ -138,26 +141,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ifont
  * @namespace Windows.Win32.System.Ole
  */
-class IFont extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFont extends IUnknown {
     /**
      * The interface identifier for IFont
      * @type {Guid}
      */
-    static IID => Guid("{bef6e002-a874-101a-8bba-00aa00300cab}")
+    static IID := Guid("{bef6e002-a874-101a-8bba-00aa00300cab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFont interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Name          : IntPtr
+        put_Name          : IntPtr
+        get_Size          : IntPtr
+        put_Size          : IntPtr
+        get_Bold          : IntPtr
+        put_Bold          : IntPtr
+        get_Italic        : IntPtr
+        put_Italic        : IntPtr
+        get_Underline     : IntPtr
+        put_Underline     : IntPtr
+        get_Strikethrough : IntPtr
+        put_Strikethrough : IntPtr
+        get_Weight        : IntPtr
+        put_Weight        : IntPtr
+        get_Charset       : IntPtr
+        put_Charset       : IntPtr
+        get_hFont         : IntPtr
+        Clone             : IntPtr
+        IsEqual           : IntPtr
+        SetRatio          : IntPtr
+        QueryTextMetrics  : IntPtr
+        AddRefHfont       : IntPtr
+        ReleaseHfont      : IntPtr
+        SetHdc            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_Size", "put_Size", "get_Bold", "put_Bold", "get_Italic", "put_Italic", "get_Underline", "put_Underline", "get_Strikethrough", "put_Strikethrough", "get_Weight", "put_Weight", "get_Charset", "put_Charset", "get_hFont", "Clone", "IsEqual", "SetRatio", "QueryTextMetrics", "AddRefHfont", "ReleaseHfont", "SetHdc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFont.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -236,8 +269,8 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_name
      */
     get_Name() {
-        pName := BSTR()
-        result := ComCall(3, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -286,7 +319,7 @@ class IFont extends IUnknown {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(4, this, "ptr", name, "HRESULT")
+        result := ComCall(4, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -298,7 +331,7 @@ class IFont extends IUnknown {
      */
     get_Size() {
         pSize := CY()
-        result := ComCall(5, this, "ptr", pSize, "HRESULT")
+        result := ComCall(5, this, CY.Ptr, pSize, "HRESULT")
         return pSize
     }
 
@@ -338,7 +371,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_size
      */
     put_Size(_size) {
-        result := ComCall(6, this, "ptr", _size, "HRESULT")
+        result := ComCall(6, this, CY, _size, "HRESULT")
         return result
     }
 
@@ -349,7 +382,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_bold
      */
     get_Bold() {
-        result := ComCall(7, this, "int*", &pBold := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pBold := 0, "HRESULT")
         return pBold
     }
 
@@ -396,7 +429,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_bold
      */
     put_Bold(bold) {
-        result := ComCall(8, this, "int", bold, "HRESULT")
+        result := ComCall(8, this, BOOL, bold, "HRESULT")
         return result
     }
 
@@ -406,7 +439,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_italic
      */
     get_Italic() {
-        result := ComCall(9, this, "int*", &pItalic := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pItalic := 0, "HRESULT")
         return pItalic
     }
 
@@ -446,7 +479,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_italic
      */
     put_Italic(italic) {
-        result := ComCall(10, this, "int", italic, "HRESULT")
+        result := ComCall(10, this, BOOL, italic, "HRESULT")
         return result
     }
 
@@ -456,7 +489,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_underline
      */
     get_Underline() {
-        result := ComCall(11, this, "int*", &pUnderline := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pUnderline := 0, "HRESULT")
         return pUnderline
     }
 
@@ -496,7 +529,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_underline
      */
     put_Underline(underline) {
-        result := ComCall(12, this, "int", underline, "HRESULT")
+        result := ComCall(12, this, BOOL, underline, "HRESULT")
         return result
     }
 
@@ -506,7 +539,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_strikethrough
      */
     get_Strikethrough() {
-        result := ComCall(13, this, "int*", &pStrikethrough := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pStrikethrough := 0, "HRESULT")
         return pStrikethrough
     }
 
@@ -546,7 +579,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_strikethrough
      */
     put_Strikethrough(strikethrough) {
-        result := ComCall(14, this, "int", strikethrough, "HRESULT")
+        result := ComCall(14, this, BOOL, strikethrough, "HRESULT")
         return result
     }
 
@@ -642,8 +675,8 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_hfont
      */
     get_hFont() {
-        phFont := HFONT()
-        result := ComCall(19, this, "ptr", phFont, "HRESULT")
+        phFont := HFONT.Owned()
+        result := ComCall(19, this, HFONT.Ptr, phFont, "HRESULT")
         return phFont
     }
 
@@ -742,7 +775,7 @@ class IFont extends IUnknown {
      */
     QueryTextMetrics() {
         pTM := TEXTMETRICW()
-        result := ComCall(23, this, "ptr", pTM, "HRESULT")
+        result := ComCall(23, this, TEXTMETRICW.Ptr, pTM, "HRESULT")
         return pTM
     }
 
@@ -771,9 +804,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-addrefhfont
      */
     AddRefHfont(_hFont) {
-        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
-
-        result := ComCall(24, this, "ptr", _hFont, "HRESULT")
+        result := ComCall(24, this, HFONT, _hFont, "HRESULT")
         return result
     }
 
@@ -818,9 +849,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-releasehfont
      */
     ReleaseHfont(_hFont) {
-        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
-
-        result := ComCall(25, this, "ptr", _hFont, "HRESULT")
+        result := ComCall(25, this, HFONT, _hFont, "HRESULT")
         return result
     }
 
@@ -874,9 +903,73 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-sethdc
      */
     SetHdc(_hDC) {
-        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
-
-        result := ComCall(26, this, "ptr", _hDC, "HRESULT")
+        result := ComCall(26, this, HDC, _hDC, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFont.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.put_Size := CallbackCreate(GetMethod(implObj, "put_Size"), flags, 2)
+        this.vtbl.get_Bold := CallbackCreate(GetMethod(implObj, "get_Bold"), flags, 2)
+        this.vtbl.put_Bold := CallbackCreate(GetMethod(implObj, "put_Bold"), flags, 2)
+        this.vtbl.get_Italic := CallbackCreate(GetMethod(implObj, "get_Italic"), flags, 2)
+        this.vtbl.put_Italic := CallbackCreate(GetMethod(implObj, "put_Italic"), flags, 2)
+        this.vtbl.get_Underline := CallbackCreate(GetMethod(implObj, "get_Underline"), flags, 2)
+        this.vtbl.put_Underline := CallbackCreate(GetMethod(implObj, "put_Underline"), flags, 2)
+        this.vtbl.get_Strikethrough := CallbackCreate(GetMethod(implObj, "get_Strikethrough"), flags, 2)
+        this.vtbl.put_Strikethrough := CallbackCreate(GetMethod(implObj, "put_Strikethrough"), flags, 2)
+        this.vtbl.get_Weight := CallbackCreate(GetMethod(implObj, "get_Weight"), flags, 2)
+        this.vtbl.put_Weight := CallbackCreate(GetMethod(implObj, "put_Weight"), flags, 2)
+        this.vtbl.get_Charset := CallbackCreate(GetMethod(implObj, "get_Charset"), flags, 2)
+        this.vtbl.put_Charset := CallbackCreate(GetMethod(implObj, "put_Charset"), flags, 2)
+        this.vtbl.get_hFont := CallbackCreate(GetMethod(implObj, "get_hFont"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 2)
+        this.vtbl.SetRatio := CallbackCreate(GetMethod(implObj, "SetRatio"), flags, 3)
+        this.vtbl.QueryTextMetrics := CallbackCreate(GetMethod(implObj, "QueryTextMetrics"), flags, 2)
+        this.vtbl.AddRefHfont := CallbackCreate(GetMethod(implObj, "AddRefHfont"), flags, 2)
+        this.vtbl.ReleaseHfont := CallbackCreate(GetMethod(implObj, "ReleaseHfont"), flags, 2)
+        this.vtbl.SetHdc := CallbackCreate(GetMethod(implObj, "SetHdc"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Size)
+        CallbackFree(this.vtbl.put_Size)
+        CallbackFree(this.vtbl.get_Bold)
+        CallbackFree(this.vtbl.put_Bold)
+        CallbackFree(this.vtbl.get_Italic)
+        CallbackFree(this.vtbl.put_Italic)
+        CallbackFree(this.vtbl.get_Underline)
+        CallbackFree(this.vtbl.put_Underline)
+        CallbackFree(this.vtbl.get_Strikethrough)
+        CallbackFree(this.vtbl.put_Strikethrough)
+        CallbackFree(this.vtbl.get_Weight)
+        CallbackFree(this.vtbl.put_Weight)
+        CallbackFree(this.vtbl.get_Charset)
+        CallbackFree(this.vtbl.put_Charset)
+        CallbackFree(this.vtbl.get_hFont)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.SetRatio)
+        CallbackFree(this.vtbl.QueryTextMetrics)
+        CallbackFree(this.vtbl.AddRefHfont)
+        CallbackFree(this.vtbl.ReleaseHfont)
+        CallbackFree(this.vtbl.SetHdc)
     }
 }

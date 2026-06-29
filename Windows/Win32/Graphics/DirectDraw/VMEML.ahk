@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VMEML.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class VMEML extends Win32Struct {
-    static sizeof => 24
+export default struct VMEML {
+    #StructPack 8
 
-    static packingSize => 8
+    next : VMEML.Ptr
 
-    /**
-     * @type {Pointer<VMEML>}
-     */
-    next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ptr : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ptr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    bDiscardable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bDiscardable {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

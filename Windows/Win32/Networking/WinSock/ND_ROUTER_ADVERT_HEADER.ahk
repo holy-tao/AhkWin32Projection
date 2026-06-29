@@ -1,40 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_MESSAGE.ahk
-#Include .\ICMP_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ICMP_HEADER.ahk" { ICMP_HEADER }
+#Import ".\ICMP_MESSAGE.ahk" { ICMP_MESSAGE }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ND_ROUTER_ADVERT_HEADER extends Win32Struct {
-    static sizeof => 16
+export default struct ND_ROUTER_ADVERT_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    nd_ra_hdr : ICMP_MESSAGE
 
-    /**
-     * @type {ICMP_MESSAGE}
-     */
-    nd_ra_hdr {
-        get {
-            if(!this.HasProp("__nd_ra_hdr"))
-                this.__nd_ra_hdr := ICMP_MESSAGE(0, this)
-            return this.__nd_ra_hdr
-        }
-    }
+    nd_ra_reachable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nd_ra_reachable {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    nd_ra_retransmit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nd_ra_retransmit {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

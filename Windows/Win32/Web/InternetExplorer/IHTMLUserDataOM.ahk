@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IHTMLUserDataOM extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLUserDataOM extends IDispatch {
     /**
      * The interface identifier for IHTMLUserDataOM
      * @type {Guid}
      */
-    static IID => Guid("{3050f48f-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f48f-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLUserDataOM interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_XMLDocument : IntPtr
+        save            : IntPtr
+        load            : IntPtr
+        getAttribute    : IntPtr
+        setAttribute    : IntPtr
+        removeAttribute : IntPtr
+        put_expires     : IntPtr
+        get_expires     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_XMLDocument", "save", "load", "getAttribute", "setAttribute", "removeAttribute", "put_expires", "get_expires"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLUserDataOM.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -108,7 +123,7 @@ class IHTMLUserDataOM extends IDispatch {
     save(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, "HRESULT")
         return result
     }
 
@@ -139,7 +154,7 @@ class IHTMLUserDataOM extends IDispatch {
     load(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(9, this, "ptr", strName, "HRESULT")
+        result := ComCall(9, this, BSTR, strName, "HRESULT")
         return result
     }
 
@@ -152,7 +167,7 @@ class IHTMLUserDataOM extends IDispatch {
         name := name is String ? BSTR.Alloc(name).Value : name
 
         pValue := VARIANT()
-        result := ComCall(10, this, "ptr", name, "ptr", pValue, "HRESULT")
+        result := ComCall(10, this, BSTR, name, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -165,7 +180,7 @@ class IHTMLUserDataOM extends IDispatch {
     setAttribute(name, value) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(11, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(11, this, BSTR, name, VARIANT, value, "HRESULT")
         return result
     }
 
@@ -177,7 +192,7 @@ class IHTMLUserDataOM extends IDispatch {
     removeAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(12, this, "ptr", name, "HRESULT")
+        result := ComCall(12, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -189,7 +204,7 @@ class IHTMLUserDataOM extends IDispatch {
     put_expires(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(13, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(13, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -198,8 +213,42 @@ class IHTMLUserDataOM extends IDispatch {
      * @returns {BSTR} 
      */
     get_expires() {
-        pbstr := BSTR()
-        result := ComCall(14, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
+    }
+
+    Query(iid) {
+        if (IHTMLUserDataOM.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_XMLDocument := CallbackCreate(GetMethod(implObj, "get_XMLDocument"), flags, 2)
+        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 2)
+        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.put_expires := CallbackCreate(GetMethod(implObj, "put_expires"), flags, 2)
+        this.vtbl.get_expires := CallbackCreate(GetMethod(implObj, "get_expires"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_XMLDocument)
+        CallbackFree(this.vtbl.save)
+        CallbackFree(this.vtbl.load)
+        CallbackFree(this.vtbl.getAttribute)
+        CallbackFree(this.vtbl.setAttribute)
+        CallbackFree(this.vtbl.removeAttribute)
+        CallbackFree(this.vtbl.put_expires)
+        CallbackFree(this.vtbl.get_expires)
     }
 }

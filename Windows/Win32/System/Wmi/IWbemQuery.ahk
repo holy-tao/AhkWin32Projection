@@ -1,39 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides an entry point through which a WMI Query Language (WQL) query can be parsed.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemQuery extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemQuery extends IUnknown {
     /**
      * The interface identifier for IWbemQuery
      * @type {Guid}
      */
-    static IID => Guid("{81166f58-dd98-11d3-a120-00105a1f515a}")
+    static IID := Guid("{81166f58-dd98-11d3-a120-00105a1f515a}")
 
     /**
      * The class identifier for WbemQuery
      * @type {Guid}
      */
-    static CLSID => Guid("{eac8a024-21e2-4523-ad73-a71a0aa2f56a}")
+    static CLSID := Guid("{eac8a024-21e2-4523-ad73-a71a0aa2f56a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemQuery interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Empty                : IntPtr
+        SetLanguageFeatures  : IntPtr
+        TestLanguageFeatures : IntPtr
+        Parse                : IntPtr
+        GetAnalysis          : IntPtr
+        FreeMemory           : IntPtr
+        GetQueryInfo         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Empty", "SetLanguageFeatures", "TestLanguageFeatures", "Parse", "GetAnalysis", "FreeMemory", "GetQueryInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemQuery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemQuery::Empty method frees the memory that the parser is holding.
@@ -128,5 +143,37 @@ class IWbemQuery extends IUnknown {
     GetQueryInfo(uAnalysisType, uInfoId, uBufSize) {
         result := ComCall(9, this, "uint", uAnalysisType, "uint", uInfoId, "uint", uBufSize, "ptr", &pDestBuf := 0, "HRESULT")
         return pDestBuf
+    }
+
+    Query(iid) {
+        if (IWbemQuery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Empty := CallbackCreate(GetMethod(implObj, "Empty"), flags, 1)
+        this.vtbl.SetLanguageFeatures := CallbackCreate(GetMethod(implObj, "SetLanguageFeatures"), flags, 4)
+        this.vtbl.TestLanguageFeatures := CallbackCreate(GetMethod(implObj, "TestLanguageFeatures"), flags, 4)
+        this.vtbl.Parse := CallbackCreate(GetMethod(implObj, "Parse"), flags, 4)
+        this.vtbl.GetAnalysis := CallbackCreate(GetMethod(implObj, "GetAnalysis"), flags, 4)
+        this.vtbl.FreeMemory := CallbackCreate(GetMethod(implObj, "FreeMemory"), flags, 2)
+        this.vtbl.GetQueryInfo := CallbackCreate(GetMethod(implObj, "GetQueryInfo"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Empty)
+        CallbackFree(this.vtbl.SetLanguageFeatures)
+        CallbackFree(this.vtbl.TestLanguageFeatures)
+        CallbackFree(this.vtbl.Parse)
+        CallbackFree(this.vtbl.GetAnalysis)
+        CallbackFree(this.vtbl.FreeMemory)
+        CallbackFree(this.vtbl.GetQueryInfo)
     }
 }

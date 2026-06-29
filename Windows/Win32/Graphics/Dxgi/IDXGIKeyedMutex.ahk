@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDeviceSubObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a keyed mutex, which allows exclusive access to a shared resource that is used by multiple devices.
@@ -14,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgikeyedmutex
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIKeyedMutex extends IDXGIDeviceSubObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIKeyedMutex extends IDXGIDeviceSubObject {
     /**
      * The interface identifier for IDXGIKeyedMutex
      * @type {Guid}
      */
-    static IID => Guid("{9d8e1289-d7b3-465f-8126-250e349af85d}")
+    static IID := Guid("{9d8e1289-d7b3-465f-8126-250e349af85d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIKeyedMutex interfaces
+    */
+    struct Vtbl extends IDXGIDeviceSubObject.Vtbl {
+        AcquireSync : IntPtr
+        ReleaseSync : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AcquireSync", "ReleaseSync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIKeyedMutex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Using a key, acquires exclusive rendering access to a shared resource.
@@ -121,5 +130,27 @@ class IDXGIKeyedMutex extends IDXGIDeviceSubObject {
     ReleaseSync(Key) {
         result := ComCall(9, this, "uint", Key, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGIKeyedMutex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AcquireSync := CallbackCreate(GetMethod(implObj, "AcquireSync"), flags, 3)
+        this.vtbl.ReleaseSync := CallbackCreate(GetMethod(implObj, "ReleaseSync"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AcquireSync)
+        CallbackFree(this.vtbl.ReleaseSync)
     }
 }

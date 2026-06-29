@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_MACHINE_ACCT_INFO2 extends Win32Struct {
-    static sizeof => 24
+export default struct POLICY_MACHINE_ACCT_INFO2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Rid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Rid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Sid : PSID
 
-    /**
-     * @type {PSID}
-     */
-    Sid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ObjectGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ObjectGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the data, and information about the data, sent as part of a WM_DDE_DATA message.
  * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddedata
  * @namespace Windows.Win32.System.DataExchange
  */
-class DDEDATA extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct DDEDATA {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -18,12 +15,9 @@ class DDEDATA extends Win32Struct {
      * - fRelease
      * - reserved
      * - fAckReq
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -64,29 +58,18 @@ class DDEDATA extends Win32Struct {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
-
     /**
      * Type: <b>short</b>
      * 
      * The format of the data. The format should be a standard or registered clipboard format. The following standard clipboard formats can be used:
-     * @type {Integer}
      */
-    cfFormat {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    cfFormat : Int16
 
     /**
      * Type: <b>BYTE[1]</b>
      * 
      * Contains the data. The length and type of data depend on the <b>cfFormat</b> member.
-     * @type {Array<Integer>}
      */
-    Value {
-        get {
-            if(!this.HasProp("__ValueProxyArray"))
-                this.__ValueProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__ValueProxyArray
-        }
-    }
+    Value : Int8[1]
+
 }

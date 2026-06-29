@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_KNOWN_FOLDER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_KNOWN_FOLDER_TYPE.ahk" { FILE_KNOWN_FOLDER_TYPE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_KNOWN_FOLDER_INFORMATION extends Win32Struct {
-    static sizeof => 4
+export default struct FILE_KNOWN_FOLDER_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : FILE_KNOWN_FOLDER_TYPE
 
-    /**
-     * @type {FILE_KNOWN_FOLDER_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

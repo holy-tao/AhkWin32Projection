@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to update the ITEMIDLIST of the child of a folder object.
@@ -11,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iupdateidlist
  * @namespace Windows.Win32.UI.Shell
  */
-class IUpdateIDList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateIDList extends IUnknown {
     /**
      * The interface identifier for IUpdateIDList
      * @type {Guid}
      */
-    static IID => Guid("{6589b6d2-5f8d-4b9e-b7e0-23cdd9717d8c}")
+    static IID := Guid("{6589b6d2-5f8d-4b9e-b7e0-23cdd9717d8c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateIDList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Update : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Update"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateIDList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the provided child ITEMIDLIST based on the parameters specified by the provided IBindCtx.
@@ -48,7 +58,27 @@ class IUpdateIDList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iupdateidlist-update
      */
     Update(pbc, pidlIn) {
-        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pbc, ITEMIDLIST.Ptr, pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
+    }
+
+    Query(iid) {
+        if (IUpdateIDList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Update)
     }
 }

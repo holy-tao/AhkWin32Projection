@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_QOS_TX_MEDIUM_TIME extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_QOS_TX_MEDIUM_TIME {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11PeerAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dot11PeerAddress {
-        get {
-            if(!this.HasProp("__dot11PeerAddressProxyArray"))
-                this.__dot11PeerAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__dot11PeerAddressProxyArray
-        }
-    }
+    ucQoSPriority : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucQoSPriority {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    uMediumTimeAdmited : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMediumTimeAdmited {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

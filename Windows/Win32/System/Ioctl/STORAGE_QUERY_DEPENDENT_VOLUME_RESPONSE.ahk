@@ -1,52 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY.ahk
-#Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
-#Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY.ahk" { STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY }
+#Import ".\STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY.ahk" { STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct {
-    static sizeof => 80
+export default struct STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE {
+    #StructPack 4
 
-    static packingSize => 8
+    ResponseLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResponseLevel {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberEntries {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Lev1Depends : STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY[1]
 
-    /**
-     * @type {STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY}
-     */
-    Lev1Depends {
-        get {
-            if(!this.HasProp("__Lev1DependsProxyArray"))
-                this.__Lev1DependsProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY, "")
-            return this.__Lev1DependsProxyArray
-        }
-    }
-
-    /**
-     * @type {STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY}
-     */
-    Lev2Depends {
-        get {
-            if(!this.HasProp("__Lev2DependsProxyArray"))
-                this.__Lev2DependsProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY, "")
-            return this.__Lev2DependsProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Lev2Depends', { type: STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY[1], offset: 8 })
+        this.DeleteProp("__New")
     }
 }

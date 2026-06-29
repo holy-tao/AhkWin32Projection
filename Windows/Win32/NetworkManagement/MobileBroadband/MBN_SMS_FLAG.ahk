@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_SMS_FLAG enumerated type specifies the SMS message class.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_flag
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_SMS_FLAG extends Win32Enum {
+export default struct MBN_SMS_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Refers to all the messages in the device message store.

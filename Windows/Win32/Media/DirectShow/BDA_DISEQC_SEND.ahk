@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_DISEQC_SEND extends Win32Struct {
-    static sizeof => 16
+export default struct BDA_DISEQC_SEND {
+    #StructPack 4
 
-    static packingSize => 4
+    ulRequestId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRequestId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulPacketLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPacketLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    argbPacketData : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbPacketData {
-        get {
-            if(!this.HasProp("__argbPacketDataProxyArray"))
-                this.__argbPacketDataProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-            return this.__argbPacketDataProxyArray
-        }
-    }
 }

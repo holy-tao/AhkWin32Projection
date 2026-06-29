@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER extends Win32Struct {
-    static sizeof => 8
+export default struct IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    EpilogueCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EpilogueCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EpilogueByteCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EpilogueByteCount {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    BranchDescriptorElementSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BranchDescriptorElementSize {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    BranchDescriptorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BranchDescriptorCount {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

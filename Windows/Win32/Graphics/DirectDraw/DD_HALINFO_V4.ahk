@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEOMEMORYINFO.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DDNTCORECAPS.ahk
-#Include .\DDSCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VIDEOMEMORYINFO.ahk" { VIDEOMEMORYINFO }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDNTCORECAPS.ahk" { DDNTCORECAPS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_HALINFO_V4 extends Win32Struct {
-    static sizeof => 432
+export default struct DD_HALINFO_V4 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    vmiData : VIDEOMEMORYINFO
 
-    /**
-     * @type {VIDEOMEMORYINFO}
-     */
-    vmiData {
-        get {
-            if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDEOMEMORYINFO(8, this)
-            return this.__vmiData
-        }
-    }
+    ddCaps : DDNTCORECAPS
 
-    /**
-     * @type {DDNTCORECAPS}
-     */
-    ddCaps {
-        get {
-            if(!this.HasProp("__ddCaps"))
-                this.__ddCaps := DDNTCORECAPS(96, this)
-            return this.__ddCaps
-        }
-    }
+    GetDriverInfo : IntPtr
 
-    /**
-     * @type {Pointer<PDD_GETDRIVERINFO>}
-     */
-    GetDriverInfo {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
-    }
 }

@@ -1,36 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVPROP_OPERATOR.ahk
-#Include ..\Properties\DEVPROPERTY.ahk
-#Include ..\Properties\DEVPROPCOMPKEY.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\Properties\DEVPROPSTORE.ahk
-#Include ..\Properties\DEVPROPTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Properties\DEVPROPSTORE.ahk" { DEVPROPSTORE }
+#Import "..\Properties\DEVPROPCOMPKEY.ahk" { DEVPROPCOMPKEY }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEVPROP_OPERATOR.ahk" { DEVPROP_OPERATOR }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
  */
-class DEVPROP_FILTER_EXPRESSION extends Win32Struct {
-    static sizeof => 56
+export default struct DEVPROP_FILTER_EXPRESSION {
+    #StructPack 8
 
-    static packingSize => 8
+    Operator : DEVPROP_OPERATOR
 
-    /**
-     * @type {DEVPROP_OPERATOR}
-     */
-    Operator {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Property : DEVPROPERTY
 
-    /**
-     * @type {DEVPROPERTY}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := DEVPROPERTY(8, this)
-            return this.__Property
-        }
-    }
 }

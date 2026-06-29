@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class _URB_GET_CURRENT_FRAME_NUMBER extends Win32Struct {
-    static sizeof => 32
+export default struct _URB_GET_CURRENT_FRAME_NUMBER {
+    #StructPack 8
 
-    static packingSize => 8
+    Hdr : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    Hdr {
-        get {
-            if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(0, this)
-            return this.__Hdr
-        }
-    }
+    FrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FrameNumber {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

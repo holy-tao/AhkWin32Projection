@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMProfile2.ahk
-#Include .\IWMBandwidthSharing.ahk
-#Include .\IWMStreamPrioritization.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMT_STORAGE_FORMAT.ahk" { WMT_STORAGE_FORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMProfile2.ahk" { IWMProfile2 }
+#Import ".\IWMStreamPrioritization.ahk" { IWMStreamPrioritization }
+#Import ".\IWMBandwidthSharing.ahk" { IWMBandwidthSharing }
 
 /**
  * The IWMProfile3 interface provides enhanced features for profiles.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofile3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMProfile3 extends IWMProfile2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMProfile3 extends IWMProfile2 {
     /**
      * The interface identifier for IWMProfile3
      * @type {Guid}
      */
-    static IID => Guid("{00ef96cc-a461-4546-8bcd-c9a28f0e06f5}")
+    static IID := Guid("{00ef96cc-a461-4546-8bcd-c9a28f0e06f5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMProfile3 interfaces
+    */
+    struct Vtbl extends IWMProfile2.Vtbl {
+        GetStorageFormat              : IntPtr
+        SetStorageFormat              : IntPtr
+        GetBandwidthSharingCount      : IntPtr
+        GetBandwidthSharing           : IntPtr
+        RemoveBandwidthSharing        : IntPtr
+        AddBandwidthSharing           : IntPtr
+        CreateNewBandwidthSharing     : IntPtr
+        GetStreamPrioritization       : IntPtr
+        SetStreamPrioritization       : IntPtr
+        RemoveStreamPrioritization    : IntPtr
+        CreateNewStreamPrioritization : IntPtr
+        GetExpectedPacketCount        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStorageFormat", "SetStorageFormat", "GetBandwidthSharingCount", "GetBandwidthSharing", "RemoveBandwidthSharing", "AddBandwidthSharing", "CreateNewBandwidthSharing", "GetStreamPrioritization", "SetStreamPrioritization", "RemoveStreamPrioritization", "CreateNewStreamPrioritization", "GetExpectedPacketCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMProfile3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetStorageFormat method is not implemented.
@@ -52,7 +72,7 @@ class IWMProfile3 extends IWMProfile2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-setstorageformat
      */
     SetStorageFormat(nStorageFormat) {
-        result := ComCall(23, this, "int", nStorageFormat, "HRESULT")
+        result := ComCall(23, this, WMT_STORAGE_FORMAT, nStorageFormat, "HRESULT")
         return result
     }
 
@@ -351,5 +371,47 @@ class IWMProfile3 extends IWMProfile2 {
     GetExpectedPacketCount(msDuration) {
         result := ComCall(33, this, "uint", msDuration, "uint*", &pcPackets := 0, "HRESULT")
         return pcPackets
+    }
+
+    Query(iid) {
+        if (IWMProfile3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStorageFormat := CallbackCreate(GetMethod(implObj, "GetStorageFormat"), flags, 2)
+        this.vtbl.SetStorageFormat := CallbackCreate(GetMethod(implObj, "SetStorageFormat"), flags, 2)
+        this.vtbl.GetBandwidthSharingCount := CallbackCreate(GetMethod(implObj, "GetBandwidthSharingCount"), flags, 2)
+        this.vtbl.GetBandwidthSharing := CallbackCreate(GetMethod(implObj, "GetBandwidthSharing"), flags, 3)
+        this.vtbl.RemoveBandwidthSharing := CallbackCreate(GetMethod(implObj, "RemoveBandwidthSharing"), flags, 2)
+        this.vtbl.AddBandwidthSharing := CallbackCreate(GetMethod(implObj, "AddBandwidthSharing"), flags, 2)
+        this.vtbl.CreateNewBandwidthSharing := CallbackCreate(GetMethod(implObj, "CreateNewBandwidthSharing"), flags, 2)
+        this.vtbl.GetStreamPrioritization := CallbackCreate(GetMethod(implObj, "GetStreamPrioritization"), flags, 2)
+        this.vtbl.SetStreamPrioritization := CallbackCreate(GetMethod(implObj, "SetStreamPrioritization"), flags, 2)
+        this.vtbl.RemoveStreamPrioritization := CallbackCreate(GetMethod(implObj, "RemoveStreamPrioritization"), flags, 1)
+        this.vtbl.CreateNewStreamPrioritization := CallbackCreate(GetMethod(implObj, "CreateNewStreamPrioritization"), flags, 2)
+        this.vtbl.GetExpectedPacketCount := CallbackCreate(GetMethod(implObj, "GetExpectedPacketCount"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStorageFormat)
+        CallbackFree(this.vtbl.SetStorageFormat)
+        CallbackFree(this.vtbl.GetBandwidthSharingCount)
+        CallbackFree(this.vtbl.GetBandwidthSharing)
+        CallbackFree(this.vtbl.RemoveBandwidthSharing)
+        CallbackFree(this.vtbl.AddBandwidthSharing)
+        CallbackFree(this.vtbl.CreateNewBandwidthSharing)
+        CallbackFree(this.vtbl.GetStreamPrioritization)
+        CallbackFree(this.vtbl.SetStreamPrioritization)
+        CallbackFree(this.vtbl.RemoveStreamPrioritization)
+        CallbackFree(this.vtbl.CreateNewStreamPrioritization)
+        CallbackFree(this.vtbl.GetExpectedPacketCount)
     }
 }

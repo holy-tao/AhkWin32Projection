@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the Tagged Image File Format (TIFF) compression options.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wictiffcompressionoption
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICTiffCompressionOption extends Win32Enum {
+export default struct WICTiffCompressionOption {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates a suitable compression algorithm based on the image and pixel format.

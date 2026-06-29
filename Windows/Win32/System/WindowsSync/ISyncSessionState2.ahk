@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncSessionState.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncSessionState.ahk" { ISyncSessionState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents additional information about the current synchronization session.
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncsessionstate2
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncSessionState2 extends ISyncSessionState {
-
-    static sizeof => A_PtrSize
+export default struct ISyncSessionState2 extends ISyncSessionState {
     /**
      * The interface identifier for ISyncSessionState2
      * @type {Guid}
      */
-    static IID => Guid("{9e37cfa3-9e38-4c61-9ca3-ffe810b45ca2}")
+    static IID := Guid("{9e37cfa3-9e38-4c61-9ca3-ffe810b45ca2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncSessionState2 interfaces
+    */
+    struct Vtbl extends ISyncSessionState.Vtbl {
+        SetProviderWithError  : IntPtr
+        GetSessionErrorStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProviderWithError", "GetSessionErrorStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncSessionState2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates which provider caused synchronization to fail.
@@ -69,7 +79,7 @@ class ISyncSessionState2 extends ISyncSessionState {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate2-setproviderwitherror
      */
     SetProviderWithError(fSelf) {
-        result := ComCall(10, this, "int", fSelf, "HRESULT")
+        result := ComCall(10, this, BOOL, fSelf, "HRESULT")
         return result
     }
 
@@ -114,5 +124,27 @@ class ISyncSessionState2 extends ISyncSessionState {
 
         result := ComCall(11, this, phrSessionErrorMarshal, phrSessionError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncSessionState2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProviderWithError := CallbackCreate(GetMethod(implObj, "SetProviderWithError"), flags, 2)
+        this.vtbl.GetSessionErrorStatus := CallbackCreate(GetMethod(implObj, "GetSessionErrorStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProviderWithError)
+        CallbackFree(this.vtbl.GetSessionErrorStatus)
     }
 }

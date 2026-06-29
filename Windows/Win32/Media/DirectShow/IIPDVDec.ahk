@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IIPDVDec interface provides methods for setting and retrieving properties on the DV Video Decoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iipdvdec
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IIPDVDec extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IIPDVDec extends IUnknown {
     /**
      * The interface identifier for IIPDVDec
      * @type {Guid}
      */
-    static IID => Guid("{b8e8bd60-0bfe-11d0-af91-00aa00b67a42}")
+    static IID := Guid("{b8e8bd60-0bfe-11d0-af91-00aa00b67a42}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIPDVDec interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_IPDisplay : IntPtr
+        put_IPDisplay : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IPDisplay", "put_IPDisplay"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIPDVDec.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -58,5 +67,27 @@ class IIPDVDec extends IUnknown {
     put_IPDisplay(displayPix) {
         result := ComCall(4, this, "int", displayPix, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IIPDVDec.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IPDisplay := CallbackCreate(GetMethod(implObj, "get_IPDisplay"), flags, 2)
+        this.vtbl.put_IPDisplay := CallbackCreate(GetMethod(implObj, "put_IPDisplay"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IPDisplay)
+        CallbackFree(this.vtbl.put_IPDisplay)
     }
 }

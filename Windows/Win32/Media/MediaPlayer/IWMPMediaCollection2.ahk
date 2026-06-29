@@ -1,36 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPMediaCollection.ahk
-#Include .\IWMPQuery.ahk
-#Include .\IWMPPlaylist.ahk
-#Include .\IWMPStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWMPQuery.ahk" { IWMPQuery }
 
 /**
  * The IWMPMediaCollection2 interface provides methods that supplement the IWMPMediaCollection interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmediacollection2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPMediaCollection2 extends IWMPMediaCollection {
-
-    static sizeof => A_PtrSize
+export default struct IWMPMediaCollection2 extends IWMPMediaCollection {
     /**
      * The interface identifier for IWMPMediaCollection2
      * @type {Guid}
      */
-    static IID => Guid("{8ba957f5-fd8c-4791-b82d-f840401ee474}")
+    static IID := Guid("{8ba957f5-fd8c-4791-b82d-f840401ee474}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPMediaCollection2 interfaces
+    */
+    struct Vtbl extends IWMPMediaCollection.Vtbl {
+        createQuery                : IntPtr
+        getPlaylistByQuery         : IntPtr
+        getStringCollectionByQuery : IntPtr
+        getByAttributeAndMediaType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["createQuery", "getPlaylistByQuery", "getStringCollectionByQuery", "getByAttributeAndMediaType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPMediaCollection2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The createQuery method retrieves a pointer to an IWMPQuery interface that represents a new query.
@@ -65,7 +78,7 @@ class IWMPMediaCollection2 extends IWMPMediaCollection {
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
         bstrSortAttribute := bstrSortAttribute is String ? BSTR.Alloc(bstrSortAttribute).Value : bstrSortAttribute
 
-        result := ComCall(20, this, "ptr", pQuery, "ptr", bstrMediaType, "ptr", bstrSortAttribute, "short", fSortAscending, "ptr*", &ppPlaylist := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pQuery, BSTR, bstrMediaType, BSTR, bstrSortAttribute, VARIANT_BOOL, fSortAscending, "ptr*", &ppPlaylist := 0, "HRESULT")
         return IWMPPlaylist(ppPlaylist)
     }
 
@@ -90,7 +103,7 @@ class IWMPMediaCollection2 extends IWMPMediaCollection {
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
         bstrSortAttribute := bstrSortAttribute is String ? BSTR.Alloc(bstrSortAttribute).Value : bstrSortAttribute
 
-        result := ComCall(21, this, "ptr", bstrAttribute, "ptr", pQuery, "ptr", bstrMediaType, "ptr", bstrSortAttribute, "short", fSortAscending, "ptr*", &ppStringCollection := 0, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrAttribute, "ptr", pQuery, BSTR, bstrMediaType, BSTR, bstrSortAttribute, VARIANT_BOOL, fSortAscending, "ptr*", &ppStringCollection := 0, "HRESULT")
         return IWMPStringCollection(ppStringCollection)
     }
 
@@ -109,7 +122,33 @@ class IWMPMediaCollection2 extends IWMPMediaCollection {
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
 
-        result := ComCall(22, this, "ptr", bstrAttribute, "ptr", bstrValue, "ptr", bstrMediaType, "ptr*", &ppMediaItems := 0, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrAttribute, BSTR, bstrValue, BSTR, bstrMediaType, "ptr*", &ppMediaItems := 0, "HRESULT")
         return IWMPPlaylist(ppMediaItems)
+    }
+
+    Query(iid) {
+        if (IWMPMediaCollection2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.createQuery := CallbackCreate(GetMethod(implObj, "createQuery"), flags, 2)
+        this.vtbl.getPlaylistByQuery := CallbackCreate(GetMethod(implObj, "getPlaylistByQuery"), flags, 6)
+        this.vtbl.getStringCollectionByQuery := CallbackCreate(GetMethod(implObj, "getStringCollectionByQuery"), flags, 7)
+        this.vtbl.getByAttributeAndMediaType := CallbackCreate(GetMethod(implObj, "getByAttributeAndMediaType"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.createQuery)
+        CallbackFree(this.vtbl.getPlaylistByQuery)
+        CallbackFree(this.vtbl.getStringCollectionByQuery)
+        CallbackFree(this.vtbl.getByAttributeAndMediaType)
     }
 }

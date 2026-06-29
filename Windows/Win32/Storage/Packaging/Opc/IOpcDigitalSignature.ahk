@@ -1,14 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcPartUri.ahk
-#Include .\IOpcSignaturePartReferenceEnumerator.ahk
-#Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
-#Include .\IOpcSignatureReference.ahk
-#Include .\IOpcCertificateEnumerator.ahk
-#Include .\IOpcSignatureReferenceEnumerator.ahk
-#Include .\IOpcSignatureCustomObjectEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import ".\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import ".\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcSignatureRelationshipReferenceEnumerator.ahk" { IOpcSignatureRelationshipReferenceEnumerator }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcSignatureReference.ahk" { IOpcSignatureReference }
+#Import ".\IOpcSignaturePartReferenceEnumerator.ahk" { IOpcSignaturePartReferenceEnumerator }
 
 /**
  * Represents a package digital signature.
@@ -21,26 +25,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcdigitalsignature
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcDigitalSignature extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcDigitalSignature extends IUnknown {
     /**
      * The interface identifier for IOpcDigitalSignature
      * @type {Guid}
      */
-    static IID => Guid("{52ab21dd-1cd0-4949-bc80-0c1232d00cb4}")
+    static IID := Guid("{52ab21dd-1cd0-4949-bc80-0c1232d00cb4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcDigitalSignature interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNamespaces                               : IntPtr
+        GetSignatureId                              : IntPtr
+        GetSignaturePartName                        : IntPtr
+        GetSignatureMethod                          : IntPtr
+        GetCanonicalizationMethod                   : IntPtr
+        GetSignatureValue                           : IntPtr
+        GetSignaturePartReferenceEnumerator         : IntPtr
+        GetSignatureRelationshipReferenceEnumerator : IntPtr
+        GetSigningTime                              : IntPtr
+        GetTimeFormat                               : IntPtr
+        GetPackageObjectReference                   : IntPtr
+        GetCertificateEnumerator                    : IntPtr
+        GetCustomReferenceEnumerator                : IntPtr
+        GetCustomObjectEnumerator                   : IntPtr
+        GetSignatureXml                             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNamespaces", "GetSignatureId", "GetSignaturePartName", "GetSignatureMethod", "GetCanonicalizationMethod", "GetSignatureValue", "GetSignaturePartReferenceEnumerator", "GetSignatureRelationshipReferenceEnumerator", "GetSigningTime", "GetTimeFormat", "GetPackageObjectReference", "GetCertificateEnumerator", "GetCustomReferenceEnumerator", "GetCustomObjectEnumerator", "GetSignatureXml"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcDigitalSignature.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the prefix and namespace mapping of the Signature element of the signature markup.
@@ -130,7 +155,7 @@ class IOpcDigitalSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignatureid
      */
     GetSignatureId() {
-        result := ComCall(4, this, "ptr*", &signatureId := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &signatureId := 0, "HRESULT")
         return signatureId
     }
 
@@ -166,7 +191,7 @@ class IOpcDigitalSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturemethod
      */
     GetSignatureMethod() {
-        result := ComCall(6, this, "ptr*", &signatureMethod := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &signatureMethod := 0, "HRESULT")
         return signatureMethod
     }
 
@@ -265,7 +290,7 @@ class IOpcDigitalSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime
      */
     GetSigningTime() {
-        result := ComCall(11, this, "ptr*", &signingTime := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &signingTime := 0, "HRESULT")
         return signingTime
     }
 
@@ -398,5 +423,53 @@ class IOpcDigitalSignature extends IUnknown {
 
         result := ComCall(17, this, signatureXmlMarshal, signatureXml, countMarshal, count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOpcDigitalSignature.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNamespaces := CallbackCreate(GetMethod(implObj, "GetNamespaces"), flags, 4)
+        this.vtbl.GetSignatureId := CallbackCreate(GetMethod(implObj, "GetSignatureId"), flags, 2)
+        this.vtbl.GetSignaturePartName := CallbackCreate(GetMethod(implObj, "GetSignaturePartName"), flags, 2)
+        this.vtbl.GetSignatureMethod := CallbackCreate(GetMethod(implObj, "GetSignatureMethod"), flags, 2)
+        this.vtbl.GetCanonicalizationMethod := CallbackCreate(GetMethod(implObj, "GetCanonicalizationMethod"), flags, 2)
+        this.vtbl.GetSignatureValue := CallbackCreate(GetMethod(implObj, "GetSignatureValue"), flags, 3)
+        this.vtbl.GetSignaturePartReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetSignaturePartReferenceEnumerator"), flags, 2)
+        this.vtbl.GetSignatureRelationshipReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetSignatureRelationshipReferenceEnumerator"), flags, 2)
+        this.vtbl.GetSigningTime := CallbackCreate(GetMethod(implObj, "GetSigningTime"), flags, 2)
+        this.vtbl.GetTimeFormat := CallbackCreate(GetMethod(implObj, "GetTimeFormat"), flags, 2)
+        this.vtbl.GetPackageObjectReference := CallbackCreate(GetMethod(implObj, "GetPackageObjectReference"), flags, 2)
+        this.vtbl.GetCertificateEnumerator := CallbackCreate(GetMethod(implObj, "GetCertificateEnumerator"), flags, 2)
+        this.vtbl.GetCustomReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomReferenceEnumerator"), flags, 2)
+        this.vtbl.GetCustomObjectEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomObjectEnumerator"), flags, 2)
+        this.vtbl.GetSignatureXml := CallbackCreate(GetMethod(implObj, "GetSignatureXml"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNamespaces)
+        CallbackFree(this.vtbl.GetSignatureId)
+        CallbackFree(this.vtbl.GetSignaturePartName)
+        CallbackFree(this.vtbl.GetSignatureMethod)
+        CallbackFree(this.vtbl.GetCanonicalizationMethod)
+        CallbackFree(this.vtbl.GetSignatureValue)
+        CallbackFree(this.vtbl.GetSignaturePartReferenceEnumerator)
+        CallbackFree(this.vtbl.GetSignatureRelationshipReferenceEnumerator)
+        CallbackFree(this.vtbl.GetSigningTime)
+        CallbackFree(this.vtbl.GetTimeFormat)
+        CallbackFree(this.vtbl.GetPackageObjectReference)
+        CallbackFree(this.vtbl.GetCertificateEnumerator)
+        CallbackFree(this.vtbl.GetCustomReferenceEnumerator)
+        CallbackFree(this.vtbl.GetCustomObjectEnumerator)
+        CallbackFree(this.vtbl.GetSignatureXml)
     }
 }

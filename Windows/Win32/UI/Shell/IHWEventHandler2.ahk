@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IHWEventHandler.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHWEventHandler.ahk" { IHWEventHandler }
 
 /**
  * Extends the IHWEventHandler interface to address User Account Control (UAC) elevation for device handlers.
@@ -12,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ihweventhandler2
  * @namespace Windows.Win32.UI.Shell
  */
-class IHWEventHandler2 extends IHWEventHandler {
-
-    static sizeof => A_PtrSize
+export default struct IHWEventHandler2 extends IHWEventHandler {
     /**
      * The interface identifier for IHWEventHandler2
      * @type {Guid}
      */
-    static IID => Guid("{cfcc809f-295d-42e8-9ffc-424b33c487e6}")
+    static IID := Guid("{cfcc809f-295d-42e8-9ffc-424b33c487e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHWEventHandler2 interfaces
+    */
+    struct Vtbl extends IHWEventHandler.Vtbl {
+        HandleEventWithHWND : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HandleEventWithHWND"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHWEventHandler2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Handles AutoPlay device events that contain content types that the application is not registered to handle. This method provides a handle to the owner window so that UI can be displayed if the process requires elevated privileges.
@@ -62,9 +72,28 @@ class IHWEventHandler2 extends IHWEventHandler {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID
         pszAltDeviceID := pszAltDeviceID is String ? StrPtr(pszAltDeviceID) : pszAltDeviceID
         pszEventType := pszEventType is String ? StrPtr(pszEventType) : pszEventType
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(6, this, "ptr", pszDeviceID, "ptr", pszAltDeviceID, "ptr", pszEventType, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(6, this, "ptr", pszDeviceID, "ptr", pszAltDeviceID, "ptr", pszEventType, HWND, hwndOwner, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHWEventHandler2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HandleEventWithHWND := CallbackCreate(GetMethod(implObj, "HandleEventWithHWND"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HandleEventWithHWND)
     }
 }

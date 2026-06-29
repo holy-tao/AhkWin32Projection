@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the condition at the edges of inline object or text used to determine line-breaking behavior.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_BREAK_CONDITION extends Win32Enum {
+export default struct DWRITE_BREAK_CONDITION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates whether a break is allowed by determining  the condition of the neighboring text span or inline object.

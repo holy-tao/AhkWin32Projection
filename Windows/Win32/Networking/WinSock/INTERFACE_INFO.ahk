@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\sockaddr_gen.ahk
-#Include .\SOCKADDR.ahk
-#Include .\ADDRESS_FAMILY.ahk
-#Include .\SOCKADDR_IN.ahk
-#Include .\IN_ADDR.ahk
-#Include .\sockaddr_in6_old.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import ".\sockaddr_in6_old.ahk" { sockaddr_in6_old }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\sockaddr_gen.ahk" { sockaddr_gen }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The INTERFACE_INFO structure is used in conjunction with the SIO_GET_INTERFACE_LIST ioctl command to obtain information about an interface IP address.
@@ -15,10 +15,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-interface_info
  * @namespace Windows.Win32.Networking.WinSock
  */
-class INTERFACE_INFO extends Win32Struct {
-    static sizeof => 172
-
-    static packingSize => 4
+export default struct INTERFACE_INFO {
+    #StructPack 4
 
     /**
      * A bitmask describing the status of the interface. The following flags are possible.
@@ -79,46 +77,22 @@ class INTERFACE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iiFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iiFlags : UInt32
 
     /**
      * Address of an interface.
-     * @type {sockaddr_gen}
      */
-    iiAddress {
-        get {
-            if(!this.HasProp("__iiAddress"))
-                this.__iiAddress := sockaddr_gen(4, this)
-            return this.__iiAddress
-        }
-    }
+    iiAddress : sockaddr_gen
 
     /**
      * Broadcast address of the interface or the address of the other side for point-to-point links.
-     * @type {sockaddr_gen}
      */
-    iiBroadcastAddress {
-        get {
-            if(!this.HasProp("__iiBroadcastAddress"))
-                this.__iiBroadcastAddress := sockaddr_gen(60, this)
-            return this.__iiBroadcastAddress
-        }
-    }
+    iiBroadcastAddress : sockaddr_gen
 
     /**
      * Netmask used by the interface.
-     * @type {sockaddr_gen}
      */
-    iiNetmask {
-        get {
-            if(!this.HasProp("__iiNetmask"))
-                this.__iiNetmask := sockaddr_gen(116, this)
-            return this.__iiNetmask
-        }
-    }
+    iiNetmask : sockaddr_gen
+
 }

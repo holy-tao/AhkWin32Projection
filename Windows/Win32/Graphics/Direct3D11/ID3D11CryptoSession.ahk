@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a cryptographic session.
@@ -10,26 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11cryptosession
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11CryptoSession extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11CryptoSession extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11CryptoSession
      * @type {Guid}
      */
-    static IID => Guid("{9b32f9ad-bdcc-40a6-a39d-d5c865845720}")
+    static IID := Guid("{9b32f9ad-bdcc-40a6-a39d-d5c865845720}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11CryptoSession interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        GetCryptoType          : IntPtr
+        GetDecoderProfile      : IntPtr
+        GetCertificateSize     : IntPtr
+        GetCertificate         : IntPtr
+        GetCryptoSessionHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCryptoType", "GetDecoderProfile", "GetCertificateSize", "GetCertificate", "GetCryptoSessionHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11CryptoSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the type of encryption that is supported by this session.
@@ -58,7 +71,7 @@ class ID3D11CryptoSession extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11cryptosession-getcryptotype
      */
     GetCryptoType(pCryptoType) {
-        ComCall(7, this, "ptr", pCryptoType)
+        ComCall(7, this, Guid.Ptr, pCryptoType)
     }
 
     /**
@@ -70,7 +83,7 @@ class ID3D11CryptoSession extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11cryptosession-getdecoderprofile
      */
     GetDecoderProfile(pDecoderProfile) {
-        ComCall(8, this, "ptr", pDecoderProfile)
+        ComCall(8, this, Guid.Ptr, pDecoderProfile)
     }
 
     /**
@@ -106,6 +119,34 @@ class ID3D11CryptoSession extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11cryptosession-getcryptosessionhandle
      */
     GetCryptoSessionHandle(pCryptoSessionHandle) {
-        ComCall(11, this, "ptr", pCryptoSessionHandle)
+        ComCall(11, this, HANDLE.Ptr, pCryptoSessionHandle)
+    }
+
+    Query(iid) {
+        if (ID3D11CryptoSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCryptoType := CallbackCreate(GetMethod(implObj, "GetCryptoType"), flags, 2)
+        this.vtbl.GetDecoderProfile := CallbackCreate(GetMethod(implObj, "GetDecoderProfile"), flags, 2)
+        this.vtbl.GetCertificateSize := CallbackCreate(GetMethod(implObj, "GetCertificateSize"), flags, 2)
+        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.GetCryptoSessionHandle := CallbackCreate(GetMethod(implObj, "GetCryptoSessionHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCryptoType)
+        CallbackFree(this.vtbl.GetDecoderProfile)
+        CallbackFree(this.vtbl.GetCertificateSize)
+        CallbackFree(this.vtbl.GetCertificate)
+        CallbackFree(this.vtbl.GetCryptoSessionHandle)
     }
 }

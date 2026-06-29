@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class NVCACHE_REQUEST_BLOCK extends Win32Struct {
-    static sizeof => 48
+export default struct NVCACHE_REQUEST_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    NRBSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NRBSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Function : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Function {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NRBFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NRBFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NRBStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NRBStatus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LBA : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LBA {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DataBufSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBufSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NVCacheStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NVCacheStatus {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    NVCacheSubStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NVCacheSubStatus {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

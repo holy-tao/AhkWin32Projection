@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MSAUDIO1WAVEFORMAT extends Win32Struct {
-    static sizeof => 24
+export default struct MSAUDIO1WAVEFORMAT {
+    #StructPack 4
 
-    static packingSize => 4
+    wfx : WAVEFORMATEX
 
-    /**
-     * @type {WAVEFORMATEX}
-     */
-    wfx {
-        get {
-            if(!this.HasProp("__wfx"))
-                this.__wfx := WAVEFORMATEX(0, this)
-            return this.__wfx
-        }
-    }
+    wSamplesPerBlock : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSamplesPerBlock {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    wEncodeOptions : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wEncodeOptions {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
 }

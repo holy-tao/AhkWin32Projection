@@ -1,40 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes property methods that you can use to set or retrieve the value of a shared property.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isharedproperty
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ISharedProperty extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISharedProperty extends IDispatch {
     /**
      * The interface identifier for ISharedProperty
      * @type {Guid}
      */
-    static IID => Guid("{2a005c01-a5de-11cf-9e66-00aa00a3f464}")
+    static IID := Guid("{2a005c01-a5de-11cf-9e66-00aa00a3f464}")
 
     /**
      * The class identifier for SharedProperty
      * @type {Guid}
      */
-    static CLSID => Guid("{2a005c05-a5de-11cf-9e66-00aa00a3f464}")
+    static CLSID := Guid("{2a005c05-a5de-11cf-9e66-00aa00a3f464}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISharedProperty interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Value : IntPtr
+        put_Value : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Value", "put_Value"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISharedProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -51,7 +60,7 @@ class ISharedProperty extends IDispatch {
      */
     get_Value() {
         pVal := VARIANT()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -102,7 +111,29 @@ class ISharedProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-put_value
      */
     put_Value(_val) {
-        result := ComCall(8, this, "ptr", _val, "HRESULT")
+        result := ComCall(8, this, VARIANT, _val, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISharedProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
     }
 }

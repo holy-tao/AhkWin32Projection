@@ -1,43 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class DELTA_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct DELTA_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    lpcStart : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpcStart {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    uSize : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpStart {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Editable : BOOL
 
-    /**
-     * @type {Pointer}
-     */
-    uSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    Editable {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'lpStart', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The FAX_ROUTE structure contains information about a received fax document. The fax service passes the structure to a fax routing method in a call to the FaxRouteMethod function.
@@ -10,98 +10,64 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxroute/ns-faxroute-fax_route
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_ROUTE extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct FAX_ROUTE {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies, in bytes, the size of the <b>FAX_ROUTE</b> structure. Before calling the <a href="https://docs.microsoft.com/windows/desktop/api/faxroute/nc-faxroute-pfaxroutemethod">FaxRouteMethod</a> function, the fax service sets this member to sizeof(FAX_ROUTE).
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job that received the fax document.
-     * @type {Integer}
      */
-    JobId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    JobId : UInt32
 
     /**
      * Type: <b>DWORDLONG</b>
      * 
      * Specifies a 64-bit unsigned integer that is the elapsed time, in UTC, for the fax job that received the fax document. This parameter represents the total time that elapses between the beginning of fax reception and the end of fax reception.
-     * @type {Integer}
      */
-    ElapsedTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ElapsedTime : Int64
 
     /**
      * Type: <b>DWORDLONG</b>
      * 
      * Specifies a 64-bit unsigned integer that is the starting time, in UTC, for the fax job that received the fax document.
-     * @type {Integer}
      */
-    ReceiveTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ReceiveTime : Int64
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the number of pages in the received fax document.
-     * @type {Integer}
      */
-    PageCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PageCount : UInt32
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the called station identifier of the local fax device that received the fax document. This identifier is usually a telephone number.
-     * @type {PWSTR}
      */
-    Csid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Csid : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the transmitting station identifier of the remote fax device that sent the fax document. This identifier is usually a telephone number.
-     * @type {PWSTR}
      */
-    Tsid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Tsid : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that identifies the calling device that sent the fax document. This string may include the telephone number of the calling device.
-     * @type {PWSTR}
      */
-    CallerId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    CallerId : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
@@ -113,76 +79,49 @@ class FAX_ROUTE extends Win32Struct {
      * <c>Canonical-Phone-Number[|Additional-Routing-Info]</c>
      * 
      * where <c>Canonical-Phone-Number</code> is defined in the <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-ovr">Address</a> topic of the TAPI documentation (see the Canonical Address subheading); and <code>Additional-Routing-Info</c> is the <i>subaddress</i> of a Canonical Address, and uses the subaddress format.
-     * @type {PWSTR}
      */
-    RoutingInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    RoutingInfo : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the person who received the fax document.
-     * @type {PWSTR}
      */
-    ReceiverName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ReceiverName : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the telephone number of the fax device that received the fax document.
-     * @type {PWSTR}
      */
-    ReceiverNumber {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ReceiverNumber : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the device that received the fax document.
-     * @type {PWSTR}
      */
-    DeviceName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    DeviceName : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the permanent line identifier for the receiving fax device.
-     * @type {Integer}
      */
-    DeviceId {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    DeviceId : UInt32
 
     /**
      * Type: <b>LPBYTE</b>
      * 
      * Pointer to a buffer that contains additional routing data defined by the routing extension. For more information, see the following Remarks section.
-     * @type {Pointer<Integer>}
      */
-    RoutingInfoData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    RoutingInfoData : IntPtr
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the array pointed to by the <b>RoutingInfoData</b> member.
-     * @type {Integer}
      */
-    RoutingInfoDataSize {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    RoutingInfoDataSize : UInt32
+
 }

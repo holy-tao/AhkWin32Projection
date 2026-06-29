@@ -1,82 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_SYNTAX_IDENTIFIER.ahk
-#Include .\RPC_VERSION.ahk
-#Include .\RPC_DISPATCH_TABLE.ahk
-#Include .\MIDL_INTERFACE_METHOD_PROPERTIES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
+#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
+#Import ".\RPC_DISPATCH_TABLE.ahk" { RPC_DISPATCH_TABLE }
+#Import ".\MIDL_INTERFACE_METHOD_PROPERTIES.ahk" { MIDL_INTERFACE_METHOD_PROPERTIES }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class MIDL_SYNTAX_INFO extends Win32Struct {
-    static sizeof => 72
+export default struct MIDL_SYNTAX_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    TransferSyntax : RPC_SYNTAX_IDENTIFIER
 
-    /**
-     * @type {RPC_SYNTAX_IDENTIFIER}
-     */
-    TransferSyntax {
-        get {
-            if(!this.HasProp("__TransferSyntax"))
-                this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(0, this)
-            return this.__TransferSyntax
-        }
-    }
+    DispatchTable : RPC_DISPATCH_TABLE.Ptr
 
-    /**
-     * @type {Pointer<RPC_DISPATCH_TABLE>}
-     */
-    DispatchTable {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ProcString : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ProcString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FmtStringOffset : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    FmtStringOffset {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    TypeString : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    TypeString {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    aUserMarshalQuadruple : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    aUserMarshalQuadruple {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pMethodProperties : MIDL_INTERFACE_METHOD_PROPERTIES.Ptr
 
-    /**
-     * @type {Pointer<MIDL_INTERFACE_METHOD_PROPERTIES>}
-     */
-    pMethodProperties {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pReserved2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    pReserved2 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

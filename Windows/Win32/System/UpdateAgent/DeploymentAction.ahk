@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the action for which an update is explicitly deployed.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-deploymentaction
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class DeploymentAction extends Win32Enum {
+export default struct DeploymentAction {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No explicit deployment action is specified on the update. The update  inherits the value from its bundled updates.

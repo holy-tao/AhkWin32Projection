@@ -1,35 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextDocument.ahk
-#Include .\ITextSelection.ahk
-#Include .\ITextFont.ahk
-#Include .\ITextPara.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITextPara.ahk" { ITextPara }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextFont.ahk" { ITextFont }
+#Import ".\ITextDocument.ahk" { ITextDocument }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextSelection.ahk" { ITextSelection }
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextDocument2Old extends ITextDocument {
-
-    static sizeof => A_PtrSize
+export default struct ITextDocument2Old extends ITextDocument {
     /**
      * The interface identifier for ITextDocument2Old
      * @type {Guid}
      */
-    static IID => Guid("{01c25500-4268-11d1-883a-3c8b00c10000}")
+    static IID := Guid("{01c25500-4268-11d1-883a-3c8b00c10000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextDocument2Old interfaces
+    */
+    struct Vtbl extends ITextDocument.Vtbl {
+        AttachMsgFilter     : IntPtr
+        SetEffectColor      : IntPtr
+        GetEffectColor      : IntPtr
+        GetCaretType        : IntPtr
+        SetCaretType        : IntPtr
+        GetImmContext       : IntPtr
+        ReleaseImmContext   : IntPtr
+        GetPreferredFont    : IntPtr
+        GetNotificationMode : IntPtr
+        SetNotificationMode : IntPtr
+        GetClientRect       : IntPtr
+        GetSelection2       : IntPtr
+        GetWindow           : IntPtr
+        GetFEFlags          : IntPtr
+        UpdateWindow        : IntPtr
+        CheckTextLimit      : IntPtr
+        IMEInProgress       : IntPtr
+        SysBeep             : IntPtr
+        Update              : IntPtr
+        Notify              : IntPtr
+        GetDocumentFont     : IntPtr
+        GetDocumentPara     : IntPtr
+        GetCallManager      : IntPtr
+        ReleaseCallManager  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AttachMsgFilter", "SetEffectColor", "GetEffectColor", "GetCaretType", "SetCaretType", "GetImmContext", "ReleaseImmContext", "GetPreferredFont", "GetNotificationMode", "SetNotificationMode", "GetClientRect", "GetSelection2", "GetWindow", "GetFEFlags", "UpdateWindow", "CheckTextLimit", "IMEInProgress", "SysBeep", "Update", "Notify", "GetDocumentFont", "GetDocumentPara", "GetCallManager", "ReleaseCallManager"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextDocument2Old.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -48,7 +81,7 @@ class ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     SetEffectColor(Index, cr) {
-        result := ComCall(27, this, "int", Index, "uint", cr, "HRESULT")
+        result := ComCall(27, this, "int", Index, COLORREF, cr, "HRESULT")
         return result
     }
 
@@ -58,7 +91,7 @@ class ITextDocument2Old extends ITextDocument {
      * @returns {COLORREF} 
      */
     GetEffectColor(Index) {
-        result := ComCall(28, this, "int", Index, "uint*", &pcr := 0, "HRESULT")
+        result := ComCall(28, this, "int", Index, COLORREF.Ptr, &pcr := 0, "HRESULT")
         return pcr
     }
 
@@ -116,7 +149,7 @@ class ITextDocument2Old extends ITextDocument {
         pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
         pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(33, this, "int", cp, "int", CharRep, "int", Option, "int", CharRepCur, "int", curFontSize, "ptr", pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
+        result := ComCall(33, this, "int", cp, "int", CharRep, "int", Option, "int", CharRepCur, "int", curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
     }
 
@@ -251,100 +284,9 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * The NotifyAddrChange function causes a notification to be sent to the caller whenever a change occurs in the table that maps IPv4 addresses to interfaces.
-     * @remarks
-     * The  
-     * <b>NotifyAddrChange</b> function may be called in two ways:<ul>
-     * <li>Synchronous method</li>
-     * <li>Asynchronous method</li>
-     * </ul>
      * 
-     * 
-     * If the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters, the call to 
-     * <b>NotifyAddrChange</b> is synchronous and will block until an IP address change occurs. In this case if a change occurs, the <b>NotifyAddrChange</b> function completes to indicate that a change has occurred. 
-     * 
-     * If the <b>NotifyAddrChange</b> function is called synchronously, a notification will be sent on the next IPv4 address change until the application terminates. 
-     * 
-     * If the caller specifies a handle variable and an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, then the <b>NotifyAddrChange</b> function call is asynchronous and the caller can use the returned handle with the <b>OVERLAPPED</b> structure to receive asynchronous notification of IPv4 address changes using the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. See the following topics for information about using the handle and 
-     * <b>OVERLAPPED</b> structure to receive notifications:
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and Output</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a>
-     * </li>
-     * </ul>
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-cancelipchangenotify">CancelIPChangeNotify</a> function cancels notification of IPv4 address and route changes previously requested with successful calls to the <b>NotifyAddrChange</b> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyroutechange">NotifyRouteChange</a> functions.
-     * 
-     * Once an application has been notified of a change, the application can then call the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipaddrtable">GetIpAddrTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a> function to retrieve the table of IPv4 addresses to determine what has changed. If the application is notified and requires notification for the next change, then the <b>NotifyAddrChange</b> function must be called again.
-     * 
-     * If the <b>NotifyAddrChange</b> function is called asynchronously, a notification will be sent on the next IPv4 address change until either the application cancels the notification by calling the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-cancelipchangenotify">CancelIPChangeNotify</a> function or the application terminates. If the application terminates, the system will automatically cancel the registration for the notification. It is still recommended that an application explicitly cancel any notification before it terminates.  
-     * 
-     * Any registration for a notification does not persist across a system shut down or reboot.
-     * 
-     * On Windows Vista and later, the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyipinterfacechange">NotifyIpInterfaceChange</a> function  can be used to  register to be notified for changes to IPv4 and IPv6 interfaces on  the local computer.
      * @param {Integer} Notify 
-     * @returns {HRESULT} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING.
-     * 
-     * If the function fails, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_CANCELLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is being deregistered, so the call was canceled immediately.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid parameter was passed. This error is returned if the both the <i>Handle</i> and <i>overlapped</i> parameters are not <b>NULL</b>, but the memory specified by the
-     *     input parameters cannot be written by the calling process.  This error is also returned if the client already has made a change notification request, so this duplicate request will fail.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NOT_ENOUGH_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was insufficient memory available to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This error is returned on versions of Windows where this function is not supported such as Windows 98/95 and Windows NT 4.0.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyaddrchange
+     * @returns {HRESULT} 
      */
     Notify(Notify) {
         result := ComCall(45, this, "int", Notify, "HRESULT")
@@ -386,5 +328,71 @@ class ITextDocument2Old extends ITextDocument {
     ReleaseCallManager(pVoid) {
         result := ComCall(49, this, "ptr", pVoid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextDocument2Old.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AttachMsgFilter := CallbackCreate(GetMethod(implObj, "AttachMsgFilter"), flags, 2)
+        this.vtbl.SetEffectColor := CallbackCreate(GetMethod(implObj, "SetEffectColor"), flags, 3)
+        this.vtbl.GetEffectColor := CallbackCreate(GetMethod(implObj, "GetEffectColor"), flags, 3)
+        this.vtbl.GetCaretType := CallbackCreate(GetMethod(implObj, "GetCaretType"), flags, 2)
+        this.vtbl.SetCaretType := CallbackCreate(GetMethod(implObj, "SetCaretType"), flags, 2)
+        this.vtbl.GetImmContext := CallbackCreate(GetMethod(implObj, "GetImmContext"), flags, 2)
+        this.vtbl.ReleaseImmContext := CallbackCreate(GetMethod(implObj, "ReleaseImmContext"), flags, 2)
+        this.vtbl.GetPreferredFont := CallbackCreate(GetMethod(implObj, "GetPreferredFont"), flags, 9)
+        this.vtbl.GetNotificationMode := CallbackCreate(GetMethod(implObj, "GetNotificationMode"), flags, 2)
+        this.vtbl.SetNotificationMode := CallbackCreate(GetMethod(implObj, "SetNotificationMode"), flags, 2)
+        this.vtbl.GetClientRect := CallbackCreate(GetMethod(implObj, "GetClientRect"), flags, 6)
+        this.vtbl.GetSelection2 := CallbackCreate(GetMethod(implObj, "GetSelection2"), flags, 2)
+        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.GetFEFlags := CallbackCreate(GetMethod(implObj, "GetFEFlags"), flags, 2)
+        this.vtbl.UpdateWindow := CallbackCreate(GetMethod(implObj, "UpdateWindow"), flags, 1)
+        this.vtbl.CheckTextLimit := CallbackCreate(GetMethod(implObj, "CheckTextLimit"), flags, 3)
+        this.vtbl.IMEInProgress := CallbackCreate(GetMethod(implObj, "IMEInProgress"), flags, 2)
+        this.vtbl.SysBeep := CallbackCreate(GetMethod(implObj, "SysBeep"), flags, 1)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 2)
+        this.vtbl.GetDocumentFont := CallbackCreate(GetMethod(implObj, "GetDocumentFont"), flags, 2)
+        this.vtbl.GetDocumentPara := CallbackCreate(GetMethod(implObj, "GetDocumentPara"), flags, 2)
+        this.vtbl.GetCallManager := CallbackCreate(GetMethod(implObj, "GetCallManager"), flags, 2)
+        this.vtbl.ReleaseCallManager := CallbackCreate(GetMethod(implObj, "ReleaseCallManager"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AttachMsgFilter)
+        CallbackFree(this.vtbl.SetEffectColor)
+        CallbackFree(this.vtbl.GetEffectColor)
+        CallbackFree(this.vtbl.GetCaretType)
+        CallbackFree(this.vtbl.SetCaretType)
+        CallbackFree(this.vtbl.GetImmContext)
+        CallbackFree(this.vtbl.ReleaseImmContext)
+        CallbackFree(this.vtbl.GetPreferredFont)
+        CallbackFree(this.vtbl.GetNotificationMode)
+        CallbackFree(this.vtbl.SetNotificationMode)
+        CallbackFree(this.vtbl.GetClientRect)
+        CallbackFree(this.vtbl.GetSelection2)
+        CallbackFree(this.vtbl.GetWindow)
+        CallbackFree(this.vtbl.GetFEFlags)
+        CallbackFree(this.vtbl.UpdateWindow)
+        CallbackFree(this.vtbl.CheckTextLimit)
+        CallbackFree(this.vtbl.IMEInProgress)
+        CallbackFree(this.vtbl.SysBeep)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.GetDocumentFont)
+        CallbackFree(this.vtbl.GetDocumentPara)
+        CallbackFree(this.vtbl.GetCallManager)
+        CallbackFree(this.vtbl.ReleaseCallManager)
     }
 }

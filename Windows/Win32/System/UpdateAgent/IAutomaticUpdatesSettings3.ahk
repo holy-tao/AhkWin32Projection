@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAutomaticUpdatesSettings2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IAutomaticUpdatesSettings2.ahk" { IAutomaticUpdatesSettings2 }
 
 /**
  * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings3)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdatessettings3
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
-
-    static sizeof => A_PtrSize
+export default struct IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
     /**
      * The interface identifier for IAutomaticUpdatesSettings3
      * @type {Guid}
      */
-    static IID => Guid("{b587f5c3-f57e-485f-bbf5-0d181c5cd0dc}")
+    static IID := Guid("{b587f5c3-f57e-485f-bbf5-0d181c5cd0dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAutomaticUpdatesSettings3 interfaces
+    */
+    struct Vtbl extends IAutomaticUpdatesSettings2.Vtbl {
+        get_NonAdministratorsElevated : IntPtr
+        put_NonAdministratorsElevated : IntPtr
+        get_FeaturedUpdatesEnabled    : IntPtr
+        put_FeaturedUpdatesEnabled    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_NonAdministratorsElevated", "put_NonAdministratorsElevated", "get_FeaturedUpdatesEnabled", "put_FeaturedUpdatesEnabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAutomaticUpdatesSettings3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -53,7 +65,7 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated
      */
     get_NonAdministratorsElevated() {
-        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -66,7 +78,7 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-put_nonadministratorselevated
      */
     put_NonAdministratorsElevated(value) {
-        result := ComCall(21, this, "short", value, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -76,7 +88,7 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled
      */
     get_FeaturedUpdatesEnabled() {
-        result := ComCall(22, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -87,7 +99,33 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-put_featuredupdatesenabled
      */
     put_FeaturedUpdatesEnabled(value) {
-        result := ComCall(23, this, "short", value, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL, value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAutomaticUpdatesSettings3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_NonAdministratorsElevated := CallbackCreate(GetMethod(implObj, "get_NonAdministratorsElevated"), flags, 2)
+        this.vtbl.put_NonAdministratorsElevated := CallbackCreate(GetMethod(implObj, "put_NonAdministratorsElevated"), flags, 2)
+        this.vtbl.get_FeaturedUpdatesEnabled := CallbackCreate(GetMethod(implObj, "get_FeaturedUpdatesEnabled"), flags, 2)
+        this.vtbl.put_FeaturedUpdatesEnabled := CallbackCreate(GetMethod(implObj, "put_FeaturedUpdatesEnabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_NonAdministratorsElevated)
+        CallbackFree(this.vtbl.put_NonAdministratorsElevated)
+        CallbackFree(this.vtbl.get_FeaturedUpdatesEnabled)
+        CallbackFree(this.vtbl.put_FeaturedUpdatesEnabled)
     }
 }

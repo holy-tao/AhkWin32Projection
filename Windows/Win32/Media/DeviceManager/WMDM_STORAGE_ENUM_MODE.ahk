@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMDM\_STORAGE\_ENUM\_MODE enumeration type defines how the content on the storage is to be enumerated. This enumeration is used by IWMDMStorage3 SetEnumPreference.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-storage-enum-mode
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class WMDM_STORAGE_ENUM_MODE extends Win32Enum {
+export default struct WMDM_STORAGE_ENUM_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

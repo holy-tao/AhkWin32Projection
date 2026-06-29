@@ -1,48 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IInspectable.ahk" { IInspectable }
+#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\HSTRING.ahk" { HSTRING }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * For a [DisplaySurface](/uwp/api/windows.devices.display.core.displaysurface) or a [DisplayFence](/uwp/api/windows.devices.display.core.displayfence) object, creates a shared handle that can be used for interop with Direct3D or other graphics APIs.
- * @remarks
- * The handle returned by **CreateSharedHandle** can be used in any function that requires an "NT handle" to a GPU surface or fence (depending on what object was passed), provided that the caller has been granted access. Here are some examples.
- * 
- * * Share surfaces and fences with Direct3D 12 using [ID3D12Device::OpenSharedHandle](../d3d12/nf-d3d12-id3d12device-opensharedhandle.md).
- * * Share surfaces with Direct3D 11 using [ID3D11Device1::OpenSharedResource](../d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1.md).
- * * Share fences with Direct3D 11 using [ID3D11Device5::OpenSharedFence](../d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence.md).
- * 
- * Multiple processes can have handles of the same object, enabling use of the object for interprocess synchronization or sharing. The following object-sharing mechanisms are available.
- * 
- * * A child process created by the [CreateProcess](../processthreadsapi/nf-processthreadsapi-createprocessa.md) function can inherit a handle to a surface or fence object if the *pSecurityAttributes* parameter of **CreateSharedHandle** enables inheritance.
- * * A process can specify the object handle in a call to the [DuplicateHandle](../handleapi/nf-handleapi-duplicatehandle.md) function to create a duplicate handle that can be used by another process.
- * * A process can specify the name of the object in a call to the [OpenSharedHandle](nf-windows-devices-display-core-interop-idisplaydeviceinterop-opensharedhandle.md) or [ID3D12Device::OpenSharedHandleByName](../d3d12/nf-d3d12-id3d12device-opensharedhandlebyname.md) function.
- * 
- * Use the [CloseHandle](../handleapi/nf-handleapi-closehandle.md) function to close the handle. The system closes the handle automatically when the process terminates. The object is destroyed when its last handle has been closed and its last interface reference has been released.
- * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-createsharedhandle
  * @namespace Windows.Win32.System.WinRT.Display
  */
-class IDisplayDeviceInterop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDisplayDeviceInterop extends IUnknown {
     /**
      * The interface identifier for IDisplayDeviceInterop
      * @type {Guid}
      */
-    static IID => Guid("{64338358-366a-471b-bd56-dd8ef48e439b}")
+    static IID := Guid("{64338358-366a-471b-bd56-dd8ef48e439b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDisplayDeviceInterop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateSharedHandle : IntPtr
+        OpenSharedHandle   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSharedHandle", "OpenSharedHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDisplayDeviceInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * For a [DisplaySurface](/uwp/api/windows.devices.display.core.displaysurface) or a [DisplayFence](/uwp/api/windows.devices.display.core.displayfence) object, creates a shared handle that can be used for interop with Direct3D or other graphics APIs.
@@ -87,10 +83,8 @@ class IDisplayDeviceInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-createsharedhandle
      */
     CreateSharedHandle(pObject, pSecurityAttributes, Access, Name) {
-        Name := Name is Win32Handle ? NumGet(Name, "ptr") : Name
-
-        pHandle := HANDLE()
-        result := ComCall(3, this, "ptr", pObject, "ptr", pSecurityAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "HRESULT")
+        pHandle := HANDLE.Owned()
+        result := ComCall(3, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pSecurityAttributes, "uint", Access, HSTRING, Name, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -116,9 +110,29 @@ class IDisplayDeviceInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-opensharedhandle
      */
     OpenSharedHandle(NTHandle, riid) {
-        NTHandle := NTHandle is Win32Handle ? NumGet(NTHandle, "ptr") : NTHandle
-
-        result := ComCall(4, this, "ptr", NTHandle, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(4, this, HANDLE, NTHandle, Guid, riid, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
+    }
+
+    Query(iid) {
+        if (IDisplayDeviceInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 6)
+        this.vtbl.OpenSharedHandle := CallbackCreate(GetMethod(implObj, "OpenSharedHandle"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSharedHandle)
+        CallbackFree(this.vtbl.OpenSharedHandle)
     }
 }

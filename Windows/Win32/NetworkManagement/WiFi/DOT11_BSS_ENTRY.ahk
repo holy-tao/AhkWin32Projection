@@ -1,126 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk" { DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_BSS_ENTRY extends Win32Struct {
-    static sizeof => 80
+export default struct DOT11_BSS_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    uPhyId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPhyId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PhySpecificInfo : DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
 
-    /**
-     * @type {DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO}
-     */
-    PhySpecificInfo {
-        get {
-            if(!this.HasProp("__PhySpecificInfo"))
-                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(4, this)
-            return this.__PhySpecificInfo
-        }
-    }
+    dot11BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dot11BSSID {
-        get {
-            if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
-            return this.__dot11BSSIDProxyArray
-        }
-    }
+    dot11BSSType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    dot11BSSType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    lRSSI : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRSSI {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    uLinkQuality : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uLinkQuality {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    bInRegDomain : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bInRegDomain {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    usBeaconPeriod : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usBeaconPeriod {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    ullTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTimestamp {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ullHostTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullHostTimestamp {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    usCapabilityInformation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usCapabilityInformation {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    uBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBufferLength {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    ucBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucBuffer {
-        get {
-            if(!this.HasProp("__ucBufferProxyArray"))
-                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")
-            return this.__ucBufferProxyArray
-        }
-    }
 }

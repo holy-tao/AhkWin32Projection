@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_PROCESSOR_APIC_COUNTERS extends Win32Struct {
-    static sizeof => 40
+export default struct WHV_PROCESSOR_APIC_COUNTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    MmioAccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MmioAccessCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EoiAccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EoiAccessCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TprAccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TprAccessCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SentIpiCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SentIpiCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SelfIpiCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SelfIpiCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

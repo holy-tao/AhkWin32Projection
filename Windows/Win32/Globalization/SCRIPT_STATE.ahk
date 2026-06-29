@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains script state information.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state
  * @namespace Windows.Win32.Globalization
  */
-class SCRIPT_STATE extends Win32Struct {
-    static sizeof => 2
-
-    static packingSize => 2
+export default struct SCRIPT_STATE {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -26,12 +23,9 @@ class SCRIPT_STATE extends Win32Struct {
      * - fGcpClusters
      * - fReserved
      * - fEngineReserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}

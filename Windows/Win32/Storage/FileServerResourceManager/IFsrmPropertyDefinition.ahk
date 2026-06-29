@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmPropertyDefinitionType.ahk" { FsrmPropertyDefinitionType }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Defines a property that you want to use to classify files. (IFsrmPropertyDefinition)
@@ -23,26 +26,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertydefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmPropertyDefinition extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmPropertyDefinition extends IFsrmObject {
     /**
      * The interface identifier for IFsrmPropertyDefinition
      * @type {Guid}
      */
-    static IID => Guid("{ede0150f-e9a3-419c-877c-01fe5d24c5d3}")
+    static IID := Guid("{ede0150f-e9a3-419c-877c-01fe5d24c5d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmPropertyDefinition interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_Name              : IntPtr
+        put_Name              : IntPtr
+        get_Type              : IntPtr
+        put_Type              : IntPtr
+        get_PossibleValues    : IntPtr
+        put_PossibleValues    : IntPtr
+        get_ValueDescriptions : IntPtr
+        put_ValueDescriptions : IntPtr
+        get_Parameters        : IntPtr
+        put_Parameters        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_Type", "put_Type", "get_PossibleValues", "put_PossibleValues", "get_ValueDescriptions", "put_ValueDescriptions", "get_Parameters", "put_Parameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmPropertyDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -92,8 +111,8 @@ class IFsrmPropertyDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(12, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -108,7 +127,7 @@ class IFsrmPropertyDefinition extends IFsrmObject {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, "ptr", name, "HRESULT")
+        result := ComCall(13, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -133,7 +152,7 @@ class IFsrmPropertyDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_type
      */
     put_Type(type) {
-        result := ComCall(15, this, "int", type, "HRESULT")
+        result := ComCall(15, this, FsrmPropertyDefinitionType, type, "HRESULT")
         return result
     }
 
@@ -184,7 +203,7 @@ class IFsrmPropertyDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_possiblevalues
      */
     put_PossibleValues(possibleValues) {
-        result := ComCall(17, this, "ptr", possibleValues, "HRESULT")
+        result := ComCall(17, this, SAFEARRAY.Ptr, possibleValues, "HRESULT")
         return result
     }
 
@@ -215,7 +234,7 @@ class IFsrmPropertyDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_valuedescriptions
      */
     put_ValueDescriptions(valueDescriptions) {
-        result := ComCall(19, this, "ptr", valueDescriptions, "HRESULT")
+        result := ComCall(19, this, SAFEARRAY.Ptr, valueDescriptions, "HRESULT")
         return result
     }
 
@@ -236,7 +255,45 @@ class IFsrmPropertyDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_parameters
      */
     put_Parameters(parameters) {
-        result := ComCall(21, this, "ptr", parameters, "HRESULT")
+        result := ComCall(21, this, SAFEARRAY.Ptr, parameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmPropertyDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_PossibleValues := CallbackCreate(GetMethod(implObj, "get_PossibleValues"), flags, 2)
+        this.vtbl.put_PossibleValues := CallbackCreate(GetMethod(implObj, "put_PossibleValues"), flags, 2)
+        this.vtbl.get_ValueDescriptions := CallbackCreate(GetMethod(implObj, "get_ValueDescriptions"), flags, 2)
+        this.vtbl.put_ValueDescriptions := CallbackCreate(GetMethod(implObj, "put_ValueDescriptions"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.put_Type)
+        CallbackFree(this.vtbl.get_PossibleValues)
+        CallbackFree(this.vtbl.put_PossibleValues)
+        CallbackFree(this.vtbl.get_ValueDescriptions)
+        CallbackFree(this.vtbl.put_ValueDescriptions)
+        CallbackFree(this.vtbl.get_Parameters)
+        CallbackFree(this.vtbl.put_Parameters)
     }
 }

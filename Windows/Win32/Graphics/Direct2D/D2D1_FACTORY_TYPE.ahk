@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether Direct2D provides synchronization for an ID2D1Factory and the resources it creates, so that they may be safely accessed from multiple threads.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_factory_type
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_FACTORY_TYPE extends Win32Enum {
+export default struct D2D1_FACTORY_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No synchronization is provided for accessing or writing to the factory or the objects it creates. If the factory or the objects are called from multiple threads, it is up to the application to provide access locking.

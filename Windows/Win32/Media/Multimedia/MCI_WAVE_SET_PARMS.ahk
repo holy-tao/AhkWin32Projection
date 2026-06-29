@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI\_WAVE\_SET\_PARMS structure contains information for the MCI\_SET command for waveform-audio devices.
@@ -8,143 +7,82 @@
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-wave-set-parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_WAVE_SET_PARMS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MCI_WAVE_SET_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Device's time format.
-     * @type {Integer}
      */
-    dwTimeFormat {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTimeFormat : UInt32
 
     /**
      * Channel number for audio output. Typically used when turning a channel on or off.
-     * @type {Integer}
      */
-    dwAudio {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwAudio : UInt32
 
     /**
      * Audio input channel.
-     * @type {Integer}
      */
-    wInput {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    wInput : UInt32
 
     /**
      * Output device to use. For example, this value could be 2 if a system had two installed sound cards.
-     * @type {Integer}
      */
-    wOutput {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    wOutput : UInt32
 
     /**
      * Format of the waveform-audio data, such as WAVE\_FORMAT\_PCM. Possible values are defined in Mmreg.h.
-     * @type {Integer}
      */
-    wFormatTag {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    wFormatTag : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    wReserved2 {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    wReserved2 : UInt16
 
     /**
      * Mono (1) or stereo (2).
-     * @type {Integer}
      */
-    nChannels {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    nChannels : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    wReserved3 {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    wReserved3 : UInt16
 
     /**
      * Samples per second.
-     * @type {Integer}
      */
-    nSamplesPerSec {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    nSamplesPerSec : UInt32
 
     /**
      * Sample rate in bytes per second.
-     * @type {Integer}
      */
-    nAvgBytesPerSec {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    nAvgBytesPerSec : UInt32
 
     /**
      * Block alignment of the data.
-     * @type {Integer}
      */
-    nBlockAlign {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    nBlockAlign : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    wReserved4 {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    wReserved4 : UInt16
 
     /**
      * Bits per sample.
-     * @type {Integer}
      */
-    wBitsPerSample {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    wBitsPerSample : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    wReserved5 {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    wReserved5 : UInt16
+
 }

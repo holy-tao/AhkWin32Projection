@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the identity for a pre-shared key.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_presharedkey_identity
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_PRESHAREDKEY_IDENTITY extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct SEC_PRESHAREDKEY_IDENTITY {
+    #StructPack 2
 
     /**
      * The size (in bytes) of the PSK identity.
-     * @type {Integer}
      */
-    KeyIdentitySize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    KeyIdentitySize : UInt16
 
     /**
      * The PSK identity.
-     * @type {Array<Integer>}
      */
-    KeyIdentity {
-        get {
-            if(!this.HasProp("__KeyIdentityProxyArray"))
-                this.__KeyIdentityProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__KeyIdentityProxyArray
-        }
-    }
+    KeyIdentity : Int8[1]
+
 }

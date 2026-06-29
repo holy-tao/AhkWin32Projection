@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the states that a caller can specify when updating a member in the read/write information for a TCP connection.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ne-tcpestats-tcp_boolean_optional
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_BOOLEAN_OPTIONAL extends Win32Enum {
+export default struct TCP_BOOLEAN_OPTIONAL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The option should be disabled.

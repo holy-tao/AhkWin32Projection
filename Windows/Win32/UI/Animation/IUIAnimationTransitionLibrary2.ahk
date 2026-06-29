@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAnimationTransition2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_ANIMATION_SLOPE.ahk" { UI_ANIMATION_SLOPE }
+#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines a library of standard transitions for a specified dimension.
@@ -13,32 +15,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtransitionlibrary2
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationTransitionLibrary2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
     /**
      * The interface identifier for IUIAnimationTransitionLibrary2
      * @type {Guid}
      */
-    static IID => Guid("{03cfae53-9580-4ee3-b363-2ece51b4af6a}")
+    static IID := Guid("{03cfae53-9580-4ee3-b363-2ece51b4af6a}")
 
     /**
      * The class identifier for UIAnimationTransitionLibrary2
      * @type {Guid}
      */
-    static CLSID => Guid("{812f944a-c5c8-4cd9-b0a6-b3da802f228d}")
+    static CLSID := Guid("{812f944a-c5c8-4cd9-b0a6-b3da802f228d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationTransitionLibrary2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateInstantaneousTransition             : IntPtr
+        CreateInstantaneousVectorTransition       : IntPtr
+        CreateConstantTransition                  : IntPtr
+        CreateDiscreteTransition                  : IntPtr
+        CreateDiscreteVectorTransition            : IntPtr
+        CreateLinearTransition                    : IntPtr
+        CreateLinearVectorTransition              : IntPtr
+        CreateLinearTransitionFromSpeed           : IntPtr
+        CreateLinearVectorTransitionFromSpeed     : IntPtr
+        CreateSinusoidalTransitionFromVelocity    : IntPtr
+        CreateSinusoidalTransitionFromRange       : IntPtr
+        CreateAccelerateDecelerateTransition      : IntPtr
+        CreateReversalTransition                  : IntPtr
+        CreateCubicTransition                     : IntPtr
+        CreateCubicVectorTransition               : IntPtr
+        CreateSmoothStopTransition                : IntPtr
+        CreateParabolicTransitionFromAcceleration : IntPtr
+        CreateCubicBezierLinearTransition         : IntPtr
+        CreateCubicBezierLinearVectorTransition   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateInstantaneousTransition", "CreateInstantaneousVectorTransition", "CreateConstantTransition", "CreateDiscreteTransition", "CreateDiscreteVectorTransition", "CreateLinearTransition", "CreateLinearVectorTransition", "CreateLinearTransitionFromSpeed", "CreateLinearVectorTransitionFromSpeed", "CreateSinusoidalTransitionFromVelocity", "CreateSinusoidalTransitionFromRange", "CreateAccelerateDecelerateTransition", "CreateReversalTransition", "CreateCubicTransition", "CreateCubicVectorTransition", "CreateSmoothStopTransition", "CreateParabolicTransitionFromAcceleration", "CreateCubicBezierLinearTransition", "CreateCubicBezierLinearVectorTransition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationTransitionLibrary2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an instantaneous scalar transition.
@@ -250,7 +277,7 @@ class IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createsinusoidaltransitionfromrange
      */
     CreateSinusoidalTransitionFromRange(duration, minimumValue, maximumValue, period, slope) {
-        result := ComCall(13, this, "double", duration, "double", minimumValue, "double", maximumValue, "double", period, "int", slope, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(13, this, "double", duration, "double", minimumValue, "double", maximumValue, "double", period, UI_ANIMATION_SLOPE, slope, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -418,5 +445,61 @@ class IUIAnimationTransitionLibrary2 extends IUnknown {
 
         result := ComCall(21, this, "double", duration, finalValueMarshal, finalValue, "uint", cDimension, "double", x1, "double", y1, "double", x2, "double", y2, "ptr*", &ppTransition := 0, "HRESULT")
         return IUIAnimationTransition2(ppTransition)
+    }
+
+    Query(iid) {
+        if (IUIAnimationTransitionLibrary2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateInstantaneousTransition := CallbackCreate(GetMethod(implObj, "CreateInstantaneousTransition"), flags, 3)
+        this.vtbl.CreateInstantaneousVectorTransition := CallbackCreate(GetMethod(implObj, "CreateInstantaneousVectorTransition"), flags, 4)
+        this.vtbl.CreateConstantTransition := CallbackCreate(GetMethod(implObj, "CreateConstantTransition"), flags, 3)
+        this.vtbl.CreateDiscreteTransition := CallbackCreate(GetMethod(implObj, "CreateDiscreteTransition"), flags, 5)
+        this.vtbl.CreateDiscreteVectorTransition := CallbackCreate(GetMethod(implObj, "CreateDiscreteVectorTransition"), flags, 6)
+        this.vtbl.CreateLinearTransition := CallbackCreate(GetMethod(implObj, "CreateLinearTransition"), flags, 4)
+        this.vtbl.CreateLinearVectorTransition := CallbackCreate(GetMethod(implObj, "CreateLinearVectorTransition"), flags, 5)
+        this.vtbl.CreateLinearTransitionFromSpeed := CallbackCreate(GetMethod(implObj, "CreateLinearTransitionFromSpeed"), flags, 4)
+        this.vtbl.CreateLinearVectorTransitionFromSpeed := CallbackCreate(GetMethod(implObj, "CreateLinearVectorTransitionFromSpeed"), flags, 5)
+        this.vtbl.CreateSinusoidalTransitionFromVelocity := CallbackCreate(GetMethod(implObj, "CreateSinusoidalTransitionFromVelocity"), flags, 4)
+        this.vtbl.CreateSinusoidalTransitionFromRange := CallbackCreate(GetMethod(implObj, "CreateSinusoidalTransitionFromRange"), flags, 7)
+        this.vtbl.CreateAccelerateDecelerateTransition := CallbackCreate(GetMethod(implObj, "CreateAccelerateDecelerateTransition"), flags, 6)
+        this.vtbl.CreateReversalTransition := CallbackCreate(GetMethod(implObj, "CreateReversalTransition"), flags, 3)
+        this.vtbl.CreateCubicTransition := CallbackCreate(GetMethod(implObj, "CreateCubicTransition"), flags, 5)
+        this.vtbl.CreateCubicVectorTransition := CallbackCreate(GetMethod(implObj, "CreateCubicVectorTransition"), flags, 6)
+        this.vtbl.CreateSmoothStopTransition := CallbackCreate(GetMethod(implObj, "CreateSmoothStopTransition"), flags, 4)
+        this.vtbl.CreateParabolicTransitionFromAcceleration := CallbackCreate(GetMethod(implObj, "CreateParabolicTransitionFromAcceleration"), flags, 5)
+        this.vtbl.CreateCubicBezierLinearTransition := CallbackCreate(GetMethod(implObj, "CreateCubicBezierLinearTransition"), flags, 8)
+        this.vtbl.CreateCubicBezierLinearVectorTransition := CallbackCreate(GetMethod(implObj, "CreateCubicBezierLinearVectorTransition"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateInstantaneousTransition)
+        CallbackFree(this.vtbl.CreateInstantaneousVectorTransition)
+        CallbackFree(this.vtbl.CreateConstantTransition)
+        CallbackFree(this.vtbl.CreateDiscreteTransition)
+        CallbackFree(this.vtbl.CreateDiscreteVectorTransition)
+        CallbackFree(this.vtbl.CreateLinearTransition)
+        CallbackFree(this.vtbl.CreateLinearVectorTransition)
+        CallbackFree(this.vtbl.CreateLinearTransitionFromSpeed)
+        CallbackFree(this.vtbl.CreateLinearVectorTransitionFromSpeed)
+        CallbackFree(this.vtbl.CreateSinusoidalTransitionFromVelocity)
+        CallbackFree(this.vtbl.CreateSinusoidalTransitionFromRange)
+        CallbackFree(this.vtbl.CreateAccelerateDecelerateTransition)
+        CallbackFree(this.vtbl.CreateReversalTransition)
+        CallbackFree(this.vtbl.CreateCubicTransition)
+        CallbackFree(this.vtbl.CreateCubicVectorTransition)
+        CallbackFree(this.vtbl.CreateSmoothStopTransition)
+        CallbackFree(this.vtbl.CreateParabolicTransitionFromAcceleration)
+        CallbackFree(this.vtbl.CreateCubicBezierLinearTransition)
+        CallbackFree(this.vtbl.CreateCubicBezierLinearVectorTransition)
     }
 }

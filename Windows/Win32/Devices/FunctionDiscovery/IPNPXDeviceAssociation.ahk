@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods to manage the association database entries for PnP-X devices. These methods send notifications when the corresponding PnP devnode changes.
@@ -19,26 +22,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nn-pnpxassoc-ipnpxdeviceassociation
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IPNPXDeviceAssociation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPNPXDeviceAssociation extends IUnknown {
     /**
      * The interface identifier for IPNPXDeviceAssociation
      * @type {Guid}
      */
-    static IID => Guid("{eed366d0-35b8-4fc5-8d20-7e5bd31f6ded}")
+    static IID := Guid("{eed366d0-35b8-4fc5-8d20-7e5bd31f6ded}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPNPXDeviceAssociation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Associate   : IntPtr
+        Unassociate : IntPtr
+        Delete      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Associate", "Unassociate", "Delete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPNPXDeviceAssociation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Marks an association database entry as associated and sends an appropriate notification.
@@ -200,5 +212,29 @@ class IPNPXDeviceAssociation extends IUnknown {
 
         result := ComCall(5, this, "ptr", pszSubcategory, "ptr", pIFunctionDiscoveryNotification, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPNPXDeviceAssociation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Associate := CallbackCreate(GetMethod(implObj, "Associate"), flags, 3)
+        this.vtbl.Unassociate := CallbackCreate(GetMethod(implObj, "Unassociate"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Associate)
+        CallbackFree(this.vtbl.Unassociate)
+        CallbackFree(this.vtbl.Delete)
     }
 }

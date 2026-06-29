@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information for a MIB opaque query.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_opaque_query
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_OPAQUE_QUERY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIB_OPAQUE_QUERY {
+    #StructPack 4
 
     /**
      * The identifier of the MIB object to query.
-     * @type {Integer}
      */
-    dwVarId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVarId : UInt32
 
     /**
      * The index of the MIB object to query.
-     * @type {Array<Integer>}
      */
-    rgdwVarIndex {
-        get {
-            if(!this.HasProp("__rgdwVarIndexProxyArray"))
-                this.__rgdwVarIndexProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__rgdwVarIndexProxyArray
-        }
-    }
+    rgdwVarIndex : UInt32[1]
+
 }

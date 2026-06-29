@@ -1,67 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDP_PTRSTRIDE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDP_PTRSTRIDE.ahk" { D3DDP_PTRSTRIDE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct {
-    static sizeof => 192
+export default struct D3DDRAWPRIMITIVESTRIDEDDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    position : D3DDP_PTRSTRIDE
 
-    /**
-     * @type {D3DDP_PTRSTRIDE}
-     */
-    position {
-        get {
-            if(!this.HasProp("__position"))
-                this.__position := D3DDP_PTRSTRIDE(0, this)
-            return this.__position
-        }
-    }
+    normal : D3DDP_PTRSTRIDE
 
-    /**
-     * @type {D3DDP_PTRSTRIDE}
-     */
-    normal {
-        get {
-            if(!this.HasProp("__normal"))
-                this.__normal := D3DDP_PTRSTRIDE(16, this)
-            return this.__normal
-        }
-    }
+    diffuse : D3DDP_PTRSTRIDE
 
-    /**
-     * @type {D3DDP_PTRSTRIDE}
-     */
-    diffuse {
-        get {
-            if(!this.HasProp("__diffuse"))
-                this.__diffuse := D3DDP_PTRSTRIDE(32, this)
-            return this.__diffuse
-        }
-    }
+    specular : D3DDP_PTRSTRIDE
 
-    /**
-     * @type {D3DDP_PTRSTRIDE}
-     */
-    specular {
-        get {
-            if(!this.HasProp("__specular"))
-                this.__specular := D3DDP_PTRSTRIDE(48, this)
-            return this.__specular
-        }
-    }
+    textureCoords : D3DDP_PTRSTRIDE[8]
 
-    /**
-     * @type {D3DDP_PTRSTRIDE}
-     */
-    textureCoords {
-        get {
-            if(!this.HasProp("__textureCoordsProxyArray"))
-                this.__textureCoordsProxyArray := Win32FixedArray(this.ptr + 64, 8, D3DDP_PTRSTRIDE, "")
-            return this.__textureCoordsProxyArray
-        }
-    }
 }

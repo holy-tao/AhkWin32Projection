@@ -1,124 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
-#Include .\URB.ahk
-#Include .\_URB_HCD_AREA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\_URB_HCD_AREA.ahk" { _URB_HCD_AREA }
+#Import ".\URB.ahk" { URB }
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST extends Win32Struct {
-    static sizeof => 136
+export default struct _URB_CONTROL_VENDOR_OR_CLASS_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    Hdr : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    Hdr {
-        get {
-            if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(0, this)
-            return this.__Hdr
-        }
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TransferFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransferFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TransferBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransferBufferLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TransferBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TransferBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    TransferBufferMDL : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TransferBufferMDL {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<URB>}
-     */
+    __UrbLink_ptr : IntPtr
     UrbLink {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => (addr := this.__UrbLink_ptr) ? URB.At(addr) : unset
+        set => this.__UrbLink_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {_URB_HCD_AREA}
-     */
-    hca {
-        get {
-            if(!this.HasProp("__hca"))
-                this.__hca := _URB_HCD_AREA(64, this)
-            return this.__hca
-        }
-    }
+    hca : _URB_HCD_AREA
 
-    /**
-     * @type {Integer}
-     */
-    RequestTypeReservedBits {
-        get => NumGet(this, 128, "char")
-        set => NumPut("char", value, this, 128)
-    }
+    RequestTypeReservedBits : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Request {
-        get => NumGet(this, 129, "char")
-        set => NumPut("char", value, this, 129)
-    }
+    Request : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 130, "ushort")
-        set => NumPut("ushort", value, this, 130)
-    }
+    Value : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Index {
-        get => NumGet(this, 132, "ushort")
-        set => NumPut("ushort", value, this, 132)
-    }
+    Index : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 134, "ushort")
-        set => NumPut("ushort", value, this, 134)
-    }
+    Reserved1 : UInt16
+
 }

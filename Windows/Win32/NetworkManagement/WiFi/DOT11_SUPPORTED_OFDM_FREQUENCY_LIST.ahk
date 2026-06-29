@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SUPPORTED_OFDM_FREQUENCY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_SUPPORTED_OFDM_FREQUENCY.ahk" { DOT11_SUPPORTED_OFDM_FREQUENCY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_SUPPORTED_OFDM_FREQUENCY_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    uNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uTotalNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uTotalNumOfEntries {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dot11SupportedOFDMFrequency : DOT11_SUPPORTED_OFDM_FREQUENCY[1]
 
-    /**
-     * @type {DOT11_SUPPORTED_OFDM_FREQUENCY}
-     */
-    dot11SupportedOFDMFrequency {
-        get {
-            if(!this.HasProp("__dot11SupportedOFDMFrequencyProxyArray"))
-                this.__dot11SupportedOFDMFrequencyProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SUPPORTED_OFDM_FREQUENCY, "")
-            return this.__dot11SupportedOFDMFrequencyProxyArray
-        }
-    }
 }

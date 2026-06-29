@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TRACKMOUSEEVENT_FLAGS.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\TRACKMOUSEEVENT_FLAGS.ahk" { TRACKMOUSEEVENT_FLAGS }
 
 /**
  * Used by the TrackMouseEvent function to track when the mouse pointer leaves a window or hovers over a window for a specified amount of time.
@@ -12,58 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-trackmouseevent
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class TRACKMOUSEEVENT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TRACKMOUSEEVENT {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the <b>TRACKMOUSEEVENT</b> structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
-     * @type {TRACKMOUSEEVENT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : TRACKMOUSEEVENT_FLAGS
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window to track.
-     * @type {HWND}
      */
-    hwndTrack {
-        get {
-            if(!this.HasProp("__hwndTrack"))
-                this.__hwndTrack := HWND(8, this)
-            return this.__hwndTrack
-        }
-    }
+    hwndTrack : HWND
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The hover time-out (if <b>TME_HOVER</b> was specified in <b>dwFlags</b>), in milliseconds. Can be <b>HOVER_DEFAULT</b>, which means to use the system default hover time-out.
-     * @type {Integer}
      */
-    dwHoverTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwHoverTime : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

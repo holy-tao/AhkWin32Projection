@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies options for resources.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_resource_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
+export default struct D3D11_RESOURCE_MISC_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Enables MIP map generation by using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-generatemips">ID3D11DeviceContext::GenerateMips</a> on a texture resource. The resource must be created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">bind flags</a> that specify that the resource is a render target and a shader resource.

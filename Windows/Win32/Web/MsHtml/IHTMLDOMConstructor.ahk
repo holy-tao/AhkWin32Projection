@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDOMConstructor extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDOMConstructor extends IDispatch {
     /**
      * The interface identifier for IHTMLDOMConstructor
      * @type {Guid}
      */
-    static IID => Guid("{3051049b-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051049b-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDOMConstructor interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_constructor : IntPtr
+        LookupGetter    : IntPtr
+        LookupSetter    : IntPtr
+        DefineGetter    : IntPtr
+        DefineSetter    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_constructor", "LookupGetter", "LookupSetter", "DefineGetter", "DefineSetter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDOMConstructor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -53,7 +66,7 @@ class IHTMLDOMConstructor extends IDispatch {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
         ppDispHandler := VARIANT()
-        result := ComCall(8, this, "ptr", propname, "ptr", ppDispHandler, "HRESULT")
+        result := ComCall(8, this, BSTR, propname, VARIANT.Ptr, ppDispHandler, "HRESULT")
         return ppDispHandler
     }
 
@@ -66,7 +79,7 @@ class IHTMLDOMConstructor extends IDispatch {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
         ppDispHandler := VARIANT()
-        result := ComCall(9, this, "ptr", propname, "ptr", ppDispHandler, "HRESULT")
+        result := ComCall(9, this, BSTR, propname, VARIANT.Ptr, ppDispHandler, "HRESULT")
         return ppDispHandler
     }
 
@@ -79,7 +92,7 @@ class IHTMLDOMConstructor extends IDispatch {
     DefineGetter(propname, pdispHandler) {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
-        result := ComCall(10, this, "ptr", propname, "ptr", pdispHandler, "HRESULT")
+        result := ComCall(10, this, BSTR, propname, VARIANT.Ptr, pdispHandler, "HRESULT")
         return result
     }
 
@@ -92,7 +105,35 @@ class IHTMLDOMConstructor extends IDispatch {
     DefineSetter(propname, pdispHandler) {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
-        result := ComCall(11, this, "ptr", propname, "ptr", pdispHandler, "HRESULT")
+        result := ComCall(11, this, BSTR, propname, VARIANT.Ptr, pdispHandler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLDOMConstructor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_constructor := CallbackCreate(GetMethod(implObj, "get_constructor"), flags, 2)
+        this.vtbl.LookupGetter := CallbackCreate(GetMethod(implObj, "LookupGetter"), flags, 3)
+        this.vtbl.LookupSetter := CallbackCreate(GetMethod(implObj, "LookupSetter"), flags, 3)
+        this.vtbl.DefineGetter := CallbackCreate(GetMethod(implObj, "DefineGetter"), flags, 3)
+        this.vtbl.DefineSetter := CallbackCreate(GetMethod(implObj, "DefineSetter"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_constructor)
+        CallbackFree(this.vtbl.LookupGetter)
+        CallbackFree(this.vtbl.LookupSetter)
+        CallbackFree(this.vtbl.DefineGetter)
+        CallbackFree(this.vtbl.DefineSetter)
     }
 }

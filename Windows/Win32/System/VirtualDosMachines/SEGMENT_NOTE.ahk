@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
  */
-class SEGMENT_NOTE extends Win32Struct {
-    static sizeof => 280
+export default struct SEGMENT_NOTE {
+    #StructPack 4
 
-    static packingSize => 4
+    Selector1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Selector1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Selector2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Selector2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Segment : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Segment {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Module : CHAR[10]
 
-    /**
-     * @type {String}
-     */
-    Module {
-        get => StrGet(this.ptr + 6, 9, "UTF-8")
-        set => StrPut(value, this.ptr + 6, 9, "UTF-8")
-    }
+    FileName : CHAR[256]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 16, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-8")
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 272, "ushort")
-        set => NumPut("ushort", value, this, 272)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
 }

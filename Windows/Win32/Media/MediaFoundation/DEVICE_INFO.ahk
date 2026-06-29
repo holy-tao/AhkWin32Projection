@@ -1,74 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * Contains information about a media sharing device.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ns-mfsharingengine-device_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DEVICE_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DEVICE_INFO {
+    #StructPack 8
 
     /**
      * The friendly name of the device.
-     * @type {BSTR}
      */
-    pFriendlyDeviceName {
-        get {
-            if(!this.HasProp("__pFriendlyDeviceName"))
-                this.__pFriendlyDeviceName := BSTR(0, this)
-            return this.__pFriendlyDeviceName
-        }
-    }
+    pFriendlyDeviceName : BSTR
 
     /**
      * A string that uniquely identifies the device.
-     * @type {BSTR}
      */
-    pUniqueDeviceName {
-        get {
-            if(!this.HasProp("__pUniqueDeviceName"))
-                this.__pUniqueDeviceName := BSTR(8, this)
-            return this.__pUniqueDeviceName
-        }
-    }
+    pUniqueDeviceName : BSTR
 
     /**
      * The manufacturer name.
-     * @type {BSTR}
      */
-    pManufacturerName {
-        get {
-            if(!this.HasProp("__pManufacturerName"))
-                this.__pManufacturerName := BSTR(16, this)
-            return this.__pManufacturerName
-        }
-    }
+    pManufacturerName : BSTR
 
     /**
      * The model name.
-     * @type {BSTR}
      */
-    pModelName {
-        get {
-            if(!this.HasProp("__pModelName"))
-                this.__pModelName := BSTR(24, this)
-            return this.__pModelName
-        }
-    }
+    pModelName : BSTR
 
     /**
      * The URL of an icon for the device.
-     * @type {BSTR}
      */
-    pIconURL {
-        get {
-            if(!this.HasProp("__pIconURL"))
-                this.__pIconURL := BSTR(32, this)
-            return this.__pIconURL
-        }
-    }
+    pIconURL : BSTR
+
 }

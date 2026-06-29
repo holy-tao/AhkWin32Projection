@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACTRL_ACCESS_ENTRY_LISTA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACTRL_ACCESS_ENTRY_LISTA.ahk" { ACTRL_ACCESS_ENTRY_LISTA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains a list of access-control entries for an object or a specified property on an object. (ANSI)
@@ -21,28 +21,18 @@
  * @namespace Windows.Win32.Security.Authorization
  * @charset ANSI
  */
-class ACTRL_PROPERTY_ENTRYA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct ACTRL_PROPERTY_ENTRYA {
+    #StructPack 8
 
     /**
      * The GUID of a property on an object. Use the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-uuidtostring">UuidToString</a> function to generate a string representation of a property GUID.
-     * @type {PSTR}
      */
-    lpProperty {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpProperty : PSTR
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-actrl_access_entry_lista">ACTRL_ACCESS_ENTRY_LIST</a> structure that contains a list of access-control entries.
-     * @type {Pointer<ACTRL_ACCESS_ENTRY_LISTA>}
      */
-    pAccessEntryList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pAccessEntryList : ACTRL_ACCESS_ENTRY_LISTA.Ptr
 
     /**
      * Flags that specify information about the <b>pProperty</b> property. This member can be 0 or the following value.
@@ -66,10 +56,7 @@ class ACTRL_PROPERTY_ENTRYA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fListFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fListFlags : UInt32
+
 }

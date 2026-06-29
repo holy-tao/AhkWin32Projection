@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AVISTDINDEX_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AVISTDINDEX_ENTRY.ahk" { AVISTDINDEX_ENTRY }
 
 /**
  * Contains an AVI 2.0 standard index.
@@ -11,101 +10,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avistdindex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVISTDINDEX extends Win32Struct {
-    static sizeof => 16392
-
-    static packingSize => 8
+export default struct AVISTDINDEX {
+    #StructPack 8
 
     /**
      * A <b>FOURCC</b> code. The value is either  'indx' or '<i>nn</i>ix', where <i>nn</i> is the stream number.
-     * @type {Integer}
      */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fcc : UInt32
 
     /**
      * The size of the structure, not including the initial 8 bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cb : UInt32
 
     /**
      * The size of each index entry, in 4-byte units. The value must be 2.
-     * @type {Integer}
      */
-    wLongsPerEntry {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wLongsPerEntry : UInt16
 
     /**
      * The index subtype. The value must be zero.
-     * @type {Integer}
      */
-    bIndexSubType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bIndexSubType : Int8
 
     /**
      * The index type. The value must be <b>AVI_INDEX_OF_CHUNKS</b>.
-     * @type {Integer}
      */
-    bIndexType {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    bIndexType : Int8
 
     /**
      * The number of valid entries in the <b>adwIndex</b> array.
-     * @type {Integer}
      */
-    nEntriesInUse {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    nEntriesInUse : UInt32
 
     /**
      * A <b>FOURCC</b> that identifies the object that is indexed. This member has the same meaning as the <b>dwChunkId</b>  member of the <a href="https://docs.microsoft.com/previous-versions/ms779634(v=vs.85)">AVIOLDINDEX</a> structure.
-     * @type {Integer}
      */
-    dwChunkId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwChunkId : UInt32
 
     /**
      * The base offset for the index entries. For each index entry, <b>qwBaseOffset</b> + <b>AVISTDINDEX_ENTRY.dwOffset</b> gives the offset from the start of the file to the data.
-     * @type {Integer}
      */
-    qwBaseOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    qwBaseOffset : Int64
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    dwReserved_3 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved_3 : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/aviriff/ns-aviriff-avistdindex_entry">AVISTDINDEX_ENTRY</a> structures. The number of elements in the array is calculated from the value of <b>cb</b>.
-     * @type {AVISTDINDEX_ENTRY}
      */
-    aIndex {
-        get {
-            if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 36, 2044, AVISTDINDEX_ENTRY, "")
-            return this.__aIndexProxyArray
-        }
-    }
+    aIndex : AVISTDINDEX_ENTRY[2044]
+
 }

@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory5.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIFactory5.ahk" { IDXGIFactory5 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_GPU_PREFERENCE.ahk" { DXGI_GPU_PREFERENCE }
 
 /**
  * This interface enables a single method that enumerates graphics adapters based on a given GPU preference.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgifactory6
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIFactory6 extends IDXGIFactory5 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIFactory6 extends IDXGIFactory5 {
     /**
      * The interface identifier for IDXGIFactory6
      * @type {Guid}
      */
-    static IID => Guid("{c1b6694f-ff09-44a9-b03c-77900a0a1d17}")
+    static IID := Guid("{c1b6694f-ff09-44a9-b03c-77900a0a1d17}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 29
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIFactory6 interfaces
+    */
+    struct Vtbl extends IDXGIFactory5.Vtbl {
+        EnumAdapterByGpuPreference : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumAdapterByGpuPreference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIFactory6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enumerates graphics adapters based on a given GPU preference.
@@ -67,7 +76,27 @@ class IDXGIFactory6 extends IDXGIFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory6-enumadapterbygpupreference
      */
     EnumAdapterByGpuPreference(_Adapter, GpuPreference, riid) {
-        result := ComCall(29, this, "uint", _Adapter, "int", GpuPreference, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(29, this, "uint", _Adapter, DXGI_GPU_PREFERENCE, GpuPreference, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
         return ppvAdapter
+    }
+
+    Query(iid) {
+        if (IDXGIFactory6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumAdapterByGpuPreference := CallbackCreate(GetMethod(implObj, "EnumAdapterByGpuPreference"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumAdapterByGpuPreference)
     }
 }

@@ -1,32 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509SCEPEnrollment.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\DelayRetryAction.ahk" { DelayRetryAction }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509SCEPProcessMessageFlags.ahk" { X509SCEPProcessMessageFlags }
+#Import ".\IX509SCEPEnrollment.ahk" { IX509SCEPEnrollment }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
-
-    static sizeof => A_PtrSize
+export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     /**
      * The interface identifier for IX509SCEPEnrollment2
      * @type {Guid}
      */
-    static IID => Guid("{728ab364-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab364-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 29
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509SCEPEnrollment2 interfaces
+    */
+    struct Vtbl extends IX509SCEPEnrollment.Vtbl {
+        CreateChallengeAnswerMessage : IntPtr
+        ProcessResponseMessage2      : IntPtr
+        get_ResultMessageText        : IntPtr
+        get_DelayRetry               : IntPtr
+        get_ActivityId               : IntPtr
+        put_ActivityId               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateChallengeAnswerMessage", "ProcessResponseMessage2", "get_ResultMessageText", "get_DelayRetry", "get_ActivityId", "put_ActivityId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509SCEPEnrollment2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -56,8 +73,8 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
      * @returns {BSTR} 
      */
     CreateChallengeAnswerMessage(Encoding) {
-        pValue := BSTR()
-        result := ComCall(29, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(29, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -71,7 +88,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     ProcessResponseMessage2(Flags, strResponse, Encoding) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(30, this, X509SCEPProcessMessageFlags, Flags, BSTR, strResponse, EncodingType, Encoding, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -80,8 +97,8 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
      * @returns {BSTR} 
      */
     get_ResultMessageText() {
-        pValue := BSTR()
-        result := ComCall(31, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -99,8 +116,8 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
      * @returns {BSTR} 
      */
     get_ActivityId() {
-        pValue := BSTR()
-        result := ComCall(33, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(33, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -112,7 +129,37 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     put_ActivityId(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(34, this, "ptr", Value, "HRESULT")
+        result := ComCall(34, this, BSTR, Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509SCEPEnrollment2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateChallengeAnswerMessage := CallbackCreate(GetMethod(implObj, "CreateChallengeAnswerMessage"), flags, 3)
+        this.vtbl.ProcessResponseMessage2 := CallbackCreate(GetMethod(implObj, "ProcessResponseMessage2"), flags, 5)
+        this.vtbl.get_ResultMessageText := CallbackCreate(GetMethod(implObj, "get_ResultMessageText"), flags, 2)
+        this.vtbl.get_DelayRetry := CallbackCreate(GetMethod(implObj, "get_DelayRetry"), flags, 2)
+        this.vtbl.get_ActivityId := CallbackCreate(GetMethod(implObj, "get_ActivityId"), flags, 2)
+        this.vtbl.put_ActivityId := CallbackCreate(GetMethod(implObj, "put_ActivityId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateChallengeAnswerMessage)
+        CallbackFree(this.vtbl.ProcessResponseMessage2)
+        CallbackFree(this.vtbl.get_ResultMessageText)
+        CallbackFree(this.vtbl.get_DelayRetry)
+        CallbackFree(this.vtbl.get_ActivityId)
+        CallbackFree(this.vtbl.put_ActivityId)
     }
 }

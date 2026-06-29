@@ -1,121 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IO_RESOURCE_DESCRIPTOR.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
-#Include .\ARBITER_REQUEST_SOURCE.ahk
-#Include .\INTERFACE_TYPE.ahk
-#Include .\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk
-#Include .\ARBITER_RESULT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ARBITER_REQUEST_SOURCE.ahk" { ARBITER_REQUEST_SOURCE }
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\ARBITER_RESULT.ahk" { ARBITER_RESULT }
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
+#Import ".\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk" { CM_PARTIAL_RESOURCE_DESCRIPTOR }
+#Import ".\IO_RESOURCE_DESCRIPTOR.ahk" { IO_RESOURCE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class ARBITER_LIST_ENTRY extends Win32Struct {
-    static sizeof => 88
+export default struct ARBITER_LIST_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    ListEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ListEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AlternativeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlternativeCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Alternatives : IO_RESOURCE_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<IO_RESOURCE_DESCRIPTOR>}
-     */
-    Alternatives {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PhysicalDeviceObject : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    PhysicalDeviceObject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    RequestSource : ARBITER_REQUEST_SOURCE
 
-    /**
-     * @type {ARBITER_REQUEST_SOURCE}
-     */
-    RequestSource {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    WorkSpace : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WorkSpace {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    InterfaceType : INTERFACE_TYPE
 
-    /**
-     * @type {INTERFACE_TYPE}
-     */
-    InterfaceType {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    SlotNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SlotNumber {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    BusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusNumber {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Assignment : CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<CM_PARTIAL_RESOURCE_DESCRIPTOR>}
-     */
-    Assignment {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    SelectedAlternative : IO_RESOURCE_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<IO_RESOURCE_DESCRIPTOR>}
-     */
-    SelectedAlternative {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Result : ARBITER_RESULT
 
-    /**
-     * @type {ARBITER_RESULT}
-     */
-    Result {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
 }

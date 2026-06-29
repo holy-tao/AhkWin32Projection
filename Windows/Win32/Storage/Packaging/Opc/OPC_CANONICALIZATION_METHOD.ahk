@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the canonicalization method to be applied to XML markup.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_canonicalization_method
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class OPC_CANONICALIZATION_METHOD extends Win32Enum {
+export default struct OPC_CANONICALIZATION_METHOD {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No canonicalization method is applied.

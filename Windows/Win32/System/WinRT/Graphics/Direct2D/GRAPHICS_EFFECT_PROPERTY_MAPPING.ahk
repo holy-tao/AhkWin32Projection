@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates how a strongly-typed effect property maps to an underlying Direct2D effect property.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/ne-windows-graphics-effects-interop-graphics_effect_property_mapping
  * @namespace Windows.Win32.System.WinRT.Graphics.Direct2D
  */
-class GRAPHICS_EFFECT_PROPERTY_MAPPING extends Win32Enum {
+export default struct GRAPHICS_EFFECT_PROPERTY_MAPPING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that the value cannot be mapped to a Direct2D effect property.

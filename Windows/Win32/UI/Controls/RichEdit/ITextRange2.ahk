@@ -1,38 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextSelection.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextFont2.ahk
-#Include .\ITextPara2.ahk
-#Include .\ITextRow.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextPara2.ahk" { ITextPara2 }
+#Import ".\ITextRow.ahk" { ITextRow }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITextFont2.ahk" { ITextFont2 }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextSelection.ahk" { ITextSelection }
 
 /**
  * The ITextRange2 interface is derived from ITextRange, and its objects are powerful editing and data-binding tools that enable a program to select text in a story and then examine or change that text.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextrange2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextRange2 extends ITextSelection {
-
-    static sizeof => A_PtrSize
+export default struct ITextRange2 extends ITextSelection {
     /**
      * The interface identifier for ITextRange2
      * @type {Guid}
      */
-    static IID => Guid("{c241f5e2-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5e2-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 68
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextRange2 interfaces
+    */
+    struct Vtbl extends ITextSelection.Vtbl {
+        GetCch              : IntPtr
+        GetCells            : IntPtr
+        GetColumn           : IntPtr
+        GetCount            : IntPtr
+        GetDuplicate2       : IntPtr
+        GetFont2            : IntPtr
+        SetFont2            : IntPtr
+        GetFormattedText2   : IntPtr
+        SetFormattedText2   : IntPtr
+        GetGravity          : IntPtr
+        SetGravity          : IntPtr
+        GetPara2            : IntPtr
+        SetPara2            : IntPtr
+        GetRow              : IntPtr
+        GetStartPara        : IntPtr
+        GetTable            : IntPtr
+        GetURL              : IntPtr
+        SetURL              : IntPtr
+        AddSubrange         : IntPtr
+        BuildUpMath         : IntPtr
+        DeleteSubrange      : IntPtr
+        Find                : IntPtr
+        GetChar2            : IntPtr
+        GetDropCap          : IntPtr
+        GetInlineObject     : IntPtr
+        GetProperty         : IntPtr
+        GetRect             : IntPtr
+        GetSubrange         : IntPtr
+        GetText2            : IntPtr
+        HexToUnicode        : IntPtr
+        InsertTable         : IntPtr
+        Linearize           : IntPtr
+        SetActiveSubrange   : IntPtr
+        SetDropCap          : IntPtr
+        SetProperty         : IntPtr
+        SetText2            : IntPtr
+        UnicodeToHex        : IntPtr
+        SetInlineObject     : IntPtr
+        GetMathFunctionType : IntPtr
+        InsertImage         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCch", "GetCells", "GetColumn", "GetCount", "GetDuplicate2", "GetFont2", "SetFont2", "GetFormattedText2", "SetFormattedText2", "GetGravity", "SetGravity", "GetPara2", "SetPara2", "GetRow", "GetStartPara", "GetTable", "GetURL", "SetURL", "AddSubrange", "BuildUpMath", "DeleteSubrange", "Find", "GetChar2", "GetDropCap", "GetInlineObject", "GetProperty", "GetRect", "GetSubrange", "GetText2", "HexToUnicode", "InsertTable", "Linearize", "SetActiveSubrange", "SetDropCap", "SetProperty", "SetText2", "UnicodeToHex", "SetInlineObject", "GetMathFunctionType", "InsertImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextRange2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the count of characters in a range.
@@ -388,8 +436,8 @@ class ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-geturl
      */
     GetURL() {
-        pbstr := BSTR()
-        result := ComCall(84, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(84, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -460,7 +508,7 @@ class ITextRange2 extends ITextSelection {
     SetURL(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(85, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(85, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -1098,8 +1146,8 @@ class ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-gettext2
      */
     GetText2(Flags) {
-        pbstr := BSTR()
-        result := ComCall(96, this, "int", Flags, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(96, this, "int", Flags, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -1376,7 +1424,7 @@ class ITextRange2 extends ITextSelection {
     SetText2(Flags, _bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(103, this, "int", Flags, "ptr", _bstr, "HRESULT")
+        result := ComCall(103, this, "int", Flags, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -1456,7 +1504,7 @@ class ITextRange2 extends ITextSelection {
     GetMathFunctionType(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(106, this, "ptr", _bstr, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(106, this, BSTR, _bstr, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1488,7 +1536,105 @@ class ITextRange2 extends ITextSelection {
     InsertImage(width, height, ascent, Type, bstrAltText, pStream) {
         bstrAltText := bstrAltText is String ? BSTR.Alloc(bstrAltText).Value : bstrAltText
 
-        result := ComCall(107, this, "int", width, "int", height, "int", ascent, "int", Type, "ptr", bstrAltText, "ptr", pStream, "HRESULT")
+        result := ComCall(107, this, "int", width, "int", height, "int", ascent, "int", Type, BSTR, bstrAltText, "ptr", pStream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextRange2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCch := CallbackCreate(GetMethod(implObj, "GetCch"), flags, 2)
+        this.vtbl.GetCells := CallbackCreate(GetMethod(implObj, "GetCells"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetDuplicate2 := CallbackCreate(GetMethod(implObj, "GetDuplicate2"), flags, 2)
+        this.vtbl.GetFont2 := CallbackCreate(GetMethod(implObj, "GetFont2"), flags, 2)
+        this.vtbl.SetFont2 := CallbackCreate(GetMethod(implObj, "SetFont2"), flags, 2)
+        this.vtbl.GetFormattedText2 := CallbackCreate(GetMethod(implObj, "GetFormattedText2"), flags, 2)
+        this.vtbl.SetFormattedText2 := CallbackCreate(GetMethod(implObj, "SetFormattedText2"), flags, 2)
+        this.vtbl.GetGravity := CallbackCreate(GetMethod(implObj, "GetGravity"), flags, 2)
+        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 2)
+        this.vtbl.GetPara2 := CallbackCreate(GetMethod(implObj, "GetPara2"), flags, 2)
+        this.vtbl.SetPara2 := CallbackCreate(GetMethod(implObj, "SetPara2"), flags, 2)
+        this.vtbl.GetRow := CallbackCreate(GetMethod(implObj, "GetRow"), flags, 2)
+        this.vtbl.GetStartPara := CallbackCreate(GetMethod(implObj, "GetStartPara"), flags, 2)
+        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 2)
+        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.SetURL := CallbackCreate(GetMethod(implObj, "SetURL"), flags, 2)
+        this.vtbl.AddSubrange := CallbackCreate(GetMethod(implObj, "AddSubrange"), flags, 4)
+        this.vtbl.BuildUpMath := CallbackCreate(GetMethod(implObj, "BuildUpMath"), flags, 2)
+        this.vtbl.DeleteSubrange := CallbackCreate(GetMethod(implObj, "DeleteSubrange"), flags, 3)
+        this.vtbl.Find := CallbackCreate(GetMethod(implObj, "Find"), flags, 5)
+        this.vtbl.GetChar2 := CallbackCreate(GetMethod(implObj, "GetChar2"), flags, 3)
+        this.vtbl.GetDropCap := CallbackCreate(GetMethod(implObj, "GetDropCap"), flags, 3)
+        this.vtbl.GetInlineObject := CallbackCreate(GetMethod(implObj, "GetInlineObject"), flags, 10)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetRect := CallbackCreate(GetMethod(implObj, "GetRect"), flags, 7)
+        this.vtbl.GetSubrange := CallbackCreate(GetMethod(implObj, "GetSubrange"), flags, 4)
+        this.vtbl.GetText2 := CallbackCreate(GetMethod(implObj, "GetText2"), flags, 3)
+        this.vtbl.HexToUnicode := CallbackCreate(GetMethod(implObj, "HexToUnicode"), flags, 1)
+        this.vtbl.InsertTable := CallbackCreate(GetMethod(implObj, "InsertTable"), flags, 4)
+        this.vtbl.Linearize := CallbackCreate(GetMethod(implObj, "Linearize"), flags, 2)
+        this.vtbl.SetActiveSubrange := CallbackCreate(GetMethod(implObj, "SetActiveSubrange"), flags, 3)
+        this.vtbl.SetDropCap := CallbackCreate(GetMethod(implObj, "SetDropCap"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetText2 := CallbackCreate(GetMethod(implObj, "SetText2"), flags, 3)
+        this.vtbl.UnicodeToHex := CallbackCreate(GetMethod(implObj, "UnicodeToHex"), flags, 1)
+        this.vtbl.SetInlineObject := CallbackCreate(GetMethod(implObj, "SetInlineObject"), flags, 9)
+        this.vtbl.GetMathFunctionType := CallbackCreate(GetMethod(implObj, "GetMathFunctionType"), flags, 3)
+        this.vtbl.InsertImage := CallbackCreate(GetMethod(implObj, "InsertImage"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCch)
+        CallbackFree(this.vtbl.GetCells)
+        CallbackFree(this.vtbl.GetColumn)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetDuplicate2)
+        CallbackFree(this.vtbl.GetFont2)
+        CallbackFree(this.vtbl.SetFont2)
+        CallbackFree(this.vtbl.GetFormattedText2)
+        CallbackFree(this.vtbl.SetFormattedText2)
+        CallbackFree(this.vtbl.GetGravity)
+        CallbackFree(this.vtbl.SetGravity)
+        CallbackFree(this.vtbl.GetPara2)
+        CallbackFree(this.vtbl.SetPara2)
+        CallbackFree(this.vtbl.GetRow)
+        CallbackFree(this.vtbl.GetStartPara)
+        CallbackFree(this.vtbl.GetTable)
+        CallbackFree(this.vtbl.GetURL)
+        CallbackFree(this.vtbl.SetURL)
+        CallbackFree(this.vtbl.AddSubrange)
+        CallbackFree(this.vtbl.BuildUpMath)
+        CallbackFree(this.vtbl.DeleteSubrange)
+        CallbackFree(this.vtbl.Find)
+        CallbackFree(this.vtbl.GetChar2)
+        CallbackFree(this.vtbl.GetDropCap)
+        CallbackFree(this.vtbl.GetInlineObject)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetRect)
+        CallbackFree(this.vtbl.GetSubrange)
+        CallbackFree(this.vtbl.GetText2)
+        CallbackFree(this.vtbl.HexToUnicode)
+        CallbackFree(this.vtbl.InsertTable)
+        CallbackFree(this.vtbl.Linearize)
+        CallbackFree(this.vtbl.SetActiveSubrange)
+        CallbackFree(this.vtbl.SetDropCap)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.SetText2)
+        CallbackFree(this.vtbl.UnicodeToHex)
+        CallbackFree(this.vtbl.SetInlineObject)
+        CallbackFree(this.vtbl.GetMathFunctionType)
+        CallbackFree(this.vtbl.InsertImage)
     }
 }

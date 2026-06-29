@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFileLoader.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * A built-in implementation of the IDWriteFontFileLoader interface, that operates on local font files and exposes local font file information from the font file reference key.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
     /**
      * The interface identifier for IDWriteLocalFontFileLoader
      * @type {Guid}
      */
-    static IID => Guid("{b2d9f3ec-c9fe-4a11-a2ec-d86208f7c0a2}")
+    static IID := Guid("{b2d9f3ec-c9fe-4a11-a2ec-d86208f7c0a2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteLocalFontFileLoader interfaces
+    */
+    struct Vtbl extends IDWriteFontFileLoader.Vtbl {
+        GetFilePathLengthFromKey : IntPtr
+        GetFilePathFromKey       : IntPtr
+        GetLastWriteTimeFromKey  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFilePathLengthFromKey", "GetFilePathFromKey", "GetLastWriteTimeFromKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteLocalFontFileLoader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Obtains the length of the absolute file path from the font file reference key.
@@ -89,7 +100,31 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
      */
     GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         lastWriteTime := FILETIME()
-        result := ComCall(6, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", lastWriteTime, "HRESULT")
+        result := ComCall(6, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, FILETIME.Ptr, lastWriteTime, "HRESULT")
         return lastWriteTime
+    }
+
+    Query(iid) {
+        if (IDWriteLocalFontFileLoader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFilePathLengthFromKey := CallbackCreate(GetMethod(implObj, "GetFilePathLengthFromKey"), flags, 4)
+        this.vtbl.GetFilePathFromKey := CallbackCreate(GetMethod(implObj, "GetFilePathFromKey"), flags, 5)
+        this.vtbl.GetLastWriteTimeFromKey := CallbackCreate(GetMethod(implObj, "GetLastWriteTimeFromKey"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFilePathLengthFromKey)
+        CallbackFree(this.vtbl.GetFilePathFromKey)
+        CallbackFree(this.vtbl.GetLastWriteTimeFromKey)
     }
 }

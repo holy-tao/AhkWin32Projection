@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains the size and position of either a primary or secondary Help window. An application can set this information by calling the WinHelp function with the HELP_SETWINPOS value. (ANSI)
@@ -45,85 +45,56 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  */
-class HELPWININFOA extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct HELPWININFOA {
+    #StructPack 4
 
     /**
      * Type: <b>int</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    wStructSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    wStructSize : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * X-coordinate of the upper-left corner of the window, in screen coordinates.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    x : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Y-coordinate of the upper-left corner of the window, in screen coordinates.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    y : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The width of the window, in pixels.
-     * @type {Integer}
      */
-    dx {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    dx : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The height of the window, in pixels.
-     * @type {Integer}
      */
-    dy {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    dy : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Options for display of the window. It can be any of the values that can be specified in the <i>nCmdShow</i> parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
-     * @type {Integer}
      */
-    wMax {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    wMax : Int32
 
     /**
      * Type: <b>TCHAR[2]</b>
      * 
      * The name of the window.
-     * @type {String}
      */
-    rgchMember {
-        get => StrGet(this.ptr + 24, 1, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 1, "UTF-8")
-    }
+    rgchMember : CHAR[2]
+
 }

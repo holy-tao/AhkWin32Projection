@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SSERRORINFO extends Win32Struct {
-    static sizeof => 32
+export default struct SSERRORINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszMessage : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszMessage {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszServer : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszServer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszProcedure : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszProcedure {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lNative : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lNative {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bState : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bState {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    bClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bClass {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
-    }
+    wLineNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wLineNumber {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
 }

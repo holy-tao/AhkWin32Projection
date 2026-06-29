@@ -1,63 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SD_CHANGE_MACHINE_SID_INPUT.ahk
-#Include .\SD_QUERY_STATS_INPUT.ahk
-#Include .\SD_ENUM_SDS_INPUT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SD_ENUM_SDS_INPUT.ahk" { SD_ENUM_SDS_INPUT }
+#Import ".\SD_QUERY_STATS_INPUT.ahk" { SD_QUERY_STATS_INPUT }
+#Import ".\SD_CHANGE_MACHINE_SID_INPUT.ahk" { SD_CHANGE_MACHINE_SID_INPUT }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SD_GLOBAL_CHANGE_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct SD_GLOBAL_CHANGE_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ChangeType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ChangeType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SdChange : SD_CHANGE_MACHINE_SID_INPUT
 
-    /**
-     * @type {SD_CHANGE_MACHINE_SID_INPUT}
-     */
-    SdChange {
-        get {
-            if(!this.HasProp("__SdChange"))
-                this.__SdChange := SD_CHANGE_MACHINE_SID_INPUT(8, this)
-            return this.__SdChange
-        }
-    }
-
-    /**
-     * @type {SD_QUERY_STATS_INPUT}
-     */
-    SdQueryStats {
-        get {
-            if(!this.HasProp("__SdQueryStats"))
-                this.__SdQueryStats := SD_QUERY_STATS_INPUT(8, this)
-            return this.__SdQueryStats
-        }
-    }
-
-    /**
-     * @type {SD_ENUM_SDS_INPUT}
-     */
-    SdEnumSds {
-        get {
-            if(!this.HasProp("__SdEnumSds"))
-                this.__SdEnumSds := SD_ENUM_SDS_INPUT(8, this)
-            return this.__SdEnumSds
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'SdQueryStats', { type: SD_QUERY_STATS_INPUT, offset: 8 })
+        DefineProp(this.Prototype, 'SdEnumSds', { type: SD_ENUM_SDS_INPUT, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

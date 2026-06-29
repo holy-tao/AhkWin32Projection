@@ -1,69 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_MEMORY_ACCESS_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_MEMORY_ACCESS_INFO.ahk" { WHV_MEMORY_ACCESS_INFO }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_MEMORY_ACCESS_CONTEXT extends Win32Struct {
-    static sizeof => 48
+export default struct WHV_MEMORY_ACCESS_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    InstructionByteCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InstructionByteCount {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    InstructionBytes : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    InstructionBytes {
-        get {
-            if(!this.HasProp("__InstructionBytesProxyArray"))
-                this.__InstructionBytesProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__InstructionBytesProxyArray
-        }
-    }
+    AccessInfo : WHV_MEMORY_ACCESS_INFO
 
-    /**
-     * @type {WHV_MEMORY_ACCESS_INFO}
-     */
-    AccessInfo {
-        get {
-            if(!this.HasProp("__AccessInfo"))
-                this.__AccessInfo := WHV_MEMORY_ACCESS_INFO(20, this)
-            return this.__AccessInfo
-        }
-    }
+    Gpa : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Gpa {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Gva : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Gva {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

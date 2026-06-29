@@ -1,31 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISAXAttributes.ahk" { ISAXAttributes }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISAXLocator.ahk" { ISAXLocator }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class ISAXContentHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISAXContentHandler extends IUnknown {
     /**
      * The interface identifier for ISAXContentHandler
      * @type {Guid}
      */
-    static IID => Guid("{1545cdfa-9e4e-4497-a8a4-2bf7d0112c44}")
+    static IID := Guid("{1545cdfa-9e4e-4497-a8a4-2bf7d0112c44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISAXContentHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        putDocumentLocator    : IntPtr
+        startDocument         : IntPtr
+        endDocument           : IntPtr
+        startPrefixMapping    : IntPtr
+        endPrefixMapping      : IntPtr
+        startElement          : IntPtr
+        endElement            : IntPtr
+        characters            : IntPtr
+        ignorableWhitespace   : IntPtr
+        processingInstruction : IntPtr
+        skippedEntity         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putDocumentLocator", "startDocument", "endDocument", "startPrefixMapping", "endPrefixMapping", "startElement", "endElement", "characters", "ignorableWhitespace", "processingInstruction", "skippedEntity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISAXContentHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -176,5 +197,45 @@ class ISAXContentHandler extends IUnknown {
 
         result := ComCall(13, this, "ptr", pwchName, "int", cchName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISAXContentHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putDocumentLocator := CallbackCreate(GetMethod(implObj, "putDocumentLocator"), flags, 2)
+        this.vtbl.startDocument := CallbackCreate(GetMethod(implObj, "startDocument"), flags, 1)
+        this.vtbl.endDocument := CallbackCreate(GetMethod(implObj, "endDocument"), flags, 1)
+        this.vtbl.startPrefixMapping := CallbackCreate(GetMethod(implObj, "startPrefixMapping"), flags, 5)
+        this.vtbl.endPrefixMapping := CallbackCreate(GetMethod(implObj, "endPrefixMapping"), flags, 3)
+        this.vtbl.startElement := CallbackCreate(GetMethod(implObj, "startElement"), flags, 8)
+        this.vtbl.endElement := CallbackCreate(GetMethod(implObj, "endElement"), flags, 7)
+        this.vtbl.characters := CallbackCreate(GetMethod(implObj, "characters"), flags, 3)
+        this.vtbl.ignorableWhitespace := CallbackCreate(GetMethod(implObj, "ignorableWhitespace"), flags, 3)
+        this.vtbl.processingInstruction := CallbackCreate(GetMethod(implObj, "processingInstruction"), flags, 5)
+        this.vtbl.skippedEntity := CallbackCreate(GetMethod(implObj, "skippedEntity"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putDocumentLocator)
+        CallbackFree(this.vtbl.startDocument)
+        CallbackFree(this.vtbl.endDocument)
+        CallbackFree(this.vtbl.startPrefixMapping)
+        CallbackFree(this.vtbl.endPrefixMapping)
+        CallbackFree(this.vtbl.startElement)
+        CallbackFree(this.vtbl.endElement)
+        CallbackFree(this.vtbl.characters)
+        CallbackFree(this.vtbl.ignorableWhitespace)
+        CallbackFree(this.vtbl.processingInstruction)
+        CallbackFree(this.vtbl.skippedEntity)
     }
 }

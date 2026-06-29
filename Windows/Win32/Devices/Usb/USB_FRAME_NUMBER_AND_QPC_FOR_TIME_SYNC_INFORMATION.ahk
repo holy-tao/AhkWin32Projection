@@ -1,103 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION extends Win32Struct {
-    static sizeof => 64
+export default struct USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TimeTrackingHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    TimeTrackingHandle {
-        get {
-            if(!this.HasProp("__TimeTrackingHandle"))
-                this.__TimeTrackingHandle := HANDLE(0, this)
-            return this.__TimeTrackingHandle
-        }
-    }
+    InputFrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputFrameNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputMicroFrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputMicroFrameNumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    QueryPerformanceCounterAtInputFrameOrMicroFrame : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QueryPerformanceCounterAtInputFrameOrMicroFrame {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    QueryPerformanceCounterFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QueryPerformanceCounterFrequency {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    PredictedAccuracyInMicroSeconds : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PredictedAccuracyInMicroSeconds {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CurrentGenerationID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentGenerationID {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    CurrentQueryPerformanceCounter : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentQueryPerformanceCounter {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    CurrentHardwareFrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentHardwareFrameNumber {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    CurrentHardwareMicroFrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentHardwareMicroFrameNumber {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    CurrentUSBFrameNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentUSBFrameNumber {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

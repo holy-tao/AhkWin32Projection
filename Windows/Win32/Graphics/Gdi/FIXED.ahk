@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FIXED structure contains the integral and fractional parts of a fixed-point real number.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-fixed
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class FIXED extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct FIXED {
+    #StructPack 2
 
     /**
      * The fractional part of the number.
-     * @type {Integer}
      */
-    fract {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    fract : UInt16
 
     /**
      * The integer part of the number.
-     * @type {Integer}
      */
-    value {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    value : Int16
+
 }

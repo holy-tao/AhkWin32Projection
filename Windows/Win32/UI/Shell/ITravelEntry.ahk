@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Deprecated. Exposes methods to identify, invoke, and update an individual item in the browser's travel history.
@@ -13,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itravelentry
  * @namespace Windows.Win32.UI.Shell
  */
-class ITravelEntry extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITravelEntry extends IUnknown {
     /**
      * The interface identifier for ITravelEntry
      * @type {Guid}
      */
-    static IID => Guid("{f46edb3b-bc2f-11d0-9412-00aa00a3ebd3}")
+    static IID := Guid("{f46edb3b-bc2f-11d0-9412-00aa00a3ebd3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITravelEntry interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Invoke  : IntPtr
+        Update  : IntPtr
+        GetPidl : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Invoke", "Update", "GetPidl"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITravelEntry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deprecated. Invokes the travel entry, navigating to that page.
@@ -63,7 +75,7 @@ class ITravelEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-update
      */
     Update(punk, fIsLocalAnchor) {
-        result := ComCall(4, this, "ptr", punk, "int", fIsLocalAnchor, "HRESULT")
+        result := ComCall(4, this, "ptr", punk, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -77,5 +89,29 @@ class ITravelEntry extends IUnknown {
     GetPidl() {
         result := ComCall(5, this, "ptr*", &ppidl := 0, "HRESULT")
         return ppidl
+    }
+
+    Query(iid) {
+        if (ITravelEntry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
+        this.vtbl.GetPidl := CallbackCreate(GetMethod(implObj, "GetPidl"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Invoke)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.GetPidl)
     }
 }

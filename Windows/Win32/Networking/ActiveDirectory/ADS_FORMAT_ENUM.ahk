@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the available path value types used by the IADsPathname::Retrieve method.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_format_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_FORMAT_ENUM extends Win32Enum {
+export default struct ADS_FORMAT_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Returns the full path in Windows format, for example, "LDAP://servername/o=internet/…/cn=bar".

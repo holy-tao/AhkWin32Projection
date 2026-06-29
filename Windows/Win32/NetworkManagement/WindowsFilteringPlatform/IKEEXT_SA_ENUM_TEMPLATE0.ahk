@@ -1,15 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_CONDITION_VALUE0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
-#Include .\FWP_V4_ADDR_AND_MASK.ahk
-#Include .\FWP_V6_ADDR_AND_MASK.ahk
-#Include .\FWP_RANGE0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_CONDITION_VALUE0.ahk" { FWP_CONDITION_VALUE0 }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import ".\FWP_V6_ADDR_AND_MASK.ahk" { FWP_V6_ADDR_AND_MASK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\FWP_V4_ADDR_AND_MASK.ahk" { FWP_V4_ADDR_AND_MASK }
+#Import ".\FWP_RANGE0.ahk" { FWP_RANGE0 }
 
 /**
  * Is an enumeration template used for enumerating IKE/AuthIP security associations (SAs).
@@ -18,10 +18,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_sa_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct IKEEXT_SA_ENUM_TEMPLATE0 {
+    #StructPack 8
 
     /**
      * Matches SAs whose local address is on the specified subnet. Must be of one of the following types.
@@ -33,15 +31,8 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct {
      * <li>FWP_V6_ADDR_MASK</li>
      * </ul>
      * See [FWP_CONDITION_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_condition_value0) for more information.
-     * @type {FWP_CONDITION_VALUE0}
      */
-    localSubNet {
-        get {
-            if(!this.HasProp("__localSubNet"))
-                this.__localSubNet := FWP_CONDITION_VALUE0(0, this)
-            return this.__localSubNet
-        }
-    }
+    localSubNet : FWP_CONDITION_VALUE0
 
     /**
      * Matches SAs whose remote address is on the specified subnet. Must be of one of the following types.
@@ -53,27 +44,14 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct {
      * <li>FWP_V6_ADDR_MASK</li>
      * </ul>
      * See [FWP_CONDITION_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_condition_value0) for more information.
-     * @type {FWP_CONDITION_VALUE0}
      */
-    remoteSubNet {
-        get {
-            if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(16, this)
-            return this.__remoteSubNet
-        }
-    }
+    remoteSubNet : FWP_CONDITION_VALUE0
 
     /**
      * Matches SAs with a matching local main mode SHA thumbprint.  If none exist, this member will have a length of zero.
      * 
      * See [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) for more information.
-     * @type {FWP_BYTE_BLOB}
      */
-    localMainModeCertHash {
-        get {
-            if(!this.HasProp("__localMainModeCertHash"))
-                this.__localMainModeCertHash := FWP_BYTE_BLOB(32, this)
-            return this.__localMainModeCertHash
-        }
-    }
+    localMainModeCertHash : FWP_BYTE_BLOB
+
 }

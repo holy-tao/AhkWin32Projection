@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FAX_SERVER_EVENTS_TYPE_ENUM enumeration defines the types of events the fax service sends to client applications that are listening for events. The members of this enumeration are bit values and can be used in combination.
@@ -309,7 +308,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_server_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_SERVER_EVENTS_TYPE_ENUM extends Win32Enum {
+export default struct FAX_SERVER_EVENTS_TYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No events are sent.

@@ -1,143 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_TYPE.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
-#Include .\WHEA_ERROR_PACKET_DATA_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_TYPE.ahk" { WHEA_ERROR_TYPE }
+#Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
+#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk" { WHEA_ERROR_SOURCE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WHEA_ERROR_PACKET_DATA_FORMAT.ahk" { WHEA_ERROR_PACKET_DATA_FORMAT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_PACKET_V2 extends Win32Struct {
-    static sizeof => 80
+export default struct WHEA_ERROR_PACKET_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ErrorType : WHEA_ERROR_TYPE
 
-    /**
-     * @type {WHEA_ERROR_TYPE}
-     */
-    ErrorType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ErrorSeverity : WHEA_ERROR_SEVERITY
 
-    /**
-     * @type {WHEA_ERROR_SEVERITY}
-     */
-    ErrorSeverity {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    ErrorSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorSourceId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ErrorSourceType : WHEA_ERROR_SOURCE_TYPE
 
-    /**
-     * @type {WHEA_ERROR_SOURCE_TYPE}
-     */
-    ErrorSourceType {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    NotifyType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    NotifyType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Context : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Context {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DataFormat : WHEA_ERROR_PACKET_DATA_FORMAT
 
-    /**
-     * @type {WHEA_ERROR_PACKET_DATA_FORMAT}
-     */
-    DataFormat {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    Reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    DataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    PshedDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PshedDataOffset {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    PshedDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PshedDataLength {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
 }

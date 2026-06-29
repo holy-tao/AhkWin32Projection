@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCIBUSDATA extends Win32Struct {
-    static sizeof => 80
+export default struct PCIBUSDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ReadConfig : IntPtr
 
-    /**
-     * @type {Pointer<PciReadWriteConfig>}
-     */
-    ReadConfig {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    WriteConfig : IntPtr
 
-    /**
-     * @type {Pointer<PciReadWriteConfig>}
-     */
-    WriteConfig {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Pin2Line : IntPtr
 
-    /**
-     * @type {Pointer<PciPin2Line>}
-     */
-    Pin2Line {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Line2Pin : IntPtr
 
-    /**
-     * @type {Pointer<PciLine2Pin>}
-     */
-    Line2Pin {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ParentSlot : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ParentSlot {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "ptr")
-            return this.__ReservedProxyArray
-        }
-    }
 }

@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_INJECTION_CAPABILITIES extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WHEA_ERROR_INJECTION_CAPABILITIES {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -29,12 +26,9 @@ class WHEA_ERROR_INJECTION_CAPABILITIES extends Win32Struct {
      * - IA64RecoverableCache
      * - IA64RecoverableRegFile
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -171,12 +165,8 @@ class WHEA_ERROR_INJECTION_CAPABILITIES extends Win32Struct {
         get => (this._bitfield >> 16) & 0x1
         set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

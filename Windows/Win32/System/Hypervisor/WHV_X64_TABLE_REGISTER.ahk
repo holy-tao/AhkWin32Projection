@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_TABLE_REGISTER extends Win32Struct {
-    static sizeof => 16
+export default struct WHV_X64_TABLE_REGISTER {
+    #StructPack 8
 
-    static packingSize => 8
+    Pad : UInt16[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Pad {
-        get {
-            if(!this.HasProp("__PadProxyArray"))
-                this.__PadProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "ushort")
-            return this.__PadProxyArray
-        }
-    }
+    Limit : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Limit {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Base : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Base {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

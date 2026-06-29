@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11VideoDevice.ahk
-#Include .\D3D11_VIDEO_SAMPLE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
+#Import ".\ID3D11VideoDevice.ahk" { ID3D11VideoDevice }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
+#Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice1)
@@ -11,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11videodevice1
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoDevice1 extends ID3D11VideoDevice {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoDevice1 extends ID3D11VideoDevice {
     /**
      * The interface identifier for ID3D11VideoDevice1
      * @type {Guid}
      */
-    static IID => Guid("{29da1d51-1321-4454-804b-f5fc9f861f0f}")
+    static IID := Guid("{29da1d51-1321-4454-804b-f5fc9f861f0f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoDevice1 interfaces
+    */
+    struct Vtbl extends ID3D11VideoDevice.Vtbl {
+        GetCryptoSessionPrivateDataSize           : IntPtr
+        GetVideoDecoderCaps                       : IntPtr
+        CheckVideoDecoderDownsampling             : IntPtr
+        RecommendVideoDecoderDownsampleParameters : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCryptoSessionPrivateDataSize", "GetVideoDecoderCaps", "CheckVideoDecoderDownsampling", "RecommendVideoDecoderDownsampleParameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoDevice1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves optional sizes for private driver data.
@@ -77,7 +93,7 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice {
         pPrivateInputSizeMarshal := pPrivateInputSize is VarRef ? "uint*" : "ptr"
         pPrivateOutputSizeMarshal := pPrivateOutputSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, pPrivateInputSizeMarshal, pPrivateInputSize, pPrivateOutputSizeMarshal, pPrivateOutputSize, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, Guid.Ptr, pKeyExchangeType, pPrivateInputSizeMarshal, pPrivateInputSize, pPrivateOutputSizeMarshal, pPrivateOutputSize, "HRESULT")
         return result
     }
 
@@ -107,7 +123,7 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getvideodecodercaps
      */
     GetVideoDecoderCaps(pDecoderProfile, SampleWidth, SampleHeight, pFrameRate, BitRate, pCryptoType) {
-        result := ComCall(21, this, "ptr", pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, "ptr", pFrameRate, "uint", BitRate, "ptr", pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, DXGI_RATIONAL.Ptr, pFrameRate, "uint", BitRate, Guid.Ptr, pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
         return pDecoderCaps
     }
 
@@ -156,7 +172,7 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice {
         pSupportedMarshal := pSupported is VarRef ? "int*" : "ptr"
         pRealTimeHintMarshal := pRealTimeHint is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "ptr", pInputDesc, "int", InputColorSpace, "ptr", pInputConfig, "ptr", pFrameRate, "ptr", pOutputDesc, pSupportedMarshal, pSupported, pRealTimeHintMarshal, pRealTimeHint, "HRESULT")
+        result := ComCall(22, this, D3D11_VIDEO_DECODER_DESC.Ptr, pInputDesc, DXGI_COLOR_SPACE_TYPE, InputColorSpace, D3D11_VIDEO_DECODER_CONFIG.Ptr, pInputConfig, DXGI_RATIONAL.Ptr, pFrameRate, D3D11_VIDEO_SAMPLE_DESC.Ptr, pOutputDesc, pSupportedMarshal, pSupported, pRealTimeHintMarshal, pRealTimeHint, "HRESULT")
         return result
     }
 
@@ -183,7 +199,33 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice {
      */
     RecommendVideoDecoderDownsampleParameters(pInputDesc, InputColorSpace, pInputConfig, pFrameRate) {
         pRecommendedOutputDesc := D3D11_VIDEO_SAMPLE_DESC()
-        result := ComCall(23, this, "ptr", pInputDesc, "int", InputColorSpace, "ptr", pInputConfig, "ptr", pFrameRate, "ptr", pRecommendedOutputDesc, "HRESULT")
+        result := ComCall(23, this, D3D11_VIDEO_DECODER_DESC.Ptr, pInputDesc, DXGI_COLOR_SPACE_TYPE, InputColorSpace, D3D11_VIDEO_DECODER_CONFIG.Ptr, pInputConfig, DXGI_RATIONAL.Ptr, pFrameRate, D3D11_VIDEO_SAMPLE_DESC.Ptr, pRecommendedOutputDesc, "HRESULT")
         return pRecommendedOutputDesc
+    }
+
+    Query(iid) {
+        if (ID3D11VideoDevice1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCryptoSessionPrivateDataSize := CallbackCreate(GetMethod(implObj, "GetCryptoSessionPrivateDataSize"), flags, 6)
+        this.vtbl.GetVideoDecoderCaps := CallbackCreate(GetMethod(implObj, "GetVideoDecoderCaps"), flags, 8)
+        this.vtbl.CheckVideoDecoderDownsampling := CallbackCreate(GetMethod(implObj, "CheckVideoDecoderDownsampling"), flags, 8)
+        this.vtbl.RecommendVideoDecoderDownsampleParameters := CallbackCreate(GetMethod(implObj, "RecommendVideoDecoderDownsampleParameters"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCryptoSessionPrivateDataSize)
+        CallbackFree(this.vtbl.GetVideoDecoderCaps)
+        CallbackFree(this.vtbl.CheckVideoDecoderDownsampling)
+        CallbackFree(this.vtbl.RecommendVideoDecoderDownsampleParameters)
     }
 }

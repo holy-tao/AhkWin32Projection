@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
 
 /**
  * The ITfThreadMgrEventSink interface is implemented by an application or TSF text service to receive notifications of certain thread manager events. Call the TSF manager ITfSource::AdviseSink with IID_ITfThreadMgrEventSink to install this advise sink.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgreventsink
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfThreadMgrEventSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfThreadMgrEventSink extends IUnknown {
     /**
      * The interface identifier for ITfThreadMgrEventSink
      * @type {Guid}
      */
-    static IID => Guid("{aa80e80e-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e80e-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfThreadMgrEventSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnInitDocumentMgr   : IntPtr
+        OnUninitDocumentMgr : IntPtr
+        OnSetFocus          : IntPtr
+        OnPushContext       : IntPtr
+        OnPopContext        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnInitDocumentMgr", "OnUninitDocumentMgr", "OnSetFocus", "OnPushContext", "OnPopContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfThreadMgrEventSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfThreadMgrEventSink::OnInitDocumentMgr method
@@ -83,5 +97,33 @@ class ITfThreadMgrEventSink extends IUnknown {
     OnPopContext(pic) {
         result := ComCall(7, this, "ptr", pic, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfThreadMgrEventSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnInitDocumentMgr := CallbackCreate(GetMethod(implObj, "OnInitDocumentMgr"), flags, 2)
+        this.vtbl.OnUninitDocumentMgr := CallbackCreate(GetMethod(implObj, "OnUninitDocumentMgr"), flags, 2)
+        this.vtbl.OnSetFocus := CallbackCreate(GetMethod(implObj, "OnSetFocus"), flags, 3)
+        this.vtbl.OnPushContext := CallbackCreate(GetMethod(implObj, "OnPushContext"), flags, 2)
+        this.vtbl.OnPopContext := CallbackCreate(GetMethod(implObj, "OnPopContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnInitDocumentMgr)
+        CallbackFree(this.vtbl.OnUninitDocumentMgr)
+        CallbackFree(this.vtbl.OnSetFocus)
+        CallbackFree(this.vtbl.OnPushContext)
+        CallbackFree(this.vtbl.OnPopContext)
     }
 }

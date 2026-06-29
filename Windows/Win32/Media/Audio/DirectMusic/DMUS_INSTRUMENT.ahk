@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_INSTRUMENT extends Win32Struct {
-    static sizeof => 24
+export default struct DMUS_INSTRUMENT {
+    #StructPack 4
 
-    static packingSize => 4
+    ulPatch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPatch {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFirstRegionIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFirstRegionIdx {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulGlobalArtIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGlobalArtIdx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulFirstExtCkIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFirstExtCkIdx {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulCopyrightIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCopyrightIdx {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

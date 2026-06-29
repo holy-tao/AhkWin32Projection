@@ -1,79 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_GEOFENCE_STATE.ahk
-#Include .\GNSS_FIXDATA_BASIC.ahk
-#Include .\GNSS_FIXDATA_ACCURACY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GNSS_GEOFENCE_STATE.ahk" { GNSS_GEOFENCE_STATE }
+#Import ".\GNSS_FIXDATA_ACCURACY.ahk" { GNSS_FIXDATA_ACCURACY }
+#Import ".\GNSS_FIXDATA_BASIC.ahk" { GNSS_FIXDATA_BASIC }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct {
-    static sizeof => 640
+export default struct GNSS_GEOFENCE_ALERT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    GeofenceID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GeofenceID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    GeofenceState : GNSS_GEOFENCE_STATE
 
-    /**
-     * @type {GNSS_GEOFENCE_STATE}
-     */
-    GeofenceState {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    FixBasicData : GNSS_FIXDATA_BASIC
 
-    /**
-     * @type {GNSS_FIXDATA_BASIC}
-     */
-    FixBasicData {
-        get {
-            if(!this.HasProp("__FixBasicData"))
-                this.__FixBasicData := GNSS_FIXDATA_BASIC(16, this)
-            return this.__FixBasicData
-        }
-    }
+    FixAccuracyData : GNSS_FIXDATA_ACCURACY
 
-    /**
-     * @type {GNSS_FIXDATA_ACCURACY}
-     */
-    FixAccuracyData {
-        get {
-            if(!this.HasProp("__FixAccuracyData"))
-                this.__FixAccuracyData := GNSS_FIXDATA_ACCURACY(64, this)
-            return this.__FixAccuracyData
-        }
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 128, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

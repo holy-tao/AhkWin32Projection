@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPMCAST_IF_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPMCAST_IF_ENTRY.ahk" { MIB_IPMCAST_IF_ENTRY }
 
 /**
  * Contains a table of IP multicast interface entries.
@@ -9,30 +8,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_if_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_IF_TABLE extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_IF_TABLE {
+    #StructPack 4
 
     /**
      * Specifies the number of interface entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of interface entries implemented as an array of 
      * <b>MIB_IPMCAST_IF_TABLE</b> structures.
-     * @type {MIB_IPMCAST_IF_ENTRY}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPMCAST_IF_ENTRY, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPMCAST_IF_ENTRY[1]
+
 }

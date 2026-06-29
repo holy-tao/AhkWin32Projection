@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PIN_CACHE_POLICY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PIN_CACHE_POLICY_TYPE.ahk" { PIN_CACHE_POLICY_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class PIN_CACHE_POLICY extends Win32Struct {
-    static sizeof => 12
+export default struct PIN_CACHE_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PinCachePolicyType : PIN_CACHE_POLICY_TYPE
 
-    /**
-     * @type {PIN_CACHE_POLICY_TYPE}
-     */
-    PinCachePolicyType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dwPinCachePolicyInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPinCachePolicyInfo {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

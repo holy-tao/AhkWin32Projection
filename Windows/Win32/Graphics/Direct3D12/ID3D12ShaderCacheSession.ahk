@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DeviceChild.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_SHADER_CACHE_SESSION_DESC.ahk" { D3D12_SHADER_CACHE_SESSION_DESC }
+#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
 
 /**
  * Represents a shader cache session.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12shadercachesession
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12ShaderCacheSession extends ID3D12DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12ShaderCacheSession extends ID3D12DeviceChild {
     /**
      * The interface identifier for ID3D12ShaderCacheSession
      * @type {Guid}
      */
-    static IID => Guid("{28e2495d-0f64-4ae4-a6ec-129255dc49a8}")
+    static IID := Guid("{28e2495d-0f64-4ae4-a6ec-129255dc49a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12ShaderCacheSession interfaces
+    */
+    struct Vtbl extends ID3D12DeviceChild.Vtbl {
+        FindValue          : IntPtr
+        StoreValue         : IntPtr
+        SetDeleteOnDestroy : IntPtr
+        GetDesc            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FindValue", "StoreValue", "SetDeleteOnDestroy", "GetDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12ShaderCacheSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Looks up an entry in the cache whose key exactly matches the provided key.
@@ -113,7 +125,33 @@ class ID3D12ShaderCacheSession extends ID3D12DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12shadercachesession-getdesc
      */
     GetDesc() {
-        result := ComCall(11, this, "ptr")
+        result := ComCall(11, this, D3D12_SHADER_CACHE_SESSION_DESC)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12ShaderCacheSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FindValue := CallbackCreate(GetMethod(implObj, "FindValue"), flags, 5)
+        this.vtbl.StoreValue := CallbackCreate(GetMethod(implObj, "StoreValue"), flags, 5)
+        this.vtbl.SetDeleteOnDestroy := CallbackCreate(GetMethod(implObj, "SetDeleteOnDestroy"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FindValue)
+        CallbackFree(this.vtbl.StoreValue)
+        CallbackFree(this.vtbl.SetDeleteOnDestroy)
+        CallbackFree(this.vtbl.GetDesc)
     }
 }

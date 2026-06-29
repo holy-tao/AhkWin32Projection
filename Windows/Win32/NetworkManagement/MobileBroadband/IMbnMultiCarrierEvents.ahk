@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMbnMultiCarrier.ahk" { IMbnMultiCarrier }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is a notification interface used to handle asynchronous IMbnMultiCarrier method calls.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnmulticarrierevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnMultiCarrierEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnMultiCarrierEvents extends IUnknown {
     /**
      * The interface identifier for IMbnMultiCarrierEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcdddab6-2021-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcdddab6-2021-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnMultiCarrierEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnSetHomeProviderComplete    : IntPtr
+        OnCurrentCellularClassChange : IntPtr
+        OnPreferredProvidersChange   : IntPtr
+        OnScanNetworkComplete        : IntPtr
+        OnInterfaceCapabilityChange  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnSetHomeProviderComplete", "OnCurrentCellularClassChange", "OnPreferredProvidersChange", "OnScanNetworkComplete", "OnInterfaceCapabilityChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnMultiCarrierEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This notification method is called by the Mobile Broadband service to indicate the completion of a SetHomeProvider operation.
@@ -232,5 +245,33 @@ class IMbnMultiCarrierEvents extends IUnknown {
     OnInterfaceCapabilityChange(mbnInterface) {
         result := ComCall(7, this, "ptr", mbnInterface, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnMultiCarrierEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnSetHomeProviderComplete := CallbackCreate(GetMethod(implObj, "OnSetHomeProviderComplete"), flags, 4)
+        this.vtbl.OnCurrentCellularClassChange := CallbackCreate(GetMethod(implObj, "OnCurrentCellularClassChange"), flags, 2)
+        this.vtbl.OnPreferredProvidersChange := CallbackCreate(GetMethod(implObj, "OnPreferredProvidersChange"), flags, 2)
+        this.vtbl.OnScanNetworkComplete := CallbackCreate(GetMethod(implObj, "OnScanNetworkComplete"), flags, 4)
+        this.vtbl.OnInterfaceCapabilityChange := CallbackCreate(GetMethod(implObj, "OnInterfaceCapabilityChange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnSetHomeProviderComplete)
+        CallbackFree(this.vtbl.OnCurrentCellularClassChange)
+        CallbackFree(this.vtbl.OnPreferredProvidersChange)
+        CallbackFree(this.vtbl.OnScanNetworkComplete)
+        CallbackFree(this.vtbl.OnInterfaceCapabilityChange)
     }
 }

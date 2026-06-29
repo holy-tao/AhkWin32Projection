@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines flags used to determine what kind of content the subpicture stream contains.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_subpicture_type
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_SUBPICTURE_TYPE extends Win32Enum {
+export default struct DVD_SUBPICTURE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The DVD does not specify the subpicture type.

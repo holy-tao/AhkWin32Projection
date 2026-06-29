@@ -1,136 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DDDI_OPENALLOCATIONINFO2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DDDI_OPENALLOCATIONINFO2.ahk" { D3DDDI_OPENALLOCATIONINFO2 }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OPENRESOURCEFROMNTHANDLE extends Win32Struct {
-    static sizeof => 104
+export default struct D3DKMT_OPENRESOURCEFROMNTHANDLE {
+    #StructPack 8
 
-    static packingSize => 8
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hNtHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hNtHandle {
-        get {
-            if(!this.HasProp("__hNtHandle"))
-                this.__hNtHandle := HANDLE(8, this)
-            return this.__hNtHandle
-        }
-    }
+    NumAllocations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumAllocations {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pOpenAllocationInfo2 : D3DDDI_OPENALLOCATIONINFO2.Ptr
 
-    /**
-     * @type {Pointer<D3DDDI_OPENALLOCATIONINFO2>}
-     */
-    pOpenAllocationInfo2 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PrivateRuntimeDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateRuntimeDataSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pPrivateRuntimeData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateRuntimeData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ResourcePrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResourcePrivateDriverDataSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pResourcePrivateDriverData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pResourcePrivateDriverData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    TotalPrivateDriverDataBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalPrivateDriverDataBufferSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    pTotalPrivateDriverDataBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pTotalPrivateDriverDataBuffer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    hResource : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hResource {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    hKeyedMutex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hKeyedMutex {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    pKeyedMutexPrivateRuntimeData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pKeyedMutexPrivateRuntimeData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    KeyedMutexPrivateRuntimeDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyedMutexPrivateRuntimeDataSize {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    hSyncObject : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hSyncObject {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
 }

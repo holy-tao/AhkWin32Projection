@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about the file that is found by the FindFirstFile, FindFirstFileEx, or FindNextFile function. (ANSI)
@@ -33,10 +33,8 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset ANSI
  */
-class WIN32_FIND_DATAA extends Win32Struct {
-    static sizeof => 320
-
-    static packingSize => 4
+export default struct WIN32_FIND_DATAA {
+    #StructPack 4
 
     /**
      * The file attributes of a file.
@@ -46,27 +44,16 @@ class WIN32_FIND_DATAA extends Win32Struct {
      * 
      * The <b>FILE_ATTRIBUTE_SPARSE_FILE</b> attribute on the file is set if any of the streams 
      *        of the file have ever been sparse.
-     * @type {Integer}
      */
-    dwFileAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFileAttributes : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies when a file or 
      *        directory was created.
      * 
      * If the underlying file system does not support creation time, this member is zero.
-     * @type {FILETIME}
      */
-    ftCreationTime {
-        get {
-            if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(4, this)
-            return this.__ftCreationTime
-        }
-    }
+    ftCreationTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
@@ -79,15 +66,8 @@ class WIN32_FIND_DATAA extends Win32Struct {
      * 
      * On the FAT file system, the specified date for both files and directories is correct, but the time of day is 
      *        always set to midnight.
-     * @type {FILETIME}
      */
-    ftLastAccessTime {
-        get {
-            if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(12, this)
-            return this.__ftLastAccessTime
-        }
-    }
+    ftLastAccessTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
@@ -99,15 +79,8 @@ class WIN32_FIND_DATAA extends Win32Struct {
      * 
      * For a directory, the structure specifies when the directory is created. If the underlying file system does 
      *        not support last write time, this member is zero.
-     * @type {FILETIME}
      */
-    ftLastWriteTime {
-        get {
-            if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(20, this)
-            return this.__ftLastWriteTime
-        }
-    }
+    ftLastWriteTime : FILETIME
 
     /**
      * The high-order <b>DWORD</b> value of the file size, in bytes.
@@ -116,21 +89,13 @@ class WIN32_FIND_DATAA extends Win32Struct {
      * 
      * The size of the file is equal to (<b>nFileSizeHigh</b> * 
      *        (<b>MAXDWORD</b>+1)) + <b>nFileSizeLow</b>.
-     * @type {Integer}
      */
-    nFileSizeHigh {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    nFileSizeHigh : UInt32
 
     /**
      * The low-order <b>DWORD</b> value of the file size, in bytes.
-     * @type {Integer}
      */
-    nFileSizeLow {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    nFileSizeLow : UInt32
 
     /**
      * If the <b>dwFileAttributes</b> member includes the 
@@ -140,39 +105,24 @@ class WIN32_FIND_DATAA extends Win32Struct {
      * Otherwise, this value is undefined and should not be used.
      * 
      * For more information see <a href="https://docs.microsoft.com/windows/desktop/FileIO/reparse-point-tags">Reparse Point Tags</a>.
-     * @type {Integer}
      */
-    dwReserved0 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwReserved0 : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwReserved1 : UInt32
 
     /**
      * The name of the file.
-     * @type {String}
      */
-    cFileName {
-        get => StrGet(this.ptr + 44, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 44, 259, "UTF-8")
-    }
+    cFileName : CHAR[260]
 
     /**
      * An alternative name for the file.
      * 
      * This name is in the classic 8.3 file name format.
-     * @type {String}
      */
-    cAlternateFileName {
-        get => StrGet(this.ptr + 304, 13, "UTF-8")
-        set => StrPut(value, this.ptr + 304, 13, "UTF-8")
-    }
+    cAlternateFileName : CHAR[14]
+
 }

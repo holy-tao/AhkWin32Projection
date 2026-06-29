@@ -1,271 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
-#Include .\_URB_SELECT_INTERFACE.ahk
-#Include .\USBD_INTERFACE_INFORMATION.ahk
-#Include .\USBD_PIPE_INFORMATION.ahk
-#Include .\USBD_PIPE_TYPE.ahk
-#Include .\_URB_SELECT_CONFIGURATION.ahk
-#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
-#Include .\_URB_PIPE_REQUEST.ahk
-#Include .\_URB_FRAME_LENGTH_CONTROL.ahk
-#Include .\_URB_GET_FRAME_LENGTH.ahk
-#Include .\_URB_SET_FRAME_LENGTH.ahk
-#Include .\_URB_GET_CURRENT_FRAME_NUMBER.ahk
-#Include .\_URB_CONTROL_TRANSFER.ahk
-#Include .\URB.ahk
-#Include .\_URB_HCD_AREA.ahk
-#Include .\_URB_CONTROL_TRANSFER_EX.ahk
-#Include .\_URB_BULK_OR_INTERRUPT_TRANSFER.ahk
-#Include .\_URB_ISOCH_TRANSFER.ahk
-#Include .\USBD_ISO_PACKET_DESCRIPTOR.ahk
-#Include .\_URB_CONTROL_DESCRIPTOR_REQUEST.ahk
-#Include .\_URB_CONTROL_GET_STATUS_REQUEST.ahk
-#Include .\_URB_CONTROL_FEATURE_REQUEST.ahk
-#Include .\_URB_CONTROL_VENDOR_OR_CLASS_REQUEST.ahk
-#Include .\_URB_CONTROL_GET_INTERFACE_REQUEST.ahk
-#Include .\_URB_CONTROL_GET_CONFIGURATION_REQUEST.ahk
-#Include .\_URB_OS_FEATURE_DESCRIPTOR_REQUEST.ahk
-#Include .\_URB_OPEN_STATIC_STREAMS.ahk
-#Include .\USBD_STREAM_INFORMATION.ahk
-#Include .\_URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\_URB_SET_FRAME_LENGTH.ahk" { _URB_SET_FRAME_LENGTH }
+#Import ".\_URB_GET_FRAME_LENGTH.ahk" { _URB_GET_FRAME_LENGTH }
+#Import ".\USBD_PIPE_TYPE.ahk" { USBD_PIPE_TYPE }
+#Import ".\_URB_CONTROL_VENDOR_OR_CLASS_REQUEST.ahk" { _URB_CONTROL_VENDOR_OR_CLASS_REQUEST }
+#Import ".\USBD_PIPE_INFORMATION.ahk" { USBD_PIPE_INFORMATION }
+#Import ".\_URB_SELECT_INTERFACE.ahk" { _URB_SELECT_INTERFACE }
+#Import ".\USB_CONFIGURATION_DESCRIPTOR.ahk" { USB_CONFIGURATION_DESCRIPTOR }
+#Import ".\_URB_CONTROL_GET_INTERFACE_REQUEST.ahk" { _URB_CONTROL_GET_INTERFACE_REQUEST }
+#Import ".\_URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS.ahk" { _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS }
+#Import ".\_URB_GET_CURRENT_FRAME_NUMBER.ahk" { _URB_GET_CURRENT_FRAME_NUMBER }
+#Import ".\USBD_STREAM_INFORMATION.ahk" { USBD_STREAM_INFORMATION }
+#Import ".\_URB_ISOCH_TRANSFER.ahk" { _URB_ISOCH_TRANSFER }
+#Import ".\USBD_ISO_PACKET_DESCRIPTOR.ahk" { USBD_ISO_PACKET_DESCRIPTOR }
+#Import ".\_URB_FRAME_LENGTH_CONTROL.ahk" { _URB_FRAME_LENGTH_CONTROL }
+#Import ".\_URB_PIPE_REQUEST.ahk" { _URB_PIPE_REQUEST }
+#Import ".\_URB_CONTROL_TRANSFER.ahk" { _URB_CONTROL_TRANSFER }
+#Import ".\_URB_BULK_OR_INTERRUPT_TRANSFER.ahk" { _URB_BULK_OR_INTERRUPT_TRANSFER }
+#Import ".\_URB_CONTROL_GET_CONFIGURATION_REQUEST.ahk" { _URB_CONTROL_GET_CONFIGURATION_REQUEST }
+#Import ".\_URB_OS_FEATURE_DESCRIPTOR_REQUEST.ahk" { _URB_OS_FEATURE_DESCRIPTOR_REQUEST }
+#Import ".\_URB_CONTROL_TRANSFER_EX.ahk" { _URB_CONTROL_TRANSFER_EX }
+#Import ".\_URB_HCD_AREA.ahk" { _URB_HCD_AREA }
+#Import ".\USBD_INTERFACE_INFORMATION.ahk" { USBD_INTERFACE_INFORMATION }
+#Import ".\_URB_OPEN_STATIC_STREAMS.ahk" { _URB_OPEN_STATIC_STREAMS }
+#Import ".\_URB_CONTROL_FEATURE_REQUEST.ahk" { _URB_CONTROL_FEATURE_REQUEST }
+#Import ".\_URB_CONTROL_DESCRIPTOR_REQUEST.ahk" { _URB_CONTROL_DESCRIPTOR_REQUEST }
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
+#Import ".\_URB_SELECT_CONFIGURATION.ahk" { _URB_SELECT_CONFIGURATION }
+#Import ".\_URB_CONTROL_GET_STATUS_REQUEST.ahk" { _URB_CONTROL_GET_STATUS_REQUEST }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class URB extends Win32Struct {
-    static sizeof => 152
+export default struct URB {
+    #StructPack 8
 
-    static packingSize => 8
+    UrbHeader : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    UrbHeader {
-        get {
-            if(!this.HasProp("__UrbHeader"))
-                this.__UrbHeader := _URB_HEADER(0, this)
-            return this.__UrbHeader
-        }
-    }
-
-    /**
-     * @type {_URB_SELECT_INTERFACE}
-     */
-    UrbSelectInterface {
-        get {
-            if(!this.HasProp("__UrbSelectInterface"))
-                this.__UrbSelectInterface := _URB_SELECT_INTERFACE(0, this)
-            return this.__UrbSelectInterface
-        }
-    }
-
-    /**
-     * @type {_URB_SELECT_CONFIGURATION}
-     */
-    UrbSelectConfiguration {
-        get {
-            if(!this.HasProp("__UrbSelectConfiguration"))
-                this.__UrbSelectConfiguration := _URB_SELECT_CONFIGURATION(0, this)
-            return this.__UrbSelectConfiguration
-        }
-    }
-
-    /**
-     * @type {_URB_PIPE_REQUEST}
-     */
-    UrbPipeRequest {
-        get {
-            if(!this.HasProp("__UrbPipeRequest"))
-                this.__UrbPipeRequest := _URB_PIPE_REQUEST(0, this)
-            return this.__UrbPipeRequest
-        }
-    }
-
-    /**
-     * @type {_URB_FRAME_LENGTH_CONTROL}
-     */
-    UrbFrameLengthControl {
-        get {
-            if(!this.HasProp("__UrbFrameLengthControl"))
-                this.__UrbFrameLengthControl := _URB_FRAME_LENGTH_CONTROL(0, this)
-            return this.__UrbFrameLengthControl
-        }
-    }
-
-    /**
-     * @type {_URB_GET_FRAME_LENGTH}
-     */
-    UrbGetFrameLength {
-        get {
-            if(!this.HasProp("__UrbGetFrameLength"))
-                this.__UrbGetFrameLength := _URB_GET_FRAME_LENGTH(0, this)
-            return this.__UrbGetFrameLength
-        }
-    }
-
-    /**
-     * @type {_URB_SET_FRAME_LENGTH}
-     */
-    UrbSetFrameLength {
-        get {
-            if(!this.HasProp("__UrbSetFrameLength"))
-                this.__UrbSetFrameLength := _URB_SET_FRAME_LENGTH(0, this)
-            return this.__UrbSetFrameLength
-        }
-    }
-
-    /**
-     * @type {_URB_GET_CURRENT_FRAME_NUMBER}
-     */
-    UrbGetCurrentFrameNumber {
-        get {
-            if(!this.HasProp("__UrbGetCurrentFrameNumber"))
-                this.__UrbGetCurrentFrameNumber := _URB_GET_CURRENT_FRAME_NUMBER(0, this)
-            return this.__UrbGetCurrentFrameNumber
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_TRANSFER}
-     */
-    UrbControlTransfer {
-        get {
-            if(!this.HasProp("__UrbControlTransfer"))
-                this.__UrbControlTransfer := _URB_CONTROL_TRANSFER(0, this)
-            return this.__UrbControlTransfer
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_TRANSFER_EX}
-     */
-    UrbControlTransferEx {
-        get {
-            if(!this.HasProp("__UrbControlTransferEx"))
-                this.__UrbControlTransferEx := _URB_CONTROL_TRANSFER_EX(0, this)
-            return this.__UrbControlTransferEx
-        }
-    }
-
-    /**
-     * @type {_URB_BULK_OR_INTERRUPT_TRANSFER}
-     */
-    UrbBulkOrInterruptTransfer {
-        get {
-            if(!this.HasProp("__UrbBulkOrInterruptTransfer"))
-                this.__UrbBulkOrInterruptTransfer := _URB_BULK_OR_INTERRUPT_TRANSFER(0, this)
-            return this.__UrbBulkOrInterruptTransfer
-        }
-    }
-
-    /**
-     * @type {_URB_ISOCH_TRANSFER}
-     */
-    UrbIsochronousTransfer {
-        get {
-            if(!this.HasProp("__UrbIsochronousTransfer"))
-                this.__UrbIsochronousTransfer := _URB_ISOCH_TRANSFER(0, this)
-            return this.__UrbIsochronousTransfer
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_DESCRIPTOR_REQUEST}
-     */
-    UrbControlDescriptorRequest {
-        get {
-            if(!this.HasProp("__UrbControlDescriptorRequest"))
-                this.__UrbControlDescriptorRequest := _URB_CONTROL_DESCRIPTOR_REQUEST(0, this)
-            return this.__UrbControlDescriptorRequest
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_GET_STATUS_REQUEST}
-     */
-    UrbControlGetStatusRequest {
-        get {
-            if(!this.HasProp("__UrbControlGetStatusRequest"))
-                this.__UrbControlGetStatusRequest := _URB_CONTROL_GET_STATUS_REQUEST(0, this)
-            return this.__UrbControlGetStatusRequest
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_FEATURE_REQUEST}
-     */
-    UrbControlFeatureRequest {
-        get {
-            if(!this.HasProp("__UrbControlFeatureRequest"))
-                this.__UrbControlFeatureRequest := _URB_CONTROL_FEATURE_REQUEST(0, this)
-            return this.__UrbControlFeatureRequest
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_VENDOR_OR_CLASS_REQUEST}
-     */
-    UrbControlVendorClassRequest {
-        get {
-            if(!this.HasProp("__UrbControlVendorClassRequest"))
-                this.__UrbControlVendorClassRequest := _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(0, this)
-            return this.__UrbControlVendorClassRequest
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_GET_INTERFACE_REQUEST}
-     */
-    UrbControlGetInterfaceRequest {
-        get {
-            if(!this.HasProp("__UrbControlGetInterfaceRequest"))
-                this.__UrbControlGetInterfaceRequest := _URB_CONTROL_GET_INTERFACE_REQUEST(0, this)
-            return this.__UrbControlGetInterfaceRequest
-        }
-    }
-
-    /**
-     * @type {_URB_CONTROL_GET_CONFIGURATION_REQUEST}
-     */
-    UrbControlGetConfigurationRequest {
-        get {
-            if(!this.HasProp("__UrbControlGetConfigurationRequest"))
-                this.__UrbControlGetConfigurationRequest := _URB_CONTROL_GET_CONFIGURATION_REQUEST(0, this)
-            return this.__UrbControlGetConfigurationRequest
-        }
-    }
-
-    /**
-     * @type {_URB_OS_FEATURE_DESCRIPTOR_REQUEST}
-     */
-    UrbOSFeatureDescriptorRequest {
-        get {
-            if(!this.HasProp("__UrbOSFeatureDescriptorRequest"))
-                this.__UrbOSFeatureDescriptorRequest := _URB_OS_FEATURE_DESCRIPTOR_REQUEST(0, this)
-            return this.__UrbOSFeatureDescriptorRequest
-        }
-    }
-
-    /**
-     * @type {_URB_OPEN_STATIC_STREAMS}
-     */
-    UrbOpenStaticStreams {
-        get {
-            if(!this.HasProp("__UrbOpenStaticStreams"))
-                this.__UrbOpenStaticStreams := _URB_OPEN_STATIC_STREAMS(0, this)
-            return this.__UrbOpenStaticStreams
-        }
-    }
-
-    /**
-     * @type {_URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS}
-     */
-    UrbGetIsochPipeTransferPathDelays {
-        get {
-            if(!this.HasProp("__UrbGetIsochPipeTransferPathDelays"))
-                this.__UrbGetIsochPipeTransferPathDelays := _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(0, this)
-            return this.__UrbGetIsochPipeTransferPathDelays
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'UrbSelectInterface', { type: _URB_SELECT_INTERFACE, offset: 0 })
+        DefineProp(this.Prototype, 'UrbSelectConfiguration', { type: _URB_SELECT_CONFIGURATION, offset: 0 })
+        DefineProp(this.Prototype, 'UrbPipeRequest', { type: _URB_PIPE_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbFrameLengthControl', { type: _URB_FRAME_LENGTH_CONTROL, offset: 0 })
+        DefineProp(this.Prototype, 'UrbGetFrameLength', { type: _URB_GET_FRAME_LENGTH, offset: 0 })
+        DefineProp(this.Prototype, 'UrbSetFrameLength', { type: _URB_SET_FRAME_LENGTH, offset: 0 })
+        DefineProp(this.Prototype, 'UrbGetCurrentFrameNumber', { type: _URB_GET_CURRENT_FRAME_NUMBER, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlTransfer', { type: _URB_CONTROL_TRANSFER, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlTransferEx', { type: _URB_CONTROL_TRANSFER_EX, offset: 0 })
+        DefineProp(this.Prototype, 'UrbBulkOrInterruptTransfer', { type: _URB_BULK_OR_INTERRUPT_TRANSFER, offset: 0 })
+        DefineProp(this.Prototype, 'UrbIsochronousTransfer', { type: _URB_ISOCH_TRANSFER, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlDescriptorRequest', { type: _URB_CONTROL_DESCRIPTOR_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlGetStatusRequest', { type: _URB_CONTROL_GET_STATUS_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlFeatureRequest', { type: _URB_CONTROL_FEATURE_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlVendorClassRequest', { type: _URB_CONTROL_VENDOR_OR_CLASS_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlGetInterfaceRequest', { type: _URB_CONTROL_GET_INTERFACE_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbControlGetConfigurationRequest', { type: _URB_CONTROL_GET_CONFIGURATION_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbOSFeatureDescriptorRequest', { type: _URB_OS_FEATURE_DESCRIPTOR_REQUEST, offset: 0 })
+        DefineProp(this.Prototype, 'UrbOpenStaticStreams', { type: _URB_OPEN_STATIC_STREAMS, offset: 0 })
+        DefineProp(this.Prototype, 'UrbGetIsochPipeTransferPathDelays', { type: _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

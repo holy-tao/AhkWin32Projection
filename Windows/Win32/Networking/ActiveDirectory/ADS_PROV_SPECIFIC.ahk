@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_PROV_SPECIFIC structure contains provider-specific data represented as a binary large object (BLOB).
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_prov_specific
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_PROV_SPECIFIC extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ADS_PROV_SPECIFIC {
+    #StructPack 8
 
     /**
      * The size of the character array.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLength : UInt32
 
     /**
      * A pointer to an array of bytes.
-     * @type {Pointer<Integer>}
      */
-    lpValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpValue : IntPtr
+
 }

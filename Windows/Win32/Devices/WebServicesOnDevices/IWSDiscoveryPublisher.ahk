@@ -1,8 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWSDXMLContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\IWSDScopeMatchingRule.ahk" { IWSDScopeMatchingRule }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import ".\IWSDiscoveryPublisherNotify.ahk" { IWSDiscoveryPublisherNotify }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_SOAP_MESSAGE.ahk" { WSD_SOAP_MESSAGE }
 
 /**
  * Provides methods for announcing hosts and managing incoming queries to hosts.
@@ -11,26 +20,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDiscoveryPublisher extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDiscoveryPublisher extends IUnknown {
     /**
      * The interface identifier for IWSDiscoveryPublisher
      * @type {Guid}
      */
-    static IID => Guid("{ae01e1a8-3ff9-4148-8116-057cc616fe13}")
+    static IID := Guid("{ae01e1a8-3ff9-4148-8116-057cc616fe13}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDiscoveryPublisher interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAddressFamily            : IntPtr
+        RegisterNotificationSink    : IntPtr
+        UnRegisterNotificationSink  : IntPtr
+        Publish                     : IntPtr
+        UnPublish                   : IntPtr
+        MatchProbe                  : IntPtr
+        MatchResolve                : IntPtr
+        PublishEx                   : IntPtr
+        MatchProbeEx                : IntPtr
+        MatchResolveEx              : IntPtr
+        RegisterScopeMatchingRule   : IntPtr
+        UnRegisterScopeMatchingRule : IntPtr
+        GetXMLContext               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAddressFamily", "RegisterNotificationSink", "UnRegisterNotificationSink", "Publish", "UnPublish", "MatchProbe", "MatchResolve", "PublishEx", "MatchProbeEx", "MatchResolveEx", "RegisterScopeMatchingRule", "UnRegisterScopeMatchingRule", "GetXMLContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDiscoveryPublisher.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the IP address family (IPv4, IPv6, or both) over which the host will be published.
@@ -340,7 +368,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(6, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "HRESULT")
+        result := ComCall(6, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -424,7 +452,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(7, this, "ptr", pszId, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pAny, "HRESULT")
+        result := ComCall(7, this, "ptr", pszId, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -523,7 +551,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(8, this, "ptr", pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "HRESULT")
+        result := ComCall(8, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -618,7 +646,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(9, this, "ptr", pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "HRESULT")
+        result := ComCall(9, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -726,7 +754,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(10, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "HRESULT")
+        result := ComCall(10, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -832,7 +860,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(11, this, "ptr", pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "HRESULT")
+        result := ComCall(11, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -934,7 +962,7 @@ class IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(12, this, "ptr", pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "HRESULT")
+        result := ComCall(12, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -1043,5 +1071,49 @@ class IWSDiscoveryPublisher extends IUnknown {
     GetXMLContext() {
         result := ComCall(15, this, "ptr*", &ppContext := 0, "HRESULT")
         return IWSDXMLContext(ppContext)
+    }
+
+    Query(iid) {
+        if (IWSDiscoveryPublisher.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAddressFamily := CallbackCreate(GetMethod(implObj, "SetAddressFamily"), flags, 2)
+        this.vtbl.RegisterNotificationSink := CallbackCreate(GetMethod(implObj, "RegisterNotificationSink"), flags, 2)
+        this.vtbl.UnRegisterNotificationSink := CallbackCreate(GetMethod(implObj, "UnRegisterNotificationSink"), flags, 2)
+        this.vtbl.Publish := CallbackCreate(GetMethod(implObj, "Publish"), flags, 9)
+        this.vtbl.UnPublish := CallbackCreate(GetMethod(implObj, "UnPublish"), flags, 6)
+        this.vtbl.MatchProbe := CallbackCreate(GetMethod(implObj, "MatchProbe"), flags, 11)
+        this.vtbl.MatchResolve := CallbackCreate(GetMethod(implObj, "MatchResolve"), flags, 11)
+        this.vtbl.PublishEx := CallbackCreate(GetMethod(implObj, "PublishEx"), flags, 14)
+        this.vtbl.MatchProbeEx := CallbackCreate(GetMethod(implObj, "MatchProbeEx"), flags, 16)
+        this.vtbl.MatchResolveEx := CallbackCreate(GetMethod(implObj, "MatchResolveEx"), flags, 16)
+        this.vtbl.RegisterScopeMatchingRule := CallbackCreate(GetMethod(implObj, "RegisterScopeMatchingRule"), flags, 2)
+        this.vtbl.UnRegisterScopeMatchingRule := CallbackCreate(GetMethod(implObj, "UnRegisterScopeMatchingRule"), flags, 2)
+        this.vtbl.GetXMLContext := CallbackCreate(GetMethod(implObj, "GetXMLContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAddressFamily)
+        CallbackFree(this.vtbl.RegisterNotificationSink)
+        CallbackFree(this.vtbl.UnRegisterNotificationSink)
+        CallbackFree(this.vtbl.Publish)
+        CallbackFree(this.vtbl.UnPublish)
+        CallbackFree(this.vtbl.MatchProbe)
+        CallbackFree(this.vtbl.MatchResolve)
+        CallbackFree(this.vtbl.PublishEx)
+        CallbackFree(this.vtbl.MatchProbeEx)
+        CallbackFree(this.vtbl.MatchResolveEx)
+        CallbackFree(this.vtbl.RegisterScopeMatchingRule)
+        CallbackFree(this.vtbl.UnRegisterScopeMatchingRule)
+        CallbackFree(this.vtbl.GetXMLContext)
     }
 }

@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_SUPPORTED_POWER_LEVELS extends Win32Struct {
-    static sizeof => 36
+export default struct DOT11_SUPPORTED_POWER_LEVELS {
+    #StructPack 4
 
-    static packingSize => 4
+    uNumOfSupportedPowerLevels : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfSupportedPowerLevels {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uTxPowerLevelValues : UInt32[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    uTxPowerLevelValues {
-        get {
-            if(!this.HasProp("__uTxPowerLevelValuesProxyArray"))
-                this.__uTxPowerLevelValuesProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "uint")
-            return this.__uTxPowerLevelValuesProxyArray
-        }
-    }
 }

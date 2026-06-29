@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class WMIREGGUIDW extends Win32Struct {
-    static sizeof => 24
+export default struct WMIREGGUIDW {
+    #StructPack 8
 
-    static packingSize => 8
+    Guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InstanceCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InstanceCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    InstanceNameList : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InstanceNameList {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BaseNameOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Pdo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    InstanceInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'BaseNameOffset', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'Pdo', { type: IntPtr, offset: 24 })
+        DefineProp(this.Prototype, 'InstanceInfo', { type: IntPtr, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

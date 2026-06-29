@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the possible values for the 802.1X authentication status.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_auth_status
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_AUTH_STATUS extends Win32Enum {
+export default struct ONEX_AUTH_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 802.1X authentication was not started.

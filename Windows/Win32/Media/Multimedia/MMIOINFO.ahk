@@ -1,150 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HTASK.ahk
-#Include .\HMMIO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HMMIO.ahk" { HMMIO }
+#Import "..\..\Foundation\HTASK.ahk" { HTASK }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MMIOINFO extends Win32Struct {
-    static sizeof => 112
+export default struct MMIOINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fccIOProc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fccIOProc {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pIOProc : IntPtr
 
-    /**
-     * @type {Pointer<LPMMIOPROC>}
-     */
-    pIOProc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wErrorRet : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wErrorRet {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    htask : HTASK
 
-    /**
-     * @type {HTASK}
-     */
-    htask {
-        get {
-            if(!this.HasProp("__htask"))
-                this.__htask := HTASK(24, this)
-            return this.__htask
-        }
-    }
+    cchBuffer : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cchBuffer {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    pchBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pchNext : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchNext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pchEndRead : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchEndRead {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pchEndWrite : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchEndWrite {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lBufOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lBufOffset {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    lDiskOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lDiskOffset {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    adwInfo : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    adwInfo {
-        get {
-            if(!this.HasProp("__adwInfoProxyArray"))
-                this.__adwInfoProxyArray := Win32FixedArray(this.ptr + 80, 3, Primitive, "uint")
-            return this.__adwInfoProxyArray
-        }
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    hmmio : HMMIO
 
-    /**
-     * @type {HMMIO}
-     */
-    hmmio {
-        get {
-            if(!this.HasProp("__hmmio"))
-                this.__hmmio := HMMIO(104, this)
-            return this.__hmmio
-        }
-    }
 }

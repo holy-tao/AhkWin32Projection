@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains a handle and text description corresponding to a physical monitor.
@@ -9,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor
  * @namespace Windows.Win32.Devices.Display
  */
-class PHYSICAL_MONITOR extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 8
+export default struct PHYSICAL_MONITOR {
+    #StructPack 8
 
     /**
      * Handle to the physical monitor.
-     * @type {HANDLE}
      */
-    hPhysicalMonitor {
-        get {
-            if(!this.HasProp("__hPhysicalMonitor"))
-                this.__hPhysicalMonitor := HANDLE(0, this)
-            return this.__hPhysicalMonitor
-        }
-    }
+    hPhysicalMonitor : HANDLE
 
     /**
      * Text description of the physical monitor.
-     * @type {String}
      */
-    szPhysicalMonitorDescription {
-        get => StrGet(this.ptr + 8, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 127, "UTF-16")
-    }
+    szPhysicalMonitorDescription : WCHAR[128]
+
 }

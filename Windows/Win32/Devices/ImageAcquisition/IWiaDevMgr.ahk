@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumWIA_DEV_INFO.ahk
-#Include .\IWiaItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWiaEventCallback.ahk" { IWiaEventCallback }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IEnumWIA_DEV_INFO.ahk" { IEnumWIA_DEV_INFO }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWiaItem.ahk" { IWiaItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications use the IWiaDevMgr interface to create and manage image acquisition devices.
@@ -37,32 +41,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiadevmgr
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaDevMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaDevMgr extends IUnknown {
     /**
      * The interface identifier for IWiaDevMgr
      * @type {Guid}
      */
-    static IID => Guid("{5eb2502a-8cf1-11d1-bf92-0060081ed811}")
+    static IID := Guid("{5eb2502a-8cf1-11d1-bf92-0060081ed811}")
 
     /**
      * The class identifier for WiaDevMgr
      * @type {Guid}
      */
-    static CLSID => Guid("{a1f4e726-8cf1-11d1-bf92-0060081ed811}")
+    static CLSID := Guid("{a1f4e726-8cf1-11d1-bf92-0060081ed811}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaDevMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumDeviceInfo                 : IntPtr
+        CreateDevice                   : IntPtr
+        SelectDeviceDlg                : IntPtr
+        SelectDeviceDlgID              : IntPtr
+        GetImageDlg                    : IntPtr
+        RegisterEventCallbackProgram   : IntPtr
+        RegisterEventCallbackInterface : IntPtr
+        RegisterEventCallbackCLSID     : IntPtr
+        AddDeviceDlg                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumDeviceInfo", "CreateDevice", "SelectDeviceDlg", "SelectDeviceDlgID", "GetImageDlg", "RegisterEventCallbackProgram", "RegisterEventCallbackInterface", "RegisterEventCallbackCLSID", "AddDeviceDlg"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaDevMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Applications use the IWiaDevMgr::EnumDeviceInfo method to enumerate property information for each available Windows Image Acquisition (WIA) device.
@@ -102,7 +121,7 @@ class IWiaDevMgr extends IUnknown {
     CreateDevice(bstrDeviceID) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(4, this, "ptr", bstrDeviceID, "ptr*", &ppWiaItemRoot := 0, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrDeviceID, "ptr*", &ppWiaItemRoot := 0, "HRESULT")
         return IWiaItem(ppWiaItemRoot)
     }
 
@@ -134,9 +153,7 @@ class IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-selectdevicedlg
      */
     SelectDeviceDlg(hwndParent, lDeviceType, lFlags, pbstrDeviceID) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(5, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "ptr", pbstrDeviceID, "ptr*", &ppItemRoot := 0, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, "int", lDeviceType, "int", lFlags, BSTR.Ptr, pbstrDeviceID, "ptr*", &ppItemRoot := 0, "HRESULT")
         return IWiaItem(ppItemRoot)
     }
 
@@ -187,9 +204,7 @@ class IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-selectdevicedlgid
      */
     SelectDeviceDlgID(hwndParent, lDeviceType, lFlags, pbstrDeviceID) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(6, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "ptr", pbstrDeviceID, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, "int", lDeviceType, "int", lFlags, BSTR.Ptr, pbstrDeviceID, "HRESULT")
         return result
     }
 
@@ -261,10 +276,9 @@ class IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-getimagedlg
      */
     GetImageDlg(hwndParent, lDeviceType, lFlags, lIntent, pItemRoot, bstrFilename, pguidFormat) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
-        result := ComCall(7, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "int", lIntent, "ptr", pItemRoot, "ptr", bstrFilename, "ptr", pguidFormat, "HRESULT")
+        result := ComCall(7, this, HWND, hwndParent, "int", lDeviceType, "int", lFlags, "int", lIntent, "ptr", pItemRoot, BSTR, bstrFilename, Guid.Ptr, pguidFormat, "HRESULT")
         return result
     }
 
@@ -334,7 +348,7 @@ class IWiaDevMgr extends IUnknown {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
         bstrIcon := bstrIcon is String ? BSTR.Alloc(bstrIcon).Value : bstrIcon
 
-        result := ComCall(8, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", bstrCommandline, "ptr", bstrName, "ptr", bstrDescription, "ptr", bstrIcon, "HRESULT")
+        result := ComCall(8, this, "int", lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, BSTR, bstrCommandline, BSTR, bstrName, BSTR, bstrDescription, BSTR, bstrIcon, "HRESULT")
         return result
     }
 
@@ -373,7 +387,7 @@ class IWiaDevMgr extends IUnknown {
     RegisterEventCallbackInterface(lFlags, bstrDeviceID, pEventGUID, pIWiaEventCallback) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(9, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", pIWiaEventCallback, "ptr*", &pEventObject := 0, "HRESULT")
+        result := ComCall(9, this, "int", lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, "ptr", pIWiaEventCallback, "ptr*", &pEventObject := 0, "HRESULT")
         return IUnknown(pEventObject)
     }
 
@@ -445,7 +459,7 @@ class IWiaDevMgr extends IUnknown {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
         bstrIcon := bstrIcon is String ? BSTR.Alloc(bstrIcon).Value : bstrIcon
 
-        result := ComCall(10, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", pClsID, "ptr", bstrName, "ptr", bstrDescription, "ptr", bstrIcon, "HRESULT")
+        result := ComCall(10, this, "int", lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, Guid.Ptr, pClsID, BSTR, bstrName, BSTR, bstrDescription, BSTR, bstrIcon, "HRESULT")
         return result
     }
 
@@ -459,9 +473,43 @@ class IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-adddevicedlg
      */
     AddDeviceDlg(hwndParent, lFlags) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(11, this, "ptr", hwndParent, "int", lFlags, "HRESULT")
+        result := ComCall(11, this, HWND, hwndParent, "int", lFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaDevMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumDeviceInfo := CallbackCreate(GetMethod(implObj, "EnumDeviceInfo"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 3)
+        this.vtbl.SelectDeviceDlg := CallbackCreate(GetMethod(implObj, "SelectDeviceDlg"), flags, 6)
+        this.vtbl.SelectDeviceDlgID := CallbackCreate(GetMethod(implObj, "SelectDeviceDlgID"), flags, 5)
+        this.vtbl.GetImageDlg := CallbackCreate(GetMethod(implObj, "GetImageDlg"), flags, 8)
+        this.vtbl.RegisterEventCallbackProgram := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackProgram"), flags, 8)
+        this.vtbl.RegisterEventCallbackInterface := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackInterface"), flags, 6)
+        this.vtbl.RegisterEventCallbackCLSID := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackCLSID"), flags, 8)
+        this.vtbl.AddDeviceDlg := CallbackCreate(GetMethod(implObj, "AddDeviceDlg"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumDeviceInfo)
+        CallbackFree(this.vtbl.CreateDevice)
+        CallbackFree(this.vtbl.SelectDeviceDlg)
+        CallbackFree(this.vtbl.SelectDeviceDlgID)
+        CallbackFree(this.vtbl.GetImageDlg)
+        CallbackFree(this.vtbl.RegisterEventCallbackProgram)
+        CallbackFree(this.vtbl.RegisterEventCallbackInterface)
+        CallbackFree(this.vtbl.RegisterEventCallbackCLSID)
+        CallbackFree(this.vtbl.AddDeviceDlg)
     }
 }

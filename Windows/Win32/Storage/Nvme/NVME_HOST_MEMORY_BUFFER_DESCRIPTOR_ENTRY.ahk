@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the parameters of a single entry in the Host Memory Descriptor List.
@@ -8,36 +7,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_host_memory_buffer_descriptor_entry
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_HOST_MEMORY_BUFFER_DESCRIPTOR_ENTRY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct NVME_HOST_MEMORY_BUFFER_DESCRIPTOR_ENTRY {
+    #StructPack 8
 
     /**
      * Indicates the host memory address for this entry aligned to the memory page size. the memory page size is defined in the **MPS** field of the [NVME_CONTROLLER_CONFIGURATION](s-nvme-nvme_controller_configuration.md)].
      * 
      * The lower bits (n:0) of this field indicate that the offset within the memory page is `0h`. For example, if the memory page size is 4KB, then bits 11:00 will be zero; if the memory page size is 8KB, then bits 12:00 will be zero.
-     * @type {Integer}
      */
-    BADD {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BADD : Int64
 
     /**
      * Indicates the number of contiguous memory page size **MPS** units for this entry.
-     * @type {Integer}
      */
-    BSIZE {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BSIZE : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32
+
 }

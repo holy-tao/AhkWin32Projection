@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectDrawMediaSample interface provides access to DirectDraw surfaces allocated by the Overlay Mixer filter.The allocator for the Overlay Mixer filter creates samples that expose this interface.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-idirectdrawmediasample
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDirectDrawMediaSample extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawMediaSample extends IUnknown {
     /**
      * The interface identifier for IDirectDrawMediaSample
      * @type {Guid}
      */
-    static IID => Guid("{ab6b4afe-f6e4-11d0-900d-00c04fd9189d}")
+    static IID := Guid("{ab6b4afe-f6e4-11d0-900d-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawMediaSample interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSurfaceAndReleaseLock : IntPtr
+        LockMediaSamplePointer   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSurfaceAndReleaseLock", "LockMediaSamplePointer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawMediaSample.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSurfaceAndReleaseLock method retrieves and unlocks the surface that the sample represents.
@@ -40,7 +50,7 @@ class IDirectDrawMediaSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-idirectdrawmediasample-getsurfaceandreleaselock
      */
     GetSurfaceAndReleaseLock(ppDirectDrawSurface, pRect) {
-        result := ComCall(3, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "HRESULT")
+        result := ComCall(3, this, IDirectDrawSurface.Ptr, ppDirectDrawSurface, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -54,5 +64,27 @@ class IDirectDrawMediaSample extends IUnknown {
     LockMediaSamplePointer() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectDrawMediaSample.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSurfaceAndReleaseLock := CallbackCreate(GetMethod(implObj, "GetSurfaceAndReleaseLock"), flags, 3)
+        this.vtbl.LockMediaSamplePointer := CallbackCreate(GetMethod(implObj, "LockMediaSamplePointer"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSurfaceAndReleaseLock)
+        CallbackFree(this.vtbl.LockMediaSamplePointer)
     }
 }

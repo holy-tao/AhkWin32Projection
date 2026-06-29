@@ -1,50 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_TKIPMIC_FAILURE_PARAMETERS extends Win32Struct {
-    static sizeof => 20
+export default struct DOT11_TKIPMIC_FAILURE_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    bDefaultKeyFailure : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDefaultKeyFailure {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    uKeyIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uKeyIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PeerMac : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerMac {
-        get {
-            if(!this.HasProp("__PeerMacProxyArray"))
-                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
-            return this.__PeerMacProxyArray
-        }
-    }
 }

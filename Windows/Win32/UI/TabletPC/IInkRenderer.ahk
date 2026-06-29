@@ -1,8 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkRectangle.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IInkRenderer)
@@ -13,26 +20,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrenderer
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkRenderer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkRenderer extends IDispatch {
     /**
      * The interface identifier for IInkRenderer
      * @type {Guid}
      */
-    static IID => Guid("{e6257a9c-b511-4f4c-a8b0-a7dbc9506b83}")
+    static IID := Guid("{e6257a9c-b511-4f4c-a8b0-a7dbc9506b83}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkRenderer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetViewTransform          : IntPtr
+        SetViewTransform          : IntPtr
+        GetObjectTransform        : IntPtr
+        SetObjectTransform        : IntPtr
+        Draw                      : IntPtr
+        DrawStroke                : IntPtr
+        PixelToInkSpace           : IntPtr
+        InkSpaceToPixel           : IntPtr
+        PixelToInkSpaceFromPoints : IntPtr
+        InkSpaceToPixelFromPoints : IntPtr
+        Measure                   : IntPtr
+        MeasureStroke             : IntPtr
+        Move                      : IntPtr
+        Rotate                    : IntPtr
+        ScaleTransform            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetViewTransform", "SetViewTransform", "GetObjectTransform", "SetObjectTransform", "Draw", "DrawStroke", "PixelToInkSpace", "InkSpaceToPixel", "PixelToInkSpaceFromPoints", "InkSpaceToPixelFromPoints", "Measure", "MeasureStroke", "Move", "Rotate", "ScaleTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkRenderer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the InkTransform object that represents the view transform that is used to render ink.
@@ -711,7 +739,7 @@ class IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspacefrompoints
      */
     PixelToInkSpaceFromPoints(_hDC, _Points) {
-        result := ComCall(15, this, "ptr", _hDC, "ptr", _Points, "HRESULT")
+        result := ComCall(15, this, "ptr", _hDC, VARIANT.Ptr, _Points, "HRESULT")
         return result
     }
 
@@ -776,7 +804,7 @@ class IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixelfrompoints
      */
     InkSpaceToPixelFromPoints(_hDC, _Points) {
-        result := ComCall(16, this, "ptr", _hDC, "ptr", _Points, "HRESULT")
+        result := ComCall(16, this, "ptr", _hDC, VARIANT.Ptr, _Points, "HRESULT")
         return result
     }
 
@@ -909,7 +937,55 @@ class IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier, ApplyOnPenWidth) {
-        result := ComCall(21, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "short", ApplyOnPenWidth, "HRESULT")
+        result := ComCall(21, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkRenderer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetViewTransform := CallbackCreate(GetMethod(implObj, "GetViewTransform"), flags, 2)
+        this.vtbl.SetViewTransform := CallbackCreate(GetMethod(implObj, "SetViewTransform"), flags, 2)
+        this.vtbl.GetObjectTransform := CallbackCreate(GetMethod(implObj, "GetObjectTransform"), flags, 2)
+        this.vtbl.SetObjectTransform := CallbackCreate(GetMethod(implObj, "SetObjectTransform"), flags, 2)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 3)
+        this.vtbl.DrawStroke := CallbackCreate(GetMethod(implObj, "DrawStroke"), flags, 4)
+        this.vtbl.PixelToInkSpace := CallbackCreate(GetMethod(implObj, "PixelToInkSpace"), flags, 4)
+        this.vtbl.InkSpaceToPixel := CallbackCreate(GetMethod(implObj, "InkSpaceToPixel"), flags, 4)
+        this.vtbl.PixelToInkSpaceFromPoints := CallbackCreate(GetMethod(implObj, "PixelToInkSpaceFromPoints"), flags, 3)
+        this.vtbl.InkSpaceToPixelFromPoints := CallbackCreate(GetMethod(implObj, "InkSpaceToPixelFromPoints"), flags, 3)
+        this.vtbl.Measure := CallbackCreate(GetMethod(implObj, "Measure"), flags, 3)
+        this.vtbl.MeasureStroke := CallbackCreate(GetMethod(implObj, "MeasureStroke"), flags, 4)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetViewTransform)
+        CallbackFree(this.vtbl.SetViewTransform)
+        CallbackFree(this.vtbl.GetObjectTransform)
+        CallbackFree(this.vtbl.SetObjectTransform)
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.DrawStroke)
+        CallbackFree(this.vtbl.PixelToInkSpace)
+        CallbackFree(this.vtbl.InkSpaceToPixel)
+        CallbackFree(this.vtbl.PixelToInkSpaceFromPoints)
+        CallbackFree(this.vtbl.InkSpaceToPixelFromPoints)
+        CallbackFree(this.vtbl.Measure)
+        CallbackFree(this.vtbl.MeasureStroke)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Rotate)
+        CallbackFree(this.vtbl.ScaleTransform)
     }
 }

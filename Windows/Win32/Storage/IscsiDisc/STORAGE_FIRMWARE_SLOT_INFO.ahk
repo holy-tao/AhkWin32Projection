@@ -1,73 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct STORAGE_FIRMWARE_SLOT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Revision_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Revision {
+        Info : Int8[8]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Info {
-            get {
-                if(!this.HasProp("__InfoProxyArray"))
-                    this.__InfoProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-                return this.__InfoProxyArray
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUlonglong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUlonglong', { type: Int64, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    SlotNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    SlotNumber : Int8
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ReadOnly {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ReadOnly : BOOLEAN
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[6]
 
-    /**
-     * @type {_Revision_e__Union}
-     */
-    Revision {
-        get {
-            if(!this.HasProp("__Revision"))
-                this.__Revision := STORAGE_FIRMWARE_SLOT_INFO._Revision_e__Union(8, this)
-            return this.__Revision
-        }
-    }
+    Revision : STORAGE_FIRMWARE_SLOT_INFO._Revision
+
 }

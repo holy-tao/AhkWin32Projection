@@ -1,34 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\PolicyServerUrlPropertyID.ahk" { PolicyServerUrlPropertyID }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
 
 /**
  * The IX509PolicyServerUrl interface can be used to set or retrieve property values associated with the certificate enrollment policy (CEP) server and to update associated registry values.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509policyserverurl
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509PolicyServerUrl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509PolicyServerUrl extends IDispatch {
     /**
      * The interface identifier for IX509PolicyServerUrl
      * @type {Guid}
      */
-    static IID => Guid("{884e204a-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{884e204a-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509PolicyServerUrl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize         : IntPtr
+        get_Url            : IntPtr
+        put_Url            : IntPtr
+        get_Default        : IntPtr
+        put_Default        : IntPtr
+        get_Flags          : IntPtr
+        put_Flags          : IntPtr
+        get_AuthFlags      : IntPtr
+        put_AuthFlags      : IntPtr
+        get_Cost           : IntPtr
+        put_Cost           : IntPtr
+        GetStringProperty  : IntPtr
+        SetStringProperty  : IntPtr
+        UpdateRegistry     : IntPtr
+        RemoveFromRegistry : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "get_Url", "put_Url", "get_Default", "put_Default", "get_Flags", "put_Flags", "get_AuthFlags", "put_AuthFlags", "get_Cost", "put_Cost", "GetStringProperty", "SetStringProperty", "UpdateRegistry", "RemoveFromRegistry"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509PolicyServerUrl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -97,7 +124,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-initialize
      */
     Initialize(_context) {
-        result := ComCall(7, this, "int", _context, "HRESULT")
+        result := ComCall(7, this, X509CertificateEnrollmentContext, _context, "HRESULT")
         return result
     }
 
@@ -107,8 +134,8 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_url
      */
     get_Url() {
-        ppValue := BSTR()
-        result := ComCall(8, this, "ptr", ppValue, "HRESULT")
+        ppValue := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, ppValue, "HRESULT")
         return ppValue
     }
 
@@ -121,7 +148,7 @@ class IX509PolicyServerUrl extends IDispatch {
     put_Url(pValue) {
         pValue := pValue is String ? BSTR.Alloc(pValue).Value : pValue
 
-        result := ComCall(9, this, "ptr", pValue, "HRESULT")
+        result := ComCall(9, this, BSTR, pValue, "HRESULT")
         return result
     }
 
@@ -131,7 +158,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_default
      */
     get_Default() {
-        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -142,7 +169,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-put_default
      */
     put_Default(value) {
-        result := ComCall(11, this, "short", value, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -167,7 +194,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-put_flags
      */
     put_Flags(Flags) {
-        result := ComCall(13, this, "int", Flags, "HRESULT")
+        result := ComCall(13, this, PolicyServerUrlFlags, Flags, "HRESULT")
         return result
     }
 
@@ -188,7 +215,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-put_authflags
      */
     put_AuthFlags(Flags) {
-        result := ComCall(15, this, "int", Flags, "HRESULT")
+        result := ComCall(15, this, X509EnrollmentAuthFlags, Flags, "HRESULT")
         return result
     }
 
@@ -220,8 +247,8 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-getstringproperty
      */
     GetStringProperty(propertyId) {
-        ppValue := BSTR()
-        result := ComCall(18, this, "int", propertyId, "ptr", ppValue, "HRESULT")
+        ppValue := BSTR.Owned()
+        result := ComCall(18, this, PolicyServerUrlPropertyID, propertyId, BSTR.Ptr, ppValue, "HRESULT")
         return ppValue
     }
 
@@ -266,7 +293,7 @@ class IX509PolicyServerUrl extends IDispatch {
     SetStringProperty(propertyId, pValue) {
         pValue := pValue is String ? BSTR.Alloc(pValue).Value : pValue
 
-        result := ComCall(19, this, "int", propertyId, "ptr", pValue, "HRESULT")
+        result := ComCall(19, this, PolicyServerUrlPropertyID, propertyId, BSTR, pValue, "HRESULT")
         return result
     }
 
@@ -310,7 +337,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-updateregistry
      */
     UpdateRegistry(_context) {
-        result := ComCall(20, this, "int", _context, "HRESULT")
+        result := ComCall(20, this, X509CertificateEnrollmentContext, _context, "HRESULT")
         return result
     }
 
@@ -341,7 +368,55 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-removefromregistry
      */
     RemoveFromRegistry(_context) {
-        result := ComCall(21, this, "int", _context, "HRESULT")
+        result := ComCall(21, this, X509CertificateEnrollmentContext, _context, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509PolicyServerUrl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.get_Url := CallbackCreate(GetMethod(implObj, "get_Url"), flags, 2)
+        this.vtbl.put_Url := CallbackCreate(GetMethod(implObj, "put_Url"), flags, 2)
+        this.vtbl.get_Default := CallbackCreate(GetMethod(implObj, "get_Default"), flags, 2)
+        this.vtbl.put_Default := CallbackCreate(GetMethod(implObj, "put_Default"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.put_Flags := CallbackCreate(GetMethod(implObj, "put_Flags"), flags, 2)
+        this.vtbl.get_AuthFlags := CallbackCreate(GetMethod(implObj, "get_AuthFlags"), flags, 2)
+        this.vtbl.put_AuthFlags := CallbackCreate(GetMethod(implObj, "put_AuthFlags"), flags, 2)
+        this.vtbl.get_Cost := CallbackCreate(GetMethod(implObj, "get_Cost"), flags, 2)
+        this.vtbl.put_Cost := CallbackCreate(GetMethod(implObj, "put_Cost"), flags, 2)
+        this.vtbl.GetStringProperty := CallbackCreate(GetMethod(implObj, "GetStringProperty"), flags, 3)
+        this.vtbl.SetStringProperty := CallbackCreate(GetMethod(implObj, "SetStringProperty"), flags, 3)
+        this.vtbl.UpdateRegistry := CallbackCreate(GetMethod(implObj, "UpdateRegistry"), flags, 2)
+        this.vtbl.RemoveFromRegistry := CallbackCreate(GetMethod(implObj, "RemoveFromRegistry"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_Url)
+        CallbackFree(this.vtbl.put_Url)
+        CallbackFree(this.vtbl.get_Default)
+        CallbackFree(this.vtbl.put_Default)
+        CallbackFree(this.vtbl.get_Flags)
+        CallbackFree(this.vtbl.put_Flags)
+        CallbackFree(this.vtbl.get_AuthFlags)
+        CallbackFree(this.vtbl.put_AuthFlags)
+        CallbackFree(this.vtbl.get_Cost)
+        CallbackFree(this.vtbl.put_Cost)
+        CallbackFree(this.vtbl.GetStringProperty)
+        CallbackFree(this.vtbl.SetStringProperty)
+        CallbackFree(this.vtbl.UpdateRegistry)
+        CallbackFree(this.vtbl.RemoveFromRegistry)
     }
 }

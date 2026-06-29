@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class KCRM_PROTOCOL_BLOB extends Win32Struct {
-    static sizeof => 24
+export default struct KCRM_PROTOCOL_BLOB {
+    #StructPack 4
 
-    static packingSize => 8
+    ProtocolId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProtocolId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    StaticInfoLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StaticInfoLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TransactionIdInfoLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransactionIdInfoLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Unused1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Unused1 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Unused2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Unused2 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

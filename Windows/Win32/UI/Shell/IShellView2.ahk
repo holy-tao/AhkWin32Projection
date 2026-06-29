@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellView.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\SV2CVW2_PARAMS.ahk" { SV2CVW2_PARAMS }
+#Import ".\IShellView.ahk" { IShellView }
 
 /**
  * Extends the capabilities of IShellView.
@@ -16,26 +20,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellview2
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellView2 extends IShellView {
-
-    static sizeof => A_PtrSize
+export default struct IShellView2 extends IShellView {
     /**
      * The interface identifier for IShellView2
      * @type {Guid}
      */
-    static IID => Guid("{88e39e80-3578-11cf-ae69-08002b2e1262}")
+    static IID := Guid("{88e39e80-3578-11cf-ae69-08002b2e1262}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellView2 interfaces
+    */
+    struct Vtbl extends IShellView.Vtbl {
+        GetView               : IntPtr
+        CreateViewWindow2     : IntPtr
+        HandleRename          : IntPtr
+        SelectAndPositionItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetView", "CreateViewWindow2", "HandleRename", "SelectAndPositionItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellView2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests the current or default Shell view, together with all other valid view identifiers (VIDs) supported by this implementation of IShellView2.
@@ -66,7 +80,7 @@ class IShellView2 extends IShellView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview2-getview
      */
     GetView(pvid, uView) {
-        result := ComCall(16, this, "ptr", pvid, "uint", uView, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, pvid, "uint", uView, "HRESULT")
         return result
     }
 
@@ -85,7 +99,7 @@ class IShellView2 extends IShellView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview2-createviewwindow2
      */
     CreateViewWindow2(lpParams) {
-        result := ComCall(17, this, "ptr", lpParams, "HRESULT")
+        result := ComCall(17, this, SV2CVW2_PARAMS.Ptr, lpParams, "HRESULT")
         return result
     }
 
@@ -100,7 +114,7 @@ class IShellView2 extends IShellView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview2-handlerename
      */
     HandleRename(pidlNew) {
-        result := ComCall(18, this, "ptr", pidlNew, "HRESULT")
+        result := ComCall(18, this, ITEMIDLIST.Ptr, pidlNew, "HRESULT")
         return result
     }
 
@@ -121,7 +135,33 @@ class IShellView2 extends IShellView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview2-selectandpositionitem
      */
     SelectAndPositionItem(pidlItem, uFlags, ppt) {
-        result := ComCall(19, this, "ptr", pidlItem, "uint", uFlags, "ptr", ppt, "HRESULT")
+        result := ComCall(19, this, ITEMIDLIST.Ptr, pidlItem, "uint", uFlags, POINT.Ptr, ppt, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellView2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 3)
+        this.vtbl.CreateViewWindow2 := CallbackCreate(GetMethod(implObj, "CreateViewWindow2"), flags, 2)
+        this.vtbl.HandleRename := CallbackCreate(GetMethod(implObj, "HandleRename"), flags, 2)
+        this.vtbl.SelectAndPositionItem := CallbackCreate(GetMethod(implObj, "SelectAndPositionItem"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetView)
+        CallbackFree(this.vtbl.CreateViewWindow2)
+        CallbackFree(this.vtbl.HandleRename)
+        CallbackFree(this.vtbl.SelectAndPositionItem)
     }
 }

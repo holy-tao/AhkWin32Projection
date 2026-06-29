@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITaskTrigger.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITaskTrigger.ahk" { ITaskTrigger }
 
 /**
  * Provides the methods for managing specific work items.
@@ -15,26 +18,61 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-ischeduledworkitem
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IScheduledWorkItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IScheduledWorkItem extends IUnknown {
     /**
      * The interface identifier for IScheduledWorkItem
      * @type {Guid}
      */
-    static IID => Guid("{a6b952f0-a4b1-11d0-997d-00aa006887ec}")
+    static IID := Guid("{a6b952f0-a4b1-11d0-997d-00aa006887ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IScheduledWorkItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTrigger         : IntPtr
+        DeleteTrigger         : IntPtr
+        GetTriggerCount       : IntPtr
+        GetTrigger            : IntPtr
+        GetTriggerString      : IntPtr
+        GetRunTimes           : IntPtr
+        GetNextRunTime        : IntPtr
+        SetIdleWait           : IntPtr
+        GetIdleWait           : IntPtr
+        Run                   : IntPtr
+        Terminate             : IntPtr
+        EditWorkItem          : IntPtr
+        GetMostRecentRunTime  : IntPtr
+        GetStatus             : IntPtr
+        GetExitCode           : IntPtr
+        SetComment            : IntPtr
+        GetComment            : IntPtr
+        SetCreator            : IntPtr
+        GetCreator            : IntPtr
+        SetWorkItemData       : IntPtr
+        GetWorkItemData       : IntPtr
+        SetErrorRetryCount    : IntPtr
+        GetErrorRetryCount    : IntPtr
+        SetErrorRetryInterval : IntPtr
+        GetErrorRetryInterval : IntPtr
+        SetFlags              : IntPtr
+        GetFlags              : IntPtr
+        SetAccountInformation : IntPtr
+        GetAccountInformation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTrigger", "DeleteTrigger", "GetTriggerCount", "GetTrigger", "GetTriggerString", "GetRunTimes", "GetNextRunTime", "SetIdleWait", "GetIdleWait", "Run", "Terminate", "EditWorkItem", "GetMostRecentRunTime", "GetStatus", "GetExitCode", "SetComment", "GetComment", "SetCreator", "GetCreator", "SetWorkItemData", "GetWorkItemData", "SetErrorRetryCount", "GetErrorRetryCount", "SetErrorRetryInterval", "GetErrorRetryInterval", "SetFlags", "GetFlags", "SetAccountInformation", "GetAccountInformation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IScheduledWorkItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a trigger for the work item.
@@ -96,7 +134,7 @@ class IScheduledWorkItem extends IUnknown {
     CreateTrigger(piNewTrigger, ppTrigger) {
         piNewTriggerMarshal := piNewTrigger is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, piNewTriggerMarshal, piNewTrigger, "ptr*", ppTrigger, "HRESULT")
+        result := ComCall(3, this, piNewTriggerMarshal, piNewTrigger, ITaskTrigger.Ptr, ppTrigger, "HRESULT")
         return result
     }
 
@@ -194,7 +232,7 @@ class IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggerstring
      */
     GetTriggerString(_iTrigger) {
-        result := ComCall(7, this, "ushort", _iTrigger, "ptr*", &ppwszTrigger := 0, "HRESULT")
+        result := ComCall(7, this, "ushort", _iTrigger, PWSTR.Ptr, &ppwszTrigger := 0, "HRESULT")
         return ppwszTrigger
     }
 
@@ -216,7 +254,7 @@ class IScheduledWorkItem extends IUnknown {
     GetRunTimes(pstBegin, pstEnd, pCount) {
         pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", &rgstTaskTimes := 0, "HRESULT")
+        result := ComCall(8, this, SYSTEMTIME.Ptr, pstBegin, SYSTEMTIME.Ptr, pstEnd, pCountMarshal, pCount, "ptr*", &rgstTaskTimes := 0, "HRESULT")
         return rgstTaskTimes
     }
 
@@ -279,7 +317,7 @@ class IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getnextruntime
      */
     GetNextRunTime(pstNextRun) {
-        result := ComCall(9, this, "ptr", pstNextRun, "HRESULT")
+        result := ComCall(9, this, SYSTEMTIME.Ptr, pstNextRun, "HRESULT")
         return result
     }
 
@@ -534,9 +572,7 @@ class IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-editworkitem
      */
     EditWorkItem(hParent, dwReserved) {
-        hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
-
-        result := ComCall(14, this, "ptr", hParent, "uint", dwReserved, "HRESULT")
+        result := ComCall(14, this, HWND, hParent, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -547,7 +583,7 @@ class IScheduledWorkItem extends IUnknown {
      */
     GetMostRecentRunTime() {
         pstLastRun := SYSTEMTIME()
-        result := ComCall(15, this, "ptr", pstLastRun, "HRESULT")
+        result := ComCall(15, this, SYSTEMTIME.Ptr, pstLastRun, "HRESULT")
         return pstLastRun
     }
 
@@ -650,7 +686,7 @@ class IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getcomment
      */
     GetComment() {
-        result := ComCall(19, this, "ptr*", &ppwszComment := 0, "HRESULT")
+        result := ComCall(19, this, PWSTR.Ptr, &ppwszComment := 0, "HRESULT")
         return ppwszComment
     }
 
@@ -717,7 +753,7 @@ class IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getcreator
      */
     GetCreator() {
-        result := ComCall(21, this, "ptr*", &ppwszCreator := 0, "HRESULT")
+        result := ComCall(21, this, PWSTR.Ptr, &ppwszCreator := 0, "HRESULT")
         return ppwszCreator
     }
 
@@ -1211,7 +1247,83 @@ class IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getaccountinformation
      */
     GetAccountInformation() {
-        result := ComCall(31, this, "ptr*", &ppwszAccountName := 0, "HRESULT")
+        result := ComCall(31, this, PWSTR.Ptr, &ppwszAccountName := 0, "HRESULT")
         return ppwszAccountName
+    }
+
+    Query(iid) {
+        if (IScheduledWorkItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTrigger := CallbackCreate(GetMethod(implObj, "CreateTrigger"), flags, 3)
+        this.vtbl.DeleteTrigger := CallbackCreate(GetMethod(implObj, "DeleteTrigger"), flags, 2)
+        this.vtbl.GetTriggerCount := CallbackCreate(GetMethod(implObj, "GetTriggerCount"), flags, 2)
+        this.vtbl.GetTrigger := CallbackCreate(GetMethod(implObj, "GetTrigger"), flags, 3)
+        this.vtbl.GetTriggerString := CallbackCreate(GetMethod(implObj, "GetTriggerString"), flags, 3)
+        this.vtbl.GetRunTimes := CallbackCreate(GetMethod(implObj, "GetRunTimes"), flags, 5)
+        this.vtbl.GetNextRunTime := CallbackCreate(GetMethod(implObj, "GetNextRunTime"), flags, 2)
+        this.vtbl.SetIdleWait := CallbackCreate(GetMethod(implObj, "SetIdleWait"), flags, 3)
+        this.vtbl.GetIdleWait := CallbackCreate(GetMethod(implObj, "GetIdleWait"), flags, 3)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.EditWorkItem := CallbackCreate(GetMethod(implObj, "EditWorkItem"), flags, 3)
+        this.vtbl.GetMostRecentRunTime := CallbackCreate(GetMethod(implObj, "GetMostRecentRunTime"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetExitCode := CallbackCreate(GetMethod(implObj, "GetExitCode"), flags, 2)
+        this.vtbl.SetComment := CallbackCreate(GetMethod(implObj, "SetComment"), flags, 2)
+        this.vtbl.GetComment := CallbackCreate(GetMethod(implObj, "GetComment"), flags, 2)
+        this.vtbl.SetCreator := CallbackCreate(GetMethod(implObj, "SetCreator"), flags, 2)
+        this.vtbl.GetCreator := CallbackCreate(GetMethod(implObj, "GetCreator"), flags, 2)
+        this.vtbl.SetWorkItemData := CallbackCreate(GetMethod(implObj, "SetWorkItemData"), flags, 3)
+        this.vtbl.GetWorkItemData := CallbackCreate(GetMethod(implObj, "GetWorkItemData"), flags, 3)
+        this.vtbl.SetErrorRetryCount := CallbackCreate(GetMethod(implObj, "SetErrorRetryCount"), flags, 2)
+        this.vtbl.GetErrorRetryCount := CallbackCreate(GetMethod(implObj, "GetErrorRetryCount"), flags, 2)
+        this.vtbl.SetErrorRetryInterval := CallbackCreate(GetMethod(implObj, "SetErrorRetryInterval"), flags, 2)
+        this.vtbl.GetErrorRetryInterval := CallbackCreate(GetMethod(implObj, "GetErrorRetryInterval"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetAccountInformation := CallbackCreate(GetMethod(implObj, "SetAccountInformation"), flags, 3)
+        this.vtbl.GetAccountInformation := CallbackCreate(GetMethod(implObj, "GetAccountInformation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTrigger)
+        CallbackFree(this.vtbl.DeleteTrigger)
+        CallbackFree(this.vtbl.GetTriggerCount)
+        CallbackFree(this.vtbl.GetTrigger)
+        CallbackFree(this.vtbl.GetTriggerString)
+        CallbackFree(this.vtbl.GetRunTimes)
+        CallbackFree(this.vtbl.GetNextRunTime)
+        CallbackFree(this.vtbl.SetIdleWait)
+        CallbackFree(this.vtbl.GetIdleWait)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.Terminate)
+        CallbackFree(this.vtbl.EditWorkItem)
+        CallbackFree(this.vtbl.GetMostRecentRunTime)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetExitCode)
+        CallbackFree(this.vtbl.SetComment)
+        CallbackFree(this.vtbl.GetComment)
+        CallbackFree(this.vtbl.SetCreator)
+        CallbackFree(this.vtbl.GetCreator)
+        CallbackFree(this.vtbl.SetWorkItemData)
+        CallbackFree(this.vtbl.GetWorkItemData)
+        CallbackFree(this.vtbl.SetErrorRetryCount)
+        CallbackFree(this.vtbl.GetErrorRetryCount)
+        CallbackFree(this.vtbl.SetErrorRetryInterval)
+        CallbackFree(this.vtbl.GetErrorRetryInterval)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.SetAccountInformation)
+        CallbackFree(this.vtbl.GetAccountInformation)
     }
 }

@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSAUDIO_POSITION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSAUDIO_POSITION.ahk" { KSAUDIO_POSITION }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSAUDIO_POSITIONEX extends Win32Struct {
-    static sizeof => 40
+export default struct KSAUDIO_POSITIONEX {
+    #StructPack 8
 
-    static packingSize => 8
+    TimerFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimerFrequency {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    TimeStamp1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeStamp1 {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Position : KSAUDIO_POSITION
 
-    /**
-     * @type {KSAUDIO_POSITION}
-     */
-    Position {
-        get {
-            if(!this.HasProp("__Position"))
-                this.__Position := KSAUDIO_POSITION(16, this)
-            return this.__Position
-        }
-    }
+    TimeStamp2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeStamp2 {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
 }

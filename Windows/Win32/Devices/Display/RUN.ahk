@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RUN structure is used to describe a linear set of pixels that is not clipped by the CLIPLINE structure.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-run
  * @namespace Windows.Win32.Devices.Display
  */
-class RUN extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct RUN {
+    #StructPack 4
 
     /**
      * Specifies the starting point for a field of pixels to be drawn. The first pixel of the unclipped line is pixel 0.
-     * @type {Integer}
      */
-    iStart {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    iStart : Int32
 
     /**
      * Specifies the stopping point for a field of pixels to be drawn.
-     * @type {Integer}
      */
-    iStop {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iStop : Int32
+
 }

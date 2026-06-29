@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WPD\_FLASH\_MODES enumeration type describes a flash mode to use when capturing images with a device.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-flash-modes
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class WPD_FLASH_MODES extends Win32Enum {
+export default struct WPD_FLASH_MODES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

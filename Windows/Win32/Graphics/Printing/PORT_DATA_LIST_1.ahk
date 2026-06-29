@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PORT_DATA_2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PORT_DATA_2.ahk" { PORT_DATA_2 }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PORT_DATA_LIST_1 extends Win32Struct {
-    static sizeof => 1076
+export default struct PORT_DATA_LIST_1 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cPortData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPortData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pPortData : PORT_DATA_2[1]
 
-    /**
-     * @type {PORT_DATA_2}
-     */
-    pPortData {
-        get {
-            if(!this.HasProp("__pPortDataProxyArray"))
-                this.__pPortDataProxyArray := Win32FixedArray(this.ptr + 8, 1, PORT_DATA_2, "")
-            return this.__pPortDataProxyArray
-        }
-    }
 }

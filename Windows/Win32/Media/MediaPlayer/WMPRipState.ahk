@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMPRipState enumeration type defines the possible operational states of Windows Media Player as it rips a CD.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpripstate
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class WMPRipState extends Win32Enum {
+export default struct WMPRipState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not a valid state.

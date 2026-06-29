@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITScriptableAudioFormat interface is used by scriptable clients to get the audio format from, or set the audio format for, the track. The interface provides properties for each member from the WAVEFORMATEX structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itscriptableaudioformat
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITScriptableAudioFormat extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITScriptableAudioFormat extends IDispatch {
     /**
      * The interface identifier for ITScriptableAudioFormat
      * @type {Guid}
      */
-    static IID => Guid("{b87658bd-3c59-4f64-be74-aede3e86a81e}")
+    static IID := Guid("{b87658bd-3c59-4f64-be74-aede3e86a81e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITScriptableAudioFormat interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Channels       : IntPtr
+        put_Channels       : IntPtr
+        get_SamplesPerSec  : IntPtr
+        put_SamplesPerSec  : IntPtr
+        get_AvgBytesPerSec : IntPtr
+        put_AvgBytesPerSec : IntPtr
+        get_BlockAlign     : IntPtr
+        put_BlockAlign     : IntPtr
+        get_BitsPerSample  : IntPtr
+        put_BitsPerSample  : IntPtr
+        get_FormatTag      : IntPtr
+        put_FormatTag      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Channels", "put_Channels", "get_SamplesPerSec", "put_SamplesPerSec", "get_AvgBytesPerSec", "put_AvgBytesPerSec", "get_BlockAlign", "put_BlockAlign", "get_BitsPerSample", "put_BitsPerSample", "get_FormatTag", "put_FormatTag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITScriptableAudioFormat.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -321,5 +340,47 @@ class ITScriptableAudioFormat extends IDispatch {
     put_FormatTag(nNewVal) {
         result := ComCall(18, this, "int", nNewVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITScriptableAudioFormat.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Channels := CallbackCreate(GetMethod(implObj, "get_Channels"), flags, 2)
+        this.vtbl.put_Channels := CallbackCreate(GetMethod(implObj, "put_Channels"), flags, 2)
+        this.vtbl.get_SamplesPerSec := CallbackCreate(GetMethod(implObj, "get_SamplesPerSec"), flags, 2)
+        this.vtbl.put_SamplesPerSec := CallbackCreate(GetMethod(implObj, "put_SamplesPerSec"), flags, 2)
+        this.vtbl.get_AvgBytesPerSec := CallbackCreate(GetMethod(implObj, "get_AvgBytesPerSec"), flags, 2)
+        this.vtbl.put_AvgBytesPerSec := CallbackCreate(GetMethod(implObj, "put_AvgBytesPerSec"), flags, 2)
+        this.vtbl.get_BlockAlign := CallbackCreate(GetMethod(implObj, "get_BlockAlign"), flags, 2)
+        this.vtbl.put_BlockAlign := CallbackCreate(GetMethod(implObj, "put_BlockAlign"), flags, 2)
+        this.vtbl.get_BitsPerSample := CallbackCreate(GetMethod(implObj, "get_BitsPerSample"), flags, 2)
+        this.vtbl.put_BitsPerSample := CallbackCreate(GetMethod(implObj, "put_BitsPerSample"), flags, 2)
+        this.vtbl.get_FormatTag := CallbackCreate(GetMethod(implObj, "get_FormatTag"), flags, 2)
+        this.vtbl.put_FormatTag := CallbackCreate(GetMethod(implObj, "put_FormatTag"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Channels)
+        CallbackFree(this.vtbl.put_Channels)
+        CallbackFree(this.vtbl.get_SamplesPerSec)
+        CallbackFree(this.vtbl.put_SamplesPerSec)
+        CallbackFree(this.vtbl.get_AvgBytesPerSec)
+        CallbackFree(this.vtbl.put_AvgBytesPerSec)
+        CallbackFree(this.vtbl.get_BlockAlign)
+        CallbackFree(this.vtbl.put_BlockAlign)
+        CallbackFree(this.vtbl.get_BitsPerSample)
+        CallbackFree(this.vtbl.put_BitsPerSample)
+        CallbackFree(this.vtbl.get_FormatTag)
+        CallbackFree(this.vtbl.put_FormatTag)
     }
 }

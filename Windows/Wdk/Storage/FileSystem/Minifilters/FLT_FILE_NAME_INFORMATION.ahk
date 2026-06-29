@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_FILE_NAME_INFORMATION extends Win32Struct {
-    static sizeof => 64
+export default struct FLT_FILE_NAME_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    NamesParsed : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NamesParsed {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Format : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Format {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Name : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Volume : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Volume {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Share : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Share {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Extension : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Extension {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Stream : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Stream {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FinalComponent : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FinalComponent {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ParentDir : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ParentDir {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

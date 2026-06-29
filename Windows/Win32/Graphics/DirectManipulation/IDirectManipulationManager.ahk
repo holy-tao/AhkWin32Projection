@@ -1,39 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import ".\DIRECTMANIPULATION_HITTEST_TYPE.ahk" { DIRECTMANIPULATION_HITTEST_TYPE }
+#Import ".\IDirectManipulationFrameInfoProvider.ahk" { IDirectManipulationFrameInfoProvider }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to all the Direct Manipulation features and APIs available to the client application.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationmanager
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationManager extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationManager
      * @type {Guid}
      */
-    static IID => Guid("{fbf5d3b4-70c7-4163-9322-5a6f660d6fbc}")
+    static IID := Guid("{fbf5d3b4-70c7-4163-9322-5a6f660d6fbc}")
 
     /**
      * The class identifier for DirectManipulationManager
      * @type {Guid}
      */
-    static CLSID => Guid("{54e211b6-3650-4f75-8334-fa359598e1c5}")
+    static CLSID := Guid("{54e211b6-3650-4f75-8334-fa359598e1c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Activate              : IntPtr
+        Deactivate            : IntPtr
+        RegisterHitTestTarget : IntPtr
+        ProcessInput          : IntPtr
+        GetUpdateManager      : IntPtr
+        CreateViewport        : IntPtr
+        CreateContent         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Activate", "Deactivate", "RegisterHitTestTarget", "ProcessInput", "GetUpdateManager", "CreateViewport", "CreateContent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Activates Direct Manipulation for processing input and handling callbacks on the specified window.
@@ -46,9 +65,7 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-activate
      */
     Activate(window) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-
-        result := ComCall(3, this, "ptr", window, "HRESULT")
+        result := ComCall(3, this, HWND, window, "HRESULT")
         return result
     }
 
@@ -63,9 +80,7 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-deactivate
      */
     Deactivate(window) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-
-        result := ComCall(4, this, "ptr", window, "HRESULT")
+        result := ComCall(4, this, HWND, window, "HRESULT")
         return result
     }
 
@@ -89,10 +104,7 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-registerhittesttarget
      */
     RegisterHitTestTarget(window, hitTestWindow, type) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-        hitTestWindow := hitTestWindow is Win32Handle ? NumGet(hitTestWindow, "ptr") : hitTestWindow
-
-        result := ComCall(5, this, "ptr", window, "ptr", hitTestWindow, "int", type, "HRESULT")
+        result := ComCall(5, this, HWND, window, HWND, hitTestWindow, DIRECTMANIPULATION_HITTEST_TYPE, type, "HRESULT")
         return result
     }
 
@@ -105,7 +117,7 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-processinput
      */
     ProcessInput(message) {
-        result := ComCall(6, this, "ptr", message, "int*", &handled := 0, "HRESULT")
+        result := ComCall(6, this, MSG.Ptr, message, BOOL.Ptr, &handled := 0, "HRESULT")
         return handled
     }
 
@@ -118,7 +130,7 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-getupdatemanager
      */
     GetUpdateManager(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
     }
 
@@ -131,9 +143,7 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createviewport
      */
     CreateViewport(frameInfo, window, riid) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-
-        result := ComCall(8, this, "ptr", frameInfo, "ptr", window, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", frameInfo, HWND, window, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
     }
 
@@ -150,7 +160,39 @@ class IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createcontent
      */
     CreateContent(frameInfo, clsid, riid) {
-        result := ComCall(9, this, "ptr", frameInfo, "ptr", clsid, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", frameInfo, Guid.Ptr, clsid, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
+    }
+
+    Query(iid) {
+        if (IDirectManipulationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 2)
+        this.vtbl.RegisterHitTestTarget := CallbackCreate(GetMethod(implObj, "RegisterHitTestTarget"), flags, 4)
+        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 3)
+        this.vtbl.GetUpdateManager := CallbackCreate(GetMethod(implObj, "GetUpdateManager"), flags, 3)
+        this.vtbl.CreateViewport := CallbackCreate(GetMethod(implObj, "CreateViewport"), flags, 5)
+        this.vtbl.CreateContent := CallbackCreate(GetMethod(implObj, "CreateContent"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
+        CallbackFree(this.vtbl.RegisterHitTestTarget)
+        CallbackFree(this.vtbl.ProcessInput)
+        CallbackFree(this.vtbl.GetUpdateManager)
+        CallbackFree(this.vtbl.CreateViewport)
+        CallbackFree(this.vtbl.CreateContent)
     }
 }

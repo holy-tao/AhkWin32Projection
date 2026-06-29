@@ -1,168 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct {
-    static sizeof => 520
+export default struct NVME_PERSISTENT_EVENT_LOG_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    LogIdentifier : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LogIdentifier {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    TotalNumberOfEvents : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalNumberOfEvents {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TotalLogLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalLogLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LogRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LogRevision {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    LogHeaderLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogHeaderLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    Timestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Timestamp {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PowerOnHours : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PowerOnHours {
-        get {
-            if(!this.HasProp("__PowerOnHoursProxyArray"))
-                this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
-            return this.__PowerOnHoursProxyArray
-        }
-    }
+    PowerCycleCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PowerCycleCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PciVendorId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PciVendorId {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    PciSubsystemVendorId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PciSubsystemVendorId {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    SerialNumber : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SerialNumber {
-        get {
-            if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 60, 20, Primitive, "char")
-            return this.__SerialNumberProxyArray
-        }
-    }
+    ModelNumber : Int8[40]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ModelNumber {
-        get {
-            if(!this.HasProp("__ModelNumberProxyArray"))
-                this.__ModelNumberProxyArray := Win32FixedArray(this.ptr + 80, 40, Primitive, "char")
-            return this.__ModelNumberProxyArray
-        }
-    }
+    NVMSubsystemNVMeQualifiedName : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NVMSubsystemNVMeQualifiedName {
-        get {
-            if(!this.HasProp("__NVMSubsystemNVMeQualifiedNameProxyArray"))
-                this.__NVMSubsystemNVMeQualifiedNameProxyArray := Win32FixedArray(this.ptr + 120, 256, Primitive, "char")
-            return this.__NVMSubsystemNVMeQualifiedNameProxyArray
-        }
-    }
+    Reserved : Int8[108]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 376, 108, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    SupportedEventsBitmap : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SupportedEventsBitmap {
-        get {
-            if(!this.HasProp("__SupportedEventsBitmapProxyArray"))
-                this.__SupportedEventsBitmapProxyArray := Win32FixedArray(this.ptr + 484, 32, Primitive, "char")
-            return this.__SupportedEventsBitmapProxyArray
-        }
-    }
 }

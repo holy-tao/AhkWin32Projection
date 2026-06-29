@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The HTTP_VERB enumeration type defines values that are used to specify known, standard HTTP verbs in the HTTP_REQUEST structure. The majority of these known verbs are documented in RFC 2616 and RFC 2518, as indicated below.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_verb
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_VERB extends Win32Enum {
+export default struct HTTP_VERB {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not relevant for applications; used only in kernel mode.

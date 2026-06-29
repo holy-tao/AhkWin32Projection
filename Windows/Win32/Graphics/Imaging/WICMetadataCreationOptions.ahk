@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies metadata creation options.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ne-wincodecsdk-wicmetadatacreationoptions
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICMetadataCreationOptions extends Win32Enum {
+export default struct WICMetadataCreationOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The default metadata creation options. The default value is <b>WICMetadataCreationAllowUnknown</b>.

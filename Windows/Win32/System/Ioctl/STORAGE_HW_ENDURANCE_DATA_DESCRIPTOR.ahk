@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_HW_ENDURANCE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_HW_ENDURANCE_INFO.ahk" { STORAGE_HW_ENDURANCE_INFO }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR extends Win32Struct {
-    static sizeof => 56
+export default struct STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EnduranceInfo : STORAGE_HW_ENDURANCE_INFO
 
-    /**
-     * @type {STORAGE_HW_ENDURANCE_INFO}
-     */
-    EnduranceInfo {
-        get {
-            if(!this.HasProp("__EnduranceInfo"))
-                this.__EnduranceInfo := STORAGE_HW_ENDURANCE_INFO(8, this)
-            return this.__EnduranceInfo
-        }
-    }
 }

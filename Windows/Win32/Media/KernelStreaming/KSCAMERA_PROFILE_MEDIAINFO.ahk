@@ -1,115 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct {
-    static sizeof => 40
+export default struct KSCAMERA_PROFILE_MEDIAINFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Resolution extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _Resolution {
+        X : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        X {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Y : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Y {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
     }
 
-    class _MaxFrameRate extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _MaxFrameRate {
+        Numerator : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Numerator {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Denominator : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Denominator {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
     }
 
-    /**
-     * @type {_Resolution}
-     */
-    Resolution {
-        get {
-            if(!this.HasProp("__Resolution"))
-                this.__Resolution := KSCAMERA_PROFILE_MEDIAINFO._Resolution(0, this)
-            return this.__Resolution
-        }
-    }
+    Resolution : KSCAMERA_PROFILE_MEDIAINFO._Resolution
 
-    /**
-     * @type {_MaxFrameRate}
-     */
-    MaxFrameRate {
-        get {
-            if(!this.HasProp("__MaxFrameRate"))
-                this.__MaxFrameRate := KSCAMERA_PROFILE_MEDIAINFO._MaxFrameRate(8, this)
-            return this.__MaxFrameRate
-        }
-    }
+    MaxFrameRate : KSCAMERA_PROFILE_MEDIAINFO._MaxFrameRate
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Data0 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Data0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Data1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Data1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Data2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Data2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Data3 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Data3 : UInt32
+
 }

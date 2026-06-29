@@ -1,176 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_ALLOCATIONLIST.ahk
-#Include .\D3DDDI_PATCHLOCATIONLIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_ALLOCATIONLIST.ahk" { D3DDDI_ALLOCATIONLIST }
+#Import ".\D3DDDI_PATCHLOCATIONLIST.ahk" { D3DDDI_PATCHLOCATIONLIST }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_RENDER extends Win32Struct {
-    static sizeof => 376
+export default struct D3DKMT_RENDER {
+    #StructPack 8
 
-    static packingSize => 8
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CommandOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hContext {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CommandLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CommandOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AllocationCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CommandLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PatchLocationCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocationCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    pNewCommandBuffer : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    PatchLocationCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NewCommandBufferSize : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pNewCommandBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pNewAllocationList : D3DDDI_ALLOCATIONLIST.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    NewCommandBufferSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NewAllocationListSize : UInt32
 
-    /**
-     * @type {Pointer<D3DDDI_ALLOCATIONLIST>}
-     */
-    pNewAllocationList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pNewPatchLocationList : D3DDDI_PATCHLOCATIONLIST.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    NewAllocationListSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    NewPatchLocationListSize : UInt32
 
-    /**
-     * @type {Pointer<D3DDDI_PATCHLOCATIONLIST>}
-     */
-    pNewPatchLocationList {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    NewPatchLocationListSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    PresentHistoryToken : Int64
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    BroadcastContextCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PresentHistoryToken {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    BroadcastContext : UInt32[64]
 
-    /**
-     * @type {Integer}
-     */
-    BroadcastContextCount {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    QueuedBufferCount : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BroadcastContext {
-        get {
-            if(!this.HasProp("__BroadcastContextProxyArray"))
-                this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 92, 64, Primitive, "uint")
-            return this.__BroadcastContextProxyArray
-        }
-    }
+    NewCommandBuffer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QueuedBufferCount {
-        get => NumGet(this, 348, "uint")
-        set => NumPut("uint", value, this, 348)
-    }
+    pPrivateDriverData : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    NewCommandBuffer {
-        get => NumGet(this, 352, "uint")
-        set => NumPut("uint", value, this, 352)
-    }
+    PrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateDriverData {
-        get => NumGet(this, 360, "ptr")
-        set => NumPut("ptr", value, this, 360)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PrivateDriverDataSize {
-        get => NumGet(this, 368, "uint")
-        set => NumPut("uint", value, this, 368)
+    static __New() {
+        DefineProp(this.Prototype, 'hContext', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a class of devices. (Unicode)
@@ -10,48 +11,30 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset Unicode
  */
-class DEV_BROADCAST_DEVICEINTERFACE_W extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DEV_BROADCAST_DEVICEINTERFACE_W {
+    #StructPack 4
 
     /**
      * The size of this structure, in bytes. This is the size of the members plus the actual length of the 
      *       <b>dbcc_name</b> string (the null character is accounted for by the declaration of 
      *       <b>dbcc_name</b> as a one-character array.)
-     * @type {Integer}
      */
-    dbcc_size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dbcc_size : UInt32
 
     /**
      * Set to <b>DBT_DEVTYP_DEVICEINTERFACE</b>.
-     * @type {Integer}
      */
-    dbcc_devicetype {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dbcc_devicetype : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dbcc_reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dbcc_reserved : UInt32
 
     /**
      * The GUID for the interface device class.
-     * @type {Pointer}
      */
-    dbcc_classguid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dbcc_classguid : Guid
 
     /**
      * A null-terminated string that specifies the name of the device.
@@ -63,10 +46,7 @@ class DEV_BROADCAST_DEVICEINTERFACE_W extends Win32Struct {
      *        <b>RegisterDeviceNotificationW</b> 
      *        or 
      *        <b>RegisterDeviceNotificationA</b>.
-     * @type {String}
      */
-    dbcc_name {
-        get => StrGet(this.ptr + 24, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-16")
-    }
+    dbcc_name : WCHAR[1]
+
 }

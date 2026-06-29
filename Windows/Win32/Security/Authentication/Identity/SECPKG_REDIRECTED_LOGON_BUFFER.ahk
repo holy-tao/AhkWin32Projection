@@ -1,79 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct {
-    static sizeof => 64
+export default struct SECPKG_REDIRECTED_LOGON_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    RedirectedLogonGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    RedirectedLogonGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RedirectedLogonHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    RedirectedLogonHandle {
-        get {
-            if(!this.HasProp("__RedirectedLogonHandle"))
-                this.__RedirectedLogonHandle := HANDLE(8, this)
-            return this.__RedirectedLogonHandle
-        }
-    }
+    Init : IntPtr
 
-    /**
-     * @type {Pointer<PLSA_REDIRECTED_LOGON_INIT>}
-     */
-    Init {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Callback : IntPtr
 
-    /**
-     * @type {Pointer<PLSA_REDIRECTED_LOGON_CALLBACK>}
-     */
-    Callback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CleanupCallback : IntPtr
 
-    /**
-     * @type {Pointer<PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK>}
-     */
-    CleanupCallback {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    GetLogonCreds : IntPtr
 
-    /**
-     * @type {Pointer<PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS>}
-     */
-    GetLogonCreds {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    GetSupplementalCreds : IntPtr
 
-    /**
-     * @type {Pointer<PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS>}
-     */
-    GetSupplementalCreds {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    GetRedirectedLogonSid : IntPtr
 
-    /**
-     * @type {Pointer<PLSA_REDIRECTED_LOGON_GET_SID>}
-     */
-    GetRedirectedLogonSid {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

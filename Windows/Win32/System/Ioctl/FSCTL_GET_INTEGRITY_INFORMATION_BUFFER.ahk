@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the integrity information for a file or directory.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_get_integrity_information_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct FSCTL_GET_INTEGRITY_INFORMATION_BUFFER {
+    #StructPack 4
 
     /**
      * The checksum algorithm used.
@@ -53,21 +50,13 @@ class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ChecksumAlgorithm {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ChecksumAlgorithm : UInt16
 
     /**
      * Reserved for future use.  Set to 0.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Reserved : UInt16
 
     /**
      * Contains one or more flags.
@@ -89,29 +78,18 @@ class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * Size in bytes of the chunks used to calculate checksums.
-     * @type {Integer}
      */
-    ChecksumChunkSizeInBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ChecksumChunkSizeInBytes : UInt32
 
     /**
      * Size in bytes of a cluster for this volume. This value must be a power of 2, must be greater than or equal 
      *       to the sector size of the underlying hardware and must be a power of 2 multiple of the sector size.
-     * @type {Integer}
      */
-    ClusterSizeInBytes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ClusterSizeInBytes : UInt32
+
 }

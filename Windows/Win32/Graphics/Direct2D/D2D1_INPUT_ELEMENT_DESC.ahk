@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A description of a single element to the vertex layout.
@@ -11,53 +11,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_INPUT_ELEMENT_DESC extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D2D1_INPUT_ELEMENT_DESC {
+    #StructPack 8
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">HLSL semantic</a> associated with this element in a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-signatures">shader input-signature</a>.
-     * @type {PSTR}
      */
-    semanticName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    semanticName : PSTR
 
     /**
      * The semantic index for the element. A semantic index modifies a semantic, with an integer index number. A semantic index is only needed in a case where there is more than one element with the same semantic. For example, a 4x4 matrix would have four components each with the semantic name matrix; however, each of the four components would have different semantic indices (0, 1, 2, and 3).
-     * @type {Integer}
      */
-    semanticIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    semanticIndex : UInt32
 
     /**
      * The data type of the element data.
-     * @type {DXGI_FORMAT}
      */
-    format {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    format : DXGI_FORMAT
 
     /**
      * An integer value that identifies the input-assembler. Valid values are between 0 and 15.
-     * @type {Integer}
      */
-    inputSlot {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    inputSlot : UInt32
 
     /**
      * The offset in bytes between each element.
-     * @type {Integer}
      */
-    alignedByteOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    alignedByteOffset : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes constants inline in the root signature that appear in shaders as one constant buffer.
@@ -11,36 +10,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_constants
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_ROOT_CONSTANTS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D12_ROOT_CONSTANTS {
+    #StructPack 4
 
     /**
      * The shader register.
-     * @type {Integer}
      */
-    ShaderRegister {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ShaderRegister : UInt32
 
     /**
      * The register space.
-     * @type {Integer}
      */
-    RegisterSpace {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RegisterSpace : UInt32
 
     /**
      * The number of constants that occupy a single shader slot (these constants appear like a single constant buffer). 
      *             All constants occupy a single root signature bind slot.
-     * @type {Integer}
      */
-    Num32BitValues {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Num32BitValues : UInt32
+
 }

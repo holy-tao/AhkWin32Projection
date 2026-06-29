@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information for device models that have a black color channel.
@@ -34,25 +34,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-blackinformation
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class BlackInformation extends Win32Struct {
-    static sizeof => 8
+export default struct BlackInformation {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {BOOL}
-     */
-    fBlackOnly {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fBlackOnly : BOOL
 
     /**
      * A value between 0.0 and 1.0 that indicates the relative amount of black to use in the output. A value of 0.0 means that no black is used; a value of 1.0 means that the maximum amount of black is used.
-     * @type {Float}
      */
-    blackWeight {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    blackWeight : Float32
+
 }

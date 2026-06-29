@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMShareable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The dictionary is used by an XPS package to share resources.
@@ -13,26 +15,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMDictionary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMDictionary extends IUnknown {
     /**
      * The interface identifier for IXpsOMDictionary
      * @type {Guid}
      */
-    static IID => Guid("{897c86b8-8eaf-4ae3-bdde-56419fcf4236}")
+    static IID := Guid("{897c86b8-8eaf-4ae3-bdde-56419fcf4236}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMDictionary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwner : IntPtr
+        GetCount : IntPtr
+        GetAt    : IntPtr
+        GetByKey : IntPtr
+        GetIndex : IntPtr
+        Append   : IntPtr
+        InsertAt : IntPtr
+        RemoveAt : IntPtr
+        SetAt    : IntPtr
+        Clone    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetCount", "GetAt", "GetByKey", "GetIndex", "Append", "InsertAt", "RemoveAt", "SetAt", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMDictionary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the interface that contains the dictionary.
@@ -289,5 +307,43 @@ class IXpsOMDictionary extends IUnknown {
     Clone() {
         result := ComCall(12, this, "ptr*", &dictionary := 0, "HRESULT")
         return IXpsOMDictionary(dictionary)
+    }
+
+    Query(iid) {
+        if (IXpsOMDictionary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.GetByKey := CallbackCreate(GetMethod(implObj, "GetByKey"), flags, 4)
+        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 3)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
+        this.vtbl.InsertAt := CallbackCreate(GetMethod(implObj, "InsertAt"), flags, 4)
+        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.SetAt := CallbackCreate(GetMethod(implObj, "SetAt"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.GetByKey)
+        CallbackFree(this.vtbl.GetIndex)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.InsertAt)
+        CallbackFree(this.vtbl.RemoveAt)
+        CallbackFree(this.vtbl.SetAt)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * DRT_DATA structure contains a data blob. This structure is used by several DRT functions.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DRT_DATA {
+    #StructPack 8
 
     /**
      * The number of bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * Pointer to a byte array that contains the common data.
-     * @type {Pointer<Integer>}
      */
-    pb {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pb : IntPtr
+
 }

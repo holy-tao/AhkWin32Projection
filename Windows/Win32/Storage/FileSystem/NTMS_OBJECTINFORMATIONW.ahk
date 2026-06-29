@@ -1,23 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\NTMS_DRIVEINFORMATIONW.ahk
-#Include .\NTMS_DRIVETYPEINFORMATIONW.ahk
-#Include .\FILE_DEVICE_TYPE.ahk
-#Include .\NTMS_LIBRARYINFORMATION.ahk
-#Include .\NTMS_CHANGERINFORMATIONW.ahk
-#Include .\NTMS_CHANGERTYPEINFORMATIONW.ahk
-#Include .\NTMS_STORAGESLOTINFORMATION.ahk
-#Include .\NTMS_IEDOORINFORMATION.ahk
-#Include .\NTMS_IEPORTINFORMATION.ahk
-#Include .\NTMS_PMIDINFORMATIONW.ahk
-#Include .\NTMS_LMIDINFORMATION.ahk
-#Include .\NTMS_PARTITIONINFORMATIONW.ahk
-#Include .\NTMS_MEDIAPOOLINFORMATION.ahk
-#Include .\NTMS_MEDIATYPEINFORMATION.ahk
-#Include .\NTMS_LIBREQUESTINFORMATIONW.ahk
-#Include .\NTMS_OPREQUESTINFORMATIONW.ahk
-#Include .\NTMS_COMPUTERINFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NTMS_STORAGESLOTINFORMATION.ahk" { NTMS_STORAGESLOTINFORMATION }
+#Import ".\NTMS_CHANGERTYPEINFORMATIONW.ahk" { NTMS_CHANGERTYPEINFORMATIONW }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILE_DEVICE_TYPE.ahk" { FILE_DEVICE_TYPE }
+#Import ".\NTMS_IEDOORINFORMATION.ahk" { NTMS_IEDOORINFORMATION }
+#Import ".\NTMS_OPREQUESTINFORMATIONW.ahk" { NTMS_OPREQUESTINFORMATIONW }
+#Import ".\NTMS_PMIDINFORMATIONW.ahk" { NTMS_PMIDINFORMATIONW }
+#Import ".\NTMS_MEDIATYPEINFORMATION.ahk" { NTMS_MEDIATYPEINFORMATION }
+#Import ".\NTMS_LMIDINFORMATION.ahk" { NTMS_LMIDINFORMATION }
+#Import ".\NTMS_DRIVETYPEINFORMATIONW.ahk" { NTMS_DRIVETYPEINFORMATIONW }
+#Import ".\NTMS_MEDIAPOOLINFORMATION.ahk" { NTMS_MEDIAPOOLINFORMATION }
+#Import ".\NTMS_PARTITIONINFORMATIONW.ahk" { NTMS_PARTITIONINFORMATIONW }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\NTMS_DRIVEINFORMATIONW.ahk" { NTMS_DRIVEINFORMATIONW }
+#Import ".\NTMS_COMPUTERINFORMATION.ahk" { NTMS_COMPUTERINFORMATION }
+#Import ".\NTMS_CHANGERINFORMATIONW.ahk" { NTMS_CHANGERINFORMATIONW }
+#Import ".\NTMS_LIBRARYINFORMATION.ahk" { NTMS_LIBRARYINFORMATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\NTMS_IEPORTINFORMATION.ahk" { NTMS_IEPORTINFORMATION }
+#Import ".\NTMS_LIBREQUESTINFORMATIONW.ahk" { NTMS_LIBREQUESTINFORMATIONW }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_OBJECTINFORMATION structure defines the properties that an application can get and set for RSM devices, media and system controls (such as libraries, drives, media, operator requests). This is the common structure of objects in the RSM database. (Unicode)
@@ -35,189 +37,30 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_OBJECTINFORMATIONW extends Win32Struct {
-    static sizeof => 1392
+export default struct NTMS_OBJECTINFORMATIONW {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
-        static sizeof => 952
-        static packingSize => 8
+    struct _Info {
+        Drive : NTMS_DRIVEINFORMATIONW
 
-        /**
-         * @type {NTMS_DRIVEINFORMATIONW}
-         */
-        Drive {
-            get {
-                if(!this.HasProp("__Drive"))
-                    this.__Drive := NTMS_DRIVEINFORMATIONW(0, this)
-                return this.__Drive
-            }
-        }
-
-        /**
-         * @type {NTMS_DRIVETYPEINFORMATIONW}
-         */
-        DriveType {
-            get {
-                if(!this.HasProp("__DriveType"))
-                    this.__DriveType := NTMS_DRIVETYPEINFORMATIONW(0, this)
-                return this.__DriveType
-            }
-        }
-
-        /**
-         * @type {NTMS_LIBRARYINFORMATION}
-         */
-        Library {
-            get {
-                if(!this.HasProp("__Library"))
-                    this.__Library := NTMS_LIBRARYINFORMATION(0, this)
-                return this.__Library
-            }
-        }
-
-        /**
-         * @type {NTMS_CHANGERINFORMATIONW}
-         */
-        Changer {
-            get {
-                if(!this.HasProp("__Changer"))
-                    this.__Changer := NTMS_CHANGERINFORMATIONW(0, this)
-                return this.__Changer
-            }
-        }
-
-        /**
-         * @type {NTMS_CHANGERTYPEINFORMATIONW}
-         */
-        ChangerType {
-            get {
-                if(!this.HasProp("__ChangerType"))
-                    this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONW(0, this)
-                return this.__ChangerType
-            }
-        }
-
-        /**
-         * @type {NTMS_STORAGESLOTINFORMATION}
-         */
-        StorageSlot {
-            get {
-                if(!this.HasProp("__StorageSlot"))
-                    this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(0, this)
-                return this.__StorageSlot
-            }
-        }
-
-        /**
-         * @type {NTMS_IEDOORINFORMATION}
-         */
-        IEDoor {
-            get {
-                if(!this.HasProp("__IEDoor"))
-                    this.__IEDoor := NTMS_IEDOORINFORMATION(0, this)
-                return this.__IEDoor
-            }
-        }
-
-        /**
-         * @type {NTMS_IEPORTINFORMATION}
-         */
-        IEPort {
-            get {
-                if(!this.HasProp("__IEPort"))
-                    this.__IEPort := NTMS_IEPORTINFORMATION(0, this)
-                return this.__IEPort
-            }
-        }
-
-        /**
-         * @type {NTMS_PMIDINFORMATIONW}
-         */
-        PhysicalMedia {
-            get {
-                if(!this.HasProp("__PhysicalMedia"))
-                    this.__PhysicalMedia := NTMS_PMIDINFORMATIONW(0, this)
-                return this.__PhysicalMedia
-            }
-        }
-
-        /**
-         * @type {NTMS_LMIDINFORMATION}
-         */
-        LogicalMedia {
-            get {
-                if(!this.HasProp("__LogicalMedia"))
-                    this.__LogicalMedia := NTMS_LMIDINFORMATION(0, this)
-                return this.__LogicalMedia
-            }
-        }
-
-        /**
-         * @type {NTMS_PARTITIONINFORMATIONW}
-         */
-        Partition {
-            get {
-                if(!this.HasProp("__Partition"))
-                    this.__Partition := NTMS_PARTITIONINFORMATIONW(0, this)
-                return this.__Partition
-            }
-        }
-
-        /**
-         * @type {NTMS_MEDIAPOOLINFORMATION}
-         */
-        MediaPool {
-            get {
-                if(!this.HasProp("__MediaPool"))
-                    this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(0, this)
-                return this.__MediaPool
-            }
-        }
-
-        /**
-         * @type {NTMS_MEDIATYPEINFORMATION}
-         */
-        MediaType {
-            get {
-                if(!this.HasProp("__MediaType"))
-                    this.__MediaType := NTMS_MEDIATYPEINFORMATION(0, this)
-                return this.__MediaType
-            }
-        }
-
-        /**
-         * @type {NTMS_LIBREQUESTINFORMATIONW}
-         */
-        LibRequest {
-            get {
-                if(!this.HasProp("__LibRequest"))
-                    this.__LibRequest := NTMS_LIBREQUESTINFORMATIONW(0, this)
-                return this.__LibRequest
-            }
-        }
-
-        /**
-         * @type {NTMS_OPREQUESTINFORMATIONW}
-         */
-        OpRequest {
-            get {
-                if(!this.HasProp("__OpRequest"))
-                    this.__OpRequest := NTMS_OPREQUESTINFORMATIONW(0, this)
-                return this.__OpRequest
-            }
-        }
-
-        /**
-         * @type {NTMS_COMPUTERINFORMATION}
-         */
-        Computer {
-            get {
-                if(!this.HasProp("__Computer"))
-                    this.__Computer := NTMS_COMPUTERINFORMATION(0, this)
-                return this.__Computer
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'DriveType', { type: NTMS_DRIVETYPEINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'Library', { type: NTMS_LIBRARYINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'Changer', { type: NTMS_CHANGERINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'ChangerType', { type: NTMS_CHANGERTYPEINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'StorageSlot', { type: NTMS_STORAGESLOTINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'IEDoor', { type: NTMS_IEDOORINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'IEPort', { type: NTMS_IEPORTINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'PhysicalMedia', { type: NTMS_PMIDINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'LogicalMedia', { type: NTMS_LMIDINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'Partition', { type: NTMS_PARTITIONINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'MediaPool', { type: NTMS_MEDIAPOOLINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'MediaType', { type: NTMS_MEDIATYPEINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'LibRequest', { type: NTMS_LIBREQUESTINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'OpRequest', { type: NTMS_OPREQUESTINFORMATIONW, offset: 0 })
+            DefineProp(this.Prototype, 'Computer', { type: NTMS_COMPUTERINFORMATION, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -227,114 +70,66 @@ class NTMS_OBJECTINFORMATIONW extends Win32Struct {
      * Size of the information structure, in bytes. This member must be set to the correct size of the structure prior to using either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/nf-ntmsapi-getntmsobjectinformation">GetNtmsObjectInformation</a> function or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/nf-ntmsapi-setntmsobjectinformation">SetNtmsObjectInformation</a> function.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwType : UInt32
 
     /**
      * Type: <b>SYSTEMTIME</b>
      * 
      * Date/time stamp when the object was created.
-     * @type {SYSTEMTIME}
      */
-    Created {
-        get {
-            if(!this.HasProp("__Created"))
-                this.__Created := SYSTEMTIME(8, this)
-            return this.__Created
-        }
-    }
+    Created : SYSTEMTIME
 
     /**
      * Type: <b>SYSTEMTIME</b>
      * 
      * Date/time stamp when the object was modified.
-     * @type {SYSTEMTIME}
      */
-    Modified {
-        get {
-            if(!this.HasProp("__Modified"))
-                this.__Modified := SYSTEMTIME(24, this)
-            return this.__Modified
-        }
-    }
+    Modified : SYSTEMTIME
 
     /**
      * Type: <b>NTMS_GUID</b>
      * 
      * GUID of the object.
-     * @type {Pointer}
      */
-    ObjectGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ObjectGuid : Guid
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Indicates whether the device or system control object is enabled.
-     * @type {BOOL}
      */
-    Enabled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Enabled : BOOL
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwOperationalState {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwOperationalState : UInt32
 
     /**
      * Type: <b>TCHAR[NTMS_OBJECTNAME_LENGTH]</b>
      * 
      * Name of the media, device, or system control object. Media pool and logical media names can be changed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/nf-ntmsapi-setntmsobjectinformation">SetNtmsObjectInformation</a> function. All other object names are read-only.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 56, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 56, 63, "UTF-16")
-    }
+    szName : WCHAR[64]
 
     /**
      * Type: <b>TCHAR[NTMS_DESCRIPTION_LENGTH]</b>
      * 
      * Description of the device or system control object. The description of device and system control objects can be changed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/nf-ntmsapi-setntmsobjectinformation">SetNtmsObjectInformation</a> function. (Writable for all objects)
-     * @type {String}
      */
-    szDescription {
-        get => StrGet(this.ptr + 184, 126, "UTF-16")
-        set => StrPut(value, this.ptr + 184, 126, "UTF-16")
-    }
+    szDescription : WCHAR[127]
 
     /**
      * Device or system control object-specific information. The format of this information depends on the <b>dwType</b> member.
-     * @type {_Info_e__Union}
      */
-    Info {
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := NTMS_OBJECTINFORMATIONW._Info_e__Union(440, this)
-            return this.__Info
-        }
-    }
+    Info : NTMS_OBJECTINFORMATIONW._Info
+
 }

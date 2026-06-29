@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\RPC_EE_INFO_PARAM.ahk
-#Include .\ExtendedErrorParamTypes.ahk
-#Include .\BinaryParam.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RPC_EE_INFO_PARAM.ahk" { RPC_EE_INFO_PARAM }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\ExtendedErrorParamTypes.ahk" { ExtendedErrorParamTypes }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\BinaryParam.ahk" { BinaryParam }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The RPC_EXTENDED_ERROR_INFO structure is used to store extended error information.
@@ -17,103 +18,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_extended_error_info
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_EXTENDED_ERROR_INFO extends Win32Struct {
-    static sizeof => 152
+export default struct RPC_EXTENDED_ERROR_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _u {
+        SystemTime : SYSTEMTIME
 
-        /**
-         * @type {SYSTEMTIME}
-         */
-        SystemTime {
-            get {
-                if(!this.HasProp("__SystemTime"))
-                    this.__SystemTime := SYSTEMTIME(0, this)
-                return this.__SystemTime
-            }
-        }
-
-        /**
-         * @type {FILETIME}
-         */
-        FileTime {
-            get {
-                if(!this.HasProp("__FileTime"))
-                    this.__FileTime := FILETIME(0, this)
-                return this.__FileTime
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'FileTime', { type: FILETIME, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Version of the structure. Must be RPC_EEINFO_VERSION.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Non-qualified DNS name, expressed in Unicode.
-     * @type {PWSTR}
      */
-    ComputerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ComputerName : PWSTR
 
     /**
      * Process identifier for the offending error event.
-     * @type {Integer}
      */
-    ProcessID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProcessID : UInt32
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := RPC_EXTENDED_ERROR_INFO._u_e__Union(20, this)
-            return this.__u
-        }
-    }
+    u : RPC_EXTENDED_ERROR_INFO._u
 
     /**
      * Code for the component that generated the error.
-     * @type {Integer}
      */
-    GeneratingComponent {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    GeneratingComponent : UInt32
 
     /**
      * Status code for the error.
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Status : UInt32
 
     /**
      * Code for the detection location. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/extended-error-information-detection-locations">Extended Error Information Detection Locations</a> for valid locations.
-     * @type {Integer}
      */
-    DetectionLocation {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    DetectionLocation : UInt16
 
     /**
      * On input, specifies whether <b>SystemTime</b> or <b>FileTime</b> is used. Set to zero to use <b>SystemTime</b>, or EEInfoUseFileTime to use <b>FileTime</b>. 
@@ -122,32 +71,18 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct {
      * 
      * 
      * On output, specifies whether records are missing. If a record is missing after the current record, <b>Flags</b> is set to EEInfoNextRecordsMissing. If a record is missing before the current record, <b>Flags</b> is set to EEInfoPreviousRecordsMissing.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    Flags : UInt16
 
     /**
      * Number of parameters in the <b>Parameters</b> member.
-     * @type {Integer}
      */
-    NumberOfParameters {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    NumberOfParameters : Int32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_ee_info_param">RPC_EE_INFO_PARAM</a> structures containing the extended error information.
-     * @type {RPC_EE_INFO_PARAM}
      */
-    Parameters {
-        get {
-            if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 56, 4, RPC_EE_INFO_PARAM, "")
-            return this.__ParametersProxyArray
-        }
-    }
+    Parameters : RPC_EE_INFO_PARAM[4]
+
 }

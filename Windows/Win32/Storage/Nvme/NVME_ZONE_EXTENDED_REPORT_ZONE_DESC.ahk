@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_ZONE_DESCRIPTOR.ahk
-#Include .\NVME_ZONE_DESCRIPTOR_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_ZONE_DESCRIPTOR.ahk" { NVME_ZONE_DESCRIPTOR }
+#Import ".\NVME_ZONE_DESCRIPTOR_EXTENSION.ahk" { NVME_ZONE_DESCRIPTOR_EXTENSION }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC extends Win32Struct {
-    static sizeof => 128
+export default struct NVME_ZONE_EXTENDED_REPORT_ZONE_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    ZoneDescriptor : NVME_ZONE_DESCRIPTOR
 
-    /**
-     * @type {NVME_ZONE_DESCRIPTOR}
-     */
-    ZoneDescriptor {
-        get {
-            if(!this.HasProp("__ZoneDescriptor"))
-                this.__ZoneDescriptor := NVME_ZONE_DESCRIPTOR(0, this)
-            return this.__ZoneDescriptor
-        }
-    }
+    ZoneDescriptorExtension : NVME_ZONE_DESCRIPTOR_EXTENSION[1]
 
-    /**
-     * @type {NVME_ZONE_DESCRIPTOR_EXTENSION}
-     */
-    ZoneDescriptorExtension {
-        get {
-            if(!this.HasProp("__ZoneDescriptorExtensionProxyArray"))
-                this.__ZoneDescriptorExtensionProxyArray := Win32FixedArray(this.ptr + 64, 1, NVME_ZONE_DESCRIPTOR_EXTENSION, "")
-            return this.__ZoneDescriptorExtensionProxyArray
-        }
-    }
 }

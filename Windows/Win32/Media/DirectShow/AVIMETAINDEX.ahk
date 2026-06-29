@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The base structure for an AVI 2.0 index ('indx' format).
@@ -10,46 +9,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avimetaindex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVIMETAINDEX extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct AVIMETAINDEX {
+    #StructPack 4
 
     /**
      * A <b>FOURCC</b> code. The value is either 'indx' or '<i>nn</i>ix', where <i>nn</i> is the stream number.
-     * @type {Integer}
      */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fcc : UInt32
 
     /**
      * The size of the structure, not including the initial 8 bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cb : UInt32
 
     /**
      * The size of each index entry, in 4-byte units.
-     * @type {Integer}
      */
-    wLongsPerEntry {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wLongsPerEntry : UInt16
 
     /**
      * The index subtype. The meaning depends on the value of <b>bIndexType</b>.
-     * @type {Integer}
      */
-    bIndexSubType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bIndexSubType : Int8
 
     /**
      * The index type.
@@ -99,52 +80,27 @@ class AVIMETAINDEX extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    bIndexType {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    bIndexType : Int8
 
     /**
      * The number of valid entries in the <b>adwIndex</b> array.
-     * @type {Integer}
      */
-    nEntriesInUse {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    nEntriesInUse : UInt32
 
     /**
      * A <b>FOURCC</b> that identifies the object that is indexed. If the indexed object is a stream, this member has the same meaning as the <b>dwChunkId</b>  member of the <a href="https://docs.microsoft.com/previous-versions/ms779634(v=vs.85)">AVIOLDINDEX</a> structure.
-     * @type {Integer}
      */
-    dwChunkId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwChunkId : UInt32
 
     /**
      * The meaning of this member depends on the index type.
-     * @type {Array<Integer>}
      */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
+    dwReserved : UInt32[3]
 
     /**
      * An array of index entries. The format of this data depends on the index type.
-     * @type {Array<Integer>}
      */
-    adwIndex {
-        get {
-            if(!this.HasProp("__adwIndexProxyArray"))
-                this.__adwIndexProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")
-            return this.__adwIndexProxyArray
-        }
-    }
+    adwIndex : UInt32[1]
+
 }

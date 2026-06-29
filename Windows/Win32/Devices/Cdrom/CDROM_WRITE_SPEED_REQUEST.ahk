@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_PERFORMANCE_REQUEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CDROM_PERFORMANCE_REQUEST_TYPE.ahk" { CDROM_PERFORMANCE_REQUEST_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_WRITE_SPEED_REQUEST extends Win32Struct {
-    static sizeof => 4
+export default struct CDROM_WRITE_SPEED_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    RequestType : CDROM_PERFORMANCE_REQUEST_TYPE
 
-    /**
-     * @type {CDROM_PERFORMANCE_REQUEST_TYPE}
-     */
-    RequestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

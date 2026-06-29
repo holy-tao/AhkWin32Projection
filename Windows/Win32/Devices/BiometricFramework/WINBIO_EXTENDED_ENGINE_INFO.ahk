@@ -1,288 +1,102 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about the capabilities and enrollment requirements of the engine adapter for a biometric unit.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-engine-info
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct {
-    static sizeof => 36
+export default struct WINBIO_EXTENDED_ENGINE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Specific_e__Union extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 4
+    struct _Specific {
 
-        class _FacialFeatures extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _FacialFeatures {
 
-            class _EnrollmentRequirements extends Win32Struct {
-                static sizeof => 4
-                static packingSize => 4
+            struct _EnrollmentRequirements {
+                Null : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Null {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
             }
 
-            /**
-             * @type {Integer}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Capabilities : UInt32
 
-            /**
-             * @type {_EnrollmentRequirements}
-             */
-            EnrollmentRequirements {
-                get {
-                    if(!this.HasProp("__EnrollmentRequirements"))
-                        this.__EnrollmentRequirements := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._FacialFeatures._EnrollmentRequirements(4, this)
-                    return this.__EnrollmentRequirements
-                }
-            }
+            EnrollmentRequirements : WINBIO_EXTENDED_ENGINE_INFO._Specific._FacialFeatures._EnrollmentRequirements
+
         }
 
-        class _Fingerprint extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+        struct _Fingerprint {
 
-            class _EnrollmentRequirements extends Win32Struct {
-                static sizeof => 24
-                static packingSize => 4
+            struct _EnrollmentRequirements {
+                GeneralSamples : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                GeneralSamples {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
+                Center : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Center {
-                    get => NumGet(this, 4, "uint")
-                    set => NumPut("uint", value, this, 4)
-                }
+                TopEdge : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                TopEdge {
-                    get => NumGet(this, 8, "uint")
-                    set => NumPut("uint", value, this, 8)
-                }
+                BottomEdge : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                BottomEdge {
-                    get => NumGet(this, 12, "uint")
-                    set => NumPut("uint", value, this, 12)
-                }
+                LeftEdge : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                LeftEdge {
-                    get => NumGet(this, 16, "uint")
-                    set => NumPut("uint", value, this, 16)
-                }
+                RightEdge : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                RightEdge {
-                    get => NumGet(this, 20, "uint")
-                    set => NumPut("uint", value, this, 20)
-                }
             }
 
-            /**
-             * @type {Integer}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Capabilities : UInt32
 
-            /**
-             * @type {_EnrollmentRequirements}
-             */
-            EnrollmentRequirements {
-                get {
-                    if(!this.HasProp("__EnrollmentRequirements"))
-                        this.__EnrollmentRequirements := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._Fingerprint._EnrollmentRequirements(4, this)
-                    return this.__EnrollmentRequirements
-                }
-            }
+            EnrollmentRequirements : WINBIO_EXTENDED_ENGINE_INFO._Specific._Fingerprint._EnrollmentRequirements
+
         }
 
-        class _Iris extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _Iris {
 
-            class _EnrollmentRequirements extends Win32Struct {
-                static sizeof => 4
-                static packingSize => 4
+            struct _EnrollmentRequirements {
+                Null : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Null {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
             }
 
-            /**
-             * @type {Integer}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Capabilities : UInt32
 
-            /**
-             * @type {_EnrollmentRequirements}
-             */
-            EnrollmentRequirements {
-                get {
-                    if(!this.HasProp("__EnrollmentRequirements"))
-                        this.__EnrollmentRequirements := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._Iris._EnrollmentRequirements(4, this)
-                    return this.__EnrollmentRequirements
-                }
-            }
+            EnrollmentRequirements : WINBIO_EXTENDED_ENGINE_INFO._Specific._Iris._EnrollmentRequirements
+
         }
 
-        class _Voice extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _Voice {
 
-            class _EnrollmentRequirements extends Win32Struct {
-                static sizeof => 4
-                static packingSize => 4
+            struct _EnrollmentRequirements {
+                Null : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                Null {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
             }
 
-            /**
-             * @type {Integer}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Capabilities : UInt32
 
-            /**
-             * @type {_EnrollmentRequirements}
-             */
-            EnrollmentRequirements {
-                get {
-                    if(!this.HasProp("__EnrollmentRequirements"))
-                        this.__EnrollmentRequirements := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._Voice._EnrollmentRequirements(4, this)
-                    return this.__EnrollmentRequirements
-                }
-            }
+            EnrollmentRequirements : WINBIO_EXTENDED_ENGINE_INFO._Specific._Voice._EnrollmentRequirements
+
         }
 
-        /**
-         * @type {Integer}
-         */
-        Null {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Null : UInt32
 
-        /**
-         * @type {_FacialFeatures}
-         */
-        FacialFeatures {
-            get {
-                if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._FacialFeatures(0, this)
-                return this.__FacialFeatures
-            }
-        }
-
-        /**
-         * @type {_Fingerprint}
-         */
-        Fingerprint {
-            get {
-                if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._Fingerprint(0, this)
-                return this.__Fingerprint
-            }
-        }
-
-        /**
-         * @type {_Iris}
-         */
-        Iris {
-            get {
-                if(!this.HasProp("__Iris"))
-                    this.__Iris := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._Iris(0, this)
-                return this.__Iris
-            }
-        }
-
-        /**
-         * @type {_Voice}
-         */
-        Voice {
-            get {
-                if(!this.HasProp("__Voice"))
-                    this.__Voice := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union._Voice(0, this)
-                return this.__Voice
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'FacialFeatures', { type: WINBIO_EXTENDED_ENGINE_INFO._Specific._FacialFeatures, offset: 0 })
+            DefineProp(this.Prototype, 'Fingerprint', { type: WINBIO_EXTENDED_ENGINE_INFO._Specific._Fingerprint, offset: 0 })
+            DefineProp(this.Prototype, 'Iris', { type: WINBIO_EXTENDED_ENGINE_INFO._Specific._Iris, offset: 0 })
+            DefineProp(this.Prototype, 'Voice', { type: WINBIO_EXTENDED_ENGINE_INFO._Specific._Voice, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * The generic capabilities of the engine component that is connected to a specific biometric unit.
-     * @type {Integer}
      */
-    GenericEngineCapabilities {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    GenericEngineCapabilities : UInt32
 
     /**
      * The type of biometric unit for which this structure contains information about capabilities and enrollment requirements of the engine adapter. For example, if the value of the **Factor** member is **WINBIO\_TYPE\_FINGERPRINT**, the **WINBIO\_EXTENDED\_ENGINE\_INFO** structure applies to a fingerprint reader and contains the relevant information in the **Specifc.Fingerprint** structure.
-     * @type {Integer}
      */
-    Factor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Factor : UInt32
 
     /**
      * Information about the capabilities and enrollment requirements of the engine adapter for a biometric unit related to a specific biometric factor.
-     * @type {_Specific_e__Union}
      */
-    Specific {
-        get {
-            if(!this.HasProp("__Specific"))
-                this.__Specific := WINBIO_EXTENDED_ENGINE_INFO._Specific_e__Union(8, this)
-            return this.__Specific
-        }
-    }
+    Specific : WINBIO_EXTENDED_ENGINE_INFO._Specific
+
 }

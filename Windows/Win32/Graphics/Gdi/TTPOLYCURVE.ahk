@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POINTFX.ahk
-#Include .\FIXED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FIXED.ahk" { FIXED }
+#Import ".\POINTFX.ahk" { POINTFX }
 
 /**
  * The TTPOLYCURVE structure contains information about a curve in the outline of a TrueType character.
@@ -12,37 +11,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ttpolycurve
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class TTPOLYCURVE extends Win32Struct {
-    static sizeof => 12
+export default struct TTPOLYCURVE {
+    #StructPack 2
 
-    static packingSize => 2
-
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wType : UInt16
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pointfx">POINTFX</a> structures in the array.
-     * @type {Integer}
      */
-    cpfx {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    cpfx : UInt16
 
     /**
      * Specifies an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pointfx">POINTFX</a> structures that define the polyline or Bézier spline.
-     * @type {POINTFX}
      */
-    apfx {
-        get {
-            if(!this.HasProp("__apfxProxyArray"))
-                this.__apfxProxyArray := Win32FixedArray(this.ptr + 4, 1, POINTFX, "")
-            return this.__apfxProxyArray
-        }
-    }
+    apfx : POINTFX[1]
+
 }

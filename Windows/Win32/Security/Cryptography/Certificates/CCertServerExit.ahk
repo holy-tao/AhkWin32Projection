@@ -1,13 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Returns the name of the next request attribute within the current context, then increments the internal pointer to the following attribute.
- * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CCertServerExit extends Win32Struct {
-    static sizeof => 0
+export default struct CCertServerExit {
+    #StructPack 1
 
-    static packingSize => 1
 }

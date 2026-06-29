@@ -1,36 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXMLDOMNodeList.ahk
-#Include .\IXMLDOMNamedNodeMap.ahk
-#Include .\IXMLDOMDocument.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IXMLDOMNamedNodeMap.ahk" { IXMLDOMNamedNodeMap }
+#Import ".\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\DOMNodeType.ahk" { DOMNodeType }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLDOMNode extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXMLDOMNode extends IDispatch {
     /**
      * The interface identifier for IXMLDOMNode
      * @type {Guid}
      */
-    static IID => Guid("{2933bf80-7b36-11d2-b20e-00c04f983e60}")
+    static IID := Guid("{2933bf80-7b36-11d2-b20e-00c04f983e60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLDOMNode interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_nodeName          : IntPtr
+        get_nodeValue         : IntPtr
+        put_nodeValue         : IntPtr
+        get_nodeType          : IntPtr
+        get_parentNode        : IntPtr
+        get_childNodes        : IntPtr
+        get_firstChild        : IntPtr
+        get_lastChild         : IntPtr
+        get_previousSibling   : IntPtr
+        get_nextSibling       : IntPtr
+        get_attributes        : IntPtr
+        insertBefore          : IntPtr
+        replaceChild          : IntPtr
+        removeChild           : IntPtr
+        appendChild           : IntPtr
+        hasChildNodes         : IntPtr
+        get_ownerDocument     : IntPtr
+        cloneNode             : IntPtr
+        get_nodeTypeString    : IntPtr
+        get_text              : IntPtr
+        put_text              : IntPtr
+        get_specified         : IntPtr
+        get_definition        : IntPtr
+        get_nodeTypedValue    : IntPtr
+        put_nodeTypedValue    : IntPtr
+        get_dataType          : IntPtr
+        put_dataType          : IntPtr
+        get_xml               : IntPtr
+        transformNode         : IntPtr
+        selectNodes           : IntPtr
+        selectSingleNode      : IntPtr
+        get_parsed            : IntPtr
+        get_namespaceURI      : IntPtr
+        get_prefix            : IntPtr
+        get_baseName          : IntPtr
+        transformNodeToObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_nodeName", "get_nodeValue", "put_nodeValue", "get_nodeType", "get_parentNode", "get_childNodes", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling", "get_attributes", "insertBefore", "replaceChild", "removeChild", "appendChild", "hasChildNodes", "get_ownerDocument", "cloneNode", "get_nodeTypeString", "get_text", "put_text", "get_specified", "get_definition", "get_nodeTypedValue", "put_nodeTypedValue", "get_dataType", "put_dataType", "get_xml", "transformNode", "selectNodes", "selectSingleNode", "get_parsed", "get_namespaceURI", "get_prefix", "get_baseName", "transformNodeToObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLDOMNode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -195,8 +240,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_nodeName() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -206,7 +251,7 @@ class IXMLDOMNode extends IDispatch {
      */
     get_nodeValue() {
         value := VARIANT()
-        result := ComCall(8, this, "ptr", value, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, value, "HRESULT")
         return value
     }
 
@@ -216,7 +261,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {HRESULT} 
      */
     put_nodeValue(value) {
-        result := ComCall(9, this, "ptr", value, "HRESULT")
+        result := ComCall(9, this, VARIANT, value, "HRESULT")
         return result
     }
 
@@ -299,7 +344,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {IXMLDOMNode} 
      */
     insertBefore(newChild, refChild) {
-        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &outNewChild := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", newChild, VARIANT, refChild, "ptr*", &outNewChild := 0, "HRESULT")
         return IXMLDOMNode(outNewChild)
     }
 
@@ -339,7 +384,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
-        result := ComCall(22, this, "short*", &hasChild := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &hasChild := 0, "HRESULT")
         return hasChild
     }
 
@@ -358,7 +403,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {IXMLDOMNode} 
      */
     cloneNode(deep) {
-        result := ComCall(24, this, "short", deep, "ptr*", &cloneRoot := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, deep, "ptr*", &cloneRoot := 0, "HRESULT")
         return IXMLDOMNode(cloneRoot)
     }
 
@@ -367,8 +412,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_nodeTypeString() {
-        nodeType := BSTR()
-        result := ComCall(25, this, "ptr", nodeType, "HRESULT")
+        nodeType := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, nodeType, "HRESULT")
         return nodeType
     }
 
@@ -377,8 +422,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_text() {
-        text := BSTR()
-        result := ComCall(26, this, "ptr", text, "HRESULT")
+        text := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, text, "HRESULT")
         return text
     }
 
@@ -390,7 +435,7 @@ class IXMLDOMNode extends IDispatch {
     put_text(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(27, this, "ptr", text, "HRESULT")
+        result := ComCall(27, this, BSTR, text, "HRESULT")
         return result
     }
 
@@ -399,7 +444,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
-        result := ComCall(28, this, "short*", &isSpecified := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &isSpecified := 0, "HRESULT")
         return isSpecified
     }
 
@@ -418,7 +463,7 @@ class IXMLDOMNode extends IDispatch {
      */
     get_nodeTypedValue() {
         typedValue := VARIANT()
-        result := ComCall(30, this, "ptr", typedValue, "HRESULT")
+        result := ComCall(30, this, VARIANT.Ptr, typedValue, "HRESULT")
         return typedValue
     }
 
@@ -428,7 +473,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {HRESULT} 
      */
     put_nodeTypedValue(typedValue) {
-        result := ComCall(31, this, "ptr", typedValue, "HRESULT")
+        result := ComCall(31, this, VARIANT, typedValue, "HRESULT")
         return result
     }
 
@@ -438,7 +483,7 @@ class IXMLDOMNode extends IDispatch {
      */
     get_dataType() {
         dataTypeName := VARIANT()
-        result := ComCall(32, this, "ptr", dataTypeName, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, dataTypeName, "HRESULT")
         return dataTypeName
     }
 
@@ -450,7 +495,7 @@ class IXMLDOMNode extends IDispatch {
     put_dataType(dataTypeName) {
         dataTypeName := dataTypeName is String ? BSTR.Alloc(dataTypeName).Value : dataTypeName
 
-        result := ComCall(33, this, "ptr", dataTypeName, "HRESULT")
+        result := ComCall(33, this, BSTR, dataTypeName, "HRESULT")
         return result
     }
 
@@ -459,8 +504,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_xml() {
-        xmlString := BSTR()
-        result := ComCall(34, this, "ptr", xmlString, "HRESULT")
+        xmlString := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, xmlString, "HRESULT")
         return xmlString
     }
 
@@ -470,8 +515,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     transformNode(stylesheet) {
-        xmlString := BSTR()
-        result := ComCall(35, this, "ptr", stylesheet, "ptr", xmlString, "HRESULT")
+        xmlString := BSTR.Owned()
+        result := ComCall(35, this, "ptr", stylesheet, BSTR.Ptr, xmlString, "HRESULT")
         return xmlString
     }
 
@@ -483,7 +528,7 @@ class IXMLDOMNode extends IDispatch {
     selectNodes(queryString) {
         queryString := queryString is String ? BSTR.Alloc(queryString).Value : queryString
 
-        result := ComCall(36, this, "ptr", queryString, "ptr*", &resultList := 0, "HRESULT")
+        result := ComCall(36, this, BSTR, queryString, "ptr*", &resultList := 0, "HRESULT")
         return IXMLDOMNodeList(resultList)
     }
 
@@ -495,7 +540,7 @@ class IXMLDOMNode extends IDispatch {
     selectSingleNode(queryString) {
         queryString := queryString is String ? BSTR.Alloc(queryString).Value : queryString
 
-        result := ComCall(37, this, "ptr", queryString, "ptr*", &resultNode := 0, "HRESULT")
+        result := ComCall(37, this, BSTR, queryString, "ptr*", &resultNode := 0, "HRESULT")
         return IXMLDOMNode(resultNode)
     }
 
@@ -504,7 +549,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_parsed() {
-        result := ComCall(38, this, "short*", &isParsed := 0, "HRESULT")
+        result := ComCall(38, this, VARIANT_BOOL.Ptr, &isParsed := 0, "HRESULT")
         return isParsed
     }
 
@@ -513,8 +558,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_namespaceURI() {
-        namespaceURI := BSTR()
-        result := ComCall(39, this, "ptr", namespaceURI, "HRESULT")
+        namespaceURI := BSTR.Owned()
+        result := ComCall(39, this, BSTR.Ptr, namespaceURI, "HRESULT")
         return namespaceURI
     }
 
@@ -523,8 +568,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_prefix() {
-        prefixString := BSTR()
-        result := ComCall(40, this, "ptr", prefixString, "HRESULT")
+        prefixString := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, prefixString, "HRESULT")
         return prefixString
     }
 
@@ -533,8 +578,8 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_baseName() {
-        nameString := BSTR()
-        result := ComCall(41, this, "ptr", nameString, "HRESULT")
+        nameString := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, nameString, "HRESULT")
         return nameString
     }
 
@@ -545,7 +590,97 @@ class IXMLDOMNode extends IDispatch {
      * @returns {HRESULT} 
      */
     transformNodeToObject(stylesheet, outputObject) {
-        result := ComCall(42, this, "ptr", stylesheet, "ptr", outputObject, "HRESULT")
+        result := ComCall(42, this, "ptr", stylesheet, VARIANT, outputObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXMLDOMNode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeType := CallbackCreate(GetMethod(implObj, "get_nodeType"), flags, 2)
+        this.vtbl.get_parentNode := CallbackCreate(GetMethod(implObj, "get_parentNode"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_previousSibling := CallbackCreate(GetMethod(implObj, "get_previousSibling"), flags, 2)
+        this.vtbl.get_nextSibling := CallbackCreate(GetMethod(implObj, "get_nextSibling"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.insertBefore := CallbackCreate(GetMethod(implObj, "insertBefore"), flags, 4)
+        this.vtbl.replaceChild := CallbackCreate(GetMethod(implObj, "replaceChild"), flags, 4)
+        this.vtbl.removeChild := CallbackCreate(GetMethod(implObj, "removeChild"), flags, 3)
+        this.vtbl.appendChild := CallbackCreate(GetMethod(implObj, "appendChild"), flags, 3)
+        this.vtbl.hasChildNodes := CallbackCreate(GetMethod(implObj, "hasChildNodes"), flags, 2)
+        this.vtbl.get_ownerDocument := CallbackCreate(GetMethod(implObj, "get_ownerDocument"), flags, 2)
+        this.vtbl.cloneNode := CallbackCreate(GetMethod(implObj, "cloneNode"), flags, 3)
+        this.vtbl.get_nodeTypeString := CallbackCreate(GetMethod(implObj, "get_nodeTypeString"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_specified := CallbackCreate(GetMethod(implObj, "get_specified"), flags, 2)
+        this.vtbl.get_definition := CallbackCreate(GetMethod(implObj, "get_definition"), flags, 2)
+        this.vtbl.get_nodeTypedValue := CallbackCreate(GetMethod(implObj, "get_nodeTypedValue"), flags, 2)
+        this.vtbl.put_nodeTypedValue := CallbackCreate(GetMethod(implObj, "put_nodeTypedValue"), flags, 2)
+        this.vtbl.get_dataType := CallbackCreate(GetMethod(implObj, "get_dataType"), flags, 2)
+        this.vtbl.put_dataType := CallbackCreate(GetMethod(implObj, "put_dataType"), flags, 2)
+        this.vtbl.get_xml := CallbackCreate(GetMethod(implObj, "get_xml"), flags, 2)
+        this.vtbl.transformNode := CallbackCreate(GetMethod(implObj, "transformNode"), flags, 3)
+        this.vtbl.selectNodes := CallbackCreate(GetMethod(implObj, "selectNodes"), flags, 3)
+        this.vtbl.selectSingleNode := CallbackCreate(GetMethod(implObj, "selectSingleNode"), flags, 3)
+        this.vtbl.get_parsed := CallbackCreate(GetMethod(implObj, "get_parsed"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 2)
+        this.vtbl.get_prefix := CallbackCreate(GetMethod(implObj, "get_prefix"), flags, 2)
+        this.vtbl.get_baseName := CallbackCreate(GetMethod(implObj, "get_baseName"), flags, 2)
+        this.vtbl.transformNodeToObject := CallbackCreate(GetMethod(implObj, "transformNodeToObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_nodeName)
+        CallbackFree(this.vtbl.get_nodeValue)
+        CallbackFree(this.vtbl.put_nodeValue)
+        CallbackFree(this.vtbl.get_nodeType)
+        CallbackFree(this.vtbl.get_parentNode)
+        CallbackFree(this.vtbl.get_childNodes)
+        CallbackFree(this.vtbl.get_firstChild)
+        CallbackFree(this.vtbl.get_lastChild)
+        CallbackFree(this.vtbl.get_previousSibling)
+        CallbackFree(this.vtbl.get_nextSibling)
+        CallbackFree(this.vtbl.get_attributes)
+        CallbackFree(this.vtbl.insertBefore)
+        CallbackFree(this.vtbl.replaceChild)
+        CallbackFree(this.vtbl.removeChild)
+        CallbackFree(this.vtbl.appendChild)
+        CallbackFree(this.vtbl.hasChildNodes)
+        CallbackFree(this.vtbl.get_ownerDocument)
+        CallbackFree(this.vtbl.cloneNode)
+        CallbackFree(this.vtbl.get_nodeTypeString)
+        CallbackFree(this.vtbl.get_text)
+        CallbackFree(this.vtbl.put_text)
+        CallbackFree(this.vtbl.get_specified)
+        CallbackFree(this.vtbl.get_definition)
+        CallbackFree(this.vtbl.get_nodeTypedValue)
+        CallbackFree(this.vtbl.put_nodeTypedValue)
+        CallbackFree(this.vtbl.get_dataType)
+        CallbackFree(this.vtbl.put_dataType)
+        CallbackFree(this.vtbl.get_xml)
+        CallbackFree(this.vtbl.transformNode)
+        CallbackFree(this.vtbl.selectNodes)
+        CallbackFree(this.vtbl.selectSingleNode)
+        CallbackFree(this.vtbl.get_parsed)
+        CallbackFree(this.vtbl.get_namespaceURI)
+        CallbackFree(this.vtbl.get_prefix)
+        CallbackFree(this.vtbl.get_baseName)
+        CallbackFree(this.vtbl.transformNodeToObject)
     }
 }

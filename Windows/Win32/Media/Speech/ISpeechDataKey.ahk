@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechDataKey extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechDataKey extends IDispatch {
     /**
      * The interface identifier for ISpeechDataKey
      * @type {Guid}
      */
-    static IID => Guid("{ce17c09b-4efa-44d5-a4c9-59d9585ab0cd}")
+    static IID := Guid("{ce17c09b-4efa-44d5-a4c9-59d9585ab0cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechDataKey interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetBinaryValue : IntPtr
+        GetBinaryValue : IntPtr
+        SetStringValue : IntPtr
+        GetStringValue : IntPtr
+        SetLongValue   : IntPtr
+        GetLongValue   : IntPtr
+        OpenKey        : IntPtr
+        CreateKey      : IntPtr
+        DeleteKey      : IntPtr
+        DeleteValue    : IntPtr
+        EnumKeys       : IntPtr
+        EnumValues     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBinaryValue", "GetBinaryValue", "SetStringValue", "GetStringValue", "SetLongValue", "GetLongValue", "OpenKey", "CreateKey", "DeleteKey", "DeleteValue", "EnumKeys", "EnumValues"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechDataKey.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -38,7 +57,7 @@ class ISpeechDataKey extends IDispatch {
     SetBinaryValue(_ValueName, Value) {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(7, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(7, this, BSTR, _ValueName, VARIANT, Value, "HRESULT")
         return result
     }
 
@@ -51,7 +70,7 @@ class ISpeechDataKey extends IDispatch {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
         Value := VARIANT()
-        result := ComCall(8, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(8, this, BSTR, _ValueName, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -65,7 +84,7 @@ class ISpeechDataKey extends IDispatch {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(9, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(9, this, BSTR, _ValueName, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -77,8 +96,8 @@ class ISpeechDataKey extends IDispatch {
     GetStringValue(_ValueName) {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        Value := BSTR()
-        result := ComCall(10, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
+        Value := BSTR.Owned()
+        result := ComCall(10, this, BSTR, _ValueName, BSTR.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -91,7 +110,7 @@ class ISpeechDataKey extends IDispatch {
     SetLongValue(_ValueName, Value) {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(11, this, "ptr", _ValueName, "int", Value, "HRESULT")
+        result := ComCall(11, this, BSTR, _ValueName, "int", Value, "HRESULT")
         return result
     }
 
@@ -103,7 +122,7 @@ class ISpeechDataKey extends IDispatch {
     GetLongValue(_ValueName) {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(12, this, "ptr", _ValueName, "int*", &Value := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, _ValueName, "int*", &Value := 0, "HRESULT")
         return Value
     }
 
@@ -115,7 +134,7 @@ class ISpeechDataKey extends IDispatch {
     OpenKey(SubKeyName) {
         SubKeyName := SubKeyName is String ? BSTR.Alloc(SubKeyName).Value : SubKeyName
 
-        result := ComCall(13, this, "ptr", SubKeyName, "ptr*", &SubKey := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, SubKeyName, "ptr*", &SubKey := 0, "HRESULT")
         return ISpeechDataKey(SubKey)
     }
 
@@ -127,35 +146,19 @@ class ISpeechDataKey extends IDispatch {
     CreateKey(SubKeyName) {
         SubKeyName := SubKeyName is String ? BSTR.Alloc(SubKeyName).Value : SubKeyName
 
-        result := ComCall(14, this, "ptr", SubKeyName, "ptr*", &SubKey := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, SubKeyName, "ptr*", &SubKey := 0, "HRESULT")
         return ISpeechDataKey(SubKey)
     }
 
     /**
-     * Deletes a given key protector for the volume.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {BSTR} SubKeyName 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * This method returns one of the following codes or another error code if it fails.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
-     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
-     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
-     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
-     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
-     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/deletekeyprotector-win32-encryptablevolume
+     * @returns {HRESULT} 
      */
     DeleteKey(SubKeyName) {
         SubKeyName := SubKeyName is String ? BSTR.Alloc(SubKeyName).Value : SubKeyName
 
-        result := ComCall(15, this, "ptr", SubKeyName, "HRESULT")
+        result := ComCall(15, this, BSTR, SubKeyName, "HRESULT")
         return result
     }
 
@@ -167,7 +170,7 @@ class ISpeechDataKey extends IDispatch {
     DeleteValue(_ValueName) {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(16, this, "ptr", _ValueName, "HRESULT")
+        result := ComCall(16, this, BSTR, _ValueName, "HRESULT")
         return result
     }
 
@@ -177,8 +180,8 @@ class ISpeechDataKey extends IDispatch {
      * @returns {BSTR} 
      */
     EnumKeys(Index) {
-        SubKeyName := BSTR()
-        result := ComCall(17, this, "int", Index, "ptr", SubKeyName, "HRESULT")
+        SubKeyName := BSTR.Owned()
+        result := ComCall(17, this, "int", Index, BSTR.Ptr, SubKeyName, "HRESULT")
         return SubKeyName
     }
 
@@ -188,8 +191,50 @@ class ISpeechDataKey extends IDispatch {
      * @returns {BSTR} 
      */
     EnumValues(Index) {
-        _ValueName := BSTR()
-        result := ComCall(18, this, "int", Index, "ptr", _ValueName, "HRESULT")
+        _ValueName := BSTR.Owned()
+        result := ComCall(18, this, "int", Index, BSTR.Ptr, _ValueName, "HRESULT")
         return _ValueName
+    }
+
+    Query(iid) {
+        if (ISpeechDataKey.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBinaryValue := CallbackCreate(GetMethod(implObj, "SetBinaryValue"), flags, 3)
+        this.vtbl.GetBinaryValue := CallbackCreate(GetMethod(implObj, "GetBinaryValue"), flags, 3)
+        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.SetLongValue := CallbackCreate(GetMethod(implObj, "SetLongValue"), flags, 3)
+        this.vtbl.GetLongValue := CallbackCreate(GetMethod(implObj, "GetLongValue"), flags, 3)
+        this.vtbl.OpenKey := CallbackCreate(GetMethod(implObj, "OpenKey"), flags, 3)
+        this.vtbl.CreateKey := CallbackCreate(GetMethod(implObj, "CreateKey"), flags, 3)
+        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 2)
+        this.vtbl.DeleteValue := CallbackCreate(GetMethod(implObj, "DeleteValue"), flags, 2)
+        this.vtbl.EnumKeys := CallbackCreate(GetMethod(implObj, "EnumKeys"), flags, 3)
+        this.vtbl.EnumValues := CallbackCreate(GetMethod(implObj, "EnumValues"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBinaryValue)
+        CallbackFree(this.vtbl.GetBinaryValue)
+        CallbackFree(this.vtbl.SetStringValue)
+        CallbackFree(this.vtbl.GetStringValue)
+        CallbackFree(this.vtbl.SetLongValue)
+        CallbackFree(this.vtbl.GetLongValue)
+        CallbackFree(this.vtbl.OpenKey)
+        CallbackFree(this.vtbl.CreateKey)
+        CallbackFree(this.vtbl.DeleteKey)
+        CallbackFree(this.vtbl.DeleteValue)
+        CallbackFree(this.vtbl.EnumKeys)
+        CallbackFree(this.vtbl.EnumValues)
     }
 }

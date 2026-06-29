@@ -1,36 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextAnalyzer.ahk
-#Include .\DWRITE_MATRIX.ahk
-#Include .\DWRITE_SCRIPT_PROPERTIES.ahk
-#Include .\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
+#Import ".\IDWriteTextAnalysisSink1.ahk" { IDWriteTextAnalysisSink1 }
+#Import ".\DWRITE_BASELINE.ahk" { DWRITE_BASELINE }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\DWRITE_SCRIPT_PROPERTIES.ahk" { DWRITE_SCRIPT_PROPERTIES }
+#Import ".\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk" { DWRITE_JUSTIFICATION_OPPORTUNITY }
+#Import ".\IDWriteTextAnalysisSource1.ahk" { IDWriteTextAnalysisSource1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 
 /**
  * Analyzes various text properties for complex script processing. (IDWriteTextAnalyzer1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextanalyzer1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
     /**
      * The interface identifier for IDWriteTextAnalyzer1
      * @type {Guid}
      */
-    static IID => Guid("{80dad800-e21f-4e83-96ce-bfcce500db7c}")
+    static IID := Guid("{80dad800-e21f-4e83-96ce-bfcce500db7c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextAnalyzer1 interfaces
+    */
+    struct Vtbl extends IDWriteTextAnalyzer.Vtbl {
+        ApplyCharacterSpacing           : IntPtr
+        GetBaseline                     : IntPtr
+        AnalyzeVerticalGlyphOrientation : IntPtr
+        GetGlyphOrientationTransform    : IntPtr
+        GetScriptProperties             : IntPtr
+        GetTextComplexity               : IntPtr
+        GetJustificationOpportunities   : IntPtr
+        JustifyGlyphAdvances            : IntPtr
+        GetJustifiedGlyphs              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ApplyCharacterSpacing", "GetBaseline", "AnalyzeVerticalGlyphOrientation", "GetGlyphOrientationTransform", "GetScriptProperties", "GetTextComplexity", "GetJustificationOpportunities", "JustifyGlyphAdvances", "GetJustifiedGlyphs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextAnalyzer1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Applies spacing between characters, properly adjusting glyph clusters and diacritics.
@@ -57,7 +83,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
         modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "ptr", glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -107,7 +133,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         baselineCoordinateMarshal := baselineCoordinate is VarRef ? "int*" : "ptr"
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "HRESULT")
+        result := ComCall(11, this, "ptr", fontFace, DWRITE_BASELINE, baseline, BOOL, isVertical, BOOL, isSimulationAllowed, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -153,7 +179,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
      */
     GetGlyphOrientationTransform(glyphOrientationAngle, isSideways) {
         transform := DWRITE_MATRIX()
-        result := ComCall(13, this, "int", glyphOrientationAngle, "int", isSideways, "ptr", transform, "HRESULT")
+        result := ComCall(13, this, DWRITE_GLYPH_ORIENTATION_ANGLE, glyphOrientationAngle, BOOL, isSideways, DWRITE_MATRIX.Ptr, transform, "HRESULT")
         return transform
     }
 
@@ -170,7 +196,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
      */
     GetScriptProperties(scriptAnalysis) {
         scriptProperties := DWRITE_SCRIPT_PROPERTIES()
-        result := ComCall(14, this, "ptr", scriptAnalysis, "ptr", scriptProperties, "HRESULT")
+        result := ComCall(14, this, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, DWRITE_SCRIPT_PROPERTIES.Ptr, scriptProperties, "HRESULT")
         return scriptProperties
     }
 
@@ -272,7 +298,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
 
         justificationOpportunities := DWRITE_JUSTIFICATION_OPPORTUNITY()
-        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", glyphProperties, "ptr", justificationOpportunities, "HRESULT")
+        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, "HRESULT")
         return justificationOpportunities
     }
 
@@ -312,7 +338,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
         justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, "ptr", justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "HRESULT")
+        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -401,7 +427,43 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         modifiedGlyphIndicesMarshal := modifiedGlyphIndices is VarRef ? "ushort*" : "ptr"
         modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "ptr", glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextAnalyzer1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ApplyCharacterSpacing := CallbackCreate(GetMethod(implObj, "ApplyCharacterSpacing"), flags, 12)
+        this.vtbl.GetBaseline := CallbackCreate(GetMethod(implObj, "GetBaseline"), flags, 9)
+        this.vtbl.AnalyzeVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "AnalyzeVerticalGlyphOrientation"), flags, 5)
+        this.vtbl.GetGlyphOrientationTransform := CallbackCreate(GetMethod(implObj, "GetGlyphOrientationTransform"), flags, 4)
+        this.vtbl.GetScriptProperties := CallbackCreate(GetMethod(implObj, "GetScriptProperties"), flags, 3)
+        this.vtbl.GetTextComplexity := CallbackCreate(GetMethod(implObj, "GetTextComplexity"), flags, 7)
+        this.vtbl.GetJustificationOpportunities := CallbackCreate(GetMethod(implObj, "GetJustificationOpportunities"), flags, 10)
+        this.vtbl.JustifyGlyphAdvances := CallbackCreate(GetMethod(implObj, "JustifyGlyphAdvances"), flags, 8)
+        this.vtbl.GetJustifiedGlyphs := CallbackCreate(GetMethod(implObj, "GetJustifiedGlyphs"), flags, 18)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ApplyCharacterSpacing)
+        CallbackFree(this.vtbl.GetBaseline)
+        CallbackFree(this.vtbl.AnalyzeVerticalGlyphOrientation)
+        CallbackFree(this.vtbl.GetGlyphOrientationTransform)
+        CallbackFree(this.vtbl.GetScriptProperties)
+        CallbackFree(this.vtbl.GetTextComplexity)
+        CallbackFree(this.vtbl.GetJustificationOpportunities)
+        CallbackFree(this.vtbl.JustifyGlyphAdvances)
+        CallbackFree(this.vtbl.GetJustifiedGlyphs)
     }
 }

@@ -1,36 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IConnectionPointContainer.ahk
-#Include .\IDiskQuotaUser.ahk
-#Include .\IEnumDiskQuotaUsers.ahk
-#Include .\IDiskQuotaUserBatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDiskQuotaUserBatch.ahk" { IDiskQuotaUserBatch }
+#Import ".\IEnumDiskQuotaUsers.ahk" { IEnumDiskQuotaUsers }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IConnectionPointContainer.ahk" { IConnectionPointContainer }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDiskQuotaUser.ahk" { IDiskQuotaUser }
+#Import ".\DISKQUOTA_USERNAME_RESOLVE.ahk" { DISKQUOTA_USERNAME_RESOLVE }
 
 /**
  * Controls the disk quota facilities of a single NTFS file system volume.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotacontrol
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class IDiskQuotaControl extends IConnectionPointContainer {
-
-    static sizeof => A_PtrSize
+export default struct IDiskQuotaControl extends IConnectionPointContainer {
     /**
      * The interface identifier for IDiskQuotaControl
      * @type {Guid}
      */
-    static IID => Guid("{7988b572-ec89-11cf-9c00-00aa00a14f56}")
+    static IID := Guid("{7988b572-ec89-11cf-9c00-00aa00a14f56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiskQuotaControl interfaces
+    */
+    struct Vtbl extends IConnectionPointContainer.Vtbl {
+        Initialize                     : IntPtr
+        SetQuotaState                  : IntPtr
+        GetQuotaState                  : IntPtr
+        SetQuotaLogFlags               : IntPtr
+        GetQuotaLogFlags               : IntPtr
+        SetDefaultQuotaThreshold       : IntPtr
+        GetDefaultQuotaThreshold       : IntPtr
+        GetDefaultQuotaThresholdText   : IntPtr
+        SetDefaultQuotaLimit           : IntPtr
+        GetDefaultQuotaLimit           : IntPtr
+        GetDefaultQuotaLimitText       : IntPtr
+        AddUserSid                     : IntPtr
+        AddUserName                    : IntPtr
+        DeleteUser                     : IntPtr
+        FindUserSid                    : IntPtr
+        FindUserName                   : IntPtr
+        CreateEnumUsers                : IntPtr
+        CreateUserBatch                : IntPtr
+        InvalidateSidNameCache         : IntPtr
+        GiveUserNameResolutionPriority : IntPtr
+        ShutdownNameResolution         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SetQuotaState", "GetQuotaState", "SetQuotaLogFlags", "GetQuotaLogFlags", "SetDefaultQuotaThreshold", "GetDefaultQuotaThreshold", "GetDefaultQuotaThresholdText", "SetDefaultQuotaLimit", "GetDefaultQuotaLimit", "GetDefaultQuotaLimitText", "AddUserSid", "AddUserName", "DeleteUser", "FindUserSid", "FindUserName", "CreateEnumUsers", "CreateUserBatch", "InvalidateSidNameCache", "GiveUserNameResolutionPriority", "ShutdownNameResolution"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiskQuotaControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a new DiskQuotaControl object by opening the NTFS file system volume with the requested access rights.
@@ -137,7 +169,7 @@ class IDiskQuotaControl extends IConnectionPointContainer {
     Initialize(pszPath, bReadWrite) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(5, this, "ptr", pszPath, "int", bReadWrite, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPath, BOOL, bReadWrite, "HRESULT")
         return result
     }
 
@@ -1205,7 +1237,7 @@ class IDiskQuotaControl extends IConnectionPointContainer {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusersid
      */
     AddUserSid(pUserSid, fNameResolution) {
-        result := ComCall(16, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(16, this, PSID, pUserSid, DISKQUOTA_USERNAME_RESOLVE, fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
         return IDiskQuotaUser(ppUser)
     }
 
@@ -1222,7 +1254,7 @@ class IDiskQuotaControl extends IConnectionPointContainer {
     AddUserName(pszLogonName, fNameResolution) {
         pszLogonName := pszLogonName is String ? StrPtr(pszLogonName) : pszLogonName
 
-        result := ComCall(17, this, "ptr", pszLogonName, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pszLogonName, DISKQUOTA_USERNAME_RESOLVE, fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
         return IDiskQuotaUser(ppUser)
     }
 
@@ -1347,7 +1379,7 @@ class IDiskQuotaControl extends IConnectionPointContainer {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-findusersid
      */
     FindUserSid(pUserSid, fNameResolution) {
-        result := ComCall(19, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(19, this, PSID, pUserSid, DISKQUOTA_USERNAME_RESOLVE, fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
         return IDiskQuotaUser(ppUser)
     }
 
@@ -1379,7 +1411,7 @@ class IDiskQuotaControl extends IConnectionPointContainer {
     CreateEnumUsers(rgpUserSids, cpSids, fNameResolution) {
         rgpUserSidsMarshal := rgpUserSids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, "uint", cpSids, "uint", fNameResolution, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, "uint", cpSids, DISKQUOTA_USERNAME_RESOLVE, fNameResolution, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumDiskQuotaUsers(ppEnum)
     }
 
@@ -1559,5 +1591,65 @@ class IDiskQuotaControl extends IConnectionPointContainer {
     ShutdownNameResolution() {
         result := ComCall(25, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDiskQuotaControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.SetQuotaState := CallbackCreate(GetMethod(implObj, "SetQuotaState"), flags, 2)
+        this.vtbl.GetQuotaState := CallbackCreate(GetMethod(implObj, "GetQuotaState"), flags, 2)
+        this.vtbl.SetQuotaLogFlags := CallbackCreate(GetMethod(implObj, "SetQuotaLogFlags"), flags, 2)
+        this.vtbl.GetQuotaLogFlags := CallbackCreate(GetMethod(implObj, "GetQuotaLogFlags"), flags, 2)
+        this.vtbl.SetDefaultQuotaThreshold := CallbackCreate(GetMethod(implObj, "SetDefaultQuotaThreshold"), flags, 2)
+        this.vtbl.GetDefaultQuotaThreshold := CallbackCreate(GetMethod(implObj, "GetDefaultQuotaThreshold"), flags, 2)
+        this.vtbl.GetDefaultQuotaThresholdText := CallbackCreate(GetMethod(implObj, "GetDefaultQuotaThresholdText"), flags, 3)
+        this.vtbl.SetDefaultQuotaLimit := CallbackCreate(GetMethod(implObj, "SetDefaultQuotaLimit"), flags, 2)
+        this.vtbl.GetDefaultQuotaLimit := CallbackCreate(GetMethod(implObj, "GetDefaultQuotaLimit"), flags, 2)
+        this.vtbl.GetDefaultQuotaLimitText := CallbackCreate(GetMethod(implObj, "GetDefaultQuotaLimitText"), flags, 3)
+        this.vtbl.AddUserSid := CallbackCreate(GetMethod(implObj, "AddUserSid"), flags, 4)
+        this.vtbl.AddUserName := CallbackCreate(GetMethod(implObj, "AddUserName"), flags, 4)
+        this.vtbl.DeleteUser := CallbackCreate(GetMethod(implObj, "DeleteUser"), flags, 2)
+        this.vtbl.FindUserSid := CallbackCreate(GetMethod(implObj, "FindUserSid"), flags, 4)
+        this.vtbl.FindUserName := CallbackCreate(GetMethod(implObj, "FindUserName"), flags, 3)
+        this.vtbl.CreateEnumUsers := CallbackCreate(GetMethod(implObj, "CreateEnumUsers"), flags, 5)
+        this.vtbl.CreateUserBatch := CallbackCreate(GetMethod(implObj, "CreateUserBatch"), flags, 2)
+        this.vtbl.InvalidateSidNameCache := CallbackCreate(GetMethod(implObj, "InvalidateSidNameCache"), flags, 1)
+        this.vtbl.GiveUserNameResolutionPriority := CallbackCreate(GetMethod(implObj, "GiveUserNameResolutionPriority"), flags, 2)
+        this.vtbl.ShutdownNameResolution := CallbackCreate(GetMethod(implObj, "ShutdownNameResolution"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetQuotaState)
+        CallbackFree(this.vtbl.GetQuotaState)
+        CallbackFree(this.vtbl.SetQuotaLogFlags)
+        CallbackFree(this.vtbl.GetQuotaLogFlags)
+        CallbackFree(this.vtbl.SetDefaultQuotaThreshold)
+        CallbackFree(this.vtbl.GetDefaultQuotaThreshold)
+        CallbackFree(this.vtbl.GetDefaultQuotaThresholdText)
+        CallbackFree(this.vtbl.SetDefaultQuotaLimit)
+        CallbackFree(this.vtbl.GetDefaultQuotaLimit)
+        CallbackFree(this.vtbl.GetDefaultQuotaLimitText)
+        CallbackFree(this.vtbl.AddUserSid)
+        CallbackFree(this.vtbl.AddUserName)
+        CallbackFree(this.vtbl.DeleteUser)
+        CallbackFree(this.vtbl.FindUserSid)
+        CallbackFree(this.vtbl.FindUserName)
+        CallbackFree(this.vtbl.CreateEnumUsers)
+        CallbackFree(this.vtbl.CreateUserBatch)
+        CallbackFree(this.vtbl.InvalidateSidNameCache)
+        CallbackFree(this.vtbl.GiveUserNameResolutionPriority)
+        CallbackFree(this.vtbl.ShutdownNameResolution)
     }
 }

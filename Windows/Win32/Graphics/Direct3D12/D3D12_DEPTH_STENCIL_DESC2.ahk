@@ -1,77 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DEPTH_WRITE_MASK.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
-#Include .\D3D12_DEPTH_STENCILOP_DESC1.ahk
-#Include .\D3D12_STENCIL_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DEPTH_WRITE_MASK.ahk" { D3D12_DEPTH_WRITE_MASK }
+#Import ".\D3D12_DEPTH_STENCILOP_DESC1.ahk" { D3D12_DEPTH_STENCILOP_DESC1 }
+#Import ".\D3D12_STENCIL_OP.ahk" { D3D12_STENCIL_OP }
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct {
-    static sizeof => 60
+export default struct D3D12_DEPTH_STENCIL_DESC2 {
+    #StructPack 4
 
-    static packingSize => 4
+    DepthEnable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    DepthEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DepthWriteMask : D3D12_DEPTH_WRITE_MASK
 
-    /**
-     * @type {D3D12_DEPTH_WRITE_MASK}
-     */
-    DepthWriteMask {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DepthFunc : D3D12_COMPARISON_FUNC
 
-    /**
-     * @type {D3D12_COMPARISON_FUNC}
-     */
-    DepthFunc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    StencilEnable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    StencilEnable {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    FrontFace : D3D12_DEPTH_STENCILOP_DESC1
 
-    /**
-     * @type {D3D12_DEPTH_STENCILOP_DESC1}
-     */
-    FrontFace {
-        get {
-            if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC1(16, this)
-            return this.__FrontFace
-        }
-    }
+    BackFace : D3D12_DEPTH_STENCILOP_DESC1
 
-    /**
-     * @type {D3D12_DEPTH_STENCILOP_DESC1}
-     */
-    BackFace {
-        get {
-            if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC1(36, this)
-            return this.__BackFace
-        }
-    }
+    DepthBoundsTestEnable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    DepthBoundsTestEnable {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
 }

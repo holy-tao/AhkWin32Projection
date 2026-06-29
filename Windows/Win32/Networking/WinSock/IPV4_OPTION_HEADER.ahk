@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV4_OPTION_HEADER extends Win32Struct {
-    static sizeof => 2
+export default struct IPV4_OPTION_HEADER {
+    #StructPack 1
 
-    static packingSize => 1
+    OptionType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OptionType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - OptionNumber
-     * - OptionClass
-     * - CopiedFlag
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -52,12 +32,10 @@ class IPV4_OPTION_HEADER extends Win32Struct {
         get => (this._bitfield >> 7) & 0x1
         set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
+    OptionLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OptionLength {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

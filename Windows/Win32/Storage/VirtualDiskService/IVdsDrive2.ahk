@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_DRIVE_PROP2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_DRIVE_PROP2.ahk" { VDS_DRIVE_PROP2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsDrive2 (vdshwprv.h) interface provides a method for querying the properties of a drive.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsdrive2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsDrive2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsDrive2 extends IUnknown {
     /**
      * The interface identifier for IVdsDrive2
      * @type {Guid}
      */
-    static IID => Guid("{60b5a730-addf-4436-8ca7-5769e2d1ffa4}")
+    static IID := Guid("{60b5a730-addf-4436-8ca7-5769e2d1ffa4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsDrive2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsDrive2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsDrive2::GetProperties2 (vdshwprv.h) method returns the properties of a drive object.
@@ -43,7 +51,27 @@ class IVdsDrive2 extends IUnknown {
      */
     GetProperties2() {
         pDriveProp2 := VDS_DRIVE_PROP2()
-        result := ComCall(3, this, "ptr", pDriveProp2, "HRESULT")
+        result := ComCall(3, this, VDS_DRIVE_PROP2.Ptr, pDriveProp2, "HRESULT")
         return pDriveProp2
+    }
+
+    Query(iid) {
+        if (IVdsDrive2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties2 := CallbackCreate(GetMethod(implObj, "GetProperties2"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties2)
     }
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASPPPIPXA extends Win32Struct {
-    static sizeof => 32
+export default struct RASPPPIPXA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szIpxAddress : CHAR[22]
 
-    /**
-     * @type {String}
-     */
-    szIpxAddress {
-        get => StrGet(this.ptr + 8, 21, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 21, "UTF-8")
-    }
 }

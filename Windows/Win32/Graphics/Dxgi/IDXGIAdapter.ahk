@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
-#Include .\DXGI_ADAPTER_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_ADAPTER_DESC.ahk" { DXGI_ADAPTER_DESC }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
 
 /**
  * The IDXGIAdapter interface represents a display subsystem (including one or more GPUs, DACs and video memory).
@@ -24,26 +26,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiadapter
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIAdapter extends IDXGIObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIAdapter extends IDXGIObject {
     /**
      * The interface identifier for IDXGIAdapter
      * @type {Guid}
      */
-    static IID => Guid("{2411e7e1-12ac-4ccf-bd14-9798e8534dc0}")
+    static IID := Guid("{2411e7e1-12ac-4ccf-bd14-9798e8534dc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIAdapter interfaces
+    */
+    struct Vtbl extends IDXGIObject.Vtbl {
+        EnumOutputs           : IntPtr
+        GetDesc               : IntPtr
+        CheckInterfaceSupport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumOutputs", "GetDesc", "CheckInterfaceSupport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIAdapter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enumerate adapter (video card) outputs.
@@ -68,7 +79,7 @@ class IDXGIAdapter extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-enumoutputs
      */
     EnumOutputs(Output, ppOutput) {
-        result := ComCall(7, this, "uint", Output, "ptr*", ppOutput, "int")
+        result := ComCall(7, this, "uint", Output, IDXGIOutput.Ptr, ppOutput, Int32)
         return result
     }
 
@@ -136,7 +147,7 @@ class IDXGIAdapter extends IDXGIObject {
      */
     GetDesc() {
         pDesc := DXGI_ADAPTER_DESC()
-        result := ComCall(8, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(8, this, DXGI_ADAPTER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -154,7 +165,31 @@ class IDXGIAdapter extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-checkinterfacesupport
      */
     CheckInterfaceSupport(InterfaceName) {
-        result := ComCall(9, this, "ptr", InterfaceName, "int64*", &pUMDVersion := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, InterfaceName, "int64*", &pUMDVersion := 0, "HRESULT")
         return pUMDVersion
+    }
+
+    Query(iid) {
+        if (IDXGIAdapter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumOutputs := CallbackCreate(GetMethod(implObj, "EnumOutputs"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.CheckInterfaceSupport := CallbackCreate(GetMethod(implObj, "CheckInterfaceSupport"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumOutputs)
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.CheckInterfaceSupport)
     }
 }

@@ -1,113 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_CERT_CONFIG_TYPE.ahk
-#Include .\IKEEXT_CERT_ROOT_CONFIG0.ahk
-#Include .\IKEEXT_CERT_AUTH.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IKEEXT_CERT_CONFIG_TYPE.ahk" { IKEEXT_CERT_CONFIG_TYPE }
+#Import ".\IKEEXT_CERT_ROOT_CONFIG0.ahk" { IKEEXT_CERT_ROOT_CONFIG0 }
+#Import ".\IKEEXT_CERT_AUTH.ahk" { IKEEXT_CERT_AUTH }
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct IKEEXT_CERTIFICATE_AUTHENTICATION1 {
+    #StructPack 8
 
     /**
      * Certificate configuration type for inbound peer certificate verification.
      * 
      * See [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type) for more information.
-     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
-    inboundConfigType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    inboundConfigType : IKEEXT_CERT_CONFIG_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    inboundRootArraySize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    inboundRootArraySize : UInt32
 
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
-    inboundRootArray {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
-    inboundEnterpriseStoreConfig {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
-    inboundTrustedRootStoreConfig {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    inboundRootArray : IKEEXT_CERT_ROOT_CONFIG0.Ptr
 
     /**
      * Certificate configuration type for outbound local certificate verification.
      * 
      * See [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type) for more information.
-     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
-    outboundConfigType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    outboundConfigType : IKEEXT_CERT_CONFIG_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    outboundRootArraySize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    outboundRootArraySize : UInt32
 
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
-    outboundRootArray {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    outboundRootArray : IKEEXT_CERT_ROOT_CONFIG0.Ptr
 
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
-    outboundEnterpriseStoreConfig {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
-    outboundTrustedRootStoreConfig {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {IKEEXT_CERT_AUTH}
-     */
-    flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    flags : IKEEXT_CERT_AUTH
 
     /**
      * HTTP URL pointing to an encoded certificate or certificate-bundle, that 
@@ -116,13 +43,14 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct {
      * Applicable only to IKEv2.
      * 
      * See [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) for more information.
-     * @type {FWP_BYTE_BLOB}
      */
-    localCertLocationUrl {
-        get {
-            if(!this.HasProp("__localCertLocationUrl"))
-                this.__localCertLocationUrl := FWP_BYTE_BLOB(56, this)
-            return this.__localCertLocationUrl
-        }
+    localCertLocationUrl : FWP_BYTE_BLOB
+
+    static __New() {
+        DefineProp(this.Prototype, 'inboundEnterpriseStoreConfig', { type: IKEEXT_CERT_ROOT_CONFIG0.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'inboundTrustedRootStoreConfig', { type: IKEEXT_CERT_ROOT_CONFIG0.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'outboundEnterpriseStoreConfig', { type: IKEEXT_CERT_ROOT_CONFIG0.Ptr, offset: 32 })
+        DefineProp(this.Prototype, 'outboundTrustedRootStoreConfig', { type: IKEEXT_CERT_ROOT_CONFIG0.Ptr, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

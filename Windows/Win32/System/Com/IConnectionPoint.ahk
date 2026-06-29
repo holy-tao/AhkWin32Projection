@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IConnectionPointContainer.ahk
-#Include .\IEnumConnections.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumConnections.ahk" { IEnumConnections }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConnectionPointContainer.ahk" { IConnectionPointContainer }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Supports connection points for connectable objects. (IConnectionPoint)
@@ -26,26 +26,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iconnectionpoint
  * @namespace Windows.Win32.System.Com
  */
-class IConnectionPoint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConnectionPoint extends IUnknown {
     /**
      * The interface identifier for IConnectionPoint
      * @type {Guid}
      */
-    static IID => Guid("{b196b286-bab4-101a-b69c-00aa00341d07}")
+    static IID := Guid("{b196b286-bab4-101a-b69c-00aa00341d07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConnectionPoint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConnectionInterface      : IntPtr
+        GetConnectionPointContainer : IntPtr
+        Advise                      : IntPtr
+        Unadvise                    : IntPtr
+        EnumConnections             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConnectionInterface", "GetConnectionPointContainer", "Advise", "Unadvise", "EnumConnections"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConnectionPoint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the IID of the outgoing interface managed by this connection point.
@@ -59,7 +70,7 @@ class IConnectionPoint extends IUnknown {
      */
     GetConnectionInterface() {
         pIID := Guid()
-        result := ComCall(3, this, "ptr", pIID, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pIID, "HRESULT")
         return pIID
     }
 
@@ -153,5 +164,33 @@ class IConnectionPoint extends IUnknown {
     EnumConnections() {
         result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumConnections(ppEnum)
+    }
+
+    Query(iid) {
+        if (IConnectionPoint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConnectionInterface := CallbackCreate(GetMethod(implObj, "GetConnectionInterface"), flags, 2)
+        this.vtbl.GetConnectionPointContainer := CallbackCreate(GetMethod(implObj, "GetConnectionPointContainer"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumConnections := CallbackCreate(GetMethod(implObj, "EnumConnections"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConnectionInterface)
+        CallbackFree(this.vtbl.GetConnectionPointContainer)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.EnumConnections)
     }
 }

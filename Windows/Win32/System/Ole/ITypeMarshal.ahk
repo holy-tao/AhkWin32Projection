@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class ITypeMarshal extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITypeMarshal extends IUnknown {
     /**
      * The interface identifier for ITypeMarshal
      * @type {Guid}
      */
-    static IID => Guid("{0000002d-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000002d-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeMarshal interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Size      : IntPtr
+        Marshal   : IntPtr
+        Unmarshal : IntPtr
+        Free      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Size", "Marshal", "Unmarshal", "Free"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeMarshal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Represents an ordered pair of floating-point numbers that specify a height and width.
@@ -79,25 +90,40 @@ class ITypeMarshal extends IUnknown {
     }
 
     /**
-     * The FreeAddrInfoEx function (ws2tcpip.h) frees address information that the GetAddrInfoEx function dynamically allocates in addrinfoex structures.
-     * @remarks
-     * The 
-     * <b>FreeAddrInfoEx</b> function frees <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structures dynamically allocated by the  <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> function. The <b>FreeAddrInfoEx</b> function frees the initial 
-     * <b>addrinfoex</b> structure pointed to in the <i>pAddrInfo</i> parameter, including any buffers to which structure members point, then continues freeing any 
-     * <b>addrinfoex</b> structures linked by the <b>ai_next</b> member of the <b>addrinfoex</b> structure. The 
-     * <b>FreeAddrInfoEx</b> function continues freeing linked structures until a <b>NULL</b> <b>ai_next</b> member is encountered.
      * 
-     * When UNICODE or _UNICODE is defined, <b>FreeAddrInfoEx</b> is defined to <b>FreeAddrInfoExW</b>, the Unicode version of the function, and <b>ADDRINFOEX</b> is defined to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoexW</a> structure. When UNICODE or _UNICODE is not defined, <b>FreeAddrInfoEx</b> is defined to <b>FreeAddrInfoExA</b>, the ANSI version of the function, and <b>ADDRINFOEX</b> is defined to the <b>addrinfoexA</b> structure. 
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>FreeAddrInfoExW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Void>} pvType 
-     * @returns {HRESULT} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoex
+     * @returns {HRESULT} 
      */
     Free(pvType) {
         pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
 
         result := ComCall(6, this, pvTypeMarshal, pvType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITypeMarshal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Size := CallbackCreate(GetMethod(implObj, "Size"), flags, 5)
+        this.vtbl.Marshal := CallbackCreate(GetMethod(implObj, "Marshal"), flags, 7)
+        this.vtbl.Unmarshal := CallbackCreate(GetMethod(implObj, "Unmarshal"), flags, 6)
+        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Size)
+        CallbackFree(this.vtbl.Marshal)
+        CallbackFree(this.vtbl.Unmarshal)
+        CallbackFree(this.vtbl.Free)
     }
 }

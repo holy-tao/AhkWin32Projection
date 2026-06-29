@@ -1,70 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include .\PCW_COUNTER_DESCRIPTOR.ahk
-#Include .\PCW_REGISTRATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\PCW_COUNTER_DESCRIPTOR.ahk" { PCW_COUNTER_DESCRIPTOR }
+#Import ".\PCW_REGISTRATION_FLAGS.ahk" { PCW_REGISTRATION_FLAGS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCW_REGISTRATION_INFORMATION extends Win32Struct {
-    static sizeof => 56
+export default struct PCW_REGISTRATION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Name : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CounterCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CounterCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Counters : PCW_COUNTER_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<PCW_COUNTER_DESCRIPTOR>}
-     */
-    Counters {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Callback : IntPtr
 
-    /**
-     * @type {Pointer<PPCW_CALLBACK>}
-     */
-    Callback {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    CallbackContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallbackContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Flags : PCW_REGISTRATION_FLAGS
 
-    /**
-     * @type {PCW_REGISTRATION_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
 }

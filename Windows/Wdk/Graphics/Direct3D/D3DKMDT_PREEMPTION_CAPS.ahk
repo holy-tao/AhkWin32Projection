@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY.ahk
-#Include .\D3DKMDT_COMPUTE_PREEMPTION_GRANULARITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY.ahk" { D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY }
+#Import ".\D3DKMDT_COMPUTE_PREEMPTION_GRANULARITY.ahk" { D3DKMDT_COMPUTE_PREEMPTION_GRANULARITY }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_PREEMPTION_CAPS extends Win32Struct {
-    static sizeof => 8
+export default struct D3DKMDT_PREEMPTION_CAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    GraphicsPreemptionGranularity : D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY
 
-    /**
-     * @type {D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY}
-     */
-    GraphicsPreemptionGranularity {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ComputePreemptionGranularity : D3DKMDT_COMPUTE_PREEMPTION_GRANULARITY
 
-    /**
-     * @type {D3DKMDT_COMPUTE_PREEMPTION_GRANULARITY}
-     */
-    ComputePreemptionGranularity {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

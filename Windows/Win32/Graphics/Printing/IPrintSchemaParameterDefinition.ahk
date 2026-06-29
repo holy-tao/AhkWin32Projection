@@ -1,32 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrintSchemaDisplayableElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPrintSchemaDisplayableElement.ahk" { IPrintSchemaDisplayableElement }
+#Import ".\PrintSchemaParameterDataType.ahk" { PrintSchemaParameterDataType }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
-
-    static sizeof => A_PtrSize
+export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     /**
      * The interface identifier for IPrintSchemaParameterDefinition
      * @type {Guid}
      */
-    static IID => Guid("{b5ade81e-0e61-4fe1-81c6-c333e4ffe0f1}")
+    static IID := Guid("{b5ade81e-0e61-4fe1-81c6-c333e4ffe0f1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintSchemaParameterDefinition interfaces
+    */
+    struct Vtbl extends IPrintSchemaDisplayableElement.Vtbl {
+        get_UserInputRequired : IntPtr
+        get_UnitType          : IntPtr
+        get_DataType          : IntPtr
+        get_RangeMin          : IntPtr
+        get_RangeMax          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UserInputRequired", "get_UnitType", "get_DataType", "get_RangeMin", "get_RangeMax"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintSchemaParameterDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -68,7 +82,7 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
      * @returns {BOOL} 
      */
     get_UserInputRequired() {
-        result := ComCall(11, this, "int*", &pbIsRequired := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pbIsRequired := 0, "HRESULT")
         return pbIsRequired
     }
 
@@ -77,8 +91,8 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
      * @returns {BSTR} 
      */
     get_UnitType() {
-        pbstrUnitType := BSTR()
-        result := ComCall(12, this, "ptr", pbstrUnitType, "HRESULT")
+        pbstrUnitType := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrUnitType, "HRESULT")
         return pbstrUnitType
     }
 
@@ -107,5 +121,33 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     get_RangeMax() {
         result := ComCall(15, this, "int*", &pRangeMax := 0, "HRESULT")
         return pRangeMax
+    }
+
+    Query(iid) {
+        if (IPrintSchemaParameterDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UserInputRequired := CallbackCreate(GetMethod(implObj, "get_UserInputRequired"), flags, 2)
+        this.vtbl.get_UnitType := CallbackCreate(GetMethod(implObj, "get_UnitType"), flags, 2)
+        this.vtbl.get_DataType := CallbackCreate(GetMethod(implObj, "get_DataType"), flags, 2)
+        this.vtbl.get_RangeMin := CallbackCreate(GetMethod(implObj, "get_RangeMin"), flags, 2)
+        this.vtbl.get_RangeMax := CallbackCreate(GetMethod(implObj, "get_RangeMax"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UserInputRequired)
+        CallbackFree(this.vtbl.get_UnitType)
+        CallbackFree(this.vtbl.get_DataType)
+        CallbackFree(this.vtbl.get_RangeMin)
+        CallbackFree(this.vtbl.get_RangeMax)
     }
 }

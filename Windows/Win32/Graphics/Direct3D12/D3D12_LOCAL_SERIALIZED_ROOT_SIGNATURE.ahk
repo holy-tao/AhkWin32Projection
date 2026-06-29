@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_SERIALIZED_ROOT_SIGNATURE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_SERIALIZED_ROOT_SIGNATURE_DESC.ahk" { D3D12_SERIALIZED_ROOT_SIGNATURE_DESC }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_LOCAL_SERIALIZED_ROOT_SIGNATURE extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_LOCAL_SERIALIZED_ROOT_SIGNATURE {
+    #StructPack 8
 
-    static packingSize => 8
+    Desc : D3D12_SERIALIZED_ROOT_SIGNATURE_DESC
 
-    /**
-     * @type {D3D12_SERIALIZED_ROOT_SIGNATURE_DESC}
-     */
-    Desc {
-        get {
-            if(!this.HasProp("__Desc"))
-                this.__Desc := D3D12_SERIALIZED_ROOT_SIGNATURE_DESC(0, this)
-            return this.__Desc
-        }
-    }
 }

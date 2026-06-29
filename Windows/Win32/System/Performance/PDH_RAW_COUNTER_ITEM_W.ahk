@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PDH_RAW_COUNTER.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The PDH_RAW_COUNTER_ITEM structure contains the instance name and raw value of a counter. (Unicode)
@@ -9,29 +9,17 @@
  * @namespace Windows.Win32.System.Performance
  * @charset Unicode
  */
-class PDH_RAW_COUNTER_ITEM_W extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PDH_RAW_COUNTER_ITEM_W {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the instance name of the counter. The string is appended to the end of this structure.
-     * @type {PWSTR}
      */
-    szName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szName : PWSTR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a> structure that contains the raw counter value of the instance.
-     * @type {PDH_RAW_COUNTER}
      */
-    RawValue {
-        get {
-            if(!this.HasProp("__RawValue"))
-                this.__RawValue := PDH_RAW_COUNTER(8, this)
-            return this.__RawValue
-        }
-    }
+    RawValue : PDH_RAW_COUNTER
+
 }

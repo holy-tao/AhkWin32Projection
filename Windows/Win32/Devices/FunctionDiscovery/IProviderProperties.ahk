@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
 
 /**
  * Is optionally implemented by discovery providers to directly create and manage their own property store.
@@ -15,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderproperties
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IProviderProperties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProviderProperties extends IUnknown {
     /**
      * The interface identifier for IProviderProperties
      * @type {Guid}
      */
-    static IID => Guid("{cf986ea6-3b5f-4c5f-b88a-2f8b20ceef17}")
+    static IID := Guid("{cf986ea6-3b5f-4c5f-b88a-2f8b20ceef17}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProviderProperties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetAt    : IntPtr
+        GetValue : IntPtr
+        SetValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt", "GetValue", "SetValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProviderProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of properties in the property store.
@@ -58,7 +70,7 @@ class IProviderProperties extends IUnknown {
      */
     GetAt(pIFunctionInstance, iProviderInstanceContext, dwIndex) {
         pKey := PROPERTYKEY()
-        result := ComCall(4, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint", dwIndex, "ptr", pKey, "HRESULT")
+        result := ComCall(4, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
         return pKey
     }
 
@@ -76,7 +88,7 @@ class IProviderProperties extends IUnknown {
      */
     GetValue(pIFunctionInstance, iProviderInstanceContext, Key) {
         ppropVar := PROPVARIANT()
-        result := ComCall(5, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "ptr", Key, "ptr", ppropVar, "HRESULT")
+        result := ComCall(5, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, ppropVar, "HRESULT")
         return ppropVar
     }
 
@@ -119,7 +131,33 @@ class IProviderProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-setvalue
      */
     SetValue(pIFunctionInstance, iProviderInstanceContext, Key, ppropVar) {
-        result := ComCall(6, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "ptr", Key, "ptr", ppropVar, "HRESULT")
+        result := ComCall(6, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, ppropVar, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProviderProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 4)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 5)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 5)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.SetValue)
     }
 }

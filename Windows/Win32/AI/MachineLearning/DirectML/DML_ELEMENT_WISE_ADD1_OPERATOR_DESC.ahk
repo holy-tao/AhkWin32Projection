@@ -1,50 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_OPERATOR_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Adds every element in *ATensor* to its corresponding element in *BTensor* and places the result into the corresponding element of *OutputTensor*, with the option for fused activation.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_add1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_ELEMENT_WISE_ADD1_OPERATOR_DESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DML_ELEMENT_WISE_ADD1_OPERATOR_DESC {
+    #StructPack 8
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * A tensor containing the left-hand side inputs.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    ATensor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ATensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * A tensor containing the right-hand side inputs.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    BTensor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * The output tensor to write the results to.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputTensor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OutputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: \_Maybenull\_ **const [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc)\***
@@ -52,10 +37,7 @@ class DML_ELEMENT_WISE_ADD1_OPERATOR_DESC extends Win32Struct {
      * An optional fused activation layer to apply after the addition. For more info, see [Using fused operators for improved performance](/windows/ai/directml/dml-fused-activations).
      * 
      * Fused activation may be used only when the output datatype is **FLOAT16** or **FLOAT32**.
-     * @type {Pointer<DML_OPERATOR_DESC>}
      */
-    FusedActivation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FusedActivation : DML_OPERATOR_DESC.Ptr
+
 }

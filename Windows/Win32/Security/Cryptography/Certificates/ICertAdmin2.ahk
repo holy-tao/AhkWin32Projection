@@ -1,35 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertAdmin.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICertAdmin.ahk" { ICertAdmin }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import ".\CERTADMIN_GET_ROLES_FLAGS.ahk" { CERTADMIN_GET_ROLES_FLAGS }
+#Import ".\CERT_IMPORT_FLAGS.ahk" { CERT_IMPORT_FLAGS }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CERT_DELETE_ROW_FLAGS.ahk" { CERT_DELETE_ROW_FLAGS }
 
 /**
  * Provide administration functionality for properly authorized clients.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-icertadmin2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertAdmin2 extends ICertAdmin {
-
-    static sizeof => A_PtrSize
+export default struct ICertAdmin2 extends ICertAdmin {
     /**
      * The interface identifier for ICertAdmin2
      * @type {Guid}
      */
-    static IID => Guid("{f7c3ac41-b8ce-4fb4-aa58-3d1dc0e36b39}")
+    static IID := Guid("{f7c3ac41-b8ce-4fb4-aa58-3d1dc0e36b39}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertAdmin2 interfaces
+    */
+    struct Vtbl extends ICertAdmin.Vtbl {
+        PublishCRLs              : IntPtr
+        GetCAProperty            : IntPtr
+        SetCAProperty            : IntPtr
+        GetCAPropertyFlags       : IntPtr
+        GetCAPropertyDisplayName : IntPtr
+        GetArchivedKey           : IntPtr
+        GetConfigEntry           : IntPtr
+        SetConfigEntry           : IntPtr
+        ImportKey                : IntPtr
+        GetMyRoles               : IntPtr
+        DeleteRow                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PublishCRLs", "GetCAProperty", "SetCAProperty", "GetCAPropertyFlags", "GetCAPropertyDisplayName", "GetArchivedKey", "GetConfigEntry", "SetConfigEntry", "ImportKey", "GetMyRoles", "DeleteRow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertAdmin2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Publishes certificate revocation lists (CRLs) for a certification authority (CA).
@@ -85,7 +108,7 @@ class ICertAdmin2 extends ICertAdmin {
     PublishCRLs(strConfig, Date, CRLFlags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(17, this, "ptr", strConfig, "double", Date, "int", CRLFlags, "HRESULT")
+        result := ComCall(17, this, BSTR, strConfig, "double", Date, "int", CRLFlags, "HRESULT")
         return result
     }
 
@@ -529,7 +552,7 @@ class ICertAdmin2 extends ICertAdmin {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(18, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(18, this, BSTR, strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -641,7 +664,7 @@ class ICertAdmin2 extends ICertAdmin {
     SetCAProperty(strConfig, PropId, PropIndex, PropType, pvarPropertyValue) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(19, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(19, this, BSTR, strConfig, "int", PropId, "int", PropIndex, CERT_PROPERTY_TYPE, PropType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return result
     }
 
@@ -661,7 +684,7 @@ class ICertAdmin2 extends ICertAdmin {
     GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(20, this, "ptr", strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
         return pPropFlags
     }
 
@@ -682,8 +705,8 @@ class ICertAdmin2 extends ICertAdmin {
     GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrDisplayName := BSTR()
-        result := ComCall(21, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
+        pstrDisplayName := BSTR.Owned()
+        result := ComCall(21, this, BSTR, strConfig, "int", PropId, BSTR.Ptr, pstrDisplayName, "HRESULT")
         return pstrDisplayName
     }
 
@@ -746,8 +769,8 @@ class ICertAdmin2 extends ICertAdmin {
     GetArchivedKey(strConfig, RequestId, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrArchivedKey := BSTR()
-        result := ComCall(22, this, "ptr", strConfig, "int", RequestId, "int", Flags, "ptr", pstrArchivedKey, "HRESULT")
+        pstrArchivedKey := BSTR.Owned()
+        result := ComCall(22, this, BSTR, strConfig, "int", RequestId, "int", Flags, BSTR.Ptr, pstrArchivedKey, "HRESULT")
         return pstrArchivedKey
     }
 
@@ -774,7 +797,7 @@ class ICertAdmin2 extends ICertAdmin {
         strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
 
         pvarEntry := VARIANT()
-        result := ComCall(23, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "HRESULT")
+        result := ComCall(23, this, BSTR, strConfig, BSTR, strNodePath, BSTR, strEntryName, VARIANT.Ptr, pvarEntry, "HRESULT")
         return pvarEntry
     }
 
@@ -814,7 +837,7 @@ class ICertAdmin2 extends ICertAdmin {
         strNodePath := strNodePath is String ? BSTR.Alloc(strNodePath).Value : strNodePath
         strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
 
-        result := ComCall(24, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "HRESULT")
+        result := ComCall(24, this, BSTR, strConfig, BSTR, strNodePath, BSTR, strEntryName, VARIANT.Ptr, pvarEntry, "HRESULT")
         return result
     }
 
@@ -837,7 +860,7 @@ class ICertAdmin2 extends ICertAdmin {
         strCertHash := strCertHash is String ? BSTR.Alloc(strCertHash).Value : strCertHash
         strKey := strKey is String ? BSTR.Alloc(strKey).Value : strKey
 
-        result := ComCall(25, this, "ptr", strConfig, "int", RequestId, "ptr", strCertHash, "int", Flags, "ptr", strKey, "HRESULT")
+        result := ComCall(25, this, BSTR, strConfig, "int", RequestId, BSTR, strCertHash, CERT_IMPORT_FLAGS, Flags, BSTR, strKey, "HRESULT")
         return result
     }
 
@@ -854,7 +877,7 @@ class ICertAdmin2 extends ICertAdmin {
     GetMyRoles(strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(26, this, "ptr", strConfig, "uint*", &pRoles := 0, "HRESULT")
+        result := ComCall(26, this, BSTR, strConfig, "uint*", &pRoles := 0, "HRESULT")
         return pRoles
     }
 
@@ -880,7 +903,47 @@ class ICertAdmin2 extends ICertAdmin {
     DeleteRow(strConfig, Flags, Date, Table, RowId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, "int*", &pcDeleted := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, strConfig, CERT_DELETE_ROW_FLAGS, Flags, "double", Date, CVRC_TABLE, Table, "int", RowId, "int*", &pcDeleted := 0, "HRESULT")
         return pcDeleted
+    }
+
+    Query(iid) {
+        if (ICertAdmin2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PublishCRLs := CallbackCreate(GetMethod(implObj, "PublishCRLs"), flags, 4)
+        this.vtbl.GetCAProperty := CallbackCreate(GetMethod(implObj, "GetCAProperty"), flags, 7)
+        this.vtbl.SetCAProperty := CallbackCreate(GetMethod(implObj, "SetCAProperty"), flags, 6)
+        this.vtbl.GetCAPropertyFlags := CallbackCreate(GetMethod(implObj, "GetCAPropertyFlags"), flags, 4)
+        this.vtbl.GetCAPropertyDisplayName := CallbackCreate(GetMethod(implObj, "GetCAPropertyDisplayName"), flags, 4)
+        this.vtbl.GetArchivedKey := CallbackCreate(GetMethod(implObj, "GetArchivedKey"), flags, 5)
+        this.vtbl.GetConfigEntry := CallbackCreate(GetMethod(implObj, "GetConfigEntry"), flags, 5)
+        this.vtbl.SetConfigEntry := CallbackCreate(GetMethod(implObj, "SetConfigEntry"), flags, 5)
+        this.vtbl.ImportKey := CallbackCreate(GetMethod(implObj, "ImportKey"), flags, 6)
+        this.vtbl.GetMyRoles := CallbackCreate(GetMethod(implObj, "GetMyRoles"), flags, 3)
+        this.vtbl.DeleteRow := CallbackCreate(GetMethod(implObj, "DeleteRow"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PublishCRLs)
+        CallbackFree(this.vtbl.GetCAProperty)
+        CallbackFree(this.vtbl.SetCAProperty)
+        CallbackFree(this.vtbl.GetCAPropertyFlags)
+        CallbackFree(this.vtbl.GetCAPropertyDisplayName)
+        CallbackFree(this.vtbl.GetArchivedKey)
+        CallbackFree(this.vtbl.GetConfigEntry)
+        CallbackFree(this.vtbl.SetConfigEntry)
+        CallbackFree(this.vtbl.ImportKey)
+        CallbackFree(this.vtbl.GetMyRoles)
+        CallbackFree(this.vtbl.DeleteRow)
     }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID2D1Effect.ahk
-#Include Common\D2D_RECT_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 
 /**
  * Describes features of an effect.
@@ -11,38 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_effect_input_description
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_EFFECT_INPUT_DESCRIPTION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D2D1_EFFECT_INPUT_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The effect whose input connection is being specified.
-     * @type {ID2D1Effect}
      */
-    effect {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    effect : ID2D1Effect
 
     /**
      * The input index of the effect that is being considered.
-     * @type {Integer}
      */
-    inputIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    inputIndex : UInt32
 
     /**
      * The amount of data that would be available on the input. This can be used to query this information when the data is not yet available.
-     * @type {D2D_RECT_F}
      */
-    inputRectangle {
-        get {
-            if(!this.HasProp("__inputRectangle"))
-                this.__inputRectangle := D2D_RECT_F(12, this)
-            return this.__inputRectangle
-        }
-    }
+    inputRectangle : D2D_RECT_F
+
 }

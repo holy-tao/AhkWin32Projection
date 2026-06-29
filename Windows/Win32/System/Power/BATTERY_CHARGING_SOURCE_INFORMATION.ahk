@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BATTERY_CHARGING_SOURCE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\BATTERY_CHARGING_SOURCE_TYPE.ahk" { BATTERY_CHARGING_SOURCE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class BATTERY_CHARGING_SOURCE_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct BATTERY_CHARGING_SOURCE_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : BATTERY_CHARGING_SOURCE_TYPE
 
-    /**
-     * @type {BATTERY_CHARGING_SOURCE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SourceOnline : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SourceOnline {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

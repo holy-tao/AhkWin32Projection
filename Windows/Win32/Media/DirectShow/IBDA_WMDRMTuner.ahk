@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_WMDRMTuner extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_WMDRMTuner extends IUnknown {
     /**
      * The interface identifier for IBDA_WMDRMTuner
      * @type {Guid}
      */
-    static IID => Guid("{86d979cf-a8a7-4f94-b5fb-14c0aca68fe6}")
+    static IID := Guid("{86d979cf-a8a7-4f94-b5fb-14c0aca68fe6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_WMDRMTuner interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PurchaseEntitlement : IntPtr
+        CancelCaptureToken  : IntPtr
+        SetPidProtection    : IntPtr
+        GetPidProtection    : IntPtr
+        SetSyncValue        : IntPtr
+        GetStartCodeProfile : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PurchaseEntitlement", "CancelCaptureToken", "SetPidProtection", "GetPidProtection", "SetSyncValue", "GetStartCodeProfile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_WMDRMTuner.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -45,7 +58,7 @@ class IBDA_WMDRMTuner extends IUnknown {
         pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : "ptr"
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        result := ComCall(3, this, "uint", ulDialogRequest, BSTR, bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return pulDescrambleStatus
     }
 
@@ -69,7 +82,7 @@ class IBDA_WMDRMTuner extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPidProtection(ulPid, uuidKey) {
-        result := ComCall(5, this, "uint", ulPid, "ptr", uuidKey, "HRESULT")
+        result := ComCall(5, this, "uint", ulPid, Guid.Ptr, uuidKey, "HRESULT")
         return result
     }
 
@@ -80,7 +93,7 @@ class IBDA_WMDRMTuner extends IUnknown {
      */
     GetPidProtection(pulPid) {
         uuidKey := Guid()
-        result := ComCall(6, this, "uint", pulPid, "ptr", uuidKey, "HRESULT")
+        result := ComCall(6, this, "uint", pulPid, Guid.Ptr, uuidKey, "HRESULT")
         return uuidKey
     }
 
@@ -106,5 +119,35 @@ class IBDA_WMDRMTuner extends IUnknown {
 
         result := ComCall(8, this, pulStartCodeProfileLenMarshal, pulStartCodeProfileLen, pbStartCodeProfileMarshal, pbStartCodeProfile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_WMDRMTuner.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PurchaseEntitlement := CallbackCreate(GetMethod(implObj, "PurchaseEntitlement"), flags, 8)
+        this.vtbl.CancelCaptureToken := CallbackCreate(GetMethod(implObj, "CancelCaptureToken"), flags, 3)
+        this.vtbl.SetPidProtection := CallbackCreate(GetMethod(implObj, "SetPidProtection"), flags, 3)
+        this.vtbl.GetPidProtection := CallbackCreate(GetMethod(implObj, "GetPidProtection"), flags, 3)
+        this.vtbl.SetSyncValue := CallbackCreate(GetMethod(implObj, "SetSyncValue"), flags, 2)
+        this.vtbl.GetStartCodeProfile := CallbackCreate(GetMethod(implObj, "GetStartCodeProfile"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PurchaseEntitlement)
+        CallbackFree(this.vtbl.CancelCaptureToken)
+        CallbackFree(this.vtbl.SetPidProtection)
+        CallbackFree(this.vtbl.GetPidProtection)
+        CallbackFree(this.vtbl.SetSyncValue)
+        CallbackFree(this.vtbl.GetStartCodeProfile)
     }
 }

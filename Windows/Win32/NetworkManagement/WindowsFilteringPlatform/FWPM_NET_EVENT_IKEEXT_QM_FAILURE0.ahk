@@ -1,20 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_FAILURE_POINT.ahk
-#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
-#Include .\IKEEXT_QM_SA_STATE.ahk
-#Include .\IKEEXT_SA_ROLE.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
-#Include .\FWP_CONDITION_VALUE0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
-#Include .\FWP_V4_ADDR_AND_MASK.ahk
-#Include .\FWP_V6_ADDR_AND_MASK.ahk
-#Include .\FWP_RANGE0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_RANGE0.ahk" { FWP_RANGE0 }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\IKEEXT_KEY_MODULE_TYPE.ahk" { IKEEXT_KEY_MODULE_TYPE }
+#Import ".\FWP_V4_ADDR_AND_MASK.ahk" { FWP_V4_ADDR_AND_MASK }
+#Import ".\FWP_V6_ADDR_AND_MASK.ahk" { FWP_V6_ADDR_AND_MASK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_CONDITION_VALUE0.ahk" { FWP_CONDITION_VALUE0 }
+#Import ".\IPSEC_FAILURE_POINT.ahk" { IPSEC_FAILURE_POINT }
+#Import ".\IKEEXT_QM_SA_STATE.ahk" { IKEEXT_QM_SA_STATE }
+#Import ".\IKEEXT_SA_ROLE.ahk" { IKEEXT_SA_ROLE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
 
 /**
  * Contains information that describes an IKE/AuthIP Quick Mode (QM) failure.
@@ -23,93 +23,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ikeext_qm_failure0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 {
+    #StructPack 8
 
     /**
      * Windows error code for the failure.
-     * @type {Integer}
      */
-    failureErrorCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    failureErrorCode : UInt32
 
     /**
      * An [IPSEC_FAILURE_POINT](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_failure_point) value that indicates the IPsec state when the failure occurred.
-     * @type {IPSEC_FAILURE_POINT}
      */
-    failurePoint {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    failurePoint : IPSEC_FAILURE_POINT
 
     /**
      * An [IKEEXT_KEY_MODULE_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_key_module_type) value that specifies the type of keying module.
-     * @type {IKEEXT_KEY_MODULE_TYPE}
      */
-    keyingModuleType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    keyingModuleType : IKEEXT_KEY_MODULE_TYPE
 
     /**
      * An [IKEEXT_QM_SA_STATE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_qm_sa_state) value that specifies the QM state when the failure occurred.
-     * @type {IKEEXT_QM_SA_STATE}
      */
-    qmState {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    qmState : IKEEXT_QM_SA_STATE
 
     /**
      * An [IKEEXT_SA_ROLE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_sa_role) value that specifies the SA role when the failure occurred.
-     * @type {IKEEXT_SA_ROLE}
      */
-    saRole {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    saRole : IKEEXT_SA_ROLE
 
     /**
      * An [IPSEC_TRAFFIC_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_traffic_type) value that specifies the type of traffic.
-     * @type {IPSEC_TRAFFIC_TYPE}
      */
-    saTrafficType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    saTrafficType : IPSEC_TRAFFIC_TYPE
 
-    /**
-     * @type {FWP_CONDITION_VALUE0}
-     */
-    localSubNet {
-        get {
-            if(!this.HasProp("__localSubNet"))
-                this.__localSubNet := FWP_CONDITION_VALUE0(24, this)
-            return this.__localSubNet
-        }
-    }
+    localSubNet : FWP_CONDITION_VALUE0
 
-    /**
-     * @type {FWP_CONDITION_VALUE0}
-     */
-    remoteSubNet {
-        get {
-            if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(40, this)
-            return this.__remoteSubNet
-        }
-    }
+    remoteSubNet : FWP_CONDITION_VALUE0
 
     /**
      * Quick Mode filter ID.
-     * @type {Integer}
      */
-    qmFilterId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    qmFilterId : Int64
+
 }

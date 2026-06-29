@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include .\IEventObjectCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
+#Import ".\IMultiInterfacePublisherFilter.ahk" { IMultiInterfacePublisherFilter }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls the behavior of an event object, the object that fires an event to its subscribers. (IMultiInterfaceEventControl)
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-imultiinterfaceeventcontrol
  * @namespace Windows.Win32.System.Com.Events
  */
-class IMultiInterfaceEventControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMultiInterfaceEventControl extends IUnknown {
     /**
      * The interface identifier for IMultiInterfaceEventControl
      * @type {Guid}
      */
-    static IID => Guid("{0343e2f5-86f6-11d1-b760-00c04fb926af}")
+    static IID := Guid("{0343e2f5-86f6-11d1-b760-00c04fb926af}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultiInterfaceEventControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMultiInterfacePublisherFilter : IntPtr
+        GetSubscriptions                 : IntPtr
+        SetDefaultQuery                  : IntPtr
+        get_AllowInprocActivation        : IntPtr
+        put_AllowInprocActivation        : IntPtr
+        get_FireInParallel               : IntPtr
+        put_FireInParallel               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMultiInterfacePublisherFilter", "GetSubscriptions", "SetDefaultQuery", "get_AllowInprocActivation", "put_AllowInprocActivation", "get_FireInParallel", "put_FireInParallel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultiInterfaceEventControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -130,7 +147,7 @@ class IMultiInterfaceEventControl extends IUnknown {
 
         optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, eventIID, BSTR, bstrMethodName, BSTR, optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
         return IEventObjectCollection(ppCollection)
     }
 
@@ -162,7 +179,7 @@ class IMultiInterfaceEventControl extends IUnknown {
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
         bstrCriteria := bstrCriteria is String ? BSTR.Alloc(bstrCriteria).Value : bstrCriteria
 
-        result := ComCall(5, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", bstrCriteria, "int*", &errorIndex := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, eventIID, BSTR, bstrMethodName, BSTR, bstrCriteria, "int*", &errorIndex := 0, "HRESULT")
         return errorIndex
     }
 
@@ -172,7 +189,7 @@ class IMultiInterfaceEventControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-get_allowinprocactivation
      */
     get_AllowInprocActivation() {
-        result := ComCall(6, this, "int*", &pfAllowInprocActivation := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfAllowInprocActivation := 0, "HRESULT")
         return pfAllowInprocActivation
     }
 
@@ -183,7 +200,7 @@ class IMultiInterfaceEventControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-put_allowinprocactivation
      */
     put_AllowInprocActivation(fAllowInprocActivation) {
-        result := ComCall(7, this, "int", fAllowInprocActivation, "HRESULT")
+        result := ComCall(7, this, BOOL, fAllowInprocActivation, "HRESULT")
         return result
     }
 
@@ -193,7 +210,7 @@ class IMultiInterfaceEventControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-get_fireinparallel
      */
     get_FireInParallel() {
-        result := ComCall(8, this, "int*", &pfFireInParallel := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pfFireInParallel := 0, "HRESULT")
         return pfFireInParallel
     }
 
@@ -204,7 +221,39 @@ class IMultiInterfaceEventControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-put_fireinparallel
      */
     put_FireInParallel(fFireInParallel) {
-        result := ComCall(9, this, "int", fFireInParallel, "HRESULT")
+        result := ComCall(9, this, BOOL, fFireInParallel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMultiInterfaceEventControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMultiInterfacePublisherFilter := CallbackCreate(GetMethod(implObj, "SetMultiInterfacePublisherFilter"), flags, 2)
+        this.vtbl.GetSubscriptions := CallbackCreate(GetMethod(implObj, "GetSubscriptions"), flags, 6)
+        this.vtbl.SetDefaultQuery := CallbackCreate(GetMethod(implObj, "SetDefaultQuery"), flags, 5)
+        this.vtbl.get_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "get_AllowInprocActivation"), flags, 2)
+        this.vtbl.put_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "put_AllowInprocActivation"), flags, 2)
+        this.vtbl.get_FireInParallel := CallbackCreate(GetMethod(implObj, "get_FireInParallel"), flags, 2)
+        this.vtbl.put_FireInParallel := CallbackCreate(GetMethod(implObj, "put_FireInParallel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMultiInterfacePublisherFilter)
+        CallbackFree(this.vtbl.GetSubscriptions)
+        CallbackFree(this.vtbl.SetDefaultQuery)
+        CallbackFree(this.vtbl.get_AllowInprocActivation)
+        CallbackFree(this.vtbl.put_AllowInprocActivation)
+        CallbackFree(this.vtbl.get_FireInParallel)
+        CallbackFree(this.vtbl.put_FireInParallel)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the level for a filtering operation on a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) input stream.
@@ -8,28 +8,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_filter_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_FILTER_DATA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DXVAHD_STREAM_STATE_FILTER_DATA {
+    #StructPack 4
 
     /**
      * <b>If TRUE</b>, the filter is enabled. Otherwise, <b>the filter is disabled</b>.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * The level for the filter. The meaning of this value depends on the implementation. To get the range and default value of a particular filter, call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorfilterrange">IDXVAHD_Device::GetVideoProcessorFilterRange</a> method.
      * 
      * If the <b>Enable</b> member is <b>FALSE</b>, the <b>Level</b> member is ignored.
-     * @type {Integer}
      */
-    Level {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Level : Int32
+
 }

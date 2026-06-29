@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about an icon or a cursor.
@@ -13,69 +13,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-iconinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class ICONINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ICONINFO {
+    #StructPack 8
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Specifies whether this structure defines an icon or a cursor. A value of <b>TRUE</b> specifies an icon; <b>FALSE</b> specifies a cursor.
-     * @type {BOOL}
      */
-    fIcon {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fIcon : BOOL
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The x-coordinate of a cursor's hot spot. If this structure defines an icon, the hot spot is always in the center of the icon, and this member is ignored.
-     * @type {Integer}
      */
-    xHotspot {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    xHotspot : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The y-coordinate of the cursor's hot spot. If this structure defines an icon, the hot spot is always in the center of the icon, and this member is ignored.
-     * @type {Integer}
      */
-    yHotspot {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    yHotspot : UInt32
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {HBITMAP}
      */
-    hbmMask {
-        get {
-            if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(16, this)
-            return this.__hbmMask
-        }
-    }
+    hbmMask : HBITMAP
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {HBITMAP}
      */
-    hbmColor {
-        get {
-            if(!this.HasProp("__hbmColor"))
-                this.__hbmColor := HBITMAP(24, this)
-            return this.__hbmColor
-        }
-    }
+    hbmColor : HBITMAP
+
 }

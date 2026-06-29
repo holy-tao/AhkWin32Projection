@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Provides the local and remote names of the file to transfer.
@@ -29,10 +29,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_file_info
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_FILE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct BG_FILE_INFO {
+    #StructPack 8
 
     /**
      * Null-terminated string that contains the name of the file on the server (for example, http://&lt;server&gt;/&lt;path&gt;/file.ext). The format of the name must conform to the transfer protocol you use. You cannot use wildcards in the path or file name. The URL must  contain only legal URL characters; no escape processing is performed. The URL is limited to 2,200 characters, not including the null terminator. 
@@ -41,21 +39,14 @@ class BG_FILE_INFO extends Win32Struct {
      * Each segment of the URL is limited to MAX_PATH characters.
      * 
      * You can use SMB to express the remote name of the file to download or upload; there is no SMB support for  upload-reply jobs. You can specify the remote name as a UNC path, full path with a network drive, or use the "file://" prefix. <b>BITS 1.5 and earlier:  </b>The SMB protocol for <b>RemoteName</b> is not supported.
-     * @type {PWSTR}
      */
-    RemoteName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RemoteName : PWSTR
 
     /**
      * Null-terminated string that contains the name of the file on the client. The file name must include the full path  (for example, d:\myapp\updates\file.ext). You cannot use wildcards in the path or file name, and directories in the path must exist. The path is limited to MAX_PATH, not including the null terminator. 
      * 
      * The user must have permission to write to the local directory for downloads and the reply portion of an upload-reply job. BITS does not support NTFS streams. Instead of using network drives, which are session specific, use UNC paths (for example, \\server\share\path\file). Do not include the \\? prefix in the path.
-     * @type {PWSTR}
      */
-    LocalName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LocalName : PWSTR
+
 }

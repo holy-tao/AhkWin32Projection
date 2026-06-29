@@ -1,33 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DCOMPOSITION_COMPOSITE_MODE.ahk" { DCOMPOSITION_COMPOSITE_MODE }
+#Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
+#Import ".\DCOMPOSITION_BORDER_MODE.ahk" { DCOMPOSITION_BORDER_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\DCOMPOSITION_BITMAP_INTERPOLATION_MODE.ahk" { DCOMPOSITION_BITMAP_INTERPOLATION_MODE }
 
 /**
  * Represents a Microsoft DirectComposition visual.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvisual
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionVisual extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionVisual extends IUnknown {
     /**
      * The interface identifier for IDCompositionVisual
      * @type {Guid}
      */
-    static IID => Guid("{4d93059d-097b-4651-9a60-f0f25116e2f3}")
+    static IID := Guid("{4d93059d-097b-4651-9a60-f0f25116e2f3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionVisual interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetOffsetX                 : IntPtr
+        SetOffsetX1                : IntPtr
+        SetOffsetY                 : IntPtr
+        SetOffsetY1                : IntPtr
+        SetTransform               : IntPtr
+        SetTransform1              : IntPtr
+        SetTransformParent         : IntPtr
+        SetEffect                  : IntPtr
+        SetBitmapInterpolationMode : IntPtr
+        SetBorderMode              : IntPtr
+        SetClip                    : IntPtr
+        SetClip1                   : IntPtr
+        SetContent                 : IntPtr
+        AddVisual                  : IntPtr
+        RemoveVisual               : IntPtr
+        RemoveAllVisuals           : IntPtr
+        SetCompositeMode           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOffsetX", "SetOffsetX1", "SetOffsetY", "SetOffsetY1", "SetTransform", "SetTransform1", "SetTransformParent", "SetEffect", "SetBitmapInterpolationMode", "SetBorderMode", "SetClip", "SetClip1", "SetContent", "AddVisual", "RemoveVisual", "RemoveAllVisuals", "SetCompositeMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionVisual.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Changes the value of the OffsetX property of this visual. (overload 2/2)
@@ -137,7 +171,7 @@ class IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-settransform(constd2d_matrix_3x2_f_)
      */
     SetTransform1(_matrix) {
-        result := ComCall(8, this, "ptr", _matrix, "HRESULT")
+        result := ComCall(8, this, D2D_MATRIX_3X2_F.Ptr, _matrix, "HRESULT")
         return result
     }
 
@@ -216,7 +250,7 @@ class IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setbitmapinterpolationmode
      */
     SetBitmapInterpolationMode(_interpolationMode) {
-        result := ComCall(11, this, "int", _interpolationMode, "HRESULT")
+        result := ComCall(11, this, DCOMPOSITION_BITMAP_INTERPOLATION_MODE, _interpolationMode, "HRESULT")
         return result
     }
 
@@ -241,7 +275,7 @@ class IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setbordermode
      */
     SetBorderMode(borderMode) {
-        result := ComCall(12, this, "int", borderMode, "HRESULT")
+        result := ComCall(12, this, DCOMPOSITION_BORDER_MODE, borderMode, "HRESULT")
         return result
     }
 
@@ -296,7 +330,7 @@ class IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setclip(constd2d_rect_f_)
      */
     SetClip1(_rect) {
-        result := ComCall(14, this, "ptr", _rect, "HRESULT")
+        result := ComCall(14, this, D2D_RECT_F.Ptr, _rect, "HRESULT")
         return result
     }
 
@@ -362,7 +396,7 @@ class IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-addvisual
      */
     AddVisual(visual, insertAbove, referenceVisual) {
-        result := ComCall(16, this, "ptr", visual, "int", insertAbove, "ptr", referenceVisual, "HRESULT")
+        result := ComCall(16, this, "ptr", visual, BOOL, insertAbove, "ptr", referenceVisual, "HRESULT")
         return result
     }
 
@@ -412,7 +446,59 @@ class IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setcompositemode
      */
     SetCompositeMode(compositeMode) {
-        result := ComCall(19, this, "int", compositeMode, "HRESULT")
+        result := ComCall(19, this, DCOMPOSITION_COMPOSITE_MODE, compositeMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionVisual.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOffsetX := CallbackCreate(GetMethod(implObj, "SetOffsetX"), flags, 2)
+        this.vtbl.SetOffsetX1 := CallbackCreate(GetMethod(implObj, "SetOffsetX1"), flags, 2)
+        this.vtbl.SetOffsetY := CallbackCreate(GetMethod(implObj, "SetOffsetY"), flags, 2)
+        this.vtbl.SetOffsetY1 := CallbackCreate(GetMethod(implObj, "SetOffsetY1"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.SetTransform1 := CallbackCreate(GetMethod(implObj, "SetTransform1"), flags, 2)
+        this.vtbl.SetTransformParent := CallbackCreate(GetMethod(implObj, "SetTransformParent"), flags, 2)
+        this.vtbl.SetEffect := CallbackCreate(GetMethod(implObj, "SetEffect"), flags, 2)
+        this.vtbl.SetBitmapInterpolationMode := CallbackCreate(GetMethod(implObj, "SetBitmapInterpolationMode"), flags, 2)
+        this.vtbl.SetBorderMode := CallbackCreate(GetMethod(implObj, "SetBorderMode"), flags, 2)
+        this.vtbl.SetClip := CallbackCreate(GetMethod(implObj, "SetClip"), flags, 2)
+        this.vtbl.SetClip1 := CallbackCreate(GetMethod(implObj, "SetClip1"), flags, 2)
+        this.vtbl.SetContent := CallbackCreate(GetMethod(implObj, "SetContent"), flags, 2)
+        this.vtbl.AddVisual := CallbackCreate(GetMethod(implObj, "AddVisual"), flags, 4)
+        this.vtbl.RemoveVisual := CallbackCreate(GetMethod(implObj, "RemoveVisual"), flags, 2)
+        this.vtbl.RemoveAllVisuals := CallbackCreate(GetMethod(implObj, "RemoveAllVisuals"), flags, 1)
+        this.vtbl.SetCompositeMode := CallbackCreate(GetMethod(implObj, "SetCompositeMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOffsetX)
+        CallbackFree(this.vtbl.SetOffsetX1)
+        CallbackFree(this.vtbl.SetOffsetY)
+        CallbackFree(this.vtbl.SetOffsetY1)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.SetTransform1)
+        CallbackFree(this.vtbl.SetTransformParent)
+        CallbackFree(this.vtbl.SetEffect)
+        CallbackFree(this.vtbl.SetBitmapInterpolationMode)
+        CallbackFree(this.vtbl.SetBorderMode)
+        CallbackFree(this.vtbl.SetClip)
+        CallbackFree(this.vtbl.SetClip1)
+        CallbackFree(this.vtbl.SetContent)
+        CallbackFree(this.vtbl.AddVisual)
+        CallbackFree(this.vtbl.RemoveVisual)
+        CallbackFree(this.vtbl.RemoveAllVisuals)
+        CallbackFree(this.vtbl.SetCompositeMode)
     }
 }

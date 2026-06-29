@@ -1,82 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFEARRAYUNION.ahk
-#Include .\SAFEARR_BSTR.ahk
-#Include ..\Com\FLAGGED_WORD_BLOB.ahk
-#Include .\SAFEARR_UNKNOWN.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\SAFEARR_DISPATCH.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\SAFEARR_VARIANT.ahk
-#Include .\_wireVARIANT.ahk
-#Include .\SAFEARR_BRECORD.ahk
-#Include .\_wireBRECORD.ahk
-#Include .\SAFEARR_HAVEIID.ahk
-#Include ..\Com\BYTE_SIZEDARR.ahk
-#Include ..\Com\WORD_SIZEDARR.ahk
-#Include ..\Com\DWORD_SIZEDARR.ahk
-#Include ..\Com\HYPER_SIZEDARR.ahk
-#Include ..\Com\SAFEARRAYBOUND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SAFEARR_HAVEIID.ahk" { SAFEARR_HAVEIID }
+#Import "..\Com\WORD_SIZEDARR.ahk" { WORD_SIZEDARR }
+#Import ".\SAFEARR_BSTR.ahk" { SAFEARR_BSTR }
+#Import "..\Com\FLAGGED_WORD_BLOB.ahk" { FLAGGED_WORD_BLOB }
+#Import ".\_wireBRECORD.ahk" { _wireBRECORD }
+#Import "..\Com\BYTE_SIZEDARR.ahk" { BYTE_SIZEDARR }
+#Import ".\SAFEARR_UNKNOWN.ahk" { SAFEARR_UNKNOWN }
+#Import "..\Com\DWORD_SIZEDARR.ahk" { DWORD_SIZEDARR }
+#Import ".\_wireVARIANT.ahk" { _wireVARIANT }
+#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import ".\SAFEARR_DISPATCH.ahk" { SAFEARR_DISPATCH }
+#Import ".\SAFEARR_BRECORD.ahk" { SAFEARR_BRECORD }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\HYPER_SIZEDARR.ahk" { HYPER_SIZEDARR }
+#Import ".\SAFEARR_VARIANT.ahk" { SAFEARR_VARIANT }
+#Import ".\SAFEARRAYUNION.ahk" { SAFEARRAYUNION }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class _wireSAFEARRAY extends Win32Struct {
-    static sizeof => 200
+export default struct _wireSAFEARRAY {
+    #StructPack 8
 
-    static packingSize => 8
+    cDims : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cDims {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    fFeatures : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    fFeatures {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    cbElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbElements {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cLocks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cLocks {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uArrayStructs : SAFEARRAYUNION
 
-    /**
-     * @type {SAFEARRAYUNION}
-     */
-    uArrayStructs {
-        get {
-            if(!this.HasProp("__uArrayStructs"))
-                this.__uArrayStructs := SAFEARRAYUNION(16, this)
-            return this.__uArrayStructs
-        }
-    }
+    rgsabound : SAFEARRAYBOUND[1]
 
-    /**
-     * @type {SAFEARRAYBOUND}
-     */
-    rgsabound {
-        get {
-            if(!this.HasProp("__rgsaboundProxyArray"))
-                this.__rgsaboundProxyArray := Win32FixedArray(this.ptr + 192, 1, SAFEARRAYBOUND, "")
-            return this.__rgsaboundProxyArray
-        }
-    }
 }

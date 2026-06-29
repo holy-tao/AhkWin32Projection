@@ -1,53 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDVIDEOPORT_LCL.ahk
-#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDVIDEOPORT_INT extends Win32Struct {
-    static sizeof => 32
+export default struct DDRAWI_DDVIDEOPORT_INT {
+    #StructPack 8
 
-    static packingSize => 8
+    lpVtbl : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpVtbl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DDVIDEOPORT_LCL>}
-     */
+    __lpLcl_ptr : IntPtr
     lpLcl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpLcl_ptr) ? DDRAWI_DDVIDEOPORT_LCL.At(addr) : unset
+        set => this.__lpLcl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDVIDEOPORT_INT>}
-     */
-    lpLink {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpLink : DDRAWI_DDVIDEOPORT_INT.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    dwIntRefCnt {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwIntRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwFlags : UInt32
+
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Geometry.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
 
 /**
  * Describes a rounded rectangle.
@@ -15,26 +16,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1roundedrectanglegeometry
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1RoundedRectangleGeometry extends ID2D1Geometry {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1RoundedRectangleGeometry extends ID2D1Geometry {
     /**
      * The interface identifier for ID2D1RoundedRectangleGeometry
      * @type {Guid}
      */
-    static IID => Guid("{2cd906a3-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906a3-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1RoundedRectangleGeometry interfaces
+    */
+    struct Vtbl extends ID2D1Geometry.Vtbl {
+        GetRoundedRect : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRoundedRect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1RoundedRectangleGeometry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a rounded rectangle that describes this rounded rectangle geometry.
@@ -45,6 +53,26 @@ class ID2D1RoundedRectangleGeometry extends ID2D1Geometry {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1roundedrectanglegeometry-getroundedrect
      */
     GetRoundedRect(roundedRect) {
-        ComCall(17, this, "ptr", roundedRect)
+        ComCall(17, this, D2D1_ROUNDED_RECT.Ptr, roundedRect)
+    }
+
+    Query(iid) {
+        if (ID2D1RoundedRectangleGeometry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRoundedRect := CallbackCreate(GetMethod(implObj, "GetRoundedRect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRoundedRect)
     }
 }

@@ -1,79 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KEY_EVENT_RECORD.ahk
-#Include .\MOUSE_EVENT_RECORD.ahk
-#Include .\COORD.ahk
-#Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
-#Include .\MENU_EVENT_RECORD.ahk
-#Include .\FOCUS_EVENT_RECORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FOCUS_EVENT_RECORD.ahk" { FOCUS_EVENT_RECORD }
+#Import ".\WINDOW_BUFFER_SIZE_RECORD.ahk" { WINDOW_BUFFER_SIZE_RECORD }
+#Import ".\KEY_EVENT_RECORD.ahk" { KEY_EVENT_RECORD }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\COORD.ahk" { COORD }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MENU_EVENT_RECORD.ahk" { MENU_EVENT_RECORD }
+#Import ".\MOUSE_EVENT_RECORD.ahk" { MOUSE_EVENT_RECORD }
 
 /**
  * See reference information about the INPUT_RECORD structure, which describes an input event in the console input buffer.
  * @see https://learn.microsoft.com/windows/console/input-record-str
  * @namespace Windows.Win32.System.Console
  */
-class INPUT_RECORD extends Win32Struct {
-    static sizeof => 20
+export default struct INPUT_RECORD {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Event_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _Event {
+        KeyEvent : KEY_EVENT_RECORD
 
-        /**
-         * @type {KEY_EVENT_RECORD}
-         */
-        KeyEvent {
-            get {
-                if(!this.HasProp("__KeyEvent"))
-                    this.__KeyEvent := KEY_EVENT_RECORD(0, this)
-                return this.__KeyEvent
-            }
-        }
-
-        /**
-         * @type {MOUSE_EVENT_RECORD}
-         */
-        MouseEvent {
-            get {
-                if(!this.HasProp("__MouseEvent"))
-                    this.__MouseEvent := MOUSE_EVENT_RECORD(0, this)
-                return this.__MouseEvent
-            }
-        }
-
-        /**
-         * @type {WINDOW_BUFFER_SIZE_RECORD}
-         */
-        WindowBufferSizeEvent {
-            get {
-                if(!this.HasProp("__WindowBufferSizeEvent"))
-                    this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(0, this)
-                return this.__WindowBufferSizeEvent
-            }
-        }
-
-        /**
-         * @type {MENU_EVENT_RECORD}
-         */
-        MenuEvent {
-            get {
-                if(!this.HasProp("__MenuEvent"))
-                    this.__MenuEvent := MENU_EVENT_RECORD(0, this)
-                return this.__MenuEvent
-            }
-        }
-
-        /**
-         * @type {FOCUS_EVENT_RECORD}
-         */
-        FocusEvent {
-            get {
-                if(!this.HasProp("__FocusEvent"))
-                    this.__FocusEvent := FOCUS_EVENT_RECORD(0, this)
-                return this.__FocusEvent
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'MouseEvent', { type: MOUSE_EVENT_RECORD, offset: 0 })
+            DefineProp(this.Prototype, 'WindowBufferSizeEvent', { type: WINDOW_BUFFER_SIZE_RECORD, offset: 0 })
+            DefineProp(this.Prototype, 'MenuEvent', { type: MENU_EVENT_RECORD, offset: 0 })
+            DefineProp(this.Prototype, 'FocusEvent', { type: FOCUS_EVENT_RECORD, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -89,22 +41,12 @@ class INPUT_RECORD extends Win32Struct {
      * | **MENU_EVENT** 0x0008 | The **Event** member contains a **[MENU_EVENT_RECORD](menu-event-record-str.md)** structure. These events are used internally and should be ignored. |
      * | **MOUSE_EVENT** 0x0002 | The **Event** member contains a **[MOUSE_EVENT_RECORD](mouse-event-record-str.md)** structure with information about a mouse movement or button press event. |
      * | **WINDOW_BUFFER_SIZE_EVENT** 0x0004 | The **Event** member contains a **[WINDOW_BUFFER_SIZE_RECORD](window-buffer-size-record-str.md)** structure with information about the new size of the console screen buffer. |
-     * @type {Integer}
      */
-    EventType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    EventType : UInt16
 
     /**
      * The event information. The format of this member depends on the event type specified by the **EventType** member.
-     * @type {_Event_e__Union}
      */
-    Event {
-        get {
-            if(!this.HasProp("__Event"))
-                this.__Event := INPUT_RECORD._Event_e__Union(4, this)
-            return this.__Event
-        }
-    }
+    Event : INPUT_RECORD._Event
+
 }

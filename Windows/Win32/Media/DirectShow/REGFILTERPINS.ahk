@@ -1,6 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REGPINTYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\REGPINTYPES.ahk" { REGPINTYPES }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The REGFILTERPINS structure contains pin information for registering a filter.
@@ -15,89 +17,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilterpins
  * @namespace Windows.Win32.Media.DirectShow
  */
-class REGFILTERPINS extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct REGFILTERPINS {
+    #StructPack 8
 
     /**
      * Name of the pin. (Obsolete.)
-     * @type {PWSTR}
      */
-    strName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    strName : PWSTR
 
     /**
      * If <b>TRUE</b>, the filter renders the input from this pin. (Applies only to input pins. For output pins, the value is always <b>FALSE</b>.)
-     * @type {BOOL}
      */
-    bRendered {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    bRendered : BOOL
 
     /**
      * If <b>TRUE</b>, this pin is an output pin. Otherwise, the pin is an input pin.
-     * @type {BOOL}
      */
-    bOutput {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bOutput : BOOL
 
     /**
      * If <b>TRUE</b>, the filter can have zero instances of this pin.
-     * @type {BOOL}
      */
-    bZero {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bZero : BOOL
 
     /**
      * If <b>TRUE</b>, the filter can create more than one instance of this type of pin.
-     * @type {BOOL}
      */
-    bMany {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    bMany : BOOL
 
     /**
      * Class identifier (CLSID) of the filter to which this pin connects. (Obsolete.)
-     * @type {Pointer<Guid>}
      */
-    clsConnectsToFilter {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    clsConnectsToFilter : Guid.Ptr
 
     /**
      * Name of the pin to which this pin connects. (Obsolete.)
-     * @type {PWSTR}
      */
-    strConnectsToPin {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    strConnectsToPin : PWSTR
 
     /**
      * Number of media types supported by this pin.
-     * @type {Integer}
      */
-    nMediaTypes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    nMediaTypes : UInt32
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regpintypes">REGPINTYPES</a> structures, of size <b>nMediaTypes</b>.
-     * @type {Pointer<REGPINTYPES>}
      */
-    lpMediaType {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpMediaType : REGPINTYPES.Ptr
+
 }

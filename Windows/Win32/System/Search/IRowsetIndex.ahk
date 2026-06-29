@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DBINDEXCOLUMNDESC.ahk" { DBINDEXCOLUMNDESC }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IRowsetIndex extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRowsetIndex extends IUnknown {
     /**
      * The interface identifier for IRowsetIndex
      * @type {Guid}
      */
-    static IID => Guid("{0c733a82-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a82-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowsetIndex interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIndexInfo : IntPtr
+        Seek         : IntPtr
+        SetRange     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIndexInfo", "Seek", "SetRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowsetIndex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -46,26 +59,17 @@ class IRowsetIndex extends IUnknown {
     }
 
     /**
-     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
-     * @remarks
-     * This is a coded attribute.
      * 
-     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
-     * 
-     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cKeyValues 
      * @param {Pointer<Void>} pData 
      * @param {Integer} dwSeekOptions 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(_hAccessor, cKeyValues, pData, dwSeekOptions) {
-        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
-
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", _hAccessor, "ptr", cKeyValues, pDataMarshal, pData, "uint", dwSeekOptions, "HRESULT")
+        result := ComCall(4, this, HACCESSOR, _hAccessor, "ptr", cKeyValues, pDataMarshal, pData, "uint", dwSeekOptions, "HRESULT")
         return result
     }
 
@@ -80,12 +84,34 @@ class IRowsetIndex extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRange(_hAccessor, cStartKeyColumns, pStartData, cEndKeyColumns, pEndData, dwRangeOptions) {
-        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
-
         pStartDataMarshal := pStartData is VarRef ? "ptr" : "ptr"
         pEndDataMarshal := pEndData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", _hAccessor, "ptr", cStartKeyColumns, pStartDataMarshal, pStartData, "ptr", cEndKeyColumns, pEndDataMarshal, pEndData, "uint", dwRangeOptions, "HRESULT")
+        result := ComCall(5, this, HACCESSOR, _hAccessor, "ptr", cStartKeyColumns, pStartDataMarshal, pStartData, "ptr", cEndKeyColumns, pEndDataMarshal, pEndData, "uint", dwRangeOptions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowsetIndex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIndexInfo := CallbackCreate(GetMethod(implObj, "GetIndexInfo"), flags, 5)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 5)
+        this.vtbl.SetRange := CallbackCreate(GetMethod(implObj, "SetRange"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIndexInfo)
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.SetRange)
     }
 }

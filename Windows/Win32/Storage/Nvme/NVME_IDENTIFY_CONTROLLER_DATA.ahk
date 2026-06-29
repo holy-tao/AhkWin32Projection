@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_POWER_STATE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_POWER_STATE_DESC.ahk" { NVME_POWER_STATE_DESC }
 
 /**
  * Contains values that indicate controller capabilities, features, command set attributes, and power state descriptors.
@@ -9,15 +8,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_controller_data
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
-    static sizeof => 4096
+export default struct NVME_IDENTIFY_CONTROLLER_DATA {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _CMIC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _CMIC {
         /**
          * This bitfield backs the following members:
          * - MultiPorts
@@ -25,12 +20,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - SRIOV
          * - ANAR
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -65,10 +57,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _OAES extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _OAES {
         /**
          * This bitfield backs the following members:
          * - Reserved0
@@ -84,12 +73,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - ZoneInformation
          * - Reserved3
          * - DiscoveryLogChanged
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -196,10 +182,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _CTRATT extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _CTRATT {
         /**
          * This bitfield backs the following members:
          * - HostIdentifier128Bit
@@ -219,12 +202,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - DeleteNVMSet
          * - ELBAS
          * - Reserved0
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -363,10 +343,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _RRLS extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _RRLS {
         /**
          * This bitfield backs the following members:
          * - ReadRecoveryLevel0
@@ -385,12 +362,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - ReadRecoveryLevel13
          * - ReadRecoveryLevel14
          * - ReadRecoveryLevel15
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -521,10 +495,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _OACS extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _OACS {
         /**
          * This bitfield backs the following members:
          * - SecurityCommands
@@ -539,12 +510,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - GetLBAStatus
          * - CommandFeatureLockdown
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -635,22 +603,16 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _FRMW extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _FRMW {
         /**
          * This bitfield backs the following members:
          * - Slot1ReadOnly
          * - SlotCount
          * - ActivationWithoutReset
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -677,10 +639,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _LPA extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _LPA {
         /**
          * This bitfield backs the following members:
          * - SmartPagePerNamespace
@@ -691,12 +650,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - SupportedLogPages
          * - TelemetryDataArea4
          * - Reserved1
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -763,20 +719,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _AVSCC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _AVSCC {
         /**
          * This bitfield backs the following members:
          * - CommandFormatInSpec
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -787,20 +737,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _APSTA extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _APSTA {
         /**
          * This bitfield backs the following members:
          * - Supported
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -811,10 +755,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _RPMBS extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _RPMBS {
         /**
          * This bitfield backs the following members:
          * - RPMBUnitCount
@@ -822,12 +763,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - Reserved0
          * - TotalSize
          * - AccessSize
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -870,20 +808,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _HCTMA extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _HCTMA {
         /**
          * This bitfield backs the following members:
          * - Supported
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -894,10 +826,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _SANICAP extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _SANICAP {
         /**
          * This bitfield backs the following members:
          * - CryptoErase
@@ -906,12 +835,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - Reserved
          * - NDI
          * - NODMMAS
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -954,10 +880,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _ANACAP extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _ANACAP {
         /**
          * This bitfield backs the following members:
          * - OptimizedState
@@ -968,12 +891,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - Reserved
          * - StaticANAGRPID
          * - SupportNonZeroANAGRPID
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1032,20 +952,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _SQES extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _SQES {
         /**
          * This bitfield backs the following members:
          * - RequiredEntrySize
          * - MaxEntrySize
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1064,20 +978,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _CQES extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _CQES {
         /**
          * This bitfield backs the following members:
          * - RequiredEntrySize
          * - MaxEntrySize
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1096,10 +1004,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _ONCS extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _ONCS {
         /**
          * This bitfield backs the following members:
          * - Compare
@@ -1111,12 +1016,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - Timestamp
          * - Verify
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -1183,20 +1085,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _FUSES extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _FUSES {
         /**
          * This bitfield backs the following members:
          * - CompareAndWrite
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -1207,10 +1103,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _FNA extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _FNA {
         /**
          * This bitfield backs the following members:
          * - FormatApplyToAll
@@ -1218,12 +1111,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - CryptographicEraseSupported
          * - FormatSupportNSIDAllF
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1258,21 +1148,15 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _VWC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _VWC {
         /**
          * This bitfield backs the following members:
          * - Present
          * - FlushBehavior
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1291,20 +1175,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _NVSCC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _NVSCC {
         /**
          * This bitfield backs the following members:
          * - CommandFormatInSpec
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1315,22 +1193,16 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _NWPC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _NWPC {
         /**
          * This bitfield backs the following members:
          * - WriteProtect
          * - UntilPowerCycle
          * - Permanent
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1357,10 +1229,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _SGLS extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _SGLS {
         /**
          * This bitfield backs the following members:
          * - SGLSupported
@@ -1373,12 +1242,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
          * - AddressFieldSGLDataBlock
          * - TransportSGLData
          * - Reserved1
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -1461,20 +1327,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _FCATT extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _FCATT {
         /**
          * This bitfield backs the following members:
          * - StaticControllerModel
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -1485,20 +1345,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
         }
     }
 
-    class _OFCS extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _OFCS {
         /**
          * This bitfield backs the following members:
          * - IOQueueDeletion
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -1511,94 +1365,47 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
 
     /**
      * Contains the company vendor identifier that is assigned by the [Peripheral Component Interconnect - Special Interest Group (PCI-SIG)](https://pcisig.com/).
-     * @type {Integer}
      */
-    VID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    VID : UInt16
 
     /**
      * Contains the company vendor identifier that is assigned by the PCI-SIG for the subsystem.
-     * @type {Integer}
      */
-    SSVID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    SSVID : UInt16
 
     /**
      * Contains the serial number for the NVM subsystem that is assigned by the vendor as an ASCII string.
-     * @type {Array<Integer>}
      */
-    SN {
-        get {
-            if(!this.HasProp("__SNProxyArray"))
-                this.__SNProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
-            return this.__SNProxyArray
-        }
-    }
+    SN : Int8[20]
 
     /**
      * Contains the model number for the NVM subsystem that is assigned by the vendor as an ASCII string.
-     * @type {Array<Integer>}
      */
-    MN {
-        get {
-            if(!this.HasProp("__MNProxyArray"))
-                this.__MNProxyArray := Win32FixedArray(this.ptr + 24, 40, Primitive, "char")
-            return this.__MNProxyArray
-        }
-    }
+    MN : Int8[40]
 
     /**
      * Contains the currently active firmware revision for the NVM subsystem.
      * 
      * This is the same firmware revision information in the [NVME_FIRMWARE_SLOT_INFO_LOG](ns-nvme-nvme_firmware_slot_info_log.md) that can be retrieved with the Get Log Page command.
-     * @type {Array<Integer>}
      */
-    FR {
-        get {
-            if(!this.HasProp("__FRProxyArray"))
-                this.__FRProxyArray := Win32FixedArray(this.ptr + 64, 8, Primitive, "char")
-            return this.__FRProxyArray
-        }
-    }
+    FR : Int8[8]
 
     /**
      * Contains the recommended Arbitration Burst size.
-     * @type {Integer}
      */
-    RAB {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    RAB : Int8
 
     /**
      * Contains the Organization Unique Identifier (OUI) for the controller vendor.
      * 
      * The OUI is a valid IEEE/RAC assigned identifier that can be registered at http://standards.ieee.org/develop/regauth/oui/public.html.
-     * @type {Array<Integer>}
      */
-    IEEE {
-        get {
-            if(!this.HasProp("__IEEEProxyArray"))
-                this.__IEEEProxyArray := Win32FixedArray(this.ptr + 73, 3, Primitive, "char")
-            return this.__IEEEProxyArray
-        }
-    }
+    IEEE : Int8[3]
 
     /**
      * A Controller Multi-Path I/O and Namespace Sharing Capabilities (CMIC) structure that specifies the multi-path I/O and namespace sharing capabilities of the controller and NVM subsystem.
-     * @type {_CMIC}
      */
-    CMIC {
-        get {
-            if(!this.HasProp("__CMIC"))
-                this.__CMIC := NVME_IDENTIFY_CONTROLLER_DATA._CMIC(76, this)
-            return this.__CMIC
-        }
-    }
+    CMIC : NVME_IDENTIFY_CONTROLLER_DATA._CMIC
 
     /**
      * Indicates the maximum data transfer size between the host and the controller.
@@ -1608,296 +1415,130 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
      * The value of this field is in units of the minimum memory page size specified in the **MPSMIN** field of the [Controller Capabilities](ns-nvme-nvme_controller_capabilities.md) structure, and is reported as a power of two (2^n). A value of `0h` indicates no restrictions on transfer size. The restriction includes metadata if it is interleaved with the logical block data.
      * 
      * If SGL Bit Bucket descriptors are supported, their lengths are included in determining if a command exceeds the Maximum Data Transfer Size for destination data buffers. Their length in a source data buffer is not included for a Maximum Data Transfer Size calculation.
-     * @type {Integer}
      */
-    MDTS {
-        get => NumGet(this, 77, "char")
-        set => NumPut("char", value, this, 77)
-    }
+    MDTS : Int8
 
     /**
      * Contains the NVM subsystem unique controller identifier associated with the controller.
-     * @type {Integer}
      */
-    CNTLID {
-        get => NumGet(this, 78, "ushort")
-        set => NumPut("ushort", value, this, 78)
-    }
+    CNTLID : UInt16
 
     /**
      * Contains the value reported in the Version register, defined in the **VS** field of the [NVME_CONTROLLER_REGISTERS](../nvme/ns-nvme-nvme_controller_registers.md) structure.
      * 
      * Implementations that are compliant with NVMe specification version 1.2 or later, will report a non-zero value in this field.
-     * @type {Integer}
      */
-    VER {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    VER : UInt32
 
     /**
      * Indicates the typical latency in microseconds when resuming from Runtime D3 (RTD3).
      * 
      * Implementations that are compliant with NVMe specification version 1.2 or later, will report a non-zero value in this field.
-     * @type {Integer}
      */
-    RTD3R {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    RTD3R : UInt32
 
     /**
      * Indicates the typical latency in microseconds to enter Runtime D3 (RTD3).
      * 
      * Implementations that are compliant with NVMe specification version 1.2 or later, will report a non-zero value in this field.
-     * @type {Integer}
      */
-    RTD3E {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    RTD3E : UInt32
 
     /**
      * An Optional Asynchronous Events Supported (OAES) structure containing fields that indicate whether optional asynchronous events are supported by the controller.
      * 
      * A controller should not send optional asynchronous events before they are enabled by host software.
-     * @type {_OAES}
      */
-    OAES {
-        get {
-            if(!this.HasProp("__OAES"))
-                this.__OAES := NVME_IDENTIFY_CONTROLLER_DATA._OAES(92, this)
-            return this.__OAES
-        }
-    }
+    OAES : NVME_IDENTIFY_CONTROLLER_DATA._OAES
 
     /**
      * A Controller Attributes (CTRATT) structure containing controller attribute information.
-     * @type {_CTRATT}
      */
-    CTRATT {
-        get {
-            if(!this.HasProp("__CTRATT"))
-                this.__CTRATT := NVME_IDENTIFY_CONTROLLER_DATA._CTRATT(96, this)
-            return this.__CTRATT
-        }
-    }
+    CTRATT : NVME_IDENTIFY_CONTROLLER_DATA._CTRATT
 
-    /**
-     * @type {_RRLS}
-     */
-    RRLS {
-        get {
-            if(!this.HasProp("__RRLS"))
-                this.__RRLS := NVME_IDENTIFY_CONTROLLER_DATA._RRLS(100, this)
-            return this.__RRLS
-        }
-    }
+    RRLS : NVME_IDENTIFY_CONTROLLER_DATA._RRLS
 
     /**
      * Bits 10:31 of the **OAES** structure are reserved.
-     * @type {Array<Integer>}
      */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 102, 9, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[9]
 
-    /**
-     * @type {Integer}
-     */
-    CNTRLTYPE {
-        get => NumGet(this, 111, "char")
-        set => NumPut("char", value, this, 111)
-    }
+    CNTRLTYPE : Int8
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FGUID {
-        get {
-            if(!this.HasProp("__FGUIDProxyArray"))
-                this.__FGUIDProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")
-            return this.__FGUIDProxyArray
-        }
-    }
+    FGUID : Int8[16]
 
-    /**
-     * @type {Integer}
-     */
-    CRDT1 {
-        get => NumGet(this, 128, "ushort")
-        set => NumPut("ushort", value, this, 128)
-    }
+    CRDT1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CRDT2 {
-        get => NumGet(this, 130, "ushort")
-        set => NumPut("ushort", value, this, 130)
-    }
+    CRDT2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CRDT3 {
-        get => NumGet(this, 132, "ushort")
-        set => NumPut("ushort", value, this, 132)
-    }
+    CRDT3 : UInt16
 
     /**
      * Bits 0:7 of the **OAES** structure are reserved.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 134, 106, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[106]
 
     /**
      * Reserved for NVMe Management.
-     * @type {Array<Integer>}
      */
-    ReservedForManagement {
-        get {
-            if(!this.HasProp("__ReservedForManagementProxyArray"))
-                this.__ReservedForManagementProxyArray := Win32FixedArray(this.ptr + 240, 13, Primitive, "char")
-            return this.__ReservedForManagementProxyArray
-        }
-    }
+    ReservedForManagement : Int8[13]
 
-    /**
-     * @type {Integer}
-     */
-    NVMSR {
-        get => NumGet(this, 253, "char")
-        set => NumPut("char", value, this, 253)
-    }
+    NVMSR : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VWCI {
-        get => NumGet(this, 254, "char")
-        set => NumPut("char", value, this, 254)
-    }
+    VWCI : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MEC {
-        get => NumGet(this, 255, "char")
-        set => NumPut("char", value, this, 255)
-    }
+    MEC : Int8
 
     /**
      * An Optional Admin Command Support (OACS) structure containing fields that indicate the optional [Admin Commands](ne-nvme-nvme_admin_commands.md) supported by the controller.
-     * @type {_OACS}
      */
-    OACS {
-        get {
-            if(!this.HasProp("__OACS"))
-                this.__OACS := NVME_IDENTIFY_CONTROLLER_DATA._OACS(256, this)
-            return this.__OACS
-        }
-    }
+    OACS : NVME_IDENTIFY_CONTROLLER_DATA._OACS
 
     /**
      * Indicates the maximum number of concurrently outstanding [Abort](ns-nvme-nvme_cdw10_abort.md) commands supported by the controller.
      * 
      * This is a 0’s based value. Implementations should support a minimum of four outstanding Abort commands simultaneously.
-     * @type {Integer}
      */
-    ACL {
-        get => NumGet(this, 258, "char")
-        set => NumPut("char", value, this, 258)
-    }
+    ACL : Int8
 
     /**
      * Indicates the maximum number of concurrently outstanding [Asynchronous Event Request](ne-nvme-nvme_async_event_types.md) commands supported by the controller.
      * 
      * This is a 0’s based value. Implementations should support a minimum of four outstanding Asynchronous Event Request commands simultaneously.
-     * @type {Integer}
      */
-    AERL {
-        get => NumGet(this, 259, "char")
-        set => NumPut("char", value, this, 259)
-    }
+    AERL : Int8
 
     /**
      * A Firmware Updates (FRMW) structure containing fields that indicate capabilities regarding firmware updates.
-     * @type {_FRMW}
      */
-    FRMW {
-        get {
-            if(!this.HasProp("__FRMW"))
-                this.__FRMW := NVME_IDENTIFY_CONTROLLER_DATA._FRMW(260, this)
-            return this.__FRMW
-        }
-    }
+    FRMW : NVME_IDENTIFY_CONTROLLER_DATA._FRMW
 
     /**
      * A Log Page Attributes (LPA) structure containing fields that indicate optional attributes for log pages that are accessed by using the [Get Log Page](ns-nvme-nvme_cdw10_get_log_page.md) command.
-     * @type {_LPA}
      */
-    LPA {
-        get {
-            if(!this.HasProp("__LPA"))
-                this.__LPA := NVME_IDENTIFY_CONTROLLER_DATA._LPA(261, this)
-            return this.__LPA
-        }
-    }
+    LPA : NVME_IDENTIFY_CONTROLLER_DATA._LPA
 
     /**
      * Indicates the number of Error Information log entries that are stored by the controller. This field is a 0’s based value.
-     * @type {Integer}
      */
-    ELPE {
-        get => NumGet(this, 262, "char")
-        set => NumPut("char", value, this, 262)
-    }
+    ELPE : Int8
 
     /**
      * Indicates the number of NVM Express power states supported by the controller. This is a 0’s based value.
      * 
      * Power states are numbered sequentially starting at power state 0. A controller must support at least one power state (for example, power state 0), and may support up to 31 additional power states, for a total of 32.
-     * @type {Integer}
      */
-    NPSS {
-        get => NumGet(this, 263, "char")
-        set => NumPut("char", value, this, 263)
-    }
+    NPSS : Int8
 
     /**
      * An Admin Vendor Specific Command Configuration (AVSCC) structure containing fields that indicate the configuration settings for Admin Vendor Specific command handling.
-     * @type {_AVSCC}
      */
-    AVSCC {
-        get {
-            if(!this.HasProp("__AVSCC"))
-                this.__AVSCC := NVME_IDENTIFY_CONTROLLER_DATA._AVSCC(264, this)
-            return this.__AVSCC
-        }
-    }
+    AVSCC : NVME_IDENTIFY_CONTROLLER_DATA._AVSCC
 
     /**
      * An Autonomous Power State Transition Attributes (APSTA) structure containing fields that indicate the attributes of the [autonomous power state transition feature](ns-nvme-nvme_cdw11_feature_auto_power_state_transition.md).
-     * @type {_APSTA}
      */
-    APSTA {
-        get {
-            if(!this.HasProp("__APSTA"))
-                this.__APSTA := NVME_IDENTIFY_CONTROLLER_DATA._APSTA(265, this)
-            return this.__APSTA
-        }
-    }
+    APSTA : NVME_IDENTIFY_CONTROLLER_DATA._APSTA
 
     /**
      * Indicates the minimum Composite Temperature field value (reported in the [SMART / Health Information](ns-nvme-nvme_health_info_log.md) log that indicates an overheating condition during which controller operation continues.
@@ -1905,34 +1546,22 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
      * Immediate remediation is recommended (for example, additional cooling or workload reduction). The platform should strive to maintain a composite temperature below this value.
      * 
      * A value of `0h` in this field indicates that no warning temperature threshold value is reported by the controller. Implementations compliant to NVMe Spec version 1.2 or later should report a non-zero value in this field. It is recommended that implementations report a value of `0157h` in this field.
-     * @type {Integer}
      */
-    WCTEMP {
-        get => NumGet(this, 266, "ushort")
-        set => NumPut("ushort", value, this, 266)
-    }
+    WCTEMP : UInt16
 
     /**
      * Indicates the minimum Composite Temperature field value (reported in the [SMART / Health Information](ns-nvme-nvme_health_info_log.md log) that indicates a critical overheating condition. For example, a condition that may prevent continued normal operation, possibility of data loss, automatic device shutdown, extreme performance throttling, or permanent damage.
      * 
      * A value of `0h` in this field indicates that no critical temperature threshold value is reported by the controller. Implementations compliant to NVMe Spec version 1.2 or later should report a non-zero value in this field.
-     * @type {Integer}
      */
-    CCTEMP {
-        get => NumGet(this, 268, "ushort")
-        set => NumPut("ushort", value, this, 268)
-    }
+    CCTEMP : UInt16
 
     /**
      * Indicates the maximum time the controller temporarily stops processing commands to activate the firmware image.
      * 
      * This field is valid if the controller supports firmware activation without a reset. The **MFTA** value is specified in 100 millisecond units. A value of `0h` indicates that the maximum time is undefined.
-     * @type {Integer}
      */
-    MTFA {
-        get => NumGet(this, 270, "ushort")
-        set => NumPut("ushort", value, this, 270)
-    }
+    MTFA : UInt16
 
     /**
      * Indicates the preferred size that the host should allocate for the [Host Memory Buffer](ns-nvme-nvme_cdw11_feature_host_memory_buffer.md) feature in 4KB units.
@@ -1940,373 +1569,152 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
      * This value must be larger than or equal to the Host Memory Buffer Minimum Size (**HMMIN**).
      * 
      * If this field is non-zero, then the Host Memory Buffer feature is supported. When this value is cleared to `0h`, the Host Memory Buffer feature is not supported.
-     * @type {Integer}
      */
-    HMPRE {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    HMPRE : UInt32
 
     /**
      * Indicates the minimum size that the host should allocate for the Host Memory Buffer feature in 4KB units. 
      * 
      * When this value is cleared to `0`, the host is requested to allocate any amount of host memory possible up to the **HMPRE** value.
-     * @type {Integer}
      */
-    HMMIN {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
+    HMMIN : UInt32
 
     /**
      * Indicates the total NVM capacity, in bytes, of the NVM subsystem.
      * 
      * This field is supported if the Namespace Management and Namespace Attachment commands are supported.
-     * @type {Array<Integer>}
      */
-    TNVMCAP {
-        get {
-            if(!this.HasProp("__TNVMCAPProxyArray"))
-                this.__TNVMCAPProxyArray := Win32FixedArray(this.ptr + 280, 16, Primitive, "char")
-            return this.__TNVMCAPProxyArray
-        }
-    }
+    TNVMCAP : Int8[16]
 
     /**
      * Indicates the unallocated NVM capacity, in bytes, of the NVM subsystem. 
      * 
      * This field is supported if the Namespace Management and Namespace Attachment commands are supported.
-     * @type {Array<Integer>}
      */
-    UNVMCAP {
-        get {
-            if(!this.HasProp("__UNVMCAPProxyArray"))
-                this.__UNVMCAPProxyArray := Win32FixedArray(this.ptr + 296, 16, Primitive, "char")
-            return this.__UNVMCAPProxyArray
-        }
-    }
+    UNVMCAP : Int8[16]
 
     /**
      * A Replay Protected Memory Block Support (RPMBS) structure containing fields that indicate whether the controller supports one or more Replay Protected Memory Blocks (RPMBs) and the associated capabilities.
-     * @type {_RPMBS}
      */
-    RPMBS {
-        get {
-            if(!this.HasProp("__RPMBS"))
-                this.__RPMBS := NVME_IDENTIFY_CONTROLLER_DATA._RPMBS(312, this)
-            return this.__RPMBS
-        }
-    }
+    RPMBS : NVME_IDENTIFY_CONTROLLER_DATA._RPMBS
 
     /**
      * Indicates the Extended Device Self-test Time (EDSTT).
-     * @type {Integer}
      */
-    EDSTT {
-        get => NumGet(this, 316, "ushort")
-        set => NumPut("ushort", value, this, 316)
-    }
+    EDSTT : UInt16
 
     /**
      * Indicates the Device Self-test Options (DSTO).
-     * @type {Integer}
      */
-    DSTO {
-        get => NumGet(this, 318, "char")
-        set => NumPut("char", value, this, 318)
-    }
+    DSTO : Int8
 
     /**
      * Indicates the Firmware Update Granularity (FWUG).
-     * @type {Integer}
      */
-    FWUG {
-        get => NumGet(this, 319, "char")
-        set => NumPut("char", value, this, 319)
-    }
+    FWUG : Int8
 
     /**
      * Indicates the Keep Alive Support (KAS).
-     * @type {Integer}
      */
-    KAS {
-        get => NumGet(this, 320, "ushort")
-        set => NumPut("ushort", value, this, 320)
-    }
+    KAS : UInt16
 
     /**
      * A Host Controlled Thermal Management Attributes (HCTMA) structure.
-     * @type {_HCTMA}
      */
-    HCTMA {
-        get {
-            if(!this.HasProp("__HCTMA"))
-                this.__HCTMA := NVME_IDENTIFY_CONTROLLER_DATA._HCTMA(322, this)
-            return this.__HCTMA
-        }
-    }
+    HCTMA : NVME_IDENTIFY_CONTROLLER_DATA._HCTMA
 
     /**
      * Minimum Thermal Management Temperature (MNTMT)
-     * @type {Integer}
      */
-    MNTMT {
-        get => NumGet(this, 324, "ushort")
-        set => NumPut("ushort", value, this, 324)
-    }
+    MNTMT : UInt16
 
     /**
      * Maximum Thermal Management Temperature (MXTMT)
-     * @type {Integer}
      */
-    MXTMT {
-        get => NumGet(this, 326, "ushort")
-        set => NumPut("ushort", value, this, 326)
-    }
+    MXTMT : UInt16
 
     /**
      * Sanitize Capabilities (SANICAP)
-     * @type {_SANICAP}
      */
-    SANICAP {
-        get {
-            if(!this.HasProp("__SANICAP"))
-                this.__SANICAP := NVME_IDENTIFY_CONTROLLER_DATA._SANICAP(328, this)
-            return this.__SANICAP
-        }
-    }
+    SANICAP : NVME_IDENTIFY_CONTROLLER_DATA._SANICAP
 
-    /**
-     * @type {Integer}
-     */
-    HMMINDS {
-        get => NumGet(this, 332, "uint")
-        set => NumPut("uint", value, this, 332)
-    }
+    HMMINDS : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HMMAXD {
-        get => NumGet(this, 336, "ushort")
-        set => NumPut("ushort", value, this, 336)
-    }
+    HMMAXD : UInt16
 
     /**
      * NVM Set Identifier Maximum
-     * @type {Integer}
      */
-    NSETIDMAX {
-        get => NumGet(this, 338, "ushort")
-        set => NumPut("ushort", value, this, 338)
-    }
+    NSETIDMAX : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ENDGIDMAX {
-        get => NumGet(this, 340, "ushort")
-        set => NumPut("ushort", value, this, 340)
-    }
+    ENDGIDMAX : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ANATT {
-        get => NumGet(this, 342, "char")
-        set => NumPut("char", value, this, 342)
-    }
+    ANATT : Int8
 
-    /**
-     * @type {_ANACAP}
-     */
-    ANACAP {
-        get {
-            if(!this.HasProp("__ANACAP"))
-                this.__ANACAP := NVME_IDENTIFY_CONTROLLER_DATA._ANACAP(343, this)
-            return this.__ANACAP
-        }
-    }
+    ANACAP : NVME_IDENTIFY_CONTROLLER_DATA._ANACAP
 
-    /**
-     * @type {Integer}
-     */
-    ANAGRPMAX {
-        get => NumGet(this, 344, "uint")
-        set => NumPut("uint", value, this, 344)
-    }
+    ANAGRPMAX : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NANAGRPID {
-        get => NumGet(this, 348, "uint")
-        set => NumPut("uint", value, this, 348)
-    }
+    NANAGRPID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PELS {
-        get => NumGet(this, 352, "uint")
-        set => NumPut("uint", value, this, 352)
-    }
+    PELS : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DomainId {
-        get => NumGet(this, 356, "ushort")
-        set => NumPut("ushort", value, this, 356)
-    }
+    DomainId : UInt16
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 358, 10, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MEGCAP {
-        get {
-            if(!this.HasProp("__MEGCAPProxyArray"))
-                this.__MEGCAPProxyArray := Win32FixedArray(this.ptr + 368, 16, Primitive, "char")
-            return this.__MEGCAPProxyArray
-        }
-    }
+    MEGCAP : Int8[16]
 
-    /**
-     * @type {Integer}
-     */
-    TMPTHHA {
-        get => NumGet(this, 384, "char")
-        set => NumPut("char", value, this, 384)
-    }
+    TMPTHHA : Int8
 
     /**
      * A reserved field.
-     * @type {Integer}
      */
-    Reserved3 {
-        get => NumGet(this, 385, "char")
-        set => NumPut("char", value, this, 385)
-    }
+    Reserved3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CQT {
-        get => NumGet(this, 386, "ushort")
-        set => NumPut("ushort", value, this, 386)
-    }
+    CQT : UInt16
 
     /**
      * A reserved field.
-     * @type {Array<Integer>}
      */
-    Reserved4 {
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 388, 124, Primitive, "char")
-            return this.__Reserved4ProxyArray
-        }
-    }
+    Reserved4 : Int8[124]
 
     /**
      * A Submission Queue Entry Size (SQES) structure containing fields that indicate the required and maximum Submission Queue entry size when using the NVM Command Set.
-     * @type {_SQES}
      */
-    SQES {
-        get {
-            if(!this.HasProp("__SQES"))
-                this.__SQES := NVME_IDENTIFY_CONTROLLER_DATA._SQES(512, this)
-            return this.__SQES
-        }
-    }
+    SQES : NVME_IDENTIFY_CONTROLLER_DATA._SQES
 
     /**
      * A Completion Queue Entry Size (CQES) structure containing fields that indicate the required and maximum Completion Queue entry size when using the NVM Command Set.
-     * @type {_CQES}
      */
-    CQES {
-        get {
-            if(!this.HasProp("__CQES"))
-                this.__CQES := NVME_IDENTIFY_CONTROLLER_DATA._CQES(513, this)
-            return this.__CQES
-        }
-    }
+    CQES : NVME_IDENTIFY_CONTROLLER_DATA._CQES
 
-    /**
-     * @type {Integer}
-     */
-    MAXCMD {
-        get => NumGet(this, 514, "ushort")
-        set => NumPut("ushort", value, this, 514)
-    }
+    MAXCMD : UInt16
 
     /**
      * Indicates the number of valid namespaces present for the controller.
-     * @type {Integer}
      */
-    NN {
-        get => NumGet(this, 516, "uint")
-        set => NumPut("uint", value, this, 516)
-    }
+    NN : UInt32
 
     /**
      * An Optional NVM Command Support (ONCS) structure containing fields that indicate the optional [NVM commands](ne-nvme-nvme_nvm_commands.md) and features supported by the controller.
-     * @type {_ONCS}
      */
-    ONCS {
-        get {
-            if(!this.HasProp("__ONCS"))
-                this.__ONCS := NVME_IDENTIFY_CONTROLLER_DATA._ONCS(520, this)
-            return this.__ONCS
-        }
-    }
+    ONCS : NVME_IDENTIFY_CONTROLLER_DATA._ONCS
 
     /**
      * A Fused Operation Support (FUSES) structure containing fields that indicate the fused operations that the controller supports.
-     * @type {_FUSES}
      */
-    FUSES {
-        get {
-            if(!this.HasProp("__FUSES"))
-                this.__FUSES := NVME_IDENTIFY_CONTROLLER_DATA._FUSES(522, this)
-            return this.__FUSES
-        }
-    }
+    FUSES : NVME_IDENTIFY_CONTROLLER_DATA._FUSES
 
     /**
      * A Format NVM Attributes (FNA) structure containing fields that indicate attributes for the [Format NVM](ns-nvme-nvme_cdw10_format_nvm.md) command.
-     * @type {_FNA}
      */
-    FNA {
-        get {
-            if(!this.HasProp("__FNA"))
-                this.__FNA := NVME_IDENTIFY_CONTROLLER_DATA._FNA(524, this)
-            return this.__FNA
-        }
-    }
+    FNA : NVME_IDENTIFY_CONTROLLER_DATA._FNA
 
     /**
      * A Volatile Write Cache (VWC) structure containing fields that indicate attributes related to the presence of a volatile write cache in the implementation.
-     * @type {_VWC}
      */
-    VWC {
-        get {
-            if(!this.HasProp("__VWC"))
-                this.__VWC := NVME_IDENTIFY_CONTROLLER_DATA._VWC(525, this)
-            return this.__VWC
-        }
-    }
+    VWC : NVME_IDENTIFY_CONTROLLER_DATA._VWC
 
     /**
      * Indicates the size of the write operation guaranteed to be written atomically to the NVM across all namespaces with any supported namespace format during normal operation.  This field is specified in logical blocks and is a 0’s based value.
@@ -2318,12 +1726,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
      * The **AWUN** value does not have any applicability to write errors caused by power failure. For more information, see the Atomic Write Unit Power Fail (**AWUPF**) field.
      * 
      * A value of `FFFFh` indicates all commands are atomic as this is the largest command size. Implementations should support a minimum of 128KB, appropriately scaled based on the Logical Block Access (LBA) size.
-     * @type {Integer}
      */
-    AWUN {
-        get => NumGet(this, 526, "ushort")
-        set => NumPut("ushort", value, this, 526)
-    }
+    AWUN : UInt16
 
     /**
      * Indicates the size of the write operation guaranteed to be written atomically to the NVM across all namespaces with any supported namespace format during a power fail or error condition. This field is specified in logical blocks and is a 0’s based value. 
@@ -2333,35 +1737,15 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
      * If a write command is submitted with size less than or equal to the **AWUPF** value, the host is guaranteed that the write is atomic to the NVM with respect to other read or write commands. If a write command is submitted that is greater than this size, there is no guarantee of command atomicity. If the write size is less than or equal to the **AWUPF** value and the write command fails, then subsequent read commands for the associated logical blocks will return data from the previous successful write command.
      * 
      * If a write command is submitted with size greater than the **AWUPF** value, then there is no guarantee of data returned on subsequent reads of the associated logical blocks.
-     * @type {Integer}
      */
-    AWUPF {
-        get => NumGet(this, 528, "ushort")
-        set => NumPut("ushort", value, this, 528)
-    }
+    AWUPF : UInt16
 
     /**
      * A NVM Vendor Specific Command Configuration (NVSCC) structure containing fields that indicate the configuration settings for NVM Vendor Specific command handling.
-     * @type {_NVSCC}
      */
-    NVSCC {
-        get {
-            if(!this.HasProp("__NVSCC"))
-                this.__NVSCC := NVME_IDENTIFY_CONTROLLER_DATA._NVSCC(530, this)
-            return this.__NVSCC
-        }
-    }
+    NVSCC : NVME_IDENTIFY_CONTROLLER_DATA._NVSCC
 
-    /**
-     * @type {_NWPC}
-     */
-    NWPC {
-        get {
-            if(!this.HasProp("__NWPC"))
-                this.__NWPC := NVME_IDENTIFY_CONTROLLER_DATA._NWPC(531, this)
-            return this.__NWPC
-        }
-    }
+    NWPC : NVME_IDENTIFY_CONTROLLER_DATA._NWPC
 
     /**
      * Indicates the size of the write operation guaranteed to be written atomically to the NVM across all namespaces with any supported namespace format for a Compare and Write fused operation.
@@ -2371,190 +1755,57 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
      * This field will be supported if the Compare and Write fused command is supported. This field is specified in logical blocks and is a 0’s based value. If a Compare and Write is submitted that requests a transfer size larger than this value, the controller may fail the command with a status of [NVME_STATUS_INVALID_FIELD_IN_COMMAND](ne-nvme-nvme_status_generic_command_codes.md).
      * 
      * If Compare and Write is not a supported fused command, the value of this field will be `0h`.
-     * @type {Integer}
      */
-    ACWU {
-        get => NumGet(this, 532, "ushort")
-        set => NumPut("ushort", value, this, 532)
-    }
+    ACWU : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CopyDescFormats {
-        get => NumGet(this, 534, "ushort")
-        set => NumPut("ushort", value, this, 534)
-    }
+    CopyDescFormats : UInt16
 
     /**
      * A SGL Support (SGLS) structure containing fields that specify whether Scatter Gather Lists (SGL) are supported for the NVM Command Set and the supported SGL types.
-     * @type {_SGLS}
      */
-    SGLS {
-        get {
-            if(!this.HasProp("__SGLS"))
-                this.__SGLS := NVME_IDENTIFY_CONTROLLER_DATA._SGLS(536, this)
-            return this.__SGLS
-        }
-    }
+    SGLS : NVME_IDENTIFY_CONTROLLER_DATA._SGLS
 
-    /**
-     * @type {Integer}
-     */
-    MNAN {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
-    }
+    MNAN : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MAXDNA {
-        get {
-            if(!this.HasProp("__MAXDNAProxyArray"))
-                this.__MAXDNAProxyArray := Win32FixedArray(this.ptr + 544, 16, Primitive, "char")
-            return this.__MAXDNAProxyArray
-        }
-    }
+    MAXDNA : Int8[16]
 
-    /**
-     * @type {Integer}
-     */
-    MAXCNA {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    MAXCNA : UInt32
 
     /**
      * Bytes 704:2047 are reserved for I/O Command Set Attributes.
-     * @type {Array<Integer>}
      */
-    Reserved6 {
-        get {
-            if(!this.HasProp("__Reserved6ProxyArray"))
-                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 564, 204, Primitive, "char")
-            return this.__Reserved6ProxyArray
-        }
-    }
+    Reserved6 : Int8[204]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SUBNQN {
-        get {
-            if(!this.HasProp("__SUBNQNProxyArray"))
-                this.__SUBNQNProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")
-            return this.__SUBNQNProxyArray
-        }
-    }
+    SUBNQN : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved7 {
-        get {
-            if(!this.HasProp("__Reserved7ProxyArray"))
-                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 1024, 768, Primitive, "char")
-            return this.__Reserved7ProxyArray
-        }
-    }
+    Reserved7 : Int8[768]
 
-    /**
-     * @type {Integer}
-     */
-    IOCCSZ {
-        get => NumGet(this, 1792, "uint")
-        set => NumPut("uint", value, this, 1792)
-    }
+    IOCCSZ : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IORCSZ {
-        get => NumGet(this, 1796, "uint")
-        set => NumPut("uint", value, this, 1796)
-    }
+    IORCSZ : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ICDOFF {
-        get => NumGet(this, 1800, "ushort")
-        set => NumPut("ushort", value, this, 1800)
-    }
+    ICDOFF : UInt16
 
-    /**
-     * @type {_FCATT}
-     */
-    FCATT {
-        get {
-            if(!this.HasProp("__FCATT"))
-                this.__FCATT := NVME_IDENTIFY_CONTROLLER_DATA._FCATT(1802, this)
-            return this.__FCATT
-        }
-    }
+    FCATT : NVME_IDENTIFY_CONTROLLER_DATA._FCATT
 
-    /**
-     * @type {Integer}
-     */
-    MSDBD {
-        get => NumGet(this, 1803, "char")
-        set => NumPut("char", value, this, 1803)
-    }
+    MSDBD : Int8
 
-    /**
-     * @type {_OFCS}
-     */
-    OFCS {
-        get {
-            if(!this.HasProp("__OFCS"))
-                this.__OFCS := NVME_IDENTIFY_CONTROLLER_DATA._OFCS(1804, this)
-            return this.__OFCS
-        }
-    }
+    OFCS : NVME_IDENTIFY_CONTROLLER_DATA._OFCS
 
-    /**
-     * @type {Integer}
-     */
-    DCTYPE {
-        get => NumGet(this, 1806, "char")
-        set => NumPut("char", value, this, 1806)
-    }
+    DCTYPE : Int8
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved8 {
-        get {
-            if(!this.HasProp("__Reserved8ProxyArray"))
-                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1807, 241, Primitive, "char")
-            return this.__Reserved8ProxyArray
-        }
-    }
+    Reserved8 : Int8[241]
 
     /**
      * Contains an array of 32 Power State Descriptors. Each member of the array is a 32 bit field that indicates the characteristics of a Power State Descriptor. The format of this field is defined in the [NVME_POWER_STATE_DESC](ns-nvme-nvme_power_state_desc.md) structure.
      * 
      * The zero-based position of a structure in the array corresponds to the name of the Power State Descriptor, such that Power State 0 Descriptor (PSD0) is in position 0, Power State 1 Descriptor (PSD1) is in position 1, and so on, up to Power State 31 Descriptor (PSD31) in position 31.
-     * @type {NVME_POWER_STATE_DESC}
      */
-    PDS {
-        get {
-            if(!this.HasProp("__PDSProxyArray"))
-                this.__PDSProxyArray := Win32FixedArray(this.ptr + 2048, 32, NVME_POWER_STATE_DESC, "")
-            return this.__PDSProxyArray
-        }
-    }
+    PDS : NVME_POWER_STATE_DESC[32]
 
     /**
      * Bytes 3072:4095 are allocated for vendor specific usage.
-     * @type {Array<Integer>}
      */
-    VS {
-        get {
-            if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 3072, 1024, Primitive, "char")
-            return this.__VSProxyArray
-        }
-    }
+    VS : Int8[1024]
+
 }

@@ -1,116 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPVISEMES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPVISEMES.ahk" { SPVISEMES }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPVOICESTATUS extends Win32Struct {
-    static sizeof => 52
+export default struct SPVOICESTATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    ulCurrentStream : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCurrentStream {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulLastStreamQueued : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulLastStreamQueued {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hrLastResult : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    hrLastResult {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwRunningState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRunningState {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulInputWordPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulInputWordPos {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulInputWordLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulInputWordLen {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulInputSentPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulInputSentPos {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulInputSentLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulInputSentLen {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    lBookmarkId : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lBookmarkId {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    PhonemeId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PhonemeId {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    VisemeId : SPVISEMES
 
-    /**
-     * @type {SPVISEMES}
-     */
-    VisemeId {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

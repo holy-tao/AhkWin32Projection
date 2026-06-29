@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WSD_EVENT.ahk
-#Include .\IWSDEndpointProxy.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IWSDAsyncCallback.ahk" { IWSDAsyncCallback }
+#Import ".\WSD_EVENT.ahk" { WSD_EVENT }
+#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an asynchronous operation.
@@ -18,26 +21,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdasyncresult
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDAsyncResult extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDAsyncResult extends IUnknown {
     /**
      * The interface identifier for IWSDAsyncResult
      * @type {Guid}
      */
-    static IID => Guid("{11a9852a-8dd8-423e-b537-9356db4fbfb8}")
+    static IID := Guid("{11a9852a-8dd8-423e-b537-9356db4fbfb8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDAsyncResult interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetCallback      : IntPtr
+        SetWaitHandle    : IntPtr
+        HasCompleted     : IntPtr
+        GetAsyncState    : IntPtr
+        Abort            : IntPtr
+        GetEvent         : IntPtr
+        GetEndpointProxy : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCallback", "SetWaitHandle", "HasCompleted", "GetAsyncState", "Abort", "GetEvent", "GetEndpointProxy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDAsyncResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a callback interface to call when the asynchronous operation has completed.
@@ -138,9 +154,7 @@ class IWSDAsyncResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-setwaithandle
      */
     SetWaitHandle(hWaitHandle) {
-        hWaitHandle := hWaitHandle is Win32Handle ? NumGet(hWaitHandle, "ptr") : hWaitHandle
-
-        result := ComCall(4, this, "ptr", hWaitHandle, "HRESULT")
+        result := ComCall(4, this, HANDLE, hWaitHandle, "HRESULT")
         return result
     }
 
@@ -244,7 +258,7 @@ class IWSDAsyncResult extends IUnknown {
      */
     GetEvent() {
         pEvent := WSD_EVENT()
-        result := ComCall(8, this, "ptr", pEvent, "HRESULT")
+        result := ComCall(8, this, WSD_EVENT.Ptr, pEvent, "HRESULT")
         return pEvent
     }
 
@@ -256,5 +270,37 @@ class IWSDAsyncResult extends IUnknown {
     GetEndpointProxy() {
         result := ComCall(9, this, "ptr*", &ppEndpoint := 0, "HRESULT")
         return IWSDEndpointProxy(ppEndpoint)
+    }
+
+    Query(iid) {
+        if (IWSDAsyncResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 3)
+        this.vtbl.SetWaitHandle := CallbackCreate(GetMethod(implObj, "SetWaitHandle"), flags, 2)
+        this.vtbl.HasCompleted := CallbackCreate(GetMethod(implObj, "HasCompleted"), flags, 1)
+        this.vtbl.GetAsyncState := CallbackCreate(GetMethod(implObj, "GetAsyncState"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 2)
+        this.vtbl.GetEndpointProxy := CallbackCreate(GetMethod(implObj, "GetEndpointProxy"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCallback)
+        CallbackFree(this.vtbl.SetWaitHandle)
+        CallbackFree(this.vtbl.HasCompleted)
+        CallbackFree(this.vtbl.GetAsyncState)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.GetEvent)
+        CallbackFree(this.vtbl.GetEndpointProxy)
     }
 }

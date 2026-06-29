@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADS_FLAGTYPE_ENUM enumeration specifies values that can be used to indicate the presence of the ObjectType or InheritedObjectType fields in the access-control entry (ACE).
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_flagtype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_FLAGTYPE_ENUM extends Win32Enum {
+export default struct ADS_FLAGTYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <b>ObjectType</b> field is present in the ACE.

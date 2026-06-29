@@ -1,85 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include .\KEY_VALUE_INFORMATION_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\KEY_VALUE_INFORMATION_CLASS.ahk" { KEY_VALUE_INFORMATION_CLASS }
 
 /**
  * @namespace Windows.Wdk.System.Registry
  */
-class REG_QUERY_VALUE_KEY_INFORMATION extends Win32Struct {
-    static sizeof => 72
+export default struct REG_QUERY_VALUE_KEY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ValueName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    ValueName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    KeyValueInformationClass : KEY_VALUE_INFORMATION_CLASS
 
-    /**
-     * @type {KEY_VALUE_INFORMATION_CLASS}
-     */
-    KeyValueInformationClass {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    KeyValueInformation : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    KeyValueInformation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ResultLength : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ResultLength {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CallContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ObjectContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ObjectContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

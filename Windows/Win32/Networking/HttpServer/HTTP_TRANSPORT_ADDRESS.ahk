@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WinSock\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WinSock\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * Specifies the addresses (local and remote) used for a particular HTTP connection.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_transport_address
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_TRANSPORT_ADDRESS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct HTTP_TRANSPORT_ADDRESS {
+    #StructPack 8
 
     /**
      * A pointer to the remote IP address associated with this connection. For more information about how to access this address, see the Remarks section.
-     * @type {Pointer<SOCKADDR>}
      */
-    pRemoteAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pRemoteAddress : SOCKADDR.Ptr
 
     /**
      * A pointer to the local IP address associated with this connection. For more information about how to access this address, see the Remarks section.
-     * @type {Pointer<SOCKADDR>}
      */
-    pLocalAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pLocalAddress : SOCKADDR.Ptr
+
 }

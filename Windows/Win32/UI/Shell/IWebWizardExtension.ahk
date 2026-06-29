@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWizardExtension.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWizardExtension.ahk" { IWizardExtension }
 
 /**
  * Extends the IWizardExtension interface by exposing methods to set the wizard extension's initial URL, and a specific URL in case of an error.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iwebwizardextension
  * @namespace Windows.Win32.UI.Shell
  */
-class IWebWizardExtension extends IWizardExtension {
-
-    static sizeof => A_PtrSize
+export default struct IWebWizardExtension extends IWizardExtension {
     /**
      * The interface identifier for IWebWizardExtension
      * @type {Guid}
      */
-    static IID => Guid("{0e6b3f66-98d1-48c0-a222-fbde74e2fbc5}")
+    static IID := Guid("{0e6b3f66-98d1-48c0-a222-fbde74e2fbc5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebWizardExtension interfaces
+    */
+    struct Vtbl extends IWizardExtension.Vtbl {
+        SetInitialURL : IntPtr
+        SetErrorURL   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetInitialURL", "SetErrorURL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebWizardExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the URL of the initial server-provided HTML page in a hosted wizard.
@@ -61,5 +71,27 @@ class IWebWizardExtension extends IWizardExtension {
 
         result := ComCall(7, this, "ptr", pszErrorURL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWebWizardExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetInitialURL := CallbackCreate(GetMethod(implObj, "SetInitialURL"), flags, 2)
+        this.vtbl.SetErrorURL := CallbackCreate(GetMethod(implObj, "SetErrorURL"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetInitialURL)
+        CallbackFree(this.vtbl.SetErrorURL)
     }
 }

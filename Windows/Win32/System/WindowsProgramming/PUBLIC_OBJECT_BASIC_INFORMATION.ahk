@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class PUBLIC_OBJECT_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 56
+export default struct PUBLIC_OBJECT_BASIC_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Attributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Attributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    GrantedAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GrantedAccess {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HandleCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandleCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PointerCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PointerCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 10, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

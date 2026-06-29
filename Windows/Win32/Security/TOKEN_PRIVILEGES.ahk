@@ -1,27 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\LUID_AND_ATTRIBUTES.ahk
-#Include ..\Foundation\LUID.ahk
-#Include .\TOKEN_PRIVILEGES_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
+#Import ".\TOKEN_PRIVILEGES_ATTRIBUTES.ahk" { TOKEN_PRIVILEGES_ATTRIBUTES }
+#Import "..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information about a set of privileges for an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_privileges
  * @namespace Windows.Win32.Security
  */
-class TOKEN_PRIVILEGES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct TOKEN_PRIVILEGES {
+    #StructPack 4
 
     /**
      * This must be set to the number of entries in the <b>Privileges</b> array.
-     * @type {Integer}
      */
-    PrivilegeCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PrivilegeCount : UInt32
 
     /**
      * Specifies an array of 
@@ -30,13 +23,7 @@ class TOKEN_PRIVILEGES extends Win32Struct {
      * 
      * <div class="alert"><b>Important</b>  The constant<b> ANYSIZE_ARRAY</b> is defined as 1 in the public header Winnt.h. To create this array with more than one element, you must allocate sufficient memory for the structure to take into account additional elements.</div>
      * <div> </div>
-     * @type {LUID_AND_ATTRIBUTES}
      */
-    Privileges {
-        get {
-            if(!this.HasProp("__PrivilegesProxyArray"))
-                this.__PrivilegesProxyArray := Win32FixedArray(this.ptr + 4, 1, LUID_AND_ATTRIBUTES, "")
-            return this.__PrivilegesProxyArray
-        }
-    }
+    Privileges : LUID_AND_ATTRIBUTES[1]
+
 }

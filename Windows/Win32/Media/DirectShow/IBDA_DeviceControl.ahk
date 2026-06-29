@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_DeviceControl interface is implemented on all BDA device filters.
@@ -10,26 +11,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_devicecontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DeviceControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DeviceControl extends IUnknown {
     /**
      * The interface identifier for IBDA_DeviceControl
      * @type {Guid}
      */
-    static IID => Guid("{fd0a5af3-b41d-11d2-9c95-00c04f7971e0}")
+    static IID := Guid("{fd0a5af3-b41d-11d2-9c95-00c04f7971e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DeviceControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartChanges   : IntPtr
+        CheckChanges   : IntPtr
+        CommitChanges  : IntPtr
+        GetChangeState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartChanges", "CheckChanges", "CommitChanges", "GetChangeState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DeviceControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StartChanges method is called by a Network Provider before it begins to modify a set of properties on a BDA device filter.
@@ -76,5 +87,31 @@ class IBDA_DeviceControl extends IUnknown {
 
         result := ComCall(6, this, pStateMarshal, pState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DeviceControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartChanges := CallbackCreate(GetMethod(implObj, "StartChanges"), flags, 1)
+        this.vtbl.CheckChanges := CallbackCreate(GetMethod(implObj, "CheckChanges"), flags, 1)
+        this.vtbl.CommitChanges := CallbackCreate(GetMethod(implObj, "CommitChanges"), flags, 1)
+        this.vtbl.GetChangeState := CallbackCreate(GetMethod(implObj, "GetChangeState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartChanges)
+        CallbackFree(this.vtbl.CheckChanges)
+        CallbackFree(this.vtbl.CommitChanges)
+        CallbackFree(this.vtbl.GetChangeState)
     }
 }

@@ -1,41 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWbemClassObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemObjectTextSrc interface is used to translate IWbemClassObject instances to and from differing text formats.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjecttextsrc
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemObjectTextSrc extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemObjectTextSrc extends IUnknown {
     /**
      * The interface identifier for IWbemObjectTextSrc
      * @type {Guid}
      */
-    static IID => Guid("{bfbf883a-cad7-11d3-a11b-00105a1f515a}")
+    static IID := Guid("{bfbf883a-cad7-11d3-a11b-00105a1f515a}")
 
     /**
      * The class identifier for WbemObjectTextSrc
      * @type {Guid}
      */
-    static CLSID => Guid("{8d1c559d-84f0-4bb3-a7d5-56a7435a9ba6}")
+    static CLSID := Guid("{8d1c559d-84f0-4bb3-a7d5-56a7435a9ba6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemObjectTextSrc interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetText        : IntPtr
+        CreateFromText : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetText", "CreateFromText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemObjectTextSrc.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemObjectTextSrc::GetText method creates a textual representation of an IWbemClassObject object; for example, an XML representation.
@@ -50,8 +60,8 @@ class IWbemObjectTextSrc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjecttextsrc-gettext
      */
     GetText(lFlags, pObj, uObjTextFormat, pCtx) {
-        strText := BSTR()
-        result := ComCall(3, this, "int", lFlags, "ptr", pObj, "uint", uObjTextFormat, "ptr", pCtx, "ptr", strText, "HRESULT")
+        strText := BSTR.Owned()
+        result := ComCall(3, this, "int", lFlags, "ptr", pObj, "uint", uObjTextFormat, "ptr", pCtx, BSTR.Ptr, strText, "HRESULT")
         return strText
     }
 
@@ -67,7 +77,29 @@ class IWbemObjectTextSrc extends IUnknown {
     CreateFromText(lFlags, strText, uObjTextFormat, pCtx) {
         strText := strText is String ? BSTR.Alloc(strText).Value : strText
 
-        result := ComCall(4, this, "int", lFlags, "ptr", strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "HRESULT")
+        result := ComCall(4, this, "int", lFlags, BSTR, strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "HRESULT")
         return IWbemClassObject(pNewObj)
+    }
+
+    Query(iid) {
+        if (IWbemObjectTextSrc.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 6)
+        this.vtbl.CreateFromText := CallbackCreate(GetMethod(implObj, "CreateFromText"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.CreateFromText)
     }
 }

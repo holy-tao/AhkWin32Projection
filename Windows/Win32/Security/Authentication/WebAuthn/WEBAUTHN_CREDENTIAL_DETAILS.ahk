@@ -1,117 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_RP_ENTITY_INFORMATION.ahk
-#Include .\WEBAUTHN_USER_ENTITY_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WEBAUTHN_USER_ENTITY_INFORMATION.ahk" { WEBAUTHN_USER_ENTITY_INFORMATION }
+#Import ".\WEBAUTHN_RP_ENTITY_INFORMATION.ahk" { WEBAUTHN_RP_ENTITY_INFORMATION }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains the data for a credential.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_details
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct WEBAUTHN_CREDENTIAL_DETAILS {
+    #StructPack 8
 
     /**
      * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size of pbCredentialID.
-     * @type {Integer}
      */
-    cbCredentialID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbCredentialID : UInt32
 
     /**
      * The credential Id.
-     * @type {Pointer<Integer>}
      */
-    pbCredentialID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbCredentialID : IntPtr
 
     /**
      * The relying party information.
-     * @type {Pointer<WEBAUTHN_RP_ENTITY_INFORMATION>}
      */
-    pRpInformation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pRpInformation : WEBAUTHN_RP_ENTITY_INFORMATION.Ptr
 
     /**
      * The user information.
-     * @type {Pointer<WEBAUTHN_USER_ENTITY_INFORMATION>}
      */
-    pUserInformation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pUserInformation : WEBAUTHN_USER_ENTITY_INFORMATION.Ptr
 
     /**
      * Indicates if the credential is removable or not.
-     * @type {BOOL}
      */
-    bRemovable {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    bRemovable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bBackedUp {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    bBackedUp : BOOL
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAuthenticatorName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pwszAuthenticatorName : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    cbAuthenticatorLogo {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbAuthenticatorLogo : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbAuthenticatorLogo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pbAuthenticatorLogo : IntPtr
 
-    /**
-     * @type {BOOL}
-     */
-    bThirdPartyPayment {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    bThirdPartyPayment : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    dwTransports {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwTransports : UInt32
+
 }

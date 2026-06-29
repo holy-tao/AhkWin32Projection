@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_VM_POST_READ_CALLBACK extends Win32Struct {
-    static sizeof => 32
+export default struct MINIDUMP_VM_POST_READ_CALLBACK {
+    #StructPack 8
 
-    static packingSize => 8
+    Offset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Buffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Completed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Completed {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Status : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    Status {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

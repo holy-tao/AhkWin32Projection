@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct {
-    static sizeof => 4096
+export default struct NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET {
+    #StructPack 8
 
-    static packingSize => 8
+    VSL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VSL {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    WZSL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WZSL {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    WUSL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WUSL {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    DMRL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DMRL {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    DMRSL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DMRSL {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DMSL : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DMSL {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : Int8[4080]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4080, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

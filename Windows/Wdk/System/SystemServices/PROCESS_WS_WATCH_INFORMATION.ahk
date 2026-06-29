@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PROCESS_WS_WATCH_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct PROCESS_WS_WATCH_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    FaultingPc : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FaultingPc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FaultingVa : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FaultingVa {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

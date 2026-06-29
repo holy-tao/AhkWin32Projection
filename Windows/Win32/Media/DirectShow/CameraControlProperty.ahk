@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CameraControlProperty enumeration specifies a setting on a camera.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-cameracontrolproperty
  * @namespace Windows.Win32.Media.DirectShow
  */
-class CameraControlProperty extends Win32Enum {
+export default struct CameraControlProperty {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the camera's pan setting, in degrees. Values range from –180 to +180, with the default set to zero. Positive values are clockwise from the origin (the camera rotates clockwise when viewed from above), and negative values are counterclockwise from the origin.

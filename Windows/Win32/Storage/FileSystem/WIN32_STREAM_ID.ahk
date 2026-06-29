@@ -1,24 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WIN_STREAM_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WIN_STREAM_ID.ahk" { WIN_STREAM_ID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains stream data.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-win32_stream_id
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class WIN32_STREAM_ID extends Win32Struct {
-    static sizeof => 24
+export default struct WIN32_STREAM_ID {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {WIN_STREAM_ID}
-     */
-    dwStreamId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStreamId : WIN_STREAM_ID
 
     /**
      * Attributes of data to facilitate cross-operating system transfer. This member can be one or more of the 
@@ -52,37 +44,22 @@ class WIN32_STREAM_ID extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwStreamAttributes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStreamAttributes : UInt32
 
     /**
      * Size of data, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Size : Int64
 
     /**
      * Length of the name of the alternative data stream, in bytes.
-     * @type {Integer}
      */
-    dwStreamNameSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwStreamNameSize : UInt32
 
     /**
      * Unicode string that specifies the name of the alternative data stream.
-     * @type {String}
      */
-    cStreamName {
-        get => StrGet(this.ptr + 20, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 0, "UTF-16")
-    }
+    cStreamName : WCHAR[1]
+
 }

@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDMLObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
+#Import ".\IDMLOperator.ahk" { IDMLOperator }
+#Import ".\DML_FEATURE.ahk" { DML_FEATURE }
+#Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
+#Import ".\IDMLObject.ahk" { IDMLObject }
+#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
+#Import ".\IDMLPageable.ahk" { IDMLPageable }
+#Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
 
 /**
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice)
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldevice
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class IDMLDevice extends IDMLObject {
-
-    static sizeof => A_PtrSize
+export default struct IDMLDevice extends IDMLObject {
     /**
      * The interface identifier for IDMLDevice
      * @type {Guid}
      */
-    static IID => Guid("{6dbd6437-96fd-423f-a98c-ae5e7c2a573f}")
+    static IID := Guid("{6dbd6437-96fd-423f-a98c-ae5e7c2a573f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDMLDevice interfaces
+    */
+    struct Vtbl extends IDMLObject.Vtbl {
+        CheckFeatureSupport       : IntPtr
+        CreateOperator            : IntPtr
+        CompileOperator           : IntPtr
+        CreateOperatorInitializer : IntPtr
+        CreateCommandRecorder     : IntPtr
+        CreateBindingTable        : IntPtr
+        Evict                     : IntPtr
+        MakeResident              : IntPtr
+        GetDeviceRemovedReason    : IntPtr
+        GetParentDevice           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckFeatureSupport", "CreateOperator", "CompileOperator", "CreateOperatorInitializer", "CreateCommandRecorder", "CreateBindingTable", "Evict", "MakeResident", "GetDeviceRemovedReason", "GetParentDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDMLDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets information about the optional features and capabilities that are supported by the DirectML device.
@@ -52,7 +76,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport
      */
     CheckFeatureSupport(feature, featureQueryDataSize, featureQueryData, featureSupportDataSize, featureSupportData) {
-        result := ComCall(7, this, "int", feature, "uint", featureQueryDataSize, "ptr", featureQueryData, "uint", featureSupportDataSize, "ptr", featureSupportData, "HRESULT")
+        result := ComCall(7, this, DML_FEATURE, feature, "uint", featureQueryDataSize, "ptr", featureQueryData, "uint", featureSupportDataSize, "ptr", featureSupportData, "HRESULT")
         return result
     }
 
@@ -70,7 +94,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperator
      */
     CreateOperator(desc, riid) {
-        result := ComCall(8, this, "ptr", desc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, DML_OPERATOR_DESC.Ptr, desc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -91,7 +115,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-compileoperator
      */
     CompileOperator(op, flags, riid) {
-        result := ComCall(9, this, "ptr", op, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", op, DML_EXECUTION_FLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -114,7 +138,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperatorinitializer
      */
     CreateOperatorInitializer(operatorCount, operators, riid) {
-        result := ComCall(10, this, "uint", operatorCount, "ptr*", operators, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, "uint", operatorCount, IDMLCompiledOperator.Ptr, operators, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -129,7 +153,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createcommandrecorder
      */
     CreateCommandRecorder(riid) {
-        result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -147,7 +171,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createbindingtable
      */
     CreateBindingTable(desc, riid) {
-        result := ComCall(12, this, "ptr", desc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(12, this, DML_BINDING_TABLE_DESC.Ptr, desc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -165,7 +189,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-evict
      */
     Evict(count, ppObjects) {
-        result := ComCall(13, this, "uint", count, "ptr*", ppObjects, "HRESULT")
+        result := ComCall(13, this, "uint", count, IDMLPageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -183,7 +207,7 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-makeresident
      */
     MakeResident(count, ppObjects) {
-        result := ComCall(14, this, "uint", count, "ptr*", ppObjects, "HRESULT")
+        result := ComCall(14, this, "uint", count, IDMLPageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -210,7 +234,45 @@ class IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-getparentdevice
      */
     GetParentDevice(riid) {
-        result := ComCall(16, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IDMLDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 6)
+        this.vtbl.CreateOperator := CallbackCreate(GetMethod(implObj, "CreateOperator"), flags, 4)
+        this.vtbl.CompileOperator := CallbackCreate(GetMethod(implObj, "CompileOperator"), flags, 5)
+        this.vtbl.CreateOperatorInitializer := CallbackCreate(GetMethod(implObj, "CreateOperatorInitializer"), flags, 5)
+        this.vtbl.CreateCommandRecorder := CallbackCreate(GetMethod(implObj, "CreateCommandRecorder"), flags, 3)
+        this.vtbl.CreateBindingTable := CallbackCreate(GetMethod(implObj, "CreateBindingTable"), flags, 4)
+        this.vtbl.Evict := CallbackCreate(GetMethod(implObj, "Evict"), flags, 3)
+        this.vtbl.MakeResident := CallbackCreate(GetMethod(implObj, "MakeResident"), flags, 3)
+        this.vtbl.GetDeviceRemovedReason := CallbackCreate(GetMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
+        this.vtbl.GetParentDevice := CallbackCreate(GetMethod(implObj, "GetParentDevice"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckFeatureSupport)
+        CallbackFree(this.vtbl.CreateOperator)
+        CallbackFree(this.vtbl.CompileOperator)
+        CallbackFree(this.vtbl.CreateOperatorInitializer)
+        CallbackFree(this.vtbl.CreateCommandRecorder)
+        CallbackFree(this.vtbl.CreateBindingTable)
+        CallbackFree(this.vtbl.Evict)
+        CallbackFree(this.vtbl.MakeResident)
+        CallbackFree(this.vtbl.GetDeviceRemovedReason)
+        CallbackFree(this.vtbl.GetParentDevice)
     }
 }

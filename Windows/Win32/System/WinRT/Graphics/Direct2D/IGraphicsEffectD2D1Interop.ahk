@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GRAPHICS_EFFECT_PROPERTY_MAPPING.ahk" { GRAPHICS_EFFECT_PROPERTY_MAPPING }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Native interoperation interface that provides a counterpart to IGraphicsEffect and allows for metadata queries. This interface is available in C++ only.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nn-windows-graphics-effects-interop-igraphicseffectd2d1interop
  * @namespace Windows.Win32.System.WinRT.Graphics.Direct2D
  */
-class IGraphicsEffectD2D1Interop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGraphicsEffectD2D1Interop extends IUnknown {
     /**
      * The interface identifier for IGraphicsEffectD2D1Interop
      * @type {Guid}
      */
-    static IID => Guid("{2fc57384-a068-44d7-a331-30982fcf7177}")
+    static IID := Guid("{2fc57384-a068-44d7-a331-30982fcf7177}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGraphicsEffectD2D1Interop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEffectId             : IntPtr
+        GetNamedPropertyMapping : IntPtr
+        GetPropertyCount        : IntPtr
+        GetProperty             : IntPtr
+        GetSource               : IntPtr
+        GetSourceCount          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEffectId", "GetNamedPropertyMapping", "GetPropertyCount", "GetProperty", "GetSource", "GetSourceCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGraphicsEffectD2D1Interop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the ID of the effect.
@@ -39,7 +53,7 @@ class IGraphicsEffectD2D1Interop extends IUnknown {
      */
     GetEffectId() {
         id := Guid()
-        result := ComCall(3, this, "ptr", id, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, id, "HRESULT")
         return id
     }
 
@@ -121,5 +135,35 @@ class IGraphicsEffectD2D1Interop extends IUnknown {
     GetSourceCount() {
         result := ComCall(8, this, "uint*", &count := 0, "HRESULT")
         return count
+    }
+
+    Query(iid) {
+        if (IGraphicsEffectD2D1Interop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEffectId := CallbackCreate(GetMethod(implObj, "GetEffectId"), flags, 2)
+        this.vtbl.GetNamedPropertyMapping := CallbackCreate(GetMethod(implObj, "GetNamedPropertyMapping"), flags, 4)
+        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 3)
+        this.vtbl.GetSourceCount := CallbackCreate(GetMethod(implObj, "GetSourceCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEffectId)
+        CallbackFree(this.vtbl.GetNamedPropertyMapping)
+        CallbackFree(this.vtbl.GetPropertyCount)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetSource)
+        CallbackFree(this.vtbl.GetSourceCount)
     }
 }

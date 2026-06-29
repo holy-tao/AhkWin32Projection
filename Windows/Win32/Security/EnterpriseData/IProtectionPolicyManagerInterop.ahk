@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\WinRT\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\WinRT\IInspectable.ahk" { IInspectable }
+#Import "..\..\System\WinRT\HSTRING.ahk" { HSTRING }
 
 /**
  * Manages enterprise protection policy on protected content. (IProtectionPolicyManagerInterop)
  * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nn-efswrtinterop-iprotectionpolicymanagerinterop
  * @namespace Windows.Win32.Security.EnterpriseData
  */
-class IProtectionPolicyManagerInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IProtectionPolicyManagerInterop extends IInspectable {
     /**
      * The interface identifier for IProtectionPolicyManagerInterop
      * @type {Guid}
      */
-    static IID => Guid("{4652651d-c1fe-4ba1-9f0a-c0f56596f721}")
+    static IID := Guid("{4652651d-c1fe-4ba1-9f0a-c0f56596f721}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProtectionPolicyManagerInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        RequestAccessForWindowAsync : IntPtr
+        GetForWindow                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestAccessForWindowAsync", "GetForWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProtectionPolicyManagerInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Request access to enterprise protected content for an identity. (IProtectionPolicyManagerInterop.RequestAccessForWindowAsync)
@@ -39,11 +50,7 @@ class IProtectionPolicyManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop-requestaccessforwindowasync
      */
     RequestAccessForWindowAsync(appWindow, sourceIdentity, targetIdentity, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-        sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
-        targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(6, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, targetIdentity, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -55,9 +62,29 @@ class IProtectionPolicyManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", &result := 0, "HRESULT")
+        result := ComCall(7, this, HWND, appWindow, Guid.Ptr, riid, "ptr*", &result := 0, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProtectionPolicyManagerInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestAccessForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForWindowAsync"), flags, 6)
+        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestAccessForWindowAsync)
+        CallbackFree(this.vtbl.GetForWindow)
     }
 }

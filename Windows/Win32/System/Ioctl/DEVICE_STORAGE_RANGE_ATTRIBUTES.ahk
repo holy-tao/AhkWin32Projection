@@ -1,39 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_STORAGE_RANGE_ATTRIBUTES extends Win32Struct {
-    static sizeof => 16
+export default struct DEVICE_STORAGE_RANGE_ATTRIBUTES {
+    #StructPack 8
 
-    static packingSize => 8
+    LengthInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LengthInBytes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AllFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - IsRangeBad
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 
     /**
      * @type {Integer}
@@ -42,12 +18,10 @@ class DEVICE_STORAGE_RANGE_ATTRIBUTES extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

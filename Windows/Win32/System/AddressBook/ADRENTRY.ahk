@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPropValue.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Describes zero or more properties that belong to a recipient.
@@ -27,35 +26,22 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/adrentry
  * @namespace Windows.Win32.System.AddressBook
  */
-class ADRENTRY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ADRENTRY {
+    #StructPack 8
 
     /**
      * > Reserved; must be zero.
-     * @type {Integer}
      */
-    ulReserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved1 : UInt32
 
     /**
      * > Count of properties in the property value array pointed to by the **rgPropVals** member. The **cValues** member can be zero.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cValues : UInt32
 
     /**
      * > Pointer to a property value array describing the properties for the recipient. The **rgPropVals** member can be NULL.
-     * @type {Pointer<SPropValue>}
      */
-    rgPropVals {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgPropVals : SPropValue.Ptr
+
 }

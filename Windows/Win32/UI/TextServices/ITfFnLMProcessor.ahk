@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfFunction.ahk
-#Include .\ITfCandidateList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITfCandidateList.ahk" { ITfCandidateList }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfFunction.ahk" { ITfFunction }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The ITfFnLMProcessor interface is implemented by the language model text service and is used by an application or text service to enable alternate language model processing.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnlmprocessor
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfFnLMProcessor extends ITfFunction {
-
-    static sizeof => A_PtrSize
+export default struct ITfFnLMProcessor extends ITfFunction {
     /**
      * The interface identifier for ITfFnLMProcessor
      * @type {Guid}
      */
-    static IID => Guid("{7afbf8e7-ac4b-4082-b058-890899d3a010}")
+    static IID := Guid("{7afbf8e7-ac4b-4082-b058-890899d3a010}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfFnLMProcessor interfaces
+    */
+    struct Vtbl extends ITfFunction.Vtbl {
+        QueryRange      : IntPtr
+        QueryLangID     : IntPtr
+        GetReconversion : IntPtr
+        Reconvert       : IntPtr
+        QueryKey        : IntPtr
+        InvokeKey       : IntPtr
+        InvokeFunc      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryRange", "QueryLangID", "GetReconversion", "Reconvert", "QueryKey", "InvokeKey", "InvokeFunc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfFnLMProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfFnLMProcessor::QueryRange method
@@ -85,7 +104,7 @@ class ITfFnLMProcessor extends ITfFunction {
     QueryRange(pRange, ppNewRange, pfAccepted) {
         pfAcceptedMarshal := pfAccepted is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, pfAcceptedMarshal, pfAccepted, "HRESULT")
+        result := ComCall(4, this, "ptr", pRange, ITfRange.Ptr, ppNewRange, pfAcceptedMarshal, pfAccepted, "HRESULT")
         return result
     }
 
@@ -98,7 +117,7 @@ class ITfFnLMProcessor extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querylangid
      */
     QueryLangID(langid) {
-        result := ComCall(5, this, "ushort", langid, "int*", &pfAccepted := 0, "HRESULT")
+        result := ComCall(5, this, "ushort", langid, BOOL.Ptr, &pfAccepted := 0, "HRESULT")
         return pfAccepted
     }
 
@@ -177,7 +196,7 @@ class ITfFnLMProcessor extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querykey
      */
     QueryKey(fUp, vKey, lparamKeydata) {
-        result := ComCall(8, this, "int", fUp, "ptr", vKey, "ptr", lparamKeydata, "int*", &pfInterested := 0, "HRESULT")
+        result := ComCall(8, this, BOOL, fUp, WPARAM, vKey, LPARAM, lparamKeydata, BOOL.Ptr, &pfInterested := 0, "HRESULT")
         return pfInterested
     }
 
@@ -208,7 +227,7 @@ class ITfFnLMProcessor extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-invokekey
      */
     InvokeKey(fUp, vKey, lparamKeyData) {
-        result := ComCall(9, this, "int", fUp, "ptr", vKey, "ptr", lparamKeyData, "HRESULT")
+        result := ComCall(9, this, BOOL, fUp, WPARAM, vKey, LPARAM, lparamKeyData, "HRESULT")
         return result
     }
 
@@ -238,7 +257,39 @@ class ITfFnLMProcessor extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-invokefunc
      */
     InvokeFunc(pic, refguidFunc) {
-        result := ComCall(10, this, "ptr", pic, "ptr", refguidFunc, "HRESULT")
+        result := ComCall(10, this, "ptr", pic, Guid.Ptr, refguidFunc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfFnLMProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryRange := CallbackCreate(GetMethod(implObj, "QueryRange"), flags, 4)
+        this.vtbl.QueryLangID := CallbackCreate(GetMethod(implObj, "QueryLangID"), flags, 3)
+        this.vtbl.GetReconversion := CallbackCreate(GetMethod(implObj, "GetReconversion"), flags, 3)
+        this.vtbl.Reconvert := CallbackCreate(GetMethod(implObj, "Reconvert"), flags, 2)
+        this.vtbl.QueryKey := CallbackCreate(GetMethod(implObj, "QueryKey"), flags, 5)
+        this.vtbl.InvokeKey := CallbackCreate(GetMethod(implObj, "InvokeKey"), flags, 4)
+        this.vtbl.InvokeFunc := CallbackCreate(GetMethod(implObj, "InvokeFunc"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryRange)
+        CallbackFree(this.vtbl.QueryLangID)
+        CallbackFree(this.vtbl.GetReconversion)
+        CallbackFree(this.vtbl.Reconvert)
+        CallbackFree(this.vtbl.QueryKey)
+        CallbackFree(this.vtbl.InvokeKey)
+        CallbackFree(this.vtbl.InvokeFunc)
     }
 }

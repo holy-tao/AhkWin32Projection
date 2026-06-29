@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPDISPLAYTOKEN extends Win32Struct {
-    static sizeof => 24
+export default struct SPDISPLAYTOKEN {
+    #StructPack 8
 
-    static packingSize => 8
+    pszLexical : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszLexical {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszDisplay : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDisplay {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    bDisplayAttributes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayAttributes {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

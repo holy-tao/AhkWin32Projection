@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMDroppedFrames interface retrieves performance information from a video capture filter, including how many frames were dropped and how many were delivered. Applications can use this interface to determine capture performance at run-time.
@@ -14,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdroppedframes
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMDroppedFrames extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMDroppedFrames extends IUnknown {
     /**
      * The interface identifier for IAMDroppedFrames
      * @type {Guid}
      */
-    static IID => Guid("{c6e13344-30ac-11d0-a18c-00a0c9118956}")
+    static IID := Guid("{c6e13344-30ac-11d0-a18c-00a0c9118956}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMDroppedFrames interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumDropped       : IntPtr
+        GetNumNotDropped    : IntPtr
+        GetDroppedInfo      : IntPtr
+        GetAverageFrameSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumDropped", "GetNumNotDropped", "GetDroppedInfo", "GetAverageFrameSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMDroppedFrames.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetNumDropped method retrieves the total number of frames that the filter has dropped since it started streaming.
@@ -151,5 +162,31 @@ class IAMDroppedFrames extends IUnknown {
     GetAverageFrameSize() {
         result := ComCall(6, this, "int*", &plAverageSize := 0, "HRESULT")
         return plAverageSize
+    }
+
+    Query(iid) {
+        if (IAMDroppedFrames.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumDropped := CallbackCreate(GetMethod(implObj, "GetNumDropped"), flags, 2)
+        this.vtbl.GetNumNotDropped := CallbackCreate(GetMethod(implObj, "GetNumNotDropped"), flags, 2)
+        this.vtbl.GetDroppedInfo := CallbackCreate(GetMethod(implObj, "GetDroppedInfo"), flags, 4)
+        this.vtbl.GetAverageFrameSize := CallbackCreate(GetMethod(implObj, "GetAverageFrameSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumDropped)
+        CallbackFree(this.vtbl.GetNumNotDropped)
+        CallbackFree(this.vtbl.GetDroppedInfo)
+        CallbackFree(this.vtbl.GetAverageFrameSize)
     }
 }

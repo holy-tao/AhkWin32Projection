@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of qualifier applied to a certificate policy.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-policyqualifiertype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class PolicyQualifierType extends Win32Enum {
+export default struct PolicyQualifierType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The qualifier type is not specified.

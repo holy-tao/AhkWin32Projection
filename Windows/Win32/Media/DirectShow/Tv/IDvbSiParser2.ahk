@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDvbSiParser.ahk
-#Include .\IDVB_EIT2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDvbSiParser.ahk" { IDvbSiParser }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDVB_EIT2.ahk" { IDVB_EIT2 }
 
 /**
  * The IDvbSiParser2 interface retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.
@@ -19,26 +20,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbsiparser2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbSiParser2 extends IDvbSiParser {
-
-    static sizeof => A_PtrSize
+export default struct IDvbSiParser2 extends IDvbSiParser {
     /**
      * The interface identifier for IDvbSiParser2
      * @type {Guid}
      */
-    static IID => Guid("{0ac5525f-f816-42f4-93ba-4c0f32f46e54}")
+    static IID := Guid("{0ac5525f-f816-42f4-93ba-4c0f32f46e54}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbSiParser2 interfaces
+    */
+    struct Vtbl extends IDvbSiParser.Vtbl {
+        GetEIT2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEIT2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbSiParser2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * .
@@ -56,5 +64,25 @@ class IDvbSiParser2 extends IDvbSiParser {
 
         result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "HRESULT")
         return IDVB_EIT2(ppEIT)
+    }
+
+    Query(iid) {
+        if (IDvbSiParser2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEIT2 := CallbackCreate(GetMethod(implObj, "GetEIT2"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEIT2)
     }
 }

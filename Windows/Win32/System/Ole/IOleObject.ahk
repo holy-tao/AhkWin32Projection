@@ -1,40 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IOleClientSite.ahk
-#Include ..\Com\IMoniker.ahk
-#Include ..\Com\IDataObject.ahk
-#Include .\IEnumOLEVERB.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\Com\IEnumSTATDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OLEMISC.ahk" { OLEMISC }
+#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumOLEVERB.ahk" { IEnumOLEVERB }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
 
 /**
  * Serves as the principal means by which an embedded object provides basic functionality to, and communicates with, its container.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleobject
  * @namespace Windows.Win32.System.Ole
  */
-class IOleObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleObject extends IUnknown {
     /**
      * The interface identifier for IOleObject
      * @type {Guid}
      */
-    static IID => Guid("{00000112-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000112-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetClientSite    : IntPtr
+        GetClientSite    : IntPtr
+        SetHostNames     : IntPtr
+        Close            : IntPtr
+        SetMoniker       : IntPtr
+        GetMoniker       : IntPtr
+        InitFromData     : IntPtr
+        GetClipboardData : IntPtr
+        DoVerb           : IntPtr
+        EnumVerbs        : IntPtr
+        Update           : IntPtr
+        IsUpToDate       : IntPtr
+        GetUserClassID   : IntPtr
+        GetUserType      : IntPtr
+        SetExtent        : IntPtr
+        GetExtent        : IntPtr
+        Advise           : IntPtr
+        Unadvise         : IntPtr
+        EnumAdvise       : IntPtr
+        GetMiscStatus    : IntPtr
+        SetColorScheme   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetClientSite", "GetClientSite", "SetHostNames", "Close", "SetMoniker", "GetMoniker", "InitFromData", "GetClipboardData", "DoVerb", "EnumVerbs", "Update", "IsUpToDate", "GetUserClassID", "GetUserType", "SetExtent", "GetExtent", "Advise", "Unadvise", "EnumAdvise", "GetMiscStatus", "SetColorScheme"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs an embedded object of its display location, called a &quot;client site,&quot; within its container.
@@ -310,7 +346,7 @@ class IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-initfromdata
      */
     InitFromData(pDataObject, fCreation, dwReserved) {
-        result := ComCall(9, this, "ptr", pDataObject, "int", fCreation, "uint", dwReserved, "HRESULT")
+        result := ComCall(9, this, "ptr", pDataObject, BOOL, fCreation, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -568,9 +604,7 @@ class IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-doverb
      */
     DoVerb(iVerb, lpmsg, pActiveSite, lindex, hwndParent, lprcPosRect) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(11, this, "int", iVerb, "ptr", lpmsg, "ptr", pActiveSite, "int", lindex, "ptr", hwndParent, "ptr", lprcPosRect, "HRESULT")
+        result := ComCall(11, this, "int", iVerb, MSG.Ptr, lpmsg, "ptr", pActiveSite, "int", lindex, HWND, hwndParent, RECT.Ptr, lprcPosRect, "HRESULT")
         return result
     }
 
@@ -695,7 +729,7 @@ class IOleObject extends IUnknown {
      */
     GetUserClassID() {
         pClsid := Guid()
-        result := ComCall(15, this, "ptr", pClsid, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, pClsid, "HRESULT")
         return pClsid
     }
 
@@ -719,7 +753,7 @@ class IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getusertype
      */
     GetUserType(dwFormOfType) {
-        result := ComCall(16, this, "uint", dwFormOfType, "ptr*", &pszUserType := 0, "HRESULT")
+        result := ComCall(16, this, "uint", dwFormOfType, PWSTR.Ptr, &pszUserType := 0, "HRESULT")
         return pszUserType
     }
 
@@ -774,7 +808,7 @@ class IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-setextent
      */
     SetExtent(dwDrawAspect, psizel) {
-        result := ComCall(17, this, "uint", dwDrawAspect, "ptr", psizel, "HRESULT")
+        result := ComCall(17, this, DVASPECT, dwDrawAspect, SIZE.Ptr, psizel, "HRESULT")
         return result
     }
 
@@ -800,7 +834,7 @@ class IOleObject extends IUnknown {
      */
     GetExtent(dwDrawAspect) {
         psizel := SIZE()
-        result := ComCall(18, this, "uint", dwDrawAspect, "ptr", psizel, "HRESULT")
+        result := ComCall(18, this, DVASPECT, dwDrawAspect, SIZE.Ptr, psizel, "HRESULT")
         return psizel
     }
 
@@ -904,7 +938,7 @@ class IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getmiscstatus
      */
     GetMiscStatus(dwAspect) {
-        result := ComCall(22, this, "uint", dwAspect, "int*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(22, this, DVASPECT, dwAspect, "int*", &pdwStatus := 0, "HRESULT")
         return pdwStatus
     }
 
@@ -957,7 +991,67 @@ class IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-setcolorscheme
      */
     SetColorScheme(pLogpal) {
-        result := ComCall(23, this, "ptr", pLogpal, "HRESULT")
+        result := ComCall(23, this, LOGPALETTE.Ptr, pLogpal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetClientSite := CallbackCreate(GetMethod(implObj, "SetClientSite"), flags, 2)
+        this.vtbl.GetClientSite := CallbackCreate(GetMethod(implObj, "GetClientSite"), flags, 2)
+        this.vtbl.SetHostNames := CallbackCreate(GetMethod(implObj, "SetHostNames"), flags, 3)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
+        this.vtbl.SetMoniker := CallbackCreate(GetMethod(implObj, "SetMoniker"), flags, 3)
+        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 4)
+        this.vtbl.InitFromData := CallbackCreate(GetMethod(implObj, "InitFromData"), flags, 4)
+        this.vtbl.GetClipboardData := CallbackCreate(GetMethod(implObj, "GetClipboardData"), flags, 3)
+        this.vtbl.DoVerb := CallbackCreate(GetMethod(implObj, "DoVerb"), flags, 7)
+        this.vtbl.EnumVerbs := CallbackCreate(GetMethod(implObj, "EnumVerbs"), flags, 2)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 1)
+        this.vtbl.IsUpToDate := CallbackCreate(GetMethod(implObj, "IsUpToDate"), flags, 1)
+        this.vtbl.GetUserClassID := CallbackCreate(GetMethod(implObj, "GetUserClassID"), flags, 2)
+        this.vtbl.GetUserType := CallbackCreate(GetMethod(implObj, "GetUserType"), flags, 3)
+        this.vtbl.SetExtent := CallbackCreate(GetMethod(implObj, "SetExtent"), flags, 3)
+        this.vtbl.GetExtent := CallbackCreate(GetMethod(implObj, "GetExtent"), flags, 3)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumAdvise := CallbackCreate(GetMethod(implObj, "EnumAdvise"), flags, 2)
+        this.vtbl.GetMiscStatus := CallbackCreate(GetMethod(implObj, "GetMiscStatus"), flags, 3)
+        this.vtbl.SetColorScheme := CallbackCreate(GetMethod(implObj, "SetColorScheme"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetClientSite)
+        CallbackFree(this.vtbl.GetClientSite)
+        CallbackFree(this.vtbl.SetHostNames)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.SetMoniker)
+        CallbackFree(this.vtbl.GetMoniker)
+        CallbackFree(this.vtbl.InitFromData)
+        CallbackFree(this.vtbl.GetClipboardData)
+        CallbackFree(this.vtbl.DoVerb)
+        CallbackFree(this.vtbl.EnumVerbs)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.IsUpToDate)
+        CallbackFree(this.vtbl.GetUserClassID)
+        CallbackFree(this.vtbl.GetUserType)
+        CallbackFree(this.vtbl.SetExtent)
+        CallbackFree(this.vtbl.GetExtent)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.EnumAdvise)
+        CallbackFree(this.vtbl.GetMiscStatus)
+        CallbackFree(this.vtbl.SetColorScheme)
     }
 }

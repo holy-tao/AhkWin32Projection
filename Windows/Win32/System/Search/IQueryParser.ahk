@@ -1,10 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IQuerySolution.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\ISchemaProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\ICondition.ahk" { ICondition }
+#Import ".\STRUCTURED_QUERY_SINGLE_OPTION.ahk" { STRUCTURED_QUERY_SINGLE_OPTION }
+#Import ".\ISchemaProvider.ahk" { ISchemaProvider }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\STRUCTURED_QUERY_MULTIOPTION.ahk" { STRUCTURED_QUERY_MULTIOPTION }
+#Import ".\IQuerySolution.ahk" { IQuerySolution }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides methods to parse an input string into an IQuerySolution object.
@@ -13,32 +20,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iqueryparser
  * @namespace Windows.Win32.System.Search
  */
-class IQueryParser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IQueryParser extends IUnknown {
     /**
      * The interface identifier for IQueryParser
      * @type {Guid}
      */
-    static IID => Guid("{2ebdee67-3505-43f8-9946-ea44abc8e5b0}")
+    static IID := Guid("{2ebdee67-3505-43f8-9946-ea44abc8e5b0}")
 
     /**
      * The class identifier for QueryParser
      * @type {Guid}
      */
-    static CLSID => Guid("{b72f8fd8-0fab-4dd9-bdbf-245a6ce1485b}")
+    static CLSID := Guid("{b72f8fd8-0fab-4dd9-bdbf-245a6ce1485b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryParser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Parse                        : IntPtr
+        SetOption                    : IntPtr
+        GetOption                    : IntPtr
+        SetMultiOption               : IntPtr
+        GetSchemaProvider            : IntPtr
+        RestateToString              : IntPtr
+        ParsePropertyValue           : IntPtr
+        RestatePropertyValueToString : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Parse", "SetOption", "GetOption", "SetMultiOption", "GetSchemaProvider", "RestateToString", "ParsePropertyValue", "RestatePropertyValueToString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryParser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Parses an input string that contains Structured Query keywords and/or contents to produce an IQuerySolution object.
@@ -88,7 +109,7 @@ class IQueryParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-setoption
      */
     SetOption(option, pOptionValue) {
-        result := ComCall(4, this, "int", option, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(4, this, STRUCTURED_QUERY_SINGLE_OPTION, option, PROPVARIANT.Ptr, pOptionValue, "HRESULT")
         return result
     }
 
@@ -104,7 +125,7 @@ class IQueryParser extends IUnknown {
      */
     GetOption(option) {
         pOptionValue := PROPVARIANT()
-        result := ComCall(5, this, "int", option, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(5, this, STRUCTURED_QUERY_SINGLE_OPTION, option, PROPVARIANT.Ptr, pOptionValue, "HRESULT")
         return pOptionValue
     }
 
@@ -127,7 +148,7 @@ class IQueryParser extends IUnknown {
     SetMultiOption(option, pszOptionKey, pOptionValue) {
         pszOptionKey := pszOptionKey is String ? StrPtr(pszOptionKey) : pszOptionKey
 
-        result := ComCall(6, this, "int", option, "ptr", pszOptionKey, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(6, this, STRUCTURED_QUERY_MULTIOPTION, option, "ptr", pszOptionKey, PROPVARIANT.Ptr, pOptionValue, "HRESULT")
         return result
     }
 
@@ -157,7 +178,7 @@ class IQueryParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-restatetostring
      */
     RestateToString(pCondition, fUseEnglish) {
-        result := ComCall(8, this, "ptr", pCondition, "int", fUseEnglish, "ptr*", &ppszQueryString := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pCondition, BOOL, fUseEnglish, PWSTR.Ptr, &ppszQueryString := 0, "HRESULT")
         return ppszQueryString
     }
 
@@ -209,7 +230,41 @@ class IQueryParser extends IUnknown {
         ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
         ppszQueryStringMarshal := ppszQueryString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pCondition, "int", fUseEnglish, ppszPropertyNameMarshal, ppszPropertyName, ppszQueryStringMarshal, ppszQueryString, "HRESULT")
+        result := ComCall(10, this, "ptr", pCondition, BOOL, fUseEnglish, ppszPropertyNameMarshal, ppszPropertyName, ppszQueryStringMarshal, ppszQueryString, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IQueryParser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Parse := CallbackCreate(GetMethod(implObj, "Parse"), flags, 4)
+        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 3)
+        this.vtbl.SetMultiOption := CallbackCreate(GetMethod(implObj, "SetMultiOption"), flags, 4)
+        this.vtbl.GetSchemaProvider := CallbackCreate(GetMethod(implObj, "GetSchemaProvider"), flags, 2)
+        this.vtbl.RestateToString := CallbackCreate(GetMethod(implObj, "RestateToString"), flags, 4)
+        this.vtbl.ParsePropertyValue := CallbackCreate(GetMethod(implObj, "ParsePropertyValue"), flags, 4)
+        this.vtbl.RestatePropertyValueToString := CallbackCreate(GetMethod(implObj, "RestatePropertyValueToString"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Parse)
+        CallbackFree(this.vtbl.SetOption)
+        CallbackFree(this.vtbl.GetOption)
+        CallbackFree(this.vtbl.SetMultiOption)
+        CallbackFree(this.vtbl.GetSchemaProvider)
+        CallbackFree(this.vtbl.RestateToString)
+        CallbackFree(this.vtbl.ParsePropertyValue)
+        CallbackFree(this.vtbl.RestatePropertyValueToString)
     }
 }

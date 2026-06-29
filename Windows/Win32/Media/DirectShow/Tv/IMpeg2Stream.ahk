@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
+#Import ".\MPEG_STREAM_BUFFER.ahk" { MPEG_STREAM_BUFFER }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMpeg2Stream interface represents a stream of MPEG-2 data. The IMpeg2Data::GetStreamOfSections method returns a pointer to this interface.
@@ -10,32 +17,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nn-mpeg2data-impeg2stream
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMpeg2Stream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMpeg2Stream extends IUnknown {
     /**
      * The interface identifier for IMpeg2Stream
      * @type {Guid}
      */
-    static IID => Guid("{400cc286-32a0-4ce4-9041-39571125a635}")
+    static IID := Guid("{400cc286-32a0-4ce4-9041-39571125a635}")
 
     /**
      * The class identifier for Mpeg2Stream
      * @type {Guid}
      */
-    static CLSID => Guid("{f91d96c7-8509-4d0b-ab26-a0dd10904bb7}")
+    static CLSID := Guid("{f91d96c7-8509-4d0b-ab26-a0dd10904bb7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMpeg2Stream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize       : IntPtr
+        SupplyDataBuffer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SupplyDataBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMpeg2Stream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes the MPEG2Stream object. This method should be called once, immediately after creating the object. The IMpeg2Data::GetStreamOfSections method calls this method internally, so typically an application will not call it.
@@ -101,9 +116,7 @@ class IMpeg2Stream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2stream-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, hDataReadyEvent) {
-        hDataReadyEvent := hDataReadyEvent is Win32Handle ? NumGet(hDataReadyEvent, "ptr") : hDataReadyEvent
-
-        result := ComCall(3, this, "int", requestType, "ptr", pMpeg2Data, "ptr", pContext, "ushort", pid, "char", tid, "ptr", pFilter, "ptr", hDataReadyEvent, "HRESULT")
+        result := ComCall(3, this, MPEG_REQUEST_TYPE, requestType, "ptr", pMpeg2Data, MPEG_CONTEXT.Ptr, pContext, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, HANDLE, hDataReadyEvent, "HRESULT")
         return result
     }
 
@@ -173,7 +186,29 @@ class IMpeg2Stream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2stream-supplydatabuffer
      */
     SupplyDataBuffer(pStreamBuffer) {
-        result := ComCall(4, this, "ptr", pStreamBuffer, "HRESULT")
+        result := ComCall(4, this, MPEG_STREAM_BUFFER.Ptr, pStreamBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMpeg2Stream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 8)
+        this.vtbl.SupplyDataBuffer := CallbackCreate(GetMethod(implObj, "SupplyDataBuffer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SupplyDataBuffer)
     }
 }

@@ -1,11 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmReportJob.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import ".\FsrmReportFilter.ahk" { FsrmReportFilter }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmReportType.ahk" { FsrmReportType }
+#Import ".\FsrmReportLimit.ahk" { FsrmReportLimit }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IFsrmReportJob.ahk" { IFsrmReportJob }
 
 /**
  * Used to manage report jobs.
@@ -19,32 +26,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreportmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmReportManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmReportManager extends IDispatch {
     /**
      * The interface identifier for IFsrmReportManager
      * @type {Guid}
      */
-    static IID => Guid("{27b899fe-6ffa-4481-a184-d3daade8a02b}")
+    static IID := Guid("{27b899fe-6ffa-4481-a184-d3daade8a02b}")
 
     /**
      * The class identifier for FsrmReportManager
      * @type {Guid}
      */
-    static CLSID => Guid("{0058ef37-aa66-4c48-bd5b-2fce432ab0c8}")
+    static CLSID := Guid("{0058ef37-aa66-4c48-bd5b-2fce432ab0c8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmReportManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        EnumReportJobs             : IntPtr
+        CreateReportJob            : IntPtr
+        GetReportJob               : IntPtr
+        GetOutputDirectory         : IntPtr
+        SetOutputDirectory         : IntPtr
+        IsFilterValidForReportType : IntPtr
+        GetDefaultFilter           : IntPtr
+        SetDefaultFilter           : IntPtr
+        GetReportSizeLimit         : IntPtr
+        SetReportSizeLimit         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumReportJobs", "CreateReportJob", "GetReportJob", "GetOutputDirectory", "SetOutputDirectory", "IsFilterValidForReportType", "GetDefaultFilter", "SetDefaultFilter", "GetReportSizeLimit", "SetReportSizeLimit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmReportManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enumerates the report jobs.
@@ -68,7 +91,7 @@ class IFsrmReportManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs
      */
     EnumReportJobs(options) {
-        result := ComCall(7, this, "int", options, "ptr*", &reportJobs := 0, "HRESULT")
+        result := ComCall(7, this, FsrmEnumOptions, options, "ptr*", &reportJobs := 0, "HRESULT")
         return IFsrmCollection(reportJobs)
     }
 
@@ -93,7 +116,7 @@ class IFsrmReportManager extends IDispatch {
     GetReportJob(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
 
-        result := ComCall(9, this, "ptr", taskName, "ptr*", &reportJob := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, taskName, "ptr*", &reportJob := 0, "HRESULT")
         return IFsrmReportJob(reportJob)
     }
 
@@ -104,8 +127,8 @@ class IFsrmReportManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
      */
     GetOutputDirectory(_context) {
-        _path := BSTR()
-        result := ComCall(10, this, "int", _context, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(10, this, FsrmReportGenerationContext, _context, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -157,7 +180,7 @@ class IFsrmReportManager extends IDispatch {
     SetOutputDirectory(_context, _path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(11, this, "int", _context, "ptr", _path, "HRESULT")
+        result := ComCall(11, this, FsrmReportGenerationContext, _context, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -169,7 +192,7 @@ class IFsrmReportManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-isfiltervalidforreporttype
      */
     IsFilterValidForReportType(reportType, filter) {
-        result := ComCall(12, this, "int", reportType, "int", filter, "short*", &valid := 0, "HRESULT")
+        result := ComCall(12, this, FsrmReportType, reportType, FsrmReportFilter, filter, VARIANT_BOOL.Ptr, &valid := 0, "HRESULT")
         return valid
     }
 
@@ -184,7 +207,7 @@ class IFsrmReportManager extends IDispatch {
      */
     GetDefaultFilter(reportType, filter) {
         filterValue := VARIANT()
-        result := ComCall(13, this, "int", reportType, "int", filter, "ptr", filterValue, "HRESULT")
+        result := ComCall(13, this, FsrmReportType, reportType, FsrmReportFilter, filter, VARIANT.Ptr, filterValue, "HRESULT")
         return filterValue
     }
 
@@ -269,7 +292,7 @@ class IFsrmReportManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setdefaultfilter
      */
     SetDefaultFilter(reportType, filter, filterValue) {
-        result := ComCall(14, this, "int", reportType, "int", filter, "ptr", filterValue, "HRESULT")
+        result := ComCall(14, this, FsrmReportType, reportType, FsrmReportFilter, filter, VARIANT, filterValue, "HRESULT")
         return result
     }
 
@@ -281,7 +304,7 @@ class IFsrmReportManager extends IDispatch {
      */
     GetReportSizeLimit(limit) {
         limitValue := VARIANT()
-        result := ComCall(15, this, "int", limit, "ptr", limitValue, "HRESULT")
+        result := ComCall(15, this, FsrmReportLimit, limit, VARIANT.Ptr, limitValue, "HRESULT")
         return limitValue
     }
 
@@ -357,7 +380,45 @@ class IFsrmReportManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setreportsizelimit
      */
     SetReportSizeLimit(limit, limitValue) {
-        result := ComCall(16, this, "int", limit, "ptr", limitValue, "HRESULT")
+        result := ComCall(16, this, FsrmReportLimit, limit, VARIANT, limitValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmReportManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumReportJobs := CallbackCreate(GetMethod(implObj, "EnumReportJobs"), flags, 3)
+        this.vtbl.CreateReportJob := CallbackCreate(GetMethod(implObj, "CreateReportJob"), flags, 2)
+        this.vtbl.GetReportJob := CallbackCreate(GetMethod(implObj, "GetReportJob"), flags, 3)
+        this.vtbl.GetOutputDirectory := CallbackCreate(GetMethod(implObj, "GetOutputDirectory"), flags, 3)
+        this.vtbl.SetOutputDirectory := CallbackCreate(GetMethod(implObj, "SetOutputDirectory"), flags, 3)
+        this.vtbl.IsFilterValidForReportType := CallbackCreate(GetMethod(implObj, "IsFilterValidForReportType"), flags, 4)
+        this.vtbl.GetDefaultFilter := CallbackCreate(GetMethod(implObj, "GetDefaultFilter"), flags, 4)
+        this.vtbl.SetDefaultFilter := CallbackCreate(GetMethod(implObj, "SetDefaultFilter"), flags, 4)
+        this.vtbl.GetReportSizeLimit := CallbackCreate(GetMethod(implObj, "GetReportSizeLimit"), flags, 3)
+        this.vtbl.SetReportSizeLimit := CallbackCreate(GetMethod(implObj, "SetReportSizeLimit"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumReportJobs)
+        CallbackFree(this.vtbl.CreateReportJob)
+        CallbackFree(this.vtbl.GetReportJob)
+        CallbackFree(this.vtbl.GetOutputDirectory)
+        CallbackFree(this.vtbl.SetOutputDirectory)
+        CallbackFree(this.vtbl.IsFilterValidForReportType)
+        CallbackFree(this.vtbl.GetDefaultFilter)
+        CallbackFree(this.vtbl.SetDefaultFilter)
+        CallbackFree(this.vtbl.GetReportSizeLimit)
+        CallbackFree(this.vtbl.SetReportSizeLimit)
     }
 }

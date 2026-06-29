@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SecBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_APP_MODE_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct SECPKG_APP_MODE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    UserFunction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UserFunction {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Argument1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Argument1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Argument2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Argument2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    UserData : SecBuffer
 
-    /**
-     * @type {SecBuffer}
-     */
-    UserData {
-        get {
-            if(!this.HasProp("__UserData"))
-                this.__UserData := SecBuffer(24, this)
-            return this.__UserData
-        }
-    }
+    ReturnToLsa : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ReturnToLsa {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
 }

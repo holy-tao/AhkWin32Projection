@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a reference to XML markup that has been or will be signed.
@@ -81,26 +84,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturereference
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcSignatureReference extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcSignatureReference extends IUnknown {
     /**
      * The interface identifier for IOpcSignatureReference
      * @type {Guid}
      */
-    static IID => Guid("{1b47005e-3011-4edc-be6f-0f65e5ab0342}")
+    static IID := Guid("{1b47005e-3011-4edc-be6f-0f65e5ab0342}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcSignatureReference interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetId              : IntPtr
+        GetUri             : IntPtr
+        GetType            : IntPtr
+        GetTransformMethod : IntPtr
+        GetDigestMethod    : IntPtr
+        GetDigestValue     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetId", "GetUri", "GetType", "GetTransformMethod", "GetDigestMethod", "GetDigestValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcSignatureReference.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the identifier for the reference.
@@ -114,7 +129,7 @@ class IOpcSignatureReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getid
      */
     GetId() {
-        result := ComCall(3, this, "ptr*", &referenceId := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &referenceId := 0, "HRESULT")
         return referenceId
     }
 
@@ -172,7 +187,7 @@ class IOpcSignatureReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettype
      */
     GetType() {
-        result := ComCall(5, this, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &type := 0, "HRESULT")
         return type
     }
 
@@ -194,7 +209,7 @@ class IOpcSignatureReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestmethod
      */
     GetDigestMethod() {
-        result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &digestMethod := 0, "HRESULT")
         return digestMethod
     }
 
@@ -244,5 +259,35 @@ class IOpcSignatureReference extends IUnknown {
 
         result := ComCall(8, this, digestValueMarshal, digestValue, countMarshal, count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOpcSignatureReference.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetUri := CallbackCreate(GetMethod(implObj, "GetUri"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetTransformMethod := CallbackCreate(GetMethod(implObj, "GetTransformMethod"), flags, 2)
+        this.vtbl.GetDigestMethod := CallbackCreate(GetMethod(implObj, "GetDigestMethod"), flags, 2)
+        this.vtbl.GetDigestValue := CallbackCreate(GetMethod(implObj, "GetDigestValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetUri)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetTransformMethod)
+        CallbackFree(this.vtbl.GetDigestMethod)
+        CallbackFree(this.vtbl.GetDigestValue)
     }
 }

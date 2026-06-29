@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the concurrency model used for incoming calls to objects created by this thread. This concurrency model can be either apartment-threaded or multithreaded.
@@ -18,7 +17,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/objbase/ne-objbase-coinit
  * @namespace Windows.Win32.System.Com
  */
-class COINIT extends Win32BitflagEnum {
+export default struct COINIT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Initializes the thread for apartment-threaded object concurrency (see Remarks).

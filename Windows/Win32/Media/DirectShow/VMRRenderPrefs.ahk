@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VMRRenderPrefs enumeration type is used with the IVMRFilterConfig::GetRenderingPrefs and IVMRFilterConfig::SetRenderingPrefs methods to get and set basic rendering preferences.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrrenderprefs
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VMRRenderPrefs extends Win32Enum {
+export default struct VMRRenderPrefs {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not implemented; do not use.

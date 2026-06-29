@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumNetCfgComponent.ahk
-#Include .\INetCfgComponent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import ".\IEnumNetCfgComponent.ahk" { IEnumNetCfgComponent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class INetCfg extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetCfg extends IUnknown {
     /**
      * The interface identifier for INetCfg
      * @type {Guid}
      */
-    static IID => Guid("{c0e8ae93-306e-11d1-aacf-00805fc1270e}")
+    static IID := Guid("{c0e8ae93-306e-11d1-aacf-00805fc1270e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetCfg interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize       : IntPtr
+        Uninitialize     : IntPtr
+        Apply            : IntPtr
+        Cancel           : IntPtr
+        EnumComponents   : IntPtr
+        FindComponent    : IntPtr
+        QueryNetCfgClass : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Uninitialize", "Apply", "Cancel", "EnumComponents", "FindComponent", "QueryNetCfgClass"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetCfg.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -65,54 +80,8 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * Uninitializes flat scroll bars for a particular window. The specified window will revert to standard scroll bars.
-     * @remarks
-     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
-     * <div> </div>
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * Returns one of the following values. 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the window's scroll bars is currently in use. The operation cannot be completed at this time. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The window does not have flat scroll bars initialized. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was successful. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-uninitializeflatsb
+     * @returns {HRESULT} 
      */
     Uninitialize() {
         result := ComCall(4, this, "HRESULT")
@@ -120,33 +89,8 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * Provides a way to apply a control token to a security context.
-     * @remarks
-     * The <b>ApplyControlToken</b> function can modify the context based on this token. Among the tokens that this function can add to the client context are <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-schannel_alert_token">SCHANNEL_ALERT_TOKEN</a> and <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-schannel_session_token">SCHANNEL_SESSION_TOKEN</a>.
      * 
-     * This function can be used to shut down the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> that underlies an existing Schannel connection. For information about how to do this, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/shutting-down-an-schannel-connection">Shutting Down an Schannel Connection</a>.
-     * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
-     * 
-     * If the function fails, it returns a nonzero error code. The following error code is one of the possible error codes that can be returned.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This value is returned by Schannel kernel mode to indicate that this function is not supported.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-applycontroltoken
+     * @returns {HRESULT} 
      */
     Apply() {
         result := ComCall(5, this, "HRESULT")
@@ -154,15 +98,8 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
-     * @remarks
-     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
-     * 
-     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(6, this, "HRESULT")
@@ -175,7 +112,7 @@ class INetCfg extends IUnknown {
      * @returns {IEnumNetCfgComponent} 
      */
     EnumComponents(pguidClass) {
-        result := ComCall(7, this, "ptr", pguidClass, "ptr*", &ppenumComponent := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pguidClass, "ptr*", &ppenumComponent := 0, "HRESULT")
         return IEnumNetCfgComponent(ppenumComponent)
     }
 
@@ -198,7 +135,39 @@ class INetCfg extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     QueryNetCfgClass(pguidClass, riid) {
-        result := ComCall(9, this, "ptr", pguidClass, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pguidClass, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
+    }
+
+    Query(iid) {
+        if (INetCfg.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.EnumComponents := CallbackCreate(GetMethod(implObj, "EnumComponents"), flags, 3)
+        this.vtbl.FindComponent := CallbackCreate(GetMethod(implObj, "FindComponent"), flags, 3)
+        this.vtbl.QueryNetCfgClass := CallbackCreate(GetMethod(implObj, "QueryNetCfgClass"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Uninitialize)
+        CallbackFree(this.vtbl.Apply)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.EnumComponents)
+        CallbackFree(this.vtbl.FindComponent)
+        CallbackFree(this.vtbl.QueryNetCfgClass)
     }
 }

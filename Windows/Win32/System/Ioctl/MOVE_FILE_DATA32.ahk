@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  * @architecture X64, Arm64
  */
-class MOVE_FILE_DATA32 extends Win32Struct {
-    static sizeof => 32
+export default struct MOVE_FILE_DATA32 {
+    #StructPack 8
 
-    static packingSize => 8
+    FileHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileHandle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StartingVcn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartingVcn {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    StartingLcn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartingLcn {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    ClusterCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClusterCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\StructuredStorage\JET_API_PTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset Unicode
  */
-class JET_SETSYSPARAM_W extends Win32Struct {
-    static sizeof => 32
+export default struct JET_SETSYSPARAM_W {
+    #StructPack 8
 
-    static packingSize => 8
+    paramid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    paramid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lParam : JET_API_PTR
 
-    /**
-     * @type {JET_API_PTR}
-     */
-    lParam {
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := JET_API_PTR(8, this)
-            return this.__lParam
-        }
-    }
+    sz : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    sz {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    err : Int32
 
-    /**
-     * @type {Integer}
-     */
-    err {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_OPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_OPTION.ahk" { WSMAN_OPTION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class WSMAN_OPTION_SETEX extends Win32Struct {
-    static sizeof => 32
+export default struct WSMAN_OPTION_SETEX {
+    #StructPack 8
 
-    static packingSize => 8
+    optionsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    optionsCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    options : WSMAN_OPTION.Ptr
 
-    /**
-     * @type {Pointer<WSMAN_OPTION>}
-     */
-    options {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    optionsMustUnderstand : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    optionsMustUnderstand {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    optionTypes : PWSTR.Ptr
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    optionTypes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

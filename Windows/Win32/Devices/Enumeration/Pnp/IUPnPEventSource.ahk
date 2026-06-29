@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUPnPEventSink.ahk" { IUPnPEventSink }
 
 /**
  * The IUPnPEventSource interface allows the device host to manage event subscriptions for the hosted service.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpeventsource
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPEventSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPEventSource extends IUnknown {
     /**
      * The interface identifier for IUPnPEventSource
      * @type {Guid}
      */
-    static IID => Guid("{204810b5-73b2-11d4-bf42-00b0d0118b56}")
+    static IID := Guid("{204810b5-73b2-11d4-bf42-00b0d0118b56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPEventSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise   : IntPtr
+        Unadvise : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPEventSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Advise method is invoked by the device host to begin receiving events from the hosted service.
@@ -52,5 +62,27 @@ class IUPnPEventSource extends IUnknown {
     Unadvise(pesSubscriber) {
         result := ComCall(4, this, "ptr", pesSubscriber, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPEventSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 2)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
     }
 }

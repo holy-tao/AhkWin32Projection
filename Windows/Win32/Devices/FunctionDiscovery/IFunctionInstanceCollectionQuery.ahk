@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFunctionInstanceCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PropertyConstraint.ahk" { PropertyConstraint }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Implements the asynchronous query for a collection of function instances based on category and subcategory.
@@ -11,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollectionquery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IFunctionInstanceCollectionQuery extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFunctionInstanceCollectionQuery extends IUnknown {
     /**
      * The interface identifier for IFunctionInstanceCollectionQuery
      * @type {Guid}
      */
-    static IID => Guid("{57cc6fd2-c09a-4289-bb72-25f04142058e}")
+    static IID := Guid("{57cc6fd2-c09a-4289-bb72-25f04142058e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFunctionInstanceCollectionQuery interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddQueryConstraint    : IntPtr
+        AddPropertyConstraint : IntPtr
+        Execute               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddQueryConstraint", "AddPropertyConstraint", "Execute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFunctionInstanceCollectionQuery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a query constraint to the query.
@@ -160,7 +174,7 @@ class IFunctionInstanceCollectionQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-addpropertyconstraint
      */
     AddPropertyConstraint(Key, pv, enumPropertyConstraint) {
-        result := ComCall(4, this, "ptr", Key, "ptr", pv, "int", enumPropertyConstraint, "HRESULT")
+        result := ComCall(4, this, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, pv, PropertyConstraint, enumPropertyConstraint, "HRESULT")
         return result
     }
 
@@ -184,5 +198,29 @@ class IFunctionInstanceCollectionQuery extends IUnknown {
     Execute() {
         result := ComCall(5, this, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")
         return IFunctionInstanceCollection(ppIFunctionInstanceCollection)
+    }
+
+    Query(iid) {
+        if (IFunctionInstanceCollectionQuery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddQueryConstraint := CallbackCreate(GetMethod(implObj, "AddQueryConstraint"), flags, 3)
+        this.vtbl.AddPropertyConstraint := CallbackCreate(GetMethod(implObj, "AddPropertyConstraint"), flags, 4)
+        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddQueryConstraint)
+        CallbackFree(this.vtbl.AddPropertyConstraint)
+        CallbackFree(this.vtbl.Execute)
     }
 }

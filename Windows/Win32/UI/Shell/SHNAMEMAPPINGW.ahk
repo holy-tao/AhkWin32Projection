@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the old and new path names for each file that was moved, copied, or renamed by the SHFileOperation function. (Unicode)
@@ -17,52 +17,35 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class SHNAMEMAPPINGW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SHNAMEMAPPINGW {
+    #StructPack 8
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that contains the old path name.
-     * @type {PWSTR}
      */
-    pszOldPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszOldPath : PWSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that contains the new path name.
-     * @type {PWSTR}
      */
-    pszNewPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszNewPath : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * The number of characters in <b>pszOldPath</b>.
-     * @type {Integer}
      */
-    cchOldPath {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cchOldPath : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The number of characters in <b>pszNewPath</b>.
-     * @type {Integer}
      */
-    cchNewPath {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cchNewPath : Int32
+
 }

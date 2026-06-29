@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a locked rectangular region.
@@ -8,32 +7,23 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlocked-rect
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DLOCKED_RECT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3DLOCKED_RECT {
+    #StructPack 8
 
     /**
      * Type: **[**INT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of bytes in one row of the surface.
-     * @type {Integer}
      */
-    Pitch {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Pitch : Int32
 
     /**
      * Type: **void\***
      * 
      * 
      * Pointer to the locked bits. If a [**RECT**](/windows/win32/api/windef/ns-windef-rect) was provided to the [**LockRect**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3dsurface9-lockrect) call, pBits will be appropriately offset from the start of the surface.
-     * @type {Pointer<Void>}
      */
-    pBits {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pBits : IntPtr
+
 }

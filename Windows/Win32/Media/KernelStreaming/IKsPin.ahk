@@ -1,7 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSPIN_COMMUNICATION.ahk" { KSPIN_COMMUNICATION }
+#Import ".\KSSTREAM_SEGMENT.ahk" { KSSTREAM_SEGMENT }
+#Import "..\DirectShow\IMemAllocator.ahk" { IMemAllocator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
+#Import ".\KSPEEKOPERATION.ahk" { KSPEEKOPERATION }
 
 /**
  * The IKsPin interface provides a method to retrieve the mediums supported by a pin on a kernel-mode filter. IKsPin has additional methods besides the one shown here, but they are not supported for DirectShow.
@@ -15,26 +23,45 @@
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsPin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsPin extends IUnknown {
     /**
      * The interface identifier for IKsPin
      * @type {Guid}
      */
-    static IID => Guid("{b61178d1-a2d9-11cf-9e53-00aa00a216a1}")
+    static IID := Guid("{b61178d1-a2d9-11cf-9e53-00aa00a216a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsPin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        KsQueryMediums            : IntPtr
+        KsQueryInterfaces         : IntPtr
+        KsCreateSinkPinHandle     : IntPtr
+        KsGetCurrentCommunication : IntPtr
+        KsPropagateAcquire        : IntPtr
+        KsDeliver                 : IntPtr
+        KsMediaSamplesCompleted   : IntPtr
+        KsPeekAllocator           : IntPtr
+        KsReceiveAllocator        : IntPtr
+        KsRenegotiateAllocator    : IntPtr
+        KsIncrementPendingIoCount : IntPtr
+        KsDecrementPendingIoCount : IntPtr
+        KsQualityNotify           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["KsQueryMediums", "KsQueryInterfaces", "KsCreateSinkPinHandle", "KsGetCurrentCommunication", "KsPropagateAcquire", "KsDeliver", "KsMediaSamplesCompleted", "KsPeekAllocator", "KsReceiveAllocator", "KsRenegotiateAllocator", "KsIncrementPendingIoCount", "KsDecrementPendingIoCount", "KsQualityNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsPin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The KsQueryMediums method retrieves the mediums supported by a pin.
@@ -68,7 +95,7 @@ class IKsPin extends IUnknown {
      * @returns {HRESULT} 
      */
     KsCreateSinkPinHandle(_Interface, Medium) {
-        result := ComCall(5, this, "ptr", _Interface, "ptr", Medium, "HRESULT")
+        result := ComCall(5, this, KSIDENTIFIER.Ptr, _Interface, KSIDENTIFIER.Ptr, Medium, "HRESULT")
         return result
     }
 
@@ -82,7 +109,7 @@ class IKsPin extends IUnknown {
     KsGetCurrentCommunication(Communication, _Interface, Medium) {
         CommunicationMarshal := Communication is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, CommunicationMarshal, Communication, "ptr", _Interface, "ptr", Medium, "HRESULT")
+        result := ComCall(6, this, CommunicationMarshal, Communication, KSIDENTIFIER.Ptr, _Interface, KSIDENTIFIER.Ptr, Medium, "HRESULT")
         return result
     }
 
@@ -112,7 +139,7 @@ class IKsPin extends IUnknown {
      * @returns {HRESULT} 
      */
     KsMediaSamplesCompleted(StreamSegment) {
-        result := ComCall(9, this, "ptr", StreamSegment, "HRESULT")
+        result := ComCall(9, this, KSSTREAM_SEGMENT.Ptr, StreamSegment, "HRESULT")
         return result
     }
 
@@ -122,7 +149,7 @@ class IKsPin extends IUnknown {
      * @returns {IMemAllocator} 
      */
     KsPeekAllocator(Operation) {
-        result := ComCall(10, this, "int", Operation, "ptr")
+        result := ComCall(10, this, KSPEEKOPERATION, Operation, IMemAllocator)
         return result
     }
 
@@ -150,7 +177,7 @@ class IKsPin extends IUnknown {
      * @returns {Integer} 
      */
     KsIncrementPendingIoCount() {
-        result := ComCall(13, this, "int")
+        result := ComCall(13, this, Int32)
         return result
     }
 
@@ -159,7 +186,7 @@ class IKsPin extends IUnknown {
      * @returns {Integer} 
      */
     KsDecrementPendingIoCount() {
-        result := ComCall(14, this, "int")
+        result := ComCall(14, this, Int32)
         return result
     }
 
@@ -172,5 +199,49 @@ class IKsPin extends IUnknown {
     KsQualityNotify(Proportion, TimeDelta) {
         result := ComCall(15, this, "uint", Proportion, "int64", TimeDelta, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IKsPin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.KsQueryMediums := CallbackCreate(GetMethod(implObj, "KsQueryMediums"), flags, 2)
+        this.vtbl.KsQueryInterfaces := CallbackCreate(GetMethod(implObj, "KsQueryInterfaces"), flags, 2)
+        this.vtbl.KsCreateSinkPinHandle := CallbackCreate(GetMethod(implObj, "KsCreateSinkPinHandle"), flags, 3)
+        this.vtbl.KsGetCurrentCommunication := CallbackCreate(GetMethod(implObj, "KsGetCurrentCommunication"), flags, 4)
+        this.vtbl.KsPropagateAcquire := CallbackCreate(GetMethod(implObj, "KsPropagateAcquire"), flags, 1)
+        this.vtbl.KsDeliver := CallbackCreate(GetMethod(implObj, "KsDeliver"), flags, 3)
+        this.vtbl.KsMediaSamplesCompleted := CallbackCreate(GetMethod(implObj, "KsMediaSamplesCompleted"), flags, 2)
+        this.vtbl.KsPeekAllocator := CallbackCreate(GetMethod(implObj, "KsPeekAllocator"), flags, 2)
+        this.vtbl.KsReceiveAllocator := CallbackCreate(GetMethod(implObj, "KsReceiveAllocator"), flags, 2)
+        this.vtbl.KsRenegotiateAllocator := CallbackCreate(GetMethod(implObj, "KsRenegotiateAllocator"), flags, 1)
+        this.vtbl.KsIncrementPendingIoCount := CallbackCreate(GetMethod(implObj, "KsIncrementPendingIoCount"), flags, 1)
+        this.vtbl.KsDecrementPendingIoCount := CallbackCreate(GetMethod(implObj, "KsDecrementPendingIoCount"), flags, 1)
+        this.vtbl.KsQualityNotify := CallbackCreate(GetMethod(implObj, "KsQualityNotify"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.KsQueryMediums)
+        CallbackFree(this.vtbl.KsQueryInterfaces)
+        CallbackFree(this.vtbl.KsCreateSinkPinHandle)
+        CallbackFree(this.vtbl.KsGetCurrentCommunication)
+        CallbackFree(this.vtbl.KsPropagateAcquire)
+        CallbackFree(this.vtbl.KsDeliver)
+        CallbackFree(this.vtbl.KsMediaSamplesCompleted)
+        CallbackFree(this.vtbl.KsPeekAllocator)
+        CallbackFree(this.vtbl.KsReceiveAllocator)
+        CallbackFree(this.vtbl.KsRenegotiateAllocator)
+        CallbackFree(this.vtbl.KsIncrementPendingIoCount)
+        CallbackFree(this.vtbl.KsDecrementPendingIoCount)
+        CallbackFree(this.vtbl.KsQualityNotify)
     }
 }

@@ -1,123 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATSTICS_REFERENCE_DMA_BUFFER extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_QUERYSTATSTICS_REFERENCE_DMA_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    NbCall : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbCall {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NbAllocationsReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationsReferenced {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxNbAllocationsReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxNbAllocationsReferenced {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NbNULLReference : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbNULLReference {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NbWriteReference : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbWriteReference {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NbRenamedAllocationsReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbRenamedAllocationsReferenced {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NbIterationSearchingRenamedAllocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbIterationSearchingRenamedAllocation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NbLockedAllocationReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLockedAllocationReferenced {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    NbAllocationWithValidPrepatchingInfoReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationWithValidPrepatchingInfoReferenced {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NbAllocationWithInvalidPrepatchingInfoReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationWithInvalidPrepatchingInfoReferenced {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    NbDMABufferSuccessfullyPrePatched : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbDMABufferSuccessfullyPrePatched {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    NbPrimariesReferencesOverflow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbPrimariesReferencesOverflow {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    NbAllocationWithNonPreferredResources : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationWithNonPreferredResources {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    NbAllocationInsertedInMigrationTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationInsertedInMigrationTable {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

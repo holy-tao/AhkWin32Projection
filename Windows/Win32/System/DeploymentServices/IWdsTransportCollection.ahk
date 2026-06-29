@@ -1,40 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a collection of Windows Deployment Services (WDS) transport management objects.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcollection
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportCollection extends IDispatch {
     /**
      * The interface identifier for IWdsTransportCollection
      * @type {Guid}
      */
-    static IID => Guid("{b8ba4b1a-2ff4-43ab-996c-b2b10a91a6eb}")
+    static IID := Guid("{b8ba4b1a-2ff4-43ab-996c-b2b10a91a6eb}")
 
     /**
      * The class identifier for WdsTransportCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{c7f18b09-391e-436e-b10b-c3ef46f2c34f}")
+    static CLSID := Guid("{c7f18b09-391e-436e-b10b-c3ef46f2c34f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        get_Item     : IntPtr
+        get__NewEnum : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -79,5 +89,29 @@ class IWdsTransportCollection extends IDispatch {
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppVal := 0, "HRESULT")
         return IUnknown(ppVal)
+    }
+
+    Query(iid) {
+        if (IWdsTransportCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
     }
 }

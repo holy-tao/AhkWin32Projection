@@ -1,17 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IPAT.ahk
-#Include .\ICAT.ahk
-#Include .\IPMT.ahk
-#Include .\ITSDT.ahk
-#Include .\IATSC_MGT.ahk
-#Include .\IATSC_VCT.ahk
-#Include .\IATSC_EIT.ahk
-#Include .\IATSC_ETT.ahk
-#Include .\IATSC_STT.ahk
-#Include .\ISCTE_EAS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPMT.ahk" { IPMT }
+#Import ".\IATSC_EIT.ahk" { IATSC_EIT }
+#Import ".\IATSC_VCT.ahk" { IATSC_VCT }
+#Import ".\ICAT.ahk" { ICAT }
+#Import ".\IATSC_ETT.ahk" { IATSC_ETT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IATSC_STT.ahk" { IATSC_STT }
+#Import ".\IATSC_MGT.ahk" { IATSC_MGT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISCTE_EAS.ahk" { ISCTE_EAS }
+#Import ".\IPAT.ahk" { IPAT }
+#Import ".\ITSDT.ahk" { ITSDT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAtscPsipParser interface retrieves ATSC Program and System Information Protocol (PSIP) tables.
@@ -30,26 +32,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatscpsipparser
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IAtscPsipParser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAtscPsipParser extends IUnknown {
     /**
      * The interface identifier for IAtscPsipParser
      * @type {Guid}
      */
-    static IID => Guid("{b2c98995-5eb2-4fb1-b406-f3e8e2026a9a}")
+    static IID := Guid("{b2c98995-5eb2-4fb1-b406-f3e8e2026a9a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAtscPsipParser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        GetPAT     : IntPtr
+        GetCAT     : IntPtr
+        GetPMT     : IntPtr
+        GetTSDT    : IntPtr
+        GetMGT     : IntPtr
+        GetVCT     : IntPtr
+        GetEIT     : IntPtr
+        GetETT     : IntPtr
+        GetSTT     : IntPtr
+        GetEAS     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetPAT", "GetCAT", "GetPMT", "GetTSDT", "GetMGT", "GetVCT", "GetEIT", "GetETT", "GetSTT", "GetEAS"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAtscPsipParser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -179,7 +198,7 @@ class IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getvct
      */
     GetVCT(tableId, fGetNextTable) {
-        result := ComCall(9, this, "char", tableId, "int", fGetNextTable, "ptr*", &ppVCT := 0, "HRESULT")
+        result := ComCall(9, this, "char", tableId, BOOL, fGetNextTable, "ptr*", &ppVCT := 0, "HRESULT")
         return IATSC_VCT(ppVCT)
     }
 
@@ -242,5 +261,45 @@ class IAtscPsipParser extends IUnknown {
     GetEAS(pid) {
         result := ComCall(13, this, "ushort", pid, "ptr*", &ppEAS := 0, "HRESULT")
         return ISCTE_EAS(ppEAS)
+    }
+
+    Query(iid) {
+        if (IAtscPsipParser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetPAT := CallbackCreate(GetMethod(implObj, "GetPAT"), flags, 2)
+        this.vtbl.GetCAT := CallbackCreate(GetMethod(implObj, "GetCAT"), flags, 3)
+        this.vtbl.GetPMT := CallbackCreate(GetMethod(implObj, "GetPMT"), flags, 4)
+        this.vtbl.GetTSDT := CallbackCreate(GetMethod(implObj, "GetTSDT"), flags, 2)
+        this.vtbl.GetMGT := CallbackCreate(GetMethod(implObj, "GetMGT"), flags, 2)
+        this.vtbl.GetVCT := CallbackCreate(GetMethod(implObj, "GetVCT"), flags, 4)
+        this.vtbl.GetEIT := CallbackCreate(GetMethod(implObj, "GetEIT"), flags, 5)
+        this.vtbl.GetETT := CallbackCreate(GetMethod(implObj, "GetETT"), flags, 5)
+        this.vtbl.GetSTT := CallbackCreate(GetMethod(implObj, "GetSTT"), flags, 2)
+        this.vtbl.GetEAS := CallbackCreate(GetMethod(implObj, "GetEAS"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetPAT)
+        CallbackFree(this.vtbl.GetCAT)
+        CallbackFree(this.vtbl.GetPMT)
+        CallbackFree(this.vtbl.GetTSDT)
+        CallbackFree(this.vtbl.GetMGT)
+        CallbackFree(this.vtbl.GetVCT)
+        CallbackFree(this.vtbl.GetEIT)
+        CallbackFree(this.vtbl.GetETT)
+        CallbackFree(this.vtbl.GetSTT)
+        CallbackFree(this.vtbl.GetEAS)
     }
 }

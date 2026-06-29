@@ -1,45 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_NODE1.ahk
-#Include .\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk
-#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk" { D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1 }
+#Import ".\D3D12_DRED_ALLOCATION_NODE1.ahk" { D3D12_DRED_ALLOCATION_NODE1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk" { D3D12_DRED_PAGE_FAULT_OUTPUT1 }
+#Import ".\D3D12_AUTO_BREADCRUMB_NODE1.ahk" { D3D12_AUTO_BREADCRUMB_NODE1 }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DEVICE_REMOVED_EXTENDED_DATA2 extends Win32Struct {
-    static sizeof => 40
+export default struct D3D12_DEVICE_REMOVED_EXTENDED_DATA2 {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceRemovedReason : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    DeviceRemovedReason {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AutoBreadcrumbsOutput : D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1
 
-    /**
-     * @type {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1}
-     */
-    AutoBreadcrumbsOutput {
-        get {
-            if(!this.HasProp("__AutoBreadcrumbsOutput"))
-                this.__AutoBreadcrumbsOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1(8, this)
-            return this.__AutoBreadcrumbsOutput
-        }
-    }
+    PageFaultOutput : D3D12_DRED_PAGE_FAULT_OUTPUT1
 
-    /**
-     * @type {D3D12_DRED_PAGE_FAULT_OUTPUT1}
-     */
-    PageFaultOutput {
-        get {
-            if(!this.HasProp("__PageFaultOutput"))
-                this.__PageFaultOutput := D3D12_DRED_PAGE_FAULT_OUTPUT1(16, this)
-            return this.__PageFaultOutput
-        }
-    }
 }

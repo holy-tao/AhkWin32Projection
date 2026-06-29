@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SEGMENTGROUPSIZEINFO extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_SEGMENTGROUPSIZEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    PhysicalAdapterIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalAdapterIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LegacyInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    LegacyInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LocalMemory : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LocalMemory {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NonLocalMemory : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NonLocalMemory {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NonBudgetMemory : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NonBudgetMemory {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

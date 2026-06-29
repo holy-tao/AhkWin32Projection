@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes an exist restriction which is used to test whether a particular property exists as a column in the table.
@@ -12,35 +11,22 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sexistrestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SExistRestriction extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct SExistRestriction {
+    #StructPack 4
 
     /**
      * > Reserved; must be zero.
-     * @type {Integer}
      */
-    ulReserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved1 : UInt32
 
     /**
      * > Property tag identifying the column to be tested for existence in each row.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulPropTag : UInt32
 
     /**
      * > Reserved; must be zero.
-     * @type {Integer}
      */
-    ulReserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulReserved2 : UInt32
+
 }

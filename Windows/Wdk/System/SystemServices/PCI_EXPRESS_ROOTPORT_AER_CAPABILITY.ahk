@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_ROOTPORT_AER_CAPABILITY extends Win32Struct {
-    static sizeof => 96
+export default struct PCI_EXPRESS_ROOTPORT_AER_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    UncorrectableErrorStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UncorrectableErrorStatus {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    UncorrectableErrorMask : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UncorrectableErrorMask {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    UncorrectableErrorSeverity : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UncorrectableErrorSeverity {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CorrectableErrorStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CorrectableErrorStatus {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    CorrectableErrorMask : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CorrectableErrorMask {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CapabilitiesAndControl : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CapabilitiesAndControl {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    HeaderLog : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HeaderLog {
-        get {
-            if(!this.HasProp("__HeaderLogProxyArray"))
-                this.__HeaderLogProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
-            return this.__HeaderLogProxyArray
-        }
-    }
+    RootErrorCommand : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RootErrorCommand {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    RootErrorStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RootErrorStatus {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ErrorSourceId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ErrorSourceId {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
 }

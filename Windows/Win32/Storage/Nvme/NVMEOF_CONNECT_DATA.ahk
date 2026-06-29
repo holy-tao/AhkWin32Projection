@@ -1,74 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_CONNECT_DATA extends Win32Struct {
-    static sizeof => 1024
+export default struct NVMEOF_CONNECT_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    HOSTID : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HOSTID {
-        get {
-            if(!this.HasProp("__HOSTIDProxyArray"))
-                this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__HOSTIDProxyArray
-        }
-    }
+    CNTLID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CNTLID {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Reserved0 : Int8[238]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 18, 238, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    SUBNQN : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SUBNQN {
-        get {
-            if(!this.HasProp("__SUBNQNProxyArray"))
-                this.__SUBNQNProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
-            return this.__SUBNQNProxyArray
-        }
-    }
+    HOSTNQN : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HOSTNQN {
-        get {
-            if(!this.HasProp("__HOSTNQNProxyArray"))
-                this.__HOSTNQNProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "char")
-            return this.__HOSTNQNProxyArray
-        }
-    }
+    Reserved1 : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
 }

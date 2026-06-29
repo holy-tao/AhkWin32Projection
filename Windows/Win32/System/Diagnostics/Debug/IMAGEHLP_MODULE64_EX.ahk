@@ -1,32 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGEHLP_MODULE64.ahk
-#Include .\SYM_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGEHLP_MODULE64.ahk" { IMAGEHLP_MODULE64 }
+#Import ".\SYM_TYPE.ahk" { SYM_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGEHLP_MODULE64_EX extends Win32Struct {
-    static sizeof => 1680
+export default struct IMAGEHLP_MODULE64_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    Module : IMAGEHLP_MODULE64
 
-    /**
-     * @type {IMAGEHLP_MODULE64}
-     */
-    Module {
-        get {
-            if(!this.HasProp("__Module"))
-                this.__Module := IMAGEHLP_MODULE64(0, this)
-            return this.__Module
-        }
-    }
+    RegionFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegionFlags {
-        get => NumGet(this, 1672, "uint")
-        set => NumPut("uint", value, this, 1672)
-    }
 }

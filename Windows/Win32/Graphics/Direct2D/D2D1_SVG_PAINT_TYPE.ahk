@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the paint type for an SVG fill or stroke.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_SVG_PAINT_TYPE extends Win32Enum {
+export default struct D2D1_SVG_PAINT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The fill or stroke is not rendered.

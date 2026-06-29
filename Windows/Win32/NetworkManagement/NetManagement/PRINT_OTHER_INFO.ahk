@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a print job.
@@ -45,21 +44,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-print_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class PRINT_OTHER_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct PRINT_OTHER_INFO {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The identification number of the print job.
-     * @type {Integer}
      */
-    alrtpr_jobid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    alrtpr_jobid : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -225,32 +218,21 @@ class PRINT_OTHER_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    alrtpr_status {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    alrtpr_status : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The time at which the print job was submitted. This value is stored as the number of seconds that have elapsed since 00:00:00, January 1, 1970, GMT.
-     * @type {Integer}
      */
-    alrtpr_submitted {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    alrtpr_submitted : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the print job.
-     * @type {Integer}
      */
-    alrtpr_size {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    alrtpr_size : UInt32
+
 }

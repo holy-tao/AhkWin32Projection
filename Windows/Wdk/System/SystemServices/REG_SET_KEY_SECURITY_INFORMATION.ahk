@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class REG_SET_KEY_SECURITY_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct REG_SET_KEY_SECURITY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SecurityInformation : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    SecurityInformation {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SecurityDescriptor : PSECURITY_DESCRIPTOR
 
-    /**
-     * @type {PSECURITY_DESCRIPTOR}
-     */
-    SecurityDescriptor {
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(16, this)
-            return this.__SecurityDescriptor
-        }
-    }
+    CallContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ObjectContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ObjectContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

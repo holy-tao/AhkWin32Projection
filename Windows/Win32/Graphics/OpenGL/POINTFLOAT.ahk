@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The POINTFLOAT structure contains the x and y coordinates of a point.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pointfloat
  * @namespace Windows.Win32.Graphics.OpenGL
  */
-class POINTFLOAT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct POINTFLOAT {
+    #StructPack 4
 
     /**
      * Specifies the horizontal (x) coordinate of a point.
-     * @type {Float}
      */
-    x {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    x : Float32
 
     /**
      * Specifies the vertical (y) coordinate of a point.
-     * @type {Float}
      */
-    y {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    y : Float32
+
 }

@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The set of supported data rates.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_rate_set
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_RATE_SET extends Win32Struct {
-    static sizeof => 256
-
-    static packingSize => 4
+export default struct WLAN_RATE_SET {
+    #StructPack 4
 
     /**
      * The length, in bytes, of <b>usRateSet</b>.
-     * @type {Integer}
      */
-    uRateSetLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uRateSetLength : UInt32
 
     /**
      * An array of supported data transfer rates. DOT11_RATE_SET_MAX_LENGTH  is defined in windot11.h to have a value of 126.
@@ -28,13 +21,7 @@ class WLAN_RATE_SET extends Win32Struct {
      * To calculate the data transfer rate in Mbps for an arbitrary array entry rateSet[i], use the following equation:
      * 
      * <c>rate_in_mbps = (rateSet[i] &amp; 0x7FFF) * 0.5</c>
-     * @type {Array<Integer>}
      */
-    usRateSet {
-        get {
-            if(!this.HasProp("__usRateSetProxyArray"))
-                this.__usRateSetProxyArray := Win32FixedArray(this.ptr + 4, 126, Primitive, "ushort")
-            return this.__usRateSetProxyArray
-        }
-    }
+    usRateSet : UInt16[126]
+
 }

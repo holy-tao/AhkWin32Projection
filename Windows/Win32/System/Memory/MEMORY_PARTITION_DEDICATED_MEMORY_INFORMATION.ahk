@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Memory
  */
-class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfInformation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfInformation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AttributesOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AttributesOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AttributeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AttributeCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    TypeId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TypeId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

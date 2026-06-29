@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a pipeline state stream.
@@ -33,30 +32,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_pipeline_state_stream_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_PIPELINE_STATE_STREAM_DESC extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D12_PIPELINE_STATE_STREAM_DESC {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/cpp/code-quality/annotating-function-parameters-and-return-values">SAL</a>: <c>_In_</c>
      * 
      * Specifies the size of the opaque data structure pointed to by the pPipelineStateSubobjectStream member, in bytes.
-     * @type {Pointer}
      */
-    SizeInBytes {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SizeInBytes : IntPtr
 
     /**
      * <a href="https://docs.microsoft.com/cpp/code-quality/annotating-function-parameters-and-return-values">SAL</a>: <c>_In_reads_(_Inexpressible_("Dependentonsizeofsubobjects"))</c>
      * 
      * Specifies the address of a data structure that describes as a bytestream an arbitrary pipeline state subobject.
-     * @type {Pointer<Void>}
      */
-    pPipelineStateSubobjectStream {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPipelineStateSubobjectStream : IntPtr
+
 }

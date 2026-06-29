@@ -1,18 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class XPF_RECOVERY_INFO extends Win32Struct {
-    static sizeof => 20
+export default struct XPF_RECOVERY_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _FailureReason extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _FailureReason {
         /**
          * This bitfield backs the following members:
          * - NotSupported
@@ -27,12 +23,9 @@ class XPF_RECOVERY_INFO extends Win32Struct {
          * - SwapBusy
          * - StackOverflow
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -123,21 +116,15 @@ class XPF_RECOVERY_INFO extends Win32Struct {
         }
     }
 
-    class _Action extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Action {
         /**
          * This bitfield backs the following members:
          * - RecoveryAttempted
          * - HvHandled
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -156,81 +143,22 @@ class XPF_RECOVERY_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_FailureReason}
-     */
-    FailureReason {
-        get {
-            if(!this.HasProp("__FailureReason"))
-                this.__FailureReason := XPF_RECOVERY_INFO._FailureReason(0, this)
-            return this.__FailureReason
-        }
-    }
+    FailureReason : XPF_RECOVERY_INFO._FailureReason
 
-    /**
-     * @type {_Action}
-     */
-    Action {
-        get {
-            if(!this.HasProp("__Action"))
-                this.__Action := XPF_RECOVERY_INFO._Action(4, this)
-            return this.__Action
-        }
-    }
+    Action : XPF_RECOVERY_INFO._Action
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ActionRequired {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ActionRequired : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RecoverySucceeded {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    RecoverySucceeded : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RecoveryKernel {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    RecoveryKernel : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    Reserved2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Reserved3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved4 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved4 : UInt32
+
 }

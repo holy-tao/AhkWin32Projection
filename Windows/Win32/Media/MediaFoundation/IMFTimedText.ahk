@@ -1,35 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFTimedTextTrack.ahk
-#Include .\IMFTimedTextTrackList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTimedTextTrackList.ahk" { IMFTimedTextTrackList }
+#Import ".\IMFTimedTextNotify.ahk" { IMFTimedTextNotify }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTimedTextTrack.ahk" { IMFTimedTextTrack }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A timed-text object represents a component of timed text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtext
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTimedText extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTimedText extends IUnknown {
     /**
      * The interface identifier for IMFTimedText
      * @type {Guid}
      */
-    static IID => Guid("{1f2a94c9-a3df-430d-9d0f-acd85ddc29af}")
+    static IID := Guid("{1f2a94c9-a3df-430d-9d0f-acd85ddc29af}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTimedText interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterNotifications : IntPtr
+        SelectTrack           : IntPtr
+        AddDataSource         : IntPtr
+        AddDataSourceFromUrl  : IntPtr
+        AddTrack              : IntPtr
+        RemoveTrack           : IntPtr
+        GetCueTimeOffset      : IntPtr
+        SetCueTimeOffset      : IntPtr
+        GetTracks             : IntPtr
+        GetActiveTracks       : IntPtr
+        GetTextTracks         : IntPtr
+        GetMetadataTracks     : IntPtr
+        SetInBandEnabled      : IntPtr
+        IsInBandEnabled       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterNotifications", "SelectTrack", "AddDataSource", "AddDataSourceFromUrl", "AddTrack", "RemoveTrack", "GetCueTimeOffset", "SetCueTimeOffset", "GetTracks", "GetActiveTracks", "GetTextTracks", "GetMetadataTracks", "SetInBandEnabled", "IsInBandEnabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTimedText.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a timed-text notify object.
@@ -60,7 +86,7 @@ class IMFTimedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-selecttrack
      */
     SelectTrack(trackId, selected) {
-        result := ComCall(4, this, "uint", trackId, "int", selected, "HRESULT")
+        result := ComCall(4, this, "uint", trackId, BOOL, selected, "HRESULT")
         return result
     }
 
@@ -90,7 +116,7 @@ class IMFTimedText extends IUnknown {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, "int", kind, "int", isDefault, "uint*", &trackId := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, MF_TIMED_TEXT_TRACK_KIND, kind, BOOL, isDefault, "uint*", &trackId := 0, "HRESULT")
         return trackId
     }
 
@@ -121,7 +147,7 @@ class IMFTimedText extends IUnknown {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, "int", kind, "int", isDefault, "uint*", &trackId := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, MF_TIMED_TEXT_TRACK_KIND, kind, BOOL, isDefault, "uint*", &trackId := 0, "HRESULT")
         return trackId
     }
 
@@ -136,7 +162,7 @@ class IMFTimedText extends IUnknown {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(7, this, "ptr", label, "ptr", language, "int", kind, "ptr*", &track := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", label, "ptr", language, MF_TIMED_TEXT_TRACK_KIND, kind, "ptr*", &track := 0, "HRESULT")
         return IMFTimedTextTrack(track)
     }
 
@@ -245,7 +271,7 @@ class IMFTimedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-setinbandenabled
      */
     SetInBandEnabled(enabled) {
-        result := ComCall(15, this, "int", enabled, "HRESULT")
+        result := ComCall(15, this, BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -257,7 +283,53 @@ class IMFTimedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-isinbandenabled
      */
     IsInBandEnabled() {
-        result := ComCall(16, this, "int")
+        result := ComCall(16, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IMFTimedText.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterNotifications := CallbackCreate(GetMethod(implObj, "RegisterNotifications"), flags, 2)
+        this.vtbl.SelectTrack := CallbackCreate(GetMethod(implObj, "SelectTrack"), flags, 3)
+        this.vtbl.AddDataSource := CallbackCreate(GetMethod(implObj, "AddDataSource"), flags, 7)
+        this.vtbl.AddDataSourceFromUrl := CallbackCreate(GetMethod(implObj, "AddDataSourceFromUrl"), flags, 7)
+        this.vtbl.AddTrack := CallbackCreate(GetMethod(implObj, "AddTrack"), flags, 5)
+        this.vtbl.RemoveTrack := CallbackCreate(GetMethod(implObj, "RemoveTrack"), flags, 2)
+        this.vtbl.GetCueTimeOffset := CallbackCreate(GetMethod(implObj, "GetCueTimeOffset"), flags, 2)
+        this.vtbl.SetCueTimeOffset := CallbackCreate(GetMethod(implObj, "SetCueTimeOffset"), flags, 2)
+        this.vtbl.GetTracks := CallbackCreate(GetMethod(implObj, "GetTracks"), flags, 2)
+        this.vtbl.GetActiveTracks := CallbackCreate(GetMethod(implObj, "GetActiveTracks"), flags, 2)
+        this.vtbl.GetTextTracks := CallbackCreate(GetMethod(implObj, "GetTextTracks"), flags, 2)
+        this.vtbl.GetMetadataTracks := CallbackCreate(GetMethod(implObj, "GetMetadataTracks"), flags, 2)
+        this.vtbl.SetInBandEnabled := CallbackCreate(GetMethod(implObj, "SetInBandEnabled"), flags, 2)
+        this.vtbl.IsInBandEnabled := CallbackCreate(GetMethod(implObj, "IsInBandEnabled"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterNotifications)
+        CallbackFree(this.vtbl.SelectTrack)
+        CallbackFree(this.vtbl.AddDataSource)
+        CallbackFree(this.vtbl.AddDataSourceFromUrl)
+        CallbackFree(this.vtbl.AddTrack)
+        CallbackFree(this.vtbl.RemoveTrack)
+        CallbackFree(this.vtbl.GetCueTimeOffset)
+        CallbackFree(this.vtbl.SetCueTimeOffset)
+        CallbackFree(this.vtbl.GetTracks)
+        CallbackFree(this.vtbl.GetActiveTracks)
+        CallbackFree(this.vtbl.GetTextTracks)
+        CallbackFree(this.vtbl.GetMetadataTracks)
+        CallbackFree(this.vtbl.SetInBandEnabled)
+        CallbackFree(this.vtbl.IsInBandEnabled)
     }
 }

@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_PCI_DEVICE_CUSTOM_PROPERTIES extends Win32Struct {
-    static sizeof => 56
+export default struct NDIS_PCI_DEVICE_CUSTOM_PROPERTIES {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CurrentSpeedAndMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentSpeedAndMode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CurrentPayloadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentPayloadSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxPayloadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxPayloadSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxReadRequestSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxReadRequestSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CurrentLinkSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentLinkSpeed {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    CurrentLinkWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentLinkWidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MaxLinkSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxLinkSpeed {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaxLinkWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxLinkWidth {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PciExpressVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PciExpressVersion {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    InterruptType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InterruptType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MaxInterruptMessages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxInterruptMessages {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

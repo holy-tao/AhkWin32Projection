@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATSTICS_LOCKS extends Win32Struct {
-    static sizeof => 28
+export default struct D3DKMT_QUERYSTATSTICS_LOCKS {
+    #StructPack 4
 
-    static packingSize => 4
+    NbLocks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLocks {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NbLocksWaitFlag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLocksWaitFlag {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NbLocksDiscardFlag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLocksDiscardFlag {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NbLocksNoOverwrite : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLocksNoOverwrite {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NbLocksNoReadSync : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLocksNoReadSync {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NbLocksLinearization : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbLocksLinearization {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NbComplexLocks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbComplexLocks {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

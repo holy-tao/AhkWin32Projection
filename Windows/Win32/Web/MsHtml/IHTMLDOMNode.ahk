@@ -1,33 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDOMNode extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDOMNode extends IDispatch {
     /**
      * The interface identifier for IHTMLDOMNode
      * @type {Guid}
      */
-    static IID => Guid("{3050f5da-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f5da-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDOMNode interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_nodeType        : IntPtr
+        get_parentNode      : IntPtr
+        hasChildNodes       : IntPtr
+        get_childNodes      : IntPtr
+        get_attributes      : IntPtr
+        insertBefore        : IntPtr
+        removeChild         : IntPtr
+        replaceChild        : IntPtr
+        cloneNode           : IntPtr
+        removeNode          : IntPtr
+        swapNode            : IntPtr
+        replaceNode         : IntPtr
+        appendChild         : IntPtr
+        get_nodeName        : IntPtr
+        put_nodeValue       : IntPtr
+        get_nodeValue       : IntPtr
+        get_firstChild      : IntPtr
+        get_lastChild       : IntPtr
+        get_previousSibling : IntPtr
+        get_nextSibling     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_nodeType", "get_parentNode", "hasChildNodes", "get_childNodes", "get_attributes", "insertBefore", "removeChild", "replaceChild", "cloneNode", "removeNode", "swapNode", "replaceNode", "appendChild", "get_nodeName", "put_nodeValue", "get_nodeValue", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDOMNode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -123,7 +151,7 @@ class IHTMLDOMNode extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
-        result := ComCall(9, this, "short*", &fChildren := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &fChildren := 0, "HRESULT")
         return fChildren
     }
 
@@ -152,7 +180,7 @@ class IHTMLDOMNode extends IDispatch {
      * @returns {IHTMLDOMNode} 
      */
     insertBefore(newChild, refChild) {
-        result := ComCall(12, this, "ptr", newChild, "ptr", refChild, "ptr*", &_node := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", newChild, VARIANT, refChild, "ptr*", &_node := 0, "HRESULT")
         return IHTMLDOMNode(_node)
     }
 
@@ -183,7 +211,7 @@ class IHTMLDOMNode extends IDispatch {
      * @returns {IHTMLDOMNode} 
      */
     cloneNode(fDeep) {
-        result := ComCall(15, this, "short", fDeep, "ptr*", &clonedNode := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, fDeep, "ptr*", &clonedNode := 0, "HRESULT")
         return IHTMLDOMNode(clonedNode)
     }
 
@@ -193,7 +221,7 @@ class IHTMLDOMNode extends IDispatch {
      * @returns {IHTMLDOMNode} 
      */
     removeNode(fDeep) {
-        result := ComCall(16, this, "short", fDeep, "ptr*", &removed := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, fDeep, "ptr*", &removed := 0, "HRESULT")
         return IHTMLDOMNode(removed)
     }
 
@@ -232,8 +260,8 @@ class IHTMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_nodeName() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -243,7 +271,7 @@ class IHTMLDOMNode extends IDispatch {
      * @returns {HRESULT} 
      */
     put_nodeValue(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -253,7 +281,7 @@ class IHTMLDOMNode extends IDispatch {
      */
     get_nodeValue() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -291,5 +319,63 @@ class IHTMLDOMNode extends IDispatch {
     get_nextSibling() {
         result := ComCall(26, this, "ptr*", &p := 0, "HRESULT")
         return IHTMLDOMNode(p)
+    }
+
+    Query(iid) {
+        if (IHTMLDOMNode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_nodeType := CallbackCreate(GetMethod(implObj, "get_nodeType"), flags, 2)
+        this.vtbl.get_parentNode := CallbackCreate(GetMethod(implObj, "get_parentNode"), flags, 2)
+        this.vtbl.hasChildNodes := CallbackCreate(GetMethod(implObj, "hasChildNodes"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.insertBefore := CallbackCreate(GetMethod(implObj, "insertBefore"), flags, 4)
+        this.vtbl.removeChild := CallbackCreate(GetMethod(implObj, "removeChild"), flags, 3)
+        this.vtbl.replaceChild := CallbackCreate(GetMethod(implObj, "replaceChild"), flags, 4)
+        this.vtbl.cloneNode := CallbackCreate(GetMethod(implObj, "cloneNode"), flags, 3)
+        this.vtbl.removeNode := CallbackCreate(GetMethod(implObj, "removeNode"), flags, 3)
+        this.vtbl.swapNode := CallbackCreate(GetMethod(implObj, "swapNode"), flags, 3)
+        this.vtbl.replaceNode := CallbackCreate(GetMethod(implObj, "replaceNode"), flags, 3)
+        this.vtbl.appendChild := CallbackCreate(GetMethod(implObj, "appendChild"), flags, 3)
+        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_previousSibling := CallbackCreate(GetMethod(implObj, "get_previousSibling"), flags, 2)
+        this.vtbl.get_nextSibling := CallbackCreate(GetMethod(implObj, "get_nextSibling"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_nodeType)
+        CallbackFree(this.vtbl.get_parentNode)
+        CallbackFree(this.vtbl.hasChildNodes)
+        CallbackFree(this.vtbl.get_childNodes)
+        CallbackFree(this.vtbl.get_attributes)
+        CallbackFree(this.vtbl.insertBefore)
+        CallbackFree(this.vtbl.removeChild)
+        CallbackFree(this.vtbl.replaceChild)
+        CallbackFree(this.vtbl.cloneNode)
+        CallbackFree(this.vtbl.removeNode)
+        CallbackFree(this.vtbl.swapNode)
+        CallbackFree(this.vtbl.replaceNode)
+        CallbackFree(this.vtbl.appendChild)
+        CallbackFree(this.vtbl.get_nodeName)
+        CallbackFree(this.vtbl.put_nodeValue)
+        CallbackFree(this.vtbl.get_nodeValue)
+        CallbackFree(this.vtbl.get_firstChild)
+        CallbackFree(this.vtbl.get_lastChild)
+        CallbackFree(this.vtbl.get_previousSibling)
+        CallbackFree(this.vtbl.get_nextSibling)
     }
 }

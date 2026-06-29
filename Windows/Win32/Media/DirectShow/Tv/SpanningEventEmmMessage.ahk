@@ -1,115 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class SpanningEventEmmMessage extends Win32Struct {
-    static sizeof => 18
+export default struct SpanningEventEmmMessage {
+    #StructPack 2
 
-    static packingSize => 2
+    bCAbroadcasterGroupId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCAbroadcasterGroupId {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bMessageControl : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMessageControl {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    wServiceId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wServiceId {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wTableIdExtension : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wTableIdExtension {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    bDeletionStatus : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDeletionStatus {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bDisplayingDuration1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayingDuration1 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    bDisplayingDuration2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayingDuration2 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bDisplayingDuration3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayingDuration3 {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    bDisplayingCycle : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayingCycle {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bFormatVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFormatVersion {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    bDisplayPosition : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayPosition {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    wMessageLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMessageLength {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    szMessageArea : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    szMessageArea {
-        get => StrGet(this.ptr + 16, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
-    }
 }

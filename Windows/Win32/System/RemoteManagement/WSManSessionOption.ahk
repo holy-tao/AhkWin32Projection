@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a set of extended options for the session. These options are used with the WSManSetSessionOption method.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmansessionoption
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class WSManSessionOption extends Win32Enum {
+export default struct WSManSessionOption {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default time-out in milliseconds that applies to all operations on the client side.

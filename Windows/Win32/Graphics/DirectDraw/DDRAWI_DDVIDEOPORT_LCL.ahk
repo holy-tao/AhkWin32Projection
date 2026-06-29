@@ -1,205 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDVIDEOPORTDESC.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
-#Include .\DDVIDEOPORTINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDVIDEOPORT_INT.ahk" { DDRAWI_DDVIDEOPORT_INT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
-    static sizeof => 312
+export default struct DDRAWI_DDVIDEOPORT_LCL {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpDD_ptr : IntPtr
     lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get => (addr := this.__lpDD_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpDD_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {DDVIDEOPORTDESC}
-     */
-    ddvpDesc {
-        get {
-            if(!this.HasProp("__ddvpDesc"))
-                this.__ddvpDesc := DDVIDEOPORTDESC(8, this)
-            return this.__ddvpDesc
-        }
-    }
+    ddvpDesc : DDVIDEOPORTDESC
 
-    /**
-     * @type {DDVIDEOPORTINFO}
-     */
-    ddvpInfo {
-        get {
-            if(!this.HasProp("__ddvpInfo"))
-                this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
-            return this.__ddvpInfo
-        }
-    }
+    ddvpInfo : DDVIDEOPORTINFO
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __lpSurface_ptr : IntPtr
     lpSurface {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => (addr := this.__lpSurface_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__lpSurface_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __lpVBISurface_ptr : IntPtr
     lpVBISurface {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => (addr := this.__lpVBISurface_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__lpVBISurface_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_INT>>}
-     */
-    lpFlipInts {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    lpFlipInts : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwNumAutoflip {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    dwNumAutoflip : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessID {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    dwProcessID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStateFlags {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    dwStateFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRefCnt {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    dwRefCnt : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    fpLastFlip {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    fpLastFlip : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
+    dwReserved2 : IntPtr
 
-    /**
-     * @type {HANDLE}
-     */
-    hDDVideoPort {
-        get {
-            if(!this.HasProp("__hDDVideoPort"))
-                this.__hDDVideoPort := HANDLE(248, this)
-            return this.__hDDVideoPort
-        }
-    }
+    hDDVideoPort : HANDLE
 
-    /**
-     * @type {Integer}
-     */
-    dwNumVBIAutoflip {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    dwNumVBIAutoflip : UInt32
 
-    /**
-     * @type {Pointer<DDVIDEOPORTDESC>}
-     */
-    lpVBIDesc {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    lpVBIDesc : DDVIDEOPORTDESC.Ptr
 
-    /**
-     * @type {Pointer<DDVIDEOPORTDESC>}
-     */
-    lpVideoDesc {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    lpVideoDesc : DDVIDEOPORTDESC.Ptr
 
-    /**
-     * @type {Pointer<DDVIDEOPORTINFO>}
-     */
-    lpVBIInfo {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    lpVBIInfo : DDVIDEOPORTINFO.Ptr
 
-    /**
-     * @type {Pointer<DDVIDEOPORTINFO>}
-     */
-    lpVideoInfo {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    lpVideoInfo : DDVIDEOPORTINFO.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    dwVBIProcessID {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    dwVBIProcessID : UInt32
 
-    /**
-     * @type {Pointer<DDRAWI_DDVIDEOPORT_INT>}
-     */
+    __lpVPNotify_ptr : IntPtr
     lpVPNotify {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+        get => (addr := this.__lpVPNotify_ptr) ? DDRAWI_DDVIDEOPORT_INT.At(addr) : unset
+        set => this.__lpVPNotify_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

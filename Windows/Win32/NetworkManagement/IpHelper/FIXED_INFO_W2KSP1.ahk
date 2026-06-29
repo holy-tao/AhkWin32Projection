@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADDR_STRING.ahk
-#Include .\IP_ADDRESS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP_ADDRESS_STRING.ahk" { IP_ADDRESS_STRING }
+#Import ".\IP_ADDR_STRING.ahk" { IP_ADDR_STRING }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The FIXED_INFO structure contains information that is the same across all the interfaces on a computer.
@@ -21,58 +21,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-fixed_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class FIXED_INFO_W2KSP1 extends Win32Struct {
-    static sizeof => 600
-
-    static packingSize => 8
+export default struct FIXED_INFO_W2KSP1 {
+    #StructPack 8
 
     /**
      * Type: <b>char[MAX_HOSTNAME_LEN + 4]</b>
      * 
      * The hostname for the local computer. This may be the fully qualified hostname (including the domain) for a computer that is joined to a domain.
-     * @type {String}
      */
-    HostName {
-        get => StrGet(this.ptr + 0, 131, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 131, "UTF-8")
-    }
+    HostName : CHAR[132]
 
     /**
      * Type: <b>char[MAX_DOMAIN_NAME_LEN + 4]</b>
      * 
      * The domain in which the local computer is registered.
-     * @type {String}
      */
-    DomainName {
-        get => StrGet(this.ptr + 132, 131, "UTF-8")
-        set => StrPut(value, this.ptr + 132, 131, "UTF-8")
-    }
+    DomainName : CHAR[132]
 
     /**
      * Type: <b>PIP_ADDR_STRING</b>
      * 
      * Reserved. Use the <b>DnsServerList</b> member to obtain the DNS servers for the local computer.
-     * @type {Pointer<IP_ADDR_STRING>}
      */
-    CurrentDnsServer {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    CurrentDnsServer : IP_ADDR_STRING.Ptr
 
     /**
      * Type: <b>IP_ADDR_STRING</b>
      * 
      * A linked list of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_addr_string">IP_ADDR_STRING</a> structures that specify the set of DNS servers used by the local computer.
-     * @type {IP_ADDR_STRING}
      */
-    DnsServerList {
-        get {
-            if(!this.HasProp("__DnsServerList"))
-                this.__DnsServerList := IP_ADDR_STRING(272, this)
-            return this.__DnsServerList
-        }
-    }
+    DnsServerList : IP_ADDR_STRING
 
     /**
      * Type: <b>UINT</b>
@@ -138,54 +117,35 @@ class FIXED_INFO_W2KSP1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    NodeType {
-        get => NumGet(this, 320, "uint")
-        set => NumPut("uint", value, this, 320)
-    }
+    NodeType : UInt32
 
     /**
      * Type: <b>char[MAX_SCOPE_ID_LEN + 4]</b>
      * 
      * The DHCP scope name.
-     * @type {String}
      */
-    ScopeId {
-        get => StrGet(this.ptr + 324, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 324, 259, "UTF-8")
-    }
+    ScopeId : CHAR[260]
 
     /**
      * Type: <b>UINT</b>
      * 
      * A Boolean value that specifies whether routing is enabled on the local computer.
-     * @type {Integer}
      */
-    EnableRouting {
-        get => NumGet(this, 584, "uint")
-        set => NumPut("uint", value, this, 584)
-    }
+    EnableRouting : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * A Boolean value that specifies whether the local computer is acting as an ARP proxy.
-     * @type {Integer}
      */
-    EnableProxy {
-        get => NumGet(this, 588, "uint")
-        set => NumPut("uint", value, this, 588)
-    }
+    EnableProxy : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * A Boolean value that specifies whether DNS is enabled on the local computer.
-     * @type {Integer}
      */
-    EnableDns {
-        get => NumGet(this, 592, "uint")
-        set => NumPut("uint", value, this, 592)
-    }
+    EnableDns : UInt32
+
 }

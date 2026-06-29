@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertView.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICertView.ahk" { ICertView }
 
 /**
  * Allow properly authorized clients to create a customized or complete view of the Certificate Services database.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-icertview2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertView2 extends ICertView {
-
-    static sizeof => A_PtrSize
+export default struct ICertView2 extends ICertView {
     /**
      * The interface identifier for ICertView2
      * @type {Guid}
      */
-    static IID => Guid("{d594b282-8851-4b61-9c66-3edadf848863}")
+    static IID := Guid("{d594b282-8851-4b61-9c66-3edadf848863}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertView2 interfaces
+    */
+    struct Vtbl extends ICertView.Vtbl {
+        SetTable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertView2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies which Certificate Services database table is used for subsequent calls to the methods of the ICertView2 interface.
@@ -44,7 +53,27 @@ class ICertView2 extends ICertView {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview2-settable
      */
     SetTable(Table) {
-        result := ComCall(15, this, "int", Table, "HRESULT")
+        result := ComCall(15, this, CVRC_TABLE, Table, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertView2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTable := CallbackCreate(GetMethod(implObj, "SetTable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTable)
     }
 }

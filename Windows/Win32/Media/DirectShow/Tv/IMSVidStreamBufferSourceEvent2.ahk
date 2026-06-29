@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSourceEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidStreamBufferSourceEvent.ahk" { IMSVidStreamBufferSourceEvent }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidStreamBufferSourceEvent2 interface is used to receive events from the MSVidStreamBufferSource object.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersourceevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferSourceEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferSourceEvent {
     /**
      * The interface identifier for IMSVidStreamBufferSourceEvent2
      * @type {Guid}
      */
-    static IID => Guid("{7aef50ce-8e22-4ba8-bc06-a92a458b4ef2}")
+    static IID := Guid("{7aef50ce-8e22-4ba8-bc06-a92a458b4ef2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSourceEvent2 interfaces
+    */
+    struct Vtbl extends IMSVidStreamBufferSourceEvent.Vtbl {
+        RateChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RateChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSourceEvent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -61,5 +69,25 @@ class IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferSourceEvent {
     RateChange(qwNewRate, qwOldRate) {
         result := ComCall(17, this, "double", qwNewRate, "double", qwOldRate, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSourceEvent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RateChange := CallbackCreate(GetMethod(implObj, "RateChange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RateChange)
     }
 }

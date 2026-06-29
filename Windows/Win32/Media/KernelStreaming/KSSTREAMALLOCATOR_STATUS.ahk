@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSALLOCATOR_FRAMING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSALLOCATOR_FRAMING.ahk" { KSALLOCATOR_FRAMING }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSSTREAMALLOCATOR_STATUS extends Win32Struct {
-    static sizeof => 32
+export default struct KSSTREAMALLOCATOR_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    Framing : KSALLOCATOR_FRAMING
 
-    /**
-     * @type {KSALLOCATOR_FRAMING}
-     */
-    Framing {
-        get {
-            if(!this.HasProp("__Framing"))
-                this.__Framing := KSALLOCATOR_FRAMING(0, this)
-            return this.__Framing
-        }
-    }
+    AllocatedFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocatedFrames {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

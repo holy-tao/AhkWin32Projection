@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_PROTOCOLS.ahk
-#Include .\USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS.ahk" { USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS }
+#Import ".\USB_PROTOCOLS.ahk" { USB_PROTOCOLS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct {
-    static sizeof => 24
+export default struct USB_NODE_CONNECTION_INFORMATION_EX_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    ConnectionIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SupportedUsbProtocols : USB_PROTOCOLS
 
-    /**
-     * @type {USB_PROTOCOLS}
-     */
-    SupportedUsbProtocols {
-        get {
-            if(!this.HasProp("__SupportedUsbProtocols"))
-                this.__SupportedUsbProtocols := USB_PROTOCOLS(8, this)
-            return this.__SupportedUsbProtocols
-        }
-    }
+    Flags : USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS
 
-    /**
-     * @type {USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(16, this)
-            return this.__Flags
-        }
-    }
 }

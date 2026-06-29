@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a unordered-access 3D texture resource. (D3D11_TEX3D_UAV)
@@ -8,41 +7,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex3d_uav
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_TEX3D_UAV extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D11_TEX3D_UAV {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The mipmap slice index.
-     * @type {Integer}
      */
-    MipSlice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MipSlice : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The zero-based index of the first depth slice to be accessed.
-     * @type {Integer}
      */
-    FirstWSlice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FirstWSlice : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of depth slices.
-     * @type {Integer}
      */
-    WSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WSize : UInt32
+
 }

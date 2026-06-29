@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains parameters used to create an encryption key, initialization vector (IV), or Message Authentication Code (MAC) key for a PKCS
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_pkcs12_pbe_params
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_PKCS12_PBE_PARAMS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CRYPT_PKCS12_PBE_PARAMS {
+    #StructPack 4
 
     /**
      * An integer that specifies the number of hashes of the password and salt that are used to create the key.
-     * @type {Integer}
      */
-    iIterations {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    iIterations : Int32
 
     /**
      * An integer that specifies the size, in bytes, of the salt used to create the key.
-     * @type {Integer}
      */
-    cbSalt {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbSalt : UInt32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values in this enumeration are used to identify the sub-types of WS_SECURITY_BINDING_CONSTRAINT.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_binding_constraint_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_BINDING_CONSTRAINT_TYPE extends Win32Enum {
+export default struct WS_SECURITY_BINDING_CONSTRAINT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is used in the type field of <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_binding_constraint">WS_SECURITY_BINDING_CONSTRAINT</a> to identify a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_ssl_transport_security_binding_constraint">WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT</a> structure.

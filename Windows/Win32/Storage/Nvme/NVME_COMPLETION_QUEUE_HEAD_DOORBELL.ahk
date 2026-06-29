@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the doorbell register that updates the Head entry pointer for Completion Queue *y*.
@@ -10,21 +9,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_queue_head_doorbell
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_COMPLETION_QUEUE_HEAD_DOORBELL extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_COMPLETION_QUEUE_HEAD_DOORBELL {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - CQH
      * - Reserved0
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -41,12 +35,8 @@ class NVME_COMPLETION_QUEUE_HEAD_DOORBELL extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

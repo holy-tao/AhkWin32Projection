@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Represents a registry string replacement. (ANSI)
@@ -10,26 +10,17 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset ANSI
  */
-class STRENTRYA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct STRENTRYA {
+    #StructPack 8
 
     /**
      * The name of the string to substitute.
-     * @type {PSTR}
      */
-    pszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszName : PSTR
 
     /**
      * The replacement string.
-     * @type {PSTR}
      */
-    pszValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszValue : PSTR
+
 }

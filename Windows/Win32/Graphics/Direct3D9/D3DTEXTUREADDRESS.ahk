@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that describe the supported texture-addressing modes.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtextureaddress
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DTEXTUREADDRESS extends Win32Enum {
+export default struct D3DTEXTUREADDRESS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

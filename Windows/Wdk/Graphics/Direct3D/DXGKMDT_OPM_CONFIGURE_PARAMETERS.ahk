@@ -1,54 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKMDT_OPM_CONFIGURE_PARAMETERS extends Win32Struct {
-    static sizeof => 4080
+export default struct DXGKMDT_OPM_CONFIGURE_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    omac : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    omac {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guidSetting : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidSetting {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulSequenceNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSequenceNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbParametersSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbParametersSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    abParameters : Int8[4056]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    abParameters {
-        get {
-            if(!this.HasProp("__abParametersProxyArray"))
-                this.__abParametersProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
-            return this.__abParametersProxyArray
-        }
-    }
 }

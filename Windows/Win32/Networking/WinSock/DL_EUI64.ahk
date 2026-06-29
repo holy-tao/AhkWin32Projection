@@ -1,82 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DL_OUI.ahk
-#Include .\DL_EI64.ahk
-#Include .\DL_EI48.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DL_EI64.ahk" { DL_EI64 }
+#Import ".\DL_OUI.ahk" { DL_OUI }
+#Import ".\DL_EI48.ahk" { DL_EI48 }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class DL_EUI64 extends Win32Struct {
-    static sizeof => 32
+export default struct DL_EUI64 {
+    #StructPack 8
 
-    static packingSize => 8
+    Byte : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Byte {
-        get {
-            if(!this.HasProp("__ByteProxyArray"))
-                this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__ByteProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {DL_OUI}
-     */
-    Oui {
-        get {
-            if(!this.HasProp("__Oui"))
-                this.__Oui := DL_OUI(0, this)
-            return this.__Oui
-        }
-    }
-
-    /**
-     * @type {DL_EI64}
-     */
-    Ei64 {
-        get {
-            if(!this.HasProp("__Ei64"))
-                this.__Ei64 := DL_EI64(4, this)
-            return this.__Ei64
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Tse {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {DL_EI48}
-     */
-    Ei48 {
-        get {
-            if(!this.HasProp("__Ei48"))
-                this.__Ei48 := DL_EI48(6, this)
-            return this.__Ei48
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'Oui', { type: DL_OUI, offset: 0 })
+        DefineProp(this.Prototype, 'Ei64', { type: DL_EI64, offset: 4 })
+        DefineProp(this.Prototype, 'Type', { type: Int8, offset: 4 })
+        DefineProp(this.Prototype, 'Tse', { type: Int8, offset: 5 })
+        DefineProp(this.Prototype, 'Ei48', { type: DL_EI48, offset: 6 })
+        this.DeleteProp("__New")
     }
 }

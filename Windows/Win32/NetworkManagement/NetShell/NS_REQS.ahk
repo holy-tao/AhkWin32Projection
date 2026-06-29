@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the number of events.
  * @see https://learn.microsoft.com/windows/win32/api/netsh/ne-netsh-ns_reqs
  * @namespace Windows.Win32.NetworkManagement.NetShell
  */
-class NS_REQS extends Win32Enum {
+export default struct NS_REQS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

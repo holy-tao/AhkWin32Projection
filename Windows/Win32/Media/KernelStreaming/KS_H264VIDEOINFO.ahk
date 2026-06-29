@@ -1,315 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_H264VIDEOINFO extends Win32Struct {
-    static sizeof => 84
+export default struct KS_H264VIDEOINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    wWidth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wWidth {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wHeight : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHeight {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wSARwidth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSARwidth {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wSARheight : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSARheight {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wProfile : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wProfile {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    bLevelIDC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLevelIDC {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    wConstrainedToolset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wConstrainedToolset {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    bmSupportedUsages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bmSupportedUsages {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    bmCapabilities : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    bmCapabilities {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    bmSVCCapabilities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bmSVCCapabilities {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    bmMVCCapabilities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bmMVCCapabilities {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwFrameInterval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFrameInterval {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    bMaxCodecConfigDelay : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMaxCodecConfigDelay {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
+    bmSupportedSliceModes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmSupportedSliceModes {
-        get => NumGet(this, 37, "char")
-        set => NumPut("char", value, this, 37)
-    }
+    bmSupportedSyncFrameTypes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmSupportedSyncFrameTypes {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
-    }
+    bResolutionScaling : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bResolutionScaling {
-        get => NumGet(this, 39, "char")
-        set => NumPut("char", value, this, 39)
-    }
+    bSimulcastSupport : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSimulcastSupport {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    bmSupportedRateControlModes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmSupportedRateControlModes {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    wMaxMBperSecOneResolutionNoScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecOneResolutionNoScalability {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    wMaxMBperSecTwoResolutionsNoScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecTwoResolutionsNoScalability {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    wMaxMBperSecThreeResolutionsNoScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecThreeResolutionsNoScalability {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    wMaxMBperSecFourResolutionsNoScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecFourResolutionsNoScalability {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    wMaxMBperSecOneResolutionTemporalScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecOneResolutionTemporalScalability {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    wMaxMBperSecTwoResolutionsTemporalScalablility : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecTwoResolutionsTemporalScalablility {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    wMaxMBperSecThreeResolutionsTemporalScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecThreeResolutionsTemporalScalability {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
+    wMaxMBperSecFourResolutionsTemporalScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecFourResolutionsTemporalScalability {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    wMaxMBperSecOneResolutionTemporalQualityScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecOneResolutionTemporalQualityScalability {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    wMaxMBperSecTwoResolutionsTemporalQualityScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecTwoResolutionsTemporalQualityScalability {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
+    wMaxMBperSecThreeResolutionsTemporalQualityScalablity : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecThreeResolutionsTemporalQualityScalablity {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
+    wMaxMBperSecFourResolutionsTemporalQualityScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecFourResolutionsTemporalQualityScalability {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    wMaxMBperSecOneResolutionTemporalSpatialScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecOneResolutionTemporalSpatialScalability {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
+    wMaxMBperSecTwoResolutionsTemporalSpatialScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecTwoResolutionsTemporalSpatialScalability {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
-    }
+    wMaxMBperSecThreeResolutionsTemporalSpatialScalablity : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecThreeResolutionsTemporalSpatialScalablity {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
-    }
+    wMaxMBperSecFourResolutionsTemporalSpatialScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecFourResolutionsTemporalSpatialScalability {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
+    wMaxMBperSecOneResolutionFullScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecOneResolutionFullScalability {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
-    }
+    wMaxMBperSecTwoResolutionsFullScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecTwoResolutionsFullScalability {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    wMaxMBperSecThreeResolutionsFullScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecThreeResolutionsFullScalability {
-        get => NumGet(this, 78, "ushort")
-        set => NumPut("ushort", value, this, 78)
-    }
+    wMaxMBperSecFourResolutionsFullScalability : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxMBperSecFourResolutionsFullScalability {
-        get => NumGet(this, 80, "ushort")
-        set => NumPut("ushort", value, this, 80)
-    }
 }

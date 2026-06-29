@@ -1,37 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGPathSegArcAbs extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGPathSegArcAbs extends IDispatch {
     /**
      * The interface identifier for ISVGPathSegArcAbs
      * @type {Guid}
      */
-    static IID => Guid("{30510506-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510506-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGPathSegArcAbs
      * @type {Guid}
      */
-    static CLSID => Guid("{305105bb-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105bb-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGPathSegArcAbs interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_x            : IntPtr
+        get_x            : IntPtr
+        put_y            : IntPtr
+        get_y            : IntPtr
+        put_r1           : IntPtr
+        get_r1           : IntPtr
+        put_r2           : IntPtr
+        get_r2           : IntPtr
+        put_angle        : IntPtr
+        get_angle        : IntPtr
+        put_largeArcFlag : IntPtr
+        get_largeArcFlag : IntPtr
+        put_sweepFlag    : IntPtr
+        get_sweepFlag    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_x", "get_x", "put_y", "get_y", "put_r1", "get_r1", "put_r2", "get_r2", "put_angle", "get_angle", "put_largeArcFlag", "get_largeArcFlag", "put_sweepFlag", "get_sweepFlag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGPathSegArcAbs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -190,7 +212,7 @@ class ISVGPathSegArcAbs extends IDispatch {
      * @returns {HRESULT} 
      */
     put_largeArcFlag(v) {
-        result := ComCall(17, this, "short", v, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -199,7 +221,7 @@ class ISVGPathSegArcAbs extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_largeArcFlag() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -209,7 +231,7 @@ class ISVGPathSegArcAbs extends IDispatch {
      * @returns {HRESULT} 
      */
     put_sweepFlag(v) {
-        result := ComCall(19, this, "short", v, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -218,7 +240,53 @@ class ISVGPathSegArcAbs extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_sweepFlag() {
-        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (ISVGPathSegArcAbs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_r1 := CallbackCreate(GetMethod(implObj, "put_r1"), flags, 2)
+        this.vtbl.get_r1 := CallbackCreate(GetMethod(implObj, "get_r1"), flags, 2)
+        this.vtbl.put_r2 := CallbackCreate(GetMethod(implObj, "put_r2"), flags, 2)
+        this.vtbl.get_r2 := CallbackCreate(GetMethod(implObj, "get_r2"), flags, 2)
+        this.vtbl.put_angle := CallbackCreate(GetMethod(implObj, "put_angle"), flags, 2)
+        this.vtbl.get_angle := CallbackCreate(GetMethod(implObj, "get_angle"), flags, 2)
+        this.vtbl.put_largeArcFlag := CallbackCreate(GetMethod(implObj, "put_largeArcFlag"), flags, 2)
+        this.vtbl.get_largeArcFlag := CallbackCreate(GetMethod(implObj, "get_largeArcFlag"), flags, 2)
+        this.vtbl.put_sweepFlag := CallbackCreate(GetMethod(implObj, "put_sweepFlag"), flags, 2)
+        this.vtbl.get_sweepFlag := CallbackCreate(GetMethod(implObj, "get_sweepFlag"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_x)
+        CallbackFree(this.vtbl.get_x)
+        CallbackFree(this.vtbl.put_y)
+        CallbackFree(this.vtbl.get_y)
+        CallbackFree(this.vtbl.put_r1)
+        CallbackFree(this.vtbl.get_r1)
+        CallbackFree(this.vtbl.put_r2)
+        CallbackFree(this.vtbl.get_r2)
+        CallbackFree(this.vtbl.put_angle)
+        CallbackFree(this.vtbl.get_angle)
+        CallbackFree(this.vtbl.put_largeArcFlag)
+        CallbackFree(this.vtbl.get_largeArcFlag)
+        CallbackFree(this.vtbl.put_sweepFlag)
+        CallbackFree(this.vtbl.get_sweepFlag)
     }
 }

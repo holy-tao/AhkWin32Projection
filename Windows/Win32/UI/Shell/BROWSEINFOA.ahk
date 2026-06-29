@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include Common\ITEMIDLIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains parameters for the SHBrowseForFolder function and receives information about the folder selected by the user. (ANSI)
@@ -12,97 +13,61 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  */
-class BROWSEINFOA extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct BROWSEINFOA {
+    #StructPack 8
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window for the dialog box.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(0, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A PIDL that specifies the location of the root folder from which to start browsing. Only the specified folder and its subfolders in the namespace hierarchy appear in the dialog box. This member can be <b>NULL</b>; in that case, a default location is used.
-     * @type {Pointer<ITEMIDLIST>}
      */
-    pidlRoot {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pidlRoot : ITEMIDLIST.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
-     * @type {PSTR}
      */
-    pszDisplayName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDisplayName : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
-     * @type {PSTR}
      */
-    lpszTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszTitle : PSTR
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulFlags : UInt32
 
     /**
      * Type: <b>BFFCALLBACK</b>
      * 
      * Pointer to an application-defined function that the dialog box calls when an event occurs. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762598(v=vs.85)">BrowseCallbackProc</a> function. This member can be <b>NULL</b>.
-     * @type {Pointer<BFFCALLBACK>}
      */
-    lpfn {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpfn : IntPtr
 
     /**
      * Type: <b>LPARAM</b>
      * 
      * An application-defined value that the dialog box passes to the callback function, if one is specified in <b>lpfn</b>.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lParam : LPARAM
 
     /**
      * Type: <b>int</b>
      * 
      * An integer value that receives the index of the image associated with the selected folder, stored in the system image list.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    iImage : Int32
+
 }

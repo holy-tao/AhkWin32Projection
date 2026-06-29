@@ -1,104 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DL_EUI64.ahk
-#Include .\DL_OUI.ahk
-#Include .\DL_EI64.ahk
-#Include .\DL_EI48.ahk
-#Include .\IN_ADDR.ahk
-#Include .\DL_EUI48.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DL_EUI48.ahk" { DL_EUI48 }
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\DL_EUI64.ahk" { DL_EUI64 }
+#Import ".\DL_EI64.ahk" { DL_EI64 }
+#Import ".\DL_OUI.ahk" { DL_OUI }
+#Import ".\DL_EI48.ahk" { DL_EI48 }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class DL_TEREDO_ADDRESS_PRV extends Win32Struct {
-    static sizeof => 38
+export default struct DL_TEREDO_ADDRESS_PRV {
+    #StructPack 1
 
-    static packingSize => 1
+    Reserved : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Eui64 : DL_EUI64
 
-    /**
-     * @type {DL_EUI64}
-     */
-    Eui64 {
-        get {
-            if(!this.HasProp("__Eui64"))
-                this.__Eui64 := DL_EUI64(6, this)
-            return this.__Eui64
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MappedPort {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {IN_ADDR}
-     */
-    MappedAddress {
-        get {
-            if(!this.HasProp("__MappedAddress"))
-                this.__MappedAddress := IN_ADDR(10, this)
-            return this.__MappedAddress
-        }
-    }
-
-    /**
-     * @type {IN_ADDR}
-     */
-    LocalAddress {
-        get {
-            if(!this.HasProp("__LocalAddress"))
-                this.__LocalAddress := IN_ADDR(14, this)
-            return this.__LocalAddress
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    InterfaceIndex {
-        get => NumGet(this, 18, "uint")
-        set => NumPut("uint", value, this, 18)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LocalPort {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
-
-    /**
-     * @type {DL_EUI48}
-     */
-    DlDestination {
-        get {
-            if(!this.HasProp("__DlDestination"))
-                this.__DlDestination := DL_EUI48(24, this)
-            return this.__DlDestination
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: UInt16, offset: 6 })
+        DefineProp(this.Prototype, 'MappedPort', { type: UInt16, offset: 8 })
+        DefineProp(this.Prototype, 'MappedAddress', { type: IN_ADDR, offset: 10 })
+        DefineProp(this.Prototype, 'LocalAddress', { type: IN_ADDR, offset: 14 })
+        DefineProp(this.Prototype, 'InterfaceIndex', { type: UInt32, offset: 18 })
+        DefineProp(this.Prototype, 'LocalPort', { type: UInt16, offset: 22 })
+        DefineProp(this.Prototype, 'DlDestination', { type: DL_EUI48, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

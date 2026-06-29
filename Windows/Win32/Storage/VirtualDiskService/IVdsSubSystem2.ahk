@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_SUB_SYSTEM_PROP2.ahk
-#Include .\IVdsDrive.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_SUB_SYSTEM_PROP2.ahk" { VDS_SUB_SYSTEM_PROP2 }
+#Import ".\VDS_HINTS2.ahk" { VDS_HINTS2 }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\IVdsDrive.ahk" { IVdsDrive }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
 
 /**
  * The IVdsSubSystem2 interface provides methods for performing query and configuration operations on a subsystem using the VDS_HINTS2 and VDS_SUB_SYSTEM_PROP2 structures.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsystem2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsSubSystem2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsSubSystem2 extends IUnknown {
     /**
      * The interface identifier for IVdsSubSystem2
      * @type {Guid}
      */
-    static IID => Guid("{be666735-7800-4a77-9d9c-40f85b87e292}")
+    static IID := Guid("{be666735-7800-4a77-9d9c-40f85b87e292}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsSubSystem2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties2         : IntPtr
+        GetDrive2              : IntPtr
+        CreateLun2             : IntPtr
+        QueryMaxLunCreateSize2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties2", "GetDrive2", "CreateLun2", "QueryMaxLunCreateSize2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsSubSystem2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The VdsSubSystem2::GetProperties2 (vdshwprv.h) method returns the properties of a subsystem.
@@ -43,7 +57,7 @@ class IVdsSubSystem2 extends IUnknown {
      */
     GetProperties2() {
         pSubSystemProp2 := VDS_SUB_SYSTEM_PROP2()
-        result := ComCall(3, this, "ptr", pSubSystemProp2, "HRESULT")
+        result := ComCall(3, this, VDS_SUB_SYSTEM_PROP2.Ptr, pSubSystemProp2, "HRESULT")
         return pSubSystemProp2
     }
 
@@ -154,7 +168,7 @@ class IVdsSubSystem2 extends IUnknown {
     CreateLun2(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints2) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(5, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints2, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, VDS_LUN_TYPE, type, "uint", ullSizeInBytes, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, VDS_HINTS2.Ptr, pHints2, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -172,7 +186,33 @@ class IVdsSubSystem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem2-querymaxluncreatesize2
      */
     QueryMaxLunCreateSize2(type, pDriveIdArray, lNumberOfDrives, pHints2) {
-        result := ComCall(6, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints2, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        result := ComCall(6, this, VDS_LUN_TYPE, type, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, VDS_HINTS2.Ptr, pHints2, "uint*", &pullMaxLunSize := 0, "HRESULT")
         return pullMaxLunSize
+    }
+
+    Query(iid) {
+        if (IVdsSubSystem2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties2 := CallbackCreate(GetMethod(implObj, "GetProperties2"), flags, 2)
+        this.vtbl.GetDrive2 := CallbackCreate(GetMethod(implObj, "GetDrive2"), flags, 5)
+        this.vtbl.CreateLun2 := CallbackCreate(GetMethod(implObj, "CreateLun2"), flags, 8)
+        this.vtbl.QueryMaxLunCreateSize2 := CallbackCreate(GetMethod(implObj, "QueryMaxLunCreateSize2"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties2)
+        CallbackFree(this.vtbl.GetDrive2)
+        CallbackFree(this.vtbl.CreateLun2)
+        CallbackFree(this.vtbl.QueryMaxLunCreateSize2)
     }
 }

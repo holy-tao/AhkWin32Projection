@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Architecture-specific data
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_DIRECTORY_ENTRY extends Win32Enum {
+export default struct IMAGE_DIRECTORY_ENTRY {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt16)}

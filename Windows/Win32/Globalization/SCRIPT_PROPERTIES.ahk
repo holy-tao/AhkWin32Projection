@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about special processing for each script.
@@ -37,10 +36,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_properties
  * @namespace Windows.Win32.Globalization
  */
-class SCRIPT_PROPERTIES extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SCRIPT_PROPERTIES {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -54,12 +51,9 @@ class SCRIPT_PROPERTIES extends Win32Struct {
      * - fPrivateUseArea
      * - fNeedsCharacterJustify
      * - fInvalidGlyph
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -140,7 +134,6 @@ class SCRIPT_PROPERTIES extends Win32Struct {
         get => (this._bitfield1 >> 31) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 31) | (this._bitfield1 & ~(0x1 << 31))
     }
-
     /**
      * This bitfield backs the following members:
      * - fInvalidLogAttr
@@ -148,12 +141,9 @@ class SCRIPT_PROPERTIES extends Win32Struct {
      * - fAmbiguousCharSet
      * - fClusterSizeVaries
      * - fRejectInvalid
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield2 : Int32
+
 
     /**
      * @type {Integer}

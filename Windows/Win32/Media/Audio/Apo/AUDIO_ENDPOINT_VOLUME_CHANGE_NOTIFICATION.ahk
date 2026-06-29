@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\IMMDevice.ahk
-#Include ..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\IMMDevice.ahk" { IMMDevice }
+#Import "..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk" { AUDIO_VOLUME_NOTIFICATION_DATA }
 
 /**
  * Represents an audio endpoint volume change APO notification.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_endpoint_volume_change_notification
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION {
+    #StructPack 8
 
     /**
      * An [IMMDevice](..//mmdeviceapi/nn-mmdeviceapi-immdevice.md) representing the audio endpoint associated with the notification.
-     * @type {IMMDevice}
      */
-    endpoint {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    endpoint : IMMDevice
 
     /**
      * A pointer to a [AUDIO_VOLUME_NOTIFICATION_DATA](/windows/win32/api/endpointvolume/ns-endpointvolume-audio_volume_notification_data) representing the new endpoint volume.
-     * @type {Pointer<AUDIO_VOLUME_NOTIFICATION_DATA>}
      */
-    volume {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    volume : AUDIO_VOLUME_NOTIFICATION_DATA.Ptr
+
 }

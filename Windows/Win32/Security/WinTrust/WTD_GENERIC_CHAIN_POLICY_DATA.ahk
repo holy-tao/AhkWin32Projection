@@ -1,65 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.ahk" { WTD_GENERIC_CHAIN_POLICY_CREATE_INFO }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WTD_GENERIC_CHAIN_POLICY_DATA extends Win32Struct {
-    static sizeof => 40
+export default struct WTD_GENERIC_CHAIN_POLICY_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pSignerChainInfo : WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pCounterSignerChainInfo : WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 4
-    }
+    pfnPolicyCallback : IntPtr
 
-    /**
-     * @type {Pointer<WTD_GENERIC_CHAIN_POLICY_CREATE_INFO>}
-     */
-    pSignerChainInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvPolicyArg : IntPtr
 
-    /**
-     * @type {Pointer<WTD_GENERIC_CHAIN_POLICY_CREATE_INFO>}
-     */
-    pCounterSignerChainInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK>}
-     */
-    pfnPolicyCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvPolicyArg {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'cbSize', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

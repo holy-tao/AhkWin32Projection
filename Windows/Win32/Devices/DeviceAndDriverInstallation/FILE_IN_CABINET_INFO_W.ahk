@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The FILE_IN_CABINET_INFO structure provides information about a file found in the cabinet. (Unicode)
@@ -11,71 +12,42 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class FILE_IN_CABINET_INFO_W extends Win32Struct {
-    static sizeof => 544
-
-    static packingSize => 8
+export default struct FILE_IN_CABINET_INFO_W {
+    #StructPack 8
 
     /**
      * File name as it exists within the cabinet file.
-     * @type {PWSTR}
      */
-    NameInCabinet {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NameInCabinet : PWSTR
 
     /**
      * Uncompressed size of the file in the cabinet, in bytes.
-     * @type {Integer}
      */
-    FileSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FileSize : UInt32
 
     /**
      * If an error occurs, this member is the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If no error has occurred, it is  NO_ERROR.
-     * @type {Integer}
      */
-    Win32Error {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Win32Error : UInt32
 
     /**
      * Date that the file was last saved.
-     * @type {Integer}
      */
-    DosDate {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    DosDate : UInt16
 
     /**
      * MS-DOS time stamp of the file in the cabinet.
-     * @type {Integer}
      */
-    DosTime {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    DosTime : UInt16
 
     /**
      * Attributes of the file in the cabinet.
-     * @type {Integer}
      */
-    DosAttribs {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    DosAttribs : UInt16
 
     /**
      * Target path and file name.
-     * @type {String}
      */
-    FullTargetName {
-        get => StrGet(this.ptr + 22, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 22, 259, "UTF-16")
-    }
+    FullTargetName : WCHAR[260]
+
 }

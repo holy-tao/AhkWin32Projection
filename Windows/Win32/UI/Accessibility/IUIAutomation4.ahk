@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomation3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationChangesEventHandler.ahk" { IUIAutomationChangesEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomation3.ahk" { IUIAutomation3 }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Extends the IUIAutomation3 interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation4
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomation4 extends IUIAutomation3 {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomation4 extends IUIAutomation3 {
     /**
      * The interface identifier for IUIAutomation4
      * @type {Guid}
      */
-    static IID => Guid("{1189c02a-05f8-4319-8e21-e817e3db2860}")
+    static IID := Guid("{1189c02a-05f8-4319-8e21-e817e3db2860}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 66
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomation4 interfaces
+    */
+    struct Vtbl extends IUIAutomation3.Vtbl {
+        AddChangesEventHandler    : IntPtr
+        RemoveChangesEventHandler : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddChangesEventHandler", "RemoveChangesEventHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomation4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a method that handles change events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
@@ -57,7 +70,7 @@ class IUIAutomation4 extends IUIAutomation3 {
     AddChangesEventHandler(element, scope, changeTypes, changesCount, pCacheRequest, handler) {
         changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(66, this, "ptr", element, "int", scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(66, this, "ptr", element, TreeScope, scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -77,5 +90,27 @@ class IUIAutomation4 extends IUIAutomation3 {
     RemoveChangesEventHandler(element, handler) {
         result := ComCall(67, this, "ptr", element, "ptr", handler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomation4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddChangesEventHandler := CallbackCreate(GetMethod(implObj, "AddChangesEventHandler"), flags, 7)
+        this.vtbl.RemoveChangesEventHandler := CallbackCreate(GetMethod(implObj, "RemoveChangesEventHandler"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddChangesEventHandler)
+        CallbackFree(this.vtbl.RemoveChangesEventHandler)
     }
 }

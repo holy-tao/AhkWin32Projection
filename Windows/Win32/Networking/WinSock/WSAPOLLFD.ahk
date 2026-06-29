@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET.ahk
-#Include .\WSAPOLL_EVENT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSAPOLL_EVENT_FLAGS.ahk" { WSAPOLL_EVENT_FLAGS }
+#Import ".\SOCKET.ahk" { SOCKET }
 
 /**
  * Stores socket information used by the WSAPoll function.
@@ -14,24 +13,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsapollfd
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSAPOLLFD extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WSAPOLLFD {
+    #StructPack 8
 
     /**
      * Type: <b>SOCKET</b>
      * 
      * The identifier of the socket for which to find status. This parameter is ignored if set to a negative value. See Remarks.
-     * @type {SOCKET}
      */
-    fd {
-        get {
-            if(!this.HasProp("__fd"))
-                this.__fd := SOCKET(0, this)
-            return this.__fd
-        }
-    }
+    fd : SOCKET
 
     /**
      * Type: <b>short</b>
@@ -63,12 +53,8 @@ class WSAPOLLFD extends Win32Struct {
      *  
      * 
      * The POLLIN flag is defined as the combination of the <b>POLLRDNORM</b>  and <b>POLLRDBAND</b> flag values. The POLLOUT flag is defined as the same as the <b>POLLWRNORM</b>  flag value.
-     * @type {WSAPOLL_EVENT_FLAGS}
      */
-    events {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    events : WSAPOLL_EVENT_FLAGS
 
     /**
      * Type: <b>short</b>
@@ -114,10 +100,7 @@ class WSAPOLLFD extends Win32Struct {
      * The POLLIN flag is defined as the combination of the <b>POLLRDNORM</b>  and <b>POLLRDBAND</b> flag values. The POLLOUT flag is defined as the same as the <b>POLLWRNORM</b>  flag value.
      * 
      * For sockets that do not satisfy the status query, and have no error, the <b>revents</b> member is set to zero upon return.
-     * @type {WSAPOLL_EVENT_FLAGS}
      */
-    revents {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    revents : WSAPOLL_EVENT_FLAGS
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGEHLP_CBA_EVENT_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGEHLP_CBA_EVENT_SEVERITY.ahk" { IMAGEHLP_CBA_EVENT_SEVERITY }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The IMAGEHLP_CBA_EVENT structure (dbghelp.h) contains information about a debugging event.
@@ -8,43 +8,24 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @charset ANSI
  */
-class IMAGEHLP_CBA_EVENT extends Win32Struct {
-    static sizeof => 24
+export default struct IMAGEHLP_CBA_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {IMAGEHLP_CBA_EVENT_SEVERITY}
-     */
-    severity {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    severity : IMAGEHLP_CBA_EVENT_SEVERITY
 
     /**
      * This member is reserved for future use.
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    code : UInt32
 
     /**
      * A text description of the error.
-     * @type {PSTR}
      */
-    desc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    desc : PSTR
 
     /**
      * This member is reserved for future use.
-     * @type {Pointer<Void>}
      */
-    object {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    object : IntPtr
+
 }

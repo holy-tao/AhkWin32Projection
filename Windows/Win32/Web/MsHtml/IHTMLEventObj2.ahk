@@ -1,37 +1,101 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLBookmarkCollection.ahk
-#Include .\IHTMLElementCollection.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLDataTransfer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
+#Import ".\IHTMLBookmarkCollection.ahk" { IHTMLBookmarkCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLDataTransfer.ahk" { IHTMLDataTransfer }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLEventObj2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLEventObj2 extends IDispatch {
     /**
      * The interface identifier for IHTMLEventObj2
      * @type {Guid}
      */
-    static IID => Guid("{3050f48b-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f48b-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLEventObj2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        setAttribute         : IntPtr
+        getAttribute         : IntPtr
+        removeAttribute      : IntPtr
+        put_propertyName     : IntPtr
+        get_propertyName     : IntPtr
+        putref_bookmarks     : IntPtr
+        get_bookmarks        : IntPtr
+        putref_recordset     : IntPtr
+        get_recordset        : IntPtr
+        put_dataFld          : IntPtr
+        get_dataFld          : IntPtr
+        putref_boundElements : IntPtr
+        get_boundElements    : IntPtr
+        put_repeat           : IntPtr
+        get_repeat           : IntPtr
+        put_srcUrn           : IntPtr
+        get_srcUrn           : IntPtr
+        putref_srcElement    : IntPtr
+        get_srcElement       : IntPtr
+        put_altKey           : IntPtr
+        get_altKey           : IntPtr
+        put_ctrlKey          : IntPtr
+        get_ctrlKey          : IntPtr
+        put_shiftKey         : IntPtr
+        get_shiftKey         : IntPtr
+        putref_fromElement   : IntPtr
+        get_fromElement      : IntPtr
+        putref_toElement     : IntPtr
+        get_toElement        : IntPtr
+        put_button           : IntPtr
+        get_button           : IntPtr
+        put_type             : IntPtr
+        get_type             : IntPtr
+        put_qualifier        : IntPtr
+        get_qualifier        : IntPtr
+        put_reason           : IntPtr
+        get_reason           : IntPtr
+        put_x                : IntPtr
+        get_x                : IntPtr
+        put_y                : IntPtr
+        get_y                : IntPtr
+        put_clientX          : IntPtr
+        get_clientX          : IntPtr
+        put_clientY          : IntPtr
+        get_clientY          : IntPtr
+        put_offsetX          : IntPtr
+        get_offsetX          : IntPtr
+        put_offsetY          : IntPtr
+        get_offsetY          : IntPtr
+        put_screenX          : IntPtr
+        get_screenX          : IntPtr
+        put_screenY          : IntPtr
+        get_screenY          : IntPtr
+        putref_srcFilter     : IntPtr
+        get_srcFilter        : IntPtr
+        get_dataTransfer     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["setAttribute", "getAttribute", "removeAttribute", "put_propertyName", "get_propertyName", "putref_bookmarks", "get_bookmarks", "putref_recordset", "get_recordset", "put_dataFld", "get_dataFld", "putref_boundElements", "get_boundElements", "put_repeat", "get_repeat", "put_srcUrn", "get_srcUrn", "putref_srcElement", "get_srcElement", "put_altKey", "get_altKey", "put_ctrlKey", "get_ctrlKey", "put_shiftKey", "get_shiftKey", "putref_fromElement", "get_fromElement", "putref_toElement", "get_toElement", "put_button", "get_button", "put_type", "get_type", "put_qualifier", "get_qualifier", "put_reason", "get_reason", "put_x", "get_x", "put_y", "get_y", "put_clientX", "get_clientX", "put_clientY", "get_clientY", "put_offsetX", "get_offsetX", "put_offsetY", "get_offsetY", "put_screenX", "get_screenX", "put_screenY", "get_screenY", "putref_srcFilter", "get_srcFilter", "get_dataTransfer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLEventObj2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -251,7 +315,7 @@ class IHTMLEventObj2 extends IDispatch {
     setAttribute(strAttributeName, AttributeValue, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(7, this, "ptr", strAttributeName, "ptr", AttributeValue, "int", lFlags, "HRESULT")
+        result := ComCall(7, this, BSTR, strAttributeName, VARIANT, AttributeValue, "int", lFlags, "HRESULT")
         return result
     }
 
@@ -265,7 +329,7 @@ class IHTMLEventObj2 extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(8, this, "ptr", strAttributeName, "int", lFlags, "ptr", AttributeValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -278,7 +342,7 @@ class IHTMLEventObj2 extends IDispatch {
     removeAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(9, this, "ptr", strAttributeName, "int", lFlags, "short*", &pfSuccess := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, strAttributeName, "int", lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
         return pfSuccess
     }
 
@@ -290,7 +354,7 @@ class IHTMLEventObj2 extends IDispatch {
     put_propertyName(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -299,8 +363,8 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_propertyName() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -350,7 +414,7 @@ class IHTMLEventObj2 extends IDispatch {
     put_dataFld(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -359,8 +423,8 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_dataFld() {
-        p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -389,7 +453,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_repeat(v) {
-        result := ComCall(20, this, "short", v, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -398,7 +462,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
-        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -410,7 +474,7 @@ class IHTMLEventObj2 extends IDispatch {
     put_srcUrn(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -419,8 +483,8 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_srcUrn() {
-        p := BSTR()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -449,7 +513,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_altKey(v) {
-        result := ComCall(26, this, "short", v, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -458,7 +522,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
-        result := ComCall(27, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -468,7 +532,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ctrlKey(v) {
-        result := ComCall(28, this, "short", v, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -477,7 +541,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
-        result := ComCall(29, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -487,7 +551,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_shiftKey(v) {
-        result := ComCall(30, this, "short", v, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -496,7 +560,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
-        result := ComCall(31, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -565,7 +629,7 @@ class IHTMLEventObj2 extends IDispatch {
     put_type(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(38, this, "ptr", v, "HRESULT")
+        result := ComCall(38, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -574,8 +638,8 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(39, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(39, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -587,7 +651,7 @@ class IHTMLEventObj2 extends IDispatch {
     put_qualifier(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(40, this, "ptr", v, "HRESULT")
+        result := ComCall(40, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -596,8 +660,8 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_qualifier() {
-        p := BSTR()
-        result := ComCall(41, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -798,5 +862,135 @@ class IHTMLEventObj2 extends IDispatch {
     get_dataTransfer() {
         result := ComCall(62, this, "ptr*", &p := 0, "HRESULT")
         return IHTMLDataTransfer(p)
+    }
+
+    Query(iid) {
+        if (IHTMLEventObj2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 4)
+        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 4)
+        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 4)
+        this.vtbl.put_propertyName := CallbackCreate(GetMethod(implObj, "put_propertyName"), flags, 2)
+        this.vtbl.get_propertyName := CallbackCreate(GetMethod(implObj, "get_propertyName"), flags, 2)
+        this.vtbl.putref_bookmarks := CallbackCreate(GetMethod(implObj, "putref_bookmarks"), flags, 2)
+        this.vtbl.get_bookmarks := CallbackCreate(GetMethod(implObj, "get_bookmarks"), flags, 2)
+        this.vtbl.putref_recordset := CallbackCreate(GetMethod(implObj, "putref_recordset"), flags, 2)
+        this.vtbl.get_recordset := CallbackCreate(GetMethod(implObj, "get_recordset"), flags, 2)
+        this.vtbl.put_dataFld := CallbackCreate(GetMethod(implObj, "put_dataFld"), flags, 2)
+        this.vtbl.get_dataFld := CallbackCreate(GetMethod(implObj, "get_dataFld"), flags, 2)
+        this.vtbl.putref_boundElements := CallbackCreate(GetMethod(implObj, "putref_boundElements"), flags, 2)
+        this.vtbl.get_boundElements := CallbackCreate(GetMethod(implObj, "get_boundElements"), flags, 2)
+        this.vtbl.put_repeat := CallbackCreate(GetMethod(implObj, "put_repeat"), flags, 2)
+        this.vtbl.get_repeat := CallbackCreate(GetMethod(implObj, "get_repeat"), flags, 2)
+        this.vtbl.put_srcUrn := CallbackCreate(GetMethod(implObj, "put_srcUrn"), flags, 2)
+        this.vtbl.get_srcUrn := CallbackCreate(GetMethod(implObj, "get_srcUrn"), flags, 2)
+        this.vtbl.putref_srcElement := CallbackCreate(GetMethod(implObj, "putref_srcElement"), flags, 2)
+        this.vtbl.get_srcElement := CallbackCreate(GetMethod(implObj, "get_srcElement"), flags, 2)
+        this.vtbl.put_altKey := CallbackCreate(GetMethod(implObj, "put_altKey"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.put_ctrlKey := CallbackCreate(GetMethod(implObj, "put_ctrlKey"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.put_shiftKey := CallbackCreate(GetMethod(implObj, "put_shiftKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.putref_fromElement := CallbackCreate(GetMethod(implObj, "putref_fromElement"), flags, 2)
+        this.vtbl.get_fromElement := CallbackCreate(GetMethod(implObj, "get_fromElement"), flags, 2)
+        this.vtbl.putref_toElement := CallbackCreate(GetMethod(implObj, "putref_toElement"), flags, 2)
+        this.vtbl.get_toElement := CallbackCreate(GetMethod(implObj, "get_toElement"), flags, 2)
+        this.vtbl.put_button := CallbackCreate(GetMethod(implObj, "put_button"), flags, 2)
+        this.vtbl.get_button := CallbackCreate(GetMethod(implObj, "get_button"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_qualifier := CallbackCreate(GetMethod(implObj, "put_qualifier"), flags, 2)
+        this.vtbl.get_qualifier := CallbackCreate(GetMethod(implObj, "get_qualifier"), flags, 2)
+        this.vtbl.put_reason := CallbackCreate(GetMethod(implObj, "put_reason"), flags, 2)
+        this.vtbl.get_reason := CallbackCreate(GetMethod(implObj, "get_reason"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_clientX := CallbackCreate(GetMethod(implObj, "put_clientX"), flags, 2)
+        this.vtbl.get_clientX := CallbackCreate(GetMethod(implObj, "get_clientX"), flags, 2)
+        this.vtbl.put_clientY := CallbackCreate(GetMethod(implObj, "put_clientY"), flags, 2)
+        this.vtbl.get_clientY := CallbackCreate(GetMethod(implObj, "get_clientY"), flags, 2)
+        this.vtbl.put_offsetX := CallbackCreate(GetMethod(implObj, "put_offsetX"), flags, 2)
+        this.vtbl.get_offsetX := CallbackCreate(GetMethod(implObj, "get_offsetX"), flags, 2)
+        this.vtbl.put_offsetY := CallbackCreate(GetMethod(implObj, "put_offsetY"), flags, 2)
+        this.vtbl.get_offsetY := CallbackCreate(GetMethod(implObj, "get_offsetY"), flags, 2)
+        this.vtbl.put_screenX := CallbackCreate(GetMethod(implObj, "put_screenX"), flags, 2)
+        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.put_screenY := CallbackCreate(GetMethod(implObj, "put_screenY"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.putref_srcFilter := CallbackCreate(GetMethod(implObj, "putref_srcFilter"), flags, 2)
+        this.vtbl.get_srcFilter := CallbackCreate(GetMethod(implObj, "get_srcFilter"), flags, 2)
+        this.vtbl.get_dataTransfer := CallbackCreate(GetMethod(implObj, "get_dataTransfer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.setAttribute)
+        CallbackFree(this.vtbl.getAttribute)
+        CallbackFree(this.vtbl.removeAttribute)
+        CallbackFree(this.vtbl.put_propertyName)
+        CallbackFree(this.vtbl.get_propertyName)
+        CallbackFree(this.vtbl.putref_bookmarks)
+        CallbackFree(this.vtbl.get_bookmarks)
+        CallbackFree(this.vtbl.putref_recordset)
+        CallbackFree(this.vtbl.get_recordset)
+        CallbackFree(this.vtbl.put_dataFld)
+        CallbackFree(this.vtbl.get_dataFld)
+        CallbackFree(this.vtbl.putref_boundElements)
+        CallbackFree(this.vtbl.get_boundElements)
+        CallbackFree(this.vtbl.put_repeat)
+        CallbackFree(this.vtbl.get_repeat)
+        CallbackFree(this.vtbl.put_srcUrn)
+        CallbackFree(this.vtbl.get_srcUrn)
+        CallbackFree(this.vtbl.putref_srcElement)
+        CallbackFree(this.vtbl.get_srcElement)
+        CallbackFree(this.vtbl.put_altKey)
+        CallbackFree(this.vtbl.get_altKey)
+        CallbackFree(this.vtbl.put_ctrlKey)
+        CallbackFree(this.vtbl.get_ctrlKey)
+        CallbackFree(this.vtbl.put_shiftKey)
+        CallbackFree(this.vtbl.get_shiftKey)
+        CallbackFree(this.vtbl.putref_fromElement)
+        CallbackFree(this.vtbl.get_fromElement)
+        CallbackFree(this.vtbl.putref_toElement)
+        CallbackFree(this.vtbl.get_toElement)
+        CallbackFree(this.vtbl.put_button)
+        CallbackFree(this.vtbl.get_button)
+        CallbackFree(this.vtbl.put_type)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.put_qualifier)
+        CallbackFree(this.vtbl.get_qualifier)
+        CallbackFree(this.vtbl.put_reason)
+        CallbackFree(this.vtbl.get_reason)
+        CallbackFree(this.vtbl.put_x)
+        CallbackFree(this.vtbl.get_x)
+        CallbackFree(this.vtbl.put_y)
+        CallbackFree(this.vtbl.get_y)
+        CallbackFree(this.vtbl.put_clientX)
+        CallbackFree(this.vtbl.get_clientX)
+        CallbackFree(this.vtbl.put_clientY)
+        CallbackFree(this.vtbl.get_clientY)
+        CallbackFree(this.vtbl.put_offsetX)
+        CallbackFree(this.vtbl.get_offsetX)
+        CallbackFree(this.vtbl.put_offsetY)
+        CallbackFree(this.vtbl.get_offsetY)
+        CallbackFree(this.vtbl.put_screenX)
+        CallbackFree(this.vtbl.get_screenX)
+        CallbackFree(this.vtbl.put_screenY)
+        CallbackFree(this.vtbl.get_screenY)
+        CallbackFree(this.vtbl.putref_srcFilter)
+        CallbackFree(this.vtbl.get_srcFilter)
+        CallbackFree(this.vtbl.get_dataTransfer)
     }
 }

@@ -1,13 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The TAPI\_AUDIO\_STREAM\_CONFIG\_CAPS structure is contained by the TAPI\_STREAM\_CONFIG\_CAPS structure when the CapsType member is set to the AudioCap member of the StreamConfigCapsType union.
- * @see https://learn.microsoft.com/windows/win32/Tapi/tapi-audio-stream-config-caps
  * @namespace Windows.Win32.Devices.Tapi
  */
-class TAPI extends Win32Struct {
-    static sizeof => 0
+export default struct TAPI {
+    #StructPack 1
 
-    static packingSize => 1
 }

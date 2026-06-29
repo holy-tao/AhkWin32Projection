@@ -1,101 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PROCESSOR_CACHE_TYPE.ahk
-#Include .\GROUP_AFFINITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GROUP_AFFINITY.ahk" { GROUP_AFFINITY }
+#Import ".\PROCESSOR_CACHE_TYPE.ahk" { PROCESSOR_CACHE_TYPE }
 
 /**
  * Describes cache attributes. This structure is used with the GetLogicalProcessorInformationEx function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-cache_relationship
  * @namespace Windows.Win32.System.SystemInformation
  */
-class CACHE_RELATIONSHIP extends Win32Struct {
-    static sizeof => 48
+export default struct CACHE_RELATIONSHIP {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Level : Int8
 
     /**
      * The cache associativity. If this member is CACHE_FULLY_ASSOCIATIVE (0xFF), the cache is fully associative.
-     * @type {Integer}
      */
-    Associativity {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Associativity : Int8
 
     /**
      * The cache line size, in bytes.
-     * @type {Integer}
      */
-    LineSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    LineSize : UInt16
 
     /**
      * The cache size, in bytes.
-     * @type {Integer}
      */
-    CacheSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CacheSize : UInt32
 
     /**
      * The cache type. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-processor_cache_type">PROCESSOR_CACHE_TYPE</a> value.
-     * @type {PROCESSOR_CACHE_TYPE}
      */
-    Type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Type : PROCESSOR_CACHE_TYPE
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 18, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[18]
 
-    /**
-     * @type {Integer}
-     */
-    GroupCount {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    GroupCount : UInt16
 
-    /**
-     * @type {GROUP_AFFINITY}
-     */
-    GroupMask {
-        get {
-            if(!this.HasProp("__GroupMask"))
-                this.__GroupMask := GROUP_AFFINITY(32, this)
-            return this.__GroupMask
-        }
-    }
+    GroupMask : GROUP_AFFINITY
 
-    /**
-     * @type {GROUP_AFFINITY}
-     */
-    GroupMasks {
-        get {
-            if(!this.HasProp("__GroupMasksProxyArray"))
-                this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 32, 1, GROUP_AFFINITY, "")
-            return this.__GroupMasksProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'GroupMasks', { type: GROUP_AFFINITY[1], offset: 32 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DResource9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
 
 /**
  * The IDirect3DSurface9 (d3d9.h) interface is used by applications to query and prepare surfaces.
@@ -20,26 +25,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dsurface9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DSurface9 extends IDirect3DResource9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DSurface9 extends IDirect3DResource9 {
     /**
      * The interface identifier for IDirect3DSurface9
      * @type {Guid}
      */
-    static IID => Guid("{0cfbaf3a-9ff6-429a-99b3-a2796af8b89b}")
+    static IID := Guid("{0cfbaf3a-9ff6-429a-99b3-a2796af8b89b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DSurface9 interfaces
+    */
+    struct Vtbl extends IDirect3DResource9.Vtbl {
+        GetContainer : IntPtr
+        GetDesc      : IntPtr
+        LockRect     : IntPtr
+        UnlockRect   : IntPtr
+        GetDC        : IntPtr
+        ReleaseDC    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContainer", "GetDesc", "LockRect", "UnlockRect", "GetDC", "ReleaseDC"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DSurface9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DSurface9::GetContainer (d3d9.h) method provides access to the parent cube texture or texture (mipmap) object.
@@ -78,7 +95,7 @@ class IDirect3DSurface9 extends IDirect3DResource9 {
     GetContainer(riid, ppContainer) {
         ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", riid, ppContainerMarshal, ppContainer, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, riid, ppContainerMarshal, ppContainer, "HRESULT")
         return result
     }
 
@@ -95,7 +112,7 @@ class IDirect3DSurface9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-getdesc
      */
     GetDesc(pDesc) {
-        result := ComCall(12, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(12, this, D3DSURFACE_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -139,7 +156,7 @@ class IDirect3DSurface9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-lockrect
      */
     LockRect(pLockedRect, pRect, Flags) {
-        result := ComCall(13, this, "ptr", pLockedRect, "ptr", pRect, "uint", Flags, "HRESULT")
+        result := ComCall(13, this, D3DLOCKED_RECT.Ptr, pLockedRect, RECT.Ptr, pRect, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -237,7 +254,7 @@ class IDirect3DSurface9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-getdc
      */
     GetDC(phdc) {
-        result := ComCall(15, this, "ptr", phdc, "HRESULT")
+        result := ComCall(15, this, HDC.Ptr, phdc, "HRESULT")
         return result
     }
 
@@ -256,9 +273,37 @@ class IDirect3DSurface9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-releasedc
      */
     ReleaseDC(_hdc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(16, this, "ptr", _hdc, "HRESULT")
+        result := ComCall(16, this, HDC, _hdc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DSurface9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.LockRect := CallbackCreate(GetMethod(implObj, "LockRect"), flags, 4)
+        this.vtbl.UnlockRect := CallbackCreate(GetMethod(implObj, "UnlockRect"), flags, 1)
+        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 2)
+        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContainer)
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.LockRect)
+        CallbackFree(this.vtbl.UnlockRect)
+        CallbackFree(this.vtbl.GetDC)
+        CallbackFree(this.vtbl.ReleaseDC)
     }
 }

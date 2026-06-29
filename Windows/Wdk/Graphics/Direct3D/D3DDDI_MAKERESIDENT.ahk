@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_MAKERESIDENT extends Win32Struct {
-    static sizeof => 48
+export default struct D3DDDI_MAKERESIDENT {
+    #StructPack 8
 
-    static packingSize => 8
+    hPagingQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hPagingQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumAllocations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumAllocations {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AllocationList : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    AllocationList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PriorityList : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    PriorityList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PagingFenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PagingFenceValue {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NumBytesToTrim : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumBytesToTrim {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

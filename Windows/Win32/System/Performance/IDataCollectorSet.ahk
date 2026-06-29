@@ -1,12 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IDataCollectorCollection.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IScheduleCollection.ahk
-#Include .\IDataManager.ahk
-#Include .\IValueMap.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IScheduleCollection.ahk" { IScheduleCollection }
+#Import ".\IDataCollectorCollection.ahk" { IDataCollectorCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IValueMap.ahk" { IValueMap }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\DataCollectorSetStatus.ahk" { DataCollectorSetStatus }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IDataManager.ahk" { IDataManager }
+#Import ".\CommitMode.ahk" { CommitMode }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Manages the configuration information that is common to all data collector objects in the set; adds and removes data collectors from the set; and starts data collection. This is the primary PLA interface that you use.
@@ -141,32 +147,98 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollectorset
  * @namespace Windows.Win32.System.Performance
  */
-class IDataCollectorSet extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDataCollectorSet extends IDispatch {
     /**
      * The interface identifier for IDataCollectorSet
      * @type {Guid}
      */
-    static IID => Guid("{03837520-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837520-098b-11d8-9414-505054503030}")
 
     /**
      * The class identifier for DataCollectorSet
      * @type {Guid}
      */
-    static CLSID => Guid("{03837521-098b-11d8-9414-505054503030}")
+    static CLSID := Guid("{03837521-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataCollectorSet interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DataCollectors            : IntPtr
+        get_Duration                  : IntPtr
+        put_Duration                  : IntPtr
+        get_Description               : IntPtr
+        put_Description               : IntPtr
+        get_DescriptionUnresolved     : IntPtr
+        get_DisplayName               : IntPtr
+        put_DisplayName               : IntPtr
+        get_DisplayNameUnresolved     : IntPtr
+        get_Keywords                  : IntPtr
+        put_Keywords                  : IntPtr
+        get_LatestOutputLocation      : IntPtr
+        put_LatestOutputLocation      : IntPtr
+        get_Name                      : IntPtr
+        get_OutputLocation            : IntPtr
+        get_RootPath                  : IntPtr
+        put_RootPath                  : IntPtr
+        get_Segment                   : IntPtr
+        put_Segment                   : IntPtr
+        get_SegmentMaxDuration        : IntPtr
+        put_SegmentMaxDuration        : IntPtr
+        get_SegmentMaxSize            : IntPtr
+        put_SegmentMaxSize            : IntPtr
+        get_SerialNumber              : IntPtr
+        put_SerialNumber              : IntPtr
+        get_Server                    : IntPtr
+        get_Status                    : IntPtr
+        get_Subdirectory              : IntPtr
+        put_Subdirectory              : IntPtr
+        get_SubdirectoryFormat        : IntPtr
+        put_SubdirectoryFormat        : IntPtr
+        get_SubdirectoryFormatPattern : IntPtr
+        put_SubdirectoryFormatPattern : IntPtr
+        get_Task                      : IntPtr
+        put_Task                      : IntPtr
+        get_TaskRunAsSelf             : IntPtr
+        put_TaskRunAsSelf             : IntPtr
+        get_TaskArguments             : IntPtr
+        put_TaskArguments             : IntPtr
+        get_TaskUserTextArguments     : IntPtr
+        put_TaskUserTextArguments     : IntPtr
+        get_Schedules                 : IntPtr
+        get_SchedulesEnabled          : IntPtr
+        put_SchedulesEnabled          : IntPtr
+        get_UserAccount               : IntPtr
+        get_Xml                       : IntPtr
+        get_Security                  : IntPtr
+        put_Security                  : IntPtr
+        get_StopOnCompletion          : IntPtr
+        put_StopOnCompletion          : IntPtr
+        get_DataManager               : IntPtr
+        SetCredentials                : IntPtr
+        Query                         : IntPtr
+        Commit                        : IntPtr
+        Delete                        : IntPtr
+        Start                         : IntPtr
+        Stop                          : IntPtr
+        SetXml                        : IntPtr
+        SetValue                      : IntPtr
+        GetValue                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DataCollectors", "get_Duration", "put_Duration", "get_Description", "put_Description", "get_DescriptionUnresolved", "get_DisplayName", "put_DisplayName", "get_DisplayNameUnresolved", "get_Keywords", "put_Keywords", "get_LatestOutputLocation", "put_LatestOutputLocation", "get_Name", "get_OutputLocation", "get_RootPath", "put_RootPath", "get_Segment", "put_Segment", "get_SegmentMaxDuration", "put_SegmentMaxDuration", "get_SegmentMaxSize", "put_SegmentMaxSize", "get_SerialNumber", "put_SerialNumber", "get_Server", "get_Status", "get_Subdirectory", "put_Subdirectory", "get_SubdirectoryFormat", "put_SubdirectoryFormat", "get_SubdirectoryFormatPattern", "put_SubdirectoryFormatPattern", "get_Task", "put_Task", "get_TaskRunAsSelf", "put_TaskRunAsSelf", "get_TaskArguments", "put_TaskArguments", "get_TaskUserTextArguments", "put_TaskUserTextArguments", "get_Schedules", "get_SchedulesEnabled", "put_SchedulesEnabled", "get_UserAccount", "get_Xml", "get_Security", "put_Security", "get_StopOnCompletion", "put_StopOnCompletion", "get_DataManager", "SetCredentials", "Query", "Commit", "Delete", "Start", "Stop", "SetXml", "SetValue", "GetValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataCollectorSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDataCollectorCollection} 
@@ -446,8 +518,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_description
      */
     get_Description() {
-        description := BSTR()
-        result := ComCall(10, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -464,7 +536,7 @@ class IDataCollectorSet extends IDispatch {
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
 
-        result := ComCall(11, this, "ptr", description, "HRESULT")
+        result := ComCall(11, this, BSTR, description, "HRESULT")
         return result
     }
 
@@ -476,8 +548,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_descriptionunresolved
      */
     get_DescriptionUnresolved() {
-        Descr := BSTR()
-        result := ComCall(12, this, "ptr", Descr, "HRESULT")
+        Descr := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, Descr, "HRESULT")
         return Descr
     }
 
@@ -491,8 +563,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displayname
      */
     get_DisplayName() {
-        DisplayName := BSTR()
-        result := ComCall(13, this, "ptr", DisplayName, "HRESULT")
+        DisplayName := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, DisplayName, "HRESULT")
         return DisplayName
     }
 
@@ -509,7 +581,7 @@ class IDataCollectorSet extends IDispatch {
     put_DisplayName(DisplayName) {
         DisplayName := DisplayName is String ? BSTR.Alloc(DisplayName).Value : DisplayName
 
-        result := ComCall(14, this, "ptr", DisplayName, "HRESULT")
+        result := ComCall(14, this, BSTR, DisplayName, "HRESULT")
         return result
     }
 
@@ -521,8 +593,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displaynameunresolved
      */
     get_DisplayNameUnresolved() {
-        name := BSTR()
-        result := ComCall(15, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -547,7 +619,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_keywords
      */
     put_Keywords(keywords) {
-        result := ComCall(17, this, "ptr", keywords, "HRESULT")
+        result := ComCall(17, this, SAFEARRAY.Ptr, keywords, "HRESULT")
         return result
     }
 
@@ -561,8 +633,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        _path := BSTR()
-        result := ComCall(18, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -579,7 +651,7 @@ class IDataCollectorSet extends IDispatch {
     put_LatestOutputLocation(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(19, this, "ptr", _path, "HRESULT")
+        result := ComCall(19, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -591,8 +663,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(20, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -604,8 +676,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_outputlocation
      */
     get_OutputLocation() {
-        _path := BSTR()
-        result := ComCall(21, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -617,8 +689,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_rootpath
      */
     get_RootPath() {
-        _folder := BSTR()
-        result := ComCall(22, this, "ptr", _folder, "HRESULT")
+        _folder := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, _folder, "HRESULT")
         return _folder
     }
 
@@ -633,7 +705,7 @@ class IDataCollectorSet extends IDispatch {
     put_RootPath(_folder) {
         _folder := _folder is String ? BSTR.Alloc(_folder).Value : _folder
 
-        result := ComCall(23, this, "ptr", _folder, "HRESULT")
+        result := ComCall(23, this, BSTR, _folder, "HRESULT")
         return result
     }
 
@@ -651,7 +723,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segment
      */
     get_Segment() {
-        result := ComCall(24, this, "short*", &segment := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &segment := 0, "HRESULT")
         return segment
     }
 
@@ -670,7 +742,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segment
      */
     put_Segment(segment) {
-        result := ComCall(25, this, "short", segment, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, segment, "HRESULT")
         return result
     }
 
@@ -769,8 +841,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_server
      */
     get_Server() {
-        server := BSTR()
-        result := ComCall(32, this, "ptr", server, "HRESULT")
+        server := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, server, "HRESULT")
         return server
     }
 
@@ -796,8 +868,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectory
      */
     get_Subdirectory() {
-        _folder := BSTR()
-        result := ComCall(34, this, "ptr", _folder, "HRESULT")
+        _folder := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, _folder, "HRESULT")
         return _folder
     }
 
@@ -816,7 +888,7 @@ class IDataCollectorSet extends IDispatch {
     put_Subdirectory(_folder) {
         _folder := _folder is String ? BSTR.Alloc(_folder).Value : _folder
 
-        result := ComCall(35, this, "ptr", _folder, "HRESULT")
+        result := ComCall(35, this, BSTR, _folder, "HRESULT")
         return result
     }
 
@@ -841,7 +913,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_subdirectoryformat
      */
     put_SubdirectoryFormat(format) {
-        result := ComCall(37, this, "int", format, "HRESULT")
+        result := ComCall(37, this, AutoPathFormat, format, "HRESULT")
         return result
     }
 
@@ -970,8 +1042,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformatpattern
      */
     get_SubdirectoryFormatPattern() {
-        pattern := BSTR()
-        result := ComCall(38, this, "ptr", pattern, "HRESULT")
+        pattern := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, pattern, "HRESULT")
         return pattern
     }
 
@@ -1103,7 +1175,7 @@ class IDataCollectorSet extends IDispatch {
     put_SubdirectoryFormatPattern(pattern) {
         pattern := pattern is String ? BSTR.Alloc(pattern).Value : pattern
 
-        result := ComCall(39, this, "ptr", pattern, "HRESULT")
+        result := ComCall(39, this, BSTR, pattern, "HRESULT")
         return result
     }
 
@@ -1117,8 +1189,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_task
      */
     get_Task() {
-        task := BSTR()
-        result := ComCall(40, this, "ptr", task, "HRESULT")
+        task := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, task, "HRESULT")
         return task
     }
 
@@ -1135,7 +1207,7 @@ class IDataCollectorSet extends IDispatch {
     put_Task(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
 
-        result := ComCall(41, this, "ptr", task, "HRESULT")
+        result := ComCall(41, this, BSTR, task, "HRESULT")
         return result
     }
 
@@ -1145,7 +1217,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskrunasself
      */
     get_TaskRunAsSelf() {
-        result := ComCall(42, this, "short*", &RunAsSelf := 0, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL.Ptr, &RunAsSelf := 0, "HRESULT")
         return RunAsSelf
     }
 
@@ -1156,7 +1228,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_taskrunasself
      */
     put_TaskRunAsSelf(RunAsSelf) {
-        result := ComCall(43, this, "short", RunAsSelf, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL, RunAsSelf, "HRESULT")
         return result
     }
 
@@ -1194,8 +1266,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskarguments
      */
     get_TaskArguments() {
-        task := BSTR()
-        result := ComCall(44, this, "ptr", task, "HRESULT")
+        task := BSTR.Owned()
+        result := ComCall(44, this, BSTR.Ptr, task, "HRESULT")
         return task
     }
 
@@ -1236,7 +1308,7 @@ class IDataCollectorSet extends IDispatch {
     put_TaskArguments(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
 
-        result := ComCall(45, this, "ptr", task, "HRESULT")
+        result := ComCall(45, this, BSTR, task, "HRESULT")
         return result
     }
 
@@ -1269,8 +1341,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments
      */
     get_TaskUserTextArguments() {
-        UserText := BSTR()
-        result := ComCall(46, this, "ptr", UserText, "HRESULT")
+        UserText := BSTR.Owned()
+        result := ComCall(46, this, BSTR.Ptr, UserText, "HRESULT")
         return UserText
     }
 
@@ -1306,7 +1378,7 @@ class IDataCollectorSet extends IDispatch {
     put_TaskUserTextArguments(UserText) {
         UserText := UserText is String ? BSTR.Alloc(UserText).Value : UserText
 
-        result := ComCall(47, this, "ptr", UserText, "HRESULT")
+        result := ComCall(47, this, BSTR, UserText, "HRESULT")
         return result
     }
 
@@ -1334,7 +1406,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_schedulesenabled
      */
     get_SchedulesEnabled() {
-        result := ComCall(49, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(49, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -1347,7 +1419,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_schedulesenabled
      */
     put_SchedulesEnabled(enabled) {
-        result := ComCall(50, this, "short", enabled, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -1359,8 +1431,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_useraccount
      */
     get_UserAccount() {
-        user := BSTR()
-        result := ComCall(51, this, "ptr", user, "HRESULT")
+        user := BSTR.Owned()
+        result := ComCall(51, this, BSTR.Ptr, user, "HRESULT")
         return user
     }
 
@@ -1372,8 +1444,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_xml
      */
     get_Xml() {
-        xml := BSTR()
-        result := ComCall(52, this, "ptr", xml, "HRESULT")
+        xml := BSTR.Owned()
+        result := ComCall(52, this, BSTR.Ptr, xml, "HRESULT")
         return xml
     }
 
@@ -1385,8 +1457,8 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_security
      */
     get_Security() {
-        pbstrSecurity := BSTR()
-        result := ComCall(53, this, "ptr", pbstrSecurity, "HRESULT")
+        pbstrSecurity := BSTR.Owned()
+        result := ComCall(53, this, BSTR.Ptr, pbstrSecurity, "HRESULT")
         return pbstrSecurity
     }
 
@@ -1401,7 +1473,7 @@ class IDataCollectorSet extends IDispatch {
     put_Security(bstrSecurity) {
         bstrSecurity := bstrSecurity is String ? BSTR.Alloc(bstrSecurity).Value : bstrSecurity
 
-        result := ComCall(54, this, "ptr", bstrSecurity, "HRESULT")
+        result := ComCall(54, this, BSTR, bstrSecurity, "HRESULT")
         return result
     }
 
@@ -1434,7 +1506,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_stoponcompletion
      */
     get_StopOnCompletion() {
-        result := ComCall(55, this, "short*", &Stop := 0, "HRESULT")
+        result := ComCall(55, this, VARIANT_BOOL.Ptr, &Stop := 0, "HRESULT")
         return Stop
     }
 
@@ -1468,7 +1540,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_stoponcompletion
      */
     put_StopOnCompletion(Stop) {
-        result := ComCall(56, this, "short", Stop, "HRESULT")
+        result := ComCall(56, this, VARIANT_BOOL, Stop, "HRESULT")
         return result
     }
 
@@ -1497,7 +1569,7 @@ class IDataCollectorSet extends IDispatch {
         user := user is String ? BSTR.Alloc(user).Value : user
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(58, this, "ptr", user, "ptr", password, "HRESULT")
+        result := ComCall(58, this, BSTR, user, BSTR, password, "HRESULT")
         return result
     }
 
@@ -1633,7 +1705,7 @@ class IDataCollectorSet extends IDispatch {
         name := name is String ? BSTR.Alloc(name).Value : name
         server := server is String ? BSTR.Alloc(server).Value : server
 
-        result := ComCall(59, this, "ptr", name, "ptr", server, "HRESULT")
+        result := ComCall(59, this, BSTR, name, BSTR, server, "HRESULT")
         return result
     }
 
@@ -1744,7 +1816,7 @@ class IDataCollectorSet extends IDispatch {
         name := name is String ? BSTR.Alloc(name).Value : name
         server := server is String ? BSTR.Alloc(server).Value : server
 
-        result := ComCall(60, this, "ptr", name, "ptr", server, "int", _mode, "ptr*", &validation := 0, "HRESULT")
+        result := ComCall(60, this, BSTR, name, BSTR, server, CommitMode, _mode, "ptr*", &validation := 0, "HRESULT")
         return IValueMap(validation)
     }
 
@@ -1835,7 +1907,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-start
      */
     Start(Synchronous) {
-        result := ComCall(62, this, "short", Synchronous, "HRESULT")
+        result := ComCall(62, this, VARIANT_BOOL, Synchronous, "HRESULT")
         return result
     }
 
@@ -1873,7 +1945,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-stop
      */
     Stop(Synchronous) {
-        result := ComCall(63, this, "short", Synchronous, "HRESULT")
+        result := ComCall(63, this, VARIANT_BOOL, Synchronous, "HRESULT")
         return result
     }
 
@@ -1907,7 +1979,7 @@ class IDataCollectorSet extends IDispatch {
     SetXml(xml) {
         xml := xml is String ? BSTR.Alloc(xml).Value : xml
 
-        result := ComCall(64, this, "ptr", xml, "ptr*", &validation := 0, "HRESULT")
+        result := ComCall(64, this, BSTR, xml, "ptr*", &validation := 0, "HRESULT")
         return IValueMap(validation)
     }
 
@@ -1926,7 +1998,7 @@ class IDataCollectorSet extends IDispatch {
         key := key is String ? BSTR.Alloc(key).Value : key
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(65, this, "ptr", key, "ptr", value, "HRESULT")
+        result := ComCall(65, this, BSTR, key, BSTR, value, "HRESULT")
         return result
     }
 
@@ -1939,8 +2011,146 @@ class IDataCollectorSet extends IDispatch {
     GetValue(key) {
         key := key is String ? BSTR.Alloc(key).Value : key
 
-        value := BSTR()
-        result := ComCall(66, this, "ptr", key, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(66, this, BSTR, key, BSTR.Ptr, value, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IDataCollectorSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DataCollectors := CallbackCreate(GetMethod(implObj, "get_DataCollectors"), flags, 2)
+        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_Duration := CallbackCreate(GetMethod(implObj, "put_Duration"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_DescriptionUnresolved := CallbackCreate(GetMethod(implObj, "get_DescriptionUnresolved"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_DisplayNameUnresolved := CallbackCreate(GetMethod(implObj, "get_DisplayNameUnresolved"), flags, 2)
+        this.vtbl.get_Keywords := CallbackCreate(GetMethod(implObj, "get_Keywords"), flags, 2)
+        this.vtbl.put_Keywords := CallbackCreate(GetMethod(implObj, "put_Keywords"), flags, 2)
+        this.vtbl.get_LatestOutputLocation := CallbackCreate(GetMethod(implObj, "get_LatestOutputLocation"), flags, 2)
+        this.vtbl.put_LatestOutputLocation := CallbackCreate(GetMethod(implObj, "put_LatestOutputLocation"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_OutputLocation := CallbackCreate(GetMethod(implObj, "get_OutputLocation"), flags, 2)
+        this.vtbl.get_RootPath := CallbackCreate(GetMethod(implObj, "get_RootPath"), flags, 2)
+        this.vtbl.put_RootPath := CallbackCreate(GetMethod(implObj, "put_RootPath"), flags, 2)
+        this.vtbl.get_Segment := CallbackCreate(GetMethod(implObj, "get_Segment"), flags, 2)
+        this.vtbl.put_Segment := CallbackCreate(GetMethod(implObj, "put_Segment"), flags, 2)
+        this.vtbl.get_SegmentMaxDuration := CallbackCreate(GetMethod(implObj, "get_SegmentMaxDuration"), flags, 2)
+        this.vtbl.put_SegmentMaxDuration := CallbackCreate(GetMethod(implObj, "put_SegmentMaxDuration"), flags, 2)
+        this.vtbl.get_SegmentMaxSize := CallbackCreate(GetMethod(implObj, "get_SegmentMaxSize"), flags, 2)
+        this.vtbl.put_SegmentMaxSize := CallbackCreate(GetMethod(implObj, "put_SegmentMaxSize"), flags, 2)
+        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 2)
+        this.vtbl.put_SerialNumber := CallbackCreate(GetMethod(implObj, "put_SerialNumber"), flags, 2)
+        this.vtbl.get_Server := CallbackCreate(GetMethod(implObj, "get_Server"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Subdirectory := CallbackCreate(GetMethod(implObj, "get_Subdirectory"), flags, 2)
+        this.vtbl.put_Subdirectory := CallbackCreate(GetMethod(implObj, "put_Subdirectory"), flags, 2)
+        this.vtbl.get_SubdirectoryFormat := CallbackCreate(GetMethod(implObj, "get_SubdirectoryFormat"), flags, 2)
+        this.vtbl.put_SubdirectoryFormat := CallbackCreate(GetMethod(implObj, "put_SubdirectoryFormat"), flags, 2)
+        this.vtbl.get_SubdirectoryFormatPattern := CallbackCreate(GetMethod(implObj, "get_SubdirectoryFormatPattern"), flags, 2)
+        this.vtbl.put_SubdirectoryFormatPattern := CallbackCreate(GetMethod(implObj, "put_SubdirectoryFormatPattern"), flags, 2)
+        this.vtbl.get_Task := CallbackCreate(GetMethod(implObj, "get_Task"), flags, 2)
+        this.vtbl.put_Task := CallbackCreate(GetMethod(implObj, "put_Task"), flags, 2)
+        this.vtbl.get_TaskRunAsSelf := CallbackCreate(GetMethod(implObj, "get_TaskRunAsSelf"), flags, 2)
+        this.vtbl.put_TaskRunAsSelf := CallbackCreate(GetMethod(implObj, "put_TaskRunAsSelf"), flags, 2)
+        this.vtbl.get_TaskArguments := CallbackCreate(GetMethod(implObj, "get_TaskArguments"), flags, 2)
+        this.vtbl.put_TaskArguments := CallbackCreate(GetMethod(implObj, "put_TaskArguments"), flags, 2)
+        this.vtbl.get_TaskUserTextArguments := CallbackCreate(GetMethod(implObj, "get_TaskUserTextArguments"), flags, 2)
+        this.vtbl.put_TaskUserTextArguments := CallbackCreate(GetMethod(implObj, "put_TaskUserTextArguments"), flags, 2)
+        this.vtbl.get_Schedules := CallbackCreate(GetMethod(implObj, "get_Schedules"), flags, 2)
+        this.vtbl.get_SchedulesEnabled := CallbackCreate(GetMethod(implObj, "get_SchedulesEnabled"), flags, 2)
+        this.vtbl.put_SchedulesEnabled := CallbackCreate(GetMethod(implObj, "put_SchedulesEnabled"), flags, 2)
+        this.vtbl.get_UserAccount := CallbackCreate(GetMethod(implObj, "get_UserAccount"), flags, 2)
+        this.vtbl.get_Xml := CallbackCreate(GetMethod(implObj, "get_Xml"), flags, 2)
+        this.vtbl.get_Security := CallbackCreate(GetMethod(implObj, "get_Security"), flags, 2)
+        this.vtbl.put_Security := CallbackCreate(GetMethod(implObj, "put_Security"), flags, 2)
+        this.vtbl.get_StopOnCompletion := CallbackCreate(GetMethod(implObj, "get_StopOnCompletion"), flags, 2)
+        this.vtbl.put_StopOnCompletion := CallbackCreate(GetMethod(implObj, "put_StopOnCompletion"), flags, 2)
+        this.vtbl.get_DataManager := CallbackCreate(GetMethod(implObj, "get_DataManager"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 3)
+        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.SetXml := CallbackCreate(GetMethod(implObj, "SetXml"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DataCollectors)
+        CallbackFree(this.vtbl.get_Duration)
+        CallbackFree(this.vtbl.put_Duration)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_DescriptionUnresolved)
+        CallbackFree(this.vtbl.get_DisplayName)
+        CallbackFree(this.vtbl.put_DisplayName)
+        CallbackFree(this.vtbl.get_DisplayNameUnresolved)
+        CallbackFree(this.vtbl.get_Keywords)
+        CallbackFree(this.vtbl.put_Keywords)
+        CallbackFree(this.vtbl.get_LatestOutputLocation)
+        CallbackFree(this.vtbl.put_LatestOutputLocation)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_OutputLocation)
+        CallbackFree(this.vtbl.get_RootPath)
+        CallbackFree(this.vtbl.put_RootPath)
+        CallbackFree(this.vtbl.get_Segment)
+        CallbackFree(this.vtbl.put_Segment)
+        CallbackFree(this.vtbl.get_SegmentMaxDuration)
+        CallbackFree(this.vtbl.put_SegmentMaxDuration)
+        CallbackFree(this.vtbl.get_SegmentMaxSize)
+        CallbackFree(this.vtbl.put_SegmentMaxSize)
+        CallbackFree(this.vtbl.get_SerialNumber)
+        CallbackFree(this.vtbl.put_SerialNumber)
+        CallbackFree(this.vtbl.get_Server)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_Subdirectory)
+        CallbackFree(this.vtbl.put_Subdirectory)
+        CallbackFree(this.vtbl.get_SubdirectoryFormat)
+        CallbackFree(this.vtbl.put_SubdirectoryFormat)
+        CallbackFree(this.vtbl.get_SubdirectoryFormatPattern)
+        CallbackFree(this.vtbl.put_SubdirectoryFormatPattern)
+        CallbackFree(this.vtbl.get_Task)
+        CallbackFree(this.vtbl.put_Task)
+        CallbackFree(this.vtbl.get_TaskRunAsSelf)
+        CallbackFree(this.vtbl.put_TaskRunAsSelf)
+        CallbackFree(this.vtbl.get_TaskArguments)
+        CallbackFree(this.vtbl.put_TaskArguments)
+        CallbackFree(this.vtbl.get_TaskUserTextArguments)
+        CallbackFree(this.vtbl.put_TaskUserTextArguments)
+        CallbackFree(this.vtbl.get_Schedules)
+        CallbackFree(this.vtbl.get_SchedulesEnabled)
+        CallbackFree(this.vtbl.put_SchedulesEnabled)
+        CallbackFree(this.vtbl.get_UserAccount)
+        CallbackFree(this.vtbl.get_Xml)
+        CallbackFree(this.vtbl.get_Security)
+        CallbackFree(this.vtbl.put_Security)
+        CallbackFree(this.vtbl.get_StopOnCompletion)
+        CallbackFree(this.vtbl.put_StopOnCompletion)
+        CallbackFree(this.vtbl.get_DataManager)
+        CallbackFree(this.vtbl.SetCredentials)
+        CallbackFree(this.vtbl.Query)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.SetXml)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetValue)
     }
 }

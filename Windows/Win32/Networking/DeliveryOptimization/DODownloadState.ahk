@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the ID of the current download state, which is part of the **DO_DOWNLOAD_STATUS** structure.
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadstate
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  */
-class DODownloadState extends Win32Enum {
+export default struct DODownloadState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Download object is created but hasn't been started yet.

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CERT_EXIT_EVENT_MASK.ahk" { CERT_EXIT_EVENT_MASK }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides communications between the Certificate Services server and an exit module.
@@ -57,26 +59,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/certexit/nn-certexit-icertexit
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertExit extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertExit extends IDispatch {
     /**
      * The interface identifier for ICertExit
      * @type {Guid}
      */
-    static IID => Guid("{e19ae1a0-7364-11d0-8816-00a0c903b83c}")
+    static IID := Guid("{e19ae1a0-7364-11d0-8816-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertExit interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize     : IntPtr
+        Notify         : IntPtr
+        GetDescription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Notify", "GetDescription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertExit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the server engine when it initializes itself.
@@ -90,7 +101,7 @@ class ICertExit extends IDispatch {
     Initialize(strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(7, this, "ptr", strConfig, "uint*", &pEventMask := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strConfig, "uint*", &pEventMask := 0, "HRESULT")
         return pEventMask
     }
 
@@ -200,8 +211,32 @@ class ICertExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit-getdescription
      */
     GetDescription() {
-        pstrDescription := BSTR()
-        result := ComCall(9, this, "ptr", pstrDescription, "HRESULT")
+        pstrDescription := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pstrDescription, "HRESULT")
         return pstrDescription
+    }
+
+    Query(iid) {
+        if (ICertExit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.GetDescription)
     }
 }

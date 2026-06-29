@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICPixelFormatInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICPixelFormatInfo.ahk" { IWICPixelFormatInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WICPixelFormatNumericRepresentation.ahk" { WICPixelFormatNumericRepresentation }
 
 /**
  * Extends IWICPixelFormatInfo by providing additional information about a pixel format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicpixelformatinfo2
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
     /**
      * The interface identifier for IWICPixelFormatInfo2
      * @type {Guid}
      */
-    static IID => Guid("{a9db33a2-af5f-43c7-b679-74f5984b5aa4}")
+    static IID := Guid("{a9db33a2-af5f-43c7-b679-74f5984b5aa4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICPixelFormatInfo2 interfaces
+    */
+    struct Vtbl extends IWICPixelFormatInfo.Vtbl {
+        SupportsTransparency     : IntPtr
+        GetNumericRepresentation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SupportsTransparency", "GetNumericRepresentation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICPixelFormatInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns whether the format supports transparent pixels.
@@ -39,7 +50,7 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-supportstransparency
      */
     SupportsTransparency() {
-        result := ComCall(16, this, "int*", &pfSupportsTransparency := 0, "HRESULT")
+        result := ComCall(16, this, BOOL.Ptr, &pfSupportsTransparency := 0, "HRESULT")
         return pfSupportsTransparency
     }
 
@@ -53,5 +64,27 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
     GetNumericRepresentation() {
         result := ComCall(17, this, "int*", &pNumericRepresentation := 0, "HRESULT")
         return pNumericRepresentation
+    }
+
+    Query(iid) {
+        if (IWICPixelFormatInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SupportsTransparency := CallbackCreate(GetMethod(implObj, "SupportsTransparency"), flags, 2)
+        this.vtbl.GetNumericRepresentation := CallbackCreate(GetMethod(implObj, "GetNumericRepresentation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SupportsTransparency)
+        CallbackFree(this.vtbl.GetNumericRepresentation)
     }
 }

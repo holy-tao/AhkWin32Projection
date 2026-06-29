@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_FEATURE_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_FEATURE_LEVEL.ahk" { DML_FEATURE_LEVEL }
 
 /**
  * Used to query a DirectML device for its support for one or more feature levels.
@@ -11,30 +10,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_feature_query_feature_levels
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_FEATURE_QUERY_FEATURE_LEVELS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DML_FEATURE_QUERY_FEATURE_LEVELS {
+    #StructPack 8
 
     /**
      * Type: **[UINT](/windows/desktop/WinProg/windows-data-types)**
      * 
      * The number of elements in the *RequestedFeatureLevels* array.
-     * @type {Integer}
      */
-    RequestedFeatureLevelCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RequestedFeatureLevelCount : UInt32
 
     /**
      * Type: \_Field\_size\_(RequestedFeatureLevelCount) **[DML_FEATURE_LEVEL](/windows/win32/api/directml/ne-directml-dml_feature_level)\***
      * 
      * An array of feature levels to query support for. When [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) returns, the [DML_FEATURE_DATA_FEATURE_LEVELS](/windows/win32/api/directml/ns-directml-dml_feature_data_feature_levels) struct contains the highest feature level in this array that is supported by the device.
-     * @type {Pointer<DML_FEATURE_LEVEL>}
      */
-    RequestedFeatureLevels {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RequestedFeatureLevels : DML_FEATURE_LEVEL.Ptr
+
 }

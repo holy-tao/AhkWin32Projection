@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DNS_MX_DATA structure represents a DNS mail exchanger (MX) record as specified in section 3.3.9 of RFC 1035. (Unicode)
@@ -18,35 +18,22 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset Unicode
  */
-class DNS_MX_DATAW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DNS_MX_DATAW {
+    #StructPack 8
 
     /**
      * A pointer to a string that represents the fully qualified domain name (FQDN) of the host willing to act as a mail exchange.
-     * @type {PWSTR}
      */
-    pNameExchange {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNameExchange : PWSTR
 
     /**
      * A preference given to this resource record among others of the same owner. Lower values are preferred.
-     * @type {Integer}
      */
-    wPreference {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wPreference : UInt16
 
     /**
      * Reserved for padding. Do not use.
-     * @type {Integer}
      */
-    Pad {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Pad : UInt16
+
 }

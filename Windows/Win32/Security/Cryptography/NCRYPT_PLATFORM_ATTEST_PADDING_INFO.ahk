@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_PLATFORM_ATTEST_PADDING_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct NCRYPT_PLATFORM_ATTEST_PADDING_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    magic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    magic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pcrMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    pcrMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_MEMORY extends Win32Struct {
-    static sizeof => 8
+export default struct VIDEO_MEMORY {
+    #StructPack 8
 
-    static packingSize => 8
+    RequestedVirtualAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    RequestedVirtualAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 }

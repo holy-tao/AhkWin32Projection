@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGR_RESOLUTION_FEEDBACK.ahk" { SYNCMGR_RESOLUTION_FEEDBACK }
+#Import ".\ISyncMgrConflictResolutionItems.ahk" { ISyncMgrConflictResolutionItems }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that manage synchronizing conflicts. Implement this interface to construct a sync conflict handler. The conflict resolution user interface (UI) will call this interface to resolve the conflict presented to the user.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrresolutionhandler
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrResolutionHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrResolutionHandler extends IUnknown {
     /**
      * The interface identifier for ISyncMgrResolutionHandler
      * @type {Guid}
      */
-    static IID => Guid("{40a3d052-8bff-4c4b-a338-d4a395700de9}")
+    static IID := Guid("{40a3d052-8bff-4c4b-a338-d4a395700de9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrResolutionHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryAbilities    : IntPtr
+        KeepOther         : IntPtr
+        KeepRecent        : IntPtr
+        RemoveFromSyncSet : IntPtr
+        KeepItems         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryAbilities", "KeepOther", "KeepRecent", "RemoveFromSyncSet", "KeepItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrResolutionHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines what options the conflict presenter will display.
@@ -105,5 +120,33 @@ class ISyncMgrResolutionHandler extends IUnknown {
     KeepItems(pArray) {
         result := ComCall(7, this, "ptr", pArray, "int*", &pFeedback := 0, "HRESULT")
         return pFeedback
+    }
+
+    Query(iid) {
+        if (ISyncMgrResolutionHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryAbilities := CallbackCreate(GetMethod(implObj, "QueryAbilities"), flags, 2)
+        this.vtbl.KeepOther := CallbackCreate(GetMethod(implObj, "KeepOther"), flags, 3)
+        this.vtbl.KeepRecent := CallbackCreate(GetMethod(implObj, "KeepRecent"), flags, 2)
+        this.vtbl.RemoveFromSyncSet := CallbackCreate(GetMethod(implObj, "RemoveFromSyncSet"), flags, 2)
+        this.vtbl.KeepItems := CallbackCreate(GetMethod(implObj, "KeepItems"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryAbilities)
+        CallbackFree(this.vtbl.KeepOther)
+        CallbackFree(this.vtbl.KeepRecent)
+        CallbackFree(this.vtbl.RemoveFromSyncSet)
+        CallbackFree(this.vtbl.KeepItems)
     }
 }

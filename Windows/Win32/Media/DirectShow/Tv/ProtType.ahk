@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/ne-encdec-prottype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ProtType extends Win32Enum {
+export default struct ProtType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Copy Free.

@@ -1,91 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct {
-    static sizeof => 72
+export default struct LEGACY_IDENTITY_UI_PARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    eapType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    eapType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSizeofConnectionData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeofConnectionData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pConnectionData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pConnectionData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwSizeofUserData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeofUserData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pUserData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pUserData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwSizeofUserDataOut : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeofUserDataOut {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pUserDataOut : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pUserDataOut {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pwszIdentity : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszIdentity {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VMRVideoDesc.ahk" { VMRVideoDesc }
+#Import ".\VMRDeinterlaceCaps.ahk" { VMRDeinterlaceCaps }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRDeinterlaceControl interface provides support for advanced hardware-accelerated deinterlacing using the Video Mixing Renderer Filter 7 (VMR-7).
@@ -13,26 +15,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrdeinterlacecontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRDeinterlaceControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRDeinterlaceControl extends IUnknown {
     /**
      * The interface identifier for IVMRDeinterlaceControl
      * @type {Guid}
      */
-    static IID => Guid("{bb057577-0db8-4e6a-87a7-1a8c9a505a0f}")
+    static IID := Guid("{bb057577-0db8-4e6a-87a7-1a8c9a505a0f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRDeinterlaceControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumberOfDeinterlaceModes : IntPtr
+        GetDeinterlaceModeCaps      : IntPtr
+        GetDeinterlaceMode          : IntPtr
+        SetDeinterlaceMode          : IntPtr
+        GetDeinterlacePrefs         : IntPtr
+        SetDeinterlacePrefs         : IntPtr
+        GetActualDeinterlaceMode    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumberOfDeinterlaceModes", "GetDeinterlaceModeCaps", "GetDeinterlaceMode", "SetDeinterlaceMode", "GetDeinterlacePrefs", "SetDeinterlacePrefs", "GetActualDeinterlaceMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRDeinterlaceControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetNumberOfDeinterlaceModes method retrieves the deinterlacing modes available to the VMR for the specified video format.
@@ -64,7 +79,7 @@ class IVMRDeinterlaceControl extends IUnknown {
         lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : "ptr"
 
         lpDeinterlaceModes := Guid()
-        result := ComCall(3, this, "ptr", lpVideoDescription, lpdwNumDeinterlaceModesMarshal, lpdwNumDeinterlaceModes, "ptr", lpDeinterlaceModes, "HRESULT")
+        result := ComCall(3, this, VMRVideoDesc.Ptr, lpVideoDescription, lpdwNumDeinterlaceModesMarshal, lpdwNumDeinterlaceModes, Guid.Ptr, lpDeinterlaceModes, "HRESULT")
         return lpDeinterlaceModes
     }
 
@@ -152,7 +167,7 @@ class IVMRDeinterlaceControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemodecaps
      */
     GetDeinterlaceModeCaps(lpDeinterlaceMode, lpVideoDescription, lpDeinterlaceCaps) {
-        result := ComCall(4, this, "ptr", lpDeinterlaceMode, "ptr", lpVideoDescription, "ptr", lpDeinterlaceCaps, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, lpDeinterlaceMode, VMRVideoDesc.Ptr, lpVideoDescription, VMRDeinterlaceCaps.Ptr, lpDeinterlaceCaps, "HRESULT")
         return result
     }
 
@@ -166,7 +181,7 @@ class IVMRDeinterlaceControl extends IUnknown {
      */
     GetDeinterlaceMode(dwStreamID) {
         lpDeinterlaceMode := Guid()
-        result := ComCall(5, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
+        result := ComCall(5, this, "uint", dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
         return lpDeinterlaceMode
     }
 
@@ -240,7 +255,7 @@ class IVMRDeinterlaceControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlacemode
      */
     SetDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
-        result := ComCall(6, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
+        result := ComCall(6, this, "uint", dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
         return result
     }
 
@@ -318,7 +333,39 @@ class IVMRDeinterlaceControl extends IUnknown {
      */
     GetActualDeinterlaceMode(dwStreamID) {
         lpDeinterlaceMode := Guid()
-        result := ComCall(9, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
+        result := ComCall(9, this, "uint", dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
         return lpDeinterlaceMode
+    }
+
+    Query(iid) {
+        if (IVMRDeinterlaceControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumberOfDeinterlaceModes := CallbackCreate(GetMethod(implObj, "GetNumberOfDeinterlaceModes"), flags, 4)
+        this.vtbl.GetDeinterlaceModeCaps := CallbackCreate(GetMethod(implObj, "GetDeinterlaceModeCaps"), flags, 4)
+        this.vtbl.GetDeinterlaceMode := CallbackCreate(GetMethod(implObj, "GetDeinterlaceMode"), flags, 3)
+        this.vtbl.SetDeinterlaceMode := CallbackCreate(GetMethod(implObj, "SetDeinterlaceMode"), flags, 3)
+        this.vtbl.GetDeinterlacePrefs := CallbackCreate(GetMethod(implObj, "GetDeinterlacePrefs"), flags, 2)
+        this.vtbl.SetDeinterlacePrefs := CallbackCreate(GetMethod(implObj, "SetDeinterlacePrefs"), flags, 2)
+        this.vtbl.GetActualDeinterlaceMode := CallbackCreate(GetMethod(implObj, "GetActualDeinterlaceMode"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumberOfDeinterlaceModes)
+        CallbackFree(this.vtbl.GetDeinterlaceModeCaps)
+        CallbackFree(this.vtbl.GetDeinterlaceMode)
+        CallbackFree(this.vtbl.SetDeinterlaceMode)
+        CallbackFree(this.vtbl.GetDeinterlacePrefs)
+        CallbackFree(this.vtbl.SetDeinterlacePrefs)
+        CallbackFree(this.vtbl.GetActualDeinterlaceMode)
     }
 }

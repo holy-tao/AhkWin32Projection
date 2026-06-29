@@ -1,72 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_NAME_LIST.ahk
-#Include .\WSD_SCOPES.ahk
-#Include .\WSD_URI_LIST.ahk
-#Include .\WSDXML_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSD_SCOPES.ahk" { WSD_SCOPES }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 
 /**
  * Represents a Hello message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_hello
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_HELLO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WSD_HELLO {
+    #StructPack 8
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a> structure that specifies the endpoint announcing the Hello message.
-     * @type {Pointer<WSD_ENDPOINT_REFERENCE>}
      */
-    EndpointReference {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    EndpointReference : WSD_ENDPOINT_REFERENCE.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_name_list">WSD_NAME_LIST</a> structure that contains a list of WS-Discovery Types.
-     * @type {Pointer<WSD_NAME_LIST>}
      */
-    Types {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Types : WSD_NAME_LIST.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_scopes">WSD_SCOPES</a> structure that contains a list of WS-Discovery Scopes.
-     * @type {Pointer<WSD_SCOPES>}
      */
-    Scopes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Scopes : WSD_SCOPES.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_uri_list">WSD_URI_LIST</a> structure that contains a list of WS-Discovery XAddrs.
-     * @type {Pointer<WSD_URI_LIST>}
      */
-    XAddrs {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    XAddrs : WSD_URI_LIST.Ptr
 
     /**
      * The metadata version of this message.
-     * @type {Integer}
      */
-    MetadataVersion {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MetadataVersion : Int64
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies extension content allowed by the XML <b>ANY</b> keyword.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
-    Any {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Any : WSDXML_ELEMENT.Ptr
+
 }

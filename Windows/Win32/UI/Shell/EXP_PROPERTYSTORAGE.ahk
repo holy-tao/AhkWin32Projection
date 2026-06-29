@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores information about the Shell link state. This structure is used for extra data sections that are tagged with EXP_PROPERTYSTORAGE_SIG.
@@ -8,49 +7,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_propertystorage
  * @namespace Windows.Win32.UI.Shell
  */
-class EXP_PROPERTYSTORAGE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct EXP_PROPERTYSTORAGE {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Identifies the type of block and is the value EXP_PROPERTYSTORAGE_SIG.
-     * @type {Integer}
      */
-    dwSignature {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSignature : UInt32
 
     /**
      * Type: <b>BYTE[1]</b>
      * 
      * A serialized property store in the format defined by SERIALIZEDPROPSTORAGE.
-     * @type {Array<Integer>}
      */
-    abPropertyStorage {
-        get {
-            if(!this.HasProp("__abPropertyStorageProxyArray"))
-                this.__abPropertyStorageProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__abPropertyStorageProxyArray
-        }
-    }
+    abPropertyStorage : Int8[1]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 12
-    }
 }

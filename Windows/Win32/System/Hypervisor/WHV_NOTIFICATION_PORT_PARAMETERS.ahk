@@ -1,64 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_NOTIFICATION_PORT_TYPE.ahk
-#Include .\WHV_DOORBELL_MATCH_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_DOORBELL_MATCH_DATA.ahk" { WHV_DOORBELL_MATCH_DATA }
+#Import ".\WHV_NOTIFICATION_PORT_TYPE.ahk" { WHV_NOTIFICATION_PORT_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+export default struct WHV_NOTIFICATION_PORT_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {WHV_NOTIFICATION_PORT_TYPE}
-     */
-    NotificationPortType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _Event {
+        ConnectionId : UInt32
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NotificationPortType : WHV_NOTIFICATION_PORT_TYPE
 
-    class _Event extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    Reserved : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ConnectionId {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
+    Doorbell : WHV_DOORBELL_MATCH_DATA
 
-    /**
-     * @type {WHV_DOORBELL_MATCH_DATA}
-     */
-    Doorbell {
-        get {
-            if(!this.HasProp("__Doorbell"))
-                this.__Doorbell := WHV_DOORBELL_MATCH_DATA(8, this)
-            return this.__Doorbell
-        }
-    }
-
-    /**
-     * @type {_Event}
-     */
-    Event {
-        get {
-            if(!this.HasProp("__Event"))
-                this.__Event := WHV_NOTIFICATION_PORT_PARAMETERS._Event(8, this)
-            return this.__Event
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Event', { type: WHV_NOTIFICATION_PORT_PARAMETERS._Event, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

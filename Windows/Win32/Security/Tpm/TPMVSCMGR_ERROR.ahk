@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides predefined error codes to represent the contexts of errors from the TPM virtual smart card manager.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_error
  * @namespace Windows.Win32.Security.Tpm
  */
-class TPMVSCMGR_ERROR extends Win32Enum {
+export default struct TPMVSCMGR_ERROR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Failed to impersonate the caller.

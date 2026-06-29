@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The CLIPOBJ structure describes the clip region used when drawing.
@@ -9,55 +8,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-clipobj
  * @namespace Windows.Win32.Devices.Display
  */
-class CLIPOBJ extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct CLIPOBJ {
+    #StructPack 4
 
     /**
      * Specifies a value that uniquely identifies the clip region. If <b>iUniq</b> is nonzero, the driver uses it as a cache identifier. This allows the driver to recognize a region after downloading and caching it. If the value is zero, the driver should not cache the region because the region will not be used again.
-     * @type {Integer}
      */
-    iUniq {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iUniq : UInt32
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that bounds the part of the region that intersects the drawing. If <b>iDComplexity</b> is DC_RECT, then this is the clipping rectangle to be considered.
-     * @type {RECTL}
      */
-    rclBounds {
-        get {
-            if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(4, this)
-            return this.__rclBounds
-        }
-    }
+    rclBounds : RECTL
 
-    /**
-     * @type {Integer}
-     */
-    iDComplexity {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    iDComplexity : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iFComplexity {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    iFComplexity : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iMode {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    iMode : Int8
 
     /**
      * Specifies clipping options. This member can be the following value:
@@ -78,10 +46,7 @@ class CLIPOBJ extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fjOptions {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    fjOptions : Int8
+
 }

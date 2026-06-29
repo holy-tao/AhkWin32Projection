@@ -1,40 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class INetCfgComponent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetCfgComponent extends IUnknown {
     /**
      * The interface identifier for INetCfgComponent
      * @type {Guid}
      */
-    static IID => Guid("{c0e8ae99-306e-11d1-aacf-00805fc1270e}")
+    static IID := Guid("{c0e8ae99-306e-11d1-aacf-00805fc1270e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetCfgComponent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDisplayName     : IntPtr
+        SetDisplayName     : IntPtr
+        GetHelpText        : IntPtr
+        GetId              : IntPtr
+        GetCharacteristics : IntPtr
+        GetInstanceGuid    : IntPtr
+        GetPnpDevNodeId    : IntPtr
+        GetClassGuid       : IntPtr
+        GetBindName        : IntPtr
+        GetDeviceStatus    : IntPtr
+        OpenParamKey       : IntPtr
+        RaisePropertyUi    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDisplayName", "SetDisplayName", "GetHelpText", "GetId", "GetCharacteristics", "GetInstanceGuid", "GetPnpDevNodeId", "GetClassGuid", "GetBindName", "GetDeviceStatus", "OpenParamKey", "RaisePropertyUi"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetCfgComponent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {PWSTR} 
      */
     GetDisplayName() {
-        result := ComCall(3, this, "ptr*", &ppszwDisplayName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszwDisplayName := 0, "HRESULT")
         return ppszwDisplayName
     }
 
@@ -55,17 +75,16 @@ class INetCfgComponent extends IUnknown {
      * @returns {PWSTR} 
      */
     GetHelpText() {
-        result := ComCall(5, this, "ptr*", &pszwHelpText := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &pszwHelpText := 0, "HRESULT")
         return pszwHelpText
     }
 
     /**
-     * Returns the identifier string available in the volume's metadata.
+     * 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
-        result := ComCall(6, this, "ptr*", &ppszwId := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &ppszwId := 0, "HRESULT")
         return ppszwId
     }
 
@@ -84,7 +103,7 @@ class INetCfgComponent extends IUnknown {
      */
     GetInstanceGuid() {
         pGuid := Guid()
-        result := ComCall(8, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -93,7 +112,7 @@ class INetCfgComponent extends IUnknown {
      * @returns {PWSTR} 
      */
     GetPnpDevNodeId() {
-        result := ComCall(9, this, "ptr*", &ppszwDevNodeId := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppszwDevNodeId := 0, "HRESULT")
         return ppszwDevNodeId
     }
 
@@ -103,7 +122,7 @@ class INetCfgComponent extends IUnknown {
      */
     GetClassGuid() {
         pGuid := Guid()
-        result := ComCall(10, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -112,7 +131,7 @@ class INetCfgComponent extends IUnknown {
      * @returns {PWSTR} 
      */
     GetBindName() {
-        result := ComCall(11, this, "ptr*", &ppszwBindName := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszwBindName := 0, "HRESULT")
         return ppszwBindName
     }
 
@@ -130,8 +149,8 @@ class INetCfgComponent extends IUnknown {
      * @returns {HKEY} 
      */
     OpenParamKey() {
-        phkey := HKEY()
-        result := ComCall(13, this, "ptr", phkey, "HRESULT")
+        phkey := HKEY.Owned()
+        result := ComCall(13, this, HKEY.Ptr, phkey, "HRESULT")
         return phkey
     }
 
@@ -143,9 +162,49 @@ class INetCfgComponent extends IUnknown {
      * @returns {HRESULT} 
      */
     RaisePropertyUi(hwndParent, dwFlags, punkContext) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(14, this, "ptr", hwndParent, "uint", dwFlags, "ptr", punkContext, "HRESULT")
+        result := ComCall(14, this, HWND, hwndParent, "uint", dwFlags, "ptr", punkContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetCfgComponent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetHelpText := CallbackCreate(GetMethod(implObj, "GetHelpText"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.GetInstanceGuid := CallbackCreate(GetMethod(implObj, "GetInstanceGuid"), flags, 2)
+        this.vtbl.GetPnpDevNodeId := CallbackCreate(GetMethod(implObj, "GetPnpDevNodeId"), flags, 2)
+        this.vtbl.GetClassGuid := CallbackCreate(GetMethod(implObj, "GetClassGuid"), flags, 2)
+        this.vtbl.GetBindName := CallbackCreate(GetMethod(implObj, "GetBindName"), flags, 2)
+        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 2)
+        this.vtbl.OpenParamKey := CallbackCreate(GetMethod(implObj, "OpenParamKey"), flags, 2)
+        this.vtbl.RaisePropertyUi := CallbackCreate(GetMethod(implObj, "RaisePropertyUi"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.SetDisplayName)
+        CallbackFree(this.vtbl.GetHelpText)
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetCharacteristics)
+        CallbackFree(this.vtbl.GetInstanceGuid)
+        CallbackFree(this.vtbl.GetPnpDevNodeId)
+        CallbackFree(this.vtbl.GetClassGuid)
+        CallbackFree(this.vtbl.GetBindName)
+        CallbackFree(this.vtbl.GetDeviceStatus)
+        CallbackFree(this.vtbl.OpenParamKey)
+        CallbackFree(this.vtbl.RaisePropertyUi)
     }
 }

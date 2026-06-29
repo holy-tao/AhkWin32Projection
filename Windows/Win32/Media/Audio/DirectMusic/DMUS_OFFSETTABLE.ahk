@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_OFFSETTABLE extends Win32Struct {
-    static sizeof => 4
+export default struct DMUS_OFFSETTABLE {
+    #StructPack 4
 
-    static packingSize => 4
+    ulOffsetTable : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ulOffsetTable {
-        get {
-            if(!this.HasProp("__ulOffsetTableProxyArray"))
-                this.__ulOffsetTableProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-            return this.__ulOffsetTableProxyArray
-        }
-    }
 }

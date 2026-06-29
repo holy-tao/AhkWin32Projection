@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class ColorBalanceParams extends Win32Struct {
-    static sizeof => 12
+export default struct ColorBalanceParams {
+    #StructPack 4
 
-    static packingSize => 4
+    cyanRed : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cyanRed {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    magentaGreen : Int32
 
-    /**
-     * @type {Integer}
-     */
-    magentaGreen {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    yellowBlue : Int32
 
-    /**
-     * @type {Integer}
-     */
-    yellowBlue {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_RAID_TYPE.ahk
-#Include .\VDS_STORAGE_BUS_TYPE.ahk
-#Include .\VDS_POOL_CUSTOM_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_RAID_TYPE.ahk" { VDS_RAID_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_POOL_CUSTOM_ATTRIBUTES.ahk" { VDS_POOL_CUSTOM_ATTRIBUTES }
 
 /**
  * The VDS_POOL_ATTRIBUTES structure (vdshwprv.h) defines the attributes of a storage pool.
@@ -11,10 +12,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_pool_attributes
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_POOL_ATTRIBUTES extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct VDS_POOL_ATTRIBUTES {
+    #StructPack 8
 
     /**
      * A mask that specifies the attributes in the structure that are defined by this storage pool. 
@@ -338,343 +337,192 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ullAttributeMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ullAttributeMask : Int64
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_raid_type">VDS_RAID_TYPE</a> enumeration value that specifies the RAID type of the storage pool. If the storage pool does not have a specific RAID type, set this member to <b>VDS_RT_UNKNOWN</b> and  clear the <b>VDS_POOL_ATTRIB_RAIDTYPE</b> attribute flag in the <b>ullAttributeMask</b> member.
-     * @type {VDS_RAID_TYPE}
      */
-    raidType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    raidType : VDS_RAID_TYPE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a> enumeration value that specifies the bus type of the drives in the storage pool.
-     * @type {VDS_STORAGE_BUS_TYPE}
      */
-    busType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    busType : VDS_STORAGE_BUS_TYPE
 
     /**
      * A string that specifies the usage of the storage pool. Typically, this may indicate the application that is using the storage pool (for example,  "SQL" or "Exchange") or the business function that is using the storage pool (for example, "Finance" or "Human Resources").
-     * @type {PWSTR}
      */
-    pwszIntendedUsage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszIntendedUsage : PWSTR
 
     /**
      * <b>TRUE</b> if the drives in the storage pool spin down automatically to reduce power usage, or <b>FALSE</b> otherwise.
-     * @type {BOOL}
      */
-    bSpinDown {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bSpinDown : BOOL
 
     /**
      * <b>TRUE</b> if the storage pool is thin provisioned, or <b>FALSE</b> otherwise. If the pool is thin provisioned, the number of bytes in the consumed space of the pool could be less than the number of bytes in the provisioned space of the pool. (The number of bytes in the provisioned space is stored in the <b>ullProvisionedSpace</b> member of this structure. The number of bytes in the consumed space is stored in the <b>ullTotalConsumedSpace</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_storage_pool_prop">VDS_STORAGE_POOL_PROP</a> structure.) When a hardware provider sets this member to <b>TRUE</b>, it must also set the <b>type</b> member of the <b>VDS_STORAGE_POOL_PROP</b> structure to <b>VDS_SPT_CONCRETE</b>.
-     * @type {BOOL}
      */
-    bIsThinProvisioned {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    bIsThinProvisioned : BOOL
 
     /**
      * If the pool is thin provisioned, this member specifies the space, in bytes, that is provisioned for the pool. The value of this member must be greater than or equal to the value of the <b>ullTotalConsumedSpace</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_storage_pool_prop">VDS_STORAGE_POOL_PROP</a> structure.
-     * @type {Integer}
      */
-    ullProvisionedSpace {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ullProvisionedSpace : Int64
 
     /**
      * <b>TRUE</b> if there is no single point of failure in the pool, or <b>FALSE</b> otherwise.
-     * @type {BOOL}
      */
-    bNoSinglePointOfFailure {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    bNoSinglePointOfFailure : BOOL
 
     /**
      * The maximum number of complete copies of the data that can be maintained in this storage pool.
-     * @type {Integer}
      */
-    ulDataRedundancyMax {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulDataRedundancyMax : UInt32
 
     /**
      * The minimum number of complete copies of the data that can be maintained in this storage pool.
-     * @type {Integer}
      */
-    ulDataRedundancyMin {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulDataRedundancyMin : UInt32
 
     /**
      * The default number of complete copies of the data that are maintained in this storage pool.
-     * @type {Integer}
      */
-    ulDataRedundancyDefault {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ulDataRedundancyDefault : UInt32
 
     /**
      * The maximum number of drives that can be used in the storage pool to ensure package redundancy. Package redundancy indicates the number of drives that can fail in the storage pool without resulting in a data loss.
-     * @type {Integer}
      */
-    ulPackageRedundancyMax {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulPackageRedundancyMax : UInt32
 
     /**
      * The minimum number of drives that can be used in the storage pool to ensure package redundancy. Package redundancy indicates the number of drives that can fail in the storage pool without resulting in a data loss.
-     * @type {Integer}
      */
-    ulPackageRedundancyMin {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ulPackageRedundancyMin : UInt32
 
     /**
      * The default number of drives that are used in the storage pool to ensure package redundancy. Package redundancy indicates the number of drives that can fail in the storage pool without resulting in a data loss.
-     * @type {Integer}
      */
-    ulPackageRedundancyDefault {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ulPackageRedundancyDefault : UInt32
 
     /**
      * The mirror or parity stripe size, in bytes, of the storage pool if the pool is striped (with or without parity).
-     * @type {Integer}
      */
-    ulStripeSize {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    ulStripeSize : UInt32
 
     /**
      * The maximum stripe size, in bytes, that is supported by the storage pool.
-     * @type {Integer}
      */
-    ulStripeSizeMax {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ulStripeSizeMax : UInt32
 
     /**
      * The minimum stripe size, in bytes, that is supported by the storage pool.
-     * @type {Integer}
      */
-    ulStripeSizeMin {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ulStripeSizeMin : UInt32
 
     /**
      * The default stripe size, in bytes, that is supported by the storage pool.
-     * @type {Integer}
      */
-    ulDefaultStripeSize {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ulDefaultStripeSize : UInt32
 
     /**
      * The number of columns of the storage pool if the pool is striped (with or without parity).
-     * @type {Integer}
      */
-    ulNumberOfColumns {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    ulNumberOfColumns : UInt32
 
     /**
      * The maximum number of columns supported by the storage pool.
-     * @type {Integer}
      */
-    ulNumberOfColumnsMax {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ulNumberOfColumnsMax : UInt32
 
     /**
      * The minimum number of columns supported by the storage pool.
-     * @type {Integer}
      */
-    ulNumberOfColumnsMin {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    ulNumberOfColumnsMin : UInt32
 
     /**
      * The default number of columns supported by the storage pool.
-     * @type {Integer}
      */
-    ulDefaultNumberofColumns {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ulDefaultNumberofColumns : UInt32
 
     /**
      * A hint from the client that indicates the importance placed on data availability. Values range from 0 (Not Important) to 10 (Very Important).
-     * @type {Integer}
      */
-    ulDataAvailabilityHint {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    ulDataAvailabilityHint : UInt32
 
     /**
      * A hint from the client that indicates the randomness of data access. Values range from 0 (Entirely Sequential) to 10 (Entirely Random).
-     * @type {Integer}
      */
-    ulAccessRandomnessHint {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ulAccessRandomnessHint : UInt32
 
     /**
      * A hint from the client that indicates the direction of data access. Values range from 0 (Entirely Read) to 10 (Entirely Write).
-     * @type {Integer}
      */
-    ulAccessDirectionHint {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    ulAccessDirectionHint : UInt32
 
     /**
      * A hint from the client that indicates the optimal access size in megabytes.
-     * @type {Integer}
      */
-    ulAccessSizeHint {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    ulAccessSizeHint : UInt32
 
     /**
      * A hint from the client that indicates the importance of access latency to the client. Values range from 0 (Not Important) to 10 (Very Important).
-     * @type {Integer}
      */
-    ulAccessLatencyHint {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    ulAccessLatencyHint : UInt32
 
     /**
      * A hint from the client that indicates the importance of high bandwidth. Values range from 0 (Not Important) to 10 (Very Important).
-     * @type {Integer}
      */
-    ulAccessBandwidthWeightHint {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    ulAccessBandwidthWeightHint : UInt32
 
     /**
      * A hint from the client that indicates the importance of storage cost to the client. Values range from 0 (Not Important) to 10 (Very Important). If the storage cost is very important to the client, a value of 10 indicates that the client would prefer to provision the pool using lower cost storage.
-     * @type {Integer}
      */
-    ulStorageCostHint {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    ulStorageCostHint : UInt32
 
     /**
      * A hint from the client that indicates the importance of storage efficiency to the client. Values range from 0 (Not Important) to 10 (Very Important).
-     * @type {Integer}
      */
-    ulStorageEfficiencyHint {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    ulStorageEfficiencyHint : UInt32
 
     /**
      * The number of custom attributes defined for the storage pool.
-     * @type {Integer}
      */
-    ulNumOfCustomAttributes {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    ulNumOfCustomAttributes : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_pool_custom_attributes">VDS_POOL_CUSTOM_ATTRIBUTES</a> structures. Each structure contains a custom attribute that is defined for the storage pool.
-     * @type {Pointer<VDS_POOL_CUSTOM_ATTRIBUTES>}
      */
-    pPoolCustomAttributes {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    pPoolCustomAttributes : VDS_POOL_CUSTOM_ATTRIBUTES.Ptr
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {BOOL}
      */
-    bReserved1 {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
-    }
+    bReserved1 : BOOL
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {BOOL}
      */
-    bReserved2 {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
-    }
+    bReserved2 : BOOL
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
      */
-    ulReserved1 {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    ulReserved1 : UInt32
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
      */
-    ulReserved2 {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    ulReserved2 : UInt32
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
      */
-    ullReserved1 {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    ullReserved1 : Int64
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
      */
-    ullReserved2 {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    ullReserved2 : Int64
+
 }

@@ -1,65 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\ERESOURCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FSRTL_COMMON_FCB_HEADER extends Win32Struct {
-    static sizeof => 48
+export default struct FSRTL_COMMON_FCB_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeTypeCode : Int16
 
-    /**
-     * @type {Integer}
-     */
-    NodeTypeCode {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    NodeByteSize : Int16
 
-    /**
-     * @type {Integer}
-     */
-    NodeByteSize {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    IsFastIoPossible : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IsFastIoPossible {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags2 {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    Flags2 : Int8
 
     /**
      * This bitfield backs the following members:
      * - Reserved
      * - Version
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -68,44 +32,14 @@ class FSRTL_COMMON_FCB_HEADER extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    Resource : ERESOURCE.Ptr
 
-    /**
-     * @type {Pointer<ERESOURCE>}
-     */
-    Resource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PagingIoResource : ERESOURCE.Ptr
 
-    /**
-     * @type {Pointer<ERESOURCE>}
-     */
-    PagingIoResource {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    FileSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileSize {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    ValidDataLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ValidDataLength {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
 }

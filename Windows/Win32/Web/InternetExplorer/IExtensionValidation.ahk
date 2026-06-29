@@ -1,43 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ExtensionValidationContexts.ahk" { ExtensionValidationContexts }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ExtensionValidationResults.ahk" { ExtensionValidationResults }
+#Import "..\MsHtml\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IExtensionValidation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExtensionValidation extends IUnknown {
     /**
      * The interface identifier for IExtensionValidation
      * @type {Guid}
      */
-    static IID => Guid("{7d33f73d-8525-4e0f-87db-830288baff44}")
+    static IID := Guid("{7d33f73d-8525-4e0f-87db-830288baff44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtensionValidation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Validate    : IntPtr
+        DisplayName : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtensionValidation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Validate", "DisplayName"]
-
-    /**
-     * The ValidateBitmapInfoHeader function checks a BITMAPINFOHEADER structure for certain common errors that can cause buffer overruns or integer overflows.
-     * @remarks
-     * This function guards against the following errors:
      * 
-     * -   Arithmetic overflow in the structure size or an invalid structure size.
-     * -   Invalid value for the **biClrUsed** member.
-     * -   Arithmetic overflow in the image size (**biSizeImage**).
-     * -   Invalid values for the image size (**biSizeImage**) for RGB formats.
-     * 
-     * The function does not check whether the structure describes a valid video format.
      * @param {Pointer<Guid>} extensionGuid 
      * @param {PWSTR} extensionModulePath 
      * @param {Integer} extensionFileVersionMS 
@@ -47,12 +52,11 @@ class IExtensionValidation extends IUnknown {
      * @param {IHTMLElement} htmlElement 
      * @param {ExtensionValidationContexts} contexts 
      * @returns {ExtensionValidationResults} 
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/validatebitmapinfoheader
      */
     Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts) {
         extensionModulePath := extensionModulePath is String ? StrPtr(extensionModulePath) : extensionModulePath
 
-        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, "int*", &results := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, ExtensionValidationContexts, contexts, "int*", &results := 0, "HRESULT")
         return results
     }
 
@@ -66,7 +70,29 @@ class IExtensionValidation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-displayname-principaltype-element
      */
     DisplayName() {
-        result := ComCall(4, this, "ptr*", &displayName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &displayName := 0, "HRESULT")
         return displayName
+    }
+
+    Query(iid) {
+        if (IExtensionValidation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 10)
+        this.vtbl.DisplayName := CallbackCreate(GetMethod(implObj, "DisplayName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Validate)
+        CallbackFree(this.vtbl.DisplayName)
     }
 }

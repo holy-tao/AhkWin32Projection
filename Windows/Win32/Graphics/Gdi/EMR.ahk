@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMR structure provides the base structure for all enhanced metafile records. An enhanced metafile record contains the parameters for a specific GDI function used to create part of a picture in an enhanced format metafile.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emr
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct EMR {
+    #StructPack 4
 
     /**
      * The record type. The parameter can be one of the following (with a link to the associated record structure).
@@ -126,19 +123,12 @@ class EMR extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-emrfillpath">EMR_STROKEPATH</a>
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-emrtransparentblt">EMR_TRANSPARENTBLT</a>
      * <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrabortpath">EMR_WIDENPATH</a>
-     * @type {ENHANCED_METAFILE_RECORD_TYPE}
      */
-    iType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iType : ENHANCED_METAFILE_RECORD_TYPE
 
     /**
      * The size of the record, in bytes. This member must be a multiple of four.
-     * @type {Integer}
      */
-    nSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    nSize : UInt32
+
 }

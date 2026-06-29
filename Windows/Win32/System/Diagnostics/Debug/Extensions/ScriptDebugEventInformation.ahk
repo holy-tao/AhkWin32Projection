@@ -1,107 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\ScriptDebugEvent.ahk
-#Include .\ScriptDebugPosition.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ScriptDebugEvent.ahk" { ScriptDebugEvent }
+#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class ScriptDebugEventInformation extends Win32Struct {
-    static sizeof => 32
+export default struct ScriptDebugEventInformation {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _u {
 
-        class _ExceptionInformation extends Win32Struct {
-            static sizeof => 1
-            static packingSize => 1
+        struct _ExceptionInformation {
+            IsUncaught : Int8
 
-            /**
-             * @type {Integer}
-             */
-            IsUncaught {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
         }
 
-        class _BreakpointInformation extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+        struct _BreakpointInformation {
+            BreakpointId : Int64
 
-            /**
-             * @type {Integer}
-             */
-            BreakpointId {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        /**
-         * @type {_ExceptionInformation}
-         */
-        ExceptionInformation {
-            get {
-                if(!this.HasProp("__ExceptionInformation"))
-                    this.__ExceptionInformation := ScriptDebugEventInformation._u_e__Union._ExceptionInformation(0, this)
-                return this.__ExceptionInformation
-            }
-        }
+        ExceptionInformation : ScriptDebugEventInformation._u._ExceptionInformation
 
-        /**
-         * @type {_BreakpointInformation}
-         */
-        BreakpointInformation {
-            get {
-                if(!this.HasProp("__BreakpointInformation"))
-                    this.__BreakpointInformation := ScriptDebugEventInformation._u_e__Union._BreakpointInformation(0, this)
-                return this.__BreakpointInformation
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'BreakpointInformation', { type: ScriptDebugEventInformation._u._BreakpointInformation, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {ScriptDebugEvent}
-     */
-    DebugEvent {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DebugEvent : ScriptDebugEvent
 
-    /**
-     * @type {ScriptDebugPosition}
-     */
-    EventPosition {
-        get {
-            if(!this.HasProp("__EventPosition"))
-                this.__EventPosition := ScriptDebugPosition(4, this)
-            return this.__EventPosition
-        }
-    }
+    EventPosition : ScriptDebugPosition
 
-    /**
-     * @type {ScriptDebugPosition}
-     */
-    EventSpanEnd {
-        get {
-            if(!this.HasProp("__EventSpanEnd"))
-                this.__EventSpanEnd := ScriptDebugPosition(12, this)
-            return this.__EventSpanEnd
-        }
-    }
+    EventSpanEnd : ScriptDebugPosition
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := ScriptDebugEventInformation._u_e__Union(24, this)
-            return this.__u
-        }
-    }
+    u : ScriptDebugEventInformation._u
+
 }

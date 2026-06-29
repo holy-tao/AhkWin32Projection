@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IUrlAccessor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUrlAccessor.ahk" { IUrlAccessor }
+#Import ".\PROXY_INFO.ahk" { PROXY_INFO }
+#Import ".\ITEM_INFO.ahk" { ITEM_INFO }
+#Import ".\TIMEOUT_INFO.ahk" { TIMEOUT_INFO }
+#Import ".\IProtocolHandlerSite.ahk" { IProtocolHandlerSite }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AUTHENTICATION_INFO.ahk" { AUTHENTICATION_INFO }
+#Import ".\INCREMENTAL_ACCESS_INFO.ahk" { INCREMENTAL_ACCESS_INFO }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for invoking, initializing, and managing IUrlAccessor objects. (ISearchProtocol)
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchprotocol
  * @namespace Windows.Win32.System.Search
  */
-class ISearchProtocol extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchProtocol extends IUnknown {
     /**
      * The interface identifier for ISearchProtocol
      * @type {Guid}
      */
-    static IID => Guid("{c73106ba-ac80-11d1-8df3-00c04fb6ef4f}")
+    static IID := Guid("{c73106ba-ac80-11d1-8df3-00c04fb6ef4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchProtocol interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init           : IntPtr
+        CreateAccessor : IntPtr
+        CloseAccessor  : IntPtr
+        ShutDown       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "CreateAccessor", "CloseAccessor", "ShutDown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchProtocol.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a protocol handler.
@@ -52,7 +70,7 @@ class ISearchProtocol extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocol-init
      */
     Init(pTimeoutInfo, pProtocolHandlerSite, pProxyInfo) {
-        result := ComCall(3, this, "ptr", pTimeoutInfo, "ptr", pProtocolHandlerSite, "ptr", pProxyInfo, "HRESULT")
+        result := ComCall(3, this, TIMEOUT_INFO.Ptr, pTimeoutInfo, "ptr", pProtocolHandlerSite, PROXY_INFO.Ptr, pProxyInfo, "HRESULT")
         return result
     }
 
@@ -80,7 +98,7 @@ class ISearchProtocol extends IUnknown {
     CreateAccessor(pcwszURL, pAuthenticationInfo, pIncrementalAccessInfo, pItemInfo) {
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL
 
-        result := ComCall(4, this, "ptr", pcwszURL, "ptr", pAuthenticationInfo, "ptr", pIncrementalAccessInfo, "ptr", pItemInfo, "ptr*", &ppAccessor := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pcwszURL, AUTHENTICATION_INFO.Ptr, pAuthenticationInfo, INCREMENTAL_ACCESS_INFO.Ptr, pIncrementalAccessInfo, ITEM_INFO.Ptr, pItemInfo, "ptr*", &ppAccessor := 0, "HRESULT")
         return IUrlAccessor(ppAccessor)
     }
 
@@ -119,5 +137,31 @@ class ISearchProtocol extends IUnknown {
     ShutDown() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISearchProtocol.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
+        this.vtbl.CreateAccessor := CallbackCreate(GetMethod(implObj, "CreateAccessor"), flags, 6)
+        this.vtbl.CloseAccessor := CallbackCreate(GetMethod(implObj, "CloseAccessor"), flags, 2)
+        this.vtbl.ShutDown := CallbackCreate(GetMethod(implObj, "ShutDown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.CreateAccessor)
+        CallbackFree(this.vtbl.CloseAccessor)
+        CallbackFree(this.vtbl.ShutDown)
     }
 }

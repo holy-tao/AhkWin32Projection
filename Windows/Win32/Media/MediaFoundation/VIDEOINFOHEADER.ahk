@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The VIDEOINFOHEADER structure describes the bitmap and color information for a video image.
@@ -20,73 +19,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfoheader
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class VIDEOINFOHEADER extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct VIDEOINFOHEADER {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the source video window. This structure can be a clipping rectangle, to select a portion of the source video stream.
-     * @type {RECT}
      */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcSource : RECT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the destination video window.
-     * @type {RECT}
      */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    rcTarget : RECT
 
     /**
      * Approximate data rate of the video stream, in bits per second.
-     * @type {Integer}
      */
-    dwBitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwBitRate : UInt32
 
     /**
      * Data error rate, in bit errors per second.
-     * @type {Integer}
      */
-    dwBitErrorRate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwBitErrorRate : UInt32
 
     /**
      * The desired average display time of the video frames, in 100-nanosecond units. The actual time per frame may be longer. See Remarks.
-     * @type {Integer}
      */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    AvgTimePerFrame : Int64
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains color and dimension information for the video image bitmap. If the format block contains a color table or color masks, they immediately follow the <b>bmiHeader</b> member. You can get the first color entry by casting the address of member to a <b>BITMAPINFO</b> pointer.
      * 
      * When used inside a <b>VIDEOINFOHEADER</b> structure, the semantics of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure differ slightly from how the structure is used in GDI. For more information, refer to the topic <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER Structure</a>.
-     * @type {BITMAPINFOHEADER}
      */
-    bmiHeader {
-        get {
-            if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(48, this)
-            return this.__bmiHeader
-        }
-    }
+    bmiHeader : BITMAPINFOHEADER
+
 }

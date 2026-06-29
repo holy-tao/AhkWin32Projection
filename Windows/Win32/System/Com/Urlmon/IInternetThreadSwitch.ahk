@@ -1,43 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetThreadSwitch extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInternetThreadSwitch extends IUnknown {
     /**
      * The interface identifier for IInternetThreadSwitch
      * @type {Guid}
      */
-    static IID => Guid("{79eac9e8-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9e8-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetThreadSwitch interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Prepare  : IntPtr
+        Continue : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetThreadSwitch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Prepare", "Continue"]
-
-    /**
-     * Indicates that the resource manager (RM) has completed all processing necessary to guarantee that a commit or abort operation will succeed for the specified transaction.
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-preparecomplete
+     * @returns {HRESULT} 
      */
     Prepare() {
         result := ComCall(3, this, "HRESULT")
@@ -45,24 +46,33 @@ class IInternetThreadSwitch extends IUnknown {
     }
 
     /**
-     * Enables a debugger to continue a thread that previously reported a debugging event.
-     * @remarks
-     * Only the thread that created <i>dwProcessId</i> with the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function can call 
-     * <b>ContinueDebugEvent</b>.
      * 
-     * After the 
-     * <b>ContinueDebugEvent</b> function succeeds, the specified thread continues. Depending on the debugging event previously reported by the thread, different actions occur. If the continued thread previously reported an EXIT_THREAD_DEBUG_EVENT debugging event, 
-     * <b>ContinueDebugEvent</b> closes the handle the debugger has to the thread. If the continued thread previously reported an EXIT_PROCESS_DEBUG_EVENT debugging event, 
-     * <b>ContinueDebugEvent</b> closes the handles the debugger has to the process and to the thread.
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/debugapi/nf-debugapi-continuedebugevent
+     * @returns {HRESULT} 
      */
     Continue() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetThreadSwitch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 1)
+        this.vtbl.Continue := CallbackCreate(GetMethod(implObj, "Continue"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Prepare)
+        CallbackFree(this.vtbl.Continue)
     }
 }

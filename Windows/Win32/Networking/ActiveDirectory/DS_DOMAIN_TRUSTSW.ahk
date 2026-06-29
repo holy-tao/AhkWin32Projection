@@ -1,5 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used with the DsEnumerateDomainTrusts function to contain trust data for a domain. (Unicode)
@@ -10,36 +12,20 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @charset Unicode
  */
-class DS_DOMAIN_TRUSTSW extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DS_DOMAIN_TRUSTSW {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that contains the NetBIOS name of the domain.
-     * @type {PWSTR}
      */
-    NetbiosDomainName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NetbiosDomainName : PWSTR
 
     /**
      * Pointer to a null-terminated string that contains the DNS name of the domain. This member may be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    DnsDomainName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DnsDomainName : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
     /**
      * Contains the index in the <i>Domains</i> array returned by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa">DsEnumerateDomainTrusts</a> function that corresponds to the parent domain of the domain represented by this structure. This member is only valid if the all of the following conditions are met:
@@ -48,46 +34,27 @@ class DS_DOMAIN_TRUSTSW extends Win32Struct {
      * <li>The <b>DS_DOMAIN_IN_FOREST</b> flag was specified in the <i>Flags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa">DsEnumerateDomainTrusts</a> function.</li>
      * <li>The <b>Flags</b> member of this structure does not contain the <b>DS_DOMAIN_TREE_ROOT</b> flag.</li>
      * </ul>
-     * @type {Integer}
      */
-    ParentIndex {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ParentIndex : UInt32
 
     /**
      * Contains a value that indicates the type of trust represented by this structure. Possible values for this member are documented in the <b>TrustType</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure.
-     * @type {Integer}
      */
-    TrustType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TrustType : UInt32
 
     /**
      * Contains a value that indicates the attributes of the trust represented by this structure. Possible values for this member are documented in the <b>TrustAttribute</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure.
-     * @type {Integer}
      */
-    TrustAttributes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    TrustAttributes : UInt32
 
     /**
      * Contains the security identifier of the domain represented by this structure.
-     * @type {PSID}
      */
-    DomainSid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DomainSid : PSID
 
     /**
      * Contains the GUID of the domain represented by this structure.
-     * @type {Pointer}
      */
-    DomainGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DomainGuid : Guid
+
 }

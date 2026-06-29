@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDataObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DSOP_INIT_INFO.ahk" { DSOP_INIT_INFO }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDsObjectPicker interface is used by an application to initialize and display an object picker dialog box. To create an instance of this interface, call CoCreateInstance with the CLSID_DsObjectPicker class identifier as shown below.
@@ -12,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/objsel/nn-objsel-idsobjectpicker
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsObjectPicker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsObjectPicker extends IUnknown {
     /**
      * The interface identifier for IDsObjectPicker
      * @type {Guid}
      */
-    static IID => Guid("{0c87e64e-3b7a-11d2-b9e0-00c04fd8dbf7}")
+    static IID := Guid("{0c87e64e-3b7a-11d2-b9e0-00c04fd8dbf7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsObjectPicker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize   : IntPtr
+        InvokeDialog : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InvokeDialog"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsObjectPicker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDsObjectPicker::Initialize method initializes the object picker dialog box with data about the scopes, filters, and options used by the object picker dialog box.
@@ -43,7 +54,7 @@ class IDsObjectPicker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objsel/nf-objsel-idsobjectpicker-initialize
      */
     Initialize(pInitInfo) {
-        result := ComCall(3, this, "ptr", pInitInfo, "HRESULT")
+        result := ComCall(3, this, DSOP_INIT_INFO.Ptr, pInitInfo, "HRESULT")
         return result
     }
 
@@ -56,9 +67,29 @@ class IDsObjectPicker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objsel/nf-objsel-idsobjectpicker-invokedialog
      */
     InvokeDialog(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(4, this, "ptr", hwndParent, "ptr*", &ppdoSelections := 0, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, "ptr*", &ppdoSelections := 0, "HRESULT")
         return IDataObject(ppdoSelections)
+    }
+
+    Query(iid) {
+        if (IDsObjectPicker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.InvokeDialog := CallbackCreate(GetMethod(implObj, "InvokeDialog"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InvokeDialog)
     }
 }

@@ -1,77 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_SPACEHINTS class
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-spacehints-class
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_SPACEHINTS extends Win32Struct {
-    static sizeof => 32
+export default struct JET_SPACEHINTS {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulInitialDensity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulInitialDensity {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbInitial : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbInitial {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulMaintDensity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaintDensity {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulGrowth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGrowth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbMinExtent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbMinExtent {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbMaxExtent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbMaxExtent {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

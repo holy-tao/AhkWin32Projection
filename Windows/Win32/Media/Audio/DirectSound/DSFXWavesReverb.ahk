@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSFXWavesReverb extends Win32Struct {
-    static sizeof => 16
+export default struct DSFXWavesReverb {
+    #StructPack 4
 
-    static packingSize => 4
+    fInGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    fInGain {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    fReverbMix : Float32
 
-    /**
-     * @type {Float}
-     */
-    fReverbMix {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    fReverbTime : Float32
 
-    /**
-     * @type {Float}
-     */
-    fReverbTime {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    fHighFreqRTRatio : Float32
 
-    /**
-     * @type {Float}
-     */
-    fHighFreqRTRatio {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
 }

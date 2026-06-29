@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Cryptography\HCERTSTORE.ahk
-#Include .\TLS_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\TLS_PARAMETERS.ahk" { TLS_PARAMETERS }
+#Import "..\..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\_HMAPPER.ahk" { _HMAPPER }
 
 /**
  * Contains the data for an Schannel credential. (SCH_CREDENTIALS)
@@ -11,19 +11,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_credentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SCH_CREDENTIALS extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct SCH_CREDENTIALS {
+    #StructPack 8
 
     /**
      * Set to SCH_CREDENTIALS_VERSION.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Kernel-mode Schannel supports the following values.
@@ -58,99 +52,55 @@ class SCH_CREDENTIALS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCredFormat {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCredFormat : UInt32
 
     /**
      * The number of structures in the paCred array.
-     * @type {Integer}
      */
-    cCreds {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cCreds : UInt32
 
     /**
      * An array of pointers to CERT_CONTEXT structures. Each pointer specifies a certificate that contains a private key to be used in authenticating the application. 
      * 
      * Client applications often pass in an empty list and either depend on Schannel to find an appropriate certificate or create a certificate later if needed.
-     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
-    paCred {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    paCred : IntPtr
 
     /**
      * *Optional.* Valid for server applications only. Handle to a certificate store that contains self-signed root certificates for certification authorities (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
-     * @type {HCERTSTORE}
      */
-    hRootStore {
-        get {
-            if(!this.HasProp("__hRootStore"))
-                this.__hRootStore := HCERTSTORE(24, this)
-            return this.__hRootStore
-        }
-    }
+    hRootStore : HCERTSTORE
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    cMappers {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cMappers : UInt32
 
     /**
      * Reserved.
-     * @type {Pointer<Pointer<_HMAPPER>>}
      */
-    aphMappers {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    aphMappers : IntPtr
 
     /**
      * The number of milliseconds that Schannel keeps the session in its session cache. After this time has passed, any new connections between the client and the server require a new Schannel session. Set the value of this member to zero to use the default value of 36000000 milliseconds (ten hours).
-     * @type {Integer}
      */
-    dwSessionLifespan {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwSessionLifespan : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwFlags : UInt32
 
     /**
      * The count of entries in the pTlsParameters array.
      * 
      * It is an error to specify more than SCH_CRED_MAX_SUPPORTED_PARAMETERS.
-     * @type {Integer}
      */
-    cTlsParameters {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cTlsParameters : UInt32
 
     /**
      * Array of pointers to the [TLS_PARAMETERS](/windows/win32/api/schannel/ns-schannel-tls_parameters) structures that indicate TLS parameter restrictions, if any. If no restrictions are specified, the system defaults are used. It is recommended that applications rely on the system defaults.
      * 
      * It is an error to include more than one [TLS_PARAMETERS](/windows/win32/api/schannel/ns-schannel-tls_parameters) structure with cAlpnIds == 0 and rgstrAlpnIds == NULL.
-     * @type {Pointer<TLS_PARAMETERS>}
      */
-    pTlsParameters {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pTlsParameters : TLS_PARAMETERS.Ptr
+
 }

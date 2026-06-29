@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The AM_MEDIA_TYPE structure describes the format of a media sample.
@@ -38,55 +39,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_media_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class AM_MEDIA_TYPE extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct AM_MEDIA_TYPE {
+    #StructPack 8
 
     /**
      * Globally unique identifier (GUID) that specifies the major type of the media sample. For a list of possible major types, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-types">Media Types</a>.
-     * @type {Pointer}
      */
-    majortype {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    majortype : Guid
 
     /**
      * GUID that specifies the subtype of the media sample. For a list of possible subtypes, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-types">Media Types</a>. For some formats, the value might be MEDIASUBTYPE_None, which means the format does not require a subtype.
-     * @type {Pointer}
      */
-    subtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    subtype : Guid
 
     /**
      * If <b>TRUE</b>, samples are of a fixed size. This field is informational only. For audio, it is generally set to <b>TRUE</b>. For video, it is usually <b>TRUE</b> for uncompressed video and <b>FALSE</b> for compressed video.
-     * @type {BOOL}
      */
-    bFixedSizeSamples {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bFixedSizeSamples : BOOL
 
     /**
      * If <b>TRUE</b>, samples are compressed using temporal (interframe) compression. A value of <b>TRUE</b> indicates that not all frames are key frames. This field is informational only.
-     * @type {BOOL}
      */
-    bTemporalCompression {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    bTemporalCompression : BOOL
 
     /**
      * Size of the sample in bytes. For compressed data, the value can be zero.
-     * @type {Integer}
      */
-    lSampleSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lSampleSize : UInt32
 
     /**
      * GUID that specifies the structure used for the format block. The <b>pbFormat</b> member points to the corresponding format structure. Format types include the following:
@@ -201,40 +180,25 @@ class AM_MEDIA_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    formattype {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    formattype : Guid
 
     /**
      * Not used. Set to <b>NULL</b>.
-     * @type {IUnknown}
      */
-    pUnk {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pUnk : IUnknown
 
     /**
      * Size of the format block, in bytes.
-     * @type {Integer}
      */
-    cbFormat {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbFormat : UInt32
 
     /**
      * Pointer to the format block. The structure type is specified by the <b>formattype</b> member. The format structure must be present, unless <b>formattype</b> is GUID_NULL or FORMAT_None.
      *           
      * 
      * The <b>pbFormat</b> buffer must be allocated by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. To release the format block, call <a href="https://docs.microsoft.com/windows/desktop/DirectShow/freemediatype">FreeMediaType</a>.
-     * @type {Pointer<Integer>}
      */
-    pbFormat {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pbFormat : IntPtr
+
 }

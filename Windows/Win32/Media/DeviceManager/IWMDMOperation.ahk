@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This optional, application-implemented IWMDMOperation interface allows the application to control how data is read from or written to the computer during a file transfer.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmoperation
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMOperation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMOperation extends IUnknown {
     /**
      * The interface identifier for IWMDMOperation
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a0b-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a0b-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMOperation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginRead           : IntPtr
+        BeginWrite          : IntPtr
+        GetObjectName       : IntPtr
+        SetObjectName       : IntPtr
+        GetObjectAttributes : IntPtr
+        SetObjectAttributes : IntPtr
+        GetObjectTotalSize  : IntPtr
+        SetObjectTotalSize  : IntPtr
+        TransferObjectData  : IntPtr
+        End                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginRead", "BeginWrite", "GetObjectName", "SetObjectName", "GetObjectAttributes", "SetObjectAttributes", "GetObjectTotalSize", "SetObjectTotalSize", "TransferObjectData", "End"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMOperation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The BeginRead method indicates that a &quot;read from device&quot; action is beginning. Windows Media Device Manager only calls this method if the application calls IWMDMStorageControl::Read and passes in this IWMDMOperation interface.
@@ -254,7 +273,7 @@ class IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes
      */
     GetObjectAttributes(pFormat) {
-        result := ComCall(7, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwAttributes := 0, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return pdwAttributes
     }
 
@@ -308,7 +327,7 @@ class IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-setobjectattributes
      */
     SetObjectAttributes(dwAttributes, pFormat) {
-        result := ComCall(8, this, "uint", dwAttributes, "ptr", pFormat, "HRESULT")
+        result := ComCall(8, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -515,5 +534,43 @@ class IWMDMOperation extends IUnknown {
 
         result := ComCall(12, this, phCompletionCodeMarshal, phCompletionCode, "ptr", pNewObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMOperation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginRead := CallbackCreate(GetMethod(implObj, "BeginRead"), flags, 1)
+        this.vtbl.BeginWrite := CallbackCreate(GetMethod(implObj, "BeginWrite"), flags, 1)
+        this.vtbl.GetObjectName := CallbackCreate(GetMethod(implObj, "GetObjectName"), flags, 3)
+        this.vtbl.SetObjectName := CallbackCreate(GetMethod(implObj, "SetObjectName"), flags, 3)
+        this.vtbl.GetObjectAttributes := CallbackCreate(GetMethod(implObj, "GetObjectAttributes"), flags, 3)
+        this.vtbl.SetObjectAttributes := CallbackCreate(GetMethod(implObj, "SetObjectAttributes"), flags, 3)
+        this.vtbl.GetObjectTotalSize := CallbackCreate(GetMethod(implObj, "GetObjectTotalSize"), flags, 3)
+        this.vtbl.SetObjectTotalSize := CallbackCreate(GetMethod(implObj, "SetObjectTotalSize"), flags, 3)
+        this.vtbl.TransferObjectData := CallbackCreate(GetMethod(implObj, "TransferObjectData"), flags, 4)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginRead)
+        CallbackFree(this.vtbl.BeginWrite)
+        CallbackFree(this.vtbl.GetObjectName)
+        CallbackFree(this.vtbl.SetObjectName)
+        CallbackFree(this.vtbl.GetObjectAttributes)
+        CallbackFree(this.vtbl.SetObjectAttributes)
+        CallbackFree(this.vtbl.GetObjectTotalSize)
+        CallbackFree(this.vtbl.SetObjectTotalSize)
+        CallbackFree(this.vtbl.TransferObjectData)
+        CallbackFree(this.vtbl.End)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that set the interest in a set of application-specific gesture.Application gestures are gestures that you can choose to have your application support.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkapplicationgesture
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkApplicationGesture extends Win32Enum {
+export default struct InkApplicationGesture {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * All application-specific gestures.

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_STRONG_SIGN_SERIALIZED_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_STRONG_SIGN_SERIALIZED_INFO.ahk" { CERT_STRONG_SIGN_SERIALIZED_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains parameters used to check for strong signatures on certificates, certificate revocation lists (CRLs), online certificate status protocol (OCSP) responses, and PKCS
@@ -57,54 +57,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_STRONG_SIGN_PARA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CERT_STRONG_SIGN_PARA {
+    #StructPack 8
 
     /**
      * Size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    dwInfoChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwInfoChoice : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvInfo : IntPtr
 
-    /**
-     * @type {Pointer<CERT_STRONG_SIGN_SERIALIZED_INFO>}
-     */
-    pSerializedInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszOID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
+    static __New() {
+        DefineProp(this.Prototype, 'pSerializedInfo', { type: CERT_STRONG_SIGN_SERIALIZED_INFO.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pszOID', { type: PSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,30 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class MACINFO extends Win32Struct {
-    static sizeof => 40
+export default struct MACINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    fUsed : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fUsed {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    abMacState : Int8[36]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    abMacState {
-        get {
-            if(!this.HasProp("__abMacStateProxyArray"))
-                this.__abMacStateProxyArray := Win32FixedArray(this.ptr + 4, 36, Primitive, "char")
-            return this.__abMacStateProxyArray
-        }
-    }
 }

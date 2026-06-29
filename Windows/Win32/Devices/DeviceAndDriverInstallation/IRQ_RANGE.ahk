@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRQD_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IRQD_FLAGS.ahk" { IRQD_FLAGS }
 
 /**
  * The IRQ_RANGE structure specifies a resource requirements list that describes IRQ line usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class IRQ_RANGE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct IRQ_RANGE {
+    #StructPack 4
 
     /**
      * The lowest-numbered of a range of contiguous IRQ lines that can be allocated to the device.
-     * @type {Integer}
      */
-    IRQR_Min {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IRQR_Min : UInt32
 
     /**
      * The highest-numbered of a range of contiguous IRQ lines that can be allocated to the device.
-     * @type {Integer}
      */
-    IRQR_Max {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    IRQR_Max : UInt32
 
     /**
      * One bit flag from [IRQ_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-irq_des_32) structure.
-     * @type {IRQD_FLAGS}
      */
-    IRQR_Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IRQR_Flags : IRQD_FLAGS
+
 }

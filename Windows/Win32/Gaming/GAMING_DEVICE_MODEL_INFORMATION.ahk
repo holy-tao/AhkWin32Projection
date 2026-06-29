@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\GAMING_DEVICE_VENDOR_ID.ahk
-#Include .\GAMING_DEVICE_DEVICE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GAMING_DEVICE_DEVICE_ID.ahk" { GAMING_DEVICE_DEVICE_ID }
+#Import ".\GAMING_DEVICE_VENDOR_ID.ahk" { GAMING_DEVICE_VENDOR_ID }
 
 /**
  * Contains information about the device that the game is running on.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/gamingdeviceinformation/ns-gamingdeviceinformation-gaming_device_model_information
  * @namespace Windows.Win32.Gaming
  */
-class GAMING_DEVICE_MODEL_INFORMATION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct GAMING_DEVICE_MODEL_INFORMATION {
+    #StructPack 4
 
     /**
      * The vendor of the device.
-     * @type {GAMING_DEVICE_VENDOR_ID}
      */
-    vendorId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    vendorId : GAMING_DEVICE_VENDOR_ID
 
     /**
      * The type of device.
-     * @type {GAMING_DEVICE_DEVICE_ID}
      */
-    deviceId {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    deviceId : GAMING_DEVICE_DEVICE_ID
+
 }

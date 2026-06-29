@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_ASYNC_RETRIEVAL_COMPLETION extends Win32Struct {
-    static sizeof => 16
+export default struct CRYPT_ASYNC_RETRIEVAL_COMPLETION {
+    #StructPack 8
 
-    static packingSize => 8
+    pfnCompletion : IntPtr
 
-    /**
-     * @type {Pointer<PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC>}
-     */
-    pfnCompletion {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pvCompletion : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvCompletion {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

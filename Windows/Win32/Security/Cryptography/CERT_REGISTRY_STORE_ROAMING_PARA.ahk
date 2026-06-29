@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_REGISTRY_STORE_ROAMING_PARA extends Win32Struct {
-    static sizeof => 16
+export default struct CERT_REGISTRY_STORE_ROAMING_PARA {
+    #StructPack 8
 
-    static packingSize => 8
+    hKey : HKEY
 
-    /**
-     * @type {HKEY}
-     */
-    hKey {
-        get {
-            if(!this.HasProp("__hKey"))
-                this.__hKey := HKEY(0, this)
-            return this.__hKey
-        }
-    }
+    pwszStoreDirectory : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszStoreDirectory {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

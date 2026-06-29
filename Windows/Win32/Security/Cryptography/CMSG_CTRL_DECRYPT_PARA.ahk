@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
 
 /**
  * Contains information used to decrypt an enveloped message for a key transport recipient. This structure is passed to CryptMsgControl if the dwCtrlType parameter is CMSG_CTRL_DECRYPT.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CTRL_DECRYPT_PARA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CMSG_CTRL_DECRYPT_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Pointer}
-     */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {NCRYPT_KEY_HANDLE}
-     */
-    hNCryptKey {
-        get {
-            if(!this.HasProp("__hNCryptKey"))
-                this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)
-            return this.__hNCryptKey
-        }
-    }
+    hCryptProv : IntPtr
 
     /**
      * The private key to be used. This member is not used when the <i>hNCryptKey</i> member is used.  
@@ -77,24 +53,16 @@ class CMSG_CTRL_DECRYPT_PARA extends Win32Struct {
      *  
      * 
      * If <b>dwKeySpec</b> is zero, the default AT_KEYEXCHANGE is used.
-     * @type {Integer}
      */
-    dwKeySpec {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwKeySpec : UInt32
 
     /**
      * Index of the recipient in the message associated with the <b>hCryptProv</b> private key.
-     * @type {Integer}
      */
-    dwRecipientIndex {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwRecipientIndex : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
+    static __New() {
+        DefineProp(this.Prototype, 'hNCryptKey', { type: NCRYPT_KEY_HANDLE, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The types of operations that can be performed on placeholder files and directories.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_operation_type
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_OPERATION_TYPE extends Win32Enum {
+export default struct CF_OPERATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A sync provider performs **TRANSFER_DATA** to hydrate a placeholder file. This operation can be performed as a response to a **FETCH_DATA** callback, a **VALIDATE_DATA** callback, or as part of a preemptive background hydration effort outside of any callback context.

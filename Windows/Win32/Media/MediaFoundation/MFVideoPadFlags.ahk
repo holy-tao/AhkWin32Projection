@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether to pad a video image so that it fits within a specified aspect ratio.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideopadflags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVideoPadFlags extends Win32Enum {
+export default struct MFVideoPadFlags {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not pad the image.

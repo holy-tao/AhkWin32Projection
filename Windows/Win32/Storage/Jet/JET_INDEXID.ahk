@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_INDEXID Structure
@@ -7,27 +6,11 @@
  * @namespace Windows.Win32.Storage.Jet
  * @architecture X64, Arm64
  */
-class JET_INDEXID extends Win32Struct {
-    static sizeof => 20
+export default struct JET_INDEXID {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rgbIndexId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbIndexId {
-        get {
-            if(!this.HasProp("__rgbIndexIdProxyArray"))
-                this.__rgbIndexIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__rgbIndexIdProxyArray
-        }
-    }
 }

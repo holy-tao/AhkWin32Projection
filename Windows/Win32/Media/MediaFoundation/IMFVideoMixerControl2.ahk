@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFVideoMixerControl.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFVideoMixerControl.ahk" { IMFVideoMixerControl }
 
 /**
  * Controls preferences for video deinterlacing.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideomixercontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoMixerControl2 extends IMFVideoMixerControl {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoMixerControl2 extends IMFVideoMixerControl {
     /**
      * The interface identifier for IMFVideoMixerControl2
      * @type {Guid}
      */
-    static IID => Guid("{8459616d-966e-4930-b658-54fa7e5a16d3}")
+    static IID := Guid("{8459616d-966e-4930-b658-54fa7e5a16d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoMixerControl2 interfaces
+    */
+    struct Vtbl extends IMFVideoMixerControl.Vtbl {
+        SetMixingPrefs : IntPtr
+        GetMixingPrefs : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMixingPrefs", "GetMixingPrefs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoMixerControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the preferences for video deinterlacing.
@@ -48,5 +57,27 @@ class IMFVideoMixerControl2 extends IMFVideoMixerControl {
     GetMixingPrefs() {
         result := ComCall(8, this, "uint*", &pdwMixFlags := 0, "HRESULT")
         return pdwMixFlags
+    }
+
+    Query(iid) {
+        if (IMFVideoMixerControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMixingPrefs := CallbackCreate(GetMethod(implObj, "SetMixingPrefs"), flags, 2)
+        this.vtbl.GetMixingPrefs := CallbackCreate(GetMethod(implObj, "GetMixingPrefs"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMixingPrefs)
+        CallbackFree(this.vtbl.GetMixingPrefs)
     }
 }

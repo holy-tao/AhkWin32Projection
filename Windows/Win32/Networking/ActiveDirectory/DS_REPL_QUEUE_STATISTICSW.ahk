@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Used to contain replication queue statistics.
@@ -9,89 +8,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_queue_statisticsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_REPL_QUEUE_STATISTICSW extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct DS_REPL_QUEUE_STATISTICSW {
+    #StructPack 4
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time that the currently running operation started.
-     * @type {FILETIME}
      */
-    ftimeCurrentOpStarted {
-        get {
-            if(!this.HasProp("__ftimeCurrentOpStarted"))
-                this.__ftimeCurrentOpStarted := FILETIME(0, this)
-            return this.__ftimeCurrentOpStarted
-        }
-    }
+    ftimeCurrentOpStarted : FILETIME
 
     /**
      * Contains the number of currently pending operations.
-     * @type {Integer}
      */
-    cNumPendingOps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cNumPendingOps : UInt32
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest synchronization operation.
-     * @type {FILETIME}
      */
-    ftimeOldestSync {
-        get {
-            if(!this.HasProp("__ftimeOldestSync"))
-                this.__ftimeOldestSync := FILETIME(12, this)
-            return this.__ftimeOldestSync
-        }
-    }
+    ftimeOldestSync : FILETIME
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest add operation.
-     * @type {FILETIME}
      */
-    ftimeOldestAdd {
-        get {
-            if(!this.HasProp("__ftimeOldestAdd"))
-                this.__ftimeOldestAdd := FILETIME(20, this)
-            return this.__ftimeOldestAdd
-        }
-    }
+    ftimeOldestAdd : FILETIME
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest modification operation.
-     * @type {FILETIME}
      */
-    ftimeOldestMod {
-        get {
-            if(!this.HasProp("__ftimeOldestMod"))
-                this.__ftimeOldestMod := FILETIME(28, this)
-            return this.__ftimeOldestMod
-        }
-    }
+    ftimeOldestMod : FILETIME
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest delete operation.
-     * @type {FILETIME}
      */
-    ftimeOldestDel {
-        get {
-            if(!this.HasProp("__ftimeOldestDel"))
-                this.__ftimeOldestDel := FILETIME(36, this)
-            return this.__ftimeOldestDel
-        }
-    }
+    ftimeOldestDel : FILETIME
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest reference update operation.
-     * @type {FILETIME}
      */
-    ftimeOldestUpdRefs {
-        get {
-            if(!this.HasProp("__ftimeOldestUpdRefs"))
-                this.__ftimeOldestUpdRefs := FILETIME(44, this)
-            return this.__ftimeOldestUpdRefs
-        }
-    }
+    ftimeOldestUpdRefs : FILETIME
+
 }

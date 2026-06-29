@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmFileScreen.ahk
-#Include .\IFsrmCommittableCollection.ahk
-#Include .\IFsrmFileScreenException.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmFileScreen.ahk" { IFsrmFileScreen }
+#Import ".\IFsrmFileScreenException.ahk" { IFsrmFileScreenException }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to manage file screen objects.
@@ -29,32 +33,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmFileScreenManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmFileScreenManager extends IDispatch {
     /**
      * The interface identifier for IFsrmFileScreenManager
      * @type {Guid}
      */
-    static IID => Guid("{ff4fa04e-5a94-4bda-a3a0-d5b4d3c52eba}")
+    static IID := Guid("{ff4fa04e-5a94-4bda-a3a0-d5b4d3c52eba}")
 
     /**
      * The class identifier for FsrmFileScreenManager
      * @type {Guid}
      */
-    static CLSID => Guid("{95941183-db53-4c5f-b37b-7d0921cf9dc7}")
+    static CLSID := Guid("{95941183-db53-4c5f-b37b-7d0921cf9dc7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmFileScreenManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ActionVariables            : IntPtr
+        get_ActionVariableDescriptions : IntPtr
+        CreateFileScreen               : IntPtr
+        GetFileScreen                  : IntPtr
+        EnumFileScreens                : IntPtr
+        CreateFileScreenException      : IntPtr
+        GetFileScreenException         : IntPtr
+        EnumFileScreenExceptions       : IntPtr
+        CreateFileScreenCollection     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "CreateFileScreen", "GetFileScreen", "EnumFileScreens", "CreateFileScreenException", "GetFileScreenException", "EnumFileScreenExceptions", "CreateFileScreenCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmFileScreenManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -108,7 +127,7 @@ class IFsrmFileScreenManager extends IDispatch {
     CreateFileScreen(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(9, this, "ptr", _path, "ptr*", &fileScreen := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, _path, "ptr*", &fileScreen := 0, "HRESULT")
         return IFsrmFileScreen(fileScreen)
     }
 
@@ -121,7 +140,7 @@ class IFsrmFileScreenManager extends IDispatch {
     GetFileScreen(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(10, this, "ptr", _path, "ptr*", &fileScreen := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, _path, "ptr*", &fileScreen := 0, "HRESULT")
         return IFsrmFileScreen(fileScreen)
     }
 
@@ -149,7 +168,7 @@ class IFsrmFileScreenManager extends IDispatch {
     EnumFileScreens(_path, options) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(11, this, "ptr", _path, "int", options, "ptr*", &fileScreens := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, _path, FsrmEnumOptions, options, "ptr*", &fileScreens := 0, "HRESULT")
         return IFsrmCommittableCollection(fileScreens)
     }
 
@@ -164,7 +183,7 @@ class IFsrmFileScreenManager extends IDispatch {
     CreateFileScreenException(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(12, this, "ptr", _path, "ptr*", &fileScreenException := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, _path, "ptr*", &fileScreenException := 0, "HRESULT")
         return IFsrmFileScreenException(fileScreenException)
     }
 
@@ -177,7 +196,7 @@ class IFsrmFileScreenManager extends IDispatch {
     GetFileScreenException(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(13, this, "ptr", _path, "ptr*", &fileScreenException := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, _path, "ptr*", &fileScreenException := 0, "HRESULT")
         return IFsrmFileScreenException(fileScreenException)
     }
 
@@ -205,7 +224,7 @@ class IFsrmFileScreenManager extends IDispatch {
     EnumFileScreenExceptions(_path, options) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(14, this, "ptr", _path, "int", options, "ptr*", &fileScreenExceptions := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, _path, FsrmEnumOptions, options, "ptr*", &fileScreenExceptions := 0, "HRESULT")
         return IFsrmCommittableCollection(fileScreenExceptions)
     }
 
@@ -219,5 +238,41 @@ class IFsrmFileScreenManager extends IDispatch {
     CreateFileScreenCollection() {
         result := ComCall(15, this, "ptr*", &collection := 0, "HRESULT")
         return IFsrmCommittableCollection(collection)
+    }
+
+    Query(iid) {
+        if (IFsrmFileScreenManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ActionVariables := CallbackCreate(GetMethod(implObj, "get_ActionVariables"), flags, 2)
+        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(GetMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
+        this.vtbl.CreateFileScreen := CallbackCreate(GetMethod(implObj, "CreateFileScreen"), flags, 3)
+        this.vtbl.GetFileScreen := CallbackCreate(GetMethod(implObj, "GetFileScreen"), flags, 3)
+        this.vtbl.EnumFileScreens := CallbackCreate(GetMethod(implObj, "EnumFileScreens"), flags, 4)
+        this.vtbl.CreateFileScreenException := CallbackCreate(GetMethod(implObj, "CreateFileScreenException"), flags, 3)
+        this.vtbl.GetFileScreenException := CallbackCreate(GetMethod(implObj, "GetFileScreenException"), flags, 3)
+        this.vtbl.EnumFileScreenExceptions := CallbackCreate(GetMethod(implObj, "EnumFileScreenExceptions"), flags, 4)
+        this.vtbl.CreateFileScreenCollection := CallbackCreate(GetMethod(implObj, "CreateFileScreenCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ActionVariables)
+        CallbackFree(this.vtbl.get_ActionVariableDescriptions)
+        CallbackFree(this.vtbl.CreateFileScreen)
+        CallbackFree(this.vtbl.GetFileScreen)
+        CallbackFree(this.vtbl.EnumFileScreens)
+        CallbackFree(this.vtbl.CreateFileScreenException)
+        CallbackFree(this.vtbl.GetFileScreenException)
+        CallbackFree(this.vtbl.EnumFileScreenExceptions)
+        CallbackFree(this.vtbl.CreateFileScreenCollection)
     }
 }

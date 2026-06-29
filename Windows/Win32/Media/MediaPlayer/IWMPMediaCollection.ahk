@@ -1,36 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPMedia.ahk
-#Include .\IWMPPlaylist.ahk
-#Include .\IWMPStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPMediaCollection interface provides methods that can be used to organize a large collection of media items.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmediacollection
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPMediaCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPMediaCollection extends IDispatch {
     /**
      * The interface identifier for IWMPMediaCollection
      * @type {Guid}
      */
-    static IID => Guid("{8363bc22-b4b4-4b19-989d-1cd765749dd1}")
+    static IID := Guid("{8363bc22-b4b4-4b19-989d-1cd765749dd1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPMediaCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        add                          : IntPtr
+        getAll                       : IntPtr
+        getByName                    : IntPtr
+        getByGenre                   : IntPtr
+        getByAuthor                  : IntPtr
+        getByAlbum                   : IntPtr
+        getByAttribute               : IntPtr
+        remove                       : IntPtr
+        getAttributeStringCollection : IntPtr
+        getMediaAtom                 : IntPtr
+        setDeleted                   : IntPtr
+        isDeleted                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["add", "getAll", "getByName", "getByGenre", "getByAuthor", "getByAlbum", "getByAttribute", "remove", "getAttributeStringCollection", "getMediaAtom", "setDeleted", "isDeleted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPMediaCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The add method adds a new media item or playlist to the library.
@@ -47,7 +68,7 @@ class IWMPMediaCollection extends IDispatch {
     add(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(7, this, "ptr", bstrURL, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrURL, "ptr*", &ppItem := 0, "HRESULT")
         return IWMPMedia(ppItem)
     }
 
@@ -78,7 +99,7 @@ class IWMPMediaCollection extends IDispatch {
     getByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr*", &ppMediaItems := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrName, "ptr*", &ppMediaItems := 0, "HRESULT")
         return IWMPPlaylist(ppMediaItems)
     }
 
@@ -95,7 +116,7 @@ class IWMPMediaCollection extends IDispatch {
     getByGenre(bstrGenre) {
         bstrGenre := bstrGenre is String ? BSTR.Alloc(bstrGenre).Value : bstrGenre
 
-        result := ComCall(10, this, "ptr", bstrGenre, "ptr*", &ppMediaItems := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrGenre, "ptr*", &ppMediaItems := 0, "HRESULT")
         return IWMPPlaylist(ppMediaItems)
     }
 
@@ -112,7 +133,7 @@ class IWMPMediaCollection extends IDispatch {
     getByAuthor(bstrAuthor) {
         bstrAuthor := bstrAuthor is String ? BSTR.Alloc(bstrAuthor).Value : bstrAuthor
 
-        result := ComCall(11, this, "ptr", bstrAuthor, "ptr*", &ppMediaItems := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrAuthor, "ptr*", &ppMediaItems := 0, "HRESULT")
         return IWMPPlaylist(ppMediaItems)
     }
 
@@ -129,7 +150,7 @@ class IWMPMediaCollection extends IDispatch {
     getByAlbum(bstrAlbum) {
         bstrAlbum := bstrAlbum is String ? BSTR.Alloc(bstrAlbum).Value : bstrAlbum
 
-        result := ComCall(12, this, "ptr", bstrAlbum, "ptr*", &ppMediaItems := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrAlbum, "ptr*", &ppMediaItems := 0, "HRESULT")
         return IWMPPlaylist(ppMediaItems)
     }
 
@@ -186,7 +207,7 @@ class IWMPMediaCollection extends IDispatch {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(13, this, "ptr", bstrAttribute, "ptr", bstrValue, "ptr*", &ppMediaItems := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrAttribute, BSTR, bstrValue, "ptr*", &ppMediaItems := 0, "HRESULT")
         return IWMPPlaylist(ppMediaItems)
     }
 
@@ -220,7 +241,7 @@ class IWMPMediaCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-remove
      */
     remove(pItem, varfDeleteFile) {
-        result := ComCall(14, this, "ptr", pItem, "short", varfDeleteFile, "HRESULT")
+        result := ComCall(14, this, "ptr", pItem, VARIANT_BOOL, varfDeleteFile, "HRESULT")
         return result
     }
 
@@ -239,7 +260,7 @@ class IWMPMediaCollection extends IDispatch {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
 
-        result := ComCall(15, this, "ptr", bstrAttribute, "ptr", bstrMediaType, "ptr*", &ppStringCollection := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrAttribute, BSTR, bstrMediaType, "ptr*", &ppStringCollection := 0, "HRESULT")
         return IWMPStringCollection(ppStringCollection)
     }
 
@@ -277,7 +298,7 @@ class IWMPMediaCollection extends IDispatch {
 
         plAtomMarshal := plAtom is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "ptr", bstrItemName, plAtomMarshal, plAtom, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrItemName, plAtomMarshal, plAtom, "HRESULT")
         return result
     }
 
@@ -313,7 +334,7 @@ class IWMPMediaCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-setdeleted
      */
     setDeleted(pItem, varfIsDeleted) {
-        result := ComCall(17, this, "ptr", pItem, "short", varfIsDeleted, "HRESULT")
+        result := ComCall(17, this, "ptr", pItem, VARIANT_BOOL, varfIsDeleted, "HRESULT")
         return result
     }
 
@@ -329,5 +350,47 @@ class IWMPMediaCollection extends IDispatch {
 
         result := ComCall(18, this, "ptr", pItem, pvarfIsDeletedMarshal, pvarfIsDeleted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPMediaCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
+        this.vtbl.getAll := CallbackCreate(GetMethod(implObj, "getAll"), flags, 2)
+        this.vtbl.getByName := CallbackCreate(GetMethod(implObj, "getByName"), flags, 3)
+        this.vtbl.getByGenre := CallbackCreate(GetMethod(implObj, "getByGenre"), flags, 3)
+        this.vtbl.getByAuthor := CallbackCreate(GetMethod(implObj, "getByAuthor"), flags, 3)
+        this.vtbl.getByAlbum := CallbackCreate(GetMethod(implObj, "getByAlbum"), flags, 3)
+        this.vtbl.getByAttribute := CallbackCreate(GetMethod(implObj, "getByAttribute"), flags, 4)
+        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 3)
+        this.vtbl.getAttributeStringCollection := CallbackCreate(GetMethod(implObj, "getAttributeStringCollection"), flags, 4)
+        this.vtbl.getMediaAtom := CallbackCreate(GetMethod(implObj, "getMediaAtom"), flags, 3)
+        this.vtbl.setDeleted := CallbackCreate(GetMethod(implObj, "setDeleted"), flags, 3)
+        this.vtbl.isDeleted := CallbackCreate(GetMethod(implObj, "isDeleted"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.add)
+        CallbackFree(this.vtbl.getAll)
+        CallbackFree(this.vtbl.getByName)
+        CallbackFree(this.vtbl.getByGenre)
+        CallbackFree(this.vtbl.getByAuthor)
+        CallbackFree(this.vtbl.getByAlbum)
+        CallbackFree(this.vtbl.getByAttribute)
+        CallbackFree(this.vtbl.remove)
+        CallbackFree(this.vtbl.getAttributeStringCollection)
+        CallbackFree(this.vtbl.getMediaAtom)
+        CallbackFree(this.vtbl.setDeleted)
+        CallbackFree(this.vtbl.isDeleted)
     }
 }

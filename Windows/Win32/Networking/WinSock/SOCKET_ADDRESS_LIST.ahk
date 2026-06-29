@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_ADDRESS.ahk
-#Include .\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The SOCKET_ADDRESS_LIST structure defines a variable-sized list of transport addresses.
@@ -24,19 +23,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_address_list
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_ADDRESS_LIST extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SOCKET_ADDRESS_LIST {
+    #StructPack 8
 
     /**
      * The number of transport addresses in the list.
-     * @type {Integer}
      */
-    iAddressCount {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    iAddressCount : Int32
 
     /**
      * A variable-sized array of SOCKET_ADDRESS structures. The SOCKET_ADDRESS structure is defined as
@@ -50,13 +43,7 @@ class SOCKET_ADDRESS_LIST extends Win32Struct {
      *   INT  iSockaddrLength;
      * } SOCKET_ADDRESS, *PSOCKET_ADDRESS, *LPSOCKET_ADDRESS;
      * ```
-     * @type {SOCKET_ADDRESS}
      */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, SOCKET_ADDRESS, "")
-            return this.__AddressProxyArray
-        }
-    }
+    Address : SOCKET_ADDRESS[1]
+
 }

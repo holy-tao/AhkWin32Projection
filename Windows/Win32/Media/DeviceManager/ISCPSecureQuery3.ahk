@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureQuery2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import ".\ISCPSecureQuery2.ahk" { ISCPSecureQuery2 }
+#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
 
 /**
  * The ISCPSecureQuery3 interface extends ISCPSecureQuery2 by providing a set of new methods for retrieving the rights and making decision on a clear channel.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecurequery3
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class ISCPSecureQuery3 extends ISCPSecureQuery2 {
-
-    static sizeof => A_PtrSize
+export default struct ISCPSecureQuery3 extends ISCPSecureQuery2 {
     /**
      * The interface identifier for ISCPSecureQuery3
      * @type {Guid}
      */
-    static IID => Guid("{b7edd1a2-4dab-484b-b3c5-ad39b8b4c0b1}")
+    static IID := Guid("{b7edd1a2-4dab-484b-b3c5-ad39b8b4c0b1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISCPSecureQuery3 interfaces
+    */
+    struct Vtbl extends ISCPSecureQuery2.Vtbl {
+        GetRightsOnClearChannel    : IntPtr
+        MakeDecisionOnClearChannel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRightsOnClearChannel", "MakeDecisionOnClearChannel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISCPSecureQuery3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetRightsOnClearChannel method retrieves rights information for the current piece of content on a clear channel.
@@ -270,7 +285,29 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2 {
         pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : "ptr"
         pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr", pProgressCallback, pAppCertAppMarshal, pAppCertApp, "uint", dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, "uint", dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, "ptr*", ppExchange, "HRESULT")
+        result := ComCall(9, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr", pProgressCallback, pAppCertAppMarshal, pAppCertApp, "uint", dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, "uint", dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISCPSecureQuery3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRightsOnClearChannel := CallbackCreate(GetMethod(implObj, "GetRightsOnClearChannel"), flags, 9)
+        this.vtbl.MakeDecisionOnClearChannel := CallbackCreate(GetMethod(implObj, "MakeDecisionOnClearChannel"), flags, 19)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRightsOnClearChannel)
+        CallbackFree(this.vtbl.MakeDecisionOnClearChannel)
     }
 }

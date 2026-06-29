@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IBaseFilter.ahk
-#Include .\PIN_DIRECTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The PIN_INFO structure contains information about a pin.
@@ -14,35 +14,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-pin_info
  * @namespace Windows.Win32.Media.DirectShow
  */
-class PIN_INFO extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 8
+export default struct PIN_INFO {
+    #StructPack 8
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the owning filter.
-     * @type {IBaseFilter}
      */
-    pFilter {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pFilter : IBaseFilter
 
     /**
      * Direction of the pin (input or output).
-     * @type {PIN_DIRECTION}
      */
-    dir {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dir : PIN_DIRECTION
 
     /**
      * Name of the pin.
-     * @type {String}
      */
-    achName {
-        get => StrGet(this.ptr + 12, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 127, "UTF-16")
-    }
+    achName : WCHAR[128]
+
 }

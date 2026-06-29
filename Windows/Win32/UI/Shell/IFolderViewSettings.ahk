@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
+#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
 
 /**
  * Exposes methods to obtain folder view settings.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderviewsettings
  * @namespace Windows.Win32.UI.Shell
  */
-class IFolderViewSettings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFolderViewSettings extends IUnknown {
     /**
      * The interface identifier for IFolderViewSettings
      * @type {Guid}
      */
-    static IID => Guid("{ae8c987d-8797-4ed3-be72-2a47dd938db0}")
+    static IID := Guid("{ae8c987d-8797-4ed3-be72-2a47dd938db0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderViewSettings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetColumnPropertyList : IntPtr
+        GetGroupByProperty    : IntPtr
+        GetViewMode           : IntPtr
+        GetIconSize           : IntPtr
+        GetFolderFlags        : IntPtr
+        GetSortColumns        : IntPtr
+        GetGroupSubsetCount   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetColumnPropertyList", "GetGroupByProperty", "GetViewMode", "GetIconSize", "GetFolderFlags", "GetSortColumns", "GetGroupSubsetCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderViewSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an ordered list of columns that corresponds to the column enumerated.
@@ -38,7 +57,7 @@ class IFolderViewSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getcolumnpropertylist
      */
     GetColumnPropertyList(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -58,7 +77,7 @@ class IFolderViewSettings extends IUnknown {
     GetGroupByProperty(pkey, pfGroupAscending) {
         pfGroupAscendingMarshal := pfGroupAscending is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pkey, pfGroupAscendingMarshal, pfGroupAscending, "HRESULT")
+        result := ComCall(4, this, PROPERTYKEY.Ptr, pkey, pfGroupAscendingMarshal, pfGroupAscending, "HRESULT")
         return result
     }
 
@@ -126,7 +145,7 @@ class IFolderViewSettings extends IUnknown {
     GetSortColumns(rgSortColumns, cColumnsIn, pcColumnsOut) {
         pcColumnsOutMarshal := pcColumnsOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", rgSortColumns, "uint", cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
+        result := ComCall(8, this, SORTCOLUMN.Ptr, rgSortColumns, "uint", cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
         return result
     }
 
@@ -140,5 +159,37 @@ class IFolderViewSettings extends IUnknown {
     GetGroupSubsetCount() {
         result := ComCall(9, this, "uint*", &pcVisibleRows := 0, "HRESULT")
         return pcVisibleRows
+    }
+
+    Query(iid) {
+        if (IFolderViewSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetColumnPropertyList := CallbackCreate(GetMethod(implObj, "GetColumnPropertyList"), flags, 3)
+        this.vtbl.GetGroupByProperty := CallbackCreate(GetMethod(implObj, "GetGroupByProperty"), flags, 3)
+        this.vtbl.GetViewMode := CallbackCreate(GetMethod(implObj, "GetViewMode"), flags, 2)
+        this.vtbl.GetIconSize := CallbackCreate(GetMethod(implObj, "GetIconSize"), flags, 2)
+        this.vtbl.GetFolderFlags := CallbackCreate(GetMethod(implObj, "GetFolderFlags"), flags, 3)
+        this.vtbl.GetSortColumns := CallbackCreate(GetMethod(implObj, "GetSortColumns"), flags, 4)
+        this.vtbl.GetGroupSubsetCount := CallbackCreate(GetMethod(implObj, "GetGroupSubsetCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetColumnPropertyList)
+        CallbackFree(this.vtbl.GetGroupByProperty)
+        CallbackFree(this.vtbl.GetViewMode)
+        CallbackFree(this.vtbl.GetIconSize)
+        CallbackFree(this.vtbl.GetFolderFlags)
+        CallbackFree(this.vtbl.GetSortColumns)
+        CallbackFree(this.vtbl.GetGroupSubsetCount)
     }
 }

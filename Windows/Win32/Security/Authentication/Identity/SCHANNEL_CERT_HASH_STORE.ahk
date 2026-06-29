@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains the hash store data for the certificate that Schannel uses in kernel-mode.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cert_hash_store
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SCHANNEL_CERT_HASH_STORE extends Win32Struct {
-    static sizeof => 296
-
-    static packingSize => 8
+export default struct SCHANNEL_CERT_HASH_STORE {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLength : UInt32
 
     /**
      * Contains bit flags that control the behavior of Schannel. This member can be zero or the following value.
@@ -40,40 +34,22 @@ class SCHANNEL_CERT_HASH_STORE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Handle to the cryptography provider.
-     * @type {Pointer}
      */
-    hProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hProv : IntPtr
 
     /**
      * The secure hash algorithm.
-     * @type {Array<Integer>}
      */
-    ShaHash {
-        get {
-            if(!this.HasProp("__ShaHashProxyArray"))
-                this.__ShaHashProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "char")
-            return this.__ShaHashProxyArray
-        }
-    }
+    ShaHash : Int8[20]
 
     /**
      * Pointer to the size of the store name.
-     * @type {String}
      */
-    pwszStoreName {
-        get => StrGet(this.ptr + 36, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 127, "UTF-16")
-    }
+    pwszStoreName : WCHAR[128]
+
 }

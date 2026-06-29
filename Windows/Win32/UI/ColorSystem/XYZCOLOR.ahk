@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * TBD (XYZCOLOR)
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-xyzcolor
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class XYZCOLOR extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct XYZCOLOR {
+    #StructPack 2
 
     /**
      * TBD
-     * @type {Integer}
      */
-    X {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    X : UInt16
 
     /**
      * TBD
-     * @type {Integer}
      */
-    Y {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Y : UInt16
 
     /**
      * TBD
-     * @type {Integer}
      */
-    Z {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Z : UInt16
+
 }

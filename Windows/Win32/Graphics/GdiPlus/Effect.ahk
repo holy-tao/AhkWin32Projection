@@ -1,53 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CGpEffect.ahk" { CGpEffect }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A function is the building block for a shader created in the high-level language. If you prefer to write shaders in a C-style language instead of in assembly language, you will want to write functions.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/functions
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class Effect extends Win32Struct {
-    static sizeof => 40
+export default struct Effect {
+    #StructPack 8
 
-    static packingSize => 8
+    lpVtbl : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Void>>}
-     */
-    lpVtbl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    nativeEffect : CGpEffect.Ptr
 
-    /**
-     * @type {Pointer<CGpEffect>}
-     */
-    nativeEffect {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    auxDataSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    auxDataSize {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    auxData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    auxData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    useAuxData : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    useAuxData {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
 }

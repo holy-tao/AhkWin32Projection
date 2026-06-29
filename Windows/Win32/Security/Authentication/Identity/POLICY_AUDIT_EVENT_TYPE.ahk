@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The POLICY_AUDIT_EVENT_TYPE enumeration defines values that indicate the types of events the system can audit.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_audit_event_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_AUDIT_EVENT_TYPE extends Win32Enum {
+export default struct POLICY_AUDIT_EVENT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Determines whether the operating system must audit any of the following attempts:

@@ -1,10 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\IXpsOMGeometry.ahk
-#Include .\IXpsOMBrush.ahk
-#Include .\IXpsOMDashCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMDashCollection.ahk" { IXpsOMDashCollection }
+#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XPS_LINE_JOIN.ahk" { XPS_LINE_JOIN }
+#Import ".\XPS_DASH_CAP.ahk" { XPS_DASH_CAP }
+#Import ".\XPS_LINE_CAP.ahk" { XPS_LINE_CAP }
 
 /**
  * Describes a non-text visual item.
@@ -48,26 +54,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPath extends IXpsOMVisual {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPath extends IXpsOMVisual {
     /**
      * The interface identifier for IXpsOMPath
      * @type {Guid}
      */
-    static IID => Guid("{37d38bb6-3ee9-4110-9312-14b194163337}")
+    static IID := Guid("{37d38bb6-3ee9-4110-9312-14b194163337}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPath interfaces
+    */
+    struct Vtbl extends IXpsOMVisual.Vtbl {
+        GetGeometry                      : IntPtr
+        GetGeometryLocal                 : IntPtr
+        SetGeometryLocal                 : IntPtr
+        GetGeometryLookup                : IntPtr
+        SetGeometryLookup                : IntPtr
+        GetAccessibilityShortDescription : IntPtr
+        SetAccessibilityShortDescription : IntPtr
+        GetAccessibilityLongDescription  : IntPtr
+        SetAccessibilityLongDescription  : IntPtr
+        GetSnapsToPixels                 : IntPtr
+        SetSnapsToPixels                 : IntPtr
+        GetStrokeBrush                   : IntPtr
+        GetStrokeBrushLocal              : IntPtr
+        SetStrokeBrushLocal              : IntPtr
+        GetStrokeBrushLookup             : IntPtr
+        SetStrokeBrushLookup             : IntPtr
+        GetStrokeDashes                  : IntPtr
+        GetStrokeDashCap                 : IntPtr
+        SetStrokeDashCap                 : IntPtr
+        GetStrokeDashOffset              : IntPtr
+        SetStrokeDashOffset              : IntPtr
+        GetStrokeStartLineCap            : IntPtr
+        SetStrokeStartLineCap            : IntPtr
+        GetStrokeEndLineCap              : IntPtr
+        SetStrokeEndLineCap              : IntPtr
+        GetStrokeLineJoin                : IntPtr
+        SetStrokeLineJoin                : IntPtr
+        GetStrokeMiterLimit              : IntPtr
+        SetStrokeMiterLimit              : IntPtr
+        GetStrokeThickness               : IntPtr
+        SetStrokeThickness               : IntPtr
+        GetFillBrush                     : IntPtr
+        GetFillBrushLocal                : IntPtr
+        SetFillBrushLocal                : IntPtr
+        GetFillBrushLookup               : IntPtr
+        SetFillBrushLookup               : IntPtr
+        Clone                            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGeometry", "GetGeometryLocal", "SetGeometryLocal", "GetGeometryLookup", "SetGeometryLookup", "GetAccessibilityShortDescription", "SetAccessibilityShortDescription", "GetAccessibilityLongDescription", "SetAccessibilityLongDescription", "GetSnapsToPixels", "SetSnapsToPixels", "GetStrokeBrush", "GetStrokeBrushLocal", "SetStrokeBrushLocal", "GetStrokeBrushLookup", "SetStrokeBrushLookup", "GetStrokeDashes", "GetStrokeDashCap", "SetStrokeDashCap", "GetStrokeDashOffset", "SetStrokeDashOffset", "GetStrokeStartLineCap", "SetStrokeStartLineCap", "GetStrokeEndLineCap", "SetStrokeEndLineCap", "GetStrokeLineJoin", "SetStrokeLineJoin", "GetStrokeMiterLimit", "SetStrokeMiterLimit", "GetStrokeThickness", "SetStrokeThickness", "GetFillBrush", "GetFillBrushLocal", "SetFillBrushLocal", "GetFillBrushLookup", "SetFillBrushLookup", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPath.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the path's IXpsOMGeometry interface, which describes the resolved fill area for this path.
@@ -332,7 +381,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup
      */
     GetGeometryLookup() {
-        result := ComCall(33, this, "ptr*", &lookup := 0, "HRESULT")
+        result := ComCall(33, this, PWSTR.Ptr, &lookup := 0, "HRESULT")
         return lookup
     }
 
@@ -482,7 +531,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilityshortdescription
      */
     GetAccessibilityShortDescription() {
-        result := ComCall(35, this, "ptr*", &shortDescription := 0, "HRESULT")
+        result := ComCall(35, this, PWSTR.Ptr, &shortDescription := 0, "HRESULT")
         return shortDescription
     }
 
@@ -511,7 +560,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilitylongdescription
      */
     GetAccessibilityLongDescription() {
-        result := ComCall(37, this, "ptr*", &longDescription := 0, "HRESULT")
+        result := ComCall(37, this, PWSTR.Ptr, &longDescription := 0, "HRESULT")
         return longDescription
     }
 
@@ -565,7 +614,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getsnapstopixels
      */
     GetSnapsToPixels() {
-        result := ComCall(39, this, "int*", &snapsToPixels := 0, "HRESULT")
+        result := ComCall(39, this, BOOL.Ptr, &snapsToPixels := 0, "HRESULT")
         return snapsToPixels
     }
 
@@ -603,7 +652,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setsnapstopixels
      */
     SetSnapsToPixels(snapsToPixels) {
-        result := ComCall(40, this, "int", snapsToPixels, "HRESULT")
+        result := ComCall(40, this, BOOL, snapsToPixels, "HRESULT")
         return result
     }
 
@@ -872,7 +921,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup
      */
     GetStrokeBrushLookup() {
-        result := ComCall(44, this, "ptr*", &lookup := 0, "HRESULT")
+        result := ComCall(44, this, PWSTR.Ptr, &lookup := 0, "HRESULT")
         return lookup
     }
 
@@ -1070,7 +1119,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokedashcap
      */
     SetStrokeDashCap(strokeDashCap) {
-        result := ComCall(48, this, "int", strokeDashCap, "HRESULT")
+        result := ComCall(48, this, XPS_DASH_CAP, strokeDashCap, "HRESULT")
         return result
     }
 
@@ -1176,7 +1225,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokestartlinecap
      */
     SetStrokeStartLineCap(strokeStartLineCap) {
-        result := ComCall(52, this, "int", strokeStartLineCap, "HRESULT")
+        result := ComCall(52, this, XPS_LINE_CAP, strokeStartLineCap, "HRESULT")
         return result
     }
 
@@ -1230,7 +1279,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokeendlinecap
      */
     SetStrokeEndLineCap(strokeEndLineCap) {
-        result := ComCall(54, this, "int", strokeEndLineCap, "HRESULT")
+        result := ComCall(54, this, XPS_LINE_CAP, strokeEndLineCap, "HRESULT")
         return result
     }
 
@@ -1284,7 +1333,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokelinejoin
      */
     SetStrokeLineJoin(strokeLineJoin) {
-        result := ComCall(56, this, "int", strokeLineJoin, "HRESULT")
+        result := ComCall(56, this, XPS_LINE_JOIN, strokeLineJoin, "HRESULT")
         return result
     }
 
@@ -1669,7 +1718,7 @@ class IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup
      */
     GetFillBrushLookup() {
-        result := ComCall(64, this, "ptr*", &lookup := 0, "HRESULT")
+        result := ComCall(64, this, PWSTR.Ptr, &lookup := 0, "HRESULT")
         return lookup
     }
 
@@ -1815,5 +1864,97 @@ class IXpsOMPath extends IXpsOMVisual {
     Clone() {
         result := ComCall(66, this, "ptr*", &_path := 0, "HRESULT")
         return IXpsOMPath(_path)
+    }
+
+    Query(iid) {
+        if (IXpsOMPath.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGeometry := CallbackCreate(GetMethod(implObj, "GetGeometry"), flags, 2)
+        this.vtbl.GetGeometryLocal := CallbackCreate(GetMethod(implObj, "GetGeometryLocal"), flags, 2)
+        this.vtbl.SetGeometryLocal := CallbackCreate(GetMethod(implObj, "SetGeometryLocal"), flags, 2)
+        this.vtbl.GetGeometryLookup := CallbackCreate(GetMethod(implObj, "GetGeometryLookup"), flags, 2)
+        this.vtbl.SetGeometryLookup := CallbackCreate(GetMethod(implObj, "SetGeometryLookup"), flags, 2)
+        this.vtbl.GetAccessibilityShortDescription := CallbackCreate(GetMethod(implObj, "GetAccessibilityShortDescription"), flags, 2)
+        this.vtbl.SetAccessibilityShortDescription := CallbackCreate(GetMethod(implObj, "SetAccessibilityShortDescription"), flags, 2)
+        this.vtbl.GetAccessibilityLongDescription := CallbackCreate(GetMethod(implObj, "GetAccessibilityLongDescription"), flags, 2)
+        this.vtbl.SetAccessibilityLongDescription := CallbackCreate(GetMethod(implObj, "SetAccessibilityLongDescription"), flags, 2)
+        this.vtbl.GetSnapsToPixels := CallbackCreate(GetMethod(implObj, "GetSnapsToPixels"), flags, 2)
+        this.vtbl.SetSnapsToPixels := CallbackCreate(GetMethod(implObj, "SetSnapsToPixels"), flags, 2)
+        this.vtbl.GetStrokeBrush := CallbackCreate(GetMethod(implObj, "GetStrokeBrush"), flags, 2)
+        this.vtbl.GetStrokeBrushLocal := CallbackCreate(GetMethod(implObj, "GetStrokeBrushLocal"), flags, 2)
+        this.vtbl.SetStrokeBrushLocal := CallbackCreate(GetMethod(implObj, "SetStrokeBrushLocal"), flags, 2)
+        this.vtbl.GetStrokeBrushLookup := CallbackCreate(GetMethod(implObj, "GetStrokeBrushLookup"), flags, 2)
+        this.vtbl.SetStrokeBrushLookup := CallbackCreate(GetMethod(implObj, "SetStrokeBrushLookup"), flags, 2)
+        this.vtbl.GetStrokeDashes := CallbackCreate(GetMethod(implObj, "GetStrokeDashes"), flags, 2)
+        this.vtbl.GetStrokeDashCap := CallbackCreate(GetMethod(implObj, "GetStrokeDashCap"), flags, 2)
+        this.vtbl.SetStrokeDashCap := CallbackCreate(GetMethod(implObj, "SetStrokeDashCap"), flags, 2)
+        this.vtbl.GetStrokeDashOffset := CallbackCreate(GetMethod(implObj, "GetStrokeDashOffset"), flags, 2)
+        this.vtbl.SetStrokeDashOffset := CallbackCreate(GetMethod(implObj, "SetStrokeDashOffset"), flags, 2)
+        this.vtbl.GetStrokeStartLineCap := CallbackCreate(GetMethod(implObj, "GetStrokeStartLineCap"), flags, 2)
+        this.vtbl.SetStrokeStartLineCap := CallbackCreate(GetMethod(implObj, "SetStrokeStartLineCap"), flags, 2)
+        this.vtbl.GetStrokeEndLineCap := CallbackCreate(GetMethod(implObj, "GetStrokeEndLineCap"), flags, 2)
+        this.vtbl.SetStrokeEndLineCap := CallbackCreate(GetMethod(implObj, "SetStrokeEndLineCap"), flags, 2)
+        this.vtbl.GetStrokeLineJoin := CallbackCreate(GetMethod(implObj, "GetStrokeLineJoin"), flags, 2)
+        this.vtbl.SetStrokeLineJoin := CallbackCreate(GetMethod(implObj, "SetStrokeLineJoin"), flags, 2)
+        this.vtbl.GetStrokeMiterLimit := CallbackCreate(GetMethod(implObj, "GetStrokeMiterLimit"), flags, 2)
+        this.vtbl.SetStrokeMiterLimit := CallbackCreate(GetMethod(implObj, "SetStrokeMiterLimit"), flags, 2)
+        this.vtbl.GetStrokeThickness := CallbackCreate(GetMethod(implObj, "GetStrokeThickness"), flags, 2)
+        this.vtbl.SetStrokeThickness := CallbackCreate(GetMethod(implObj, "SetStrokeThickness"), flags, 2)
+        this.vtbl.GetFillBrush := CallbackCreate(GetMethod(implObj, "GetFillBrush"), flags, 2)
+        this.vtbl.GetFillBrushLocal := CallbackCreate(GetMethod(implObj, "GetFillBrushLocal"), flags, 2)
+        this.vtbl.SetFillBrushLocal := CallbackCreate(GetMethod(implObj, "SetFillBrushLocal"), flags, 2)
+        this.vtbl.GetFillBrushLookup := CallbackCreate(GetMethod(implObj, "GetFillBrushLookup"), flags, 2)
+        this.vtbl.SetFillBrushLookup := CallbackCreate(GetMethod(implObj, "SetFillBrushLookup"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGeometry)
+        CallbackFree(this.vtbl.GetGeometryLocal)
+        CallbackFree(this.vtbl.SetGeometryLocal)
+        CallbackFree(this.vtbl.GetGeometryLookup)
+        CallbackFree(this.vtbl.SetGeometryLookup)
+        CallbackFree(this.vtbl.GetAccessibilityShortDescription)
+        CallbackFree(this.vtbl.SetAccessibilityShortDescription)
+        CallbackFree(this.vtbl.GetAccessibilityLongDescription)
+        CallbackFree(this.vtbl.SetAccessibilityLongDescription)
+        CallbackFree(this.vtbl.GetSnapsToPixels)
+        CallbackFree(this.vtbl.SetSnapsToPixels)
+        CallbackFree(this.vtbl.GetStrokeBrush)
+        CallbackFree(this.vtbl.GetStrokeBrushLocal)
+        CallbackFree(this.vtbl.SetStrokeBrushLocal)
+        CallbackFree(this.vtbl.GetStrokeBrushLookup)
+        CallbackFree(this.vtbl.SetStrokeBrushLookup)
+        CallbackFree(this.vtbl.GetStrokeDashes)
+        CallbackFree(this.vtbl.GetStrokeDashCap)
+        CallbackFree(this.vtbl.SetStrokeDashCap)
+        CallbackFree(this.vtbl.GetStrokeDashOffset)
+        CallbackFree(this.vtbl.SetStrokeDashOffset)
+        CallbackFree(this.vtbl.GetStrokeStartLineCap)
+        CallbackFree(this.vtbl.SetStrokeStartLineCap)
+        CallbackFree(this.vtbl.GetStrokeEndLineCap)
+        CallbackFree(this.vtbl.SetStrokeEndLineCap)
+        CallbackFree(this.vtbl.GetStrokeLineJoin)
+        CallbackFree(this.vtbl.SetStrokeLineJoin)
+        CallbackFree(this.vtbl.GetStrokeMiterLimit)
+        CallbackFree(this.vtbl.SetStrokeMiterLimit)
+        CallbackFree(this.vtbl.GetStrokeThickness)
+        CallbackFree(this.vtbl.SetStrokeThickness)
+        CallbackFree(this.vtbl.GetFillBrush)
+        CallbackFree(this.vtbl.GetFillBrushLocal)
+        CallbackFree(this.vtbl.SetFillBrushLocal)
+        CallbackFree(this.vtbl.GetFillBrushLookup)
+        CallbackFree(this.vtbl.SetFillBrushLookup)
+        CallbackFree(this.vtbl.Clone)
     }
 }

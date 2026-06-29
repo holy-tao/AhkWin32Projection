@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMPContentContainer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPContentContainer.ahk" { IWMPContentContainer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPTransactionType.ahk" { WMPTransactionType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nn-contentpartner-iwmpcontentcontainerlist
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPContentContainerList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPContentContainerList extends IUnknown {
     /**
      * The interface identifier for IWMPContentContainerList
      * @type {Guid}
      */
-    static IID => Guid("{a9937f78-0802-4af8-8b8d-e3f045bc8ab5}")
+    static IID := Guid("{a9937f78-0802-4af8-8b8d-e3f045bc8ab5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPContentContainerList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTransactionType : IntPtr
+        GetContainerCount  : IntPtr
+        GetContainer       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTransactionType", "GetContainerCount", "GetContainer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPContentContainerList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetTransactionType method retrieves the type of the current transaction.
@@ -59,5 +70,29 @@ class IWMPContentContainerList extends IUnknown {
     GetContainer(idxContainer) {
         result := ComCall(5, this, "uint", idxContainer, "ptr*", &ppContent := 0, "HRESULT")
         return IWMPContentContainer(ppContent)
+    }
+
+    Query(iid) {
+        if (IWMPContentContainerList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTransactionType := CallbackCreate(GetMethod(implObj, "GetTransactionType"), flags, 2)
+        this.vtbl.GetContainerCount := CallbackCreate(GetMethod(implObj, "GetContainerCount"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTransactionType)
+        CallbackFree(this.vtbl.GetContainerCount)
+        CallbackFree(this.vtbl.GetContainer)
     }
 }

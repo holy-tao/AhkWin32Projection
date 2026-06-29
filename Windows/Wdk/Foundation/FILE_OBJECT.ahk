@@ -1,260 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\VPB.ahk
-#Include .\SECTION_OBJECT_POINTERS.ahk
-#Include .\FILE_OBJECT.ahk
-#Include .\IO_COMPLETION_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\VPB.ahk" { VPB }
+#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SECTION_OBJECT_POINTERS.ahk" { SECTION_OBJECT_POINTERS }
+#Import ".\IO_COMPLETION_CONTEXT.ahk" { IO_COMPLETION_CONTEXT }
 
 /**
- * Contains an object identifier and user-defined metadata associated with the object identifier.
- * @remarks
- * Object identifiers are used  to track  files and directories. They are invisible to most applications and should never be modified by applications. Modifying an object identifier can result in the loss of data from portions of a file, up to and including entire volumes of data.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_objectid_buffer
  * @namespace Windows.Wdk.Foundation
  */
-class FILE_OBJECT extends Win32Struct {
-    static sizeof => 168
+export default struct FILE_OBJECT {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Size : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
-
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
+    __DeviceObject_ptr : IntPtr
     DeviceObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__DeviceObject_ptr) ? DEVICE_OBJECT.At(addr) : unset
+        set => this.__DeviceObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<VPB>}
-     */
+    __Vpb_ptr : IntPtr
     Vpb {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__Vpb_ptr) ? VPB.At(addr) : unset
+        set => this.__Vpb_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FsContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FsContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FsContext2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FsContext2 : IntPtr
 
-    /**
-     * @type {Pointer<SECTION_OBJECT_POINTERS>}
-     */
-    SectionObjectPointer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SectionObjectPointer : SECTION_OBJECT_POINTERS.Ptr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PrivateCacheMap {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    PrivateCacheMap : IntPtr
 
-    /**
-     * @type {NTSTATUS}
-     */
-    FinalStatus {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    FinalStatus : NTSTATUS
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    RelatedFileObject {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    RelatedFileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {BOOLEAN}
-     */
-    LockOperation {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    LockOperation : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DeletePending {
-        get => NumGet(this, 73, "char")
-        set => NumPut("char", value, this, 73)
-    }
+    DeletePending : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ReadAccess {
-        get => NumGet(this, 74, "char")
-        set => NumPut("char", value, this, 74)
-    }
+    ReadAccess : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    WriteAccess {
-        get => NumGet(this, 75, "char")
-        set => NumPut("char", value, this, 75)
-    }
+    WriteAccess : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DeleteAccess {
-        get => NumGet(this, 76, "char")
-        set => NumPut("char", value, this, 76)
-    }
+    DeleteAccess : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SharedRead {
-        get => NumGet(this, 77, "char")
-        set => NumPut("char", value, this, 77)
-    }
+    SharedRead : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SharedWrite {
-        get => NumGet(this, 78, "char")
-        set => NumPut("char", value, this, 78)
-    }
+    SharedWrite : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SharedDelete {
-        get => NumGet(this, 79, "char")
-        set => NumPut("char", value, this, 79)
-    }
+    SharedDelete : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    FileName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    FileName : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    CurrentByteOffset {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
-    }
+    CurrentByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Waiters {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    Waiters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Busy {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    Busy : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LastLock {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    LastLock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Lock {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    Lock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Event {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    Event : IntPtr
 
-    /**
-     * @type {Pointer<IO_COMPLETION_CONTEXT>}
-     */
-    CompletionContext {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    CompletionContext : IO_COMPLETION_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    IrpListLock {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    IrpListLock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    IrpList {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    IrpList : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FileObjectExtension {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    FileObjectExtension : IntPtr
+
 }

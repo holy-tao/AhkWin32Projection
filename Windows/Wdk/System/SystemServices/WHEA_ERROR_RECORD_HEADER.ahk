@@ -1,162 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_RECORD_HEADER extends Win32Struct {
-    static sizeof => 128
+export default struct WHEA_ERROR_RECORD_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Revision : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Revision {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SignatureEnd : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SignatureEnd {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SectionCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SectionCount {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    Severity : WHEA_ERROR_SEVERITY
 
-    /**
-     * @type {WHEA_ERROR_SEVERITY}
-     */
-    Severity {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ValidBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Timestamp : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Timestamp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    PlatformId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PlatformId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PartitionId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PartitionId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    CreatorId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CreatorId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    NotifyType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    NotifyType {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    RecordId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RecordId {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    PersistenceInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PersistenceInfo {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    OsBuildNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OsBuildNumber {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    Reserved2 : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 116, 8, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 112, 12, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved', { type: Int8[12], offset: 144 })
+        this.DeleteProp("__New")
     }
 }

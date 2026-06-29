@@ -1,39 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTMANIPULATION_HORIZONTALALIGNMENT.ahk" { DIRECTMANIPULATION_HORIZONTALALIGNMENT }
+#Import ".\DIRECTMANIPULATION_SNAPPOINT_TYPE.ahk" { DIRECTMANIPULATION_SNAPPOINT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
+#Import ".\DIRECTMANIPULATION_SNAPPOINT_COORDINATE.ahk" { DIRECTMANIPULATION_SNAPPOINT_COORDINATE }
+#Import ".\DIRECTMANIPULATION_VERTICALALIGNMENT.ahk" { DIRECTMANIPULATION_VERTICALALIGNMENT }
 
 /**
  * Encapsulates the primary content inside a viewport.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationprimarycontent
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationPrimaryContent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationPrimaryContent extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationPrimaryContent
      * @type {Guid}
      */
-    static IID => Guid("{c12851e4-1698-4625-b9b1-7ca3ec18630b}")
+    static IID := Guid("{c12851e4-1698-4625-b9b1-7ca3ec18630b}")
 
     /**
      * The class identifier for DirectManipulationPrimaryContent
      * @type {Guid}
      */
-    static CLSID => Guid("{caa02661-d59e-41c7-8393-3ba3bacb6b57}")
+    static CLSID := Guid("{caa02661-d59e-41c7-8393-3ba3bacb6b57}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationPrimaryContent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetSnapInterval        : IntPtr
+        SetSnapPoints          : IntPtr
+        SetSnapType            : IntPtr
+        SetSnapCoordinate      : IntPtr
+        SetZoomBoundaries      : IntPtr
+        SetHorizontalAlignment : IntPtr
+        SetVerticalAlignment   : IntPtr
+        GetInertiaEndTransform : IntPtr
+        GetCenterPoint         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSnapInterval", "SetSnapPoints", "SetSnapType", "SetSnapCoordinate", "SetZoomBoundaries", "SetHorizontalAlignment", "SetVerticalAlignment", "GetInertiaEndTransform", "GetCenterPoint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationPrimaryContent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies snap points for the inertia end position at uniform intervals.
@@ -54,7 +75,7 @@ class IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapinterval
      */
     SetSnapInterval(motion, _interval, offset) {
-        result := ComCall(3, this, "int", motion, "float", _interval, "float", offset, "HRESULT")
+        result := ComCall(3, this, DIRECTMANIPULATION_MOTION_TYPES, motion, "float", _interval, "float", offset, "HRESULT")
         return result
     }
 
@@ -71,7 +92,7 @@ class IDirectManipulationPrimaryContent extends IUnknown {
     SetSnapPoints(motion, _points, pointCount) {
         _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, "int", motion, _pointsMarshal, _points, "uint", pointCount, "HRESULT")
+        result := ComCall(4, this, DIRECTMANIPULATION_MOTION_TYPES, motion, _pointsMarshal, _points, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -85,7 +106,7 @@ class IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnaptype
      */
     SetSnapType(motion, type) {
-        result := ComCall(5, this, "int", motion, "int", type, "HRESULT")
+        result := ComCall(5, this, DIRECTMANIPULATION_MOTION_TYPES, motion, DIRECTMANIPULATION_SNAPPOINT_TYPE, type, "HRESULT")
         return result
     }
 
@@ -106,7 +127,7 @@ class IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapcoordinate
      */
     SetSnapCoordinate(motion, coordinate, origin) {
-        result := ComCall(6, this, "int", motion, "int", coordinate, "float", origin, "HRESULT")
+        result := ComCall(6, this, DIRECTMANIPULATION_MOTION_TYPES, motion, DIRECTMANIPULATION_SNAPPOINT_COORDINATE, coordinate, "float", origin, "HRESULT")
         return result
     }
 
@@ -136,7 +157,7 @@ class IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-sethorizontalalignment
      */
     SetHorizontalAlignment(alignment) {
-        result := ComCall(8, this, "int", alignment, "HRESULT")
+        result := ComCall(8, this, DIRECTMANIPULATION_HORIZONTALALIGNMENT, alignment, "HRESULT")
         return result
     }
 
@@ -152,7 +173,7 @@ class IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setverticalalignment
      */
     SetVerticalAlignment(alignment) {
-        result := ComCall(9, this, "int", alignment, "HRESULT")
+        result := ComCall(9, this, DIRECTMANIPULATION_VERTICALALIGNMENT, alignment, "HRESULT")
         return result
     }
 
@@ -185,5 +206,41 @@ class IDirectManipulationPrimaryContent extends IUnknown {
 
         result := ComCall(11, this, centerXMarshal, centerX, centerYMarshal, centerY, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationPrimaryContent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSnapInterval := CallbackCreate(GetMethod(implObj, "SetSnapInterval"), flags, 4)
+        this.vtbl.SetSnapPoints := CallbackCreate(GetMethod(implObj, "SetSnapPoints"), flags, 4)
+        this.vtbl.SetSnapType := CallbackCreate(GetMethod(implObj, "SetSnapType"), flags, 3)
+        this.vtbl.SetSnapCoordinate := CallbackCreate(GetMethod(implObj, "SetSnapCoordinate"), flags, 4)
+        this.vtbl.SetZoomBoundaries := CallbackCreate(GetMethod(implObj, "SetZoomBoundaries"), flags, 3)
+        this.vtbl.SetHorizontalAlignment := CallbackCreate(GetMethod(implObj, "SetHorizontalAlignment"), flags, 2)
+        this.vtbl.SetVerticalAlignment := CallbackCreate(GetMethod(implObj, "SetVerticalAlignment"), flags, 2)
+        this.vtbl.GetInertiaEndTransform := CallbackCreate(GetMethod(implObj, "GetInertiaEndTransform"), flags, 3)
+        this.vtbl.GetCenterPoint := CallbackCreate(GetMethod(implObj, "GetCenterPoint"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSnapInterval)
+        CallbackFree(this.vtbl.SetSnapPoints)
+        CallbackFree(this.vtbl.SetSnapType)
+        CallbackFree(this.vtbl.SetSnapCoordinate)
+        CallbackFree(this.vtbl.SetZoomBoundaries)
+        CallbackFree(this.vtbl.SetHorizontalAlignment)
+        CallbackFree(this.vtbl.SetVerticalAlignment)
+        CallbackFree(this.vtbl.GetInertiaEndTransform)
+        CallbackFree(this.vtbl.GetCenterPoint)
     }
 }

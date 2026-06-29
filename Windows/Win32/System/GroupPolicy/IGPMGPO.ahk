@@ -1,43 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMWMIFilter.ahk
-#Include .\IGPMSecurityInfo.ahk
-#Include .\IGPMResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMBackup.ahk" { IGPMBackup }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMWMIFilter.ahk" { IGPMWMIFilter }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMReportType.ahk" { GPMReportType }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IGPMGPO interface supports methods that enable you to manage Group Policy Objects (GPOs) in the directory service.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmgpo
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMGPO extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMGPO extends IDispatch {
     /**
      * The interface identifier for IGPMGPO
      * @type {Guid}
      */
-    static IID => Guid("{58cc4352-1ca3-48e5-9864-1da4d6e0d60f}")
+    static IID := Guid("{58cc4352-1ca3-48e5-9864-1da4d6e0d60f}")
 
     /**
      * The class identifier for GPMGPO
      * @type {Guid}
      */
-    static CLSID => Guid("{d2ce2994-59b5-4064-b581-4d68486a16c4}")
+    static CLSID := Guid("{d2ce2994-59b5-4064-b581-4d68486a16c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMGPO interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DisplayName                 : IntPtr
+        put_DisplayName                 : IntPtr
+        get_Path                        : IntPtr
+        get_ID                          : IntPtr
+        get_DomainName                  : IntPtr
+        get_CreationTime                : IntPtr
+        get_ModificationTime            : IntPtr
+        get_UserDSVersionNumber         : IntPtr
+        get_ComputerDSVersionNumber     : IntPtr
+        get_UserSysvolVersionNumber     : IntPtr
+        get_ComputerSysvolVersionNumber : IntPtr
+        GetWMIFilter                    : IntPtr
+        SetWMIFilter                    : IntPtr
+        SetUserEnabled                  : IntPtr
+        SetComputerEnabled              : IntPtr
+        IsUserEnabled                   : IntPtr
+        IsComputerEnabled               : IntPtr
+        GetSecurityInfo                 : IntPtr
+        SetSecurityInfo                 : IntPtr
+        Delete                          : IntPtr
+        Backup                          : IntPtr
+        Import                          : IntPtr
+        GenerateReport                  : IntPtr
+        GenerateReportToFile            : IntPtr
+        CopyTo                          : IntPtr
+        SetSecurityDescriptor           : IntPtr
+        GetSecurityDescriptor           : IntPtr
+        IsACLConsistent                 : IntPtr
+        MakeACLConsistent               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Path", "get_ID", "get_DomainName", "get_CreationTime", "get_ModificationTime", "get_UserDSVersionNumber", "get_ComputerDSVersionNumber", "get_UserSysvolVersionNumber", "get_ComputerSysvolVersionNumber", "GetWMIFilter", "SetWMIFilter", "SetUserEnabled", "SetComputerEnabled", "IsUserEnabled", "IsComputerEnabled", "GetSecurityInfo", "SetSecurityInfo", "Delete", "Backup", "Import", "GenerateReport", "GenerateReportToFile", "CopyTo", "SetSecurityDescriptor", "GetSecurityDescriptor", "IsACLConsistent", "MakeACLConsistent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMGPO.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -115,8 +156,8 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -128,7 +169,7 @@ class IGPMGPO extends IDispatch {
     put_DisplayName(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(8, this, "ptr", newVal, "HRESULT")
+        result := ComCall(8, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -137,8 +178,8 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -147,8 +188,8 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -157,8 +198,8 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainName() {
-        pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -257,7 +298,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-setuserenabled
      */
     SetUserEnabled(vbEnabled) {
-        result := ComCall(20, this, "short", vbEnabled, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, vbEnabled, "HRESULT")
         return result
     }
 
@@ -276,7 +317,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-setcomputerenabled
      */
     SetComputerEnabled(vbEnabled) {
-        result := ComCall(21, this, "short", vbEnabled, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, vbEnabled, "HRESULT")
         return result
     }
 
@@ -286,7 +327,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-isuserenabled
      */
     IsUserEnabled() {
-        result := ComCall(22, this, "short*", &pvbEnabled := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &pvbEnabled := 0, "HRESULT")
         return pvbEnabled
     }
 
@@ -296,7 +337,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-iscomputerenabled
      */
     IsComputerEnabled() {
-        result := ComCall(23, this, "short*", &pvbEnabled := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &pvbEnabled := 0, "HRESULT")
         return pvbEnabled
     }
 
@@ -375,7 +416,7 @@ class IGPMGPO extends IDispatch {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
         bstrComment := bstrComment is String ? BSTR.Alloc(bstrComment).Value : bstrComment
 
-        result := ComCall(27, this, "ptr", bstrBackupDir, "ptr", bstrComment, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrBackupDir, BSTR, bstrComment, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -408,7 +449,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-import
      */
     Import(lFlags, pIGPMBackup, pvarMigrationTable, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(28, this, "int", lFlags, "ptr", pIGPMBackup, "ptr", pvarMigrationTable, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(28, this, "int", lFlags, "ptr", pIGPMBackup, VARIANT.Ptr, pvarMigrationTable, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -421,7 +462,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-generatereport
      */
     GenerateReport(_gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(29, this, "int", _gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(29, this, GPMReportType, _gpmReportType, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -438,7 +479,7 @@ class IGPMGPO extends IDispatch {
     GenerateReportToFile(_gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(30, this, "int", _gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(30, this, GPMReportType, _gpmReportType, BSTR, bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -474,7 +515,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-copyto
      */
     CopyTo(lFlags, pIGPMDomain, pvarNewDisplayName, pvarMigrationTable, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(31, this, "int", lFlags, "ptr", pIGPMDomain, "ptr", pvarNewDisplayName, "ptr", pvarMigrationTable, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(31, this, "int", lFlags, "ptr", pIGPMDomain, VARIANT.Ptr, pvarNewDisplayName, VARIANT.Ptr, pvarMigrationTable, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -519,7 +560,7 @@ class IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-isaclconsistent
      */
     IsACLConsistent() {
-        result := ComCall(34, this, "short*", &pvbConsistent := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL.Ptr, &pvbConsistent := 0, "HRESULT")
         return pvbConsistent
     }
 
@@ -537,5 +578,81 @@ class IGPMGPO extends IDispatch {
     MakeACLConsistent() {
         result := ComCall(35, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPMGPO.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_DomainName := CallbackCreate(GetMethod(implObj, "get_DomainName"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.get_ModificationTime := CallbackCreate(GetMethod(implObj, "get_ModificationTime"), flags, 2)
+        this.vtbl.get_UserDSVersionNumber := CallbackCreate(GetMethod(implObj, "get_UserDSVersionNumber"), flags, 2)
+        this.vtbl.get_ComputerDSVersionNumber := CallbackCreate(GetMethod(implObj, "get_ComputerDSVersionNumber"), flags, 2)
+        this.vtbl.get_UserSysvolVersionNumber := CallbackCreate(GetMethod(implObj, "get_UserSysvolVersionNumber"), flags, 2)
+        this.vtbl.get_ComputerSysvolVersionNumber := CallbackCreate(GetMethod(implObj, "get_ComputerSysvolVersionNumber"), flags, 2)
+        this.vtbl.GetWMIFilter := CallbackCreate(GetMethod(implObj, "GetWMIFilter"), flags, 2)
+        this.vtbl.SetWMIFilter := CallbackCreate(GetMethod(implObj, "SetWMIFilter"), flags, 2)
+        this.vtbl.SetUserEnabled := CallbackCreate(GetMethod(implObj, "SetUserEnabled"), flags, 2)
+        this.vtbl.SetComputerEnabled := CallbackCreate(GetMethod(implObj, "SetComputerEnabled"), flags, 2)
+        this.vtbl.IsUserEnabled := CallbackCreate(GetMethod(implObj, "IsUserEnabled"), flags, 2)
+        this.vtbl.IsComputerEnabled := CallbackCreate(GetMethod(implObj, "IsComputerEnabled"), flags, 2)
+        this.vtbl.GetSecurityInfo := CallbackCreate(GetMethod(implObj, "GetSecurityInfo"), flags, 2)
+        this.vtbl.SetSecurityInfo := CallbackCreate(GetMethod(implObj, "SetSecurityInfo"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 6)
+        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 7)
+        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
+        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 8)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 3)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 3)
+        this.vtbl.IsACLConsistent := CallbackCreate(GetMethod(implObj, "IsACLConsistent"), flags, 2)
+        this.vtbl.MakeACLConsistent := CallbackCreate(GetMethod(implObj, "MakeACLConsistent"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DisplayName)
+        CallbackFree(this.vtbl.put_DisplayName)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.get_ID)
+        CallbackFree(this.vtbl.get_DomainName)
+        CallbackFree(this.vtbl.get_CreationTime)
+        CallbackFree(this.vtbl.get_ModificationTime)
+        CallbackFree(this.vtbl.get_UserDSVersionNumber)
+        CallbackFree(this.vtbl.get_ComputerDSVersionNumber)
+        CallbackFree(this.vtbl.get_UserSysvolVersionNumber)
+        CallbackFree(this.vtbl.get_ComputerSysvolVersionNumber)
+        CallbackFree(this.vtbl.GetWMIFilter)
+        CallbackFree(this.vtbl.SetWMIFilter)
+        CallbackFree(this.vtbl.SetUserEnabled)
+        CallbackFree(this.vtbl.SetComputerEnabled)
+        CallbackFree(this.vtbl.IsUserEnabled)
+        CallbackFree(this.vtbl.IsComputerEnabled)
+        CallbackFree(this.vtbl.GetSecurityInfo)
+        CallbackFree(this.vtbl.SetSecurityInfo)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Backup)
+        CallbackFree(this.vtbl.Import)
+        CallbackFree(this.vtbl.GenerateReport)
+        CallbackFree(this.vtbl.GenerateReportToFile)
+        CallbackFree(this.vtbl.CopyTo)
+        CallbackFree(this.vtbl.SetSecurityDescriptor)
+        CallbackFree(this.vtbl.GetSecurityDescriptor)
+        CallbackFree(this.vtbl.IsACLConsistent)
+        CallbackFree(this.vtbl.MakeACLConsistent)
     }
 }

@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_FILTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_FILTER.ahk" { D2D1_FILTER }
 
 /**
  * Describes the options that transforms may set on input textures.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_input_description
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_INPUT_DESCRIPTION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct D2D1_INPUT_DESCRIPTION {
+    #StructPack 4
 
     /**
      * The type of filter to apply to the input texture.
-     * @type {D2D1_FILTER}
      */
-    filter {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    filter : D2D1_FILTER
 
     /**
      * The mip level to retrieve from the upstream transform, if specified.
-     * @type {Integer}
      */
-    levelOfDetailCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    levelOfDetailCount : UInt32
+
 }

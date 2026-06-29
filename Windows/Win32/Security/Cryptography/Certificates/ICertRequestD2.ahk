@@ -1,32 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertRequestD.ahk
-#Include .\CERTTRANSBLOB.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
+#Import ".\ICertRequestD.ahk" { ICertRequestD }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertRequestD2 extends ICertRequestD {
-
-    static sizeof => A_PtrSize
+export default struct ICertRequestD2 extends ICertRequestD {
     /**
      * The interface identifier for ICertRequestD2
      * @type {Guid}
      */
-    static IID => Guid("{5422fd3a-d4b8-4cef-a12e-e87d4ca22e90}")
+    static IID := Guid("{5422fd3a-d4b8-4cef-a12e-e87d4ca22e90}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertRequestD2 interfaces
+    */
+    struct Vtbl extends ICertRequestD.Vtbl {
+        Request2          : IntPtr
+        GetCAProperty     : IntPtr
+        GetCAPropertyInfo : IntPtr
+        Ping2             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Request2", "GetCAProperty", "GetCAPropertyInfo", "Ping2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertRequestD2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -50,7 +62,7 @@ class ICertRequestD2 extends ICertRequestD {
         pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
         pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbFullResponse, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbFullResponse, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
         return result
     }
 
@@ -66,7 +78,7 @@ class ICertRequestD2 extends ICertRequestD {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
         pctbPropertyValue := CERTTRANSBLOB()
-        result := ComCall(7, this, "ptr", pwszAuthority, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pctbPropertyValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszAuthority, "int", PropId, "int", PropIndex, "int", PropType, CERTTRANSBLOB.Ptr, pctbPropertyValue, "HRESULT")
         return pctbPropertyValue
     }
 
@@ -82,7 +94,7 @@ class ICertRequestD2 extends ICertRequestD {
 
         pcPropertyMarshal := pcProperty is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwszAuthority, pcPropertyMarshal, pcProperty, "ptr", pctbPropInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszAuthority, pcPropertyMarshal, pcProperty, CERTTRANSBLOB.Ptr, pctbPropInfo, "HRESULT")
         return result
     }
 
@@ -96,5 +108,31 @@ class ICertRequestD2 extends ICertRequestD {
 
         result := ComCall(9, this, "ptr", pwszAuthority, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertRequestD2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Request2 := CallbackCreate(GetMethod(implObj, "Request2"), flags, 11)
+        this.vtbl.GetCAProperty := CallbackCreate(GetMethod(implObj, "GetCAProperty"), flags, 6)
+        this.vtbl.GetCAPropertyInfo := CallbackCreate(GetMethod(implObj, "GetCAPropertyInfo"), flags, 4)
+        this.vtbl.Ping2 := CallbackCreate(GetMethod(implObj, "Ping2"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Request2)
+        CallbackFree(this.vtbl.GetCAProperty)
+        CallbackFree(this.vtbl.GetCAPropertyInfo)
+        CallbackFree(this.vtbl.Ping2)
     }
 }

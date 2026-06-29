@@ -1,65 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include ..\..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\IErrorLog.ahk" { IErrorLog }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROPBAG2.ahk" { PROPBAG2 }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
- * Windows Imaging Component (WIC) proxy function for IPropertyBag2::Write.
- * @see https://learn.microsoft.com/windows/win32/wic/-wic-codec-ipropertybag2-write-proxy
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IPropertyBag2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyBag2 extends IUnknown {
     /**
      * The interface identifier for IPropertyBag2
      * @type {Guid}
      */
-    static IID => Guid("{22f55882-280b-11d0-a8a9-00a0c90c2004}")
+    static IID := Guid("{22f55882-280b-11d0-a8a9-00a0c90c2004}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyBag2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Read            : IntPtr
+        Write           : IntPtr
+        CountProperties : IntPtr
+        GetPropertyInfo : IntPtr
+        LoadObject      : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyBag2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Read", "Write", "CountProperties", "GetPropertyInfo", "LoadObject"]
-
-    /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {IErrorLog} pErrLog 
      * @param {Pointer<HRESULT>} phrError 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(cProperties, pPropBag, pErrLog, phrError) {
         phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
 
         pvarValue := VARIANT()
-        result := ComCall(3, this, "uint", cProperties, "ptr", pPropBag, "ptr", pErrLog, "ptr", pvarValue, phrErrorMarshal, phrError, "HRESULT")
+        result := ComCall(3, this, "uint", cProperties, PROPBAG2.Ptr, pPropBag, "ptr", pErrLog, VARIANT.Ptr, pvarValue, phrErrorMarshal, phrError, "HRESULT")
         return pvarValue
     }
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(cProperties, pPropBag, pvarValue) {
-        result := ComCall(4, this, "uint", cProperties, "ptr", pPropBag, "ptr", pvarValue, "HRESULT")
+        result := ComCall(4, this, "uint", cProperties, PROPBAG2.Ptr, pPropBag, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -88,7 +96,7 @@ class IPropertyBag2 extends IUnknown {
     GetPropertyInfo(iProperty, cProperties, pPropBag, pcProperties) {
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", iProperty, "uint", cProperties, "ptr", pPropBag, pcPropertiesMarshal, pcProperties, "HRESULT")
+        result := ComCall(6, this, "uint", iProperty, "uint", cProperties, PROPBAG2.Ptr, pPropBag, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 
@@ -105,5 +113,33 @@ class IPropertyBag2 extends IUnknown {
 
         result := ComCall(7, this, "ptr", pstrName, "uint", dwHint, "ptr", pUnkObject, "ptr", pErrLog, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyBag2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 6)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+        this.vtbl.CountProperties := CallbackCreate(GetMethod(implObj, "CountProperties"), flags, 2)
+        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 5)
+        this.vtbl.LoadObject := CallbackCreate(GetMethod(implObj, "LoadObject"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.CountProperties)
+        CallbackFree(this.vtbl.GetPropertyInfo)
+        CallbackFree(this.vtbl.LoadObject)
     }
 }

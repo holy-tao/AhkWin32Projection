@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables two threads to share the same Direct3D 9 device, and provides access to the DirectX Video Acceleration (DXVA) features of the device.
@@ -18,26 +20,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirect3ddevicemanager9
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IDirect3DDeviceManager9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DDeviceManager9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DDeviceManager9
      * @type {Guid}
      */
-    static IID => Guid("{a0cade0f-06d5-4cf4-a1c7-f3cdd725aa75}")
+    static IID := Guid("{a0cade0f-06d5-4cf4-a1c7-f3cdd725aa75}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DDeviceManager9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ResetDevice       : IntPtr
+        OpenDeviceHandle  : IntPtr
+        CloseDeviceHandle : IntPtr
+        TestDevice        : IntPtr
+        LockDevice        : IntPtr
+        UnlockDevice      : IntPtr
+        GetVideoService   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ResetDevice", "OpenDeviceHandle", "CloseDeviceHandle", "TestDevice", "LockDevice", "UnlockDevice", "GetVideoService"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DDeviceManager9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the Direct3D device or notifies the device manager that the Direct3D device was reset.
@@ -109,8 +124,8 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle
      */
     OpenDeviceHandle() {
-        phDevice := HANDLE()
-        result := ComCall(4, this, "ptr", phDevice, "HRESULT")
+        phDevice := HANDLE.Owned()
+        result := ComCall(4, this, HANDLE.Ptr, phDevice, "HRESULT")
         return phDevice
     }
 
@@ -150,9 +165,7 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-closedevicehandle
      */
     CloseDeviceHandle(hDevice) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(5, this, "ptr", hDevice, "HRESULT")
+        result := ComCall(5, this, HANDLE, hDevice, "HRESULT")
         return result
     }
 
@@ -205,9 +218,7 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-testdevice
      */
     TestDevice(hDevice) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(6, this, "ptr", hDevice, "HRESULT")
+        result := ComCall(6, this, HANDLE, hDevice, "HRESULT")
         return result
     }
 
@@ -227,9 +238,7 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-lockdevice
      */
     LockDevice(hDevice, fBlock) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(7, this, "ptr", hDevice, "ptr*", &ppDevice := 0, "int", fBlock, "HRESULT")
+        result := ComCall(7, this, HANDLE, hDevice, "ptr*", &ppDevice := 0, BOOL, fBlock, "HRESULT")
         return IDirect3DDevice9(ppDevice)
     }
 
@@ -270,9 +279,7 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-unlockdevice
      */
     UnlockDevice(hDevice, fSaveState) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(8, this, "ptr", hDevice, "int", fSaveState, "HRESULT")
+        result := ComCall(8, this, HANDLE, hDevice, BOOL, fSaveState, "HRESULT")
         return result
     }
 
@@ -296,9 +303,39 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-getvideoservice
      */
     GetVideoService(hDevice, riid) {
-        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
-
-        result := ComCall(9, this, "ptr", hDevice, "ptr", riid, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(9, this, HANDLE, hDevice, Guid.Ptr, riid, "ptr*", &ppService := 0, "HRESULT")
         return ppService
+    }
+
+    Query(iid) {
+        if (IDirect3DDeviceManager9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ResetDevice := CallbackCreate(GetMethod(implObj, "ResetDevice"), flags, 3)
+        this.vtbl.OpenDeviceHandle := CallbackCreate(GetMethod(implObj, "OpenDeviceHandle"), flags, 2)
+        this.vtbl.CloseDeviceHandle := CallbackCreate(GetMethod(implObj, "CloseDeviceHandle"), flags, 2)
+        this.vtbl.TestDevice := CallbackCreate(GetMethod(implObj, "TestDevice"), flags, 2)
+        this.vtbl.LockDevice := CallbackCreate(GetMethod(implObj, "LockDevice"), flags, 4)
+        this.vtbl.UnlockDevice := CallbackCreate(GetMethod(implObj, "UnlockDevice"), flags, 3)
+        this.vtbl.GetVideoService := CallbackCreate(GetMethod(implObj, "GetVideoService"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ResetDevice)
+        CallbackFree(this.vtbl.OpenDeviceHandle)
+        CallbackFree(this.vtbl.CloseDeviceHandle)
+        CallbackFree(this.vtbl.TestDevice)
+        CallbackFree(this.vtbl.LockDevice)
+        CallbackFree(this.vtbl.UnlockDevice)
+        CallbackFree(this.vtbl.GetVideoService)
     }
 }

@@ -1,351 +1,94 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_INTERFACE_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct {
-    static sizeof => 336
+export default struct NCRYPT_SSL_FUNCTION_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : BCRYPT_INTERFACE_VERSION
 
-    /**
-     * @type {BCRYPT_INTERFACE_VERSION}
-     */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := BCRYPT_INTERFACE_VERSION(0, this)
-            return this.__Version
-        }
-    }
+    ComputeClientAuthHash : IntPtr
 
-    /**
-     * @type {Pointer<SslComputeClientAuthHashFn>}
-     */
-    ComputeClientAuthHash {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ComputeEapKeyBlock : IntPtr
 
-    /**
-     * @type {Pointer<SslComputeEapKeyBlockFn>}
-     */
-    ComputeEapKeyBlock {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ComputeFinishedHash : IntPtr
 
-    /**
-     * @type {Pointer<SslComputeFinishedHashFn>}
-     */
-    ComputeFinishedHash {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CreateEphemeralKey : IntPtr
 
-    /**
-     * @type {Pointer<SslCreateEphemeralKeyFn>}
-     */
-    CreateEphemeralKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    CreateHandshakeHash : IntPtr
 
-    /**
-     * @type {Pointer<SslCreateHandshakeHashFn>}
-     */
-    CreateHandshakeHash {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DecryptPacket : IntPtr
 
-    /**
-     * @type {Pointer<SslDecryptPacketFn>}
-     */
-    DecryptPacket {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    EncryptPacket : IntPtr
 
-    /**
-     * @type {Pointer<SslEncryptPacketFn>}
-     */
-    EncryptPacket {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    EnumCipherSuites : IntPtr
 
-    /**
-     * @type {Pointer<SslEnumCipherSuitesFn>}
-     */
-    EnumCipherSuites {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ExportKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExportKeyFn>}
-     */
-    ExportKey {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    FreeBuffer : IntPtr
 
-    /**
-     * @type {Pointer<SslFreeBufferFn>}
-     */
-    FreeBuffer {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    FreeObject : IntPtr
 
-    /**
-     * @type {Pointer<SslFreeObjectFn>}
-     */
-    FreeObject {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    GenerateMasterKey : IntPtr
 
-    /**
-     * @type {Pointer<SslGenerateMasterKeyFn>}
-     */
-    GenerateMasterKey {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    GenerateSessionKeys : IntPtr
 
-    /**
-     * @type {Pointer<SslGenerateSessionKeysFn>}
-     */
-    GenerateSessionKeys {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    GetKeyProperty : IntPtr
 
-    /**
-     * @type {Pointer<SslGetKeyPropertyFn>}
-     */
-    GetKeyProperty {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    GetProviderProperty : IntPtr
 
-    /**
-     * @type {Pointer<SslGetProviderPropertyFn>}
-     */
-    GetProviderProperty {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    HashHandshake : IntPtr
 
-    /**
-     * @type {Pointer<SslHashHandshakeFn>}
-     */
-    HashHandshake {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    ImportMasterKey : IntPtr
 
-    /**
-     * @type {Pointer<SslImportMasterKeyFn>}
-     */
-    ImportMasterKey {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ImportKey : IntPtr
 
-    /**
-     * @type {Pointer<SslImportKeyFn>}
-     */
-    ImportKey {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    LookupCipherSuiteInfo : IntPtr
 
-    /**
-     * @type {Pointer<SslLookupCipherSuiteInfoFn>}
-     */
-    LookupCipherSuiteInfo {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    OpenPrivateKey : IntPtr
 
-    /**
-     * @type {Pointer<SslOpenPrivateKeyFn>}
-     */
-    OpenPrivateKey {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    OpenProvider : IntPtr
 
-    /**
-     * @type {Pointer<SslOpenProviderFn>}
-     */
-    OpenProvider {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    SignHash : IntPtr
 
-    /**
-     * @type {Pointer<SslSignHashFn>}
-     */
-    SignHash {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    VerifySignature : IntPtr
 
-    /**
-     * @type {Pointer<SslVerifySignatureFn>}
-     */
-    VerifySignature {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    LookupCipherLengths : IntPtr
 
-    /**
-     * @type {Pointer<SslLookupCipherLengthsFn>}
-     */
-    LookupCipherLengths {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    CreateClientAuthHash : IntPtr
 
-    /**
-     * @type {Pointer<SslCreateClientAuthHashFn>}
-     */
-    CreateClientAuthHash {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    GetCipherSuitePRFHashAlgorithm : IntPtr
 
-    /**
-     * @type {Pointer<SslGetCipherSuitePRFHashAlgorithmFn>}
-     */
-    GetCipherSuitePRFHashAlgorithm {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    ComputeSessionHash : IntPtr
 
-    /**
-     * @type {Pointer<SslComputeSessionHashFn>}
-     */
-    ComputeSessionHash {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    GeneratePreMasterKey : IntPtr
 
-    /**
-     * @type {Pointer<SslGeneratePreMasterKeyFn>}
-     */
-    GeneratePreMasterKey {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    EnumEccCurves : IntPtr
 
-    /**
-     * @type {Pointer<SslEnumEccCurvesFn>}
-     */
-    EnumEccCurves {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    ExportKeyingMaterial : IntPtr
 
-    /**
-     * @type {Pointer<SslExportKeyingMaterialFn>}
-     */
-    ExportKeyingMaterial {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
+    ExtractEarlyKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExtractEarlyKeyFn>}
-     */
-    ExtractEarlyKey {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
-    }
+    ExtractHandshakeKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExtractHandshakeKeyFn>}
-     */
-    ExtractHandshakeKey {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
-    }
+    ExtractMasterKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExtractMasterKeyFn>}
-     */
-    ExtractMasterKey {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    ExpandTrafficKeys : IntPtr
 
-    /**
-     * @type {Pointer<SslExpandTrafficKeysFn>}
-     */
-    ExpandTrafficKeys {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    ExpandWriteKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExpandWriteKeyFn>}
-     */
-    ExpandWriteKey {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    ExpandExporterMasterKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExpandExporterMasterKeyFn>}
-     */
-    ExpandExporterMasterKey {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    EnumCipherSuitesEx : IntPtr
 
-    /**
-     * @type {Pointer<SslEnumCipherSuitesExFn>}
-     */
-    EnumCipherSuitesEx {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
-    }
+    ExpandResumptionMasterKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExpandResumptionMasterKeyFn>}
-     */
-    ExpandResumptionMasterKey {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
+    DuplicateTranscriptHash : IntPtr
 
-    /**
-     * @type {Pointer<SslDuplicateTranscriptHashFn>}
-     */
-    DuplicateTranscriptHash {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
-    }
+    ExpandBinderKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExpandBinderKeyFn>}
-     */
-    ExpandBinderKey {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
-    }
+    ExpandPreSharedKey : IntPtr
 
-    /**
-     * @type {Pointer<SslExpandPreSharedKeyFn>}
-     */
-    ExpandPreSharedKey {
-        get => NumGet(this, 328, "ptr")
-        set => NumPut("ptr", value, this, 328)
-    }
 }

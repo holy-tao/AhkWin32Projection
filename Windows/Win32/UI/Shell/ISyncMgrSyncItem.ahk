@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISyncMgrSyncItemInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISyncMgrSyncItemInfo.ahk" { ISyncMgrSyncItemInfo }
+#Import ".\SYNCMGR_ITEM_CAPABILITIES.ahk" { SYNCMGR_ITEM_CAPABILITIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_ITEM_POLICIES.ahk" { SYNCMGR_ITEM_POLICIES }
 
 /**
  * Exposes methods that act on and retrieve information from a single sync item, allowing handlers to manage sync items as independent objects.
@@ -13,26 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsyncitem
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrSyncItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrSyncItem extends IUnknown {
     /**
      * The interface identifier for ISyncMgrSyncItem
      * @type {Guid}
      */
-    static IID => Guid("{b20b24ce-2593-4f04-bd8b-7ad6c45051cd}")
+    static IID := Guid("{b20b24ce-2593-4f04-bd8b-7ad6c45051cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrSyncItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetItemID       : IntPtr
+        GetName         : IntPtr
+        GetItemInfo     : IntPtr
+        GetObject       : IntPtr
+        GetCapabilities : IntPtr
+        GetPolicies     : IntPtr
+        Enable          : IntPtr
+        Delete          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItemID", "GetName", "GetItemInfo", "GetObject", "GetCapabilities", "GetPolicies", "Enable", "Delete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrSyncItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the unique ID of a sync item.
@@ -52,7 +71,7 @@ class ISyncMgrSyncItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getitemid
      */
     GetItemID() {
-        result := ComCall(3, this, "ptr*", &ppszItemID := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszItemID := 0, "HRESULT")
         return ppszItemID
     }
 
@@ -74,7 +93,7 @@ class ISyncMgrSyncItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getname
      */
     GetName() {
-        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -106,7 +125,7 @@ class ISyncMgrSyncItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject
      */
     GetObject(rguidObjectID, riid) {
-        result := ComCall(6, this, "ptr", rguidObjectID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rguidObjectID, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -161,7 +180,7 @@ class ISyncMgrSyncItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-enable
      */
     Enable(fEnable) {
-        result := ComCall(9, this, "int", fEnable, "HRESULT")
+        result := ComCall(9, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -179,5 +198,39 @@ class ISyncMgrSyncItem extends IUnknown {
     Delete() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrSyncItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItemID := CallbackCreate(GetMethod(implObj, "GetItemID"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetItemInfo := CallbackCreate(GetMethod(implObj, "GetItemInfo"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetPolicies := CallbackCreate(GetMethod(implObj, "GetPolicies"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItemID)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetItemInfo)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetPolicies)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.Delete)
     }
 }

@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_SELFTESTCONFIG extends Win32Struct {
-    static sizeof => 532
+export default struct GNSS_SELFTESTCONFIG {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TestType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TestType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 12, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
+    InBufLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InBufLen {
-        get => NumGet(this, 524, "uint")
-        set => NumPut("uint", value, this, 524)
-    }
+    InBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    InBuffer {
-        get {
-            if(!this.HasProp("__InBufferProxyArray"))
-                this.__InBufferProxyArray := Win32FixedArray(this.ptr + 528, 1, Primitive, "char")
-            return this.__InBufferProxyArray
-        }
-    }
 }

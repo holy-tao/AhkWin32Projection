@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the ASM_DISPLAY_FLAGS enumeration are used by the GetDisplayName method to specify which portions of the assembly's full name to include in the string representation of the assembly name.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_display_flags
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ASM_DISPLAY_FLAGS extends Win32Enum {
+export default struct ASM_DISPLAY_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Include the version number.

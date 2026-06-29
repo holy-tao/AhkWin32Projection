@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfUIElement interface is a base interface of the UIElement object and is implemented by a text service.
@@ -12,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfuielement
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfUIElement extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfUIElement extends IUnknown {
     /**
      * The interface identifier for ITfUIElement
      * @type {Guid}
      */
-    static IID => Guid("{ea1ea137-19df-11d7-a6d2-00065b84435c}")
+    static IID := Guid("{ea1ea137-19df-11d7-a6d2-00065b84435c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfUIElement interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDescription : IntPtr
+        GetGUID        : IntPtr
+        Show           : IntPtr
+        IsShown        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDescription", "GetGUID", "Show", "IsShown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfUIElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfUIElement::GetDescription method returns the description of the UI element.
@@ -39,8 +50,8 @@ class ITfUIElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getdescription
      */
     GetDescription() {
-        pbstrDescription := BSTR()
-        result := ComCall(3, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -51,7 +62,7 @@ class ITfUIElement extends IUnknown {
      */
     GetGUID() {
         pguid := Guid()
-        result := ComCall(4, this, "ptr", pguid, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -91,7 +102,7 @@ class ITfUIElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-show
      */
     Show(bShow) {
-        result := ComCall(5, this, "int", bShow, "HRESULT")
+        result := ComCall(5, this, BOOL, bShow, "HRESULT")
         return result
     }
 
@@ -101,7 +112,33 @@ class ITfUIElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-isshown
      */
     IsShown() {
-        result := ComCall(6, this, "int*", &pbShow := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pbShow := 0, "HRESULT")
         return pbShow
+    }
+
+    Query(iid) {
+        if (ITfUIElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 2)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.IsShown := CallbackCreate(GetMethod(implObj, "IsShown"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.GetGUID)
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.IsShown)
     }
 }

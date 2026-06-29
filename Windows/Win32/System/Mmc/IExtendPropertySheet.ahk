@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPropertySheetCallback.ahk" { IPropertySheetCallback }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a snap-in component to add pages to the property sheet of an item.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendpropertysheet
  * @namespace Windows.Win32.System.Mmc
  */
-class IExtendPropertySheet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExtendPropertySheet extends IUnknown {
     /**
      * The interface identifier for IExtendPropertySheet
      * @type {Guid}
      */
-    static IID => Guid("{85de64dc-ef21-11cf-a285-00c04fd8dbe6}")
+    static IID := Guid("{85de64dc-ef21-11cf-a285-00c04fd8dbe6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtendPropertySheet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePropertyPages : IntPtr
+        QueryPagesFor       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePropertyPages", "QueryPagesFor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtendPropertySheet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds pages to a property sheet.
@@ -75,5 +86,27 @@ class IExtendPropertySheet extends IUnknown {
     QueryPagesFor(lpDataObject) {
         result := ComCall(4, this, "ptr", lpDataObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExtendPropertySheet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePropertyPages := CallbackCreate(GetMethod(implObj, "CreatePropertyPages"), flags, 4)
+        this.vtbl.QueryPagesFor := CallbackCreate(GetMethod(implObj, "QueryPagesFor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePropertyPages)
+        CallbackFree(this.vtbl.QueryPagesFor)
     }
 }

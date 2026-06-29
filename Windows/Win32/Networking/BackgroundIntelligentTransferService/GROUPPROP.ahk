@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The GROUPPROP enumeration defines the constant values for retrieving and setting group property values.
@@ -39,7 +38,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/ne-qmgr-groupprop
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class GROUPPROP extends Win32Enum {
+export default struct GROUPPROP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Determines when the QMGR processes the group relative to other groups in the queue.

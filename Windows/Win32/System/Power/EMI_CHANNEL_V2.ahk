@@ -1,44 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMI_MEASUREMENT_UNIT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMI_MEASUREMENT_UNIT.ahk" { EMI_MEASUREMENT_UNIT }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The EMI_CHANNEL_V2 structure provides data about an EMI V2 channel.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_channel_v2
  * @namespace Windows.Win32.System.Power
  */
-class EMI_CHANNEL_V2 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct EMI_CHANNEL_V2 {
+    #StructPack 4
 
     /**
      * An EMI_MEASUREMENT_UNIT that specifies the unit of energy
      *                           measurements that can be obtained from the device from an
      *                           IOCTL_EMI_GET_MEASUREMENT. In EMI_VERSION_V2, the only
      *                           supported unit is picowatt-hours.
-     * @type {EMI_MEASUREMENT_UNIT}
      */
-    MeasurementUnit {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MeasurementUnit : EMI_MEASUREMENT_UNIT
 
     /**
      * The size of ChannelName in bytes, including the null terminator.
-     * @type {Integer}
      */
-    ChannelNameSize {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ChannelNameSize : UInt16
 
     /**
      * A null-terminated, Unicode string that specifies the channel name.
-     * @type {String}
      */
-    ChannelName {
-        get => StrGet(this.ptr + 6, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 6, 0, "UTF-16")
-    }
+    ChannelName : WCHAR[1]
+
 }

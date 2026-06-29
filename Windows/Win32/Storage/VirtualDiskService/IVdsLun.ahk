@@ -1,39 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_LUN_PROP.ahk
-#Include .\IVdsSubSystem.ahk
-#Include .\VDS_LUN_INFORMATION.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
-#Include .\VDS_HINTS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_LUN_PROP.ahk" { VDS_LUN_PROP }
+#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_LUN_STATUS.ahk" { VDS_LUN_STATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsLun interface (vdshwprv.h) provides methods for performing query and configuration operations on a logical unit number (LUN).
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslun
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsLun extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsLun extends IUnknown {
     /**
      * The interface identifier for IVdsLun
      * @type {Guid}
      */
-    static IID => Guid("{3540a9c7-e60f-4111-a840-8bba6c2c83d8}")
+    static IID := Guid("{3540a9c7-e60f-4111-a840-8bba6c2c83d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsLun interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties          : IntPtr
+        GetSubSystem           : IntPtr
+        GetIdentificationData  : IntPtr
+        QueryActiveControllers : IntPtr
+        Extend                 : IntPtr
+        Shrink                 : IntPtr
+        QueryPlexes            : IntPtr
+        AddPlex                : IntPtr
+        RemovePlex             : IntPtr
+        Recover                : IntPtr
+        SetMask                : IntPtr
+        Delete                 : IntPtr
+        AssociateControllers   : IntPtr
+        QueryHints             : IntPtr
+        ApplyHints             : IntPtr
+        SetStatus              : IntPtr
+        QueryMaxLunExtendSize  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetSubSystem", "GetIdentificationData", "QueryActiveControllers", "Extend", "Shrink", "QueryPlexes", "AddPlex", "RemovePlex", "Recover", "SetMask", "Delete", "AssociateControllers", "QueryHints", "ApplyHints", "SetStatus", "QueryMaxLunExtendSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsLun.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsLun::GetProperties (vdshwprv.h) method returns the properties of a LUN object.
@@ -46,7 +72,7 @@ class IVdsLun extends IUnknown {
      */
     GetProperties() {
         pLunProp := VDS_LUN_PROP()
-        result := ComCall(3, this, "ptr", pLunProp, "HRESULT")
+        result := ComCall(3, this, VDS_LUN_PROP.Ptr, pLunProp, "HRESULT")
         return pLunProp
     }
 
@@ -71,7 +97,7 @@ class IVdsLun extends IUnknown {
      */
     GetIdentificationData() {
         pLunInfo := VDS_LUN_INFORMATION()
-        result := ComCall(5, this, "ptr", pLunInfo, "HRESULT")
+        result := ComCall(5, this, VDS_LUN_INFORMATION.Ptr, pLunInfo, "HRESULT")
         return pLunInfo
     }
 
@@ -130,7 +156,7 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-extend
      */
     Extend(ullNumberOfBytesToAdd, pDriveIdArray, lNumberOfDrives) {
-        result := ComCall(7, this, "uint", ullNumberOfBytesToAdd, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, "uint", ullNumberOfBytesToAdd, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -183,7 +209,7 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-addplex
      */
     AddPlex(lunId) {
-        result := ComCall(10, this, "ptr", lunId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(10, this, Guid, lunId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -211,7 +237,7 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-removeplex
      */
     RemovePlex(plexId) {
-        result := ComCall(11, this, "ptr", plexId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, Guid, plexId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -595,7 +621,7 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-associatecontrollers
      */
     AssociateControllers(pActiveControllerIdArray, lNumberOfActiveControllers, pInactiveControllerIdArray, lNumberOfInactiveControllers) {
-        result := ComCall(15, this, "ptr", pActiveControllerIdArray, "int", lNumberOfActiveControllers, "ptr", pInactiveControllerIdArray, "int", lNumberOfInactiveControllers, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, pActiveControllerIdArray, "int", lNumberOfActiveControllers, Guid.Ptr, pInactiveControllerIdArray, "int", lNumberOfInactiveControllers, "HRESULT")
         return result
     }
 
@@ -612,7 +638,7 @@ class IVdsLun extends IUnknown {
      */
     QueryHints() {
         pHints := VDS_HINTS()
-        result := ComCall(16, this, "ptr", pHints, "HRESULT")
+        result := ComCall(16, this, VDS_HINTS.Ptr, pHints, "HRESULT")
         return pHints
     }
 
@@ -703,7 +729,7 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-applyhints
      */
     ApplyHints(pHints) {
-        result := ComCall(17, this, "ptr", pHints, "HRESULT")
+        result := ComCall(17, this, VDS_HINTS.Ptr, pHints, "HRESULT")
         return result
     }
 
@@ -778,7 +804,7 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-setstatus
      */
     SetStatus(_status) {
-        result := ComCall(18, this, "int", _status, "HRESULT")
+        result := ComCall(18, this, VDS_LUN_STATUS, _status, "HRESULT")
         return result
     }
 
@@ -793,7 +819,59 @@ class IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-querymaxlunextendsize
      */
     QueryMaxLunExtendSize(pDriveIdArray, lNumberOfDrives) {
-        result := ComCall(19, this, "ptr", pDriveIdArray, "int", lNumberOfDrives, "uint*", &pullMaxBytesToBeAdded := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "uint*", &pullMaxBytesToBeAdded := 0, "HRESULT")
         return pullMaxBytesToBeAdded
+    }
+
+    Query(iid) {
+        if (IVdsLun.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.GetIdentificationData := CallbackCreate(GetMethod(implObj, "GetIdentificationData"), flags, 2)
+        this.vtbl.QueryActiveControllers := CallbackCreate(GetMethod(implObj, "QueryActiveControllers"), flags, 2)
+        this.vtbl.Extend := CallbackCreate(GetMethod(implObj, "Extend"), flags, 5)
+        this.vtbl.Shrink := CallbackCreate(GetMethod(implObj, "Shrink"), flags, 3)
+        this.vtbl.QueryPlexes := CallbackCreate(GetMethod(implObj, "QueryPlexes"), flags, 2)
+        this.vtbl.AddPlex := CallbackCreate(GetMethod(implObj, "AddPlex"), flags, 3)
+        this.vtbl.RemovePlex := CallbackCreate(GetMethod(implObj, "RemovePlex"), flags, 3)
+        this.vtbl.Recover := CallbackCreate(GetMethod(implObj, "Recover"), flags, 2)
+        this.vtbl.SetMask := CallbackCreate(GetMethod(implObj, "SetMask"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.AssociateControllers := CallbackCreate(GetMethod(implObj, "AssociateControllers"), flags, 5)
+        this.vtbl.QueryHints := CallbackCreate(GetMethod(implObj, "QueryHints"), flags, 2)
+        this.vtbl.ApplyHints := CallbackCreate(GetMethod(implObj, "ApplyHints"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.QueryMaxLunExtendSize := CallbackCreate(GetMethod(implObj, "QueryMaxLunExtendSize"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetSubSystem)
+        CallbackFree(this.vtbl.GetIdentificationData)
+        CallbackFree(this.vtbl.QueryActiveControllers)
+        CallbackFree(this.vtbl.Extend)
+        CallbackFree(this.vtbl.Shrink)
+        CallbackFree(this.vtbl.QueryPlexes)
+        CallbackFree(this.vtbl.AddPlex)
+        CallbackFree(this.vtbl.RemovePlex)
+        CallbackFree(this.vtbl.Recover)
+        CallbackFree(this.vtbl.SetMask)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.AssociateControllers)
+        CallbackFree(this.vtbl.QueryHints)
+        CallbackFree(this.vtbl.ApplyHints)
+        CallbackFree(this.vtbl.SetStatus)
+        CallbackFree(this.vtbl.QueryMaxLunExtendSize)
     }
 }

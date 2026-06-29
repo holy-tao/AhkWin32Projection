@@ -1,61 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_GETVPORTCONNECTDATA extends Win32Struct {
-    static sizeof => 40
+export default struct DDHAL_GETVPORTCONNECTDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwPortId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPortId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lpConnect : DDVIDEOPORTCONNECT.Ptr
 
-    /**
-     * @type {Pointer<DDVIDEOPORTCONNECT>}
-     */
-    lpConnect {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwNumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumEntries {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    GetVideoPortConnectInfo : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALVPORTCB_GETVPORTCONNECT>}
-     */
-    GetVideoPortConnectInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

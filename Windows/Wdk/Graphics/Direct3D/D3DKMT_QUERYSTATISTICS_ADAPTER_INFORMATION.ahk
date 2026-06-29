@@ -1,158 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct {
-    static sizeof => 176
+export default struct D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NbSegments : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbSegments {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    VidPnSourceCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    VSyncEnabled : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VSyncEnabled {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TdrDetectedCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TdrDetectedCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ZeroLengthDmaBuffers : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZeroLengthDmaBuffers {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    RestartedPeriod : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RestartedPeriod {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ReferenceDmaBuffer : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ReferenceDmaBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Renaming : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Renaming {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Preparation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Preparation {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PagingFault : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PagingFault {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    PagingTransfer : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PagingTransfer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    SwizzlingRange : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SwizzlingRange {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    Locks : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Locks {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    Allocations : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Allocations {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Terminations : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Terminations {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    Reserved : Int64[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 120, 7, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

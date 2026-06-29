@@ -1,32 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_COMMAND_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_COMMAND_STATUS.ahk" { NVME_COMMAND_STATUS }
 
 /**
  * Contains fields that specify the information in an Error Information log page.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_error_info_log
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_ERROR_INFO_LOG extends Win32Struct {
-    static sizeof => 72
+export default struct NVME_ERROR_INFO_LOG {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ParameterErrorLocation extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _ParameterErrorLocation {
         /**
          * This bitfield backs the following members:
          * - Byte
          * - Bit
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -49,134 +41,67 @@ class NVME_ERROR_INFO_LOG extends Win32Struct {
      * A 64-bit, incrementing error count, that indicates a unique identifier for this error.
      * 
      * The error count starts at `1h`, is incremented for each unique error log entry, and is retained across power off conditions. A value of `0h` indicates an invalid entry; this value may be used when there are lost entries or when there are fewer errors than the maximum number of entries the controller supports.
-     * @type {Integer}
      */
-    ErrorCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ErrorCount : Int64
 
     /**
      * Indicates the Submission Queue Identifier (SQID) of the command that the error information is associated with. If the error is not specific to a particular command then this field is set to `FFFFh`.
-     * @type {Integer}
      */
-    SQID {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    SQID : UInt16
 
     /**
      * Indicates the Command Identifier (CMDID) of the command that the error is associated with. If the error is not specific to a particular command then this is set to `FFFFh`.
-     * @type {Integer}
      */
-    CMDID {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    CMDID : UInt16
 
     /**
      * Indicates the Status Field for the command that completed. 
      * 
      * The Status Field is located in bits 01:15. Bit 0 corresponds to the [Phase Tag (**P**)](ns-nvme-nvme_command_status.md) posted for the command. If the error is not specific to a particular command then this field reports the most applicable status value.
-     * @type {NVME_COMMAND_STATUS}
      */
-    Status {
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := NVME_COMMAND_STATUS(12, this)
-            return this.__Status
-        }
-    }
+    Status : NVME_COMMAND_STATUS
 
     /**
      * A **ParameterErrorLocation** structure containing fields that indicate the Byte and Bit of the command parameter that the error is associated with, if applicable.
      * 
      * If the parameter spans multiple bytes or bits, the location indicates the first byte and bit of the parameter. If the error is not specific to a particular command, this field is set to `FFFFh`.
-     * @type {_ParameterErrorLocation}
      */
-    ParameterErrorLocation {
-        get {
-            if(!this.HasProp("__ParameterErrorLocation"))
-                this.__ParameterErrorLocation := NVME_ERROR_INFO_LOG._ParameterErrorLocation(16, this)
-            return this.__ParameterErrorLocation
-        }
-    }
+    ParameterErrorLocation : NVME_ERROR_INFO_LOG._ParameterErrorLocation
 
     /**
      * Indicates the first Logical Block Address (LBA) that experienced the error condition, if applicable.
-     * @type {Integer}
      */
-    Lba {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Lba : Int64
 
     /**
      * Indicates the namespace that the error is associated with, if applicable.
-     * @type {Integer}
      */
-    NameSpace {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NameSpace : UInt32
 
     /**
      * When there is additional vendor specific error information available, this field provides the log page identifier associated with that page.
      * 
      * A value of `00h` indicates that no additional information is available. Valid values are in the range of `80h` to `FFh`.
-     * @type {Integer}
      */
-    VendorInfoAvailable {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
+    VendorInfoAvailable : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TRTYPE {
-        get => NumGet(this, 37, "char")
-        set => NumPut("char", value, this, 37)
-    }
+    TRTYPE : Int8
 
     /**
      * A reserved field.
-     * @type {Array<Integer>}
      */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[2]
 
     /**
      * Contains command specific information. If used, the command definition specifies the information returned.
-     * @type {Integer}
      */
-    CommandSpecificInfo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CommandSpecificInfo : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TransportTypeSpecificInfo {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    TransportTypeSpecificInfo : UInt16
 
     /**
      * A reserved field.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 50, 22, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[22]
+
 }

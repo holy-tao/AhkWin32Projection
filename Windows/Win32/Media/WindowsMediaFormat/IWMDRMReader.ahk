@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDRMReader interface provides methods to configure the DRM component and to manage DRM license acquisition and individualization of client applications.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMDRMReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDRMReader extends IUnknown {
     /**
      * The interface identifier for IWMDRMReader
      * @type {Guid}
      */
-    static IID => Guid("{d2827540-3ee7-432c-b14c-dc17f085d3b3}")
+    static IID := Guid("{d2827540-3ee7-432c-b14c-dc17f085d3b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDRMReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AcquireLicense                  : IntPtr
+        CancelLicenseAcquisition        : IntPtr
+        Individualize                   : IntPtr
+        CancelIndividualization         : IntPtr
+        MonitorLicenseAcquisition       : IntPtr
+        CancelMonitorLicenseAcquisition : IntPtr
+        SetDRMProperty                  : IntPtr
+        GetDRMProperty                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AcquireLicense", "CancelLicenseAcquisition", "Individualize", "CancelIndividualization", "MonitorLicenseAcquisition", "CancelMonitorLicenseAcquisition", "SetDRMProperty", "GetDRMProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDRMReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AcquireLicense method begins the license acquisition process.
@@ -218,7 +235,7 @@ class IWMDRMReader extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pwstrName, "int", dwType, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(9, this, "ptr", pwstrName, WMT_ATTR_DATATYPE, dwType, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -403,5 +420,39 @@ class IWMDRMReader extends IUnknown {
 
         result := ComCall(10, this, "ptr", pwstrName, pdwTypeMarshal, pdwType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDRMReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AcquireLicense := CallbackCreate(GetMethod(implObj, "AcquireLicense"), flags, 2)
+        this.vtbl.CancelLicenseAcquisition := CallbackCreate(GetMethod(implObj, "CancelLicenseAcquisition"), flags, 1)
+        this.vtbl.Individualize := CallbackCreate(GetMethod(implObj, "Individualize"), flags, 2)
+        this.vtbl.CancelIndividualization := CallbackCreate(GetMethod(implObj, "CancelIndividualization"), flags, 1)
+        this.vtbl.MonitorLicenseAcquisition := CallbackCreate(GetMethod(implObj, "MonitorLicenseAcquisition"), flags, 1)
+        this.vtbl.CancelMonitorLicenseAcquisition := CallbackCreate(GetMethod(implObj, "CancelMonitorLicenseAcquisition"), flags, 1)
+        this.vtbl.SetDRMProperty := CallbackCreate(GetMethod(implObj, "SetDRMProperty"), flags, 5)
+        this.vtbl.GetDRMProperty := CallbackCreate(GetMethod(implObj, "GetDRMProperty"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AcquireLicense)
+        CallbackFree(this.vtbl.CancelLicenseAcquisition)
+        CallbackFree(this.vtbl.Individualize)
+        CallbackFree(this.vtbl.CancelIndividualization)
+        CallbackFree(this.vtbl.MonitorLicenseAcquisition)
+        CallbackFree(this.vtbl.CancelMonitorLicenseAcquisition)
+        CallbackFree(this.vtbl.SetDRMProperty)
+        CallbackFree(this.vtbl.GetDRMProperty)
     }
 }

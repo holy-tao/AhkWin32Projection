@@ -1,58 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains red, green, and blue ramp data.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dgammaramp
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DGAMMARAMP extends Win32Struct {
-    static sizeof => 1536
-
-    static packingSize => 2
+export default struct D3DGAMMARAMP {
+    #StructPack 2
 
     /**
      * Type: **[**WORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Array of 256 WORD element that describes the red gamma ramp.
-     * @type {Array<Integer>}
      */
-    red {
-        get {
-            if(!this.HasProp("__redProxyArray"))
-                this.__redProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
-            return this.__redProxyArray
-        }
-    }
+    red : UInt16[256]
 
     /**
      * Type: **[**WORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Array of 256 WORD element that describes the green gamma ramp.
-     * @type {Array<Integer>}
      */
-    green {
-        get {
-            if(!this.HasProp("__greenProxyArray"))
-                this.__greenProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
-            return this.__greenProxyArray
-        }
-    }
+    green : UInt16[256]
 
     /**
      * Type: **[**WORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Array of 256 WORD element that describes the blue gamma ramp.
-     * @type {Array<Integer>}
      */
-    blue {
-        get {
-            if(!this.HasProp("__blueProxyArray"))
-                this.__blueProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")
-            return this.__blueProxyArray
-        }
-    }
+    blue : UInt16[256]
+
 }

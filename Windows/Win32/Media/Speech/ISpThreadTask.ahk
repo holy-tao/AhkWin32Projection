@@ -1,25 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpThreadTask extends Win32ComInterface {
+export default struct ISpThreadTask extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitThread", "ThreadProc", "WindowMessage"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpThreadTask interfaces
+    */
+    struct Vtbl {
+        InitThread    : IntPtr
+        ThreadProc    : IntPtr
+        WindowMessage : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpThreadTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -28,11 +43,9 @@ class ISpThreadTask extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     InitThread(pvTaskData, _hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, "ptr", _hwnd, "HRESULT")
+        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -46,14 +59,10 @@ class ISpThreadTask extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     ThreadProc(pvTaskData, hExitThreadEvent, hNotifyEvent, hwndWorker, pfContinueProcessing) {
-        hExitThreadEvent := hExitThreadEvent is Win32Handle ? NumGet(hExitThreadEvent, "ptr") : hExitThreadEvent
-        hNotifyEvent := hNotifyEvent is Win32Handle ? NumGet(hNotifyEvent, "ptr") : hNotifyEvent
-        hwndWorker := hwndWorker is Win32Handle ? NumGet(hwndWorker, "ptr") : hwndWorker
-
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
         pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
 
-        result := ComCall(1, this, pvTaskDataMarshal, pvTaskData, "ptr", hExitThreadEvent, "ptr", hNotifyEvent, "ptr", hwndWorker, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
+        result := ComCall(1, this, pvTaskDataMarshal, pvTaskData, HANDLE, hExitThreadEvent, HANDLE, hNotifyEvent, HWND, hwndWorker, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
         return result
     }
 
@@ -67,11 +76,16 @@ class ISpThreadTask extends Win32ComInterface {
      * @returns {LRESULT} 
      */
     WindowMessage(pvTaskData, _hWnd, _Msg, _wParam, _lParam) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
+        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, HWND, _hWnd, "uint", _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
+    }
+
+    Query(iid) {
+        if (ISpThreadTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

@@ -1,51 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpNotifySink.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpNotifySink.ahk" { ISpNotifySink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpThreadControl extends ISpNotifySink {
-
-    static sizeof => A_PtrSize
+export default struct ISpThreadControl extends ISpNotifySink {
     /**
      * The interface identifier for ISpThreadControl
      * @type {Guid}
      */
-    static IID => Guid("{a6be4d73-4403-4358-b22d-0346e23b1764}")
+    static IID := Guid("{a6be4d73-4403-4358-b22d-0346e23b1764}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpThreadControl interfaces
+    */
+    struct Vtbl extends ISpNotifySink.Vtbl {
+        StartThread         : IntPtr
+        WaitForThreadDone   : IntPtr
+        TerminateThread     : IntPtr
+        ThreadHandle        : IntPtr
+        ThreadId            : IntPtr
+        NotifyEvent         : IntPtr
+        WindowHandle        : IntPtr
+        ThreadCompleteEvent : IntPtr
+        ExitThreadEvent     : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpThreadControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartThread", "WaitForThreadDone", "TerminateThread", "ThreadHandle", "ThreadId", "NotifyEvent", "WindowHandle", "ThreadCompleteEvent", "ExitThreadEvent"]
-
-    /**
-     * Notifies the thread pool that I/O operations may possibly begin for the specified I/O completion object. A worker thread calls the I/O completion object's callback function after the operation completes on the file handle bound to this object.
-     * @remarks
-     * You must call this function before initiating each asynchronous I/O operation on the file handle bound to the I/O completion object. Failure to do so will cause the thread pool to ignore an I/O operation when it completes and will cause memory corruption.
      * 
-     * If the I/O operation fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-cancelthreadpoolio">CancelThreadpoolIo</a> function to cancel this notification.
-     * 
-     * If the file handle bound to the I/O completion object has the notification mode FILE_SKIP_COMPLETION_PORT_ON_SUCCESS and an asynchronous I/O operation returns immediately with success, the object's I/O completion callback function is not called and threadpool I/O notifications must be canceled. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-cancelthreadpoolio">CancelThreadpoolIo</a>.   
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Integer} dwFlags 
      * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-startthreadpoolio
      */
     StartThread(dwFlags) {
         phwnd := HWND()
-        result := ComCall(4, this, "uint", dwFlags, "ptr", phwnd, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -56,7 +64,7 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     WaitForThreadDone(fForceStop, msTimeOut) {
-        result := ComCall(5, this, "int", fForceStop, "int*", &phrThreadResult := 0, "uint", msTimeOut, "HRESULT")
+        result := ComCall(5, this, BOOL, fForceStop, "int*", &phrThreadResult := 0, "uint", msTimeOut, "HRESULT")
         return phrThreadResult
     }
 
@@ -103,9 +111,8 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {HANDLE} 
      */
     ThreadHandle() {
-        result := ComCall(7, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(7, this, HANDLE.Owned)
+        return result
     }
 
     /**
@@ -113,7 +120,7 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {Integer} 
      */
     ThreadId() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, UInt32)
         return result
     }
 
@@ -122,9 +129,8 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {HANDLE} 
      */
     NotifyEvent() {
-        result := ComCall(9, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(9, this, HANDLE.Owned)
+        return result
     }
 
     /**
@@ -132,9 +138,8 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {HWND} 
      */
     WindowHandle() {
-        result := ComCall(10, this, "ptr")
-        resultHandle := HWND({Value: result}, True)
-        return resultHandle
+        result := ComCall(10, this, HWND)
+        return result
     }
 
     /**
@@ -142,9 +147,8 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {HANDLE} 
      */
     ThreadCompleteEvent() {
-        result := ComCall(11, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(11, this, HANDLE.Owned)
+        return result
     }
 
     /**
@@ -152,8 +156,43 @@ class ISpThreadControl extends ISpNotifySink {
      * @returns {HANDLE} 
      */
     ExitThreadEvent() {
-        result := ComCall(12, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(12, this, HANDLE.Owned)
+        return result
+    }
+
+    Query(iid) {
+        if (ISpThreadControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartThread := CallbackCreate(GetMethod(implObj, "StartThread"), flags, 3)
+        this.vtbl.WaitForThreadDone := CallbackCreate(GetMethod(implObj, "WaitForThreadDone"), flags, 4)
+        this.vtbl.TerminateThread := CallbackCreate(GetMethod(implObj, "TerminateThread"), flags, 1)
+        this.vtbl.ThreadHandle := CallbackCreate(GetMethod(implObj, "ThreadHandle"), flags, 1)
+        this.vtbl.ThreadId := CallbackCreate(GetMethod(implObj, "ThreadId"), flags, 1)
+        this.vtbl.NotifyEvent := CallbackCreate(GetMethod(implObj, "NotifyEvent"), flags, 1)
+        this.vtbl.WindowHandle := CallbackCreate(GetMethod(implObj, "WindowHandle"), flags, 1)
+        this.vtbl.ThreadCompleteEvent := CallbackCreate(GetMethod(implObj, "ThreadCompleteEvent"), flags, 1)
+        this.vtbl.ExitThreadEvent := CallbackCreate(GetMethod(implObj, "ExitThreadEvent"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartThread)
+        CallbackFree(this.vtbl.WaitForThreadDone)
+        CallbackFree(this.vtbl.TerminateThread)
+        CallbackFree(this.vtbl.ThreadHandle)
+        CallbackFree(this.vtbl.ThreadId)
+        CallbackFree(this.vtbl.NotifyEvent)
+        CallbackFree(this.vtbl.WindowHandle)
+        CallbackFree(this.vtbl.ThreadCompleteEvent)
+        CallbackFree(this.vtbl.ExitThreadEvent)
     }
 }

@@ -1,37 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_VOLUME_PROP.ahk
-#Include .\IVdsPack.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_VOLUME_PROP.ahk" { VDS_VOLUME_PROP }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * Provides methods to manage volumes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolume
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsVolume extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsVolume extends IUnknown {
     /**
      * The interface identifier for IVdsVolume
      * @type {Guid}
      */
-    static IID => Guid("{88306bb2-e71f-478c-86a2-79da200a0f11}")
+    static IID := Guid("{88306bb2-e71f-478c-86a2-79da200a0f11}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsVolume interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties : IntPtr
+        GetPack       : IntPtr
+        QueryPlexes   : IntPtr
+        Extend        : IntPtr
+        Shrink        : IntPtr
+        AddPlex       : IntPtr
+        BreakPlex     : IntPtr
+        RemovePlex    : IntPtr
+        Delete        : IntPtr
+        SetFlags      : IntPtr
+        ClearFlags    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetPack", "QueryPlexes", "Extend", "Shrink", "AddPlex", "BreakPlex", "RemovePlex", "Delete", "SetFlags", "ClearFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsVolume.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns property details of the current volume.
@@ -43,7 +63,7 @@ class IVdsVolume extends IUnknown {
      */
     GetProperties() {
         pVolumeProperties := VDS_VOLUME_PROP()
-        result := ComCall(3, this, "ptr", pVolumeProperties, "HRESULT")
+        result := ComCall(3, this, VDS_VOLUME_PROP.Ptr, pVolumeProperties, "HRESULT")
         return pVolumeProperties
     }
 
@@ -124,7 +144,7 @@ class IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-extend
      */
     Extend(pInputDiskArray, lNumberOfDisks) {
-        result := ComCall(6, this, "ptr", pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -190,7 +210,7 @@ class IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-addplex
      */
     AddPlex(VolumeId) {
-        result := ComCall(8, this, "ptr", VolumeId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(8, this, Guid, VolumeId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -219,7 +239,7 @@ class IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-breakplex
      */
     BreakPlex(plexId) {
-        result := ComCall(9, this, "ptr", plexId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(9, this, Guid, plexId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -242,7 +262,7 @@ class IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-removeplex
      */
     RemovePlex(plexId) {
-        result := ComCall(10, this, "ptr", plexId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(10, this, Guid, plexId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -293,7 +313,7 @@ class IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-delete
      */
     Delete(bForce) {
-        result := ComCall(11, this, "int", bForce, "HRESULT")
+        result := ComCall(11, this, BOOL, bForce, "HRESULT")
         return result
     }
 
@@ -471,7 +491,7 @@ class IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-setflags
      */
     SetFlags(ulFlags, bRevertOnClose) {
-        result := ComCall(12, this, "uint", ulFlags, "int", bRevertOnClose, "HRESULT")
+        result := ComCall(12, this, "uint", ulFlags, BOOL, bRevertOnClose, "HRESULT")
         return result
     }
 
@@ -523,5 +543,45 @@ class IVdsVolume extends IUnknown {
     ClearFlags(ulFlags) {
         result := ComCall(13, this, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsVolume.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetPack := CallbackCreate(GetMethod(implObj, "GetPack"), flags, 2)
+        this.vtbl.QueryPlexes := CallbackCreate(GetMethod(implObj, "QueryPlexes"), flags, 2)
+        this.vtbl.Extend := CallbackCreate(GetMethod(implObj, "Extend"), flags, 4)
+        this.vtbl.Shrink := CallbackCreate(GetMethod(implObj, "Shrink"), flags, 3)
+        this.vtbl.AddPlex := CallbackCreate(GetMethod(implObj, "AddPlex"), flags, 3)
+        this.vtbl.BreakPlex := CallbackCreate(GetMethod(implObj, "BreakPlex"), flags, 3)
+        this.vtbl.RemovePlex := CallbackCreate(GetMethod(implObj, "RemovePlex"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 3)
+        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetPack)
+        CallbackFree(this.vtbl.QueryPlexes)
+        CallbackFree(this.vtbl.Extend)
+        CallbackFree(this.vtbl.Shrink)
+        CallbackFree(this.vtbl.AddPlex)
+        CallbackFree(this.vtbl.BreakPlex)
+        CallbackFree(this.vtbl.RemovePlex)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.ClearFlags)
     }
 }

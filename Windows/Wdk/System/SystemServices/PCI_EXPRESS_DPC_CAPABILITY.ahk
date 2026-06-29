@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct {
-    static sizeof => 104
+export default struct PCI_EXPRESS_DPC_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DpcCapabilities : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DpcCapabilities {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DpcControl : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DpcControl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DpcStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DpcStatus {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DpcErrSrcId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DpcErrSrcId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    RpPioStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioStatus {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    RpPioMask : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioMask {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    RpPioSeverity : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioSeverity {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    RpPioSysError : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioSysError {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    RpPioException : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioException {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    RpPioHeaderLog : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioHeaderLog {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    RpPioImpSpecLog : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioImpSpecLog {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    RpPioPrefixLog : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RpPioPrefixLog {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

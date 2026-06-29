@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The set of schemes used with WsDecodeUrl, WsEncodeUrl, and WsCombineUrl.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_url_scheme_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_URL_SCHEME_TYPE extends Win32Enum {
+export default struct WS_URL_SCHEME_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Denotes the "http" scheme: <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_url">WS_HTTP_URL</a>

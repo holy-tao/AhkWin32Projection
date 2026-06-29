@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferInitialize interface is used to configure the stream buffer filters. The Stream Buffer Source filter, Stream Buffer Sink filter, and StreamBufferConfig object all expose this interface.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferinitialize
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IStreamBufferInitialize extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStreamBufferInitialize extends IUnknown {
     /**
      * The interface identifier for IStreamBufferInitialize
      * @type {Guid}
      */
-    static IID => Guid("{9ce50f2d-6ba7-40fb-a034-50b1a674ec78}")
+    static IID := Guid("{9ce50f2d-6ba7-40fb-a034-50b1a674ec78}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamBufferInitialize interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetHKEY : IntPtr
+        SetSIDs : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHKEY", "SetSIDs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamBufferInitialize.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetHKEY method sets the registry key where the stream buffer object stores its configuration information.
@@ -85,9 +96,7 @@ class IStreamBufferInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-sethkey
      */
     SetHKEY(hkeyRoot) {
-        hkeyRoot := hkeyRoot is Win32Handle ? NumGet(hkeyRoot, "ptr") : hkeyRoot
-
-        result := ComCall(3, this, "ptr", hkeyRoot, "HRESULT")
+        result := ComCall(3, this, HKEY, hkeyRoot, "HRESULT")
         return result
     }
 
@@ -155,5 +164,27 @@ class IStreamBufferInitialize extends IUnknown {
 
         result := ComCall(4, this, "uint", cSIDs, ppSIDMarshal, ppSID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamBufferInitialize.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHKEY := CallbackCreate(GetMethod(implObj, "SetHKEY"), flags, 2)
+        this.vtbl.SetSIDs := CallbackCreate(GetMethod(implObj, "SetSIDs"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHKEY)
+        CallbackFree(this.vtbl.SetSIDs)
     }
 }

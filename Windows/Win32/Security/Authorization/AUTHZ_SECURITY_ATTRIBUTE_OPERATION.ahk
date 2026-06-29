@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of modification to be made to security attributes by a call to the AuthzModifySecurityAttributes function.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ne-authz-authz_security_attribute_operation
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_SECURITY_ATTRIBUTE_OPERATION extends Win32Enum {
+export default struct AUTHZ_SECURITY_ATTRIBUTE_OPERATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not perform any modification.

@@ -1,31 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComStaThreadPoolKnobs extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComStaThreadPoolKnobs extends IUnknown {
     /**
      * The interface identifier for IComStaThreadPoolKnobs
      * @type {Guid}
      */
-    static IID => Guid("{324b64fa-33b6-11d2-98b7-00c04f8ee1c4}")
+    static IID := Guid("{324b64fa-33b6-11d2-98b7-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComStaThreadPoolKnobs interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMinThreadCount    : IntPtr
+        GetMinThreadCount    : IntPtr
+        SetMaxThreadCount    : IntPtr
+        GetMaxThreadCount    : IntPtr
+        SetActivityPerThread : IntPtr
+        GetActivityPerThread : IntPtr
+        SetActivityRatio     : IntPtr
+        GetActivityRatio     : IntPtr
+        GetThreadCount       : IntPtr
+        GetQueueDepth        : IntPtr
+        SetQueueDepth        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMinThreadCount", "GetMinThreadCount", "SetMaxThreadCount", "GetMaxThreadCount", "SetActivityPerThread", "GetActivityPerThread", "SetActivityRatio", "GetActivityRatio", "GetThreadCount", "GetQueueDepth", "SetQueueDepth"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComStaThreadPoolKnobs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -129,5 +147,45 @@ class IComStaThreadPoolKnobs extends IUnknown {
     SetQueueDepth(dwQDepth) {
         result := ComCall(13, this, "int", dwQDepth, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComStaThreadPoolKnobs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMinThreadCount := CallbackCreate(GetMethod(implObj, "SetMinThreadCount"), flags, 2)
+        this.vtbl.GetMinThreadCount := CallbackCreate(GetMethod(implObj, "GetMinThreadCount"), flags, 2)
+        this.vtbl.SetMaxThreadCount := CallbackCreate(GetMethod(implObj, "SetMaxThreadCount"), flags, 2)
+        this.vtbl.GetMaxThreadCount := CallbackCreate(GetMethod(implObj, "GetMaxThreadCount"), flags, 2)
+        this.vtbl.SetActivityPerThread := CallbackCreate(GetMethod(implObj, "SetActivityPerThread"), flags, 2)
+        this.vtbl.GetActivityPerThread := CallbackCreate(GetMethod(implObj, "GetActivityPerThread"), flags, 2)
+        this.vtbl.SetActivityRatio := CallbackCreate(GetMethod(implObj, "SetActivityRatio"), flags, 2)
+        this.vtbl.GetActivityRatio := CallbackCreate(GetMethod(implObj, "GetActivityRatio"), flags, 2)
+        this.vtbl.GetThreadCount := CallbackCreate(GetMethod(implObj, "GetThreadCount"), flags, 2)
+        this.vtbl.GetQueueDepth := CallbackCreate(GetMethod(implObj, "GetQueueDepth"), flags, 2)
+        this.vtbl.SetQueueDepth := CallbackCreate(GetMethod(implObj, "SetQueueDepth"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMinThreadCount)
+        CallbackFree(this.vtbl.GetMinThreadCount)
+        CallbackFree(this.vtbl.SetMaxThreadCount)
+        CallbackFree(this.vtbl.GetMaxThreadCount)
+        CallbackFree(this.vtbl.SetActivityPerThread)
+        CallbackFree(this.vtbl.GetActivityPerThread)
+        CallbackFree(this.vtbl.SetActivityRatio)
+        CallbackFree(this.vtbl.GetActivityRatio)
+        CallbackFree(this.vtbl.GetThreadCount)
+        CallbackFree(this.vtbl.GetQueueDepth)
+        CallbackFree(this.vtbl.SetQueueDepth)
     }
 }

@@ -1,34 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores the certificate request context.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_certificate_request_context
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_CERTIFICATE_REQUEST_CONTEXT extends Win32Struct {
-    static sizeof => 2
-
-    static packingSize => 1
+export default struct SEC_CERTIFICATE_REQUEST_CONTEXT {
+    #StructPack 1
 
     /**
      * The size (in bytes) of the **rgCertificateRequestContext** array.
-     * @type {Integer}
      */
-    cbCertificateRequestContext {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    cbCertificateRequestContext : Int8
 
     /**
      * The TLS 1.3 certificate request context.
-     * @type {Array<Integer>}
      */
-    rgCertificateRequestContext {
-        get {
-            if(!this.HasProp("__rgCertificateRequestContextProxyArray"))
-                this.__rgCertificateRequestContextProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
-            return this.__rgCertificateRequestContextProxyArray
-        }
-    }
+    rgCertificateRequestContext : Int8[1]
+
 }

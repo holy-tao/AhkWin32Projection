@@ -1,144 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class URLCACHE_ENTRY_INFO extends Win32Struct {
-    static sizeof => 104
+export default struct URLCACHE_ENTRY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszSourceUrlName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszSourceUrlName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszLocalFileName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszLocalFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwCacheEntryType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCacheEntryType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwUseCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUseCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwHitRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHitRate {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwSizeLow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeLow {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwSizeHigh : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeHigh {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ftLastModifiedTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastModifiedTime {
-        get {
-            if(!this.HasProp("__ftLastModifiedTime"))
-                this.__ftLastModifiedTime := FILETIME(36, this)
-            return this.__ftLastModifiedTime
-        }
-    }
+    ftExpireTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftExpireTime {
-        get {
-            if(!this.HasProp("__ftExpireTime"))
-                this.__ftExpireTime := FILETIME(44, this)
-            return this.__ftExpireTime
-        }
-    }
+    ftLastAccessTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastAccessTime {
-        get {
-            if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(52, this)
-            return this.__ftLastAccessTime
-        }
-    }
+    ftLastSyncTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastSyncTime {
-        get {
-            if(!this.HasProp("__ftLastSyncTime"))
-                this.__ftLastSyncTime := FILETIME(60, this)
-            return this.__ftLastSyncTime
-        }
-    }
+    pbHeaderInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbHeaderInfo {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    cbHeaderInfoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbHeaderInfoSize {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    pbExtraData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbExtraData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    cbExtraDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbExtraDataSize {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
 }

@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OFFLINEFILES_ITEM_TYPE.ahk" { OFFLINEFILES_ITEM_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a single item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesitem
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesItem extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesItem
      * @type {Guid}
      */
-    static IID => Guid("{4a753da6-e044-4f12-a718-5d14d079a906}")
+    static IID := Guid("{4a753da6-e044-4f12-a718-5d14d079a906}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetItemType         : IntPtr
+        GetPath             : IntPtr
+        GetParentItem       : IntPtr
+        Refresh             : IntPtr
+        IsMarkedForDeletion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItemType", "GetPath", "GetParentItem", "Refresh", "IsMarkedForDeletion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns a type code identifying the type of the item:\_server, share, directory, or file.
@@ -53,7 +68,7 @@ class IOfflineFilesItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitem-getpath
      */
     GetPath() {
-        result := ComCall(4, this, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
@@ -68,13 +83,9 @@ class IOfflineFilesItem extends IUnknown {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Integer} dwQueryFlags 
-     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * @returns {HRESULT} 
      */
     Refresh(dwQueryFlags) {
         result := ComCall(6, this, "uint", dwQueryFlags, "HRESULT")
@@ -91,7 +102,35 @@ class IOfflineFilesItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitem-ismarkedfordeletion
      */
     IsMarkedForDeletion() {
-        result := ComCall(7, this, "int*", &pbMarkedForDeletion := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pbMarkedForDeletion := 0, "HRESULT")
         return pbMarkedForDeletion
+    }
+
+    Query(iid) {
+        if (IOfflineFilesItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 2)
+        this.vtbl.IsMarkedForDeletion := CallbackCreate(GetMethod(implObj, "IsMarkedForDeletion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItemType)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetParentItem)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.IsMarkedForDeletion)
     }
 }

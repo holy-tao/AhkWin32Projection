@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class RTL_HEAP_PARAMETERS extends Win32Struct {
-    static sizeof => 96
+export default struct RTL_HEAP_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SegmentReserve : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SegmentReserve {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SegmentCommit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SegmentCommit {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DeCommitFreeBlockThreshold : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DeCommitFreeBlockThreshold {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DeCommitTotalFreeThreshold : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DeCommitTotalFreeThreshold {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    MaximumAllocationSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MaximumAllocationSize {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    VirtualMemoryThreshold : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VirtualMemoryThreshold {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    InitialCommit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InitialCommit {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    InitialReserve : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InitialReserve {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    CommitRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_HEAP_COMMIT_ROUTINE>}
-     */
-    CommitRoutine {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Reserved : IntPtr[2]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 2, Primitive, "ptr")
-            return this.__ReservedProxyArray
-        }
-    }
 }

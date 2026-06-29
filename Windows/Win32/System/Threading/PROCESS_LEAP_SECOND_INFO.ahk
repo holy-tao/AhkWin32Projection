@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the system handles positive leap seconds.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_leap_second_info
  * @namespace Windows.Win32.System.Threading
  */
-class PROCESS_LEAP_SECOND_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PROCESS_LEAP_SECOND_INFO {
+    #StructPack 4
 
     /**
      * Currently, the only valid flag is <b>PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND</b>. That flag is described below.
@@ -31,19 +28,12 @@ class PROCESS_LEAP_SECOND_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * Reserved for future use
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
+
 }

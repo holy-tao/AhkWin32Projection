@@ -1,32 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeedEnclosure extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFeedEnclosure extends IDispatch {
     /**
      * The interface identifier for IFeedEnclosure
      * @type {Guid}
      */
-    static IID => Guid("{361c26f7-90a4-4e67-ae09-3a36a546436a}")
+    static IID := Guid("{361c26f7-90a4-4e67-ae09-3a36a546436a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeedEnclosure interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Url               : IntPtr
+        get_Type              : IntPtr
+        get_Length            : IntPtr
+        AsyncDownload         : IntPtr
+        CancelAsyncDownload   : IntPtr
+        get_DownloadStatus    : IntPtr
+        get_LastDownloadError : IntPtr
+        get_LocalPath         : IntPtr
+        get_Parent            : IntPtr
+        get_DownloadUrl       : IntPtr
+        get_DownloadMimeType  : IntPtr
+        RemoveFile            : IntPtr
+        SetFile               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Url", "get_Type", "get_Length", "AsyncDownload", "CancelAsyncDownload", "get_DownloadStatus", "get_LastDownloadError", "get_LocalPath", "get_Parent", "get_DownloadUrl", "get_DownloadMimeType", "RemoveFile", "SetFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeedEnclosure.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -96,8 +118,8 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_Url() {
-        enclosureUrl := BSTR()
-        result := ComCall(7, this, "ptr", enclosureUrl, "HRESULT")
+        enclosureUrl := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, enclosureUrl, "HRESULT")
         return enclosureUrl
     }
 
@@ -106,8 +128,8 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_Type() {
-        mimeType := BSTR()
-        result := ComCall(8, this, "ptr", mimeType, "HRESULT")
+        mimeType := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, mimeType, "HRESULT")
         return mimeType
     }
 
@@ -161,8 +183,8 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocalPath() {
-        localPath := BSTR()
-        result := ComCall(14, this, "ptr", localPath, "HRESULT")
+        localPath := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, localPath, "HRESULT")
         return localPath
     }
 
@@ -180,8 +202,8 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
-        enclosureUrl := BSTR()
-        result := ComCall(16, this, "ptr", enclosureUrl, "HRESULT")
+        enclosureUrl := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, enclosureUrl, "HRESULT")
         return enclosureUrl
     }
 
@@ -190,8 +212,8 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadMimeType() {
-        mimeType := BSTR()
-        result := ComCall(17, this, "ptr", mimeType, "HRESULT")
+        mimeType := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, mimeType, "HRESULT")
         return mimeType
     }
 
@@ -205,108 +227,12 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * Causes the file I/O functions to use the ANSI character set code page for the current process.
-     * @remarks
-     * The file I/O functions whose code page is set by <b>SetFileApisToANSI</b> are those 
-     *     functions exported by KERNEL32.DLL that accept or return a file name. 
-     *     <b>SetFileApisToANSI</b> sets the code page per process, rather than per thread or per 
-     *     computer.
      * 
-     * The <b>SetFileApisToANSI</b> function complements the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileapistooem">SetFileApisToOEM</a> function, which causes the same set 
-     *     of file I/O functions to use the OEM character set code page.
-     * 
-     * The 8-bit console functions use the OEM code page by default. All other functions use the ANSI code page by 
-     *     default. This means that strings returned by the console functions may not be processed correctly by other 
-     *     functions, and vice versa. For example, if the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFileA</a> function returns a string that contains 
-     *     certain extended ANSI characters, and the 8-bit console functions are set to use the OEM code page, then the 
-     *     <a href="https://docs.microsoft.com/windows/console/writeconsole">WriteConsoleA</a> function does not display the string 
-     *     properly.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-arefileapisansi">AreFileApisANSI</a> function to determine 
-     *     which code page the set of file I/O functions is currently using. Use the 
-     *     <a href="https://docs.microsoft.com/windows/console/setconsolecp">SetConsoleCP</a> and 
-     *     <a href="https://docs.microsoft.com/windows/console/setconsoleoutputcp">SetConsoleOutputCP</a> functions to set the code page 
-     *     for the 8-bit console functions.
-     * 
-     * To solve the problem of code page incompatibility, it is best to use Unicode for console applications. Console 
-     *     applications that use Unicode are much more versatile than those that use 8-bit console functions. Barring that 
-     *     solution, a console application can call the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileapistooem">SetFileApisToOEM</a> function to cause the 
-     *     set of file I/O functions to use OEM character set strings rather than ANSI character set strings. Use the 
-     *     <b>SetFileApisToANSI</b> function to set those functions back to the ANSI code 
-     *     page.
-     * 
-     * When dealing with command lines, a console application should obtain the command line in Unicode form and then 
-     *     convert it to OEM form using the relevant character-to-OEM functions. Note also that the array in the 
-     *     <i>argv</i> parameter of the command-line <b>main</b> function 
-     *     contains ANSI character set strings in this case.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {BSTR} downloadUrl 
      * @param {BSTR} downloadFilePath 
      * @param {BSTR} downloadMimeType 
      * @param {BSTR} enclosureFilename 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistoansi
      */
     SetFile(downloadUrl, downloadFilePath, downloadMimeType, enclosureFilename) {
         downloadUrl := downloadUrl is String ? BSTR.Alloc(downloadUrl).Value : downloadUrl
@@ -314,7 +240,51 @@ class IFeedEnclosure extends IDispatch {
         downloadMimeType := downloadMimeType is String ? BSTR.Alloc(downloadMimeType).Value : downloadMimeType
         enclosureFilename := enclosureFilename is String ? BSTR.Alloc(enclosureFilename).Value : enclosureFilename
 
-        result := ComCall(19, this, "ptr", downloadUrl, "ptr", downloadFilePath, "ptr", downloadMimeType, "ptr", enclosureFilename, "HRESULT")
+        result := ComCall(19, this, BSTR, downloadUrl, BSTR, downloadFilePath, BSTR, downloadMimeType, BSTR, enclosureFilename, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFeedEnclosure.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Url := CallbackCreate(GetMethod(implObj, "get_Url"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.get_DownloadStatus := CallbackCreate(GetMethod(implObj, "get_DownloadStatus"), flags, 2)
+        this.vtbl.get_LastDownloadError := CallbackCreate(GetMethod(implObj, "get_LastDownloadError"), flags, 2)
+        this.vtbl.get_LocalPath := CallbackCreate(GetMethod(implObj, "get_LocalPath"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_DownloadMimeType := CallbackCreate(GetMethod(implObj, "get_DownloadMimeType"), flags, 2)
+        this.vtbl.RemoveFile := CallbackCreate(GetMethod(implObj, "RemoveFile"), flags, 1)
+        this.vtbl.SetFile := CallbackCreate(GetMethod(implObj, "SetFile"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Url)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Length)
+        CallbackFree(this.vtbl.AsyncDownload)
+        CallbackFree(this.vtbl.CancelAsyncDownload)
+        CallbackFree(this.vtbl.get_DownloadStatus)
+        CallbackFree(this.vtbl.get_LastDownloadError)
+        CallbackFree(this.vtbl.get_LocalPath)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_DownloadUrl)
+        CallbackFree(this.vtbl.get_DownloadMimeType)
+        CallbackFree(this.vtbl.RemoveFile)
+        CallbackFree(this.vtbl.SetFile)
     }
 }

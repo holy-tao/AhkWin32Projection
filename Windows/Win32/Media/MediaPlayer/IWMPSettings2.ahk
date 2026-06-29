@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPSettings.ahk" { IWMPSettings }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPSettings2 interface provides methods that supplement the IWMPSettings interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsettings2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSettings2 extends IWMPSettings {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSettings2 extends IWMPSettings {
     /**
      * The interface identifier for IWMPSettings2
      * @type {Guid}
      */
-    static IID => Guid("{fda937a4-eece-4da5-a0b6-39bf89ade2c2}")
+    static IID := Guid("{fda937a4-eece-4da5-a0b6-39bf89ade2c2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSettings2 interfaces
+    */
+    struct Vtbl extends IWMPSettings.Vtbl {
+        get_defaultAudioLanguage : IntPtr
+        get_mediaAccessRights    : IntPtr
+        requestMediaAccessRights : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_defaultAudioLanguage", "get_mediaAccessRights", "requestMediaAccessRights"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSettings2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -105,7 +117,7 @@ class IWMPSettings2 extends IWMPSettings {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings2-get_mediaaccessrights
      */
     get_mediaAccessRights(pbstrRights) {
-        result := ComCall(31, this, "ptr", pbstrRights, "HRESULT")
+        result := ComCall(31, this, BSTR.Ptr, pbstrRights, "HRESULT")
         return result
     }
 
@@ -145,7 +157,31 @@ class IWMPSettings2 extends IWMPSettings {
 
         pvbAcceptedMarshal := pvbAccepted is VarRef ? "short*" : "ptr"
 
-        result := ComCall(32, this, "ptr", bstrDesiredAccess, pvbAcceptedMarshal, pvbAccepted, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrDesiredAccess, pvbAcceptedMarshal, pvbAccepted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSettings2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_defaultAudioLanguage := CallbackCreate(GetMethod(implObj, "get_defaultAudioLanguage"), flags, 2)
+        this.vtbl.get_mediaAccessRights := CallbackCreate(GetMethod(implObj, "get_mediaAccessRights"), flags, 2)
+        this.vtbl.requestMediaAccessRights := CallbackCreate(GetMethod(implObj, "requestMediaAccessRights"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_defaultAudioLanguage)
+        CallbackFree(this.vtbl.get_mediaAccessRights)
+        CallbackFree(this.vtbl.requestMediaAccessRights)
     }
 }

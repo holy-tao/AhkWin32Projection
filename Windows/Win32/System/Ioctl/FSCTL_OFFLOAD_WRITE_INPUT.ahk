@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FSCTL_OFFLOAD_WRITE_INPUT extends Win32Struct {
-    static sizeof => 544
+export default struct FSCTL_OFFLOAD_WRITE_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CopyLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CopyLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TransferOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TransferOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Token : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Token {
-        get {
-            if(!this.HasProp("__TokenProxyArray"))
-                this.__TokenProxyArray := Win32FixedArray(this.ptr + 32, 512, Primitive, "char")
-            return this.__TokenProxyArray
-        }
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines all the services that are monitored by Windows Security Center (WSC).
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wscapi/ne-wscapi-wsc_security_provider
  * @namespace Windows.Win32.System.SecurityCenter
  */
-class WSC_SECURITY_PROVIDER extends Win32Enum {
+export default struct WSC_SECURITY_PROVIDER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The aggregation of all firewalls for this computer.

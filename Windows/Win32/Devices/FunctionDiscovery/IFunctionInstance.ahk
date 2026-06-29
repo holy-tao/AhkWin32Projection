@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IServiceProvider.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\System\Com\STGM.ahk" { STGM }
 
 /**
  * A function instance is created as the result of calling one of the IFunctionDiscovery methods; client program do not create these objects themselves.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IFunctionInstance extends IServiceProvider {
-
-    static sizeof => A_PtrSize
+export default struct IFunctionInstance extends IServiceProvider {
     /**
      * The interface identifier for IFunctionInstance
      * @type {Guid}
      */
-    static IID => Guid("{33591c10-0bed-4f02-b0ab-1530d5533ee9}")
+    static IID := Guid("{33591c10-0bed-4f02-b0ab-1530d5533ee9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFunctionInstance interfaces
+    */
+    struct Vtbl extends IServiceProvider.Vtbl {
+        GetID                 : IntPtr
+        GetProviderInstanceID : IntPtr
+        OpenPropertyStore     : IntPtr
+        GetCategory           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetID", "GetProviderInstanceID", "OpenPropertyStore", "GetCategory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFunctionInstance.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the identifier string for the function instance.
@@ -74,7 +86,7 @@ class IFunctionInstance extends IServiceProvider {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-openpropertystore
      */
     OpenPropertyStore(dwStgAccess) {
-        result := ComCall(6, this, "uint", dwStgAccess, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        result := ComCall(6, this, STGM, dwStgAccess, "ptr*", &ppIPropertyStore := 0, "HRESULT")
         return IPropertyStore(ppIPropertyStore)
     }
 
@@ -124,5 +136,31 @@ class IFunctionInstance extends IServiceProvider {
 
         result := ComCall(7, this, ppszCoMemCategoryMarshal, ppszCoMemCategory, ppszCoMemSubCategoryMarshal, ppszCoMemSubCategory, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFunctionInstance.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetProviderInstanceID := CallbackCreate(GetMethod(implObj, "GetProviderInstanceID"), flags, 2)
+        this.vtbl.OpenPropertyStore := CallbackCreate(GetMethod(implObj, "OpenPropertyStore"), flags, 3)
+        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.GetProviderInstanceID)
+        CallbackFree(this.vtbl.OpenPropertyStore)
+        CallbackFree(this.vtbl.GetCategory)
     }
 }

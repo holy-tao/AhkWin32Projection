@@ -1,49 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores the security negotiation information.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_negotiation_info
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class SEC_NEGOTIATION_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SEC_NEGOTIATION_INFO {
+    #StructPack 8
 
     /**
      * The size of this structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * The length of the name hint.
-     * @type {Integer}
      */
-    NameLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NameLength : UInt32
 
     /**
      * The name hint.
-     * @type {Pointer<Integer>}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Name : IntPtr
 
     /**
      * Reserved.
-     * @type {Pointer<Void>}
      */
-    Reserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Reserved : IntPtr
+
 }

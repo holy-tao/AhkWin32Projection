@@ -1,27 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MPEG_HEADER_VERSION_BITS structure contains the first 8 bits following the TSID in an MPEG-2 PSI section. These bits contain the version number and the current/next indicator.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2bits/ns-mpeg2bits-mpeg_header_version_bits
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class MPEG_HEADER_VERSION_BITS extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct MPEG_HEADER_VERSION_BITS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
      * - CurrentNextIndicator
      * - VersionNumber
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}

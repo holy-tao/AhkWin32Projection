@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MPEG1WAVEFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MPEG1WAVEFORMAT.ahk" { MPEG1WAVEFORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMpegAudioDecoder interface is exposed on the MPEG-1 Audio Decoder filter and it enables applications to control decoding parameters.
  * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nn-mpegtype-impegaudiodecoder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMpegAudioDecoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMpegAudioDecoder extends IUnknown {
     /**
      * The interface identifier for IMpegAudioDecoder
      * @type {Guid}
      */
-    static IID => Guid("{b45dd570-3c77-11d1-abe1-00a0c905f375}")
+    static IID := Guid("{b45dd570-3c77-11d1-abe1-00a0c905f375}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMpegAudioDecoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_FrequencyDivider : IntPtr
+        put_FrequencyDivider : IntPtr
+        get_DecoderAccuracy  : IntPtr
+        put_DecoderAccuracy  : IntPtr
+        get_Stereo           : IntPtr
+        put_Stereo           : IntPtr
+        get_DecoderWordSize  : IntPtr
+        put_DecoderWordSize  : IntPtr
+        get_IntegerDecode    : IntPtr
+        put_IntegerDecode    : IntPtr
+        get_DualMode         : IntPtr
+        put_DualMode         : IntPtr
+        get_AudioFormat      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FrequencyDivider", "put_FrequencyDivider", "get_DecoderAccuracy", "put_DecoderAccuracy", "get_Stereo", "put_Stereo", "get_DecoderWordSize", "put_DecoderWordSize", "get_IntegerDecode", "put_IntegerDecode", "get_DualMode", "put_DualMode", "get_AudioFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMpegAudioDecoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -402,7 +422,51 @@ class IMpegAudioDecoder extends IUnknown {
      */
     get_AudioFormat() {
         lpFmt := MPEG1WAVEFORMAT()
-        result := ComCall(15, this, "ptr", lpFmt, "HRESULT")
+        result := ComCall(15, this, MPEG1WAVEFORMAT.Ptr, lpFmt, "HRESULT")
         return lpFmt
+    }
+
+    Query(iid) {
+        if (IMpegAudioDecoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FrequencyDivider := CallbackCreate(GetMethod(implObj, "get_FrequencyDivider"), flags, 2)
+        this.vtbl.put_FrequencyDivider := CallbackCreate(GetMethod(implObj, "put_FrequencyDivider"), flags, 2)
+        this.vtbl.get_DecoderAccuracy := CallbackCreate(GetMethod(implObj, "get_DecoderAccuracy"), flags, 2)
+        this.vtbl.put_DecoderAccuracy := CallbackCreate(GetMethod(implObj, "put_DecoderAccuracy"), flags, 2)
+        this.vtbl.get_Stereo := CallbackCreate(GetMethod(implObj, "get_Stereo"), flags, 2)
+        this.vtbl.put_Stereo := CallbackCreate(GetMethod(implObj, "put_Stereo"), flags, 2)
+        this.vtbl.get_DecoderWordSize := CallbackCreate(GetMethod(implObj, "get_DecoderWordSize"), flags, 2)
+        this.vtbl.put_DecoderWordSize := CallbackCreate(GetMethod(implObj, "put_DecoderWordSize"), flags, 2)
+        this.vtbl.get_IntegerDecode := CallbackCreate(GetMethod(implObj, "get_IntegerDecode"), flags, 2)
+        this.vtbl.put_IntegerDecode := CallbackCreate(GetMethod(implObj, "put_IntegerDecode"), flags, 2)
+        this.vtbl.get_DualMode := CallbackCreate(GetMethod(implObj, "get_DualMode"), flags, 2)
+        this.vtbl.put_DualMode := CallbackCreate(GetMethod(implObj, "put_DualMode"), flags, 2)
+        this.vtbl.get_AudioFormat := CallbackCreate(GetMethod(implObj, "get_AudioFormat"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FrequencyDivider)
+        CallbackFree(this.vtbl.put_FrequencyDivider)
+        CallbackFree(this.vtbl.get_DecoderAccuracy)
+        CallbackFree(this.vtbl.put_DecoderAccuracy)
+        CallbackFree(this.vtbl.get_Stereo)
+        CallbackFree(this.vtbl.put_Stereo)
+        CallbackFree(this.vtbl.get_DecoderWordSize)
+        CallbackFree(this.vtbl.put_DecoderWordSize)
+        CallbackFree(this.vtbl.get_IntegerDecode)
+        CallbackFree(this.vtbl.put_IntegerDecode)
+        CallbackFree(this.vtbl.get_DualMode)
+        CallbackFree(this.vtbl.put_DualMode)
+        CallbackFree(this.vtbl.get_AudioFormat)
     }
 }

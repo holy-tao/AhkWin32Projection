@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ViewOptions enumeration is used by the Views.Add method and specifies the visibility of the view, scope tree, and toolbars, as well as the persistence state of the view.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-_viewoptions
  * @namespace Windows.Win32.System.Mmc
  */
-class _ViewOptions extends Win32Enum {
+export default struct _ViewOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The view is added with default settings.

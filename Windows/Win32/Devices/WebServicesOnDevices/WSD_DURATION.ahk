@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a length of time.
@@ -8,80 +8,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxml/ns-wsdxml-wsd_duration
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_DURATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct WSD_DURATION {
+    #StructPack 4
 
     /**
      * This parameter is <b>TRUE</b> if the entire duration is positive.
-     * @type {BOOL}
      */
-    isPositive {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    isPositive : BOOL
 
     /**
      * The year value. This number is a value between 0 and max(ULONG).
-     * @type {Integer}
      */
-    year {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    year : UInt32
 
     /**
      * The month value. This number is a value between 0 and max(ULONG).
-     * @type {Integer}
      */
-    month {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    month : UInt32
 
     /**
      * The day value. This number is a value between 0 and max(ULONG).
-     * @type {Integer}
      */
-    day {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    day : UInt32
 
     /**
      * The hour value. This number is a value between 0 and max(ULONG).
-     * @type {Integer}
      */
-    hour {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    hour : UInt32
 
     /**
      * The minute value. This number is a value between 0 and max(ULONG).
-     * @type {Integer}
      */
-    minute {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    minute : UInt32
 
     /**
      * The second value. This number is a value between 0 and max(ULONG).
-     * @type {Integer}
      */
-    second {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    second : UInt32
 
     /**
      * The millisecond value (0-999).
-     * @type {Integer}
      */
-    millisecond {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    millisecond : UInt32
+
 }

@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The structure containing the COSE credential parameter information.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cose_credential_parameter
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WEBAUTHN_COSE_CREDENTIAL_PARAMETER {
+    #StructPack 8
 
     /**
      * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Well-known credential type specifying a credential to create.
-     * @type {PWSTR}
      */
-    pwszCredentialType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszCredentialType : PWSTR
 
     /**
      * Well-known COSE algorithm specifying the algorithm to use for the credential.
-     * @type {Integer}
      */
-    lAlg {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lAlg : Int32
+
 }

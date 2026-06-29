@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Web\MsHtml\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
  * Enables a debugging or authoring app to receive notification of navigation events.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationnavigationevents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  */
-class IWebApplicationNavigationEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWebApplicationNavigationEvents extends IUnknown {
     /**
      * The interface identifier for IWebApplicationNavigationEvents
      * @type {Guid}
      */
-    static IID => Guid("{c22615d2-d318-4da2-8422-1fcaf77b10e4}")
+    static IID := Guid("{c22615d2-d318-4da2-8422-1fcaf77b10e4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebApplicationNavigationEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeforeNavigate   : IntPtr
+        NavigateComplete : IntPtr
+        NavigateError    : IntPtr
+        DocumentComplete : IntPtr
+        DownloadBegin    : IntPtr
+        DownloadComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeforeNavigate", "NavigateComplete", "NavigateError", "DocumentComplete", "DownloadBegin", "DownloadComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebApplicationNavigationEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Fired before navigate occurs in the given host (window or frameset element).
@@ -145,5 +160,35 @@ class IWebApplicationNavigationEvents extends IUnknown {
     DownloadComplete() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWebApplicationNavigationEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeforeNavigate := CallbackCreate(GetMethod(implObj, "BeforeNavigate"), flags, 5)
+        this.vtbl.NavigateComplete := CallbackCreate(GetMethod(implObj, "NavigateComplete"), flags, 3)
+        this.vtbl.NavigateError := CallbackCreate(GetMethod(implObj, "NavigateError"), flags, 5)
+        this.vtbl.DocumentComplete := CallbackCreate(GetMethod(implObj, "DocumentComplete"), flags, 3)
+        this.vtbl.DownloadBegin := CallbackCreate(GetMethod(implObj, "DownloadBegin"), flags, 1)
+        this.vtbl.DownloadComplete := CallbackCreate(GetMethod(implObj, "DownloadComplete"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeforeNavigate)
+        CallbackFree(this.vtbl.NavigateComplete)
+        CallbackFree(this.vtbl.NavigateError)
+        CallbackFree(this.vtbl.DocumentComplete)
+        CallbackFree(this.vtbl.DownloadBegin)
+        CallbackFree(this.vtbl.DownloadComplete)
     }
 }

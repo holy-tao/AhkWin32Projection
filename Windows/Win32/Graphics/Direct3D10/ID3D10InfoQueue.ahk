@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_MESSAGE_CATEGORY.ahk" { D3D10_MESSAGE_CATEGORY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\D3D10_MESSAGE_SEVERITY.ahk" { D3D10_MESSAGE_SEVERITY }
+#Import ".\D3D10_MESSAGE_ID.ahk" { D3D10_MESSAGE_ID }
+#Import ".\D3D10_INFO_QUEUE_FILTER.ahk" { D3D10_INFO_QUEUE_FILTER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An information-queue interface stores, retrieves, and filters debug messages. The queue consists of a message queue, an optional storage filter stack, and a optional retrieval filter stack. (ID3D10InfoQueue)
@@ -19,26 +26,67 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nn-d3d10sdklayers-id3d10infoqueue
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10InfoQueue extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10InfoQueue extends IUnknown {
     /**
      * The interface identifier for ID3D10InfoQueue
      * @type {Guid}
      */
-    static IID => Guid("{1b940b17-2642-4d1f-ab1f-b99bad0c395f}")
+    static IID := Guid("{1b940b17-2642-4d1f-ab1f-b99bad0c395f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10InfoQueue interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMessageCountLimit                         : IntPtr
+        ClearStoredMessages                          : IntPtr
+        GetMessage                                   : IntPtr
+        GetNumMessagesAllowedByStorageFilter         : IntPtr
+        GetNumMessagesDeniedByStorageFilter          : IntPtr
+        GetNumStoredMessages                         : IntPtr
+        GetNumStoredMessagesAllowedByRetrievalFilter : IntPtr
+        GetNumMessagesDiscardedByMessageCountLimit   : IntPtr
+        GetMessageCountLimit                         : IntPtr
+        AddStorageFilterEntries                      : IntPtr
+        GetStorageFilter                             : IntPtr
+        ClearStorageFilter                           : IntPtr
+        PushEmptyStorageFilter                       : IntPtr
+        PushCopyOfStorageFilter                      : IntPtr
+        PushStorageFilter                            : IntPtr
+        PopStorageFilter                             : IntPtr
+        GetStorageFilterStackSize                    : IntPtr
+        AddRetrievalFilterEntries                    : IntPtr
+        GetRetrievalFilter                           : IntPtr
+        ClearRetrievalFilter                         : IntPtr
+        PushEmptyRetrievalFilter                     : IntPtr
+        PushCopyOfRetrievalFilter                    : IntPtr
+        PushRetrievalFilter                          : IntPtr
+        PopRetrievalFilter                           : IntPtr
+        GetRetrievalFilterStackSize                  : IntPtr
+        AddMessage                                   : IntPtr
+        AddApplicationMessage                        : IntPtr
+        SetBreakOnCategory                           : IntPtr
+        SetBreakOnSeverity                           : IntPtr
+        SetBreakOnID                                 : IntPtr
+        GetBreakOnCategory                           : IntPtr
+        GetBreakOnSeverity                           : IntPtr
+        GetBreakOnID                                 : IntPtr
+        SetMuteDebugOutput                           : IntPtr
+        GetMuteDebugOutput                           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMessageCountLimit", "ClearStoredMessages", "GetMessage", "GetNumMessagesAllowedByStorageFilter", "GetNumMessagesDeniedByStorageFilter", "GetNumStoredMessages", "GetNumStoredMessagesAllowedByRetrievalFilter", "GetNumMessagesDiscardedByMessageCountLimit", "GetMessageCountLimit", "AddStorageFilterEntries", "GetStorageFilter", "ClearStorageFilter", "PushEmptyStorageFilter", "PushCopyOfStorageFilter", "PushStorageFilter", "PopStorageFilter", "GetStorageFilterStackSize", "AddRetrievalFilterEntries", "GetRetrievalFilter", "ClearRetrievalFilter", "PushEmptyRetrievalFilter", "PushCopyOfRetrievalFilter", "PushRetrievalFilter", "PopRetrievalFilter", "GetRetrievalFilterStackSize", "AddMessage", "AddApplicationMessage", "SetBreakOnCategory", "SetBreakOnSeverity", "SetBreakOnID", "GetBreakOnCategory", "GetBreakOnSeverity", "GetBreakOnID", "SetMuteDebugOutput", "GetMuteDebugOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10InfoQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set the maximum number of messages that can be added to the message queue. (ID3D10InfoQueue.SetMessageCountLimit)
@@ -119,7 +167,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getnummessagesallowedbystoragefilter
      */
     GetNumMessagesAllowedByStorageFilter() {
-        result := ComCall(6, this, "uint")
+        result := ComCall(6, this, Int64)
         return result
     }
 
@@ -131,7 +179,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getnummessagesdeniedbystoragefilter
      */
     GetNumMessagesDeniedByStorageFilter() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, Int64)
         return result
     }
 
@@ -143,7 +191,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getnumstoredmessages
      */
     GetNumStoredMessages() {
-        result := ComCall(8, this, "uint")
+        result := ComCall(8, this, Int64)
         return result
     }
 
@@ -155,7 +203,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getnumstoredmessagesallowedbyretrievalfilter
      */
     GetNumStoredMessagesAllowedByRetrievalFilter() {
-        result := ComCall(9, this, "uint")
+        result := ComCall(9, this, Int64)
         return result
     }
 
@@ -169,7 +217,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getnummessagesdiscardedbymessagecountlimit
      */
     GetNumMessagesDiscardedByMessageCountLimit() {
-        result := ComCall(10, this, "uint")
+        result := ComCall(10, this, Int64)
         return result
     }
 
@@ -183,7 +231,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getmessagecountlimit
      */
     GetMessageCountLimit() {
-        result := ComCall(11, this, "uint")
+        result := ComCall(11, this, Int64)
         return result
     }
 
@@ -200,7 +248,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-addstoragefilterentries
      */
     AddStorageFilterEntries(pFilter) {
-        result := ComCall(12, this, "ptr", pFilter, "HRESULT")
+        result := ComCall(12, this, D3D10_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -270,7 +318,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-pushstoragefilter
      */
     PushStorageFilter(pFilter) {
-        result := ComCall(17, this, "ptr", pFilter, "HRESULT")
+        result := ComCall(17, this, D3D10_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -291,7 +339,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getstoragefilterstacksize
      */
     GetStorageFilterStackSize() {
-        result := ComCall(19, this, "uint")
+        result := ComCall(19, this, UInt32)
         return result
     }
 
@@ -312,7 +360,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-addretrievalfilterentries
      */
     AddRetrievalFilterEntries(pFilter) {
-        result := ComCall(20, this, "ptr", pFilter, "HRESULT")
+        result := ComCall(20, this, D3D10_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -382,7 +430,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-pushretrievalfilter
      */
     PushRetrievalFilter(pFilter) {
-        result := ComCall(25, this, "ptr", pFilter, "HRESULT")
+        result := ComCall(25, this, D3D10_INFO_QUEUE_FILTER.Ptr, pFilter, "HRESULT")
         return result
     }
 
@@ -403,7 +451,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getretrievalfilterstacksize
      */
     GetRetrievalFilterStackSize() {
-        result := ComCall(27, this, "uint")
+        result := ComCall(27, this, UInt32)
         return result
     }
 
@@ -431,7 +479,7 @@ class ID3D10InfoQueue extends IUnknown {
     AddMessage(Category, Severity, ID, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
 
-        result := ComCall(28, this, "int", Category, "int", Severity, "int", ID, "ptr", pDescription, "HRESULT")
+        result := ComCall(28, this, D3D10_MESSAGE_CATEGORY, Category, D3D10_MESSAGE_SEVERITY, Severity, D3D10_MESSAGE_ID, ID, "ptr", pDescription, "HRESULT")
         return result
     }
 
@@ -451,7 +499,7 @@ class ID3D10InfoQueue extends IUnknown {
     AddApplicationMessage(Severity, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
 
-        result := ComCall(29, this, "int", Severity, "ptr", pDescription, "HRESULT")
+        result := ComCall(29, this, D3D10_MESSAGE_SEVERITY, Severity, "ptr", pDescription, "HRESULT")
         return result
     }
 
@@ -469,7 +517,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-setbreakoncategory
      */
     SetBreakOnCategory(Category, bEnable) {
-        result := ComCall(30, this, "int", Category, "int", bEnable, "HRESULT")
+        result := ComCall(30, this, D3D10_MESSAGE_CATEGORY, Category, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -487,7 +535,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-setbreakonseverity
      */
     SetBreakOnSeverity(Severity, bEnable) {
-        result := ComCall(31, this, "int", Severity, "int", bEnable, "HRESULT")
+        result := ComCall(31, this, D3D10_MESSAGE_SEVERITY, Severity, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -505,7 +553,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-setbreakonid
      */
     SetBreakOnID(ID, bEnable) {
-        result := ComCall(32, this, "int", ID, "int", bEnable, "HRESULT")
+        result := ComCall(32, this, D3D10_MESSAGE_ID, ID, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -520,7 +568,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getbreakoncategory
      */
     GetBreakOnCategory(Category) {
-        result := ComCall(33, this, "int", Category, "int")
+        result := ComCall(33, this, D3D10_MESSAGE_CATEGORY, Category, BOOL)
         return result
     }
 
@@ -535,7 +583,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getbreakonseverity
      */
     GetBreakOnSeverity(Severity) {
-        result := ComCall(34, this, "int", Severity, "int")
+        result := ComCall(34, this, D3D10_MESSAGE_SEVERITY, Severity, BOOL)
         return result
     }
 
@@ -550,7 +598,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getbreakonid
      */
     GetBreakOnID(ID) {
-        result := ComCall(35, this, "int", ID, "int")
+        result := ComCall(35, this, D3D10_MESSAGE_ID, ID, BOOL)
         return result
     }
 
@@ -565,7 +613,7 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-setmutedebugoutput
      */
     SetMuteDebugOutput(bMute) {
-        ComCall(36, this, "int", bMute)
+        ComCall(36, this, BOOL, bMute)
     }
 
     /**
@@ -576,7 +624,95 @@ class ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getmutedebugoutput
      */
     GetMuteDebugOutput() {
-        result := ComCall(37, this, "int")
+        result := ComCall(37, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10InfoQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMessageCountLimit := CallbackCreate(GetMethod(implObj, "SetMessageCountLimit"), flags, 2)
+        this.vtbl.ClearStoredMessages := CallbackCreate(GetMethod(implObj, "ClearStoredMessages"), flags, 1)
+        this.vtbl.GetMessage := CallbackCreate(GetMethod(implObj, "GetMessage"), flags, 4)
+        this.vtbl.GetNumMessagesAllowedByStorageFilter := CallbackCreate(GetMethod(implObj, "GetNumMessagesAllowedByStorageFilter"), flags, 1)
+        this.vtbl.GetNumMessagesDeniedByStorageFilter := CallbackCreate(GetMethod(implObj, "GetNumMessagesDeniedByStorageFilter"), flags, 1)
+        this.vtbl.GetNumStoredMessages := CallbackCreate(GetMethod(implObj, "GetNumStoredMessages"), flags, 1)
+        this.vtbl.GetNumStoredMessagesAllowedByRetrievalFilter := CallbackCreate(GetMethod(implObj, "GetNumStoredMessagesAllowedByRetrievalFilter"), flags, 1)
+        this.vtbl.GetNumMessagesDiscardedByMessageCountLimit := CallbackCreate(GetMethod(implObj, "GetNumMessagesDiscardedByMessageCountLimit"), flags, 1)
+        this.vtbl.GetMessageCountLimit := CallbackCreate(GetMethod(implObj, "GetMessageCountLimit"), flags, 1)
+        this.vtbl.AddStorageFilterEntries := CallbackCreate(GetMethod(implObj, "AddStorageFilterEntries"), flags, 2)
+        this.vtbl.GetStorageFilter := CallbackCreate(GetMethod(implObj, "GetStorageFilter"), flags, 3)
+        this.vtbl.ClearStorageFilter := CallbackCreate(GetMethod(implObj, "ClearStorageFilter"), flags, 1)
+        this.vtbl.PushEmptyStorageFilter := CallbackCreate(GetMethod(implObj, "PushEmptyStorageFilter"), flags, 1)
+        this.vtbl.PushCopyOfStorageFilter := CallbackCreate(GetMethod(implObj, "PushCopyOfStorageFilter"), flags, 1)
+        this.vtbl.PushStorageFilter := CallbackCreate(GetMethod(implObj, "PushStorageFilter"), flags, 2)
+        this.vtbl.PopStorageFilter := CallbackCreate(GetMethod(implObj, "PopStorageFilter"), flags, 1)
+        this.vtbl.GetStorageFilterStackSize := CallbackCreate(GetMethod(implObj, "GetStorageFilterStackSize"), flags, 1)
+        this.vtbl.AddRetrievalFilterEntries := CallbackCreate(GetMethod(implObj, "AddRetrievalFilterEntries"), flags, 2)
+        this.vtbl.GetRetrievalFilter := CallbackCreate(GetMethod(implObj, "GetRetrievalFilter"), flags, 3)
+        this.vtbl.ClearRetrievalFilter := CallbackCreate(GetMethod(implObj, "ClearRetrievalFilter"), flags, 1)
+        this.vtbl.PushEmptyRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushEmptyRetrievalFilter"), flags, 1)
+        this.vtbl.PushCopyOfRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushCopyOfRetrievalFilter"), flags, 1)
+        this.vtbl.PushRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushRetrievalFilter"), flags, 2)
+        this.vtbl.PopRetrievalFilter := CallbackCreate(GetMethod(implObj, "PopRetrievalFilter"), flags, 1)
+        this.vtbl.GetRetrievalFilterStackSize := CallbackCreate(GetMethod(implObj, "GetRetrievalFilterStackSize"), flags, 1)
+        this.vtbl.AddMessage := CallbackCreate(GetMethod(implObj, "AddMessage"), flags, 5)
+        this.vtbl.AddApplicationMessage := CallbackCreate(GetMethod(implObj, "AddApplicationMessage"), flags, 3)
+        this.vtbl.SetBreakOnCategory := CallbackCreate(GetMethod(implObj, "SetBreakOnCategory"), flags, 3)
+        this.vtbl.SetBreakOnSeverity := CallbackCreate(GetMethod(implObj, "SetBreakOnSeverity"), flags, 3)
+        this.vtbl.SetBreakOnID := CallbackCreate(GetMethod(implObj, "SetBreakOnID"), flags, 3)
+        this.vtbl.GetBreakOnCategory := CallbackCreate(GetMethod(implObj, "GetBreakOnCategory"), flags, 2)
+        this.vtbl.GetBreakOnSeverity := CallbackCreate(GetMethod(implObj, "GetBreakOnSeverity"), flags, 2)
+        this.vtbl.GetBreakOnID := CallbackCreate(GetMethod(implObj, "GetBreakOnID"), flags, 2)
+        this.vtbl.SetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "SetMuteDebugOutput"), flags, 2)
+        this.vtbl.GetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "GetMuteDebugOutput"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMessageCountLimit)
+        CallbackFree(this.vtbl.ClearStoredMessages)
+        CallbackFree(this.vtbl.GetMessage)
+        CallbackFree(this.vtbl.GetNumMessagesAllowedByStorageFilter)
+        CallbackFree(this.vtbl.GetNumMessagesDeniedByStorageFilter)
+        CallbackFree(this.vtbl.GetNumStoredMessages)
+        CallbackFree(this.vtbl.GetNumStoredMessagesAllowedByRetrievalFilter)
+        CallbackFree(this.vtbl.GetNumMessagesDiscardedByMessageCountLimit)
+        CallbackFree(this.vtbl.GetMessageCountLimit)
+        CallbackFree(this.vtbl.AddStorageFilterEntries)
+        CallbackFree(this.vtbl.GetStorageFilter)
+        CallbackFree(this.vtbl.ClearStorageFilter)
+        CallbackFree(this.vtbl.PushEmptyStorageFilter)
+        CallbackFree(this.vtbl.PushCopyOfStorageFilter)
+        CallbackFree(this.vtbl.PushStorageFilter)
+        CallbackFree(this.vtbl.PopStorageFilter)
+        CallbackFree(this.vtbl.GetStorageFilterStackSize)
+        CallbackFree(this.vtbl.AddRetrievalFilterEntries)
+        CallbackFree(this.vtbl.GetRetrievalFilter)
+        CallbackFree(this.vtbl.ClearRetrievalFilter)
+        CallbackFree(this.vtbl.PushEmptyRetrievalFilter)
+        CallbackFree(this.vtbl.PushCopyOfRetrievalFilter)
+        CallbackFree(this.vtbl.PushRetrievalFilter)
+        CallbackFree(this.vtbl.PopRetrievalFilter)
+        CallbackFree(this.vtbl.GetRetrievalFilterStackSize)
+        CallbackFree(this.vtbl.AddMessage)
+        CallbackFree(this.vtbl.AddApplicationMessage)
+        CallbackFree(this.vtbl.SetBreakOnCategory)
+        CallbackFree(this.vtbl.SetBreakOnSeverity)
+        CallbackFree(this.vtbl.SetBreakOnID)
+        CallbackFree(this.vtbl.GetBreakOnCategory)
+        CallbackFree(this.vtbl.GetBreakOnSeverity)
+        CallbackFree(this.vtbl.GetBreakOnID)
+        CallbackFree(this.vtbl.SetMuteDebugOutput)
+        CallbackFree(this.vtbl.GetMuteDebugOutput)
     }
 }

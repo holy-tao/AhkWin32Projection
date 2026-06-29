@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IEvalRat interface is used to evaluate content ratings carried by a broadcast stream.
@@ -10,32 +14,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/tvratings/nn-tvratings-ievalrat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IEvalRat extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEvalRat extends IDispatch {
     /**
      * The interface identifier for IEvalRat
      * @type {Guid}
      */
-    static IID => Guid("{c5c5c5b1-3abc-11d6-b25b-00c04fa0c026}")
+    static IID := Guid("{c5c5c5b1-3abc-11d6-b25b-00c04fa0c026}")
 
     /**
      * The class identifier for EvalRat
      * @type {Guid}
      */
-    static CLSID => Guid("{c5c5c5f1-3abc-11d6-b25b-00c04fa0c026}")
+    static CLSID := Guid("{c5c5c5f1-3abc-11d6-b25b-00c04fa0c026}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEvalRat interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_BlockedRatingAttributes : IntPtr
+        put_BlockedRatingAttributes : IntPtr
+        get_BlockUnRated            : IntPtr
+        put_BlockUnRated            : IntPtr
+        MostRestrictiveRating       : IntPtr
+        TestRating                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BlockedRatingAttributes", "put_BlockedRatingAttributes", "get_BlockUnRated", "put_BlockUnRated", "MostRestrictiveRating", "TestRating"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEvalRat.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -55,7 +71,7 @@ class IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-get_blockedratingattributes
      */
     get_BlockedRatingAttributes(enSystem, enLevel) {
-        result := ComCall(7, this, "int", enSystem, "int", enLevel, "int*", &plbfAttrs := 0, "HRESULT")
+        result := ComCall(7, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, "int*", &plbfAttrs := 0, "HRESULT")
         return plbfAttrs
     }
 
@@ -94,7 +110,7 @@ class IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-put_blockedratingattributes
      */
     put_BlockedRatingAttributes(enSystem, enLevel, lbfAttrs) {
-        result := ComCall(8, this, "int", enSystem, "int", enLevel, "int", lbfAttrs, "HRESULT")
+        result := ComCall(8, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, "int", lbfAttrs, "HRESULT")
         return result
     }
 
@@ -107,7 +123,7 @@ class IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-get_blockunrated
      */
     get_BlockUnRated() {
-        result := ComCall(9, this, "int*", &pfBlockUnRatedShows := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfBlockUnRatedShows := 0, "HRESULT")
         return pfBlockUnRatedShows
     }
 
@@ -136,7 +152,7 @@ class IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-put_blockunrated
      */
     put_BlockUnRated(fBlockUnRatedShows) {
-        result := ComCall(10, this, "int", fBlockUnRatedShows, "HRESULT")
+        result := ComCall(10, this, BOOL, fBlockUnRatedShows, "HRESULT")
         return result
     }
 
@@ -205,7 +221,7 @@ class IEvalRat extends IDispatch {
         penEnLevelMarshal := penEnLevel is VarRef ? "int*" : "ptr"
         plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", enSystem1, "int", enEnLevel1, "int", lbfEnAttr1, "int", enSystem2, "int", enEnLevel2, "int", lbfEnAttr2, penSystemMarshal, penSystem, penEnLevelMarshal, penEnLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
+        result := ComCall(11, this, EnTvRat_System, enSystem1, EnTvRat_GenericLevel, enEnLevel1, "int", lbfEnAttr1, EnTvRat_System, enSystem2, EnTvRat_GenericLevel, enEnLevel2, "int", lbfEnAttr2, penSystemMarshal, penSystem, penEnLevelMarshal, penEnLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
     }
 
@@ -288,7 +304,37 @@ class IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-testrating
      */
     TestRating(enShowSystem, enShowLevel, lbfEnShowAttributes) {
-        result := ComCall(12, this, "int", enShowSystem, "int", enShowLevel, "int", lbfEnShowAttributes, "HRESULT")
+        result := ComCall(12, this, EnTvRat_System, enShowSystem, EnTvRat_GenericLevel, enShowLevel, "int", lbfEnShowAttributes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEvalRat.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "get_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.put_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "put_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.get_BlockUnRated := CallbackCreate(GetMethod(implObj, "get_BlockUnRated"), flags, 2)
+        this.vtbl.put_BlockUnRated := CallbackCreate(GetMethod(implObj, "put_BlockUnRated"), flags, 2)
+        this.vtbl.MostRestrictiveRating := CallbackCreate(GetMethod(implObj, "MostRestrictiveRating"), flags, 10)
+        this.vtbl.TestRating := CallbackCreate(GetMethod(implObj, "TestRating"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BlockedRatingAttributes)
+        CallbackFree(this.vtbl.put_BlockedRatingAttributes)
+        CallbackFree(this.vtbl.get_BlockUnRated)
+        CallbackFree(this.vtbl.put_BlockUnRated)
+        CallbackFree(this.vtbl.MostRestrictiveRating)
+        CallbackFree(this.vtbl.TestRating)
     }
 }

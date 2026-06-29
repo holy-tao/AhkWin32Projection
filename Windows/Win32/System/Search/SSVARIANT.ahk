@@ -1,400 +1,102 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\CY.ahk
-#Include .\DB_NUMERIC.ahk
-#Include .\DBTIMESTAMP.ahk
-#Include .\DBOBJECT.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\CY.ahk" { CY }
+#Import ".\DBTIMESTAMP.ahk" { DBTIMESTAMP }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DB_NUMERIC.ahk" { DB_NUMERIC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DBOBJECT.ahk" { DBOBJECT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SSVARIANT extends Win32Struct {
-    static sizeof => 56
+export default struct SSVARIANT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    vt {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    struct _NCharVal {
+        sActualLength : Int16
+
+        sMaxLength : Int16
+
+        pwchNCharVal : PWSTR
+
+        rgbReserved : Int8[5]
+
+        dwReserved : UInt32
+
+        pwchReserved : PWSTR
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    struct _CharVal {
+        sActualLength : Int16
+
+        sMaxLength : Int16
+
+        pchCharVal : PSTR
+
+        rgbReserved : Int8[5]
+
+        dwReserved : UInt32
+
+        pwchReserved : PWSTR
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    struct _BinaryVal {
+        sActualLength : Int16
+
+        sMaxLength : Int16
+
+        prgbBinaryVal : IntPtr
+
+        dwReserved : UInt32
+
     }
 
-    class _NCharVal extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _UnknownType {
+        dwActualLength : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        sActualLength {
-            get => NumGet(this, 0, "short")
-            set => NumPut("short", value, this, 0)
-        }
+        rgMetadata : Int8[16]
 
-        /**
-         * @type {Integer}
-         */
-        sMaxLength {
-            get => NumGet(this, 2, "short")
-            set => NumPut("short", value, this, 2)
-        }
+        pUnknownData : IntPtr
 
-        /**
-         * @type {PWSTR}
-         */
-        pwchNCharVal {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        rgbReserved {
-            get {
-                if(!this.HasProp("__rgbReservedProxyArray"))
-                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "char")
-                return this.__rgbReservedProxyArray
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pwchReserved {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
     }
 
-    class _CharVal extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _BLOBType {
+        dbobj : DBOBJECT
 
-        /**
-         * @type {Integer}
-         */
-        sActualLength {
-            get => NumGet(this, 0, "short")
-            set => NumPut("short", value, this, 0)
-        }
+        pUnk : IUnknown
 
-        /**
-         * @type {Integer}
-         */
-        sMaxLength {
-            get => NumGet(this, 2, "short")
-            set => NumPut("short", value, this, 2)
-        }
-
-        /**
-         * @type {PSTR}
-         */
-        pchCharVal {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        rgbReserved {
-            get {
-                if(!this.HasProp("__rgbReservedProxyArray"))
-                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "char")
-                return this.__rgbReservedProxyArray
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pwchReserved {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
     }
 
-    class _BinaryVal extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    vt : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        sActualLength {
-            get => NumGet(this, 0, "short")
-            set => NumPut("short", value, this, 0)
-        }
+    dwReserved1 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        sMaxLength {
-            get => NumGet(this, 2, "short")
-            set => NumPut("short", value, this, 2)
-        }
+    dwReserved2 : UInt32
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        prgbBinaryVal {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+    bTinyIntVal : Int8
 
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-    }
-
-    class _UnknownType extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwActualLength {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        rgMetadata {
-            get {
-                if(!this.HasProp("__rgMetadataProxyArray"))
-                    this.__rgMetadataProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-                return this.__rgMetadataProxyArray
-            }
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pUnknownData {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
-    }
-
-    class _BLOBType extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {DBOBJECT}
-         */
-        dbobj {
-            get {
-                if(!this.HasProp("__dbobj"))
-                    this.__dbobj := DBOBJECT(0, this)
-                return this.__dbobj
-            }
-        }
-
-        /**
-         * @type {IUnknown}
-         */
-        pUnk {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bTinyIntVal {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sShortIntVal {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lIntVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    llBigIntVal {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    fltRealVal {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dblFloatVal {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
-
-    /**
-     * @type {CY}
-     */
-    cyMoneyVal {
-        get {
-            if(!this.HasProp("__cyMoneyVal"))
-                this.__cyMoneyVal := CY(16, this)
-            return this.__cyMoneyVal
-        }
-    }
-
-    /**
-     * @type {_NCharVal}
-     */
-    NCharVal {
-        get {
-            if(!this.HasProp("__NCharVal"))
-                this.__NCharVal := SSVARIANT._NCharVal(16, this)
-            return this.__NCharVal
-        }
-    }
-
-    /**
-     * @type {_CharVal}
-     */
-    CharVal {
-        get {
-            if(!this.HasProp("__CharVal"))
-                this.__CharVal := SSVARIANT._CharVal(16, this)
-            return this.__CharVal
-        }
-    }
-
-    /**
-     * @type {VARIANT_BOOL}
-     */
-    fBitVal {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbGuidVal {
-        get {
-            if(!this.HasProp("__rgbGuidValProxyArray"))
-                this.__rgbGuidValProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__rgbGuidValProxyArray
-        }
-    }
-
-    /**
-     * @type {DB_NUMERIC}
-     */
-    numNumericVal {
-        get {
-            if(!this.HasProp("__numNumericVal"))
-                this.__numNumericVal := DB_NUMERIC(16, this)
-            return this.__numNumericVal
-        }
-    }
-
-    /**
-     * @type {_BinaryVal}
-     */
-    BinaryVal {
-        get {
-            if(!this.HasProp("__BinaryVal"))
-                this.__BinaryVal := SSVARIANT._BinaryVal(16, this)
-            return this.__BinaryVal
-        }
-    }
-
-    /**
-     * @type {DBTIMESTAMP}
-     */
-    tsDateTimeVal {
-        get {
-            if(!this.HasProp("__tsDateTimeVal"))
-                this.__tsDateTimeVal := DBTIMESTAMP(16, this)
-            return this.__tsDateTimeVal
-        }
-    }
-
-    /**
-     * @type {_UnknownType}
-     */
-    UnknownType {
-        get {
-            if(!this.HasProp("__UnknownType"))
-                this.__UnknownType := SSVARIANT._UnknownType(16, this)
-            return this.__UnknownType
-        }
-    }
-
-    /**
-     * @type {_BLOBType}
-     */
-    BLOBType {
-        get {
-            if(!this.HasProp("__BLOBType"))
-                this.__BLOBType := SSVARIANT._BLOBType(16, this)
-            return this.__BLOBType
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'sShortIntVal', { type: Int16, offset: 16 })
+        DefineProp(this.Prototype, 'lIntVal', { type: Int32, offset: 16 })
+        DefineProp(this.Prototype, 'llBigIntVal', { type: Int64, offset: 16 })
+        DefineProp(this.Prototype, 'fltRealVal', { type: Float32, offset: 16 })
+        DefineProp(this.Prototype, 'dblFloatVal', { type: Float64, offset: 16 })
+        DefineProp(this.Prototype, 'cyMoneyVal', { type: CY, offset: 16 })
+        DefineProp(this.Prototype, 'NCharVal', { type: SSVARIANT._NCharVal, offset: 16 })
+        DefineProp(this.Prototype, 'CharVal', { type: SSVARIANT._CharVal, offset: 16 })
+        DefineProp(this.Prototype, 'fBitVal', { type: VARIANT_BOOL, offset: 16 })
+        DefineProp(this.Prototype, 'rgbGuidVal', { type: Int8[16], offset: 16 })
+        DefineProp(this.Prototype, 'numNumericVal', { type: DB_NUMERIC, offset: 16 })
+        DefineProp(this.Prototype, 'BinaryVal', { type: SSVARIANT._BinaryVal, offset: 16 })
+        DefineProp(this.Prototype, 'tsDateTimeVal', { type: DBTIMESTAMP, offset: 16 })
+        DefineProp(this.Prototype, 'UnknownType', { type: SSVARIANT._UnknownType, offset: 16 })
+        DefineProp(this.Prototype, 'BLOBType', { type: SSVARIANT._BLOBType, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

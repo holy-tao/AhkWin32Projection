@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an attribute that can be used to identify the client that generated a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributeclientid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509AttributeClientId extends IX509Attribute {
-
-    static sizeof => A_PtrSize
+export default struct IX509AttributeClientId extends IX509Attribute {
     /**
      * The interface identifier for IX509AttributeClientId
      * @type {Guid}
      */
-    static IID => Guid("{728ab325-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab325-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509AttributeClientId interfaces
+    */
+    struct Vtbl extends IX509Attribute.Vtbl {
+        InitializeEncode   : IntPtr
+        InitializeDecode   : IntPtr
+        get_ClientId       : IntPtr
+        get_MachineDnsName : IntPtr
+        get_UserSamName    : IntPtr
+        get_ProcessName    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncode", "InitializeDecode", "get_ClientId", "get_MachineDnsName", "get_UserSamName", "get_ProcessName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509AttributeClientId.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {RequestClientInfoClientId} 
@@ -91,7 +106,7 @@ class IX509AttributeClientId extends IX509Attribute {
         strUserSamName := strUserSamName is String ? BSTR.Alloc(strUserSamName).Value : strUserSamName
         strProcessName := strProcessName is String ? BSTR.Alloc(strProcessName).Value : strProcessName
 
-        result := ComCall(10, this, "int", ClientId, "ptr", strMachineDnsName, "ptr", strUserSamName, "ptr", strProcessName, "HRESULT")
+        result := ComCall(10, this, RequestClientInfoClientId, ClientId, BSTR, strMachineDnsName, BSTR, strUserSamName, BSTR, strProcessName, "HRESULT")
         return result
     }
 
@@ -126,7 +141,7 @@ class IX509AttributeClientId extends IX509Attribute {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -174,8 +189,8 @@ class IX509AttributeClientId extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname
      */
     get_MachineDnsName() {
-        pValue := BSTR()
-        result := ComCall(13, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -199,8 +214,8 @@ class IX509AttributeClientId extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname
      */
     get_UserSamName() {
-        pValue := BSTR()
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -224,8 +239,38 @@ class IX509AttributeClientId extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname
      */
     get_ProcessName() {
-        pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509AttributeClientId.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 5)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.get_MachineDnsName := CallbackCreate(GetMethod(implObj, "get_MachineDnsName"), flags, 2)
+        this.vtbl.get_UserSamName := CallbackCreate(GetMethod(implObj, "get_UserSamName"), flags, 2)
+        this.vtbl.get_ProcessName := CallbackCreate(GetMethod(implObj, "get_ProcessName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncode)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_ClientId)
+        CallbackFree(this.vtbl.get_MachineDnsName)
+        CallbackFree(this.vtbl.get_UserSamName)
+        CallbackFree(this.vtbl.get_ProcessName)
     }
 }

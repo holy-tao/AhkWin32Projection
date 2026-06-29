@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class PROFILE_SOURCE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct PROFILE_SOURCE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Source : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Source {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MinInterval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinInterval {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxInterval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxInterval {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Description : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Description {
-        get => StrGet(this.ptr + 24, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-16")
-    }
 }

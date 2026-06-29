@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents an NSEC resource record (RR) as specified in section 4 of RFC 4034. (Unicode)
@@ -18,47 +18,27 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset Unicode
  */
-class DNS_NSEC_DATAW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DNS_NSEC_DATAW {
+    #StructPack 8
 
     /**
      * A pointer to a string that represents the authoritative owner name of the next domain in the canonical ordering of the zone as specified in section 4.1.1 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
-     * @type {PWSTR}
      */
-    pNextDomainName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNextDomainName : PWSTR
 
     /**
      * The length, in bytes, of <b>TypeBitMaps</b>.
-     * @type {Integer}
      */
-    wTypeBitMapsLength {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wTypeBitMapsLength : UInt16
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    wPad {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wPad : UInt16
 
     /**
      * A <b>BYTE</b> array that contains a bitmap that specifies which RR types are supported by the NSEC RR owner. Each bit in the array corresponds to a <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> as defined in section in section 4.1.2 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
-     * @type {Array<Integer>}
      */
-    TypeBitMaps {
-        get {
-            if(!this.HasProp("__TypeBitMapsProxyArray"))
-                this.__TypeBitMapsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__TypeBitMapsProxyArray
-        }
-    }
+    TypeBitMaps : Int8[1]
+
 }

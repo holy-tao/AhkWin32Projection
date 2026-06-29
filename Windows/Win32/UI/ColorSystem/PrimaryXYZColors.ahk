@@ -1,110 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\XYZColorF.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XYZColorF.ahk" { XYZColorF }
 
 /**
  * This structure contains eight primary colors in XYZ coordinates.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-primaryxyzcolors
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class PrimaryXYZColors extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 4
+export default struct PrimaryXYZColors {
+    #StructPack 4
 
     /**
      * Red primary.
-     * @type {XYZColorF}
      */
-    red {
-        get {
-            if(!this.HasProp("__red"))
-                this.__red := XYZColorF(0, this)
-            return this.__red
-        }
-    }
+    red : XYZColorF
 
     /**
      * Yellow primary.
-     * @type {XYZColorF}
      */
-    yellow {
-        get {
-            if(!this.HasProp("__yellow"))
-                this.__yellow := XYZColorF(12, this)
-            return this.__yellow
-        }
-    }
+    yellow : XYZColorF
 
     /**
      * Green primary.
-     * @type {XYZColorF}
      */
-    green {
-        get {
-            if(!this.HasProp("__green"))
-                this.__green := XYZColorF(24, this)
-            return this.__green
-        }
-    }
+    green : XYZColorF
 
     /**
      * Cyan primary.
-     * @type {XYZColorF}
      */
-    cyan {
-        get {
-            if(!this.HasProp("__cyan"))
-                this.__cyan := XYZColorF(36, this)
-            return this.__cyan
-        }
-    }
+    cyan : XYZColorF
 
     /**
      * Blue primary.
-     * @type {XYZColorF}
      */
-    blue {
-        get {
-            if(!this.HasProp("__blue"))
-                this.__blue := XYZColorF(48, this)
-            return this.__blue
-        }
-    }
+    blue : XYZColorF
 
     /**
      * Magenta primary.
-     * @type {XYZColorF}
      */
-    magenta {
-        get {
-            if(!this.HasProp("__magenta"))
-                this.__magenta := XYZColorF(60, this)
-            return this.__magenta
-        }
-    }
+    magenta : XYZColorF
 
     /**
      * Black primary.
-     * @type {XYZColorF}
      */
-    black {
-        get {
-            if(!this.HasProp("__black"))
-                this.__black := XYZColorF(72, this)
-            return this.__black
-        }
-    }
+    black : XYZColorF
 
     /**
      * White primary.
-     * @type {XYZColorF}
      */
-    white {
-        get {
-            if(!this.HasProp("__white"))
-                this.__white := XYZColorF(84, this)
-            return this.__white
-        }
-    }
+    white : XYZColorF
+
 }

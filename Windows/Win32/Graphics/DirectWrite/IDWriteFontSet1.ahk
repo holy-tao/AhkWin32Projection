@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSet.ahk
-#Include .\IDWriteFontFaceReference1.ahk
-#Include .\IDWriteFontResource.ahk
-#Include .\IDWriteFontFace5.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
+#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
 
 /**
  * Represents a font set. (IDWriteFontSet1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontSet1 extends IDWriteFontSet {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontSet1 extends IDWriteFontSet {
     /**
      * The interface identifier for IDWriteFontSet1
      * @type {Guid}
      */
-    static IID => Guid("{7e9fda85-6c92-4053-bc47-7ae3530db4d3}")
+    static IID := Guid("{7e9fda85-6c92-4053-bc47-7ae3530db4d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontSet1 interfaces
+    */
+    struct Vtbl extends IDWriteFontSet.Vtbl {
+        GetMatchingFonts        : IntPtr
+        GetFirstFontResources   : IntPtr
+        GetFilteredFonts        : IntPtr
+        GetFilteredFonts1       : IntPtr
+        GetFilteredFonts2       : IntPtr
+        GetFilteredFontIndices  : IntPtr
+        GetFilteredFontIndices1 : IntPtr
+        GetFontAxisRanges       : IntPtr
+        GetFontAxisRanges1      : IntPtr
+        GetFontFaceReference    : IntPtr
+        CreateFontResource      : IntPtr
+        CreateFontFace          : IntPtr
+        GetFontLocality         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMatchingFonts", "GetFirstFontResources", "GetFilteredFonts", "GetFilteredFonts1", "GetFilteredFonts2", "GetFilteredFontIndices", "GetFilteredFontIndices1", "GetFontAxisRanges", "GetFontAxisRanges1", "GetFontFaceReference", "CreateFontResource", "CreateFontFace", "GetFontLocality"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontSet1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a matching font set based on the requested inputs, ordered so that nearer matches are earlier.
@@ -51,7 +76,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getmatchingfonts
      */
     GetMatchingFonts(fontProperty, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(13, this, "ptr", fontProperty, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
+        result := ComCall(13, this, DWRITE_FONT_PROPERTY.Ptr, fontProperty, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
         return IDWriteFontSet1(matchingFonts)
     }
 
@@ -102,7 +127,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
     GetFilteredFonts1(fontAxisRanges, fontAxisRangeCount, selectAnyRange) {
-        result := ComCall(16, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "int", selectAnyRange, "ptr*", &filteredFontSet := 0, "HRESULT")
+        result := ComCall(16, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, BOOL, selectAnyRange, "ptr*", &filteredFontSet := 0, "HRESULT")
         return IDWriteFontSet1(filteredFontSet)
     }
 
@@ -119,7 +144,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
     GetFilteredFonts2(_properties, propertyCount, selectAnyProperty) {
-        result := ComCall(17, this, "ptr", _properties, "uint", propertyCount, "int", selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
+        result := ComCall(17, this, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, BOOL, selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
         return IDWriteFontSet1(filteredFontSet)
     }
 
@@ -150,7 +175,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
         actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "int", selectAnyRange, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
+        result := ComCall(18, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, BOOL, selectAnyRange, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 
@@ -187,7 +212,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
         actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", _properties, "uint", propertyCount, "int", selectAnyProperty, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
+        result := ComCall(19, this, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, BOOL, selectAnyProperty, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 
@@ -215,7 +240,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
     GetFontAxisRanges(listIndex, fontAxisRanges, maxFontAxisRangeCount, actualFontAxisRangeCount) {
         actualFontAxisRangeCountMarshal := actualFontAxisRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "uint", listIndex, "ptr", fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
+        result := ComCall(20, this, "uint", listIndex, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
         return result
     }
 
@@ -242,7 +267,7 @@ class IDWriteFontSet1 extends IDWriteFontSet {
     GetFontAxisRanges1(fontAxisRanges, maxFontAxisRangeCount, actualFontAxisRangeCount) {
         actualFontAxisRangeCountMarshal := actualFontAxisRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "ptr", fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
+        result := ComCall(21, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
         return result
     }
 
@@ -304,7 +329,51 @@ class IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontlocality
      */
     GetFontLocality(listIndex) {
-        result := ComCall(25, this, "uint", listIndex, "int")
+        result := ComCall(25, this, "uint", listIndex, DWRITE_LOCALITY)
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontSet1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 5)
+        this.vtbl.GetFirstFontResources := CallbackCreate(GetMethod(implObj, "GetFirstFontResources"), flags, 2)
+        this.vtbl.GetFilteredFonts := CallbackCreate(GetMethod(implObj, "GetFilteredFonts"), flags, 4)
+        this.vtbl.GetFilteredFonts1 := CallbackCreate(GetMethod(implObj, "GetFilteredFonts1"), flags, 5)
+        this.vtbl.GetFilteredFonts2 := CallbackCreate(GetMethod(implObj, "GetFilteredFonts2"), flags, 5)
+        this.vtbl.GetFilteredFontIndices := CallbackCreate(GetMethod(implObj, "GetFilteredFontIndices"), flags, 7)
+        this.vtbl.GetFilteredFontIndices1 := CallbackCreate(GetMethod(implObj, "GetFilteredFontIndices1"), flags, 7)
+        this.vtbl.GetFontAxisRanges := CallbackCreate(GetMethod(implObj, "GetFontAxisRanges"), flags, 5)
+        this.vtbl.GetFontAxisRanges1 := CallbackCreate(GetMethod(implObj, "GetFontAxisRanges1"), flags, 4)
+        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 3)
+        this.vtbl.CreateFontResource := CallbackCreate(GetMethod(implObj, "CreateFontResource"), flags, 3)
+        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 3)
+        this.vtbl.GetFontLocality := CallbackCreate(GetMethod(implObj, "GetFontLocality"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMatchingFonts)
+        CallbackFree(this.vtbl.GetFirstFontResources)
+        CallbackFree(this.vtbl.GetFilteredFonts)
+        CallbackFree(this.vtbl.GetFilteredFonts1)
+        CallbackFree(this.vtbl.GetFilteredFonts2)
+        CallbackFree(this.vtbl.GetFilteredFontIndices)
+        CallbackFree(this.vtbl.GetFilteredFontIndices1)
+        CallbackFree(this.vtbl.GetFontAxisRanges)
+        CallbackFree(this.vtbl.GetFontAxisRanges1)
+        CallbackFree(this.vtbl.GetFontFaceReference)
+        CallbackFree(this.vtbl.CreateFontResource)
+        CallbackFree(this.vtbl.CreateFontFace)
+        CallbackFree(this.vtbl.GetFontLocality)
     }
 }

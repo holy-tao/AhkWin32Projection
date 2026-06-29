@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains synchronized lyrics stored as metadata for a media source. This structure is used as the data item for the WM/Lyrics_Synchronised metadata attribute.
@@ -26,35 +25,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-asf_flat_synchronised_lyrics
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ASF_FLAT_SYNCHRONISED_LYRICS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct ASF_FLAT_SYNCHRONISED_LYRICS {
+    #StructPack 4
 
     /**
      * Specifies the format of time stamps in the lyrics. This member is equivalent to the <b>bTimeStampFormat</b> member in the <b>WM_SYNCHRONISED_LYRICS</b> structure. The <b>WM_SYNCHRONISED_LYRICS</b> structure is documented in the Windows Media Format SDK.
-     * @type {Integer}
      */
-    bTimeStampFormat {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bTimeStampFormat : Int8
 
     /**
      * Specifies the type of synchronized strings that are in the lyric data. This member is equivalent to the <b>bContentType</b> member in the <b>WM_SYNCHRONISED_LYRICS</b> structure.
-     * @type {Integer}
      */
-    bContentType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bContentType : Int8
 
     /**
      * Size, in bytes, of the lyric data.
-     * @type {Integer}
      */
-    dwLyricsLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLyricsLen : UInt32
+
 }

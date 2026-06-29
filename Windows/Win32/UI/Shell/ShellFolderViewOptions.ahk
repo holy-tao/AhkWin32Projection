@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the view options returned by the ViewOptions property.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/ne-shldisp-shellfolderviewoptions
  * @namespace Windows.Win32.UI.Shell
  */
-class ShellFolderViewOptions extends Win32Enum {
+export default struct ShellFolderViewOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 0x0001. The <b>Show All Files</b> option is enabled.

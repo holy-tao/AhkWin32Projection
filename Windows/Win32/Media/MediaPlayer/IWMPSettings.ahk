@@ -1,33 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPSettings interface provides methods that get or set the values of Windows Media Player settings.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsettings
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSettings extends IDispatch {
     /**
      * The interface identifier for IWMPSettings
      * @type {Guid}
      */
-    static IID => Guid("{9104d1ab-80c9-4fed-abf0-2e6417a6df14}")
+    static IID := Guid("{9104d1ab-80c9-4fed-abf0-2e6417a6df14}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_isAvailable        : IntPtr
+        get_autoStart          : IntPtr
+        put_autoStart          : IntPtr
+        get_baseURL            : IntPtr
+        put_baseURL            : IntPtr
+        get_defaultFrame       : IntPtr
+        put_defaultFrame       : IntPtr
+        get_invokeURLs         : IntPtr
+        put_invokeURLs         : IntPtr
+        get_mute               : IntPtr
+        put_mute               : IntPtr
+        get_playCount          : IntPtr
+        put_playCount          : IntPtr
+        get_rate               : IntPtr
+        put_rate               : IntPtr
+        get_balance            : IntPtr
+        put_balance            : IntPtr
+        get_volume             : IntPtr
+        put_volume             : IntPtr
+        getMode                : IntPtr
+        setMode                : IntPtr
+        get_enableErrorDialogs : IntPtr
+        put_enableErrorDialogs : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_isAvailable", "get_autoStart", "put_autoStart", "get_baseURL", "put_baseURL", "get_defaultFrame", "put_defaultFrame", "get_invokeURLs", "put_invokeURLs", "get_mute", "put_mute", "get_playCount", "put_playCount", "get_rate", "put_rate", "get_balance", "put_balance", "get_volume", "put_volume", "getMode", "setMode", "get_enableErrorDialogs", "put_enableErrorDialogs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -139,7 +171,7 @@ class IWMPSettings extends IDispatch {
 
         pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -207,7 +239,7 @@ class IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_autostart
      */
     put_autoStart(fAutoStart) {
-        result := ComCall(9, this, "short", fAutoStart, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, fAutoStart, "HRESULT")
         return result
     }
 
@@ -248,7 +280,7 @@ class IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_baseurl
      */
     get_baseURL(pbstrBaseURL) {
-        result := ComCall(10, this, "ptr", pbstrBaseURL, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pbstrBaseURL, "HRESULT")
         return result
     }
 
@@ -293,7 +325,7 @@ class IWMPSettings extends IDispatch {
     put_baseURL(bstrBaseURL) {
         bstrBaseURL := bstrBaseURL is String ? BSTR.Alloc(bstrBaseURL).Value : bstrBaseURL
 
-        result := ComCall(11, this, "ptr", bstrBaseURL, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrBaseURL, "HRESULT")
         return result
     }
 
@@ -328,7 +360,7 @@ class IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_defaultframe
      */
     get_defaultFrame(pbstrDefaultFrame) {
-        result := ComCall(12, this, "ptr", pbstrDefaultFrame, "HRESULT")
+        result := ComCall(12, this, BSTR.Ptr, pbstrDefaultFrame, "HRESULT")
         return result
     }
 
@@ -365,7 +397,7 @@ class IWMPSettings extends IDispatch {
     put_defaultFrame(bstrDefaultFrame) {
         bstrDefaultFrame := bstrDefaultFrame is String ? BSTR.Alloc(bstrDefaultFrame).Value : bstrDefaultFrame
 
-        result := ComCall(13, this, "ptr", bstrDefaultFrame, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrDefaultFrame, "HRESULT")
         return result
     }
 
@@ -433,7 +465,7 @@ class IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_invokeurls
      */
     put_invokeURLs(fInvokeURLs) {
-        result := ComCall(15, this, "short", fInvokeURLs, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, fInvokeURLs, "HRESULT")
         return result
     }
 
@@ -493,7 +525,7 @@ class IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_mute
      */
     put_mute(fMute) {
-        result := ComCall(17, this, "short", fMute, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, fMute, "HRESULT")
         return result
     }
 
@@ -831,7 +863,7 @@ class IWMPSettings extends IDispatch {
 
         pvarfModeMarshal := pvarfMode is VarRef ? "short*" : "ptr"
 
-        result := ComCall(26, this, "ptr", bstrMode, pvarfModeMarshal, pvarfMode, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrMode, pvarfModeMarshal, pvarfMode, "HRESULT")
         return result
     }
 
@@ -865,7 +897,7 @@ class IWMPSettings extends IDispatch {
     setMode(bstrMode, varfMode) {
         bstrMode := bstrMode is String ? BSTR.Alloc(bstrMode).Value : bstrMode
 
-        result := ComCall(27, this, "ptr", bstrMode, "short", varfMode, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrMode, VARIANT_BOOL, varfMode, "HRESULT")
         return result
     }
 
@@ -929,7 +961,71 @@ class IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_enableerrordialogs
      */
     put_enableErrorDialogs(fEnableErrorDialogs) {
-        result := ComCall(29, this, "short", fEnableErrorDialogs, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, fEnableErrorDialogs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_isAvailable := CallbackCreate(GetMethod(implObj, "get_isAvailable"), flags, 3)
+        this.vtbl.get_autoStart := CallbackCreate(GetMethod(implObj, "get_autoStart"), flags, 2)
+        this.vtbl.put_autoStart := CallbackCreate(GetMethod(implObj, "put_autoStart"), flags, 2)
+        this.vtbl.get_baseURL := CallbackCreate(GetMethod(implObj, "get_baseURL"), flags, 2)
+        this.vtbl.put_baseURL := CallbackCreate(GetMethod(implObj, "put_baseURL"), flags, 2)
+        this.vtbl.get_defaultFrame := CallbackCreate(GetMethod(implObj, "get_defaultFrame"), flags, 2)
+        this.vtbl.put_defaultFrame := CallbackCreate(GetMethod(implObj, "put_defaultFrame"), flags, 2)
+        this.vtbl.get_invokeURLs := CallbackCreate(GetMethod(implObj, "get_invokeURLs"), flags, 2)
+        this.vtbl.put_invokeURLs := CallbackCreate(GetMethod(implObj, "put_invokeURLs"), flags, 2)
+        this.vtbl.get_mute := CallbackCreate(GetMethod(implObj, "get_mute"), flags, 2)
+        this.vtbl.put_mute := CallbackCreate(GetMethod(implObj, "put_mute"), flags, 2)
+        this.vtbl.get_playCount := CallbackCreate(GetMethod(implObj, "get_playCount"), flags, 2)
+        this.vtbl.put_playCount := CallbackCreate(GetMethod(implObj, "put_playCount"), flags, 2)
+        this.vtbl.get_rate := CallbackCreate(GetMethod(implObj, "get_rate"), flags, 2)
+        this.vtbl.put_rate := CallbackCreate(GetMethod(implObj, "put_rate"), flags, 2)
+        this.vtbl.get_balance := CallbackCreate(GetMethod(implObj, "get_balance"), flags, 2)
+        this.vtbl.put_balance := CallbackCreate(GetMethod(implObj, "put_balance"), flags, 2)
+        this.vtbl.get_volume := CallbackCreate(GetMethod(implObj, "get_volume"), flags, 2)
+        this.vtbl.put_volume := CallbackCreate(GetMethod(implObj, "put_volume"), flags, 2)
+        this.vtbl.getMode := CallbackCreate(GetMethod(implObj, "getMode"), flags, 3)
+        this.vtbl.setMode := CallbackCreate(GetMethod(implObj, "setMode"), flags, 3)
+        this.vtbl.get_enableErrorDialogs := CallbackCreate(GetMethod(implObj, "get_enableErrorDialogs"), flags, 2)
+        this.vtbl.put_enableErrorDialogs := CallbackCreate(GetMethod(implObj, "put_enableErrorDialogs"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_isAvailable)
+        CallbackFree(this.vtbl.get_autoStart)
+        CallbackFree(this.vtbl.put_autoStart)
+        CallbackFree(this.vtbl.get_baseURL)
+        CallbackFree(this.vtbl.put_baseURL)
+        CallbackFree(this.vtbl.get_defaultFrame)
+        CallbackFree(this.vtbl.put_defaultFrame)
+        CallbackFree(this.vtbl.get_invokeURLs)
+        CallbackFree(this.vtbl.put_invokeURLs)
+        CallbackFree(this.vtbl.get_mute)
+        CallbackFree(this.vtbl.put_mute)
+        CallbackFree(this.vtbl.get_playCount)
+        CallbackFree(this.vtbl.put_playCount)
+        CallbackFree(this.vtbl.get_rate)
+        CallbackFree(this.vtbl.put_rate)
+        CallbackFree(this.vtbl.get_balance)
+        CallbackFree(this.vtbl.put_balance)
+        CallbackFree(this.vtbl.get_volume)
+        CallbackFree(this.vtbl.put_volume)
+        CallbackFree(this.vtbl.getMode)
+        CallbackFree(this.vtbl.setMode)
+        CallbackFree(this.vtbl.get_enableErrorDialogs)
+        CallbackFree(this.vtbl.put_enableErrorDialogs)
     }
 }

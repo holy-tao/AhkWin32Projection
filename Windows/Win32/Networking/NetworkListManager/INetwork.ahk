@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumNetworkConnections.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumNetworkConnections.ahk" { IEnumNetworkConnections }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\NLM_NETWORK_CATEGORY.ahk" { NLM_NETWORK_CATEGORY }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NLM_DOMAIN_TYPE.ahk" { NLM_DOMAIN_TYPE }
 
 /**
  * The INetwork interface represents a network on the local machine. It can also represent a collection of network connections with a similar network signature.
@@ -136,26 +140,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetwork
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class INetwork extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetwork extends IDispatch {
     /**
      * The interface identifier for INetwork
      * @type {Guid}
      */
-    static IID => Guid("{dcb00002-570f-4a9b-8d69-199fdba5723b}")
+    static IID := Guid("{dcb00002-570f-4a9b-8d69-199fdba5723b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetwork interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetName                    : IntPtr
+        SetName                    : IntPtr
+        GetDescription             : IntPtr
+        SetDescription             : IntPtr
+        GetNetworkId               : IntPtr
+        GetDomainType              : IntPtr
+        GetNetworkConnections      : IntPtr
+        GetTimeCreatedAndConnected : IntPtr
+        get_IsConnectedToInternet  : IntPtr
+        get_IsConnected            : IntPtr
+        GetConnectivity            : IntPtr
+        GetCategory                : IntPtr
+        SetCategory                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "SetName", "GetDescription", "SetDescription", "GetNetworkId", "GetDomainType", "GetNetworkConnections", "GetTimeCreatedAndConnected", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "GetCategory", "SetCategory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetwork.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -177,8 +200,8 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getname
      */
     GetName() {
-        pszNetworkName := BSTR()
-        result := ComCall(7, this, "ptr", pszNetworkName, "HRESULT")
+        pszNetworkName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pszNetworkName, "HRESULT")
         return pszNetworkName
     }
 
@@ -222,7 +245,7 @@ class INetwork extends IDispatch {
     SetName(szNetworkNewName) {
         szNetworkNewName := szNetworkNewName is String ? BSTR.Alloc(szNetworkNewName).Value : szNetworkNewName
 
-        result := ComCall(8, this, "ptr", szNetworkNewName, "HRESULT")
+        result := ComCall(8, this, BSTR, szNetworkNewName, "HRESULT")
         return result
     }
 
@@ -232,8 +255,8 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getdescription
      */
     GetDescription() {
-        pszDescription := BSTR()
-        result := ComCall(9, this, "ptr", pszDescription, "HRESULT")
+        pszDescription := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pszDescription, "HRESULT")
         return pszDescription
     }
 
@@ -277,7 +300,7 @@ class INetwork extends IDispatch {
     SetDescription(szDescription) {
         szDescription := szDescription is String ? BSTR.Alloc(szDescription).Value : szDescription
 
-        result := ComCall(10, this, "ptr", szDescription, "HRESULT")
+        result := ComCall(10, this, BSTR, szDescription, "HRESULT")
         return result
     }
 
@@ -292,7 +315,7 @@ class INetwork extends IDispatch {
      */
     GetNetworkId() {
         pgdGuidNetworkId := Guid()
-        result := ComCall(11, this, "ptr", pgdGuidNetworkId, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pgdGuidNetworkId, "HRESULT")
         return pgdGuidNetworkId
     }
 
@@ -359,7 +382,7 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-get_isconnectedtointernet
      */
     get_IsConnectedToInternet() {
-        result := ComCall(15, this, "short*", &pbIsConnected := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &pbIsConnected := 0, "HRESULT")
         return pbIsConnected
     }
 
@@ -369,7 +392,7 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-get_isconnected
      */
     get_IsConnected() {
-        result := ComCall(16, this, "short*", &pbIsConnected := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pbIsConnected := 0, "HRESULT")
         return pbIsConnected
     }
 
@@ -402,7 +425,51 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-setcategory
      */
     SetCategory(NewCategory) {
-        result := ComCall(19, this, "int", NewCategory, "HRESULT")
+        result := ComCall(19, this, NLM_NETWORK_CATEGORY, NewCategory, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetwork.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetNetworkId := CallbackCreate(GetMethod(implObj, "GetNetworkId"), flags, 2)
+        this.vtbl.GetDomainType := CallbackCreate(GetMethod(implObj, "GetDomainType"), flags, 2)
+        this.vtbl.GetNetworkConnections := CallbackCreate(GetMethod(implObj, "GetNetworkConnections"), flags, 2)
+        this.vtbl.GetTimeCreatedAndConnected := CallbackCreate(GetMethod(implObj, "GetTimeCreatedAndConnected"), flags, 5)
+        this.vtbl.get_IsConnectedToInternet := CallbackCreate(GetMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.GetConnectivity := CallbackCreate(GetMethod(implObj, "GetConnectivity"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.SetCategory := CallbackCreate(GetMethod(implObj, "SetCategory"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetDescription)
+        CallbackFree(this.vtbl.GetNetworkId)
+        CallbackFree(this.vtbl.GetDomainType)
+        CallbackFree(this.vtbl.GetNetworkConnections)
+        CallbackFree(this.vtbl.GetTimeCreatedAndConnected)
+        CallbackFree(this.vtbl.get_IsConnectedToInternet)
+        CallbackFree(this.vtbl.get_IsConnected)
+        CallbackFree(this.vtbl.GetConnectivity)
+        CallbackFree(this.vtbl.GetCategory)
+        CallbackFree(this.vtbl.SetCategory)
     }
 }

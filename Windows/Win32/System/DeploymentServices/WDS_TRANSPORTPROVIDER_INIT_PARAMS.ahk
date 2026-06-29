@@ -1,58 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Registry\HKEY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Registry\HKEY.ahk" { HKEY }
 
 /**
  * This structure is used by the WdsTransportProviderInitialize callback function. (WDS_TRANSPORTPROVIDER_INIT_PARAMS)
  * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/ns-wdstpdi-wds_transportprovider_init_params
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WDS_TRANSPORTPROVIDER_INIT_PARAMS {
+    #StructPack 8
 
     /**
      * The length of this structure.
-     * @type {Integer}
      */
-    ulLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulLength : UInt32
 
     /**
      * The multicast server's version.
-     * @type {Integer}
      */
-    ulMcServerVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulMcServerVersion : UInt32
 
     /**
      * An open handle to the registry key where this provider should
      *      store and retrieve its settings.
-     * @type {HKEY}
      */
-    hRegistryKey {
-        get {
-            if(!this.HasProp("__hRegistryKey"))
-                this.__hRegistryKey := HKEY(8, this)
-            return this.__hRegistryKey
-        }
-    }
+    hRegistryKey : HKEY
 
     /**
      * A handle that the provider can use to uniquely identify itself in calls to the multicast server.
-     * @type {HANDLE}
      */
-    hProvider {
-        get {
-            if(!this.HasProp("__hProvider"))
-                this.__hProvider := HANDLE(16, this)
-            return this.__hProvider
-        }
-    }
+    hProvider : HANDLE
+
 }

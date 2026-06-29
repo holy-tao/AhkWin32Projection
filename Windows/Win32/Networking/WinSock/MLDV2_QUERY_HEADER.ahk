@@ -1,47 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_HEADER.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ICMP_HEADER.ahk" { ICMP_HEADER }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class MLDV2_QUERY_HEADER extends Win32Struct {
-    static sizeof => 28
+export default struct MLDV2_QUERY_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    IcmpHeader : ICMP_HEADER
 
-    /**
-     * @type {ICMP_HEADER}
-     */
-    IcmpHeader {
-        get {
-            if(!this.HasProp("__IcmpHeader"))
-                this.__IcmpHeader := ICMP_HEADER(0, this)
-            return this.__IcmpHeader
-        }
-    }
+    MaxRespCode : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaxRespCode {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - MaxRespCodeMantissaHi
-     * - MaxRespCodeExponent
-     * - MaxRespCodeType
-     * - MaxRespCodeMantissaLo
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 
     /**
      * @type {Integer}
@@ -74,37 +44,18 @@ class MLDV2_QUERY_HEADER extends Win32Struct {
         get => (this._bitfield >> 8) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
     }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {IN6_ADDR}
-     */
-    MulticastAddress {
-        get {
-            if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN6_ADDR(8, this)
-            return this.__MulticastAddress
-        }
-    }
+    MulticastAddress : IN6_ADDR
 
     /**
      * This bitfield backs the following members:
      * - QuerierRobustnessVariable
      * - SuppressRouterSideProcessing
      * - QueryReserved
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    _bitfield1 : Int8
+
 
     /**
      * @type {Integer}
@@ -129,56 +80,37 @@ class MLDV2_QUERY_HEADER extends Win32Struct {
         get => (this._bitfield1 >> 4) & 0xF
         set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
     }
+    QueriersQueryInterfaceCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    QueriersQueryInterfaceCode {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - QQCMantissa
-     * - QQCExponent
-     * - QQCType
-     * @type {Integer}
-     */
-    _bitfield12 {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
 
     /**
      * @type {Integer}
      */
     QQCMantissa {
-        get => (this._bitfield12 >> 0) & 0xF
-        set => this._bitfield12 := ((value & 0xF) << 0) | (this._bitfield12 & ~(0xF << 0))
+        get => (this._bitfield2 >> 0) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
     }
 
     /**
      * @type {Integer}
      */
     QQCExponent {
-        get => (this._bitfield12 >> 4) & 0x7
-        set => this._bitfield12 := ((value & 0x7) << 4) | (this._bitfield12 & ~(0x7 << 4))
+        get => (this._bitfield2 >> 4) & 0x7
+        set => this._bitfield2 := ((value & 0x7) << 4) | (this._bitfield2 & ~(0x7 << 4))
     }
 
     /**
      * @type {Integer}
      */
     QQCType {
-        get => (this._bitfield12 >> 7) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 7) | (this._bitfield12 & ~(0x1 << 7))
+        get => (this._bitfield2 >> 7) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 7) | (this._bitfield2 & ~(0x1 << 7))
     }
+    SourceCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SourceCount {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int16, offset: 4 })
+        DefineProp(this.Prototype, '_bitfield2', { type: Int8, offset: 25 })
+        this.DeleteProp("__New")
     }
 }

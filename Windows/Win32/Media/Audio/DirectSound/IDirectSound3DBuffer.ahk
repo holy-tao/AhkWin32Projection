@@ -1,33 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\DS3DBUFFER.ahk
-#Include ..\..\..\Graphics\Direct3D\D3DVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DS3DBUFFER.ahk" { DS3DBUFFER }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class IDirectSound3DBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectSound3DBuffer extends IUnknown {
     /**
      * The interface identifier for IDirectSound3DBuffer
      * @type {Guid}
      */
-    static IID => Guid("{279afa86-4981-11ce-a521-0020af0be560}")
+    static IID := Guid("{279afa86-4981-11ce-a521-0020af0be560}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectSound3DBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAllParameters     : IntPtr
+        GetConeAngles        : IntPtr
+        GetConeOrientation   : IntPtr
+        GetConeOutsideVolume : IntPtr
+        GetMaxDistance       : IntPtr
+        GetMinDistance       : IntPtr
+        GetMode              : IntPtr
+        GetPosition          : IntPtr
+        GetVelocity          : IntPtr
+        SetAllParameters     : IntPtr
+        SetConeAngles        : IntPtr
+        SetConeOrientation   : IntPtr
+        SetConeOutsideVolume : IntPtr
+        SetMaxDistance       : IntPtr
+        SetMinDistance       : IntPtr
+        SetMode              : IntPtr
+        SetPosition          : IntPtr
+        SetVelocity          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAllParameters", "GetConeAngles", "GetConeOrientation", "GetConeOutsideVolume", "GetMaxDistance", "GetMinDistance", "GetMode", "GetPosition", "GetVelocity", "SetAllParameters", "SetConeAngles", "SetConeOrientation", "SetConeOutsideVolume", "SetMaxDistance", "SetMinDistance", "SetMode", "SetPosition", "SetVelocity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectSound3DBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,7 +60,7 @@ class IDirectSound3DBuffer extends IUnknown {
      */
     GetAllParameters() {
         pDs3dBuffer := DS3DBUFFER()
-        result := ComCall(3, this, "ptr", pDs3dBuffer, "HRESULT")
+        result := ComCall(3, this, DS3DBUFFER.Ptr, pDs3dBuffer, "HRESULT")
         return pDs3dBuffer
     }
 
@@ -59,7 +84,7 @@ class IDirectSound3DBuffer extends IUnknown {
      */
     GetConeOrientation() {
         pvOrientation := D3DVECTOR()
-        result := ComCall(5, this, "ptr", pvOrientation, "HRESULT")
+        result := ComCall(5, this, D3DVECTOR.Ptr, pvOrientation, "HRESULT")
         return pvOrientation
     }
 
@@ -100,13 +125,12 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
+     * 
      * @returns {D3DVECTOR} 
-     * @see https://learn.microsoft.com/windows/win32/mediastreaming/getpositioninformationoperation
      */
     GetPosition() {
         pvPosition := D3DVECTOR()
-        result := ComCall(10, this, "ptr", pvPosition, "HRESULT")
+        result := ComCall(10, this, D3DVECTOR.Ptr, pvPosition, "HRESULT")
         return pvPosition
     }
 
@@ -116,7 +140,7 @@ class IDirectSound3DBuffer extends IUnknown {
      */
     GetVelocity() {
         pvVelocity := D3DVECTOR()
-        result := ComCall(11, this, "ptr", pvVelocity, "HRESULT")
+        result := ComCall(11, this, D3DVECTOR.Ptr, pvVelocity, "HRESULT")
         return pvVelocity
     }
 
@@ -127,7 +151,7 @@ class IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDs3dBuffer, dwApply) {
-        result := ComCall(12, this, "ptr", pcDs3dBuffer, "uint", dwApply, "HRESULT")
+        result := ComCall(12, this, DS3DBUFFER.Ptr, pcDs3dBuffer, "uint", dwApply, "HRESULT")
         return result
     }
 
@@ -224,5 +248,59 @@ class IDirectSound3DBuffer extends IUnknown {
     SetVelocity(x, y, z, dwApply) {
         result := ComCall(20, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectSound3DBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.GetConeAngles := CallbackCreate(GetMethod(implObj, "GetConeAngles"), flags, 3)
+        this.vtbl.GetConeOrientation := CallbackCreate(GetMethod(implObj, "GetConeOrientation"), flags, 2)
+        this.vtbl.GetConeOutsideVolume := CallbackCreate(GetMethod(implObj, "GetConeOutsideVolume"), flags, 2)
+        this.vtbl.GetMaxDistance := CallbackCreate(GetMethod(implObj, "GetMaxDistance"), flags, 2)
+        this.vtbl.GetMinDistance := CallbackCreate(GetMethod(implObj, "GetMinDistance"), flags, 2)
+        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 2)
+        this.vtbl.GetVelocity := CallbackCreate(GetMethod(implObj, "GetVelocity"), flags, 2)
+        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 3)
+        this.vtbl.SetConeAngles := CallbackCreate(GetMethod(implObj, "SetConeAngles"), flags, 4)
+        this.vtbl.SetConeOrientation := CallbackCreate(GetMethod(implObj, "SetConeOrientation"), flags, 5)
+        this.vtbl.SetConeOutsideVolume := CallbackCreate(GetMethod(implObj, "SetConeOutsideVolume"), flags, 3)
+        this.vtbl.SetMaxDistance := CallbackCreate(GetMethod(implObj, "SetMaxDistance"), flags, 3)
+        this.vtbl.SetMinDistance := CallbackCreate(GetMethod(implObj, "SetMinDistance"), flags, 3)
+        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 3)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 5)
+        this.vtbl.SetVelocity := CallbackCreate(GetMethod(implObj, "SetVelocity"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAllParameters)
+        CallbackFree(this.vtbl.GetConeAngles)
+        CallbackFree(this.vtbl.GetConeOrientation)
+        CallbackFree(this.vtbl.GetConeOutsideVolume)
+        CallbackFree(this.vtbl.GetMaxDistance)
+        CallbackFree(this.vtbl.GetMinDistance)
+        CallbackFree(this.vtbl.GetMode)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.GetVelocity)
+        CallbackFree(this.vtbl.SetAllParameters)
+        CallbackFree(this.vtbl.SetConeAngles)
+        CallbackFree(this.vtbl.SetConeOrientation)
+        CallbackFree(this.vtbl.SetConeOutsideVolume)
+        CallbackFree(this.vtbl.SetMaxDistance)
+        CallbackFree(this.vtbl.SetMinDistance)
+        CallbackFree(this.vtbl.SetMode)
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.SetVelocity)
     }
 }

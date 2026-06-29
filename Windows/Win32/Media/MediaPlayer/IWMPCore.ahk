@@ -1,43 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPControls.ahk
-#Include .\IWMPSettings.ahk
-#Include .\IWMPMedia.ahk
-#Include .\IWMPMediaCollection.ahk
-#Include .\IWMPPlaylistCollection.ahk
-#Include .\IWMPNetwork.ahk
-#Include .\IWMPPlaylist.ahk
-#Include .\IWMPCdromCollection.ahk
-#Include .\IWMPClosedCaption.ahk
-#Include .\IWMPError.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPPlayState.ahk" { WMPPlayState }
+#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
+#Import ".\IWMPSettings.ahk" { IWMPSettings }
+#Import ".\WMPOpenState.ahk" { WMPOpenState }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPControls.ahk" { IWMPControls }
+#Import ".\IWMPPlaylistCollection.ahk" { IWMPPlaylistCollection }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import ".\IWMPCdromCollection.ahk" { IWMPCdromCollection }
+#Import ".\IWMPError.ahk" { IWMPError }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import ".\IWMPNetwork.ahk" { IWMPNetwork }
+#Import ".\IWMPClosedCaption.ahk" { IWMPClosedCaption }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPCore interface is the root interface for the Windows Media Player control. It can be used to retrieve pointers to other interfaces supported by the control and to access some basic features.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcore
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPCore extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPCore extends IDispatch {
     /**
      * The interface identifier for IWMPCore
      * @type {Guid}
      */
-    static IID => Guid("{d84cca99-cce2-11d2-9ecc-0000f8085981}")
+    static IID := Guid("{d84cca99-cce2-11d2-9ecc-0000f8085981}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPCore interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        close                  : IntPtr
+        get_URL                : IntPtr
+        put_URL                : IntPtr
+        get_openState          : IntPtr
+        get_playState          : IntPtr
+        get_controls           : IntPtr
+        get_settings           : IntPtr
+        get_currentMedia       : IntPtr
+        put_currentMedia       : IntPtr
+        get_mediaCollection    : IntPtr
+        get_playlistCollection : IntPtr
+        get_versionInfo        : IntPtr
+        launchURL              : IntPtr
+        get_network            : IntPtr
+        get_currentPlaylist    : IntPtr
+        put_currentPlaylist    : IntPtr
+        get_cdromCollection    : IntPtr
+        get_closedCaption      : IntPtr
+        get_isOnline           : IntPtr
+        get_error              : IntPtr
+        get_status             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["close", "get_URL", "put_URL", "get_openState", "get_playState", "get_controls", "get_settings", "get_currentMedia", "put_currentMedia", "get_mediaCollection", "get_playlistCollection", "get_versionInfo", "launchURL", "get_network", "get_currentPlaylist", "put_currentPlaylist", "get_cdromCollection", "get_closedCaption", "get_isOnline", "get_error", "get_status"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPCore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -208,7 +240,7 @@ class IWMPCore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_url
      */
     get_URL(pbstrURL) {
-        result := ComCall(8, this, "ptr", pbstrURL, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pbstrURL, "HRESULT")
         return result
     }
 
@@ -245,7 +277,7 @@ class IWMPCore extends IDispatch {
     put_URL(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(9, this, "ptr", bstrURL, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrURL, "HRESULT")
         return result
     }
 
@@ -429,7 +461,7 @@ class IWMPCore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_versioninfo
      */
     get_versionInfo(pbstrVersionInfo) {
-        result := ComCall(18, this, "ptr", pbstrVersionInfo, "HRESULT")
+        result := ComCall(18, this, BSTR.Ptr, pbstrVersionInfo, "HRESULT")
         return result
     }
 
@@ -464,7 +496,7 @@ class IWMPCore extends IDispatch {
     launchURL(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(19, this, "ptr", bstrURL, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrURL, "HRESULT")
         return result
     }
 
@@ -617,7 +649,67 @@ class IWMPCore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_status
      */
     get_status(pbstrStatus) {
-        result := ComCall(27, this, "ptr", pbstrStatus, "HRESULT")
+        result := ComCall(27, this, BSTR.Ptr, pbstrStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPCore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.close := CallbackCreate(GetMethod(implObj, "close"), flags, 1)
+        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_openState := CallbackCreate(GetMethod(implObj, "get_openState"), flags, 2)
+        this.vtbl.get_playState := CallbackCreate(GetMethod(implObj, "get_playState"), flags, 2)
+        this.vtbl.get_controls := CallbackCreate(GetMethod(implObj, "get_controls"), flags, 2)
+        this.vtbl.get_settings := CallbackCreate(GetMethod(implObj, "get_settings"), flags, 2)
+        this.vtbl.get_currentMedia := CallbackCreate(GetMethod(implObj, "get_currentMedia"), flags, 2)
+        this.vtbl.put_currentMedia := CallbackCreate(GetMethod(implObj, "put_currentMedia"), flags, 2)
+        this.vtbl.get_mediaCollection := CallbackCreate(GetMethod(implObj, "get_mediaCollection"), flags, 2)
+        this.vtbl.get_playlistCollection := CallbackCreate(GetMethod(implObj, "get_playlistCollection"), flags, 2)
+        this.vtbl.get_versionInfo := CallbackCreate(GetMethod(implObj, "get_versionInfo"), flags, 2)
+        this.vtbl.launchURL := CallbackCreate(GetMethod(implObj, "launchURL"), flags, 2)
+        this.vtbl.get_network := CallbackCreate(GetMethod(implObj, "get_network"), flags, 2)
+        this.vtbl.get_currentPlaylist := CallbackCreate(GetMethod(implObj, "get_currentPlaylist"), flags, 2)
+        this.vtbl.put_currentPlaylist := CallbackCreate(GetMethod(implObj, "put_currentPlaylist"), flags, 2)
+        this.vtbl.get_cdromCollection := CallbackCreate(GetMethod(implObj, "get_cdromCollection"), flags, 2)
+        this.vtbl.get_closedCaption := CallbackCreate(GetMethod(implObj, "get_closedCaption"), flags, 2)
+        this.vtbl.get_isOnline := CallbackCreate(GetMethod(implObj, "get_isOnline"), flags, 2)
+        this.vtbl.get_error := CallbackCreate(GetMethod(implObj, "get_error"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.close)
+        CallbackFree(this.vtbl.get_URL)
+        CallbackFree(this.vtbl.put_URL)
+        CallbackFree(this.vtbl.get_openState)
+        CallbackFree(this.vtbl.get_playState)
+        CallbackFree(this.vtbl.get_controls)
+        CallbackFree(this.vtbl.get_settings)
+        CallbackFree(this.vtbl.get_currentMedia)
+        CallbackFree(this.vtbl.put_currentMedia)
+        CallbackFree(this.vtbl.get_mediaCollection)
+        CallbackFree(this.vtbl.get_playlistCollection)
+        CallbackFree(this.vtbl.get_versionInfo)
+        CallbackFree(this.vtbl.launchURL)
+        CallbackFree(this.vtbl.get_network)
+        CallbackFree(this.vtbl.get_currentPlaylist)
+        CallbackFree(this.vtbl.put_currentPlaylist)
+        CallbackFree(this.vtbl.get_cdromCollection)
+        CallbackFree(this.vtbl.get_closedCaption)
+        CallbackFree(this.vtbl.get_isOnline)
+        CallbackFree(this.vtbl.get_error)
+        CallbackFree(this.vtbl.get_status)
     }
 }

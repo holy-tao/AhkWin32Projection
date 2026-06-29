@@ -1,110 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class CPTABLEINFO extends Win32Struct {
-    static sizeof => 64
+export default struct CPTABLEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    CodePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CodePage {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MaximumCharacterSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaximumCharacterSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DefaultChar : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DefaultChar {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    UniDefaultChar : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    UniDefaultChar {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    TransDefaultChar : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransDefaultChar {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    TransUniDefaultChar : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransUniDefaultChar {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    DBCSCodePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DBCSCodePage {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    LeadByte : Int8[12]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    LeadByte {
-        get {
-            if(!this.HasProp("__LeadByteProxyArray"))
-                this.__LeadByteProxyArray := Win32FixedArray(this.ptr + 14, 12, Primitive, "char")
-            return this.__LeadByteProxyArray
-        }
-    }
+    MultiByteTable : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    MultiByteTable {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    WideCharTable : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    WideCharTable {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DBCSRanges : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    DBCSRanges {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    DBCSOffsets : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    DBCSOffsets {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

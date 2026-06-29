@@ -1,62 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIDL_STUB_DESC.ahk
-#Include .\RPC_SYNTAX_IDENTIFIER.ahk
-#Include .\MIDL_SYNTAX_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIDL_SYNTAX_INFO.ahk" { MIDL_SYNTAX_INFO }
+#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
+#Import ".\MIDL_STUB_DESC.ahk" { MIDL_STUB_DESC }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class MIDL_STUBLESS_PROXY_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct MIDL_STUBLESS_PROXY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pStubDesc : MIDL_STUB_DESC.Ptr
 
-    /**
-     * @type {Pointer<MIDL_STUB_DESC>}
-     */
-    pStubDesc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ProcFormatString : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ProcFormatString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FormatStringOffset : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    FormatStringOffset {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pTransferSyntax : RPC_SYNTAX_IDENTIFIER.Ptr
 
-    /**
-     * @type {Pointer<RPC_SYNTAX_IDENTIFIER>}
-     */
-    pTransferSyntax {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    nCount : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    nCount {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pSyntaxInfo : MIDL_SYNTAX_INFO.Ptr
 
-    /**
-     * @type {Pointer<MIDL_SYNTAX_INFO>}
-     */
-    pSyntaxInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

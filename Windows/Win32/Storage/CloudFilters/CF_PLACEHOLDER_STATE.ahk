@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The state of a placeholder file or folder.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_placeholder_state
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_PLACEHOLDER_STATE extends Win32BitflagEnum {
+export default struct CF_PLACEHOLDER_STATE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * When returned, the file or directory whose *FileAttributes* and *ReparseTag* examined by the API is not a placeholder.

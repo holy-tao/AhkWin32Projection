@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DSwapChain9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import ".\IDirect3DSwapChain9.ahk" { IDirect3DSwapChain9 }
+#Import ".\D3DPRESENTSTATS.ahk" { D3DPRESENTSTATS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
 
 /**
  * Applications use the methods of the IDirect3DSwapChain9Ex interface to manipulate a swap chain.
@@ -17,26 +21,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dswapchain9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
     /**
      * The interface identifier for IDirect3DSwapChain9Ex
      * @type {Guid}
      */
-    static IID => Guid("{91886caf-1c3d-4d2e-a0ab-3e4c7d8d3303}")
+    static IID := Guid("{91886caf-1c3d-4d2e-a0ab-3e4c7d8d3303}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DSwapChain9Ex interfaces
+    */
+    struct Vtbl extends IDirect3DSwapChain9.Vtbl {
+        GetLastPresentCount : IntPtr
+        GetPresentStats     : IntPtr
+        GetDisplayModeEx    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLastPresentCount", "GetPresentStats", "GetDisplayModeEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DSwapChain9Ex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the number of times the swapchain has been processed.
@@ -61,7 +74,7 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
      * @returns {HRESULT} 
      */
     GetPresentStats(pPresentationStatistics) {
-        result := ComCall(11, this, "ptr", pPresentationStatistics, "HRESULT")
+        result := ComCall(11, this, D3DPRESENTSTATS.Ptr, pPresentationStatistics, "HRESULT")
         return result
     }
 
@@ -81,7 +94,31 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
     GetDisplayModeEx(pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pMode, pRotationMarshal, pRotation, "HRESULT")
+        result := ComCall(12, this, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DSwapChain9Ex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLastPresentCount := CallbackCreate(GetMethod(implObj, "GetLastPresentCount"), flags, 2)
+        this.vtbl.GetPresentStats := CallbackCreate(GetMethod(implObj, "GetPresentStats"), flags, 2)
+        this.vtbl.GetDisplayModeEx := CallbackCreate(GetMethod(implObj, "GetDisplayModeEx"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLastPresentCount)
+        CallbackFree(this.vtbl.GetPresentStats)
+        CallbackFree(this.vtbl.GetDisplayModeEx)
     }
 }

@@ -1,91 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENUITEMTEMPLATEHEADER.ahk
-#Include .\MENUITEMTEMPLATE.ahk
-#Include .\MENUEX_TEMPLATE_HEADER.ahk
-#Include .\MENUEX_TEMPLATE_ITEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MENUEX_TEMPLATE_ITEM.ahk" { MENUEX_TEMPLATE_ITEM }
+#Import ".\MENUITEMTEMPLATEHEADER.ahk" { MENUITEMTEMPLATEHEADER }
+#Import ".\MENUITEMTEMPLATE.ahk" { MENUITEMTEMPLATE }
+#Import ".\MENUEX_TEMPLATE_HEADER.ahk" { MENUEX_TEMPLATE_HEADER }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MENUTEMPLATEEX extends Win32Struct {
-    static sizeof => 24
+export default struct MENUTEMPLATEEX {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Menu extends Win32Struct {
-        static sizeof => 10
-        static packingSize => 2
+    struct _Menu {
+        mitHeader : MENUITEMTEMPLATEHEADER
 
-        /**
-         * @type {MENUITEMTEMPLATEHEADER}
-         */
-        mitHeader {
-            get {
-                if(!this.HasProp("__mitHeader"))
-                    this.__mitHeader := MENUITEMTEMPLATEHEADER(0, this)
-                return this.__mitHeader
-            }
-        }
+        miTemplate : MENUITEMTEMPLATE[1]
 
-        /**
-         * @type {MENUITEMTEMPLATE}
-         */
-        miTemplate {
-            get {
-                if(!this.HasProp("__miTemplateProxyArray"))
-                    this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 4, 1, MENUITEMTEMPLATE, "")
-                return this.__miTemplateProxyArray
-            }
-        }
     }
 
-    class _MenuEx extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+    struct _MenuEx {
+        mexHeader : MENUEX_TEMPLATE_HEADER
 
-        /**
-         * @type {MENUEX_TEMPLATE_HEADER}
-         */
-        mexHeader {
-            get {
-                if(!this.HasProp("__mexHeader"))
-                    this.__mexHeader := MENUEX_TEMPLATE_HEADER(0, this)
-                return this.__mexHeader
-            }
-        }
+        mexItem : MENUEX_TEMPLATE_ITEM[1]
 
-        /**
-         * @type {MENUEX_TEMPLATE_ITEM}
-         */
-        mexItem {
-            get {
-                if(!this.HasProp("__mexItemProxyArray"))
-                    this.__mexItemProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUEX_TEMPLATE_ITEM, "")
-                return this.__mexItemProxyArray
-            }
-        }
     }
 
-    /**
-     * @type {_Menu}
-     */
-    Menu {
-        get {
-            if(!this.HasProp("__Menu"))
-                this.__Menu := MENUTEMPLATEEX._Menu(0, this)
-            return this.__Menu
-        }
-    }
+    Menu : MENUTEMPLATEEX._Menu
 
-    /**
-     * @type {_MenuEx}
-     */
-    MenuEx {
-        get {
-            if(!this.HasProp("__MenuEx"))
-                this.__MenuEx := MENUTEMPLATEEX._MenuEx(0, this)
-            return this.__MenuEx
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'MenuEx', { type: MENUTEMPLATEEX._MenuEx, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

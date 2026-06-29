@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAudioSystemEffectsPropertyChangeNotificationClient.ahk" { IAudioSystemEffectsPropertyChangeNotificationClient }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to manage audio system effects audio stores and to register for notifications when audio system effect properties change.
@@ -13,26 +15,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-iaudiosystemeffectspropertystore
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioSystemEffectsPropertyStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSystemEffectsPropertyStore extends IUnknown {
     /**
      * The interface identifier for IAudioSystemEffectsPropertyStore
      * @type {Guid}
      */
-    static IID => Guid("{302ae7f9-d7e0-43e4-971b-1f8293613d2a}")
+    static IID := Guid("{302ae7f9-d7e0-43e4-971b-1f8293613d2a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSystemEffectsPropertyStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OpenDefaultPropertyStore             : IntPtr
+        OpenUserPropertyStore                : IntPtr
+        OpenVolatilePropertyStore            : IntPtr
+        ResetUserPropertyStore               : IntPtr
+        ResetVolatilePropertyStore           : IntPtr
+        RegisterPropertyChangeNotification   : IntPtr
+        UnregisterPropertyChangeNotification : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenDefaultPropertyStore", "OpenUserPropertyStore", "OpenVolatilePropertyStore", "ResetUserPropertyStore", "ResetVolatilePropertyStore", "RegisterPropertyChangeNotification", "UnregisterPropertyChangeNotification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSystemEffectsPropertyStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens the audio system effects default property store.
@@ -153,5 +168,37 @@ class IAudioSystemEffectsPropertyStore extends IUnknown {
     UnregisterPropertyChangeNotification(callback) {
         result := ComCall(9, this, "ptr", callback, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioSystemEffectsPropertyStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenDefaultPropertyStore := CallbackCreate(GetMethod(implObj, "OpenDefaultPropertyStore"), flags, 3)
+        this.vtbl.OpenUserPropertyStore := CallbackCreate(GetMethod(implObj, "OpenUserPropertyStore"), flags, 3)
+        this.vtbl.OpenVolatilePropertyStore := CallbackCreate(GetMethod(implObj, "OpenVolatilePropertyStore"), flags, 3)
+        this.vtbl.ResetUserPropertyStore := CallbackCreate(GetMethod(implObj, "ResetUserPropertyStore"), flags, 1)
+        this.vtbl.ResetVolatilePropertyStore := CallbackCreate(GetMethod(implObj, "ResetVolatilePropertyStore"), flags, 1)
+        this.vtbl.RegisterPropertyChangeNotification := CallbackCreate(GetMethod(implObj, "RegisterPropertyChangeNotification"), flags, 2)
+        this.vtbl.UnregisterPropertyChangeNotification := CallbackCreate(GetMethod(implObj, "UnregisterPropertyChangeNotification"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenDefaultPropertyStore)
+        CallbackFree(this.vtbl.OpenUserPropertyStore)
+        CallbackFree(this.vtbl.OpenVolatilePropertyStore)
+        CallbackFree(this.vtbl.ResetUserPropertyStore)
+        CallbackFree(this.vtbl.ResetVolatilePropertyStore)
+        CallbackFree(this.vtbl.RegisterPropertyChangeNotification)
+        CallbackFree(this.vtbl.UnregisterPropertyChangeNotification)
     }
 }

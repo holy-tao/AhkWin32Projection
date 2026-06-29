@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies function flags.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-funcflags
  * @namespace Windows.Win32.System.Com
  */
-class FUNCFLAGS extends Win32Enum {
+export default struct FUNCFLAGS {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The function should not be accessible from macro languages. This flag is intended for system-level functions or functions that type browsers should not display.

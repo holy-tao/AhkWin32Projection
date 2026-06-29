@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SecPkgInfoW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SecPkgInfoW.ahk" { SecPkgInfoW }
 
 /**
  * Holds package information.
@@ -8,17 +7,12 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @charset Unicode
  */
-class SecPkgContext_PackageInfoW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct SecPkgContext_PackageInfoW {
+    #StructPack 8
 
     /**
      * The package information.
-     * @type {Pointer<SecPkgInfoW>}
      */
-    PackageInfo {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PackageInfo : SecPkgInfoW.Ptr
+
 }

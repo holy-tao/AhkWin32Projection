@@ -1,36 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ATTRIBUTE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ATTRIBUTE_TYPE.ahk" { ATTRIBUTE_TYPE }
 
 /**
  * The HelperAttributeInfo structure contains the name of the helper attribute and its type.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-helperattributeinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class HelperAttributeInfo extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct HelperAttributeInfo {
+    #StructPack 8
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * Pointer to a null-terminated string that contains the name of the helper attribute.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszName : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ne-ndattrib-attribute_type">ATTRIBUTE_TYPE</a></b>
      * 
      * The type of helper attribute.
-     * @type {ATTRIBUTE_TYPE}
      */
-    type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    type : ATTRIBUTE_TYPE
+
 }

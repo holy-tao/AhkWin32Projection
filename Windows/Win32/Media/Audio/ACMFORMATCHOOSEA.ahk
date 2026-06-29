@@ -1,149 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\WAVEFORMATEX.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset ANSI
  */
-class ACMFORMATCHOOSEA extends Win32Struct {
-    static sizeof => 272
+export default struct ACMFORMATCHOOSEA {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fdwStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwStyle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hwndOwner : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    pwfx : WAVEFORMATEX.Ptr
 
-    /**
-     * @type {Pointer<WAVEFORMATEX>}
-     */
-    pwfx {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbwfx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbwfx {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pszTitle : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    szFormatTag : CHAR[48]
 
-    /**
-     * @type {String}
-     */
-    szFormatTag {
-        get => StrGet(this.ptr + 40, 47, "UTF-8")
-        set => StrPut(value, this.ptr + 40, 47, "UTF-8")
-    }
+    szFormat : CHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szFormat {
-        get => StrGet(this.ptr + 88, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 88, 127, "UTF-8")
-    }
+    pszName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszName {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    cchName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cchName {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    fdwEnum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwEnum {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
-    }
+    pwfxEnum : WAVEFORMATEX.Ptr
 
-    /**
-     * @type {Pointer<WAVEFORMATEX>}
-     */
-    pwfxEnum {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    hInstance : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(240, this)
-            return this.__hInstance
-        }
-    }
+    pszTemplateName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszTemplateName {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
-    }
+    lCustData : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lCustData {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
-    }
+    pfnHook : IntPtr
 
-    /**
-     * @type {Pointer<ACMFORMATCHOOSEHOOKPROCA>}
-     */
-    pfnHook {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
 }

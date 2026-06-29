@@ -1,46 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DxcBuffer.ahk" { DxcBuffer }
+#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcCompiler3 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcCompiler3 extends IUnknown {
     /**
      * The interface identifier for IDxcCompiler3
      * @type {Guid}
      */
-    static IID => Guid("{228b4687-5a6a-4730-900c-9702b2203f54}")
+    static IID := Guid("{228b4687-5a6a-4730-900c-9702b2203f54}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcCompiler3 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Compile     : IntPtr
+        Disassemble : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcCompiler3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Compile", "Disassemble"]
-
-    /**
-     * This section contains information about the following Direct3D HLSL compiler functions
+     * 
      * @param {Pointer<DxcBuffer>} pSource 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-d3dcompiler-reference-functions
      */
     Compile(pSource, pArguments, argCount, pIncludeHandler, riid) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSource, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, DxcBuffer.Ptr, pSource, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pIncludeHandler, Guid.Ptr, riid, "ptr*", &ppResult := 0, "HRESULT")
         return ppResult
     }
 
@@ -51,7 +62,29 @@ class IDxcCompiler3 extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     Disassemble(pObject, riid) {
-        result := ComCall(4, this, "ptr", pObject, "ptr", riid, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, DxcBuffer.Ptr, pObject, Guid.Ptr, riid, "ptr*", &ppResult := 0, "HRESULT")
         return ppResult
+    }
+
+    Query(iid) {
+        if (IDxcCompiler3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Compile := CallbackCreate(GetMethod(implObj, "Compile"), flags, 7)
+        this.vtbl.Disassemble := CallbackCreate(GetMethod(implObj, "Disassemble"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Compile)
+        CallbackFree(this.vtbl.Disassemble)
     }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class EXT_API_VERSION extends Win32Struct {
-    static sizeof => 8
+export default struct EXT_API_VERSION {
+    #StructPack 2
 
-    static packingSize => 2
+    MajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MinorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Revision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

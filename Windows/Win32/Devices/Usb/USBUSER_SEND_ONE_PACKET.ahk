@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
-#Include .\PACKET_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
+#Import ".\PACKET_PARAMETERS.ahk" { PACKET_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBUSER_SEND_ONE_PACKET extends Win32Struct {
-    static sizeof => 48
+export default struct USBUSER_SEND_ONE_PACKET {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : USBUSER_REQUEST_HEADER
 
-    /**
-     * @type {USBUSER_REQUEST_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    PacketParameters : PACKET_PARAMETERS
 
-    /**
-     * @type {PACKET_PARAMETERS}
-     */
-    PacketParameters {
-        get {
-            if(!this.HasProp("__PacketParameters"))
-                this.__PacketParameters := PACKET_PARAMETERS(16, this)
-            return this.__PacketParameters
-        }
-    }
 }

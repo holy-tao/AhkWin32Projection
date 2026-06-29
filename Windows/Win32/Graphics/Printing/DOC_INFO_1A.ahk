@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The DOC\_INFO\_1 structure describes a document that will be printed.
@@ -7,35 +7,22 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset ANSI
  */
-class DOC_INFO_1A extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DOC_INFO_1A {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the name of the document.
-     * @type {PSTR}
      */
-    pDocName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pDocName : PSTR
 
     /**
      * Pointer to a null-terminated string that specifies the name of an output file. To print to a printer, set this to **NULL**.
-     * @type {PSTR}
      */
-    pOutputFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pOutputFile : PSTR
 
     /**
      * Pointer to a null-terminated string that identifies the type of data used to record the document.
-     * @type {PSTR}
      */
-    pDatatype {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDatatype : PSTR
+
 }

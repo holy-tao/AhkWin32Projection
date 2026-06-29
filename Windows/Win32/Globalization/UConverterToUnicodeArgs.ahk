@@ -1,75 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UConverter.ahk" { UConverter }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UConverterToUnicodeArgs extends Win32Struct {
-    static sizeof => 56
+export default struct UConverterToUnicodeArgs {
+    #StructPack 8
 
-    static packingSize => 8
+    size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    flush : Int8
 
-    /**
-     * @type {Integer}
-     */
-    flush {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    converter : UConverter.Ptr
 
-    /**
-     * @type {Pointer<UConverter>}
-     */
-    converter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    source : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    source {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    sourceLimit : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    sourceLimit {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    target : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    target {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    targetLimit : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    targetLimit {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    offsets : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    offsets {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_ROI_ISPCONTROLHEADER extends Win32Struct {
-    static sizeof => 16
+export default struct KSCAMERA_EXTENDEDPROP_ROI_ISPCONTROLHEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ControlCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ControlCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

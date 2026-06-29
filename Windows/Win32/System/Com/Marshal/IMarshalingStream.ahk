@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IStream.ahk" { IStream }
+#Import "..\CO_MARSHALING_CONTEXT_ATTRIBUTES.ahk" { CO_MARSHALING_CONTEXT_ATTRIBUTES }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMarshalingStream (objidlbase.h) interface provides additional information about the marshaling context to custom-marshaled objects and unmarshalers.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-imarshalingstream
  * @namespace Windows.Win32.System.Com.Marshal
  */
-class IMarshalingStream extends IStream {
-
-    static sizeof => A_PtrSize
+export default struct IMarshalingStream extends IStream {
     /**
      * The interface identifier for IMarshalingStream
      * @type {Guid}
      */
-    static IID => Guid("{d8f2f5e6-6102-4863-9f26-389a4676efde}")
+    static IID := Guid("{d8f2f5e6-6102-4863-9f26-389a4676efde}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMarshalingStream interfaces
+    */
+    struct Vtbl extends IStream.Vtbl {
+        GetMarshalingContextAttribute : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMarshalingContextAttribute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMarshalingStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IMarshalingStream::GetMarshalingContextAttribute (objidlbase.h) method gets information about the marshaling context.
@@ -60,7 +69,27 @@ class IMarshalingStream extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshalingstream-getmarshalingcontextattribute
      */
     GetMarshalingContextAttribute(attribute) {
-        result := ComCall(14, this, "int", attribute, "ptr*", &pAttributeValue := 0, "HRESULT")
+        result := ComCall(14, this, CO_MARSHALING_CONTEXT_ATTRIBUTES, attribute, "ptr*", &pAttributeValue := 0, "HRESULT")
         return pAttributeValue
+    }
+
+    Query(iid) {
+        if (IMarshalingStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMarshalingContextAttribute := CallbackCreate(GetMethod(implObj, "GetMarshalingContextAttribute"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMarshalingContextAttribute)
     }
 }

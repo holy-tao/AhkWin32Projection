@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The properties available on the Context. Not all properties may be available at a given point on a context. All context properties are available through WsGetOperationContextProperty.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_operation_context_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_OPERATION_CONTEXT_PROPERTY_ID extends Win32Enum {
+export default struct WS_OPERATION_CONTEXT_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is a handle to the underlying channel. This property is available to service operations ,

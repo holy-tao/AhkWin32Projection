@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPortableDeviceContent.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceContent.ahk" { IPortableDeviceContent }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines additional methods that provide access to content found on a device.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicecontent2
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceContent2 extends IPortableDeviceContent {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceContent2 extends IPortableDeviceContent {
     /**
      * The interface identifier for IPortableDeviceContent2
      * @type {Guid}
      */
-    static IID => Guid("{9b4add96-f6bf-4034-8708-eca72bf10554}")
+    static IID := Guid("{9b4add96-f6bf-4034-8708-eca72bf10554}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceContent2 interfaces
+    */
+    struct Vtbl extends IPortableDeviceContent.Vtbl {
+        UpdateObjectWithPropertiesAndData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateObjectWithPropertiesAndData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceContent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates an object by using properties and data found on the device.
@@ -53,5 +63,25 @@ class IPortableDeviceContent2 extends IPortableDeviceContent {
 
         result := ComCall(13, this, "ptr", pszObjectID, "ptr", pProperties, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "HRESULT")
         return IStream(ppData)
+    }
+
+    Query(iid) {
+        if (IPortableDeviceContent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateObjectWithPropertiesAndData := CallbackCreate(GetMethod(implObj, "UpdateObjectWithPropertiesAndData"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateObjectWithPropertiesAndData)
     }
 }

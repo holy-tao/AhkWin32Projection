@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the IASOSTYPE enumeration type specify what type of operating system the client requesting authentication (SDO computer) is running.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasostype
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class IASOSTYPE extends Win32Enum {
+export default struct IASOSTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not supported.

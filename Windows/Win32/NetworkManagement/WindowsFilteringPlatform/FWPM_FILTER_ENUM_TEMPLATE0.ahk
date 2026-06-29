@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_FILTER_ENUM_TYPE.ahk
-#Include .\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk
-#Include .\FWPM_FILTER_CONDITION0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_FILTER_ENUM_TYPE.ahk" { FWP_FILTER_ENUM_TYPE }
+#Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
 
 /**
  * Is used for enumerating filters.
@@ -11,37 +11,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct FWPM_FILTER_ENUM_TEMPLATE0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the provider associated with this filter.
-     * @type {Pointer<Guid>}
      */
-    providerKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    providerKey : Guid.Ptr
 
     /**
      * Layer whose fields are to be enumerated.
-     * @type {Pointer}
      */
-    layerKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    layerKey : Guid
 
     /**
      * A [FWP_FILTER_ENUM_TYPE](/windows/win32/api/fwptypes/ne-fwptypes-fwp_filter_enum_type) value that determines how the filter conditions are interpreted.
-     * @type {FWP_FILTER_ENUM_TYPE}
      */
-    enumType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    enumType : FWP_FILTER_ENUM_TYPE
 
     /**
      * <table>
@@ -100,39 +86,23 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    flags : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_enum_template0">FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0</a> structure that is used to limit the number of filters enumerated. If non-**NULL**, only enumerate filters whose provider context matches the template.
-     * @type {Pointer<FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0>}
      */
-    providerContextTemplate {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    providerContextTemplate : FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.Ptr
 
     /**
      * Number of filter conditions. If zero, then all filters match.
-     * @type {Integer}
      */
-    numFilterConditions {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    numFilterConditions : UInt32
 
     /**
      * An array of [FWPM_FILTER_CONDITION0](/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_condition0) structures that contain distinct filter conditions (duplicated filter conditions will generate an error).
-     * @type {Pointer<FWPM_FILTER_CONDITION0>}
      */
-    filterCondition {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    filterCondition : FWPM_FILTER_CONDITION0.Ptr
 
     /**
      * Only filters whose action type contains at least one of the bits in **actionMask** will be returned. Using the **FWP_ACTION_** constants directly may not work as intended since they contain multiple bits. Some common examples are in the table below (**^** represents the logical XOR operator).
@@ -189,19 +159,12 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * </tr>
      * 
      * </table>
-     * @type {Integer}
      */
-    actionMask {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    actionMask : UInt32
 
     /**
      * Uniquely identifies the callout.
-     * @type {Pointer<Guid>}
      */
-    calloutKey {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    calloutKey : Guid.Ptr
+
 }

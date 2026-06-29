@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\HSZ.ahk
-#Include .\HCONV.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HCONV.ahk" { HCONV }
+#Import ".\HSZ.ahk" { HSZ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) advise loop. A DDE monitoring application can use this structure to obtain information about an advise loop that has started or ended.
@@ -14,158 +14,91 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monlinkstruct
  * @namespace Windows.Win32.System.DataExchange
  */
-class MONLINKSTRUCT extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct MONLINKSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The structure's size, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The Windows time at which the advise loop was started or ended. Windows time is the number of milliseconds that have elapsed since the system was booted.
-     * @type {Integer}
      */
-    dwTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTime : UInt32
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * A handle to a task (application instance) that is a partner in the advise loop.
-     * @type {HANDLE}
      */
-    hTask {
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(8, this)
-            return this.__hTask
-        }
-    }
+    hTask : HANDLE
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Indicates whether an advise loop was successfully established. A value of <b>TRUE</b> indicates an advise loop was established; <b>FALSE</b> indicates it was not.
-     * @type {BOOL}
      */
-    fEstablished {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fEstablished : BOOL
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Indicates whether the XTYPF_NODATA flag is set for the advise loop. A value of <b>TRUE</b> indicates the flag is set; <b>FALSE</b> indicates it is not.
-     * @type {BOOL}
      */
-    fNoData {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    fNoData : BOOL
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the server in the advise loop.
-     * @type {HSZ}
      */
-    hszSvc {
-        get {
-            if(!this.HasProp("__hszSvc"))
-                this.__hszSvc := HSZ(24, this)
-            return this.__hszSvc
-        }
-    }
+    hszSvc : HSZ
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name on which the advise loop is established.
-     * @type {HSZ}
      */
-    hszTopic {
-        get {
-            if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(32, this)
-            return this.__hszTopic
-        }
-    }
+    hszTopic : HSZ
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the item name that is the subject of the advise loop.
-     * @type {HSZ}
      */
-    hszItem {
-        get {
-            if(!this.HasProp("__hszItem"))
-                this.__hszItem := HSZ(40, this)
-            return this.__hszItem
-        }
-    }
+    hszItem : HSZ
 
     /**
      * Type: <b>UINT</b>
      * 
      * The format of the data exchanged (if any) during the advise loop.
-     * @type {Integer}
      */
-    wFmt {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    wFmt : UInt32
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Indicates whether the link notification came from the server. A value of <b>TRUE</b> indicates the notification came from the server; <b>FALSE</b> indicates otherwise.
-     * @type {BOOL}
      */
-    fServer {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    fServer : BOOL
 
     /**
      * Type: <b>HCONV</b>
      * 
      * A handle to the server conversation.
-     * @type {HCONV}
      */
-    hConvServer {
-        get {
-            if(!this.HasProp("__hConvServer"))
-                this.__hConvServer := HCONV(56, this)
-            return this.__hConvServer
-        }
-    }
+    hConvServer : HCONV
 
     /**
      * Type: <b>HCONV</b>
      * 
      * A handle to the client conversation.
-     * @type {HCONV}
      */
-    hConvClient {
-        get {
-            if(!this.HasProp("__hConvClient"))
-                this.__hConvClient := HCONV(64, this)
-            return this.__hConvClient
-        }
-    }
+    hConvClient : HCONV
+
 }

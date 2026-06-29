@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains the information for an update sequence number (USN) change journal version 2.0 record.
@@ -33,10 +33,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v2
  * @namespace Windows.Win32.System.Ioctl
  */
-class USN_RECORD_V2 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct USN_RECORD_V2 {
+    #StructPack 8
 
     /**
      * The total length of a record, in bytes.
@@ -71,12 +69,8 @@ class USN_RECORD_V2 extends Win32Struct {
      * To maintain compatibility across version changes of the change journal software, use a run-time calculation 
      *        to determine the size of the <b>USN_RECORD_V2</b> structure. For 
      *        more information about compatibility across version changes, see the Remarks section in this topic.
-     * @type {Integer}
      */
-    RecordLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RecordLength : UInt32
 
     /**
      * The major version number of the change journal software for this record.
@@ -124,64 +118,40 @@ class USN_RECORD_V2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    MajorVersion : UInt16
 
     /**
      * The minor version number of the change journal software for this record. For example, if the change journal 
      *       software is version 2.0, the minor version number is zero.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    MinorVersion : UInt16
 
     /**
      * The ordinal number of the file or directory for which this record notes changes.
      * 
      * This is an arbitrarily assigned value that associates a journal record with a file.
-     * @type {Integer}
      */
-    FileReferenceNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FileReferenceNumber : Int64
 
     /**
      * The ordinal number of the directory where the file or directory that is associated with this record is 
      *        located.
      * 
      * This is an arbitrarily assigned value that associates a journal record with a parent directory.
-     * @type {Integer}
      */
-    ParentFileReferenceNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ParentFileReferenceNumber : Int64
 
     /**
      * The USN of this record.
-     * @type {Integer}
      */
-    Usn {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    Usn : Int64
 
     /**
      * The standard UTC time stamp (<a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>) of this 
      *       record, in 64-bit format.
-     * @type {Integer}
      */
-    TimeStamp {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    TimeStamp : Int64
 
     /**
      * The flags that identify reasons for changes that have accumulated in this file or directory journal record 
@@ -473,12 +443,8 @@ class USN_RECORD_V2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Reason {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Reason : UInt32
 
     /**
      * Additional information about the source of the change, set by the 
@@ -553,52 +519,32 @@ class USN_RECORD_V2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SourceInfo {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    SourceInfo : UInt32
 
     /**
      * The unique security identifier assigned to the file or directory associated with this record.
-     * @type {Integer}
      */
-    SecurityId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SecurityId : UInt32
 
     /**
      * The attributes for the file or directory associated with this record, as returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a> function. Attributes of streams 
      *       associated with the file or directory are excluded.
-     * @type {Integer}
      */
-    FileAttributes {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    FileAttributes : UInt32
 
     /**
      * The length of the name of the file or directory associated with this record, in bytes. The 
      *       <b>FileName</b> member contains this name. Use this member to determine file name length, 
      *       rather than depending on a trailing '\0' to delimit the file name in <b>FileName</b>.
-     * @type {Integer}
      */
-    FileNameLength {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    FileNameLength : UInt16
 
     /**
      * The offset of the <b>FileName</b> member from the beginning of the structure.
-     * @type {Integer}
      */
-    FileNameOffset {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    FileNameOffset : UInt16
 
     /**
      * The name of the file or directory associated with this record in Unicode format. This file or directory name 
@@ -612,10 +558,7 @@ class USN_RECORD_V2 extends Win32Struct {
      *        necessary calculations at run time by using the value of the <b>FileNameOffset</b> member. 
      *        Doing so helps make your code compatible with any future versions of 
      *        <b>USN_RECORD_V2</b>.
-     * @type {String}
      */
-    FileName {
-        get => StrGet(this.ptr + 60, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 0, "UTF-16")
-    }
+    FileName : WCHAR[1]
+
 }

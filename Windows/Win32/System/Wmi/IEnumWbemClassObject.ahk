@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * The IEnumWbemClassObject interface is used to enumerate Common Information Model (CIM) objects and is similar to a standard COM enumerator.
@@ -10,26 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-ienumwbemclassobject
  * @namespace Windows.Win32.System.Wmi
  */
-class IEnumWbemClassObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumWbemClassObject extends IUnknown {
     /**
      * The interface identifier for IEnumWbemClassObject
      * @type {Guid}
      */
-    static IID => Guid("{027947e1-d731-11ce-a357-000000000001}")
+    static IID := Guid("{027947e1-d731-11ce-a357-000000000001}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumWbemClassObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reset     : IntPtr
+        Next      : IntPtr
+        NextAsync : IntPtr
+        Clone     : IntPtr
+        Skip      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "Next", "NextAsync", "Clone", "Skip"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumWbemClassObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IEnumWbemClassObject::Reset method resets an enumeration sequence back to the beginning. Because CIM objects are dynamic, calling this method does not necessarily return the same list of objects that you obtained previously.
@@ -90,7 +104,7 @@ class IEnumWbemClassObject extends IUnknown {
     Next(lTimeout, uCount, apObjects, puReturned) {
         puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", lTimeout, "uint", uCount, "ptr*", apObjects, puReturnedMarshal, puReturned, "int")
+        result := ComCall(4, this, "int", lTimeout, "uint", uCount, IWbemClassObject.Ptr, apObjects, puReturnedMarshal, puReturned, Int32)
         return result
     }
 
@@ -126,7 +140,7 @@ class IEnumWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-nextasync
      */
     NextAsync(uCount, pSink) {
-        result := ComCall(5, this, "uint", uCount, "ptr", pSink, "int")
+        result := ComCall(5, this, "uint", uCount, "ptr", pSink, Int32)
         return result
     }
 
@@ -164,7 +178,35 @@ class IEnumWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-skip
      */
     Skip(lTimeout, nCount) {
-        result := ComCall(7, this, "int", lTimeout, "uint", nCount, "int")
+        result := ComCall(7, this, "int", lTimeout, "uint", nCount, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IEnumWbemClassObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
+        this.vtbl.NextAsync := CallbackCreate(GetMethod(implObj, "NextAsync"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.NextAsync)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.Skip)
     }
 }

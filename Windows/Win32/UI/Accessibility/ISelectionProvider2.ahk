@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISelectionProvider.ahk
-#Include .\IRawElementProviderSimple.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISelectionProvider.ahk" { ISelectionProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 
 /**
  * Extends the ISelectionItemProvider interface to provide information about selected items.
@@ -32,26 +33,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iselectionprovider2
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ISelectionProvider2 extends ISelectionProvider {
-
-    static sizeof => A_PtrSize
+export default struct ISelectionProvider2 extends ISelectionProvider {
     /**
      * The interface identifier for ISelectionProvider2
      * @type {Guid}
      */
-    static IID => Guid("{14f68475-ee1c-44f6-a869-d239381f0fe7}")
+    static IID := Guid("{14f68475-ee1c-44f6-a869-d239381f0fe7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISelectionProvider2 interfaces
+    */
+    struct Vtbl extends ISelectionProvider.Vtbl {
+        get_FirstSelectedItem   : IntPtr
+        get_LastSelectedItem    : IntPtr
+        get_CurrentSelectedItem : IntPtr
+        get_ItemCount           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FirstSelectedItem", "get_LastSelectedItem", "get_CurrentSelectedItem", "get_ItemCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISelectionProvider2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRawElementProviderSimple} 
@@ -119,5 +130,31 @@ class ISelectionProvider2 extends ISelectionProvider {
     get_ItemCount() {
         result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (ISelectionProvider2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FirstSelectedItem := CallbackCreate(GetMethod(implObj, "get_FirstSelectedItem"), flags, 2)
+        this.vtbl.get_LastSelectedItem := CallbackCreate(GetMethod(implObj, "get_LastSelectedItem"), flags, 2)
+        this.vtbl.get_CurrentSelectedItem := CallbackCreate(GetMethod(implObj, "get_CurrentSelectedItem"), flags, 2)
+        this.vtbl.get_ItemCount := CallbackCreate(GetMethod(implObj, "get_ItemCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FirstSelectedItem)
+        CallbackFree(this.vtbl.get_LastSelectedItem)
+        CallbackFree(this.vtbl.get_CurrentSelectedItem)
+        CallbackFree(this.vtbl.get_ItemCount)
     }
 }

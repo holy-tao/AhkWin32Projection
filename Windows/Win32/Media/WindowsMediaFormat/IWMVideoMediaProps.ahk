@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMMediaProps.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMMediaProps.ahk" { IWMMediaProps }
 
 /**
  * With this interface, the application can specify additional video-specific parameters not available on the IWMMediaProps interface.To get access to the methods of this interface, call QueryInterface on a stream configuration object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmvideomediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMVideoMediaProps extends IWMMediaProps {
-
-    static sizeof => A_PtrSize
+export default struct IWMVideoMediaProps extends IWMMediaProps {
     /**
      * The interface identifier for IWMVideoMediaProps
      * @type {Guid}
      */
-    static IID => Guid("{96406bcf-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bcf-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMVideoMediaProps interfaces
+    */
+    struct Vtbl extends IWMMediaProps.Vtbl {
+        GetMaxKeyFrameSpacing : IntPtr
+        SetMaxKeyFrameSpacing : IntPtr
+        GetQuality            : IntPtr
+        SetQuality            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMaxKeyFrameSpacing", "SetMaxKeyFrameSpacing", "GetQuality", "SetQuality"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMVideoMediaProps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetMaxKeyFrameSpacing method retrieves the maximum interval between key frames.
@@ -77,5 +88,31 @@ class IWMVideoMediaProps extends IWMMediaProps {
     SetQuality(dwQuality) {
         result := ComCall(9, this, "uint", dwQuality, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMVideoMediaProps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMaxKeyFrameSpacing := CallbackCreate(GetMethod(implObj, "GetMaxKeyFrameSpacing"), flags, 2)
+        this.vtbl.SetMaxKeyFrameSpacing := CallbackCreate(GetMethod(implObj, "SetMaxKeyFrameSpacing"), flags, 2)
+        this.vtbl.GetQuality := CallbackCreate(GetMethod(implObj, "GetQuality"), flags, 2)
+        this.vtbl.SetQuality := CallbackCreate(GetMethod(implObj, "SetQuality"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMaxKeyFrameSpacing)
+        CallbackFree(this.vtbl.SetMaxKeyFrameSpacing)
+        CallbackFree(this.vtbl.GetQuality)
+        CallbackFree(this.vtbl.SetQuality)
     }
 }

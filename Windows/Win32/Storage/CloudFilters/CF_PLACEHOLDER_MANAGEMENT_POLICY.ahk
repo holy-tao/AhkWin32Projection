@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a placeholder management policy for a CF_SYNC_POLICIES structure.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_placeholder_management_policy
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_PLACEHOLDER_MANAGEMENT_POLICY extends Win32Enum {
+export default struct CF_PLACEHOLDER_MANAGEMENT_POLICY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Only a sync provider can perform placeholder management operations in a sync roo

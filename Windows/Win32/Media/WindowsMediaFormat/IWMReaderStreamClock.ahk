@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMReaderStreamClock interface provides access to the clock used by the reader.This interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderstreamclock
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderStreamClock extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderStreamClock extends IUnknown {
     /**
      * The interface identifier for IWMReaderStreamClock
      * @type {Guid}
      */
-    static IID => Guid("{96406bed-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bed-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderStreamClock interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTime   : IntPtr
+        SetTimer  : IntPtr
+        KillTimer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTime", "SetTimer", "KillTimer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderStreamClock.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetTime method retrieves the current value of the stream clock.
@@ -105,5 +115,29 @@ class IWMReaderStreamClock extends IUnknown {
     KillTimer(dwTimerId) {
         result := ComCall(5, this, "uint", dwTimerId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderStreamClock.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.SetTimer := CallbackCreate(GetMethod(implObj, "SetTimer"), flags, 4)
+        this.vtbl.KillTimer := CallbackCreate(GetMethod(implObj, "KillTimer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTime)
+        CallbackFree(this.vtbl.SetTimer)
+        CallbackFree(this.vtbl.KillTimer)
     }
 }

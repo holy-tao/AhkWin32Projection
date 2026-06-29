@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DOMAIN_CONFIGURATION_ARM64 extends Win32Struct {
-    static sizeof => 32
+export default struct DOMAIN_CONFIGURATION_ARM64 {
+    #StructPack 8
 
-    static packingSize => 8
+    Ttbr0 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Ttbr0 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Ttbr1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Ttbr1 {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Mair0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Mair0 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Mair1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Mair1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    InputSize0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InputSize0 {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    InputSize1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InputSize1 {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    CoherentTableWalks : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    CoherentTableWalks {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    TranslationEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TranslationEnabled {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
 }

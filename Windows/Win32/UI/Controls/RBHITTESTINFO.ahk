@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information specific to a hit test operation. This structure is used with the RB_HITTEST message.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rbhittestinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class RBHITTESTINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct RBHITTESTINFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that describes the point to be hit tested, in client coordinates.
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(0, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -98,21 +88,14 @@ class RBHITTESTINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    flags : UInt32
 
     /**
      * Type: <b>int</b>
      * 
      * Member that receives the rebar band's index at the point described by <b>pt</b>. This value will be the zero-based index of the band, or -1 if no band was at the hit-tested point.
-     * @type {Integer}
      */
-    iBand {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    iBand : Int32
+
 }

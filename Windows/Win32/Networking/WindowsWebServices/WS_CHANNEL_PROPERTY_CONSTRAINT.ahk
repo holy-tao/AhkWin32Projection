@@ -1,32 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTY_ID.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
+#Import ".\WS_CHANNEL_PROPERTY_ID.ahk" { WS_CHANNEL_PROPERTY_ID }
 
 /**
  * Specifies constraints for a particular channel property.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CHANNEL_PROPERTY_CONSTRAINT extends Win32Struct {
-    static sizeof => 48
+export default struct WS_CHANNEL_PROPERTY_CONSTRAINT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _out extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _out {
+        channelProperty : WS_CHANNEL_PROPERTY
 
-        /**
-         * @type {WS_CHANNEL_PROPERTY}
-         */
-        channelProperty {
-            get {
-                if(!this.HasProp("__channelProperty"))
-                    this.__channelProperty := WS_CHANNEL_PROPERTY(0, this)
-                return this.__channelProperty
-            }
-        }
     }
 
     /**
@@ -63,12 +50,8 @@ class WS_CHANNEL_PROPERTY_CONSTRAINT extends Win32Struct {
      * 
      * </li>
      * </ul>
-     * @type {WS_CHANNEL_PROPERTY_ID}
      */
-    id {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    id : WS_CHANNEL_PROPERTY_ID
 
     /**
      * An array of acceptable values.  The type of
@@ -76,34 +59,20 @@ class WS_CHANNEL_PROPERTY_CONSTRAINT extends Win32Struct {
      *                     of the channel property.  See the documentation for
      *                     a particular channel property to determine the type of the
      *                     property.
-     * @type {Pointer<Void>}
      */
-    allowedValues {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    allowedValues : IntPtr
 
     /**
      * The total size of the <b>allowedValues</b> array, in bytes.  This
      *                     size must be a multiple of the size of the type of the value
      *                     of the property.
-     * @type {Integer}
      */
-    allowedValuesSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    allowedValuesSize : UInt32
 
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     entire contents of this structure will be filled out.
-     * @type {_out}
      */
-    out {
-        get {
-            if(!this.HasProp("__out"))
-                this.__out := WS_CHANNEL_PROPERTY_CONSTRAINT._out(24, this)
-            return this.__out
-        }
-    }
+    out : WS_CHANNEL_PROPERTY_CONSTRAINT._out
+
 }

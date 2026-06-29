@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Blend options. A blend option identifies the data source and an optional pre-blend operation.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_blend
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_BLEND extends Win32Enum {
+export default struct D3D10_BLEND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The data source is the color black (0, 0, 0, 0). No pre-blend operation.

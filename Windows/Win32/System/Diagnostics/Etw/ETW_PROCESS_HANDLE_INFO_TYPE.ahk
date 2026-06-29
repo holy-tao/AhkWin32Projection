@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the operation that will be performed on a trace processing session.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ne-evntrace-etw_process_handle_info_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ETW_PROCESS_HANDLE_INFO_TYPE extends Win32Enum {
+export default struct ETW_PROCESS_HANDLE_INFO_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Used to query partition identifying information. _InBuffer_ should be Null.

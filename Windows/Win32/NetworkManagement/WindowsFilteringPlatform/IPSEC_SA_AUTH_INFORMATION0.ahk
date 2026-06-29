@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_AUTH_TRANSFORM0.ahk
-#Include .\IPSEC_AUTH_TRANSFORM_ID0.ahk
-#Include .\IPSEC_AUTH_TYPE.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_AUTH_TRANSFORM_ID0.ahk" { IPSEC_AUTH_TRANSFORM_ID0 }
+#Import ".\IPSEC_AUTH_TRANSFORM0.ahk" { IPSEC_AUTH_TRANSFORM0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_AUTH_TYPE.ahk" { IPSEC_AUTH_TYPE }
 
 /**
  * Stores information about the authentication algorithm of an IPsec security association (SA).
@@ -12,32 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_auth_information0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_AUTH_INFORMATION0 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IPSEC_SA_AUTH_INFORMATION0 {
+    #StructPack 8
 
     /**
      * Authentication algorithm details as specified by [IPSEC_AUTH_TRANSFORM0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_auth_transform0).
-     * @type {IPSEC_AUTH_TRANSFORM0}
      */
-    authTransform {
-        get {
-            if(!this.HasProp("__authTransform"))
-                this.__authTransform := IPSEC_AUTH_TRANSFORM0(0, this)
-            return this.__authTransform
-        }
-    }
+    authTransform : IPSEC_AUTH_TRANSFORM0
 
     /**
      * Key used for the authentication algorithm stored in a [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) structure.
-     * @type {FWP_BYTE_BLOB}
      */
-    authKey {
-        get {
-            if(!this.HasProp("__authKey"))
-                this.__authKey := FWP_BYTE_BLOB(16, this)
-            return this.__authKey
-        }
-    }
+    authKey : FWP_BYTE_BLOB
+
 }

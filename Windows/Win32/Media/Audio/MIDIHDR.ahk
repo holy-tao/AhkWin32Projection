@@ -1,52 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIDIHDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MIDIHDR structure defines the header used to identify a MIDI system-exclusive or stream buffer.
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midihdr
  * @namespace Windows.Win32.Media.Audio
  */
-class MIDIHDR extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct MIDIHDR {
+    #StructPack 8
 
     /**
      * Pointer to MIDI data.
-     * @type {PSTR}
      */
-    lpData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpData : PSTR
 
     /**
      * Size of the buffer.
-     * @type {Integer}
      */
-    dwBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwBufferLength : UInt32
 
     /**
      * Actual amount of data in the buffer. This value should be less than or equal to the value given in the <b>dwBufferLength</b> member.
-     * @type {Integer}
      */
-    dwBytesRecorded {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBytesRecorded : UInt32
 
     /**
      * Custom user data.
-     * @type {Pointer}
      */
-    dwUser {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwUser : IntPtr
 
     /**
      * Flags giving information about the buffer.
@@ -97,49 +78,27 @@ class MIDIHDR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Pointer<MIDIHDR>}
      */
-    lpNext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpNext : MIDIHDR.Ptr
 
     /**
      * Reserved; do not use.
-     * @type {Pointer}
      */
-    reserved {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    reserved : IntPtr
 
     /**
      * Offset into the buffer when a callback is performed. (This callback is generated because the MEVT_F_CALLBACK flag is set in the <b>dwEvent</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798448(v=vs.85)">MIDIEVENT</a> structure.) This offset enables an application to determine which event caused the callback.
-     * @type {Integer}
      */
-    dwOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwOffset : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Array<Pointer>}
      */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "ptr")
-            return this.__dwReservedProxyArray
-        }
-    }
+    dwReserved : IntPtr[8]
+
 }

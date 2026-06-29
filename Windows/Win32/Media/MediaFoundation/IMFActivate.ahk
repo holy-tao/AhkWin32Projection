@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Enables the application to defer the creation of an object.
@@ -10,26 +11,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfactivate
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFActivate extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFActivate extends IMFAttributes {
     /**
      * The interface identifier for IMFActivate
      * @type {Guid}
      */
-    static IID => Guid("{7fee9e9a-4a89-47a6-899c-b6a53a70fb67}")
+    static IID := Guid("{7fee9e9a-4a89-47a6-899c-b6a53a70fb67}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFActivate interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        ActivateObject : IntPtr
+        ShutdownObject : IntPtr
+        DetachObject   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateObject", "ShutdownObject", "DetachObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFActivate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates the object associated with this activation object.
@@ -53,7 +63,7 @@ class IMFActivate extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfactivate-activateobject
      */
     ActivateObject(riid) {
-        result := ComCall(33, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(33, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -134,5 +144,29 @@ class IMFActivate extends IMFAttributes {
     DetachObject() {
         result := ComCall(35, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFActivate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateObject := CallbackCreate(GetMethod(implObj, "ActivateObject"), flags, 3)
+        this.vtbl.ShutdownObject := CallbackCreate(GetMethod(implObj, "ShutdownObject"), flags, 1)
+        this.vtbl.DetachObject := CallbackCreate(GetMethod(implObj, "DetachObject"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateObject)
+        CallbackFree(this.vtbl.ShutdownObject)
+        CallbackFree(this.vtbl.DetachObject)
     }
 }

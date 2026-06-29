@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class ENDPOINTADDRESS2 extends Win32Struct {
-    static sizeof => 32
+export default struct ENDPOINTADDRESS2 {
+    #StructPack 8
 
-    static packingSize => 8
+    serviceUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    serviceUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    policyUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    policyUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    identityType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    identityType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    identityBytes : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    identityBytes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

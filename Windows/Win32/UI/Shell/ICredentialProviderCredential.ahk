@@ -1,8 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk" { CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CREDENTIAL_PROVIDER_STATUS_ICON.ahk" { CREDENTIAL_PROVIDER_STATUS_ICON }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
 
 /**
  * Exposes methods that enable the handling of a credential.
@@ -23,26 +33,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderCredential extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderCredential extends IUnknown {
     /**
      * The interface identifier for ICredentialProviderCredential
      * @type {Guid}
      */
-    static IID => Guid("{63913a93-40c1-481a-818d-4072ff8c70cc}")
+    static IID := Guid("{63913a93-40c1-481a-818d-4072ff8c70cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderCredential interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise                   : IntPtr
+        UnAdvise                 : IntPtr
+        SetSelected              : IntPtr
+        SetDeselected            : IntPtr
+        GetFieldState            : IntPtr
+        GetStringValue           : IntPtr
+        GetBitmapValue           : IntPtr
+        GetCheckboxValue         : IntPtr
+        GetSubmitButtonValue     : IntPtr
+        GetComboBoxValueCount    : IntPtr
+        GetComboBoxValueAt       : IntPtr
+        SetStringValue           : IntPtr
+        SetCheckboxValue         : IntPtr
+        SetComboBoxSelectedValue : IntPtr
+        CommandLinkClicked       : IntPtr
+        GetSerialization         : IntPtr
+        ReportResult             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "UnAdvise", "SetSelected", "SetDeselected", "GetFieldState", "GetStringValue", "GetBitmapValue", "GetCheckboxValue", "GetSubmitButtonValue", "GetComboBoxValueCount", "GetComboBoxValueAt", "SetStringValue", "SetCheckboxValue", "SetComboBoxSelectedValue", "CommandLinkClicked", "GetSerialization", "ReportResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderCredential.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables a credential to initiate events in the Logon UI or Credential UI through a callback interface. This method should be called before other methods in ICredentialProviderCredential interface.
@@ -91,7 +124,7 @@ class ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-setselected
      */
     SetSelected() {
-        result := ComCall(5, this, "int*", &pbAutoLogon := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &pbAutoLogon := 0, "HRESULT")
         return pbAutoLogon
     }
 
@@ -159,7 +192,7 @@ class ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getstringvalue
      */
     GetStringValue(dwFieldID) {
-        result := ComCall(8, this, "uint", dwFieldID, "ptr*", &ppsz := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwFieldID, PWSTR.Ptr, &ppsz := 0, "HRESULT")
         return ppsz
     }
 
@@ -176,8 +209,8 @@ class ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getbitmapvalue
      */
     GetBitmapValue(dwFieldID) {
-        phbmp := HBITMAP()
-        result := ComCall(9, this, "uint", dwFieldID, "ptr", phbmp, "HRESULT")
+        phbmp := HBITMAP.Owned()
+        result := ComCall(9, this, "uint", dwFieldID, HBITMAP.Ptr, phbmp, "HRESULT")
         return phbmp
     }
 
@@ -270,7 +303,7 @@ class ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcomboboxvalueat
      */
     GetComboBoxValueAt(dwFieldID, dwItem) {
-        result := ComCall(13, this, "uint", dwFieldID, "uint", dwItem, "ptr*", &ppszItem := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwFieldID, "uint", dwItem, PWSTR.Ptr, &ppszItem := 0, "HRESULT")
         return ppszItem
     }
 
@@ -321,7 +354,7 @@ class ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-setcheckboxvalue
      */
     SetCheckboxValue(dwFieldID, bChecked) {
-        result := ComCall(15, this, "uint", dwFieldID, "int", bChecked, "HRESULT")
+        result := ComCall(15, this, "uint", dwFieldID, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -415,7 +448,7 @@ class ICredentialProviderCredential extends IUnknown {
         ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : "ptr"
         pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, pcpgsrMarshal, pcpgsr, "ptr", pcpcs, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
+        result := ComCall(18, this, pcpgsrMarshal, pcpgsr, CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.Ptr, pcpcs, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
     }
 
@@ -446,7 +479,59 @@ class ICredentialProviderCredential extends IUnknown {
         ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : "ptr"
         pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "int", ntsStatus, "int", ntsSubstatus, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
+        result := ComCall(19, this, NTSTATUS, ntsStatus, NTSTATUS, ntsSubstatus, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICredentialProviderCredential.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 2)
+        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 1)
+        this.vtbl.SetSelected := CallbackCreate(GetMethod(implObj, "SetSelected"), flags, 2)
+        this.vtbl.SetDeselected := CallbackCreate(GetMethod(implObj, "SetDeselected"), flags, 1)
+        this.vtbl.GetFieldState := CallbackCreate(GetMethod(implObj, "GetFieldState"), flags, 4)
+        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetBitmapValue := CallbackCreate(GetMethod(implObj, "GetBitmapValue"), flags, 3)
+        this.vtbl.GetCheckboxValue := CallbackCreate(GetMethod(implObj, "GetCheckboxValue"), flags, 4)
+        this.vtbl.GetSubmitButtonValue := CallbackCreate(GetMethod(implObj, "GetSubmitButtonValue"), flags, 3)
+        this.vtbl.GetComboBoxValueCount := CallbackCreate(GetMethod(implObj, "GetComboBoxValueCount"), flags, 4)
+        this.vtbl.GetComboBoxValueAt := CallbackCreate(GetMethod(implObj, "GetComboBoxValueAt"), flags, 4)
+        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.SetCheckboxValue := CallbackCreate(GetMethod(implObj, "SetCheckboxValue"), flags, 3)
+        this.vtbl.SetComboBoxSelectedValue := CallbackCreate(GetMethod(implObj, "SetComboBoxSelectedValue"), flags, 3)
+        this.vtbl.CommandLinkClicked := CallbackCreate(GetMethod(implObj, "CommandLinkClicked"), flags, 2)
+        this.vtbl.GetSerialization := CallbackCreate(GetMethod(implObj, "GetSerialization"), flags, 5)
+        this.vtbl.ReportResult := CallbackCreate(GetMethod(implObj, "ReportResult"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.UnAdvise)
+        CallbackFree(this.vtbl.SetSelected)
+        CallbackFree(this.vtbl.SetDeselected)
+        CallbackFree(this.vtbl.GetFieldState)
+        CallbackFree(this.vtbl.GetStringValue)
+        CallbackFree(this.vtbl.GetBitmapValue)
+        CallbackFree(this.vtbl.GetCheckboxValue)
+        CallbackFree(this.vtbl.GetSubmitButtonValue)
+        CallbackFree(this.vtbl.GetComboBoxValueCount)
+        CallbackFree(this.vtbl.GetComboBoxValueAt)
+        CallbackFree(this.vtbl.SetStringValue)
+        CallbackFree(this.vtbl.SetCheckboxValue)
+        CallbackFree(this.vtbl.SetComboBoxSelectedValue)
+        CallbackFree(this.vtbl.CommandLinkClicked)
+        CallbackFree(this.vtbl.GetSerialization)
+        CallbackFree(this.vtbl.ReportResult)
     }
 }

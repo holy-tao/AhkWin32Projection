@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPEvents.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\WMPSyncState.ahk" { WMPSyncState }
+#Import ".\WMPDeviceStatus.ahk" { WMPDeviceStatus }
+#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
+#Import ".\IWMPEvents.ahk" { IWMPEvents }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPEvents2 interface provides events originating from the Windows Media Player 10 or later control to which an embedding program can respond. The events exposed by IWMPEvents2 are also exposed by the _WMPOCXEvents interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPEvents2 extends IWMPEvents {
-
-    static sizeof => A_PtrSize
+export default struct IWMPEvents2 extends IWMPEvents {
     /**
      * The interface identifier for IWMPEvents2
      * @type {Guid}
      */
-    static IID => Guid("{1e7601fa-47ea-4107-9ea9-9004ed9684ff}")
+    static IID := Guid("{1e7601fa-47ea-4107-9ea9-9004ed9684ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 48
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPEvents2 interfaces
+    */
+    struct Vtbl extends IWMPEvents.Vtbl {
+        DeviceConnect             : IntPtr
+        DeviceDisconnect          : IntPtr
+        DeviceStatusChange        : IntPtr
+        DeviceSyncStateChange     : IntPtr
+        DeviceSyncError           : IntPtr
+        CreatePartnershipComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeviceConnect", "DeviceDisconnect", "DeviceStatusChange", "DeviceSyncStateChange", "DeviceSyncError", "CreatePartnershipComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPEvents2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The DeviceConnect event occurs when the user connects a device to the computer.
@@ -73,7 +90,7 @@ class IWMPEvents2 extends IWMPEvents {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents2-devicestatuschange
      */
     DeviceStatusChange(pDevice, NewStatus) {
-        ComCall(50, this, "ptr", pDevice, "int", NewStatus)
+        ComCall(50, this, "ptr", pDevice, WMPDeviceStatus, NewStatus)
     }
 
     /**
@@ -90,7 +107,7 @@ class IWMPEvents2 extends IWMPEvents {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents2-devicesyncstatechange
      */
     DeviceSyncStateChange(pDevice, NewState) {
-        ComCall(51, this, "ptr", pDevice, "int", NewState)
+        ComCall(51, this, "ptr", pDevice, WMPSyncState, NewState)
     }
 
     /**
@@ -133,5 +150,35 @@ class IWMPEvents2 extends IWMPEvents {
      */
     CreatePartnershipComplete(pDevice, hrResult) {
         ComCall(53, this, "ptr", pDevice, "int", hrResult)
+    }
+
+    Query(iid) {
+        if (IWMPEvents2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeviceConnect := CallbackCreate(GetMethod(implObj, "DeviceConnect"), flags, 2)
+        this.vtbl.DeviceDisconnect := CallbackCreate(GetMethod(implObj, "DeviceDisconnect"), flags, 2)
+        this.vtbl.DeviceStatusChange := CallbackCreate(GetMethod(implObj, "DeviceStatusChange"), flags, 3)
+        this.vtbl.DeviceSyncStateChange := CallbackCreate(GetMethod(implObj, "DeviceSyncStateChange"), flags, 3)
+        this.vtbl.DeviceSyncError := CallbackCreate(GetMethod(implObj, "DeviceSyncError"), flags, 3)
+        this.vtbl.CreatePartnershipComplete := CallbackCreate(GetMethod(implObj, "CreatePartnershipComplete"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeviceConnect)
+        CallbackFree(this.vtbl.DeviceDisconnect)
+        CallbackFree(this.vtbl.DeviceStatusChange)
+        CallbackFree(this.vtbl.DeviceSyncStateChange)
+        CallbackFree(this.vtbl.DeviceSyncError)
+        CallbackFree(this.vtbl.CreatePartnershipComplete)
     }
 }

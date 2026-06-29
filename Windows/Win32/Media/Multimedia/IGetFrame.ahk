@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The IGetFrame interface supports extracting, decompressing, and displaying individual frames from an open stream.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-igetframe
  * @namespace Windows.Win32.Media.Multimedia
  */
-class IGetFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGetFrame extends IUnknown {
     /**
      * The interface identifier for IGetFrame
      * @type {Guid}
      */
-    static IID => Guid("{00020023-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020023-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGetFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFrame  : IntPtr
+        Begin     : IntPtr
+        End       : IntPtr
+        SetFormat : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFrame", "Begin", "End", "SetFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGetFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetFrame method retrieves a decompressed copy of a frame from a stream. Called when an application uses the AVIStreamGetFrame function.
@@ -46,7 +58,7 @@ class IGetFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-igetframe-getframe
      */
     GetFrame(lPos) {
-        result := ComCall(3, this, "int", lPos, "ptr")
+        result := ComCall(3, this, "int", lPos, IntPtr)
         return result
     }
 
@@ -120,7 +132,33 @@ class IGetFrame extends IUnknown {
     SetFormat(lpbi, lpBits, x, y, dx, dy) {
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpbi, lpBitsMarshal, lpBits, "int", x, "int", y, "int", dx, "int", dy, "HRESULT")
+        result := ComCall(6, this, BITMAPINFOHEADER.Ptr, lpbi, lpBitsMarshal, lpBits, "int", x, "int", y, "int", dx, "int", dy, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGetFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFrame := CallbackCreate(GetMethod(implObj, "GetFrame"), flags, 2)
+        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 4)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFrame)
+        CallbackFree(this.vtbl.Begin)
+        CallbackFree(this.vtbl.End)
+        CallbackFree(this.vtbl.SetFormat)
     }
 }

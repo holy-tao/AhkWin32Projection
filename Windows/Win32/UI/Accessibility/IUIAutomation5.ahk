@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomation4.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
+#Import ".\IUIAutomation4.ahk" { IUIAutomation4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Extends the IUIAutomation4 interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation5
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomation5 extends IUIAutomation4 {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomation5 extends IUIAutomation4 {
     /**
      * The interface identifier for IUIAutomation5
      * @type {Guid}
      */
-    static IID => Guid("{25f700c8-d816-4057-a9dc-3cbdee77e256}")
+    static IID := Guid("{25f700c8-d816-4057-a9dc-3cbdee77e256}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 68
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomation5 interfaces
+    */
+    struct Vtbl extends IUIAutomation4.Vtbl {
+        AddNotificationEventHandler    : IntPtr
+        RemoveNotificationEventHandler : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddNotificationEventHandler", "RemoveNotificationEventHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomation5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a method that handles notification events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
@@ -47,7 +60,7 @@ class IUIAutomation5 extends IUIAutomation4 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation5-addnotificationeventhandler
      */
     AddNotificationEventHandler(element, scope, cacheRequest, handler) {
-        result := ComCall(68, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(68, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -67,5 +80,27 @@ class IUIAutomation5 extends IUIAutomation4 {
     RemoveNotificationEventHandler(element, handler) {
         result := ComCall(69, this, "ptr", element, "ptr", handler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomation5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddNotificationEventHandler := CallbackCreate(GetMethod(implObj, "AddNotificationEventHandler"), flags, 5)
+        this.vtbl.RemoveNotificationEventHandler := CallbackCreate(GetMethod(implObj, "RemoveNotificationEventHandler"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddNotificationEventHandler)
+        CallbackFree(this.vtbl.RemoveNotificationEventHandler)
     }
 }

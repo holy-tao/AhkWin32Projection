@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblya">MsiProvideAssembly</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblyw">MsiProvideAssembly</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblya">MsiProvideAssemblyA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblyw">MsiProvideAssemblyA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblya">MsiProvideAssemblyW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblyw">MsiProvideAssemblyW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponenta">MsiProvideComponent</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponentw">MsiProvideComponent</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponenta">MsiProvideComponentA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponentw">MsiProvideComponentA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponenta">MsiProvideComponentW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponentw">MsiProvideComponentW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponent</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentw">MsiProvideQualifiedComponent</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponentA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentw">MsiProvideQualifiedComponentA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexa">MsiProvideQualifiedComponentEx</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexw">MsiProvideQualifiedComponentEx</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexa">MsiProvideQualifiedComponentExA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexw">MsiProvideQualifiedComponentExA</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexa">MsiProvideQualifiedComponentExW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexw">MsiProvideQualifiedComponentExW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponentW</see>, <see href="https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentw">MsiProvideQualifiedComponentW</see>.
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class INSTALLMODE extends Win32Enum {
+export default struct INSTALLMODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

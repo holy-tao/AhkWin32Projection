@@ -1,39 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISegment.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISegment.ahk" { ISegment }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISegmentListIterator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISegmentListIterator extends IUnknown {
     /**
      * The interface identifier for ISegmentListIterator
      * @type {Guid}
      */
-    static IID => Guid("{3050f692-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f692-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISegmentListIterator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Current : IntPtr
+        First   : IntPtr
+        IsDone  : IntPtr
+        Advance : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISegmentListIterator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Current", "First", "IsDone", "Advance"]
-
-    /**
-     * The CurrentAngle property sets or retrieves the current angle in an angle block.
-     * @remarks
-     * This property is read/write with no default value.
+     * 
      * @returns {ISegment} 
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/currentangle-property
      */
     Current() {
         result := ComCall(3, this, "ptr*", &ppISegment := 0, "HRESULT")
@@ -59,21 +67,37 @@ class ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * The AdvancedDocumentProperties function displays a printer-configuration dialog box for the specified printer, allowing the user to configure that printer.
-     * @remarks
-     * > [!Note]  
-     * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
      * 
-     *  
-     * 
-     * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
-     * 
-     * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @returns {HRESULT} If the [**DocumentProperties**](documentproperties.md) function with these parameters is successful, the return value of **AdvancedDocumentProperties** is 1. Otherwise, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
+     * @returns {HRESULT} 
      */
     Advance() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISegmentListIterator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Current := CallbackCreate(GetMethod(implObj, "Current"), flags, 2)
+        this.vtbl.First := CallbackCreate(GetMethod(implObj, "First"), flags, 1)
+        this.vtbl.IsDone := CallbackCreate(GetMethod(implObj, "IsDone"), flags, 1)
+        this.vtbl.Advance := CallbackCreate(GetMethod(implObj, "Advance"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Current)
+        CallbackFree(this.vtbl.First)
+        CallbackFree(this.vtbl.IsDone)
+        CallbackFree(this.vtbl.Advance)
     }
 }

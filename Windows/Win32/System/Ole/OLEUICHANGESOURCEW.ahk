@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGE_SOURCE_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk
-#Include .\IOleUILinkContainerW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\CHANGE_SOURCE_FLAGS.ahk" { CHANGE_SOURCE_FLAGS }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * Contains information that is used to initialize the standard Change Source dialog box. (Unicode)
@@ -16,19 +17,13 @@
  * @namespace Windows.Win32.System.Ole
  * @charset Unicode
  */
-class OLEUICHANGESOURCEW extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct OLEUICHANGESOURCEW {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * On input, this field specifies the initialization and creation flags. On exit, it specifies the user's choices. It may be a combination of the following flags.
@@ -71,157 +66,82 @@ class OLEUICHANGESOURCEW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CHANGE_SOURCE_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : CHANGE_SOURCE_FLAGS
 
     /**
      * The window that owns the dialog box.
-     * @type {HWND}
      */
-    hWndOwner {
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(8, this)
-            return this.__hWndOwner
-        }
-    }
+    hWndOwner : HWND
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Change Source</b>.
-     * @type {PWSTR}
      */
-    lpszCaption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszCaption : PWSTR
 
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
-     * @type {Pointer<LPFNOLEUIHOOK>}
      */
-    lpfnHook {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lCustData : LPARAM
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpszTemplate</b> member. This member is ignored if the <b>lpszTemplate</b> member is <b>NULL</b> or invalid.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(40, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Convert</b> dialog box template.
-     * @type {PWSTR}
      */
-    lpszTemplate {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpszTemplate : PWSTR
 
     /**
      * Resource handle for a custom dialog box. If this member is <b>NULL</b>, then the library uses the standard <b>Convert</b> dialog box template, or if it is valid, the template named by the <b>lpszTemplate</b> member.
-     * @type {HRSRC}
      */
-    hResource {
-        get {
-            if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(56, this)
-            return this.__hResource
-        }
-    }
+    hResource : HRSRC
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure, which contains information used by the operating system to initialize the system-defined <b>Open</b> or <b>Save As</b> dialog boxes.
-     * @type {Pointer<OPENFILENAMEW>}
      */
-    lpOFN {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpOFN : OPENFILENAMEW.Ptr
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    dwReserved1 {
-        get {
-            if(!this.HasProp("__dwReserved1ProxyArray"))
-                this.__dwReserved1ProxyArray := Win32FixedArray(this.ptr + 72, 4, Primitive, "uint")
-            return this.__dwReserved1ProxyArray
-        }
-    }
+    dwReserved1 : UInt32[4]
 
     /**
      * Pointer to the container's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface, used to validate the link source. The <b>Edit Links</b> dialog box uses this to allow the container to manipulate its links.
-     * @type {IOleUILinkContainerW}
      */
-    lpOleUILinkContainer {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpOleUILinkContainer : IOleUILinkContainerW
 
     /**
      * Container-defined unique link identifier used to validate link sources. Used by <b>lpOleUILinkContainer</b>.
-     * @type {Integer}
      */
-    dwLink {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwLink : UInt32
 
     /**
      * Pointer to the complete source display name.
-     * @type {PWSTR}
      */
-    lpszDisplayName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpszDisplayName : PWSTR
 
     /**
      * File moniker portion of <b>lpszDisplayName</b>.
-     * @type {Integer}
      */
-    nFileLength {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    nFileLength : UInt32
 
     /**
      * Pointer to the prefix of the source that was changed from.
-     * @type {PWSTR}
      */
-    lpszFrom {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpszFrom : PWSTR
 
     /**
      * Pointer to the prefix of the source to be changed to.
-     * @type {PWSTR}
      */
-    lpszTo {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    lpszTo : PWSTR
+
 }

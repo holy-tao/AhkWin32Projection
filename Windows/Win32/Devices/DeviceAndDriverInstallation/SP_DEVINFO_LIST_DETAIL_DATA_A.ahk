@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * An SP_DEVINFO_LIST_DETAIL_DATA structure contains information about a device information set, such as its associated setup class GUID (if it has an associated setup class). (ANSI)
@@ -12,54 +13,29 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct {
-    static sizeof => 288
-
-    static packingSize => 8
+export default struct SP_DEVINFO_LIST_DETAIL_DATA_A {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the SP_DEVINFO_LIST_DETAIL_DATA structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The setup class GUID that is associated with the device information set or GUID_NULL if there is no associated setup class.
-     * @type {Pointer}
      */
-    ClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ClassGuid : Guid
 
     /**
      * If the device information set is for a remote computer, this member is a configuration manager machine handle for the remote computer. If the device information set is for the local computer, this member is <b>NULL</b>. 
      * 
      * This is typically the parameter that components use to access the remote computer. The <b>RemoteMachineName</b> contains a string, in case the component requires the name of the remote computer.
-     * @type {HANDLE}
      */
-    RemoteMachineHandle {
-        get {
-            if(!this.HasProp("__RemoteMachineHandle"))
-                this.__RemoteMachineHandle := HANDLE(16, this)
-            return this.__RemoteMachineHandle
-        }
-    }
+    RemoteMachineHandle : HANDLE
 
     /**
      * A NULL-terminated string that contains the name of the remote computer. If the device information set is for the local computer, this member is an empty string.
-     * @type {String}
      */
-    RemoteMachineName {
-        get => StrGet(this.ptr + 24, 262, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 262, "UTF-8")
-    }
+    RemoteMachineName : CHAR[263]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 288
-    }
 }

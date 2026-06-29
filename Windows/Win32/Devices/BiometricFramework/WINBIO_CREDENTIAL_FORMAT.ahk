@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines flags that can be used to specify the end-user credential format.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-credential-format
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_CREDENTIAL_FORMAT extends Win32Enum {
+export default struct WINBIO_CREDENTIAL_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

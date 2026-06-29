@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\ISynchronize.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\ISynchronize.ahk" { ISynchronize }
 
 /**
  * The ISynchronizeContainer (objidlbase.h) interface manages a group of unsignaled synchronization objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronizecontainer
  * @namespace Windows.Win32.System.Com
  */
-class ISynchronizeContainer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISynchronizeContainer extends IUnknown {
     /**
      * The interface identifier for ISynchronizeContainer
      * @type {Guid}
      */
-    static IID => Guid("{00000033-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000033-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISynchronizeContainer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddSynchronize : IntPtr
+        WaitMultiple   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddSynchronize", "WaitMultiple"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISynchronizeContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ISynchronizeContainer::AddSynchronize (objidlbase.h) method adds a synchronization object to the container.
@@ -84,5 +93,27 @@ class ISynchronizeContainer extends IUnknown {
     WaitMultiple(dwFlags, dwTimeOut) {
         result := ComCall(4, this, "uint", dwFlags, "uint", dwTimeOut, "ptr*", &ppSync := 0, "HRESULT")
         return ISynchronize(ppSync)
+    }
+
+    Query(iid) {
+        if (ISynchronizeContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddSynchronize := CallbackCreate(GetMethod(implObj, "AddSynchronize"), flags, 2)
+        this.vtbl.WaitMultiple := CallbackCreate(GetMethod(implObj, "WaitMultiple"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddSynchronize)
+        CallbackFree(this.vtbl.WaitMultiple)
     }
 }

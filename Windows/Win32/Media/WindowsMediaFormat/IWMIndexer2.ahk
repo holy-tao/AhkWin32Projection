@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMIndexer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_INDEXER_TYPE.ahk" { WMT_INDEXER_TYPE }
+#Import ".\IWMIndexer.ahk" { IWMIndexer }
 
 /**
  * The IWMIndexer2 interface enables you to change the settings of the indexer object to suit your needs.This interface is implemented as part of the indexer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmindexer2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMIndexer2 extends IWMIndexer {
-
-    static sizeof => A_PtrSize
+export default struct IWMIndexer2 extends IWMIndexer {
     /**
      * The interface identifier for IWMIndexer2
      * @type {Guid}
      */
-    static IID => Guid("{b70f1e42-6255-4df0-a6b9-02b212d9e2bb}")
+    static IID := Guid("{b70f1e42-6255-4df0-a6b9-02b212d9e2bb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMIndexer2 interfaces
+    */
+    struct Vtbl extends IWMIndexer.Vtbl {
+        Configure : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Configure"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMIndexer2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Configure method changes the internal settings of the indexer object.
@@ -79,7 +88,27 @@ class IWMIndexer2 extends IWMIndexer {
         pvIntervalMarshal := pvInterval is VarRef ? "ptr" : "ptr"
         pvIndexTypeMarshal := pvIndexType is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ushort", wStreamNum, "int", nIndexerType, pvIntervalMarshal, pvInterval, pvIndexTypeMarshal, pvIndexType, "HRESULT")
+        result := ComCall(5, this, "ushort", wStreamNum, WMT_INDEXER_TYPE, nIndexerType, pvIntervalMarshal, pvInterval, pvIndexTypeMarshal, pvIndexType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMIndexer2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Configure)
     }
 }

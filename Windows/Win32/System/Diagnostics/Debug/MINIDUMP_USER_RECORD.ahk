@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_USER_RECORD extends Win32Struct {
-    static sizeof => 12
+export default struct MINIDUMP_USER_RECORD {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Memory : MINIDUMP_LOCATION_DESCRIPTOR
 
-    /**
-     * @type {MINIDUMP_LOCATION_DESCRIPTOR}
-     */
-    Memory {
-        get {
-            if(!this.HasProp("__Memory"))
-                this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(4, this)
-            return this.__Memory
-        }
-    }
 }

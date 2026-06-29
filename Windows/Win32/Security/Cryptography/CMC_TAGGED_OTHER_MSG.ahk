@@ -1,44 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used in the CMC_DATA_INFO and CMC_RESPONSE_INFO structures. (CMC_TAGGED_OTHER_MSG)
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_other_msg
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMC_TAGGED_OTHER_MSG extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CMC_TAGGED_OTHER_MSG {
+    #StructPack 8
 
     /**
      * <b>DWORD</b> identifying the tagged other message.
-     * @type {Integer}
      */
-    dwBodyPartID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBodyPartID : UInt32
 
     /**
      * Object identifier (OID) of the other message.
-     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszObjId : PSTR
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_OBJID_BLOB</a> structure that contains the encoded other message information.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(16, this)
-            return this.__Value
-        }
-    }
+    Value : CRYPT_INTEGER_BLOB
+
 }

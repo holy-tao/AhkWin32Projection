@@ -1,43 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PXE_DHCPV6_OPTION structure can be used with the Windows Deployment Services PXE Server API.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_option
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class PXE_DHCPV6_OPTION extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct PXE_DHCPV6_OPTION {
+    #StructPack 2
 
     /**
      * A DHCPv6 option type.
-     * @type {Integer}
      */
-    OptionCode {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    OptionCode : UInt16
 
     /**
      * Length of the option value.
-     * @type {Integer}
      */
-    DataLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DataLength : UInt16
 
     /**
      * The option value.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

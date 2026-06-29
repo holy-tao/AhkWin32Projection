@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure is not supported. The USB_CLOSE_RAW_DEVICE_PARAMETERS structure is used with the IOCTL_USB_USER_REQUEST I/O control request to close raw access to devices on the bus.
@@ -8,17 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_close_raw_device_parameters
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_CLOSE_RAW_DEVICE_PARAMETERS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct USB_CLOSE_RAW_DEVICE_PARAMETERS {
+    #StructPack 4
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    xxx {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    xxx : UInt32
+
 }

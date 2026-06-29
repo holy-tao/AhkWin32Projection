@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MIB_IPADDRROW_XP (ipmib.h) specifies information for a particular IPv4 address in the MIB_IPADDRTABLE structure.
@@ -12,43 +11,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipaddrrow_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPADDRROW_XP extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MIB_IPADDRROW_XP {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The IPv4 address in network byte order.
-     * @type {Integer}
      */
-    dwAddr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The index of the interface associated with this IPv4 address.
-     * @type {Integer}
      */
-    dwIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The subnet mask for the IPv4 address in network byte order.
-     * @type {Integer}
      */
-    dwMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -56,41 +41,26 @@ class MIB_IPADDRROW_XP extends Win32Struct {
      * The broadcast address in network byte order. A broadcast address is typically the IPv4 address with the host portion set to either all zeros or all ones.
      * 
      * The proper value for this member is not returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipaddrtable">GetIpAddrTable</a> function.
-     * @type {Integer}
      */
-    dwBCastAddr {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBCastAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The maximum re-assembly size for received datagrams.
-     * @type {Integer}
      */
-    dwReasmSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwReasmSize : UInt32
 
     /**
      * Type: <b>unsigned short</b>
      * 
      * This member is reserved.
-     * @type {Integer}
      */
-    unused1 {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    unused1 : UInt16
 
     /**
      * Type: <b>unsigned short</b>
-     * @type {Integer}
      */
-    wType {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    wType : UInt16
+
 }

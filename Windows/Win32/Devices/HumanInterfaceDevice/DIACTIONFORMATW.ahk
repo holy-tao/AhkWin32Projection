@@ -1,133 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIACTIONW.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIACTIONW.ahk" { DIACTIONW }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
-class DIACTIONFORMATW extends Win32Struct {
-    static sizeof => 592
+export default struct DIACTIONFORMATW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwActionSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwActionSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDataSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNumActions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumActions {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    rgoAction : DIACTIONW.Ptr
 
-    /**
-     * @type {Pointer<DIACTIONW>}
-     */
-    rgoAction {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    guidActionMap : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidActionMap {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwGenre : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwGenre {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBufferSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    lAxisMin : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lAxisMin {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    lAxisMax : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lAxisMax {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    hInstString : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstString {
-        get {
-            if(!this.HasProp("__hInstString"))
-                this.__hInstString := HINSTANCE(48, this)
-            return this.__hInstString
-        }
-    }
+    ftTimeStamp : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftTimeStamp {
-        get {
-            if(!this.HasProp("__ftTimeStamp"))
-                this.__ftTimeStamp := FILETIME(56, this)
-            return this.__ftTimeStamp
-        }
-    }
+    dwCRC : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCRC {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    tszActionMap : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszActionMap {
-        get => StrGet(this.ptr + 68, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 259, "UTF-16")
-    }
 }

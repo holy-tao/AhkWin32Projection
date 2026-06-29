@@ -1,146 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_CERT_CONFIG_TYPE.ahk
-#Include .\IKEEXT_CERTIFICATE_CRITERIA0.ahk
-#Include .\IKEEXT_CERT_AUTH.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_CERT_CONFIG_TYPE.ahk" { IKEEXT_CERT_CONFIG_TYPE }
+#Import ".\IKEEXT_CERT_AUTH.ahk" { IKEEXT_CERT_AUTH }
+#Import ".\IKEEXT_CERTIFICATE_CRITERIA0.ahk" { IKEEXT_CERTIFICATE_CRITERIA0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION2)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_CERTIFICATE_AUTHENTICATION2 extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct IKEEXT_CERTIFICATE_AUTHENTICATION2 {
+    #StructPack 8
 
     /**
      * Type: [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type)</b>
      * 
      * Certificate configuration type for inbound peer certificate verification.
-     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
-    inboundConfigType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    inboundConfigType : IKEEXT_CERT_CONFIG_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    inboundRootArraySize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    inboundRootArraySize : UInt32
 
-    /**
-     * @type {Pointer<IKEEXT_CERTIFICATE_CRITERIA0>}
-     */
-    inboundRootCriteria {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    inboundEnterpriseStoreArraySize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERTIFICATE_CRITERIA0>}
-     */
-    inboundEnterpriseStoreCriteria {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    inboundRootStoreArraySize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERTIFICATE_CRITERIA0>}
-     */
-    inboundTrustedRootStoreCriteria {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    inboundRootCriteria : IKEEXT_CERTIFICATE_CRITERIA0.Ptr
 
     /**
      * Type: [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type)</b>
      * 
      * Certificate configuration type for outbound local certificate verification.
-     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
-    outboundConfigType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    outboundConfigType : IKEEXT_CERT_CONFIG_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    outboundRootArraySize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    outboundRootArraySize : UInt32
 
-    /**
-     * @type {Pointer<IKEEXT_CERTIFICATE_CRITERIA0>}
-     */
-    outboundRootCriteria {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    outboundEnterpriseStoreArraySize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERTIFICATE_CRITERIA0>}
-     */
-    outboundEnterpriseStoreCriteria {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    outboundRootStoreArraySize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERTIFICATE_CRITERIA0>}
-     */
-    outboundTrustedRootStoreCriteria {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    outboundRootCriteria : IKEEXT_CERTIFICATE_CRITERIA0.Ptr
 
     /**
      * Type: <b>UINT32</b>
-     * @type {IKEEXT_CERT_AUTH}
      */
-    flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    flags : IKEEXT_CERT_AUTH
 
     /**
      * Type: [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob)</b>
@@ -149,13 +46,18 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION2 extends Win32Struct {
      *    will be used by IKEv2 for authenticating local machine to a peer.
      * 
      * Applicable only to IKEv2.
-     * @type {FWP_BYTE_BLOB}
      */
-    localCertLocationUrl {
-        get {
-            if(!this.HasProp("__localCertLocationUrl"))
-                this.__localCertLocationUrl := FWP_BYTE_BLOB(56, this)
-            return this.__localCertLocationUrl
-        }
+    localCertLocationUrl : FWP_BYTE_BLOB
+
+    static __New() {
+        DefineProp(this.Prototype, 'inboundEnterpriseStoreArraySize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'inboundEnterpriseStoreCriteria', { type: IKEEXT_CERTIFICATE_CRITERIA0.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'inboundRootStoreArraySize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'inboundTrustedRootStoreCriteria', { type: IKEEXT_CERTIFICATE_CRITERIA0.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'outboundEnterpriseStoreArraySize', { type: UInt32, offset: 32 })
+        DefineProp(this.Prototype, 'outboundEnterpriseStoreCriteria', { type: IKEEXT_CERTIFICATE_CRITERIA0.Ptr, offset: 40 })
+        DefineProp(this.Prototype, 'outboundRootStoreArraySize', { type: UInt32, offset: 32 })
+        DefineProp(this.Prototype, 'outboundTrustedRootStoreCriteria', { type: IKEEXT_CERTIFICATE_CRITERIA0.Ptr, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

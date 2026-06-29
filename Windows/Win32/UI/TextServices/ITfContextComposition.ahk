@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfComposition.ahk
-#Include .\IEnumITfCompositionView.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfComposition.ahk" { ITfComposition }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\IEnumITfCompositionView.ahk" { IEnumITfCompositionView }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfCompositionView.ahk" { ITfCompositionView }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfCompositionSink.ahk" { ITfCompositionSink }
 
 /**
  * The ITfContextComposition interface is implemented by the TSF manager and is used by a text service to create and manipulate compositions. An instance of this interface is provided by ITfContext::QueryInterface with IID_ITfContextComposition.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextcomposition
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfContextComposition extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfContextComposition extends IUnknown {
     /**
      * The interface identifier for ITfContextComposition
      * @type {Guid}
      */
-    static IID => Guid("{d40c8aae-ac92-4fc7-9a11-0ee0e23aa39b}")
+    static IID := Guid("{d40c8aae-ac92-4fc7-9a11-0ee0e23aa39b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfContextComposition interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartComposition : IntPtr
+        EnumCompositions : IntPtr
+        FindComposition  : IntPtr
+        TakeOwnership    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartComposition", "EnumCompositions", "FindComposition", "TakeOwnership"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfContextComposition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfContextComposition::StartComposition method
@@ -81,5 +95,31 @@ class ITfContextComposition extends IUnknown {
     TakeOwnership(ecWrite, pComposition, pSink) {
         result := ComCall(6, this, "uint", ecWrite, "ptr", pComposition, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
         return ITfComposition(ppComposition)
+    }
+
+    Query(iid) {
+        if (ITfContextComposition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartComposition := CallbackCreate(GetMethod(implObj, "StartComposition"), flags, 5)
+        this.vtbl.EnumCompositions := CallbackCreate(GetMethod(implObj, "EnumCompositions"), flags, 2)
+        this.vtbl.FindComposition := CallbackCreate(GetMethod(implObj, "FindComposition"), flags, 4)
+        this.vtbl.TakeOwnership := CallbackCreate(GetMethod(implObj, "TakeOwnership"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartComposition)
+        CallbackFree(this.vtbl.EnumCompositions)
+        CallbackFree(this.vtbl.FindComposition)
+        CallbackFree(this.vtbl.TakeOwnership)
     }
 }

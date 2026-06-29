@@ -1,58 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MODLOAD_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MODLOAD_DATA_TYPE.ahk" { MODLOAD_DATA_TYPE }
 
 /**
  * Contains module data.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-modload_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MODLOAD_DATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MODLOAD_DATA {
+    #StructPack 8
 
     /**
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    ssize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ssize : UInt32
 
-    /**
-     * @type {MODLOAD_DATA_TYPE}
-     */
-    ssig {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ssig : MODLOAD_DATA_TYPE
 
     /**
      * The data. The format of this data depends on the value of the <b>ssig</b> member.
-     * @type {Pointer<Void>}
      */
-    data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    data : IntPtr
 
     /**
      * The size of the <b>data</b> buffer, in bytes.
-     * @type {Integer}
      */
-    size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    size : UInt32
 
     /**
      * This member is unused.
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    flags : UInt32
+
 }

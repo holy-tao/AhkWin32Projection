@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AudioSessionState.ahk" { AudioSessionState }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AudioSessionDisconnectReason.ahk" { AudioSessionDisconnectReason }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioSessionEvents interface provides notifications of session-related events such as changes in the volume level, display name, and session state.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionevents
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioSessionEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSessionEvents extends IUnknown {
     /**
      * The interface identifier for IAudioSessionEvents
      * @type {Guid}
      */
-    static IID => Guid("{24918acc-64b3-37c1-8ca9-74a66e9957a8}")
+    static IID := Guid("{24918acc-64b3-37c1-8ca9-74a66e9957a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSessionEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDisplayNameChanged   : IntPtr
+        OnIconPathChanged      : IntPtr
+        OnSimpleVolumeChanged  : IntPtr
+        OnChannelVolumeChanged : IntPtr
+        OnGroupingParamChanged : IntPtr
+        OnStateChanged         : IntPtr
+        OnSessionDisconnected  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDisplayNameChanged", "OnIconPathChanged", "OnSimpleVolumeChanged", "OnChannelVolumeChanged", "OnGroupingParamChanged", "OnStateChanged", "OnSessionDisconnected"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSessionEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnDisplayNameChanged method notifies the client that the display name for the session has changed.
@@ -45,7 +63,7 @@ class IAudioSessionEvents extends IUnknown {
     OnDisplayNameChanged(NewDisplayName, EventContext) {
         NewDisplayName := NewDisplayName is String ? StrPtr(NewDisplayName) : NewDisplayName
 
-        result := ComCall(3, this, "ptr", NewDisplayName, "ptr", EventContext, "HRESULT")
+        result := ComCall(3, this, "ptr", NewDisplayName, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -65,7 +83,7 @@ class IAudioSessionEvents extends IUnknown {
     OnIconPathChanged(NewIconPath, EventContext) {
         NewIconPath := NewIconPath is String ? StrPtr(NewIconPath) : NewIconPath
 
-        result := ComCall(4, this, "ptr", NewIconPath, "ptr", EventContext, "HRESULT")
+        result := ComCall(4, this, "ptr", NewIconPath, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -84,7 +102,7 @@ class IAudioSessionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onsimplevolumechanged
      */
     OnSimpleVolumeChanged(NewVolume, NewMute, EventContext) {
-        result := ComCall(5, this, "float", NewVolume, "int", NewMute, "ptr", EventContext, "HRESULT")
+        result := ComCall(5, this, "float", NewVolume, BOOL, NewMute, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -106,7 +124,7 @@ class IAudioSessionEvents extends IUnknown {
     OnChannelVolumeChanged(ChannelCount, NewChannelVolumeArray, ChangedChannel, EventContext) {
         NewChannelVolumeArrayMarshal := NewChannelVolumeArray is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, "uint", ChannelCount, NewChannelVolumeArrayMarshal, NewChannelVolumeArray, "uint", ChangedChannel, "ptr", EventContext, "HRESULT")
+        result := ComCall(6, this, "uint", ChannelCount, NewChannelVolumeArrayMarshal, NewChannelVolumeArray, "uint", ChangedChannel, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -124,7 +142,7 @@ class IAudioSessionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-ongroupingparamchanged
      */
     OnGroupingParamChanged(NewGroupingParam, EventContext) {
-        result := ComCall(7, this, "ptr", NewGroupingParam, "ptr", EventContext, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, NewGroupingParam, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -147,7 +165,7 @@ class IAudioSessionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onstatechanged
      */
     OnStateChanged(NewState) {
-        result := ComCall(8, this, "int", NewState, "HRESULT")
+        result := ComCall(8, this, AudioSessionState, NewState, "HRESULT")
         return result
     }
 
@@ -204,7 +222,39 @@ class IAudioSessionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onsessiondisconnected
      */
     OnSessionDisconnected(DisconnectReason) {
-        result := ComCall(9, this, "int", DisconnectReason, "HRESULT")
+        result := ComCall(9, this, AudioSessionDisconnectReason, DisconnectReason, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioSessionEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDisplayNameChanged := CallbackCreate(GetMethod(implObj, "OnDisplayNameChanged"), flags, 3)
+        this.vtbl.OnIconPathChanged := CallbackCreate(GetMethod(implObj, "OnIconPathChanged"), flags, 3)
+        this.vtbl.OnSimpleVolumeChanged := CallbackCreate(GetMethod(implObj, "OnSimpleVolumeChanged"), flags, 4)
+        this.vtbl.OnChannelVolumeChanged := CallbackCreate(GetMethod(implObj, "OnChannelVolumeChanged"), flags, 5)
+        this.vtbl.OnGroupingParamChanged := CallbackCreate(GetMethod(implObj, "OnGroupingParamChanged"), flags, 3)
+        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 2)
+        this.vtbl.OnSessionDisconnected := CallbackCreate(GetMethod(implObj, "OnSessionDisconnected"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDisplayNameChanged)
+        CallbackFree(this.vtbl.OnIconPathChanged)
+        CallbackFree(this.vtbl.OnSimpleVolumeChanged)
+        CallbackFree(this.vtbl.OnChannelVolumeChanged)
+        CallbackFree(this.vtbl.OnGroupingParamChanged)
+        CallbackFree(this.vtbl.OnStateChanged)
+        CallbackFree(this.vtbl.OnSessionDisconnected)
     }
 }

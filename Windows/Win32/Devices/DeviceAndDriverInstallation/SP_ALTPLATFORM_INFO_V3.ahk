@@ -1,113 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_ALTPLATFORM_INFO_V3 extends Win32Struct {
-    static sizeof => 36
+export default struct SP_ALTPLATFORM_INFO_V3 {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Platform : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Platform {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessorArchitecture : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorArchitecture {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    FirstValidatedMajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    FirstValidatedMinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstValidatedMajorVersion {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ProductType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FirstValidatedMinorVersion {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SuiteMask : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProductType {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    BuildNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SuiteMask {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BuildNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 36
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: UInt16, offset: 18 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,37 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IControlInterface.ahk
-#Include .\IPartsList.ahk
-#Include .\IDeviceTopology.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDeviceTopology.ahk" { IDeviceTopology }
+#Import ".\IControlChangeNotify.ahk" { IControlChangeNotify }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PartType.ahk" { PartType }
+#Import ".\IControlInterface.ahk" { IControlInterface }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPartsList.ahk" { IPartsList }
 
 /**
  * The IPart interface represents a part (connector or subunit) of a device topology.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-ipart
  * @namespace Windows.Win32.Media.Audio
  */
-class IPart extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPart extends IUnknown {
     /**
      * The interface identifier for IPart
      * @type {Guid}
      */
-    static IID => Guid("{ae2de0e4-5bca-4f2d-aa46-5d13f8fdb3a9}")
+    static IID := Guid("{ae2de0e4-5bca-4f2d-aa46-5d13f8fdb3a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPart interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName                         : IntPtr
+        GetLocalId                      : IntPtr
+        GetGlobalId                     : IntPtr
+        GetPartType                     : IntPtr
+        GetSubType                      : IntPtr
+        GetControlInterfaceCount        : IntPtr
+        GetControlInterface             : IntPtr
+        EnumPartsIncoming               : IntPtr
+        EnumPartsOutgoing               : IntPtr
+        GetTopologyObject               : IntPtr
+        Activate                        : IntPtr
+        RegisterControlChangeCallback   : IntPtr
+        UnregisterControlChangeCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetLocalId", "GetGlobalId", "GetPartType", "GetSubType", "GetControlInterfaceCount", "GetControlInterface", "EnumPartsIncoming", "EnumPartsOutgoing", "GetTopologyObject", "Activate", "RegisterControlChangeCallback", "UnregisterControlChangeCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPart.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetName method gets the friendly name of this part.
@@ -39,7 +61,7 @@ class IPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &ppwstrName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppwstrName := 0, "HRESULT")
         return ppwstrName
     }
 
@@ -76,7 +98,7 @@ class IPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getglobalid
      */
     GetGlobalId() {
-        result := ComCall(5, this, "ptr*", &ppwstrGlobalId := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppwstrGlobalId := 0, "HRESULT")
         return ppwstrGlobalId
     }
 
@@ -237,7 +259,7 @@ class IPart extends IUnknown {
      */
     GetSubType() {
         pSubType := Guid()
-        result := ComCall(7, this, "ptr", pSubType, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pSubType, "HRESULT")
         return pSubType
     }
 
@@ -413,7 +435,7 @@ class IPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-activate
      */
     Activate(dwClsContext, refiid) {
-        result := ComCall(13, this, "uint", dwClsContext, "ptr", refiid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwClsContext, Guid.Ptr, refiid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -485,7 +507,7 @@ class IPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-registercontrolchangecallback
      */
     RegisterControlChangeCallback(riid, pNotify) {
-        result := ComCall(14, this, "ptr", riid, "ptr", pNotify, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, riid, "ptr", pNotify, "HRESULT")
         return result
     }
 
@@ -529,5 +551,49 @@ class IPart extends IUnknown {
     UnregisterControlChangeCallback(pNotify) {
         result := ComCall(15, this, "ptr", pNotify, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPart.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetLocalId := CallbackCreate(GetMethod(implObj, "GetLocalId"), flags, 2)
+        this.vtbl.GetGlobalId := CallbackCreate(GetMethod(implObj, "GetGlobalId"), flags, 2)
+        this.vtbl.GetPartType := CallbackCreate(GetMethod(implObj, "GetPartType"), flags, 2)
+        this.vtbl.GetSubType := CallbackCreate(GetMethod(implObj, "GetSubType"), flags, 2)
+        this.vtbl.GetControlInterfaceCount := CallbackCreate(GetMethod(implObj, "GetControlInterfaceCount"), flags, 2)
+        this.vtbl.GetControlInterface := CallbackCreate(GetMethod(implObj, "GetControlInterface"), flags, 3)
+        this.vtbl.EnumPartsIncoming := CallbackCreate(GetMethod(implObj, "EnumPartsIncoming"), flags, 2)
+        this.vtbl.EnumPartsOutgoing := CallbackCreate(GetMethod(implObj, "EnumPartsOutgoing"), flags, 2)
+        this.vtbl.GetTopologyObject := CallbackCreate(GetMethod(implObj, "GetTopologyObject"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.RegisterControlChangeCallback := CallbackCreate(GetMethod(implObj, "RegisterControlChangeCallback"), flags, 3)
+        this.vtbl.UnregisterControlChangeCallback := CallbackCreate(GetMethod(implObj, "UnregisterControlChangeCallback"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetLocalId)
+        CallbackFree(this.vtbl.GetGlobalId)
+        CallbackFree(this.vtbl.GetPartType)
+        CallbackFree(this.vtbl.GetSubType)
+        CallbackFree(this.vtbl.GetControlInterfaceCount)
+        CallbackFree(this.vtbl.GetControlInterface)
+        CallbackFree(this.vtbl.EnumPartsIncoming)
+        CallbackFree(this.vtbl.EnumPartsOutgoing)
+        CallbackFree(this.vtbl.GetTopologyObject)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.RegisterControlChangeCallback)
+        CallbackFree(this.vtbl.UnregisterControlChangeCallback)
     }
 }

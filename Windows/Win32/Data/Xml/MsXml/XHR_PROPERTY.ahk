@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines properties that you can assign to an outgoing HTTP request by calling the SetProperty method.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_property
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class XHR_PROPERTY extends Win32Enum {
+export default struct XHR_PROPERTY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Sets a flag in the HTTP request that suppresses automatic prompts for credentials.

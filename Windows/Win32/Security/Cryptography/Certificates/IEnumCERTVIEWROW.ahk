@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IEnumCERTVIEWCOLUMN.ahk
-#Include .\IEnumCERTVIEWATTRIBUTE.ahk
-#Include .\IEnumCERTVIEWEXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumCERTVIEWEXTENSION.ahk" { IEnumCERTVIEWEXTENSION }
+#Import ".\IEnumCERTVIEWATTRIBUTE.ahk" { IEnumCERTVIEWATTRIBUTE }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumCERTVIEWCOLUMN.ahk" { IEnumCERTVIEWCOLUMN }
 
 /**
  * Represents a row-enumeration sequence that contains the data in the rows of the Certificate Services view, allowing further access to the columns, attributes, and extensions associated with each row.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-ienumcertviewrow
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IEnumCERTVIEWROW extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEnumCERTVIEWROW extends IDispatch {
     /**
      * The interface identifier for IEnumCERTVIEWROW
      * @type {Guid}
      */
-    static IID => Guid("{d1157f4c-5af2-11d1-9bdc-00c04fb683fa}")
+    static IID := Guid("{d1157f4c-5af2-11d1-9bdc-00c04fb683fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumCERTVIEWROW interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Next                  : IntPtr
+        EnumCertViewColumn    : IntPtr
+        EnumCertViewAttribute : IntPtr
+        EnumCertViewExtension : IntPtr
+        Skip                  : IntPtr
+        Reset                 : IntPtr
+        Clone                 : IntPtr
+        GetMaxIndex           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "EnumCertViewColumn", "EnumCertViewAttribute", "EnumCertViewExtension", "Skip", "Reset", "Clone", "GetMaxIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumCERTVIEWROW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Moves to the next row in the row-enumeration sequence.
@@ -296,5 +311,39 @@ class IEnumCERTVIEWROW extends IDispatch {
 
         result := ComCall(14, this, pIndexMarshal, pIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnumCERTVIEWROW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
+        this.vtbl.EnumCertViewColumn := CallbackCreate(GetMethod(implObj, "EnumCertViewColumn"), flags, 2)
+        this.vtbl.EnumCertViewAttribute := CallbackCreate(GetMethod(implObj, "EnumCertViewAttribute"), flags, 3)
+        this.vtbl.EnumCertViewExtension := CallbackCreate(GetMethod(implObj, "EnumCertViewExtension"), flags, 3)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetMaxIndex := CallbackCreate(GetMethod(implObj, "GetMaxIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.EnumCertViewColumn)
+        CallbackFree(this.vtbl.EnumCertViewAttribute)
+        CallbackFree(this.vtbl.EnumCertViewExtension)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetMaxIndex)
     }
 }

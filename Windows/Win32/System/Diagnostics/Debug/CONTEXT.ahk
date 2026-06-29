@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CONTEXT_FLAGS.ahk
-#Include .\XSAVE_FORMAT.ahk
-#Include .\M128A.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
+#Import ".\M128A.ahk" { M128A }
+#Import ".\XSAVE_FORMAT.ahk" { XSAVE_FORMAT }
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)
@@ -10,580 +9,120 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64
  */
-class CONTEXT extends Win32Struct {
-    static sizeof => 1232
-
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    P1Home {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    P2Home {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    P3Home {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    P4Home {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    P5Home {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    P6Home {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {CONTEXT_FLAGS}
-     */
-    ContextFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MxCsr {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegCs {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegDs {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegEs {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegFs {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegGs {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegSs {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EFlags {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Dr0 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Dr1 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Dr2 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Dr3 {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Dr6 {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Dr7 {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rax {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rcx {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rdx {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rbx {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rsp {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rbp {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rsi {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rdi {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R8 {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R9 {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R10 {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R11 {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R12 {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R13 {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R14 {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    R15 {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Rip {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
-    }
-
-    /**
-     * @type {XSAVE_FORMAT}
-     */
-    FltSave {
-        get {
-            if(!this.HasProp("__FltSave"))
-                this.__FltSave := XSAVE_FORMAT(256, this)
-            return this.__FltSave
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__HeaderProxyArray"))
-                this.__HeaderProxyArray := Win32FixedArray(this.ptr + 256, 2, M128A, "")
-            return this.__HeaderProxyArray
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Legacy {
-        get {
-            if(!this.HasProp("__LegacyProxyArray"))
-                this.__LegacyProxyArray := Win32FixedArray(this.ptr + 288, 8, M128A, "")
-            return this.__LegacyProxyArray
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm0 {
-        get {
-            if(!this.HasProp("__Xmm0"))
-                this.__Xmm0 := M128A(416, this)
-            return this.__Xmm0
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm1 {
-        get {
-            if(!this.HasProp("__Xmm1"))
-                this.__Xmm1 := M128A(432, this)
-            return this.__Xmm1
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm2 {
-        get {
-            if(!this.HasProp("__Xmm2"))
-                this.__Xmm2 := M128A(448, this)
-            return this.__Xmm2
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm3 {
-        get {
-            if(!this.HasProp("__Xmm3"))
-                this.__Xmm3 := M128A(464, this)
-            return this.__Xmm3
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm4 {
-        get {
-            if(!this.HasProp("__Xmm4"))
-                this.__Xmm4 := M128A(480, this)
-            return this.__Xmm4
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm5 {
-        get {
-            if(!this.HasProp("__Xmm5"))
-                this.__Xmm5 := M128A(496, this)
-            return this.__Xmm5
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm6 {
-        get {
-            if(!this.HasProp("__Xmm6"))
-                this.__Xmm6 := M128A(512, this)
-            return this.__Xmm6
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm7 {
-        get {
-            if(!this.HasProp("__Xmm7"))
-                this.__Xmm7 := M128A(528, this)
-            return this.__Xmm7
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm8 {
-        get {
-            if(!this.HasProp("__Xmm8"))
-                this.__Xmm8 := M128A(544, this)
-            return this.__Xmm8
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm9 {
-        get {
-            if(!this.HasProp("__Xmm9"))
-                this.__Xmm9 := M128A(560, this)
-            return this.__Xmm9
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm10 {
-        get {
-            if(!this.HasProp("__Xmm10"))
-                this.__Xmm10 := M128A(576, this)
-            return this.__Xmm10
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm11 {
-        get {
-            if(!this.HasProp("__Xmm11"))
-                this.__Xmm11 := M128A(592, this)
-            return this.__Xmm11
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm12 {
-        get {
-            if(!this.HasProp("__Xmm12"))
-                this.__Xmm12 := M128A(608, this)
-            return this.__Xmm12
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm13 {
-        get {
-            if(!this.HasProp("__Xmm13"))
-                this.__Xmm13 := M128A(624, this)
-            return this.__Xmm13
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm14 {
-        get {
-            if(!this.HasProp("__Xmm14"))
-                this.__Xmm14 := M128A(640, this)
-            return this.__Xmm14
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    Xmm15 {
-        get {
-            if(!this.HasProp("__Xmm15"))
-                this.__Xmm15 := M128A(656, this)
-            return this.__Xmm15
-        }
-    }
-
-    /**
-     * @type {M128A}
-     */
-    VectorRegister {
-        get {
-            if(!this.HasProp("__VectorRegisterProxyArray"))
-                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 768, 26, M128A, "")
-            return this.__VectorRegisterProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VectorControl {
-        get => NumGet(this, 1184, "uint")
-        set => NumPut("uint", value, this, 1184)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DebugControl {
-        get => NumGet(this, 1192, "uint")
-        set => NumPut("uint", value, this, 1192)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastBranchToRip {
-        get => NumGet(this, 1200, "uint")
-        set => NumPut("uint", value, this, 1200)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastBranchFromRip {
-        get => NumGet(this, 1208, "uint")
-        set => NumPut("uint", value, this, 1208)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastExceptionToRip {
-        get => NumGet(this, 1216, "uint")
-        set => NumPut("uint", value, this, 1216)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastExceptionFromRip {
-        get => NumGet(this, 1224, "uint")
-        set => NumPut("uint", value, this, 1224)
+export default struct CONTEXT {
+    #StructPack 8
+
+    P1Home : Int64
+
+    P2Home : Int64
+
+    P3Home : Int64
+
+    P4Home : Int64
+
+    P5Home : Int64
+
+    P6Home : Int64
+
+    ContextFlags : CONTEXT_FLAGS
+
+    MxCsr : UInt32
+
+    SegCs : UInt16
+
+    SegDs : UInt16
+
+    SegEs : UInt16
+
+    SegFs : UInt16
+
+    SegGs : UInt16
+
+    SegSs : UInt16
+
+    EFlags : UInt32
+
+    Dr0 : Int64
+
+    Dr1 : Int64
+
+    Dr2 : Int64
+
+    Dr3 : Int64
+
+    Dr6 : Int64
+
+    Dr7 : Int64
+
+    Rax : Int64
+
+    Rcx : Int64
+
+    Rdx : Int64
+
+    Rbx : Int64
+
+    Rsp : Int64
+
+    Rbp : Int64
+
+    Rsi : Int64
+
+    Rdi : Int64
+
+    R8 : Int64
+
+    R9 : Int64
+
+    R10 : Int64
+
+    R11 : Int64
+
+    R12 : Int64
+
+    R13 : Int64
+
+    R14 : Int64
+
+    R15 : Int64
+
+    Rip : Int64
+
+    FltSave : XSAVE_FORMAT
+
+    VectorRegister : M128A[26]
+
+    VectorControl : Int64
+
+    DebugControl : Int64
+
+    LastBranchToRip : Int64
+
+    LastBranchFromRip : Int64
+
+    LastExceptionToRip : Int64
+
+    LastExceptionFromRip : Int64
+
+    static __New() {
+        DefineProp(this.Prototype, 'Header', { type: M128A[2], offset: 256 })
+        DefineProp(this.Prototype, 'Legacy', { type: M128A[8], offset: 288 })
+        DefineProp(this.Prototype, 'Xmm0', { type: M128A, offset: 416 })
+        DefineProp(this.Prototype, 'Xmm1', { type: M128A, offset: 432 })
+        DefineProp(this.Prototype, 'Xmm2', { type: M128A, offset: 448 })
+        DefineProp(this.Prototype, 'Xmm3', { type: M128A, offset: 464 })
+        DefineProp(this.Prototype, 'Xmm4', { type: M128A, offset: 480 })
+        DefineProp(this.Prototype, 'Xmm5', { type: M128A, offset: 496 })
+        DefineProp(this.Prototype, 'Xmm6', { type: M128A, offset: 512 })
+        DefineProp(this.Prototype, 'Xmm7', { type: M128A, offset: 528 })
+        DefineProp(this.Prototype, 'Xmm8', { type: M128A, offset: 544 })
+        DefineProp(this.Prototype, 'Xmm9', { type: M128A, offset: 560 })
+        DefineProp(this.Prototype, 'Xmm10', { type: M128A, offset: 576 })
+        DefineProp(this.Prototype, 'Xmm11', { type: M128A, offset: 592 })
+        DefineProp(this.Prototype, 'Xmm12', { type: M128A, offset: 608 })
+        DefineProp(this.Prototype, 'Xmm13', { type: M128A, offset: 624 })
+        DefineProp(this.Prototype, 'Xmm14', { type: M128A, offset: 640 })
+        DefineProp(this.Prototype, 'Xmm15', { type: M128A, offset: 656 })
+        this.DeleteProp("__New")
     }
 }

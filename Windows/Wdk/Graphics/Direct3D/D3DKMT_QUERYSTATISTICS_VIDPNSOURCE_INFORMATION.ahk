@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_VIDPNSOURCE_INFORMATION extends Win32Struct {
-    static sizeof => 80
+export default struct D3DKMT_QUERYSTATISTICS_VIDPNSOURCE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    GlobalInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    GlobalInformation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SystemInformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SystemInformation {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Reserved : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

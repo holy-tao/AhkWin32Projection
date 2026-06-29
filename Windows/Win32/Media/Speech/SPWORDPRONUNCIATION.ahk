@@ -1,65 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPWORDPRONUNCIATION.ahk
-#Include .\SPLEXICONTYPE.ahk
-#Include .\SPPARTOFSPEECH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPLEXICONTYPE.ahk" { SPLEXICONTYPE }
+#Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPWORDPRONUNCIATION extends Win32Struct {
-    static sizeof => 24
+export default struct SPWORDPRONUNCIATION {
+    #StructPack 8
 
-    static packingSize => 8
+    pNextWordPronunciation : SPWORDPRONUNCIATION.Ptr
 
-    /**
-     * @type {Pointer<SPWORDPRONUNCIATION>}
-     */
-    pNextWordPronunciation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    eLexiconType : SPLEXICONTYPE
 
-    /**
-     * @type {SPLEXICONTYPE}
-     */
-    eLexiconType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    LangID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LangID {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wPronunciationFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPronunciationFlags {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    ePartOfSpeech : SPPARTOFSPEECH
 
-    /**
-     * @type {SPPARTOFSPEECH}
-     */
-    ePartOfSpeech {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    szPronunciation : UInt16[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szPronunciation {
-        get {
-            if(!this.HasProp("__szPronunciationProxyArray"))
-                this.__szPronunciationProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "ushort")
-            return this.__szPronunciationProxyArray
-        }
-    }
 }

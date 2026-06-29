@@ -1,73 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION.ahk" { D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE.ahk" { D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO.ahk" { D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 64
+export default struct D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    ReconstructedPictureResourceIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReconstructedPictureResourceIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TemporalLayerIndexPlus1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TemporalLayerIndexPlus1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SpatialLayerIndexPlus1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SpatialLayerIndexPlus1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FrameType : D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE}
-     */
-    FrameType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    WarpedMotionInfo : D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO}
-     */
-    WarpedMotionInfo {
-        get {
-            if(!this.HasProp("__WarpedMotionInfo"))
-                this.__WarpedMotionInfo := D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO(16, this)
-            return this.__WarpedMotionInfo
-        }
-    }
+    OrderHint : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OrderHint {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    PictureIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PictureIndex {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

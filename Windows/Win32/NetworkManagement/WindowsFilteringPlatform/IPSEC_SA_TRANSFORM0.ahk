@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TRANSFORM_TYPE.ahk
-#Include .\IPSEC_AUTH_TRANSFORM0.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM0.ahk
-#Include .\IPSEC_AUTH_AND_CIPHER_TRANSFORM0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_AUTH_TRANSFORM0.ahk" { IPSEC_AUTH_TRANSFORM0 }
+#Import ".\IPSEC_AUTH_AND_CIPHER_TRANSFORM0.ahk" { IPSEC_AUTH_AND_CIPHER_TRANSFORM0 }
+#Import ".\IPSEC_TRANSFORM_TYPE.ahk" { IPSEC_TRANSFORM_TYPE }
+#Import ".\IPSEC_CIPHER_TRANSFORM0.ahk" { IPSEC_CIPHER_TRANSFORM0 }
 
 /**
  * Is used to store an IPsec security association (SA) transform in an IPsec quick mode policy.
@@ -12,59 +11,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_transform0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_TRANSFORM0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct IPSEC_SA_TRANSFORM0 {
+    #StructPack 8
 
     /**
      * Type of the SA transform.
      * 
      * See [IPSEC_TRANSFORM_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_transform_type) for more information.
-     * @type {IPSEC_TRANSFORM_TYPE}
      */
-    ipsecTransformType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ipsecTransformType : IPSEC_TRANSFORM_TYPE
 
-    /**
-     * @type {Pointer<IPSEC_AUTH_TRANSFORM0>}
-     */
-    ahTransform {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ahTransform : IPSEC_AUTH_TRANSFORM0.Ptr
 
-    /**
-     * @type {Pointer<IPSEC_AUTH_TRANSFORM0>}
-     */
-    espAuthTransform {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_CIPHER_TRANSFORM0>}
-     */
-    espCipherTransform {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_AUTH_AND_CIPHER_TRANSFORM0>}
-     */
-    espAuthAndCipherTransform {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_AUTH_TRANSFORM0>}
-     */
-    espAuthFwTransform {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'espAuthTransform', { type: IPSEC_AUTH_TRANSFORM0.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'espCipherTransform', { type: IPSEC_CIPHER_TRANSFORM0.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'espAuthAndCipherTransform', { type: IPSEC_AUTH_AND_CIPHER_TRANSFORM0.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'espAuthFwTransform', { type: IPSEC_AUTH_TRANSFORM0.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

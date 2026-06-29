@@ -1,123 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASEELEMENT extends Win32Struct {
-    static sizeof => 56
+export default struct SPPHRASEELEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    ulAudioTimeOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioTimeOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulAudioSizeTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioSizeTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulAudioStreamOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioStreamOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulAudioSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioSizeBytes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulRetainedStreamOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRetainedStreamOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulRetainedSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRetainedSizeBytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    pszDisplayText : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDisplayText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszLexicalForm : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszLexicalForm {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszPronunciation : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pszPronunciation {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    bDisplayAttributes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayAttributes {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
+    RequiredConfidence : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RequiredConfidence {
-        get => NumGet(this, 49, "char")
-        set => NumPut("char", value, this, 49)
-    }
+    ActualConfidence : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActualConfidence {
-        get => NumGet(this, 50, "char")
-        set => NumPut("char", value, this, 50)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 51, "char")
-        set => NumPut("char", value, this, 51)
-    }
+    SREngineConfidence : Float32
 
-    /**
-     * @type {Float}
-     */
-    SREngineConfidence {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
 }

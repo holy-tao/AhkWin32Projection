@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PROCESS_REVOKE_FILE_HANDLES_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct PROCESS_REVOKE_FILE_HANDLES_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TargetDevicePath : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    TargetDevicePath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 }

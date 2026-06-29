@@ -1,34 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\PROPPAGEINFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PROPPAGEINFO.ahk" { PROPPAGEINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IPropertyPageSite.ahk" { IPropertyPageSite }
 
 /**
  * Provides the main features of a property page object that manages a particular page within a property sheet.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipropertypage
  * @namespace Windows.Win32.System.Ole
  */
-class IPropertyPage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyPage extends IUnknown {
     /**
      * The interface identifier for IPropertyPage
      * @type {Guid}
      */
-    static IID => Guid("{b196b28d-bab4-101a-b69c-00aa00341d07}")
+    static IID := Guid("{b196b28d-bab4-101a-b69c-00aa00341d07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyPage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetPageSite          : IntPtr
+        Activate             : IntPtr
+        Deactivate           : IntPtr
+        GetPageInfo          : IntPtr
+        SetObjects           : IntPtr
+        Show                 : IntPtr
+        Move                 : IntPtr
+        IsPageDirty          : IntPtr
+        Apply                : IntPtr
+        Help                 : IntPtr
+        TranslateAccelerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPageSite", "Activate", "Deactivate", "GetPageInfo", "SetObjects", "Show", "Move", "IsPageDirty", "Apply", "Help", "TranslateAccelerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyPage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a property page and provides the page with a pointer to the IPropertyPageSite interface through which the property page communicates with the property frame.
@@ -89,9 +113,7 @@ class IPropertyPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-activate
      */
     Activate(hWndParent, pRect, bModal) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
-        result := ComCall(4, this, "ptr", hWndParent, "ptr", pRect, "int", bModal, "HRESULT")
+        result := ComCall(4, this, HWND, hWndParent, RECT.Ptr, pRect, BOOL, bModal, "HRESULT")
         return result
     }
 
@@ -120,7 +142,7 @@ class IPropertyPage extends IUnknown {
      */
     GetPageInfo() {
         pPageInfo := PROPPAGEINFO()
-        result := ComCall(6, this, "ptr", pPageInfo, "HRESULT")
+        result := ComCall(6, this, PROPPAGEINFO.Ptr, pPageInfo, "HRESULT")
         return pPageInfo
     }
 
@@ -181,7 +203,7 @@ class IPropertyPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-setobjects
      */
     SetObjects(cObjects, ppUnk) {
-        result := ComCall(7, this, "uint", cObjects, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(7, this, "uint", cObjects, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -246,7 +268,7 @@ class IPropertyPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-move
      */
     Move(pRect) {
-        result := ComCall(9, this, "ptr", pRect, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -429,7 +451,47 @@ class IPropertyPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-translateaccelerator
      */
     TranslateAccelerator(pMsg) {
-        result := ComCall(13, this, "ptr", pMsg, "HRESULT")
+        result := ComCall(13, this, MSG.Ptr, pMsg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyPage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPageSite := CallbackCreate(GetMethod(implObj, "SetPageSite"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.GetPageInfo := CallbackCreate(GetMethod(implObj, "GetPageInfo"), flags, 2)
+        this.vtbl.SetObjects := CallbackCreate(GetMethod(implObj, "SetObjects"), flags, 3)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
+        this.vtbl.IsPageDirty := CallbackCreate(GetMethod(implObj, "IsPageDirty"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.Help := CallbackCreate(GetMethod(implObj, "Help"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPageSite)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
+        CallbackFree(this.vtbl.GetPageInfo)
+        CallbackFree(this.vtbl.SetObjects)
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.IsPageDirty)
+        CallbackFree(this.vtbl.Apply)
+        CallbackFree(this.vtbl.Help)
+        CallbackFree(this.vtbl.TranslateAccelerator)
     }
 }

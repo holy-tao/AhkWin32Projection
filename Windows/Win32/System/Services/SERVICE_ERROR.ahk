@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfigw">ChangeServiceConfig</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfigA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfigw">ChangeServiceConfigA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfigW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfigw">ChangeServiceConfigW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicea">CreateService</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicew">CreateService</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicea">CreateServiceA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicew">CreateServiceA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicea">CreateServiceW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicew">CreateServiceW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIG</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configw">QUERY_SERVICE_CONFIG</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIGA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configw">QUERY_SERVICE_CONFIGA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIGW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configw">QUERY_SERVICE_CONFIGW</see>.
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_ERROR extends Win32Enum {
+export default struct SERVICE_ERROR {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

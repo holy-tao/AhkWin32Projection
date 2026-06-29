@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugCodeContext.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IDebugApplicationThread.ahk
-#Include ..\IDebugProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugCodeContext.ahk" { IDebugCodeContext }
+#Import "..\IDebugProperty.ahk" { IDebugProperty }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IDebugStackFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugStackFrame extends IUnknown {
     /**
      * The interface identifier for IDebugStackFrame
      * @type {Guid}
      */
-    static IID => Guid("{51973c17-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c17-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugStackFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCodeContext       : IntPtr
+        GetDescriptionString : IntPtr
+        GetLanguageString    : IntPtr
+        GetThread            : IntPtr
+        GetDebugProperty     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCodeContext", "GetDescriptionString", "GetLanguageString", "GetThread", "GetDebugProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugStackFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -46,8 +59,8 @@ class IDebugStackFrame extends IUnknown {
      * @returns {BSTR} 
      */
     GetDescriptionString(fLong) {
-        pbstrDescription := BSTR()
-        result := ComCall(4, this, "int", fLong, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(4, this, BOOL, fLong, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -57,21 +70,14 @@ class IDebugStackFrame extends IUnknown {
      * @returns {BSTR} 
      */
     GetLanguageString(fLong) {
-        pbstrLanguage := BSTR()
-        result := ComCall(5, this, "int", fLong, "ptr", pbstrLanguage, "HRESULT")
+        pbstrLanguage := BSTR.Owned()
+        result := ComCall(5, this, BOOL, fLong, BSTR.Ptr, pbstrLanguage, "HRESULT")
         return pbstrLanguage
     }
 
     /**
-     * Retrieves the context of the specified thread.
-     * @remarks
-     * This function is used to retrieve the thread context of the specified thread. The function retrieves a selective context based on the value of the **ContextFlags** member of the context structure. The thread identified by the *hThread* parameter is typically being debugged, but the function can also operate when the thread is not being debugged.
      * 
-     * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
-     * 
-     * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
      * @returns {IDebugApplicationThread} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThread() {
         result := ComCall(6, this, "ptr*", &ppat := 0, "HRESULT")
@@ -85,5 +91,33 @@ class IDebugStackFrame extends IUnknown {
     GetDebugProperty() {
         result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "HRESULT")
         return IDebugProperty(ppDebugProp)
+    }
+
+    Query(iid) {
+        if (IDebugStackFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCodeContext := CallbackCreate(GetMethod(implObj, "GetCodeContext"), flags, 2)
+        this.vtbl.GetDescriptionString := CallbackCreate(GetMethod(implObj, "GetDescriptionString"), flags, 3)
+        this.vtbl.GetLanguageString := CallbackCreate(GetMethod(implObj, "GetLanguageString"), flags, 3)
+        this.vtbl.GetThread := CallbackCreate(GetMethod(implObj, "GetThread"), flags, 2)
+        this.vtbl.GetDebugProperty := CallbackCreate(GetMethod(implObj, "GetDebugProperty"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCodeContext)
+        CallbackFree(this.vtbl.GetDescriptionString)
+        CallbackFree(this.vtbl.GetLanguageString)
+        CallbackFree(this.vtbl.GetThread)
+        CallbackFree(this.vtbl.GetDebugProperty)
     }
 }

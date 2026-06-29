@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class IO_IRP_EXT_TRACK_OFFSET_HEADER extends Win32Struct {
-    static sizeof => 16
+export default struct IO_IRP_EXT_TRACK_OFFSET_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Validation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Validation {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    TrackedOffsetCallback : IntPtr
 
-    /**
-     * @type {Pointer<PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK>}
-     */
-    TrackedOffsetCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

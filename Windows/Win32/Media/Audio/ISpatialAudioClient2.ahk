@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioClient.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\ISpatialAudioClient.ahk" { ISpatialAudioClient }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The **ISpatialAudioClient2** interface inherits from ISpatialAudioClient and adds methods to query for support for offloading large audio buffers.
@@ -40,26 +44,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient2
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioClient2 extends ISpatialAudioClient {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioClient2 extends ISpatialAudioClient {
     /**
      * The interface identifier for ISpatialAudioClient2
      * @type {Guid}
      */
-    static IID => Guid("{caabe452-a66a-4bee-a93e-e320463f6a53}")
+    static IID := Guid("{caabe452-a66a-4bee-a93e-e320463f6a53}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioClient2 interfaces
+    */
+    struct Vtbl extends ISpatialAudioClient.Vtbl {
+        IsOffloadCapable            : IntPtr
+        GetMaxFrameCountForCategory : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsOffloadCapable", "GetMaxFrameCountForCategory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioClient2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries whether the audio rendering endpoint that the ISpatialAudioClient2 was created on supports hardware offloaded audio processing.
@@ -68,7 +80,7 @@ class ISpatialAudioClient2 extends ISpatialAudioClient {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient2-isoffloadcapable
      */
     IsOffloadCapable(category) {
-        result := ComCall(11, this, "int", category, "int*", &isOffloadCapable := 0, "HRESULT")
+        result := ComCall(11, this, AUDIO_STREAM_CATEGORY, category, BOOL.Ptr, &isOffloadCapable := 0, "HRESULT")
         return isOffloadCapable
     }
 
@@ -83,7 +95,29 @@ class ISpatialAudioClient2 extends ISpatialAudioClient {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient2-getmaxframecountforcategory
      */
     GetMaxFrameCountForCategory(category, offloadEnabled, objectFormat) {
-        result := ComCall(12, this, "int", category, "int", offloadEnabled, "ptr", objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
+        result := ComCall(12, this, AUDIO_STREAM_CATEGORY, category, BOOL, offloadEnabled, WAVEFORMATEX.Ptr, objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
         return frameCountPerBuffer
+    }
+
+    Query(iid) {
+        if (ISpatialAudioClient2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsOffloadCapable := CallbackCreate(GetMethod(implObj, "IsOffloadCapable"), flags, 3)
+        this.vtbl.GetMaxFrameCountForCategory := CallbackCreate(GetMethod(implObj, "GetMaxFrameCountForCategory"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsOffloadCapable)
+        CallbackFree(this.vtbl.GetMaxFrameCountForCategory)
     }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_MCA_POS_DATA extends Win32Struct {
-    static sizeof => 6
+export default struct CM_MCA_POS_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    AdapterId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AdapterId {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    PosData1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PosData1 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    PosData2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PosData2 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    PosData3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PosData3 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    PosData4 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PosData4 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
 }

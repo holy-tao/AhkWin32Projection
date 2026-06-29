@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EPcxConnectionType.ahk
-#Include .\EPcxGeoLocation.ahk
-#Include .\EPcxGenLocation.ahk
-#Include .\EPxcPortConnection.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EPcxGeoLocation.ahk" { EPcxGeoLocation }
+#Import ".\EPcxConnectionType.ahk" { EPcxConnectionType }
+#Import ".\EPxcPortConnection.ahk" { EPxcPortConnection }
+#Import ".\EPcxGenLocation.ahk" { EPcxGenLocation }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The KSJACK_DESCRIPTION structure describes an audio jack.
@@ -12,10 +12,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSJACK_DESCRIPTION extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct KSJACK_DESCRIPTION {
+    #StructPack 4
 
     /**
      * Specifies the mapping of the two audio channels in a stereo jack to speaker positions. 
@@ -58,21 +56,13 @@ class KSJACK_DESCRIPTION extends Win32Struct {
      * </tr>
      * </table>
      *  </p>For a physical connector with one, three, or more channels, the value of this member is ePcxChanMap_Unknown.
-     * @type {Integer}
      */
-    ChannelMapping {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ChannelMapping : UInt32
 
     /**
      * The jack color. The color is expressed as a 32-bit RGB value that is formed by concatenating the 8-bit blue, green, and red color components. The blue component occupies the 8 least-significant bits (bits 0-7), the green component occupies bits 8-15, and the red component occupies bits 16-23. The 8 most-significant bits are zeros. If the jack color is unknown or the physical connector has no identifiable color, the value of this member is 0x00000000, which is black.
-     * @type {Integer}
      */
-    Color {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Color : UInt32
 
     /**
      * The connection type. The value of this member is one of the <b>EPcxConnectionType</b> enumeration values shown in the following table.
@@ -135,12 +125,8 @@ class KSJACK_DESCRIPTION extends Win32Struct {
      * <td>Combination of connector types</td>
      * </tr>
      * </table>
-     * @type {EPcxConnectionType}
      */
-    ConnectionType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ConnectionType : EPcxConnectionType
 
     /**
      * The geometric location of the jack. The value of this member is one of the <b>EPcxGeoLocation</b> enumeration values shown in the following table.
@@ -209,12 +195,8 @@ class KSJACK_DESCRIPTION extends Win32Struct {
      * <td>ATAPI connector</td>
      * </tr>
      * </table>
-     * @type {EPcxGeoLocation}
      */
-    GeoLocation {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    GeoLocation : EPcxGeoLocation
 
     /**
      * The general location of the jack. The value of this member is one of the <b>EPcxGenLocation</b> enumeration values shown in the following table.
@@ -247,12 +229,8 @@ class KSJACK_DESCRIPTION extends Win32Struct {
      * <td>Other location</td>
      * </tr>
      * </table>
-     * @type {EPcxGenLocation}
      */
-    GenLocation {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    GenLocation : EPcxGenLocation
 
     /**
      * The type of port represented by the jack. The value of this member is one of the <b>EPxcPortConnection</b> enumeration values shown in the following table.
@@ -279,19 +257,12 @@ class KSJACK_DESCRIPTION extends Win32Struct {
      * <td>Unknown</td>
      * </tr>
      * </table>
-     * @type {EPxcPortConnection}
      */
-    PortConnection {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    PortConnection : EPxcPortConnection
 
     /**
      * If the audio adapter supports jack-presence detection on the jack, the value of <b>IsConnected</b> indicates whether an endpoint device is plugged into the jack. If <b>IsConnected</b> is <b>TRUE</b>, a device is plugged in. If it is <b>FALSE</b>, the jack is empty. For devices that do not support jack-presence detection, this member is always <b>TRUE</b>. For more information about jack-presence detection, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-endpoint-devices">Audio Endpoint Devices</a>.
-     * @type {BOOL}
      */
-    IsConnected {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    IsConnected : BOOL
+
 }

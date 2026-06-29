@@ -1,76 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset ANSI
  */
-class PERUSERSECTIONA extends Win32Struct {
-    static sizeof => 1408
+export default struct PERUSERSECTIONA {
+    #StructPack 4
 
-    static packingSize => 4
+    szGUID : CHAR[59]
 
-    /**
-     * @type {String}
-     */
-    szGUID {
-        get => StrGet(this.ptr + 0, 58, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 58, "UTF-8")
-    }
+    szDispName : CHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szDispName {
-        get => StrGet(this.ptr + 59, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 59, 127, "UTF-8")
-    }
+    szLocale : CHAR[10]
 
-    /**
-     * @type {String}
-     */
-    szLocale {
-        get => StrGet(this.ptr + 187, 9, "UTF-8")
-        set => StrPut(value, this.ptr + 187, 9, "UTF-8")
-    }
+    szStub : CHAR[1040]
 
-    /**
-     * @type {String}
-     */
-    szStub {
-        get => StrGet(this.ptr + 197, 1039, "UTF-8")
-        set => StrPut(value, this.ptr + 197, 1039, "UTF-8")
-    }
+    szVersion : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szVersion {
-        get => StrGet(this.ptr + 1237, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 1237, 31, "UTF-8")
-    }
+    szCompID : CHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szCompID {
-        get => StrGet(this.ptr + 1269, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 1269, 127, "UTF-8")
-    }
+    dwIsInstalled : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIsInstalled {
-        get => NumGet(this, 1400, "uint")
-        set => NumPut("uint", value, this, 1400)
-    }
+    bRollback : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bRollback {
-        get => NumGet(this, 1404, "int")
-        set => NumPut("int", value, this, 1404)
-    }
 }

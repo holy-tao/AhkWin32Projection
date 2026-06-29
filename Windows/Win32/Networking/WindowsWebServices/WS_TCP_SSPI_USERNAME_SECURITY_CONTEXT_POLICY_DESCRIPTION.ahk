@@ -1,84 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
-#Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_PROPERTY.ahk
-#Include .\WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
-#Include .\WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
-#Include .\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk" { WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION }
+#Import ".\WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk" { WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
+#Import ".\WS_SECURITY_PROPERTY.ahk" { WS_SECURITY_PROPERTY }
+#Import ".\WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk" { WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION }
+#Import ".\WS_SECURITY_PROPERTIES.ahk" { WS_SECURITY_PROPERTIES }
+#Import ".\WS_SECURITY_BINDING_PROPERTIES.ahk" { WS_SECURITY_BINDING_PROPERTIES }
+#Import ".\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk" { WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION }
+#Import ".\WS_CHANNEL_PROPERTIES.ahk" { WS_CHANNEL_PROPERTIES }
+#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
+#Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
 
 /**
  * Describes the policy specifying security context message binding using TCP channel binding with windows SSPI transport security. The bootstrap channel uses TCP channel binding with windows SSPI transport security and username/password message security.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_sspi_username_security_context_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION {
+    #StructPack 8
 
     /**
      * Template description for the channel properties specified in policy.
-     * @type {WS_CHANNEL_PROPERTIES}
      */
-    channelProperties {
-        get {
-            if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
-            return this.__channelProperties
-        }
-    }
+    channelProperties : WS_CHANNEL_PROPERTIES
 
     /**
      * Template description for the security properties specified in policy.
-     * @type {WS_SECURITY_PROPERTIES}
      */
-    securityProperties {
-        get {
-            if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
-            return this.__securityProperties
-        }
-    }
+    securityProperties : WS_SECURITY_PROPERTIES
 
     /**
      * Windows SSPI security binding description.
-     * @type {WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION}
      */
-    sspiTransportSecurityBinding {
-        get {
-            if(!this.HasProp("__sspiTransportSecurityBinding"))
-                this.__sspiTransportSecurityBinding := WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(32, this)
-            return this.__sspiTransportSecurityBinding
-        }
-    }
+    sspiTransportSecurityBinding : WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
 
     /**
      * Username/password message security binding description.
-     * @type {WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION}
      */
-    usernameMessageSecurityBinding {
-        get {
-            if(!this.HasProp("__usernameMessageSecurityBinding"))
-                this.__usernameMessageSecurityBinding := WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(48, this)
-            return this.__usernameMessageSecurityBinding
-        }
-    }
+    usernameMessageSecurityBinding : WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
 
     /**
      * Security context security binding description.
-     * @type {WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION}
      */
-    securityContextSecurityBinding {
-        get {
-            if(!this.HasProp("__securityContextSecurityBinding"))
-                this.__securityContextSecurityBinding := WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION(72, this)
-            return this.__securityContextSecurityBinding
-        }
-    }
+    securityContextSecurityBinding : WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION
+
 }

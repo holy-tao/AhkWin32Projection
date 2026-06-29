@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MF_CAMERA_CONTROL_RANGE_INFO structure represents the accepted range, step value, and default value for a camera control.
@@ -10,44 +9,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_camera_control_range_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_CAMERA_CONTROL_RANGE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MF_CAMERA_CONTROL_RANGE_INFO {
+    #StructPack 4
 
     /**
      * The minimum value supported by the control.
-     * @type {Integer}
      */
-    minValue {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    minValue : Int32
 
     /**
      * The maximum value supported by the control.
-     * @type {Integer}
      */
-    maxValue {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    maxValue : Int32
 
     /**
      * The incremental step value supported by the control.
-     * @type {Integer}
      */
-    stepValue {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    stepValue : Int32
 
     /**
      * The default value for the control.
-     * @type {Integer}
      */
-    defaultValue {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    defaultValue : Int32
+
 }

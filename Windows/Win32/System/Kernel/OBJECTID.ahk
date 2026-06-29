@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class OBJECTID extends Win32Struct {
-    static sizeof => 16
+export default struct OBJECTID {
+    #StructPack 4
 
-    static packingSize => 8
+    Lineage : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Lineage {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Uniquifier : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Uniquifier {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

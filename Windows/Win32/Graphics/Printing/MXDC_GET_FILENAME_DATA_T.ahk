@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MXDC\_GET\_FILENAME\_DATA\_T structure holds the full path and file name of a Microsoft XPS Document Converter (MXDC) output file.
@@ -8,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcgetfilenamedata
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_GET_FILENAME_DATA_T extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MXDC_GET_FILENAME_DATA_T {
+    #StructPack 4
 
     /**
      * The size of the output buffer, **wszData**.
-     * @type {Integer}
      */
-    cbOutput {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbOutput : UInt32
 
     /**
      * The fully qualified path and file name of the output file.
-     * @type {String}
      */
-    wszData {
-        get => StrGet(this.ptr + 4, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 0, "UTF-16")
-    }
+    wszData : WCHAR[1]
+
 }

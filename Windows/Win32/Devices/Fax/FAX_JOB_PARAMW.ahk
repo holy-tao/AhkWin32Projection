@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * The FAX_JOB_PARAM structure contains the information necessary for the fax server to send an individual fax transmission. (Unicode)
@@ -17,179 +17,112 @@
  * @namespace Windows.Win32.Devices.Fax
  * @charset Unicode
  */
-class FAX_JOB_PARAMW extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct FAX_JOB_PARAMW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the <b>FAX_JOB_PARAM</b> structure. The calling application must set this member to <b>sizeof(FAX_JOB_PARAM)</b>. This member is required.
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
-     * @type {PWSTR}
      */
-    RecipientNumber {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RecipientNumber : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {PWSTR}
      */
-    RecipientName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    RecipientName : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
-     * @type {PWSTR}
      */
-    Tsid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Tsid : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {PWSTR}
      */
-    SenderName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SenderName : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
-     * @type {PWSTR}
      */
-    SenderCompany {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SenderCompany : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
-     * @type {PWSTR}
      */
-    SenderDept {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SenderDept : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
-     * @type {PWSTR}
      */
-    BillingCode {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    BillingCode : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a DWORD variable that indicates when to send the fax. This member is required, and can be one of the following predefined job scheduling actions.
-     * @type {Integer}
      */
-    ScheduleAction {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ScheduleAction : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a></b>
      * 
      * If the <b>ScheduleAction</b> member is equal to the value <b>JSA_SPECIFIC_TIME</b>, specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to send the fax. The time specified must be expressed in UTC.
-     * @type {SYSTEMTIME}
      */
-    ScheduleTime {
-        get {
-            if(!this.HasProp("__ScheduleTime"))
-                this.__ScheduleTime := SYSTEMTIME(68, this)
-            return this.__ScheduleTime
-        }
-    }
+    ScheduleTime : SYSTEMTIME
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the type of email delivery report (DR) or nondelivery report (NDR) that the fax server should generate. This member can be one of the following predefined delivery report types.
-     * @type {Integer}
      */
-    DeliveryReportType {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    DeliveryReportType : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string. If the <b>DeliveryReportType</b> member is equal to <b>DRT_EMAIL</b>, the string is the address to which the DR or NDR should be sent. If the <b>DeliveryReportType</b> member is equal to <b>DRT_NONE</b>, this member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    DeliveryReportAddress {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    DeliveryReportAddress : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string to associate with the fax document. This is the user-friendly name that appears in the print spooler.
-     * @type {PWSTR}
      */
-    DocumentName {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    DocumentName : PWSTR
 
     /**
      * Type: <b>HCALL</b>
      * 
      * Reserved, and should be <b>NULL</b>.
-     * @type {Integer}
      */
-    CallHandle {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    CallHandle : UInt32
 
     /**
      * Type: <b>DWORD_PTR[3]</b>
      * 
      * This member is reserved for future use by Microsoft. It must be set to zero.
-     * @type {Array<Pointer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 112, 3, Primitive, "ptr")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : IntPtr[3]
+
 }

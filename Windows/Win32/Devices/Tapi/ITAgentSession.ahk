@@ -1,37 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAgent.ahk
-#Include .\ITAddress.ahk
-#Include .\ITACDGroup.ahk
-#Include ..\..\System\Com\CY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITAgent.ahk" { ITAgent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITACDGroup.ahk" { ITACDGroup }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import ".\AGENT_SESSION_STATE.ahk" { AGENT_SESSION_STATE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITAgentSession interface (tapi3cc.h) handles agent session, which represent an association between an agent, group, and address.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagentsession
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAgentSession extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAgentSession extends IDispatch {
     /**
      * The interface identifier for ITAgentSession
      * @type {Guid}
      */
-    static IID => Guid("{5afc3147-4bcc-11d1-bf80-00805fc147d3}")
+    static IID := Guid("{5afc3147-4bcc-11d1-bf80-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAgentSession interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Agent               : IntPtr
+        get_Address             : IntPtr
+        get_ACDGroup            : IntPtr
+        put_State               : IntPtr
+        get_State               : IntPtr
+        get_SessionStartTime    : IntPtr
+        get_SessionDuration     : IntPtr
+        get_NumberOfCalls       : IntPtr
+        get_TotalTalkTime       : IntPtr
+        get_AverageTalkTime     : IntPtr
+        get_TotalCallTime       : IntPtr
+        get_AverageCallTime     : IntPtr
+        get_TotalWrapUpTime     : IntPtr
+        get_AverageWrapUpTime   : IntPtr
+        get_ACDCallRate         : IntPtr
+        get_LongestTimeToAnswer : IntPtr
+        get_AverageTimeToAnswer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Agent", "get_Address", "get_ACDGroup", "put_State", "get_State", "get_SessionStartTime", "get_SessionDuration", "get_NumberOfCalls", "get_TotalTalkTime", "get_AverageTalkTime", "get_TotalCallTime", "get_AverageCallTime", "get_TotalWrapUpTime", "get_AverageWrapUpTime", "get_ACDCallRate", "get_LongestTimeToAnswer", "get_AverageTimeToAnswer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAgentSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITAgent} 
@@ -267,7 +292,7 @@ class ITAgentSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-put_state
      */
     put_State(SessionState) {
-        result := ComCall(10, this, "int", SessionState, "HRESULT")
+        result := ComCall(10, this, AGENT_SESSION_STATE, SessionState, "HRESULT")
         return result
     }
 
@@ -409,7 +434,7 @@ class ITAgentSession extends IDispatch {
      */
     get_ACDCallRate() {
         pcyCallrate := CY()
-        result := ComCall(21, this, "ptr", pcyCallrate, "HRESULT")
+        result := ComCall(21, this, CY.Ptr, pcyCallrate, "HRESULT")
         return pcyCallrate
     }
 
@@ -437,5 +462,57 @@ class ITAgentSession extends IDispatch {
     get_AverageTimeToAnswer() {
         result := ComCall(23, this, "int*", &plAnswerTime := 0, "HRESULT")
         return plAnswerTime
+    }
+
+    Query(iid) {
+        if (ITAgentSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Agent := CallbackCreate(GetMethod(implObj, "get_Agent"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_ACDGroup := CallbackCreate(GetMethod(implObj, "get_ACDGroup"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_SessionStartTime := CallbackCreate(GetMethod(implObj, "get_SessionStartTime"), flags, 2)
+        this.vtbl.get_SessionDuration := CallbackCreate(GetMethod(implObj, "get_SessionDuration"), flags, 2)
+        this.vtbl.get_NumberOfCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfCalls"), flags, 2)
+        this.vtbl.get_TotalTalkTime := CallbackCreate(GetMethod(implObj, "get_TotalTalkTime"), flags, 2)
+        this.vtbl.get_AverageTalkTime := CallbackCreate(GetMethod(implObj, "get_AverageTalkTime"), flags, 2)
+        this.vtbl.get_TotalCallTime := CallbackCreate(GetMethod(implObj, "get_TotalCallTime"), flags, 2)
+        this.vtbl.get_AverageCallTime := CallbackCreate(GetMethod(implObj, "get_AverageCallTime"), flags, 2)
+        this.vtbl.get_TotalWrapUpTime := CallbackCreate(GetMethod(implObj, "get_TotalWrapUpTime"), flags, 2)
+        this.vtbl.get_AverageWrapUpTime := CallbackCreate(GetMethod(implObj, "get_AverageWrapUpTime"), flags, 2)
+        this.vtbl.get_ACDCallRate := CallbackCreate(GetMethod(implObj, "get_ACDCallRate"), flags, 2)
+        this.vtbl.get_LongestTimeToAnswer := CallbackCreate(GetMethod(implObj, "get_LongestTimeToAnswer"), flags, 2)
+        this.vtbl.get_AverageTimeToAnswer := CallbackCreate(GetMethod(implObj, "get_AverageTimeToAnswer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Agent)
+        CallbackFree(this.vtbl.get_Address)
+        CallbackFree(this.vtbl.get_ACDGroup)
+        CallbackFree(this.vtbl.put_State)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_SessionStartTime)
+        CallbackFree(this.vtbl.get_SessionDuration)
+        CallbackFree(this.vtbl.get_NumberOfCalls)
+        CallbackFree(this.vtbl.get_TotalTalkTime)
+        CallbackFree(this.vtbl.get_AverageTalkTime)
+        CallbackFree(this.vtbl.get_TotalCallTime)
+        CallbackFree(this.vtbl.get_AverageCallTime)
+        CallbackFree(this.vtbl.get_TotalWrapUpTime)
+        CallbackFree(this.vtbl.get_AverageWrapUpTime)
+        CallbackFree(this.vtbl.get_ACDCallRate)
+        CallbackFree(this.vtbl.get_LongestTimeToAnswer)
+        CallbackFree(this.vtbl.get_AverageTimeToAnswer)
     }
 }

@@ -1,79 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_TIER_REGION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_TIER_REGION.ahk" { STORAGE_TIER_REGION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DSM_TIERING_QUERY_OUTPUT extends Win32Struct {
-    static sizeof => 56
+export default struct DEVICE_DSM_TIERING_QUERY_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Alignment : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TotalNumberOfRegions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalNumberOfRegions {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NumberOfRegionsReturned : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfRegionsReturned {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Regions : STORAGE_TIER_REGION[1]
 
-    /**
-     * @type {STORAGE_TIER_REGION}
-     */
-    Regions {
-        get {
-            if(!this.HasProp("__RegionsProxyArray"))
-                this.__RegionsProxyArray := Win32FixedArray(this.ptr + 32, 1, STORAGE_TIER_REGION, "")
-            return this.__RegionsProxyArray
-        }
-    }
 }

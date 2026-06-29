@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * These flags enumerate reasons why URLs are included or excluded from the current crawl scope.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-clusion_reason
  * @namespace Windows.Win32.System.Search
  */
-class CLUSION_REASON extends Win32Enum {
+export default struct CLUSION_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The URL has been excluded because its scope in unknown. There is no scope that would include or exclude this URL so it is excluded by default.

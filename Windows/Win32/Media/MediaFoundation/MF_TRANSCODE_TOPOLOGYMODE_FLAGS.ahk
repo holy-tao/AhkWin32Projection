@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines flags for the MF_TRANSCODE_TOPOLOGYMODE attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_transcode_topologymode_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_TRANSCODE_TOPOLOGYMODE_FLAGS extends Win32Enum {
+export default struct MF_TRANSCODE_TOPOLOGYMODE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The topology loader will exclude hardware-based transforms (such as codecs and color converters) from the topology. It will use only software transforms.

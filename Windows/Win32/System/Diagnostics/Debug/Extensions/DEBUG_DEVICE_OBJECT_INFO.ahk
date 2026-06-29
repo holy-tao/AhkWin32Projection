@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_DEVICE_OBJECT_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct DEBUG_DEVICE_OBJECT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DevObjAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DevObjAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ReferenceCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReferenceCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    QBusy : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    QBusy {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DriverObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DriverObject {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CurrentIrp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentIrp {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DevExtension : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DevExtension {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    DevObjExtension : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DevObjExtension {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

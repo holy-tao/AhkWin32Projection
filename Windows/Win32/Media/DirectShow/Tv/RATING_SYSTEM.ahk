@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\RATING_ATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RATING_ATTRIBUTE.ahk" { RATING_ATTRIBUTE }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class RATING_SYSTEM extends Win32Struct {
-    static sizeof => 24
+export default struct RATING_SYSTEM {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer}
-     */
-    rating_system_id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rating_system_id : Guid
 
     /**
      * This bitfield backs the following members:
      * - rating_system_is_age_type
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -44,31 +33,10 @@ class RATING_SYSTEM extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7F
         set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
+    country_code : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    country_code {
-        get {
-            if(!this.HasProp("__country_codeProxyArray"))
-                this.__country_codeProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
-            return this.__country_codeProxyArray
-        }
-    }
+    rating_attribute_count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rating_attribute_count {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpratingattrib : RATING_ATTRIBUTE.Ptr
 
-    /**
-     * @type {Pointer<RATING_ATTRIBUTE>}
-     */
-    lpratingattrib {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

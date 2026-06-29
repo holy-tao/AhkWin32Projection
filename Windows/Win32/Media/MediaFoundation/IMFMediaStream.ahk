@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEventGenerator.ahk
-#Include .\IMFMediaSource.ahk
-#Include .\IMFStreamDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
 
 /**
  * Represents one stream in a media source.
@@ -12,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediastream
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaStream extends IMFMediaEventGenerator {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaStream extends IMFMediaEventGenerator {
     /**
      * The interface identifier for IMFMediaStream
      * @type {Guid}
      */
-    static IID => Guid("{d182108f-4ec6-443f-aa42-a71106ec825f}")
+    static IID := Guid("{d182108f-4ec6-443f-aa42-a71106ec825f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaStream interfaces
+    */
+    struct Vtbl extends IMFMediaEventGenerator.Vtbl {
+        GetMediaSource      : IntPtr
+        GetStreamDescriptor : IntPtr
+        RequestSample       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMediaSource", "GetStreamDescriptor", "RequestSample"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a pointer to the media source that created this media stream.
@@ -148,5 +159,29 @@ class IMFMediaStream extends IMFMediaEventGenerator {
     RequestSample(pToken) {
         result := ComCall(9, this, "ptr", pToken, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMediaSource := CallbackCreate(GetMethod(implObj, "GetMediaSource"), flags, 2)
+        this.vtbl.GetStreamDescriptor := CallbackCreate(GetMethod(implObj, "GetStreamDescriptor"), flags, 2)
+        this.vtbl.RequestSample := CallbackCreate(GetMethod(implObj, "RequestSample"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMediaSource)
+        CallbackFree(this.vtbl.GetStreamDescriptor)
+        CallbackFree(this.vtbl.RequestSample)
     }
 }

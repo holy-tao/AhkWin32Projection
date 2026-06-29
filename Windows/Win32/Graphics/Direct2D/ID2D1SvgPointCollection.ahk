@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgAttribute.ahk
-#Include Common\D2D_POINT_2F.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * Interface describing an SVG points value in a polyline or polygon element.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgpointcollection
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1SvgPointCollection extends ID2D1SvgAttribute {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SvgPointCollection extends ID2D1SvgAttribute {
     /**
      * The interface identifier for ID2D1SvgPointCollection
      * @type {Guid}
      */
-    static IID => Guid("{9dbe4c0d-3572-4dd9-9825-5530813bb712}")
+    static IID := Guid("{9dbe4c0d-3572-4dd9-9825-5530813bb712}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SvgPointCollection interfaces
+    */
+    struct Vtbl extends ID2D1SvgAttribute.Vtbl {
+        RemovePointsAtEnd : IntPtr
+        UpdatePoints      : IntPtr
+        GetPoints         : IntPtr
+        GetPointsCount    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RemovePointsAtEnd", "UpdatePoints", "GetPoints", "GetPointsCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SvgPointCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Removes points from the end of the array.
@@ -62,7 +73,7 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-updatepoints
      */
     UpdatePoints(_points, pointsCount, startIndex) {
-        result := ComCall(7, this, "ptr", _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+        result := ComCall(7, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
         return result
     }
 
@@ -81,7 +92,7 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute {
      */
     GetPoints(pointsCount, startIndex) {
         _points := D2D_POINT_2F()
-        result := ComCall(8, this, "ptr", _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+        result := ComCall(8, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
         return _points
     }
 
@@ -93,7 +104,33 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpointscount
      */
     GetPointsCount() {
-        result := ComCall(9, this, "uint")
+        result := ComCall(9, this, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1SvgPointCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RemovePointsAtEnd := CallbackCreate(GetMethod(implObj, "RemovePointsAtEnd"), flags, 2)
+        this.vtbl.UpdatePoints := CallbackCreate(GetMethod(implObj, "UpdatePoints"), flags, 4)
+        this.vtbl.GetPoints := CallbackCreate(GetMethod(implObj, "GetPoints"), flags, 4)
+        this.vtbl.GetPointsCount := CallbackCreate(GetMethod(implObj, "GetPointsCount"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RemovePointsAtEnd)
+        CallbackFree(this.vtbl.UpdatePoints)
+        CallbackFree(this.vtbl.GetPoints)
+        CallbackFree(this.vtbl.GetPointsCount)
     }
 }

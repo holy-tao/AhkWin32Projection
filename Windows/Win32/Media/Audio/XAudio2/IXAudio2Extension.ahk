@@ -1,31 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAudio2Extension extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXAudio2Extension extends IUnknown {
     /**
      * The interface identifier for IXAudio2Extension
      * @type {Guid}
      */
-    static IID => Guid("{84ac29bb-d619-44d2-b197-e4acf7df3ed6}")
+    static IID := Guid("{84ac29bb-d619-44d2-b197-e4acf7df3ed6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAudio2Extension interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProcessingQuantum : IntPtr
+        GetProcessor         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProcessingQuantum", "GetProcessor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAudio2Extension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,17 +49,35 @@ class IXAudio2Extension extends IUnknown {
     }
 
     /**
-     * Retrieves the cycle time each processor in the specified processor group spent executing deferred procedure calls (DPCs) and interrupt service routines (ISRs) since the processor became active.
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+     * 
      * @param {Pointer<Integer>} processor 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getprocessorsystemcycletime
      */
     GetProcessor(processor) {
         processorMarshal := processor is VarRef ? "uint*" : "ptr"
 
         ComCall(4, this, processorMarshal, processor)
+    }
+
+    Query(iid) {
+        if (IXAudio2Extension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProcessingQuantum := CallbackCreate(GetMethod(implObj, "GetProcessingQuantum"), flags, 3)
+        this.vtbl.GetProcessor := CallbackCreate(GetMethod(implObj, "GetProcessor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProcessingQuantum)
+        CallbackFree(this.vtbl.GetProcessor)
     }
 }

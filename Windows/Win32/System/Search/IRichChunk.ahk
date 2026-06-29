@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a chunk of data as a string and a PROPVARIANT value.
@@ -10,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nn-structuredquerycondition-irichchunk
  * @namespace Windows.Win32.System.Search
  */
-class IRichChunk extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRichChunk extends IUnknown {
     /**
      * The interface identifier for IRichChunk
      * @type {Guid}
      */
-    static IID => Guid("{4fdef69c-dbc9-454e-9910-b34f3c64b510}")
+    static IID := Guid("{4fdef69c-dbc9-454e-9910-b34f3c64b510}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRichChunk interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRichChunk.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the PROPVARIANT and input string that represents a chunk of data.
@@ -57,7 +67,27 @@ class IRichChunk extends IUnknown {
         pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
         ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pFirstPosMarshal, pFirstPos, pLengthMarshal, pLength, ppszMarshal, ppsz, "ptr", pValue, "HRESULT")
+        result := ComCall(3, this, pFirstPosMarshal, pFirstPos, pLengthMarshal, pLength, ppszMarshal, ppsz, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRichChunk.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetData)
     }
 }

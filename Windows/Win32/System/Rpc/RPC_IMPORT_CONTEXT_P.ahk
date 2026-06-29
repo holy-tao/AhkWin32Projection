@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_BINDING_VECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_BINDING_VECTOR.ahk" { RPC_BINDING_VECTOR }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_IMPORT_CONTEXT_P extends Win32Struct {
-    static sizeof => 24
+export default struct RPC_IMPORT_CONTEXT_P {
+    #StructPack 8
 
-    static packingSize => 8
+    LookupContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LookupContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ProposedHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ProposedHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Bindings : RPC_BINDING_VECTOR.Ptr
 
-    /**
-     * @type {Pointer<RPC_BINDING_VECTOR>}
-     */
-    Bindings {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CFM_MASK.ahk
-#Include .\CFE_EFFECTS.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CFE_EFFECTS.ahk" { CFE_EFFECTS }
+#Import ".\CFM_MASK.ahk" { CFM_MASK }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about character formatting in a rich edit control. (CHARFORMATA)
@@ -19,72 +20,46 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @charset ANSI
  */
-class CHARFORMATA extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct CHARFORMATA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size in bytes of the specified structure. This member must be set before passing the structure to the rich edit control.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {CFM_MASK}
      */
-    dwMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMask : CFM_MASK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {CFE_EFFECTS}
      */
-    dwEffects {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwEffects : CFE_EFFECTS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Character height, in twips (1/1440 of an inch or 1/20 of a printer's point).
-     * @type {Integer}
      */
-    yHeight {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    yHeight : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Character offset, in twips, from the baseline. If the value of this member is positive, the character is a superscript; if it is negative, the character is a subscript.
-     * @type {Integer}
      */
-    yOffset {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    yOffset : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Text color. This member is ignored if the CFE_AUTOCOLOR character effect is specified. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {COLORREF}
      */
-    crTextColor {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    crTextColor : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
@@ -92,37 +67,21 @@ class CHARFORMATA extends Win32Struct {
      * Character set value. The 
      * 					<b>bCharSet</b> member can be one of the values specified for the 
      * 					<b>lfCharSet</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure. Microsoft Rich Edit 3.0 may override this value if it is invalid for the target characters.
-     * @type {FONT_CHARSET}
      */
-    bCharSet {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    bCharSet : FONT_CHARSET
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Font family and pitch. This member is the same as the <b>lfPitchAndFamily</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
-     * @type {Integer}
      */
-    bPitchAndFamily {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    bPitchAndFamily : Int8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a>[LF_FACESIZE]</b>
      * 
      * Null-terminated character array specifying the font name.
-     * @type {String}
      */
-    szFaceName {
-        get => StrGet(this.ptr + 26, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 26, 31, "UTF-8")
-    }
+    szFaceName : CHAR[32]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 60
-    }
 }

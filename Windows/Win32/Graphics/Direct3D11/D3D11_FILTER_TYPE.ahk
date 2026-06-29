@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Types of magnification or minification sampler filters. (D3D11_FILTER_TYPE)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_filter_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_FILTER_TYPE extends Win32Enum {
+export default struct D3D11_FILTER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Point filtering used as a texture magnification or minification filter. The texel with coordinates nearest to the desired pixel value is used. The texture filter to be used between mipmap levels is nearest-point mipmap filtering. The rasterizer uses the color from the texel of the nearest mipmap texture.

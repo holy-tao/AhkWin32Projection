@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISpatialAudioMetadataWriter.ahk
-#Include .\ISpatialAudioMetadataCopier.ahk
-#Include .\ISpatialAudioMetadataReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpatialAudioMetadataReader.ahk" { ISpatialAudioMetadataReader }
+#Import ".\SpatialAudioMetadataWriterOverflowMode.ahk" { SpatialAudioMetadataWriterOverflowMode }
+#Import ".\ISpatialAudioMetadataWriter.ahk" { ISpatialAudioMetadataWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISpatialAudioMetadataItemsBuffer.ahk" { ISpatialAudioMetadataItemsBuffer }
+#Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
+#Import ".\ISpatialAudioMetadataCopier.ahk" { ISpatialAudioMetadataCopier }
 
 /**
  * Provides a class factory for creating ISpatialAudioMetadataItems, ISpatialAudioMetadataWriter, ISpatialAudioMetadataReader, and ISpatialAudioMetadataCopier objects.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataclient
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioMetadataClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioMetadataClient extends IUnknown {
     /**
      * The interface identifier for ISpatialAudioMetadataClient
      * @type {Guid}
      */
-    static IID => Guid("{777d4a3b-f6ff-4a26-85dc-68d7cdeda1d4}")
+    static IID := Guid("{777d4a3b-f6ff-4a26-85dc-68d7cdeda1d4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioMetadataClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ActivateSpatialAudioMetadataItems        : IntPtr
+        GetSpatialAudioMetadataItemsBufferLength : IntPtr
+        ActivateSpatialAudioMetadataWriter       : IntPtr
+        ActivateSpatialAudioMetadataCopier       : IntPtr
+        ActivateSpatialAudioMetadataReader       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateSpatialAudioMetadataItems", "GetSpatialAudioMetadataItemsBufferLength", "ActivateSpatialAudioMetadataWriter", "ActivateSpatialAudioMetadataCopier", "ActivateSpatialAudioMetadataReader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioMetadataClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an ISpatialAudioMetadataItems object for storing spatial audio metadata items.
@@ -62,7 +77,7 @@ class ISpatialAudioMetadataClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems
      */
     ActivateSpatialAudioMetadataItems(maxItemCount, frameCount, metadataItemsBuffer, metadataItems) {
-        result := ComCall(3, this, "ushort", maxItemCount, "ushort", frameCount, "ptr*", metadataItemsBuffer, "ptr*", metadataItems, "HRESULT")
+        result := ComCall(3, this, "ushort", maxItemCount, "ushort", frameCount, ISpatialAudioMetadataItemsBuffer.Ptr, metadataItemsBuffer, ISpatialAudioMetadataItems.Ptr, metadataItems, "HRESULT")
         return result
     }
 
@@ -84,7 +99,7 @@ class ISpatialAudioMetadataClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatawriter
      */
     ActivateSpatialAudioMetadataWriter(overflowMode) {
-        result := ComCall(5, this, "int", overflowMode, "ptr*", &metadataWriter := 0, "HRESULT")
+        result := ComCall(5, this, SpatialAudioMetadataWriterOverflowMode, overflowMode, "ptr*", &metadataWriter := 0, "HRESULT")
         return ISpatialAudioMetadataWriter(metadataWriter)
     }
 
@@ -106,5 +121,33 @@ class ISpatialAudioMetadataClient extends IUnknown {
     ActivateSpatialAudioMetadataReader() {
         result := ComCall(7, this, "ptr*", &metadataReader := 0, "HRESULT")
         return ISpatialAudioMetadataReader(metadataReader)
+    }
+
+    Query(iid) {
+        if (ISpatialAudioMetadataClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateSpatialAudioMetadataItems := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataItems"), flags, 5)
+        this.vtbl.GetSpatialAudioMetadataItemsBufferLength := CallbackCreate(GetMethod(implObj, "GetSpatialAudioMetadataItemsBufferLength"), flags, 3)
+        this.vtbl.ActivateSpatialAudioMetadataWriter := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataWriter"), flags, 3)
+        this.vtbl.ActivateSpatialAudioMetadataCopier := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataCopier"), flags, 2)
+        this.vtbl.ActivateSpatialAudioMetadataReader := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataReader"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateSpatialAudioMetadataItems)
+        CallbackFree(this.vtbl.GetSpatialAudioMetadataItemsBufferLength)
+        CallbackFree(this.vtbl.ActivateSpatialAudioMetadataWriter)
+        CallbackFree(this.vtbl.ActivateSpatialAudioMetadataCopier)
+        CallbackFree(this.vtbl.ActivateSpatialAudioMetadataReader)
     }
 }

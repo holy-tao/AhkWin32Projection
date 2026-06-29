@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
-#Include .\HCERTSTORE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Is passed in calls to the CertVerifyRevocation function to assist in finding the issuer of the context to be verified.
@@ -13,72 +12,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_REVOCATION_PARA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CERT_REVOCATION_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the certificate of the issuer of a certificate specified in the <i>rgpvContext</i> array in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certverifyrevocation">CertVerifyRevocation</a> parameter list.
-     * @type {Pointer<CERT_CONTEXT>}
      */
-    pIssuerCert {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pIssuerCert : CERT_CONTEXT.Ptr
 
     /**
      * When set, contains the number of elements in the <b>rgCertStore</b> array. Set to zero if you are not supplying  a list of store handles in the <i>rgCertStore</i> parameter.
-     * @type {Integer}
      */
-    cCertStore {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cCertStore : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> handles. Specifies a set of stores that are searched for issuer certificates.  If <i>rgCertStore</i> is not set, the default stores are searched.
-     * @type {Pointer<HCERTSTORE>}
      */
-    rgCertStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rgCertStore : HCERTSTORE.Ptr
 
     /**
      * Optional store handle. When specified, a handler that uses <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation lists</a> (CRLs) can search this store for CRLs.
-     * @type {HCERTSTORE}
      */
-    hCrlStore {
-        get {
-            if(!this.HasProp("__hCrlStore"))
-                this.__hCrlStore := HCERTSTORE(32, this)
-            return this.__hCrlStore
-        }
-    }
+    hCrlStore : HCERTSTORE
 
     /**
      * A pointer to a <b>FILETIME</b> version of UTC time. When specified, the handler must, if possible, determine revocation status relative to the time given. If <b>NULL</b> or the handler cannot determine the status relative to the <b>pftTimeToUse</b> value, revocation status can be determined independent of time or relative to current time.
-     * @type {Pointer<FILETIME>}
      */
-    pftTimeToUse {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pftTimeToUse : FILETIME.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

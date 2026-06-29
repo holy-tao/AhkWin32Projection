@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITocEntryList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TOC_DESCRIPTOR.ahk" { TOC_DESCRIPTOR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITocEntryList.ahk" { ITocEntryList }
 
 /**
  * The IToc interface represents an individual table of contents. It provides methods for adding entries to, and removing entries from the table of contents.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itoc
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IToc extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IToc extends IUnknown {
     /**
      * The interface identifier for IToc
      * @type {Guid}
      */
-    static IID => Guid("{d6f05441-a919-423b-91a0-89d5b4a8ab77}")
+    static IID := Guid("{d6f05441-a919-423b-91a0-89d5b4a8ab77}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IToc interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDescriptor          : IntPtr
+        GetDescriptor          : IntPtr
+        SetDescription         : IntPtr
+        GetDescription         : IntPtr
+        SetContext             : IntPtr
+        GetContext             : IntPtr
+        GetEntryListCount      : IntPtr
+        GetEntryListByIndex    : IntPtr
+        AddEntryList           : IntPtr
+        AddEntryListByIndex    : IntPtr
+        RemoveEntryListByIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDescriptor", "GetDescriptor", "SetDescription", "GetDescription", "SetContext", "GetContext", "GetEntryListCount", "GetEntryListByIndex", "AddEntryList", "AddEntryListByIndex", "RemoveEntryListByIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IToc.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetDescriptor method associates a descriptor with the table of contents.
@@ -55,7 +75,7 @@ class IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor
      */
     SetDescriptor(pDescriptor) {
-        result := ComCall(3, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(3, this, TOC_DESCRIPTOR.Ptr, pDescriptor, "HRESULT")
         return result
     }
 
@@ -84,7 +104,7 @@ class IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-getdescriptor
      */
     GetDescriptor(pDescriptor) {
-        result := ComCall(4, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(4, this, TOC_DESCRIPTOR.Ptr, pDescriptor, "HRESULT")
         return result
     }
 
@@ -376,5 +396,45 @@ class IToc extends IUnknown {
     RemoveEntryListByIndex(wEntryListIndex) {
         result := ComCall(13, this, "ushort", wEntryListIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IToc.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDescriptor := CallbackCreate(GetMethod(implObj, "SetDescriptor"), flags, 2)
+        this.vtbl.GetDescriptor := CallbackCreate(GetMethod(implObj, "GetDescriptor"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 3)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
+        this.vtbl.GetEntryListCount := CallbackCreate(GetMethod(implObj, "GetEntryListCount"), flags, 2)
+        this.vtbl.GetEntryListByIndex := CallbackCreate(GetMethod(implObj, "GetEntryListByIndex"), flags, 3)
+        this.vtbl.AddEntryList := CallbackCreate(GetMethod(implObj, "AddEntryList"), flags, 3)
+        this.vtbl.AddEntryListByIndex := CallbackCreate(GetMethod(implObj, "AddEntryListByIndex"), flags, 3)
+        this.vtbl.RemoveEntryListByIndex := CallbackCreate(GetMethod(implObj, "RemoveEntryListByIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDescriptor)
+        CallbackFree(this.vtbl.GetDescriptor)
+        CallbackFree(this.vtbl.SetDescription)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetContext)
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.GetEntryListCount)
+        CallbackFree(this.vtbl.GetEntryListByIndex)
+        CallbackFree(this.vtbl.AddEntryList)
+        CallbackFree(this.vtbl.AddEntryListByIndex)
+        CallbackFree(this.vtbl.RemoveEntryListByIndex)
     }
 }

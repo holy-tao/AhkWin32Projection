@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Elements of the TKBLayoutType enumeration are passed by an IME in a call to ITfFnGetPreferredTouchKeyboardLayout::GetLayout to specify the type of layout.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tkblayouttype
  * @namespace Windows.Win32.UI.TextServices
  */
-class TKBLayoutType extends Win32Enum {
+export default struct TKBLayoutType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Undefined. If specified, it will cause the layout to fallback to a classic layout.

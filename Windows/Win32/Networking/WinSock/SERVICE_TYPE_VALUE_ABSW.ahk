@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about a network-service type value. This information may be specific to a namespace. (Unicode)
@@ -21,10 +21,8 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset Unicode
  */
-class SERVICE_TYPE_VALUE_ABSW extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SERVICE_TYPE_VALUE_ABSW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -102,12 +100,8 @@ class SERVICE_TYPE_VALUE_ABSW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwNameSpace {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNameSpace : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -162,23 +156,15 @@ class SERVICE_TYPE_VALUE_ABSW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwValueType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwValueType : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes,  of the value pointed to by the <b>lpValue</b> member. In the case of REG_SZ and REG_MULTI_SZ string data, the terminating characters are counted as part of the size.
-     * @type {Integer}
      */
-    dwValueSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwValueSize : UInt32
 
     /**
      * Type: <b>LPTSTR</b>
@@ -236,21 +222,14 @@ class SERVICE_TYPE_VALUE_ABSW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PWSTR}
      */
-    lpValueName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpValueName : PWSTR
 
     /**
      * Type: <b>PVOID</b>
      * 
      * A pointer to the value data.
-     * @type {Pointer<Void>}
      */
-    lpValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpValue : IntPtr
+
 }

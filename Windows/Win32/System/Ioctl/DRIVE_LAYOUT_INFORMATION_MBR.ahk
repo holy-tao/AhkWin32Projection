@@ -1,30 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides information about a drive's master boot record (MBR) partitions.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_mbr
  * @namespace Windows.Win32.System.Ioctl
  */
-class DRIVE_LAYOUT_INFORMATION_MBR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DRIVE_LAYOUT_INFORMATION_MBR {
+    #StructPack 4
 
     /**
      * The signature of the drive.
-     * @type {Integer}
      */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CheckSum {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CheckSum : UInt32
+
 }

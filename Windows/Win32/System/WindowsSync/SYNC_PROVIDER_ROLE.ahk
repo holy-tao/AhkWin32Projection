@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the role of a provider, relative to the other provider in the synchronization session.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_provider_role
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SYNC_PROVIDER_ROLE extends Win32Enum {
+export default struct SYNC_PROVIDER_ROLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The provider is the source provider.

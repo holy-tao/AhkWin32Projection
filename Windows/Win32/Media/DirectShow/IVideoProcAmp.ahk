@@ -1,33 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVideoProcAmp interface controls the image adjustment (ProcAmp) settings on a capture device.This interface may be exposed by one or more nodes in a capture filter.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-ivideoprocamp
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVideoProcAmp extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVideoProcAmp extends IUnknown {
     /**
      * The interface identifier for IVideoProcAmp
      * @type {Guid}
      */
-    static IID => Guid("{4050560e-42a7-413a-85c2-09269a2d0f44}")
+    static IID := Guid("{4050560e-42a7-413a-85c2-09269a2d0f44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVideoProcAmp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_BacklightCompensation      : IntPtr
+        put_BacklightCompensation      : IntPtr
+        getRange_BacklightCompensation : IntPtr
+        get_Brightness                 : IntPtr
+        put_Brightness                 : IntPtr
+        getRange_Brightness            : IntPtr
+        get_ColorEnable                : IntPtr
+        put_ColorEnable                : IntPtr
+        getRange_ColorEnable           : IntPtr
+        get_Contrast                   : IntPtr
+        put_Contrast                   : IntPtr
+        getRange_Contrast              : IntPtr
+        get_Gamma                      : IntPtr
+        put_Gamma                      : IntPtr
+        getRange_Gamma                 : IntPtr
+        get_Saturation                 : IntPtr
+        put_Saturation                 : IntPtr
+        getRange_Saturation            : IntPtr
+        get_Sharpness                  : IntPtr
+        put_Sharpness                  : IntPtr
+        getRange_Sharpness             : IntPtr
+        get_WhiteBalance               : IntPtr
+        put_WhiteBalance               : IntPtr
+        getRange_WhiteBalance          : IntPtr
+        get_Gain                       : IntPtr
+        put_Gain                       : IntPtr
+        getRange_Gain                  : IntPtr
+        get_Hue                        : IntPtr
+        put_Hue                        : IntPtr
+        getRange_Hue                   : IntPtr
+        get_DigitalMultiplier          : IntPtr
+        put_DigitalMultiplier          : IntPtr
+        getRange_DigitalMultiplier     : IntPtr
+        get_PowerlineFrequency         : IntPtr
+        put_PowerlineFrequency         : IntPtr
+        getRange_PowerlineFrequency    : IntPtr
+        get_WhiteBalanceComponent      : IntPtr
+        put_WhiteBalanceComponent      : IntPtr
+        getRange_WhiteBalanceComponent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BacklightCompensation", "put_BacklightCompensation", "getRange_BacklightCompensation", "get_Brightness", "put_Brightness", "getRange_Brightness", "get_ColorEnable", "put_ColorEnable", "getRange_ColorEnable", "get_Contrast", "put_Contrast", "getRange_Contrast", "get_Gamma", "put_Gamma", "getRange_Gamma", "get_Saturation", "put_Saturation", "getRange_Saturation", "get_Sharpness", "put_Sharpness", "getRange_Sharpness", "get_WhiteBalance", "put_WhiteBalance", "getRange_WhiteBalance", "get_Gain", "put_Gain", "getRange_Gain", "get_Hue", "put_Hue", "getRange_Hue", "get_DigitalMultiplier", "put_DigitalMultiplier", "getRange_DigitalMultiplier", "get_PowerlineFrequency", "put_PowerlineFrequency", "getRange_PowerlineFrequency", "get_WhiteBalanceComponent", "put_WhiteBalanceComponent", "getRange_WhiteBalanceComponent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVideoProcAmp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The get_BacklightCompensation method returns the camera's backlight compensation setting.
@@ -677,5 +723,101 @@ class IVideoProcAmp extends IUnknown {
 
         result := ComCall(41, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVideoProcAmp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BacklightCompensation := CallbackCreate(GetMethod(implObj, "get_BacklightCompensation"), flags, 3)
+        this.vtbl.put_BacklightCompensation := CallbackCreate(GetMethod(implObj, "put_BacklightCompensation"), flags, 3)
+        this.vtbl.getRange_BacklightCompensation := CallbackCreate(GetMethod(implObj, "getRange_BacklightCompensation"), flags, 6)
+        this.vtbl.get_Brightness := CallbackCreate(GetMethod(implObj, "get_Brightness"), flags, 3)
+        this.vtbl.put_Brightness := CallbackCreate(GetMethod(implObj, "put_Brightness"), flags, 3)
+        this.vtbl.getRange_Brightness := CallbackCreate(GetMethod(implObj, "getRange_Brightness"), flags, 6)
+        this.vtbl.get_ColorEnable := CallbackCreate(GetMethod(implObj, "get_ColorEnable"), flags, 3)
+        this.vtbl.put_ColorEnable := CallbackCreate(GetMethod(implObj, "put_ColorEnable"), flags, 3)
+        this.vtbl.getRange_ColorEnable := CallbackCreate(GetMethod(implObj, "getRange_ColorEnable"), flags, 6)
+        this.vtbl.get_Contrast := CallbackCreate(GetMethod(implObj, "get_Contrast"), flags, 3)
+        this.vtbl.put_Contrast := CallbackCreate(GetMethod(implObj, "put_Contrast"), flags, 3)
+        this.vtbl.getRange_Contrast := CallbackCreate(GetMethod(implObj, "getRange_Contrast"), flags, 6)
+        this.vtbl.get_Gamma := CallbackCreate(GetMethod(implObj, "get_Gamma"), flags, 3)
+        this.vtbl.put_Gamma := CallbackCreate(GetMethod(implObj, "put_Gamma"), flags, 3)
+        this.vtbl.getRange_Gamma := CallbackCreate(GetMethod(implObj, "getRange_Gamma"), flags, 6)
+        this.vtbl.get_Saturation := CallbackCreate(GetMethod(implObj, "get_Saturation"), flags, 3)
+        this.vtbl.put_Saturation := CallbackCreate(GetMethod(implObj, "put_Saturation"), flags, 3)
+        this.vtbl.getRange_Saturation := CallbackCreate(GetMethod(implObj, "getRange_Saturation"), flags, 6)
+        this.vtbl.get_Sharpness := CallbackCreate(GetMethod(implObj, "get_Sharpness"), flags, 3)
+        this.vtbl.put_Sharpness := CallbackCreate(GetMethod(implObj, "put_Sharpness"), flags, 3)
+        this.vtbl.getRange_Sharpness := CallbackCreate(GetMethod(implObj, "getRange_Sharpness"), flags, 6)
+        this.vtbl.get_WhiteBalance := CallbackCreate(GetMethod(implObj, "get_WhiteBalance"), flags, 3)
+        this.vtbl.put_WhiteBalance := CallbackCreate(GetMethod(implObj, "put_WhiteBalance"), flags, 3)
+        this.vtbl.getRange_WhiteBalance := CallbackCreate(GetMethod(implObj, "getRange_WhiteBalance"), flags, 6)
+        this.vtbl.get_Gain := CallbackCreate(GetMethod(implObj, "get_Gain"), flags, 3)
+        this.vtbl.put_Gain := CallbackCreate(GetMethod(implObj, "put_Gain"), flags, 3)
+        this.vtbl.getRange_Gain := CallbackCreate(GetMethod(implObj, "getRange_Gain"), flags, 6)
+        this.vtbl.get_Hue := CallbackCreate(GetMethod(implObj, "get_Hue"), flags, 3)
+        this.vtbl.put_Hue := CallbackCreate(GetMethod(implObj, "put_Hue"), flags, 3)
+        this.vtbl.getRange_Hue := CallbackCreate(GetMethod(implObj, "getRange_Hue"), flags, 6)
+        this.vtbl.get_DigitalMultiplier := CallbackCreate(GetMethod(implObj, "get_DigitalMultiplier"), flags, 3)
+        this.vtbl.put_DigitalMultiplier := CallbackCreate(GetMethod(implObj, "put_DigitalMultiplier"), flags, 3)
+        this.vtbl.getRange_DigitalMultiplier := CallbackCreate(GetMethod(implObj, "getRange_DigitalMultiplier"), flags, 6)
+        this.vtbl.get_PowerlineFrequency := CallbackCreate(GetMethod(implObj, "get_PowerlineFrequency"), flags, 3)
+        this.vtbl.put_PowerlineFrequency := CallbackCreate(GetMethod(implObj, "put_PowerlineFrequency"), flags, 3)
+        this.vtbl.getRange_PowerlineFrequency := CallbackCreate(GetMethod(implObj, "getRange_PowerlineFrequency"), flags, 6)
+        this.vtbl.get_WhiteBalanceComponent := CallbackCreate(GetMethod(implObj, "get_WhiteBalanceComponent"), flags, 4)
+        this.vtbl.put_WhiteBalanceComponent := CallbackCreate(GetMethod(implObj, "put_WhiteBalanceComponent"), flags, 4)
+        this.vtbl.getRange_WhiteBalanceComponent := CallbackCreate(GetMethod(implObj, "getRange_WhiteBalanceComponent"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BacklightCompensation)
+        CallbackFree(this.vtbl.put_BacklightCompensation)
+        CallbackFree(this.vtbl.getRange_BacklightCompensation)
+        CallbackFree(this.vtbl.get_Brightness)
+        CallbackFree(this.vtbl.put_Brightness)
+        CallbackFree(this.vtbl.getRange_Brightness)
+        CallbackFree(this.vtbl.get_ColorEnable)
+        CallbackFree(this.vtbl.put_ColorEnable)
+        CallbackFree(this.vtbl.getRange_ColorEnable)
+        CallbackFree(this.vtbl.get_Contrast)
+        CallbackFree(this.vtbl.put_Contrast)
+        CallbackFree(this.vtbl.getRange_Contrast)
+        CallbackFree(this.vtbl.get_Gamma)
+        CallbackFree(this.vtbl.put_Gamma)
+        CallbackFree(this.vtbl.getRange_Gamma)
+        CallbackFree(this.vtbl.get_Saturation)
+        CallbackFree(this.vtbl.put_Saturation)
+        CallbackFree(this.vtbl.getRange_Saturation)
+        CallbackFree(this.vtbl.get_Sharpness)
+        CallbackFree(this.vtbl.put_Sharpness)
+        CallbackFree(this.vtbl.getRange_Sharpness)
+        CallbackFree(this.vtbl.get_WhiteBalance)
+        CallbackFree(this.vtbl.put_WhiteBalance)
+        CallbackFree(this.vtbl.getRange_WhiteBalance)
+        CallbackFree(this.vtbl.get_Gain)
+        CallbackFree(this.vtbl.put_Gain)
+        CallbackFree(this.vtbl.getRange_Gain)
+        CallbackFree(this.vtbl.get_Hue)
+        CallbackFree(this.vtbl.put_Hue)
+        CallbackFree(this.vtbl.getRange_Hue)
+        CallbackFree(this.vtbl.get_DigitalMultiplier)
+        CallbackFree(this.vtbl.put_DigitalMultiplier)
+        CallbackFree(this.vtbl.getRange_DigitalMultiplier)
+        CallbackFree(this.vtbl.get_PowerlineFrequency)
+        CallbackFree(this.vtbl.put_PowerlineFrequency)
+        CallbackFree(this.vtbl.getRange_PowerlineFrequency)
+        CallbackFree(this.vtbl.get_WhiteBalanceComponent)
+        CallbackFree(this.vtbl.put_WhiteBalanceComponent)
+        CallbackFree(this.vtbl.getRange_WhiteBalanceComponent)
     }
 }

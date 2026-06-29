@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\NLM_NETWORK_PROPERTY_CHANGE.ahk" { NLM_NETWORK_PROPERTY_CHANGE }
 
 /**
  * INetworkEvents is a notification sink interface that a client implements to get network related events. These APIs are all callback functions that are called automatically when the respective events are raised.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkevents
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class INetworkEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetworkEvents extends IUnknown {
     /**
      * The interface identifier for INetworkEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcb00004-570f-4a9b-8d69-199fdba5723b}")
+    static IID := Guid("{dcb00004-570f-4a9b-8d69-199fdba5723b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetworkEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NetworkAdded               : IntPtr
+        NetworkDeleted             : IntPtr
+        NetworkConnectivityChanged : IntPtr
+        NetworkPropertyChanged     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NetworkAdded", "NetworkDeleted", "NetworkConnectivityChanged", "NetworkPropertyChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetworkEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The NetworkAdded method is called when a new network is added. The GUID of the new network is provided.
@@ -36,7 +49,7 @@ class INetworkEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkadded
      */
     NetworkAdded(networkId) {
-        result := ComCall(3, this, "ptr", networkId, "HRESULT")
+        result := ComCall(3, this, Guid, networkId, "HRESULT")
         return result
     }
 
@@ -47,7 +60,7 @@ class INetworkEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkdeleted
      */
     NetworkDeleted(networkId) {
-        result := ComCall(4, this, "ptr", networkId, "HRESULT")
+        result := ComCall(4, this, Guid, networkId, "HRESULT")
         return result
     }
 
@@ -59,7 +72,7 @@ class INetworkEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkconnectivitychanged
      */
     NetworkConnectivityChanged(networkId, newConnectivity) {
-        result := ComCall(5, this, "ptr", networkId, "int", newConnectivity, "HRESULT")
+        result := ComCall(5, this, Guid, networkId, NLM_CONNECTIVITY, newConnectivity, "HRESULT")
         return result
     }
 
@@ -71,7 +84,33 @@ class INetworkEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkpropertychanged
      */
     NetworkPropertyChanged(networkId, flags) {
-        result := ComCall(6, this, "ptr", networkId, "int", flags, "HRESULT")
+        result := ComCall(6, this, Guid, networkId, NLM_NETWORK_PROPERTY_CHANGE, flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetworkEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NetworkAdded := CallbackCreate(GetMethod(implObj, "NetworkAdded"), flags, 2)
+        this.vtbl.NetworkDeleted := CallbackCreate(GetMethod(implObj, "NetworkDeleted"), flags, 2)
+        this.vtbl.NetworkConnectivityChanged := CallbackCreate(GetMethod(implObj, "NetworkConnectivityChanged"), flags, 3)
+        this.vtbl.NetworkPropertyChanged := CallbackCreate(GetMethod(implObj, "NetworkPropertyChanged"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NetworkAdded)
+        CallbackFree(this.vtbl.NetworkDeleted)
+        CallbackFree(this.vtbl.NetworkConnectivityChanged)
+        CallbackFree(this.vtbl.NetworkPropertyChanged)
     }
 }

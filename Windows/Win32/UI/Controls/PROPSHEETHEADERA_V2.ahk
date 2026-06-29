@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\PROPSHEETPAGEA.ahk
-#Include .\HPROPSHEETPAGE.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PROPSHEETHEADERA_V2 (ANSI) structure defines the frame and pages of a property sheet.
@@ -38,174 +38,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetheadera_v2
  * @namespace Windows.Win32.UI.Controls
  */
-class PROPSHEETHEADERA_V2 extends Win32Struct {
-    static sizeof => 96
+export default struct PROPSHEETHEADERA_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hwndParent : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(8, this)
-            return this.__hwndParent
-        }
-    }
+    hInstance : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(16, this)
-            return this.__hInstance
-        }
-    }
+    hIcon : HICON
 
-    /**
-     * @type {HICON}
-     */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(24, this)
-            return this.__hIcon
-        }
-    }
+    pszCaption : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    nPages : UInt32
 
-    /**
-     * @type {PSTR}
-     */
-    pszCaption {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    nStartPage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nPages {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ppsp : PROPSHEETPAGEA.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    nStartPage {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pfnCallback : IntPtr
 
-    /**
-     * @type {PSTR}
-     */
-    pStartPage {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<PROPSHEETPAGEA>}
-     */
-    ppsp {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<HPROPSHEETPAGE>}
-     */
-    phpage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<PFNPROPSHEETCALLBACK>}
-     */
-    pfnCallback {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {HBITMAP}
-     */
-    hbmWatermark {
-        get {
-            if(!this.HasProp("__hbmWatermark"))
-                this.__hbmWatermark := HBITMAP(72, this)
-            return this.__hbmWatermark
-        }
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszbmWatermark {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    hbmWatermark : HBITMAP
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HPALETTE</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80</a> or later. <b>HPALETTE</b> structure used for drawing the watermark bitmap and/or header bitmap. If the <b>dwFlags</b> member does not include PSH_USEHPLWATERMARK, this member is ignored.
-     * @type {HPALETTE}
      */
-    hplWatermark {
-        get {
-            if(!this.HasProp("__hplWatermark"))
-                this.__hplWatermark := HPALETTE(80, this)
-            return this.__hplWatermark
-        }
-    }
+    hplWatermark : HPALETTE
 
-    /**
-     * @type {HBITMAP}
-     */
-    hbmHeader {
-        get {
-            if(!this.HasProp("__hbmHeader"))
-                this.__hbmHeader := HBITMAP(88, this)
-            return this.__hbmHeader
-        }
-    }
+    hbmHeader : HBITMAP
 
-    /**
-     * @type {PSTR}
-     */
-    pszbmHeader {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    static __New() {
+        DefineProp(this.Prototype, 'pszIcon', { type: PSTR, offset: 24 })
+        DefineProp(this.Prototype, 'pStartPage', { type: PSTR, offset: 48 })
+        DefineProp(this.Prototype, 'phpage', { type: HPROPSHEETPAGE.Ptr, offset: 56 })
+        DefineProp(this.Prototype, 'pszbmWatermark', { type: PSTR, offset: 72 })
+        DefineProp(this.Prototype, 'pszbmHeader', { type: PSTR, offset: 88 })
+        this.DeleteProp("__New")
     }
 }

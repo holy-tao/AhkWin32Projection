@@ -1,60 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_CONNECTION_PROXY_INFO.ahk
-#Include .\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_CONNECTION_PROXY_INFO.ahk" { DNS_CONNECTION_PROXY_INFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk" { DNS_CONNECTION_PROXY_INFO_SWITCH }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct {
-    static sizeof => 104
+export default struct DNS_CONNECTION_PROXY_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    ProxyInfo : DNS_CONNECTION_PROXY_INFO
 
-    /**
-     * @type {DNS_CONNECTION_PROXY_INFO}
-     */
-    ProxyInfo {
-        get {
-            if(!this.HasProp("__ProxyInfo"))
-                this.__ProxyInfo := DNS_CONNECTION_PROXY_INFO(0, this)
-            return this.__ProxyInfo
-        }
-    }
+    dwInterfaceIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInterfaceIndex {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    pwszConnectionName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszConnectionName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    fDirectConfiguration : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fDirectConfiguration {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    hConnection : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hConnection {
-        get {
-            if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(96, this)
-            return this.__hConnection
-        }
-    }
 }

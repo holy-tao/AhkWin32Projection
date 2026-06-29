@@ -1,95 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_I1_PARTITIONINFORMATIONW extends Win32Struct {
-    static sizeof => 936
+export default struct NTMS_I1_PARTITIONINFORMATIONW {
+    #StructPack 4
 
-    static packingSize => 8
+    PhysicalMedia : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PhysicalMedia {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LogicalMedia : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    LogicalMedia {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    State : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Side : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Side {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    dwOmidLabelIdLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOmidLabelIdLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OmidLabelId : Int8[255]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OmidLabelId {
-        get {
-            if(!this.HasProp("__OmidLabelIdProxyArray"))
-                this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 255, Primitive, "char")
-            return this.__OmidLabelIdProxyArray
-        }
-    }
+    szOmidLabelType : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szOmidLabelType {
-        get => StrGet(this.ptr + 284, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 284, 63, "UTF-16")
-    }
+    szOmidLabelInfo : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    szOmidLabelInfo {
-        get => StrGet(this.ptr + 412, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 412, 255, "UTF-16")
-    }
+    dwMountCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMountCount {
-        get => NumGet(this, 924, "uint")
-        set => NumPut("uint", value, this, 924)
-    }
+    dwAllocateCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAllocateCount {
-        get => NumGet(this, 928, "uint")
-        set => NumPut("uint", value, this, 928)
-    }
 }

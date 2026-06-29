@@ -1,38 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIPI_DSI_PACKET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIPI_DSI_PACKET.ahk" { MIPI_DSI_PACKET }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class MIPI_DSI_TRANSMISSION extends Win32Struct {
-    static sizeof => 32
+export default struct MIPI_DSI_TRANSMISSION {
+    #StructPack 4
 
-    static packingSize => 4
+    TotalBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalBufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PacketCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PacketCount {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FailedPacket {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    FailedPacket : Int8
 
     /**
      * This bitfield backs the following members:
@@ -42,12 +21,9 @@ class MIPI_DSI_TRANSMISSION extends Win32Struct {
      * - SecondaryPort
      * - ManufacturingMode
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -88,47 +64,14 @@ class MIPI_DSI_TRANSMISSION extends Win32Struct {
         get => (this._bitfield >> 5) & 0x1
         set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
     }
+    ReadWordCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReadWordCount {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    FinalCommandExtraPayload : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FinalCommandExtraPayload {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    MipiErrors : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MipiErrors {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    HostErrors : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HostErrors {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Packets : MIPI_DSI_PACKET[1]
 
-    /**
-     * @type {MIPI_DSI_PACKET}
-     */
-    Packets {
-        get {
-            if(!this.HasProp("__PacketsProxyArray"))
-                this.__PacketsProxyArray := Win32FixedArray(this.ptr + 16, 1, MIPI_DSI_PACKET, "")
-            return this.__PacketsProxyArray
-        }
-    }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that retrieve and set the state of items in a tree-view control that have the Tree-View Control Window Styles flag set.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iregtreeitem
  * @namespace Windows.Win32.UI.Shell
  */
-class IRegTreeItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRegTreeItem extends IUnknown {
     /**
      * The interface identifier for IRegTreeItem
      * @type {Guid}
      */
-    static IID => Guid("{a9521922-0812-4d44-9ec3-7fd38c726f3d}")
+    static IID := Guid("{a9521922-0812-4d44-9ec3-7fd38c726f3d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRegTreeItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCheckState : IntPtr
+        SetCheckState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCheckState", "SetCheckState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRegTreeItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the state of a check box item in a tree-view control.
@@ -37,7 +47,7 @@ class IRegTreeItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iregtreeitem-getcheckstate
      */
     GetCheckState() {
-        result := ComCall(3, this, "int*", &pbCheck := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pbCheck := 0, "HRESULT")
         return pbCheck
     }
 
@@ -52,7 +62,29 @@ class IRegTreeItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iregtreeitem-setcheckstate
      */
     SetCheckState(bCheck) {
-        result := ComCall(4, this, "int", bCheck, "HRESULT")
+        result := ComCall(4, this, BOOL, bCheck, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRegTreeItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCheckState := CallbackCreate(GetMethod(implObj, "GetCheckState"), flags, 2)
+        this.vtbl.SetCheckState := CallbackCreate(GetMethod(implObj, "SetCheckState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCheckState)
+        CallbackFree(this.vtbl.SetCheckState)
     }
 }

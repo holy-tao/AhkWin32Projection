@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IGPMGPOLink interface supports methods that allow you to remove a GPO link from the scope of management (SOM), and to set and retrieve various properties of GPO links, including enabling and enforcing links.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmgpolink
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class GPMGPOLink extends Win32Struct {
-    static sizeof => 0
+export default struct GPMGPOLink {
+    #StructPack 1
 
-    static packingSize => 1
 }

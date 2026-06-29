@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_CAP_STYLE.ahk
-#Include .\D2D1_LINE_JOIN.ahk
-#Include .\D2D1_DASH_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_DASH_STYLE.ahk" { D2D1_DASH_STYLE }
+#Import ".\D2D1_CAP_STYLE.ahk" { D2D1_CAP_STYLE }
+#Import ".\D2D1_LINE_JOIN.ahk" { D2D1_LINE_JOIN }
 
 /**
  * Describes the stroke that outlines a shape. (D2D1_STROKE_STYLE_PROPERTIES)
@@ -13,85 +12,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_stroke_style_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_STROKE_STYLE_PROPERTIES extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct D2D1_STROKE_STYLE_PROPERTIES {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
      * The cap applied to the start of all the open figures in a stroked geometry.
-     * @type {D2D1_CAP_STYLE}
      */
-    startCap {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    startCap : D2D1_CAP_STYLE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
      * The cap applied to the end of all the open figures in a stroked geometry.
-     * @type {D2D1_CAP_STYLE}
      */
-    endCap {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    endCap : D2D1_CAP_STYLE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
      * The shape  at either end of each dash segment.
-     * @type {D2D1_CAP_STYLE}
      */
-    dashCap {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dashCap : D2D1_CAP_STYLE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_line_join">D2D1_LINE_JOIN</a></b>
      * 
      * A value that describes how segments are joined. This value is ignored for a vertex if the segment flags specify that the segment should have a smooth join.
-     * @type {D2D1_LINE_JOIN}
      */
-    lineJoin {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lineJoin : D2D1_LINE_JOIN
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The limit of the thickness of the join on a mitered corner. This value is always treated as though it is greater than or equal to 1.0f.
-     * @type {Float}
      */
-    miterLimit {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    miterLimit : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dash_style">D2D1_DASH_STYLE</a></b>
      * 
      * A value that specifies whether the stroke has a dash pattern and, if so, the dash style.
-     * @type {D2D1_DASH_STYLE}
      */
-    dashStyle {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    dashStyle : D2D1_DASH_STYLE
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value that specifies an offset in the dash sequence.   A positive dash offset value  shifts the dash pattern, in units of  stroke width, toward the start of the stroked geometry.  A negative dash offset value  shifts the dash pattern, in units of  stroke width, toward the end of the stroked geometry.
-     * @type {Float}
      */
-    dashOffset {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    dashOffset : Float32
+
 }

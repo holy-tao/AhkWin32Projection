@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The PERBANDINFO structure is used as input to a printer graphics DLL's DrvQueryPerBandInfo function.
@@ -11,47 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-perbandinfo
  * @namespace Windows.Win32.Devices.Display
  */
-class PERBANDINFO extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct PERBANDINFO {
+    #StructPack 4
 
     /**
      * If <b>TRUE</b>, GDI redraws the previous band. If <b>FALSE</b>, GDI draws the next band.
-     * @type {BOOL}
      */
-    bRepeatThisBand {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bRepeatThisBand : BOOL
 
     /**
      * Specifies a SIZEL structure that contains the width and height, in pixels, of the rectangle in which GDI can draw the band. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
-     * @type {SIZE}
      */
-    szlBand {
-        get {
-            if(!this.HasProp("__szlBand"))
-                this.__szlBand := SIZE(4, this)
-            return this.__szlBand
-        }
-    }
+    szlBand : SIZE
 
     /**
      * Specifies the horizontal resolution GDI should use when scaling the band.
-     * @type {Integer}
      */
-    ulHorzRes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulHorzRes : UInt32
 
     /**
      * Specifies the vertical resolution GDI should use when scaling the band.
-     * @type {Integer}
      */
-    ulVertRes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulVertRes : UInt32
+
 }

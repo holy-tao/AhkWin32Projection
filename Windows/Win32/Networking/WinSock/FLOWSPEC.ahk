@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FLOWSPEC structure provides quality of service parameters to the RSVP SP.
@@ -53,10 +52,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-flowspec
  * @namespace Windows.Win32.Networking.WinSock
  */
-class FLOWSPEC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct FLOWSPEC {
+    #StructPack 4
 
     /**
      * Specifies the permitted rate at which data can be transmitted over the life of the flow. The <b>TokenRate</b> member is similar to other token bucket models seen in such WAN technologies as Frame Relay, in which the token is analogous to a credit. If such tokens are not used immediately, they accrue to allow data transmission up to a certain periodic limit (<b>PeakBandwidth</b>, in the case of Windows 2000 quality of service). Accrual of credits is limited, however, to a specified amount (<b>TokenBucketSize</b>). Limiting total credits (tokens) avoids situations where, for example, flows that are inactive for some time flood the available bandwidth with their large amount of accrued tokens. Because flows may accrue transmission credits over time (at their <b>TokenRate</b> value) only up to the maximum of their <b>TokenBucketSize</b>, and because they are limited in burst transmissions to their <b>PeakBandwidth</b>, traffic control and network-device resource integrity are maintained. 
@@ -72,48 +69,28 @@ class FLOWSPEC extends Win32Struct {
      * 
      * The <b>TokenRate</b> member cannot be set to zero. Nor can it be set as a default (that is, set to QOS_NOT_SPECIFIED) in a sending 
      * <b>FLOWSPEC</b>.
-     * @type {Integer}
      */
-    TokenRate {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TokenRate : UInt32
 
     /**
      * The maximum amount of credits a given direction of a flow can accrue, regardless of time, in bytes. In video applications, <b>TokenBucketSize</b> will likely be the largest average frame size. In constant rate applications, <b>TokenBucketSize</b> should be set to allow for small variations.
-     * @type {Integer}
      */
-    TokenBucketSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TokenBucketSize : UInt32
 
     /**
      * The upper limit on time-based transmission permission for a given flow, in bytes per second. The <b>PeakBandwidth</b> member restricts flows that may have accrued a significant amount of transmission credits, or tokens from overburdening network resources with one-time or cyclical data bursts, by enforcing a per-second data transmission ceiling. Some intermediate systems can take advantage of this information, resulting in more efficient resource allocation.
-     * @type {Integer}
      */
-    PeakBandwidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PeakBandwidth : UInt32
 
     /**
      * Maximum acceptable delay between transmission of a bit by the sender and its receipt by one or more intended receivers, in microseconds. The precise interpretation of this number depends on the level of guarantee specified in the QOS request.
-     * @type {Integer}
      */
-    Latency {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Latency : UInt32
 
     /**
      * Difference between the maximum and minimum possible delay a packet will experience, in microseconds. Applications use <b>DelayVariation</b> to determine the amount of buffer space needed at the receiving end of the flow. This buffer space information can be used to restore the original data transmission pattern.
-     * @type {Integer}
      */
-    DelayVariation {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DelayVariation : UInt32
 
     /**
      * Specifies the level of service to negotiate for the flow. The <b>ServiceType</b> member can be one of the following defined service types. 
@@ -274,28 +251,17 @@ class FLOWSPEC extends Win32Struct {
      * 						
      * 
      * For a simple example, if a given network device were resource-bounded and had to choose among transmitting a packet from one of the above <b>ServiceType</b> settings, it would first send a packet of SERVICETYPE_NETWORKCONTROL, and if there were no packets of that <b>ServiceType</b> requiring transmission it would send a packet of <b>ServiceType</b> SERVICETYPE_GUARANTEED, and so on.
-     * @type {Integer}
      */
-    ServiceType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ServiceType : UInt32
 
     /**
      * Specifies the maximum packet size permitted or used in the traffic flow, in bytes.
-     * @type {Integer}
      */
-    MaxSduSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaxSduSize : UInt32
 
     /**
      * Specifies the minimum packet size for which the requested quality of service will be provided, in bytes. Packets smaller than this size are treated by traffic control as <b>MinimumPolicedSize</b>. When using the <b>FLOWSPEC</b> structure in association with RSVP, the value of <b>MinimumPolicedSize</b> cannot be zero; however, if you are using the <b>FLOWSPEC</b> structure specifically with the TC API, you can set <b>MinimumPolicedSize</b> to zero.
-     * @type {Integer}
      */
-    MinimumPolicedSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MinimumPolicedSize : UInt32
+
 }

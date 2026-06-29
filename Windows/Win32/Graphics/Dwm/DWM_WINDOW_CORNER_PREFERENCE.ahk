@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWM_WINDOW_CORNER_PREFERENCE enumeration (dwmapi.h) specifies the rounded corner preference for a window.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_window_corner_preference
  * @namespace Windows.Win32.Graphics.Dwm
  */
-class DWM_WINDOW_CORNER_PREFERENCE extends Win32Enum {
+export default struct DWM_WINDOW_CORNER_PREFERENCE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Let the system decide when to round window corners.

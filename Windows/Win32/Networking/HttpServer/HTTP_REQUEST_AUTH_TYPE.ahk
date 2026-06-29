@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The HTTP_REQUEST_AUTH_TYPE enumeration defines the authentication types supported by the HTTP Server API.This enumeration is used in the HTTP_REQUEST_AUTH_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_request_auth_type
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_AUTH_TYPE extends Win32Enum {
+export default struct HTTP_REQUEST_AUTH_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No authentication is attempted for the request.

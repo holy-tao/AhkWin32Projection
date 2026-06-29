@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the current state of the security product that is made available to Windows Security Center.
  * @see https://learn.microsoft.com/windows/win32/api/iwscapi/ne-iwscapi-wsc_security_product_state
  * @namespace Windows.Win32.System.SecurityCenter
  */
-class WSC_SECURITY_PRODUCT_STATE extends Win32Enum {
+export default struct WSC_SECURITY_PRODUCT_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The security product software is turned on and protecting the user.

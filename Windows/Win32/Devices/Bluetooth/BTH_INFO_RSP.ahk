@@ -1,46 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_INFO_RSP extends Win32Struct {
-    static sizeof => 48
+export default struct BTH_INFO_RSP {
+    #StructPack 2
 
-    static packingSize => 2
+    result : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    result {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    dataLen : Int8
 
-    /**
-     * @type {Integer}
-     */
-    dataLen {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    connectionlessMTU : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    connectionlessMTU {
-        get => NumGet(this, 3, "ushort")
-        set => NumPut("ushort", value, this, 3)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 3, 44, Primitive, "char")
-            return this.__dataProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'data', { type: Int8[44], offset: 3 })
+        this.DeleteProp("__New")
     }
 }

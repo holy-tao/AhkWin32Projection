@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SD_ENUM_SDS_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SD_ENUM_SDS_ENTRY.ahk" { SD_ENUM_SDS_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SD_ENUM_SDS_OUTPUT extends Win32Struct {
-    static sizeof => 48
+export default struct SD_ENUM_SDS_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    NextOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NextOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumSDEntriesReturned : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumSDEntriesReturned {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumSDBytesReturned : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumSDBytesReturned {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SDEntry : SD_ENUM_SDS_ENTRY[1]
 
-    /**
-     * @type {SD_ENUM_SDS_ENTRY}
-     */
-    SDEntry {
-        get {
-            if(!this.HasProp("__SDEntryProxyArray"))
-                this.__SDEntryProxyArray := Win32FixedArray(this.ptr + 24, 1, SD_ENUM_SDS_ENTRY, "")
-            return this.__SDEntryProxyArray
-        }
-    }
 }

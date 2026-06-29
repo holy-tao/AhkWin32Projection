@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDragSourceHelper.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDragSourceHelper.ahk" { IDragSourceHelper }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that adds functionality to IDragSourceHelper. This method sets the characteristics of a drag-and-drop operation over an IDragSourceHelper object.
@@ -12,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-idragsourcehelper2
  * @namespace Windows.Win32.UI.Shell
  */
-class IDragSourceHelper2 extends IDragSourceHelper {
-
-    static sizeof => A_PtrSize
+export default struct IDragSourceHelper2 extends IDragSourceHelper {
     /**
      * The interface identifier for IDragSourceHelper2
      * @type {Guid}
      */
-    static IID => Guid("{83e07d0d-0c5f-4163-bf1a-60b274051e40}")
+    static IID := Guid("{83e07d0d-0c5f-4163-bf1a-60b274051e40}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDragSourceHelper2 interfaces
+    */
+    struct Vtbl extends IDragSourceHelper.Vtbl {
+        SetFlags : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDragSourceHelper2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the characteristics of a drag-and-drop operation over an IDragSourceHelper object.
@@ -46,5 +54,25 @@ class IDragSourceHelper2 extends IDragSourceHelper {
     SetFlags(dwFlags) {
         result := ComCall(5, this, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDragSourceHelper2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFlags)
     }
 }

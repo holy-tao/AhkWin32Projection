@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_GET_MULTIPLANE_OVERLAY_CAPS extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_GET_MULTIPLANE_OVERLAY_CAPS {
+    #StructPack 8
 
-    static packingSize => 8
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxPlanes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxPlanes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxRGBPlanes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxRGBPlanes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MaxYUVPlanes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxYUVPlanes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OverlayCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    OverlayCaps {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MaxStretchFactor : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxStretchFactor {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    MaxShrinkFactor : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxShrinkFactor {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
 }

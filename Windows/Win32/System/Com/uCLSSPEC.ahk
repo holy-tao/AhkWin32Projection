@@ -1,139 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class uCLSSPEC extends Win32Struct {
-    static sizeof => 80
+export default struct uCLSSPEC {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _tagged_union extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+    struct _tagged_union {
 
-        class _ByName extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _ByName {
+            pPackageName : PWSTR
 
-            /**
-             * @type {PWSTR}
-             */
-            pPackageName {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            PolicyId : Guid
 
-            /**
-             * @type {Pointer}
-             */
-            PolicyId {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        class _ByObjectId extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _ByObjectId {
+            ObjectId : Guid
 
-            /**
-             * @type {Pointer}
-             */
-            ObjectId {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            PolicyId : Guid
 
-            /**
-             * @type {Pointer}
-             */
-            PolicyId {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        /**
-         * @type {Pointer}
-         */
-        clsid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        clsid : Guid
 
-        /**
-         * @type {PWSTR}
-         */
-        pFileExt {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pMimeType {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pProgId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pFileName {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {_ByName}
-         */
-        ByName {
-            get {
-                if(!this.HasProp("__ByName"))
-                    this.__ByName := uCLSSPEC._tagged_union._ByName(0, this)
-                return this.__ByName
-            }
-        }
-
-        /**
-         * @type {_ByObjectId}
-         */
-        ByObjectId {
-            get {
-                if(!this.HasProp("__ByObjectId"))
-                    this.__ByObjectId := uCLSSPEC._tagged_union._ByObjectId(0, this)
-                return this.__ByObjectId
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'pFileExt', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'pMimeType', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'pProgId', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'pFileName', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'ByName', { type: uCLSSPEC._tagged_union._ByName, offset: 0 })
+            DefineProp(this.Prototype, 'ByObjectId', { type: uCLSSPEC._tagged_union._ByObjectId, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    tyspec {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    tyspec : UInt32
 
-    /**
-     * @type {_tagged_union}
-     */
-    tagged_union {
-        get {
-            if(!this.HasProp("__tagged_union"))
-                this.__tagged_union := uCLSSPEC._tagged_union(8, this)
-            return this.__tagged_union
-        }
-    }
+    tagged_union : uCLSSPEC._tagged_union
+
 }

@@ -1,12 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RESOURCE_BARRIER_TYPE.ahk
-#Include .\D3D12_RESOURCE_BARRIER_FLAGS.ahk
-#Include .\D3D12_RESOURCE_TRANSITION_BARRIER.ahk
-#Include .\ID3D12Resource.ahk
-#Include .\D3D12_RESOURCE_STATES.ahk
-#Include .\D3D12_RESOURCE_ALIASING_BARRIER.ahk
-#Include .\D3D12_RESOURCE_UAV_BARRIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_RESOURCE_BARRIER_FLAGS.ahk" { D3D12_RESOURCE_BARRIER_FLAGS }
+#Import ".\D3D12_RESOURCE_BARRIER_TYPE.ahk" { D3D12_RESOURCE_BARRIER_TYPE }
+#Import ".\D3D12_RESOURCE_UAV_BARRIER.ahk" { D3D12_RESOURCE_UAV_BARRIER }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\D3D12_RESOURCE_ALIASING_BARRIER.ahk" { D3D12_RESOURCE_ALIASING_BARRIER }
+#Import ".\D3D12_RESOURCE_TRANSITION_BARRIER.ahk" { D3D12_RESOURCE_TRANSITION_BARRIER }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Describes a resource barrier (transition in resource use).
@@ -15,60 +14,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_barrier
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RESOURCE_BARRIER extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D12_RESOURCE_BARRIER {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_barrier_type">D3D12_RESOURCE_BARRIER_TYPE</a>-typed value that specifies the type of resource barrier. 
      *             This member determines which type to use in the union below.
-     * @type {D3D12_RESOURCE_BARRIER_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_RESOURCE_BARRIER_TYPE
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_barrier_flags">D3D12_RESOURCE_BARRIER_FLAGS</a> enumeration constant such as for "begin only" or "end only".
-     * @type {D3D12_RESOURCE_BARRIER_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Flags : D3D12_RESOURCE_BARRIER_FLAGS
 
-    /**
-     * @type {D3D12_RESOURCE_TRANSITION_BARRIER}
-     */
-    Transition {
-        get {
-            if(!this.HasProp("__Transition"))
-                this.__Transition := D3D12_RESOURCE_TRANSITION_BARRIER(8, this)
-            return this.__Transition
-        }
-    }
+    Transition : D3D12_RESOURCE_TRANSITION_BARRIER
 
-    /**
-     * @type {D3D12_RESOURCE_ALIASING_BARRIER}
-     */
-    Aliasing {
-        get {
-            if(!this.HasProp("__Aliasing"))
-                this.__Aliasing := D3D12_RESOURCE_ALIASING_BARRIER(8, this)
-            return this.__Aliasing
-        }
-    }
-
-    /**
-     * @type {D3D12_RESOURCE_UAV_BARRIER}
-     */
-    UAV {
-        get {
-            if(!this.HasProp("__UAV"))
-                this.__UAV := D3D12_RESOURCE_UAV_BARRIER(8, this)
-            return this.__UAV
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Aliasing', { type: D3D12_RESOURCE_ALIASING_BARRIER, offset: 8 })
+        DefineProp(this.Prototype, 'UAV', { type: D3D12_RESOURCE_UAV_BARRIER, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

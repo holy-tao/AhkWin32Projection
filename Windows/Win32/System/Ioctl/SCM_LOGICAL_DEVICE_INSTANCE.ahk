@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_LOGICAL_DEVICE_INSTANCE extends Win32Struct {
-    static sizeof => 528
+export default struct SCM_LOGICAL_DEVICE_INSTANCE {
+    #StructPack 4
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DeviceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SymbolicLink : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    SymbolicLink {
-        get => StrGet(this.ptr + 16, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
-    }
 }

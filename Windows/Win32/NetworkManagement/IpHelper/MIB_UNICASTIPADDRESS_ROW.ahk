@@ -1,16 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk
-#Include ..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk
-#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk" { NL_SUFFIX_ORIGIN }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk" { NL_PREFIX_ORIGIN }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Stores information about a unicast IP address.
@@ -29,49 +30,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_unicastipaddress_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UNICASTIPADDRESS_ROW extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct MIB_UNICASTIPADDRESS_ROW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet">SOCKADDR_INET</a></b>
      * 
      * The unicast IP address. This member can be an IPv6 address or an IPv4 address.
-     * @type {SOCKADDR_INET}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(0, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKADDR_INET
 
     /**
      * Type: <b>NET_LUID</b>
      * 
      * The locally unique identifier (LUID) for the network interface associated with this IP address.
-     * @type {NET_LUID_LH}
      */
-    InterfaceLuid {
-        get {
-            if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(48, this)
-            return this.__InterfaceLuid
-        }
-    }
+    InterfaceLuid : NET_LUID_LH
 
     /**
      * Type: <b>NET_IFINDEX</b>
      * 
      * The local index value for the network interface associated with this IP address. This index value may change when a network adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * Type: <b>NL_PREFIX_ORIGIN</b>
@@ -150,12 +131,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_PREFIX_ORIGIN}
      */
-    PrefixOrigin {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    PrefixOrigin : NL_PREFIX_ORIGIN
 
     /**
      * Type: <b>NL_SUFFIX_ORIGIN</b>
@@ -245,56 +222,36 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_SUFFIX_ORIGIN}
      */
-    SuffixOrigin {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    SuffixOrigin : NL_SUFFIX_ORIGIN
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum time, in seconds, that the IP address is valid. A value of 0xffffffff  is considered to be infinite.
-     * @type {Integer}
      */
-    ValidLifetime {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ValidLifetime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The preferred time, in seconds, that the IP address is valid. A value of 0xffffffff is considered to be infinite.
-     * @type {Integer}
      */
-    PreferredLifetime {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    PreferredLifetime : UInt32
 
     /**
      * Type: <b>UINT8</b>
      * 
      * The length, in bits, of the prefix or network part of the IP address. For a unicast IPv4 address, any  value greater than 32 is an illegal value. For a unicast IPv6 address, any  value greater than 128 is an illegal value. A value of 255 is commonly used to represent an illegal value.
-     * @type {Integer}
      */
-    OnLinkPrefixLength {
-        get => NumGet(this, 84, "char")
-        set => NumPut("char", value, this, 84)
-    }
+    OnLinkPrefixLength : Int8
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * This member specifies if the address can be used as an IP source address.
-     * @type {BOOLEAN}
      */
-    SkipAsSource {
-        get => NumGet(this, 85, "char")
-        set => NumPut("char", value, this, 85)
-    }
+    SkipAsSource : BOOLEAN
 
     /**
      * Type: <b>NL_DAD_STATE</b>
@@ -363,35 +320,21 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_DAD_STATE}
      */
-    DadState {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    DadState : NL_DAD_STATE
 
     /**
      * Type: <b>SCOPE_ID</b>
      * 
      * The scope ID of the IP address. This member is applicable only to an IPv6 address. This member cannot be set. It is automatically determined by the interface on which the address was added.
-     * @type {SCOPE_ID}
      */
-    ScopeId {
-        get {
-            if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(92, this)
-            return this.__ScopeId
-        }
-    }
+    ScopeId : SCOPE_ID
 
     /**
      * Type: <b>LARGE_INTEGER</b>
      * 
      * The time stamp when the IP address was created.
-     * @type {Integer}
      */
-    CreationTimeStamp {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
-    }
+    CreationTimeStamp : Int64
+
 }

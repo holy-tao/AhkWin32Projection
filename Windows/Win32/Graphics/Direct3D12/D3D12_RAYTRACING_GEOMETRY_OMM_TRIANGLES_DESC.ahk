@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC.ahk" { D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC }
+#Import ".\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk" { D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    pTriangles : D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.Ptr
 
-    /**
-     * @type {Pointer<D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC>}
-     */
-    pTriangles {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pOmmLinkage : D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC.Ptr
 
-    /**
-     * @type {Pointer<D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC>}
-     */
-    pOmmLinkage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

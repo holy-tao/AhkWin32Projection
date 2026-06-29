@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_BUFFERSA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains both the data and header information. (ANSI)
@@ -17,102 +16,61 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset ANSI
  */
-class INTERNET_BUFFERSA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct INTERNET_BUFFERSA {
+    #StructPack 8
 
     /**
      * Size of the 
      * structure, in bytes.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * Pointer to the next 
      * <b>INTERNET_BUFFERS</b> structure.
-     * @type {Pointer<INTERNET_BUFFERSA>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : INTERNET_BUFFERSA.Ptr
 
     /**
      * Pointer to a string value that contains the headers. This member can be <b>NULL</b>.
-     * @type {PSTR}
      */
-    lpcszHeader {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpcszHeader : PSTR
 
     /**
      * Size of the headers, in <b>TCHARs</b>, if 
      * <b>lpcszHeader</b> is not <b>NULL</b>.
-     * @type {Integer}
      */
-    dwHeadersLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwHeadersLength : UInt32
 
     /**
      * Size of the headers, if there is not enough memory in the buffer.
-     * @type {Integer}
      */
-    dwHeadersTotal {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwHeadersTotal : UInt32
 
     /**
      * Pointer to the data buffer.
-     * @type {Pointer<Void>}
      */
-    lpvBuffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpvBuffer : IntPtr
 
     /**
      * Size of the buffer, in bytes, if 
      * <b>lpvBuffer</b> is not <b>NULL</b>.
-     * @type {Integer}
      */
-    dwBufferLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwBufferLength : UInt32
 
     /**
      * Total size of the resource, in bytes.
-     * @type {Integer}
      */
-    dwBufferTotal {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwBufferTotal : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwOffsetLow {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwOffsetLow : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwOffsetHigh {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwOffsetHigh : UInt32
+
 }

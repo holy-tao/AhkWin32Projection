@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POBJECT_TYPE.ahk" { POBJECT_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class OB_OPERATION_REGISTRATION extends Win32Struct {
-    static sizeof => 32
+export default struct OB_OPERATION_REGISTRATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ObjectType : POBJECT_TYPE.Ptr
 
-    /**
-     * @type {Pointer<POBJECT_TYPE>}
-     */
-    ObjectType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Operations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Operations {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PreOperation : IntPtr
 
-    /**
-     * @type {Pointer<POB_PRE_OPERATION_CALLBACK>}
-     */
-    PreOperation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PostOperation : IntPtr
 
-    /**
-     * @type {Pointer<POB_POST_OPERATION_CALLBACK>}
-     */
-    PostOperation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

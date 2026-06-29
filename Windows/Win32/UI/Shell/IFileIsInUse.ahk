@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FILE_USAGE_TYPE.ahk" { FILE_USAGE_TYPE }
 
 /**
  * Exposes methods that can be called to get information on or close a file that is in use by another application.
@@ -38,26 +41,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileisinuse
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileIsInUse extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileIsInUse extends IUnknown {
     /**
      * The interface identifier for IFileIsInUse
      * @type {Guid}
      */
-    static IID => Guid("{64a1cbf0-3a1a-4461-9158-376969693950}")
+    static IID := Guid("{64a1cbf0-3a1a-4461-9158-376969693950}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileIsInUse interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAppName      : IntPtr
+        GetUsage        : IntPtr
+        GetCapabilities : IntPtr
+        GetSwitchToHWND : IntPtr
+        CloseFile       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAppName", "GetUsage", "GetCapabilities", "GetSwitchToHWND", "CloseFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileIsInUse.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the name of the application that is using the file.
@@ -69,7 +83,7 @@ class IFileIsInUse extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getappname
      */
     GetAppName() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -108,7 +122,7 @@ class IFileIsInUse extends IUnknown {
      */
     GetSwitchToHWND() {
         phwnd := HWND()
-        result := ComCall(6, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(6, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -124,5 +138,33 @@ class IFileIsInUse extends IUnknown {
     CloseFile() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileIsInUse.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAppName := CallbackCreate(GetMethod(implObj, "GetAppName"), flags, 2)
+        this.vtbl.GetUsage := CallbackCreate(GetMethod(implObj, "GetUsage"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetSwitchToHWND := CallbackCreate(GetMethod(implObj, "GetSwitchToHWND"), flags, 2)
+        this.vtbl.CloseFile := CallbackCreate(GetMethod(implObj, "CloseFile"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAppName)
+        CallbackFree(this.vtbl.GetUsage)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetSwitchToHWND)
+        CallbackFree(this.vtbl.CloseFile)
     }
 }

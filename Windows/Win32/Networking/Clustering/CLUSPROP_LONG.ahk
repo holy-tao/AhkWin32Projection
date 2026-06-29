@@ -1,35 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 
 /**
  * Describes signed LONG data.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_long
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_LONG extends Win32Struct {
-    static sizeof => 16
+export default struct CLUSPROP_LONG {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {CLUSPROP_VALUE}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_VALUE(0, this)
-            return this.__Base
-        }
-    }
+    Base : CLUSPROP_VALUE
 
     /**
      * Signed <b>LONG</b> value.
-     * @type {Integer}
      */
-    l {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    l : Int32
+
 }

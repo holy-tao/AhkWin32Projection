@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_EXCLUSIVE_ACCESS.ahk
-#Include .\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk" { EXCLUSIVE_ACCESS_REQUEST_TYPE }
+#Import ".\CDROM_EXCLUSIVE_ACCESS.ahk" { CDROM_EXCLUSIVE_ACCESS }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_EXCLUSIVE_LOCK extends Win32Struct {
-    static sizeof => 72
+export default struct CDROM_EXCLUSIVE_LOCK {
+    #StructPack 4
 
-    static packingSize => 4
+    Access : CDROM_EXCLUSIVE_ACCESS
 
-    /**
-     * @type {CDROM_EXCLUSIVE_ACCESS}
-     */
-    Access {
-        get {
-            if(!this.HasProp("__Access"))
-                this.__Access := CDROM_EXCLUSIVE_ACCESS(0, this)
-            return this.__Access
-        }
-    }
+    CallerName : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CallerName {
-        get {
-            if(!this.HasProp("__CallerNameProxyArray"))
-                this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
-            return this.__CallerNameProxyArray
-        }
-    }
 }

@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PNP_REPLACE_DRIVER_INTERFACE extends Win32Struct {
-    static sizeof => 96
+export default struct PNP_REPLACE_DRIVER_INTERFACE {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Unload : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_UNLOAD>}
-     */
-    Unload {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    BeginReplace : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_BEGIN>}
-     */
-    BeginReplace {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    EndReplace : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_END>}
-     */
-    EndReplace {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    MirrorPhysicalMemory : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_MIRROR_PHYSICAL_MEMORY>}
-     */
-    MirrorPhysicalMemory {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SetProcessorId : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_SET_PROCESSOR_ID>}
-     */
-    SetProcessorId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Swap : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_SWAP>}
-     */
-    Swap {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    InitiateHardwareMirror : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_INITIATE_HARDWARE_MIRROR>}
-     */
-    InitiateHardwareMirror {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    MirrorPlatformMemory : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_MIRROR_PLATFORM_MEMORY>}
-     */
-    MirrorPlatformMemory {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    GetMemoryDestination : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_GET_MEMORY_DESTINATION>}
-     */
-    GetMemoryDestination {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    EnableDisableHardwareQuiesce : IntPtr
 
-    /**
-     * @type {Pointer<PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE>}
-     */
-    EnableDisableHardwareQuiesce {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
 }

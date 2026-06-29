@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_FLIPTOGDISURFACEDATA extends Win32Struct {
-    static sizeof => 32
+export default struct DDHAL_FLIPTOGDISURFACEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwToGDI : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwToGDI {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    FlipToGDISurface : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_FLIPTOGDISURFACE>}
-     */
-    FlipToGDISurface {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

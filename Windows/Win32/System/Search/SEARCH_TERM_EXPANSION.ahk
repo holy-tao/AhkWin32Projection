@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates wildcard options on search terms. Used by ISearchQueryHelper::get_QueryTermExpansion and ISearchQueryHelper::put_QueryTermExpansion methods.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_term_expansion
  * @namespace Windows.Win32.System.Search
  */
-class SEARCH_TERM_EXPANSION extends Win32Enum {
+export default struct SEARCH_TERM_EXPANSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No expansion is applied to search terms.

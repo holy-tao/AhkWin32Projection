@@ -1,33 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_CONNECTION_PROXY_TYPE.ahk
-#Include .\DNS_CONNECTION_PROXY_INFO.ahk
-#Include .\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_CONNECTION_PROXY_TYPE.ahk" { DNS_CONNECTION_PROXY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_CONNECTION_PROXY_INFO.ahk" { DNS_CONNECTION_PROXY_INFO }
+#Import ".\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk" { DNS_CONNECTION_PROXY_INFO_SWITCH }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CONNECTION_PROXY_ELEMENT extends Win32Struct {
-    static sizeof => 80
+export default struct DNS_CONNECTION_PROXY_ELEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : DNS_CONNECTION_PROXY_TYPE
 
-    /**
-     * @type {DNS_CONNECTION_PROXY_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Info : DNS_CONNECTION_PROXY_INFO
 
-    /**
-     * @type {DNS_CONNECTION_PROXY_INFO}
-     */
-    Info {
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := DNS_CONNECTION_PROXY_INFO(8, this)
-            return this.__Info
-        }
-    }
 }

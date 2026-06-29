@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_UPDATE_IE_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_UPDATE_IE_OP.ahk" { DOT11_UPDATE_IE_OP }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_UPDATE_IE extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_UPDATE_IE {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11UpdateIEOp : DOT11_UPDATE_IE_OP
 
-    /**
-     * @type {DOT11_UPDATE_IE_OP}
-     */
-    dot11UpdateIEOp {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBufferLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ucBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucBuffer {
-        get {
-            if(!this.HasProp("__ucBufferProxyArray"))
-                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__ucBufferProxyArray
-        }
-    }
 }

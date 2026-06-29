@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the scope of a print ticket.
  * @see https://learn.microsoft.com/windows/win32/api/prntvpt/ne-prntvpt-eprintticketscope
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
  */
-class EPrintTicketScope extends Win32Enum {
+export default struct EPrintTicketScope {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The print ticket applies only to a single page.

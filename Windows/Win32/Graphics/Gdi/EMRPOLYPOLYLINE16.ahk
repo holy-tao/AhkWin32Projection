@@ -1,83 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\POINTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTS.ahk" { POINTS }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRPOLYPOLYLINE16 and EMRPOLYPOLYGON16 structures contain members for the PolyPolyline and PolyPolygon enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolypolyline16
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRPOLYPOLYLINE16 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct EMRPOLYPOLYLINE16 {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * The bounding rectangle, in device units.
-     * @type {RECTL}
      */
-    rclBounds {
-        get {
-            if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(8, this)
-            return this.__rclBounds
-        }
-    }
+    rclBounds : RECTL
 
     /**
      * The number of polys.
-     * @type {Integer}
      */
-    nPolys {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    nPolys : UInt32
 
     /**
      * The total number of points in all polys.
-     * @type {Integer}
      */
-    cpts {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cpts : UInt32
 
     /**
      * An array of point counts for each poly.
-     * @type {Array<Integer>}
      */
-    aPolyCounts {
-        get {
-            if(!this.HasProp("__aPolyCountsProxyArray"))
-                this.__aPolyCountsProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")
-            return this.__aPolyCountsProxyArray
-        }
-    }
+    aPolyCounts : UInt32[1]
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-points">POINTS</a> structures, representing the points in logical units.
-     * @type {POINTS}
      */
-    apts {
-        get {
-            if(!this.HasProp("__aptsProxyArray"))
-                this.__aptsProxyArray := Win32FixedArray(this.ptr + 36, 1, POINTS, "")
-            return this.__aptsProxyArray
-        }
-    }
+    apts : POINTS[1]
+
 }

@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_WMDRMSession extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_WMDRMSession extends IUnknown {
     /**
      * The interface identifier for IBDA_WMDRMSession
      * @type {Guid}
      */
-    static IID => Guid("{4be6fa3d-07cd-4139-8b80-8c18ba3aec88}")
+    static IID := Guid("{4be6fa3d-07cd-4139-8b80-8c18ba3aec88}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_WMDRMSession interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStatus       : IntPtr
+        SetRevInfo      : IntPtr
+        SetCrl          : IntPtr
+        TransactMessage : IntPtr
+        GetLicense      : IntPtr
+        ReissueLicense  : IntPtr
+        RenewLicense    : IntPtr
+        GetKeyInfo      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "SetRevInfo", "SetCrl", "TransactMessage", "GetLicense", "ReissueLicense", "RenewLicense", "GetKeyInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_WMDRMSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -109,7 +124,7 @@ class IBDA_WMDRMSession extends IUnknown {
         pulPackageLenMarshal := pulPackageLen is VarRef ? "uint*" : "ptr"
         pbPackageMarshal := pbPackage is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", uuidKey, pulPackageLenMarshal, pulPackageLen, pbPackageMarshal, pbPackage, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, uuidKey, pulPackageLenMarshal, pulPackageLen, pbPackageMarshal, pbPackage, "HRESULT")
         return result
     }
 
@@ -119,7 +134,7 @@ class IBDA_WMDRMSession extends IUnknown {
      * @returns {HRESULT} 
      */
     ReissueLicense(uuidKey) {
-        result := ComCall(8, this, "ptr", uuidKey, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, uuidKey, "HRESULT")
         return result
     }
 
@@ -155,5 +170,39 @@ class IBDA_WMDRMSession extends IUnknown {
 
         result := ComCall(10, this, pulKeyInfoLenMarshal, pulKeyInfoLen, pbKeyInfoMarshal, pbKeyInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_WMDRMSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 10)
+        this.vtbl.SetRevInfo := CallbackCreate(GetMethod(implObj, "SetRevInfo"), flags, 3)
+        this.vtbl.SetCrl := CallbackCreate(GetMethod(implObj, "SetCrl"), flags, 3)
+        this.vtbl.TransactMessage := CallbackCreate(GetMethod(implObj, "TransactMessage"), flags, 5)
+        this.vtbl.GetLicense := CallbackCreate(GetMethod(implObj, "GetLicense"), flags, 4)
+        this.vtbl.ReissueLicense := CallbackCreate(GetMethod(implObj, "ReissueLicense"), flags, 2)
+        this.vtbl.RenewLicense := CallbackCreate(GetMethod(implObj, "RenewLicense"), flags, 8)
+        this.vtbl.GetKeyInfo := CallbackCreate(GetMethod(implObj, "GetKeyInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetRevInfo)
+        CallbackFree(this.vtbl.SetCrl)
+        CallbackFree(this.vtbl.TransactMessage)
+        CallbackFree(this.vtbl.GetLicense)
+        CallbackFree(this.vtbl.ReissueLicense)
+        CallbackFree(this.vtbl.RenewLicense)
+        CallbackFree(this.vtbl.GetKeyInfo)
     }
 }

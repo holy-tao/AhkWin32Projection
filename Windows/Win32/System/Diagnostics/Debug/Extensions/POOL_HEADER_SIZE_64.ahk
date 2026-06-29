@@ -1,51 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class POOL_HEADER_SIZE_64 extends Win32Struct {
-    static sizeof => 8
+export default struct POOL_HEADER_SIZE_64 {
+    #StructPack 4
 
-    static packingSize => 4
+    UnsafePrevSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UnsafePrevSize {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Unused1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Unused1 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    UnsafeSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UnsafeSize {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    UnsafePoolType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UnsafePoolType {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Ulong1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Ulong1', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

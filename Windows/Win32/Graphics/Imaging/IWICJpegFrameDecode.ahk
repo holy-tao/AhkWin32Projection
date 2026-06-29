@@ -1,12 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk
-#Include ..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk
-#Include ..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk
-#Include .\WICJpegFrameHeader.ahk
-#Include .\WICJpegScanHeader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICJpegFrameHeader.ahk" { WICJpegFrameHeader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICJpegScanHeader.ahk" { WICJpegScanHeader }
+#Import ".\WICJpegIndexingOptions.ahk" { WICJpegIndexingOptions }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
+#Import "..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_DC_HUFFMAN_TABLE }
+#Import "..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk" { DXGI_JPEG_QUANTIZATION_TABLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for decoding JPEG images. Provides access to the Start Of Frame (SOF) header, Start of Scan (SOS) header, the Huffman and Quantization tables, and the compressed JPEG JPEG data. Also enables indexing for efficient random access.
@@ -15,26 +18,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicjpegframedecode
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICJpegFrameDecode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICJpegFrameDecode extends IUnknown {
     /**
      * The interface identifier for IWICJpegFrameDecode
      * @type {Guid}
      */
-    static IID => Guid("{8939f66e-c46a-4c21-a9d1-98b327ce1679}")
+    static IID := Guid("{8939f66e-c46a-4c21-a9d1-98b327ce1679}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICJpegFrameDecode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DoesSupportIndexing  : IntPtr
+        SetIndexing          : IntPtr
+        ClearIndexing        : IntPtr
+        GetAcHuffmanTable    : IntPtr
+        GetDcHuffmanTable    : IntPtr
+        GetQuantizationTable : IntPtr
+        GetFrameHeader       : IntPtr
+        GetScanHeader        : IntPtr
+        CopyScan             : IntPtr
+        CopyMinimalStream    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DoesSupportIndexing", "SetIndexing", "ClearIndexing", "GetAcHuffmanTable", "GetDcHuffmanTable", "GetQuantizationTable", "GetFrameHeader", "GetScanHeader", "CopyScan", "CopyMinimalStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICJpegFrameDecode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a value indicating whether this decoder supports indexing for efficient random access.
@@ -46,7 +65,7 @@ class IWICJpegFrameDecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-doessupportindexing
      */
     DoesSupportIndexing() {
-        result := ComCall(3, this, "int*", &pfIndexingSupported := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfIndexingSupported := 0, "HRESULT")
         return pfIndexingSupported
     }
 
@@ -74,7 +93,7 @@ class IWICJpegFrameDecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-setindexing
      */
     SetIndexing(options, horizontalIntervalSize) {
-        result := ComCall(4, this, "int", options, "uint", horizontalIntervalSize, "HRESULT")
+        result := ComCall(4, this, WICJpegIndexingOptions, options, "uint", horizontalIntervalSize, "HRESULT")
         return result
     }
 
@@ -105,7 +124,7 @@ class IWICJpegFrameDecode extends IUnknown {
      */
     GetAcHuffmanTable(scanIndex, tableIndex) {
         pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
-        result := ComCall(6, this, "uint", scanIndex, "uint", tableIndex, "ptr", pAcHuffmanTable, "HRESULT")
+        result := ComCall(6, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_AC_HUFFMAN_TABLE.Ptr, pAcHuffmanTable, "HRESULT")
         return pAcHuffmanTable
     }
 
@@ -124,7 +143,7 @@ class IWICJpegFrameDecode extends IUnknown {
      */
     GetDcHuffmanTable(scanIndex, tableIndex) {
         pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
-        result := ComCall(7, this, "uint", scanIndex, "uint", tableIndex, "ptr", pDcHuffmanTable, "HRESULT")
+        result := ComCall(7, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_DC_HUFFMAN_TABLE.Ptr, pDcHuffmanTable, "HRESULT")
         return pDcHuffmanTable
     }
 
@@ -143,7 +162,7 @@ class IWICJpegFrameDecode extends IUnknown {
      */
     GetQuantizationTable(scanIndex, tableIndex) {
         pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
-        result := ComCall(8, this, "uint", scanIndex, "uint", tableIndex, "ptr", pQuantizationTable, "HRESULT")
+        result := ComCall(8, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_QUANTIZATION_TABLE.Ptr, pQuantizationTable, "HRESULT")
         return pQuantizationTable
     }
 
@@ -156,7 +175,7 @@ class IWICJpegFrameDecode extends IUnknown {
      */
     GetFrameHeader() {
         pFrameHeader := WICJpegFrameHeader()
-        result := ComCall(9, this, "ptr", pFrameHeader, "HRESULT")
+        result := ComCall(9, this, WICJpegFrameHeader.Ptr, pFrameHeader, "HRESULT")
         return pFrameHeader
     }
 
@@ -172,7 +191,7 @@ class IWICJpegFrameDecode extends IUnknown {
      */
     GetScanHeader(scanIndex) {
         pScanHeader := WICJpegScanHeader()
-        result := ComCall(10, this, "uint", scanIndex, "ptr", pScanHeader, "HRESULT")
+        result := ComCall(10, this, "uint", scanIndex, WICJpegScanHeader.Ptr, pScanHeader, "HRESULT")
         return pScanHeader
     }
 
@@ -249,5 +268,43 @@ class IWICJpegFrameDecode extends IUnknown {
 
         result := ComCall(12, this, "uint", streamOffset, "uint", cbStreamData, pbStreamDataMarshal, pbStreamData, pcbStreamDataActualMarshal, pcbStreamDataActual, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICJpegFrameDecode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DoesSupportIndexing := CallbackCreate(GetMethod(implObj, "DoesSupportIndexing"), flags, 2)
+        this.vtbl.SetIndexing := CallbackCreate(GetMethod(implObj, "SetIndexing"), flags, 3)
+        this.vtbl.ClearIndexing := CallbackCreate(GetMethod(implObj, "ClearIndexing"), flags, 1)
+        this.vtbl.GetAcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetAcHuffmanTable"), flags, 4)
+        this.vtbl.GetDcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetDcHuffmanTable"), flags, 4)
+        this.vtbl.GetQuantizationTable := CallbackCreate(GetMethod(implObj, "GetQuantizationTable"), flags, 4)
+        this.vtbl.GetFrameHeader := CallbackCreate(GetMethod(implObj, "GetFrameHeader"), flags, 2)
+        this.vtbl.GetScanHeader := CallbackCreate(GetMethod(implObj, "GetScanHeader"), flags, 3)
+        this.vtbl.CopyScan := CallbackCreate(GetMethod(implObj, "CopyScan"), flags, 6)
+        this.vtbl.CopyMinimalStream := CallbackCreate(GetMethod(implObj, "CopyMinimalStream"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DoesSupportIndexing)
+        CallbackFree(this.vtbl.SetIndexing)
+        CallbackFree(this.vtbl.ClearIndexing)
+        CallbackFree(this.vtbl.GetAcHuffmanTable)
+        CallbackFree(this.vtbl.GetDcHuffmanTable)
+        CallbackFree(this.vtbl.GetQuantizationTable)
+        CallbackFree(this.vtbl.GetFrameHeader)
+        CallbackFree(this.vtbl.GetScanHeader)
+        CallbackFree(this.vtbl.CopyScan)
+        CallbackFree(this.vtbl.CopyMinimalStream)
     }
 }

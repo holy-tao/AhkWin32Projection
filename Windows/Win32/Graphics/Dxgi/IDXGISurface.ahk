@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDeviceSubObject.ahk
-#Include .\DXGI_SURFACE_DESC.ahk
-#Include .\DXGI_MAPPED_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
+#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_MAP_FLAGS.ahk" { DXGI_MAP_FLAGS }
+#Import ".\DXGI_SURFACE_DESC.ahk" { DXGI_SURFACE_DESC }
 
 /**
  * The IDXGISurface interface implements methods for image-data objects.
@@ -14,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgisurface
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISurface extends IDXGIDeviceSubObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISurface extends IDXGIDeviceSubObject {
     /**
      * The interface identifier for IDXGISurface
      * @type {Guid}
      */
-    static IID => Guid("{cafcb56c-6ac3-4889-bf47-9e23bbd260ec}")
+    static IID := Guid("{cafcb56c-6ac3-4889-bf47-9e23bbd260ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISurface interfaces
+    */
+    struct Vtbl extends IDXGIDeviceSubObject.Vtbl {
+        GetDesc : IntPtr
+        Map     : IntPtr
+        Unmap   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "Map", "Unmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISurface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a description of the surface.
@@ -44,7 +55,7 @@ class IDXGISurface extends IDXGIDeviceSubObject {
      */
     GetDesc() {
         pDesc := DXGI_SURFACE_DESC()
-        result := ComCall(8, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(8, this, DXGI_SURFACE_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -70,7 +81,7 @@ class IDXGISurface extends IDXGIDeviceSubObject {
      */
     Map(MapFlags) {
         pLockedRect := DXGI_MAPPED_RECT()
-        result := ComCall(9, this, "ptr", pLockedRect, "uint", MapFlags, "HRESULT")
+        result := ComCall(9, this, DXGI_MAPPED_RECT.Ptr, pLockedRect, DXGI_MAP_FLAGS, MapFlags, "HRESULT")
         return pLockedRect
     }
 
@@ -84,5 +95,29 @@ class IDXGISurface extends IDXGIDeviceSubObject {
     Unmap() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGISurface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 3)
+        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.Map)
+        CallbackFree(this.vtbl.Unmap)
     }
 }

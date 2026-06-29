@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains basic accounting information for a job object.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_accounting_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+    #StructPack 8
 
     /**
      * The total amount of user-mode execution time for all active processes associated with the job, as well as all terminated processes no longer associated with the job, in 100-nanosecond ticks.
-     * @type {Integer}
      */
-    TotalUserTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    TotalUserTime : Int64
 
     /**
      * The total amount of kernel-mode execution time for all active processes associated with the job, as well as all terminated processes no longer associated with the job, in 100-nanosecond ticks.
-     * @type {Integer}
      */
-    TotalKernelTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    TotalKernelTime : Int64
 
     /**
      * The total amount of user-mode execution time for all active processes associated with the job (as well as all terminated processes no longer associated with the job) since the last call that set a per-job user-mode time limit, in 100-nanosecond ticks. 
@@ -36,12 +25,8 @@ class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION extends Win32Struct {
      * 
      * 
      * This member is set to 0 on creation of the job, and each time a per-job user-mode time limit is established.
-     * @type {Integer}
      */
-    ThisPeriodTotalUserTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    ThisPeriodTotalUserTime : Int64
 
     /**
      * The total amount of kernel-mode execution time for all active processes associated with the job (as well as all terminated processes no longer associated with the job) since the last call that set a per-job kernel-mode time limit, in 100-nanosecond ticks. 
@@ -50,46 +35,27 @@ class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION extends Win32Struct {
      * 
      * 
      * This member is set to zero on creation of the job, and each time a per-job kernel-mode time limit is established.
-     * @type {Integer}
      */
-    ThisPeriodTotalKernelTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    ThisPeriodTotalKernelTime : Int64
 
     /**
      * The total number of page faults encountered by all active processes associated with the job, as well as all terminated processes no longer associated with the job.
-     * @type {Integer}
      */
-    TotalPageFaultCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TotalPageFaultCount : UInt32
 
     /**
      * The total number of processes associated with the job during its lifetime, including those that have terminated. For example, when a process is associated with a job, but the association fails because of a limit violation, this value is incremented.
-     * @type {Integer}
      */
-    TotalProcesses {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TotalProcesses : UInt32
 
     /**
      * The total number of processes currently associated with the job. When a process is associated with a job, but the association fails because of a limit violation, this value is temporarily incremented. When the terminated process exits and all references to the process are released, this value is decremented.
-     * @type {Integer}
      */
-    ActiveProcesses {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ActiveProcesses : UInt32
 
     /**
      * The total number of processes terminated because of a limit violation.
-     * @type {Integer}
      */
-    TotalTerminatedProcesses {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    TotalTerminatedProcesses : UInt32
+
 }

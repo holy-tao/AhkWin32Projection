@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_VA_RANGE_DESC extends Win32Struct {
-    static sizeof => 72
+export default struct D3DKMT_VA_RANGE_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    VadAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VadAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VaRangeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VaRangeIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PhysicalAdapterIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalAdapterIndex {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    StartAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    EndAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DriverProtection : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DriverProtection {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    OwnerType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OwnerType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pOwner : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pOwner {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    OwnerOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OwnerOffset {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Protection : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Protection {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Sets parameters for building a non-default certificate chain engine. The engine used determines the ways that certificate chains are built.
@@ -19,73 +18,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_engine_config
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct CERT_CHAIN_ENGINE_CONFIG {
+    #StructPack 8
 
     /**
      * Size of this structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * This configuration parameter can be used to restrict the root store. If used, it can be the handle of any HCERTSTORE containing only a proper subset of the certificates in the root store.
-     * @type {HCERTSTORE}
      */
-    hRestrictedRoot {
-        get {
-            if(!this.HasProp("__hRestrictedRoot"))
-                this.__hRestrictedRoot := HCERTSTORE(8, this)
-            return this.__hRestrictedRoot
-        }
-    }
+    hRestrictedRoot : HCERTSTORE
 
     /**
      * Store handle. If used, restricts the stores searched to find CTLs.
-     * @type {HCERTSTORE}
      */
-    hRestrictedTrust {
-        get {
-            if(!this.HasProp("__hRestrictedTrust"))
-                this.__hRestrictedTrust := HCERTSTORE(16, this)
-            return this.__hRestrictedTrust
-        }
-    }
+    hRestrictedTrust : HCERTSTORE
 
     /**
      * Store handle. If used, restricts the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">stores</a> searched for certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRLs</a>.
-     * @type {HCERTSTORE}
      */
-    hRestrictedOther {
-        get {
-            if(!this.HasProp("__hRestrictedOther"))
-                this.__hRestrictedOther := HCERTSTORE(24, this)
-            return this.__hRestrictedOther
-        }
-    }
+    hRestrictedOther : HCERTSTORE
 
     /**
      * Count of additional stores to be searched for certificates and CRLs needed to build chains.
-     * @type {Integer}
      */
-    cAdditionalStore {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cAdditionalStore : UInt32
 
     /**
      * A pointer to an array of store handles for any additional stores to be searched in building chains.
-     * @type {Pointer<HCERTSTORE>}
      */
-    rghAdditionalStore {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rghAdditionalStore : HCERTSTORE.Ptr
 
     /**
      * The following flags are defined.
@@ -162,30 +126,18 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwFlags : UInt32
 
     /**
      * Number of milliseconds before a time-out for network based–URL object retrievals. Can be set to zero to use the default limit.
-     * @type {Integer}
      */
-    dwUrlRetrievalTimeout {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwUrlRetrievalTimeout : UInt32
 
     /**
      * Limit on the number of certificates that can be cached as a chain is built. Can be set to 0 to use the default limit.
-     * @type {Integer}
      */
-    MaximumCachedCertificates {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    MaximumCachedCertificates : UInt32
 
     /**
      * Number of certificates added to the chain before a check is made to determine whether there is a cycle of certificates in the chain. A cycle may be defined as having the same certificate in two different places in a chain. 
@@ -194,40 +146,22 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct {
      * 
      * 
      * The lower the number, the more frequently checks will be made. Extra checking for cycles of certificates will slow the process considerably. This parameter can be set to zero to use the default limit.
-     * @type {Integer}
      */
-    CycleDetectionModulus {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    CycleDetectionModulus : UInt32
 
     /**
      * Handle to a  certificate store that contains exclusive trust anchors.  If either the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> member points to a valid store, exclusive trust mode is used for the chain building.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
-     * @type {HCERTSTORE}
      */
-    hExclusiveRoot {
-        get {
-            if(!this.HasProp("__hExclusiveRoot"))
-                this.__hExclusiveRoot := HCERTSTORE(64, this)
-            return this.__hExclusiveRoot
-        }
-    }
+    hExclusiveRoot : HCERTSTORE
 
     /**
      * Handle to a certificate store that contains  application-specific peer trusted certificates. If either the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> member points to a valid store, exclusive trust mode is used for the chain building.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
-     * @type {HCERTSTORE}
      */
-    hExclusiveTrustedPeople {
-        get {
-            if(!this.HasProp("__hExclusiveTrustedPeople"))
-                this.__hExclusiveTrustedPeople := HCERTSTORE(72, this)
-            return this.__hExclusiveTrustedPeople
-        }
-    }
+    hExclusiveTrustedPeople : HCERTSTORE
 
     /**
      * The following flag can be set. The flag applies only if the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> or both are not <b>NULL</b>.
@@ -255,15 +189,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwExclusiveFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwExclusiveFlags : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 88
-    }
 }

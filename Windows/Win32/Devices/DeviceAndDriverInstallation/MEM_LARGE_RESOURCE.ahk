@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MEM_LARGE_DES.ahk
-#Include .\MEM_LARGE_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MEM_LARGE_RANGE.ahk" { MEM_LARGE_RANGE }
+#Import ".\MEM_LARGE_DES.ahk" { MEM_LARGE_DES }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class MEM_LARGE_RESOURCE extends Win32Struct {
-    static sizeof => 72
+export default struct MEM_LARGE_RESOURCE {
+    #StructPack 8
 
-    static packingSize => 8
+    MEM_LARGE_Header : MEM_LARGE_DES
 
-    /**
-     * @type {MEM_LARGE_DES}
-     */
-    MEM_LARGE_Header {
-        get {
-            if(!this.HasProp("__MEM_LARGE_Header"))
-                this.__MEM_LARGE_Header := MEM_LARGE_DES(0, this)
-            return this.__MEM_LARGE_Header
-        }
-    }
+    MEM_LARGE_Data : MEM_LARGE_RANGE[1]
 
-    /**
-     * @type {MEM_LARGE_RANGE}
-     */
-    MEM_LARGE_Data {
-        get {
-            if(!this.HasProp("__MEM_LARGE_DataProxyArray"))
-                this.__MEM_LARGE_DataProxyArray := Win32FixedArray(this.ptr + 32, 1, MEM_LARGE_RANGE, "")
-            return this.__MEM_LARGE_DataProxyArray
-        }
-    }
 }

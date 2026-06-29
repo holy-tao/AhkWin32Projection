@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a state type for a service registry key. (SERVICE_SHARED_REGISTRY_STATE_TYPE)
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ne-winsvc-service_shared_registry_state_type
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_SHARED_REGISTRY_STATE_TYPE extends Win32Enum {
+export default struct SERVICE_SHARED_REGISTRY_STATE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Mutable, persistent service state. This state is readable and writeable by the service and by local administrators. This state persists across reboots and and OS updates.

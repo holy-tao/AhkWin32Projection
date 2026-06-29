@@ -1,71 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Describes a deleted list box or combo box item.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-deleteitemstruct
  * @namespace Windows.Win32.UI.Controls
  */
-class DELETEITEMSTRUCT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DELETEITEMSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
-    CtlType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CtlType : DRAWITEMSTRUCT_CTL_TYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The identifier of the list box or combo box.
-     * @type {Integer}
      */
-    CtlID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CtlID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The index of the item in the list box or combo box being removed.
-     * @type {Integer}
      */
-    itemID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    itemID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the control.
-     * @type {HWND}
      */
-    hwndItem {
-        get {
-            if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(16, this)
-            return this.__hwndItem
-        }
-    }
+    hwndItem : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG_PTR</a></b>
      * 
      * Application-defined data for the item. This value is passed to the control in the <i>lParam</i> parameter of the message that adds the item to the list box or combo box.
-     * @type {Pointer}
      */
-    itemData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    itemData : IntPtr
+
 }

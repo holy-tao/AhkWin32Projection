@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_SHARED_VOLUME_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_SHARED_VOLUME_STATE.ahk" { CLUSTER_SHARED_VOLUME_STATE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct {
-    static sizeof => 1584
+export default struct CLUSTER_SHARED_VOLUME_STATE_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    szVolumeName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szVolumeName {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
+    szNodeName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szNodeName {
-        get => StrGet(this.ptr + 520, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 259, "UTF-16")
-    }
+    VolumeState : CLUSTER_SHARED_VOLUME_STATE
 
-    /**
-     * @type {CLUSTER_SHARED_VOLUME_STATE}
-     */
-    VolumeState {
-        get => NumGet(this, 1040, "int")
-        set => NumPut("int", value, this, 1040)
-    }
+    szVolumeFriendlyName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szVolumeFriendlyName {
-        get => StrGet(this.ptr + 1044, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1044, 259, "UTF-16")
-    }
+    RedirectedIOReason : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RedirectedIOReason {
-        get => NumGet(this, 1568, "uint")
-        set => NumPut("uint", value, this, 1568)
-    }
+    VolumeRedirectedIOReason : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VolumeRedirectedIOReason {
-        get => NumGet(this, 1576, "uint")
-        set => NumPut("uint", value, this, 1576)
-    }
 }

@@ -1,45 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\userSTGMEDIUM.ahk
-#Include ..\SystemServices\userHMETAFILEPICT.ahk
-#Include ..\SystemServices\userHENHMETAFILE.ahk
-#Include .\GDI_OBJECT.ahk
-#Include ..\SystemServices\userHGLOBAL.ahk
-#Include .\BYTE_BLOB.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\SystemServices\userHGLOBAL.ahk" { userHGLOBAL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\SystemServices\userHMETAFILEPICT.ahk" { userHMETAFILEPICT }
+#Import "..\SystemServices\userHENHMETAFILE.ahk" { userHENHMETAFILE }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\GDI_OBJECT.ahk" { GDI_OBJECT }
+#Import ".\BYTE_BLOB.ahk" { BYTE_BLOB }
+#Import ".\userSTGMEDIUM.ahk" { userSTGMEDIUM }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class userFLAG_STGMEDIUM extends Win32Struct {
-    static sizeof => 80
+export default struct userFLAG_STGMEDIUM {
+    #StructPack 8
 
-    static packingSize => 8
+    ContextFlags : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ContextFlags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fPassOwnership : Int32
 
-    /**
-     * @type {Integer}
-     */
-    fPassOwnership {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Stgmed : userSTGMEDIUM
 
-    /**
-     * @type {userSTGMEDIUM}
-     */
-    Stgmed {
-        get {
-            if(!this.HasProp("__Stgmed"))
-                this.__Stgmed := userSTGMEDIUM(8, this)
-            return this.__Stgmed
-        }
-    }
 }

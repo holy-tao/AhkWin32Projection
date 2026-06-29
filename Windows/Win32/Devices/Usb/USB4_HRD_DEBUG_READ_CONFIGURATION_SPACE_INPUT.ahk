@@ -1,56 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB4_HRD_DEBUG_ROUTE_STRING.ahk
-#Include .\USB4_CONFIG_SPACE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB4_HRD_DEBUG_ROUTE_STRING.ahk" { USB4_HRD_DEBUG_ROUTE_STRING }
+#Import ".\USB4_CONFIG_SPACE_TYPE.ahk" { USB4_CONFIG_SPACE_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT {
+    #StructPack 4
 
-    static packingSize => 4
+    Route : USB4_HRD_DEBUG_ROUTE_STRING
 
-    /**
-     * @type {USB4_HRD_DEBUG_ROUTE_STRING}
-     */
-    Route {
-        get {
-            if(!this.HasProp("__Route"))
-                this.__Route := USB4_HRD_DEBUG_ROUTE_STRING(0, this)
-            return this.__Route
-        }
-    }
+    AdapterNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AdapterNumber {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ConfigurationSpaceType : USB4_CONFIG_SPACE_TYPE
 
-    /**
-     * @type {USB4_CONFIG_SPACE_TYPE}
-     */
-    ConfigurationSpaceType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    DwOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DwOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DwLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DwLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

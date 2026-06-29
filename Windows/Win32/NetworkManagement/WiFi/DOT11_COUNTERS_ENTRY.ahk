@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_COUNTERS_ENTRY extends Win32Struct {
-    static sizeof => 52
+export default struct DOT11_COUNTERS_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    uTransmittedFragmentCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uTransmittedFragmentCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uMulticastTransmittedFrameCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMulticastTransmittedFrameCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uFailedCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uFailedCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uRetryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRetryCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uMultipleRetryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMultipleRetryCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uFrameDuplicateCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uFrameDuplicateCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uRTSSuccessCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRTSSuccessCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uRTSFailureCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRTSFailureCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    uACKFailureCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uACKFailureCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    uReceivedFragmentCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReceivedFragmentCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    uMulticastReceivedFrameCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMulticastReceivedFrameCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    uFCSErrorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uFCSErrorCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    uTransmittedFrameCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uTransmittedFrameCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

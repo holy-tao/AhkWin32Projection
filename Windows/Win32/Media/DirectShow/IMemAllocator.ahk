@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ALLOCATOR_PROPERTIES.ahk
-#Include .\IMediaSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
 
 /**
  * The IMemAllocator interface allocates media samples, for moving data between pins.This interface is used by pins that share allocators, when the input pin exposes the IMemInputPin interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imemallocator
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMemAllocator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMemAllocator extends IUnknown {
     /**
      * The interface identifier for IMemAllocator
      * @type {Guid}
      */
-    static IID => Guid("{56a8689c-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a8689c-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMemAllocator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetProperties : IntPtr
+        GetProperties : IntPtr
+        Commit        : IntPtr
+        Decommit      : IntPtr
+        GetBuffer     : IntPtr
+        ReleaseBuffer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProperties", "GetProperties", "Commit", "Decommit", "GetBuffer", "ReleaseBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMemAllocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetProperties method specifies the number of buffers to allocate and the size of each buffer.
@@ -45,7 +58,7 @@ class IMemAllocator extends IUnknown {
      */
     SetProperties(pRequest) {
         pActual := ALLOCATOR_PROPERTIES()
-        result := ComCall(3, this, "ptr", pRequest, "ptr", pActual, "HRESULT")
+        result := ComCall(3, this, ALLOCATOR_PROPERTIES.Ptr, pRequest, ALLOCATOR_PROPERTIES.Ptr, pActual, "HRESULT")
         return pActual
     }
 
@@ -58,7 +71,7 @@ class IMemAllocator extends IUnknown {
      */
     GetProperties() {
         pProps := ALLOCATOR_PROPERTIES()
-        result := ComCall(4, this, "ptr", pProps, "HRESULT")
+        result := ComCall(4, this, ALLOCATOR_PROPERTIES.Ptr, pProps, "HRESULT")
         return pProps
     }
 
@@ -192,5 +205,35 @@ class IMemAllocator extends IUnknown {
     ReleaseBuffer(pBuffer) {
         result := ComCall(8, this, "ptr", pBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMemAllocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.Decommit := CallbackCreate(GetMethod(implObj, "Decommit"), flags, 1)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 5)
+        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProperties)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Decommit)
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.ReleaseBuffer)
     }
 }

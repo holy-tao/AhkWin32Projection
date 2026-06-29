@@ -1,22 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVM_RESERVATION_CAPABILITIES.ahk
-#Include .\NVME_LBA_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_LBA_FORMAT.ahk" { NVME_LBA_FORMAT }
+#Import ".\NVM_RESERVATION_CAPABILITIES.ahk" { NVM_RESERVATION_CAPABILITIES }
 
 /**
  * Contains values that indicate capabilities and settings that are specific to a particular namespace.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_namespace_data
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
-    static sizeof => 4360
+export default struct NVME_IDENTIFY_NAMESPACE_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _NSFEAT extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _NSFEAT {
         /**
          * This bitfield backs the following members:
          * - ThinProvisioning
@@ -25,12 +20,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
          * - SkipReuseUI
          * - NameSpaceIoOptimization
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -73,22 +65,16 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _FLBAS extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _FLBAS {
         /**
          * This bitfield backs the following members:
          * - LbaFormatIndex
          * - MetadataInExtendedDataLBA
          * - LbaFormatIndexMS
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -115,21 +101,15 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _MC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _MC {
         /**
          * This bitfield backs the following members:
          * - MetadataInExtendedDataLBA
          * - MetadataInSeparateBuffer
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -148,10 +128,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _DPC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DPC {
         /**
          * This bitfield backs the following members:
          * - ProtectionInfoType1
@@ -160,12 +137,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
          * - InfoAtBeginningOfMetadata
          * - InfoAtEndOfMetadata
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -208,21 +182,15 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _DPS extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DPS {
         /**
          * This bitfield backs the following members:
          * - ProtectionInfoTypeEnabled
          * - InfoAtBeginningOfMetadata
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -241,20 +209,14 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _NMIC extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _NMIC {
         /**
          * This bitfield backs the following members:
          * - SharedNameSpace
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -265,20 +227,14 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _FPI extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _FPI {
         /**
          * This bitfield backs the following members:
          * - PercentageRemained
          * - Supported
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -297,22 +253,16 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _DLFEAT extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DLFEAT {
         /**
          * This bitfield backs the following members:
          * - ReadBehavior
          * - WriteZeroes
          * - GuardFieldWithCRC
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -339,20 +289,14 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
         }
     }
 
-    class _NSATTR extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _NSATTR {
         /**
          * This bitfield backs the following members:
          * - WriteProtected
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -367,12 +311,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * Indicates the total size of the namespace in logical blocks.
      * 
      * A namespace of size *n* consists of Logical Block Address (LBA) `0` through `(n - 1)`. The number of logical blocks is based on the formatted LBA size. This field is undefined prior to the namespace being formatted.
-     * @type {Integer}
      */
-    NSZE {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NSZE : Int64
 
     /**
      * Indicates the maximum number of logical blocks that may be allocated in the namespace at any point in time.
@@ -382,12 +322,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * The **NCAP** field is used in the case of thin provisioning and reports a value that is smaller than or equal to the Namespace Size (**NSZE**).
      * 
      * Spare LBAs are not reported as part of this field. A value of `0h` for the Namespace Capacity (**NCAP**) indicates that the namespace ID is an inactive namespace ID. A logical block is allocated when it is written with a Write or Write Uncorrectable command. A logical block may be deallocated using the [Dataset Management](ns-nvme-nvme_command.md#-field-u.datasetmanagement) command.
-     * @type {Integer}
      */
-    NCAP {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NCAP : Int64
 
     /**
      * Indicates the current number of logical blocks allocated in the namespace.
@@ -397,24 +333,13 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * The number of logical blocks is based on the formatted LBA size. When using the NVM command set: A logical block is allocated when it is written with a Write or Write Uncorrectable command. A logical block may be deallocated using the [Dataset Management](ns-nvme-nvme_command.md#-field-u.datasetmanagement) command.
      * 
      * A controller may report a **NUSE** value equal to an **NCAP** value at all times if the product is not targeted for thin provisioning environments.
-     * @type {Integer}
      */
-    NUSE {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NUSE : Int64
 
     /**
      * A Namespace Features (NSFEAT) structure containing fields that define features of the namespace.
-     * @type {_NSFEAT}
      */
-    NSFEAT {
-        get {
-            if(!this.HasProp("__NSFEAT"))
-                this.__NSFEAT := NVME_IDENTIFY_NAMESPACE_DATA._NSFEAT(24, this)
-            return this.__NSFEAT
-        }
-    }
+    NSFEAT : NVME_IDENTIFY_NAMESPACE_DATA._NSFEAT
 
     /**
      * Defines the number of supported LBA data size and metadata size combinations supported by the namespace.
@@ -424,146 +349,72 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * The supported LBA formats are indicated in  the **LBAF** field (bytes 128 – 191 of this data structure). The metadata may be either transferred as part of the LBA (creating an extended LBA which is a larger LBA size that is exposed to the application) or it may be transferred as a separate contiguous buffer of data. The metadata cannot be split between the LBA and a separate metadata buffer.
      * 
      * It is recommended that software and controllers transition to an LBA size that is 4KB or larger for ECC efficiency at the controller. If providing metadata, it is recommended that at least 8 bytes are provided per logical block to enable use with end-to-end data protection.
-     * @type {Integer}
      */
-    NLBAF {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    NLBAF : Int8
 
     /**
      * A Formatted LBA Size (FLBAS) structure containing fields that indicate the LBA data size and metadata size combination that the namespace has been formatted with.
-     * @type {_FLBAS}
      */
-    FLBAS {
-        get {
-            if(!this.HasProp("__FLBAS"))
-                this.__FLBAS := NVME_IDENTIFY_NAMESPACE_DATA._FLBAS(26, this)
-            return this.__FLBAS
-        }
-    }
+    FLBAS : NVME_IDENTIFY_NAMESPACE_DATA._FLBAS
 
     /**
      * A Metadata Capabilities (MC) structure containing fields that indicate the capabilities for metadata.
-     * @type {_MC}
      */
-    MC {
-        get {
-            if(!this.HasProp("__MC"))
-                this.__MC := NVME_IDENTIFY_NAMESPACE_DATA._MC(27, this)
-            return this.__MC
-        }
-    }
+    MC : NVME_IDENTIFY_NAMESPACE_DATA._MC
 
     /**
      * An End-to-end Data Protection Capabilities (DPC) structure containing fields that indicate the capabilities for the end-to-end data protection feature.
      * 
      * Multiple bits may be set in this field.
-     * @type {_DPC}
      */
-    DPC {
-        get {
-            if(!this.HasProp("__DPC"))
-                this.__DPC := NVME_IDENTIFY_NAMESPACE_DATA._DPC(28, this)
-            return this.__DPC
-        }
-    }
+    DPC : NVME_IDENTIFY_NAMESPACE_DATA._DPC
 
     /**
      * A End-to-end Data Protection Type Settings (DPS) structure containing fields that indicate the Type settings for the end-to-end data protection feature.
      * 
      * [NVME_PROTECTION_INFORMATION_TYPES](ne-nvme-nvme_protection_information_types.md)
-     * @type {_DPS}
      */
-    DPS {
-        get {
-            if(!this.HasProp("__DPS"))
-                this.__DPS := NVME_IDENTIFY_NAMESPACE_DATA._DPS(29, this)
-            return this.__DPS
-        }
-    }
+    DPS : NVME_IDENTIFY_NAMESPACE_DATA._DPS
 
     /**
      * A Namespace Multi-path I/O and Namespace Sharing Capabilities (NMIC) structure containing fields that specify the multi-path I/O and namespace sharing capabilities of the namespace.
-     * @type {_NMIC}
      */
-    NMIC {
-        get {
-            if(!this.HasProp("__NMIC"))
-                this.__NMIC := NVME_IDENTIFY_NAMESPACE_DATA._NMIC(30, this)
-            return this.__NMIC
-        }
-    }
+    NMIC : NVME_IDENTIFY_NAMESPACE_DATA._NMIC
 
     /**
      * A Reservation Capabilities (RESCAP) structure containing fields that specify the reservation capabilities of the namespace.
      * 
      * A value of `00h` in this field indicates that reservations are not supported by this namespace.
-     * @type {NVM_RESERVATION_CAPABILITIES}
      */
-    RESCAP {
-        get {
-            if(!this.HasProp("__RESCAP"))
-                this.__RESCAP := NVM_RESERVATION_CAPABILITIES(31, this)
-            return this.__RESCAP
-        }
-    }
+    RESCAP : NVM_RESERVATION_CAPABILITIES
 
     /**
      * A Format Progress Indicator (FPI) structure containing fields that indicate the percentage of the namespace that remains to be formatted when a format operation is in progress.
-     * @type {_FPI}
      */
-    FPI {
-        get {
-            if(!this.HasProp("__FPI"))
-                this.__FPI := NVME_IDENTIFY_NAMESPACE_DATA._FPI(33, this)
-            return this.__FPI
-        }
-    }
+    FPI : NVME_IDENTIFY_NAMESPACE_DATA._FPI
 
-    /**
-     * @type {_DLFEAT}
-     */
-    DLFEAT {
-        get {
-            if(!this.HasProp("__DLFEAT"))
-                this.__DLFEAT := NVME_IDENTIFY_NAMESPACE_DATA._DLFEAT(34, this)
-            return this.__DLFEAT
-        }
-    }
+    DLFEAT : NVME_IDENTIFY_NAMESPACE_DATA._DLFEAT
 
     /**
      * Indicates the namespace specific size of the write operation guaranteed to be written atomically to the NVM during normal operation.
      * 
      * A value of `0h` indicates that the size for this namespace is the same size as that reported in the **AWUN** field of the [Identify Controller](ns-nvme-nvme_identify_controller_data.md) data structure. All other values specify a size in terms of logical blocks using the same encoding as the **AWUN** field.
-     * @type {Integer}
      */
-    NAWUN {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    NAWUN : UInt16
 
     /**
      * Indicates the namespace specific size of the write operation guaranteed to be written atomically to the NVM during a power fail or error condition.
      * 
      * A value of `0h` indicates that the size for this namespace is the same size as that reported in the **AWUPF** field of the [Identify Controller](ns-nvme-nvme_identify_controller_data.md) data structure. All other values specify a size in terms of logical blocks using the same encoding as the **AWUPF** field.
-     * @type {Integer}
      */
-    NAWUPF {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    NAWUPF : UInt16
 
     /**
      * Indicates the namespace specific size of the write operation guaranteed to be written atomically to the NVM for a Compare and Write fused command.
      * 
      * A value of `0h` indicates that the size for this namespace is the same size as that reported in the **ACWU** field of the [Identify Controller](ns-nvme-nvme_identify_controller_data.md) data structure. All other values specify a size in terms of logical blocks using the same encoding as the **ACWU** field.
-     * @type {Integer}
      */
-    NACWU {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    NACWU : UInt16
 
     /**
      * Indicates the atomic boundary size for this namespace for the **NAWUN** value.
@@ -571,23 +422,15 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * This field is specified in logical blocks. Writes to this namespace that cross atomic boundaries are not guaranteed to be atomic to the NVM with respect to other read or write commands.
      * 
      * A value of `0h` indicates that there are no atomic boundaries for normal write operations. All other values specify a size in terms of logical blocks using the same encoding as the **AWUN** field.
-     * @type {Integer}
      */
-    NABSN {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    NABSN : UInt16
 
     /**
      * Indicates the Logical Block Address (LBA) on this namespace where the first atomic boundary starts.
      * 
      * If the **NABSN** and **NABSPF** fields are cleared to `0h`, then the **NABO** field is cleared to 0h. The value of **NABO** should be less than or equal to **NABSN** and **NABSPF**.
-     * @type {Integer}
      */
-    NABO {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    NABO : UInt16
 
     /**
      * Indicates the atomic boundary size for this namespace specific to the Namespace Atomic Write Unit Power Fail value. 
@@ -595,21 +438,13 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * This field is specified in logical blocks. Writes to this namespace that cross atomic boundaries are not guaranteed to be atomic with respect to other read or write commands and there is no guarantee of data returned on subsequent reads of the associated logical blocks.
      * 
      * A value of `0h` indicates that there are no atomic boundaries for power fail or error conditions. All other values specify a size in terms of logical blocks using the same encoding as the **AWUPF** field.
-     * @type {Integer}
      */
-    NABSPF {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    NABSPF : UInt16
 
     /**
      * Indicates the Namespace Optimal IO Boundary (NOIOB).
-     * @type {Integer}
      */
-    NOIOB {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    NOIOB : UInt16
 
     /**
      * Indicates the total size of the NVM allocated to this namespace.
@@ -617,140 +452,48 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * The value of this field is in bytes. This field is supported if the Namespace Management and Namespace Attachment commands are supported.
      * 
      * Note: This field may not correspond to the logical block size multiplied by the Namespace Size (**NSZE**) field. Due to thin provisioning or other settings (such as, endurance), this field may be larger or smaller than the **NSZE** reported.
-     * @type {Array<Integer>}
      */
-    NVMCAP {
-        get {
-            if(!this.HasProp("__NVMCAPProxyArray"))
-                this.__NVMCAPProxyArray := Win32FixedArray(this.ptr + 50, 16, Primitive, "char")
-            return this.__NVMCAPProxyArray
-        }
-    }
+    NVMCAP : Int8[16]
 
-    /**
-     * @type {Integer}
-     */
-    NPWG {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
+    NPWG : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NPWA {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
-    }
+    NPWA : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NPDG {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
-    }
+    NPDG : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NPDA {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
+    NPDA : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NOWS {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
-    }
+    NOWS : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MSSRL {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    MSSRL : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MCL {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    MCL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MSRC {
-        get => NumGet(this, 84, "char")
-        set => NumPut("char", value, this, 84)
-    }
+    MSRC : Int8
 
     /**
      * A reserved field.
-     * @type {Array<Integer>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 85, 11, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[11]
 
-    /**
-     * @type {Integer}
-     */
-    ANAGRPID {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ANAGRPID : UInt32
 
     /**
      * Bytes 192:383A are reserved.
-     * @type {Array<Integer>}
      */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 100, 3, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : Int8[3]
 
-    /**
-     * @type {_NSATTR}
-     */
-    NSATTR {
-        get {
-            if(!this.HasProp("__NSATTR"))
-                this.__NSATTR := NVME_IDENTIFY_NAMESPACE_DATA._NSATTR(103, this)
-            return this.__NSATTR
-        }
-    }
+    NSATTR : NVME_IDENTIFY_NAMESPACE_DATA._NSATTR
 
     /**
      * Indicates the Associated NVM Set Identifier (NVMSETID).
-     * @type {Integer}
      */
-    NVMSETID {
-        get => NumGet(this, 104, "ushort")
-        set => NumPut("ushort", value, this, 104)
-    }
+    NVMSETID : UInt16
 
     /**
      * Indicates the Associated Endurance Group Identifier (ENDGID).
-     * @type {Integer}
      */
-    ENDGID {
-        get => NumGet(this, 106, "ushort")
-        set => NumPut("ushort", value, this, 106)
-    }
+    ENDGID : UInt16
 
     /**
      * Contains a 128-bit value that is globally unique and assigned to the namespace when the namespace is created.
@@ -764,15 +507,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * - Bytes 111:104 contain the vendor specific extension identifier assigned by the corresponding organization.
      * 
      * See the IEEE EUI-64 guidelines for more information. The controller should specify a globally unique namespace identifier in this field or the **EUI64** field when the namespace is created.
-     * @type {Array<Integer>}
      */
-    NGUID {
-        get {
-            if(!this.HasProp("__NGUIDProxyArray"))
-                this.__NGUIDProxyArray := Win32FixedArray(this.ptr + 108, 16, Primitive, "char")
-            return this.__NGUIDProxyArray
-        }
-    }
+    NGUID : Int8[16]
 
     /**
      * Contains a 64-bit IEEE Extended Unique Identifier (EUI-64) that is globally unique and assigned to the namespace when the namespace is created.
@@ -783,39 +519,19 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
      * organization. See the IEEE EUI-64 guidelines for more information.
      * 
      * The controller should specify a globally unique namespace identifier in this field or the **NGUID** field when the namespace is created. If the controller is not able to allocate a globally unique 64-bit identifier then this field will be cleared to `0h`.
-     * @type {Array<Integer>}
      */
-    EUI64 {
-        get {
-            if(!this.HasProp("__EUI64ProxyArray"))
-                this.__EUI64ProxyArray := Win32FixedArray(this.ptr + 124, 8, Primitive, "char")
-            return this.__EUI64ProxyArray
-        }
-    }
+    EUI64 : Int8[8]
 
     /**
      * Contains an array of 16 [NVME_LBA_FORMAT](ns-nvme-nvme_lba_format.md) structures. Each structure in the array specifies an LBA Format and indicates that it is supported by the controller.
      * 
      * The zero-based position of a structure in the array corresponds to the name of the LBA Format, such that LBA Format 0 (LBAF0) is in position 0, LBA Format 1 (LBAF1) is in position 1, and so on, up to LBA Format 15 (LBAF15) in position 15.
-     * @type {NVME_LBA_FORMAT}
      */
-    LBAF {
-        get {
-            if(!this.HasProp("__LBAFProxyArray"))
-                this.__LBAFProxyArray := Win32FixedArray(this.ptr + 132, 64, NVME_LBA_FORMAT, "")
-            return this.__LBAFProxyArray
-        }
-    }
+    LBAF : NVME_LBA_FORMAT[64]
 
     /**
      * This range of bytes (384:4095) is allocated for Vendor Specific (VS) usage.
-     * @type {Array<Integer>}
      */
-    VS {
-        get {
-            if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 644, 3712, Primitive, "char")
-            return this.__VSProxyArray
-        }
-    }
+    VS : Int8[3712]
+
 }

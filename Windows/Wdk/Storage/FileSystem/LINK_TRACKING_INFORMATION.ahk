@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LINK_TRACKING_INFORMATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LINK_TRACKING_INFORMATION_TYPE.ahk" { LINK_TRACKING_INFORMATION_TYPE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class LINK_TRACKING_INFORMATION extends Win32Struct {
-    static sizeof => 20
+export default struct LINK_TRACKING_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : LINK_TRACKING_INFORMATION_TYPE
 
-    /**
-     * @type {LINK_TRACKING_INFORMATION_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    VolumeId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VolumeId {
-        get {
-            if(!this.HasProp("__VolumeIdProxyArray"))
-                this.__VolumeIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__VolumeIdProxyArray
-        }
-    }
 }

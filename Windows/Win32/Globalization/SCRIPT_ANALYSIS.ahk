@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\SCRIPT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCRIPT_STATE.ahk" { SCRIPT_STATE }
 
 /**
  * Contains a portion of a Unicode string, that is, an &quot;item&quot;.
@@ -11,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis
  * @namespace Windows.Win32.Globalization
  */
-class SCRIPT_ANALYSIS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct SCRIPT_ANALYSIS {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -25,12 +22,9 @@ class SCRIPT_ANALYSIS extends Win32Struct {
      * - fLinkAfter
      * - fLogicalOrder
      * - fNoGlyphIndex
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -87,16 +81,9 @@ class SCRIPT_ANALYSIS extends Win32Struct {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
-
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> structure containing a copy of the Unicode algorithm state.
-     * @type {SCRIPT_STATE}
      */
-    s {
-        get {
-            if(!this.HasProp("__s"))
-                this.__s := SCRIPT_STATE(2, this)
-            return this.__s
-        }
-    }
+    s : SCRIPT_STATE
+
 }

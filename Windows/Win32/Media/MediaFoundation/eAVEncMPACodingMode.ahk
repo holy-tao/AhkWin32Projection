@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the MPEG audio encoding mode. This enumeration is used with the AVEncMPACodingMode property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpacodingmode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class eAVEncMPACodingMode extends Win32Enum {
+export default struct eAVEncMPACodingMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Single channel.

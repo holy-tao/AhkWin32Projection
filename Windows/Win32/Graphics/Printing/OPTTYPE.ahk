@@ -1,95 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPTPARAM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OPTPARAM.ahk" { OPTPARAM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OPTTYPE extends Win32Struct {
-    static sizeof => 48
+export default struct OPTTYPE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Count : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    BegCtrlID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BegCtrlID {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    pOptParam : OPTPARAM.Ptr
 
-    /**
-     * @type {Pointer<OPTPARAM>}
-     */
-    pOptParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Style : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Style {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wReserved : UInt16[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    wReserved {
-        get {
-            if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 18, 3, Primitive, "ushort")
-            return this.__wReservedProxyArray
-        }
-    }
+    dwReserved : IntPtr[3]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "ptr")
-            return this.__dwReservedProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Specifies how the Task Scheduler performs tasks when the computer is in an idle condition.
@@ -12,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iidlesettings
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IIdleSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IIdleSettings extends IDispatch {
     /**
      * The interface identifier for IIdleSettings
      * @type {Guid}
      */
-    static IID => Guid("{84594461-0053-4342-a8fd-088fabf11f32}")
+    static IID := Guid("{84594461-0053-4342-a8fd-088fabf11f32}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIdleSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_IdleDuration  : IntPtr
+        put_IdleDuration  : IntPtr
+        get_WaitTimeout   : IntPtr
+        put_WaitTimeout   : IntPtr
+        get_StopOnIdleEnd : IntPtr
+        put_StopOnIdleEnd : IntPtr
+        get_RestartOnIdle : IntPtr
+        put_RestartOnIdle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IdleDuration", "put_IdleDuration", "get_WaitTimeout", "put_WaitTimeout", "get_StopOnIdleEnd", "put_StopOnIdleEnd", "get_RestartOnIdle", "put_RestartOnIdle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIdleSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -74,7 +91,7 @@ class IIdleSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-get_idleduration
      */
     get_IdleDuration(pDelay) {
-        result := ComCall(7, this, "ptr", pDelay, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pDelay, "HRESULT")
         return result
     }
 
@@ -89,7 +106,7 @@ class IIdleSettings extends IDispatch {
     put_IdleDuration(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay
 
-        result := ComCall(8, this, "ptr", delay, "HRESULT")
+        result := ComCall(8, this, BSTR, delay, "HRESULT")
         return result
     }
 
@@ -104,7 +121,7 @@ class IIdleSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-get_waittimeout
      */
     get_WaitTimeout(pTimeout) {
-        result := ComCall(9, this, "ptr", pTimeout, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pTimeout, "HRESULT")
         return result
     }
 
@@ -121,7 +138,7 @@ class IIdleSettings extends IDispatch {
     put_WaitTimeout(timeout) {
         timeout := timeout is String ? BSTR.Alloc(timeout).Value : timeout
 
-        result := ComCall(10, this, "ptr", timeout, "HRESULT")
+        result := ComCall(10, this, BSTR, timeout, "HRESULT")
         return result
     }
 
@@ -149,7 +166,7 @@ class IIdleSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-put_stoponidleend
      */
     put_StopOnIdleEnd(stop) {
-        result := ComCall(12, this, "short", stop, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, stop, "HRESULT")
         return result
     }
 
@@ -181,7 +198,41 @@ class IIdleSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-put_restartonidle
      */
     put_RestartOnIdle(restart) {
-        result := ComCall(14, this, "short", restart, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, restart, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IIdleSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IdleDuration := CallbackCreate(GetMethod(implObj, "get_IdleDuration"), flags, 2)
+        this.vtbl.put_IdleDuration := CallbackCreate(GetMethod(implObj, "put_IdleDuration"), flags, 2)
+        this.vtbl.get_WaitTimeout := CallbackCreate(GetMethod(implObj, "get_WaitTimeout"), flags, 2)
+        this.vtbl.put_WaitTimeout := CallbackCreate(GetMethod(implObj, "put_WaitTimeout"), flags, 2)
+        this.vtbl.get_StopOnIdleEnd := CallbackCreate(GetMethod(implObj, "get_StopOnIdleEnd"), flags, 2)
+        this.vtbl.put_StopOnIdleEnd := CallbackCreate(GetMethod(implObj, "put_StopOnIdleEnd"), flags, 2)
+        this.vtbl.get_RestartOnIdle := CallbackCreate(GetMethod(implObj, "get_RestartOnIdle"), flags, 2)
+        this.vtbl.put_RestartOnIdle := CallbackCreate(GetMethod(implObj, "put_RestartOnIdle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IdleDuration)
+        CallbackFree(this.vtbl.put_IdleDuration)
+        CallbackFree(this.vtbl.get_WaitTimeout)
+        CallbackFree(this.vtbl.put_WaitTimeout)
+        CallbackFree(this.vtbl.get_StopOnIdleEnd)
+        CallbackFree(this.vtbl.put_StopOnIdleEnd)
+        CallbackFree(this.vtbl.get_RestartOnIdle)
+        CallbackFree(this.vtbl.put_RestartOnIdle)
     }
 }

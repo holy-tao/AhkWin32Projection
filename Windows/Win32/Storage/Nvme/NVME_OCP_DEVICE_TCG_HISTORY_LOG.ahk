@@ -1,77 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TCG_HISTORY_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TCG_HISTORY_ENTRY.ahk" { TCG_HISTORY_ENTRY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct {
-    static sizeof => 4088
+export default struct NVME_OCP_DEVICE_TCG_HISTORY_LOG {
+    #StructPack 8
 
-    static packingSize => 8
+    LID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LID {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    HistoryEntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HistoryEntryCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HistoryEntries : TCG_HISTORY_ENTRY[84]
 
-    /**
-     * @type {TCG_HISTORY_ENTRY}
-     */
-    HistoryEntries {
-        get {
-            if(!this.HasProp("__HistoryEntriesProxyArray"))
-                this.__HistoryEntriesProxyArray := Win32FixedArray(this.ptr + 8, 84, TCG_HISTORY_ENTRY, "")
-            return this.__HistoryEntriesProxyArray
-        }
-    }
+    Reserved1 : Int8[38]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 4040, 38, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    LogPageVersionNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogPageVersionNumber {
-        get => NumGet(this, 4078, "ushort")
-        set => NumPut("ushort", value, this, 4078)
-    }
+    LogPageGUID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    LogPageGUID {
-        get => NumGet(this, 4080, "ptr")
-        set => NumPut("ptr", value, this, 4080)
-    }
 }

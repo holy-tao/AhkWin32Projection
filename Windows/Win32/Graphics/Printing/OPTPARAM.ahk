@@ -1,75 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OPTPARAM extends Win32Struct {
-    static sizeof => 48
+export default struct OPTPARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Style : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Style {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    pData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IconID : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    IconID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lParam : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwReserved : IntPtr[2]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "ptr")
-            return this.__dwReservedProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

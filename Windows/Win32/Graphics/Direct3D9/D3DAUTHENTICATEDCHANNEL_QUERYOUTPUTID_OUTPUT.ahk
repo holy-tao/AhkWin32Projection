@@ -1,64 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
-#Include .\D3D_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D_OMAC.ahk" { D3D_OMAC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @architecture X64, Arm64
  */
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct {
-    static sizeof => 72
+export default struct D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Output : D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
 
-    /**
-     * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
-     */
-    Output {
-        get {
-            if(!this.HasProp("__Output"))
-                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
-            return this.__Output
-        }
-    }
+    DeviceHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    DeviceHandle {
-        get {
-            if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(40, this)
-            return this.__DeviceHandle
-        }
-    }
+    CryptoSessionHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    CryptoSessionHandle {
-        get {
-            if(!this.HasProp("__CryptoSessionHandle"))
-                this.__CryptoSessionHandle := HANDLE(48, this)
-            return this.__CryptoSessionHandle
-        }
-    }
+    OutputIDIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputIDIndex {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    OutputID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutputID {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

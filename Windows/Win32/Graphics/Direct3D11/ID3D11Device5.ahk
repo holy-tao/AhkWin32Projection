@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device4.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D11_FENCE_FLAG.ahk" { D3D11_FENCE_FLAG }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ID3D11Device4.ahk" { ID3D11Device4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device5 adds new methods to those in ID3D11Device4.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nn-d3d11_4-id3d11device5
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Device5 extends ID3D11Device4 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Device5 extends ID3D11Device4 {
     /**
      * The interface identifier for ID3D11Device5
      * @type {Guid}
      */
-    static IID => Guid("{8ffde202-a0e7-45df-9e01-e837801b5ea0}")
+    static IID := Guid("{8ffde202-a0e7-45df-9e01-e837801b5ea0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 67
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Device5 interfaces
+    */
+    struct Vtbl extends ID3D11Device4.Vtbl {
+        OpenSharedFence : IntPtr
+        CreateFence     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenSharedFence", "CreateFence"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Device5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a handle for a shared fence by using HANDLE and REFIID.
@@ -43,9 +54,7 @@ class ID3D11Device5 extends ID3D11Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence
      */
     OpenSharedFence(hFence, ReturnedInterface) {
-        hFence := hFence is Win32Handle ? NumGet(hFence, "ptr") : hFence
-
-        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(67, this, HANDLE, hFence, Guid.Ptr, ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
         return ppFence
     }
 
@@ -69,7 +78,29 @@ class ID3D11Device5 extends ID3D11Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-createfence
      */
     CreateFence(InitialValue, Flags, ReturnedInterface) {
-        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(68, this, "uint", InitialValue, D3D11_FENCE_FLAG, Flags, Guid.Ptr, ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
         return ppFence
+    }
+
+    Query(iid) {
+        if (ID3D11Device5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenSharedFence := CallbackCreate(GetMethod(implObj, "OpenSharedFence"), flags, 4)
+        this.vtbl.CreateFence := CallbackCreate(GetMethod(implObj, "CreateFence"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenSharedFence)
+        CallbackFree(this.vtbl.CreateFence)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the state of a clock.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfclock_state
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCLOCK_STATE extends Win32Enum {
+export default struct MFCLOCK_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The clock is invalid. A clock might be invalid for several reasons. Some clocks return this state before the first start. This state can also occur if the underlying device is lost.

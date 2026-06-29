@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMVideoProcAmp interface adjusts the qualities of an incoming video signal, such as brightness, contrast, hue, saturation, gamma, and sharpness.The WDM Video Capture filter exposes this interface if the hardware supports image adjustment.
@@ -10,26 +11,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvideoprocamp
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMVideoProcAmp extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMVideoProcAmp extends IUnknown {
     /**
      * The interface identifier for IAMVideoProcAmp
      * @type {Guid}
      */
-    static IID => Guid("{c6e13360-30ac-11d0-a18c-00a0c9118956}")
+    static IID := Guid("{c6e13360-30ac-11d0-a18c-00a0c9118956}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMVideoProcAmp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRange : IntPtr
+        Set      : IntPtr
+        Get      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRange", "Set", "Get"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMVideoProcAmp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetRange method gets the range and default value of a specified video property.
@@ -134,5 +144,29 @@ class IAMVideoProcAmp extends IUnknown {
 
         result := ComCall(5, this, "int", _Property, lValueMarshal, lValue, FlagsMarshal, Flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMVideoProcAmp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 7)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 4)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRange)
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.Get)
     }
 }

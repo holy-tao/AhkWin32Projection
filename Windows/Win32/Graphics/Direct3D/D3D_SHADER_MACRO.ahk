@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Defines a shader macro.
@@ -33,26 +33,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ns-d3dcommon-d3d_shader_macro
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class D3D_SHADER_MACRO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D_SHADER_MACRO {
+    #StructPack 8
 
     /**
      * The macro name.
-     * @type {PSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Name : PSTR
 
     /**
      * The macro definition.
-     * @type {PSTR}
      */
-    Definition {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Definition : PSTR
+
 }

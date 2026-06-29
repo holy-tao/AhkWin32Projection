@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CHARRANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
 
 /**
  * A range of text from a rich edit control. This structure is filled in by the EM_GETTEXTRANGE message. The buffer pointed to by the lpstrText member must be large enough to receive all characters and the terminating null character. (Unicode)
@@ -12,33 +12,21 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class TEXTRANGEW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct TEXTRANGEW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-charrange">CHARRANGE</a></b>
      * 
      * The range of characters to retrieve.
-     * @type {CHARRANGE}
      */
-    chrg {
-        get {
-            if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(0, this)
-            return this.__chrg
-        }
-    }
+    chrg : CHARRANGE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * The text.
-     * @type {PWSTR}
      */
-    lpstrText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrText : PWSTR
+
 }

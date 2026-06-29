@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
  */
-class VDM_SEGINFO extends Win32Struct {
-    static sizeof => 276
+export default struct VDM_SEGINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Selector : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Selector {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    SegNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SegNumber {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ModuleName : CHAR[9]
 
-    /**
-     * @type {String}
-     */
-    ModuleName {
-        get => StrGet(this.ptr + 10, 8, "UTF-8")
-        set => StrPut(value, this.ptr + 10, 8, "UTF-8")
-    }
+    FileName : CHAR[255]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 20, 254, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 254, "UTF-8")
-    }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBasicAudio interface controls the volume and balance of the audio stream.This interface is implemented on the Audio Renderer (WaveOut) filter and the DirectSound Renderer filter, but is exposed to applications through the Filter Graph Manager.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicaudio
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBasicAudio extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IBasicAudio extends IDispatch {
     /**
      * The interface identifier for IBasicAudio
      * @type {Guid}
      */
-    static IID => Guid("{56a868b3-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b3-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBasicAudio interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_Volume  : IntPtr
+        get_Volume  : IntPtr
+        put_Balance : IntPtr
+        get_Balance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Volume", "get_Volume", "put_Balance", "get_Balance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBasicAudio.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -189,5 +200,31 @@ class IBasicAudio extends IDispatch {
     get_Balance() {
         result := ComCall(10, this, "int*", &plBalance := 0, "HRESULT")
         return plBalance
+    }
+
+    Query(iid) {
+        if (IBasicAudio.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Balance := CallbackCreate(GetMethod(implObj, "put_Balance"), flags, 2)
+        this.vtbl.get_Balance := CallbackCreate(GetMethod(implObj, "get_Balance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Volume)
+        CallbackFree(this.vtbl.get_Volume)
+        CallbackFree(this.vtbl.put_Balance)
+        CallbackFree(this.vtbl.get_Balance)
     }
 }

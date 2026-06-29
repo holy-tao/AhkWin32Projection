@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMStorageControl.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMDMStorageControl.ahk" { IWMDMStorageControl }
+#Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 
 /**
  * The IWMDMStorageControl2 interface extends IWMDMStorageControl by making it possible to set the name of the destination file when inserting content into a storage.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstoragecontrol2
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMStorageControl2 extends IWMDMStorageControl {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMStorageControl2 extends IWMDMStorageControl {
     /**
      * The interface identifier for IWMDMStorageControl2
      * @type {Guid}
      */
-    static IID => Guid("{972c2e88-bd6c-4125-8e09-84f837e637b6}")
+    static IID := Guid("{972c2e88-bd6c-4125-8e09-84f837e637b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMStorageControl2 interfaces
+    */
+    struct Vtbl extends IWMDMStorageControl.Vtbl {
+        Insert2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Insert2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMStorageControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Insert2 method puts content into/next to the storage. This method extends IWMDMStorageControl::Insert by allowing the application to specify a new destination name, and provide a pointer to a custom COM object.
@@ -134,7 +147,27 @@ class IWMDMStorageControl2 extends IWMDMStorageControl {
         pwszFileSource := pwszFileSource is String ? StrPtr(pwszFileSource) : pwszFileSource
         pwszFileDest := pwszFileDest is String ? StrPtr(pwszFileDest) : pwszFileDest
 
-        result := ComCall(8, this, "uint", fuMode, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pUnknown, "ptr*", ppNewObject, "HRESULT")
+        result := ComCall(8, this, "uint", fuMode, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMStorageControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Insert2 := CallbackCreate(GetMethod(implObj, "Insert2"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Insert2)
     }
 }

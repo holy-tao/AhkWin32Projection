@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that indicate the current state of the write operation when using the IDiscFormat2RawCDEventArgs interface.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_write_action
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMAPI_FORMAT2_RAW_CD_WRITE_ACTION extends Win32Enum {
+export default struct IMAPI_FORMAT2_RAW_CD_WRITE_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates an unknown state.

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USN_DELETE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USN_DELETE_FLAGS.ahk" { USN_DELETE_FLAGS }
 
 /**
  * Contains information on the deletion of an update sequence number (USN) change journal using the FSCTL_DELETE_USN_JOURNAL control code.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-delete_usn_journal_data
  * @namespace Windows.Win32.System.Ioctl
  */
-class DELETE_USN_JOURNAL_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DELETE_USN_JOURNAL_DATA {
+    #StructPack 8
 
     /**
      * The identifier of the change journal to be deleted. 
@@ -26,18 +23,9 @@ class DELETE_USN_JOURNAL_DATA extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_delete_usn_journal">FSCTL_DELETE_USN_JOURNAL</a> fails.
      * 
      * If notification instead of deletion is requested by setting only the USN_DELETE_FLAG_NOTIFY flag in <b>DeleteFlags</b>, <b>UsnJournalID</b> is ignored.
-     * @type {Integer}
      */
-    UsnJournalID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsnJournalID : Int64
 
-    /**
-     * @type {USN_DELETE_FLAGS}
-     */
-    DeleteFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeleteFlags : USN_DELETE_FLAGS
+
 }

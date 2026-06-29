@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_OBJECTINFO constructor
@@ -7,72 +6,23 @@
  * @namespace Windows.Win32.Storage.Jet
  * @architecture X64, Arm64
  */
-class JET_OBJECTINFO extends Win32Struct {
-    static sizeof => 40
+export default struct JET_OBJECTINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    objtyp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    objtyp {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dtCreate : Float64
 
-    /**
-     * @type {Float}
-     */
-    dtCreate {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
+    dtUpdate : Float64
 
-    /**
-     * @type {Float}
-     */
-    dtUpdate {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cRecord {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cPage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPage {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

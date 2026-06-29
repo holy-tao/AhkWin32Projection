@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SCOPE_TABLE_ARM extends Win32Struct {
-    static sizeof => 20
+export default struct SCOPE_TABLE_ARM {
+    #StructPack 4
 
-    static packingSize => 4
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BeginAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BeginAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EndAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HandlerAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandlerAddress {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    JumpTarget : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    JumpTarget {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

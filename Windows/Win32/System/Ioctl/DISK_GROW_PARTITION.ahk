@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information used to increase the size of a partition.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_grow_partition
  * @namespace Windows.Win32.System.Ioctl
  */
-class DISK_GROW_PARTITION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DISK_GROW_PARTITION {
+    #StructPack 8
 
     /**
      * The identifier of the partition to be enlarged.
-     * @type {Integer}
      */
-    PartitionNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PartitionNumber : UInt32
 
     /**
      * The number of bytes by which the partition is to be enlarged (positive value) or reduced (negative value). Note that this value is not the new size of the partition.
-     * @type {Integer}
      */
-    BytesToGrow {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    BytesToGrow : Int64
+
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used with the ADSVALUE structure to contain a distinguished name attribute value that also contains binary data.
@@ -8,35 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_dn_with_binary
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_DN_WITH_BINARY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct ADS_DN_WITH_BINARY {
+    #StructPack 8
 
     /**
      * Contains the length, in bytes, of the binary data in <b>lpBinaryValue</b>.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLength : UInt32
 
     /**
      * Pointer to an array of bytes that contains the binary data for the attribute. The <b>dwLength</b> member contains the number of bytes in this array.
-     * @type {Pointer<Integer>}
      */
-    lpBinaryValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpBinaryValue : IntPtr
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name.
-     * @type {PWSTR}
      */
-    pszDNString {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDNString : PWSTR
+
 }

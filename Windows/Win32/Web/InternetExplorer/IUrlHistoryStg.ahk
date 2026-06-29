@@ -1,32 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumSTATURL.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSTATURL.ahk" { IEnumSTATURL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\STATURL.ahk" { STATURL }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IUrlHistoryStg extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUrlHistoryStg extends IUnknown {
     /**
      * The interface identifier for IUrlHistoryStg
      * @type {Guid}
      */
-    static IID => Guid("{3c374a41-bae4-11cf-bf7d-00aa006946ee}")
+    static IID := Guid("{3c374a41-bae4-11cf-bf7d-00aa006946ee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUrlHistoryStg interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddUrl       : IntPtr
+        DeleteUrl    : IntPtr
+        QueryUrl     : IntPtr
+        BindToObject : IntPtr
+        EnumUrls     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddUrl", "DeleteUrl", "QueryUrl", "BindToObject", "EnumUrls"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUrlHistoryStg.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -44,20 +58,10 @@ class IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * Deletes a cache container (which contains cache entries) based on the specified name. (ANSI)
-     * @remarks
-     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service nor when impersonating a security context. For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
-     * <div> </div>
      * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winineti.h header defines DeleteUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pocsUrl 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainera
+     * @returns {HRESULT} 
      */
     DeleteUrl(pocsUrl, dwFlags) {
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
@@ -76,7 +80,7 @@ class IUrlHistoryStg extends IUnknown {
     QueryUrl(pocsUrl, dwFlags, lpSTATURL) {
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
 
-        result := ComCall(5, this, "ptr", pocsUrl, "uint", dwFlags, "ptr", lpSTATURL, "HRESULT")
+        result := ComCall(5, this, "ptr", pocsUrl, "uint", dwFlags, STATURL.Ptr, lpSTATURL, "HRESULT")
         return result
     }
 
@@ -89,7 +93,7 @@ class IUrlHistoryStg extends IUnknown {
     BindToObject(pocsUrl, riid) {
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
 
-        result := ComCall(6, this, "ptr", pocsUrl, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pocsUrl, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
         return ppvOut
     }
 
@@ -100,5 +104,33 @@ class IUrlHistoryStg extends IUnknown {
     EnumUrls() {
         result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumSTATURL(ppEnum)
+    }
+
+    Query(iid) {
+        if (IUrlHistoryStg.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddUrl := CallbackCreate(GetMethod(implObj, "AddUrl"), flags, 4)
+        this.vtbl.DeleteUrl := CallbackCreate(GetMethod(implObj, "DeleteUrl"), flags, 3)
+        this.vtbl.QueryUrl := CallbackCreate(GetMethod(implObj, "QueryUrl"), flags, 4)
+        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 4)
+        this.vtbl.EnumUrls := CallbackCreate(GetMethod(implObj, "EnumUrls"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddUrl)
+        CallbackFree(this.vtbl.DeleteUrl)
+        CallbackFree(this.vtbl.QueryUrl)
+        CallbackFree(this.vtbl.BindToObject)
+        CallbackFree(this.vtbl.EnumUrls)
     }
 }

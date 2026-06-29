@@ -1,66 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\IEEE1394_VDEV_PNP_REQUEST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IEEE1394_VDEV_PNP_REQUEST.ahk" { IEEE1394_VDEV_PNP_REQUEST }
 
 /**
  * @namespace Windows.Win32.Devices
  */
-class IEEE1394_API_REQUEST extends Win32Struct {
-    static sizeof => 32
+export default struct IEEE1394_API_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _u {
+        AddVirtualDevice : IEEE1394_VDEV_PNP_REQUEST
 
-        /**
-         * @type {IEEE1394_VDEV_PNP_REQUEST}
-         */
-        AddVirtualDevice {
-            get {
-                if(!this.HasProp("__AddVirtualDevice"))
-                    this.__AddVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(0, this)
-                return this.__AddVirtualDevice
-            }
-        }
-
-        /**
-         * @type {IEEE1394_VDEV_PNP_REQUEST}
-         */
-        RemoveVirtualDevice {
-            get {
-                if(!this.HasProp("__RemoveVirtualDevice"))
-                    this.__RemoveVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(0, this)
-                return this.__RemoveVirtualDevice
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'RemoveVirtualDevice', { type: IEEE1394_VDEV_PNP_REQUEST, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    RequestNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RequestNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := IEEE1394_API_REQUEST._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : IEEE1394_API_REQUEST._u
+
 }

@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_AUDIT_LOG_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct POLICY_AUDIT_LOG_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    AuditLogPercentFull : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AuditLogPercentFull {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaximumLogSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumLogSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AuditRetentionPeriod : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AuditRetentionPeriod {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    AuditLogFullShutdownInProgress : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AuditLogFullShutdownInProgress {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    TimeToShutdown : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeToShutdown {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    NextAuditRecordId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextAuditRecordId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

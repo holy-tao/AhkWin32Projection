@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBFN_USB_STRING extends Win32Struct {
-    static sizeof => 512
+export default struct USBFN_USB_STRING {
+    #StructPack 2
 
-    static packingSize => 2
+    StringIndex : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StringIndex {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    UsbString : WCHAR[255]
 
-    /**
-     * @type {String}
-     */
-    UsbString {
-        get => StrGet(this.ptr + 2, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 254, "UTF-16")
-    }
 }

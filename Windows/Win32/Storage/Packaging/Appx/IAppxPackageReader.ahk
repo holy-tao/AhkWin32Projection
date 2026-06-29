@@ -1,11 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxBlockMapReader.ahk
-#Include .\IAppxFile.ahk
-#Include .\IAppxFilesEnumerator.ahk
-#Include .\IAppxManifestReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
+#Import ".\APPX_FOOTPRINT_FILE_TYPE.ahk" { APPX_FOOTPRINT_FILE_TYPE }
+#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
+#Import ".\IAppxFilesEnumerator.ahk" { IAppxFilesEnumerator }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAppxFile.ahk" { IAppxFile }
 
 /**
  * Provides a read-only object model for app packages.
@@ -16,26 +19,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxpackagereader
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxPackageReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxPackageReader extends IUnknown {
     /**
      * The interface identifier for IAppxPackageReader
      * @type {Guid}
      */
-    static IID => Guid("{b5c49650-99bc-481c-9a34-3d53a4106708}")
+    static IID := Guid("{b5c49650-99bc-481c-9a34-3d53a4106708}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxPackageReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetBlockMap      : IntPtr
+        GetFootprintFile : IntPtr
+        GetPayloadFile   : IntPtr
+        GetPayloadFiles  : IntPtr
+        GetManifest      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBlockMap", "GetFootprintFile", "GetPayloadFile", "GetPayloadFiles", "GetManifest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxPackageReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the block map object model of the package.
@@ -62,7 +76,7 @@ class IAppxPackageReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagereader-getfootprintfile
      */
     GetFootprintFile(type) {
-        result := ComCall(4, this, "int", type, "ptr*", &_file := 0, "HRESULT")
+        result := ComCall(4, this, APPX_FOOTPRINT_FILE_TYPE, type, "ptr*", &_file := 0, "HRESULT")
         return IAppxFile(_file)
     }
 
@@ -109,5 +123,33 @@ class IAppxPackageReader extends IUnknown {
     GetManifest() {
         result := ComCall(7, this, "ptr*", &manifestReader := 0, "HRESULT")
         return IAppxManifestReader(manifestReader)
+    }
+
+    Query(iid) {
+        if (IAppxPackageReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBlockMap := CallbackCreate(GetMethod(implObj, "GetBlockMap"), flags, 2)
+        this.vtbl.GetFootprintFile := CallbackCreate(GetMethod(implObj, "GetFootprintFile"), flags, 3)
+        this.vtbl.GetPayloadFile := CallbackCreate(GetMethod(implObj, "GetPayloadFile"), flags, 3)
+        this.vtbl.GetPayloadFiles := CallbackCreate(GetMethod(implObj, "GetPayloadFiles"), flags, 2)
+        this.vtbl.GetManifest := CallbackCreate(GetMethod(implObj, "GetManifest"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBlockMap)
+        CallbackFree(this.vtbl.GetFootprintFile)
+        CallbackFree(this.vtbl.GetPayloadFile)
+        CallbackFree(this.vtbl.GetPayloadFiles)
+        CallbackFree(this.vtbl.GetManifest)
     }
 }

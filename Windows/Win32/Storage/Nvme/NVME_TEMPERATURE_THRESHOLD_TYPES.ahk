@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate the type of threshold for the temperature of the overall device (controller and NVM included).
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_temperature_threshold_types
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_TEMPERATURE_THRESHOLD_TYPES extends Win32Enum {
+export default struct NVME_TEMPERATURE_THRESHOLD_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Over Temperature Threshold

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about text that the word breaker will process.
@@ -21,52 +21,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/ns-indexsrv-text_source
  * @namespace Windows.Win32.System.Search
  */
-class TEXT_SOURCE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TEXT_SOURCE {
+    #StructPack 8
 
     /**
      * Type: <b>PFNFILLTEXTBUFFER</b>
      * 
      * Pointer to a function, <b>PFNFILLTEXTBUFFER</b> that refills the <b>awcBuffer</b> with text from the source document.
-     * @type {Pointer<PFNFILLTEXTBUFFER>}
      */
-    pfnFillTextBuffer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pfnFillTextBuffer : IntPtr
 
     /**
      * Type: <b>WCHAR*</b>
      * 
      * Pointer to a buffer that contains text from the source document for the word breaker to parse.
-     * @type {PWSTR}
      */
-    awcBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    awcBuffer : PWSTR
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Position of the last character in <b>awcBuffer</b>.
-     * @type {Integer}
      */
-    iEnd {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    iEnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Position of the first character in <b>awcBuffer</b>.
-     * @type {Integer}
      */
-    iCur {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    iCur : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify a Direct3D 12 feature or feature set to query about.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_feature
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE extends Win32Enum {
+export default struct D3D12_FEATURE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates a query for the level of support for basic Direct3D 12 feature options. The corresponding data structure for this value is <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options">D3D12_FEATURE_DATA_D3D12_OPTIONS</a>.
@@ -290,4 +299,14 @@ class D3D12_FEATURE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_SHADER_CACHE_ABI_SUPPORT => 61
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_FEATURE_BARRIER_LAYOUT => 64
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_FEATURE_D3D12_OPTIONS22 => 65
 }

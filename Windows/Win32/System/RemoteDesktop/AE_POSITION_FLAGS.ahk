@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants for the AE_CURRENT_POSITION structure. These constants describe the degree of validity of the current position.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/ne-audioengineendpoint-ae_position_flags
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class AE_POSITION_FLAGS extends Win32Enum {
+export default struct AE_POSITION_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The position is not valid and must not be used.

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the filter type.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ne-xaudio2-xaudio2_filter_type
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAUDIO2_FILTER_TYPE extends Win32Enum {
+export default struct XAUDIO2_FILTER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Attenuates (reduces) frequencies above the cutoff frequency.

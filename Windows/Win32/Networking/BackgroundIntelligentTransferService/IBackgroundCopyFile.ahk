@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\BG_FILE_PROGRESS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BG_FILE_PROGRESS.ahk" { BG_FILE_PROGRESS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IBackgroundCopyFile contains information about a file that is part of a job. For example, you can use IBackgroundCopyFile methods to retrieve the local and remote names of the file and transfer progress information.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopyfile
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyFile extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyFile extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyFile
      * @type {Guid}
      */
-    static IID => Guid("{01b7bd23-fb88-4a77-8490-5891d3e4653a}")
+    static IID := Guid("{01b7bd23-fb88-4a77-8490-5891d3e4653a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyFile interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRemoteName : IntPtr
+        GetLocalName  : IntPtr
+        GetProgress   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRemoteName", "GetLocalName", "GetProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyFile.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the remote name of the file.
@@ -44,7 +55,7 @@ class IBackgroundCopyFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getremotename
      */
     GetRemoteName() {
-        result := ComCall(3, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -60,7 +71,7 @@ class IBackgroundCopyFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getlocalname
      */
     GetLocalName() {
-        result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -72,7 +83,31 @@ class IBackgroundCopyFile extends IUnknown {
      */
     GetProgress() {
         pVal := BG_FILE_PROGRESS()
-        result := ComCall(5, this, "ptr", pVal, "HRESULT")
+        result := ComCall(5, this, BG_FILE_PROGRESS.Ptr, pVal, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyFile.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRemoteName := CallbackCreate(GetMethod(implObj, "GetRemoteName"), flags, 2)
+        this.vtbl.GetLocalName := CallbackCreate(GetMethod(implObj, "GetLocalName"), flags, 2)
+        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRemoteName)
+        CallbackFree(this.vtbl.GetLocalName)
+        CallbackFree(this.vtbl.GetProgress)
     }
 }

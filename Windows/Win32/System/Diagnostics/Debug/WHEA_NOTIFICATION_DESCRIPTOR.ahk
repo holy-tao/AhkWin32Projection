@@ -1,527 +1,145 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_NOTIFICATION_FLAGS.ahk" { WHEA_NOTIFICATION_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+export default struct WHEA_NOTIFICATION_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+    struct _u {
 
-        class _Polled extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _Polled {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _Interrupt extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Interrupt {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _LocalInterrupt extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _LocalInterrupt {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _Sci extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Sci {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _Nmi extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Nmi {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _Sea extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Sea {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _Sei extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Sei {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        class _Gsiv extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 4
+        struct _Gsiv {
+            PollInterval : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PollInterval {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Vector : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Vector {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            SwitchToPollingThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingThreshold {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            SwitchToPollingWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SwitchToPollingWindow {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            ErrorThreshold : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThreshold {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            ErrorThresholdWindow : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ErrorThresholdWindow {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
         }
 
-        /**
-         * @type {_Polled}
-         */
-        Polled {
-            get {
-                if(!this.HasProp("__Polled"))
-                    this.__Polled := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Polled(0, this)
-                return this.__Polled
-            }
-        }
+        Polled : WHEA_NOTIFICATION_DESCRIPTOR._u._Polled
 
-        /**
-         * @type {_Interrupt}
-         */
-        Interrupt {
-            get {
-                if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Interrupt(0, this)
-                return this.__Interrupt
-            }
-        }
-
-        /**
-         * @type {_LocalInterrupt}
-         */
-        LocalInterrupt {
-            get {
-                if(!this.HasProp("__LocalInterrupt"))
-                    this.__LocalInterrupt := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._LocalInterrupt(0, this)
-                return this.__LocalInterrupt
-            }
-        }
-
-        /**
-         * @type {_Sci}
-         */
-        Sci {
-            get {
-                if(!this.HasProp("__Sci"))
-                    this.__Sci := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sci(0, this)
-                return this.__Sci
-            }
-        }
-
-        /**
-         * @type {_Nmi}
-         */
-        Nmi {
-            get {
-                if(!this.HasProp("__Nmi"))
-                    this.__Nmi := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Nmi(0, this)
-                return this.__Nmi
-            }
-        }
-
-        /**
-         * @type {_Sea}
-         */
-        Sea {
-            get {
-                if(!this.HasProp("__Sea"))
-                    this.__Sea := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sea(0, this)
-                return this.__Sea
-            }
-        }
-
-        /**
-         * @type {_Sei}
-         */
-        Sei {
-            get {
-                if(!this.HasProp("__Sei"))
-                    this.__Sei := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sei(0, this)
-                return this.__Sei
-            }
-        }
-
-        /**
-         * @type {_Gsiv}
-         */
-        Gsiv {
-            get {
-                if(!this.HasProp("__Gsiv"))
-                    this.__Gsiv := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Gsiv(0, this)
-                return this.__Gsiv
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Interrupt', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._Interrupt, offset: 0 })
+            DefineProp(this.Prototype, 'LocalInterrupt', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._LocalInterrupt, offset: 0 })
+            DefineProp(this.Prototype, 'Sci', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._Sci, offset: 0 })
+            DefineProp(this.Prototype, 'Nmi', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._Nmi, offset: 0 })
+            DefineProp(this.Prototype, 'Sea', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._Sea, offset: 0 })
+            DefineProp(this.Prototype, 'Sei', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._Sei, offset: 0 })
+            DefineProp(this.Prototype, 'Gsiv', { type: WHEA_NOTIFICATION_DESCRIPTOR._u._Gsiv, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Length : Int8
 
-    /**
-     * @type {WHEA_NOTIFICATION_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := WHEA_NOTIFICATION_FLAGS(2, this)
-            return this.__Flags
-        }
-    }
+    Flags : WHEA_NOTIFICATION_FLAGS
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : WHEA_NOTIFICATION_DESCRIPTOR._u
+
 }

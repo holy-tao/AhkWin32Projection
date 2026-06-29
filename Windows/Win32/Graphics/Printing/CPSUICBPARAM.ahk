@@ -1,109 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\OPTITEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OPTITEM.ahk" { OPTITEM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class CPSUICBPARAM extends Win32Struct {
-    static sizeof => 64
+export default struct CPSUICBPARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reason : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reason {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    hDlg : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hDlg {
-        get {
-            if(!this.HasProp("__hDlg"))
-                this.__hDlg := HWND(8, this)
-            return this.__hDlg
-        }
-    }
+    pOptItem : OPTITEM.Ptr
 
-    /**
-     * @type {Pointer<OPTITEM>}
-     */
-    pOptItem {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cOptItem : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cOptItem {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    pCurItem : OPTITEM.Ptr
 
-    /**
-     * @type {Pointer<OPTITEM>}
-     */
-    pCurItem {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    OldSel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    OldSel {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    UserData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pOldSel {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Result : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UserData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Result {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 64
+    static __New() {
+        DefineProp(this.Prototype, 'pOldSel', { type: IntPtr, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

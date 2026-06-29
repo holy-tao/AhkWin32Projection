@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWICMetadataQueryWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods used for in-place metadata editing. A fast metadata encoder enables you to add and remove metadata to an image without having to fully re-encode the image.
@@ -18,26 +19,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicfastmetadataencoder
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICFastMetadataEncoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICFastMetadataEncoder extends IUnknown {
     /**
      * The interface identifier for IWICFastMetadataEncoder
      * @type {Guid}
      */
-    static IID => Guid("{b84e2c09-78c9-4ac4-8bd3-524ae1663a2f}")
+    static IID := Guid("{b84e2c09-78c9-4ac4-8bd3-524ae1663a2f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICFastMetadataEncoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Commit                 : IntPtr
+        GetMetadataQueryWriter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Commit", "GetMetadataQueryWriter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICFastMetadataEncoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Finalizes metadata changes to the image stream.
@@ -65,5 +74,27 @@ class IWICFastMetadataEncoder extends IUnknown {
     GetMetadataQueryWriter() {
         result := ComCall(4, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")
         return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
+    }
+
+    Query(iid) {
+        if (IWICFastMetadataEncoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetMetadataQueryWriter := CallbackCreate(GetMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.GetMetadataQueryWriter)
     }
 }

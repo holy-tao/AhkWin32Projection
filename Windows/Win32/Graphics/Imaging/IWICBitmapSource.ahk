@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that refers to a source from which pixels are retrieved, but cannot be written back to.
@@ -13,26 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapsource
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapSource extends IUnknown {
     /**
      * The interface identifier for IWICBitmapSource
      * @type {Guid}
      */
-    static IID => Guid("{00000120-a8f2-4877-ba0a-fd2b6645fb94}")
+    static IID := Guid("{00000120-a8f2-4877-ba0a-fd2b6645fb94}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSize        : IntPtr
+        GetPixelFormat : IntPtr
+        GetResolution  : IntPtr
+        CopyPalette    : IntPtr
+        CopyPixels     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSize", "GetPixelFormat", "GetResolution", "CopyPalette", "CopyPixels"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the pixel width and height of the bitmap.
@@ -67,7 +80,7 @@ class IWICBitmapSource extends IUnknown {
      */
     GetPixelFormat() {
         pPixelFormat := Guid()
-        result := ComCall(4, this, "ptr", pPixelFormat, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pPixelFormat, "HRESULT")
         return pPixelFormat
     }
 
@@ -185,7 +198,35 @@ class IWICBitmapSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
      */
     CopyPixels(prc, cbStride, cbBufferSize) {
-        result := ComCall(7, this, "ptr", prc, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(7, this, WICRect.Ptr, prc, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
+    }
+
+    Query(iid) {
+        if (IWICBitmapSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetResolution := CallbackCreate(GetMethod(implObj, "GetResolution"), flags, 3)
+        this.vtbl.CopyPalette := CallbackCreate(GetMethod(implObj, "CopyPalette"), flags, 2)
+        this.vtbl.CopyPixels := CallbackCreate(GetMethod(implObj, "CopyPixels"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetPixelFormat)
+        CallbackFree(this.vtbl.GetResolution)
+        CallbackFree(this.vtbl.CopyPalette)
+        CallbackFree(this.vtbl.CopyPixels)
     }
 }

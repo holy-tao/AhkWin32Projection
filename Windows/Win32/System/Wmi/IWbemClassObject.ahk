@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemQualifierSet.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemQualifierSet.ahk" { IWbemQualifierSet }
+#Import ".\WBEM_COMPARISON_FLAG.ahk" { WBEM_COMPARISON_FLAG }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WBEM_CONDITION_FLAG_TYPE.ahk" { WBEM_CONDITION_FLAG_TYPE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Contains and manipulates both class definitions and class object instances.
@@ -21,32 +27,62 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemclassobject
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemClassObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemClassObject extends IUnknown {
     /**
      * The interface identifier for IWbemClassObject
      * @type {Guid}
      */
-    static IID => Guid("{dc12a681-737f-11cf-884d-00aa004b2e24}")
+    static IID := Guid("{dc12a681-737f-11cf-884d-00aa004b2e24}")
 
     /**
      * The class identifier for WbemClassObject
      * @type {Guid}
      */
-    static CLSID => Guid("{9a653086-174f-11d2-b5f9-00104b703efd}")
+    static CLSID := Guid("{9a653086-174f-11d2-b5f9-00104b703efd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemClassObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetQualifierSet         : IntPtr
+        Get                     : IntPtr
+        Put                     : IntPtr
+        Delete                  : IntPtr
+        GetNames                : IntPtr
+        BeginEnumeration        : IntPtr
+        Next                    : IntPtr
+        EndEnumeration          : IntPtr
+        GetPropertyQualifierSet : IntPtr
+        Clone                   : IntPtr
+        GetObjectText           : IntPtr
+        SpawnDerivedClass       : IntPtr
+        SpawnInstance           : IntPtr
+        CompareTo               : IntPtr
+        GetPropertyOrigin       : IntPtr
+        InheritsFrom            : IntPtr
+        GetMethod               : IntPtr
+        PutMethod               : IntPtr
+        DeleteMethod            : IntPtr
+        BeginMethodEnumeration  : IntPtr
+        NextMethod              : IntPtr
+        EndMethodEnumeration    : IntPtr
+        GetMethodQualifierSet   : IntPtr
+        GetMethodOrigin         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetQualifierSet", "Get", "Put", "Delete", "GetNames", "BeginEnumeration", "Next", "EndEnumeration", "GetPropertyQualifierSet", "Clone", "GetObjectText", "SpawnDerivedClass", "SpawnInstance", "CompareTo", "GetPropertyOrigin", "InheritsFrom", "GetMethod", "PutMethod", "DeleteMethod", "BeginMethodEnumeration", "NextMethod", "EndMethodEnumeration", "GetMethodQualifierSet", "GetMethodOrigin"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemClassObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemClassObject::GetQualifierSet method returns an interface pointer that allows read and write operations on the set of qualifiers for the entire class object, whether the object is an instance or a class definition.
@@ -84,7 +120,7 @@ class IWbemClassObject extends IUnknown {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszName, "int", lFlags, "ptr", pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(4, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -153,7 +189,7 @@ class IWbemClassObject extends IUnknown {
     Put(wszName, lFlags, pVal, Type) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(5, this, "ptr", wszName, "int", lFlags, "ptr", pVal, "int", Type, "HRESULT")
+        result := ComCall(5, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pVal, "int", Type, "HRESULT")
         return result
     }
 
@@ -260,7 +296,7 @@ class IWbemClassObject extends IUnknown {
     GetNames(wszQualifierName, lFlags, pQualifierVal) {
         wszQualifierName := wszQualifierName is String ? StrPtr(wszQualifierName) : wszQualifierName
 
-        result := ComCall(7, this, "ptr", wszQualifierName, "int", lFlags, "ptr", pQualifierVal, "ptr*", &pNames := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", wszQualifierName, WBEM_CONDITION_FLAG_TYPE, lFlags, VARIANT.Ptr, pQualifierVal, "ptr*", &pNames := 0, "HRESULT")
         return pNames
     }
 
@@ -326,7 +362,7 @@ class IWbemClassObject extends IUnknown {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "int", lFlags, "ptr", strName, "ptr", pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(9, this, "int", lFlags, BSTR.Ptr, strName, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -386,8 +422,8 @@ class IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getobjecttext
      */
     GetObjectText(lFlags) {
-        pstrObjectText := BSTR()
-        result := ComCall(13, this, "int", lFlags, "ptr", pstrObjectText, "HRESULT")
+        pstrObjectText := BSTR.Owned()
+        result := ComCall(13, this, "int", lFlags, BSTR.Ptr, pstrObjectText, "HRESULT")
         return pstrObjectText
     }
 
@@ -437,7 +473,7 @@ class IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-compareto
      */
     CompareTo(lFlags, pCompareTo) {
-        result := ComCall(16, this, "int", lFlags, "ptr", pCompareTo, "HRESULT")
+        result := ComCall(16, this, WBEM_COMPARISON_FLAG, lFlags, "ptr", pCompareTo, "HRESULT")
         return result
     }
 
@@ -450,8 +486,8 @@ class IWbemClassObject extends IUnknown {
     GetPropertyOrigin(wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        pstrClassName := BSTR()
-        result := ComCall(17, this, "ptr", wszName, "ptr", pstrClassName, "HRESULT")
+        pstrClassName := BSTR.Owned()
+        result := ComCall(17, this, "ptr", wszName, BSTR.Ptr, pstrClassName, "HRESULT")
         return pstrClassName
     }
 
@@ -511,7 +547,7 @@ class IWbemClassObject extends IUnknown {
     GetMethod(wszName, lFlags, ppInSignature, ppOutSignature) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(19, this, "ptr", wszName, "int", lFlags, "ptr*", ppInSignature, "ptr*", ppOutSignature, "HRESULT")
+        result := ComCall(19, this, "ptr", wszName, "int", lFlags, IWbemClassObject.Ptr, ppInSignature, IWbemClassObject.Ptr, ppOutSignature, "HRESULT")
         return result
     }
 
@@ -612,7 +648,7 @@ class IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-nextmethod
      */
     NextMethod(lFlags, pstrName, ppInSignature, ppOutSignature) {
-        result := ComCall(23, this, "int", lFlags, "ptr", pstrName, "ptr*", ppInSignature, "ptr*", ppOutSignature, "HRESULT")
+        result := ComCall(23, this, "int", lFlags, BSTR.Ptr, pstrName, IWbemClassObject.Ptr, ppInSignature, IWbemClassObject.Ptr, ppOutSignature, "HRESULT")
         return result
     }
 
@@ -659,8 +695,74 @@ class IWbemClassObject extends IUnknown {
     GetMethodOrigin(wszMethodName) {
         wszMethodName := wszMethodName is String ? StrPtr(wszMethodName) : wszMethodName
 
-        pstrClassName := BSTR()
-        result := ComCall(26, this, "ptr", wszMethodName, "ptr", pstrClassName, "HRESULT")
+        pstrClassName := BSTR.Owned()
+        result := ComCall(26, this, "ptr", wszMethodName, BSTR.Ptr, pstrClassName, "HRESULT")
         return pstrClassName
+    }
+
+    Query(iid) {
+        if (IWbemClassObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetQualifierSet := CallbackCreate(GetMethod(implObj, "GetQualifierSet"), flags, 2)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 6)
+        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 5)
+        this.vtbl.BeginEnumeration := CallbackCreate(GetMethod(implObj, "BeginEnumeration"), flags, 2)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 6)
+        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 1)
+        this.vtbl.GetPropertyQualifierSet := CallbackCreate(GetMethod(implObj, "GetPropertyQualifierSet"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetObjectText := CallbackCreate(GetMethod(implObj, "GetObjectText"), flags, 3)
+        this.vtbl.SpawnDerivedClass := CallbackCreate(GetMethod(implObj, "SpawnDerivedClass"), flags, 3)
+        this.vtbl.SpawnInstance := CallbackCreate(GetMethod(implObj, "SpawnInstance"), flags, 3)
+        this.vtbl.CompareTo := CallbackCreate(GetMethod(implObj, "CompareTo"), flags, 3)
+        this.vtbl.GetPropertyOrigin := CallbackCreate(GetMethod(implObj, "GetPropertyOrigin"), flags, 3)
+        this.vtbl.InheritsFrom := CallbackCreate(GetMethod(implObj, "InheritsFrom"), flags, 2)
+        this.vtbl.GetMethod := CallbackCreate(GetMethod(implObj, "GetMethod"), flags, 5)
+        this.vtbl.PutMethod := CallbackCreate(GetMethod(implObj, "PutMethod"), flags, 5)
+        this.vtbl.DeleteMethod := CallbackCreate(GetMethod(implObj, "DeleteMethod"), flags, 2)
+        this.vtbl.BeginMethodEnumeration := CallbackCreate(GetMethod(implObj, "BeginMethodEnumeration"), flags, 2)
+        this.vtbl.NextMethod := CallbackCreate(GetMethod(implObj, "NextMethod"), flags, 5)
+        this.vtbl.EndMethodEnumeration := CallbackCreate(GetMethod(implObj, "EndMethodEnumeration"), flags, 1)
+        this.vtbl.GetMethodQualifierSet := CallbackCreate(GetMethod(implObj, "GetMethodQualifierSet"), flags, 3)
+        this.vtbl.GetMethodOrigin := CallbackCreate(GetMethod(implObj, "GetMethodOrigin"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetQualifierSet)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.Put)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetNames)
+        CallbackFree(this.vtbl.BeginEnumeration)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.EndEnumeration)
+        CallbackFree(this.vtbl.GetPropertyQualifierSet)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetObjectText)
+        CallbackFree(this.vtbl.SpawnDerivedClass)
+        CallbackFree(this.vtbl.SpawnInstance)
+        CallbackFree(this.vtbl.CompareTo)
+        CallbackFree(this.vtbl.GetPropertyOrigin)
+        CallbackFree(this.vtbl.InheritsFrom)
+        CallbackFree(this.vtbl.GetMethod)
+        CallbackFree(this.vtbl.PutMethod)
+        CallbackFree(this.vtbl.DeleteMethod)
+        CallbackFree(this.vtbl.BeginMethodEnumeration)
+        CallbackFree(this.vtbl.NextMethod)
+        CallbackFree(this.vtbl.EndMethodEnumeration)
+        CallbackFree(this.vtbl.GetMethodQualifierSet)
+        CallbackFree(this.vtbl.GetMethodOrigin)
     }
 }

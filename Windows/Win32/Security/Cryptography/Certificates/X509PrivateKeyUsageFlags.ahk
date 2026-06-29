@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the permitted uses of a private key.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyusageflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class X509PrivateKeyUsageFlags extends Win32Enum {
+export default struct X509PrivateKeyUsageFlags {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The permitted uses are not defined.

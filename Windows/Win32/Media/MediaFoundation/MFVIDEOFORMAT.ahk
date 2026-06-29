@@ -1,22 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFVideoInfo.ahk
-#Include .\MFRatio.ahk
-#Include .\MFVideoChromaSubsampling.ahk
-#Include .\MFVideoInterlaceMode.ahk
-#Include .\MFVideoTransferFunction.ahk
-#Include .\MFVideoPrimaries.ahk
-#Include .\MFVideoTransferMatrix.ahk
-#Include .\MFVideoLighting.ahk
-#Include .\MFNominalRange.ahk
-#Include .\MFVideoArea.ahk
-#Include .\MFOffset.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\MFVideoCompressedInfo.ahk
-#Include .\MFVideoSurfaceInfo.ahk
-#Include .\MFPaletteEntry.ahk
-#Include .\MFARGB.ahk
-#Include .\MFAYUVSample.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFVideoInfo.ahk" { MFVideoInfo }
+#Import ".\MFPaletteEntry.ahk" { MFPaletteEntry }
+#Import ".\MFAYUVSample.ahk" { MFAYUVSample }
+#Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
+#Import ".\MFVideoCompressedInfo.ahk" { MFVideoCompressedInfo }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MFRatio.ahk" { MFRatio }
+#Import ".\MFVideoPrimaries.ahk" { MFVideoPrimaries }
+#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
+#Import ".\MFNominalRange.ahk" { MFNominalRange }
+#Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
+#Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
+#Import ".\MFVideoArea.ahk" { MFVideoArea }
+#Import ".\MFVideoSurfaceInfo.ahk" { MFVideoSurfaceInfo }
+#Import ".\MFVideoLighting.ahk" { MFVideoLighting }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFOffset.ahk" { MFOffset }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Describes a video format.
@@ -29,62 +29,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoformat
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVIDEOFORMAT extends Win32Struct {
-    static sizeof => 168
-
-    static packingSize => 8
+export default struct MFVIDEOFORMAT {
+    #StructPack 8
 
     /**
      * Size of the structure, in bytes. This value includes the size of the palette entries that may appear after the <b>surfaceInfo</b> member.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoinfo">MFVideoInfo</a> structure. This structure contains information that applies to both compressed and uncompressed formats.
-     * @type {MFVideoInfo}
      */
-    videoInfo {
-        get {
-            if(!this.HasProp("__videoInfo"))
-                this.__videoInfo := MFVideoInfo(8, this)
-            return this.__videoInfo
-        }
-    }
+    videoInfo : MFVideoInfo
 
     /**
      * Video subtype. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-subtype-guids">Video Subtype GUIDs</a>.
-     * @type {Pointer}
      */
-    guidFormat {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    guidFormat : Guid
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideocompressedinfo">MFVideoCompressedInfo</a> structure. This structure contains information that applies only to compressed formats.
-     * @type {MFVideoCompressedInfo}
      */
-    compressedInfo {
-        get {
-            if(!this.HasProp("__compressedInfo"))
-                this.__compressedInfo := MFVideoCompressedInfo(128, this)
-            return this.__compressedInfo
-        }
-    }
+    compressedInfo : MFVideoCompressedInfo
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideosurfaceinfo">MFVideoSurfaceInfo</a> structure. This structure contains information that applies only to uncompressed formats.
-     * @type {MFVideoSurfaceInfo}
      */
-    surfaceInfo {
-        get {
-            if(!this.HasProp("__surfaceInfo"))
-                this.__surfaceInfo := MFVideoSurfaceInfo(152, this)
-            return this.__surfaceInfo
-        }
-    }
+    surfaceInfo : MFVideoSurfaceInfo
+
 }

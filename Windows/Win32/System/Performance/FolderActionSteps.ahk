@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the action that the data manager takes when both the age and size limits are met.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-folderactionsteps
  * @namespace Windows.Win32.System.Performance
  */
-class FolderActionSteps extends Win32Enum {
+export default struct FolderActionSteps {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Creates a cabinet file. The name of the cabinet file is  <i>nameofthesubfolder</i>.cab.

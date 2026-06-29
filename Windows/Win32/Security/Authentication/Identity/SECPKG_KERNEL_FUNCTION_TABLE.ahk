@@ -1,131 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct {
-    static sizeof => 120
+export default struct SECPKG_KERNEL_FUNCTION_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Initialize : IntPtr
 
-    /**
-     * @type {Pointer<KspInitPackageFn>}
-     */
-    Initialize {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DeleteContext : IntPtr
 
-    /**
-     * @type {Pointer<KspDeleteContextFn>}
-     */
-    DeleteContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InitContext : IntPtr
 
-    /**
-     * @type {Pointer<KspInitContextFn>}
-     */
-    InitContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MapHandle : IntPtr
 
-    /**
-     * @type {Pointer<KspMapHandleFn>}
-     */
-    MapHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Sign : IntPtr
 
-    /**
-     * @type {Pointer<KspMakeSignatureFn>}
-     */
-    Sign {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Verify : IntPtr
 
-    /**
-     * @type {Pointer<KspVerifySignatureFn>}
-     */
-    Verify {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Seal : IntPtr
 
-    /**
-     * @type {Pointer<KspSealMessageFn>}
-     */
-    Seal {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Unseal : IntPtr
 
-    /**
-     * @type {Pointer<KspUnsealMessageFn>}
-     */
-    Unseal {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    GetToken : IntPtr
 
-    /**
-     * @type {Pointer<KspGetTokenFn>}
-     */
-    GetToken {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    QueryAttributes : IntPtr
 
-    /**
-     * @type {Pointer<KspQueryAttributesFn>}
-     */
-    QueryAttributes {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    CompleteToken : IntPtr
 
-    /**
-     * @type {Pointer<KspCompleteTokenFn>}
-     */
-    CompleteToken {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ExportContext : IntPtr
 
-    /**
-     * @type {Pointer<SpExportSecurityContextFn>}
-     */
-    ExportContext {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ImportContext : IntPtr
 
-    /**
-     * @type {Pointer<SpImportSecurityContextFn>}
-     */
-    ImportContext {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    SetPackagePagingMode : IntPtr
 
-    /**
-     * @type {Pointer<KspSetPagingModeFn>}
-     */
-    SetPackagePagingMode {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    SerializeAuthData : IntPtr
 
-    /**
-     * @type {Pointer<KspSerializeAuthDataFn>}
-     */
-    SerializeAuthData {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
 }

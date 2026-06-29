@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEBUG_EFI_IOMMU_DATA extends Win32Struct {
-    static sizeof => 16
+export default struct DEBUG_EFI_IOMMU_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    PciIoProtocolHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PciIoProtocolHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Mapping : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Mapping {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

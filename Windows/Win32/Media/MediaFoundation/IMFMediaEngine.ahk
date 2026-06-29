@@ -1,10 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaError.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFMediaTimeRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MF_MEDIA_ENGINE_PRELOAD.ahk" { MF_MEDIA_ENGINE_PRELOAD }
+#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
+#Import ".\IMFMediaError.ahk" { IMFMediaError }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MF_MEDIA_ENGINE_ERR.ahk" { MF_MEDIA_ENGINE_ERR }
+#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Enables an application to play audio or video files.
@@ -15,26 +24,74 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengine
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngine extends IUnknown {
     /**
      * The interface identifier for IMFMediaEngine
      * @type {Guid}
      */
-    static IID => Guid("{98a1b0bb-03eb-4935-ae7c-93c1fa0e1c93}")
+    static IID := Guid("{98a1b0bb-03eb-4935-ae7c-93c1fa0e1c93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetError               : IntPtr
+        SetErrorCode           : IntPtr
+        SetSourceElements      : IntPtr
+        SetSource              : IntPtr
+        GetCurrentSource       : IntPtr
+        GetNetworkState        : IntPtr
+        GetPreload             : IntPtr
+        SetPreload             : IntPtr
+        GetBuffered            : IntPtr
+        Load                   : IntPtr
+        CanPlayType            : IntPtr
+        GetReadyState          : IntPtr
+        IsSeeking              : IntPtr
+        GetCurrentTime         : IntPtr
+        SetCurrentTime         : IntPtr
+        GetStartTime           : IntPtr
+        GetDuration            : IntPtr
+        IsPaused               : IntPtr
+        GetDefaultPlaybackRate : IntPtr
+        SetDefaultPlaybackRate : IntPtr
+        GetPlaybackRate        : IntPtr
+        SetPlaybackRate        : IntPtr
+        GetPlayed              : IntPtr
+        GetSeekable            : IntPtr
+        IsEnded                : IntPtr
+        GetAutoPlay            : IntPtr
+        SetAutoPlay            : IntPtr
+        GetLoop                : IntPtr
+        SetLoop                : IntPtr
+        Play                   : IntPtr
+        Pause                  : IntPtr
+        GetMuted               : IntPtr
+        SetMuted               : IntPtr
+        GetVolume              : IntPtr
+        SetVolume              : IntPtr
+        HasVideo               : IntPtr
+        HasAudio               : IntPtr
+        GetNativeVideoSize     : IntPtr
+        GetVideoAspectRatio    : IntPtr
+        Shutdown               : IntPtr
+        TransferVideoFrame     : IntPtr
+        OnVideoStreamTick      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetError", "SetErrorCode", "SetSourceElements", "SetSource", "GetCurrentSource", "GetNetworkState", "GetPreload", "SetPreload", "GetBuffered", "Load", "CanPlayType", "GetReadyState", "IsSeeking", "GetCurrentTime", "SetCurrentTime", "GetStartTime", "GetDuration", "IsPaused", "GetDefaultPlaybackRate", "SetDefaultPlaybackRate", "GetPlaybackRate", "SetPlaybackRate", "GetPlayed", "GetSeekable", "IsEnded", "GetAutoPlay", "SetAutoPlay", "GetLoop", "SetLoop", "Play", "Pause", "GetMuted", "SetMuted", "GetVolume", "SetVolume", "HasVideo", "HasAudio", "GetNativeVideoSize", "GetVideoAspectRatio", "Shutdown", "TransferVideoFrame", "OnVideoStreamTick"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the most recent error status.
@@ -57,7 +114,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-seterrorcode
      */
     SetErrorCode(_error) {
-        result := ComCall(4, this, "int", _error, "HRESULT")
+        result := ComCall(4, this, MF_MEDIA_ENGINE_ERR, _error, "HRESULT")
         return result
     }
 
@@ -115,7 +172,7 @@ class IMFMediaEngine extends IUnknown {
     SetSource(pUrl) {
         pUrl := pUrl is String ? BSTR.Alloc(pUrl).Value : pUrl
 
-        result := ComCall(6, this, "ptr", pUrl, "HRESULT")
+        result := ComCall(6, this, BSTR, pUrl, "HRESULT")
         return result
     }
 
@@ -129,8 +186,8 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getcurrentsource
      */
     GetCurrentSource() {
-        ppUrl := BSTR()
-        result := ComCall(7, this, "ptr", ppUrl, "HRESULT")
+        ppUrl := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, ppUrl, "HRESULT")
         return ppUrl
     }
 
@@ -142,7 +199,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getnetworkstate
      */
     GetNetworkState() {
-        result := ComCall(8, this, "ushort")
+        result := ComCall(8, this, UInt16)
         return result
     }
 
@@ -154,7 +211,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getpreload
      */
     GetPreload() {
-        result := ComCall(9, this, "int")
+        result := ComCall(9, this, MF_MEDIA_ENGINE_PRELOAD)
         return result
     }
 
@@ -167,7 +224,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setpreload
      */
     SetPreload(Preload) {
-        result := ComCall(10, this, "int", Preload, "HRESULT")
+        result := ComCall(10, this, MF_MEDIA_ENGINE_PRELOAD, Preload, "HRESULT")
         return result
     }
 
@@ -248,7 +305,7 @@ class IMFMediaEngine extends IUnknown {
     CanPlayType(type) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        result := ComCall(13, this, "ptr", type, "int*", &pAnswer := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, type, "int*", &pAnswer := 0, "HRESULT")
         return pAnswer
     }
 
@@ -260,7 +317,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getreadystate
      */
     GetReadyState() {
-        result := ComCall(14, this, "ushort")
+        result := ComCall(14, this, UInt16)
         return result
     }
 
@@ -272,7 +329,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-isseeking
      */
     IsSeeking() {
-        result := ComCall(15, this, "int")
+        result := ComCall(15, this, BOOL)
         return result
     }
 
@@ -286,7 +343,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getcurrenttime
      */
     GetCurrentTime() {
-        result := ComCall(16, this, "double")
+        result := ComCall(16, this, Float64)
         return result
     }
 
@@ -313,7 +370,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getstarttime
      */
     GetStartTime() {
-        result := ComCall(18, this, "double")
+        result := ComCall(18, this, Float64)
         return result
     }
 
@@ -327,7 +384,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getduration
      */
     GetDuration() {
-        result := ComCall(19, this, "double")
+        result := ComCall(19, this, Float64)
         return result
     }
 
@@ -339,7 +396,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-ispaused
      */
     IsPaused() {
-        result := ComCall(20, this, "int")
+        result := ComCall(20, this, BOOL)
         return result
     }
 
@@ -353,7 +410,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getdefaultplaybackrate
      */
     GetDefaultPlaybackRate() {
-        result := ComCall(21, this, "double")
+        result := ComCall(21, this, Float64)
         return result
     }
 
@@ -378,7 +435,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getplaybackrate
      */
     GetPlaybackRate() {
-        result := ComCall(23, this, "double")
+        result := ComCall(23, this, Float64)
         return result
     }
 
@@ -429,7 +486,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-isended
      */
     IsEnded() {
-        result := ComCall(27, this, "int")
+        result := ComCall(27, this, BOOL)
         return result
     }
 
@@ -443,7 +500,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getautoplay
      */
     GetAutoPlay() {
-        result := ComCall(28, this, "int")
+        result := ComCall(28, this, BOOL)
         return result
     }
 
@@ -456,7 +513,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setautoplay
      */
     SetAutoPlay(AutoPlay) {
-        result := ComCall(29, this, "int", AutoPlay, "HRESULT")
+        result := ComCall(29, this, BOOL, AutoPlay, "HRESULT")
         return result
     }
 
@@ -470,7 +527,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getloop
      */
     GetLoop() {
-        result := ComCall(30, this, "int")
+        result := ComCall(30, this, BOOL)
         return result
     }
 
@@ -485,7 +542,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setloop
      */
     SetLoop(_Loop) {
-        result := ComCall(31, this, "int", _Loop, "HRESULT")
+        result := ComCall(31, this, BOOL, _Loop, "HRESULT")
         return result
     }
 
@@ -525,7 +582,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getmuted
      */
     GetMuted() {
-        result := ComCall(34, this, "int")
+        result := ComCall(34, this, BOOL)
         return result
     }
 
@@ -536,7 +593,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setmuted
      */
     SetMuted(Muted) {
-        result := ComCall(35, this, "int", Muted, "HRESULT")
+        result := ComCall(35, this, BOOL, Muted, "HRESULT")
         return result
     }
 
@@ -546,7 +603,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getvolume
      */
     GetVolume() {
-        result := ComCall(36, this, "double")
+        result := ComCall(36, this, Float64)
         return result
     }
 
@@ -569,7 +626,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-hasvideo
      */
     HasVideo() {
-        result := ComCall(38, this, "int")
+        result := ComCall(38, this, BOOL)
         return result
     }
 
@@ -579,7 +636,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-hasaudio
      */
     HasAudio() {
-        result := ComCall(39, this, "int")
+        result := ComCall(39, this, BOOL)
         return result
     }
 
@@ -644,7 +701,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-transfervideoframe
      */
     TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr) {
-        result := ComCall(43, this, "ptr", pDstSurf, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "HRESULT")
+        result := ComCall(43, this, "ptr", pDstSurf, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, MFARGB.Ptr, pBorderClr, "HRESULT")
         return result
     }
 
@@ -660,5 +717,107 @@ class IMFMediaEngine extends IUnknown {
     OnVideoStreamTick() {
         result := ComCall(44, this, "int64*", &pPts := 0, "HRESULT")
         return pPts
+    }
+
+    Query(iid) {
+        if (IMFMediaEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 2)
+        this.vtbl.SetErrorCode := CallbackCreate(GetMethod(implObj, "SetErrorCode"), flags, 2)
+        this.vtbl.SetSourceElements := CallbackCreate(GetMethod(implObj, "SetSourceElements"), flags, 2)
+        this.vtbl.SetSource := CallbackCreate(GetMethod(implObj, "SetSource"), flags, 2)
+        this.vtbl.GetCurrentSource := CallbackCreate(GetMethod(implObj, "GetCurrentSource"), flags, 2)
+        this.vtbl.GetNetworkState := CallbackCreate(GetMethod(implObj, "GetNetworkState"), flags, 1)
+        this.vtbl.GetPreload := CallbackCreate(GetMethod(implObj, "GetPreload"), flags, 1)
+        this.vtbl.SetPreload := CallbackCreate(GetMethod(implObj, "SetPreload"), flags, 2)
+        this.vtbl.GetBuffered := CallbackCreate(GetMethod(implObj, "GetBuffered"), flags, 2)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 1)
+        this.vtbl.CanPlayType := CallbackCreate(GetMethod(implObj, "CanPlayType"), flags, 3)
+        this.vtbl.GetReadyState := CallbackCreate(GetMethod(implObj, "GetReadyState"), flags, 1)
+        this.vtbl.IsSeeking := CallbackCreate(GetMethod(implObj, "IsSeeking"), flags, 1)
+        this.vtbl.GetCurrentTime := CallbackCreate(GetMethod(implObj, "GetCurrentTime"), flags, 1)
+        this.vtbl.SetCurrentTime := CallbackCreate(GetMethod(implObj, "SetCurrentTime"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 1)
+        this.vtbl.IsPaused := CallbackCreate(GetMethod(implObj, "IsPaused"), flags, 1)
+        this.vtbl.GetDefaultPlaybackRate := CallbackCreate(GetMethod(implObj, "GetDefaultPlaybackRate"), flags, 1)
+        this.vtbl.SetDefaultPlaybackRate := CallbackCreate(GetMethod(implObj, "SetDefaultPlaybackRate"), flags, 2)
+        this.vtbl.GetPlaybackRate := CallbackCreate(GetMethod(implObj, "GetPlaybackRate"), flags, 1)
+        this.vtbl.SetPlaybackRate := CallbackCreate(GetMethod(implObj, "SetPlaybackRate"), flags, 2)
+        this.vtbl.GetPlayed := CallbackCreate(GetMethod(implObj, "GetPlayed"), flags, 2)
+        this.vtbl.GetSeekable := CallbackCreate(GetMethod(implObj, "GetSeekable"), flags, 2)
+        this.vtbl.IsEnded := CallbackCreate(GetMethod(implObj, "IsEnded"), flags, 1)
+        this.vtbl.GetAutoPlay := CallbackCreate(GetMethod(implObj, "GetAutoPlay"), flags, 1)
+        this.vtbl.SetAutoPlay := CallbackCreate(GetMethod(implObj, "SetAutoPlay"), flags, 2)
+        this.vtbl.GetLoop := CallbackCreate(GetMethod(implObj, "GetLoop"), flags, 1)
+        this.vtbl.SetLoop := CallbackCreate(GetMethod(implObj, "SetLoop"), flags, 2)
+        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.GetMuted := CallbackCreate(GetMethod(implObj, "GetMuted"), flags, 1)
+        this.vtbl.SetMuted := CallbackCreate(GetMethod(implObj, "SetMuted"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 1)
+        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.HasVideo := CallbackCreate(GetMethod(implObj, "HasVideo"), flags, 1)
+        this.vtbl.HasAudio := CallbackCreate(GetMethod(implObj, "HasAudio"), flags, 1)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 3)
+        this.vtbl.GetVideoAspectRatio := CallbackCreate(GetMethod(implObj, "GetVideoAspectRatio"), flags, 3)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.TransferVideoFrame := CallbackCreate(GetMethod(implObj, "TransferVideoFrame"), flags, 5)
+        this.vtbl.OnVideoStreamTick := CallbackCreate(GetMethod(implObj, "OnVideoStreamTick"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetError)
+        CallbackFree(this.vtbl.SetErrorCode)
+        CallbackFree(this.vtbl.SetSourceElements)
+        CallbackFree(this.vtbl.SetSource)
+        CallbackFree(this.vtbl.GetCurrentSource)
+        CallbackFree(this.vtbl.GetNetworkState)
+        CallbackFree(this.vtbl.GetPreload)
+        CallbackFree(this.vtbl.SetPreload)
+        CallbackFree(this.vtbl.GetBuffered)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.CanPlayType)
+        CallbackFree(this.vtbl.GetReadyState)
+        CallbackFree(this.vtbl.IsSeeking)
+        CallbackFree(this.vtbl.GetCurrentTime)
+        CallbackFree(this.vtbl.SetCurrentTime)
+        CallbackFree(this.vtbl.GetStartTime)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.IsPaused)
+        CallbackFree(this.vtbl.GetDefaultPlaybackRate)
+        CallbackFree(this.vtbl.SetDefaultPlaybackRate)
+        CallbackFree(this.vtbl.GetPlaybackRate)
+        CallbackFree(this.vtbl.SetPlaybackRate)
+        CallbackFree(this.vtbl.GetPlayed)
+        CallbackFree(this.vtbl.GetSeekable)
+        CallbackFree(this.vtbl.IsEnded)
+        CallbackFree(this.vtbl.GetAutoPlay)
+        CallbackFree(this.vtbl.SetAutoPlay)
+        CallbackFree(this.vtbl.GetLoop)
+        CallbackFree(this.vtbl.SetLoop)
+        CallbackFree(this.vtbl.Play)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.GetMuted)
+        CallbackFree(this.vtbl.SetMuted)
+        CallbackFree(this.vtbl.GetVolume)
+        CallbackFree(this.vtbl.SetVolume)
+        CallbackFree(this.vtbl.HasVideo)
+        CallbackFree(this.vtbl.HasAudio)
+        CallbackFree(this.vtbl.GetNativeVideoSize)
+        CallbackFree(this.vtbl.GetVideoAspectRatio)
+        CallbackFree(this.vtbl.Shutdown)
+        CallbackFree(this.vtbl.TransferVideoFrame)
+        CallbackFree(this.vtbl.OnVideoStreamTick)
     }
 }

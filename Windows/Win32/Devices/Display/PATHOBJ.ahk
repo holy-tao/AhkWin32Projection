@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PATHOBJ structure is used to describe a set of lines and Bezier curves that are to be stroked or filled.
@@ -41,25 +40,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-pathobj
  * @namespace Windows.Win32.Devices.Display
  */
-class PATHOBJ extends Win32Struct {
-    static sizeof => 8
+export default struct PATHOBJ {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    fl {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fl : UInt32
 
     /**
      * The number of lines and Bezier curves that make up the path.
-     * @type {Integer}
      */
-    cCurves {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cCurves : UInt32
+
 }

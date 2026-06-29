@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the IASDOMAINTYPE enumeration type specify whether the SDO computer is part of a domain, and if so, what type of domain.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasdomaintype
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class IASDOMAINTYPE extends Win32Enum {
+export default struct IASDOMAINTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The SDO computer is running in stand-alone mode.

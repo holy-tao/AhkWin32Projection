@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_DUAL_LAYER_REMAPPING_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct DVD_DUAL_LAYER_REMAPPING_INFORMATION {
+    #StructPack 1
 
-    static packingSize => 1
+    Reserved1 : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    RemappingAddress : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RemappingAddress {
-        get {
-            if(!this.HasProp("__RemappingAddressProxyArray"))
-                this.__RemappingAddressProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__RemappingAddressProxyArray
-        }
-    }
 }

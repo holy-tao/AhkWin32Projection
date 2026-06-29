@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Security\SECURITY_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes info that PnP uses to create the software device.
@@ -9,55 +10,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/swdevicedef/ns-swdevicedef-sw_device_create_info
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class SW_DEVICE_CREATE_INFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct SW_DEVICE_CREATE_INFO {
+    #StructPack 8
 
     /**
      * The size in bytes of this structure. Use it as a version field.  Initialize it to sizeof(SW_DEVICE_CREATE_INFO).
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A string that represents the instance ID portion of the device instance ID. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryInstanceID</b>.  Because all software devices are considered "UniqueId" devices, this string must be a unique name for all devices on this software device enumerator.  For more info, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/instance-ids">Instance IDs</a>.
-     * @type {PWSTR}
      */
-    pszInstanceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszInstanceId : PWSTR
 
     /**
      * A list of strings for the hardware IDs for the software device. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryHardwareIDs</b>.  If a client expects a driver or device metadata to bind to the device, the client specifies hardware IDs.
-     * @type {PWSTR}
      */
-    pszzHardwareIds {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszzHardwareIds : PWSTR
 
     /**
      * A list of strings for the compatible IDs for the software device. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryCompatibleIDs</b>.  If a client expects a class driver to load, the client specifies compatible IDs that match the class driver.  If a driver isn't needed, we recommend to specify a compatible ID to classify the type of software device.  In addition to the compatible IDs specified in this member, SWD\Generic and possibly SWD\GenericRaw will always be added as the least specific compatible IDs.
-     * @type {PWSTR}
      */
-    pszzCompatibleIds {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszzCompatibleIds : PWSTR
 
     /**
      * A value that is used to control the base container ID for the software device.  This value will be used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryContainerIDs</b>.  For typical situations, we recommend to set this member to <b>NULL</b> and use the <b>SWDeviceCapabilitiesRemovable</b> flag to control whether the device inherits the parent's container ID or if PnP assigns a new random container ID.  If the client needs to explicitly control the container ID, specify a <b>GUID</b> in the variable that this member points to.
-     * @type {Pointer<Guid>}
      */
-    pContainerId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pContainerId : Guid.Ptr
 
     /**
      * A combination of <b>SW_DEVICE_CAPABILITIES</b> values that are combined by using a bitwise OR operation. The resulting value specifies capabilities of the software device. The capability that you can specify when you create a software device are a subset of the capabilities that a bus driver can specify by using the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/wdm/ns-wdm-_device_capabilities"><b>DEVICE_CAPABILTIES</b></a> structure.  Only capabilities that make sense to allow changing for a software only device are supported.  The rest receive appropriate default values. Here are possible values:
@@ -129,12 +108,8 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    CapabilityFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CapabilityFlags : UInt32
 
     /**
      * A string that contains the text that is displayed for the device name in the UI. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-device-text">IRP_MN_QUERY_DEVICE_TEXT</a> <b>DeviceTextDescription</b>.  
@@ -145,36 +120,20 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct {
      * 
      * </div>
      * <div> </div>
-     * @type {PWSTR}
      */
-    pszDeviceDescription {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pszDeviceDescription : PWSTR
 
     /**
      * A string that contains the text that is displayed for the device location in the UI.  This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-device-text">IRP_MN_QUERY_DEVICE_TEXT</a> <b>DeviceTextLocationInformation</b>.  
      * 
      * <div class="alert"><b>Note</b>  Specifying a location is uncommon.</div>
      * <div> </div>
-     * @type {PWSTR}
      */
-    pszDeviceLocation {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pszDeviceLocation : PWSTR
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the software device. If this member is <b>NULL</b>, the <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/windows-kernel-mode-i-o-manager">I/O Manager</a> assigns the default security descriptor to the device.  If a custom security descriptor is needed, specify a self-relative security descriptor.
-     * @type {Pointer<SECURITY_DESCRIPTOR>}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pSecurityDescriptor : SECURITY_DESCRIPTOR.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

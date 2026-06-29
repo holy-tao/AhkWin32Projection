@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is accessible to the provider through IFunctionDiscoveryProviderQuery::GetPropertyConstraints.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpropertyconstraintcollection
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IProviderPropertyConstraintCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProviderPropertyConstraintCollection extends IUnknown {
     /**
      * The interface identifier for IProviderPropertyConstraintCollection
      * @type {Guid}
      */
-    static IID => Guid("{f4fae42f-5778-4a13-8540-b5fd8c1398dd}")
+    static IID := Guid("{f4fae42f-5778-4a13-8540-b5fd8c1398dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProviderPropertyConstraintCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        Get      : IntPtr
+        Item     : IntPtr
+        Next     : IntPtr
+        Skip     : IntPtr
+        Reset    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "Get", "Item", "Next", "Skip", "Reset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProviderPropertyConstraintCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of items in the collection. (IProviderPropertyConstraintCollection.GetCount)
@@ -90,7 +105,7 @@ class IProviderPropertyConstraintCollection extends IUnknown {
     Get(Key, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", Key, "ptr", pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
+        result := ComCall(4, this, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 
@@ -135,7 +150,7 @@ class IProviderPropertyConstraintCollection extends IUnknown {
     Item(dwIndex, pKey, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwIndex, "ptr", pKey, "ptr", pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
+        result := ComCall(5, this, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 
@@ -179,7 +194,7 @@ class IProviderPropertyConstraintCollection extends IUnknown {
     Next(pKey, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pKey, "ptr", pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
+        result := ComCall(6, this, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 
@@ -201,5 +216,35 @@ class IProviderPropertyConstraintCollection extends IUnknown {
     Reset() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProviderPropertyConstraintCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 5)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
     }
 }

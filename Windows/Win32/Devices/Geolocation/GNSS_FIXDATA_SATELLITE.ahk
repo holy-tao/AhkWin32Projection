@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_SATELLITEINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\GNSS_SATELLITEINFO.ahk" { GNSS_SATELLITEINFO }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_FIXDATA_SATELLITE extends Win32Struct {
-    static sizeof => 2064
+export default struct GNSS_FIXDATA_SATELLITE {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SatelliteCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SatelliteCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SatelliteArray : GNSS_SATELLITEINFO[64]
 
-    /**
-     * @type {GNSS_SATELLITEINFO}
-     */
-    SatelliteArray {
-        get {
-            if(!this.HasProp("__SatelliteArrayProxyArray"))
-                this.__SatelliteArrayProxyArray := Win32FixedArray(this.ptr + 16, 64, GNSS_SATELLITEINFO, "")
-            return this.__SatelliteArrayProxyArray
-        }
-    }
 }

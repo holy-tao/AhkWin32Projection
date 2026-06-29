@@ -1,62 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCARD_IO_REQUEST.ahk
-#Include .\SCARD_T0_COMMAND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCARD_IO_REQUEST.ahk" { SCARD_IO_REQUEST }
+#Import ".\SCARD_T0_COMMAND.ahk" { SCARD_T0_COMMAND }
 
 /**
  * @namespace Windows.Win32.Security.Credentials
  */
-class SCARD_T0_REQUEST extends Win32Struct {
-    static sizeof => 16
+export default struct SCARD_T0_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    ioRequest : SCARD_IO_REQUEST
 
-    /**
-     * @type {SCARD_IO_REQUEST}
-     */
-    ioRequest {
-        get {
-            if(!this.HasProp("__ioRequest"))
-                this.__ioRequest := SCARD_IO_REQUEST(0, this)
-            return this.__ioRequest
-        }
-    }
+    bSw1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSw1 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bSw2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSw2 {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    CmdBytes : SCARD_T0_COMMAND
 
-    /**
-     * @type {SCARD_T0_COMMAND}
-     */
-    CmdBytes {
-        get {
-            if(!this.HasProp("__CmdBytes"))
-                this.__CmdBytes := SCARD_T0_COMMAND(10, this)
-            return this.__CmdBytes
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbHeader {
-        get {
-            if(!this.HasProp("__rgbHeaderProxyArray"))
-                this.__rgbHeaderProxyArray := Win32FixedArray(this.ptr + 10, 5, Primitive, "char")
-            return this.__rgbHeaderProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'rgbHeader', { type: Int8[5], offset: 10 })
+        this.DeleteProp("__New")
     }
 }

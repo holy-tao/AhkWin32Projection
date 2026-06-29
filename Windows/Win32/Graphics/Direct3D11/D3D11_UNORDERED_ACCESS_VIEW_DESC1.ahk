@@ -1,13 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D11_UAV_DIMENSION.ahk
-#Include .\D3D11_BUFFER_UAV.ahk
-#Include .\D3D11_TEX1D_UAV.ahk
-#Include .\D3D11_TEX1D_ARRAY_UAV.ahk
-#Include .\D3D11_TEX2D_UAV1.ahk
-#Include .\D3D11_TEX2D_ARRAY_UAV1.ahk
-#Include .\D3D11_TEX3D_UAV.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_TEX2D_UAV1.ahk" { D3D11_TEX2D_UAV1 }
+#Import ".\D3D11_UAV_DIMENSION.ahk" { D3D11_UAV_DIMENSION }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_TEX3D_UAV.ahk" { D3D11_TEX3D_UAV }
+#Import ".\D3D11_TEX2D_ARRAY_UAV1.ahk" { D3D11_TEX2D_ARRAY_UAV1 }
+#Import ".\D3D11_TEX1D_ARRAY_UAV.ahk" { D3D11_TEX1D_ARRAY_UAV }
+#Import ".\D3D11_TEX1D_UAV.ahk" { D3D11_TEX1D_UAV }
+#Import ".\D3D11_BUFFER_UAV.ahk" { D3D11_BUFFER_UAV }
 
 /**
  * Describes the subresources from a resource that are accessible using an unordered-access view. (D3D11_UNORDERED_ACCESS_VIEW_DESC1)
@@ -16,92 +15,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_unordered_access_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_UNORDERED_ACCESS_VIEW_DESC1 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D11_UNORDERED_ACCESS_VIEW_DESC1 {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that specifies the data format.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_uav_dimension">D3D11_UAV_DIMENSION</a>-typed value that  specifies the resource type of the view. This type is the same as the resource type of the underlying resource. This member also determines which _UAV to use in the union below.
-     * @type {D3D11_UAV_DIMENSION}
      */
-    ViewDimension {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ViewDimension : D3D11_UAV_DIMENSION
 
-    /**
-     * @type {D3D11_BUFFER_UAV}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := D3D11_BUFFER_UAV(8, this)
-            return this.__Buffer
-        }
-    }
+    Buffer : D3D11_BUFFER_UAV
 
-    /**
-     * @type {D3D11_TEX1D_UAV}
-     */
-    Texture1D {
-        get {
-            if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D11_TEX1D_UAV(8, this)
-            return this.__Texture1D
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX1D_ARRAY_UAV}
-     */
-    Texture1DArray {
-        get {
-            if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D11_TEX1D_ARRAY_UAV(8, this)
-            return this.__Texture1DArray
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX2D_UAV1}
-     */
-    Texture2D {
-        get {
-            if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_UAV1(8, this)
-            return this.__Texture2D
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX2D_ARRAY_UAV1}
-     */
-    Texture2DArray {
-        get {
-            if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D11_TEX2D_ARRAY_UAV1(8, this)
-            return this.__Texture2DArray
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX3D_UAV}
-     */
-    Texture3D {
-        get {
-            if(!this.HasProp("__Texture3D"))
-                this.__Texture3D := D3D11_TEX3D_UAV(8, this)
-            return this.__Texture3D
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Texture1D', { type: D3D11_TEX1D_UAV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture1DArray', { type: D3D11_TEX1D_ARRAY_UAV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2D', { type: D3D11_TEX2D_UAV1, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DArray', { type: D3D11_TEX2D_ARRAY_UAV1, offset: 8 })
+        DefineProp(this.Prototype, 'Texture3D', { type: D3D11_TEX3D_UAV, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

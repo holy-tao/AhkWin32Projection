@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Instance.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_Instance.ahk" { MI_Instance }
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_ReferenceField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_referencefield
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_ReferenceField extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MI_ReferenceField {
+    #StructPack 8
 
     /**
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_instance">MI_Instance</a>.
-     * @type {Pointer<MI_Instance>}
      */
-    value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    value : MI_Instance.Ptr
 
     /**
      * Indicates whether the field is non-null. This member can be set to <b>MI_TRUE</b> or <b>MI_FALSE</b>.
-     * @type {Integer}
      */
-    exists {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    exists : Int8
 
     /**
      * Bit flags that indicate the memory management policy.
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    flags : Int8
+
 }

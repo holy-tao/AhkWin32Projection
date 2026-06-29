@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AUTH_TYPE.ahk" { AUTH_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for manipulating a search root. Changes to property members are applied to any URL that falls under the search root. A URL falls under a search root if it matches the search root URL or is a hierarchical child of that URL.
@@ -10,26 +14,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchroot
  * @namespace Windows.Win32.System.Search
  */
-class ISearchRoot extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchRoot extends IUnknown {
     /**
      * The interface identifier for ISearchRoot
      * @type {Guid}
      */
-    static IID => Guid("{04c18ccf-1f57-4cbd-88cc-3900f5195ce3}")
+    static IID := Guid("{04c18ccf-1f57-4cbd-88cc-3900f5195ce3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchRoot interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_Schedule              : IntPtr
+        get_Schedule              : IntPtr
+        put_RootURL               : IntPtr
+        get_RootURL               : IntPtr
+        put_IsHierarchical        : IntPtr
+        get_IsHierarchical        : IntPtr
+        put_ProvidesNotifications : IntPtr
+        get_ProvidesNotifications : IntPtr
+        put_UseNotificationsOnly  : IntPtr
+        get_UseNotificationsOnly  : IntPtr
+        put_EnumerationDepth      : IntPtr
+        get_EnumerationDepth      : IntPtr
+        put_HostDepth             : IntPtr
+        get_HostDepth             : IntPtr
+        put_FollowDirectories     : IntPtr
+        get_FollowDirectories     : IntPtr
+        put_AuthenticationType    : IntPtr
+        get_AuthenticationType    : IntPtr
+        put_User                  : IntPtr
+        get_User                  : IntPtr
+        put_Password              : IntPtr
+        get_Password              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Schedule", "get_Schedule", "put_RootURL", "get_RootURL", "put_IsHierarchical", "get_IsHierarchical", "put_ProvidesNotifications", "get_ProvidesNotifications", "put_UseNotificationsOnly", "get_UseNotificationsOnly", "put_EnumerationDepth", "get_EnumerationDepth", "put_HostDepth", "get_HostDepth", "put_FollowDirectories", "get_FollowDirectories", "put_AuthenticationType", "get_AuthenticationType", "put_User", "get_User", "put_Password", "get_Password"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchRoot.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -147,7 +179,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_schedule
      */
     get_Schedule() {
-        result := ComCall(4, this, "ptr*", &ppszTaskArg := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszTaskArg := 0, "HRESULT")
         return ppszTaskArg
     }
 
@@ -184,7 +216,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_rooturl
      */
     get_RootURL() {
-        result := ComCall(6, this, "ptr*", &ppszURL := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &ppszURL := 0, "HRESULT")
         return ppszURL
     }
 
@@ -202,7 +234,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_ishierarchical
      */
     put_IsHierarchical(fIsHierarchical) {
-        result := ComCall(7, this, "int", fIsHierarchical, "HRESULT")
+        result := ComCall(7, this, BOOL, fIsHierarchical, "HRESULT")
         return result
     }
 
@@ -217,7 +249,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_ishierarchical
      */
     get_IsHierarchical() {
-        result := ComCall(8, this, "int*", &pfIsHierarchical := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pfIsHierarchical := 0, "HRESULT")
         return pfIsHierarchical
     }
 
@@ -237,7 +269,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_providesnotifications
      */
     put_ProvidesNotifications(fProvidesNotifications) {
-        result := ComCall(9, this, "int", fProvidesNotifications, "HRESULT")
+        result := ComCall(9, this, BOOL, fProvidesNotifications, "HRESULT")
         return result
     }
 
@@ -254,7 +286,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_providesnotifications
      */
     get_ProvidesNotifications() {
-        result := ComCall(10, this, "int*", &pfProvidesNotifications := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pfProvidesNotifications := 0, "HRESULT")
         return pfProvidesNotifications
     }
 
@@ -273,7 +305,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_usenotificationsonly
      */
     put_UseNotificationsOnly(fUseNotificationsOnly) {
-        result := ComCall(11, this, "int", fUseNotificationsOnly, "HRESULT")
+        result := ComCall(11, this, BOOL, fUseNotificationsOnly, "HRESULT")
         return result
     }
 
@@ -288,7 +320,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_usenotificationsonly
      */
     get_UseNotificationsOnly() {
-        result := ComCall(12, this, "int*", &pfUseNotificationsOnly := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfUseNotificationsOnly := 0, "HRESULT")
         return pfUseNotificationsOnly
     }
 
@@ -372,7 +404,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_followdirectories
      */
     put_FollowDirectories(fFollowDirectories) {
-        result := ComCall(17, this, "int", fFollowDirectories, "HRESULT")
+        result := ComCall(17, this, BOOL, fFollowDirectories, "HRESULT")
         return result
     }
 
@@ -387,7 +419,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_followdirectories
      */
     get_FollowDirectories() {
-        result := ComCall(18, this, "int*", &pfFollowDirectories := 0, "HRESULT")
+        result := ComCall(18, this, BOOL.Ptr, &pfFollowDirectories := 0, "HRESULT")
         return pfFollowDirectories
     }
 
@@ -405,7 +437,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_authenticationtype
      */
     put_AuthenticationType(authType) {
-        result := ComCall(19, this, "int", authType, "HRESULT")
+        result := ComCall(19, this, AUTH_TYPE, authType, "HRESULT")
         return result
     }
 
@@ -448,7 +480,7 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_user
      */
     get_User() {
-        result := ComCall(22, this, "ptr*", &ppszUser := 0, "HRESULT")
+        result := ComCall(22, this, PWSTR.Ptr, &ppszUser := 0, "HRESULT")
         return ppszUser
     }
 
@@ -476,7 +508,69 @@ class ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_password
      */
     get_Password() {
-        result := ComCall(24, this, "ptr*", &ppszPassword := 0, "HRESULT")
+        result := ComCall(24, this, PWSTR.Ptr, &ppszPassword := 0, "HRESULT")
         return ppszPassword
+    }
+
+    Query(iid) {
+        if (ISearchRoot.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Schedule := CallbackCreate(GetMethod(implObj, "put_Schedule"), flags, 2)
+        this.vtbl.get_Schedule := CallbackCreate(GetMethod(implObj, "get_Schedule"), flags, 2)
+        this.vtbl.put_RootURL := CallbackCreate(GetMethod(implObj, "put_RootURL"), flags, 2)
+        this.vtbl.get_RootURL := CallbackCreate(GetMethod(implObj, "get_RootURL"), flags, 2)
+        this.vtbl.put_IsHierarchical := CallbackCreate(GetMethod(implObj, "put_IsHierarchical"), flags, 2)
+        this.vtbl.get_IsHierarchical := CallbackCreate(GetMethod(implObj, "get_IsHierarchical"), flags, 2)
+        this.vtbl.put_ProvidesNotifications := CallbackCreate(GetMethod(implObj, "put_ProvidesNotifications"), flags, 2)
+        this.vtbl.get_ProvidesNotifications := CallbackCreate(GetMethod(implObj, "get_ProvidesNotifications"), flags, 2)
+        this.vtbl.put_UseNotificationsOnly := CallbackCreate(GetMethod(implObj, "put_UseNotificationsOnly"), flags, 2)
+        this.vtbl.get_UseNotificationsOnly := CallbackCreate(GetMethod(implObj, "get_UseNotificationsOnly"), flags, 2)
+        this.vtbl.put_EnumerationDepth := CallbackCreate(GetMethod(implObj, "put_EnumerationDepth"), flags, 2)
+        this.vtbl.get_EnumerationDepth := CallbackCreate(GetMethod(implObj, "get_EnumerationDepth"), flags, 2)
+        this.vtbl.put_HostDepth := CallbackCreate(GetMethod(implObj, "put_HostDepth"), flags, 2)
+        this.vtbl.get_HostDepth := CallbackCreate(GetMethod(implObj, "get_HostDepth"), flags, 2)
+        this.vtbl.put_FollowDirectories := CallbackCreate(GetMethod(implObj, "put_FollowDirectories"), flags, 2)
+        this.vtbl.get_FollowDirectories := CallbackCreate(GetMethod(implObj, "get_FollowDirectories"), flags, 2)
+        this.vtbl.put_AuthenticationType := CallbackCreate(GetMethod(implObj, "put_AuthenticationType"), flags, 2)
+        this.vtbl.get_AuthenticationType := CallbackCreate(GetMethod(implObj, "get_AuthenticationType"), flags, 2)
+        this.vtbl.put_User := CallbackCreate(GetMethod(implObj, "put_User"), flags, 2)
+        this.vtbl.get_User := CallbackCreate(GetMethod(implObj, "get_User"), flags, 2)
+        this.vtbl.put_Password := CallbackCreate(GetMethod(implObj, "put_Password"), flags, 2)
+        this.vtbl.get_Password := CallbackCreate(GetMethod(implObj, "get_Password"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Schedule)
+        CallbackFree(this.vtbl.get_Schedule)
+        CallbackFree(this.vtbl.put_RootURL)
+        CallbackFree(this.vtbl.get_RootURL)
+        CallbackFree(this.vtbl.put_IsHierarchical)
+        CallbackFree(this.vtbl.get_IsHierarchical)
+        CallbackFree(this.vtbl.put_ProvidesNotifications)
+        CallbackFree(this.vtbl.get_ProvidesNotifications)
+        CallbackFree(this.vtbl.put_UseNotificationsOnly)
+        CallbackFree(this.vtbl.get_UseNotificationsOnly)
+        CallbackFree(this.vtbl.put_EnumerationDepth)
+        CallbackFree(this.vtbl.get_EnumerationDepth)
+        CallbackFree(this.vtbl.put_HostDepth)
+        CallbackFree(this.vtbl.get_HostDepth)
+        CallbackFree(this.vtbl.put_FollowDirectories)
+        CallbackFree(this.vtbl.get_FollowDirectories)
+        CallbackFree(this.vtbl.put_AuthenticationType)
+        CallbackFree(this.vtbl.get_AuthenticationType)
+        CallbackFree(this.vtbl.put_User)
+        CallbackFree(this.vtbl.get_User)
+        CallbackFree(this.vtbl.put_Password)
+        CallbackFree(this.vtbl.get_Password)
     }
 }

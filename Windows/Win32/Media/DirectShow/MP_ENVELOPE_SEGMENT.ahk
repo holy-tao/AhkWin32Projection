@@ -1,61 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MP_CURVE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MP_CURVE_TYPE.ahk" { MP_CURVE_TYPE }
 
 /**
  * The MP_ENVELOPE_SEGMENT structure defines an envelope segment used by an envelope-following parameter.
  * @see https://learn.microsoft.com/windows/win32/api/medparam/ns-medparam-mp_envelope_segment
  * @namespace Windows.Win32.Media.DirectShow
  */
-class MP_ENVELOPE_SEGMENT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MP_ENVELOPE_SEGMENT {
+    #StructPack 8
 
     /**
      * Start time of the segment, relative to the time stamp on the first buffer, in 100-nanosecond units.
-     * @type {Integer}
      */
-    rtStart {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    rtStart : Int64
 
     /**
      * Stop time of the segment, relative to the time stamp on the first buffer, in 100-nanosecond units.
-     * @type {Integer}
      */
-    rtEnd {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    rtEnd : Int64
 
     /**
      * Initial value of the parameter, at the start of the segment.
-     * @type {Float}
      */
-    valStart {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    valStart : Float32
 
     /**
      * Final value of the parameter, at the end of the segment.
-     * @type {Float}
      */
-    valEnd {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    valEnd : Float32
 
     /**
      * Member of the <b>MP_CURVE_TYPE</b> enumerated type that specifies the curve followed by the parameter.
-     * @type {MP_CURVE_TYPE}
      */
-    iCurve {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iCurve : MP_CURVE_TYPE
 
     /**
      * Specifies one of the following flags.
@@ -99,10 +76,7 @@ class MP_ENVELOPE_SEGMENT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    flags : UInt32
+
 }

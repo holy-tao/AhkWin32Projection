@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 extends Win32Struct {
-    static sizeof => 72
+export default struct D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1 {
+    #StructPack 8
 
-    static packingSize => 8
+    InitialQP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InitialQP {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MinQP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinQP {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxQP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxQP {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxFrameBitSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrameBitSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TargetAvgBitRate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetAvgBitRate {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PeakBitRate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeakBitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ConstantQualityTarget : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstantQualityTarget {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    VBVCapacity : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VBVCapacity {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    InitialVBVFullness : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InitialVBVFullness {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    QualityVsSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QualityVsSpeed {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

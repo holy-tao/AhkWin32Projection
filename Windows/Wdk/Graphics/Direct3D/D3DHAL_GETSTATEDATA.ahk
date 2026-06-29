@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_GETSTATEDATA extends Win32Struct {
-    static sizeof => 32
+export default struct D3DHAL_GETSTATEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwhContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwWhich : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWhich {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ddState : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ddState {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ddrval : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

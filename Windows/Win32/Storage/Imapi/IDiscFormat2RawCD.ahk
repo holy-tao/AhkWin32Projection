@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to write raw images to a disc device using Disc At Once (DAO) mode (also known as uninterrupted recording).
@@ -14,26 +20,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2rawcd
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscFormat2RawCD extends IDiscFormat2 {
-
-    static sizeof => A_PtrSize
+export default struct IDiscFormat2RawCD extends IDiscFormat2 {
     /**
      * The interface identifier for IDiscFormat2RawCD
      * @type {Guid}
      */
-    static IID => Guid("{27354155-8f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354155-8f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscFormat2RawCD interfaces
+    */
+    struct Vtbl extends IDiscFormat2.Vtbl {
+        PrepareMedia                       : IntPtr
+        WriteMedia                         : IntPtr
+        WriteMedia2                        : IntPtr
+        CancelWrite                        : IntPtr
+        ReleaseMedia                       : IntPtr
+        SetWriteSpeed                      : IntPtr
+        put_Recorder                       : IntPtr
+        get_Recorder                       : IntPtr
+        put_BufferUnderrunFreeDisabled     : IntPtr
+        get_BufferUnderrunFreeDisabled     : IntPtr
+        get_StartOfNextSession             : IntPtr
+        get_LastPossibleStartOfLeadout     : IntPtr
+        get_CurrentPhysicalMediaType       : IntPtr
+        get_SupportedSectorTypes           : IntPtr
+        put_RequestedSectorType            : IntPtr
+        get_RequestedSectorType            : IntPtr
+        put_ClientName                     : IntPtr
+        get_ClientName                     : IntPtr
+        get_RequestedWriteSpeed            : IntPtr
+        get_RequestedRotationTypeIsPureCAV : IntPtr
+        get_CurrentWriteSpeed              : IntPtr
+        get_CurrentRotationTypeIsPureCAV   : IntPtr
+        get_SupportedWriteSpeeds           : IntPtr
+        get_SupportedWriteSpeedDescriptors : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PrepareMedia", "WriteMedia", "WriteMedia2", "CancelWrite", "ReleaseMedia", "SetWriteSpeed", "put_Recorder", "get_Recorder", "put_BufferUnderrunFreeDisabled", "get_BufferUnderrunFreeDisabled", "get_StartOfNextSession", "get_LastPossibleStartOfLeadout", "get_CurrentPhysicalMediaType", "get_SupportedSectorTypes", "put_RequestedSectorType", "get_RequestedSectorType", "put_ClientName", "get_ClientName", "get_RequestedWriteSpeed", "get_RequestedRotationTypeIsPureCAV", "get_CurrentWriteSpeed", "get_CurrentRotationTypeIsPureCAV", "get_SupportedWriteSpeeds", "get_SupportedWriteSpeedDescriptors"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscFormat2RawCD.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDiscRecorder2} 
@@ -1814,7 +1850,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
-        result := ComCall(17, this, "int", RequestedSectorsPerSecond, "short", RotationTypeIsPureCAV, "HRESULT")
+        result := ComCall(17, this, "int", RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
         return result
     }
 
@@ -1929,7 +1965,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-put_bufferunderrunfreedisabled
      */
     put_BufferUnderrunFreeDisabled(value) {
-        result := ComCall(20, this, "short", value, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -1939,7 +1975,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_bufferunderrunfreedisabled
      */
     get_BufferUnderrunFreeDisabled() {
-        result := ComCall(21, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -2042,7 +2078,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-put_requestedsectortype
      */
     put_RequestedSectorType(value) {
-        result := ComCall(26, this, "int", value, "HRESULT")
+        result := ComCall(26, this, IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE, value, "HRESULT")
         return result
     }
 
@@ -2128,7 +2164,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
     put_ClientName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(28, this, "ptr", value, "HRESULT")
+        result := ComCall(28, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -2138,8 +2174,8 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
-        result := ComCall(29, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -2165,7 +2201,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedrotationtypeispurecav
      */
     get_RequestedRotationTypeIsPureCAV() {
-        result := ComCall(31, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -2202,7 +2238,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentrotationtypeispurecav
      */
     get_CurrentRotationTypeIsPureCAV() {
-        result := ComCall(33, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -2230,5 +2266,71 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
     get_SupportedWriteSpeedDescriptors() {
         result := ComCall(35, this, "ptr*", &supportedSpeedDescriptors := 0, "HRESULT")
         return supportedSpeedDescriptors
+    }
+
+    Query(iid) {
+        if (IDiscFormat2RawCD.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PrepareMedia := CallbackCreate(GetMethod(implObj, "PrepareMedia"), flags, 1)
+        this.vtbl.WriteMedia := CallbackCreate(GetMethod(implObj, "WriteMedia"), flags, 2)
+        this.vtbl.WriteMedia2 := CallbackCreate(GetMethod(implObj, "WriteMedia2"), flags, 3)
+        this.vtbl.CancelWrite := CallbackCreate(GetMethod(implObj, "CancelWrite"), flags, 1)
+        this.vtbl.ReleaseMedia := CallbackCreate(GetMethod(implObj, "ReleaseMedia"), flags, 1)
+        this.vtbl.SetWriteSpeed := CallbackCreate(GetMethod(implObj, "SetWriteSpeed"), flags, 3)
+        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_BufferUnderrunFreeDisabled := CallbackCreate(GetMethod(implObj, "put_BufferUnderrunFreeDisabled"), flags, 2)
+        this.vtbl.get_BufferUnderrunFreeDisabled := CallbackCreate(GetMethod(implObj, "get_BufferUnderrunFreeDisabled"), flags, 2)
+        this.vtbl.get_StartOfNextSession := CallbackCreate(GetMethod(implObj, "get_StartOfNextSession"), flags, 2)
+        this.vtbl.get_LastPossibleStartOfLeadout := CallbackCreate(GetMethod(implObj, "get_LastPossibleStartOfLeadout"), flags, 2)
+        this.vtbl.get_CurrentPhysicalMediaType := CallbackCreate(GetMethod(implObj, "get_CurrentPhysicalMediaType"), flags, 2)
+        this.vtbl.get_SupportedSectorTypes := CallbackCreate(GetMethod(implObj, "get_SupportedSectorTypes"), flags, 2)
+        this.vtbl.put_RequestedSectorType := CallbackCreate(GetMethod(implObj, "put_RequestedSectorType"), flags, 2)
+        this.vtbl.get_RequestedSectorType := CallbackCreate(GetMethod(implObj, "get_RequestedSectorType"), flags, 2)
+        this.vtbl.put_ClientName := CallbackCreate(GetMethod(implObj, "put_ClientName"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.get_RequestedWriteSpeed := CallbackCreate(GetMethod(implObj, "get_RequestedWriteSpeed"), flags, 2)
+        this.vtbl.get_RequestedRotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_RequestedRotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_CurrentWriteSpeed := CallbackCreate(GetMethod(implObj, "get_CurrentWriteSpeed"), flags, 2)
+        this.vtbl.get_CurrentRotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_CurrentRotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_SupportedWriteSpeeds := CallbackCreate(GetMethod(implObj, "get_SupportedWriteSpeeds"), flags, 2)
+        this.vtbl.get_SupportedWriteSpeedDescriptors := CallbackCreate(GetMethod(implObj, "get_SupportedWriteSpeedDescriptors"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PrepareMedia)
+        CallbackFree(this.vtbl.WriteMedia)
+        CallbackFree(this.vtbl.WriteMedia2)
+        CallbackFree(this.vtbl.CancelWrite)
+        CallbackFree(this.vtbl.ReleaseMedia)
+        CallbackFree(this.vtbl.SetWriteSpeed)
+        CallbackFree(this.vtbl.put_Recorder)
+        CallbackFree(this.vtbl.get_Recorder)
+        CallbackFree(this.vtbl.put_BufferUnderrunFreeDisabled)
+        CallbackFree(this.vtbl.get_BufferUnderrunFreeDisabled)
+        CallbackFree(this.vtbl.get_StartOfNextSession)
+        CallbackFree(this.vtbl.get_LastPossibleStartOfLeadout)
+        CallbackFree(this.vtbl.get_CurrentPhysicalMediaType)
+        CallbackFree(this.vtbl.get_SupportedSectorTypes)
+        CallbackFree(this.vtbl.put_RequestedSectorType)
+        CallbackFree(this.vtbl.get_RequestedSectorType)
+        CallbackFree(this.vtbl.put_ClientName)
+        CallbackFree(this.vtbl.get_ClientName)
+        CallbackFree(this.vtbl.get_RequestedWriteSpeed)
+        CallbackFree(this.vtbl.get_RequestedRotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_CurrentWriteSpeed)
+        CallbackFree(this.vtbl.get_CurrentRotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_SupportedWriteSpeeds)
+        CallbackFree(this.vtbl.get_SupportedWriteSpeedDescriptors)
     }
 }

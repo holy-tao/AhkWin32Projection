@@ -1,35 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfCompositionView interface is implemented by the TSF manager and used by an application to obtain data about a composition view. An instance of this interface is provided by one of the ITfContextOwnerCompositionSink methods.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompositionview
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfCompositionView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfCompositionView extends IUnknown {
     /**
      * The interface identifier for ITfCompositionView
      * @type {Guid}
      */
-    static IID => Guid("{d7540241-f9a1-4364-befc-dbcd2c4395b7}")
+    static IID := Guid("{d7540241-f9a1-4364-befc-dbcd2c4395b7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfCompositionView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwnerClsid : IntPtr
+        GetRange      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwnerClsid", "GetRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfCompositionView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfCompositionView::GetOwnerClsid method
@@ -40,7 +48,7 @@ class ITfCompositionView extends IUnknown {
      */
     GetOwnerClsid() {
         pclsid := Guid()
-        result := ComCall(3, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pclsid, "HRESULT")
         return pclsid
     }
 
@@ -52,5 +60,27 @@ class ITfCompositionView extends IUnknown {
     GetRange() {
         result := ComCall(4, this, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRange(ppRange)
+    }
+
+    Query(iid) {
+        if (ITfCompositionView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwnerClsid := CallbackCreate(GetMethod(implObj, "GetOwnerClsid"), flags, 2)
+        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwnerClsid)
+        CallbackFree(this.vtbl.GetRange)
     }
 }

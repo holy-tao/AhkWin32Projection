@@ -1,36 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\TSSD_ConnectionPoint.ahk
-#Include .\ITsSbTargetPropertySet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TARGET_STATE.ahk" { TARGET_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbTargetPropertySet.ahk" { ITsSbTargetPropertySet }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TSSD_ConnectionPoint.ahk" { TSSD_ConnectionPoint }
 
 /**
  * Exposes properties that store configuration and state information about a target.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbtarget
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbTarget extends IUnknown {
     /**
      * The interface identifier for ITsSbTarget
      * @type {Guid}
      */
-    static IID => Guid("{16616ecc-272d-411d-b324-126893033856}")
+    static IID := Guid("{16616ecc-272d-411d-b324-126893033856}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_TargetName            : IntPtr
+        put_TargetName            : IntPtr
+        get_FarmName              : IntPtr
+        put_FarmName              : IntPtr
+        get_TargetFQDN            : IntPtr
+        put_TargetFQDN            : IntPtr
+        get_TargetNetbios         : IntPtr
+        put_TargetNetbios         : IntPtr
+        get_IpAddresses           : IntPtr
+        put_IpAddresses           : IntPtr
+        get_TargetState           : IntPtr
+        put_TargetState           : IntPtr
+        get_TargetPropertySet     : IntPtr
+        put_TargetPropertySet     : IntPtr
+        get_EnvironmentName       : IntPtr
+        put_EnvironmentName       : IntPtr
+        get_NumSessions           : IntPtr
+        get_NumPendingConnections : IntPtr
+        get_TargetLoad            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TargetName", "put_TargetName", "get_FarmName", "put_FarmName", "get_TargetFQDN", "put_TargetFQDN", "get_TargetNetbios", "put_TargetNetbios", "get_IpAddresses", "put_IpAddresses", "get_TargetState", "put_TargetState", "get_TargetPropertySet", "put_TargetPropertySet", "get_EnvironmentName", "put_EnvironmentName", "get_NumSessions", "get_NumPendingConnections", "get_TargetLoad"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -117,8 +144,8 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetname
      */
     get_TargetName() {
-        pVal := BSTR()
-        result := ComCall(3, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -133,7 +160,7 @@ class ITsSbTarget extends IUnknown {
     put_TargetName(_Val) {
         _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(4, this, "ptr", _Val, "HRESULT")
+        result := ComCall(4, this, BSTR, _Val, "HRESULT")
         return result
     }
 
@@ -143,8 +170,8 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_farmname
      */
     get_FarmName() {
-        pVal := BSTR()
-        result := ComCall(5, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -157,7 +184,7 @@ class ITsSbTarget extends IUnknown {
     put_FarmName(_Val) {
         _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(6, this, "ptr", _Val, "HRESULT")
+        result := ComCall(6, this, BSTR, _Val, "HRESULT")
         return result
     }
 
@@ -167,8 +194,8 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetfqdn
      */
     get_TargetFQDN() {
-        TargetFqdnName := BSTR()
-        result := ComCall(7, this, "ptr", TargetFqdnName, "HRESULT")
+        TargetFqdnName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, TargetFqdnName, "HRESULT")
         return TargetFqdnName
     }
 
@@ -181,7 +208,7 @@ class ITsSbTarget extends IUnknown {
     put_TargetFQDN(_Val) {
         _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(8, this, "ptr", _Val, "HRESULT")
+        result := ComCall(8, this, BSTR, _Val, "HRESULT")
         return result
     }
 
@@ -191,8 +218,8 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetnetbios
      */
     get_TargetNetbios() {
-        TargetNetbiosName := BSTR()
-        result := ComCall(9, this, "ptr", TargetNetbiosName, "HRESULT")
+        TargetNetbiosName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, TargetNetbiosName, "HRESULT")
         return TargetNetbiosName
     }
 
@@ -205,7 +232,7 @@ class ITsSbTarget extends IUnknown {
     put_TargetNetbios(_Val) {
         _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(10, this, "ptr", _Val, "HRESULT")
+        result := ComCall(10, this, BSTR, _Val, "HRESULT")
         return result
     }
 
@@ -223,7 +250,7 @@ class ITsSbTarget extends IUnknown {
         numAddressesMarshal := numAddresses is VarRef ? "uint*" : "ptr"
 
         _SOCKADDR := TSSD_ConnectionPoint()
-        result := ComCall(11, this, "ptr", _SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
+        result := ComCall(11, this, TSSD_ConnectionPoint.Ptr, _SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
         return _SOCKADDR
     }
 
@@ -239,7 +266,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_ipaddresses
      */
     put_IpAddresses(_SOCKADDR, numAddresses) {
-        result := ComCall(12, this, "ptr", _SOCKADDR, "uint", numAddresses, "HRESULT")
+        result := ComCall(12, this, TSSD_ConnectionPoint.Ptr, _SOCKADDR, "uint", numAddresses, "HRESULT")
         return result
     }
 
@@ -260,7 +287,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_targetstate
      */
     put_TargetState(State) {
-        result := ComCall(14, this, "int", State, "HRESULT")
+        result := ComCall(14, this, TARGET_STATE, State, "HRESULT")
         return result
     }
 
@@ -291,8 +318,8 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_environmentname
      */
     get_EnvironmentName() {
-        pVal := BSTR()
-        result := ComCall(17, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -305,7 +332,7 @@ class ITsSbTarget extends IUnknown {
     put_EnvironmentName(_Val) {
         _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(18, this, "ptr", _Val, "HRESULT")
+        result := ComCall(18, this, BSTR, _Val, "HRESULT")
         return result
     }
 
@@ -341,5 +368,61 @@ class ITsSbTarget extends IUnknown {
     get_TargetLoad() {
         result := ComCall(21, this, "uint*", &pTargetLoad := 0, "HRESULT")
         return pTargetLoad
+    }
+
+    Query(iid) {
+        if (ITsSbTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TargetName := CallbackCreate(GetMethod(implObj, "get_TargetName"), flags, 2)
+        this.vtbl.put_TargetName := CallbackCreate(GetMethod(implObj, "put_TargetName"), flags, 2)
+        this.vtbl.get_FarmName := CallbackCreate(GetMethod(implObj, "get_FarmName"), flags, 2)
+        this.vtbl.put_FarmName := CallbackCreate(GetMethod(implObj, "put_FarmName"), flags, 2)
+        this.vtbl.get_TargetFQDN := CallbackCreate(GetMethod(implObj, "get_TargetFQDN"), flags, 2)
+        this.vtbl.put_TargetFQDN := CallbackCreate(GetMethod(implObj, "put_TargetFQDN"), flags, 2)
+        this.vtbl.get_TargetNetbios := CallbackCreate(GetMethod(implObj, "get_TargetNetbios"), flags, 2)
+        this.vtbl.put_TargetNetbios := CallbackCreate(GetMethod(implObj, "put_TargetNetbios"), flags, 2)
+        this.vtbl.get_IpAddresses := CallbackCreate(GetMethod(implObj, "get_IpAddresses"), flags, 3)
+        this.vtbl.put_IpAddresses := CallbackCreate(GetMethod(implObj, "put_IpAddresses"), flags, 3)
+        this.vtbl.get_TargetState := CallbackCreate(GetMethod(implObj, "get_TargetState"), flags, 2)
+        this.vtbl.put_TargetState := CallbackCreate(GetMethod(implObj, "put_TargetState"), flags, 2)
+        this.vtbl.get_TargetPropertySet := CallbackCreate(GetMethod(implObj, "get_TargetPropertySet"), flags, 2)
+        this.vtbl.put_TargetPropertySet := CallbackCreate(GetMethod(implObj, "put_TargetPropertySet"), flags, 2)
+        this.vtbl.get_EnvironmentName := CallbackCreate(GetMethod(implObj, "get_EnvironmentName"), flags, 2)
+        this.vtbl.put_EnvironmentName := CallbackCreate(GetMethod(implObj, "put_EnvironmentName"), flags, 2)
+        this.vtbl.get_NumSessions := CallbackCreate(GetMethod(implObj, "get_NumSessions"), flags, 2)
+        this.vtbl.get_NumPendingConnections := CallbackCreate(GetMethod(implObj, "get_NumPendingConnections"), flags, 2)
+        this.vtbl.get_TargetLoad := CallbackCreate(GetMethod(implObj, "get_TargetLoad"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TargetName)
+        CallbackFree(this.vtbl.put_TargetName)
+        CallbackFree(this.vtbl.get_FarmName)
+        CallbackFree(this.vtbl.put_FarmName)
+        CallbackFree(this.vtbl.get_TargetFQDN)
+        CallbackFree(this.vtbl.put_TargetFQDN)
+        CallbackFree(this.vtbl.get_TargetNetbios)
+        CallbackFree(this.vtbl.put_TargetNetbios)
+        CallbackFree(this.vtbl.get_IpAddresses)
+        CallbackFree(this.vtbl.put_IpAddresses)
+        CallbackFree(this.vtbl.get_TargetState)
+        CallbackFree(this.vtbl.put_TargetState)
+        CallbackFree(this.vtbl.get_TargetPropertySet)
+        CallbackFree(this.vtbl.put_TargetPropertySet)
+        CallbackFree(this.vtbl.get_EnvironmentName)
+        CallbackFree(this.vtbl.put_EnvironmentName)
+        CallbackFree(this.vtbl.get_NumSessions)
+        CallbackFree(this.vtbl.get_NumPendingConnections)
+        CallbackFree(this.vtbl.get_TargetLoad)
     }
 }

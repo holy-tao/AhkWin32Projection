@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509CertificateRevocationListEntry.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IX509CertificateRevocationListEntry.ahk" { IX509CertificateRevocationListEntry }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRevocationListEntries extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRevocationListEntries extends IDispatch {
     /**
      * The interface identifier for IX509CertificateRevocationListEntries
      * @type {Guid}
      */
-    static IID => Guid("{728ab35f-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab35f-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRevocationListEntries interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ItemByIndex         : IntPtr
+        get_Count               : IntPtr
+        get__NewEnum            : IntPtr
+        Add                     : IntPtr
+        Remove                  : IntPtr
+        Clear                   : IntPtr
+        get_IndexBySerialNumber : IntPtr
+        AddRange                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "get_IndexBySerialNumber", "AddRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRevocationListEntries.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -72,82 +89,9 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {IX509CertificateRevocationListEntry} pVal 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ALLOTTED_SPACE_EXCEEDED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The new ACE does not fit into the ACL. A larger ACL buffer is required.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_ACL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified ACL is not properly formed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_SID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified SID is not structurally valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_REVISION_MISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified revision is not known or is incompatible with that of the ACL.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The ACE was successfully added.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
+     * @returns {HRESULT} 
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -155,22 +99,9 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {Integer} Index 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -214,7 +145,7 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     get_IndexBySerialNumber(Encoding, SerialNumber) {
         SerialNumber := SerialNumber is String ? BSTR.Alloc(SerialNumber).Value : SerialNumber
 
-        result := ComCall(13, this, "int", Encoding, "ptr", SerialNumber, "int*", &pIndex := 0, "HRESULT")
+        result := ComCall(13, this, EncodingType, Encoding, BSTR, SerialNumber, "int*", &pIndex := 0, "HRESULT")
         return pIndex
     }
 
@@ -226,5 +157,39 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     AddRange(pValue) {
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509CertificateRevocationListEntries.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ItemByIndex := CallbackCreate(GetMethod(implObj, "get_ItemByIndex"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_IndexBySerialNumber := CallbackCreate(GetMethod(implObj, "get_IndexBySerialNumber"), flags, 4)
+        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ItemByIndex)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.get_IndexBySerialNumber)
+        CallbackFree(this.vtbl.AddRange)
     }
 }

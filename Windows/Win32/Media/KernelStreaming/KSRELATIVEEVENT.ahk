@@ -1,79 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\KSEVENTDATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\KSEVENTDATA.ahk" { KSEVENTDATA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSRELATIVEEVENT extends Win32Struct {
-    static sizeof => 72
+export default struct KSRELATIVEEVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ObjectHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    ObjectHandle {
-        get {
-            if(!this.HasProp("__ObjectHandle"))
-                this.__ObjectHandle := HANDLE(8, this)
-            return this.__ObjectHandle
-        }
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ObjectPointer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Event : KSIDENTIFIER
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    EventData : KSEVENTDATA
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Event {
-        get {
-            if(!this.HasProp("__Event"))
-                this.__Event := KSIDENTIFIER(24, this)
-            return this.__Event
-        }
-    }
-
-    /**
-     * @type {KSEVENTDATA}
-     */
-    EventData {
-        get {
-            if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(40, this)
-            return this.__EventData
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ObjectPointer', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,33 +1,99 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\DEBUG_MODULE_PARAMETERS.ahk
-#Include .\IDebugSymbolGroup.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
+#Import ".\IDebugSymbolGroup.ahk" { IDebugSymbolGroup }
+#Import ".\DEBUG_MODULE_PARAMETERS.ahk" { DEBUG_MODULE_PARAMETERS }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugSymbols2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugSymbols2 extends IUnknown {
     /**
      * The interface identifier for IDebugSymbols2
      * @type {Guid}
      */
-    static IID => Guid("{3a707211-afdd-4495-ad4f-56fecdf8163f}")
+    static IID := Guid("{3a707211-afdd-4495-ad4f-56fecdf8163f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugSymbols2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSymbolOptions            : IntPtr
+        AddSymbolOptions            : IntPtr
+        RemoveSymbolOptions         : IntPtr
+        SetSymbolOptions            : IntPtr
+        GetNameByOffset             : IntPtr
+        GetOffsetByName             : IntPtr
+        GetNearNameByOffset         : IntPtr
+        GetLineByOffset             : IntPtr
+        GetOffsetByLine             : IntPtr
+        GetNumberModules            : IntPtr
+        GetModuleByIndex            : IntPtr
+        GetModuleByModuleName       : IntPtr
+        GetModuleByOffset           : IntPtr
+        GetModuleNames              : IntPtr
+        GetModuleParameters         : IntPtr
+        GetSymbolModule             : IntPtr
+        GetTypeName                 : IntPtr
+        GetTypeId                   : IntPtr
+        GetTypeSize                 : IntPtr
+        GetFieldOffset              : IntPtr
+        GetSymbolTypeId             : IntPtr
+        GetOffsetTypeId             : IntPtr
+        ReadTypedDataVirtual        : IntPtr
+        WriteTypedDataVirtual       : IntPtr
+        OutputTypedDataVirtual      : IntPtr
+        ReadTypedDataPhysical       : IntPtr
+        WriteTypedDataPhysical      : IntPtr
+        OutputTypedDataPhysical     : IntPtr
+        GetScope                    : IntPtr
+        SetScope                    : IntPtr
+        ResetScope                  : IntPtr
+        GetScopeSymbolGroup         : IntPtr
+        CreateSymbolGroup           : IntPtr
+        StartSymbolMatch            : IntPtr
+        GetNextSymbolMatch          : IntPtr
+        EndSymbolMatch              : IntPtr
+        Reload                      : IntPtr
+        GetSymbolPath               : IntPtr
+        SetSymbolPath               : IntPtr
+        AppendSymbolPath            : IntPtr
+        GetImagePath                : IntPtr
+        SetImagePath                : IntPtr
+        AppendImagePath             : IntPtr
+        GetSourcePath               : IntPtr
+        GetSourcePathElement        : IntPtr
+        SetSourcePath               : IntPtr
+        AppendSourcePath            : IntPtr
+        FindSourceFile              : IntPtr
+        GetSourceFileLineOffsets    : IntPtr
+        GetModuleVersionInformation : IntPtr
+        GetModuleNameString         : IntPtr
+        GetConstantName             : IntPtr
+        GetFieldName                : IntPtr
+        GetTypeOptions              : IntPtr
+        AddTypeOptions              : IntPtr
+        RemoveTypeOptions           : IntPtr
+        SetTypeOptions              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSymbolOptions", "AddSymbolOptions", "RemoveSymbolOptions", "SetSymbolOptions", "GetNameByOffset", "GetOffsetByName", "GetNearNameByOffset", "GetLineByOffset", "GetOffsetByLine", "GetNumberModules", "GetModuleByIndex", "GetModuleByModuleName", "GetModuleByOffset", "GetModuleNames", "GetModuleParameters", "GetSymbolModule", "GetTypeName", "GetTypeId", "GetTypeSize", "GetFieldOffset", "GetSymbolTypeId", "GetOffsetTypeId", "ReadTypedDataVirtual", "WriteTypedDataVirtual", "OutputTypedDataVirtual", "ReadTypedDataPhysical", "WriteTypedDataPhysical", "OutputTypedDataPhysical", "GetScope", "SetScope", "ResetScope", "GetScopeSymbolGroup", "CreateSymbolGroup", "StartSymbolMatch", "GetNextSymbolMatch", "EndSymbolMatch", "Reload", "GetSymbolPath", "SetSymbolPath", "AppendSymbolPath", "GetImagePath", "SetImagePath", "AppendImagePath", "GetSourcePath", "GetSourcePathElement", "SetSourcePath", "AppendSourcePath", "FindSourceFile", "GetSourceFileLineOffsets", "GetModuleVersionInformation", "GetModuleNameString", "GetConstantName", "GetFieldName", "GetTypeOptions", "AddTypeOptions", "RemoveTypeOptions", "SetTypeOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugSymbols2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -250,7 +316,7 @@ class IDebugSymbols2 extends IUnknown {
         BasesMarshal := Bases is VarRef ? "uint*" : "ptr"
 
         Params := DEBUG_MODULE_PARAMETERS()
-        result := ComCall(17, this, "uint", Count, BasesMarshal, Bases, "uint", Start, "ptr", Params, "HRESULT")
+        result := ComCall(17, this, "uint", Count, BasesMarshal, Bases, "uint", Start, DEBUG_MODULE_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -446,7 +512,7 @@ class IDebugSymbols2 extends IUnknown {
     GetScope(InstructionOffset, ScopeFrame, ScopeContext, ScopeContextSize) {
         InstructionOffsetMarshal := InstructionOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, InstructionOffsetMarshal, InstructionOffset, "ptr", ScopeFrame, "ptr", ScopeContext, "uint", ScopeContextSize, "HRESULT")
+        result := ComCall(31, this, InstructionOffsetMarshal, InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, "ptr", ScopeContext, "uint", ScopeContextSize, "HRESULT")
         return result
     }
 
@@ -459,7 +525,7 @@ class IDebugSymbols2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetScope(InstructionOffset, ScopeFrame, ScopeContext, ScopeContextSize) {
-        result := ComCall(32, this, "uint", InstructionOffset, "ptr", ScopeFrame, "ptr", ScopeContext, "uint", ScopeContextSize, "HRESULT")
+        result := ComCall(32, this, "uint", InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, "ptr", ScopeContext, "uint", ScopeContextSize, "HRESULT")
         return result
     }
 
@@ -534,13 +600,9 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * The ReloadZone method reloads the DNS Zone from its database.
+     * 
      * @param {PSTR} Module 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-zone-reloadzone
+     * @returns {HRESULT} 
      */
     Reload(Module) {
         Module := Module is String ? StrPtr(Module) : Module
@@ -815,5 +877,137 @@ class IDebugSymbols2 extends IUnknown {
     SetTypeOptions(Options) {
         result := ComCall(59, this, "uint", Options, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugSymbols2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSymbolOptions := CallbackCreate(GetMethod(implObj, "GetSymbolOptions"), flags, 2)
+        this.vtbl.AddSymbolOptions := CallbackCreate(GetMethod(implObj, "AddSymbolOptions"), flags, 2)
+        this.vtbl.RemoveSymbolOptions := CallbackCreate(GetMethod(implObj, "RemoveSymbolOptions"), flags, 2)
+        this.vtbl.SetSymbolOptions := CallbackCreate(GetMethod(implObj, "SetSymbolOptions"), flags, 2)
+        this.vtbl.GetNameByOffset := CallbackCreate(GetMethod(implObj, "GetNameByOffset"), flags, 6)
+        this.vtbl.GetOffsetByName := CallbackCreate(GetMethod(implObj, "GetOffsetByName"), flags, 3)
+        this.vtbl.GetNearNameByOffset := CallbackCreate(GetMethod(implObj, "GetNearNameByOffset"), flags, 7)
+        this.vtbl.GetLineByOffset := CallbackCreate(GetMethod(implObj, "GetLineByOffset"), flags, 7)
+        this.vtbl.GetOffsetByLine := CallbackCreate(GetMethod(implObj, "GetOffsetByLine"), flags, 4)
+        this.vtbl.GetNumberModules := CallbackCreate(GetMethod(implObj, "GetNumberModules"), flags, 3)
+        this.vtbl.GetModuleByIndex := CallbackCreate(GetMethod(implObj, "GetModuleByIndex"), flags, 3)
+        this.vtbl.GetModuleByModuleName := CallbackCreate(GetMethod(implObj, "GetModuleByModuleName"), flags, 5)
+        this.vtbl.GetModuleByOffset := CallbackCreate(GetMethod(implObj, "GetModuleByOffset"), flags, 5)
+        this.vtbl.GetModuleNames := CallbackCreate(GetMethod(implObj, "GetModuleNames"), flags, 12)
+        this.vtbl.GetModuleParameters := CallbackCreate(GetMethod(implObj, "GetModuleParameters"), flags, 5)
+        this.vtbl.GetSymbolModule := CallbackCreate(GetMethod(implObj, "GetSymbolModule"), flags, 3)
+        this.vtbl.GetTypeName := CallbackCreate(GetMethod(implObj, "GetTypeName"), flags, 6)
+        this.vtbl.GetTypeId := CallbackCreate(GetMethod(implObj, "GetTypeId"), flags, 4)
+        this.vtbl.GetTypeSize := CallbackCreate(GetMethod(implObj, "GetTypeSize"), flags, 4)
+        this.vtbl.GetFieldOffset := CallbackCreate(GetMethod(implObj, "GetFieldOffset"), flags, 5)
+        this.vtbl.GetSymbolTypeId := CallbackCreate(GetMethod(implObj, "GetSymbolTypeId"), flags, 4)
+        this.vtbl.GetOffsetTypeId := CallbackCreate(GetMethod(implObj, "GetOffsetTypeId"), flags, 4)
+        this.vtbl.ReadTypedDataVirtual := CallbackCreate(GetMethod(implObj, "ReadTypedDataVirtual"), flags, 7)
+        this.vtbl.WriteTypedDataVirtual := CallbackCreate(GetMethod(implObj, "WriteTypedDataVirtual"), flags, 7)
+        this.vtbl.OutputTypedDataVirtual := CallbackCreate(GetMethod(implObj, "OutputTypedDataVirtual"), flags, 6)
+        this.vtbl.ReadTypedDataPhysical := CallbackCreate(GetMethod(implObj, "ReadTypedDataPhysical"), flags, 7)
+        this.vtbl.WriteTypedDataPhysical := CallbackCreate(GetMethod(implObj, "WriteTypedDataPhysical"), flags, 7)
+        this.vtbl.OutputTypedDataPhysical := CallbackCreate(GetMethod(implObj, "OutputTypedDataPhysical"), flags, 6)
+        this.vtbl.GetScope := CallbackCreate(GetMethod(implObj, "GetScope"), flags, 5)
+        this.vtbl.SetScope := CallbackCreate(GetMethod(implObj, "SetScope"), flags, 5)
+        this.vtbl.ResetScope := CallbackCreate(GetMethod(implObj, "ResetScope"), flags, 1)
+        this.vtbl.GetScopeSymbolGroup := CallbackCreate(GetMethod(implObj, "GetScopeSymbolGroup"), flags, 4)
+        this.vtbl.CreateSymbolGroup := CallbackCreate(GetMethod(implObj, "CreateSymbolGroup"), flags, 2)
+        this.vtbl.StartSymbolMatch := CallbackCreate(GetMethod(implObj, "StartSymbolMatch"), flags, 3)
+        this.vtbl.GetNextSymbolMatch := CallbackCreate(GetMethod(implObj, "GetNextSymbolMatch"), flags, 6)
+        this.vtbl.EndSymbolMatch := CallbackCreate(GetMethod(implObj, "EndSymbolMatch"), flags, 2)
+        this.vtbl.Reload := CallbackCreate(GetMethod(implObj, "Reload"), flags, 2)
+        this.vtbl.GetSymbolPath := CallbackCreate(GetMethod(implObj, "GetSymbolPath"), flags, 4)
+        this.vtbl.SetSymbolPath := CallbackCreate(GetMethod(implObj, "SetSymbolPath"), flags, 2)
+        this.vtbl.AppendSymbolPath := CallbackCreate(GetMethod(implObj, "AppendSymbolPath"), flags, 2)
+        this.vtbl.GetImagePath := CallbackCreate(GetMethod(implObj, "GetImagePath"), flags, 4)
+        this.vtbl.SetImagePath := CallbackCreate(GetMethod(implObj, "SetImagePath"), flags, 2)
+        this.vtbl.AppendImagePath := CallbackCreate(GetMethod(implObj, "AppendImagePath"), flags, 2)
+        this.vtbl.GetSourcePath := CallbackCreate(GetMethod(implObj, "GetSourcePath"), flags, 4)
+        this.vtbl.GetSourcePathElement := CallbackCreate(GetMethod(implObj, "GetSourcePathElement"), flags, 5)
+        this.vtbl.SetSourcePath := CallbackCreate(GetMethod(implObj, "SetSourcePath"), flags, 2)
+        this.vtbl.AppendSourcePath := CallbackCreate(GetMethod(implObj, "AppendSourcePath"), flags, 2)
+        this.vtbl.FindSourceFile := CallbackCreate(GetMethod(implObj, "FindSourceFile"), flags, 8)
+        this.vtbl.GetSourceFileLineOffsets := CallbackCreate(GetMethod(implObj, "GetSourceFileLineOffsets"), flags, 5)
+        this.vtbl.GetModuleVersionInformation := CallbackCreate(GetMethod(implObj, "GetModuleVersionInformation"), flags, 7)
+        this.vtbl.GetModuleNameString := CallbackCreate(GetMethod(implObj, "GetModuleNameString"), flags, 7)
+        this.vtbl.GetConstantName := CallbackCreate(GetMethod(implObj, "GetConstantName"), flags, 7)
+        this.vtbl.GetFieldName := CallbackCreate(GetMethod(implObj, "GetFieldName"), flags, 7)
+        this.vtbl.GetTypeOptions := CallbackCreate(GetMethod(implObj, "GetTypeOptions"), flags, 2)
+        this.vtbl.AddTypeOptions := CallbackCreate(GetMethod(implObj, "AddTypeOptions"), flags, 2)
+        this.vtbl.RemoveTypeOptions := CallbackCreate(GetMethod(implObj, "RemoveTypeOptions"), flags, 2)
+        this.vtbl.SetTypeOptions := CallbackCreate(GetMethod(implObj, "SetTypeOptions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSymbolOptions)
+        CallbackFree(this.vtbl.AddSymbolOptions)
+        CallbackFree(this.vtbl.RemoveSymbolOptions)
+        CallbackFree(this.vtbl.SetSymbolOptions)
+        CallbackFree(this.vtbl.GetNameByOffset)
+        CallbackFree(this.vtbl.GetOffsetByName)
+        CallbackFree(this.vtbl.GetNearNameByOffset)
+        CallbackFree(this.vtbl.GetLineByOffset)
+        CallbackFree(this.vtbl.GetOffsetByLine)
+        CallbackFree(this.vtbl.GetNumberModules)
+        CallbackFree(this.vtbl.GetModuleByIndex)
+        CallbackFree(this.vtbl.GetModuleByModuleName)
+        CallbackFree(this.vtbl.GetModuleByOffset)
+        CallbackFree(this.vtbl.GetModuleNames)
+        CallbackFree(this.vtbl.GetModuleParameters)
+        CallbackFree(this.vtbl.GetSymbolModule)
+        CallbackFree(this.vtbl.GetTypeName)
+        CallbackFree(this.vtbl.GetTypeId)
+        CallbackFree(this.vtbl.GetTypeSize)
+        CallbackFree(this.vtbl.GetFieldOffset)
+        CallbackFree(this.vtbl.GetSymbolTypeId)
+        CallbackFree(this.vtbl.GetOffsetTypeId)
+        CallbackFree(this.vtbl.ReadTypedDataVirtual)
+        CallbackFree(this.vtbl.WriteTypedDataVirtual)
+        CallbackFree(this.vtbl.OutputTypedDataVirtual)
+        CallbackFree(this.vtbl.ReadTypedDataPhysical)
+        CallbackFree(this.vtbl.WriteTypedDataPhysical)
+        CallbackFree(this.vtbl.OutputTypedDataPhysical)
+        CallbackFree(this.vtbl.GetScope)
+        CallbackFree(this.vtbl.SetScope)
+        CallbackFree(this.vtbl.ResetScope)
+        CallbackFree(this.vtbl.GetScopeSymbolGroup)
+        CallbackFree(this.vtbl.CreateSymbolGroup)
+        CallbackFree(this.vtbl.StartSymbolMatch)
+        CallbackFree(this.vtbl.GetNextSymbolMatch)
+        CallbackFree(this.vtbl.EndSymbolMatch)
+        CallbackFree(this.vtbl.Reload)
+        CallbackFree(this.vtbl.GetSymbolPath)
+        CallbackFree(this.vtbl.SetSymbolPath)
+        CallbackFree(this.vtbl.AppendSymbolPath)
+        CallbackFree(this.vtbl.GetImagePath)
+        CallbackFree(this.vtbl.SetImagePath)
+        CallbackFree(this.vtbl.AppendImagePath)
+        CallbackFree(this.vtbl.GetSourcePath)
+        CallbackFree(this.vtbl.GetSourcePathElement)
+        CallbackFree(this.vtbl.SetSourcePath)
+        CallbackFree(this.vtbl.AppendSourcePath)
+        CallbackFree(this.vtbl.FindSourceFile)
+        CallbackFree(this.vtbl.GetSourceFileLineOffsets)
+        CallbackFree(this.vtbl.GetModuleVersionInformation)
+        CallbackFree(this.vtbl.GetModuleNameString)
+        CallbackFree(this.vtbl.GetConstantName)
+        CallbackFree(this.vtbl.GetFieldName)
+        CallbackFree(this.vtbl.GetTypeOptions)
+        CallbackFree(this.vtbl.AddTypeOptions)
+        CallbackFree(this.vtbl.RemoveTypeOptions)
+        CallbackFree(this.vtbl.SetTypeOptions)
     }
 }

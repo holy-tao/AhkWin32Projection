@@ -1,81 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_LOCKDATA extends Win32Struct {
-    static sizeof => 72
+export default struct DDHAL_LOCKDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDSurface : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpDDSurface {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    bHasRect : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bHasRect {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    rArea : RECTL
 
-    /**
-     * @type {RECTL}
-     */
-    rArea {
-        get {
-            if(!this.HasProp("__rArea"))
-                this.__rArea := RECTL(20, this)
-            return this.__rArea
-        }
-    }
+    lpSurfData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpSurfData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Lock : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALSURFCB_LOCK>}
-     */
-    Lock {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

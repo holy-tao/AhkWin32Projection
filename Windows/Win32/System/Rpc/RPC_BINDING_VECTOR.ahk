@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RPC_BINDING_VECTOR structure contains a list of binding handles over which a server application can receive remote procedure calls.
@@ -26,29 +25,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_vector
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_BINDING_VECTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct RPC_BINDING_VECTOR {
+    #StructPack 8
 
     /**
      * Number of binding handles present in the binding-handle array <b>BindingH</b>.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
     /**
      * Array of binding handles that contains <b>Count</b> elements.
-     * @type {Array<Pointer<Void>>}
      */
-    BindingH {
-        get {
-            if(!this.HasProp("__BindingHProxyArray"))
-                this.__BindingHProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__BindingHProxyArray
-        }
-    }
+    BindingH : IntPtr[1]
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a set of bits represented by an array of bytes.
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_bit_blob
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_BIT_BLOB extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPT_BIT_BLOB {
+    #StructPack 8
 
     /**
      * The number of bytes in the <b>pbData</b> array.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbData : UInt32
 
     /**
      * A pointer to an array of bytes that represents the bits.
-     * @type {Pointer<Integer>}
      */
-    pbData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbData : IntPtr
 
     /**
      * The number of unused bits in the last byte of the array. The unused bits are always the least significant bits in the last byte of the array.
-     * @type {Integer}
      */
-    cUnusedBits {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cUnusedBits : UInt32
+
 }

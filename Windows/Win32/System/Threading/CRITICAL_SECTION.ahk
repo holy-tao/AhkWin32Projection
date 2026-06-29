@@ -1,67 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRITICAL_SECTION_DEBUG.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CRITICAL_SECTION_DEBUG.ahk" { CRITICAL_SECTION_DEBUG }
 
 /**
  * @namespace Windows.Win32.System.Threading
  */
-class CRITICAL_SECTION extends Win32Struct {
-    static sizeof => 40
+export default struct CRITICAL_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer<CRITICAL_SECTION_DEBUG>}
-     */
+    __DebugInfo_ptr : IntPtr
     DebugInfo {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get => (addr := this.__DebugInfo_ptr) ? CRITICAL_SECTION_DEBUG.At(addr) : unset
+        set => this.__DebugInfo_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    LockCount {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    LockCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RecursionCount {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    RecursionCount : Int32
 
-    /**
-     * @type {HANDLE}
-     */
-    OwningThread {
-        get {
-            if(!this.HasProp("__OwningThread"))
-                this.__OwningThread := HANDLE(16, this)
-            return this.__OwningThread
-        }
-    }
+    OwningThread : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    LockSemaphore {
-        get {
-            if(!this.HasProp("__LockSemaphore"))
-                this.__LockSemaphore := HANDLE(24, this)
-            return this.__LockSemaphore
-        }
-    }
+    LockSemaphore : HANDLE
 
-    /**
-     * @type {Pointer}
-     */
-    SpinCount {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SpinCount : IntPtr
+
 }

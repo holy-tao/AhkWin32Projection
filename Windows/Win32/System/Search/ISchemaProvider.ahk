@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEntity.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEntity.ahk" { IEntity }
+#Import ".\ITokenCollection.ahk" { ITokenCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISchemaLocalizerSupport.ahk" { ISchemaLocalizerSupport }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a schema repository that can be browsed.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-ischemaprovider
  * @namespace Windows.Win32.System.Search
  */
-class ISchemaProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISchemaProvider extends IUnknown {
     /**
      * The interface identifier for ISchemaProvider
      * @type {Guid}
      */
-    static IID => Guid("{8cf89bcb-394c-49b2-ae28-a59dd4ed7f68}")
+    static IID := Guid("{8cf89bcb-394c-49b2-ae28-a59dd4ed7f68}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISchemaProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Entities                  : IntPtr
+        RootEntity                : IntPtr
+        GetEntity                 : IntPtr
+        MetaData                  : IntPtr
+        Localize                  : IntPtr
+        SaveBinary                : IntPtr
+        LookupAuthoredNamedEntity : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Entities", "RootEntity", "GetEntity", "MetaData", "Localize", "SaveBinary", "LookupAuthoredNamedEntity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISchemaProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an enumeration of IEntity objects with one entry for each entity in the loaded schema.
@@ -41,7 +58,7 @@ class ISchemaProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-entities
      */
     Entities(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &pEntities := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr*", &pEntities := 0, "HRESULT")
         return pEntities
     }
 
@@ -85,7 +102,7 @@ class ISchemaProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-metadata
      */
     MetaData(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, "ptr*", &pMetaData := 0, "HRESULT")
         return pMetaData
     }
 
@@ -165,5 +182,37 @@ class ISchemaProvider extends IUnknown {
 
         result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, "uint", cTokensBegin, pcTokensLengthMarshal, pcTokensLength, ppszValueMarshal, ppszValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISchemaProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Entities := CallbackCreate(GetMethod(implObj, "Entities"), flags, 3)
+        this.vtbl.RootEntity := CallbackCreate(GetMethod(implObj, "RootEntity"), flags, 2)
+        this.vtbl.GetEntity := CallbackCreate(GetMethod(implObj, "GetEntity"), flags, 3)
+        this.vtbl.MetaData := CallbackCreate(GetMethod(implObj, "MetaData"), flags, 3)
+        this.vtbl.Localize := CallbackCreate(GetMethod(implObj, "Localize"), flags, 3)
+        this.vtbl.SaveBinary := CallbackCreate(GetMethod(implObj, "SaveBinary"), flags, 2)
+        this.vtbl.LookupAuthoredNamedEntity := CallbackCreate(GetMethod(implObj, "LookupAuthoredNamedEntity"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Entities)
+        CallbackFree(this.vtbl.RootEntity)
+        CallbackFree(this.vtbl.GetEntity)
+        CallbackFree(this.vtbl.MetaData)
+        CallbackFree(this.vtbl.Localize)
+        CallbackFree(this.vtbl.SaveBinary)
+        CallbackFree(this.vtbl.LookupAuthoredNamedEntity)
     }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Gdi\HDC.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_DESTROYDCFROMMEMORY extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMT_DESTROYDCFROMMEMORY {
+    #StructPack 8
 
-    static packingSize => 8
+    hDc : HDC
 
-    /**
-     * @type {HDC}
-     */
-    hDc {
-        get {
-            if(!this.HasProp("__hDc"))
-                this.__hDc := HDC(0, this)
-            return this.__hDc
-        }
-    }
+    hBitmap : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hBitmap {
-        get {
-            if(!this.HasProp("__hBitmap"))
-                this.__hBitmap := HANDLE(8, this)
-            return this.__hBitmap
-        }
-    }
 }

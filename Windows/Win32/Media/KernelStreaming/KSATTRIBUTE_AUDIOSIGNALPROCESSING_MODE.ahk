@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSATTRIBUTE.ahk" { KSATTRIBUTE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE extends Win32Struct {
-    static sizeof => 24
+export default struct KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE {
+    #StructPack 4
 
-    static packingSize => 8
+    AttributeHeader : KSATTRIBUTE
 
-    /**
-     * @type {KSATTRIBUTE}
-     */
-    AttributeHeader {
-        get {
-            if(!this.HasProp("__AttributeHeader"))
-                this.__AttributeHeader := KSATTRIBUTE(0, this)
-            return this.__AttributeHeader
-        }
-    }
+    SignalProcessingMode : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SignalProcessingMode {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

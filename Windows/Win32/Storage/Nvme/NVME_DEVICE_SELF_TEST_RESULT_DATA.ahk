@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains data about the results of a Device Self-Test operation.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_result_data
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct {
-    static sizeof => 40
+export default struct NVME_DEVICE_SELF_TEST_RESULT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Status extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Status {
         /**
          * This bitfield backs the following members:
          * - Result
          * - CodeValue
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -43,10 +35,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct {
         }
     }
 
-    class _ValidDiagnostics extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _ValidDiagnostics {
         /**
          * This bitfield backs the following members:
          * - NSIDValid
@@ -54,12 +43,9 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct {
          * - SCTValid
          * - SCValid
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -94,20 +80,14 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct {
         }
     }
 
-    class _StatusCodeType extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _StatusCodeType {
         /**
          * This bitfield backs the following members:
          * - AdditionalInfo
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -120,102 +100,54 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct {
 
     /**
      * A **Status** structure containing fields that describe the status of a Device Self-Test operation.
-     * @type {_Status}
      */
-    Status {
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := NVME_DEVICE_SELF_TEST_RESULT_DATA._Status(0, this)
-            return this.__Status
-        }
-    }
+    Status : NVME_DEVICE_SELF_TEST_RESULT_DATA._Status
 
     /**
      * Indicates the first segment in which a failure occurred during the Device Self-Test operation.
-     * @type {Integer}
      */
-    SegmentNumber {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    SegmentNumber : Int8
 
     /**
      * A **ValidDiagnostics** structure containing fields that indicate the validity of certain parameters in a Device Self-Test operation.
-     * @type {_ValidDiagnostics}
      */
-    ValidDiagnostics {
-        get {
-            if(!this.HasProp("__ValidDiagnostics"))
-                this.__ValidDiagnostics := NVME_DEVICE_SELF_TEST_RESULT_DATA._ValidDiagnostics(2, this)
-            return this.__ValidDiagnostics
-        }
-    }
+    ValidDiagnostics : NVME_DEVICE_SELF_TEST_RESULT_DATA._ValidDiagnostics
 
     /**
      * A reserved field in the **ValidDiagnostics**  structure.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Reserved : Int8
 
     /**
      * Indicates the number of Power On Hours (POH) when the test operation was completed or aborted.
-     * @type {Integer}
      */
-    POH {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    POH : Int64
 
     /**
      * Contains the Namespace Identifier (NSID). This field is only valid if **NSIDValid** is set to `1`.
-     * @type {Integer}
      */
-    NSID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NSID : UInt32
 
     /**
      * The Logical Block Address (LBA) which caused the test to fail. This field is only valid if **FLBAValid** is set to `1`.
-     * @type {Integer}
      */
-    FailingLBA {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FailingLBA : Int64
 
     /**
      * A Status Code Type (**StatusCodeType**) structure containing fields that contain information about errors and conditions.
-     * @type {_StatusCodeType}
      */
-    StatusCodeType {
-        get {
-            if(!this.HasProp("__StatusCodeType"))
-                this.__StatusCodeType := NVME_DEVICE_SELF_TEST_RESULT_DATA._StatusCodeType(32, this)
-            return this.__StatusCodeType
-        }
-    }
+    StatusCodeType : NVME_DEVICE_SELF_TEST_RESULT_DATA._StatusCodeType
 
     /**
      * A **StatusCodeType** field that contains additional information related to errors and conditions of the Device Self-Test operation based on the Status Code.
      * 
      * This field is only valid if **SCValid** is set to `1`.
-     * @type {Integer}
      */
-    StatusCode {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    StatusCode : Int8
 
     /**
      * A vendor specific field.
-     * @type {Integer}
      */
-    VendorSpecific {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    VendorSpecific : UInt16
+
 }

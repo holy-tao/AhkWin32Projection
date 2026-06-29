@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NETCON_PROPERTIES.ahk" { NETCON_PROPERTIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INetConnection interface provides methods to manage network connections.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetconnection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetConnection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetConnection extends IUnknown {
     /**
      * The interface identifier for INetConnection
      * @type {Guid}
      */
-    static IID => Guid("{c08956a1-1cd3-11d1-b1c5-00805fc1270e}")
+    static IID := Guid("{c08956a1-1cd3-11d1-b1c5-00805fc1270e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetConnection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Connect            : IntPtr
+        Disconnect         : IntPtr
+        Delete             : IntPtr
+        Duplicate          : IntPtr
+        GetProperties      : IntPtr
+        GetUiObjectClassId : IntPtr
+        Rename             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect", "Delete", "Duplicate", "GetProperties", "GetUiObjectClassId", "Rename"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetConnection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Connect method connects, or establishes, this network connection.
@@ -386,7 +401,7 @@ class INetConnection extends IUnknown {
      */
     GetUiObjectClassId() {
         pclsid := Guid()
-        result := ComCall(8, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pclsid, "HRESULT")
         return pclsid
     }
 
@@ -498,5 +513,37 @@ class INetConnection extends IUnknown {
 
         result := ComCall(9, this, "ptr", pszwNewName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetConnection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Duplicate := CallbackCreate(GetMethod(implObj, "Duplicate"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetUiObjectClassId := CallbackCreate(GetMethod(implObj, "GetUiObjectClassId"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Duplicate)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetUiObjectClassId)
+        CallbackFree(this.vtbl.Rename)
     }
 }

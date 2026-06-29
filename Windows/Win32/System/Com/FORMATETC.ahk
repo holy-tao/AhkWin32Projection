@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVTARGETDEVICE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 
 /**
  * Represents a generalized clipboard format.
@@ -9,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-formatetc
  * @namespace Windows.Win32.System.Com
  */
-class FORMATETC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FORMATETC {
+    #StructPack 8
 
     /**
      * The clipboard format of interest. There are three types of formats recognized by OLE:
@@ -26,46 +23,27 @@ class FORMATETC extends Win32Struct {
      * <li>OLE formats, which are used to create linked or embedded objects.
      * </li>
      * </ul>
-     * @type {Integer}
      */
-    cfFormat {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cfFormat : UInt16
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-dvtargetdevice">DVTARGETDEVICE</a> structure containing information about the target device for which the data is being composed. A <b>NULL</b> value is used whenever the specified data format is independent of the target device or when the caller doesn't care what device is used. In the latter case, if the data requires a target device, the object should pick an appropriate default device (often the display for visual components). Data obtained from an object with a <b>NULL</b> target device, such as most metafiles, is independent of the target device. The resulting data is usually the same as it would be if the user chose the <b>Save As</b> command from the <b>File</b> menu and selected an interchange format.
-     * @type {Pointer<DVTARGETDEVICE>}
      */
-    ptd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ptd : DVTARGETDEVICE.Ptr
 
     /**
      * Indicates how much detail should be contained in the rendering. This parameter should be one of the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration values. A single clipboard format can support multiple aspects or views of the object. Most data and presentation transfer and caching methods pass aspect information. For example, a caller might request an object's iconic picture, using the metafile clipboard format to retrieve it. Note that only one <b>DVASPECT</b> value can be used in <b>dwAspect</b>. That is, <b>dwAspect</b> cannot be the result of a Boolean OR operation on several <b>DVASPECT</b> values.
-     * @type {Integer}
      */
-    dwAspect {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAspect : UInt32
 
     /**
      * Part of the aspect when the data must be split across page boundaries. The most common value is -1, which identifies all of the data. For the aspects DVASPECT_THUMBNAIL and DVASPECT_ICON, lindex is ignored.
-     * @type {Integer}
      */
-    lindex {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    lindex : Int32
 
     /**
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-tymed">TYMED</a> enumeration constants which indicate the type of storage medium used to transfer the object's data. Data can be transferred using whatever medium makes sense for the object. For example, data can be passed using global memory, a disk file, or structured storage objects. For more information, see the <b>TYMED</b> enumeration.
-     * @type {Integer}
      */
-    tymed {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    tymed : UInt32
+
 }

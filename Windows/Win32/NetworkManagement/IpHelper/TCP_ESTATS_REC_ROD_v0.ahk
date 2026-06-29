@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on the local receiver for a TCP connection.
@@ -173,55 +172,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_rec_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct TCP_ESTATS_REC_ROD_v0 {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The most recent window advertisement, in bytes, that has been sent.
-     * @type {Integer}
      */
-    CurRwinSent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CurRwinSent : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum window advertisement, in bytes, that has been sent.
-     * @type {Integer}
      */
-    MaxRwinSent {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxRwinSent : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum window advertisement, in bytes, that has been sent.
-     * @type {Integer}
      */
-    MinRwinSent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinRwinSent : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum window advertisement, in bytes, that may
      *            be sent.
-     * @type {Integer}
      */
-    LimRwin {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    LimRwin : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -235,12 +216,8 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      * This is an indication of the number of data segments lost
      *            or reordered on the path from the remote TCP endpoint to
      *            the near TCP endpoint.
-     * @type {Integer}
      */
-    DupAckEpisodes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DupAckEpisodes : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -251,46 +228,30 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      *            in the <b>DupAcksOut</b> member to the change in
      *            the <b>DupAckEpisodes</b> member  is an indication of reorder or
      *            recovery distance over some interval.
-     * @type {Integer}
      */
-    DupAcksOut {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DupAcksOut : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of segments received with IP headers bearing
      *            Congestion Experienced (CE) markings.
-     * @type {Integer}
      */
-    CeRcvd {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CeRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Reserved for future use. This member is always set to zero.
-     * @type {Integer}
      */
-    EcnSent {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    EcnSent : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Reserved for future use. This member is always set to zero.
-     * @type {Integer}
      */
-    EcnNoncesRcvd {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EcnNoncesRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -301,12 +262,8 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      * This is generally the difference
      *            between rcv.nxt and the sequence number of the right most
      *            edge of the reassembly queue.
-     * @type {Integer}
      */
-    CurReasmQueue {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    CurReasmQueue : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -315,12 +272,8 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      *            the reassembly queue. 
      * 
      * This is the maximum value of the <b>CurReasmQueue</b> member.
-     * @type {Integer}
      */
-    MaxReasmQueue {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MaxReasmQueue : UInt32
 
     /**
      * Type: <b>SIZE_T</b>
@@ -328,12 +281,8 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      * The current number of bytes of application data that has
      *            been acknowledged by TCP but not yet delivered to the
      *            application.
-     * @type {Pointer}
      */
-    CurAppRQueue {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    CurAppRQueue : IntPtr
 
     /**
      * Type: <b>SIZE_T</b>
@@ -341,12 +290,8 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      * The maximum number of bytes of application data that has
      *            been acknowledged by TCP but not yet delivered to the
      *            application.
-     * @type {Pointer}
      */
-    MaxAppRQueue {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    MaxAppRQueue : IntPtr
 
     /**
      * Type: <b>UCHAR</b>
@@ -359,10 +304,7 @@ class TCP_ESTATS_REC_ROD_v0 extends Win32Struct {
      *            will be the same as this value and used to scale receiver
      *            window announcements from the local host to the remote
      *            host.
-     * @type {Integer}
      */
-    WinScaleSent {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
-    }
+    WinScaleSent : Int8
+
 }

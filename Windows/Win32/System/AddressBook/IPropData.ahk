@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
 
 /**
  * IPropData IMAPIProp provides the ability to retrieve and change the access for an object's properties.
@@ -12,21 +15,31 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdataimapiprop
  * @namespace Windows.Win32.System.AddressBook
  */
-class IPropData extends IMAPIProp {
+export default struct IPropData extends IMAPIProp {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HrSetObjAccess", "HrSetPropAccess", "HrGetPropAccess", "HrAddObjProps"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropData interfaces
+    */
+    struct Vtbl extends IMAPIProp.Vtbl {
+        HrSetObjAccess  : IntPtr
+        HrSetPropAccess : IntPtr
+        HrGetPropAccess : IntPtr
+        HrAddObjProps   : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -78,7 +91,7 @@ class IPropData extends IMAPIProp {
     HrSetPropAccess(lpPropTagArray, rgulAccess) {
         rgulAccessMarshal := rgulAccess is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", lpPropTagArray, rgulAccessMarshal, rgulAccess, "HRESULT")
+        result := ComCall(15, this, SPropTagArray.Ptr, lpPropTagArray, rgulAccessMarshal, rgulAccess, "HRESULT")
         return result
     }
 
@@ -132,7 +145,33 @@ class IPropData extends IMAPIProp {
     HrAddObjProps(lppPropTagArray, lprgulAccess) {
         lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "ptr", lppPropTagArray, lprgulAccessMarshal, lprgulAccess, "HRESULT")
+        result := ComCall(17, this, SPropTagArray.Ptr, lppPropTagArray, lprgulAccessMarshal, lprgulAccess, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HrSetObjAccess := CallbackCreate(GetMethod(implObj, "HrSetObjAccess"), flags, 2)
+        this.vtbl.HrSetPropAccess := CallbackCreate(GetMethod(implObj, "HrSetPropAccess"), flags, 3)
+        this.vtbl.HrGetPropAccess := CallbackCreate(GetMethod(implObj, "HrGetPropAccess"), flags, 3)
+        this.vtbl.HrAddObjProps := CallbackCreate(GetMethod(implObj, "HrAddObjProps"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HrSetObjAccess)
+        CallbackFree(this.vtbl.HrSetPropAccess)
+        CallbackFree(this.vtbl.HrGetPropAccess)
+        CallbackFree(this.vtbl.HrAddObjProps)
     }
 }

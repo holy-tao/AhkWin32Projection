@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Specifies the ServiceMain function for a service that can run in the calling process. It is used by the StartServiceCtrlDispatcher function. (ANSI)
@@ -10,10 +10,8 @@
  * @namespace Windows.Win32.System.Services
  * @charset ANSI
  */
-class SERVICE_TABLE_ENTRYA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SERVICE_TABLE_ENTRYA {
+    #StructPack 8
 
     /**
      * The name of a service to be run in this service process.  
@@ -22,20 +20,13 @@ class SERVICE_TABLE_ENTRYA extends Win32Struct {
      * 
      * If the service is installed with the SERVICE_WIN32_SHARE_PROCESS service type, this member specifies the name of the service that uses the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function pointed to by the <b>lpServiceProc</b> member.
-     * @type {PSTR}
      */
-    lpServiceName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpServiceName : PSTR
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function.
-     * @type {Pointer<LPSERVICE_MAIN_FUNCTIONA>}
      */
-    lpServiceProc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpServiceProc : IntPtr
+
 }

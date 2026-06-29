@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_GENERIC_ERR_MEM_MAP_EVENT extends Win32Struct {
-    static sizeof => 56
+export default struct WHEAP_GENERIC_ERR_MEM_MAP_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MapReason : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    MapReason {
-        get => StrGet(this.ptr + 8, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
-    }
+    PhysicalAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalAddress {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Length : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

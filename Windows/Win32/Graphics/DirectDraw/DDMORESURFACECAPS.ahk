@@ -1,69 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPSEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDMORESURFACECAPS extends Win32Struct {
-    static sizeof => 40
+export default struct DDMORESURFACECAPS {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class ExtendedHeapRestrictions extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+    struct ExtendedHeapRestrictions {
+        ddsCapsEx : DDSCAPSEX
 
-        /**
-         * @type {DDSCAPSEX}
-         */
-        ddsCapsEx {
-            get {
-                if(!this.HasProp("__ddsCapsEx"))
-                    this.__ddsCapsEx := DDSCAPSEX(0, this)
-                return this.__ddsCapsEx
-            }
-        }
+        ddsCapsExAlt : DDSCAPSEX
 
-        /**
-         * @type {DDSCAPSEX}
-         */
-        ddsCapsExAlt {
-            get {
-                if(!this.HasProp("__ddsCapsExAlt"))
-                    this.__ddsCapsExAlt := DDSCAPSEX(12, this)
-                return this.__ddsCapsExAlt
-            }
-        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {DDSCAPSEX}
-     */
-    ddsCapsMore {
-        get {
-            if(!this.HasProp("__ddsCapsMore"))
-                this.__ddsCapsMore := DDSCAPSEX(4, this)
-            return this.__ddsCapsMore
-        }
-    }
+    ddsCapsMore : DDSCAPSEX
 
-    /**
-     * @type {ExtendedHeapRestrictions}
-     */
-    ddsExtendedHeapRestrictions {
-        get {
-            if(!this.HasProp("__ddsExtendedHeapRestrictionsProxyArray"))
-                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 16, 1, DDMORESURFACECAPS.ExtendedHeapRestrictions, "")
-            return this.__ddsExtendedHeapRestrictionsProxyArray
-        }
-    }
+    ddsExtendedHeapRestrictions : DDMORESURFACECAPS.ExtendedHeapRestrictions[1]
+
 }

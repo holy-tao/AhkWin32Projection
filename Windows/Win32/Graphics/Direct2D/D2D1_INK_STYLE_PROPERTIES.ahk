@@ -1,36 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_INK_NIB_SHAPE.ahk
-#Include Common\D2D_MATRIX_3X2_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_INK_NIB_SHAPE.ahk" { D2D1_INK_NIB_SHAPE }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 
 /**
  * Defines the general pen tip shape and the transform used in an ID2D1InkStyle object.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_ink_style_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_INK_STYLE_PROPERTIES extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct D2D1_INK_STYLE_PROPERTIES {
+    #StructPack 4
 
     /**
      * The pre-transform shape of the nib (pen tip) used to draw a given ink object.
-     * @type {D2D1_INK_NIB_SHAPE}
      */
-    nibShape {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    nibShape : D2D1_INK_NIB_SHAPE
 
     /**
      * The transform applied to the nib.  Note that the translation components of the transform matrix are ignored for the purposes of rendering.
-     * @type {D2D_MATRIX_3X2_F}
      */
-    nibTransform {
-        get {
-            if(!this.HasProp("__nibTransform"))
-                this.__nibTransform := D2D_MATRIX_3X2_F(4, this)
-            return this.__nibTransform
-        }
-    }
+    nibTransform : D2D_MATRIX_3X2_F
+
 }

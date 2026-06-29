@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the target operating system platform.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-syskind
  * @namespace Windows.Win32.System.Com
  */
-class SYSKIND extends Win32Enum {
+export default struct SYSKIND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The target operating system for the type library is 16-bit Windows. By default, data members are packed.

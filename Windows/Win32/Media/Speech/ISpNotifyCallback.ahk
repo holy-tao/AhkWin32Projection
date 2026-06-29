@@ -1,25 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpNotifyCallback extends Win32ComInterface {
+export default struct ISpNotifyCallback extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NotifyCallback"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpNotifyCallback interfaces
+    */
+    struct Vtbl {
+        NotifyCallback : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpNotifyCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -28,7 +38,14 @@ class ISpNotifyCallback extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     NotifyCallback(_wParam, _lParam) {
-        result := ComCall(0, this, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(0, this, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpNotifyCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

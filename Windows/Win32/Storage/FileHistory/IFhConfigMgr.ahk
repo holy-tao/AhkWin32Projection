@@ -1,41 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFhScopeIterator.ahk
-#Include .\IFhTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFhTarget.ahk" { IFhTarget }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FH_LOCAL_POLICY_TYPE.ahk" { FH_LOCAL_POLICY_TYPE }
+#Import ".\FH_PROTECTED_ITEM_CATEGORY.ahk" { FH_PROTECTED_ITEM_CATEGORY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FH_BACKUP_STATUS.ahk" { FH_BACKUP_STATUS }
+#Import ".\IFhScopeIterator.ahk" { IFhScopeIterator }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FH_DEVICE_VALIDATION_RESULT.ahk" { FH_DEVICE_VALIDATION_RESULT }
 
 /**
  * The IFhConfigMgr interface allows client applications to read and modify the File History configuration for the user account under which the methods of this interface are called.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhconfigmgr
  * @namespace Windows.Win32.Storage.FileHistory
  */
-class IFhConfigMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFhConfigMgr extends IUnknown {
     /**
      * The interface identifier for IFhConfigMgr
      * @type {Guid}
      */
-    static IID => Guid("{6a5fea5b-bf8f-4ee5-b8c3-44d8a0d7331c}")
+    static IID := Guid("{6a5fea5b-bf8f-4ee5-b8c3-44d8a0d7331c}")
 
     /**
      * The class identifier for FhConfigMgr
      * @type {Guid}
      */
-    static CLSID => Guid("{ed43bb3c-09e9-498a-9df6-2177244c6db4}")
+    static CLSID := Guid("{ed43bb3c-09e9-498a-9df6-2177244c6db4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFhConfigMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LoadConfiguration                 : IntPtr
+        CreateDefaultConfiguration        : IntPtr
+        SaveConfiguration                 : IntPtr
+        AddRemoveExcludeRule              : IntPtr
+        GetIncludeExcludeRules            : IntPtr
+        GetLocalPolicy                    : IntPtr
+        SetLocalPolicy                    : IntPtr
+        GetBackupStatus                   : IntPtr
+        SetBackupStatus                   : IntPtr
+        GetDefaultTarget                  : IntPtr
+        ValidateTarget                    : IntPtr
+        ProvisionAndSetNewTarget          : IntPtr
+        ChangeDefaultTargetRecommendation : IntPtr
+        QueryProtectionStatus             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadConfiguration", "CreateDefaultConfiguration", "SaveConfiguration", "AddRemoveExcludeRule", "GetIncludeExcludeRules", "GetLocalPolicy", "SetLocalPolicy", "GetBackupStatus", "SetBackupStatus", "GetDefaultTarget", "ValidateTarget", "ProvisionAndSetNewTarget", "ChangeDefaultTargetRecommendation", "QueryProtectionStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFhConfigMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Loads the File History configuration information for the current user into an FhConfigMgr object.
@@ -60,7 +87,7 @@ class IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-createdefaultconfiguration
      */
     CreateDefaultConfiguration(OverwriteIfExists) {
-        result := ComCall(4, this, "int", OverwriteIfExists, "HRESULT")
+        result := ComCall(4, this, BOOL, OverwriteIfExists, "HRESULT")
         return result
     }
 
@@ -104,7 +131,7 @@ class IFhConfigMgr extends IUnknown {
     AddRemoveExcludeRule(Add, Category, Item) {
         Item := Item is String ? BSTR.Alloc(Item).Value : Item
 
-        result := ComCall(6, this, "int", Add, "int", Category, "ptr", Item, "HRESULT")
+        result := ComCall(6, this, BOOL, Add, FH_PROTECTED_ITEM_CATEGORY, Category, BSTR, Item, "HRESULT")
         return result
     }
 
@@ -126,7 +153,7 @@ class IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules
      */
     GetIncludeExcludeRules(Include, Category) {
-        result := ComCall(7, this, "int", Include, "int", Category, "ptr*", &Iterator := 0, "HRESULT")
+        result := ComCall(7, this, BOOL, Include, FH_PROTECTED_ITEM_CATEGORY, Category, "ptr*", &Iterator := 0, "HRESULT")
         return IFhScopeIterator(Iterator)
     }
 
@@ -141,7 +168,7 @@ class IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy
      */
     GetLocalPolicy(LocalPolicyType) {
-        result := ComCall(8, this, "int", LocalPolicyType, "uint*", &PolicyValue := 0, "HRESULT")
+        result := ComCall(8, this, FH_LOCAL_POLICY_TYPE, LocalPolicyType, "uint*", &PolicyValue := 0, "HRESULT")
         return PolicyValue
     }
 
@@ -157,7 +184,7 @@ class IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy
      */
     SetLocalPolicy(LocalPolicyType, PolicyValue) {
-        result := ComCall(9, this, "int", LocalPolicyType, "uint", PolicyValue, "HRESULT")
+        result := ComCall(9, this, FH_LOCAL_POLICY_TYPE, LocalPolicyType, "uint", PolicyValue, "HRESULT")
         return result
     }
 
@@ -180,7 +207,7 @@ class IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setbackupstatus
      */
     SetBackupStatus(BackupStatus) {
-        result := ComCall(11, this, "int", BackupStatus, "HRESULT")
+        result := ComCall(11, this, FH_BACKUP_STATUS, BackupStatus, "HRESULT")
         return result
     }
 
@@ -209,7 +236,7 @@ class IFhConfigMgr extends IUnknown {
     ValidateTarget(TargetUrl) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        result := ComCall(13, this, "ptr", TargetUrl, "int*", &ValidationResult := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, TargetUrl, "int*", &ValidationResult := 0, "HRESULT")
         return ValidationResult
     }
 
@@ -230,7 +257,7 @@ class IFhConfigMgr extends IUnknown {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(14, this, "ptr", TargetUrl, "ptr", TargetName, "HRESULT")
+        result := ComCall(14, this, BSTR, TargetUrl, BSTR, TargetName, "HRESULT")
         return result
     }
 
@@ -247,7 +274,7 @@ class IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-changedefaulttargetrecommendation
      */
     ChangeDefaultTargetRecommendation(Recommend) {
-        result := ComCall(15, this, "int", Recommend, "HRESULT")
+        result := ComCall(15, this, BOOL, Recommend, "HRESULT")
         return result
     }
 
@@ -439,7 +466,53 @@ class IFhConfigMgr extends IUnknown {
     QueryProtectionStatus(ProtectionState, ProtectedUntilTime) {
         ProtectionStateMarshal := ProtectionState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, ProtectionStateMarshal, ProtectionState, "ptr", ProtectedUntilTime, "HRESULT")
+        result := ComCall(16, this, ProtectionStateMarshal, ProtectionState, BSTR.Ptr, ProtectedUntilTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFhConfigMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadConfiguration := CallbackCreate(GetMethod(implObj, "LoadConfiguration"), flags, 1)
+        this.vtbl.CreateDefaultConfiguration := CallbackCreate(GetMethod(implObj, "CreateDefaultConfiguration"), flags, 2)
+        this.vtbl.SaveConfiguration := CallbackCreate(GetMethod(implObj, "SaveConfiguration"), flags, 1)
+        this.vtbl.AddRemoveExcludeRule := CallbackCreate(GetMethod(implObj, "AddRemoveExcludeRule"), flags, 4)
+        this.vtbl.GetIncludeExcludeRules := CallbackCreate(GetMethod(implObj, "GetIncludeExcludeRules"), flags, 4)
+        this.vtbl.GetLocalPolicy := CallbackCreate(GetMethod(implObj, "GetLocalPolicy"), flags, 3)
+        this.vtbl.SetLocalPolicy := CallbackCreate(GetMethod(implObj, "SetLocalPolicy"), flags, 3)
+        this.vtbl.GetBackupStatus := CallbackCreate(GetMethod(implObj, "GetBackupStatus"), flags, 2)
+        this.vtbl.SetBackupStatus := CallbackCreate(GetMethod(implObj, "SetBackupStatus"), flags, 2)
+        this.vtbl.GetDefaultTarget := CallbackCreate(GetMethod(implObj, "GetDefaultTarget"), flags, 2)
+        this.vtbl.ValidateTarget := CallbackCreate(GetMethod(implObj, "ValidateTarget"), flags, 3)
+        this.vtbl.ProvisionAndSetNewTarget := CallbackCreate(GetMethod(implObj, "ProvisionAndSetNewTarget"), flags, 3)
+        this.vtbl.ChangeDefaultTargetRecommendation := CallbackCreate(GetMethod(implObj, "ChangeDefaultTargetRecommendation"), flags, 2)
+        this.vtbl.QueryProtectionStatus := CallbackCreate(GetMethod(implObj, "QueryProtectionStatus"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadConfiguration)
+        CallbackFree(this.vtbl.CreateDefaultConfiguration)
+        CallbackFree(this.vtbl.SaveConfiguration)
+        CallbackFree(this.vtbl.AddRemoveExcludeRule)
+        CallbackFree(this.vtbl.GetIncludeExcludeRules)
+        CallbackFree(this.vtbl.GetLocalPolicy)
+        CallbackFree(this.vtbl.SetLocalPolicy)
+        CallbackFree(this.vtbl.GetBackupStatus)
+        CallbackFree(this.vtbl.SetBackupStatus)
+        CallbackFree(this.vtbl.GetDefaultTarget)
+        CallbackFree(this.vtbl.ValidateTarget)
+        CallbackFree(this.vtbl.ProvisionAndSetNewTarget)
+        CallbackFree(this.vtbl.ChangeDefaultTargetRecommendation)
+        CallbackFree(this.vtbl.QueryProtectionStatus)
     }
 }

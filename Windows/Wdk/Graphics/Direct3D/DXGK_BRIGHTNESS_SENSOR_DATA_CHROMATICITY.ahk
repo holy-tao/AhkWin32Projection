@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_BRIGHTNESS_SENSOR_DATA_CHROMATICITY extends Win32Struct {
-    static sizeof => 8
+export default struct DXGK_BRIGHTNESS_SENSOR_DATA_CHROMATICITY {
+    #StructPack 4
 
-    static packingSize => 4
+    ChromaticityX : Float32
 
-    /**
-     * @type {Float}
-     */
-    ChromaticityX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    ChromaticityY : Float32
 
-    /**
-     * @type {Float}
-     */
-    ChromaticityY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
 }

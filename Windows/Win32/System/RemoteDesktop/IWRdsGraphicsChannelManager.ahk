@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWRdsGraphicsChannel.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWRdsGraphicsChannel.ahk" { IWRdsGraphicsChannel }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WRdsGraphicsChannelType.ahk" { WRdsGraphicsChannelType }
 
 /**
  * This interface is used by the RemoteFX graphics services API to create the graphics virtual channels necessary for remoting graphics data.
  * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannelmanager
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWRdsGraphicsChannelManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWRdsGraphicsChannelManager extends IUnknown {
     /**
      * The interface identifier for IWRdsGraphicsChannelManager
      * @type {Guid}
      */
-    static IID => Guid("{0fd57159-e83e-476a-a8b9-4a7976e71e18}")
+    static IID := Guid("{0fd57159-e83e-476a-a8b9-4a7976e71e18}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWRdsGraphicsChannelManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateChannel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateChannel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWRdsGraphicsChannelManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Used to create a graphics virtual channel.
@@ -44,7 +53,27 @@ class IWRdsGraphicsChannelManager extends IUnknown {
     CreateChannel(pszChannelName, _channelType) {
         pszChannelNameMarshal := pszChannelName is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pszChannelNameMarshal, pszChannelName, "int", _channelType, "ptr*", &ppVirtualChannel := 0, "HRESULT")
+        result := ComCall(3, this, pszChannelNameMarshal, pszChannelName, WRdsGraphicsChannelType, _channelType, "ptr*", &ppVirtualChannel := 0, "HRESULT")
         return IWRdsGraphicsChannel(ppVirtualChannel)
+    }
+
+    Query(iid) {
+        if (IWRdsGraphicsChannelManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateChannel := CallbackCreate(GetMethod(implObj, "CreateChannel"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateChannel)
     }
 }

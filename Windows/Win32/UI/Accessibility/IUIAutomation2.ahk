@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomation.ahk" { IUIAutomation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extends the IUIAutomation interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation2
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomation2 extends IUIAutomation {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomation2 extends IUIAutomation {
     /**
      * The interface identifier for IUIAutomation2
      * @type {Guid}
      */
-    static IID => Guid("{34723aff-0c9d-49d0-9896-7ab52df8cd8a}")
+    static IID := Guid("{34723aff-0c9d-49d0-9896-7ab52df8cd8a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 58
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomation2 interfaces
+    */
+    struct Vtbl extends IUIAutomation.Vtbl {
+        get_AutoSetFocus       : IntPtr
+        put_AutoSetFocus       : IntPtr
+        get_ConnectionTimeout  : IntPtr
+        put_ConnectionTimeout  : IntPtr
+        get_TransactionTimeout : IntPtr
+        put_TransactionTimeout : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AutoSetFocus", "put_AutoSetFocus", "get_ConnectionTimeout", "put_ConnectionTimeout", "get_TransactionTimeout", "put_TransactionTimeout"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomation2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -61,7 +75,7 @@ class IUIAutomation2 extends IUIAutomation {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_autosetfocus
      */
     get_AutoSetFocus() {
-        result := ComCall(58, this, "int*", &autoSetFocus := 0, "HRESULT")
+        result := ComCall(58, this, BOOL.Ptr, &autoSetFocus := 0, "HRESULT")
         return autoSetFocus
     }
 
@@ -74,7 +88,7 @@ class IUIAutomation2 extends IUIAutomation {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-put_autosetfocus
      */
     put_AutoSetFocus(autoSetFocus) {
-        result := ComCall(59, this, "int", autoSetFocus, "HRESULT")
+        result := ComCall(59, this, BOOL, autoSetFocus, "HRESULT")
         return result
     }
 
@@ -134,5 +148,35 @@ class IUIAutomation2 extends IUIAutomation {
     put_TransactionTimeout(timeout) {
         result := ComCall(63, this, "uint", timeout, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomation2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AutoSetFocus := CallbackCreate(GetMethod(implObj, "get_AutoSetFocus"), flags, 2)
+        this.vtbl.put_AutoSetFocus := CallbackCreate(GetMethod(implObj, "put_AutoSetFocus"), flags, 2)
+        this.vtbl.get_ConnectionTimeout := CallbackCreate(GetMethod(implObj, "get_ConnectionTimeout"), flags, 2)
+        this.vtbl.put_ConnectionTimeout := CallbackCreate(GetMethod(implObj, "put_ConnectionTimeout"), flags, 2)
+        this.vtbl.get_TransactionTimeout := CallbackCreate(GetMethod(implObj, "get_TransactionTimeout"), flags, 2)
+        this.vtbl.put_TransactionTimeout := CallbackCreate(GetMethod(implObj, "put_TransactionTimeout"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AutoSetFocus)
+        CallbackFree(this.vtbl.put_AutoSetFocus)
+        CallbackFree(this.vtbl.get_ConnectionTimeout)
+        CallbackFree(this.vtbl.put_ConnectionTimeout)
+        CallbackFree(this.vtbl.get_TransactionTimeout)
+        CallbackFree(this.vtbl.put_TransactionTimeout)
     }
 }

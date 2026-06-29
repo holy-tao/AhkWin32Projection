@@ -1,142 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class HIDP_CAPS extends Win32Struct {
-    static sizeof => 64
+export default struct HIDP_CAPS {
+    #StructPack 2
 
-    static packingSize => 2
+    Usage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Usage {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    UsagePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    UsagePage {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    InputReportByteLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InputReportByteLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    OutputReportByteLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    OutputReportByteLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    FeatureReportByteLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FeatureReportByteLength {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Reserved : UInt16[17]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 17, Primitive, "ushort")
-            return this.__ReservedProxyArray
-        }
-    }
+    NumberLinkCollectionNodes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberLinkCollectionNodes {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    NumberInputButtonCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberInputButtonCaps {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    NumberInputValueCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberInputValueCaps {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    NumberInputDataIndices : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberInputDataIndices {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    NumberOutputButtonCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOutputButtonCaps {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    NumberOutputValueCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOutputValueCaps {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
+    NumberOutputDataIndices : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOutputDataIndices {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    NumberFeatureButtonCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberFeatureButtonCaps {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    NumberFeatureValueCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberFeatureValueCaps {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
+    NumberFeatureDataIndices : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberFeatureDataIndices {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
 }

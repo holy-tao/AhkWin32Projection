@@ -1,51 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_DEV_CAP_DRV extends Win32Struct {
-    static sizeof => 40
+export default struct WIA_DEV_CAP_DRV {
+    #StructPack 8
 
-    static packingSize => 8
+    guid : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    wszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszDescription : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    wszDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    wszIcon : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    wszIcon {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

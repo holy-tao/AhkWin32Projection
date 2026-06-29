@@ -1,242 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_VAR_DATA_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_VAR_DATA_DESC.ahk" { NDIS_VAR_DATA_DESC }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_CO_DEVICE_PROFILE extends Win32Struct {
-    static sizeof => 136
+export default struct NDIS_CO_DEVICE_PROFILE {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceDescription : NDIS_VAR_DATA_DESC
 
-    /**
-     * @type {NDIS_VAR_DATA_DESC}
-     */
-    DeviceDescription {
-        get {
-            if(!this.HasProp("__DeviceDescription"))
-                this.__DeviceDescription := NDIS_VAR_DATA_DESC(0, this)
-            return this.__DeviceDescription
-        }
-    }
+    DevSpecificInfo : NDIS_VAR_DATA_DESC
 
-    /**
-     * @type {NDIS_VAR_DATA_DESC}
-     */
-    DevSpecificInfo {
-        get {
-            if(!this.HasProp("__DevSpecificInfo"))
-                this.__DevSpecificInfo := NDIS_VAR_DATA_DESC(16, this)
-            return this.__DevSpecificInfo
-        }
-    }
+    ulTAPISupplementaryPassThru : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTAPISupplementaryPassThru {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulAddressModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAddressModes {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulNumAddresses : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumAddresses {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulBearerModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBearerModes {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulMaxTxRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxTxRate {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulMinTxRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMinTxRate {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ulMaxRxRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxRxRate {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulMinRxRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMinRxRate {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ulMediaModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMediaModes {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ulGenerateToneModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGenerateToneModes {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    ulGenerateToneMaxNumFreq : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGenerateToneMaxNumFreq {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ulGenerateDigitModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGenerateDigitModes {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ulMonitorToneMaxNumFreq : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMonitorToneMaxNumFreq {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ulMonitorToneMaxNumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMonitorToneMaxNumEntries {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    ulMonitorDigitModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMonitorDigitModes {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ulGatherDigitsMinTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGatherDigitsMinTimeout {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    ulGatherDigitsMaxTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGatherDigitsMaxTimeout {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ulDevCapFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDevCapFlags {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    ulMaxNumActiveCalls : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMaxNumActiveCalls {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ulAnswerMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAnswerMode {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    ulUUIAcceptSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUUIAcceptSize {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    ulUUIAnswerSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUUIAnswerSize {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    ulUUIMakeCallSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUUIMakeCallSize {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    ulUUIDropSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUUIDropSize {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    ulUUISendUserUserInfoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUUISendUserUserInfoSize {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    ulUUICallInfoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUUICallInfoSize {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
 }

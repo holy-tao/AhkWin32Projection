@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FILTER_STATE.ahk" { FILTER_STATE }
+#Import ".\IFilterGraph.ahk" { IFilterGraph }
+#Import ".\IAMMultiMediaStream.ahk" { IAMMultiMediaStream }
+#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
+#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-iammediastream
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMMediaStream extends IMediaStream {
-
-    static sizeof => A_PtrSize
+export default struct IAMMediaStream extends IMediaStream {
     /**
      * The interface identifier for IAMMediaStream
      * @type {Guid}
      */
-    static IID => Guid("{bebe595d-9a6f-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{bebe595d-9a6f-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMMediaStream interfaces
+    */
+    struct Vtbl extends IMediaStream.Vtbl {
+        Initialize             : IntPtr
+        SetState               : IntPtr
+        JoinAMMultiMediaStream : IntPtr
+        JoinFilter             : IntPtr
+        JoinFilterGraph        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SetState", "JoinAMMultiMediaStream", "JoinFilter", "JoinFilterGraph"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMMediaStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The Initialize method creates and initializes a new media stream with the specified stream type and purpose ID.
@@ -68,7 +86,7 @@ class IAMMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-initialize
      */
     Initialize(pSourceObject, dwFlags, PurposeId, StreamType) {
-        result := ComCall(9, this, "ptr", pSourceObject, "uint", dwFlags, "ptr", PurposeId, "int", StreamType, "HRESULT")
+        result := ComCall(9, this, "ptr", pSourceObject, "uint", dwFlags, Guid.Ptr, PurposeId, STREAM_TYPE, StreamType, "HRESULT")
         return result
     }
 
@@ -81,7 +99,7 @@ class IAMMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-setstate
      */
     SetState(State) {
-        result := ComCall(10, this, "int", State, "HRESULT")
+        result := ComCall(10, this, FILTER_STATE, State, "HRESULT")
         return result
     }
 
@@ -124,5 +142,33 @@ class IAMMediaStream extends IMediaStream {
     JoinFilterGraph(pFilterGraph) {
         result := ComCall(13, this, "ptr", pFilterGraph, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMMediaStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
+        this.vtbl.JoinAMMultiMediaStream := CallbackCreate(GetMethod(implObj, "JoinAMMultiMediaStream"), flags, 2)
+        this.vtbl.JoinFilter := CallbackCreate(GetMethod(implObj, "JoinFilter"), flags, 2)
+        this.vtbl.JoinFilterGraph := CallbackCreate(GetMethod(implObj, "JoinFilterGraph"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetState)
+        CallbackFree(this.vtbl.JoinAMMultiMediaStream)
+        CallbackFree(this.vtbl.JoinFilter)
+        CallbackFree(this.vtbl.JoinFilterGraph)
     }
 }

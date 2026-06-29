@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWindowsMediaLibrarySharingDeviceProperties.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWindowsMediaLibrarySharingDeviceProperties.ahk" { IWindowsMediaLibrarySharingDeviceProperties }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WindowsMediaLibrarySharingDeviceAuthorizationStatus.ahk" { WindowsMediaLibrarySharingDeviceAuthorizationStatus }
 
 /**
  * The IWindowsMediaLibrarySharingDevice interface defines methods that provide access to an individual media device on the home network.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice
  * @namespace Windows.Win32.Media.LibrarySharingServices
  */
-class IWindowsMediaLibrarySharingDevice extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWindowsMediaLibrarySharingDevice extends IDispatch {
     /**
      * The interface identifier for IWindowsMediaLibrarySharingDevice
      * @type {Guid}
      */
-    static IID => Guid("{3dccc293-4fd9-4191-a25b-8e57c5d27bd4}")
+    static IID := Guid("{3dccc293-4fd9-4191-a25b-8e57c5d27bd4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWindowsMediaLibrarySharingDevice interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DeviceID      : IntPtr
+        get_Authorization : IntPtr
+        put_Authorization : IntPtr
+        get_Properties    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DeviceID", "get_Authorization", "put_Authorization", "get_Properties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWindowsMediaLibrarySharingDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -61,8 +73,8 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
      */
     get_DeviceID() {
-        deviceID := BSTR()
-        result := ComCall(7, this, "ptr", deviceID, "HRESULT")
+        deviceID := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, deviceID, "HRESULT")
         return deviceID
     }
 
@@ -101,7 +113,7 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-put_authorization
      */
     put_Authorization(authorization) {
-        result := ComCall(9, this, "int", authorization, "HRESULT")
+        result := ComCall(9, this, WindowsMediaLibrarySharingDeviceAuthorizationStatus, authorization, "HRESULT")
         return result
     }
 
@@ -113,5 +125,31 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch {
     get_Properties() {
         result := ComCall(10, this, "ptr*", &deviceProperties := 0, "HRESULT")
         return IWindowsMediaLibrarySharingDeviceProperties(deviceProperties)
+    }
+
+    Query(iid) {
+        if (IWindowsMediaLibrarySharingDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DeviceID := CallbackCreate(GetMethod(implObj, "get_DeviceID"), flags, 2)
+        this.vtbl.get_Authorization := CallbackCreate(GetMethod(implObj, "get_Authorization"), flags, 2)
+        this.vtbl.put_Authorization := CallbackCreate(GetMethod(implObj, "put_Authorization"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DeviceID)
+        CallbackFree(this.vtbl.get_Authorization)
+        CallbackFree(this.vtbl.put_Authorization)
+        CallbackFree(this.vtbl.get_Properties)
     }
 }

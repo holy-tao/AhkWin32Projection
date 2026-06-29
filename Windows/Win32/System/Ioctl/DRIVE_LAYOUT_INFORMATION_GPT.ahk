@@ -1,49 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a drive's GUID partition table (GPT) partitions.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_gpt
  * @namespace Windows.Win32.System.Ioctl
  */
-class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DRIVE_LAYOUT_INFORMATION_GPT {
+    #StructPack 8
 
     /**
      * The <b>GUID</b> of the disk.
-     * @type {Pointer}
      */
-    DiskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DiskId : Guid
 
     /**
      * The starting byte offset of the first usable block.
-     * @type {Integer}
      */
-    StartingUsableOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    StartingUsableOffset : Int64
 
     /**
      * The size of the usable blocks on the disk, in bytes.
-     * @type {Integer}
      */
-    UsableLength {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    UsableLength : Int64
 
     /**
      * The maximum number of partitions that can be defined in the usable block.
-     * @type {Integer}
      */
-    MaxPartitionCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaxPartitionCount : UInt32
+
 }

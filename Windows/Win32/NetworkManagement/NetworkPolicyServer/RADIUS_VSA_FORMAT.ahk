@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RADIUS_VSA_FORMAT structure represents the format of the string portion of a RADIUS vendor-specific attribute.
@@ -14,50 +13,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_vsa_format
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUS_VSA_FORMAT extends Win32Struct {
-    static sizeof => 7
-
-    static packingSize => 1
+export default struct RADIUS_VSA_FORMAT {
+    #StructPack 1
 
     /**
      * The SMI Network Management Private Enterprise Code of the vendor for this attribute.
-     * @type {Array<Integer>}
      */
-    VendorId {
-        get {
-            if(!this.HasProp("__VendorIdProxyArray"))
-                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__VendorIdProxyArray
-        }
-    }
+    VendorId : Int8[4]
 
     /**
      * Numeric identifier for the attribute assigned by the vendor.
-     * @type {Integer}
      */
-    VendorType {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    VendorType : Int8
 
     /**
      * The combined size of the <b>VendorType</b>, <b>VendorLength</b>, <b>AttributeSpecific</b> members.
-     * @type {Integer}
      */
-    VendorLength {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    VendorLength : Int8
 
     /**
      * Array of bytes that contains information for this attribute.
-     * @type {Array<Integer>}
      */
-    AttributeSpecific {
-        get {
-            if(!this.HasProp("__AttributeSpecificProxyArray"))
-                this.__AttributeSpecificProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
-            return this.__AttributeSpecificProxyArray
-        }
-    }
+    AttributeSpecific : Int8[1]
+
 }

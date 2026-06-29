@@ -1,13 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmPropertyDefinition.ahk
-#Include .\IFsrmRule.ahk
-#Include .\IFsrmPipelineModuleDefinition.ahk
-#Include .\IFsrmProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmProperty.ahk" { IFsrmProperty }
+#Import ".\IFsrmRule.ahk" { IFsrmRule }
+#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
+#Import ".\FsrmRuleType.ahk" { FsrmRuleType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\FsrmPipelineModuleType.ahk" { FsrmPipelineModuleType }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IFsrmPropertyDefinition.ahk" { IFsrmPropertyDefinition }
+#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager)
@@ -50,32 +59,65 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmClassificationManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmClassificationManager extends IDispatch {
     /**
      * The interface identifier for IFsrmClassificationManager
      * @type {Guid}
      */
-    static IID => Guid("{d2dc89da-ee91-48a0-85d8-cc72a56f7d04}")
+    static IID := Guid("{d2dc89da-ee91-48a0-85d8-cc72a56f7d04}")
 
     /**
      * The class identifier for FsrmClassificationManager
      * @type {Guid}
      */
-    static CLSID => Guid("{b15c0e47-c391-45b9-95c8-eb596c853f3a}")
+    static CLSID := Guid("{b15c0e47-c391-45b9-95c8-eb596c853f3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmClassificationManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ClassificationReportFormats                  : IntPtr
+        put_ClassificationReportFormats                  : IntPtr
+        get_Logging                                      : IntPtr
+        put_Logging                                      : IntPtr
+        get_ClassificationReportMailTo                   : IntPtr
+        put_ClassificationReportMailTo                   : IntPtr
+        get_ClassificationReportEnabled                  : IntPtr
+        put_ClassificationReportEnabled                  : IntPtr
+        get_ClassificationLastReportPathWithoutExtension : IntPtr
+        get_ClassificationLastError                      : IntPtr
+        get_ClassificationRunningStatus                  : IntPtr
+        EnumPropertyDefinitions                          : IntPtr
+        CreatePropertyDefinition                         : IntPtr
+        GetPropertyDefinition                            : IntPtr
+        EnumRules                                        : IntPtr
+        CreateRule                                       : IntPtr
+        GetRule                                          : IntPtr
+        EnumModuleDefinitions                            : IntPtr
+        CreateModuleDefinition                           : IntPtr
+        GetModuleDefinition                              : IntPtr
+        RunClassification                                : IntPtr
+        WaitForClassificationCompletion                  : IntPtr
+        CancelClassification                             : IntPtr
+        EnumFileProperties                               : IntPtr
+        GetFileProperty                                  : IntPtr
+        SetFileProperty                                  : IntPtr
+        ClearFileProperty                                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ClassificationReportFormats", "put_ClassificationReportFormats", "get_Logging", "put_Logging", "get_ClassificationReportMailTo", "put_ClassificationReportMailTo", "get_ClassificationReportEnabled", "put_ClassificationReportEnabled", "get_ClassificationLastReportPathWithoutExtension", "get_ClassificationLastError", "get_ClassificationRunningStatus", "EnumPropertyDefinitions", "CreatePropertyDefinition", "GetPropertyDefinition", "EnumRules", "CreateRule", "GetRule", "EnumModuleDefinitions", "CreateModuleDefinition", "GetModuleDefinition", "RunClassification", "WaitForClassificationCompletion", "CancelClassification", "EnumFileProperties", "GetFileProperty", "SetFileProperty", "ClearFileProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmClassificationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -147,7 +189,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-put_classificationreportformats
      */
     put_ClassificationReportFormats(formats) {
-        result := ComCall(8, this, "ptr", formats, "HRESULT")
+        result := ComCall(8, this, SAFEARRAY.Ptr, formats, "HRESULT")
         return result
     }
 
@@ -236,8 +278,8 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportmailto
      */
     get_ClassificationReportMailTo() {
-        mailTo := BSTR()
-        result := ComCall(11, this, "ptr", mailTo, "HRESULT")
+        mailTo := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, mailTo, "HRESULT")
         return mailTo
     }
 
@@ -258,7 +300,7 @@ class IFsrmClassificationManager extends IDispatch {
     put_ClassificationReportMailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
 
-        result := ComCall(12, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(12, this, BSTR, mailTo, "HRESULT")
         return result
     }
 
@@ -272,7 +314,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportenabled
      */
     get_ClassificationReportEnabled() {
-        result := ComCall(13, this, "short*", &reportEnabled := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &reportEnabled := 0, "HRESULT")
         return reportEnabled
     }
 
@@ -287,7 +329,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-put_classificationreportenabled
      */
     put_ClassificationReportEnabled(reportEnabled) {
-        result := ComCall(14, this, "short", reportEnabled, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, reportEnabled, "HRESULT")
         return result
     }
 
@@ -302,8 +344,8 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationlastreportpathwithoutextension
      */
     get_ClassificationLastReportPathWithoutExtension() {
-        lastReportPath := BSTR()
-        result := ComCall(15, this, "ptr", lastReportPath, "HRESULT")
+        lastReportPath := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, lastReportPath, "HRESULT")
         return lastReportPath
     }
 
@@ -317,8 +359,8 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationlasterror
      */
     get_ClassificationLastError() {
-        lastError := BSTR()
-        result := ComCall(16, this, "ptr", lastError, "HRESULT")
+        lastError := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, lastError, "HRESULT")
         return lastError
     }
 
@@ -350,7 +392,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumpropertydefinitions
      */
     EnumPropertyDefinitions(options) {
-        result := ComCall(18, this, "int", options, "ptr*", &propertyDefinitions := 0, "HRESULT")
+        result := ComCall(18, this, FsrmEnumOptions, options, "ptr*", &propertyDefinitions := 0, "HRESULT")
         return IFsrmCollection(propertyDefinitions)
     }
 
@@ -382,7 +424,7 @@ class IFsrmClassificationManager extends IDispatch {
     GetPropertyDefinition(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(20, this, "ptr", propertyName, "ptr*", &propertyDefinition := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, propertyName, "ptr*", &propertyDefinition := 0, "HRESULT")
         return IFsrmPropertyDefinition(propertyDefinition)
     }
 
@@ -415,7 +457,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumrules
      */
     EnumRules(ruleType, options) {
-        result := ComCall(21, this, "int", ruleType, "int", options, "ptr*", &Rules := 0, "HRESULT")
+        result := ComCall(21, this, FsrmRuleType, ruleType, FsrmEnumOptions, options, "ptr*", &Rules := 0, "HRESULT")
         return IFsrmCollection(Rules)
     }
 
@@ -439,7 +481,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createrule
      */
     CreateRule(ruleType) {
-        result := ComCall(22, this, "int", ruleType, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(22, this, FsrmRuleType, ruleType, "ptr*", &Rule := 0, "HRESULT")
         return IFsrmRule(Rule)
     }
 
@@ -462,7 +504,7 @@ class IFsrmClassificationManager extends IDispatch {
     GetRule(ruleName, ruleType) {
         ruleName := ruleName is String ? BSTR.Alloc(ruleName).Value : ruleName
 
-        result := ComCall(23, this, "ptr", ruleName, "int", ruleType, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(23, this, BSTR, ruleName, FsrmRuleType, ruleType, "ptr*", &Rule := 0, "HRESULT")
         return IFsrmRule(Rule)
     }
 
@@ -495,7 +537,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enummoduledefinitions
      */
     EnumModuleDefinitions(moduleType, options) {
-        result := ComCall(24, this, "int", moduleType, "int", options, "ptr*", &moduleDefinitions := 0, "HRESULT")
+        result := ComCall(24, this, FsrmPipelineModuleType, moduleType, FsrmEnumOptions, options, "ptr*", &moduleDefinitions := 0, "HRESULT")
         return IFsrmCollection(moduleDefinitions)
     }
 
@@ -540,7 +582,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createmoduledefinition
      */
     CreateModuleDefinition(moduleType) {
-        result := ComCall(25, this, "int", moduleType, "ptr*", &moduleDefinition := 0, "HRESULT")
+        result := ComCall(25, this, FsrmPipelineModuleType, moduleType, "ptr*", &moduleDefinition := 0, "HRESULT")
         return IFsrmPipelineModuleDefinition(moduleDefinition)
     }
 
@@ -562,7 +604,7 @@ class IFsrmClassificationManager extends IDispatch {
     GetModuleDefinition(moduleName, moduleType) {
         moduleName := moduleName is String ? BSTR.Alloc(moduleName).Value : moduleName
 
-        result := ComCall(26, this, "ptr", moduleName, "int", moduleType, "ptr*", &moduleDefinition := 0, "HRESULT")
+        result := ComCall(26, this, BSTR, moduleName, FsrmPipelineModuleType, moduleType, "ptr*", &moduleDefinition := 0, "HRESULT")
         return IFsrmPipelineModuleDefinition(moduleDefinition)
     }
 
@@ -601,7 +643,7 @@ class IFsrmClassificationManager extends IDispatch {
     RunClassification(_context, reserved) {
         reserved := reserved is String ? BSTR.Alloc(reserved).Value : reserved
 
-        result := ComCall(27, this, "int", _context, "ptr", reserved, "HRESULT")
+        result := ComCall(27, this, FsrmReportGenerationContext, _context, BSTR, reserved, "HRESULT")
         return result
     }
 
@@ -625,7 +667,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-waitforclassificationcompletion
      */
     WaitForClassificationCompletion(waitSeconds) {
-        result := ComCall(28, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        result := ComCall(28, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -668,7 +710,7 @@ class IFsrmClassificationManager extends IDispatch {
     EnumFileProperties(filePath, options) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
 
-        result := ComCall(30, this, "ptr", filePath, "int", options, "ptr*", &fileProperties := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, filePath, FsrmGetFilePropertyOptions, options, "ptr*", &fileProperties := 0, "HRESULT")
         return IFsrmCollection(fileProperties)
     }
 
@@ -692,7 +734,7 @@ class IFsrmClassificationManager extends IDispatch {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(31, this, "ptr", filePath, "ptr", propertyName, "int", options, "ptr*", &_property := 0, "HRESULT")
+        result := ComCall(31, this, BSTR, filePath, BSTR, propertyName, FsrmGetFilePropertyOptions, options, "ptr*", &_property := 0, "HRESULT")
         return IFsrmProperty(_property)
     }
 
@@ -720,7 +762,7 @@ class IFsrmClassificationManager extends IDispatch {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
         _propertyValue := _propertyValue is String ? BSTR.Alloc(_propertyValue).Value : _propertyValue
 
-        result := ComCall(32, this, "ptr", filePath, "ptr", propertyName, "ptr", _propertyValue, "HRESULT")
+        result := ComCall(32, this, BSTR, filePath, BSTR, propertyName, BSTR, _propertyValue, "HRESULT")
         return result
     }
 
@@ -782,7 +824,79 @@ class IFsrmClassificationManager extends IDispatch {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         _property := _property is String ? BSTR.Alloc(_property).Value : _property
 
-        result := ComCall(33, this, "ptr", filePath, "ptr", _property, "HRESULT")
+        result := ComCall(33, this, BSTR, filePath, BSTR, _property, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmClassificationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ClassificationReportFormats := CallbackCreate(GetMethod(implObj, "get_ClassificationReportFormats"), flags, 2)
+        this.vtbl.put_ClassificationReportFormats := CallbackCreate(GetMethod(implObj, "put_ClassificationReportFormats"), flags, 2)
+        this.vtbl.get_Logging := CallbackCreate(GetMethod(implObj, "get_Logging"), flags, 2)
+        this.vtbl.put_Logging := CallbackCreate(GetMethod(implObj, "put_Logging"), flags, 2)
+        this.vtbl.get_ClassificationReportMailTo := CallbackCreate(GetMethod(implObj, "get_ClassificationReportMailTo"), flags, 2)
+        this.vtbl.put_ClassificationReportMailTo := CallbackCreate(GetMethod(implObj, "put_ClassificationReportMailTo"), flags, 2)
+        this.vtbl.get_ClassificationReportEnabled := CallbackCreate(GetMethod(implObj, "get_ClassificationReportEnabled"), flags, 2)
+        this.vtbl.put_ClassificationReportEnabled := CallbackCreate(GetMethod(implObj, "put_ClassificationReportEnabled"), flags, 2)
+        this.vtbl.get_ClassificationLastReportPathWithoutExtension := CallbackCreate(GetMethod(implObj, "get_ClassificationLastReportPathWithoutExtension"), flags, 2)
+        this.vtbl.get_ClassificationLastError := CallbackCreate(GetMethod(implObj, "get_ClassificationLastError"), flags, 2)
+        this.vtbl.get_ClassificationRunningStatus := CallbackCreate(GetMethod(implObj, "get_ClassificationRunningStatus"), flags, 2)
+        this.vtbl.EnumPropertyDefinitions := CallbackCreate(GetMethod(implObj, "EnumPropertyDefinitions"), flags, 3)
+        this.vtbl.CreatePropertyDefinition := CallbackCreate(GetMethod(implObj, "CreatePropertyDefinition"), flags, 2)
+        this.vtbl.GetPropertyDefinition := CallbackCreate(GetMethod(implObj, "GetPropertyDefinition"), flags, 3)
+        this.vtbl.EnumRules := CallbackCreate(GetMethod(implObj, "EnumRules"), flags, 4)
+        this.vtbl.CreateRule := CallbackCreate(GetMethod(implObj, "CreateRule"), flags, 3)
+        this.vtbl.GetRule := CallbackCreate(GetMethod(implObj, "GetRule"), flags, 4)
+        this.vtbl.EnumModuleDefinitions := CallbackCreate(GetMethod(implObj, "EnumModuleDefinitions"), flags, 4)
+        this.vtbl.CreateModuleDefinition := CallbackCreate(GetMethod(implObj, "CreateModuleDefinition"), flags, 3)
+        this.vtbl.GetModuleDefinition := CallbackCreate(GetMethod(implObj, "GetModuleDefinition"), flags, 4)
+        this.vtbl.RunClassification := CallbackCreate(GetMethod(implObj, "RunClassification"), flags, 3)
+        this.vtbl.WaitForClassificationCompletion := CallbackCreate(GetMethod(implObj, "WaitForClassificationCompletion"), flags, 3)
+        this.vtbl.CancelClassification := CallbackCreate(GetMethod(implObj, "CancelClassification"), flags, 1)
+        this.vtbl.EnumFileProperties := CallbackCreate(GetMethod(implObj, "EnumFileProperties"), flags, 4)
+        this.vtbl.GetFileProperty := CallbackCreate(GetMethod(implObj, "GetFileProperty"), flags, 5)
+        this.vtbl.SetFileProperty := CallbackCreate(GetMethod(implObj, "SetFileProperty"), flags, 4)
+        this.vtbl.ClearFileProperty := CallbackCreate(GetMethod(implObj, "ClearFileProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ClassificationReportFormats)
+        CallbackFree(this.vtbl.put_ClassificationReportFormats)
+        CallbackFree(this.vtbl.get_Logging)
+        CallbackFree(this.vtbl.put_Logging)
+        CallbackFree(this.vtbl.get_ClassificationReportMailTo)
+        CallbackFree(this.vtbl.put_ClassificationReportMailTo)
+        CallbackFree(this.vtbl.get_ClassificationReportEnabled)
+        CallbackFree(this.vtbl.put_ClassificationReportEnabled)
+        CallbackFree(this.vtbl.get_ClassificationLastReportPathWithoutExtension)
+        CallbackFree(this.vtbl.get_ClassificationLastError)
+        CallbackFree(this.vtbl.get_ClassificationRunningStatus)
+        CallbackFree(this.vtbl.EnumPropertyDefinitions)
+        CallbackFree(this.vtbl.CreatePropertyDefinition)
+        CallbackFree(this.vtbl.GetPropertyDefinition)
+        CallbackFree(this.vtbl.EnumRules)
+        CallbackFree(this.vtbl.CreateRule)
+        CallbackFree(this.vtbl.GetRule)
+        CallbackFree(this.vtbl.EnumModuleDefinitions)
+        CallbackFree(this.vtbl.CreateModuleDefinition)
+        CallbackFree(this.vtbl.GetModuleDefinition)
+        CallbackFree(this.vtbl.RunClassification)
+        CallbackFree(this.vtbl.WaitForClassificationCompletion)
+        CallbackFree(this.vtbl.CancelClassification)
+        CallbackFree(this.vtbl.EnumFileProperties)
+        CallbackFree(this.vtbl.GetFileProperty)
+        CallbackFree(this.vtbl.SetFileProperty)
+        CallbackFree(this.vtbl.ClearFileProperty)
     }
 }

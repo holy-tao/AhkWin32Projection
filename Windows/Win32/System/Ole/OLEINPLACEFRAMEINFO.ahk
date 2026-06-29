@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\UI\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about the accelerators supported by a container during an in-place session. The structure is used in the IOleInPlaceSite::GetWindowContext method and the OleTranslateAccelerator function.
@@ -10,59 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-oleinplaceframeinfo
  * @namespace Windows.Win32.System.Ole
  */
-class OLEINPLACEFRAMEINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct OLEINPLACEFRAMEINFO {
+    #StructPack 8
 
     /**
      * The size of this structure, in bytes. The object server must specify sizeof(<b>OLEINPLACEFRAMEINFO</b>) in the structure it passes to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplacesite-getwindowcontext">IOleInPlaceSite::GetWindowContext</a>. The container can then use this size to determine the structure's version.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * Indicates whether the container is an MDI application.
-     * @type {BOOL}
      */
-    fMDIApp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fMDIApp : BOOL
 
     /**
      * A handle to the container's top-level frame window.
-     * @type {HWND}
      */
-    hwndFrame {
-        get {
-            if(!this.HasProp("__hwndFrame"))
-                this.__hwndFrame := HWND(8, this)
-            return this.__hwndFrame
-        }
-    }
+    hwndFrame : HWND
 
     /**
      * A handle to the accelerator table that the container wants to use during an in-place editing session.
-     * @type {HACCEL}
      */
-    haccel {
-        get {
-            if(!this.HasProp("__haccel"))
-                this.__haccel := HACCEL(16, this)
-            return this.__haccel
-        }
-    }
+    haccel : HACCEL
 
     /**
      * The number of accelerators in <b>haccel</b>.
-     * @type {Integer}
      */
-    cAccelEntries {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cAccelEntries : UInt32
+
 }

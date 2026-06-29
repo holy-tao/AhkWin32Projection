@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EndpointConnectorType.ahk
-#Include ..\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\EndpointConnectorType.ahk" { EndpointConnectorType }
 
 /**
  * @namespace Windows.Win32.Media.Audio.Endpoints
  */
-class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS extends Win32Struct {
-    static sizeof => 32
+export default struct AUDIO_ENDPOINT_SHARED_CREATE_PARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    u32Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    u32Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    u32TSSessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    u32TSSessionId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    targetEndpointConnectorType : EndpointConnectorType
 
-    /**
-     * @type {EndpointConnectorType}
-     */
-    targetEndpointConnectorType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    wfxDeviceFormat : WAVEFORMATEX
 
-    /**
-     * @type {WAVEFORMATEX}
-     */
-    wfxDeviceFormat {
-        get {
-            if(!this.HasProp("__wfxDeviceFormat"))
-                this.__wfxDeviceFormat := WAVEFORMATEX(12, this)
-            return this.__wfxDeviceFormat
-        }
-    }
 }

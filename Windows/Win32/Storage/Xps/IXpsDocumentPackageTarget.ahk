@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMPackageWriter.ahk
-#Include .\IXpsOMObjectFactory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMObjectFactory.ahk" { IXpsOMObjectFactory }
+#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
 
 /**
  * The IXpsDocumentPackageTarget interface contains the elements needed for printing XPS content in the Document Printing model.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsdocumentpackagetarget
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsDocumentPackageTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsDocumentPackageTarget extends IUnknown {
     /**
      * The interface identifier for IXpsDocumentPackageTarget
      * @type {Guid}
      */
-    static IID => Guid("{3b0b6d38-53ad-41da-b212-d37637a6714e}")
+    static IID := Guid("{3b0b6d38-53ad-41da-b212-d37637a6714e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsDocumentPackageTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetXpsOMPackageWriter : IntPtr
+        GetXpsOMFactory       : IntPtr
+        GetXpsType            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetXpsOMPackageWriter", "GetXpsOMFactory", "GetXpsType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsDocumentPackageTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the IXpsOMPackageWriter object for the document package.
@@ -61,5 +73,29 @@ class IXpsDocumentPackageTarget extends IUnknown {
     GetXpsType() {
         result := ComCall(5, this, "int*", &documentType := 0, "HRESULT")
         return documentType
+    }
+
+    Query(iid) {
+        if (IXpsDocumentPackageTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetXpsOMPackageWriter := CallbackCreate(GetMethod(implObj, "GetXpsOMPackageWriter"), flags, 4)
+        this.vtbl.GetXpsOMFactory := CallbackCreate(GetMethod(implObj, "GetXpsOMFactory"), flags, 2)
+        this.vtbl.GetXpsType := CallbackCreate(GetMethod(implObj, "GetXpsType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetXpsOMPackageWriter)
+        CallbackFree(this.vtbl.GetXpsOMFactory)
+        CallbackFree(this.vtbl.GetXpsType)
     }
 }

@@ -1,40 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class AMD_L2_CACHE_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct AMD_L2_CACHE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Ulong : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Ulong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LineSize {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - LinesPerTag
-     * - Associativity
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
 
     /**
      * @type {Integer}
@@ -51,12 +24,10 @@ class AMD_L2_CACHE_INFO extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    static __New() {
+        DefineProp(this.Prototype, 'LineSize', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'Size', { type: UInt16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

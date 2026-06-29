@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains the information for a particular cache group. (ANSI)
@@ -16,74 +16,42 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset ANSI
  */
-class INTERNET_CACHE_GROUP_INFOA extends Win32Struct {
-    static sizeof => 156
-
-    static packingSize => 4
+export default struct INTERNET_CACHE_GROUP_INFOA {
+    #StructPack 4
 
     /**
      * Size of the structure, <b>TCHARs</b>.
-     * @type {Integer}
      */
-    dwGroupSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwGroupSize : UInt32
 
     /**
      * Group flags. Currently, the only value defined is CACHEGROUP_FLAG_NONPURGEABLE, which indicates that the cache entries in this group will not be removed by the cache manager.
-     * @type {Integer}
      */
-    dwGroupFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwGroupFlags : UInt32
 
     /**
      * Group type. Currently, the only value defined is CACHEGROUP_TYPE_INVALID.
-     * @type {Integer}
      */
-    dwGroupType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwGroupType : UInt32
 
     /**
      * Current disk usage of this cache group, in kilobytes.
-     * @type {Integer}
      */
-    dwDiskUsage {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDiskUsage : UInt32
 
     /**
      * Disk quota for this cache group, in kilobytes.
-     * @type {Integer}
      */
-    dwDiskQuota {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwDiskQuota : UInt32
 
     /**
      * Array  that can be used by a client application to store information related to the group.
-     * @type {Array<Integer>}
      */
-    dwOwnerStorage {
-        get {
-            if(!this.HasProp("__dwOwnerStorageProxyArray"))
-                this.__dwOwnerStorageProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
-            return this.__dwOwnerStorageProxyArray
-        }
-    }
+    dwOwnerStorage : UInt32[4]
 
     /**
      * Group name.
-     * @type {String}
      */
-    szGroupName {
-        get => StrGet(this.ptr + 36, 119, "UTF-8")
-        set => StrPut(value, this.ptr + 36, 119, "UTF-8")
-    }
+    szGroupName : CHAR[120]
+
 }

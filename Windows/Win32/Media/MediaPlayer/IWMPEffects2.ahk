@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPEffects.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPEffects.ahk" { IWMPEffects }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TimedLevel.ahk" { TimedLevel }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\IWMPCore.ahk" { IWMPCore }
 
 /**
  * IWMPEffects2 interface
  * @see https://learn.microsoft.com/windows/win32/api/effects/nn-effects-iwmpeffects2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPEffects2 extends IWMPEffects {
-
-    static sizeof => A_PtrSize
+export default struct IWMPEffects2 extends IWMPEffects {
     /**
      * The interface identifier for IWMPEffects2
      * @type {Guid}
      */
-    static IID => Guid("{695386ec-aa3c-4618-a5e1-dd9a8b987632}")
+    static IID := Guid("{695386ec-aa3c-4618-a5e1-dd9a8b987632}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPEffects2 interfaces
+    */
+    struct Vtbl extends IWMPEffects.Vtbl {
+        SetCore         : IntPtr
+        Create          : IntPtr
+        Destroy         : IntPtr
+        NotifyNewMedia  : IntPtr
+        OnWindowMessage : IntPtr
+        RenderWindowed  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCore", "Create", "Destroy", "NotifyNewMedia", "OnWindowMessage", "RenderWindowed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPEffects2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetCore method is called by Windows Media Player to provide visualization access to the core Windows Media Player APIs.
@@ -55,9 +76,7 @@ class IWMPEffects2 extends IWMPEffects {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-create
      */
     Create(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(15, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(15, this, HWND, hwndParent, "HRESULT")
         return result
     }
 
@@ -98,7 +117,7 @@ class IWMPEffects2 extends IWMPEffects {
     OnWindowMessage(_msg, _WParam, _LParam, plResultParam) {
         plResultParamMarshal := plResultParam is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "uint", _msg, "ptr", _WParam, "ptr", _LParam, plResultParamMarshal, plResultParam, "HRESULT")
+        result := ComCall(18, this, "uint", _msg, WPARAM, _WParam, LPARAM, _LParam, plResultParamMarshal, plResultParam, "HRESULT")
         return result
     }
 
@@ -114,7 +133,37 @@ class IWMPEffects2 extends IWMPEffects {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-renderwindowed
      */
     RenderWindowed(pData, fRequiredRender) {
-        result := ComCall(19, this, "ptr", pData, "int", fRequiredRender, "HRESULT")
+        result := ComCall(19, this, TimedLevel.Ptr, pData, BOOL, fRequiredRender, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPEffects2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCore := CallbackCreate(GetMethod(implObj, "SetCore"), flags, 2)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 2)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.NotifyNewMedia := CallbackCreate(GetMethod(implObj, "NotifyNewMedia"), flags, 2)
+        this.vtbl.OnWindowMessage := CallbackCreate(GetMethod(implObj, "OnWindowMessage"), flags, 5)
+        this.vtbl.RenderWindowed := CallbackCreate(GetMethod(implObj, "RenderWindowed"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCore)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.NotifyNewMedia)
+        CallbackFree(this.vtbl.OnWindowMessage)
+        CallbackFree(this.vtbl.RenderWindowed)
     }
 }

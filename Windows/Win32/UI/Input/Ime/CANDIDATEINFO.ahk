@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class CANDIDATEINFO extends Win32Struct {
-    static sizeof => 144
+export default struct CANDIDATEINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOffset : UInt32[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwOffset {
-        get {
-            if(!this.HasProp("__dwOffsetProxyArray"))
-                this.__dwOffsetProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
-            return this.__dwOffsetProxyArray
-        }
-    }
+    dwPrivateSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPrivateSize {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwPrivateOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPrivateOffset {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
 }

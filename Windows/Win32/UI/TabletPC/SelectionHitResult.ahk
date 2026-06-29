@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies which part of a selection, if any, was hit during a hit test.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-selectionhitresult
  * @namespace Windows.Win32.UI.TabletPC
  */
-class SelectionHitResult extends Win32Enum {
+export default struct SelectionHitResult {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No part of the selection was hit.

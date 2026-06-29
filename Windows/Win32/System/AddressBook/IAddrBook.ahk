@@ -1,29 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\ADRENTRY.ahk" { ADRENTRY }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\ADRPARM.ahk" { ADRPARM }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\ADRLIST.ahk" { ADRLIST }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SRowSet.ahk" { SRowSet }
 
 /**
  * Do not use. (IAddrBook)
  * @see https://learn.microsoft.com/windows/win32/api/wabiab/nn-wabiab-iaddrbook
  * @namespace Windows.Win32.System.AddressBook
  */
-class IAddrBook extends IMAPIProp {
+export default struct IAddrBook extends IMAPIProp {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenEntry", "CompareEntryIDs", "Advise", "Unadvise", "CreateOneOff", "NewEntry", "ResolveName", "Address", "Details", "RecipOptions", "QueryDefaultRecipOpt", "GetPAB", "SetPAB", "GetDefaultDir", "SetDefaultDir", "GetSearchPath", "SetSearchPath", "PrepareRecips"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAddrBook interfaces
+    */
+    struct Vtbl extends IMAPIProp.Vtbl {
+        OpenEntry            : IntPtr
+        CompareEntryIDs      : IntPtr
+        Advise               : IntPtr
+        Unadvise             : IntPtr
+        CreateOneOff         : IntPtr
+        NewEntry             : IntPtr
+        ResolveName          : IntPtr
+        Address              : IntPtr
+        Details              : IntPtr
+        RecipOptions         : IntPtr
+        QueryDefaultRecipOpt : IntPtr
+        GetPAB               : IntPtr
+        SetPAB               : IntPtr
+        GetDefaultDir        : IntPtr
+        SetDefaultDir        : IntPtr
+        GetSearchPath        : IntPtr
+        SetSearchPath        : IntPtr
+        PrepareRecips        : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAddrBook.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens an address book entry and returns a pointer to an interface that can be used to access the entry.
@@ -70,7 +103,7 @@ class IAddrBook extends IMAPIProp {
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", &lppUnk := 0, "HRESULT")
+        result := ComCall(14, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, Guid.Ptr, lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", &lppUnk := 0, "HRESULT")
         return IUnknown(lppUnk)
     }
 
@@ -100,7 +133,7 @@ class IAddrBook extends IMAPIProp {
     CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags, lpulResult) {
         lpulResultMarshal := lpulResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
+        result := ComCall(15, this, "uint", cbEntryID1, ENTRYID.Ptr, lpEntryID1, "uint", cbEntryID2, ENTRYID.Ptr, lpEntryID2, "uint", ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
         return result
     }
 
@@ -153,7 +186,7 @@ class IAddrBook extends IMAPIProp {
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink, lpulConnection) {
         lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
+        result := ComCall(16, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
@@ -237,7 +270,7 @@ class IAddrBook extends IMAPIProp {
         lpcbEIDNewEntryMarshal := lpcbEIDNewEntry is VarRef ? "uint*" : "ptr"
         lppEIDNewEntryMarshal := lppEIDNewEntry is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, "ptr", lpEIDContainer, "uint", cbEIDNewEntryTpl, "ptr", lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, lppEIDNewEntryMarshal, lppEIDNewEntry, "HRESULT")
+        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, ENTRYID.Ptr, lpEIDContainer, "uint", cbEIDNewEntryTpl, ENTRYID.Ptr, lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, lppEIDNewEntryMarshal, lppEIDNewEntry, "HRESULT")
         return result
     }
 
@@ -309,7 +342,7 @@ class IAddrBook extends IMAPIProp {
     ResolveName(ulUIParam, ulFlags, lpszNewEntryTitle, lpAdrList) {
         lpszNewEntryTitleMarshal := lpszNewEntryTitle is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "ptr", ulUIParam, "uint", ulFlags, lpszNewEntryTitleMarshal, lpszNewEntryTitle, "ptr", lpAdrList, "HRESULT")
+        result := ComCall(20, this, "ptr", ulUIParam, "uint", ulFlags, lpszNewEntryTitleMarshal, lpszNewEntryTitle, ADRLIST.Ptr, lpAdrList, "HRESULT")
         return result
     }
 
@@ -349,7 +382,7 @@ class IAddrBook extends IMAPIProp {
         lpulUIParamMarshal := lpulUIParam is VarRef ? "uint*" : "ptr"
         lppAdrListMarshal := lppAdrList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, lpulUIParamMarshal, lpulUIParam, "ptr", lpAdrParms, lppAdrListMarshal, lppAdrList, "HRESULT")
+        result := ComCall(21, this, lpulUIParamMarshal, lpulUIParam, ADRPARM.Ptr, lpAdrParms, lppAdrListMarshal, lppAdrList, "HRESULT")
         return result
     }
 
@@ -395,7 +428,7 @@ class IAddrBook extends IMAPIProp {
         lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
         lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, "uint", ulFlags, "HRESULT")
+        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -408,7 +441,7 @@ class IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/windows/win32/api/wabiab/nf-wabiab-iaddrbook-recipoptions
      */
     RecipOptions(ulUIParam, ulFlags, lpRecip) {
-        result := ComCall(23, this, "uint", ulUIParam, "uint", ulFlags, "ptr", lpRecip, "HRESULT")
+        result := ComCall(23, this, "uint", ulUIParam, "uint", ulFlags, ADRENTRY.Ptr, lpRecip, "HRESULT")
         return result
     }
 
@@ -465,7 +498,7 @@ class IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-setpab
      */
     SetPAB(cbEntryID, lpEntryID) {
-        result := ComCall(26, this, "uint", cbEntryID, "ptr", lpEntryID, "HRESULT")
+        result := ComCall(26, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "HRESULT")
         return result
     }
 
@@ -505,7 +538,7 @@ class IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-setdefaultdir
      */
     SetDefaultDir(cbEntryID, lpEntryID) {
-        result := ComCall(28, this, "uint", cbEntryID, "ptr", lpEntryID, "HRESULT")
+        result := ComCall(28, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "HRESULT")
         return result
     }
 
@@ -561,7 +594,7 @@ class IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-setsearchpath
      */
     SetSearchPath(ulFlags, lpSearchPath) {
-        result := ComCall(30, this, "uint", ulFlags, "ptr", lpSearchPath, "HRESULT")
+        result := ComCall(30, this, "uint", ulFlags, SRowSet.Ptr, lpSearchPath, "HRESULT")
         return result
     }
 
@@ -592,7 +625,61 @@ class IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-preparerecips
      */
     PrepareRecips(ulFlags, lpPropTagArray, lpRecipList) {
-        result := ComCall(31, this, "uint", ulFlags, "ptr", lpPropTagArray, "ptr", lpRecipList, "HRESULT")
+        result := ComCall(31, this, "uint", ulFlags, SPropTagArray.Ptr, lpPropTagArray, ADRLIST.Ptr, lpRecipList, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAddrBook.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenEntry := CallbackCreate(GetMethod(implObj, "OpenEntry"), flags, 7)
+        this.vtbl.CompareEntryIDs := CallbackCreate(GetMethod(implObj, "CompareEntryIDs"), flags, 7)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 6)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.CreateOneOff := CallbackCreate(GetMethod(implObj, "CreateOneOff"), flags, 7)
+        this.vtbl.NewEntry := CallbackCreate(GetMethod(implObj, "NewEntry"), flags, 9)
+        this.vtbl.ResolveName := CallbackCreate(GetMethod(implObj, "ResolveName"), flags, 5)
+        this.vtbl.Address := CallbackCreate(GetMethod(implObj, "Address"), flags, 4)
+        this.vtbl.Details := CallbackCreate(GetMethod(implObj, "Details"), flags, 10)
+        this.vtbl.RecipOptions := CallbackCreate(GetMethod(implObj, "RecipOptions"), flags, 4)
+        this.vtbl.QueryDefaultRecipOpt := CallbackCreate(GetMethod(implObj, "QueryDefaultRecipOpt"), flags, 5)
+        this.vtbl.GetPAB := CallbackCreate(GetMethod(implObj, "GetPAB"), flags, 3)
+        this.vtbl.SetPAB := CallbackCreate(GetMethod(implObj, "SetPAB"), flags, 3)
+        this.vtbl.GetDefaultDir := CallbackCreate(GetMethod(implObj, "GetDefaultDir"), flags, 3)
+        this.vtbl.SetDefaultDir := CallbackCreate(GetMethod(implObj, "SetDefaultDir"), flags, 3)
+        this.vtbl.GetSearchPath := CallbackCreate(GetMethod(implObj, "GetSearchPath"), flags, 3)
+        this.vtbl.SetSearchPath := CallbackCreate(GetMethod(implObj, "SetSearchPath"), flags, 3)
+        this.vtbl.PrepareRecips := CallbackCreate(GetMethod(implObj, "PrepareRecips"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenEntry)
+        CallbackFree(this.vtbl.CompareEntryIDs)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.CreateOneOff)
+        CallbackFree(this.vtbl.NewEntry)
+        CallbackFree(this.vtbl.ResolveName)
+        CallbackFree(this.vtbl.Address)
+        CallbackFree(this.vtbl.Details)
+        CallbackFree(this.vtbl.RecipOptions)
+        CallbackFree(this.vtbl.QueryDefaultRecipOpt)
+        CallbackFree(this.vtbl.GetPAB)
+        CallbackFree(this.vtbl.SetPAB)
+        CallbackFree(this.vtbl.GetDefaultDir)
+        CallbackFree(this.vtbl.SetDefaultDir)
+        CallbackFree(this.vtbl.GetSearchPath)
+        CallbackFree(this.vtbl.SetSearchPath)
+        CallbackFree(this.vtbl.PrepareRecips)
     }
 }

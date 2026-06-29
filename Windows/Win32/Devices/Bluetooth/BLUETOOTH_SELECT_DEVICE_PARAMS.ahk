@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BLUETOOTH_COD_PAIRS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\BLUETOOTH_DEVICE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BLUETOOTH_COD_PAIRS.ahk" { BLUETOOTH_COD_PAIRS }
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.
@@ -13,148 +14,84 @@
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_select_device_params
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct BLUETOOTH_SELECT_DEVICE_PARAMS {
+    #StructPack 8
 
     /**
      * Size, in bytes, of the 
      * <b>BLUETOOTH_SELECT_DEVICE_PARAMS</b> structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Number of classes in <b>prgClassOfDevices</b>. Set to zero to search for all devices.
-     * @type {Integer}
      */
-    cNumOfClasses {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cNumOfClasses : UInt32
 
     /**
      * Array of class of devices to find.
-     * @type {Pointer<BLUETOOTH_COD_PAIRS>}
      */
-    prgClassOfDevices {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    prgClassOfDevices : BLUETOOTH_COD_PAIRS.Ptr
 
     /**
      * Sets the information text when not <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pszInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszInfo : PWSTR
 
     /**
      * Handle to the parent window. Set to <b>NULL</b> for no parent.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(24, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
     /**
      * If <b>TRUE</b>, forces authentication before returning.
-     * @type {BOOL}
      */
-    fForceAuthentication {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    fForceAuthentication : BOOL
 
     /**
      * If <b>TRUE</b>, authenticated devices are shown in the picker.
-     * @type {BOOL}
      */
-    fShowAuthenticated {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    fShowAuthenticated : BOOL
 
     /**
      * If <b>TRUE</b>, remembered devices are shown in the picker.
-     * @type {BOOL}
      */
-    fShowRemembered {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    fShowRemembered : BOOL
 
     /**
      * If <b>TRUE</b>, unknown devices that are not authenticated or remembered are shown in the picker.
-     * @type {BOOL}
      */
-    fShowUnknown {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    fShowUnknown : BOOL
 
     /**
      * If <b>TRUE</b>, starts the Add New Device wizard.
-     * @type {BOOL}
      */
-    fAddNewDeviceWizard {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    fAddNewDeviceWizard : BOOL
 
     /**
      * If <b>TRUE</b>, skips the Services page in the Add New Device wizard.
-     * @type {BOOL}
      */
-    fSkipServicesPage {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    fSkipServicesPage : BOOL
 
     /**
      * A pointer to a callback function that is called for each device. If the callback function returns <b>TRUE</b>, the item is added. If the callback function returns <b>FALSE</b>, the item is not shown. Set <b>pfnDeviceCallback</b> to null for no callback. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_device_callback">PFN_DEVICE_CALLBACK</a>.
-     * @type {Pointer<PFN_DEVICE_CALLBACK>}
      */
-    pfnDeviceCallback {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pfnDeviceCallback : IntPtr
 
     /**
      * Parameter to be passed as <b>pvParam</b> to the callback function pointed to in <b>pfnDeviceCallback</b>.
-     * @type {Pointer<Void>}
      */
-    pvParam {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pvParam : IntPtr
 
     /**
      * On input, specifies the number of desired calls. Set to zero for no limit. On output, returns the number of devices returned.
-     * @type {Integer}
      */
-    cNumDevices {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cNumDevices : UInt32
 
     /**
      * Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structures.
-     * @type {Pointer<BLUETOOTH_DEVICE_INFO>}
      */
-    pDevices {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pDevices : BLUETOOTH_DEVICE_INFO.Ptr
+
 }

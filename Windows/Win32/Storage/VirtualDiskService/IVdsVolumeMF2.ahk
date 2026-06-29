@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP.ahk" { VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to perform additional file system management operations on the volume object. (IVdsVolumeMF2)
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumemf2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsVolumeMF2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsVolumeMF2 extends IUnknown {
     /**
      * The interface identifier for IVdsVolumeMF2
      * @type {Guid}
      */
-    static IID => Guid("{4dbcee9a-6343-4651-b85f-5e75d74d983c}")
+    static IID := Guid("{4dbcee9a-6343-4651-b85f-5e75d74d983c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsVolumeMF2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFileSystemTypeName        : IntPtr
+        QueryFileSystemFormatSupport : IntPtr
+        FormatEx                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFileSystemTypeName", "QueryFileSystemFormatSupport", "FormatEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsVolumeMF2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the name of the file system on a volume.
@@ -36,7 +49,7 @@ class IVdsVolumeMF2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf2-getfilesystemtypename
      */
     GetFileSystemTypeName() {
-        result := ComCall(3, this, "ptr*", &ppwszFileSystemTypeName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppwszFileSystemTypeName := 0, "HRESULT")
         return ppwszFileSystemTypeName
     }
 
@@ -99,7 +112,31 @@ class IVdsVolumeMF2 extends IUnknown {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(5, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsVolumeMF2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFileSystemTypeName := CallbackCreate(GetMethod(implObj, "GetFileSystemTypeName"), flags, 2)
+        this.vtbl.QueryFileSystemFormatSupport := CallbackCreate(GetMethod(implObj, "QueryFileSystemFormatSupport"), flags, 3)
+        this.vtbl.FormatEx := CallbackCreate(GetMethod(implObj, "FormatEx"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFileSystemTypeName)
+        CallbackFree(this.vtbl.QueryFileSystemFormatSupport)
+        CallbackFree(this.vtbl.FormatEx)
     }
 }

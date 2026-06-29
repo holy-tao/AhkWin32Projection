@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IAction.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAction.ahk" { IAction }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TASK_ACTION_TYPE.ahk" { TASK_ACTION_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Contains the actions that are performed by the task.
@@ -12,26 +16,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iactioncollection
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IActionCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IActionCollection extends IDispatch {
     /**
      * The interface identifier for IActionCollection
      * @type {Guid}
      */
-    static IID => Guid("{02820e19-7b98-4ed2-b2e8-fdccceff619b}")
+    static IID := Guid("{02820e19-7b98-4ed2-b2e8-fdccceff619b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActionCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count    : IntPtr
+        get_Item     : IntPtr
+        get__NewEnum : IntPtr
+        get_XmlText  : IntPtr
+        put_XmlText  : IntPtr
+        Create       : IntPtr
+        Remove       : IntPtr
+        Clear        : IntPtr
+        get_Context  : IntPtr
+        put_Context  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "get_XmlText", "put_XmlText", "Create", "Remove", "Clear", "get_Context", "put_Context"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActionCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -105,7 +125,7 @@ class IActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_xmltext
      */
     get_XmlText(pText) {
-        result := ComCall(10, this, "ptr", pText, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pText, "HRESULT")
         return result
     }
 
@@ -118,7 +138,7 @@ class IActionCollection extends IDispatch {
     put_XmlText(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(11, this, "ptr", text, "HRESULT")
+        result := ComCall(11, this, BSTR, text, "HRESULT")
         return result
     }
 
@@ -184,7 +204,7 @@ class IActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-create
      */
     Create(type) {
-        result := ComCall(12, this, "int", type, "ptr*", &ppAction := 0, "HRESULT")
+        result := ComCall(12, this, TASK_ACTION_TYPE, type, "ptr*", &ppAction := 0, "HRESULT")
         return IAction(ppAction)
     }
 
@@ -199,7 +219,7 @@ class IActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-remove
      */
     Remove(index) {
-        result := ComCall(13, this, "ptr", index, "HRESULT")
+        result := ComCall(13, this, VARIANT, index, "HRESULT")
         return result
     }
 
@@ -220,7 +240,7 @@ class IActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_context
      */
     get_Context(pContext) {
-        result := ComCall(15, this, "ptr", pContext, "HRESULT")
+        result := ComCall(15, this, BSTR.Ptr, pContext, "HRESULT")
         return result
     }
 
@@ -233,7 +253,45 @@ class IActionCollection extends IDispatch {
     put_Context(_context) {
         _context := _context is String ? BSTR.Alloc(_context).Value : _context
 
-        result := ComCall(16, this, "ptr", _context, "HRESULT")
+        result := ComCall(16, this, BSTR, _context, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IActionCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_XmlText := CallbackCreate(GetMethod(implObj, "get_XmlText"), flags, 2)
+        this.vtbl.put_XmlText := CallbackCreate(GetMethod(implObj, "put_XmlText"), flags, 2)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_Context := CallbackCreate(GetMethod(implObj, "get_Context"), flags, 2)
+        this.vtbl.put_Context := CallbackCreate(GetMethod(implObj, "put_Context"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_XmlText)
+        CallbackFree(this.vtbl.put_XmlText)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.get_Context)
+        CallbackFree(this.vtbl.put_Context)
     }
 }

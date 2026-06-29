@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMbnSignal.ahk" { IMbnSignal }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notification interface used to indicate that a signal event has occurred.
@@ -19,26 +21,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsignalevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnSignalEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnSignalEvents extends IUnknown {
     /**
      * The interface identifier for IMbnSignalEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2004-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2004-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnSignalEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnSignalStateChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnSignalStateChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnSignalEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This notification method is called by the Mobile Broadband service to indicate that a signal quality update is available.
@@ -52,5 +61,25 @@ class IMbnSignalEvents extends IUnknown {
     OnSignalStateChange(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnSignalEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnSignalStateChange := CallbackCreate(GetMethod(implObj, "OnSignalStateChange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnSignalStateChange)
     }
 }

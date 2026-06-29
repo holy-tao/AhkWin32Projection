@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class DEADKEY extends Win32Struct {
-    static sizeof => 8
+export default struct DEADKEY {
+    #StructPack 4
 
-    static packingSize => 4
+    dwBoth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBoth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wchComposed : Int8
 
-    /**
-     * @type {Integer}
-     */
-    wchComposed {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    uFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    uFlags {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * KEYBOARD_EXTENDED_ATTRIBUTES specifies the extended attributes of a keyboard.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_extended_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
-    static sizeof => 7
-
-    static packingSize => 1
+export default struct KEYBOARD_EXTENDED_ATTRIBUTES {
+    #StructPack 1
 
     /**
      * Type: **UCHAR**
@@ -21,12 +18,8 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * The version of this structure.
      * 
      * Only **KEYBOARD_EXTENDED_ATTRIBUTES_STRUCT_VERSION_1** supported.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Version : Int8
 
     /**
      * Type: **UCHAR**
@@ -38,12 +31,8 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * | 0x00  | Unknown Form Factor.                                     |
      * | 0x01  | Full‐Size keyboard.                                      |
      * | 0x02  | Compact keyboard. Such keyboards are less than 13” wide. |
-     * @type {Integer}
      */
-    FormFactor {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    FormFactor : Int8
 
     /**
      * Type: **UCHAR**
@@ -56,12 +45,8 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * | 0x01  | Full‐travel keys.                                  |
      * | 0x02  | Low‐travel keys such as those on laptop keyboards. |
      * | 0x03  | Zero‐travel or virtual keys.                       |
-     * @type {Integer}
      */
-    KeyType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    KeyType : Int8
 
     /**
      * Type: **UCHAR**
@@ -79,12 +64,8 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * | 0x06  | Vendor‐specific – If specified, **VendorSpecificPhysicalLayout** must also be specified. |
      * 
      * This value does not refer to the legend set printed on the keys, but only to the physical keyset layout, defined by the relative location and shape of the textual keys in relation to each other. This value indicates which of the de facto standard physical layouts to which the keyboard conforms. These layouts are commonly understood.
-     * @type {Integer}
      */
-    PhysicalLayout {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    PhysicalLayout : Int8
 
     /**
      * Type: **UCHAR**
@@ -92,12 +73,8 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * A numeric identifier of the particular Vendor‐specific Keyboard Physical Layout (Usage ID: *0x2C4*).
      * 
      * Values for this field are defined by the hardware vendor but 0x00 is defined to not specify a Vendor‐specific Keyboard Physical Layout. If non‐zero, **PhysicalLayout** must have value *0x06*. If this identifier is *0x00*, **PhysicalLayout** must not have the value 0x06.
-     * @type {Integer}
      */
-    VendorSpecificPhysicalLayout {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    VendorSpecificPhysicalLayout : Int8
 
     /**
      * Type: **UCHAR**
@@ -109,12 +86,8 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * This Language Tag specifies the intended primary locale of the keyboard legend set, conformant to [IETF BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) or its successor.
      * 
      * If an appropriate IETF Language Tag is not available, such as for custom, adaptive or new layouts, the value is set to 0x00.
-     * @type {Integer}
      */
-    IETFLanguageTagIndex {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    IETFLanguageTagIndex : Int8
 
     /**
      * Type: **UCHAR**
@@ -131,10 +104,7 @@ class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
      * | Bit 4 | Accept Suggestion                                  |
      * | Bit 5 | Cancel Suggestion                                  |
      * |       | All other bits reserved.                           |
-     * @type {Integer}
      */
-    ImplementedInputAssistControls {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    ImplementedInputAssistControls : Int8
+
 }

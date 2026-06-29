@@ -1,30 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_CERT_CONFIG_ENTRY extends Win32Struct {
-    static sizeof => 276
+export default struct HTTP_CERT_CONFIG_ENTRY {
+    #StructPack 2
 
-    static packingSize => 2
+    CertHash : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CertHash {
-        get {
-            if(!this.HasProp("__CertHashProxyArray"))
-                this.__CertHashProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
-            return this.__CertHashProxyArray
-        }
-    }
+    CertStoreName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    CertStoreName {
-        get => StrGet(this.ptr + 20, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 127, "UTF-16")
-    }
 }

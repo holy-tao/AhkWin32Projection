@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ExtKeySubst.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ExtKeySubst.ahk" { ExtKeySubst }
 
 /**
  * @namespace Windows.Win32.System.Console
  */
-class ExtKeyDef extends Win32Struct {
-    static sizeof => 18
+export default struct ExtKeyDef {
+    #StructPack 2
 
-    static packingSize => 2
+    keys : ExtKeySubst[3]
 
-    /**
-     * @type {ExtKeySubst}
-     */
-    keys {
-        get {
-            if(!this.HasProp("__keysProxyArray"))
-                this.__keysProxyArray := Win32FixedArray(this.ptr + 0, 3, ExtKeySubst, "")
-            return this.__keysProxyArray
-        }
-    }
 }

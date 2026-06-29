@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class PWMFRect16 extends Win32Struct {
-    static sizeof => 8
+export default struct PWMFRect16 {
+    #StructPack 2
 
-    static packingSize => 2
+    Left : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Left {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Top : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Top {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Right : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Right {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    Bottom : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Bottom {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
 }

@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - IsSupported
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -27,36 +21,12 @@ class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
+    HighestFrequencyMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HighestFrequencyMhz {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NominalFrequencyMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NominalFrequencyMhz {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LowestFrequencyMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LowestFrequencyMhz {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    FrequencyStepMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FrequencyStepMhz {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

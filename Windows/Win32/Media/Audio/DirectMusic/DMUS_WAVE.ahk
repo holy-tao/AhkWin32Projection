@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_WAVE extends Win32Struct {
-    static sizeof => 32
+export default struct DMUS_WAVE {
+    #StructPack 4
 
-    static packingSize => 4
+    ulFirstExtCkIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFirstExtCkIdx {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulCopyrightIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCopyrightIdx {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulWaveDataIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulWaveDataIdx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WaveformatEx : WAVEFORMATEX
 
-    /**
-     * @type {WAVEFORMATEX}
-     */
-    WaveformatEx {
-        get {
-            if(!this.HasProp("__WaveformatEx"))
-                this.__WaveformatEx := WAVEFORMATEX(12, this)
-            return this.__WaveformatEx
-        }
-    }
 }

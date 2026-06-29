@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMHeaderInfo interface sets and retrieves information in the header section of an ASF file.
@@ -36,26 +39,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMHeaderInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMHeaderInfo extends IUnknown {
     /**
      * The interface identifier for IWMHeaderInfo
      * @type {Guid}
      */
-    static IID => Guid("{96406bda-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bda-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMHeaderInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAttributeCount   : IntPtr
+        GetAttributeByIndex : IntPtr
+        GetAttributeByName  : IntPtr
+        SetAttribute        : IntPtr
+        GetMarkerCount      : IntPtr
+        GetMarker           : IntPtr
+        AddMarker           : IntPtr
+        RemoveMarker        : IntPtr
+        GetScriptCount      : IntPtr
+        GetScript           : IntPtr
+        AddScript           : IntPtr
+        RemoveScript        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAttributeCount", "GetAttributeByIndex", "GetAttributeByName", "SetAttribute", "GetMarkerCount", "GetMarker", "AddMarker", "RemoveMarker", "GetScriptCount", "GetScript", "AddScript", "RemoveScript"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMHeaderInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetAttributeCount method returns the number of attributes defined in the header section of the ASF file. This method is replaced by IWMHeaderInfo3::GetAttributeCountEx and IWMHeaderInfo3::GetAttributeIndices, and should no longer be used.
@@ -383,7 +404,7 @@ class IWMHeaderInfo extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -715,5 +736,47 @@ class IWMHeaderInfo extends IUnknown {
     RemoveScript(wIndex) {
         result := ComCall(14, this, "ushort", wIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMHeaderInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 3)
+        this.vtbl.GetAttributeByIndex := CallbackCreate(GetMethod(implObj, "GetAttributeByIndex"), flags, 8)
+        this.vtbl.GetAttributeByName := CallbackCreate(GetMethod(implObj, "GetAttributeByName"), flags, 6)
+        this.vtbl.SetAttribute := CallbackCreate(GetMethod(implObj, "SetAttribute"), flags, 6)
+        this.vtbl.GetMarkerCount := CallbackCreate(GetMethod(implObj, "GetMarkerCount"), flags, 2)
+        this.vtbl.GetMarker := CallbackCreate(GetMethod(implObj, "GetMarker"), flags, 5)
+        this.vtbl.AddMarker := CallbackCreate(GetMethod(implObj, "AddMarker"), flags, 3)
+        this.vtbl.RemoveMarker := CallbackCreate(GetMethod(implObj, "RemoveMarker"), flags, 2)
+        this.vtbl.GetScriptCount := CallbackCreate(GetMethod(implObj, "GetScriptCount"), flags, 2)
+        this.vtbl.GetScript := CallbackCreate(GetMethod(implObj, "GetScript"), flags, 7)
+        this.vtbl.AddScript := CallbackCreate(GetMethod(implObj, "AddScript"), flags, 4)
+        this.vtbl.RemoveScript := CallbackCreate(GetMethod(implObj, "RemoveScript"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAttributeCount)
+        CallbackFree(this.vtbl.GetAttributeByIndex)
+        CallbackFree(this.vtbl.GetAttributeByName)
+        CallbackFree(this.vtbl.SetAttribute)
+        CallbackFree(this.vtbl.GetMarkerCount)
+        CallbackFree(this.vtbl.GetMarker)
+        CallbackFree(this.vtbl.AddMarker)
+        CallbackFree(this.vtbl.RemoveMarker)
+        CallbackFree(this.vtbl.GetScriptCount)
+        CallbackFree(this.vtbl.GetScript)
+        CallbackFree(this.vtbl.AddScript)
+        CallbackFree(this.vtbl.RemoveScript)
     }
 }

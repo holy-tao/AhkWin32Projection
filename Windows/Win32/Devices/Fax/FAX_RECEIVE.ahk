@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The FAX_RECEIVE structure contains information about an inbound fax document. This information includes the name of the file that will receive the fax data stream, and the name and telephone number of the receiving device.
@@ -36,66 +36,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_receive
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_RECEIVE extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct FAX_RECEIVE {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the <b>FAX_RECEIVE</b> structure. Before calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxdev/nf-faxdev-faxdevreceive">FaxDevReceive</a> function, the fax service sets this member to <b>sizeof</b>(<b>FAX_RECEIVE</b>). For more information, see the following Remarks section.
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the full path to the file in which the FSP must store the data stream of an inbound fax document. The data stream is a TIFF Class F file. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-image-format">Fax Image Format</a>. The fax service creates the file before it calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxdev/nf-faxdev-faxdevreceive">FaxDevReceive</a> function. The FSP must specify the OPEN_EXISTING flag when opening this file.
-     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FileName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the receiving device. The FSP will send the name to the remote sending device after the receiving device receives an inbound fax. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    ReceiverName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ReceiverName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the receiving device. The FSP will send the number to the remote sending device after the receiving device receives an inbound fax. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    ReceiverNumber {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ReceiverNumber : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is reserved for future use by Microsoft. It must be set to zero.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : UInt32[4]
+
 }

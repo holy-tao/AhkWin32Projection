@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMHeaderInfo2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMHeaderInfo2.ahk" { IWMHeaderInfo2 }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
 
 /**
  * The IWMHeaderInfo3 interface supports the following new metadata features:Attribute data in excess of 64 kilobytes.Multiple attributes with the same name.Attributes in multiple languages.Because the attributes created using this interface can have duplicate names, the methods of this interface use index values to identify attributes.The IWMHeaderInfo3 interface is implemented by the metadata editor object, the writer object, the reader object, and the synchronous reader object. To obtain a pointer to an instance, call the QueryInterface method of any other interface in the desired object.
@@ -10,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMHeaderInfo3 extends IWMHeaderInfo2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
     /**
      * The interface identifier for IWMHeaderInfo3
      * @type {Guid}
      */
-    static IID => Guid("{15cc68e3-27cc-4ecd-b222-3f5d02d80bd5}")
+    static IID := Guid("{15cc68e3-27cc-4ecd-b222-3f5d02d80bd5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMHeaderInfo3 interfaces
+    */
+    struct Vtbl extends IWMHeaderInfo2.Vtbl {
+        GetAttributeCountEx   : IntPtr
+        GetAttributeIndices   : IntPtr
+        GetAttributeByIndexEx : IntPtr
+        ModifyAttribute       : IntPtr
+        AddAttribute          : IntPtr
+        DeleteAttribute       : IntPtr
+        AddCodecInfo          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAttributeCountEx", "GetAttributeIndices", "GetAttributeByIndexEx", "ModifyAttribute", "AddAttribute", "DeleteAttribute", "AddCodecInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMHeaderInfo3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetAttributeCountEx method retrieves the total number of attributes associated with a specified stream number.
@@ -243,7 +260,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2 {
     ModifyAttribute(wStreamNum, wIndex, Type, wLangIndex, pValue, dwLength) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "ushort", wStreamNum, "ushort", wIndex, "int", Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
+        result := ComCall(20, this, "ushort", wStreamNum, "ushort", wIndex, WMT_ATTR_DATATYPE, Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
         return result
     }
 
@@ -272,7 +289,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2 {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, "ushort*", &pwIndex := 0, "int", Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
+        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, "ushort*", &pwIndex := 0, WMT_ATTR_DATATYPE, Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
         return pwIndex
     }
 
@@ -368,7 +385,39 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2 {
 
         pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, "int", codecType, "ushort", cbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
+        result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, WMT_CODEC_INFO_TYPE, codecType, "ushort", cbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMHeaderInfo3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAttributeCountEx := CallbackCreate(GetMethod(implObj, "GetAttributeCountEx"), flags, 3)
+        this.vtbl.GetAttributeIndices := CallbackCreate(GetMethod(implObj, "GetAttributeIndices"), flags, 6)
+        this.vtbl.GetAttributeByIndexEx := CallbackCreate(GetMethod(implObj, "GetAttributeByIndexEx"), flags, 9)
+        this.vtbl.ModifyAttribute := CallbackCreate(GetMethod(implObj, "ModifyAttribute"), flags, 7)
+        this.vtbl.AddAttribute := CallbackCreate(GetMethod(implObj, "AddAttribute"), flags, 8)
+        this.vtbl.DeleteAttribute := CallbackCreate(GetMethod(implObj, "DeleteAttribute"), flags, 3)
+        this.vtbl.AddCodecInfo := CallbackCreate(GetMethod(implObj, "AddCodecInfo"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAttributeCountEx)
+        CallbackFree(this.vtbl.GetAttributeIndices)
+        CallbackFree(this.vtbl.GetAttributeByIndexEx)
+        CallbackFree(this.vtbl.ModifyAttribute)
+        CallbackFree(this.vtbl.AddAttribute)
+        CallbackFree(this.vtbl.DeleteAttribute)
+        CallbackFree(this.vtbl.AddCodecInfo)
     }
 }

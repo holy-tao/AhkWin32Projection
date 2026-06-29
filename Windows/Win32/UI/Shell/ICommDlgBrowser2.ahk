@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICommDlgBrowser.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICommDlgBrowser.ahk" { ICommDlgBrowser }
+#Import ".\IShellView.ahk" { IShellView }
 
 /**
  * Extends the capabilities of ICommDlgBrowser. This interface is exposed by the common file dialog boxes when they host a Shell browser. A pointer to ICommDlgBrowser2 can be obtained by calling QueryInterface on the IShellBrowser object.
@@ -21,26 +24,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icommdlgbrowser2
  * @namespace Windows.Win32.UI.Shell
  */
-class ICommDlgBrowser2 extends ICommDlgBrowser {
-
-    static sizeof => A_PtrSize
+export default struct ICommDlgBrowser2 extends ICommDlgBrowser {
     /**
      * The interface identifier for ICommDlgBrowser2
      * @type {Guid}
      */
-    static IID => Guid("{10339516-2894-11d2-9039-00c04f8eeb3e}")
+    static IID := Guid("{10339516-2894-11d2-9039-00c04f8eeb3e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICommDlgBrowser2 interfaces
+    */
+    struct Vtbl extends ICommDlgBrowser.Vtbl {
+        Notify             : IntPtr
+        GetDefaultMenuText : IntPtr
+        GetViewFlags       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Notify", "GetDefaultMenuText", "GetViewFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICommDlgBrowser2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by a Shell view to notify the common dialog box hosting it that an event has occurred.
@@ -93,5 +105,29 @@ class ICommDlgBrowser2 extends ICommDlgBrowser {
     GetViewFlags() {
         result := ComCall(8, this, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
+    }
+
+    Query(iid) {
+        if (ICommDlgBrowser2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.GetDefaultMenuText := CallbackCreate(GetMethod(implObj, "GetDefaultMenuText"), flags, 4)
+        this.vtbl.GetViewFlags := CallbackCreate(GetMethod(implObj, "GetViewFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.GetDefaultMenuText)
+        CallbackFree(this.vtbl.GetViewFlags)
     }
 }

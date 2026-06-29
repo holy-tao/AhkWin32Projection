@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWiaItem2.ahk" { IWiaItem2 }
+#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
 
 /**
  * The IWiaPreview interface caches unfiltered images internally and passes them through image processing filters.
@@ -25,26 +28,36 @@
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiapreview
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaPreview extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaPreview extends IUnknown {
     /**
      * The interface identifier for IWiaPreview
      * @type {Guid}
      */
-    static IID => Guid("{95c2b4fd-33f2-4d86-ad40-9431f0df08f7}")
+    static IID := Guid("{95c2b4fd-33f2-4d86-ad40-9431f0df08f7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaPreview interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNewPreview : IntPtr
+        UpdatePreview : IntPtr
+        DetectRegions : IntPtr
+        Clear         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNewPreview", "UpdatePreview", "DetectRegions", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaPreview.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Caches internally the unfiltered image returned from the driver.
@@ -153,5 +166,31 @@ class IWiaPreview extends IUnknown {
     Clear() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaPreview.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNewPreview := CallbackCreate(GetMethod(implObj, "GetNewPreview"), flags, 4)
+        this.vtbl.UpdatePreview := CallbackCreate(GetMethod(implObj, "UpdatePreview"), flags, 4)
+        this.vtbl.DetectRegions := CallbackCreate(GetMethod(implObj, "DetectRegions"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNewPreview)
+        CallbackFree(this.vtbl.UpdatePreview)
+        CallbackFree(this.vtbl.DetectRegions)
+        CallbackFree(this.vtbl.Clear)
     }
 }

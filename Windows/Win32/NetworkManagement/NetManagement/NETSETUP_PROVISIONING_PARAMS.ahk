@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NETSETUP_PROVISION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NETSETUP_PROVISION.ahk" { NETSETUP_PROVISION }
 
 /**
  * The NETSETUP_PROVISIONING_PARAMS structure contains information that is used when creating a provisioning package using the NetCreateProvisionPackage function.
@@ -23,10 +23,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ns-lmjoin-netsetup_provisioning_params
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NETSETUP_PROVISIONING_PARAMS extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct NETSETUP_PROVISIONING_PARAMS {
+    #StructPack 8
 
     /**
      * The version of Windows in the provisioning package. This parameter should use the following value defined in the <i>Lmjoin.h</i> header file.
@@ -48,139 +46,78 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
-     * @type {PWSTR}
      */
-    lpDomain {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDomain : PWSTR
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
-     * @type {PWSTR}
      */
-    lpHostName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpHostName : PWSTR
 
     /**
      * A optional pointer to a <b>NULL</b>-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) where the computer account will be created. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
      * 
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
-     * @type {PWSTR}
      */
-    lpMachineAccountOU {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpMachineAccountOU : PWSTR
 
     /**
      * An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
-     * @type {PWSTR}
      */
-    lpDcName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpDcName : PWSTR
 
-    /**
-     * @type {NETSETUP_PROVISION}
-     */
-    dwProvisionOptions {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwProvisionOptions : NETSETUP_PROVISION
 
     /**
      * A pointer to an array of <b>NULL</b>-terminated certificate template names.
-     * @type {Pointer<PWSTR>}
      */
-    aCertTemplateNames {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    aCertTemplateNames : PWSTR.Ptr
 
     /**
      * When <b>aCertTemplateNames</b> is not <b>NULL</b>, this member provides an explicit count of the number of items in the array.
-     * @type {Integer}
      */
-    cCertTemplateNames {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cCertTemplateNames : UInt32
 
     /**
      * A pointer to an array of <b>NULL</b>-terminated  machine policy names.
-     * @type {Pointer<PWSTR>}
      */
-    aMachinePolicyNames {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    aMachinePolicyNames : PWSTR.Ptr
 
     /**
      * When <b>aMachinePolicyNames</b> is not <b>NULL</b>, this member provides an explicit count of the number of items in the array.
-     * @type {Integer}
      */
-    cMachinePolicyNames {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cMachinePolicyNames : UInt32
 
     /**
      * A pointer to an array of  character strings. Each array element is a NULL-terminated character string which specifies the full or partial path to a file in the Registry Policy File format. For more information on the Registry Policy File Format , see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/registry-policy-file-format">Registry Policy File Format</a>
      * 
      * This path could be a UNC path on a remote server.
-     * @type {Pointer<PWSTR>}
      */
-    aMachinePolicyPaths {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    aMachinePolicyPaths : PWSTR.Ptr
 
     /**
      * When <b>aMachinePolicyPaths</b> is not <b>NULL</b>, this member provides an explicit count of the number of items in the array.
-     * @type {Integer}
      */
-    cMachinePolicyPaths {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    cMachinePolicyPaths : UInt32
 
     /**
      * TBD
-     * @type {PWSTR}
      */
-    lpNetbiosName {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    lpNetbiosName : PWSTR
 
     /**
      * TBD
-     * @type {PWSTR}
      */
-    lpSiteName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpSiteName : PWSTR
 
     /**
      * TBD
-     * @type {PWSTR}
      */
-    lpPrimaryDNSDomain {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpPrimaryDNSDomain : PWSTR
+
 }

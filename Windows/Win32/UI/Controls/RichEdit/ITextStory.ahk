@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextRange2.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITextStory interface methods are used to access shared data from multiple stories, which is stored in the parent ITextServices instance.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstory
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextStory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextStory extends IUnknown {
     /**
      * The interface identifier for ITextStory
      * @type {Guid}
      */
-    static IID => Guid("{c241f5f3-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5f3-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextStory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetActive        : IntPtr
+        SetActive        : IntPtr
+        GetDisplay       : IntPtr
+        GetIndex         : IntPtr
+        GetType          : IntPtr
+        SetType          : IntPtr
+        GetProperty      : IntPtr
+        GetRange         : IntPtr
+        GetText          : IntPtr
+        SetFormattedText : IntPtr
+        SetProperty      : IntPtr
+        SetText          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetActive", "SetActive", "GetDisplay", "GetIndex", "GetType", "SetType", "GetProperty", "GetRange", "GetText", "SetFormattedText", "SetProperty", "SetText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextStory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the active state of a story. (ITextStory.GetActive)
@@ -161,8 +180,8 @@ class ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettext
      */
     GetText(Flags) {
-        pbstr := BSTR()
-        result := ComCall(11, this, "int", Flags, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(11, this, "int", Flags, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -302,7 +321,49 @@ class ITextStory extends IUnknown {
     SetText(Flags, _bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(14, this, "int", Flags, "ptr", _bstr, "HRESULT")
+        result := ComCall(14, this, "int", Flags, BSTR, _bstr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextStory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetActive := CallbackCreate(GetMethod(implObj, "GetActive"), flags, 2)
+        this.vtbl.SetActive := CallbackCreate(GetMethod(implObj, "SetActive"), flags, 2)
+        this.vtbl.GetDisplay := CallbackCreate(GetMethod(implObj, "GetDisplay"), flags, 2)
+        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 4)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
+        this.vtbl.SetFormattedText := CallbackCreate(GetMethod(implObj, "SetFormattedText"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetActive)
+        CallbackFree(this.vtbl.SetActive)
+        CallbackFree(this.vtbl.GetDisplay)
+        CallbackFree(this.vtbl.GetIndex)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.SetType)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetRange)
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.SetFormattedText)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.SetText)
     }
 }

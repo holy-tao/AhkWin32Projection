@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IObjectArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IObjectArray.ahk" { IObjectArray }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Extends the IObjectArray interface by providing methods that enable clients to add and remove objects that support IUnknown in a collection.
@@ -11,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/objectarray/nn-objectarray-iobjectcollection
  * @namespace Windows.Win32.UI.Shell.Common
  */
-class IObjectCollection extends IObjectArray {
-
-    static sizeof => A_PtrSize
+export default struct IObjectCollection extends IObjectArray {
     /**
      * The interface identifier for IObjectCollection
      * @type {Guid}
      */
-    static IID => Guid("{5632b1a4-e38a-400a-928a-d4cd63230295}")
+    static IID := Guid("{5632b1a4-e38a-400a-928a-d4cd63230295}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IObjectCollection interfaces
+    */
+    struct Vtbl extends IObjectArray.Vtbl {
+        AddObject      : IntPtr
+        AddFromArray   : IntPtr
+        RemoveObjectAt : IntPtr
+        Clear          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddObject", "AddFromArray", "RemoveObjectAt", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IObjectCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a single object to the collection.
@@ -87,5 +99,31 @@ class IObjectCollection extends IObjectArray {
     Clear() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IObjectCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddObject := CallbackCreate(GetMethod(implObj, "AddObject"), flags, 2)
+        this.vtbl.AddFromArray := CallbackCreate(GetMethod(implObj, "AddFromArray"), flags, 2)
+        this.vtbl.RemoveObjectAt := CallbackCreate(GetMethod(implObj, "RemoveObjectAt"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddObject)
+        CallbackFree(this.vtbl.AddFromArray)
+        CallbackFree(this.vtbl.RemoveObjectAt)
+        CallbackFree(this.vtbl.Clear)
     }
 }

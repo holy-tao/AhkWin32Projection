@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCM_PD_HEALTH_STATUS.ahk
-#Include .\SCM_PD_OPERATIONAL_STATUS.ahk
-#Include .\SCM_PD_OPERATIONAL_STATUS_REASON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCM_PD_OPERATIONAL_STATUS.ahk" { SCM_PD_OPERATIONAL_STATUS }
+#Import ".\SCM_PD_HEALTH_STATUS.ahk" { SCM_PD_HEALTH_STATUS }
+#Import ".\SCM_PD_OPERATIONAL_STATUS_REASON.ahk" { SCM_PD_OPERATIONAL_STATUS_REASON }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_PD_MANAGEMENT_STATUS extends Win32Struct {
-    static sizeof => 88
+export default struct SCM_PD_MANAGEMENT_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Health : SCM_PD_HEALTH_STATUS
 
-    /**
-     * @type {SCM_PD_HEALTH_STATUS}
-     */
-    Health {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    NumberOfOperationalStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfOperationalStatus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumberOfAdditionalReasons : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfAdditionalReasons {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OperationalStatus : SCM_PD_OPERATIONAL_STATUS[16]
 
-    /**
-     * @type {Array<SCM_PD_OPERATIONAL_STATUS>}
-     */
-    OperationalStatus {
-        get {
-            if(!this.HasProp("__OperationalStatusProxyArray"))
-                this.__OperationalStatusProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "int")
-            return this.__OperationalStatusProxyArray
-        }
-    }
+    AdditionalReasons : SCM_PD_OPERATIONAL_STATUS_REASON[1]
 
-    /**
-     * @type {Array<SCM_PD_OPERATIONAL_STATUS_REASON>}
-     */
-    AdditionalReasons {
-        get {
-            if(!this.HasProp("__AdditionalReasonsProxyArray"))
-                this.__AdditionalReasonsProxyArray := Win32FixedArray(this.ptr + 84, 1, Primitive, "int")
-            return this.__AdditionalReasonsProxyArray
-        }
-    }
 }

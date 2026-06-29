@@ -1,36 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CALPOLESTR.ahk" { CALPOLESTR }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CADWORD.ahk" { CADWORD }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Retrieves the information in the property pages offered by an object.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iperpropertybrowsing
  * @namespace Windows.Win32.System.Ole
  */
-class IPerPropertyBrowsing extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPerPropertyBrowsing extends IUnknown {
     /**
      * The interface identifier for IPerPropertyBrowsing
      * @type {Guid}
      */
-    static IID => Guid("{376bd3aa-3845-101b-84ed-08002b2ec713}")
+    static IID := Guid("{376bd3aa-3845-101b-84ed-08002b2ec713}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPerPropertyBrowsing interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDisplayString     : IntPtr
+        MapPropertyToPage    : IntPtr
+        GetPredefinedStrings : IntPtr
+        GetPredefinedValue   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDisplayString", "MapPropertyToPage", "GetPredefinedStrings", "GetPredefinedValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPerPropertyBrowsing.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a text string describing the specified property.
@@ -39,8 +51,8 @@ class IPerPropertyBrowsing extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getdisplaystring
      */
     GetDisplayString(dispID) {
-        pBstr := BSTR()
-        result := ComCall(3, this, "int", dispID, "ptr", pBstr, "HRESULT")
+        pBstr := BSTR.Owned()
+        result := ComCall(3, this, "int", dispID, BSTR.Ptr, pBstr, "HRESULT")
         return pBstr
     }
 
@@ -54,7 +66,7 @@ class IPerPropertyBrowsing extends IUnknown {
      */
     MapPropertyToPage(dispID) {
         pClsid := Guid()
-        result := ComCall(4, this, "int", dispID, "ptr", pClsid, "HRESULT")
+        result := ComCall(4, this, "int", dispID, Guid.Ptr, pClsid, "HRESULT")
         return pClsid
     }
 
@@ -142,7 +154,7 @@ class IPerPropertyBrowsing extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedstrings
      */
     GetPredefinedStrings(dispID, pCaStringsOut, pCaCookiesOut) {
-        result := ComCall(5, this, "int", dispID, "ptr", pCaStringsOut, "ptr", pCaCookiesOut, "HRESULT")
+        result := ComCall(5, this, "int", dispID, CALPOLESTR.Ptr, pCaStringsOut, CADWORD.Ptr, pCaCookiesOut, "HRESULT")
         return result
     }
 
@@ -163,7 +175,33 @@ class IPerPropertyBrowsing extends IUnknown {
      */
     GetPredefinedValue(dispID, dwCookie) {
         pVarOut := VARIANT()
-        result := ComCall(6, this, "int", dispID, "uint", dwCookie, "ptr", pVarOut, "HRESULT")
+        result := ComCall(6, this, "int", dispID, "uint", dwCookie, VARIANT.Ptr, pVarOut, "HRESULT")
         return pVarOut
+    }
+
+    Query(iid) {
+        if (IPerPropertyBrowsing.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDisplayString := CallbackCreate(GetMethod(implObj, "GetDisplayString"), flags, 3)
+        this.vtbl.MapPropertyToPage := CallbackCreate(GetMethod(implObj, "MapPropertyToPage"), flags, 3)
+        this.vtbl.GetPredefinedStrings := CallbackCreate(GetMethod(implObj, "GetPredefinedStrings"), flags, 4)
+        this.vtbl.GetPredefinedValue := CallbackCreate(GetMethod(implObj, "GetPredefinedValue"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDisplayString)
+        CallbackFree(this.vtbl.MapPropertyToPage)
+        CallbackFree(this.vtbl.GetPredefinedStrings)
+        CallbackFree(this.vtbl.GetPredefinedValue)
     }
 }

@@ -1,11 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_EXW.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_EXA.ahk
-#Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_A.ahk
-#Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY.ahk
-#Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_EX2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
+#Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_A.ahk" { SEC_WINNT_AUTH_IDENTITY_A }
+#Import ".\SEC_WINNT_AUTH_IDENTITY_EXA.ahk" { SEC_WINNT_AUTH_IDENTITY_EXA }
+#Import ".\SEC_WINNT_AUTH_IDENTITY_EXW.ahk" { SEC_WINNT_AUTH_IDENTITY_EXW }
+#Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY.ahk" { SEC_WINNT_AUTH_IDENTITY }
+#Import ".\SEC_WINNT_AUTH_IDENTITY_EX2.ahk" { SEC_WINNT_AUTH_IDENTITY_EX2 }
 
 /**
  * Contains the identity information for authentication.
@@ -18,68 +17,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_WINNT_AUTH_IDENTITY_INFO extends Win32Struct {
-    static sizeof => 288
-
-    static packingSize => 8
+export default struct SEC_WINNT_AUTH_IDENTITY_INFO {
+    #StructPack 8
 
     /**
      * The **AuthIdExw** authentication identity.
-     * @type {SEC_WINNT_AUTH_IDENTITY_EXW}
      */
-    AuthIdExw {
-        get {
-            if(!this.HasProp("__AuthIdExw"))
-                this.__AuthIdExw := SEC_WINNT_AUTH_IDENTITY_EXW(0, this)
-            return this.__AuthIdExw
-        }
-    }
+    AuthIdExw : SEC_WINNT_AUTH_IDENTITY_EXW
 
-    /**
-     * The **AuthIdExa** authentication identity.
-     * @type {SEC_WINNT_AUTH_IDENTITY_EXA}
-     */
-    AuthIdExa {
-        get {
-            if(!this.HasProp("__AuthIdExa"))
-                this.__AuthIdExa := SEC_WINNT_AUTH_IDENTITY_EXA(0, this)
-            return this.__AuthIdExa
-        }
-    }
-
-    /**
-     * The **AuthId_a** authentication identity.
-     * @type {SEC_WINNT_AUTH_IDENTITY_A}
-     */
-    AuthId_a {
-        get {
-            if(!this.HasProp("__AuthId_a"))
-                this.__AuthId_a := SEC_WINNT_AUTH_IDENTITY_A(0, this)
-            return this.__AuthId_a
-        }
-    }
-
-    /**
-     * The **AuthId_w** authentication identity.
-     * @type {SEC_WINNT_AUTH_IDENTITY_W}
-     */
-    AuthId_w {
-        get {
-            if(!this.HasProp("__AuthId_w"))
-                this.__AuthId_w := SEC_WINNT_AUTH_IDENTITY_W(0, this)
-            return this.__AuthId_w
-        }
-    }
-
-    /**
-     * The **AuthIdEx2** authentication identity.
-     * @type {SEC_WINNT_AUTH_IDENTITY_EX2}
-     */
-    AuthIdEx2 {
-        get {
-            if(!this.HasProp("__AuthIdEx2"))
-                this.__AuthIdEx2 := SEC_WINNT_AUTH_IDENTITY_EX2(0, this)
-            return this.__AuthIdEx2
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'AuthIdExa', { type: SEC_WINNT_AUTH_IDENTITY_EXA, offset: 0 })
+        DefineProp(this.Prototype, 'AuthId_a', { type: SEC_WINNT_AUTH_IDENTITY_A, offset: 0 })
+        DefineProp(this.Prototype, 'AuthId_w', { type: SEC_WINNT_AUTH_IDENTITY_W, offset: 0 })
+        DefineProp(this.Prototype, 'AuthIdEx2', { type: SEC_WINNT_AUTH_IDENTITY_EX2, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

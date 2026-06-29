@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PlatformId.ahk" { PlatformId }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EmulationType.ahk" { EmulationType }
 
 /**
  * Use this interface to specify the boot image to add to the optical disc. A boot image contains one or more sectors of code used to start the computer.
@@ -18,32 +21,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ibootoptions
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IBootOptions extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IBootOptions extends IDispatch {
     /**
      * The interface identifier for IBootOptions
      * @type {Guid}
      */
-    static IID => Guid("{2c941fd4-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fd4-975b-59be-a960-9a2a262853a5}")
 
     /**
      * The class identifier for BootOptions
      * @type {Guid}
      */
-    static CLSID => Guid("{2c941fce-975b-59be-a960-9a2a262853a5}")
+    static CLSID := Guid("{2c941fce-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBootOptions interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_BootImage    : IntPtr
+        get_Manufacturer : IntPtr
+        put_Manufacturer : IntPtr
+        get_PlatformId   : IntPtr
+        put_PlatformId   : IntPtr
+        get_Emulation    : IntPtr
+        put_Emulation    : IntPtr
+        get_ImageSize    : IntPtr
+        AssignBootImage  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BootImage", "get_Manufacturer", "put_Manufacturer", "get_PlatformId", "put_PlatformId", "get_Emulation", "put_Emulation", "get_ImageSize", "AssignBootImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBootOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IStream} 
@@ -99,8 +117,8 @@ class IBootOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_manufacturer
      */
     get_Manufacturer() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -146,7 +164,7 @@ class IBootOptions extends IDispatch {
     put_Manufacturer(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(9, this, "ptr", newVal, "HRESULT")
+        result := ComCall(9, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -167,7 +185,7 @@ class IBootOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-put_platformid
      */
     put_PlatformId(newVal) {
-        result := ComCall(11, this, "int", newVal, "HRESULT")
+        result := ComCall(11, this, PlatformId, newVal, "HRESULT")
         return result
     }
 
@@ -208,7 +226,7 @@ class IBootOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-put_emulation
      */
     put_Emulation(newVal) {
-        result := ComCall(13, this, "int", newVal, "HRESULT")
+        result := ComCall(13, this, EmulationType, newVal, "HRESULT")
         return result
     }
 
@@ -271,5 +289,41 @@ class IBootOptions extends IDispatch {
     AssignBootImage(newVal) {
         result := ComCall(15, this, "ptr", newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBootOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BootImage := CallbackCreate(GetMethod(implObj, "get_BootImage"), flags, 2)
+        this.vtbl.get_Manufacturer := CallbackCreate(GetMethod(implObj, "get_Manufacturer"), flags, 2)
+        this.vtbl.put_Manufacturer := CallbackCreate(GetMethod(implObj, "put_Manufacturer"), flags, 2)
+        this.vtbl.get_PlatformId := CallbackCreate(GetMethod(implObj, "get_PlatformId"), flags, 2)
+        this.vtbl.put_PlatformId := CallbackCreate(GetMethod(implObj, "put_PlatformId"), flags, 2)
+        this.vtbl.get_Emulation := CallbackCreate(GetMethod(implObj, "get_Emulation"), flags, 2)
+        this.vtbl.put_Emulation := CallbackCreate(GetMethod(implObj, "put_Emulation"), flags, 2)
+        this.vtbl.get_ImageSize := CallbackCreate(GetMethod(implObj, "get_ImageSize"), flags, 2)
+        this.vtbl.AssignBootImage := CallbackCreate(GetMethod(implObj, "AssignBootImage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BootImage)
+        CallbackFree(this.vtbl.get_Manufacturer)
+        CallbackFree(this.vtbl.put_Manufacturer)
+        CallbackFree(this.vtbl.get_PlatformId)
+        CallbackFree(this.vtbl.put_PlatformId)
+        CallbackFree(this.vtbl.get_Emulation)
+        CallbackFree(this.vtbl.put_Emulation)
+        CallbackFree(this.vtbl.get_ImageSize)
+        CallbackFree(this.vtbl.AssignBootImage)
     }
 }

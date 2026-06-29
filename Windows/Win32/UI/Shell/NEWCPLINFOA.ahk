@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains resource information and an application-defined value for a dialog box supported by a Control Panel application. (NEWCPLINFOA)
@@ -13,99 +13,63 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  */
-class NEWCPLINFOA extends Win32Struct {
-    static sizeof => 256
-
-    static packingSize => 8
+export default struct NEWCPLINFOA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length of the structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is ignored.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is ignored.
-     * @type {Integer}
      */
-    dwHelpContext {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwHelpContext : UInt32
 
     /**
      * Type: <b>LONG_PTR</b>
      * 
      * A pointer to data defined by the application. When the Control Panel sends the <a href="https://docs.microsoft.com/windows/desktop/shell/fa-associationarray">CPL_DBLCLK</a> and <a href="https://docs.microsoft.com/windows/desktop/shell/library-functions-bumper">CPL_STOP</a> messages, it passes this value back to your application.
-     * @type {Pointer}
      */
-    lData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lData : IntPtr
 
     /**
      * Type: <b>HICON</b>
      * 
      * The identifier of the icon that represents the dialog box. This icon is intended to be displayed by the application that controls the Control Panel application.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(24, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>TCHAR[32]</b>
      * 
      * A null-terminated string that contains the dialog box name. The name is intended to be displayed below the icon.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 32, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 31, "UTF-8")
-    }
+    szName : CHAR[32]
 
     /**
      * Type: <b>TCHAR[64]</b>
      * 
      * A null-terminated string containing the dialog box description. The description is intended to be displayed when the icon for the dialog box is selected.
-     * @type {String}
      */
-    szInfo {
-        get => StrGet(this.ptr + 64, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
-    }
+    szInfo : CHAR[64]
 
     /**
      * Type: <b>TCHAR[128]</b>
      * 
      * This member is ignored.
-     * @type {String}
      */
-    szHelpFile {
-        get => StrGet(this.ptr + 128, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 128, 127, "UTF-8")
-    }
+    szHelpFile : CHAR[128]
+
 }

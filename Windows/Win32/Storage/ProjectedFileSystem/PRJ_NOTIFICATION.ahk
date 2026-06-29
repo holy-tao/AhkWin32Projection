@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A notification value specified when sending the notification in a callback.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_notification
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  */
-class PRJ_NOTIFICATION extends Win32Enum {
+export default struct PRJ_NOTIFICATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * - Indicates that a handle has been created to an existing file or folder.

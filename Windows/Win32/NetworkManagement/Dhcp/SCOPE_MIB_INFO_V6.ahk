@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_IPV6_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class SCOPE_MIB_INFO_V6 extends Win32Struct {
-    static sizeof => 40
+export default struct SCOPE_MIB_INFO_V6 {
+    #StructPack 8
 
-    static packingSize => 8
+    Subnet : DHCP_IPV6_ADDRESS
 
-    /**
-     * @type {DHCP_IPV6_ADDRESS}
-     */
-    Subnet {
-        get {
-            if(!this.HasProp("__Subnet"))
-                this.__Subnet := DHCP_IPV6_ADDRESS(0, this)
-            return this.__Subnet
-        }
-    }
+    NumAddressesInuse : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumAddressesInuse {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumAddressesFree : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumAddressesFree {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NumPendingAdvertises : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumPendingAdvertises {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

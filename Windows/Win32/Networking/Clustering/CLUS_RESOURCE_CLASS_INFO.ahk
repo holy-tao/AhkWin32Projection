@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_RESOURCE_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
 
 /**
  * Contains resource class data. It is used as the data member of a CLUSPROP_RESOURCE_CLASS_INFO structure and as the return value of some control code operations.
@@ -22,40 +21,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_resource_class_info
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_RESOURCE_CLASS_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct CLUS_RESOURCE_CLASS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dw : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dw {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SubClass : UInt32
 
-    /**
-     * @type {CLUSTER_RESOURCE_CLASS}
-     */
-    rc {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SubClass {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    li {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'rc', { type: CLUSTER_RESOURCE_CLASS, offset: 0 })
+        DefineProp(this.Prototype, 'li', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,51 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IModelIterator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IModelIterator extends IUnknown {
     /**
      * The interface identifier for IModelIterator
      * @type {Guid}
      */
-    static IID => Guid("{e4622136-927d-4490-874f-581f3e4e3688}")
+    static IID := Guid("{e4622136-927d-4490-874f-581f3e4e3688}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IModelIterator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reset   : IntPtr
+        GetNext : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IModelIterator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "GetNext"]
-
-    /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset() {
         result := ComCall(3, this, "HRESULT")
@@ -53,28 +48,37 @@ class IModelIterator extends IUnknown {
     }
 
     /**
-     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
-     * @remarks
-     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
-     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
-     * 
-     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
-     * 
-     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<IModelObject>} _object 
      * @param {Integer} dimensions 
      * @param {Pointer<IModelObject>} indexers 
      * @param {Pointer<IKeyStore>} metadata 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
+     * @returns {HRESULT} 
      */
     GetNext(_object, dimensions, indexers, metadata) {
-        result := ComCall(4, this, "ptr*", _object, "uint", dimensions, "ptr*", indexers, "ptr*", metadata, "HRESULT")
+        result := ComCall(4, this, IModelObject.Ptr, _object, "uint", dimensions, IModelObject.Ptr, indexers, IKeyStore.Ptr, metadata, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IModelIterator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetNext)
     }
 }

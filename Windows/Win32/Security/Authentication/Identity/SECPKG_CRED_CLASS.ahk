@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of credential used in a client context. The SECPKG_CRED_CLASS enumeration is used in the SecPkgContext_CredInfo structure.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-secpkg_cred_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_CRED_CLASS extends Win32Enum {
+export default struct SECPKG_CRED_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No credentials are supplied.

@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class INTENT_TO_SEAL_ATTRIBUTE extends Win32Struct {
-    static sizeof => 8
+export default struct INTENT_TO_SEAL_ATTRIBUTE {
+    #StructPack 4
 
-    static packingSize => 4
+    version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    seal : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    seal {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

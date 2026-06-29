@@ -1,120 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
-#Include .\ISCSI_CONNECTION_INFO_EX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
+#Import ".\ISCSI_CONNECTION_INFO_EX.ahk" { ISCSI_CONNECTION_INFO_EX }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class ISCSI_SESSION_INFO_EX extends Win32Struct {
-    static sizeof => 56
+export default struct ISCSI_SESSION_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    SessionId : ISCSI_UNIQUE_SESSION_ID
 
-    /**
-     * @type {ISCSI_UNIQUE_SESSION_ID}
-     */
-    SessionId {
-        get {
-            if(!this.HasProp("__SessionId"))
-                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)
-            return this.__SessionId
-        }
-    }
+    InitialR2t : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    InitialR2t {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ImmediateData : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ImmediateData {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    DataSequenceInOrder : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DataSequenceInOrder {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    DataPduInOrder : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DataPduInOrder {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    ErrorRecoveryLevel : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ErrorRecoveryLevel {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    MaxOutstandingR2t : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxOutstandingR2t {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FirstBurstLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstBurstLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MaxBurstLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxBurstLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MaximumConnections : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumConnections {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ConnectionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Connections : ISCSI_CONNECTION_INFO_EX.Ptr
 
-    /**
-     * @type {Pointer<ISCSI_CONNECTION_INFO_EX>}
-     */
-    Connections {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

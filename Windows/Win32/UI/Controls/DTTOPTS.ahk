@@ -1,28 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DTTOPTS_FLAGS.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DTTOPTS_FLAGS.ahk" { DTTOPTS_FLAGS }
 
 /**
  * Defines the options for the DrawThemeTextEx function.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dttopts
  * @namespace Windows.Win32.UI.Controls
  */
-class DTTOPTS extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DTTOPTS {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Size of the structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -186,154 +182,96 @@ class DTTOPTS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {DTTOPTS_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : DTTOPTS_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the text that will be drawn.
-     * @type {COLORREF}
      */
-    crText {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    crText : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the outline that will be drawn around the text.
-     * @type {COLORREF}
      */
-    crBorder {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    crBorder : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the shadow that will be drawn behind the text.
-     * @type {COLORREF}
      */
-    crShadow {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    crShadow : COLORREF
 
     /**
      * Type: <b>int</b>
-     * @type {Integer}
      */
-    iTextShadowType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    iTextShadowType : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * Specifies the amount of offset, in logical coordinates, between the shadow and the text.
-     * @type {POINT}
      */
-    ptShadowOffset {
-        get {
-            if(!this.HasProp("__ptShadowOffset"))
-                this.__ptShadowOffset := POINT(24, this)
-            return this.__ptShadowOffset
-        }
-    }
+    ptShadowOffset : POINT
 
     /**
      * Type: <b>int</b>
      * 
      * Specifies the radius of the outline that will be drawn around the text.
-     * @type {Integer}
      */
-    iBorderSize {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    iBorderSize : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Specifies an alternate font property to use when drawing text. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemesysfont">GetThemeSysFont</a>.
-     * @type {Integer}
      */
-    iFontPropId {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    iFontPropId : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Specifies an alternate color property to use when drawing text. If this value is valid and the corresponding flag is set in <b>dwFlags</b>, this value will override the value of <b>crText</b>. See the values listed in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> for the <i>nIndex</i> parameter.
-     * @type {Integer}
      */
-    iColorPropId {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    iColorPropId : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Specifies an alternate state to use. This member is not used by <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-drawthemetextex">DrawThemeTextEx</a>.
-     * @type {Integer}
      */
-    iStateId {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    iStateId : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>TRUE</b>, text will be drawn on top of the shadow and outline effects. If <b>FALSE</b>, just the shadow and outline effects will be drawn.
-     * @type {BOOL}
      */
-    fApplyOverlay {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    fApplyOverlay : BOOL
 
     /**
      * Type: <b>int</b>
      * 
      * Specifies the size of a glow that will be drawn on the background prior to any text being drawn.
-     * @type {Integer}
      */
-    iGlowSize {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    iGlowSize : Int32
 
     /**
      * Type: <b>DTT_CALLBACK_PROC</b>
      * 
      * Pointer to callback function for <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-drawthemetextex">DrawThemeTextEx</a>.
-     * @type {Pointer<DTT_CALLBACK_PROC>}
      */
-    pfnDrawTextCallback {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pfnDrawTextCallback : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Parameter for callback back function specified by <b>pfnDrawTextCallback</b>.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lParam : LPARAM
+
 }

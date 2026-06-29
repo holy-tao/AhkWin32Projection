@@ -1,68 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR_INET.ahk
-#Include .\SOCKADDR_IN.ahk
-#Include .\ADDRESS_FAMILY.ahk
-#Include .\IN_ADDR.ahk
-#Include .\SOCKADDR_IN6.ahk
-#Include .\IN6_ADDR.ahk
-#Include .\SCOPE_ID.ahk
-#Include .\IPPROTO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import ".\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\IPPROTO.ahk" { IPPROTO }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import ".\SCOPE_ID.ahk" { SCOPE_ID }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Used to store received ICMP error information.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-icmp_error_info
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ICMP_ERROR_INFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct ICMP_ERROR_INFO {
+    #StructPack 4
 
     /**
      * Type: **[SOCKADDR_INET](./ns-ws2ipdef-sockaddr_inet.md)**
      * 
      * The source IP address of the ICMP error.
-     * @type {SOCKADDR_INET}
      */
-    srcaddress {
-        get {
-            if(!this.HasProp("__srcaddress"))
-                this.__srcaddress := SOCKADDR_INET(0, this)
-            return this.__srcaddress
-        }
-    }
+    srcaddress : SOCKADDR_INET
 
     /**
      * Type: **IPPROTO**
      * 
      * The protocol of the ICMP error (either **IPPROTO_ICMP** or **IPPROTO_ICMPV6**).
-     * @type {IPPROTO}
      */
-    protocol {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    protocol : IPPROTO
 
     /**
      * Type: **[UINT8](/windows/win32/winprog/windows-data-types)**
      * 
      * The ICMP error type.
-     * @type {Integer}
      */
-    type {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
-    }
+    type : Int8
 
     /**
      * Type: **[UINT8](/windows/win32/winprog/windows-data-types)**
      * 
      * The ICMP error code.
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 53, "char")
-        set => NumPut("char", value, this, 53)
-    }
+    code : Int8
+
 }

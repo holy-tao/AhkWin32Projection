@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IPersistStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IPersistStream.ahk" { IPersistStream }
+#Import ".\IRichChunk.ahk" { IRichChunk }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for retrieving information about a search condition.
@@ -12,26 +18,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nn-structuredquerycondition-icondition
  * @namespace Windows.Win32.System.Search
  */
-class ICondition extends IPersistStream {
-
-    static sizeof => A_PtrSize
+export default struct ICondition extends IPersistStream {
     /**
      * The interface identifier for ICondition
      * @type {Guid}
      */
-    static IID => Guid("{0fc988d4-c935-4b97-a973-46282ea175c8}")
+    static IID := Guid("{0fc988d4-c935-4b97-a973-46282ea175c8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICondition interfaces
+    */
+    struct Vtbl extends IPersistStream.Vtbl {
+        GetConditionType      : IntPtr
+        GetSubConditions      : IntPtr
+        GetComparisonInfo     : IntPtr
+        GetValueType          : IntPtr
+        GetValueNormalization : IntPtr
+        GetInputTerms         : IntPtr
+        Clone                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConditionType", "GetSubConditions", "GetComparisonInfo", "GetValueType", "GetValueNormalization", "GetInputTerms", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICondition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the condition type for this search condition node, identifying it as a logical AND, OR, or NOT, or as a leaf node.
@@ -64,7 +83,7 @@ class ICondition extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getsubconditions
      */
     GetSubConditions(riid) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -90,7 +109,7 @@ class ICondition extends IPersistStream {
         ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
         pcopMarshal := pcop is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, ppszPropertyNameMarshal, ppszPropertyName, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
+        result := ComCall(10, this, ppszPropertyNameMarshal, ppszPropertyName, pcopMarshal, pcop, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return result
     }
 
@@ -102,7 +121,7 @@ class ICondition extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getvaluetype
      */
     GetValueType() {
-        result := ComCall(11, this, "ptr*", &ppszValueTypeName := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszValueTypeName := 0, "HRESULT")
         return ppszValueTypeName
     }
 
@@ -116,7 +135,7 @@ class ICondition extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getvaluenormalization
      */
     GetValueNormalization() {
-        result := ComCall(12, this, "ptr*", &ppszNormalization := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ppszNormalization := 0, "HRESULT")
         return ppszNormalization
     }
 
@@ -141,7 +160,7 @@ class ICondition extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getinputterms
      */
     GetInputTerms(ppPropertyTerm, ppOperationTerm, ppValueTerm) {
-        result := ComCall(13, this, "ptr*", ppPropertyTerm, "ptr*", ppOperationTerm, "ptr*", ppValueTerm, "HRESULT")
+        result := ComCall(13, this, IRichChunk.Ptr, ppPropertyTerm, IRichChunk.Ptr, ppOperationTerm, IRichChunk.Ptr, ppValueTerm, "HRESULT")
         return result
     }
 
@@ -157,5 +176,37 @@ class ICondition extends IPersistStream {
     Clone() {
         result := ComCall(14, this, "ptr*", &ppc := 0, "HRESULT")
         return ICondition(ppc)
+    }
+
+    Query(iid) {
+        if (ICondition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConditionType := CallbackCreate(GetMethod(implObj, "GetConditionType"), flags, 2)
+        this.vtbl.GetSubConditions := CallbackCreate(GetMethod(implObj, "GetSubConditions"), flags, 3)
+        this.vtbl.GetComparisonInfo := CallbackCreate(GetMethod(implObj, "GetComparisonInfo"), flags, 4)
+        this.vtbl.GetValueType := CallbackCreate(GetMethod(implObj, "GetValueType"), flags, 2)
+        this.vtbl.GetValueNormalization := CallbackCreate(GetMethod(implObj, "GetValueNormalization"), flags, 2)
+        this.vtbl.GetInputTerms := CallbackCreate(GetMethod(implObj, "GetInputTerms"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConditionType)
+        CallbackFree(this.vtbl.GetSubConditions)
+        CallbackFree(this.vtbl.GetComparisonInfo)
+        CallbackFree(this.vtbl.GetValueType)
+        CallbackFree(this.vtbl.GetValueNormalization)
+        CallbackFree(this.vtbl.GetInputTerms)
+        CallbackFree(this.vtbl.Clone)
     }
 }

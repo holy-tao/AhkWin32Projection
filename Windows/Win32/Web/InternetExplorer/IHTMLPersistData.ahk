@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IHTMLPersistData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLPersistData extends IUnknown {
     /**
      * The interface identifier for IHTMLPersistData
      * @type {Guid}
      */
-    static IID => Guid("{3050f4c5-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f4c5-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLPersistData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        save      : IntPtr
+        load      : IntPtr
+        queryType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["save", "load", "queryType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLPersistData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The save command saves an MCI file. Video-overlay and waveform-audio devices recognize this command. Although digital-video devices and MIDI sequencers also recognize this command, the MCIAVI and MCISEQ drivers do not support it.
@@ -37,7 +48,7 @@ class IHTMLPersistData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Multimedia/save
      */
     save(pUnk, lType) {
-        result := ComCall(3, this, "ptr", pUnk, "int", lType, "short*", &fContinueBroacast := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnk, "int", lType, VARIANT_BOOL.Ptr, &fContinueBroacast := 0, "HRESULT")
         return fContinueBroacast
     }
 
@@ -51,7 +62,7 @@ class IHTMLPersistData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Multimedia/load
      */
     load(pUnk, lType) {
-        result := ComCall(4, this, "ptr", pUnk, "int", lType, "short*", &fDoDefault := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnk, "int", lType, VARIANT_BOOL.Ptr, &fDoDefault := 0, "HRESULT")
         return fDoDefault
     }
 
@@ -61,7 +72,31 @@ class IHTMLPersistData extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     queryType(lType) {
-        result := ComCall(5, this, "int", lType, "short*", &pfSupportsType := 0, "HRESULT")
+        result := ComCall(5, this, "int", lType, VARIANT_BOOL.Ptr, &pfSupportsType := 0, "HRESULT")
         return pfSupportsType
+    }
+
+    Query(iid) {
+        if (IHTMLPersistData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 4)
+        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 4)
+        this.vtbl.queryType := CallbackCreate(GetMethod(implObj, "queryType"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.save)
+        CallbackFree(this.vtbl.load)
+        CallbackFree(this.vtbl.queryType)
     }
 }

@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FILE_TYPE_NOTIFICATION_INPUT extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_TYPE_NOTIFICATION_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumFileTypeIDs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumFileTypeIDs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FileTypeID : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    FileTypeID {
-        get {
-            if(!this.HasProp("__FileTypeIDProxyArray"))
-                this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__FileTypeIDProxyArray
-        }
-    }
 }

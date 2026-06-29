@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMPCore.ahk" { IWMPCore }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IWMPPluginUI interface manages the connection to Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nn-wmpplug-iwmppluginui
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPPluginUI extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPPluginUI extends IUnknown {
     /**
      * The interface identifier for IWMPPluginUI
      * @type {Guid}
      */
-    static IID => Guid("{4c5e8f9f-ad3e-4bf9-9753-fcd30d6d38dd}")
+    static IID := Guid("{4c5e8f9f-ad3e-4bf9-9753-fcd30d6d38dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPPluginUI interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetCore              : IntPtr
+        Create               : IntPtr
+        Destroy              : IntPtr
+        DisplayPropertyPage  : IntPtr
+        GetProperty          : IntPtr
+        SetProperty          : IntPtr
+        TranslateAccelerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCore", "Create", "Destroy", "DisplayPropertyPage", "GetProperty", "SetProperty", "TranslateAccelerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPPluginUI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetCore method is called by Windows Media Player to provide plug-in access to the core Windows Media Player APIs.
@@ -56,9 +75,7 @@ class IWMPPluginUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-create
      */
     Create(hwndParent, phwndWindow) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(4, this, "ptr", hwndParent, "ptr", phwndWindow, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, HWND.Ptr, phwndWindow, "HRESULT")
         return result
     }
 
@@ -87,9 +104,7 @@ class IWMPPluginUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-displaypropertypage
      */
     DisplayPropertyPage(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(6, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, "HRESULT")
         return result
     }
 
@@ -113,7 +128,7 @@ class IWMPPluginUI extends IUnknown {
     GetProperty(pwszName, pvarProperty) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(7, this, "ptr", pwszName, "ptr", pvarProperty, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszName, VARIANT.Ptr, pvarProperty, "HRESULT")
         return result
     }
 
@@ -133,7 +148,7 @@ class IWMPPluginUI extends IUnknown {
     SetProperty(pwszName, pvarProperty) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(8, this, "ptr", pwszName, "ptr", pvarProperty, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszName, VARIANT.Ptr, pvarProperty, "HRESULT")
         return result
     }
 
@@ -148,7 +163,39 @@ class IWMPPluginUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-translateaccelerator
      */
     TranslateAccelerator(lpmsg) {
-        result := ComCall(9, this, "ptr", lpmsg, "HRESULT")
+        result := ComCall(9, this, MSG.Ptr, lpmsg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPPluginUI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCore := CallbackCreate(GetMethod(implObj, "SetCore"), flags, 2)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.DisplayPropertyPage := CallbackCreate(GetMethod(implObj, "DisplayPropertyPage"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCore)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.DisplayPropertyPage)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.TranslateAccelerator)
     }
 }

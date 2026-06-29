@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SQL_YEAR_MONTH_STRUCT extends Win32Struct {
-    static sizeof => 8
+export default struct SQL_YEAR_MONTH_STRUCT {
+    #StructPack 4
 
-    static packingSize => 4
+    year : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    year {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    month : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    month {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

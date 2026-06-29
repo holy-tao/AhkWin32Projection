@@ -1,31 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
-#Include ..\..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
+#Import "..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEVICE_CAPABILITIES extends Win32Struct {
-    static sizeof => 64
+export default struct DEVICE_CAPABILITIES {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Version : UInt16
 
     /**
      * This bitfield backs the following members:
@@ -53,12 +38,9 @@ class DEVICE_CAPABILITIES extends Win32Struct {
      * - ChildOfVgaEnabledBridge
      * - DecodeIoOnBoot
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -243,71 +225,20 @@ class DEVICE_CAPABILITIES extends Win32Struct {
         get => (this._bitfield >> 22) & 0x1
         set => this._bitfield := ((value & 0x1) << 22) | (this._bitfield & ~(0x1 << 22))
     }
+    Address : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    UINumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UINumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DeviceState : DEVICE_POWER_STATE[7]
 
-    /**
-     * @type {Array<DEVICE_POWER_STATE>}
-     */
-    DeviceState {
-        get {
-            if(!this.HasProp("__DeviceStateProxyArray"))
-                this.__DeviceStateProxyArray := Win32FixedArray(this.ptr + 16, 7, Primitive, "int")
-            return this.__DeviceStateProxyArray
-        }
-    }
+    SystemWake : SYSTEM_POWER_STATE
 
-    /**
-     * @type {SYSTEM_POWER_STATE}
-     */
-    SystemWake {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    DeviceWake : DEVICE_POWER_STATE
 
-    /**
-     * @type {DEVICE_POWER_STATE}
-     */
-    DeviceWake {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    D1Latency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    D1Latency {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    D2Latency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    D2Latency {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    D3Latency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    D3Latency {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

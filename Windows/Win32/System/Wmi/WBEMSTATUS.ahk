@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains error and status codes returned by methods in the WMI API.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbemstatus
  * @namespace Windows.Win32.System.Wmi
  */
-class WBEMSTATUS extends Win32Enum {
+export default struct WBEMSTATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

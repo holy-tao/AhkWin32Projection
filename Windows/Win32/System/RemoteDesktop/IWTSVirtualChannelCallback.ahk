@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Receives notifications about channel state changes or data received.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWTSVirtualChannelCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWTSVirtualChannelCallback extends IUnknown {
     /**
      * The interface identifier for IWTSVirtualChannelCallback
      * @type {Guid}
      */
-    static IID => Guid("{a1230204-d6a7-11d8-b9fd-000bdbd1f198}")
+    static IID := Guid("{a1230204-d6a7-11d8-b9fd-000bdbd1f198}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWTSVirtualChannelCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDataReceived : IntPtr
+        OnClose        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDataReceived", "OnClose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWTSVirtualChannelCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the user about data that is being received.
@@ -51,5 +60,27 @@ class IWTSVirtualChannelCallback extends IUnknown {
     OnClose() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWTSVirtualChannelCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDataReceived := CallbackCreate(GetMethod(implObj, "OnDataReceived"), flags, 3)
+        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDataReceived)
+        CallbackFree(this.vtbl.OnClose)
     }
 }

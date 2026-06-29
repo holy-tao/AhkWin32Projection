@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for handling bit strings used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodebitstring
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertEncodeBitString extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertEncodeBitString extends IDispatch {
     /**
      * The interface identifier for ICertEncodeBitString
      * @type {Guid}
      */
-    static IID => Guid("{6db525be-1278-11d1-9bd4-00c04fb683fa}")
+    static IID := Guid("{6db525be-1278-11d1-9bd4-00c04fb683fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertEncodeBitString interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Decode       : IntPtr
+        GetBitCount  : IntPtr
+        GetBitString : IntPtr
+        Encode       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "GetBitCount", "GetBitString", "Encode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertEncodeBitString.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Decodes an Abstract Syntax Notation One (ASN.1)-encoded bit string and stores the resulting bit string in this object.
@@ -45,7 +56,7 @@ class ICertEncodeBitString extends IDispatch {
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        result := ComCall(7, this, "ptr", strBinary, "HRESULT")
+        result := ComCall(7, this, BSTR, strBinary, "HRESULT")
         return result
     }
 
@@ -65,8 +76,8 @@ class ICertEncodeBitString extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitstring
      */
     GetBitString() {
-        pstrBitString := BSTR()
-        result := ComCall(9, this, "ptr", pstrBitString, "HRESULT")
+        pstrBitString := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pstrBitString, "HRESULT")
         return pstrBitString
     }
 
@@ -80,8 +91,34 @@ class ICertEncodeBitString extends IDispatch {
     Encode(BitCount, strBitString) {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
-        pstrBinary := BSTR()
-        result := ComCall(10, this, "int", BitCount, "ptr", strBitString, "ptr", pstrBinary, "HRESULT")
+        pstrBinary := BSTR.Owned()
+        result := ComCall(10, this, "int", BitCount, BSTR, strBitString, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
+    }
+
+    Query(iid) {
+        if (ICertEncodeBitString.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetBitCount := CallbackCreate(GetMethod(implObj, "GetBitCount"), flags, 2)
+        this.vtbl.GetBitString := CallbackCreate(GetMethod(implObj, "GetBitString"), flags, 2)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.GetBitCount)
+        CallbackFree(this.vtbl.GetBitString)
+        CallbackFree(this.vtbl.Encode)
     }
 }

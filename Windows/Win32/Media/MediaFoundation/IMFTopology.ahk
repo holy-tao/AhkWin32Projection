@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFTopologyNode.ahk
-#Include .\IMFCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCollection.ahk" { IMFCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
 
 /**
  * Represents a topology. A topology describes a collection of media sources, sinks, and transforms that are connected in a certain order.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopology
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTopology extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFTopology extends IMFAttributes {
     /**
      * The interface identifier for IMFTopology
      * @type {Guid}
      */
-    static IID => Guid("{83cf873a-f6da-4bc8-823f-bacfd55dc433}")
+    static IID := Guid("{83cf873a-f6da-4bc8-823f-bacfd55dc433}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTopology interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        GetTopologyID           : IntPtr
+        AddNode                 : IntPtr
+        RemoveNode              : IntPtr
+        GetNodeCount            : IntPtr
+        GetNode                 : IntPtr
+        Clear                   : IntPtr
+        CloneFrom               : IntPtr
+        GetNodeByID             : IntPtr
+        GetSourceNodeCollection : IntPtr
+        GetOutputNodeCollection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTopologyID", "AddNode", "RemoveNode", "GetNodeCount", "GetNode", "Clear", "CloneFrom", "GetNodeByID", "GetSourceNodeCollection", "GetOutputNodeCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTopology.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the identifier of the topology.
@@ -230,5 +247,43 @@ class IMFTopology extends IMFAttributes {
     GetOutputNodeCollection() {
         result := ComCall(42, this, "ptr*", &ppCollection := 0, "HRESULT")
         return IMFCollection(ppCollection)
+    }
+
+    Query(iid) {
+        if (IMFTopology.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTopologyID := CallbackCreate(GetMethod(implObj, "GetTopologyID"), flags, 2)
+        this.vtbl.AddNode := CallbackCreate(GetMethod(implObj, "AddNode"), flags, 2)
+        this.vtbl.RemoveNode := CallbackCreate(GetMethod(implObj, "RemoveNode"), flags, 2)
+        this.vtbl.GetNodeCount := CallbackCreate(GetMethod(implObj, "GetNodeCount"), flags, 2)
+        this.vtbl.GetNode := CallbackCreate(GetMethod(implObj, "GetNode"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.CloneFrom := CallbackCreate(GetMethod(implObj, "CloneFrom"), flags, 2)
+        this.vtbl.GetNodeByID := CallbackCreate(GetMethod(implObj, "GetNodeByID"), flags, 3)
+        this.vtbl.GetSourceNodeCollection := CallbackCreate(GetMethod(implObj, "GetSourceNodeCollection"), flags, 2)
+        this.vtbl.GetOutputNodeCollection := CallbackCreate(GetMethod(implObj, "GetOutputNodeCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTopologyID)
+        CallbackFree(this.vtbl.AddNode)
+        CallbackFree(this.vtbl.RemoveNode)
+        CallbackFree(this.vtbl.GetNodeCount)
+        CallbackFree(this.vtbl.GetNode)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.CloneFrom)
+        CallbackFree(this.vtbl.GetNodeByID)
+        CallbackFree(this.vtbl.GetSourceNodeCollection)
+        CallbackFree(this.vtbl.GetOutputNodeCollection)
     }
 }

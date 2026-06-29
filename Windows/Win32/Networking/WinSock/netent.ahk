@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class netent extends Win32Struct {
-    static sizeof => 24
+export default struct netent {
+    #StructPack 8
 
-    static packingSize => 8
+    n_name : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    n_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    n_aliases : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Integer>>}
-     */
-    n_aliases {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    n_addrtype : Int16
 
-    /**
-     * @type {Integer}
-     */
-    n_addrtype {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    n_net : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    n_net {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

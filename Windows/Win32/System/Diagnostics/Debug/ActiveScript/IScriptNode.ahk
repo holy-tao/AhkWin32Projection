@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IScriptEntry.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\IScriptEntry.ahk" { IScriptEntry }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IScriptNode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IScriptNode extends IUnknown {
     /**
      * The interface identifier for IScriptNode
      * @type {Guid}
      */
-    static IID => Guid("{0aee2a94-bcbb-11d0-8c72-00c04fc2b085}")
+    static IID := Guid("{0aee2a94-bcbb-11d0-8c72-00c04fc2b085}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IScriptNode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Alive               : IntPtr
+        Delete              : IntPtr
+        GetParent           : IntPtr
+        GetIndexInParent    : IntPtr
+        GetCookie           : IntPtr
+        GetNumberOfChildren : IntPtr
+        GetChild            : IntPtr
+        GetLanguage         : IntPtr
+        CreateChildEntry    : IntPtr
+        CreateChildHandler  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Alive", "Delete", "GetParent", "GetIndexInParent", "GetCookie", "GetNumberOfChildren", "GetChild", "GetLanguage", "CreateChildEntry", "CreateChildHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IScriptNode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,17 +58,8 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(4, this, "HRESULT")
@@ -110,8 +120,8 @@ class IScriptNode extends IUnknown {
      * @returns {BSTR} 
      */
     GetLanguage() {
-        pbstr := BSTR()
-        result := ComCall(10, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -151,5 +161,43 @@ class IScriptNode extends IUnknown {
 
         result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, "uint", cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, "uint", iMethodSignature, "uint", isn, "uint", dwCookie, "ptr*", &ppse := 0, "HRESULT")
         return IScriptEntry(ppse)
+    }
+
+    Query(iid) {
+        if (IScriptNode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Alive := CallbackCreate(GetMethod(implObj, "Alive"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.GetIndexInParent := CallbackCreate(GetMethod(implObj, "GetIndexInParent"), flags, 2)
+        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 2)
+        this.vtbl.GetNumberOfChildren := CallbackCreate(GetMethod(implObj, "GetNumberOfChildren"), flags, 2)
+        this.vtbl.GetChild := CallbackCreate(GetMethod(implObj, "GetChild"), flags, 3)
+        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.CreateChildEntry := CallbackCreate(GetMethod(implObj, "CreateChildEntry"), flags, 5)
+        this.vtbl.CreateChildHandler := CallbackCreate(GetMethod(implObj, "CreateChildHandler"), flags, 11)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Alive)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetParent)
+        CallbackFree(this.vtbl.GetIndexInParent)
+        CallbackFree(this.vtbl.GetCookie)
+        CallbackFree(this.vtbl.GetNumberOfChildren)
+        CallbackFree(this.vtbl.GetChild)
+        CallbackFree(this.vtbl.GetLanguage)
+        CallbackFree(this.vtbl.CreateChildEntry)
+        CallbackFree(this.vtbl.CreateChildHandler)
     }
 }

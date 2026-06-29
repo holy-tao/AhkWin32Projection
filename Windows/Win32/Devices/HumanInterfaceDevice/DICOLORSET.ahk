@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DICOLORSET extends Win32Struct {
-    static sizeof => 36
+export default struct DICOLORSET {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cTextFore : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cTextFore {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cTextHighlight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cTextHighlight {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cCalloutLine : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCalloutLine {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cCalloutHighlight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCalloutHighlight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cBorder : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cBorder {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cControlFill : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cControlFill {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cHighlightFill : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cHighlightFill {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cAreaFill : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cAreaFill {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

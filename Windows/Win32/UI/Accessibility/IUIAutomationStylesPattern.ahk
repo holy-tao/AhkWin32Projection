@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ExtendedProperty.ahk" { ExtendedProperty }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UIA_STYLE_ID.ahk" { UIA_STYLE_ID }
 
 /**
  * Enables Microsoft UI Automation clients to retrieve the visual styles associated with an element in a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationstylespattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationStylesPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationStylesPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationStylesPattern
      * @type {Guid}
      */
-    static IID => Guid("{85b5f0a2-bd79-484a-ad2b-388c9838d5fb}")
+    static IID := Guid("{85b5f0a2-bd79-484a-ad2b-388c9838d5fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationStylesPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_CurrentStyleId                  : IntPtr
+        get_CurrentStyleName                : IntPtr
+        get_CurrentFillColor                : IntPtr
+        get_CurrentFillPatternStyle         : IntPtr
+        get_CurrentShape                    : IntPtr
+        get_CurrentFillPatternColor         : IntPtr
+        get_CurrentExtendedProperties       : IntPtr
+        GetCurrentExtendedPropertiesAsArray : IntPtr
+        get_CachedStyleId                   : IntPtr
+        get_CachedStyleName                 : IntPtr
+        get_CachedFillColor                 : IntPtr
+        get_CachedFillPatternStyle          : IntPtr
+        get_CachedShape                     : IntPtr
+        get_CachedFillPatternColor          : IntPtr
+        get_CachedExtendedProperties        : IntPtr
+        GetCachedExtendedPropertiesAsArray  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentStyleId", "get_CurrentStyleName", "get_CurrentFillColor", "get_CurrentFillPatternStyle", "get_CurrentShape", "get_CurrentFillPatternColor", "get_CurrentExtendedProperties", "GetCurrentExtendedPropertiesAsArray", "get_CachedStyleId", "get_CachedStyleName", "get_CachedFillColor", "get_CachedFillPatternStyle", "get_CachedShape", "get_CachedFillPatternColor", "get_CachedExtendedProperties", "GetCachedExtendedPropertiesAsArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationStylesPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UIA_STYLE_ID} 
@@ -146,8 +171,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstylename
      */
     get_CurrentStyleName() {
-        retVal := BSTR()
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -166,8 +191,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @returns {BSTR} 
      */
     get_CurrentFillPatternStyle() {
-        retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -177,8 +202,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentshape
      */
     get_CurrentShape() {
-        retVal := BSTR()
-        result := ComCall(7, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -198,8 +223,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentextendedproperties
      */
     get_CurrentExtendedProperties() {
-        retVal := BSTR()
-        result := ComCall(9, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -235,8 +260,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstylename
      */
     get_CachedStyleName() {
-        retVal := BSTR()
-        result := ComCall(12, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -255,8 +280,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @returns {BSTR} 
      */
     get_CachedFillPatternStyle() {
-        retVal := BSTR()
-        result := ComCall(14, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -266,8 +291,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedshape
      */
     get_CachedShape() {
-        retVal := BSTR()
-        result := ComCall(15, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -287,8 +312,8 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedextendedproperties
      */
     get_CachedExtendedProperties() {
-        retVal := BSTR()
-        result := ComCall(17, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -304,5 +329,55 @@ class IUIAutomationStylesPattern extends IUnknown {
 
         result := ComCall(18, this, propertyArrayMarshal, propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomationStylesPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentStyleId := CallbackCreate(GetMethod(implObj, "get_CurrentStyleId"), flags, 2)
+        this.vtbl.get_CurrentStyleName := CallbackCreate(GetMethod(implObj, "get_CurrentStyleName"), flags, 2)
+        this.vtbl.get_CurrentFillColor := CallbackCreate(GetMethod(implObj, "get_CurrentFillColor"), flags, 2)
+        this.vtbl.get_CurrentFillPatternStyle := CallbackCreate(GetMethod(implObj, "get_CurrentFillPatternStyle"), flags, 2)
+        this.vtbl.get_CurrentShape := CallbackCreate(GetMethod(implObj, "get_CurrentShape"), flags, 2)
+        this.vtbl.get_CurrentFillPatternColor := CallbackCreate(GetMethod(implObj, "get_CurrentFillPatternColor"), flags, 2)
+        this.vtbl.get_CurrentExtendedProperties := CallbackCreate(GetMethod(implObj, "get_CurrentExtendedProperties"), flags, 2)
+        this.vtbl.GetCurrentExtendedPropertiesAsArray := CallbackCreate(GetMethod(implObj, "GetCurrentExtendedPropertiesAsArray"), flags, 3)
+        this.vtbl.get_CachedStyleId := CallbackCreate(GetMethod(implObj, "get_CachedStyleId"), flags, 2)
+        this.vtbl.get_CachedStyleName := CallbackCreate(GetMethod(implObj, "get_CachedStyleName"), flags, 2)
+        this.vtbl.get_CachedFillColor := CallbackCreate(GetMethod(implObj, "get_CachedFillColor"), flags, 2)
+        this.vtbl.get_CachedFillPatternStyle := CallbackCreate(GetMethod(implObj, "get_CachedFillPatternStyle"), flags, 2)
+        this.vtbl.get_CachedShape := CallbackCreate(GetMethod(implObj, "get_CachedShape"), flags, 2)
+        this.vtbl.get_CachedFillPatternColor := CallbackCreate(GetMethod(implObj, "get_CachedFillPatternColor"), flags, 2)
+        this.vtbl.get_CachedExtendedProperties := CallbackCreate(GetMethod(implObj, "get_CachedExtendedProperties"), flags, 2)
+        this.vtbl.GetCachedExtendedPropertiesAsArray := CallbackCreate(GetMethod(implObj, "GetCachedExtendedPropertiesAsArray"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentStyleId)
+        CallbackFree(this.vtbl.get_CurrentStyleName)
+        CallbackFree(this.vtbl.get_CurrentFillColor)
+        CallbackFree(this.vtbl.get_CurrentFillPatternStyle)
+        CallbackFree(this.vtbl.get_CurrentShape)
+        CallbackFree(this.vtbl.get_CurrentFillPatternColor)
+        CallbackFree(this.vtbl.get_CurrentExtendedProperties)
+        CallbackFree(this.vtbl.GetCurrentExtendedPropertiesAsArray)
+        CallbackFree(this.vtbl.get_CachedStyleId)
+        CallbackFree(this.vtbl.get_CachedStyleName)
+        CallbackFree(this.vtbl.get_CachedFillColor)
+        CallbackFree(this.vtbl.get_CachedFillPatternStyle)
+        CallbackFree(this.vtbl.get_CachedShape)
+        CallbackFree(this.vtbl.get_CachedFillPatternColor)
+        CallbackFree(this.vtbl.get_CachedExtendedProperties)
+        CallbackFree(this.vtbl.GetCachedExtendedPropertiesAsArray)
     }
 }

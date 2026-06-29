@@ -1,30 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class OS_INFO extends Win32Struct {
-    static sizeof => 528
+export default struct OS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _s extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _s {
         /**
          * This bitfield backs the following members:
          * - Checked
          * - Pae
          * - MultiProc
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -51,142 +44,38 @@ class OS_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    MajorVer {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MajorVer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinorVer {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MinorVer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Build {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Build : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BuildQfe {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BuildQfe : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProductType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProductType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Suite {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Suite : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Revision : UInt32
 
-    /**
-     * @type {_s}
-     */
-    s {
-        get {
-            if(!this.HasProp("__s"))
-                this.__s := OS_INFO._s(28, this)
-            return this.__s
-        }
-    }
+    s : OS_INFO._s
 
-    /**
-     * @type {Integer}
-     */
-    SrvPackNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SrvPackNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ServicePackBuild {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ServicePackBuild : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Architecture {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Architecture : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Lcid {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Lcid : UInt32
 
-    /**
-     * @type {String}
-     */
-    Name {
-        get => StrGet(this.ptr + 48, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-8")
-    }
+    Name : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    FullName {
-        get => StrGet(this.ptr + 112, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 112, 255, "UTF-8")
-    }
+    FullName : CHAR[256]
 
-    /**
-     * @type {String}
-     */
-    Language {
-        get => StrGet(this.ptr + 368, 29, "UTF-8")
-        set => StrPut(value, this.ptr + 368, 29, "UTF-8")
-    }
+    Language : CHAR[30]
 
-    /**
-     * @type {String}
-     */
-    BuildVersion {
-        get => StrGet(this.ptr + 398, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 398, 63, "UTF-8")
-    }
+    BuildVersion : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    ServicePackString {
-        get => StrGet(this.ptr + 462, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 462, 63, "UTF-8")
-    }
+    ServicePackString : CHAR[64]
+
 }

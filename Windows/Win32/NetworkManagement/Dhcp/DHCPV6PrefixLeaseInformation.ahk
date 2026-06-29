@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCPV6Prefix.ahk
-#Include .\StatusCode.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\StatusCode.ahk" { StatusCode }
+#Import ".\DHCPV6Prefix.ahk" { DHCPV6Prefix }
 
 /**
  * Information about a prefix lease.
@@ -10,73 +9,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefixleaseinformation
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCPV6PrefixLeaseInformation extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct DHCPV6PrefixLeaseInformation {
+    #StructPack 8
 
     /**
      * Number of prefixes.
-     * @type {Integer}
      */
-    nPrefixes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nPrefixes : UInt32
 
     /**
      * Pointer to a list <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefix">DHCPV6Prefix</a> structures that contain the prefixes requested or returned by the server.
-     * @type {Pointer<DHCPV6Prefix>}
      */
-    prefixArray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    prefixArray : DHCPV6Prefix.Ptr
 
     /**
      * Identity Association identifier for the prefix operation.
-     * @type {Integer}
      */
-    iaid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    iaid : UInt32
 
     /**
      * The renewal time for the prefix, in seconds.
-     * @type {Integer}
      */
-    T1 {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    T1 : Int64
 
     /**
      * The rebind time of the prefix, in seconds.
-     * @type {Integer}
      */
-    T2 {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    T2 : Int64
 
     /**
      * The maximum lease expiration time of all the prefix leases in this structure.
-     * @type {Integer}
      */
-    MaxLeaseExpirationTime {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    MaxLeaseExpirationTime : Int64
 
     /**
      * The time at which the last renewal for the prefixes occurred.
-     * @type {Integer}
      */
-    LastRenewalTime {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    LastRenewalTime : Int64
 
     /**
      * Status code returned by the server for the IAPD. The following codes can be returned by the DHCP server for prefix delegation scenarios:
@@ -131,28 +100,17 @@ class DHCPV6PrefixLeaseInformation extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {StatusCode}
      */
-    status {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    status : StatusCode
 
     /**
      * The server DUID from which the prefix is received.  This data is used in subsequent renews.
-     * @type {Pointer<Integer>}
      */
-    ServerId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ServerId : IntPtr
 
     /**
      * The length of the above DUID data.
-     * @type {Integer}
      */
-    ServerIdLen {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ServerIdLen : UInt32
+
 }

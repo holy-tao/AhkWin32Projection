@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to erase data from a disc.
@@ -12,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2erase
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscFormat2Erase extends IDiscFormat2 {
-
-    static sizeof => A_PtrSize
+export default struct IDiscFormat2Erase extends IDiscFormat2 {
     /**
      * The interface identifier for IDiscFormat2Erase
      * @type {Guid}
      */
-    static IID => Guid("{27354156-8f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354156-8f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscFormat2Erase interfaces
+    */
+    struct Vtbl extends IDiscFormat2.Vtbl {
+        put_Recorder                 : IntPtr
+        get_Recorder                 : IntPtr
+        put_FullErase                : IntPtr
+        get_FullErase                : IntPtr
+        get_CurrentPhysicalMediaType : IntPtr
+        put_ClientName               : IntPtr
+        get_ClientName               : IntPtr
+        EraseMedia                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Recorder", "get_Recorder", "put_FullErase", "get_FullErase", "get_CurrentPhysicalMediaType", "put_ClientName", "get_ClientName", "EraseMedia"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscFormat2Erase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDiscRecorder2} 
@@ -98,7 +115,7 @@ class IDiscFormat2Erase extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-put_fullerase
      */
     put_FullErase(value) {
-        result := ComCall(14, this, "short", value, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -110,7 +127,7 @@ class IDiscFormat2Erase extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_fullerase
      */
     get_FullErase() {
-        result := ComCall(15, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -170,7 +187,7 @@ class IDiscFormat2Erase extends IDiscFormat2 {
     put_ClientName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(17, this, "ptr", value, "HRESULT")
+        result := ComCall(17, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -180,8 +197,8 @@ class IDiscFormat2Erase extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
-        result := ComCall(18, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -519,5 +536,39 @@ class IDiscFormat2Erase extends IDiscFormat2 {
     EraseMedia() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDiscFormat2Erase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_FullErase := CallbackCreate(GetMethod(implObj, "put_FullErase"), flags, 2)
+        this.vtbl.get_FullErase := CallbackCreate(GetMethod(implObj, "get_FullErase"), flags, 2)
+        this.vtbl.get_CurrentPhysicalMediaType := CallbackCreate(GetMethod(implObj, "get_CurrentPhysicalMediaType"), flags, 2)
+        this.vtbl.put_ClientName := CallbackCreate(GetMethod(implObj, "put_ClientName"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.EraseMedia := CallbackCreate(GetMethod(implObj, "EraseMedia"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Recorder)
+        CallbackFree(this.vtbl.get_Recorder)
+        CallbackFree(this.vtbl.put_FullErase)
+        CallbackFree(this.vtbl.get_FullErase)
+        CallbackFree(this.vtbl.get_CurrentPhysicalMediaType)
+        CallbackFree(this.vtbl.put_ClientName)
+        CallbackFree(this.vtbl.get_ClientName)
+        CallbackFree(this.vtbl.EraseMedia)
     }
 }

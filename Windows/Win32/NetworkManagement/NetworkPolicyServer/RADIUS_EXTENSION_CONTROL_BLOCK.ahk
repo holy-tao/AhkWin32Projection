@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RADIUS_EXTENSION_POINT.ahk
-#Include .\RADIUS_CODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RADIUS_CODE.ahk" { RADIUS_CODE }
+#Import ".\RADIUS_EXTENSION_POINT.ahk" { RADIUS_EXTENSION_POINT }
 
 /**
  * The RADIUS_EXTENSION_CONTROL_BLOCK structure provides information about the current RADIUS request. It also provides functions for obtaining the attributes associated with the request, and for setting the disposition of the request.
@@ -13,59 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_extension_control_block
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct RADIUS_EXTENSION_CONTROL_BLOCK {
+    #StructPack 8
 
     /**
      * Specifies the size of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Specifies the version of the structure.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVersion : UInt32
 
     /**
      * Specifies a value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_extension_point">RADIUS_EXTENSION_POINT</a> that indicates at what point in the request process 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> was called.
-     * @type {RADIUS_EXTENSION_POINT}
      */
-    repPoint {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    repPoint : RADIUS_EXTENSION_POINT
 
     /**
      * Specifies a value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_code">RADIUS_CODE</a> that specifies the type of RADIUS request received by the Internet Authentication Service server.
-     * @type {RADIUS_CODE}
      */
-    rcRequestType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    rcRequestType : RADIUS_CODE
 
     /**
      * Specifies a value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_code">RADIUS_CODE</a> that indicates the disposition of the RADIUS request.
-     * @type {RADIUS_CODE}
      */
-    rcResponseType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    rcResponseType : RADIUS_CODE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688263(v=vs.85)">GetRequest</a> function provided by NPS. NPS sets the value of this member.
@@ -77,12 +54,8 @@ class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct {
      * 
      * To modify the attributes, the Extension DLL uses the functions provided as members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ns-authif-radius_attribute_array">RADIUS_ATTRIBUTE_ARRAY</a> structure.
-     * @type {Pointer}
      */
-    GetRequest {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GetRequest : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688270(v=vs.85)">GetResponse</a> function provided by NPS. NPS sets the value of this member.
@@ -96,12 +69,8 @@ class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct {
      * 
      * To modify the attributes, the Extension DLL uses the functions provided as members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ns-authif-radius_attribute_array">RADIUS_ATTRIBUTE_ARRAY</a> structure.
-     * @type {Pointer}
      */
-    GetResponse {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    GetResponse : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/ms688462(v=vs.85)">SetResponseType</a> function provided by NPS. NPS sets the value of this member.
@@ -110,15 +79,7 @@ class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct {
      * <a href="https://docs.microsoft.com/previous-versions/ms688462(v=vs.85)">SetResponseType</a> function sets the final disposition of the request.
      * 
      * Note that the disposition set by the Extension DLL can be overridden during further processing. For example, the Extension DLL may set the response type to <b>rcAccessAccept</b>, but during further processing, the response can be changed to <b>rcAccessReject</b>.
-     * @type {Pointer}
      */
-    SetResponseType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SetResponseType : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

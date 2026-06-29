@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a DNS Dynamic Host Configuration Protocol Information (DHCID) resource record (RR) as specified in section 3 of RFC 4701.
@@ -10,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_dhcid_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_DHCID_DATA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DNS_DHCID_DATA {
+    #StructPack 4
 
     /**
      * The length, in bytes, of <b>DHCID</b>.
-     * @type {Integer}
      */
-    dwByteCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwByteCount : UInt32
 
     /**
      * A <b>BYTE</b> array that contains the DHCID client, domain, and SHA-256 digest information as specified in section 4 of <a href="https://www.ietf.org/rfc/rfc2671.txt">RFC 2671</a>.
-     * @type {Array<Integer>}
      */
-    DHCID {
-        get {
-            if(!this.HasProp("__DHCIDProxyArray"))
-                this.__DHCIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DHCIDProxyArray
-        }
-    }
+    DHCID : Int8[1]
+
 }

@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the bit length of the key for RC2 encryption algorithms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_rc2_aux_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_RC2_AUX_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CMSG_RC2_AUX_INFO {
+    #StructPack 4
 
     /**
      * Size of this structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Specifies the RC2 effective key length. Currently 40-, 64-, and 128-bit lengths are supported. 
@@ -31,15 +24,7 @@ class CMSG_RC2_AUX_INFO extends Win32Struct {
      * <div> </div>
      * <div class="alert"><b>Note</b>  If <b>dwBitLen</b> is set to CMSG_SP3_COMPATIBLE_ENCRYPT_FLAG, SP3 compatible encryption is done and the 40-bit default length is ignored.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwBitLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwBitLen : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 8
-    }
 }

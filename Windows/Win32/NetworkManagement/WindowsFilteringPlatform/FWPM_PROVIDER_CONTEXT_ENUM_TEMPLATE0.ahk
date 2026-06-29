@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used for enumerating provider contexts.
@@ -9,28 +9,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies a provider. If this value is non-NULL, only options with the specifies provider will be returned.
-     * @type {Pointer<Guid>}
      */
-    providerKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    providerKey : Guid.Ptr
 
     /**
      * Only return provider contexts of the specified type.
      * 
      * See [FWPM_PROVIDER_CONTEXT_TYPE](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_provider_context_type) for more information.
-     * @type {FWPM_PROVIDER_CONTEXT_TYPE}
      */
-    providerContextType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    providerContextType : FWPM_PROVIDER_CONTEXT_TYPE
+
 }

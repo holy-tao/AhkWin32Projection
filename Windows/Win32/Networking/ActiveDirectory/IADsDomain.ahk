@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IADs.ahk" { IADs }
 
 /**
  * The IADsDomain interface is a dual interface that inherits from IADs.
@@ -10,26 +12,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsdomain
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsDomain extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsDomain extends IADs {
     /**
      * The interface identifier for IADsDomain
      * @type {Guid}
      */
-    static IID => Guid("{00e4c220-fd16-11ce-abc4-02608c9e7553}")
+    static IID := Guid("{00e4c220-fd16-11ce-abc4-02608c9e7553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsDomain interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_IsWorkgroup                : IntPtr
+        get_MinPasswordLength          : IntPtr
+        put_MinPasswordLength          : IntPtr
+        get_MinPasswordAge             : IntPtr
+        put_MinPasswordAge             : IntPtr
+        get_MaxPasswordAge             : IntPtr
+        put_MaxPasswordAge             : IntPtr
+        get_MaxBadPasswordsAllowed     : IntPtr
+        put_MaxBadPasswordsAllowed     : IntPtr
+        get_PasswordHistoryLength      : IntPtr
+        put_PasswordHistoryLength      : IntPtr
+        get_PasswordAttributes         : IntPtr
+        put_PasswordAttributes         : IntPtr
+        get_AutoUnlockInterval         : IntPtr
+        put_AutoUnlockInterval         : IntPtr
+        get_LockoutObservationInterval : IntPtr
+        put_LockoutObservationInterval : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IsWorkgroup", "get_MinPasswordLength", "put_MinPasswordLength", "get_MinPasswordAge", "put_MinPasswordAge", "get_MaxPasswordAge", "put_MaxPasswordAge", "get_MaxBadPasswordsAllowed", "put_MaxBadPasswordsAllowed", "get_PasswordHistoryLength", "put_PasswordHistoryLength", "get_PasswordAttributes", "put_PasswordAttributes", "get_AutoUnlockInterval", "put_AutoUnlockInterval", "get_LockoutObservationInterval", "put_LockoutObservationInterval"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsDomain.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -107,7 +132,7 @@ class IADsDomain extends IADs {
      * @returns {VARIANT_BOOL} 
      */
     get_IsWorkgroup() {
-        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -261,5 +286,57 @@ class IADsDomain extends IADs {
     put_LockoutObservationInterval(lnLockoutObservationInterval) {
         result := ComCall(36, this, "int", lnLockoutObservationInterval, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsDomain.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IsWorkgroup := CallbackCreate(GetMethod(implObj, "get_IsWorkgroup"), flags, 2)
+        this.vtbl.get_MinPasswordLength := CallbackCreate(GetMethod(implObj, "get_MinPasswordLength"), flags, 2)
+        this.vtbl.put_MinPasswordLength := CallbackCreate(GetMethod(implObj, "put_MinPasswordLength"), flags, 2)
+        this.vtbl.get_MinPasswordAge := CallbackCreate(GetMethod(implObj, "get_MinPasswordAge"), flags, 2)
+        this.vtbl.put_MinPasswordAge := CallbackCreate(GetMethod(implObj, "put_MinPasswordAge"), flags, 2)
+        this.vtbl.get_MaxPasswordAge := CallbackCreate(GetMethod(implObj, "get_MaxPasswordAge"), flags, 2)
+        this.vtbl.put_MaxPasswordAge := CallbackCreate(GetMethod(implObj, "put_MaxPasswordAge"), flags, 2)
+        this.vtbl.get_MaxBadPasswordsAllowed := CallbackCreate(GetMethod(implObj, "get_MaxBadPasswordsAllowed"), flags, 2)
+        this.vtbl.put_MaxBadPasswordsAllowed := CallbackCreate(GetMethod(implObj, "put_MaxBadPasswordsAllowed"), flags, 2)
+        this.vtbl.get_PasswordHistoryLength := CallbackCreate(GetMethod(implObj, "get_PasswordHistoryLength"), flags, 2)
+        this.vtbl.put_PasswordHistoryLength := CallbackCreate(GetMethod(implObj, "put_PasswordHistoryLength"), flags, 2)
+        this.vtbl.get_PasswordAttributes := CallbackCreate(GetMethod(implObj, "get_PasswordAttributes"), flags, 2)
+        this.vtbl.put_PasswordAttributes := CallbackCreate(GetMethod(implObj, "put_PasswordAttributes"), flags, 2)
+        this.vtbl.get_AutoUnlockInterval := CallbackCreate(GetMethod(implObj, "get_AutoUnlockInterval"), flags, 2)
+        this.vtbl.put_AutoUnlockInterval := CallbackCreate(GetMethod(implObj, "put_AutoUnlockInterval"), flags, 2)
+        this.vtbl.get_LockoutObservationInterval := CallbackCreate(GetMethod(implObj, "get_LockoutObservationInterval"), flags, 2)
+        this.vtbl.put_LockoutObservationInterval := CallbackCreate(GetMethod(implObj, "put_LockoutObservationInterval"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IsWorkgroup)
+        CallbackFree(this.vtbl.get_MinPasswordLength)
+        CallbackFree(this.vtbl.put_MinPasswordLength)
+        CallbackFree(this.vtbl.get_MinPasswordAge)
+        CallbackFree(this.vtbl.put_MinPasswordAge)
+        CallbackFree(this.vtbl.get_MaxPasswordAge)
+        CallbackFree(this.vtbl.put_MaxPasswordAge)
+        CallbackFree(this.vtbl.get_MaxBadPasswordsAllowed)
+        CallbackFree(this.vtbl.put_MaxBadPasswordsAllowed)
+        CallbackFree(this.vtbl.get_PasswordHistoryLength)
+        CallbackFree(this.vtbl.put_PasswordHistoryLength)
+        CallbackFree(this.vtbl.get_PasswordAttributes)
+        CallbackFree(this.vtbl.put_PasswordAttributes)
+        CallbackFree(this.vtbl.get_AutoUnlockInterval)
+        CallbackFree(this.vtbl.put_AutoUnlockInterval)
+        CallbackFree(this.vtbl.get_LockoutObservationInterval)
+        CallbackFree(this.vtbl.put_LockoutObservationInterval)
     }
 }

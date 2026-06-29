@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPTRANSITIONID.ahk
-#Include .\SPPHRASEELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPATHENTRY extends Win32Struct {
-    static sizeof => 64
+export default struct SPPATHENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    hTransition : SPTRANSITIONID
 
-    /**
-     * @type {SPTRANSITIONID}
-     */
-    hTransition {
-        get {
-            if(!this.HasProp("__hTransition"))
-                this.__hTransition := SPTRANSITIONID(0, this)
-            return this.__hTransition
-        }
-    }
+    elem : SPPHRASEELEMENT
 
-    /**
-     * @type {SPPHRASEELEMENT}
-     */
-    elem {
-        get {
-            if(!this.HasProp("__elem"))
-                this.__elem := SPPHRASEELEMENT(8, this)
-            return this.__elem
-        }
-    }
 }

@@ -1,180 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACMDRVSTREAMHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio
  */
-class ACMDRVSTREAMHEADER extends Win32Struct {
-    static sizeof => 144
+export default struct ACMDRVSTREAMHEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fdwStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwUser : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwUser {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbSrc : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSrc {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbSrcLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSrcLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbSrcLengthUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSrcLengthUsed {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwSrcUser : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwSrcUser {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pbDst : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbDst {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    cbDstLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbDstLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbDstLengthUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbDstLengthUsed {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwDstUser : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDstUser {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    fdwConvert : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwConvert {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    padshNext : ACMDRVSTREAMHEADER.Ptr
 
-    /**
-     * @type {Pointer<ACMDRVSTREAMHEADER>}
-     */
-    padshNext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    fdwDriver : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwDriver {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwDriver : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDriver {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    fdwPrepared : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwPrepared {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwPrepared : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwPrepared {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pbPreparedSrc : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPreparedSrc {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    cbPreparedSrcLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPreparedSrcLength {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    pbPreparedDst : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPreparedDst {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    cbPreparedDstLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPreparedDstLength {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
 }

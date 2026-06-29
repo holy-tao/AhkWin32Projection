@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) service descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbservicedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbServiceDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbServiceDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbServiceDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{f9c7fbcf-e2d6-464d-b32d-2ef526e49290}")
+    static IID := Guid("{f9c7fbcf-e2d6-464d-b32d-2ef526e49290}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbServiceDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag                   : IntPtr
+        GetLength                : IntPtr
+        GetServiceType           : IntPtr
+        GetServiceProviderName   : IntPtr
+        GetServiceProviderNameW  : IntPtr
+        GetServiceName           : IntPtr
+        GetProcessedServiceName  : IntPtr
+        GetServiceNameEmphasized : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetServiceType", "GetServiceProviderName", "GetServiceProviderNameW", "GetServiceName", "GetProcessedServiceName", "GetServiceNameEmphasized"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbServiceDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tag identifying a Digital Video Broadcast (DVB) service descriptor.
@@ -76,8 +91,8 @@ class IDvbServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidernamew
      */
     GetServiceProviderNameW() {
-        pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -99,8 +114,8 @@ class IDvbServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getprocessedservicename
      */
     GetProcessedServiceName() {
-        pbstrName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -112,8 +127,42 @@ class IDvbServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicenameemphasized
      */
     GetServiceNameEmphasized() {
-        pbstrName := BSTR()
-        result := ComCall(10, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
+    }
+
+    Query(iid) {
+        if (IDvbServiceDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetServiceType := CallbackCreate(GetMethod(implObj, "GetServiceType"), flags, 2)
+        this.vtbl.GetServiceProviderName := CallbackCreate(GetMethod(implObj, "GetServiceProviderName"), flags, 2)
+        this.vtbl.GetServiceProviderNameW := CallbackCreate(GetMethod(implObj, "GetServiceProviderNameW"), flags, 2)
+        this.vtbl.GetServiceName := CallbackCreate(GetMethod(implObj, "GetServiceName"), flags, 2)
+        this.vtbl.GetProcessedServiceName := CallbackCreate(GetMethod(implObj, "GetProcessedServiceName"), flags, 2)
+        this.vtbl.GetServiceNameEmphasized := CallbackCreate(GetMethod(implObj, "GetServiceNameEmphasized"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetServiceType)
+        CallbackFree(this.vtbl.GetServiceProviderName)
+        CallbackFree(this.vtbl.GetServiceProviderNameW)
+        CallbackFree(this.vtbl.GetServiceName)
+        CallbackFree(this.vtbl.GetProcessedServiceName)
+        CallbackFree(this.vtbl.GetServiceNameEmphasized)
     }
 }

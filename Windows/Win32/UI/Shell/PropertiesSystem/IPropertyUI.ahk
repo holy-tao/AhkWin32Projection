@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPERTYUI_NAME_FLAGS.ahk" { PROPERTYUI_NAME_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROPERTYUI_FORMAT_FLAGS.ahk" { PROPERTYUI_FORMAT_FLAGS }
+#Import ".\PROPERTYUI_FLAGS.ahk" { PROPERTYUI_FLAGS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Developers should use IPropertyDescription instead. (IPropertyUI)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipropertyui
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyUI extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyUI extends IUnknown {
     /**
      * The interface identifier for IPropertyUI
      * @type {Guid}
      */
-    static IID => Guid("{757a7d9f-919a-4118-99d7-dbb208c8cc66}")
+    static IID := Guid("{757a7d9f-919a-4118-99d7-dbb208c8cc66}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyUI interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ParsePropertyName      : IntPtr
+        GetCannonicalName      : IntPtr
+        GetDisplayName         : IntPtr
+        GetPropertyDescription : IntPtr
+        GetDefaultWidth        : IntPtr
+        GetFlags               : IntPtr
+        FormatForDisplay       : IntPtr
+        GetHelpInfo            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ParsePropertyName", "GetCannonicalName", "GetDisplayName", "GetPropertyDescription", "GetDefaultWidth", "GetFlags", "FormatForDisplay", "GetHelpInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyUI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Developers should use IPropertyDescription instead. Reads the characters of the specified property name and identifies the FMTID and PROPID of the property.
@@ -54,7 +74,7 @@ class IPropertyUI extends IUnknown {
         ppidMarshal := ppid is VarRef ? "uint*" : "ptr"
         pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszName, "ptr", pfmtid, ppidMarshal, ppid, pchEatenMarshal, pchEaten, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, Guid.Ptr, pfmtid, ppidMarshal, ppid, pchEatenMarshal, pchEaten, "HRESULT")
         return result
     }
 
@@ -69,7 +89,7 @@ class IPropertyUI extends IUnknown {
     GetCannonicalName(fmtid, pid, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(4, this, "ptr", fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
         return result
     }
 
@@ -98,7 +118,7 @@ class IPropertyUI extends IUnknown {
     GetDisplayName(fmtid, pid, flags, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(5, this, "ptr", fmtid, "uint", pid, "int", flags, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, fmtid, "uint", pid, PROPERTYUI_NAME_FLAGS, flags, "ptr", pwszText, "uint", cchText, "HRESULT")
         return result
     }
 
@@ -124,7 +144,7 @@ class IPropertyUI extends IUnknown {
     GetPropertyDescription(fmtid, pid, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(6, this, "ptr", fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
         return result
     }
 
@@ -142,7 +162,7 @@ class IPropertyUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getdefaultwidth
      */
     GetDefaultWidth(fmtid, pid) {
-        result := ComCall(7, this, "ptr", fmtid, "uint", pid, "uint*", &pcxChars := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, fmtid, "uint", pid, "uint*", &pcxChars := 0, "HRESULT")
         return pcxChars
     }
 
@@ -160,7 +180,7 @@ class IPropertyUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
      */
     GetFlags(fmtid, pid) {
-        result := ComCall(8, this, "ptr", fmtid, "uint", pid, "int*", &pflags := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, fmtid, "uint", pid, "int*", &pflags := 0, "HRESULT")
         return pflags
     }
 
@@ -186,7 +206,7 @@ class IPropertyUI extends IUnknown {
     FormatForDisplay(fmtid, pid, ppropvar, puiff, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(9, this, "ptr", fmtid, "uint", pid, "ptr", ppropvar, "int", puiff, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, fmtid, "uint", pid, PROPVARIANT.Ptr, ppropvar, PROPERTYUI_FORMAT_FLAGS, puiff, "ptr", pwszText, "uint", cchText, "HRESULT")
         return result
     }
 
@@ -210,7 +230,41 @@ class IPropertyUI extends IUnknown {
     GetHelpInfo(fmtid, pid, pwszHelpFile, cch) {
         pwszHelpFile := pwszHelpFile is String ? StrPtr(pwszHelpFile) : pwszHelpFile
 
-        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", &puHelpID := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", &puHelpID := 0, "HRESULT")
         return puHelpID
+    }
+
+    Query(iid) {
+        if (IPropertyUI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ParsePropertyName := CallbackCreate(GetMethod(implObj, "ParsePropertyName"), flags, 5)
+        this.vtbl.GetCannonicalName := CallbackCreate(GetMethod(implObj, "GetCannonicalName"), flags, 5)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 6)
+        this.vtbl.GetPropertyDescription := CallbackCreate(GetMethod(implObj, "GetPropertyDescription"), flags, 5)
+        this.vtbl.GetDefaultWidth := CallbackCreate(GetMethod(implObj, "GetDefaultWidth"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 4)
+        this.vtbl.FormatForDisplay := CallbackCreate(GetMethod(implObj, "FormatForDisplay"), flags, 7)
+        this.vtbl.GetHelpInfo := CallbackCreate(GetMethod(implObj, "GetHelpInfo"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ParsePropertyName)
+        CallbackFree(this.vtbl.GetCannonicalName)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.GetPropertyDescription)
+        CallbackFree(this.vtbl.GetDefaultWidth)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.FormatForDisplay)
+        CallbackFree(this.vtbl.GetHelpInfo)
     }
 }

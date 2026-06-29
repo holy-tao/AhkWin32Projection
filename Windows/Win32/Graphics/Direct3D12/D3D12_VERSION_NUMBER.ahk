@@ -1,30 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_VERSION_NUMBER extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_VERSION_NUMBER {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    VersionParts {
-        get {
-            if(!this.HasProp("__VersionPartsProxyArray"))
-                this.__VersionPartsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")
-            return this.__VersionPartsProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'VersionParts', { type: UInt16[4], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

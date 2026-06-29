@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values that are used in activation calls to indicate the execution contexts in which an object is to be run.
@@ -180,7 +179,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-clsctx
  * @namespace Windows.Win32.System.Com
  */
-class CLSCTX extends Win32BitflagEnum {
+export default struct CLSCTX {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The code that creates and manages objects of this class is a DLL that runs in the same process as the caller of the function specifying the class context.

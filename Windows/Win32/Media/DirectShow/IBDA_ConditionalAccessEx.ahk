@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\BDA_CONDITIONALACCESS_REQUESTTYPE.ahk" { BDA_CONDITIONALACCESS_REQUESTTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BDA_CONDITIONALACCESS_MMICLOSEREASON.ahk" { BDA_CONDITIONALACCESS_MMICLOSEREASON }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a device's Conditional Access Service (CAS), which manages access to protected content.
@@ -10,26 +14,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_conditionalaccessex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_ConditionalAccessEx extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_ConditionalAccessEx extends IUnknown {
     /**
      * The interface identifier for IBDA_ConditionalAccessEx
      * @type {Guid}
      */
-    static IID => Guid("{497c3418-23cb-44ba-bb62-769f506fcea7}")
+    static IID := Guid("{497c3418-23cb-44ba-bb62-769f506fcea7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_ConditionalAccessEx interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CheckEntitlementToken     : IntPtr
+        SetCaptureToken           : IntPtr
+        OpenBroadcastMmi          : IntPtr
+        CloseMmiDialog            : IntPtr
+        CreateDialogRequestNumber : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckEntitlementToken", "SetCaptureToken", "OpenBroadcastMmi", "CloseMmiDialog", "CreateDialogRequestNumber"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_ConditionalAccessEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Checks the access availability of content that is identified by an entitlement token.
@@ -46,7 +61,7 @@ class IBDA_ConditionalAccessEx extends IUnknown {
 
         pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "int", RequestType, "uint", ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, "HRESULT")
+        result := ComCall(3, this, "uint", ulDialogRequest, BSTR, bstrLanguage, BDA_CONDITIONALACCESS_REQUESTTYPE, RequestType, "uint", ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, "HRESULT")
         return pulDescrambleStatus
     }
 
@@ -75,7 +90,7 @@ class IBDA_ConditionalAccessEx extends IUnknown {
     OpenBroadcastMmi(ulDialogRequest, bstrLanguage, EventId) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(5, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", EventId, "HRESULT")
+        result := ComCall(5, this, "uint", ulDialogRequest, BSTR, bstrLanguage, "uint", EventId, "HRESULT")
         return result
     }
 
@@ -91,7 +106,7 @@ class IBDA_ConditionalAccessEx extends IUnknown {
     CloseMmiDialog(ulDialogRequest, bstrLanguage, ulDialogNumber, ReasonCode) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(6, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulDialogNumber, "int", ReasonCode, "uint*", &pulSessionResult := 0, "HRESULT")
+        result := ComCall(6, this, "uint", ulDialogRequest, BSTR, bstrLanguage, "uint", ulDialogNumber, BDA_CONDITIONALACCESS_MMICLOSEREASON, ReasonCode, "uint*", &pulSessionResult := 0, "HRESULT")
         return pulSessionResult
     }
 
@@ -103,5 +118,33 @@ class IBDA_ConditionalAccessEx extends IUnknown {
     CreateDialogRequestNumber() {
         result := ComCall(7, this, "uint*", &pulDialogRequestNumber := 0, "HRESULT")
         return pulDialogRequestNumber
+    }
+
+    Query(iid) {
+        if (IBDA_ConditionalAccessEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckEntitlementToken := CallbackCreate(GetMethod(implObj, "CheckEntitlementToken"), flags, 7)
+        this.vtbl.SetCaptureToken := CallbackCreate(GetMethod(implObj, "SetCaptureToken"), flags, 3)
+        this.vtbl.OpenBroadcastMmi := CallbackCreate(GetMethod(implObj, "OpenBroadcastMmi"), flags, 4)
+        this.vtbl.CloseMmiDialog := CallbackCreate(GetMethod(implObj, "CloseMmiDialog"), flags, 6)
+        this.vtbl.CreateDialogRequestNumber := CallbackCreate(GetMethod(implObj, "CreateDialogRequestNumber"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckEntitlementToken)
+        CallbackFree(this.vtbl.SetCaptureToken)
+        CallbackFree(this.vtbl.OpenBroadcastMmi)
+        CallbackFree(this.vtbl.CloseMmiDialog)
+        CallbackFree(this.vtbl.CreateDialogRequestNumber)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The PPP_NBFCP_INFO structure contains the result of a PPP NetBEUI Framer (NBF) projection operation.
@@ -9,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_nbfcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class PPP_NBFCP_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct PPP_NBFCP_INFO {
+    #StructPack 4
 
     /**
      * Specifies the result of the PPP control protocol negotiation. A value of zero indicates success. A nonzero value indicates failure, and is the actual fatal error that occurred during the control protocol negotiation.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
     /**
      * Specifies a Unicode string that is the local workstation's computer name. This unique computer name is the closest NetBIOS equivalent to a client's NetBEUI address on a remote access connection.
-     * @type {String}
      */
-    wszWksta {
-        get => StrGet(this.ptr + 4, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 16, "UTF-16")
-    }
+    wszWksta : WCHAR[17]
+
 }

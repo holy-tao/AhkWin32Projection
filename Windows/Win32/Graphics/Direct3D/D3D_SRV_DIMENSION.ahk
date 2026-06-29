@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values that identify the type of resource to be viewed as a shader resource.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_srv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class D3D_SRV_DIMENSION extends Win32Enum {
+export default struct D3D_SRV_DIMENSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The type is unknown.

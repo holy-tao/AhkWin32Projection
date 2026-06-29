@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_3 structure contains the account name and domain name associated with a local group member.
@@ -8,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-localgroup_members_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class LOCALGROUP_MEMBERS_INFO_3 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct LOCALGROUP_MEMBERS_INFO_3 {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated Unicode string specifying the account name of the local group member prefixed by the domain name and the "\" separator character. For example: 
@@ -24,10 +22,7 @@ class LOCALGROUP_MEMBERS_INFO_3 extends Win32Struct {
      * &lt;DomainName&gt;\&lt;AccountName&gt;
      * 
      * ```
-     * @type {PWSTR}
      */
-    lgrmi3_domainandname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lgrmi3_domainandname : PWSTR
+
 }

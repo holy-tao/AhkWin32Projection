@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a call stack on a 64-bit computer.
@@ -8,29 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace64
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_EXTENDED_ITEM_STACK_TRACE64 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EVENT_EXTENDED_ITEM_STACK_TRACE64 {
+    #StructPack 8
 
     /**
      * A unique identifier that you use to match the kernel-mode calls to the user-mode calls; the kernel-mode calls and user-mode calls are captured in separate events if the environment prevents both from being captured in the same event. If the kernel-mode and user-mode calls were captured in the same event, the value is zero.
-     * @type {Integer}
      */
-    MatchId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MatchId : Int64
 
     /**
      * An array of call addresses on the stack.
-     * @type {Array<Integer>}
      */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
-            return this.__AddressProxyArray
-        }
-    }
+    Address : Int64[1]
+
 }

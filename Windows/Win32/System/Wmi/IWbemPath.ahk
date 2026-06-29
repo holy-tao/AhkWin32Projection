@@ -1,34 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemPathKeyList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemPathKeyList.ahk" { IWbemPathKeyList }
 
 /**
  * The IWbemPath interface is the primary interface for the object path parser and makes parsing a path available to programs in a standard way. This interface is the main interface for setting and retrieving path information.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbempath
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemPath extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemPath extends IUnknown {
     /**
      * The interface identifier for IWbemPath
      * @type {Guid}
      */
-    static IID => Guid("{3bc15af2-736c-477e-9e51-238af8667dcc}")
+    static IID := Guid("{3bc15af2-736c-477e-9e51-238af8667dcc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemPath interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetText             : IntPtr
+        GetText             : IntPtr
+        GetInfo             : IntPtr
+        SetServer           : IntPtr
+        GetServer           : IntPtr
+        GetNamespaceCount   : IntPtr
+        SetNamespaceAt      : IntPtr
+        GetNamespaceAt      : IntPtr
+        RemoveNamespaceAt   : IntPtr
+        RemoveAllNamespaces : IntPtr
+        GetScopeCount       : IntPtr
+        SetScope            : IntPtr
+        SetScopeFromText    : IntPtr
+        GetScope            : IntPtr
+        GetScopeAsText      : IntPtr
+        RemoveScope         : IntPtr
+        RemoveAllScopes     : IntPtr
+        SetClassName        : IntPtr
+        GetClassName        : IntPtr
+        GetKeyList          : IntPtr
+        CreateClassPart     : IntPtr
+        DeleteClassPart     : IntPtr
+        IsRelative          : IntPtr
+        IsRelativeOrChild   : IntPtr
+        IsLocal             : IntPtr
+        IsSameClassName     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetText", "GetText", "GetInfo", "SetServer", "GetServer", "GetNamespaceCount", "SetNamespaceAt", "GetNamespaceAt", "RemoveNamespaceAt", "RemoveAllNamespaces", "GetScopeCount", "SetScope", "SetScopeFromText", "GetScope", "GetScopeAsText", "RemoveScope", "RemoveAllScopes", "SetClassName", "GetClassName", "GetKeyList", "CreateClassPart", "DeleteClassPart", "IsRelative", "IsRelativeOrChild", "IsLocal", "IsSameClassName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemPath.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemPath::SetText method parses a path so that information on the path can be returned by the path parser.
@@ -343,7 +378,7 @@ class IWbemPath extends IUnknown {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
         wszNamespace := wszNamespace is String ? StrPtr(wszNamespace) : wszNamespace
 
-        result := ComCall(25, this, "ptr", wszMachine, "ptr", wszNamespace, "int")
+        result := ComCall(25, this, "ptr", wszMachine, "ptr", wszNamespace, BOOL)
         return result
     }
 
@@ -359,7 +394,7 @@ class IWbemPath extends IUnknown {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
         wszNamespace := wszNamespace is String ? StrPtr(wszNamespace) : wszNamespace
 
-        result := ComCall(26, this, "ptr", wszMachine, "ptr", wszNamespace, "int", lFlags, "int")
+        result := ComCall(26, this, "ptr", wszMachine, "ptr", wszNamespace, "int", lFlags, BOOL)
         return result
     }
 
@@ -372,7 +407,7 @@ class IWbemPath extends IUnknown {
     IsLocal(wszMachine) {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
 
-        result := ComCall(27, this, "ptr", wszMachine, "int")
+        result := ComCall(27, this, "ptr", wszMachine, BOOL)
         return result
     }
 
@@ -385,7 +420,77 @@ class IWbemPath extends IUnknown {
     IsSameClassName(wszClass) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(28, this, "ptr", wszClass, "int")
+        result := ComCall(28, this, "ptr", wszClass, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IWbemPath.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 4)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 3)
+        this.vtbl.SetServer := CallbackCreate(GetMethod(implObj, "SetServer"), flags, 2)
+        this.vtbl.GetServer := CallbackCreate(GetMethod(implObj, "GetServer"), flags, 3)
+        this.vtbl.GetNamespaceCount := CallbackCreate(GetMethod(implObj, "GetNamespaceCount"), flags, 2)
+        this.vtbl.SetNamespaceAt := CallbackCreate(GetMethod(implObj, "SetNamespaceAt"), flags, 3)
+        this.vtbl.GetNamespaceAt := CallbackCreate(GetMethod(implObj, "GetNamespaceAt"), flags, 4)
+        this.vtbl.RemoveNamespaceAt := CallbackCreate(GetMethod(implObj, "RemoveNamespaceAt"), flags, 2)
+        this.vtbl.RemoveAllNamespaces := CallbackCreate(GetMethod(implObj, "RemoveAllNamespaces"), flags, 1)
+        this.vtbl.GetScopeCount := CallbackCreate(GetMethod(implObj, "GetScopeCount"), flags, 2)
+        this.vtbl.SetScope := CallbackCreate(GetMethod(implObj, "SetScope"), flags, 3)
+        this.vtbl.SetScopeFromText := CallbackCreate(GetMethod(implObj, "SetScopeFromText"), flags, 3)
+        this.vtbl.GetScope := CallbackCreate(GetMethod(implObj, "GetScope"), flags, 5)
+        this.vtbl.GetScopeAsText := CallbackCreate(GetMethod(implObj, "GetScopeAsText"), flags, 4)
+        this.vtbl.RemoveScope := CallbackCreate(GetMethod(implObj, "RemoveScope"), flags, 2)
+        this.vtbl.RemoveAllScopes := CallbackCreate(GetMethod(implObj, "RemoveAllScopes"), flags, 1)
+        this.vtbl.SetClassName := CallbackCreate(GetMethod(implObj, "SetClassName"), flags, 2)
+        this.vtbl.GetClassName := CallbackCreate(GetMethod(implObj, "GetClassName"), flags, 3)
+        this.vtbl.GetKeyList := CallbackCreate(GetMethod(implObj, "GetKeyList"), flags, 2)
+        this.vtbl.CreateClassPart := CallbackCreate(GetMethod(implObj, "CreateClassPart"), flags, 3)
+        this.vtbl.DeleteClassPart := CallbackCreate(GetMethod(implObj, "DeleteClassPart"), flags, 2)
+        this.vtbl.IsRelative := CallbackCreate(GetMethod(implObj, "IsRelative"), flags, 3)
+        this.vtbl.IsRelativeOrChild := CallbackCreate(GetMethod(implObj, "IsRelativeOrChild"), flags, 4)
+        this.vtbl.IsLocal := CallbackCreate(GetMethod(implObj, "IsLocal"), flags, 2)
+        this.vtbl.IsSameClassName := CallbackCreate(GetMethod(implObj, "IsSameClassName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetText)
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.GetInfo)
+        CallbackFree(this.vtbl.SetServer)
+        CallbackFree(this.vtbl.GetServer)
+        CallbackFree(this.vtbl.GetNamespaceCount)
+        CallbackFree(this.vtbl.SetNamespaceAt)
+        CallbackFree(this.vtbl.GetNamespaceAt)
+        CallbackFree(this.vtbl.RemoveNamespaceAt)
+        CallbackFree(this.vtbl.RemoveAllNamespaces)
+        CallbackFree(this.vtbl.GetScopeCount)
+        CallbackFree(this.vtbl.SetScope)
+        CallbackFree(this.vtbl.SetScopeFromText)
+        CallbackFree(this.vtbl.GetScope)
+        CallbackFree(this.vtbl.GetScopeAsText)
+        CallbackFree(this.vtbl.RemoveScope)
+        CallbackFree(this.vtbl.RemoveAllScopes)
+        CallbackFree(this.vtbl.SetClassName)
+        CallbackFree(this.vtbl.GetClassName)
+        CallbackFree(this.vtbl.GetKeyList)
+        CallbackFree(this.vtbl.CreateClassPart)
+        CallbackFree(this.vtbl.DeleteClassPart)
+        CallbackFree(this.vtbl.IsRelative)
+        CallbackFree(this.vtbl.IsRelativeOrChild)
+        CallbackFree(this.vtbl.IsLocal)
+        CallbackFree(this.vtbl.IsSameClassName)
     }
 }

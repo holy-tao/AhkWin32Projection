@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\System\Com\IEnumUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
+#Import "..\..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to enumerate and manage identities and identity providers.
  * @see https://learn.microsoft.com/windows/win32/api/identitystore/nn-identitystore-iidentitystore
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  */
-class IIdentityStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IIdentityStore extends IUnknown {
     /**
      * The interface identifier for IIdentityStore
      * @type {Guid}
      */
-    static IID => Guid("{df586fa5-6f35-44f1-b209-b38e169772eb}")
+    static IID := Guid("{df586fa5-6f35-44f1-b209-b38e169772eb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIdentityStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount            : IntPtr
+        GetAt               : IntPtr
+        AddToCache          : IntPtr
+        ConvertToSid        : IntPtr
+        EnumerateIdentities : IntPtr
+        Reset               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt", "AddToCache", "ConvertToSid", "EnumerateIdentities", "Reset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIdentityStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of identity providers registered on the system.
@@ -48,7 +65,7 @@ class IIdentityStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-getat
      */
     GetAt(dwProvider, pProvGuid) {
-        result := ComCall(4, this, "uint", dwProvider, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwProvider, Guid.Ptr, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
         return IUnknown(ppIdentityProvider)
     }
 
@@ -64,7 +81,7 @@ class IIdentityStore extends IUnknown {
     AddToCache(lpszUniqueID, ProviderGUID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(5, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "HRESULT")
+        result := ComCall(5, this, "ptr", lpszUniqueID, Guid.Ptr, ProviderGUID, "HRESULT")
         return result
     }
 
@@ -82,7 +99,7 @@ class IIdentityStore extends IUnknown {
 
         _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", lpszUniqueID, Guid.Ptr, ProviderGUID, "ushort", cbSid, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
         return pcbRequiredSid
     }
 
@@ -95,7 +112,7 @@ class IIdentityStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-enumerateidentities
      */
     EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(7, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        result := ComCall(7, this, IDENTITY_TYPE, eIdentityType, PROPERTYKEY.Ptr, pFilterkey, PROPVARIANT.Ptr, pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -109,5 +126,35 @@ class IIdentityStore extends IUnknown {
     Reset() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IIdentityStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.AddToCache := CallbackCreate(GetMethod(implObj, "AddToCache"), flags, 3)
+        this.vtbl.ConvertToSid := CallbackCreate(GetMethod(implObj, "ConvertToSid"), flags, 6)
+        this.vtbl.EnumerateIdentities := CallbackCreate(GetMethod(implObj, "EnumerateIdentities"), flags, 5)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.AddToCache)
+        CallbackFree(this.vtbl.ConvertToSid)
+        CallbackFree(this.vtbl.EnumerateIdentities)
+        CallbackFree(this.vtbl.Reset)
     }
 }

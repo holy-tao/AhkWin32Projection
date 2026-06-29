@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
+#Import ".\MMCBUTTON.ahk" { MMCBUTTON }
 
 /**
  * The IToolbar interface is used to create new toolbars, to add items to them, to extend the toolbars, and to display the resultant new toolbars. Each toolbar is created on its own band within the control bar.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-itoolbar
  * @namespace Windows.Win32.System.Mmc
  */
-class IToolbar extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IToolbar extends IUnknown {
     /**
      * The interface identifier for IToolbar
      * @type {Guid}
      */
-    static IID => Guid("{43136eb9-d36c-11cf-adbc-00aa00a80033}")
+    static IID := Guid("{43136eb9-d36c-11cf-adbc-00aa00a80033}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IToolbar interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddBitmap      : IntPtr
+        AddButtons     : IntPtr
+        InsertButton   : IntPtr
+        DeleteButton   : IntPtr
+        GetButtonState : IntPtr
+        SetButtonState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddBitmap", "AddButtons", "InsertButton", "DeleteButton", "GetButtonState", "SetButtonState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IToolbar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables a snap-in to add an image to the toolbar.
@@ -43,9 +61,7 @@ class IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-addbitmap
      */
     AddBitmap(nImages, hbmp, cxSize, cySize, crMask) {
-        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
-
-        result := ComCall(3, this, "int", nImages, "ptr", hbmp, "int", cxSize, "int", cySize, "uint", crMask, "HRESULT")
+        result := ComCall(3, this, "int", nImages, HBITMAP, hbmp, "int", cxSize, "int", cySize, COLORREF, crMask, "HRESULT")
         return result
     }
 
@@ -58,7 +74,7 @@ class IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-addbuttons
      */
     AddButtons(nButtons, lpButtons) {
-        result := ComCall(4, this, "int", nButtons, "ptr", lpButtons, "HRESULT")
+        result := ComCall(4, this, "int", nButtons, MMCBUTTON.Ptr, lpButtons, "HRESULT")
         return result
     }
 
@@ -72,7 +88,7 @@ class IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-insertbutton
      */
     InsertButton(nIndex, lpButton) {
-        result := ComCall(5, this, "int", nIndex, "ptr", lpButton, "HRESULT")
+        result := ComCall(5, this, "int", nIndex, MMCBUTTON.Ptr, lpButton, "HRESULT")
         return result
     }
 
@@ -95,7 +111,7 @@ class IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-getbuttonstate
      */
     GetButtonState(idCommand, nState) {
-        result := ComCall(7, this, "int", idCommand, "int", nState, "int*", &pState := 0, "HRESULT")
+        result := ComCall(7, this, "int", idCommand, MMC_BUTTON_STATE, nState, BOOL.Ptr, &pState := 0, "HRESULT")
         return pState
     }
 
@@ -114,7 +130,37 @@ class IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-setbuttonstate
      */
     SetButtonState(idCommand, nState, bState) {
-        result := ComCall(8, this, "int", idCommand, "int", nState, "int", bState, "HRESULT")
+        result := ComCall(8, this, "int", idCommand, MMC_BUTTON_STATE, nState, BOOL, bState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IToolbar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddBitmap := CallbackCreate(GetMethod(implObj, "AddBitmap"), flags, 6)
+        this.vtbl.AddButtons := CallbackCreate(GetMethod(implObj, "AddButtons"), flags, 3)
+        this.vtbl.InsertButton := CallbackCreate(GetMethod(implObj, "InsertButton"), flags, 3)
+        this.vtbl.DeleteButton := CallbackCreate(GetMethod(implObj, "DeleteButton"), flags, 2)
+        this.vtbl.GetButtonState := CallbackCreate(GetMethod(implObj, "GetButtonState"), flags, 4)
+        this.vtbl.SetButtonState := CallbackCreate(GetMethod(implObj, "SetButtonState"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddBitmap)
+        CallbackFree(this.vtbl.AddButtons)
+        CallbackFree(this.vtbl.InsertButton)
+        CallbackFree(this.vtbl.DeleteButton)
+        CallbackFree(this.vtbl.GetButtonState)
+        CallbackFree(this.vtbl.SetButtonState)
     }
 }

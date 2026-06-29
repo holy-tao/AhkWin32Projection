@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S extends Win32Struct {
-    static sizeof => 48
+export default struct KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    StreamIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RangeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RangeIndex {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Dimensions : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    Dimensions {
-        get {
-            if(!this.HasProp("__Dimensions"))
-                this.__Dimensions := SIZE(24, this)
-            return this.__Dimensions
-        }
-    }
+    CurrentActualFrameRate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentActualFrameRate {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    CurrentMaxAvailableFrameRate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentMaxAvailableFrameRate {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
 }

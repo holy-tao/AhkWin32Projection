@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileIo.ahk" { IFileIo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IFileClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileClient extends IUnknown {
     /**
      * The interface identifier for IFileClient
      * @type {Guid}
      */
-    static IID => Guid("{bfccd196-1244-4840-ab44-480975c4ffe4}")
+    static IID := Guid("{bfccd196-1244-4840-ab44-480975c4ffe4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetObjectDiskSize : IntPtr
+        Write             : IntPtr
+        Read              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetObjectDiskSize", "Write", "Read"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -40,13 +51,9 @@ class IFileClient extends IUnknown {
     }
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {IFileIo} pFio 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(pFio) {
         result := ComCall(4, this, "ptr", pFio, "HRESULT")
@@ -54,15 +61,36 @@ class IFileClient extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
-     * @param {IFileIo} pFio 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
+     * @param {IFileIo} pFio 
+     * @returns {HRESULT} 
      */
     Read(pFio) {
         result := ComCall(5, this, "ptr", pFio, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetObjectDiskSize := CallbackCreate(GetMethod(implObj, "GetObjectDiskSize"), flags, 2)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 2)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetObjectDiskSize)
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.Read)
     }
 }

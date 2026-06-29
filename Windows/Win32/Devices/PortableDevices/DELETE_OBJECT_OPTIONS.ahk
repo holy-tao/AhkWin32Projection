@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DELETE\_OBJECT\_OPTIONS enumeration type describes options that are supported by a device when deleting an object.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/delete-object-options
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class DELETE_OBJECT_OPTIONS extends Win32Enum {
+export default struct DELETE_OBJECT_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

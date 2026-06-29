@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CHARRANGE.ahk
-#Include ..\..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
 
 /**
  * Contains context menu information that is passed to the IRichEditOleCallback::GetContextMenu method.
@@ -9,24 +8,15 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @architecture X64, Arm64
  */
-class GETCONTEXTMENUEX extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct GETCONTEXTMENUEX {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-charrange">CHARRANGE</a></b>
      * 
      * The character-position range in the active display.
-     * @type {CHARRANGE}
      */
-    chrg {
-        get {
-            if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(0, this)
-            return this.__chrg
-        }
-    }
+    chrg : CHARRANGE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -82,35 +72,21 @@ class GETCONTEXTMENUEX extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The screen coordinates for the content menu.
-     * @type {POINT}
      */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(12, this)
-            return this.__pt
-        }
-    }
+    pt : POINT
 
     /**
      * Type: <b>void*</b>
      * 
      * Not used; must be zero.
-     * @type {Pointer<Void>}
      */
-    pvReserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvReserved : IntPtr
+
 }

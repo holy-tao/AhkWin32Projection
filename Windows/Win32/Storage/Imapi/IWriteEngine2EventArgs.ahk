@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to retrieve information about the current write operation. This interface is passed to the DWriteEngine2Events::Update method that you implement.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iwriteengine2eventargs
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IWriteEngine2EventArgs extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWriteEngine2EventArgs extends IDispatch {
     /**
      * The interface identifier for IWriteEngine2EventArgs
      * @type {Guid}
      */
-    static IID => Guid("{27354136-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354136-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWriteEngine2EventArgs interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StartLba          : IntPtr
+        get_SectorCount       : IntPtr
+        get_LastReadLba       : IntPtr
+        get_LastWrittenLba    : IntPtr
+        get_TotalSystemBuffer : IntPtr
+        get_UsedSystemBuffer  : IntPtr
+        get_FreeSystemBuffer  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StartLba", "get_SectorCount", "get_LastReadLba", "get_LastWrittenLba", "get_TotalSystemBuffer", "get_UsedSystemBuffer", "get_FreeSystemBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWriteEngine2EventArgs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -154,5 +168,37 @@ class IWriteEngine2EventArgs extends IDispatch {
     get_FreeSystemBuffer() {
         result := ComCall(13, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IWriteEngine2EventArgs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StartLba := CallbackCreate(GetMethod(implObj, "get_StartLba"), flags, 2)
+        this.vtbl.get_SectorCount := CallbackCreate(GetMethod(implObj, "get_SectorCount"), flags, 2)
+        this.vtbl.get_LastReadLba := CallbackCreate(GetMethod(implObj, "get_LastReadLba"), flags, 2)
+        this.vtbl.get_LastWrittenLba := CallbackCreate(GetMethod(implObj, "get_LastWrittenLba"), flags, 2)
+        this.vtbl.get_TotalSystemBuffer := CallbackCreate(GetMethod(implObj, "get_TotalSystemBuffer"), flags, 2)
+        this.vtbl.get_UsedSystemBuffer := CallbackCreate(GetMethod(implObj, "get_UsedSystemBuffer"), flags, 2)
+        this.vtbl.get_FreeSystemBuffer := CallbackCreate(GetMethod(implObj, "get_FreeSystemBuffer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StartLba)
+        CallbackFree(this.vtbl.get_SectorCount)
+        CallbackFree(this.vtbl.get_LastReadLba)
+        CallbackFree(this.vtbl.get_LastWrittenLba)
+        CallbackFree(this.vtbl.get_TotalSystemBuffer)
+        CallbackFree(this.vtbl.get_UsedSystemBuffer)
+        CallbackFree(this.vtbl.get_FreeSystemBuffer)
     }
 }

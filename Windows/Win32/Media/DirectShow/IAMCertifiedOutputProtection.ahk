@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\AMCOPPStatusOutput.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AMCOPPCommand.ahk" { AMCOPPCommand }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AMCOPPStatusInput.ahk" { AMCOPPStatusInput }
+#Import ".\AMCOPPStatusOutput.ahk" { AMCOPPStatusOutput }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AMCOPPSignature.ahk" { AMCOPPSignature }
 
 /**
  * The IAMCertifiedOutputProtection interface sends Certified Output Protection Protocol (COPP) messages to the graphics driver.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamcertifiedoutputprotection
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMCertifiedOutputProtection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMCertifiedOutputProtection extends IUnknown {
     /**
      * The interface identifier for IAMCertifiedOutputProtection
      * @type {Guid}
      */
-    static IID => Guid("{6feded3e-0ff1-4901-a2f1-43f7012c8515}")
+    static IID := Guid("{6feded3e-0ff1-4901-a2f1-43f7012c8515}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMCertifiedOutputProtection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        KeyExchange          : IntPtr
+        SessionSequenceStart : IntPtr
+        ProtectionCommand    : IntPtr
+        ProtectionStatus     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["KeyExchange", "SessionSequenceStart", "ProtectionCommand", "ProtectionStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMCertifiedOutputProtection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The KeyExchange method returns the graphics driver's certificate.
@@ -97,7 +111,7 @@ class IAMCertifiedOutputProtection extends IUnknown {
         VarLenCertGHMarshal := VarLenCertGH is VarRef ? "ptr*" : "ptr"
         pdwLengthCertGHMarshal := pdwLengthCertGH is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pRandom, VarLenCertGHMarshal, VarLenCertGH, pdwLengthCertGHMarshal, pdwLengthCertGH, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pRandom, VarLenCertGHMarshal, VarLenCertGH, pdwLengthCertGHMarshal, pdwLengthCertGH, "HRESULT")
         return result
     }
 
@@ -158,7 +172,7 @@ class IAMCertifiedOutputProtection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcertifiedoutputprotection-sessionsequencestart
      */
     SessionSequenceStart(pSig) {
-        result := ComCall(4, this, "ptr", pSig, "HRESULT")
+        result := ComCall(4, this, AMCOPPSignature.Ptr, pSig, "HRESULT")
         return result
     }
 
@@ -209,7 +223,7 @@ class IAMCertifiedOutputProtection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcertifiedoutputprotection-protectioncommand
      */
     ProtectionCommand(cmd) {
-        result := ComCall(5, this, "ptr", cmd, "HRESULT")
+        result := ComCall(5, this, AMCOPPCommand.Ptr, cmd, "HRESULT")
         return result
     }
 
@@ -221,7 +235,33 @@ class IAMCertifiedOutputProtection extends IUnknown {
      */
     ProtectionStatus(pStatusInput) {
         pStatusOutput := AMCOPPStatusOutput()
-        result := ComCall(6, this, "ptr", pStatusInput, "ptr", pStatusOutput, "HRESULT")
+        result := ComCall(6, this, AMCOPPStatusInput.Ptr, pStatusInput, AMCOPPStatusOutput.Ptr, pStatusOutput, "HRESULT")
         return pStatusOutput
+    }
+
+    Query(iid) {
+        if (IAMCertifiedOutputProtection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.KeyExchange := CallbackCreate(GetMethod(implObj, "KeyExchange"), flags, 4)
+        this.vtbl.SessionSequenceStart := CallbackCreate(GetMethod(implObj, "SessionSequenceStart"), flags, 2)
+        this.vtbl.ProtectionCommand := CallbackCreate(GetMethod(implObj, "ProtectionCommand"), flags, 2)
+        this.vtbl.ProtectionStatus := CallbackCreate(GetMethod(implObj, "ProtectionStatus"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.KeyExchange)
+        CallbackFree(this.vtbl.SessionSequenceStart)
+        CallbackFree(this.vtbl.ProtectionCommand)
+        CallbackFree(this.vtbl.ProtectionStatus)
     }
 }

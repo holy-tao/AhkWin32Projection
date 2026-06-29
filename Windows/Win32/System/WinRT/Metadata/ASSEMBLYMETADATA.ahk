@@ -1,92 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\OSINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OSINFO.ahk" { OSINFO }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class ASSEMBLYMETADATA extends Win32Struct {
-    static sizeof => 56
+export default struct ASSEMBLYMETADATA {
+    #StructPack 8
 
-    static packingSize => 8
+    usMajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usMajorVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usMinorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usMinorVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    usBuildNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usBuildNumber {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    usRevisionNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usRevisionNumber {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    szLocale : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    szLocale {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbLocale : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbLocale {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    rProcessor : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    rProcessor {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ulProcessor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulProcessor {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    rOS : OSINFO.Ptr
 
-    /**
-     * @type {Pointer<OSINFO>}
-     */
-    rOS {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ulOS : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulOS {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

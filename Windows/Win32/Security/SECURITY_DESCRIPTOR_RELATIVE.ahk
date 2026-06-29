@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\SECURITY_DESCRIPTOR_CONTROL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
 
 /**
  * @namespace Windows.Win32.Security
  */
-class SECURITY_DESCRIPTOR_RELATIVE extends Win32Struct {
-    static sizeof => 20
+export default struct SECURITY_DESCRIPTOR_RELATIVE {
+    #StructPack 4
 
-    static packingSize => 4
+    Revision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Sbz1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Sbz1 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Control : SECURITY_DESCRIPTOR_CONTROL
 
-    /**
-     * @type {SECURITY_DESCRIPTOR_CONTROL}
-     */
-    Control {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Owner : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Owner {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Group : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Group {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Sacl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Sacl {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Dacl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Dacl {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

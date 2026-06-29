@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class SIPAEVENT_KSR_SIGNATURE_PAYLOAD extends Win32Struct {
-    static sizeof => 12
+export default struct SIPAEVENT_KSR_SIGNATURE_PAYLOAD {
+    #StructPack 4
 
-    static packingSize => 4
+    SignAlgID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SignAlgID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SignatureLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SignatureLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Signature : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Signature {
-        get {
-            if(!this.HasProp("__SignatureProxyArray"))
-                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__SignatureProxyArray
-        }
-    }
 }

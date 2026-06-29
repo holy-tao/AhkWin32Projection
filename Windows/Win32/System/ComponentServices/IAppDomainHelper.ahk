@@ -1,39 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Binds a managed object to an application domain, which is an isolated environment where applications execute.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iappdomainhelper
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IAppDomainHelper extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAppDomainHelper extends IDispatch {
     /**
      * The interface identifier for IAppDomainHelper
      * @type {Guid}
      */
-    static IID => Guid("{c7b67079-8255-42c6-9ec0-6994a3548780}")
+    static IID := Guid("{c7b67079-8255-42c6-9ec0-6994a3548780}")
 
     /**
      * The class identifier for AppDomainHelper
      * @type {Guid}
      */
-    static CLSID => Guid("{ef24f689-14f8-4d92-b4af-d7b1f0e70fd4}")
+    static CLSID := Guid("{ef24f689-14f8-4d92-b4af-d7b1f0e70fd4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppDomainHelper interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize : IntPtr
+        DoCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "DoCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppDomainHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Binds the calling object to the current application domain and provides a callback function for shutdown that is executed when the application domain is unloaded.
@@ -63,5 +73,27 @@ class IAppDomainHelper extends IDispatch {
 
         result := ComCall(8, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAppDomainHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.DoCallback := CallbackCreate(GetMethod(implObj, "DoCallback"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.DoCallback)
     }
 }

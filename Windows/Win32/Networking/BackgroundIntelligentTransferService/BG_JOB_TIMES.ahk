@@ -1,29 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Provides job-related time stamps.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_job_times
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_JOB_TIMES extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct BG_JOB_TIMES {
+    #StructPack 4
 
     /**
      * Time the job was created. The time is specified as 
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    CreationTime {
-        get {
-            if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(0, this)
-            return this.__CreationTime
-        }
-    }
+    CreationTime : FILETIME
 
     /**
      * Time the job was last modified or bytes were transferred. Adding files or calling any of the set methods in the 
@@ -33,26 +23,13 @@ class BG_JOB_TIMES extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel">Cancel</a>, and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete">Complete</a> methods change this value. The time is specified as 
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    ModificationTime {
-        get {
-            if(!this.HasProp("__ModificationTime"))
-                this.__ModificationTime := FILETIME(8, this)
-            return this.__ModificationTime
-        }
-    }
+    ModificationTime : FILETIME
 
     /**
      * Time the job entered the BG_JOB_STATE_TRANSFERRED state. The time is specified as 
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    TransferCompletionTime {
-        get {
-            if(!this.HasProp("__TransferCompletionTime"))
-                this.__TransferCompletionTime := FILETIME(16, this)
-            return this.__TransferCompletionTime
-        }
-    }
+    TransferCompletionTime : FILETIME
+
 }

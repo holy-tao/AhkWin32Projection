@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_RECOVER_ACTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_RECOVER_ACTION.ahk" { VDS_RECOVER_ACTION }
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_SERVICE_NOTIFICATION extends Win32Struct {
-    static sizeof => 8
+export default struct VDS_SERVICE_NOTIFICATION {
+    #StructPack 4
 
-    static packingSize => 4
+    ulEvent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    action : VDS_RECOVER_ACTION
 
-    /**
-     * @type {VDS_RECOVER_ACTION}
-     */
-    action {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

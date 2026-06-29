@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class EXTENT_READ_CACHE_INFO_BUFFER extends Win32Struct {
-    static sizeof => 24
+export default struct EXTENT_READ_CACHE_INFO_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    AllocatedCache : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocatedCache {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    PopulatedCache : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PopulatedCache {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    InErrorCache : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InErrorCache {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
 }

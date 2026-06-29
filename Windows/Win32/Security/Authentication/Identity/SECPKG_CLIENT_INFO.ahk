@@ -1,100 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\SECURITY_IMPERSONATION_LEVEL.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
 
 /**
  * The SECPKG_CLIENT_INFO structure holds information about a security package's client. This structure is used by the GetClientInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_client_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_CLIENT_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SECPKG_CLIENT_INFO {
+    #StructPack 8
 
     /**
      * The client's effective <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon identifier</a>.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(0, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
 
     /**
      * The client's process identifier.
-     * @type {Integer}
      */
-    ProcessID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProcessID : UInt32
 
     /**
      * The client's thread identifier.
-     * @type {Integer}
      */
-    ThreadID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ThreadID : UInt32
 
     /**
      * <b>TRUE</b> if the client has the SeTcbPrivilege privilege; otherwise <b>FALSE</b>.
-     * @type {BOOLEAN}
      */
-    HasTcbPrivilege {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    HasTcbPrivilege : BOOLEAN
 
     /**
      * <b>TRUE</b> if the client is impersonating another <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a>.
-     * @type {BOOLEAN}
      */
-    Impersonating {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    Impersonating : BOOLEAN
 
     /**
      * The client is restricted in its ability to access securable objects or perform privileged operations.
-     * @type {BOOLEAN}
      */
-    Restricted {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    Restricted : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    ClientFlags {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    ClientFlags : Int8
 
-    /**
-     * @type {SECURITY_IMPERSONATION_LEVEL}
-     */
-    ImpersonationLevel {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ImpersonationLevel : SECURITY_IMPERSONATION_LEVEL
 
-    /**
-     * @type {HANDLE}
-     */
-    ClientToken {
-        get {
-            if(!this.HasProp("__ClientToken"))
-                this.__ClientToken := HANDLE(24, this)
-            return this.__ClientToken
-        }
-    }
+    ClientToken : HANDLE
+
 }

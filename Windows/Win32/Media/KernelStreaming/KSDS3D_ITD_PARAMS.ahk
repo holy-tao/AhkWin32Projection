@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDS3D_ITD_PARAMS extends Win32Struct {
-    static sizeof => 24
+export default struct KSDS3D_ITD_PARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    Channel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Channel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    VolSmoothScale : Float32
 
-    /**
-     * @type {Float}
-     */
-    VolSmoothScale {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    TotalDryAttenuation : Float32
 
-    /**
-     * @type {Float}
-     */
-    TotalDryAttenuation {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    TotalWetAttenuation : Float32
 
-    /**
-     * @type {Float}
-     */
-    TotalWetAttenuation {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    SmoothFrequency : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SmoothFrequency {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Delay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Delay {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

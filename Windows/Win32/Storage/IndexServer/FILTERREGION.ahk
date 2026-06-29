@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the position and extent of a specified portion of text within an object.
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-filterregion
  * @namespace Windows.Win32.Storage.IndexServer
  */
-class FILTERREGION extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct FILTERREGION {
+    #StructPack 4
 
     /**
      * The chunk identifier.
-     * @type {Integer}
      */
-    idChunk {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    idChunk : UInt32
 
     /**
      * The beginning of the region, specified as an offset from the beginning of the chunk.
-     * @type {Integer}
      */
-    cwcStart {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cwcStart : UInt32
 
     /**
      * The extent of the region, specified as the number of Unicode characters.
-     * @type {Integer}
      */
-    cwcExtent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cwcExtent : UInt32
+
 }

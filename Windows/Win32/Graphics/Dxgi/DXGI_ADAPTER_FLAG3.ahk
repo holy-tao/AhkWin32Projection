@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of DXGI adapter. (DXGI_ADAPTER_FLAG3)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ne-dxgi1_6-dxgi_adapter_flag3
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_ADAPTER_FLAG3 extends Win32BitflagEnum {
+export default struct DXGI_ADAPTER_FLAG3 {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies no flags.

@@ -1,22 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class NV_SEP_CACHE_PARAMETER extends Win32Struct {
-    static sizeof => 16
+export default struct NV_SEP_CACHE_PARAMETER {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
+    struct _Flags {
 
-        class _CacheFlags extends Win32Struct {
-            static sizeof => 1
-            static packingSize => 1
-
+        struct _CacheFlags {
             /**
              * This bitfield backs the following members:
              * - WriteCacheEnabled
@@ -24,12 +17,9 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct {
              * - WriteThroughIOSupported
              * - FlushCacheSupported
              * - ReservedBits
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            _bitfield : Int8
+
 
             /**
              * @type {Integer}
@@ -72,77 +62,24 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct {
             }
         }
 
-        /**
-         * @type {_CacheFlags}
-         */
-        CacheFlags {
-            get {
-                if(!this.HasProp("__CacheFlags"))
-                    this.__CacheFlags := NV_SEP_CACHE_PARAMETER._Flags_e__Union._CacheFlags(0, this)
-                return this.__CacheFlags
-            }
-        }
+        CacheFlags : NV_SEP_CACHE_PARAMETER._Flags._CacheFlags
 
-        /**
-         * @type {Integer}
-         */
-        CacheFlagsSet {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'CacheFlagsSet', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := NV_SEP_CACHE_PARAMETER._Flags_e__Union(8, this)
-            return this.__Flags
-        }
-    }
+    Flags : NV_SEP_CACHE_PARAMETER._Flags
 
-    /**
-     * @type {Integer}
-     */
-    WriteCacheType {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    WriteCacheType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WriteCacheTypeEffective {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    WriteCacheTypeEffective : Int8
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ParameterReserve1 {
-        get {
-            if(!this.HasProp("__ParameterReserve1ProxyArray"))
-                this.__ParameterReserve1ProxyArray := Win32FixedArray(this.ptr + 11, 3, Primitive, "char")
-            return this.__ParameterReserve1ProxyArray
-        }
-    }
+    ParameterReserve1 : Int8[3]
+
 }

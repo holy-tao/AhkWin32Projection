@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GESTURECONFIG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GESTURECONFIG_ID.ahk" { GESTURECONFIG_ID }
 
 /**
  * Gets and sets the configuration for enabling gesture messages and the type of this configuration.
@@ -181,35 +180,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureconfig
  * @namespace Windows.Win32.UI.Input.Touch
  */
-class GESTURECONFIG extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct GESTURECONFIG {
+    #StructPack 4
 
     /**
      * The identifier for the type of configuration that will have messages enabled or disabled. For more information, see Remarks.
-     * @type {GESTURECONFIG_ID}
      */
-    dwID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwID : GESTURECONFIG_ID
 
     /**
      * The messages to enable.
-     * @type {Integer}
      */
-    dwWant {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwWant : UInt32
 
     /**
      * The messages to disable.
-     * @type {Integer}
      */
-    dwBlock {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwBlock : UInt32
+
 }

@@ -1,95 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
-class DIDEVICEIMAGEINFOW extends Win32Struct {
-    static sizeof => 612
+export default struct DIDEVICEIMAGEINFOW {
+    #StructPack 4
 
-    static packingSize => 4
+    tszImagePath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszImagePath {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
-    }
+    dwViewID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwViewID {
-        get => NumGet(this, 524, "uint")
-        set => NumPut("uint", value, this, 524)
-    }
+    rcOverlay : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcOverlay {
-        get {
-            if(!this.HasProp("__rcOverlay"))
-                this.__rcOverlay := RECT(528, this)
-            return this.__rcOverlay
-        }
-    }
+    dwObjID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwObjID {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
+    dwcValidPts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcValidPts {
-        get => NumGet(this, 548, "uint")
-        set => NumPut("uint", value, this, 548)
-    }
+    rgptCalloutLine : POINT[5]
 
-    /**
-     * @type {POINT}
-     */
-    rgptCalloutLine {
-        get {
-            if(!this.HasProp("__rgptCalloutLineProxyArray"))
-                this.__rgptCalloutLineProxyArray := Win32FixedArray(this.ptr + 552, 5, POINT, "")
-            return this.__rgptCalloutLineProxyArray
-        }
-    }
+    rcCalloutRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcCalloutRect {
-        get {
-            if(!this.HasProp("__rcCalloutRect"))
-                this.__rcCalloutRect := RECT(592, this)
-            return this.__rcCalloutRect
-        }
-    }
+    dwTextAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTextAlign {
-        get => NumGet(this, 608, "uint")
-        set => NumPut("uint", value, this, 608)
-    }
 }

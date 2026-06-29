@@ -1,76 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset ANSI
  */
-class DIACTIONA extends Win32Struct {
-    static sizeof => 40
+export default struct DIACTIONA {
+    #StructPack 8
 
-    static packingSize => 8
+    uAppData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    uAppData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwSemantic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSemantic {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lptszActionName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lptszActionName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    guidInstance : Guid
 
-    /**
-     * @type {Integer}
-     */
-    uResIdString {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwObjID : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    guidInstance {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwHow : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwObjID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwHow {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+    static __New() {
+        DefineProp(this.Prototype, 'uResIdString', { type: UInt32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

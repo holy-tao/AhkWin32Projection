@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT extends Win32Struct {
-    static sizeof => 520
+export default struct CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT {
+    #StructPack 2
 
-    static packingSize => 2
+    FileServerName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    FileServerName {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
 }

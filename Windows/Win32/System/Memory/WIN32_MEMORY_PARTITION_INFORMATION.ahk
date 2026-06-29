@@ -1,150 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Memory
  */
-class WIN32_MEMORY_PARTITION_INFORMATION extends Win32Struct {
-    static sizeof => 240
+export default struct WIN32_MEMORY_PARTITION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumaNode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumaNode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Channel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Channel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumberOfNumaNodes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfNumaNodes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ResidentAvailablePages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResidentAvailablePages {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CommittedPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CommittedPages {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CommitLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CommitLimit {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PeakCommitment : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeakCommitment {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TotalNumberOfPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalNumberOfPages {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    AvailablePages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AvailablePages {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ZeroPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZeroPages {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    FreePages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FreePages {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    StandbyPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StandbyPages {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    Reserved : Int64[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    MaximumCommitLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumCommitLimit {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    PartitionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PartitionId {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
 }

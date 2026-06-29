@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLDocumentCompatibleInfoCollection.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLElement2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLDocumentCompatibleInfoCollection.ahk" { IHTMLDocumentCompatibleInfoCollection }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLElement2.ahk" { IHTMLElement2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDocument6 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDocument6 extends IDispatch {
     /**
      * The interface identifier for IHTMLDocument6
      * @type {Guid}
      */
-    static IID => Guid("{30510417-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510417-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDocument6 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_compatible      : IntPtr
+        get_documentMode    : IntPtr
+        put_onstorage       : IntPtr
+        get_onstorage       : IntPtr
+        put_onstoragecommit : IntPtr
+        get_onstoragecommit : IntPtr
+        getElementById      : IntPtr
+        updateSettings      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_compatible", "get_documentMode", "put_onstorage", "get_onstorage", "put_onstoragecommit", "get_onstoragecommit", "getElementById", "updateSettings"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDocument6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IHTMLDocumentCompatibleInfoCollection} 
@@ -75,7 +91,7 @@ class IHTMLDocument6 extends IDispatch {
      */
     get_documentMode() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -85,7 +101,7 @@ class IHTMLDocument6 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onstorage(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -95,7 +111,7 @@ class IHTMLDocument6 extends IDispatch {
      */
     get_onstorage() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -105,7 +121,7 @@ class IHTMLDocument6 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onstoragecommit(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -115,7 +131,7 @@ class IHTMLDocument6 extends IDispatch {
      */
     get_onstoragecommit() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -127,7 +143,7 @@ class IHTMLDocument6 extends IDispatch {
     getElementById(bstrId) {
         bstrId := bstrId is String ? BSTR.Alloc(bstrId).Value : bstrId
 
-        result := ComCall(13, this, "ptr", bstrId, "ptr*", &ppRetElement := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrId, "ptr*", &ppRetElement := 0, "HRESULT")
         return IHTMLElement2(ppRetElement)
     }
 
@@ -138,5 +154,39 @@ class IHTMLDocument6 extends IDispatch {
     updateSettings() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLDocument6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_compatible := CallbackCreate(GetMethod(implObj, "get_compatible"), flags, 2)
+        this.vtbl.get_documentMode := CallbackCreate(GetMethod(implObj, "get_documentMode"), flags, 2)
+        this.vtbl.put_onstorage := CallbackCreate(GetMethod(implObj, "put_onstorage"), flags, 2)
+        this.vtbl.get_onstorage := CallbackCreate(GetMethod(implObj, "get_onstorage"), flags, 2)
+        this.vtbl.put_onstoragecommit := CallbackCreate(GetMethod(implObj, "put_onstoragecommit"), flags, 2)
+        this.vtbl.get_onstoragecommit := CallbackCreate(GetMethod(implObj, "get_onstoragecommit"), flags, 2)
+        this.vtbl.getElementById := CallbackCreate(GetMethod(implObj, "getElementById"), flags, 3)
+        this.vtbl.updateSettings := CallbackCreate(GetMethod(implObj, "updateSettings"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_compatible)
+        CallbackFree(this.vtbl.get_documentMode)
+        CallbackFree(this.vtbl.put_onstorage)
+        CallbackFree(this.vtbl.get_onstorage)
+        CallbackFree(this.vtbl.put_onstoragecommit)
+        CallbackFree(this.vtbl.get_onstoragecommit)
+        CallbackFree(this.vtbl.getElementById)
+        CallbackFree(this.vtbl.updateSettings)
     }
 }

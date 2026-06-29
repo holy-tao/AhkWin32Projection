@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory6.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIFactory6.ahk" { IDXGIFactory6 }
 
 /**
  * This interface enables registration for notifications to detect adapter enumeration state changes.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgifactory7
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIFactory7 extends IDXGIFactory6 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIFactory7 extends IDXGIFactory6 {
     /**
      * The interface identifier for IDXGIFactory7
      * @type {Guid}
      */
-    static IID => Guid("{a4966eed-76db-44da-84c1-ee9a7afb20a8}")
+    static IID := Guid("{a4966eed-76db-44da-84c1-ee9a7afb20a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIFactory7 interfaces
+    */
+    struct Vtbl extends IDXGIFactory6.Vtbl {
+        RegisterAdaptersChangedEvent   : IntPtr
+        UnregisterAdaptersChangedEvent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterAdaptersChangedEvent", "UnregisterAdaptersChangedEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIFactory7.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers to receive notification of changes whenever the adapter enumeration state changes.
@@ -36,9 +46,7 @@ class IDXGIFactory7 extends IDXGIFactory6 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-registeradapterschangedevent
      */
     RegisterAdaptersChangedEvent(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(30, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(30, this, HANDLE, hEvent, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -51,5 +59,27 @@ class IDXGIFactory7 extends IDXGIFactory6 {
     UnregisterAdaptersChangedEvent(dwCookie) {
         result := ComCall(31, this, "uint", dwCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGIFactory7.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterAdaptersChangedEvent := CallbackCreate(GetMethod(implObj, "RegisterAdaptersChangedEvent"), flags, 3)
+        this.vtbl.UnregisterAdaptersChangedEvent := CallbackCreate(GetMethod(implObj, "UnregisterAdaptersChangedEvent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterAdaptersChangedEvent)
+        CallbackFree(this.vtbl.UnregisterAdaptersChangedEvent)
     }
 }

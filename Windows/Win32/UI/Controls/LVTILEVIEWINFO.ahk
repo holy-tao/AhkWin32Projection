@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVTILEVIEWINFO_MASK.ahk
-#Include .\LVTILEVIEWINFO_FLAGS.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LVTILEVIEWINFO_FLAGS.ahk" { LVTILEVIEWINFO_FLAGS }
+#Import ".\LVTILEVIEWINFO_MASK.ahk" { LVTILEVIEWINFO_MASK }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Provides information about a list-view control when it is displayed in tile view.
@@ -12,82 +11,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvtileviewinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class LVTILEVIEWINFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct LVTILEVIEWINFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the <b>LVTILEVIEWINFO</b> structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {LVTILEVIEWINFO_MASK}
      */
-    dwMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMask : LVTILEVIEWINFO_MASK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {LVTILEVIEWINFO_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : LVTILEVIEWINFO_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
      * 
      * Size of an individual tile. Values for dimensions not specified as fixed in <b>dwFlags</b> are ignored.
-     * @type {SIZE}
      */
-    sizeTile {
-        get {
-            if(!this.HasProp("__sizeTile"))
-                this.__sizeTile := SIZE(12, this)
-            return this.__sizeTile
-        }
-    }
+    sizeTile : SIZE
 
     /**
      * Type: <b>int</b>
      * 
      * Maximum number of text lines in each item label, not counting the title.
-     * @type {Integer}
      */
-    cLines {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cLines : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> that contains coordinates of the label margin.
-     * @type {RECT}
      */
-    rcLabelMargin {
-        get {
-            if(!this.HasProp("__rcLabelMargin"))
-                this.__rcLabelMargin := RECT(24, this)
-            return this.__rcLabelMargin
-        }
-    }
+    rcLabelMargin : RECT
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

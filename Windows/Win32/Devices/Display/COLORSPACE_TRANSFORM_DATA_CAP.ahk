@@ -1,33 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORSPACE_TRANSFORM_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COLORSPACE_TRANSFORM_DATA_TYPE.ahk" { COLORSPACE_TRANSFORM_DATA_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct {
-    static sizeof => 16
+export default struct COLORSPACE_TRANSFORM_DATA_CAP {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {COLORSPACE_TRANSFORM_DATA_TYPE}
-     */
-    DataType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DataType : COLORSPACE_TRANSFORM_DATA_TYPE
 
     /**
      * This bitfield backs the following members:
      * - BitCountOfInteger
      * - BitCountOfFraction
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -46,17 +34,6 @@ class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct {
     }
 
     /**
-     * This bitfield backs the following members:
-     * - BitCountOfExponent
-     * - BitCountOfMantissa
-     * @type {Integer}
-     */
-    _bitfield1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
      * @type {Integer}
      */
     BitCountOfExponent {
@@ -71,28 +48,13 @@ class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct {
         get => (this._bitfield1 >> 6) & 0x3F
         set => this._bitfield1 := ((value & 0x3F) << 6) | (this._bitfield1 & ~(0x3F << 6))
     }
+    NumericRangeMin : Float32
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumericRangeMax : Float32
 
-    /**
-     * @type {Float}
-     */
-    NumericRangeMin {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    NumericRangeMax {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield1', { type: Int32, offset: 4 })
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISClusResGroups.ahk
-#Include .\ISCluster.ahk
-#Include .\ISClusNodeNetInterfaces.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISClusNodeNetInterfaces.ahk" { ISClusNodeNetInterfaces }
+#Import ".\ISClusResGroups.ahk" { ISClusResGroups }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
+#Import ".\CLUSTER_NODE_STATE.ahk" { CLUSTER_NODE_STATE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ISClusNode extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISClusNode extends IDispatch {
     /**
      * The interface identifier for ISClusNode
      * @type {Guid}
      */
-    static IID => Guid("{f2e606f8-2631-11d1-89f1-00a0c90d061e}")
+    static IID := Guid("{f2e606f8-2631-11d1-89f1-00a0c90d061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISClusNode interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CommonProperties    : IntPtr
+        get_PrivateProperties   : IntPtr
+        get_CommonROProperties  : IntPtr
+        get_PrivateROProperties : IntPtr
+        get_Name                : IntPtr
+        get_Handle              : IntPtr
+        get_NodeID              : IntPtr
+        get_State               : IntPtr
+        Pause                   : IntPtr
+        Resume                  : IntPtr
+        Evict                   : IntPtr
+        get_ResourceGroups      : IntPtr
+        get_Cluster             : IntPtr
+        get_NetInterfaces       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Name", "get_Handle", "get_NodeID", "get_State", "Pause", "Resume", "Evict", "get_ResourceGroups", "get_Cluster", "get_NetInterfaces"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISClusNode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISClusProperties} 
@@ -150,8 +172,8 @@ class ISClusNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -169,8 +191,8 @@ class ISClusNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_NodeID() {
-        pbstrNodeID := BSTR()
-        result := ComCall(13, this, "ptr", pbstrNodeID, "HRESULT")
+        pbstrNodeID := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrNodeID, "HRESULT")
         return pbstrNodeID
     }
 
@@ -206,14 +228,8 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * Deletes a node from the cluster database.
-     * @remarks
-     * To reinstate an evicted node, you must first remove the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> from the node and then reinstall it. During installation, choose the <b>Join an Existing Cluster</b> option.
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternode
+     * @returns {HRESULT} 
      */
     Evict() {
         result := ComCall(17, this, "HRESULT")
@@ -245,5 +261,51 @@ class ISClusNode extends IDispatch {
     get_NetInterfaces() {
         result := ComCall(20, this, "ptr*", &ppClusNetInterfaces := 0, "HRESULT")
         return ISClusNodeNetInterfaces(ppClusNetInterfaces)
+    }
+
+    Query(iid) {
+        if (ISClusNode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_NodeID := CallbackCreate(GetMethod(implObj, "get_NodeID"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Evict := CallbackCreate(GetMethod(implObj, "Evict"), flags, 1)
+        this.vtbl.get_ResourceGroups := CallbackCreate(GetMethod(implObj, "get_ResourceGroups"), flags, 2)
+        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_NetInterfaces := CallbackCreate(GetMethod(implObj, "get_NetInterfaces"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CommonProperties)
+        CallbackFree(this.vtbl.get_PrivateProperties)
+        CallbackFree(this.vtbl.get_CommonROProperties)
+        CallbackFree(this.vtbl.get_PrivateROProperties)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.get_NodeID)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Evict)
+        CallbackFree(this.vtbl.get_ResourceGroups)
+        CallbackFree(this.vtbl.get_Cluster)
+        CallbackFree(this.vtbl.get_NetInterfaces)
     }
 }

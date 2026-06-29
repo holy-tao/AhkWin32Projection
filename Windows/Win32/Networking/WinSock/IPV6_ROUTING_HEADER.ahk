@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV6_ROUTING_HEADER extends Win32Struct {
-    static sizeof => 8
+export default struct IPV6_ROUTING_HEADER {
+    #StructPack 1
 
-    static packingSize => 1
+    NextHeader : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NextHeader {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Length : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    RoutingType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RoutingType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    SegmentsLeft : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SegmentsLeft {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Reserved : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPropProblem.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPropProblem.ahk" { SPropProblem }
 
 /**
  * Contains an array of one or more SPropProblem structures for Outlook 2013 and Outlook 2016.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropproblemarray
  * @namespace Windows.Win32.System.AddressBook
  */
-class SPropProblemArray extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct SPropProblemArray {
+    #StructPack 4
 
     /**
      * > Count of [SPropProblem](spropproblem.md) structures in the array indicated by the **aProblem** member.
-     * @type {Integer}
      */
-    cProblem {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cProblem : UInt32
 
     /**
      * > Array of **SPropProblem** structures, each describing a property error.
-     * @type {SPropProblem}
      */
-    aProblem {
-        get {
-            if(!this.HasProp("__aProblemProxyArray"))
-                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 4, 1, SPropProblem, "")
-            return this.__aProblemProxyArray
-        }
-    }
+    aProblem : SPropProblem[1]
+
 }

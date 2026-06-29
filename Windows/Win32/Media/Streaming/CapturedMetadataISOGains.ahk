@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CapturedMetadataISOGains structure describes the blob format for MF_CAPTURE_METADATA_ISO_GAINS.
@@ -8,24 +7,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-capturedmetadataisogains
  * @namespace Windows.Win32.Media.Streaming
  */
-class CapturedMetadataISOGains extends Win32Struct {
-    static sizeof => 8
+export default struct CapturedMetadataISOGains {
+    #StructPack 4
 
-    static packingSize => 4
+    AnalogGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    AnalogGain {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    DigitalGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    DigitalGain {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
 }

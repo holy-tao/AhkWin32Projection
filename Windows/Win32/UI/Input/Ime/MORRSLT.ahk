@@ -1,140 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WDD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WDD.ahk" { WDD }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class MORRSLT extends Win32Struct {
-    static sizeof => 96
+export default struct MORRSLT {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pwchOutput : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwchOutput {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cchOutput : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cchOutput {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    pwchRead : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwchRead {
-        get => NumGet(this, 18, "ptr")
-        set => NumPut("ptr", value, this, 18)
-    }
+    cchRead : UInt16
 
-    /**
-     * @type {PWSTR}
-     */
-    pwchComp {
-        get => NumGet(this, 18, "ptr")
-        set => NumPut("ptr", value, this, 18)
-    }
+    pchInputPos : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cchRead {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    pchOutputIdxWDD : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cchComp {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    pchReadIdxWDD : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchInputPos {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    paMonoRubyPos : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchOutputIdxWDD {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pWDD : WDD.Ptr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchReadIdxWDD {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cWDD : Int32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pchCompIdxWDD {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pPrivate : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    paMonoRubyPos {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    BLKBuff : WCHAR[1]
 
-    /**
-     * @type {Pointer<WDD>}
-     */
-    pWDD {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cWDD {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivate {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
-
-    /**
-     * @type {String}
-     */
-    BLKBuff {
-        get => StrGet(this.ptr + 88, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 0, "UTF-16")
+    static __New() {
+        DefineProp(this.Prototype, 'pwchComp', { type: PWSTR, offset: 18 })
+        DefineProp(this.Prototype, 'cchComp', { type: UInt16, offset: 26 })
+        DefineProp(this.Prototype, 'pchCompIdxWDD', { type: IntPtr, offset: 48 })
+        this.DeleteProp("__New")
     }
 }

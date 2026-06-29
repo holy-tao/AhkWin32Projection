@@ -1,146 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DCOLORVALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DCOLORVALUE.ahk" { D3DCOLORVALUE }
 
 /**
- * Specifies material properties.
- * @remarks
- * To turn off specular highlights, set D3DRS\_SPECULARENABLE to **FALSE**, using [**D3DRENDERSTATETYPE**](./d3drenderstatetype.md). This is the fastest option because no specular highlights will be calculated.
- * 
- * For more information about using the lighting engine to calculate specular lighting, see [Specular Lighting (Direct3D 9)](specular-lighting.md).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmaterial9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DMATERIAL extends Win32Struct {
-    static sizeof => 80
+export default struct D3DMATERIAL {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    diffuse : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    diffuse {
-        get {
-            if(!this.HasProp("__diffuse"))
-                this.__diffuse := D3DCOLORVALUE(4, this)
-            return this.__diffuse
-        }
-    }
+    ambient : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvDiffuse {
-        get {
-            if(!this.HasProp("__dcvDiffuse"))
-                this.__dcvDiffuse := D3DCOLORVALUE(4, this)
-            return this.__dcvDiffuse
-        }
-    }
+    specular : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    ambient {
-        get {
-            if(!this.HasProp("__ambient"))
-                this.__ambient := D3DCOLORVALUE(20, this)
-            return this.__ambient
-        }
-    }
+    emissive : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvAmbient {
-        get {
-            if(!this.HasProp("__dcvAmbient"))
-                this.__dcvAmbient := D3DCOLORVALUE(20, this)
-            return this.__dcvAmbient
-        }
-    }
+    power : Float32
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    specular {
-        get {
-            if(!this.HasProp("__specular"))
-                this.__specular := D3DCOLORVALUE(36, this)
-            return this.__specular
-        }
-    }
+    hTexture : UInt32
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvSpecular {
-        get {
-            if(!this.HasProp("__dcvSpecular"))
-                this.__dcvSpecular := D3DCOLORVALUE(36, this)
-            return this.__dcvSpecular
-        }
-    }
+    dwRampSize : UInt32
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    emissive {
-        get {
-            if(!this.HasProp("__emissive"))
-                this.__emissive := D3DCOLORVALUE(52, this)
-            return this.__emissive
-        }
-    }
-
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvEmissive {
-        get {
-            if(!this.HasProp("__dcvEmissive"))
-                this.__dcvEmissive := D3DCOLORVALUE(52, this)
-            return this.__dcvEmissive
-        }
-    }
-
-    /**
-     * @type {Float}
-     */
-    power {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvPower {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hTexture {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRampSize {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+    static __New() {
+        DefineProp(this.Prototype, 'dcvDiffuse', { type: D3DCOLORVALUE, offset: 4 })
+        DefineProp(this.Prototype, 'dcvAmbient', { type: D3DCOLORVALUE, offset: 20 })
+        DefineProp(this.Prototype, 'dcvSpecular', { type: D3DCOLORVALUE, offset: 36 })
+        DefineProp(this.Prototype, 'dcvEmissive', { type: D3DCOLORVALUE, offset: 52 })
+        DefineProp(this.Prototype, 'dvPower', { type: Float32, offset: 68 })
+        this.DeleteProp("__New")
     }
 }

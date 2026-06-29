@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_AUTH_TYPES.ahk
-#Include .\ISCSI_DIGEST_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
+#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 
 /**
  * ISCSI_LOGIN_OPTIONS structure is used by initiators to specify the characteristics of a login session.
@@ -14,19 +13,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_login_options
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class ISCSI_LOGIN_OPTIONS extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct ISCSI_LOGIN_OPTIONS {
+    #StructPack 8
 
     /**
      * The version of login option definitions that define the data in the structure. This member must be set to ISCSI_LOGIN_OPTIONS_VERSION 0.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * A bitmap that indicates which parts of the <b>ISCSI_LOGIN_OPTIONS</b> structure contain valid data.
@@ -117,12 +110,8 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    InformationSpecified {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InformationSpecified : UInt32
 
     /**
      * A bitwise OR of login flags that define certain characteristics of the login session. The following table indicates the values that can be assigned to this member:
@@ -173,100 +162,57 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    LoginFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LoginFlags : UInt32
 
     /**
      * An enumerator value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-iscsi_auth_types">ISCSI_AUTH_TYPES</a> that indicates the authentication type.
-     * @type {ISCSI_AUTH_TYPES}
      */
-    AuthType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    AuthType : ISCSI_AUTH_TYPES
 
     /**
      * An enumerator value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-iscsi_digest_types">ISCSI_DIGEST_TYPES</a> that indicates the type of digest for guaranteeing the integrity of header data.
-     * @type {ISCSI_DIGEST_TYPES}
      */
-    HeaderDigest {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    HeaderDigest : ISCSI_DIGEST_TYPES
 
     /**
      * An enumerator value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-iscsi_digest_types">ISCSI_DIGEST_TYPES</a> that indicates the type of digest for guaranteeing the integrity of non-header data.
-     * @type {ISCSI_DIGEST_TYPES}
      */
-    DataDigest {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DataDigest : ISCSI_DIGEST_TYPES
 
     /**
      * A value between 1 and 65535 that specifies the maximum number of connections to the target device that can be associated with the login session.
-     * @type {Integer}
      */
-    MaximumConnections {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaximumConnections : UInt32
 
     /**
      * The minimum time to wait, in seconds, before attempting to reconnect or reassign a connection that has been dropped.
-     * @type {Integer}
      */
-    DefaultTime2Wait {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DefaultTime2Wait : UInt32
 
     /**
      * The maximum time allowed to reassign a connection after the initial wait indicated in <b>DefaultTime2Wait</b> has elapsed.
-     * @type {Integer}
      */
-    DefaultTime2Retain {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DefaultTime2Retain : UInt32
 
     /**
      * The length, in bytes, of the user name specified in the <b>Username</b> member.
-     * @type {Integer}
      */
-    UsernameLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    UsernameLength : UInt32
 
     /**
      * The length, in bytes, of the user name specified in the <b>Password</b> member.
-     * @type {Integer}
      */
-    PasswordLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PasswordLength : UInt32
 
     /**
      * The user name to authenticate to establish the login session. This value is not necessarily a string. For more information, see the Remarks section in this document.
-     * @type {Pointer<Integer>}
      */
-    Username {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Username : IntPtr
 
     /**
      * The user name to authenticate to establish the login session. This value is not necessarily a string. For more information, see the Remarks section in this document.
-     * @type {Pointer<Integer>}
      */
-    Password {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Password : IntPtr
+
 }

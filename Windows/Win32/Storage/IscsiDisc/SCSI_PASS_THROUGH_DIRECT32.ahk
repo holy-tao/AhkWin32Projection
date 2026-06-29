@@ -1,119 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @architecture X64, Arm64
  */
-class SCSI_PASS_THROUGH_DIRECT32 extends Win32Struct {
-    static sizeof => 56
+export default struct SCSI_PASS_THROUGH_DIRECT32 {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ScsiStatus : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ScsiStatus {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    PathId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PathId {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    TargetId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Lun : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Lun {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    CdbLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CdbLength {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    SenseInfoLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SenseInfoLength {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    DataIn : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DataIn {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    DataTransferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataTransferLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TimeOutValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeOutValue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DataBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DataBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SenseInfoOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SenseInfoOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Cdb : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Cdb {
-        get {
-            if(!this.HasProp("__CdbProxyArray"))
-                this.__CdbProxyArray := Win32FixedArray(this.ptr + 36, 16, Primitive, "char")
-            return this.__CdbProxyArray
-        }
-    }
 }

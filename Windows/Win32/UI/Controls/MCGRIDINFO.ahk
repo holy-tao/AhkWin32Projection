@@ -1,134 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MCGRIDINFO_PART.ahk
-#Include .\MCGRIDINFO_FLAGS.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MCGRIDINFO_PART.ahk" { MCGRIDINFO_PART }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MCGRIDINFO_FLAGS.ahk" { MCGRIDINFO_FLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about part of a calendar control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mcgridinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class MCGRIDINFO extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct MCGRIDINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {MCGRIDINFO_PART}
      */
-    dwPart {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPart : MCGRIDINFO_PART
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {MCGRIDINFO_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : MCGRIDINFO_FLAGS
 
     /**
      * Type: <b>int</b>
      * 
      * If <b>dwPart</b> is MCGIP_CALENDAR, MCGIP_CALENDARHEADER, MCGIP_CALENDARBODY, MCGIP_CALENDARROW, or MCGIP_CALENDARCELL, this member specifies the index of the calendar for which to retrieve information. For those parts, this must be a valid value even if there is only one calendar that is currently in the control.
-     * @type {Integer}
      */
-    iCalendar {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    iCalendar : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * If <b>dwPart</b> is MCGIP_CALENDARROW, specifies the row for which to return information.
-     * @type {Integer}
      */
-    iRow {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    iRow : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * If <b>dwPart</b> is MCGIP_CALENDARCELL, specifies the column of the cell for which to return information. The <b>iRow</b> member provides the row of the cell for which to return information.
-     * @type {Integer}
      */
-    iCol {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    iCol : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>dwPart</b> is MCGIP_CALENDARCELL, indicates if the cell described by <b>iRow</b> and <b>iCol</b> is currently selected.
-     * @type {BOOL}
      */
-    bSelected {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bSelected : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a></b>
      * 
      * Returns the start date specified by iCalendar. Used only when <b>dwFlags</b> contains MCGIF_DATE.
-     * @type {SYSTEMTIME}
      */
-    stStart {
-        get {
-            if(!this.HasProp("__stStart"))
-                this.__stStart := SYSTEMTIME(28, this)
-            return this.__stStart
-        }
-    }
+    stStart : SYSTEMTIME
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a></b>
      * 
      * Returns the end date specified by iCalendar. Used only when <b>dwFlags</b> contains MCGIF_DATE.
-     * @type {SYSTEMTIME}
      */
-    stEnd {
-        get {
-            if(!this.HasProp("__stEnd"))
-                this.__stEnd := SYSTEMTIME(44, this)
-            return this.__stEnd
-        }
-    }
+    stEnd : SYSTEMTIME
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * Returns the rectangle of the part specified in <b>dwPart</b>. Set only if <b>dwFlags</b> contains MCGIF_RECT.
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(60, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
@@ -141,26 +91,14 @@ class MCGRIDINFO extends Win32Struct {
      * <li>MCGIP_CALENDARCELL: Returns the text of the cell indicated by <b>iRow</b> and <b>iCol</b>, for instance "11" if the 11th day was specified.</li>
      * <li>MCGIP_CALENDARHEADER: Returns the text of what it says in the calendar header, for instance "July, 2006".</li>
      * </ul>
-     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pszName : PWSTR
 
     /**
      * Type: <b>size_t</b>
      * 
      * Length of <b>pszName</b>, in characters.
-     * @type {Pointer}
      */
-    cchName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    cchName : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 96
-    }
 }

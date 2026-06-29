@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEHDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The WAVEHDR structure defines the header used to identify a waveform-audio buffer.
@@ -11,46 +10,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-wavehdr
  * @namespace Windows.Win32.Media.Audio
  */
-class WAVEHDR extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WAVEHDR {
+    #StructPack 8
 
     /**
      * Pointer to the waveform buffer.
-     * @type {PSTR}
      */
-    lpData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpData : PSTR
 
     /**
      * Length, in bytes, of the buffer.
-     * @type {Integer}
      */
-    dwBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwBufferLength : UInt32
 
     /**
      * When the header is used in input, specifies how much data is in the buffer.
-     * @type {Integer}
      */
-    dwBytesRecorded {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBytesRecorded : UInt32
 
     /**
      * User data.
-     * @type {Pointer}
      */
-    dwUser {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwUser : IntPtr
 
     /**
      * A bitwise <b>OR</b> of zero or more flags. The following flags are defined:
@@ -111,37 +92,22 @@ class WAVEHDR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
 
     /**
      * Number of times to play the loop. This member is used only with output buffers.
-     * @type {Integer}
      */
-    dwLoops {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwLoops : UInt32
 
     /**
      * Reserved.
-     * @type {Pointer<WAVEHDR>}
      */
-    lpNext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpNext : WAVEHDR.Ptr
 
     /**
      * Reserved.
-     * @type {Pointer}
      */
-    reserved {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    reserved : IntPtr
+
 }

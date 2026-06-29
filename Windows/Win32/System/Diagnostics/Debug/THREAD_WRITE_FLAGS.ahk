@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of thread information that will be written to the minidump file by the MiniDumpWriteDump function.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-thread_write_flags
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class THREAD_WRITE_FLAGS extends Win32Enum {
+export default struct THREAD_WRITE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Only basic thread information will be written to the minidump file.

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a clock vector in a knowledge structure.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iclockvector
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IClockVector extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IClockVector extends IUnknown {
     /**
      * The interface identifier for IClockVector
      * @type {Guid}
      */
-    static IID => Guid("{14b2274a-8698-4cc6-9333-f89bd1d47bc4}")
+    static IID := Guid("{14b2274a-8698-4cc6-9333-f89bd1d47bc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IClockVector interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClockVectorElements     : IntPtr
+        GetClockVectorElementCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClockVectorElements", "GetClockVectorElementCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IClockVector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns an enumerator that iterates through the clock vector elements.
@@ -89,7 +98,7 @@ class IClockVector extends IUnknown {
     GetClockVectorElements(riid, ppiEnumClockVector) {
         ppiEnumClockVectorMarshal := ppiEnumClockVector is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", riid, ppiEnumClockVectorMarshal, ppiEnumClockVector, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, ppiEnumClockVectorMarshal, ppiEnumClockVector, "HRESULT")
         return result
     }
 
@@ -133,5 +142,27 @@ class IClockVector extends IUnknown {
 
         result := ComCall(4, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IClockVector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClockVectorElements := CallbackCreate(GetMethod(implObj, "GetClockVectorElements"), flags, 3)
+        this.vtbl.GetClockVectorElementCount := CallbackCreate(GetMethod(implObj, "GetClockVectorElementCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClockVectorElements)
+        CallbackFree(this.vtbl.GetClockVectorElementCount)
     }
 }

@@ -1,5 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains user account information on an account which is connected to an Internet identity. This information includes the Internet provider name for the user, the user's Internet name, and the user's security identifier (SID).
@@ -10,10 +12,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_24
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_24 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct USER_INFO_24 {
+    #StructPack 8
 
     /**
      * A boolean value that indicates whether an account is connected to an Internet identity. 
@@ -21,46 +21,27 @@ class USER_INFO_24 extends Win32Struct {
      * This member is true if the account is connected  to an Internet identity. The other members in this structure can be used. 
      * 
      * If this member is false, then the account is not connected  to an Internet identity and other members in this structure should be ignored.
-     * @type {BOOL}
      */
-    usri24_internet_identity {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    usri24_internet_identity : BOOL
 
     /**
      * A set of flags. This member must be zero.
-     * @type {Integer}
      */
-    usri24_flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    usri24_flags : UInt32
 
     /**
      * A pointer to a Unicode string that specifies the Internet provider name.
-     * @type {PWSTR}
      */
-    usri24_internet_provider_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    usri24_internet_provider_name : PWSTR
 
     /**
      * A pointer to a Unicode string that specifies the user's Internet name.
-     * @type {PWSTR}
      */
-    usri24_internet_principal_name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    usri24_internet_principal_name : PWSTR
 
     /**
      * The local account SID of the user.
-     * @type {PSID}
      */
-    usri24_user_sid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    usri24_user_sid : PSID
+
 }

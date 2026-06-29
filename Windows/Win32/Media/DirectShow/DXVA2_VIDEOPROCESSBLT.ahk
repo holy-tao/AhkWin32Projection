@@ -1,169 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\MediaFoundation\DXVA2_AYUVSample16.ahk
-#Include ..\MediaFoundation\DXVA2_ExtendedFormat.ahk
-#Include ..\MediaFoundation\DXVA2_ProcAmpValues.ahk
-#Include ..\MediaFoundation\DXVA2_Fixed32.ahk
-#Include ..\MediaFoundation\DXVA2_FilterValues.ahk
-#Include .\DXVA2_VIDEOSAMPLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA2_VIDEOSAMPLE.ahk" { DXVA2_VIDEOSAMPLE }
+#Import "..\MediaFoundation\DXVA2_FilterValues.ahk" { DXVA2_FilterValues }
+#Import "..\MediaFoundation\DXVA2_AYUVSample16.ahk" { DXVA2_AYUVSample16 }
+#Import "..\MediaFoundation\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
+#Import "..\MediaFoundation\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
+#Import "..\MediaFoundation\DXVA2_ProcAmpValues.ahk" { DXVA2_ProcAmpValues }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DXVA2_VIDEOPROCESSBLT extends Win32Struct {
-    static sizeof => 136
+export default struct DXVA2_VIDEOPROCESSBLT {
+    #StructPack 8
 
-    static packingSize => 8
+    TargetFrame : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetFrame {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    TargetRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    TargetRect {
-        get {
-            if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(8, this)
-            return this.__TargetRect
-        }
-    }
+    ConstrictionSize : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    ConstrictionSize {
-        get {
-            if(!this.HasProp("__ConstrictionSize"))
-                this.__ConstrictionSize := SIZE(24, this)
-            return this.__ConstrictionSize
-        }
-    }
+    StreamingFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamingFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BackgroundColor : DXVA2_AYUVSample16
 
-    /**
-     * @type {DXVA2_AYUVSample16}
-     */
-    BackgroundColor {
-        get {
-            if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVA2_AYUVSample16(36, this)
-            return this.__BackgroundColor
-        }
-    }
+    DestFormat : DXVA2_ExtendedFormat
 
-    /**
-     * @type {DXVA2_ExtendedFormat}
-     */
-    DestFormat {
-        get {
-            if(!this.HasProp("__DestFormat"))
-                this.__DestFormat := DXVA2_ExtendedFormat(44, this)
-            return this.__DestFormat
-        }
-    }
+    DestFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ProcAmpValues : DXVA2_ProcAmpValues
 
-    /**
-     * @type {DXVA2_ProcAmpValues}
-     */
-    ProcAmpValues {
-        get {
-            if(!this.HasProp("__ProcAmpValues"))
-                this.__ProcAmpValues := DXVA2_ProcAmpValues(52, this)
-            return this.__ProcAmpValues
-        }
-    }
+    Alpha : DXVA2_Fixed32
 
-    /**
-     * @type {DXVA2_Fixed32}
-     */
-    Alpha {
-        get {
-            if(!this.HasProp("__Alpha"))
-                this.__Alpha := DXVA2_Fixed32(68, this)
-            return this.__Alpha
-        }
-    }
+    NoiseFilterLuma : DXVA2_FilterValues
 
-    /**
-     * @type {DXVA2_FilterValues}
-     */
-    NoiseFilterLuma {
-        get {
-            if(!this.HasProp("__NoiseFilterLuma"))
-                this.__NoiseFilterLuma := DXVA2_FilterValues(72, this)
-            return this.__NoiseFilterLuma
-        }
-    }
+    NoiseFilterChroma : DXVA2_FilterValues
 
-    /**
-     * @type {DXVA2_FilterValues}
-     */
-    NoiseFilterChroma {
-        get {
-            if(!this.HasProp("__NoiseFilterChroma"))
-                this.__NoiseFilterChroma := DXVA2_FilterValues(84, this)
-            return this.__NoiseFilterChroma
-        }
-    }
+    DetailFilterLuma : DXVA2_FilterValues
 
-    /**
-     * @type {DXVA2_FilterValues}
-     */
-    DetailFilterLuma {
-        get {
-            if(!this.HasProp("__DetailFilterLuma"))
-                this.__DetailFilterLuma := DXVA2_FilterValues(96, this)
-            return this.__DetailFilterLuma
-        }
-    }
+    DetailFilterChroma : DXVA2_FilterValues
 
-    /**
-     * @type {DXVA2_FilterValues}
-     */
-    DetailFilterChroma {
-        get {
-            if(!this.HasProp("__DetailFilterChroma"))
-                this.__DetailFilterChroma := DXVA2_FilterValues(108, this)
-            return this.__DetailFilterChroma
-        }
-    }
+    pSrcSurfaces : DXVA2_VIDEOSAMPLE.Ptr
 
-    /**
-     * @type {Pointer<DXVA2_VIDEOSAMPLE>}
-     */
-    pSrcSurfaces {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    NumSrcSurfaces : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumSrcSurfaces {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
 }

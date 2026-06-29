@@ -1,32 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpTask extends Win32ComInterface {
+export default struct ISpTask extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Execute"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpTask interfaces
+    */
+    struct Vtbl {
+        Execute : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
+     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Pointer<Integer>} pfContinueProcessing 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
+     * @returns {HRESULT} 
      */
     Execute(pvTaskData, pfContinueProcessing) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
@@ -34,5 +41,12 @@ class ISpTask extends Win32ComInterface {
 
         result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

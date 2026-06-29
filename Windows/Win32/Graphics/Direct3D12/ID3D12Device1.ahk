@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_RESIDENCY_PRIORITY.ahk" { D3D12_RESIDENCY_PRIORITY }
+#Import ".\D3D12_MULTIPLE_FENCE_WAIT_FLAGS.ahk" { D3D12_MULTIPLE_FENCE_WAIT_FLAGS }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12Device.ahk" { ID3D12Device }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a virtual adapter, and expands on the range of methods provided by ID3D12Device.
@@ -10,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device1 extends ID3D12Device {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device1 extends ID3D12Device {
     /**
      * The interface identifier for ID3D12Device1
      * @type {Guid}
      */
-    static IID => Guid("{77acce80-638e-4e65-8895-c1f23386863e}")
+    static IID := Guid("{77acce80-638e-4e65-8895-c1f23386863e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 44
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device1 interfaces
+    */
+    struct Vtbl extends ID3D12Device.Vtbl {
+        CreatePipelineLibrary             : IntPtr
+        SetEventOnMultipleFenceCompletion : IntPtr
+        SetResidencyPriority              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePipelineLibrary", "SetEventOnMultipleFenceCompletion", "SetResidencyPriority"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a cached pipeline library.
@@ -61,7 +76,7 @@ class ID3D12Device1 extends ID3D12Device {
     CreatePipelineLibrary(pLibraryBlob, BlobLength, riid) {
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, "ptr", riid, "ptr*", &ppPipelineLibrary := 0, "HRESULT")
+        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, Guid.Ptr, riid, "ptr*", &ppPipelineLibrary := 0, "HRESULT")
         return ppPipelineLibrary
     }
 
@@ -92,11 +107,9 @@ class ID3D12Device1 extends ID3D12Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-seteventonmultiplefencecompletion
      */
     SetEventOnMultipleFenceCompletion(ppFences, pFenceValues, NumFences, Flags, hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
         pFenceValuesMarshal := pFenceValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(45, this, "ptr*", ppFences, pFenceValuesMarshal, pFenceValues, "uint", NumFences, "int", Flags, "ptr", hEvent, "HRESULT")
+        result := ComCall(45, this, ID3D12Fence.Ptr, ppFences, pFenceValuesMarshal, pFenceValues, "uint", NumFences, D3D12_MULTIPLE_FENCE_WAIT_FLAGS, Flags, HANDLE, hEvent, "HRESULT")
         return result
     }
 
@@ -121,7 +134,31 @@ class ID3D12Device1 extends ID3D12Device {
     SetResidencyPriority(NumObjects, ppObjects, pPriorities) {
         pPrioritiesMarshal := pPriorities is VarRef ? "int*" : "ptr"
 
-        result := ComCall(46, this, "uint", NumObjects, "ptr*", ppObjects, pPrioritiesMarshal, pPriorities, "HRESULT")
+        result := ComCall(46, this, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, pPrioritiesMarshal, pPriorities, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12Device1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePipelineLibrary := CallbackCreate(GetMethod(implObj, "CreatePipelineLibrary"), flags, 5)
+        this.vtbl.SetEventOnMultipleFenceCompletion := CallbackCreate(GetMethod(implObj, "SetEventOnMultipleFenceCompletion"), flags, 6)
+        this.vtbl.SetResidencyPriority := CallbackCreate(GetMethod(implObj, "SetResidencyPriority"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePipelineLibrary)
+        CallbackFree(this.vtbl.SetEventOnMultipleFenceCompletion)
+        CallbackFree(this.vtbl.SetResidencyPriority)
     }
 }

@@ -1,14 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_SHADER_TYPE.ahk
-#Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_PIXEL_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_TRACE_GS_INPUT_PRIMITIVE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_SHADER_TYPE.ahk" { D3D11_SHADER_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk" { D3D11_GEOMETRY_SHADER_TRACE_DESC }
+#Import ".\D3D11_HULL_SHADER_TRACE_DESC.ahk" { D3D11_HULL_SHADER_TRACE_DESC }
+#Import ".\D3D11_VERTEX_SHADER_TRACE_DESC.ahk" { D3D11_VERTEX_SHADER_TRACE_DESC }
+#Import ".\D3D11_TRACE_GS_INPUT_PRIMITIVE.ahk" { D3D11_TRACE_GS_INPUT_PRIMITIVE }
+#Import ".\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk" { D3D11_DOMAIN_SHADER_TRACE_DESC }
+#Import ".\D3D11_PIXEL_SHADER_TRACE_DESC.ahk" { D3D11_PIXEL_SHADER_TRACE_DESC }
+#Import ".\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk" { D3D11_COMPUTE_SHADER_TRACE_DESC }
+#Import ".\D3D11_SHADER_TRACE_DESC.ahk" { D3D11_SHADER_TRACE_DESC }
 
 /**
  * Specifies statistics about a trace.
@@ -17,49 +17,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_stats
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_TRACE_STATS extends Win32Struct {
-    static sizeof => 8616
-
-    static packingSize => 8
+export default struct D3D11_TRACE_STATS {
+    #StructPack 8
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_shader_trace_desc">D3D11_SHADER_TRACE_DESC</a> structure that describes the shader trace object for which this structure specifies statistics.
-     * @type {D3D11_SHADER_TRACE_DESC}
      */
-    TraceDesc {
-        get {
-            if(!this.HasProp("__TraceDesc"))
-                this.__TraceDesc := D3D11_SHADER_TRACE_DESC(0, this)
-            return this.__TraceDesc
-        }
-    }
+    TraceDesc : D3D11_SHADER_TRACE_DESC
 
     /**
      * The number of calls in the stamp for the trace. This value is always 1 for vertex shaders, hull shaders, domain shaders, geometry shaders, and compute shaders. This value is 4 for pixel shaders.
-     * @type {Integer}
      */
-    NumInvocationsInStamp {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    NumInvocationsInStamp : Int8
 
     /**
      * The index of the target stamp. This value is always 0 for vertex shaders, hull shaders, domain shaders, geometry shaders, and compute shaders. However, for pixel shaders this value indicates which of the four pixels in the stamp is the target for the trace.  You can examine the traces for other pixels in the stamp to determine how derivative calculations occurred. You can make this determination by correlating the registers across traces.
-     * @type {Integer}
      */
-    TargetStampIndex {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    TargetStampIndex : Int8
 
     /**
      * The total number of steps for the trace. This number is the same for all stamp calls.
-     * @type {Integer}
      */
-    NumTraceSteps {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    NumTraceSteps : UInt32
 
     /**
      * The component trace mask for each input v# register. For information about D3D11_TRACE_COMPONENT_MASK, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value">D3D11_TRACE_VALUE</a>.
@@ -67,199 +46,99 @@ class D3D11_TRACE_STATS extends Win32Struct {
      * For vertex shaders, geometry shaders, pixel shaders, hull shaders, and domain shaders, the valid range is [0..31]. For compute shaders, this member is not applicable. Also, inputs for geometry shaders are 2D-indexed. For example, consider v[vertex][attribute]. In this example, the range of [attribute] is [0..31]. The [vertex] axis is the same size for all inputs, which are determined by the <b>GSInputPrimitive</b> member.
      * 
      * Similarly, inputs for hull shader and domain shader are 2D-indexed. For example, consider v[vertex][attribute]. In this example, the range of [attribute] is [0..15]. The [vertex] axis is the same size for all inputs.
-     * @type {Array<Integer>}
      */
-    InputMask {
-        get {
-            if(!this.HasProp("__InputMaskProxyArray"))
-                this.__InputMaskProxyArray := Win32FixedArray(this.ptr + 48, 32, Primitive, "char")
-            return this.__InputMaskProxyArray
-        }
-    }
+    InputMask : Int8[32]
 
     /**
      * The component trace mask for each output o# register. For information about D3D11_TRACE_COMPONENT_MASK, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value">D3D11_TRACE_VALUE</a>.
      * 
      * For vertex shaders and geometry shaders, the valid range is [0..31]. For pixel shaders, the valid range is [0..7]. For compute shaders, this member is not applicable. For output control points for hull shaders, the registers are 2D-indexed. For example, consider ocp[vertex][attribute]. In this example, the range of [attribute] is [0..31]. The [vertex] axis is the same size for all inputs.
-     * @type {Array<Integer>}
      */
-    OutputMask {
-        get {
-            if(!this.HasProp("__OutputMaskProxyArray"))
-                this.__OutputMaskProxyArray := Win32FixedArray(this.ptr + 80, 32, Primitive, "char")
-            return this.__OutputMaskProxyArray
-        }
-    }
+    OutputMask : Int8[32]
 
     /**
      * The number of temps, that is, 4x32 bit r# registers that are declared.
-     * @type {Integer}
      */
-    NumTemps {
-        get => NumGet(this, 112, "ushort")
-        set => NumPut("ushort", value, this, 112)
-    }
+    NumTemps : UInt16
 
     /**
      * The maximum index #+1 of all indexable temps x#[] that are declared. If they are declared sparsely (for example, x3[12] and x200[30] only), this value is 201 (200+1).
-     * @type {Integer}
      */
-    MaxIndexableTempIndex {
-        get => NumGet(this, 114, "ushort")
-        set => NumPut("ushort", value, this, 114)
-    }
+    MaxIndexableTempIndex : UInt16
 
     /**
      * The number of temps for each indexable temp x#[numTemps]. You can only have temps up to the value in the <b>MaxIndexableTempIndex</b> member.
-     * @type {Array<Integer>}
      */
-    IndexableTempSize {
-        get {
-            if(!this.HasProp("__IndexableTempSizeProxyArray"))
-                this.__IndexableTempSizeProxyArray := Win32FixedArray(this.ptr + 116, 4096, Primitive, "ushort")
-            return this.__IndexableTempSizeProxyArray
-        }
-    }
+    IndexableTempSize : UInt16[4096]
 
     /**
      * The number of 4x32 bit values (if any) that are in the immediate constant buffer.
-     * @type {Integer}
      */
-    ImmediateConstantBufferSize {
-        get => NumGet(this, 8308, "ushort")
-        set => NumPut("ushort", value, this, 8308)
-    }
+    ImmediateConstantBufferSize : UInt16
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PixelPosition {
-        get {
-            if(!this.HasProp("__PixelPositionProxyArray"))
-                this.__PixelPositionProxyArray := Win32FixedArray(this.ptr + 8312, 8, Primitive, "uint")
-            return this.__PixelPositionProxyArray
-        }
-    }
+    PixelPosition : UInt32[8]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for pixel shaders only, [stampIndex].</div>
      * <div> </div>
      * A mask that indicates which MSAA samples are covered for each stamp. This coverage occurs before alpha-to-coverage, depth, and stencil operations are performed on the pixel. For non-MSAA, examine the least significant bit (LSB). This mask can be 0 for pixels that are only executed to support derivatives for neighboring pixels.
-     * @type {Array<Integer>}
      */
-    PixelCoverageMask {
-        get {
-            if(!this.HasProp("__PixelCoverageMaskProxyArray"))
-                this.__PixelCoverageMaskProxyArray := Win32FixedArray(this.ptr + 8344, 4, Primitive, "uint")
-            return this.__PixelCoverageMaskProxyArray
-        }
-    }
+    PixelCoverageMask : Int64[4]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for pixel shaders only, [stampIndex].</div>
      * <div> </div>
      * A mask that indicates discarded samples.  If the pixel shader runs at pixel-frequency, "discard" turns off all the samples. 	If all the samples are off, the following four mask members are also 0.
-     * @type {Array<Integer>}
      */
-    PixelDiscardedMask {
-        get {
-            if(!this.HasProp("__PixelDiscardedMaskProxyArray"))
-                this.__PixelDiscardedMaskProxyArray := Win32FixedArray(this.ptr + 8376, 4, Primitive, "uint")
-            return this.__PixelDiscardedMaskProxyArray
-        }
-    }
+    PixelDiscardedMask : Int64[4]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for pixel shaders only, [stampIndex].</div>
      * <div> </div>
      * A mask that indicates the MSAA samples that are covered. For non-MSAA, examine the LSB.
-     * @type {Array<Integer>}
      */
-    PixelCoverageMaskAfterShader {
-        get {
-            if(!this.HasProp("__PixelCoverageMaskAfterShaderProxyArray"))
-                this.__PixelCoverageMaskAfterShaderProxyArray := Win32FixedArray(this.ptr + 8408, 4, Primitive, "uint")
-            return this.__PixelCoverageMaskAfterShaderProxyArray
-        }
-    }
+    PixelCoverageMaskAfterShader : Int64[4]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for pixel shaders only, [stampIndex].</div>
      * <div> </div>
      * A mask that indicates the MSAA samples that are covered after alpha-to-coverage+sampleMask, but before depth and stencil. For non-MSAA, examine the LSB.
-     * @type {Array<Integer>}
      */
-    PixelCoverageMaskAfterA2CSampleMask {
-        get {
-            if(!this.HasProp("__PixelCoverageMaskAfterA2CSampleMaskProxyArray"))
-                this.__PixelCoverageMaskAfterA2CSampleMaskProxyArray := Win32FixedArray(this.ptr + 8440, 4, Primitive, "uint")
-            return this.__PixelCoverageMaskAfterA2CSampleMaskProxyArray
-        }
-    }
+    PixelCoverageMaskAfterA2CSampleMask : Int64[4]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for pixel shaders only, [stampIndex].</div>
      * <div> </div>
      * A mask that indicates the MSAA samples that are covered after alpha-to-coverage+sampleMask+depth, but before stencil. For non-MSAA, examine the LSB.
-     * @type {Array<Integer>}
      */
-    PixelCoverageMaskAfterA2CSampleMaskDepth {
-        get {
-            if(!this.HasProp("__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray"))
-                this.__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray := Win32FixedArray(this.ptr + 8472, 4, Primitive, "uint")
-            return this.__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray
-        }
-    }
+    PixelCoverageMaskAfterA2CSampleMaskDepth : Int64[4]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for pixel shaders only, [stampIndex].</div>
      * <div> </div>
      * A mask that indicates the MSAA samples that are covered after alpha-to-coverage+sampleMask+depth+stencil. For non-MSAA, examine the LSB.
-     * @type {Array<Integer>}
      */
-    PixelCoverageMaskAfterA2CSampleMaskDepthStencil {
-        get {
-            if(!this.HasProp("__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray"))
-                this.__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray := Win32FixedArray(this.ptr + 8504, 4, Primitive, "uint")
-            return this.__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray
-        }
-    }
+    PixelCoverageMaskAfterA2CSampleMaskDepthStencil : Int64[4]
 
     /**
      * A value that specifies whether this trace is for a pixel shader that outputs the oDepth register. TRUE indicates that the pixel shader outputs the oDepth register; otherwise, FALSE.
-     * @type {BOOL}
      */
-    PSOutputsDepth {
-        get => NumGet(this, 8536, "int")
-        set => NumPut("int", value, this, 8536)
-    }
+    PSOutputsDepth : BOOL
 
     /**
      * A value that specifies whether this trace is for a pixel shader that outputs the oMask register. TRUE indicates that the pixel shader outputs the oMask register; otherwise, FALSE.
-     * @type {BOOL}
      */
-    PSOutputsMask {
-        get => NumGet(this, 8540, "int")
-        set => NumPut("int", value, this, 8540)
-    }
+    PSOutputsMask : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_gs_input_primitive">D3D11_TRACE_GS_INPUT_PRIMITIVE</a>-typed value that identifies the type of geometry shader input primitive. That is, this value identifies:  {point, line, triangle, line_adj, triangle_adj} or the number of vertices: 1, 2, 3, 4, or 6 respectively. For example, for a line, input v[][#] is actually v[2][#]. For vertex shaders and pixel shaders, set this member to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_gs_input_primitive">D3D11_TRACE_GS_INPUT_PRIMITIVE_UNDEFINED</a>.
-     * @type {D3D11_TRACE_GS_INPUT_PRIMITIVE}
      */
-    GSInputPrimitive {
-        get => NumGet(this, 8544, "int")
-        set => NumPut("int", value, this, 8544)
-    }
+    GSInputPrimitive : D3D11_TRACE_GS_INPUT_PRIMITIVE
 
     /**
      * A value that specifies whether this trace is for a geometry shader that inputs the PrimitiveID register. TRUE indicates that the geometry shader inputs the PrimitiveID register; otherwise, FALSE.
-     * @type {BOOL}
      */
-    GSInputsPrimitiveID {
-        get => NumGet(this, 8548, "int")
-        set => NumPut("int", value, this, 8548)
-    }
+    GSInputsPrimitiveID : BOOL
 
     /**
      * <div class="alert"><b>Note</b>  This member is for hull shaders only.</div>
@@ -267,15 +146,8 @@ class D3D11_TRACE_STATS extends Win32Struct {
      * The component trace mask for the hull-shader output. For information about D3D11_TRACE_COMPONENT_MASK, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value">D3D11_TRACE_VALUE</a>.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_register_type">D3D11_TRACE_INPUT_PRIMITIVE_ID_REGISTER</a> value is available through a call to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getinitialregistercontents">ID3D11ShaderTrace::GetInitialRegisterContents</a> method.
-     * @type {Array<Integer>}
      */
-    HSOutputPatchConstantMask {
-        get {
-            if(!this.HasProp("__HSOutputPatchConstantMaskProxyArray"))
-                this.__HSOutputPatchConstantMaskProxyArray := Win32FixedArray(this.ptr + 8552, 32, Primitive, "char")
-            return this.__HSOutputPatchConstantMaskProxyArray
-        }
-    }
+    HSOutputPatchConstantMask : Int8[32]
 
     /**
      * <div class="alert"><b>Note</b>  This member is for domain shaders only.</div>
@@ -288,13 +160,7 @@ class D3D11_TRACE_STATS extends Win32Struct {
      * <li><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_register_type">D3D11_TRACE_INPUT_PRIMITIVE_ID_REGISTER</a></li>
      * <li><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_register_type">D3D11_TRACE_INPUT_DOMAIN_POINT_REGISTER</a></li>
      * </ul>
-     * @type {Array<Integer>}
      */
-    DSInputPatchConstantMask {
-        get {
-            if(!this.HasProp("__DSInputPatchConstantMaskProxyArray"))
-                this.__DSInputPatchConstantMaskProxyArray := Win32FixedArray(this.ptr + 8584, 32, Primitive, "char")
-            return this.__DSInputPatchConstantMaskProxyArray
-        }
-    }
+    DSInputPatchConstantMask : Int8[32]
+
 }

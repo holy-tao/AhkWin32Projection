@@ -1,37 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextSelection.ahk
-#Include .\ITextStoryRanges.ahk
-#Include .\ITextRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextRange.ahk" { ITextRange }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITextStoryRanges.ahk" { ITextStoryRanges }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITextSelection.ahk" { ITextSelection }
+#Import ".\tomConstants.ahk" { tomConstants }
 
 /**
  * The ITextDocument interface is the Text Object Model (TOM) top-level interface, which retrieves the active selection and range objects for any story in the document�whether active or not.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextdocument
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextDocument extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextDocument extends IDispatch {
     /**
      * The interface identifier for ITextDocument
      * @type {Guid}
      */
-    static IID => Guid("{8cc497c0-a1df-11ce-8098-00aa0047be5d}")
+    static IID := Guid("{8cc497c0-a1df-11ce-8098-00aa0047be5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextDocument interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetName             : IntPtr
+        GetSelection        : IntPtr
+        GetStoryCount       : IntPtr
+        GetStoryRanges      : IntPtr
+        GetSaved            : IntPtr
+        SetSaved            : IntPtr
+        GetDefaultTabStop   : IntPtr
+        SetDefaultTabStop   : IntPtr
+        New                 : IntPtr
+        Open                : IntPtr
+        Save                : IntPtr
+        Freeze              : IntPtr
+        Unfreeze            : IntPtr
+        BeginEditCollection : IntPtr
+        EndEditCollection   : IntPtr
+        Undo                : IntPtr
+        Redo                : IntPtr
+        Range               : IntPtr
+        RangeFromPoint      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetSelection", "GetStoryCount", "GetStoryRanges", "GetSaved", "SetSaved", "GetDefaultTabStop", "SetDefaultTabStop", "New", "Open", "Save", "Freeze", "Unfreeze", "BeginEditCollection", "EndEditCollection", "Undo", "Redo", "Range", "RangeFromPoint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextDocument.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the file name of this document. This is the ITextDocument default property.
@@ -41,8 +69,8 @@ class ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getname
      */
     GetName() {
-        pName := BSTR()
-        result := ComCall(7, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -112,7 +140,7 @@ class ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-setsaved
      */
     SetSaved(Value) {
-        result := ComCall(12, this, "int", Value, "HRESULT")
+        result := ComCall(12, this, tomConstants, Value, "HRESULT")
         return result
     }
 
@@ -293,7 +321,7 @@ class ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-open
      */
     Open(pVar, Flags, CodePage) {
-        result := ComCall(16, this, "ptr", pVar, "int", Flags, "int", CodePage, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, pVar, tomConstants, Flags, "int", CodePage, "HRESULT")
         return result
     }
 
@@ -380,7 +408,7 @@ class ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-save
      */
     Save(pVar, Flags, CodePage) {
-        result := ComCall(17, this, "ptr", pVar, "int", Flags, "int", CodePage, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, pVar, tomConstants, Flags, "int", CodePage, "HRESULT")
         return result
     }
 
@@ -554,5 +582,61 @@ class ITextDocument extends IDispatch {
     RangeFromPoint(x, y) {
         result := ComCall(25, this, "int", x, "int", y, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange(ppRange)
+    }
+
+    Query(iid) {
+        if (ITextDocument.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.GetStoryCount := CallbackCreate(GetMethod(implObj, "GetStoryCount"), flags, 2)
+        this.vtbl.GetStoryRanges := CallbackCreate(GetMethod(implObj, "GetStoryRanges"), flags, 2)
+        this.vtbl.GetSaved := CallbackCreate(GetMethod(implObj, "GetSaved"), flags, 2)
+        this.vtbl.SetSaved := CallbackCreate(GetMethod(implObj, "SetSaved"), flags, 2)
+        this.vtbl.GetDefaultTabStop := CallbackCreate(GetMethod(implObj, "GetDefaultTabStop"), flags, 2)
+        this.vtbl.SetDefaultTabStop := CallbackCreate(GetMethod(implObj, "SetDefaultTabStop"), flags, 2)
+        this.vtbl.New := CallbackCreate(GetMethod(implObj, "New"), flags, 1)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+        this.vtbl.Freeze := CallbackCreate(GetMethod(implObj, "Freeze"), flags, 2)
+        this.vtbl.Unfreeze := CallbackCreate(GetMethod(implObj, "Unfreeze"), flags, 2)
+        this.vtbl.BeginEditCollection := CallbackCreate(GetMethod(implObj, "BeginEditCollection"), flags, 1)
+        this.vtbl.EndEditCollection := CallbackCreate(GetMethod(implObj, "EndEditCollection"), flags, 1)
+        this.vtbl.Undo := CallbackCreate(GetMethod(implObj, "Undo"), flags, 3)
+        this.vtbl.Redo := CallbackCreate(GetMethod(implObj, "Redo"), flags, 3)
+        this.vtbl.Range := CallbackCreate(GetMethod(implObj, "Range"), flags, 4)
+        this.vtbl.RangeFromPoint := CallbackCreate(GetMethod(implObj, "RangeFromPoint"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.GetStoryCount)
+        CallbackFree(this.vtbl.GetStoryRanges)
+        CallbackFree(this.vtbl.GetSaved)
+        CallbackFree(this.vtbl.SetSaved)
+        CallbackFree(this.vtbl.GetDefaultTabStop)
+        CallbackFree(this.vtbl.SetDefaultTabStop)
+        CallbackFree(this.vtbl.New)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.Freeze)
+        CallbackFree(this.vtbl.Unfreeze)
+        CallbackFree(this.vtbl.BeginEditCollection)
+        CallbackFree(this.vtbl.EndEditCollection)
+        CallbackFree(this.vtbl.Undo)
+        CallbackFree(this.vtbl.Redo)
+        CallbackFree(this.vtbl.Range)
+        CallbackFree(this.vtbl.RangeFromPoint)
     }
 }

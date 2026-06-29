@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI\_VD\_PLAY\_PARMS structure contains position and speed information for the MCI\_PLAY command for videodisc devices.
@@ -10,44 +9,27 @@
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-vd-play-parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_VD_PLAY_PARMS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MCI_VD_PLAY_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Position to play from.
-     * @type {Integer}
      */
-    dwFrom {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFrom : UInt32
 
     /**
      * Position to play to.
-     * @type {Integer}
      */
-    dwTo {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwTo : UInt32
 
     /**
      * Playback speed in frames per second.
-     * @type {Integer}
      */
-    dwSpeed {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSpeed : UInt32
+
 }

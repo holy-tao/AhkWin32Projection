@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * The CREDUI_INFO structure is used to pass information to the CredUIPromptForCredentials function that creates a dialog box used to obtain credentials information. (Unicode)
@@ -12,64 +12,32 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class CREDUI_INFOW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CREDUI_INFOW {
+    #StructPack 8
 
     /**
      * Set to the size of the CREDUI_INFO structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Specifies the handle to the parent window of the dialog box. The dialog box is modal with respect to the parent window. If this member is <b>NULL</b>, the desktop is the parent window of the dialog box.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(8, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
     /**
      * Pointer to a string containing a brief message to display in the dialog box. The length of this string should not exceed CREDUI_MAX_MESSAGE_LENGTH.
-     * @type {PWSTR}
      */
-    pszMessageText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszMessageText : PWSTR
 
     /**
      * Pointer to a string containing the title for the dialog box. The length of this string should not exceed CREDUI_MAX_CAPTION_LENGTH.
-     * @type {PWSTR}
      */
-    pszCaptionText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszCaptionText : PWSTR
 
     /**
      * Bitmap to display in the dialog box. If this member is <b>NULL</b>, a default bitmap is used. The bitmap size is limited to 320x60 pixels.
-     * @type {HBITMAP}
      */
-    hbmBanner {
-        get {
-            if(!this.HasProp("__hbmBanner"))
-                this.__hbmBanner := HBITMAP(32, this)
-            return this.__hbmBanner
-        }
-    }
+    hbmBanner : HBITMAP
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

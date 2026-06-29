@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constant values that indicates the layout of the event data.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-template_flags
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TEMPLATE_FLAGS extends Win32Enum {
+export default struct TEMPLATE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The layout of the event data is determined by the order of the data items defined in the event data template definition.

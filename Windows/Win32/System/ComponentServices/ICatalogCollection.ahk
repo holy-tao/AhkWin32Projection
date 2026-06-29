@@ -1,35 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icatalogcollection
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICatalogCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICatalogCollection extends IDispatch {
     /**
      * The interface identifier for ICatalogCollection
      * @type {Guid}
      */
-    static IID => Guid("{6eb22872-8a19-11d0-81b6-00a0c9231c29}")
+    static IID := Guid("{6eb22872-8a19-11d0-81b6-00a0c9231c29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICatalogCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum              : IntPtr
+        get_Item                  : IntPtr
+        get_Count                 : IntPtr
+        Remove                    : IntPtr
+        Add                       : IntPtr
+        Populate                  : IntPtr
+        SaveChanges               : IntPtr
+        GetCollection             : IntPtr
+        get_Name                  : IntPtr
+        get_AddEnabled            : IntPtr
+        get_RemoveEnabled         : IntPtr
+        GetUtilInterface          : IntPtr
+        get_DataStoreMajorVersion : IntPtr
+        get_DataStoreMinorVersion : IntPtr
+        PopulateByKey             : IntPtr
+        PopulateByQuery           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Remove", "Add", "Populate", "SaveChanges", "GetCollection", "get_Name", "get_AddEnabled", "get_RemoveEnabled", "GetUtilInterface", "get_DataStoreMajorVersion", "get_DataStoreMinorVersion", "PopulateByKey", "PopulateByQuery"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICatalogCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -209,7 +235,7 @@ class ICatalogCollection extends IDispatch {
     GetCollection(bstrCollName, varObjectKey) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        result := ComCall(14, this, "ptr", bstrCollName, "ptr", varObjectKey, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrCollName, VARIANT, varObjectKey, "ptr*", &ppCatalogCollection := 0, "HRESULT")
         return IDispatch(ppCatalogCollection)
     }
 
@@ -220,7 +246,7 @@ class ICatalogCollection extends IDispatch {
      */
     get_Name() {
         pVarNamel := VARIANT()
-        result := ComCall(15, this, "ptr", pVarNamel, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, pVarNamel, "HRESULT")
         return pVarNamel
     }
 
@@ -230,7 +256,7 @@ class ICatalogCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_addenabled
      */
     get_AddEnabled() {
-        result := ComCall(16, this, "short*", &pVarBool := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pVarBool := 0, "HRESULT")
         return pVarBool
     }
 
@@ -240,7 +266,7 @@ class ICatalogCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_removeenabled
      */
     get_RemoveEnabled() {
-        result := ComCall(17, this, "short*", &pVarBool := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &pVarBool := 0, "HRESULT")
         return pVarBool
     }
 
@@ -312,7 +338,7 @@ class ICatalogCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-populatebykey
      */
     PopulateByKey(psaKeys) {
-        result := ComCall(21, this, "ptr", psaKeys, "HRESULT")
+        result := ComCall(21, this, SAFEARRAY.Ptr, psaKeys, "HRESULT")
         return result
     }
 
@@ -355,7 +381,57 @@ class ICatalogCollection extends IDispatch {
     PopulateByQuery(bstrQueryString, lQueryType) {
         bstrQueryString := bstrQueryString is String ? BSTR.Alloc(bstrQueryString).Value : bstrQueryString
 
-        result := ComCall(22, this, "ptr", bstrQueryString, "int", lQueryType, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrQueryString, "int", lQueryType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICatalogCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Populate := CallbackCreate(GetMethod(implObj, "Populate"), flags, 1)
+        this.vtbl.SaveChanges := CallbackCreate(GetMethod(implObj, "SaveChanges"), flags, 2)
+        this.vtbl.GetCollection := CallbackCreate(GetMethod(implObj, "GetCollection"), flags, 4)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_AddEnabled := CallbackCreate(GetMethod(implObj, "get_AddEnabled"), flags, 2)
+        this.vtbl.get_RemoveEnabled := CallbackCreate(GetMethod(implObj, "get_RemoveEnabled"), flags, 2)
+        this.vtbl.GetUtilInterface := CallbackCreate(GetMethod(implObj, "GetUtilInterface"), flags, 2)
+        this.vtbl.get_DataStoreMajorVersion := CallbackCreate(GetMethod(implObj, "get_DataStoreMajorVersion"), flags, 2)
+        this.vtbl.get_DataStoreMinorVersion := CallbackCreate(GetMethod(implObj, "get_DataStoreMinorVersion"), flags, 2)
+        this.vtbl.PopulateByKey := CallbackCreate(GetMethod(implObj, "PopulateByKey"), flags, 2)
+        this.vtbl.PopulateByQuery := CallbackCreate(GetMethod(implObj, "PopulateByQuery"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Populate)
+        CallbackFree(this.vtbl.SaveChanges)
+        CallbackFree(this.vtbl.GetCollection)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_AddEnabled)
+        CallbackFree(this.vtbl.get_RemoveEnabled)
+        CallbackFree(this.vtbl.GetUtilInterface)
+        CallbackFree(this.vtbl.get_DataStoreMajorVersion)
+        CallbackFree(this.vtbl.get_DataStoreMinorVersion)
+        CallbackFree(this.vtbl.PopulateByKey)
+        CallbackFree(this.vtbl.PopulateByQuery)
     }
 }

@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WINTRUST_DETACHED_SIG_FILE_HANDLES extends Win32Struct {
-    static sizeof => 16
+export default struct WINTRUST_DETACHED_SIG_FILE_HANDLES {
+    #StructPack 8
 
-    static packingSize => 8
+    hContentFile : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hContentFile {
-        get {
-            if(!this.HasProp("__hContentFile"))
-                this.__hContentFile := HANDLE(0, this)
-            return this.__hContentFile
-        }
-    }
+    hSignatureFile : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSignatureFile {
-        get {
-            if(!this.HasProp("__hSignatureFile"))
-                this.__hSignatureFile := HANDLE(8, this)
-            return this.__hSignatureFile
-        }
-    }
 }

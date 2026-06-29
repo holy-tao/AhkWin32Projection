@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates information about a file that has been downloaded.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_filedownloadevent
  * @namespace Windows.Win32.System.ParentalControls
  */
-class WPC_ARGS_FILEDOWNLOADEVENT extends Win32Enum {
+export default struct WPC_ARGS_FILEDOWNLOADEVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The URL or web address of the downloaded file.

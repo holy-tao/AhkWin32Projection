@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TCP_OPT_UNKNOWN extends Win32Struct {
-    static sizeof => 2
+export default struct TCP_OPT_UNKNOWN {
+    #StructPack 1
 
-    static packingSize => 1
+    Kind : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Kind {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Length : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
 }

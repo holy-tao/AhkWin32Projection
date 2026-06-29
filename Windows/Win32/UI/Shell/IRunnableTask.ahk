@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A free-threaded interface that can be exposed by an object to allow operations to be performed on a background thread.
@@ -19,26 +21,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-irunnabletask
  * @namespace Windows.Win32.UI.Shell
  */
-class IRunnableTask extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRunnableTask extends IUnknown {
     /**
      * The interface identifier for IRunnableTask
      * @type {Guid}
      */
-    static IID => Guid("{85788d00-6807-11d0-b810-00c04fd706ec}")
+    static IID := Guid("{85788d00-6807-11d0-b810-00c04fd706ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRunnableTask interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Run       : IntPtr
+        Kill      : IntPtr
+        Suspend   : IntPtr
+        Resume    : IntPtr
+        IsRunning : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Run", "Kill", "Suspend", "Resume", "IsRunning"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRunnableTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests that a task begin.
@@ -96,7 +109,7 @@ class IRunnableTask extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill
      */
     Kill(bWait) {
-        result := ComCall(4, this, "int", bWait, "HRESULT")
+        result := ComCall(4, this, BOOL, bWait, "HRESULT")
         return result
     }
 
@@ -201,7 +214,35 @@ class IRunnableTask extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-isrunning
      */
     IsRunning() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (IRunnableTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Kill := CallbackCreate(GetMethod(implObj, "Kill"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.Kill)
+        CallbackFree(this.vtbl.Suspend)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.IsRunning)
     }
 }

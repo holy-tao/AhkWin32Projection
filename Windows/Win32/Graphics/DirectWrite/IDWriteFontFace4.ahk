@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_GLYPH_IMAGE_DATA.ahk" { DWRITE_GLYPH_IMAGE_DATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
+#Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace4)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface4
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFace4 extends IDWriteFontFace3 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
     /**
      * The interface identifier for IDWriteFontFace4
      * @type {Guid}
      */
-    static IID => Guid("{27f2a904-4eb8-441d-9678-0563f53e3e2f}")
+    static IID := Guid("{27f2a904-4eb8-441d-9678-0563f53e3e2f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 49
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFace4 interfaces
+    */
+    struct Vtbl extends IDWriteFontFace3.Vtbl {
+        GetGlyphImageFormats  : IntPtr
+        GetGlyphImageFormats1 : IntPtr
+        GetGlyphImageData     : IntPtr
+        ReleaseGlyphImageData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGlyphImageFormats", "GetGlyphImageFormats1", "GetGlyphImageData", "ReleaseGlyphImageData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFace4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets all the glyph image formats supported by the entire font. (IDWriteFontFace4.GetGlyphImageFormats)
@@ -50,7 +63,7 @@ class IDWriteFontFace4 extends IDWriteFontFace3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats1() {
-        result := ComCall(50, this, "int")
+        result := ComCall(50, this, DWRITE_GLYPH_IMAGE_FORMATS)
         return result
     }
 
@@ -94,7 +107,7 @@ class IDWriteFontFace4 extends IDWriteFontFace3 {
     GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, _glyphData, glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, "int", glyphImageFormat, "ptr", _glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
+        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, DWRITE_GLYPH_IMAGE_DATA.Ptr, _glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
         return result
     }
 
@@ -110,5 +123,31 @@ class IDWriteFontFace4 extends IDWriteFontFace3 {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr" : "ptr"
 
         ComCall(52, this, glyphDataContextMarshal, glyphDataContext)
+    }
+
+    Query(iid) {
+        if (IDWriteFontFace4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGlyphImageFormats := CallbackCreate(GetMethod(implObj, "GetGlyphImageFormats"), flags, 5)
+        this.vtbl.GetGlyphImageFormats1 := CallbackCreate(GetMethod(implObj, "GetGlyphImageFormats1"), flags, 1)
+        this.vtbl.GetGlyphImageData := CallbackCreate(GetMethod(implObj, "GetGlyphImageData"), flags, 6)
+        this.vtbl.ReleaseGlyphImageData := CallbackCreate(GetMethod(implObj, "ReleaseGlyphImageData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGlyphImageFormats)
+        CallbackFree(this.vtbl.GetGlyphImageFormats1)
+        CallbackFree(this.vtbl.GetGlyphImageData)
+        CallbackFree(this.vtbl.ReleaseGlyphImageData)
     }
 }

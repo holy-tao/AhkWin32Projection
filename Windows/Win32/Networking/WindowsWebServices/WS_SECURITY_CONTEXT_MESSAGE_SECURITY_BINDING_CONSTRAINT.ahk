@@ -1,20 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
-#Include .\WS_SECURITY_CONSTRAINTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
+#Import ".\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk" { WS_SECURITY_BINDING_PROPERTY_CONSTRAINT }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT.ahk" { WS_SECURITY_BINDING_CONSTRAINT }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk" { WS_SECURITY_BINDING_CONSTRAINT_TYPE }
+#Import ".\WS_SECURITY_CONSTRAINTS.ahk" { WS_SECURITY_CONSTRAINTS }
 
 /**
  * A security binding constraint that corresponds to the WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT {
+    #StructPack 8
 
     /**
      * The base binding constraint that this binding constraint derives from.
@@ -25,31 +22,17 @@ class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struc
      *            Currently only <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_secure_conversation_version">WS_SECURE_CONVERSATION_VERSION_FEBRUARY_2005</a> is supported in policy, so a binding constraint containing the
      *           value <b>WS_SECURE_CONVERSATION_VERSION_FEBRUARY_2005</b> must be specified in
      *           order for the policy to match.
-     * @type {WS_SECURITY_BINDING_CONSTRAINT}
      */
-    bindingConstraint {
-        get {
-            if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
-            return this.__bindingConstraint
-        }
-    }
+    bindingConstraint : WS_SECURITY_BINDING_CONSTRAINT
 
     /**
      * This specifies how the security context token should be attached to a message.
-     * @type {WS_MESSAGE_SECURITY_USAGE}
      */
-    bindingUsage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bindingUsage : WS_MESSAGE_SECURITY_USAGE
 
     /**
      * This specifies the bootstrap security used to establish the secure conversation context.
-     * @type {Pointer<WS_SECURITY_CONSTRAINTS>}
      */
-    bootstrapSecurityConstraint {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    bootstrapSecurityConstraint : WS_SECURITY_CONSTRAINTS.Ptr
+
 }

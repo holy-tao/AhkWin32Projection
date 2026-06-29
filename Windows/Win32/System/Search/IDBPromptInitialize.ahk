@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IDBPromptInitialize extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDBPromptInitialize extends IUnknown {
     /**
      * The interface identifier for IDBPromptInitialize
      * @type {Guid}
      */
-    static IID => Guid("{2206ccb0-19c1-11d1-89e0-00c04fd7a829}")
+    static IID := Guid("{2206ccb0-19c1-11d1-89e0-00c04fd7a829}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDBPromptInitialize interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PromptDataSource : IntPtr
+        PromptFileName   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PromptDataSource", "PromptFileName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDBPromptInitialize.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -40,12 +51,11 @@ class IDBPromptInitialize extends IUnknown {
      * @returns {HRESULT} 
      */
     PromptDataSource(pUnkOuter, hWndParent, dwPromptOptions, cSourceTypeFilter, rgSourceTypeFilter, pwszszzProviderFilter, riid, ppDataSource) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
         pwszszzProviderFilter := pwszszzProviderFilter is String ? StrPtr(pwszszzProviderFilter) : pwszszzProviderFilter
 
         rgSourceTypeFilterMarshal := rgSourceTypeFilter is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, HWND, hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
         return result
     }
 
@@ -58,11 +68,32 @@ class IDBPromptInitialize extends IUnknown {
      * @returns {PWSTR} 
      */
     PromptFileName(hWndParent, dwPromptOptions, pwszInitialDirectory, pwszInitialFile) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
         pwszInitialDirectory := pwszInitialDirectory is String ? StrPtr(pwszInitialDirectory) : pwszInitialDirectory
         pwszInitialFile := pwszInitialFile is String ? StrPtr(pwszInitialFile) : pwszInitialFile
 
-        result := ComCall(4, this, "ptr", hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, "ptr*", &ppwszSelectedFile := 0, "HRESULT")
+        result := ComCall(4, this, HWND, hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, PWSTR.Ptr, &ppwszSelectedFile := 0, "HRESULT")
         return ppwszSelectedFile
+    }
+
+    Query(iid) {
+        if (IDBPromptInitialize.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PromptDataSource := CallbackCreate(GetMethod(implObj, "PromptDataSource"), flags, 9)
+        this.vtbl.PromptFileName := CallbackCreate(GetMethod(implObj, "PromptFileName"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PromptDataSource)
+        CallbackFree(this.vtbl.PromptFileName)
     }
 }

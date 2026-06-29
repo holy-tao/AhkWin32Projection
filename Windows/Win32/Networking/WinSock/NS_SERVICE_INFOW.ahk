@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_INFOW.ahk
-#Include .\RESOURCE_DISPLAY_TYPE.ahk
-#Include .\SERVICE_ADDRESSES.ahk
-#Include ..\..\System\Com\BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SERVICE_INFOW.ahk" { SERVICE_INFOW }
+#Import ".\SERVICE_ADDRESSES.ahk" { SERVICE_ADDRESSES }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RESOURCE_DISPLAY_TYPE.ahk" { RESOURCE_DISPLAY_TYPE }
 
 /**
  * Contains information about a network service or a network service type in the context of a specified namespace, or a set of default namespaces. (Unicode)
@@ -14,10 +15,8 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset Unicode
  */
-class NS_SERVICE_INFOW extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct NS_SERVICE_INFOW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -155,25 +154,15 @@ class NS_SERVICE_INFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwNameSpace {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNameSpace : UInt32
 
     /**
      * Type: <b>SERVICE_INFO</b>
      * 
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_infoa">SERVICE_INFO</a> structure that contains information about a network service or network service type.
-     * @type {SERVICE_INFOW}
      */
-    ServiceInfo {
-        get {
-            if(!this.HasProp("__ServiceInfo"))
-                this.__ServiceInfo := SERVICE_INFOW(8, this)
-            return this.__ServiceInfo
-        }
-    }
+    ServiceInfo : SERVICE_INFOW
+
 }

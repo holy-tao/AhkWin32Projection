@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISK_GEOMETRY.ahk
-#Include .\MEDIA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISK_GEOMETRY.ahk" { DISK_GEOMETRY }
+#Import ".\MEDIA_TYPE.ahk" { MEDIA_TYPE }
 
 /**
  * Describes the extended geometry of disk devices and media.
@@ -26,41 +25,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_geometry_ex
  * @namespace Windows.Win32.System.Ioctl
  */
-class DISK_GEOMETRY_EX extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DISK_GEOMETRY_EX {
+    #StructPack 8
 
     /**
      * A [**DISK_GEOMETRY**](ns-winioctl-disk_geometry.md) structure.
-     * @type {DISK_GEOMETRY}
      */
-    Geometry {
-        get {
-            if(!this.HasProp("__Geometry"))
-                this.__Geometry := DISK_GEOMETRY(0, this)
-            return this.__Geometry
-        }
-    }
+    Geometry : DISK_GEOMETRY
 
     /**
      * The disk size, in bytes. See [**LARGE_INTEGER**](../winnt/ns-winnt-large_integer-r1.md).
-     * @type {Integer}
      */
-    DiskSize {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    DiskSize : Int64
 
     /**
      * Any additional data. For more information, see Remarks.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

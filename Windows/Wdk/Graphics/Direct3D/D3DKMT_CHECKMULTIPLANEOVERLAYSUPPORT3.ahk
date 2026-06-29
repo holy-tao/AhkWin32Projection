@@ -1,77 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE.ahk" { D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE }
+#Import ".\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3.ahk" { D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3 }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3 extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3 {
+    #StructPack 8
 
-    static packingSize => 8
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PlaneCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlaneCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ppOverlayPlanes : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3>>}
-     */
-    ppOverlayPlanes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PostCompositionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PostCompositionCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ppPostComposition : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE>>}
-     */
-    ppPostComposition {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Supported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Supported {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    ReturnInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ReturnInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

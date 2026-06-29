@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIBICMPINFO.ahk
-#Include .\MIBICMPSTATS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIBICMPINFO.ahk" { MIBICMPINFO }
+#Import ".\MIBICMPSTATS.ahk" { MIBICMPSTATS }
 
 /**
  * Contains the Internet Control Message Protocol (ICMP) statistics for a particular computer.
@@ -10,21 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_icmp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_ICMP extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 4
+export default struct MIB_ICMP {
+    #StructPack 4
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mibicmpinfo">MIBICMPINFO</a> structure that contains the ICMP statistics for the computer.
-     * @type {MIBICMPINFO}
      */
-    stats {
-        get {
-            if(!this.HasProp("__stats"))
-                this.__stats := MIBICMPINFO(0, this)
-            return this.__stats
-        }
-    }
+    stats : MIBICMPINFO
+
 }

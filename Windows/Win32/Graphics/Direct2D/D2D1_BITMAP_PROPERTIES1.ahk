@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D1_PIXEL_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include Common\D2D1_ALPHA_MODE.ahk
-#Include .\D2D1_BITMAP_OPTIONS.ahk
-#Include .\ID2D1ColorContext.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
+#Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
 
 /**
  * This structure allows a ID2D1Bitmap1 to be created with bitmap options and color context information available.
@@ -13,66 +12,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_BITMAP_PROPERTIES1 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D2D1_BITMAP_PROPERTIES1 {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d1_pixel_format">D2D1_PIXEL_FORMAT</a></b>
      * 
      * The DXGI format and alpha mode to create the bitmap with.
-     * @type {D2D1_PIXEL_FORMAT}
      */
-    pixelFormat {
-        get {
-            if(!this.HasProp("__pixelFormat"))
-                this.__pixelFormat := D2D1_PIXEL_FORMAT(0, this)
-            return this.__pixelFormat
-        }
-    }
+    pixelFormat : D2D1_PIXEL_FORMAT
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The bitmap dpi in the x direction.
-     * @type {Float}
      */
-    dpiX {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    dpiX : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The bitmap dpi in the y direction.
-     * @type {Float}
      */
-    dpiY {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    dpiY : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_bitmap_options">D2D1_BITMAP_OPTIONS</a></b>
      * 
      * The special creation options of the bitmap.
-     * @type {D2D1_BITMAP_OPTIONS}
      */
-    bitmapOptions {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bitmapOptions : D2D1_BITMAP_OPTIONS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1colorcontext">ID2D1ColorContext</a>*</b>
      * 
      * The optionally specified color context information.
-     * @type {ID2D1ColorContext}
      */
-    colorContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    colorContext : ID2D1ColorContext
+
 }

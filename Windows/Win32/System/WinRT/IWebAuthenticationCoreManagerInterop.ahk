@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInspectable.ahk" { IInspectable }
 
 /**
  * Contains core methods for obtaining tokens from web account providers.
@@ -22,26 +24,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/webauthenticationcoremanagerinterop/nn-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop
  * @namespace Windows.Win32.System.WinRT
  */
-class IWebAuthenticationCoreManagerInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IWebAuthenticationCoreManagerInterop extends IInspectable {
     /**
      * The interface identifier for IWebAuthenticationCoreManagerInterop
      * @type {Guid}
      */
-    static IID => Guid("{f4b8e804-811e-4436-b69c-44cb67b72084}")
+    static IID := Guid("{f4b8e804-811e-4436-b69c-44cb67b72084}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebAuthenticationCoreManagerInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        RequestTokenForWindowAsync               : IntPtr
+        RequestTokenWithWebAccountForWindowAsync : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestTokenForWindowAsync", "RequestTokenWithWebAccountForWindowAsync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebAuthenticationCoreManagerInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Asynchronously requests a token from a web account provider. If necessary, the user is prompted to enter their credentials. (IWebAuthenticationCoreManagerInterop::RequestTokenForWindowAsync)
@@ -75,9 +85,7 @@ class IWebAuthenticationCoreManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/webauthenticationcoremanagerinterop/nf-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop-requesttokenforwindowasync
      */
     RequestTokenForWindowAsync(appWindow, request, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", request, "ptr", riid, "ptr*", &asyncInfo := 0, "HRESULT")
+        result := ComCall(6, this, HWND, appWindow, "ptr", request, Guid.Ptr, riid, "ptr*", &asyncInfo := 0, "HRESULT")
         return asyncInfo
     }
 
@@ -124,9 +132,29 @@ class IWebAuthenticationCoreManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/webauthenticationcoremanagerinterop/nf-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop-requesttokenwithwebaccountforwindowasync
      */
     RequestTokenWithWebAccountForWindowAsync(appWindow, request, webAccount, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", request, "ptr", webAccount, "ptr", riid, "ptr*", &asyncInfo := 0, "HRESULT")
+        result := ComCall(7, this, HWND, appWindow, "ptr", request, "ptr", webAccount, Guid.Ptr, riid, "ptr*", &asyncInfo := 0, "HRESULT")
         return asyncInfo
+    }
+
+    Query(iid) {
+        if (IWebAuthenticationCoreManagerInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestTokenForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestTokenForWindowAsync"), flags, 5)
+        this.vtbl.RequestTokenWithWebAccountForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestTokenWithWebAccountForWindowAsync"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestTokenForWindowAsync)
+        CallbackFree(this.vtbl.RequestTokenWithWebAccountForWindowAsync)
     }
 }

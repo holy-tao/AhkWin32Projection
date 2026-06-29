@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that are used to define the PropertyChainValue returned from XAML Diagnostics.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-metadatabit
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class MetadataBit extends Win32Enum {
+export default struct MetadataBit {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No special bits are set.

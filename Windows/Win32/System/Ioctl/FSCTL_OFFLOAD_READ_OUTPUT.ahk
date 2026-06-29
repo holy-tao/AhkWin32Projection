@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FSCTL_OFFLOAD_READ_OUTPUT extends Win32Struct {
-    static sizeof => 528
+export default struct FSCTL_OFFLOAD_READ_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TransferLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TransferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Token : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Token {
-        get {
-            if(!this.HasProp("__TokenProxyArray"))
-                this.__TokenProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")
-            return this.__TokenProxyArray
-        }
-    }
 }

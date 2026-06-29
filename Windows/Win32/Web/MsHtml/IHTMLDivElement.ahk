@@ -1,38 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDivElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDivElement extends IDispatch {
     /**
      * The interface identifier for IHTMLDivElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f200-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f200-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLDivElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f27e-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f27e-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDivElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_align  : IntPtr
+        get_align  : IntPtr
+        put_noWrap : IntPtr
+        get_noWrap : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_align", "get_align", "put_noWrap", "get_noWrap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDivElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -58,7 +70,7 @@ class IHTMLDivElement extends IDispatch {
     put_align(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -67,8 +79,8 @@ class IHTMLDivElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -78,7 +90,7 @@ class IHTMLDivElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_noWrap(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -87,7 +99,33 @@ class IHTMLDivElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLDivElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_noWrap := CallbackCreate(GetMethod(implObj, "put_noWrap"), flags, 2)
+        this.vtbl.get_noWrap := CallbackCreate(GetMethod(implObj, "get_noWrap"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_align)
+        CallbackFree(this.vtbl.get_align)
+        CallbackFree(this.vtbl.put_noWrap)
+        CallbackFree(this.vtbl.get_noWrap)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the identifiers that identify the query information that you can retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_query_property_id
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_QUERY_PROPERTY_ID extends Win32Enum {
+export default struct EVT_QUERY_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Identifies the property that contains the list of channel or log file names that are specified in the query. The variant type for this property is <b>EvtVarTypeString \| EVT_VARIANT_TYPE_ARRAY</b>.

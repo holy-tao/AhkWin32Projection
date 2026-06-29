@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DBASISTYPE.ahk
-#Include .\D3DDEGREETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDEGREETYPE.ahk" { D3DDEGREETYPE }
+#Import ".\D3DBASISTYPE.ahk" { D3DBASISTYPE }
 
 /**
  * Describes a triangular high-order patch.
@@ -12,46 +11,32 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtripatch-info
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DTRIPATCH_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct D3DTRIPATCH_INFO {
+    #StructPack 4
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Starting vertex offset, in number of vertices.
-     * @type {Integer}
      */
-    StartVertexOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StartVertexOffset : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of vertices.
-     * @type {Integer}
      */
-    NumVertices {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumVertices : UInt32
 
     /**
      * Type: **[**D3DBASISTYPE**](./d3dbasistype.md)**
      * 
      * 
      * Member of the [**D3DBASISTYPE**](./d3dbasistype.md) enumerated type, which defines the basis type for the triangular high-order patch. The only valid value for this member is D3DBASIS\_BEZIER.
-     * @type {D3DBASISTYPE}
      */
-    Basis {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Basis : D3DBASISTYPE
 
     /**
      * Type: **[**D3DDEGREETYPE**](./d3ddegreetype.md)**
@@ -73,10 +58,7 @@ class D3DTRIPATCH_INFO extends Win32Struct {
      *  
      * 
      * N/A - Not available. Not supported.
-     * @type {D3DDEGREETYPE}
      */
-    Degree {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Degree : D3DDEGREETYPE
+
 }

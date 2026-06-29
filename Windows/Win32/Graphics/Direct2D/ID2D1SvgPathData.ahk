@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgAttribute.ahk
-#Include .\ID2D1PathGeometry1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1PathGeometry1.ahk" { ID2D1PathGeometry1 }
 
 /**
  * Interface describing SVG path data. Path data can be set as the 'd' attribute on a 'path' element.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgpathdata
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1SvgPathData extends ID2D1SvgAttribute {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
     /**
      * The interface identifier for ID2D1SvgPathData
      * @type {Guid}
      */
-    static IID => Guid("{c095e4f4-bb98-43d6-9745-4d1b84ec9888}")
+    static IID := Guid("{c095e4f4-bb98-43d6-9745-4d1b84ec9888}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SvgPathData interfaces
+    */
+    struct Vtbl extends ID2D1SvgAttribute.Vtbl {
+        RemoveSegmentDataAtEnd : IntPtr
+        UpdateSegmentData      : IntPtr
+        GetSegmentData         : IntPtr
+        GetSegmentDataCount    : IntPtr
+        RemoveCommandsAtEnd    : IntPtr
+        UpdateCommands         : IntPtr
+        GetCommands            : IntPtr
+        GetCommandsCount       : IntPtr
+        CreatePathGeometry     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RemoveSegmentDataAtEnd", "UpdateSegmentData", "GetSegmentData", "GetSegmentDataCount", "RemoveCommandsAtEnd", "UpdateCommands", "GetCommands", "GetCommandsCount", "CreatePathGeometry"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SvgPathData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Removes data from the end of the segment data array.
@@ -94,7 +112,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdatacount
      */
     GetSegmentDataCount() {
-        result := ComCall(9, this, "uint")
+        result := ComCall(9, this, UInt32)
         return result
     }
 
@@ -162,7 +180,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommandscount
      */
     GetCommandsCount() {
-        result := ComCall(13, this, "uint")
+        result := ComCall(13, this, UInt32)
         return result
     }
 
@@ -177,7 +195,43 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-createpathgeometry
      */
     CreatePathGeometry(_fillMode) {
-        result := ComCall(14, this, "int", _fillMode, "ptr*", &pathGeometry := 0, "HRESULT")
+        result := ComCall(14, this, D2D1_FILL_MODE, _fillMode, "ptr*", &pathGeometry := 0, "HRESULT")
         return ID2D1PathGeometry1(pathGeometry)
+    }
+
+    Query(iid) {
+        if (ID2D1SvgPathData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RemoveSegmentDataAtEnd := CallbackCreate(GetMethod(implObj, "RemoveSegmentDataAtEnd"), flags, 2)
+        this.vtbl.UpdateSegmentData := CallbackCreate(GetMethod(implObj, "UpdateSegmentData"), flags, 4)
+        this.vtbl.GetSegmentData := CallbackCreate(GetMethod(implObj, "GetSegmentData"), flags, 4)
+        this.vtbl.GetSegmentDataCount := CallbackCreate(GetMethod(implObj, "GetSegmentDataCount"), flags, 1)
+        this.vtbl.RemoveCommandsAtEnd := CallbackCreate(GetMethod(implObj, "RemoveCommandsAtEnd"), flags, 2)
+        this.vtbl.UpdateCommands := CallbackCreate(GetMethod(implObj, "UpdateCommands"), flags, 4)
+        this.vtbl.GetCommands := CallbackCreate(GetMethod(implObj, "GetCommands"), flags, 4)
+        this.vtbl.GetCommandsCount := CallbackCreate(GetMethod(implObj, "GetCommandsCount"), flags, 1)
+        this.vtbl.CreatePathGeometry := CallbackCreate(GetMethod(implObj, "CreatePathGeometry"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RemoveSegmentDataAtEnd)
+        CallbackFree(this.vtbl.UpdateSegmentData)
+        CallbackFree(this.vtbl.GetSegmentData)
+        CallbackFree(this.vtbl.GetSegmentDataCount)
+        CallbackFree(this.vtbl.RemoveCommandsAtEnd)
+        CallbackFree(this.vtbl.UpdateCommands)
+        CallbackFree(this.vtbl.GetCommands)
+        CallbackFree(this.vtbl.GetCommandsCount)
+        CallbackFree(this.vtbl.CreatePathGeometry)
     }
 }

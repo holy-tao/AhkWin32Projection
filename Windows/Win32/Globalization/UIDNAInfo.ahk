@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UIDNAInfo extends Win32Struct {
-    static sizeof => 16
+export default struct UIDNAInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    size : Int16
 
-    /**
-     * @type {Integer}
-     */
-    size {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    isTransitionalDifferent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    isTransitionalDifferent {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    reservedB3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    reservedB3 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    errors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    errors {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    reservedI2 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    reservedI2 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    reservedI3 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    reservedI3 {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

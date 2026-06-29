@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_MEMORY_DESCRIPTOR64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_MEMORY_DESCRIPTOR64.ahk" { MINIDUMP_MEMORY_DESCRIPTOR64 }
 
 /**
  * Contains a list of memory ranges.M
@@ -22,38 +21,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory64_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_MEMORY64_LIST extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MINIDUMP_MEMORY64_LIST {
+    #StructPack 8
 
     /**
      * The number of structures in the <b>MemoryRanges</b> array.
-     * @type {Integer}
      */
-    NumberOfMemoryRanges {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfMemoryRanges : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaseRva {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BaseRva : Int64
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor">MINIDUMP_MEMORY_DESCRIPTOR</a> structures.
-     * @type {MINIDUMP_MEMORY_DESCRIPTOR64}
      */
-    MemoryRanges {
-        get {
-            if(!this.HasProp("__MemoryRangesProxyArray"))
-                this.__MemoryRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, MINIDUMP_MEMORY_DESCRIPTOR64, "")
-            return this.__MemoryRangesProxyArray
-        }
-    }
+    MemoryRanges : MINIDUMP_MEMORY_DESCRIPTOR64[1]
+
 }

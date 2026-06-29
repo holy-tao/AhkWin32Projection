@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a realtime work queue service for APOs.
@@ -14,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudioprocessingobjectrtqueueservice
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioProcessingObjectRTQueueService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioProcessingObjectRTQueueService extends IUnknown {
     /**
      * The interface identifier for IAudioProcessingObjectRTQueueService
      * @type {Guid}
      */
-    static IID => Guid("{acd65e2f-955b-4b57-b9bf-ac297bb752c9}")
+    static IID := Guid("{acd65e2f-955b-4b57-b9bf-ac297bb752c9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioProcessingObjectRTQueueService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRealTimeWorkQueue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRealTimeWorkQueue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioProcessingObjectRTQueueService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID of a work queue that the APO can use to schedule tasks that need to run at a real-time priority.
@@ -47,5 +55,25 @@ class IAudioProcessingObjectRTQueueService extends IUnknown {
     GetRealTimeWorkQueue() {
         result := ComCall(3, this, "uint*", &workQueueId := 0, "HRESULT")
         return workQueueId
+    }
+
+    Query(iid) {
+        if (IAudioProcessingObjectRTQueueService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRealTimeWorkQueue := CallbackCreate(GetMethod(implObj, "GetRealTimeWorkQueue"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRealTimeWorkQueue)
     }
 }

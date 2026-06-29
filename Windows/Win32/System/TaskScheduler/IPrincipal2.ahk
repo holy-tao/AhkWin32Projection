@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASK_PROCESSTOKENSID_TYPE.ahk" { TASK_PROCESSTOKENSID_TYPE }
 
 /**
  * Provides the extended settings applied to security credentials for a principal.
@@ -10,26 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iprincipal2
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IPrincipal2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IPrincipal2 extends IDispatch {
     /**
      * The interface identifier for IPrincipal2
      * @type {Guid}
      */
-    static IID => Guid("{248919ae-e345-4a6d-8aeb-e0d3165c904e}")
+    static IID := Guid("{248919ae-e345-4a6d-8aeb-e0d3165c904e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrincipal2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ProcessTokenSidType    : IntPtr
+        put_ProcessTokenSidType    : IntPtr
+        get_RequiredPrivilegeCount : IntPtr
+        get_RequiredPrivilege      : IntPtr
+        AddRequiredPrivilege       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ProcessTokenSidType", "put_ProcessTokenSidType", "get_RequiredPrivilegeCount", "get_RequiredPrivilege", "AddRequiredPrivilege"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrincipal2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {TASK_PROCESSTOKENSID_TYPE} 
@@ -65,7 +79,7 @@ class IPrincipal2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-put_processtokensidtype
      */
     put_ProcessTokenSidType(processTokenSidType) {
-        result := ComCall(8, this, "int", processTokenSidType, "HRESULT")
+        result := ComCall(8, this, TASK_PROCESSTOKENSID_TYPE, processTokenSidType, "HRESULT")
         return result
     }
 
@@ -90,7 +104,7 @@ class IPrincipal2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_requiredprivilege
      */
     get_RequiredPrivilege(index, pPrivilege) {
-        result := ComCall(10, this, "int", index, "ptr", pPrivilege, "HRESULT")
+        result := ComCall(10, this, "int", index, BSTR.Ptr, pPrivilege, "HRESULT")
         return result
     }
 
@@ -103,7 +117,35 @@ class IPrincipal2 extends IDispatch {
     AddRequiredPrivilege(privilege) {
         privilege := privilege is String ? BSTR.Alloc(privilege).Value : privilege
 
-        result := ComCall(11, this, "ptr", privilege, "HRESULT")
+        result := ComCall(11, this, BSTR, privilege, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrincipal2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ProcessTokenSidType := CallbackCreate(GetMethod(implObj, "get_ProcessTokenSidType"), flags, 2)
+        this.vtbl.put_ProcessTokenSidType := CallbackCreate(GetMethod(implObj, "put_ProcessTokenSidType"), flags, 2)
+        this.vtbl.get_RequiredPrivilegeCount := CallbackCreate(GetMethod(implObj, "get_RequiredPrivilegeCount"), flags, 2)
+        this.vtbl.get_RequiredPrivilege := CallbackCreate(GetMethod(implObj, "get_RequiredPrivilege"), flags, 3)
+        this.vtbl.AddRequiredPrivilege := CallbackCreate(GetMethod(implObj, "AddRequiredPrivilege"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ProcessTokenSidType)
+        CallbackFree(this.vtbl.put_ProcessTokenSidType)
+        CallbackFree(this.vtbl.get_RequiredPrivilegeCount)
+        CallbackFree(this.vtbl.get_RequiredPrivilege)
+        CallbackFree(this.vtbl.AddRequiredPrivilege)
     }
 }

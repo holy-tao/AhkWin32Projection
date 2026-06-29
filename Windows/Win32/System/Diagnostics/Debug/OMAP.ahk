@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes an entry in an address map.
@@ -16,26 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-omap
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class OMAP extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct OMAP {
+    #StructPack 4
 
     /**
      * A relative virtual address (RVA) in image A.
-     * @type {Integer}
      */
-    rva {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rva : UInt32
 
     /**
      * The relative virtual address that <b>rva</b> is mapped to in image B.
-     * @type {Integer}
      */
-    rvaTo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rvaTo : UInt32
+
 }

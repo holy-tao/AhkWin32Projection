@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBatchBase.ahk
-#Include .\ISyncKnowledge.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
 
 /**
  * Represents the metadata for a set of changes that is created as part of a recovery synchronization.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncfullenumerationchangebatch
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase {
-
-    static sizeof => A_PtrSize
+export default struct ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase {
     /**
      * The interface identifier for ISyncFullEnumerationChangeBatch
      * @type {Guid}
      */
-    static IID => Guid("{ef64197d-4f44-4ea2-b355-4524713e3bed}")
+    static IID := Guid("{ef64197d-4f44-4ea2-b355-4524713e3bed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncFullEnumerationChangeBatch interfaces
+    */
+    struct Vtbl extends ISyncChangeBatchBase.Vtbl {
+        GetLearnedKnowledgeAfterRecoveryComplete : IntPtr
+        GetClosedLowerBoundItemId                : IntPtr
+        GetClosedUpperBoundItemId                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLearnedKnowledgeAfterRecoveryComplete", "GetClosedLowerBoundItemId", "GetClosedUpperBoundItemId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncFullEnumerationChangeBatch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the knowledge the destination replica will learn after it applies all the changes in the recovery synchronization.
@@ -174,5 +184,29 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase {
 
         result := ComCall(19, this, pbClosedUpperBoundItemIdMarshal, pbClosedUpperBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncFullEnumerationChangeBatch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLearnedKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledgeAfterRecoveryComplete"), flags, 2)
+        this.vtbl.GetClosedLowerBoundItemId := CallbackCreate(GetMethod(implObj, "GetClosedLowerBoundItemId"), flags, 3)
+        this.vtbl.GetClosedUpperBoundItemId := CallbackCreate(GetMethod(implObj, "GetClosedUpperBoundItemId"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLearnedKnowledgeAfterRecoveryComplete)
+        CallbackFree(this.vtbl.GetClosedLowerBoundItemId)
+        CallbackFree(this.vtbl.GetClosedUpperBoundItemId)
     }
 }

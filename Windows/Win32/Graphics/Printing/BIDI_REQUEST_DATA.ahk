@@ -1,40 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BIDI_DATA.ahk
-#Include .\BINARY_CONTAINER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BIDI_DATA.ahk" { BIDI_DATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BINARY_CONTAINER.ahk" { BINARY_CONTAINER }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BIDI_REQUEST_DATA extends Win32Struct {
-    static sizeof => 40
+export default struct BIDI_REQUEST_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwReqNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReqNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pSchema : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pSchema {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    data : BIDI_DATA
 
-    /**
-     * @type {BIDI_DATA}
-     */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := BIDI_DATA(16, this)
-            return this.__data
-        }
-    }
 }

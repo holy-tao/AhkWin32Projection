@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides a set of values that indicate from which base key an item will be deleted.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-shregdel_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class SHREGDEL_FLAGS extends Win32Enum {
+export default struct SHREGDEL_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Deletes from <b>HKEY_CURRENT_USER</b>. If the specified item is not found under <b>HKEY_CURRENT_USER</b>, deletes from <b>HKEY_LOCAL_MACHINE</b>.

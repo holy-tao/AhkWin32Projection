@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY.ahk
-#Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk" { D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE }
+#Import ".\D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY.ahk" { D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC extends Win32Struct {
-    static sizeof => 40
+export default struct D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    NumOmmHistogramEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumOmmHistogramEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pOmmHistogram : D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY>}
-     */
-    pOmmHistogram {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InputBuffer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InputBuffer {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PerOmmDescs : D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE
 
-    /**
-     * @type {D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE}
-     */
-    PerOmmDescs {
-        get {
-            if(!this.HasProp("__PerOmmDescs"))
-                this.__PerOmmDescs := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(24, this)
-            return this.__PerOmmDescs
-        }
-    }
 }

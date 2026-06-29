@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_BUFFER_PRECISION.ahk
-#Include Common\D2D_SIZE_U.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 
 /**
  * Describes limitations to be applied to an imaging effect renderer.
@@ -14,29 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_rendering_controls
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_RENDERING_CONTROLS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D2D1_RENDERING_CONTROLS {
+    #StructPack 4
 
     /**
      * The buffer precision used by default if the buffer precision is not otherwise specified by the effect or by the transform.
-     * @type {D2D1_BUFFER_PRECISION}
      */
-    bufferPrecision {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bufferPrecision : D2D1_BUFFER_PRECISION
 
     /**
      * The tile allocation size to be used by the imaging effect renderer.
-     * @type {D2D_SIZE_U}
      */
-    tileSize {
-        get {
-            if(!this.HasProp("__tileSize"))
-                this.__tileSize := D2D_SIZE_U(4, this)
-            return this.__tileSize
-        }
-    }
+    tileSize : D2D_SIZE_U
+
 }

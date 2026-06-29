@@ -1,52 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
-#Include .\WS_ENDPOINT_IDENTITY_TYPE.ahk
-#Include .\WS_BYTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_BYTES.ahk" { WS_BYTES }
+#Import ".\WS_ENDPOINT_IDENTITY_TYPE.ahk" { WS_ENDPOINT_IDENTITY_TYPE }
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 
 /**
  * Type for RSA endpoint identity.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_rsa_endpoint_identity
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_RSA_ENDPOINT_IDENTITY extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_RSA_ENDPOINT_IDENTITY {
+    #StructPack 8
 
     /**
      * The base type from which this type and all other endpoint identity types derive.
-     * @type {WS_ENDPOINT_IDENTITY}
      */
-    identity {
-        get {
-            if(!this.HasProp("__identity"))
-                this.__identity := WS_ENDPOINT_IDENTITY(0, this)
-            return this.__identity
-        }
-    }
+    identity : WS_ENDPOINT_IDENTITY
 
     /**
      * The RSA key modulus of the endpoint that is represented by this endpoint identity.
-     * @type {WS_BYTES}
      */
-    modulus {
-        get {
-            if(!this.HasProp("__modulus"))
-                this.__modulus := WS_BYTES(8, this)
-            return this.__modulus
-        }
-    }
+    modulus : WS_BYTES
 
     /**
      * The RSA key exponent of the endpoint that is represented by this endpoint identity.
-     * @type {WS_BYTES}
      */
-    exponent {
-        get {
-            if(!this.HasProp("__exponent"))
-                this.__exponent := WS_BYTES(24, this)
-            return this.__exponent
-        }
-    }
+    exponent : WS_BYTES
+
 }

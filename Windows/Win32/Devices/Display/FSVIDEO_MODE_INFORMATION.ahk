@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEO_MODE_INFORMATION.ahk
-#Include .\VIDEO_MEMORY_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VIDEO_MEMORY_INFORMATION.ahk" { VIDEO_MEMORY_INFORMATION }
+#Import ".\VIDEO_MODE_INFORMATION.ahk" { VIDEO_MODE_INFORMATION }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FSVIDEO_MODE_INFORMATION extends Win32Struct {
-    static sizeof => 112
+export default struct FSVIDEO_MODE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    VideoMode : VIDEO_MODE_INFORMATION
 
-    /**
-     * @type {VIDEO_MODE_INFORMATION}
-     */
-    VideoMode {
-        get {
-            if(!this.HasProp("__VideoMode"))
-                this.__VideoMode := VIDEO_MODE_INFORMATION(0, this)
-            return this.__VideoMode
-        }
-    }
+    VideoMemory : VIDEO_MEMORY_INFORMATION
 
-    /**
-     * @type {VIDEO_MEMORY_INFORMATION}
-     */
-    VideoMemory {
-        get {
-            if(!this.HasProp("__VideoMemory"))
-                this.__VideoMemory := VIDEO_MEMORY_INFORMATION(80, this)
-            return this.__VideoMemory
-        }
-    }
 }

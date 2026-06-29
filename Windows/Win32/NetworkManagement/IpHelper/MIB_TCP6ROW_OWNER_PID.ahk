@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information that describes an IPv6 TCP connection associated with a specific process ID (PID).
@@ -24,82 +23,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_pid
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_TCP6ROW_OWNER_PID extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct MIB_TCP6ROW_OWNER_PID {
+    #StructPack 4
 
     /**
      * Type: <b>UCHAR[16]</b>
      * 
      * The IPv6 address for the local endpoint of the TCP connection on the local computer. A value of zero indicates the listener  can accept a connection on any interface.
-     * @type {Array<Integer>}
      */
-    ucLocalAddr {
-        get {
-            if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ucLocalAddrProxyArray
-        }
-    }
+    ucLocalAddr : Int8[16]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The scope ID in network byte order for the local IPv6 address.
-     * @type {Integer}
      */
-    dwLocalScopeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLocalScopeId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The port number in network byte order for the local endpoint of the TCP connection on the local computer.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwLocalPort : UInt32
 
     /**
      * Type: <b>UCHAR[16]</b>
      * 
      * The IPv6 address of the remote endpoint of the TCP connection on the remote computer. When the <b>dwState</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
-     * @type {Array<Integer>}
      */
-    ucRemoteAddr {
-        get {
-            if(!this.HasProp("__ucRemoteAddrProxyArray"))
-                this.__ucRemoteAddrProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
-            return this.__ucRemoteAddrProxyArray
-        }
-    }
+    ucRemoteAddr : Int8[16]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The scope ID in network byte order for the remote IPv6 address.
-     * @type {Integer}
      */
-    dwRemoteScopeId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwRemoteScopeId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The port number in network byte order for the remote endpoint of the TCP connection on the remote computer.
-     * @type {Integer}
      */
-    dwRemotePort {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwRemotePort : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -261,21 +228,14 @@ class MIB_TCP6ROW_OWNER_PID extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwState {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwState : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The PID of the local process that issued a context bind for this TCP connection.
-     * @type {Integer}
      */
-    dwOwningPid {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwOwningPid : UInt32
+
 }

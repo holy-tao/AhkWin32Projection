@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_SE_PROTO_ROUTING_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct NFC_SE_PROTO_ROUTING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hSecureElement : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hSecureElement {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    bPowerState : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPowerState {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    eRfProtocolType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    eRfProtocolType {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

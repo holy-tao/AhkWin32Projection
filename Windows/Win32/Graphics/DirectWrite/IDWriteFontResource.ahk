@@ -1,39 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFile.ahk
-#Include .\DWRITE_FONT_AXIS_VALUE.ahk
-#Include .\DWRITE_FONT_AXIS_RANGE.ahk
-#Include .\IDWriteLocalizedStrings.ahk
-#Include .\IDWriteFontFace5.ahk
-#Include .\IDWriteFontFaceReference1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_AXIS_ATTRIBUTES.ahk" { DWRITE_FONT_AXIS_ATTRIBUTES }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 
 /**
  * Provides axis information for a font resource, and is used to create specific font face instances.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontresource
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontResource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontResource extends IUnknown {
     /**
      * The interface identifier for IDWriteFontResource
      * @type {Guid}
      */
-    static IID => Guid("{1f803a76-6871-48e8-987f-b975551c50f2}")
+    static IID := Guid("{1f803a76-6871-48e8-987f-b975551c50f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontResource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFontFile              : IntPtr
+        GetFontFaceIndex         : IntPtr
+        GetFontAxisCount         : IntPtr
+        GetDefaultFontAxisValues : IntPtr
+        GetFontAxisRanges        : IntPtr
+        GetFontAxisAttributes    : IntPtr
+        GetAxisNames             : IntPtr
+        GetAxisValueNameCount    : IntPtr
+        GetAxisValueNames        : IntPtr
+        HasVariations            : IntPtr
+        CreateFontFace           : IntPtr
+        CreateFontFaceReference  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontFile", "GetFontFaceIndex", "GetFontAxisCount", "GetDefaultFontAxisValues", "GetFontAxisRanges", "GetFontAxisAttributes", "GetAxisNames", "GetAxisValueNameCount", "GetAxisValueNames", "HasVariations", "CreateFontFace", "CreateFontFaceReference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontResource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the font file of the resource.
@@ -55,7 +77,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontfaceindex
      */
     GetFontFaceIndex() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -67,7 +89,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontaxiscount
      */
     GetFontAxisCount() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, UInt32)
         return result
     }
 
@@ -85,7 +107,7 @@ class IDWriteFontResource extends IUnknown {
      */
     GetDefaultFontAxisValues(fontAxisValueCount) {
         fontAxisValues := DWRITE_FONT_AXIS_VALUE()
-        result := ComCall(6, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(6, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
         return fontAxisValues
     }
 
@@ -103,7 +125,7 @@ class IDWriteFontResource extends IUnknown {
      */
     GetFontAxisRanges(fontAxisRangeCount) {
         fontAxisRanges := DWRITE_FONT_AXIS_RANGE()
-        result := ComCall(7, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "HRESULT")
+        result := ComCall(7, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, "HRESULT")
         return fontAxisRanges
     }
 
@@ -118,7 +140,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontaxisattributes
      */
     GetFontAxisAttributes(axisIndex) {
-        result := ComCall(8, this, "uint", axisIndex, "int")
+        result := ComCall(8, this, "uint", axisIndex, DWRITE_FONT_AXIS_ATTRIBUTES)
         return result
     }
 
@@ -150,7 +172,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getaxisvaluenamecount
      */
     GetAxisValueNameCount(axisIndex) {
-        result := ComCall(10, this, "uint", axisIndex, "uint")
+        result := ComCall(10, this, "uint", axisIndex, UInt32)
         return result
     }
 
@@ -176,7 +198,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getaxisvaluenames
      */
     GetAxisValueNames(axisIndex, axisValueIndex, fontAxisRange, names) {
-        result := ComCall(11, this, "uint", axisIndex, "uint", axisValueIndex, "ptr", fontAxisRange, "ptr*", names, "HRESULT")
+        result := ComCall(11, this, "uint", axisIndex, "uint", axisValueIndex, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRange, IDWriteLocalizedStrings.Ptr, names, "HRESULT")
         return result
     }
 
@@ -188,7 +210,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-hasvariations
      */
     HasVariations() {
-        result := ComCall(12, this, "int")
+        result := ComCall(12, this, BOOL)
         return result
     }
 
@@ -211,7 +233,7 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-createfontface
      */
     CreateFontFace(fontSimulations, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(13, this, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(13, this, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace5(fontFace)
     }
 
@@ -234,7 +256,49 @@ class IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-createfontfacereference
      */
     CreateFontFaceReference(fontSimulations, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(14, this, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(14, this, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference1(fontFaceReference)
+    }
+
+    Query(iid) {
+        if (IDWriteFontResource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontFile := CallbackCreate(GetMethod(implObj, "GetFontFile"), flags, 2)
+        this.vtbl.GetFontFaceIndex := CallbackCreate(GetMethod(implObj, "GetFontFaceIndex"), flags, 1)
+        this.vtbl.GetFontAxisCount := CallbackCreate(GetMethod(implObj, "GetFontAxisCount"), flags, 1)
+        this.vtbl.GetDefaultFontAxisValues := CallbackCreate(GetMethod(implObj, "GetDefaultFontAxisValues"), flags, 3)
+        this.vtbl.GetFontAxisRanges := CallbackCreate(GetMethod(implObj, "GetFontAxisRanges"), flags, 3)
+        this.vtbl.GetFontAxisAttributes := CallbackCreate(GetMethod(implObj, "GetFontAxisAttributes"), flags, 2)
+        this.vtbl.GetAxisNames := CallbackCreate(GetMethod(implObj, "GetAxisNames"), flags, 3)
+        this.vtbl.GetAxisValueNameCount := CallbackCreate(GetMethod(implObj, "GetAxisValueNameCount"), flags, 2)
+        this.vtbl.GetAxisValueNames := CallbackCreate(GetMethod(implObj, "GetAxisValueNames"), flags, 5)
+        this.vtbl.HasVariations := CallbackCreate(GetMethod(implObj, "HasVariations"), flags, 1)
+        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 5)
+        this.vtbl.CreateFontFaceReference := CallbackCreate(GetMethod(implObj, "CreateFontFaceReference"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontFile)
+        CallbackFree(this.vtbl.GetFontFaceIndex)
+        CallbackFree(this.vtbl.GetFontAxisCount)
+        CallbackFree(this.vtbl.GetDefaultFontAxisValues)
+        CallbackFree(this.vtbl.GetFontAxisRanges)
+        CallbackFree(this.vtbl.GetFontAxisAttributes)
+        CallbackFree(this.vtbl.GetAxisNames)
+        CallbackFree(this.vtbl.GetAxisValueNameCount)
+        CallbackFree(this.vtbl.GetAxisValueNames)
+        CallbackFree(this.vtbl.HasVariations)
+        CallbackFree(this.vtbl.CreateFontFace)
+        CallbackFree(this.vtbl.CreateFontFaceReference)
     }
 }

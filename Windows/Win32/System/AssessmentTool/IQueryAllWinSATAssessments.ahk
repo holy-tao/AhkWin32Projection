@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
 
 /**
  * Retrieves details about all formal WinSAT assessments.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iqueryallwinsatassessments
  * @namespace Windows.Win32.System.AssessmentTool
  */
-class IQueryAllWinSATAssessments extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IQueryAllWinSATAssessments extends IDispatch {
     /**
      * The interface identifier for IQueryAllWinSATAssessments
      * @type {Guid}
      */
-    static IID => Guid("{0b89ed1d-6398-4fea-87fc-567d8d19176f}")
+    static IID := Guid("{0b89ed1d-6398-4fea-87fc-567d8d19176f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryAllWinSATAssessments interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AllXML : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AllXML"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryAllWinSATAssessments.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves data from the formal XML assessment documents using the specified XPath. The query is run against all formal assessments in the WinSAT data store.
@@ -49,7 +58,27 @@ class IQueryAllWinSATAssessments extends IDispatch {
         xPath := xPath is String ? BSTR.Alloc(xPath).Value : xPath
         namespaces := namespaces is String ? BSTR.Alloc(namespaces).Value : namespaces
 
-        result := ComCall(7, this, "ptr", xPath, "ptr", namespaces, "ptr*", &ppDomNodeList := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, xPath, BSTR, namespaces, "ptr*", &ppDomNodeList := 0, "HRESULT")
         return IXMLDOMNodeList(ppDomNodeList)
+    }
+
+    Query(iid) {
+        if (IQueryAllWinSATAssessments.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AllXML := CallbackCreate(GetMethod(implObj, "get_AllXML"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AllXML)
     }
 }

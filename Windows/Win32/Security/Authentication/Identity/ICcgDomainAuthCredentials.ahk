@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A client-implemented interface that allows developers to supply their own credentials dynamically at run time to authenticate non-domain joined containers with Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/ccgplugins/nn-ccgplugins-iccgdomainauthcredentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class ICcgDomainAuthCredentials extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICcgDomainAuthCredentials extends IUnknown {
     /**
      * The interface identifier for ICcgDomainAuthCredentials
      * @type {Guid}
      */
-    static IID => Guid("{6ecda518-2010-4437-8bc3-46e752b7b172}")
+    static IID := Guid("{6ecda518-2010-4437-8bc3-46e752b7b172}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICcgDomainAuthCredentials interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPasswordCredentials : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPasswordCredentials"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICcgDomainAuthCredentials.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns credentials to authenticate a non-domain joined container with Active Directory.
@@ -86,5 +95,25 @@ class ICcgDomainAuthCredentials extends IUnknown {
 
         result := ComCall(3, this, "ptr", pluginInput, domainNameMarshal, domainName, usernameMarshal, username, passwordMarshal, password, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICcgDomainAuthCredentials.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPasswordCredentials := CallbackCreate(GetMethod(implObj, "GetPasswordCredentials"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPasswordCredentials)
     }
 }

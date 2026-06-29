@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class VK_TO_WCHARS2 extends Win32Struct {
-    static sizeof => 6
+export default struct VK_TO_WCHARS2 {
+    #StructPack 2
 
-    static packingSize => 2
+    VirtualKey : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VirtualKey {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Attributes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Attributes {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    wch : WCHAR[2]
 
-    /**
-     * @type {String}
-     */
-    wch {
-        get => StrGet(this.ptr + 2, 1, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 1, "UTF-16")
-    }
 }

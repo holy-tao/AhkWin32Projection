@@ -1,71 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBFN_CLASS_INTERFACE_EX.ahk
-#Include .\USBFN_PIPE_INFORMATION.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import ".\USBFN_PIPE_INFORMATION.ahk" { USBFN_PIPE_INFORMATION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USBFN_CLASS_INTERFACE_EX.ahk" { USBFN_CLASS_INTERFACE_EX }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBFN_CLASS_INFORMATION_PACKET_EX extends Win32Struct {
-    static sizeof => 748
+export default struct USBFN_CLASS_INFORMATION_PACKET_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    FullSpeedClassInterfaceEx : USBFN_CLASS_INTERFACE_EX
 
-    /**
-     * @type {USBFN_CLASS_INTERFACE_EX}
-     */
-    FullSpeedClassInterfaceEx {
-        get {
-            if(!this.HasProp("__FullSpeedClassInterfaceEx"))
-                this.__FullSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(0, this)
-            return this.__FullSpeedClassInterfaceEx
-        }
-    }
+    HighSpeedClassInterfaceEx : USBFN_CLASS_INTERFACE_EX
 
-    /**
-     * @type {USBFN_CLASS_INTERFACE_EX}
-     */
-    HighSpeedClassInterfaceEx {
-        get {
-            if(!this.HasProp("__HighSpeedClassInterfaceEx"))
-                this.__HighSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(196, this)
-            return this.__HighSpeedClassInterfaceEx
-        }
-    }
+    SuperSpeedClassInterfaceEx : USBFN_CLASS_INTERFACE_EX
 
-    /**
-     * @type {USBFN_CLASS_INTERFACE_EX}
-     */
-    SuperSpeedClassInterfaceEx {
-        get {
-            if(!this.HasProp("__SuperSpeedClassInterfaceEx"))
-                this.__SuperSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(392, this)
-            return this.__SuperSpeedClassInterfaceEx
-        }
-    }
+    InterfaceName : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    InterfaceName {
-        get => StrGet(this.ptr + 588, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 588, 39, "UTF-16")
-    }
+    InterfaceGuid : WCHAR[39]
 
-    /**
-     * @type {String}
-     */
-    InterfaceGuid {
-        get => StrGet(this.ptr + 668, 38, "UTF-16")
-        set => StrPut(value, this.ptr + 668, 38, "UTF-16")
-    }
+    HasInterfaceGuid : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HasInterfaceGuid {
-        get => NumGet(this, 746, "char")
-        set => NumPut("char", value, this, 746)
-    }
 }

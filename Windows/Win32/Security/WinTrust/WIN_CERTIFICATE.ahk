@@ -1,35 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure encapsulates a signature used in verifying executable files.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-win_certificate
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WIN_CERTIFICATE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct WIN_CERTIFICATE {
+    #StructPack 4
 
     /**
      * Specifies the length, in bytes, of the signature.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLength : UInt32
 
     /**
      * Specifies the certificate revision.
      * 
      * The only defined certificate revision is <b>WIN_CERT_REVISION_1_0 (0x0100)</b>.
-     * @type {Integer}
      */
-    wRevision {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wRevision : UInt16
 
     /**
      * Specifies the type of certificate.
@@ -56,24 +45,14 @@ class WIN_CERTIFICATE extends Win32Struct {
      * <td>The <i>bCertificate</i> member contains <b>PKCS1_MODULE_SIGN</b> fields.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wCertificateType {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wCertificateType : UInt16
 
     /**
      * An array of certificates.
      * 
      * The format of this member depends on the value of <i>wCertificateType</i>.
-     * @type {Array<Integer>}
      */
-    bCertificate {
-        get {
-            if(!this.HasProp("__bCertificateProxyArray"))
-                this.__bCertificateProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__bCertificateProxyArray
-        }
-    }
+    bCertificate : Int8[1]
+
 }

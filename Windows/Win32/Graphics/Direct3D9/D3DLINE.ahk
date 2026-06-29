@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DLINE extends Win32Struct {
-    static sizeof => 4
+export default struct D3DLINE {
+    #StructPack 2
 
-    static packingSize => 2
+    v1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    v1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    v2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wV1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    v2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wV2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    static __New() {
+        DefineProp(this.Prototype, 'wV1', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'wV2', { type: UInt16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

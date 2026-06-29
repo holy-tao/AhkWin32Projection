@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the origin of the dynamic keyword address object in an [**FW_DYNAMIC_KEYWORD_ADDRESS_DATA0**](/windows/win32/api/netfw/ns-netfw-fw_dynamic_keyword_address_data0).
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-fw_dynamic_keyword_origin_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class FW_DYNAMIC_KEYWORD_ORIGIN_TYPE extends Win32Enum {
+export default struct FW_DYNAMIC_KEYWORD_ORIGIN_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies an invalid object.

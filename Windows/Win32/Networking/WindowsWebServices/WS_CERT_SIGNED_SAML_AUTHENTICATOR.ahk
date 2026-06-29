@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SAML_AUTHENTICATOR.ahk
-#Include .\WS_SAML_AUTHENTICATOR_TYPE.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\WS_SAML_AUTHENTICATOR.ahk" { WS_SAML_AUTHENTICATOR }
+#Import ".\WS_SAML_AUTHENTICATOR_TYPE.ahk" { WS_SAML_AUTHENTICATOR_TYPE }
 
 /**
  * The type for specifying a SAML token authenticator based on an array of expected issuer certificates.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_cert_signed_saml_authenticator
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WS_CERT_SIGNED_SAML_AUTHENTICATOR {
+    #StructPack 8
 
     /**
      * The base type from which this type and all other SAML authenticator
      * types derive.
-     * @type {WS_SAML_AUTHENTICATOR}
      */
-    authenticator {
-        get {
-            if(!this.HasProp("__authenticator"))
-                this.__authenticator := WS_SAML_AUTHENTICATOR(0, this)
-            return this.__authenticator
-        }
-    }
+    authenticator : WS_SAML_AUTHENTICATOR
 
     /**
      * The array of acceptable SAML issuers, identified by their X.509
@@ -36,21 +26,13 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct {
      * internal use.  The application continues to own the certificate
      * handles supplied here and is responsible for freeing them anytime
      * after the listener creation call that uses this structure returns.
-     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
-    trustedIssuerCerts {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    trustedIssuerCerts : IntPtr
 
     /**
      * The count of X.509 certificates specified in trustedIssuerCerts.
-     * @type {Integer}
      */
-    trustedIssuerCertCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    trustedIssuerCertCount : UInt32
 
     /**
      * The certificate for decrypting incoming SAML tokens.
@@ -60,29 +42,18 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct {
      * use.  The application continues to own the certificate handle supplied
      * here and is responsible for freeing it anytime after the listener
      * creation call that uses this structure returns.
-     * @type {Pointer<CERT_CONTEXT>}
      */
-    decryptionCert {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    decryptionCert : CERT_CONTEXT.Ptr
 
     /**
      * An optional callback to enable the application to additional
      * validation on the SAML assertion if the signature validation passes.
-     * @type {Pointer<WS_VALIDATE_SAML_CALLBACK>}
      */
-    samlValidator {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    samlValidator : IntPtr
 
     /**
      * The state to be passed back when invoking the samlValidator callback.
-     * @type {Pointer<Void>}
      */
-    samlValidatorCallbackState {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    samlValidatorCallbackState : IntPtr
+
 }

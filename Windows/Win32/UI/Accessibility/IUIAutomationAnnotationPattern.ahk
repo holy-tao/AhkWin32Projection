@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UIA_ANNOTATIONTYPE.ahk" { UIA_ANNOTATIONTYPE }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Provides access to the properties of an annotation in a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationannotationpattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationAnnotationPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationAnnotationPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationAnnotationPattern
      * @type {Guid}
      */
-    static IID => Guid("{9a175b21-339e-41b1-8e8b-623f6b681098}")
+    static IID := Guid("{9a175b21-339e-41b1-8e8b-623f6b681098}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationAnnotationPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_CurrentAnnotationTypeId   : IntPtr
+        get_CurrentAnnotationTypeName : IntPtr
+        get_CurrentAuthor             : IntPtr
+        get_CurrentDateTime           : IntPtr
+        get_CurrentTarget             : IntPtr
+        get_CachedAnnotationTypeId    : IntPtr
+        get_CachedAnnotationTypeName  : IntPtr
+        get_CachedAuthor              : IntPtr
+        get_CachedDateTime            : IntPtr
+        get_CachedTarget              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentAnnotationTypeId", "get_CurrentAnnotationTypeName", "get_CurrentAuthor", "get_CurrentDateTime", "get_CurrentTarget", "get_CachedAnnotationTypeId", "get_CachedAnnotationTypeName", "get_CachedAuthor", "get_CachedDateTime", "get_CachedTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationAnnotationPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UIA_ANNOTATIONTYPE} 
@@ -119,8 +137,8 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypename
      */
     get_CurrentAnnotationTypeName() {
-        retVal := BSTR()
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -130,8 +148,8 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentauthor
      */
     get_CurrentAuthor() {
-        retVal := BSTR()
-        result := ComCall(5, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -141,8 +159,8 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentdatetime
      */
     get_CurrentDateTime() {
-        retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -174,8 +192,8 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypename
      */
     get_CachedAnnotationTypeName() {
-        retVal := BSTR()
-        result := ComCall(9, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -185,8 +203,8 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedauthor
      */
     get_CachedAuthor() {
-        retVal := BSTR()
-        result := ComCall(10, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -196,8 +214,8 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cacheddatetime
      */
     get_CachedDateTime() {
-        retVal := BSTR()
-        result := ComCall(11, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -209,5 +227,43 @@ class IUIAutomationAnnotationPattern extends IUnknown {
     get_CachedTarget() {
         result := ComCall(12, this, "ptr*", &retVal := 0, "HRESULT")
         return IUIAutomationElement(retVal)
+    }
+
+    Query(iid) {
+        if (IUIAutomationAnnotationPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentAnnotationTypeId := CallbackCreate(GetMethod(implObj, "get_CurrentAnnotationTypeId"), flags, 2)
+        this.vtbl.get_CurrentAnnotationTypeName := CallbackCreate(GetMethod(implObj, "get_CurrentAnnotationTypeName"), flags, 2)
+        this.vtbl.get_CurrentAuthor := CallbackCreate(GetMethod(implObj, "get_CurrentAuthor"), flags, 2)
+        this.vtbl.get_CurrentDateTime := CallbackCreate(GetMethod(implObj, "get_CurrentDateTime"), flags, 2)
+        this.vtbl.get_CurrentTarget := CallbackCreate(GetMethod(implObj, "get_CurrentTarget"), flags, 2)
+        this.vtbl.get_CachedAnnotationTypeId := CallbackCreate(GetMethod(implObj, "get_CachedAnnotationTypeId"), flags, 2)
+        this.vtbl.get_CachedAnnotationTypeName := CallbackCreate(GetMethod(implObj, "get_CachedAnnotationTypeName"), flags, 2)
+        this.vtbl.get_CachedAuthor := CallbackCreate(GetMethod(implObj, "get_CachedAuthor"), flags, 2)
+        this.vtbl.get_CachedDateTime := CallbackCreate(GetMethod(implObj, "get_CachedDateTime"), flags, 2)
+        this.vtbl.get_CachedTarget := CallbackCreate(GetMethod(implObj, "get_CachedTarget"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentAnnotationTypeId)
+        CallbackFree(this.vtbl.get_CurrentAnnotationTypeName)
+        CallbackFree(this.vtbl.get_CurrentAuthor)
+        CallbackFree(this.vtbl.get_CurrentDateTime)
+        CallbackFree(this.vtbl.get_CurrentTarget)
+        CallbackFree(this.vtbl.get_CachedAnnotationTypeId)
+        CallbackFree(this.vtbl.get_CachedAnnotationTypeName)
+        CallbackFree(this.vtbl.get_CachedAuthor)
+        CallbackFree(this.vtbl.get_CachedDateTime)
+        CallbackFree(this.vtbl.get_CachedTarget)
     }
 }

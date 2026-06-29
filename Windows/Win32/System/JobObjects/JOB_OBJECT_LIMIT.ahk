@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Establishes a maximum number of simultaneously active processes associated with the job. The <b>ActiveProcessLimit</b> member contains additional information.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_limit_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOB_OBJECT_LIMIT extends Win32BitflagEnum {
+export default struct JOB_OBJECT_LIMIT {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

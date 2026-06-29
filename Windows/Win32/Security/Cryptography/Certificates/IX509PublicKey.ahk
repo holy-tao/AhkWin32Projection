@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KeyIdentifierHashAlgorithm.ahk" { KeyIdentifierHashAlgorithm }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a public key in a public/private key pair.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509publickey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509PublicKey extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509PublicKey extends IDispatch {
     /**
      * The interface identifier for IX509PublicKey
      * @type {Guid}
      */
-    static IID => Guid("{728ab30b-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab30b-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509PublicKey interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize                         : IntPtr
+        InitializeFromEncodedPublicKeyInfo : IntPtr
+        get_Algorithm                      : IntPtr
+        get_Length                         : IntPtr
+        get_EncodedKey                     : IntPtr
+        get_EncodedParameters              : IntPtr
+        ComputeKeyIdentifier               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InitializeFromEncodedPublicKeyInfo", "get_Algorithm", "get_Length", "get_EncodedKey", "get_EncodedParameters", "ComputeKeyIdentifier"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509PublicKey.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IObjectId} 
@@ -96,7 +112,7 @@ class IX509PublicKey extends IDispatch {
         strEncodedKey := strEncodedKey is String ? BSTR.Alloc(strEncodedKey).Value : strEncodedKey
         strEncodedParameters := strEncodedParameters is String ? BSTR.Alloc(strEncodedParameters).Value : strEncodedParameters
 
-        result := ComCall(7, this, "ptr", pObjectId, "ptr", strEncodedKey, "ptr", strEncodedParameters, "int", Encoding, "HRESULT")
+        result := ComCall(7, this, "ptr", pObjectId, BSTR, strEncodedKey, BSTR, strEncodedParameters, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -148,7 +164,7 @@ class IX509PublicKey extends IDispatch {
     InitializeFromEncodedPublicKeyInfo(strEncodedPublicKeyInfo, Encoding) {
         strEncodedPublicKeyInfo := strEncodedPublicKeyInfo is String ? BSTR.Alloc(strEncodedPublicKeyInfo).Value : strEncodedPublicKeyInfo
 
-        result := ComCall(8, this, "ptr", strEncodedPublicKeyInfo, "int", Encoding, "HRESULT")
+        result := ComCall(8, this, BSTR, strEncodedPublicKeyInfo, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -185,8 +201,8 @@ class IX509PublicKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedkey
      */
     get_EncodedKey(Encoding) {
-        pValue := BSTR()
-        result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(11, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -283,8 +299,8 @@ class IX509PublicKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedparameters
      */
     get_EncodedParameters(Encoding) {
-        pValue := BSTR()
-        result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(12, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -302,8 +318,40 @@ class IX509PublicKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-computekeyidentifier
      */
     ComputeKeyIdentifier(Algorithm, Encoding) {
-        pValue := BSTR()
-        result := ComCall(13, this, "int", Algorithm, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(13, this, KeyIdentifierHashAlgorithm, Algorithm, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509PublicKey.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.InitializeFromEncodedPublicKeyInfo := CallbackCreate(GetMethod(implObj, "InitializeFromEncodedPublicKeyInfo"), flags, 3)
+        this.vtbl.get_Algorithm := CallbackCreate(GetMethod(implObj, "get_Algorithm"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_EncodedKey := CallbackCreate(GetMethod(implObj, "get_EncodedKey"), flags, 3)
+        this.vtbl.get_EncodedParameters := CallbackCreate(GetMethod(implObj, "get_EncodedParameters"), flags, 3)
+        this.vtbl.ComputeKeyIdentifier := CallbackCreate(GetMethod(implObj, "ComputeKeyIdentifier"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InitializeFromEncodedPublicKeyInfo)
+        CallbackFree(this.vtbl.get_Algorithm)
+        CallbackFree(this.vtbl.get_Length)
+        CallbackFree(this.vtbl.get_EncodedKey)
+        CallbackFree(this.vtbl.get_EncodedParameters)
+        CallbackFree(this.vtbl.ComputeKeyIdentifier)
     }
 }

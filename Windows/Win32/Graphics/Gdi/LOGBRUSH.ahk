@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BRUSH_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BRUSH_STYLE.ahk" { BRUSH_STYLE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The LOGBRUSH structure defines the style, color, and pattern of a physical brush. It is used by the CreateBrushIndirect and ExtCreatePen functions.
@@ -9,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logbrush
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class LOGBRUSH extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct LOGBRUSH {
+    #StructPack 8
 
     /**
      * The brush style. The <b>lbStyle</b> member must be one of the following styles.
@@ -59,21 +57,13 @@ class LOGBRUSH extends Win32Struct {
      * <td>Solid brush.</td>
      * </tr>
      * </table>
-     * @type {BRUSH_STYLE}
      */
-    lbStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lbStyle : BRUSH_STYLE
 
     /**
      * The color in which the brush is to be drawn. If <b>lbStyle</b> is the BS_HOLLOW or BS_PATTERN style, <b>lbColor</b> is ignored.
-     * @type {COLORREF}
      */
-    lbColor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lbColor : COLORREF
 
     /**
      * A hatch style. The meaning depends on the brush style defined by <b>lbStyle</b>.
@@ -81,10 +71,7 @@ class LOGBRUSH extends Win32Struct {
      * If <b>lbStyle</b> is BS_DIBPATTERN, the <b>lbHatch</b> member contains a handle to a packed DIB. To obtain this handle, an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function with GMEM_MOVEABLE (or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> with LMEM_MOVEABLE) to allocate a block of memory and then fills the memory with the packed DIB. A packed DIB consists of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure immediately followed by the array of bytes that define the pixels of the bitmap.
      * 
      * If <b>lbStyle</b> is BS_DIBPATTERNPT, the <b>lbHatch</b> member contains a pointer to a packed DIB. The pointer derives from the memory block created by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> with LMEM_FIXED set or by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> with GMEM_FIXED set, or it is the pointer returned by a call like <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-locallock">LocalLock</a> (handle_to_the_dib). A packed DIB consists of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure immediately followed by the array of bytes that define the pixels of the bitmap.
-     * @type {Pointer}
      */
-    lbHatch {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lbHatch : IntPtr
+
 }

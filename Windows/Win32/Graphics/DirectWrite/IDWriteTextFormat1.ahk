@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextFormat.ahk
-#Include .\IDWriteFontFallback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
+#Import ".\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk" { DWRITE_VERTICAL_GLYPH_ORIENTATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import ".\DWRITE_OPTICAL_ALIGNMENT.ahk" { DWRITE_OPTICAL_ALIGNMENT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat1 interface
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextformat1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextFormat1 extends IDWriteTextFormat {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextFormat1 extends IDWriteTextFormat {
     /**
      * The interface identifier for IDWriteTextFormat1
      * @type {Guid}
      */
-    static IID => Guid("{5f174b49-0d8b-4cfb-8bca-f1cce9d06c67}")
+    static IID := Guid("{5f174b49-0d8b-4cfb-8bca-f1cce9d06c67}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextFormat1 interfaces
+    */
+    struct Vtbl extends IDWriteTextFormat.Vtbl {
+        SetVerticalGlyphOrientation : IntPtr
+        GetVerticalGlyphOrientation : IntPtr
+        SetLastLineWrapping         : IntPtr
+        GetLastLineWrapping         : IntPtr
+        SetOpticalAlignment         : IntPtr
+        GetOpticalAlignment         : IntPtr
+        SetFontFallback             : IntPtr
+        GetFontFallback             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetVerticalGlyphOrientation", "GetVerticalGlyphOrientation", "SetLastLineWrapping", "GetLastLineWrapping", "SetOpticalAlignment", "GetOpticalAlignment", "SetFontFallback", "GetFontFallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextFormat1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the orientation of a text format.
@@ -41,7 +59,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setverticalglyphorientation
      */
     SetVerticalGlyphOrientation(glyphOrientation) {
-        result := ComCall(28, this, "int", glyphOrientation, "HRESULT")
+        result := ComCall(28, this, DWRITE_VERTICAL_GLYPH_ORIENTATION, glyphOrientation, "HRESULT")
         return result
     }
 
@@ -53,7 +71,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation() {
-        result := ComCall(29, this, "int")
+        result := ComCall(29, this, DWRITE_VERTICAL_GLYPH_ORIENTATION)
         return result
     }
 
@@ -70,7 +88,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setlastlinewrapping
      */
     SetLastLineWrapping(isLastLineWrappingEnabled) {
-        result := ComCall(30, this, "int", isLastLineWrappingEnabled, "HRESULT")
+        result := ComCall(30, this, BOOL, isLastLineWrappingEnabled, "HRESULT")
         return result
     }
 
@@ -82,7 +100,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getlastlinewrapping
      */
     GetLastLineWrapping() {
-        result := ComCall(31, this, "int")
+        result := ComCall(31, this, BOOL)
         return result
     }
 
@@ -93,7 +111,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setopticalalignment
      */
     SetOpticalAlignment(opticalAlignment) {
-        result := ComCall(32, this, "int", opticalAlignment, "HRESULT")
+        result := ComCall(32, this, DWRITE_OPTICAL_ALIGNMENT, opticalAlignment, "HRESULT")
         return result
     }
 
@@ -103,7 +121,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getopticalalignment
      */
     GetOpticalAlignment() {
-        result := ComCall(33, this, "int")
+        result := ComCall(33, this, DWRITE_OPTICAL_ALIGNMENT)
         return result
     }
 
@@ -132,5 +150,39 @@ class IDWriteTextFormat1 extends IDWriteTextFormat {
     GetFontFallback() {
         result := ComCall(35, this, "ptr*", &fontFallback := 0, "HRESULT")
         return IDWriteFontFallback(fontFallback)
+    }
+
+    Query(iid) {
+        if (IDWriteTextFormat1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "SetVerticalGlyphOrientation"), flags, 2)
+        this.vtbl.GetVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "GetVerticalGlyphOrientation"), flags, 1)
+        this.vtbl.SetLastLineWrapping := CallbackCreate(GetMethod(implObj, "SetLastLineWrapping"), flags, 2)
+        this.vtbl.GetLastLineWrapping := CallbackCreate(GetMethod(implObj, "GetLastLineWrapping"), flags, 1)
+        this.vtbl.SetOpticalAlignment := CallbackCreate(GetMethod(implObj, "SetOpticalAlignment"), flags, 2)
+        this.vtbl.GetOpticalAlignment := CallbackCreate(GetMethod(implObj, "GetOpticalAlignment"), flags, 1)
+        this.vtbl.SetFontFallback := CallbackCreate(GetMethod(implObj, "SetFontFallback"), flags, 2)
+        this.vtbl.GetFontFallback := CallbackCreate(GetMethod(implObj, "GetFontFallback"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetVerticalGlyphOrientation)
+        CallbackFree(this.vtbl.GetVerticalGlyphOrientation)
+        CallbackFree(this.vtbl.SetLastLineWrapping)
+        CallbackFree(this.vtbl.GetLastLineWrapping)
+        CallbackFree(this.vtbl.SetOpticalAlignment)
+        CallbackFree(this.vtbl.GetOpticalAlignment)
+        CallbackFree(this.vtbl.SetFontFallback)
+        CallbackFree(this.vtbl.GetFontFallback)
     }
 }

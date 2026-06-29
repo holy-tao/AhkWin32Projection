@@ -1,229 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\NET_FL_ISOLATION_MODE.ahk
-#Include .\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk" { NET_FL_VIRTUAL_INTERFACE_ORIGIN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NET_FL_ISOLATION_MODE.ahk" { NET_FL_ISOLATION_MODE }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
-    static sizeof => 200
+export default struct MIB_FL_VIRTUAL_INTERFACE_ROW {
+    #StructPack 8
 
-    static packingSize => 8
+    Family : ADDRESS_FAMILY
 
-    /**
-     * @type {ADDRESS_FAMILY}
-     */
-    Family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    IfLuid : NET_LUID_LH
 
-    /**
-     * @type {NET_LUID_LH}
-     */
-    IfLuid {
-        get {
-            if(!this.HasProp("__IfLuid"))
-                this.__IfLuid := NET_LUID_LH(8, this)
-            return this.__IfLuid
-        }
-    }
+    VirtualIfId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VirtualIfId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CompartmentGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CompartmentGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    IsolationMode : NET_FL_ISOLATION_MODE
 
-    /**
-     * @type {NET_FL_ISOLATION_MODE}
-     */
-    IsolationMode {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    Origin : NET_FL_VIRTUAL_INTERFACE_ORIGIN
 
-    /**
-     * @type {NET_FL_VIRTUAL_INTERFACE_ORIGIN}
-     */
-    Origin {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    VirtualIfLuid : NET_LUID_LH
 
-    /**
-     * @type {NET_LUID_LH}
-     */
-    VirtualIfLuid {
-        get {
-            if(!this.HasProp("__VirtualIfLuid"))
-                this.__VirtualIfLuid := NET_LUID_LH(48, this)
-            return this.__VirtualIfLuid
-        }
-    }
+    VirtualIfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VirtualIfIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    AllowLocalNd : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllowLocalNd {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
-    }
+    AttachedFlsnpiClients : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AttachedFlsnpiClients {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    FlsnpiClientConfigErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FlsnpiClientConfigErrors {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    FlsnpiClientInjectErrors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FlsnpiClientInjectErrors {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    FlsnpiClientCloneErrors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FlsnpiClientCloneErrors {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    InFlsnpiIndicatedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InFlsnpiIndicatedPackets {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    InFlsnpiClientReturnedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InFlsnpiClientReturnedPackets {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    InFlsnpiClientSilentlyDroppedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InFlsnpiClientSilentlyDroppedPackets {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    InFlsnpiClientDroppedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InFlsnpiClientDroppedPackets {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    InFlsnpiClientInjectedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InFlsnpiClientInjectedPackets {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    InFlsnpiClientClonedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InFlsnpiClientClonedPackets {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    OutFlsnpiIndicatedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiIndicatedPackets {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    OutFlsnpiClientReturnedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiClientReturnedPackets {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    OutFlsnpiClientDroppedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiClientDroppedPackets {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    OutFlsnpiClientSilentlyDroppedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiClientSilentlyDroppedPackets {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    OutFlsnpiClientInjectedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiClientInjectedPackets {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    OutFlsnpiClientClonedPackets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiClientClonedPackets {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    OutFlsnpiClientClonedPacketsForNbSplit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OutFlsnpiClientClonedPacketsForNbSplit {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
 }

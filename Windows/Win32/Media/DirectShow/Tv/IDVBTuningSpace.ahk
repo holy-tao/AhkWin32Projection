@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuningSpace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DVBSystemType.ahk" { DVBSystemType }
 
 /**
  * The IDVBTuningSpace interface is implemented on the DVBTuningSpace object.Note  New applications should use the IDVBTuningSpace2 interface, which inherits IDVBTuningSpace and adds additional methods. .
@@ -10,32 +12,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVBTuningSpace extends ITuningSpace {
-
-    static sizeof => A_PtrSize
+export default struct IDVBTuningSpace extends ITuningSpace {
     /**
      * The interface identifier for IDVBTuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{ada0b268-3b19-4e5b-acc4-49f852be13ba}")
+    static IID := Guid("{ada0b268-3b19-4e5b-acc4-49f852be13ba}")
 
     /**
      * The class identifier for DVBTuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{c6b14b32-76aa-4a86-a7ac-5c79aaf58da7}")
+    static CLSID := Guid("{c6b14b32-76aa-4a86-a7ac-5c79aaf58da7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVBTuningSpace interfaces
+    */
+    struct Vtbl extends ITuningSpace.Vtbl {
+        get_SystemType : IntPtr
+        put_SystemType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SystemType", "put_SystemType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVBTuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {DVBSystemType} 
@@ -62,7 +72,29 @@ class IDVBTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-put_systemtype
      */
     put_SystemType(SysType) {
-        result := ComCall(27, this, "int", SysType, "HRESULT")
+        result := ComCall(27, this, DVBSystemType, SysType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVBTuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SystemType := CallbackCreate(GetMethod(implObj, "get_SystemType"), flags, 2)
+        this.vtbl.put_SystemType := CallbackCreate(GetMethod(implObj, "put_SystemType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SystemType)
+        CallbackFree(this.vtbl.put_SystemType)
     }
 }

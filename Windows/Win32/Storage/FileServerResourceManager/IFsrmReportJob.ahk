@@ -1,10 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmReport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmReport.ahk" { IFsrmReport }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmReportType.ahk" { FsrmReportType }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to configure a report job.
@@ -20,26 +26,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreportjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmReportJob extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmReportJob extends IFsrmObject {
     /**
      * The interface identifier for IFsrmReportJob
      * @type {Guid}
      */
-    static IID => Guid("{38e87280-715c-4c7d-a280-ea1651a19fef}")
+    static IID := Guid("{38e87280-715c-4c7d-a280-ea1651a19fef}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmReportJob interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_Task                     : IntPtr
+        put_Task                     : IntPtr
+        get_NamespaceRoots           : IntPtr
+        put_NamespaceRoots           : IntPtr
+        get_Formats                  : IntPtr
+        put_Formats                  : IntPtr
+        get_MailTo                   : IntPtr
+        put_MailTo                   : IntPtr
+        get_RunningStatus            : IntPtr
+        get_LastRun                  : IntPtr
+        get_LastError                : IntPtr
+        get_LastGeneratedInDirectory : IntPtr
+        EnumReports                  : IntPtr
+        CreateReport                 : IntPtr
+        Run                          : IntPtr
+        WaitForCompletion            : IntPtr
+        Cancel                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Task", "put_Task", "get_NamespaceRoots", "put_NamespaceRoots", "get_Formats", "put_Formats", "get_MailTo", "put_MailTo", "get_RunningStatus", "get_LastRun", "get_LastError", "get_LastGeneratedInDirectory", "EnumReports", "CreateReport", "Run", "WaitForCompletion", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmReportJob.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -115,8 +144,8 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task
      */
     get_Task() {
-        taskName := BSTR()
-        result := ComCall(12, this, "ptr", taskName, "HRESULT")
+        taskName := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, taskName, "HRESULT")
         return taskName
     }
 
@@ -137,7 +166,7 @@ class IFsrmReportJob extends IFsrmObject {
     put_Task(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
 
-        result := ComCall(13, this, "ptr", taskName, "HRESULT")
+        result := ComCall(13, this, BSTR, taskName, "HRESULT")
         return result
     }
 
@@ -186,7 +215,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-put_namespaceroots
      */
     put_NamespaceRoots(namespaceRoots) {
-        result := ComCall(15, this, "ptr", namespaceRoots, "HRESULT")
+        result := ComCall(15, this, SAFEARRAY.Ptr, namespaceRoots, "HRESULT")
         return result
     }
 
@@ -231,7 +260,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-put_formats
      */
     put_Formats(formats) {
-        result := ComCall(17, this, "ptr", formats, "HRESULT")
+        result := ComCall(17, this, SAFEARRAY.Ptr, formats, "HRESULT")
         return result
     }
 
@@ -249,8 +278,8 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
-        result := ComCall(18, this, "ptr", mailTo, "HRESULT")
+        mailTo := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, mailTo, "HRESULT")
         return mailTo
     }
 
@@ -271,7 +300,7 @@ class IFsrmReportJob extends IFsrmObject {
     put_MailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
 
-        result := ComCall(19, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(19, this, BSTR, mailTo, "HRESULT")
         return result
     }
 
@@ -301,8 +330,8 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lasterror
      */
     get_LastError() {
-        lastError := BSTR()
-        result := ComCall(22, this, "ptr", lastError, "HRESULT")
+        lastError := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, lastError, "HRESULT")
         return lastError
     }
 
@@ -314,8 +343,8 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastgeneratedindirectory
      */
     get_LastGeneratedInDirectory() {
-        _path := BSTR()
-        result := ComCall(23, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -340,7 +369,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-createreport
      */
     CreateReport(reportType) {
-        result := ComCall(25, this, "int", reportType, "ptr*", &report := 0, "HRESULT")
+        result := ComCall(25, this, FsrmReportType, reportType, "ptr*", &report := 0, "HRESULT")
         return IFsrmReport(report)
     }
 
@@ -355,7 +384,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-run
      */
     Run(_context) {
-        result := ComCall(26, this, "int", _context, "HRESULT")
+        result := ComCall(26, this, FsrmReportGenerationContext, _context, "HRESULT")
         return result
     }
 
@@ -370,7 +399,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
-        result := ComCall(27, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        result := ComCall(27, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -382,5 +411,57 @@ class IFsrmReportJob extends IFsrmObject {
     Cancel() {
         result := ComCall(28, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmReportJob.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Task := CallbackCreate(GetMethod(implObj, "get_Task"), flags, 2)
+        this.vtbl.put_Task := CallbackCreate(GetMethod(implObj, "put_Task"), flags, 2)
+        this.vtbl.get_NamespaceRoots := CallbackCreate(GetMethod(implObj, "get_NamespaceRoots"), flags, 2)
+        this.vtbl.put_NamespaceRoots := CallbackCreate(GetMethod(implObj, "put_NamespaceRoots"), flags, 2)
+        this.vtbl.get_Formats := CallbackCreate(GetMethod(implObj, "get_Formats"), flags, 2)
+        this.vtbl.put_Formats := CallbackCreate(GetMethod(implObj, "put_Formats"), flags, 2)
+        this.vtbl.get_MailTo := CallbackCreate(GetMethod(implObj, "get_MailTo"), flags, 2)
+        this.vtbl.put_MailTo := CallbackCreate(GetMethod(implObj, "put_MailTo"), flags, 2)
+        this.vtbl.get_RunningStatus := CallbackCreate(GetMethod(implObj, "get_RunningStatus"), flags, 2)
+        this.vtbl.get_LastRun := CallbackCreate(GetMethod(implObj, "get_LastRun"), flags, 2)
+        this.vtbl.get_LastError := CallbackCreate(GetMethod(implObj, "get_LastError"), flags, 2)
+        this.vtbl.get_LastGeneratedInDirectory := CallbackCreate(GetMethod(implObj, "get_LastGeneratedInDirectory"), flags, 2)
+        this.vtbl.EnumReports := CallbackCreate(GetMethod(implObj, "EnumReports"), flags, 2)
+        this.vtbl.CreateReport := CallbackCreate(GetMethod(implObj, "CreateReport"), flags, 3)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
+        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Task)
+        CallbackFree(this.vtbl.put_Task)
+        CallbackFree(this.vtbl.get_NamespaceRoots)
+        CallbackFree(this.vtbl.put_NamespaceRoots)
+        CallbackFree(this.vtbl.get_Formats)
+        CallbackFree(this.vtbl.put_Formats)
+        CallbackFree(this.vtbl.get_MailTo)
+        CallbackFree(this.vtbl.put_MailTo)
+        CallbackFree(this.vtbl.get_RunningStatus)
+        CallbackFree(this.vtbl.get_LastRun)
+        CallbackFree(this.vtbl.get_LastError)
+        CallbackFree(this.vtbl.get_LastGeneratedInDirectory)
+        CallbackFree(this.vtbl.EnumReports)
+        CallbackFree(this.vtbl.CreateReport)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.WaitForCompletion)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides members you can use to attach a **DesktopWindowXamlSource** object that hosts a WinRT XAML control to a parent UI element in your desktop app.
@@ -11,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nn-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class IDesktopWindowXamlSourceNative extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDesktopWindowXamlSourceNative extends IUnknown {
     /**
      * The interface identifier for IDesktopWindowXamlSourceNative
      * @type {Guid}
      */
-    static IID => Guid("{3cbcf1bf-2f76-4e9c-96ab-e84b37972554}")
+    static IID := Guid("{3cbcf1bf-2f76-4e9c-96ab-e84b37972554}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDesktopWindowXamlSourceNative interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AttachToWindow   : IntPtr
+        get_WindowHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AttachToWindow", "get_WindowHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDesktopWindowXamlSourceNative.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {HWND} 
@@ -53,9 +62,7 @@ class IDesktopWindowXamlSourceNative extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nf-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative-attachtowindow
      */
     AttachToWindow(parentWnd) {
-        parentWnd := parentWnd is Win32Handle ? NumGet(parentWnd, "ptr") : parentWnd
-
-        result := ComCall(3, this, "ptr", parentWnd, "HRESULT")
+        result := ComCall(3, this, HWND, parentWnd, "HRESULT")
         return result
     }
 
@@ -66,7 +73,29 @@ class IDesktopWindowXamlSourceNative extends IUnknown {
      */
     get_WindowHandle() {
         _hWnd := HWND()
-        result := ComCall(4, this, "ptr", _hWnd, "HRESULT")
+        result := ComCall(4, this, HWND.Ptr, _hWnd, "HRESULT")
         return _hWnd
+    }
+
+    Query(iid) {
+        if (IDesktopWindowXamlSourceNative.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AttachToWindow := CallbackCreate(GetMethod(implObj, "AttachToWindow"), flags, 2)
+        this.vtbl.get_WindowHandle := CallbackCreate(GetMethod(implObj, "get_WindowHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AttachToWindow)
+        CallbackFree(this.vtbl.get_WindowHandle)
     }
 }

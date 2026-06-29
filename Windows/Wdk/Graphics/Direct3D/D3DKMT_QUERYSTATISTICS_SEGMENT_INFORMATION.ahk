@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct {
-    static sizeof => 144
+export default struct D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _PowerFlags extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _PowerFlags {
         /**
          * This bitfield backs the following members:
          * - PreservedDuringStandby
          * - PreservedDuringHibernate
          * - PartiallyPreservedDuringHibernate
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -51,22 +43,16 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct {
         }
     }
 
-    class _SegmentProperties extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _SegmentProperties {
         /**
          * This bitfield backs the following members:
          * - SystemMemory
          * - PopulatedByReservedDDRByFirmware
          * - SegmentType
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -93,95 +79,24 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    CommitLimit {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CommitLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesCommitted {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BytesCommitted : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesResident {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BytesResident : Int64
 
-    /**
-     * @type {Pointer}
-     */
-    Memory {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Memory : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Aperture {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Aperture : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TotalBytesEvictedByPriority {
-        get {
-            if(!this.HasProp("__TotalBytesEvictedByPriorityProxyArray"))
-                this.__TotalBytesEvictedByPriorityProxyArray := Win32FixedArray(this.ptr + 40, 5, Primitive, "uint")
-            return this.__TotalBytesEvictedByPriorityProxyArray
-        }
-    }
+    TotalBytesEvictedByPriority : Int64[5]
 
-    /**
-     * @type {Integer}
-     */
-    SystemMemoryEndAddress {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SystemMemoryEndAddress : Int64
 
-    /**
-     * @type {_PowerFlags}
-     */
-    PowerFlags {
-        get {
-            if(!this.HasProp("__PowerFlags"))
-                this.__PowerFlags := D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION._PowerFlags(88, this)
-            return this.__PowerFlags
-        }
-    }
+    PowerFlags : D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION._PowerFlags
 
-    /**
-     * @type {_SegmentProperties}
-     */
-    SegmentProperties {
-        get {
-            if(!this.HasProp("__SegmentProperties"))
-                this.__SegmentProperties := D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION._SegmentProperties(96, this)
-            return this.__SegmentProperties
-        }
-    }
+    SegmentProperties : D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION._SegmentProperties
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 104, 5, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int64[5]
+
 }

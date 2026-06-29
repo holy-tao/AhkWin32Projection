@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ILoadChangeContext.ahk" { ILoadChangeContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDataRetrieverCallback.ahk" { IDataRetrieverCallback }
 
 /**
  * Represents the mechanism by which the destination provider asynchronously retrieves item data from the source provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iasynchronousdataretriever
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IAsynchronousDataRetriever extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAsynchronousDataRetriever extends IUnknown {
     /**
      * The interface identifier for IAsynchronousDataRetriever
      * @type {Guid}
      */
-    static IID => Guid("{9fc7e470-61ea-4a88-9be4-df56a27cfef2}")
+    static IID := Guid("{9fc7e470-61ea-4a88-9be4-df56a27cfef2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAsynchronousDataRetriever interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIdParameters  : IntPtr
+        RegisterCallback : IntPtr
+        RevokeCallback   : IntPtr
+        LoadChangeData   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIdParameters", "RegisterCallback", "RevokeCallback", "LoadChangeData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAsynchronousDataRetriever.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID format schema of the provider. (IAsynchronousDataRetriever.GetIdParameters)
@@ -62,7 +76,7 @@ class IAsynchronousDataRetriever extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iasynchronousdataretriever-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(3, this, ID_PARAMETERS.Ptr, pIdParameters, "HRESULT")
         return result
     }
 
@@ -186,5 +200,31 @@ class IAsynchronousDataRetriever extends IUnknown {
     LoadChangeData(pLoadChangeContext) {
         result := ComCall(6, this, "ptr", pLoadChangeContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAsynchronousDataRetriever.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.RegisterCallback := CallbackCreate(GetMethod(implObj, "RegisterCallback"), flags, 2)
+        this.vtbl.RevokeCallback := CallbackCreate(GetMethod(implObj, "RevokeCallback"), flags, 2)
+        this.vtbl.LoadChangeData := CallbackCreate(GetMethod(implObj, "LoadChangeData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIdParameters)
+        CallbackFree(this.vtbl.RegisterCallback)
+        CallbackFree(this.vtbl.RevokeCallback)
+        CallbackFree(this.vtbl.LoadChangeData)
     }
 }

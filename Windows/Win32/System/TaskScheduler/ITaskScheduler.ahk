@@ -1,40 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumWorkItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumWorkItems.ahk" { IEnumWorkItems }
+#Import ".\IScheduledWorkItem.ahk" { IScheduledWorkItem }
 
 /**
  * Provides the methods for scheduling tasks.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itaskscheduler
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskScheduler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITaskScheduler extends IUnknown {
     /**
      * The interface identifier for ITaskScheduler
      * @type {Guid}
      */
-    static IID => Guid("{148bd527-a2ab-11ce-b11f-00aa00530503}")
+    static IID := Guid("{148bd527-a2ab-11ce-b11f-00aa00530503}")
 
     /**
      * The class identifier for TaskScheduler
      * @type {Guid}
      */
-    static CLSID => Guid("{0f87369f-a4e5-4cfc-bd3e-73e6154572dd}")
+    static CLSID := Guid("{0f87369f-a4e5-4cfc-bd3e-73e6154572dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskScheduler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTargetComputer : IntPtr
+        GetTargetComputer : IntPtr
+        Enum              : IntPtr
+        Activate          : IntPtr
+        Delete            : IntPtr
+        NewWorkItem       : IntPtr
+        AddWorkItem       : IntPtr
+        IsOfType          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTargetComputer", "GetTargetComputer", "Enum", "Activate", "Delete", "NewWorkItem", "AddWorkItem", "IsOfType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskScheduler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetTargetComputer method selects the computer that the ITaskScheduler interface operates on, allowing remote task management and enumeration.
@@ -136,7 +153,7 @@ class ITaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-gettargetcomputer
      */
     GetTargetComputer() {
-        result := ComCall(4, this, "ptr*", &ppwszComputer := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppwszComputer := 0, "HRESULT")
         return ppwszComputer
     }
 
@@ -181,7 +198,7 @@ class ITaskScheduler extends IUnknown {
     Activate(pwszName, riid) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszName, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 
@@ -284,7 +301,7 @@ class ITaskScheduler extends IUnknown {
     NewWorkItem(pwszTaskName, rclsid, riid) {
         pwszTaskName := pwszTaskName is String ? StrPtr(pwszTaskName) : pwszTaskName
 
-        result := ComCall(8, this, "ptr", pwszTaskName, "ptr", rclsid, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszTaskName, Guid.Ptr, rclsid, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 
@@ -375,7 +392,41 @@ class ITaskScheduler extends IUnknown {
     IsOfType(pwszName, riid) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(10, this, "ptr", pwszName, "ptr", riid, "HRESULT")
+        result := ComCall(10, this, "ptr", pwszName, Guid.Ptr, riid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskScheduler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTargetComputer := CallbackCreate(GetMethod(implObj, "SetTargetComputer"), flags, 2)
+        this.vtbl.GetTargetComputer := CallbackCreate(GetMethod(implObj, "GetTargetComputer"), flags, 2)
+        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.NewWorkItem := CallbackCreate(GetMethod(implObj, "NewWorkItem"), flags, 5)
+        this.vtbl.AddWorkItem := CallbackCreate(GetMethod(implObj, "AddWorkItem"), flags, 3)
+        this.vtbl.IsOfType := CallbackCreate(GetMethod(implObj, "IsOfType"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTargetComputer)
+        CallbackFree(this.vtbl.GetTargetComputer)
+        CallbackFree(this.vtbl.Enum)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.NewWorkItem)
+        CallbackFree(this.vtbl.AddWorkItem)
+        CallbackFree(this.vtbl.IsOfType)
     }
 }

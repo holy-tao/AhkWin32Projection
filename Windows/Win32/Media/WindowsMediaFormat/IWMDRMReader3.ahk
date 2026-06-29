@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDRMReader2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDRMReader2.ahk" { IWMDRMReader2 }
 
 /**
  * The IWMDRMReader3 interface enables content transcription by providing a method to get protection systems approved by a license.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMDRMReader3 extends IWMDRMReader2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMDRMReader3 extends IWMDRMReader2 {
     /**
      * The interface identifier for IWMDRMReader3
      * @type {Guid}
      */
-    static IID => Guid("{e08672de-f1e7-4ff4-a0a3-fc4b08e4caf8}")
+    static IID := Guid("{e08672de-f1e7-4ff4-a0a3-fc4b08e4caf8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDRMReader3 interfaces
+    */
+    struct Vtbl extends IWMDRMReader2.Vtbl {
+        GetInclusionList : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInclusionList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDRMReader3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetInclusionList method retrieves a list of identifiers specifying approved protection systems.
@@ -62,5 +70,25 @@ class IWMDRMReader3 extends IWMDRMReader2 {
 
         result := ComCall(15, this, ppGuidsMarshal, ppGuids, pcGuidsMarshal, pcGuids, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDRMReader3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInclusionList := CallbackCreate(GetMethod(implObj, "GetInclusionList"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInclusionList)
     }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MF_CAMERA_CONTROL_RANGE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_CAMERA_CONTROL_CONFIGURATION_TYPE.ahk" { MF_CAMERA_CONTROL_CONFIGURATION_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_CAMERA_CONTROL_RANGE_INFO.ahk" { MF_CAMERA_CONTROL_RANGE_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for specifying camera control default values.
@@ -11,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameracontroldefaults
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCameraControlDefaults extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCameraControlDefaults extends IUnknown {
     /**
      * The interface identifier for IMFCameraControlDefaults
      * @type {Guid}
      */
-    static IID => Guid("{75510662-b034-48f4-88a7-8de61daa4af9}")
+    static IID := Guid("{75510662-b034-48f4-88a7-8de61daa4af9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCameraControlDefaults interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetType           : IntPtr
+        GetRangeInfo      : IntPtr
+        LockControlData   : IntPtr
+        UnlockControlData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "GetRangeInfo", "LockControlData", "UnlockControlData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCameraControlDefaults.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the configuration type of the control, indicating whether the control value must be set  before streaming begins or after streaming has started.
@@ -40,7 +52,7 @@ class IMFCameraControlDefaults extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaults-gettype
      */
     GetType() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE)
         return result
     }
 
@@ -53,7 +65,7 @@ class IMFCameraControlDefaults extends IUnknown {
      */
     GetRangeInfo() {
         rangeInfo := MF_CAMERA_CONTROL_RANGE_INFO()
-        result := ComCall(4, this, "ptr", rangeInfo, "HRESULT")
+        result := ComCall(4, this, MF_CAMERA_CONTROL_RANGE_INFO.Ptr, rangeInfo, "HRESULT")
         return rangeInfo
     }
 
@@ -90,5 +102,31 @@ class IMFCameraControlDefaults extends IUnknown {
     UnlockControlData() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCameraControlDefaults.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
+        this.vtbl.GetRangeInfo := CallbackCreate(GetMethod(implObj, "GetRangeInfo"), flags, 2)
+        this.vtbl.LockControlData := CallbackCreate(GetMethod(implObj, "LockControlData"), flags, 5)
+        this.vtbl.UnlockControlData := CallbackCreate(GetMethod(implObj, "UnlockControlData"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetRangeInfo)
+        CallbackFree(this.vtbl.LockControlData)
+        CallbackFree(this.vtbl.UnlockControlData)
     }
 }

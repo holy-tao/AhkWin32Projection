@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IADs.ahk" { IADs }
 
 /**
  * The IADsComputerOperations interface is a dual interface that inherits from IADs.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadscomputeroperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsComputerOperations extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsComputerOperations extends IADs {
     /**
      * The interface identifier for IADsComputerOperations
      * @type {Guid}
      */
-    static IID => Guid("{ef497680-1d9f-11cf-b1f3-02608c9e7553}")
+    static IID := Guid("{ef497680-1d9f-11cf-b1f3-02608c9e7553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsComputerOperations interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        Status   : IntPtr
+        Shutdown : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Status", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsComputerOperations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IADsComputerOperations::Status method retrieves the status of a computer.
@@ -49,7 +59,29 @@ class IADsComputerOperations extends IADs {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscomputeroperations-shutdown
      */
     Shutdown(bReboot) {
-        result := ComCall(21, this, "short", bReboot, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, bReboot, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsComputerOperations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Status := CallbackCreate(GetMethod(implObj, "Status"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Status)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

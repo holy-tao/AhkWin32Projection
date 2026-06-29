@@ -1,33 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OEMUIPROCS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OEMUIPROCS.ahk" { OEMUIPROCS }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OEMUIOBJ extends Win32Struct {
-    static sizeof => 16
+export default struct OEMUIOBJ {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pOemUIProcs : OEMUIPROCS.Ptr
 
-    /**
-     * @type {Pointer<OEMUIPROCS>}
-     */
-    pOemUIProcs {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

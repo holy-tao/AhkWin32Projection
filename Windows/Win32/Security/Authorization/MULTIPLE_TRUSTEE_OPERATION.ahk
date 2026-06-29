@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate whether a TRUSTEE structure is an impersonation trustee.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-multiple_trustee_operation
  * @namespace Windows.Win32.Security.Authorization
  */
-class MULTIPLE_TRUSTEE_OPERATION extends Win32Enum {
+export default struct MULTIPLE_TRUSTEE_OPERATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The trustee is not an impersonation trustee.

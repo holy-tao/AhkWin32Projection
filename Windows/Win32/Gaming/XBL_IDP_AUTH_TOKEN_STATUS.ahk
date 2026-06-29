@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Reserved for Microsoft use. (XBL_IDP_AUTH_TOKEN_STATUS)
  * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/ne-xblidpauthmanager-xbl_idp_auth_token_status
  * @namespace Windows.Win32.Gaming
  */
-class XBL_IDP_AUTH_TOKEN_STATUS extends Win32Enum {
+export default struct XBL_IDP_AUTH_TOKEN_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Reserved for Microsoft use.

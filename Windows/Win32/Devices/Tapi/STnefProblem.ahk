@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a property or attribute processing problem that occurred during the encoding or decoding of a TNEF stream.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/stnefproblem
  * @namespace Windows.Win32.Devices.Tapi
  */
-class STnefProblem extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct STnefProblem {
+    #StructPack 4
 
     /**
      * > The type of processing during which the problem occurred. If the problem occurred during message processing, the **ulComponent** member is set to zero. If the problem occurred during attachment processing, **ulComponent** is set equal to the corresponding attachment's **PR_ATTACH_NUM** ([PidTagAttachNumber](pidtagattachnumber-canonical-property.md)) value.
-     * @type {Integer}
      */
-    ulComponent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulComponent : UInt32
 
     /**
      * > Attribute associated with the property indicated by the **ulPropTag** member or, when the TNEF processing problem occurs when decoding an encapsulation block, one of the following values:
-     * @type {Integer}
      */
-    ulAttribute {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulAttribute : UInt32
 
     /**
      * > Property tag of the property that caused the TNEF processing problem, except when the problem occurs when decoding an encapsulation block, in which case **ulPropTag** is set to zero.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPropTag : UInt32
 
     /**
      * > Error value indicating the problem encountered during processing.
-     * @type {Integer}
      */
-    scode {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    scode : Int32
+
 }

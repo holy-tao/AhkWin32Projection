@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Persists media data from a source byte stream to an application-provided byte stream.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsavejob
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSaveJob extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSaveJob extends IUnknown {
     /**
      * The interface identifier for IMFSaveJob
      * @type {Guid}
      */
-    static IID => Guid("{e9931663-80bf-4c6e-98af-5dcf58747d1f}")
+    static IID := Guid("{e9931663-80bf-4c6e-98af-5dcf58747d1f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSaveJob interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginSave   : IntPtr
+        EndSave     : IntPtr
+        CancelSave  : IntPtr
+        GetProgress : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginSave", "EndSave", "CancelSave", "GetProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSaveJob.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Begins saving a Windows Media file to the application's byte stream.
@@ -127,5 +141,31 @@ class IMFSaveJob extends IUnknown {
     GetProgress() {
         result := ComCall(6, this, "uint*", &pdwPercentComplete := 0, "HRESULT")
         return pdwPercentComplete
+    }
+
+    Query(iid) {
+        if (IMFSaveJob.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginSave := CallbackCreate(GetMethod(implObj, "BeginSave"), flags, 4)
+        this.vtbl.EndSave := CallbackCreate(GetMethod(implObj, "EndSave"), flags, 2)
+        this.vtbl.CancelSave := CallbackCreate(GetMethod(implObj, "CancelSave"), flags, 1)
+        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginSave)
+        CallbackFree(this.vtbl.EndSave)
+        CallbackFree(this.vtbl.CancelSave)
+        CallbackFree(this.vtbl.GetProgress)
     }
 }

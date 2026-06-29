@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_PROCESS_VM_COUNTERS_1 extends Win32Struct {
-    static sizeof => 80
+export default struct MINIDUMP_PROCESS_VM_COUNTERS_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Revision : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    PageFaultCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PageFaultCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PeakWorkingSetSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeakWorkingSetSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WorkingSetSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WorkingSetSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    QuotaPeakPagedPoolUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaPeakPagedPoolUsage {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    QuotaPagedPoolUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaPagedPoolUsage {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    QuotaPeakNonPagedPoolUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaPeakNonPagedPoolUsage {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    QuotaNonPagedPoolUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaNonPagedPoolUsage {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PagefileUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PagefileUsage {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    PeakPagefileUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeakPagefileUsage {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    PrivateUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PrivateUsage {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

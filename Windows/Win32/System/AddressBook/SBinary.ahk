@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Outlines SBinary, including a description of property type PT_BINARY. This applies to Outlook 2013 and Outlook 2016.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinary
  * @namespace Windows.Win32.System.AddressBook
  */
-class SBinary extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SBinary {
+    #StructPack 8
 
     /**
      * > Count of bytes in the **lpb** member.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * > Pointer to the PT_BINARY property value.
-     * @type {Pointer<Integer>}
      */
-    lpb {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpb : IntPtr
+
 }

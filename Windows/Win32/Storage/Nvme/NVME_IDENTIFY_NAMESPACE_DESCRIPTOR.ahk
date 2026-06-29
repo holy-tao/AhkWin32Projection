@@ -1,49 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 5
+export default struct NVME_IDENTIFY_NAMESPACE_DESCRIPTOR {
+    #StructPack 1
 
-    static packingSize => 1
+    NIDT : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NIDT {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    NIDL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NIDL {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    NID : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NID {
-        get {
-            if(!this.HasProp("__NIDProxyArray"))
-                this.__NIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__NIDProxyArray
-        }
-    }
 }

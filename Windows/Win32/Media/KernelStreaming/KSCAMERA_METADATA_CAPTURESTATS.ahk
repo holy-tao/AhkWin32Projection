@@ -1,135 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_METADATA_ITEMHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSCAMERA_METADATA_ITEMHEADER.ahk" { KSCAMERA_METADATA_ITEMHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_METADATA_CAPTURESTATS extends Win32Struct {
-    static sizeof => 80
+export default struct KSCAMERA_METADATA_CAPTURESTATS {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : KSCAMERA_METADATA_ITEMHEADER
 
-    /**
-     * @type {KSCAMERA_METADATA_ITEMHEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
-            return this.__Header
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ExposureTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExposureTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ExposureCompensationFlags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExposureCompensationFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ExposureCompensationValue : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ExposureCompensationValue {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    IsoSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IsoSpeed {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    FocusState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FocusState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    LensPosition : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LensPosition {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    WhiteBalance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WhiteBalance {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Flash : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flash {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    FlashPower : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FlashPower {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ZoomFactor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ZoomFactor {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    SceneMode : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SceneMode {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SensorFramerate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SensorFramerate {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

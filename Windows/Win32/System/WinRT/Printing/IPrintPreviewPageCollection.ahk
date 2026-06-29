@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IInspectable.ahk" { IInspectable }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
  */
-class IPrintPreviewPageCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintPreviewPageCollection extends IUnknown {
     /**
      * The interface identifier for IPrintPreviewPageCollection
      * @type {Guid}
      */
-    static IID => Guid("{0b31cc62-d7ec-4747-9d6e-f2537d870f2b}")
+    static IID := Guid("{0b31cc62-d7ec-4747-9d6e-f2537d870f2b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintPreviewPageCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Paginate : IntPtr
+        MakePage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Paginate", "MakePage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintPreviewPageCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -48,5 +58,27 @@ class IPrintPreviewPageCollection extends IUnknown {
     MakePage(desiredJobPage, width, height) {
         result := ComCall(4, this, "uint", desiredJobPage, "float", width, "float", height, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintPreviewPageCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Paginate := CallbackCreate(GetMethod(implObj, "Paginate"), flags, 3)
+        this.vtbl.MakePage := CallbackCreate(GetMethod(implObj, "MakePage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Paginate)
+        CallbackFree(this.vtbl.MakePage)
     }
 }

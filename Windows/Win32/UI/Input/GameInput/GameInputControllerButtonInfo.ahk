@@ -1,71 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputKind.ahk
-#Include .\GameInputLabel.ahk
-#Include .\GameInputRawDeviceReportInfo.ahk
-#Include .\GameInputRawDeviceReportItemInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputRawDeviceReportItemInfo.ahk" { GameInputRawDeviceReportItemInfo }
+#Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputControllerButtonInfo extends Win32Struct {
-    static sizeof => 32
+export default struct GameInputControllerButtonInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    mappedInputKinds : GameInputKind
 
-    /**
-     * @type {GameInputKind}
-     */
-    mappedInputKinds {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    label {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    legacyDInputIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    legacyDInputIndex {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    legacyHidIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    legacyHidIndex {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    rawReportIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rawReportIndex {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    inputReport : GameInputRawDeviceReportInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportInfo>}
-     */
-    inputReport {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    inputReportItem : GameInputRawDeviceReportItemInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceReportItemInfo>}
-     */
-    inputReportItem {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

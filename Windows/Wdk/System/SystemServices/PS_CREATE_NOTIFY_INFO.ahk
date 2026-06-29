@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PS_CREATE_NOTIFY_INFO extends Win32Struct {
-    static sizeof => 64
+export default struct PS_CREATE_NOTIFY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Size {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - FileOpenNameAvailable
-     * - IsSubsystemProcess
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 
     /**
      * @type {Integer}
@@ -55,55 +30,20 @@ class PS_CREATE_NOTIFY_INFO extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
+    ParentProcessId : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    ParentProcessId {
-        get {
-            if(!this.HasProp("__ParentProcessId"))
-                this.__ParentProcessId := HANDLE(16, this)
-            return this.__ParentProcessId
-        }
-    }
+    CreatingThreadId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CreatingThreadId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    FileObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ImageFileName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    ImageFileName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CommandLine : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    CommandLine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    CreationStatus : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    CreationStatus {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

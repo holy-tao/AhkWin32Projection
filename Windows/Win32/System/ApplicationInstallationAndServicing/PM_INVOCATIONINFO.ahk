@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class PM_INVOCATIONINFO extends Win32Struct {
-    static sizeof => 16
+export default struct PM_INVOCATIONINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    URIBaseOrAUMID : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    URIBaseOrAUMID {
-        get {
-            if(!this.HasProp("__URIBaseOrAUMID"))
-                this.__URIBaseOrAUMID := BSTR(0, this)
-            return this.__URIBaseOrAUMID
-        }
-    }
+    URIFragmentOrArgs : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    URIFragmentOrArgs {
-        get {
-            if(!this.HasProp("__URIFragmentOrArgs"))
-                this.__URIFragmentOrArgs := BSTR(8, this)
-            return this.__URIFragmentOrArgs
-        }
-    }
 }

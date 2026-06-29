@@ -1,74 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class OEMFONTINSTPARAM extends Win32Struct {
-    static sizeof => 48
+export default struct OEMFONTINSTPARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hPrinter : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hPrinter {
-        get {
-            if(!this.HasProp("__hPrinter"))
-                this.__hPrinter := HANDLE(8, this)
-            return this.__hPrinter
-        }
-    }
+    hModule : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hModule {
-        get {
-            if(!this.HasProp("__hModule"))
-                this.__hModule := HANDLE(16, this)
-            return this.__hModule
-        }
-    }
+    hHeap : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hHeap {
-        get {
-            if(!this.HasProp("__hHeap"))
-                this.__hHeap := HANDLE(24, this)
-            return this.__hHeap
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pFontInstallerName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pFontInstallerName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

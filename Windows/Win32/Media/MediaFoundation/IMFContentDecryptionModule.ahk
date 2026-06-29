@@ -1,36 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFCdmSuspendNotify.ahk
-#Include .\IMFContentDecryptionModuleSession.ahk
-#Include .\IMFTrustedInput.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
+#Import ".\MF_MEDIAKEYSESSION_TYPE.ahk" { MF_MEDIAKEYSESSION_TYPE }
+#Import ".\IMFContentDecryptionModuleSession.ahk" { IMFContentDecryptionModuleSession }
+#Import ".\IMFContentEnabler.ahk" { IMFContentEnabler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import ".\IMFTrustedInput.ahk" { IMFTrustedInput }
+#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFContentDecryptionModuleSessionCallbacks.ahk" { IMFContentDecryptionModuleSessionCallbacks }
 
 /**
  * Represents a Content Decryption Module (CDM) for a DRM key system.
  * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodule
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFContentDecryptionModule extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFContentDecryptionModule extends IUnknown {
     /**
      * The interface identifier for IMFContentDecryptionModule
      * @type {Guid}
      */
-    static IID => Guid("{87be986c-10be-4943-bf48-4b54ce1983a2}")
+    static IID := Guid("{87be986c-10be-4943-bf48-4b54ce1983a2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFContentDecryptionModule interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetContentEnabler      : IntPtr
+        GetSuspendNotify       : IntPtr
+        SetPMPHostApp          : IntPtr
+        CreateSession          : IntPtr
+        SetServerCertificate   : IntPtr
+        CreateTrustedInput     : IntPtr
+        GetProtectionSystemIds : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetContentEnabler", "GetSuspendNotify", "SetPMPHostApp", "CreateSession", "SetServerCertificate", "CreateTrustedInput", "GetProtectionSystemIds"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFContentDecryptionModule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows the caller to specify the IMFContentEnabler interface that shall be used by the Content Decryption Module (CDM).
@@ -77,7 +96,7 @@ class IMFContentDecryptionModule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createsession
      */
     CreateSession(sessionType, callbacks) {
-        result := ComCall(6, this, "int", sessionType, "ptr", callbacks, "ptr*", &session := 0, "HRESULT")
+        result := ComCall(6, this, MF_MEDIAKEYSESSION_TYPE, sessionType, "ptr", callbacks, "ptr*", &session := 0, "HRESULT")
         return IMFContentDecryptionModuleSession(session)
     }
 
@@ -138,5 +157,37 @@ class IMFContentDecryptionModule extends IUnknown {
 
         result := ComCall(9, this, systemIdsMarshal, systemIds, countMarshal, count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFContentDecryptionModule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetContentEnabler := CallbackCreate(GetMethod(implObj, "SetContentEnabler"), flags, 3)
+        this.vtbl.GetSuspendNotify := CallbackCreate(GetMethod(implObj, "GetSuspendNotify"), flags, 2)
+        this.vtbl.SetPMPHostApp := CallbackCreate(GetMethod(implObj, "SetPMPHostApp"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 4)
+        this.vtbl.SetServerCertificate := CallbackCreate(GetMethod(implObj, "SetServerCertificate"), flags, 3)
+        this.vtbl.CreateTrustedInput := CallbackCreate(GetMethod(implObj, "CreateTrustedInput"), flags, 4)
+        this.vtbl.GetProtectionSystemIds := CallbackCreate(GetMethod(implObj, "GetProtectionSystemIds"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetContentEnabler)
+        CallbackFree(this.vtbl.GetSuspendNotify)
+        CallbackFree(this.vtbl.SetPMPHostApp)
+        CallbackFree(this.vtbl.CreateSession)
+        CallbackFree(this.vtbl.SetServerCertificate)
+        CallbackFree(this.vtbl.CreateTrustedInput)
+        CallbackFree(this.vtbl.GetProtectionSystemIds)
     }
 }

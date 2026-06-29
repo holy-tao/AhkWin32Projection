@@ -1,35 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DVD_PLAYBACK_LOCATION.ahk
-#Include .\DVD_ATR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DVD_ATR.ahk" { DVD_ATR }
+#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_PLAYBACK_LOCATION.ahk" { DVD_PLAYBACK_LOCATION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Note  This interface has been deprecated. (IDvdInfo)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDvdInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvdInfo extends IUnknown {
     /**
      * The interface identifier for IDvdInfo
      * @type {Guid}
      */
-    static IID => Guid("{a70efe60-e2a3-11d0-a9be-00aa0061be93}")
+    static IID := Guid("{a70efe60-e2a3-11d0-a9be-00aa0061be93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvdInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentDomain               : IntPtr
+        GetCurrentLocation             : IntPtr
+        GetTotalTitleTime              : IntPtr
+        GetCurrentButton               : IntPtr
+        GetCurrentAngle                : IntPtr
+        GetCurrentAudio                : IntPtr
+        GetCurrentSubpicture           : IntPtr
+        GetCurrentUOPS                 : IntPtr
+        GetAllSPRMs                    : IntPtr
+        GetAllGPRMs                    : IntPtr
+        GetAudioLanguage               : IntPtr
+        GetSubpictureLanguage          : IntPtr
+        GetTitleAttributes             : IntPtr
+        GetVMGAttributes               : IntPtr
+        GetCurrentVideoAttributes      : IntPtr
+        GetCurrentAudioAttributes      : IntPtr
+        GetCurrentSubpictureAttributes : IntPtr
+        GetCurrentVolumeInfo           : IntPtr
+        GetDVDTextInfo                 : IntPtr
+        GetPlayerParentalLevel         : IntPtr
+        GetNumberOfChapters            : IntPtr
+        GetTitleParentalLevels         : IntPtr
+        GetRoot                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentDomain", "GetCurrentLocation", "GetTotalTitleTime", "GetCurrentButton", "GetCurrentAngle", "GetCurrentAudio", "GetCurrentSubpicture", "GetCurrentUOPS", "GetAllSPRMs", "GetAllGPRMs", "GetAudioLanguage", "GetSubpictureLanguage", "GetTitleAttributes", "GetVMGAttributes", "GetCurrentVideoAttributes", "GetCurrentAudioAttributes", "GetCurrentSubpictureAttributes", "GetCurrentVolumeInfo", "GetDVDTextInfo", "GetPlayerParentalLevel", "GetNumberOfChapters", "GetTitleParentalLevels", "GetRoot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvdInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  The IDvdInfo interface is deprecated. Use IDvdInfo2 instead. Retrieves the current DVD domain of the DVD player.
@@ -54,7 +88,7 @@ class IDvdInfo extends IUnknown {
      */
     GetCurrentLocation() {
         pLocation := DVD_PLAYBACK_LOCATION()
-        result := ComCall(4, this, "ptr", pLocation, "HRESULT")
+        result := ComCall(4, this, DVD_PLAYBACK_LOCATION.Ptr, pLocation, "HRESULT")
         return pLocation
     }
 
@@ -619,7 +653,7 @@ class IDvdInfo extends IUnknown {
      */
     GetTitleAttributes(ulTitle) {
         pATR := DVD_ATR()
-        result := ComCall(15, this, "uint", ulTitle, "ptr", pATR, "HRESULT")
+        result := ComCall(15, this, "uint", ulTitle, DVD_ATR.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -634,7 +668,7 @@ class IDvdInfo extends IUnknown {
      */
     GetVMGAttributes() {
         pATR := DVD_ATR()
-        result := ComCall(16, this, "ptr", pATR, "HRESULT")
+        result := ComCall(16, this, DVD_ATR.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -895,5 +929,69 @@ class IDvdInfo extends IUnknown {
 
         result := ComCall(25, this, "ptr", pRoot, "uint", ulBufSize, "uint*", &pulActualSize := 0, "HRESULT")
         return pulActualSize
+    }
+
+    Query(iid) {
+        if (IDvdInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentDomain := CallbackCreate(GetMethod(implObj, "GetCurrentDomain"), flags, 2)
+        this.vtbl.GetCurrentLocation := CallbackCreate(GetMethod(implObj, "GetCurrentLocation"), flags, 2)
+        this.vtbl.GetTotalTitleTime := CallbackCreate(GetMethod(implObj, "GetTotalTitleTime"), flags, 2)
+        this.vtbl.GetCurrentButton := CallbackCreate(GetMethod(implObj, "GetCurrentButton"), flags, 3)
+        this.vtbl.GetCurrentAngle := CallbackCreate(GetMethod(implObj, "GetCurrentAngle"), flags, 3)
+        this.vtbl.GetCurrentAudio := CallbackCreate(GetMethod(implObj, "GetCurrentAudio"), flags, 3)
+        this.vtbl.GetCurrentSubpicture := CallbackCreate(GetMethod(implObj, "GetCurrentSubpicture"), flags, 4)
+        this.vtbl.GetCurrentUOPS := CallbackCreate(GetMethod(implObj, "GetCurrentUOPS"), flags, 2)
+        this.vtbl.GetAllSPRMs := CallbackCreate(GetMethod(implObj, "GetAllSPRMs"), flags, 2)
+        this.vtbl.GetAllGPRMs := CallbackCreate(GetMethod(implObj, "GetAllGPRMs"), flags, 2)
+        this.vtbl.GetAudioLanguage := CallbackCreate(GetMethod(implObj, "GetAudioLanguage"), flags, 3)
+        this.vtbl.GetSubpictureLanguage := CallbackCreate(GetMethod(implObj, "GetSubpictureLanguage"), flags, 3)
+        this.vtbl.GetTitleAttributes := CallbackCreate(GetMethod(implObj, "GetTitleAttributes"), flags, 3)
+        this.vtbl.GetVMGAttributes := CallbackCreate(GetMethod(implObj, "GetVMGAttributes"), flags, 2)
+        this.vtbl.GetCurrentVideoAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentVideoAttributes"), flags, 2)
+        this.vtbl.GetCurrentAudioAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentAudioAttributes"), flags, 2)
+        this.vtbl.GetCurrentSubpictureAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentSubpictureAttributes"), flags, 2)
+        this.vtbl.GetCurrentVolumeInfo := CallbackCreate(GetMethod(implObj, "GetCurrentVolumeInfo"), flags, 5)
+        this.vtbl.GetDVDTextInfo := CallbackCreate(GetMethod(implObj, "GetDVDTextInfo"), flags, 4)
+        this.vtbl.GetPlayerParentalLevel := CallbackCreate(GetMethod(implObj, "GetPlayerParentalLevel"), flags, 3)
+        this.vtbl.GetNumberOfChapters := CallbackCreate(GetMethod(implObj, "GetNumberOfChapters"), flags, 3)
+        this.vtbl.GetTitleParentalLevels := CallbackCreate(GetMethod(implObj, "GetTitleParentalLevels"), flags, 3)
+        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentDomain)
+        CallbackFree(this.vtbl.GetCurrentLocation)
+        CallbackFree(this.vtbl.GetTotalTitleTime)
+        CallbackFree(this.vtbl.GetCurrentButton)
+        CallbackFree(this.vtbl.GetCurrentAngle)
+        CallbackFree(this.vtbl.GetCurrentAudio)
+        CallbackFree(this.vtbl.GetCurrentSubpicture)
+        CallbackFree(this.vtbl.GetCurrentUOPS)
+        CallbackFree(this.vtbl.GetAllSPRMs)
+        CallbackFree(this.vtbl.GetAllGPRMs)
+        CallbackFree(this.vtbl.GetAudioLanguage)
+        CallbackFree(this.vtbl.GetSubpictureLanguage)
+        CallbackFree(this.vtbl.GetTitleAttributes)
+        CallbackFree(this.vtbl.GetVMGAttributes)
+        CallbackFree(this.vtbl.GetCurrentVideoAttributes)
+        CallbackFree(this.vtbl.GetCurrentAudioAttributes)
+        CallbackFree(this.vtbl.GetCurrentSubpictureAttributes)
+        CallbackFree(this.vtbl.GetCurrentVolumeInfo)
+        CallbackFree(this.vtbl.GetDVDTextInfo)
+        CallbackFree(this.vtbl.GetPlayerParentalLevel)
+        CallbackFree(this.vtbl.GetNumberOfChapters)
+        CallbackFree(this.vtbl.GetTitleParentalLevels)
+        CallbackFree(this.vtbl.GetRoot)
     }
 }

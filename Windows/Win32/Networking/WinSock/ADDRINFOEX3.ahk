@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
-#Include .\ADDRINFOEX3.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * Used by the GetAddrInfoEx function to hold host address information when a specific network interface has been requested. (addrinfoex3W)
@@ -30,10 +30,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex3
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ADDRINFOEX3 extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct ADDRINFOEX3 {
+    #StructPack 8
 
     /**
      * Flags that indicate options used in the 
@@ -226,12 +224,8 @@ class ADDRINFOEX3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ai_flags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ai_flags : Int32
 
     /**
      * The address family. 
@@ -315,12 +309,8 @@ class ADDRINFOEX3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ai_family {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ai_family : Int32
 
     /**
      * The socket type. Possible values for the socket type are defined in the <i>Winsock2.h</i> include file.
@@ -394,12 +384,8 @@ class ADDRINFOEX3 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumprotocolsa">WSAEnumProtocols</a> function. So an application can determine the possible socket type and protocol options for an address family  and use this information when specifying this parameter. Socket type definitions in the <i>Winsock2.h</i> and <i>Ws2def.h</i> header files will be periodically updated as new socket types, address families, and protocols are defined.
      * 
      * In Windows Sockets 1.1, the only possible socket types are <b>SOCK_DATAGRAM</b> and <b>SOCK_STREAM</b>.
-     * @type {Integer}
      */
-    ai_socktype {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ai_socktype : Int32
 
     /**
      * The protocol type. The possible options are specific to the address family and socket type specified. Possible values for the <b>ai_protocol</b> are defined in <i>Winsock2.h</i> and the <i>Wsrm.h</i> header files. 
@@ -453,102 +439,59 @@ class ADDRINFOEX3 extends Win32Struct {
      *  
      * 
      * If the <b>ai_family</b> member is <b>AF_IRDA</b>, then the <b>ai_protocol</b> must be 0.
-     * @type {Integer}
      */
-    ai_protocol {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ai_protocol : Int32
 
     /**
      * The length, in bytes, of the  buffer pointed to by the <b>ai_addr</b> member.
-     * @type {Pointer}
      */
-    ai_addrlen {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ai_addrlen : IntPtr
 
     /**
      * The canonical name for the host.
-     * @type {PWSTR}
      */
-    ai_canonname {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ai_canonname : PWSTR
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure. The <b>ai_addr</b> member in each returned <b>addrinfoex3</b> structure points to a filled-in socket address structure. The length, in bytes, of each returned <b>addrinfoex3</b> structure is specified in the <b>ai_addrlen</b> member.
-     * @type {Pointer<SOCKADDR>}
      */
-    ai_addr {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ai_addr : SOCKADDR.Ptr
 
     /**
      * A pointer to data that is used to return provider-specific namespace information that is associated with the name beyond a list of addresses. The length, in bytes, of the buffer pointed to by <b>ai_blob</b> must be specified in the <b>ai_bloblen</b> member.
-     * @type {Pointer<Void>}
      */
-    ai_blob {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ai_blob : IntPtr
 
     /**
      * The length, in bytes, of the <b>ai_blob</b> member.
-     * @type {Pointer}
      */
-    ai_bloblen {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ai_bloblen : IntPtr
 
     /**
      * A pointer to the GUID of a specific namespace provider.
-     * @type {Pointer<Guid>}
      */
-    ai_provider {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ai_provider : Guid.Ptr
 
     /**
      * A pointer to the next structure in a linked list. This parameter is set to <b>NULL</b> in the last 
      * <b>addrinfoex3</b> structure of a linked list.
-     * @type {Pointer<ADDRINFOEX3>}
      */
-    ai_next {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ai_next : ADDRINFOEX3.Ptr
 
     /**
      * The version number of this structure. The value currently used for this version of the structure is 3.
-     * @type {Integer}
      */
-    ai_version {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    ai_version : Int32
 
     /**
      * The fully qualified domain name for the host.
-     * @type {PWSTR}
      */
-    ai_fqdn {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ai_fqdn : PWSTR
 
     /**
      * The interface index, as defined by the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a>.<i>IfIndex</i> property returned in <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a>.
-     * @type {Integer}
      */
-    ai_interfaceindex {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    ai_interfaceindex : Int32
+
 }

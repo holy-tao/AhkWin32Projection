@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines settings that are used by WDS transport protocols to optimize data transfer on the network.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_network_profile_type
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class WDSTRANSPORT_NETWORK_PROFILE_TYPE extends Win32Enum {
+export default struct WDSTRANSPORT_NETWORK_PROFILE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default value that indicates that the network profile is not known.

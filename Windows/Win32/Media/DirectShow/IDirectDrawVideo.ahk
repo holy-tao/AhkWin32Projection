@@ -1,35 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectDrawVideo interface queries the Video Renderer filter about DirectDraw surfaces and hardware capabilities.Applications can use this interface to control what DirectDraw features the Video Renderer will take advantage of.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-idirectdrawvideo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDirectDrawVideo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawVideo extends IUnknown {
     /**
      * The interface identifier for IDirectDrawVideo
      * @type {Guid}
      */
-    static IID => Guid("{36d39eb0-dd75-11ce-bf0e-00aa0055595a}")
+    static IID := Guid("{36d39eb0-dd75-11ce-bf0e-00aa0055595a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawVideo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSwitches          : IntPtr
+        SetSwitches          : IntPtr
+        GetCaps              : IntPtr
+        GetEmulatedCaps      : IntPtr
+        GetSurfaceDesc       : IntPtr
+        GetFourCCCodes       : IntPtr
+        SetDirectDraw        : IntPtr
+        GetDirectDraw        : IntPtr
+        GetSurfaceType       : IntPtr
+        SetDefault           : IntPtr
+        UseScanLine          : IntPtr
+        CanUseScanLine       : IntPtr
+        UseOverlayStretch    : IntPtr
+        CanUseOverlayStretch : IntPtr
+        UseWhenFullScreen    : IntPtr
+        WillUseFullScreen    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSwitches", "SetSwitches", "GetCaps", "GetEmulatedCaps", "GetSurfaceDesc", "GetFourCCCodes", "SetDirectDraw", "GetDirectDraw", "GetSurfaceType", "SetDefault", "UseScanLine", "CanUseScanLine", "UseOverlayStretch", "CanUseOverlayStretch", "UseWhenFullScreen", "WillUseFullScreen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawVideo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSwitches method retrieves the surface types that the renderer is allowed to use.
@@ -193,7 +217,7 @@ class IDirectDrawVideo extends IUnknown {
      */
     GetCaps() {
         pCaps := DDCAPS_DX7()
-        result := ComCall(5, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(5, this, DDCAPS_DX7.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -204,7 +228,7 @@ class IDirectDrawVideo extends IUnknown {
      */
     GetEmulatedCaps() {
         pCaps := DDCAPS_DX7()
-        result := ComCall(6, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(6, this, DDCAPS_DX7.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -217,7 +241,7 @@ class IDirectDrawVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getsurfacedesc
      */
     GetSurfaceDesc(pSurfaceDesc) {
-        result := ComCall(7, this, "ptr", pSurfaceDesc, "HRESULT")
+        result := ComCall(7, this, DDSURFACEDESC.Ptr, pSurfaceDesc, "HRESULT")
         return result
     }
 
@@ -370,5 +394,55 @@ class IDirectDrawVideo extends IUnknown {
     WillUseFullScreen() {
         result := ComCall(18, this, "int*", &UseWhenFullScreen := 0, "HRESULT")
         return UseWhenFullScreen
+    }
+
+    Query(iid) {
+        if (IDirectDrawVideo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSwitches := CallbackCreate(GetMethod(implObj, "GetSwitches"), flags, 2)
+        this.vtbl.SetSwitches := CallbackCreate(GetMethod(implObj, "SetSwitches"), flags, 2)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetEmulatedCaps := CallbackCreate(GetMethod(implObj, "GetEmulatedCaps"), flags, 2)
+        this.vtbl.GetSurfaceDesc := CallbackCreate(GetMethod(implObj, "GetSurfaceDesc"), flags, 2)
+        this.vtbl.GetFourCCCodes := CallbackCreate(GetMethod(implObj, "GetFourCCCodes"), flags, 3)
+        this.vtbl.SetDirectDraw := CallbackCreate(GetMethod(implObj, "SetDirectDraw"), flags, 2)
+        this.vtbl.GetDirectDraw := CallbackCreate(GetMethod(implObj, "GetDirectDraw"), flags, 2)
+        this.vtbl.GetSurfaceType := CallbackCreate(GetMethod(implObj, "GetSurfaceType"), flags, 2)
+        this.vtbl.SetDefault := CallbackCreate(GetMethod(implObj, "SetDefault"), flags, 1)
+        this.vtbl.UseScanLine := CallbackCreate(GetMethod(implObj, "UseScanLine"), flags, 2)
+        this.vtbl.CanUseScanLine := CallbackCreate(GetMethod(implObj, "CanUseScanLine"), flags, 2)
+        this.vtbl.UseOverlayStretch := CallbackCreate(GetMethod(implObj, "UseOverlayStretch"), flags, 2)
+        this.vtbl.CanUseOverlayStretch := CallbackCreate(GetMethod(implObj, "CanUseOverlayStretch"), flags, 2)
+        this.vtbl.UseWhenFullScreen := CallbackCreate(GetMethod(implObj, "UseWhenFullScreen"), flags, 2)
+        this.vtbl.WillUseFullScreen := CallbackCreate(GetMethod(implObj, "WillUseFullScreen"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSwitches)
+        CallbackFree(this.vtbl.SetSwitches)
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetEmulatedCaps)
+        CallbackFree(this.vtbl.GetSurfaceDesc)
+        CallbackFree(this.vtbl.GetFourCCCodes)
+        CallbackFree(this.vtbl.SetDirectDraw)
+        CallbackFree(this.vtbl.GetDirectDraw)
+        CallbackFree(this.vtbl.GetSurfaceType)
+        CallbackFree(this.vtbl.SetDefault)
+        CallbackFree(this.vtbl.UseScanLine)
+        CallbackFree(this.vtbl.CanUseScanLine)
+        CallbackFree(this.vtbl.UseOverlayStretch)
+        CallbackFree(this.vtbl.CanUseOverlayStretch)
+        CallbackFree(this.vtbl.UseWhenFullScreen)
+        CallbackFree(this.vtbl.WillUseFullScreen)
     }
 }

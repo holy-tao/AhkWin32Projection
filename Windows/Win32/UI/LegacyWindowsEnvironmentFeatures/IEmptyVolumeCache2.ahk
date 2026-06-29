@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEmptyVolumeCache.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\EMPTY_VOLUME_CACHE_FLAGS.ahk" { EMPTY_VOLUME_CACHE_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEmptyVolumeCache.ahk" { IEmptyVolumeCache }
 
 /**
  * Extends IEmptyVolumeCache. This interface defines one additional method, InitializeEx, that provides better localization support than IEmptyVolumeCache::Initialize.
@@ -10,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nn-emptyvc-iemptyvolumecache2
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  */
-class IEmptyVolumeCache2 extends IEmptyVolumeCache {
-
-    static sizeof => A_PtrSize
+export default struct IEmptyVolumeCache2 extends IEmptyVolumeCache {
     /**
      * The interface identifier for IEmptyVolumeCache2
      * @type {Guid}
      */
-    static IID => Guid("{02b7e3ba-4db3-11d2-b2d9-00c04f8eec8c}")
+    static IID := Guid("{02b7e3ba-4db3-11d2-b2d9-00c04f8eec8c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEmptyVolumeCache2 interfaces
+    */
+    struct Vtbl extends IEmptyVolumeCache.Vtbl {
+        InitializeEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEmptyVolumeCache2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the disk cleanup handler. It provides better support for localization than Initialize.
@@ -117,7 +128,6 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache {
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache2-initializeex
      */
     InitializeEx(hkRegKey, pcwszVolume, pcwszKeyName, ppwszDisplayName, ppwszDescription, ppwszBtnText, pdwFlags) {
-        hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
         pcwszKeyName := pcwszKeyName is String ? StrPtr(pcwszKeyName) : pcwszKeyName
 
@@ -126,7 +136,27 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache {
         ppwszBtnTextMarshal := ppwszBtnText is VarRef ? "ptr*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, ppwszBtnTextMarshal, ppwszBtnText, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(8, this, HKEY, hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, ppwszBtnTextMarshal, ppwszBtnText, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEmptyVolumeCache2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEx := CallbackCreate(GetMethod(implObj, "InitializeEx"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEx)
     }
 }

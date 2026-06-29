@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-deleterow">CCertAdmin.DeleteRow</see>, <see href="https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview2-settable">CCertView.SetTable</see>, <see href="https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-deleterow">ICertAdmin.DeleteRow</see>, <see href="https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-deleterow">ICertAdmin2.DeleteRow</see>, <see href="https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview2-settable">ICertView.SetTable</see>, <see href="https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview2-settable">ICertView2.SetTable</see>.
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CVRC_TABLE extends Win32Enum {
+export default struct CVRC_TABLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

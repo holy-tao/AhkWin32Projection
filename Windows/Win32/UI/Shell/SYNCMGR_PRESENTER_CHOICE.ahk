@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes what choice a user makes about a sync manager conflict resolution. Used by ISyncMgrConflictPresenter.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice
  * @namespace Windows.Win32.UI.Shell
  */
-class SYNCMGR_PRESENTER_CHOICE extends Win32Enum {
+export default struct SYNCMGR_PRESENTER_CHOICE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The user is skipping this conflict, or conflict resolution is being canceled.

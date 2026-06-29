@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Storage\FileSystem\FILE_ID_128.ahk" { FILE_ID_128 }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class WOF_EXTERNAL_FILE_ID extends Win32Struct {
-    static sizeof => 16
+export default struct WOF_EXTERNAL_FILE_ID {
+    #StructPack 1
 
-    static packingSize => 1
+    FileId : FILE_ID_128
 
-    /**
-     * @type {FILE_ID_128}
-     */
-    FileId {
-        get {
-            if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(0, this)
-            return this.__FileId
-        }
-    }
 }

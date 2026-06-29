@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_SCANLINES.ahk
-#Include .\WST_BUFFER_LINE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VBICODECFILTERING_SCANLINES.ahk" { VBICODECFILTERING_SCANLINES }
+#Import ".\WST_BUFFER_LINE.ahk" { WST_BUFFER_LINE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class WST_BUFFER extends Win32Struct {
-    static sizeof => 860
+export default struct WST_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    ScanlinesRequested : VBICODECFILTERING_SCANLINES
 
-    /**
-     * @type {VBICODECFILTERING_SCANLINES}
-     */
-    ScanlinesRequested {
-        get {
-            if(!this.HasProp("__ScanlinesRequested"))
-                this.__ScanlinesRequested := VBICODECFILTERING_SCANLINES(0, this)
-            return this.__ScanlinesRequested
-        }
-    }
+    WstLines : WST_BUFFER_LINE[17]
 
-    /**
-     * @type {WST_BUFFER_LINE}
-     */
-    WstLines {
-        get {
-            if(!this.HasProp("__WstLinesProxyArray"))
-                this.__WstLinesProxyArray := Win32FixedArray(this.ptr + 128, 17, WST_BUFFER_LINE, "")
-            return this.__WstLinesProxyArray
-        }
-    }
 }

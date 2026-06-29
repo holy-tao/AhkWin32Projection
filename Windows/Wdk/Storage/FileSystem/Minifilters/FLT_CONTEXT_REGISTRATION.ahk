@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_CONTEXT_REGISTRATION extends Win32Struct {
-    static sizeof => 56
+export default struct FLT_CONTEXT_REGISTRATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ContextType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ContextType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ContextCleanupCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CONTEXT_CLEANUP_CALLBACK>}
-     */
-    ContextCleanupCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Size : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Size {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PoolTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PoolTag {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ContextAllocateCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CONTEXT_ALLOCATE_CALLBACK>}
-     */
-    ContextAllocateCallback {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ContextFreeCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_CONTEXT_FREE_CALLBACK>}
-     */
-    ContextFreeCallback {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved1 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved1 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

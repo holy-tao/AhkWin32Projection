@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to specify the nState member of the SCOPEDATAITEM structure.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_scope_item_state
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_SCOPE_ITEM_STATE extends Win32Enum {
+export default struct MMC_SCOPE_ITEM_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not currently used.

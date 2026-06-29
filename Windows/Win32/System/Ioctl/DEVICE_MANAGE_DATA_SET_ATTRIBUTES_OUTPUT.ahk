@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Output structure for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_manage_data_set_attributes_output
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT {
+    #StructPack 4
 
     /**
      * Size of the structure. This is set to 
      *       <c>sizeof(DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT)</c>.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * The action related to the instance of this structure. This is a value for the 
@@ -139,74 +132,43 @@ class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Action {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Action : UInt32
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    OperationStatus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    OperationStatus : UInt32
 
     /**
      * Extended error information.
-     * @type {Integer}
      */
-    ExtendedError {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ExtendedError : UInt32
 
     /**
      * Target specific error.
-     * @type {Integer}
      */
-    TargetDetailedError {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    TargetDetailedError : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    ReservedStatus {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ReservedStatus : UInt32
 
     /**
      * The offset, in bytes, from the beginning of this structure to where any action-specific data is 
      *       located.
-     * @type {Integer}
      */
-    OutputBlockOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    OutputBlockOffset : UInt32
 
     /**
      * The length, in bytes, of the action-specific data.
-     * @type {Integer}
      */
-    OutputBlockLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    OutputBlockLength : UInt32
+
 }

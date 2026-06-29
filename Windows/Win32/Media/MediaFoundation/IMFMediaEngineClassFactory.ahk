@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaEngine.ahk
-#Include .\IMFMediaTimeRange.ahk
-#Include .\IMFMediaError.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
+#Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
+#Import ".\IMFMediaError.ahk" { IMFMediaError }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates an instance of the Media Engine.
@@ -15,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineClassFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineClassFactory extends IUnknown {
     /**
      * The interface identifier for IMFMediaEngineClassFactory
      * @type {Guid}
      */
-    static IID => Guid("{4d645ace-26aa-4688-9be1-df3516990b93}")
+    static IID := Guid("{4d645ace-26aa-4688-9be1-df3516990b93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineClassFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateInstance  : IntPtr
+        CreateTimeRange : IntPtr
+        CreateError     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateInstance", "CreateTimeRange", "CreateError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineClassFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new instance of the Media Engine.
@@ -223,5 +234,29 @@ class IMFMediaEngineClassFactory extends IUnknown {
     CreateError() {
         result := ComCall(5, this, "ptr*", &ppError := 0, "HRESULT")
         return IMFMediaError(ppError)
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineClassFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.CreateTimeRange := CallbackCreate(GetMethod(implObj, "CreateTimeRange"), flags, 2)
+        this.vtbl.CreateError := CallbackCreate(GetMethod(implObj, "CreateError"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateInstance)
+        CallbackFree(this.vtbl.CreateTimeRange)
+        CallbackFree(this.vtbl.CreateError)
     }
 }

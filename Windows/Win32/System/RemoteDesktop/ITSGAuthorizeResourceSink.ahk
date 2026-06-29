@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a resource.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeresourcesink
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITSGAuthorizeResourceSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITSGAuthorizeResourceSink extends IUnknown {
     /**
      * The interface identifier for ITSGAuthorizeResourceSink
      * @type {Guid}
      */
-    static IID => Guid("{feddfcd4-fa12-4435-ae55-7ad1a9779af7}")
+    static IID := Guid("{feddfcd4-fa12-4435-ae55-7ad1a9779af7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSGAuthorizeResourceSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnChannelAuthorized : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnChannelAuthorized"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSGAuthorizeResourceSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a resource.
@@ -50,7 +59,27 @@ class ITSGAuthorizeResourceSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeresourcesink-onchannelauthorized
      */
     OnChannelAuthorized(hrIn, mainSessionId, subSessionId, allowedResourceNames, numAllowedResourceNames, failedResourceNames, numFailedResourceNames) {
-        result := ComCall(3, this, "int", hrIn, "ptr", mainSessionId, "int", subSessionId, "ptr", allowedResourceNames, "uint", numAllowedResourceNames, "ptr", failedResourceNames, "uint", numFailedResourceNames, "HRESULT")
+        result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, "int", subSessionId, BSTR.Ptr, allowedResourceNames, "uint", numAllowedResourceNames, BSTR.Ptr, failedResourceNames, "uint", numFailedResourceNames, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITSGAuthorizeResourceSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnChannelAuthorized := CallbackCreate(GetMethod(implObj, "OnChannelAuthorized"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnChannelAuthorized)
     }
 }

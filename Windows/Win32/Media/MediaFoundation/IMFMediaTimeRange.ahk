@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a list of time ranges, where each range is defined by a start and end time.
@@ -12,26 +14,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediatimerange
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaTimeRange extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaTimeRange extends IUnknown {
     /**
      * The interface identifier for IMFMediaTimeRange
      * @type {Guid}
      */
-    static IID => Guid("{db71a2fc-078a-414e-9df9-8c2531b0aa6c}")
+    static IID := Guid("{db71a2fc-078a-414e-9df9-8c2531b0aa6c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaTimeRange interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLength    : IntPtr
+        GetStart     : IntPtr
+        GetEnd       : IntPtr
+        ContainsTime : IntPtr
+        AddRange     : IntPtr
+        Clear        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLength", "GetStart", "GetEnd", "ContainsTime", "AddRange", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaTimeRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of time ranges contained in the object.
@@ -41,7 +55,7 @@ class IMFMediaTimeRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getlength
      */
     GetLength() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -85,7 +99,7 @@ class IMFMediaTimeRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-containstime
      */
     ContainsTime(time) {
-        result := ComCall(6, this, "double", time, "int")
+        result := ComCall(6, this, "double", time, BOOL)
         return result
     }
 
@@ -111,5 +125,35 @@ class IMFMediaTimeRange extends IUnknown {
     Clear() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaTimeRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 1)
+        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 3)
+        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 3)
+        this.vtbl.ContainsTime := CallbackCreate(GetMethod(implObj, "ContainsTime"), flags, 2)
+        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetStart)
+        CallbackFree(this.vtbl.GetEnd)
+        CallbackFree(this.vtbl.ContainsTime)
+        CallbackFree(this.vtbl.AddRange)
+        CallbackFree(this.vtbl.Clear)
     }
 }

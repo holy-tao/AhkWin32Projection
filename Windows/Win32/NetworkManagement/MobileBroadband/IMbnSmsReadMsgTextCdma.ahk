@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MBN_SMS_CDMA_ENCODING.ahk" { MBN_SMS_CDMA_ENCODING }
+#Import ".\MBN_SMS_CDMA_LANG.ahk" { MBN_SMS_CDMA_LANG }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_MSG_STATUS.ahk" { MBN_MSG_STATUS }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * A collection of properties that represent a CDMA format SMS message read from the device memory.
@@ -13,26 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsreadmsgtextcdma
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnSmsReadMsgTextCdma extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnSmsReadMsgTextCdma extends IUnknown {
     /**
      * The interface identifier for IMbnSmsReadMsgTextCdma
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2014-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2014-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnSmsReadMsgTextCdma interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Index            : IntPtr
+        get_Status           : IntPtr
+        get_Address          : IntPtr
+        get_Timestamp        : IntPtr
+        get_EncodingID       : IntPtr
+        get_LanguageID       : IntPtr
+        get_SizeInCharacters : IntPtr
+        get_Message          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Index", "get_Status", "get_Address", "get_Timestamp", "get_EncodingID", "get_LanguageID", "get_SizeInCharacters", "get_Message"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnSmsReadMsgTextCdma.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -126,8 +145,8 @@ class IMbnSmsReadMsgTextCdma extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_address
      */
     get_Address() {
-        _Address := BSTR()
-        result := ComCall(5, this, "ptr", _Address, "HRESULT")
+        _Address := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, _Address, "HRESULT")
         return _Address
     }
 
@@ -193,8 +212,8 @@ class IMbnSmsReadMsgTextCdma extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_timestamp
      */
     get_Timestamp() {
-        _Timestamp := BSTR()
-        result := ComCall(6, this, "ptr", _Timestamp, "HRESULT")
+        _Timestamp := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, _Timestamp, "HRESULT")
         return _Timestamp
     }
 
@@ -238,5 +257,39 @@ class IMbnSmsReadMsgTextCdma extends IUnknown {
     get_Message() {
         result := ComCall(10, this, "ptr*", &Message := 0, "HRESULT")
         return Message
+    }
+
+    Query(iid) {
+        if (IMbnSmsReadMsgTextCdma.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
+        this.vtbl.get_EncodingID := CallbackCreate(GetMethod(implObj, "get_EncodingID"), flags, 2)
+        this.vtbl.get_LanguageID := CallbackCreate(GetMethod(implObj, "get_LanguageID"), flags, 2)
+        this.vtbl.get_SizeInCharacters := CallbackCreate(GetMethod(implObj, "get_SizeInCharacters"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Index)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_Address)
+        CallbackFree(this.vtbl.get_Timestamp)
+        CallbackFree(this.vtbl.get_EncodingID)
+        CallbackFree(this.vtbl.get_LanguageID)
+        CallbackFree(this.vtbl.get_SizeInCharacters)
+        CallbackFree(this.vtbl.get_Message)
     }
 }

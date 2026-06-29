@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class READ_LIST extends Win32Struct {
-    static sizeof => 24
+export default struct READ_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    FileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    FileObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NumberOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IsImage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IsImage {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    List : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    List {
-        get {
-            if(!this.HasProp("__ListProxyArray"))
-                this.__ListProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
-            return this.__ListProxyArray
-        }
-    }
 }

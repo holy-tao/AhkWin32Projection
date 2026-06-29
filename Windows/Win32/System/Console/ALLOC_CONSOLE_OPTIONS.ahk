@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ALLOC_CONSOLE_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ALLOC_CONSOLE_MODE.ahk" { ALLOC_CONSOLE_MODE }
 
 /**
  * @namespace Windows.Win32.System.Console
  */
-class ALLOC_CONSOLE_OPTIONS extends Win32Struct {
-    static sizeof => 12
+export default struct ALLOC_CONSOLE_OPTIONS {
+    #StructPack 4
 
-    static packingSize => 4
+    mode : ALLOC_CONSOLE_MODE
 
-    /**
-     * @type {ALLOC_CONSOLE_MODE}
-     */
-    mode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    useShowWindow : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    useShowWindow {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    showWindow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    showWindow {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
 }

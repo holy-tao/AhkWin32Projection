@@ -1,11 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_UNICAST_ADDRESS_XP.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
-#Include ..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk
-#Include ..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk
-#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk" { NL_PREFIX_ORIGIN }
+#Import "..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk" { NL_SUFFIX_ORIGIN }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The IP_ADAPTER_UNICAST_ADDRESS_XP structure (iptypes.h) stores a single unicast IP address in a linked list of IP addresses for a particular adapter.
@@ -24,124 +22,71 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_unicast_address_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_UNICAST_ADDRESS_XP extends Win32Struct {
-    static sizeof => 56
+export default struct IP_ADAPTER_UNICAST_ADDRESS_XP {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Alignment : Int64
 
     /**
      * Type: <b>struct _IP_ADAPTER_UNICAST_ADDRESS*</b>
      * 
      * A pointer to the next IP adapter address structure in the list.
-     * @type {Pointer<IP_ADAPTER_UNICAST_ADDRESS_XP>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : IP_ADAPTER_UNICAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a></b>
      * 
      * The IP address for this unicast IP address entry. This member can be an IPv6 address or an IPv4 address.
-     * @type {SOCKET_ADDRESS}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKET_ADDRESS(16, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKET_ADDRESS
 
     /**
      * Type: <b>IP_PREFIX_ORIGIN</b>
      * 
      * The prefix or network part of IP the address. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ne-nldef-nl_prefix_origin">IP_PREFIX_ORIGIN</a> enumeration type defined in the <i>Iptypes.h</i> header file.
-     * @type {NL_PREFIX_ORIGIN}
      */
-    PrefixOrigin {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    PrefixOrigin : NL_PREFIX_ORIGIN
 
     /**
      * Type: <b>IP_SUFFIX_ORIGIN</b>
      * 
      * The suffix or host part of the IP address. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ne-nldef-nl_suffix_origin">IP_SUFFIX_ORIGIN</a> enumeration type defined in the <i>Iptypes.h</i> header file.
-     * @type {NL_SUFFIX_ORIGIN}
      */
-    SuffixOrigin {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    SuffixOrigin : NL_SUFFIX_ORIGIN
 
     /**
      * Type: <b>IP_DAD_STATE</b>
      * 
      * The duplicate address detection (DAD) state. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ne-nldef-nl_dad_state">IP_DAD_STATE</a> enumeration type defined in the <i>Iptypes.h</i> header file. 
      * Duplicate address detection is available for both IPv4 and IPv6 addresses.
-     * @type {NL_DAD_STATE}
      */
-    DadState {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    DadState : NL_DAD_STATE
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum lifetime, in seconds, that the IP address is valid. A value of 0xffffffff is considered to be infinite.
-     * @type {Integer}
      */
-    ValidLifetime {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ValidLifetime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The preferred lifetime, in seconds, that the IP address is valid. A value of 0xffffffff is considered to be infinite.
-     * @type {Integer}
      */
-    PreferredLifetime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PreferredLifetime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The lease lifetime, in seconds, that the IP address is valid.
-     * @type {Integer}
      */
-    LeaseLifetime {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    LeaseLifetime : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'Length', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Flags', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

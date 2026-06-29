@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the stages of a synchronization session.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_progress_stage
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SYNC_PROGRESS_STAGE extends Win32Enum {
+export default struct SYNC_PROGRESS_STAGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Changes are being detected on the source replica.

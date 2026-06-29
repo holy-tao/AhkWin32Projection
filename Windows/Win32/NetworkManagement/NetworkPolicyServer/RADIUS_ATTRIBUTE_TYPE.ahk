@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RADIUS_ATTRIBUTE_TYPE type enumerates the possible types for a RADIUS attribute.
@@ -17,7 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_attribute_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUS_ATTRIBUTE_TYPE extends Win32Enum {
+export default struct RADIUS_ATTRIBUTE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is equal to zero, and used as the null-terminator in any array of [RADIUS_ATTRIBUTE](/windows/win32/api/authif/ns-authif-radius_attribute) structures.

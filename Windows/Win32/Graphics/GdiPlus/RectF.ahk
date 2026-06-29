@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Creates a D2D1_RECT_F structure that contains the specified dimensions.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-rectf
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class RectF extends Win32Struct {
-    static sizeof => 16
+export default struct RectF {
+    #StructPack 4
 
-    static packingSize => 4
+    X : Float32
 
-    /**
-     * @type {Float}
-     */
-    X {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    Y : Float32
 
-    /**
-     * @type {Float}
-     */
-    Y {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Width : Float32
 
-    /**
-     * @type {Float}
-     */
-    Width {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Height : Float32
 
-    /**
-     * @type {Float}
-     */
-    Height {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
 }

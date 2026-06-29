@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The WNODE\_HEADER structure is a member of the EVENT\_TRACE\_PROPERTIES structure.
@@ -20,79 +20,22 @@
  * @see https://learn.microsoft.com/windows/win32/ETW/wnode-header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class WNODE_HEADER extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WNODE_HEADER {
+    #StructPack 8
 
     /**
      * Total size of memory allocated, in bytes, for the event tracing session properties. The size of memory must include the room for the [**EVENT\_TRACE\_PROPERTIES**](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties) structure plus the session name string and log file name string that follow the structure in memory.
-     * @type {Integer}
      */
-    BufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BufferSize : UInt32
 
     /**
      * Reserved for internal use.
-     * @type {Integer}
      */
-    ProviderId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProviderId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HistoricalContext {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HistoricalContext : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Linkage {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CountLost {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    KernelHandle {
-        get {
-            if(!this.HasProp("__KernelHandle"))
-                this.__KernelHandle := HANDLE(16, this)
-            return this.__KernelHandle
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TimeStamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    CountLost : UInt32
 
     /**
      * The GUID that you define for the session.
@@ -108,12 +51,8 @@ class WNODE_HEADER extends Win32Struct {
      * You cannot start more than one session with the same session GUID.
      * 
      * **Prior to Windows Vista:** You can start more than one session with the same session GUID.
-     * @type {Pointer}
      */
-    Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Guid : Guid
 
     /**
      * Clock resolution to use when logging the time stamp for each event. The default is Query performance counter (QPC).
@@ -141,19 +80,19 @@ class WNODE_HEADER extends Win32Struct {
      *  
      * 
      * **Windows 2000:** The **ClientContext** member is not supported.
-     * @type {Integer}
      */
-    ClientContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ClientContext : UInt32
 
     /**
      * Must contain **WNODE\_FLAG\_TRACED\_GUID** to indicate that the structure contains event tracing information.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+    Flags : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'Version', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'Linkage', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'KernelHandle', { type: HANDLE, offset: 16 })
+        DefineProp(this.Prototype, 'TimeStamp', { type: Int64, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

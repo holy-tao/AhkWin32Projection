@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DS_MANGLE_FOR enumeration is used to define whether a relative distinguished name is mangled (encoded) and in what form the mangling occurs.
  * @see https://learn.microsoft.com/windows/win32/api/dsparse/ne-dsparse-ds_mangle_for
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_MANGLE_FOR extends Win32Enum {
+export default struct DS_MANGLE_FOR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the relative distinguished name is  not mangled or that the type of mangling is 

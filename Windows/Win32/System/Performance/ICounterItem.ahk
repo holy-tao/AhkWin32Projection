@@ -1,38 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Performance
  */
-class ICounterItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICounterItem extends IUnknown {
     /**
      * The interface identifier for ICounterItem
      * @type {Guid}
      */
-    static IID => Guid("{771a9520-ee28-11ce-941e-008029004347}")
+    static IID := Guid("{771a9520-ee28-11ce-941e-008029004347}")
 
     /**
      * The class identifier for CounterItem
      * @type {Guid}
      */
-    static CLSID => Guid("{c4d2d8e0-d1dd-11ce-940f-008029004348}")
+    static CLSID := Guid("{c4d2d8e0-d1dd-11ce-940f-008029004348}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICounterItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Value       : IntPtr
+        put_Color       : IntPtr
+        get_Color       : IntPtr
+        put_Width       : IntPtr
+        get_Width       : IntPtr
+        put_LineStyle   : IntPtr
+        get_LineStyle   : IntPtr
+        put_ScaleFactor : IntPtr
+        get_ScaleFactor : IntPtr
+        get_Path        : IntPtr
+        GetValue        : IntPtr
+        GetStatistics   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Value", "put_Color", "get_Color", "put_Width", "get_Width", "put_LineStyle", "get_LineStyle", "put_ScaleFactor", "get_ScaleFactor", "get_Path", "GetValue", "GetStatistics"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICounterItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -170,17 +189,16 @@ class ICounterItem extends IUnknown {
      * @returns {BSTR} 
      */
     get_Path() {
-        pstrValue := BSTR()
-        result := ComCall(12, this, "ptr", pstrValue, "HRESULT")
+        pstrValue := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pstrValue, "HRESULT")
         return pstrValue
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
+     * 
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Value, _Status) {
         ValueMarshal := Value is VarRef ? "double*" : "ptr"
@@ -206,5 +224,47 @@ class ICounterItem extends IUnknown {
 
         result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, _StatusMarshal, _Status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICounterItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Color := CallbackCreate(GetMethod(implObj, "put_Color"), flags, 2)
+        this.vtbl.get_Color := CallbackCreate(GetMethod(implObj, "get_Color"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_LineStyle := CallbackCreate(GetMethod(implObj, "put_LineStyle"), flags, 2)
+        this.vtbl.get_LineStyle := CallbackCreate(GetMethod(implObj, "get_LineStyle"), flags, 2)
+        this.vtbl.put_ScaleFactor := CallbackCreate(GetMethod(implObj, "put_ScaleFactor"), flags, 2)
+        this.vtbl.get_ScaleFactor := CallbackCreate(GetMethod(implObj, "get_ScaleFactor"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Color)
+        CallbackFree(this.vtbl.get_Color)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_LineStyle)
+        CallbackFree(this.vtbl.get_LineStyle)
+        CallbackFree(this.vtbl.put_ScaleFactor)
+        CallbackFree(this.vtbl.get_ScaleFactor)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.GetStatistics)
     }
 }

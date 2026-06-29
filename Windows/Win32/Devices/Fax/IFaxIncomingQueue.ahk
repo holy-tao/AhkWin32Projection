@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxIncomingJobs.ahk
-#Include .\IFaxIncomingJob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxIncomingJobs.ahk" { IFaxIncomingJobs }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxIncomingJob.ahk" { IFaxIncomingJob }
 
 /**
  * The IFaxIncomingQueue interface is used by a fax client application to manage the inbound fax jobs (FaxIncomingJobs object) in the job queue. The object also includes a method to block inbound faxes from the fax job queue.
@@ -12,32 +15,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxincomingqueue
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxIncomingQueue extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxIncomingQueue extends IDispatch {
     /**
      * The interface identifier for IFaxIncomingQueue
      * @type {Guid}
      */
-    static IID => Guid("{902e64ef-8fd8-4b75-9725-6014df161545}")
+    static IID := Guid("{902e64ef-8fd8-4b75-9725-6014df161545}")
 
     /**
      * The class identifier for FaxIncomingQueue
      * @type {Guid}
      */
-    static CLSID => Guid("{69131717-f3f1-40e3-809d-a6cbf7bd85e5}")
+    static CLSID := Guid("{69131717-f3f1-40e3-809d-a6cbf7bd85e5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxIncomingQueue interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Blocked : IntPtr
+        put_Blocked : IntPtr
+        Refresh     : IntPtr
+        Save        : IntPtr
+        GetJobs     : IntPtr
+        GetJob      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Blocked", "put_Blocked", "Refresh", "Save", "GetJobs", "GetJob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxIncomingQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -55,7 +70,7 @@ class IFaxIncomingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-get_blocked
      */
     get_Blocked() {
-        result := ComCall(7, this, "short*", &pbBlocked := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbBlocked := 0, "HRESULT")
         return pbBlocked
     }
 
@@ -68,7 +83,7 @@ class IFaxIncomingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-put_blocked
      */
     put_Blocked(bBlocked) {
-        result := ComCall(8, this, "short", bBlocked, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, bBlocked, "HRESULT")
         return result
     }
 
@@ -129,7 +144,37 @@ class IFaxIncomingQueue extends IDispatch {
     GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(12, this, "ptr", bstrJobId, "ptr*", &pFaxIncomingJob := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrJobId, "ptr*", &pFaxIncomingJob := 0, "HRESULT")
         return IFaxIncomingJob(pFaxIncomingJob)
+    }
+
+    Query(iid) {
+        if (IFaxIncomingQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Blocked := CallbackCreate(GetMethod(implObj, "get_Blocked"), flags, 2)
+        this.vtbl.put_Blocked := CallbackCreate(GetMethod(implObj, "put_Blocked"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetJobs := CallbackCreate(GetMethod(implObj, "GetJobs"), flags, 2)
+        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Blocked)
+        CallbackFree(this.vtbl.put_Blocked)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetJobs)
+        CallbackFree(this.vtbl.GetJob)
     }
 }

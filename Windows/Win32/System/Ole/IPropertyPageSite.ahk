@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Provides the main features for a property page site object.
@@ -13,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipropertypagesite
  * @namespace Windows.Win32.System.Ole
  */
-class IPropertyPageSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyPageSite extends IUnknown {
     /**
      * The interface identifier for IPropertyPageSite
      * @type {Guid}
      */
-    static IID => Guid("{b196b28c-bab4-101a-b69c-00aa00341d07}")
+    static IID := Guid("{b196b28c-bab4-101a-b69c-00aa00341d07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyPageSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnStatusChange       : IntPtr
+        GetLocaleID          : IntPtr
+        GetPageContainer     : IntPtr
+        TranslateAccelerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnStatusChange", "GetLocaleID", "GetPageContainer", "TranslateAccelerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyPageSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs the frame that the property page managed by this site has changed its state, that is, one or more property values have been changed in the page. Property pages should call this method whenever changes occur in their dialog boxes.
@@ -112,7 +124,33 @@ class IPropertyPageSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-translateaccelerator
      */
     TranslateAccelerator(pMsg) {
-        result := ComCall(6, this, "ptr", pMsg, "HRESULT")
+        result := ComCall(6, this, MSG.Ptr, pMsg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyPageSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 2)
+        this.vtbl.GetLocaleID := CallbackCreate(GetMethod(implObj, "GetLocaleID"), flags, 2)
+        this.vtbl.GetPageContainer := CallbackCreate(GetMethod(implObj, "GetPageContainer"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnStatusChange)
+        CallbackFree(this.vtbl.GetLocaleID)
+        CallbackFree(this.vtbl.GetPageContainer)
+        CallbackFree(this.vtbl.TranslateAccelerator)
     }
 }

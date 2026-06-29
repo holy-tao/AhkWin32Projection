@@ -1,134 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WAN_GET_STATS extends Win32Struct {
-    static sizeof => 64
+export default struct NDIS_WAN_GET_STATS {
+    #StructPack 4
 
-    static packingSize => 4
+    LocalAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    LocalAddress {
-        get {
-            if(!this.HasProp("__LocalAddressProxyArray"))
-                this.__LocalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__LocalAddressProxyArray
-        }
-    }
+    BytesSent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesSent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BytesRcvd : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesRcvd {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    FramesSent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FramesSent {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FramesRcvd : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FramesRcvd {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    CRCErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CRCErrors {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TimeoutErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeoutErrors {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    AlignmentErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlignmentErrors {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SerialOverrunErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SerialOverrunErrors {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    FramingErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FramingErrors {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BufferOverrunErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferOverrunErrors {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    BytesTransmittedUncompressed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesTransmittedUncompressed {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BytesReceivedUncompressed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesReceivedUncompressed {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    BytesTransmittedCompressed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesTransmittedCompressed {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    BytesReceivedCompressed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesReceivedCompressed {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

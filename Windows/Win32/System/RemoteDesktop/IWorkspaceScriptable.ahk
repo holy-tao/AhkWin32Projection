@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable)
  * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nn-workspaceruntime-iworkspacescriptable
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWorkspaceScriptable extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWorkspaceScriptable extends IDispatch {
     /**
      * The interface identifier for IWorkspaceScriptable
      * @type {Guid}
      */
-    static IID => Guid("{efea49a2-dda5-429d-8f42-b23b92c4c347}")
+    static IID := Guid("{efea49a2-dda5-429d-8f42-b23b92c4c347}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWorkspaceScriptable interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        DisconnectWorkspace               : IntPtr
+        StartWorkspace                    : IntPtr
+        IsWorkspaceCredentialSpecified    : IntPtr
+        IsWorkspaceSSOEnabled             : IntPtr
+        ClearWorkspaceCredential          : IntPtr
+        OnAuthenticated                   : IntPtr
+        DisconnectWorkspaceByFriendlyName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DisconnectWorkspace", "StartWorkspace", "IsWorkspaceCredentialSpecified", "IsWorkspaceSSOEnabled", "ClearWorkspaceCredential", "OnAuthenticated", "DisconnectWorkspaceByFriendlyName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWorkspaceScriptable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Disconnects all existing connections associated with the specified connection ID.
@@ -38,7 +54,7 @@ class IWorkspaceScriptable extends IDispatch {
     DisconnectWorkspace(bstrWorkspaceId) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
 
-        result := ComCall(7, this, "ptr", bstrWorkspaceId, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrWorkspaceId, "HRESULT")
         return result
     }
 
@@ -59,7 +75,7 @@ class IWorkspaceScriptable extends IDispatch {
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
         bstrWorkspaceParams := bstrWorkspaceParams is String ? BSTR.Alloc(bstrWorkspaceParams).Value : bstrWorkspaceParams
 
-        result := ComCall(8, this, "ptr", bstrWorkspaceId, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrWorkspaceId, BSTR, bstrUserName, BSTR, bstrPassword, BSTR, bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +89,7 @@ class IWorkspaceScriptable extends IDispatch {
     IsWorkspaceCredentialSpecified(bstrWorkspaceId, bCountUnauthenticatedCredentials) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
 
-        result := ComCall(9, this, "ptr", bstrWorkspaceId, "short", bCountUnauthenticatedCredentials, "short*", &pbCredExist := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrWorkspaceId, VARIANT_BOOL, bCountUnauthenticatedCredentials, VARIANT_BOOL.Ptr, &pbCredExist := 0, "HRESULT")
         return pbCredExist
     }
 
@@ -83,7 +99,7 @@ class IWorkspaceScriptable extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacessoenabled
      */
     IsWorkspaceSSOEnabled() {
-        result := ComCall(10, this, "short*", &pbSSOEnabled := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pbSSOEnabled := 0, "HRESULT")
         return pbSSOEnabled
     }
 
@@ -98,7 +114,7 @@ class IWorkspaceScriptable extends IDispatch {
     ClearWorkspaceCredential(bstrWorkspaceId) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
 
-        result := ComCall(11, this, "ptr", bstrWorkspaceId, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrWorkspaceId, "HRESULT")
         return result
     }
 
@@ -113,7 +129,7 @@ class IWorkspaceScriptable extends IDispatch {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(12, this, "ptr", bstrWorkspaceId, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrWorkspaceId, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -126,7 +142,39 @@ class IWorkspaceScriptable extends IDispatch {
     DisconnectWorkspaceByFriendlyName(bstrWorkspaceFriendlyName) {
         bstrWorkspaceFriendlyName := bstrWorkspaceFriendlyName is String ? BSTR.Alloc(bstrWorkspaceFriendlyName).Value : bstrWorkspaceFriendlyName
 
-        result := ComCall(13, this, "ptr", bstrWorkspaceFriendlyName, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrWorkspaceFriendlyName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWorkspaceScriptable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DisconnectWorkspace := CallbackCreate(GetMethod(implObj, "DisconnectWorkspace"), flags, 2)
+        this.vtbl.StartWorkspace := CallbackCreate(GetMethod(implObj, "StartWorkspace"), flags, 7)
+        this.vtbl.IsWorkspaceCredentialSpecified := CallbackCreate(GetMethod(implObj, "IsWorkspaceCredentialSpecified"), flags, 4)
+        this.vtbl.IsWorkspaceSSOEnabled := CallbackCreate(GetMethod(implObj, "IsWorkspaceSSOEnabled"), flags, 2)
+        this.vtbl.ClearWorkspaceCredential := CallbackCreate(GetMethod(implObj, "ClearWorkspaceCredential"), flags, 2)
+        this.vtbl.OnAuthenticated := CallbackCreate(GetMethod(implObj, "OnAuthenticated"), flags, 3)
+        this.vtbl.DisconnectWorkspaceByFriendlyName := CallbackCreate(GetMethod(implObj, "DisconnectWorkspaceByFriendlyName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DisconnectWorkspace)
+        CallbackFree(this.vtbl.StartWorkspace)
+        CallbackFree(this.vtbl.IsWorkspaceCredentialSpecified)
+        CallbackFree(this.vtbl.IsWorkspaceSSOEnabled)
+        CallbackFree(this.vtbl.ClearWorkspaceCredential)
+        CallbackFree(this.vtbl.OnAuthenticated)
+        CallbackFree(this.vtbl.DisconnectWorkspaceByFriendlyName)
     }
 }

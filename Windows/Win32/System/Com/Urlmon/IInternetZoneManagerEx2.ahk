@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IInternetZoneManagerEx.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
+#Import ".\IInternetZoneManagerEx.ahk" { IInternetZoneManagerEx }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
-
-    static sizeof => A_PtrSize
+export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     /**
      * The interface identifier for IInternetZoneManagerEx2
      * @type {Guid}
      */
-    static IID => Guid("{edc17559-dd5d-4846-8eef-8becba5a4abf}")
+    static IID := Guid("{edc17559-dd5d-4846-8eef-8becba5a4abf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetZoneManagerEx2 interfaces
+    */
+    struct Vtbl extends IInternetZoneManagerEx.Vtbl {
+        GetZoneAttributesEx  : IntPtr
+        GetZoneSecurityState : IntPtr
+        GetIESecurityState   : IntPtr
+        FixUnsecureSettings  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetZoneAttributesEx", "GetZoneSecurityState", "GetIESecurityState", "FixUnsecureSettings"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetZoneManagerEx2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,7 +48,7 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
      * @returns {HRESULT} 
      */
     GetZoneAttributesEx(dwZone, pZoneAttributes, dwFlags) {
-        result := ComCall(17, this, "uint", dwZone, "ptr", pZoneAttributes, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, "uint", dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -51,7 +64,7 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
         pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
+        result := ComCall(18, this, "uint", dwZoneIndex, BOOL, fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
         return result
     }
 
@@ -67,7 +80,7 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
         pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "int", fNoCache, "HRESULT")
+        result := ComCall(19, this, BOOL, fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, BOOL, fNoCache, "HRESULT")
         return result
     }
 
@@ -78,5 +91,31 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     FixUnsecureSettings() {
         result := ComCall(20, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetZoneManagerEx2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetZoneAttributesEx := CallbackCreate(GetMethod(implObj, "GetZoneAttributesEx"), flags, 4)
+        this.vtbl.GetZoneSecurityState := CallbackCreate(GetMethod(implObj, "GetZoneSecurityState"), flags, 5)
+        this.vtbl.GetIESecurityState := CallbackCreate(GetMethod(implObj, "GetIESecurityState"), flags, 5)
+        this.vtbl.FixUnsecureSettings := CallbackCreate(GetMethod(implObj, "FixUnsecureSettings"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetZoneAttributesEx)
+        CallbackFree(this.vtbl.GetZoneSecurityState)
+        CallbackFree(this.vtbl.GetIESecurityState)
+        CallbackFree(this.vtbl.FixUnsecureSettings)
     }
 }

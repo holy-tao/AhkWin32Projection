@@ -1,236 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FLT_FILESYSTEM_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FLT_FILESYSTEM_TYPE.ahk" { FLT_FILESYSTEM_TYPE }
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
  */
-class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct INSTANCE_AGGREGATE_STANDARD_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Type_e__Union extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 4
+    struct _Type {
 
-        class _MiniFilter extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 4
+        struct _MiniFilter {
+            Flags : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Flags {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            FrameID : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            FrameID {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            VolumeFileSystemType : FLT_FILESYSTEM_TYPE
 
-            /**
-             * @type {FLT_FILESYSTEM_TYPE}
-             */
-            VolumeFileSystemType {
-                get => NumGet(this, 8, "int")
-                set => NumPut("int", value, this, 8)
-            }
+            InstanceNameLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            InstanceNameLength {
-                get => NumGet(this, 12, "ushort")
-                set => NumPut("ushort", value, this, 12)
-            }
+            InstanceNameBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            InstanceNameBufferOffset {
-                get => NumGet(this, 14, "ushort")
-                set => NumPut("ushort", value, this, 14)
-            }
+            AltitudeLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            AltitudeLength {
-                get => NumGet(this, 16, "ushort")
-                set => NumPut("ushort", value, this, 16)
-            }
+            AltitudeBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            AltitudeBufferOffset {
-                get => NumGet(this, 18, "ushort")
-                set => NumPut("ushort", value, this, 18)
-            }
+            VolumeNameLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            VolumeNameLength {
-                get => NumGet(this, 20, "ushort")
-                set => NumPut("ushort", value, this, 20)
-            }
+            VolumeNameBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            VolumeNameBufferOffset {
-                get => NumGet(this, 22, "ushort")
-                set => NumPut("ushort", value, this, 22)
-            }
+            FilterNameLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            FilterNameLength {
-                get => NumGet(this, 24, "ushort")
-                set => NumPut("ushort", value, this, 24)
-            }
+            FilterNameBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            FilterNameBufferOffset {
-                get => NumGet(this, 26, "ushort")
-                set => NumPut("ushort", value, this, 26)
-            }
+            SupportedFeatures : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SupportedFeatures {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
-            }
         }
 
-        class _LegacyFilter extends Win32Struct {
-            static sizeof => 20
-            static packingSize => 4
+        struct _LegacyFilter {
+            Flags : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Flags {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            AltitudeLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            AltitudeLength {
-                get => NumGet(this, 4, "ushort")
-                set => NumPut("ushort", value, this, 4)
-            }
+            AltitudeBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            AltitudeBufferOffset {
-                get => NumGet(this, 6, "ushort")
-                set => NumPut("ushort", value, this, 6)
-            }
+            VolumeNameLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            VolumeNameLength {
-                get => NumGet(this, 8, "ushort")
-                set => NumPut("ushort", value, this, 8)
-            }
+            VolumeNameBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            VolumeNameBufferOffset {
-                get => NumGet(this, 10, "ushort")
-                set => NumPut("ushort", value, this, 10)
-            }
+            FilterNameLength : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            FilterNameLength {
-                get => NumGet(this, 12, "ushort")
-                set => NumPut("ushort", value, this, 12)
-            }
+            FilterNameBufferOffset : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            FilterNameBufferOffset {
-                get => NumGet(this, 14, "ushort")
-                set => NumPut("ushort", value, this, 14)
-            }
+            SupportedFeatures : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SupportedFeatures {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
         }
 
-        /**
-         * @type {_MiniFilter}
-         */
-        MiniFilter {
-            get {
-                if(!this.HasProp("__MiniFilter"))
-                    this.__MiniFilter := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type_e__Union._MiniFilter(0, this)
-                return this.__MiniFilter
-            }
-        }
+        MiniFilter : INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type._MiniFilter
 
-        /**
-         * @type {_LegacyFilter}
-         */
-        LegacyFilter {
-            get {
-                if(!this.HasProp("__LegacyFilter"))
-                    this.__LegacyFilter := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type_e__Union._LegacyFilter(0, this)
-                return this.__LegacyFilter
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'LegacyFilter', { type: INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type._LegacyFilter, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {_Type_e__Union}
-     */
-    Type {
-        get {
-            if(!this.HasProp("__Type"))
-                this.__Type := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type_e__Union(8, this)
-            return this.__Type
-        }
-    }
+    Type : INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type
+
 }

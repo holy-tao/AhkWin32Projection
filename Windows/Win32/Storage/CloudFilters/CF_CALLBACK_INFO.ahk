@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_CONNECTION_KEY.ahk
-#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
-#Include .\CF_PROCESS_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_CONNECTION_KEY.ahk" { CF_CONNECTION_KEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CF_PROCESS_INFO.ahk" { CF_PROCESS_INFO }
+#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 
 /**
  * Contains common callback information.
@@ -17,182 +17,102 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_info
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_CALLBACK_INFO extends Win32Struct {
-    static sizeof => 152
-
-    static packingSize => 8
+export default struct CF_CALLBACK_INFO {
+    #StructPack 8
 
     /**
      * The size of **CF_CALLBACK_INFO**.
-     * @type {Integer}
      */
-    StructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StructSize : UInt32
 
     /**
      * An opaque handle created by [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md) for a sync root managed by the sync provider. *ConnectionKey* is returned as a convenience so the sync provider doesn't need to manually track it.
-     * @type {CF_CONNECTION_KEY}
      */
-    ConnectionKey {
-        get {
-            if(!this.HasProp("__ConnectionKey"))
-                this.__ConnectionKey := CF_CONNECTION_KEY(8, this)
-            return this.__ConnectionKey
-        }
-    }
+    ConnectionKey : CF_CONNECTION_KEY
 
     /**
      * Points to an opaque blob that the sync provider provides at the sync root connect time. *CallbackContext* is returned as a convenience so the sync provider doesn't need to manually track it.
-     * @type {Pointer<Void>}
      */
-    CallbackContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CallbackContext : IntPtr
 
     /**
      * GUID name of the volume on which the placeholder file/directory to be serviced resides. It is in the form: “\\?\Volume{GUID}”.
-     * @type {PWSTR}
      */
-    VolumeGuidName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    VolumeGuidName : PWSTR
 
     /**
      * DOS drive letter of the volume in the form of "X:" where **X** is the drive letter.
-     * @type {PWSTR}
      */
-    VolumeDosName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    VolumeDosName : PWSTR
 
     /**
      * The serial number of the volume.
-     * @type {Integer}
      */
-    VolumeSerialNumber {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    VolumeSerialNumber : UInt32
 
     /**
      * A 64 bit file system maintained, volume-wide unique ID of the sync root under which the placeholder file or directory to be serviced resides.
-     * @type {Integer}
      */
-    SyncRootFileId {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    SyncRootFileId : Int64
 
     /**
      * Points to the opaque blob provided by the sync provider at the sync root registration time.
-     * @type {Pointer<Void>}
      */
-    SyncRootIdentity {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    SyncRootIdentity : IntPtr
 
     /**
      * The length, in bytes, of the *SyncRootIdentity*.
-     * @type {Integer}
      */
-    SyncRootIdentityLength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SyncRootIdentityLength : UInt32
 
     /**
      * A 64 bit file system maintained, volume-wide unique ID of the placeholder file or directory to be serviced.
-     * @type {Integer}
      */
-    FileId {
-        get => NumGet(this, 72, "int64")
-        set => NumPut("int64", value, this, 72)
-    }
+    FileId : Int64
 
     /**
      * The logical size of the placeholder file to be serviced. It is always `0` if the subject of the callback is a directory.
-     * @type {Integer}
      */
-    FileSize {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
-    }
+    FileSize : Int64
 
     /**
      * Points to the opaque blob that the sync provider provides at the placeholder creation/conversion/update time.
-     * @type {Pointer<Void>}
      */
-    FileIdentity {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    FileIdentity : IntPtr
 
     /**
      * The length, in bytes, of *FileIdentity*.
-     * @type {Integer}
      */
-    FileIdentityLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    FileIdentityLength : UInt32
 
     /**
      * The absolute path of the placeholder file or directory to be serviced on the volume identified by VolumeGuidName/VolumeDosName. It starts from the root directory of the volume. See the [Remarks](#-remarks) section for more details.
-     * @type {PWSTR}
      */
-    NormalizedPath {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    NormalizedPath : PWSTR
 
     /**
      * An opaque handle to the placeholder file/directory to be serviced. The sync provider must pass it back to the [CfExecute](nf-cfapi-cfexecute.md) call in order to perform the desired operation on the file/directory.
-     * @type {Integer}
      */
-    TransferKey {
-        get => NumGet(this, 112, "int64")
-        set => NumPut("int64", value, this, 112)
-    }
+    TransferKey : Int64
 
     /**
      * A numeric scale given to the sync provider to describe the relative priority of one fetch compared to another fetch, in order to provide the most responsive experience to the user. The values range from `0` (lowest possible priority) to `15` (highest possible priority), but otherwise the values have no specific meaning. The filter may adjust how it chooses priority hints according to conditions. The sync provider is free to use the hint however it chooses.
-     * @type {Integer}
      */
-    PriorityHint {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
-    }
+    PriorityHint : Int8
 
     /**
      * An optional correlation vector.
-     * @type {Pointer<CORRELATION_VECTOR>}
      */
-    CorrelationVector {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    CorrelationVector : CORRELATION_VECTOR.Ptr
 
     /**
      * Points to a [CF_PROCESS_INFO](ns-cfapi-cf_process_info.md) structure that contains the information about the user process that triggers this callback. It is present only if the sync provider specifies **CF_CONNECT_FLAG_REQUIRE_PROCESS_INFO** at the sync root connect time.
-     * @type {Pointer<CF_PROCESS_INFO>}
      */
-    ProcessInfo {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ProcessInfo : CF_PROCESS_INFO.Ptr
 
     /**
      * An opaque id that uniquely identifies a cloud file operation on a particular cloud file as indicated by *TransferKey*. Sync providers don’t need to interpret this field. The only requirement on a sync provider is to transfer it as-is to [CF_OPERATION_INFO](ns-cfapi-cf_operation_info.md).
-     * @type {Integer}
      */
-    RequestKey {
-        get => NumGet(this, 144, "int64")
-        set => NumPut("int64", value, this, 144)
-    }
+    RequestKey : Int64
+
 }

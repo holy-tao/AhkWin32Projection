@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class VLAN_TAG extends Win32Struct {
-    static sizeof => 4
+export default struct VLAN_TAG {
+    #StructPack 2
 
-    static packingSize => 2
+    Tag : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - VID
-     * - CFI
-     * - User_Priority
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -52,12 +32,10 @@ class VLAN_TAG extends Win32Struct {
         get => (this._bitfield >> 13) & 0x7
         set => this._bitfield := ((value & 0x7) << 13) | (this._bitfield & ~(0x7 << 13))
     }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int16, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

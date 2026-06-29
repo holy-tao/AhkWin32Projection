@@ -1,49 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOD_DESFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOD_DESFLAGS.ahk" { IOD_DESFLAGS }
 
 /**
  * The IO_DES structure is used for specifying either a resource list or a resource requirements list that describes I/O port usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-io_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class IO_DES extends Win32Struct {
-    static sizeof => 32
+export default struct IO_DES {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    IOD_Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IOD_Count : UInt32
 
     /**
      * Must be set to the constant value <b>IOType_Range</b>.
-     * @type {Integer}
      */
-    IOD_Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    IOD_Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IOD_Alloc_Base {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IOD_Alloc_Base : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IOD_Alloc_End {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    IOD_Alloc_End : Int64
 
     /**
      * One bit flag from <i>each</i> of the flag sets described in the following table.
@@ -157,10 +132,7 @@ class IO_DES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IOD_DESFLAGS}
      */
-    IOD_DesFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    IOD_DesFlags : IOD_DESFLAGS
+
 }

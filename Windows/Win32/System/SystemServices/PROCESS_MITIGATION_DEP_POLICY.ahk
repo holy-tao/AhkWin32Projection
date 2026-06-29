@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains process mitigation policy settings for data execution prevention (DEP).
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_dep_policy
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESS_MITIGATION_DEP_POLICY extends Win32Struct {
-    static sizeof => 8
+export default struct PROCESS_MITIGATION_DEP_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Enable
-     * - DisableAtlThunkEmulation
-     * - ReservedFlags
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -54,13 +35,13 @@ class PROCESS_MITIGATION_DEP_POLICY extends Win32Struct {
         get => (this._bitfield >> 2) & 0x3FFFFFFF
         set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
-
     /**
      * DEP is permanently enabled and cannot be disabled if this field is set to TRUE.
-     * @type {BOOLEAN}
      */
-    Permanent {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    Permanent : BOOLEAN
+
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

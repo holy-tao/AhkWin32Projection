@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WIA_PATCH_CODE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WIA_PATCH_CODE_INFO.ahk" { WIA_PATCH_CODE_INFO }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_PATCH_CODES extends Win32Struct {
-    static sizeof => 20
+export default struct WIA_PATCH_CODES {
+    #StructPack 4
 
-    static packingSize => 4
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PatchCodes : WIA_PATCH_CODE_INFO[1]
 
-    /**
-     * @type {WIA_PATCH_CODE_INFO}
-     */
-    PatchCodes {
-        get {
-            if(!this.HasProp("__PatchCodesProxyArray"))
-                this.__PatchCodesProxyArray := Win32FixedArray(this.ptr + 16, 1, WIA_PATCH_CODE_INFO, "")
-            return this.__PatchCodesProxyArray
-        }
-    }
 }

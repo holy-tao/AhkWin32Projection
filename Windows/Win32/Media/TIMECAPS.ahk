@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TIMECAPS structure contains information about the resolution of the timer.
  * @see https://learn.microsoft.com/windows/win32/api/timeapi/ns-timeapi-timecaps
  * @namespace Windows.Win32.Media
  */
-class TIMECAPS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct TIMECAPS {
+    #StructPack 4
 
     /**
      * The minimum supported resolution, in milliseconds.
-     * @type {Integer}
      */
-    wPeriodMin {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wPeriodMin : UInt32
 
     /**
      * The maximum supported resolution, in milliseconds.
-     * @type {Integer}
      */
-    wPeriodMax {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wPeriodMax : UInt32
+
 }

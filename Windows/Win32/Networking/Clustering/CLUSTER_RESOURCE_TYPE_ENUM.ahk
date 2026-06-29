@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSTER_RESOURCE_TYPE_ENUM enumerations (msclus.h) describes the type of cluster object being enumerated by two specific functions.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_type_enum
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_RESOURCE_TYPE_ENUM extends Win32Enum {
+export default struct CLUSTER_RESOURCE_TYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The object is a node that can be a possible owner of the resource type.

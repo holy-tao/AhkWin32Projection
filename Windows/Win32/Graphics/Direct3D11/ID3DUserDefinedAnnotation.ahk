@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ID3DUserDefinedAnnotation interface enables an application to describe conceptual sections and markers within the application's code flow.
@@ -20,26 +22,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3duserdefinedannotation
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3DUserDefinedAnnotation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3DUserDefinedAnnotation extends IUnknown {
     /**
      * The interface identifier for ID3DUserDefinedAnnotation
      * @type {Guid}
      */
-    static IID => Guid("{b2daad8b-03d4-4dbf-95eb-32ab4b63d0ab}")
+    static IID := Guid("{b2daad8b-03d4-4dbf-95eb-32ab4b63d0ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3DUserDefinedAnnotation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginEvent : IntPtr
+        EndEvent   : IntPtr
+        SetMarker  : IntPtr
+        GetStatus  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginEvent", "EndEvent", "SetMarker", "GetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3DUserDefinedAnnotation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Marks the beginning of a section of event code.
@@ -59,7 +71,7 @@ class ID3DUserDefinedAnnotation extends IUnknown {
     BeginEvent(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(3, this, "ptr", Name, "int")
+        result := ComCall(3, this, "ptr", Name, Int32)
         return result
     }
 
@@ -77,7 +89,7 @@ class ID3DUserDefinedAnnotation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-endevent
      */
     EndEvent() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, Int32)
         return result
     }
 
@@ -106,7 +118,33 @@ class ID3DUserDefinedAnnotation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-getstatus
      */
     GetStatus() {
-        result := ComCall(6, this, "int")
+        result := ComCall(6, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (ID3DUserDefinedAnnotation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 2)
+        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginEvent)
+        CallbackFree(this.vtbl.EndEvent)
+        CallbackFree(this.vtbl.SetMarker)
+        CallbackFree(this.vtbl.GetStatus)
     }
 }

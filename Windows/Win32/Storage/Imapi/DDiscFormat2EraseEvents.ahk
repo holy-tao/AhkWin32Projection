@@ -1,39 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implement this interface to receive notifications of the current erase operation.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-ddiscformat2eraseevents
  * @namespace Windows.Win32.Storage.Imapi
  */
-class DDiscFormat2EraseEvents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct DDiscFormat2EraseEvents extends IDispatch {
     /**
      * The interface identifier for DDiscFormat2EraseEvents
      * @type {Guid}
      */
-    static IID => Guid("{2735413a-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{2735413a-7f64-5b0f-8f00-5d77afbe261e}")
 
     /**
      * The class identifier for DDiscFormat2EraseEvents
      * @type {Guid}
      */
-    static CLSID => Guid("{2735413a-7f64-5b0f-8f00-5d77afbe261e}")
+    static CLSID := Guid("{2735413a-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for DDiscFormat2EraseEvents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Update : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Update"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := DDiscFormat2EraseEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Implement this method to receive progress notification of the current erase operation.
@@ -54,5 +62,25 @@ class DDiscFormat2EraseEvents extends IDispatch {
     Update(_object, elapsedSeconds, estimatedTotalSeconds) {
         result := ComCall(7, this, "ptr", _object, "int", elapsedSeconds, "int", estimatedTotalSeconds, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (DDiscFormat2EraseEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Update)
     }
 }

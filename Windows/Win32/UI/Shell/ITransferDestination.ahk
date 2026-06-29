@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create a destination Shell item for a copy or move operation. This interface is provided to allow more control over file operations by providing an ITransferDestination::Advise method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransferdestination
  * @namespace Windows.Win32.UI.Shell
  */
-class ITransferDestination extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITransferDestination extends IUnknown {
     /**
      * The interface identifier for ITransferDestination
      * @type {Guid}
      */
-    static IID => Guid("{48addd32-3ca5-4124-abe3-b5a72531b207}")
+    static IID := Guid("{48addd32-3ca5-4124-abe3-b5a72531b207}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransferDestination interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Advise     : IntPtr
+        Unadvise   : IntPtr
+        CreateItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Advise", "Unadvise", "CreateItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransferDestination.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets up an advisory connection for notifications on the status of file operations. (ITransferDestination.Advise)
@@ -142,7 +154,31 @@ class ITransferDestination extends IUnknown {
         ppvItemMarshal := ppvItem is VarRef ? "ptr*" : "ptr"
         ppvResourcesMarshal := ppvResources is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszName, "uint", dwAttributes, "uint", ullSize, "uint", flags, "ptr", riidItem, ppvItemMarshal, ppvItem, "ptr", riidResources, ppvResourcesMarshal, ppvResources, "HRESULT")
+        result := ComCall(5, this, "ptr", pszName, "uint", dwAttributes, "uint", ullSize, "uint", flags, Guid.Ptr, riidItem, ppvItemMarshal, ppvItem, Guid.Ptr, riidResources, ppvResourcesMarshal, ppvResources, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITransferDestination.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.CreateItem := CallbackCreate(GetMethod(implObj, "CreateItem"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.CreateItem)
     }
 }

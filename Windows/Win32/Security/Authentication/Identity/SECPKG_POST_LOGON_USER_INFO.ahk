@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_POST_LOGON_USER_INFO extends Win32Struct {
-    static sizeof => 20
+export default struct SECPKG_POST_LOGON_USER_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
-    }
+    LinkedLogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LinkedLogonId {
-        get {
-            if(!this.HasProp("__LinkedLogonId"))
-                this.__LinkedLogonId := LUID(12, this)
-            return this.__LinkedLogonId
-        }
-    }
 }

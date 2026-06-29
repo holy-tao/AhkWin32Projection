@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\EMPTY_VOLUME_CACHE_FLAGS.ahk" { EMPTY_VOLUME_CACHE_FLAGS }
+#Import ".\IEmptyVolumeCacheCallBack.ahk" { IEmptyVolumeCacheCallBack }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by the disk cleanup manager to communicate with a disk cleanup handler. Exposes methods that enable the manager to request information from a handler, and notify it of events such as the start of a scan or purge.
@@ -10,26 +16,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nn-emptyvc-iemptyvolumecache
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  */
-class IEmptyVolumeCache extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEmptyVolumeCache extends IUnknown {
     /**
      * The interface identifier for IEmptyVolumeCache
      * @type {Guid}
      */
-    static IID => Guid("{8fce5227-04da-11d1-a004-00805f8abe06}")
+    static IID := Guid("{8fce5227-04da-11d1-a004-00805f8abe06}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEmptyVolumeCache interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize     : IntPtr
+        GetSpaceUsed   : IntPtr
+        Purge          : IntPtr
+        ShowProperties : IntPtr
+        Deactivate     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetSpaceUsed", "Purge", "ShowProperties", "Deactivate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEmptyVolumeCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the disk cleanup handler, based on the information stored under the specified registry key.
@@ -109,14 +126,13 @@ class IEmptyVolumeCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-initialize
      */
     Initialize(hkRegKey, pcwszVolume, ppwszDisplayName, ppwszDescription, pdwFlags) {
-        hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
 
         ppwszDisplayNameMarshal := ppwszDisplayName is VarRef ? "ptr*" : "ptr"
         ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hkRegKey, "ptr", pcwszVolume, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(3, this, HKEY, hkRegKey, "ptr", pcwszVolume, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -233,9 +249,7 @@ class IEmptyVolumeCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-showproperties
      */
     ShowProperties(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -251,5 +265,33 @@ class IEmptyVolumeCache extends IUnknown {
     Deactivate() {
         result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
+    }
+
+    Query(iid) {
+        if (IEmptyVolumeCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.GetSpaceUsed := CallbackCreate(GetMethod(implObj, "GetSpaceUsed"), flags, 3)
+        this.vtbl.Purge := CallbackCreate(GetMethod(implObj, "Purge"), flags, 3)
+        this.vtbl.ShowProperties := CallbackCreate(GetMethod(implObj, "ShowProperties"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetSpaceUsed)
+        CallbackFree(this.vtbl.Purge)
+        CallbackFree(this.vtbl.ShowProperties)
+        CallbackFree(this.vtbl.Deactivate)
     }
 }

@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEntity.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEntity.ahk" { IEntity }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for retrieving information about a schema property.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-irelationship
  * @namespace Windows.Win32.System.Search
  */
-class IRelationship extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRelationship extends IUnknown {
     /**
      * The interface identifier for IRelationship
      * @type {Guid}
      */
-    static IID => Guid("{2769280b-5108-498c-9c7f-a51239b63147}")
+    static IID := Guid("{2769280b-5108-498c-9c7f-a51239b63147}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRelationship interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Name          : IntPtr
+        IsReal        : IntPtr
+        Destination   : IntPtr
+        MetaData      : IntPtr
+        DefaultPhrase : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Name", "IsReal", "Destination", "MetaData", "DefaultPhrase"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRelationship.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the name of the relationship.
@@ -38,7 +52,7 @@ class IRelationship extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-name
      */
     Name() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -54,7 +68,7 @@ class IRelationship extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-isreal
      */
     IsReal() {
-        result := ComCall(4, this, "int*", &pIsReal := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pIsReal := 0, "HRESULT")
         return pIsReal
     }
 
@@ -81,7 +95,7 @@ class IRelationship extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-metadata
      */
     MetaData(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, "ptr*", &pMetaData := 0, "HRESULT")
         return pMetaData
     }
 
@@ -93,7 +107,35 @@ class IRelationship extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-defaultphrase
      */
     DefaultPhrase() {
-        result := ComCall(7, this, "ptr*", &ppszPhrase := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppszPhrase := 0, "HRESULT")
         return ppszPhrase
+    }
+
+    Query(iid) {
+        if (IRelationship.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
+        this.vtbl.IsReal := CallbackCreate(GetMethod(implObj, "IsReal"), flags, 2)
+        this.vtbl.Destination := CallbackCreate(GetMethod(implObj, "Destination"), flags, 2)
+        this.vtbl.MetaData := CallbackCreate(GetMethod(implObj, "MetaData"), flags, 3)
+        this.vtbl.DefaultPhrase := CallbackCreate(GetMethod(implObj, "DefaultPhrase"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Name)
+        CallbackFree(this.vtbl.IsReal)
+        CallbackFree(this.vtbl.Destination)
+        CallbackFree(this.vtbl.MetaData)
+        CallbackFree(this.vtbl.DefaultPhrase)
     }
 }

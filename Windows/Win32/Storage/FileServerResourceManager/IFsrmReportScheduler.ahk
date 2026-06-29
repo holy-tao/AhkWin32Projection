@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to manage scheduled tasks for report jobs and file management jobs.
@@ -30,32 +33,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreportscheduler
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmReportScheduler extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmReportScheduler extends IDispatch {
     /**
      * The interface identifier for IFsrmReportScheduler
      * @type {Guid}
      */
-    static IID => Guid("{6879caf9-6617-4484-8719-71c3d8645f94}")
+    static IID := Guid("{6879caf9-6617-4484-8719-71c3d8645f94}")
 
     /**
      * The class identifier for FsrmReportScheduler
      * @type {Guid}
      */
-    static CLSID => Guid("{ea25f1b8-1b8d-4290-8ee8-e17c12c2fe20}")
+    static CLSID := Guid("{ea25f1b8-1b8d-4290-8ee8-e17c12c2fe20}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmReportScheduler interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        VerifyNamespaces   : IntPtr
+        CreateScheduleTask : IntPtr
+        ModifyScheduleTask : IntPtr
+        DeleteScheduleTask : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["VerifyNamespaces", "CreateScheduleTask", "ModifyScheduleTask", "DeleteScheduleTask"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmReportScheduler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Verifies that the specified local directory paths that are used as the source for the reports are valid.
@@ -81,7 +94,7 @@ class IFsrmReportScheduler extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces
      */
     VerifyNamespaces(namespacesSafeArray) {
-        result := ComCall(7, this, "ptr", namespacesSafeArray, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, namespacesSafeArray, "HRESULT")
         return result
     }
 
@@ -122,7 +135,7 @@ class IFsrmReportScheduler extends IDispatch {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
         serializedTask := serializedTask is String ? BSTR.Alloc(serializedTask).Value : serializedTask
 
-        result := ComCall(8, this, "ptr", taskName, "ptr", namespacesSafeArray, "ptr", serializedTask, "HRESULT")
+        result := ComCall(8, this, BSTR, taskName, VARIANT.Ptr, namespacesSafeArray, BSTR, serializedTask, "HRESULT")
         return result
     }
 
@@ -148,7 +161,7 @@ class IFsrmReportScheduler extends IDispatch {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
         serializedTask := serializedTask is String ? BSTR.Alloc(serializedTask).Value : serializedTask
 
-        result := ComCall(9, this, "ptr", taskName, "ptr", namespacesSafeArray, "ptr", serializedTask, "HRESULT")
+        result := ComCall(9, this, BSTR, taskName, VARIANT.Ptr, namespacesSafeArray, BSTR, serializedTask, "HRESULT")
         return result
     }
 
@@ -162,7 +175,33 @@ class IFsrmReportScheduler extends IDispatch {
     DeleteScheduleTask(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
 
-        result := ComCall(10, this, "ptr", taskName, "HRESULT")
+        result := ComCall(10, this, BSTR, taskName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmReportScheduler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.VerifyNamespaces := CallbackCreate(GetMethod(implObj, "VerifyNamespaces"), flags, 2)
+        this.vtbl.CreateScheduleTask := CallbackCreate(GetMethod(implObj, "CreateScheduleTask"), flags, 4)
+        this.vtbl.ModifyScheduleTask := CallbackCreate(GetMethod(implObj, "ModifyScheduleTask"), flags, 4)
+        this.vtbl.DeleteScheduleTask := CallbackCreate(GetMethod(implObj, "DeleteScheduleTask"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.VerifyNamespaces)
+        CallbackFree(this.vtbl.CreateScheduleTask)
+        CallbackFree(this.vtbl.ModifyScheduleTask)
+        CallbackFree(this.vtbl.DeleteScheduleTask)
     }
 }

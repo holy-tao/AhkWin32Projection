@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IClockVectorElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNC_TIME.ahk" { SYNC_TIME }
+#Import ".\IClockVectorElement.ahk" { IClockVectorElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a clock vector element that contains FeedSync information.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ifeedclockvectorelement
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IFeedClockVectorElement extends IClockVectorElement {
-
-    static sizeof => A_PtrSize
+export default struct IFeedClockVectorElement extends IClockVectorElement {
     /**
      * The interface identifier for IFeedClockVectorElement
      * @type {Guid}
      */
-    static IID => Guid("{a40b46d2-e97b-4156-b6da-991f501b0f05}")
+    static IID := Guid("{a40b46d2-e97b-4156-b6da-991f501b0f05}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeedClockVectorElement interfaces
+    */
+    struct Vtbl extends IClockVectorElement.Vtbl {
+        GetSyncTime : IntPtr
+        GetFlags    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSyncTime", "GetFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeedClockVectorElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a SYNC_TIME value that corresponds to the when value for the item.
@@ -64,7 +74,7 @@ class IFeedClockVectorElement extends IClockVectorElement {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvectorelement-getsynctime
      */
     GetSyncTime(pSyncTime) {
-        result := ComCall(5, this, "ptr", pSyncTime, "HRESULT")
+        result := ComCall(5, this, SYNC_TIME.Ptr, pSyncTime, "HRESULT")
         return result
     }
 
@@ -105,5 +115,27 @@ class IFeedClockVectorElement extends IClockVectorElement {
 
         result := ComCall(6, this, pbFlagsMarshal, pbFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFeedClockVectorElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSyncTime := CallbackCreate(GetMethod(implObj, "GetSyncTime"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSyncTime)
+        CallbackFree(this.vtbl.GetFlags)
     }
 }

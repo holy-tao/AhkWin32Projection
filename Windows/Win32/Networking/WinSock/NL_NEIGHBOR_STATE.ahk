@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NL_NEIGHBOR_STATE enumeration type defines the state of a network layer neighbor IP address, as described in RFC 2461, section 7.3.2.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_neighbor_state
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NL_NEIGHBOR_STATE extends Win32Enum {
+export default struct NL_NEIGHBOR_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The IP address is unreachable.

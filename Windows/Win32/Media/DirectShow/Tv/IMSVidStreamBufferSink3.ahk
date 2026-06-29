@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSink2.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidStreamBufferSink2.ahk" { IMSVidStreamBufferSink2 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMSVidStreamBufferSink3 interface represents the Stream Buffer Sink filter within the Video Control.
@@ -13,26 +13,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersink3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
     /**
      * The interface identifier for IMSVidStreamBufferSink3
      * @type {Guid}
      */
-    static IID => Guid("{4f8721d7-7d59-4d8b-99f5-a77775586bd5}")
+    static IID := Guid("{4f8721d7-7d59-4d8b-99f5-a77775586bd5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 23
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSink3 interfaces
+    */
+    struct Vtbl extends IMSVidStreamBufferSink2.Vtbl {
+        SetMinSeek               : IntPtr
+        get_AudioCounter         : IntPtr
+        get_VideoCounter         : IntPtr
+        get_CCCounter            : IntPtr
+        get_WSTCounter           : IntPtr
+        put_AudioAnalysisFilter  : IntPtr
+        get_AudioAnalysisFilter  : IntPtr
+        put__AudioAnalysisFilter : IntPtr
+        get__AudioAnalysisFilter : IntPtr
+        put_VideoAnalysisFilter  : IntPtr
+        get_VideoAnalysisFilter  : IntPtr
+        put__VideoAnalysisFilter : IntPtr
+        get__VideoAnalysisFilter : IntPtr
+        put_DataAnalysisFilter   : IntPtr
+        get_DataAnalysisFilter   : IntPtr
+        put__DataAnalysisFilter  : IntPtr
+        get__DataAnalysisFilter  : IntPtr
+        get_LicenseErrorCode     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMinSeek", "get_AudioCounter", "get_VideoCounter", "get_CCCounter", "get_WSTCounter", "put_AudioAnalysisFilter", "get_AudioAnalysisFilter", "put__AudioAnalysisFilter", "get__AudioAnalysisFilter", "put_VideoAnalysisFilter", "get_VideoAnalysisFilter", "put__VideoAnalysisFilter", "get__VideoAnalysisFilter", "put_DataAnalysisFilter", "get_DataAnalysisFilter", "put__DataAnalysisFilter", "get__DataAnalysisFilter", "get_LicenseErrorCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSink3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -176,7 +200,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
     put_AudioAnalysisFilter(szCLSID) {
         szCLSID := szCLSID is String ? BSTR.Alloc(szCLSID).Value : szCLSID
 
-        result := ComCall(28, this, "ptr", szCLSID, "HRESULT")
+        result := ComCall(28, this, BSTR, szCLSID, "HRESULT")
         return result
     }
 
@@ -186,8 +210,8 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_audioanalysisfilter
      */
     get_AudioAnalysisFilter() {
-        pszCLSID := BSTR()
-        result := ComCall(29, this, "ptr", pszCLSID, "HRESULT")
+        pszCLSID := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pszCLSID, "HRESULT")
         return pszCLSID
     }
 
@@ -198,7 +222,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put__audioanalysisfilter
      */
     put__AudioAnalysisFilter(guid) {
-        result := ComCall(30, this, "ptr", guid, "HRESULT")
+        result := ComCall(30, this, Guid, guid, "HRESULT")
         return result
     }
 
@@ -209,7 +233,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      */
     get__AudioAnalysisFilter() {
         pGuid := Guid()
-        result := ComCall(31, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(31, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -222,7 +246,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
     put_VideoAnalysisFilter(szCLSID) {
         szCLSID := szCLSID is String ? BSTR.Alloc(szCLSID).Value : szCLSID
 
-        result := ComCall(32, this, "ptr", szCLSID, "HRESULT")
+        result := ComCall(32, this, BSTR, szCLSID, "HRESULT")
         return result
     }
 
@@ -232,8 +256,8 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_videoanalysisfilter
      */
     get_VideoAnalysisFilter() {
-        pszCLSID := BSTR()
-        result := ComCall(33, this, "ptr", pszCLSID, "HRESULT")
+        pszCLSID := BSTR.Owned()
+        result := ComCall(33, this, BSTR.Ptr, pszCLSID, "HRESULT")
         return pszCLSID
     }
 
@@ -244,7 +268,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put__videoanalysisfilter
      */
     put__VideoAnalysisFilter(guid) {
-        result := ComCall(34, this, "ptr", guid, "HRESULT")
+        result := ComCall(34, this, Guid, guid, "HRESULT")
         return result
     }
 
@@ -255,7 +279,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      */
     get__VideoAnalysisFilter() {
         pGuid := Guid()
-        result := ComCall(35, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(35, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -268,7 +292,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
     put_DataAnalysisFilter(szCLSID) {
         szCLSID := szCLSID is String ? BSTR.Alloc(szCLSID).Value : szCLSID
 
-        result := ComCall(36, this, "ptr", szCLSID, "HRESULT")
+        result := ComCall(36, this, BSTR, szCLSID, "HRESULT")
         return result
     }
 
@@ -278,8 +302,8 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_dataanalysisfilter
      */
     get_DataAnalysisFilter() {
-        pszCLSID := BSTR()
-        result := ComCall(37, this, "ptr", pszCLSID, "HRESULT")
+        pszCLSID := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, pszCLSID, "HRESULT")
         return pszCLSID
     }
 
@@ -290,7 +314,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put__dataanalysisfilter
      */
     put__DataAnalysisFilter(guid) {
-        result := ComCall(38, this, "ptr", guid, "HRESULT")
+        result := ComCall(38, this, Guid, guid, "HRESULT")
         return result
     }
 
@@ -301,7 +325,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      */
     get__DataAnalysisFilter() {
         pGuid := Guid()
-        result := ComCall(39, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(39, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -313,5 +337,59 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
     get_LicenseErrorCode() {
         result := ComCall(40, this, "int*", &hres := 0, "HRESULT")
         return hres
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSink3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMinSeek := CallbackCreate(GetMethod(implObj, "SetMinSeek"), flags, 2)
+        this.vtbl.get_AudioCounter := CallbackCreate(GetMethod(implObj, "get_AudioCounter"), flags, 2)
+        this.vtbl.get_VideoCounter := CallbackCreate(GetMethod(implObj, "get_VideoCounter"), flags, 2)
+        this.vtbl.get_CCCounter := CallbackCreate(GetMethod(implObj, "get_CCCounter"), flags, 2)
+        this.vtbl.get_WSTCounter := CallbackCreate(GetMethod(implObj, "get_WSTCounter"), flags, 2)
+        this.vtbl.put_AudioAnalysisFilter := CallbackCreate(GetMethod(implObj, "put_AudioAnalysisFilter"), flags, 2)
+        this.vtbl.get_AudioAnalysisFilter := CallbackCreate(GetMethod(implObj, "get_AudioAnalysisFilter"), flags, 2)
+        this.vtbl.put__AudioAnalysisFilter := CallbackCreate(GetMethod(implObj, "put__AudioAnalysisFilter"), flags, 2)
+        this.vtbl.get__AudioAnalysisFilter := CallbackCreate(GetMethod(implObj, "get__AudioAnalysisFilter"), flags, 2)
+        this.vtbl.put_VideoAnalysisFilter := CallbackCreate(GetMethod(implObj, "put_VideoAnalysisFilter"), flags, 2)
+        this.vtbl.get_VideoAnalysisFilter := CallbackCreate(GetMethod(implObj, "get_VideoAnalysisFilter"), flags, 2)
+        this.vtbl.put__VideoAnalysisFilter := CallbackCreate(GetMethod(implObj, "put__VideoAnalysisFilter"), flags, 2)
+        this.vtbl.get__VideoAnalysisFilter := CallbackCreate(GetMethod(implObj, "get__VideoAnalysisFilter"), flags, 2)
+        this.vtbl.put_DataAnalysisFilter := CallbackCreate(GetMethod(implObj, "put_DataAnalysisFilter"), flags, 2)
+        this.vtbl.get_DataAnalysisFilter := CallbackCreate(GetMethod(implObj, "get_DataAnalysisFilter"), flags, 2)
+        this.vtbl.put__DataAnalysisFilter := CallbackCreate(GetMethod(implObj, "put__DataAnalysisFilter"), flags, 2)
+        this.vtbl.get__DataAnalysisFilter := CallbackCreate(GetMethod(implObj, "get__DataAnalysisFilter"), flags, 2)
+        this.vtbl.get_LicenseErrorCode := CallbackCreate(GetMethod(implObj, "get_LicenseErrorCode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMinSeek)
+        CallbackFree(this.vtbl.get_AudioCounter)
+        CallbackFree(this.vtbl.get_VideoCounter)
+        CallbackFree(this.vtbl.get_CCCounter)
+        CallbackFree(this.vtbl.get_WSTCounter)
+        CallbackFree(this.vtbl.put_AudioAnalysisFilter)
+        CallbackFree(this.vtbl.get_AudioAnalysisFilter)
+        CallbackFree(this.vtbl.put__AudioAnalysisFilter)
+        CallbackFree(this.vtbl.get__AudioAnalysisFilter)
+        CallbackFree(this.vtbl.put_VideoAnalysisFilter)
+        CallbackFree(this.vtbl.get_VideoAnalysisFilter)
+        CallbackFree(this.vtbl.put__VideoAnalysisFilter)
+        CallbackFree(this.vtbl.get__VideoAnalysisFilter)
+        CallbackFree(this.vtbl.put_DataAnalysisFilter)
+        CallbackFree(this.vtbl.get_DataAnalysisFilter)
+        CallbackFree(this.vtbl.put__DataAnalysisFilter)
+        CallbackFree(this.vtbl.get__DataAnalysisFilter)
+        CallbackFree(this.vtbl.get_LicenseErrorCode)
     }
 }

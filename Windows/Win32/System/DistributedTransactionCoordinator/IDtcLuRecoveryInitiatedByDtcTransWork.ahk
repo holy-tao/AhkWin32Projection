@@ -1,31 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DTCLUXLN.ahk" { DTCLUXLN }
+#Import ".\DTCLUXLNCONFIRMATION.ahk" { DTCLUXLNCONFIRMATION }
+#Import ".\DTCLUCOMPARESTATESERROR.ahk" { DTCLUCOMPARESTATESERROR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DTCLUCOMPARESTATESCONFIRMATION.ahk" { DTCLUCOMPARESTATESCONFIRMATION }
+#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DTCLUXLNERROR.ahk" { DTCLUXLNERROR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     /**
      * The interface identifier for IDtcLuRecoveryInitiatedByDtcTransWork
      * @type {Guid}
      */
-    static IID => Guid("{4131e765-1aea-11d0-944b-00a0c905416e}")
+    static IID := Guid("{4131e765-1aea-11d0-944b-00a0c905416e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDtcLuRecoveryInitiatedByDtcTransWork interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLogNameSizes                  : IntPtr
+        GetOurXln                        : IntPtr
+        HandleConfirmationFromOurXln     : IntPtr
+        HandleTheirXlnResponse           : IntPtr
+        HandleErrorFromOurXln            : IntPtr
+        CheckForCompareStates            : IntPtr
+        GetOurTransIdSize                : IntPtr
+        GetOurCompareStates              : IntPtr
+        HandleTheirCompareStatesResponse : IntPtr
+        HandleErrorFromOurCompareStates  : IntPtr
+        ConversationLost                 : IntPtr
+        GetRecoverySeqNum                : IntPtr
+        ObsoleteRecoverySeqNum           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLogNameSizes", "GetOurXln", "HandleConfirmationFromOurXln", "HandleTheirXlnResponse", "HandleErrorFromOurXln", "CheckForCompareStates", "GetOurTransIdSize", "GetOurCompareStates", "HandleTheirCompareStatesResponse", "HandleErrorFromOurCompareStates", "ConversationLost", "GetRecoverySeqNum", "ObsoleteRecoverySeqNum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDtcLuRecoveryInitiatedByDtcTransWork.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -65,7 +92,7 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
      * @returns {HRESULT} 
      */
     HandleConfirmationFromOurXln(Confirmation) {
-        result := ComCall(5, this, "int", Confirmation, "HRESULT")
+        result := ComCall(5, this, DTCLUXLNCONFIRMATION, Confirmation, "HRESULT")
         return result
     }
 
@@ -82,7 +109,7 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
         pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
         pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
+        result := ComCall(6, this, DTCLUXLN, Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
@@ -92,7 +119,7 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
      * @returns {HRESULT} 
      */
     HandleErrorFromOurXln(_Error) {
-        result := ComCall(7, this, "int", _Error, "HRESULT")
+        result := ComCall(7, this, DTCLUXLNERROR, _Error, "HRESULT")
         return result
     }
 
@@ -143,7 +170,7 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     HandleTheirCompareStatesResponse(CompareState, pConfirmation) {
         pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", CompareState, pConfirmationMarshal, pConfirmation, "HRESULT")
+        result := ComCall(11, this, DTCLUCOMPARESTATE, CompareState, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
@@ -153,7 +180,7 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
      * @returns {HRESULT} 
      */
     HandleErrorFromOurCompareStates(_Error) {
-        result := ComCall(12, this, "int", _Error, "HRESULT")
+        result := ComCall(12, this, DTCLUCOMPARESTATESERROR, _Error, "HRESULT")
         return result
     }
 
@@ -186,5 +213,49 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     ObsoleteRecoverySeqNum(lNewRecoverySeqNum) {
         result := ComCall(15, this, "int", lNewRecoverySeqNum, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDtcLuRecoveryInitiatedByDtcTransWork.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLogNameSizes := CallbackCreate(GetMethod(implObj, "GetLogNameSizes"), flags, 3)
+        this.vtbl.GetOurXln := CallbackCreate(GetMethod(implObj, "GetOurXln"), flags, 5)
+        this.vtbl.HandleConfirmationFromOurXln := CallbackCreate(GetMethod(implObj, "HandleConfirmationFromOurXln"), flags, 2)
+        this.vtbl.HandleTheirXlnResponse := CallbackCreate(GetMethod(implObj, "HandleTheirXlnResponse"), flags, 6)
+        this.vtbl.HandleErrorFromOurXln := CallbackCreate(GetMethod(implObj, "HandleErrorFromOurXln"), flags, 2)
+        this.vtbl.CheckForCompareStates := CallbackCreate(GetMethod(implObj, "CheckForCompareStates"), flags, 2)
+        this.vtbl.GetOurTransIdSize := CallbackCreate(GetMethod(implObj, "GetOurTransIdSize"), flags, 2)
+        this.vtbl.GetOurCompareStates := CallbackCreate(GetMethod(implObj, "GetOurCompareStates"), flags, 3)
+        this.vtbl.HandleTheirCompareStatesResponse := CallbackCreate(GetMethod(implObj, "HandleTheirCompareStatesResponse"), flags, 3)
+        this.vtbl.HandleErrorFromOurCompareStates := CallbackCreate(GetMethod(implObj, "HandleErrorFromOurCompareStates"), flags, 2)
+        this.vtbl.ConversationLost := CallbackCreate(GetMethod(implObj, "ConversationLost"), flags, 1)
+        this.vtbl.GetRecoverySeqNum := CallbackCreate(GetMethod(implObj, "GetRecoverySeqNum"), flags, 2)
+        this.vtbl.ObsoleteRecoverySeqNum := CallbackCreate(GetMethod(implObj, "ObsoleteRecoverySeqNum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLogNameSizes)
+        CallbackFree(this.vtbl.GetOurXln)
+        CallbackFree(this.vtbl.HandleConfirmationFromOurXln)
+        CallbackFree(this.vtbl.HandleTheirXlnResponse)
+        CallbackFree(this.vtbl.HandleErrorFromOurXln)
+        CallbackFree(this.vtbl.CheckForCompareStates)
+        CallbackFree(this.vtbl.GetOurTransIdSize)
+        CallbackFree(this.vtbl.GetOurCompareStates)
+        CallbackFree(this.vtbl.HandleTheirCompareStatesResponse)
+        CallbackFree(this.vtbl.HandleErrorFromOurCompareStates)
+        CallbackFree(this.vtbl.ConversationLost)
+        CallbackFree(this.vtbl.GetRecoverySeqNum)
+        CallbackFree(this.vtbl.ObsoleteRecoverySeqNum)
     }
 }

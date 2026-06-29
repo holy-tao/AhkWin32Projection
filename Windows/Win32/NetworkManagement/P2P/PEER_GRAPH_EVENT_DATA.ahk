@@ -1,103 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_GRAPH_EVENT_TYPE.ahk
-#Include .\PEER_GRAPH_STATUS_FLAGS.ahk
-#Include .\PEER_EVENT_INCOMING_DATA.ahk
-#Include .\PEER_DATA.ahk
-#Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
-#Include .\PEER_RECORD_CHANGE_TYPE.ahk
-#Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
-#Include .\PEER_CONNECTION_STATUS.ahk
-#Include .\PEER_EVENT_NODE_CHANGE_DATA.ahk
-#Include .\PEER_NODE_CHANGE_TYPE.ahk
-#Include .\PEER_EVENT_SYNCHRONIZED_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PEER_EVENT_INCOMING_DATA.ahk" { PEER_EVENT_INCOMING_DATA }
+#Import ".\PEER_EVENT_RECORD_CHANGE_DATA.ahk" { PEER_EVENT_RECORD_CHANGE_DATA }
+#Import ".\PEER_GRAPH_EVENT_TYPE.ahk" { PEER_GRAPH_EVENT_TYPE }
+#Import ".\PEER_GRAPH_STATUS_FLAGS.ahk" { PEER_GRAPH_STATUS_FLAGS }
+#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
+#Import ".\PEER_EVENT_SYNCHRONIZED_DATA.ahk" { PEER_EVENT_SYNCHRONIZED_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_CONNECTION_STATUS.ahk" { PEER_CONNECTION_STATUS }
+#Import ".\PEER_DATA.ahk" { PEER_DATA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_NODE_CHANGE_TYPE.ahk" { PEER_NODE_CHANGE_TYPE }
+#Import ".\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk" { PEER_EVENT_CONNECTION_CHANGE_DATA }
+#Import ".\PEER_EVENT_NODE_CHANGE_DATA.ahk" { PEER_EVENT_NODE_CHANGE_DATA }
 
 /**
  * The PEER_GRAPH_EVENT_DATA structure contains data associated with a peer event.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_graph_event_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_GRAPH_EVENT_DATA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PEER_GRAPH_EVENT_DATA {
+    #StructPack 8
 
     /**
      * The type of peer event this data corresponds to. Must be one of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_graph_event_type">PEER_GRAPH_EVENT_TYPE</a> values. The members that remain are given values based on the peer event type that has occurred.  Not all members contain data.
      * @deprecated
-     * @type {PEER_GRAPH_EVENT_TYPE}
      */
-    eventType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    eventType : PEER_GRAPH_EVENT_TYPE
 
     /**
      * @deprecated
-     * @type {PEER_GRAPH_STATUS_FLAGS}
      */
-    dwStatus {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwStatus : PEER_GRAPH_STATUS_FLAGS
 
-    /**
-     * @deprecated
-     * @type {PEER_EVENT_INCOMING_DATA}
-     */
-    incomingData {
-        get {
-            if(!this.HasProp("__incomingData"))
-                this.__incomingData := PEER_EVENT_INCOMING_DATA(8, this)
-            return this.__incomingData
-        }
-    }
-
-    /**
-     * @deprecated
-     * @type {PEER_EVENT_RECORD_CHANGE_DATA}
-     */
-    recordChangeData {
-        get {
-            if(!this.HasProp("__recordChangeData"))
-                this.__recordChangeData := PEER_EVENT_RECORD_CHANGE_DATA(8, this)
-            return this.__recordChangeData
-        }
-    }
-
-    /**
-     * @deprecated
-     * @type {PEER_EVENT_CONNECTION_CHANGE_DATA}
-     */
-    connectionChangeData {
-        get {
-            if(!this.HasProp("__connectionChangeData"))
-                this.__connectionChangeData := PEER_EVENT_CONNECTION_CHANGE_DATA(8, this)
-            return this.__connectionChangeData
-        }
-    }
-
-    /**
-     * @deprecated
-     * @type {PEER_EVENT_NODE_CHANGE_DATA}
-     */
-    nodeChangeData {
-        get {
-            if(!this.HasProp("__nodeChangeData"))
-                this.__nodeChangeData := PEER_EVENT_NODE_CHANGE_DATA(8, this)
-            return this.__nodeChangeData
-        }
-    }
-
-    /**
-     * @deprecated
-     * @type {PEER_EVENT_SYNCHRONIZED_DATA}
-     */
-    synchronizedData {
-        get {
-            if(!this.HasProp("__synchronizedData"))
-                this.__synchronizedData := PEER_EVENT_SYNCHRONIZED_DATA(8, this)
-            return this.__synchronizedData
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'incomingData', { type: PEER_EVENT_INCOMING_DATA, offset: 8 })
+        DefineProp(this.Prototype, 'recordChangeData', { type: PEER_EVENT_RECORD_CHANGE_DATA, offset: 8 })
+        DefineProp(this.Prototype, 'connectionChangeData', { type: PEER_EVENT_CONNECTION_CHANGE_DATA, offset: 8 })
+        DefineProp(this.Prototype, 'nodeChangeData', { type: PEER_EVENT_NODE_CHANGE_DATA, offset: 8 })
+        DefineProp(this.Prototype, 'synchronizedData', { type: PEER_EVENT_SYNCHRONIZED_DATA, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,77 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_REFERENCE_PROPERTIES.ahk
-#Include .\WSDXML_ELEMENT.ahk
-#Include .\WSD_REFERENCE_PARAMETERS.ahk
-#Include .\WSDXML_NAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_REFERENCE_PARAMETERS.ahk" { WSD_REFERENCE_PARAMETERS }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_REFERENCE_PROPERTIES.ahk" { WSD_REFERENCE_PROPERTIES }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 
 /**
  * Represents a WS-Addressing endpoint reference.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_ENDPOINT_REFERENCE extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WSD_ENDPOINT_REFERENCE {
+    #StructPack 8
 
     /**
      * The endpoint address.
-     * @type {PWSTR}
      */
-    Address {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Address : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_properties">WSD_REFERENCE_PROPERTIES</a> structure that specifies additional data used to uniquely identify the endpoint.
-     * @type {WSD_REFERENCE_PROPERTIES}
      */
-    ReferenceProperties {
-        get {
-            if(!this.HasProp("__ReferenceProperties"))
-                this.__ReferenceProperties := WSD_REFERENCE_PROPERTIES(8, this)
-            return this.__ReferenceProperties
-        }
-    }
+    ReferenceProperties : WSD_REFERENCE_PROPERTIES
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_parameters">WSD_REFERENCE_PARAMETERS</a> structure that specifies additional opaque data used by the endpoint.
-     * @type {WSD_REFERENCE_PARAMETERS}
      */
-    ReferenceParameters {
-        get {
-            if(!this.HasProp("__ReferenceParameters"))
-                this.__ReferenceParameters := WSD_REFERENCE_PARAMETERS(16, this)
-            return this.__ReferenceParameters
-        }
-    }
+    ReferenceParameters : WSD_REFERENCE_PARAMETERS
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that specifies the port type of the service at the referenced endpoint.
-     * @type {Pointer<WSDXML_NAME>}
      */
-    PortType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PortType : WSDXML_NAME.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that specifies the service name of the service at the referenced endpoint.
-     * @type {Pointer<WSDXML_NAME>}
      */
-    ServiceName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ServiceName : WSDXML_NAME.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies extension content allowed by the XML <b>ANY</b> keyword.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
-    Any {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Any : WSDXML_ELEMENT.Ptr
+
 }

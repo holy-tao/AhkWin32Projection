@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The NTMS_STORAGESLOTINFORMATION structure defines properties specific to a storage slot object.
@@ -10,34 +10,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_storageslotinformation
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class NTMS_STORAGESLOTINFORMATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct NTMS_STORAGESLOTINFORMATION {
+    #StructPack 4
 
     /**
      * Number of the slot in the library.
-     * @type {Integer}
      */
-    Number {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Number : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    State : UInt32
 
     /**
      * Library that contains the slot.
-     * @type {Pointer}
      */
-    Library {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Library : Guid
+
 }

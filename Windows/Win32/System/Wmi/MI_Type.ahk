@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * These values specify the data type of qualifiers, properties, references, parameters, and method return values for the CIM data types.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_type
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Type extends Win32Enum {
+export default struct MI_Type {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * unsigned char

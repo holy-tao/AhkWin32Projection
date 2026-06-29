@@ -1,118 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_PNP_BIOS_INSTALLATION_CHECK extends Win32Struct {
-    static sizeof => 40
+export default struct CM_PNP_BIOS_INSTALLATION_CHECK {
+    #StructPack 4
 
-    static packingSize => 4
+    Signature : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Signature {
-        get {
-            if(!this.HasProp("__SignatureProxyArray"))
-                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__SignatureProxyArray
-        }
-    }
+    Revision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Length : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    ControlField : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ControlField {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Checksum {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    EventFlagAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EventFlagAddress {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    RealModeEntryOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RealModeEntryOffset {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    RealModeEntrySegment : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RealModeEntrySegment {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    ProtectedModeEntryOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProtectedModeEntryOffset {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    ProtectedModeCodeBaseAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtectedModeCodeBaseAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OemDeviceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OemDeviceId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    RealModeDataBaseAddress : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RealModeDataBaseAddress {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    ProtectedModeDataBaseAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtectedModeDataBaseAddress {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

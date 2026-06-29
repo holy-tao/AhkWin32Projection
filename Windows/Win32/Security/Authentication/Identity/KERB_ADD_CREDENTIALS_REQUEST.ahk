@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\KERB_REQUEST_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_REQUEST_FLAGS.ahk" { KERB_REQUEST_FLAGS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Specifies a message to add, remove, or replace an extra server credential for a logon session.
@@ -12,75 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_credentials_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct KERB_ADD_CREDENTIALS_REQUEST {
+    #StructPack 8
 
     /**
      * A 
      * 						value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type">KERB_PROTOCOL_MESSAGE_TYPE</a> enumeration that lists the types of messages that can be sent to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Kerberos</a> authentication package by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> function. This member must be set to <b>KerbAddExtraCredentialsMessage</b>.
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
     /**
      * The user name for the credential.
-     * @type {LSA_UNICODE_STRING}
      */
-    UserName {
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(8, this)
-            return this.__UserName
-        }
-    }
+    UserName : LSA_UNICODE_STRING
 
     /**
      * The domain name for the credential.
-     * @type {LSA_UNICODE_STRING}
      */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(24, this)
-            return this.__DomainName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
     /**
      * The password for the credential.
-     * @type {LSA_UNICODE_STRING}
      */
-    Password {
-        get {
-            if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(40, this)
-            return this.__Password
-        }
-    }
+    Password : LSA_UNICODE_STRING
 
     /**
      * The logon ID of the credential. The value of this member can be <b>NULL</b>.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(56, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
 
-    /**
-     * @type {KERB_REQUEST_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    Flags : KERB_REQUEST_FLAGS
+
 }

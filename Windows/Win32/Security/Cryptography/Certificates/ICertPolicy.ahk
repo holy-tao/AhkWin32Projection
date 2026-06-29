@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides communications between the Certificate Services server engine and the policy module.
@@ -59,26 +60,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/certpol/nn-certpol-icertpolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertPolicy extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertPolicy extends IDispatch {
     /**
      * The interface identifier for ICertPolicy
      * @type {Guid}
      */
-    static IID => Guid("{38bb5a00-7636-11d0-b413-00a0c91bbf8c}")
+    static IID := Guid("{38bb5a00-7636-11d0-b413-00a0c91bbf8c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertPolicy interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize     : IntPtr
+        VerifyRequest  : IntPtr
+        GetDescription : IntPtr
+        ShutDown       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "VerifyRequest", "GetDescription", "ShutDown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertPolicy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the server engine to allow the policy module to perform initialization tasks.
@@ -95,7 +106,7 @@ class ICertPolicy extends IDispatch {
     Initialize(strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(7, this, "ptr", strConfig, "HRESULT")
+        result := ComCall(7, this, BSTR, strConfig, "HRESULT")
         return result
     }
 
@@ -160,7 +171,7 @@ class ICertPolicy extends IDispatch {
     VerifyRequest(strConfig, _Context, bNewRequest, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, "ptr", strConfig, "int", _Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strConfig, "int", _Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -172,8 +183,8 @@ class ICertPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-getdescription
      */
     GetDescription() {
-        pstrDescription := BSTR()
-        result := ComCall(9, this, "ptr", pstrDescription, "HRESULT")
+        pstrDescription := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pstrDescription, "HRESULT")
         return pstrDescription
     }
 
@@ -190,5 +201,31 @@ class ICertPolicy extends IDispatch {
     ShutDown() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertPolicy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.VerifyRequest := CallbackCreate(GetMethod(implObj, "VerifyRequest"), flags, 6)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.ShutDown := CallbackCreate(GetMethod(implObj, "ShutDown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.VerifyRequest)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.ShutDown)
     }
 }

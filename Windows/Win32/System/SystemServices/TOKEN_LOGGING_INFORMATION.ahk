@@ -1,130 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\TOKEN_TYPE.ahk
-#Include ..\..\Security\TOKEN_ELEVATION.ahk
-#Include ..\..\Security\TOKEN_ELEVATION_TYPE.ahk
-#Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
-#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\TOKEN_ELEVATION.ahk" { TOKEN_ELEVATION }
+#Import "..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
+#Import "..\..\Security\TOKEN_TYPE.ahk" { TOKEN_TYPE }
+#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Security\TOKEN_ELEVATION_TYPE.ahk" { TOKEN_ELEVATION_TYPE }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class TOKEN_LOGGING_INFORMATION extends Win32Struct {
-    static sizeof => 80
+export default struct TOKEN_LOGGING_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    TokenType : TOKEN_TYPE
 
-    /**
-     * @type {TOKEN_TYPE}
-     */
-    TokenType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TokenElevation : TOKEN_ELEVATION
 
-    /**
-     * @type {TOKEN_ELEVATION}
-     */
-    TokenElevation {
-        get {
-            if(!this.HasProp("__TokenElevation"))
-                this.__TokenElevation := TOKEN_ELEVATION(4, this)
-            return this.__TokenElevation
-        }
-    }
+    TokenElevationType : TOKEN_ELEVATION_TYPE
 
-    /**
-     * @type {TOKEN_ELEVATION_TYPE}
-     */
-    TokenElevationType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ImpersonationLevel : SECURITY_IMPERSONATION_LEVEL
 
-    /**
-     * @type {SECURITY_IMPERSONATION_LEVEL}
-     */
-    ImpersonationLevel {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    IntegrityLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IntegrityLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    User : SID_AND_ATTRIBUTES
 
-    /**
-     * @type {SID_AND_ATTRIBUTES}
-     */
-    User {
-        get {
-            if(!this.HasProp("__User"))
-                this.__User := SID_AND_ATTRIBUTES(24, this)
-            return this.__User
-        }
-    }
+    TrustLevelSid : PSID
 
-    /**
-     * @type {PSID}
-     */
-    TrustLevelSid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    AppContainerNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AppContainerNumber {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    AuthenticationId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    AuthenticationId {
-        get {
-            if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(56, this)
-            return this.__AuthenticationId
-        }
-    }
+    GroupCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GroupCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    GroupsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GroupsLength {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    Groups : SID_AND_ATTRIBUTES.Ptr
 
-    /**
-     * @type {Pointer<SID_AND_ATTRIBUTES>}
-     */
-    Groups {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

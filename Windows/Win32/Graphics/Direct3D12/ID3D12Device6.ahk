@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device5.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D12_MEASUREMENTS_ACTION.ahk" { D3D12_MEASUREMENTS_ACTION }
+#Import ".\ID3D12Device5.ahk" { ID3D12Device5 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_BACKGROUND_PROCESSING_MODE.ahk" { D3D12_BACKGROUND_PROCESSING_MODE }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device5](../d3d12/nn-d3d12-id3d12device5.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device6
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device6 extends ID3D12Device5 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device6 extends ID3D12Device5 {
     /**
      * The interface identifier for ID3D12Device6
      * @type {Guid}
      */
-    static IID => Guid("{c70b221b-40e4-4a17-89af-025a0727a6dc}")
+    static IID := Guid("{c70b221b-40e4-4a17-89af-025a0727a6dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 65
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device6 interfaces
+    */
+    struct Vtbl extends ID3D12Device5.Vtbl {
+        SetBackgroundProcessingMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBackgroundProcessingMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the mode for driver background processing optimizations.
@@ -70,9 +82,27 @@ class ID3D12Device6 extends ID3D12Device5 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device6-setbackgroundprocessingmode
      */
     SetBackgroundProcessingMode(_Mode, MeasurementsAction, hEventToSignalUponCompletion) {
-        hEventToSignalUponCompletion := hEventToSignalUponCompletion is Win32Handle ? NumGet(hEventToSignalUponCompletion, "ptr") : hEventToSignalUponCompletion
-
-        result := ComCall(65, this, "int", _Mode, "int", MeasurementsAction, "ptr", hEventToSignalUponCompletion, "int*", &pbFurtherMeasurementsDesired := 0, "HRESULT")
+        result := ComCall(65, this, D3D12_BACKGROUND_PROCESSING_MODE, _Mode, D3D12_MEASUREMENTS_ACTION, MeasurementsAction, HANDLE, hEventToSignalUponCompletion, BOOL.Ptr, &pbFurtherMeasurementsDesired := 0, "HRESULT")
         return pbFurtherMeasurementsDesired
+    }
+
+    Query(iid) {
+        if (ID3D12Device6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBackgroundProcessingMode := CallbackCreate(GetMethod(implObj, "SetBackgroundProcessingMode"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBackgroundProcessingMode)
     }
 }

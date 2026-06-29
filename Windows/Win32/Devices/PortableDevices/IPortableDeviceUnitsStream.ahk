@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WPD_STREAM_UNITS.ahk" { WPD_STREAM_UNITS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDeviceUnitsStream interface provides a way to operate, or seek, on a stream by using alternate units, such as frames or milliseconds.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceunitsstream
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceUnitsStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceUnitsStream extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceUnitsStream
      * @type {Guid}
      */
-    static IID => Guid("{5e98025f-bfc4-47a2-9a5f-bc900a507c67}")
+    static IID := Guid("{5e98025f-bfc4-47a2-9a5f-bc900a507c67}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceUnitsStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SeekInUnits : IntPtr
+        Cancel      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SeekInUnits", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceUnitsStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SeekInUnits method performs a seek on a stream, based on alternate units.
@@ -39,23 +49,38 @@ class IPortableDeviceUnitsStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceunitsstream-seekinunits
      */
     SeekInUnits(dlibMove, units, dwOrigin) {
-        result := ComCall(3, this, "int64", dlibMove, "int", units, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(3, this, "int64", dlibMove, WPD_STREAM_UNITS, units, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
         return plibNewPosition
     }
 
     /**
-     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
-     * @remarks
-     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
-     * 
-     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceUnitsStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SeekInUnits := CallbackCreate(GetMethod(implObj, "SeekInUnits"), flags, 5)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SeekInUnits)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

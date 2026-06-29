@@ -1,119 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROTOCOL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_PROTOCOL_TYPE.ahk" { STORAGE_PROTOCOL_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT extends Win32Struct {
-    static sizeof => 64
+export default struct STORAGE_PROTOCOL_SPECIFIC_DATA_EXT {
+    #StructPack 4
 
-    static packingSize => 4
+    ProtocolType : STORAGE_PROTOCOL_TYPE
 
-    /**
-     * @type {STORAGE_PROTOCOL_TYPE}
-     */
-    ProtocolType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DataType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProtocolDataValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProtocolDataSubValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataSubValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProtocolDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProtocolDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    FixedProtocolReturnData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FixedProtocolReturnData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProtocolDataSubValue2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataSubValue2 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ProtocolDataSubValue3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataSubValue3 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ProtocolDataSubValue4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataSubValue4 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ProtocolDataSubValue5 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataSubValue5 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ProtocolDataSubValue6 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataSubValue6 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Reserved : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

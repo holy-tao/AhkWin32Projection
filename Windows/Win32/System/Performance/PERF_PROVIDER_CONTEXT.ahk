@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines provider context information.
@@ -8,62 +7,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_provider_context
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_PROVIDER_CONTEXT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct PERF_PROVIDER_CONTEXT {
+    #StructPack 8
 
     /**
      * The size of this structure.
-     * @type {Integer}
      */
-    ContextSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ContextSize : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * The name of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perflibrequest">ControlCallback</a> function that PERFLIB calls to notify you of consumer requests, such as a request to add or remove counters from the query. Set this member if the <b>callback</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element is "custom" or you used the <b>-NotificationCallback</b> argument when calling <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a>. Otherwise, <b>NULL</b>.
-     * @type {Pointer<PERFLIBREQUEST>}
      */
-    ControlCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ControlCallback : IntPtr
 
     /**
      * The name of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perf_mem_alloc">AllocateMemory</a> function that PERFLIB calls to allocate memory. Set this member if you used the <b>-MemoryRoutines</b> argument when calling <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a>. Otherwise, <b>NULL</b>.
-     * @type {Pointer<PERF_MEM_ALLOC>}
      */
-    MemAllocRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MemAllocRoutine : IntPtr
 
     /**
      * The name of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perf_mem_free">FreeMemory</a> function that PERFLIB calls to free memory allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perf_mem_alloc">AllocateMemory</a> function. Must be <b>NULL</b> if <b>MemAllocRoutine</b> is <b>NULL</b>.
-     * @type {Pointer<PERF_MEM_FREE>}
      */
-    MemFreeRoutine {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MemFreeRoutine : IntPtr
 
     /**
      * Context information passed to the memory allocation and free routines. Can be <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pMemContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pMemContext : IntPtr
+
 }

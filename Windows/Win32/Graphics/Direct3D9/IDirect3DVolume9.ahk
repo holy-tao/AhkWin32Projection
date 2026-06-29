@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DBOX.ahk" { D3DBOX }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import ".\D3DVOLUME_DESC.ahk" { D3DVOLUME_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DLOCKED_BOX.ahk" { D3DLOCKED_BOX }
 
 /**
  * The IDirect3DVolume9 (d3d9.h) interface is used by applications to manipulate volume resources.
@@ -25,26 +29,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dvolume9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DVolume9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DVolume9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DVolume9
      * @type {Guid}
      */
-    static IID => Guid("{24f416e6-1f67-4aa7-b88e-d33f6f3128a1}")
+    static IID := Guid("{24f416e6-1f67-4aa7-b88e-d33f6f3128a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DVolume9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice       : IntPtr
+        SetPrivateData  : IntPtr
+        GetPrivateData  : IntPtr
+        FreePrivateData : IntPtr
+        GetContainer    : IntPtr
+        GetDesc         : IntPtr
+        LockBox         : IntPtr
+        UnlockBox       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "SetPrivateData", "GetPrivateData", "FreePrivateData", "GetContainer", "GetDesc", "LockBox", "UnlockBox"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DVolume9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DVolume9::GetDevice (d3d9.h) method retrieves the device associated with a volume.
@@ -117,7 +135,7 @@ class IDirect3DVolume9 extends IUnknown {
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -142,7 +160,7 @@ class IDirect3DVolume9 extends IUnknown {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
         pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
     }
 
@@ -159,7 +177,7 @@ class IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-freeprivatedata
      */
     FreePrivateData(refguid) {
-        result := ComCall(6, this, "ptr", refguid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, refguid, "HRESULT")
         return result
     }
 
@@ -196,7 +214,7 @@ class IDirect3DVolume9 extends IUnknown {
     GetContainer(riid, ppContainer) {
         ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", riid, ppContainerMarshal, ppContainer, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, riid, ppContainerMarshal, ppContainer, "HRESULT")
         return result
     }
 
@@ -211,7 +229,7 @@ class IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getdesc
      */
     GetDesc(pDesc) {
-        result := ComCall(8, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(8, this, D3DVOLUME_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -244,7 +262,7 @@ class IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-lockbox
      */
     LockBox(pLockedVolume, pBox, Flags) {
-        result := ComCall(9, this, "ptr", pLockedVolume, "ptr", pBox, "uint", Flags, "HRESULT")
+        result := ComCall(9, this, D3DLOCKED_BOX.Ptr, pLockedVolume, D3DBOX.Ptr, pBox, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -258,5 +276,39 @@ class IDirect3DVolume9 extends IUnknown {
     UnlockBox() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DVolume9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 5)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.FreePrivateData := CallbackCreate(GetMethod(implObj, "FreePrivateData"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.LockBox := CallbackCreate(GetMethod(implObj, "LockBox"), flags, 4)
+        this.vtbl.UnlockBox := CallbackCreate(GetMethod(implObj, "UnlockBox"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.GetPrivateData)
+        CallbackFree(this.vtbl.FreePrivateData)
+        CallbackFree(this.vtbl.GetContainer)
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.LockBox)
+        CallbackFree(this.vtbl.UnlockBox)
     }
 }

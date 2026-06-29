@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MF_TRANSCODE_SINK_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFActivate.ahk" { IMFActivate }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFTranscodeProfile.ahk" { IMFTranscodeProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_TRANSCODE_SINK_INFO.ahk" { MF_TRANSCODE_SINK_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the transcode sink activation object.
@@ -35,26 +39,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftranscodesinkinfoprovider
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTranscodeSinkInfoProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTranscodeSinkInfoProvider extends IUnknown {
     /**
      * The interface identifier for IMFTranscodeSinkInfoProvider
      * @type {Guid}
      */
-    static IID => Guid("{8cffcd2e-5a03-4a3a-aff7-edcd107c620e}")
+    static IID := Guid("{8cffcd2e-5a03-4a3a-aff7-edcd107c620e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTranscodeSinkInfoProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetOutputFile       : IntPtr
+        SetOutputByteStream : IntPtr
+        SetProfile          : IntPtr
+        GetSinkInfo         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOutputFile", "SetOutputByteStream", "SetProfile", "GetSinkInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTranscodeSinkInfoProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the name of the encoded output file.
@@ -130,7 +144,33 @@ class IMFTranscodeSinkInfoProvider extends IUnknown {
      */
     GetSinkInfo() {
         pSinkInfo := MF_TRANSCODE_SINK_INFO()
-        result := ComCall(6, this, "ptr", pSinkInfo, "HRESULT")
+        result := ComCall(6, this, MF_TRANSCODE_SINK_INFO.Ptr, pSinkInfo, "HRESULT")
         return pSinkInfo
+    }
+
+    Query(iid) {
+        if (IMFTranscodeSinkInfoProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOutputFile := CallbackCreate(GetMethod(implObj, "SetOutputFile"), flags, 2)
+        this.vtbl.SetOutputByteStream := CallbackCreate(GetMethod(implObj, "SetOutputByteStream"), flags, 2)
+        this.vtbl.SetProfile := CallbackCreate(GetMethod(implObj, "SetProfile"), flags, 2)
+        this.vtbl.GetSinkInfo := CallbackCreate(GetMethod(implObj, "GetSinkInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOutputFile)
+        CallbackFree(this.vtbl.SetOutputByteStream)
+        CallbackFree(this.vtbl.SetProfile)
+        CallbackFree(this.vtbl.GetSinkInfo)
     }
 }

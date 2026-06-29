@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains operating system version information. The information includes major and minor version numbers, a build number, a platform identifier, and information about product suites and the latest Service Pack installed on the system. (ANSI)
@@ -186,86 +186,52 @@
  * @namespace Windows.Win32.System.SystemInformation
  * @charset ANSI
  */
-class OSVERSIONINFOEXA extends Win32Struct {
-    static sizeof => 156
-
-    static packingSize => 4
+export default struct OSVERSIONINFOEXA {
+    #StructPack 4
 
     /**
      * The size of this data structure, in bytes. Set this member to 
      *       <c>sizeof(OSVERSIONINFOEX)</c>.
-     * @type {Integer}
      */
-    dwOSVersionInfoSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOSVersionInfoSize : UInt32
 
     /**
      * The major version number of the operating system. For more information, see Remarks.
-     * @type {Integer}
      */
-    dwMajorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMajorVersion : UInt32
 
     /**
      * The minor version number of the operating system. For more information, see Remarks.
-     * @type {Integer}
      */
-    dwMinorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMinorVersion : UInt32
 
     /**
      * The build number of the operating system.
-     * @type {Integer}
      */
-    dwBuildNumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBuildNumber : UInt32
 
     /**
      * The operating system platform. This member can be <b>VER_PLATFORM_WIN32_NT</b> (2).
-     * @type {Integer}
      */
-    dwPlatformId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwPlatformId : UInt32
 
     /**
      * A null-terminated string, such as "Service Pack 3", that indicates the latest Service Pack 
      *       installed on the system. If no Service Pack has been installed, the string is empty.
-     * @type {String}
      */
-    szCSDVersion {
-        get => StrGet(this.ptr + 20, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 127, "UTF-8")
-    }
+    szCSDVersion : CHAR[128]
 
     /**
      * The major version number of the latest Service Pack installed on the system. For example, for Service Pack 
      *       3, the major version number is 3. If no Service Pack has been installed, the value is zero.
-     * @type {Integer}
      */
-    wServicePackMajor {
-        get => NumGet(this, 148, "ushort")
-        set => NumPut("ushort", value, this, 148)
-    }
+    wServicePackMajor : UInt16
 
     /**
      * The minor version number of the latest Service Pack installed on the system. For example, for Service Pack 
      *       3, the minor version number is 0.
-     * @type {Integer}
      */
-    wServicePackMinor {
-        get => NumGet(this, 150, "ushort")
-        set => NumPut("ushort", value, this, 150)
-    }
+    wServicePackMinor : UInt16
 
     /**
      * A bit mask that identifies the product suites available on the system. This member can be a combination of 
@@ -441,27 +407,14 @@ class OSVERSIONINFOEXA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wSuiteMask {
-        get => NumGet(this, 152, "ushort")
-        set => NumPut("ushort", value, this, 152)
-    }
+    wSuiteMask : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wProductType {
-        get => NumGet(this, 154, "char")
-        set => NumPut("char", value, this, 154)
-    }
+    wProductType : Int8
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    wReserved {
-        get => NumGet(this, 155, "char")
-        set => NumPut("char", value, this, 155)
-    }
+    wReserved : Int8
+
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CARD_CACHE_FILE_FORMAT extends Win32Struct {
-    static sizeof => 6
+export default struct CARD_CACHE_FILE_FORMAT {
+    #StructPack 2
 
-    static packingSize => 2
+    bVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bVersion {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bPinsFreshness : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPinsFreshness {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    wContainersFreshness : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wContainersFreshness {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wFilesFreshness : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFilesFreshness {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

@@ -1,43 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IConnector.ahk
-#Include .\ISubunit.ahk
-#Include .\IPart.ahk
-#Include .\IPartsList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPartsList.ahk" { IPartsList }
+#Import ".\ISubunit.ahk" { ISubunit }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IConnector.ahk" { IConnector }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPart.ahk" { IPart }
 
 /**
  * The IDeviceTopology interface provides access to the topology of an audio device.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-idevicetopology
  * @namespace Windows.Win32.Media.Audio
  */
-class IDeviceTopology extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDeviceTopology extends IUnknown {
     /**
      * The interface identifier for IDeviceTopology
      * @type {Guid}
      */
-    static IID => Guid("{2a07407e-6497-4a18-9787-32f79bd0d98f}")
+    static IID := Guid("{2a07407e-6497-4a18-9787-32f79bd0d98f}")
 
     /**
      * The class identifier for DeviceTopology
      * @type {Guid}
      */
-    static CLSID => Guid("{1df639d0-5ec1-47aa-9379-828dc1aa8c59}")
+    static CLSID := Guid("{1df639d0-5ec1-47aa-9379-828dc1aa8c59}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeviceTopology interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConnectorCount : IntPtr
+        GetConnector      : IntPtr
+        GetSubunitCount   : IntPtr
+        GetSubunit        : IntPtr
+        GetPartById       : IntPtr
+        GetDeviceId       : IntPtr
+        GetSignalPath     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConnectorCount", "GetConnector", "GetSubunitCount", "GetSubunit", "GetPartById", "GetDeviceId", "GetSignalPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeviceTopology.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetConnectorCount method gets the number of connectors in the device-topology object.
@@ -106,7 +122,7 @@ class IDeviceTopology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getdeviceid
      */
     GetDeviceId() {
-        result := ComCall(8, this, "ptr*", &ppwstrDeviceId := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &ppwstrDeviceId := 0, "HRESULT")
         return ppwstrDeviceId
     }
 
@@ -125,7 +141,39 @@ class IDeviceTopology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getsignalpath
      */
     GetSignalPath(pIPartFrom, pIPartTo, bRejectMixedPaths) {
-        result := ComCall(9, this, "ptr", pIPartFrom, "ptr", pIPartTo, "int", bRejectMixedPaths, "ptr*", &ppParts := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pIPartFrom, "ptr", pIPartTo, BOOL, bRejectMixedPaths, "ptr*", &ppParts := 0, "HRESULT")
         return IPartsList(ppParts)
+    }
+
+    Query(iid) {
+        if (IDeviceTopology.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConnectorCount := CallbackCreate(GetMethod(implObj, "GetConnectorCount"), flags, 2)
+        this.vtbl.GetConnector := CallbackCreate(GetMethod(implObj, "GetConnector"), flags, 3)
+        this.vtbl.GetSubunitCount := CallbackCreate(GetMethod(implObj, "GetSubunitCount"), flags, 2)
+        this.vtbl.GetSubunit := CallbackCreate(GetMethod(implObj, "GetSubunit"), flags, 3)
+        this.vtbl.GetPartById := CallbackCreate(GetMethod(implObj, "GetPartById"), flags, 3)
+        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.GetSignalPath := CallbackCreate(GetMethod(implObj, "GetSignalPath"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConnectorCount)
+        CallbackFree(this.vtbl.GetConnector)
+        CallbackFree(this.vtbl.GetSubunitCount)
+        CallbackFree(this.vtbl.GetSubunit)
+        CallbackFree(this.vtbl.GetPartById)
+        CallbackFree(this.vtbl.GetDeviceId)
+        CallbackFree(this.vtbl.GetSignalPath)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRT_LEAFSET_KEY_CHANGE_TYPE enumeration defines the set of changes that can occur on nodes in the leaf set of a locally registered key.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_leafset_key_change_type
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_LEAFSET_KEY_CHANGE_TYPE extends Win32Enum {
+export default struct DRT_LEAFSET_KEY_CHANGE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A node was added to the  DRT leaf set of the local node.

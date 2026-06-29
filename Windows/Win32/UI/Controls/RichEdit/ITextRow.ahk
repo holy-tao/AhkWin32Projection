@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITextRow interface provides methods to insert one or more identical table rows, and to retrieve and change table row properties. To insert nonidentical rows, call ITextRow::Insert for each different row configuration.
@@ -25,26 +27,78 @@
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextrow
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextRow extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextRow extends IDispatch {
     /**
      * The interface identifier for ITextRow
      * @type {Guid}
      */
-    static IID => Guid("{c241f5ef-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5ef-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextRow interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetAlignment        : IntPtr
+        SetAlignment        : IntPtr
+        GetCellCount        : IntPtr
+        SetCellCount        : IntPtr
+        GetCellCountCache   : IntPtr
+        SetCellCountCache   : IntPtr
+        GetCellIndex        : IntPtr
+        SetCellIndex        : IntPtr
+        GetCellMargin       : IntPtr
+        SetCellMargin       : IntPtr
+        GetHeight           : IntPtr
+        SetHeight           : IntPtr
+        GetIndent           : IntPtr
+        SetIndent           : IntPtr
+        GetKeepTogether     : IntPtr
+        SetKeepTogether     : IntPtr
+        GetKeepWithNext     : IntPtr
+        SetKeepWithNext     : IntPtr
+        GetNestLevel        : IntPtr
+        GetRTL              : IntPtr
+        SetRTL              : IntPtr
+        GetCellAlignment    : IntPtr
+        SetCellAlignment    : IntPtr
+        GetCellColorBack    : IntPtr
+        SetCellColorBack    : IntPtr
+        GetCellColorFore    : IntPtr
+        SetCellColorFore    : IntPtr
+        GetCellMergeFlags   : IntPtr
+        SetCellMergeFlags   : IntPtr
+        GetCellShading      : IntPtr
+        SetCellShading      : IntPtr
+        GetCellVerticalText : IntPtr
+        SetCellVerticalText : IntPtr
+        GetCellWidth        : IntPtr
+        SetCellWidth        : IntPtr
+        GetCellBorderColors : IntPtr
+        GetCellBorderWidths : IntPtr
+        SetCellBorderColors : IntPtr
+        SetCellBorderWidths : IntPtr
+        Apply               : IntPtr
+        CanChange           : IntPtr
+        GetProperty         : IntPtr
+        Insert              : IntPtr
+        IsEqual             : IntPtr
+        Reset               : IntPtr
+        SetProperty         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAlignment", "SetAlignment", "GetCellCount", "SetCellCount", "GetCellCountCache", "SetCellCountCache", "GetCellIndex", "SetCellIndex", "GetCellMargin", "SetCellMargin", "GetHeight", "SetHeight", "GetIndent", "SetIndent", "GetKeepTogether", "SetKeepTogether", "GetKeepWithNext", "SetKeepWithNext", "GetNestLevel", "GetRTL", "SetRTL", "GetCellAlignment", "SetCellAlignment", "GetCellColorBack", "SetCellColorBack", "GetCellColorFore", "SetCellColorFore", "GetCellMergeFlags", "SetCellMergeFlags", "GetCellShading", "SetCellShading", "GetCellVerticalText", "SetCellVerticalText", "GetCellWidth", "SetCellWidth", "GetCellBorderColors", "GetCellBorderWidths", "SetCellBorderColors", "SetCellBorderWidths", "Apply", "CanChange", "GetProperty", "Insert", "IsEqual", "Reset", "SetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextRow.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the horizontal alignment of a row.
@@ -704,7 +758,7 @@ class ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-apply
      */
     Apply(cRow, Flags) {
-        result := ComCall(46, this, "int", cRow, "int", Flags, "HRESULT")
+        result := ComCall(46, this, "int", cRow, tomConstants, Flags, "HRESULT")
         return result
     }
 
@@ -829,5 +883,115 @@ class ITextRow extends IDispatch {
     SetProperty(Type, Value) {
         result := ComCall(52, this, "int", Type, "int", Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextRow.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAlignment := CallbackCreate(GetMethod(implObj, "GetAlignment"), flags, 2)
+        this.vtbl.SetAlignment := CallbackCreate(GetMethod(implObj, "SetAlignment"), flags, 2)
+        this.vtbl.GetCellCount := CallbackCreate(GetMethod(implObj, "GetCellCount"), flags, 2)
+        this.vtbl.SetCellCount := CallbackCreate(GetMethod(implObj, "SetCellCount"), flags, 2)
+        this.vtbl.GetCellCountCache := CallbackCreate(GetMethod(implObj, "GetCellCountCache"), flags, 2)
+        this.vtbl.SetCellCountCache := CallbackCreate(GetMethod(implObj, "SetCellCountCache"), flags, 2)
+        this.vtbl.GetCellIndex := CallbackCreate(GetMethod(implObj, "GetCellIndex"), flags, 2)
+        this.vtbl.SetCellIndex := CallbackCreate(GetMethod(implObj, "SetCellIndex"), flags, 2)
+        this.vtbl.GetCellMargin := CallbackCreate(GetMethod(implObj, "GetCellMargin"), flags, 2)
+        this.vtbl.SetCellMargin := CallbackCreate(GetMethod(implObj, "SetCellMargin"), flags, 2)
+        this.vtbl.GetHeight := CallbackCreate(GetMethod(implObj, "GetHeight"), flags, 2)
+        this.vtbl.SetHeight := CallbackCreate(GetMethod(implObj, "SetHeight"), flags, 2)
+        this.vtbl.GetIndent := CallbackCreate(GetMethod(implObj, "GetIndent"), flags, 2)
+        this.vtbl.SetIndent := CallbackCreate(GetMethod(implObj, "SetIndent"), flags, 2)
+        this.vtbl.GetKeepTogether := CallbackCreate(GetMethod(implObj, "GetKeepTogether"), flags, 2)
+        this.vtbl.SetKeepTogether := CallbackCreate(GetMethod(implObj, "SetKeepTogether"), flags, 2)
+        this.vtbl.GetKeepWithNext := CallbackCreate(GetMethod(implObj, "GetKeepWithNext"), flags, 2)
+        this.vtbl.SetKeepWithNext := CallbackCreate(GetMethod(implObj, "SetKeepWithNext"), flags, 2)
+        this.vtbl.GetNestLevel := CallbackCreate(GetMethod(implObj, "GetNestLevel"), flags, 2)
+        this.vtbl.GetRTL := CallbackCreate(GetMethod(implObj, "GetRTL"), flags, 2)
+        this.vtbl.SetRTL := CallbackCreate(GetMethod(implObj, "SetRTL"), flags, 2)
+        this.vtbl.GetCellAlignment := CallbackCreate(GetMethod(implObj, "GetCellAlignment"), flags, 2)
+        this.vtbl.SetCellAlignment := CallbackCreate(GetMethod(implObj, "SetCellAlignment"), flags, 2)
+        this.vtbl.GetCellColorBack := CallbackCreate(GetMethod(implObj, "GetCellColorBack"), flags, 2)
+        this.vtbl.SetCellColorBack := CallbackCreate(GetMethod(implObj, "SetCellColorBack"), flags, 2)
+        this.vtbl.GetCellColorFore := CallbackCreate(GetMethod(implObj, "GetCellColorFore"), flags, 2)
+        this.vtbl.SetCellColorFore := CallbackCreate(GetMethod(implObj, "SetCellColorFore"), flags, 2)
+        this.vtbl.GetCellMergeFlags := CallbackCreate(GetMethod(implObj, "GetCellMergeFlags"), flags, 2)
+        this.vtbl.SetCellMergeFlags := CallbackCreate(GetMethod(implObj, "SetCellMergeFlags"), flags, 2)
+        this.vtbl.GetCellShading := CallbackCreate(GetMethod(implObj, "GetCellShading"), flags, 2)
+        this.vtbl.SetCellShading := CallbackCreate(GetMethod(implObj, "SetCellShading"), flags, 2)
+        this.vtbl.GetCellVerticalText := CallbackCreate(GetMethod(implObj, "GetCellVerticalText"), flags, 2)
+        this.vtbl.SetCellVerticalText := CallbackCreate(GetMethod(implObj, "SetCellVerticalText"), flags, 2)
+        this.vtbl.GetCellWidth := CallbackCreate(GetMethod(implObj, "GetCellWidth"), flags, 2)
+        this.vtbl.SetCellWidth := CallbackCreate(GetMethod(implObj, "SetCellWidth"), flags, 2)
+        this.vtbl.GetCellBorderColors := CallbackCreate(GetMethod(implObj, "GetCellBorderColors"), flags, 5)
+        this.vtbl.GetCellBorderWidths := CallbackCreate(GetMethod(implObj, "GetCellBorderWidths"), flags, 5)
+        this.vtbl.SetCellBorderColors := CallbackCreate(GetMethod(implObj, "SetCellBorderColors"), flags, 5)
+        this.vtbl.SetCellBorderWidths := CallbackCreate(GetMethod(implObj, "SetCellBorderWidths"), flags, 5)
+        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 3)
+        this.vtbl.CanChange := CallbackCreate(GetMethod(implObj, "CanChange"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAlignment)
+        CallbackFree(this.vtbl.SetAlignment)
+        CallbackFree(this.vtbl.GetCellCount)
+        CallbackFree(this.vtbl.SetCellCount)
+        CallbackFree(this.vtbl.GetCellCountCache)
+        CallbackFree(this.vtbl.SetCellCountCache)
+        CallbackFree(this.vtbl.GetCellIndex)
+        CallbackFree(this.vtbl.SetCellIndex)
+        CallbackFree(this.vtbl.GetCellMargin)
+        CallbackFree(this.vtbl.SetCellMargin)
+        CallbackFree(this.vtbl.GetHeight)
+        CallbackFree(this.vtbl.SetHeight)
+        CallbackFree(this.vtbl.GetIndent)
+        CallbackFree(this.vtbl.SetIndent)
+        CallbackFree(this.vtbl.GetKeepTogether)
+        CallbackFree(this.vtbl.SetKeepTogether)
+        CallbackFree(this.vtbl.GetKeepWithNext)
+        CallbackFree(this.vtbl.SetKeepWithNext)
+        CallbackFree(this.vtbl.GetNestLevel)
+        CallbackFree(this.vtbl.GetRTL)
+        CallbackFree(this.vtbl.SetRTL)
+        CallbackFree(this.vtbl.GetCellAlignment)
+        CallbackFree(this.vtbl.SetCellAlignment)
+        CallbackFree(this.vtbl.GetCellColorBack)
+        CallbackFree(this.vtbl.SetCellColorBack)
+        CallbackFree(this.vtbl.GetCellColorFore)
+        CallbackFree(this.vtbl.SetCellColorFore)
+        CallbackFree(this.vtbl.GetCellMergeFlags)
+        CallbackFree(this.vtbl.SetCellMergeFlags)
+        CallbackFree(this.vtbl.GetCellShading)
+        CallbackFree(this.vtbl.SetCellShading)
+        CallbackFree(this.vtbl.GetCellVerticalText)
+        CallbackFree(this.vtbl.SetCellVerticalText)
+        CallbackFree(this.vtbl.GetCellWidth)
+        CallbackFree(this.vtbl.SetCellWidth)
+        CallbackFree(this.vtbl.GetCellBorderColors)
+        CallbackFree(this.vtbl.GetCellBorderWidths)
+        CallbackFree(this.vtbl.SetCellBorderColors)
+        CallbackFree(this.vtbl.SetCellBorderWidths)
+        CallbackFree(this.vtbl.Apply)
+        CallbackFree(this.vtbl.CanChange)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.Insert)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetProperty)
     }
 }

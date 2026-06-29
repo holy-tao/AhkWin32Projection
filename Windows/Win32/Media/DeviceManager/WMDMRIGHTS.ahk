@@ -1,33 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WMDMDATETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
 
 /**
  * The WMDMRIGHTS structure describes content-use rights.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmrights
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class WMDMRIGHTS extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct WMDMRIGHTS {
+    #StructPack 4
 
     /**
      * Size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    dwContentType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwContentType : UInt32
 
     /**
      * Bit field specifying the rights options in use for the content.
@@ -41,12 +28,8 @@ class WMDMRIGHTS extends Win32Struct {
      * | WMDM\_RIGHTS\_FREESERIALIDS  | Free serial identifier of the file.          |
      * | WMDM\_RIGHTS\_GROUPID Group  | Identifier of the file.                      |
      * | WMDM\_RIGHTS\_NAMEDSERIALIDS | Named serial identifier of the file.         |
-     * @type {Integer}
      */
-    fuFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fuFlags : UInt32
 
     /**
      * Bit field containing the rights bits for the content.
@@ -59,44 +42,19 @@ class WMDMRIGHTS extends Win32Struct {
      * | WMDM\_RIGHTS\_COPY\_TO\_NON\_SDMI\_DEVICE | Content can be copied to a non-SDMI device.   |
      * | WMDM\_RIGHTS\_COPY\_TO\_CD                | Content can be copied to a CD.                |
      * | WMDM\_RIGHTS\_COPY\_TO\_SDMI\_DEVICE      | Content can be copied to an SDMI device.      |
-     * @type {Integer}
      */
-    fuRights {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    fuRights : UInt32
 
     /**
      * Byte array that specifies the minimum level of application security.
-     * @type {Integer}
      */
-    dwAppSec {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAppSec : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPlaybackCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwPlaybackCount : UInt32
 
     /**
      * [**WMDMDATETIME**](wmdmdatetime.md) structure containing the expiration date and time for the content. If the license has no expiration date, the **wYear** member is set to 0xFFFF, and all other members of **WMDMDATETIME** are ignored.
-     * @type {WMDMDATETIME}
      */
-    ExpirationDate {
-        get {
-            if(!this.HasProp("__ExpirationDate"))
-                this.__ExpirationDate := WMDMDATETIME(24, this)
-            return this.__ExpirationDate
-        }
-    }
+    ExpirationDate : WMDMDATETIME
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 36
-    }
 }

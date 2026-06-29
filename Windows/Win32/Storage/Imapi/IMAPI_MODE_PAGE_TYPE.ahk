@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for the mode pages that are supported by CD and DVD devices.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_mode_page_type
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMAPI_MODE_PAGE_TYPE extends Win32Enum {
+export default struct IMAPI_MODE_PAGE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The mode page specifies the error recovery parameters the

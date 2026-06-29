@@ -1,32 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IOpenService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpenService extends IUnknown {
     /**
      * The interface identifier for IOpenService
      * @type {Guid}
      */
-    static IID => Guid("{c2952ed1-6a89-4606-925f-1ed8b4be0630}")
+    static IID := Guid("{c2952ed1-6a89-4606-925f-1ed8b4be0630}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpenService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsDefault  : IntPtr
+        SetDefault : IntPtr
+        GetID      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsDefault", "SetDefault", "GetID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpenService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IsDefault
@@ -34,27 +46,18 @@ class IOpenService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/mbn/element-isdefault
      */
     IsDefault() {
-        result := ComCall(3, this, "int*", &pfIsDefault := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfIsDefault := 0, "HRESULT")
         return pfIsDefault
     }
 
     /**
-     * Sets the default configuration for a communications device. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {BOOL} fDefault 
      * @param {HWND} _hwnd 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdefaultcommconfigw
+     * @returns {HRESULT} 
      */
     SetDefault(fDefault, _hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(4, this, "int", fDefault, "ptr", _hwnd, "HRESULT")
+        result := ComCall(4, this, BOOL, fDefault, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -63,8 +66,32 @@ class IOpenService extends IUnknown {
      * @returns {BSTR} 
      */
     GetID() {
-        pbstrID := BSTR()
-        result := ComCall(5, this, "ptr", pbstrID, "HRESULT")
+        pbstrID := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pbstrID, "HRESULT")
         return pbstrID
+    }
+
+    Query(iid) {
+        if (IOpenService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsDefault := CallbackCreate(GetMethod(implObj, "IsDefault"), flags, 2)
+        this.vtbl.SetDefault := CallbackCreate(GetMethod(implObj, "SetDefault"), flags, 3)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsDefault)
+        CallbackFree(this.vtbl.SetDefault)
+        CallbackFree(this.vtbl.GetID)
     }
 }

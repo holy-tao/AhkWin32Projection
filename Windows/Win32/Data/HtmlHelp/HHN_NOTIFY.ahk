@@ -1,36 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\UI\Controls\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\UI\Controls\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Use this structure to return the file name of the topic that has been navigated to, or to return the window type name of the help window that has been created.
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hhn_notify
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class HHN_NOTIFY extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct HHN_NOTIFY {
+    #StructPack 8
 
     /**
      * Standard <b>WM_NOTIFY</b> header.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * A multi-byte, zero-terminated string that specifies the topic navigated to, or the name of the help window being created.
-     * @type {PSTR}
      */
-    pszUrl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszUrl : PSTR
+
 }

@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsiItem.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\IEnumFsiItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import ".\IEnumFsiItems.ahk" { IEnumFsiItems }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFsiItem.ahk" { IFsiItem }
 
 /**
  * Use this interface to add items to or remove items from the file-system image.
@@ -17,32 +21,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsidirectoryitem
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFsiDirectoryItem extends IFsiItem {
-
-    static sizeof => A_PtrSize
+export default struct IFsiDirectoryItem extends IFsiItem {
     /**
      * The interface identifier for IFsiDirectoryItem
      * @type {Guid}
      */
-    static IID => Guid("{2c941fdc-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fdc-975b-59be-a960-9a2a262853a5}")
 
     /**
      * The class identifier for FsiDirectoryItem
      * @type {Guid}
      */
-    static CLSID => Guid("{2c941fc8-975b-59be-a960-9a2a262853a5}")
+    static CLSID := Guid("{2c941fc8-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsiDirectoryItem interfaces
+    */
+    struct Vtbl extends IFsiItem.Vtbl {
+        get__NewEnum     : IntPtr
+        get_Item         : IntPtr
+        get_Count        : IntPtr
+        get_EnumFsiItems : IntPtr
+        AddDirectory     : IntPtr
+        AddFile          : IntPtr
+        AddTree          : IntPtr
+        Add              : IntPtr
+        Remove           : IntPtr
+        RemoveTree       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_EnumFsiItems", "AddDirectory", "AddFile", "AddTree", "Add", "Remove", "RemoveTree"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsiDirectoryItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IEnumVARIANT} 
@@ -92,7 +112,7 @@ class IFsiDirectoryItem extends IFsiItem {
     get_Item(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(20, this, "ptr", _path, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, _path, "ptr*", &item := 0, "HRESULT")
         return IFsiItem(item)
     }
 
@@ -190,7 +210,7 @@ class IFsiDirectoryItem extends IFsiItem {
     AddDirectory(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(23, this, "ptr", _path, "HRESULT")
+        result := ComCall(23, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -280,7 +300,7 @@ class IFsiDirectoryItem extends IFsiItem {
     AddFile(_path, fileData) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(24, this, "ptr", _path, "ptr", fileData, "HRESULT")
+        result := ComCall(24, this, BSTR, _path, "ptr", fileData, "HRESULT")
         return result
     }
 
@@ -515,7 +535,7 @@ class IFsiDirectoryItem extends IFsiItem {
     AddTree(sourceDirectory, includeBaseDirectory) {
         sourceDirectory := sourceDirectory is String ? BSTR.Alloc(sourceDirectory).Value : sourceDirectory
 
-        result := ComCall(25, this, "ptr", sourceDirectory, "short", includeBaseDirectory, "HRESULT")
+        result := ComCall(25, this, BSTR, sourceDirectory, VARIANT_BOOL, includeBaseDirectory, "HRESULT")
         return result
     }
 
@@ -830,7 +850,7 @@ class IFsiDirectoryItem extends IFsiItem {
     Remove(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(27, this, "ptr", _path, "HRESULT")
+        result := ComCall(27, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -969,7 +989,45 @@ class IFsiDirectoryItem extends IFsiItem {
     RemoveTree(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(28, this, "ptr", _path, "HRESULT")
+        result := ComCall(28, this, BSTR, _path, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsiDirectoryItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_EnumFsiItems := CallbackCreate(GetMethod(implObj, "get_EnumFsiItems"), flags, 2)
+        this.vtbl.AddDirectory := CallbackCreate(GetMethod(implObj, "AddDirectory"), flags, 2)
+        this.vtbl.AddFile := CallbackCreate(GetMethod(implObj, "AddFile"), flags, 3)
+        this.vtbl.AddTree := CallbackCreate(GetMethod(implObj, "AddTree"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveTree := CallbackCreate(GetMethod(implObj, "RemoveTree"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_EnumFsiItems)
+        CallbackFree(this.vtbl.AddDirectory)
+        CallbackFree(this.vtbl.AddFile)
+        CallbackFree(this.vtbl.AddTree)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.RemoveTree)
     }
 }

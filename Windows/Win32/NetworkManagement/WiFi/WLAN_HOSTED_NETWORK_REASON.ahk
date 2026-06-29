@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the possible values for the result of a wireless Hosted Network function call.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_REASON extends Win32Enum {
+export default struct WLAN_HOSTED_NETWORK_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The operation was successful.

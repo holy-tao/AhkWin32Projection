@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITCustomTone interface exposes methods that allow detailed control over the custom tones that are available with some phone sets.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcustomtone
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCustomTone extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCustomTone extends IDispatch {
     /**
      * The interface identifier for ITCustomTone
      * @type {Guid}
      */
-    static IID => Guid("{357ad764-b3c6-4b2a-8fa5-0722827a9254}")
+    static IID := Guid("{357ad764-b3c6-4b2a-8fa5-0722827a9254}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCustomTone interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Frequency  : IntPtr
+        put_Frequency  : IntPtr
+        get_CadenceOn  : IntPtr
+        put_CadenceOn  : IntPtr
+        get_CadenceOff : IntPtr
+        put_CadenceOff : IntPtr
+        get_Volume     : IntPtr
+        put_Volume     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Frequency", "put_Frequency", "get_CadenceOn", "put_CadenceOn", "get_CadenceOff", "put_CadenceOff", "get_Volume", "put_Volume"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCustomTone.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -215,5 +230,39 @@ class ITCustomTone extends IDispatch {
     put_Volume(lVolume) {
         result := ComCall(14, this, "int", lVolume, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITCustomTone.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Frequency := CallbackCreate(GetMethod(implObj, "get_Frequency"), flags, 2)
+        this.vtbl.put_Frequency := CallbackCreate(GetMethod(implObj, "put_Frequency"), flags, 2)
+        this.vtbl.get_CadenceOn := CallbackCreate(GetMethod(implObj, "get_CadenceOn"), flags, 2)
+        this.vtbl.put_CadenceOn := CallbackCreate(GetMethod(implObj, "put_CadenceOn"), flags, 2)
+        this.vtbl.get_CadenceOff := CallbackCreate(GetMethod(implObj, "get_CadenceOff"), flags, 2)
+        this.vtbl.put_CadenceOff := CallbackCreate(GetMethod(implObj, "put_CadenceOff"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Frequency)
+        CallbackFree(this.vtbl.put_Frequency)
+        CallbackFree(this.vtbl.get_CadenceOn)
+        CallbackFree(this.vtbl.put_CadenceOn)
+        CallbackFree(this.vtbl.get_CadenceOff)
+        CallbackFree(this.vtbl.put_CadenceOff)
+        CallbackFree(this.vtbl.get_Volume)
+        CallbackFree(this.vtbl.put_Volume)
     }
 }

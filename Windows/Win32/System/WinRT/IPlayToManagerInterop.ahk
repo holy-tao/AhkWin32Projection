@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInspectable.ahk" { IInspectable }
 
 /**
  * Enables access to PlayToManager methods in a Windows Store app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nn-playtomanagerinterop-iplaytomanagerinterop
  * @namespace Windows.Win32.System.WinRT
  */
-class IPlayToManagerInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IPlayToManagerInterop extends IInspectable {
     /**
      * The interface identifier for IPlayToManagerInterop
      * @type {Guid}
      */
-    static IID => Guid("{24394699-1f2c-4eb3-8cd7-0ec1da42a540}")
+    static IID := Guid("{24394699-1f2c-4eb3-8cd7-0ec1da42a540}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPlayToManagerInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        GetForWindow          : IntPtr
+        ShowPlayToUIForWindow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetForWindow", "ShowPlayToUIForWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPlayToManagerInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the PlayToManager instance for the specified window.
@@ -39,9 +49,7 @@ class IPlayToManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &playToManager := 0, "HRESULT")
+        result := ComCall(6, this, HWND, appWindow, Guid.Ptr, riid, "ptr*", &playToManager := 0, "HRESULT")
         return playToManager
     }
 
@@ -54,9 +62,29 @@ class IPlayToManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-showplaytouiforwindow
      */
     ShowPlayToUIForWindow(appWindow) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(7, this, "ptr", appWindow, "HRESULT")
+        result := ComCall(7, this, HWND, appWindow, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPlayToManagerInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.ShowPlayToUIForWindow := CallbackCreate(GetMethod(implObj, "ShowPlayToUIForWindow"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetForWindow)
+        CallbackFree(this.vtbl.ShowPlayToUIForWindow)
     }
 }

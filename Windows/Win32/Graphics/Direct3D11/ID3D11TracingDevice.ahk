@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The tracing device interface sets shader tracking information, which enables accurate logging and playback of shader execution.
@@ -13,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nn-d3d11sdklayers-id3d11tracingdevice
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11TracingDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11TracingDevice extends IUnknown {
     /**
      * The interface identifier for ID3D11TracingDevice
      * @type {Guid}
      */
-    static IID => Guid("{1911c771-1587-413e-a7e0-fb26c3de0268}")
+    static IID := Guid("{1911c771-1587-413e-a7e0-fb26c3de0268}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11TracingDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetShaderTrackingOptionsByType : IntPtr
+        SetShaderTrackingOptions       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetShaderTrackingOptionsByType", "SetShaderTrackingOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11TracingDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the reference rasterizer's default race-condition tracking options for the specified resource types.
@@ -63,5 +72,27 @@ class ID3D11TracingDevice extends IUnknown {
     SetShaderTrackingOptions(pShader, Options) {
         result := ComCall(4, this, "ptr", pShader, "uint", Options, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11TracingDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetShaderTrackingOptionsByType := CallbackCreate(GetMethod(implObj, "SetShaderTrackingOptionsByType"), flags, 3)
+        this.vtbl.SetShaderTrackingOptions := CallbackCreate(GetMethod(implObj, "SetShaderTrackingOptions"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetShaderTrackingOptionsByType)
+        CallbackFree(this.vtbl.SetShaderTrackingOptions)
     }
 }

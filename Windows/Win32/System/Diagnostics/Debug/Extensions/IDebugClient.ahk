@@ -1,34 +1,87 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugInputCallbacks.ahk
-#Include .\IDebugOutputCallbacks.ahk
-#Include .\IDebugEventCallbacks.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugOutputCallbacks.ahk" { IDebugOutputCallbacks }
+#Import ".\IDebugEventCallbacks.ahk" { IDebugEventCallbacks }
+#Import ".\IDebugInputCallbacks.ahk" { IDebugInputCallbacks }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugClient extends IUnknown {
     /**
      * The interface identifier for IDebugClient
      * @type {Guid}
      */
-    static IID => Guid("{27fe5639-8407-4f47-8364-ee118fb08ac8}")
+    static IID := Guid("{27fe5639-8407-4f47-8364-ee118fb08ac8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AttachKernel                              : IntPtr
+        GetKernelConnectionOptions                : IntPtr
+        SetKernelConnectionOptions                : IntPtr
+        StartProcessServer                        : IntPtr
+        ConnectProcessServer                      : IntPtr
+        DisconnectProcessServer                   : IntPtr
+        GetRunningProcessSystemIds                : IntPtr
+        GetRunningProcessSystemIdByExecutableName : IntPtr
+        GetRunningProcessDescription              : IntPtr
+        AttachProcess                             : IntPtr
+        CreateProcessA                            : IntPtr
+        CreateProcessAndAttach                    : IntPtr
+        GetProcessOptions                         : IntPtr
+        AddProcessOptions                         : IntPtr
+        RemoveProcessOptions                      : IntPtr
+        SetProcessOptions                         : IntPtr
+        OpenDumpFile                              : IntPtr
+        WriteDumpFile                             : IntPtr
+        ConnectSession                            : IntPtr
+        StartServer                               : IntPtr
+        OutputServers                             : IntPtr
+        TerminateProcesses                        : IntPtr
+        DetachProcesses                           : IntPtr
+        EndSession                                : IntPtr
+        GetExitCode                               : IntPtr
+        DispatchCallbacks                         : IntPtr
+        ExitDispatch                              : IntPtr
+        CreateClient                              : IntPtr
+        GetInputCallbacks                         : IntPtr
+        SetInputCallbacks                         : IntPtr
+        GetOutputCallbacks                        : IntPtr
+        SetOutputCallbacks                        : IntPtr
+        GetOutputMask                             : IntPtr
+        SetOutputMask                             : IntPtr
+        GetOtherOutputMask                        : IntPtr
+        SetOtherOutputMask                        : IntPtr
+        GetOutputWidth                            : IntPtr
+        SetOutputWidth                            : IntPtr
+        GetOutputLinePrefix                       : IntPtr
+        SetOutputLinePrefix                       : IntPtr
+        GetIdentity                               : IntPtr
+        OutputIdentity                            : IntPtr
+        GetEventCallbacks                         : IntPtr
+        SetEventCallbacks                         : IntPtr
+        FlushCallbacks                            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AttachKernel", "GetKernelConnectionOptions", "SetKernelConnectionOptions", "StartProcessServer", "ConnectProcessServer", "DisconnectProcessServer", "GetRunningProcessSystemIds", "GetRunningProcessSystemIdByExecutableName", "GetRunningProcessDescription", "AttachProcess", "CreateProcessA", "CreateProcessAndAttach", "GetProcessOptions", "AddProcessOptions", "RemoveProcessOptions", "SetProcessOptions", "OpenDumpFile", "WriteDumpFile", "ConnectSession", "StartServer", "OutputServers", "TerminateProcesses", "DetachProcesses", "EndSession", "GetExitCode", "DispatchCallbacks", "ExitDispatch", "CreateClient", "GetInputCallbacks", "SetInputCallbacks", "GetOutputCallbacks", "SetOutputCallbacks", "GetOutputMask", "SetOutputMask", "GetOtherOutputMask", "SetOtherOutputMask", "GetOutputWidth", "SetOutputWidth", "GetOutputLinePrefix", "SetOutputLinePrefix", "GetIdentity", "OutputIdentity", "GetEventCallbacks", "SetEventCallbacks", "FlushCallbacks"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -384,10 +437,9 @@ class IDebugClient extends IUnknown {
     }
 
     /**
-     * Learn more about: EndSessionGrbit enumeration
+     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/endsessiongrbit-enumeration
      */
     EndSession(Flags) {
         result := ComCall(26, this, "uint", Flags, "HRESULT")
@@ -395,22 +447,8 @@ class IDebugClient extends IUnknown {
     }
 
     /**
-     * Retrieves the termination status of the specified process.
-     * @remarks
-     * This function returns immediately. If the process has not terminated and the function succeeds, the status returned is <b>STILL_ACTIVE</b> (a macro for **STATUS_PENDING** (minwinbase.h)). If the process has terminated and the function succeeds, the status returned is one of the following values:
      * 
-     * <ul>
-     * <li>The exit value specified in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminateprocess">TerminateProcess</a> function.</li>
-     * <li>The return value from the <a href="https://docs.microsoft.com/cpp/cpp/main-function-command-line-args">main</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> function of the process.</li>
-     * <li>The exception value for an unhandled exception that caused the process to terminate.</li>
-     * </ul>
-     * 
-     * > [!IMPORTANT]
-     * > The **GetExitCodeProcess** function returns a valid error code defined by the application only after the thread terminates. Therefore, an application should not use **STILL_ACTIVE** (259) as an error code (**STILL_ACTIVE** is a macro for **STATUS_PENDING** (minwinbase.h)). If a thread returns **STILL_ACTIVE** (259) as an error code, then applications that test for that value could interpret it to mean that the thread is still running, and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess
      */
     GetExitCode() {
         result := ComCall(27, this, "uint*", &Code := 0, "HRESULT")
@@ -621,5 +659,113 @@ class IDebugClient extends IUnknown {
     FlushCallbacks() {
         result := ComCall(47, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AttachKernel := CallbackCreate(GetMethod(implObj, "AttachKernel"), flags, 3)
+        this.vtbl.GetKernelConnectionOptions := CallbackCreate(GetMethod(implObj, "GetKernelConnectionOptions"), flags, 4)
+        this.vtbl.SetKernelConnectionOptions := CallbackCreate(GetMethod(implObj, "SetKernelConnectionOptions"), flags, 2)
+        this.vtbl.StartProcessServer := CallbackCreate(GetMethod(implObj, "StartProcessServer"), flags, 4)
+        this.vtbl.ConnectProcessServer := CallbackCreate(GetMethod(implObj, "ConnectProcessServer"), flags, 3)
+        this.vtbl.DisconnectProcessServer := CallbackCreate(GetMethod(implObj, "DisconnectProcessServer"), flags, 2)
+        this.vtbl.GetRunningProcessSystemIds := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIds"), flags, 5)
+        this.vtbl.GetRunningProcessSystemIdByExecutableName := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIdByExecutableName"), flags, 5)
+        this.vtbl.GetRunningProcessDescription := CallbackCreate(GetMethod(implObj, "GetRunningProcessDescription"), flags, 10)
+        this.vtbl.AttachProcess := CallbackCreate(GetMethod(implObj, "AttachProcess"), flags, 4)
+        this.vtbl.CreateProcessA := CallbackCreate(GetMethod(implObj, "CreateProcessA"), flags, 4)
+        this.vtbl.CreateProcessAndAttach := CallbackCreate(GetMethod(implObj, "CreateProcessAndAttach"), flags, 6)
+        this.vtbl.GetProcessOptions := CallbackCreate(GetMethod(implObj, "GetProcessOptions"), flags, 2)
+        this.vtbl.AddProcessOptions := CallbackCreate(GetMethod(implObj, "AddProcessOptions"), flags, 2)
+        this.vtbl.RemoveProcessOptions := CallbackCreate(GetMethod(implObj, "RemoveProcessOptions"), flags, 2)
+        this.vtbl.SetProcessOptions := CallbackCreate(GetMethod(implObj, "SetProcessOptions"), flags, 2)
+        this.vtbl.OpenDumpFile := CallbackCreate(GetMethod(implObj, "OpenDumpFile"), flags, 2)
+        this.vtbl.WriteDumpFile := CallbackCreate(GetMethod(implObj, "WriteDumpFile"), flags, 3)
+        this.vtbl.ConnectSession := CallbackCreate(GetMethod(implObj, "ConnectSession"), flags, 3)
+        this.vtbl.StartServer := CallbackCreate(GetMethod(implObj, "StartServer"), flags, 2)
+        this.vtbl.OutputServers := CallbackCreate(GetMethod(implObj, "OutputServers"), flags, 4)
+        this.vtbl.TerminateProcesses := CallbackCreate(GetMethod(implObj, "TerminateProcesses"), flags, 1)
+        this.vtbl.DetachProcesses := CallbackCreate(GetMethod(implObj, "DetachProcesses"), flags, 1)
+        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
+        this.vtbl.GetExitCode := CallbackCreate(GetMethod(implObj, "GetExitCode"), flags, 2)
+        this.vtbl.DispatchCallbacks := CallbackCreate(GetMethod(implObj, "DispatchCallbacks"), flags, 2)
+        this.vtbl.ExitDispatch := CallbackCreate(GetMethod(implObj, "ExitDispatch"), flags, 2)
+        this.vtbl.CreateClient := CallbackCreate(GetMethod(implObj, "CreateClient"), flags, 2)
+        this.vtbl.GetInputCallbacks := CallbackCreate(GetMethod(implObj, "GetInputCallbacks"), flags, 2)
+        this.vtbl.SetInputCallbacks := CallbackCreate(GetMethod(implObj, "SetInputCallbacks"), flags, 2)
+        this.vtbl.GetOutputCallbacks := CallbackCreate(GetMethod(implObj, "GetOutputCallbacks"), flags, 2)
+        this.vtbl.SetOutputCallbacks := CallbackCreate(GetMethod(implObj, "SetOutputCallbacks"), flags, 2)
+        this.vtbl.GetOutputMask := CallbackCreate(GetMethod(implObj, "GetOutputMask"), flags, 2)
+        this.vtbl.SetOutputMask := CallbackCreate(GetMethod(implObj, "SetOutputMask"), flags, 2)
+        this.vtbl.GetOtherOutputMask := CallbackCreate(GetMethod(implObj, "GetOtherOutputMask"), flags, 3)
+        this.vtbl.SetOtherOutputMask := CallbackCreate(GetMethod(implObj, "SetOtherOutputMask"), flags, 3)
+        this.vtbl.GetOutputWidth := CallbackCreate(GetMethod(implObj, "GetOutputWidth"), flags, 2)
+        this.vtbl.SetOutputWidth := CallbackCreate(GetMethod(implObj, "SetOutputWidth"), flags, 2)
+        this.vtbl.GetOutputLinePrefix := CallbackCreate(GetMethod(implObj, "GetOutputLinePrefix"), flags, 4)
+        this.vtbl.SetOutputLinePrefix := CallbackCreate(GetMethod(implObj, "SetOutputLinePrefix"), flags, 2)
+        this.vtbl.GetIdentity := CallbackCreate(GetMethod(implObj, "GetIdentity"), flags, 4)
+        this.vtbl.OutputIdentity := CallbackCreate(GetMethod(implObj, "OutputIdentity"), flags, 4)
+        this.vtbl.GetEventCallbacks := CallbackCreate(GetMethod(implObj, "GetEventCallbacks"), flags, 2)
+        this.vtbl.SetEventCallbacks := CallbackCreate(GetMethod(implObj, "SetEventCallbacks"), flags, 2)
+        this.vtbl.FlushCallbacks := CallbackCreate(GetMethod(implObj, "FlushCallbacks"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AttachKernel)
+        CallbackFree(this.vtbl.GetKernelConnectionOptions)
+        CallbackFree(this.vtbl.SetKernelConnectionOptions)
+        CallbackFree(this.vtbl.StartProcessServer)
+        CallbackFree(this.vtbl.ConnectProcessServer)
+        CallbackFree(this.vtbl.DisconnectProcessServer)
+        CallbackFree(this.vtbl.GetRunningProcessSystemIds)
+        CallbackFree(this.vtbl.GetRunningProcessSystemIdByExecutableName)
+        CallbackFree(this.vtbl.GetRunningProcessDescription)
+        CallbackFree(this.vtbl.AttachProcess)
+        CallbackFree(this.vtbl.CreateProcessA)
+        CallbackFree(this.vtbl.CreateProcessAndAttach)
+        CallbackFree(this.vtbl.GetProcessOptions)
+        CallbackFree(this.vtbl.AddProcessOptions)
+        CallbackFree(this.vtbl.RemoveProcessOptions)
+        CallbackFree(this.vtbl.SetProcessOptions)
+        CallbackFree(this.vtbl.OpenDumpFile)
+        CallbackFree(this.vtbl.WriteDumpFile)
+        CallbackFree(this.vtbl.ConnectSession)
+        CallbackFree(this.vtbl.StartServer)
+        CallbackFree(this.vtbl.OutputServers)
+        CallbackFree(this.vtbl.TerminateProcesses)
+        CallbackFree(this.vtbl.DetachProcesses)
+        CallbackFree(this.vtbl.EndSession)
+        CallbackFree(this.vtbl.GetExitCode)
+        CallbackFree(this.vtbl.DispatchCallbacks)
+        CallbackFree(this.vtbl.ExitDispatch)
+        CallbackFree(this.vtbl.CreateClient)
+        CallbackFree(this.vtbl.GetInputCallbacks)
+        CallbackFree(this.vtbl.SetInputCallbacks)
+        CallbackFree(this.vtbl.GetOutputCallbacks)
+        CallbackFree(this.vtbl.SetOutputCallbacks)
+        CallbackFree(this.vtbl.GetOutputMask)
+        CallbackFree(this.vtbl.SetOutputMask)
+        CallbackFree(this.vtbl.GetOtherOutputMask)
+        CallbackFree(this.vtbl.SetOtherOutputMask)
+        CallbackFree(this.vtbl.GetOutputWidth)
+        CallbackFree(this.vtbl.SetOutputWidth)
+        CallbackFree(this.vtbl.GetOutputLinePrefix)
+        CallbackFree(this.vtbl.SetOutputLinePrefix)
+        CallbackFree(this.vtbl.GetIdentity)
+        CallbackFree(this.vtbl.OutputIdentity)
+        CallbackFree(this.vtbl.GetEventCallbacks)
+        CallbackFree(this.vtbl.SetEventCallbacks)
+        CallbackFree(this.vtbl.FlushCallbacks)
     }
 }

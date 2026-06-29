@@ -1,56 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include .\DDCOLORKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_DRVSETCOLORKEYDATA extends Win32Struct {
-    static sizeof => 32
+export default struct DDHAL_DRVSETCOLORKEYDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDDSurface : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpDDSurface {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ckNew : DDCOLORKEY
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ckNew {
-        get {
-            if(!this.HasProp("__ckNew"))
-                this.__ckNew := DDCOLORKEY(12, this)
-            return this.__ckNew
-        }
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    SetColorKey : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_SETCOLORKEY>}
-     */
-    SetColorKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

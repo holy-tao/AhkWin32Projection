@@ -1,39 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\Document.ahk
-#Include .\Frame.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\Document.ahk" { Document }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\Frame.ahk" { Frame }
 
 /**
  * @namespace Windows.Win32.System.Mmc
  */
-class _Application extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct _Application extends IDispatch {
     /**
      * The interface identifier for _Application
      * @type {Guid}
      */
-    static IID => Guid("{a3afb9cc-b653-4741-86ab-f0470ec1384c}")
+    static IID := Guid("{a3afb9cc-b653-4741-86ab-f0470ec1384c}")
 
     /**
      * The class identifier for _Application
      * @type {Guid}
      */
-    static CLSID => Guid("{a3afb9cc-b653-4741-86ab-f0470ec1384c}")
+    static CLSID := Guid("{a3afb9cc-b653-4741-86ab-f0470ec1384c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for _Application interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Help             : IntPtr
+        Quit             : IntPtr
+        get_Document     : IntPtr
+        Load             : IntPtr
+        get_Frame        : IntPtr
+        get_Visible      : IntPtr
+        Show             : IntPtr
+        Hide             : IntPtr
+        get_UserControl  : IntPtr
+        put_UserControl  : IntPtr
+        get_VersionMajor : IntPtr
+        get_VersionMinor : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Help", "Quit", "get_Document", "Load", "get_Frame", "get_Visible", "Show", "Hide", "get_UserControl", "put_UserControl", "get_VersionMajor", "get_VersionMinor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := _Application.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Document} 
@@ -79,15 +100,8 @@ class _Application extends IDispatch {
     }
 
     /**
-     * Represents the Help Button control.
-     * @remarks
-     * Optional.
      * 
-     * May occur at most once for each [**Ribbon.HelpButton**](windowsribbon-element-ribbon-helpbutton.md).
-     * 
-     * Launches an application help dialog box when clicked.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-helpbutton
      */
     Help() {
         ComCall(7, this)
@@ -184,7 +198,7 @@ class _Application extends IDispatch {
     Load(Filename) {
         Filename := Filename is String ? BSTR.Alloc(Filename).Value : Filename
 
-        result := ComCall(10, this, "ptr", Filename, "HRESULT")
+        result := ComCall(10, this, BSTR, Filename, "HRESULT")
         return result
     }
 
@@ -202,24 +216,13 @@ class _Application extends IDispatch {
      * @returns {BOOL} 
      */
     get_Visible() {
-        result := ComCall(12, this, "int*", &Visible := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &Visible := 0, "HRESULT")
         return Visible
     }
 
     /**
-     * Makes the caret visible on the screen at the caret's current position. When the caret becomes visible, it begins flashing automatically.
-     * @remarks
-     * <b>ShowCaret</b> shows the caret only if the specified window owns the caret, the caret has a shape, and the caret has not been hidden two or more times in a row. If one or more of these conditions is not met, <b>ShowCaret</b> does nothing and returns <b>FALSE</b>. 
      * 
-     * Hiding is cumulative. If your application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-hidecaret">HideCaret</a> five times in a row, it must also call <b>ShowCaret</b> five times before the caret reappears. 
-     * 
-     * The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcaret
+     * @returns {HRESULT} 
      */
     Show() {
         result := ComCall(13, this, "HRESULT")
@@ -255,7 +258,7 @@ class _Application extends IDispatch {
      * @returns {BOOL} 
      */
     get_UserControl() {
-        result := ComCall(15, this, "int*", &UserControl := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &UserControl := 0, "HRESULT")
         return UserControl
     }
 
@@ -265,7 +268,7 @@ class _Application extends IDispatch {
      * @returns {HRESULT} 
      */
     put_UserControl(UserControl) {
-        result := ComCall(16, this, "int", UserControl, "HRESULT")
+        result := ComCall(16, this, BOOL, UserControl, "HRESULT")
         return result
     }
 
@@ -285,5 +288,47 @@ class _Application extends IDispatch {
     get_VersionMinor() {
         result := ComCall(18, this, "int*", &VersionMinor := 0, "HRESULT")
         return VersionMinor
+    }
+
+    Query(iid) {
+        if (_Application.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Help := CallbackCreate(GetMethod(implObj, "Help"), flags, 1)
+        this.vtbl.Quit := CallbackCreate(GetMethod(implObj, "Quit"), flags, 1)
+        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.get_Frame := CallbackCreate(GetMethod(implObj, "get_Frame"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 1)
+        this.vtbl.Hide := CallbackCreate(GetMethod(implObj, "Hide"), flags, 1)
+        this.vtbl.get_UserControl := CallbackCreate(GetMethod(implObj, "get_UserControl"), flags, 2)
+        this.vtbl.put_UserControl := CallbackCreate(GetMethod(implObj, "put_UserControl"), flags, 2)
+        this.vtbl.get_VersionMajor := CallbackCreate(GetMethod(implObj, "get_VersionMajor"), flags, 2)
+        this.vtbl.get_VersionMinor := CallbackCreate(GetMethod(implObj, "get_VersionMinor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Help)
+        CallbackFree(this.vtbl.Quit)
+        CallbackFree(this.vtbl.get_Document)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.get_Frame)
+        CallbackFree(this.vtbl.get_Visible)
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.Hide)
+        CallbackFree(this.vtbl.get_UserControl)
+        CallbackFree(this.vtbl.put_UserControl)
+        CallbackFree(this.vtbl.get_VersionMajor)
+        CallbackFree(this.vtbl.get_VersionMinor)
     }
 }

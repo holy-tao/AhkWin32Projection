@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\RGBQUAD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
 
 /**
  * The TRUECOLORINFO structure contains color palette and bitmask information for a video image.
@@ -9,32 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-truecolorinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class TRUECOLORINFO extends Win32Struct {
-    static sizeof => 1036
-
-    static packingSize => 4
+export default struct TRUECOLORINFO {
+    #StructPack 4
 
     /**
      * Array of color masks (one per color element).
-     * @type {Array<Integer>}
      */
-    dwBitMasks {
-        get {
-            if(!this.HasProp("__dwBitMasksProxyArray"))
-                this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
-            return this.__dwBitMasksProxyArray
-        }
-    }
+    dwBitMasks : UInt32[3]
 
     /**
      * Array of palette colors.
-     * @type {RGBQUAD}
      */
-    bmiColors {
-        get {
-            if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 12, 256, RGBQUAD, "")
-            return this.__bmiColorsProxyArray
-        }
-    }
+    bmiColors : RGBQUAD[256]
+
 }

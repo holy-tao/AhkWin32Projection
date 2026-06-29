@@ -1,100 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CSVFS_DISK_CONNECTIVITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CSVFS_DISK_CONNECTIVITY.ahk" { CSVFS_DISK_CONNECTIVITY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class CSV_QUERY_MDS_PATH_V2 extends Win32Struct {
-    static sizeof => 56
+export default struct CSV_QUERY_MDS_PATH_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    RequiredSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequiredSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MdsNodeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MdsNodeId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DsNodeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DsNodeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DiskConnectivity : CSVFS_DISK_CONNECTIVITY
 
-    /**
-     * @type {CSVFS_DISK_CONNECTIVITY}
-     */
-    DiskConnectivity {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    VolumeId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    VolumeId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    IpAddressOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IpAddressOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    IpAddressLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IpAddressLength {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    PathOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PathOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PathLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PathLength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

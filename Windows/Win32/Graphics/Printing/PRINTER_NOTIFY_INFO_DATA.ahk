@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PRINTER\_NOTIFY\_INFO\_DATA structure identifies a job or printer information field and provides the current data for that field.
@@ -201,56 +200,24 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-info-data
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
-    static sizeof => 32
+export default struct PRINTER_NOTIFY_INFO_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _NotifyData_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _NotifyData {
 
-        class _Data extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Data {
+            cbBuf : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            cbBuf {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            pBuf : IntPtr
 
-            /**
-             * @type {Pointer<Void>}
-             */
-            pBuf {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
         }
 
-        /**
-         * @type {Array<Integer>}
-         */
-        adwData {
-            get {
-                if(!this.HasProp("__adwDataProxyArray"))
-                    this.__adwDataProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-                return this.__adwDataProxyArray
-            }
-        }
+        adwData : UInt32[2]
 
-        /**
-         * @type {_Data}
-         */
-        Data {
-            get {
-                if(!this.HasProp("__Data"))
-                    this.__Data := PRINTER_NOTIFY_INFO_DATA._NotifyData_e__Union._Data(0, this)
-                return this.__Data
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Data', { type: PRINTER_NOTIFY_INFO_DATA._NotifyData._Data, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -263,39 +230,23 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
      * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
      * | <span id="JOB_NOTIFY_TYPE"></span><span id="job_notify_type"></span><dl> <dt>**JOB\_NOTIFY\_TYPE**</dt> <dt>0x01</dt> </dl>             | Indicates that the **Field** member specifies a JOB\_NOTIFY\_FIELD\_\* constant.<br/>     |
      * | <span id="PRINTER_NOTIFY_TYPE"></span><span id="printer_notify_type"></span><dl> <dt>**PRINTER\_NOTIFY\_TYPE**</dt> <dt>0x00</dt> </dl> | Indicates that the **Field** member specifies a PRINTER\_NOTIFY\_FIELD\_\* constant.<br/> |
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Type : UInt16
 
     /**
      * Indicates the field that changed. For a list of possible values, see the Remarks section.
-     * @type {Integer}
      */
-    Field {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Field : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * Indicates the job identifier if the **Type** member specifies JOB\_NOTIFY\_TYPE. If the **Type** member specifies PRINTER\_NOTIFY\_TYPE, this member is undefined.
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Id : UInt32
 
     /**
      * A union of data information based on the **Type** and **Field** members. For a description of the type of data associated with each field, see the Remarks section.
@@ -304,13 +255,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
      * **adwData\[2\]**
      * 
      * An array of two **DWORD** values. For information fields that use only a single **DWORD**, the data is in **adwData** \[0\].
-     * @type {_NotifyData_e__Union}
      */
-    NotifyData {
-        get {
-            if(!this.HasProp("__NotifyData"))
-                this.__NotifyData := PRINTER_NOTIFY_INFO_DATA._NotifyData_e__Union(16, this)
-            return this.__NotifyData
-        }
-    }
+    NotifyData : PRINTER_NOTIFY_INFO_DATA._NotifyData
+
 }

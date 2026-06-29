@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS.ahk" { DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a swap chain that is used by desktop media apps to decode video data and show it on a DirectComposition surface.
@@ -17,26 +20,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgidecodeswapchain
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIDecodeSwapChain extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIDecodeSwapChain extends IUnknown {
     /**
      * The interface identifier for IDXGIDecodeSwapChain
      * @type {Guid}
      */
-    static IID => Guid("{2633066b-4514-4c7a-8fd8-12ea98059d18}")
+    static IID := Guid("{2633066b-4514-4c7a-8fd8-12ea98059d18}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIDecodeSwapChain interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PresentBuffer : IntPtr
+        SetSourceRect : IntPtr
+        SetTargetRect : IntPtr
+        SetDestSize   : IntPtr
+        GetSourceRect : IntPtr
+        GetTargetRect : IntPtr
+        GetDestSize   : IntPtr
+        SetColorSpace : IntPtr
+        GetColorSpace : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PresentBuffer", "SetSourceRect", "SetTargetRect", "SetDestSize", "GetSourceRect", "GetTargetRect", "GetDestSize", "SetColorSpace", "GetColorSpace"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIDecodeSwapChain.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Presents a frame on the output adapter.
@@ -71,7 +89,7 @@ class IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-presentbuffer
      */
     PresentBuffer(BufferToPresent, SyncInterval, Flags) {
-        result := ComCall(3, this, "uint", BufferToPresent, "uint", SyncInterval, "uint", Flags, "int")
+        result := ComCall(3, this, "uint", BufferToPresent, "uint", SyncInterval, DXGI_PRESENT, Flags, Int32)
         return result
     }
 
@@ -83,7 +101,7 @@ class IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-setsourcerect
      */
     SetSourceRect(pRect) {
-        result := ComCall(4, this, "ptr", pRect, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -95,7 +113,7 @@ class IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-settargetrect
      */
     SetTargetRect(pRect) {
-        result := ComCall(5, this, "ptr", pRect, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -119,7 +137,7 @@ class IDXGIDecodeSwapChain extends IUnknown {
      */
     GetSourceRect() {
         pRect := RECT()
-        result := ComCall(7, this, "ptr", pRect, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -131,7 +149,7 @@ class IDXGIDecodeSwapChain extends IUnknown {
      */
     GetTargetRect() {
         pRect := RECT()
-        result := ComCall(8, this, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -157,7 +175,7 @@ class IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-setcolorspace
      */
     SetColorSpace(ColorSpace) {
-        result := ComCall(10, this, "int", ColorSpace, "HRESULT")
+        result := ComCall(10, this, DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS, ColorSpace, "HRESULT")
         return result
     }
 
@@ -167,7 +185,43 @@ class IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-getcolorspace
      */
     GetColorSpace() {
-        result := ComCall(11, this, "int")
+        result := ComCall(11, this, DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS)
         return result
+    }
+
+    Query(iid) {
+        if (IDXGIDecodeSwapChain.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PresentBuffer := CallbackCreate(GetMethod(implObj, "PresentBuffer"), flags, 4)
+        this.vtbl.SetSourceRect := CallbackCreate(GetMethod(implObj, "SetSourceRect"), flags, 2)
+        this.vtbl.SetTargetRect := CallbackCreate(GetMethod(implObj, "SetTargetRect"), flags, 2)
+        this.vtbl.SetDestSize := CallbackCreate(GetMethod(implObj, "SetDestSize"), flags, 3)
+        this.vtbl.GetSourceRect := CallbackCreate(GetMethod(implObj, "GetSourceRect"), flags, 2)
+        this.vtbl.GetTargetRect := CallbackCreate(GetMethod(implObj, "GetTargetRect"), flags, 2)
+        this.vtbl.GetDestSize := CallbackCreate(GetMethod(implObj, "GetDestSize"), flags, 3)
+        this.vtbl.SetColorSpace := CallbackCreate(GetMethod(implObj, "SetColorSpace"), flags, 2)
+        this.vtbl.GetColorSpace := CallbackCreate(GetMethod(implObj, "GetColorSpace"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PresentBuffer)
+        CallbackFree(this.vtbl.SetSourceRect)
+        CallbackFree(this.vtbl.SetTargetRect)
+        CallbackFree(this.vtbl.SetDestSize)
+        CallbackFree(this.vtbl.GetSourceRect)
+        CallbackFree(this.vtbl.GetTargetRect)
+        CallbackFree(this.vtbl.GetDestSize)
+        CallbackFree(this.vtbl.SetColorSpace)
+        CallbackFree(this.vtbl.GetColorSpace)
     }
 }

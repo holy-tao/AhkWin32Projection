@@ -1,133 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DLIGHTTYPE.ahk
-#Include .\D3DCOLORVALUE.ahk
-#Include ..\Direct3D\D3DVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DCOLORVALUE.ahk" { D3DCOLORVALUE }
+#Import "..\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
+#Import ".\D3DLIGHTTYPE.ahk" { D3DLIGHTTYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DLIGHT7 extends Win32Struct {
-    static sizeof => 104
+export default struct D3DLIGHT7 {
+    #StructPack 4
 
-    static packingSize => 4
+    dltType : D3DLIGHTTYPE
 
-    /**
-     * @type {D3DLIGHTTYPE}
-     */
-    dltType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dcvDiffuse : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvDiffuse {
-        get {
-            if(!this.HasProp("__dcvDiffuse"))
-                this.__dcvDiffuse := D3DCOLORVALUE(4, this)
-            return this.__dcvDiffuse
-        }
-    }
+    dcvSpecular : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvSpecular {
-        get {
-            if(!this.HasProp("__dcvSpecular"))
-                this.__dcvSpecular := D3DCOLORVALUE(20, this)
-            return this.__dcvSpecular
-        }
-    }
+    dcvAmbient : D3DCOLORVALUE
 
-    /**
-     * @type {D3DCOLORVALUE}
-     */
-    dcvAmbient {
-        get {
-            if(!this.HasProp("__dcvAmbient"))
-                this.__dcvAmbient := D3DCOLORVALUE(36, this)
-            return this.__dcvAmbient
-        }
-    }
+    dvPosition : D3DVECTOR
 
-    /**
-     * @type {D3DVECTOR}
-     */
-    dvPosition {
-        get {
-            if(!this.HasProp("__dvPosition"))
-                this.__dvPosition := D3DVECTOR(52, this)
-            return this.__dvPosition
-        }
-    }
+    dvDirection : D3DVECTOR
 
-    /**
-     * @type {D3DVECTOR}
-     */
-    dvDirection {
-        get {
-            if(!this.HasProp("__dvDirection"))
-                this.__dvDirection := D3DVECTOR(64, this)
-            return this.__dvDirection
-        }
-    }
+    dvRange : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvRange {
-        get => NumGet(this, 76, "float")
-        set => NumPut("float", value, this, 76)
-    }
+    dvFalloff : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvFalloff {
-        get => NumGet(this, 80, "float")
-        set => NumPut("float", value, this, 80)
-    }
+    dvAttenuation0 : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvAttenuation0 {
-        get => NumGet(this, 84, "float")
-        set => NumPut("float", value, this, 84)
-    }
+    dvAttenuation1 : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvAttenuation1 {
-        get => NumGet(this, 88, "float")
-        set => NumPut("float", value, this, 88)
-    }
+    dvAttenuation2 : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvAttenuation2 {
-        get => NumGet(this, 92, "float")
-        set => NumPut("float", value, this, 92)
-    }
+    dvTheta : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvTheta {
-        get => NumGet(this, 96, "float")
-        set => NumPut("float", value, this, 96)
-    }
+    dvPhi : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvPhi {
-        get => NumGet(this, 100, "float")
-        set => NumPut("float", value, this, 100)
-    }
 }

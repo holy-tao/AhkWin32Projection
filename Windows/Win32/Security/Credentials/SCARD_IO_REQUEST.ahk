@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SCARD\_IO\_REQUEST structure begins a protocol control information structure.
  * @see https://learn.microsoft.com/windows/win32/SecAuthN/scard-io-request
  * @namespace Windows.Win32.Security.Credentials
  */
-class SCARD_IO_REQUEST extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SCARD_IO_REQUEST {
+    #StructPack 4
 
     /**
      * Protocol in use.
-     * @type {Integer}
      */
-    dwProtocol {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwProtocol : UInt32
 
     /**
      * Length, in bytes, of the **SCARD\_IO\_REQUEST** structure plus any following PCI-specific information.
-     * @type {Integer}
      */
-    cbPciLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbPciLength : UInt32
+
 }

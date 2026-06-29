@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify which proxy to use for file transfers. You can define different proxy settings for each job.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_proxy_usage
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_JOB_PROXY_USAGE extends Win32Enum {
+export default struct BG_JOB_PROXY_USAGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the proxy and proxy bypass list settings defined by each user to transfer files. Settings are user-defined from Control Panel, Internet Options, Connections, Local Area Network (LAN) settings (or Dial-up settings, depending on the network connection).

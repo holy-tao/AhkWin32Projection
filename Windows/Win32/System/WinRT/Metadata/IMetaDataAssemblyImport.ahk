@@ -1,33 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to access and examine the contents of an assembly manifest.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadataassemblyimport
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataAssemblyImport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataAssemblyImport extends IUnknown {
     /**
      * The interface identifier for IMetaDataAssemblyImport
      * @type {Guid}
      */
-    static IID => Guid("{ee62470b-e94b-424e-9b7c-2f00c9249f93}")
+    static IID := Guid("{ee62470b-e94b-424e-9b7c-2f00c9249f93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataAssemblyImport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAssemblyProps           : IntPtr
+        GetAssemblyRefProps        : IntPtr
+        GetFileProps               : IntPtr
+        GetExportedTypeProps       : IntPtr
+        GetManifestResourceProps   : IntPtr
+        EnumAssemblyRefs           : IntPtr
+        EnumFiles                  : IntPtr
+        EnumExportedTypes          : IntPtr
+        EnumManifestResources      : IntPtr
+        GetAssemblyFromScope       : IntPtr
+        FindExportedTypeByName     : IntPtr
+        FindManifestResourceByName : IntPtr
+        CloseEnum                  : IntPtr
+        FindAssembliesByName       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAssemblyProps", "GetAssemblyRefProps", "GetFileProps", "GetExportedTypeProps", "GetManifestResourceProps", "EnumAssemblyRefs", "EnumFiles", "EnumExportedTypes", "EnumManifestResources", "GetAssemblyFromScope", "FindExportedTypeByName", "FindManifestResourceByName", "CloseEnum", "FindAssembliesByName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataAssemblyImport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the set of properties for the assembly with the specified metadata signature.
@@ -52,7 +75,7 @@ class IMetaDataAssemblyImport extends IUnknown {
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
         pdwAssemblyFlagsMarshal := pdwAssemblyFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
+        result := ComCall(3, this, "uint", mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ASSEMBLYMETADATA.Ptr, pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
         return result
     }
 
@@ -81,7 +104,7 @@ class IMetaDataAssemblyImport extends IUnknown {
         pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
         pdwAssemblyRefFlagsMarshal := pdwAssemblyRefFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
+        result := ComCall(4, this, "uint", mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ASSEMBLYMETADATA.Ptr, pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
         return result
     }
 
@@ -380,5 +403,51 @@ class IMetaDataAssemblyImport extends IUnknown {
 
         result := ComCall(16, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szAssemblyName, "ptr*", &ppIUnk := 0, "uint", cMax, pcAssembliesMarshal, pcAssemblies, "HRESULT")
         return IUnknown(ppIUnk)
+    }
+
+    Query(iid) {
+        if (IMetaDataAssemblyImport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAssemblyProps := CallbackCreate(GetMethod(implObj, "GetAssemblyProps"), flags, 10)
+        this.vtbl.GetAssemblyRefProps := CallbackCreate(GetMethod(implObj, "GetAssemblyRefProps"), flags, 11)
+        this.vtbl.GetFileProps := CallbackCreate(GetMethod(implObj, "GetFileProps"), flags, 8)
+        this.vtbl.GetExportedTypeProps := CallbackCreate(GetMethod(implObj, "GetExportedTypeProps"), flags, 8)
+        this.vtbl.GetManifestResourceProps := CallbackCreate(GetMethod(implObj, "GetManifestResourceProps"), flags, 8)
+        this.vtbl.EnumAssemblyRefs := CallbackCreate(GetMethod(implObj, "EnumAssemblyRefs"), flags, 5)
+        this.vtbl.EnumFiles := CallbackCreate(GetMethod(implObj, "EnumFiles"), flags, 5)
+        this.vtbl.EnumExportedTypes := CallbackCreate(GetMethod(implObj, "EnumExportedTypes"), flags, 5)
+        this.vtbl.EnumManifestResources := CallbackCreate(GetMethod(implObj, "EnumManifestResources"), flags, 5)
+        this.vtbl.GetAssemblyFromScope := CallbackCreate(GetMethod(implObj, "GetAssemblyFromScope"), flags, 2)
+        this.vtbl.FindExportedTypeByName := CallbackCreate(GetMethod(implObj, "FindExportedTypeByName"), flags, 4)
+        this.vtbl.FindManifestResourceByName := CallbackCreate(GetMethod(implObj, "FindManifestResourceByName"), flags, 3)
+        this.vtbl.CloseEnum := CallbackCreate(GetMethod(implObj, "CloseEnum"), flags, 2)
+        this.vtbl.FindAssembliesByName := CallbackCreate(GetMethod(implObj, "FindAssembliesByName"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAssemblyProps)
+        CallbackFree(this.vtbl.GetAssemblyRefProps)
+        CallbackFree(this.vtbl.GetFileProps)
+        CallbackFree(this.vtbl.GetExportedTypeProps)
+        CallbackFree(this.vtbl.GetManifestResourceProps)
+        CallbackFree(this.vtbl.EnumAssemblyRefs)
+        CallbackFree(this.vtbl.EnumFiles)
+        CallbackFree(this.vtbl.EnumExportedTypes)
+        CallbackFree(this.vtbl.EnumManifestResources)
+        CallbackFree(this.vtbl.GetAssemblyFromScope)
+        CallbackFree(this.vtbl.FindExportedTypeByName)
+        CallbackFree(this.vtbl.FindManifestResourceByName)
+        CallbackFree(this.vtbl.CloseEnum)
+        CallbackFree(this.vtbl.FindAssembliesByName)
     }
 }

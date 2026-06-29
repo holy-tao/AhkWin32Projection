@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class TIME_FIELDS extends Win32Struct {
-    static sizeof => 16
+export default struct TIME_FIELDS {
+    #StructPack 2
 
-    static packingSize => 2
+    Year : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Year {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Month : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Month {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Day : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Day {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    Hour : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Hour {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
+    Minute : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Minute {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    Second : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Second {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    Milliseconds : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Milliseconds {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
+    Weekday : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Weekday {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NTMS_COMPUTERINFORMATION structure defines the properties specific to the RSM server.
@@ -10,28 +9,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_computerinformation
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class NTMS_COMPUTERINFORMATION extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct NTMS_COMPUTERINFORMATION {
+    #StructPack 4
 
     /**
      * Number of seconds completed library requests are maintained in the work queue.
-     * @type {Integer}
      */
-    dwLibRequestPurgeTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLibRequestPurgeTime : UInt32
 
     /**
      * Number of seconds that completed operator requests are maintained in the operator request queue.
-     * @type {Integer}
      */
-    dwOpRequestPurgeTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOpRequestPurgeTime : UInt32
 
     /**
      * Library request options. 
@@ -64,12 +53,8 @@ class NTMS_COMPUTERINFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwLibRequestFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwLibRequestFlags : UInt32
 
     /**
      * Operator request options. 
@@ -122,12 +107,8 @@ class NTMS_COMPUTERINFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwOpRequestFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwOpRequestFlags : UInt32
 
     /**
      * Media pool policies. 
@@ -160,10 +141,7 @@ class NTMS_COMPUTERINFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMediaPoolPolicy {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwMediaPoolPolicy : UInt32
+
 }

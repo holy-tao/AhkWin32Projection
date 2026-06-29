@@ -1,29 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_INFO.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_INFO.ahk" { CERT_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains signer information. It is passed to CryptMsgCountersign, CryptMsgCountersignEncoded, and optionally to CryptMsgOpenToEncode as a member of the CMSG_SIGNED_ENCODE_INFO structure, if the dwMsgType parameter is CMSG_SIGNED.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_SIGNER_ENCODE_INFO extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct CMSG_SIGNER_ENCODE_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a 
@@ -33,31 +27,10 @@ class CMSG_SIGNER_ENCODE_INFO extends Win32Struct {
      * <b>Issuer</b>, <b>SerialNumber</b>, and <b>SubjectPublicKeyInfo</b> members.
      * 
      * The <b>pbData</b> members of the <b>Issuer</b> and <b>SerialNumber</b> structures combined uniquely identify a certificate. The <b>Algorithm</b> member of the <b>SubjectPublicKeyInfo</b> structure specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> encryption algorithm used.
-     * @type {Pointer<CERT_INFO>}
      */
-    pCertInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCertInfo : CERT_INFO.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    hCryptProv {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {NCRYPT_KEY_HANDLE}
-     */
-    hNCryptKey {
-        get {
-            if(!this.HasProp("__hNCryptKey"))
-                this.__hNCryptKey := NCRYPT_KEY_HANDLE(16, this)
-            return this.__hNCryptKey
-        }
-    }
+    hCryptProv : IntPtr
 
     /**
      * Specifies the private key to be used. This member is not used when the <i>hNCryptKey</i> member is used. 
@@ -95,43 +68,24 @@ class CMSG_SIGNER_ENCODE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwKeySpec {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwKeySpec : UInt32
 
     /**
      * A 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the hash algorithm.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm {
-        get {
-            if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(32, this)
-            return this.__HashAlgorithm
-        }
-    }
+    HashAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * Not used. This member must be set to <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pvHashAuxInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pvHashAuxInfo : IntPtr
 
     /**
      * The number of elements in the <b>rgAuthAttr</b> array. If no authenticated attributes are present in <b>rgAuthAttr</b>, then <b>cAuthAttr</b> is zero.
-     * @type {Integer}
      */
-    cAuthAttr {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cAuthAttr : UInt32
 
     /**
      * An array of pointers to 
@@ -141,33 +95,21 @@ class CMSG_SIGNER_ENCODE_INFO extends Win32Struct {
      * 
      * 
      * The PKCS #9 standard dictates that if there are any attributes, there must be at least two: the content type <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) and the hash of the message. These attributes are automatically added by the system.
-     * @type {Pointer<CRYPT_ATTRIBUTE>}
      */
-    rgAuthAttr {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    rgAuthAttr : CRYPT_ATTRIBUTE.Ptr
 
     /**
      * The number of elements in the <b>rgUnauthAttr</b> array. If there are no unauthenticated attributes, <b>cUnauthAttr</b> is zero.
-     * @type {Integer}
      */
-    cUnauthAttr {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    cUnauthAttr : UInt32
 
     /**
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structures, each of which contains unauthenticated attribute information. Unauthenticated attributes can contain <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">countersignatures</a>, among other uses.
-     * @type {Pointer<CRYPT_ATTRIBUTE>}
      */
-    rgUnauthAttr {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    rgUnauthAttr : CRYPT_ATTRIBUTE.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 96
+    static __New() {
+        DefineProp(this.Prototype, 'hNCryptKey', { type: NCRYPT_KEY_HANDLE, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

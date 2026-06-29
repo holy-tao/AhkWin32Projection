@@ -1,126 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KAPC extends Win32Struct {
-    static sizeof => 80
+export default struct KAPC {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AllFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AllFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Size : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    SpareByte1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SpareByte1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    SpareLong0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SpareLong0 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Thread : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    Thread {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ApcListEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ApcListEntry {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Reserved : IntPtr[3]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "ptr")
-            return this.__ReservedProxyArray
-        }
-    }
+    NormalContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    NormalContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SystemArgument1 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SystemArgument1 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    SystemArgument2 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    SystemArgument2 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ApcStateIndex : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ApcStateIndex {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    ApcMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ApcMode {
-        get => NumGet(this, 73, "char")
-        set => NumPut("char", value, this, 73)
-    }
+    Inserted : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Inserted {
-        get => NumGet(this, 74, "char")
-        set => NumPut("char", value, this, 74)
-    }
 }

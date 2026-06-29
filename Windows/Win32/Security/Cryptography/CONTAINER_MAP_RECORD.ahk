@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CONTAINER_MAP_RECORD extends Win32Struct {
-    static sizeof => 86
+export default struct CONTAINER_MAP_RECORD {
+    #StructPack 2
 
-    static packingSize => 2
+    wszGuid : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    wszGuid {
-        get => StrGet(this.ptr + 0, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 39, "UTF-16")
-    }
+    bFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFlags {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
-    }
+    bReserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
-    }
+    wSigKeySizeBits : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSigKeySizeBits {
-        get => NumGet(this, 82, "ushort")
-        set => NumPut("ushort", value, this, 82)
-    }
+    wKeyExchangeKeySizeBits : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wKeyExchangeKeySizeBits {
-        get => NumGet(this, 84, "ushort")
-        set => NumPut("ushort", value, this, 84)
-    }
 }

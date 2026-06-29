@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The FONTOBJ structure is used to give a driver access to information about a particular instance of a font.
@@ -11,37 +10,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fontobj
  * @namespace Windows.Win32.Devices.Display
  */
-class FONTOBJ extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct FONTOBJ {
+    #StructPack 8
 
     /**
      * Specifies a distinct realization of the font. This value can be used by the driver to identify a GDI font that it might have cached or to identify a driver's realization of its own font. If this member is zero for a GDI font, the font should not be cached.
-     * @type {Integer}
      */
-    iUniq {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iUniq : UInt32
 
     /**
      * Specifies the device index for a device font, which was registered by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvqueryfont">DrvQueryFont</a>. If the font is a GDI font, this member has meaning only to GDI, and the driver should ignore it.
-     * @type {Integer}
      */
-    iFace {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    iFace : UInt32
 
     /**
      * Specifies the width, in pixels, of the largest glyph in the specified font.
-     * @type {Integer}
      */
-    cxMax {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cxMax : UInt32
 
     /**
      * Is a value specifying the type of the font. This member can be a combination of the flags listed in the following table. (Note, however, that FO_GRAY16 and FO_NOGRAY16 are mutually exclusive.)
@@ -272,67 +257,37 @@ class FONTOBJ extends Win32Struct {
      *  
      * 
      * GDI sets the FO_GRAY16 flag on entry to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvqueryfontdata">DrvQueryFontData</a> function when it requests that a font be grayscaled to one of 16 values. If the font driver cannot grayscale a particular font realization, then the font provider clears the FO_GRAY16 flag and sets the FO_NOGRAY16 flag to inform GDI that the grayscaling request will not be satisfied.
-     * @type {Integer}
      */
-    flFontType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    flFontType : UInt32
 
     /**
      * Specifies the associated TrueType file. Two separate point size realizations of a TrueType font face will have FONTOBJ structures that share the same <b>iTTUniq</b> value, but will have different <b>iUniq</b> values. Only TrueType font types can have a nonzero <b>iTTUniq</b> member. For more information see <b>flFontType</b>.
-     * @type {Pointer}
      */
-    iTTUniq {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    iTTUniq : IntPtr
 
     /**
      * Pointer to a driver-defined value for device fonts that are already loaded. If the font is a GDI font, then this member is used internally to identify the font and should be ignored.
-     * @type {Pointer}
      */
-    iFile {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    iFile : IntPtr
 
     /**
      * Specifies the resolution of the device for which this font is realized.
-     * @type {SIZE}
      */
-    sizLogResPpi {
-        get {
-            if(!this.HasProp("__sizLogResPpi"))
-                this.__sizLogResPpi := SIZE(32, this)
-            return this.__sizLogResPpi
-        }
-    }
+    sizLogResPpi : SIZE
 
     /**
      * Specifies the style size of the font instance, in points.
-     * @type {Integer}
      */
-    ulStyleSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulStyleSize : UInt32
 
     /**
      * Pointer to consumer-allocated data associated with this font instance. A consumer is a driver that accepts glyph information as input for generating text output. Only a font consumer can modify this member. The consumer of this font can store any information in the location pointed to by this member. The engine will not modify this member. The <b>pvConsumer</b> member is guaranteed to be null the first time a FONTOBJ structure is passed to the consumer.
-     * @type {Pointer<Void>}
      */
-    pvConsumer {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pvConsumer : IntPtr
 
     /**
      * Pointer to producer-allocated data associated with this font instance. A producer is a driver that can produce glyph information as output; this includes glyph metrics, bitmaps, and outlines. Only a font producer can modify this member. The producer of this font can store any information in the location pointed to by this member. The engine will not modify this member. The <b>pvProducer</b> member is guaranteed to be null the first time a FONTOBJ structure is passed to the producer.
-     * @type {Pointer<Void>}
      */
-    pvProducer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pvProducer : IntPtr
+
 }

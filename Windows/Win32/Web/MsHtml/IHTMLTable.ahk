@@ -1,42 +1,98 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLElementCollection.ahk
-#Include .\IHTMLTableSection.ahk
-#Include .\IHTMLTableCaption.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLTableSection.ahk" { IHTMLTableSection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLTableCaption.ahk" { IHTMLTableCaption }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLTable extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLTable extends IDispatch {
     /**
      * The interface identifier for IHTMLTable
      * @type {Guid}
      */
-    static IID => Guid("{3050f21e-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f21e-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLTable
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f26b-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f26b-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLTable interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_cols               : IntPtr
+        get_cols               : IntPtr
+        put_border             : IntPtr
+        get_border             : IntPtr
+        put_frame              : IntPtr
+        get_frame              : IntPtr
+        put_rules              : IntPtr
+        get_rules              : IntPtr
+        put_cellSpacing        : IntPtr
+        get_cellSpacing        : IntPtr
+        put_cellPadding        : IntPtr
+        get_cellPadding        : IntPtr
+        put_background         : IntPtr
+        get_background         : IntPtr
+        put_bgColor            : IntPtr
+        get_bgColor            : IntPtr
+        put_borderColor        : IntPtr
+        get_borderColor        : IntPtr
+        put_borderColorLight   : IntPtr
+        get_borderColorLight   : IntPtr
+        put_borderColorDark    : IntPtr
+        get_borderColorDark    : IntPtr
+        put_align              : IntPtr
+        get_align              : IntPtr
+        refresh                : IntPtr
+        get_rows               : IntPtr
+        put_width              : IntPtr
+        get_width              : IntPtr
+        put_height             : IntPtr
+        get_height             : IntPtr
+        put_dataPageSize       : IntPtr
+        get_dataPageSize       : IntPtr
+        nextPage               : IntPtr
+        previousPage           : IntPtr
+        get_tHead              : IntPtr
+        get_tFoot              : IntPtr
+        get_tBodies            : IntPtr
+        get_caption            : IntPtr
+        createTHead            : IntPtr
+        deleteTHead            : IntPtr
+        createTFoot            : IntPtr
+        deleteTFoot            : IntPtr
+        createCaption          : IntPtr
+        deleteCaption          : IntPtr
+        insertRow              : IntPtr
+        deleteRow              : IntPtr
+        get_readyState         : IntPtr
+        put_onreadystatechange : IntPtr
+        get_onreadystatechange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_cols", "get_cols", "put_border", "get_border", "put_frame", "get_frame", "put_rules", "get_rules", "put_cellSpacing", "get_cellSpacing", "put_cellPadding", "get_cellPadding", "put_background", "get_background", "put_bgColor", "get_bgColor", "put_borderColor", "get_borderColor", "put_borderColorLight", "get_borderColorLight", "put_borderColorDark", "get_borderColorDark", "put_align", "get_align", "refresh", "get_rows", "put_width", "get_width", "put_height", "get_height", "put_dataPageSize", "get_dataPageSize", "nextPage", "previousPage", "get_tHead", "get_tFoot", "get_tBodies", "get_caption", "createTHead", "deleteTHead", "createTFoot", "deleteTFoot", "createCaption", "deleteCaption", "insertRow", "deleteRow", "get_readyState", "put_onreadystatechange", "get_onreadystatechange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLTable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -233,7 +289,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_border(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -243,7 +299,7 @@ class IHTMLTable extends IDispatch {
      */
     get_border() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -255,7 +311,7 @@ class IHTMLTable extends IDispatch {
     put_frame(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -264,8 +320,8 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_frame() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -277,7 +333,7 @@ class IHTMLTable extends IDispatch {
     put_rules(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -286,8 +342,8 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_rules() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -297,7 +353,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_cellSpacing(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -307,7 +363,7 @@ class IHTMLTable extends IDispatch {
      */
     get_cellSpacing() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -317,7 +373,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_cellPadding(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -327,7 +383,7 @@ class IHTMLTable extends IDispatch {
      */
     get_cellPadding() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -339,7 +395,7 @@ class IHTMLTable extends IDispatch {
     put_background(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -348,8 +404,8 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_background() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -359,7 +415,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -369,7 +425,7 @@ class IHTMLTable extends IDispatch {
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -379,7 +435,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderColor(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -389,7 +445,7 @@ class IHTMLTable extends IDispatch {
      */
     get_borderColor() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -399,7 +455,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderColorLight(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -409,7 +465,7 @@ class IHTMLTable extends IDispatch {
      */
     get_borderColorLight() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -419,7 +475,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_borderColorDark(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -429,7 +485,7 @@ class IHTMLTable extends IDispatch {
      */
     get_borderColorDark() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -441,7 +497,7 @@ class IHTMLTable extends IDispatch {
     put_align(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -450,8 +506,8 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -479,7 +535,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -489,7 +545,7 @@ class IHTMLTable extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -499,7 +555,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -509,7 +565,7 @@ class IHTMLTable extends IDispatch {
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -665,8 +721,8 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
-        result := ComCall(53, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(53, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -676,7 +732,7 @@ class IHTMLTable extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(54, this, "ptr", v, "HRESULT")
+        result := ComCall(54, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -686,7 +742,123 @@ class IHTMLTable extends IDispatch {
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(55, this, "ptr", p, "HRESULT")
+        result := ComCall(55, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLTable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_cols := CallbackCreate(GetMethod(implObj, "put_cols"), flags, 2)
+        this.vtbl.get_cols := CallbackCreate(GetMethod(implObj, "get_cols"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_frame := CallbackCreate(GetMethod(implObj, "put_frame"), flags, 2)
+        this.vtbl.get_frame := CallbackCreate(GetMethod(implObj, "get_frame"), flags, 2)
+        this.vtbl.put_rules := CallbackCreate(GetMethod(implObj, "put_rules"), flags, 2)
+        this.vtbl.get_rules := CallbackCreate(GetMethod(implObj, "get_rules"), flags, 2)
+        this.vtbl.put_cellSpacing := CallbackCreate(GetMethod(implObj, "put_cellSpacing"), flags, 2)
+        this.vtbl.get_cellSpacing := CallbackCreate(GetMethod(implObj, "get_cellSpacing"), flags, 2)
+        this.vtbl.put_cellPadding := CallbackCreate(GetMethod(implObj, "put_cellPadding"), flags, 2)
+        this.vtbl.get_cellPadding := CallbackCreate(GetMethod(implObj, "get_cellPadding"), flags, 2)
+        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.put_borderColor := CallbackCreate(GetMethod(implObj, "put_borderColor"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.put_borderColorLight := CallbackCreate(GetMethod(implObj, "put_borderColorLight"), flags, 2)
+        this.vtbl.get_borderColorLight := CallbackCreate(GetMethod(implObj, "get_borderColorLight"), flags, 2)
+        this.vtbl.put_borderColorDark := CallbackCreate(GetMethod(implObj, "put_borderColorDark"), flags, 2)
+        this.vtbl.get_borderColorDark := CallbackCreate(GetMethod(implObj, "get_borderColorDark"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.refresh := CallbackCreate(GetMethod(implObj, "refresh"), flags, 1)
+        this.vtbl.get_rows := CallbackCreate(GetMethod(implObj, "get_rows"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_dataPageSize := CallbackCreate(GetMethod(implObj, "put_dataPageSize"), flags, 2)
+        this.vtbl.get_dataPageSize := CallbackCreate(GetMethod(implObj, "get_dataPageSize"), flags, 2)
+        this.vtbl.nextPage := CallbackCreate(GetMethod(implObj, "nextPage"), flags, 1)
+        this.vtbl.previousPage := CallbackCreate(GetMethod(implObj, "previousPage"), flags, 1)
+        this.vtbl.get_tHead := CallbackCreate(GetMethod(implObj, "get_tHead"), flags, 2)
+        this.vtbl.get_tFoot := CallbackCreate(GetMethod(implObj, "get_tFoot"), flags, 2)
+        this.vtbl.get_tBodies := CallbackCreate(GetMethod(implObj, "get_tBodies"), flags, 2)
+        this.vtbl.get_caption := CallbackCreate(GetMethod(implObj, "get_caption"), flags, 2)
+        this.vtbl.createTHead := CallbackCreate(GetMethod(implObj, "createTHead"), flags, 2)
+        this.vtbl.deleteTHead := CallbackCreate(GetMethod(implObj, "deleteTHead"), flags, 1)
+        this.vtbl.createTFoot := CallbackCreate(GetMethod(implObj, "createTFoot"), flags, 2)
+        this.vtbl.deleteTFoot := CallbackCreate(GetMethod(implObj, "deleteTFoot"), flags, 1)
+        this.vtbl.createCaption := CallbackCreate(GetMethod(implObj, "createCaption"), flags, 2)
+        this.vtbl.deleteCaption := CallbackCreate(GetMethod(implObj, "deleteCaption"), flags, 1)
+        this.vtbl.insertRow := CallbackCreate(GetMethod(implObj, "insertRow"), flags, 3)
+        this.vtbl.deleteRow := CallbackCreate(GetMethod(implObj, "deleteRow"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_cols)
+        CallbackFree(this.vtbl.get_cols)
+        CallbackFree(this.vtbl.put_border)
+        CallbackFree(this.vtbl.get_border)
+        CallbackFree(this.vtbl.put_frame)
+        CallbackFree(this.vtbl.get_frame)
+        CallbackFree(this.vtbl.put_rules)
+        CallbackFree(this.vtbl.get_rules)
+        CallbackFree(this.vtbl.put_cellSpacing)
+        CallbackFree(this.vtbl.get_cellSpacing)
+        CallbackFree(this.vtbl.put_cellPadding)
+        CallbackFree(this.vtbl.get_cellPadding)
+        CallbackFree(this.vtbl.put_background)
+        CallbackFree(this.vtbl.get_background)
+        CallbackFree(this.vtbl.put_bgColor)
+        CallbackFree(this.vtbl.get_bgColor)
+        CallbackFree(this.vtbl.put_borderColor)
+        CallbackFree(this.vtbl.get_borderColor)
+        CallbackFree(this.vtbl.put_borderColorLight)
+        CallbackFree(this.vtbl.get_borderColorLight)
+        CallbackFree(this.vtbl.put_borderColorDark)
+        CallbackFree(this.vtbl.get_borderColorDark)
+        CallbackFree(this.vtbl.put_align)
+        CallbackFree(this.vtbl.get_align)
+        CallbackFree(this.vtbl.refresh)
+        CallbackFree(this.vtbl.get_rows)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.put_dataPageSize)
+        CallbackFree(this.vtbl.get_dataPageSize)
+        CallbackFree(this.vtbl.nextPage)
+        CallbackFree(this.vtbl.previousPage)
+        CallbackFree(this.vtbl.get_tHead)
+        CallbackFree(this.vtbl.get_tFoot)
+        CallbackFree(this.vtbl.get_tBodies)
+        CallbackFree(this.vtbl.get_caption)
+        CallbackFree(this.vtbl.createTHead)
+        CallbackFree(this.vtbl.deleteTHead)
+        CallbackFree(this.vtbl.createTFoot)
+        CallbackFree(this.vtbl.deleteTFoot)
+        CallbackFree(this.vtbl.createCaption)
+        CallbackFree(this.vtbl.deleteCaption)
+        CallbackFree(this.vtbl.insertRow)
+        CallbackFree(this.vtbl.deleteRow)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.put_onreadystatechange)
+        CallbackFree(this.vtbl.get_onreadystatechange)
     }
 }

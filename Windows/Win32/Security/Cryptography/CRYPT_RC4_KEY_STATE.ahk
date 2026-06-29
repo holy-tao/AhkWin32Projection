@@ -1,49 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_RC4_KEY_STATE extends Win32Struct {
-    static sizeof => 274
+export default struct CRYPT_RC4_KEY_STATE {
+    #StructPack 1
 
-    static packingSize => 1
+    Key : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Key {
-        get {
-            if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__KeyProxyArray
-        }
-    }
+    SBox : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SBox {
-        get {
-            if(!this.HasProp("__SBoxProxyArray"))
-                this.__SBoxProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
-            return this.__SBoxProxyArray
-        }
-    }
+    i : Int8
 
-    /**
-     * @type {Integer}
-     */
-    i {
-        get => NumGet(this, 272, "char")
-        set => NumPut("char", value, this, 272)
-    }
+    j : Int8
 
-    /**
-     * @type {Integer}
-     */
-    j {
-        get => NumGet(this, 273, "char")
-        set => NumPut("char", value, this, 273)
-    }
 }

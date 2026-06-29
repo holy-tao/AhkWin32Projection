@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuningSpace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\TunerInputType.ahk" { TunerInputType }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAnalogTVTuningSpace interface provides methods for getting and setting parameters associated with analog TV tuning spaces. The Video Control uses these methods when building and controlling a WDM Analog TV filter graph.
@@ -10,32 +12,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianalogtvtuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IAnalogTVTuningSpace extends ITuningSpace {
-
-    static sizeof => A_PtrSize
+export default struct IAnalogTVTuningSpace extends ITuningSpace {
     /**
      * The interface identifier for IAnalogTVTuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{2a6e293c-2595-11d3-b64c-00c04f79498e}")
+    static IID := Guid("{2a6e293c-2595-11d3-b64c-00c04f79498e}")
 
     /**
      * The class identifier for AnalogTVTuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{8a674b4d-1f63-11d3-b64c-00c04f79498e}")
+    static CLSID := Guid("{8a674b4d-1f63-11d3-b64c-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAnalogTVTuningSpace interfaces
+    */
+    struct Vtbl extends ITuningSpace.Vtbl {
+        get_MinChannel  : IntPtr
+        put_MinChannel  : IntPtr
+        get_MaxChannel  : IntPtr
+        put_MaxChannel  : IntPtr
+        get_InputType   : IntPtr
+        put_InputType   : IntPtr
+        get_CountryCode : IntPtr
+        put_CountryCode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MinChannel", "put_MinChannel", "get_MaxChannel", "put_MaxChannel", "get_InputType", "put_InputType", "get_CountryCode", "put_CountryCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAnalogTVTuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -132,7 +148,7 @@ class IAnalogTVTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_inputtype
      */
     put_InputType(NewInputTypeVal) {
-        result := ComCall(31, this, "int", NewInputTypeVal, "HRESULT")
+        result := ComCall(31, this, TunerInputType, NewInputTypeVal, "HRESULT")
         return result
     }
 
@@ -159,5 +175,39 @@ class IAnalogTVTuningSpace extends ITuningSpace {
     put_CountryCode(NewCountryCodeVal) {
         result := ComCall(33, this, "int", NewCountryCodeVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAnalogTVTuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MinChannel := CallbackCreate(GetMethod(implObj, "get_MinChannel"), flags, 2)
+        this.vtbl.put_MinChannel := CallbackCreate(GetMethod(implObj, "put_MinChannel"), flags, 2)
+        this.vtbl.get_MaxChannel := CallbackCreate(GetMethod(implObj, "get_MaxChannel"), flags, 2)
+        this.vtbl.put_MaxChannel := CallbackCreate(GetMethod(implObj, "put_MaxChannel"), flags, 2)
+        this.vtbl.get_InputType := CallbackCreate(GetMethod(implObj, "get_InputType"), flags, 2)
+        this.vtbl.put_InputType := CallbackCreate(GetMethod(implObj, "put_InputType"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MinChannel)
+        CallbackFree(this.vtbl.put_MinChannel)
+        CallbackFree(this.vtbl.get_MaxChannel)
+        CallbackFree(this.vtbl.put_MaxChannel)
+        CallbackFree(this.vtbl.get_InputType)
+        CallbackFree(this.vtbl.put_InputType)
+        CallbackFree(this.vtbl.get_CountryCode)
+        CallbackFree(this.vtbl.put_CountryCode)
     }
 }

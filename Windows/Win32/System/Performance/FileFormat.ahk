@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the format of the data in the log file.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-fileformat
  * @namespace Windows.Win32.System.Performance
  */
-class FileFormat extends Win32Enum {
+export default struct FileFormat {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Comma-separated log file. The first line in the text file contains column headings followed by comma-separated data in the remaining lines of the log file.

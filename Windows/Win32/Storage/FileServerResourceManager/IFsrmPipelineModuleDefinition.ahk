@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\FsrmAccountType.ahk" { FsrmAccountType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmPipelineModuleType.ahk" { FsrmPipelineModuleType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Defines a module that is used to classify files or store and retrieve properties from files.
@@ -18,26 +23,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmPipelineModuleDefinition extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmPipelineModuleDefinition extends IFsrmObject {
     /**
      * The interface identifier for IFsrmPipelineModuleDefinition
      * @type {Guid}
      */
-    static IID => Guid("{515c1277-2c81-440e-8fcf-367921ed4f59}")
+    static IID := Guid("{515c1277-2c81-440e-8fcf-367921ed4f59}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmPipelineModuleDefinition interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_ModuleClsid         : IntPtr
+        put_ModuleClsid         : IntPtr
+        get_Name                : IntPtr
+        put_Name                : IntPtr
+        get_Company             : IntPtr
+        put_Company             : IntPtr
+        get_Version             : IntPtr
+        put_Version             : IntPtr
+        get_ModuleType          : IntPtr
+        get_Enabled             : IntPtr
+        put_Enabled             : IntPtr
+        get_NeedsFileContent    : IntPtr
+        put_NeedsFileContent    : IntPtr
+        get_Account             : IntPtr
+        put_Account             : IntPtr
+        get_SupportedExtensions : IntPtr
+        put_SupportedExtensions : IntPtr
+        get_Parameters          : IntPtr
+        put_Parameters          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ModuleClsid", "put_ModuleClsid", "get_Name", "put_Name", "get_Company", "put_Company", "get_Version", "put_Version", "get_ModuleType", "get_Enabled", "put_Enabled", "get_NeedsFileContent", "put_NeedsFileContent", "get_Account", "put_Account", "get_SupportedExtensions", "put_SupportedExtensions", "get_Parameters", "put_Parameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmPipelineModuleDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -126,8 +156,8 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduleclsid
      */
     get_ModuleClsid() {
-        moduleClsid := BSTR()
-        result := ComCall(12, this, "ptr", moduleClsid, "HRESULT")
+        moduleClsid := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, moduleClsid, "HRESULT")
         return moduleClsid
     }
 
@@ -142,7 +172,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
     put_ModuleClsid(moduleClsid) {
         moduleClsid := moduleClsid is String ? BSTR.Alloc(moduleClsid).Value : moduleClsid
 
-        result := ComCall(13, this, "ptr", moduleClsid, "HRESULT")
+        result := ComCall(13, this, BSTR, moduleClsid, "HRESULT")
         return result
     }
 
@@ -152,8 +182,8 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(14, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -166,7 +196,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(15, this, "ptr", name, "HRESULT")
+        result := ComCall(15, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -178,8 +208,8 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_company
      */
     get_Company() {
-        company := BSTR()
-        result := ComCall(16, this, "ptr", company, "HRESULT")
+        company := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, company, "HRESULT")
         return company
     }
 
@@ -194,7 +224,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
     put_Company(company) {
         company := company is String ? BSTR.Alloc(company).Value : company
 
-        result := ComCall(17, this, "ptr", company, "HRESULT")
+        result := ComCall(17, this, BSTR, company, "HRESULT")
         return result
     }
 
@@ -206,8 +236,8 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_version
      */
     get_Version() {
-        _version := BSTR()
-        result := ComCall(18, this, "ptr", _version, "HRESULT")
+        _version := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, _version, "HRESULT")
         return _version
     }
 
@@ -222,7 +252,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
     put_Version(_version) {
         _version := _version is String ? BSTR.Alloc(_version).Value : _version
 
-        result := ComCall(19, this, "ptr", _version, "HRESULT")
+        result := ComCall(19, this, BSTR, _version, "HRESULT")
         return result
     }
 
@@ -244,7 +274,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_enabled
      */
     get_Enabled() {
-        result := ComCall(21, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -255,7 +285,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(22, this, "short", enabled, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -271,7 +301,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_needsfilecontent
      */
     get_NeedsFileContent() {
-        result := ComCall(23, this, "short*", &needsFileContent := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &needsFileContent := 0, "HRESULT")
         return needsFileContent
     }
 
@@ -288,7 +318,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_needsfilecontent
      */
     put_NeedsFileContent(needsFileContent) {
-        result := ComCall(24, this, "short", needsFileContent, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, needsFileContent, "HRESULT")
         return result
     }
 
@@ -309,7 +339,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_account
      */
     put_Account(retrievalAccount) {
-        result := ComCall(26, this, "int", retrievalAccount, "HRESULT")
+        result := ComCall(26, this, FsrmAccountType, retrievalAccount, "HRESULT")
         return result
     }
 
@@ -338,7 +368,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_supportedextensions
      */
     put_SupportedExtensions(supportedExtensions) {
-        result := ComCall(28, this, "ptr", supportedExtensions, "HRESULT")
+        result := ComCall(28, this, SAFEARRAY.Ptr, supportedExtensions, "HRESULT")
         return result
     }
 
@@ -367,7 +397,63 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_parameters
      */
     put_Parameters(parameters) {
-        result := ComCall(30, this, "ptr", parameters, "HRESULT")
+        result := ComCall(30, this, SAFEARRAY.Ptr, parameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmPipelineModuleDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ModuleClsid := CallbackCreate(GetMethod(implObj, "get_ModuleClsid"), flags, 2)
+        this.vtbl.put_ModuleClsid := CallbackCreate(GetMethod(implObj, "put_ModuleClsid"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Company := CallbackCreate(GetMethod(implObj, "get_Company"), flags, 2)
+        this.vtbl.put_Company := CallbackCreate(GetMethod(implObj, "put_Company"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.put_Version := CallbackCreate(GetMethod(implObj, "put_Version"), flags, 2)
+        this.vtbl.get_ModuleType := CallbackCreate(GetMethod(implObj, "get_ModuleType"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_NeedsFileContent := CallbackCreate(GetMethod(implObj, "get_NeedsFileContent"), flags, 2)
+        this.vtbl.put_NeedsFileContent := CallbackCreate(GetMethod(implObj, "put_NeedsFileContent"), flags, 2)
+        this.vtbl.get_Account := CallbackCreate(GetMethod(implObj, "get_Account"), flags, 2)
+        this.vtbl.put_Account := CallbackCreate(GetMethod(implObj, "put_Account"), flags, 2)
+        this.vtbl.get_SupportedExtensions := CallbackCreate(GetMethod(implObj, "get_SupportedExtensions"), flags, 2)
+        this.vtbl.put_SupportedExtensions := CallbackCreate(GetMethod(implObj, "put_SupportedExtensions"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ModuleClsid)
+        CallbackFree(this.vtbl.put_ModuleClsid)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Company)
+        CallbackFree(this.vtbl.put_Company)
+        CallbackFree(this.vtbl.get_Version)
+        CallbackFree(this.vtbl.put_Version)
+        CallbackFree(this.vtbl.get_ModuleType)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_NeedsFileContent)
+        CallbackFree(this.vtbl.put_NeedsFileContent)
+        CallbackFree(this.vtbl.get_Account)
+        CallbackFree(this.vtbl.put_Account)
+        CallbackFree(this.vtbl.get_SupportedExtensions)
+        CallbackFree(this.vtbl.put_SupportedExtensions)
+        CallbackFree(this.vtbl.get_Parameters)
+        CallbackFree(this.vtbl.put_Parameters)
     }
 }

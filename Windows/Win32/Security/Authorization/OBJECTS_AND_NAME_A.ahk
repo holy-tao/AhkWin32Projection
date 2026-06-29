@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
-#Include .\SE_OBJECT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
+#Import ".\SE_OBJECT_TYPE.ahk" { SE_OBJECT_TYPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains a string that identifies a trustee by name and additional strings that identify the object types of an object-specific access control entry (ACE). (ANSI)
@@ -18,39 +18,23 @@
  * @namespace Windows.Win32.Security.Authorization
  * @charset ANSI
  */
-class OBJECTS_AND_NAME_A extends Win32Struct {
-    static sizeof => 32
+export default struct OBJECTS_AND_NAME_A {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {SYSTEM_AUDIT_OBJECT_ACE_FLAGS}
-     */
-    ObjectsPresent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ObjectsPresent : SYSTEM_AUDIT_OBJECT_ACE_FLAGS
 
     /**
      * Specifies a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object.
-     * @type {SE_OBJECT_TYPE}
      */
-    ObjectType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ObjectType : SE_OBJECT_TYPE
 
     /**
      * A pointer to a null-terminated string that identifies the type of object to which the ACE applies.
      * 
      * This string must be a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LDAP</a> display name in the Active Directory schema.
-     * @type {PSTR}
      */
-    ObjectTypeName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ObjectTypeName : PSTR
 
     /**
      * A pointer to a null-terminated string that identifies the type of object that can inherit the ACE. 
@@ -61,19 +45,12 @@ class OBJECTS_AND_NAME_A extends Win32Struct {
      * This string must be a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LDAP</a> display name in the Active Directory schema.
      * 
      * If the ACE_INHERITED_OBJECT_TYPE_PRESENT bit is not set in the <b>ObjectsPresent</b> member, the <b>InheritedObjectTypeName</b> member is ignored, and all types of child objects can inherit the ACE. Otherwise, only the specified object type can inherit the ACE. In either case, inheritance is also controlled by the inheritance flags in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure as well as by any protection against inheritance placed on the child objects.
-     * @type {PSTR}
      */
-    InheritedObjectTypeName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InheritedObjectTypeName : PSTR
 
     /**
      * A pointer to a null-terminated string that contains the name of the trustee.
-     * @type {PSTR}
      */
-    ptstrName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ptstrName : PSTR
+
 }

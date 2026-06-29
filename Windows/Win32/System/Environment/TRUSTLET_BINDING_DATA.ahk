@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PS_TRUSTLET_TKSESSION_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PS_TRUSTLET_TKSESSION_ID.ahk" { PS_TRUSTLET_TKSESSION_ID }
 
 /**
  * @namespace Windows.Win32.System.Environment
  */
-class TRUSTLET_BINDING_DATA extends Win32Struct {
-    static sizeof => 56
+export default struct TRUSTLET_BINDING_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    TrustletIdentity : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TrustletIdentity {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TrustletSessionId : PS_TRUSTLET_TKSESSION_ID
 
-    /**
-     * @type {PS_TRUSTLET_TKSESSION_ID}
-     */
-    TrustletSessionId {
-        get {
-            if(!this.HasProp("__TrustletSessionId"))
-                this.__TrustletSessionId := PS_TRUSTLET_TKSESSION_ID(8, this)
-            return this.__TrustletSessionId
-        }
-    }
+    TrustletSvn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TrustletSvn {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

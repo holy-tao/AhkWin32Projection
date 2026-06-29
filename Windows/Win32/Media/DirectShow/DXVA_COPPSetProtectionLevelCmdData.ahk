@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains data for the Set Protection Level command in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppsetprotectionlevelcmddata
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DXVA_COPPSetProtectionLevelCmdData extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DXVA_COPPSetProtectionLevelCmdData {
+    #StructPack 4
 
     /**
      * Identifies the protection mechanism. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/copp-protection-type-flags">COPP Protection Type Flags</a>.
-     * @type {Integer}
      */
-    ProtType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProtType : UInt32
 
     /**
      * Specifies the protection level. The meaning of this value depends on the protection mechanism that is queried. For each protection mechanism, the value of the <c>ProtLevel</c> member is a flag from a different enumeration, as shown in the following table.
@@ -47,28 +40,17 @@ class DXVA_COPPSetProtectionLevelCmdData extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ProtLevel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProtLevel : UInt32
 
     /**
      * Reserved. Must be zero.
-     * @type {Integer}
      */
-    ExtendedInfoChangeMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ExtendedInfoChangeMask : UInt32
 
     /**
      * Reserved. Must be zero.
-     * @type {Integer}
      */
-    ExtendedInfoData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ExtendedInfoData : UInt32
+
 }

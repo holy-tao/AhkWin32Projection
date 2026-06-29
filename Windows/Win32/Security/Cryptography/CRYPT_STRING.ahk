@@ -1,21 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Tries the following, in order: 
-  * 
-  * 
-  * 
-  * 
-  * <dl>
-  * <dd>CRYPT_STRING_BASE64HEADER</dd>
-  * <dd>CRYPT_STRING_BASE64</dd>
-  * <dd>CRYPT_STRING_BINARY</dd>
-  * </dl>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptstringtobinarya
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_STRING extends Win32Enum {
+export default struct CRYPT_STRING {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

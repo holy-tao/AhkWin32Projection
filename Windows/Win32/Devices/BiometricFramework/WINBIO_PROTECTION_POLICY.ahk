@@ -1,66 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_IDENTITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_PROTECTION_POLICY extends Win32Struct {
-    static sizeof => 240
+export default struct WINBIO_PROTECTION_POLICY {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Identity : WINBIO_IDENTITY
 
-    /**
-     * @type {WINBIO_IDENTITY}
-     */
-    Identity {
-        get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(8, this)
-            return this.__Identity
-        }
-    }
+    DatabaseId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DatabaseId {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    UserState : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UserState {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    PolicySize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PolicySize {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    Policy : Int8[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Policy {
-        get {
-            if(!this.HasProp("__PolicyProxyArray"))
-                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 112, 128, Primitive, "char")
-            return this.__PolicyProxyArray
-        }
-    }
 }

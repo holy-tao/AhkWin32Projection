@@ -1,41 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMMDeviceCollection.ahk
-#Include .\IMMDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EDataFlow.ahk" { EDataFlow }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMMNotificationClient.ahk" { IMMNotificationClient }
+#Import ".\ERole.ahk" { ERole }
+#Import ".\IMMDeviceCollection.ahk" { IMMDeviceCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMMDevice.ahk" { IMMDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEVICE_STATE.ahk" { DEVICE_STATE }
 
 /**
  * The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immdeviceenumerator
  * @namespace Windows.Win32.Media.Audio
  */
-class IMMDeviceEnumerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMMDeviceEnumerator extends IUnknown {
     /**
      * The interface identifier for IMMDeviceEnumerator
      * @type {Guid}
      */
-    static IID => Guid("{a95664d2-9614-4f35-a746-de8db63617e6}")
+    static IID := Guid("{a95664d2-9614-4f35-a746-de8db63617e6}")
 
     /**
      * The class identifier for MMDeviceEnumerator
      * @type {Guid}
      */
-    static CLSID => Guid("{bcde0395-e52f-467c-8e3d-c4579291692e}")
+    static CLSID := Guid("{bcde0395-e52f-467c-8e3d-c4579291692e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMMDeviceEnumerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumAudioEndpoints                     : IntPtr
+        GetDefaultAudioEndpoint                : IntPtr
+        GetDevice                              : IntPtr
+        RegisterEndpointNotificationCallback   : IntPtr
+        UnregisterEndpointNotificationCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumAudioEndpoints", "GetDefaultAudioEndpoint", "GetDevice", "RegisterEndpointNotificationCallback", "UnregisterEndpointNotificationCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMMDeviceEnumerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The EnumAudioEndpoints method generates a collection of audio endpoint devices that meet the specified criteria.
@@ -77,7 +94,7 @@ class IMMDeviceEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-enumaudioendpoints
      */
     EnumAudioEndpoints(_dataFlow, dwStateMask) {
-        result := ComCall(3, this, "int", _dataFlow, "uint", dwStateMask, "ptr*", &ppDevices := 0, "HRESULT")
+        result := ComCall(3, this, EDataFlow, _dataFlow, DEVICE_STATE, dwStateMask, "ptr*", &ppDevices := 0, "HRESULT")
         return IMMDeviceCollection(ppDevices)
     }
 
@@ -135,7 +152,7 @@ class IMMDeviceEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdefaultaudioendpoint
      */
     GetDefaultAudioEndpoint(_dataFlow, role) {
-        result := ComCall(4, this, "int", _dataFlow, "int", role, "ptr*", &ppEndpoint := 0, "HRESULT")
+        result := ComCall(4, this, EDataFlow, _dataFlow, ERole, role, "ptr*", &ppEndpoint := 0, "HRESULT")
         return IMMDevice(ppEndpoint)
     }
 
@@ -277,5 +294,33 @@ class IMMDeviceEnumerator extends IUnknown {
     UnregisterEndpointNotificationCallback(pClient) {
         result := ComCall(7, this, "ptr", pClient, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMMDeviceEnumerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumAudioEndpoints := CallbackCreate(GetMethod(implObj, "EnumAudioEndpoints"), flags, 4)
+        this.vtbl.GetDefaultAudioEndpoint := CallbackCreate(GetMethod(implObj, "GetDefaultAudioEndpoint"), flags, 4)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 3)
+        this.vtbl.RegisterEndpointNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterEndpointNotificationCallback"), flags, 2)
+        this.vtbl.UnregisterEndpointNotificationCallback := CallbackCreate(GetMethod(implObj, "UnregisterEndpointNotificationCallback"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumAudioEndpoints)
+        CallbackFree(this.vtbl.GetDefaultAudioEndpoint)
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.RegisterEndpointNotificationCallback)
+        CallbackFree(this.vtbl.UnregisterEndpointNotificationCallback)
     }
 }

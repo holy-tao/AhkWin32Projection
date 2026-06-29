@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmPipelineModuleImplementation.ahk" { IFsrmPipelineModuleImplementation }
+#Import ".\IFsrmPropertyBag.ahk" { IFsrmPropertyBag }
 
 /**
  * Storage modules implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmstoragemoduleimplementation
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation {
     /**
      * The interface identifier for IFsrmStorageModuleImplementation
      * @type {Guid}
      */
-    static IID => Guid("{0af4a0da-895a-4e50-8712-a96724bcec64}")
+    static IID := Guid("{0af4a0da-895a-4e50-8712-a96724bcec64}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmStorageModuleImplementation interfaces
+    */
+    struct Vtbl extends IFsrmPipelineModuleImplementation.Vtbl {
+        UseDefinitions : IntPtr
+        LoadProperties : IntPtr
+        SaveProperties : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UseDefinitions", "LoadProperties", "SaveProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmStorageModuleImplementation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the property definitions FSRM recognizes.
@@ -74,5 +86,29 @@ class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation
     SaveProperties(propertyBag) {
         result := ComCall(11, this, "ptr", propertyBag, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmStorageModuleImplementation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UseDefinitions := CallbackCreate(GetMethod(implObj, "UseDefinitions"), flags, 2)
+        this.vtbl.LoadProperties := CallbackCreate(GetMethod(implObj, "LoadProperties"), flags, 2)
+        this.vtbl.SaveProperties := CallbackCreate(GetMethod(implObj, "SaveProperties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UseDefinitions)
+        CallbackFree(this.vtbl.LoadProperties)
+        CallbackFree(this.vtbl.SaveProperties)
     }
 }

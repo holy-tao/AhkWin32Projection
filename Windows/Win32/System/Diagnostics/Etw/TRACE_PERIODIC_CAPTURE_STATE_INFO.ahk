@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with TraceQueryInformation and TraceSetInformation to get or set information relating to a periodic capture state.
@@ -45,35 +44,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_periodic_capture_state_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_PERIODIC_CAPTURE_STATE_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct TRACE_PERIODIC_CAPTURE_STATE_INFO {
+    #StructPack 4
 
     /**
      * The frequency of state captures in seconds.
-     * @type {Integer}
      */
-    CaptureStateFrequencyInSeconds {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CaptureStateFrequencyInSeconds : UInt32
 
     /**
      * The number of providers.
-     * @type {Integer}
      */
-    ProviderCount {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ProviderCount : UInt16
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : UInt16
+
 }

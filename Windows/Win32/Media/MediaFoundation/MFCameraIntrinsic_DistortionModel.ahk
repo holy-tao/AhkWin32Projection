@@ -1,58 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a polynomial lens distortion model.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraintrinsic_distortionmodel
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCameraIntrinsic_DistortionModel extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MFCameraIntrinsic_DistortionModel {
+    #StructPack 4
 
     /**
      * The first radial distortion coefficient.
-     * @type {Float}
      */
-    Radial_k1 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    Radial_k1 : Float32
 
     /**
      * The second radial distortion coefficient.
-     * @type {Float}
      */
-    Radial_k2 {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Radial_k2 : Float32
 
     /**
      * The third radial distortion coefficient.
-     * @type {Float}
      */
-    Radial_k3 {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Radial_k3 : Float32
 
     /**
      * The first tangential distortion coefficient.
-     * @type {Float}
      */
-    Tangential_p1 {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    Tangential_p1 : Float32
 
     /**
      * The second tangential distortion coefficient.
-     * @type {Float}
      */
-    Tangential_p2 {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    Tangential_p2 : Float32
+
 }

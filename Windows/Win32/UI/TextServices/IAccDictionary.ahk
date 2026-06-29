@@ -1,41 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes methods for string manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iaccdictionary
  * @namespace Windows.Win32.UI.TextServices
  */
-class IAccDictionary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAccDictionary extends IUnknown {
     /**
      * The interface identifier for IAccDictionary
      * @type {Guid}
      */
-    static IID => Guid("{1dc4cb5f-d737-474d-ade9-5ccfc9bc1cc9}")
+    static IID := Guid("{1dc4cb5f-d737-474d-ade9-5ccfc9bc1cc9}")
 
     /**
      * The class identifier for AccDictionary
      * @type {Guid}
      */
-    static CLSID => Guid("{6572ee16-5fe5-4331-bb6d-76a49c56e423}")
+    static CLSID := Guid("{6572ee16-5fe5-4331-bb6d-76a49c56e423}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAccDictionary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLocalizedString   : IntPtr
+        GetParentTerm        : IntPtr
+        GetMnemonicString    : IntPtr
+        LookupMnemonicTerm   : IntPtr
+        ConvertValueToString : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLocalizedString", "GetParentTerm", "GetMnemonicString", "LookupMnemonicTerm", "ConvertValueToString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAccDictionary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Clients call the IAccDictionary::GetLocalizedString method to get localized strings for all system properties and their values.
@@ -61,7 +73,7 @@ class IAccDictionary extends IUnknown {
     GetLocalizedString(Term, lcid, pResult, plcid) {
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", Term, "uint", lcid, "ptr", pResult, plcidMarshal, plcid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Term, "uint", lcid, BSTR.Ptr, pResult, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -79,7 +91,7 @@ class IAccDictionary extends IUnknown {
      */
     GetParentTerm(Term) {
         pParentTerm := Guid()
-        result := ComCall(4, this, "ptr", Term, "ptr", pParentTerm, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, Term, Guid.Ptr, pParentTerm, "HRESULT")
         return pParentTerm
     }
 
@@ -96,8 +108,8 @@ class IAccDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getmnemonicstring
      */
     GetMnemonicString(Term) {
-        pResult := BSTR()
-        result := ComCall(5, this, "ptr", Term, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(5, this, Guid.Ptr, Term, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -117,7 +129,7 @@ class IAccDictionary extends IUnknown {
         bstrMnemonic := bstrMnemonic is String ? BSTR.Alloc(bstrMnemonic).Value : bstrMnemonic
 
         pTerm := Guid()
-        result := ComCall(6, this, "ptr", bstrMnemonic, "ptr", pTerm, "HRESULT")
+        result := ComCall(6, this, BSTR, bstrMnemonic, Guid.Ptr, pTerm, "HRESULT")
         return pTerm
     }
 
@@ -148,7 +160,35 @@ class IAccDictionary extends IUnknown {
     ConvertValueToString(Term, lcid, varValue, pbstrResult, plcid) {
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", Term, "uint", lcid, "ptr", varValue, "ptr", pbstrResult, plcidMarshal, plcid, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, Term, "uint", lcid, VARIANT, varValue, BSTR.Ptr, pbstrResult, plcidMarshal, plcid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAccDictionary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLocalizedString := CallbackCreate(GetMethod(implObj, "GetLocalizedString"), flags, 5)
+        this.vtbl.GetParentTerm := CallbackCreate(GetMethod(implObj, "GetParentTerm"), flags, 3)
+        this.vtbl.GetMnemonicString := CallbackCreate(GetMethod(implObj, "GetMnemonicString"), flags, 3)
+        this.vtbl.LookupMnemonicTerm := CallbackCreate(GetMethod(implObj, "LookupMnemonicTerm"), flags, 3)
+        this.vtbl.ConvertValueToString := CallbackCreate(GetMethod(implObj, "ConvertValueToString"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLocalizedString)
+        CallbackFree(this.vtbl.GetParentTerm)
+        CallbackFree(this.vtbl.GetMnemonicString)
+        CallbackFree(this.vtbl.LookupMnemonicTerm)
+        CallbackFree(this.vtbl.ConvertValueToString)
     }
 }

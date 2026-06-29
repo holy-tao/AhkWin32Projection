@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MPEG_WINSOCK structure is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_winsock
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class MPEG_WINSOCK extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct MPEG_WINSOCK {
+    #StructPack 4
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    AVMGraphId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AVMGraphId : UInt32
+
 }

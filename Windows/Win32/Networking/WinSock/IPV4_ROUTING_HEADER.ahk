@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPV4_OPTION_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPV4_OPTION_HEADER.ahk" { IPV4_OPTION_HEADER }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV4_ROUTING_HEADER extends Win32Struct {
-    static sizeof => 3
+export default struct IPV4_ROUTING_HEADER {
+    #StructPack 1
 
-    static packingSize => 1
+    OptionHeader : IPV4_OPTION_HEADER
 
-    /**
-     * @type {IPV4_OPTION_HEADER}
-     */
-    OptionHeader {
-        get {
-            if(!this.HasProp("__OptionHeader"))
-                this.__OptionHeader := IPV4_OPTION_HEADER(0, this)
-            return this.__OptionHeader
-        }
-    }
+    Pointer : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Pointer {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
 }

@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_CREATE_GENERIC_RECORD_EVENT extends Win32Struct {
-    static sizeof => 48
+export default struct WHEAP_CREATE_GENERIC_RECORD_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Error : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    Error {
-        get => StrGet(this.ptr + 8, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
-    }
+    EntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntryCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Status : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    Status {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
 }

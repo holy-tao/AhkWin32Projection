@@ -1,129 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\PROPSHEETPAGEW.ahk
-#Include .\HPROPSHEETPAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  */
-class PROPSHEETHEADERW_V1 extends Win32Struct {
-    static sizeof => 72
+export default struct PROPSHEETHEADERW_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hwndParent : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(8, this)
-            return this.__hwndParent
-        }
-    }
+    hInstance : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(16, this)
-            return this.__hInstance
-        }
-    }
+    hIcon : HICON
 
-    /**
-     * @type {HICON}
-     */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(24, this)
-            return this.__hIcon
-        }
-    }
+    pszCaption : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    nPages : UInt32
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCaption {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    nStartPage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nPages {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ppsp : PROPSHEETPAGEW.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    nStartPage {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pfnCallback : IntPtr
 
-    /**
-     * @type {PWSTR}
-     */
-    pStartPage {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<PROPSHEETPAGEW>}
-     */
-    ppsp {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<HPROPSHEETPAGE>}
-     */
-    phpage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<PFNPROPSHEETCALLBACK>}
-     */
-    pfnCallback {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    static __New() {
+        DefineProp(this.Prototype, 'pszIcon', { type: PWSTR, offset: 24 })
+        DefineProp(this.Prototype, 'pStartPage', { type: PWSTR, offset: 48 })
+        DefineProp(this.Prototype, 'phpage', { type: HPROPSHEETPAGE.Ptr, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

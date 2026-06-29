@@ -1,52 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DVDCOPY_TITLEKEY extends Win32Struct {
-    static sizeof => 20
+export default struct KS_DVDCOPY_TITLEKEY {
+    #StructPack 4
 
-    static packingSize => 4
+    KeyFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReservedNT : UInt32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReservedNT {
-        get {
-            if(!this.HasProp("__ReservedNTProxyArray"))
-                this.__ReservedNTProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
-            return this.__ReservedNTProxyArray
-        }
-    }
+    TitleKey : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TitleKey {
-        get {
-            if(!this.HasProp("__TitleKeyProxyArray"))
-                this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
-            return this.__TitleKeyProxyArray
-        }
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

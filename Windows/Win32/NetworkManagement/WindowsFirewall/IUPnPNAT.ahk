@@ -1,42 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IStaticPortMappingCollection.ahk
-#Include .\IDynamicPortMappingCollection.ahk
-#Include .\INATEventManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INATEventManager.ahk" { INATEventManager }
+#Import ".\IStaticPortMappingCollection.ahk" { IStaticPortMappingCollection }
+#Import ".\IDynamicPortMappingCollection.ahk" { IDynamicPortMappingCollection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPNAT interface is the primary interface for managing Network Address Translation (NAT) with UPnP. The IUPnPNAT interface provides access directly or indirectly to all the other interfaces in the NAT API with UPnP technology.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-iupnpnat
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class IUPnPNAT extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPNAT extends IDispatch {
     /**
      * The interface identifier for IUPnPNAT
      * @type {Guid}
      */
-    static IID => Guid("{b171c812-cc76-485a-94d8-b6b3a2794e99}")
+    static IID := Guid("{b171c812-cc76-485a-94d8-b6b3a2794e99}")
 
     /**
      * The class identifier for UPnPNAT
      * @type {Guid}
      */
-    static CLSID => Guid("{ae1e00aa-3fd5-403c-8a27-2bbdc30cd0e1}")
+    static CLSID := Guid("{ae1e00aa-3fd5-403c-8a27-2bbdc30cd0e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPNAT interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StaticPortMappingCollection  : IntPtr
+        get_DynamicPortMappingCollection : IntPtr
+        get_NATEventManager              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StaticPortMappingCollection", "get_DynamicPortMappingCollection", "get_NATEventManager"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPNAT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IStaticPortMappingCollection} 
@@ -89,5 +99,29 @@ class IUPnPNAT extends IDispatch {
     get_NATEventManager() {
         result := ComCall(9, this, "ptr*", &ppNEM := 0, "HRESULT")
         return INATEventManager(ppNEM)
+    }
+
+    Query(iid) {
+        if (IUPnPNAT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StaticPortMappingCollection := CallbackCreate(GetMethod(implObj, "get_StaticPortMappingCollection"), flags, 2)
+        this.vtbl.get_DynamicPortMappingCollection := CallbackCreate(GetMethod(implObj, "get_DynamicPortMappingCollection"), flags, 2)
+        this.vtbl.get_NATEventManager := CallbackCreate(GetMethod(implObj, "get_NATEventManager"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StaticPortMappingCollection)
+        CallbackFree(this.vtbl.get_DynamicPortMappingCollection)
+        CallbackFree(this.vtbl.get_NATEventManager)
     }
 }

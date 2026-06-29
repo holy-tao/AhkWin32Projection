@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME extends Win32Struct {
-    static sizeof => 68
+export default struct D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME {
+    #StructPack 4
 
-    static packingSize => 4
+    DeviceName : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    DeviceName {
-        get => StrGet(this.ptr + 0, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

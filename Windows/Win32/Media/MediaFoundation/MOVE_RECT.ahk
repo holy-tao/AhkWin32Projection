@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MOVE_RECT extends Win32Struct {
-    static sizeof => 24
+export default struct MOVE_RECT {
+    #StructPack 4
 
-    static packingSize => 4
+    SourcePoint : POINT
 
-    /**
-     * @type {POINT}
-     */
-    SourcePoint {
-        get {
-            if(!this.HasProp("__SourcePoint"))
-                this.__SourcePoint := POINT(0, this)
-            return this.__SourcePoint
-        }
-    }
+    DestRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    DestRect {
-        get {
-            if(!this.HasProp("__DestRect"))
-                this.__DestRect := RECT(8, this)
-            return this.__DestRect
-        }
-    }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_CONNECTSTATE_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WTS_CONNECTSTATE_CLASS.ahk" { WTS_CONNECTSTATE_CLASS }
 
 /**
  * Contains extended information about a client session on a Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (Unicode)
@@ -19,80 +19,47 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset Unicode
  */
-class WTS_SESSION_INFO_1W extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct WTS_SESSION_INFO_1W {
+    #StructPack 8
 
     /**
      * An identifier that uniquely identifies the session within the list of sessions returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexa">WTSEnumerateSessionsEx</a> function. For more information, see Remarks.
-     * @type {Integer}
      */
-    ExecEnvId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ExecEnvId : UInt32
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_connectstate_class">WTS_CONNECTSTATE_CLASS</a> enumeration type that specifies the connection state of a Remote Desktop Services session.
-     * @type {WTS_CONNECTSTATE_CLASS}
      */
-    State {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    State : WTS_CONNECTSTATE_CLASS
 
     /**
      * A session identifier assigned by the RD Session Host server, RD Virtualization Host server, or virtual machine.
-     * @type {Integer}
      */
-    SessionId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SessionId : UInt32
 
     /**
      * A pointer to a null-terminated string that contains the name of this session. For example, "services", "console", or "RDP-Tcp#0".
-     * @type {PWSTR}
      */
-    pSessionName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pSessionName : PWSTR
 
     /**
      * A pointer to a null-terminated string that contains the name of the computer that the session is running on. If the session is running directly on an RD Session Host server or RD Virtualization Host server, the string contains <b>NULL</b>. If the session is running on a virtual machine, the string contains the name of the virtual machine.
-     * @type {PWSTR}
      */
-    pHostName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pHostName : PWSTR
 
     /**
      * A pointer to a null-terminated string that contains the name of the user who is logged on to the session. If no user is logged on to the session, the string contains <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pUserName : PWSTR
 
     /**
      * A pointer to a null-terminated string that contains the domain name of the user who is logged on to the session. If no user is logged on to the session, the string contains <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pDomainName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pDomainName : PWSTR
 
     /**
      * A pointer to a null-terminated string that contains the name of the farm that the virtual machine is joined to.  If the session is not running on a virtual machine that is joined to a farm, the string contains <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pFarmName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pFarmName : PWSTR
+
 }

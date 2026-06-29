@@ -1,39 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HSE_EXEC_UNICODE_URL_USER_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct HSE_EXEC_UNICODE_URL_USER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hImpersonationToken : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hImpersonationToken {
-        get {
-            if(!this.HasProp("__hImpersonationToken"))
-                this.__hImpersonationToken := HANDLE(0, this)
-            return this.__hImpersonationToken
-        }
-    }
+    pszCustomUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCustomUserName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszCustomAuthType : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszCustomAuthType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

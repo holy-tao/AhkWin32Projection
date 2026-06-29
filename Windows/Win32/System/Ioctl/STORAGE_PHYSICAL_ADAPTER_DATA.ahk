@@ -1,136 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_COMPONENT_HEALTH_STATUS.ahk
-#Include .\STORAGE_PROTOCOL_TYPE.ahk
-#Include .\STORAGE_SPEC_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_SPEC_VERSION.ahk" { STORAGE_SPEC_VERSION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\STORAGE_COMPONENT_HEALTH_STATUS.ahk" { STORAGE_COMPONENT_HEALTH_STATUS }
+#Import ".\STORAGE_PROTOCOL_TYPE.ahk" { STORAGE_PROTOCOL_TYPE }
 
 /**
  * Describes a physical storage adapter.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_adapter_data
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct {
-    static sizeof => 132
-
-    static packingSize => 4
+export default struct STORAGE_PHYSICAL_ADAPTER_DATA {
+    #StructPack 4
 
     /**
      * Specifies the adapter ID.
-     * @type {Integer}
      */
-    AdapterId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AdapterId : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_component_health_status">STORAGE_COMPONENT_HEALTH_STATUS</a>-typed value.
-     * @type {STORAGE_COMPONENT_HEALTH_STATUS}
      */
-    HealthStatus {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    HealthStatus : STORAGE_COMPONENT_HEALTH_STATUS
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_type">STORAGE_PROTOCOL_TYPE</a>-typed value.
-     * @type {STORAGE_PROTOCOL_TYPE}
      */
-    CommandProtocol {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    CommandProtocol : STORAGE_PROTOCOL_TYPE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_spec_version">STORAGE_SPEC_VERSION</a>-typed value that specifies the supported storage spec version (for example, AHCI 1.3.1).
-     * @type {STORAGE_SPEC_VERSION}
      */
-    SpecVersion {
-        get {
-            if(!this.HasProp("__SpecVersion"))
-                this.__SpecVersion := STORAGE_SPEC_VERSION(12, this)
-            return this.__SpecVersion
-        }
-    }
+    SpecVersion : STORAGE_SPEC_VERSION
 
     /**
      * Specifies the adapter vendor.
-     * @type {Array<Integer>}
      */
-    Vendor {
-        get {
-            if(!this.HasProp("__VendorProxyArray"))
-                this.__VendorProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "char")
-            return this.__VendorProxyArray
-        }
-    }
+    Vendor : Int8[8]
 
     /**
      * Specifies the adapter model.
-     * @type {Array<Integer>}
      */
-    Model {
-        get {
-            if(!this.HasProp("__ModelProxyArray"))
-                this.__ModelProxyArray := Win32FixedArray(this.ptr + 28, 40, Primitive, "char")
-            return this.__ModelProxyArray
-        }
-    }
+    Model : Int8[40]
 
     /**
      * Specifies the firmware revision.
-     * @type {Array<Integer>}
      */
-    FirmwareRevision {
-        get {
-            if(!this.HasProp("__FirmwareRevisionProxyArray"))
-                this.__FirmwareRevisionProxyArray := Win32FixedArray(this.ptr + 68, 16, Primitive, "char")
-            return this.__FirmwareRevisionProxyArray
-        }
-    }
+    FirmwareRevision : Int8[16]
 
     /**
      * Reserved for future use.
-     * @type {Array<Integer>}
      */
-    PhysicalLocation {
-        get {
-            if(!this.HasProp("__PhysicalLocationProxyArray"))
-                this.__PhysicalLocationProxyArray := Win32FixedArray(this.ptr + 84, 32, Primitive, "char")
-            return this.__PhysicalLocationProxyArray
-        }
-    }
+    PhysicalLocation : Int8[32]
 
     /**
      * Indicates whether an expander is connected.
-     * @type {BOOLEAN}
      */
-    ExpanderConnected {
-        get => NumGet(this, 116, "char")
-        set => NumPut("char", value, this, 116)
-    }
+    ExpanderConnected : BOOLEAN
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 117, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[3]
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 120, 3, Primitive, "uint")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : UInt32[3]
+
 }

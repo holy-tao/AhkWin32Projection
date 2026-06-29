@@ -1,142 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STGMEDIUM.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IStream.ahk
-#Include StructuredStorage\IStorage.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
+#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import ".\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "StructuredStorage\IStorage.ahk" { IStorage }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class BINDINFO extends Win32Struct {
-    static sizeof => 120
+export default struct BINDINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szExtraInfo : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    szExtraInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    stgmedData : STGMEDIUM
 
-    /**
-     * @type {STGMEDIUM}
-     */
-    stgmedData {
-        get {
-            if(!this.HasProp("__stgmedData"))
-                this.__stgmedData := STGMEDIUM(16, this)
-            return this.__stgmedData
-        }
-    }
+    grfBindInfoF : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grfBindInfoF {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwBindVerb : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBindVerb {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    szCustomVerb : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    szCustomVerb {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cbstgmedData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbstgmedData {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOptions {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwOptionsFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOptionsFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwCodePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCodePage {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    securityAttributes : SECURITY_ATTRIBUTES
 
-    /**
-     * @type {SECURITY_ATTRIBUTES}
-     */
-    securityAttributes {
-        get {
-            if(!this.HasProp("__securityAttributes"))
-                this.__securityAttributes := SECURITY_ATTRIBUTES(72, this)
-            return this.__securityAttributes
-        }
-    }
+    iid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    iid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pUnk : IUnknown
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnk {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 120
-    }
 }

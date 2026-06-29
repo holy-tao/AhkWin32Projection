@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains information that the GetFileInformationByHandle function retrieves.
@@ -28,34 +27,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-by_handle_file_information
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class BY_HANDLE_FILE_INFORMATION extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct BY_HANDLE_FILE_INFORMATION {
+    #StructPack 4
 
     /**
      * The file attributes. For possible values and their descriptions, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-attribute-constants">File Attribute Constants</a>.
-     * @type {Integer}
      */
-    dwFileAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFileAttributes : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies when a file or 
      *       directory is created. If the underlying file system does not support creation time, this member is 
      *       zero (0).
-     * @type {FILETIME}
      */
-    ftCreationTime {
-        get {
-            if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(4, this)
-            return this.__ftCreationTime
-        }
-    }
+    ftCreationTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure. For a file, the structure 
@@ -63,76 +49,42 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct {
      *      directory is created. For both files and directories, the specified date is correct, but the time of day is 
      *      always set to midnight. If the underlying file system does not support the last access time, this member is 
      *      zero (0).
-     * @type {FILETIME}
      */
-    ftLastAccessTime {
-        get {
-            if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(12, this)
-            return this.__ftLastAccessTime
-        }
-    }
+    ftLastAccessTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure. For a file, the structure 
      *       specifies the last time that a file is written to. For a directory, the structure specifies when the directory 
      *       is created. If the underlying file system does not support the last write time, this member is zero (0).
-     * @type {FILETIME}
      */
-    ftLastWriteTime {
-        get {
-            if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(20, this)
-            return this.__ftLastWriteTime
-        }
-    }
+    ftLastWriteTime : FILETIME
 
     /**
      * The serial number of the volume that contains a file.
-     * @type {Integer}
      */
-    dwVolumeSerialNumber {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwVolumeSerialNumber : UInt32
 
     /**
      * The high-order part of the file size.
-     * @type {Integer}
      */
-    nFileSizeHigh {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    nFileSizeHigh : UInt32
 
     /**
      * The low-order part of the file size.
-     * @type {Integer}
      */
-    nFileSizeLow {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    nFileSizeLow : UInt32
 
     /**
      * The number of links to this file. For the FAT file system this member is always 1. For the NTFS file 
      *       system, it can be more than 1.
-     * @type {Integer}
      */
-    nNumberOfLinks {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    nNumberOfLinks : UInt32
 
     /**
      * The high-order part of a unique identifier that is associated with a file. For more information, see 
      *       <b>nFileIndexLow</b>.
-     * @type {Integer}
      */
-    nFileIndexHigh {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    nFileIndexHigh : UInt32
 
     /**
      * The low-order part of a unique identifier that is associated with a file.
@@ -147,10 +99,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct {
      *        with <b>FileIdInfo</b> to retrieve the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-file_id_info">FILE_ID_INFO</a> structure. The 64-bit identifier in this 
      *        structure is not guaranteed to be unique on ReFS.
-     * @type {Integer}
      */
-    nFileIndexLow {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    nFileIndexLow : UInt32
+
 }

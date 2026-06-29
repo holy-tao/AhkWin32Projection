@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NORMALIZEDRECT structure is used with the VMR filter in mixing operations to specify the location of a video rectangle in composition space.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-normalizedrect
  * @namespace Windows.Win32.Media.DirectShow
  */
-class NORMALIZEDRECT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct NORMALIZEDRECT {
+    #StructPack 4
 
     /**
      * The left corner of the normalized rectangle.
-     * @type {Float}
      */
-    left {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    left : Float32
 
     /**
      * The top corner of the normalized rectangle.
-     * @type {Float}
      */
-    top {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    top : Float32
 
     /**
      * The right corner of the normalized rectangle.
-     * @type {Float}
      */
-    right {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    right : Float32
 
     /**
      * The bottom corner of the normalized rectangle.
-     * @type {Float}
      */
-    bottom {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    bottom : Float32
+
 }

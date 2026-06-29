@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the ASF file sink should apply Windows Media DRM.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfsink_wmdrmaction
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFSINK_WMDRMACTION extends Win32Enum {
+export default struct MFSINK_WMDRMACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Undefined action.

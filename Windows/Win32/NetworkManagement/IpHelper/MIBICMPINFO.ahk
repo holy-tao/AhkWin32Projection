@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIBICMPSTATS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIBICMPSTATS.ahk" { MIBICMPSTATS }
 
 /**
  * Contains Internet Control Message Protocol (ICMP) statistics for a particular computer.
@@ -15,34 +14,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mibicmpinfo
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIBICMPINFO extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 4
+export default struct MIBICMPINFO {
+    #StructPack 4
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mibicmpstats">MIBICMPSTATS</a> structure that contains the statistics for incoming ICMP messages.
-     * @type {MIBICMPSTATS}
      */
-    icmpInStats {
-        get {
-            if(!this.HasProp("__icmpInStats"))
-                this.__icmpInStats := MIBICMPSTATS(0, this)
-            return this.__icmpInStats
-        }
-    }
+    icmpInStats : MIBICMPSTATS
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mibicmpstats">MIBICMPSTATS</a> structure that contains the statistics for outgoing ICMP messages.
-     * @type {MIBICMPSTATS}
      */
-    icmpOutStats {
-        get {
-            if(!this.HasProp("__icmpOutStats"))
-                this.__icmpOutStats := MIBICMPSTATS(52, this)
-            return this.__icmpOutStats
-        }
-    }
+    icmpOutStats : MIBICMPSTATS
+
 }

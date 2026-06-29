@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the possible types of identification rule structures that can be identified by the SAFER_IDENTIFICATION_HEADER structure.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ne-winsafer-safer_identification_types
  * @namespace Windows.Win32.Security.AppLocker
  */
-class SAFER_IDENTIFICATION_TYPES extends Win32Enum {
+export default struct SAFER_IDENTIFICATION_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The header is for a default level structure.

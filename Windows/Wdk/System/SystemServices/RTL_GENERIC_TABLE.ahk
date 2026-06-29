@@ -1,85 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RTL_SPLAY_LINKS.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RTL_SPLAY_LINKS.ahk" { RTL_SPLAY_LINKS }
+#Import "..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class RTL_GENERIC_TABLE extends Win32Struct {
-    static sizeof => 64
+export default struct RTL_GENERIC_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    TableRoot : RTL_SPLAY_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_SPLAY_LINKS>}
-     */
-    TableRoot {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InsertOrderList : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InsertOrderList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OrderedPointer : LIST_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<LIST_ENTRY>}
-     */
-    OrderedPointer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    WhichOrderedElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WhichOrderedElement {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NumberGenericTableElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberGenericTableElements {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    CompareRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_GENERIC_COMPARE_ROUTINE>}
-     */
-    CompareRoutine {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    AllocateRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_GENERIC_ALLOCATE_ROUTINE>}
-     */
-    AllocateRoutine {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FreeRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_GENERIC_FREE_ROUTINE>}
-     */
-    FreeRoutine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    TableContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TableContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

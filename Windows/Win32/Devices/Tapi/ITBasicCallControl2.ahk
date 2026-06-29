@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITBasicCallControl.ahk
-#Include .\ITTerminal.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
 
 /**
  * The ITBasicCallControl2 interface is an extension of the ITBasicCallControl interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itbasiccallcontrol2
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITBasicCallControl2 extends ITBasicCallControl {
-
-    static sizeof => A_PtrSize
+export default struct ITBasicCallControl2 extends ITBasicCallControl {
     /**
      * The interface identifier for ITBasicCallControl2
      * @type {Guid}
      */
-    static IID => Guid("{161a4a56-1e99-4b3f-a46a-168f38a5ee4c}")
+    static IID := Guid("{161a4a56-1e99-4b3f-a46a-168f38a5ee4c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITBasicCallControl2 interfaces
+    */
+    struct Vtbl extends ITBasicCallControl.Vtbl {
+        RequestTerminal        : IntPtr
+        SelectTerminalOnCall   : IntPtr
+        UnselectTerminalOnCall : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestTerminal", "SelectTerminalOnCall", "UnselectTerminalOnCall"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITBasicCallControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RequestTerminal method gets a suitable terminal, given the class, media, and direction required.
@@ -48,7 +60,7 @@ class ITBasicCallControl2 extends ITBasicCallControl {
     RequestTerminal(bstrTerminalClassGUID, lMediaType, _Direction) {
         bstrTerminalClassGUID := bstrTerminalClassGUID is String ? BSTR.Alloc(bstrTerminalClassGUID).Value : bstrTerminalClassGUID
 
-        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrTerminalClassGUID, "int", lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 
@@ -74,5 +86,29 @@ class ITBasicCallControl2 extends ITBasicCallControl {
     UnselectTerminalOnCall(pTerminal) {
         result := ComCall(27, this, "ptr", pTerminal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITBasicCallControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestTerminal := CallbackCreate(GetMethod(implObj, "RequestTerminal"), flags, 5)
+        this.vtbl.SelectTerminalOnCall := CallbackCreate(GetMethod(implObj, "SelectTerminalOnCall"), flags, 2)
+        this.vtbl.UnselectTerminalOnCall := CallbackCreate(GetMethod(implObj, "UnselectTerminalOnCall"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestTerminal)
+        CallbackFree(this.vtbl.SelectTerminalOnCall)
+        CallbackFree(this.vtbl.UnselectTerminalOnCall)
     }
 }

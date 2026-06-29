@@ -1,41 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_INTERACTIVE_PROFILE.ahk
-#Include .\KERB_PROFILE_BUFFER_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_PROFILE_BUFFER_TYPE.ahk" { KERB_PROFILE_BUFFER_TYPE }
+#Import ".\KERB_INTERACTIVE_PROFILE.ahk" { KERB_INTERACTIVE_PROFILE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_SMART_CARD_PROFILE extends Win32Struct {
-    static sizeof => 176
+export default struct KERB_SMART_CARD_PROFILE {
+    #StructPack 8
 
-    static packingSize => 8
+    Profile : KERB_INTERACTIVE_PROFILE
 
-    /**
-     * @type {KERB_INTERACTIVE_PROFILE}
-     */
-    Profile {
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := KERB_INTERACTIVE_PROFILE(0, this)
-            return this.__Profile
-        }
-    }
+    CertificateSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CertificateSize {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    CertificateData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    CertificateData {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Output structure for the DeviceDsmAction_Allocation action of the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
@@ -54,77 +53,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_lb_provisioning_state
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DATA_SET_LB_PROVISIONING_STATE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DEVICE_DATA_SET_LB_PROVISIONING_STATE {
+    #StructPack 8
 
     /**
      * The size of this structure, including the bitmap, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * The version of this structure.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Version : UInt32
 
     /**
      * The size of a slab, in bytes.
-     * @type {Integer}
      */
-    SlabSizeInBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SlabSizeInBytes : Int64
 
     /**
      * If the range specified is not aligned to the <b>OptimalUnmapGranularity</b> as returned 
      *       in <a href="https://docs.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_lb_provisioning_descriptor">DEVICE_LB_PROVISIONING_DESCRIPTOR</a> 
      *       structure then the data represented in the <b>SlabAllocationBitMap</b> is offset from the 
      *       specified range by this amount.
-     * @type {Integer}
      */
-    SlabOffsetDeltaInBytes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SlabOffsetDeltaInBytes : UInt32
 
     /**
      * The number of relevant bits in the bitmap.
-     * @type {Integer}
      */
-    SlabAllocationBitMapBitCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SlabAllocationBitMapBitCount : UInt32
 
     /**
      * The number of<b> DWORD</b>s in the bitmap array.
-     * @type {Integer}
      */
-    SlabAllocationBitMapLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SlabAllocationBitMapLength : UInt32
 
     /**
      * The allocation bitmap containing one bit for each slab. If a bit is set then the corresponding slab is allocated. Otherwise, if a bit is clear, the corresponding slab is unallocated.
-     * @type {Array<Integer>}
      */
-    SlabAllocationBitMap {
-        get {
-            if(!this.HasProp("__SlabAllocationBitMapProxyArray"))
-                this.__SlabAllocationBitMapProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")
-            return this.__SlabAllocationBitMapProxyArray
-        }
-    }
+    SlabAllocationBitMap : UInt32[1]
+
 }

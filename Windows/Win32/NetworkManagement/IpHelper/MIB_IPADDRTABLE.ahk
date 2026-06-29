@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPADDRROW_XP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPADDRROW_XP.ahk" { MIB_IPADDRROW_XP }
 
 /**
  * Contains a table of IPv4 address entries.
@@ -15,30 +14,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipaddrtable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPADDRTABLE extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct MIB_IPADDRTABLE {
+    #StructPack 4
 
     /**
      * The number of IPv4 address entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of IPv4 address entries implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipaddrrow_w2k">MIB_IPADDRROW</a> structures.
-     * @type {MIB_IPADDRROW_XP}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPADDRROW_XP, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPADDRROW_XP[1]
+
 }

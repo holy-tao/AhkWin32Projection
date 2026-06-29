@@ -1,33 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AM_ASPECT_RATIO_MODE.ahk" { AM_ASPECT_RATIO_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMixerPinConfig interface is exposed on the input pins of the Overlay Mixer filter and contains methods that manipulate video streams in various ways.
  * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nn-mpconfig-imixerpinconfig
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMixerPinConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMixerPinConfig extends IUnknown {
     /**
      * The interface identifier for IMixerPinConfig
      * @type {Guid}
      */
-    static IID => Guid("{593cdde1-0759-11d1-9e69-00c04fd7c15b}")
+    static IID := Guid("{593cdde1-0759-11d1-9e69-00c04fd7c15b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMixerPinConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetRelativePosition  : IntPtr
+        GetRelativePosition  : IntPtr
+        SetZOrder            : IntPtr
+        GetZOrder            : IntPtr
+        SetColorKey          : IntPtr
+        GetColorKey          : IntPtr
+        SetBlendingParameter : IntPtr
+        GetBlendingParameter : IntPtr
+        SetAspectRatioMode   : IntPtr
+        GetAspectRatioMode   : IntPtr
+        SetStreamTransparent : IntPtr
+        GetStreamTransparent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRelativePosition", "GetRelativePosition", "SetZOrder", "GetZOrder", "SetColorKey", "GetColorKey", "SetBlendingParameter", "GetBlendingParameter", "SetAspectRatioMode", "GetAspectRatioMode", "SetStreamTransparent", "GetStreamTransparent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMixerPinConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetRelativePosition method sets the position of the stream in the display window.
@@ -179,7 +201,7 @@ class IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setcolorkey
      */
     SetColorKey(pColorKey) {
-        result := ComCall(7, this, "ptr", pColorKey, "HRESULT")
+        result := ComCall(7, this, COLORKEY.Ptr, pColorKey, "HRESULT")
         return result
     }
 
@@ -240,7 +262,7 @@ class IMixerPinConfig extends IUnknown {
     GetColorKey(pColorKey, pColor) {
         pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pColorKey, pColorMarshal, pColor, "HRESULT")
+        result := ComCall(8, this, COLORKEY.Ptr, pColorKey, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -406,7 +428,7 @@ class IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setaspectratiomode
      */
     SetAspectRatioMode(amAspectRatioMode) {
-        result := ComCall(11, this, "int", amAspectRatioMode, "HRESULT")
+        result := ComCall(11, this, AM_ASPECT_RATIO_MODE, amAspectRatioMode, "HRESULT")
         return result
     }
 
@@ -470,7 +492,7 @@ class IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setstreamtransparent
      */
     SetStreamTransparent(bStreamTransparent) {
-        result := ComCall(13, this, "int", bStreamTransparent, "HRESULT")
+        result := ComCall(13, this, BOOL, bStreamTransparent, "HRESULT")
         return result
     }
 
@@ -536,5 +558,47 @@ class IMixerPinConfig extends IUnknown {
 
         result := ComCall(14, this, pbStreamTransparentMarshal, pbStreamTransparent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMixerPinConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRelativePosition := CallbackCreate(GetMethod(implObj, "SetRelativePosition"), flags, 5)
+        this.vtbl.GetRelativePosition := CallbackCreate(GetMethod(implObj, "GetRelativePosition"), flags, 5)
+        this.vtbl.SetZOrder := CallbackCreate(GetMethod(implObj, "SetZOrder"), flags, 2)
+        this.vtbl.GetZOrder := CallbackCreate(GetMethod(implObj, "GetZOrder"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 3)
+        this.vtbl.SetBlendingParameter := CallbackCreate(GetMethod(implObj, "SetBlendingParameter"), flags, 2)
+        this.vtbl.GetBlendingParameter := CallbackCreate(GetMethod(implObj, "GetBlendingParameter"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetStreamTransparent := CallbackCreate(GetMethod(implObj, "SetStreamTransparent"), flags, 2)
+        this.vtbl.GetStreamTransparent := CallbackCreate(GetMethod(implObj, "GetStreamTransparent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRelativePosition)
+        CallbackFree(this.vtbl.GetRelativePosition)
+        CallbackFree(this.vtbl.SetZOrder)
+        CallbackFree(this.vtbl.GetZOrder)
+        CallbackFree(this.vtbl.SetColorKey)
+        CallbackFree(this.vtbl.GetColorKey)
+        CallbackFree(this.vtbl.SetBlendingParameter)
+        CallbackFree(this.vtbl.GetBlendingParameter)
+        CallbackFree(this.vtbl.SetAspectRatioMode)
+        CallbackFree(this.vtbl.GetAspectRatioMode)
+        CallbackFree(this.vtbl.SetStreamTransparent)
+        CallbackFree(this.vtbl.GetStreamTransparent)
     }
 }

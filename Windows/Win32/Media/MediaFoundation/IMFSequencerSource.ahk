@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the Sequencer Source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsequencersource
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSequencerSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSequencerSource extends IUnknown {
     /**
      * The interface identifier for IMFSequencerSource
      * @type {Guid}
      */
-    static IID => Guid("{197cd219-19cb-4de1-a64c-acf2edcbe59e}")
+    static IID := Guid("{197cd219-19cb-4de1-a64c-acf2edcbe59e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSequencerSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AppendTopology         : IntPtr
+        DeleteTopology         : IntPtr
+        GetPresentationContext : IntPtr
+        UpdateTopology         : IntPtr
+        UpdateTopologyFlags    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AppendTopology", "DeleteTopology", "GetPresentationContext", "UpdateTopology", "UpdateTopologyFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSequencerSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a topology to the end of the queue.
@@ -127,7 +141,7 @@ class IMFSequencerSource extends IUnknown {
     GetPresentationContext(pPD, pId, ppTopology) {
         pIdMarshal := pId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pPD, pIdMarshal, pId, "ptr*", ppTopology, "HRESULT")
+        result := ComCall(5, this, "ptr", pPD, pIdMarshal, pId, IMFTopology.Ptr, ppTopology, "HRESULT")
         return result
     }
 
@@ -202,5 +216,33 @@ class IMFSequencerSource extends IUnknown {
     UpdateTopologyFlags(dwId, dwFlags) {
         result := ComCall(7, this, "uint", dwId, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSequencerSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AppendTopology := CallbackCreate(GetMethod(implObj, "AppendTopology"), flags, 4)
+        this.vtbl.DeleteTopology := CallbackCreate(GetMethod(implObj, "DeleteTopology"), flags, 2)
+        this.vtbl.GetPresentationContext := CallbackCreate(GetMethod(implObj, "GetPresentationContext"), flags, 4)
+        this.vtbl.UpdateTopology := CallbackCreate(GetMethod(implObj, "UpdateTopology"), flags, 3)
+        this.vtbl.UpdateTopologyFlags := CallbackCreate(GetMethod(implObj, "UpdateTopologyFlags"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AppendTopology)
+        CallbackFree(this.vtbl.DeleteTopology)
+        CallbackFree(this.vtbl.GetPresentationContext)
+        CallbackFree(this.vtbl.UpdateTopology)
+        CallbackFree(this.vtbl.UpdateTopologyFlags)
     }
 }

@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
+#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
+#Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
+#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_KEYFRAME.ahk" { UI_ANIMATION_KEYFRAME }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationStoryboardEventHandler.ahk" { IUIAnimationStoryboardEventHandler }
 
 /**
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.
@@ -13,26 +20,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationstoryboard
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationStoryboard extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationStoryboard extends IUnknown {
     /**
      * The interface identifier for IUIAnimationStoryboard
      * @type {Guid}
      */
-    static IID => Guid("{a8ff128f-9bf9-4af1-9e67-e5e410defb84}")
+    static IID := Guid("{a8ff128f-9bf9-4af1-9e67-e5e410defb84}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationStoryboard interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddTransition                 : IntPtr
+        AddKeyframeAtOffset           : IntPtr
+        AddKeyframeAfterTransition    : IntPtr
+        AddTransitionAtKeyframe       : IntPtr
+        AddTransitionBetweenKeyframes : IntPtr
+        RepeatBetweenKeyframes        : IntPtr
+        HoldVariable                  : IntPtr
+        SetLongestAcceptableDelay     : IntPtr
+        Schedule                      : IntPtr
+        Conclude                      : IntPtr
+        Finish                        : IntPtr
+        Abandon                       : IntPtr
+        SetTag                        : IntPtr
+        GetTag                        : IntPtr
+        GetStatus                     : IntPtr
+        GetElapsedTime                : IntPtr
+        SetStoryboardEventHandler     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddTransition", "AddKeyframeAtOffset", "AddKeyframeAfterTransition", "AddTransitionAtKeyframe", "AddTransitionBetweenKeyframes", "RepeatBetweenKeyframes", "HoldVariable", "SetLongestAcceptableDelay", "Schedule", "Conclude", "Finish", "Abandon", "SetTag", "GetTag", "GetStatus", "GetElapsedTime", "SetStoryboardEventHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationStoryboard.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a transition to the storyboard. (IUIAnimationStoryboard.AddTransition)
@@ -76,7 +106,7 @@ class IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-addkeyframeatoffset
      */
     AddKeyframeAtOffset(existingKeyframe, offset) {
-        result := ComCall(4, this, "ptr", existingKeyframe, "double", offset, "ptr*", &keyframe := 0, "HRESULT")
+        result := ComCall(4, this, UI_ANIMATION_KEYFRAME, existingKeyframe, "double", offset, UI_ANIMATION_KEYFRAME.Ptr, &keyframe := 0, "HRESULT")
         return keyframe
     }
 
@@ -89,7 +119,7 @@ class IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-addkeyframeaftertransition
      */
     AddKeyframeAfterTransition(transition) {
-        result := ComCall(5, this, "ptr", transition, "ptr*", &keyframe := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", transition, UI_ANIMATION_KEYFRAME.Ptr, &keyframe := 0, "HRESULT")
         return keyframe
     }
 
@@ -135,7 +165,7 @@ class IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-addtransitionatkeyframe
      */
     AddTransitionAtKeyframe(variable, transition, startKeyframe) {
-        result := ComCall(6, this, "ptr", variable, "ptr", transition, "ptr", startKeyframe, "HRESULT")
+        result := ComCall(6, this, "ptr", variable, "ptr", transition, UI_ANIMATION_KEYFRAME, startKeyframe, "HRESULT")
         return result
     }
 
@@ -195,7 +225,7 @@ class IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-addtransitionbetweenkeyframes
      */
     AddTransitionBetweenKeyframes(variable, transition, startKeyframe, endKeyframe) {
-        result := ComCall(7, this, "ptr", variable, "ptr", transition, "ptr", startKeyframe, "ptr", endKeyframe, "HRESULT")
+        result := ComCall(7, this, "ptr", variable, "ptr", transition, UI_ANIMATION_KEYFRAME, startKeyframe, UI_ANIMATION_KEYFRAME, endKeyframe, "HRESULT")
         return result
     }
 
@@ -255,7 +285,7 @@ class IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-repeatbetweenkeyframes
      */
     RepeatBetweenKeyframes(startKeyframe, endKeyframe, repetitionCount) {
-        result := ComCall(8, this, "ptr", startKeyframe, "ptr", endKeyframe, "int", repetitionCount, "HRESULT")
+        result := ComCall(8, this, UI_ANIMATION_KEYFRAME, startKeyframe, UI_ANIMATION_KEYFRAME, endKeyframe, "int", repetitionCount, "HRESULT")
         return result
     }
 
@@ -425,7 +455,7 @@ class IUIAnimationStoryboard extends IUnknown {
     GetTag(_object, id) {
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr*", _object, idMarshal, id, "HRESULT")
+        result := ComCall(16, this, IUnknown.Ptr, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -465,5 +495,57 @@ class IUIAnimationStoryboard extends IUnknown {
     SetStoryboardEventHandler(handler) {
         result := ComCall(19, this, "ptr", handler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationStoryboard.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddTransition := CallbackCreate(GetMethod(implObj, "AddTransition"), flags, 3)
+        this.vtbl.AddKeyframeAtOffset := CallbackCreate(GetMethod(implObj, "AddKeyframeAtOffset"), flags, 4)
+        this.vtbl.AddKeyframeAfterTransition := CallbackCreate(GetMethod(implObj, "AddKeyframeAfterTransition"), flags, 3)
+        this.vtbl.AddTransitionAtKeyframe := CallbackCreate(GetMethod(implObj, "AddTransitionAtKeyframe"), flags, 4)
+        this.vtbl.AddTransitionBetweenKeyframes := CallbackCreate(GetMethod(implObj, "AddTransitionBetweenKeyframes"), flags, 5)
+        this.vtbl.RepeatBetweenKeyframes := CallbackCreate(GetMethod(implObj, "RepeatBetweenKeyframes"), flags, 4)
+        this.vtbl.HoldVariable := CallbackCreate(GetMethod(implObj, "HoldVariable"), flags, 2)
+        this.vtbl.SetLongestAcceptableDelay := CallbackCreate(GetMethod(implObj, "SetLongestAcceptableDelay"), flags, 2)
+        this.vtbl.Schedule := CallbackCreate(GetMethod(implObj, "Schedule"), flags, 3)
+        this.vtbl.Conclude := CallbackCreate(GetMethod(implObj, "Conclude"), flags, 1)
+        this.vtbl.Finish := CallbackCreate(GetMethod(implObj, "Finish"), flags, 2)
+        this.vtbl.Abandon := CallbackCreate(GetMethod(implObj, "Abandon"), flags, 1)
+        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetElapsedTime := CallbackCreate(GetMethod(implObj, "GetElapsedTime"), flags, 2)
+        this.vtbl.SetStoryboardEventHandler := CallbackCreate(GetMethod(implObj, "SetStoryboardEventHandler"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddTransition)
+        CallbackFree(this.vtbl.AddKeyframeAtOffset)
+        CallbackFree(this.vtbl.AddKeyframeAfterTransition)
+        CallbackFree(this.vtbl.AddTransitionAtKeyframe)
+        CallbackFree(this.vtbl.AddTransitionBetweenKeyframes)
+        CallbackFree(this.vtbl.RepeatBetweenKeyframes)
+        CallbackFree(this.vtbl.HoldVariable)
+        CallbackFree(this.vtbl.SetLongestAcceptableDelay)
+        CallbackFree(this.vtbl.Schedule)
+        CallbackFree(this.vtbl.Conclude)
+        CallbackFree(this.vtbl.Finish)
+        CallbackFree(this.vtbl.Abandon)
+        CallbackFree(this.vtbl.SetTag)
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetElapsedTime)
+        CallbackFree(this.vtbl.SetStoryboardEventHandler)
     }
 }

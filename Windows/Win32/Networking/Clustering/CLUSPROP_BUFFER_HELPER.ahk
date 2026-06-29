@@ -1,24 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_LIST.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
-#Include .\CLUSPROP_SZ.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_BINARY.ahk
-#Include .\CLUSPROP_WORD.ahk
-#Include .\CLUSPROP_DWORD.ahk
-#Include .\CLUSPROP_LONG.ahk
-#Include .\CLUSPROP_ULARGE_INTEGER.ahk
-#Include .\CLUSPROP_LARGE_INTEGER.ahk
-#Include .\CLUSPROP_SECURITY_DESCRIPTOR.ahk
-#Include .\CLUSPROP_RESOURCE_CLASS.ahk
-#Include .\CLUSPROP_RESOURCE_CLASS_INFO.ahk
-#Include .\CLUSPROP_SCSI_ADDRESS.ahk
-#Include .\CLUSPROP_PARTITION_INFO.ahk
-#Include .\CLUSPROP_REQUIRED_DEPENDENCY.ahk
-#Include .\CLUSPROP_PARTITION_INFO_EX.ahk
-#Include .\CLUSPROP_PARTITION_INFO_EX2.ahk
-#Include .\CLUSPROP_FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_LARGE_INTEGER.ahk" { CLUSPROP_LARGE_INTEGER }
+#Import ".\CLUSPROP_REQUIRED_DEPENDENCY.ahk" { CLUSPROP_REQUIRED_DEPENDENCY }
+#Import ".\CLUSPROP_LIST.ahk" { CLUSPROP_LIST }
+#Import ".\CLUSPROP_PARTITION_INFO.ahk" { CLUSPROP_PARTITION_INFO }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import ".\CLUSPROP_PARTITION_INFO_EX.ahk" { CLUSPROP_PARTITION_INFO_EX }
+#Import ".\CLUSPROP_LONG.ahk" { CLUSPROP_LONG }
+#Import ".\CLUSPROP_DWORD.ahk" { CLUSPROP_DWORD }
+#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
+#Import ".\CLUSPROP_PARTITION_INFO_EX2.ahk" { CLUSPROP_PARTITION_INFO_EX2 }
+#Import ".\CLUSPROP_WORD.ahk" { CLUSPROP_WORD }
+#Import ".\CLUSPROP_ULARGE_INTEGER.ahk" { CLUSPROP_ULARGE_INTEGER }
+#Import ".\CLUSPROP_RESOURCE_CLASS.ahk" { CLUSPROP_RESOURCE_CLASS }
+#Import ".\CLUSPROP_RESOURCE_CLASS_INFO.ahk" { CLUSPROP_RESOURCE_CLASS_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLUSPROP_SCSI_ADDRESS.ahk" { CLUSPROP_SCSI_ADDRESS }
+#Import ".\CLUSPROP_SECURITY_DESCRIPTOR.ahk" { CLUSPROP_SECURITY_DESCRIPTOR }
+#Import ".\CLUSPROP_BINARY.ahk" { CLUSPROP_BINARY }
+#Import ".\CLUSPROP_FILETIME.ahk" { CLUSPROP_FILETIME }
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
 
 /**
  * Used to build or parse a property list or, a value list.
@@ -43,290 +43,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_buffer_helper
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_BUFFER_HELPER extends Win32Struct {
-    static sizeof => 224
-
-    static packingSize => 8
+export default struct CLUSPROP_BUFFER_HELPER {
+    #StructPack 8
 
     /**
      * Pointer to a buffer containing an array of bytes.
-     * @type {Pointer<Integer>}
      */
-    pb {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pb : IntPtr
 
-    /**
-     * Pointer to a buffer containing an array of <b>WORD</b> values.
-     * @type {Pointer<Integer>}
-     */
-    pw {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a buffer containing an array of <b>DWORD</b> values.
-     * @type {Pointer<Integer>}
-     */
-    pdw {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a buffer containing an array of signed <b>long</b> values.
-     * @type {Pointer<Integer>}
-     */
-    pl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a buffer containing a <b>NULL</b>-terminated Unicode string value.
-     * @type {PWSTR}
-     */
-    psz {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_list">CLUSPROP_LIST</a> structure describing the 
-     *        beginning of a property list.
-     * @type {Pointer<CLUSPROP_LIST>}
-     */
-    pList {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_syntax">CLUSPROP_SYNTAX</a> structure describing 
-     *        the format and type of a value.
-     * @type {Pointer<CLUSPROP_SYNTAX>}
-     */
-    pSyntax {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368382(v=vs.85)">CLUSPROP_PROPERTY_NAME</a> 
-     *        structure containing a property name value.
-     * @type {Pointer<CLUSPROP_SZ>}
-     */
-    pName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure describing the 
-     *        format, type, and length of a data value.
-     * @type {Pointer<CLUSPROP_VALUE>}
-     */
-    pValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_binary">CLUSPROP_BINARY</a> structure containing a 
-     *        binary data value.
-     * @type {Pointer<CLUSPROP_BINARY>}
-     */
-    pBinaryValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_word">CLUSPROP_WORD</a> structure containing a 
-     *        numeric value.
-     * @type {Pointer<CLUSPROP_WORD>}
-     */
-    pWordValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368375(v=vs.85)">CLUSPROP_DWORD</a> structure containing a 
-     *        numeric value.
-     * @type {Pointer<CLUSPROP_DWORD>}
-     */
-    pDwordValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_long">CLUSPROP_LONG</a> structure containing a 
-     *        signed long value.
-     * @type {Pointer<CLUSPROP_LONG>}
-     */
-    pLongValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_ularge_integer">CLUSPROP_ULARGE_INTEGER</a> 
-     *        structure containing an unsigned large integer value.
-     * @type {Pointer<CLUSPROP_ULARGE_INTEGER>}
-     */
-    pULargeIntegerValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_large_integer">CLUSPROP_LARGE_INTEGER</a> 
-     *        structure containing a large integer value.
-     * @type {Pointer<CLUSPROP_LARGE_INTEGER>}
-     */
-    pLargeIntegerValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368390(v=vs.85)">CLUSPROP_SZ</a> structure containing a 
-     *        <b>NULL</b>-terminated Unicode string value.
-     * @type {Pointer<CLUSPROP_SZ>}
-     */
-    pStringValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_sz">CLUSPROP_MULTI_SZ</a> structure 
-     *        containing multiple null-terminated Unicode string values.
-     * @type {Pointer<CLUSPROP_SZ>}
-     */
-    pMultiSzValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_security_descriptor">CLUSPROP_SECURITY_DESCRIPTOR</a> structure 
-     *        containing a security descriptor.
-     * @type {Pointer<CLUSPROP_SECURITY_DESCRIPTOR>}
-     */
-    pSecurityDescriptor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_resource_class">CLUSPROP_RESOURCE_CLASS</a> 
-     *        structure containing a resource class value.
-     * @type {Pointer<CLUSPROP_RESOURCE_CLASS>}
-     */
-    pResourceClassValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_resource_class_info">CLUSPROP_RESOURCE_CLASS_INFO</a> structure 
-     *        containing a resource class information value.
-     * @type {Pointer<CLUSPROP_RESOURCE_CLASS_INFO>}
-     */
-    pResourceClassInfoValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368374(v=vs.85)">CLUSPROP_DISK_SIGNATURE</a> 
-     *        structure containing a disk signature value.
-     * @type {Pointer<CLUSPROP_DWORD>}
-     */
-    pDiskSignatureValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_scsi_address">CLUSPROP_SCSI_ADDRESS</a> 
-     *        structure containing an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/s-gly">SCSI</a> 
-     *        address value.
-     * @type {Pointer<CLUSPROP_SCSI_ADDRESS>}
-     */
-    pScsiAddressValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_dword">CLUSPROP_DISK_NUMBER</a> structure 
-     *        containing a disk number value.
-     * @type {Pointer<CLUSPROP_DWORD>}
-     */
-    pDiskNumberValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_partition_info">CLUSPROP_PARTITION_INFO</a> 
-     *        structure containing a partition information value.
-     * @type {Pointer<CLUSPROP_PARTITION_INFO>}
-     */
-    pPartitionInfoValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_required_dependency">CLUSPROP_REQUIRED_DEPENDENCY</a> structure 
-     *        containing a resource dependency value.
-     * @type {Pointer<CLUSPROP_REQUIRED_DEPENDENCY>}
-     */
-    pRequiredDependencyValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_partition_info_ex">CLUSPROP_PARTITION_INFO_EX</a> structure 
-     *        containing a partition information value.
-     * @type {Pointer<CLUSPROP_PARTITION_INFO_EX>}
-     */
-    pPartitionInfoValueEx {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_partition_info_ex2">CLUSPROP_PARTITION_INFO_EX2</a> structure 
-     *        that contains a partition information value.
-     * 
-     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This member is not available before Windows Server 2016.
-     * @type {Pointer<CLUSPROP_PARTITION_INFO_EX2>}
-     */
-    pPartitionInfoValueEx2 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_filetime">CLUSPROP_FILETIME</a> structure 
-     *        containing a date/time value.
-     * @type {Pointer<CLUSPROP_FILETIME>}
-     */
-    pFileTimeValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'pw', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'pdw', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'pl', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'psz', { type: PWSTR, offset: 0 })
+        DefineProp(this.Prototype, 'pList', { type: CLUSPROP_LIST.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pSyntax', { type: CLUSPROP_SYNTAX.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pName', { type: CLUSPROP_SZ.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pValue', { type: CLUSPROP_VALUE.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pBinaryValue', { type: CLUSPROP_BINARY.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pWordValue', { type: CLUSPROP_WORD.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pDwordValue', { type: CLUSPROP_DWORD.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pLongValue', { type: CLUSPROP_LONG.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pULargeIntegerValue', { type: CLUSPROP_ULARGE_INTEGER.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pLargeIntegerValue', { type: CLUSPROP_LARGE_INTEGER.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pStringValue', { type: CLUSPROP_SZ.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pMultiSzValue', { type: CLUSPROP_SZ.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pSecurityDescriptor', { type: CLUSPROP_SECURITY_DESCRIPTOR.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pResourceClassValue', { type: CLUSPROP_RESOURCE_CLASS.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pResourceClassInfoValue', { type: CLUSPROP_RESOURCE_CLASS_INFO.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pDiskSignatureValue', { type: CLUSPROP_DWORD.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pScsiAddressValue', { type: CLUSPROP_SCSI_ADDRESS.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pDiskNumberValue', { type: CLUSPROP_DWORD.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pPartitionInfoValue', { type: CLUSPROP_PARTITION_INFO.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pRequiredDependencyValue', { type: CLUSPROP_REQUIRED_DEPENDENCY.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pPartitionInfoValueEx', { type: CLUSPROP_PARTITION_INFO_EX.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pPartitionInfoValueEx2', { type: CLUSPROP_PARTITION_INFO_EX2.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'pFileTimeValue', { type: CLUSPROP_FILETIME.Ptr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

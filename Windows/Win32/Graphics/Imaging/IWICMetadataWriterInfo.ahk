@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataHandlerInfo.ahk
-#Include .\IWICMetadataWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
+#Import ".\IWICMetadataHandlerInfo.ahk" { IWICMetadataHandlerInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide basic information about the registered metadata writer.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriterinfo
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
     /**
      * The interface identifier for IWICMetadataWriterInfo
      * @type {Guid}
      */
-    static IID => Guid("{b22e3fba-3925-4323-b5c1-9ebfc430f236}")
+    static IID := Guid("{b22e3fba-3925-4323-b5c1-9ebfc430f236}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICMetadataWriterInfo interfaces
+    */
+    struct Vtbl extends IWICMetadataHandlerInfo.Vtbl {
+        GetHeader      : IntPtr
+        CreateInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetHeader", "CreateInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICMetadataWriterInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the metadata header for the metadata writer.
@@ -47,7 +56,7 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
      */
     GetHeader(guidContainerFormat, cbSize, pHeader) {
-        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", &pcbActual := 0, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
     }
 
@@ -61,5 +70,27 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
     CreateInstance() {
         result := ComCall(19, this, "ptr*", &ppIWriter := 0, "HRESULT")
         return IWICMetadataWriter(ppIWriter)
+    }
+
+    Query(iid) {
+        if (IWICMetadataWriterInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetHeader := CallbackCreate(GetMethod(implObj, "GetHeader"), flags, 5)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetHeader)
+        CallbackFree(this.vtbl.CreateInstance)
     }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Contains an entry from the User Datagram Protocol (UDP) listener table for IPv6 on the local computer.
@@ -20,41 +19,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDP6ROW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MIB_UDP6ROW {
+    #StructPack 4
 
     /**
      * The IPv6 address of the UDP endpoint on the local computer. This member is stored in  a character array in network byte order. 
      * 
      * A value of zero indicates a UDP listener  willing to accept datagrams for any IP interface associated
      *                       with the local computer.
-     * @type {IN6_ADDR}
      */
-    dwLocalAddr {
-        get {
-            if(!this.HasProp("__dwLocalAddr"))
-                this.__dwLocalAddr := IN6_ADDR(0, this)
-            return this.__dwLocalAddr
-        }
-    }
+    dwLocalAddr : IN6_ADDR
 
     /**
      * The scope ID for the IPv6 address of the UDP endpoint on the local computer. This member is stored in network byte order.
-     * @type {Integer}
      */
-    dwLocalScopeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLocalScopeId : UInt32
 
     /**
      * The port number of the UDP endpoint on the local computer. This member is stored in network byte order.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwLocalPort : UInt32
+
 }

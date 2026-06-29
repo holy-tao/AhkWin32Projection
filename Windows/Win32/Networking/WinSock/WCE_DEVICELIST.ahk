@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WCE_IRDA_DEVICE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WCE_IRDA_DEVICE_INFO.ahk" { WCE_IRDA_DEVICE_INFO }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WCE_DEVICELIST extends Win32Struct {
-    static sizeof => 32
+export default struct WCE_DEVICELIST {
+    #StructPack 4
 
-    static packingSize => 4
+    numDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Device : WCE_IRDA_DEVICE_INFO[1]
 
-    /**
-     * @type {WCE_IRDA_DEVICE_INFO}
-     */
-    Device {
-        get {
-            if(!this.HasProp("__DeviceProxyArray"))
-                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 4, 1, WCE_IRDA_DEVICE_INFO, "")
-            return this.__DeviceProxyArray
-        }
-    }
 }

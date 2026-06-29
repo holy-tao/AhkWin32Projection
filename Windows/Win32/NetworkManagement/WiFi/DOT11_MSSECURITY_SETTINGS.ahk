@@ -1,66 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk" { EAP_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_MSSECURITY_SETTINGS extends Win32Struct {
-    static sizeof => 40
+export default struct DOT11_MSSECURITY_SETTINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    dot11AuthAlgorithm : DOT11_AUTH_ALGORITHM
 
-    /**
-     * @type {DOT11_AUTH_ALGORITHM}
-     */
-    dot11AuthAlgorithm {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dot11CipherAlgorithm : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    dot11CipherAlgorithm {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fOneXEnabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fOneXEnabled {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    eapMethodType : EAP_METHOD_TYPE
 
-    /**
-     * @type {EAP_METHOD_TYPE}
-     */
-    eapMethodType {
-        get {
-            if(!this.HasProp("__eapMethodType"))
-                this.__eapMethodType := EAP_METHOD_TYPE(12, this)
-            return this.__eapMethodType
-        }
-    }
+    dwEapConnectionDataLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEapConnectionDataLen {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    pEapConnectionData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pEapConnectionData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

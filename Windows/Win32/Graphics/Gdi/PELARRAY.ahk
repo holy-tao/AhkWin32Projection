@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class PELARRAY extends Win32Struct {
-    static sizeof => 20
+export default struct PELARRAY {
+    #StructPack 4
 
-    static packingSize => 4
+    paXCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    paXCount {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    paYCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    paYCount {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    paXExt : Int32
 
-    /**
-     * @type {Integer}
-     */
-    paXExt {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    paYExt : Int32
 
-    /**
-     * @type {Integer}
-     */
-    paYExt {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    paRGBs : Int8
 
-    /**
-     * @type {Integer}
-     */
-    paRGBs {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

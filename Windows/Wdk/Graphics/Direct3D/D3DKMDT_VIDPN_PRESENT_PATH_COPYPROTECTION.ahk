@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE.ahk" { D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION extends Win32Struct {
-    static sizeof => 272
+export default struct D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    CopyProtectionType : D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE
 
-    /**
-     * @type {D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE}
-     */
-    CopyProtectionType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    APSTriggerBits : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    APSTriggerBits {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OEMCopyProtection : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OEMCopyProtection {
-        get {
-            if(!this.HasProp("__OEMCopyProtectionProxyArray"))
-                this.__OEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
-            return this.__OEMCopyProtectionProxyArray
-        }
-    }
+    CopyProtectionSupport : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CopyProtectionSupport {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
 }

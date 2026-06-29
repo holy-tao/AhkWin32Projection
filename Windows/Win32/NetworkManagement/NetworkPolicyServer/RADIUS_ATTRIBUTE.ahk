@@ -1,60 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RADIUS_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RADIUS_DATA_TYPE.ahk" { RADIUS_DATA_TYPE }
 
 /**
  * The RADIUS_ATTRIBUTE structure represents a RADIUS attribute or an extended attribute.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_attribute
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUS_ATTRIBUTE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct RADIUS_ATTRIBUTE {
+    #StructPack 8
 
     /**
      * Stores a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_attribute_type">RADIUS_ATTRIBUTE_TYPE</a> enumeration. This value specifies the type of the attribute represented by the 
      * <b>RADIUS_ATTRIBUTE</b> structure.
-     * @type {Integer}
      */
-    dwAttrType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAttrType : UInt32
 
     /**
      * Stores a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_data_type">RADIUS_DATA_TYPE</a> enumeration. This value specifies the type of the value stored in the union that contains the <b>dwValue</b> and <b>lpValue</b> members.
-     * @type {RADIUS_DATA_TYPE}
      */
-    fDataType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fDataType : RADIUS_DATA_TYPE
 
     /**
      * Stores the length, in bytes, of the data. The <b>cbDataLength</b> member is used only if <b>lpValue</b> member is used.
-     * @type {Integer}
      */
-    cbDataLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwValue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwValue : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'lpValue', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

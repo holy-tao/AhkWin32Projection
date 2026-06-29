@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how to access a resource that is used in a video processor input view.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_vpiv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VPIV_DIMENSION extends Win32Enum {
+export default struct D3D11_VPIV_DIMENSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not a valid value.

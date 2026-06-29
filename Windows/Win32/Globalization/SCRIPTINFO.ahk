@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class SCRIPTINFO extends Win32Struct {
-    static sizeof => 232
+export default struct SCRIPTINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    ScriptId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ScriptId {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    uiCodePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiCodePage {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wszDescription : WCHAR[48]
 
-    /**
-     * @type {String}
-     */
-    wszDescription {
-        get => StrGet(this.ptr + 8, 47, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 47, "UTF-16")
-    }
+    wszFixedWidthFont : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    wszFixedWidthFont {
-        get => StrGet(this.ptr + 104, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 104, 31, "UTF-16")
-    }
+    wszProportionalFont : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    wszProportionalFont {
-        get => StrGet(this.ptr + 168, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 168, 31, "UTF-16")
-    }
 }

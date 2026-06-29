@@ -1,39 +1,80 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include .\IX509CertificateRevocationListEntries.ahk
-#Include .\IX509Extensions.ahk
-#Include .\IObjectIds.ahk
-#Include .\ISignerCertificate.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IObjectId.ahk
-#Include .\IX509SignatureInformation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import ".\IX509CertificateRevocationListEntries.ahk" { IX509CertificateRevocationListEntries }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRevocationList extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRevocationList extends IDispatch {
     /**
      * The interface identifier for IX509CertificateRevocationList
      * @type {Guid}
      */
-    static IID => Guid("{728ab360-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab360-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRevocationList interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize                      : IntPtr
+        InitializeDecode                : IntPtr
+        Encode                          : IntPtr
+        ResetForEncode                  : IntPtr
+        CheckPublicKeySignature         : IntPtr
+        CheckSignature                  : IntPtr
+        get_Issuer                      : IntPtr
+        put_Issuer                      : IntPtr
+        get_ThisUpdate                  : IntPtr
+        put_ThisUpdate                  : IntPtr
+        get_NextUpdate                  : IntPtr
+        put_NextUpdate                  : IntPtr
+        get_X509CRLEntries              : IntPtr
+        get_X509Extensions              : IntPtr
+        get_CriticalExtensions          : IntPtr
+        get_SignerCertificate           : IntPtr
+        put_SignerCertificate           : IntPtr
+        get_CRLNumber                   : IntPtr
+        put_CRLNumber                   : IntPtr
+        get_CAVersion                   : IntPtr
+        put_CAVersion                   : IntPtr
+        get_BaseCRL                     : IntPtr
+        get_NullSigned                  : IntPtr
+        get_HashAlgorithm               : IntPtr
+        put_HashAlgorithm               : IntPtr
+        get_AlternateSignatureAlgorithm : IntPtr
+        put_AlternateSignatureAlgorithm : IntPtr
+        get_SignatureInformation        : IntPtr
+        get_RawData                     : IntPtr
+        get_RawDataToBeSigned           : IntPtr
+        get_Signature                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InitializeDecode", "Encode", "ResetForEncode", "CheckPublicKeySignature", "CheckSignature", "get_Issuer", "put_Issuer", "get_ThisUpdate", "put_ThisUpdate", "get_NextUpdate", "put_NextUpdate", "get_X509CRLEntries", "get_X509Extensions", "get_CriticalExtensions", "get_SignerCertificate", "put_SignerCertificate", "get_CRLNumber", "put_CRLNumber", "get_CAVersion", "put_CAVersion", "get_BaseCRL", "get_NullSigned", "get_HashAlgorithm", "put_HashAlgorithm", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_SignatureInformation", "get_RawData", "get_RawDataToBeSigned", "get_Signature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRevocationList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX500DistinguishedName} 
@@ -175,31 +216,13 @@ class IX509CertificateRevocationList extends IDispatch {
     InitializeDecode(strEncodedData, Encoding) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(8, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(8, this, BSTR, strEncodedData, EncodingType, Encoding, "HRESULT")
         return result
     }
 
     /**
-     * Represents a block of ASN.1 encoded data.
-     * @remarks
-     * The **EncodedData** object has these types of members:
      * 
-     * -   [Methods](#methods)
-     * -   [Properties](#properties)
-     * 
-     * 
-     * The only supported type of encoded data is [**CertificatePolicies**](certificatepolicies.md).
-     * 
-     * The **EncodedData** object cannot be created.
-     * 
-     * The following CAPICOM object properties return an **EncodedData** object:
-     * 
-     * -   **PublicKey.EncodedKey**
-     * -   **PublicKey.EncodedParameters**
-     * -   **Extension.EncodedData**
-     * -   **Policy.EncodedData**
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/encodeddata
      */
     Encode() {
         result := ComCall(9, this, "HRESULT")
@@ -343,8 +366,8 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_CRLNumber(Encoding) {
-        pValue := BSTR()
-        result := ComCall(24, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(24, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -357,7 +380,7 @@ class IX509CertificateRevocationList extends IDispatch {
     put_CRLNumber(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(25, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(25, this, EncodingType, Encoding, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -385,7 +408,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_BaseCRL() {
-        result := ComCall(28, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -394,7 +417,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_NullSigned() {
-        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -422,7 +445,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_AlternateSignatureAlgorithm() {
-        result := ComCall(32, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -432,7 +455,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AlternateSignatureAlgorithm(Value) {
-        result := ComCall(33, this, "short", Value, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -451,8 +474,8 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
-        result := ComCall(35, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(35, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -462,8 +485,8 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_RawDataToBeSigned(Encoding) {
-        pValue := BSTR()
-        result := ComCall(36, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(36, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -473,8 +496,88 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_Signature(Encoding) {
-        pValue := BSTR()
-        result := ComCall(37, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(37, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509CertificateRevocationList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 1)
+        this.vtbl.ResetForEncode := CallbackCreate(GetMethod(implObj, "ResetForEncode"), flags, 1)
+        this.vtbl.CheckPublicKeySignature := CallbackCreate(GetMethod(implObj, "CheckPublicKeySignature"), flags, 2)
+        this.vtbl.CheckSignature := CallbackCreate(GetMethod(implObj, "CheckSignature"), flags, 1)
+        this.vtbl.get_Issuer := CallbackCreate(GetMethod(implObj, "get_Issuer"), flags, 2)
+        this.vtbl.put_Issuer := CallbackCreate(GetMethod(implObj, "put_Issuer"), flags, 2)
+        this.vtbl.get_ThisUpdate := CallbackCreate(GetMethod(implObj, "get_ThisUpdate"), flags, 2)
+        this.vtbl.put_ThisUpdate := CallbackCreate(GetMethod(implObj, "put_ThisUpdate"), flags, 2)
+        this.vtbl.get_NextUpdate := CallbackCreate(GetMethod(implObj, "get_NextUpdate"), flags, 2)
+        this.vtbl.put_NextUpdate := CallbackCreate(GetMethod(implObj, "put_NextUpdate"), flags, 2)
+        this.vtbl.get_X509CRLEntries := CallbackCreate(GetMethod(implObj, "get_X509CRLEntries"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
+        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.get_CRLNumber := CallbackCreate(GetMethod(implObj, "get_CRLNumber"), flags, 3)
+        this.vtbl.put_CRLNumber := CallbackCreate(GetMethod(implObj, "put_CRLNumber"), flags, 3)
+        this.vtbl.get_CAVersion := CallbackCreate(GetMethod(implObj, "get_CAVersion"), flags, 2)
+        this.vtbl.put_CAVersion := CallbackCreate(GetMethod(implObj, "put_CAVersion"), flags, 2)
+        this.vtbl.get_BaseCRL := CallbackCreate(GetMethod(implObj, "get_BaseCRL"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.get_RawDataToBeSigned := CallbackCreate(GetMethod(implObj, "get_RawDataToBeSigned"), flags, 3)
+        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.Encode)
+        CallbackFree(this.vtbl.ResetForEncode)
+        CallbackFree(this.vtbl.CheckPublicKeySignature)
+        CallbackFree(this.vtbl.CheckSignature)
+        CallbackFree(this.vtbl.get_Issuer)
+        CallbackFree(this.vtbl.put_Issuer)
+        CallbackFree(this.vtbl.get_ThisUpdate)
+        CallbackFree(this.vtbl.put_ThisUpdate)
+        CallbackFree(this.vtbl.get_NextUpdate)
+        CallbackFree(this.vtbl.put_NextUpdate)
+        CallbackFree(this.vtbl.get_X509CRLEntries)
+        CallbackFree(this.vtbl.get_X509Extensions)
+        CallbackFree(this.vtbl.get_CriticalExtensions)
+        CallbackFree(this.vtbl.get_SignerCertificate)
+        CallbackFree(this.vtbl.put_SignerCertificate)
+        CallbackFree(this.vtbl.get_CRLNumber)
+        CallbackFree(this.vtbl.put_CRLNumber)
+        CallbackFree(this.vtbl.get_CAVersion)
+        CallbackFree(this.vtbl.put_CAVersion)
+        CallbackFree(this.vtbl.get_BaseCRL)
+        CallbackFree(this.vtbl.get_NullSigned)
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
+        CallbackFree(this.vtbl.get_AlternateSignatureAlgorithm)
+        CallbackFree(this.vtbl.put_AlternateSignatureAlgorithm)
+        CallbackFree(this.vtbl.get_SignatureInformation)
+        CallbackFree(this.vtbl.get_RawData)
+        CallbackFree(this.vtbl.get_RawDataToBeSigned)
+        CallbackFree(this.vtbl.get_Signature)
     }
 }

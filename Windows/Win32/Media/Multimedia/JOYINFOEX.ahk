@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The JOYINFOEX structure contains extended information about the joystick position, point-of-view position, and button state.
@@ -42,19 +41,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/joystickapi/ns-joystickapi-joyinfoex
  * @namespace Windows.Win32.Media.Multimedia
  */
-class JOYINFOEX extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct JOYINFOEX {
+    #StructPack 4
 
     /**
      * Size, in bytes, of this structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Flags indicating the valid information returned in this structure. Members that do not contain valid information are set to zero. The following flags are defined:
@@ -171,109 +164,62 @@ class JOYINFOEX extends Win32Struct {
      * <td>Read the v-coordinate if a joystick mini-driver is present that will provide the data and store the raw value in <b>dwVpos</b>. Return zero otherwise.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Current X-coordinate.
-     * @type {Integer}
      */
-    dwXpos {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwXpos : UInt32
 
     /**
      * Current Y-coordinate.
-     * @type {Integer}
      */
-    dwYpos {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwYpos : UInt32
 
     /**
      * Current Z-coordinate.
-     * @type {Integer}
      */
-    dwZpos {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwZpos : UInt32
 
     /**
      * Current position of the rudder or fourth joystick axis.
-     * @type {Integer}
      */
-    dwRpos {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwRpos : UInt32
 
     /**
      * Current fifth axis position.
-     * @type {Integer}
      */
-    dwUpos {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwUpos : UInt32
 
     /**
      * Current sixth axis position.
-     * @type {Integer}
      */
-    dwVpos {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwVpos : UInt32
 
     /**
      * Current state of the 32 joystick buttons. The value of this member can be set to any combination of JOY_BUTTON <i>n</i> flags, where <i>n</i> is a value in the range of 1 through 32 corresponding to the button that is pressed.
-     * @type {Integer}
      */
-    dwButtons {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwButtons : UInt32
 
     /**
      * Current button number that is pressed.
-     * @type {Integer}
      */
-    dwButtonNumber {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwButtonNumber : UInt32
 
     /**
      * Current position of the point-of-view control. Values for this member are in the range 0 through 35,900. These values represent the angle, in degrees, of each view multiplied by 100.
-     * @type {Integer}
      */
-    dwPOV {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwPOV : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwReserved1 : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwReserved2 : UInt32
+
 }

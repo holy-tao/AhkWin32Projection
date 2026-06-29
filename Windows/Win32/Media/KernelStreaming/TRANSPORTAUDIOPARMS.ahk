@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class TRANSPORTAUDIOPARMS extends Win32Struct {
-    static sizeof => 20
+export default struct TRANSPORTAUDIOPARMS {
+    #StructPack 4
 
-    static packingSize => 4
+    EnableOutput : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EnableOutput {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    EnableRecord : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EnableRecord {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    EnableSelsync : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EnableSelsync {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Input : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Input {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    MonitorSource : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MonitorSource {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

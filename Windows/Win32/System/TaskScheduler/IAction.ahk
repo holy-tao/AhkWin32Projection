@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TASK_ACTION_TYPE.ahk" { TASK_ACTION_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the common properties inherited by all action objects.
@@ -44,26 +47,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iaction
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IAction extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAction extends IDispatch {
     /**
      * The interface identifier for IAction
      * @type {Guid}
      */
-    static IID => Guid("{bae54997-48b1-4cbe-9965-d6be263ebea4}")
+    static IID := Guid("{bae54997-48b1-4cbe-9965-d6be263ebea4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAction interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id   : IntPtr
+        put_Id   : IntPtr
+        get_Type : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "put_Id", "get_Type"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAction.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -88,7 +100,7 @@ class IAction extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-get_id
      */
     get_Id(pId) {
-        result := ComCall(7, this, "ptr", pId, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pId, "HRESULT")
         return result
     }
 
@@ -103,7 +115,7 @@ class IAction extends IDispatch {
     put_Id(Id) {
         Id := Id is String ? BSTR.Alloc(Id).Value : Id
 
-        result := ComCall(8, this, "ptr", Id, "HRESULT")
+        result := ComCall(8, this, BSTR, Id, "HRESULT")
         return result
     }
 
@@ -122,5 +134,29 @@ class IAction extends IDispatch {
 
         result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAction.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.put_Id)
+        CallbackFree(this.vtbl.get_Type)
     }
 }

@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IADsMembers.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADsMembers.ahk" { IADsMembers }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IADs.ahk" { IADs }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.
@@ -160,26 +162,123 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsuser
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsUser extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsUser extends IADs {
     /**
      * The interface identifier for IADsUser
      * @type {Guid}
      */
-    static IID => Guid("{3e37e320-17e2-11cf-abc4-02608c9e7553}")
+    static IID := Guid("{3e37e320-17e2-11cf-abc4-02608c9e7553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsUser interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_BadLoginAddress        : IntPtr
+        get_BadLoginCount          : IntPtr
+        get_LastLogin              : IntPtr
+        get_LastLogoff             : IntPtr
+        get_LastFailedLogin        : IntPtr
+        get_PasswordLastChanged    : IntPtr
+        get_Description            : IntPtr
+        put_Description            : IntPtr
+        get_Division               : IntPtr
+        put_Division               : IntPtr
+        get_Department             : IntPtr
+        put_Department             : IntPtr
+        get_EmployeeID             : IntPtr
+        put_EmployeeID             : IntPtr
+        get_FullName               : IntPtr
+        put_FullName               : IntPtr
+        get_FirstName              : IntPtr
+        put_FirstName              : IntPtr
+        get_LastName               : IntPtr
+        put_LastName               : IntPtr
+        get_OtherName              : IntPtr
+        put_OtherName              : IntPtr
+        get_NamePrefix             : IntPtr
+        put_NamePrefix             : IntPtr
+        get_NameSuffix             : IntPtr
+        put_NameSuffix             : IntPtr
+        get_Title                  : IntPtr
+        put_Title                  : IntPtr
+        get_Manager                : IntPtr
+        put_Manager                : IntPtr
+        get_TelephoneHome          : IntPtr
+        put_TelephoneHome          : IntPtr
+        get_TelephoneMobile        : IntPtr
+        put_TelephoneMobile        : IntPtr
+        get_TelephoneNumber        : IntPtr
+        put_TelephoneNumber        : IntPtr
+        get_TelephonePager         : IntPtr
+        put_TelephonePager         : IntPtr
+        get_FaxNumber              : IntPtr
+        put_FaxNumber              : IntPtr
+        get_OfficeLocations        : IntPtr
+        put_OfficeLocations        : IntPtr
+        get_PostalAddresses        : IntPtr
+        put_PostalAddresses        : IntPtr
+        get_PostalCodes            : IntPtr
+        put_PostalCodes            : IntPtr
+        get_SeeAlso                : IntPtr
+        put_SeeAlso                : IntPtr
+        get_AccountDisabled        : IntPtr
+        put_AccountDisabled        : IntPtr
+        get_AccountExpirationDate  : IntPtr
+        put_AccountExpirationDate  : IntPtr
+        get_GraceLoginsAllowed     : IntPtr
+        put_GraceLoginsAllowed     : IntPtr
+        get_GraceLoginsRemaining   : IntPtr
+        put_GraceLoginsRemaining   : IntPtr
+        get_IsAccountLocked        : IntPtr
+        put_IsAccountLocked        : IntPtr
+        get_LoginHours             : IntPtr
+        put_LoginHours             : IntPtr
+        get_LoginWorkstations      : IntPtr
+        put_LoginWorkstations      : IntPtr
+        get_MaxLogins              : IntPtr
+        put_MaxLogins              : IntPtr
+        get_MaxStorage             : IntPtr
+        put_MaxStorage             : IntPtr
+        get_PasswordExpirationDate : IntPtr
+        put_PasswordExpirationDate : IntPtr
+        get_PasswordMinimumLength  : IntPtr
+        put_PasswordMinimumLength  : IntPtr
+        get_PasswordRequired       : IntPtr
+        put_PasswordRequired       : IntPtr
+        get_RequireUniquePassword  : IntPtr
+        put_RequireUniquePassword  : IntPtr
+        get_EmailAddress           : IntPtr
+        put_EmailAddress           : IntPtr
+        get_HomeDirectory          : IntPtr
+        put_HomeDirectory          : IntPtr
+        get_Languages              : IntPtr
+        put_Languages              : IntPtr
+        get_Profile                : IntPtr
+        put_Profile                : IntPtr
+        get_LoginScript            : IntPtr
+        put_LoginScript            : IntPtr
+        get_Picture                : IntPtr
+        put_Picture                : IntPtr
+        get_HomePage               : IntPtr
+        put_HomePage               : IntPtr
+        Groups                     : IntPtr
+        SetPassword                : IntPtr
+        ChangePassword             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BadLoginAddress", "get_BadLoginCount", "get_LastLogin", "get_LastLogoff", "get_LastFailedLogin", "get_PasswordLastChanged", "get_Description", "put_Description", "get_Division", "put_Division", "get_Department", "put_Department", "get_EmployeeID", "put_EmployeeID", "get_FullName", "put_FullName", "get_FirstName", "put_FirstName", "get_LastName", "put_LastName", "get_OtherName", "put_OtherName", "get_NamePrefix", "put_NamePrefix", "get_NameSuffix", "put_NameSuffix", "get_Title", "put_Title", "get_Manager", "put_Manager", "get_TelephoneHome", "put_TelephoneHome", "get_TelephoneMobile", "put_TelephoneMobile", "get_TelephoneNumber", "put_TelephoneNumber", "get_TelephonePager", "put_TelephonePager", "get_FaxNumber", "put_FaxNumber", "get_OfficeLocations", "put_OfficeLocations", "get_PostalAddresses", "put_PostalAddresses", "get_PostalCodes", "put_PostalCodes", "get_SeeAlso", "put_SeeAlso", "get_AccountDisabled", "put_AccountDisabled", "get_AccountExpirationDate", "put_AccountExpirationDate", "get_GraceLoginsAllowed", "put_GraceLoginsAllowed", "get_GraceLoginsRemaining", "put_GraceLoginsRemaining", "get_IsAccountLocked", "put_IsAccountLocked", "get_LoginHours", "put_LoginHours", "get_LoginWorkstations", "put_LoginWorkstations", "get_MaxLogins", "put_MaxLogins", "get_MaxStorage", "put_MaxStorage", "get_PasswordExpirationDate", "put_PasswordExpirationDate", "get_PasswordMinimumLength", "put_PasswordMinimumLength", "get_PasswordRequired", "put_PasswordRequired", "get_RequireUniquePassword", "put_RequireUniquePassword", "get_EmailAddress", "put_EmailAddress", "get_HomeDirectory", "put_HomeDirectory", "get_Languages", "put_Languages", "get_Profile", "put_Profile", "get_LoginScript", "put_LoginScript", "get_Picture", "put_Picture", "get_HomePage", "put_HomePage", "Groups", "SetPassword", "ChangePassword"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsUser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -556,8 +655,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_BadLoginAddress() {
-        retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -611,8 +710,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -624,7 +723,7 @@ class IADsUser extends IADs {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(27, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -633,8 +732,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Division() {
-        retval := BSTR()
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -646,7 +745,7 @@ class IADsUser extends IADs {
     put_Division(bstrDivision) {
         bstrDivision := bstrDivision is String ? BSTR.Alloc(bstrDivision).Value : bstrDivision
 
-        result := ComCall(29, this, "ptr", bstrDivision, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrDivision, "HRESULT")
         return result
     }
 
@@ -655,8 +754,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Department() {
-        retval := BSTR()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -668,7 +767,7 @@ class IADsUser extends IADs {
     put_Department(bstrDepartment) {
         bstrDepartment := bstrDepartment is String ? BSTR.Alloc(bstrDepartment).Value : bstrDepartment
 
-        result := ComCall(31, this, "ptr", bstrDepartment, "HRESULT")
+        result := ComCall(31, this, BSTR, bstrDepartment, "HRESULT")
         return result
     }
 
@@ -677,8 +776,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_EmployeeID() {
-        retval := BSTR()
-        result := ComCall(32, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -690,7 +789,7 @@ class IADsUser extends IADs {
     put_EmployeeID(bstrEmployeeID) {
         bstrEmployeeID := bstrEmployeeID is String ? BSTR.Alloc(bstrEmployeeID).Value : bstrEmployeeID
 
-        result := ComCall(33, this, "ptr", bstrEmployeeID, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrEmployeeID, "HRESULT")
         return result
     }
 
@@ -699,8 +798,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_FullName() {
-        retval := BSTR()
-        result := ComCall(34, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -712,7 +811,7 @@ class IADsUser extends IADs {
     put_FullName(bstrFullName) {
         bstrFullName := bstrFullName is String ? BSTR.Alloc(bstrFullName).Value : bstrFullName
 
-        result := ComCall(35, this, "ptr", bstrFullName, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrFullName, "HRESULT")
         return result
     }
 
@@ -721,8 +820,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_FirstName() {
-        retval := BSTR()
-        result := ComCall(36, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -734,7 +833,7 @@ class IADsUser extends IADs {
     put_FirstName(bstrFirstName) {
         bstrFirstName := bstrFirstName is String ? BSTR.Alloc(bstrFirstName).Value : bstrFirstName
 
-        result := ComCall(37, this, "ptr", bstrFirstName, "HRESULT")
+        result := ComCall(37, this, BSTR, bstrFirstName, "HRESULT")
         return result
     }
 
@@ -743,8 +842,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_LastName() {
-        retval := BSTR()
-        result := ComCall(38, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -756,7 +855,7 @@ class IADsUser extends IADs {
     put_LastName(bstrLastName) {
         bstrLastName := bstrLastName is String ? BSTR.Alloc(bstrLastName).Value : bstrLastName
 
-        result := ComCall(39, this, "ptr", bstrLastName, "HRESULT")
+        result := ComCall(39, this, BSTR, bstrLastName, "HRESULT")
         return result
     }
 
@@ -765,8 +864,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_OtherName() {
-        retval := BSTR()
-        result := ComCall(40, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -778,7 +877,7 @@ class IADsUser extends IADs {
     put_OtherName(bstrOtherName) {
         bstrOtherName := bstrOtherName is String ? BSTR.Alloc(bstrOtherName).Value : bstrOtherName
 
-        result := ComCall(41, this, "ptr", bstrOtherName, "HRESULT")
+        result := ComCall(41, this, BSTR, bstrOtherName, "HRESULT")
         return result
     }
 
@@ -787,8 +886,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_NamePrefix() {
-        retval := BSTR()
-        result := ComCall(42, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(42, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -800,7 +899,7 @@ class IADsUser extends IADs {
     put_NamePrefix(bstrNamePrefix) {
         bstrNamePrefix := bstrNamePrefix is String ? BSTR.Alloc(bstrNamePrefix).Value : bstrNamePrefix
 
-        result := ComCall(43, this, "ptr", bstrNamePrefix, "HRESULT")
+        result := ComCall(43, this, BSTR, bstrNamePrefix, "HRESULT")
         return result
     }
 
@@ -809,8 +908,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_NameSuffix() {
-        retval := BSTR()
-        result := ComCall(44, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(44, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -822,7 +921,7 @@ class IADsUser extends IADs {
     put_NameSuffix(bstrNameSuffix) {
         bstrNameSuffix := bstrNameSuffix is String ? BSTR.Alloc(bstrNameSuffix).Value : bstrNameSuffix
 
-        result := ComCall(45, this, "ptr", bstrNameSuffix, "HRESULT")
+        result := ComCall(45, this, BSTR, bstrNameSuffix, "HRESULT")
         return result
     }
 
@@ -831,8 +930,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Title() {
-        retval := BSTR()
-        result := ComCall(46, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(46, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -844,7 +943,7 @@ class IADsUser extends IADs {
     put_Title(bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
 
-        result := ComCall(47, this, "ptr", bstrTitle, "HRESULT")
+        result := ComCall(47, this, BSTR, bstrTitle, "HRESULT")
         return result
     }
 
@@ -853,8 +952,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Manager() {
-        retval := BSTR()
-        result := ComCall(48, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(48, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -866,7 +965,7 @@ class IADsUser extends IADs {
     put_Manager(bstrManager) {
         bstrManager := bstrManager is String ? BSTR.Alloc(bstrManager).Value : bstrManager
 
-        result := ComCall(49, this, "ptr", bstrManager, "HRESULT")
+        result := ComCall(49, this, BSTR, bstrManager, "HRESULT")
         return result
     }
 
@@ -876,7 +975,7 @@ class IADsUser extends IADs {
      */
     get_TelephoneHome() {
         retval := VARIANT()
-        result := ComCall(50, this, "ptr", retval, "HRESULT")
+        result := ComCall(50, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -886,7 +985,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_TelephoneHome(vTelephoneHome) {
-        result := ComCall(51, this, "ptr", vTelephoneHome, "HRESULT")
+        result := ComCall(51, this, VARIANT, vTelephoneHome, "HRESULT")
         return result
     }
 
@@ -896,7 +995,7 @@ class IADsUser extends IADs {
      */
     get_TelephoneMobile() {
         retval := VARIANT()
-        result := ComCall(52, this, "ptr", retval, "HRESULT")
+        result := ComCall(52, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -906,7 +1005,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_TelephoneMobile(vTelephoneMobile) {
-        result := ComCall(53, this, "ptr", vTelephoneMobile, "HRESULT")
+        result := ComCall(53, this, VARIANT, vTelephoneMobile, "HRESULT")
         return result
     }
 
@@ -916,7 +1015,7 @@ class IADsUser extends IADs {
      */
     get_TelephoneNumber() {
         retval := VARIANT()
-        result := ComCall(54, this, "ptr", retval, "HRESULT")
+        result := ComCall(54, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -926,7 +1025,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_TelephoneNumber(vTelephoneNumber) {
-        result := ComCall(55, this, "ptr", vTelephoneNumber, "HRESULT")
+        result := ComCall(55, this, VARIANT, vTelephoneNumber, "HRESULT")
         return result
     }
 
@@ -936,7 +1035,7 @@ class IADsUser extends IADs {
      */
     get_TelephonePager() {
         retval := VARIANT()
-        result := ComCall(56, this, "ptr", retval, "HRESULT")
+        result := ComCall(56, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -946,7 +1045,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_TelephonePager(vTelephonePager) {
-        result := ComCall(57, this, "ptr", vTelephonePager, "HRESULT")
+        result := ComCall(57, this, VARIANT, vTelephonePager, "HRESULT")
         return result
     }
 
@@ -956,7 +1055,7 @@ class IADsUser extends IADs {
      */
     get_FaxNumber() {
         retval := VARIANT()
-        result := ComCall(58, this, "ptr", retval, "HRESULT")
+        result := ComCall(58, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -966,7 +1065,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_FaxNumber(vFaxNumber) {
-        result := ComCall(59, this, "ptr", vFaxNumber, "HRESULT")
+        result := ComCall(59, this, VARIANT, vFaxNumber, "HRESULT")
         return result
     }
 
@@ -976,7 +1075,7 @@ class IADsUser extends IADs {
      */
     get_OfficeLocations() {
         retval := VARIANT()
-        result := ComCall(60, this, "ptr", retval, "HRESULT")
+        result := ComCall(60, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -986,7 +1085,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_OfficeLocations(vOfficeLocations) {
-        result := ComCall(61, this, "ptr", vOfficeLocations, "HRESULT")
+        result := ComCall(61, this, VARIANT, vOfficeLocations, "HRESULT")
         return result
     }
 
@@ -996,7 +1095,7 @@ class IADsUser extends IADs {
      */
     get_PostalAddresses() {
         retval := VARIANT()
-        result := ComCall(62, this, "ptr", retval, "HRESULT")
+        result := ComCall(62, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1006,7 +1105,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_PostalAddresses(vPostalAddresses) {
-        result := ComCall(63, this, "ptr", vPostalAddresses, "HRESULT")
+        result := ComCall(63, this, VARIANT, vPostalAddresses, "HRESULT")
         return result
     }
 
@@ -1016,7 +1115,7 @@ class IADsUser extends IADs {
      */
     get_PostalCodes() {
         retval := VARIANT()
-        result := ComCall(64, this, "ptr", retval, "HRESULT")
+        result := ComCall(64, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1026,7 +1125,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_PostalCodes(vPostalCodes) {
-        result := ComCall(65, this, "ptr", vPostalCodes, "HRESULT")
+        result := ComCall(65, this, VARIANT, vPostalCodes, "HRESULT")
         return result
     }
 
@@ -1036,7 +1135,7 @@ class IADsUser extends IADs {
      */
     get_SeeAlso() {
         retval := VARIANT()
-        result := ComCall(66, this, "ptr", retval, "HRESULT")
+        result := ComCall(66, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1046,7 +1145,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_SeeAlso(vSeeAlso) {
-        result := ComCall(67, this, "ptr", vSeeAlso, "HRESULT")
+        result := ComCall(67, this, VARIANT, vSeeAlso, "HRESULT")
         return result
     }
 
@@ -1055,7 +1154,7 @@ class IADsUser extends IADs {
      * @returns {VARIANT_BOOL} 
      */
     get_AccountDisabled() {
-        result := ComCall(68, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(68, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -1065,7 +1164,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_AccountDisabled(fAccountDisabled) {
-        result := ComCall(69, this, "short", fAccountDisabled, "HRESULT")
+        result := ComCall(69, this, VARIANT_BOOL, fAccountDisabled, "HRESULT")
         return result
     }
 
@@ -1131,7 +1230,7 @@ class IADsUser extends IADs {
      * @returns {VARIANT_BOOL} 
      */
     get_IsAccountLocked() {
-        result := ComCall(76, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(76, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -1141,7 +1240,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_IsAccountLocked(fIsAccountLocked) {
-        result := ComCall(77, this, "short", fIsAccountLocked, "HRESULT")
+        result := ComCall(77, this, VARIANT_BOOL, fIsAccountLocked, "HRESULT")
         return result
     }
 
@@ -1151,7 +1250,7 @@ class IADsUser extends IADs {
      */
     get_LoginHours() {
         retval := VARIANT()
-        result := ComCall(78, this, "ptr", retval, "HRESULT")
+        result := ComCall(78, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1161,7 +1260,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_LoginHours(vLoginHours) {
-        result := ComCall(79, this, "ptr", vLoginHours, "HRESULT")
+        result := ComCall(79, this, VARIANT, vLoginHours, "HRESULT")
         return result
     }
 
@@ -1171,7 +1270,7 @@ class IADsUser extends IADs {
      */
     get_LoginWorkstations() {
         retval := VARIANT()
-        result := ComCall(80, this, "ptr", retval, "HRESULT")
+        result := ComCall(80, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1181,7 +1280,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_LoginWorkstations(vLoginWorkstations) {
-        result := ComCall(81, this, "ptr", vLoginWorkstations, "HRESULT")
+        result := ComCall(81, this, VARIANT, vLoginWorkstations, "HRESULT")
         return result
     }
 
@@ -1266,7 +1365,7 @@ class IADsUser extends IADs {
      * @returns {VARIANT_BOOL} 
      */
     get_PasswordRequired() {
-        result := ComCall(90, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(90, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -1276,7 +1375,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_PasswordRequired(fPasswordRequired) {
-        result := ComCall(91, this, "short", fPasswordRequired, "HRESULT")
+        result := ComCall(91, this, VARIANT_BOOL, fPasswordRequired, "HRESULT")
         return result
     }
 
@@ -1285,7 +1384,7 @@ class IADsUser extends IADs {
      * @returns {VARIANT_BOOL} 
      */
     get_RequireUniquePassword() {
-        result := ComCall(92, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(92, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -1295,7 +1394,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_RequireUniquePassword(fRequireUniquePassword) {
-        result := ComCall(93, this, "short", fRequireUniquePassword, "HRESULT")
+        result := ComCall(93, this, VARIANT_BOOL, fRequireUniquePassword, "HRESULT")
         return result
     }
 
@@ -1304,8 +1403,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_EmailAddress() {
-        retval := BSTR()
-        result := ComCall(94, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(94, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1317,7 +1416,7 @@ class IADsUser extends IADs {
     put_EmailAddress(bstrEmailAddress) {
         bstrEmailAddress := bstrEmailAddress is String ? BSTR.Alloc(bstrEmailAddress).Value : bstrEmailAddress
 
-        result := ComCall(95, this, "ptr", bstrEmailAddress, "HRESULT")
+        result := ComCall(95, this, BSTR, bstrEmailAddress, "HRESULT")
         return result
     }
 
@@ -1326,8 +1425,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_HomeDirectory() {
-        retval := BSTR()
-        result := ComCall(96, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(96, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1339,7 +1438,7 @@ class IADsUser extends IADs {
     put_HomeDirectory(bstrHomeDirectory) {
         bstrHomeDirectory := bstrHomeDirectory is String ? BSTR.Alloc(bstrHomeDirectory).Value : bstrHomeDirectory
 
-        result := ComCall(97, this, "ptr", bstrHomeDirectory, "HRESULT")
+        result := ComCall(97, this, BSTR, bstrHomeDirectory, "HRESULT")
         return result
     }
 
@@ -1349,7 +1448,7 @@ class IADsUser extends IADs {
      */
     get_Languages() {
         retval := VARIANT()
-        result := ComCall(98, this, "ptr", retval, "HRESULT")
+        result := ComCall(98, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1359,7 +1458,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_Languages(vLanguages) {
-        result := ComCall(99, this, "ptr", vLanguages, "HRESULT")
+        result := ComCall(99, this, VARIANT, vLanguages, "HRESULT")
         return result
     }
 
@@ -1368,8 +1467,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Profile() {
-        retval := BSTR()
-        result := ComCall(100, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(100, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1381,7 +1480,7 @@ class IADsUser extends IADs {
     put_Profile(bstrProfile) {
         bstrProfile := bstrProfile is String ? BSTR.Alloc(bstrProfile).Value : bstrProfile
 
-        result := ComCall(101, this, "ptr", bstrProfile, "HRESULT")
+        result := ComCall(101, this, BSTR, bstrProfile, "HRESULT")
         return result
     }
 
@@ -1390,8 +1489,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_LoginScript() {
-        retval := BSTR()
-        result := ComCall(102, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(102, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1403,7 +1502,7 @@ class IADsUser extends IADs {
     put_LoginScript(bstrLoginScript) {
         bstrLoginScript := bstrLoginScript is String ? BSTR.Alloc(bstrLoginScript).Value : bstrLoginScript
 
-        result := ComCall(103, this, "ptr", bstrLoginScript, "HRESULT")
+        result := ComCall(103, this, BSTR, bstrLoginScript, "HRESULT")
         return result
     }
 
@@ -1413,7 +1512,7 @@ class IADsUser extends IADs {
      */
     get_Picture() {
         retval := VARIANT()
-        result := ComCall(104, this, "ptr", retval, "HRESULT")
+        result := ComCall(104, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1423,7 +1522,7 @@ class IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_Picture(vPicture) {
-        result := ComCall(105, this, "ptr", vPicture, "HRESULT")
+        result := ComCall(105, this, VARIANT, vPicture, "HRESULT")
         return result
     }
 
@@ -1432,8 +1531,8 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_HomePage() {
-        retval := BSTR()
-        result := ComCall(106, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(106, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -1445,7 +1544,7 @@ class IADsUser extends IADs {
     put_HomePage(bstrHomePage) {
         bstrHomePage := bstrHomePage is String ? BSTR.Alloc(bstrHomePage).Value : bstrHomePage
 
-        result := ComCall(107, this, "ptr", bstrHomePage, "HRESULT")
+        result := ComCall(107, this, BSTR, bstrHomePage, "HRESULT")
         return result
     }
 
@@ -1477,7 +1576,7 @@ class IADsUser extends IADs {
     SetPassword(NewPassword) {
         NewPassword := NewPassword is String ? BSTR.Alloc(NewPassword).Value : NewPassword
 
-        result := ComCall(109, this, "ptr", NewPassword, "HRESULT")
+        result := ComCall(109, this, BSTR, NewPassword, "HRESULT")
         return result
     }
 
@@ -1496,7 +1595,207 @@ class IADsUser extends IADs {
         bstrOldPassword := bstrOldPassword is String ? BSTR.Alloc(bstrOldPassword).Value : bstrOldPassword
         bstrNewPassword := bstrNewPassword is String ? BSTR.Alloc(bstrNewPassword).Value : bstrNewPassword
 
-        result := ComCall(110, this, "ptr", bstrOldPassword, "ptr", bstrNewPassword, "HRESULT")
+        result := ComCall(110, this, BSTR, bstrOldPassword, BSTR, bstrNewPassword, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsUser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BadLoginAddress := CallbackCreate(GetMethod(implObj, "get_BadLoginAddress"), flags, 2)
+        this.vtbl.get_BadLoginCount := CallbackCreate(GetMethod(implObj, "get_BadLoginCount"), flags, 2)
+        this.vtbl.get_LastLogin := CallbackCreate(GetMethod(implObj, "get_LastLogin"), flags, 2)
+        this.vtbl.get_LastLogoff := CallbackCreate(GetMethod(implObj, "get_LastLogoff"), flags, 2)
+        this.vtbl.get_LastFailedLogin := CallbackCreate(GetMethod(implObj, "get_LastFailedLogin"), flags, 2)
+        this.vtbl.get_PasswordLastChanged := CallbackCreate(GetMethod(implObj, "get_PasswordLastChanged"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Division := CallbackCreate(GetMethod(implObj, "get_Division"), flags, 2)
+        this.vtbl.put_Division := CallbackCreate(GetMethod(implObj, "put_Division"), flags, 2)
+        this.vtbl.get_Department := CallbackCreate(GetMethod(implObj, "get_Department"), flags, 2)
+        this.vtbl.put_Department := CallbackCreate(GetMethod(implObj, "put_Department"), flags, 2)
+        this.vtbl.get_EmployeeID := CallbackCreate(GetMethod(implObj, "get_EmployeeID"), flags, 2)
+        this.vtbl.put_EmployeeID := CallbackCreate(GetMethod(implObj, "put_EmployeeID"), flags, 2)
+        this.vtbl.get_FullName := CallbackCreate(GetMethod(implObj, "get_FullName"), flags, 2)
+        this.vtbl.put_FullName := CallbackCreate(GetMethod(implObj, "put_FullName"), flags, 2)
+        this.vtbl.get_FirstName := CallbackCreate(GetMethod(implObj, "get_FirstName"), flags, 2)
+        this.vtbl.put_FirstName := CallbackCreate(GetMethod(implObj, "put_FirstName"), flags, 2)
+        this.vtbl.get_LastName := CallbackCreate(GetMethod(implObj, "get_LastName"), flags, 2)
+        this.vtbl.put_LastName := CallbackCreate(GetMethod(implObj, "put_LastName"), flags, 2)
+        this.vtbl.get_OtherName := CallbackCreate(GetMethod(implObj, "get_OtherName"), flags, 2)
+        this.vtbl.put_OtherName := CallbackCreate(GetMethod(implObj, "put_OtherName"), flags, 2)
+        this.vtbl.get_NamePrefix := CallbackCreate(GetMethod(implObj, "get_NamePrefix"), flags, 2)
+        this.vtbl.put_NamePrefix := CallbackCreate(GetMethod(implObj, "put_NamePrefix"), flags, 2)
+        this.vtbl.get_NameSuffix := CallbackCreate(GetMethod(implObj, "get_NameSuffix"), flags, 2)
+        this.vtbl.put_NameSuffix := CallbackCreate(GetMethod(implObj, "put_NameSuffix"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_Manager := CallbackCreate(GetMethod(implObj, "get_Manager"), flags, 2)
+        this.vtbl.put_Manager := CallbackCreate(GetMethod(implObj, "put_Manager"), flags, 2)
+        this.vtbl.get_TelephoneHome := CallbackCreate(GetMethod(implObj, "get_TelephoneHome"), flags, 2)
+        this.vtbl.put_TelephoneHome := CallbackCreate(GetMethod(implObj, "put_TelephoneHome"), flags, 2)
+        this.vtbl.get_TelephoneMobile := CallbackCreate(GetMethod(implObj, "get_TelephoneMobile"), flags, 2)
+        this.vtbl.put_TelephoneMobile := CallbackCreate(GetMethod(implObj, "put_TelephoneMobile"), flags, 2)
+        this.vtbl.get_TelephoneNumber := CallbackCreate(GetMethod(implObj, "get_TelephoneNumber"), flags, 2)
+        this.vtbl.put_TelephoneNumber := CallbackCreate(GetMethod(implObj, "put_TelephoneNumber"), flags, 2)
+        this.vtbl.get_TelephonePager := CallbackCreate(GetMethod(implObj, "get_TelephonePager"), flags, 2)
+        this.vtbl.put_TelephonePager := CallbackCreate(GetMethod(implObj, "put_TelephonePager"), flags, 2)
+        this.vtbl.get_FaxNumber := CallbackCreate(GetMethod(implObj, "get_FaxNumber"), flags, 2)
+        this.vtbl.put_FaxNumber := CallbackCreate(GetMethod(implObj, "put_FaxNumber"), flags, 2)
+        this.vtbl.get_OfficeLocations := CallbackCreate(GetMethod(implObj, "get_OfficeLocations"), flags, 2)
+        this.vtbl.put_OfficeLocations := CallbackCreate(GetMethod(implObj, "put_OfficeLocations"), flags, 2)
+        this.vtbl.get_PostalAddresses := CallbackCreate(GetMethod(implObj, "get_PostalAddresses"), flags, 2)
+        this.vtbl.put_PostalAddresses := CallbackCreate(GetMethod(implObj, "put_PostalAddresses"), flags, 2)
+        this.vtbl.get_PostalCodes := CallbackCreate(GetMethod(implObj, "get_PostalCodes"), flags, 2)
+        this.vtbl.put_PostalCodes := CallbackCreate(GetMethod(implObj, "put_PostalCodes"), flags, 2)
+        this.vtbl.get_SeeAlso := CallbackCreate(GetMethod(implObj, "get_SeeAlso"), flags, 2)
+        this.vtbl.put_SeeAlso := CallbackCreate(GetMethod(implObj, "put_SeeAlso"), flags, 2)
+        this.vtbl.get_AccountDisabled := CallbackCreate(GetMethod(implObj, "get_AccountDisabled"), flags, 2)
+        this.vtbl.put_AccountDisabled := CallbackCreate(GetMethod(implObj, "put_AccountDisabled"), flags, 2)
+        this.vtbl.get_AccountExpirationDate := CallbackCreate(GetMethod(implObj, "get_AccountExpirationDate"), flags, 2)
+        this.vtbl.put_AccountExpirationDate := CallbackCreate(GetMethod(implObj, "put_AccountExpirationDate"), flags, 2)
+        this.vtbl.get_GraceLoginsAllowed := CallbackCreate(GetMethod(implObj, "get_GraceLoginsAllowed"), flags, 2)
+        this.vtbl.put_GraceLoginsAllowed := CallbackCreate(GetMethod(implObj, "put_GraceLoginsAllowed"), flags, 2)
+        this.vtbl.get_GraceLoginsRemaining := CallbackCreate(GetMethod(implObj, "get_GraceLoginsRemaining"), flags, 2)
+        this.vtbl.put_GraceLoginsRemaining := CallbackCreate(GetMethod(implObj, "put_GraceLoginsRemaining"), flags, 2)
+        this.vtbl.get_IsAccountLocked := CallbackCreate(GetMethod(implObj, "get_IsAccountLocked"), flags, 2)
+        this.vtbl.put_IsAccountLocked := CallbackCreate(GetMethod(implObj, "put_IsAccountLocked"), flags, 2)
+        this.vtbl.get_LoginHours := CallbackCreate(GetMethod(implObj, "get_LoginHours"), flags, 2)
+        this.vtbl.put_LoginHours := CallbackCreate(GetMethod(implObj, "put_LoginHours"), flags, 2)
+        this.vtbl.get_LoginWorkstations := CallbackCreate(GetMethod(implObj, "get_LoginWorkstations"), flags, 2)
+        this.vtbl.put_LoginWorkstations := CallbackCreate(GetMethod(implObj, "put_LoginWorkstations"), flags, 2)
+        this.vtbl.get_MaxLogins := CallbackCreate(GetMethod(implObj, "get_MaxLogins"), flags, 2)
+        this.vtbl.put_MaxLogins := CallbackCreate(GetMethod(implObj, "put_MaxLogins"), flags, 2)
+        this.vtbl.get_MaxStorage := CallbackCreate(GetMethod(implObj, "get_MaxStorage"), flags, 2)
+        this.vtbl.put_MaxStorage := CallbackCreate(GetMethod(implObj, "put_MaxStorage"), flags, 2)
+        this.vtbl.get_PasswordExpirationDate := CallbackCreate(GetMethod(implObj, "get_PasswordExpirationDate"), flags, 2)
+        this.vtbl.put_PasswordExpirationDate := CallbackCreate(GetMethod(implObj, "put_PasswordExpirationDate"), flags, 2)
+        this.vtbl.get_PasswordMinimumLength := CallbackCreate(GetMethod(implObj, "get_PasswordMinimumLength"), flags, 2)
+        this.vtbl.put_PasswordMinimumLength := CallbackCreate(GetMethod(implObj, "put_PasswordMinimumLength"), flags, 2)
+        this.vtbl.get_PasswordRequired := CallbackCreate(GetMethod(implObj, "get_PasswordRequired"), flags, 2)
+        this.vtbl.put_PasswordRequired := CallbackCreate(GetMethod(implObj, "put_PasswordRequired"), flags, 2)
+        this.vtbl.get_RequireUniquePassword := CallbackCreate(GetMethod(implObj, "get_RequireUniquePassword"), flags, 2)
+        this.vtbl.put_RequireUniquePassword := CallbackCreate(GetMethod(implObj, "put_RequireUniquePassword"), flags, 2)
+        this.vtbl.get_EmailAddress := CallbackCreate(GetMethod(implObj, "get_EmailAddress"), flags, 2)
+        this.vtbl.put_EmailAddress := CallbackCreate(GetMethod(implObj, "put_EmailAddress"), flags, 2)
+        this.vtbl.get_HomeDirectory := CallbackCreate(GetMethod(implObj, "get_HomeDirectory"), flags, 2)
+        this.vtbl.put_HomeDirectory := CallbackCreate(GetMethod(implObj, "put_HomeDirectory"), flags, 2)
+        this.vtbl.get_Languages := CallbackCreate(GetMethod(implObj, "get_Languages"), flags, 2)
+        this.vtbl.put_Languages := CallbackCreate(GetMethod(implObj, "put_Languages"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.put_Profile := CallbackCreate(GetMethod(implObj, "put_Profile"), flags, 2)
+        this.vtbl.get_LoginScript := CallbackCreate(GetMethod(implObj, "get_LoginScript"), flags, 2)
+        this.vtbl.put_LoginScript := CallbackCreate(GetMethod(implObj, "put_LoginScript"), flags, 2)
+        this.vtbl.get_Picture := CallbackCreate(GetMethod(implObj, "get_Picture"), flags, 2)
+        this.vtbl.put_Picture := CallbackCreate(GetMethod(implObj, "put_Picture"), flags, 2)
+        this.vtbl.get_HomePage := CallbackCreate(GetMethod(implObj, "get_HomePage"), flags, 2)
+        this.vtbl.put_HomePage := CallbackCreate(GetMethod(implObj, "put_HomePage"), flags, 2)
+        this.vtbl.Groups := CallbackCreate(GetMethod(implObj, "Groups"), flags, 2)
+        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
+        this.vtbl.ChangePassword := CallbackCreate(GetMethod(implObj, "ChangePassword"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BadLoginAddress)
+        CallbackFree(this.vtbl.get_BadLoginCount)
+        CallbackFree(this.vtbl.get_LastLogin)
+        CallbackFree(this.vtbl.get_LastLogoff)
+        CallbackFree(this.vtbl.get_LastFailedLogin)
+        CallbackFree(this.vtbl.get_PasswordLastChanged)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_Division)
+        CallbackFree(this.vtbl.put_Division)
+        CallbackFree(this.vtbl.get_Department)
+        CallbackFree(this.vtbl.put_Department)
+        CallbackFree(this.vtbl.get_EmployeeID)
+        CallbackFree(this.vtbl.put_EmployeeID)
+        CallbackFree(this.vtbl.get_FullName)
+        CallbackFree(this.vtbl.put_FullName)
+        CallbackFree(this.vtbl.get_FirstName)
+        CallbackFree(this.vtbl.put_FirstName)
+        CallbackFree(this.vtbl.get_LastName)
+        CallbackFree(this.vtbl.put_LastName)
+        CallbackFree(this.vtbl.get_OtherName)
+        CallbackFree(this.vtbl.put_OtherName)
+        CallbackFree(this.vtbl.get_NamePrefix)
+        CallbackFree(this.vtbl.put_NamePrefix)
+        CallbackFree(this.vtbl.get_NameSuffix)
+        CallbackFree(this.vtbl.put_NameSuffix)
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.put_Title)
+        CallbackFree(this.vtbl.get_Manager)
+        CallbackFree(this.vtbl.put_Manager)
+        CallbackFree(this.vtbl.get_TelephoneHome)
+        CallbackFree(this.vtbl.put_TelephoneHome)
+        CallbackFree(this.vtbl.get_TelephoneMobile)
+        CallbackFree(this.vtbl.put_TelephoneMobile)
+        CallbackFree(this.vtbl.get_TelephoneNumber)
+        CallbackFree(this.vtbl.put_TelephoneNumber)
+        CallbackFree(this.vtbl.get_TelephonePager)
+        CallbackFree(this.vtbl.put_TelephonePager)
+        CallbackFree(this.vtbl.get_FaxNumber)
+        CallbackFree(this.vtbl.put_FaxNumber)
+        CallbackFree(this.vtbl.get_OfficeLocations)
+        CallbackFree(this.vtbl.put_OfficeLocations)
+        CallbackFree(this.vtbl.get_PostalAddresses)
+        CallbackFree(this.vtbl.put_PostalAddresses)
+        CallbackFree(this.vtbl.get_PostalCodes)
+        CallbackFree(this.vtbl.put_PostalCodes)
+        CallbackFree(this.vtbl.get_SeeAlso)
+        CallbackFree(this.vtbl.put_SeeAlso)
+        CallbackFree(this.vtbl.get_AccountDisabled)
+        CallbackFree(this.vtbl.put_AccountDisabled)
+        CallbackFree(this.vtbl.get_AccountExpirationDate)
+        CallbackFree(this.vtbl.put_AccountExpirationDate)
+        CallbackFree(this.vtbl.get_GraceLoginsAllowed)
+        CallbackFree(this.vtbl.put_GraceLoginsAllowed)
+        CallbackFree(this.vtbl.get_GraceLoginsRemaining)
+        CallbackFree(this.vtbl.put_GraceLoginsRemaining)
+        CallbackFree(this.vtbl.get_IsAccountLocked)
+        CallbackFree(this.vtbl.put_IsAccountLocked)
+        CallbackFree(this.vtbl.get_LoginHours)
+        CallbackFree(this.vtbl.put_LoginHours)
+        CallbackFree(this.vtbl.get_LoginWorkstations)
+        CallbackFree(this.vtbl.put_LoginWorkstations)
+        CallbackFree(this.vtbl.get_MaxLogins)
+        CallbackFree(this.vtbl.put_MaxLogins)
+        CallbackFree(this.vtbl.get_MaxStorage)
+        CallbackFree(this.vtbl.put_MaxStorage)
+        CallbackFree(this.vtbl.get_PasswordExpirationDate)
+        CallbackFree(this.vtbl.put_PasswordExpirationDate)
+        CallbackFree(this.vtbl.get_PasswordMinimumLength)
+        CallbackFree(this.vtbl.put_PasswordMinimumLength)
+        CallbackFree(this.vtbl.get_PasswordRequired)
+        CallbackFree(this.vtbl.put_PasswordRequired)
+        CallbackFree(this.vtbl.get_RequireUniquePassword)
+        CallbackFree(this.vtbl.put_RequireUniquePassword)
+        CallbackFree(this.vtbl.get_EmailAddress)
+        CallbackFree(this.vtbl.put_EmailAddress)
+        CallbackFree(this.vtbl.get_HomeDirectory)
+        CallbackFree(this.vtbl.put_HomeDirectory)
+        CallbackFree(this.vtbl.get_Languages)
+        CallbackFree(this.vtbl.put_Languages)
+        CallbackFree(this.vtbl.get_Profile)
+        CallbackFree(this.vtbl.put_Profile)
+        CallbackFree(this.vtbl.get_LoginScript)
+        CallbackFree(this.vtbl.put_LoginScript)
+        CallbackFree(this.vtbl.get_Picture)
+        CallbackFree(this.vtbl.put_Picture)
+        CallbackFree(this.vtbl.get_HomePage)
+        CallbackFree(this.vtbl.put_HomePage)
+        CallbackFree(this.vtbl.Groups)
+        CallbackFree(this.vtbl.SetPassword)
+        CallbackFree(this.vtbl.ChangePassword)
     }
 }

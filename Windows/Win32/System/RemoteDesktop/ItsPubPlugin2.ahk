@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ItsPubPlugin.ahk
-#Include .\pluginResource2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TSPUB_PLUGIN_PD_RESOLUTION_TYPE.ahk" { TSPUB_PLUGIN_PD_RESOLUTION_TYPE }
+#Import ".\ItsPubPlugin.ahk" { ItsPubPlugin }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE.ahk" { TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\pluginResource2.ahk" { pluginResource2 }
 
 /**
  * Specifies methods that provide information about resources available to users of RemoteApp and Desktop Connections.
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nn-tspubplugin2com-itspubplugin2
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ItsPubPlugin2 extends ItsPubPlugin {
-
-    static sizeof => A_PtrSize
+export default struct ItsPubPlugin2 extends ItsPubPlugin {
     /**
      * The interface identifier for ItsPubPlugin2
      * @type {Guid}
      */
-    static IID => Guid("{fa4ce418-aad7-4ec6-bad1-0a321ba465d5}")
+    static IID := Guid("{fa4ce418-aad7-4ec6-bad1-0a321ba465d5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ItsPubPlugin2 interfaces
+    */
+    struct Vtbl extends ItsPubPlugin.Vtbl {
+        GetResource2List                : IntPtr
+        GetResource2                    : IntPtr
+        ResolvePersonalDesktop          : IntPtr
+        DeletePersonalDesktopAssignment : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResource2List", "GetResource2", "ResolvePersonalDesktop", "DeletePersonalDesktopAssignment"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ItsPubPlugin2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a list of resources assigned to the specified user. (ItsPubPlugin2.GetResource2List)
@@ -59,7 +73,7 @@ class ItsPubPlugin2 extends ItsPubPlugin {
         alias := alias is String ? StrPtr(alias) : alias
 
         resource := pluginResource2()
-        result := ComCall(10, this, "ptr", alias, "int", flags, "ptr", resource, "HRESULT")
+        result := ComCall(10, this, "ptr", alias, "int", flags, pluginResource2.Ptr, resource, "HRESULT")
         return resource
     }
 
@@ -81,7 +95,7 @@ class ItsPubPlugin2 extends ItsPubPlugin {
         poolId := poolId is String ? StrPtr(poolId) : poolId
         endPointName := endPointName is String ? StrPtr(endPointName) : endPointName
 
-        result := ComCall(11, this, "ptr", userId, "ptr", poolId, "int", ePdResolutionType, "int*", &pPdAssignmentType := 0, "ptr", endPointName, "HRESULT")
+        result := ComCall(11, this, "ptr", userId, "ptr", poolId, TSPUB_PLUGIN_PD_RESOLUTION_TYPE, ePdResolutionType, "int*", &pPdAssignmentType := 0, "ptr", endPointName, "HRESULT")
         return pPdAssignmentType
     }
 
@@ -100,5 +114,31 @@ class ItsPubPlugin2 extends ItsPubPlugin {
 
         result := ComCall(12, this, "ptr", userId, "ptr", poolId, "ptr", endpointName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ItsPubPlugin2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResource2List := CallbackCreate(GetMethod(implObj, "GetResource2List"), flags, 4)
+        this.vtbl.GetResource2 := CallbackCreate(GetMethod(implObj, "GetResource2"), flags, 4)
+        this.vtbl.ResolvePersonalDesktop := CallbackCreate(GetMethod(implObj, "ResolvePersonalDesktop"), flags, 6)
+        this.vtbl.DeletePersonalDesktopAssignment := CallbackCreate(GetMethod(implObj, "DeletePersonalDesktopAssignment"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResource2List)
+        CallbackFree(this.vtbl.GetResource2)
+        CallbackFree(this.vtbl.ResolvePersonalDesktop)
+        CallbackFree(this.vtbl.DeletePersonalDesktopAssignment)
     }
 }

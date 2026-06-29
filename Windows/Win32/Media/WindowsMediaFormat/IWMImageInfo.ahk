@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMImageInfo interface retrieves images stored in ID3v2 &#0034;APIC&#0034; (attached picture) frames in a file.
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmimageinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMImageInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMImageInfo extends IUnknown {
     /**
      * The interface identifier for IWMImageInfo
      * @type {Guid}
      */
-    static IID => Guid("{9f0aa3b6-7267-4d89-88f2-ba915aa5c4c6}")
+    static IID := Guid("{9f0aa3b6-7267-4d89-88f2-ba915aa5c4c6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMImageInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetImageCount : IntPtr
+        GetImage      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetImageCount", "GetImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMImageInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetImageCount method retrieves the number of images stored in a file using ID3v2 &#0034;APIC&#0034; frames. Images stored in the file using attributes in the Windows Media namespace, or any images stored in custom attributes, are not included in this count.
@@ -129,5 +139,27 @@ class IWMImageInfo extends IUnknown {
 
         result := ComCall(4, this, "uint", wIndex, pcchMIMETypeMarshal, pcchMIMEType, "ptr", pwszMIMEType, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pImageTypeMarshal, pImageType, pcbImageDataMarshal, pcbImageData, pbImageDataMarshal, pbImageData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMImageInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetImageCount := CallbackCreate(GetMethod(implObj, "GetImageCount"), flags, 2)
+        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetImageCount)
+        CallbackFree(this.vtbl.GetImage)
     }
 }

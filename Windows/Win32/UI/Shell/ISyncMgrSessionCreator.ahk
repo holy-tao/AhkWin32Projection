@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISyncMgrSyncCallback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncMgrSyncCallback.ahk" { ISyncMgrSyncCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a single method through which a handler or external application can notify Sync Center that synchronization has begun, as well as report progress and events.
@@ -15,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsessioncreator
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrSessionCreator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrSessionCreator extends IUnknown {
     /**
      * The interface identifier for ISyncMgrSessionCreator
      * @type {Guid}
      */
-    static IID => Guid("{17f48517-f305-4321-a08d-b25a834918fd}")
+    static IID := Guid("{17f48517-f305-4321-a08d-b25a834918fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrSessionCreator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateSession : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrSessionCreator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies Sync Center that synchronization of the specified items has begun.
@@ -61,5 +70,25 @@ class ISyncMgrSessionCreator extends IUnknown {
 
         result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr*", &ppCallback := 0, "HRESULT")
         return ISyncMgrSyncCallback(ppCallback)
+    }
+
+    Query(iid) {
+        if (ISyncMgrSessionCreator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSession)
     }
 }

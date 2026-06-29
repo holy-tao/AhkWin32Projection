@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IPersist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IPersist.ahk" { IPersist }
 
 /**
  * Used to store and retrieve query parameters to and from persistent storage.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nn-cmnquery-ipersistquery
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IPersistQuery extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IPersistQuery extends IPersist {
     /**
      * The interface identifier for IPersistQuery
      * @type {Guid}
      */
-    static IID => Guid("{1a3114b8-a62e-11d0-a6c5-00a0c906af45}")
+    static IID := Guid("{1a3114b8-a62e-11d0-a6c5-00a0c906af45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistQuery interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        WriteString : IntPtr
+        ReadString  : IntPtr
+        WriteInt    : IntPtr
+        ReadInt     : IntPtr
+        WriteStruct : IntPtr
+        ReadStruct  : IntPtr
+        Clear       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WriteString", "ReadString", "WriteInt", "ReadInt", "WriteStruct", "ReadStruct", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistQuery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Writes a string to the query store.
@@ -144,5 +159,37 @@ class IPersistQuery extends IPersist {
     Clear() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPersistQuery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WriteString := CallbackCreate(GetMethod(implObj, "WriteString"), flags, 4)
+        this.vtbl.ReadString := CallbackCreate(GetMethod(implObj, "ReadString"), flags, 5)
+        this.vtbl.WriteInt := CallbackCreate(GetMethod(implObj, "WriteInt"), flags, 4)
+        this.vtbl.ReadInt := CallbackCreate(GetMethod(implObj, "ReadInt"), flags, 4)
+        this.vtbl.WriteStruct := CallbackCreate(GetMethod(implObj, "WriteStruct"), flags, 5)
+        this.vtbl.ReadStruct := CallbackCreate(GetMethod(implObj, "ReadStruct"), flags, 5)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WriteString)
+        CallbackFree(this.vtbl.ReadString)
+        CallbackFree(this.vtbl.WriteInt)
+        CallbackFree(this.vtbl.ReadInt)
+        CallbackFree(this.vtbl.WriteStruct)
+        CallbackFree(this.vtbl.ReadStruct)
+        CallbackFree(this.vtbl.Clear)
     }
 }

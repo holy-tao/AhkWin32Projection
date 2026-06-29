@@ -1,39 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LEGACY_TOUCHPAD_FEATURES.ahk
-#Include .\TOUCHPAD_SENSITIVITY_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LEGACY_TOUCHPAD_FEATURES.ahk" { LEGACY_TOUCHPAD_FEATURES }
+#Import ".\TOUCHPAD_SENSITIVITY_LEVEL.ahk" { TOUCHPAD_SENSITIVITY_LEVEL }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class TOUCHPAD_PARAMETERS_V1 extends Win32Struct {
-    static sizeof => 44
+export default struct TOUCHPAD_PARAMETERS_V1 {
+    #StructPack 4
 
-    static packingSize => 4
+    versionNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    versionNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    maxSupportedContacts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    maxSupportedContacts {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {LEGACY_TOUCHPAD_FEATURES}
-     */
-    legacyTouchpadFeatures {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    legacyTouchpadFeatures : LEGACY_TOUCHPAD_FEATURES
 
     /**
      * This bitfield backs the following members:
@@ -45,12 +24,9 @@ class TOUCHPAD_PARAMETERS_V1 extends Win32Struct {
      * - feedbackSupported
      * - clickForceSupported
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -115,7 +91,6 @@ class TOUCHPAD_PARAMETERS_V1 extends Win32Struct {
         get => (this._bitfield1 >> 7) & 0x1FFFFFF
         set => this._bitfield1 := ((value & 0x1FFFFFF) << 7) | (this._bitfield1 & ~(0x1FFFFFF << 7))
     }
-
     /**
      * This bitfield backs the following members:
      * - allowActiveWhenMousePresent
@@ -129,12 +104,9 @@ class TOUCHPAD_PARAMETERS_V1 extends Win32Struct {
      * - zoomEnabled
      * - scrollDirectionReversed
      * - Reserved2
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    _bitfield2 : Int32
+
 
     /**
      * @type {Integer}
@@ -223,52 +195,16 @@ class TOUCHPAD_PARAMETERS_V1 extends Win32Struct {
         get => (this._bitfield2 >> 10) & 0x3FFFFF
         set => this._bitfield2 := ((value & 0x3FFFFF) << 10) | (this._bitfield2 & ~(0x3FFFFF << 10))
     }
+    sensitivityLevel : TOUCHPAD_SENSITIVITY_LEVEL
 
-    /**
-     * @type {TOUCHPAD_SENSITIVITY_LEVEL}
-     */
-    sensitivityLevel {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cursorSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cursorSpeed {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    feedbackIntensity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    feedbackIntensity {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    clickForceSensitivity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    clickForceSensitivity {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    rightClickZoneWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rightClickZoneWidth {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    rightClickZoneHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rightClickZoneHeight {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

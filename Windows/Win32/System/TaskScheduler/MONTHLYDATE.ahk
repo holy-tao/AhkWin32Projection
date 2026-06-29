@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the day of the month the task will run.
@@ -19,19 +18,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-monthlydate
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class MONTHLYDATE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MONTHLYDATE {
+    #StructPack 4
 
     /**
      * Specifies the day of the month a task runs. This value is a bitfield that specifies the day(s) the task will run. Bit 0 corresponds to the first of the month, bit 1 to the second, and so forth.
-     * @type {Integer}
      */
-    rgfDays {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rgfDays : UInt32
 
     /**
      * Specifies the month(s) when the task runs. This value is a combination of the following flags. See Remarks for an example of setting multiple flags.
@@ -162,10 +155,7 @@ class MONTHLYDATE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    rgfMonths {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    rgfMonths : UInt16
+
 }

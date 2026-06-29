@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class INetCfgComponentPropertyUi extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetCfgComponentPropertyUi extends IUnknown {
     /**
      * The interface identifier for INetCfgComponentPropertyUi
      * @type {Guid}
      */
-    static IID => Guid("{932238e0-bea1-11d0-9298-00c04fc99dcf}")
+    static IID := Guid("{932238e0-bea1-11d0-9298-00c04fc99dcf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetCfgComponentPropertyUi interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryPropertyUi    : IntPtr
+        SetContext         : IntPtr
+        MergePropPages     : IntPtr
+        ValidateProperties : IntPtr
+        ApplyProperties    : IntPtr
+        CancelProperties   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryPropertyUi", "SetContext", "MergePropPages", "ValidateProperties", "ApplyProperties", "CancelProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetCfgComponentPropertyUi.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -38,33 +53,9 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * Enables a transport application to set attributes of a security context for a security package. This function is supported only by the Schannel security package. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The sspi.h header defines SetContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {IUnknown} pUnkReserved 
-     * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
-     * 
-     * If the function fails, it returns a nonzero error code. The following error code is one of the possible error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This value is returned by Schannel kernel mode to indicate that this function is not supported.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcontextattributesw
+     * @returns {HRESULT} 
      */
     SetContext(pUnkReserved) {
         result := ComCall(4, this, "ptr", pUnkReserved, "HRESULT")
@@ -81,14 +72,12 @@ class INetCfgComponentPropertyUi extends IUnknown {
      * @returns {HRESULT} 
      */
     MergePropPages(pdwDefPages, pahpspPrivate, pcPages, hwndParent, pszStartPage) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
         pdwDefPagesMarshal := pdwDefPages is VarRef ? "uint*" : "ptr"
         pahpspPrivateMarshal := pahpspPrivate is VarRef ? "ptr*" : "ptr"
         pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
         pszStartPageMarshal := pszStartPage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, pahpspPrivateMarshal, pahpspPrivate, pcPagesMarshal, pcPages, "ptr", hwndParent, pszStartPageMarshal, pszStartPage, "HRESULT")
+        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, pahpspPrivateMarshal, pahpspPrivate, pcPagesMarshal, pcPages, HWND, hwndParent, pszStartPageMarshal, pszStartPage, "HRESULT")
         return result
     }
 
@@ -98,9 +87,7 @@ class INetCfgComponentPropertyUi extends IUnknown {
      * @returns {HRESULT} 
      */
     ValidateProperties(hwndSheet) {
-        hwndSheet := hwndSheet is Win32Handle ? NumGet(hwndSheet, "ptr") : hwndSheet
-
-        result := ComCall(6, this, "ptr", hwndSheet, "HRESULT")
+        result := ComCall(6, this, HWND, hwndSheet, "HRESULT")
         return result
     }
 
@@ -120,5 +107,35 @@ class INetCfgComponentPropertyUi extends IUnknown {
     CancelProperties() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetCfgComponentPropertyUi.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryPropertyUi := CallbackCreate(GetMethod(implObj, "QueryPropertyUi"), flags, 2)
+        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.MergePropPages := CallbackCreate(GetMethod(implObj, "MergePropPages"), flags, 6)
+        this.vtbl.ValidateProperties := CallbackCreate(GetMethod(implObj, "ValidateProperties"), flags, 2)
+        this.vtbl.ApplyProperties := CallbackCreate(GetMethod(implObj, "ApplyProperties"), flags, 1)
+        this.vtbl.CancelProperties := CallbackCreate(GetMethod(implObj, "CancelProperties"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryPropertyUi)
+        CallbackFree(this.vtbl.SetContext)
+        CallbackFree(this.vtbl.MergePropPages)
+        CallbackFree(this.vtbl.ValidateProperties)
+        CallbackFree(this.vtbl.ApplyProperties)
+        CallbackFree(this.vtbl.CancelProperties)
     }
 }

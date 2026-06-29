@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APO_CONNECTION_PROPERTY.ahk" { APO_CONNECTION_PROPERTY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface can operate in real-time mode and its methods can be called form real-time processing threads.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectrt
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioProcessingObjectRT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioProcessingObjectRT extends IUnknown {
     /**
      * The interface identifier for IAudioProcessingObjectRT
      * @type {Guid}
      */
-    static IID => Guid("{9e1d6a6d-ddbc-4e95-a4c7-ad64ba37846c}")
+    static IID := Guid("{9e1d6a6d-ddbc-4e95-a4c7-ad64ba37846c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioProcessingObjectRT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        APOProcess       : IntPtr
+        CalcInputFrames  : IntPtr
+        CalcOutputFrames : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["APOProcess", "CalcInputFrames", "CalcOutputFrames"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioProcessingObjectRT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The APOProcess method causes the APO to make a processing pass.
@@ -67,7 +77,7 @@ class IAudioProcessingObjectRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcinputframes
      */
     CalcInputFrames(u32OutputFrameCount) {
-        result := ComCall(4, this, "uint", u32OutputFrameCount, "uint")
+        result := ComCall(4, this, "uint", u32OutputFrameCount, UInt32)
         return result
     }
 
@@ -87,7 +97,31 @@ class IAudioProcessingObjectRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcoutputframes
      */
     CalcOutputFrames(u32InputFrameCount) {
-        result := ComCall(5, this, "uint", u32InputFrameCount, "uint")
+        result := ComCall(5, this, "uint", u32InputFrameCount, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (IAudioProcessingObjectRT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.APOProcess := CallbackCreate(GetMethod(implObj, "APOProcess"), flags, 5)
+        this.vtbl.CalcInputFrames := CallbackCreate(GetMethod(implObj, "CalcInputFrames"), flags, 2)
+        this.vtbl.CalcOutputFrames := CallbackCreate(GetMethod(implObj, "CalcOutputFrames"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.APOProcess)
+        CallbackFree(this.vtbl.CalcInputFrames)
+        CallbackFree(this.vtbl.CalcOutputFrames)
     }
 }

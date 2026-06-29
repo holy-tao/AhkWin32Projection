@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IP_UNIDIRECTIONAL_ADAPTER_ADDRESS structure stores the IPv4 addresses associated with a unidirectional adapter.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_unidirectional_adapter_address
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IP_UNIDIRECTIONAL_ADAPTER_ADDRESS {
+    #StructPack 4
 
     /**
      * The number of IPv4 addresses pointed to by the <b>Address</b> member.
-     * @type {Integer}
      */
-    NumAdapters {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumAdapters : UInt32
 
     /**
      * An array of variables of type <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a>. Each element of the array specifies an IPv4 address associated with this unidirectional adapter.
-     * @type {Array<Integer>}
      */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__AddressProxyArray
-        }
-    }
+    Address : UInt32[1]
+
 }

@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_SERVICESTAT extends Win32Struct {
-    static sizeof => 28
+export default struct AE_SERVICESTAT {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_ss_compname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_compname {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_ss_username : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_username {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_ss_svcname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_svcname {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ae_ss_status : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_status {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ae_ss_code : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_code {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ae_ss_text : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_text {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ae_ss_returnval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ss_returnval {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

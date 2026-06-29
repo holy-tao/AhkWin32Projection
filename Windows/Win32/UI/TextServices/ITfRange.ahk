@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDataObject.ahk
-#Include .\ITfContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TfShiftDir.ahk" { TfShiftDir }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TfGravity.ahk" { TfGravity }
+#Import ".\TfAnchor.ahk" { TfAnchor }
+#Import ".\TF_HALTCOND.ahk" { TF_HALTCOND }
 
 /**
  * The ITfRange interface is used by text services and applications to reference and manipulate text within a given context. The interface ID is IID_ITfRange.
@@ -12,26 +19,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfrange
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfRange extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfRange extends IUnknown {
     /**
      * The interface identifier for ITfRange
      * @type {Guid}
      */
-    static IID => Guid("{aa80e7ff-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e7ff-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfRange interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetText           : IntPtr
+        SetText           : IntPtr
+        GetFormattedText  : IntPtr
+        GetEmbedded       : IntPtr
+        InsertEmbedded    : IntPtr
+        ShiftStart        : IntPtr
+        ShiftEnd          : IntPtr
+        ShiftStartToRange : IntPtr
+        ShiftEndToRange   : IntPtr
+        ShiftStartRegion  : IntPtr
+        ShiftEndRegion    : IntPtr
+        IsEmpty           : IntPtr
+        Collapse          : IntPtr
+        IsEqualStart      : IntPtr
+        IsEqualEnd        : IntPtr
+        CompareStart      : IntPtr
+        CompareEnd        : IntPtr
+        AdjustForInsert   : IntPtr
+        GetGravity        : IntPtr
+        SetGravity        : IntPtr
+        Clone             : IntPtr
+        GetContext        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetText", "SetText", "GetFormattedText", "GetEmbedded", "InsertEmbedded", "ShiftStart", "ShiftEnd", "ShiftStartToRange", "ShiftEndToRange", "ShiftStartRegion", "ShiftEndRegion", "IsEmpty", "Collapse", "IsEqualStart", "IsEqualEnd", "CompareStart", "CompareEnd", "AdjustForInsert", "GetGravity", "SetGravity", "Clone", "GetContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfRange::GetText method obtains the content covered by this range of text.
@@ -244,7 +279,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getembedded
      */
     GetEmbedded(ec, rguidService, riid) {
-        result := ComCall(6, this, "uint", ec, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(6, this, "uint", ec, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -370,7 +405,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstart
      */
     ShiftStart(ec, cchReq, pHalt) {
-        result := ComCall(8, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, "ptr", pHalt, "HRESULT")
+        result := ComCall(8, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, TF_HALTCOND.Ptr, pHalt, "HRESULT")
         return pcch
     }
 
@@ -391,7 +426,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftend
      */
     ShiftEnd(ec, cchReq, pHalt) {
-        result := ComCall(9, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, "ptr", pHalt, "HRESULT")
+        result := ComCall(9, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, TF_HALTCOND.Ptr, pHalt, "HRESULT")
         return pcch
     }
 
@@ -461,7 +496,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstarttorange
      */
     ShiftStartToRange(ec, pRange, aPos) {
-        result := ComCall(10, this, "uint", ec, "ptr", pRange, "int", aPos, "HRESULT")
+        result := ComCall(10, this, "uint", ec, "ptr", pRange, TfAnchor, aPos, "HRESULT")
         return result
     }
 
@@ -531,7 +566,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftendtorange
      */
     ShiftEndToRange(ec, pRange, aPos) {
-        result := ComCall(11, this, "uint", ec, "ptr", pRange, "int", aPos, "HRESULT")
+        result := ComCall(11, this, "uint", ec, "ptr", pRange, TfAnchor, aPos, "HRESULT")
         return result
     }
 
@@ -547,7 +582,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstartregion
      */
     ShiftStartRegion(ec, dir) {
-        result := ComCall(12, this, "uint", ec, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        result := ComCall(12, this, "uint", ec, TfShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
         return pfNoRegion
     }
 
@@ -563,7 +598,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftendregion
      */
     ShiftEndRegion(ec, dir) {
-        result := ComCall(13, this, "uint", ec, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        result := ComCall(13, this, "uint", ec, TfShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
         return pfNoRegion
     }
 
@@ -574,7 +609,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isempty
      */
     IsEmpty(ec) {
-        result := ComCall(14, this, "uint", ec, "int*", &pfEmpty := 0, "HRESULT")
+        result := ComCall(14, this, "uint", ec, BOOL.Ptr, &pfEmpty := 0, "HRESULT")
         return pfEmpty
     }
 
@@ -665,7 +700,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-collapse
      */
     Collapse(ec, aPos) {
-        result := ComCall(15, this, "uint", ec, "int", aPos, "HRESULT")
+        result := ComCall(15, this, "uint", ec, TfAnchor, aPos, "HRESULT")
         return result
     }
 
@@ -707,7 +742,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isequalstart
      */
     IsEqualStart(ec, pWith, aPos) {
-        result := ComCall(16, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &pfEqual := 0, "HRESULT")
+        result := ComCall(16, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
     }
 
@@ -751,7 +786,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isequalend
      */
     IsEqualEnd(ec, pWith, aPos) {
-        result := ComCall(17, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &pfEqual := 0, "HRESULT")
+        result := ComCall(17, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
     }
 
@@ -830,7 +865,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-comparestart
      */
     CompareStart(ec, pWith, aPos) {
-        result := ComCall(18, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &plResult := 0, "HRESULT")
+        result := ComCall(18, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, "int*", &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -911,7 +946,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-compareend
      */
     CompareEnd(ec, pWith, aPos) {
-        result := ComCall(19, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &plResult := 0, "HRESULT")
+        result := ComCall(19, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, "int*", &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -931,7 +966,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-adjustforinsert
      */
     AdjustForInsert(ec, cchInsert) {
-        result := ComCall(20, this, "uint", ec, "uint", cchInsert, "int*", &pfInsertOk := 0, "HRESULT")
+        result := ComCall(20, this, "uint", ec, "uint", cchInsert, BOOL.Ptr, &pfInsertOk := 0, "HRESULT")
         return pfInsertOk
     }
 
@@ -1028,7 +1063,7 @@ class ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-setgravity
      */
     SetGravity(ec, gStart, gEnd) {
-        result := ComCall(22, this, "uint", ec, "int", gStart, "int", gEnd, "HRESULT")
+        result := ComCall(22, this, "uint", ec, TfGravity, gStart, TfGravity, gEnd, "HRESULT")
         return result
     }
 
@@ -1054,5 +1089,67 @@ class ITfRange extends IUnknown {
     GetContext() {
         result := ComCall(24, this, "ptr*", &ppContext := 0, "HRESULT")
         return ITfContext(ppContext)
+    }
+
+    Query(iid) {
+        if (ITfRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 6)
+        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 5)
+        this.vtbl.GetFormattedText := CallbackCreate(GetMethod(implObj, "GetFormattedText"), flags, 3)
+        this.vtbl.GetEmbedded := CallbackCreate(GetMethod(implObj, "GetEmbedded"), flags, 5)
+        this.vtbl.InsertEmbedded := CallbackCreate(GetMethod(implObj, "InsertEmbedded"), flags, 4)
+        this.vtbl.ShiftStart := CallbackCreate(GetMethod(implObj, "ShiftStart"), flags, 5)
+        this.vtbl.ShiftEnd := CallbackCreate(GetMethod(implObj, "ShiftEnd"), flags, 5)
+        this.vtbl.ShiftStartToRange := CallbackCreate(GetMethod(implObj, "ShiftStartToRange"), flags, 4)
+        this.vtbl.ShiftEndToRange := CallbackCreate(GetMethod(implObj, "ShiftEndToRange"), flags, 4)
+        this.vtbl.ShiftStartRegion := CallbackCreate(GetMethod(implObj, "ShiftStartRegion"), flags, 4)
+        this.vtbl.ShiftEndRegion := CallbackCreate(GetMethod(implObj, "ShiftEndRegion"), flags, 4)
+        this.vtbl.IsEmpty := CallbackCreate(GetMethod(implObj, "IsEmpty"), flags, 3)
+        this.vtbl.Collapse := CallbackCreate(GetMethod(implObj, "Collapse"), flags, 3)
+        this.vtbl.IsEqualStart := CallbackCreate(GetMethod(implObj, "IsEqualStart"), flags, 5)
+        this.vtbl.IsEqualEnd := CallbackCreate(GetMethod(implObj, "IsEqualEnd"), flags, 5)
+        this.vtbl.CompareStart := CallbackCreate(GetMethod(implObj, "CompareStart"), flags, 5)
+        this.vtbl.CompareEnd := CallbackCreate(GetMethod(implObj, "CompareEnd"), flags, 5)
+        this.vtbl.AdjustForInsert := CallbackCreate(GetMethod(implObj, "AdjustForInsert"), flags, 4)
+        this.vtbl.GetGravity := CallbackCreate(GetMethod(implObj, "GetGravity"), flags, 3)
+        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.SetText)
+        CallbackFree(this.vtbl.GetFormattedText)
+        CallbackFree(this.vtbl.GetEmbedded)
+        CallbackFree(this.vtbl.InsertEmbedded)
+        CallbackFree(this.vtbl.ShiftStart)
+        CallbackFree(this.vtbl.ShiftEnd)
+        CallbackFree(this.vtbl.ShiftStartToRange)
+        CallbackFree(this.vtbl.ShiftEndToRange)
+        CallbackFree(this.vtbl.ShiftStartRegion)
+        CallbackFree(this.vtbl.ShiftEndRegion)
+        CallbackFree(this.vtbl.IsEmpty)
+        CallbackFree(this.vtbl.Collapse)
+        CallbackFree(this.vtbl.IsEqualStart)
+        CallbackFree(this.vtbl.IsEqualEnd)
+        CallbackFree(this.vtbl.CompareStart)
+        CallbackFree(this.vtbl.CompareEnd)
+        CallbackFree(this.vtbl.AdjustForInsert)
+        CallbackFree(this.vtbl.GetGravity)
+        CallbackFree(this.vtbl.SetGravity)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetContext)
     }
 }

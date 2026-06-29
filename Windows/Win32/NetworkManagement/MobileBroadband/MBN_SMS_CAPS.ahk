@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_SMS_CAPS enumerated type contains bitfield values that specify SMS capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_caps
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_SMS_CAPS extends Win32Enum {
+export default struct MBN_SMS_CAPS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The device does not support SMS.

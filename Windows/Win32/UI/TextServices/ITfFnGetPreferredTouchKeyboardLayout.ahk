@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfFunction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TKBLayoutType.ahk" { TKBLayoutType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfFunction.ahk" { ITfFunction }
 
 /**
  * The ITfFnGetPreferredTouchKeyboardLayout interface is implemented by a text service to specify the use of a particular keyboard layout supported by the inbox Windows 8 touch keyboard.
@@ -19,26 +21,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffngetpreferredtouchkeyboardlayout
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
-
-    static sizeof => A_PtrSize
+export default struct ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
     /**
      * The interface identifier for ITfFnGetPreferredTouchKeyboardLayout
      * @type {Guid}
      */
-    static IID => Guid("{5f309a41-590a-4acc-a97f-d8efff13fdfc}")
+    static IID := Guid("{5f309a41-590a-4acc-a97f-d8efff13fdfc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfFnGetPreferredTouchKeyboardLayout interfaces
+    */
+    struct Vtbl extends ITfFunction.Vtbl {
+        GetLayout : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLayout"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfFnGetPreferredTouchKeyboardLayout.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Obtains the touch keyboard layout identifier of the layout that the IME directs the touch keyboard to show while the IME is active.
@@ -131,5 +140,25 @@ class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
 
         result := ComCall(4, this, "int*", &pTKBLayoutType := 0, pwPreferredLayoutIdMarshal, pwPreferredLayoutId, "HRESULT")
         return pTKBLayoutType
+    }
+
+    Query(iid) {
+        if (ITfFnGetPreferredTouchKeyboardLayout.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLayout := CallbackCreate(GetMethod(implObj, "GetLayout"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLayout)
     }
 }

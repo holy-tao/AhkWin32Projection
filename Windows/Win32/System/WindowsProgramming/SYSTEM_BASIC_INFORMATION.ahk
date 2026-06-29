@@ -1,41 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class SYSTEM_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 64
+export default struct SYSTEM_BASIC_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Reserved1 : Int8[24]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 24, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved2 : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "ptr")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    NumberOfProcessors : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfProcessors {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
-    }
 }

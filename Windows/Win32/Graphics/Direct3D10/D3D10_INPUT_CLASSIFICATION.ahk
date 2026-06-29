@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Type of data contained in an input slot. (D3D10_INPUT_CLASSIFICATION)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_input_classification
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_INPUT_CLASSIFICATION extends Win32Enum {
+export default struct D3D10_INPUT_CLASSIFICATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Input data is per-vertex data.

@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_802_11_VARIABLE_IEs extends Win32Struct {
-    static sizeof => 3
+export default struct NDIS_802_11_VARIABLE_IEs {
+    #StructPack 1
 
-    static packingSize => 1
+    ElementID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ElementID {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Length : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__dataProxyArray
-        }
-    }
 }

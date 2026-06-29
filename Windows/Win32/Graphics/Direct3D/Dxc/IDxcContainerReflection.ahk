@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcBlob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcContainerReflection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcContainerReflection extends IUnknown {
     /**
      * The interface identifier for IDxcContainerReflection
      * @type {Guid}
      */
-    static IID => Guid("{d2c21b26-8350-4bdc-976a-331ce6f4c54c}")
+    static IID := Guid("{d2c21b26-8350-4bdc-976a-331ce6f4c54c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcContainerReflection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Load              : IntPtr
+        GetPartCount      : IntPtr
+        GetPartKind       : IntPtr
+        GetPartContent    : IntPtr
+        FindFirstPartKind : IntPtr
+        GetPartReflection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Load", "GetPartCount", "GetPartKind", "GetPartContent", "FindFirstPartKind", "GetPartReflection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcContainerReflection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reads texel data without any filtering or sampling.
@@ -153,7 +166,37 @@ class IDxcContainerReflection extends IUnknown {
     GetPartReflection(idx, iid, ppvObject) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "uint", idx, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
+        result := ComCall(8, this, "uint", idx, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDxcContainerReflection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.GetPartCount := CallbackCreate(GetMethod(implObj, "GetPartCount"), flags, 2)
+        this.vtbl.GetPartKind := CallbackCreate(GetMethod(implObj, "GetPartKind"), flags, 3)
+        this.vtbl.GetPartContent := CallbackCreate(GetMethod(implObj, "GetPartContent"), flags, 3)
+        this.vtbl.FindFirstPartKind := CallbackCreate(GetMethod(implObj, "FindFirstPartKind"), flags, 3)
+        this.vtbl.GetPartReflection := CallbackCreate(GetMethod(implObj, "GetPartReflection"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.GetPartCount)
+        CallbackFree(this.vtbl.GetPartKind)
+        CallbackFree(this.vtbl.GetPartContent)
+        CallbackFree(this.vtbl.FindFirstPartKind)
+        CallbackFree(this.vtbl.GetPartReflection)
     }
 }

@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class RESOURCEMANAGER_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct RESOURCEMANAGER_BASIC_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 8
+    ResourceManagerId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ResourceManagerId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DescriptionLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DescriptionLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Description : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Description {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
-    }
 }

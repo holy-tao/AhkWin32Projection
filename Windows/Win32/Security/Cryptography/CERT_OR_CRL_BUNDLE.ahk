@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_OR_CRL_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_OR_CRL_BLOB.ahk" { CERT_OR_CRL_BLOB }
 
 /**
  * Encapsulates an array of certificates for use with Internet Key Exchange messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_or_crl_bundle
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_OR_CRL_BUNDLE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CERT_OR_CRL_BUNDLE {
+    #StructPack 8
 
     /**
      * The number of items in the array pointed to by the <b>rgItem</b> member.
-     * @type {Integer}
      */
-    cItem {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cItem : UInt32
 
     /**
      * A pointer to an array of certificates.
-     * @type {Pointer<CERT_OR_CRL_BLOB>}
      */
-    rgItem {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgItem : CERT_OR_CRL_BLOB.Ptr
+
 }

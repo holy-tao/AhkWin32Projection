@@ -1,38 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\SUBSCRIPTIONINFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SUBSCRIPTIONINFO.ahk" { SUBSCRIPTIONINFO }
+#Import ".\SUBSCRIPTIONTYPE.ahk" { SUBSCRIPTIONTYPE }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ISubscriptionMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISubscriptionMgr extends IUnknown {
     /**
      * The interface identifier for ISubscriptionMgr
      * @type {Guid}
      */
-    static IID => Guid("{085fb2c0-0df8-11d1-8f4b-00a0c905413f}")
+    static IID := Guid("{085fb2c0-0df8-11d1-8f4b-00a0c905413f}")
 
     /**
      * The class identifier for SubscriptionMgr
      * @type {Guid}
      */
-    static CLSID => Guid("{abbe31d0-6dae-11d0-beca-00c04fd940be}")
+    static CLSID := Guid("{abbe31d0-6dae-11d0-beca-00c04fd940be}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISubscriptionMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DeleteSubscription         : IntPtr
+        UpdateSubscription         : IntPtr
+        UpdateAll                  : IntPtr
+        IsSubscribed               : IntPtr
+        GetSubscriptionInfo        : IntPtr
+        GetDefaultInfo             : IntPtr
+        ShowSubscriptionProperties : IntPtr
+        CreateSubscription         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeleteSubscription", "UpdateSubscription", "UpdateAll", "IsSubscribed", "GetSubscriptionInfo", "GetDefaultInfo", "ShowSubscriptionProperties", "CreateSubscription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISubscriptionMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -42,9 +61,8 @@ class ISubscriptionMgr extends IUnknown {
      */
     DeleteSubscription(pwszURL, _hwnd) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", _hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -77,7 +95,7 @@ class ISubscriptionMgr extends IUnknown {
     IsSubscribed(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(6, this, "ptr", pwszURL, "int*", &pfSubscribed := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszURL, BOOL.Ptr, &pfSubscribed := 0, "HRESULT")
         return pfSubscribed
     }
 
@@ -90,7 +108,7 @@ class ISubscriptionMgr extends IUnknown {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         pInfo := SUBSCRIPTIONINFO()
-        result := ComCall(7, this, "ptr", pwszURL, "ptr", pInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszURL, SUBSCRIPTIONINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -101,7 +119,7 @@ class ISubscriptionMgr extends IUnknown {
      */
     GetDefaultInfo(subType) {
         pInfo := SUBSCRIPTIONINFO()
-        result := ComCall(8, this, "int", subType, "ptr", pInfo, "HRESULT")
+        result := ComCall(8, this, SUBSCRIPTIONTYPE, subType, SUBSCRIPTIONINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -113,9 +131,8 @@ class ISubscriptionMgr extends IUnknown {
      */
     ShowSubscriptionProperties(pwszURL, _hwnd) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(9, this, "ptr", pwszURL, "ptr", _hwnd, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszURL, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -130,11 +147,44 @@ class ISubscriptionMgr extends IUnknown {
      * @returns {HRESULT} 
      */
     CreateSubscription(_hwnd, pwszURL, pwszFriendlyName, dwFlags, subsType, pInfo) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        result := ComCall(10, this, "ptr", _hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, "int", subsType, "ptr", pInfo, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, SUBSCRIPTIONTYPE, subsType, SUBSCRIPTIONINFO.Ptr, pInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISubscriptionMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeleteSubscription := CallbackCreate(GetMethod(implObj, "DeleteSubscription"), flags, 3)
+        this.vtbl.UpdateSubscription := CallbackCreate(GetMethod(implObj, "UpdateSubscription"), flags, 2)
+        this.vtbl.UpdateAll := CallbackCreate(GetMethod(implObj, "UpdateAll"), flags, 1)
+        this.vtbl.IsSubscribed := CallbackCreate(GetMethod(implObj, "IsSubscribed"), flags, 3)
+        this.vtbl.GetSubscriptionInfo := CallbackCreate(GetMethod(implObj, "GetSubscriptionInfo"), flags, 3)
+        this.vtbl.GetDefaultInfo := CallbackCreate(GetMethod(implObj, "GetDefaultInfo"), flags, 3)
+        this.vtbl.ShowSubscriptionProperties := CallbackCreate(GetMethod(implObj, "ShowSubscriptionProperties"), flags, 3)
+        this.vtbl.CreateSubscription := CallbackCreate(GetMethod(implObj, "CreateSubscription"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeleteSubscription)
+        CallbackFree(this.vtbl.UpdateSubscription)
+        CallbackFree(this.vtbl.UpdateAll)
+        CallbackFree(this.vtbl.IsSubscribed)
+        CallbackFree(this.vtbl.GetSubscriptionInfo)
+        CallbackFree(this.vtbl.GetDefaultInfo)
+        CallbackFree(this.vtbl.ShowSubscriptionProperties)
+        CallbackFree(this.vtbl.CreateSubscription)
     }
 }

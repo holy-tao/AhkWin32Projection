@@ -1,12 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetSharingPublicConnectionCollection.ahk
-#Include .\INetSharingPrivateConnectionCollection.ahk
-#Include .\INetSharingConfiguration.ahk
-#Include .\INetSharingEveryConnectionCollection.ahk
-#Include .\INetConnectionProps.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetSharingConfiguration.ahk" { INetSharingConfiguration }
+#Import ".\INetSharingEveryConnectionCollection.ahk" { INetSharingEveryConnectionCollection }
+#Import ".\INetSharingPublicConnectionCollection.ahk" { INetSharingPublicConnectionCollection }
+#Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
+#Import ".\INetConnection.ahk" { INetConnection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\INetConnectionProps.ahk" { INetConnectionProps }
+#Import ".\INetSharingPrivateConnectionCollection.ahk" { INetSharingPrivateConnectionCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The INetSharingManager interface is the primary interface for the Manager object. INetSharingManager provides methods to determine if sharing is installed, to manage port mappings, and to obtain enumeration interfaces for public and private connections.
@@ -19,32 +23,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingmanager
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetSharingManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetSharingManager extends IDispatch {
     /**
      * The interface identifier for INetSharingManager
      * @type {Guid}
      */
-    static IID => Guid("{c08956b7-1cd3-11d1-b1c5-00805fc1270e}")
+    static IID := Guid("{c08956b7-1cd3-11d1-b1c5-00805fc1270e}")
 
     /**
      * The class identifier for NetSharingManager
      * @type {Guid}
      */
-    static CLSID => Guid("{5c63c1ad-3956-4ff8-8486-40034758315b}")
+    static CLSID := Guid("{5c63c1ad-3956-4ff8-8486-40034758315b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetSharingManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_SharingInstalled                          : IntPtr
+        get_EnumPublicConnections                     : IntPtr
+        get_EnumPrivateConnections                    : IntPtr
+        get_INetSharingConfigurationForINetConnection : IntPtr
+        get_EnumEveryConnection                       : IntPtr
+        get_NetConnectionProps                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SharingInstalled", "get_EnumPublicConnections", "get_EnumPrivateConnections", "get_INetSharingConfigurationForINetConnection", "get_EnumEveryConnection", "get_NetConnectionProps"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetSharingManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -78,7 +94,7 @@ class INetSharingManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_sharinginstalled
      */
     get_SharingInstalled() {
-        result := ComCall(7, this, "short*", &pbInstalled := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbInstalled := 0, "HRESULT")
         return pbInstalled
     }
 
@@ -90,7 +106,7 @@ class INetSharingManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumpublicconnections
      */
     get_EnumPublicConnections(Flags) {
-        result := ComCall(8, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
+        result := ComCall(8, this, SHARINGCONNECTION_ENUM_FLAGS, Flags, "ptr*", &ppColl := 0, "HRESULT")
         return INetSharingPublicConnectionCollection(ppColl)
     }
 
@@ -102,7 +118,7 @@ class INetSharingManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumprivateconnections
      */
     get_EnumPrivateConnections(Flags) {
-        result := ComCall(9, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
+        result := ComCall(9, this, SHARINGCONNECTION_ENUM_FLAGS, Flags, "ptr*", &ppColl := 0, "HRESULT")
         return INetSharingPrivateConnectionCollection(ppColl)
     }
 
@@ -144,5 +160,35 @@ class INetSharingManager extends IDispatch {
     get_NetConnectionProps(pNetConnection) {
         result := ComCall(12, this, "ptr", pNetConnection, "ptr*", &ppProps := 0, "HRESULT")
         return INetConnectionProps(ppProps)
+    }
+
+    Query(iid) {
+        if (INetSharingManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SharingInstalled := CallbackCreate(GetMethod(implObj, "get_SharingInstalled"), flags, 2)
+        this.vtbl.get_EnumPublicConnections := CallbackCreate(GetMethod(implObj, "get_EnumPublicConnections"), flags, 3)
+        this.vtbl.get_EnumPrivateConnections := CallbackCreate(GetMethod(implObj, "get_EnumPrivateConnections"), flags, 3)
+        this.vtbl.get_INetSharingConfigurationForINetConnection := CallbackCreate(GetMethod(implObj, "get_INetSharingConfigurationForINetConnection"), flags, 3)
+        this.vtbl.get_EnumEveryConnection := CallbackCreate(GetMethod(implObj, "get_EnumEveryConnection"), flags, 2)
+        this.vtbl.get_NetConnectionProps := CallbackCreate(GetMethod(implObj, "get_NetConnectionProps"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SharingInstalled)
+        CallbackFree(this.vtbl.get_EnumPublicConnections)
+        CallbackFree(this.vtbl.get_EnumPrivateConnections)
+        CallbackFree(this.vtbl.get_INetSharingConfigurationForINetConnection)
+        CallbackFree(this.vtbl.get_EnumEveryConnection)
+        CallbackFree(this.vtbl.get_NetConnectionProps)
     }
 }

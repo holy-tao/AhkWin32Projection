@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class GET_INPUT_LINE extends Win32Struct {
-    static sizeof => 24
+export default struct GET_INPUT_LINE {
+    #StructPack 8
 
-    static packingSize => 8
+    Prompt : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    Prompt {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Buffer : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InputSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

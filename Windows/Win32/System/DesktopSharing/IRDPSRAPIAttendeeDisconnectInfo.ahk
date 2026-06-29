@@ -1,40 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIAttendee.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ATTENDEE_DISCONNECT_REASON.ahk" { ATTENDEE_DISCONNECT_REASON }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains information about the reason an attendee disconnected.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendeedisconnectinfo
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIAttendeeDisconnectInfo extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPIAttendeeDisconnectInfo
      * @type {Guid}
      */
-    static IID => Guid("{c187689f-447c-44a1-9c14-fffbb3b7ec17}")
+    static IID := Guid("{c187689f-447c-44a1-9c14-fffbb3b7ec17}")
 
     /**
      * The class identifier for RDPSRAPIAttendeeDisconnectInfo
      * @type {Guid}
      */
-    static CLSID => Guid("{b47d7250-5bdb-405d-b487-caad9c56f4f8}")
+    static CLSID := Guid("{b47d7250-5bdb-405d-b487-caad9c56f4f8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIAttendeeDisconnectInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Attendee : IntPtr
+        get_Reason   : IntPtr
+        get_Code     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Attendee", "get_Reason", "get_Code"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIAttendeeDisconnectInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRDPSRAPIAttendee} 
@@ -87,5 +98,29 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch {
     get_Code() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIAttendeeDisconnectInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Attendee := CallbackCreate(GetMethod(implObj, "get_Attendee"), flags, 2)
+        this.vtbl.get_Reason := CallbackCreate(GetMethod(implObj, "get_Reason"), flags, 2)
+        this.vtbl.get_Code := CallbackCreate(GetMethod(implObj, "get_Code"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Attendee)
+        CallbackFree(this.vtbl.get_Reason)
+        CallbackFree(this.vtbl.get_Code)
     }
 }

@@ -1,17 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DTBLLABEL.ahk
-#Include .\DTBLEDIT.ahk
-#Include .\DTBLLBX.ahk
-#Include .\DTBLCOMBOBOX.ahk
-#Include .\DTBLDDLBX.ahk
-#Include .\DTBLCHECKBOX.ahk
-#Include .\DTBLGROUPBOX.ahk
-#Include .\DTBLBUTTON.ahk
-#Include .\DTBLRADIOBUTTON.ahk
-#Include .\DTBLMVLISTBOX.ahk
-#Include .\DTBLMVDDLBX.ahk
-#Include .\DTBLPAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DTBLDDLBX.ahk" { DTBLDDLBX }
+#Import ".\DTBLRADIOBUTTON.ahk" { DTBLRADIOBUTTON }
+#Import ".\DTBLGROUPBOX.ahk" { DTBLGROUPBOX }
+#Import ".\DTBLLBX.ahk" { DTBLLBX }
+#Import ".\DTBLMVDDLBX.ahk" { DTBLMVDDLBX }
+#Import ".\DTBLBUTTON.ahk" { DTBLBUTTON }
+#Import ".\DTBLMVLISTBOX.ahk" { DTBLMVLISTBOX }
+#Import ".\DTBLEDIT.ahk" { DTBLEDIT }
+#Import ".\DTBLLABEL.ahk" { DTBLLABEL }
+#Import ".\DTBLCOMBOBOX.ahk" { DTBLCOMBOBOX }
+#Import ".\DTBLPAGE.ahk" { DTBLPAGE }
+#Import ".\DTBLCHECKBOX.ahk" { DTBLCHECKBOX }
 
 /**
  * Describes a control that will be used in a dialog box built from a display table.
@@ -30,117 +29,27 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtctl
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTCTL extends Win32Struct {
-    static sizeof => 48
+export default struct DTCTL {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ctl_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _ctl {
+        lpv : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        lpv {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLLABEL>}
-         */
-        lplabel {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLEDIT>}
-         */
-        lpedit {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLLBX>}
-         */
-        lplbx {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLCOMBOBOX>}
-         */
-        lpcombobox {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLDDLBX>}
-         */
-        lpddlbx {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLCHECKBOX>}
-         */
-        lpcheckbox {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLGROUPBOX>}
-         */
-        lpgroupbox {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLBUTTON>}
-         */
-        lpbutton {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLRADIOBUTTON>}
-         */
-        lpradiobutton {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLMVLISTBOX>}
-         */
-        lpmvlbx {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLMVDDLBX>}
-         */
-        lpmvddlbx {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DTBLPAGE>}
-         */
-        lppage {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'lplabel', { type: DTBLLABEL.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpedit', { type: DTBLEDIT.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lplbx', { type: DTBLLBX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpcombobox', { type: DTBLCOMBOBOX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpddlbx', { type: DTBLDDLBX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpcheckbox', { type: DTBLCHECKBOX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpgroupbox', { type: DTBLGROUPBOX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpbutton', { type: DTBLBUTTON.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpradiobutton', { type: DTBLRADIOBUTTON.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpmvlbx', { type: DTBLMVLISTBOX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lpmvddlbx', { type: DTBLMVDDLBX.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'lppage', { type: DTBLPAGE.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -194,12 +103,8 @@ class DTCTL extends Win32Struct {
      * DTCT_MVDDLBX 
      *   
      * > Multi-valued drop-down list control.
-     * @type {Integer}
      */
-    ulCtlType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulCtlType : UInt32
 
     /**
      * > Bitmask of flags that describes the control's features and corresponds to the control's **PR_CONTROL_FLAGS** ([PidTagControlFlags](pidtagcontrolflags-canonical-property.md)) property. These flags can be set for check boxes, combo boxes, list boxes, and edit controls only. Possible values are as follows:
@@ -227,30 +132,18 @@ class DTCTL extends Win32Struct {
      * DT_SET_IMMEDIATE 
      *   
      * > Enables immediate output of a value upon a change in the control. This allows a dependency relationship to be established between two controls.
-     * @type {Integer}
      */
-    ulCtlFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulCtlFlags : UInt32
 
     /**
      * > Pointer to a structure that consists of a [GUID](guid.md) structure, to represent the service provider and an identifier for the control. The **lpbNotif** and **cbNotif** members correspond to the control's **PR_CONTROL_ID** ([PidTagControlId](pidtagcontrolid-canonical-property.md)) property and are used to notify the user interface when the control has to be updated.
-     * @type {Pointer<Integer>}
      */
-    lpbNotif {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpbNotif : IntPtr
 
     /**
      * > Count of bytes in the structure pointed to by the **lpbNotif** member.
-     * @type {Integer}
      */
-    cbNotif {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbNotif : UInt32
 
     /**
      * > Pointer to a character string that describes which characters can be entered into an edit or combo box control. For other types of controls, the **lpszFilter** member can be NULL. For edit and combo box controls, it should be a regular expression that applies to a single character at a time. The same filter is applied to all characters in the control. The format of the filter string is as follows: 
@@ -262,31 +155,17 @@ class DTCTL extends Win32Struct {
      * | `-`  |Indicates a range of characters (for example, `"[a-z]"`). |
      * | `~`  |Indicates that these characters are not allowed (for example, `"[~0-9]")`. |   
      * | `\`  |Used to quote any of the previous symbols (for example, `"[\-\\\[\]]"` means -, \, [, and ] characters are allowed). |
-     * @type {Pointer<Integer>}
      */
-    lpszFilter {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszFilter : IntPtr
 
     /**
      * > Value that identifies the control in the dialog box resource. For tabbed pages controls of type DTCT_PAGE the **ulItemID** member is optionally used to load the component name for the page from a string resource. Position and label information are read from the dialog box resource.
-     * @type {Integer}
      */
-    ulItemID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulItemID : UInt32
 
     /**
      * > A structure that holds the data for the control and corresponds to the control's **PR_CONTROL_STRUCTURE** ([PidTagControlStructure](pidtagcontrolstructure-canonical-property.md)) property. Each type of control has a different structure.
-     * @type {_ctl_e__Union}
      */
-    ctl {
-        get {
-            if(!this.HasProp("__ctl"))
-                this.__ctl := DTCTL._ctl_e__Union(40, this)
-            return this.__ctl
-        }
-    }
+    ctl : DTCTL._ctl
+
 }

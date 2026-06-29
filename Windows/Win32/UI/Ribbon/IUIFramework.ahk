@@ -1,8 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\UI_INVALIDATIONS.ahk" { UI_INVALIDATIONS }
+#Import ".\IUIApplication.ahk" { IUIApplication }
 
 /**
  * The IUIFramework interface is implemented by the Windows Ribbon framework and defines the methods that provide the core functionality for the framework.
@@ -17,26 +24,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiframework
  * @namespace Windows.Win32.UI.Ribbon
  */
-class IUIFramework extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIFramework extends IUnknown {
     /**
      * The interface identifier for IUIFramework
      * @type {Guid}
      */
-    static IID => Guid("{f4f0385d-6872-43a8-ad09-4c339cb3f5c5}")
+    static IID := Guid("{f4f0385d-6872-43a8-ad09-4c339cb3f5c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIFramework interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                : IntPtr
+        Destroy                   : IntPtr
+        LoadUI                    : IntPtr
+        GetView                   : IntPtr
+        GetUICommandProperty      : IntPtr
+        SetUICommandProperty      : IntPtr
+        InvalidateUICommand       : IntPtr
+        FlushPendingInvalidations : IntPtr
+        SetModes                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Destroy", "LoadUI", "GetView", "GetUICommandProperty", "SetUICommandProperty", "InvalidateUICommand", "FlushPendingInvalidations", "SetModes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIFramework.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Connects the host application to the Windows Ribbon framework.
@@ -94,9 +116,7 @@ class IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-initialize
      */
     Initialize(frameWnd, _application) {
-        frameWnd := frameWnd is Win32Handle ? NumGet(frameWnd, "ptr") : frameWnd
-
-        result := ComCall(3, this, "ptr", frameWnd, "ptr", _application, "HRESULT")
+        result := ComCall(3, this, HWND, frameWnd, "ptr", _application, "HRESULT")
         return result
     }
 
@@ -143,10 +163,9 @@ class IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-loadui
      */
     LoadUI(instance, resourceName) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        result := ComCall(5, this, "ptr", instance, "ptr", resourceName, "HRESULT")
+        result := ComCall(5, this, HINSTANCE, instance, "ptr", resourceName, "HRESULT")
         return result
     }
 
@@ -182,7 +201,7 @@ class IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-getview
      */
     GetView(viewId, riid) {
-        result := ComCall(6, this, "uint", viewId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "uint", viewId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -201,7 +220,7 @@ class IUIFramework extends IUnknown {
      */
     GetUICommandProperty(commandId, key) {
         value := PROPVARIANT()
-        result := ComCall(7, this, "uint", commandId, "ptr", key, "ptr", value, "HRESULT")
+        result := ComCall(7, this, "uint", commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
         return value
     }
 
@@ -243,7 +262,7 @@ class IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-setuicommandproperty
      */
     SetUICommandProperty(commandId, key, value) {
-        result := ComCall(8, this, "uint", commandId, "ptr", key, "ptr", value, "HRESULT")
+        result := ComCall(8, this, "uint", commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
         return result
     }
 
@@ -303,7 +322,7 @@ class IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand
      */
     InvalidateUICommand(commandId, flags, key) {
-        result := ComCall(9, this, "uint", commandId, "int", flags, "ptr", key, "HRESULT")
+        result := ComCall(9, this, "uint", commandId, UI_INVALIDATIONS, flags, PROPERTYKEY.Ptr, key, "HRESULT")
         return result
     }
 
@@ -349,5 +368,41 @@ class IUIFramework extends IUnknown {
     SetModes(iModes) {
         result := ComCall(11, this, "int", iModes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIFramework.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.LoadUI := CallbackCreate(GetMethod(implObj, "LoadUI"), flags, 3)
+        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 4)
+        this.vtbl.GetUICommandProperty := CallbackCreate(GetMethod(implObj, "GetUICommandProperty"), flags, 4)
+        this.vtbl.SetUICommandProperty := CallbackCreate(GetMethod(implObj, "SetUICommandProperty"), flags, 4)
+        this.vtbl.InvalidateUICommand := CallbackCreate(GetMethod(implObj, "InvalidateUICommand"), flags, 4)
+        this.vtbl.FlushPendingInvalidations := CallbackCreate(GetMethod(implObj, "FlushPendingInvalidations"), flags, 1)
+        this.vtbl.SetModes := CallbackCreate(GetMethod(implObj, "SetModes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.LoadUI)
+        CallbackFree(this.vtbl.GetView)
+        CallbackFree(this.vtbl.GetUICommandProperty)
+        CallbackFree(this.vtbl.SetUICommandProperty)
+        CallbackFree(this.vtbl.InvalidateUICommand)
+        CallbackFree(this.vtbl.FlushPendingInvalidations)
+        CallbackFree(this.vtbl.SetModes)
     }
 }

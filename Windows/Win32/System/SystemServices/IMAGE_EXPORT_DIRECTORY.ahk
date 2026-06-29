@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_EXPORT_DIRECTORY extends Win32Struct {
-    static sizeof => 40
+export default struct IMAGE_EXPORT_DIRECTORY {
+    #StructPack 4
 
-    static packingSize => 4
+    Characteristics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Characteristics {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TimeDateStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeDateStamp {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MinorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Name : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Name {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Base : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Base {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumberOfFunctions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfFunctions {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NumberOfNames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfNames {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AddressOfFunctions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressOfFunctions {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    AddressOfNames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressOfNames {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    AddressOfNameOrdinals : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressOfNameOrdinals {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

@@ -1,37 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_ISCSI_PORTALGROUP_PROP.ahk
-#Include .\IVdsIscsiTarget.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_ISCSI_PORTALGROUP_PROP.ahk" { VDS_ISCSI_PORTALGROUP_PROP }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\IVdsIscsiTarget.ahk" { IVdsIscsiTarget }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsIscsiPortalGroup interface (vdshwprv.h) provides methods for performing query and configuration services on an iSCSI portal group.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsiscsiportalgroup
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsIscsiPortalGroup extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsIscsiPortalGroup extends IUnknown {
     /**
      * The interface identifier for IVdsIscsiPortalGroup
      * @type {Guid}
      */
-    static IID => Guid("{fef5f89d-a3dd-4b36-bf28-e7dde045c593}")
+    static IID := Guid("{fef5f89d-a3dd-4b36-bf28-e7dde045c593}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsIscsiPortalGroup interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties          : IntPtr
+        GetTarget              : IntPtr
+        QueryAssociatedPortals : IntPtr
+        AddPortal              : IntPtr
+        RemovePortal           : IntPtr
+        Delete                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetTarget", "QueryAssociatedPortals", "AddPortal", "RemovePortal", "Delete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsIscsiPortalGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsIscsiPortalGroup::GetProperties (vdshwprv.h) method returns the properties of a portal group.
@@ -41,7 +54,7 @@ class IVdsIscsiPortalGroup extends IUnknown {
      */
     GetProperties() {
         pPortalGroupProp := VDS_ISCSI_PORTALGROUP_PROP()
-        result := ComCall(3, this, "ptr", pPortalGroupProp, "HRESULT")
+        result := ComCall(3, this, VDS_ISCSI_PORTALGROUP_PROP.Ptr, pPortalGroupProp, "HRESULT")
         return pPortalGroupProp
     }
 
@@ -77,7 +90,7 @@ class IVdsIscsiPortalGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-addportal
      */
     AddPortal(portalId) {
-        result := ComCall(6, this, "ptr", portalId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, Guid, portalId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -93,7 +106,7 @@ class IVdsIscsiPortalGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-removeportal
      */
     RemovePortal(portalId) {
-        result := ComCall(7, this, "ptr", portalId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, Guid, portalId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -110,5 +123,35 @@ class IVdsIscsiPortalGroup extends IUnknown {
     Delete() {
         result := ComCall(8, this, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsIscsiPortalGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetTarget := CallbackCreate(GetMethod(implObj, "GetTarget"), flags, 2)
+        this.vtbl.QueryAssociatedPortals := CallbackCreate(GetMethod(implObj, "QueryAssociatedPortals"), flags, 2)
+        this.vtbl.AddPortal := CallbackCreate(GetMethod(implObj, "AddPortal"), flags, 3)
+        this.vtbl.RemovePortal := CallbackCreate(GetMethod(implObj, "RemovePortal"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetTarget)
+        CallbackFree(this.vtbl.QueryAssociatedPortals)
+        CallbackFree(this.vtbl.AddPortal)
+        CallbackFree(this.vtbl.RemovePortal)
+        CallbackFree(this.vtbl.Delete)
     }
 }

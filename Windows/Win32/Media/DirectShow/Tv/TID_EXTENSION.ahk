@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class TID_EXTENSION extends Win32Struct {
-    static sizeof => 4
+export default struct TID_EXTENSION {
+    #StructPack 2
 
-    static packingSize => 2
+    wTidExt : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wTidExt {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 }

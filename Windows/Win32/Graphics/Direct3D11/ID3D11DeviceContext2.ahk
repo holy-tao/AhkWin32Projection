@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceContext1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\D3D11_TILE_REGION_SIZE.ahk" { D3D11_TILE_REGION_SIZE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_TILED_RESOURCE_COORDINATE.ahk" { D3D11_TILED_RESOURCE_COORDINATE }
+#Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
+#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext2 adds new methods to those in ID3D11DeviceContext1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nn-d3d11_2-id3d11devicecontext2
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
     /**
      * The interface identifier for ID3D11DeviceContext2
      * @type {Guid}
      */
-    static IID => Guid("{420d5b32-b90c-4da4-bef0-359f6a24a83a}")
+    static IID := Guid("{420d5b32-b90c-4da4-bef0-359f6a24a83a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 134
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11DeviceContext2 interfaces
+    */
+    struct Vtbl extends ID3D11DeviceContext1.Vtbl {
+        UpdateTileMappings   : IntPtr
+        CopyTileMappings     : IntPtr
+        CopyTiles            : IntPtr
+        UpdateTiles          : IntPtr
+        ResizeTilePool       : IntPtr
+        TiledResourceBarrier : IntPtr
+        IsAnnotationEnabled  : IntPtr
+        SetMarkerInt         : IntPtr
+        BeginEventInt        : IntPtr
+        EndEvent             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateTileMappings", "CopyTileMappings", "CopyTiles", "UpdateTiles", "ResizeTilePool", "TiledResourceBarrier", "IsAnnotationEnabled", "SetMarkerInt", "BeginEventInt", "EndEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11DeviceContext2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates mappings of tile locations in tiled resources to memory locations in a tile pool.
@@ -124,7 +148,7 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
         pTilePoolStartOffsetsMarshal := pTilePoolStartOffsets is VarRef ? "uint*" : "ptr"
         pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(134, this, "ptr", pTiledResource, "uint", NumTiledResourceRegions, "ptr", pTiledResourceRegionStartCoordinates, "ptr", pTiledResourceRegionSizes, "ptr", pTilePool, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, "uint", Flags, "HRESULT")
+        result := ComCall(134, this, "ptr", pTiledResource, "uint", NumTiledResourceRegions, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTiledResourceRegionStartCoordinates, D3D11_TILE_REGION_SIZE.Ptr, pTiledResourceRegionSizes, "ptr", pTilePool, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -172,7 +196,7 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-copytilemappings
      */
     CopyTileMappings(pDestTiledResource, pDestRegionStartCoordinate, pSourceTiledResource, pSourceRegionStartCoordinate, pTileRegionSize, Flags) {
-        result := ComCall(135, this, "ptr", pDestTiledResource, "ptr", pDestRegionStartCoordinate, "ptr", pSourceTiledResource, "ptr", pSourceRegionStartCoordinate, "ptr", pTileRegionSize, "uint", Flags, "HRESULT")
+        result := ComCall(135, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestRegionStartCoordinate, "ptr", pSourceTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pSourceRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pTileRegionSize, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -213,7 +237,7 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-copytiles
      */
     CopyTiles(pTiledResource, pTileRegionStartCoordinate, pTileRegionSize, pBuffer, BufferStartOffsetInBytes, Flags) {
-        ComCall(136, this, "ptr", pTiledResource, "ptr", pTileRegionStartCoordinate, "ptr", pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, "uint", Flags)
+        ComCall(136, this, "ptr", pTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, "uint", Flags)
     }
 
     /**
@@ -251,7 +275,7 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
     UpdateTiles(pDestTiledResource, pDestTileRegionStartCoordinate, pDestTileRegionSize, pSourceTileData, Flags) {
         pSourceTileDataMarshal := pSourceTileData is VarRef ? "ptr" : "ptr"
 
-        ComCall(137, this, "ptr", pDestTiledResource, "ptr", pDestTileRegionStartCoordinate, "ptr", pDestTileRegionSize, pSourceTileDataMarshal, pSourceTileData, "uint", Flags)
+        ComCall(137, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pDestTileRegionSize, pSourceTileDataMarshal, pSourceTileData, "uint", Flags)
     }
 
     /**
@@ -336,7 +360,7 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-isannotationenabled
      */
     IsAnnotationEnabled() {
-        result := ComCall(140, this, "int")
+        result := ComCall(140, this, BOOL)
         return result
     }
 
@@ -379,5 +403,43 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      */
     EndEvent() {
         ComCall(143, this)
+    }
+
+    Query(iid) {
+        if (ID3D11DeviceContext2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateTileMappings := CallbackCreate(GetMethod(implObj, "UpdateTileMappings"), flags, 11)
+        this.vtbl.CopyTileMappings := CallbackCreate(GetMethod(implObj, "CopyTileMappings"), flags, 7)
+        this.vtbl.CopyTiles := CallbackCreate(GetMethod(implObj, "CopyTiles"), flags, 7)
+        this.vtbl.UpdateTiles := CallbackCreate(GetMethod(implObj, "UpdateTiles"), flags, 6)
+        this.vtbl.ResizeTilePool := CallbackCreate(GetMethod(implObj, "ResizeTilePool"), flags, 3)
+        this.vtbl.TiledResourceBarrier := CallbackCreate(GetMethod(implObj, "TiledResourceBarrier"), flags, 3)
+        this.vtbl.IsAnnotationEnabled := CallbackCreate(GetMethod(implObj, "IsAnnotationEnabled"), flags, 1)
+        this.vtbl.SetMarkerInt := CallbackCreate(GetMethod(implObj, "SetMarkerInt"), flags, 3)
+        this.vtbl.BeginEventInt := CallbackCreate(GetMethod(implObj, "BeginEventInt"), flags, 3)
+        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateTileMappings)
+        CallbackFree(this.vtbl.CopyTileMappings)
+        CallbackFree(this.vtbl.CopyTiles)
+        CallbackFree(this.vtbl.UpdateTiles)
+        CallbackFree(this.vtbl.ResizeTilePool)
+        CallbackFree(this.vtbl.TiledResourceBarrier)
+        CallbackFree(this.vtbl.IsAnnotationEnabled)
+        CallbackFree(this.vtbl.SetMarkerInt)
+        CallbackFree(this.vtbl.BeginEventInt)
+        CallbackFree(this.vtbl.EndEvent)
     }
 }

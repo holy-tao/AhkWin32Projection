@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IWMFrameInterpProps extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMFrameInterpProps extends IUnknown {
     /**
      * The interface identifier for IWMFrameInterpProps
      * @type {Guid}
      */
-    static IID => Guid("{4c06bb9b-626c-4614-8329-cc6a21b93fa0}")
+    static IID := Guid("{4c06bb9b-626c-4614-8329-cc6a21b93fa0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMFrameInterpProps interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFrameRateIn        : IntPtr
+        SetFrameRateOut       : IntPtr
+        SetFrameInterpEnabled : IntPtr
+        SetComplexityLevel    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFrameRateIn", "SetFrameRateOut", "SetFrameInterpEnabled", "SetComplexityLevel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMFrameInterpProps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -55,7 +67,7 @@ class IWMFrameInterpProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFrameInterpEnabled(bFIEnabled) {
-        result := ComCall(5, this, "int", bFIEnabled, "HRESULT")
+        result := ComCall(5, this, BOOL, bFIEnabled, "HRESULT")
         return result
     }
 
@@ -67,5 +79,31 @@ class IWMFrameInterpProps extends IUnknown {
     SetComplexityLevel(iComplexity) {
         result := ComCall(6, this, "int", iComplexity, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMFrameInterpProps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFrameRateIn := CallbackCreate(GetMethod(implObj, "SetFrameRateIn"), flags, 3)
+        this.vtbl.SetFrameRateOut := CallbackCreate(GetMethod(implObj, "SetFrameRateOut"), flags, 3)
+        this.vtbl.SetFrameInterpEnabled := CallbackCreate(GetMethod(implObj, "SetFrameInterpEnabled"), flags, 2)
+        this.vtbl.SetComplexityLevel := CallbackCreate(GetMethod(implObj, "SetComplexityLevel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFrameRateIn)
+        CallbackFree(this.vtbl.SetFrameRateOut)
+        CallbackFree(this.vtbl.SetFrameInterpEnabled)
+        CallbackFree(this.vtbl.SetComplexityLevel)
     }
 }

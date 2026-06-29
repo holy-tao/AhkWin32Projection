@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_20_PORT_CHANGE.ahk
-#Include .\USB_30_PORT_CHANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_30_PORT_CHANGE.ahk" { USB_30_PORT_CHANGE }
+#Import ".\USB_20_PORT_CHANGE.ahk" { USB_20_PORT_CHANGE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_PORT_CHANGE extends Win32Struct {
-    static sizeof => 10
+export default struct USB_PORT_CHANGE {
+    #StructPack 1
 
-    static packingSize => 1
+    AsUshort16 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AsUshort16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {USB_20_PORT_CHANGE}
-     */
-    Usb20PortChange {
-        get {
-            if(!this.HasProp("__Usb20PortChange"))
-                this.__Usb20PortChange := USB_20_PORT_CHANGE(0, this)
-            return this.__Usb20PortChange
-        }
-    }
-
-    /**
-     * @type {USB_30_PORT_CHANGE}
-     */
-    Usb30PortChange {
-        get {
-            if(!this.HasProp("__Usb30PortChange"))
-                this.__Usb30PortChange := USB_30_PORT_CHANGE(0, this)
-            return this.__Usb30PortChange
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Usb20PortChange', { type: USB_20_PORT_CHANGE, offset: 0 })
+        DefineProp(this.Prototype, 'Usb30PortChange', { type: USB_30_PORT_CHANGE, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

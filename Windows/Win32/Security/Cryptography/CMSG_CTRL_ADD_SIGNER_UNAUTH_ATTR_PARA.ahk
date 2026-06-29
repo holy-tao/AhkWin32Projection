@@ -1,50 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Used to add an unauthenticated attribute to a signer of a signed message.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_add_signer_unauth_attr_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA {
+    #StructPack 8
 
     /**
      * Size of this structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Index of the signer in the <b>rgSigners</b> array of pointers of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info">CMSG_SIGNER_ENCODE_INFO</a> structures in a signed message's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signed_encode_info">CMSG_SIGNED_ENCODE_INFO</a> structure. The unauthenticated attribute is to be added to this signer's information.
-     * @type {Integer}
      */
-    dwSignerIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSignerIndex : UInt32
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    blob {
-        get {
-            if(!this.HasProp("__blob"))
-                this.__blob := CRYPT_INTEGER_BLOB(8, this)
-            return this.__blob
-        }
-    }
+    blob : CRYPT_INTEGER_BLOB
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

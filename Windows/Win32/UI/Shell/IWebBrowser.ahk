@@ -1,40 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
- * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
- * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
  */
-class IWebBrowser extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWebBrowser extends IDispatch {
     /**
      * The interface identifier for IWebBrowser
      * @type {Guid}
      */
-    static IID => Guid("{eab22ac1-30c1-11cf-a7eb-0000c05bae0b}")
+    static IID := Guid("{eab22ac1-30c1-11cf-a7eb-0000c05bae0b}")
 
     /**
      * The class identifier for WebBrowser
      * @type {Guid}
      */
-    static CLSID => Guid("{8856f961-340a-11d0-a96b-00c04fd705a2}")
+    static CLSID := Guid("{8856f961-340a-11d0-a96b-00c04fd705a2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebBrowser interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GoBack                : IntPtr
+        GoForward             : IntPtr
+        GoHome                : IntPtr
+        GoSearch              : IntPtr
+        Navigate              : IntPtr
+        Refresh               : IntPtr
+        Refresh2              : IntPtr
+        Stop                  : IntPtr
+        get_Application       : IntPtr
+        get_Parent            : IntPtr
+        get_Container         : IntPtr
+        get_Document          : IntPtr
+        get_TopLevelContainer : IntPtr
+        get_Type              : IntPtr
+        get_Left              : IntPtr
+        put_Left              : IntPtr
+        get_Top               : IntPtr
+        put_Top               : IntPtr
+        get_Width             : IntPtr
+        put_Width             : IntPtr
+        get_Height            : IntPtr
+        put_Height            : IntPtr
+        get_LocationName      : IntPtr
+        get_LocationURL       : IntPtr
+        get_Busy              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GoBack", "GoForward", "GoHome", "GoSearch", "Navigate", "Refresh", "Refresh2", "Stop", "get_Application", "get_Parent", "get_Container", "get_Document", "get_TopLevelContainer", "get_Type", "get_Left", "put_Left", "get_Top", "put_Top", "get_Width", "put_Width", "get_Height", "put_Height", "get_LocationName", "get_LocationURL", "get_Busy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebBrowser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -180,17 +212,13 @@ class IWebBrowser extends IDispatch {
     Navigate(URL, Flags, TargetFrameName, PostData, Headers) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
 
-        result := ComCall(11, this, "ptr", URL, "ptr", Flags, "ptr", TargetFrameName, "ptr", PostData, "ptr", Headers, "HRESULT")
+        result := ComCall(11, this, BSTR, URL, VARIANT.Ptr, Flags, VARIANT.Ptr, TargetFrameName, VARIANT.Ptr, PostData, VARIANT.Ptr, Headers, "HRESULT")
         return result
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * 
+     * @returns {HRESULT} 
      */
     Refresh() {
         result := ComCall(12, this, "HRESULT")
@@ -203,18 +231,13 @@ class IWebBrowser extends IDispatch {
      * @returns {HRESULT} 
      */
     Refresh2(Level) {
-        result := ComCall(13, this, "ptr", Level, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, Level, "HRESULT")
         return result
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(14, this, "HRESULT")
@@ -262,7 +285,7 @@ class IWebBrowser extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_TopLevelContainer() {
-        result := ComCall(19, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
     }
 
@@ -271,8 +294,8 @@ class IWebBrowser extends IDispatch {
      * @returns {BSTR} 
      */
     get_Type() {
-        Type := BSTR()
-        result := ComCall(20, this, "ptr", Type, "HRESULT")
+        Type := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, Type, "HRESULT")
         return Type
     }
 
@@ -357,8 +380,8 @@ class IWebBrowser extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocationName() {
-        LocationName := BSTR()
-        result := ComCall(29, this, "ptr", LocationName, "HRESULT")
+        LocationName := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, LocationName, "HRESULT")
         return LocationName
     }
 
@@ -367,8 +390,8 @@ class IWebBrowser extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocationURL() {
-        LocationURL := BSTR()
-        result := ComCall(30, this, "ptr", LocationURL, "HRESULT")
+        LocationURL := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, LocationURL, "HRESULT")
         return LocationURL
     }
 
@@ -377,7 +400,75 @@ class IWebBrowser extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Busy() {
-        result := ComCall(31, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
+    }
+
+    Query(iid) {
+        if (IWebBrowser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GoBack := CallbackCreate(GetMethod(implObj, "GoBack"), flags, 1)
+        this.vtbl.GoForward := CallbackCreate(GetMethod(implObj, "GoForward"), flags, 1)
+        this.vtbl.GoHome := CallbackCreate(GetMethod(implObj, "GoHome"), flags, 1)
+        this.vtbl.GoSearch := CallbackCreate(GetMethod(implObj, "GoSearch"), flags, 1)
+        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 6)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Refresh2 := CallbackCreate(GetMethod(implObj, "Refresh2"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Container := CallbackCreate(GetMethod(implObj, "get_Container"), flags, 2)
+        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.get_TopLevelContainer := CallbackCreate(GetMethod(implObj, "get_TopLevelContainer"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_LocationName := CallbackCreate(GetMethod(implObj, "get_LocationName"), flags, 2)
+        this.vtbl.get_LocationURL := CallbackCreate(GetMethod(implObj, "get_LocationURL"), flags, 2)
+        this.vtbl.get_Busy := CallbackCreate(GetMethod(implObj, "get_Busy"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GoBack)
+        CallbackFree(this.vtbl.GoForward)
+        CallbackFree(this.vtbl.GoHome)
+        CallbackFree(this.vtbl.GoSearch)
+        CallbackFree(this.vtbl.Navigate)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Refresh2)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.get_Application)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.get_Container)
+        CallbackFree(this.vtbl.get_Document)
+        CallbackFree(this.vtbl.get_TopLevelContainer)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Left)
+        CallbackFree(this.vtbl.put_Left)
+        CallbackFree(this.vtbl.get_Top)
+        CallbackFree(this.vtbl.put_Top)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.put_Height)
+        CallbackFree(this.vtbl.get_LocationName)
+        CallbackFree(this.vtbl.get_LocationURL)
+        CallbackFree(this.vtbl.get_Busy)
     }
 }

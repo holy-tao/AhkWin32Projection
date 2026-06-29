@@ -1,27 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a metadata locator with a destination for the metadata it has discovered.
  * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/ns-roparameterizediid-irosimplemetadatabuilder
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IRoSimpleMetaDataBuilder extends Win32ComInterface {
+export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWinRtInterface", "SetDelegate", "SetInterfaceGroupSimpleDefault", "SetInterfaceGroupParameterizedDefault", "SetRuntimeClassSimpleDefault", "SetRuntimeClassParameterizedDefault", "SetStruct", "SetEnum", "SetParameterizedInterface", "SetParameterizedDelegate"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRoSimpleMetaDataBuilder interfaces
+    */
+    struct Vtbl {
+        SetWinRtInterface                     : IntPtr
+        SetDelegate                           : IntPtr
+        SetInterfaceGroupSimpleDefault        : IntPtr
+        SetInterfaceGroupParameterizedDefault : IntPtr
+        SetRuntimeClassSimpleDefault          : IntPtr
+        SetRuntimeClassParameterizedDefault   : IntPtr
+        SetStruct                             : IntPtr
+        SetEnum                               : IntPtr
+        SetParameterizedInterface             : IntPtr
+        SetParameterizedDelegate              : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRoSimpleMetaDataBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -29,7 +47,7 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetWinRtInterface(iid) {
-        result := ComCall(0, this, "ptr", iid, "HRESULT")
+        result := ComCall(0, this, Guid, iid, "HRESULT")
         return result
     }
 
@@ -39,7 +57,7 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetDelegate(iid) {
-        result := ComCall(1, this, "ptr", iid, "HRESULT")
+        result := ComCall(1, this, Guid, iid, "HRESULT")
         return result
     }
 
@@ -54,7 +72,7 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
         name := name is String ? StrPtr(name) : name
         defaultInterfaceName := defaultInterfaceName is String ? StrPtr(defaultInterfaceName) : defaultInterfaceName
 
-        result := ComCall(2, this, "ptr", name, "ptr", defaultInterfaceName, "ptr", defaultInterfaceIID, "HRESULT")
+        result := ComCall(2, this, "ptr", name, "ptr", defaultInterfaceName, Guid.Ptr, defaultInterfaceIID, "HRESULT")
         return result
     }
 
@@ -85,7 +103,7 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
         name := name is String ? StrPtr(name) : name
         defaultInterfaceName := defaultInterfaceName is String ? StrPtr(defaultInterfaceName) : defaultInterfaceName
 
-        result := ComCall(4, this, "ptr", name, "ptr", defaultInterfaceName, "ptr", defaultInterfaceIID, "HRESULT")
+        result := ComCall(4, this, "ptr", name, "ptr", defaultInterfaceName, Guid.Ptr, defaultInterfaceIID, "HRESULT")
         return result
     }
 
@@ -142,7 +160,7 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetParameterizedInterface(piid, numArgs) {
-        result := ComCall(8, this, "ptr", piid, "uint", numArgs, "HRESULT")
+        result := ComCall(8, this, Guid, piid, "uint", numArgs, "HRESULT")
         return result
     }
 
@@ -153,7 +171,14 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetParameterizedDelegate(piid, numArgs) {
-        result := ComCall(9, this, "ptr", piid, "uint", numArgs, "HRESULT")
+        result := ComCall(9, this, Guid, piid, "uint", numArgs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRoSimpleMetaDataBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

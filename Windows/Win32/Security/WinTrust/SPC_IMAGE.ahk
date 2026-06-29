@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPC_LINK.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPC_LINK.ahk" { SPC_LINK }
+#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class SPC_IMAGE extends Win32Struct {
-    static sizeof => 72
+export default struct SPC_IMAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    pImageLink : SPC_LINK.Ptr
 
-    /**
-     * @type {Pointer<SPC_LINK>}
-     */
-    pImageLink {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Bitmap : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    Bitmap {
-        get {
-            if(!this.HasProp("__Bitmap"))
-                this.__Bitmap := CRYPT_INTEGER_BLOB(8, this)
-            return this.__Bitmap
-        }
-    }
+    Metafile : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    Metafile {
-        get {
-            if(!this.HasProp("__Metafile"))
-                this.__Metafile := CRYPT_INTEGER_BLOB(24, this)
-            return this.__Metafile
-        }
-    }
+    EnhancedMetafile : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    EnhancedMetafile {
-        get {
-            if(!this.HasProp("__EnhancedMetafile"))
-                this.__EnhancedMetafile := CRYPT_INTEGER_BLOB(40, this)
-            return this.__EnhancedMetafile
-        }
-    }
+    GifFile : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    GifFile {
-        get {
-            if(!this.HasProp("__GifFile"))
-                this.__GifFile := CRYPT_INTEGER_BLOB(56, this)
-            return this.__GifFile
-        }
-    }
 }

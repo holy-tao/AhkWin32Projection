@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IRedbookDiscMaster interface enables the staging of an audio CD image. It represents one of the formats supported by MSDiscMasterObj, and it allows the creation of multi-track audio discs in Track-at-Once mode (fixed-size audio gaps).
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-iredbookdiscmaster
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IRedbookDiscMaster extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRedbookDiscMaster extends IUnknown {
     /**
      * The interface identifier for IRedbookDiscMaster
      * @type {Guid}
      */
-    static IID => Guid("{e3bc42cd-4e5c-11d3-9144-00104ba11c5e}")
+    static IID := Guid("{e3bc42cd-4e5c-11d3-9144-00104ba11c5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRedbookDiscMaster interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTotalAudioTracks          : IntPtr
+        GetTotalAudioBlocks          : IntPtr
+        GetUsedAudioBlocks           : IntPtr
+        GetAvailableAudioTrackBlocks : IntPtr
+        GetAudioBlockSize            : IntPtr
+        CreateAudioTrack             : IntPtr
+        AddAudioTrackBlocks          : IntPtr
+        CloseAudioTrack              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTotalAudioTracks", "GetTotalAudioBlocks", "GetUsedAudioBlocks", "GetAvailableAudioTrackBlocks", "GetAudioBlockSize", "CreateAudioTrack", "AddAudioTrackBlocks", "CloseAudioTrack"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRedbookDiscMaster.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the total number of tracks that have either been staged or are being staged.
@@ -130,5 +145,39 @@ class IRedbookDiscMaster extends IUnknown {
     CloseAudioTrack() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRedbookDiscMaster.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTotalAudioTracks := CallbackCreate(GetMethod(implObj, "GetTotalAudioTracks"), flags, 2)
+        this.vtbl.GetTotalAudioBlocks := CallbackCreate(GetMethod(implObj, "GetTotalAudioBlocks"), flags, 2)
+        this.vtbl.GetUsedAudioBlocks := CallbackCreate(GetMethod(implObj, "GetUsedAudioBlocks"), flags, 2)
+        this.vtbl.GetAvailableAudioTrackBlocks := CallbackCreate(GetMethod(implObj, "GetAvailableAudioTrackBlocks"), flags, 2)
+        this.vtbl.GetAudioBlockSize := CallbackCreate(GetMethod(implObj, "GetAudioBlockSize"), flags, 2)
+        this.vtbl.CreateAudioTrack := CallbackCreate(GetMethod(implObj, "CreateAudioTrack"), flags, 2)
+        this.vtbl.AddAudioTrackBlocks := CallbackCreate(GetMethod(implObj, "AddAudioTrackBlocks"), flags, 3)
+        this.vtbl.CloseAudioTrack := CallbackCreate(GetMethod(implObj, "CloseAudioTrack"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTotalAudioTracks)
+        CallbackFree(this.vtbl.GetTotalAudioBlocks)
+        CallbackFree(this.vtbl.GetUsedAudioBlocks)
+        CallbackFree(this.vtbl.GetAvailableAudioTrackBlocks)
+        CallbackFree(this.vtbl.GetAudioBlockSize)
+        CallbackFree(this.vtbl.CreateAudioTrack)
+        CallbackFree(this.vtbl.AddAudioTrackBlocks)
+        CallbackFree(this.vtbl.CloseAudioTrack)
     }
 }

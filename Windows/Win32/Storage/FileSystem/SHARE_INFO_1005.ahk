@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about the shared resource.
@@ -9,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_1005
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class SHARE_INFO_1005 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct SHARE_INFO_1005 {
+    #StructPack 4
 
     /**
      * A bitmask of flags that specify information about the shared resource.
@@ -225,10 +222,7 @@ class SHARE_INFO_1005 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    shi1005_flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    shi1005_flags : UInt32
+
 }

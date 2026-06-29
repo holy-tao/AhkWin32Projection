@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SecPkgContext_KeyInfo structure contains information about the session keys used in a security context. (Unicode)
@@ -10,53 +9,32 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @charset Unicode
  */
-class SecPkgContext_KeyInfoW extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SecPkgContext_KeyInfoW {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that contains the name, if available, of the algorithm used for generating signatures, for example "MD5" or "SHA-2".
-     * @type {Pointer<Integer>}
      */
-    sSignatureAlgorithmName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    sSignatureAlgorithmName : IntPtr
 
     /**
      * Pointer to a null-terminated string that contains the name, if available, of the algorithm used for encrypting messages. Reserved for future use.
-     * @type {Pointer<Integer>}
      */
-    sEncryptAlgorithmName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sEncryptAlgorithmName : IntPtr
 
     /**
      * Specifies the effective key length, in bits, for the session key. This is typically 40, 56, or 128 bits.
-     * @type {Integer}
      */
-    KeySize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    KeySize : UInt32
 
     /**
      * Specifies the algorithm identifier (<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a>) used for generating signatures, if available.
-     * @type {Integer}
      */
-    SignatureAlgorithm {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SignatureAlgorithm : UInt32
 
     /**
      * Specifies the algorithm identifier (<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a>) used for encrypting messages. Reserved for future use.
-     * @type {Integer}
      */
-    EncryptAlgorithm {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    EncryptAlgorithm : UInt32
+
 }

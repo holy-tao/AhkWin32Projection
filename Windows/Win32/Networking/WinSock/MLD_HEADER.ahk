@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_HEADER.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ICMP_HEADER.ahk" { ICMP_HEADER }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class MLD_HEADER extends Win32Struct {
-    static sizeof => 24
+export default struct MLD_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    IcmpHeader : ICMP_HEADER
 
-    /**
-     * @type {ICMP_HEADER}
-     */
-    IcmpHeader {
-        get {
-            if(!this.HasProp("__IcmpHeader"))
-                this.__IcmpHeader := ICMP_HEADER(0, this)
-            return this.__IcmpHeader
-        }
-    }
+    MaxRespTime : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaxRespTime {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    MulticastAddress : IN6_ADDR
 
-    /**
-     * @type {IN6_ADDR}
-     */
-    MulticastAddress {
-        get {
-            if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN6_ADDR(8, this)
-            return this.__MulticastAddress
-        }
-    }
 }

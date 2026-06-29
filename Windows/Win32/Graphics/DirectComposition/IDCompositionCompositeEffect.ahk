@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\Direct2D\Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
 
 /**
  * The composite effect is used to combine 2 or more images.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositioncompositeeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionCompositeEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionCompositeEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionCompositeEffect
      * @type {Guid}
      */
-    static IID => Guid("{576616c0-a231-494d-a38d-00fd5ec4db46}")
+    static IID := Guid("{576616c0-a231-494d-a38d-00fd5ec4db46}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionCompositeEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionCompositeEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the mode for the composite effect.
@@ -40,7 +49,27 @@ class IDCompositionCompositeEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncompositeeffect-setmode
      */
     SetMode(_mode) {
-        result := ComCall(4, this, "int", _mode, "HRESULT")
+        result := ComCall(4, this, D2D1_COMPOSITE_MODE, _mode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionCompositeEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMode)
     }
 }

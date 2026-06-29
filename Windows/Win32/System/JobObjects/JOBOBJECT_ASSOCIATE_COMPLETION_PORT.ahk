@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains information used to associate a completion port with a job.
@@ -166,32 +165,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_associate_completion_port
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
+    #StructPack 8
 
     /**
      * The value to use in the <i>dwCompletionKey</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/postqueuedcompletionstatus">PostQueuedCompletionStatus</a> when messages are sent on behalf of the job.
-     * @type {Pointer<Void>}
      */
-    CompletionKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CompletionKey : IntPtr
 
     /**
      * The completion port to use in the <i>CompletionPort</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/FileIO/postqueuedcompletionstatus">PostQueuedCompletionStatus</a> function when messages are sent on behalf of the job.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>Specify <b>NULL</b> to remove the association between the current completion port and the job.
-     * @type {HANDLE}
      */
-    CompletionPort {
-        get {
-            if(!this.HasProp("__CompletionPort"))
-                this.__CompletionPort := HANDLE(8, this)
-            return this.__CompletionPort
-        }
-    }
+    CompletionPort : HANDLE
+
 }

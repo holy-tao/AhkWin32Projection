@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_OPERATION_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_OPERATION_DESCRIPTION.ahk" { WS_OPERATION_DESCRIPTION }
 
 /**
  * The metadata for a service contract for service model.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_contract_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CONTRACT_DESCRIPTION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WS_CONTRACT_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The total number of service operations that are part of the contract.
-     * @type {Integer}
      */
-    operationCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    operationCount : UInt32
 
     /**
      * An array of individual operation description, each representing 
      *                     a service operations.
-     * @type {Pointer<Pointer<WS_OPERATION_DESCRIPTION>>}
      */
-    operations {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    operations : IntPtr
+
 }

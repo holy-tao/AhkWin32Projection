@@ -1,13 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\IInstallationJob.ahk
-#Include .\IInstallationResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInstallationJob.ahk" { IInstallationJob }
+#Import ".\IInstallationResult.ahk" { IInstallationResult }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Installs or uninstalls updates from or onto a computer.
@@ -16,32 +19,59 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateInstaller extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateInstaller extends IDispatch {
     /**
      * The interface identifier for IUpdateInstaller
      * @type {Guid}
      */
-    static IID => Guid("{7b929c68-ccdc-4226-96b1-8724600b54c2}")
+    static IID := Guid("{7b929c68-ccdc-4226-96b1-8724600b54c2}")
 
     /**
      * The class identifier for UpdateInstaller
      * @type {Guid}
      */
-    static CLSID => Guid("{d2e0fe7f-d23e-48e1-93c0-6fa8cc346474}")
+    static CLSID := Guid("{d2e0fe7f-d23e-48e1-93c0-6fa8cc346474}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateInstaller interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ClientApplicationID              : IntPtr
+        put_ClientApplicationID              : IntPtr
+        get_IsForced                         : IntPtr
+        put_IsForced                         : IntPtr
+        get_ParentHwnd                       : IntPtr
+        put_ParentHwnd                       : IntPtr
+        put_ParentWindow                     : IntPtr
+        get_ParentWindow                     : IntPtr
+        get_Updates                          : IntPtr
+        put_Updates                          : IntPtr
+        BeginInstall                         : IntPtr
+        BeginUninstall                       : IntPtr
+        EndInstall                           : IntPtr
+        EndUninstall                         : IntPtr
+        Install                              : IntPtr
+        RunWizard                            : IntPtr
+        get_IsBusy                           : IntPtr
+        Uninstall                            : IntPtr
+        get_AllowSourcePrompts               : IntPtr
+        put_AllowSourcePrompts               : IntPtr
+        get_RebootRequiredBeforeInstallation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "get_IsForced", "put_IsForced", "get_ParentHwnd", "put_ParentHwnd", "put_ParentWindow", "get_ParentWindow", "get_Updates", "put_Updates", "BeginInstall", "BeginUninstall", "EndInstall", "EndUninstall", "Install", "RunWizard", "get_IsBusy", "Uninstall", "get_AllowSourcePrompts", "put_AllowSourcePrompts", "get_RebootRequiredBeforeInstallation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateInstaller.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -113,8 +143,8 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -129,7 +159,7 @@ class IUpdateInstaller extends IDispatch {
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(8, this, "ptr", value, "HRESULT")
+        result := ComCall(8, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -143,7 +173,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_isforced
      */
     get_IsForced() {
-        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -158,7 +188,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-put_isforced
      */
     put_IsForced(value) {
-        result := ComCall(10, this, "short", value, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -171,7 +201,7 @@ class IUpdateInstaller extends IDispatch {
      */
     get_ParentHwnd() {
         retval := HWND()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        result := ComCall(11, this, HWND.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -184,9 +214,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-put_parenthwnd
      */
     put_ParentHwnd(value) {
-        value := value is Win32Handle ? NumGet(value, "ptr") : value
-
-        result := ComCall(12, this, "ptr", value, "HRESULT")
+        result := ComCall(12, this, HWND, value, "HRESULT")
         return result
     }
 
@@ -251,7 +279,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-begininstall
      */
     BeginInstall(onProgressChanged, onCompleted, state) {
-        result := ComCall(17, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", onProgressChanged, "ptr", onCompleted, VARIANT, state, "ptr*", &retval := 0, "HRESULT")
         return IInstallationJob(retval)
     }
 
@@ -270,7 +298,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-beginuninstall
      */
     BeginUninstall(onProgressChanged, onCompleted, state) {
-        result := ComCall(18, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", onProgressChanged, "ptr", onCompleted, VARIANT, state, "ptr*", &retval := 0, "HRESULT")
         return IInstallationJob(retval)
     }
 
@@ -325,7 +353,7 @@ class IUpdateInstaller extends IDispatch {
     RunWizard(dialogTitle) {
         dialogTitle := dialogTitle is String ? BSTR.Alloc(dialogTitle).Value : dialogTitle
 
-        result := ComCall(22, this, "ptr", dialogTitle, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, BSTR, dialogTitle, "ptr*", &retval := 0, "HRESULT")
         return IInstallationResult(retval)
     }
 
@@ -337,7 +365,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_isbusy
      */
     get_IsBusy() {
-        result := ComCall(23, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -359,7 +387,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_allowsourceprompts
      */
     get_AllowSourcePrompts() {
-        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -370,7 +398,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-put_allowsourceprompts
      */
     put_AllowSourcePrompts(value) {
-        result := ComCall(26, this, "short", value, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -380,7 +408,67 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_rebootrequiredbeforeinstallation
      */
     get_RebootRequiredBeforeInstallation() {
-        result := ComCall(27, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IUpdateInstaller.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.put_ClientApplicationID := CallbackCreate(GetMethod(implObj, "put_ClientApplicationID"), flags, 2)
+        this.vtbl.get_IsForced := CallbackCreate(GetMethod(implObj, "get_IsForced"), flags, 2)
+        this.vtbl.put_IsForced := CallbackCreate(GetMethod(implObj, "put_IsForced"), flags, 2)
+        this.vtbl.get_ParentHwnd := CallbackCreate(GetMethod(implObj, "get_ParentHwnd"), flags, 2)
+        this.vtbl.put_ParentHwnd := CallbackCreate(GetMethod(implObj, "put_ParentHwnd"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.get_Updates := CallbackCreate(GetMethod(implObj, "get_Updates"), flags, 2)
+        this.vtbl.put_Updates := CallbackCreate(GetMethod(implObj, "put_Updates"), flags, 2)
+        this.vtbl.BeginInstall := CallbackCreate(GetMethod(implObj, "BeginInstall"), flags, 5)
+        this.vtbl.BeginUninstall := CallbackCreate(GetMethod(implObj, "BeginUninstall"), flags, 5)
+        this.vtbl.EndInstall := CallbackCreate(GetMethod(implObj, "EndInstall"), flags, 3)
+        this.vtbl.EndUninstall := CallbackCreate(GetMethod(implObj, "EndUninstall"), flags, 3)
+        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 2)
+        this.vtbl.RunWizard := CallbackCreate(GetMethod(implObj, "RunWizard"), flags, 3)
+        this.vtbl.get_IsBusy := CallbackCreate(GetMethod(implObj, "get_IsBusy"), flags, 2)
+        this.vtbl.Uninstall := CallbackCreate(GetMethod(implObj, "Uninstall"), flags, 2)
+        this.vtbl.get_AllowSourcePrompts := CallbackCreate(GetMethod(implObj, "get_AllowSourcePrompts"), flags, 2)
+        this.vtbl.put_AllowSourcePrompts := CallbackCreate(GetMethod(implObj, "put_AllowSourcePrompts"), flags, 2)
+        this.vtbl.get_RebootRequiredBeforeInstallation := CallbackCreate(GetMethod(implObj, "get_RebootRequiredBeforeInstallation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ClientApplicationID)
+        CallbackFree(this.vtbl.put_ClientApplicationID)
+        CallbackFree(this.vtbl.get_IsForced)
+        CallbackFree(this.vtbl.put_IsForced)
+        CallbackFree(this.vtbl.get_ParentHwnd)
+        CallbackFree(this.vtbl.put_ParentHwnd)
+        CallbackFree(this.vtbl.put_ParentWindow)
+        CallbackFree(this.vtbl.get_ParentWindow)
+        CallbackFree(this.vtbl.get_Updates)
+        CallbackFree(this.vtbl.put_Updates)
+        CallbackFree(this.vtbl.BeginInstall)
+        CallbackFree(this.vtbl.BeginUninstall)
+        CallbackFree(this.vtbl.EndInstall)
+        CallbackFree(this.vtbl.EndUninstall)
+        CallbackFree(this.vtbl.Install)
+        CallbackFree(this.vtbl.RunWizard)
+        CallbackFree(this.vtbl.get_IsBusy)
+        CallbackFree(this.vtbl.Uninstall)
+        CallbackFree(this.vtbl.get_AllowSourcePrompts)
+        CallbackFree(this.vtbl.put_AllowSourcePrompts)
+        CallbackFree(this.vtbl.get_RebootRequiredBeforeInstallation)
     }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ASSOCIATIONTYPE.ahk" { ASSOCIATIONTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ASSOCIATIONLEVEL.ahk" { ASSOCIATIONLEVEL }
 
 /**
  * Exposes methods that query and set default applications for specific file Association Type, and protocols at a specific Association Level.
@@ -10,32 +15,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration
  * @namespace Windows.Win32.UI.Shell
  */
-class IApplicationAssociationRegistration extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IApplicationAssociationRegistration extends IUnknown {
     /**
      * The interface identifier for IApplicationAssociationRegistration
      * @type {Guid}
      */
-    static IID => Guid("{4e530b0a-e611-4c77-a3ac-9031d022281b}")
+    static IID := Guid("{4e530b0a-e611-4c77-a3ac-9031d022281b}")
 
     /**
      * The class identifier for ApplicationAssociationRegistration
      * @type {Guid}
      */
-    static CLSID => Guid("{591209c7-767b-42b2-9fba-44ee4615f2c7}")
+    static CLSID := Guid("{591209c7-767b-42b2-9fba-44ee4615f2c7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IApplicationAssociationRegistration interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryCurrentDefault   : IntPtr
+        QueryAppIsDefault     : IntPtr
+        QueryAppIsDefaultAll  : IntPtr
+        SetAppAsDefault       : IntPtr
+        SetAppAsDefaultAll    : IntPtr
+        ClearUserAssociations : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryCurrentDefault", "QueryAppIsDefault", "QueryAppIsDefaultAll", "SetAppAsDefault", "SetAppAsDefaultAll", "ClearUserAssociations"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IApplicationAssociationRegistration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines the default application for a given association type. This is the default application launched by ShellExecute for that type.
@@ -61,7 +78,7 @@ class IApplicationAssociationRegistration extends IUnknown {
     QueryCurrentDefault(pszQuery, atQueryType, alQueryLevel) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(3, this, "ptr", pszQuery, "int", atQueryType, "int", alQueryLevel, "ptr*", &ppszAssociation := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszQuery, ASSOCIATIONTYPE, atQueryType, ASSOCIATIONLEVEL, alQueryLevel, PWSTR.Ptr, &ppszAssociation := 0, "HRESULT")
         return ppszAssociation
     }
 
@@ -88,7 +105,7 @@ class IApplicationAssociationRegistration extends IUnknown {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
 
-        result := ComCall(4, this, "ptr", pszQuery, "int", atQueryType, "int", alQueryLevel, "ptr", pszAppRegistryName, "int*", &pfDefault := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszQuery, ASSOCIATIONTYPE, atQueryType, ASSOCIATIONLEVEL, alQueryLevel, "ptr", pszAppRegistryName, BOOL.Ptr, &pfDefault := 0, "HRESULT")
         return pfDefault
     }
 
@@ -109,7 +126,7 @@ class IApplicationAssociationRegistration extends IUnknown {
     QueryAppIsDefaultAll(alQueryLevel, pszAppRegistryName) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
 
-        result := ComCall(5, this, "int", alQueryLevel, "ptr", pszAppRegistryName, "int*", &pfDefault := 0, "HRESULT")
+        result := ComCall(5, this, ASSOCIATIONLEVEL, alQueryLevel, "ptr", pszAppRegistryName, BOOL.Ptr, &pfDefault := 0, "HRESULT")
         return pfDefault
     }
 
@@ -129,7 +146,7 @@ class IApplicationAssociationRegistration extends IUnknown {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
         pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
-        result := ComCall(6, this, "ptr", pszAppRegistryName, "ptr", pszSet, "int", atSetType, "HRESULT")
+        result := ComCall(6, this, "ptr", pszAppRegistryName, "ptr", pszSet, ASSOCIATIONTYPE, atSetType, "HRESULT")
         return result
     }
 
@@ -160,5 +177,35 @@ class IApplicationAssociationRegistration extends IUnknown {
     ClearUserAssociations() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IApplicationAssociationRegistration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryCurrentDefault := CallbackCreate(GetMethod(implObj, "QueryCurrentDefault"), flags, 5)
+        this.vtbl.QueryAppIsDefault := CallbackCreate(GetMethod(implObj, "QueryAppIsDefault"), flags, 6)
+        this.vtbl.QueryAppIsDefaultAll := CallbackCreate(GetMethod(implObj, "QueryAppIsDefaultAll"), flags, 4)
+        this.vtbl.SetAppAsDefault := CallbackCreate(GetMethod(implObj, "SetAppAsDefault"), flags, 4)
+        this.vtbl.SetAppAsDefaultAll := CallbackCreate(GetMethod(implObj, "SetAppAsDefaultAll"), flags, 2)
+        this.vtbl.ClearUserAssociations := CallbackCreate(GetMethod(implObj, "ClearUserAssociations"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryCurrentDefault)
+        CallbackFree(this.vtbl.QueryAppIsDefault)
+        CallbackFree(this.vtbl.QueryAppIsDefaultAll)
+        CallbackFree(this.vtbl.SetAppAsDefault)
+        CallbackFree(this.vtbl.SetAppAsDefaultAll)
+        CallbackFree(this.vtbl.ClearUserAssociations)
     }
 }

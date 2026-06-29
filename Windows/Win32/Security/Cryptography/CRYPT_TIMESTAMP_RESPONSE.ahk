@@ -1,45 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk" { CRYPT_TIMESTAMP_RESPONSE_STATUS }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 
 /**
  * Is used internally to encapsulate an Abstract Syntax Notation One (ASN.1) Distinguished Encoding Rules (DER) encoded response.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_response
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct CRYPT_TIMESTAMP_RESPONSE {
+    #StructPack 8
 
     /**
      * A <b>DWORD</b> value that indicates the status of the time stamp response.
-     * @type {CRYPT_TIMESTAMP_RESPONSE_STATUS}
      */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : CRYPT_TIMESTAMP_RESPONSE_STATUS
 
     /**
      * Optional. The length, in characters, of the string pointed to by the <b>rgFreeText</b> member.
-     * @type {Integer}
      */
-    cFreeText {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cFreeText : UInt32
 
     /**
      * Optional. A pointer to a string that contains the text information about request failure.
-     * @type {Pointer<PWSTR>}
      */
-    rgFreeText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgFreeText : PWSTR.Ptr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_bit_blob">CRYPT_BIT_BLOB</a> structure that contains the reason why the time stamp request was rejected. Each flag is encoded as a bit in the structure.
@@ -138,25 +124,12 @@ class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRYPT_BIT_BLOB}
      */
-    FailureInfo {
-        get {
-            if(!this.HasProp("__FailureInfo"))
-                this.__FailureInfo := CRYPT_BIT_BLOB(16, this)
-            return this.__FailureInfo
-        }
-    }
+    FailureInfo : CRYPT_BIT_BLOB
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPT_DER_BLOB</a> structure that encapsulates a signed data content type in Cryptographic Message Syntax (CMS) format.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    ContentInfo {
-        get {
-            if(!this.HasProp("__ContentInfo"))
-                this.__ContentInfo := CRYPT_INTEGER_BLOB(40, this)
-            return this.__ContentInfo
-        }
-    }
+    ContentInfo : CRYPT_INTEGER_BLOB
+
 }

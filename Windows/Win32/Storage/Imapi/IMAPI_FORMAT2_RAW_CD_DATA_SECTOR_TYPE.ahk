@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that indicate the type of sub-channel data.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE extends Win32Enum {
+export default struct IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The data contains P and Q sub-channel data.

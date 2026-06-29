@@ -1,41 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_IDLE_POWER extends Win32Struct {
-    static sizeof => 16
+export default struct STORAGE_IDLE_POWER {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * This bitfield backs the following members:
      * - WakeCapableHint
      * - D3ColdSupported
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -52,12 +34,6 @@ class STORAGE_IDLE_POWER extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
+    D3IdleTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    D3IdleTimeout {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

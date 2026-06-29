@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The KSJACK_DESCRIPTION2 structure describes an audio jack.To get the description of an audio jack of a connector, call IKsJackDescription2::GetJackDescription2.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description2
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSJACK_DESCRIPTION2 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct KSJACK_DESCRIPTION2 {
+    #StructPack 4
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    DeviceStateInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceStateInfo : UInt32
 
     /**
      * Stores the audio jack's capabilities: jack presence detection capability 
@@ -29,10 +22,7 @@ class KSJACK_DESCRIPTION2 extends Win32Struct {
      * <li>JACKDESC2_DYNAMIC_FORMAT_CHANGE_CAPABILITY (0x00000002)
      * </li>
      * </ul>
-     * @type {Integer}
      */
-    JackCapabilities {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    JackCapabilities : UInt32
+
 }

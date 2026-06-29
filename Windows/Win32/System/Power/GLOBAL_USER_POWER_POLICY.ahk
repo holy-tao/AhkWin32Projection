@@ -1,128 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_ACTION_POLICY.ahk
-#Include .\POWER_ACTION.ahk
-#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
-#Include .\SYSTEM_POWER_LEVEL.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POWER_ACTION_POLICY_EVENT_CODE.ahk" { POWER_ACTION_POLICY_EVENT_CODE }
+#Import ".\SYSTEM_POWER_LEVEL.ahk" { SYSTEM_POWER_LEVEL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
+#Import ".\POWER_ACTION.ahk" { POWER_ACTION }
+#Import ".\POWER_ACTION_POLICY.ahk" { POWER_ACTION_POLICY }
 
 /**
  * Contains global user power policy settings that apply to all power schemes for a user.
  * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-global_user_power_policy
  * @namespace Windows.Win32.System.Power
  */
-class GLOBAL_USER_POWER_POLICY extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 4
+export default struct GLOBAL_USER_POWER_POLICY {
+    #StructPack 4
 
     /**
      * The current structure revision level. Set this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-getcurrentpowerpolicies">GetCurrentPowerPolicies</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-readglobalpwrpolicy">ReadGlobalPwrPolicy</a> before using a <b>GLOBAL_USER_POWER_POLICY</b> structure to set power policy.
-     * @type {Integer}
      */
-    Revision {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Revision : UInt32
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when the power button is pressed and the system is running on AC power.
-     * @type {POWER_ACTION_POLICY}
      */
-    PowerButtonAc {
-        get {
-            if(!this.HasProp("__PowerButtonAc"))
-                this.__PowerButtonAc := POWER_ACTION_POLICY(4, this)
-            return this.__PowerButtonAc
-        }
-    }
+    PowerButtonAc : POWER_ACTION_POLICY
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when the power button is pressed and the system is running on battery power.
-     * @type {POWER_ACTION_POLICY}
      */
-    PowerButtonDc {
-        get {
-            if(!this.HasProp("__PowerButtonDc"))
-                this.__PowerButtonDc := POWER_ACTION_POLICY(16, this)
-            return this.__PowerButtonDc
-        }
-    }
+    PowerButtonDc : POWER_ACTION_POLICY
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when the sleep button is pressed and the system is running on AC power.
-     * @type {POWER_ACTION_POLICY}
      */
-    SleepButtonAc {
-        get {
-            if(!this.HasProp("__SleepButtonAc"))
-                this.__SleepButtonAc := POWER_ACTION_POLICY(28, this)
-            return this.__SleepButtonAc
-        }
-    }
+    SleepButtonAc : POWER_ACTION_POLICY
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when the sleep button is pressed and the system is running on battery power.
-     * @type {POWER_ACTION_POLICY}
      */
-    SleepButtonDc {
-        get {
-            if(!this.HasProp("__SleepButtonDc"))
-                this.__SleepButtonDc := POWER_ACTION_POLICY(40, this)
-            return this.__SleepButtonDc
-        }
-    }
+    SleepButtonDc : POWER_ACTION_POLICY
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when the lid is closed and the system is running on AC power.
-     * @type {POWER_ACTION_POLICY}
      */
-    LidCloseAc {
-        get {
-            if(!this.HasProp("__LidCloseAc"))
-                this.__LidCloseAc := POWER_ACTION_POLICY(52, this)
-            return this.__LidCloseAc
-        }
-    }
+    LidCloseAc : POWER_ACTION_POLICY
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when the lid is closed and the system is running on battery power.
-     * @type {POWER_ACTION_POLICY}
      */
-    LidCloseDc {
-        get {
-            if(!this.HasProp("__LidCloseDc"))
-                this.__LidCloseDc := POWER_ACTION_POLICY(64, this)
-            return this.__LidCloseDc
-        }
-    }
+    LidCloseDc : POWER_ACTION_POLICY
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_level">SYSTEM_POWER_LEVEL</a> structures that defines the actions to take at system battery discharge events.
-     * @type {SYSTEM_POWER_LEVEL}
      */
-    DischargePolicy {
-        get {
-            if(!this.HasProp("__DischargePolicyProxyArray"))
-                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 76, 4, SYSTEM_POWER_LEVEL, "")
-            return this.__DischargePolicyProxyArray
-        }
-    }
+    DischargePolicy : SYSTEM_POWER_LEVEL[4]
 
     /**
      * A flag that enables or disables miscellaneous user power policy settings. This member can be one or more of the values described in 
      * <a href="https://docs.microsoft.com/windows/desktop/Power/global-flags-constants">Global Flags Constants</a>.
-     * @type {Integer}
      */
-    GlobalFlags {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    GlobalFlags : UInt32
+
 }

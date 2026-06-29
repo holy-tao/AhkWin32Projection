@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACTCTX_REQUESTED_RUN_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACTCTX_REQUESTED_RUN_LEVEL.ahk" { ACTCTX_REQUESTED_RUN_LEVEL }
 
 /**
  * The ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION structure is used by the QueryActCtxW function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_run_level_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION {
+    #StructPack 4
 
     /**
      * This parameter is reserved for future use. This parameter currently returns 0.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : UInt32
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-actctx_requested_run_level">ACTCTX_REQUESTED_RUN_LEVEL</a> enumeration value that gives the requested run level of the activation context.
-     * @type {ACTCTX_REQUESTED_RUN_LEVEL}
      */
-    RunLevel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    RunLevel : ACTCTX_REQUESTED_RUN_LEVEL
 
     /**
      * This parameter returns zero if the <b>uiAccess</b> attribute in the application manifest is false. This parameter returns a non-zero value if the <b>uiAccess</b> attribute in the manifest is true. True means that UI accessibility applications require access higher privileges.
-     * @type {Integer}
      */
-    UiAccess {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    UiAccess : UInt32
+
 }

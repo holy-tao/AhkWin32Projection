@@ -1,38 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class KTMOBJECT_CURSOR extends Win32Struct {
-    static sizeof => 24
+export default struct KTMOBJECT_CURSOR {
+    #StructPack 8
 
-    static packingSize => 8
+    LastQuery : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    LastQuery {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ObjectIdCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectIdCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ObjectIds : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    ObjectIds {
-        get {
-            if(!this.HasProp("__ObjectIdsProxyArray"))
-                this.__ObjectIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
-            return this.__ObjectIdsProxyArray
-        }
-    }
 }

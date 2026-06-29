@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DEPTH_WRITE_MASK.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
-#Include .\D3D12_DEPTH_STENCILOP_DESC.ahk
-#Include .\D3D12_STENCIL_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DEPTH_WRITE_MASK.ahk" { D3D12_DEPTH_WRITE_MASK }
+#Import ".\D3D12_DEPTH_STENCILOP_DESC.ahk" { D3D12_DEPTH_STENCILOP_DESC }
+#Import ".\D3D12_STENCIL_OP.ahk" { D3D12_STENCIL_OP }
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes depth-stencil state. (D3D12_DEPTH_STENCIL_DESC1)
@@ -96,95 +96,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct D3D12_DEPTH_STENCIL_DESC1 {
+    #StructPack 4
 
     /**
      * Specifies whether to enable depth testing. Set this member to <b>TRUE</b> to enable depth testing.
-     * @type {BOOL}
      */
-    DepthEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DepthEnable : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_depth_write_mask">D3D12_DEPTH_WRITE_MASK</a>-typed value that identifies a portion of the depth-stencil buffer that can be modified by depth data.
-     * @type {D3D12_DEPTH_WRITE_MASK}
      */
-    DepthWriteMask {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DepthWriteMask : D3D12_DEPTH_WRITE_MASK
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func">D3D12_COMPARISON_FUNC</a>-typed value that identifies a function that compares depth data against existing depth data.
-     * @type {D3D12_COMPARISON_FUNC}
      */
-    DepthFunc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DepthFunc : D3D12_COMPARISON_FUNC
 
     /**
      * Specifies whether to enable stencil testing. Set this member to <b>TRUE</b> to enable stencil testing.
-     * @type {BOOL}
      */
-    StencilEnable {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    StencilEnable : BOOL
 
     /**
      * Identify a portion of the depth-stencil buffer for reading stencil data.
-     * @type {Integer}
      */
-    StencilReadMask {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    StencilReadMask : Int8
 
     /**
      * Identify a portion of the depth-stencil buffer for writing stencil data.
-     * @type {Integer}
      */
-    StencilWriteMask {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    StencilWriteMask : Int8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc">D3D12_DEPTH_STENCILOP_DESC</a> structure that describes how to use the results of the depth test and the stencil test for pixels whose surface normal is facing towards the camera.
-     * @type {D3D12_DEPTH_STENCILOP_DESC}
      */
-    FrontFace {
-        get {
-            if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(20, this)
-            return this.__FrontFace
-        }
-    }
+    FrontFace : D3D12_DEPTH_STENCILOP_DESC
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc">D3D12_DEPTH_STENCILOP_DESC</a> structure that describes how to use the results of the depth test and the stencil test for pixels whose surface normal is facing away from the camera.
-     * @type {D3D12_DEPTH_STENCILOP_DESC}
      */
-    BackFace {
-        get {
-            if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(36, this)
-            return this.__BackFace
-        }
-    }
+    BackFace : D3D12_DEPTH_STENCILOP_DESC
 
     /**
      * TRUE to enable depth-bounds testing; otherwise, FALSE. The default value is FALSE.
-     * @type {BOOL}
      */
-    DepthBoundsTestEnable {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    DepthBoundsTestEnable : BOOL
+
 }

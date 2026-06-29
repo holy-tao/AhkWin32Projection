@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
 
 /**
  * Informs the system of the dimensions of an owner-drawn control or menu item. This allows the system to process user interaction with the control correctly.
@@ -11,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-measureitemstruct
  * @namespace Windows.Win32.UI.Controls
  */
-class MEASUREITEMSTRUCT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MEASUREITEMSTRUCT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -67,56 +64,36 @@ class MEASUREITEMSTRUCT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
-    CtlType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CtlType : DRAWITEMSTRUCT_CTL_TYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The identifier of the combo box or list box. This member is not used for a menu.
-     * @type {Integer}
      */
-    CtlID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CtlID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The identifier for a menu item or the position of a list box or combo box item. This value is specified for a list box only if it has the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-box-styles">LBS_OWNERDRAWVARIABLE</a> style; this value is specified for a combo box only if it has the <a href="https://docs.microsoft.com/windows/desktop/Controls/combo-box-styles">CBS_OWNERDRAWVARIABLE</a> style.
-     * @type {Integer}
      */
-    itemID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    itemID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The width, in pixels, of a menu item. Before returning from the message, the owner of the owner-drawn menu item must fill this member.
-     * @type {Integer}
      */
-    itemWidth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    itemWidth : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The height, in pixels, of an individual item in a list box or a menu. Before returning from the message, the owner of the owner-drawn combo box, list box, or menu item must fill out this member.
-     * @type {Integer}
      */
-    itemHeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    itemHeight : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG_PTR</a></b>
@@ -139,10 +116,7 @@ class MEASUREITEMSTRUCT extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/lb-insertstring">LB_INSERTSTRING</a>
      * </li>
      * </ul>
-     * @type {Pointer}
      */
-    itemData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    itemData : IntPtr
+
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\KSMULTIPLE_ITEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSMULTIPLE_DATA_PROP extends Win32Struct {
-    static sizeof => 24
+export default struct KSMULTIPLE_DATA_PROP {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    MultipleItem : KSMULTIPLE_ITEM
 
-    /**
-     * @type {KSMULTIPLE_ITEM}
-     */
-    MultipleItem {
-        get {
-            if(!this.HasProp("__MultipleItem"))
-                this.__MultipleItem := KSMULTIPLE_ITEM(16, this)
-            return this.__MultipleItem
-        }
-    }
 }

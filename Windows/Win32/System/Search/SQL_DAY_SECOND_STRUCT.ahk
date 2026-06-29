@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class SQL_DAY_SECOND_STRUCT extends Win32Struct {
-    static sizeof => 20
+export default struct SQL_DAY_SECOND_STRUCT {
+    #StructPack 4
 
-    static packingSize => 4
+    day : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    day {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hour : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hour {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    minute : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    minute {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    second : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    second {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    fraction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fraction {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

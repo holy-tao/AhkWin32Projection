@@ -1,45 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/ns-proofofpossessioncookieinfo-proofofpossessioncookieinfo
  * @namespace Windows.Win32.Networking.WinInet
  */
-class ProofOfPossessionCookieInfo extends Win32Struct {
-    static sizeof => 32
+export default struct ProofOfPossessionCookieInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    data : PWSTR
 
     /**
      * For example, **INTERNET_COOKIE_EVALUATE_P3P**, **INTERNET_COOKIE_HTTPONLY**, **INTERNET_COOKIE_THIRD_PARTY**. See [InternetSetCookieExA](/windows/win32/api/wininet/nf-wininet-internetsetcookieexa).
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    flags : UInt32
 
-    /**
-     * @type {PWSTR}
-     */
-    p3pHeader {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    p3pHeader : PWSTR
+
 }

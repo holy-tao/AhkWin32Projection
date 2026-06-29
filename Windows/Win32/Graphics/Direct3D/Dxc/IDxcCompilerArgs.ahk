@@ -1,54 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DxcDefine.ahk" { DxcDefine }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcCompilerArgs extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcCompilerArgs extends IUnknown {
     /**
      * The interface identifier for IDxcCompilerArgs
      * @type {Guid}
      */
-    static IID => Guid("{73effe2a-70dc-45f8-9690-eff64c02429d}")
+    static IID := Guid("{73effe2a-70dc-45f8-9690-eff64c02429d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcCompilerArgs interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetArguments     : IntPtr
+        GetCount         : IntPtr
+        AddArguments     : IntPtr
+        AddArgumentsUTF8 : IntPtr
+        AddDefines       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetArguments", "GetCount", "AddArguments", "AddArgumentsUTF8", "AddDefines"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcCompilerArgs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Pointer<PWSTR>} 
      */
     GetArguments() {
-        result := ComCall(3, this, "ptr")
+        result := ComCall(3, this, PWSTR.Ptr)
         return result
     }
 
     /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
-     * 
-     * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
+     * @returns {Integer} 
      */
     GetCount() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -85,7 +93,35 @@ class IDxcCompilerArgs extends IUnknown {
      * @returns {HRESULT} 
      */
     AddDefines(pDefines, defineCount) {
-        result := ComCall(7, this, "ptr", pDefines, "uint", defineCount, "HRESULT")
+        result := ComCall(7, this, DxcDefine.Ptr, pDefines, "uint", defineCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDxcCompilerArgs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetArguments := CallbackCreate(GetMethod(implObj, "GetArguments"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 1)
+        this.vtbl.AddArguments := CallbackCreate(GetMethod(implObj, "AddArguments"), flags, 3)
+        this.vtbl.AddArgumentsUTF8 := CallbackCreate(GetMethod(implObj, "AddArgumentsUTF8"), flags, 3)
+        this.vtbl.AddDefines := CallbackCreate(GetMethod(implObj, "AddDefines"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetArguments)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.AddArguments)
+        CallbackFree(this.vtbl.AddArgumentsUTF8)
+        CallbackFree(this.vtbl.AddDefines)
     }
 }

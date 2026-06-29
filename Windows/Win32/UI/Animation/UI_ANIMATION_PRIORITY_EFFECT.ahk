@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines potential effects on a storyboard if a priority comparison returns false.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_priority_effect
  * @namespace Windows.Win32.UI.Animation
  */
-class UI_ANIMATION_PRIORITY_EFFECT extends Win32Enum {
+export default struct UI_ANIMATION_PRIORITY_EFFECT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This storyboard might not be successfully scheduled.

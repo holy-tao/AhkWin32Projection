@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Invokes an object with an indirect reference to the invocations arguments, rather than the traditional direct call.
@@ -10,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallindirect
  * @namespace Windows.Win32.System.Com.CallObj
  */
-class ICallIndirect extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICallIndirect extends IUnknown {
     /**
      * The interface identifier for ICallIndirect
      * @type {Guid}
      */
-    static IID => Guid("{d573b4b1-894e-11d2-b8b6-00c04fb9618a}")
+    static IID := Guid("{d573b4b1-894e-11d2-b8b6-00c04fb9618a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICallIndirect interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CallIndirect  : IntPtr
+        GetMethodInfo : IntPtr
+        GetStackSize  : IntPtr
+        GetIID        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CallIndirect", "GetMethodInfo", "GetStackSize", "GetIID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICallIndirect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Invokes one of the methods in the interface with an indirect reference to the arguments of the invocation.
@@ -120,7 +134,7 @@ class ICallIndirect extends IUnknown {
     GetMethodInfo(iMethod, pInfo, pwszMethod) {
         pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", iMethod, "ptr", pInfo, pwszMethodMarshal, pwszMethod, "HRESULT")
+        result := ComCall(4, this, "uint", iMethod, CALLFRAMEINFO.Ptr, pInfo, pwszMethodMarshal, pwszMethod, "HRESULT")
         return result
     }
 
@@ -178,7 +192,33 @@ class ICallIndirect extends IUnknown {
         pcMethodMarshal := pcMethod is VarRef ? "uint*" : "ptr"
         pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", piid, pfDerivesFromIDispatchMarshal, pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, pwszInterfaceMarshal, pwszInterface, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, piid, pfDerivesFromIDispatchMarshal, pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, pwszInterfaceMarshal, pwszInterface, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICallIndirect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CallIndirect := CallbackCreate(GetMethod(implObj, "CallIndirect"), flags, 5)
+        this.vtbl.GetMethodInfo := CallbackCreate(GetMethod(implObj, "GetMethodInfo"), flags, 4)
+        this.vtbl.GetStackSize := CallbackCreate(GetMethod(implObj, "GetStackSize"), flags, 3)
+        this.vtbl.GetIID := CallbackCreate(GetMethod(implObj, "GetIID"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CallIndirect)
+        CallbackFree(this.vtbl.GetMethodInfo)
+        CallbackFree(this.vtbl.GetStackSize)
+        CallbackFree(this.vtbl.GetIID)
     }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmAction.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to generate a report in response to a quota or file screen event.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactionreport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmActionReport extends IFsrmAction {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmActionReport extends IFsrmAction {
     /**
      * The interface identifier for IFsrmActionReport
      * @type {Guid}
      */
-    static IID => Guid("{2dbe63c4-b340-48a0-a5b0-158e07fc567e}")
+    static IID := Guid("{2dbe63c4-b340-48a0-a5b0-158e07fc567e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmActionReport interfaces
+    */
+    struct Vtbl extends IFsrmAction.Vtbl {
+        get_ReportTypes : IntPtr
+        put_ReportTypes : IntPtr
+        get_MailTo      : IntPtr
+        put_MailTo      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ReportTypes", "put_ReportTypes", "get_MailTo", "put_MailTo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmActionReport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -66,7 +78,7 @@ class IFsrmActionReport extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-put_reporttypes
      */
     put_ReportTypes(reportTypes) {
-        result := ComCall(13, this, "ptr", reportTypes, "HRESULT")
+        result := ComCall(13, this, SAFEARRAY.Ptr, reportTypes, "HRESULT")
         return result
     }
 
@@ -86,8 +98,8 @@ class IFsrmActionReport extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
-        result := ComCall(14, this, "ptr", mailTo, "HRESULT")
+        mailTo := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, mailTo, "HRESULT")
         return mailTo
     }
 
@@ -110,7 +122,33 @@ class IFsrmActionReport extends IFsrmAction {
     put_MailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
 
-        result := ComCall(15, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(15, this, BSTR, mailTo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmActionReport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ReportTypes := CallbackCreate(GetMethod(implObj, "get_ReportTypes"), flags, 2)
+        this.vtbl.put_ReportTypes := CallbackCreate(GetMethod(implObj, "put_ReportTypes"), flags, 2)
+        this.vtbl.get_MailTo := CallbackCreate(GetMethod(implObj, "get_MailTo"), flags, 2)
+        this.vtbl.put_MailTo := CallbackCreate(GetMethod(implObj, "put_MailTo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ReportTypes)
+        CallbackFree(this.vtbl.put_ReportTypes)
+        CallbackFree(this.vtbl.get_MailTo)
+        CallbackFree(this.vtbl.put_MailTo)
     }
 }

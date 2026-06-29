@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class IADMEXT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IADMEXT extends IUnknown {
     /**
      * The interface identifier for IADMEXT
      * @type {Guid}
      */
-    static IID => Guid("{51dfe970-f6f2-11d0-b9bd-00a0c922e750}")
+    static IID := Guid("{51dfe970-f6f2-11d0-b9bd-00a0c922e750}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADMEXT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize     : IntPtr
+        EnumDcomCLSIDs : IntPtr
+        Terminate      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "EnumDcomCLSIDs", "Terminate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADMEXT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -67,17 +77,40 @@ class IADMEXT extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumDcomCLSIDs(pclsidDcom, dwEnumIndex) {
-        result := ComCall(4, this, "ptr", pclsidDcom, "uint", dwEnumIndex, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pclsidDcom, "uint", dwEnumIndex, "HRESULT")
         return result
     }
 
     /**
-     * Eliminates the cache and ends asynchronous I/O with the DLL.
-     * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-terminatecache
+     * 
+     * @returns {HRESULT} 
      */
     Terminate() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADMEXT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.EnumDcomCLSIDs := CallbackCreate(GetMethod(implObj, "EnumDcomCLSIDs"), flags, 3)
+        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.EnumDcomCLSIDs)
+        CallbackFree(this.vtbl.Terminate)
     }
 }

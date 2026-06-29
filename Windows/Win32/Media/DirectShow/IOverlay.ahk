@@ -1,35 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\COLORKEY.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IOverlayNotify.ahk" { IOverlayNotify }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * The IOverlay interface provides information so that a filter can write directly to video memory while placing the video in the correct window position.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ioverlay
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IOverlay extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOverlay extends IUnknown {
     /**
      * The interface identifier for IOverlay
      * @type {Guid}
      */
-    static IID => Guid("{56a868a1-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868a1-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOverlay interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPalette         : IntPtr
+        SetPalette         : IntPtr
+        GetDefaultColorKey : IntPtr
+        GetColorKey        : IntPtr
+        SetColorKey        : IntPtr
+        GetWindowHandle    : IntPtr
+        GetClipList        : IntPtr
+        GetVideoPosition   : IntPtr
+        Advise             : IntPtr
+        Unadvise           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPalette", "SetPalette", "GetDefaultColorKey", "GetColorKey", "SetColorKey", "GetWindowHandle", "GetClipList", "GetVideoPosition", "Advise", "Unadvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOverlay.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPalette method retrieves the current system palette.
@@ -58,7 +79,7 @@ class IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-setpalette
      */
     SetPalette(dwColors, pPalette) {
-        result := ComCall(4, this, "uint", dwColors, "ptr", pPalette, "HRESULT")
+        result := ComCall(4, this, "uint", dwColors, PALETTEENTRY.Ptr, pPalette, "HRESULT")
         return result
     }
 
@@ -73,7 +94,7 @@ class IOverlay extends IUnknown {
      */
     GetDefaultColorKey() {
         pColorKey := COLORKEY()
-        result := ComCall(5, this, "ptr", pColorKey, "HRESULT")
+        result := ComCall(5, this, COLORKEY.Ptr, pColorKey, "HRESULT")
         return pColorKey
     }
 
@@ -88,7 +109,7 @@ class IOverlay extends IUnknown {
      */
     GetColorKey() {
         pColorKey := COLORKEY()
-        result := ComCall(6, this, "ptr", pColorKey, "HRESULT")
+        result := ComCall(6, this, COLORKEY.Ptr, pColorKey, "HRESULT")
         return pColorKey
     }
 
@@ -105,7 +126,7 @@ class IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-setcolorkey
      */
     SetColorKey(pColorKey) {
-        result := ComCall(7, this, "ptr", pColorKey, "HRESULT")
+        result := ComCall(7, this, COLORKEY.Ptr, pColorKey, "HRESULT")
         return result
     }
 
@@ -116,7 +137,7 @@ class IOverlay extends IUnknown {
      */
     GetWindowHandle() {
         pHwnd := HWND()
-        result := ComCall(8, this, "ptr", pHwnd, "HRESULT")
+        result := ComCall(8, this, HWND.Ptr, pHwnd, "HRESULT")
         return pHwnd
     }
 
@@ -133,7 +154,7 @@ class IOverlay extends IUnknown {
     GetClipList(pSourceRect, pDestinationRect, ppRgnData) {
         ppRgnDataMarshal := ppRgnData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pSourceRect, "ptr", pDestinationRect, ppRgnDataMarshal, ppRgnData, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestinationRect, ppRgnDataMarshal, ppRgnData, "HRESULT")
         return result
     }
 
@@ -145,7 +166,7 @@ class IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getvideoposition
      */
     GetVideoPosition(pSourceRect, pDestinationRect) {
-        result := ComCall(10, this, "ptr", pSourceRect, "ptr", pDestinationRect, "HRESULT")
+        result := ComCall(10, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestinationRect, "HRESULT")
         return result
     }
 
@@ -212,5 +233,43 @@ class IOverlay extends IUnknown {
     Unadvise() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOverlay.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPalette := CallbackCreate(GetMethod(implObj, "GetPalette"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 3)
+        this.vtbl.GetDefaultColorKey := CallbackCreate(GetMethod(implObj, "GetDefaultColorKey"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 2)
+        this.vtbl.GetWindowHandle := CallbackCreate(GetMethod(implObj, "GetWindowHandle"), flags, 2)
+        this.vtbl.GetClipList := CallbackCreate(GetMethod(implObj, "GetClipList"), flags, 4)
+        this.vtbl.GetVideoPosition := CallbackCreate(GetMethod(implObj, "GetVideoPosition"), flags, 3)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPalette)
+        CallbackFree(this.vtbl.SetPalette)
+        CallbackFree(this.vtbl.GetDefaultColorKey)
+        CallbackFree(this.vtbl.GetColorKey)
+        CallbackFree(this.vtbl.SetColorKey)
+        CallbackFree(this.vtbl.GetWindowHandle)
+        CallbackFree(this.vtbl.GetClipList)
+        CallbackFree(this.vtbl.GetVideoPosition)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
     }
 }

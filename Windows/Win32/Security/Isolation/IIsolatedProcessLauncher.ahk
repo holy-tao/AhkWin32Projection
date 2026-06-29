@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Security.Isolation
  */
-class IIsolatedProcessLauncher extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IIsolatedProcessLauncher extends IUnknown {
     /**
      * The interface identifier for IIsolatedProcessLauncher
      * @type {Guid}
      */
-    static IID => Guid("{1aa24232-9a91-4201-88cb-122f9d6522e0}")
+    static IID := Guid("{1aa24232-9a91-4201-88cb-122f9d6522e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIsolatedProcessLauncher interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LaunchProcess            : IntPtr
+        ShareDirectory           : IntPtr
+        GetContainerGuid         : IntPtr
+        AllowSetForegroundAccess : IntPtr
+        IsContainerRunning       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LaunchProcess", "ShareDirectory", "GetContainerGuid", "AllowSetForegroundAccess", "IsContainerRunning"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIsolatedProcessLauncher.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -55,7 +68,7 @@ class IIsolatedProcessLauncher extends IUnknown {
         hostPath := hostPath is String ? StrPtr(hostPath) : hostPath
         containerPath := containerPath is String ? StrPtr(containerPath) : containerPath
 
-        result := ComCall(4, this, "ptr", hostPath, "ptr", containerPath, "int", readOnly, "HRESULT")
+        result := ComCall(4, this, "ptr", hostPath, "ptr", containerPath, BOOL, readOnly, "HRESULT")
         return result
     }
 
@@ -65,7 +78,7 @@ class IIsolatedProcessLauncher extends IUnknown {
      */
     GetContainerGuid() {
         guid := Guid()
-        result := ComCall(5, this, "ptr", guid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guid, "HRESULT")
         return guid
     }
 
@@ -84,7 +97,35 @@ class IIsolatedProcessLauncher extends IUnknown {
      * @returns {BOOL} 
      */
     IsContainerRunning() {
-        result := ComCall(7, this, "int*", &running := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &running := 0, "HRESULT")
         return running
+    }
+
+    Query(iid) {
+        if (IIsolatedProcessLauncher.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LaunchProcess := CallbackCreate(GetMethod(implObj, "LaunchProcess"), flags, 4)
+        this.vtbl.ShareDirectory := CallbackCreate(GetMethod(implObj, "ShareDirectory"), flags, 4)
+        this.vtbl.GetContainerGuid := CallbackCreate(GetMethod(implObj, "GetContainerGuid"), flags, 2)
+        this.vtbl.AllowSetForegroundAccess := CallbackCreate(GetMethod(implObj, "AllowSetForegroundAccess"), flags, 2)
+        this.vtbl.IsContainerRunning := CallbackCreate(GetMethod(implObj, "IsContainerRunning"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LaunchProcess)
+        CallbackFree(this.vtbl.ShareDirectory)
+        CallbackFree(this.vtbl.GetContainerGuid)
+        CallbackFree(this.vtbl.AllowSetForegroundAccess)
+        CallbackFree(this.vtbl.IsContainerRunning)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the module load address, size, and entry point.
@@ -9,35 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-moduleinfo
  * @namespace Windows.Win32.System.ProcessStatus
  */
-class MODULEINFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MODULEINFO {
+    #StructPack 8
 
     /**
      * The load address of the module.
-     * @type {Pointer<Void>}
      */
-    lpBaseOfDll {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpBaseOfDll : IntPtr
 
     /**
      * The size of the linear space that the module occupies, in bytes.
-     * @type {Integer}
      */
-    SizeOfImage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SizeOfImage : UInt32
 
     /**
      * The entry point of the module.
-     * @type {Pointer<Void>}
      */
-    EntryPoint {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    EntryPoint : IntPtr
+
 }

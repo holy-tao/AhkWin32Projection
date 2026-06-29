@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CIECHROMA structure is used to describe the chromaticity coordinates, x and y, and the luminance, Y in CIE color space.
@@ -14,35 +13,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ciechroma
  * @namespace Windows.Win32.Devices.Display
  */
-class CIECHROMA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct CIECHROMA {
+    #StructPack 4
 
     /**
      * Specifies the x-coordinate in CIE chromaticity space.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    x : Int32
 
     /**
      * Specifies the y-coordinate in CIE chromaticity space.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    y : Int32
 
     /**
      * Specifies the luminance. For more information, see the following Remarks section.
-     * @type {Integer}
      */
-    Y1 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Y1 : Int32
+
 }

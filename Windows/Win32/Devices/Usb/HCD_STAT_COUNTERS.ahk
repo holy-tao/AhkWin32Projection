@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class HCD_STAT_COUNTERS extends Win32Struct {
-    static sizeof => 24
+export default struct HCD_STAT_COUNTERS {
+    #StructPack 4
 
-    static packingSize => 4
+    BytesTransferred : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesTransferred {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IsoMissedCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    IsoMissedCount {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    DataOverrunErrorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DataOverrunErrorCount {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    CrcErrorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CrcErrorCount {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ScheduleOverrunCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ScheduleOverrunCount {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    TimeoutErrorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TimeoutErrorCount {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    InternalHcErrorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InternalHcErrorCount {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    BufferOverrunErrorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BufferOverrunErrorCount {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    SWErrorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SWErrorCount {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    StallPidCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StallPidCount {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    PortDisableCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PortDisableCount {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
 }

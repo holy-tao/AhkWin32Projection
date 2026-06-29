@@ -1,36 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TfLBBalloonStyle.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TfLBBalloonStyle.ahk" { TfLBBalloonStyle }
 
 /**
  * The TF_LBBALLOONINFO structure contains information about a language bar balloon item.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ns-ctfutb-tf_lbballooninfo
  * @namespace Windows.Win32.UI.TextServices
  */
-class TF_LBBALLOONINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct TF_LBBALLOONINFO {
+    #StructPack 8
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> values that specify the type of balloon to display.
-     * @type {TfLBBalloonStyle}
      */
-    style {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    style : TfLBBalloonStyle
 
     /**
      * Contains a <b>BSTR</b> that contains the string for the balloon. This string must be allocated using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> function. The caller free this buffer when it is no longer required by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {BSTR}
      */
-    bstrText {
-        get {
-            if(!this.HasProp("__bstrText"))
-                this.__bstrText := BSTR(8, this)
-            return this.__bstrText
-        }
-    }
+    bstrText : BSTR
+
 }

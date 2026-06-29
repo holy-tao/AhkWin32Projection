@@ -1,98 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct {
-    static sizeof => 96
+export default struct D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {HANDLE}
-     */
-    hNtHandle {
-        get {
-            if(!this.HasProp("__hNtHandle"))
-                this.__hNtHandle := HANDLE(0, this)
-            return this.__hNtHandle
-        }
+    struct _MonitoredFence {
+        FenceValueCPUVirtualAddress : IntPtr
+
+        FenceValueGPUVirtualAddress : Int64
+
+        EngineAffinity : UInt32
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    hNtHandle : HANDLE
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hSyncObject {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Flags : IntPtr
 
-    class _MonitoredFence extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    hSyncObject : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        FenceValueCPUVirtualAddress {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    MonitoredFence : D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2._MonitoredFence
 
-        /**
-         * @type {Integer}
-         */
-        FenceValueGPUVirtualAddress {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        EngineAffinity {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-    }
-
-    /**
-     * @type {_MonitoredFence}
-     */
-    MonitoredFence {
-        get {
-            if(!this.HasProp("__MonitoredFence"))
-                this.__MonitoredFence := D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2._MonitoredFence(32, this)
-            return this.__MonitoredFence
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved', { type: Int64[8], offset: 32 })
+        this.DeleteProp("__New")
     }
 }

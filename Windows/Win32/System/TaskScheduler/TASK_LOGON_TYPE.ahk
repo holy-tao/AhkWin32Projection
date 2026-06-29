@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines what logon technique is required to run a task.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_logon_type
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TASK_LOGON_TYPE extends Win32Enum {
+export default struct TASK_LOGON_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The logon method is not specified. Used for non-NT credentials.

@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DVD_DECODER_CAPS structure indicates the capabilities of a DVD decoder.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_decoder_caps
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_DECODER_CAPS extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DVD_DECODER_CAPS {
+    #StructPack 8
 
     /**
      * Size of this structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Bitwise <b>OR</b> of flags indicating which audio formats are supported. The following flags are defined.
@@ -84,100 +77,57 @@ class DVD_DECODER_CAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwAudioCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAudioCaps : UInt32
 
     /**
      * Maximum video data rate in forward direction.
-     * @type {Float}
      */
-    dFwdMaxRateVideo {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
+    dFwdMaxRateVideo : Float64
 
     /**
      * Maximum audio data rate in forward direction.
-     * @type {Float}
      */
-    dFwdMaxRateAudio {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
+    dFwdMaxRateAudio : Float64
 
     /**
      * Maximum subpicture data rate in forward direction.
-     * @type {Float}
      */
-    dFwdMaxRateSP {
-        get => NumGet(this, 24, "double")
-        set => NumPut("double", value, this, 24)
-    }
+    dFwdMaxRateSP : Float64
 
     /**
      * Maximum video data rate in reverse direction. (0 if decoder does not support the smooth reverse mechanism.)
-     * @type {Float}
      */
-    dBwdMaxRateVideo {
-        get => NumGet(this, 32, "double")
-        set => NumPut("double", value, this, 32)
-    }
+    dBwdMaxRateVideo : Float64
 
     /**
      * Maximum audio data rate in reverse direction. (0 if decoder does not support the smooth reverse mechanism.)
-     * @type {Float}
      */
-    dBwdMaxRateAudio {
-        get => NumGet(this, 40, "double")
-        set => NumPut("double", value, this, 40)
-    }
+    dBwdMaxRateAudio : Float64
 
     /**
      * Maximum subpicture data rate in reverse direction. (0 if decoder does not support the smooth reverse mechanism.)
-     * @type {Float}
      */
-    dBwdMaxRateSP {
-        get => NumGet(this, 48, "double")
-        set => NumPut("double", value, this, 48)
-    }
+    dBwdMaxRateSP : Float64
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwRes1 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwRes1 : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwRes2 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwRes2 : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwRes3 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwRes3 : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwRes4 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwRes4 : UInt32
+
 }

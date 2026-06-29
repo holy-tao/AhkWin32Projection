@@ -1,121 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Qualifier.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 
 /**
  * Represents a class property (element) in a class's declaration.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_propertydecl
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_PropertyDecl extends Win32Struct {
-    static sizeof => 72
+export default struct MI_PropertyDecl {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
 
     /**
      * Hash code: (name[0] &lt;&lt; 16) | (name[len-1] &lt;&lt; 8) | len
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    code : UInt32
 
     /**
      * Name of this property.
-     * @type {Pointer<Integer>}
      */
-    name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    name : IntPtr
 
     /**
      * Qualifier set for this property.
-     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
-    qualifiers {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    qualifiers : IntPtr
 
     /**
      * Number of qualifiers.
-     * @type {Integer}
      */
-    numQualifiers {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    numQualifiers : UInt32
 
     /**
      * Type of  property.
-     * @type {Integer}
      */
-    type {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    type : UInt32
 
     /**
      * Name of reference class or embedded instance class name.
-     * @type {Pointer<Integer>}
      */
-    className {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    className : IntPtr
 
     /**
      * If property is a fixed length array, then this value will hold the length of the array.
-     * @type {Integer}
      */
-    subscript {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    subscript : UInt32
 
     /**
      * Offset of this property field from the start of the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_instance">MI_Instance</a>.
-     * @type {Integer}
      */
-    offset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    offset : UInt32
 
     /**
      * Ancestor class that first defined a property with this name.
-     * @type {Pointer<Integer>}
      */
-    origin {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    origin : IntPtr
 
     /**
      * Ancestor class that last defined a property with this name.
-     * @type {Pointer<Integer>}
      */
-    propagator {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    propagator : IntPtr
 
     /**
      * Default value of this property.
-     * @type {Pointer<Void>}
      */
-    value {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    value : IntPtr
+
 }

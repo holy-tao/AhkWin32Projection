@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PSS_PROCESS_FLAGS.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PSS_PROCESS_FLAGS.ahk" { PSS_PROCESS_FLAGS }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Holds process information returned by PssQuerySnapshot.
@@ -10,254 +10,137 @@
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_process_information
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  */
-class PSS_PROCESS_INFORMATION extends Win32Struct {
-    static sizeof => 704
-
-    static packingSize => 8
+export default struct PSS_PROCESS_INFORMATION {
+    #StructPack 8
 
     /**
      * The exit code of the process. If the process has not exited, this is set to <b>STILL_ACTIVE</b> (259).
-     * @type {Integer}
      */
-    ExitStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ExitStatus : UInt32
 
     /**
      * The address to the process environment block (PEB). Reserved for use by the operating system.
-     * @type {Pointer<Void>}
      */
-    PebBaseAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PebBaseAddress : IntPtr
 
     /**
      * The affinity mask of the process.
-     * @type {Pointer}
      */
-    AffinityMask {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AffinityMask : IntPtr
 
     /**
      * The base priority level of the process.
-     * @type {Integer}
      */
-    BasePriority {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    BasePriority : Int32
 
     /**
      * The process ID.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ProcessId : UInt32
 
     /**
      * The parent process ID.
-     * @type {Integer}
      */
-    ParentProcessId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ParentProcessId : UInt32
 
     /**
      * Flags about the process. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_process_flags">PSS_PROCESS_FLAGS</a>.
-     * @type {PSS_PROCESS_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    Flags : PSS_PROCESS_FLAGS
 
     /**
      * The time the process was created. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    CreateTime {
-        get {
-            if(!this.HasProp("__CreateTime"))
-                this.__CreateTime := FILETIME(40, this)
-            return this.__CreateTime
-        }
-    }
+    CreateTime : FILETIME
 
     /**
      * If the process exited, the time of the exit. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    ExitTime {
-        get {
-            if(!this.HasProp("__ExitTime"))
-                this.__ExitTime := FILETIME(48, this)
-            return this.__ExitTime
-        }
-    }
+    ExitTime : FILETIME
 
     /**
      * The amount of time the process spent executing in kernel-mode. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    KernelTime {
-        get {
-            if(!this.HasProp("__KernelTime"))
-                this.__KernelTime := FILETIME(56, this)
-            return this.__KernelTime
-        }
-    }
+    KernelTime : FILETIME
 
     /**
      * The amount of time the process spent executing in user-mode. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @type {FILETIME}
      */
-    UserTime {
-        get {
-            if(!this.HasProp("__UserTime"))
-                this.__UserTime := FILETIME(64, this)
-            return this.__UserTime
-        }
-    }
+    UserTime : FILETIME
 
     /**
      * The priority class.
-     * @type {Integer}
      */
-    PriorityClass {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    PriorityClass : UInt32
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    PeakVirtualSize {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    PeakVirtualSize : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    VirtualSize {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    VirtualSize : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Integer}
      */
-    PageFaultCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    PageFaultCount : UInt32
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    PeakWorkingSetSize {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    PeakWorkingSetSize : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    WorkingSetSize {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    WorkingSetSize : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    QuotaPeakPagedPoolUsage {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    QuotaPeakPagedPoolUsage : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    QuotaPagedPoolUsage {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    QuotaPagedPoolUsage : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    QuotaPeakNonPagedPoolUsage {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    QuotaPeakNonPagedPoolUsage : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    QuotaNonPagedPoolUsage {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    QuotaNonPagedPoolUsage : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    PagefileUsage {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    PagefileUsage : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    PeakPagefileUsage {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    PeakPagefileUsage : IntPtr
 
     /**
      * A memory usage counter. See the <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo">GetProcessMemoryInfo</a> function for more information.
-     * @type {Pointer}
      */
-    PrivateUsage {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    PrivateUsage : IntPtr
 
     /**
      * Reserved for use by the operating system.
-     * @type {Integer}
      */
-    ExecuteFlags {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    ExecuteFlags : UInt32
 
     /**
      * The full path to the process executable. If the path exceeds the allocated buffer size, it is truncated.
-     * @type {String}
      */
-    ImageFileName {
-        get => StrGet(this.ptr + 180, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 180, 259, "UTF-16")
-    }
+    ImageFileName : WCHAR[260]
+
 }

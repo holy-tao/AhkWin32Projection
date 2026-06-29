@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves the code and description for errors and warnings returned by various operations.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsresult
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class ISettingsResult extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISettingsResult extends IUnknown {
     /**
      * The interface identifier for ISettingsResult
      * @type {Guid}
      */
-    static IID => Guid("{9f7d7bbc-20b3-11da-81a5-0030f1642e3c}")
+    static IID := Guid("{9f7d7bbc-20b3-11da-81a5-0030f1642e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISettingsResult interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDescription        : IntPtr
+        GetErrorCode          : IntPtr
+        GetContextDescription : IntPtr
+        GetLine               : IntPtr
+        GetColumn             : IntPtr
+        GetSource             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDescription", "GetErrorCode", "GetContextDescription", "GetLine", "GetColumn", "GetSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISettingsResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the description of the error.
@@ -36,8 +49,8 @@ class ISettingsResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getdescription
      */
     GetDescription() {
-        description := BSTR()
-        result := ComCall(3, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -57,8 +70,8 @@ class ISettingsResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcontextdescription
      */
     GetContextDescription() {
-        description := BSTR()
-        result := ComCall(5, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -88,8 +101,38 @@ class ISettingsResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getsource
      */
     GetSource() {
-        _file := BSTR()
-        result := ComCall(8, this, "ptr", _file, "HRESULT")
+        _file := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, _file, "HRESULT")
         return _file
+    }
+
+    Query(iid) {
+        if (ISettingsResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetErrorCode := CallbackCreate(GetMethod(implObj, "GetErrorCode"), flags, 2)
+        this.vtbl.GetContextDescription := CallbackCreate(GetMethod(implObj, "GetContextDescription"), flags, 2)
+        this.vtbl.GetLine := CallbackCreate(GetMethod(implObj, "GetLine"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.GetErrorCode)
+        CallbackFree(this.vtbl.GetContextDescription)
+        CallbackFree(this.vtbl.GetLine)
+        CallbackFree(this.vtbl.GetColumn)
+        CallbackFree(this.vtbl.GetSource)
     }
 }

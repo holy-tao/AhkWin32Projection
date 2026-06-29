@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumMcastScope.ahk
-#Include .\IMcastLeaseInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMcastLeaseInfo.ahk" { IMcastLeaseInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumMcastScope.ahk" { IEnumMcastScope }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMcastScope.ahk" { IMcastScope }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * IMcastAddressAllocation is the main interface for multicast address allocation. An application calls the COM CoCreateInstance function on this interface to create the multicast client interface object.
@@ -19,32 +23,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nn-mdhcp-imcastaddressallocation
  * @namespace Windows.Win32.Devices.Tapi
  */
-class IMcastAddressAllocation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMcastAddressAllocation extends IDispatch {
     /**
      * The interface identifier for IMcastAddressAllocation
      * @type {Guid}
      */
-    static IID => Guid("{df0daef1-a289-11d1-8697-006008b0e5d2}")
+    static IID := Guid("{df0daef1-a289-11d1-8697-006008b0e5d2}")
 
     /**
      * The class identifier for McastAddressAllocation
      * @type {Guid}
      */
-    static CLSID => Guid("{df0daef2-a289-11d1-8697-006008b0e5d2}")
+    static CLSID := Guid("{df0daef2-a289-11d1-8697-006008b0e5d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMcastAddressAllocation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Scopes                 : IntPtr
+        EnumerateScopes            : IntPtr
+        RequestAddress             : IntPtr
+        RenewAddress               : IntPtr
+        ReleaseAddress             : IntPtr
+        CreateLeaseInfo            : IntPtr
+        CreateLeaseInfoFromVariant : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Scopes", "EnumerateScopes", "RequestAddress", "RenewAddress", "ReleaseAddress", "CreateLeaseInfo", "CreateLeaseInfoFromVariant"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMcastAddressAllocation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -66,7 +83,7 @@ class IMcastAddressAllocation extends IDispatch {
      */
     get_Scopes() {
         pVariant := VARIANT()
-        result := ComCall(7, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -239,7 +256,39 @@ class IMcastAddressAllocation extends IDispatch {
         pRequestID := pRequestID is String ? BSTR.Alloc(pRequestID).Value : pRequestID
         pServerAddress := pServerAddress is String ? BSTR.Alloc(pServerAddress).Value : pServerAddress
 
-        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, "ptr", vAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, VARIANT, vAddresses, BSTR, pRequestID, BSTR, pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
         return IMcastLeaseInfo(ppReleaseRequest)
+    }
+
+    Query(iid) {
+        if (IMcastAddressAllocation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Scopes := CallbackCreate(GetMethod(implObj, "get_Scopes"), flags, 2)
+        this.vtbl.EnumerateScopes := CallbackCreate(GetMethod(implObj, "EnumerateScopes"), flags, 2)
+        this.vtbl.RequestAddress := CallbackCreate(GetMethod(implObj, "RequestAddress"), flags, 6)
+        this.vtbl.RenewAddress := CallbackCreate(GetMethod(implObj, "RenewAddress"), flags, 4)
+        this.vtbl.ReleaseAddress := CallbackCreate(GetMethod(implObj, "ReleaseAddress"), flags, 2)
+        this.vtbl.CreateLeaseInfo := CallbackCreate(GetMethod(implObj, "CreateLeaseInfo"), flags, 8)
+        this.vtbl.CreateLeaseInfoFromVariant := CallbackCreate(GetMethod(implObj, "CreateLeaseInfoFromVariant"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Scopes)
+        CallbackFree(this.vtbl.EnumerateScopes)
+        CallbackFree(this.vtbl.RequestAddress)
+        CallbackFree(this.vtbl.RenewAddress)
+        CallbackFree(this.vtbl.ReleaseAddress)
+        CallbackFree(this.vtbl.CreateLeaseInfo)
+        CallbackFree(this.vtbl.CreateLeaseInfoFromVariant)
     }
 }

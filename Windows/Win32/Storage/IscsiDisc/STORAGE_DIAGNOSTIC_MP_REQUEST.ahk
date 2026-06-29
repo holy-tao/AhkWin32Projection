@@ -1,80 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MP_STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk
-#Include .\MP_STORAGE_DIAGNOSTIC_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MP_STORAGE_DIAGNOSTIC_LEVEL.ahk" { MP_STORAGE_DIAGNOSTIC_LEVEL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MP_STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk" { MP_STORAGE_DIAGNOSTIC_TARGET_TYPE }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct {
-    static sizeof => 40
+export default struct STORAGE_DIAGNOSTIC_MP_REQUEST {
+    #StructPack 4
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TargetType : MP_STORAGE_DIAGNOSTIC_TARGET_TYPE
 
-    /**
-     * @type {MP_STORAGE_DIAGNOSTIC_TARGET_TYPE}
-     */
-    TargetType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Level : MP_STORAGE_DIAGNOSTIC_LEVEL
 
-    /**
-     * @type {MP_STORAGE_DIAGNOSTIC_LEVEL}
-     */
-    Level {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ProviderId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProviderId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DataBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DataBuffer {
-        get {
-            if(!this.HasProp("__DataBufferProxyArray"))
-                this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__DataBufferProxyArray
-        }
-    }
 }

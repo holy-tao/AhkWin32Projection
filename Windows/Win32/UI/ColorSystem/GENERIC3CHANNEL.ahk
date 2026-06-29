@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * TBD (GENERIC3CHANNEL)
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-generic3channel
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class GENERIC3CHANNEL extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct GENERIC3CHANNEL {
+    #StructPack 2
 
     /**
      * TBD
-     * @type {Integer}
      */
-    ch1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ch1 : UInt16
 
     /**
      * TBD
-     * @type {Integer}
      */
-    ch2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ch2 : UInt16
 
     /**
      * TBD
-     * @type {Integer}
      */
-    ch3 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ch3 : UInt16
+
 }

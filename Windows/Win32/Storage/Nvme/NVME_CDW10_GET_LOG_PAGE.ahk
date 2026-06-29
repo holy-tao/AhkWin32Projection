@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NVME_CDW10_GET_LOG_PAGE structure contains parameters for the Get Log Page command that returns a data buffer containing the requested log page.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_get_log_page
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW10_GET_LOG_PAGE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_CDW10_GET_LOG_PAGE {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -17,12 +14,9 @@ class NVME_CDW10_GET_LOG_PAGE extends Win32Struct {
      * - Reserved0
      * - NUMD
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -55,12 +49,8 @@ class NVME_CDW10_GET_LOG_PAGE extends Win32Struct {
         get => (this._bitfield >> 28) & 0xF
         set => this._bitfield := ((value & 0xF) << 28) | (this._bitfield & ~(0xF << 28))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

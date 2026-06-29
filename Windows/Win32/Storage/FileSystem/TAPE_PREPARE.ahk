@@ -1,30 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PREPARE_TAPE_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PREPARE_TAPE_OPERATION.ahk" { PREPARE_TAPE_OPERATION }
 
 /**
  * Describes how to prepare the tape.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_prepare
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class TAPE_PREPARE extends Win32Struct {
-    static sizeof => 8
+export default struct TAPE_PREPARE {
+    #StructPack 4
 
-    static packingSize => 4
+    Operation : PREPARE_TAPE_OPERATION
 
-    /**
-     * @type {PREPARE_TAPE_OPERATION}
-     */
-    Operation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Immediate : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Immediate {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

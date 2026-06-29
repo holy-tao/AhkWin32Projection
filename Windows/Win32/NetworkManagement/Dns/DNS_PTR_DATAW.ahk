@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DNS_PTR_DATA structure represents a DNS pointer (PTR) record as specified in section 3.3.12 of RFC 1035. (Unicode)
@@ -18,17 +18,12 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset Unicode
  */
-class DNS_PTR_DATAW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct DNS_PTR_DATAW {
+    #StructPack 8
 
     /**
      * A pointer to a string that represents the pointer (PTR) record data.
-     * @type {PWSTR}
      */
-    pNameHost {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNameHost : PWSTR
+
 }

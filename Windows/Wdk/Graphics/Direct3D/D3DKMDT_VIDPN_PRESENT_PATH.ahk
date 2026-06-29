@@ -1,102 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE.ahk
-#Include .\D3DKMDT_COLOR_BASIS.ahk
-#Include .\D3DKMDT_VIDPN_PRESENT_PATH_CONTENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE.ahk" { D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE }
+#Import ".\D3DKMDT_VIDPN_PRESENT_PATH_CONTENT.ahk" { D3DKMDT_VIDPN_PRESENT_PATH_CONTENT }
+#Import ".\D3DKMDT_COLOR_BASIS.ahk" { D3DKMDT_COLOR_BASIS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct {
-    static sizeof => 80
+export default struct D3DKMDT_VIDPN_PRESENT_PATH {
+    #StructPack 8
 
-    static packingSize => 8
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VidPnTargetId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnTargetId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ImportanceOrdinal : D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE
 
-    /**
-     * @type {D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE}
-     */
-    ImportanceOrdinal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ContentTransformation : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ContentTransformation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    VisibleFromActiveTLOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VisibleFromActiveTLOffset {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    VisibleFromActiveBROffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VisibleFromActiveBROffset {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    VidPnTargetColorBasis : D3DKMDT_COLOR_BASIS
 
-    /**
-     * @type {D3DKMDT_COLOR_BASIS}
-     */
-    VidPnTargetColorBasis {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    VidPnTargetColorCoeffDynamicRanges : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VidPnTargetColorCoeffDynamicRanges {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Content : D3DKMDT_VIDPN_PRESENT_PATH_CONTENT
 
-    /**
-     * @type {D3DKMDT_VIDPN_PRESENT_PATH_CONTENT}
-     */
-    Content {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    CopyProtection : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CopyProtection {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    GammaRamp : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    GammaRamp {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

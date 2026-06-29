@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER extends Win32Struct {
-    static sizeof => 20
+export default struct NCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    magic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    magic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbHeader : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbHeader {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbPublic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPublic {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbPrivate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPrivate {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

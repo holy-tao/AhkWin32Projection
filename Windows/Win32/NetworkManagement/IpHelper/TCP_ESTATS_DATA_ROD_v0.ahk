@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on data transfer for a TCP connection.
@@ -168,10 +167,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_data_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct TCP_ESTATS_DATA_ROD_v0 {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG64</b>
@@ -179,24 +176,16 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      * The number of octets of data contained in transmitted
      *            segments, including retransmitted data.  Note that this does
      *            not include TCP headers.
-     * @type {Integer}
      */
-    DataBytesOut {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataBytesOut : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of segments sent containing a positive length
      *            data segment.
-     * @type {Integer}
      */
-    DataSegsOut {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataSegsOut : Int64
 
     /**
      * Type: <b>ULONG64</b>
@@ -204,46 +193,30 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      * The number of octets contained in received data segments,
      *            including retransmitted data.  Note that this does not
      *            include TCP headers.
-     * @type {Integer}
      */
-    DataBytesIn {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DataBytesIn : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of segments received containing a positive
      *  length data segment.
-     * @type {Integer}
      */
-    DataSegsIn {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DataSegsIn : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The total number of segments sent.
-     * @type {Integer}
      */
-    SegsOut {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SegsOut : Int64
 
     /**
      * Type: <b></b>
      * 
      * The total number of segments received.
-     * @type {Integer}
      */
-    SegsIn {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SegsIn : Int64
 
     /**
      * Type: <b>ULONG</b>
@@ -253,36 +226,24 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      *            segment to be discarded but some do not.  Some of these soft
      *            errors cause the generation of a TCP acknowledgment, while
      *            others are silently discarded.
-     * @type {Integer}
      */
-    SoftErrors {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SoftErrors : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * A value that identifies which consistency test most recently
      *            failed during TCP input processing.  This object is set every time the <b>SoftErrors</b> member is incremented.
-     * @type {Integer}
      */
-    SoftErrorReason {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    SoftErrorReason : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The value of the oldest unacknowledged sequence
      *            number. Note that this member is a TCP state variable.
-     * @type {Integer}
      */
-    SndUna {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    SndUna : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -291,12 +252,8 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      *            Note that this member is not monotonic (and thus not
      *            a counter), because TCP sometimes retransmits lost data by
      *            pulling the member back to the missing data.
-     * @type {Integer}
      */
-    SndNxt {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    SndNxt : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -304,12 +261,8 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      * The farthest forward (right most or largest) sequence number to be sent.
      *            Note that this will be equal to the <b>SndNxt</b> member except
      *            when the <b>SndNxt</b> member is pulled back during recovery.
-     * @type {Integer}
      */
-    SndMax {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SndMax : UInt32
 
     /**
      * Type: <b>ULONG64</b>
@@ -317,12 +270,8 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      * The number of octets for which cumulative acknowledgments
      *            have been received.  Note that this will be the sum of
      *            changes to the <b>SndNxt</b> member.
-     * @type {Integer}
      */
-    ThruBytesAcked {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ThruBytesAcked : Int64
 
     /**
      * Type: <b>ULONG</b>
@@ -331,12 +280,8 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      *            Note that this member is not monotonic (and thus not
      *            a counter), because TCP sometimes retransmits lost data by
      *            pulling the member back to the missing data.
-     * @type {Integer}
      */
-    RcvNxt {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    RcvNxt : UInt32
 
     /**
      * Type: <b>ULONG64</b>
@@ -344,10 +289,7 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct {
      * The number of octets for which cumulative acknowledgments
      *            have been sent.  Note that this will be the sum of changes
      *            to the <b>RcvNxt</b> member.
-     * @type {Integer}
      */
-    ThruBytesReceived {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ThruBytesReceived : Int64
+
 }

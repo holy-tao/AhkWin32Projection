@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a memory region.
@@ -35,52 +34,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/memoryapi/ns-memoryapi-win32_memory_region_information
  * @namespace Windows.Win32.System.Memory
  */
-class WIN32_MEMORY_REGION_INFORMATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WIN32_MEMORY_REGION_INFORMATION {
+    #StructPack 8
 
     /**
      * The base address of the allocation.
-     * @type {Pointer<Void>}
      */
-    AllocationBase {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AllocationBase : IntPtr
 
     /**
      * The page protection value that was specified when the allocation was created. Protections of individual pages within the allocation can be different from this value. To query protection values of individual pages, use the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualquery">VirtualQuery</a> function.
-     * @type {Integer}
      */
-    AllocationProtect {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AllocationProtect : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
-    /**
-     * This bitfield backs the following members:
-     * - Private
-     * - MappedDataFile
-     * - MappedImage
-     * - MappedPageFile
-     * - MappedPhysical
-     * - DirectMapped
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 
     /**
      * @type {Integer}
@@ -129,22 +97,18 @@ class WIN32_MEMORY_REGION_INFORMATION extends Win32Struct {
         get => (this._bitfield >> 5) & 0x1
         set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
     }
-
     /**
      * The size of the allocation.
-     * @type {Pointer}
      */
-    RegionSize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    RegionSize : IntPtr
 
     /**
      * The commit charge associated with the allocation. For private allocations, this is the combined size of pages in the region that are committed, as opposed to reserved. For mapped views, this is the combined size of pages that have copy-on-write protection, or have been made private as a result of copy-on-write.
-     * @type {Pointer}
      */
-    CommitSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    CommitSize : IntPtr
+
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 12 })
+        this.DeleteProp("__New")
     }
 }

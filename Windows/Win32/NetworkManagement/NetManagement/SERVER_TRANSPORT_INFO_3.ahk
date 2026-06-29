@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SERVER_TRANSPORT_INFO_3 structure contains information about the specified transport protocol, including name, address and password (credentials). This information level is valid only for the NetServerTransportAddEx function.
@@ -25,21 +25,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_transport_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
-    static sizeof => 312
-
-    static packingSize => 8
+export default struct SERVER_TRANSPORT_INFO_3 {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of clients connected to the server that are using the transport protocol specified by the <b>svti3_transportname</b> member.
-     * @type {Integer}
      */
-    svti3_numberofvcs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    svti3_numberofvcs : UInt32
 
     /**
      * Type: <b>LMSTR</b>
@@ -53,12 +47,8 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    svti3_transportname {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    svti3_transportname : PWSTR
 
     /**
      * Type: <b>LPBYTE</b>
@@ -66,20 +56,10 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
      * A pointer to a variable that contains the address the server is using on the transport device specified by the <b>svti3_transportname</b> member.
      * 
      * This member is usually the NetBIOS name that the server is using. In these instances, the name must be 16 characters long, and the last character must be a blank character (0x20).
-     * @type {Pointer<Integer>}
      */
-    svti3_transportaddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    svti3_transportaddress : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    svti3_transportaddresslength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    svti3_transportaddresslength : UInt32
 
     /**
      * Type: <b>LMSTR</b>
@@ -92,12 +72,8 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    svti3_networkaddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    svti3_networkaddress : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -106,12 +82,8 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportenum">NetServerTransportEnum</a>, this member is the name of the domain to which the server is announcing its presence.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    svti3_domain {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    svti3_domain : PWSTR
 
     /**
      * Type: <b>ULONG</b>
@@ -154,35 +126,21 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    svti3_flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    svti3_flags : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of valid bytes in the <b>svti3_password</b> member.
-     * @type {Integer}
      */
-    svti3_passwordlength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    svti3_passwordlength : UInt32
 
     /**
      * Type: <b>BYTE[256]</b>
      * 
      * The credentials to use for the new transport address. If the <b>svti3_passwordlength</b> member is zero, the credentials for the server are used.
-     * @type {Array<Integer>}
      */
-    svti3_password {
-        get {
-            if(!this.HasProp("__svti3_passwordProxyArray"))
-                this.__svti3_passwordProxyArray := Win32FixedArray(this.ptr + 56, 256, Primitive, "char")
-            return this.__svti3_passwordProxyArray
-        }
-    }
+    svti3_password : Int8[256]
+
 }

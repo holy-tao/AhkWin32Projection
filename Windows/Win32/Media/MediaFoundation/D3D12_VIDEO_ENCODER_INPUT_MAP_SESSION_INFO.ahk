@@ -1,109 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk" { D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk" { D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk" { D3D12_VIDEO_ENCODER_LEVELS_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk" { D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk" { D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk" { D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk" { D3D12_VIDEO_ENCODER_PROFILE_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk" { D3D12_VIDEO_ENCODER_LEVEL_SETTING }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk" { D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk" { D3D12_VIDEO_ENCODER_AV1_PROFILE }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk" { D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct {
-    static sizeof => 96
+export default struct D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Codec : D3D12_VIDEO_ENCODER_CODEC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC}
-     */
-    Codec {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Profile : D3D12_VIDEO_ENCODER_PROFILE_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
-     */
-    Profile {
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
-            return this.__Profile
-        }
-    }
+    Level : D3D12_VIDEO_ENCODER_LEVEL_SETTING
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
-     */
-    Level {
-        get {
-            if(!this.HasProp("__Level"))
-                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(24, this)
-            return this.__Level
-        }
-    }
+    InputFormat : DXGI_FORMAT
 
-    /**
-     * @type {DXGI_FORMAT}
-     */
-    InputFormat {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    InputResolution : D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
-     */
-    InputResolution {
-        get {
-            if(!this.HasProp("__InputResolution"))
-                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(44, this)
-            return this.__InputResolution
-        }
-    }
+    CodecConfiguration : D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
-     */
-    CodecConfiguration {
-        get {
-            if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(56, this)
-            return this.__CodecConfiguration
-        }
-    }
+    SubregionFrameEncoding : D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE}
-     */
-    SubregionFrameEncoding {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    SubregionFrameEncodingData : D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA}
-     */
-    SubregionFrameEncodingData {
-        get {
-            if(!this.HasProp("__SubregionFrameEncodingData"))
-                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(80, this)
-            return this.__SubregionFrameEncodingData
-        }
-    }
 }

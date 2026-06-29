@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the date(s) that the task runs by month, week, and day of the week.
@@ -20,10 +19,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-monthlydow
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class MONTHLYDOW extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct MONTHLYDOW {
+    #StructPack 2
 
     /**
      * Specifies the week of the month when the task runs. This value is exclusive and is one of the following flags. 
@@ -86,12 +83,8 @@ class MONTHLYDOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wWhichWeek {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wWhichWeek : UInt16
 
     /**
      * Specifies the day(s) of the week (specified in <b>wWhichWeek</b>) when the task runs. This value is a combination of the following flags. 
@@ -174,12 +167,8 @@ class MONTHLYDOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    rgfDaysOfTheWeek {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    rgfDaysOfTheWeek : UInt16
 
     /**
      * Value that describes the month(s) when the task runs. This value is a combination of the following flags. 
@@ -312,10 +301,7 @@ class MONTHLYDOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    rgfMonths {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    rgfMonths : UInt16
+
 }

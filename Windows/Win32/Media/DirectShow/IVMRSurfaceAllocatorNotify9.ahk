@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
+#Import ".\IVMRSurfaceAllocator9.ahk" { IVMRSurfaceAllocator9 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 
 /**
  * The IVMRSurfaceAllocatorNotify9 interface is implemented by the Video Mixing Renderer Filter 9 (VMR-9).
@@ -13,26 +18,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurfaceallocatornotify9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRSurfaceAllocatorNotify9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRSurfaceAllocatorNotify9 extends IUnknown {
     /**
      * The interface identifier for IVMRSurfaceAllocatorNotify9
      * @type {Guid}
      */
-    static IID => Guid("{dca3f5df-bb3a-4d03-bd81-84614bfbfa0c}")
+    static IID := Guid("{dca3f5df-bb3a-4d03-bd81-84614bfbfa0c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRSurfaceAllocatorNotify9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseSurfaceAllocator : IntPtr
+        SetD3DDevice           : IntPtr
+        ChangeD3DDevice        : IntPtr
+        AllocateSurfaceHelper  : IntPtr
+        NotifyEvent            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseSurfaceAllocator", "SetD3DDevice", "ChangeD3DDevice", "AllocateSurfaceHelper", "NotifyEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRSurfaceAllocatorNotify9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AdviseSurfaceAllocator method is called by an application to instruct the VMR-9 to use a custom allocator-presenter.
@@ -98,9 +114,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-setd3ddevice
      */
     SetD3DDevice(lpD3DDevice, _hMonitor) {
-        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
-
-        result := ComCall(4, this, "ptr", lpD3DDevice, "ptr", _hMonitor, "HRESULT")
+        result := ComCall(4, this, "ptr", lpD3DDevice, HMONITOR, _hMonitor, "HRESULT")
         return result
     }
 
@@ -132,9 +146,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-changed3ddevice
      */
     ChangeD3DDevice(lpD3DDevice, _hMonitor) {
-        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
-
-        result := ComCall(5, this, "ptr", lpD3DDevice, "ptr", _hMonitor, "HRESULT")
+        result := ComCall(5, this, "ptr", lpD3DDevice, HMONITOR, _hMonitor, "HRESULT")
         return result
     }
 
@@ -150,7 +162,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown {
     AllocateSurfaceHelper(lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
+        result := ComCall(6, this, VMR9AllocationInfo.Ptr, lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
         return IDirect3DSurface9(lplpSurface)
     }
 
@@ -187,5 +199,33 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown {
     NotifyEvent(EventCode, Param1, Param2) {
         result := ComCall(7, this, "int", EventCode, "ptr", Param1, "ptr", Param2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVMRSurfaceAllocatorNotify9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseSurfaceAllocator := CallbackCreate(GetMethod(implObj, "AdviseSurfaceAllocator"), flags, 3)
+        this.vtbl.SetD3DDevice := CallbackCreate(GetMethod(implObj, "SetD3DDevice"), flags, 3)
+        this.vtbl.ChangeD3DDevice := CallbackCreate(GetMethod(implObj, "ChangeD3DDevice"), flags, 3)
+        this.vtbl.AllocateSurfaceHelper := CallbackCreate(GetMethod(implObj, "AllocateSurfaceHelper"), flags, 4)
+        this.vtbl.NotifyEvent := CallbackCreate(GetMethod(implObj, "NotifyEvent"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseSurfaceAllocator)
+        CallbackFree(this.vtbl.SetD3DDevice)
+        CallbackFree(this.vtbl.ChangeD3DDevice)
+        CallbackFree(this.vtbl.AllocateSurfaceHelper)
+        CallbackFree(this.vtbl.NotifyEvent)
     }
 }

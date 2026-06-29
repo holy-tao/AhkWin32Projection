@@ -1,60 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
-class DIEFFECTINFOW extends Win32Struct {
-    static sizeof => 552
+export default struct DIEFFECTINFOW {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwEffType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEffType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwStaticParams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStaticParams {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwDynamicParams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDynamicParams {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    tszName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszName {
-        get => StrGet(this.ptr + 28, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-16")
-    }
 }

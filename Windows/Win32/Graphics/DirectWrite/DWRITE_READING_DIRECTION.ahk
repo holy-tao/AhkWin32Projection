@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the direction in which reading progresses.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_READING_DIRECTION extends Win32Enum {
+export default struct DWRITE_READING_DIRECTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that reading progresses from left to right.

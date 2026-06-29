@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class KDEXT_HANDLE_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct KDEXT_HANDLE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    HandleTableEntry : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HandleTableEntry {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Handle : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Handle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Object : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Object {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ObjectBody : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ObjectBody {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    GrantedAccess : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GrantedAccess {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    HandleAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandleAttributes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PagedOut : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PagedOut {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
-    }
 }

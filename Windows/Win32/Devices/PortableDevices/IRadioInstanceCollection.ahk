@@ -1,41 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IRadioInstance.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRadioInstance.ahk" { IRadioInstance }
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IRadioInstanceCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRadioInstanceCollection extends IUnknown {
     /**
      * The interface identifier for IRadioInstanceCollection
      * @type {Guid}
      */
-    static IID => Guid("{e5791fae-5665-4e0c-95be-5fde31644185}")
+    static IID := Guid("{e5791fae-5665-4e0c-95be-5fde31644185}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRadioInstanceCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetAt    : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRadioInstanceCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt"]
-
-    /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pcInstance := 0, "HRESULT")
@@ -43,25 +47,34 @@ class IRadioInstanceCollection extends IUnknown {
     }
 
     /**
-     * Retrieves a copy of the character string associated with the specified local atom. (ANSI)
-     * @remarks
-     * The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value. 
      * 
-     * <h3><a id="Security_Considerations"></a><a id="security_considerations"></a><a id="SECURITY_CONSIDERATIONS"></a>Security Considerations</h3>
-     * Using this function incorrectly might compromise the security of your program. Incorrect use of this function includes not correctly specifying the size of the <i>lpBuffer</i> parameter. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetAtomName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} uIndex 
      * @returns {IRadioInstance} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getatomnamea
      */
     GetAt(uIndex) {
         result := ComCall(4, this, "uint", uIndex, "ptr*", &ppRadioInstance := 0, "HRESULT")
         return IRadioInstance(ppRadioInstance)
+    }
+
+    Query(iid) {
+        if (IRadioInstanceCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
     }
 }

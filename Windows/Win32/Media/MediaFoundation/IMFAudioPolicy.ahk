@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures the audio session that is associated with the streaming audio renderer (SAR).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfaudiopolicy
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFAudioPolicy extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFAudioPolicy extends IUnknown {
     /**
      * The interface identifier for IMFAudioPolicy
      * @type {Guid}
      */
-    static IID => Guid("{a0638c2b-6465-4395-9ae7-a321a9fd2856}")
+    static IID := Guid("{a0638c2b-6465-4395-9ae7-a321a9fd2856}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFAudioPolicy interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetGroupingParam : IntPtr
+        GetGroupingParam : IntPtr
+        SetDisplayName   : IntPtr
+        GetDisplayName   : IntPtr
+        SetIconPath      : IntPtr
+        GetIconPath      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetGroupingParam", "GetGroupingParam", "SetDisplayName", "GetDisplayName", "SetIconPath", "GetIconPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFAudioPolicy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Assigns the audio session to a group of sessions.
@@ -57,7 +70,7 @@ class IMFAudioPolicy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiopolicy-setgroupingparam
      */
     SetGroupingParam(rguidClass) {
-        result := ComCall(3, this, "ptr", rguidClass, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rguidClass, "HRESULT")
         return result
     }
 
@@ -70,7 +83,7 @@ class IMFAudioPolicy extends IUnknown {
      */
     GetGroupingParam() {
         pguidClass := Guid()
-        result := ComCall(4, this, "ptr", pguidClass, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidClass, "HRESULT")
         return pguidClass
     }
 
@@ -115,7 +128,7 @@ class IMFAudioPolicy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiopolicy-getdisplayname
      */
     GetDisplayName() {
-        result := ComCall(6, this, "ptr*", &pszName := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &pszName := 0, "HRESULT")
         return pszName
     }
 
@@ -144,7 +157,37 @@ class IMFAudioPolicy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiopolicy-geticonpath
      */
     GetIconPath() {
-        result := ComCall(8, this, "ptr*", &pszPath := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &pszPath := 0, "HRESULT")
         return pszPath
+    }
+
+    Query(iid) {
+        if (IMFAudioPolicy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetGroupingParam := CallbackCreate(GetMethod(implObj, "SetGroupingParam"), flags, 2)
+        this.vtbl.GetGroupingParam := CallbackCreate(GetMethod(implObj, "GetGroupingParam"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetIconPath := CallbackCreate(GetMethod(implObj, "SetIconPath"), flags, 2)
+        this.vtbl.GetIconPath := CallbackCreate(GetMethod(implObj, "GetIconPath"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetGroupingParam)
+        CallbackFree(this.vtbl.GetGroupingParam)
+        CallbackFree(this.vtbl.SetDisplayName)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.SetIconPath)
+        CallbackFree(this.vtbl.GetIconPath)
     }
 }

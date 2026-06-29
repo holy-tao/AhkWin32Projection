@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IRawElementProviderFragment.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawElementProviderFragment.ahk" { IRawElementProviderFragment }
 
 /**
  * Exposes methods and properties on the root element in a fragment.
@@ -12,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IRawElementProviderFragmentRoot extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRawElementProviderFragmentRoot extends IUnknown {
     /**
      * The interface identifier for IRawElementProviderFragmentRoot
      * @type {Guid}
      */
-    static IID => Guid("{620ce2a5-ab8f-40a9-86cb-de3c75599b58}")
+    static IID := Guid("{620ce2a5-ab8f-40a9-86cb-de3c75599b58}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRawElementProviderFragmentRoot interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ElementProviderFromPoint : IntPtr
+        GetFocus                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ElementProviderFromPoint", "GetFocus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRawElementProviderFragmentRoot.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the provider of the element that is at the specified point in this fragment.
@@ -68,5 +77,27 @@ class IRawElementProviderFragmentRoot extends IUnknown {
     GetFocus() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderFragment(pRetVal)
+    }
+
+    Query(iid) {
+        if (IRawElementProviderFragmentRoot.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ElementProviderFromPoint := CallbackCreate(GetMethod(implObj, "ElementProviderFromPoint"), flags, 4)
+        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ElementProviderFromPoint)
+        CallbackFree(this.vtbl.GetFocus)
     }
 }

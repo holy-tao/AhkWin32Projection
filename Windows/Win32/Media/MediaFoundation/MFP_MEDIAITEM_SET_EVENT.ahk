@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFP_EVENT_HEADER.ahk
-#Include .\MFP_EVENT_TYPE.ahk
-#Include .\IMFPMediaPlayer.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\IMFPMediaItem.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import ".\IMFPMediaItem.ahk" { IMFPMediaItem }
+#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
+#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
 
 /**
  * Event structure for the MFP_EVENT_TYPE_MEDIAITEM_SET event.
@@ -16,29 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_mediaitem_set_event
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFP_MEDIAITEM_SET_EVENT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MFP_MEDIAITEM_SET_EVENT {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure that contains data common to all <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> events.
-     * @type {MFP_EVENT_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := MFP_EVENT_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : MFP_EVENT_HEADER
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaitem">IMFPMediaItem</a> interface of the media item that was queued for playback.
-     * @type {IMFPMediaItem}
      */
-    pMediaItem {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pMediaItem : IMFPMediaItem
+
 }

@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERFACE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_FULL_RESOURCE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
+export default struct CM_FULL_RESOURCE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    InterfaceType : INTERFACE_TYPE
 
-    /**
-     * @type {INTERFACE_TYPE}
-     */
-    InterfaceType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    BusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PartialResourceList : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PartialResourceList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

@@ -1,11 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Com\IStream.ahk
-#Include ..\..\Storage\IndexServer\IFilter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
 
 /**
  * Provides methods for processing an individual item in a content source whose URL is provided by the gatherer to the filter host.
@@ -18,26 +21,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iurlaccessor
  * @namespace Windows.Win32.System.Search
  */
-class IUrlAccessor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUrlAccessor extends IUnknown {
     /**
      * The interface identifier for IUrlAccessor
      * @type {Guid}
      */
-    static IID => Guid("{0b63e318-9ccc-11d0-bcdb-00805fccce04}")
+    static IID := Guid("{0b63e318-9ccc-11d0-bcdb-00805fccce04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUrlAccessor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddRequestParameter   : IntPtr
+        GetDocFormat          : IntPtr
+        GetCLSID              : IntPtr
+        GetHost               : IntPtr
+        IsDirectory           : IntPtr
+        GetSize               : IntPtr
+        GetLastModified       : IntPtr
+        GetFileName           : IntPtr
+        GetSecurityDescriptor : IntPtr
+        GetRedirectedURL      : IntPtr
+        GetSecurityProvider   : IntPtr
+        BindToStream          : IntPtr
+        BindToFilter          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddRequestParameter", "GetDocFormat", "GetCLSID", "GetHost", "IsDirectory", "GetSize", "GetLastModified", "GetFileName", "GetSecurityDescriptor", "GetRedirectedURL", "GetSecurityProvider", "BindToStream", "BindToFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUrlAccessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests a property-value set.
@@ -55,7 +77,7 @@ class IUrlAccessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-addrequestparameter
      */
     AddRequestParameter(pSpec, pVar) {
-        result := ComCall(3, this, "ptr", pSpec, "ptr", pVar, "HRESULT")
+        result := ComCall(3, this, PROPSPEC.Ptr, pSpec, PROPVARIANT.Ptr, pVar, "HRESULT")
         return result
     }
 
@@ -94,7 +116,7 @@ class IUrlAccessor extends IUnknown {
      */
     GetCLSID() {
         pClsid := Guid()
-        result := ComCall(5, this, "ptr", pClsid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pClsid, "HRESULT")
         return pClsid
     }
 
@@ -162,7 +184,7 @@ class IUrlAccessor extends IUnknown {
      */
     GetLastModified() {
         pftLastModified := FILETIME()
-        result := ComCall(9, this, "ptr", pftLastModified, "HRESULT")
+        result := ComCall(9, this, FILETIME.Ptr, pftLastModified, "HRESULT")
         return pftLastModified
     }
 
@@ -265,7 +287,7 @@ class IUrlAccessor extends IUnknown {
      */
     GetSecurityProvider() {
         pSPClsid := Guid()
-        result := ComCall(13, this, "ptr", pSPClsid, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, pSPClsid, "HRESULT")
         return pSPClsid
     }
 
@@ -298,5 +320,49 @@ class IUrlAccessor extends IUnknown {
     BindToFilter() {
         result := ComCall(15, this, "ptr*", &ppFilter := 0, "HRESULT")
         return IFilter(ppFilter)
+    }
+
+    Query(iid) {
+        if (IUrlAccessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddRequestParameter := CallbackCreate(GetMethod(implObj, "AddRequestParameter"), flags, 3)
+        this.vtbl.GetDocFormat := CallbackCreate(GetMethod(implObj, "GetDocFormat"), flags, 4)
+        this.vtbl.GetCLSID := CallbackCreate(GetMethod(implObj, "GetCLSID"), flags, 2)
+        this.vtbl.GetHost := CallbackCreate(GetMethod(implObj, "GetHost"), flags, 4)
+        this.vtbl.IsDirectory := CallbackCreate(GetMethod(implObj, "IsDirectory"), flags, 1)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetLastModified := CallbackCreate(GetMethod(implObj, "GetLastModified"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 4)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 4)
+        this.vtbl.GetRedirectedURL := CallbackCreate(GetMethod(implObj, "GetRedirectedURL"), flags, 4)
+        this.vtbl.GetSecurityProvider := CallbackCreate(GetMethod(implObj, "GetSecurityProvider"), flags, 2)
+        this.vtbl.BindToStream := CallbackCreate(GetMethod(implObj, "BindToStream"), flags, 2)
+        this.vtbl.BindToFilter := CallbackCreate(GetMethod(implObj, "BindToFilter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddRequestParameter)
+        CallbackFree(this.vtbl.GetDocFormat)
+        CallbackFree(this.vtbl.GetCLSID)
+        CallbackFree(this.vtbl.GetHost)
+        CallbackFree(this.vtbl.IsDirectory)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetLastModified)
+        CallbackFree(this.vtbl.GetFileName)
+        CallbackFree(this.vtbl.GetSecurityDescriptor)
+        CallbackFree(this.vtbl.GetRedirectedURL)
+        CallbackFree(this.vtbl.GetSecurityProvider)
+        CallbackFree(this.vtbl.BindToStream)
+        CallbackFree(this.vtbl.BindToFilter)
     }
 }

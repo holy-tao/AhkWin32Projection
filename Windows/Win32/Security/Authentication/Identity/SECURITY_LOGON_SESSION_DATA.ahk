@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\LSA_LAST_INTER_LOGON_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_LAST_INTER_LOGON_INFO.ahk" { LSA_LAST_INTER_LOGON_INFO }
+#Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information about a logon session. (SECURITY_LOGON_SESSION_DATA)
@@ -12,141 +13,70 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-security_logon_session_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECURITY_LOGON_SESSION_DATA extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 8
+export default struct SECURITY_LOGON_SESSION_DATA {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) that identifies a logon session.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the account name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a> that owns the logon session.
-     * @type {LSA_UNICODE_STRING}
      */
-    UserName {
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(16, this)
-            return this.__UserName
-        }
-    }
+    UserName : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the domain used to authenticate the owner of the logon session.
-     * @type {LSA_UNICODE_STRING}
      */
-    LogonDomain {
-        get {
-            if(!this.HasProp("__LogonDomain"))
-                this.__LogonDomain := LSA_UNICODE_STRING(32, this)
-            return this.__LogonDomain
-        }
-    }
+    LogonDomain : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">authentication package</a> used to authenticate the owner of the logon session.
-     * @type {LSA_UNICODE_STRING}
      */
-    AuthenticationPackage {
-        get {
-            if(!this.HasProp("__AuthenticationPackage"))
-                this.__AuthenticationPackage := LSA_UNICODE_STRING(48, this)
-            return this.__AuthenticationPackage
-        }
-    }
+    AuthenticationPackage : LSA_UNICODE_STRING
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-security_logon_type">SECURITY_LOGON_TYPE</a> value that identifies the logon method.
-     * @type {Integer}
      */
-    LogonType {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    LogonType : UInt32
 
     /**
      * A Terminal Services session identifier. This member may be zero.
-     * @type {Integer}
      */
-    Session {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    Session : UInt32
 
     /**
      * A pointer to the user's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @type {PSID}
      */
-    Sid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Sid : PSID
 
     /**
      * The time the session owner logged on.
-     * @type {Integer}
      */
-    LogonTime {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
-    }
+    LogonTime : Int64
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the name of the server used to authenticate the owner of the logon session.
-     * @type {LSA_UNICODE_STRING}
      */
-    LogonServer {
-        get {
-            if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(88, this)
-            return this.__LogonServer
-        }
-    }
+    LogonServer : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the DNS name for the owner of the logon session.
-     * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName {
-        get {
-            if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(104, this)
-            return this.__DnsDomainName
-        }
-    }
+    DnsDomainName : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) for the owner of the logon session.
-     * @type {LSA_UNICODE_STRING}
      */
-    Upn {
-        get {
-            if(!this.HasProp("__Upn"))
-                this.__Upn := LSA_UNICODE_STRING(120, this)
-            return this.__Upn
-        }
-    }
+    Upn : LSA_UNICODE_STRING
 
     /**
      * The user flags for the logon session.
@@ -203,135 +133,77 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    UserFlags {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    UserFlags : UInt32
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_last_inter_logon_info">LSA_LAST_INTER_LOGON_INFO</a> structure that contains the information on the last logon session.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {LSA_LAST_INTER_LOGON_INFO}
      */
-    LastLogonInfo {
-        get {
-            if(!this.HasProp("__LastLogonInfo"))
-                this.__LastLogonInfo := LSA_LAST_INTER_LOGON_INFO(144, this)
-            return this.__LastLogonInfo
-        }
-    }
+    LastLogonInfo : LSA_LAST_INTER_LOGON_INFO
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the script used for logging on.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {LSA_UNICODE_STRING}
      */
-    LogonScript {
-        get {
-            if(!this.HasProp("__LogonScript"))
-                this.__LogonScript := LSA_UNICODE_STRING(168, this)
-            return this.__LogonScript
-        }
-    }
+    LogonScript : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the path to the user's profile.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {LSA_UNICODE_STRING}
      */
-    ProfilePath {
-        get {
-            if(!this.HasProp("__ProfilePath"))
-                this.__ProfilePath := LSA_UNICODE_STRING(184, this)
-            return this.__ProfilePath
-        }
-    }
+    ProfilePath : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the home directory for the logon session.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectory {
-        get {
-            if(!this.HasProp("__HomeDirectory"))
-                this.__HomeDirectory := LSA_UNICODE_STRING(200, this)
-            return this.__HomeDirectory
-        }
-    }
+    HomeDirectory : LSA_UNICODE_STRING
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the drive location of the home directory of the logon session.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectoryDrive {
-        get {
-            if(!this.HasProp("__HomeDirectoryDrive"))
-                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(216, this)
-            return this.__HomeDirectoryDrive
-        }
-    }
+    HomeDirectoryDrive : LSA_UNICODE_STRING
 
     /**
      * The time stamp of when the session user logged off.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {Integer}
      */
-    LogoffTime {
-        get => NumGet(this, 232, "int64")
-        set => NumPut("int64", value, this, 232)
-    }
+    LogoffTime : Int64
 
     /**
      * The time that the logon session must end.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {Integer}
      */
-    KickOffTime {
-        get => NumGet(this, 240, "int64")
-        set => NumPut("int64", value, this, 240)
-    }
+    KickOffTime : Int64
 
     /**
      * The time  when the user last changed the password.   <b>Note</b> It is up to the Authentication Package to initialize this value and it may not be initialized.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {Integer}
      */
-    PasswordLastSet {
-        get => NumGet(this, 248, "int64")
-        set => NumPut("int64", value, this, 248)
-    }
+    PasswordLastSet : Int64
 
     /**
      * The password can be changed during the logon session. 
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {Integer}
      */
-    PasswordCanChange {
-        get => NumGet(this, 256, "int64")
-        set => NumPut("int64", value, this, 256)
-    }
+    PasswordCanChange : Int64
 
     /**
      * The password must be changed during the logon session.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {Integer}
      */
-    PasswordMustChange {
-        get => NumGet(this, 264, "int64")
-        set => NumPut("int64", value, this, 264)
-    }
+    PasswordMustChange : Int64
+
 }

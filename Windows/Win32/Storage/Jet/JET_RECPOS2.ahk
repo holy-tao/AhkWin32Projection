@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @architecture X64, Arm64
  */
-class JET_RECPOS2 extends Win32Struct {
-    static sizeof => 32
+export default struct JET_RECPOS2 {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    centriesLTDeprecated : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    centriesLTDeprecated {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    centriesInRangeDeprecated : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    centriesInRangeDeprecated {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    centriesTotalDeprecated : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    centriesTotalDeprecated {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    centriesLT : Int64
 
-    /**
-     * @type {Integer}
-     */
-    centriesLT {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    centriesTotal : Int64
 
-    /**
-     * @type {Integer}
-     */
-    centriesTotal {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

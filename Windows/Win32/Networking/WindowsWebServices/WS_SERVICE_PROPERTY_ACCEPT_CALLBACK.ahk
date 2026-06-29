@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the callback which is called when a channel is successfully accepted.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_property_accept_callback
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SERVICE_PROPERTY_ACCEPT_CALLBACK extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct WS_SERVICE_PROPERTY_ACCEPT_CALLBACK {
+    #StructPack 8
 
     /**
      * The accept channel callback function reference.
-     * @type {Pointer<WS_SERVICE_ACCEPT_CHANNEL_CALLBACK>}
      */
-    callback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    callback : IntPtr
+
 }

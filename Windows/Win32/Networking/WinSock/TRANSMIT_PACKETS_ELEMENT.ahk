@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Specifies a single data element to be transmitted by the TransmitPackets function.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-transmit_packets_element
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TRANSMIT_PACKETS_ELEMENT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TRANSMIT_PACKETS_ELEMENT {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG</b>
@@ -55,48 +52,22 @@ class TRANSMIT_PACKETS_ELEMENT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwElFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwElFlags : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of bytes to transmit. If zero, the entire file is transmitted.
-     * @type {Integer}
      */
-    cLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nFileOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    nFileOffset : Int64
 
-    /**
-     * @type {HANDLE}
-     */
-    hFile {
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(16, this)
-            return this.__hFile
-        }
-    }
+    hFile : HANDLE
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pBuffer', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to determine the address translation data.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddresstranslationinfo
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAddressTranslationInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAddressTranslationInfo extends IDispatch {
     /**
      * The interface identifier for ITAddressTranslationInfo
      * @type {Guid}
      */
-    static IID => Guid("{afc15945-8d40-11d1-a09e-00805fc147d3}")
+    static IID := Guid("{afc15945-8d40-11d1-a09e-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAddressTranslationInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DialableString         : IntPtr
+        get_DisplayableString      : IntPtr
+        get_CurrentCountryCode     : IntPtr
+        get_DestinationCountryCode : IntPtr
+        get_TranslationResults     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DialableString", "get_DisplayableString", "get_CurrentCountryCode", "get_DestinationCountryCode", "get_TranslationResults"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAddressTranslationInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -78,8 +90,8 @@ class ITAddressTranslationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_dialablestring
      */
     get_DialableString() {
-        ppDialableString := BSTR()
-        result := ComCall(7, this, "ptr", ppDialableString, "HRESULT")
+        ppDialableString := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, ppDialableString, "HRESULT")
         return ppDialableString
     }
 
@@ -96,8 +108,8 @@ class ITAddressTranslationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_displayablestring
      */
     get_DisplayableString() {
-        ppDisplayableString := BSTR()
-        result := ComCall(8, this, "ptr", ppDisplayableString, "HRESULT")
+        ppDisplayableString := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, ppDisplayableString, "HRESULT")
         return ppDisplayableString
     }
 
@@ -139,5 +151,33 @@ class ITAddressTranslationInfo extends IDispatch {
     get_TranslationResults() {
         result := ComCall(11, this, "int*", &plResults := 0, "HRESULT")
         return plResults
+    }
+
+    Query(iid) {
+        if (ITAddressTranslationInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DialableString := CallbackCreate(GetMethod(implObj, "get_DialableString"), flags, 2)
+        this.vtbl.get_DisplayableString := CallbackCreate(GetMethod(implObj, "get_DisplayableString"), flags, 2)
+        this.vtbl.get_CurrentCountryCode := CallbackCreate(GetMethod(implObj, "get_CurrentCountryCode"), flags, 2)
+        this.vtbl.get_DestinationCountryCode := CallbackCreate(GetMethod(implObj, "get_DestinationCountryCode"), flags, 2)
+        this.vtbl.get_TranslationResults := CallbackCreate(GetMethod(implObj, "get_TranslationResults"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DialableString)
+        CallbackFree(this.vtbl.get_DisplayableString)
+        CallbackFree(this.vtbl.get_CurrentCountryCode)
+        CallbackFree(this.vtbl.get_DestinationCountryCode)
+        CallbackFree(this.vtbl.get_TranslationResults)
     }
 }

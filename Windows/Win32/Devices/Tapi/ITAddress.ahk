@@ -1,39 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITTAPI.ahk
-#Include .\ITBasicCallControl.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumCall.ahk
-#Include .\ITForwardInformation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ADDRESS_STATE.ahk" { ADDRESS_STATE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITForwardInformation.ahk" { ITForwardInformation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IEnumCall.ahk" { IEnumCall }
+#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
+#Import ".\ITTAPI.ahk" { ITTAPI }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAddress interface is the base interface for the Address object. Applications use this interface to get information about and use the Address object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddress
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAddress extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAddress extends IDispatch {
     /**
      * The interface identifier for ITAddress
      * @type {Guid}
      */
-    static IID => Guid("{b1efc386-9355-11d0-835c-00aa003ccabd}")
+    static IID := Guid("{b1efc386-9355-11d0-835c-00aa003ccabd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAddress interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_State               : IntPtr
+        get_AddressName         : IntPtr
+        get_ServiceProviderName : IntPtr
+        get_TAPIObject          : IntPtr
+        CreateCall              : IntPtr
+        get_Calls               : IntPtr
+        EnumerateCalls          : IntPtr
+        get_DialableAddress     : IntPtr
+        CreateForwardInfoObject : IntPtr
+        Forward                 : IntPtr
+        get_CurrentForwardInfo  : IntPtr
+        put_MessageWaiting      : IntPtr
+        get_MessageWaiting      : IntPtr
+        put_DoNotDisturb        : IntPtr
+        get_DoNotDisturb        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_State", "get_AddressName", "get_ServiceProviderName", "get_TAPIObject", "CreateCall", "get_Calls", "EnumerateCalls", "get_DialableAddress", "CreateForwardInfoObject", "Forward", "get_CurrentForwardInfo", "put_MessageWaiting", "get_MessageWaiting", "put_DoNotDisturb", "get_DoNotDisturb"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAddress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ADDRESS_STATE} 
@@ -120,8 +144,8 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_addressname
      */
     get_AddressName() {
-        ppName := BSTR()
-        result := ComCall(8, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
     }
 
@@ -139,8 +163,8 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_serviceprovidername
      */
     get_ServiceProviderName() {
-        ppName := BSTR()
-        result := ComCall(9, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
     }
 
@@ -190,7 +214,7 @@ class ITAddress extends IDispatch {
     CreateCall(pDestAddress, lAddressType, lMediaTypes) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
 
-        result := ComCall(11, this, "ptr", pDestAddress, "int", lAddressType, "int", lMediaTypes, "ptr*", &ppCall := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, pDestAddress, "int", lAddressType, "int", lMediaTypes, "ptr*", &ppCall := 0, "HRESULT")
         return ITBasicCallControl(ppCall)
     }
 
@@ -207,7 +231,7 @@ class ITAddress extends IDispatch {
      */
     get_Calls() {
         pVariant := VARIANT()
-        result := ComCall(12, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -239,8 +263,8 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_dialableaddress
      */
     get_DialableAddress() {
-        pDialableAddress := BSTR()
-        result := ComCall(14, this, "ptr", pDialableAddress, "HRESULT")
+        pDialableAddress := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pDialableAddress, "HRESULT")
         return pDialableAddress
     }
 
@@ -441,7 +465,7 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-put_messagewaiting
      */
     put_MessageWaiting(fMessageWaiting) {
-        result := ComCall(18, this, "short", fMessageWaiting, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, fMessageWaiting, "HRESULT")
         return result
     }
 
@@ -454,7 +478,7 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_messagewaiting
      */
     get_MessageWaiting() {
-        result := ComCall(19, this, "short*", &pfMessageWaiting := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pfMessageWaiting := 0, "HRESULT")
         return pfMessageWaiting
     }
 
@@ -522,7 +546,7 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-put_donotdisturb
      */
     put_DoNotDisturb(fDoNotDisturb) {
-        result := ComCall(20, this, "short", fDoNotDisturb, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, fDoNotDisturb, "HRESULT")
         return result
     }
 
@@ -537,7 +561,55 @@ class ITAddress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_donotdisturb
      */
     get_DoNotDisturb() {
-        result := ComCall(21, this, "short*", &pfDoNotDisturb := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &pfDoNotDisturb := 0, "HRESULT")
         return pfDoNotDisturb
+    }
+
+    Query(iid) {
+        if (ITAddress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_AddressName := CallbackCreate(GetMethod(implObj, "get_AddressName"), flags, 2)
+        this.vtbl.get_ServiceProviderName := CallbackCreate(GetMethod(implObj, "get_ServiceProviderName"), flags, 2)
+        this.vtbl.get_TAPIObject := CallbackCreate(GetMethod(implObj, "get_TAPIObject"), flags, 2)
+        this.vtbl.CreateCall := CallbackCreate(GetMethod(implObj, "CreateCall"), flags, 5)
+        this.vtbl.get_Calls := CallbackCreate(GetMethod(implObj, "get_Calls"), flags, 2)
+        this.vtbl.EnumerateCalls := CallbackCreate(GetMethod(implObj, "EnumerateCalls"), flags, 2)
+        this.vtbl.get_DialableAddress := CallbackCreate(GetMethod(implObj, "get_DialableAddress"), flags, 2)
+        this.vtbl.CreateForwardInfoObject := CallbackCreate(GetMethod(implObj, "CreateForwardInfoObject"), flags, 2)
+        this.vtbl.Forward := CallbackCreate(GetMethod(implObj, "Forward"), flags, 3)
+        this.vtbl.get_CurrentForwardInfo := CallbackCreate(GetMethod(implObj, "get_CurrentForwardInfo"), flags, 2)
+        this.vtbl.put_MessageWaiting := CallbackCreate(GetMethod(implObj, "put_MessageWaiting"), flags, 2)
+        this.vtbl.get_MessageWaiting := CallbackCreate(GetMethod(implObj, "get_MessageWaiting"), flags, 2)
+        this.vtbl.put_DoNotDisturb := CallbackCreate(GetMethod(implObj, "put_DoNotDisturb"), flags, 2)
+        this.vtbl.get_DoNotDisturb := CallbackCreate(GetMethod(implObj, "get_DoNotDisturb"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_AddressName)
+        CallbackFree(this.vtbl.get_ServiceProviderName)
+        CallbackFree(this.vtbl.get_TAPIObject)
+        CallbackFree(this.vtbl.CreateCall)
+        CallbackFree(this.vtbl.get_Calls)
+        CallbackFree(this.vtbl.EnumerateCalls)
+        CallbackFree(this.vtbl.get_DialableAddress)
+        CallbackFree(this.vtbl.CreateForwardInfoObject)
+        CallbackFree(this.vtbl.Forward)
+        CallbackFree(this.vtbl.get_CurrentForwardInfo)
+        CallbackFree(this.vtbl.put_MessageWaiting)
+        CallbackFree(this.vtbl.get_MessageWaiting)
+        CallbackFree(this.vtbl.put_DoNotDisturb)
+        CallbackFree(this.vtbl.get_DoNotDisturb)
     }
 }

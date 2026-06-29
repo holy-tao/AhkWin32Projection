@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_INFO_QUEUE_FILTER_DESC.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
+#Import ".\DXGI_INFO_QUEUE_FILTER_DESC.ahk" { DXGI_INFO_QUEUE_FILTER_DESC }
 
 /**
  * Describes a debug message filter, which contains lists of message types to allow and deny.
@@ -14,32 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_INFO_QUEUE_FILTER extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct DXGI_INFO_QUEUE_FILTER {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter_desc">DXGI_INFO_QUEUE_FILTER_DESC</a> structure that describes the types of messages to allow.
-     * @type {DXGI_INFO_QUEUE_FILTER_DESC}
      */
-    AllowList {
-        get {
-            if(!this.HasProp("__AllowList"))
-                this.__AllowList := DXGI_INFO_QUEUE_FILTER_DESC(0, this)
-            return this.__AllowList
-        }
-    }
+    AllowList : DXGI_INFO_QUEUE_FILTER_DESC
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter_desc">DXGI_INFO_QUEUE_FILTER_DESC</a> structure that describes the types of messages to deny.
-     * @type {DXGI_INFO_QUEUE_FILTER_DESC}
      */
-    DenyList {
-        get {
-            if(!this.HasProp("__DenyList"))
-                this.__DenyList := DXGI_INFO_QUEUE_FILTER_DESC(48, this)
-            return this.__DenyList
-        }
-    }
+    DenyList : DXGI_INFO_QUEUE_FILTER_DESC
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the frame types (I, P, or B) that the quantization parameter (QP) is applied to.
@@ -29,8 +28,7 @@
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoencodeframetypeqp
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class CODECAPI_AVEncVideoEncodeFrameTypeQP extends Win32Struct {
-    static sizeof => 0
+export default struct CODECAPI_AVEncVideoEncodeFrameTypeQP {
+    #StructPack 1
 
-    static packingSize => 1
 }

@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information defining a set of update sequence number (USN) change journal records to return to the calling process.R
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_usn_journal_data_v1
  * @namespace Windows.Win32.System.Ioctl
  */
-class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct READ_USN_JOURNAL_DATA_V1 {
+    #StructPack 8
 
     /**
      * The USN at which to begin reading the change journal.
@@ -28,12 +25,8 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
      * For more information on navigating the change journal buffer returned in 
      *        <b>READ_USN_JOURNAL_DATA_V0</b>, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/walking-a-buffer-of-change-journal-records">Walking a Buffer of Change Journal Records</a>.
-     * @type {Integer}
      */
-    StartUsn {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    StartUsn : Int64
 
     /**
      * A mask of flags, each flag noting a change for which the file or directory has a record in the change 
@@ -293,12 +286,8 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ReasonMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ReasonMask : UInt32
 
     /**
      * A value that specifies when to return change journal records.
@@ -327,12 +316,8 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
      * For a file or directory for which no user data exists (for example, a mounted folder), the final close 
      *        operation occurs when the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function is 
      *        called on the last user handle to the item.
-     * @type {Integer}
      */
-    ReturnOnlyOnClose {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ReturnOnlyOnClose : UInt32
 
     /**
      * The time-out value, in seconds, used with the <b>BytesToWaitFor</b> member to tell the 
@@ -363,12 +348,8 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
      * 
      * If <b>BytesToWaitFor</b> is zero, then <b>Timeout</b> is ignored. 
      *        <b>Timeout</b> is also ignored for asynchronously opened handles.
-     * @type {Integer}
      */
-    Timeout {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Timeout : Int64
 
     /**
      * The number of bytes of unfiltered data added to the change journal. Use this value with 
@@ -396,12 +377,8 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_read_usn_journal">FSCTL_READ_USN_JOURNAL</a> operation call to 
      *        determine the amount of data available, reallocate the output buffer (with room to spare for new records), and 
      *        call <b>DeviceIoControl</b> again.
-     * @type {Integer}
      */
-    BytesToWaitFor {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BytesToWaitFor : Int64
 
     /**
      * The identifier for the instance of the journal that is current for the volume.
@@ -414,26 +391,11 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
      *        <b>DeviceIoControl</b> with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_query_usn_journal">FSCTL_QUERY_USN_JOURNAL</a> 
      *        operation.
-     * @type {Integer}
      */
-    UsnJournalID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    UsnJournalID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinMajorVersion {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    MinMajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaxMajorVersion {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    MaxMajorVersion : UInt16
+
 }

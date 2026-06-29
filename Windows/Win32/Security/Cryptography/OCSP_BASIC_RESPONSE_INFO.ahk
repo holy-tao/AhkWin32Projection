@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\OCSP_BASIC_RESPONSE_ENTRY.ahk
-#Include .\CERT_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\OCSP_BASIC_RESPONSE_ENTRY.ahk" { OCSP_BASIC_RESPONSE_ENTRY }
 
 /**
  * Contains a basic online certificate status protocol (OCSP) response as specified by RFC 2560.
@@ -14,96 +13,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_basic_response_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class OCSP_BASIC_RESPONSE_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct OCSP_BASIC_RESPONSE_INFO {
+    #StructPack 8
 
     /**
      * A value that indicates the protocol version of the response.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A value that indicates the type of ID the responder used in this response.
-     * @type {Integer}
      */
-    dwResponderIdChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwResponderIdChoice : UInt32
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    ByNameResponderId {
-        get {
-            if(!this.HasProp("__ByNameResponderId"))
-                this.__ByNameResponderId := CRYPT_INTEGER_BLOB(8, this)
-            return this.__ByNameResponderId
-        }
-    }
-
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    ByKeyResponderId {
-        get {
-            if(!this.HasProp("__ByKeyResponderId"))
-                this.__ByKeyResponderId := CRYPT_INTEGER_BLOB(8, this)
-            return this.__ByKeyResponderId
-        }
-    }
+    ByNameResponderId : CRYPT_INTEGER_BLOB
 
     /**
      * The date and time at which the response was signed.
-     * @type {FILETIME}
      */
-    ProducedAt {
-        get {
-            if(!this.HasProp("__ProducedAt"))
-                this.__ProducedAt := FILETIME(24, this)
-            return this.__ProducedAt
-        }
-    }
+    ProducedAt : FILETIME
 
     /**
      * The number of elements in the <i>rgResponseEntry</i> array.
-     * @type {Integer}
      */
-    cResponseEntry {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cResponseEntry : UInt32
 
     /**
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_basic_response_entry">OCSP_BASIC_RESPONSE_ENTRY</a> structures, each of which contains a certificate status.
-     * @type {Pointer<OCSP_BASIC_RESPONSE_ENTRY>}
      */
-    rgResponseEntry {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rgResponseEntry : OCSP_BASIC_RESPONSE_ENTRY.Ptr
 
     /**
      * The number of elements in the <b>rgExtension</b> array.
-     * @type {Integer}
      */
-    cExtension {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cExtension : UInt32
 
     /**
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a> structures, each of which contains additional information about the response.
-     * @type {Pointer<CERT_EXTENSION>}
      */
-    rgExtension {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    rgExtension : CERT_EXTENSION.Ptr
+
+    static __New() {
+        DefineProp(this.Prototype, 'ByKeyResponderId', { type: CRYPT_INTEGER_BLOB, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

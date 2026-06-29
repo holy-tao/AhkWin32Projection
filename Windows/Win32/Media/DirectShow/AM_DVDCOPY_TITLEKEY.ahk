@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the DVD title key from the current content.
@@ -10,51 +9,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_titlekey
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_DVDCOPY_TITLEKEY extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct AM_DVDCOPY_TITLEKEY {
+    #StructPack 4
 
     /**
      * Key flags.
-     * @type {Integer}
      */
-    KeyFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    KeyFlags : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : UInt32[2]
 
     /**
      * Title key.
-     * @type {Array<Integer>}
      */
-    TitleKey {
-        get {
-            if(!this.HasProp("__TitleKeyProxyArray"))
-                this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
-            return this.__TitleKeyProxyArray
-        }
-    }
+    TitleKey : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[2]
+
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST extends Win32Struct {
-    static sizeof => 24
+export default struct EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    transactionId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    transactionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cbRequestSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbRequestSignature {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pbRequestSignature : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbRequestSignature {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

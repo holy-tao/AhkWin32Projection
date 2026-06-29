@@ -1,149 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISK_CACHE_RETENTION_PRIORITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DISK_CACHE_RETENTION_PRIORITY.ahk" { DISK_CACHE_RETENTION_PRIORITY }
 
 /**
  * Provides information about the disk cache.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_cache_information
  * @namespace Windows.Win32.System.Ioctl
  */
-class DISK_CACHE_INFORMATION extends Win32Struct {
-    static sizeof => 24
+export default struct DISK_CACHE_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+
+    struct _ScalarPrefetch {
+        Minimum : UInt16
+
+        Maximum : UInt16
+
+        MaximumBlocks : UInt16
+
+    }
+
+    struct _BlockPrefetch {
+        Minimum : UInt16
+
+        Maximum : UInt16
+
+    }
 
     /**
      * Indicates whether the device is capable of saving any parameters in nonvolatile storage.
-     * @type {BOOLEAN}
      */
-    ParametersSavable {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ParametersSavable : BOOLEAN
 
     /**
      * Indicates whether the read cache is enabled.
-     * @type {BOOLEAN}
      */
-    ReadCacheEnabled {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ReadCacheEnabled : BOOLEAN
 
     /**
      * Indicates whether the write cache is enabled.
-     * @type {BOOLEAN}
      */
-    WriteCacheEnabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    WriteCacheEnabled : BOOLEAN
 
     /**
      * Determines the likelihood of data cached from a read operation remaining in the cache. This data might be given a different priority than data cached under other circumstances, such as from a prefetch operation.
-     * @type {DISK_CACHE_RETENTION_PRIORITY}
      */
-    ReadRetentionPriority {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ReadRetentionPriority : DISK_CACHE_RETENTION_PRIORITY
 
     /**
      * Determines the likelihood of data cached from a write operation remaining in the cache. This data might be given a different priority than data cached under other circumstances, such as from a prefetch operation.
-     * @type {DISK_CACHE_RETENTION_PRIORITY}
      */
-    WriteRetentionPriority {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    WriteRetentionPriority : DISK_CACHE_RETENTION_PRIORITY
 
     /**
      * Disables prefetching. Prefetching might be disabled whenever the number of blocks requested exceeds the value in <i>DisablePrefetchTransferLength</i>. When zero, prefetching is disabled no matter what the size of the block request.
-     * @type {Integer}
      */
-    DisablePrefetchTransferLength {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    DisablePrefetchTransferLength : UInt16
 
     /**
      * If this member is  <b>TRUE</b>,  the union is a <b>ScalarPrefetch</b> structure. Otherwise, the union is a <b>BlockPrefetch</b> structure.
-     * @type {BOOLEAN}
      */
-    PrefetchScalar {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    PrefetchScalar : BOOLEAN
 
-    class _ScalarPrefetch extends Win32Struct {
-        static sizeof => 6
-        static packingSize => 2
+    ScalarPrefetch : DISK_CACHE_INFORMATION._ScalarPrefetch
 
-        /**
-         * @type {Integer}
-         */
-        Minimum {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Maximum {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        MaximumBlocks {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
-    }
-
-    class _BlockPrefetch extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 2
-
-        /**
-         * @type {Integer}
-         */
-        Minimum {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Maximum {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-    }
-
-    /**
-     * @type {_ScalarPrefetch}
-     */
-    ScalarPrefetch {
-        get {
-            if(!this.HasProp("__ScalarPrefetch"))
-                this.__ScalarPrefetch := DISK_CACHE_INFORMATION._ScalarPrefetch(16, this)
-            return this.__ScalarPrefetch
-        }
-    }
-
-    /**
-     * @type {_BlockPrefetch}
-     */
-    BlockPrefetch {
-        get {
-            if(!this.HasProp("__BlockPrefetch"))
-                this.__BlockPrefetch := DISK_CACHE_INFORMATION._BlockPrefetch(16, this)
-            return this.__BlockPrefetch
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'BlockPrefetch', { type: DISK_CACHE_INFORMATION._BlockPrefetch, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

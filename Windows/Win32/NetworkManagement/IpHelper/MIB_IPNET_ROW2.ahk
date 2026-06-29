@@ -1,14 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\NL_NEIGHBOR_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\NL_NEIGHBOR_STATE.ahk" { NL_NEIGHBOR_STATE }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Stores information about a neighbor IP address.
@@ -25,29 +25,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipnet_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPNET_ROW2 extends Win32Struct {
-    static sizeof => 120
+export default struct MIB_IPNET_ROW2 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ReachabilityTime_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _ReachabilityTime {
+        LastReachable : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        LastReachable {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        LastUnreachable {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'LastUnreachable', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -55,65 +42,36 @@ class MIB_IPNET_ROW2 extends Win32Struct {
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet">SOCKADDR_INET</a></b>
      * 
      * The neighbor IP address. This member can be an IPv6 address or an IPv4 address.
-     * @type {SOCKADDR_INET}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(0, this)
-            return this.__Address
-        }
-    }
+    Address : SOCKADDR_INET
 
     /**
      * Type: <b>NET_IFINDEX</b>
      * 
      * The local index value for the network interface associated with this IP address. This index value may change when a network adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * Type: <b>NET_LUID</b>
      * 
      * The locally unique identifier (LUID) for the network interface associated with this IP address.
-     * @type {NET_LUID_LH}
      */
-    InterfaceLuid {
-        get {
-            if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(56, this)
-            return this.__InterfaceLuid
-        }
-    }
+    InterfaceLuid : NET_LUID_LH
 
     /**
      * Type: <b> UCHAR[IF_MAX_PHYS_ADDRESS_LENGTH]</b>
      * 
      * The physical hardware address of the adapter for the network interface associated with this IP address.
-     * @type {Array<Integer>}
      */
-    PhysicalAddress {
-        get {
-            if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 72, 32, Primitive, "char")
-            return this.__PhysicalAddressProxyArray
-        }
-    }
+    PhysicalAddress : Int8[32]
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The length, in bytes, of the physical hardware address specified by the <b>PhysicalAddress</b> member. The maximum value supported is 32 bytes.
-     * @type {Integer}
      */
-    PhysicalAddressLength {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    PhysicalAddressLength : UInt32
 
     /**
      * Type: <b>NL_NEIGHBOR_STATE</b>
@@ -225,23 +183,16 @@ class MIB_IPNET_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_NEIGHBOR_STATE}
      */
-    State {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
+    State : NL_NEIGHBOR_STATE
 
     /**
      * This bitfield backs the following members:
      * - IsRouter
      * - IsUnreachable
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 112, "char")
-        set => NumPut("char", value, this, 112)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -258,23 +209,10 @@ class MIB_IPNET_ROW2 extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
+    ReachabilityTime : MIB_IPNET_ROW2._ReachabilityTime
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 112, "char")
-        set => NumPut("char", value, this, 112)
-    }
-
-    /**
-     * @type {_ReachabilityTime_e__Union}
-     */
-    ReachabilityTime {
-        get {
-            if(!this.HasProp("__ReachabilityTime"))
-                this.__ReachabilityTime := MIB_IPNET_ROW2._ReachabilityTime_e__Union(116, this)
-            return this.__ReachabilityTime
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: Int8, offset: 112 })
+        this.DeleteProp("__New")
     }
 }

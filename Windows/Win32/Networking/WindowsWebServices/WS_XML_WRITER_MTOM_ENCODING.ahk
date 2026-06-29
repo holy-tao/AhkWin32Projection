@@ -1,91 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_WRITER_ENCODING.ahk
-#Include .\WS_XML_WRITER_ENCODING_TYPE.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_XML_WRITER_ENCODING_TYPE.ahk" { WS_XML_WRITER_ENCODING_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WS_XML_WRITER_ENCODING.ahk" { WS_XML_WRITER_ENCODING }
 
 /**
  * Used to indicate that the reader should emit bytes in MTOM format. The MTOM format will represent bytes written to it as binary mime parts rather than embedded base64 encoded text.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct WS_XML_WRITER_MTOM_ENCODING {
+    #StructPack 8
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_writer_encoding">WS_XML_WRITER_ENCODING</a>.
-     * @type {WS_XML_WRITER_ENCODING}
      */
-    encoding {
-        get {
-            if(!this.HasProp("__encoding"))
-                this.__encoding := WS_XML_WRITER_ENCODING(0, this)
-            return this.__encoding
-        }
-    }
+    encoding : WS_XML_WRITER_ENCODING
 
     /**
      * Specifies the encoding of the xml document carried by MTOM.
-     * @type {Pointer<WS_XML_WRITER_ENCODING>}
      */
-    textEncoding {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    textEncoding : WS_XML_WRITER_ENCODING.Ptr
 
     /**
      * Specifies whether or not the writer should emit a MIME header.
-     * @type {BOOL}
      */
-    writeMimeHeader {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    writeMimeHeader : BOOL
 
     /**
      * Specifies the character sequence that should be used to delimit the mime parts.  This corresponds to the "boundary" parameter of the MIME Content-Type.
-     * @type {WS_STRING}
      */
-    boundary {
-        get {
-            if(!this.HasProp("__boundary"))
-                this.__boundary := WS_STRING(24, this)
-            return this.__boundary
-        }
-    }
+    boundary : WS_STRING
 
     /**
      * Specifies the type used by the mime part that contains the xml.  This corresponds to the "start-info" parameter in the of the MIME Content-Type.
-     * @type {WS_STRING}
      */
-    startInfo {
-        get {
-            if(!this.HasProp("__startInfo"))
-                this.__startInfo := WS_STRING(40, this)
-            return this.__startInfo
-        }
-    }
+    startInfo : WS_STRING
 
     /**
      * Specifies the mime part that contains the xml.  This corresponds to the "start" parameter of the MIME Content-Type.
-     * @type {WS_STRING}
      */
-    startUri {
-        get {
-            if(!this.HasProp("__startUri"))
-                this.__startUri := WS_STRING(56, this)
-            return this.__startUri
-        }
-    }
+    startUri : WS_STRING
 
     /**
      * Specifies the threshold at which the writer will not write base64 encoded text and instead write a binary mime part for binary data.
-     * @type {Integer}
      */
-    maxInlineByteCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    maxInlineByteCount : UInt32
+
 }

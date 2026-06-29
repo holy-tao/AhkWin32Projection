@@ -1,33 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_ATTACHLIST.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DD_ATTACHLIST structure maintains a list of attached surfaces for Microsoft DirectDraw.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_attachlist
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_ATTACHLIST extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DD_ATTACHLIST {
+    #StructPack 8
 
     /**
      * Points to the next attached surface.
-     * @type {Pointer<DD_ATTACHLIST>}
      */
-    lpLink {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpLink : DD_ATTACHLIST.Ptr
 
+    __lpAttached_ptr : IntPtr
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure that contains the attached surface local object.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
     lpAttached {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpAttached_ptr) ? DD_SURFACE_LOCAL.At(addr) : unset
+        set => this.__lpAttached_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

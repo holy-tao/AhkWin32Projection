@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Column information mask.
- * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-enumcertviewcolumn
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CVRC_COLUMN extends Win32Enum {
+export default struct CVRC_COLUMN {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a description of a media format.
@@ -22,26 +23,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmediatype
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaType extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaType extends IMFAttributes {
     /**
      * The interface identifier for IMFMediaType
      * @type {Guid}
      */
-    static IID => Guid("{44ae0fa8-ea31-4109-8d2e-4cae4997c555}")
+    static IID := Guid("{44ae0fa8-ea31-4109-8d2e-4cae4997c555}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaType interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        GetMajorType       : IntPtr
+        IsCompressedFormat : IntPtr
+        IsEqual            : IntPtr
+        GetRepresentation  : IntPtr
+        FreeRepresentation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMajorType", "IsCompressedFormat", "IsEqual", "GetRepresentation", "FreeRepresentation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the major type of the format.
@@ -60,7 +72,7 @@ class IMFMediaType extends IMFAttributes {
      */
     GetMajorType() {
         pguidMajorType := Guid()
-        result := ComCall(33, this, "ptr", pguidMajorType, "HRESULT")
+        result := ComCall(33, this, Guid.Ptr, pguidMajorType, "HRESULT")
         return pguidMajorType
     }
 
@@ -83,7 +95,7 @@ class IMFMediaType extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-iscompressedformat
      */
     IsCompressedFormat() {
-        result := ComCall(34, this, "int*", &pfCompressed := 0, "HRESULT")
+        result := ComCall(34, this, BOOL.Ptr, &pfCompressed := 0, "HRESULT")
         return pfCompressed
     }
 
@@ -238,7 +250,7 @@ class IMFMediaType extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation
      */
     GetRepresentation(guidRepresentation) {
-        result := ComCall(36, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "HRESULT")
+        result := ComCall(36, this, Guid, guidRepresentation, "ptr*", &ppvRepresentation := 0, "HRESULT")
         return ppvRepresentation
     }
 
@@ -259,7 +271,35 @@ class IMFMediaType extends IMFAttributes {
     FreeRepresentation(guidRepresentation, pvRepresentation) {
         pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(37, this, "ptr", guidRepresentation, pvRepresentationMarshal, pvRepresentation, "HRESULT")
+        result := ComCall(37, this, Guid, guidRepresentation, pvRepresentationMarshal, pvRepresentation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMajorType := CallbackCreate(GetMethod(implObj, "GetMajorType"), flags, 2)
+        this.vtbl.IsCompressedFormat := CallbackCreate(GetMethod(implObj, "IsCompressedFormat"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.GetRepresentation := CallbackCreate(GetMethod(implObj, "GetRepresentation"), flags, 3)
+        this.vtbl.FreeRepresentation := CallbackCreate(GetMethod(implObj, "FreeRepresentation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMajorType)
+        CallbackFree(this.vtbl.IsCompressedFormat)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.GetRepresentation)
+        CallbackFree(this.vtbl.FreeRepresentation)
     }
 }

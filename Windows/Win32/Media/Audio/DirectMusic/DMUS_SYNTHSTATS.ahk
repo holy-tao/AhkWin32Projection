@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_SYNTHSTATS extends Win32Struct {
-    static sizeof => 32
+export default struct DMUS_SYNTHSTATS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwValidStats : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwValidStats {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVoices : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVoices {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTotalCPU : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotalCPU {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwCPUPerVoice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCPUPerVoice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLostNotes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLostNotes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFreeMemory : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeMemory {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lPeakVolume : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPeakVolume {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

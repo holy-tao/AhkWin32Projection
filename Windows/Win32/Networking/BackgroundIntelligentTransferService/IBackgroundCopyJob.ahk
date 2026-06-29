@@ -1,39 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumBackgroundCopyFiles.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\BG_JOB_PROGRESS.ahk
-#Include .\BG_JOB_TIMES.ahk
-#Include .\IBackgroundCopyError.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BG_FILE_INFO.ahk" { BG_FILE_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
+#Import ".\BG_JOB_TIMES.ahk" { BG_JOB_TIMES }
+#Import ".\IEnumBackgroundCopyFiles.ahk" { IEnumBackgroundCopyFiles }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BG_JOB_PROGRESS.ahk" { BG_JOB_PROGRESS }
+#Import ".\BG_JOB_PROXY_USAGE.ahk" { BG_JOB_PROXY_USAGE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
+#Import ".\BG_JOB_PRIORITY.ahk" { BG_JOB_PRIORITY }
+#Import ".\BG_JOB_STATE.ahk" { BG_JOB_STATE }
+#Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
  * Use the IBackgroundCopyJob interface to add files to the job, set the priority level of the job, determine the state of the job, and to start and stop the job.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopyjob
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJob extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJob extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyJob
      * @type {Guid}
      */
-    static IID => Guid("{37668d37-507e-4160-9316-26306d150b12}")
+    static IID := Guid("{37668d37-507e-4160-9316-26306d150b12}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJob interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddFileSet           : IntPtr
+        AddFile              : IntPtr
+        EnumFiles            : IntPtr
+        Suspend              : IntPtr
+        Resume               : IntPtr
+        Cancel               : IntPtr
+        Complete             : IntPtr
+        GetId                : IntPtr
+        GetType              : IntPtr
+        GetProgress          : IntPtr
+        GetTimes             : IntPtr
+        GetState             : IntPtr
+        GetError             : IntPtr
+        GetOwner             : IntPtr
+        SetDisplayName       : IntPtr
+        GetDisplayName       : IntPtr
+        SetDescription       : IntPtr
+        GetDescription       : IntPtr
+        SetPriority          : IntPtr
+        GetPriority          : IntPtr
+        SetNotifyFlags       : IntPtr
+        GetNotifyFlags       : IntPtr
+        SetNotifyInterface   : IntPtr
+        GetNotifyInterface   : IntPtr
+        SetMinimumRetryDelay : IntPtr
+        GetMinimumRetryDelay : IntPtr
+        SetNoProgressTimeout : IntPtr
+        GetNoProgressTimeout : IntPtr
+        GetErrorCount        : IntPtr
+        SetProxySettings     : IntPtr
+        GetProxySettings     : IntPtr
+        TakeOwnership        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddFileSet", "AddFile", "EnumFiles", "Suspend", "Resume", "Cancel", "Complete", "GetId", "GetType", "GetProgress", "GetTimes", "GetState", "GetError", "GetOwner", "SetDisplayName", "GetDisplayName", "SetDescription", "GetDescription", "SetPriority", "GetPriority", "SetNotifyFlags", "GetNotifyFlags", "SetNotifyInterface", "GetNotifyInterface", "SetMinimumRetryDelay", "GetMinimumRetryDelay", "SetNoProgressTimeout", "GetNoProgressTimeout", "GetErrorCount", "SetProxySettings", "GetProxySettings", "TakeOwnership"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJob.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds multiple files to a job.
@@ -137,7 +181,7 @@ class IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-addfileset
      */
     AddFileSet(cFileCount, pFileSet) {
-        result := ComCall(3, this, "uint", cFileCount, "ptr", pFileSet, "HRESULT")
+        result := ComCall(3, this, "uint", cFileCount, BG_FILE_INFO.Ptr, pFileSet, "HRESULT")
         return result
     }
 
@@ -520,7 +564,7 @@ class IBackgroundCopyJob extends IUnknown {
      */
     GetId() {
         pVal := Guid()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -546,7 +590,7 @@ class IBackgroundCopyJob extends IUnknown {
      */
     GetProgress() {
         pVal := BG_JOB_PROGRESS()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        result := ComCall(12, this, BG_JOB_PROGRESS.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -558,7 +602,7 @@ class IBackgroundCopyJob extends IUnknown {
      */
     GetTimes() {
         pVal := BG_JOB_TIMES()
-        result := ComCall(13, this, "ptr", pVal, "HRESULT")
+        result := ComCall(13, this, BG_JOB_TIMES.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -632,9 +676,9 @@ class IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getowner
      */
     GetOwner() {
-        result := ComCall(16, this, "ptr*", &pVal := 0, "int")
+        result := ComCall(16, this, PWSTR.Ptr, &pVal := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pVal)
+            CoTaskMemFree(pVal.value)
             throw OSError()
         }
 
@@ -715,9 +759,9 @@ class IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getdisplayname
      */
     GetDisplayName() {
-        result := ComCall(18, this, "ptr*", &pVal := 0, "int")
+        result := ComCall(18, this, PWSTR.Ptr, &pVal := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pVal)
+            CoTaskMemFree(pVal.value)
             throw OSError()
         }
 
@@ -795,9 +839,9 @@ class IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getdescription
      */
     GetDescription() {
-        result := ComCall(20, this, "ptr*", &pVal := 0, "int")
+        result := ComCall(20, this, PWSTR.Ptr, &pVal := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pVal)
+            CoTaskMemFree(pVal.value)
             throw OSError()
         }
 
@@ -853,7 +897,7 @@ class IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-setpriority
      */
     SetPriority(_Val) {
-        result := ComCall(21, this, "int", _Val, "HRESULT")
+        result := ComCall(21, this, BG_JOB_PRIORITY, _Val, "HRESULT")
         return result
     }
 
@@ -1368,7 +1412,7 @@ class IBackgroundCopyJob extends IUnknown {
         ProxyList := ProxyList is String ? StrPtr(ProxyList) : ProxyList
         ProxyBypassList := ProxyBypassList is String ? StrPtr(ProxyBypassList) : ProxyBypassList
 
-        result := ComCall(32, this, "int", ProxyUsage, "ptr", ProxyList, "ptr", ProxyBypassList, "HRESULT")
+        result := ComCall(32, this, BG_JOB_PROXY_USAGE, ProxyUsage, "ptr", ProxyList, "ptr", ProxyBypassList, "HRESULT")
         return result
     }
 
@@ -1419,10 +1463,10 @@ class IBackgroundCopyJob extends IUnknown {
         pProxyListMarshal := pProxyList is VarRef ? "ptr*" : "ptr"
         pProxyBypassListMarshal := pProxyBypassList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(33, this, pProxyUsageMarshal, pProxyUsage, pProxyListMarshal, pProxyList, pProxyBypassListMarshal, pProxyBypassList, "int")
+        result := ComCall(33, this, pProxyUsageMarshal, pProxyUsage, pProxyListMarshal, pProxyList, pProxyBypassListMarshal, pProxyBypassList, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pProxyList)
-            Com.CoTaskMemFree(pProxyBypassList)
+            CoTaskMemFree(pProxyList.value)
+            CoTaskMemFree(pProxyBypassList.value)
             throw OSError()
         }
 
@@ -1517,5 +1561,87 @@ class IBackgroundCopyJob extends IUnknown {
     TakeOwnership() {
         result := ComCall(34, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJob.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddFileSet := CallbackCreate(GetMethod(implObj, "AddFileSet"), flags, 3)
+        this.vtbl.AddFile := CallbackCreate(GetMethod(implObj, "AddFile"), flags, 3)
+        this.vtbl.EnumFiles := CallbackCreate(GetMethod(implObj, "EnumFiles"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Complete := CallbackCreate(GetMethod(implObj, "Complete"), flags, 1)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
+        this.vtbl.GetTimes := CallbackCreate(GetMethod(implObj, "GetTimes"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetNotifyFlags := CallbackCreate(GetMethod(implObj, "SetNotifyFlags"), flags, 2)
+        this.vtbl.GetNotifyFlags := CallbackCreate(GetMethod(implObj, "GetNotifyFlags"), flags, 2)
+        this.vtbl.SetNotifyInterface := CallbackCreate(GetMethod(implObj, "SetNotifyInterface"), flags, 2)
+        this.vtbl.GetNotifyInterface := CallbackCreate(GetMethod(implObj, "GetNotifyInterface"), flags, 2)
+        this.vtbl.SetMinimumRetryDelay := CallbackCreate(GetMethod(implObj, "SetMinimumRetryDelay"), flags, 2)
+        this.vtbl.GetMinimumRetryDelay := CallbackCreate(GetMethod(implObj, "GetMinimumRetryDelay"), flags, 2)
+        this.vtbl.SetNoProgressTimeout := CallbackCreate(GetMethod(implObj, "SetNoProgressTimeout"), flags, 2)
+        this.vtbl.GetNoProgressTimeout := CallbackCreate(GetMethod(implObj, "GetNoProgressTimeout"), flags, 2)
+        this.vtbl.GetErrorCount := CallbackCreate(GetMethod(implObj, "GetErrorCount"), flags, 2)
+        this.vtbl.SetProxySettings := CallbackCreate(GetMethod(implObj, "SetProxySettings"), flags, 4)
+        this.vtbl.GetProxySettings := CallbackCreate(GetMethod(implObj, "GetProxySettings"), flags, 4)
+        this.vtbl.TakeOwnership := CallbackCreate(GetMethod(implObj, "TakeOwnership"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddFileSet)
+        CallbackFree(this.vtbl.AddFile)
+        CallbackFree(this.vtbl.EnumFiles)
+        CallbackFree(this.vtbl.Suspend)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Complete)
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetProgress)
+        CallbackFree(this.vtbl.GetTimes)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.GetError)
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.SetDisplayName)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.SetDescription)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetPriority)
+        CallbackFree(this.vtbl.GetPriority)
+        CallbackFree(this.vtbl.SetNotifyFlags)
+        CallbackFree(this.vtbl.GetNotifyFlags)
+        CallbackFree(this.vtbl.SetNotifyInterface)
+        CallbackFree(this.vtbl.GetNotifyInterface)
+        CallbackFree(this.vtbl.SetMinimumRetryDelay)
+        CallbackFree(this.vtbl.GetMinimumRetryDelay)
+        CallbackFree(this.vtbl.SetNoProgressTimeout)
+        CallbackFree(this.vtbl.GetNoProgressTimeout)
+        CallbackFree(this.vtbl.GetErrorCount)
+        CallbackFree(this.vtbl.SetProxySettings)
+        CallbackFree(this.vtbl.GetProxySettings)
+        CallbackFree(this.vtbl.TakeOwnership)
     }
 }

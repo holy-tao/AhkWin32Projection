@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AMVABUFFERINFO structure specifies a buffer for the IAMVideoAccelerator::Execute method.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvabufferinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMVABUFFERINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct AMVABUFFERINFO {
+    #StructPack 4
 
     /**
      * Type of buffer. The following buffer types are defined.
@@ -173,37 +170,22 @@ class AMVABUFFERINFO extends Win32Struct {
      *  
      * 
      * For complete descriptions of these buffer types, refer to the DirectX Video Acceleration 1.0 specification.
-     * @type {Integer}
      */
-    dwTypeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTypeIndex : UInt32
 
     /**
      * Buffer index.
-     * @type {Integer}
      */
-    dwBufferIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwBufferIndex : UInt32
 
     /**
      * The offset of the relevant data from the beginning of the buffer.
-     * @type {Integer}
      */
-    dwDataOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDataOffset : UInt32
 
     /**
      * Size of the relevant data in the buffer, in bytes.
-     * @type {Integer}
      */
-    dwDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDataSize : UInt32
+
 }

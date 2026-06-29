@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The ICCOMPRESS structure contains compression parameters used with the ICM_COMPRESS message.
@@ -9,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-iccompress
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICCOMPRESS extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct ICCOMPRESS {
+    #StructPack 8
 
     /**
      * Flags used for compression. The following value is defined:
@@ -33,109 +30,62 @@ class ICCOMPRESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the output (compressed) format. The <b>biSizeImage</b> member must contain the size of the compressed data.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiOutput {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpbiOutput : BITMAPINFOHEADER.Ptr
 
     /**
      * Pointer to the buffer where the driver should write the compressed data.
-     * @type {Pointer<Void>}
      */
-    lpOutput {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpOutput : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the input (uncompressed) format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiInput {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpbiInput : BITMAPINFOHEADER.Ptr
 
     /**
      * Pointer to the buffer containing input data.
-     * @type {Pointer<Void>}
      */
-    lpInput {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpInput : IntPtr
 
     /**
      * Address to contain the chunk identifier for data in the AVI file. If the value of this member is not <b>NULL</b>, the driver should specify a two-character code for the chunk identifier corresponding to the chunk identifier used in the AVI file.
-     * @type {Pointer<Integer>}
      */
-    lpckid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpckid : IntPtr
 
     /**
      * Address to contain flags for the AVI index. If the returned frame is a key frame, the driver should set the <b>AVIIF_KEYFRAME</b> flag.
-     * @type {Pointer<Integer>}
      */
-    lpdwFlags {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpdwFlags : IntPtr
 
     /**
      * Number of the frame to compress.
-     * @type {Integer}
      */
-    lFrameNum {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    lFrameNum : Int32
 
     /**
      * Desired maximum size, in bytes, for compressing this frame. The size value is used for compression methods that can make tradeoffs between compressed image size and image quality. Specify zero for this member to use the default setting.
-     * @type {Integer}
      */
-    dwFrameSize {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwFrameSize : UInt32
 
     /**
      * Quality setting.
-     * @type {Integer}
      */
-    dwQuality {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwQuality : UInt32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the format of the previous frame, which is typically the same as the input format.
-     * @type {Pointer<BITMAPINFOHEADER>}
      */
-    lpbiPrev {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpbiPrev : BITMAPINFOHEADER.Ptr
 
     /**
      * Pointer to the buffer containing input data of the previous frame.
-     * @type {Pointer<Void>}
      */
-    lpPrev {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpPrev : IntPtr
+
 }

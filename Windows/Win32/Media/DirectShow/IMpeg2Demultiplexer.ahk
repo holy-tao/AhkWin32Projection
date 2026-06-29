@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPin.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is implemented on the MPEG-2 Demultiplexer filter (Demux) and is used in both program stream mode and transport stream mode.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-impeg2demultiplexer
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMpeg2Demultiplexer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMpeg2Demultiplexer extends IUnknown {
     /**
      * The interface identifier for IMpeg2Demultiplexer
      * @type {Guid}
      */
-    static IID => Guid("{436eee9c-264f-4242-90e1-4e330c107512}")
+    static IID := Guid("{436eee9c-264f-4242-90e1-4e330c107512}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMpeg2Demultiplexer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateOutputPin       : IntPtr
+        SetOutputPinMediaType : IntPtr
+        DeleteOutputPin       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateOutputPin", "SetOutputPinMediaType", "DeleteOutputPin"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMpeg2Demultiplexer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The CreateOutputPin method creates a new output pin on the Demux.
@@ -42,7 +54,7 @@ class IMpeg2Demultiplexer extends IUnknown {
     CreateOutputPin(pMediaType, pszPinName) {
         pszPinName := pszPinName is String ? StrPtr(pszPinName) : pszPinName
 
-        result := ComCall(3, this, "ptr", pMediaType, "ptr", pszPinName, "ptr*", &ppIPin := 0, "HRESULT")
+        result := ComCall(3, this, AM_MEDIA_TYPE.Ptr, pMediaType, "ptr", pszPinName, "ptr*", &ppIPin := 0, "HRESULT")
         return IPin(ppIPin)
     }
 
@@ -60,7 +72,7 @@ class IMpeg2Demultiplexer extends IUnknown {
     SetOutputPinMediaType(pszPinName, pMediaType) {
         pszPinName := pszPinName is String ? StrPtr(pszPinName) : pszPinName
 
-        result := ComCall(4, this, "ptr", pszPinName, "ptr", pMediaType, "HRESULT")
+        result := ComCall(4, this, "ptr", pszPinName, AM_MEDIA_TYPE.Ptr, pMediaType, "HRESULT")
         return result
     }
 
@@ -77,5 +89,29 @@ class IMpeg2Demultiplexer extends IUnknown {
 
         result := ComCall(5, this, "ptr", pszPinName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMpeg2Demultiplexer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateOutputPin := CallbackCreate(GetMethod(implObj, "CreateOutputPin"), flags, 4)
+        this.vtbl.SetOutputPinMediaType := CallbackCreate(GetMethod(implObj, "SetOutputPinMediaType"), flags, 3)
+        this.vtbl.DeleteOutputPin := CallbackCreate(GetMethod(implObj, "DeleteOutputPin"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateOutputPin)
+        CallbackFree(this.vtbl.SetOutputPinMediaType)
+        CallbackFree(this.vtbl.DeleteOutputPin)
     }
 }

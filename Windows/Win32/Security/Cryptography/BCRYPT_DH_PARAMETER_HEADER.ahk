@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to contain parameter header information for a Diffie-Hellman key.
@@ -42,38 +41,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dh_parameter_header
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_DH_PARAMETER_HEADER extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct BCRYPT_DH_PARAMETER_HEADER {
+    #StructPack 4
 
     /**
      * The total size, in bytes, of this structure and the buffer that immediately follows this structure in memory.
-     * @type {Integer}
      */
-    cbLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbLength : UInt32
 
     /**
      * The magic value for the key.
      * 
      * 
      * This member must be the following value.
-     * @type {Integer}
      */
-    dwMagic {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMagic : UInt32
 
     /**
      * The size, in bytes, of the key that this structure applies to.
-     * @type {Integer}
      */
-    cbKeyLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbKeyLength : UInt32
+
 }

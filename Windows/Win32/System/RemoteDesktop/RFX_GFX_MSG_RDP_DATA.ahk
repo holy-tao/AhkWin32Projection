@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFX_GFX_MSG_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MSG_RDP_DATA extends Win32Struct {
-    static sizeof => 6
+export default struct RFX_GFX_MSG_RDP_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    channelHdr : RFX_GFX_MSG_HEADER
 
-    /**
-     * @type {RFX_GFX_MSG_HEADER}
-     */
-    channelHdr {
-        get {
-            if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
-            return this.__channelHdr
-        }
-    }
+    rdpData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rdpData {
-        get {
-            if(!this.HasProp("__rdpDataProxyArray"))
-                this.__rdpDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__rdpDataProxyArray
-        }
-    }
 }

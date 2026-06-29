@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
-#Include .\ONEX_VARIABLE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
+#Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
+#Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk" { EAP_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains 802.1X EAP error when an error occurs with 802.1X authentication.
@@ -17,10 +17,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_eap_error
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_EAP_ERROR extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct ONEX_EAP_ERROR {
+    #StructPack 4
 
     /**
      * The error value defined in the <i>Winerror.h</i> header file. This member also sometimes contains the reason the EAP method failed. The existing values for this member for the reason the EAP method failed are defined in the <i>Eaphosterror.h</i> header file.
@@ -429,24 +427,13 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwWinError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwWinError : UInt32
 
     /**
      * The EAP method type that raised the error during 802.1X authentication. The <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure is defined in the <i>Eaptypes.h</i> header file.
-     * @type {EAP_METHOD_TYPE}
      */
-    type {
-        get {
-            if(!this.HasProp("__type"))
-                this.__type := EAP_METHOD_TYPE(4, this)
-            return this.__type
-        }
-    }
+    type : EAP_METHOD_TYPE
 
     /**
      * The reason the EAP method failed. Some of the values for this member are defined in the <i>Eaphosterror.h</i> header file and some are defined in in the <i>Winerror.h</i> header file, although other values are possible.
@@ -510,12 +497,8 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwReasonCode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwReasonCode : UInt32
 
     /**
      * A unique ID that identifies cause of error in EAPHost. An EAP method can define a new GUID and associate the GUID with a specific root cause. The existing values for this member are defined in the <i>Eaphosterror.h</i> header file.
@@ -864,12 +847,8 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    rootCauseGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rootCauseGuid : Guid
 
     /**
      * A  unique ID that maps to a localizable string that identifies the repair action that can be taken to fix the reported error. The existing values for this member are defined in the <i>Eaphosterror.h</i> header file.
@@ -1129,12 +1108,8 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    repairGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    repairGuid : Guid
 
     /**
      * A unique ID that maps to a localizable string that specifies an URL for a page that contains additional information about an error or repair message.  An EAP method can potentially define a new GUID and associate with one specific help link. Some of the existing values for this member are defined in the <i>Eaphosterror.h</i> header file.
@@ -1228,23 +1203,16 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    helpLinkGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    helpLinkGuid : Guid
 
     /**
      * This bitfield backs the following members:
      * - fRootCauseString
      * - fRepairString
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -1261,29 +1229,15 @@ class ONEX_EAP_ERROR extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
-
     /**
      * A localized and readable string that describes the root cause of the error. This member contains a NULL-terminated Unicode string starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fRootCauseString</b> bitfield member is set.
-     * @type {ONEX_VARIABLE_BLOB}
      */
-    RootCauseString {
-        get {
-            if(!this.HasProp("__RootCauseString"))
-                this.__RootCauseString := ONEX_VARIABLE_BLOB(52, this)
-            return this.__RootCauseString
-        }
-    }
+    RootCauseString : ONEX_VARIABLE_BLOB
 
     /**
      * A localized and readable string that describes the possible repair action.
      * This member contains a NULL-terminated Unicode string starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fRepairString</b> bitfield member is set.
-     * @type {ONEX_VARIABLE_BLOB}
      */
-    RepairString {
-        get {
-            if(!this.HasProp("__RepairString"))
-                this.__RepairString := ONEX_VARIABLE_BLOB(60, this)
-            return this.__RepairString
-        }
-    }
+    RepairString : ONEX_VARIABLE_BLOB
+
 }

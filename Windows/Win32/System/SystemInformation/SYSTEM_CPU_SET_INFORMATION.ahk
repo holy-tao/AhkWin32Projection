@@ -1,116 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CPU_SET_INFORMATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CPU_SET_INFORMATION_TYPE.ahk" { CPU_SET_INFORMATION_TYPE }
 
 /**
  * This structure is returned by GetSystemCpuSetInformation. It is used to enumerate the CPU Sets on the system and determine their current state.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_cpu_set_information
  * @namespace Windows.Win32.System.SystemInformation
  */
-class SYSTEM_CPU_SET_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct SYSTEM_CPU_SET_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * This is the size, in bytes, of this information structure.
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    struct _CpuSet {
+        Id : UInt32
 
-    /**
-     * This is the type of information in the structure. Applications should skip any structures with unrecognized types.
-     * @type {CPU_SET_INFORMATION_TYPE}
-     */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+        Group : UInt16
 
-    class _CpuSet extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        LogicalProcessorIndex : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Id {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        CoreIndex : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Group {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
+        LastLevelCacheIndex : Int8
 
-        /**
-         * @type {Integer}
-         */
-        LogicalProcessorIndex {
-            get => NumGet(this, 6, "char")
-            set => NumPut("char", value, this, 6)
-        }
+        NumaNodeIndex : Int8
 
-        /**
-         * @type {Integer}
-         */
-        CoreIndex {
-            get => NumGet(this, 7, "char")
-            set => NumPut("char", value, this, 7)
-        }
+        EfficiencyClass : Int8
 
-        /**
-         * @type {Integer}
-         */
-        LastLevelCacheIndex {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
-        }
+        AllFlags : Int8
 
-        /**
-         * @type {Integer}
-         */
-        NumaNodeIndex {
-            get => NumGet(this, 9, "char")
-            set => NumPut("char", value, this, 9)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        EfficiencyClass {
-            get => NumGet(this, 10, "char")
-            set => NumPut("char", value, this, 10)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AllFlags {
-            get => NumGet(this, 11, "char")
-            set => NumPut("char", value, this, 11)
-        }
-
-        /**
-         * This bitfield backs the following members:
-         * - Parked
-         * - Allocated
-         * - AllocatedToTargetProcess
-         * - RealTime
-         * - ReservedFlags
-         * @type {Integer}
-         */
-        _bitfield {
-            get => NumGet(this, 11, "char")
-            set => NumPut("char", value, this, 11)
-        }
 
         /**
          * @type {Integer}
@@ -151,40 +67,27 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct {
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
+        Reserved : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        AllocationTag : Int64
 
-        /**
-         * @type {Integer}
-         */
-        SchedulingClass {
-            get => NumGet(this, 12, "char")
-            set => NumPut("char", value, this, 12)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AllocationTag {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
+        static __New() {
+            DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 11 })
+            DefineProp(this.Prototype, 'SchedulingClass', { type: Int8, offset: 12 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
-     * @type {_CpuSet}
+     * This is the size, in bytes, of this information structure.
      */
-    CpuSet {
-        get {
-            if(!this.HasProp("__CpuSet"))
-                this.__CpuSet := SYSTEM_CPU_SET_INFORMATION._CpuSet(8, this)
-            return this.__CpuSet
-        }
-    }
+    Size : UInt32
+
+    /**
+     * This is the type of information in the structure. Applications should skip any structures with unrecognized types.
+     */
+    Type : CPU_SET_INFORMATION_TYPE
+
+    CpuSet : SYSTEM_CPU_SET_INFORMATION._CpuSet
+
 }

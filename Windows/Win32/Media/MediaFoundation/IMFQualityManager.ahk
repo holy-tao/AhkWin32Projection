@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFPresentationClock.ahk" { IMFPresentationClock }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
 
 /**
  * Adjusts playback quality. This interface is exposed by the quality manager.
@@ -10,26 +16,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfqualitymanager
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFQualityManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFQualityManager extends IUnknown {
     /**
      * The interface identifier for IMFQualityManager
      * @type {Guid}
      */
-    static IID => Guid("{8d009d86-5b9f-4115-b1fc-9f80d52ab8ab}")
+    static IID := Guid("{8d009d86-5b9f-4115-b1fc-9f80d52ab8ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFQualityManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NotifyTopology          : IntPtr
+        NotifyPresentationClock : IntPtr
+        NotifyProcessInput      : IntPtr
+        NotifyProcessOutput     : IntPtr
+        NotifyQualityEvent      : IntPtr
+        Shutdown                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NotifyTopology", "NotifyPresentationClock", "NotifyProcessInput", "NotifyProcessOutput", "NotifyQualityEvent", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFQualityManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when the Media Session is about to start playing a new topology.
@@ -231,5 +249,35 @@ class IMFQualityManager extends IUnknown {
     Shutdown() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFQualityManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NotifyTopology := CallbackCreate(GetMethod(implObj, "NotifyTopology"), flags, 2)
+        this.vtbl.NotifyPresentationClock := CallbackCreate(GetMethod(implObj, "NotifyPresentationClock"), flags, 2)
+        this.vtbl.NotifyProcessInput := CallbackCreate(GetMethod(implObj, "NotifyProcessInput"), flags, 4)
+        this.vtbl.NotifyProcessOutput := CallbackCreate(GetMethod(implObj, "NotifyProcessOutput"), flags, 4)
+        this.vtbl.NotifyQualityEvent := CallbackCreate(GetMethod(implObj, "NotifyQualityEvent"), flags, 3)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NotifyTopology)
+        CallbackFree(this.vtbl.NotifyPresentationClock)
+        CallbackFree(this.vtbl.NotifyProcessInput)
+        CallbackFree(this.vtbl.NotifyProcessOutput)
+        CallbackFree(this.vtbl.NotifyQualityEvent)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

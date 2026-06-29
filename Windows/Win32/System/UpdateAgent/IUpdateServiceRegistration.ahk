@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateService2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUpdateService2.ahk" { IUpdateService2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\UpdateServiceRegistrationState.ahk" { UpdateServiceRegistrationState }
 
 /**
  * Contains information about the registration state of a service.
@@ -12,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateserviceregistration
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateServiceRegistration extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateServiceRegistration extends IDispatch {
     /**
      * The interface identifier for IUpdateServiceRegistration
      * @type {Guid}
      */
-    static IID => Guid("{dde02280-12b3-4e0b-937b-6747f6acb286}")
+    static IID := Guid("{dde02280-12b3-4e0b-937b-6747f6acb286}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateServiceRegistration interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_RegistrationState           : IntPtr
+        get_ServiceID                   : IntPtr
+        get_IsPendingRegistrationWithAU : IntPtr
+        get_Service                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_RegistrationState", "get_ServiceID", "get_IsPendingRegistrationWithAU", "get_Service"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateServiceRegistration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {UpdateServiceRegistrationState} 
@@ -76,8 +89,8 @@ class IUpdateServiceRegistration extends IDispatch {
      * @returns {BSTR} 
      */
     get_ServiceID() {
-        retval := BSTR()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -89,7 +102,7 @@ class IUpdateServiceRegistration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_ispendingregistrationwithau
      */
     get_IsPendingRegistrationWithAU() {
-        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -101,5 +114,31 @@ class IUpdateServiceRegistration extends IDispatch {
     get_Service() {
         result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
         return IUpdateService2(retval)
+    }
+
+    Query(iid) {
+        if (IUpdateServiceRegistration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_RegistrationState := CallbackCreate(GetMethod(implObj, "get_RegistrationState"), flags, 2)
+        this.vtbl.get_ServiceID := CallbackCreate(GetMethod(implObj, "get_ServiceID"), flags, 2)
+        this.vtbl.get_IsPendingRegistrationWithAU := CallbackCreate(GetMethod(implObj, "get_IsPendingRegistrationWithAU"), flags, 2)
+        this.vtbl.get_Service := CallbackCreate(GetMethod(implObj, "get_Service"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_RegistrationState)
+        CallbackFree(this.vtbl.get_ServiceID)
+        CallbackFree(this.vtbl.get_IsPendingRegistrationWithAU)
+        CallbackFree(this.vtbl.get_Service)
     }
 }

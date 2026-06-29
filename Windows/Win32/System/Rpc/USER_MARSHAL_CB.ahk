@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIDL_STUB_MESSAGE.ahk
-#Include .\USER_MARSHAL_CB_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIDL_STUB_MESSAGE.ahk" { MIDL_STUB_MESSAGE }
+#Import ".\USER_MARSHAL_CB_TYPE.ahk" { USER_MARSHAL_CB_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class USER_MARSHAL_CB extends Win32Struct {
-    static sizeof => 48
+export default struct USER_MARSHAL_CB {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pStubMsg : MIDL_STUB_MESSAGE.Ptr
 
-    /**
-     * @type {Pointer<MIDL_STUB_MESSAGE>}
-     */
-    pStubMsg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pReserve : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pReserve {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CBType : USER_MARSHAL_CB_TYPE
 
-    /**
-     * @type {USER_MARSHAL_CB_TYPE}
-     */
-    CBType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    pFormat : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pFormat {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pTypeFormat : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pTypeFormat {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

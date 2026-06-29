@@ -1,80 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_CONNECTION_MODE.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSSID_LIST.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DOT11_ACCESSNETWORKOPTIONS.ahk" { DOT11_ACCESSNETWORKOPTIONS }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_BSSID_LIST.ahk" { DOT11_BSSID_LIST }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct {
-    static sizeof => 56
+export default struct WLAN_CONNECTION_PARAMETERS_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    wlanConnectionMode : WLAN_CONNECTION_MODE
 
-    /**
-     * @type {WLAN_CONNECTION_MODE}
-     */
-    wlanConnectionMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    strProfile : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    strProfile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDot11Ssid : DOT11_SSID.Ptr
 
-    /**
-     * @type {Pointer<DOT11_SSID>}
-     */
-    pDot11Ssid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDot11Hessid : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pDot11Hessid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pDesiredBssidList : DOT11_BSSID_LIST.Ptr
 
-    /**
-     * @type {Pointer<DOT11_BSSID_LIST>}
-     */
-    pDesiredBssidList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dot11BssType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    dot11BssType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    pDot11AccessNetworkOptions : DOT11_ACCESSNETWORKOPTIONS.Ptr
 
-    /**
-     * @type {Pointer<DOT11_ACCESSNETWORKOPTIONS>}
-     */
-    pDot11AccessNetworkOptions {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

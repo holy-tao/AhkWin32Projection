@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a processor.
@@ -8,62 +7,37 @@
  * @see https://learn.microsoft.com/windows/win32/Power/processor-power-information-str
  * @namespace Windows.Win32.System.Power
  */
-class PROCESSOR_POWER_INFORMATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct PROCESSOR_POWER_INFORMATION {
+    #StructPack 4
 
     /**
      * The system processor number.
-     * @type {Integer}
      */
-    Number {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Number : UInt32
 
     /**
      * The maximum specified clock frequency of the system processor, in megahertz.
-     * @type {Integer}
      */
-    MaxMhz {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxMhz : UInt32
 
     /**
      * The processor clock frequency, in megahertz. This number is the maximum specified processor clock frequency multiplied by the current processor throttle.
-     * @type {Integer}
      */
-    CurrentMhz {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CurrentMhz : UInt32
 
     /**
      * The limit on the processor clock frequency, in megahertz. This number is the maximum specified processor clock frequency multiplied by the current processor thermal throttle limit.
-     * @type {Integer}
      */
-    MhzLimit {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MhzLimit : UInt32
 
     /**
      * The maximum idle state of this processor.
-     * @type {Integer}
      */
-    MaxIdleState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxIdleState : UInt32
 
     /**
      * The current idle state of this processor.
-     * @type {Integer}
      */
-    CurrentIdleState {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    CurrentIdleState : UInt32
+
 }

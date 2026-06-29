@@ -1,66 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_V1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_V1.ahk" { CLAIM_SECURITY_ATTRIBUTE_V1 }
 
 /**
  * Defines the security attributes for the claim.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attributes_information
  * @namespace Windows.Win32.Security
  */
-class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct CLAIM_SECURITY_ATTRIBUTES_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Attribute_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Attribute {
+        pAttributeV1 : CLAIM_SECURITY_ATTRIBUTE_V1.Ptr
 
-        /**
-         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_V1>}
-         */
-        pAttributeV1 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
     /**
      * The version of the security attribute. This must be CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION_V1.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Version : UInt16
 
     /**
      * This member is currently reserved and must be zero when setting an attribute and is ignored when getting an attribute.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Reserved : UInt16
 
     /**
      * The number of values.
-     * @type {Integer}
      */
-    AttributeCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AttributeCount : UInt32
 
     /**
      * The actual attribute.
-     * @type {_Attribute_e__Union}
      */
-    Attribute {
-        get {
-            if(!this.HasProp("__Attribute"))
-                this.__Attribute := CLAIM_SECURITY_ATTRIBUTES_INFORMATION._Attribute_e__Union(8, this)
-            return this.__Attribute
-        }
-    }
+    Attribute : CLAIM_SECURITY_ATTRIBUTES_INFORMATION._Attribute
+
 }

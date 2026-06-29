@@ -1,46 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CHAIN_POLICY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_CHAIN_POLICY_FLAGS.ahk" { CERT_CHAIN_POLICY_FLAGS }
 
 /**
  * Contains information used in CertVerifyCertificateChainPolicy to establish policy criteria for the verification of certificate chains.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_CHAIN_POLICY_PARA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CERT_CHAIN_POLICY_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A set of flags that indicate conditions that could potentially be not valid and that are to be ignored in building certificate chains.
-     * @type {CERT_CHAIN_POLICY_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : CERT_CHAIN_POLICY_FLAGS
 
     /**
      * The address of a pszPolicyOID-specific structure that provides additional validity policy conditions.
-     * @type {Pointer<Void>}
      */
-    pvExtraPolicyPara {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvExtraPolicyPara : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The NTMS_MEDIAPOOLINFORMATION structure defines the properties specific to a media pool object.
@@ -10,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_mediapoolinformation
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct NTMS_MEDIAPOOLINFORMATION {
+    #StructPack 4
 
     /**
      * NTMS supports the following media pool types. 
@@ -76,30 +74,18 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    PoolType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PoolType : UInt32
 
     /**
      * Single media type that makes up each media pool.
-     * @type {Pointer}
      */
-    MediaType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MediaType : Guid
 
     /**
      * Parent media pool or <b>NULL</b>.
-     * @type {Pointer}
      */
-    Parent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Parent : Guid
 
     /**
      * Bit field indicating action at allocation time. This member is writable. This can be the following value. 
@@ -122,12 +108,8 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AllocationPolicy {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AllocationPolicy : UInt32
 
     /**
      * Bit field indicating action at deallocation time. This member is writable. This can be the following value. 
@@ -150,46 +132,27 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DeallocationPolicy {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DeallocationPolicy : UInt32
 
     /**
      * Number of times the medium can be allocated and deallocated. This member is writable.
-     * @type {Integer}
      */
-    dwMaxAllocates {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwMaxAllocates : UInt32
 
     /**
      * Number of physical media in this media pool.
-     * @type {Integer}
      */
-    dwNumberOfPhysicalMedia {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwNumberOfPhysicalMedia : UInt32
 
     /**
      * Number of logical media in this media pool.
-     * @type {Integer}
      */
-    dwNumberOfLogicalMedia {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwNumberOfLogicalMedia : UInt32
 
     /**
      * Number of media pools in this media pool.
-     * @type {Integer}
      */
-    dwNumberOfMediaPools {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwNumberOfMediaPools : UInt32
+
 }

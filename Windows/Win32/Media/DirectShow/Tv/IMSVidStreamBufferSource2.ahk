@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSource.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidStreamBufferSource.ahk" { IMSVidStreamBufferSource }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMSVidStreamBufferSource2 interface represents the Stream Buffer Source filter within the Video Control.
@@ -11,26 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersource2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource {
     /**
      * The interface identifier for IMSVidStreamBufferSource2
      * @type {Guid}
      */
-    static IID => Guid("{e4ba9059-b1ce-40d8-b9a0-d4ea4a9989d3}")
+    static IID := Guid("{e4ba9059-b1ce-40d8-b9a0-d4ea4a9989d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 41
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSource2 interfaces
+    */
+    struct Vtbl extends IMSVidStreamBufferSource.Vtbl {
+        put_RateEx       : IntPtr
+        get_AudioCounter : IntPtr
+        get_VideoCounter : IntPtr
+        get_CCCounter    : IntPtr
+        get_WSTCounter   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_RateEx", "get_AudioCounter", "get_VideoCounter", "get_CCCounter", "get_WSTCounter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSource2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -130,5 +142,33 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource {
     get_WSTCounter() {
         result := ComCall(45, this, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSource2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_RateEx := CallbackCreate(GetMethod(implObj, "put_RateEx"), flags, 3)
+        this.vtbl.get_AudioCounter := CallbackCreate(GetMethod(implObj, "get_AudioCounter"), flags, 2)
+        this.vtbl.get_VideoCounter := CallbackCreate(GetMethod(implObj, "get_VideoCounter"), flags, 2)
+        this.vtbl.get_CCCounter := CallbackCreate(GetMethod(implObj, "get_CCCounter"), flags, 2)
+        this.vtbl.get_WSTCounter := CallbackCreate(GetMethod(implObj, "get_WSTCounter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_RateEx)
+        CallbackFree(this.vtbl.get_AudioCounter)
+        CallbackFree(this.vtbl.get_VideoCounter)
+        CallbackFree(this.vtbl.get_CCCounter)
+        CallbackFree(this.vtbl.get_WSTCounter)
     }
 }

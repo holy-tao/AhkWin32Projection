@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Effect device-state types.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_DEVICE_STATE_TYPES extends Win32Enum {
+export default struct D3D10_DEVICE_STATE_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Stream-output buffer.

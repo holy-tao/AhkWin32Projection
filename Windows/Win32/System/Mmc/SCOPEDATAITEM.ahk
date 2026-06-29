@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SCOPEDATAITEM structure specifies items to be inserted into the scope pane.
@@ -8,19 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-scopedataitem
  * @namespace Windows.Win32.System.Mmc
  */
-class SCOPEDATAITEM extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct SCOPEDATAITEM {
+    #StructPack 8
 
     /**
      * A value that specifies an array of flags  that indicate  which members of the structure contain valid data. When this structure is used in the
-     * @type {Integer}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : UInt32
 
     /**
      * <b>MMC_CALLBACK</b> value or a pointer to a null-terminated string, which depends on how the structure is being used.
@@ -35,43 +30,27 @@ class SCOPEDATAITEM extends Win32Struct {
      * Be aware that the snap-in can use <b>MMC_TEXTCALLBACK</b> instead of <b>MMC_CALLBACK</b>. The <b>MMC_TEXTCALLBACK</b> value is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
-     * @type {PWSTR}
      */
-    displayname {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    displayname : PWSTR
 
     /**
      * Virtual image index in the image list when the item is in the nonselected state. Be aware that the virtual image index is mapped internally to the actual index. This member can also be specified as a callback item: <b>MMC_CALLBACK</b> or <b>MMC_IMAGECALLBACK</b>. The <b>MMC_IMAGECALLBACK</b> is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_IMAGECALLBACK</b> is introduced in MMC version 1.2.
-     * @type {Integer}
      */
-    nImage {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    nImage : Int32
 
     /**
      * Virtual image index in the image list when the item is in the selected state. Be aware that the virtual image index is mapped internally to the actual index. The item is like a folder in Microsoft Windows Explorer. The icon is for an open folder.
-     * @type {Integer}
      */
-    nOpenImage {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    nOpenImage : Int32
 
     /**
      * A value that specifies the state mask for the item. For <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsolenamespace-getitem">IConsoleNameSpace2::GetItem</a>, this member returns <b>MMC_SCOPE_ITEM_STATE_EXPANDEDONCE</b> if the item has been expanded at least  one time,  or 0 (zero) if the item has not been expanded.
      * 
      * This member is ignored for <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsolenamespace-insertitem">IConsoleNameSpace2::InsertItem</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsolenamespace-setitem">IConsoleNameSpace2::SetItem</a>.
-     * @type {Integer}
      */
-    nState {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    nState : UInt32
 
     /**
      * A value that specifies the number of enumerated items.
@@ -94,33 +73,21 @@ class SCOPEDATAITEM extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-irequiredextensions">IRequiredExtensions</a> interface. If none are enabled, the plus (+) sign  is  removed from the item.
      * 
      * After an item  is  expanded, the state of the plus sign  is  determined by the actual number of child items present.
-     * @type {Integer}
      */
-    cChildren {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    cChildren : Int32
 
     /**
      * A value that specifies a user-supplied 32-bit value to associate with the item. This item, also called a cookie, is the value that is passed as the first parameter to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponentdata-querydataobject">IComponentData::QueryDataObject</a>.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lParam : LPARAM
 
     /**
      * A console-supplied unique item identifier. An item is inserted at a position relative to the item  that  this member specifies. The  <b>mask</b> settings determine the  relative position.
      * 
      * To determine how <b>relativeID</b> is interpreted, specify one of the following constants as the <b>mask</b> member.
-     * @type {Pointer}
      */
-    relativeID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    relativeID : IntPtr
 
     /**
      * A value that specifies a console-supplied unique identifier for the scope item. This value is used to identify an item in the scope pane  of  calls to  some  of the 
@@ -136,10 +103,7 @@ class SCOPEDATAITEM extends Win32Struct {
      * Be aware that snap-ins should store the <b>HSCOPEITEM</b> of each inserted item and use it  later  to  manipulate the item  by using the methods of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iconsole2">IConsole2</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iconsolenamespace2">IConsoleNameSpace2</a> interfaces.
-     * @type {Pointer}
      */
-    ID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ID : IntPtr
+
 }

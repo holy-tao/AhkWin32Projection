@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NETWORK_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NETWORK_ADDRESS.ahk" { NETWORK_ADDRESS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NETWORK_ADDRESS_LIST extends Win32Struct {
-    static sizeof => 12
+export default struct NETWORK_ADDRESS_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    AddressCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    AddressCount {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AddressType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AddressType {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Address : NETWORK_ADDRESS[1]
 
-    /**
-     * @type {NETWORK_ADDRESS}
-     */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 6, 1, NETWORK_ADDRESS, "")
-            return this.__AddressProxyArray
-        }
-    }
 }

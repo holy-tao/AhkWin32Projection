@@ -1,40 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_DURATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_DURATION.ahk" { WS_DURATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * An optional type description used with WS_DURATION_TYPE. It is used to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_duration_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_DURATION_DESCRIPTION extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct WS_DURATION_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The minimum value.
-     * @type {WS_DURATION}
      */
-    minValue {
-        get {
-            if(!this.HasProp("__minValue"))
-                this.__minValue := WS_DURATION(0, this)
-            return this.__minValue
-        }
-    }
+    minValue : WS_DURATION
 
     /**
      * The maximum value.
-     * @type {WS_DURATION}
      */
-    maxValue {
-        get {
-            if(!this.HasProp("__maxValue"))
-                this.__maxValue := WS_DURATION(36, this)
-            return this.__maxValue
-        }
-    }
+    maxValue : WS_DURATION
 
     /**
      * Specifies a function which can be used to compare <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_duration">WS_DURATION</a>. If <b>NULL</b>, a default
@@ -45,10 +29,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct {
      *                     (for example, 1 month and 30 days).  The default comparer function can compare durations that specify
      *                     years and months (but no other components), or durations that specify no years or months (but any other
      *                     component).
-     * @type {Pointer<WS_DURATION_COMPARISON_CALLBACK>}
      */
-    comparer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    comparer : IntPtr
+
 }

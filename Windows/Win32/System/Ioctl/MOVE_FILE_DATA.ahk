@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains input data for the FSCTL_MOVE_FILE control code.
@@ -24,10 +23,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-move_file_data
  * @namespace Windows.Win32.System.Ioctl
  */
-class MOVE_FILE_DATA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MOVE_FILE_DATA {
+    #StructPack 8
 
     /**
      * A handle to the file to be moved.
@@ -39,40 +36,22 @@ class MOVE_FILE_DATA extends Win32Struct {
      *        <b>FILE_WRITE_DATA</b>, <b>FILE_APPEND_DATA</b>, or 
      *        <b>FILE_EXECUTE</b> access right. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @type {HANDLE}
      */
-    FileHandle {
-        get {
-            if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(0, this)
-            return this.__FileHandle
-        }
-    }
+    FileHandle : HANDLE
 
     /**
      * A VCN (cluster number relative to the beginning of a file) of the first cluster to be moved.
-     * @type {Integer}
      */
-    StartingVcn {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    StartingVcn : Int64
 
     /**
      * An LCN (cluster number on a volume) to which the VCN is to be moved.
-     * @type {Integer}
      */
-    StartingLcn {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    StartingLcn : Int64
 
     /**
      * The count of clusters to be moved.
-     * @type {Integer}
      */
-    ClusterCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ClusterCount : UInt32
+
 }

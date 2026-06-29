@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify whether the element was added to or removed from the live visual tree.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-visualmutationtype
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class VisualMutationType extends Win32Enum {
+export default struct VisualMutationType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The child element was added to the visual tree of the parent element.

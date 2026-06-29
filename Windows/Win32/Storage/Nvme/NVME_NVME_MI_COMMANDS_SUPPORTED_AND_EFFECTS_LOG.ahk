@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS.ahk" { NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS_LOG extends Win32Struct {
-    static sizeof => 4096
+export default struct NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS_LOG {
+    #StructPack 4
 
-    static packingSize => 4
+    ManagementInterfaceCommandSupported : NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS[256]
 
-    /**
-     * @type {NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS}
-     */
-    ManagementInterfaceCommandSupported {
-        get {
-            if(!this.HasProp("__ManagementInterfaceCommandSupportedProxyArray"))
-                this.__ManagementInterfaceCommandSupportedProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS, "")
-            return this.__ManagementInterfaceCommandSupportedProxyArray
-        }
-    }
+    Reserved : Int8[3072]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1024, 3072, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

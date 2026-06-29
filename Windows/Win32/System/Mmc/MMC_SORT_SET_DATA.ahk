@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MMC_SORT_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MMC_SORT_DATA.ahk" { MMC_SORT_DATA }
 
 /**
  * Used with setting and retrieving list view column sets whose sort data is stored persistently.
@@ -16,42 +15,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_sort_set_data
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_SORT_SET_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MMC_SORT_SET_DATA {
+    #StructPack 8
 
     /**
      * Size of the 
      * MMC_SORT_SET_DATA structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cbSize : Int32 := this.Size
 
     /**
      * The number of columns in the column set for which persistent sort data is being set or retrieved. This value can be one of the following:
-     * @type {Integer}
      */
-    nNumItems {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    nNumItems : Int32
 
     /**
      * A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_sort_data">MMC_SORT_DATA</a> structures that hold the actual sort data. Should be set to <b>NULL</b> if nNumItems is set to 0.
-     * @type {Pointer<MMC_SORT_DATA>}
      */
-    pSortData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSortData : MMC_SORT_DATA.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

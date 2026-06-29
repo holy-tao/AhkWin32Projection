@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores application data for a session context.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_sessionappdata
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_SessionAppData extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SecPkgContext_SessionAppData {
+    #StructPack 8
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Count of bytes used by <b>pbAppData</b>.
-     * @type {Integer}
      */
-    cbAppData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbAppData : UInt32
 
     /**
      * Pointer to a <b>BYTE</b> that represents the session application data.
-     * @type {Pointer<Integer>}
      */
-    pbAppData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbAppData : IntPtr
+
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SUBMITWAITFORSYNCOBJECTSTOHWQUEUE extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_SUBMITWAITFORSYNCOBJECTSTOHWQUEUE {
+    #StructPack 8
 
-    static packingSize => 8
+    hHwQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hHwQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ObjectCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ObjectHandleArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ObjectHandleArray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FenceValueArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    FenceValueArray {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

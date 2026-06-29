@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KERNEL_USER_TIMES extends Win32Struct {
-    static sizeof => 32
+export default struct KERNEL_USER_TIMES {
+    #StructPack 8
 
-    static packingSize => 8
+    CreateTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CreateTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    ExitTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExitTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    KernelTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    KernelTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    UserTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UserTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
 }

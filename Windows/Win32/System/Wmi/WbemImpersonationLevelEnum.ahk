@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Define the security impersonation levels. These constants are used with SWbemSecurity.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemimpersonationlevelenum
  * @namespace Windows.Win32.System.Wmi
  */
-class WbemImpersonationLevelEnum extends Win32Enum {
+export default struct WbemImpersonationLevelEnum {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Short name: Anonymous

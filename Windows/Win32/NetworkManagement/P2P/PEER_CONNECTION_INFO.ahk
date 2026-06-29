@@ -1,76 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\PEER_ADDRESS.ahk" { PEER_ADDRESS }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * The PEER_CONNECTION_INFO structure contains information about a connection. This structure is returned when you are enumerating peer graphing or grouping connections.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_connection_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_CONNECTION_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct PEER_CONNECTION_INFO {
+    #StructPack 8
 
     /**
      * Specifies the size a structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies the type of connection to a remote node. Valid values are specified by <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_connection_flags">PEER_CONNECTION_FLAGS</a>.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Specifies the  unique ID of a connection.
-     * @type {Integer}
      */
-    ullConnectionId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullConnectionId : Int64
 
     /**
      * Specifies the  unique ID of a node.
-     * @type {Integer}
      */
-    ullNodeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullNodeId : Int64
 
     /**
      * Points to a string that identifies the node on the other end of a connection.
-     * @type {PWSTR}
      */
-    pwzPeerId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwzPeerId : PWSTR
 
     /**
      * Specifies the address of a remote node. The address is contained in a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure.
      * @deprecated
-     * @type {PEER_ADDRESS}
      */
-    address {
-        get {
-            if(!this.HasProp("__address"))
-                this.__address := PEER_ADDRESS(32, this)
-            return this.__address
-        }
-    }
+    address : PEER_ADDRESS
+
 }

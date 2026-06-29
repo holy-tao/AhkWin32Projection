@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines whether the enumeration operation should continue or stop.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-eheapenumerationlevel
  * @namespace Windows.Win32.System.ApplicationVerifier
  */
-class eHeapEnumerationLevel extends Win32Enum {
+export default struct eHeapEnumerationLevel {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A constant that specifies the enumeration should continue.

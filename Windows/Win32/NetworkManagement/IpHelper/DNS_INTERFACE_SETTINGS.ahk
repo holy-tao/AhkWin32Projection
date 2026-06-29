@@ -1,26 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents the DNS settings that can be configured on a given interface by calling the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function. (DNS_INTERFACE_SETTINGS)
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class DNS_INTERFACE_SETTINGS extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct DNS_INTERFACE_SETTINGS {
+    #StructPack 8
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * Must be set to **DNS_INTERFACE_SETTINGS_VERSION1**.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Type: **[ULONG64](/windows/win32/winprog/windows-data-types)**
@@ -42,23 +36,15 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct {
      * **DNS_SETTINGS_QUERY_ADAPTER_NAME** (0x0100). Enables or disables the use of the adapter name as a suffix for DNS queries. This is system-enabled by default.
      * 
      * **DNS_SETTING_PROFILE_NAMESERVER** (0x0200). Configures static profile DNS servers on the specified interface via the *ProfileNameServer* member.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : Int64
 
     /**
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A NULL-terminated wide string containing the adapter domain name.
-     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Domain : PWSTR
 
     /**
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
@@ -66,67 +52,43 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct {
      * A NULL-terminated wide string containing a series of comma- or space-separated DNS servers. For example, L"1.1.1.1 8.8.8.8", or L"1.1.1.1,8.8.8.8".
      *  
      * If the **DNS_SETTING_IPV6** flag is present, then the servers must be IPv6 addresses. For example, L"2606:4700:4700::1001,2606:4700:4700::1111".
-     * @type {PWSTR}
      */
-    NameServer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NameServer : PWSTR
 
     /**
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A NULL-terminated wide string containing a series of comma- or space-separated search names. For example, L"contoso1.com contoso2.com", or L"contoso1.com, contoso2.com".
-     * @type {PWSTR}
      */
-    SearchList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SearchList : PWSTR
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * **TRUE** to enable adapter dynamic registration; **FALSE** to disable it.
-     * @type {Integer}
      */
-    RegistrationEnabled {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RegistrationEnabled : UInt32
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * **TRUE** to enable adapter name registration; **FALSE** to disable it.
-     * @type {Integer}
      */
-    RegisterAdapterName {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    RegisterAdapterName : UInt32
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * **TRUE** to enable mDNS and LLMNR on the given interface; **FALSE** to disable them.
-     * @type {Integer}
      */
-    EnableLLMNR {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    EnableLLMNR : UInt32
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * **TRUE** if the adapter name should be used as a search suffix; otherwise **FALSE**.
-     * @type {Integer}
      */
-    QueryAdapterName {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    QueryAdapterName : UInt32
 
     /**
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
@@ -134,10 +96,7 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct {
      * A NULL-terminated wide string containing a series of comma- or space-separated DNS servers. For example, L"1.1.1.1 8.8.8.8" or L"1.1.1.1,8.8.8.8".
      *  
      * If the **DNS_SETTING_IPV6** flag is present, then the servers must be IPv6 addresses. For example, L"2606:4700:4700::1001,2606:4700:4700::1111".
-     * @type {PWSTR}
      */
-    ProfileNameServer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ProfileNameServer : PWSTR
+
 }

@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_RESACCESS extends Win32Struct {
-    static sizeof => 28
+export default struct AE_RESACCESS {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_ra_compname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_compname {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_ra_username : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_username {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_ra_resname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_resname {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ae_ra_operation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_operation {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ae_ra_returncode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_returncode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ae_ra_restype : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_restype {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ae_ra_fileid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ra_fileid {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

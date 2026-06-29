@@ -1,180 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputLabel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputUiNavigationInfo extends Win32Struct {
-    static sizeof => 84
+export default struct GameInputUiNavigationInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    menuButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    menuButtonLabel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    viewButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    viewButtonLabel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    acceptButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    acceptButtonLabel {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cancelButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    cancelButtonLabel {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    upButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    upButtonLabel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    downButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    downButtonLabel {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    leftButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    leftButtonLabel {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    rightButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    rightButtonLabel {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    contextButton1Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    contextButton1Label {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    contextButton2Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    contextButton2Label {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    contextButton3Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    contextButton3Label {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    contextButton4Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    contextButton4Label {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    pageUpButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    pageUpButtonLabel {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    pageDownButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    pageDownButtonLabel {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    pageLeftButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    pageLeftButtonLabel {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    pageRightButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    pageRightButtonLabel {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    scrollUpButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    scrollUpButtonLabel {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    scrollDownButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    scrollDownButtonLabel {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    scrollLeftButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    scrollLeftButtonLabel {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    scrollRightButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    scrollRightButtonLabel {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    guideButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    guideButtonLabel {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
 }

@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_SYSTEM_MEMORY extends Win32Struct {
-    static sizeof => 80
+export default struct D3DKMT_QUERYSTATISTICS_SYSTEM_MEMORY {
+    #StructPack 8
 
-    static packingSize => 8
+    BytesAllocated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesAllocated {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BytesReserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesReserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SmallAllocationBlocks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SmallAllocationBlocks {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LargeAllocationBlocks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LargeAllocationBlocks {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    WriteCombinedBytesAllocated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WriteCombinedBytesAllocated {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    WriteCombinedBytesReserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WriteCombinedBytesReserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CachedBytesAllocated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CachedBytesAllocated {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CachedBytesReserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CachedBytesReserved {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SectionBytesAllocated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SectionBytesAllocated {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    SectionBytesReserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SectionBytesReserved {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    BytesZeroed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesZeroed {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

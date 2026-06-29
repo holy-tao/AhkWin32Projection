@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIAdapter2.ahk
-#Include .\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIAdapter2.ahk" { IDXGIAdapter2 }
+#Import ".\DXGI_MEMORY_SEGMENT_GROUP.ahk" { DXGI_MEMORY_SEGMENT_GROUP }
+#Import ".\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk" { DXGI_QUERY_VIDEO_MEMORY_INFO }
 
 /**
  * This interface adds some memory residency methods, for budgeting and reserving physical memory.
@@ -11,26 +14,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nn-dxgi1_4-idxgiadapter3
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIAdapter3 extends IDXGIAdapter2 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
     /**
      * The interface identifier for IDXGIAdapter3
      * @type {Guid}
      */
-    static IID => Guid("{645967a4-1392-4310-a798-8053ce3e93fd}")
+    static IID := Guid("{645967a4-1392-4310-a798-8053ce3e93fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIAdapter3 interfaces
+    */
+    struct Vtbl extends IDXGIAdapter2.Vtbl {
+        RegisterHardwareContentProtectionTeardownStatusEvent : IntPtr
+        UnregisterHardwareContentProtectionTeardownStatus    : IntPtr
+        QueryVideoMemoryInfo                                 : IntPtr
+        SetVideoMemoryReservation                            : IntPtr
+        RegisterVideoMemoryBudgetChangeNotificationEvent     : IntPtr
+        UnregisterVideoMemoryBudgetChangeNotification        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterHardwareContentProtectionTeardownStatusEvent", "UnregisterHardwareContentProtectionTeardownStatus", "QueryVideoMemoryInfo", "SetVideoMemoryReservation", "RegisterVideoMemoryBudgetChangeNotificationEvent", "UnregisterVideoMemoryBudgetChangeNotification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIAdapter3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers to receive notification of hardware content protection teardown events.
@@ -47,9 +62,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent
      */
     RegisterHardwareContentProtectionTeardownStatusEvent(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(12, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(12, this, HANDLE, hEvent, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -86,7 +99,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2 {
      */
     QueryVideoMemoryInfo(NodeIndex, MemorySegmentGroup) {
         pVideoMemoryInfo := DXGI_QUERY_VIDEO_MEMORY_INFO()
-        result := ComCall(14, this, "uint", NodeIndex, "int", MemorySegmentGroup, "ptr", pVideoMemoryInfo, "HRESULT")
+        result := ComCall(14, this, "uint", NodeIndex, DXGI_MEMORY_SEGMENT_GROUP, MemorySegmentGroup, DXGI_QUERY_VIDEO_MEMORY_INFO.Ptr, pVideoMemoryInfo, "HRESULT")
         return pVideoMemoryInfo
     }
 
@@ -114,7 +127,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-setvideomemoryreservation
      */
     SetVideoMemoryReservation(NodeIndex, MemorySegmentGroup, Reservation) {
-        result := ComCall(15, this, "uint", NodeIndex, "int", MemorySegmentGroup, "uint", Reservation, "HRESULT")
+        result := ComCall(15, this, "uint", NodeIndex, DXGI_MEMORY_SEGMENT_GROUP, MemorySegmentGroup, "uint", Reservation, "HRESULT")
         return result
     }
 
@@ -131,9 +144,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent
      */
     RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(16, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(16, this, HANDLE, hEvent, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -149,5 +160,35 @@ class IDXGIAdapter3 extends IDXGIAdapter2 {
      */
     UnregisterVideoMemoryBudgetChangeNotification(dwCookie) {
         ComCall(17, this, "uint", dwCookie)
+    }
+
+    Query(iid) {
+        if (IDXGIAdapter3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterHardwareContentProtectionTeardownStatusEvent := CallbackCreate(GetMethod(implObj, "RegisterHardwareContentProtectionTeardownStatusEvent"), flags, 3)
+        this.vtbl.UnregisterHardwareContentProtectionTeardownStatus := CallbackCreate(GetMethod(implObj, "UnregisterHardwareContentProtectionTeardownStatus"), flags, 2)
+        this.vtbl.QueryVideoMemoryInfo := CallbackCreate(GetMethod(implObj, "QueryVideoMemoryInfo"), flags, 4)
+        this.vtbl.SetVideoMemoryReservation := CallbackCreate(GetMethod(implObj, "SetVideoMemoryReservation"), flags, 4)
+        this.vtbl.RegisterVideoMemoryBudgetChangeNotificationEvent := CallbackCreate(GetMethod(implObj, "RegisterVideoMemoryBudgetChangeNotificationEvent"), flags, 3)
+        this.vtbl.UnregisterVideoMemoryBudgetChangeNotification := CallbackCreate(GetMethod(implObj, "UnregisterVideoMemoryBudgetChangeNotification"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterHardwareContentProtectionTeardownStatusEvent)
+        CallbackFree(this.vtbl.UnregisterHardwareContentProtectionTeardownStatus)
+        CallbackFree(this.vtbl.QueryVideoMemoryInfo)
+        CallbackFree(this.vtbl.SetVideoMemoryReservation)
+        CallbackFree(this.vtbl.RegisterVideoMemoryBudgetChangeNotificationEvent)
+        CallbackFree(this.vtbl.UnregisterVideoMemoryBudgetChangeNotification)
     }
 }

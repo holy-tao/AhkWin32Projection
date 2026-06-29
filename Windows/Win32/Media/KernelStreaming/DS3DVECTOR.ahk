@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class DS3DVECTOR extends Win32Struct {
-    static sizeof => 12
+export default struct DS3DVECTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    x : Float32
 
-    /**
-     * @type {Float}
-     */
-    x {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    y : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    z : Float32
 
-    /**
-     * @type {Float}
-     */
-    y {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
-
-    /**
-     * @type {Float}
-     */
-    z {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvZ {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'dvX', { type: Float32, offset: 0 })
+        DefineProp(this.Prototype, 'dvY', { type: Float32, offset: 4 })
+        DefineProp(this.Prototype, 'dvZ', { type: Float32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

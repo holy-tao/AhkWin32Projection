@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_ATTRIBUTION_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct IO_ATTRIBUTION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - MajorCode
@@ -21,12 +16,9 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct {
          * - IoFailed
          * - VirtualDevice
          * - Spare
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -75,56 +67,20 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct {
             get => (this._bitfield >> 12) & 0xFFFFF
             set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AllFlags {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AllFlags', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := IO_ATTRIBUTION_INFORMATION._Flags_e__Union(4, this)
-            return this.__Flags
-        }
-    }
+    Flags : IO_ATTRIBUTION_INFORMATION._Flags
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ServiceStartTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ServiceStartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CurrentTime : Int64
+
 }

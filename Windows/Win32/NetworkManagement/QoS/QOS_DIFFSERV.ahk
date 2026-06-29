@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
 
 /**
  * The QOS_DIFFSERV traffic control object is used to specify filters for the packet scheduler when it operates in Differentiated Services Mode.
@@ -12,44 +11,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_diffserv
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_DIFFSERV extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct QOS_DIFFSERV {
+    #StructPack 4
 
     /**
      * The QOS object 
      * <b>QOS_OBJECT_HDR</b>. The object type for this traffic control object should be 
      * QOS_OBJECT_DIFFSERV.
-     * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr {
-        get {
-            if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
-            return this.__ObjectHdr
-        }
-    }
+    ObjectHdr : QOS_OBJECT_HDR
 
     /**
      * Number of Diffserv Rules in this object.
-     * @type {Integer}
      */
-    DSFieldCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DSFieldCount : UInt32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv_rule">QOS_DIFFSERV_RULE</a> structures.
-     * @type {Array<Integer>}
      */
-    DiffservRule {
-        get {
-            if(!this.HasProp("__DiffservRuleProxyArray"))
-                this.__DiffservRuleProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__DiffservRuleProxyArray
-        }
-    }
+    DiffservRule : Int8[1]
+
 }

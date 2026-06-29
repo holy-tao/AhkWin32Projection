@@ -1,33 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPDeviceStatus.ahk" { WMPDeviceStatus }
+#Import ".\WMPSyncState.ahk" { WMPSyncState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPSyncDevice interface represents a device to which Windows Media Player 10 or later can copy digital media files.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSyncDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSyncDevice extends IUnknown {
     /**
      * The interface identifier for IWMPSyncDevice
      * @type {Guid}
      */
-    static IID => Guid("{82a2986c-0293-4fd0-b279-b21b86c058be}")
+    static IID := Guid("{82a2986c-0293-4fd0-b279-b21b86c058be}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSyncDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_friendlyName     : IntPtr
+        put_friendlyName     : IntPtr
+        get_deviceName       : IntPtr
+        get_deviceId         : IntPtr
+        get_partnershipIndex : IntPtr
+        get_connected        : IntPtr
+        get_status           : IntPtr
+        get_syncState        : IntPtr
+        get_progress         : IntPtr
+        getItemInfo          : IntPtr
+        createPartnership    : IntPtr
+        deletePartnership    : IntPtr
+        start                : IntPtr
+        stop                 : IntPtr
+        showSettings         : IntPtr
+        isIdentical          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_friendlyName", "put_friendlyName", "get_deviceName", "get_deviceId", "get_partnershipIndex", "get_connected", "get_status", "get_syncState", "get_progress", "getItemInfo", "createPartnership", "deletePartnership", "start", "stop", "showSettings", "isIdentical"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSyncDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -119,7 +146,7 @@ class IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_friendlyname
      */
     get_friendlyName(pbstrName) {
-        result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(3, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -165,7 +192,7 @@ class IWMPSyncDevice extends IUnknown {
     put_friendlyName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(4, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -209,7 +236,7 @@ class IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_devicename
      */
     get_deviceName(pbstrName) {
-        result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(5, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -253,7 +280,7 @@ class IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_deviceid
      */
     get_deviceId(pbstrDeviceId) {
-        result := ComCall(6, this, "ptr", pbstrDeviceId, "HRESULT")
+        result := ComCall(6, this, BSTR.Ptr, pbstrDeviceId, "HRESULT")
         return result
     }
 
@@ -750,7 +777,7 @@ class IWMPSyncDevice extends IUnknown {
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(12, this, "ptr", bstrItemName, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrItemName, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
     }
 
@@ -852,7 +879,7 @@ class IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-createpartnership
      */
     createPartnership(vbShowUI) {
-        result := ComCall(13, this, "short", vbShowUI, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, vbShowUI, "HRESULT")
         return result
     }
 
@@ -1143,5 +1170,55 @@ class IWMPSyncDevice extends IUnknown {
 
         result := ComCall(18, this, "ptr", pDevice, pvboolMarshal, pvbool, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSyncDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_friendlyName := CallbackCreate(GetMethod(implObj, "get_friendlyName"), flags, 2)
+        this.vtbl.put_friendlyName := CallbackCreate(GetMethod(implObj, "put_friendlyName"), flags, 2)
+        this.vtbl.get_deviceName := CallbackCreate(GetMethod(implObj, "get_deviceName"), flags, 2)
+        this.vtbl.get_deviceId := CallbackCreate(GetMethod(implObj, "get_deviceId"), flags, 2)
+        this.vtbl.get_partnershipIndex := CallbackCreate(GetMethod(implObj, "get_partnershipIndex"), flags, 2)
+        this.vtbl.get_connected := CallbackCreate(GetMethod(implObj, "get_connected"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.get_syncState := CallbackCreate(GetMethod(implObj, "get_syncState"), flags, 2)
+        this.vtbl.get_progress := CallbackCreate(GetMethod(implObj, "get_progress"), flags, 2)
+        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.createPartnership := CallbackCreate(GetMethod(implObj, "createPartnership"), flags, 2)
+        this.vtbl.deletePartnership := CallbackCreate(GetMethod(implObj, "deletePartnership"), flags, 1)
+        this.vtbl.start := CallbackCreate(GetMethod(implObj, "start"), flags, 1)
+        this.vtbl.stop := CallbackCreate(GetMethod(implObj, "stop"), flags, 1)
+        this.vtbl.showSettings := CallbackCreate(GetMethod(implObj, "showSettings"), flags, 1)
+        this.vtbl.isIdentical := CallbackCreate(GetMethod(implObj, "isIdentical"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_friendlyName)
+        CallbackFree(this.vtbl.put_friendlyName)
+        CallbackFree(this.vtbl.get_deviceName)
+        CallbackFree(this.vtbl.get_deviceId)
+        CallbackFree(this.vtbl.get_partnershipIndex)
+        CallbackFree(this.vtbl.get_connected)
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.get_syncState)
+        CallbackFree(this.vtbl.get_progress)
+        CallbackFree(this.vtbl.getItemInfo)
+        CallbackFree(this.vtbl.createPartnership)
+        CallbackFree(this.vtbl.deletePartnership)
+        CallbackFree(this.vtbl.start)
+        CallbackFree(this.vtbl.stop)
+        CallbackFree(this.vtbl.showSettings)
+        CallbackFree(this.vtbl.isIdentical)
     }
 }

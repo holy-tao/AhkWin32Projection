@@ -1,0 +1,34 @@
+#Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
+#Import ".\DPI_AWARENESS_CONTEXT.ahk" { DPI_AWARENESS_CONTEXT }
+
+/**
+ * @namespace Windows.Win32.UI.HiDpi
+ */
+
+;@region Constants
+
+/**
+ * @type {DPI_AWARENESS_CONTEXT}
+ */
+export global DPI_AWARENESS_CONTEXT_UNAWARE := DPI_AWARENESS_CONTEXT(-1)
+
+/**
+ * @type {DPI_AWARENESS_CONTEXT}
+ */
+export global DPI_AWARENESS_CONTEXT_SYSTEM_AWARE := DPI_AWARENESS_CONTEXT(-2)
+
+/**
+ * @type {DPI_AWARENESS_CONTEXT}
+ */
+export global DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE := DPI_AWARENESS_CONTEXT(-3)
+
+/**
+ * @type {DPI_AWARENESS_CONTEXT}
+ */
+export global DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 := DPI_AWARENESS_CONTEXT(-4)
+
+/**
+ * @type {DPI_AWARENESS_CONTEXT}
+ */
+export global DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED := DPI_AWARENESS_CONTEXT(-5)
+;@endregion Constants

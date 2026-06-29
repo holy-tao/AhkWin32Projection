@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HOMEGROUPSHARINGCHOICES.ahk" { HOMEGROUPSHARINGCHOICES }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that determine a computer's HomeGroup membership status and display the sharing wizard.
@@ -18,32 +22,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ihomegroup
  * @namespace Windows.Win32.UI.Shell
  */
-class IHomeGroup extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHomeGroup extends IUnknown {
     /**
      * The interface identifier for IHomeGroup
      * @type {Guid}
      */
-    static IID => Guid("{7a3bd1d9-35a9-4fb3-a467-f48cac35e2d0}")
+    static IID := Guid("{7a3bd1d9-35a9-4fb3-a467-f48cac35e2d0}")
 
     /**
      * The class identifier for HomeGroup
      * @type {Guid}
      */
-    static CLSID => Guid("{de77ba04-3c92-4d11-a1a5-42352a53e0e3}")
+    static CLSID := Guid("{de77ba04-3c92-4d11-a1a5-42352a53e0e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHomeGroup interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsMember          : IntPtr
+        ShowSharingWizard : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsMember", "ShowSharingWizard"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHomeGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the local computer is a member of a HomeGroup.
@@ -60,7 +72,7 @@ class IHomeGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-ismember
      */
     IsMember() {
-        result := ComCall(3, this, "int*", &member := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &member := 0, "HRESULT")
         return member
     }
 
@@ -75,9 +87,29 @@ class IHomeGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-showsharingwizard
      */
     ShowSharingWizard(owner) {
-        owner := owner is Win32Handle ? NumGet(owner, "ptr") : owner
-
-        result := ComCall(4, this, "ptr", owner, "int*", &sharingchoices := 0, "HRESULT")
+        result := ComCall(4, this, HWND, owner, "int*", &sharingchoices := 0, "HRESULT")
         return sharingchoices
+    }
+
+    Query(iid) {
+        if (IHomeGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsMember := CallbackCreate(GetMethod(implObj, "IsMember"), flags, 2)
+        this.vtbl.ShowSharingWizard := CallbackCreate(GetMethod(implObj, "ShowSharingWizard"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsMember)
+        CallbackFree(this.vtbl.ShowSharingWizard)
     }
 }

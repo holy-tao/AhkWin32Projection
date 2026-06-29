@@ -1,107 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_GENERIC extends Win32Struct {
-    static sizeof => 48
+export default struct AE_GENERIC {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_ge_msgfile : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_msgfile {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_ge_msgnum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_msgnum {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_ge_params : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_params {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ae_ge_param1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param1 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ae_ge_param2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param2 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ae_ge_param3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param3 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ae_ge_param4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param4 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ae_ge_param5 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param5 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ae_ge_param6 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param6 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ae_ge_param7 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param7 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ae_ge_param8 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param8 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ae_ge_param9 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_ge_param9 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

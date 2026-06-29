@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MMC_BUTTON_STATE enumeration defines the possible states of buttons available in MMC. These values are used in the nState parameter of IConsoleVerb::GetVerbState, IConsoleVerb::SetVerbState, IToolbar::GetButtonState, and IToolbar::SetButtonState.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_button_state
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_BUTTON_STATE extends Win32Enum {
+export default struct MMC_BUTTON_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The button accepts user input. A button that does not have this state does not accept user input and appears dimmed.

@@ -1,35 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_FILE_SYSTEM_PROP.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_FILE_SYSTEM_PROP.ahk" { VDS_FILE_SYSTEM_PROP }
+#Import ".\VDS_REPARSE_POINT_PROP.ahk" { VDS_REPARSE_POINT_PROP }
 
 /**
  * Provides methods to perform access-path and file-system activities on the volume object.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumemf
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsVolumeMF extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsVolumeMF extends IUnknown {
     /**
      * The interface identifier for IVdsVolumeMF
      * @type {Guid}
      */
-    static IID => Guid("{ee2d5ded-6236-4169-931d-b9778ce03dc6}")
+    static IID := Guid("{ee2d5ded-6236-4169-931d-b9778ce03dc6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsVolumeMF interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFileSystemProperties : IntPtr
+        Format                  : IntPtr
+        AddAccessPath           : IntPtr
+        QueryAccessPaths        : IntPtr
+        QueryReparsePoints      : IntPtr
+        DeleteAccessPath        : IntPtr
+        Mount                   : IntPtr
+        Dismount                : IntPtr
+        SetFileSystemFlags      : IntPtr
+        ClearFileSystemFlags    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFileSystemProperties", "Format", "AddAccessPath", "QueryAccessPaths", "QueryReparsePoints", "DeleteAccessPath", "Mount", "Dismount", "SetFileSystemFlags", "ClearFileSystemFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsVolumeMF.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns property details about the file system on the current volume.
@@ -43,7 +64,7 @@ class IVdsVolumeMF extends IUnknown {
      */
     GetFileSystemProperties() {
         pFileSystemProp := VDS_FILE_SYSTEM_PROP()
-        result := ComCall(3, this, "ptr", pFileSystemProp, "HRESULT")
+        result := ComCall(3, this, VDS_FILE_SYSTEM_PROP.Ptr, pFileSystemProp, "HRESULT")
         return pFileSystemProp
     }
 
@@ -75,7 +96,7 @@ class IVdsVolumeMF extends IUnknown {
     Format(type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(4, this, "int", type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(4, this, VDS_FILE_SYSTEM_TYPE, type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -364,7 +385,7 @@ class IVdsVolumeMF extends IUnknown {
     DeleteAccessPath(pwszPath, bForce) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(8, this, "ptr", pwszPath, "int", bForce, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszPath, BOOL, bForce, "HRESULT")
         return result
     }
 
@@ -508,7 +529,7 @@ class IVdsVolumeMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-dismount
      */
     Dismount(bForce, bPermanent) {
-        result := ComCall(10, this, "int", bForce, "int", bPermanent, "HRESULT")
+        result := ComCall(10, this, BOOL, bForce, BOOL, bPermanent, "HRESULT")
         return result
     }
 
@@ -640,5 +661,43 @@ class IVdsVolumeMF extends IUnknown {
     ClearFileSystemFlags(ulFlags) {
         result := ComCall(12, this, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsVolumeMF.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFileSystemProperties := CallbackCreate(GetMethod(implObj, "GetFileSystemProperties"), flags, 2)
+        this.vtbl.Format := CallbackCreate(GetMethod(implObj, "Format"), flags, 8)
+        this.vtbl.AddAccessPath := CallbackCreate(GetMethod(implObj, "AddAccessPath"), flags, 2)
+        this.vtbl.QueryAccessPaths := CallbackCreate(GetMethod(implObj, "QueryAccessPaths"), flags, 3)
+        this.vtbl.QueryReparsePoints := CallbackCreate(GetMethod(implObj, "QueryReparsePoints"), flags, 3)
+        this.vtbl.DeleteAccessPath := CallbackCreate(GetMethod(implObj, "DeleteAccessPath"), flags, 3)
+        this.vtbl.Mount := CallbackCreate(GetMethod(implObj, "Mount"), flags, 1)
+        this.vtbl.Dismount := CallbackCreate(GetMethod(implObj, "Dismount"), flags, 3)
+        this.vtbl.SetFileSystemFlags := CallbackCreate(GetMethod(implObj, "SetFileSystemFlags"), flags, 2)
+        this.vtbl.ClearFileSystemFlags := CallbackCreate(GetMethod(implObj, "ClearFileSystemFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFileSystemProperties)
+        CallbackFree(this.vtbl.Format)
+        CallbackFree(this.vtbl.AddAccessPath)
+        CallbackFree(this.vtbl.QueryAccessPaths)
+        CallbackFree(this.vtbl.QueryReparsePoints)
+        CallbackFree(this.vtbl.DeleteAccessPath)
+        CallbackFree(this.vtbl.Mount)
+        CallbackFree(this.vtbl.Dismount)
+        CallbackFree(this.vtbl.SetFileSystemFlags)
+        CallbackFree(this.vtbl.ClearFileSystemFlags)
     }
 }

@@ -1,43 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 7
+export default struct USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _bmAttributes_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
+    struct _bmAttributes {
+        AsUlong : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * This bitfield backs the following members:
-         * - Reserved
-         * - LPMCapable
-         * - BESLAndAlternateHIRDSupported
-         * - BaselineBESLValid
-         * - DeepBESLValid
-         * - Reserved1
-         * - BaselineBESL
-         * - DeepBESL
-         * - Reserved2
-         * @type {Integer}
-         */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
 
         /**
          * @type {Integer}
@@ -102,40 +74,18 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct {
             get => (this._bitfield >> 16) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bDevCapabilityType {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {_bmAttributes_e__Union}
-     */
-    bmAttributes {
-        get {
-            if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR._bmAttributes_e__Union(3, this)
-            return this.__bmAttributes
+        static __New() {
+            DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
+
+    bLength : Int8
+
+    bDescriptorType : Int8
+
+    bDevCapabilityType : Int8
+
+    bmAttributes : USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR._bmAttributes
+
 }

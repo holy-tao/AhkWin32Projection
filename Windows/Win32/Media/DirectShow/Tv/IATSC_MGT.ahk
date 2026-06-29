@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsc_mgt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IATSC_MGT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IATSC_MGT extends IUnknown {
     /**
      * The interface identifier for IATSC_MGT
      * @type {Guid}
      */
-    static IID => Guid("{8877dabd-c137-4073-97e3-779407a5d87a}")
+    static IID := Guid("{8877dabd-c137-4073-97e3-779407a5d87a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IATSC_MGT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                  : IntPtr
+        GetVersionNumber            : IntPtr
+        GetProtocolVersion          : IntPtr
+        GetCountOfRecords           : IntPtr
+        GetRecordType               : IntPtr
+        GetRecordTypePid            : IntPtr
+        GetRecordVersionNumber      : IntPtr
+        GetRecordCountOfDescriptors : IntPtr
+        GetRecordDescriptorByIndex  : IntPtr
+        GetRecordDescriptorByTag    : IntPtr
+        GetCountOfTableDescriptors  : IntPtr
+        GetTableDescriptorByIndex   : IntPtr
+        GetTableDescriptorByTag     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetProtocolVersion", "GetCountOfRecords", "GetRecordType", "GetRecordTypePid", "GetRecordVersionNumber", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IATSC_MGT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -241,5 +263,49 @@ class IATSC_MGT extends IUnknown {
 
         result := ComCall(15, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
+    }
+
+    Query(iid) {
+        if (IATSC_MGT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordType := CallbackCreate(GetMethod(implObj, "GetRecordType"), flags, 3)
+        this.vtbl.GetRecordTypePid := CallbackCreate(GetMethod(implObj, "GetRecordTypePid"), flags, 3)
+        this.vtbl.GetRecordVersionNumber := CallbackCreate(GetMethod(implObj, "GetRecordVersionNumber"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetProtocolVersion)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordType)
+        CallbackFree(this.vtbl.GetRecordTypePid)
+        CallbackFree(this.vtbl.GetRecordVersionNumber)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
     }
 }

@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumWIA_FORMAT_INFO.ahk
-#Include .\WIA_EXTENDED_TRANSFER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
+#Import "..\..\System\Com\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\WIA_EXTENDED_TRANSFER_INFO.ahk" { WIA_EXTENDED_TRANSFER_INFO }
+#Import ".\WIA_DATA_TRANSFER_INFO.ahk" { WIA_DATA_TRANSFER_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWiaDataCallback.ahk" { IWiaDataCallback }
+#Import ".\IEnumWIA_FORMAT_INFO.ahk" { IEnumWIA_FORMAT_INFO }
 
 /**
  * The IWiaDataTransfer interface is a high performance data transfer interface.
@@ -37,26 +42,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiadatatransfer
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaDataTransfer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaDataTransfer extends IUnknown {
     /**
      * The interface identifier for IWiaDataTransfer
      * @type {Guid}
      */
-    static IID => Guid("{a6cef998-a5b0-11d2-a08f-00c04f72dc3c}")
+    static IID := Guid("{a6cef998-a5b0-11d2-a08f-00c04f72dc3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaDataTransfer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        idtGetData                 : IntPtr
+        idtGetBandedData           : IntPtr
+        idtQueryGetData            : IntPtr
+        idtEnumWIA_FORMAT_INFO     : IntPtr
+        idtGetExtendedTransferInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["idtGetData", "idtGetBandedData", "idtQueryGetData", "idtEnumWIA_FORMAT_INFO", "idtGetExtendedTransferInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaDataTransfer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWiaDataTransfer::idtGetData method retrieves complete files from a Windows Image Acquisition (WIA) device.
@@ -120,7 +136,7 @@ class IWiaDataTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtgetdata
      */
     idtGetData(pMedium, pIWiaDataCallback) {
-        result := ComCall(3, this, "ptr", pMedium, "ptr", pIWiaDataCallback, "HRESULT")
+        result := ComCall(3, this, STGMEDIUM.Ptr, pMedium, "ptr", pIWiaDataCallback, "HRESULT")
         return result
     }
 
@@ -184,7 +200,7 @@ class IWiaDataTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtgetbandeddata
      */
     idtGetBandedData(pWiaDataTransInfo, pIWiaDataCallback) {
-        result := ComCall(4, this, "ptr", pWiaDataTransInfo, "ptr", pIWiaDataCallback, "HRESULT")
+        result := ComCall(4, this, WIA_DATA_TRANSFER_INFO.Ptr, pWiaDataTransInfo, "ptr", pIWiaDataCallback, "HRESULT")
         return result
     }
 
@@ -201,7 +217,7 @@ class IWiaDataTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtquerygetdata
      */
     idtQueryGetData(pfe) {
-        result := ComCall(5, this, "ptr", pfe, "HRESULT")
+        result := ComCall(5, this, WIA_FORMAT_INFO.Ptr, pfe, "HRESULT")
         return result
     }
 
@@ -230,7 +246,35 @@ class IWiaDataTransfer extends IUnknown {
      */
     idtGetExtendedTransferInfo() {
         pExtendedTransferInfo := WIA_EXTENDED_TRANSFER_INFO()
-        result := ComCall(7, this, "ptr", pExtendedTransferInfo, "HRESULT")
+        result := ComCall(7, this, WIA_EXTENDED_TRANSFER_INFO.Ptr, pExtendedTransferInfo, "HRESULT")
         return pExtendedTransferInfo
+    }
+
+    Query(iid) {
+        if (IWiaDataTransfer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.idtGetData := CallbackCreate(GetMethod(implObj, "idtGetData"), flags, 3)
+        this.vtbl.idtGetBandedData := CallbackCreate(GetMethod(implObj, "idtGetBandedData"), flags, 3)
+        this.vtbl.idtQueryGetData := CallbackCreate(GetMethod(implObj, "idtQueryGetData"), flags, 2)
+        this.vtbl.idtEnumWIA_FORMAT_INFO := CallbackCreate(GetMethod(implObj, "idtEnumWIA_FORMAT_INFO"), flags, 2)
+        this.vtbl.idtGetExtendedTransferInfo := CallbackCreate(GetMethod(implObj, "idtGetExtendedTransferInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.idtGetData)
+        CallbackFree(this.vtbl.idtGetBandedData)
+        CallbackFree(this.vtbl.idtQueryGetData)
+        CallbackFree(this.vtbl.idtEnumWIA_FORMAT_INFO)
+        CallbackFree(this.vtbl.idtGetExtendedTransferInfo)
     }
 }

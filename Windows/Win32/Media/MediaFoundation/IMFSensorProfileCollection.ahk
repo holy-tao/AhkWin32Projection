@@ -1,41 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFSensorProfile.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SENSORPROFILEID.ahk" { SENSORPROFILEID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains a collection of media foundation sensor profile objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensorprofilecollection
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSensorProfileCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSensorProfileCollection extends IUnknown {
     /**
      * The interface identifier for IMFSensorProfileCollection
      * @type {Guid}
      */
-    static IID => Guid("{c95ea55b-0187-48be-9353-8d2507662351}")
+    static IID := Guid("{c95ea55b-0187-48be-9353-8d2507662351}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSensorProfileCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProfileCount      : IntPtr
+        GetProfile           : IntPtr
+        AddProfile           : IntPtr
+        FindProfile          : IntPtr
+        RemoveProfileByIndex : IntPtr
+        RemoveProfile        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProfileCount", "GetProfile", "AddProfile", "FindProfile", "RemoveProfileByIndex", "RemoveProfile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSensorProfileCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Integer} 
      */
     GetProfileCount() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -68,7 +82,7 @@ class IMFSensorProfileCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-findprofile
      */
     FindProfile(ProfileId) {
-        result := ComCall(6, this, "ptr", ProfileId, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(6, this, SENSORPROFILEID.Ptr, ProfileId, "ptr*", &ppProfile := 0, "HRESULT")
         return IMFSensorProfile(ppProfile)
     }
 
@@ -89,6 +103,36 @@ class IMFSensorProfileCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-removeprofile
      */
     RemoveProfile(ProfileId) {
-        ComCall(8, this, "ptr", ProfileId)
+        ComCall(8, this, SENSORPROFILEID.Ptr, ProfileId)
+    }
+
+    Query(iid) {
+        if (IMFSensorProfileCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProfileCount := CallbackCreate(GetMethod(implObj, "GetProfileCount"), flags, 1)
+        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 3)
+        this.vtbl.AddProfile := CallbackCreate(GetMethod(implObj, "AddProfile"), flags, 2)
+        this.vtbl.FindProfile := CallbackCreate(GetMethod(implObj, "FindProfile"), flags, 3)
+        this.vtbl.RemoveProfileByIndex := CallbackCreate(GetMethod(implObj, "RemoveProfileByIndex"), flags, 2)
+        this.vtbl.RemoveProfile := CallbackCreate(GetMethod(implObj, "RemoveProfile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProfileCount)
+        CallbackFree(this.vtbl.GetProfile)
+        CallbackFree(this.vtbl.AddProfile)
+        CallbackFree(this.vtbl.FindProfile)
+        CallbackFree(this.vtbl.RemoveProfileByIndex)
+        CallbackFree(this.vtbl.RemoveProfile)
     }
 }

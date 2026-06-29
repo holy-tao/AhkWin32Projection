@@ -1,88 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\ETW_BUFFER_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ETW_BUFFER_CONTEXT.ahk" { ETW_BUFFER_CONTEXT }
 
 /**
  * The header structure of an ETW buffer.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ETW_BUFFER_HEADER extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct ETW_BUFFER_HEADER {
+    #StructPack 8
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : UInt32[4]
 
     /**
      * The time when the buffer was flushed. It will be in the raw clock type of the session from which the buffer was collected (for example, QueryPerformanceCounter, CPU timestamp counter, or GetSystemTimeAsFileTime).
-     * @type {Integer}
      */
-    TimeStamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TimeStamp : Int64
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : UInt32[4]
 
     /**
      * Contains information about the processor and logger that generated this buffer. See [ETW_BUFFER_CONTEXT](ns-evntrace-etw_buffer_context.md).
-     * @type {ETW_BUFFER_CONTEXT}
      */
-    ClientContext {
-        get {
-            if(!this.HasProp("__ClientContext"))
-                this.__ClientContext := ETW_BUFFER_CONTEXT(40, this)
-            return this.__ClientContext
-        }
-    }
+    ClientContext : ETW_BUFFER_CONTEXT
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Reserved3 : UInt32
 
     /**
      * The size of the valid data in the buffer. This is the size of the ETW_BUFFER_HEADER and the event data. When a buffer is copied, it is common to only allocate enough memory to store the valid data (for example, only FilledBytes bytes are allocated and copied), so recipients of a buffer should not read beyond this offset
-     * @type {Integer}
      */
-    FilledBytes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    FilledBytes : UInt32
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved4 {
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 52, 5, Primitive, "uint")
-            return this.__Reserved4ProxyArray
-        }
-    }
+    Reserved4 : UInt32[5]
+
 }

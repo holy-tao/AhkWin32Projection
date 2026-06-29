@@ -1,33 +1,89 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLImgElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLImgElement extends IDispatch {
     /**
      * The interface identifier for IHTMLImgElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f240-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f240-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLImgElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_isMap            : IntPtr
+        get_isMap            : IntPtr
+        put_useMap           : IntPtr
+        get_useMap           : IntPtr
+        get_mimeType         : IntPtr
+        get_fileSize         : IntPtr
+        get_fileCreatedDate  : IntPtr
+        get_fileModifiedDate : IntPtr
+        get_fileUpdatedDate  : IntPtr
+        get_protocol         : IntPtr
+        get_href             : IntPtr
+        get_nameProp         : IntPtr
+        put_border           : IntPtr
+        get_border           : IntPtr
+        put_vspace           : IntPtr
+        get_vspace           : IntPtr
+        put_hspace           : IntPtr
+        get_hspace           : IntPtr
+        put_alt              : IntPtr
+        get_alt              : IntPtr
+        put_src              : IntPtr
+        get_src              : IntPtr
+        put_lowsrc           : IntPtr
+        get_lowsrc           : IntPtr
+        put_vrml             : IntPtr
+        get_vrml             : IntPtr
+        put_dynsrc           : IntPtr
+        get_dynsrc           : IntPtr
+        get_readyState       : IntPtr
+        get_complete         : IntPtr
+        put_loop             : IntPtr
+        get_loop             : IntPtr
+        put_align            : IntPtr
+        get_align            : IntPtr
+        put_onload           : IntPtr
+        get_onload           : IntPtr
+        put_onerror          : IntPtr
+        get_onerror          : IntPtr
+        put_onabort          : IntPtr
+        get_onabort          : IntPtr
+        put_name             : IntPtr
+        get_name             : IntPtr
+        put_width            : IntPtr
+        get_width            : IntPtr
+        put_height           : IntPtr
+        get_height           : IntPtr
+        put_start            : IntPtr
+        get_start            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_isMap", "get_isMap", "put_useMap", "get_useMap", "get_mimeType", "get_fileSize", "get_fileCreatedDate", "get_fileModifiedDate", "get_fileUpdatedDate", "get_protocol", "get_href", "get_nameProp", "put_border", "get_border", "put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_alt", "get_alt", "put_src", "get_src", "put_lowsrc", "get_lowsrc", "put_vrml", "get_vrml", "put_dynsrc", "get_dynsrc", "get_readyState", "get_complete", "put_loop", "get_loop", "put_align", "get_align", "put_onload", "get_onload", "put_onerror", "get_onerror", "put_onabort", "get_onabort", "put_name", "get_name", "put_width", "get_width", "put_height", "get_height", "put_start", "get_start"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLImgElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -257,7 +313,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_isMap(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -266,7 +322,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_isMap() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -278,7 +334,7 @@ class IHTMLImgElement extends IDispatch {
     put_useMap(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -287,8 +343,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_useMap() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -297,8 +353,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_mimeType() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -307,8 +363,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileSize() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -317,8 +373,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
-        p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -327,8 +383,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -337,8 +393,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
-        p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -347,8 +403,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_protocol() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -357,8 +413,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -367,8 +423,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_nameProp() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -378,7 +434,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_border(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -388,7 +444,7 @@ class IHTMLImgElement extends IDispatch {
      */
     get_border() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -438,7 +494,7 @@ class IHTMLImgElement extends IDispatch {
     put_alt(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -447,8 +503,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -460,7 +516,7 @@ class IHTMLImgElement extends IDispatch {
     put_src(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -469,8 +525,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -482,7 +538,7 @@ class IHTMLImgElement extends IDispatch {
     put_lowsrc(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -491,8 +547,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_lowsrc() {
-        p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -504,7 +560,7 @@ class IHTMLImgElement extends IDispatch {
     put_vrml(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -513,8 +569,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_vrml() {
-        p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -526,7 +582,7 @@ class IHTMLImgElement extends IDispatch {
     put_dynsrc(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -535,8 +591,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_dynsrc() {
-        p := BSTR()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -545,8 +601,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
-        result := ComCall(35, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -555,7 +611,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
-        result := ComCall(36, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(36, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -565,7 +621,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_loop(v) {
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -575,7 +631,7 @@ class IHTMLImgElement extends IDispatch {
      */
     get_loop() {
         p := VARIANT()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -587,7 +643,7 @@ class IHTMLImgElement extends IDispatch {
     put_align(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -596,8 +652,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -607,7 +663,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(41, this, "ptr", v, "HRESULT")
+        result := ComCall(41, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -617,7 +673,7 @@ class IHTMLImgElement extends IDispatch {
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -627,7 +683,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -637,7 +693,7 @@ class IHTMLImgElement extends IDispatch {
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -647,7 +703,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onabort(v) {
-        result := ComCall(45, this, "ptr", v, "HRESULT")
+        result := ComCall(45, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -657,7 +713,7 @@ class IHTMLImgElement extends IDispatch {
      */
     get_onabort() {
         p := VARIANT()
-        result := ComCall(46, this, "ptr", p, "HRESULT")
+        result := ComCall(46, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -669,7 +725,7 @@ class IHTMLImgElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(47, this, "ptr", v, "HRESULT")
+        result := ComCall(47, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -678,8 +734,8 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(48, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(48, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -729,7 +785,7 @@ class IHTMLImgElement extends IDispatch {
     put_start(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(53, this, "ptr", v, "HRESULT")
+        result := ComCall(53, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -738,8 +794,122 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_start() {
-        p := BSTR()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLImgElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_isMap := CallbackCreate(GetMethod(implObj, "put_isMap"), flags, 2)
+        this.vtbl.get_isMap := CallbackCreate(GetMethod(implObj, "get_isMap"), flags, 2)
+        this.vtbl.put_useMap := CallbackCreate(GetMethod(implObj, "put_useMap"), flags, 2)
+        this.vtbl.get_useMap := CallbackCreate(GetMethod(implObj, "get_useMap"), flags, 2)
+        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_fileSize := CallbackCreate(GetMethod(implObj, "get_fileSize"), flags, 2)
+        this.vtbl.get_fileCreatedDate := CallbackCreate(GetMethod(implObj, "get_fileCreatedDate"), flags, 2)
+        this.vtbl.get_fileModifiedDate := CallbackCreate(GetMethod(implObj, "get_fileModifiedDate"), flags, 2)
+        this.vtbl.get_fileUpdatedDate := CallbackCreate(GetMethod(implObj, "get_fileUpdatedDate"), flags, 2)
+        this.vtbl.get_protocol := CallbackCreate(GetMethod(implObj, "get_protocol"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_nameProp := CallbackCreate(GetMethod(implObj, "get_nameProp"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_lowsrc := CallbackCreate(GetMethod(implObj, "put_lowsrc"), flags, 2)
+        this.vtbl.get_lowsrc := CallbackCreate(GetMethod(implObj, "get_lowsrc"), flags, 2)
+        this.vtbl.put_vrml := CallbackCreate(GetMethod(implObj, "put_vrml"), flags, 2)
+        this.vtbl.get_vrml := CallbackCreate(GetMethod(implObj, "get_vrml"), flags, 2)
+        this.vtbl.put_dynsrc := CallbackCreate(GetMethod(implObj, "put_dynsrc"), flags, 2)
+        this.vtbl.get_dynsrc := CallbackCreate(GetMethod(implObj, "get_dynsrc"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_complete := CallbackCreate(GetMethod(implObj, "get_complete"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_start := CallbackCreate(GetMethod(implObj, "put_start"), flags, 2)
+        this.vtbl.get_start := CallbackCreate(GetMethod(implObj, "get_start"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_isMap)
+        CallbackFree(this.vtbl.get_isMap)
+        CallbackFree(this.vtbl.put_useMap)
+        CallbackFree(this.vtbl.get_useMap)
+        CallbackFree(this.vtbl.get_mimeType)
+        CallbackFree(this.vtbl.get_fileSize)
+        CallbackFree(this.vtbl.get_fileCreatedDate)
+        CallbackFree(this.vtbl.get_fileModifiedDate)
+        CallbackFree(this.vtbl.get_fileUpdatedDate)
+        CallbackFree(this.vtbl.get_protocol)
+        CallbackFree(this.vtbl.get_href)
+        CallbackFree(this.vtbl.get_nameProp)
+        CallbackFree(this.vtbl.put_border)
+        CallbackFree(this.vtbl.get_border)
+        CallbackFree(this.vtbl.put_vspace)
+        CallbackFree(this.vtbl.get_vspace)
+        CallbackFree(this.vtbl.put_hspace)
+        CallbackFree(this.vtbl.get_hspace)
+        CallbackFree(this.vtbl.put_alt)
+        CallbackFree(this.vtbl.get_alt)
+        CallbackFree(this.vtbl.put_src)
+        CallbackFree(this.vtbl.get_src)
+        CallbackFree(this.vtbl.put_lowsrc)
+        CallbackFree(this.vtbl.get_lowsrc)
+        CallbackFree(this.vtbl.put_vrml)
+        CallbackFree(this.vtbl.get_vrml)
+        CallbackFree(this.vtbl.put_dynsrc)
+        CallbackFree(this.vtbl.get_dynsrc)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.get_complete)
+        CallbackFree(this.vtbl.put_loop)
+        CallbackFree(this.vtbl.get_loop)
+        CallbackFree(this.vtbl.put_align)
+        CallbackFree(this.vtbl.get_align)
+        CallbackFree(this.vtbl.put_onload)
+        CallbackFree(this.vtbl.get_onload)
+        CallbackFree(this.vtbl.put_onerror)
+        CallbackFree(this.vtbl.get_onerror)
+        CallbackFree(this.vtbl.put_onabort)
+        CallbackFree(this.vtbl.get_onabort)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.put_start)
+        CallbackFree(this.vtbl.get_start)
     }
 }

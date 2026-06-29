@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
+#Import ".\VMRVIDEOSTREAMINFO.ahk" { VMRVIDEOSTREAMINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRImageCompositor interface is implemented by the default compositor for the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrimagecompositor
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRImageCompositor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRImageCompositor extends IUnknown {
     /**
      * The interface identifier for IVMRImageCompositor
      * @type {Guid}
      */
-    static IID => Guid("{7a4fb5af-479f-4074-bb40-ce6722e43c82}")
+    static IID := Guid("{7a4fb5af-479f-4074-bb40-ce6722e43c82}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRImageCompositor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitCompositionTarget : IntPtr
+        TermCompositionTarget : IntPtr
+        SetStreamMediaType    : IntPtr
+        CompositeImage        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitCompositionTarget", "TermCompositionTarget", "SetStreamMediaType", "CompositeImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRImageCompositor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The InitCompositionTarget method informs the compositor that a new composition target has been created.
@@ -62,7 +77,7 @@ class IVMRImageCompositor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-setstreammediatype
      */
     SetStreamMediaType(dwStrmID, pmt, fTexture) {
-        result := ComCall(5, this, "uint", dwStrmID, "ptr", pmt, "int", fTexture, "HRESULT")
+        result := ComCall(5, this, "uint", dwStrmID, AM_MEDIA_TYPE.Ptr, pmt, BOOL, fTexture, "HRESULT")
         return result
     }
 
@@ -80,7 +95,33 @@ class IVMRImageCompositor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-compositeimage
      */
     CompositeImage(pD3DDevice, pddsRenderTarget, pmtRenderTarget, rtStart, rtEnd, dwClrBkGnd, pVideoStreamInfo, cStreams) {
-        result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, "ptr", pmtRenderTarget, "int64", rtStart, "int64", rtEnd, "uint", dwClrBkGnd, "ptr", pVideoStreamInfo, "uint", cStreams, "HRESULT")
+        result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, AM_MEDIA_TYPE.Ptr, pmtRenderTarget, "int64", rtStart, "int64", rtEnd, "uint", dwClrBkGnd, VMRVIDEOSTREAMINFO.Ptr, pVideoStreamInfo, "uint", cStreams, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVMRImageCompositor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitCompositionTarget := CallbackCreate(GetMethod(implObj, "InitCompositionTarget"), flags, 3)
+        this.vtbl.TermCompositionTarget := CallbackCreate(GetMethod(implObj, "TermCompositionTarget"), flags, 3)
+        this.vtbl.SetStreamMediaType := CallbackCreate(GetMethod(implObj, "SetStreamMediaType"), flags, 4)
+        this.vtbl.CompositeImage := CallbackCreate(GetMethod(implObj, "CompositeImage"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitCompositionTarget)
+        CallbackFree(this.vtbl.TermCompositionTarget)
+        CallbackFree(this.vtbl.SetStreamMediaType)
+        CallbackFree(this.vtbl.CompositeImage)
     }
 }

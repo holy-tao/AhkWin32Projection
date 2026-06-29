@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KS_ANALOGVIDEOINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_ANALOGVIDEOINFO.ahk" { KS_ANALOGVIDEOINFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DATARANGE_ANALOGVIDEO extends Win32Struct {
-    static sizeof => 96
+export default struct KS_DATARANGE_ANALOGVIDEO {
+    #StructPack 8
 
-    static packingSize => 8
+    DataRange : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataRange {
-        get {
-            if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(0, this)
-            return this.__DataRange
-        }
-    }
+    AnalogVideoInfo : KS_ANALOGVIDEOINFO
 
-    /**
-     * @type {KS_ANALOGVIDEOINFO}
-     */
-    AnalogVideoInfo {
-        get {
-            if(!this.HasProp("__AnalogVideoInfo"))
-                this.__AnalogVideoInfo := KS_ANALOGVIDEOINFO(48, this)
-            return this.__AnalogVideoInfo
-        }
-    }
 }

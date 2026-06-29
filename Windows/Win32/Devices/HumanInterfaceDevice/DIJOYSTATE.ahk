@@ -1,92 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIJOYSTATE extends Win32Struct {
-    static sizeof => 80
+export default struct DIJOYSTATE {
+    #StructPack 4
 
-    static packingSize => 4
+    lX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lX {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lY {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lZ : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lZ {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lRx : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRx {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lRy : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRy {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lRz : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRz {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    rglSlider : Int32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rglSlider {
-        get {
-            if(!this.HasProp("__rglSliderProxyArray"))
-                this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "int")
-            return this.__rglSliderProxyArray
-        }
-    }
+    rgdwPOV : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgdwPOV {
-        get {
-            if(!this.HasProp("__rgdwPOVProxyArray"))
-                this.__rgdwPOVProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
-            return this.__rgdwPOVProxyArray
-        }
-    }
+    rgbButtons : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbButtons {
-        get {
-            if(!this.HasProp("__rgbButtonsProxyArray"))
-                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 32, Primitive, "char")
-            return this.__rgbButtonsProxyArray
-        }
-    }
 }

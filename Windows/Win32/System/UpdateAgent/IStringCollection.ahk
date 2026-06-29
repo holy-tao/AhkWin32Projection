@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an ordered list of strings.
@@ -12,32 +14,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-istringcollection
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IStringCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IStringCollection extends IDispatch {
     /**
      * The interface identifier for IStringCollection
      * @type {Guid}
      */
-    static IID => Guid("{eff90582-2ddc-480f-a06d-60f3fbc362c3}")
+    static IID := Guid("{eff90582-2ddc-480f-a06d-60f3fbc362c3}")
 
     /**
      * The class identifier for StringCollection
      * @type {Guid}
      */
-    static CLSID => Guid("{72c97d74-7c3b-40ae-b77d-abdb22eba6fb}")
+    static CLSID := Guid("{72c97d74-7c3b-40ae-b77d-abdb22eba6fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStringCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Item     : IntPtr
+        put_Item     : IntPtr
+        get__NewEnum : IntPtr
+        get_Count    : IntPtr
+        get_ReadOnly : IntPtr
+        Add          : IntPtr
+        Clear        : IntPtr
+        Copy         : IntPtr
+        Insert       : IntPtr
+        RemoveAt     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Item", "put_Item", "get__NewEnum", "get_Count", "get_ReadOnly", "Add", "Clear", "Copy", "Insert", "RemoveAt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStringCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -67,8 +85,8 @@ class IStringCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_item
      */
     get_Item(index) {
-        retval := BSTR()
-        result := ComCall(7, this, "int", index, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(7, this, "int", index, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -82,7 +100,7 @@ class IStringCollection extends IDispatch {
     put_Item(index, value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
+        result := ComCall(8, this, "int", index, BSTR, value, "HRESULT")
         return result
     }
 
@@ -112,7 +130,7 @@ class IStringCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_readonly
      */
     get_ReadOnly() {
-        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -125,7 +143,7 @@ class IStringCollection extends IDispatch {
     Add(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(12, this, "ptr", value, "int*", &retval := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, value, "int*", &retval := 0, "HRESULT")
         return retval
     }
 
@@ -210,7 +228,7 @@ class IStringCollection extends IDispatch {
     Insert(index, value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(15, this, "int", index, "ptr", value, "HRESULT")
+        result := ComCall(15, this, "int", index, BSTR, value, "HRESULT")
         return result
     }
 
@@ -254,5 +272,43 @@ class IStringCollection extends IDispatch {
     RemoveAt(index) {
         result := ComCall(16, this, "int", index, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStringCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.put_Item := CallbackCreate(GetMethod(implObj, "put_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 2)
+        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.put_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_ReadOnly)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Insert)
+        CallbackFree(this.vtbl.RemoveAt)
     }
 }

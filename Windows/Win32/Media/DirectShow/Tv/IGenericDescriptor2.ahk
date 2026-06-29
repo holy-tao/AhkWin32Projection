@@ -1,31 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IGenericDescriptor2 extends IGenericDescriptor {
-
-    static sizeof => A_PtrSize
+export default struct IGenericDescriptor2 extends IGenericDescriptor {
     /**
      * The interface identifier for IGenericDescriptor2
      * @type {Guid}
      */
-    static IID => Guid("{bf02fb7e-9792-4e10-a68d-033a2cc246a5}")
+    static IID := Guid("{bf02fb7e-9792-4e10-a68d-033a2cc246a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGenericDescriptor2 interfaces
+    */
+    struct Vtbl extends IGenericDescriptor.Vtbl {
+        Initialize : IntPtr
+        GetLength  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGenericDescriptor2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -65,12 +74,33 @@ class IGenericDescriptor2 extends IGenericDescriptor {
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(8, this, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
+    }
+
+    Query(iid) {
+        if (IGenericDescriptor2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetLength)
     }
 }

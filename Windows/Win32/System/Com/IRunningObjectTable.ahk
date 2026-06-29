@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\IEnumMoniker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumMoniker.ahk" { IEnumMoniker }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMoniker.ahk" { IMoniker }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\ROT_FLAGS.ahk" { ROT_FLAGS }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages access to the running object table (ROT), a globally accessible look-up table on each workstation.
@@ -16,26 +19,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-irunningobjecttable
  * @namespace Windows.Win32.System.Com
  */
-class IRunningObjectTable extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRunningObjectTable extends IUnknown {
     /**
      * The interface identifier for IRunningObjectTable
      * @type {Guid}
      */
-    static IID => Guid("{00000010-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000010-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRunningObjectTable interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Register            : IntPtr
+        Revoke              : IntPtr
+        IsRunning           : IntPtr
+        GetObject           : IntPtr
+        NoteChangeTime      : IntPtr
+        GetTimeOfLastChange : IntPtr
+        EnumRunning         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Register", "Revoke", "IsRunning", "GetObject", "NoteChangeTime", "GetTimeOfLastChange", "EnumRunning"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRunningObjectTable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers an object and its identifying moniker in the running object table (ROT).
@@ -100,7 +116,7 @@ class IRunningObjectTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-register
      */
     Register(grfFlags, punkObject, pmkObjectName) {
-        result := ComCall(3, this, "uint", grfFlags, "ptr", punkObject, "ptr", pmkObjectName, "uint*", &pdwRegister := 0, "HRESULT")
+        result := ComCall(3, this, ROT_FLAGS, grfFlags, "ptr", punkObject, "ptr", pmkObjectName, "uint*", &pdwRegister := 0, "HRESULT")
         return pdwRegister
     }
 
@@ -183,7 +199,7 @@ class IRunningObjectTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-notechangetime
      */
     NoteChangeTime(dwRegister, pfiletime) {
-        result := ComCall(7, this, "uint", dwRegister, "ptr", pfiletime, "HRESULT")
+        result := ComCall(7, this, "uint", dwRegister, FILETIME.Ptr, pfiletime, "HRESULT")
         return result
     }
 
@@ -202,7 +218,7 @@ class IRunningObjectTable extends IUnknown {
      */
     GetTimeOfLastChange(pmkObjectName) {
         pfiletime := FILETIME()
-        result := ComCall(8, this, "ptr", pmkObjectName, "ptr", pfiletime, "HRESULT")
+        result := ComCall(8, this, "ptr", pmkObjectName, FILETIME.Ptr, pfiletime, "HRESULT")
         return pfiletime
     }
 
@@ -218,5 +234,37 @@ class IRunningObjectTable extends IUnknown {
     EnumRunning() {
         result := ComCall(9, this, "ptr*", &ppenumMoniker := 0, "HRESULT")
         return IEnumMoniker(ppenumMoniker)
+    }
+
+    Query(iid) {
+        if (IRunningObjectTable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 5)
+        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 3)
+        this.vtbl.NoteChangeTime := CallbackCreate(GetMethod(implObj, "NoteChangeTime"), flags, 3)
+        this.vtbl.GetTimeOfLastChange := CallbackCreate(GetMethod(implObj, "GetTimeOfLastChange"), flags, 3)
+        this.vtbl.EnumRunning := CallbackCreate(GetMethod(implObj, "EnumRunning"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.Revoke)
+        CallbackFree(this.vtbl.IsRunning)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.NoteChangeTime)
+        CallbackFree(this.vtbl.GetTimeOfLastChange)
+        CallbackFree(this.vtbl.EnumRunning)
     }
 }

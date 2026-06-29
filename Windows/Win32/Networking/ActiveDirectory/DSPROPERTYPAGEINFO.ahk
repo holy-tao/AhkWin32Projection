@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DSPROPERTYPAGEINFO structure is used by an Active Directory property sheet extension to obtain static registration data for the extension. This structure is supplied by the CFSTR_DSPROPERTYPAGEINFO clipboard format.
@@ -8,17 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dspropertypageinfo
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DSPROPERTYPAGEINFO extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DSPROPERTYPAGEINFO {
+    #StructPack 4
 
     /**
      * Contains the offset, in bytes, from the start of the <b>DSPROPERTYPAGEINFO</b> structure to a NULL-terminated, Unicode string that contains the optional data stored for the extension.
-     * @type {Integer}
      */
-    offsetString {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    offsetString : UInt32
+
 }

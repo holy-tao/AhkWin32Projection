@@ -1,89 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class CPU_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct CPU_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _X86CpuInfo extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+    struct _X86CpuInfo {
+        VendorId : UInt32[3]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        VendorId {
-            get {
-                if(!this.HasProp("__VendorIdProxyArray"))
-                    this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
-                return this.__VendorIdProxyArray
-            }
-        }
+        VersionInformation : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        VersionInformation {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        FeatureInformation : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        FeatureInformation {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        AMDExtendedCpuFeatures : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AMDExtendedCpuFeatures {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
     }
 
-    class _OtherCpuInfo extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _OtherCpuInfo {
+        ProcessorFeatures : Int64[2]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        ProcessorFeatures {
-            get {
-                if(!this.HasProp("__ProcessorFeaturesProxyArray"))
-                    this.__ProcessorFeaturesProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-                return this.__ProcessorFeaturesProxyArray
-            }
-        }
     }
 
-    /**
-     * @type {_X86CpuInfo}
-     */
-    X86CpuInfo {
-        get {
-            if(!this.HasProp("__X86CpuInfo"))
-                this.__X86CpuInfo := CPU_INFORMATION._X86CpuInfo(0, this)
-            return this.__X86CpuInfo
-        }
-    }
+    X86CpuInfo : CPU_INFORMATION._X86CpuInfo
 
-    /**
-     * @type {_OtherCpuInfo}
-     */
-    OtherCpuInfo {
-        get {
-            if(!this.HasProp("__OtherCpuInfo"))
-                this.__OtherCpuInfo := CPU_INFORMATION._OtherCpuInfo(0, this)
-            return this.__OtherCpuInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'OtherCpuInfo', { type: CPU_INFORMATION._OtherCpuInfo, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMStreamConfig2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamConfig2.ahk" { IWMStreamConfig2 }
 
 /**
  * The IWMStreamConfig3 interface controls language settings for a stream.An IWMStreamConfig3 interface exists for every stream configuration object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMStreamConfig3 extends IWMStreamConfig2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMStreamConfig3 extends IWMStreamConfig2 {
     /**
      * The interface identifier for IWMStreamConfig3
      * @type {Guid}
      */
-    static IID => Guid("{cb164104-3aa9-45a7-9ac9-4daee131d6e1}")
+    static IID := Guid("{cb164104-3aa9-45a7-9ac9-4daee131d6e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMStreamConfig3 interfaces
+    */
+    struct Vtbl extends IWMStreamConfig2.Vtbl {
+        GetLanguage : IntPtr
+        SetLanguage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLanguage", "SetLanguage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMStreamConfig3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetLanguage method retrieves the RFC1766-compliant language string for the stream.
@@ -60,5 +70,27 @@ class IWMStreamConfig3 extends IWMStreamConfig2 {
 
         result := ComCall(21, this, "ptr", pwszLanguageString, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMStreamConfig3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 3)
+        this.vtbl.SetLanguage := CallbackCreate(GetMethod(implObj, "SetLanguage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLanguage)
+        CallbackFree(this.vtbl.SetLanguage)
     }
 }

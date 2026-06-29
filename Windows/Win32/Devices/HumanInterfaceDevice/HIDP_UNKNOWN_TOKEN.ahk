@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class HIDP_UNKNOWN_TOKEN extends Win32Struct {
-    static sizeof => 8
+export default struct HIDP_UNKNOWN_TOKEN {
+    #StructPack 4
 
-    static packingSize => 4
+    Token : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Token {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    BitField : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BitField {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the DVD challenge key.
@@ -10,32 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_chlgkey
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_DVDCOPY_CHLGKEY extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 1
+export default struct AM_DVDCOPY_CHLGKEY {
+    #StructPack 1
 
     /**
      * Challenge key.
-     * @type {Array<Integer>}
      */
-    ChlgKey {
-        get {
-            if(!this.HasProp("__ChlgKeyProxyArray"))
-                this.__ChlgKeyProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
-            return this.__ChlgKeyProxyArray
-        }
-    }
+    ChlgKey : Int8[10]
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[2]
+
 }

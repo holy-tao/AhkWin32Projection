@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Console\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Console\COORD.ahk" { COORD }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FSCNTL_SCREEN_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct FSCNTL_SCREEN_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Position : COORD
 
-    /**
-     * @type {COORD}
-     */
-    Position {
-        get {
-            if(!this.HasProp("__Position"))
-                this.__Position := COORD(0, this)
-            return this.__Position
-        }
-    }
+    ScreenSize : COORD
 
-    /**
-     * @type {COORD}
-     */
-    ScreenSize {
-        get {
-            if(!this.HasProp("__ScreenSize"))
-                this.__ScreenSize := COORD(4, this)
-            return this.__ScreenSize
-        }
-    }
+    nNumberOfChars : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nNumberOfChars {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

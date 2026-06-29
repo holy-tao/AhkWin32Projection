@@ -1,42 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\SystemInformation\IMAGE_FILE_MACHINE.ahk
-#Include .\MACHINE_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MACHINE_ATTRIBUTES.ahk" { MACHINE_ATTRIBUTES }
+#Import "..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
 
 /**
  * Specifies the architecture of a process and if that architecture of code can run in user mode, kernel mode, and/or under WoW64 on the host operating system.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_machine_information
  * @namespace Windows.Win32.System.Threading
  */
-class PROCESS_MACHINE_INFORMATION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PROCESS_MACHINE_INFORMATION {
+    #StructPack 4
 
     /**
      * An IMAGE_FILE_MACHINE_* value indicating the architecture of the associated process. See the list of architecture values in [Image File Machine Constants](/windows/win32/sysinfo/image-file-machine-constants).
-     * @type {IMAGE_FILE_MACHINE}
      */
-    ProcessMachine {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ProcessMachine : IMAGE_FILE_MACHINE
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Res0 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Res0 : UInt16
 
     /**
      * A value from the [MACHINE_ATTRIBUTES](ne-processthreadsapi-machine_attributes.md) enumeration indicating if the process’s architecture can run in user mode, kernel mode, and/or under WOW64 on the host operating system.
-     * @type {MACHINE_ATTRIBUTES}
      */
-    MachineAttributes {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    MachineAttributes : MACHINE_ATTRIBUTES
+
 }

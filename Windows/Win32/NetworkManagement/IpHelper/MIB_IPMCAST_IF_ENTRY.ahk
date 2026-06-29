@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores information about an IP multicast interface.
@@ -8,62 +7,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_if_entry
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_IF_ENTRY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_IF_ENTRY {
+    #StructPack 4
 
     /**
      * The index of this interface.
-     * @type {Integer}
      */
-    dwIfIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIfIndex : UInt32
 
     /**
      * The time-to-live value for this interface.
-     * @type {Integer}
      */
-    dwTtl {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTtl : UInt32
 
     /**
      * The multicast routing protocol that owns this interface.
-     * @type {Integer}
      */
-    dwProtocol {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwProtocol : UInt32
 
     /**
      * The rate limit of this interface.
-     * @type {Integer}
      */
-    dwRateLimit {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRateLimit : UInt32
 
     /**
      * The number of octets of multicast data received through this interface.
-     * @type {Integer}
      */
-    ulInMcastOctets {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulInMcastOctets : UInt32
 
     /**
      * The number of octets of multicast data sent through this interface.
-     * @type {Integer}
      */
-    ulOutMcastOctets {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulOutMcastOctets : UInt32
+
 }

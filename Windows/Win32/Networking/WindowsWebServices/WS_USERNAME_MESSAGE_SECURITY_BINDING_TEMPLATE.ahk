@@ -1,59 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_USERNAME_CREDENTIAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_USERNAME_CREDENTIAL.ahk" { WS_USERNAME_CREDENTIAL }
+#Import ".\WS_SECURITY_BINDING_PROPERTIES.ahk" { WS_SECURITY_BINDING_PROPERTIES }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
 
 /**
  * The security binding template for specifying the use of an application supplied username / password pair as a direct (i.e., one-shot) security token.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_username_message_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE {
+    #StructPack 8
 
     /**
      * Application provided security binding properties that cannot be represented in policy.
-     * @type {WS_SECURITY_BINDING_PROPERTIES}
      */
-    securityBindingProperties {
-        get {
-            if(!this.HasProp("__securityBindingProperties"))
-                this.__securityBindingProperties := WS_SECURITY_BINDING_PROPERTIES(0, this)
-            return this.__securityBindingProperties
-        }
-    }
+    securityBindingProperties : WS_SECURITY_BINDING_PROPERTIES
 
     /**
      * The username credential to be used with this security binding.  This
      *           needs to be specified when this security binding is used on the
      *           client.
-     * @type {Pointer<WS_USERNAME_CREDENTIAL>}
      */
-    clientCredential {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    clientCredential : WS_USERNAME_CREDENTIAL.Ptr
 
     /**
      * The validator to be used to check received username/password pairs.
      *           This needs to be specified when this security binding is used on the
      *           service.
-     * @type {Pointer<WS_VALIDATE_PASSWORD_CALLBACK>}
      */
-    passwordValidator {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    passwordValidator : IntPtr
 
     /**
      * The optional state to be passed in as an argument when the username validator is invoked.
-     * @type {Pointer<Void>}
      */
-    passwordValidatorCallbackState {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    passwordValidatorCallbackState : IntPtr
+
 }

@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISequentialStream interface supports simplified sequential access to stream objects. The IStream interface inherits its Read and Write methods from ISequentialStream.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-isequentialstream
  * @namespace Windows.Win32.System.Com
  */
-class ISequentialStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISequentialStream extends IUnknown {
     /**
      * The interface identifier for ISequentialStream
      * @type {Guid}
      */
-    static IID => Guid("{0c733a30-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a30-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISequentialStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Read  : IntPtr
+        Write : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Read", "Write"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISequentialStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reads a specified number of bytes from the stream object into memory, starting at the current seek pointer.
@@ -49,7 +58,7 @@ class ISequentialStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-read
      */
     Read(pv, cb) {
-        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "int")
+        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, Int32)
         return pcbRead
     }
 
@@ -72,7 +81,29 @@ class ISequentialStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-write
      */
     Write(pv, cb) {
-        result := ComCall(4, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "int")
+        result := ComCall(4, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, Int32)
         return pcbWritten
+    }
+
+    Query(iid) {
+        if (ISequentialStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.Write)
     }
 }

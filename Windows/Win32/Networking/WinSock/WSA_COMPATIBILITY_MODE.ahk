@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSA_COMPATIBILITY_BEHAVIOR_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSA_COMPATIBILITY_BEHAVIOR_ID.ahk" { WSA_COMPATIBILITY_BEHAVIOR_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSA_COMPATIBILITY_MODE extends Win32Struct {
-    static sizeof => 8
+export default struct WSA_COMPATIBILITY_MODE {
+    #StructPack 4
 
-    static packingSize => 4
+    BehaviorId : WSA_COMPATIBILITY_BEHAVIOR_ID
 
-    /**
-     * @type {WSA_COMPATIBILITY_BEHAVIOR_ID}
-     */
-    BehaviorId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TargetOsVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetOsVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

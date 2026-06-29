@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERNET_STATE.ahk" { INTERNET_STATE }
 
 /**
  * Contains the information to set the global online/offline state.
@@ -10,25 +9,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_connected_info
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_CONNECTED_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct INTERNET_CONNECTED_INFO {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {INTERNET_STATE}
-     */
-    dwConnectedState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwConnectedState : INTERNET_STATE
 
     /**
      * Controls the transition between states. This member can be ISO_FORCE_DISCONNECTED, which puts WinINet into offline mode. All outstanding requests will be aborted with a canceled error.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
+
 }

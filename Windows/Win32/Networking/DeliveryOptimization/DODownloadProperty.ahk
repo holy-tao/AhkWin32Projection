@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the ID of properties for the Delivery Optimization download operation.
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadproperty
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  */
-class DODownloadProperty extends Win32Enum {
+export default struct DODownloadProperty {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Read-only. Use this property to get the ID that uniquely identifies the download. VARIANT type is VT_BSTR.

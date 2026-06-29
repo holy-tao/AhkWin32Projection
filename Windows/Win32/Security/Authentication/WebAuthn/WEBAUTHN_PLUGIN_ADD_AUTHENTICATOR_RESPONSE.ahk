@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE extends Win32Struct {
-    static sizeof => 16
+export default struct WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbOpSignPubKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbOpSignPubKey {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pbOpSignPubKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbOpSignPubKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

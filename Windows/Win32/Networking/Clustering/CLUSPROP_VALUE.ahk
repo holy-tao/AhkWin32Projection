@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 
 /**
  * Describes the syntax and length of a data value used in a value list. The CLUSPROP_VALUE structure is used as a generic header in all of the structures that describe data of a particular type, such as CLUSPROP_BINARY and CLUSPROP_SZ.
@@ -64,31 +63,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_value
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_VALUE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct CLUSPROP_VALUE {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_syntax">CLUSPROP_SYNTAX</a> union that describes a 
      *       value.
-     * @type {CLUSPROP_SYNTAX}
      */
-    Syntax {
-        get {
-            if(!this.HasProp("__Syntax"))
-                this.__Syntax := CLUSPROP_SYNTAX(0, this)
-            return this.__Syntax
-        }
-    }
+    Syntax : CLUSPROP_SYNTAX
 
     /**
      * Count of bytes in the data that follows this 
      *       <b>CLUSPROP_VALUE</b> structure.
-     * @type {Integer}
      */
-    cbLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbLength : UInt32
+
 }

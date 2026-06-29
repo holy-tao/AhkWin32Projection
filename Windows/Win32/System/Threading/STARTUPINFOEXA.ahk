@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STARTUPINFOA.ahk
-#Include .\STARTUPINFOW_FLAGS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\LPPROC_THREAD_ATTRIBUTE_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\STARTUPINFOA.ahk" { STARTUPINFOA }
+#Import ".\STARTUPINFOW_FLAGS.ahk" { STARTUPINFOW_FLAGS }
+#Import ".\LPPROC_THREAD_ATTRIBUTE_LIST.ahk" { LPPROC_THREAD_ATTRIBUTE_LIST }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the CreateProcess and CreateProcessAsUser functions. (ANSI)
@@ -20,32 +20,17 @@
  * @namespace Windows.Win32.System.Threading
  * @charset ANSI
  */
-class STARTUPINFOEXA extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct STARTUPINFOEXA {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure.
-     * @type {STARTUPINFOA}
      */
-    StartupInfo {
-        get {
-            if(!this.HasProp("__StartupInfo"))
-                this.__StartupInfo := STARTUPINFOA(0, this)
-            return this.__StartupInfo
-        }
-    }
+    StartupInfo : STARTUPINFOA
 
     /**
      * An attribute list. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
-     * @type {LPPROC_THREAD_ATTRIBUTE_LIST}
      */
-    lpAttributeList {
-        get {
-            if(!this.HasProp("__lpAttributeList"))
-                this.__lpAttributeList := LPPROC_THREAD_ATTRIBUTE_LIST(104, this)
-            return this.__lpAttributeList
-        }
-    }
+    lpAttributeList : LPPROC_THREAD_ATTRIBUTE_LIST
+
 }

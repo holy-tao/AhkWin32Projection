@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the data directory.
@@ -79,26 +78,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_data_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_DATA_DIRECTORY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IMAGE_DATA_DIRECTORY {
+    #StructPack 4
 
     /**
      * The relative virtual address of the table.
-     * @type {Integer}
      */
-    VirtualAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VirtualAddress : UInt32
 
     /**
      * The size of the table, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
+
 }

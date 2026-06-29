@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KF_CATEGORY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KF_CATEGORY.ahk" { KF_CATEGORY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the specifics of a known folder.
@@ -9,43 +10,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-knownfolder_definition
  * @namespace Windows.Win32.UI.Shell
  */
-class KNOWNFOLDER_DEFINITION extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct KNOWNFOLDER_DEFINITION {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a></b>
      * 
      * A single value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a> constants that classifies the folder as virtual, fixed, common, or per-user.
-     * @type {KF_CATEGORY}
      */
-    category {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    category : KF_CATEGORY
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the non-localized, canonical name for the known folder, stored as a null-terminated Unicode string. If this folder is a common or per-user folder, this value is also used as the value name of the "User Shell Folders" registry settings. This name is meant to be a unique, human-readable name. Third parties are recommended to follow the format <c>Company.Application.Name</c>. The name given here should not be confused with the display name.
-     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a short description of the known folder, stored as a null-terminated Unicode string. This description should include the folder's purpose and usage.
-     * @type {PWSTR}
      */
-    pszDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDescription : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a></b>
@@ -55,34 +42,22 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      *                         
      * 
      * This value is optional if no value is provided for <b>pszRelativePath</b>.
-     * @type {Pointer}
      */
-    fidParent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    fidParent : Guid
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Optional. A pointer to a path relative to the parent folder specified in <b>fidParent</b>. This is a null-terminated Unicode string, refers to the physical file system path, and is not localized. Applies to common and per-user folders only. See <b>Remarks</b> for more details.
-     * @type {PWSTR}
      */
-    pszRelativePath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszRelativePath : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the Shell namespace folder path of the folder, stored as a null-terminated Unicode string. Applies to virtual folders only. For example, <c>Control Panel</code> has a parsing name of <code>::%CLSID_MyComputer%\::%CLSID_ControlPanel%</c>.
-     * @type {PWSTR}
      */
-    pszParsingName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pszParsingName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -96,12 +71,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * For example, <c>@%_SYS_MOD_PATH%,-12688</c> is the tooltip for Common Pictures. When the folder is created, this string is stored in that folder's copy of Desktop.ini. It can be changed later by other Shell APIs. This resource might be localized.
      * 
      * This information is not required for virtual folders.
-     * @type {PWSTR}
      */
-    pszTooltip {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pszTooltip : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -115,12 +86,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * When the folder is created, this string is stored in that folder's copy of Desktop.ini. It can be changed later by other Shell APIs.
      * 
      * This information is not required for virtual folders.
-     * @type {PWSTR}
      */
-    pszLocalizedName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pszLocalizedName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -134,54 +101,35 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * When the folder is created, this string is stored in that folder's copy of Desktop.ini. It can be changed later by other Shell APIs.
      * 
      * This information is not required for virtual folders.
-     * @type {PWSTR}
      */
-    pszIcon {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pszIcon : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Optional. A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-definition-language">Security Descriptor Definition Language</a> format string. This is a null-terminated Unicode string that describes the default security descriptor that the folder receives when it is created. If this parameter is <b>NULL</b>, the new folder inherits the security descriptor of its parent. This is particularly useful for common folders that are accessed by all users.
-     * @type {PWSTR}
      */
-    pszSecurity {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pszSecurity : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Optional. Default file system attributes given to the folder when it is created. For example, the file could be hidden and read-only (FILE_ATTRIBUTE_HIDDEN and FILE_ATTRIBUTE_READONLY). For a complete list of possible values, see the <i>dwFlagsAndAttributes</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function. Set to -1 if not needed.
-     * @type {Integer}
      */
-    dwAttributes {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwAttributes : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_definition_flags">KF_DEFINITION_FLAGS</a></b>
      * 
      * Optional. One of more values from the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_definition_flags">KF_DEFINITION_FLAGS</a> enumeration that allow you to restrict redirection, allow PC-to-PC roaming, and control the time at which the known folder is created. Set to 0 if not needed.
-     * @type {Integer}
      */
-    kfdFlags {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    kfdFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a> values that identifies the known folder type based on its contents (such as documents, music, or photographs). This value is a GUID.
-     * @type {Pointer}
      */
-    ftidType {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ftidType : Guid
+
 }

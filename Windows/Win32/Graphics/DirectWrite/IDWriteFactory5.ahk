@@ -1,37 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory4.ahk
-#Include .\IDWriteFontSetBuilder1.ahk
-#Include .\IDWriteInMemoryFontFileLoader.ahk
-#Include .\IDWriteRemoteFontFileLoader.ahk
-#Include .\IDWriteFontFileStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteInMemoryFontFileLoader.ahk" { IDWriteInMemoryFontFileLoader }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteRemoteFontFileLoader.ahk" { IDWriteRemoteFontFileLoader }
+#Import ".\IDWriteFontSetBuilder1.ahk" { IDWriteFontSetBuilder1 }
+#Import ".\IDWriteFactory4.ahk" { IDWriteFactory4 }
+#Import ".\DWRITE_CONTAINER_TYPE.ahk" { DWRITE_CONTAINER_TYPE }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory5)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory5
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFactory5 extends IDWriteFactory4 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFactory5 extends IDWriteFactory4 {
     /**
      * The interface identifier for IDWriteFactory5
      * @type {Guid}
      */
-    static IID => Guid("{958db99a-be2a-4f09-af7d-65189803d1d3}")
+    static IID := Guid("{958db99a-be2a-4f09-af7d-65189803d1d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 43
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFactory5 interfaces
+    */
+    struct Vtbl extends IDWriteFactory4.Vtbl {
+        CreateFontSetBuilder         : IntPtr
+        CreateInMemoryFontFileLoader : IntPtr
+        CreateHttpFontFileLoader     : IntPtr
+        AnalyzeContainerType         : IntPtr
+        UnpackFontFile               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFontSetBuilder", "CreateInMemoryFontFileLoader", "CreateHttpFontFileLoader", "AnalyzeContainerType", "UnpackFontFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFactory5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an empty font set builder to add font face references and create a custom font set. (IDWriteFactory5.CreateFontSetBuilder)
@@ -92,7 +106,7 @@ class IDWriteFactory5 extends IDWriteFactory4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-analyzecontainertype
      */
     AnalyzeContainerType(fileData, fileDataSize) {
-        result := ComCall(46, this, "ptr", fileData, "uint", fileDataSize, "int")
+        result := ComCall(46, this, "ptr", fileData, "uint", fileDataSize, DWRITE_CONTAINER_TYPE)
         return result
     }
 
@@ -113,7 +127,35 @@ class IDWriteFactory5 extends IDWriteFactory4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-unpackfontfile
      */
     UnpackFontFile(containerType, fileData, fileDataSize) {
-        result := ComCall(47, this, "int", containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", &unpackedFontStream := 0, "HRESULT")
+        result := ComCall(47, this, DWRITE_CONTAINER_TYPE, containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", &unpackedFontStream := 0, "HRESULT")
         return IDWriteFontFileStream(unpackedFontStream)
+    }
+
+    Query(iid) {
+        if (IDWriteFactory5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFontSetBuilder := CallbackCreate(GetMethod(implObj, "CreateFontSetBuilder"), flags, 2)
+        this.vtbl.CreateInMemoryFontFileLoader := CallbackCreate(GetMethod(implObj, "CreateInMemoryFontFileLoader"), flags, 2)
+        this.vtbl.CreateHttpFontFileLoader := CallbackCreate(GetMethod(implObj, "CreateHttpFontFileLoader"), flags, 4)
+        this.vtbl.AnalyzeContainerType := CallbackCreate(GetMethod(implObj, "AnalyzeContainerType"), flags, 3)
+        this.vtbl.UnpackFontFile := CallbackCreate(GetMethod(implObj, "UnpackFontFile"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFontSetBuilder)
+        CallbackFree(this.vtbl.CreateInMemoryFontFileLoader)
+        CallbackFree(this.vtbl.CreateHttpFontFileLoader)
+        CallbackFree(this.vtbl.AnalyzeContainerType)
+        CallbackFree(this.vtbl.UnpackFontFile)
     }
 }

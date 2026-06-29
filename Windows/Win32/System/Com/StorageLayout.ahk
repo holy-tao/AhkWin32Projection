@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Describes a single block of data, including its name, location, and length.
@@ -34,29 +34,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-storagelayout
  * @namespace Windows.Win32.System.Com
  */
-class StorageLayout extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct StorageLayout {
+    #StructPack 8
 
     /**
      * The type of element to be written. Values are taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-stgty">STGTY</a> enumeration. <b>STGTY_STREAM</b> means read the block of data named by <b>pwcsElementName</b>. <b>STGTY_STORAGE</b> means open the storage specified in <b>pwcsElementName</b>. <b>STGTY_REPEAT</b> is used in multimedia applications to interface audio, video, text, and other elements. An opening <b>STGTY_REPEAT</b> value means that the elements that follow are to be repeated a specified number of times. The closing <b>STGTY_REPEAT</b> value marks the end of those elements that are to be repeated. Nested <b>STGTY_REPEAT</b> value pairs are permitted.
-     * @type {Integer}
      */
-    LayoutType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LayoutType : UInt32
 
     /**
      * The null-terminated Unicode string name of the storage or stream. If the element is a substorage or embedded object, the fully qualified storage path must be specified; for example,  "RootStorageName\SubStorageName\Substream".
-     * @type {PWSTR}
      */
-    pwcsElementName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwcsElementName : PWSTR
 
     /**
      * Where the value of the <b>LayoutType</b> member is <b>STGTY_STREAM</b>, this flag specifies the beginning offset into the steam named in the <b>pwscElementName</b> member. 
@@ -67,12 +57,8 @@ class StorageLayout extends Win32Struct {
      * Where <b>LayoutType</b> is <b>STGTY_STORAGE</b>, this flag should be set to zero.
      * 
      * Where <b>LayoutType</b> is <b>STGTY_REPEAT</b>, this flag should be set to zero.
-     * @type {Integer}
      */
-    cOffset {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    cOffset : Int64
 
     /**
      * Length, in bytes, of the data block named in <b>pwcsElementName</b>. 
@@ -87,10 +73,7 @@ class StorageLayout extends Win32Struct {
      * Where <b>LayoutType</b> is <b>STGTY_REPEAT</b>, a positive <b>cBytes</b> specifies the beginning of a repeat block. <b>STGTY_REPEAT</b> with zero <b>cBytes</b> marks the end of a repeat block.
      * 
      * A beginning block value of <b>STG_TOEND</b> specifies that elements in a following block are to be repeated after each stream has been completely read.
-     * @type {Integer}
      */
-    cBytes {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    cBytes : Int64
+
 }

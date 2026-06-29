@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents the required privileges for a service. (Unicode)
@@ -22,19 +22,14 @@
  * @namespace Windows.Win32.System.Services
  * @charset Unicode
  */
-class SERVICE_REQUIRED_PRIVILEGES_INFOW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct SERVICE_REQUIRED_PRIVILEGES_INFOW {
+    #StructPack 8
 
     /**
      * A multi-string that specifies the privileges. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
      * 
      * A multi-string is a sequence of null-terminated strings, terminated by an empty string (\0). The following is an example: <c>String1\0String2\0String3\0LastString\0\0</c>.
-     * @type {PWSTR}
      */
-    pmszRequiredPrivileges {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pmszRequiredPrivileges : PWSTR
+
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for attaching buffers to SpatialAudioMetadataItems for in-place storage of data.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitemsbuffer
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioMetadataItemsBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioMetadataItemsBuffer extends IUnknown {
     /**
      * The interface identifier for ISpatialAudioMetadataItemsBuffer
      * @type {Guid}
      */
-    static IID => Guid("{42640a16-e1bd-42d9-9ff6-031ab71a2dba}")
+    static IID := Guid("{42640a16-e1bd-42d9-9ff6-031ab71a2dba}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioMetadataItemsBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AttachToBuffer          : IntPtr
+        AttachToPopulatedBuffer : IntPtr
+        DetachBuffer            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AttachToBuffer", "AttachToPopulatedBuffer", "DetachBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioMetadataItemsBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Attaches caller-provided memory for storage of ISpatialAudioMetadataItems objects.
@@ -231,5 +241,29 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown {
     DetachBuffer() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpatialAudioMetadataItemsBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AttachToBuffer := CallbackCreate(GetMethod(implObj, "AttachToBuffer"), flags, 3)
+        this.vtbl.AttachToPopulatedBuffer := CallbackCreate(GetMethod(implObj, "AttachToPopulatedBuffer"), flags, 3)
+        this.vtbl.DetachBuffer := CallbackCreate(GetMethod(implObj, "DetachBuffer"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AttachToBuffer)
+        CallbackFree(this.vtbl.AttachToPopulatedBuffer)
+        CallbackFree(this.vtbl.DetachBuffer)
     }
 }

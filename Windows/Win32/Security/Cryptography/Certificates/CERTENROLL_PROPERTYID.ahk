@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains predefined object identifiers for external properties that can be associated with a certificate in the certificate store.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-certenroll_propertyid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CERTENROLL_PROPERTYID extends Win32Enum {
+export default struct CERTENROLL_PROPERTYID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No property is identified.

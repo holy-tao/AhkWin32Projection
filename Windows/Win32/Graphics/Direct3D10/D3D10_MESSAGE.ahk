@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_MESSAGE_CATEGORY.ahk
-#Include .\D3D10_MESSAGE_SEVERITY.ahk
-#Include .\D3D10_MESSAGE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_MESSAGE_CATEGORY.ahk" { D3D10_MESSAGE_CATEGORY }
+#Import ".\D3D10_MESSAGE_ID.ahk" { D3D10_MESSAGE_ID }
+#Import ".\D3D10_MESSAGE_SEVERITY.ahk" { D3D10_MESSAGE_SEVERITY }
 
 /**
  * A debug message in the Information Queue. (D3D10_MESSAGE)
@@ -11,63 +10,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_message
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_MESSAGE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D10_MESSAGE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_category">D3D10_MESSAGE_CATEGORY</a></b>
      * 
      * The category of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_category">D3D10_MESSAGE_CATEGORY</a>.
-     * @type {D3D10_MESSAGE_CATEGORY}
      */
-    Category {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Category : D3D10_MESSAGE_CATEGORY
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_severity">D3D10_MESSAGE_SEVERITY</a></b>
      * 
      * The severity of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_severity">D3D10_MESSAGE_SEVERITY</a>.
-     * @type {D3D10_MESSAGE_SEVERITY}
      */
-    Severity {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Severity : D3D10_MESSAGE_SEVERITY
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_id">D3D10_MESSAGE_ID</a></b>
      * 
      * The ID of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_id">D3D10_MESSAGE_ID</a>.
-     * @type {D3D10_MESSAGE_ID}
      */
-    ID {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ID : D3D10_MESSAGE_ID
 
     /**
      * Type: <b>const char*</b>
      * 
      * The message string.
-     * @type {Pointer<Integer>}
      */
-    pDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDescription : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The length of pDescription in bytes.
-     * @type {Pointer}
      */
-    DescriptionByteLength {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DescriptionByteLength : IntPtr
+
 }

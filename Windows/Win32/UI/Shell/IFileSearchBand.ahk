@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileSearchBand extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFileSearchBand extends IDispatch {
     /**
      * The interface identifier for IFileSearchBand
      * @type {Guid}
      */
-    static IID => Guid("{2d91eea1-9932-11d2-be86-00a0c9a83da1}")
+    static IID := Guid("{2d91eea1-9932-11d2-be86-00a0c9a83da1}")
 
     /**
      * The class identifier for FileSearchBand
      * @type {Guid}
      */
-    static CLSID => Guid("{c4ee31f3-4768-11d2-be5c-00a0c9a83da1}")
+    static CLSID := Guid("{c4ee31f3-4768-11d2-be5c-00a0c9a83da1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSearchBand interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetFocus            : IntPtr
+        SetSearchParameters : IntPtr
+        get_SearchID        : IntPtr
+        get_Scope           : IntPtr
+        get_QueryFile       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFocus", "SetSearchParameters", "get_SearchID", "get_Scope", "get_QueryFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSearchBand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -85,7 +98,7 @@ class IFileSearchBand extends IDispatch {
      * @returns {HRESULT} 
      */
     SetSearchParameters(pbstrSearchID, bNavToResults, pvarScope, pvarQueryFile) {
-        result := ComCall(8, this, "ptr", pbstrSearchID, "short", bNavToResults, "ptr", pvarScope, "ptr", pvarQueryFile, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pbstrSearchID, VARIANT_BOOL, bNavToResults, VARIANT.Ptr, pvarScope, VARIANT.Ptr, pvarQueryFile, "HRESULT")
         return result
     }
 
@@ -94,8 +107,8 @@ class IFileSearchBand extends IDispatch {
      * @returns {BSTR} 
      */
     get_SearchID() {
-        pbstrSearchID := BSTR()
-        result := ComCall(9, this, "ptr", pbstrSearchID, "HRESULT")
+        pbstrSearchID := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrSearchID, "HRESULT")
         return pbstrSearchID
     }
 
@@ -105,7 +118,7 @@ class IFileSearchBand extends IDispatch {
      */
     get_Scope() {
         pvarScope := VARIANT()
-        result := ComCall(10, this, "ptr", pvarScope, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, pvarScope, "HRESULT")
         return pvarScope
     }
 
@@ -115,7 +128,35 @@ class IFileSearchBand extends IDispatch {
      */
     get_QueryFile() {
         pvarFile := VARIANT()
-        result := ComCall(11, this, "ptr", pvarFile, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, pvarFile, "HRESULT")
         return pvarFile
+    }
+
+    Query(iid) {
+        if (IFileSearchBand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.SetSearchParameters := CallbackCreate(GetMethod(implObj, "SetSearchParameters"), flags, 5)
+        this.vtbl.get_SearchID := CallbackCreate(GetMethod(implObj, "get_SearchID"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.get_QueryFile := CallbackCreate(GetMethod(implObj, "get_QueryFile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.SetSearchParameters)
+        CallbackFree(this.vtbl.get_SearchID)
+        CallbackFree(this.vtbl.get_Scope)
+        CallbackFree(this.vtbl.get_QueryFile)
     }
 }

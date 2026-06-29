@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the ghosting status of an item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesghostinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesGhostInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesGhostInfo extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesGhostInfo
      * @type {Guid}
      */
-    static IID => Guid("{2b09d48c-8ab5-464f-a755-a59d92f99429}")
+    static IID := Guid("{2b09d48c-8ab5-464f-a755-a59d92f99429}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesGhostInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsGhosted : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsGhosted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesGhostInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the item is ghosted.
@@ -42,7 +51,27 @@ class IOfflineFilesGhostInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesghostinfo-isghosted
      */
     IsGhosted() {
-        result := ComCall(3, this, "int*", &pbGhosted := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pbGhosted := 0, "HRESULT")
         return pbGhosted
+    }
+
+    Query(iid) {
+        if (IOfflineFilesGhostInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsGhosted := CallbackCreate(GetMethod(implObj, "IsGhosted"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsGhosted)
     }
 }

@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class IDtcLuSubordinateDtc extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDtcLuSubordinateDtc extends IUnknown {
     /**
      * The interface identifier for IDtcLuSubordinateDtc
      * @type {Guid}
      */
-    static IID => Guid("{4131e773-1aea-11d0-944b-00a0c905416e}")
+    static IID := Guid("{4131e773-1aea-11d0-944b-00a0c905416e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDtcLuSubordinateDtc interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Unplug        : IntPtr
+        BackedOut     : IntPtr
+        BackOut       : IntPtr
+        Committed     : IntPtr
+        Forget        : IntPtr
+        Prepare       : IntPtr
+        RequestCommit : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Unplug", "BackedOut", "BackOut", "Committed", "Forget", "Prepare", "RequestCommit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDtcLuSubordinateDtc.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -33,7 +48,7 @@ class IDtcLuSubordinateDtc extends IUnknown {
      * @returns {HRESULT} 
      */
     Unplug(fConversationLost) {
-        result := ComCall(3, this, "int", fConversationLost, "HRESULT")
+        result := ComCall(3, this, BOOL, fConversationLost, "HRESULT")
         return result
     }
 
@@ -74,16 +89,8 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * Indicates that the resource manager (RM) has completed all processing necessary to guarantee that a commit or abort operation will succeed for the specified transaction.
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-preparecomplete
+     * @returns {HRESULT} 
      */
     Prepare() {
         result := ComCall(8, this, "HRESULT")
@@ -97,5 +104,37 @@ class IDtcLuSubordinateDtc extends IUnknown {
     RequestCommit() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDtcLuSubordinateDtc.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Unplug := CallbackCreate(GetMethod(implObj, "Unplug"), flags, 2)
+        this.vtbl.BackedOut := CallbackCreate(GetMethod(implObj, "BackedOut"), flags, 1)
+        this.vtbl.BackOut := CallbackCreate(GetMethod(implObj, "BackOut"), flags, 1)
+        this.vtbl.Committed := CallbackCreate(GetMethod(implObj, "Committed"), flags, 1)
+        this.vtbl.Forget := CallbackCreate(GetMethod(implObj, "Forget"), flags, 1)
+        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 1)
+        this.vtbl.RequestCommit := CallbackCreate(GetMethod(implObj, "RequestCommit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Unplug)
+        CallbackFree(this.vtbl.BackedOut)
+        CallbackFree(this.vtbl.BackOut)
+        CallbackFree(this.vtbl.Committed)
+        CallbackFree(this.vtbl.Forget)
+        CallbackFree(this.vtbl.Prepare)
+        CallbackFree(this.vtbl.RequestCommit)
     }
 }

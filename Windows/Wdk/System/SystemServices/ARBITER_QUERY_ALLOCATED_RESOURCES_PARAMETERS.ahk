@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CM_PARTIAL_RESOURCE_LIST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CM_PARTIAL_RESOURCE_LIST.ahk" { CM_PARTIAL_RESOURCE_LIST }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class ARBITER_QUERY_ALLOCATED_RESOURCES_PARAMETERS extends Win32Struct {
-    static sizeof => 8
+export default struct ARBITER_QUERY_ALLOCATED_RESOURCES_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    AllocatedResources : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<CM_PARTIAL_RESOURCE_LIST>>}
-     */
-    AllocatedResources {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 }

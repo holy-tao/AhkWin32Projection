@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RIO_NOTIFICATION_COMPLETION_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RIO_NOTIFICATION_COMPLETION_TYPE.ahk" { RIO_NOTIFICATION_COMPLETION_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the method for I/O completion to be used with a RIONotify function for sending or receiving network data with the Winsock registered I/O extensions.
@@ -20,95 +20,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-rio_notification_completion
  * @namespace Windows.Win32.Networking.WinSock
  */
-class RIO_NOTIFICATION_COMPLETION extends Win32Struct {
-    static sizeof => 32
+export default struct RIO_NOTIFICATION_COMPLETION {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Event {
+        EventHandle : HANDLE
+
+        NotifyReset : BOOL
+
+    }
+
+    struct _Iocp {
+        IocpHandle : HANDLE
+
+        CompletionKey : IntPtr
+
+        Overlapped : IntPtr
+
+    }
 
     /**
      * The type of completion to use with the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function when sending or receiving data.
-     * @type {RIO_NOTIFICATION_COMPLETION_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : RIO_NOTIFICATION_COMPLETION_TYPE
 
-    class _Event extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    Event : RIO_NOTIFICATION_COMPLETION._Event
 
-        /**
-         * @type {HANDLE}
-         */
-        EventHandle {
-            get {
-                if(!this.HasProp("__EventHandle"))
-                    this.__EventHandle := HANDLE(0, this)
-                return this.__EventHandle
-            }
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        NotifyReset {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
-        }
-    }
-
-    class _Iocp extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {HANDLE}
-         */
-        IocpHandle {
-            get {
-                if(!this.HasProp("__IocpHandle"))
-                    this.__IocpHandle := HANDLE(0, this)
-                return this.__IocpHandle
-            }
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        CompletionKey {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        Overlapped {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
-
-    /**
-     * @type {_Event}
-     */
-    Event {
-        get {
-            if(!this.HasProp("__Event"))
-                this.__Event := RIO_NOTIFICATION_COMPLETION._Event(8, this)
-            return this.__Event
-        }
-    }
-
-    /**
-     * @type {_Iocp}
-     */
-    Iocp {
-        get {
-            if(!this.HasProp("__Iocp"))
-                this.__Iocp := RIO_NOTIFICATION_COMPLETION._Iocp(8, this)
-            return this.__Iocp
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Iocp', { type: RIO_NOTIFICATION_COMPLETION._Iocp, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

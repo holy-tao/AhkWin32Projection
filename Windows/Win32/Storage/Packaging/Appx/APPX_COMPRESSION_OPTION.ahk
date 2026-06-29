@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the degree of compression used to store the file in the package.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_compression_option
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class APPX_COMPRESSION_OPTION extends Win32Enum {
+export default struct APPX_COMPRESSION_OPTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No compression.

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IStreamBufferSink.ahk" { IStreamBufferSink }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferSource interface is exposed by the Stream Buffer Source filter. Use this interface to play live content from the Stream Buffer Sink filter.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambuffersource
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IStreamBufferSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStreamBufferSource extends IUnknown {
     /**
      * The interface identifier for IStreamBufferSource
      * @type {Guid}
      */
-    static IID => Guid("{1c5bd776-6ced-4f44-8164-5eab0e98db12}")
+    static IID := Guid("{1c5bd776-6ced-4f44-8164-5eab0e98db12}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamBufferSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetStreamSink : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetStreamSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamBufferSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetStreamSink method sets a pointer to the Stream Buffer Sink filter, so that the Stream Buffer Source filter can stream data from the sink filter.
@@ -62,5 +71,25 @@ class IStreamBufferSource extends IUnknown {
     SetStreamSink(pIStreamBufferSink) {
         result := ComCall(3, this, "ptr", pIStreamBufferSink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamBufferSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetStreamSink := CallbackCreate(GetMethod(implObj, "SetStreamSink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetStreamSink)
     }
 }

@@ -1,38 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class STINOTIFY extends Win32Struct {
-    static sizeof => 80
+export default struct STINOTIFY {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    guidNotificationCode : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidNotificationCode {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    abNotificationData : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    abNotificationData {
-        get {
-            if(!this.HasProp("__abNotificationDataProxyArray"))
-                this.__abNotificationDataProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "char")
-            return this.__abNotificationDataProxyArray
-        }
-    }
 }

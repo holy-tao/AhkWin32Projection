@@ -1,40 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRELLIPSE and EMRRECTANGLE structures contain members for the Ellipse and Rectangle enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrellipse
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRELLIPSE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct EMRELLIPSE {
+    #StructPack 4
 
     /**
      * Base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Bounding rectangle in logical units.
-     * @type {RECTL}
      */
-    rclBox {
-        get {
-            if(!this.HasProp("__rclBox"))
-                this.__rclBox := RECTL(8, this)
-            return this.__rclBox
-        }
-    }
+    rclBox : RECTL
+
 }

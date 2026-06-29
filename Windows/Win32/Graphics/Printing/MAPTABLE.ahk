@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRANSDATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TRANSDATA.ahk" { TRANSDATA }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MAPTABLE extends Win32Struct {
-    static sizeof => 12
+export default struct MAPTABLE {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwGlyphNum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwGlyphNum {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Trans : TRANSDATA[1]
 
-    /**
-     * @type {TRANSDATA}
-     */
-    Trans {
-        get {
-            if(!this.HasProp("__TransProxyArray"))
-                this.__TransProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSDATA, "")
-            return this.__TransProxyArray
-        }
-    }
 }

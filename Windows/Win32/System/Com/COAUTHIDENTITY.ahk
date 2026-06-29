@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a user name and password.
@@ -11,64 +10,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-coauthidentity
  * @namespace Windows.Win32.System.Com
  */
-class COAUTHIDENTITY extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct COAUTHIDENTITY {
+    #StructPack 8
 
     /**
      * The user's name.
-     * @type {Pointer<Integer>}
      */
-    User {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    User : IntPtr
 
     /**
      * The length of the <b>User</b> string, without the terminating <b>NULL</b>.
-     * @type {Integer}
      */
-    UserLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    UserLength : UInt32
 
     /**
      * The domain or workgroup name.
-     * @type {Pointer<Integer>}
      */
-    Domain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Domain : IntPtr
 
     /**
      * The length of the <b>Domain</b> string, without the terminating <b>NULL</b>.
-     * @type {Integer}
      */
-    DomainLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DomainLength : UInt32
 
     /**
      * The user's password in the domain or workgroup.
-     * @type {Pointer<Integer>}
      */
-    Password {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Password : IntPtr
 
     /**
      * The length of the <b>Password</b> string, without the terminating <b>NULL</b>.
-     * @type {Integer}
      */
-    PasswordLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PasswordLength : UInt32
 
     /**
      * Indicates whether the strings are Unicode strings.
@@ -101,10 +74,7 @@ class COAUTHIDENTITY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Flags : UInt32
+
 }

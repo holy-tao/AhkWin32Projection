@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_FOEXT_SHADOW_FILE extends Win32Struct {
-    static sizeof => 16
+export default struct IO_FOEXT_SHADOW_FILE {
+    #StructPack 8
 
-    static packingSize => 8
+    BackingFileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    BackingFileObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BackingFltInstance : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    BackingFltInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

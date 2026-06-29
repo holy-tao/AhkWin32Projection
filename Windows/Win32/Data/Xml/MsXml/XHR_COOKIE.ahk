@@ -1,64 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Defines a cookie that you can add to the HTTP cookie jar by calling the SetCookie method or retrieve from the HTTP cookie jar by calling the GetCookie method.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ns-msxml6-xhr_cookie
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class XHR_COOKIE extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct XHR_COOKIE {
+    #StructPack 8
 
     /**
      * A null-terminated string that specifies the URL in the cookie.
-     * @type {PWSTR}
      */
-    pwszUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszUrl : PWSTR
 
     /**
      * A null-terminated string that specifies the name in the cookie.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszName : PWSTR
 
     /**
      * A null-terminated string that specifies the value in the cookie.
-     * @type {PWSTR}
      */
-    pwszValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszValue : PWSTR
 
     /**
      * A null-terminated string that specifies the user policy in the cookie.
-     * @type {PWSTR}
      */
-    pwszP3PPolicy {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszP3PPolicy : PWSTR
 
     /**
      * A null-terminated string that specifies the date and time at which the cookie expires.
-     * @type {FILETIME}
      */
-    ftExpires {
-        get {
-            if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(32, this)
-            return this.__ftExpires
-        }
-    }
+    ftExpires : FILETIME
 
     /**
      * A set of bit flags that specifies properties of the cookie.
@@ -190,10 +165,7 @@ class XHR_COOKIE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwFlags : UInt32
+
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTransform3D.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
 
 /**
  * Represents an arbitrary 3D transformation defined by a 4-by-4 matrix.
@@ -14,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionmatrixtransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionMatrixTransform3D extends IDCompositionTransform3D {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionMatrixTransform3D extends IDCompositionTransform3D {
     /**
      * The interface identifier for IDCompositionMatrixTransform3D
      * @type {Guid}
      */
-    static IID => Guid("{4b3363f0-643b-41b7-b6e0-ccf22d34467c}")
+    static IID := Guid("{4b3363f0-643b-41b7-b6e0-ccf22d34467c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionMatrixTransform3D interfaces
+    */
+    struct Vtbl extends IDCompositionTransform3D.Vtbl {
+        SetMatrix         : IntPtr
+        SetMatrixElement  : IntPtr
+        SetMatrixElement1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMatrix", "SetMatrixElement", "SetMatrixElement1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionMatrixTransform3D.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Changes all values of the matrix of this 3D transformation effect.
@@ -50,7 +62,7 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrix
      */
     SetMatrix(_matrix) {
-        result := ComCall(3, this, "ptr", _matrix, "HRESULT")
+        result := ComCall(3, this, D3DMATRIX.Ptr, _matrix, "HRESULT")
         return result
     }
 
@@ -100,5 +112,29 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D {
     SetMatrixElement1(row, _column, value) {
         result := ComCall(5, this, "int", row, "int", _column, "float", value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionMatrixTransform3D.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.SetMatrixElement := CallbackCreate(GetMethod(implObj, "SetMatrixElement"), flags, 4)
+        this.vtbl.SetMatrixElement1 := CallbackCreate(GetMethod(implObj, "SetMatrixElement1"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMatrix)
+        CallbackFree(this.vtbl.SetMatrixElement)
+        CallbackFree(this.vtbl.SetMatrixElement1)
     }
 }

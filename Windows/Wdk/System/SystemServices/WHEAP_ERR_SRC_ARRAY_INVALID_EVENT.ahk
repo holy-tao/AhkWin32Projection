@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_ERR_SRC_ARRAY_INVALID_EVENT extends Win32Struct {
-    static sizeof => 24
+export default struct WHEAP_ERR_SRC_ARRAY_INVALID_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorSourceCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorSourceCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ReportedLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReportedLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ExpectedLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExpectedLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

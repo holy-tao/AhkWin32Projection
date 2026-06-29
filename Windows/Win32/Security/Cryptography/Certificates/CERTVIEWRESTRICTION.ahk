@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class CERTVIEWRESTRICTION extends Win32Struct {
-    static sizeof => 32
+export default struct CERTVIEWRESTRICTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ColumnIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ColumnIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SeekOperator : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SeekOperator {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SortOrder : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SortOrder {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    pbValue : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbValue {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

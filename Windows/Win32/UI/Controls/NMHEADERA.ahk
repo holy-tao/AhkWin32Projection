@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\HEADER_CONTROL_NOTIFICATION_BUTTON.ahk
-#Include .\HDITEMA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\HEADER_CONTROL_NOTIFICATION_BUTTON.ahk" { HEADER_CONTROL_NOTIFICATION_BUTTON }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\HDITEMA.ahk" { HDITEMA }
 
 /**
  * Contains information about header control notification messages. This structure supersedes the HD_NOTIFY structure. (ANSI)
@@ -19,44 +18,27 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMHEADERA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct NMHEADERA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification message.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of the header item that is the focus of the notification message.
-     * @type {Integer}
      */
-    iItem {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iItem : Int32
 
     /**
      * Type: <b>int</b>
-     * @type {HEADER_CONTROL_NOTIFICATION_BUTTON}
      */
-    iButton {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    iButton : HEADER_CONTROL_NOTIFICATION_BUTTON
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hditema">HDITEM</a>*</b>
@@ -64,10 +46,7 @@ class NMHEADERA extends Win32Struct {
      * An optional pointer to an <a href="https://docs.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hditema">HDITEM</a> structure containing information about the item specified by 
      * 					<b>iItem</b>. The 
      * 					<b>mask</b> member of the <b>HDITEM</b> structure indicates which of its members are valid.
-     * @type {Pointer<HDITEMA>}
      */
-    pitem {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pitem : HDITEMA.Ptr
+
 }

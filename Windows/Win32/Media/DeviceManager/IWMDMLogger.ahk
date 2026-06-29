@@ -1,39 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The IWMDMLogger interface is used by Windows Media Device Manager applications and service providers to log entries in a common log file.
  * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nn-wmdmlog-iwmdmlogger
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMLogger extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMLogger extends IUnknown {
     /**
      * The interface identifier for IWMDMLogger
      * @type {Guid}
      */
-    static IID => Guid("{110a3200-5a79-11d3-8d78-444553540000}")
+    static IID := Guid("{110a3200-5a79-11d3-8d78-444553540000}")
 
     /**
      * The class identifier for WMDMLogger
      * @type {Guid}
      */
-    static CLSID => Guid("{110a3202-5a79-11d3-8d78-444553540000}")
+    static CLSID := Guid("{110a3202-5a79-11d3-8d78-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMLogger interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsEnabled      : IntPtr
+        Enable         : IntPtr
+        GetLogFileName : IntPtr
+        SetLogFileName : IntPtr
+        LogString      : IntPtr
+        LogDword       : IntPtr
+        Reset          : IntPtr
+        GetSizeParams  : IntPtr
+        SetSizeParams  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsEnabled", "Enable", "GetLogFileName", "SetLogFileName", "LogString", "LogDword", "Reset", "GetSizeParams", "SetSizeParams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMLogger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsEnabled method determines whether logging is enabled.
@@ -43,7 +61,7 @@ class IWMDMLogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-isenabled
      */
     IsEnabled() {
-        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -61,7 +79,7 @@ class IWMDMLogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-enable
      */
     Enable(fEnable) {
-        result := ComCall(4, this, "int", fEnable, "HRESULT")
+        result := ComCall(4, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -215,5 +233,41 @@ class IWMDMLogger extends IUnknown {
     SetSizeParams(dwMaxSize, dwShrinkToSize) {
         result := ComCall(11, this, "uint", dwMaxSize, "uint", dwShrinkToSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMLogger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.GetLogFileName := CallbackCreate(GetMethod(implObj, "GetLogFileName"), flags, 3)
+        this.vtbl.SetLogFileName := CallbackCreate(GetMethod(implObj, "SetLogFileName"), flags, 2)
+        this.vtbl.LogString := CallbackCreate(GetMethod(implObj, "LogString"), flags, 4)
+        this.vtbl.LogDword := CallbackCreate(GetMethod(implObj, "LogDword"), flags, 5)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSizeParams := CallbackCreate(GetMethod(implObj, "GetSizeParams"), flags, 3)
+        this.vtbl.SetSizeParams := CallbackCreate(GetMethod(implObj, "SetSizeParams"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsEnabled)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.GetLogFileName)
+        CallbackFree(this.vtbl.SetLogFileName)
+        CallbackFree(this.vtbl.LogString)
+        CallbackFree(this.vtbl.LogDword)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetSizeParams)
+        CallbackFree(this.vtbl.SetSizeParams)
     }
 }

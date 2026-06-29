@@ -1,85 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\KQUEUE.ahk
-#Include .\KDPC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KDPC.ahk" { KDPC }
+#Import ".\KQUEUE.ahk" { KQUEUE }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class KWAIT_BLOCK extends Win32Struct {
-    static sizeof => 40
+export default struct KWAIT_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    WaitListEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WaitListEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    WaitType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WaitType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    BlockState : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BlockState {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    WaitKey : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    WaitKey {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Thread : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    Thread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<KQUEUE>}
-     */
-    NotificationQueue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SparePtr : IntPtr
 
-    /**
-     * @type {Pointer<KDPC>}
-     */
-    Dpc {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    SparePtr {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'NotificationQueue', { type: KQUEUE.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'Dpc', { type: KDPC.Ptr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

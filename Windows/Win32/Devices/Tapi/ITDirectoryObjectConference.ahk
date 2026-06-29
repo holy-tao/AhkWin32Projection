@@ -1,34 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\RND_ADVERTISING_SCOPE.ahk" { RND_ADVERTISING_SCOPE }
 
 /**
  * The ITDirectoryObjectConference interface provides methods that allow an application to set and get conference details. The ITDirectoryObjectConference interface is created by calling QueryInterface on ITDirectoryObject.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectoryobjectconference
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDirectoryObjectConference extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDirectoryObjectConference extends IDispatch {
     /**
      * The interface identifier for ITDirectoryObjectConference
      * @type {Guid}
      */
-    static IID => Guid("{f1029e5d-cb5b-11d0-8d59-00c04fd91ac0}")
+    static IID := Guid("{f1029e5d-cb5b-11d0-8d59-00c04fd91ac0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDirectoryObjectConference interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Protocol         : IntPtr
+        get_Originator       : IntPtr
+        put_Originator       : IntPtr
+        get_AdvertisingScope : IntPtr
+        put_AdvertisingScope : IntPtr
+        get_Url              : IntPtr
+        put_Url              : IntPtr
+        get_Description      : IntPtr
+        put_Description      : IntPtr
+        get_IsEncrypted      : IntPtr
+        put_IsEncrypted      : IntPtr
+        get_StartTime        : IntPtr
+        put_StartTime        : IntPtr
+        get_StopTime         : IntPtr
+        put_StopTime         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Protocol", "get_Originator", "put_Originator", "get_AdvertisingScope", "put_AdvertisingScope", "get_Url", "put_Url", "get_Description", "put_Description", "get_IsEncrypted", "put_IsEncrypted", "get_StartTime", "put_StartTime", "get_StopTime", "put_StopTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDirectoryObjectConference.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -102,8 +126,8 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_protocol
      */
     get_Protocol() {
-        ppProtocol := BSTR()
-        result := ComCall(7, this, "ptr", ppProtocol, "HRESULT")
+        ppProtocol := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, ppProtocol, "HRESULT")
         return ppProtocol
     }
 
@@ -119,8 +143,8 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_originator
      */
     get_Originator() {
-        ppOriginator := BSTR()
-        result := ComCall(8, this, "ptr", ppOriginator, "HRESULT")
+        ppOriginator := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, ppOriginator, "HRESULT")
         return ppOriginator
     }
 
@@ -202,7 +226,7 @@ class ITDirectoryObjectConference extends IDispatch {
     put_Originator(pOriginator) {
         pOriginator := pOriginator is String ? BSTR.Alloc(pOriginator).Value : pOriginator
 
-        result := ComCall(9, this, "ptr", pOriginator, "HRESULT")
+        result := ComCall(9, this, BSTR, pOriginator, "HRESULT")
         return result
     }
 
@@ -289,7 +313,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-put_advertisingscope
      */
     put_AdvertisingScope(AdvertisingScope) {
-        result := ComCall(11, this, "int", AdvertisingScope, "HRESULT")
+        result := ComCall(11, this, RND_ADVERTISING_SCOPE, AdvertisingScope, "HRESULT")
         return result
     }
 
@@ -302,8 +326,8 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_url
      */
     get_Url() {
-        ppUrl := BSTR()
-        result := ComCall(12, this, "ptr", ppUrl, "HRESULT")
+        ppUrl := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, ppUrl, "HRESULT")
         return ppUrl
     }
 
@@ -384,7 +408,7 @@ class ITDirectoryObjectConference extends IDispatch {
     put_Url(pUrl) {
         pUrl := pUrl is String ? BSTR.Alloc(pUrl).Value : pUrl
 
-        result := ComCall(13, this, "ptr", pUrl, "HRESULT")
+        result := ComCall(13, this, BSTR, pUrl, "HRESULT")
         return result
     }
 
@@ -397,8 +421,8 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_description
      */
     get_Description() {
-        ppDescription := BSTR()
-        result := ComCall(14, this, "ptr", ppDescription, "HRESULT")
+        ppDescription := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, ppDescription, "HRESULT")
         return ppDescription
     }
 
@@ -479,7 +503,7 @@ class ITDirectoryObjectConference extends IDispatch {
     put_Description(pDescription) {
         pDescription := pDescription is String ? BSTR.Alloc(pDescription).Value : pDescription
 
-        result := ComCall(15, this, "ptr", pDescription, "HRESULT")
+        result := ComCall(15, this, BSTR, pDescription, "HRESULT")
         return result
     }
 
@@ -489,7 +513,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_isencrypted
      */
     get_IsEncrypted() {
-        result := ComCall(16, this, "short*", &pfEncrypted := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pfEncrypted := 0, "HRESULT")
         return pfEncrypted
     }
 
@@ -562,7 +586,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-put_isencrypted
      */
     put_IsEncrypted(fEncrypted) {
-        result := ComCall(17, this, "short", fEncrypted, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, fEncrypted, "HRESULT")
         return result
     }
 
@@ -732,5 +756,53 @@ class ITDirectoryObjectConference extends IDispatch {
     put_StopTime(Date) {
         result := ComCall(21, this, "double", Date, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITDirectoryObjectConference.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_Originator := CallbackCreate(GetMethod(implObj, "get_Originator"), flags, 2)
+        this.vtbl.put_Originator := CallbackCreate(GetMethod(implObj, "put_Originator"), flags, 2)
+        this.vtbl.get_AdvertisingScope := CallbackCreate(GetMethod(implObj, "get_AdvertisingScope"), flags, 2)
+        this.vtbl.put_AdvertisingScope := CallbackCreate(GetMethod(implObj, "put_AdvertisingScope"), flags, 2)
+        this.vtbl.get_Url := CallbackCreate(GetMethod(implObj, "get_Url"), flags, 2)
+        this.vtbl.put_Url := CallbackCreate(GetMethod(implObj, "put_Url"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_IsEncrypted := CallbackCreate(GetMethod(implObj, "get_IsEncrypted"), flags, 2)
+        this.vtbl.put_IsEncrypted := CallbackCreate(GetMethod(implObj, "put_IsEncrypted"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_StopTime := CallbackCreate(GetMethod(implObj, "get_StopTime"), flags, 2)
+        this.vtbl.put_StopTime := CallbackCreate(GetMethod(implObj, "put_StopTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Protocol)
+        CallbackFree(this.vtbl.get_Originator)
+        CallbackFree(this.vtbl.put_Originator)
+        CallbackFree(this.vtbl.get_AdvertisingScope)
+        CallbackFree(this.vtbl.put_AdvertisingScope)
+        CallbackFree(this.vtbl.get_Url)
+        CallbackFree(this.vtbl.put_Url)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_IsEncrypted)
+        CallbackFree(this.vtbl.put_IsEncrypted)
+        CallbackFree(this.vtbl.get_StartTime)
+        CallbackFree(this.vtbl.put_StartTime)
+        CallbackFree(this.vtbl.get_StopTime)
+        CallbackFree(this.vtbl.put_StopTime)
     }
 }

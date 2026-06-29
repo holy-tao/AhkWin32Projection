@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
-    static sizeof => 32
+export default struct SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pwszServerName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszServerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgpszHpkpValue : PSTR[2]
 
-    /**
-     * @type {Array<PSTR>}
-     */
-    rgpszHpkpValue {
-        get {
-            if(!this.HasProp("__rgpszHpkpValueProxyArray"))
-                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
-            return this.__rgpszHpkpValueProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KTRIAGE_DUMP_DATA_ARRAY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KTRIAGE_DUMP_DATA_ARRAY.ahk" { KTRIAGE_DUMP_DATA_ARRAY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KBUGCHECK_TRIAGE_DUMP_DATA extends Win32Struct {
-    static sizeof => 56
+export default struct KBUGCHECK_TRIAGE_DUMP_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    DataArray : KTRIAGE_DUMP_DATA_ARRAY.Ptr
 
-    /**
-     * @type {Pointer<KTRIAGE_DUMP_DATA_ARRAY>}
-     */
-    DataArray {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxVirtMemSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxVirtMemSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BugCheckCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BugCheckCode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BugCheckParameter1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BugCheckParameter1 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    BugCheckParameter2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BugCheckParameter2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    BugCheckParameter3 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BugCheckParameter3 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    BugCheckParameter4 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BugCheckParameter4 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

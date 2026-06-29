@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_NODEMETADATA_FLAGS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 1
+export default struct DXGK_NODEMETADATA_FLAGS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -17,12 +14,9 @@ class DXGK_NODEMETADATA_FLAGS extends Win32Struct {
      * - UserModeSubmission
      * - Reserved
      * - MaxInFlightHwQueueBuffers
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -63,12 +57,8 @@ class DXGK_NODEMETADATA_FLAGS extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

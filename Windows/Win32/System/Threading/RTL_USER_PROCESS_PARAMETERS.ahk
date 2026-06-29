@@ -1,62 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains process parameter information.
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-rtl_user_process_parameters
  * @namespace Windows.Win32.System.Threading
  */
-class RTL_USER_PROCESS_PARAMETERS extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct RTL_USER_PROCESS_PARAMETERS {
+    #StructPack 8
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[16]
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Pointer<Void>>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 10, Primitive, "ptr")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : IntPtr[10]
 
     /**
      * The path of the image file for the process.
-     * @type {UNICODE_STRING}
      */
-    ImagePathName {
-        get {
-            if(!this.HasProp("__ImagePathName"))
-                this.__ImagePathName := UNICODE_STRING(96, this)
-            return this.__ImagePathName
-        }
-    }
+    ImagePathName : UNICODE_STRING
 
     /**
      * The command-line string passed to the process.
-     * @type {UNICODE_STRING}
      */
-    CommandLine {
-        get {
-            if(!this.HasProp("__CommandLine"))
-                this.__CommandLine := UNICODE_STRING(112, this)
-            return this.__CommandLine
-        }
-    }
+    CommandLine : UNICODE_STRING
+
 }

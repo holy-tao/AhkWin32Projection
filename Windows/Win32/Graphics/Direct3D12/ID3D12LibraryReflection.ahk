@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D12_LIBRARY_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_LIBRARY_DESC.ahk" { D3D12_LIBRARY_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D12FunctionReflection.ahk" { ID3D12FunctionReflection }
 
 /**
  * A library-reflection interface accesses library info. (ID3D12LibraryReflection)
@@ -16,26 +18,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nn-d3d12shader-id3d12libraryreflection
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12LibraryReflection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12LibraryReflection extends IUnknown {
     /**
      * The interface identifier for ID3D12LibraryReflection
      * @type {Guid}
      */
-    static IID => Guid("{8e349d19-54db-4a56-9dc9-119d87bdb804}")
+    static IID := Guid("{8e349d19-54db-4a56-9dc9-119d87bdb804}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12LibraryReflection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDesc            : IntPtr
+        GetFunctionByIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetFunctionByIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12LibraryReflection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Fills the library descriptor structure for the library reflection. (ID3D12LibraryReflection.GetDesc)
@@ -46,7 +56,7 @@ class ID3D12LibraryReflection extends IUnknown {
      */
     GetDesc() {
         pDesc := D3D12_LIBRARY_DESC()
-        result := ComCall(3, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(3, this, D3D12_LIBRARY_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -61,7 +71,29 @@ class ID3D12LibraryReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12libraryreflection-getfunctionbyindex
      */
     GetFunctionByIndex(FunctionIndex) {
-        result := ComCall(4, this, "int", FunctionIndex, "ptr")
+        result := ComCall(4, this, "int", FunctionIndex, ID3D12FunctionReflection)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12LibraryReflection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetFunctionByIndex := CallbackCreate(GetMethod(implObj, "GetFunctionByIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.GetFunctionByIndex)
     }
 }

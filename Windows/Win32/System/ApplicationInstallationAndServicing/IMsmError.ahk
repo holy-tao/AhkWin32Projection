@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMsmStrings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMsmStrings.ahk" { IMsmStrings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\msmErrorType.ahk" { msmErrorType }
 
 /**
  * The IMsmError interface retrieves details about a single merge error.
  * @see https://learn.microsoft.com/windows/win32/api/mergemod/nn-mergemod-imsmerror
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IMsmError extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMsmError extends IDispatch {
     /**
      * The interface identifier for IMsmError
      * @type {Guid}
      */
-    static IID => Guid("{0adda828-2c26-11d2-ad65-00a0c9af11a6}")
+    static IID := Guid("{0adda828-2c26-11d2-ad65-00a0c9af11a6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMsmError interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type          : IntPtr
+        get_Path          : IntPtr
+        get_Language      : IntPtr
+        get_DatabaseTable : IntPtr
+        get_DatabaseKeys  : IntPtr
+        get_ModuleTable   : IntPtr
+        get_ModuleKeys    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "get_Path", "get_Language", "get_DatabaseTable", "get_DatabaseKeys", "get_ModuleTable", "get_ModuleKeys"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMsmError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -330,7 +346,7 @@ class IMsmError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_path
      */
     get_Path(ErrorPath) {
-        result := ComCall(8, this, "ptr", ErrorPath, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, ErrorPath, "HRESULT")
         return result
     }
 
@@ -429,7 +445,7 @@ class IMsmError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_databasetable
      */
     get_DatabaseTable(ErrorTable) {
-        result := ComCall(10, this, "ptr", ErrorTable, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, ErrorTable, "HRESULT")
         return result
     }
 
@@ -498,7 +514,7 @@ class IMsmError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_moduletable
      */
     get_ModuleTable(ErrorTable) {
-        result := ComCall(12, this, "ptr", ErrorTable, "HRESULT")
+        result := ComCall(12, this, BSTR.Ptr, ErrorTable, "HRESULT")
         return result
     }
 
@@ -514,5 +530,37 @@ class IMsmError extends IDispatch {
     get_ModuleKeys() {
         result := ComCall(13, this, "ptr*", &ErrorKeys := 0, "HRESULT")
         return IMsmStrings(ErrorKeys)
+    }
+
+    Query(iid) {
+        if (IMsmError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_Language := CallbackCreate(GetMethod(implObj, "get_Language"), flags, 2)
+        this.vtbl.get_DatabaseTable := CallbackCreate(GetMethod(implObj, "get_DatabaseTable"), flags, 2)
+        this.vtbl.get_DatabaseKeys := CallbackCreate(GetMethod(implObj, "get_DatabaseKeys"), flags, 2)
+        this.vtbl.get_ModuleTable := CallbackCreate(GetMethod(implObj, "get_ModuleTable"), flags, 2)
+        this.vtbl.get_ModuleKeys := CallbackCreate(GetMethod(implObj, "get_ModuleKeys"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.get_Language)
+        CallbackFree(this.vtbl.get_DatabaseTable)
+        CallbackFree(this.vtbl.get_DatabaseKeys)
+        CallbackFree(this.vtbl.get_ModuleTable)
+        CallbackFree(this.vtbl.get_ModuleKeys)
     }
 }

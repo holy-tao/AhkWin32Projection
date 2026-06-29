@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the priority level of a job.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_priority
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_JOB_PRIORITY extends Win32Enum {
+export default struct BG_JOB_PRIORITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Transfers the job in the foreground. Foreground transfers compete for network bandwidth with other applications, which can impede the user's network experience. This is the highest priority level.

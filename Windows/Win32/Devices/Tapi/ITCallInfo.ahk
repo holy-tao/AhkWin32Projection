@@ -1,37 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAddress.ahk
-#Include .\ITCallHub.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CALL_STATE.ahk" { CALL_STATE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CALL_PRIVILEGE.ahk" { CALL_PRIVILEGE }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\CALLINFO_LONG.ahk" { CALLINFO_LONG }
+#Import ".\ITCallHub.ahk" { ITCallHub }
+#Import ".\CALLINFO_STRING.ahk" { CALLINFO_STRING }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CALLINFO_BUFFER.ahk" { CALLINFO_BUFFER }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallinfo
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCallInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCallInfo extends IDispatch {
     /**
      * The interface identifier for ITCallInfo
      * @type {Guid}
      */
-    static IID => Guid("{350f85d1-1227-11d3-83d4-00c04fb6809f}")
+    static IID := Guid("{350f85d1-1227-11d3-83d4-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCallInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Address         : IntPtr
+        get_CallState       : IntPtr
+        get_Privilege       : IntPtr
+        get_CallHub         : IntPtr
+        get_CallInfoLong    : IntPtr
+        put_CallInfoLong    : IntPtr
+        get_CallInfoString  : IntPtr
+        put_CallInfoString  : IntPtr
+        get_CallInfoBuffer  : IntPtr
+        put_CallInfoBuffer  : IntPtr
+        GetCallInfoBuffer   : IntPtr
+        SetCallInfoBuffer   : IntPtr
+        ReleaseUserUserInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Address", "get_CallState", "get_Privilege", "get_CallHub", "get_CallInfoLong", "put_CallInfoLong", "get_CallInfoString", "put_CallInfoString", "get_CallInfoBuffer", "put_CallInfoBuffer", "GetCallInfoBuffer", "SetCallInfoBuffer", "ReleaseUserUserInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCallInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITAddress} 
@@ -126,7 +151,7 @@ class ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfolong
      */
     get_CallInfoLong(CallInfoLong) {
-        result := ComCall(11, this, "int", CallInfoLong, "int*", &plCallInfoLongVal := 0, "HRESULT")
+        result := ComCall(11, this, CALLINFO_LONG, CallInfoLong, "int*", &plCallInfoLongVal := 0, "HRESULT")
         return plCallInfoLongVal
     }
 
@@ -191,7 +216,7 @@ class ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-put_callinfolong
      */
     put_CallInfoLong(CallInfoLong, lCallInfoLongVal) {
-        result := ComCall(12, this, "int", CallInfoLong, "int", lCallInfoLongVal, "HRESULT")
+        result := ComCall(12, this, CALLINFO_LONG, CallInfoLong, "int", lCallInfoLongVal, "HRESULT")
         return result
     }
 
@@ -205,8 +230,8 @@ class ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfostring
      */
     get_CallInfoString(CallInfoString) {
-        ppCallInfoString := BSTR()
-        result := ComCall(13, this, "int", CallInfoString, "ptr", ppCallInfoString, "HRESULT")
+        ppCallInfoString := BSTR.Owned()
+        result := ComCall(13, this, CALLINFO_STRING, CallInfoString, BSTR.Ptr, ppCallInfoString, "HRESULT")
         return ppCallInfoString
     }
 
@@ -276,7 +301,7 @@ class ITCallInfo extends IDispatch {
     put_CallInfoString(CallInfoString, pCallInfoString) {
         pCallInfoString := pCallInfoString is String ? BSTR.Alloc(pCallInfoString).Value : pCallInfoString
 
-        result := ComCall(14, this, "int", CallInfoString, "ptr", pCallInfoString, "HRESULT")
+        result := ComCall(14, this, CALLINFO_STRING, CallInfoString, BSTR, pCallInfoString, "HRESULT")
         return result
     }
 
@@ -289,7 +314,7 @@ class ITCallInfo extends IDispatch {
      */
     get_CallInfoBuffer(CallInfoBuffer) {
         ppCallInfoBuffer := VARIANT()
-        result := ComCall(15, this, "int", CallInfoBuffer, "ptr", ppCallInfoBuffer, "HRESULT")
+        result := ComCall(15, this, CALLINFO_BUFFER, CallInfoBuffer, VARIANT.Ptr, ppCallInfoBuffer, "HRESULT")
         return ppCallInfoBuffer
     }
 
@@ -353,7 +378,7 @@ class ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-put_callinfobuffer
      */
     put_CallInfoBuffer(CallInfoBuffer, pCallInfoBuffer) {
-        result := ComCall(16, this, "int", CallInfoBuffer, "ptr", pCallInfoBuffer, "HRESULT")
+        result := ComCall(16, this, CALLINFO_BUFFER, CallInfoBuffer, VARIANT, pCallInfoBuffer, "HRESULT")
         return result
     }
 
@@ -432,7 +457,7 @@ class ITCallInfo extends IDispatch {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppCallInfoBufferMarshal := ppCallInfoBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "int", CallInfoBuffer, pdwSizeMarshal, pdwSize, ppCallInfoBufferMarshal, ppCallInfoBuffer, "HRESULT")
+        result := ComCall(17, this, CALLINFO_BUFFER, CallInfoBuffer, pdwSizeMarshal, pdwSize, ppCallInfoBufferMarshal, ppCallInfoBuffer, "HRESULT")
         return result
     }
 
@@ -510,7 +535,7 @@ class ITCallInfo extends IDispatch {
     SetCallInfoBuffer(CallInfoBuffer, dwSize, pCallInfoBuffer) {
         pCallInfoBufferMarshal := pCallInfoBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "int", CallInfoBuffer, "uint", dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
+        result := ComCall(18, this, CALLINFO_BUFFER, CallInfoBuffer, "uint", dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
         return result
     }
 
@@ -562,5 +587,49 @@ class ITCallInfo extends IDispatch {
     ReleaseUserUserInfo() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITCallInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_CallState := CallbackCreate(GetMethod(implObj, "get_CallState"), flags, 2)
+        this.vtbl.get_Privilege := CallbackCreate(GetMethod(implObj, "get_Privilege"), flags, 2)
+        this.vtbl.get_CallHub := CallbackCreate(GetMethod(implObj, "get_CallHub"), flags, 2)
+        this.vtbl.get_CallInfoLong := CallbackCreate(GetMethod(implObj, "get_CallInfoLong"), flags, 3)
+        this.vtbl.put_CallInfoLong := CallbackCreate(GetMethod(implObj, "put_CallInfoLong"), flags, 3)
+        this.vtbl.get_CallInfoString := CallbackCreate(GetMethod(implObj, "get_CallInfoString"), flags, 3)
+        this.vtbl.put_CallInfoString := CallbackCreate(GetMethod(implObj, "put_CallInfoString"), flags, 3)
+        this.vtbl.get_CallInfoBuffer := CallbackCreate(GetMethod(implObj, "get_CallInfoBuffer"), flags, 3)
+        this.vtbl.put_CallInfoBuffer := CallbackCreate(GetMethod(implObj, "put_CallInfoBuffer"), flags, 3)
+        this.vtbl.GetCallInfoBuffer := CallbackCreate(GetMethod(implObj, "GetCallInfoBuffer"), flags, 4)
+        this.vtbl.SetCallInfoBuffer := CallbackCreate(GetMethod(implObj, "SetCallInfoBuffer"), flags, 4)
+        this.vtbl.ReleaseUserUserInfo := CallbackCreate(GetMethod(implObj, "ReleaseUserUserInfo"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Address)
+        CallbackFree(this.vtbl.get_CallState)
+        CallbackFree(this.vtbl.get_Privilege)
+        CallbackFree(this.vtbl.get_CallHub)
+        CallbackFree(this.vtbl.get_CallInfoLong)
+        CallbackFree(this.vtbl.put_CallInfoLong)
+        CallbackFree(this.vtbl.get_CallInfoString)
+        CallbackFree(this.vtbl.put_CallInfoString)
+        CallbackFree(this.vtbl.get_CallInfoBuffer)
+        CallbackFree(this.vtbl.put_CallInfoBuffer)
+        CallbackFree(this.vtbl.GetCallInfoBuffer)
+        CallbackFree(this.vtbl.SetCallInfoBuffer)
+        CallbackFree(this.vtbl.ReleaseUserUserInfo)
     }
 }

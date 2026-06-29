@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class RTL_DYNAMIC_HASH_TABLE_CONTEXT extends Win32Struct {
-    static sizeof => 24
+export default struct RTL_DYNAMIC_HASH_TABLE_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    ChainHead : LIST_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<LIST_ENTRY>}
-     */
-    ChainHead {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PrevLinkage : LIST_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<LIST_ENTRY>}
-     */
-    PrevLinkage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Signature : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Signature {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

@@ -1,83 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALPHA.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_AMD64.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_IA64.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_X86.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEBUG_PROCESSOR_IDENTIFICATION_X86.ahk" { DEBUG_PROCESSOR_IDENTIFICATION_X86 }
+#Import ".\DEBUG_PROCESSOR_IDENTIFICATION_ARM64.ahk" { DEBUG_PROCESSOR_IDENTIFICATION_ARM64 }
+#Import ".\DEBUG_PROCESSOR_IDENTIFICATION_IA64.ahk" { DEBUG_PROCESSOR_IDENTIFICATION_IA64 }
+#Import ".\DEBUG_PROCESSOR_IDENTIFICATION_ARM.ahk" { DEBUG_PROCESSOR_IDENTIFICATION_ARM }
+#Import ".\DEBUG_PROCESSOR_IDENTIFICATION_AMD64.ahk" { DEBUG_PROCESSOR_IDENTIFICATION_AMD64 }
+#Import ".\DEBUG_PROCESSOR_IDENTIFICATION_ALPHA.ahk" { DEBUG_PROCESSOR_IDENTIFICATION_ALPHA }
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct {
-    static sizeof => 144
+export default struct DEBUG_PROCESSOR_IDENTIFICATION_ALL {
+    #StructPack 4
 
-    static packingSize => 4
+    Alpha : DEBUG_PROCESSOR_IDENTIFICATION_ALPHA
 
-    /**
-     * @type {DEBUG_PROCESSOR_IDENTIFICATION_ALPHA}
-     */
-    Alpha {
-        get {
-            if(!this.HasProp("__Alpha"))
-                this.__Alpha := DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(0, this)
-            return this.__Alpha
-        }
-    }
-
-    /**
-     * @type {DEBUG_PROCESSOR_IDENTIFICATION_AMD64}
-     */
-    Amd64 {
-        get {
-            if(!this.HasProp("__Amd64"))
-                this.__Amd64 := DEBUG_PROCESSOR_IDENTIFICATION_AMD64(0, this)
-            return this.__Amd64
-        }
-    }
-
-    /**
-     * @type {DEBUG_PROCESSOR_IDENTIFICATION_IA64}
-     */
-    Ia64 {
-        get {
-            if(!this.HasProp("__Ia64"))
-                this.__Ia64 := DEBUG_PROCESSOR_IDENTIFICATION_IA64(0, this)
-            return this.__Ia64
-        }
-    }
-
-    /**
-     * @type {DEBUG_PROCESSOR_IDENTIFICATION_X86}
-     */
-    X86 {
-        get {
-            if(!this.HasProp("__X86"))
-                this.__X86 := DEBUG_PROCESSOR_IDENTIFICATION_X86(0, this)
-            return this.__X86
-        }
-    }
-
-    /**
-     * @type {DEBUG_PROCESSOR_IDENTIFICATION_ARM}
-     */
-    Arm {
-        get {
-            if(!this.HasProp("__Arm"))
-                this.__Arm := DEBUG_PROCESSOR_IDENTIFICATION_ARM(0, this)
-            return this.__Arm
-        }
-    }
-
-    /**
-     * @type {DEBUG_PROCESSOR_IDENTIFICATION_ARM64}
-     */
-    Arm64 {
-        get {
-            if(!this.HasProp("__Arm64"))
-                this.__Arm64 := DEBUG_PROCESSOR_IDENTIFICATION_ARM64(0, this)
-            return this.__Arm64
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Amd64', { type: DEBUG_PROCESSOR_IDENTIFICATION_AMD64, offset: 0 })
+        DefineProp(this.Prototype, 'Ia64', { type: DEBUG_PROCESSOR_IDENTIFICATION_IA64, offset: 0 })
+        DefineProp(this.Prototype, 'X86', { type: DEBUG_PROCESSOR_IDENTIFICATION_X86, offset: 0 })
+        DefineProp(this.Prototype, 'Arm', { type: DEBUG_PROCESSOR_IDENTIFICATION_ARM, offset: 0 })
+        DefineProp(this.Prototype, 'Arm64', { type: DEBUG_PROCESSOR_IDENTIFICATION_ARM64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

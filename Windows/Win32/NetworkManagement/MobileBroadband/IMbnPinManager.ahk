@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMbnPin.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnPin.ahk" { IMbnPin }
+#Import ".\MBN_PIN_TYPE.ahk" { MBN_PIN_TYPE }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Provides important details about the device PIN.
@@ -11,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnpinmanager
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnPinManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnPinManager extends IUnknown {
     /**
      * The interface identifier for IMbnPinManager
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2005-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2005-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnPinManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPinList  : IntPtr
+        GetPin      : IntPtr
+        GetPinState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPinList", "GetPin", "GetPinState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnPinManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a list of different PIN types supported by the device.
@@ -51,7 +63,7 @@ class IMbnPinManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanager-getpin
      */
     GetPin(pinType) {
-        result := ComCall(4, this, "int", pinType, "ptr*", &pin := 0, "HRESULT")
+        result := ComCall(4, this, MBN_PIN_TYPE, pinType, "ptr*", &pin := 0, "HRESULT")
         return IMbnPin(pin)
     }
 
@@ -73,5 +85,29 @@ class IMbnPinManager extends IUnknown {
     GetPinState() {
         result := ComCall(5, this, "uint*", &requestID := 0, "HRESULT")
         return requestID
+    }
+
+    Query(iid) {
+        if (IMbnPinManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPinList := CallbackCreate(GetMethod(implObj, "GetPinList"), flags, 2)
+        this.vtbl.GetPin := CallbackCreate(GetMethod(implObj, "GetPin"), flags, 3)
+        this.vtbl.GetPinState := CallbackCreate(GetMethod(implObj, "GetPinState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPinList)
+        CallbackFree(this.vtbl.GetPin)
+        CallbackFree(this.vtbl.GetPinState)
     }
 }

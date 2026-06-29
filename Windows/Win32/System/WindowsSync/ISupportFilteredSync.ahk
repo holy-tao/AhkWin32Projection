@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILTERING_TYPE.ahk" { FILTERING_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * When implemented by a derived class, represents a source provider that supports filtered change enumeration, and that can negotiate the type of filter that is used.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isupportfilteredsync
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISupportFilteredSync extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISupportFilteredSync extends IUnknown {
     /**
      * The interface identifier for ISupportFilteredSync
      * @type {Guid}
      */
-    static IID => Guid("{3d128ded-d555-4e0d-bf4b-fb213a8a9302}")
+    static IID := Guid("{3d128ded-d555-4e0d-bf4b-fb213a8a9302}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISupportFilteredSync interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddFilter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISupportFilteredSync.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the filter that is used for change enumeration by the source provider, when implemented by a derived class.
@@ -90,7 +99,27 @@ class ISupportFilteredSync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportfilteredsync-addfilter
      */
     AddFilter(pFilter, filteringType) {
-        result := ComCall(3, this, "ptr", pFilter, "int", filteringType, "HRESULT")
+        result := ComCall(3, this, "ptr", pFilter, FILTERING_TYPE, filteringType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISupportFilteredSync.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddFilter := CallbackCreate(GetMethod(implObj, "AddFilter"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddFilter)
     }
 }

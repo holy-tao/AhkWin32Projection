@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFileDialog.ahk
-#Include PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "PropertiesSystem\IPropertyDescriptionList.ahk" { IPropertyDescriptionList }
+#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import ".\IFileDialog.ahk" { IFileDialog }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Extends the IFileDialog interface by adding methods specific to the save dialog, which include those that provide support for the collection of metadata to be persisted with the file.
@@ -14,32 +20,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifilesavedialog
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileSaveDialog extends IFileDialog {
-
-    static sizeof => A_PtrSize
+export default struct IFileSaveDialog extends IFileDialog {
     /**
      * The interface identifier for IFileSaveDialog
      * @type {Guid}
      */
-    static IID => Guid("{84bccd23-5fde-4cdb-aea4-af64b83d78ab}")
+    static IID := Guid("{84bccd23-5fde-4cdb-aea4-af64b83d78ab}")
 
     /**
      * The class identifier for FileSaveDialog
      * @type {Guid}
      */
-    static CLSID => Guid("{c0b4e2f3-ba21-4773-8dba-335ec946eb8b}")
+    static CLSID := Guid("{c0b4e2f3-ba21-4773-8dba-335ec946eb8b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSaveDialog interfaces
+    */
+    struct Vtbl extends IFileDialog.Vtbl {
+        SetSaveAsItem          : IntPtr
+        SetProperties          : IntPtr
+        SetCollectedProperties : IntPtr
+        GetProperties          : IntPtr
+        ApplyProperties        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSaveAsItem", "SetProperties", "SetCollectedProperties", "GetProperties", "ApplyProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSaveDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets an item to be used as the initial entry in a Save As dialog.
@@ -105,7 +122,7 @@ class IFileSaveDialog extends IFileDialog {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-setcollectedproperties
      */
     SetCollectedProperties(pList, fAppendDefault) {
-        result := ComCall(29, this, "ptr", pList, "int", fAppendDefault, "HRESULT")
+        result := ComCall(29, this, "ptr", pList, BOOL, fAppendDefault, "HRESULT")
         return result
     }
 
@@ -150,9 +167,35 @@ class IFileSaveDialog extends IFileDialog {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-applyproperties
      */
     ApplyProperties(psi, pStore, _hwnd, pSink) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(31, this, "ptr", psi, "ptr", pStore, "ptr", _hwnd, "ptr", pSink, "HRESULT")
+        result := ComCall(31, this, "ptr", psi, "ptr", pStore, HWND, _hwnd, "ptr", pSink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileSaveDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSaveAsItem := CallbackCreate(GetMethod(implObj, "SetSaveAsItem"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 2)
+        this.vtbl.SetCollectedProperties := CallbackCreate(GetMethod(implObj, "SetCollectedProperties"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.ApplyProperties := CallbackCreate(GetMethod(implObj, "ApplyProperties"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSaveAsItem)
+        CallbackFree(this.vtbl.SetProperties)
+        CallbackFree(this.vtbl.SetCollectedProperties)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.ApplyProperties)
     }
 }

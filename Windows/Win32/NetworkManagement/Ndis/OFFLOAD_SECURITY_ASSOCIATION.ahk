@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OFFLOAD_OPERATION_E.ahk
-#Include .\OFFLOAD_ALGO_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OFFLOAD_ALGO_INFO.ahk" { OFFLOAD_ALGO_INFO }
+#Import ".\OFFLOAD_OPERATION_E.ahk" { OFFLOAD_OPERATION_E }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct {
-    static sizeof => 44
+export default struct OFFLOAD_SECURITY_ASSOCIATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Operation : OFFLOAD_OPERATION_E
 
-    /**
-     * @type {OFFLOAD_OPERATION_E}
-     */
-    Operation {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SPI : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SPI {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    IntegrityAlgo : OFFLOAD_ALGO_INFO
 
-    /**
-     * @type {OFFLOAD_ALGO_INFO}
-     */
-    IntegrityAlgo {
-        get {
-            if(!this.HasProp("__IntegrityAlgo"))
-                this.__IntegrityAlgo := OFFLOAD_ALGO_INFO(8, this)
-            return this.__IntegrityAlgo
-        }
-    }
+    ConfAlgo : OFFLOAD_ALGO_INFO
 
-    /**
-     * @type {OFFLOAD_ALGO_INFO}
-     */
-    ConfAlgo {
-        get {
-            if(!this.HasProp("__ConfAlgo"))
-                this.__ConfAlgo := OFFLOAD_ALGO_INFO(20, this)
-            return this.__ConfAlgo
-        }
-    }
+    Reserved : OFFLOAD_ALGO_INFO
 
-    /**
-     * @type {OFFLOAD_ALGO_INFO}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := OFFLOAD_ALGO_INFO(32, this)
-            return this.__Reserved
-        }
-    }
 }

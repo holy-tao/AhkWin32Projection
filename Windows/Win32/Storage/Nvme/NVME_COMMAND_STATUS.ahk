@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about the status of a command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_status
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_COMMAND_STATUS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct NVME_COMMAND_STATUS {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -19,12 +16,9 @@ class NVME_COMMAND_STATUS extends Win32Struct {
      * - CRD
      * - M
      * - DNR
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -73,12 +67,8 @@ class NVME_COMMAND_STATUS extends Win32Struct {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUshort {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

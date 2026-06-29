@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Kernel\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**
  * Contains information about the loaded modules for the process.
@@ -40,44 +39,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb_ldr_data
  * @namespace Windows.Win32.System.Threading
  */
-class PEB_LDR_DATA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PEB_LDR_DATA {
+    #StructPack 8
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[8]
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Pointer<Void>>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : IntPtr[3]
 
     /**
      * The head of a doubly-linked list that contains the loaded modules for the process. Each item in the list is a pointer to an <b>LDR_DATA_TABLE_ENTRY</b> structure. For more information, see Remarks.
-     * @type {LIST_ENTRY}
      */
-    InMemoryOrderModuleList {
-        get {
-            if(!this.HasProp("__InMemoryOrderModuleList"))
-                this.__InMemoryOrderModuleList := LIST_ENTRY(32, this)
-            return this.__InMemoryOrderModuleList
-        }
-    }
+    InMemoryOrderModuleList : LIST_ENTRY
+
 }

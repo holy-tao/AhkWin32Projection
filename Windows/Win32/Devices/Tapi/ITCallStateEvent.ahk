@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CALL_STATE.ahk" { CALL_STATE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CALL_STATE_EVENT_CAUSE.ahk" { CALL_STATE_EVENT_CAUSE }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITCallStateEvent interface contains methods that retrieve the description of call state events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallstateevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCallStateEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCallStateEvent extends IDispatch {
     /**
      * The interface identifier for ITCallStateEvent
      * @type {Guid}
      */
-    static IID => Guid("{62f47097-95c9-11d0-835d-00aa003ccabd}")
+    static IID := Guid("{62f47097-95c9-11d0-835d-00aa003ccabd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCallStateEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Call             : IntPtr
+        get_State            : IntPtr
+        get_Cause            : IntPtr
+        get_CallbackInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Call", "get_State", "get_Cause", "get_CallbackInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCallStateEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITCallInfo} 
@@ -100,5 +113,31 @@ class ITCallStateEvent extends IDispatch {
     get_CallbackInstance() {
         result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")
         return plCallbackInstance
+    }
+
+    Query(iid) {
+        if (ITCallStateEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Cause := CallbackCreate(GetMethod(implObj, "get_Cause"), flags, 2)
+        this.vtbl.get_CallbackInstance := CallbackCreate(GetMethod(implObj, "get_CallbackInstance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Call)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_Cause)
+        CallbackFree(this.vtbl.get_CallbackInstance)
     }
 }

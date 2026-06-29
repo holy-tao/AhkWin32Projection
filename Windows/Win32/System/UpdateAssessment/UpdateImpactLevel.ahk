@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates a high, medium, or low impact of a device running an out-of-date OS.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/SysInfo/updateimpactlevel
  * @namespace Windows.Win32.System.UpdateAssessment
  */
-class UpdateImpactLevel extends Win32Enum {
+export default struct UpdateImpactLevel {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

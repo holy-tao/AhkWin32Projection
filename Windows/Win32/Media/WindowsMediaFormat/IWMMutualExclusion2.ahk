@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMMutualExclusion.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMMutualExclusion.ahk" { IWMMutualExclusion }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMMutualExclusion2 interface provides advanced configuration features for mutual exclusion objects.This interface supports both multiple languages and advanced mutual exclusion.An IWMMutualExclusion2 interface is created for each mutual exclusion object created. To retrieve a pointer to an IWMMutualExclusion2 interface, call the QueryInterface method of the IWMMutualExclusion interface returned by IWMProfile::CreateNewMutualExclusion.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmmutualexclusion2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMMutualExclusion2 extends IWMMutualExclusion {
-
-    static sizeof => A_PtrSize
+export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
     /**
      * The interface identifier for IWMMutualExclusion2
      * @type {Guid}
      */
-    static IID => Guid("{0302b57d-89d1-4ba2-85c9-166f2c53eb91}")
+    static IID := Guid("{0302b57d-89d1-4ba2-85c9-166f2c53eb91}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMMutualExclusion2 interfaces
+    */
+    struct Vtbl extends IWMMutualExclusion.Vtbl {
+        GetName               : IntPtr
+        SetName               : IntPtr
+        GetRecordCount        : IntPtr
+        AddRecord             : IntPtr
+        RemoveRecord          : IntPtr
+        GetRecordName         : IntPtr
+        SetRecordName         : IntPtr
+        GetStreamsForRecord   : IntPtr
+        AddStreamForRecord    : IntPtr
+        RemoveStreamForRecord : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "SetName", "GetRecordCount", "AddRecord", "RemoveRecord", "GetRecordName", "SetRecordName", "GetStreamsForRecord", "AddStreamForRecord", "RemoveStreamForRecord"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMMutualExclusion2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetName method retrieves the name of the current mutual exclusion object. A mutual exclusion object has a name only if a name has been assigned using the IWMMutualExclusion2::SetName method.
@@ -493,5 +511,43 @@ class IWMMutualExclusion2 extends IWMMutualExclusion {
     RemoveStreamForRecord(wRecordNumber, wStreamNumber) {
         result := ComCall(17, this, "ushort", wRecordNumber, "ushort", wStreamNumber, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMMutualExclusion2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetRecordCount := CallbackCreate(GetMethod(implObj, "GetRecordCount"), flags, 2)
+        this.vtbl.AddRecord := CallbackCreate(GetMethod(implObj, "AddRecord"), flags, 1)
+        this.vtbl.RemoveRecord := CallbackCreate(GetMethod(implObj, "RemoveRecord"), flags, 2)
+        this.vtbl.GetRecordName := CallbackCreate(GetMethod(implObj, "GetRecordName"), flags, 4)
+        this.vtbl.SetRecordName := CallbackCreate(GetMethod(implObj, "SetRecordName"), flags, 3)
+        this.vtbl.GetStreamsForRecord := CallbackCreate(GetMethod(implObj, "GetStreamsForRecord"), flags, 4)
+        this.vtbl.AddStreamForRecord := CallbackCreate(GetMethod(implObj, "AddStreamForRecord"), flags, 3)
+        this.vtbl.RemoveStreamForRecord := CallbackCreate(GetMethod(implObj, "RemoveStreamForRecord"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.GetRecordCount)
+        CallbackFree(this.vtbl.AddRecord)
+        CallbackFree(this.vtbl.RemoveRecord)
+        CallbackFree(this.vtbl.GetRecordName)
+        CallbackFree(this.vtbl.SetRecordName)
+        CallbackFree(this.vtbl.GetStreamsForRecord)
+        CallbackFree(this.vtbl.AddStreamForRecord)
+        CallbackFree(this.vtbl.RemoveStreamForRecord)
     }
 }

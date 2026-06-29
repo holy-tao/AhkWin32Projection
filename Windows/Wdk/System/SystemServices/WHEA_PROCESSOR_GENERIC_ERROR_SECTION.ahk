@@ -1,134 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PROCESSOR_GENERIC_ERROR_SECTION extends Win32Struct {
-    static sizeof => 192
+export default struct WHEA_PROCESSOR_GENERIC_ERROR_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ValidBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ProcessorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    InstructionSet : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InstructionSet {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    ErrorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ErrorType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Operation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Operation {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Level : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    CPUVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CPUVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CPUBrandString : Int8[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CPUBrandString {
-        get {
-            if(!this.HasProp("__CPUBrandStringProxyArray"))
-                this.__CPUBrandStringProxyArray := Win32FixedArray(this.ptr + 24, 128, Primitive, "char")
-            return this.__CPUBrandStringProxyArray
-        }
-    }
+    ProcessorId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorId {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    TargetAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetAddress {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    RequesterId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequesterId {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    ResponderId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResponderId {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    InstructionPointer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InstructionPointer {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
 }

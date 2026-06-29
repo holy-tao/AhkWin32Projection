@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * PEERDIST_PUBLICATION_OPTIONS structure contains publication options, including the API version information and possible option flags.
  * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_publication_options
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEERDIST_PUBLICATION_OPTIONS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PEERDIST_PUBLICATION_OPTIONS {
+    #StructPack 4
 
     /**
      * The following possible values reflect the version number of the client:
@@ -44,19 +41,12 @@ class PEERDIST_PUBLICATION_OPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
+
 }

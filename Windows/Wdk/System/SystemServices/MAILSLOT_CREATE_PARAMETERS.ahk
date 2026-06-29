@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MAILSLOT_CREATE_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct MAILSLOT_CREATE_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    MailslotQuota : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MailslotQuota {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaximumMessageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumMessageSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ReadTimeout : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReadTimeout {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    TimeoutSpecified : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TimeoutSpecified {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

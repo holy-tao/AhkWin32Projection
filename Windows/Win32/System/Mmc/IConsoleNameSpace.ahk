@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SCOPEDATAITEM.ahk" { SCOPEDATAITEM }
 
 /**
  * Enables snap-ins to enumerate dynamic subcontainers in the scope pane. The particular snap-in determines what qualifies as a subcontainer.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsolenamespace
  * @namespace Windows.Win32.System.Mmc
  */
-class IConsoleNameSpace extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConsoleNameSpace extends IUnknown {
     /**
      * The interface identifier for IConsoleNameSpace
      * @type {Guid}
      */
-    static IID => Guid("{bedeb620-f24d-11cf-8afc-00aa003ca9f6}")
+    static IID := Guid("{bedeb620-f24d-11cf-8afc-00aa003ca9f6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConsoleNameSpace interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InsertItem    : IntPtr
+        DeleteItem    : IntPtr
+        SetItem       : IntPtr
+        GetItem       : IntPtr
+        GetChildItem  : IntPtr
+        GetNextItem   : IntPtr
+        GetParentItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertItem", "DeleteItem", "SetItem", "GetItem", "GetChildItem", "GetNextItem", "GetParentItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConsoleNameSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IConsoleNameSpace2::InsertItem method enables the snap-in to insert a single item into the scope view.
@@ -39,7 +54,7 @@ class IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-insertitem
      */
     InsertItem(item) {
-        result := ComCall(3, this, "ptr", item, "HRESULT")
+        result := ComCall(3, this, SCOPEDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -63,7 +78,7 @@ class IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-setitem
      */
     SetItem(item) {
-        result := ComCall(5, this, "ptr", item, "HRESULT")
+        result := ComCall(5, this, SCOPEDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -78,7 +93,7 @@ class IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getitem
      */
     GetItem(item) {
-        result := ComCall(6, this, "ptr", item, "HRESULT")
+        result := ComCall(6, this, SCOPEDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -134,5 +149,37 @@ class IConsoleNameSpace extends IUnknown {
 
         result := ComCall(9, this, "ptr", item, pItemParentMarshal, pItemParent, pCookieMarshal, pCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IConsoleNameSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertItem := CallbackCreate(GetMethod(implObj, "InsertItem"), flags, 2)
+        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 3)
+        this.vtbl.SetItem := CallbackCreate(GetMethod(implObj, "SetItem"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 2)
+        this.vtbl.GetChildItem := CallbackCreate(GetMethod(implObj, "GetChildItem"), flags, 4)
+        this.vtbl.GetNextItem := CallbackCreate(GetMethod(implObj, "GetNextItem"), flags, 4)
+        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertItem)
+        CallbackFree(this.vtbl.DeleteItem)
+        CallbackFree(this.vtbl.SetItem)
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.GetChildItem)
+        CallbackFree(this.vtbl.GetNextItem)
+        CallbackFree(this.vtbl.GetParentItem)
     }
 }

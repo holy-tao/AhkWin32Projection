@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_HOSTED_NETWORK_STATE.ahk
-#Include .\WLAN_HOSTED_NETWORK_REASON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_HOSTED_NETWORK_STATE.ahk" { WLAN_HOSTED_NETWORK_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
 
 /**
  * Contains information about a network state change on the wireless Hosted Network.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_state_change
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_STATE_CHANGE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct WLAN_HOSTED_NETWORK_STATE_CHANGE {
+    #StructPack 4
 
     /**
      * The previous network state on the wireless Hosted Network.
-     * @type {WLAN_HOSTED_NETWORK_STATE}
      */
-    OldState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    OldState : WLAN_HOSTED_NETWORK_STATE
 
     /**
      * The current network state on the wireless Hosted Network.
-     * @type {WLAN_HOSTED_NETWORK_STATE}
      */
-    NewState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    NewState : WLAN_HOSTED_NETWORK_STATE
 
     /**
      * The reason for the network state change.
-     * @type {WLAN_HOSTED_NETWORK_REASON}
      */
-    StateChangeReason {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    StateChangeReason : WLAN_HOSTED_NETWORK_REASON
+
 }

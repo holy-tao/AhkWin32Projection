@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an attribute that contains version information about the client operating system on which the certificate request was generated.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributeosversion
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509AttributeOSVersion extends IX509Attribute {
-
-    static sizeof => A_PtrSize
+export default struct IX509AttributeOSVersion extends IX509Attribute {
     /**
      * The interface identifier for IX509AttributeOSVersion
      * @type {Guid}
      */
-    static IID => Guid("{728ab32a-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab32a-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509AttributeOSVersion interfaces
+    */
+    struct Vtbl extends IX509Attribute.Vtbl {
+        InitializeEncode : IntPtr
+        InitializeDecode : IntPtr
+        get_OSVersion    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncode", "InitializeDecode", "get_OSVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509AttributeOSVersion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -52,7 +63,7 @@ class IX509AttributeOSVersion extends IX509Attribute {
     InitializeEncode(strOSVersion) {
         strOSVersion := strOSVersion is String ? BSTR.Alloc(strOSVersion).Value : strOSVersion
 
-        result := ComCall(10, this, "ptr", strOSVersion, "HRESULT")
+        result := ComCall(10, this, BSTR, strOSVersion, "HRESULT")
         return result
     }
 
@@ -74,7 +85,7 @@ class IX509AttributeOSVersion extends IX509Attribute {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -86,8 +97,32 @@ class IX509AttributeOSVersion extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeosversion-get_osversion
      */
     get_OSVersion() {
-        pValue := BSTR()
-        result := ComCall(12, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509AttributeOSVersion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_OSVersion := CallbackCreate(GetMethod(implObj, "get_OSVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncode)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_OSVersion)
     }
 }

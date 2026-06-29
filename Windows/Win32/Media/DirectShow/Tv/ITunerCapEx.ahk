@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides information about the capabilities of a BDA device filter that represents a TV tuner. This interface extends the ITunerCap interface.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-itunercapex
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITunerCapEx extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITunerCapEx extends IUnknown {
     /**
      * The interface identifier for ITunerCapEx
      * @type {Guid}
      */
-    static IID => Guid("{ed3e0c66-18c8-4ea6-9300-f6841fdd35dc}")
+    static IID := Guid("{ed3e0c66-18c8-4ea6-9300-f6841fdd35dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITunerCapEx interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Has608_708Caption : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Has608_708Caption"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITunerCapEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -44,7 +53,27 @@ class ITunerCapEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercapex-get_has608_708caption
      */
     get_Has608_708Caption() {
-        result := ComCall(3, this, "short*", &pbHasCaption := 0, "HRESULT")
+        result := ComCall(3, this, VARIANT_BOOL.Ptr, &pbHasCaption := 0, "HRESULT")
         return pbHasCaption
+    }
+
+    Query(iid) {
+        if (ITunerCapEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Has608_708Caption := CallbackCreate(GetMethod(implObj, "get_Has608_708Caption"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Has608_708Caption)
     }
 }

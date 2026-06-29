@@ -1,41 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLFormElement.ahk
-#Include .\IHTMLTxtRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
+#Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLTextAreaElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLTextAreaElement extends IDispatch {
     /**
      * The interface identifier for IHTMLTextAreaElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f2aa-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2aa-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLTextAreaElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f2ac-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f2ac-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLTextAreaElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_type         : IntPtr
+        put_value        : IntPtr
+        get_value        : IntPtr
+        put_name         : IntPtr
+        get_name         : IntPtr
+        put_status       : IntPtr
+        get_status       : IntPtr
+        put_disabled     : IntPtr
+        get_disabled     : IntPtr
+        get_form         : IntPtr
+        put_defaultValue : IntPtr
+        get_defaultValue : IntPtr
+        select           : IntPtr
+        put_onchange     : IntPtr
+        get_onchange     : IntPtr
+        put_onselect     : IntPtr
+        get_onselect     : IntPtr
+        put_readOnly     : IntPtr
+        get_readOnly     : IntPtr
+        put_rows         : IntPtr
+        get_rows         : IntPtr
+        put_cols         : IntPtr
+        get_cols         : IntPtr
+        put_wrap         : IntPtr
+        get_wrap         : IntPtr
+        createTextRange  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_type", "put_value", "get_value", "put_name", "get_name", "put_status", "get_status", "put_disabled", "get_disabled", "get_form", "put_defaultValue", "get_defaultValue", "select", "put_onchange", "get_onchange", "put_onselect", "get_onselect", "put_readOnly", "get_readOnly", "put_rows", "get_rows", "put_cols", "get_cols", "put_wrap", "get_wrap", "createTextRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLTextAreaElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -144,8 +178,8 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -157,7 +191,7 @@ class IHTMLTextAreaElement extends IDispatch {
     put_value(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -166,8 +200,8 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -179,7 +213,7 @@ class IHTMLTextAreaElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -188,8 +222,8 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -199,7 +233,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_status(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -209,7 +243,7 @@ class IHTMLTextAreaElement extends IDispatch {
      */
     get_status() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -219,7 +253,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(14, this, "short", v, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -228,7 +262,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -249,7 +283,7 @@ class IHTMLTextAreaElement extends IDispatch {
     put_defaultValue(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -258,8 +292,8 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_defaultValue() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -463,7 +497,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -473,7 +507,7 @@ class IHTMLTextAreaElement extends IDispatch {
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -483,7 +517,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onselect(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -493,7 +527,7 @@ class IHTMLTextAreaElement extends IDispatch {
      */
     get_onselect() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -503,7 +537,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_readOnly(v) {
-        result := ComCall(24, this, "short", v, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -512,7 +546,7 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
-        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -562,7 +596,7 @@ class IHTMLTextAreaElement extends IDispatch {
     put_wrap(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(30, this, "ptr", v, "HRESULT")
+        result := ComCall(30, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -571,8 +605,8 @@ class IHTMLTextAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_wrap() {
-        p := BSTR()
-        result := ComCall(31, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -583,5 +617,75 @@ class IHTMLTextAreaElement extends IDispatch {
     createTextRange() {
         result := ComCall(32, this, "ptr*", &range := 0, "HRESULT")
         return IHTMLTxtRange(range)
+    }
+
+    Query(iid) {
+        if (IHTMLTextAreaElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_defaultValue := CallbackCreate(GetMethod(implObj, "put_defaultValue"), flags, 2)
+        this.vtbl.get_defaultValue := CallbackCreate(GetMethod(implObj, "get_defaultValue"), flags, 2)
+        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
+        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_readOnly := CallbackCreate(GetMethod(implObj, "put_readOnly"), flags, 2)
+        this.vtbl.get_readOnly := CallbackCreate(GetMethod(implObj, "get_readOnly"), flags, 2)
+        this.vtbl.put_rows := CallbackCreate(GetMethod(implObj, "put_rows"), flags, 2)
+        this.vtbl.get_rows := CallbackCreate(GetMethod(implObj, "get_rows"), flags, 2)
+        this.vtbl.put_cols := CallbackCreate(GetMethod(implObj, "put_cols"), flags, 2)
+        this.vtbl.get_cols := CallbackCreate(GetMethod(implObj, "get_cols"), flags, 2)
+        this.vtbl.put_wrap := CallbackCreate(GetMethod(implObj, "put_wrap"), flags, 2)
+        this.vtbl.get_wrap := CallbackCreate(GetMethod(implObj, "get_wrap"), flags, 2)
+        this.vtbl.createTextRange := CallbackCreate(GetMethod(implObj, "createTextRange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_status)
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.get_form)
+        CallbackFree(this.vtbl.put_defaultValue)
+        CallbackFree(this.vtbl.get_defaultValue)
+        CallbackFree(this.vtbl.select)
+        CallbackFree(this.vtbl.put_onchange)
+        CallbackFree(this.vtbl.get_onchange)
+        CallbackFree(this.vtbl.put_onselect)
+        CallbackFree(this.vtbl.get_onselect)
+        CallbackFree(this.vtbl.put_readOnly)
+        CallbackFree(this.vtbl.get_readOnly)
+        CallbackFree(this.vtbl.put_rows)
+        CallbackFree(this.vtbl.get_rows)
+        CallbackFree(this.vtbl.put_cols)
+        CallbackFree(this.vtbl.get_cols)
+        CallbackFree(this.vtbl.put_wrap)
+        CallbackFree(this.vtbl.get_wrap)
+        CallbackFree(this.vtbl.createTextRange)
     }
 }

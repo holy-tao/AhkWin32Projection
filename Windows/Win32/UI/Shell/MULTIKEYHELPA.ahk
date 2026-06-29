@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Specifies a keyword to search for and the keyword table to be searched by Windows Help. (ANSI)
@@ -10,41 +10,28 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  */
-class MULTIKEYHELPA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MULTIKEYHELPA {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The structure size, in bytes.
-     * @type {Integer}
      */
-    mkSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mkSize : UInt32
 
     /**
      * Type: <b>TCHAR</b>
      * 
      * A single character that identifies the keyword table to search.
-     * @type {CHAR}
      */
-    mkKeylist {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    mkKeylist : CHAR
 
     /**
      * Type: <b>TCHAR[1]</b>
      * 
      * A null-terminated text string that specifies the keyword to locate in the keyword table.
-     * @type {String}
      */
-    szKeyphrase {
-        get => StrGet(this.ptr + 5, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 5, 0, "UTF-8")
-    }
+    szKeyphrase : CHAR[1]
+
 }

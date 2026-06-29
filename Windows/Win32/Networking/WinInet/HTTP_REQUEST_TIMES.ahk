@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class HTTP_REQUEST_TIMES extends Win32Struct {
-    static sizeof => 264
+export default struct HTTP_REQUEST_TIMES {
+    #StructPack 8
 
-    static packingSize => 8
+    cTimes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cTimes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rgTimes : Int64[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgTimes {
-        get {
-            if(!this.HasProp("__rgTimesProxyArray"))
-                this.__rgTimesProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
-            return this.__rgTimesProxyArray
-        }
-    }
 }

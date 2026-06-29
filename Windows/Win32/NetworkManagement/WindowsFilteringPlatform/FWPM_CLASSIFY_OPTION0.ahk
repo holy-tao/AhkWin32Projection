@@ -1,13 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_CLASSIFY_OPTION_TYPE.ahk
-#Include .\FWP_VALUE0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\FWP_CLASSIFY_OPTION_TYPE.ahk" { FWP_CLASSIFY_OPTION_TYPE }
 
 /**
  * The FWPM_CLASSIFY_OPTION0 structure.
@@ -71,29 +71,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_classify_option0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_CLASSIFY_OPTION0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FWPM_CLASSIFY_OPTION0 {
+    #StructPack 8
 
     /**
      * An [FWP_CLASSIFY_OPTION_TYPE](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_classify_option_type) value.
-     * @type {FWP_CLASSIFY_OPTION_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : FWP_CLASSIFY_OPTION_TYPE
 
     /**
      * An [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0) structure.
-     * @type {FWP_VALUE0}
      */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := FWP_VALUE0(8, this)
-            return this.__value
-        }
-    }
+    value : FWP_VALUE0
+
 }

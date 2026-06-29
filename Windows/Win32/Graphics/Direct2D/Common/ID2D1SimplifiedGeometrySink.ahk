@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_FIGURE_END.ahk" { D2D1_FIGURE_END }
+#Import ".\D2D1_FIGURE_BEGIN.ahk" { D2D1_FIGURE_BEGIN }
+#Import ".\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_BEZIER_SEGMENT.ahk" { D2D1_BEZIER_SEGMENT }
+#Import ".\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import ".\D2D1_PATH_SEGMENT.ahk" { D2D1_PATH_SEGMENT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes a geometric path that does not contain quadratic bezier curves or arcs.
@@ -12,26 +19,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1simplifiedgeometrysink
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  */
-class ID2D1SimplifiedGeometrySink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SimplifiedGeometrySink extends IUnknown {
     /**
      * The interface identifier for ID2D1SimplifiedGeometrySink
      * @type {Guid}
      */
-    static IID => Guid("{2cd9069e-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd9069e-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SimplifiedGeometrySink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFillMode     : IntPtr
+        SetSegmentFlags : IntPtr
+        BeginFigure     : IntPtr
+        AddLines        : IntPtr
+        AddBeziers      : IntPtr
+        EndFigure       : IntPtr
+        Close           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFillMode", "SetSegmentFlags", "BeginFigure", "AddLines", "AddBeziers", "EndFigure", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SimplifiedGeometrySink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the method used to determine which points are inside the geometry described by this geometry sink and which points are outside.
@@ -44,7 +64,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode
      */
     SetFillMode(_fillMode) {
-        ComCall(3, this, "int", _fillMode)
+        ComCall(3, this, D2D1_FILL_MODE, _fillMode)
     }
 
     /**
@@ -58,7 +78,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setsegmentflags
      */
     SetSegmentFlags(vertexFlags) {
-        ComCall(4, this, "int", vertexFlags)
+        ComCall(4, this, D2D1_PATH_SEGMENT, vertexFlags)
     }
 
     /**
@@ -75,7 +95,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure
      */
     BeginFigure(startPoint, figureBegin) {
-        ComCall(5, this, "ptr", startPoint, "int", figureBegin)
+        ComCall(5, this, D2D_POINT_2F, startPoint, D2D1_FIGURE_BEGIN, figureBegin)
     }
 
     /**
@@ -90,7 +110,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addlines
      */
     AddLines(_points, pointsCount) {
-        ComCall(6, this, "ptr", _points, "uint", pointsCount)
+        ComCall(6, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount)
     }
 
     /**
@@ -105,7 +125,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addbeziers
      */
     AddBeziers(beziers, beziersCount) {
-        ComCall(7, this, "ptr", beziers, "uint", beziersCount)
+        ComCall(7, this, D2D1_BEZIER_SEGMENT.Ptr, beziers, "uint", beziersCount)
     }
 
     /**
@@ -119,7 +139,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-endfigure
      */
     EndFigure(figureEnd) {
-        ComCall(8, this, "int", figureEnd)
+        ComCall(8, this, D2D1_FIGURE_END, figureEnd)
     }
 
     /**
@@ -136,5 +156,37 @@ class ID2D1SimplifiedGeometrySink extends IUnknown {
     Close() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1SimplifiedGeometrySink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFillMode := CallbackCreate(GetMethod(implObj, "SetFillMode"), flags, 2)
+        this.vtbl.SetSegmentFlags := CallbackCreate(GetMethod(implObj, "SetSegmentFlags"), flags, 2)
+        this.vtbl.BeginFigure := CallbackCreate(GetMethod(implObj, "BeginFigure"), flags, 3)
+        this.vtbl.AddLines := CallbackCreate(GetMethod(implObj, "AddLines"), flags, 3)
+        this.vtbl.AddBeziers := CallbackCreate(GetMethod(implObj, "AddBeziers"), flags, 3)
+        this.vtbl.EndFigure := CallbackCreate(GetMethod(implObj, "EndFigure"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFillMode)
+        CallbackFree(this.vtbl.SetSegmentFlags)
+        CallbackFree(this.vtbl.BeginFigure)
+        CallbackFree(this.vtbl.AddLines)
+        CallbackFree(this.vtbl.AddBeziers)
+        CallbackFree(this.vtbl.EndFigure)
+        CallbackFree(this.vtbl.Close)
     }
 }

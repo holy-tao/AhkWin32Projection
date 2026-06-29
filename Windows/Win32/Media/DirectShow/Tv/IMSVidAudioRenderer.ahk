@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidOutputDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
 
 /**
  * The IMSVidAudioRenderer interface represents an audio renderer device. It enables applications to control the volume and balance. To retrieve the audio renderer device that is currently active, call the IMSVidCtl::get_AudioRendererActive method.
@@ -10,32 +11,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidaudiorenderer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidAudioRenderer extends IMSVidOutputDevice {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidAudioRenderer extends IMSVidOutputDevice {
     /**
      * The interface identifier for IMSVidAudioRenderer
      * @type {Guid}
      */
-    static IID => Guid("{37b0353f-a4c8-11d2-b634-00c04f79498e}")
+    static IID := Guid("{37b0353f-a4c8-11d2-b634-00c04f79498e}")
 
     /**
      * The class identifier for MSVidAudioRenderer
      * @type {Guid}
      */
-    static CLSID => Guid("{37b03544-a4c8-11d2-b634-00c04f79498e}")
+    static CLSID := Guid("{37b03544-a4c8-11d2-b634-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidAudioRenderer interfaces
+    */
+    struct Vtbl extends IMSVidOutputDevice.Vtbl {
+        put_Volume  : IntPtr
+        get_Volume  : IntPtr
+        put_Balance : IntPtr
+        get_Balance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Volume", "get_Volume", "put_Balance", "get_Balance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidAudioRenderer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -101,5 +112,31 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice {
     get_Balance() {
         result := ComCall(19, this, "int*", &lBal := 0, "HRESULT")
         return lBal
+    }
+
+    Query(iid) {
+        if (IMSVidAudioRenderer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Balance := CallbackCreate(GetMethod(implObj, "put_Balance"), flags, 2)
+        this.vtbl.get_Balance := CallbackCreate(GetMethod(implObj, "get_Balance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Volume)
+        CallbackFree(this.vtbl.get_Volume)
+        CallbackFree(this.vtbl.put_Balance)
+        CallbackFree(this.vtbl.get_Balance)
     }
 }

@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QUERY_BAD_RANGES_INPUT_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QUERY_BAD_RANGES_INPUT_RANGE.ahk" { QUERY_BAD_RANGES_INPUT_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class QUERY_BAD_RANGES_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct QUERY_BAD_RANGES_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumRanges : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumRanges {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Ranges : QUERY_BAD_RANGES_INPUT_RANGE[1]
 
-    /**
-     * @type {QUERY_BAD_RANGES_INPUT_RANGE}
-     */
-    Ranges {
-        get {
-            if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, QUERY_BAD_RANGES_INPUT_RANGE, "")
-            return this.__RangesProxyArray
-        }
-    }
 }

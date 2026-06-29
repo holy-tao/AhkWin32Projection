@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_ADDRESSES_XP.ahk
-#Include .\IP_ADAPTER_UNICAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP_ADAPTER_PREFIX_XP.ahk" { IP_ADAPTER_PREFIX_XP }
+#Import ".\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk" { IP_ADAPTER_MULTICAST_ADDRESS_XP }
+#Import ".\IP_ADAPTER_UNICAST_ADDRESS_XP.ahk" { IP_ADAPTER_UNICAST_ADDRESS_XP }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
+#Import ".\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk" { IP_ADAPTER_ANYCAST_ADDRESS_XP }
+#Import ".\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk" { IP_ADAPTER_DNS_SERVER_ADDRESS_XP }
 
 /**
  * The IP_ADAPTER_ADDRESSES_XP structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.
@@ -102,45 +102,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
-    static sizeof => 184
+export default struct IP_ADAPTER_ADDRESSES_XP {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IfIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Alignment : Int64
 
     /**
      * Type: <b>struct _IP_ADAPTER_ADDRESSES*</b>
      * 
      * A pointer to the next adapter addresses structure in the list.
-     * @type {Pointer<IP_ADAPTER_ADDRESSES_XP>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : IP_ADAPTER_ADDRESSES_XP.Ptr
 
     /**
      * Type: <b>PCHAR</b>
@@ -148,12 +120,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * An array of characters that contains the name of the adapter with which these addresses are associated. 
      *       Unlike an adapter's friendly name, the adapter name specified in <b>AdapterName</b> is 
      *       permanent and cannot be modified by the user.
-     * @type {PSTR}
      */
-    AdapterName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AdapterName : PSTR
 
     /**
      * Type: <b>PIP_ADAPTER_UNICAST_ADDRESS</b>
@@ -161,12 +129,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_unicast_address_lh">IP_ADAPTER_UNICAST_ADDRESS</a> structure in a 
      *       linked list of IP unicast addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_UNICAST_ADDRESS_XP>}
      */
-    FirstUnicastAddress {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FirstUnicastAddress : IP_ADAPTER_UNICAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_ANYCAST_ADDRESS</b>
@@ -174,12 +138,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_anycast_address_xp">IP_ADAPTER_ANYCAST_ADDRESS</a> structure in a 
      *       linked list of IP anycast addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_ANYCAST_ADDRESS_XP>}
      */
-    FirstAnycastAddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FirstAnycastAddress : IP_ADAPTER_ANYCAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_MULTICAST_ADDRESS</b>
@@ -187,12 +147,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_multicast_address_xp">IP_ADAPTER_MULTICAST_ADDRESS</a> structure 
      *       in a list of IP multicast addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_MULTICAST_ADDRESS_XP>}
      */
-    FirstMulticastAddress {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FirstMulticastAddress : IP_ADAPTER_MULTICAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_DNS_SERVER_ADDRESS</b>
@@ -200,34 +156,22 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_dns_server_address_xp">IP_ADAPTER_DNS_SERVER_ADDRESS</a> structure 
      *       in a linked list of DNS server addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_DNS_SERVER_ADDRESS_XP>}
      */
-    FirstDnsServerAddress {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    FirstDnsServerAddress : IP_ADAPTER_DNS_SERVER_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PWCHAR</b>
      * 
      * The Domain Name System (DNS) suffix associated with this adapter.
-     * @type {PWSTR}
      */
-    DnsSuffix {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    DnsSuffix : PWSTR
 
     /**
      * Type: <b>PWCHAR</b>
      * 
      * A description for the adapter. This member is read-only.
-     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    Description : PWSTR
 
     /**
      * Type: <b>PWCHAR</b>
@@ -241,39 +185,24 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      *        <a href="https://www.ietf.org/rfc/rfc2863.txt">RFC 2863</a>. The ifAlias field can be set by an 
      *        NDIS interface provider when the NDIS driver is installed. For NDIS miniport drivers, this field is set by 
      *        NDIS.
-     * @type {PWSTR}
      */
-    FriendlyName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    FriendlyName : PWSTR
 
     /**
      * Type: <b>BYTE[MAX_ADAPTER_ADDRESS_LENGTH]</b>
      * 
      * The Media Access Control (MAC) address for the adapter. For example, on an Ethernet network this member 
      *       would specify the Ethernet hardware address.
-     * @type {Array<Integer>}
      */
-    PhysicalAddress {
-        get {
-            if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "char")
-            return this.__PhysicalAddressProxyArray
-        }
-    }
+    PhysicalAddress : Int8[8]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the address specified in the <b>PhysicalAddress</b> member. 
      *       For interfaces that do not have a data-link layer, this value is zero.
-     * @type {Integer}
      */
-    PhysicalAddressLength {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    PhysicalAddressLength : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -425,23 +354,15 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    Flags : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The maximum transmission unit (MTU) size, in bytes.
-     * @type {Integer}
      */
-    Mtu {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    Mtu : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -563,12 +484,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    IfType {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    IfType : UInt32
 
     /**
      * Type: <b>IF_OPER_STATUS</b>
@@ -676,12 +593,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IF_OPER_STATUS}
      */
-    OperStatus {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    OperStatus : IF_OPER_STATUS
 
     /**
      * Type: <b>DWORD</b>
@@ -691,12 +604,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    Ipv6IfIndex {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    Ipv6IfIndex : UInt32
 
     /**
      * Type: <b>DWORD[16]</b>
@@ -709,15 +618,8 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Array<Integer>}
      */
-    ZoneIndices {
-        get {
-            if(!this.HasProp("__ZoneIndicesProxyArray"))
-                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "uint")
-            return this.__ZoneIndicesProxyArray
-        }
-    }
+    ZoneIndices : UInt32[16]
 
     /**
      * Type: <b>PIP_ADAPTER_PREFIX</b>
@@ -727,10 +629,12 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
      *       
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Pointer<IP_ADAPTER_PREFIX_XP>}
      */
-    FirstPrefix {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+    FirstPrefix : IP_ADAPTER_PREFIX_XP.Ptr
+
+    static __New() {
+        DefineProp(this.Prototype, 'Length', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'IfIndex', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

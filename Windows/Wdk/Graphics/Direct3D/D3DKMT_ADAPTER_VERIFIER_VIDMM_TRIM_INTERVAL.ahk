@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_ADAPTER_VERIFIER_VIDMM_TRIM_INTERVAL extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_ADAPTER_VERIFIER_VIDMM_TRIM_INTERVAL {
+    #StructPack 8
 
-    static packingSize => 8
+    MinimumTrimInterval : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumTrimInterval {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaximumTrimInterval : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumTrimInterval {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IdleTrimInterval : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IdleTrimInterval {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

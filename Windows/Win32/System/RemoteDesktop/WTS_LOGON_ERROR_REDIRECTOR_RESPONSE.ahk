@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that specify the preferred response of the protocol to a logon error.
@@ -20,7 +19,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_LOGON_ERROR_REDIRECTOR_RESPONSE extends Win32Enum {
+export default struct WTS_LOGON_ERROR_REDIRECTOR_RESPONSE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is used for safe initialization.

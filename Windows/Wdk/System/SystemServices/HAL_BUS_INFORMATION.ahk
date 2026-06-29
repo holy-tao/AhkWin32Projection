@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERFACE_TYPE.ahk
-#Include .\BUS_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
+#Import ".\BUS_DATA_TYPE.ahk" { BUS_DATA_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class HAL_BUS_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct HAL_BUS_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    BusType : INTERFACE_TYPE
 
-    /**
-     * @type {INTERFACE_TYPE}
-     */
-    BusType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ConfigurationType : BUS_DATA_TYPE
 
-    /**
-     * @type {BUS_DATA_TYPE}
-     */
-    ConfigurationType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    BusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

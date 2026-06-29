@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the options to be included in the header of an IP packet on a 64-bit platform.
@@ -24,63 +23,42 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @architecture X64, Arm64
  */
-class IP_OPTION_INFORMATION32 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct IP_OPTION_INFORMATION32 {
+    #StructPack 8
 
     /**
      * Type: <b>UCHAR</b>
      * 
      * The Time to Live field in an IPv4 packet header. This is the Hop Limit field in an IPv6 header.
-     * @type {Integer}
      */
-    Ttl {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Ttl : Int8
 
     /**
      * Type: <b>UCHAR</b>
      * 
      * The type of service field in an IPv4 header. This member is currently silently ignored.
-     * @type {Integer}
      */
-    Tos {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Tos : Int8
 
     /**
      * Type: <b>UCHAR</b>
      * 
      * The Flags field. In IPv4, this is the Flags field in the IPv4 header. In IPv6, this field is represented by  options headers.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Flags : Int8
 
     /**
      * Type: <b>UCHAR</b>
      * 
      * The size, in bytes, of IP options data.
-     * @type {Integer}
      */
-    OptionsSize {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    OptionsSize : Int8
 
     /**
      * Type: <b>UCHAR * POINTER_32</b>
      * 
      * A pointer to options data.
-     * @type {Pointer<Integer>}
      */
-    OptionsData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OptionsData : IntPtr
+
 }

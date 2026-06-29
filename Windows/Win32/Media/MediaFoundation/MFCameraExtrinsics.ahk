@@ -1,37 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFCameraExtrinsic_CalibratedTransform.ahk
-#Include .\MF_FLOAT3.ahk
-#Include .\MF_QUATERNION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MF_QUATERNION.ahk" { MF_QUATERNION }
+#Import ".\MFCameraExtrinsic_CalibratedTransform.ahk" { MFCameraExtrinsic_CalibratedTransform }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_FLOAT3.ahk" { MF_FLOAT3 }
 
 /**
  * Describes the location of a camera relative to other cameras or an established external reference.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraextrinsics
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCameraExtrinsics extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct MFCameraExtrinsics {
+    #StructPack 4
 
     /**
      * The number of transforms in the <i>CalibratedTransforms</i> array.
-     * @type {Integer}
      */
-    TransformCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TransformCount : UInt32
 
     /**
      * The array of transforms in the extrinsic data.
-     * @type {MFCameraExtrinsic_CalibratedTransform}
      */
-    CalibratedTransforms {
-        get {
-            if(!this.HasProp("__CalibratedTransformsProxyArray"))
-                this.__CalibratedTransformsProxyArray := Win32FixedArray(this.ptr + 8, 1, MFCameraExtrinsic_CalibratedTransform, "")
-            return this.__CalibratedTransformsProxyArray
-        }
-    }
+    CalibratedTransforms : MFCameraExtrinsic_CalibratedTransform[1]
+
 }

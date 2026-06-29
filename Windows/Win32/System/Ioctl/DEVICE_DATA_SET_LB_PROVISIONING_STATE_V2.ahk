@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 extends Win32Struct {
-    static sizeof => 40
+export default struct DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SlabSizeInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SlabSizeInBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SlabOffsetDeltaInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SlabOffsetDeltaInBytes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SlabAllocationBitMapBitCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SlabAllocationBitMapBitCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SlabAllocationBitMapLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SlabAllocationBitMapLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    SlabAllocationBitMap : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SlabAllocationBitMap {
-        get {
-            if(!this.HasProp("__SlabAllocationBitMapProxyArray"))
-                this.__SlabAllocationBitMapProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")
-            return this.__SlabAllocationBitMapProxyArray
-        }
-    }
 }

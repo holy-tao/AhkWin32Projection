@@ -1,52 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYPROCESSOFFERINFO extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMT_QUERYPROCESSOFFERINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hProcess : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(8, this)
-            return this.__hProcess
-        }
-    }
+    DecommitUniqueness : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DecommitUniqueness {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DecommittableBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DecommittableBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

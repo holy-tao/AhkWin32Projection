@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class MainAVIHeader extends Win32Struct {
-    static sizeof => 56
+export default struct MainAVIHeader {
+    #StructPack 4
 
-    static packingSize => 4
+    dwMicroSecPerFrame : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMicroSecPerFrame {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMaxBytesPerSec : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxBytesPerSec {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPaddingGranularity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPaddingGranularity {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwTotalFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotalFrames {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwInitialFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInitialFrames {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwStreams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStreams {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwSuggestedBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSuggestedBufferSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwReserved : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
 }

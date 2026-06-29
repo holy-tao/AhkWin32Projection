@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a DNS Option (OPT) resource record (RR) as specified in section 4 of RFC 2671.
@@ -10,38 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_opt_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_OPT_DATA extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct DNS_OPT_DATA {
+    #StructPack 2
 
     /**
      * The length, in bytes, of <b>Data</b>.
-     * @type {Integer}
      */
-    wDataLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wDataLength : UInt16
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    wPad {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPad : UInt16
 
     /**
      * A <b>BYTE</b> array that contains variable transport level information as specified in section 4 of <a href="https://www.ietf.org/rfc/rfc2671.txt">RFC 2671</a>.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

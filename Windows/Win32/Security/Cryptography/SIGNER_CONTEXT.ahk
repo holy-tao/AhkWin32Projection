@@ -1,45 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a signed BLOB.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-context
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SIGNER_CONTEXT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SIGNER_CONTEXT {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The size, in bytes, of the **pbBlob** member.
-     * @type {Integer}
      */
-    cbBlob {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbBlob : UInt32
 
     /**
      * A pointer to the signed BLOB.
-     * @type {Pointer<Integer>}
      */
-    pbBlob {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbBlob : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

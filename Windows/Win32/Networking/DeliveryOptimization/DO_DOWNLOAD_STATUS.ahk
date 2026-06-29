@@ -1,59 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DODownloadState.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DODownloadState.ahk" { DODownloadState }
 
 /**
  * Used to obtain the status of a specific download.
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_status
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  */
-class DO_DOWNLOAD_STATUS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DO_DOWNLOAD_STATUS {
+    #StructPack 8
 
     /**
      * The total number of bytes to download.
-     * @type {Integer}
      */
-    BytesTotal {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BytesTotal : Int64
 
     /**
      * The number of bytes that have already been downloaded.
-     * @type {Integer}
      */
-    BytesTransferred {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BytesTransferred : Int64
 
     /**
      * The current download state as defined by the **DODownloadState** enumeration.
-     * @type {DODownloadState}
      */
-    State {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    State : DODownloadState
 
     /**
      * The error information (if it exists) that is associated with the current download.
-     * @type {HRESULT}
      */
-    Error {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Error : HRESULT
 
     /**
      * The extended error information (if it exists) that is associated with the current download.
-     * @type {HRESULT}
      */
-    ExtendedError {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ExtendedError : HRESULT
+
 }

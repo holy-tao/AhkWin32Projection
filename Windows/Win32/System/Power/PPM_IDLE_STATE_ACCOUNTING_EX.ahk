@@ -1,79 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPM_IDLE_STATE_BUCKET_EX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPM_IDLE_STATE_BUCKET_EX.ahk" { PPM_IDLE_STATE_BUCKET_EX }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_IDLE_STATE_ACCOUNTING_EX extends Win32Struct {
-    static sizeof => 416
+export default struct PPM_IDLE_STATE_ACCOUNTING_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    TotalTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IdleTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IdleTransitions {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FailedTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FailedTransitions {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    InvalidBucketIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InvalidBucketIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinTimeUs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinTimeUs {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxTimeUs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTimeUs {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CancelledTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CancelledTransitions {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    IdleTimeBuckets : PPM_IDLE_STATE_BUCKET_EX[16]
 
-    /**
-     * @type {PPM_IDLE_STATE_BUCKET_EX}
-     */
-    IdleTimeBuckets {
-        get {
-            if(!this.HasProp("__IdleTimeBucketsProxyArray"))
-                this.__IdleTimeBucketsProxyArray := Win32FixedArray(this.ptr + 32, 16, PPM_IDLE_STATE_BUCKET_EX, "")
-            return this.__IdleTimeBucketsProxyArray
-        }
-    }
 }

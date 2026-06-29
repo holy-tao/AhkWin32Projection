@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains optional compliance state information that is returned by the System Health Validator (SHV).
@@ -24,23 +24,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-failurecategorymapping
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  */
-class FailureCategoryMapping extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct FailureCategoryMapping {
+    #StructPack 4
 
     /**
      * An array of        <b>BOOLs</b> that contain the compliance state of each <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-failurecategory">FailureCategory</a>.  <b>TRUE</b> indicates the category is compliant and <b>FALSE</b> indicates non-compliance. 
      * 
      * <div class="alert"><b>Note</b>  The length of <b>mappingCompliance</b> is defined by <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-type-constants">failureCategoryCount</a>.</div>
      * <div> </div>
-     * @type {Array<BOOL>}
      */
-    mappingCompliance {
-        get {
-            if(!this.HasProp("__mappingComplianceProxyArray"))
-                this.__mappingComplianceProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "int")
-            return this.__mappingComplianceProxyArray
-        }
-    }
+    mappingCompliance : BOOL[5]
+
 }

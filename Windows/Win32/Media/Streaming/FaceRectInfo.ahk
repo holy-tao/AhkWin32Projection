@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The FaceRectInfo structure describes the blob format for the MF_CAPTURE_METADATA_FACEROIS attribute.
@@ -11,29 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facerectinfo
  * @namespace Windows.Win32.Media.Streaming
  */
-class FaceRectInfo extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct FaceRectInfo {
+    #StructPack 4
 
     /**
      * Relative coordinates on the frame that face detection is running (Q31 format).
-     * @type {RECT}
      */
-    Region {
-        get {
-            if(!this.HasProp("__Region"))
-                this.__Region := RECT(0, this)
-            return this.__Region
-        }
-    }
+    Region : RECT
 
     /**
      * Confidence level of the region being a face (0 - 100).
-     * @type {Integer}
      */
-    confidenceLevel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    confidenceLevel : Int32
+
 }

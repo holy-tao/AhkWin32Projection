@@ -1,91 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HELP_INFO_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\HELP_INFO_TYPE.ahk" { HELP_INFO_TYPE }
 
 /**
  * Contains information about an item for which context-sensitive help has been requested.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-helpinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class HELPINFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct HELPINFO {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The structure size, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>int</b>
-     * @type {HELP_INFO_TYPE}
      */
-    iContextType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iContextType : HELP_INFO_TYPE
 
     /**
      * Type: <b>int</b>
      * 
      * The identifier of the window or control if <b>iContextType</b> is <b>HELPINFO_WINDOW</b>, or identifier of the menu item if <b>iContextType</b> is <b>HELPINFO_MENUITEM</b>.
-     * @type {Integer}
      */
-    iCtrlId {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iCtrlId : Int32
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * The identifier of the child window or control if <b>iContextType</b> is <b>HELPINFO_WINDOW</b>, or identifier of the associated menu if <b>iContextType</b> is <b>HELPINFO_MENUITEM</b>.
-     * @type {HANDLE}
      */
-    hItemHandle {
-        get {
-            if(!this.HasProp("__hItemHandle"))
-                this.__hItemHandle := HANDLE(16, this)
-            return this.__hItemHandle
-        }
-    }
+    hItemHandle : HANDLE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The help context identifier of the window or control.
-     * @type {Pointer}
      */
-    dwContextId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwContextId : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the screen coordinates of the mouse cursor. This is useful for providing help based on the position of the mouse cursor.
-     * @type {POINT}
      */
-    MousePos {
-        get {
-            if(!this.HasProp("__MousePos"))
-                this.__MousePos := POINT(32, this)
-            return this.__MousePos
-        }
-    }
+    MousePos : POINT
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

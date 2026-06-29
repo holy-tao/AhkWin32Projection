@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Direct3D9\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import "..\..\Graphics\Direct3D9\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DOVERLAYCAPS.ahk" { D3DOVERLAYCAPS }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension)
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3d9exoverlayextension
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IDirect3D9ExOverlayExtension extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3D9ExOverlayExtension extends IUnknown {
     /**
      * The interface identifier for IDirect3D9ExOverlayExtension
      * @type {Guid}
      */
-    static IID => Guid("{187aeb13-aaf5-4c59-876d-e059088c0df8}")
+    static IID := Guid("{187aeb13-aaf5-4c59-876d-e059088c0df8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3D9ExOverlayExtension interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CheckDeviceOverlayType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckDeviceOverlayType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3D9ExOverlayExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension.CheckDeviceOverlayType)
@@ -83,7 +96,27 @@ class IDirect3D9ExOverlayExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9exoverlayextension-checkdeviceoverlaytype
      */
     CheckDeviceOverlayType(_Adapter, DevType, OverlayWidth, OverlayHeight, OverlayFormat, pDisplayMode, DisplayRotation, pOverlayCaps) {
-        result := ComCall(3, this, "uint", _Adapter, "int", DevType, "uint", OverlayWidth, "uint", OverlayHeight, "uint", OverlayFormat, "ptr", pDisplayMode, "int", DisplayRotation, "ptr", pOverlayCaps, "HRESULT")
+        result := ComCall(3, this, "uint", _Adapter, D3DDEVTYPE, DevType, "uint", OverlayWidth, "uint", OverlayHeight, D3DFORMAT, OverlayFormat, D3DDISPLAYMODEEX.Ptr, pDisplayMode, D3DDISPLAYROTATION, DisplayRotation, D3DOVERLAYCAPS.Ptr, pOverlayCaps, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3D9ExOverlayExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckDeviceOverlayType := CallbackCreate(GetMethod(implObj, "CheckDeviceOverlayType"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckDeviceOverlayType)
     }
 }

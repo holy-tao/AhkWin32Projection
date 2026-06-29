@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the output alpha values are calculated for Microsoft DirectX Video Acceleration High Definition (DXVA-HD) blit operations.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_alpha_fill_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_ALPHA_FILL_MODE extends Win32Enum {
+export default struct DXVAHD_ALPHA_FILL_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Alpha values inside the target rectangle are set to opaque.

@@ -1,48 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\Properties\DEVPROPTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
  */
-class DEV_QUERY_PARAMETER extends Win32Struct {
-    static sizeof => 32
+export default struct DEV_QUERY_PARAMETER {
+    #StructPack 8
 
-    static packingSize => 8
+    Key : DEVPROPKEY
 
-    /**
-     * @type {DEVPROPKEY}
-     */
-    Key {
-        get {
-            if(!this.HasProp("__Key"))
-                this.__Key := DEVPROPKEY(0, this)
-            return this.__Key
-        }
-    }
+    Type : DEVPROPTYPE
 
-    /**
-     * @type {DEVPROPTYPE}
-     */
-    Type {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Buffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Buffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

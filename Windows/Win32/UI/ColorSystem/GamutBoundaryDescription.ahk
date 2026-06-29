@@ -1,65 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PrimaryJabColors.ahk
-#Include .\JabColorF.ahk
-#Include .\GamutShell.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PrimaryJabColors.ahk" { PrimaryJabColors }
+#Import ".\GamutShell.ahk" { GamutShell }
+#Import ".\JabColorF.ahk" { JabColorF }
 
 /**
  * Defines a gamut boundary.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutboundarydescription
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class GamutBoundaryDescription extends Win32Struct {
-    static sizeof => 48
+export default struct GamutBoundaryDescription {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer<PrimaryJabColors>}
-     */
-    pPrimaries {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pPrimaries : PrimaryJabColors.Ptr
 
     /**
      * The number of neutral samples.
-     * @type {Integer}
      */
-    cNeutralSamples {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cNeutralSamples : UInt32
 
-    /**
-     * @type {Pointer<JabColorF>}
-     */
-    pNeutralSamples {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pNeutralSamples : JabColorF.Ptr
 
-    /**
-     * @type {Pointer<GamutShell>}
-     */
-    pReferenceShell {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pReferenceShell : GamutShell.Ptr
 
-    /**
-     * @type {Pointer<GamutShell>}
-     */
-    pPlausibleShell {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pPlausibleShell : GamutShell.Ptr
 
-    /**
-     * @type {Pointer<GamutShell>}
-     */
-    pPossibleShell {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pPossibleShell : GamutShell.Ptr
+
 }

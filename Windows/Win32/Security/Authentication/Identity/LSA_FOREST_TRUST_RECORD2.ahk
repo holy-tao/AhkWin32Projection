@@ -1,100 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_FOREST_TRUST_RECORD_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\LSA_FOREST_TRUST_DOMAIN_INFO.ahk
-#Include .\LSA_FOREST_TRUST_BINARY_DATA.ahk
-#Include .\LSA_FOREST_TRUST_SCANNER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_FOREST_TRUST_SCANNER_INFO.ahk" { LSA_FOREST_TRUST_SCANNER_INFO }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\LSA_FOREST_TRUST_RECORD_TYPE.ahk" { LSA_FOREST_TRUST_RECORD_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_FOREST_TRUST_BINARY_DATA.ahk" { LSA_FOREST_TRUST_BINARY_DATA }
+#Import ".\LSA_FOREST_TRUST_DOMAIN_INFO.ahk" { LSA_FOREST_TRUST_DOMAIN_INFO }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_FOREST_TRUST_RECORD2 extends Win32Struct {
-    static sizeof => 56
+export default struct LSA_FOREST_TRUST_RECORD2 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ForestTrustData_e__Union extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _ForestTrustData {
+        TopLevelName : LSA_UNICODE_STRING
 
-        /**
-         * @type {LSA_UNICODE_STRING}
-         */
-        TopLevelName {
-            get {
-                if(!this.HasProp("__TopLevelName"))
-                    this.__TopLevelName := LSA_UNICODE_STRING(0, this)
-                return this.__TopLevelName
-            }
-        }
-
-        /**
-         * @type {LSA_FOREST_TRUST_DOMAIN_INFO}
-         */
-        DomainInfo {
-            get {
-                if(!this.HasProp("__DomainInfo"))
-                    this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(0, this)
-                return this.__DomainInfo
-            }
-        }
-
-        /**
-         * @type {LSA_FOREST_TRUST_BINARY_DATA}
-         */
-        BinaryData {
-            get {
-                if(!this.HasProp("__BinaryData"))
-                    this.__BinaryData := LSA_FOREST_TRUST_BINARY_DATA(0, this)
-                return this.__BinaryData
-            }
-        }
-
-        /**
-         * @type {LSA_FOREST_TRUST_SCANNER_INFO}
-         */
-        ScannerInfo {
-            get {
-                if(!this.HasProp("__ScannerInfo"))
-                    this.__ScannerInfo := LSA_FOREST_TRUST_SCANNER_INFO(0, this)
-                return this.__ScannerInfo
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'DomainInfo', { type: LSA_FOREST_TRUST_DOMAIN_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'BinaryData', { type: LSA_FOREST_TRUST_BINARY_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'ScannerInfo', { type: LSA_FOREST_TRUST_SCANNER_INFO, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {LSA_FOREST_TRUST_RECORD_TYPE}
-     */
-    ForestTrustType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ForestTrustType : LSA_FOREST_TRUST_RECORD_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    Time {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Time : Int64
 
-    /**
-     * @type {_ForestTrustData_e__Union}
-     */
-    ForestTrustData {
-        get {
-            if(!this.HasProp("__ForestTrustData"))
-                this.__ForestTrustData := LSA_FOREST_TRUST_RECORD2._ForestTrustData_e__Union(16, this)
-            return this.__ForestTrustData
-        }
-    }
+    ForestTrustData : LSA_FOREST_TRUST_RECORD2._ForestTrustData
+
 }

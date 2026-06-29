@@ -1,40 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER extends Win32Struct {
-    static sizeof => 32
+export default struct NCRYPT_EXPORTED_ISOLATED_KEY_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    KeyUsage {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    KeyUsage : UInt32
 
     /**
      * This bitfield backs the following members:
      * - PerBootKey
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -43,44 +25,14 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
+    cbAlgName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAlgName {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbNonce : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbNonce {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbAuthTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAuthTag {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbWrappingKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbWrappingKey {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbIsolatedKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbIsolatedKey {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

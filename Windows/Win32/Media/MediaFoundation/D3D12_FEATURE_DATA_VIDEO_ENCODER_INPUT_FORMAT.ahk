@@ -1,51 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk" { D3D12_VIDEO_ENCODER_PROFILE_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk" { D3D12_VIDEO_ENCODER_AV1_PROFILE }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_HEVC }
 
 /**
  * Retrieves a value indicating if the specified codec, profile, and format are supported for video encoding.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_input_format
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT {
+    #StructPack 8
 
     /**
      * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
-     * @type {Integer}
      */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeIndex : UInt32
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
-    Codec {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Codec : D3D12_VIDEO_ENCODER_CODEC
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the profile for which support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    Profile {
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
-            return this.__Profile
-        }
-    }
+    Profile : D3D12_VIDEO_ENCODER_PROFILE_DESC
 
     /**
      * A member of the [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) enumeration specifying the pixel format for which support is being queried. This format definition includes the subsampling and bit-depth modes settings for the video encoding session.
@@ -56,19 +39,12 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct {
      * 
      * > [!NOTE]
      * > The host is expected to handle the input subsampling and color conversion stages of video encoding.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * Receives a boolean value indicating if the specified codec, profile, and format are supported.
-     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    IsSupported : BOOL
+
 }

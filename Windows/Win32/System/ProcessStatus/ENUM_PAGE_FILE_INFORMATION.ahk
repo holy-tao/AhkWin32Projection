@@ -1,58 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a pagefile.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-enum_page_file_information
  * @namespace Windows.Win32.System.ProcessStatus
  */
-class ENUM_PAGE_FILE_INFORMATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ENUM_PAGE_FILE_INFORMATION {
+    #StructPack 8
 
     /**
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * This member is reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * The total size of the pagefile, in pages.
-     * @type {Pointer}
      */
-    TotalSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TotalSize : IntPtr
 
     /**
      * The current pagefile usage, in pages.
-     * @type {Pointer}
      */
-    TotalInUse {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    TotalInUse : IntPtr
 
     /**
      * The peak pagefile usage, in pages.
-     * @type {Pointer}
      */
-    PeakUsage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PeakUsage : IntPtr
+
 }

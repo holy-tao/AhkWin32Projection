@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLS_LSN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLS_LSN.ahk" { CLS_LSN }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct {
-    static sizeof => 24
+export default struct CLFS_PHYSICAL_LSN_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    StreamIdentifier : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StreamIdentifier {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    VirtualLsn : CLS_LSN
 
-    /**
-     * @type {CLS_LSN}
-     */
-    VirtualLsn {
-        get {
-            if(!this.HasProp("__VirtualLsn"))
-                this.__VirtualLsn := CLS_LSN(8, this)
-            return this.__VirtualLsn
-        }
-    }
+    PhysicalLsn : CLS_LSN
 
-    /**
-     * @type {CLS_LSN}
-     */
-    PhysicalLsn {
-        get {
-            if(!this.HasProp("__PhysicalLsn"))
-                this.__PhysicalLsn := CLS_LSN(16, this)
-            return this.__PhysicalLsn
-        }
-    }
 }

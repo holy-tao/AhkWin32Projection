@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the type of data to return from a given data point on the graph.
  * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-sysmondatatype
  * @namespace Windows.Win32.System.Performance
  */
-class SysmonDataType extends Win32Enum {
+export default struct SysmonDataType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Average value of the counter.

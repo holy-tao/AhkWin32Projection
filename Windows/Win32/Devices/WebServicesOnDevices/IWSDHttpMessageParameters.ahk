@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWSDMessageParameters.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to the HTTP headers used when transmitting messages via SOAP-over-HTTP.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDHttpMessageParameters extends IWSDMessageParameters {
-
-    static sizeof => A_PtrSize
+export default struct IWSDHttpMessageParameters extends IWSDMessageParameters {
     /**
      * The interface identifier for IWSDHttpMessageParameters
      * @type {Guid}
      */
-    static IID => Guid("{540bd122-5c83-4dec-b396-ea62a2697fdf}")
+    static IID := Guid("{540bd122-5c83-4dec-b396-ea62a2697fdf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDHttpMessageParameters interfaces
+    */
+    struct Vtbl extends IWSDMessageParameters.Vtbl {
+        SetInboundHttpHeaders  : IntPtr
+        GetInboundHttpHeaders  : IntPtr
+        SetOutboundHttpHeaders : IntPtr
+        GetOutboundHttpHeaders : IntPtr
+        SetID                  : IntPtr
+        GetID                  : IntPtr
+        SetContext             : IntPtr
+        GetContext             : IntPtr
+        Clear                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetInboundHttpHeaders", "GetInboundHttpHeaders", "SetOutboundHttpHeaders", "GetOutboundHttpHeaders", "SetID", "GetID", "SetContext", "GetContext", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDHttpMessageParameters.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the HTTP headers used for inbound SOAP-over-HTTP transmissions.
@@ -89,7 +106,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getinboundhttpheaders
      */
     GetInboundHttpHeaders() {
-        result := ComCall(9, this, "ptr*", &ppszHeaders := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppszHeaders := 0, "HRESULT")
         return ppszHeaders
     }
 
@@ -152,7 +169,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getoutboundhttpheaders
      */
     GetOutboundHttpHeaders() {
-        result := ComCall(11, this, "ptr*", &ppszHeaders := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszHeaders := 0, "HRESULT")
         return ppszHeaders
     }
 
@@ -215,7 +232,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getid
      */
     GetID() {
-        result := ComCall(13, this, "ptr*", &ppszId := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &ppszId := 0, "HRESULT")
         return ppszId
     }
 
@@ -294,5 +311,41 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters {
     Clear() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDHttpMessageParameters.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetInboundHttpHeaders := CallbackCreate(GetMethod(implObj, "SetInboundHttpHeaders"), flags, 2)
+        this.vtbl.GetInboundHttpHeaders := CallbackCreate(GetMethod(implObj, "GetInboundHttpHeaders"), flags, 2)
+        this.vtbl.SetOutboundHttpHeaders := CallbackCreate(GetMethod(implObj, "SetOutboundHttpHeaders"), flags, 2)
+        this.vtbl.GetOutboundHttpHeaders := CallbackCreate(GetMethod(implObj, "GetOutboundHttpHeaders"), flags, 2)
+        this.vtbl.SetID := CallbackCreate(GetMethod(implObj, "SetID"), flags, 2)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetInboundHttpHeaders)
+        CallbackFree(this.vtbl.GetInboundHttpHeaders)
+        CallbackFree(this.vtbl.SetOutboundHttpHeaders)
+        CallbackFree(this.vtbl.GetOutboundHttpHeaders)
+        CallbackFree(this.vtbl.SetID)
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.SetContext)
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.Clear)
     }
 }

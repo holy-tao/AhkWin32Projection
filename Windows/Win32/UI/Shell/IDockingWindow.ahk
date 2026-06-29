@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that notify the docking window object of changes, including showing, hiding, and impending removal. This interface is implemented by window objects that can be docked within the border space of a Windows Explorer window.
@@ -35,26 +39,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idockingwindow
  * @namespace Windows.Win32.UI.Shell
  */
-class IDockingWindow extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IDockingWindow extends IOleWindow {
     /**
      * The interface identifier for IDockingWindow
      * @type {Guid}
      */
-    static IID => Guid("{012dd920-7b26-11d0-8ca9-00a0c92dbfe8}")
+    static IID := Guid("{012dd920-7b26-11d0-8ca9-00a0c92dbfe8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDockingWindow interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        ShowDW         : IntPtr
+        CloseDW        : IntPtr
+        ResizeBorderDW : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowDW", "CloseDW", "ResizeBorderDW"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDockingWindow.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Instructs the docking window object to show or hide itself.
@@ -67,7 +80,7 @@ class IDockingWindow extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-showdw
      */
     ShowDW(fShow) {
-        result := ComCall(5, this, "int", fShow, "HRESULT")
+        result := ComCall(5, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -118,7 +131,31 @@ class IDockingWindow extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-resizeborderdw
      */
     ResizeBorderDW(prcBorder, punkToolbarSite, fReserved) {
-        result := ComCall(7, this, "ptr", prcBorder, "ptr", punkToolbarSite, "int", fReserved, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, prcBorder, "ptr", punkToolbarSite, BOOL, fReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDockingWindow.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowDW := CallbackCreate(GetMethod(implObj, "ShowDW"), flags, 2)
+        this.vtbl.CloseDW := CallbackCreate(GetMethod(implObj, "CloseDW"), flags, 2)
+        this.vtbl.ResizeBorderDW := CallbackCreate(GetMethod(implObj, "ResizeBorderDW"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowDW)
+        CallbackFree(this.vtbl.CloseDW)
+        CallbackFree(this.vtbl.ResizeBorderDW)
     }
 }

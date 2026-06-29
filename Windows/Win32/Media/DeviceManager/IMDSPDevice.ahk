@@ -1,35 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WMDMID.ahk
-#Include .\IMDSPEnumStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMDMID.ahk" { WMDMID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMDSPDevice interface provides an instance-based association with a media device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevice
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IMDSPDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMDSPDevice extends IUnknown {
     /**
      * The interface identifier for IMDSPDevice
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a12-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a12-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMDSPDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName           : IntPtr
+        GetManufacturer   : IntPtr
+        GetVersion        : IntPtr
+        GetType           : IntPtr
+        GetSerialNumber   : IntPtr
+        GetPowerSource    : IntPtr
+        GetStatus         : IntPtr
+        GetDeviceIcon     : IntPtr
+        EnumStorage       : IntPtr
+        GetFormatSupport  : IntPtr
+        SendOpaqueCommand : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetManufacturer", "GetVersion", "GetType", "GetSerialNumber", "GetPowerSource", "GetStatus", "GetDeviceIcon", "EnumStorage", "GetFormatSupport", "SendOpaqueCommand"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMDSPDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetName method retrieves the name of the device.
@@ -174,7 +195,7 @@ class IMDSPDevice extends IUnknown {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
         pSerialNumber := WMDMID()
-        result := ComCall(7, this, "ptr", pSerialNumber, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(7, this, WMDMID.Ptr, pSerialNumber, abMacMarshal, abMac, "HRESULT")
         return pSerialNumber
     }
 
@@ -378,7 +399,47 @@ class IMDSPDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-sendopaquecommand
      */
     SendOpaqueCommand(pCommand) {
-        result := ComCall(13, this, "ptr", pCommand, "HRESULT")
+        result := ComCall(13, this, OPAQUECOMMAND.Ptr, pCommand, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMDSPDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetManufacturer := CallbackCreate(GetMethod(implObj, "GetManufacturer"), flags, 3)
+        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetSerialNumber := CallbackCreate(GetMethod(implObj, "GetSerialNumber"), flags, 3)
+        this.vtbl.GetPowerSource := CallbackCreate(GetMethod(implObj, "GetPowerSource"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetDeviceIcon := CallbackCreate(GetMethod(implObj, "GetDeviceIcon"), flags, 2)
+        this.vtbl.EnumStorage := CallbackCreate(GetMethod(implObj, "EnumStorage"), flags, 2)
+        this.vtbl.GetFormatSupport := CallbackCreate(GetMethod(implObj, "GetFormatSupport"), flags, 5)
+        this.vtbl.SendOpaqueCommand := CallbackCreate(GetMethod(implObj, "SendOpaqueCommand"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetManufacturer)
+        CallbackFree(this.vtbl.GetVersion)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetSerialNumber)
+        CallbackFree(this.vtbl.GetPowerSource)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetDeviceIcon)
+        CallbackFree(this.vtbl.EnumStorage)
+        CallbackFree(this.vtbl.GetFormatSupport)
+        CallbackFree(this.vtbl.SendOpaqueCommand)
     }
 }

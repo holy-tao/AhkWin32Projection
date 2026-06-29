@@ -1,37 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\ITaskFolder.ahk
-#Include .\IRunningTaskCollection.ahk
-#Include .\ITaskDefinition.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITaskFolder.ahk" { ITaskFolder }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskservice
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskService extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITaskService extends IDispatch {
     /**
      * The interface identifier for ITaskService
      * @type {Guid}
      */
-    static IID => Guid("{2faba4c7-4da9-4013-9697-20cc3fd40f85}")
+    static IID := Guid("{2faba4c7-4da9-4013-9697-20cc3fd40f85}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskService interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetFolder           : IntPtr
+        GetRunningTasks     : IntPtr
+        NewTask             : IntPtr
+        Connect             : IntPtr
+        get_Connected       : IntPtr
+        get_TargetServer    : IntPtr
+        get_ConnectedUser   : IntPtr
+        get_ConnectedDomain : IntPtr
+        get_HighestVersion  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFolder", "GetRunningTasks", "NewTask", "Connect", "get_Connected", "get_TargetServer", "get_ConnectedUser", "get_ConnectedDomain", "get_HighestVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -80,7 +98,7 @@ class ITaskService extends IDispatch {
     GetFolder(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(7, this, "ptr", _path, "ptr*", &ppFolder := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, _path, "ptr*", &ppFolder := 0, "HRESULT")
         return ITaskFolder(ppFolder)
     }
 
@@ -218,7 +236,7 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-connect
      */
     Connect(serverName, user, domain, password) {
-        result := ComCall(10, this, "ptr", serverName, "ptr", user, "ptr", domain, "ptr", password, "HRESULT")
+        result := ComCall(10, this, VARIANT, serverName, VARIANT, user, VARIANT, domain, VARIANT, password, "HRESULT")
         return result
     }
 
@@ -228,7 +246,7 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connected
      */
     get_Connected() {
-        result := ComCall(11, this, "short*", &pConnected := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pConnected := 0, "HRESULT")
         return pConnected
     }
 
@@ -240,8 +258,8 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_targetserver
      */
     get_TargetServer() {
-        pServer := BSTR()
-        result := ComCall(12, this, "ptr", pServer, "HRESULT")
+        pServer := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pServer, "HRESULT")
         return pServer
     }
 
@@ -251,8 +269,8 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteduser
      */
     get_ConnectedUser() {
-        pUser := BSTR()
-        result := ComCall(13, this, "ptr", pUser, "HRESULT")
+        pUser := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pUser, "HRESULT")
         return pUser
     }
 
@@ -262,8 +280,8 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteddomain
      */
     get_ConnectedDomain() {
-        pDomain := BSTR()
-        result := ComCall(14, this, "ptr", pDomain, "HRESULT")
+        pDomain := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pDomain, "HRESULT")
         return pDomain
     }
 
@@ -275,5 +293,41 @@ class ITaskService extends IDispatch {
     get_HighestVersion() {
         result := ComCall(15, this, "uint*", &pVersion := 0, "HRESULT")
         return pVersion
+    }
+
+    Query(iid) {
+        if (ITaskService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetRunningTasks := CallbackCreate(GetMethod(implObj, "GetRunningTasks"), flags, 3)
+        this.vtbl.NewTask := CallbackCreate(GetMethod(implObj, "NewTask"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 5)
+        this.vtbl.get_Connected := CallbackCreate(GetMethod(implObj, "get_Connected"), flags, 2)
+        this.vtbl.get_TargetServer := CallbackCreate(GetMethod(implObj, "get_TargetServer"), flags, 2)
+        this.vtbl.get_ConnectedUser := CallbackCreate(GetMethod(implObj, "get_ConnectedUser"), flags, 2)
+        this.vtbl.get_ConnectedDomain := CallbackCreate(GetMethod(implObj, "get_ConnectedDomain"), flags, 2)
+        this.vtbl.get_HighestVersion := CallbackCreate(GetMethod(implObj, "get_HighestVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.GetRunningTasks)
+        CallbackFree(this.vtbl.NewTask)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.get_Connected)
+        CallbackFree(this.vtbl.get_TargetServer)
+        CallbackFree(this.vtbl.get_ConnectedUser)
+        CallbackFree(this.vtbl.get_ConnectedDomain)
+        CallbackFree(this.vtbl.get_HighestVersion)
     }
 }

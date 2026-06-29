@@ -1,18 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ELEMDESC.ahk
-#Include .\FUNCKIND.ahk
-#Include .\INVOKEKIND.ahk
-#Include .\CALLCONV.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\IDLDESC.ahk
-#Include .\IDLFLAGS.ahk
-#Include ..\Ole\PARAMDESC.ahk
-#Include ..\Ole\PARAMDESCEX.ahk
-#Include ..\Ole\PARAMFLAGS.ahk
-#Include .\FUNCFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FUNCKIND.ahk" { FUNCKIND }
+#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
+#Import ".\ELEMDESC.ahk" { ELEMDESC }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import ".\IDLFLAGS.ahk" { IDLFLAGS }
+#Import ".\FUNCFLAGS.ahk" { FUNCFLAGS }
+#Import ".\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\Ole\PARAMFLAGS.ahk" { PARAMFLAGS }
+#Import "..\Ole\PARAMDESC.ahk" { PARAMDESC }
+#Import "..\Ole\PARAMDESCEX.ahk" { PARAMDESCEX }
+#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
+#Import ".\CALLCONV.ahk" { CALLCONV }
+#Import ".\IDLDESC.ahk" { IDLDESC }
 
 /**
  * Describes a function. (FUNCDESC)
@@ -46,119 +45,67 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-funcdesc
  * @namespace Windows.Win32.System.Com
  */
-class FUNCDESC extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct FUNCDESC {
+    #StructPack 8
 
     /**
      * The function member ID.
-     * @type {Integer}
      */
-    memid {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    memid : Int32
 
     /**
      * The status code.
-     * @type {Pointer<Integer>}
      */
-    lprgscode {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lprgscode : IntPtr
 
     /**
      * Description of the element.
-     * @type {Pointer<ELEMDESC>}
      */
-    lprgelemdescParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lprgelemdescParam : ELEMDESC.Ptr
 
     /**
      * Indicates the type of function (virtual, static, or dispatch-only).
-     * @type {FUNCKIND}
      */
-    funckind {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    funckind : FUNCKIND
 
     /**
      * The invocation type. Indicates whether this is a property function, and if so, which type.
-     * @type {INVOKEKIND}
      */
-    invkind {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    invkind : INVOKEKIND
 
     /**
      * The calling convention.
-     * @type {CALLCONV}
      */
-    callconv {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    callconv : CALLCONV
 
     /**
      * The total number of parameters.
-     * @type {Integer}
      */
-    cParams {
-        get => NumGet(this, 36, "short")
-        set => NumPut("short", value, this, 36)
-    }
+    cParams : Int16
 
     /**
      * The number of optional parameters.
-     * @type {Integer}
      */
-    cParamsOpt {
-        get => NumGet(this, 38, "short")
-        set => NumPut("short", value, this, 38)
-    }
+    cParamsOpt : Int16
 
     /**
      * For FUNC_VIRTUAL, specifies the offset in the VTBL.
-     * @type {Integer}
      */
-    oVft {
-        get => NumGet(this, 40, "short")
-        set => NumPut("short", value, this, 40)
-    }
+    oVft : Int16
 
     /**
      * The number of possible return values.
-     * @type {Integer}
      */
-    cScodes {
-        get => NumGet(this, 42, "short")
-        set => NumPut("short", value, this, 42)
-    }
+    cScodes : Int16
 
     /**
      * The function return type.
-     * @type {ELEMDESC}
      */
-    elemdescFunc {
-        get {
-            if(!this.HasProp("__elemdescFunc"))
-                this.__elemdescFunc := ELEMDESC(48, this)
-            return this.__elemdescFunc
-        }
-    }
+    elemdescFunc : ELEMDESC
 
     /**
      * The function flags. See <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-funcflags">FUNCFLAGS</a>.
-     * @type {FUNCFLAGS}
      */
-    wFuncFlags {
-        get => NumGet(this, 80, "ushort")
-        set => NumPut("ushort", value, this, 80)
-    }
+    wFuncFlags : FUNCFLAGS
+
 }

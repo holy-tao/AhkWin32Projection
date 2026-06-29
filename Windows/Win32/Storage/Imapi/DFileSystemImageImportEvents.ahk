@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
 
 /**
  * Use this interface to receives notifications regarding the current file system import operation.
@@ -10,32 +13,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-dfilesystemimageimportevents
  * @namespace Windows.Win32.Storage.Imapi
  */
-class DFileSystemImageImportEvents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct DFileSystemImageImportEvents extends IDispatch {
     /**
      * The interface identifier for DFileSystemImageImportEvents
      * @type {Guid}
      */
-    static IID => Guid("{d25c30f9-4087-4366-9e24-e55be286424b}")
+    static IID := Guid("{d25c30f9-4087-4366-9e24-e55be286424b}")
 
     /**
      * The class identifier for DFileSystemImageImportEvents
      * @type {Guid}
      */
-    static CLSID => Guid("{d25c30f9-4087-4366-9e24-e55be286424b}")
+    static CLSID := Guid("{d25c30f9-4087-4366-9e24-e55be286424b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for DFileSystemImageImportEvents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        UpdateImport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateImport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := DFileSystemImageImportEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Receives import notification for every file and directory item imported from an optical medium.
@@ -74,7 +84,27 @@ class DFileSystemImageImportEvents extends IDispatch {
     UpdateImport(_object, fileSystem, currentItem, importedDirectoryItems, totalDirectoryItems, importedFileItems, totalFileItems) {
         currentItem := currentItem is String ? BSTR.Alloc(currentItem).Value : currentItem
 
-        result := ComCall(7, this, "ptr", _object, "int", fileSystem, "ptr", currentItem, "int", importedDirectoryItems, "int", totalDirectoryItems, "int", importedFileItems, "int", totalFileItems, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, FsiFileSystems, fileSystem, BSTR, currentItem, "int", importedDirectoryItems, "int", totalDirectoryItems, "int", importedFileItems, "int", totalFileItems, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (DFileSystemImageImportEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateImport := CallbackCreate(GetMethod(implObj, "UpdateImport"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateImport)
     }
 }

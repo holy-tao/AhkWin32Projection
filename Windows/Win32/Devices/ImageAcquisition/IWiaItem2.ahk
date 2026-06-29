@@ -1,11 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumWiaItem2.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumWIA_DEV_CAPS.ahk
-#Include .\IWiaPreview.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IEnumWIA_DEV_CAPS.ahk" { IEnumWIA_DEV_CAPS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWiaPreview.ahk" { IWiaPreview }
+#Import ".\IEnumWiaItem2.ahk" { IEnumWiaItem2 }
 
 /**
  * The IWiaItem2 interface provides applications with the same functionality as the IWiaItem interface (the ability to query devices to discover their capabilities, to access data transfer interfaces and item properties, and to control the device).
@@ -29,26 +32,48 @@
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaItem2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaItem2 extends IUnknown {
     /**
      * The interface identifier for IWiaItem2
      * @type {Guid}
      */
-    static IID => Guid("{6cba0075-1287-407d-9b77-cf0e030435cc}")
+    static IID := Guid("{6cba0075-1287-407d-9b77-cf0e030435cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaItem2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateChildItem        : IntPtr
+        DeleteItem             : IntPtr
+        EnumChildItems         : IntPtr
+        FindItemByName         : IntPtr
+        GetItemCategory        : IntPtr
+        GetItemType            : IntPtr
+        DeviceDlg              : IntPtr
+        DeviceCommand          : IntPtr
+        EnumDeviceCapabilities : IntPtr
+        CheckExtension         : IntPtr
+        GetExtension           : IntPtr
+        GetParentItem          : IntPtr
+        GetRootItem            : IntPtr
+        GetPreviewComponent    : IntPtr
+        EnumRegisterEventInfo  : IntPtr
+        Diagnostic             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateChildItem", "DeleteItem", "EnumChildItems", "FindItemByName", "GetItemCategory", "GetItemType", "DeviceDlg", "DeviceCommand", "EnumDeviceCapabilities", "CheckExtension", "GetExtension", "GetParentItem", "GetRootItem", "GetPreviewComponent", "EnumRegisterEventInfo", "Diagnostic"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaItem2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Create a new child item. Adds IWiaItem2 objects to a device's IWiaItem2 tree.
@@ -93,7 +118,7 @@ class IWiaItem2 extends IUnknown {
     CreateChildItem(lItemFlags, lCreationFlags, bstrItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(3, this, "int", lItemFlags, "int", lCreationFlags, "ptr", bstrItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        result := ComCall(3, this, "int", lItemFlags, "int", lCreationFlags, BSTR, bstrItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
         return IWiaItem2(ppIWiaItem2)
     }
 
@@ -133,7 +158,7 @@ class IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumchilditems
      */
     EnumChildItems(pCategoryGUID) {
-        result := ComCall(5, this, "ptr", pCategoryGUID, "ptr*", &ppIEnumWiaItem2 := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pCategoryGUID, "ptr*", &ppIEnumWiaItem2 := 0, "HRESULT")
         return IEnumWiaItem2(ppIEnumWiaItem2)
     }
 
@@ -157,7 +182,7 @@ class IWiaItem2 extends IUnknown {
     FindItemByName(lFlags, bstrFullItemName) {
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(6, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        result := ComCall(6, this, "int", lFlags, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
         return IWiaItem2(ppIWiaItem2)
     }
 
@@ -172,7 +197,7 @@ class IWiaItem2 extends IUnknown {
      */
     GetItemCategory() {
         pItemCategoryGUID := Guid()
-        result := ComCall(7, this, "ptr", pItemCategoryGUID, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pItemCategoryGUID, "HRESULT")
         return pItemCategoryGUID
     }
 
@@ -225,14 +250,13 @@ class IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-devicedlg
      */
     DeviceDlg(lFlags, hwndParent, bstrFolderName, bstrFilename, plNumFiles, ppbstrFilePaths, ppItem) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         bstrFolderName := bstrFolderName is String ? BSTR.Alloc(bstrFolderName).Value : bstrFolderName
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
         plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
         ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "int", lFlags, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
+        result := ComCall(9, this, "int", lFlags, HWND, hwndParent, BSTR, bstrFolderName, BSTR, bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, IWiaItem2.Ptr, ppItem, "HRESULT")
         return result
     }
 
@@ -265,7 +289,7 @@ class IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-devicecommand
      */
     DeviceCommand(lFlags, pCmdGUID, ppIWiaItem2) {
-        result := ComCall(10, this, "int", lFlags, "ptr", pCmdGUID, "ptr*", ppIWiaItem2, "HRESULT")
+        result := ComCall(10, this, "int", lFlags, Guid.Ptr, pCmdGUID, IWiaItem2.Ptr, ppIWiaItem2, "HRESULT")
         return result
     }
 
@@ -357,7 +381,7 @@ class IWiaItem2 extends IUnknown {
 
         pbExtensionExistsMarshal := pbExtensionExists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, pbExtensionExistsMarshal, pbExtensionExists, "HRESULT")
+        result := ComCall(12, this, "int", lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, pbExtensionExistsMarshal, pbExtensionExists, "HRESULT")
         return result
     }
 
@@ -398,7 +422,7 @@ class IWiaItem2 extends IUnknown {
 
         ppOutMarshal := ppOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
+        result := ComCall(13, this, "int", lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
         return result
     }
 
@@ -471,7 +495,7 @@ class IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumregistereventinfo
      */
     EnumRegisterEventInfo(lFlags, pEventGUID) {
-        result := ComCall(17, this, "int", lFlags, "ptr", pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(17, this, "int", lFlags, Guid.Ptr, pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
         return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
@@ -487,5 +511,55 @@ class IWiaItem2 extends IUnknown {
 
         result := ComCall(18, this, "uint", ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaItem2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateChildItem := CallbackCreate(GetMethod(implObj, "CreateChildItem"), flags, 5)
+        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 2)
+        this.vtbl.EnumChildItems := CallbackCreate(GetMethod(implObj, "EnumChildItems"), flags, 3)
+        this.vtbl.FindItemByName := CallbackCreate(GetMethod(implObj, "FindItemByName"), flags, 4)
+        this.vtbl.GetItemCategory := CallbackCreate(GetMethod(implObj, "GetItemCategory"), flags, 2)
+        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 2)
+        this.vtbl.DeviceDlg := CallbackCreate(GetMethod(implObj, "DeviceDlg"), flags, 8)
+        this.vtbl.DeviceCommand := CallbackCreate(GetMethod(implObj, "DeviceCommand"), flags, 4)
+        this.vtbl.EnumDeviceCapabilities := CallbackCreate(GetMethod(implObj, "EnumDeviceCapabilities"), flags, 3)
+        this.vtbl.CheckExtension := CallbackCreate(GetMethod(implObj, "CheckExtension"), flags, 5)
+        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 5)
+        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 2)
+        this.vtbl.GetRootItem := CallbackCreate(GetMethod(implObj, "GetRootItem"), flags, 2)
+        this.vtbl.GetPreviewComponent := CallbackCreate(GetMethod(implObj, "GetPreviewComponent"), flags, 3)
+        this.vtbl.EnumRegisterEventInfo := CallbackCreate(GetMethod(implObj, "EnumRegisterEventInfo"), flags, 4)
+        this.vtbl.Diagnostic := CallbackCreate(GetMethod(implObj, "Diagnostic"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateChildItem)
+        CallbackFree(this.vtbl.DeleteItem)
+        CallbackFree(this.vtbl.EnumChildItems)
+        CallbackFree(this.vtbl.FindItemByName)
+        CallbackFree(this.vtbl.GetItemCategory)
+        CallbackFree(this.vtbl.GetItemType)
+        CallbackFree(this.vtbl.DeviceDlg)
+        CallbackFree(this.vtbl.DeviceCommand)
+        CallbackFree(this.vtbl.EnumDeviceCapabilities)
+        CallbackFree(this.vtbl.CheckExtension)
+        CallbackFree(this.vtbl.GetExtension)
+        CallbackFree(this.vtbl.GetParentItem)
+        CallbackFree(this.vtbl.GetRootItem)
+        CallbackFree(this.vtbl.GetPreviewComponent)
+        CallbackFree(this.vtbl.EnumRegisterEventInfo)
+        CallbackFree(this.vtbl.Diagnostic)
     }
 }

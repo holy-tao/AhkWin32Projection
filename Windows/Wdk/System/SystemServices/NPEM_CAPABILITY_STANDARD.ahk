@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class NPEM_CAPABILITY_STANDARD extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NPEM_CAPABILITY_STANDARD {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -24,12 +21,9 @@ class NPEM_CAPABILITY_STANDARD extends Win32Struct {
      * - InvalidDeviceTypeCapable
      * - DisabledCapable
      * - Rsvd
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -134,12 +128,8 @@ class NPEM_CAPABILITY_STANDARD extends Win32Struct {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

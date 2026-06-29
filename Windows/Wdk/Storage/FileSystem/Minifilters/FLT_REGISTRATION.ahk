@@ -1,141 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\FLT_CONTEXT_REGISTRATION.ahk
-#Include .\FLT_OPERATION_REGISTRATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FLT_OPERATION_REGISTRATION.ahk" { FLT_OPERATION_REGISTRATION }
+#Import ".\FLT_CONTEXT_REGISTRATION.ahk" { FLT_CONTEXT_REGISTRATION }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_REGISTRATION extends Win32Struct {
-    static sizeof => 112
+export default struct FLT_REGISTRATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ContextRegistration : FLT_CONTEXT_REGISTRATION.Ptr
 
-    /**
-     * @type {Pointer<FLT_CONTEXT_REGISTRATION>}
-     */
-    ContextRegistration {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OperationRegistration : FLT_OPERATION_REGISTRATION.Ptr
 
-    /**
-     * @type {Pointer<FLT_OPERATION_REGISTRATION>}
-     */
-    OperationRegistration {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    FilterUnloadCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_FILTER_UNLOAD_CALLBACK>}
-     */
-    FilterUnloadCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InstanceSetupCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_INSTANCE_SETUP_CALLBACK>}
-     */
-    InstanceSetupCallback {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    InstanceQueryTeardownCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_INSTANCE_QUERY_TEARDOWN_CALLBACK>}
-     */
-    InstanceQueryTeardownCallback {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    InstanceTeardownStartCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_INSTANCE_TEARDOWN_CALLBACK>}
-     */
-    InstanceTeardownStartCallback {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    InstanceTeardownCompleteCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_INSTANCE_TEARDOWN_CALLBACK>}
-     */
-    InstanceTeardownCompleteCallback {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    GenerateFileNameCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_GENERATE_FILE_NAME>}
-     */
-    GenerateFileNameCallback {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    NormalizeNameComponentCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_NORMALIZE_NAME_COMPONENT>}
-     */
-    NormalizeNameComponentCallback {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    NormalizeContextCleanupCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_NORMALIZE_CONTEXT_CLEANUP>}
-     */
-    NormalizeContextCleanupCallback {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    TransactionNotificationCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_TRANSACTION_NOTIFICATION_CALLBACK>}
-     */
-    TransactionNotificationCallback {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    NormalizeNameComponentExCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_NORMALIZE_NAME_COMPONENT_EX>}
-     */
-    NormalizeNameComponentExCallback {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    SectionNotificationCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK>}
-     */
-    SectionNotificationCallback {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
 }

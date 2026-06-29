@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STREAMING_CONTROL_REQUEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STREAMING_CONTROL_REQUEST_TYPE.ahk" { STREAMING_CONTROL_REQUEST_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_STREAMING_CONTROL extends Win32Struct {
-    static sizeof => 4
+export default struct CDROM_STREAMING_CONTROL {
+    #StructPack 4
 
-    static packingSize => 4
+    RequestType : STREAMING_CONTROL_REQUEST_TYPE
 
-    /**
-     * @type {STREAMING_CONTROL_REQUEST_TYPE}
-     */
-    RequestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

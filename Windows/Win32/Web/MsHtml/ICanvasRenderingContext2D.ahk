@@ -1,44 +1,117 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLCanvasElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ICanvasGradient.ahk
-#Include .\ICanvasPattern.ahk
-#Include .\ICanvasTextMetrics.ahk
-#Include .\ICanvasImageData.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLCanvasElement.ahk" { IHTMLCanvasElement }
+#Import ".\ICanvasPattern.ahk" { ICanvasPattern }
+#Import ".\ICanvasGradient.ahk" { ICanvasGradient }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ICanvasTextMetrics.ahk" { ICanvasTextMetrics }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ICanvasImageData.ahk" { ICanvasImageData }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ICanvasRenderingContext2D extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICanvasRenderingContext2D extends IDispatch {
     /**
      * The interface identifier for ICanvasRenderingContext2D
      * @type {Guid}
      */
-    static IID => Guid("{305106ff-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305106ff-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for CanvasRenderingContext2D
      * @type {Guid}
      */
-    static CLSID => Guid("{30510700-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{30510700-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICanvasRenderingContext2D interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_canvas                   : IntPtr
+        restore                      : IntPtr
+        save                         : IntPtr
+        rotate                       : IntPtr
+        scale                        : IntPtr
+        setTransform                 : IntPtr
+        transform                    : IntPtr
+        translate                    : IntPtr
+        put_globalAlpha              : IntPtr
+        get_globalAlpha              : IntPtr
+        put_globalCompositeOperation : IntPtr
+        get_globalCompositeOperation : IntPtr
+        put_fillStyle                : IntPtr
+        get_fillStyle                : IntPtr
+        put_strokeStyle              : IntPtr
+        get_strokeStyle              : IntPtr
+        createLinearGradient         : IntPtr
+        createRadialGradient         : IntPtr
+        createPattern                : IntPtr
+        put_lineCap                  : IntPtr
+        get_lineCap                  : IntPtr
+        put_lineJoin                 : IntPtr
+        get_lineJoin                 : IntPtr
+        put_lineWidth                : IntPtr
+        get_lineWidth                : IntPtr
+        put_miterLimit               : IntPtr
+        get_miterLimit               : IntPtr
+        put_shadowBlur               : IntPtr
+        get_shadowBlur               : IntPtr
+        put_shadowColor              : IntPtr
+        get_shadowColor              : IntPtr
+        put_shadowOffsetX            : IntPtr
+        get_shadowOffsetX            : IntPtr
+        put_shadowOffsetY            : IntPtr
+        get_shadowOffsetY            : IntPtr
+        clearRect                    : IntPtr
+        fillRect                     : IntPtr
+        strokeRect                   : IntPtr
+        arc                          : IntPtr
+        arcTo                        : IntPtr
+        beginPath                    : IntPtr
+        bezierCurveTo                : IntPtr
+        clip                         : IntPtr
+        closePath                    : IntPtr
+        fill                         : IntPtr
+        lineTo                       : IntPtr
+        moveTo                       : IntPtr
+        quadraticCurveTo             : IntPtr
+        rect                         : IntPtr
+        stroke                       : IntPtr
+        isPointInPath                : IntPtr
+        put_font                     : IntPtr
+        get_font                     : IntPtr
+        put_textAlign                : IntPtr
+        get_textAlign                : IntPtr
+        put_textBaseline             : IntPtr
+        get_textBaseline             : IntPtr
+        fillText                     : IntPtr
+        measureText                  : IntPtr
+        strokeText                   : IntPtr
+        drawImage                    : IntPtr
+        createImageData              : IntPtr
+        getImageData                 : IntPtr
+        putImageData                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_canvas", "restore", "save", "rotate", "scale", "setTransform", "transform", "translate", "put_globalAlpha", "get_globalAlpha", "put_globalCompositeOperation", "get_globalCompositeOperation", "put_fillStyle", "get_fillStyle", "put_strokeStyle", "get_strokeStyle", "createLinearGradient", "createRadialGradient", "createPattern", "put_lineCap", "get_lineCap", "put_lineJoin", "get_lineJoin", "put_lineWidth", "get_lineWidth", "put_miterLimit", "get_miterLimit", "put_shadowBlur", "get_shadowBlur", "put_shadowColor", "get_shadowColor", "put_shadowOffsetX", "get_shadowOffsetX", "put_shadowOffsetY", "get_shadowOffsetY", "clearRect", "fillRect", "strokeRect", "arc", "arcTo", "beginPath", "bezierCurveTo", "clip", "closePath", "fill", "lineTo", "moveTo", "quadraticCurveTo", "rect", "stroke", "isPointInPath", "put_font", "get_font", "put_textAlign", "get_textAlign", "put_textBaseline", "get_textBaseline", "fillText", "measureText", "strokeText", "drawImage", "createImageData", "getImageData", "putImageData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICanvasRenderingContext2D.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IHTMLCanvasElement} 
@@ -360,7 +433,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_globalCompositeOperation(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -369,8 +442,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_globalCompositeOperation() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -380,7 +453,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_fillStyle(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -390,7 +463,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      */
     get_fillStyle() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -400,7 +473,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_strokeStyle(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -410,7 +483,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      */
     get_strokeStyle() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -449,7 +522,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {ICanvasPattern} 
      */
     createPattern(_image, repetition) {
-        result := ComCall(25, this, "ptr", _image, "ptr", repetition, "ptr*", &ppCanvasPattern := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", _image, VARIANT, repetition, "ptr*", &ppCanvasPattern := 0, "HRESULT")
         return ICanvasPattern(ppCanvasPattern)
     }
 
@@ -461,7 +534,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_lineCap(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(26, this, "ptr", v, "HRESULT")
+        result := ComCall(26, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -470,8 +543,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_lineCap() {
-        p := BSTR()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -483,7 +556,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_lineJoin(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(28, this, "ptr", v, "HRESULT")
+        result := ComCall(28, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -492,8 +565,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_lineJoin() {
-        p := BSTR()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -562,7 +635,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_shadowColor(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(36, this, "ptr", v, "HRESULT")
+        result := ComCall(36, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -571,8 +644,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_shadowColor() {
-        p := BSTR()
-        result := ComCall(37, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -664,7 +737,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     arc(x, y, radius, startAngle, endAngle, anticlockwise) {
-        result := ComCall(45, this, "float", x, "float", y, "float", radius, "float", startAngle, "float", endAngle, "int", anticlockwise, "HRESULT")
+        result := ComCall(45, this, "float", x, "float", y, "float", radius, "float", startAngle, "float", endAngle, BOOL, anticlockwise, "HRESULT")
         return result
     }
 
@@ -816,7 +889,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     isPointInPath(x, y) {
-        result := ComCall(57, this, "float", x, "float", y, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(57, this, "float", x, "float", y, VARIANT_BOOL.Ptr, &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -828,7 +901,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_font(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(58, this, "ptr", v, "HRESULT")
+        result := ComCall(58, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -837,8 +910,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_font() {
-        p := BSTR()
-        result := ComCall(59, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(59, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -850,7 +923,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_textAlign(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(60, this, "ptr", v, "HRESULT")
+        result := ComCall(60, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -859,8 +932,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlign() {
-        p := BSTR()
-        result := ComCall(61, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(61, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -872,7 +945,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     put_textBaseline(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(62, this, "ptr", v, "HRESULT")
+        result := ComCall(62, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -881,8 +954,8 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_textBaseline() {
-        p := BSTR()
-        result := ComCall(63, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(63, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -897,7 +970,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     fillText(text, x, y, maxWidth) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(64, this, "ptr", text, "float", x, "float", y, "ptr", maxWidth, "HRESULT")
+        result := ComCall(64, this, BSTR, text, "float", x, "float", y, VARIANT, maxWidth, "HRESULT")
         return result
     }
 
@@ -909,7 +982,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     measureText(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(65, this, "ptr", text, "ptr*", &ppCanvasTextMetrics := 0, "HRESULT")
+        result := ComCall(65, this, BSTR, text, "ptr*", &ppCanvasTextMetrics := 0, "HRESULT")
         return ICanvasTextMetrics(ppCanvasTextMetrics)
     }
 
@@ -924,7 +997,7 @@ class ICanvasRenderingContext2D extends IDispatch {
     strokeText(text, x, y, maxWidth) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(66, this, "ptr", text, "float", x, "float", y, "ptr", maxWidth, "HRESULT")
+        result := ComCall(66, this, BSTR, text, "float", x, "float", y, VARIANT, maxWidth, "HRESULT")
         return result
     }
 
@@ -942,7 +1015,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     drawImage(pSrc, a1, a2, a3, a4, a5, a6, a7, a8) {
-        result := ComCall(67, this, "ptr", pSrc, "ptr", a1, "ptr", a2, "ptr", a3, "ptr", a4, "ptr", a5, "ptr", a6, "ptr", a7, "ptr", a8, "HRESULT")
+        result := ComCall(67, this, "ptr", pSrc, VARIANT, a1, VARIANT, a2, VARIANT, a3, VARIANT, a4, VARIANT, a5, VARIANT, a6, VARIANT, a7, VARIANT, a8, "HRESULT")
         return result
     }
 
@@ -953,7 +1026,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {ICanvasImageData} 
      */
     createImageData(a1, a2) {
-        result := ComCall(68, this, "ptr", a1, "ptr", a2, "ptr*", &ppCanvasImageData := 0, "HRESULT")
+        result := ComCall(68, this, VARIANT, a1, VARIANT, a2, "ptr*", &ppCanvasImageData := 0, "HRESULT")
         return ICanvasImageData(ppCanvasImageData)
     }
 
@@ -982,7 +1055,153 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight) {
-        result := ComCall(70, this, "ptr", imagedata, "float", dx, "float", dy, "ptr", dirtyX, "ptr", dirtyY, "ptr", dirtyWidth, "ptr", dirtyHeight, "HRESULT")
+        result := ComCall(70, this, "ptr", imagedata, "float", dx, "float", dy, VARIANT, dirtyX, VARIANT, dirtyY, VARIANT, dirtyWidth, VARIANT, dirtyHeight, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICanvasRenderingContext2D.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_canvas := CallbackCreate(GetMethod(implObj, "get_canvas"), flags, 2)
+        this.vtbl.restore := CallbackCreate(GetMethod(implObj, "restore"), flags, 1)
+        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 1)
+        this.vtbl.rotate := CallbackCreate(GetMethod(implObj, "rotate"), flags, 2)
+        this.vtbl.scale := CallbackCreate(GetMethod(implObj, "scale"), flags, 3)
+        this.vtbl.setTransform := CallbackCreate(GetMethod(implObj, "setTransform"), flags, 7)
+        this.vtbl.transform := CallbackCreate(GetMethod(implObj, "transform"), flags, 7)
+        this.vtbl.translate := CallbackCreate(GetMethod(implObj, "translate"), flags, 3)
+        this.vtbl.put_globalAlpha := CallbackCreate(GetMethod(implObj, "put_globalAlpha"), flags, 2)
+        this.vtbl.get_globalAlpha := CallbackCreate(GetMethod(implObj, "get_globalAlpha"), flags, 2)
+        this.vtbl.put_globalCompositeOperation := CallbackCreate(GetMethod(implObj, "put_globalCompositeOperation"), flags, 2)
+        this.vtbl.get_globalCompositeOperation := CallbackCreate(GetMethod(implObj, "get_globalCompositeOperation"), flags, 2)
+        this.vtbl.put_fillStyle := CallbackCreate(GetMethod(implObj, "put_fillStyle"), flags, 2)
+        this.vtbl.get_fillStyle := CallbackCreate(GetMethod(implObj, "get_fillStyle"), flags, 2)
+        this.vtbl.put_strokeStyle := CallbackCreate(GetMethod(implObj, "put_strokeStyle"), flags, 2)
+        this.vtbl.get_strokeStyle := CallbackCreate(GetMethod(implObj, "get_strokeStyle"), flags, 2)
+        this.vtbl.createLinearGradient := CallbackCreate(GetMethod(implObj, "createLinearGradient"), flags, 6)
+        this.vtbl.createRadialGradient := CallbackCreate(GetMethod(implObj, "createRadialGradient"), flags, 8)
+        this.vtbl.createPattern := CallbackCreate(GetMethod(implObj, "createPattern"), flags, 4)
+        this.vtbl.put_lineCap := CallbackCreate(GetMethod(implObj, "put_lineCap"), flags, 2)
+        this.vtbl.get_lineCap := CallbackCreate(GetMethod(implObj, "get_lineCap"), flags, 2)
+        this.vtbl.put_lineJoin := CallbackCreate(GetMethod(implObj, "put_lineJoin"), flags, 2)
+        this.vtbl.get_lineJoin := CallbackCreate(GetMethod(implObj, "get_lineJoin"), flags, 2)
+        this.vtbl.put_lineWidth := CallbackCreate(GetMethod(implObj, "put_lineWidth"), flags, 2)
+        this.vtbl.get_lineWidth := CallbackCreate(GetMethod(implObj, "get_lineWidth"), flags, 2)
+        this.vtbl.put_miterLimit := CallbackCreate(GetMethod(implObj, "put_miterLimit"), flags, 2)
+        this.vtbl.get_miterLimit := CallbackCreate(GetMethod(implObj, "get_miterLimit"), flags, 2)
+        this.vtbl.put_shadowBlur := CallbackCreate(GetMethod(implObj, "put_shadowBlur"), flags, 2)
+        this.vtbl.get_shadowBlur := CallbackCreate(GetMethod(implObj, "get_shadowBlur"), flags, 2)
+        this.vtbl.put_shadowColor := CallbackCreate(GetMethod(implObj, "put_shadowColor"), flags, 2)
+        this.vtbl.get_shadowColor := CallbackCreate(GetMethod(implObj, "get_shadowColor"), flags, 2)
+        this.vtbl.put_shadowOffsetX := CallbackCreate(GetMethod(implObj, "put_shadowOffsetX"), flags, 2)
+        this.vtbl.get_shadowOffsetX := CallbackCreate(GetMethod(implObj, "get_shadowOffsetX"), flags, 2)
+        this.vtbl.put_shadowOffsetY := CallbackCreate(GetMethod(implObj, "put_shadowOffsetY"), flags, 2)
+        this.vtbl.get_shadowOffsetY := CallbackCreate(GetMethod(implObj, "get_shadowOffsetY"), flags, 2)
+        this.vtbl.clearRect := CallbackCreate(GetMethod(implObj, "clearRect"), flags, 5)
+        this.vtbl.fillRect := CallbackCreate(GetMethod(implObj, "fillRect"), flags, 5)
+        this.vtbl.strokeRect := CallbackCreate(GetMethod(implObj, "strokeRect"), flags, 5)
+        this.vtbl.arc := CallbackCreate(GetMethod(implObj, "arc"), flags, 7)
+        this.vtbl.arcTo := CallbackCreate(GetMethod(implObj, "arcTo"), flags, 6)
+        this.vtbl.beginPath := CallbackCreate(GetMethod(implObj, "beginPath"), flags, 1)
+        this.vtbl.bezierCurveTo := CallbackCreate(GetMethod(implObj, "bezierCurveTo"), flags, 7)
+        this.vtbl.clip := CallbackCreate(GetMethod(implObj, "clip"), flags, 1)
+        this.vtbl.closePath := CallbackCreate(GetMethod(implObj, "closePath"), flags, 1)
+        this.vtbl.fill := CallbackCreate(GetMethod(implObj, "fill"), flags, 1)
+        this.vtbl.lineTo := CallbackCreate(GetMethod(implObj, "lineTo"), flags, 3)
+        this.vtbl.moveTo := CallbackCreate(GetMethod(implObj, "moveTo"), flags, 3)
+        this.vtbl.quadraticCurveTo := CallbackCreate(GetMethod(implObj, "quadraticCurveTo"), flags, 5)
+        this.vtbl.rect := CallbackCreate(GetMethod(implObj, "rect"), flags, 5)
+        this.vtbl.stroke := CallbackCreate(GetMethod(implObj, "stroke"), flags, 1)
+        this.vtbl.isPointInPath := CallbackCreate(GetMethod(implObj, "isPointInPath"), flags, 4)
+        this.vtbl.put_font := CallbackCreate(GetMethod(implObj, "put_font"), flags, 2)
+        this.vtbl.get_font := CallbackCreate(GetMethod(implObj, "get_font"), flags, 2)
+        this.vtbl.put_textAlign := CallbackCreate(GetMethod(implObj, "put_textAlign"), flags, 2)
+        this.vtbl.get_textAlign := CallbackCreate(GetMethod(implObj, "get_textAlign"), flags, 2)
+        this.vtbl.put_textBaseline := CallbackCreate(GetMethod(implObj, "put_textBaseline"), flags, 2)
+        this.vtbl.get_textBaseline := CallbackCreate(GetMethod(implObj, "get_textBaseline"), flags, 2)
+        this.vtbl.fillText := CallbackCreate(GetMethod(implObj, "fillText"), flags, 5)
+        this.vtbl.measureText := CallbackCreate(GetMethod(implObj, "measureText"), flags, 3)
+        this.vtbl.strokeText := CallbackCreate(GetMethod(implObj, "strokeText"), flags, 5)
+        this.vtbl.drawImage := CallbackCreate(GetMethod(implObj, "drawImage"), flags, 10)
+        this.vtbl.createImageData := CallbackCreate(GetMethod(implObj, "createImageData"), flags, 4)
+        this.vtbl.getImageData := CallbackCreate(GetMethod(implObj, "getImageData"), flags, 6)
+        this.vtbl.putImageData := CallbackCreate(GetMethod(implObj, "putImageData"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_canvas)
+        CallbackFree(this.vtbl.restore)
+        CallbackFree(this.vtbl.save)
+        CallbackFree(this.vtbl.rotate)
+        CallbackFree(this.vtbl.scale)
+        CallbackFree(this.vtbl.setTransform)
+        CallbackFree(this.vtbl.transform)
+        CallbackFree(this.vtbl.translate)
+        CallbackFree(this.vtbl.put_globalAlpha)
+        CallbackFree(this.vtbl.get_globalAlpha)
+        CallbackFree(this.vtbl.put_globalCompositeOperation)
+        CallbackFree(this.vtbl.get_globalCompositeOperation)
+        CallbackFree(this.vtbl.put_fillStyle)
+        CallbackFree(this.vtbl.get_fillStyle)
+        CallbackFree(this.vtbl.put_strokeStyle)
+        CallbackFree(this.vtbl.get_strokeStyle)
+        CallbackFree(this.vtbl.createLinearGradient)
+        CallbackFree(this.vtbl.createRadialGradient)
+        CallbackFree(this.vtbl.createPattern)
+        CallbackFree(this.vtbl.put_lineCap)
+        CallbackFree(this.vtbl.get_lineCap)
+        CallbackFree(this.vtbl.put_lineJoin)
+        CallbackFree(this.vtbl.get_lineJoin)
+        CallbackFree(this.vtbl.put_lineWidth)
+        CallbackFree(this.vtbl.get_lineWidth)
+        CallbackFree(this.vtbl.put_miterLimit)
+        CallbackFree(this.vtbl.get_miterLimit)
+        CallbackFree(this.vtbl.put_shadowBlur)
+        CallbackFree(this.vtbl.get_shadowBlur)
+        CallbackFree(this.vtbl.put_shadowColor)
+        CallbackFree(this.vtbl.get_shadowColor)
+        CallbackFree(this.vtbl.put_shadowOffsetX)
+        CallbackFree(this.vtbl.get_shadowOffsetX)
+        CallbackFree(this.vtbl.put_shadowOffsetY)
+        CallbackFree(this.vtbl.get_shadowOffsetY)
+        CallbackFree(this.vtbl.clearRect)
+        CallbackFree(this.vtbl.fillRect)
+        CallbackFree(this.vtbl.strokeRect)
+        CallbackFree(this.vtbl.arc)
+        CallbackFree(this.vtbl.arcTo)
+        CallbackFree(this.vtbl.beginPath)
+        CallbackFree(this.vtbl.bezierCurveTo)
+        CallbackFree(this.vtbl.clip)
+        CallbackFree(this.vtbl.closePath)
+        CallbackFree(this.vtbl.fill)
+        CallbackFree(this.vtbl.lineTo)
+        CallbackFree(this.vtbl.moveTo)
+        CallbackFree(this.vtbl.quadraticCurveTo)
+        CallbackFree(this.vtbl.rect)
+        CallbackFree(this.vtbl.stroke)
+        CallbackFree(this.vtbl.isPointInPath)
+        CallbackFree(this.vtbl.put_font)
+        CallbackFree(this.vtbl.get_font)
+        CallbackFree(this.vtbl.put_textAlign)
+        CallbackFree(this.vtbl.get_textAlign)
+        CallbackFree(this.vtbl.put_textBaseline)
+        CallbackFree(this.vtbl.get_textBaseline)
+        CallbackFree(this.vtbl.fillText)
+        CallbackFree(this.vtbl.measureText)
+        CallbackFree(this.vtbl.strokeText)
+        CallbackFree(this.vtbl.drawImage)
+        CallbackFree(this.vtbl.createImageData)
+        CallbackFree(this.vtbl.getImageData)
+        CallbackFree(this.vtbl.putImageData)
     }
 }

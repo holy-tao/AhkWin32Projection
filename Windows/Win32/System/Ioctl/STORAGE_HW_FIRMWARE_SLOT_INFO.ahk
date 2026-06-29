@@ -1,53 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure contains information about a slot on a device.
  * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-slot-info
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct STORAGE_HW_FIRMWARE_SLOT_INFO {
+    #StructPack 4
 
     /**
      * The version of this structure. This should be set to sizeof(STORAGE\_HW\_FIRMWARE\_SLOT\_INFO)
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The size of this structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * The slot number of this slot.
-     * @type {Integer}
      */
-    SlotNumber {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    SlotNumber : Int8
 
     /**
      * This bitfield backs the following members:
      * - ReadOnly
      * - Reserved0
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -64,28 +46,14 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7F
         set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
-
     /**
      * Reserved for future use.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[6]
 
     /**
      * The revision of the firmware on this slot.
-     * @type {Array<Integer>}
      */
-    Revision {
-        get {
-            if(!this.HasProp("__RevisionProxyArray"))
-                this.__RevisionProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__RevisionProxyArray
-        }
-    }
+    Revision : Int8[16]
+
 }

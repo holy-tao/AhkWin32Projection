@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL.ahk" { WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL }
 
 /**
  * This structure is used by the WdsTransportClientStartSession function.
  * @see https://learn.microsoft.com/windows/win32/api/wdstci/ns-wdstci-wds_transportclient_request
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WDS_TRANSPORTCLIENT_REQUEST {
+    #StructPack 8
 
     /**
      * The length of this structure in bytes.
-     * @type {Integer}
      */
-    ulLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulLength : UInt32
 
     /**
      * The version of the API that the caller is built against.  The multicast client may reject the request based on this value.
@@ -46,60 +40,34 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulApiVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulApiVersion : UInt32
 
-    /**
-     * @type {WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL}
-     */
-    ulAuthLevel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulAuthLevel : WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL
 
     /**
      * Server name.
-     * @type {PWSTR}
      */
-    pwszServer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszServer : PWSTR
 
     /**
      * Namespace of the object to retrieve.
-     * @type {PWSTR}
      */
-    pwszNamespace {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszNamespace : PWSTR
 
     /**
      * Specifies the name of the object to retrieve.  Object names are
      *      provider dependent.
-     * @type {PWSTR}
      */
-    pwszObjectName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwszObjectName : PWSTR
 
     /**
      * Specifies how much data in bytes the consumer can store in its queue.  Once
      *      this threshold is reached, the client will not send any more writes to
      *     the consumer until some memory is released with 
      *     WdsTransportClientCompleteWrite.
-     * @type {Integer}
      */
-    ulCacheSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulCacheSize : UInt32
 
     /**
      * Specifies the protocol to be used for this transfer.
@@ -126,28 +94,17 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulProtocol {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulProtocol : UInt32
 
     /**
      * Protocol data structure for the protocol. The structure is <b>NULL</b> for  <b>WDS_TRANSPORTCLIENT_PROTOCOL_MULTICAST</b> protocol.
-     * @type {Pointer<Void>}
      */
-    pvProtocolData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pvProtocolData : IntPtr
 
     /**
      * The length of the protocol data pointed to by <b>pvProtocolData</b>.
-     * @type {Integer}
      */
-    ulProtocolDataLength {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulProtocolDataLength : UInt32
+
 }

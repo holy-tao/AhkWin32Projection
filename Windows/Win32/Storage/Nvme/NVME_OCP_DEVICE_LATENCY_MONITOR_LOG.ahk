@@ -1,35 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LATENCY_MONITOR_FEATURE_STATUS.ahk
-#Include .\ACTIVE_LATENCY_CONFIGURATION.ahk
-#Include .\BUCKET_COUNTER.ahk
-#Include .\LATENCY_STAMP.ahk
-#Include .\MEASURED_LATENCY.ahk
-#Include .\LATENCY_STAMP_UNITS.ahk
-#Include .\DEBUG_BIT_FIELD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BUCKET_COUNTER.ahk" { BUCKET_COUNTER }
+#Import ".\LATENCY_MONITOR_FEATURE_STATUS.ahk" { LATENCY_MONITOR_FEATURE_STATUS }
+#Import ".\DEBUG_BIT_FIELD.ahk" { DEBUG_BIT_FIELD }
+#Import ".\LATENCY_STAMP_UNITS.ahk" { LATENCY_STAMP_UNITS }
+#Import ".\MEASURED_LATENCY.ahk" { MEASURED_LATENCY }
+#Import ".\LATENCY_STAMP.ahk" { LATENCY_STAMP }
+#Import ".\ACTIVE_LATENCY_CONFIGURATION.ahk" { ACTIVE_LATENCY_CONFIGURATION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct {
-    static sizeof => 512
+export default struct NVME_OCP_DEVICE_LATENCY_MONITOR_LOG {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _DebugLogStampUnits_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DebugLogStampUnits {
         /**
          * This bitfield backs the following members:
          * - BasedOnTimestamp
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -38,370 +31,82 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {LATENCY_MONITOR_FEATURE_STATUS}
-     */
-    FeatureStatus {
-        get {
-            if(!this.HasProp("__FeatureStatus"))
-                this.__FeatureStatus := LATENCY_MONITOR_FEATURE_STATUS(0, this)
-            return this.__FeatureStatus
-        }
-    }
+    FeatureStatus : LATENCY_MONITOR_FEATURE_STATUS
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveBucketTimer {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ActiveBucketTimer : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ActiveBucketTimerThreshold {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ActiveBucketTimerThreshold : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdA {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    ActiveThresholdA : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdB {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    ActiveThresholdB : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdC {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ActiveThresholdC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThresholdD {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    ActiveThresholdD : Int8
 
-    /**
-     * @type {ACTIVE_LATENCY_CONFIGURATION}
-     */
-    ActiveLatencyConfig {
-        get {
-            if(!this.HasProp("__ActiveLatencyConfig"))
-                this.__ActiveLatencyConfig := ACTIVE_LATENCY_CONFIGURATION(10, this)
-            return this.__ActiveLatencyConfig
-        }
-    }
+    ActiveLatencyConfig : ACTIVE_LATENCY_CONFIGURATION
 
-    /**
-     * @type {Integer}
-     */
-    ActiveLatencyMinimumWindow {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    ActiveLatencyMinimumWindow : Int8
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 19, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[19]
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    ActiveBucketCounter0 {
-        get {
-            if(!this.HasProp("__ActiveBucketCounter0"))
-                this.__ActiveBucketCounter0 := BUCKET_COUNTER(32, this)
-            return this.__ActiveBucketCounter0
-        }
-    }
+    ActiveBucketCounter0 : BUCKET_COUNTER
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    ActiveBucketCounter1 {
-        get {
-            if(!this.HasProp("__ActiveBucketCounter1"))
-                this.__ActiveBucketCounter1 := BUCKET_COUNTER(48, this)
-            return this.__ActiveBucketCounter1
-        }
-    }
+    ActiveBucketCounter1 : BUCKET_COUNTER
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    ActiveBucketCounter2 {
-        get {
-            if(!this.HasProp("__ActiveBucketCounter2"))
-                this.__ActiveBucketCounter2 := BUCKET_COUNTER(64, this)
-            return this.__ActiveBucketCounter2
-        }
-    }
+    ActiveBucketCounter2 : BUCKET_COUNTER
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    ActiveBucketCounter3 {
-        get {
-            if(!this.HasProp("__ActiveBucketCounter3"))
-                this.__ActiveBucketCounter3 := BUCKET_COUNTER(80, this)
-            return this.__ActiveBucketCounter3
-        }
-    }
+    ActiveBucketCounter3 : BUCKET_COUNTER
 
-    /**
-     * @type {LATENCY_STAMP}
-     */
-    ActiveLatencyStamp {
-        get {
-            if(!this.HasProp("__ActiveLatencyStamp"))
-                this.__ActiveLatencyStamp := LATENCY_STAMP(96, this)
-            return this.__ActiveLatencyStamp
-        }
-    }
+    ActiveLatencyStamp : LATENCY_STAMP
 
-    /**
-     * @type {MEASURED_LATENCY}
-     */
-    ActiveMeasuredLatency {
-        get {
-            if(!this.HasProp("__ActiveMeasuredLatency"))
-                this.__ActiveMeasuredLatency := MEASURED_LATENCY(192, this)
-            return this.__ActiveMeasuredLatency
-        }
-    }
+    ActiveMeasuredLatency : MEASURED_LATENCY
 
-    /**
-     * @type {LATENCY_STAMP_UNITS}
-     */
-    ActiveLatencyStampUnits {
-        get {
-            if(!this.HasProp("__ActiveLatencyStampUnits"))
-                this.__ActiveLatencyStampUnits := LATENCY_STAMP_UNITS(216, this)
-            return this.__ActiveLatencyStampUnits
-        }
-    }
+    ActiveLatencyStampUnits : LATENCY_STAMP_UNITS
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 218, 22, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[22]
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    StaticBucketCounter0 {
-        get {
-            if(!this.HasProp("__StaticBucketCounter0"))
-                this.__StaticBucketCounter0 := BUCKET_COUNTER(240, this)
-            return this.__StaticBucketCounter0
-        }
-    }
+    StaticBucketCounter0 : BUCKET_COUNTER
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    StaticBucketCounter1 {
-        get {
-            if(!this.HasProp("__StaticBucketCounter1"))
-                this.__StaticBucketCounter1 := BUCKET_COUNTER(256, this)
-            return this.__StaticBucketCounter1
-        }
-    }
+    StaticBucketCounter1 : BUCKET_COUNTER
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    StaticBucketCounter2 {
-        get {
-            if(!this.HasProp("__StaticBucketCounter2"))
-                this.__StaticBucketCounter2 := BUCKET_COUNTER(272, this)
-            return this.__StaticBucketCounter2
-        }
-    }
+    StaticBucketCounter2 : BUCKET_COUNTER
 
-    /**
-     * @type {BUCKET_COUNTER}
-     */
-    StaticBucketCounter3 {
-        get {
-            if(!this.HasProp("__StaticBucketCounter3"))
-                this.__StaticBucketCounter3 := BUCKET_COUNTER(288, this)
-            return this.__StaticBucketCounter3
-        }
-    }
+    StaticBucketCounter3 : BUCKET_COUNTER
 
-    /**
-     * @type {LATENCY_STAMP}
-     */
-    StaticLatencyStamp {
-        get {
-            if(!this.HasProp("__StaticLatencyStamp"))
-                this.__StaticLatencyStamp := LATENCY_STAMP(304, this)
-            return this.__StaticLatencyStamp
-        }
-    }
+    StaticLatencyStamp : LATENCY_STAMP
 
-    /**
-     * @type {MEASURED_LATENCY}
-     */
-    StaticMeasuredLatency {
-        get {
-            if(!this.HasProp("__StaticMeasuredLatency"))
-                this.__StaticMeasuredLatency := MEASURED_LATENCY(400, this)
-            return this.__StaticMeasuredLatency
-        }
-    }
+    StaticMeasuredLatency : MEASURED_LATENCY
 
-    /**
-     * @type {LATENCY_STAMP_UNITS}
-     */
-    StaticLatencyStampUnits {
-        get {
-            if(!this.HasProp("__StaticLatencyStampUnits"))
-                this.__StaticLatencyStampUnits := LATENCY_STAMP_UNITS(424, this)
-            return this.__StaticLatencyStampUnits
-        }
-    }
+    StaticLatencyStampUnits : LATENCY_STAMP_UNITS
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 426, 22, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : Int8[22]
 
-    /**
-     * @type {DEBUG_BIT_FIELD}
-     */
-    DebugLogTriggerEnable {
-        get {
-            if(!this.HasProp("__DebugLogTriggerEnable"))
-                this.__DebugLogTriggerEnable := DEBUG_BIT_FIELD(448, this)
-            return this.__DebugLogTriggerEnable
-        }
-    }
+    DebugLogTriggerEnable : DEBUG_BIT_FIELD
 
-    /**
-     * @type {Integer}
-     */
-    DebugLogMeasuredLatency {
-        get => NumGet(this, 450, "ushort")
-        set => NumPut("ushort", value, this, 450)
-    }
+    DebugLogMeasuredLatency : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DebugLogLatencyStamp {
-        get => NumGet(this, 456, "uint")
-        set => NumPut("uint", value, this, 456)
-    }
+    DebugLogLatencyStamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DebugLogPointer {
-        get => NumGet(this, 464, "ushort")
-        set => NumPut("ushort", value, this, 464)
-    }
+    DebugLogPointer : UInt16
 
-    /**
-     * @type {DEBUG_BIT_FIELD}
-     */
-    DebugCounterTriggerSource {
-        get {
-            if(!this.HasProp("__DebugCounterTriggerSource"))
-                this.__DebugCounterTriggerSource := DEBUG_BIT_FIELD(466, this)
-            return this.__DebugCounterTriggerSource
-        }
-    }
+    DebugCounterTriggerSource : DEBUG_BIT_FIELD
 
-    /**
-     * @type {_DebugLogStampUnits_e__Union}
-     */
-    DebugLogStampUnits {
-        get {
-            if(!this.HasProp("__DebugLogStampUnits"))
-                this.__DebugLogStampUnits := NVME_OCP_DEVICE_LATENCY_MONITOR_LOG._DebugLogStampUnits_e__Union(468, this)
-            return this.__DebugLogStampUnits
-        }
-    }
+    DebugLogStampUnits : NVME_OCP_DEVICE_LATENCY_MONITOR_LOG._DebugLogStampUnits
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved4 {
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 469, 29, Primitive, "char")
-            return this.__Reserved4ProxyArray
-        }
-    }
+    Reserved4 : Int8[29]
 
-    /**
-     * @type {Integer}
-     */
-    LogPageVersionNumber {
-        get => NumGet(this, 498, "ushort")
-        set => NumPut("ushort", value, this, 498)
-    }
+    LogPageVersionNumber : UInt16
 
-    /**
-     * @type {Pointer}
-     */
-    LogPageGUID {
-        get => NumGet(this, 504, "ptr")
-        set => NumPut("ptr", value, this, 504)
-    }
+    LogPageGUID : Guid
+
 }

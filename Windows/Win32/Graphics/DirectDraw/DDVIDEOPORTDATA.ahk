@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DDVIDEOPORTDATA structure is used by DirectDraw to represent a video port extensions (VPE) object to the kernel-mode video miniport driver.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddvideoportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDVIDEOPORTDATA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct DDVIDEOPORTDATA {
+    #StructPack 4
 
     /**
      * Specifies the ID of this hardware video port, an integer in the range (0 - (maximum number of hardware video ports - 1)).
-     * @type {Integer}
      */
-    dwVideoPortId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVideoPortId : UInt32
 
     /**
      * Indicates a set of flags that specify the current user mode DDVP_<i>Xxx</i> flags set by <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_update">DdVideoPortUpdate</a>. This member can be a bitwise OR of any of the following flags:
@@ -189,64 +182,37 @@ class DDVIDEOPORTDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVPFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVPFlags : UInt32
 
     /**
      * Specifies the byte offset of the VPE object relative to the start of the surface. This value is used only by the miniport driver.
-     * @type {Integer}
      */
-    dwOriginOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwOriginOffset : UInt32
 
     /**
      * Specifies the height in pixels of the VPE object data. This value is used only by the miniport driver.
-     * @type {Integer}
      */
-    dwHeight {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwHeight : UInt32
 
     /**
      * Specifies the height in scan lines of the VBI data. This value is used only by the miniport driver.
-     * @type {Integer}
      */
-    dwVBIHeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwVBIHeight : UInt32
 
     /**
      * Reserved for use by the miniport driver.
-     * @type {Integer}
      */
-    dwDriverReserved1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwDriverReserved1 : UInt32
 
     /**
      * Reserved for use by the miniport driver.
-     * @type {Integer}
      */
-    dwDriverReserved2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwDriverReserved2 : UInt32
 
     /**
      * Reserved for use by the miniport driver.
-     * @type {Integer}
      */
-    dwDriverReserved3 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwDriverReserved3 : UInt32
+
 }

@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**
  * A matrix-variable interface accesses a matrix.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectmatrixvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
     /**
      * The interface identifier for ID3D10EffectMatrixVariable
      * @type {Guid}
      */
-    static IID => Guid("{50666c24-b82f-4eed-a172-5b6e7e8522e0}")
+    static IID := Guid("{50666c24-b82f-4eed-a172-5b6e7e8522e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectMatrixVariable interfaces
+    */
+    struct Vtbl extends ID3D10EffectVariable.Vtbl {
+        SetMatrix               : IntPtr
+        GetMatrix               : IntPtr
+        SetMatrixArray          : IntPtr
+        GetMatrixArray          : IntPtr
+        SetMatrixTranspose      : IntPtr
+        GetMatrixTranspose      : IntPtr
+        SetMatrixTransposeArray : IntPtr
+        GetMatrixTransposeArray : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMatrix", "GetMatrix", "SetMatrixArray", "GetMatrixArray", "SetMatrixTranspose", "GetMatrixTranspose", "SetMatrixTransposeArray", "GetMatrixTransposeArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectMatrixVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set a floating-point matrix.
@@ -195,5 +210,39 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
 
         result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10EffectMatrixVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.GetMatrix := CallbackCreate(GetMethod(implObj, "GetMatrix"), flags, 2)
+        this.vtbl.SetMatrixArray := CallbackCreate(GetMethod(implObj, "SetMatrixArray"), flags, 4)
+        this.vtbl.GetMatrixArray := CallbackCreate(GetMethod(implObj, "GetMatrixArray"), flags, 4)
+        this.vtbl.SetMatrixTranspose := CallbackCreate(GetMethod(implObj, "SetMatrixTranspose"), flags, 2)
+        this.vtbl.GetMatrixTranspose := CallbackCreate(GetMethod(implObj, "GetMatrixTranspose"), flags, 2)
+        this.vtbl.SetMatrixTransposeArray := CallbackCreate(GetMethod(implObj, "SetMatrixTransposeArray"), flags, 4)
+        this.vtbl.GetMatrixTransposeArray := CallbackCreate(GetMethod(implObj, "GetMatrixTransposeArray"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMatrix)
+        CallbackFree(this.vtbl.GetMatrix)
+        CallbackFree(this.vtbl.SetMatrixArray)
+        CallbackFree(this.vtbl.GetMatrixArray)
+        CallbackFree(this.vtbl.SetMatrixTranspose)
+        CallbackFree(this.vtbl.GetMatrixTranspose)
+        CallbackFree(this.vtbl.SetMatrixTransposeArray)
+        CallbackFree(this.vtbl.GetMatrixTransposeArray)
     }
 }

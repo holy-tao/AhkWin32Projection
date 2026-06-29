@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISpPhrase.ahk
-#Include .\ISpRecoContext.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASEALTREQUEST extends Win32Struct {
-    static sizeof => 48
+export default struct SPPHRASEALTREQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    ulStartElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStartElement {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cElements {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulRequestAltCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRequestAltCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pvResultExtra : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvResultExtra {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbResultExtra : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbResultExtra {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pPhrase : ISpPhrase
 
-    /**
-     * @type {ISpPhrase}
-     */
-    pPhrase {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pRecoContext : ISpRecoContext
 
-    /**
-     * @type {ISpRecoContext}
-     */
-    pRecoContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

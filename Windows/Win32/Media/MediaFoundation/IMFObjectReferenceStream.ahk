@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Marshals an interface pointer to and from a stream.Stream objects that support IStream can expose this interface to provide custom marshaling for interface pointers.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfobjectreferencestream
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFObjectReferenceStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFObjectReferenceStream extends IUnknown {
     /**
      * The interface identifier for IMFObjectReferenceStream
      * @type {Guid}
      */
-    static IID => Guid("{09ef5be3-c8a7-469e-8b70-73bf25bb193f}")
+    static IID := Guid("{09ef5be3-c8a7-469e-8b70-73bf25bb193f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFObjectReferenceStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SaveReference : IntPtr
+        LoadReference : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SaveReference", "LoadReference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFObjectReferenceStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Stores the data needed to marshal an interface across a process boundary.
@@ -55,7 +64,7 @@ class IMFObjectReferenceStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfobjectreferencestream-savereference
      */
     SaveReference(riid, pUnk) {
-        result := ComCall(3, this, "ptr", riid, "ptr", pUnk, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr", pUnk, "HRESULT")
         return result
     }
 
@@ -66,7 +75,29 @@ class IMFObjectReferenceStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfobjectreferencestream-loadreference
      */
     LoadReference(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IMFObjectReferenceStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SaveReference := CallbackCreate(GetMethod(implObj, "SaveReference"), flags, 3)
+        this.vtbl.LoadReference := CallbackCreate(GetMethod(implObj, "LoadReference"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SaveReference)
+        CallbackFree(this.vtbl.LoadReference)
     }
 }

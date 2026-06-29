@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APTTYPE.ahk" { APTTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\THDTYPE.ahk" { THDTYPE }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IComThreadingInfo (objidlbase.h) interface enables you to obtain the following information about the apartment and thread that the caller is executing.
@@ -11,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-icomthreadinginfo
  * @namespace Windows.Win32.System.Com
  */
-class IComThreadingInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComThreadingInfo extends IUnknown {
     /**
      * The interface identifier for IComThreadingInfo
      * @type {Guid}
      */
-    static IID => Guid("{000001ce-0000-0000-c000-000000000046}")
+    static IID := Guid("{000001ce-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComThreadingInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentApartmentType   : IntPtr
+        GetCurrentThreadType      : IntPtr
+        GetCurrentLogicalThreadId : IntPtr
+        SetCurrentLogicalThreadId : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentApartmentType", "GetCurrentThreadType", "GetCurrentLogicalThreadId", "SetCurrentLogicalThreadId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComThreadingInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IComThreadingInfo::GetCurrentApartmentType (objidlbase.h) method retrieves the type of apartment in which the caller is executing.
@@ -59,7 +71,7 @@ class IComThreadingInfo extends IUnknown {
      */
     GetCurrentLogicalThreadId() {
         pguidLogicalThreadId := Guid()
-        result := ComCall(5, this, "ptr", pguidLogicalThreadId, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pguidLogicalThreadId, "HRESULT")
         return pguidLogicalThreadId
     }
 
@@ -99,7 +111,33 @@ class IComThreadingInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-setcurrentlogicalthreadid
      */
     SetCurrentLogicalThreadId(rguid) {
-        result := ComCall(6, this, "ptr", rguid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rguid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComThreadingInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentApartmentType := CallbackCreate(GetMethod(implObj, "GetCurrentApartmentType"), flags, 2)
+        this.vtbl.GetCurrentThreadType := CallbackCreate(GetMethod(implObj, "GetCurrentThreadType"), flags, 2)
+        this.vtbl.GetCurrentLogicalThreadId := CallbackCreate(GetMethod(implObj, "GetCurrentLogicalThreadId"), flags, 2)
+        this.vtbl.SetCurrentLogicalThreadId := CallbackCreate(GetMethod(implObj, "SetCurrentLogicalThreadId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentApartmentType)
+        CallbackFree(this.vtbl.GetCurrentThreadType)
+        CallbackFree(this.vtbl.GetCurrentLogicalThreadId)
+        CallbackFree(this.vtbl.SetCurrentLogicalThreadId)
     }
 }

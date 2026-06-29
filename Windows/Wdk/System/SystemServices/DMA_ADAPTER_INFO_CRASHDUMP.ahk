@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DMA_ADAPTER_INFO_CRASHDUMP extends Win32Struct {
-    static sizeof => 24
+export default struct DMA_ADAPTER_INFO_CRASHDUMP {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceDescription : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceDescription {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DeviceIdSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceIdSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DeviceId : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

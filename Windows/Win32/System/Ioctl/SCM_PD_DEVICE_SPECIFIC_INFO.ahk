@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCM_PD_DEVICE_SPECIFIC_PROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCM_PD_DEVICE_SPECIFIC_PROPERTY.ahk" { SCM_PD_DEVICE_SPECIFIC_PROPERTY }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_PD_DEVICE_SPECIFIC_INFO extends Win32Struct {
-    static sizeof => 280
+export default struct SCM_PD_DEVICE_SPECIFIC_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberOfProperties : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfProperties {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeviceSpecificProperties : SCM_PD_DEVICE_SPECIFIC_PROPERTY[1]
 
-    /**
-     * @type {SCM_PD_DEVICE_SPECIFIC_PROPERTY}
-     */
-    DeviceSpecificProperties {
-        get {
-            if(!this.HasProp("__DeviceSpecificPropertiesProxyArray"))
-                this.__DeviceSpecificPropertiesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PD_DEVICE_SPECIFIC_PROPERTY, "")
-            return this.__DeviceSpecificPropertiesProxyArray
-        }
-    }
 }

@@ -1,14 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CMSG_KEY_AGREE_ORIGINATOR.ahk
-#Include .\CERT_ID.ahk
-#Include .\CERT_ID_OPTION.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
-#Include .\CERT_PUBLIC_KEY_INFO.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CMSG_KEY_AGREE_KEY_ENCRYPT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
+#Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_ID.ahk" { CERT_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CMSG_KEY_AGREE_ORIGINATOR.ahk" { CMSG_KEY_AGREE_ORIGINATOR }
+#Import ".\CMSG_KEY_AGREE_KEY_ENCRYPT_INFO.ahk" { CMSG_KEY_AGREE_KEY_ENCRYPT_INFO }
 
 /**
  * Contains encryption information applicable to all key agreement recipients of an enveloped message.
@@ -30,100 +30,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct CMSG_KEY_AGREE_ENCRYPT_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A value that specifies the ordinal number of a recipient in the recipient list specified by the <i>pContentEncryptInfo</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cmsg_export_key_agree">PFN_CMSG_EXPORT_KEY_AGREE</a> function.
-     * @type {Integer}
      */
-    dwRecipientIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwRecipientIndex : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the content encryption key. The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function uses the <b>pszObjId</b> member of the <b>CRYPT_ALGORITHM_IDENTIFIER</b> structure to get the address of the function used to export the key. The function can be installed by using a Cryptography API: Next Generation (CNG) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm {
-        get {
-            if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
-            return this.__KeyEncryptionAlgorithm
-        }
-    }
+    KeyEncryptionAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains user keying material provided by the sender to ensure that a different key is generated each time the same two parties generate a pair-wise key.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    UserKeyingMaterial {
-        get {
-            if(!this.HasProp("__UserKeyingMaterial"))
-                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(32, this)
-            return this.__UserKeyingMaterial
-        }
-    }
+    UserKeyingMaterial : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CMSG_KEY_AGREE_ORIGINATOR}
-     */
-    dwOriginatorChoice {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwOriginatorChoice : CMSG_KEY_AGREE_ORIGINATOR
 
-    /**
-     * @type {CERT_ID}
-     */
-    OriginatorCertId {
-        get {
-            if(!this.HasProp("__OriginatorCertId"))
-                this.__OriginatorCertId := CERT_ID(56, this)
-            return this.__OriginatorCertId
-        }
-    }
-
-    /**
-     * @type {CERT_PUBLIC_KEY_INFO}
-     */
-    OriginatorPublicKeyInfo {
-        get {
-            if(!this.HasProp("__OriginatorPublicKeyInfo"))
-                this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(56, this)
-            return this.__OriginatorPublicKeyInfo
-        }
-    }
+    OriginatorCertId : CERT_ID
 
     /**
      * A value that specifies the number of recipients in the <i>rgpKeyAgreeKeyEncryptInfo</i> parameter.
-     * @type {Integer}
      */
-    cKeyAgreeKeyEncryptInfo {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    cKeyAgreeKeyEncryptInfo : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_key_agree_key_encrypt_info">CMSG_KEY_AGREE_KEY_ENCRYPT_INFO</a> structures that contain the encrypted key for each recipient.
-     * @type {Pointer<Pointer<CMSG_KEY_AGREE_KEY_ENCRYPT_INFO>>}
      */
-    rgpKeyAgreeKeyEncryptInfo {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    rgpKeyAgreeKeyEncryptInfo : IntPtr
 
     /**
      * A value that specifies what members have been updated, and whose memory allocation must be freed by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function.
@@ -200,15 +142,11 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dwFlags : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 128
+    static __New() {
+        DefineProp(this.Prototype, 'OriginatorPublicKeyInfo', { type: CERT_PUBLIC_KEY_INFO, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

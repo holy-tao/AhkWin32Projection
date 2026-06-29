@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information that defines a band in a rebar control. (ANSI)
@@ -18,21 +20,15 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class REBARBANDINFOA extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct REBARBANDINFOA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of this structure, in bytes. Your application must fill this member before sending any messages that use the address of this structure as a parameter.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -188,12 +184,8 @@ class REBARBANDINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fMask : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -332,241 +324,148 @@ class REBARBANDINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fStyle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fStyle : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Band foreground colors.
-     * @type {COLORREF}
      */
-    clrFore {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    clrFore : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Band background colors. If <b>hbmBack</b> specifies a background bitmap, these members are ignored. By default, the band will use the background color of the rebar control set with the <a href="https://docs.microsoft.com/windows/desktop/Controls/rb-setbkcolor">RB_SETBKCOLOR</a> message. If a background color is specified here, then this background color will be used instead.
-     * @type {COLORREF}
      */
-    clrBack {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    clrBack : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a buffer that contains the display text for the band. If band information is being requested from the control and  RBBIM_TEXT is specified in <b>fMask</b>, this member must be initialized to the address of the buffer that will receive the text.
-     * @type {PSTR}
      */
-    lpText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpText : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the buffer at <b>lpText</b>, in bytes. If information is not being requested from the control, this member is ignored.
-     * @type {Integer}
      */
-    cch {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cch : UInt32
 
     /**
      * Type: <b>int</b>
      * 
      * Zero-based index of any image that should be displayed in the band. The image list is set using the <a href="https://docs.microsoft.com/windows/desktop/Controls/rb-setbarinfo">RB_SETBARINFO</a> message.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    iImage : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the child window contained in the band, if any.
-     * @type {HWND}
      */
-    hwndChild {
-        get {
-            if(!this.HasProp("__hwndChild"))
-                this.__hwndChild := HWND(40, this)
-            return this.__hwndChild
-        }
-    }
+    hwndChild : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Minimum width of the child window, in pixels. The band can't be sized smaller than this value.
-     * @type {Integer}
      */
-    cxMinChild {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cxMinChild : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Minimum height of the child window, in pixels. The band can't be sized smaller than this value.
-     * @type {Integer}
      */
-    cyMinChild {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    cyMinChild : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Length of the band, in pixels.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cx : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * Handle to a bitmap that is used as the background for this band.
-     * @type {HBITMAP}
      */
-    hbmBack {
-        get {
-            if(!this.HasProp("__hbmBack"))
-                this.__hbmBack := HBITMAP(64, this)
-            return this.__hbmBack
-        }
-    }
+    hbmBack : HBITMAP
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * UINT value that the control uses to identify this band for custom draw notification messages.
-     * @type {Integer}
      */
-    wID {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    wID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Initial height of the band, in pixels. This member is ignored unless the RBBS_VARIABLEHEIGHT style is specified.
-     * @type {Integer}
      */
-    cyChild {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    cyChild : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Maximum height of the band, in pixels. This member is ignored unless the RBBS_VARIABLEHEIGHT style is specified.
-     * @type {Integer}
      */
-    cyMaxChild {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    cyMaxChild : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Step value by which the band can grow or shrink, in pixels. If the band is resized, it will be resized in steps specified by this value. This member is ignored unless the  RBBS_VARIABLEHEIGHT style is specified.
-     * @type {Integer}
      */
-    cyIntegral {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    cyIntegral : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Ideal width of the band, in pixels. If the band is maximized to the ideal width (see <a href="https://docs.microsoft.com/windows/desktop/Controls/rb-maximizeband">RB_MAXIMIZEBAND</a>), the rebar control will attempt to make the band this width.
-     * @type {Integer}
      */
-    cxIdeal {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    cxIdeal : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Application-defined value.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    lParam : LPARAM
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Size of the band's header, in pixels. The band header is the area between the edge of the band and the edge of the child window. This is the area where band text and images are displayed, if they are specified. If this value is specified, it will override the normal header dimensions that the control calculates for the band.
-     * @type {Integer}
      */
-    cxHeader {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    cxHeader : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6</a>. Location of the chevron.
-     * @type {RECT}
      */
-    rcChevronLocation {
-        get {
-            if(!this.HasProp("__rcChevronLocation"))
-                this.__rcChevronLocation := RECT(108, this)
-            return this.__rcChevronLocation
-        }
-    }
+    rcChevronLocation : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6</a>. A combination of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-state-constants">Object State Constants</a>.
-     * @type {Integer}
      */
-    uChevronState {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    uChevronState : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 128
-    }
 }

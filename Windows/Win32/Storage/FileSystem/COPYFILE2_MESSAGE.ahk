@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COPYFILE2_MESSAGE_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\COPYFILE2_COPY_PHASE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COPYFILE2_COPY_PHASE.ahk" { COPYFILE2_COPY_PHASE }
+#Import ".\COPYFILE2_MESSAGE_TYPE.ahk" { COPYFILE2_MESSAGE_TYPE }
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.
@@ -14,469 +14,123 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_message
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class COPYFILE2_MESSAGE extends Win32Struct {
-    static sizeof => 80
+export default struct COPYFILE2_MESSAGE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+    struct _Info {
 
-        class _ChunkStarted extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+        struct _ChunkStarted {
+            dwStreamNumber : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwStreamNumber {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            dwReserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwReserved {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            hSourceFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hSourceFile {
-                get {
-                    if(!this.HasProp("__hSourceFile"))
-                        this.__hSourceFile := HANDLE(8, this)
-                    return this.__hSourceFile
-                }
-            }
+            hDestinationFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hDestinationFile {
-                get {
-                    if(!this.HasProp("__hDestinationFile"))
-                        this.__hDestinationFile := HANDLE(16, this)
-                    return this.__hDestinationFile
-                }
-            }
+            uliChunkNumber : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliChunkNumber {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            uliChunkSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliChunkSize {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
-            }
+            uliStreamSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamSize {
-                get => NumGet(this, 40, "uint")
-                set => NumPut("uint", value, this, 40)
-            }
+            uliTotalFileSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalFileSize {
-                get => NumGet(this, 48, "uint")
-                set => NumPut("uint", value, this, 48)
-            }
         }
 
-        class _ChunkFinished extends Win32Struct {
-            static sizeof => 72
-            static packingSize => 8
+        struct _ChunkFinished {
+            dwStreamNumber : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwStreamNumber {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            dwFlags : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwFlags {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            hSourceFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hSourceFile {
-                get {
-                    if(!this.HasProp("__hSourceFile"))
-                        this.__hSourceFile := HANDLE(8, this)
-                    return this.__hSourceFile
-                }
-            }
+            hDestinationFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hDestinationFile {
-                get {
-                    if(!this.HasProp("__hDestinationFile"))
-                        this.__hDestinationFile := HANDLE(16, this)
-                    return this.__hDestinationFile
-                }
-            }
+            uliChunkNumber : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliChunkNumber {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            uliChunkSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliChunkSize {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
-            }
+            uliStreamSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamSize {
-                get => NumGet(this, 40, "uint")
-                set => NumPut("uint", value, this, 40)
-            }
+            uliStreamBytesTransferred : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamBytesTransferred {
-                get => NumGet(this, 48, "uint")
-                set => NumPut("uint", value, this, 48)
-            }
+            uliTotalFileSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalFileSize {
-                get => NumGet(this, 56, "uint")
-                set => NumPut("uint", value, this, 56)
-            }
+            uliTotalBytesTransferred : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalBytesTransferred {
-                get => NumGet(this, 64, "uint")
-                set => NumPut("uint", value, this, 64)
-            }
         }
 
-        class _StreamStarted extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
+        struct _StreamStarted {
+            dwStreamNumber : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwStreamNumber {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            dwReserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwReserved {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            hSourceFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hSourceFile {
-                get {
-                    if(!this.HasProp("__hSourceFile"))
-                        this.__hSourceFile := HANDLE(8, this)
-                    return this.__hSourceFile
-                }
-            }
+            hDestinationFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hDestinationFile {
-                get {
-                    if(!this.HasProp("__hDestinationFile"))
-                        this.__hDestinationFile := HANDLE(16, this)
-                    return this.__hDestinationFile
-                }
-            }
+            uliStreamSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamSize {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            uliTotalFileSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalFileSize {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
-            }
         }
 
-        class _StreamFinished extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+        struct _StreamFinished {
+            dwStreamNumber : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwStreamNumber {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            dwReserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwReserved {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            hSourceFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hSourceFile {
-                get {
-                    if(!this.HasProp("__hSourceFile"))
-                        this.__hSourceFile := HANDLE(8, this)
-                    return this.__hSourceFile
-                }
-            }
+            hDestinationFile : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hDestinationFile {
-                get {
-                    if(!this.HasProp("__hDestinationFile"))
-                        this.__hDestinationFile := HANDLE(16, this)
-                    return this.__hDestinationFile
-                }
-            }
+            uliStreamSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamSize {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            uliStreamBytesTransferred : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamBytesTransferred {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
-            }
+            uliTotalFileSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalFileSize {
-                get => NumGet(this, 40, "uint")
-                set => NumPut("uint", value, this, 40)
-            }
+            uliTotalBytesTransferred : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalBytesTransferred {
-                get => NumGet(this, 48, "uint")
-                set => NumPut("uint", value, this, 48)
-            }
         }
 
-        class _PollContinue extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _PollContinue {
+            dwReserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwReserved {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _Error extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+        struct _Error {
+            CopyPhase : COPYFILE2_COPY_PHASE
 
-            /**
-             * @type {COPYFILE2_COPY_PHASE}
-             */
-            CopyPhase {
-                get => NumGet(this, 0, "int")
-                set => NumPut("int", value, this, 0)
-            }
+            dwStreamNumber : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwStreamNumber {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
+            hrFailure : HRESULT
 
-            /**
-             * @type {HRESULT}
-             */
-            hrFailure {
-                get => NumGet(this, 8, "int")
-                set => NumPut("int", value, this, 8)
-            }
+            dwReserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            dwReserved {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            uliChunkNumber : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliChunkNumber {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            uliStreamSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamSize {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            uliStreamBytesTransferred : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliStreamBytesTransferred {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
-            }
+            uliTotalFileSize : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalFileSize {
-                get => NumGet(this, 40, "uint")
-                set => NumPut("uint", value, this, 40)
-            }
+            uliTotalBytesTransferred : Int64
 
-            /**
-             * @type {Integer}
-             */
-            uliTotalBytesTransferred {
-                get => NumGet(this, 48, "uint")
-                set => NumPut("uint", value, this, 48)
-            }
         }
 
-        /**
-         * @type {_ChunkStarted}
-         */
-        ChunkStarted {
-            get {
-                if(!this.HasProp("__ChunkStarted"))
-                    this.__ChunkStarted := COPYFILE2_MESSAGE._Info_e__Union._ChunkStarted(0, this)
-                return this.__ChunkStarted
-            }
-        }
+        ChunkStarted : COPYFILE2_MESSAGE._Info._ChunkStarted
 
-        /**
-         * @type {_ChunkFinished}
-         */
-        ChunkFinished {
-            get {
-                if(!this.HasProp("__ChunkFinished"))
-                    this.__ChunkFinished := COPYFILE2_MESSAGE._Info_e__Union._ChunkFinished(0, this)
-                return this.__ChunkFinished
-            }
-        }
-
-        /**
-         * @type {_StreamStarted}
-         */
-        StreamStarted {
-            get {
-                if(!this.HasProp("__StreamStarted"))
-                    this.__StreamStarted := COPYFILE2_MESSAGE._Info_e__Union._StreamStarted(0, this)
-                return this.__StreamStarted
-            }
-        }
-
-        /**
-         * @type {_StreamFinished}
-         */
-        StreamFinished {
-            get {
-                if(!this.HasProp("__StreamFinished"))
-                    this.__StreamFinished := COPYFILE2_MESSAGE._Info_e__Union._StreamFinished(0, this)
-                return this.__StreamFinished
-            }
-        }
-
-        /**
-         * @type {_PollContinue}
-         */
-        PollContinue {
-            get {
-                if(!this.HasProp("__PollContinue"))
-                    this.__PollContinue := COPYFILE2_MESSAGE._Info_e__Union._PollContinue(0, this)
-                return this.__PollContinue
-            }
-        }
-
-        /**
-         * @type {_Error}
-         */
-        Error {
-            get {
-                if(!this.HasProp("__Error"))
-                    this.__Error := COPYFILE2_MESSAGE._Info_e__Union._Error(0, this)
-                return this.__Error
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'ChunkFinished', { type: COPYFILE2_MESSAGE._Info._ChunkFinished, offset: 0 })
+            DefineProp(this.Prototype, 'StreamStarted', { type: COPYFILE2_MESSAGE._Info._StreamStarted, offset: 0 })
+            DefineProp(this.Prototype, 'StreamFinished', { type: COPYFILE2_MESSAGE._Info._StreamFinished, offset: 0 })
+            DefineProp(this.Prototype, 'PollContinue', { type: COPYFILE2_MESSAGE._Info._PollContinue, offset: 0 })
+            DefineProp(this.Prototype, 'Error', { type: COPYFILE2_MESSAGE._Info._Error, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -570,29 +224,11 @@ class COPYFILE2_MESSAGE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {COPYFILE2_MESSAGE_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : COPYFILE2_MESSAGE_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    dwPadding {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPadding : UInt32
 
-    /**
-     * @type {_Info_e__Union}
-     */
-    Info {
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := COPYFILE2_MESSAGE._Info_e__Union(8, this)
-            return this.__Info
-        }
-    }
+    Info : COPYFILE2_MESSAGE._Info
+
 }

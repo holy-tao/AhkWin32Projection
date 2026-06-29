@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct CRYPT_ECC_PRIVATE_KEY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PrivateKey : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    PrivateKey {
-        get {
-            if(!this.HasProp("__PrivateKey"))
-                this.__PrivateKey := CRYPT_INTEGER_BLOB(8, this)
-            return this.__PrivateKey
-        }
-    }
+    szCurveOid : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    szCurveOid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PublicKey : CRYPT_BIT_BLOB
 
-    /**
-     * @type {CRYPT_BIT_BLOB}
-     */
-    PublicKey {
-        get {
-            if(!this.HasProp("__PublicKey"))
-                this.__PublicKey := CRYPT_BIT_BLOB(32, this)
-            return this.__PublicKey
-        }
-    }
 }

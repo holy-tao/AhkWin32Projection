@@ -1,105 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ARM_PROCESSOR_ERROR_SECTION extends Win32Struct {
-    static sizeof => 56
+export default struct WHEA_ARM_PROCESSOR_ERROR_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ValidBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorInformationStructures : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ErrorInformationStructures {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ContextInformationStructures : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ContextInformationStructures {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    SectionLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SectionLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ErrorAffinityLevel : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ErrorAffinityLevel {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    MPIDR_EL1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MPIDR_EL1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MIDR_EL1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MIDR_EL1 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    RunningState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RunningState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PSCIState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PSCIState {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

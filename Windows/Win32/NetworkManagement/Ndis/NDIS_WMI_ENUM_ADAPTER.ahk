@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NET_LUID_LH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_WMI_ENUM_ADAPTER extends Win32Struct {
-    static sizeof => 32
+export default struct NDIS_WMI_ENUM_ADAPTER {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    IfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IfIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NetLuid : NET_LUID_LH
 
-    /**
-     * @type {NET_LUID_LH}
-     */
-    NetLuid {
-        get {
-            if(!this.HasProp("__NetLuid"))
-                this.__NetLuid := NET_LUID_LH(8, this)
-            return this.__NetLuid
-        }
-    }
+    DeviceNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceNameLength {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    DeviceName : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    DeviceName {
-        get => StrGet(this.ptr + 26, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 26, 0, "UTF-8")
-    }
 }

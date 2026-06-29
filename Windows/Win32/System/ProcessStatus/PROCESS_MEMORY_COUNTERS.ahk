@@ -1,103 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the memory statistics for a process.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-process_memory_counters
  * @namespace Windows.Win32.System.ProcessStatus
  */
-class PROCESS_MEMORY_COUNTERS extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct PROCESS_MEMORY_COUNTERS {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * The number of page faults.
-     * @type {Integer}
      */
-    PageFaultCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PageFaultCount : UInt32
 
     /**
      * The peak working set size, in bytes.
-     * @type {Pointer}
      */
-    PeakWorkingSetSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PeakWorkingSetSize : IntPtr
 
     /**
      * The current working set size, in bytes.
-     * @type {Pointer}
      */
-    WorkingSetSize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    WorkingSetSize : IntPtr
 
     /**
      * The peak paged pool usage, in bytes.
-     * @type {Pointer}
      */
-    QuotaPeakPagedPoolUsage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    QuotaPeakPagedPoolUsage : IntPtr
 
     /**
      * The current paged pool usage, in bytes.
-     * @type {Pointer}
      */
-    QuotaPagedPoolUsage {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    QuotaPagedPoolUsage : IntPtr
 
     /**
      * The peak nonpaged pool usage, in bytes.
-     * @type {Pointer}
      */
-    QuotaPeakNonPagedPoolUsage {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    QuotaPeakNonPagedPoolUsage : IntPtr
 
     /**
      * The current nonpaged pool usage, in bytes.
-     * @type {Pointer}
      */
-    QuotaNonPagedPoolUsage {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    QuotaNonPagedPoolUsage : IntPtr
 
     /**
      * The Commit Charge value in bytes for this process. Commit Charge is the total amount of memory that the memory manager has committed for a running process.
-     * @type {Pointer}
      */
-    PagefileUsage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PagefileUsage : IntPtr
 
     /**
      * The peak value in bytes of the Commit Charge during the lifetime of this process.
-     * @type {Pointer}
      */
-    PeakPagefileUsage {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    PeakPagefileUsage : IntPtr
+
 }

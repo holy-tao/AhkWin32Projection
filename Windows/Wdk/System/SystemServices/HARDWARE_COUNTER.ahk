@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HARDWARE_COUNTER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HARDWARE_COUNTER_TYPE.ahk" { HARDWARE_COUNTER_TYPE }
 
 /**
- * Contains the hardware counter value.
- * @remarks
- * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-hardware_counter_data
  * @namespace Windows.Wdk.System.SystemServices
  */
-class HARDWARE_COUNTER extends Win32Struct {
-    static sizeof => 16
+export default struct HARDWARE_COUNTER {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : HARDWARE_COUNTER_TYPE
 
-    /**
-     * The type of hardware counter data collected. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-hardware_counter_type">HARDWARE_COUNTER_TYPE</a> enumeration.
-     * @type {HARDWARE_COUNTER_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * Reserved. Initialize to zero.
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Index : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Index {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

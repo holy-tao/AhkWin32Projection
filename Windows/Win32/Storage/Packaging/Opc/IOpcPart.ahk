@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcRelationshipSet.ahk
-#Include ..\..\..\System\Com\IStream.ahk
-#Include .\IOpcPartUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OPC_COMPRESSION_OPTIONS.ahk" { OPC_COMPRESSION_OPTIONS }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcRelationshipSet.ahk" { IOpcRelationshipSet }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a part that contains data and is not a Relationships part.
@@ -68,26 +71,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpart
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcPart extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcPart extends IUnknown {
     /**
      * The interface identifier for IOpcPart
      * @type {Guid}
      */
-    static IID => Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee71}")
+    static IID := Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee71}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcPart interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRelationshipSet    : IntPtr
+        GetContentStream      : IntPtr
+        GetName               : IntPtr
+        GetContentType        : IntPtr
+        GetCompressionOptions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRelationshipSet", "GetContentStream", "GetName", "GetContentType", "GetCompressionOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcPart.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a relationship set object that represents the Relationships part that stores relationships that have the part as their source.
@@ -141,7 +155,7 @@ class IOpcPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcontenttype
      */
     GetContentType() {
-        result := ComCall(6, this, "ptr*", &contentType := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &contentType := 0, "HRESULT")
         return contentType
     }
 
@@ -155,5 +169,33 @@ class IOpcPart extends IUnknown {
     GetCompressionOptions() {
         result := ComCall(7, this, "int*", &compressionOptions := 0, "HRESULT")
         return compressionOptions
+    }
+
+    Query(iid) {
+        if (IOpcPart.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRelationshipSet := CallbackCreate(GetMethod(implObj, "GetRelationshipSet"), flags, 2)
+        this.vtbl.GetContentStream := CallbackCreate(GetMethod(implObj, "GetContentStream"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetContentType := CallbackCreate(GetMethod(implObj, "GetContentType"), flags, 2)
+        this.vtbl.GetCompressionOptions := CallbackCreate(GetMethod(implObj, "GetCompressionOptions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRelationshipSet)
+        CallbackFree(this.vtbl.GetContentStream)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetContentType)
+        CallbackFree(this.vtbl.GetCompressionOptions)
     }
 }

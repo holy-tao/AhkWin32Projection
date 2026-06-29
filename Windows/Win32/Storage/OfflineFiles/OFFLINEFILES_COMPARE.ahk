@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of comparison to perform in the IOfflineFilesItemFilter::GetTimeFilter method.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_compare
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class OFFLINEFILES_COMPARE extends Win32Enum {
+export default struct OFFLINEFILES_COMPARE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Check whether the item value is equal to the filter value.

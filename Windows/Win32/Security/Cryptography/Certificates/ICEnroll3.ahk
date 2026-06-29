@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICEnroll2.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICEnroll2.ahk" { ICEnroll2 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * One of several interfaces that represent the Certificate Enrollment Control.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll3
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICEnroll3 extends ICEnroll2 {
-
-    static sizeof => A_PtrSize
+export default struct ICEnroll3 extends ICEnroll2 {
     /**
      * The interface identifier for ICEnroll3
      * @type {Guid}
      */
-    static IID => Guid("{c28c2d95-b7de-11d2-a421-00c04f79fe8e}")
+    static IID := Guid("{c28c2d95-b7de-11d2-a421-00c04f79fe8e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 69
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICEnroll3 interfaces
+    */
+    struct Vtbl extends ICEnroll2.Vtbl {
+        InstallPKCS7                         : IntPtr
+        Reset                                : IntPtr
+        GetSupportedKeySpec                  : IntPtr
+        GetKeyLen                            : IntPtr
+        EnumAlgs                             : IntPtr
+        GetAlgName                           : IntPtr
+        put_ReuseHardwareKeyIfUnableToGenNew : IntPtr
+        get_ReuseHardwareKeyIfUnableToGenNew : IntPtr
+        put_HashAlgID                        : IntPtr
+        get_HashAlgID                        : IntPtr
+        put_LimitExchangeKeyToEncipherment   : IntPtr
+        get_LimitExchangeKeyToEncipherment   : IntPtr
+        put_EnableSMIMECapabilities          : IntPtr
+        get_EnableSMIMECapabilities          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InstallPKCS7", "Reset", "GetSupportedKeySpec", "GetKeyLen", "EnumAlgs", "GetAlgName", "put_ReuseHardwareKeyIfUnableToGenNew", "get_ReuseHardwareKeyIfUnableToGenNew", "put_HashAlgID", "get_HashAlgID", "put_LimitExchangeKeyToEncipherment", "get_LimitExchangeKeyToEncipherment", "put_EnableSMIMECapabilities", "get_EnableSMIMECapabilities"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICEnroll3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -76,7 +98,7 @@ class ICEnroll3 extends ICEnroll2 {
     InstallPKCS7(PKCS7) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
 
-        result := ComCall(69, this, "ptr", PKCS7, "HRESULT")
+        result := ComCall(69, this, BSTR, PKCS7, "HRESULT")
         return result
     }
 
@@ -118,7 +140,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getkeylen
      */
     GetKeyLen(fMin, fExchange) {
-        result := ComCall(72, this, "int", fMin, "int", fExchange, "int*", &pdwKeySize := 0, "HRESULT")
+        result := ComCall(72, this, BOOL, fMin, BOOL, fExchange, "int*", &pdwKeySize := 0, "HRESULT")
         return pdwKeySize
     }
 
@@ -156,8 +178,8 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getalgname
      */
     GetAlgName(algID) {
-        pbstr := BSTR()
-        result := ComCall(74, this, "int", algID, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(74, this, "int", algID, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -170,7 +192,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-put_reusehardwarekeyifunabletogennew
      */
     put_ReuseHardwareKeyIfUnableToGenNew(fReuseHardwareKeyIfUnableToGenNew) {
-        result := ComCall(75, this, "int", fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
+        result := ComCall(75, this, BOOL, fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
         return result
     }
 
@@ -182,7 +204,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_reusehardwarekeyifunabletogennew
      */
     get_ReuseHardwareKeyIfUnableToGenNew() {
-        result := ComCall(76, this, "int*", &fReuseHardwareKeyIfUnableToGenNew := 0, "HRESULT")
+        result := ComCall(76, this, BOOL.Ptr, &fReuseHardwareKeyIfUnableToGenNew := 0, "HRESULT")
         return fReuseHardwareKeyIfUnableToGenNew
     }
 
@@ -243,7 +265,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-put_limitexchangekeytoencipherment
      */
     put_LimitExchangeKeyToEncipherment(fLimitExchangeKeyToEncipherment) {
-        result := ComCall(79, this, "int", fLimitExchangeKeyToEncipherment, "HRESULT")
+        result := ComCall(79, this, BOOL, fLimitExchangeKeyToEncipherment, "HRESULT")
         return result
     }
 
@@ -274,7 +296,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_limitexchangekeytoencipherment
      */
     get_LimitExchangeKeyToEncipherment() {
-        result := ComCall(80, this, "int*", &fLimitExchangeKeyToEncipherment := 0, "HRESULT")
+        result := ComCall(80, this, BOOL.Ptr, &fLimitExchangeKeyToEncipherment := 0, "HRESULT")
         return fLimitExchangeKeyToEncipherment
     }
 
@@ -285,7 +307,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-put_enablesmimecapabilities
      */
     put_EnableSMIMECapabilities(fEnableSMIMECapabilities) {
-        result := ComCall(81, this, "int", fEnableSMIMECapabilities, "HRESULT")
+        result := ComCall(81, this, BOOL, fEnableSMIMECapabilities, "HRESULT")
         return result
     }
 
@@ -295,7 +317,53 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_enablesmimecapabilities
      */
     get_EnableSMIMECapabilities() {
-        result := ComCall(82, this, "int*", &fEnableSMIMECapabilities := 0, "HRESULT")
+        result := ComCall(82, this, BOOL.Ptr, &fEnableSMIMECapabilities := 0, "HRESULT")
         return fEnableSMIMECapabilities
+    }
+
+    Query(iid) {
+        if (ICEnroll3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InstallPKCS7 := CallbackCreate(GetMethod(implObj, "InstallPKCS7"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSupportedKeySpec := CallbackCreate(GetMethod(implObj, "GetSupportedKeySpec"), flags, 2)
+        this.vtbl.GetKeyLen := CallbackCreate(GetMethod(implObj, "GetKeyLen"), flags, 4)
+        this.vtbl.EnumAlgs := CallbackCreate(GetMethod(implObj, "EnumAlgs"), flags, 4)
+        this.vtbl.GetAlgName := CallbackCreate(GetMethod(implObj, "GetAlgName"), flags, 3)
+        this.vtbl.put_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(GetMethod(implObj, "put_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
+        this.vtbl.get_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(GetMethod(implObj, "get_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
+        this.vtbl.put_HashAlgID := CallbackCreate(GetMethod(implObj, "put_HashAlgID"), flags, 2)
+        this.vtbl.get_HashAlgID := CallbackCreate(GetMethod(implObj, "get_HashAlgID"), flags, 2)
+        this.vtbl.put_LimitExchangeKeyToEncipherment := CallbackCreate(GetMethod(implObj, "put_LimitExchangeKeyToEncipherment"), flags, 2)
+        this.vtbl.get_LimitExchangeKeyToEncipherment := CallbackCreate(GetMethod(implObj, "get_LimitExchangeKeyToEncipherment"), flags, 2)
+        this.vtbl.put_EnableSMIMECapabilities := CallbackCreate(GetMethod(implObj, "put_EnableSMIMECapabilities"), flags, 2)
+        this.vtbl.get_EnableSMIMECapabilities := CallbackCreate(GetMethod(implObj, "get_EnableSMIMECapabilities"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InstallPKCS7)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetSupportedKeySpec)
+        CallbackFree(this.vtbl.GetKeyLen)
+        CallbackFree(this.vtbl.EnumAlgs)
+        CallbackFree(this.vtbl.GetAlgName)
+        CallbackFree(this.vtbl.put_ReuseHardwareKeyIfUnableToGenNew)
+        CallbackFree(this.vtbl.get_ReuseHardwareKeyIfUnableToGenNew)
+        CallbackFree(this.vtbl.put_HashAlgID)
+        CallbackFree(this.vtbl.get_HashAlgID)
+        CallbackFree(this.vtbl.put_LimitExchangeKeyToEncipherment)
+        CallbackFree(this.vtbl.get_LimitExchangeKeyToEncipherment)
+        CallbackFree(this.vtbl.put_EnableSMIMECapabilities)
+        CallbackFree(this.vtbl.get_EnableSMIMECapabilities)
     }
 }

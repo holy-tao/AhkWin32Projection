@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMSAdminBaseW.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\IMSAdminBaseW.ahk" { IMSAdminBaseW }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class IMSAdminBase2W extends IMSAdminBaseW {
-
-    static sizeof => A_PtrSize
+export default struct IMSAdminBase2W extends IMSAdminBaseW {
     /**
      * The interface identifier for IMSAdminBase2W
      * @type {Guid}
      */
-    static IID => Guid("{8298d101-f992-43b7-8eca-5052d885b995}")
+    static IID := Guid("{8298d101-f992-43b7-8eca-5052d885b995}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 34
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSAdminBase2W interfaces
+    */
+    struct Vtbl extends IMSAdminBaseW.Vtbl {
+        BackupWithPasswd  : IntPtr
+        RestoreWithPasswd : IntPtr
+        Export            : IntPtr
+        Import            : IntPtr
+        RestoreHistory    : IntPtr
+        EnumHistory       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BackupWithPasswd", "RestoreWithPasswd", "Export", "Import", "RestoreHistory", "EnumHistory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSAdminBase2W.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -60,20 +75,12 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * An application-defined callback function used with ReadEncryptedFileRaw.
-     * @remarks
-     * You can use the application-defined context block for internal tracking of information such as the file handle 
-     *      and the current offset in the file.
+     * 
      * @param {PWSTR} pszPasswd 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszSourcePath 
      * @param {Integer} dwMDFlags 
-     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>.
-     * 
-     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
-     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
-     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_export_func
+     * @returns {HRESULT} 
      */
     Export(pszPasswd, pszFileName, pszSourcePath, dwMDFlags) {
         pszPasswd := pszPasswd is String ? StrPtr(pszPasswd) : pszPasswd
@@ -85,29 +92,13 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * An application-defined callback function used with WriteEncryptedFileRaw. The system calls ImportCallback one or more times, each time to retrieve a portion of a backup file's data.
-     * @remarks
-     * The system calls the <b>ImportCallback</b> function until the 
-     *      callback function indicates there is no more data to restore. To indicate that there is no more data to be 
-     *      restored, set <i>*ulLength</i> to 0 and use a return code of 
-     *      <b>ERROR_SUCCESS</b>. You can use the application-defined context block for internal tracking 
-     *      of information such as the file handle and the current offset in the file.
+     * 
      * @param {PWSTR} pszPasswd 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszSourcePath 
      * @param {PWSTR} pszDestPath 
      * @param {Integer} dwMDFlags 
-     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>, and set 
-     *        the value pointed to by the <i>ulLength</i> parameter to the number of bytes copied into 
-     *        <i>pbData</i>.
-     * 
-     * When the end of the backup file is reached, set <i>ulLength</i> to zero to tell the system 
-     *        that the entire file has been processed.
-     * 
-     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
-     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
-     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_import_func
+     * @returns {HRESULT} 
      */
     Import(pszPasswd, pszFileName, pszSourcePath, pszDestPath, dwMDFlags) {
         pszPasswd := pszPasswd is String ? StrPtr(pszPasswd) : pszPasswd
@@ -149,7 +140,37 @@ class IMSAdminBase2W extends IMSAdminBaseW {
         pdwMDMajorVersionMarshal := pdwMDMajorVersion is VarRef ? "uint*" : "ptr"
         pdwMDMinorVersionMarshal := pdwMDMinorVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "ptr", pszMDHistoryLocation, pdwMDMajorVersionMarshal, pdwMDMajorVersion, pdwMDMinorVersionMarshal, pdwMDMinorVersion, "ptr", pftMDHistoryTime, "uint", dwMDEnumIndex, "HRESULT")
+        result := ComCall(39, this, "ptr", pszMDHistoryLocation, pdwMDMajorVersionMarshal, pdwMDMajorVersion, pdwMDMinorVersionMarshal, pdwMDMinorVersion, FILETIME.Ptr, pftMDHistoryTime, "uint", dwMDEnumIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSAdminBase2W.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BackupWithPasswd := CallbackCreate(GetMethod(implObj, "BackupWithPasswd"), flags, 5)
+        this.vtbl.RestoreWithPasswd := CallbackCreate(GetMethod(implObj, "RestoreWithPasswd"), flags, 5)
+        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 5)
+        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 6)
+        this.vtbl.RestoreHistory := CallbackCreate(GetMethod(implObj, "RestoreHistory"), flags, 5)
+        this.vtbl.EnumHistory := CallbackCreate(GetMethod(implObj, "EnumHistory"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BackupWithPasswd)
+        CallbackFree(this.vtbl.RestoreWithPasswd)
+        CallbackFree(this.vtbl.Export)
+        CallbackFree(this.vtbl.Import)
+        CallbackFree(this.vtbl.RestoreHistory)
+        CallbackFree(this.vtbl.EnumHistory)
     }
 }

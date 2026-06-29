@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADs.ahk" { IADs }
 
 /**
  * The IADsServiceOperations interface is a dual interface that inherits from IADs.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsserviceoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsServiceOperations extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsServiceOperations extends IADs {
     /**
      * The interface identifier for IADsServiceOperations
      * @type {Guid}
      */
-    static IID => Guid("{5d7b33f0-31ca-11cf-a98a-00aa006bc149}")
+    static IID := Guid("{5d7b33f0-31ca-11cf-a98a-00aa006bc149}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsServiceOperations interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_Status  : IntPtr
+        Start       : IntPtr
+        Stop        : IntPtr
+        Pause       : IntPtr
+        Continue    : IntPtr
+        SetPassword : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Status", "Start", "Stop", "Pause", "Continue", "SetPassword"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsServiceOperations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -96,7 +110,37 @@ class IADsServiceOperations extends IADs {
     SetPassword(bstrNewPassword) {
         bstrNewPassword := bstrNewPassword is String ? BSTR.Alloc(bstrNewPassword).Value : bstrNewPassword
 
-        result := ComCall(25, this, "ptr", bstrNewPassword, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrNewPassword, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsServiceOperations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Continue := CallbackCreate(GetMethod(implObj, "Continue"), flags, 1)
+        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Continue)
+        CallbackFree(this.vtbl.SetPassword)
     }
 }

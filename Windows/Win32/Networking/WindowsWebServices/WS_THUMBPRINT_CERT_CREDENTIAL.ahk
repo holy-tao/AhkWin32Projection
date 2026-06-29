@@ -1,54 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CERT_CREDENTIAL.ahk
-#Include .\WS_CERT_CREDENTIAL_TYPE.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_CERT_CREDENTIAL_TYPE.ahk" { WS_CERT_CREDENTIAL_TYPE }
 
 /**
  * The type for specifying a certificate credential using the certificate's thumbprint, store location and store name. The specified credential is loaded when the containing channel or listener is opened.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_thumbprint_cert_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_THUMBPRINT_CERT_CREDENTIAL extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_THUMBPRINT_CERT_CREDENTIAL {
+    #StructPack 8
 
     /**
      * The base type from which this type and all other certificate credential types derive.
-     * @type {WS_CERT_CREDENTIAL}
      */
-    credential {
-        get {
-            if(!this.HasProp("__credential"))
-                this.__credential := WS_CERT_CREDENTIAL(0, this)
-            return this.__credential
-        }
-    }
+    credential : WS_CERT_CREDENTIAL
 
     /**
      * The certificate store location (such as CERT_SYSTEM_STORE_CURRENT_USER
      * or CERT_SYSTEM_STORE_LOCAL_MACHINE) that contains the specified
      * certificate.
-     * @type {Integer}
      */
-    storeLocation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    storeLocation : UInt32
 
     /**
      * The certificate store name (such as "My") that contains the specified
      * certificate.
-     * @type {WS_STRING}
      */
-    storeName {
-        get {
-            if(!this.HasProp("__storeName"))
-                this.__storeName := WS_STRING(8, this)
-            return this.__storeName
-        }
-    }
+    storeName : WS_STRING
 
     /**
      * The SHA-1 thumbprint (such as
@@ -56,13 +36,7 @@ class WS_THUMBPRINT_CERT_CREDENTIAL extends Win32Struct {
      * certificate.  The supplied value should be a hexadecimal string
      * without whitespace characters or a leading 0x.  A tool such as
      * certmgr.exe may be used to find the thumbprint of a certificate.
-     * @type {WS_STRING}
      */
-    thumbprint {
-        get {
-            if(!this.HasProp("__thumbprint"))
-                this.__thumbprint := WS_STRING(24, this)
-            return this.__thumbprint
-        }
-    }
+    thumbprint : WS_STRING
+
 }

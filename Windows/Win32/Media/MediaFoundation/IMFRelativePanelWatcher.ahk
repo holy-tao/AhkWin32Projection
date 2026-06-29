@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFShutdown.ahk
-#Include .\IMFRelativePanelReport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import ".\IMFRelativePanelReport.ahk" { IMFRelativePanelReport }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFShutdown.ahk" { IMFShutdown }
 
 /**
  * Monitors the panel associated with a display, so that the app receives notifications when the relative location of the panel changes.
@@ -11,26 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrelativepanelwatcher
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFRelativePanelWatcher extends IMFShutdown {
-
-    static sizeof => A_PtrSize
+export default struct IMFRelativePanelWatcher extends IMFShutdown {
     /**
      * The interface identifier for IMFRelativePanelWatcher
      * @type {Guid}
      */
-    static IID => Guid("{421af7f6-573e-4ad0-8fda-2e57cedb18c6}")
+    static IID := Guid("{421af7f6-573e-4ad0-8fda-2e57cedb18c6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFRelativePanelWatcher interfaces
+    */
+    struct Vtbl extends IMFShutdown.Vtbl {
+        BeginGetReport : IntPtr
+        EndGetReport   : IntPtr
+        GetReport      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginGetReport", "EndGetReport", "GetReport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFRelativePanelWatcher.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Begins an asynchronous request to get an IMFRelativePanelReport interface that represents the relative panel location.
@@ -67,5 +80,29 @@ class IMFRelativePanelWatcher extends IMFShutdown {
     GetReport() {
         result := ComCall(7, this, "ptr*", &ppRelativePanelReport := 0, "HRESULT")
         return IMFRelativePanelReport(ppRelativePanelReport)
+    }
+
+    Query(iid) {
+        if (IMFRelativePanelWatcher.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginGetReport := CallbackCreate(GetMethod(implObj, "BeginGetReport"), flags, 3)
+        this.vtbl.EndGetReport := CallbackCreate(GetMethod(implObj, "EndGetReport"), flags, 3)
+        this.vtbl.GetReport := CallbackCreate(GetMethod(implObj, "GetReport"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginGetReport)
+        CallbackFree(this.vtbl.EndGetReport)
+        CallbackFree(this.vtbl.GetReport)
     }
 }

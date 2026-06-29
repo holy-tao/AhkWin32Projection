@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOB_OBJECT_SECURITY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Security\TOKEN_GROUPS.ahk
-#Include ..\..\Security\TOKEN_PRIVILEGES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Security\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import ".\JOB_OBJECT_SECURITY.ahk" { JOB_OBJECT_SECURITY }
+#Import "..\..\Security\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
 
 /**
  * Contains the security limitations for a job object.
@@ -14,18 +13,10 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_security_limit_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct JOBOBJECT_SECURITY_LIMIT_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {JOB_OBJECT_SECURITY}
-     */
-    SecurityLimitFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SecurityLimitFlags : JOB_OBJECT_SECURITY
 
     /**
      * A handle to the primary token that represents a user. The handle must have TOKEN_ASSIGN_PRIMARY access. 
@@ -35,15 +26,8 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct {
      * 
      * If the token was created with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, all processes in the job are limited to that token or a further restricted token. Otherwise, the caller must have the SE_ASSIGNPRIMARYTOKEN_NAME privilege.
-     * @type {HANDLE}
      */
-    JobToken {
-        get {
-            if(!this.HasProp("__JobToken"))
-                this.__JobToken := HANDLE(8, this)
-            return this.__JobToken
-        }
-    }
+    JobToken : HANDLE
 
     /**
      * A pointer to a 
@@ -53,12 +37,8 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct {
      * 
      * 
      * This member can be NULL if you do not want to disable any SIDs.
-     * @type {Pointer<TOKEN_GROUPS>}
      */
-    SidsToDisable {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SidsToDisable : TOKEN_GROUPS.Ptr
 
     /**
      * A pointer to a 
@@ -68,12 +48,8 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct {
      * 
      * 
      * This member can be NULL if you do not want to delete any privileges.
-     * @type {Pointer<TOKEN_PRIVILEGES>}
      */
-    PrivilegesToDelete {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PrivilegesToDelete : TOKEN_PRIVILEGES.Ptr
 
     /**
      * A pointer to a 
@@ -83,10 +59,7 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct {
      * 
      * 
      * This member can be NULL if you do not want to specify any deny-only SIDs.
-     * @type {Pointer<TOKEN_GROUPS>}
      */
-    RestrictedSids {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    RestrictedSids : TOKEN_GROUPS.Ptr
+
 }

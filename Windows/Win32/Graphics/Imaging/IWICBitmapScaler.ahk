@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapSource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapInterpolationMode.ahk" { WICBitmapInterpolationMode }
 
 /**
  * Represents a resized version of the input bitmap using a resampling or filtering algorithm.
@@ -24,26 +26,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapscaler
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapScaler extends IWICBitmapSource {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapScaler extends IWICBitmapSource {
     /**
      * The interface identifier for IWICBitmapScaler
      * @type {Guid}
      */
-    static IID => Guid("{00000302-a8f2-4877-ba0a-fd2b6645fb94}")
+    static IID := Guid("{00000302-a8f2-4877-ba0a-fd2b6645fb94}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapScaler interfaces
+    */
+    struct Vtbl extends IWICBitmapSource.Vtbl {
+        Initialize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapScaler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the bitmap scaler with the provided parameters.
@@ -67,7 +76,27 @@ class IWICBitmapScaler extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapscaler-initialize
      */
     Initialize(pISource, uiWidth, uiHeight, _mode) {
-        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, "int", _mode, "HRESULT")
+        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, WICBitmapInterpolationMode, _mode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICBitmapScaler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the inertia values for a manipulation (translation, rotation, scaling).
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-inertia_parameter
  * @namespace Windows.Win32.UI.InteractionContext
  */
-class INERTIA_PARAMETER extends Win32Enum {
+export default struct INERTIA_PARAMETER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The rate of deceleration, in degrees/ms².

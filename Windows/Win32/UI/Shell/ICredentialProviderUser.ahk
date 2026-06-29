@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods used to retrieve certain properties of an individual user included in a logon or credential UI.
@@ -15,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovideruser
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderUser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderUser extends IUnknown {
     /**
      * The interface identifier for ICredentialProviderUser
      * @type {Guid}
      */
-    static IID => Guid("{13793285-3ea6-40fd-b420-15f47da41fbb}")
+    static IID := Guid("{13793285-3ea6-40fd-b420-15f47da41fbb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderUser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSid         : IntPtr
+        GetProviderID  : IntPtr
+        GetStringValue : IntPtr
+        GetValue       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSid", "GetProviderID", "GetStringValue", "GetValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderUser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the user's security identifier (SID). (ICredentialProviderUser.GetSid)
@@ -46,7 +58,7 @@ class ICredentialProviderUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getsid
      */
     GetSid() {
-        result := ComCall(3, this, "ptr*", &_sid := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &_sid := 0, "HRESULT")
         return _sid
     }
 
@@ -61,7 +73,7 @@ class ICredentialProviderUser extends IUnknown {
      */
     GetProviderID() {
         providerID := Guid()
-        result := ComCall(4, this, "ptr", providerID, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, providerID, "HRESULT")
         return providerID
     }
 
@@ -154,7 +166,7 @@ class ICredentialProviderUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getstringvalue
      */
     GetStringValue(key) {
-        result := ComCall(5, this, "ptr", key, "ptr*", &stringValue := 0, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, key, PWSTR.Ptr, &stringValue := 0, "HRESULT")
         return stringValue
     }
 
@@ -168,7 +180,33 @@ class ICredentialProviderUser extends IUnknown {
      */
     GetValue(key) {
         value := PROPVARIANT()
-        result := ComCall(6, this, "ptr", key, "ptr", value, "HRESULT")
+        result := ComCall(6, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (ICredentialProviderUser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSid := CallbackCreate(GetMethod(implObj, "GetSid"), flags, 2)
+        this.vtbl.GetProviderID := CallbackCreate(GetMethod(implObj, "GetProviderID"), flags, 2)
+        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSid)
+        CallbackFree(this.vtbl.GetProviderID)
+        CallbackFree(this.vtbl.GetStringValue)
+        CallbackFree(this.vtbl.GetValue)
     }
 }

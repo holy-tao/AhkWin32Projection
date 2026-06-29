@@ -1,6 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D_INCLUDE_TYPE.ahk" { D3D_INCLUDE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * ID3DInclude is an include interface that the user implements to allow an application to call user-overridable methods for opening and closing shader
@@ -9,21 +12,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nn-d3dcommon-id3dinclude
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class ID3DInclude extends Win32ComInterface {
+export default struct ID3DInclude extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3DInclude interfaces
+    */
+    struct Vtbl {
+        Open  : IntPtr
+        Close : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3DInclude.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * A user-implemented method for opening and reading the contents of a shader
@@ -62,7 +73,7 @@ class ID3DInclude extends Win32ComInterface {
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pBytesMarshal := pBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(0, this, "int", IncludeType, "ptr", pFileName, pParentDataMarshal, pParentData, ppDataMarshal, ppData, pBytesMarshal, pBytes, "HRESULT")
+        result := ComCall(0, this, D3D_INCLUDE_TYPE, IncludeType, "ptr", pFileName, pParentDataMarshal, pParentData, ppDataMarshal, ppData, pBytesMarshal, pBytes, "HRESULT")
         return result
     }
 
@@ -91,5 +102,12 @@ class ID3DInclude extends Win32ComInterface {
 
         result := ComCall(1, this, pDataMarshal, pData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3DInclude.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

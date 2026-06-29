@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UCPTrieData extends Win32Struct {
-    static sizeof => 32
+export default struct UCPTrieData {
+    #StructPack 8
 
-    static packingSize => 8
+    ptr0 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ptr0 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ptr16 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ptr32 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ptr8 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'ptr16', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'ptr32', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'ptr8', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

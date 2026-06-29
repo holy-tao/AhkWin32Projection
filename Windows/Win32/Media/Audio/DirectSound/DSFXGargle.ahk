@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSFXGargle extends Win32Struct {
-    static sizeof => 8
+export default struct DSFXGargle {
+    #StructPack 4
 
-    static packingSize => 4
+    dwRateHz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRateHz {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwWaveShape : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWaveShape {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

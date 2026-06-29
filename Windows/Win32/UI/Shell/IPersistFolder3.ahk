@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPersistFolder2.ahk
-#Include .\PERSIST_FOLDER_TARGET_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import ".\PERSIST_FOLDER_TARGET_INFO.ahk" { PERSIST_FOLDER_TARGET_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPersistFolder2.ahk" { IPersistFolder2 }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 
 /**
  * Extends the IPersistFolder and IPersistFolder2 interfaces by allowing a folder object to implement nondefault handling of folder shortcuts.
@@ -19,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistfolder3
  * @namespace Windows.Win32.UI.Shell
  */
-class IPersistFolder3 extends IPersistFolder2 {
-
-    static sizeof => A_PtrSize
+export default struct IPersistFolder3 extends IPersistFolder2 {
     /**
      * The interface identifier for IPersistFolder3
      * @type {Guid}
      */
-    static IID => Guid("{cef04fdf-fe72-11d2-87a5-00c04f6837cf}")
+    static IID := Guid("{cef04fdf-fe72-11d2-87a5-00c04f6837cf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistFolder3 interfaces
+    */
+    struct Vtbl extends IPersistFolder2.Vtbl {
+        InitializeEx        : IntPtr
+        GetFolderTargetInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEx", "GetFolderTargetInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistFolder3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a folder and specifies its location in the namespace. If the folder is a shortcut, this method also specifies the location of the target folder.
@@ -65,7 +76,7 @@ class IPersistFolder3 extends IPersistFolder2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistfolder3-initializeex
      */
     InitializeEx(pbc, pidlRoot, ppfti) {
-        result := ComCall(6, this, "ptr", pbc, "ptr", pidlRoot, "ptr", ppfti, "HRESULT")
+        result := ComCall(6, this, "ptr", pbc, ITEMIDLIST.Ptr, pidlRoot, PERSIST_FOLDER_TARGET_INFO.Ptr, ppfti, "HRESULT")
         return result
     }
 
@@ -80,7 +91,29 @@ class IPersistFolder3 extends IPersistFolder2 {
      */
     GetFolderTargetInfo() {
         ppfti := PERSIST_FOLDER_TARGET_INFO()
-        result := ComCall(7, this, "ptr", ppfti, "HRESULT")
+        result := ComCall(7, this, PERSIST_FOLDER_TARGET_INFO.Ptr, ppfti, "HRESULT")
         return ppfti
+    }
+
+    Query(iid) {
+        if (IPersistFolder3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEx := CallbackCreate(GetMethod(implObj, "InitializeEx"), flags, 4)
+        this.vtbl.GetFolderTargetInfo := CallbackCreate(GetMethod(implObj, "GetFolderTargetInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEx)
+        CallbackFree(this.vtbl.GetFolderTargetInfo)
     }
 }

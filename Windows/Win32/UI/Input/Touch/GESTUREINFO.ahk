@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\POINTS.ahk" { POINTS }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Stores information about a gesture.
@@ -108,100 +107,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureinfo
  * @namespace Windows.Win32.UI.Input.Touch
  */
-class GESTUREINFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct GESTUREINFO {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes. The caller must set this to <c>sizeof(GESTUREINFO)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The state of the gesture.  For additional information, see Remarks.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * The identifier of the gesture command.
-     * @type {Integer}
      */
-    dwID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwID : UInt32
 
     /**
      * A handle to the window that is targeted by this gesture.
-     * @type {HWND}
      */
-    hwndTarget {
-        get {
-            if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(16, this)
-            return this.__hwndTarget
-        }
-    }
+    hwndTarget : HWND
 
     /**
      * A <b>POINTS</b> structure containing the coordinates associated with the gesture. These coordinates are always relative to the origin of the screen.
-     * @type {POINTS}
      */
-    ptsLocation {
-        get {
-            if(!this.HasProp("__ptsLocation"))
-                this.__ptsLocation := POINTS(24, this)
-            return this.__ptsLocation
-        }
-    }
+    ptsLocation : POINTS
 
     /**
      * An internally used identifier for the structure.
-     * @type {Integer}
      */
-    dwInstanceID {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwInstanceID : UInt32
 
     /**
      * An internally used identifier for the sequence.
-     * @type {Integer}
      */
-    dwSequenceID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwSequenceID : UInt32
 
     /**
      * A 64-bit unsigned integer that contains the arguments for gestures that fit into 8 bytes.
-     * @type {Integer}
      */
-    ullArguments {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ullArguments : Int64
 
     /**
      * The size, in bytes, of extra arguments that accompany this gesture.
-     * @type {Integer}
      */
-    cbExtraArgs {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbExtraArgs : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

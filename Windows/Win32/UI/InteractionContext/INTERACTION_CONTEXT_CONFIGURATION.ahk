@@ -1,29 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERACTION_ID.ahk
-#Include .\INTERACTION_CONFIGURATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERACTION_ID.ahk" { INTERACTION_ID }
+#Import ".\INTERACTION_CONFIGURATION_FLAGS.ahk" { INTERACTION_CONFIGURATION_FLAGS }
 
 /**
  * Defines the configuration of an Interaction Context object that enables, disables, or modifies the behavior of an interaction.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_context_configuration
  * @namespace Windows.Win32.UI.InteractionContext
  */
-class INTERACTION_CONTEXT_CONFIGURATION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct INTERACTION_CONTEXT_CONFIGURATION {
+    #StructPack 4
 
     /**
      * One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_id">INTERACTION_ID</a>.
      * 
      * <div class="alert"><b>Note</b>  INTERACTION_FLAG_NONE is not a valid value.</div>
      * <div> </div>
-     * @type {INTERACTION_ID}
      */
-    interactionId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    interactionId : INTERACTION_ID
 
     /**
      * The value of this property is a bitmask, which can be set to one or more of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_configuration_flags">INTERACTION_CONFIGURATION_FLAGS</a>.
@@ -32,10 +25,7 @@ class INTERACTION_CONTEXT_CONFIGURATION extends Win32Struct {
      * 
      * 
      * ```cpp
-     * @type {INTERACTION_CONFIGURATION_FLAGS}
      */
-    enable {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    enable : INTERACTION_CONFIGURATION_FLAGS
+
 }

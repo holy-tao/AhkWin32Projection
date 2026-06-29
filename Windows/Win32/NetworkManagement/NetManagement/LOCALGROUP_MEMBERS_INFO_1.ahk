@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID_NAME_USE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SID_NAME_USE.ahk" { SID_NAME_USE }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_1 structure contains the security identifier (SID) and account information associated with the member of a local group.
@@ -9,22 +10,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-localgroup_members_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class LOCALGROUP_MEMBERS_INFO_1 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct LOCALGROUP_MEMBERS_INFO_1 {
+    #StructPack 8
 
     /**
      * Type: <b>PSID</b>
      * 
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of an account that is a member of this local group member. The account can be a user account or a global group account.
-     * @type {PSID}
      */
-    lgrmi1_sid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lgrmi1_sid : PSID
 
     /**
      * Type: <b>SID_NAME_USE</b>
@@ -90,21 +85,14 @@ class LOCALGROUP_MEMBERS_INFO_1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {SID_NAME_USE}
      */
-    lgrmi1_sidusage {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lgrmi1_sidusage : SID_NAME_USE
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the account name of the local group member identified by the <b>lgrmi1_sid</b> member. The <b>lgrmi1_name</b> member does not include the domain name. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    lgrmi1_name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lgrmi1_name : PWSTR
+
 }

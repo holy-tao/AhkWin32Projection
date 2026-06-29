@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
 
 /**
  * Is used to store mobile additional address information.
@@ -9,44 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_address_info0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_ADDRESS_INFO0 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct IPSEC_ADDRESS_INFO0 {
+    #StructPack 8
 
     /**
      * The number of IPv4 addresses stored in the <b>v4Addresses</b> member.
-     * @type {Integer}
      */
-    numV4Addresses {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numV4Addresses : UInt32
 
     /**
      * Array of IPv4 local addresses to indicate to peer.
-     * @type {Pointer<Integer>}
      */
-    v4Addresses {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    v4Addresses : IntPtr
 
     /**
      * The number of IPv6 addresses stored in the <b>v6Addresses</b> member.
-     * @type {Integer}
      */
-    numV6Addresses {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    numV6Addresses : UInt32
 
     /**
      * Array of IPv6 local addresses to indicate to peer.
-     * @type {Pointer<FWP_BYTE_ARRAY16>}
      */
-    v6Addresses {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    v6Addresses : FWP_BYTE_ARRAY16.Ptr
+
 }

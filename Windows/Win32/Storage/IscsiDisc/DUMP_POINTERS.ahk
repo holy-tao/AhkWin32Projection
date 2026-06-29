@@ -1,94 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\_ADAPTER_OBJECT.ahk" { _ADAPTER_OBJECT }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class DUMP_POINTERS extends Win32Struct {
-    static sizeof => 56
+export default struct DUMP_POINTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    AdapterObject : _ADAPTER_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<_ADAPTER_OBJECT>}
-     */
-    AdapterObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MappedRegisterBase : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    MappedRegisterBase {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DumpData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DumpData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CommonBufferVa : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CommonBufferVa {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CommonBufferPa : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CommonBufferPa {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    CommonBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CommonBufferSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AllocateCommonBuffers : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllocateCommonBuffers {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
-    }
+    UseDiskDump : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    UseDiskDump {
-        get => NumGet(this, 45, "char")
-        set => NumPut("char", value, this, 45)
-    }
+    Spare1 : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Spare1 {
-        get {
-            if(!this.HasProp("__Spare1ProxyArray"))
-                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")
-            return this.__Spare1ProxyArray
-        }
-    }
+    DeviceObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceObject {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

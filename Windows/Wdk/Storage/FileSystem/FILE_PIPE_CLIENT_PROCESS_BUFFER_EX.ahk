@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_PIPE_CLIENT_PROCESS_BUFFER_EX extends Win32Struct {
-    static sizeof => 56
+export default struct FILE_PIPE_CLIENT_PROCESS_BUFFER_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    ClientSession : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ClientSession {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ClientProcess : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ClientProcess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ClientComputerNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ClientComputerNameLength {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    ClientComputerBuffer : WCHAR[16]
 
-    /**
-     * @type {String}
-     */
-    ClientComputerBuffer {
-        get => StrGet(this.ptr + 18, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 18, 15, "UTF-16")
-    }
 }

@@ -1,10 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxSender.ahk
-#Include .\IFaxRecipient.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxSender.ahk" { IFaxSender }
+#Import ".\FAX_JOB_EXTENDED_STATUS_ENUM.ahk" { FAX_JOB_EXTENDED_STATUS_ENUM }
+#Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
+#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import ".\FAX_JOB_STATUS_ENUM.ahk" { FAX_JOB_STATUS_ENUM }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IFaxRecipient.ahk" { IFaxRecipient }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FAX_JOB_OPERATIONS_ENUM.ahk" { FAX_JOB_OPERATIONS_ENUM }
 
 /**
  * The IFaxOutgoingJob interface describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.
@@ -13,32 +20,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingjob
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutgoingJob extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutgoingJob extends IDispatch {
     /**
      * The interface identifier for IFaxOutgoingJob
      * @type {Guid}
      */
-    static IID => Guid("{6356daad-6614-4583-bf7a-3ad67bbfc71c}")
+    static IID := Guid("{6356daad-6614-4583-bf7a-3ad67bbfc71c}")
 
     /**
      * The class identifier for FaxOutgoingJob
      * @type {Guid}
      */
-    static CLSID => Guid("{71bb429c-0ef9-4915-bec5-a5d897a3e924}")
+    static CLSID := Guid("{71bb429c-0ef9-4915-bec5-a5d897a3e924}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutgoingJob interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Subject                : IntPtr
+        get_DocumentName           : IntPtr
+        get_Pages                  : IntPtr
+        get_Size                   : IntPtr
+        get_SubmissionId           : IntPtr
+        get_Id                     : IntPtr
+        get_OriginalScheduledTime  : IntPtr
+        get_SubmissionTime         : IntPtr
+        get_ReceiptType            : IntPtr
+        get_Priority               : IntPtr
+        get_Sender                 : IntPtr
+        get_Recipient              : IntPtr
+        get_CurrentPage            : IntPtr
+        get_DeviceId               : IntPtr
+        get_Status                 : IntPtr
+        get_ExtendedStatusCode     : IntPtr
+        get_ExtendedStatus         : IntPtr
+        get_AvailableOperations    : IntPtr
+        get_Retries                : IntPtr
+        get_ScheduledTime          : IntPtr
+        get_TransmissionStart      : IntPtr
+        get_TransmissionEnd        : IntPtr
+        get_CSID                   : IntPtr
+        get_TSID                   : IntPtr
+        get_GroupBroadcastReceipts : IntPtr
+        Pause                      : IntPtr
+        Resume                     : IntPtr
+        Restart                    : IntPtr
+        CopyTiff                   : IntPtr
+        Refresh                    : IntPtr
+        Cancel                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Subject", "get_DocumentName", "get_Pages", "get_Size", "get_SubmissionId", "get_Id", "get_OriginalScheduledTime", "get_SubmissionTime", "get_ReceiptType", "get_Priority", "get_Sender", "get_Recipient", "get_CurrentPage", "get_DeviceId", "get_Status", "get_ExtendedStatusCode", "get_ExtendedStatus", "get_AvailableOperations", "get_Retries", "get_ScheduledTime", "get_TransmissionStart", "get_TransmissionEnd", "get_CSID", "get_TSID", "get_GroupBroadcastReceipts", "Pause", "Resume", "Restart", "CopyTiff", "Refresh", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutgoingJob.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -221,8 +265,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_subject
      */
     get_Subject() {
-        pbstrSubject := BSTR()
-        result := ComCall(7, this, "ptr", pbstrSubject, "HRESULT")
+        pbstrSubject := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrSubject, "HRESULT")
         return pbstrSubject
     }
 
@@ -232,8 +276,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_documentname
      */
     get_DocumentName() {
-        pbstrDocumentName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrDocumentName, "HRESULT")
+        pbstrDocumentName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrDocumentName, "HRESULT")
         return pbstrDocumentName
     }
 
@@ -265,8 +309,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_submissionid
      */
     get_SubmissionId() {
-        pbstrSubmissionId := BSTR()
-        result := ComCall(11, this, "ptr", pbstrSubmissionId, "HRESULT")
+        pbstrSubmissionId := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrSubmissionId, "HRESULT")
         return pbstrSubmissionId
     }
 
@@ -276,8 +320,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_id
      */
     get_Id() {
-        pbstrId := BSTR()
-        result := ComCall(12, this, "ptr", pbstrId, "HRESULT")
+        pbstrId := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrId, "HRESULT")
         return pbstrId
     }
 
@@ -399,8 +443,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_extendedstatus
      */
     get_ExtendedStatus() {
-        pbstrExtendedStatus := BSTR()
-        result := ComCall(23, this, "ptr", pbstrExtendedStatus, "HRESULT")
+        pbstrExtendedStatus := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pbstrExtendedStatus, "HRESULT")
         return pbstrExtendedStatus
     }
 
@@ -466,8 +510,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
-        result := ComCall(29, this, "ptr", pbstrCSID, "HRESULT")
+        pbstrCSID := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pbstrCSID, "HRESULT")
         return pbstrCSID
     }
 
@@ -477,8 +521,8 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
-        result := ComCall(30, this, "ptr", pbstrTSID, "HRESULT")
+        pbstrTSID := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, pbstrTSID, "HRESULT")
         return pbstrTSID
     }
 
@@ -490,7 +534,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_groupbroadcastreceipts
      */
     get_GroupBroadcastReceipts() {
-        result := ComCall(31, this, "short*", &pbGroupBroadcastReceipts := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &pbGroupBroadcastReceipts := 0, "HRESULT")
         return pbGroupBroadcastReceipts
     }
 
@@ -555,7 +599,7 @@ class IFaxOutgoingJob extends IDispatch {
     CopyTiff(bstrTiffPath) {
         bstrTiffPath := bstrTiffPath is String ? BSTR.Alloc(bstrTiffPath).Value : bstrTiffPath
 
-        result := ComCall(35, this, "ptr", bstrTiffPath, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrTiffPath, "HRESULT")
         return result
     }
 
@@ -589,5 +633,85 @@ class IFaxOutgoingJob extends IDispatch {
     Cancel() {
         result := ComCall(37, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxOutgoingJob.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.get_DocumentName := CallbackCreate(GetMethod(implObj, "get_DocumentName"), flags, 2)
+        this.vtbl.get_Pages := CallbackCreate(GetMethod(implObj, "get_Pages"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_SubmissionId := CallbackCreate(GetMethod(implObj, "get_SubmissionId"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_OriginalScheduledTime := CallbackCreate(GetMethod(implObj, "get_OriginalScheduledTime"), flags, 2)
+        this.vtbl.get_SubmissionTime := CallbackCreate(GetMethod(implObj, "get_SubmissionTime"), flags, 2)
+        this.vtbl.get_ReceiptType := CallbackCreate(GetMethod(implObj, "get_ReceiptType"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.get_Sender := CallbackCreate(GetMethod(implObj, "get_Sender"), flags, 2)
+        this.vtbl.get_Recipient := CallbackCreate(GetMethod(implObj, "get_Recipient"), flags, 2)
+        this.vtbl.get_CurrentPage := CallbackCreate(GetMethod(implObj, "get_CurrentPage"), flags, 2)
+        this.vtbl.get_DeviceId := CallbackCreate(GetMethod(implObj, "get_DeviceId"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_ExtendedStatusCode := CallbackCreate(GetMethod(implObj, "get_ExtendedStatusCode"), flags, 2)
+        this.vtbl.get_ExtendedStatus := CallbackCreate(GetMethod(implObj, "get_ExtendedStatus"), flags, 2)
+        this.vtbl.get_AvailableOperations := CallbackCreate(GetMethod(implObj, "get_AvailableOperations"), flags, 2)
+        this.vtbl.get_Retries := CallbackCreate(GetMethod(implObj, "get_Retries"), flags, 2)
+        this.vtbl.get_ScheduledTime := CallbackCreate(GetMethod(implObj, "get_ScheduledTime"), flags, 2)
+        this.vtbl.get_TransmissionStart := CallbackCreate(GetMethod(implObj, "get_TransmissionStart"), flags, 2)
+        this.vtbl.get_TransmissionEnd := CallbackCreate(GetMethod(implObj, "get_TransmissionEnd"), flags, 2)
+        this.vtbl.get_CSID := CallbackCreate(GetMethod(implObj, "get_CSID"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.get_GroupBroadcastReceipts := CallbackCreate(GetMethod(implObj, "get_GroupBroadcastReceipts"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Restart := CallbackCreate(GetMethod(implObj, "Restart"), flags, 1)
+        this.vtbl.CopyTiff := CallbackCreate(GetMethod(implObj, "CopyTiff"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Subject)
+        CallbackFree(this.vtbl.get_DocumentName)
+        CallbackFree(this.vtbl.get_Pages)
+        CallbackFree(this.vtbl.get_Size)
+        CallbackFree(this.vtbl.get_SubmissionId)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_OriginalScheduledTime)
+        CallbackFree(this.vtbl.get_SubmissionTime)
+        CallbackFree(this.vtbl.get_ReceiptType)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.get_Sender)
+        CallbackFree(this.vtbl.get_Recipient)
+        CallbackFree(this.vtbl.get_CurrentPage)
+        CallbackFree(this.vtbl.get_DeviceId)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_ExtendedStatusCode)
+        CallbackFree(this.vtbl.get_ExtendedStatus)
+        CallbackFree(this.vtbl.get_AvailableOperations)
+        CallbackFree(this.vtbl.get_Retries)
+        CallbackFree(this.vtbl.get_ScheduledTime)
+        CallbackFree(this.vtbl.get_TransmissionStart)
+        CallbackFree(this.vtbl.get_TransmissionEnd)
+        CallbackFree(this.vtbl.get_CSID)
+        CallbackFree(this.vtbl.get_TSID)
+        CallbackFree(this.vtbl.get_GroupBroadcastReceipts)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Restart)
+        CallbackFree(this.vtbl.CopyTiff)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

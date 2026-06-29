@@ -1,32 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQPrivateDestination extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQPrivateDestination extends IDispatch {
     /**
      * The interface identifier for IMSMQPrivateDestination
      * @type {Guid}
      */
-    static IID => Guid("{eba96b17-2168-11d3-898c-00e02c074f6b}")
+    static IID := Guid("{eba96b17-2168-11d3-898c-00e02c074f6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQPrivateDestination interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Handle : IntPtr
+        put_Handle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Handle", "put_Handle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQPrivateDestination.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -42,7 +51,7 @@ class IMSMQPrivateDestination extends IDispatch {
      */
     get_Handle() {
         pvarHandle := VARIANT()
-        result := ComCall(7, this, "ptr", pvarHandle, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pvarHandle, "HRESULT")
         return pvarHandle
     }
 
@@ -52,7 +61,29 @@ class IMSMQPrivateDestination extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Handle(varHandle) {
-        result := ComCall(8, this, "ptr", varHandle, "HRESULT")
+        result := ComCall(8, this, VARIANT, varHandle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSMQPrivateDestination.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.put_Handle := CallbackCreate(GetMethod(implObj, "put_Handle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.put_Handle)
     }
 }

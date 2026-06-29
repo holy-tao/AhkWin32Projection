@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * For a particular seek position, gets the two nearest key frames. (IMFSeekInfo)
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfseekinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSeekInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSeekInfo extends IUnknown {
     /**
      * The interface identifier for IMFSeekInfo
      * @type {Guid}
      */
-    static IID => Guid("{26afea53-d9ed-42b5-ab80-e64f9ee34779}")
+    static IID := Guid("{26afea53-d9ed-42b5-ab80-e64f9ee34779}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSeekInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNearestKeyFrames : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNearestKeyFrames"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSeekInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * For a particular seek position, gets the two nearest key frames. (IMFSeekInfo.GetNearestKeyFrames)
@@ -72,7 +81,27 @@ class IMFSeekInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfseekinfo-getnearestkeyframes
      */
     GetNearestKeyFrames(pguidTimeFormat, pvarStartPosition, pvarPreviousKeyFrame, pvarNextKeyFrame) {
-        result := ComCall(3, this, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "ptr", pvarPreviousKeyFrame, "ptr", pvarNextKeyFrame, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidTimeFormat, PROPVARIANT.Ptr, pvarStartPosition, PROPVARIANT.Ptr, pvarPreviousKeyFrame, PROPVARIANT.Ptr, pvarNextKeyFrame, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSeekInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNearestKeyFrames := CallbackCreate(GetMethod(implObj, "GetNearestKeyFrames"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNearestKeyFrames)
     }
 }

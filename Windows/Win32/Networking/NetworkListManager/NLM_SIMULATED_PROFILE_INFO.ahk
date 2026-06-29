@@ -1,50 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NLM_CONNECTION_COST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NLM_CONNECTION_COST.ahk" { NLM_CONNECTION_COST }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used to specify values that are used by SetSimulatedProfileInfo to override current internet connection profile values in an RDP Child Session to support the simulation of specific metered internet connection conditions.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_simulated_profile_info
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_SIMULATED_PROFILE_INFO extends Win32Struct {
-    static sizeof => 524
-
-    static packingSize => 4
+export default struct NLM_SIMULATED_PROFILE_INFO {
+    #StructPack 4
 
     /**
      * Name for the simulated profile.
-     * @type {String}
      */
-    ProfileName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    ProfileName : WCHAR[256]
 
     /**
      * The network cost. Possible values are defined by <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_cost">NLM_CONNECTION_COST</a>.
-     * @type {NLM_CONNECTION_COST}
      */
-    cost {
-        get => NumGet(this, 512, "int")
-        set => NumPut("int", value, this, 512)
-    }
+    cost : NLM_CONNECTION_COST
 
     /**
      * The data usage.
-     * @type {Integer}
      */
-    UsageInMegabytes {
-        get => NumGet(this, 516, "uint")
-        set => NumPut("uint", value, this, 516)
-    }
+    UsageInMegabytes : UInt32
 
     /**
      * The data limit of the plan.
-     * @type {Integer}
      */
-    DataLimitInMegabytes {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
-    }
+    DataLimitInMegabytes : UInt32
+
 }

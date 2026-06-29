@@ -1,43 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWdsTransportSetupManager.ahk
-#Include .\IWdsTransportConfigurationManager.ahk
-#Include .\IWdsTransportNamespaceManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWdsTransportNamespaceManager.ahk" { IWdsTransportNamespaceManager }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WDSTRANSPORT_DISCONNECT_TYPE.ahk" { WDSTRANSPORT_DISCONNECT_TYPE }
+#Import ".\IWdsTransportConfigurationManager.ahk" { IWdsTransportConfigurationManager }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWdsTransportSetupManager.ahk" { IWdsTransportSetupManager }
 
 /**
  * Represents a WDS transport server. A WDS client can use an object of this interface to manage setup, configuration, and namespace tasks on the server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportserver
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportServer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportServer extends IDispatch {
     /**
      * The interface identifier for IWdsTransportServer
      * @type {Guid}
      */
-    static IID => Guid("{09ccd093-830d-4344-a30a-73ae8e8fca90}")
+    static IID := Guid("{09ccd093-830d-4344-a30a-73ae8e8fca90}")
 
     /**
      * The class identifier for WdsTransportServer
      * @type {Guid}
      */
-    static CLSID => Guid("{ea19b643-4adf-4413-942c-14f379118760}")
+    static CLSID := Guid("{ea19b643-4adf-4413-942c-14f379118760}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportServer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                 : IntPtr
+        get_SetupManager         : IntPtr
+        get_ConfigurationManager : IntPtr
+        get_NamespaceManager     : IntPtr
+        DisconnectClient         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_SetupManager", "get_ConfigurationManager", "get_NamespaceManager", "DisconnectClient"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportServer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -73,8 +86,8 @@ class IWdsTransportServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_name
      */
     get_Name() {
-        pbszName := BSTR()
-        result := ComCall(7, this, "ptr", pbszName, "HRESULT")
+        pbszName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbszName, "HRESULT")
         return pbszName
     }
 
@@ -116,7 +129,35 @@ class IWdsTransportServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-disconnectclient
      */
     DisconnectClient(ulClientId, DisconnectionType) {
-        result := ComCall(11, this, "uint", ulClientId, "int", DisconnectionType, "HRESULT")
+        result := ComCall(11, this, "uint", ulClientId, WDSTRANSPORT_DISCONNECT_TYPE, DisconnectionType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportServer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_SetupManager := CallbackCreate(GetMethod(implObj, "get_SetupManager"), flags, 2)
+        this.vtbl.get_ConfigurationManager := CallbackCreate(GetMethod(implObj, "get_ConfigurationManager"), flags, 2)
+        this.vtbl.get_NamespaceManager := CallbackCreate(GetMethod(implObj, "get_NamespaceManager"), flags, 2)
+        this.vtbl.DisconnectClient := CallbackCreate(GetMethod(implObj, "DisconnectClient"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_SetupManager)
+        CallbackFree(this.vtbl.get_ConfigurationManager)
+        CallbackFree(this.vtbl.get_NamespaceManager)
+        CallbackFree(this.vtbl.DisconnectClient)
     }
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class POWER_SESSION_WINLOGON extends Win32Struct {
-    static sizeof => 8
+export default struct POWER_SESSION_WINLOGON {
+    #StructPack 4
 
-    static packingSize => 4
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Console : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Console {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Locked : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Locked {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
 }

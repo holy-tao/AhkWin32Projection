@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferRecComp interface is used to create new content recordings by concatenating existing recordings. The new recording can be created from a mix of reference and content recordings.The Stream Buffer RecComp object exposes this interface.
@@ -10,26 +12,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferreccomp
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IStreamBufferRecComp extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStreamBufferRecComp extends IUnknown {
     /**
      * The interface identifier for IStreamBufferRecComp
      * @type {Guid}
      */
-    static IID => Guid("{9e259a9b-8815-42ae-b09f-221970b154fd}")
+    static IID := Guid("{9e259a9b-8815-42ae-b09f-221970b154fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamBufferRecComp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize       : IntPtr
+        Append           : IntPtr
+        AppendEx         : IntPtr
+        GetCurrentLength : IntPtr
+        Close            : IntPtr
+        Cancel           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Append", "AppendEx", "GetCurrentLength", "Close", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamBufferRecComp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method sets the file name and the profile for the new recording. Call this method once, after creating the RecComp object.
@@ -206,5 +220,35 @@ class IStreamBufferRecComp extends IUnknown {
     Cancel() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamBufferRecComp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
+        this.vtbl.AppendEx := CallbackCreate(GetMethod(implObj, "AppendEx"), flags, 4)
+        this.vtbl.GetCurrentLength := CallbackCreate(GetMethod(implObj, "GetCurrentLength"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.AppendEx)
+        CallbackFree(this.vtbl.GetCurrentLength)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

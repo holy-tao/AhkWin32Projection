@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\KSJACK_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSJACK_DESCRIPTION.ahk" { KSJACK_DESCRIPTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsJackDescription interface provides information about the jacks or internal connectors that provide a physical connection between a device on an audio adapter and an external or internal endpoint device (for example, a microphone or CD player).
@@ -38,26 +39,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iksjackdescription
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsJackDescription extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsJackDescription extends IUnknown {
     /**
      * The interface identifier for IKsJackDescription
      * @type {Guid}
      */
-    static IID => Guid("{4509f757-2d46-4637-8e62-ce7db944f57b}")
+    static IID := Guid("{4509f757-2d46-4637-8e62-ce7db944f57b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsJackDescription interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetJackCount       : IntPtr
+        GetJackDescription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetJackCount", "GetJackDescription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsJackDescription.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetJackCount method gets the number of jacks required to connect to an audio endpoint device.
@@ -93,7 +102,29 @@ class IKsJackDescription extends IUnknown {
      */
     GetJackDescription(nJack) {
         pDescription := KSJACK_DESCRIPTION()
-        result := ComCall(4, this, "uint", nJack, "ptr", pDescription, "HRESULT")
+        result := ComCall(4, this, "uint", nJack, KSJACK_DESCRIPTION.Ptr, pDescription, "HRESULT")
         return pDescription
+    }
+
+    Query(iid) {
+        if (IKsJackDescription.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetJackCount := CallbackCreate(GetMethod(implObj, "GetJackCount"), flags, 2)
+        this.vtbl.GetJackDescription := CallbackCreate(GetMethod(implObj, "GetJackDescription"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetJackCount)
+        CallbackFree(this.vtbl.GetJackDescription)
     }
 }

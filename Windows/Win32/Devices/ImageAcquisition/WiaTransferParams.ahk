@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The WiaTransferParams is transmitted to an application during a data transfer by the Windows Image Acquisition (WIA) run-time system to the IWiaTransferCallback::TransferCallback method.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-wiatransferparams
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WiaTransferParams extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WiaTransferParams {
+    #StructPack 8
 
     /**
      * Type: **LONG**
@@ -45,46 +43,31 @@ class WiaTransferParams extends Win32Struct {
      * <span id="WIA_TRANSFER_MSG_NEW_PAGE"></span><span id="wia_transfer_msg_new_page"></span>
      * 
      * <span id="WIA_TRANSFER_MSG_NEW_PAGE"></span><span id="wia_transfer_msg_new_page"></span>**WIA\_TRANSFER\_MSG\_NEW\_PAGE**
-     * @type {Integer}
      */
-    lMessage {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lMessage : Int32
 
     /**
      * Type: **LONG**
      * 
      * 
      * Indicates the progress of the data transfer as a percentage.
-     * @type {Integer}
      */
-    lPercentComplete {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lPercentComplete : Int32
 
     /**
      * Type: **ULONG64**
      * 
      * 
      * Indicates the amount of data transferred.
-     * @type {Integer}
      */
-    ulTransferredBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulTransferredBytes : Int64
 
     /**
      * Type: **HRESULT**
      * 
      * 
      * The status, or error state, of the device set by the driver; for example, "warming up".
-     * @type {HRESULT}
      */
-    hrErrorStatus {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    hrErrorStatus : HRESULT
+
 }

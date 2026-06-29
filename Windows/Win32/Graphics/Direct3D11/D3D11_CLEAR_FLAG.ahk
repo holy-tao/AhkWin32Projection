@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the parts of the depth stencil to clear.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_clear_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_CLEAR_FLAG extends Win32BitflagEnum {
+export default struct D3D11_CLEAR_FLAG {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Clear the depth buffer, using fast clear if possible, then place the resource in a compressed state.

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IESEvent.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IESEvent.ahk" { IESEvent }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Implements methods that get information from a LicenseRenewalResult event.
@@ -11,26 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ieslicenserenewalresultevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IESLicenseRenewalResultEvent extends IESEvent {
-
-    static sizeof => A_PtrSize
+export default struct IESLicenseRenewalResultEvent extends IESEvent {
     /**
      * The interface identifier for IESLicenseRenewalResultEvent
      * @type {Guid}
      */
-    static IID => Guid("{d5a48ef5-a81b-4df0-acaa-5e35e7ea45d4}")
+    static IID := Guid("{d5a48ef5-a81b-4df0-acaa-5e35e7ea45d4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IESLicenseRenewalResultEvent interfaces
+    */
+    struct Vtbl extends IESEvent.Vtbl {
+        GetCallersId                   : IntPtr
+        GetFileName                    : IntPtr
+        IsRenewalSuccessful            : IntPtr
+        IsCheckEntitlementCallRequired : IntPtr
+        GetDescrambledStatus           : IntPtr
+        GetRenewalResultCode           : IntPtr
+        GetCASFailureCode              : IntPtr
+        GetRenewalHResult              : IntPtr
+        GetEntitlementTokenLength      : IntPtr
+        GetEntitlementToken            : IntPtr
+        GetExpiryDate                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCallersId", "GetFileName", "IsRenewalSuccessful", "IsCheckEntitlementCallRequired", "GetDescrambledStatus", "GetRenewalResultCode", "GetCASFailureCode", "GetRenewalHResult", "GetEntitlementTokenLength", "GetEntitlementToken", "GetExpiryDate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IESLicenseRenewalResultEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a unique identifier from a LicenseRenewalResult event that identifies the caller.
@@ -48,8 +68,8 @@ class IESLicenseRenewalResultEvent extends IESEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getfilename
      */
     GetFileName() {
-        pbstrFilename := BSTR()
-        result := ComCall(9, this, "ptr", pbstrFilename, "HRESULT")
+        pbstrFilename := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrFilename, "HRESULT")
         return pbstrFilename
     }
 
@@ -59,7 +79,7 @@ class IESLicenseRenewalResultEvent extends IESEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-isrenewalsuccessful
      */
     IsRenewalSuccessful() {
-        result := ComCall(10, this, "int*", &pfRenewalSuccessful := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pfRenewalSuccessful := 0, "HRESULT")
         return pfRenewalSuccessful
     }
 
@@ -69,7 +89,7 @@ class IESLicenseRenewalResultEvent extends IESEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-ischeckentitlementcallrequired
      */
     IsCheckEntitlementCallRequired() {
-        result := ComCall(11, this, "int*", &pfCheckEntTokenCallNeeded := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pfCheckEntTokenCallNeeded := 0, "HRESULT")
         return pfCheckEntTokenCallNeeded
     }
 
@@ -467,5 +487,45 @@ class IESLicenseRenewalResultEvent extends IESEvent {
     GetExpiryDate() {
         result := ComCall(18, this, "uint*", &pqwExpiryDate := 0, "HRESULT")
         return pqwExpiryDate
+    }
+
+    Query(iid) {
+        if (IESLicenseRenewalResultEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCallersId := CallbackCreate(GetMethod(implObj, "GetCallersId"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.IsRenewalSuccessful := CallbackCreate(GetMethod(implObj, "IsRenewalSuccessful"), flags, 2)
+        this.vtbl.IsCheckEntitlementCallRequired := CallbackCreate(GetMethod(implObj, "IsCheckEntitlementCallRequired"), flags, 2)
+        this.vtbl.GetDescrambledStatus := CallbackCreate(GetMethod(implObj, "GetDescrambledStatus"), flags, 2)
+        this.vtbl.GetRenewalResultCode := CallbackCreate(GetMethod(implObj, "GetRenewalResultCode"), flags, 2)
+        this.vtbl.GetCASFailureCode := CallbackCreate(GetMethod(implObj, "GetCASFailureCode"), flags, 2)
+        this.vtbl.GetRenewalHResult := CallbackCreate(GetMethod(implObj, "GetRenewalHResult"), flags, 2)
+        this.vtbl.GetEntitlementTokenLength := CallbackCreate(GetMethod(implObj, "GetEntitlementTokenLength"), flags, 2)
+        this.vtbl.GetEntitlementToken := CallbackCreate(GetMethod(implObj, "GetEntitlementToken"), flags, 2)
+        this.vtbl.GetExpiryDate := CallbackCreate(GetMethod(implObj, "GetExpiryDate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCallersId)
+        CallbackFree(this.vtbl.GetFileName)
+        CallbackFree(this.vtbl.IsRenewalSuccessful)
+        CallbackFree(this.vtbl.IsCheckEntitlementCallRequired)
+        CallbackFree(this.vtbl.GetDescrambledStatus)
+        CallbackFree(this.vtbl.GetRenewalResultCode)
+        CallbackFree(this.vtbl.GetCASFailureCode)
+        CallbackFree(this.vtbl.GetRenewalHResult)
+        CallbackFree(this.vtbl.GetEntitlementTokenLength)
+        CallbackFree(this.vtbl.GetEntitlementToken)
+        CallbackFree(this.vtbl.GetExpiryDate)
     }
 }

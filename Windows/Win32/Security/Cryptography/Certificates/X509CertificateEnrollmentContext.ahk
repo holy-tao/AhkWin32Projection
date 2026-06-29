@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the nature of the end entity for which the certificate is intended.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificateenrollmentcontext
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class X509CertificateEnrollmentContext extends Win32Enum {
+export default struct X509CertificateEnrollmentContext {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

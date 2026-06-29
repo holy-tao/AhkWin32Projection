@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_PD_DEVICE_SPECIFIC_PROPERTY extends Win32Struct {
-    static sizeof => 264
+export default struct SCM_PD_DEVICE_SPECIFIC_PROPERTY {
+    #StructPack 8
 
-    static packingSize => 8
+    Name : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    Name {
-        get => StrGet(this.ptr + 0, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 127, "UTF-16")
-    }
+    Value : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 256, "int64")
-        set => NumPut("int64", value, this, 256)
-    }
 }

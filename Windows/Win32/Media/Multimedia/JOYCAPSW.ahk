@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The JOYCAPSW (Unicode) (joystickapi.h) structure contains information about the joystick capabilities.
@@ -10,172 +10,98 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset Unicode
  */
-class JOYCAPSW extends Win32Struct {
-    static sizeof => 728
-
-    static packingSize => 4
+export default struct JOYCAPSW {
+    #StructPack 4
 
     /**
      * Manufacturer identifier. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMid : UInt16
 
     /**
      * Product identifier. Product identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPid : UInt16
 
     /**
      * Null-terminated string containing the joystick product name.
-     * @type {String}
      */
-    szPname {
-        get => StrGet(this.ptr + 4, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-16")
-    }
+    szPname : WCHAR[32]
 
     /**
      * Minimum X-coordinate.
-     * @type {Integer}
      */
-    wXmin {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    wXmin : UInt32
 
     /**
      * Maximum X-coordinate.
-     * @type {Integer}
      */
-    wXmax {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    wXmax : UInt32
 
     /**
      * Minimum Y-coordinate.
-     * @type {Integer}
      */
-    wYmin {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    wYmin : UInt32
 
     /**
      * Maximum Y-coordinate.
-     * @type {Integer}
      */
-    wYmax {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    wYmax : UInt32
 
     /**
      * Minimum Z-coordinate.
-     * @type {Integer}
      */
-    wZmin {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    wZmin : UInt32
 
     /**
      * Maximum Z-coordinate.
-     * @type {Integer}
      */
-    wZmax {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    wZmax : UInt32
 
     /**
      * Number of joystick buttons.
-     * @type {Integer}
      */
-    wNumButtons {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    wNumButtons : UInt32
 
     /**
      * Smallest polling frequency supported when captured by the <a href="https://docs.microsoft.com/previous-versions/dd757114(v=vs.85)">joySetCapture</a> function.
-     * @type {Integer}
      */
-    wPeriodMin {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    wPeriodMin : UInt32
 
     /**
      * Largest polling frequency supported when captured by <b>joySetCapture</b>.
-     * @type {Integer}
      */
-    wPeriodMax {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    wPeriodMax : UInt32
 
     /**
      * Minimum rudder value. The rudder is a fourth axis of movement.
-     * @type {Integer}
      */
-    wRmin {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    wRmin : UInt32
 
     /**
      * Maximum rudder value. The rudder is a fourth axis of movement.
-     * @type {Integer}
      */
-    wRmax {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    wRmax : UInt32
 
     /**
      * Minimum u-coordinate (fifth axis) values.
-     * @type {Integer}
      */
-    wUmin {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    wUmin : UInt32
 
     /**
      * Maximum u-coordinate (fifth axis) values.
-     * @type {Integer}
      */
-    wUmax {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    wUmax : UInt32
 
     /**
      * Minimum v-coordinate (sixth axis) values.
-     * @type {Integer}
      */
-    wVmin {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    wVmin : UInt32
 
     /**
      * Maximum v-coordinate (sixth axis) values.
-     * @type {Integer}
      */
-    wVmax {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    wVmax : UInt32
 
     /**
      * Joystick capabilities The following flags define individual capabilities that a joystick might have:
@@ -214,55 +140,32 @@ class JOYCAPSW extends Win32Struct {
      * <td>Joystick point-of-view supports continuous degree bearings.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wCaps {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    wCaps : UInt32
 
     /**
      * Maximum number of axes supported by the joystick.
-     * @type {Integer}
      */
-    wMaxAxes {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    wMaxAxes : UInt32
 
     /**
      * Number of axes currently in use by the joystick.
-     * @type {Integer}
      */
-    wNumAxes {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    wNumAxes : UInt32
 
     /**
      * Maximum number of buttons supported by the joystick.
-     * @type {Integer}
      */
-    wMaxButtons {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    wMaxButtons : UInt32
 
     /**
      * Null-terminated string containing the registry key for the joystick.
-     * @type {String}
      */
-    szRegKey {
-        get => StrGet(this.ptr + 144, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 31, "UTF-16")
-    }
+    szRegKey : WCHAR[32]
 
     /**
      * Null-terminated string identifying the joystick driver OEM.
-     * @type {String}
      */
-    szOEMVxD {
-        get => StrGet(this.ptr + 208, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 208, 259, "UTF-16")
-    }
+    szOEMVxD : WCHAR[260]
+
 }

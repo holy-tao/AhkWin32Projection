@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TimedLevel.ahk" { TimedLevel }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IWMPEffects interface
  * @see https://learn.microsoft.com/windows/win32/api/effects/nn-effects-iwmpeffects
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPEffects extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPEffects extends IUnknown {
     /**
      * The interface identifier for IWMPEffects
      * @type {Guid}
      */
-    static IID => Guid("{d3984c13-c3cb-48e2-8be5-5168340b4f35}")
+    static IID := Guid("{d3984c13-c3cb-48e2-8be5-5168340b4f35}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPEffects interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Render              : IntPtr
+        MediaInfo           : IntPtr
+        GetCapabilities     : IntPtr
+        GetTitle            : IntPtr
+        GetPresetTitle      : IntPtr
+        GetPresetCount      : IntPtr
+        SetCurrentPreset    : IntPtr
+        GetCurrentPreset    : IntPtr
+        DisplayPropertyPage : IntPtr
+        GoFullscreen        : IntPtr
+        RenderFullScreen    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Render", "MediaInfo", "GetCapabilities", "GetTitle", "GetPresetTitle", "GetPresetCount", "SetCurrentPreset", "GetCurrentPreset", "DisplayPropertyPage", "GoFullscreen", "RenderFullScreen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPEffects.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Render method renders the visualization.
@@ -40,9 +64,7 @@ class IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-render
      */
     Render(pLevels, _hdc, prc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(3, this, "ptr", pLevels, "ptr", _hdc, "ptr", prc, "HRESULT")
+        result := ComCall(3, this, TimedLevel.Ptr, pLevels, HDC, _hdc, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -57,7 +79,7 @@ class IWMPEffects extends IUnknown {
     MediaInfo(lChannelCount, lSampleRate, bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
 
-        result := ComCall(4, this, "int", lChannelCount, "int", lSampleRate, "ptr", bstrTitle, "HRESULT")
+        result := ComCall(4, this, "int", lChannelCount, "int", lSampleRate, BSTR, bstrTitle, "HRESULT")
         return result
     }
 
@@ -116,7 +138,7 @@ class IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-gettitle
      */
     GetTitle(bstrTitle) {
-        result := ComCall(6, this, "ptr", bstrTitle, "HRESULT")
+        result := ComCall(6, this, BSTR.Ptr, bstrTitle, "HRESULT")
         return result
     }
 
@@ -130,7 +152,7 @@ class IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getpresettitle
      */
     GetPresetTitle(nPreset, bstrPresetTitle) {
-        result := ComCall(7, this, "int", nPreset, "ptr", bstrPresetTitle, "HRESULT")
+        result := ComCall(7, this, "int", nPreset, BSTR.Ptr, bstrPresetTitle, "HRESULT")
         return result
     }
 
@@ -184,9 +206,7 @@ class IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-displaypropertypage
      */
     DisplayPropertyPage(hwndOwner) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
-        result := ComCall(11, this, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(11, this, HWND, hwndOwner, "HRESULT")
         return result
     }
 
@@ -201,7 +221,7 @@ class IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-gofullscreen
      */
     GoFullscreen(fFullScreen) {
-        result := ComCall(12, this, "int", fFullScreen, "HRESULT")
+        result := ComCall(12, this, BOOL, fFullScreen, "HRESULT")
         return result
     }
 
@@ -220,7 +240,47 @@ class IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-renderfullscreen
      */
     RenderFullScreen(pLevels) {
-        result := ComCall(13, this, "ptr", pLevels, "HRESULT")
+        result := ComCall(13, this, TimedLevel.Ptr, pLevels, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPEffects.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 4)
+        this.vtbl.MediaInfo := CallbackCreate(GetMethod(implObj, "MediaInfo"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 2)
+        this.vtbl.GetPresetTitle := CallbackCreate(GetMethod(implObj, "GetPresetTitle"), flags, 3)
+        this.vtbl.GetPresetCount := CallbackCreate(GetMethod(implObj, "GetPresetCount"), flags, 2)
+        this.vtbl.SetCurrentPreset := CallbackCreate(GetMethod(implObj, "SetCurrentPreset"), flags, 2)
+        this.vtbl.GetCurrentPreset := CallbackCreate(GetMethod(implObj, "GetCurrentPreset"), flags, 2)
+        this.vtbl.DisplayPropertyPage := CallbackCreate(GetMethod(implObj, "DisplayPropertyPage"), flags, 2)
+        this.vtbl.GoFullscreen := CallbackCreate(GetMethod(implObj, "GoFullscreen"), flags, 2)
+        this.vtbl.RenderFullScreen := CallbackCreate(GetMethod(implObj, "RenderFullScreen"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Render)
+        CallbackFree(this.vtbl.MediaInfo)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetTitle)
+        CallbackFree(this.vtbl.GetPresetTitle)
+        CallbackFree(this.vtbl.GetPresetCount)
+        CallbackFree(this.vtbl.SetCurrentPreset)
+        CallbackFree(this.vtbl.GetCurrentPreset)
+        CallbackFree(this.vtbl.DisplayPropertyPage)
+        CallbackFree(this.vtbl.GoFullscreen)
+        CallbackFree(this.vtbl.RenderFullScreen)
     }
 }

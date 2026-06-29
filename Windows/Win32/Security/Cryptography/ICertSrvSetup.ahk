@@ -1,37 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ICertSrvSetupKeyInformationCollection.ahk
-#Include .\ICertSrvSetupKeyInformation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICertSrvSetupKeyInformation.ahk" { ICertSrvSetupKeyInformation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ICertSrvSetupKeyInformationCollection.ahk" { ICertSrvSetupKeyInformationCollection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\CASetupProperty.ahk" { CASetupProperty }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines functionality to install and uninstall Certification Authority (CA) and Certification Authority Web Enrollment roles on a Certificate Services computer.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertsrvsetup
  * @namespace Windows.Win32.Security.Cryptography
  */
-class ICertSrvSetup extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertSrvSetup extends IDispatch {
     /**
      * The interface identifier for ICertSrvSetup
      * @type {Guid}
      */
-    static IID => Guid("{b760a1bb-4784-44c0-8f12-555f0780ff25}")
+    static IID := Guid("{b760a1bb-4784-44c0-8f12-555f0780ff25}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertSrvSetup interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CAErrorId              : IntPtr
+        get_CAErrorString          : IntPtr
+        InitializeDefaults         : IntPtr
+        GetCASetupProperty         : IntPtr
+        SetCASetupProperty         : IntPtr
+        IsPropertyEditable         : IntPtr
+        GetSupportedCATypes        : IntPtr
+        GetProviderNameList        : IntPtr
+        GetKeyLengthList           : IntPtr
+        GetHashAlgorithmList       : IntPtr
+        GetPrivateKeyContainerList : IntPtr
+        GetExistingCACertificates  : IntPtr
+        CAImportPFX                : IntPtr
+        SetCADistinguishedName     : IntPtr
+        SetDatabaseInformation     : IntPtr
+        SetParentCAInformation     : IntPtr
+        SetWebCAInformation        : IntPtr
+        Install                    : IntPtr
+        PreUnInstall               : IntPtr
+        PostUnInstall              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CAErrorId", "get_CAErrorString", "InitializeDefaults", "GetCASetupProperty", "SetCASetupProperty", "IsPropertyEditable", "GetSupportedCATypes", "GetProviderNameList", "GetKeyLengthList", "GetHashAlgorithmList", "GetPrivateKeyContainerList", "GetExistingCACertificates", "CAImportPFX", "SetCADistinguishedName", "SetDatabaseInformation", "SetParentCAInformation", "SetWebCAInformation", "Install", "PreUnInstall", "PostUnInstall"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertSrvSetup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -63,8 +92,8 @@ class ICertSrvSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-get_caerrorstring
      */
     get_CAErrorString() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -78,7 +107,7 @@ class ICertSrvSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-initializedefaults
      */
     InitializeDefaults(bServer, bClient) {
-        result := ComCall(9, this, "short", bServer, "short", bClient, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, bServer, VARIANT_BOOL, bClient, "HRESULT")
         return result
     }
 
@@ -90,7 +119,7 @@ class ICertSrvSetup extends IDispatch {
      */
     GetCASetupProperty(propertyId) {
         pPropertyValue := VARIANT()
-        result := ComCall(10, this, "int", propertyId, "ptr", pPropertyValue, "HRESULT")
+        result := ComCall(10, this, CASetupProperty, propertyId, VARIANT.Ptr, pPropertyValue, "HRESULT")
         return pPropertyValue
     }
 
@@ -115,7 +144,7 @@ class ICertSrvSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-setcasetupproperty
      */
     SetCASetupProperty(propertyId, pPropertyValue) {
-        result := ComCall(11, this, "int", propertyId, "ptr", pPropertyValue, "HRESULT")
+        result := ComCall(11, this, CASetupProperty, propertyId, VARIANT.Ptr, pPropertyValue, "HRESULT")
         return result
     }
 
@@ -126,7 +155,7 @@ class ICertSrvSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-ispropertyeditable
      */
     IsPropertyEditable(propertyId) {
-        result := ComCall(12, this, "int", propertyId, "short*", &pbEditable := 0, "HRESULT")
+        result := ComCall(12, this, CASetupProperty, propertyId, VARIANT_BOOL.Ptr, &pbEditable := 0, "HRESULT")
         return pbEditable
     }
 
@@ -137,7 +166,7 @@ class ICertSrvSetup extends IDispatch {
      */
     GetSupportedCATypes() {
         pCATypes := VARIANT()
-        result := ComCall(13, this, "ptr", pCATypes, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pCATypes, "HRESULT")
         return pCATypes
     }
 
@@ -148,7 +177,7 @@ class ICertSrvSetup extends IDispatch {
      */
     GetProviderNameList() {
         pVal := VARIANT()
-        result := ComCall(14, this, "ptr", pVal, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -162,7 +191,7 @@ class ICertSrvSetup extends IDispatch {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
         pVal := VARIANT()
-        result := ComCall(15, this, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrProviderName, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -176,7 +205,7 @@ class ICertSrvSetup extends IDispatch {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
         pVal := VARIANT()
-        result := ComCall(16, this, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrProviderName, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -190,7 +219,7 @@ class ICertSrvSetup extends IDispatch {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
         pVal := VARIANT()
-        result := ComCall(17, this, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrProviderName, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -237,7 +266,7 @@ class ICertSrvSetup extends IDispatch {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
         bstrPasswd := bstrPasswd is String ? BSTR.Alloc(bstrPasswd).Value : bstrPasswd
 
-        result := ComCall(19, this, "ptr", bstrFileName, "ptr", bstrPasswd, "short", bOverwriteExistingKey, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrFileName, BSTR, bstrPasswd, VARIANT_BOOL, bOverwriteExistingKey, "ptr*", &ppVal := 0, "HRESULT")
         return ICertSrvSetupKeyInformation(ppVal)
     }
 
@@ -306,7 +335,7 @@ class ICertSrvSetup extends IDispatch {
     SetCADistinguishedName(bstrCADN, bIgnoreUnicode, bOverwriteExistingKey, bOverwriteExistingCAInDS) {
         bstrCADN := bstrCADN is String ? BSTR.Alloc(bstrCADN).Value : bstrCADN
 
-        result := ComCall(20, this, "ptr", bstrCADN, "short", bIgnoreUnicode, "short", bOverwriteExistingKey, "short", bOverwriteExistingCAInDS, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrCADN, VARIANT_BOOL, bIgnoreUnicode, VARIANT_BOOL, bOverwriteExistingKey, VARIANT_BOOL, bOverwriteExistingCAInDS, "HRESULT")
         return result
     }
 
@@ -328,7 +357,7 @@ class ICertSrvSetup extends IDispatch {
         bstrLogDirectory := bstrLogDirectory is String ? BSTR.Alloc(bstrLogDirectory).Value : bstrLogDirectory
         bstrSharedFolder := bstrSharedFolder is String ? BSTR.Alloc(bstrSharedFolder).Value : bstrSharedFolder
 
-        result := ComCall(21, this, "ptr", bstrDBDirectory, "ptr", bstrLogDirectory, "ptr", bstrSharedFolder, "short", bForceOverwrite, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrDBDirectory, BSTR, bstrLogDirectory, BSTR, bstrSharedFolder, VARIANT_BOOL, bForceOverwrite, "HRESULT")
         return result
     }
 
@@ -346,7 +375,7 @@ class ICertSrvSetup extends IDispatch {
     SetParentCAInformation(bstrCAConfiguration) {
         bstrCAConfiguration := bstrCAConfiguration is String ? BSTR.Alloc(bstrCAConfiguration).Value : bstrCAConfiguration
 
-        result := ComCall(22, this, "ptr", bstrCAConfiguration, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrCAConfiguration, "HRESULT")
         return result
     }
 
@@ -364,7 +393,7 @@ class ICertSrvSetup extends IDispatch {
     SetWebCAInformation(bstrCAConfiguration) {
         bstrCAConfiguration := bstrCAConfiguration is String ? BSTR.Alloc(bstrCAConfiguration).Value : bstrCAConfiguration
 
-        result := ComCall(23, this, "ptr", bstrCAConfiguration, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrCAConfiguration, "HRESULT")
         return result
     }
 
@@ -391,7 +420,7 @@ class ICertSrvSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-preuninstall
      */
     PreUnInstall(bClientOnly) {
-        result := ComCall(25, this, "short", bClientOnly, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, bClientOnly, "HRESULT")
         return result
     }
 
@@ -403,5 +432,63 @@ class ICertSrvSetup extends IDispatch {
     PostUnInstall() {
         result := ComCall(26, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertSrvSetup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CAErrorId := CallbackCreate(GetMethod(implObj, "get_CAErrorId"), flags, 2)
+        this.vtbl.get_CAErrorString := CallbackCreate(GetMethod(implObj, "get_CAErrorString"), flags, 2)
+        this.vtbl.InitializeDefaults := CallbackCreate(GetMethod(implObj, "InitializeDefaults"), flags, 3)
+        this.vtbl.GetCASetupProperty := CallbackCreate(GetMethod(implObj, "GetCASetupProperty"), flags, 3)
+        this.vtbl.SetCASetupProperty := CallbackCreate(GetMethod(implObj, "SetCASetupProperty"), flags, 3)
+        this.vtbl.IsPropertyEditable := CallbackCreate(GetMethod(implObj, "IsPropertyEditable"), flags, 3)
+        this.vtbl.GetSupportedCATypes := CallbackCreate(GetMethod(implObj, "GetSupportedCATypes"), flags, 2)
+        this.vtbl.GetProviderNameList := CallbackCreate(GetMethod(implObj, "GetProviderNameList"), flags, 2)
+        this.vtbl.GetKeyLengthList := CallbackCreate(GetMethod(implObj, "GetKeyLengthList"), flags, 3)
+        this.vtbl.GetHashAlgorithmList := CallbackCreate(GetMethod(implObj, "GetHashAlgorithmList"), flags, 3)
+        this.vtbl.GetPrivateKeyContainerList := CallbackCreate(GetMethod(implObj, "GetPrivateKeyContainerList"), flags, 3)
+        this.vtbl.GetExistingCACertificates := CallbackCreate(GetMethod(implObj, "GetExistingCACertificates"), flags, 2)
+        this.vtbl.CAImportPFX := CallbackCreate(GetMethod(implObj, "CAImportPFX"), flags, 5)
+        this.vtbl.SetCADistinguishedName := CallbackCreate(GetMethod(implObj, "SetCADistinguishedName"), flags, 5)
+        this.vtbl.SetDatabaseInformation := CallbackCreate(GetMethod(implObj, "SetDatabaseInformation"), flags, 5)
+        this.vtbl.SetParentCAInformation := CallbackCreate(GetMethod(implObj, "SetParentCAInformation"), flags, 2)
+        this.vtbl.SetWebCAInformation := CallbackCreate(GetMethod(implObj, "SetWebCAInformation"), flags, 2)
+        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 1)
+        this.vtbl.PreUnInstall := CallbackCreate(GetMethod(implObj, "PreUnInstall"), flags, 2)
+        this.vtbl.PostUnInstall := CallbackCreate(GetMethod(implObj, "PostUnInstall"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CAErrorId)
+        CallbackFree(this.vtbl.get_CAErrorString)
+        CallbackFree(this.vtbl.InitializeDefaults)
+        CallbackFree(this.vtbl.GetCASetupProperty)
+        CallbackFree(this.vtbl.SetCASetupProperty)
+        CallbackFree(this.vtbl.IsPropertyEditable)
+        CallbackFree(this.vtbl.GetSupportedCATypes)
+        CallbackFree(this.vtbl.GetProviderNameList)
+        CallbackFree(this.vtbl.GetKeyLengthList)
+        CallbackFree(this.vtbl.GetHashAlgorithmList)
+        CallbackFree(this.vtbl.GetPrivateKeyContainerList)
+        CallbackFree(this.vtbl.GetExistingCACertificates)
+        CallbackFree(this.vtbl.CAImportPFX)
+        CallbackFree(this.vtbl.SetCADistinguishedName)
+        CallbackFree(this.vtbl.SetDatabaseInformation)
+        CallbackFree(this.vtbl.SetParentCAInformation)
+        CallbackFree(this.vtbl.SetWebCAInformation)
+        CallbackFree(this.vtbl.Install)
+        CallbackFree(this.vtbl.PreUnInstall)
+        CallbackFree(this.vtbl.PostUnInstall)
     }
 }

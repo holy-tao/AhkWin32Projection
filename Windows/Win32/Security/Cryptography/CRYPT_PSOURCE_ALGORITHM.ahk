@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Identifies the algorithm and (optionally) the value of the label for an RSAES-OAEP key encryption.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_psource_algorithm
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_PSOURCE_ALGORITHM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPT_PSOURCE_ALGORITHM {
+    #StructPack 8
 
     /**
      * The address of a null-terminated ANSI string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the algorithm. This can be the following value or any other mask generation function OID.
@@ -32,22 +30,12 @@ class CRYPT_PSOURCE_ALGORITHM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszObjId : PSTR
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that contains the label. This member is optional and may contain an empty BLOB.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    EncodingParameters {
-        get {
-            if(!this.HasProp("__EncodingParameters"))
-                this.__EncodingParameters := CRYPT_INTEGER_BLOB(8, this)
-            return this.__EncodingParameters
-        }
-    }
+    EncodingParameters : CRYPT_INTEGER_BLOB
+
 }

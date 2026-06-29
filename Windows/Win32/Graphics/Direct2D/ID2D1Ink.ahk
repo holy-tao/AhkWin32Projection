@@ -1,35 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
-#Include .\D2D1_INK_BEZIER_SEGMENT.ahk
-#Include Common\D2D_RECT_F.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_INK_BEZIER_SEGMENT.ahk" { D2D1_INK_BEZIER_SEGMENT }
+#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
+#Import ".\D2D1_INK_POINT.ahk" { D2D1_INK_POINT }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 
 /**
  * Represents a single continuous stroke of variable-width ink, as defined by a series of Bezier segments and widths.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1ink
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Ink extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Ink extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1Ink
      * @type {Guid}
      */
-    static IID => Guid("{b499923b-7029-478f-a8b3-432c7c5f5312}")
+    static IID := Guid("{b499923b-7029-478f-a8b3-432c7c5f5312}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Ink interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        SetStartPoint       : IntPtr
+        GetStartPoint       : IntPtr
+        AddSegments         : IntPtr
+        RemoveSegmentsAtEnd : IntPtr
+        SetSegments         : IntPtr
+        SetSegmentAtEnd     : IntPtr
+        GetSegmentCount     : IntPtr
+        GetSegments         : IntPtr
+        StreamAsGeometry    : IntPtr
+        GetBounds           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetStartPoint", "GetStartPoint", "AddSegments", "RemoveSegmentsAtEnd", "SetSegments", "SetSegmentAtEnd", "GetSegmentCount", "GetSegments", "StreamAsGeometry", "GetBounds"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Ink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the starting point for this ink object. This determines where this ink object will start rendering. (overload 1/2)
@@ -40,7 +61,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-setstartpoint(constd2d1_ink_point)
      */
     SetStartPoint(startPoint) {
-        ComCall(4, this, "ptr", startPoint)
+        ComCall(4, this, D2D1_INK_POINT.Ptr, startPoint)
     }
 
     /**
@@ -51,7 +72,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getstartpoint
      */
     GetStartPoint() {
-        result := ComCall(5, this, "ptr")
+        result := ComCall(5, this, D2D1_INK_POINT)
         return result
     }
 
@@ -69,7 +90,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-addsegments
      */
     AddSegments(segments, segmentsCount) {
-        result := ComCall(6, this, "ptr", segments, "uint", segmentsCount, "HRESULT")
+        result := ComCall(6, this, D2D1_INK_BEZIER_SEGMENT.Ptr, segments, "uint", segmentsCount, "HRESULT")
         return result
     }
 
@@ -105,7 +126,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-setsegments
      */
     SetSegments(startSegment, segments, segmentsCount) {
-        result := ComCall(8, this, "uint", startSegment, "ptr", segments, "uint", segmentsCount, "HRESULT")
+        result := ComCall(8, this, "uint", startSegment, D2D1_INK_BEZIER_SEGMENT.Ptr, segments, "uint", segmentsCount, "HRESULT")
         return result
     }
 
@@ -120,7 +141,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-setsegmentatend(constd2d1_ink_bezier_segment)
      */
     SetSegmentAtEnd(segment) {
-        result := ComCall(9, this, "ptr", segment, "HRESULT")
+        result := ComCall(9, this, D2D1_INK_BEZIER_SEGMENT.Ptr, segment, "HRESULT")
         return result
     }
 
@@ -133,7 +154,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getsegmentcount
      */
     GetSegmentCount() {
-        result := ComCall(10, this, "uint")
+        result := ComCall(10, this, UInt32)
         return result
     }
 
@@ -152,7 +173,7 @@ class ID2D1Ink extends ID2D1Resource {
      */
     GetSegments(startSegment, segmentsCount) {
         segments := D2D1_INK_BEZIER_SEGMENT()
-        result := ComCall(11, this, "uint", startSegment, "ptr", segments, "uint", segmentsCount, "HRESULT")
+        result := ComCall(11, this, "uint", startSegment, D2D1_INK_BEZIER_SEGMENT.Ptr, segments, "uint", segmentsCount, "HRESULT")
         return segments
     }
 
@@ -176,7 +197,7 @@ class ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-streamasgeometry(id2d1inkstyle_constd2d1_matrix_3x2_f__float_id2d1simplifiedgeometrysink)
      */
     StreamAsGeometry(inkStyle, worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(12, this, "ptr", inkStyle, "ptr", worldTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        result := ComCall(12, this, "ptr", inkStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -195,7 +216,45 @@ class ID2D1Ink extends ID2D1Resource {
      */
     GetBounds(inkStyle, worldTransform) {
         bounds := D2D_RECT_F()
-        result := ComCall(13, this, "ptr", inkStyle, "ptr", worldTransform, "ptr", bounds, "HRESULT")
+        result := ComCall(13, this, "ptr", inkStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, D2D_RECT_F.Ptr, bounds, "HRESULT")
         return bounds
+    }
+
+    Query(iid) {
+        if (ID2D1Ink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 1)
+        this.vtbl.AddSegments := CallbackCreate(GetMethod(implObj, "AddSegments"), flags, 3)
+        this.vtbl.RemoveSegmentsAtEnd := CallbackCreate(GetMethod(implObj, "RemoveSegmentsAtEnd"), flags, 2)
+        this.vtbl.SetSegments := CallbackCreate(GetMethod(implObj, "SetSegments"), flags, 4)
+        this.vtbl.SetSegmentAtEnd := CallbackCreate(GetMethod(implObj, "SetSegmentAtEnd"), flags, 2)
+        this.vtbl.GetSegmentCount := CallbackCreate(GetMethod(implObj, "GetSegmentCount"), flags, 1)
+        this.vtbl.GetSegments := CallbackCreate(GetMethod(implObj, "GetSegments"), flags, 4)
+        this.vtbl.StreamAsGeometry := CallbackCreate(GetMethod(implObj, "StreamAsGeometry"), flags, 5)
+        this.vtbl.GetBounds := CallbackCreate(GetMethod(implObj, "GetBounds"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetStartPoint)
+        CallbackFree(this.vtbl.GetStartPoint)
+        CallbackFree(this.vtbl.AddSegments)
+        CallbackFree(this.vtbl.RemoveSegmentsAtEnd)
+        CallbackFree(this.vtbl.SetSegments)
+        CallbackFree(this.vtbl.SetSegmentAtEnd)
+        CallbackFree(this.vtbl.GetSegmentCount)
+        CallbackFree(this.vtbl.GetSegments)
+        CallbackFree(this.vtbl.StreamAsGeometry)
+        CallbackFree(this.vtbl.GetBounds)
     }
 }

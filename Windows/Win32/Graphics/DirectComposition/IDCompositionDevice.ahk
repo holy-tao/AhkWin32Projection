@@ -1,52 +1,88 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
-#Include .\IDCompositionTarget.ahk
-#Include .\IDCompositionVisual.ahk
-#Include .\IDCompositionSurface.ahk
-#Include .\IDCompositionVirtualSurface.ahk
-#Include .\IDCompositionTranslateTransform.ahk
-#Include .\IDCompositionScaleTransform.ahk
-#Include .\IDCompositionRotateTransform.ahk
-#Include .\IDCompositionSkewTransform.ahk
-#Include .\IDCompositionMatrixTransform.ahk
-#Include .\IDCompositionTransform.ahk
-#Include .\IDCompositionTranslateTransform3D.ahk
-#Include .\IDCompositionScaleTransform3D.ahk
-#Include .\IDCompositionRotateTransform3D.ahk
-#Include .\IDCompositionMatrixTransform3D.ahk
-#Include .\IDCompositionTransform3D.ahk
-#Include .\IDCompositionEffectGroup.ahk
-#Include .\IDCompositionRectangleClip.ahk
-#Include .\IDCompositionAnimation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
+#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
+#Import ".\IDCompositionRectangleClip.ahk" { IDCompositionRectangleClip }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import ".\IDCompositionRotateTransform3D.ahk" { IDCompositionRotateTransform3D }
+#Import ".\IDCompositionMatrixTransform.ahk" { IDCompositionMatrixTransform }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionMatrixTransform3D.ahk" { IDCompositionMatrixTransform3D }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionScaleTransform.ahk" { IDCompositionScaleTransform }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionSkewTransform.ahk" { IDCompositionSkewTransform }
+#Import ".\IDCompositionRotateTransform.ahk" { IDCompositionRotateTransform }
+#Import ".\DCOMPOSITION_FRAME_STATISTICS.ahk" { DCOMPOSITION_FRAME_STATISTICS }
+#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDCompositionEffectGroup.ahk" { IDCompositionEffectGroup }
+#Import ".\IDCompositionTranslateTransform3D.ahk" { IDCompositionTranslateTransform3D }
+#Import ".\IDCompositionScaleTransform3D.ahk" { IDCompositionScaleTransform3D }
+#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
+#Import ".\IDCompositionTranslateTransform.ahk" { IDCompositionTranslateTransform }
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevice
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionDevice extends IUnknown {
     /**
      * The interface identifier for IDCompositionDevice
      * @type {Guid}
      */
-    static IID => Guid("{c37ea93a-e7aa-450d-b16f-9746cb0407f3}")
+    static IID := Guid("{c37ea93a-e7aa-450d-b16f-9746cb0407f3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Commit                     : IntPtr
+        WaitForCommitCompletion    : IntPtr
+        GetFrameStatistics         : IntPtr
+        CreateTargetForHwnd        : IntPtr
+        CreateVisual               : IntPtr
+        CreateSurface              : IntPtr
+        CreateVirtualSurface       : IntPtr
+        CreateSurfaceFromHandle    : IntPtr
+        CreateSurfaceFromHwnd      : IntPtr
+        CreateTranslateTransform   : IntPtr
+        CreateScaleTransform       : IntPtr
+        CreateRotateTransform      : IntPtr
+        CreateSkewTransform        : IntPtr
+        CreateMatrixTransform      : IntPtr
+        CreateTransformGroup       : IntPtr
+        CreateTranslateTransform3D : IntPtr
+        CreateScaleTransform3D     : IntPtr
+        CreateRotateTransform3D    : IntPtr
+        CreateMatrixTransform3D    : IntPtr
+        CreateTransform3DGroup     : IntPtr
+        CreateEffectGroup          : IntPtr
+        CreateRectangleClip        : IntPtr
+        CreateAnimation            : IntPtr
+        CheckDeviceState           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Commit", "WaitForCommitCompletion", "GetFrameStatistics", "CreateTargetForHwnd", "CreateVisual", "CreateSurface", "CreateVirtualSurface", "CreateSurfaceFromHandle", "CreateSurfaceFromHwnd", "CreateTranslateTransform", "CreateScaleTransform", "CreateRotateTransform", "CreateSkewTransform", "CreateMatrixTransform", "CreateTransformGroup", "CreateTranslateTransform3D", "CreateScaleTransform3D", "CreateRotateTransform3D", "CreateMatrixTransform3D", "CreateTransform3DGroup", "CreateEffectGroup", "CreateRectangleClip", "CreateAnimation", "CheckDeviceState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Commits all DirectComposition commands that are pending on this device. (IDCompositionDevice.Commit)
@@ -85,7 +121,7 @@ class IDCompositionDevice extends IUnknown {
      */
     GetFrameStatistics() {
         statistics := DCOMPOSITION_FRAME_STATISTICS()
-        result := ComCall(5, this, "ptr", statistics, "HRESULT")
+        result := ComCall(5, this, DCOMPOSITION_FRAME_STATISTICS.Ptr, statistics, "HRESULT")
         return statistics
     }
 
@@ -119,9 +155,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createtargetforhwnd
      */
     CreateTargetForHwnd(_hwnd, topmost) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(6, this, "ptr", _hwnd, "int", topmost, "ptr*", &target := 0, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, BOOL, topmost, "ptr*", &target := 0, "HRESULT")
         return IDCompositionTarget(target)
     }
 
@@ -175,7 +209,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createsurface
      */
     CreateSurface(width, height, pixelFormat, alphaMode) {
-        result := ComCall(8, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(8, this, "uint", width, "uint", height, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &surface := 0, "HRESULT")
         return IDCompositionSurface(surface)
     }
 
@@ -216,7 +250,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createvirtualsurface
      */
     CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
-        result := ComCall(9, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
+        result := ComCall(9, this, "uint", initialWidth, "uint", initialHeight, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
         return IDCompositionVirtualSurface(virtualSurface)
     }
 
@@ -233,9 +267,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createsurfacefromhandle
      */
     CreateSurfaceFromHandle(_handle) {
-        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
-
-        result := ComCall(10, this, "ptr", _handle, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(10, this, HANDLE, _handle, "ptr*", &surface := 0, "HRESULT")
         return IUnknown(surface)
     }
 
@@ -258,9 +290,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createsurfacefromhwnd
      */
     CreateSurfaceFromHwnd(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(11, this, "ptr", _hwnd, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(11, this, HWND, _hwnd, "ptr*", &surface := 0, "HRESULT")
         return IUnknown(surface)
     }
 
@@ -354,7 +384,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createtransformgroup
      */
     CreateTransformGroup(transforms, elements) {
-        result := ComCall(17, this, "ptr*", transforms, "uint", elements, "ptr*", &transformGroup := 0, "HRESULT")
+        result := ComCall(17, this, IDCompositionTransform.Ptr, transforms, "uint", elements, "ptr*", &transformGroup := 0, "HRESULT")
         return IDCompositionTransform(transformGroup)
     }
 
@@ -434,7 +464,7 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-createtransform3dgroup
      */
     CreateTransform3DGroup(transforms3D, elements) {
-        result := ComCall(22, this, "ptr*", transforms3D, "uint", elements, "ptr*", &transform3DGroup := 0, "HRESULT")
+        result := ComCall(22, this, IDCompositionTransform3D.Ptr, transforms3D, "uint", elements, "ptr*", &transform3DGroup := 0, "HRESULT")
         return IDCompositionTransform3D(transform3DGroup)
     }
 
@@ -492,7 +522,73 @@ class IDCompositionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice-checkdevicestate
      */
     CheckDeviceState() {
-        result := ComCall(26, this, "int*", &pfValid := 0, "HRESULT")
+        result := ComCall(26, this, BOOL.Ptr, &pfValid := 0, "HRESULT")
         return pfValid
+    }
+
+    Query(iid) {
+        if (IDCompositionDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.WaitForCommitCompletion := CallbackCreate(GetMethod(implObj, "WaitForCommitCompletion"), flags, 1)
+        this.vtbl.GetFrameStatistics := CallbackCreate(GetMethod(implObj, "GetFrameStatistics"), flags, 2)
+        this.vtbl.CreateTargetForHwnd := CallbackCreate(GetMethod(implObj, "CreateTargetForHwnd"), flags, 4)
+        this.vtbl.CreateVisual := CallbackCreate(GetMethod(implObj, "CreateVisual"), flags, 2)
+        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 6)
+        this.vtbl.CreateVirtualSurface := CallbackCreate(GetMethod(implObj, "CreateVirtualSurface"), flags, 6)
+        this.vtbl.CreateSurfaceFromHandle := CallbackCreate(GetMethod(implObj, "CreateSurfaceFromHandle"), flags, 3)
+        this.vtbl.CreateSurfaceFromHwnd := CallbackCreate(GetMethod(implObj, "CreateSurfaceFromHwnd"), flags, 3)
+        this.vtbl.CreateTranslateTransform := CallbackCreate(GetMethod(implObj, "CreateTranslateTransform"), flags, 2)
+        this.vtbl.CreateScaleTransform := CallbackCreate(GetMethod(implObj, "CreateScaleTransform"), flags, 2)
+        this.vtbl.CreateRotateTransform := CallbackCreate(GetMethod(implObj, "CreateRotateTransform"), flags, 2)
+        this.vtbl.CreateSkewTransform := CallbackCreate(GetMethod(implObj, "CreateSkewTransform"), flags, 2)
+        this.vtbl.CreateMatrixTransform := CallbackCreate(GetMethod(implObj, "CreateMatrixTransform"), flags, 2)
+        this.vtbl.CreateTransformGroup := CallbackCreate(GetMethod(implObj, "CreateTransformGroup"), flags, 4)
+        this.vtbl.CreateTranslateTransform3D := CallbackCreate(GetMethod(implObj, "CreateTranslateTransform3D"), flags, 2)
+        this.vtbl.CreateScaleTransform3D := CallbackCreate(GetMethod(implObj, "CreateScaleTransform3D"), flags, 2)
+        this.vtbl.CreateRotateTransform3D := CallbackCreate(GetMethod(implObj, "CreateRotateTransform3D"), flags, 2)
+        this.vtbl.CreateMatrixTransform3D := CallbackCreate(GetMethod(implObj, "CreateMatrixTransform3D"), flags, 2)
+        this.vtbl.CreateTransform3DGroup := CallbackCreate(GetMethod(implObj, "CreateTransform3DGroup"), flags, 4)
+        this.vtbl.CreateEffectGroup := CallbackCreate(GetMethod(implObj, "CreateEffectGroup"), flags, 2)
+        this.vtbl.CreateRectangleClip := CallbackCreate(GetMethod(implObj, "CreateRectangleClip"), flags, 2)
+        this.vtbl.CreateAnimation := CallbackCreate(GetMethod(implObj, "CreateAnimation"), flags, 2)
+        this.vtbl.CheckDeviceState := CallbackCreate(GetMethod(implObj, "CheckDeviceState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.WaitForCommitCompletion)
+        CallbackFree(this.vtbl.GetFrameStatistics)
+        CallbackFree(this.vtbl.CreateTargetForHwnd)
+        CallbackFree(this.vtbl.CreateVisual)
+        CallbackFree(this.vtbl.CreateSurface)
+        CallbackFree(this.vtbl.CreateVirtualSurface)
+        CallbackFree(this.vtbl.CreateSurfaceFromHandle)
+        CallbackFree(this.vtbl.CreateSurfaceFromHwnd)
+        CallbackFree(this.vtbl.CreateTranslateTransform)
+        CallbackFree(this.vtbl.CreateScaleTransform)
+        CallbackFree(this.vtbl.CreateRotateTransform)
+        CallbackFree(this.vtbl.CreateSkewTransform)
+        CallbackFree(this.vtbl.CreateMatrixTransform)
+        CallbackFree(this.vtbl.CreateTransformGroup)
+        CallbackFree(this.vtbl.CreateTranslateTransform3D)
+        CallbackFree(this.vtbl.CreateScaleTransform3D)
+        CallbackFree(this.vtbl.CreateRotateTransform3D)
+        CallbackFree(this.vtbl.CreateMatrixTransform3D)
+        CallbackFree(this.vtbl.CreateTransform3DGroup)
+        CallbackFree(this.vtbl.CreateEffectGroup)
+        CallbackFree(this.vtbl.CreateRectangleClip)
+        CallbackFree(this.vtbl.CreateAnimation)
+        CallbackFree(this.vtbl.CheckDeviceState)
     }
 }

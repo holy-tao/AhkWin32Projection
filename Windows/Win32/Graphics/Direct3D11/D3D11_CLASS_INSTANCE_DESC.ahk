@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes an HLSL class instance.
@@ -10,96 +10,63 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_class_instance_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_CLASS_INSTANCE_DESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct D3D11_CLASS_INSTANCE_DESC {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The instance ID of an HLSL class; the default value is 0.
-     * @type {Integer}
      */
-    InstanceId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InstanceId : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The instance index of an HLSL class; the default value is 0.
-     * @type {Integer}
      */
-    InstanceIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InstanceIndex : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The type ID of an HLSL class; the default value is 0.
-     * @type {Integer}
      */
-    TypeId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TypeId : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Describes the constant buffer associated with an HLSL class; the default value is 0.
-     * @type {Integer}
      */
-    ConstantBuffer {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ConstantBuffer : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The base constant buffer offset associated with an HLSL class; the default value is 0.
-     * @type {Integer}
      */
-    BaseConstantBufferOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BaseConstantBufferOffset : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The base texture associated with an HLSL class; the default value is 127.
-     * @type {Integer}
      */
-    BaseTexture {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BaseTexture : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The base sampler associated with an HLSL class; the default value is 15.
-     * @type {Integer}
      */
-    BaseSampler {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BaseSampler : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * True if the class was created; the default value is false.
-     * @type {BOOL}
      */
-    Created {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    Created : BOOL
+
 }

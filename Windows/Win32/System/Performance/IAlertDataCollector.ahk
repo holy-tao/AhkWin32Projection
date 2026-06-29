@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Monitors performance counters and performs actions each time a counter value crosses the specified threshold.To create the alert data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method. For details on the XML that you pass to CreateDataCollectorFromXml, see Remarks.
@@ -32,26 +35,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ialertdatacollector
  * @namespace Windows.Win32.System.Performance
  */
-class IAlertDataCollector extends IDataCollector {
-
-    static sizeof => A_PtrSize
+export default struct IAlertDataCollector extends IDataCollector {
     /**
      * The interface identifier for IAlertDataCollector
      * @type {Guid}
      */
-    static IID => Guid("{03837516-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837516-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAlertDataCollector interfaces
+    */
+    struct Vtbl extends IDataCollector.Vtbl {
+        get_AlertThresholds         : IntPtr
+        put_AlertThresholds         : IntPtr
+        get_EventLog                : IntPtr
+        put_EventLog                : IntPtr
+        get_SampleInterval          : IntPtr
+        put_SampleInterval          : IntPtr
+        get_Task                    : IntPtr
+        put_Task                    : IntPtr
+        get_TaskRunAsSelf           : IntPtr
+        put_TaskRunAsSelf           : IntPtr
+        get_TaskArguments           : IntPtr
+        put_TaskArguments           : IntPtr
+        get_TaskUserTextArguments   : IntPtr
+        put_TaskUserTextArguments   : IntPtr
+        get_TriggerDataCollectorSet : IntPtr
+        put_TriggerDataCollectorSet : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AlertThresholds", "put_AlertThresholds", "get_EventLog", "put_EventLog", "get_SampleInterval", "put_SampleInterval", "get_Task", "put_Task", "get_TaskRunAsSelf", "put_TaskRunAsSelf", "get_TaskArguments", "put_TaskArguments", "get_TaskUserTextArguments", "put_TaskUserTextArguments", "get_TriggerDataCollectorSet", "put_TriggerDataCollectorSet"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAlertDataCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -152,7 +177,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-put_alertthresholds
      */
     put_AlertThresholds(alerts) {
-        result := ComCall(33, this, "ptr", alerts, "HRESULT")
+        result := ComCall(33, this, SAFEARRAY.Ptr, alerts, "HRESULT")
         return result
     }
 
@@ -162,7 +187,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_eventlog
      */
     get_EventLog() {
-        result := ComCall(34, this, "short*", &log := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL.Ptr, &log := 0, "HRESULT")
         return log
     }
 
@@ -173,7 +198,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-put_eventlog
      */
     put_EventLog(log) {
-        result := ComCall(35, this, "short", log, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL, log, "HRESULT")
         return result
     }
 
@@ -208,8 +233,8 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_task
      */
     get_Task() {
-        task := BSTR()
-        result := ComCall(38, this, "ptr", task, "HRESULT")
+        task := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, task, "HRESULT")
         return task
     }
 
@@ -226,7 +251,7 @@ class IAlertDataCollector extends IDataCollector {
     put_Task(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
 
-        result := ComCall(39, this, "ptr", task, "HRESULT")
+        result := ComCall(39, this, BSTR, task, "HRESULT")
         return result
     }
 
@@ -236,7 +261,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskrunasself
      */
     get_TaskRunAsSelf() {
-        result := ComCall(40, this, "short*", &RunAsSelf := 0, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL.Ptr, &RunAsSelf := 0, "HRESULT")
         return RunAsSelf
     }
 
@@ -247,7 +272,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-put_taskrunasself
      */
     put_TaskRunAsSelf(RunAsSelf) {
-        result := ComCall(41, this, "short", RunAsSelf, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL, RunAsSelf, "HRESULT")
         return result
     }
 
@@ -295,8 +320,8 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskarguments
      */
     get_TaskArguments() {
-        task := BSTR()
-        result := ComCall(42, this, "ptr", task, "HRESULT")
+        task := BSTR.Owned()
+        result := ComCall(42, this, BSTR.Ptr, task, "HRESULT")
         return task
     }
 
@@ -347,7 +372,7 @@ class IAlertDataCollector extends IDataCollector {
     put_TaskArguments(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
 
-        result := ComCall(43, this, "ptr", task, "HRESULT")
+        result := ComCall(43, this, BSTR, task, "HRESULT")
         return result
     }
 
@@ -388,8 +413,8 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments
      */
     get_TaskUserTextArguments() {
-        task := BSTR()
-        result := ComCall(44, this, "ptr", task, "HRESULT")
+        task := BSTR.Owned()
+        result := ComCall(44, this, BSTR.Ptr, task, "HRESULT")
         return task
     }
 
@@ -433,7 +458,7 @@ class IAlertDataCollector extends IDataCollector {
     put_TaskUserTextArguments(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
 
-        result := ComCall(45, this, "ptr", task, "HRESULT")
+        result := ComCall(45, this, BSTR, task, "HRESULT")
         return result
     }
 
@@ -443,8 +468,8 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset
      */
     get_TriggerDataCollectorSet() {
-        name := BSTR()
-        result := ComCall(46, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(46, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -457,7 +482,57 @@ class IAlertDataCollector extends IDataCollector {
     put_TriggerDataCollectorSet(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(47, this, "ptr", name, "HRESULT")
+        result := ComCall(47, this, BSTR, name, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAlertDataCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AlertThresholds := CallbackCreate(GetMethod(implObj, "get_AlertThresholds"), flags, 2)
+        this.vtbl.put_AlertThresholds := CallbackCreate(GetMethod(implObj, "put_AlertThresholds"), flags, 2)
+        this.vtbl.get_EventLog := CallbackCreate(GetMethod(implObj, "get_EventLog"), flags, 2)
+        this.vtbl.put_EventLog := CallbackCreate(GetMethod(implObj, "put_EventLog"), flags, 2)
+        this.vtbl.get_SampleInterval := CallbackCreate(GetMethod(implObj, "get_SampleInterval"), flags, 2)
+        this.vtbl.put_SampleInterval := CallbackCreate(GetMethod(implObj, "put_SampleInterval"), flags, 2)
+        this.vtbl.get_Task := CallbackCreate(GetMethod(implObj, "get_Task"), flags, 2)
+        this.vtbl.put_Task := CallbackCreate(GetMethod(implObj, "put_Task"), flags, 2)
+        this.vtbl.get_TaskRunAsSelf := CallbackCreate(GetMethod(implObj, "get_TaskRunAsSelf"), flags, 2)
+        this.vtbl.put_TaskRunAsSelf := CallbackCreate(GetMethod(implObj, "put_TaskRunAsSelf"), flags, 2)
+        this.vtbl.get_TaskArguments := CallbackCreate(GetMethod(implObj, "get_TaskArguments"), flags, 2)
+        this.vtbl.put_TaskArguments := CallbackCreate(GetMethod(implObj, "put_TaskArguments"), flags, 2)
+        this.vtbl.get_TaskUserTextArguments := CallbackCreate(GetMethod(implObj, "get_TaskUserTextArguments"), flags, 2)
+        this.vtbl.put_TaskUserTextArguments := CallbackCreate(GetMethod(implObj, "put_TaskUserTextArguments"), flags, 2)
+        this.vtbl.get_TriggerDataCollectorSet := CallbackCreate(GetMethod(implObj, "get_TriggerDataCollectorSet"), flags, 2)
+        this.vtbl.put_TriggerDataCollectorSet := CallbackCreate(GetMethod(implObj, "put_TriggerDataCollectorSet"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AlertThresholds)
+        CallbackFree(this.vtbl.put_AlertThresholds)
+        CallbackFree(this.vtbl.get_EventLog)
+        CallbackFree(this.vtbl.put_EventLog)
+        CallbackFree(this.vtbl.get_SampleInterval)
+        CallbackFree(this.vtbl.put_SampleInterval)
+        CallbackFree(this.vtbl.get_Task)
+        CallbackFree(this.vtbl.put_Task)
+        CallbackFree(this.vtbl.get_TaskRunAsSelf)
+        CallbackFree(this.vtbl.put_TaskRunAsSelf)
+        CallbackFree(this.vtbl.get_TaskArguments)
+        CallbackFree(this.vtbl.put_TaskArguments)
+        CallbackFree(this.vtbl.get_TaskUserTextArguments)
+        CallbackFree(this.vtbl.put_TaskUserTextArguments)
+        CallbackFree(this.vtbl.get_TriggerDataCollectorSet)
+        CallbackFree(this.vtbl.put_TriggerDataCollectorSet)
     }
 }

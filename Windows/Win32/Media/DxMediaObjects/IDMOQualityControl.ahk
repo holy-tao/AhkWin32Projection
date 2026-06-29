@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDMOQualityControl interface supports quality control on a Microsoft DirectX Media Object (DMO).
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-idmoqualitycontrol
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class IDMOQualityControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDMOQualityControl extends IUnknown {
     /**
      * The interface identifier for IDMOQualityControl
      * @type {Guid}
      */
-    static IID => Guid("{65abea96-cf36-453f-af8a-705e98f16260}")
+    static IID := Guid("{65abea96-cf36-453f-af8a-705e98f16260}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDMOQualityControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetNow    : IntPtr
+        SetStatus : IntPtr
+        GetStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNow", "SetStatus", "GetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDMOQualityControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetNow method specifies the earliest time stamp that the DMO will deliver.
@@ -127,5 +137,29 @@ class IDMOQualityControl extends IUnknown {
     GetStatus() {
         result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
+    }
+
+    Query(iid) {
+        if (IDMOQualityControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNow := CallbackCreate(GetMethod(implObj, "SetNow"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNow)
+        CallbackFree(this.vtbl.SetStatus)
+        CallbackFree(this.vtbl.GetStatus)
     }
 }

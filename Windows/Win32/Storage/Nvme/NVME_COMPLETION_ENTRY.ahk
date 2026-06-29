@@ -1,75 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_COMMAND_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_COMMAND_STATUS.ahk" { NVME_COMMAND_STATUS }
 
 /**
  * Specifies an entry in the Completion Queue that is 16 bytes in size.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_entry
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_COMPLETION_ENTRY extends Win32Struct {
-    static sizeof => 20
+export default struct NVME_COMPLETION_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _DW2_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _DW2 {
+        SQHD : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        SQHD {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        SQID : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        SQID {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _DW3_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _DW3 {
+        CID : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        CID {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        Status : NVME_COMMAND_STATUS
 
-        /**
-         * @type {NVME_COMMAND_STATUS}
-         */
-        Status {
-            get {
-                if(!this.HasProp("__Status"))
-                    this.__Status := NVME_COMMAND_STATUS(2, this)
-                return this.__Status
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUlong {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -77,42 +36,19 @@ class NVME_COMPLETION_ENTRY extends Win32Struct {
      * The contents of Dword 0 contain command specific information.
      * 
      * If a command uses Dword 0, then the definition of this Dword is contained within the associated command definition. If a command does not use Dword 0, then this field is reserved.
-     * @type {Integer}
      */
-    DW0 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DW0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DW1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DW1 : UInt32
 
     /**
      * A union that contains the information in Dword 2.
-     * @type {_DW2_e__Union}
      */
-    DW2 {
-        get {
-            if(!this.HasProp("__DW2"))
-                this.__DW2 := NVME_COMPLETION_ENTRY._DW2_e__Union(8, this)
-            return this.__DW2
-        }
-    }
+    DW2 : NVME_COMPLETION_ENTRY._DW2
 
     /**
      * A union that contains the information in Dword 3.
-     * @type {_DW3_e__Union}
      */
-    DW3 {
-        get {
-            if(!this.HasProp("__DW3"))
-                this.__DW3 := NVME_COMPLETION_ENTRY._DW3_e__Union(12, this)
-            return this.__DW3
-        }
-    }
+    DW3 : NVME_COMPLETION_ENTRY._DW3
+
 }

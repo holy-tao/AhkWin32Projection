@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about authentication events.
  * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITSGAuthenticateUserSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITSGAuthenticateUserSink extends IUnknown {
     /**
      * The interface identifier for ITSGAuthenticateUserSink
      * @type {Guid}
      */
-    static IID => Guid("{2c3e2e73-a782-47f9-8dfb-77ee1ed27a03}")
+    static IID := Guid("{2c3e2e73-a782-47f9-8dfb-77ee1ed27a03}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSGAuthenticateUserSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnUserAuthenticated        : IntPtr
+        OnUserAuthenticationFailed : IntPtr
+        ReauthenticateUser         : IntPtr
+        DisconnectUser             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnUserAuthenticated", "OnUserAuthenticationFailed", "ReauthenticateUser", "DisconnectUser"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSGAuthenticateUserSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies Remote Desktop Gateway (RD Gateway) that the authentication plug-in has successfully authenticated the user.
@@ -46,7 +59,7 @@ class ITSGAuthenticateUserSink extends IUnknown {
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
         userDomain := userDomain is String ? BSTR.Alloc(userDomain).Value : userDomain
 
-        result := ComCall(3, this, "ptr", userName, "ptr", userDomain, "ptr", _context, "ptr", userToken, "HRESULT")
+        result := ComCall(3, this, BSTR, userName, BSTR, userDomain, "ptr", _context, HANDLE_PTR, userToken, "HRESULT")
         return result
     }
 
@@ -102,5 +115,31 @@ class ITSGAuthenticateUserSink extends IUnknown {
     DisconnectUser(_context) {
         result := ComCall(6, this, "ptr", _context, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITSGAuthenticateUserSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnUserAuthenticated := CallbackCreate(GetMethod(implObj, "OnUserAuthenticated"), flags, 5)
+        this.vtbl.OnUserAuthenticationFailed := CallbackCreate(GetMethod(implObj, "OnUserAuthenticationFailed"), flags, 4)
+        this.vtbl.ReauthenticateUser := CallbackCreate(GetMethod(implObj, "ReauthenticateUser"), flags, 2)
+        this.vtbl.DisconnectUser := CallbackCreate(GetMethod(implObj, "DisconnectUser"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnUserAuthenticated)
+        CallbackFree(this.vtbl.OnUserAuthenticationFailed)
+        CallbackFree(this.vtbl.ReauthenticateUser)
+        CallbackFree(this.vtbl.DisconnectUser)
     }
 }

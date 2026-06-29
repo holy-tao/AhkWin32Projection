@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPINTERFERENCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPINTERFERENCE.ahk" { SPINTERFERENCE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPRECOCONTEXTSTATUS extends Win32Struct {
-    static sizeof => 524
+export default struct SPRECOCONTEXTSTATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    eInterference : SPINTERFERENCE
 
-    /**
-     * @type {SPINTERFERENCE}
-     */
-    eInterference {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    szRequestTypeOfUI : WCHAR[255]
 
-    /**
-     * @type {String}
-     */
-    szRequestTypeOfUI {
-        get => StrGet(this.ptr + 4, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 254, "UTF-16")
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 516, "uint")
-        set => NumPut("uint", value, this, 516)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
-    }
 }

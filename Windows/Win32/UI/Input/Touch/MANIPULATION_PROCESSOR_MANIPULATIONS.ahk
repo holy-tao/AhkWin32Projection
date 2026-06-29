@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MANIPULATION_PROCESSOR_MANIPULATIONS enumeration different kinds of manipulation which can be applied on a target object.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/ne-manipulations-manipulation_processor_manipulations
  * @namespace Windows.Win32.UI.Input.Touch
  */
-class MANIPULATION_PROCESSOR_MANIPULATIONS extends Win32BitflagEnum {
+export default struct MANIPULATION_PROCESSOR_MANIPULATIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that no manipulations are performed.

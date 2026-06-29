@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\APP_CACHE_DOWNLOAD_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APP_CACHE_DOWNLOAD_ENTRY.ahk" { APP_CACHE_DOWNLOAD_ENTRY }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class APP_CACHE_DOWNLOAD_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct APP_CACHE_DOWNLOAD_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    dwEntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEntryCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pEntries : APP_CACHE_DOWNLOAD_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<APP_CACHE_DOWNLOAD_ENTRY>}
-     */
-    pEntries {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

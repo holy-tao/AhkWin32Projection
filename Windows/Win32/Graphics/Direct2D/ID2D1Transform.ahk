@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1TransformNode.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Represents the base interface for all of the transforms implemented by the transform author.
@@ -11,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transform
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Transform extends ID2D1TransformNode {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Transform extends ID2D1TransformNode {
     /**
      * The interface identifier for ID2D1Transform
      * @type {Guid}
      */
-    static IID => Guid("{ef1a287d-342a-4f76-8fdb-da0d6ea9f92b}")
+    static IID := Guid("{ef1a287d-342a-4f76-8fdb-da0d6ea9f92b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Transform interfaces
+    */
+    struct Vtbl extends ID2D1TransformNode.Vtbl {
+        MapOutputRectToInputRects : IntPtr
+        MapInputRectsToOutputRect : IntPtr
+        MapInvalidRect            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MapOutputRectToInputRects", "MapInputRectsToOutputRect", "MapInvalidRect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Transform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows a transform to state how it would map a rectangle requested on its output to a set of sample rectangles on its input.
@@ -51,7 +61,7 @@ class ID2D1Transform extends ID2D1TransformNode {
      */
     MapOutputRectToInputRects(outputRect, inputRectsCount) {
         inputRects := RECT()
-        result := ComCall(4, this, "ptr", outputRect, "ptr", inputRects, "uint", inputRectsCount, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, outputRect, RECT.Ptr, inputRects, "uint", inputRectsCount, "HRESULT")
         return inputRects
     }
 
@@ -82,7 +92,7 @@ class ID2D1Transform extends ID2D1TransformNode {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transform-mapinputrectstooutputrect
      */
     MapInputRectsToOutputRect(inputRects, inputOpaqueSubRects, inputRectCount, outputRect, outputOpaqueSubRect) {
-        result := ComCall(5, this, "ptr", inputRects, "ptr", inputOpaqueSubRects, "uint", inputRectCount, "ptr", outputRect, "ptr", outputOpaqueSubRect, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, inputRects, RECT.Ptr, inputOpaqueSubRects, "uint", inputRectCount, RECT.Ptr, outputRect, RECT.Ptr, outputOpaqueSubRect, "HRESULT")
         return result
     }
 
@@ -103,7 +113,31 @@ class ID2D1Transform extends ID2D1TransformNode {
      */
     MapInvalidRect(inputIndex, invalidInputRect) {
         invalidOutputRect := RECT()
-        result := ComCall(6, this, "uint", inputIndex, "ptr", invalidInputRect, "ptr", invalidOutputRect, "HRESULT")
+        result := ComCall(6, this, "uint", inputIndex, RECT, invalidInputRect, RECT.Ptr, invalidOutputRect, "HRESULT")
         return invalidOutputRect
+    }
+
+    Query(iid) {
+        if (ID2D1Transform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MapOutputRectToInputRects := CallbackCreate(GetMethod(implObj, "MapOutputRectToInputRects"), flags, 4)
+        this.vtbl.MapInputRectsToOutputRect := CallbackCreate(GetMethod(implObj, "MapInputRectsToOutputRect"), flags, 6)
+        this.vtbl.MapInvalidRect := CallbackCreate(GetMethod(implObj, "MapInvalidRect"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MapOutputRectToInputRects)
+        CallbackFree(this.vtbl.MapInputRectsToOutputRect)
+        CallbackFree(this.vtbl.MapInvalidRect)
     }
 }

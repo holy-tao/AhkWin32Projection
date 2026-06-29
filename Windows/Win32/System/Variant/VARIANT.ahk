@@ -1,447 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include .\VARIANT.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import ".\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * VARIANTARG describes arguments passed within DISPPARAMS, and VARIANT to specify variant data that cannot be passed by reference.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-variant
  * @namespace Windows.Win32.System.Variant
  */
-class VARIANT extends Win32Struct {
-    static sizeof => 24
+export default struct VARIANT {
+    #StructPack 8
 
-    static packingSize => 8
+    vt : VARENUM
 
-    /**
-     * @type {VARENUM}
-     */
-    vt {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wReserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wReserved2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved2 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wReserved3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved3 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    llVal : Int64
 
-    /**
-     * @type {Integer}
-     */
-    llVal {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    pRecInfo : IRecordInfo
 
-    /**
-     * @type {Integer}
-     */
-    lVal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bVal {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    iVal {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    fltVal {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dblVal {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
-
-    /**
-     * @type {VARIANT_BOOL}
-     */
-    boolVal {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {VARIANT_BOOL}
-     */
-    __OBSOLETE__VARIANT_BOOL {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    scode {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {CY}
-     */
-    cyVal {
-        get {
-            if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(8, this)
-            return this.__cyVal
-        }
-    }
-
-    /**
-     * @type {Float}
-     */
-    date {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
-
-    /**
-     * @type {BSTR}
-     */
-    bstrVal {
-        get {
-            if(!this.HasProp("__bstrVal"))
-                this.__bstrVal := BSTR(8, this)
-            return this.__bstrVal
-        }
-    }
-
-    /**
-     * @type {IUnknown}
-     */
-    punkVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IDispatch}
-     */
-    pdispVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<SAFEARRAY>}
-     */
-    parray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    piVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    plVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pllVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pfltVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pdblVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<VARIANT_BOOL>}
-     */
-    pboolVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<VARIANT_BOOL>}
-     */
-    __OBSOLETE__VARIANT_PBOOL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pscode {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<CY>}
-     */
-    pcyVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pdate {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<BSTR>}
-     */
-    pbstrVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IUnknown>}
-     */
-    ppunkVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<IDispatch>}
-     */
-    ppdispVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Pointer<SAFEARRAY>>}
-     */
-    pparray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<VARIANT>}
-     */
-    pvarVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    byref {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {CHAR}
-     */
-    cVal {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uiVal {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ulVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ullVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    intVal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uintVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DECIMAL>}
-     */
-    pdecVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pcVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    puiVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pulVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pullVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pintVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    puintVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvRecord {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IRecordInfo}
-     */
-    pRecInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {DECIMAL}
-     */
-    decVal {
-        get {
-            if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(0, this)
-            return this.__decVal
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'lVal', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'bVal', { type: Int8, offset: 8 })
+        DefineProp(this.Prototype, 'iVal', { type: Int16, offset: 8 })
+        DefineProp(this.Prototype, 'fltVal', { type: Float32, offset: 8 })
+        DefineProp(this.Prototype, 'dblVal', { type: Float64, offset: 8 })
+        DefineProp(this.Prototype, 'boolVal', { type: VARIANT_BOOL, offset: 8 })
+        DefineProp(this.Prototype, '__OBSOLETE__VARIANT_BOOL', { type: VARIANT_BOOL, offset: 8 })
+        DefineProp(this.Prototype, 'scode', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'cyVal', { type: CY, offset: 8 })
+        DefineProp(this.Prototype, 'date', { type: Float64, offset: 8 })
+        DefineProp(this.Prototype, 'bstrVal', { type: BSTR, offset: 8 })
+        DefineProp(this.Prototype, 'punkVal', { type: IUnknown, offset: 8 })
+        DefineProp(this.Prototype, 'pdispVal', { type: IDispatch, offset: 8 })
+        DefineProp(this.Prototype, 'parray', { type: SAFEARRAY.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pbVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'piVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'plVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pllVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pfltVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pdblVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pboolVal', { type: VARIANT_BOOL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, '__OBSOLETE__VARIANT_PBOOL', { type: VARIANT_BOOL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pscode', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pcyVal', { type: CY.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pdate', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pbstrVal', { type: BSTR.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'ppunkVal', { type: IUnknown.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'ppdispVal', { type: IDispatch.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pparray', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pvarVal', { type: VARIANT.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'byref', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'cVal', { type: CHAR, offset: 8 })
+        DefineProp(this.Prototype, 'uiVal', { type: UInt16, offset: 8 })
+        DefineProp(this.Prototype, 'ulVal', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'ullVal', { type: Int64, offset: 8 })
+        DefineProp(this.Prototype, 'intVal', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'uintVal', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'pdecVal', { type: DECIMAL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pcVal', { type: PSTR, offset: 8 })
+        DefineProp(this.Prototype, 'puiVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pulVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pullVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pintVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'puintVal', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pvRecord', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'decVal', { type: DECIMAL, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetFwRules.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\INetFwRules.ahk" { INetFwRules }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Access to the Windows Service Hardening networking rules.
@@ -11,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwservicerestriction
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwServiceRestriction extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwServiceRestriction extends IDispatch {
     /**
      * The interface identifier for INetFwServiceRestriction
      * @type {Guid}
      */
-    static IID => Guid("{8267bbe3-f890-491c-b7b6-2db1ef0e5d2b}")
+    static IID := Guid("{8267bbe3-f890-491c-b7b6-2db1ef0e5d2b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwServiceRestriction interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        RestrictService   : IntPtr
+        ServiceRestricted : IntPtr
+        get_Rules         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RestrictService", "ServiceRestricted", "get_Rules"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwServiceRestriction.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {INetFwRules} 
@@ -121,7 +133,7 @@ class INetFwServiceRestriction extends IDispatch {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
         appName := appName is String ? BSTR.Alloc(appName).Value : appName
 
-        result := ComCall(7, this, "ptr", serviceName, "ptr", appName, "short", restrictService, "short", serviceSidRestricted, "HRESULT")
+        result := ComCall(7, this, BSTR, serviceName, BSTR, appName, VARIANT_BOOL, restrictService, VARIANT_BOOL, serviceSidRestricted, "HRESULT")
         return result
     }
 
@@ -136,7 +148,7 @@ class INetFwServiceRestriction extends IDispatch {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
         appName := appName is String ? BSTR.Alloc(appName).Value : appName
 
-        result := ComCall(8, this, "ptr", serviceName, "ptr", appName, "short*", &serviceRestricted := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, serviceName, BSTR, appName, VARIANT_BOOL.Ptr, &serviceRestricted := 0, "HRESULT")
         return serviceRestricted
     }
 
@@ -148,5 +160,29 @@ class INetFwServiceRestriction extends IDispatch {
     get_Rules() {
         result := ComCall(9, this, "ptr*", &rules := 0, "HRESULT")
         return INetFwRules(rules)
+    }
+
+    Query(iid) {
+        if (INetFwServiceRestriction.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RestrictService := CallbackCreate(GetMethod(implObj, "RestrictService"), flags, 5)
+        this.vtbl.ServiceRestricted := CallbackCreate(GetMethod(implObj, "ServiceRestricted"), flags, 4)
+        this.vtbl.get_Rules := CallbackCreate(GetMethod(implObj, "get_Rules"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RestrictService)
+        CallbackFree(this.vtbl.ServiceRestricted)
+        CallbackFree(this.vtbl.get_Rules)
     }
 }

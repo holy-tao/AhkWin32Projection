@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_EXTENDEDPROP_ROI_INFO.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSCAMERA_EXTENDEDPROP_ROI_INFO.ahk" { KSCAMERA_EXTENDEDPROP_ROI_INFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_ROI_EXPOSURE extends Win32Struct {
-    static sizeof => 40
+export default struct KSCAMERA_EXTENDEDPROP_ROI_EXPOSURE {
+    #StructPack 8
 
-    static packingSize => 8
+    ROIInfo : KSCAMERA_EXTENDEDPROP_ROI_INFO
 
-    /**
-     * @type {KSCAMERA_EXTENDEDPROP_ROI_INFO}
-     */
-    ROIInfo {
-        get {
-            if(!this.HasProp("__ROIInfo"))
-                this.__ROIInfo := KSCAMERA_EXTENDEDPROP_ROI_INFO(0, this)
-            return this.__ROIInfo
-        }
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

@@ -1,109 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_BRIGHTNESS_INFO_TYPE.ahk
-#Include .\DXGK_BACKLIGHT_OPTIMIZATION_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_BRIGHTNESS_INFO_TYPE.ahk" { D3DKMT_BRIGHTNESS_INFO_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DXGK_BACKLIGHT_OPTIMIZATION_LEVEL.ahk" { DXGK_BACKLIGHT_OPTIMIZATION_LEVEL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_BRIGHTNESS_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMT_BRIGHTNESS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : D3DKMT_BRIGHTNESS_INFO_TYPE
 
-    /**
-     * @type {D3DKMT_BRIGHTNESS_INFO_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ChildUid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ChildUid {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PossibleLevels : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PossibleLevels {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Brightness {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    BrightnessCaps {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    BrightnessState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {DXGK_BACKLIGHT_OPTIMIZATION_LEVEL}
-     */
-    OptimizationLevel {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    ReductionInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {BOOLEAN}
-     */
-    VerboseLogging {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    NitRanges {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    GetBrightnessMillinits {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    SetBrightnessMillinits {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'Brightness', { type: Int8, offset: 8 })
+        DefineProp(this.Prototype, 'BrightnessCaps', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'BrightnessState', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'OptimizationLevel', { type: DXGK_BACKLIGHT_OPTIMIZATION_LEVEL, offset: 8 })
+        DefineProp(this.Prototype, 'ReductionInfo', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'VerboseLogging', { type: BOOLEAN, offset: 8 })
+        DefineProp(this.Prototype, 'NitRanges', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'GetBrightnessMillinits', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'SetBrightnessMillinits', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

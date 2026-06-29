@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include .\SORTDIRECTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SORTDIRECTION.ahk" { SORTDIRECTION }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Stores information about how to sort a column that is displayed in the folder view.
@@ -10,31 +10,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-sortcolumn
  * @namespace Windows.Win32.UI.Shell
  */
-class SORTCOLUMN extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SORTCOLUMN {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a></b>
      * 
      * The ID of the column by which the user will sort. A <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure. For example, for the "Name" column, the property key is PKEY_ItemNameDisplay.
-     * @type {PROPERTYKEY}
      */
-    propkey {
-        get {
-            if(!this.HasProp("__propkey"))
-                this.__propkey := PROPERTYKEY(0, this)
-            return this.__propkey
-        }
-    }
+    propkey : PROPERTYKEY
 
     /**
      * Type: <b>SORTDIRECTION</b>
-     * @type {SORTDIRECTION}
      */
-    direction {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    direction : SORTDIRECTION
+
 }

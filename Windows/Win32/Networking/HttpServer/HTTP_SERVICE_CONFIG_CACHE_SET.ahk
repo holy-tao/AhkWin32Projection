@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_CACHE_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_CONFIG_CACHE_KEY.ahk" { HTTP_SERVICE_CONFIG_CACHE_KEY }
 
 /**
  * Used in the pConfigInformation parameter of the HttpSetServiceConfiguration function.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_cache_set
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_CACHE_SET extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct HTTP_SERVICE_CONFIG_CACHE_SET {
+    #StructPack 4
 
     /**
      * Cache key.
-     * @type {HTTP_SERVICE_CONFIG_CACHE_KEY}
      */
-    KeyDesc {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    KeyDesc : HTTP_SERVICE_CONFIG_CACHE_KEY
 
     /**
      * Configuration cache parameter.
-     * @type {Integer}
      */
-    ParamDesc {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ParamDesc : UInt32
+
 }

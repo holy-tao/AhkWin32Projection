@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_STRING.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 
 /**
  * Represents the network address of an endpoint.
@@ -10,10 +11,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_address
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ENDPOINT_ADDRESS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_ENDPOINT_ADDRESS {
+    #StructPack 8
 
     /**
      * The URL portion of the address.  
@@ -30,15 +29,8 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct {
      * 
      * The value of this field corresponds to the Address element of the 
      *                     WS-Addressing specifications.
-     * @type {WS_STRING}
      */
-    url {
-        get {
-            if(!this.HasProp("__url"))
-                this.__url := WS_STRING(0, this)
-            return this.__url
-        }
-    }
+    url : WS_STRING
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> handle to a set of header elements
@@ -62,12 +54,8 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct {
      * 
      * This value of this field corresponds to the content of the 
      *                     ReferenceParameters element of the WS-Addressing specifications.
-     * @type {Pointer<WS_XML_BUFFER>}
      */
-    headers {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    headers : WS_XML_BUFFER.Ptr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> handle to a set of extension elements.
@@ -86,12 +74,8 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct {
      * If the ReferenceProperties element is present (as defined by
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_0_9</a>), it must be the first element 
      *                     within the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>.
-     * @type {Pointer<WS_XML_BUFFER>}
      */
-    extensions {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    extensions : WS_XML_BUFFER.Ptr
 
     /**
      * The security identity of the endpoint represented by this endpoint address.
@@ -99,10 +83,7 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct {
      * 
      * This field corresponds to the Identity element, which is an extension
      *                     of the base WS-Addressing specifications.
-     * @type {Pointer<WS_ENDPOINT_IDENTITY>}
      */
-    identity {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    identity : WS_ENDPOINT_IDENTITY.Ptr
+
 }

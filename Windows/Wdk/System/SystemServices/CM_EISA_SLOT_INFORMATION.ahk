@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_EISA_SLOT_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct CM_EISA_SLOT_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    ReturnCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ReturnCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ReturnFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ReturnFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    MajorRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MajorRevision {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    MinorRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MinorRevision {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Checksum : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Checksum {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NumberFunctions : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberFunctions {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    FunctionInformation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FunctionInformation {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    CompressedId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CompressedId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

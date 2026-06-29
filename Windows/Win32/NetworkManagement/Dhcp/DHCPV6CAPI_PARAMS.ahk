@@ -1,61 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains a requested parameter.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCPV6CAPI_PARAMS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DHCPV6CAPI_PARAMS {
+    #StructPack 8
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * Identifier for the DHCPv6 parameter being requested.
      * 
      * <a id="DHCPV6_OPTION_CLIENTID"></a>
      * <a id="dhcpv6_option_clientid"></a>
-     * @type {Integer}
      */
-    OptionId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OptionId : UInt32
 
     /**
      * This option is set to <b>TRUE</b> if this parameter is vendor-specific.  Otherwise, it is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    IsVendor {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    IsVendor : BOOL
 
     /**
      * Contains the actual parameter data.
-     * @type {Pointer<Integer>}
      */
-    Data {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data : IntPtr
 
     /**
      * Size of the <b>Data</b> member, in bytes.
-     * @type {Integer}
      */
-    nBytesData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    nBytesData : UInt32
+
 }

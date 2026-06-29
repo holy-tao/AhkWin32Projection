@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MPRAPI_ADMIN_DLL_CALLBACKS structure is used by the MprAdminInitializeDllEx function to register the callback function pointers.
@@ -15,10 +14,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mprapi_admin_dll_callbacks
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
+    #StructPack 8
 
     /**
      * A value that represents the version of this structure.
@@ -49,12 +46,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    revision {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    revision : Int8
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetipaddressforuser">MprAdminGetIpAddressForUser</a> callback. The callback prototype is defined as:
@@ -64,12 +57,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef DWORD (APIENTRY * PMPRADMINGETIPADDRESSFORUSER)(WCHAR *, WCHAR *, DWORD *, BOOL *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINGETIPADDRESSFORUSER>}
      */
-    lpfnMprAdminGetIpAddressForUser {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpfnMprAdminGetIpAddressForUser : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminreleaseipaddress">MprAdminReleaseIpAddress</a> callback. The callback prototype is defined as:
@@ -79,12 +68,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef VOID  (APIENTRY * PMPRADMINRELEASEIPADRESS)(WCHAR *, WCHAR *, DWORD *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINRELEASEIPADRESS>}
      */
-    lpfnMprAdminReleaseIpAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpfnMprAdminReleaseIpAddress : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetipv6addressforuser">MprAdminGetIpv6AddressForUser</a> callback. The callback prototype is defined as:
@@ -94,12 +79,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef DWORD (APIENTRY * PMPRADMINGETIPV6ADDRESSFORUSER)(WCHAR *, WCHAR *, IN6_ADDR *, BOOL *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINGETIPV6ADDRESSFORUSER>}
      */
-    lpfnMprAdminGetIpv6AddressForUser {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpfnMprAdminGetIpv6AddressForUser : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminreleaseipv6addressforuser">MprAdminReleaseIpv6AddressForUser</a> callback. The callback prototype is defined as:
@@ -109,12 +90,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef VOID  (APIENTRY * PMPRADMINRELEASEIPV6ADDRESSFORUSER)(WCHAR *, WCHAR *, IN6_ADDR *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINRELEASEIPV6ADDRESSFORUSER>}
      */
-    lpfnMprAdminReleaseIpV6AddressForUser {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpfnMprAdminReleaseIpV6AddressForUser : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminacceptnewlink">MprAdminAcceptNewLink</a> callback. The callback prototype is defined as:
@@ -124,12 +101,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef BOOL  (APIENTRY * PMPRADMINACCEPTNEWLINK)(RAS_PORT_0 *, RAS_PORT_1 *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINACCEPTNEWLINK>}
      */
-    lpfnRasAdminAcceptNewLink {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpfnRasAdminAcceptNewLink : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminlinkhangupnotification">MprAdminLinkHangupNotification</a> callback. The callback prototype is defined as:
@@ -139,12 +112,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef VOID  (APIENTRY * PMPRADMINLINKHANGUPNOTIFICATION)(RAS_PORT_0 *, RAS_PORT_1 *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINLINKHANGUPNOTIFICATION>}
      */
-    lpfnRasAdminLinkHangupNotification {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpfnRasAdminLinkHangupNotification : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminterminatedll">MprAdminTerminateDll</a> callback. The callback prototype is defined as:
@@ -154,12 +123,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef DWORD (APIENTRY * PMPRADMINTERMINATEDLL)();
      * 
      * ```
-     * @type {Pointer<PMPRADMINTERMINATEDLL>}
      */
-    lpfnRasAdminTerminateDll {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpfnRasAdminTerminateDll : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminacceptnewconnectionex">MprAdminAcceptNewConnectionEx</a>  callback. The callback prototype is defined as:
@@ -169,20 +134,10 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef BOOL  (APIENTRY * PMPRADMINACCEPTNEWCONNECTIONEX)(RAS_CONNECTION_EX *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINACCEPTNEWCONNECTIONEX>}
      */
-    lpfnRasAdminAcceptNewConnectionEx {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpfnRasAdminAcceptNewConnectionEx : IntPtr
 
-    /**
-     * @type {Pointer<PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX>}
-     */
-    lpfnRasAdminAcceptEndpointChangeEx {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpfnRasAdminAcceptEndpointChangeEx : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminacceptreauthenticationex">MprAdminAcceptReauthenticationEx</a> callback. The callback prototype is defined as:
@@ -192,12 +147,8 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef BOOL  (APIENTRY * PMPRADMINACCEPTREAUTHENTICATIONEX)(RAS_CONNECTION_EX *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINACCEPTREAUTHENTICATIONEX>}
      */
-    lpfnRasAdminAcceptReauthenticationEx {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpfnRasAdminAcceptReauthenticationEx : IntPtr
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionhangupnotificationex">MprAdminConnectionHangupNotificationEx</a> callback. The callback prototype is defined as:
@@ -207,18 +158,9 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
      * typedef VOID  (APIENTRY * PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX)(RAS_CONNECTION_EX *);
      * 
      * ```
-     * @type {Pointer<PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX>}
      */
-    lpfnRasAdminConnectionHangupNotificationEx {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpfnRasAdminConnectionHangupNotificationEx : IntPtr
 
-    /**
-     * @type {Pointer<PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX>}
-     */
-    lpfnRASValidatePreAuthenticatedConnectionEx {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    lpfnRASValidatePreAuthenticatedConnectionEx : IntPtr
+
 }

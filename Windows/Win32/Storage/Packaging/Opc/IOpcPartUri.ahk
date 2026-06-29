@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IOpcUri.ahk" { IOpcUri }
 
 /**
  * Represents the part name of a part.
@@ -11,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcparturi
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcPartUri extends IOpcUri {
-
-    static sizeof => A_PtrSize
+export default struct IOpcPartUri extends IOpcUri {
     /**
      * The interface identifier for IOpcPartUri
      * @type {Guid}
      */
-    static IID => Guid("{7d3babe7-88b2-46ba-85cb-4203cb016c87}")
+    static IID := Guid("{7d3babe7-88b2-46ba-85cb-4203cb016c87}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 31
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcPartUri interfaces
+    */
+    struct Vtbl extends IOpcUri.Vtbl {
+        ComparePartUri         : IntPtr
+        GetSourceUri           : IntPtr
+        IsRelationshipsPartUri : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ComparePartUri", "GetSourceUri", "IsRelationshipsPartUri"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcPartUri.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns an integer that indicates whether the URIs represented by the current part URI object and a specified part URI object are equivalent.
@@ -183,7 +194,31 @@ class IOpcPartUri extends IOpcUri {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcparturi-isrelationshipsparturi
      */
     IsRelationshipsPartUri() {
-        result := ComCall(33, this, "int*", &isRelationshipUri := 0, "HRESULT")
+        result := ComCall(33, this, BOOL.Ptr, &isRelationshipUri := 0, "HRESULT")
         return isRelationshipUri
+    }
+
+    Query(iid) {
+        if (IOpcPartUri.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ComparePartUri := CallbackCreate(GetMethod(implObj, "ComparePartUri"), flags, 3)
+        this.vtbl.GetSourceUri := CallbackCreate(GetMethod(implObj, "GetSourceUri"), flags, 2)
+        this.vtbl.IsRelationshipsPartUri := CallbackCreate(GetMethod(implObj, "IsRelationshipsPartUri"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ComparePartUri)
+        CallbackFree(this.vtbl.GetSourceUri)
+        CallbackFree(this.vtbl.IsRelationshipsPartUri)
     }
 }

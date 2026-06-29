@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_TEXT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
 
 /**
  * Represents a node of text content in xml.
@@ -14,16 +13,9 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_TEXT extends Win32Struct {
-    static sizeof => 4
+export default struct WS_XML_TEXT {
+    #StructPack 4
 
-    static packingSize => 4
+    textType : WS_XML_TEXT_TYPE
 
-    /**
-     * @type {WS_XML_TEXT_TYPE}
-     */
-    textType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

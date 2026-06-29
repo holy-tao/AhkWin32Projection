@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE.ahk" { SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE }
 
 /**
  * Contains trigger-specific data for a service trigger event.
@@ -44,27 +43,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger_specific_data_item
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM extends Win32Struct {
-    static sizeof => 16
+export default struct SERVICE_TRIGGER_SPECIFIC_DATA_ITEM {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE}
-     */
-    dwDataType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDataType : SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE
 
     /**
      * The size of the trigger-specific data pointed to <b>pData</b>, in bytes.  The maximum value is 1024.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbData : UInt32
 
     /**
      * A pointer to the trigger-specific data for the service trigger event. The trigger-specific data depends on the trigger event type; see Remarks. 
@@ -74,10 +61,7 @@ class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM extends Win32Struct {
      * If the <b>dwDataType</b> member is SERVICE_TRIGGER_DATA_TYPE_STRING, the trigger-specific data is a null-terminated string or a multistring of null-terminated strings, ending with two null-terminating characters. For example: <c>"5001\0UDP\0%programfiles%\MyApplication\MyServiceProcess.exe\0MyService\0\0"</c>.
      * 
      * Strings must be Unicode; ANSI strings are not supported.
-     * @type {Pointer<Integer>}
      */
-    pData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pData : IntPtr
+
 }

@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CERT_ALT_NAME.ahk" { CERT_ALT_NAME }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for handling certificate revocation list (CRL) distribution information arrays used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodecrldistinfo
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertEncodeCRLDistInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertEncodeCRLDistInfo extends IDispatch {
     /**
      * The interface identifier for ICertEncodeCRLDistInfo
      * @type {Guid}
      */
-    static IID => Guid("{01958640-bbff-11d0-8825-00a0c903b83c}")
+    static IID := Guid("{01958640-bbff-11d0-8825-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertEncodeCRLDistInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Decode            : IntPtr
+        GetDistPointCount : IntPtr
+        GetNameCount      : IntPtr
+        GetNameChoice     : IntPtr
+        GetName           : IntPtr
+        Reset             : IntPtr
+        SetNameCount      : IntPtr
+        SetNameEntry      : IntPtr
+        Encode            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "GetDistPointCount", "GetNameCount", "GetNameChoice", "GetName", "Reset", "SetNameCount", "SetNameEntry", "Encode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertEncodeCRLDistInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Decodes an Abstract Syntax Notation One (ASN.1)-encoded certificate revocation list (CRL) distribution information extension and stores the resulting array in the COM object.
@@ -44,7 +61,7 @@ class ICertEncodeCRLDistInfo extends IDispatch {
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        result := ComCall(7, this, "ptr", strBinary, "HRESULT")
+        result := ComCall(7, this, BSTR, strBinary, "HRESULT")
         return result
     }
 
@@ -89,8 +106,8 @@ class ICertEncodeCRLDistInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-getname
      */
     GetName(DistPointIndex, NameIndex) {
-        pstrName := BSTR()
-        result := ComCall(11, this, "int", DistPointIndex, "int", NameIndex, "ptr", pstrName, "HRESULT")
+        pstrName := BSTR.Owned()
+        result := ComCall(11, this, "int", DistPointIndex, "int", NameIndex, BSTR.Ptr, pstrName, "HRESULT")
         return pstrName
     }
 
@@ -138,7 +155,7 @@ class ICertEncodeCRLDistInfo extends IDispatch {
     SetNameEntry(DistPointIndex, NameIndex, NameChoice, strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(14, this, "int", DistPointIndex, "int", NameIndex, "int", NameChoice, "ptr", strName, "HRESULT")
+        result := ComCall(14, this, "int", DistPointIndex, "int", NameIndex, CERT_ALT_NAME, NameChoice, BSTR, strName, "HRESULT")
         return result
     }
 
@@ -148,8 +165,44 @@ class ICertEncodeCRLDistInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-encode
      */
     Encode() {
-        pstrBinary := BSTR()
-        result := ComCall(15, this, "ptr", pstrBinary, "HRESULT")
+        pstrBinary := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
+    }
+
+    Query(iid) {
+        if (ICertEncodeCRLDistInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetDistPointCount := CallbackCreate(GetMethod(implObj, "GetDistPointCount"), flags, 2)
+        this.vtbl.GetNameCount := CallbackCreate(GetMethod(implObj, "GetNameCount"), flags, 3)
+        this.vtbl.GetNameChoice := CallbackCreate(GetMethod(implObj, "GetNameChoice"), flags, 4)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetNameCount := CallbackCreate(GetMethod(implObj, "SetNameCount"), flags, 3)
+        this.vtbl.SetNameEntry := CallbackCreate(GetMethod(implObj, "SetNameEntry"), flags, 5)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.GetDistPointCount)
+        CallbackFree(this.vtbl.GetNameCount)
+        CallbackFree(this.vtbl.GetNameChoice)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetNameCount)
+        CallbackFree(this.vtbl.SetNameEntry)
+        CallbackFree(this.vtbl.Encode)
     }
 }

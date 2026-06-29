@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * SOCKET_ADDRESS structure stores protocol-specific address information.
@@ -11,26 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_address
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_ADDRESS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SOCKET_ADDRESS {
+    #StructPack 8
 
     /**
      * A pointer to a socket address  represented as a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure.
-     * @type {Pointer<SOCKADDR>}
      */
-    lpSockaddr {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpSockaddr : SOCKADDR.Ptr
 
     /**
      * The length, in bytes, of the socket address.
-     * @type {Integer}
      */
-    iSockaddrLength {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iSockaddrLength : Int32
+
 }

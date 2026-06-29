@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Elements of the TsActiveSelEnd enumeration specify which end of a text store selection is active.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsactiveselend
  * @namespace Windows.Win32.UI.TextServices
  */
-class TsActiveSelEnd extends Win32Enum {
+export default struct TsActiveSelEnd {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The selection has no active end. This is typical for all selections other than the default selection.

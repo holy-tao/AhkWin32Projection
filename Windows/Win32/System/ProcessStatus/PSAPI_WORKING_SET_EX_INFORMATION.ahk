@@ -1,35 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PSAPI_WORKING_SET_EX_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PSAPI_WORKING_SET_EX_BLOCK.ahk" { PSAPI_WORKING_SET_EX_BLOCK }
 
 /**
  * Contains extended working set information for a process.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_working_set_ex_information
  * @namespace Windows.Win32.System.ProcessStatus
  */
-class PSAPI_WORKING_SET_EX_INFORMATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PSAPI_WORKING_SET_EX_INFORMATION {
+    #StructPack 8
 
     /**
      * The virtual address.
-     * @type {Pointer<Void>}
      */
-    VirtualAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    VirtualAddress : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_ex_block">PSAPI_WORKING_SET_EX_BLOCK</a> union that indicates the attributes of the page at <b>VirtualAddress</b>.
-     * @type {PSAPI_WORKING_SET_EX_BLOCK}
      */
-    VirtualAttributes {
-        get {
-            if(!this.HasProp("__VirtualAttributes"))
-                this.__VirtualAttributes := PSAPI_WORKING_SET_EX_BLOCK(8, this)
-            return this.__VirtualAttributes
-        }
-    }
+    VirtualAttributes : PSAPI_WORKING_SET_EX_BLOCK
+
 }

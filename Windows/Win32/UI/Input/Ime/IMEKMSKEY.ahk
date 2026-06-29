@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEKMSKEY extends Win32Struct {
-    static sizeof => 80
+export default struct IMEKMSKEY {
+    #StructPack 4
 
-    static packingSize => 4
+    dwStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCompStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCompStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVKEY : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVKEY {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwControl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwControl {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    pwszDscr : WCHAR[31]
 
-    /**
-     * @type {Integer}
-     */
-    dwNotUsed {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {String}
-     */
-    pwszDscr {
-        get => StrGet(this.ptr + 16, 30, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 30, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    pwszNoUse {
-        get => StrGet(this.ptr + 16, 30, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 30, "UTF-16")
+    static __New() {
+        DefineProp(this.Prototype, 'dwNotUsed', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'pwszNoUse', { type: WCHAR[31], offset: 16 })
+        this.DeleteProp("__New")
     }
 }

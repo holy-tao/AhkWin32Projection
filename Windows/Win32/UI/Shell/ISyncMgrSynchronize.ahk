@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISyncMgrEnumItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNCMGRHANDLERINFO.ahk" { SYNCMGRHANDLERINFO }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISyncMgrSynchronizeCallback.ahk" { ISyncMgrSynchronizeCallback }
+#Import ".\ISyncMgrEnumItems.ahk" { ISyncMgrEnumItems }
 
 /**
  * Exposes methods that enable the registered application or service to receive notifications from the synchronization manager.
@@ -17,26 +21,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrsynchronize
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrSynchronize extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrSynchronize extends IUnknown {
     /**
      * The interface identifier for ISyncMgrSynchronize
      * @type {Guid}
      */
-    static IID => Guid("{6295df40-35ee-11d1-8707-00c04fd93327}")
+    static IID := Guid("{6295df40-35ee-11d1-8707-00c04fd93327}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrSynchronize interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize          : IntPtr
+        GetHandlerInfo      : IntPtr
+        EnumSyncMgrItems    : IntPtr
+        GetItemObject       : IntPtr
+        ShowProperties      : IntPtr
+        SetProgressCallback : IntPtr
+        PrepareForSync      : IntPtr
+        Synchronize         : IntPtr
+        SetItemStatus       : IntPtr
+        ShowError           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetHandlerInfo", "EnumSyncMgrItems", "GetItemObject", "ShowProperties", "SetProgressCallback", "PrepareForSync", "Synchronize", "SetItemStatus", "ShowError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrSynchronize.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the synchronization manager in a registered application handler to determine whether the handler processes the synchronization event.
@@ -148,7 +168,7 @@ class ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-getitemobject
      */
     GetItemObject(ItemID, riid) {
-        result := ComCall(6, this, "ptr", ItemID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, ItemID, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -190,9 +210,7 @@ class ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-showproperties
      */
     ShowProperties(hWndParent, ItemID) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
-        result := ComCall(7, this, "ptr", hWndParent, "ptr", ItemID, "HRESULT")
+        result := ComCall(7, this, HWND, hWndParent, Guid.Ptr, ItemID, "HRESULT")
         return result
     }
 
@@ -283,9 +301,7 @@ class ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync
      */
     PrepareForSync(cbNumItems, pItemIDs, hWndParent, dwReserved) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
-        result := ComCall(9, this, "uint", cbNumItems, "ptr", pItemIDs, "ptr", hWndParent, "uint", dwReserved, "HRESULT")
+        result := ComCall(9, this, "uint", cbNumItems, Guid.Ptr, pItemIDs, HWND, hWndParent, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -344,9 +360,7 @@ class ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-synchronize
      */
     Synchronize(hWndParent) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
-        result := ComCall(10, this, "ptr", hWndParent, "HRESULT")
+        result := ComCall(10, this, HWND, hWndParent, "HRESULT")
         return result
     }
 
@@ -385,7 +399,7 @@ class ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-setitemstatus
      */
     SetItemStatus(pItemID, dwSyncMgrStatus) {
-        result := ComCall(11, this, "ptr", pItemID, "uint", dwSyncMgrStatus, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pItemID, "uint", dwSyncMgrStatus, "HRESULT")
         return result
     }
 
@@ -429,9 +443,45 @@ class ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-showerror
      */
     ShowError(hWndParent, ErrorID) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
-        result := ComCall(12, this, "ptr", hWndParent, "ptr", ErrorID, "HRESULT")
+        result := ComCall(12, this, HWND, hWndParent, Guid.Ptr, ErrorID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrSynchronize.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.GetHandlerInfo := CallbackCreate(GetMethod(implObj, "GetHandlerInfo"), flags, 2)
+        this.vtbl.EnumSyncMgrItems := CallbackCreate(GetMethod(implObj, "EnumSyncMgrItems"), flags, 2)
+        this.vtbl.GetItemObject := CallbackCreate(GetMethod(implObj, "GetItemObject"), flags, 4)
+        this.vtbl.ShowProperties := CallbackCreate(GetMethod(implObj, "ShowProperties"), flags, 3)
+        this.vtbl.SetProgressCallback := CallbackCreate(GetMethod(implObj, "SetProgressCallback"), flags, 2)
+        this.vtbl.PrepareForSync := CallbackCreate(GetMethod(implObj, "PrepareForSync"), flags, 5)
+        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 2)
+        this.vtbl.SetItemStatus := CallbackCreate(GetMethod(implObj, "SetItemStatus"), flags, 3)
+        this.vtbl.ShowError := CallbackCreate(GetMethod(implObj, "ShowError"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetHandlerInfo)
+        CallbackFree(this.vtbl.EnumSyncMgrItems)
+        CallbackFree(this.vtbl.GetItemObject)
+        CallbackFree(this.vtbl.ShowProperties)
+        CallbackFree(this.vtbl.SetProgressCallback)
+        CallbackFree(this.vtbl.PrepareForSync)
+        CallbackFree(this.vtbl.Synchronize)
+        CallbackFree(this.vtbl.SetItemStatus)
+        CallbackFree(this.vtbl.ShowError)
     }
 }

@@ -1,85 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_SGL_DATABLOCK_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_SGL_DATABLOCK_DESC.ahk" { NVME_SGL_DATABLOCK_DESC }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_DISCONNECT_COMMAND extends Win32Struct {
-    static sizeof => 64
+export default struct NVMEOF_DISCONNECT_COMMAND {
+    #StructPack 8
 
-    static packingSize => 8
+    OPC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OPC {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    CID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    FCTYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FCTYPE {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Reserved1 : Int8[19]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 19, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    SGL1 : NVME_SGL_DATABLOCK_DESC
 
-    /**
-     * @type {NVME_SGL_DATABLOCK_DESC}
-     */
-    SGL1 {
-        get {
-            if(!this.HasProp("__SGL1"))
-                this.__SGL1 := NVME_SGL_DATABLOCK_DESC(24, this)
-            return this.__SGL1
-        }
-    }
+    RECFMT : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RECFMT {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    Reserved2 : Int8[22]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 42, 22, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
 }

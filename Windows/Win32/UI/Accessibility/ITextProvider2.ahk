@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITextProvider.ahk
-#Include .\ITextRangeProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITextProvider.ahk" { ITextProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose textual content that is the target of an annotation, and information about a caret that belongs to the provider.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextprovider2
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ITextProvider2 extends ITextProvider {
-
-    static sizeof => A_PtrSize
+export default struct ITextProvider2 extends ITextProvider {
     /**
      * The interface identifier for ITextProvider2
      * @type {Guid}
      */
-    static IID => Guid("{0dc5e6ed-3e16-4bf1-8f9a-a979878bc195}")
+    static IID := Guid("{0dc5e6ed-3e16-4bf1-8f9a-a979878bc195}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextProvider2 interfaces
+    */
+    struct Vtbl extends ITextProvider.Vtbl {
+        RangeFromAnnotation : IntPtr
+        GetCaretRange       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RangeFromAnnotation", "GetCaretRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextProvider2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Exposes a text range that contains the text that is the target of the annotation associated with the specified annotation element.
@@ -64,5 +75,27 @@ class ITextProvider2 extends ITextProvider {
 
         result := ComCall(10, this, isActiveMarshal, isActive, "ptr*", &pRetVal := 0, "HRESULT")
         return ITextRangeProvider(pRetVal)
+    }
+
+    Query(iid) {
+        if (ITextProvider2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RangeFromAnnotation := CallbackCreate(GetMethod(implObj, "RangeFromAnnotation"), flags, 3)
+        this.vtbl.GetCaretRange := CallbackCreate(GetMethod(implObj, "GetCaretRange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RangeFromAnnotation)
+        CallbackFree(this.vtbl.GetCaretRange)
     }
 }

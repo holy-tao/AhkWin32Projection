@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DIOBJECTCALIBRATION structure describes the information contained in the &quot;Calibration&quot; value of the registry key for each axis on a device.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-diobjectcalibration
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIOBJECTCALIBRATION extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DIOBJECTCALIBRATION {
+    #StructPack 4
 
     /**
      * Specifies the logical value for the axis minimum position.
-     * @type {Integer}
      */
-    lMin {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lMin : Int32
 
     /**
      * Specifies the logical value for the axis center position.
-     * @type {Integer}
      */
-    lCenter {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lCenter : Int32
 
     /**
      * Specifies the logical value for the axis maximum position.
-     * @type {Integer}
      */
-    lMax {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lMax : Int32
+
 }

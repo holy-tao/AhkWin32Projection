@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFileLoader.ahk
-#Include .\IDWriteRemoteFontFileStream.ahk
-#Include .\IDWriteFontFile.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteRemoteFontFileStream.ahk" { IDWriteRemoteFontFileStream }
 
 /**
  * Represents a font file loader that can access remote (i.e., downloadable) fonts.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader {
     /**
      * The interface identifier for IDWriteRemoteFontFileLoader
      * @type {Guid}
      */
-    static IID => Guid("{68648c83-6ede-46c0-ab46-20083a887fde}")
+    static IID := Guid("{68648c83-6ede-46c0-ab46-20083a887fde}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteRemoteFontFileLoader interfaces
+    */
+    struct Vtbl extends IDWriteFontFileLoader.Vtbl {
+        CreateRemoteStreamFromKey      : IntPtr
+        GetLocalityFromKey             : IntPtr
+        CreateFontFileReferenceFromUrl : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateRemoteStreamFromKey", "GetLocalityFromKey", "CreateFontFileReferenceFromUrl"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteRemoteFontFileLoader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a remote font file stream object that encapsulates an open file resource and can be used to download remote file data.
@@ -96,5 +109,29 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader {
 
         result := ComCall(6, this, "ptr", factory, "ptr", baseUrl, "ptr", fontFileUrl, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
+    }
+
+    Query(iid) {
+        if (IDWriteRemoteFontFileLoader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateRemoteStreamFromKey := CallbackCreate(GetMethod(implObj, "CreateRemoteStreamFromKey"), flags, 4)
+        this.vtbl.GetLocalityFromKey := CallbackCreate(GetMethod(implObj, "GetLocalityFromKey"), flags, 4)
+        this.vtbl.CreateFontFileReferenceFromUrl := CallbackCreate(GetMethod(implObj, "CreateFontFileReferenceFromUrl"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateRemoteStreamFromKey)
+        CallbackFree(this.vtbl.GetLocalityFromKey)
+        CallbackFree(this.vtbl.CreateFontFileReferenceFromUrl)
     }
 }

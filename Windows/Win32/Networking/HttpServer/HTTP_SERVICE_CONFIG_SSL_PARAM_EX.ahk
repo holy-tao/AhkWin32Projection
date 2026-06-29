@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk
-#Include .\HTTP2_WINDOW_SIZE_PARAM.ahk
-#Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
-#Include .\HTTP_PERFORMANCE_PARAM.ahk
-#Include .\HTTP_PERFORMANCE_PARAM_TYPE.ahk
-#Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk
-#Include .\HTTP_ERROR_HEADERS_PARAM.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
-#Include .\HTTP_TLS_SESSION_TICKET_KEYS_PARAM.ahk
-#Include .\HTTP_CERT_CONFIG_PARAM.ahk
-#Include .\HTTP_CERT_CONFIG_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_CERT_CONFIG_ENTRY.ahk" { HTTP_CERT_CONFIG_ENTRY }
+#Import ".\HTTP_PERFORMANCE_PARAM.ahk" { HTTP_PERFORMANCE_PARAM }
+#Import ".\HTTP2_SETTINGS_LIMITS_PARAM.ahk" { HTTP2_SETTINGS_LIMITS_PARAM }
+#Import ".\HTTP_ERROR_HEADERS_PARAM.ahk" { HTTP_ERROR_HEADERS_PARAM }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_PERFORMANCE_PARAM_TYPE.ahk" { HTTP_PERFORMANCE_PARAM_TYPE }
+#Import ".\HTTP2_WINDOW_SIZE_PARAM.ahk" { HTTP2_WINDOW_SIZE_PARAM }
+#Import ".\HTTP_CERT_CONFIG_PARAM.ahk" { HTTP_CERT_CONFIG_PARAM }
+#Import ".\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk" { HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE }
+#Import ".\HTTP_TLS_SESSION_TICKET_KEYS_PARAM.ahk" { HTTP_TLS_SESSION_TICKET_KEYS_PARAM }
+#Import ".\HTTP_TLS_RESTRICTIONS_PARAM.ahk" { HTTP_TLS_RESTRICTIONS_PARAM }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct {
-    static sizeof => 32
+export default struct HTTP_SERVICE_CONFIG_SSL_PARAM_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    ParamType : HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE
 
-    /**
-     * @type {HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE}
-     */
-    ParamType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Http2WindowSizeParam : HTTP2_WINDOW_SIZE_PARAM
 
-    /**
-     * @type {HTTP2_WINDOW_SIZE_PARAM}
-     */
-    Http2WindowSizeParam {
-        get {
-            if(!this.HasProp("__Http2WindowSizeParam"))
-                this.__Http2WindowSizeParam := HTTP2_WINDOW_SIZE_PARAM(16, this)
-            return this.__Http2WindowSizeParam
-        }
-    }
-
-    /**
-     * @type {HTTP2_SETTINGS_LIMITS_PARAM}
-     */
-    Http2SettingsLimitsParam {
-        get {
-            if(!this.HasProp("__Http2SettingsLimitsParam"))
-                this.__Http2SettingsLimitsParam := HTTP2_SETTINGS_LIMITS_PARAM(16, this)
-            return this.__Http2SettingsLimitsParam
-        }
-    }
-
-    /**
-     * @type {HTTP_PERFORMANCE_PARAM}
-     */
-    HttpPerformanceParam {
-        get {
-            if(!this.HasProp("__HttpPerformanceParam"))
-                this.__HttpPerformanceParam := HTTP_PERFORMANCE_PARAM(16, this)
-            return this.__HttpPerformanceParam
-        }
-    }
-
-    /**
-     * @type {HTTP_TLS_RESTRICTIONS_PARAM}
-     */
-    HttpTlsRestrictionsParam {
-        get {
-            if(!this.HasProp("__HttpTlsRestrictionsParam"))
-                this.__HttpTlsRestrictionsParam := HTTP_TLS_RESTRICTIONS_PARAM(16, this)
-            return this.__HttpTlsRestrictionsParam
-        }
-    }
-
-    /**
-     * @type {HTTP_ERROR_HEADERS_PARAM}
-     */
-    HttpErrorHeadersParam {
-        get {
-            if(!this.HasProp("__HttpErrorHeadersParam"))
-                this.__HttpErrorHeadersParam := HTTP_ERROR_HEADERS_PARAM(16, this)
-            return this.__HttpErrorHeadersParam
-        }
-    }
-
-    /**
-     * @type {HTTP_TLS_SESSION_TICKET_KEYS_PARAM}
-     */
-    HttpTlsSessionTicketKeysParam {
-        get {
-            if(!this.HasProp("__HttpTlsSessionTicketKeysParam"))
-                this.__HttpTlsSessionTicketKeysParam := HTTP_TLS_SESSION_TICKET_KEYS_PARAM(16, this)
-            return this.__HttpTlsSessionTicketKeysParam
-        }
-    }
-
-    /**
-     * @type {HTTP_CERT_CONFIG_PARAM}
-     */
-    HttpCertConfigParam {
-        get {
-            if(!this.HasProp("__HttpCertConfigParam"))
-                this.__HttpCertConfigParam := HTTP_CERT_CONFIG_PARAM(16, this)
-            return this.__HttpCertConfigParam
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Http2SettingsLimitsParam', { type: HTTP2_SETTINGS_LIMITS_PARAM, offset: 16 })
+        DefineProp(this.Prototype, 'HttpPerformanceParam', { type: HTTP_PERFORMANCE_PARAM, offset: 16 })
+        DefineProp(this.Prototype, 'HttpTlsRestrictionsParam', { type: HTTP_TLS_RESTRICTIONS_PARAM, offset: 16 })
+        DefineProp(this.Prototype, 'HttpErrorHeadersParam', { type: HTTP_ERROR_HEADERS_PARAM, offset: 16 })
+        DefineProp(this.Prototype, 'HttpTlsSessionTicketKeysParam', { type: HTTP_TLS_SESSION_TICKET_KEYS_PARAM, offset: 16 })
+        DefineProp(this.Prototype, 'HttpCertConfigParam', { type: HTTP_CERT_CONFIG_PARAM, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

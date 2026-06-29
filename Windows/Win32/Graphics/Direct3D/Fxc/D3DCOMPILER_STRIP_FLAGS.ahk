@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Strip flag options.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/ne-d3dcompiler-d3dcompiler_strip_flags
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  */
-class D3DCOMPILER_STRIP_FLAGS extends Win32Enum {
+export default struct D3DCOMPILER_STRIP_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Remove reflection data.

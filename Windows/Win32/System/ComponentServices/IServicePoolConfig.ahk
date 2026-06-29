@@ -1,40 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IClassFactory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IClassFactory.ahk" { IClassFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to configure an object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicepoolconfig
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IServicePoolConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IServicePoolConfig extends IUnknown {
     /**
      * The interface identifier for IServicePoolConfig
      * @type {Guid}
      */
-    static IID => Guid("{a9690656-5bca-470c-8451-250c1f43a33e}")
+    static IID := Guid("{a9690656-5bca-470c-8451-250c1f43a33e}")
 
     /**
      * The class identifier for ServicePoolConfig
      * @type {Guid}
      */
-    static CLSID => Guid("{ecabb0ca-7f19-11d2-978e-0000f8757e2a}")
+    static CLSID := Guid("{ecabb0ca-7f19-11d2-978e-0000f8757e2a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IServicePoolConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_MaxPoolSize         : IntPtr
+        get_MaxPoolSize         : IntPtr
+        put_MinPoolSize         : IntPtr
+        get_MinPoolSize         : IntPtr
+        put_CreationTimeout     : IntPtr
+        get_CreationTimeout     : IntPtr
+        put_TransactionAffinity : IntPtr
+        get_TransactionAffinity : IntPtr
+        put_ClassFactory        : IntPtr
+        get_ClassFactory        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_MaxPoolSize", "get_MaxPoolSize", "put_MinPoolSize", "get_MinPoolSize", "put_CreationTimeout", "get_CreationTimeout", "put_TransactionAffinity", "get_TransactionAffinity", "put_ClassFactory", "get_ClassFactory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IServicePoolConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -155,7 +173,7 @@ class IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-put_transactionaffinity
      */
     put_TransactionAffinity(fTxAffinity) {
-        result := ComCall(9, this, "int", fTxAffinity, "HRESULT")
+        result := ComCall(9, this, BOOL, fTxAffinity, "HRESULT")
         return result
     }
 
@@ -191,5 +209,43 @@ class IServicePoolConfig extends IUnknown {
     get_ClassFactory() {
         result := ComCall(12, this, "ptr*", &pFactory := 0, "HRESULT")
         return IClassFactory(pFactory)
+    }
+
+    Query(iid) {
+        if (IServicePoolConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_MaxPoolSize := CallbackCreate(GetMethod(implObj, "put_MaxPoolSize"), flags, 2)
+        this.vtbl.get_MaxPoolSize := CallbackCreate(GetMethod(implObj, "get_MaxPoolSize"), flags, 2)
+        this.vtbl.put_MinPoolSize := CallbackCreate(GetMethod(implObj, "put_MinPoolSize"), flags, 2)
+        this.vtbl.get_MinPoolSize := CallbackCreate(GetMethod(implObj, "get_MinPoolSize"), flags, 2)
+        this.vtbl.put_CreationTimeout := CallbackCreate(GetMethod(implObj, "put_CreationTimeout"), flags, 2)
+        this.vtbl.get_CreationTimeout := CallbackCreate(GetMethod(implObj, "get_CreationTimeout"), flags, 2)
+        this.vtbl.put_TransactionAffinity := CallbackCreate(GetMethod(implObj, "put_TransactionAffinity"), flags, 2)
+        this.vtbl.get_TransactionAffinity := CallbackCreate(GetMethod(implObj, "get_TransactionAffinity"), flags, 2)
+        this.vtbl.put_ClassFactory := CallbackCreate(GetMethod(implObj, "put_ClassFactory"), flags, 2)
+        this.vtbl.get_ClassFactory := CallbackCreate(GetMethod(implObj, "get_ClassFactory"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_MaxPoolSize)
+        CallbackFree(this.vtbl.get_MaxPoolSize)
+        CallbackFree(this.vtbl.put_MinPoolSize)
+        CallbackFree(this.vtbl.get_MinPoolSize)
+        CallbackFree(this.vtbl.put_CreationTimeout)
+        CallbackFree(this.vtbl.get_CreationTimeout)
+        CallbackFree(this.vtbl.put_TransactionAffinity)
+        CallbackFree(this.vtbl.get_TransactionAffinity)
+        CallbackFree(this.vtbl.put_ClassFactory)
+        CallbackFree(this.vtbl.get_ClassFactory)
     }
 }

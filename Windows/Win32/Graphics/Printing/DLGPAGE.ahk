@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class DLGPAGE extends Win32Struct {
-    static sizeof => 40
+export default struct DLGPAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DlgProc : IntPtr
 
-    /**
-     * @type {Pointer<DLGPROC>}
-     */
-    DlgProc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pTabName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pTabName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    IconID : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    IconID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DlgTemplateID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DlgTemplateID {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hDlgTemplate {
-        get {
-            if(!this.HasProp("__hDlgTemplate"))
-                this.__hDlgTemplate := HANDLE(32, this)
-            return this.__hDlgTemplate
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
+    static __New() {
+        DefineProp(this.Prototype, 'hDlgTemplate', { type: HANDLE, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

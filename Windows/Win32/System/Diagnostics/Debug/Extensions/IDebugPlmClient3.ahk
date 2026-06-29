@@ -1,31 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugOutputStream.ahk" { IDebugOutputStream }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugPlmClient3 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugPlmClient3 extends IUnknown {
     /**
      * The interface identifier for IDebugPlmClient3
      * @type {Guid}
      */
-    static IID => Guid("{d4a5dbd1-ca02-4d90-856a-2a92bfd0f20f}")
+    static IID := Guid("{d4a5dbd1-ca02-4d90-856a-2a92bfd0f20f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugPlmClient3 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LaunchPlmPackageForDebugWide  : IntPtr
+        LaunchPlmBgTaskForDebugWide   : IntPtr
+        QueryPlmPackageWide           : IntPtr
+        QueryPlmPackageList           : IntPtr
+        EnablePlmPackageDebugWide     : IntPtr
+        DisablePlmPackageDebugWide    : IntPtr
+        SuspendPlmPackageWide         : IntPtr
+        ResumePlmPackageWide          : IntPtr
+        TerminatePlmPackageWide       : IntPtr
+        LaunchAndDebugPlmAppWide      : IntPtr
+        ActivateAndDebugPlmBgTaskWide : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LaunchPlmPackageForDebugWide", "LaunchPlmBgTaskForDebugWide", "QueryPlmPackageWide", "QueryPlmPackageList", "EnablePlmPackageDebugWide", "DisablePlmPackageDebugWide", "SuspendPlmPackageWide", "ResumePlmPackageWide", "TerminatePlmPackageWide", "LaunchAndDebugPlmAppWide", "ActivateAndDebugPlmBgTaskWide"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugPlmClient3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -191,5 +211,45 @@ class IDebugPlmClient3 extends IUnknown {
 
         result := ComCall(13, this, "uint", Server, "ptr", PackageFullName, "ptr", BackgroundTaskId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugPlmClient3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
+        this.vtbl.LaunchPlmBgTaskForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmBgTaskForDebugWide"), flags, 7)
+        this.vtbl.QueryPlmPackageWide := CallbackCreate(GetMethod(implObj, "QueryPlmPackageWide"), flags, 4)
+        this.vtbl.QueryPlmPackageList := CallbackCreate(GetMethod(implObj, "QueryPlmPackageList"), flags, 3)
+        this.vtbl.EnablePlmPackageDebugWide := CallbackCreate(GetMethod(implObj, "EnablePlmPackageDebugWide"), flags, 3)
+        this.vtbl.DisablePlmPackageDebugWide := CallbackCreate(GetMethod(implObj, "DisablePlmPackageDebugWide"), flags, 3)
+        this.vtbl.SuspendPlmPackageWide := CallbackCreate(GetMethod(implObj, "SuspendPlmPackageWide"), flags, 3)
+        this.vtbl.ResumePlmPackageWide := CallbackCreate(GetMethod(implObj, "ResumePlmPackageWide"), flags, 3)
+        this.vtbl.TerminatePlmPackageWide := CallbackCreate(GetMethod(implObj, "TerminatePlmPackageWide"), flags, 3)
+        this.vtbl.LaunchAndDebugPlmAppWide := CallbackCreate(GetMethod(implObj, "LaunchAndDebugPlmAppWide"), flags, 5)
+        this.vtbl.ActivateAndDebugPlmBgTaskWide := CallbackCreate(GetMethod(implObj, "ActivateAndDebugPlmBgTaskWide"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LaunchPlmPackageForDebugWide)
+        CallbackFree(this.vtbl.LaunchPlmBgTaskForDebugWide)
+        CallbackFree(this.vtbl.QueryPlmPackageWide)
+        CallbackFree(this.vtbl.QueryPlmPackageList)
+        CallbackFree(this.vtbl.EnablePlmPackageDebugWide)
+        CallbackFree(this.vtbl.DisablePlmPackageDebugWide)
+        CallbackFree(this.vtbl.SuspendPlmPackageWide)
+        CallbackFree(this.vtbl.ResumePlmPackageWide)
+        CallbackFree(this.vtbl.TerminatePlmPackageWide)
+        CallbackFree(this.vtbl.LaunchAndDebugPlmAppWide)
+        CallbackFree(this.vtbl.ActivateAndDebugPlmBgTaskWide)
     }
 }

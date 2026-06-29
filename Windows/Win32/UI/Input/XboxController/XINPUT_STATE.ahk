@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XINPUT_GAMEPAD.ahk
-#Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XINPUT_GAMEPAD.ahk" { XINPUT_GAMEPAD }
+#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
 
 /**
  * Represents the state of a controller.
@@ -10,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_state
  * @namespace Windows.Win32.UI.Input.XboxController
  */
-class XINPUT_STATE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct XINPUT_STATE {
+    #StructPack 4
 
     /**
      * State packet number. The packet number indicates whether there have been any changes in the state of the controller. If the <i>dwPacketNumber</i> member is the same in sequentially returned <b>XINPUT_STATE</b> structures, the controller state has not changed.
-     * @type {Integer}
      */
-    dwPacketNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwPacketNumber : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_gamepad">XINPUT_GAMEPAD</a> structure containing the current state of an Xbox 360 Controller.
-     * @type {XINPUT_GAMEPAD}
      */
-    Gamepad {
-        get {
-            if(!this.HasProp("__Gamepad"))
-                this.__Gamepad := XINPUT_GAMEPAD(4, this)
-            return this.__Gamepad
-        }
-    }
+    Gamepad : XINPUT_GAMEPAD
+
 }

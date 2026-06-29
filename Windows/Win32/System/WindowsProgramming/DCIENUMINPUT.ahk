@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DCICMD.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DCICMD.ahk" { DCICMD }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class DCIENUMINPUT extends Win32Struct {
-    static sizeof => 72
+export default struct DCIENUMINPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    cmd : DCICMD
 
-    /**
-     * @type {DCICMD}
-     */
-    cmd {
-        get {
-            if(!this.HasProp("__cmd"))
-                this.__cmd := DCICMD(0, this)
-            return this.__cmd
-        }
-    }
+    rSrc : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rSrc {
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(20, this)
-            return this.__rSrc
-        }
-    }
+    rDst : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rDst {
-        get {
-            if(!this.HasProp("__rDst"))
-                this.__rDst := RECT(36, this)
-            return this.__rDst
-        }
-    }
+    EnumCallback : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    EnumCallback {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpContext {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

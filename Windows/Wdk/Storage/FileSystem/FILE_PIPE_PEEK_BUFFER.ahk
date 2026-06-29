@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_PIPE_PEEK_BUFFER extends Win32Struct {
-    static sizeof => 20
+export default struct FILE_PIPE_PEEK_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    NamedPipeState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NamedPipeState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReadDataAvailable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReadDataAvailable {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberOfMessages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfMessages {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MessageLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MessageLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Data : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Data {
-        get => StrGet(this.ptr + 16, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-8")
-    }
 }

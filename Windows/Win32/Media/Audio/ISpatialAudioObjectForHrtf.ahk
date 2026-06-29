@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioObjectBase.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SpatialAudioHrtfDirectivityUnion.ahk" { SpatialAudioHrtfDirectivityUnion }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpatialAudioHrtfDistanceDecay.ahk" { SpatialAudioHrtfDistanceDecay }
+#Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
+#Import ".\SpatialAudioHrtfEnvironmentType.ahk" { SpatialAudioHrtfEnvironmentType }
 
 /**
  * Represents an object that provides audio data to be rendered from a position in 3D space, relative to the user, a head-relative transfer function (HRTF).
@@ -11,26 +15,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase {
     /**
      * The interface identifier for ISpatialAudioObjectForHrtf
      * @type {Guid}
      */
-    static IID => Guid("{d7436ade-1978-4e14-aba0-555bd8eb83b4}")
+    static IID := Guid("{d7436ade-1978-4e14-aba0-555bd8eb83b4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioObjectForHrtf interfaces
+    */
+    struct Vtbl extends ISpatialAudioObjectBase.Vtbl {
+        SetPosition      : IntPtr
+        SetGain          : IntPtr
+        SetOrientation   : IntPtr
+        SetEnvironment   : IntPtr
+        SetDistanceDecay : IntPtr
+        SetDirectivity   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPosition", "SetGain", "SetOrientation", "SetEnvironment", "SetDistanceDecay", "SetDirectivity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioObjectForHrtf.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the position in 3D space, relative to the listener, from which the ISpatialAudioObjectForHrtf audio data will be rendered.
@@ -225,7 +241,7 @@ class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setenvironment
      */
     SetEnvironment(environment) {
-        result := ComCall(10, this, "int", environment, "HRESULT")
+        result := ComCall(10, this, SpatialAudioHrtfEnvironmentType, environment, "HRESULT")
         return result
     }
 
@@ -269,7 +285,7 @@ class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setdistancedecay
      */
     SetDistanceDecay(distanceDecay) {
-        result := ComCall(11, this, "ptr", distanceDecay, "HRESULT")
+        result := ComCall(11, this, SpatialAudioHrtfDistanceDecay.Ptr, distanceDecay, "HRESULT")
         return result
     }
 
@@ -327,7 +343,37 @@ class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setdirectivity
      */
     SetDirectivity(directivity) {
-        result := ComCall(12, this, "ptr", directivity, "HRESULT")
+        result := ComCall(12, this, SpatialAudioHrtfDirectivityUnion.Ptr, directivity, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpatialAudioObjectForHrtf.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 4)
+        this.vtbl.SetGain := CallbackCreate(GetMethod(implObj, "SetGain"), flags, 2)
+        this.vtbl.SetOrientation := CallbackCreate(GetMethod(implObj, "SetOrientation"), flags, 2)
+        this.vtbl.SetEnvironment := CallbackCreate(GetMethod(implObj, "SetEnvironment"), flags, 2)
+        this.vtbl.SetDistanceDecay := CallbackCreate(GetMethod(implObj, "SetDistanceDecay"), flags, 2)
+        this.vtbl.SetDirectivity := CallbackCreate(GetMethod(implObj, "SetDirectivity"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.SetGain)
+        CallbackFree(this.vtbl.SetOrientation)
+        CallbackFree(this.vtbl.SetEnvironment)
+        CallbackFree(this.vtbl.SetDistanceDecay)
+        CallbackFree(this.vtbl.SetDirectivity)
     }
 }

@@ -1,179 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDEVICEDESC_V2 extends Win32Struct {
-    static sizeof => 104
+export default struct D3DDEVICEDESC_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dcmColorModel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dcmColorModel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDevCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dtcTransformCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dtcTransformCaps {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    bClipping : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bClipping {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dlcLightingCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dlcLightingCaps {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dpcLineCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dpcLineCaps {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dpcTriCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dpcTriCaps {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwDeviceRenderBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceRenderBitDepth {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwDeviceZBufferBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceZBufferBitDepth {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwMaxBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxBufferSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwMaxVertexCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxVertexCount {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwMinTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinTextureWidth {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwMinTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinTextureHeight {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwMaxTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureWidth {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwMaxTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureHeight {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwMinStippleWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinStippleWidth {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwMaxStippleWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxStippleWidth {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwMinStippleHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinStippleHeight {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwMaxStippleHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxStippleHeight {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
 }

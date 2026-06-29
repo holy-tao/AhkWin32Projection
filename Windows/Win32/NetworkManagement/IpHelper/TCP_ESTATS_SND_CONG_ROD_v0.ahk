@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on sender congestion related data for a TCP connection.
@@ -210,10 +209,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_snd_cong_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_SND_CONG_ROD_v0 extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct TCP_ESTATS_SND_CONG_ROD_v0 {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG</b>
@@ -223,12 +220,8 @@ class TCP_ESTATS_SND_CONG_ROD_v0 extends Win32Struct {
      *            states.  This state is entered whenever TCP transmission
      *            stops because the sender has filled the announced receiver
      *            window.
-     * @type {Integer}
      */
-    SndLimTransRwin {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SndLimTransRwin : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -236,23 +229,15 @@ class TCP_ESTATS_SND_CONG_ROD_v0 extends Win32Struct {
      * The cumulative time, in milliseconds, spent in the "Receiver Limited" state where TCP transmission
      *            stops because the sender has filled the announced receiver
      *            window.
-     * @type {Integer}
      */
-    SndLimTimeRwin {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SndLimTimeRwin : UInt32
 
     /**
      * Type: <b>SIZE_T</b>
      * 
      * The total number of bytes sent in the "Receiver Limited" state.
-     * @type {Pointer}
      */
-    SndLimBytesRwin {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SndLimBytesRwin : IntPtr
 
     /**
      * Type: <b>ULONG</b>
@@ -264,12 +249,8 @@ class TCP_ESTATS_SND_CONG_ROD_v0 extends Win32Struct {
      *            limit defined by TCP congestion control (the congestion window, for example) or other
      *            algorithms (retransmission timeouts) designed to control
      *            network traffic.
-     * @type {Integer}
      */
-    SndLimTransCwnd {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SndLimTransCwnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -279,23 +260,15 @@ class TCP_ESTATS_SND_CONG_ROD_v0 extends Win32Struct {
      *            retransmission timeout, it is counted in
      *            this member and not the cumulative time
      *            for some other state.
-     * @type {Integer}
      */
-    SndLimTimeCwnd {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SndLimTimeCwnd : UInt32
 
     /**
      * Type: <b>SIZE_T</b>
      * 
      * The total number of bytes sent in the "Congestion Limited" state.
-     * @type {Pointer}
      */
-    SndLimBytesCwnd {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SndLimBytesCwnd : IntPtr
 
     /**
      * Type: <b>ULONG</b>
@@ -308,136 +281,89 @@ class TCP_ESTATS_SND_CONG_ROD_v0 extends Win32Struct {
      *            When TCP stops sending data for any reason, which cannot be
      *            classified as "Receiver Limited" or "Congestion Limited", it
      *            is treated as "Sender Limited".
-     * @type {Integer}
      */
-    SndLimTransSnd {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SndLimTransSnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The cumulative time, in milliseconds, spent in the "Sender Limited" state.
-     * @type {Integer}
      */
-    SndLimTimeSnd {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    SndLimTimeSnd : UInt32
 
     /**
      * Type: <b>SIZE_T</b>
      * 
      * The total number of bytes sent in the "Sender Limited" state.
-     * @type {Pointer}
      */
-    SndLimBytesSnd {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SndLimBytesSnd : IntPtr
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of times the congestion window has been
      *            increased by the "Slow Start" algorithm.
-     * @type {Integer}
      */
-    SlowStart {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SlowStart : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of times the congestion window has been
      *            increased by the "Congestion Avoidance" algorithm.
-     * @type {Integer}
      */
-    CongAvoid {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    CongAvoid : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of congestion window reductions made as a result
      *            of anything other than congestion control algorithms other than "Slow Start" and "Congestion Avoidance" algorithms.
-     * @type {Integer}
      */
-    OtherReductions {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    OtherReductions : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The size, in bytes, of the current congestion window.
-     * @type {Integer}
      */
-    CurCwnd {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    CurCwnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum size, in bytes, of the congestion window size used during "Slow Start."
-     * @type {Integer}
      */
-    MaxSsCwnd {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    MaxSsCwnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum size, in bytes, of the congestion window used during "Congestion
      *            Avoidance."
-     * @type {Integer}
      */
-    MaxCaCwnd {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    MaxCaCwnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The current size, in bytes, of the slow start threshold.
-     * @type {Integer}
      */
-    CurSsthresh {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    CurSsthresh : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum size, in bytes, of the slow start threshold, excluding the initial
      *            value.
-     * @type {Integer}
      */
-    MaxSsthresh {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    MaxSsthresh : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum size, in bytes, of the slow start threshold.
-     * @type {Integer}
      */
-    MinSsthresh {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    MinSsthresh : UInt32
+
 }

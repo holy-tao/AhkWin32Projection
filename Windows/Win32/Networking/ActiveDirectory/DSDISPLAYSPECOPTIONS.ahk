@@ -1,40 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to supply data to a context menu or property page extension about the display specifiers used.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsdisplayspecoptions
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DSDISPLAYSPECOPTIONS extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct DSDISPLAYSPECOPTIONS {
+    #StructPack 4
 
     /**
      * The size of the structure for versioning purposes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    offsetAttribPrefix {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    offsetAttribPrefix : UInt32
 
     /**
      * Contains the offset, in bytes, from the start of the <b>DSDISPLAYSPECOPTIONS</b> structure to a NULL-terminated, Unicode string that contains the name of the user used to authenticate the bind. This member is only valid if <b>dwFlags</b> contains the <b>DSDSOF_HASUSERANDSERVERINFO</b> flag. If this member contains zero, the user name is not included.
@@ -47,12 +28,8 @@ class DSDISPLAYSPECOPTIONS extends Win32Struct {
      *     pdso->offsetUserName);
      * 
      * ```
-     * @type {Integer}
      */
-    offsetUserName {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    offsetUserName : UInt32
 
     /**
      * Contains the offset, in bytes, from the start of the <b>DSDISPLAYSPECOPTIONS</b> structure to a NULL-terminated, Unicode string that contains the password used to authenticate the bind. This member is only valid if <b>dwFlags</b> contains the <b>DSDSOF_HASUSERANDSERVERINFO</b> flag. If this member contains zero, the password is not included.
@@ -65,12 +42,8 @@ class DSDISPLAYSPECOPTIONS extends Win32Struct {
      *     pdso->offsetPassword);
      * 
      * ```
-     * @type {Integer}
      */
-    offsetPassword {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    offsetPassword : UInt32
 
     /**
      * Contains the offset, in bytes, from the start of the <b>DSDISPLAYSPECOPTIONS</b> structure to a NULL-terminated, Unicode string that contains the name of the server. This member is only valid if <b>dwFlags</b> contains the <b>DSDSOF_HASUSERANDSERVERINFO</b> flag. If this member contains zero, the server name is not included.
@@ -83,12 +56,8 @@ class DSDISPLAYSPECOPTIONS extends Win32Struct {
      *     pdso->offsetServer);
      * 
      * ```
-     * @type {Integer}
      */
-    offsetServer {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    offsetServer : UInt32
 
     /**
      * Contains the offset, in bytes, from the start of the <b>DSDISPLAYSPECOPTIONS</b> structure to a NULL-terminated, Unicode string that contains the ADsPath of the server. This member is only valid if <b>dwFlags</b> contains the <b>DSDSOF_HASUSERANDSERVERINFO</b> flag. If this member contains zero, the server path is not included.
@@ -101,10 +70,7 @@ class DSDISPLAYSPECOPTIONS extends Win32Struct {
      *     pdso->offsetServerConfigPath);
      * 
      * ```
-     * @type {Integer}
      */
-    offsetServerConfigPath {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    offsetServerConfigPath : UInt32
+
 }

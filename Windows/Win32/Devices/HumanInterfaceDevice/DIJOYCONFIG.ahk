@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWCONFIG.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYREGHWVALUES.ahk
-#Include .\JOYRANGE.ahk
-#Include .\JOYPOS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOYREGHWVALUES.ahk" { JOYREGHWVALUES }
+#Import ".\JOYREGHWCONFIG.ahk" { JOYREGHWCONFIG }
+#Import ".\JOYRANGE.ahk" { JOYRANGE }
+#Import ".\JOYPOS.ahk" { JOYPOS }
+#Import ".\JOYREGHWSETTINGS.ahk" { JOYREGHWSETTINGS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The DIJOYCONFIG structure contains information about a joystick's configuration.
@@ -13,74 +14,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoyconfig
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIJOYCONFIG extends Win32Struct {
-    static sizeof => 1168
-
-    static packingSize => 8
+export default struct DIJOYCONFIG {
+    #StructPack 4
 
     /**
      * Specifies the size of the structure in bytes. This member must be initialized before the structure is used.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies the instance GUID for the joystick.
-     * @type {Pointer}
      */
-    guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidInstance : Guid
 
     /**
      * Joystick hardware configuration.
-     * @type {JOYREGHWCONFIG}
      */
-    hwc {
-        get {
-            if(!this.HasProp("__hwc"))
-                this.__hwc := JOYREGHWCONFIG(16, this)
-            return this.__hwc
-        }
-    }
+    hwc : JOYREGHWCONFIG
 
     /**
      * Specifies the global gain setting. This value is applied to all force feedback effects as a "master volume control".
-     * @type {Integer}
      */
-    dwGain {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwGain : UInt32
 
     /**
      * The joystick type for the joystick. It must be one of the values enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-enumtypes">IDirectInputJoyConfig8::EnumTypes</a>.
-     * @type {String}
      */
-    wszType {
-        get => StrGet(this.ptr + 132, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
-    }
+    wszType : WCHAR[256]
 
     /**
      * The callout driver for the joystick.
-     * @type {String}
      */
-    wszCallout {
-        get => StrGet(this.ptr + 644, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
-    }
+    wszCallout : WCHAR[256]
 
     /**
      * Specifies a GUID that identifies the gameport being used for this joystick.
-     * @type {Pointer}
      */
-    guidGameport {
-        get => NumGet(this, 1160, "ptr")
-        set => NumPut("ptr", value, this, 1160)
-    }
+    guidGameport : Guid
+
 }

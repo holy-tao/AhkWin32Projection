@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the ACCOUNTINGPROPERTIES type enumerate properties that control what types of packets are logged and characteristics of the log file.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-accountingproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class ACCOUNTINGPROPERTIES extends Win32Enum {
+export default struct ACCOUNTINGPROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies whether accounting packets are logged.

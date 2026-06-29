@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class OB_PRE_CREATE_HANDLE_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct OB_PRE_CREATE_HANDLE_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    DesiredAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DesiredAccess {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OriginalDesiredAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OriginalDesiredAccess {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_METADATA_ITEMHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSCAMERA_METADATA_ITEMHEADER.ahk" { KSCAMERA_METADATA_ITEMHEADER }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : KSCAMERA_METADATA_ITEMHEADER
 
-    /**
-     * @type {KSCAMERA_METADATA_ITEMHEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
-            return this.__Header
-        }
-    }
+    EventFilter : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    EventFilter {
-        get => StrGet(this.ptr + 8, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 0, "UTF-16")
-    }
 }

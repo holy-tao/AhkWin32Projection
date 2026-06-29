@@ -1,39 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class DCINFO extends Win32Struct {
-    static sizeof => 32
+export default struct DCINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    eInfoType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    eInfoType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    vData : VARIANT
 
-    /**
-     * @type {VARIANT}
-     */
-    vData {
-        get {
-            if(!this.HasProp("__vData"))
-                this.__vData := VARIANT(8, this)
-            return this.__vData
-        }
-    }
 }

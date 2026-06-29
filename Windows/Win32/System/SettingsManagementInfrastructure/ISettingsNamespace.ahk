@@ -1,38 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISettingsIdentity.ahk
-#Include .\IItemEnumerator.ahk
-#Include .\ISettingsResult.ahk
-#Include .\ISettingsItem.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISettingsResult.ahk" { ISettingsResult }
+#Import ".\ISettingsItem.ahk" { ISettingsItem }
+#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Performs operations to set, retrieve, and validate settings, and save changes for a namespace instance.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsnamespace
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class ISettingsNamespace extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISettingsNamespace extends IUnknown {
     /**
      * The interface identifier for ISettingsNamespace
      * @type {Guid}
      */
-    static IID => Guid("{9f7d7bba-20b3-11da-81a5-0030f1642e3c}")
+    static IID := Guid("{9f7d7bba-20b3-11da-81a5-0030f1642e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISettingsNamespace interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIdentity         : IntPtr
+        Settings            : IntPtr
+        Save                : IntPtr
+        GetSettingByPath    : IntPtr
+        CreateSettingByPath : IntPtr
+        RemoveSettingByPath : IntPtr
+        GetAttribute        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIdentity", "Settings", "Save", "GetSettingByPath", "CreateSettingByPath", "RemoveSettingByPath", "GetAttribute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISettingsNamespace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the identity of the namespace.
@@ -61,7 +77,7 @@ class ISettingsNamespace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-save
      */
     Save(PushSettings) {
-        result := ComCall(5, this, "int", PushSettings, "ptr*", &Result := 0, "HRESULT")
+        result := ComCall(5, this, BOOL, PushSettings, "ptr*", &Result := 0, "HRESULT")
         return ISettingsResult(Result)
     }
 
@@ -199,7 +215,39 @@ class ISettingsNamespace extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
 
         Value := VARIANT()
-        result := ComCall(9, this, "ptr", Name, "ptr", Value, "HRESULT")
+        result := ComCall(9, this, "ptr", Name, VARIANT.Ptr, Value, "HRESULT")
         return Value
+    }
+
+    Query(iid) {
+        if (ISettingsNamespace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIdentity := CallbackCreate(GetMethod(implObj, "GetIdentity"), flags, 2)
+        this.vtbl.Settings := CallbackCreate(GetMethod(implObj, "Settings"), flags, 2)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
+        this.vtbl.GetSettingByPath := CallbackCreate(GetMethod(implObj, "GetSettingByPath"), flags, 3)
+        this.vtbl.CreateSettingByPath := CallbackCreate(GetMethod(implObj, "CreateSettingByPath"), flags, 3)
+        this.vtbl.RemoveSettingByPath := CallbackCreate(GetMethod(implObj, "RemoveSettingByPath"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIdentity)
+        CallbackFree(this.vtbl.Settings)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetSettingByPath)
+        CallbackFree(this.vtbl.CreateSettingByPath)
+        CallbackFree(this.vtbl.RemoveSettingByPath)
+        CallbackFree(this.vtbl.GetAttribute)
     }
 }

@@ -1,35 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
-#Include .\IProvideWinSATResultsInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IProvideWinSATResultsInfo.ahk" { IProvideWinSATResultsInfo }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
 
 /**
  * Retrieves details about the results of the most recent formal WinSAT assessment.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iqueryrecentwinsatassessment
  * @namespace Windows.Win32.System.AssessmentTool
  */
-class IQueryRecentWinSATAssessment extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IQueryRecentWinSATAssessment extends IDispatch {
     /**
      * The interface identifier for IQueryRecentWinSATAssessment
      * @type {Guid}
      */
-    static IID => Guid("{f8ad5d1f-3b47-4bdc-9375-7c6b1da4eca7}")
+    static IID := Guid("{f8ad5d1f-3b47-4bdc-9375-7c6b1da4eca7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryRecentWinSATAssessment interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_XML  : IntPtr
+        get_Info : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_XML", "get_Info"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryRecentWinSATAssessment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IProvideWinSATResultsInfo} 
@@ -57,7 +67,7 @@ class IQueryRecentWinSATAssessment extends IDispatch {
         xPath := xPath is String ? BSTR.Alloc(xPath).Value : xPath
         namespaces := namespaces is String ? BSTR.Alloc(namespaces).Value : namespaces
 
-        result := ComCall(7, this, "ptr", xPath, "ptr", namespaces, "ptr*", &ppDomNodeList := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, xPath, BSTR, namespaces, "ptr*", &ppDomNodeList := 0, "HRESULT")
         return IXMLDOMNodeList(ppDomNodeList)
     }
 
@@ -71,5 +81,27 @@ class IQueryRecentWinSATAssessment extends IDispatch {
     get_Info() {
         result := ComCall(8, this, "ptr*", &ppWinSATAssessmentInfo := 0, "HRESULT")
         return IProvideWinSATResultsInfo(ppWinSATAssessmentInfo)
+    }
+
+    Query(iid) {
+        if (IQueryRecentWinSATAssessment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_XML := CallbackCreate(GetMethod(implObj, "get_XML"), flags, 4)
+        this.vtbl.get_Info := CallbackCreate(GetMethod(implObj, "get_Info"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_XML)
+        CallbackFree(this.vtbl.get_Info)
     }
 }

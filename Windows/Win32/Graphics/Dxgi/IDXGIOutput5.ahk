@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutput4.ahk
-#Include .\IDXGIOutputDuplication.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIOutput4.ahk" { IDXGIOutput4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIOutputDuplication.ahk" { IDXGIOutputDuplication }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput5 interface exposes a single method to specify a list of supported formats for fullscreen surfaces.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nn-dxgi1_5-idxgioutput5
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutput5 extends IDXGIOutput4 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutput5 extends IDXGIOutput4 {
     /**
      * The interface identifier for IDXGIOutput5
      * @type {Guid}
      */
-    static IID => Guid("{80a07424-ab52-42eb-833c-0c42fd282d98}")
+    static IID := Guid("{80a07424-ab52-42eb-833c-0c42fd282d98}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutput5 interfaces
+    */
+    struct Vtbl extends IDXGIOutput4.Vtbl {
+        DuplicateOutput1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DuplicateOutput1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutput5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows specifying a list of supported formats for fullscreen surfaces that can be returned by the IDXGIOutputDuplication object.
@@ -60,5 +70,25 @@ class IDXGIOutput5 extends IDXGIOutput4 {
 
         result := ComCall(26, this, "ptr", pDevice, "uint", Flags, "uint", SupportedFormatsCount, pSupportedFormatsMarshal, pSupportedFormats, "ptr*", &ppOutputDuplication := 0, "HRESULT")
         return IDXGIOutputDuplication(ppOutputDuplication)
+    }
+
+    Query(iid) {
+        if (IDXGIOutput5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DuplicateOutput1 := CallbackCreate(GetMethod(implObj, "DuplicateOutput1"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DuplicateOutput1)
     }
 }

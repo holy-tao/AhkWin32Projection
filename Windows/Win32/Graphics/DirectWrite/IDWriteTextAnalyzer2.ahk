@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextAnalyzer1.ahk
-#Include .\DWRITE_MATRIX.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteTextAnalyzer1.ahk" { IDWriteTextAnalyzer1 }
+#Import ".\DWRITE_FONT_FEATURE_TAG.ahk" { DWRITE_FONT_FEATURE_TAG }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
 
 /**
  * Analyzes various text properties for complex script processing.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextanalyzer2
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
     /**
      * The interface identifier for IDWriteTextAnalyzer2
      * @type {Guid}
      */
-    static IID => Guid("{553a9ff3-5693-4df7-b52b-74806f7f2eb9}")
+    static IID := Guid("{553a9ff3-5693-4df7-b52b-74806f7f2eb9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextAnalyzer2 interfaces
+    */
+    struct Vtbl extends IDWriteTextAnalyzer1.Vtbl {
+        GetGlyphOrientationTransform : IntPtr
+        GetTypographicFeatures       : IntPtr
+        CheckTypographicFeature      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGlyphOrientationTransform", "GetTypographicFeatures", "CheckTypographicFeature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextAnalyzer2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns 2x3 transform matrix for the respective angle to draw the glyph run. (IDWriteTextAnalyzer2.GetGlyphOrientationTransform)
@@ -52,7 +68,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
      */
     GetGlyphOrientationTransform(glyphOrientationAngle, isSideways, originX, originY) {
         transform := DWRITE_MATRIX()
-        result := ComCall(19, this, "int", glyphOrientationAngle, "int", isSideways, "float", originX, "float", originY, "ptr", transform, "HRESULT")
+        result := ComCall(19, this, DWRITE_GLYPH_ORIENTATION_ANGLE, glyphOrientationAngle, BOOL, isSideways, "float", originX, "float", originY, DWRITE_MATRIX.Ptr, transform, "HRESULT")
         return transform
     }
 
@@ -87,7 +103,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
         actualTagCountMarshal := actualTagCount is VarRef ? "uint*" : "ptr"
         tagsMarshal := tags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
+        result := ComCall(20, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, "uint", maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
         return result
     }
 
@@ -107,7 +123,31 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
 
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(21, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", featureTag, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, DWRITE_FONT_FEATURE_TAG, featureTag, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
         return featureApplies
+    }
+
+    Query(iid) {
+        if (IDWriteTextAnalyzer2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGlyphOrientationTransform := CallbackCreate(GetMethod(implObj, "GetGlyphOrientationTransform"), flags, 6)
+        this.vtbl.GetTypographicFeatures := CallbackCreate(GetMethod(implObj, "GetTypographicFeatures"), flags, 7)
+        this.vtbl.CheckTypographicFeature := CallbackCreate(GetMethod(implObj, "CheckTypographicFeature"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGlyphOrientationTransform)
+        CallbackFree(this.vtbl.GetTypographicFeatures)
+        CallbackFree(this.vtbl.CheckTypographicFeature)
     }
 }

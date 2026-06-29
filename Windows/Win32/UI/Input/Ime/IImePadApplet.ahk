@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IMEAPPLETCFG.ahk" { IMEAPPLETCFG }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMEAPPLETUI.ahk" { IMEAPPLETUI }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The IImePadApplet interface inputs strings into apps through the IImePad interface.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/nn-imepad-iimepadapplet
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IImePadApplet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IImePadApplet extends IUnknown {
     /**
      * The interface identifier for IImePadApplet
      * @type {Guid}
      */
-    static IID => Guid("{5d8e643b-c3a9-11d1-afef-00805f0c8b6d}")
+    static IID := Guid("{5d8e643b-c3a9-11d1-afef-00805f0c8b6d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImePadApplet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize      : IntPtr
+        Terminate       : IntPtr
+        GetAppletConfig : IntPtr
+        CreateUI        : IntPtr
+        Notify          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Terminate", "GetAppletConfig", "CreateUI", "Notify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImePadApplet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called from IImePad interface to initialize IImePadApplet.
@@ -58,7 +75,7 @@ class IImePadApplet extends IUnknown {
      * @returns {HRESULT} 
      */
     GetAppletConfig(lpAppletCfg) {
-        result := ComCall(5, this, "ptr", lpAppletCfg, "HRESULT")
+        result := ComCall(5, this, IMEAPPLETCFG.Ptr, lpAppletCfg, "HRESULT")
         return result
     }
 
@@ -70,9 +87,7 @@ class IImePadApplet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-createui
      */
     CreateUI(hwndParent, lpImeAppletUI) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(6, this, "ptr", hwndParent, "ptr", lpImeAppletUI, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, IMEAPPLETUI.Ptr, lpImeAppletUI, "HRESULT")
         return result
     }
 
@@ -127,7 +142,35 @@ class IImePadApplet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-notify
      */
     Notify(lpImePad, notify, _wParam, _lParam) {
-        result := ComCall(7, this, "ptr", lpImePad, "int", notify, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(7, this, "ptr", lpImePad, "int", notify, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IImePadApplet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.GetAppletConfig := CallbackCreate(GetMethod(implObj, "GetAppletConfig"), flags, 2)
+        this.vtbl.CreateUI := CallbackCreate(GetMethod(implObj, "CreateUI"), flags, 3)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Terminate)
+        CallbackFree(this.vtbl.GetAppletConfig)
+        CallbackFree(this.vtbl.CreateUI)
+        CallbackFree(this.vtbl.Notify)
     }
 }

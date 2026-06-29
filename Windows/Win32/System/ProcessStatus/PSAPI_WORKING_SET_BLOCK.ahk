@@ -1,38 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains working set information for a page.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_working_set_block
  * @namespace Windows.Win32.System.ProcessStatus
  */
-class PSAPI_WORKING_SET_BLOCK extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PSAPI_WORKING_SET_BLOCK {
+    #StructPack 8
 
     /**
      * The working set information. See the description of the structure  members for information about the layout of this variable.
-     * @type {Pointer}
      */
-    Flags {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : IntPtr
 
-    /**
-     * This bitfield backs the following members:
-     * - Protection
-     * - ShareCount
-     * - Shared
-     * - Reserved
-     * - VirtualPage
-     * @type {Pointer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 
     /**
      * @type {Pointer}
@@ -64,5 +44,9 @@ class PSAPI_WORKING_SET_BLOCK extends Win32Struct {
     VirtualPage {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

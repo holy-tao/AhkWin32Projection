@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\WRDS_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
+#Import ".\WRDS_SETTING_TYPE.ahk" { WRDS_SETTING_TYPE }
+#Import ".\WRDS_CONNECTION_SETTING_LEVEL.ahk" { WRDS_CONNECTION_SETTING_LEVEL }
+#Import ".\WRDS_SETTINGS.ahk" { WRDS_SETTINGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WRDS_SETTING_LEVEL.ahk" { WRDS_SETTING_LEVEL }
 
 /**
  * Exposes methods for retrieving and adding policy-related settings.
@@ -11,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocolsettings
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWRdsProtocolSettings extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWRdsProtocolSettings extends IUnknown {
     /**
      * The interface identifier for IWRdsProtocolSettings
      * @type {Guid}
      */
-    static IID => Guid("{654a5a6a-2550-47eb-b6f7-ebd637475265}")
+    static IID := Guid("{654a5a6a-2550-47eb-b6f7-ebd637475265}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWRdsProtocolSettings interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSettings   : IntPtr
+        MergeSettings : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSettings", "MergeSettings"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWRdsProtocolSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the settings for a particular policy.
@@ -41,7 +54,7 @@ class IWRdsProtocolSettings extends IUnknown {
      */
     GetSettings(WRdsSettingType, WRdsSettingLevel) {
         pWRdsSettings := WRDS_SETTINGS()
-        result := ComCall(3, this, "int", WRdsSettingType, "int", WRdsSettingLevel, "ptr", pWRdsSettings, "HRESULT")
+        result := ComCall(3, this, WRDS_SETTING_TYPE, WRdsSettingType, WRDS_SETTING_LEVEL, WRdsSettingLevel, WRDS_SETTINGS.Ptr, pWRdsSettings, "HRESULT")
         return pWRdsSettings
     }
 
@@ -54,7 +67,29 @@ class IWRdsProtocolSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolsettings-mergesettings
      */
     MergeSettings(pWRdsSettings, WRdsConnectionSettingLevel, pWRdsConnectionSettings) {
-        result := ComCall(4, this, "ptr", pWRdsSettings, "int", WRdsConnectionSettingLevel, "ptr", pWRdsConnectionSettings, "HRESULT")
+        result := ComCall(4, this, WRDS_SETTINGS.Ptr, pWRdsSettings, WRDS_CONNECTION_SETTING_LEVEL, WRdsConnectionSettingLevel, WRDS_CONNECTION_SETTINGS.Ptr, pWRdsConnectionSettings, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWRdsProtocolSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSettings := CallbackCreate(GetMethod(implObj, "GetSettings"), flags, 4)
+        this.vtbl.MergeSettings := CallbackCreate(GetMethod(implObj, "MergeSettings"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSettings)
+        CallbackFree(this.vtbl.MergeSettings)
     }
 }

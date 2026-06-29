@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_DYNAMIC_RELOCATION32_V2 extends Win32Struct {
-    static sizeof => 20
+export default struct IMAGE_DYNAMIC_RELOCATION32_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    HeaderSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HeaderSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FixupInfoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FixupInfoSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Symbol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Symbol {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SymbolGroup : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SymbolGroup {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

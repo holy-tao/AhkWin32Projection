@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.SideShow
  */
-class ISideShowCapabilities extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISideShowCapabilities extends IUnknown {
     /**
      * The interface identifier for ISideShowCapabilities
      * @type {Guid}
      */
-    static IID => Guid("{535e1379-c09e-4a54-a511-597bab3a72b8}")
+    static IID := Guid("{535e1379-c09e-4a54-a511-597bab3a72b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISideShowCapabilities interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapability : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapability"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISideShowCapabilities.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,7 +44,27 @@ class ISideShowCapabilities extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCapability(in_keyCapability, inout_pValue) {
-        result := ComCall(3, this, "ptr", in_keyCapability, "ptr", inout_pValue, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, in_keyCapability, PROPVARIANT.Ptr, inout_pValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISideShowCapabilities.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapability := CallbackCreate(GetMethod(implObj, "GetCapability"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapability)
     }
 }

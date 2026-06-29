@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines event types for the IMFPMediaPlayerCallback interface.
@@ -191,7 +190,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-mfp_event_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFP_EVENT_TYPE extends Win32Enum {
+export default struct MFP_EVENT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Playback has started. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-play">IMFPMediaPlayer::Play</a> method completes.

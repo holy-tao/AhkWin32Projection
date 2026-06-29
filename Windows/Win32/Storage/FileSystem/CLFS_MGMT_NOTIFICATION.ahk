@@ -1,17 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLFS_MGMT_NOTIFICATION_TYPE.ahk
-#Include .\CLS_LSN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLFS_MGMT_NOTIFICATION_TYPE.ahk" { CLFS_MGMT_NOTIFICATION_TYPE }
+#Import ".\CLS_LSN.ahk" { CLS_LSN }
 
 /**
  * The CLFS_MGMT_NOTIFICATION structure specifies information about the notifications that the client receives.
  * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_notification
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CLFS_MGMT_NOTIFICATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CLFS_MGMT_NOTIFICATION {
+    #StructPack 8
 
     /**
      * The type of notification to receive.  The following  values are valid.
@@ -76,35 +73,21 @@ class CLFS_MGMT_NOTIFICATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CLFS_MGMT_NOTIFICATION_TYPE}
      */
-    Notification {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Notification : CLFS_MGMT_NOTIFICATION_TYPE
 
     /**
      * If <b>Notification</b> is <b>ClfsMgmtAdvanceTailNotification</b>, 
      *       <b>Lsn</b> specifies the target log sequence number (LSN) the client should advance the log 
      *       tail to.
-     * @type {CLS_LSN}
      */
-    Lsn {
-        get {
-            if(!this.HasProp("__Lsn"))
-                this.__Lsn := CLS_LSN(8, this)
-            return this.__Lsn
-        }
-    }
+    Lsn : CLS_LSN
 
     /**
      * If <b>Notification</b> is <b>ClfsMgmtLogUnpinnedNotification</b>, 
      *       <b>LogIsPinned</b> indicates  that the log is pinned. This member is 
      *       <b>TRUE</b> if the log is pinned.
-     * @type {Integer}
      */
-    LogIsPinned {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    LogIsPinned : UInt16
+
 }

@@ -1,34 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLControlElement.ahk" { IHTMLControlElement }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLControlRange extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLControlRange extends IDispatch {
     /**
      * The interface identifier for IHTMLControlRange
      * @type {Guid}
      */
-    static IID => Guid("{3050f29c-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f29c-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLControlRange interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        select                : IntPtr
+        add                   : IntPtr
+        remove                : IntPtr
+        item                  : IntPtr
+        scrollIntoView        : IntPtr
+        queryCommandSupported : IntPtr
+        queryCommandEnabled   : IntPtr
+        queryCommandState     : IntPtr
+        queryCommandIndeterm  : IntPtr
+        queryCommandText      : IntPtr
+        queryCommandValue     : IntPtr
+        execCommand           : IntPtr
+        execCommandShowHelp   : IntPtr
+        commonParentElement   : IntPtr
+        get_length            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["select", "add", "remove", "item", "scrollIntoView", "queryCommandSupported", "queryCommandEnabled", "queryCommandState", "queryCommandIndeterm", "queryCommandText", "queryCommandValue", "execCommand", "execCommandShowHelp", "commonParentElement", "get_length"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLControlRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -296,7 +320,7 @@ class IHTMLControlRange extends IDispatch {
      * @returns {HRESULT} 
      */
     scrollIntoView(varargStart) {
-        result := ComCall(11, this, "ptr", varargStart, "HRESULT")
+        result := ComCall(11, this, VARIANT, varargStart, "HRESULT")
         return result
     }
 
@@ -308,7 +332,7 @@ class IHTMLControlRange extends IDispatch {
     queryCommandSupported(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(12, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -320,7 +344,7 @@ class IHTMLControlRange extends IDispatch {
     queryCommandEnabled(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(13, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -332,7 +356,7 @@ class IHTMLControlRange extends IDispatch {
     queryCommandState(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(14, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -344,7 +368,7 @@ class IHTMLControlRange extends IDispatch {
     queryCommandIndeterm(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(15, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -356,8 +380,8 @@ class IHTMLControlRange extends IDispatch {
     queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        pcmdText := BSTR()
-        result := ComCall(16, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
+        pcmdText := BSTR.Owned()
+        result := ComCall(16, this, BSTR, cmdID, BSTR.Ptr, pcmdText, "HRESULT")
         return pcmdText
     }
 
@@ -370,7 +394,7 @@ class IHTMLControlRange extends IDispatch {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
         pcmdValue := VARIANT()
-        result := ComCall(17, this, "ptr", cmdID, "ptr", pcmdValue, "HRESULT")
+        result := ComCall(17, this, BSTR, cmdID, VARIANT.Ptr, pcmdValue, "HRESULT")
         return pcmdValue
     }
 
@@ -384,7 +408,7 @@ class IHTMLControlRange extends IDispatch {
     execCommand(cmdID, showUI, value) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(18, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, cmdID, VARIANT_BOOL, showUI, VARIANT, value, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -396,7 +420,7 @@ class IHTMLControlRange extends IDispatch {
     execCommandShowHelp(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(19, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -416,5 +440,53 @@ class IHTMLControlRange extends IDispatch {
     get_length() {
         result := ComCall(21, this, "int*", &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLControlRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
+        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 2)
+        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.scrollIntoView := CallbackCreate(GetMethod(implObj, "scrollIntoView"), flags, 2)
+        this.vtbl.queryCommandSupported := CallbackCreate(GetMethod(implObj, "queryCommandSupported"), flags, 3)
+        this.vtbl.queryCommandEnabled := CallbackCreate(GetMethod(implObj, "queryCommandEnabled"), flags, 3)
+        this.vtbl.queryCommandState := CallbackCreate(GetMethod(implObj, "queryCommandState"), flags, 3)
+        this.vtbl.queryCommandIndeterm := CallbackCreate(GetMethod(implObj, "queryCommandIndeterm"), flags, 3)
+        this.vtbl.queryCommandText := CallbackCreate(GetMethod(implObj, "queryCommandText"), flags, 3)
+        this.vtbl.queryCommandValue := CallbackCreate(GetMethod(implObj, "queryCommandValue"), flags, 3)
+        this.vtbl.execCommand := CallbackCreate(GetMethod(implObj, "execCommand"), flags, 5)
+        this.vtbl.execCommandShowHelp := CallbackCreate(GetMethod(implObj, "execCommandShowHelp"), flags, 3)
+        this.vtbl.commonParentElement := CallbackCreate(GetMethod(implObj, "commonParentElement"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.select)
+        CallbackFree(this.vtbl.add)
+        CallbackFree(this.vtbl.remove)
+        CallbackFree(this.vtbl.item)
+        CallbackFree(this.vtbl.scrollIntoView)
+        CallbackFree(this.vtbl.queryCommandSupported)
+        CallbackFree(this.vtbl.queryCommandEnabled)
+        CallbackFree(this.vtbl.queryCommandState)
+        CallbackFree(this.vtbl.queryCommandIndeterm)
+        CallbackFree(this.vtbl.queryCommandText)
+        CallbackFree(this.vtbl.queryCommandValue)
+        CallbackFree(this.vtbl.execCommand)
+        CallbackFree(this.vtbl.execCommandShowHelp)
+        CallbackFree(this.vtbl.commonParentElement)
+        CallbackFree(this.vtbl.get_length)
     }
 }

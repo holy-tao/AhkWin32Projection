@@ -1,41 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_KEY_ALGO_GCMP extends Win32Struct {
-    static sizeof => 16
+export default struct DOT11_KEY_ALGO_GCMP {
+    #StructPack 4
 
-    static packingSize => 4
+    ucIV48Counter : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucIV48Counter {
-        get {
-            if(!this.HasProp("__ucIV48CounterProxyArray"))
-                this.__ucIV48CounterProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__ucIV48CounterProxyArray
-        }
-    }
+    ulGCMPKeyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGCMPKeyLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ucGCMPKey : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucGCMPKey {
-        get {
-            if(!this.HasProp("__ucGCMPKeyProxyArray"))
-                this.__ucGCMPKeyProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__ucGCMPKeyProxyArray
-        }
-    }
 }

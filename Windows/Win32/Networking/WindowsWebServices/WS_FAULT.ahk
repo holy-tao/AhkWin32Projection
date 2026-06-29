@@ -1,18 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_FAULT_CODE.ahk
-#Include .\WS_FAULT_REASON.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_FAULT_CODE.ahk" { WS_FAULT_CODE }
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_FAULT_REASON.ahk" { WS_FAULT_REASON }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 
 /**
  * A Fault is a value carried in the body of a message which conveys a processing failure. Faults are modeled using the WS_FAULT structure.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_FAULT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WS_FAULT {
+    #StructPack 8
 
     /**
      * The head of the list of fault codes which identifies the type of fault.
@@ -43,22 +42,14 @@ class WS_FAULT extends Win32Struct {
      * </ul>
      * These transformations allow a SOAP fault code
      *                     to be specified without having to worry about which SOAP version is used.
-     * @type {Pointer<WS_FAULT_CODE>}
      */
-    code {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    code : WS_FAULT_CODE.Ptr
 
     /**
      * The text describing the fault.  This is an array to allow for different
      *                     languages.
-     * @type {Pointer<WS_FAULT_REASON>}
      */
-    reasons {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    reasons : WS_FAULT_REASON.Ptr
 
     /**
      * The number of reasons in the reasons array.  This would be more than one
@@ -67,25 +58,14 @@ class WS_FAULT extends Win32Struct {
      *                 
      * 
      * For <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION_SOAP_1_1</a>, only the first reason is serialized.
-     * @type {Integer}
      */
-    reasonCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    reasonCount : UInt32
 
     /**
      * The name of the processor that caused the fault.  If the string is zero
      *                     length, then it's assumed to be the endpoint.
-     * @type {WS_STRING}
      */
-    actor {
-        get {
-            if(!this.HasProp("__actor"))
-                this.__actor := WS_STRING(24, this)
-            return this.__actor
-        }
-    }
+    actor : WS_STRING
 
     /**
      * The location of the processor that caused the fault.  If the string is zero
@@ -93,15 +73,8 @@ class WS_FAULT extends Win32Struct {
      *                 
      * 
      * For <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION_SOAP_1_1</a>, this value is not serialized.
-     * @type {WS_STRING}
      */
-    node {
-        get {
-            if(!this.HasProp("__node"))
-                this.__node := WS_STRING(40, this)
-            return this.__node
-        }
-    }
+    node : WS_STRING
 
     /**
      * The fault detail allows for XML content to be included along with the fault.  If
@@ -118,10 +91,7 @@ class WS_FAULT extends Win32Struct {
      *                     fault-specific XML content is contained within the detail element.
      *                     The local name and namespace of the element are ignored; they are replaced with
      *                     the appropriate element name according to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION</a> when the detail element is written.
-     * @type {Pointer<WS_XML_BUFFER>}
      */
-    detail {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    detail : WS_XML_BUFFER.Ptr
+
 }

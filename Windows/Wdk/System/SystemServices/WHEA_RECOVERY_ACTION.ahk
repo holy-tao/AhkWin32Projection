@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_RECOVERY_ACTION extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 1
+export default struct WHEA_RECOVERY_ACTION {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class WHEA_RECOVERY_ACTION extends Win32Struct {
      * - ForwardedToVm
      * - MarkPageBad
      * - PoisonNotPresent
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -62,22 +56,14 @@ class WHEA_RECOVERY_ACTION extends Win32Struct {
         get => (this._bitfield1 >> 4) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 4) | (this._bitfield1 & ~(0x1 << 4))
     }
-
     /**
      * This bitfield backs the following members:
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield2 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    AsULONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

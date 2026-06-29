@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMbnPinManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMbnPinManager.ahk" { IMbnPinManager }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MBN_PIN_FORMAT.ahk" { MBN_PIN_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_PIN_TYPE.ahk" { MBN_PIN_TYPE }
+#Import ".\MBN_PIN_MODE.ahk" { MBN_PIN_MODE }
 
 /**
  * Represents the device PIN.
@@ -11,26 +16,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnpin
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnPin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnPin extends IUnknown {
     /**
      * The interface identifier for IMbnPin
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2007-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2007-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnPin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_PinType      : IntPtr
+        get_PinFormat    : IntPtr
+        get_PinLengthMin : IntPtr
+        get_PinLengthMax : IntPtr
+        get_PinMode      : IntPtr
+        Enable           : IntPtr
+        Disable          : IntPtr
+        Enter            : IntPtr
+        Change           : IntPtr
+        Unblock          : IntPtr
+        GetPinManager    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PinType", "get_PinFormat", "get_PinLengthMin", "get_PinLengthMax", "get_PinMode", "Enable", "Disable", "Enter", "Change", "Unblock", "GetPinManager"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnPin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {MBN_PIN_TYPE} 
@@ -224,5 +246,45 @@ class IMbnPin extends IUnknown {
     GetPinManager() {
         result := ComCall(13, this, "ptr*", &pinManager := 0, "HRESULT")
         return IMbnPinManager(pinManager)
+    }
+
+    Query(iid) {
+        if (IMbnPin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PinType := CallbackCreate(GetMethod(implObj, "get_PinType"), flags, 2)
+        this.vtbl.get_PinFormat := CallbackCreate(GetMethod(implObj, "get_PinFormat"), flags, 2)
+        this.vtbl.get_PinLengthMin := CallbackCreate(GetMethod(implObj, "get_PinLengthMin"), flags, 2)
+        this.vtbl.get_PinLengthMax := CallbackCreate(GetMethod(implObj, "get_PinLengthMax"), flags, 2)
+        this.vtbl.get_PinMode := CallbackCreate(GetMethod(implObj, "get_PinMode"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 3)
+        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 3)
+        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 3)
+        this.vtbl.Change := CallbackCreate(GetMethod(implObj, "Change"), flags, 4)
+        this.vtbl.Unblock := CallbackCreate(GetMethod(implObj, "Unblock"), flags, 4)
+        this.vtbl.GetPinManager := CallbackCreate(GetMethod(implObj, "GetPinManager"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PinType)
+        CallbackFree(this.vtbl.get_PinFormat)
+        CallbackFree(this.vtbl.get_PinLengthMin)
+        CallbackFree(this.vtbl.get_PinLengthMax)
+        CallbackFree(this.vtbl.get_PinMode)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.Disable)
+        CallbackFree(this.vtbl.Enter)
+        CallbackFree(this.vtbl.Change)
+        CallbackFree(this.vtbl.Unblock)
+        CallbackFree(this.vtbl.GetPinManager)
     }
 }

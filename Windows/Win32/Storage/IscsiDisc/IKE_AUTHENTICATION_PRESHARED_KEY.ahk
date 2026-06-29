@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * IKE_AUTHENTICATION_PRESHARED_KEY structure contains information about the preshared key used in the Internet Key Exchange (IKE) protocol.
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-ike_authentication_preshared_key
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct IKE_AUTHENTICATION_PRESHARED_KEY {
+    #StructPack 8
 
     /**
      * A bitmap that defines the security characteristics of a login connection. 
@@ -90,12 +87,8 @@ class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SecurityFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SecurityFlags : Int64
 
     /**
      * The type of key identifier. The following table specifies the values that can be assigned to this member:
@@ -146,46 +139,27 @@ class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    IdType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    IdType : Int8
 
     /**
      * The length, in bytes, of the key identifier.
-     * @type {Integer}
      */
-    IdLengthInBytes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    IdLengthInBytes : UInt32
 
     /**
      * The identifier of the preshared key used in the IKE protocol.
-     * @type {Pointer<Integer>}
      */
-    Id {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Id : IntPtr
 
     /**
      * The length, in bytes, of the preshared key.
-     * @type {Integer}
      */
-    KeyLengthInBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    KeyLengthInBytes : UInt32
 
     /**
      * The preshared key.
-     * @type {Pointer<Integer>}
      */
-    Key {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Key : IntPtr
+
 }

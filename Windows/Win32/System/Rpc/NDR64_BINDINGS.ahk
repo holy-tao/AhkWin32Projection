@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_BIND_PRIMITIVE.ahk
-#Include .\NDR64_BIND_GENERIC.ahk
-#Include .\NDR64_BIND_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR64_BIND_GENERIC.ahk" { NDR64_BIND_GENERIC }
+#Import ".\NDR64_BIND_CONTEXT.ahk" { NDR64_BIND_CONTEXT }
+#Import ".\NDR64_BIND_PRIMITIVE.ahk" { NDR64_BIND_PRIMITIVE }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_BINDINGS extends Win32Struct {
-    static sizeof => 18
+export default struct NDR64_BINDINGS {
+    #StructPack 2
 
-    static packingSize => 2
+    Primitive : NDR64_BIND_PRIMITIVE
 
-    /**
-     * @type {NDR64_BIND_PRIMITIVE}
-     */
-    Primitive {
-        get {
-            if(!this.HasProp("__Primitive"))
-                this.__Primitive := NDR64_BIND_PRIMITIVE(0, this)
-            return this.__Primitive
-        }
-    }
-
-    /**
-     * @type {NDR64_BIND_GENERIC}
-     */
-    Generic {
-        get {
-            if(!this.HasProp("__Generic"))
-                this.__Generic := NDR64_BIND_GENERIC(0, this)
-            return this.__Generic
-        }
-    }
-
-    /**
-     * @type {NDR64_BIND_CONTEXT}
-     */
-    Context {
-        get {
-            if(!this.HasProp("__Context"))
-                this.__Context := NDR64_BIND_CONTEXT(0, this)
-            return this.__Context
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Generic', { type: NDR64_BIND_GENERIC, offset: 0 })
+        DefineProp(this.Prototype, 'Context', { type: NDR64_BIND_CONTEXT, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

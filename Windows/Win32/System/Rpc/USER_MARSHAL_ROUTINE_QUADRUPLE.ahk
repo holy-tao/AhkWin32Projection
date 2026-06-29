@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class USER_MARSHAL_ROUTINE_QUADRUPLE extends Win32Struct {
-    static sizeof => 32
+export default struct USER_MARSHAL_ROUTINE_QUADRUPLE {
+    #StructPack 8
 
-    static packingSize => 8
+    pfnBufferSize : IntPtr
 
-    /**
-     * @type {Pointer<USER_MARSHAL_SIZING_ROUTINE>}
-     */
-    pfnBufferSize {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pfnMarshall : IntPtr
 
-    /**
-     * @type {Pointer<USER_MARSHAL_MARSHALLING_ROUTINE>}
-     */
-    pfnMarshall {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnUnmarshall : IntPtr
 
-    /**
-     * @type {Pointer<USER_MARSHAL_UNMARSHALLING_ROUTINE>}
-     */
-    pfnUnmarshall {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pfnFree : IntPtr
 
-    /**
-     * @type {Pointer<USER_MARSHAL_FREEING_ROUTINE>}
-     */
-    pfnFree {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

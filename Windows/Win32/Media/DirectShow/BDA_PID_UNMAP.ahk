@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_PID_UNMAP extends Win32Struct {
-    static sizeof => 8
+export default struct BDA_PID_UNMAP {
+    #StructPack 4
 
-    static packingSize => 4
+    ulcPIDs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulcPIDs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    aulPIDs : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    aulPIDs {
-        get {
-            if(!this.HasProp("__aulPIDsProxyArray"))
-                this.__aulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__aulPIDsProxyArray
-        }
-    }
 }

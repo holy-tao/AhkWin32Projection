@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BG_TOKEN.ahk" { BG_TOKEN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use IBitsTokenOptions to associate and manage a pair of security tokens for a Background Intelligent Transfer Service (BITS) transfer job.
  * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nn-bits4_0-ibitstokenoptions
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBitsTokenOptions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBitsTokenOptions extends IUnknown {
     /**
      * The interface identifier for IBitsTokenOptions
      * @type {Guid}
      */
-    static IID => Guid("{9a2584c3-f7d2-457a-9a5e-22b67bffc7d2}")
+    static IID := Guid("{9a2584c3-f7d2-457a-9a5e-22b67bffc7d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBitsTokenOptions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetHelperTokenFlags : IntPtr
+        GetHelperTokenFlags : IntPtr
+        SetHelperToken      : IntPtr
+        ClearHelperToken    : IntPtr
+        GetHelperTokenSid   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHelperTokenFlags", "GetHelperTokenFlags", "SetHelperToken", "ClearHelperToken", "GetHelperTokenSid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBitsTokenOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the usage flags for a token that is associated with a BITS transfer job.
@@ -44,7 +58,7 @@ class IBitsTokenOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-sethelpertokenflags
      */
     SetHelperTokenFlags(UsageFlags) {
-        result := ComCall(3, this, "uint", UsageFlags, "HRESULT")
+        result := ComCall(3, this, BG_TOKEN, UsageFlags, "HRESULT")
         return result
     }
 
@@ -140,7 +154,35 @@ class IBitsTokenOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokensid
      */
     GetHelperTokenSid() {
-        result := ComCall(7, this, "ptr*", &_pSid := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &_pSid := 0, "HRESULT")
         return _pSid
+    }
+
+    Query(iid) {
+        if (IBitsTokenOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHelperTokenFlags := CallbackCreate(GetMethod(implObj, "SetHelperTokenFlags"), flags, 2)
+        this.vtbl.GetHelperTokenFlags := CallbackCreate(GetMethod(implObj, "GetHelperTokenFlags"), flags, 2)
+        this.vtbl.SetHelperToken := CallbackCreate(GetMethod(implObj, "SetHelperToken"), flags, 1)
+        this.vtbl.ClearHelperToken := CallbackCreate(GetMethod(implObj, "ClearHelperToken"), flags, 1)
+        this.vtbl.GetHelperTokenSid := CallbackCreate(GetMethod(implObj, "GetHelperTokenSid"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHelperTokenFlags)
+        CallbackFree(this.vtbl.GetHelperTokenFlags)
+        CallbackFree(this.vtbl.SetHelperToken)
+        CallbackFree(this.vtbl.ClearHelperToken)
+        CallbackFree(this.vtbl.GetHelperTokenSid)
     }
 }

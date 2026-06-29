@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the proxy access type.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmanproxyaccesstype
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class WSManProxyAccessType extends Win32Enum {
+export default struct WSManProxyAccessType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the Internet Explorer proxy configuration for the current user. This is the default setting.

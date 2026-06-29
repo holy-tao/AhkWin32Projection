@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMSG_SIGNER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMSG_SIGNER_INFO.ahk" { CMSG_SIGNER_INFO }
 
 /**
  * Holds policy information used in the verification of certificate chains for files.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-authenticode_extra_cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Flags set during installation that can be modified by a user. The SetReg tool found in the Authenticode Tool Pack can be used to select or cancel the selection of each value. These flags can be combined using a bitwise-<b>OR</b> operation. 
@@ -145,25 +138,13 @@ class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRegPolicySettings {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwRegPolicySettings : UInt32
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signer_info">CMSG_SIGNER_INFO</a> structure that contains information on the signer of the file.
-     * @type {Pointer<CMSG_SIGNER_INFO>}
      */
-    pSignerInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSignerInfo : CMSG_SIGNER_INFO.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

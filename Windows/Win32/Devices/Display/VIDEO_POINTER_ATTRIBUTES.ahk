@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_POINTER_ATTRIBUTES extends Win32Struct {
-    static sizeof => 28
+export default struct VIDEO_POINTER_ATTRIBUTES {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WidthInBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WidthInBytes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Enable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Enable {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Column : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Column {
-        get => NumGet(this, 20, "short")
-        set => NumPut("short", value, this, 20)
-    }
+    Row : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Row {
-        get => NumGet(this, 22, "short")
-        set => NumPut("short", value, this, 22)
-    }
+    Pixels : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Pixels {
-        get {
-            if(!this.HasProp("__PixelsProxyArray"))
-                this.__PixelsProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__PixelsProxyArray
-        }
-    }
 }

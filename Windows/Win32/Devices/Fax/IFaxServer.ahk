@@ -1,18 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxDeviceProviders.ahk
-#Include .\IFaxDevices.ahk
-#Include .\IFaxInboundRouting.ahk
-#Include .\IFaxFolders.ahk
-#Include .\IFaxLoggingOptions.ahk
-#Include .\IFaxActivity.ahk
-#Include .\IFaxOutboundRouting.ahk
-#Include .\IFaxReceiptOptions.ahk
-#Include .\IFaxSecurity.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxActivity.ahk" { IFaxActivity }
+#Import ".\IFaxSecurity.ahk" { IFaxSecurity }
+#Import ".\IFaxOutboundRouting.ahk" { IFaxOutboundRouting }
+#Import ".\IFaxLoggingOptions.ahk" { IFaxLoggingOptions }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxDevices.ahk" { IFaxDevices }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\FAX_SERVER_APIVERSION_ENUM.ahk" { FAX_SERVER_APIVERSION_ENUM }
+#Import ".\IFaxInboundRouting.ahk" { IFaxInboundRouting }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IFaxDeviceProviders.ahk" { IFaxDeviceProviders }
+#Import ".\FAX_SERVER_EVENTS_TYPE_ENUM.ahk" { FAX_SERVER_EVENTS_TYPE_ENUM }
+#Import ".\IFaxFolders.ahk" { IFaxFolders }
+#Import ".\IFaxReceiptOptions.ahk" { IFaxReceiptOptions }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IFaxServer interface describes a messaging collection that is used by a fax client application to manage a connection to the fax service.
@@ -21,32 +25,64 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxserver
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxServer extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxServer extends IDispatch {
     /**
      * The interface identifier for IFaxServer
      * @type {Guid}
      */
-    static IID => Guid("{475b6469-90a5-4878-a577-17a86e8e3462}")
+    static IID := Guid("{475b6469-90a5-4878-a577-17a86e8e3462}")
 
     /**
      * The class identifier for FaxServer
      * @type {Guid}
      */
-    static CLSID => Guid("{cda8acb0-8cf5-4f6c-9ba2-5931d40c8cae}")
+    static CLSID := Guid("{cda8acb0-8cf5-4f6c-9ba2-5931d40c8cae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxServer interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Connect                           : IntPtr
+        get_ServerName                    : IntPtr
+        GetDeviceProviders                : IntPtr
+        GetDevices                        : IntPtr
+        get_InboundRouting                : IntPtr
+        get_Folders                       : IntPtr
+        get_LoggingOptions                : IntPtr
+        get_MajorVersion                  : IntPtr
+        get_MinorVersion                  : IntPtr
+        get_MajorBuild                    : IntPtr
+        get_MinorBuild                    : IntPtr
+        get_Debug                         : IntPtr
+        get_Activity                      : IntPtr
+        get_OutboundRouting               : IntPtr
+        get_ReceiptOptions                : IntPtr
+        get_Security                      : IntPtr
+        Disconnect                        : IntPtr
+        GetExtensionProperty              : IntPtr
+        SetExtensionProperty              : IntPtr
+        ListenToServerEvents              : IntPtr
+        RegisterDeviceProvider            : IntPtr
+        UnregisterDeviceProvider          : IntPtr
+        RegisterInboundRoutingExtension   : IntPtr
+        UnregisterInboundRoutingExtension : IntPtr
+        get_RegisteredEvents              : IntPtr
+        get_APIVersion                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "get_ServerName", "GetDeviceProviders", "GetDevices", "get_InboundRouting", "get_Folders", "get_LoggingOptions", "get_MajorVersion", "get_MinorVersion", "get_MajorBuild", "get_MinorBuild", "get_Debug", "get_Activity", "get_OutboundRouting", "get_ReceiptOptions", "get_Security", "Disconnect", "GetExtensionProperty", "SetExtensionProperty", "ListenToServerEvents", "RegisterDeviceProvider", "UnregisterDeviceProvider", "RegisterInboundRoutingExtension", "UnregisterInboundRoutingExtension", "get_RegisteredEvents", "get_APIVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxServer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -170,7 +206,7 @@ class IFaxServer extends IDispatch {
     Connect(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        result := ComCall(7, this, "ptr", bstrServerName, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrServerName, "HRESULT")
         return result
     }
 
@@ -180,8 +216,8 @@ class IFaxServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_servername
      */
     get_ServerName() {
-        pbstrServerName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrServerName, "HRESULT")
+        pbstrServerName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrServerName, "HRESULT")
         return pbstrServerName
     }
 
@@ -301,7 +337,7 @@ class IFaxServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_debug
      */
     get_Debug() {
-        result := ComCall(18, this, "short*", &pbDebug := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &pbDebug := 0, "HRESULT")
         return pbDebug
     }
 
@@ -377,7 +413,7 @@ class IFaxServer extends IDispatch {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
 
         pvProperty := VARIANT()
-        result := ComCall(24, this, "ptr", bstrGUID, "ptr", pvProperty, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrGUID, VARIANT.Ptr, pvProperty, "HRESULT")
         return pvProperty
     }
 
@@ -402,7 +438,7 @@ class IFaxServer extends IDispatch {
     SetExtensionProperty(bstrGUID, vProperty) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
 
-        result := ComCall(25, this, "ptr", bstrGUID, "ptr", vProperty, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrGUID, VARIANT, vProperty, "HRESULT")
         return result
     }
 
@@ -532,7 +568,7 @@ class IFaxServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-listentoserverevents
      */
     ListenToServerEvents(EventTypes) {
-        result := ComCall(26, this, "int", EventTypes, "HRESULT")
+        result := ComCall(26, this, FAX_SERVER_EVENTS_TYPE_ENUM, EventTypes, "HRESULT")
         return result
     }
 
@@ -568,7 +604,7 @@ class IFaxServer extends IDispatch {
         bstrImageName := bstrImageName is String ? BSTR.Alloc(bstrImageName).Value : bstrImageName
         TspName := TspName is String ? BSTR.Alloc(TspName).Value : TspName
 
-        result := ComCall(27, this, "ptr", bstrGUID, "ptr", bstrFriendlyName, "ptr", bstrImageName, "ptr", TspName, "int", lFSPIVersion, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrGUID, BSTR, bstrFriendlyName, BSTR, bstrImageName, BSTR, TspName, "int", lFSPIVersion, "HRESULT")
         return result
     }
 
@@ -589,7 +625,7 @@ class IFaxServer extends IDispatch {
     UnregisterDeviceProvider(bstrUniqueName) {
         bstrUniqueName := bstrUniqueName is String ? BSTR.Alloc(bstrUniqueName).Value : bstrUniqueName
 
-        result := ComCall(28, this, "ptr", bstrUniqueName, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrUniqueName, "HRESULT")
         return result
     }
 
@@ -624,7 +660,7 @@ class IFaxServer extends IDispatch {
         bstrFriendlyName := bstrFriendlyName is String ? BSTR.Alloc(bstrFriendlyName).Value : bstrFriendlyName
         bstrImageName := bstrImageName is String ? BSTR.Alloc(bstrImageName).Value : bstrImageName
 
-        result := ComCall(29, this, "ptr", bstrExtensionName, "ptr", bstrFriendlyName, "ptr", bstrImageName, "ptr", vMethods, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrExtensionName, BSTR, bstrFriendlyName, BSTR, bstrImageName, VARIANT, vMethods, "HRESULT")
         return result
     }
 
@@ -645,7 +681,7 @@ class IFaxServer extends IDispatch {
     UnregisterInboundRoutingExtension(bstrExtensionUniqueName) {
         bstrExtensionUniqueName := bstrExtensionUniqueName is String ? BSTR.Alloc(bstrExtensionUniqueName).Value : bstrExtensionUniqueName
 
-        result := ComCall(30, this, "ptr", bstrExtensionUniqueName, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrExtensionUniqueName, "HRESULT")
         return result
     }
 
@@ -669,5 +705,75 @@ class IFaxServer extends IDispatch {
     get_APIVersion() {
         result := ComCall(32, this, "int*", &pAPIVersion := 0, "HRESULT")
         return pAPIVersion
+    }
+
+    Query(iid) {
+        if (IFaxServer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.get_ServerName := CallbackCreate(GetMethod(implObj, "get_ServerName"), flags, 2)
+        this.vtbl.GetDeviceProviders := CallbackCreate(GetMethod(implObj, "GetDeviceProviders"), flags, 2)
+        this.vtbl.GetDevices := CallbackCreate(GetMethod(implObj, "GetDevices"), flags, 2)
+        this.vtbl.get_InboundRouting := CallbackCreate(GetMethod(implObj, "get_InboundRouting"), flags, 2)
+        this.vtbl.get_Folders := CallbackCreate(GetMethod(implObj, "get_Folders"), flags, 2)
+        this.vtbl.get_LoggingOptions := CallbackCreate(GetMethod(implObj, "get_LoggingOptions"), flags, 2)
+        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.get_MajorBuild := CallbackCreate(GetMethod(implObj, "get_MajorBuild"), flags, 2)
+        this.vtbl.get_MinorBuild := CallbackCreate(GetMethod(implObj, "get_MinorBuild"), flags, 2)
+        this.vtbl.get_Debug := CallbackCreate(GetMethod(implObj, "get_Debug"), flags, 2)
+        this.vtbl.get_Activity := CallbackCreate(GetMethod(implObj, "get_Activity"), flags, 2)
+        this.vtbl.get_OutboundRouting := CallbackCreate(GetMethod(implObj, "get_OutboundRouting"), flags, 2)
+        this.vtbl.get_ReceiptOptions := CallbackCreate(GetMethod(implObj, "get_ReceiptOptions"), flags, 2)
+        this.vtbl.get_Security := CallbackCreate(GetMethod(implObj, "get_Security"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.GetExtensionProperty := CallbackCreate(GetMethod(implObj, "GetExtensionProperty"), flags, 3)
+        this.vtbl.SetExtensionProperty := CallbackCreate(GetMethod(implObj, "SetExtensionProperty"), flags, 3)
+        this.vtbl.ListenToServerEvents := CallbackCreate(GetMethod(implObj, "ListenToServerEvents"), flags, 2)
+        this.vtbl.RegisterDeviceProvider := CallbackCreate(GetMethod(implObj, "RegisterDeviceProvider"), flags, 6)
+        this.vtbl.UnregisterDeviceProvider := CallbackCreate(GetMethod(implObj, "UnregisterDeviceProvider"), flags, 2)
+        this.vtbl.RegisterInboundRoutingExtension := CallbackCreate(GetMethod(implObj, "RegisterInboundRoutingExtension"), flags, 5)
+        this.vtbl.UnregisterInboundRoutingExtension := CallbackCreate(GetMethod(implObj, "UnregisterInboundRoutingExtension"), flags, 2)
+        this.vtbl.get_RegisteredEvents := CallbackCreate(GetMethod(implObj, "get_RegisteredEvents"), flags, 2)
+        this.vtbl.get_APIVersion := CallbackCreate(GetMethod(implObj, "get_APIVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.get_ServerName)
+        CallbackFree(this.vtbl.GetDeviceProviders)
+        CallbackFree(this.vtbl.GetDevices)
+        CallbackFree(this.vtbl.get_InboundRouting)
+        CallbackFree(this.vtbl.get_Folders)
+        CallbackFree(this.vtbl.get_LoggingOptions)
+        CallbackFree(this.vtbl.get_MajorVersion)
+        CallbackFree(this.vtbl.get_MinorVersion)
+        CallbackFree(this.vtbl.get_MajorBuild)
+        CallbackFree(this.vtbl.get_MinorBuild)
+        CallbackFree(this.vtbl.get_Debug)
+        CallbackFree(this.vtbl.get_Activity)
+        CallbackFree(this.vtbl.get_OutboundRouting)
+        CallbackFree(this.vtbl.get_ReceiptOptions)
+        CallbackFree(this.vtbl.get_Security)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.GetExtensionProperty)
+        CallbackFree(this.vtbl.SetExtensionProperty)
+        CallbackFree(this.vtbl.ListenToServerEvents)
+        CallbackFree(this.vtbl.RegisterDeviceProvider)
+        CallbackFree(this.vtbl.UnregisterDeviceProvider)
+        CallbackFree(this.vtbl.RegisterInboundRoutingExtension)
+        CallbackFree(this.vtbl.UnregisterInboundRoutingExtension)
+        CallbackFree(this.vtbl.get_RegisteredEvents)
+        CallbackFree(this.vtbl.get_APIVersion)
     }
 }

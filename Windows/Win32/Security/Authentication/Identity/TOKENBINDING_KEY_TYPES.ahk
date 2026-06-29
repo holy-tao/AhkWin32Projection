@@ -1,31 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk" { TOKENBINDING_KEY_PARAMETERS_TYPE }
 
 /**
  * Contains all of the combinations of types of token binding keys that a client device or server supports.
  * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ns-tokenbinding-tokenbinding_key_types
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class TOKENBINDING_KEY_TYPES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct TOKENBINDING_KEY_TYPES {
+    #StructPack 8
 
     /**
      * The number of elements in the array that the <b>key</b> member contains.
-     * @type {Integer}
      */
-    keyCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    keyCount : UInt32
 
-    /**
-     * @type {Pointer<TOKENBINDING_KEY_PARAMETERS_TYPE>}
-     */
-    keyType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    keyType : TOKENBINDING_KEY_PARAMETERS_TYPE.Ptr
+
 }

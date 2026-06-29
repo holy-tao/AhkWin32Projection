@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PROCESS_ACCESS_TOKEN extends Win32Struct {
-    static sizeof => 16
+export default struct PROCESS_ACCESS_TOKEN {
+    #StructPack 8
 
-    static packingSize => 8
+    Token : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    Token {
-        get {
-            if(!this.HasProp("__Token"))
-                this.__Token := HANDLE(0, this)
-            return this.__Token
-        }
-    }
+    Thread : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    Thread {
-        get {
-            if(!this.HasProp("__Thread"))
-                this.__Thread := HANDLE(8, this)
-            return this.__Thread
-        }
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the interaction states used for configuring an Interaction Context object.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_id
  * @namespace Windows.Win32.UI.InteractionContext
  */
-class INTERACTION_ID extends Win32Enum {
+export default struct INTERACTION_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not used.

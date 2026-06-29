@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_FONT_METRICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DWRITE_FONT_METRICS1 structure specifies the metrics that are applicable to all glyphs within the font face.
@@ -18,136 +18,74 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_METRICS1 extends Win32Struct {
-    static sizeof => 48
+export default struct DWRITE_FONT_METRICS1 {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {DWRITE_FONT_METRICS}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := DWRITE_FONT_METRICS(0, this)
-            return this.__Base
-        }
-    }
+    Base : DWRITE_FONT_METRICS
 
     /**
      * Left edge of accumulated bounding blackbox of all glyphs in the font.
-     * @type {Integer}
      */
-    glyphBoxLeft {
-        get => NumGet(this, 20, "short")
-        set => NumPut("short", value, this, 20)
-    }
+    glyphBoxLeft : Int16
 
     /**
      * Top edge of accumulated bounding blackbox of all glyphs in the font.
-     * @type {Integer}
      */
-    glyphBoxTop {
-        get => NumGet(this, 22, "short")
-        set => NumPut("short", value, this, 22)
-    }
+    glyphBoxTop : Int16
 
     /**
      * Right edge of accumulated bounding blackbox of all glyphs in the font.
-     * @type {Integer}
      */
-    glyphBoxRight {
-        get => NumGet(this, 24, "short")
-        set => NumPut("short", value, this, 24)
-    }
+    glyphBoxRight : Int16
 
     /**
      * Bottom edge of accumulated bounding blackbox of all glyphs in the font.
-     * @type {Integer}
      */
-    glyphBoxBottom {
-        get => NumGet(this, 26, "short")
-        set => NumPut("short", value, this, 26)
-    }
+    glyphBoxBottom : Int16
 
     /**
      * Horizontal position of the subscript relative to the baseline origin. This is typically negative (to the left) in italic and oblique fonts, and zero in regular fonts.
-     * @type {Integer}
      */
-    subscriptPositionX {
-        get => NumGet(this, 28, "short")
-        set => NumPut("short", value, this, 28)
-    }
+    subscriptPositionX : Int16
 
     /**
      * Vertical position of the subscript relative to the baseline. This is typically negative.
-     * @type {Integer}
      */
-    subscriptPositionY {
-        get => NumGet(this, 30, "short")
-        set => NumPut("short", value, this, 30)
-    }
+    subscriptPositionY : Int16
 
     /**
      * Horizontal size of the subscript em box in design units, used to scale the simulated subscript relative to the full em box size. This is the numerator of the scaling ratio where denominator is the design units per em. If this member is zero, the font does not specify a scale factor, and the client uses its own policy.
-     * @type {Integer}
      */
-    subscriptSizeX {
-        get => NumGet(this, 32, "short")
-        set => NumPut("short", value, this, 32)
-    }
+    subscriptSizeX : Int16
 
     /**
      * Vertical size of the subscript em box in design units, used to scale the simulated subscript relative to the full em box size. This is the numerator of the scaling ratio where denominator is the design units per em. If this member is zero, the font does not specify a scale factor, and the client uses its own policy.
-     * @type {Integer}
      */
-    subscriptSizeY {
-        get => NumGet(this, 34, "short")
-        set => NumPut("short", value, this, 34)
-    }
+    subscriptSizeY : Int16
 
     /**
      * Horizontal position of the superscript relative to the baseline origin. This is typically positive (to the right) in italic and oblique fonts, and zero in regular fonts.
-     * @type {Integer}
      */
-    superscriptPositionX {
-        get => NumGet(this, 36, "short")
-        set => NumPut("short", value, this, 36)
-    }
+    superscriptPositionX : Int16
 
     /**
      * Vertical position of the superscript relative to the baseline. This is typically positive.
-     * @type {Integer}
      */
-    superscriptPositionY {
-        get => NumGet(this, 38, "short")
-        set => NumPut("short", value, this, 38)
-    }
+    superscriptPositionY : Int16
 
     /**
      * Horizontal size of the superscript em box in design units, used to scale the simulated superscript relative to the full em box size. This is the numerator of the scaling ratio where denominator is the design units per em. If this member is zero, the font does not specify a scale factor, and the client should use its own policy.
-     * @type {Integer}
      */
-    superscriptSizeX {
-        get => NumGet(this, 40, "short")
-        set => NumPut("short", value, this, 40)
-    }
+    superscriptSizeX : Int16
 
     /**
      * Vertical size of the superscript em box in design units, used to scale the simulated superscript relative to the full em box size. This is the numerator of the scaling ratio where denominator is the design units per em. If this member is zero, the font does not specify a scale factor, and the client should use its own policy.
-     * @type {Integer}
      */
-    superscriptSizeY {
-        get => NumGet(this, 42, "short")
-        set => NumPut("short", value, this, 42)
-    }
+    superscriptSizeY : Int16
 
     /**
      * A Boolean value that indicates that the ascent, descent, and lineGap are based on newer 'typographic' values in the font, rather than legacy values.
-     * @type {BOOL}
      */
-    hasTypographicMetrics {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    hasTypographicMetrics : BOOL
+
 }

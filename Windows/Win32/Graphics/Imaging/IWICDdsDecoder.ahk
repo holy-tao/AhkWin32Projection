@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WICDdsParameters.ahk
-#Include .\IWICBitmapFrameDecode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICDdsParameters.ahk" { WICDdsParameters }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides information and functionality specific to the DDS image format.
@@ -12,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicddsdecoder
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICDdsDecoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICDdsDecoder extends IUnknown {
     /**
      * The interface identifier for IWICDdsDecoder
      * @type {Guid}
      */
-    static IID => Guid("{409cd537-8532-40cb-9774-e2feb2df4e9c}")
+    static IID := Guid("{409cd537-8532-40cb-9774-e2feb2df4e9c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICDdsDecoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetParameters : IntPtr
+        GetFrame      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetParameters", "GetFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICDdsDecoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets DDS-specific data. (IWICDdsDecoder.GetParameters)
@@ -42,7 +51,7 @@ class IWICDdsDecoder extends IUnknown {
      */
     GetParameters() {
         pParameters := WICDdsParameters()
-        result := ComCall(3, this, "ptr", pParameters, "HRESULT")
+        result := ComCall(3, this, WICDdsParameters.Ptr, pParameters, "HRESULT")
         return pParameters
     }
 
@@ -69,5 +78,27 @@ class IWICDdsDecoder extends IUnknown {
     GetFrame(arrayIndex, mipLevel, sliceIndex) {
         result := ComCall(4, this, "uint", arrayIndex, "uint", mipLevel, "uint", sliceIndex, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
         return IWICBitmapFrameDecode(ppIBitmapFrame)
+    }
+
+    Query(iid) {
+        if (IWICDdsDecoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
+        this.vtbl.GetFrame := CallbackCreate(GetMethod(implObj, "GetFrame"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetParameters)
+        CallbackFree(this.vtbl.GetFrame)
     }
 }

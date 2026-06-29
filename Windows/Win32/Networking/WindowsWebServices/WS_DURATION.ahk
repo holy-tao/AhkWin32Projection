@@ -1,94 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a xsd:duration data type.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_duration
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_DURATION extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct WS_DURATION {
+    #StructPack 4
 
     /**
      * If <b>TRUE</b>, this represents a negative duration.
-     * @type {BOOL}
      */
-    negative {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    negative : BOOL
 
     /**
      * The number of years.
-     * @type {Integer}
      */
-    years {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    years : UInt32
 
     /**
      * The number of months.
-     * @type {Integer}
      */
-    months {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    months : UInt32
 
     /**
      * The number of days.
-     * @type {Integer}
      */
-    days {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    days : UInt32
 
     /**
      * The number of hours.
-     * @type {Integer}
      */
-    hours {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    hours : UInt32
 
     /**
      * The number of minutes.
-     * @type {Integer}
      */
-    minutes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    minutes : UInt32
 
     /**
      * The number of seconds.
-     * @type {Integer}
      */
-    seconds {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    seconds : UInt32
 
     /**
      * The number of milliseconds.  This value must be less than 1000.
-     * @type {Integer}
      */
-    milliseconds {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    milliseconds : UInt32
 
     /**
      * Indicates the number of ticks.  This value must be less than 10000.
-     * @type {Integer}
      */
-    ticks {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ticks : UInt32
+
 }

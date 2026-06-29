@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_TEMPLATE_PIN_JOINT extends Win32Struct {
-    static sizeof => 8
+export default struct BDA_TEMPLATE_PIN_JOINT {
+    #StructPack 4
 
-    static packingSize => 4
+    uliTemplateConnection : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uliTemplateConnection {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulcInstancesMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulcInstancesMax {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

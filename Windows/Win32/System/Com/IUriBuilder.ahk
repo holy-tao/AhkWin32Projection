@@ -1,32 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUri.ahk" { IUri }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class IUriBuilder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUriBuilder extends IUnknown {
     /**
      * The interface identifier for IUriBuilder
      * @type {Guid}
      */
-    static IID => Guid("{4221b2e1-8955-46c0-bd5b-de9897565de7}")
+    static IID := Guid("{4221b2e1-8955-46c0-bd5b-de9897565de7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUriBuilder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateUriSimple    : IntPtr
+        CreateUri          : IntPtr
+        CreateUriWithFlags : IntPtr
+        GetIUri            : IntPtr
+        SetIUri            : IntPtr
+        GetFragment        : IntPtr
+        GetHost            : IntPtr
+        GetPassword        : IntPtr
+        GetPath            : IntPtr
+        GetPort            : IntPtr
+        GetQuery           : IntPtr
+        GetSchemeName      : IntPtr
+        GetUserName        : IntPtr
+        SetFragment        : IntPtr
+        SetHost            : IntPtr
+        SetPassword        : IntPtr
+        SetPath            : IntPtr
+        SetPort            : IntPtr
+        SetQuery           : IntPtr
+        SetSchemeName      : IntPtr
+        SetUserName        : IntPtr
+        RemoveProperties   : IntPtr
+        HasBeenModified    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateUriSimple", "CreateUri", "CreateUriWithFlags", "GetIUri", "SetIUri", "GetFragment", "GetHost", "GetPassword", "GetPath", "GetPort", "GetQuery", "GetSchemeName", "GetUserName", "SetFragment", "SetHost", "SetPassword", "SetPath", "SetPort", "SetQuery", "SetSchemeName", "SetUserName", "RemoveProperties", "HasBeenModified"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUriBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -98,82 +130,10 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * The GetHostNameW function retrieves the standard host name for the local computer as a Unicode string.
-     * @remarks
-     * The 
-     * <b>GetHostNameW</b> function returns the name of the local host into the buffer specified by the <i>name</i> parameter in Unicode (UTF-16). The host name is returned as a <b>null</b>-terminated Unicode string. The form of the host name is dependent on the Windows Sockets provider—it can be a simple host name, or it can be a fully qualified domain name. However, it is guaranteed that the name returned will be successfully parsed by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>.
      * 
-     * With the growth of the Internet, there is a growing need to identify Internet host names for other languages not represented by the ASCII character set. Identifiers which facilitate this need and allow non-ASCII characters (Unicode) to be represented as special ASCII character strings (Punycode) are known as Internationalized Domain Names (IDNs). A  mechanism called
-     *    Internationalizing Domain Names in Applications (IDNA) is used to handle
-     *    IDNs in a standard fashion. The <b>GetHostNameW</b> function does not convert the local hostname between Punycode and Unicode. The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function provides support for Internationalized Domain Name (IDN) parsing and performs Punycode/IDN encoding and conversion.  
-     * 
-     * If the 
-     * <b>GetHostNameW</b> function is used on a cluster resource on Windows Server 2012 and the _CLUSTER_NETWORK_NAME_ environment variable is defined, then the value in this environment variable overrides the actual hostname and is returned. On a cluster resource, the _CLUSTER_NETWORK_NAME_ environment variable contains the name of the cluster.
-     * 
-     * The 
-     * <b>GetHostNameW</b> function queries namespace providers to determine the local host name using the SVCID_HOSTNAME GUID defined in the <i>Svgguid.h</i> header file. If no namespace provider responds, then the 
-     * <b>GetHostNameW</b> function returns the NetBIOS name of the local computer in Unicode.
-     * 
-     * The maximum length, in wide characters, of the string returned in the buffer pointed to by the <i>name</i> parameter is dependent on the namespace provider, but this string must be 256 wide characters or less. So if a buffer of 256 wide characters is passed in the <i>name</i> parameter and the <i>namelen</i> parameter is set to 256, the buffer size will always be adequate.
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  If no local host name has been configured, 
-     * <b>GetHostNameW</b> must succeed and return a token host name that 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> can resolve.</div>
-     * <div> </div>
-     * 
-     * 
-     * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Integer>} pcchHost 
      * @param {Pointer<PWSTR>} ppwzHost 
-     * @returns {HRESULT} If no error occurs, 
-     * <b>GetHostNameW</b> returns zero. Otherwise, it returns <b>SOCKET_ERROR</b> and a specific error code can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Error code</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>name</i> parameter is a <b>NULL</b> pointer or is not a valid part of the user address space. This error is also returned if the buffer size specified by <i>namelen</i> parameter is too small to hold the complete host name.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A successful 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The network subsystem has failed.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-gethostnamew
+     * @returns {HRESULT} 
      */
     GetHost(pcchHost, ppwzHost) {
         pcchHostMarshal := pcchHost is VarRef ? "uint*" : "ptr"
@@ -352,7 +312,7 @@ class IUriBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setport
      */
     SetPort(fHasPort, dwNewValue) {
-        result := ComCall(20, this, "int", fHasPort, "uint", dwNewValue, "HRESULT")
+        result := ComCall(20, this, BOOL, fHasPort, "uint", dwNewValue, "HRESULT")
         return result
     }
 
@@ -407,7 +367,71 @@ class IUriBuilder extends IUnknown {
      * @returns {BOOL} 
      */
     HasBeenModified() {
-        result := ComCall(25, this, "int*", &pfModified := 0, "HRESULT")
+        result := ComCall(25, this, BOOL.Ptr, &pfModified := 0, "HRESULT")
         return pfModified
+    }
+
+    Query(iid) {
+        if (IUriBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateUriSimple := CallbackCreate(GetMethod(implObj, "CreateUriSimple"), flags, 4)
+        this.vtbl.CreateUri := CallbackCreate(GetMethod(implObj, "CreateUri"), flags, 5)
+        this.vtbl.CreateUriWithFlags := CallbackCreate(GetMethod(implObj, "CreateUriWithFlags"), flags, 6)
+        this.vtbl.GetIUri := CallbackCreate(GetMethod(implObj, "GetIUri"), flags, 2)
+        this.vtbl.SetIUri := CallbackCreate(GetMethod(implObj, "SetIUri"), flags, 2)
+        this.vtbl.GetFragment := CallbackCreate(GetMethod(implObj, "GetFragment"), flags, 3)
+        this.vtbl.GetHost := CallbackCreate(GetMethod(implObj, "GetHost"), flags, 3)
+        this.vtbl.GetPassword := CallbackCreate(GetMethod(implObj, "GetPassword"), flags, 3)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 3)
+        this.vtbl.GetPort := CallbackCreate(GetMethod(implObj, "GetPort"), flags, 3)
+        this.vtbl.GetQuery := CallbackCreate(GetMethod(implObj, "GetQuery"), flags, 3)
+        this.vtbl.GetSchemeName := CallbackCreate(GetMethod(implObj, "GetSchemeName"), flags, 3)
+        this.vtbl.GetUserName := CallbackCreate(GetMethod(implObj, "GetUserName"), flags, 3)
+        this.vtbl.SetFragment := CallbackCreate(GetMethod(implObj, "SetFragment"), flags, 2)
+        this.vtbl.SetHost := CallbackCreate(GetMethod(implObj, "SetHost"), flags, 2)
+        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
+        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 2)
+        this.vtbl.SetPort := CallbackCreate(GetMethod(implObj, "SetPort"), flags, 3)
+        this.vtbl.SetQuery := CallbackCreate(GetMethod(implObj, "SetQuery"), flags, 2)
+        this.vtbl.SetSchemeName := CallbackCreate(GetMethod(implObj, "SetSchemeName"), flags, 2)
+        this.vtbl.SetUserName := CallbackCreate(GetMethod(implObj, "SetUserName"), flags, 2)
+        this.vtbl.RemoveProperties := CallbackCreate(GetMethod(implObj, "RemoveProperties"), flags, 2)
+        this.vtbl.HasBeenModified := CallbackCreate(GetMethod(implObj, "HasBeenModified"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateUriSimple)
+        CallbackFree(this.vtbl.CreateUri)
+        CallbackFree(this.vtbl.CreateUriWithFlags)
+        CallbackFree(this.vtbl.GetIUri)
+        CallbackFree(this.vtbl.SetIUri)
+        CallbackFree(this.vtbl.GetFragment)
+        CallbackFree(this.vtbl.GetHost)
+        CallbackFree(this.vtbl.GetPassword)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetPort)
+        CallbackFree(this.vtbl.GetQuery)
+        CallbackFree(this.vtbl.GetSchemeName)
+        CallbackFree(this.vtbl.GetUserName)
+        CallbackFree(this.vtbl.SetFragment)
+        CallbackFree(this.vtbl.SetHost)
+        CallbackFree(this.vtbl.SetPassword)
+        CallbackFree(this.vtbl.SetPath)
+        CallbackFree(this.vtbl.SetPort)
+        CallbackFree(this.vtbl.SetQuery)
+        CallbackFree(this.vtbl.SetSchemeName)
+        CallbackFree(this.vtbl.SetUserName)
+        CallbackFree(this.vtbl.RemoveProperties)
+        CallbackFree(this.vtbl.HasBeenModified)
     }
 }

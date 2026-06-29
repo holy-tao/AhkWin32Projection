@@ -1,57 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class TCG_PCClientPCREventStruct extends Win32Struct {
-    static sizeof => 36
+export default struct TCG_PCClientPCREventStruct {
+    #StructPack 4
 
-    static packingSize => 4
+    pcrIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    pcrIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    eventType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    eventType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    digest : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    digest {
-        get {
-            if(!this.HasProp("__digestProxyArray"))
-                this.__digestProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")
-            return this.__digestProxyArray
-        }
-    }
+    eventDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    eventDataSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    event : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    event {
-        get {
-            if(!this.HasProp("__eventProxyArray"))
-                this.__eventProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__eventProxyArray
-        }
-    }
 }

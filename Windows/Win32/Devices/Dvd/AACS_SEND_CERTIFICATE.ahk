@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AACS_CERTIFICATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AACS_CERTIFICATE.ahk" { AACS_CERTIFICATE }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class AACS_SEND_CERTIFICATE extends Win32Struct {
-    static sizeof => 116
+export default struct AACS_SEND_CERTIFICATE {
+    #StructPack 4
 
-    static packingSize => 4
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Certificate : AACS_CERTIFICATE
 
-    /**
-     * @type {AACS_CERTIFICATE}
-     */
-    Certificate {
-        get {
-            if(!this.HasProp("__Certificate"))
-                this.__Certificate := AACS_CERTIFICATE(4, this)
-            return this.__Certificate
-        }
-    }
 }

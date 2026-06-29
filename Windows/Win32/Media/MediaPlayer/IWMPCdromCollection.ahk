@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPCdrom.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IWMPCdrom.ahk" { IWMPCdrom }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPCdromCollection interface provides a way to organize and access a collection of CD or DVD drives.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcdromcollection
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPCdromCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPCdromCollection extends IDispatch {
     /**
      * The interface identifier for IWMPCdromCollection
      * @type {Guid}
      */
-    static IID => Guid("{ee4c8fe2-34b2-11d3-a3bf-006097c9b344}")
+    static IID := Guid("{ee4c8fe2-34b2-11d3-a3bf-006097c9b344}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPCdromCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_count           : IntPtr
+        item                : IntPtr
+        getByDriveSpecifier : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_count", "item", "getByDriveSpecifier"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPCdromCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -103,7 +114,31 @@ class IWMPCdromCollection extends IDispatch {
     getByDriveSpecifier(bstrDriveSpecifier) {
         bstrDriveSpecifier := bstrDriveSpecifier is String ? BSTR.Alloc(bstrDriveSpecifier).Value : bstrDriveSpecifier
 
-        result := ComCall(9, this, "ptr", bstrDriveSpecifier, "ptr*", &ppCdrom := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrDriveSpecifier, "ptr*", &ppCdrom := 0, "HRESULT")
         return IWMPCdrom(ppCdrom)
+    }
+
+    Query(iid) {
+        if (IWMPCdromCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.getByDriveSpecifier := CallbackCreate(GetMethod(implObj, "getByDriveSpecifier"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_count)
+        CallbackFree(this.vtbl.item)
+        CallbackFree(this.vtbl.getByDriveSpecifier)
     }
 }

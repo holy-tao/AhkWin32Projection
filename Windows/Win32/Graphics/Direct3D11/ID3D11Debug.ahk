@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Dxgi\IDXGISwapChain.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
+#Import ".\D3D11_RLDO_FLAGS.ahk" { D3D11_RLDO_FLAGS }
+#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A debug interface controls debug settings, validates pipeline state and can only be used if the debug layer is turned on. (ID3D11Debug)
@@ -18,26 +21,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nn-d3d11sdklayers-id3d11debug
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Debug extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Debug extends IUnknown {
     /**
      * The interface identifier for ID3D11Debug
      * @type {Guid}
      */
-    static IID => Guid("{79cf2233-7536-4948-9d36-1e4692dc5760}")
+    static IID := Guid("{79cf2233-7536-4948-9d36-1e4692dc5760}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Debug interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFeatureMask             : IntPtr
+        GetFeatureMask             : IntPtr
+        SetPresentPerRenderOpDelay : IntPtr
+        GetPresentPerRenderOpDelay : IntPtr
+        SetSwapChain               : IntPtr
+        GetSwapChain               : IntPtr
+        ValidateContext            : IntPtr
+        ReportLiveDeviceObjects    : IntPtr
+        ValidateContextForDispatch : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFeatureMask", "GetFeatureMask", "SetPresentPerRenderOpDelay", "GetPresentPerRenderOpDelay", "SetSwapChain", "GetSwapChain", "ValidateContext", "ReportLiveDeviceObjects", "ValidateContextForDispatch"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Debug.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set a bit field of flags that will turn debug features on and off. (ID3D11Debug.SetFeatureMask)
@@ -170,7 +188,7 @@ class ID3D11Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-getfeaturemask
      */
     GetFeatureMask() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -203,7 +221,7 @@ class ID3D11Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-getpresentperrenderopdelay
      */
     GetPresentPerRenderOpDelay() {
-        result := ComCall(6, this, "uint")
+        result := ComCall(6, this, UInt32)
         return result
     }
 
@@ -271,7 +289,7 @@ class ID3D11Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-reportlivedeviceobjects
      */
     ReportLiveDeviceObjects(Flags) {
-        result := ComCall(10, this, "int", Flags, "HRESULT")
+        result := ComCall(10, this, D3D11_RLDO_FLAGS, Flags, "HRESULT")
         return result
     }
 
@@ -290,5 +308,41 @@ class ID3D11Debug extends IUnknown {
     ValidateContextForDispatch(pContext) {
         result := ComCall(11, this, "ptr", pContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11Debug.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFeatureMask := CallbackCreate(GetMethod(implObj, "SetFeatureMask"), flags, 2)
+        this.vtbl.GetFeatureMask := CallbackCreate(GetMethod(implObj, "GetFeatureMask"), flags, 1)
+        this.vtbl.SetPresentPerRenderOpDelay := CallbackCreate(GetMethod(implObj, "SetPresentPerRenderOpDelay"), flags, 2)
+        this.vtbl.GetPresentPerRenderOpDelay := CallbackCreate(GetMethod(implObj, "GetPresentPerRenderOpDelay"), flags, 1)
+        this.vtbl.SetSwapChain := CallbackCreate(GetMethod(implObj, "SetSwapChain"), flags, 2)
+        this.vtbl.GetSwapChain := CallbackCreate(GetMethod(implObj, "GetSwapChain"), flags, 2)
+        this.vtbl.ValidateContext := CallbackCreate(GetMethod(implObj, "ValidateContext"), flags, 2)
+        this.vtbl.ReportLiveDeviceObjects := CallbackCreate(GetMethod(implObj, "ReportLiveDeviceObjects"), flags, 2)
+        this.vtbl.ValidateContextForDispatch := CallbackCreate(GetMethod(implObj, "ValidateContextForDispatch"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFeatureMask)
+        CallbackFree(this.vtbl.GetFeatureMask)
+        CallbackFree(this.vtbl.SetPresentPerRenderOpDelay)
+        CallbackFree(this.vtbl.GetPresentPerRenderOpDelay)
+        CallbackFree(this.vtbl.SetSwapChain)
+        CallbackFree(this.vtbl.GetSwapChain)
+        CallbackFree(this.vtbl.ValidateContext)
+        CallbackFree(this.vtbl.ReportLiveDeviceObjects)
+        CallbackFree(this.vtbl.ValidateContextForDispatch)
     }
 }

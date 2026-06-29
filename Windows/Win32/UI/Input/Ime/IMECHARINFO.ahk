@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMECHARINFO extends Win32Struct {
-    static sizeof => 8
+export default struct IMECHARINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    wch : Int8
 
-    /**
-     * @type {Integer}
-     */
-    wch {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    dwCharInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCharInfo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\THUMBBUTTONMASK.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\THUMBBUTTONFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\THUMBBUTTONMASK.ahk" { THUMBBUTTONMASK }
+#Import ".\THUMBBUTTONFLAGS.ahk" { THUMBBUTTONFLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used by methods of the ITaskbarList3 interface to define buttons used in a toolbar embedded in a window's thumbnail representation.
@@ -28,77 +28,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-thumbbutton
  * @namespace Windows.Win32.UI.Shell
  */
-class THUMBBUTTON extends Win32Struct {
-    static sizeof => 552
-
-    static packingSize => 8
+export default struct THUMBBUTTON {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonmask">THUMBBUTTONMASK</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonmask">THUMBBUTTONMASK</a> values that specify which members of this structure contain valid data; other members are ignored, with the exception of <b>iId</b>, which is always required.
-     * @type {THUMBBUTTONMASK}
      */
-    dwMask {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwMask : THUMBBUTTONMASK
 
     /**
      * Type: <b>UINT</b>
      * 
      * The application-defined identifier of the button, unique within the toolbar.
-     * @type {Integer}
      */
-    iId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    iId : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * The zero-based index of the button image within the image list set through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbarsetimagelist">ITaskbarList3::ThumbBarSetImageList</a>.
-     * @type {Integer}
      */
-    iBitmap {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    iBitmap : UInt32
 
     /**
      * Type: <b>HICON</b>
      * 
      * The handle of an icon to use as the button image.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(16, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>WCHAR[260]</b>
      * 
      * A wide character array that contains the text of the button's tooltip, displayed when the mouse pointer hovers over the button.
-     * @type {String}
      */
-    szTip {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
-    }
+    szTip : WCHAR[260]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonflags">THUMBBUTTONFLAGS</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonflags">THUMBBUTTONFLAGS</a> values that control specific states and behaviors of the button.
-     * @type {THUMBBUTTONFLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 544, "int")
-        set => NumPut("int", value, this, 544)
-    }
+    dwFlags : THUMBBUTTONFLAGS
+
 }

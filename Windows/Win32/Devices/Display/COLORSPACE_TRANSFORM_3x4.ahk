@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GAMMA_RAMP_RGB.ahk" { GAMMA_RAMP_RGB }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class COLORSPACE_TRANSFORM_3x4 extends Win32Struct {
-    static sizeof => 49204
+export default struct COLORSPACE_TRANSFORM_3x4 {
+    #StructPack 4
 
-    static packingSize => 4
+    ColorMatrix3x4 : Float32[12]
 
-    /**
-     * @type {Array<Float>}
-     */
-    ColorMatrix3x4 {
-        get {
-            if(!this.HasProp("__ColorMatrix3x4ProxyArray"))
-                this.__ColorMatrix3x4ProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "float")
-            return this.__ColorMatrix3x4ProxyArray
-        }
-    }
+    ScalarMultiplier : Float32
 
-    /**
-     * @type {Float}
-     */
-    ScalarMultiplier {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
+    LookupTable1D : GAMMA_RAMP_RGB[4096]
 
-    /**
-     * @type {GAMMA_RAMP_RGB}
-     */
-    LookupTable1D {
-        get {
-            if(!this.HasProp("__LookupTable1DProxyArray"))
-                this.__LookupTable1DProxyArray := Win32FixedArray(this.ptr + 52, 4096, GAMMA_RAMP_RGB, "")
-            return this.__LookupTable1DProxyArray
-        }
-    }
 }

@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INetCfgComponent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OBO_TOKEN.ahk" { OBO_TOKEN }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class INetCfgClassSetup extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetCfgClassSetup extends IUnknown {
     /**
      * The interface identifier for INetCfgClassSetup
      * @type {Guid}
      */
-    static IID => Guid("{c0e8ae9d-306e-11d1-aacf-00805fc1270e}")
+    static IID := Guid("{c0e8ae9d-306e-11d1-aacf-00805fc1270e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetCfgClassSetup interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SelectAndInstall : IntPtr
+        Install          : IntPtr
+        DeInstall        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SelectAndInstall", "Install", "DeInstall"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetCfgClassSetup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,9 +48,7 @@ class INetCfgClassSetup extends IUnknown {
      * @returns {INetCfgComponent} 
      */
     SelectAndInstall(hwndParent, pOboToken) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", pOboToken, "ptr*", &ppnccItem := 0, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, OBO_TOKEN.Ptr, pOboToken, "ptr*", &ppnccItem := 0, "HRESULT")
         return INetCfgComponent(ppnccItem)
     }
 
@@ -62,7 +73,7 @@ class INetCfgClassSetup extends IUnknown {
         pszwAnswerFile := pszwAnswerFile is String ? StrPtr(pszwAnswerFile) : pszwAnswerFile
         pszwAnswerSections := pszwAnswerSections is String ? StrPtr(pszwAnswerSections) : pszwAnswerSections
 
-        result := ComCall(4, this, "ptr", pszwInfId, "ptr", pOboToken, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszwInfId, OBO_TOKEN.Ptr, pOboToken, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
         return INetCfgComponent(ppnccItem)
     }
 
@@ -76,7 +87,31 @@ class INetCfgClassSetup extends IUnknown {
     DeInstall(pComponent, pOboToken, pmszwRefs) {
         pmszwRefsMarshal := pmszwRefs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pComponent, "ptr", pOboToken, pmszwRefsMarshal, pmszwRefs, "HRESULT")
+        result := ComCall(5, this, "ptr", pComponent, OBO_TOKEN.Ptr, pOboToken, pmszwRefsMarshal, pmszwRefs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetCfgClassSetup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SelectAndInstall := CallbackCreate(GetMethod(implObj, "SelectAndInstall"), flags, 4)
+        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 8)
+        this.vtbl.DeInstall := CallbackCreate(GetMethod(implObj, "DeInstall"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SelectAndInstall)
+        CallbackFree(this.vtbl.Install)
+        CallbackFree(this.vtbl.DeInstall)
     }
 }

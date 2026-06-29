@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\CATEGORYINFO.ahk" { CATEGORYINFO }
 
 /**
  * Provides methods for registering and unregistering component category information in the registry. This includes both the human-readable names of categories and the categories implemented/required by a given component or class.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-icatregister
  * @namespace Windows.Win32.System.Com
  */
-class ICatRegister extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICatRegister extends IUnknown {
     /**
      * The interface identifier for ICatRegister
      * @type {Guid}
      */
-    static IID => Guid("{0002e012-0000-0000-c000-000000000046}")
+    static IID := Guid("{0002e012-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICatRegister interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterCategories            : IntPtr
+        UnRegisterCategories          : IntPtr
+        RegisterClassImplCategories   : IntPtr
+        UnRegisterClassImplCategories : IntPtr
+        RegisterClassReqCategories    : IntPtr
+        UnRegisterClassReqCategories  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterCategories", "UnRegisterCategories", "RegisterClassImplCategories", "UnRegisterClassImplCategories", "RegisterClassReqCategories", "UnRegisterClassReqCategories"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICatRegister.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers one or more component categories. Each component category consists of a CATID and a list of locale-dependent description strings.
@@ -68,7 +82,7 @@ class ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-registercategories
      */
     RegisterCategories(cCategories, rgCategoryInfo) {
-        result := ComCall(3, this, "uint", cCategories, "ptr", rgCategoryInfo, "HRESULT")
+        result := ComCall(3, this, "uint", cCategories, CATEGORYINFO.Ptr, rgCategoryInfo, "HRESULT")
         return result
     }
 
@@ -113,7 +127,7 @@ class ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-unregistercategories
      */
     UnRegisterCategories(cCategories, rgcatid) {
-        result := ComCall(4, this, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(4, this, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -157,7 +171,7 @@ class ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-registerclassimplcategories
      */
     RegisterClassImplCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(5, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -201,7 +215,7 @@ class ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-unregisterclassimplcategories
      */
     UnRegisterClassImplCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(6, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -245,7 +259,7 @@ class ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-registerclassreqcategories
      */
     RegisterClassReqCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(7, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -289,7 +303,37 @@ class ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-unregisterclassreqcategories
      */
     UnRegisterClassReqCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(8, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICatRegister.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterCategories := CallbackCreate(GetMethod(implObj, "RegisterCategories"), flags, 3)
+        this.vtbl.UnRegisterCategories := CallbackCreate(GetMethod(implObj, "UnRegisterCategories"), flags, 3)
+        this.vtbl.RegisterClassImplCategories := CallbackCreate(GetMethod(implObj, "RegisterClassImplCategories"), flags, 4)
+        this.vtbl.UnRegisterClassImplCategories := CallbackCreate(GetMethod(implObj, "UnRegisterClassImplCategories"), flags, 4)
+        this.vtbl.RegisterClassReqCategories := CallbackCreate(GetMethod(implObj, "RegisterClassReqCategories"), flags, 4)
+        this.vtbl.UnRegisterClassReqCategories := CallbackCreate(GetMethod(implObj, "UnRegisterClassReqCategories"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterCategories)
+        CallbackFree(this.vtbl.UnRegisterCategories)
+        CallbackFree(this.vtbl.RegisterClassImplCategories)
+        CallbackFree(this.vtbl.UnRegisterClassImplCategories)
+        CallbackFree(this.vtbl.RegisterClassReqCategories)
+        CallbackFree(this.vtbl.UnRegisterClassReqCategories)
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information used when loading or unloading a user profile. (Unicode)
@@ -24,99 +24,63 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset Unicode
  */
-class PROFILEINFOW extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct PROFILEINFOW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member can be one of the following flags:
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the name of the user. This member is used as the base name of the directory in which to store a new profile.
-     * @type {PWSTR}
      */
-    lpUserName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpUserName : PWSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb776897(v=vs.85)">roaming user profile</a> path. If the user does not have a roaming profile, this member can be <b>NULL</b>. To retrieve the user's roaming profile path, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> function, specifying information level 3 or 4. For more information, see Remarks.
-     * @type {PWSTR}
      */
-    lpProfilePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpProfilePath : PWSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the default user profile path. This member can be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    lpDefaultPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpDefaultPath : PWSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the name of the validating domain controller, in NetBIOS format.
-     * @type {PWSTR}
      */
-    lpServerName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpServerName : PWSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * Not used, set to <b>NULL</b>.
-     * @type {PWSTR}
      */
-    lpPolicyPath {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpPolicyPath : PWSTR
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * A handle to the <b>HKEY_CURRENT_USER</b> registry subtree. For more information, see Remarks.
-     * @type {HANDLE}
      */
-    hProfile {
-        get {
-            if(!this.HasProp("__hProfile"))
-                this.__hProfile := HANDLE(48, this)
-            return this.__hProfile
-        }
-    }
+    hProfile : HANDLE
+
 }

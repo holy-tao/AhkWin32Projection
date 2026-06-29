@@ -1,459 +1,123 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_599 extends Win32Struct {
-    static sizeof => 232
+export default struct SERVER_INFO_599 {
+    #StructPack 8
 
-    static packingSize => 8
+    sv599_sessopens : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_sessopens {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sv599_sessvcs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_sessvcs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    sv599_opensearch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_opensearch {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    sv599_sizreqbuf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_sizreqbuf {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    sv599_initworkitems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_initworkitems {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sv599_maxworkitems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxworkitems {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    sv599_rawworkitems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_rawworkitems {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sv599_irpstacksize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_irpstacksize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    sv599_maxrawbuflen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxrawbuflen {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    sv599_sessusers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_sessusers {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    sv599_sessconns : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_sessconns {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    sv599_maxpagedmemoryusage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxpagedmemoryusage {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    sv599_maxnonpagedmemoryusage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxnonpagedmemoryusage {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    sv599_enablesoftcompat : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enablesoftcompat {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    sv599_enableforcedlogoff : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enableforcedlogoff {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    sv599_timesource : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_timesource {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    sv599_acceptdownlevelapis : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_acceptdownlevelapis {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    sv599_lmannounce : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_lmannounce {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    sv599_domain : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    sv599_domain {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    sv599_maxcopyreadlen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxcopyreadlen {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    sv599_maxcopywritelen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxcopywritelen {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    sv599_minkeepsearch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_minkeepsearch {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    sv599_maxkeepsearch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxkeepsearch {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    sv599_minkeepcomplsearch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_minkeepcomplsearch {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    sv599_maxkeepcomplsearch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxkeepcomplsearch {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    sv599_threadcountadd : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_threadcountadd {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    sv599_numblockthreads : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_numblockthreads {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    sv599_scavtimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_scavtimeout {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    sv599_minrcvqueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_minrcvqueue {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    sv599_minfreeworkitems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_minfreeworkitems {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    sv599_xactmemsize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_xactmemsize {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    sv599_threadpriority : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_threadpriority {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    sv599_maxmpxct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxmpxct {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    sv599_oplockbreakwait : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_oplockbreakwait {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    sv599_oplockbreakresponsewait : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_oplockbreakresponsewait {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    sv599_enableoplocks : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enableoplocks {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
-    }
+    sv599_enableoplockforceclose : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enableoplockforceclose {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
-    }
+    sv599_enablefcbopens : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enablefcbopens {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
-    }
+    sv599_enableraw : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enableraw {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
-    }
+    sv599_enablesharednetdrives : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv599_enablesharednetdrives {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
-    }
+    sv599_minfreeconnections : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_minfreeconnections {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    sv599_maxfreeconnections : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxfreeconnections {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    sv599_initsesstable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_initsesstable {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    sv599_initconntable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_initconntable {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    sv599_initfiletable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_initfiletable {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    sv599_initsearchtable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_initsearchtable {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    sv599_alertschedule : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_alertschedule {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    sv599_errorthreshold : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_errorthreshold {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    sv599_networkerrorthreshold : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_networkerrorthreshold {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    sv599_diskspacethreshold : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_diskspacethreshold {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    sv599_reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_reserved {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    sv599_maxlinkdelay : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxlinkdelay {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    sv599_minlinkthroughput : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_minlinkthroughput {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    sv599_linkinfovalidtime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_linkinfovalidtime {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    sv599_scavqosinfoupdatetime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_scavqosinfoupdatetime {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    sv599_maxworkitemidletime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv599_maxworkitemidletime {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
 }

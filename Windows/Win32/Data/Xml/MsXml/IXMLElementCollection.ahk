@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Supports collection of XML elements for indexed access.
  * @see https://learn.microsoft.com/windows/win32/api/msxml/nn-msxml-ixmlelementcollection
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLElementCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXMLElementCollection extends IDispatch {
     /**
      * The interface identifier for IXMLElementCollection
      * @type {Guid}
      */
-    static IID => Guid("{65725580-9b5d-11d0-9bfe-00c04fc99c8e}")
+    static IID := Guid("{65725580-9b5d-11d0-9bfe-00c04fc99c8e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLElementCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_length   : IntPtr
+        get_length   : IntPtr
+        get__newEnum : IntPtr
+        item         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_length", "get_length", "get__newEnum", "item"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLElementCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -86,7 +98,33 @@ class IXMLElementCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-item
      */
     item(var1, var2) {
-        result := ComCall(10, this, "ptr", var1, "ptr", var2, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT, var1, VARIANT, var2, "ptr*", &ppDisp := 0, "HRESULT")
         return IDispatch(ppDisp)
+    }
+
+    Query(iid) {
+        if (IXMLElementCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_length := CallbackCreate(GetMethod(implObj, "put_length"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_length)
+        CallbackFree(this.vtbl.get_length)
+        CallbackFree(this.vtbl.get__newEnum)
+        CallbackFree(this.vtbl.item)
     }
 }

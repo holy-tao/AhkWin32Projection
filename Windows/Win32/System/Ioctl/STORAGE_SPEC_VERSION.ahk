@@ -1,69 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Storage specification version.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_spec_version
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_SPEC_VERSION extends Win32Struct {
-    static sizeof => 8
+export default struct STORAGE_SPEC_VERSION {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _MinorVersion_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
+    struct _MinorVersion {
+        SubMinor : Int8
 
-        /**
-         * @type {Integer}
-         */
-        SubMinor {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        Minor : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Minor {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_MinorVersion_e__Union}
-     */
-    MinorVersion {
-        get {
-            if(!this.HasProp("__MinorVersion"))
-                this.__MinorVersion := STORAGE_SPEC_VERSION._MinorVersion_e__Union(0, this)
-            return this.__MinorVersion
-        }
-    }
+    MinorVersion : STORAGE_SPEC_VERSION._MinorVersion
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    MajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

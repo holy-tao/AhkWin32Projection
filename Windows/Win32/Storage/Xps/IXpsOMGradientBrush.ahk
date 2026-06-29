@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMBrush.ahk
-#Include .\IXpsOMGradientStopCollection.ahk
-#Include .\IXpsOMMatrixTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_SPREAD_METHOD.ahk" { XPS_SPREAD_METHOD }
+#Import ".\IXpsOMGradientStopCollection.ahk" { IXpsOMGradientStopCollection }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XPS_COLOR_INTERPOLATION.ahk" { XPS_COLOR_INTERPOLATION }
 
 /**
  * This interface describes a gradient that is made up of gradient stops. Classes that inherit from IXpsOMGradientBrush specify different ways of interpreting gradient stops.
@@ -25,26 +29,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientbrush
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMGradientBrush extends IXpsOMBrush {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMGradientBrush extends IXpsOMBrush {
     /**
      * The interface identifier for IXpsOMGradientBrush
      * @type {Guid}
      */
-    static IID => Guid("{edb59622-61a2-42c3-bace-acf2286c06bf}")
+    static IID := Guid("{edb59622-61a2-42c3-bace-acf2286c06bf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMGradientBrush interfaces
+    */
+    struct Vtbl extends IXpsOMBrush.Vtbl {
+        GetGradientStops          : IntPtr
+        GetTransform              : IntPtr
+        GetTransformLocal         : IntPtr
+        SetTransformLocal         : IntPtr
+        GetTransformLookup        : IntPtr
+        SetTransformLookup        : IntPtr
+        GetSpreadMethod           : IntPtr
+        SetSpreadMethod           : IntPtr
+        GetColorInterpolationMode : IntPtr
+        SetColorInterpolationMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGradientStops", "GetTransform", "GetTransformLocal", "SetTransformLocal", "GetTransformLookup", "SetTransformLookup", "GetSpreadMethod", "SetSpreadMethod", "GetColorInterpolationMode", "SetColorInterpolationMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMGradientBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to an IXpsOMGradientStopCollection interface that contains the collection of IXpsOMGradientStop interfaces that define the gradient.
@@ -341,7 +361,7 @@ class IXpsOMGradientBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(11, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -532,7 +552,7 @@ class IXpsOMGradientBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setspreadmethod
      */
     SetSpreadMethod(spreadMethod) {
-        result := ComCall(14, this, "int", spreadMethod, "HRESULT")
+        result := ComCall(14, this, XPS_SPREAD_METHOD, spreadMethod, "HRESULT")
         return result
     }
 
@@ -553,7 +573,45 @@ class IXpsOMGradientBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setcolorinterpolationmode
      */
     SetColorInterpolationMode(colorInterpolationMode) {
-        result := ComCall(16, this, "int", colorInterpolationMode, "HRESULT")
+        result := ComCall(16, this, XPS_COLOR_INTERPOLATION, colorInterpolationMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMGradientBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGradientStops := CallbackCreate(GetMethod(implObj, "GetGradientStops"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.GetSpreadMethod := CallbackCreate(GetMethod(implObj, "GetSpreadMethod"), flags, 2)
+        this.vtbl.SetSpreadMethod := CallbackCreate(GetMethod(implObj, "SetSpreadMethod"), flags, 2)
+        this.vtbl.GetColorInterpolationMode := CallbackCreate(GetMethod(implObj, "GetColorInterpolationMode"), flags, 2)
+        this.vtbl.SetColorInterpolationMode := CallbackCreate(GetMethod(implObj, "SetColorInterpolationMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGradientStops)
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.GetTransformLocal)
+        CallbackFree(this.vtbl.SetTransformLocal)
+        CallbackFree(this.vtbl.GetTransformLookup)
+        CallbackFree(this.vtbl.SetTransformLookup)
+        CallbackFree(this.vtbl.GetSpreadMethod)
+        CallbackFree(this.vtbl.SetSpreadMethod)
+        CallbackFree(this.vtbl.GetColorInterpolationMode)
+        CallbackFree(this.vtbl.SetColorInterpolationMode)
     }
 }

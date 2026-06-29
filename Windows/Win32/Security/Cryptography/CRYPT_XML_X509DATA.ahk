@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_X509DATA_ITEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_XML_X509DATA_ITEM.ahk" { CRYPT_XML_X509DATA_ITEM }
 
 /**
  * Represents the sequence of choices in the X509Data element.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_x509data
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_XML_X509DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CRYPT_XML_X509DATA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the buffer pointed to by the <b>rgX509Data</b> member.
-     * @type {Integer}
      */
-    cX509Data {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cX509Data : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_x509data_item">CRYPT_XML_X509DATA_ITEM</a> structure that contains data to encode.
-     * @type {Pointer<CRYPT_XML_X509DATA_ITEM>}
      */
-    rgX509Data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgX509Data : CRYPT_XML_X509DATA_ITEM.Ptr
+
 }

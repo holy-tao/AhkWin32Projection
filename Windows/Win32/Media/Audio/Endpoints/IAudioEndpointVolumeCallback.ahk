@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk" { AUDIO_VOLUME_NOTIFICATION_DATA }
 
 /**
  * The IAudioEndpointVolumeCallback interface provides notifications of changes in the volume level and muting state of an audio endpoint device.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nn-endpointvolume-iaudioendpointvolumecallback
  * @namespace Windows.Win32.Media.Audio.Endpoints
  */
-class IAudioEndpointVolumeCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEndpointVolumeCallback extends IUnknown {
     /**
      * The interface identifier for IAudioEndpointVolumeCallback
      * @type {Guid}
      */
-    static IID => Guid("{657804fa-d6ad-4496-8a60-352752af4f89}")
+    static IID := Guid("{657804fa-d6ad-4496-8a60-352752af4f89}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEndpointVolumeCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnNotify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEndpointVolumeCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnNotify method notifies the client that the volume level or muting state of the audio endpoint device has changed.
@@ -42,7 +51,27 @@ class IAudioEndpointVolumeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumecallback-onnotify
      */
     OnNotify(pNotify) {
-        result := ComCall(3, this, "ptr", pNotify, "HRESULT")
+        result := ComCall(3, this, AUDIO_VOLUME_NOTIFICATION_DATA.Ptr, pNotify, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioEndpointVolumeCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnNotify := CallbackCreate(GetMethod(implObj, "OnNotify"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnNotify)
     }
 }

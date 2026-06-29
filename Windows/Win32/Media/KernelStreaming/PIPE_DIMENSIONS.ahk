@@ -1,45 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_COMPRESSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_COMPRESSION.ahk" { KS_COMPRESSION }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class PIPE_DIMENSIONS extends Win32Struct {
-    static sizeof => 36
+export default struct PIPE_DIMENSIONS {
+    #StructPack 4
 
-    static packingSize => 4
+    AllocatorPin : KS_COMPRESSION
 
-    /**
-     * @type {KS_COMPRESSION}
-     */
-    AllocatorPin {
-        get {
-            if(!this.HasProp("__AllocatorPin"))
-                this.__AllocatorPin := KS_COMPRESSION(0, this)
-            return this.__AllocatorPin
-        }
-    }
+    MaxExpansionPin : KS_COMPRESSION
 
-    /**
-     * @type {KS_COMPRESSION}
-     */
-    MaxExpansionPin {
-        get {
-            if(!this.HasProp("__MaxExpansionPin"))
-                this.__MaxExpansionPin := KS_COMPRESSION(12, this)
-            return this.__MaxExpansionPin
-        }
-    }
+    EndPin : KS_COMPRESSION
 
-    /**
-     * @type {KS_COMPRESSION}
-     */
-    EndPin {
-        get {
-            if(!this.HasProp("__EndPin"))
-                this.__EndPin := KS_COMPRESSION(24, this)
-            return this.__EndPin
-        }
-    }
 }

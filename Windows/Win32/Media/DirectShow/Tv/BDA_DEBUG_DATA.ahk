@@ -1,46 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class BDA_DEBUG_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct BDA_DEBUG_DATA {
+    #StructPack 4
 
-    static packingSize => 8
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uuidDebugDataType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    uuidDebugDataType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    argbDebugData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbDebugData {
-        get {
-            if(!this.HasProp("__argbDebugDataProxyArray"))
-                this.__argbDebugDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
-            return this.__argbDebugDataProxyArray
-        }
-    }
 }

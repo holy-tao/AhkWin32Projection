@@ -1,39 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISWbemQualifier.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISWbemQualifier.ahk" { ISWbemQualifier }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemQualifierSet extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemQualifierSet extends IDispatch {
     /**
      * The interface identifier for ISWbemQualifierSet
      * @type {Guid}
      */
-    static IID => Guid("{9b16ed16-d3df-11d1-8b08-00600806d9b6}")
+    static IID := Guid("{9b16ed16-d3df-11d1-8b08-00600806d9b6}")
 
     /**
      * The class identifier for SWbemQualifierSet
      * @type {Guid}
      */
-    static CLSID => Guid("{04b83d5e-21ae-11d2-8b33-00600806d9b6}")
+    static CLSID := Guid("{04b83d5e-21ae-11d2-8b33-00600806d9b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemQualifierSet interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        Item         : IntPtr
+        get_Count    : IntPtr
+        Add          : IntPtr
+        Remove       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "Item", "get_Count", "Add", "Remove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemQualifierSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -73,7 +88,7 @@ class ISWbemQualifierSet extends IDispatch {
     Item(name, iFlags) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
         return ISWbemQualifier(objWbemQualifier)
     }
 
@@ -87,14 +102,7 @@ class ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varVal 
      * @param {VARIANT_BOOL} bPropagatesToSubclass 
@@ -102,38 +110,52 @@ class ISWbemQualifierSet extends IDispatch {
      * @param {VARIANT_BOOL} bIsOverridable 
      * @param {Integer} iFlags 
      * @returns {ISWbemQualifier} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(strName, varVal, bPropagatesToSubclass, bPropagatesToInstance, bIsOverridable, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varVal, "short", bPropagatesToSubclass, "short", bPropagatesToInstance, "short", bIsOverridable, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, strName, VARIANT.Ptr, varVal, VARIANT_BOOL, bPropagatesToSubclass, VARIANT_BOOL, bPropagatesToInstance, VARIANT_BOOL, bIsOverridable, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
         return ISWbemQualifier(objWbemQualifier)
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(11, this, "ptr", strName, "int", iFlags, "HRESULT")
+        result := ComCall(11, this, BSTR, strName, "int", iFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISWbemQualifierSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 8)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
     }
 }

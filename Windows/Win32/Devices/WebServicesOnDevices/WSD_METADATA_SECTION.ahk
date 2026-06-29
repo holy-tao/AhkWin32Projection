@@ -1,17 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSDXML_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 
 /**
  * Represents a section of metadata in a generic form.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_metadata_section
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_METADATA_SECTION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WSD_METADATA_SECTION {
+    #StructPack 8
 
     /**
      * The format and version of the metadata section.
@@ -53,55 +51,32 @@ class WSD_METADATA_SECTION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PWSTR}
      */
-    Dialect {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Dialect : PWSTR
 
     /**
      * The dialect-specific identifier for the scope/domain/namespace of the metadata section.
-     * @type {PWSTR}
      */
-    Identifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Identifier : PWSTR
 
     /**
      * Reference to a binary representation of the metadata. The type of metadata is specified by <b>Dialect</b>. This member is ignored if <b>Dialect</b> does not have a value of `http://schemas.xmlsoap.org/ws/2006/02/devprof/ThisModel`, `http://schemas.xmlsoap.org/ws/2006/02/devprof/ThisDevice`, or `http://schemas.xmlsoap.org/ws/2006/02/devprof/Relationship`.
-     * @type {Pointer<Void>}
      */
-    Data {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data : IntPtr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a> structure used identify the endpoint from which metadata can be retrieved.
-     * @type {Pointer<WSD_ENDPOINT_REFERENCE>}
      */
-    MetadataReference {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MetadataReference : WSD_ENDPOINT_REFERENCE.Ptr
 
     /**
      * A URI that specifies the location from which metadata can be retrieved.
-     * @type {PWSTR}
      */
-    Location {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Location : PWSTR
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies extension content allowed by the XML <b>ANY</b> keyword.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
-    Any {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Any : WSDXML_ELEMENT.Ptr
+
 }

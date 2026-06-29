@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADSTYPE.ahk
-#Include .\ADSVALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
+#Import ".\ADSVALUE.ahk" { ADSVALUE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used to contain one or more attribute values for use with the IDirectoryObject::CreateDSObject, IDirectoryObject::GetObjectAttributes, or IDirectoryObject::SetObjectAttributes method.
@@ -14,53 +14,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_attr_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_ATTR_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ADS_ATTR_INFO {
+    #StructPack 8
 
     /**
      * The null-terminated Unicode string that contains the attribute name.
-     * @type {PWSTR}
      */
-    pszAttrName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszAttrName : PWSTR
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-attribute-modification-types">ADSI Attribute Modification Types</a> values that determines the type of operation to be performed on the attribute value.
-     * @type {Integer}
      */
-    dwControlCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwControlCode : UInt32
 
     /**
      * A value from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration that indicates the data type of the attribute.
-     * @type {ADSTYPE}
      */
-    dwADsType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    dwADsType : ADSTYPE
 
     /**
      * Pointer to an array of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures that contain values for the attribute.
-     * @type {Pointer<ADSVALUE>}
      */
-    pADsValues {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pADsValues : ADSVALUE.Ptr
 
     /**
      * Size of the <b>pADsValues</b> array.
-     * @type {Integer}
      */
-    dwNumValues {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwNumValues : UInt32
+
 }

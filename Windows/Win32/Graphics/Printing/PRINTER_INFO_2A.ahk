@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEA.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PRINTER\_INFO\_2 structure specifies detailed printer information.
@@ -9,130 +9,73 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset ANSI
  */
-class PRINTER_INFO_2A extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct PRINTER_INFO_2A {
+    #StructPack 8
 
     /**
      * A pointer to a null-terminated string identifying the server that controls the printer. If this string is **NULL**, the printer is controlled locally.
-     * @type {PSTR}
      */
-    pServerName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pServerName : PSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer.
-     * @type {PSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPrinterName : PSTR
 
     /**
      * A pointer to a null-terminated string that identifies the share point for the printer. (This string is used only if the PRINTER\_ATTRIBUTE\_SHARED constant was set for the **Attributes** member.)
-     * @type {PSTR}
      */
-    pShareName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pShareName : PSTR
 
     /**
      * A pointer to a null-terminated string that identifies the port(s) used to transmit data to the printer. If a printer is connected to more than one port, the names of each port must be separated by commas (for example, "LPT1:,LPT2:,LPT3:").
-     * @type {PSTR}
      */
-    pPortName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pPortName : PSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer driver.
-     * @type {PSTR}
      */
-    pDriverName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pDriverName : PSTR
 
     /**
      * A pointer to a null-terminated string that provides a brief description of the printer.
-     * @type {PSTR}
      */
-    pComment {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pComment : PSTR
 
     /**
      * A pointer to a null-terminated string that specifies the physical location of the printer (for example, "Bldg. 38, Room 1164").
-     * @type {PSTR}
      */
-    pLocation {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pLocation : PSTR
 
     /**
      * A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that defines default printer data such as the paper orientation and the resolution.
-     * @type {Pointer<DEVMODEA>}
      */
-    pDevMode {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pDevMode : DEVMODEA.Ptr
 
     /**
      * A pointer to a null-terminated string that specifies the name of the file used to create the separator page. This page is used to separate print jobs sent to the printer.
-     * @type {PSTR}
      */
-    pSepFile {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pSepFile : PSTR
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print processor used by the printer. You can use the [**EnumPrintProcessors**](enumprintprocessors.md) function to obtain a list of print processors installed on a server.
-     * @type {PSTR}
      */
-    pPrintProcessor {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pPrintProcessor : PSTR
 
     /**
      * A pointer to a null-terminated string that specifies the data type used to record the print job. You can use the [**EnumPrintProcessorDatatypes**](enumprintprocessordatatypes.md) function to obtain a list of data types supported by a specific print processor.
-     * @type {PSTR}
      */
-    pDatatype {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pDatatype : PSTR
 
     /**
      * A pointer to a null-terminated string that specifies the default print-processor parameters.
-     * @type {PSTR}
      */
-    pParameters {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pParameters : PSTR
 
     /**
      * A pointer to a [**SECURITY\_DESCRIPTOR**](/windows/desktop/api/winnt/ns-winnt-security_descriptor) structure for the printer. This member may be **NULL**.
-     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
-            return this.__pSecurityDescriptor
-        }
-    }
+    pSecurityDescriptor : PSECURITY_DESCRIPTOR
 
     /**
      * The printer attributes. This member can be any reasonable combination of the following values.
@@ -183,48 +126,28 @@ class PRINTER_INFO_2A extends Win32Struct {
      * | Value                  | Meaning                                                                 |
      * |------------------------|-------------------------------------------------------------------------|
      * | PRINTER\_ATTRIBUTE\_TS | Indicates the printer is currently connected through a terminal server. |
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    Attributes : UInt32
 
     /**
      * A priority value that the spooler uses to route print jobs.
-     * @type {Integer}
      */
-    Priority {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    Priority : UInt32
 
     /**
      * The default priority value assigned to each print job.
-     * @type {Integer}
      */
-    DefaultPriority {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    DefaultPriority : UInt32
 
     /**
      * The earliest time at which the printer will print a job. This value is expressed as minutes elapsed since 12:00 AM GMT (Greenwich Mean Time).
-     * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    StartTime : UInt32
 
     /**
      * The latest time at which the printer will print a job. This value is expressed as minutes elapsed since 12:00 AM GMT (Greenwich Mean Time).
-     * @type {Integer}
      */
-    UntilTime {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    UntilTime : UInt32
 
     /**
      * The printer status. This member can be any reasonable combination of the following values.
@@ -258,28 +181,17 @@ class PRINTER_INFO_2A extends Win32Struct {
      * | PRINTER\_STATUS\_USER\_INTERVENTION | The printer has an error that requires the user to do something. |
      * | PRINTER\_STATUS\_WAITING            | The printer is waiting.                                          |
      * | PRINTER\_STATUS\_WARMING\_UP        | The printer is warming up.                                       |
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    Status : UInt32
 
     /**
      * The number of print jobs that have been queued for the printer.
-     * @type {Integer}
      */
-    cJobs {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    cJobs : UInt32
 
     /**
      * The average number of pages per minute that have been printed on the printer.
-     * @type {Integer}
      */
-    AveragePPM {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    AveragePPM : UInt32
+
 }

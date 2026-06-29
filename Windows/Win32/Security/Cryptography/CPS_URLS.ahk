@@ -1,37 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CPS_URLS extends Win32Struct {
-    static sizeof => 24
+export default struct CPS_URLS {
+    #StructPack 8
 
-    static packingSize => 8
+    pszURL : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszURL {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pAlgorithm : CRYPT_ALGORITHM_IDENTIFIER.Ptr
 
-    /**
-     * @type {Pointer<CRYPT_ALGORITHM_IDENTIFIER>}
-     */
-    pAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDigest : CRYPT_INTEGER_BLOB.Ptr
 
-    /**
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
-     */
-    pDigest {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

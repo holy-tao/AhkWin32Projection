@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfUIElement.ahk
-#Include .\ITfDocumentMgr.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfUIElement.ahk" { ITfUIElement }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has the candidate list UI.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcandidatelistuielement
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfCandidateListUIElement extends ITfUIElement {
-
-    static sizeof => A_PtrSize
+export default struct ITfCandidateListUIElement extends ITfUIElement {
     /**
      * The interface identifier for ITfCandidateListUIElement
      * @type {Guid}
      */
-    static IID => Guid("{ea1ea138-19df-11d7-a6d2-00065b84435c}")
+    static IID := Guid("{ea1ea138-19df-11d7-a6d2-00065b84435c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfCandidateListUIElement interfaces
+    */
+    struct Vtbl extends ITfUIElement.Vtbl {
+        GetUpdatedFlags : IntPtr
+        GetDocumentMgr  : IntPtr
+        GetCount        : IntPtr
+        GetSelection    : IntPtr
+        GetString       : IntPtr
+        GetPageIndex    : IntPtr
+        SetPageIndex    : IntPtr
+        GetCurrentPage  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUpdatedFlags", "GetDocumentMgr", "GetCount", "GetSelection", "GetString", "GetPageIndex", "SetPageIndex", "GetCurrentPage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfCandidateListUIElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfCandidateListUIElement::GetUpdatedFlags method returns the flag that tells which part of this element was updated.
@@ -145,8 +160,8 @@ class ITfCandidateListUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getstring
      */
     GetString(uIndex) {
-        _pstr := BSTR()
-        result := ComCall(11, this, "uint", uIndex, "ptr", _pstr, "HRESULT")
+        _pstr := BSTR.Owned()
+        result := ComCall(11, this, "uint", uIndex, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -268,5 +283,39 @@ class ITfCandidateListUIElement extends ITfUIElement {
     GetCurrentPage() {
         result := ComCall(14, this, "uint*", &puPage := 0, "HRESULT")
         return puPage
+    }
+
+    Query(iid) {
+        if (ITfCandidateListUIElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUpdatedFlags := CallbackCreate(GetMethod(implObj, "GetUpdatedFlags"), flags, 2)
+        this.vtbl.GetDocumentMgr := CallbackCreate(GetMethod(implObj, "GetDocumentMgr"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.GetPageIndex := CallbackCreate(GetMethod(implObj, "GetPageIndex"), flags, 4)
+        this.vtbl.SetPageIndex := CallbackCreate(GetMethod(implObj, "SetPageIndex"), flags, 3)
+        this.vtbl.GetCurrentPage := CallbackCreate(GetMethod(implObj, "GetCurrentPage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUpdatedFlags)
+        CallbackFree(this.vtbl.GetDocumentMgr)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetPageIndex)
+        CallbackFree(this.vtbl.SetPageIndex)
+        CallbackFree(this.vtbl.GetCurrentPage)
     }
 }

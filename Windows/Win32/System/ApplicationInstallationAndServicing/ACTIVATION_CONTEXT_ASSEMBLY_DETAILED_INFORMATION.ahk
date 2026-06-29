@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -80,184 +80,105 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_assembly_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION {
+    #StructPack 8
 
     /**
      * This value is always 0.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : UInt32
 
     /**
      * Length of the encoded assembly identity in bytes.
-     * @type {Integer}
      */
-    ulEncodedAssemblyIdentityLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulEncodedAssemblyIdentityLength : UInt32
 
     /**
      * This value always a constant.
-     * @type {Integer}
      */
-    ulManifestPathType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulManifestPathType : UInt32
 
     /**
      * Length of the assembly manifest path in bytes.
-     * @type {Integer}
      */
-    ulManifestPathLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulManifestPathLength : UInt32
 
     /**
      * The last time the manifest was written. This is in the form of a 
      * <b>FILETIME</b> data structure.
-     * @type {Integer}
      */
-    liManifestLastWriteTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    liManifestLastWriteTime : Int64
 
     /**
      * This value always a constant.
-     * @type {Integer}
      */
-    ulPolicyPathType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulPolicyPathType : UInt32
 
     /**
      * Length of the publisher policy path in bytes.
-     * @type {Integer}
      */
-    ulPolicyPathLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulPolicyPathLength : UInt32
 
     /**
      * The last time the policy was written. This is in the form of a 
      * <b>FILETIME</b> data structure.
-     * @type {Integer}
      */
-    liPolicyLastWriteTime {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    liPolicyLastWriteTime : Int64
 
     /**
      * Metadata satellite roster index.
-     * @type {Integer}
      */
-    ulMetadataSatelliteRosterIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulMetadataSatelliteRosterIndex : UInt32
 
     /**
      * Major version of the assembly queried by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryactctxw">QueryActCtxW</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SbsCs/assembly-versions">Assembly Versions</a>.
-     * @type {Integer}
      */
-    ulManifestVersionMajor {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulManifestVersionMajor : UInt32
 
     /**
      * Minor version of the assembly queried by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryactctxw">QueryActCtxW</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SbsCs/assembly-versions">Assembly Versions</a>.
-     * @type {Integer}
      */
-    ulManifestVersionMinor {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulManifestVersionMinor : UInt32
 
     /**
      * Major version of any policy, if one exists.
-     * @type {Integer}
      */
-    ulPolicyVersionMajor {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ulPolicyVersionMajor : UInt32
 
     /**
      * Minor version of any policy, if one exists.
-     * @type {Integer}
      */
-    ulPolicyVersionMinor {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulPolicyVersionMinor : UInt32
 
     /**
      * Length of the assembly directory name in bytes.
-     * @type {Integer}
      */
-    ulAssemblyDirectoryNameLength {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ulAssemblyDirectoryNameLength : UInt32
 
     /**
      * Pointer to a null-terminated string that contains a textually-encoded format of the assembly's identity.
-     * @type {PWSTR}
      */
-    lpAssemblyEncodedAssemblyIdentity {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpAssemblyEncodedAssemblyIdentity : PWSTR
 
     /**
      * Pointer to a null-terminated string that indicates the original path to this assembly's manifest.
-     * @type {PWSTR}
      */
-    lpAssemblyManifestPath {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpAssemblyManifestPath : PWSTR
 
     /**
      * Pointer to a null-terminated string that indicates the path of whatever policy assembly was used to determine that this version of the assembly should be loaded. If this member is null, no policy was used to decide to load this version.
-     * @type {PWSTR}
      */
-    lpAssemblyPolicyPath {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpAssemblyPolicyPath : PWSTR
 
     /**
      * Pointer to a null-terminated string that indicates the folder from which this assembly was loaded.
-     * @type {PWSTR}
      */
-    lpAssemblyDirectoryName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpAssemblyDirectoryName : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    ulFileCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ulFileCount : UInt32
+
 }

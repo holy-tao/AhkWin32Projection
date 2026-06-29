@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USE_INFO_ASG_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
 
 /**
  * The USE_INFO_2 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, and domain name.
@@ -10,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USE_INFO_2 extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct USE_INFO_2 {
+    #StructPack 8
 
     /**
      * Type: <b>LMSTR</b>
@@ -21,12 +19,8 @@ class USE_INFO_2 extends Win32Struct {
      * A pointer to a string that contains the local device name (for example, drive E or LPT1) being redirected to the shared resource. The constant DEVLEN specifies the maximum number of characters in the string. This member can be <b>NULL</b>. For more information, see the following Remarks section.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui2_local {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ui2_local : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -43,12 +37,8 @@ class USE_INFO_2 extends Win32Struct {
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui2_remote {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ui2_remote : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -56,12 +46,8 @@ class USE_INFO_2 extends Win32Struct {
      * A pointer to a string that contains the password needed to establish a session with a specific workstation.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui2_password {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ui2_password : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -147,44 +133,28 @@ class USE_INFO_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ui2_status {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ui2_status : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {USE_INFO_ASG_TYPE}
      */
-    ui2_asg_type {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ui2_asg_type : USE_INFO_ASG_TYPE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of files, directories, and other processes that are open on the remote resource. This element is not used by the 
      * <b>NetUseAdd</b> function.
-     * @type {Integer}
      */
-    ui2_refcount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ui2_refcount : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of explicit connections (redirection with a local device name) or implicit UNC connections (redirection without a local device name) that are established with the resource.
-     * @type {Integer}
      */
-    ui2_usecount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ui2_usecount : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
@@ -192,12 +162,8 @@ class USE_INFO_2 extends Win32Struct {
      * A pointer to a string that contains the name of the user who initiated the connection.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui2_username {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ui2_username : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -205,10 +171,7 @@ class USE_INFO_2 extends Win32Struct {
      * A pointer to a string that contains the domain name of the remote resource.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    ui2_domainname {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ui2_domainname : PWSTR
+
 }

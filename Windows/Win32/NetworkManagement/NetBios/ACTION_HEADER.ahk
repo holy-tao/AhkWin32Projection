@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ACTION_HEADER structure contains information about an action. This action is an extension to the standard transport interface.
@@ -26,37 +25,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-action_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
  */
-class ACTION_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct ACTION_HEADER {
+    #StructPack 4
 
     /**
      * Specifies the transport provider. This member can be used to check the validity of the request by the transport.
      * 
      * This member is always a four-character string. All strings starting with the letter M are reserved, as shown in the following example.
-     * @type {Integer}
      */
-    transport_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    transport_id : UInt32
 
     /**
      * Specifies the action.
-     * @type {Integer}
      */
-    action_code {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    action_code : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    reserved : UInt16
+
 }

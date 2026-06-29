@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IWTSProtocolShadowCallback is no longer available. Instead, use IWRdsProtocolShadowCallback.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolshadowcallback
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWTSProtocolShadowCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWTSProtocolShadowCallback extends IUnknown {
     /**
      * The interface identifier for IWTSProtocolShadowCallback
      * @type {Guid}
      */
-    static IID => Guid("{503a2504-aae5-4ab1-93e0-6d1c4bc6f71a}")
+    static IID := Guid("{503a2504-aae5-4ab1-93e0-6d1c4bc6f71a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWTSProtocolShadowCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StopShadow         : IntPtr
+        InvokeTargetShadow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StopShadow", "InvokeTargetShadow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWTSProtocolShadowCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IWTSProtocolShadowCallback::StopShadow is no longer available. Instead, use IWRdsProtocolShadowCallback::StopShadow.
@@ -72,5 +82,27 @@ class IWTSProtocolShadowCallback extends IUnknown {
 
         result := ComCall(4, this, "ptr", pTargetServerName, "uint", TargetSessionId, pParam1Marshal, pParam1, "uint", Param1Size, pParam2Marshal, pParam2, "uint", Param2Size, pParam3Marshal, pParam3, "uint", Param3Size, pParam4Marshal, pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWTSProtocolShadowCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StopShadow := CallbackCreate(GetMethod(implObj, "StopShadow"), flags, 1)
+        this.vtbl.InvokeTargetShadow := CallbackCreate(GetMethod(implObj, "InvokeTargetShadow"), flags, 12)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StopShadow)
+        CallbackFree(this.vtbl.InvokeTargetShadow)
     }
 }

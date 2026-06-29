@@ -1,7 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\MF_OBJECT_TYPE.ahk" { MF_OBJECT_TYPE }
 
 /**
  * Enables an application to load media resources in the Media Engine.
@@ -10,26 +18,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineextension
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineExtension extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineExtension extends IUnknown {
     /**
      * The interface identifier for IMFMediaEngineExtension
      * @type {Guid}
      */
-    static IID => Guid("{2f69d622-20b5-41e9-afdf-89ced1dda04e}")
+    static IID := Guid("{2f69d622-20b5-41e9-afdf-89ced1dda04e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineExtension interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CanPlayType          : IntPtr
+        BeginCreateObject    : IntPtr
+        CancelObjectCreation : IntPtr
+        EndCreateObject      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CanPlayType", "BeginCreateObject", "CancelObjectCreation", "EndCreateObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries whether the object can load a specified type of media resource.
@@ -43,7 +61,7 @@ class IMFMediaEngineExtension extends IUnknown {
     CanPlayType(AudioOnly, MimeType) {
         MimeType := MimeType is String ? BSTR.Alloc(MimeType).Value : MimeType
 
-        result := ComCall(3, this, "int", AudioOnly, "ptr", MimeType, "int*", &pAnswer := 0, "HRESULT")
+        result := ComCall(3, this, BOOL, AudioOnly, BSTR, MimeType, "int*", &pAnswer := 0, "HRESULT")
         return pAnswer
     }
 
@@ -130,7 +148,7 @@ class IMFMediaEngineExtension extends IUnknown {
     BeginCreateObject(bstrURL, pByteStream, type, pCallback, punkState) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(4, this, "ptr", bstrURL, "ptr", pByteStream, "int", type, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrURL, "ptr", pByteStream, MF_OBJECT_TYPE, type, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return IUnknown(ppIUnknownCancelCookie)
     }
 
@@ -158,5 +176,31 @@ class IMFMediaEngineExtension extends IUnknown {
     EndCreateObject(pResult) {
         result := ComCall(6, this, "ptr", pResult, "ptr*", &ppObject := 0, "HRESULT")
         return IUnknown(ppObject)
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CanPlayType := CallbackCreate(GetMethod(implObj, "CanPlayType"), flags, 4)
+        this.vtbl.BeginCreateObject := CallbackCreate(GetMethod(implObj, "BeginCreateObject"), flags, 7)
+        this.vtbl.CancelObjectCreation := CallbackCreate(GetMethod(implObj, "CancelObjectCreation"), flags, 2)
+        this.vtbl.EndCreateObject := CallbackCreate(GetMethod(implObj, "EndCreateObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CanPlayType)
+        CallbackFree(this.vtbl.BeginCreateObject)
+        CallbackFree(this.vtbl.CancelObjectCreation)
+        CallbackFree(this.vtbl.EndCreateObject)
     }
 }

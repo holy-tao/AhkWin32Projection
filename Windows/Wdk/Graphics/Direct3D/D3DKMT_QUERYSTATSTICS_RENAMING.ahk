@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATSTICS_RENAMING extends Win32Struct {
-    static sizeof => 36
+export default struct D3DKMT_QUERYSTATSTICS_RENAMING {
+    #StructPack 4
 
-    static packingSize => 4
+    NbAllocationsRenamed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationsRenamed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NbAllocationsShrinked : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbAllocationsShrinked {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NbRenamedBuffer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbRenamedBuffer {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxRenamingListLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxRenamingListLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NbFailuresDueToRenamingLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbFailuresDueToRenamingLimit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NbFailuresDueToCreateAllocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbFailuresDueToCreateAllocation {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NbFailuresDueToOpenAllocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbFailuresDueToOpenAllocation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NbFailuresDueToLowResource : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbFailuresDueToLowResource {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    NbFailuresDueToNonRetiredLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NbFailuresDueToNonRetiredLimit {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

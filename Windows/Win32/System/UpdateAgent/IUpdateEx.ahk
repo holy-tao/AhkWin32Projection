@@ -1,36 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUpdate5.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUpdate5.ahk" { IUpdate5 }
 
 /**
- * Represents info about the aspects of search results returned in the ISearchResult object that were incomplete.
- * @remarks
- * The <b>IUpdateException</b> object is returned as part of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-isearchresult-get_warnings">ISearchResult::Warnings</a> property when a search succeeds but can't return complete results. For example, Windows Update might not have been able to retrieve all of the update metadata for a given update from the server. In this situation, the search results returned in the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchresult">ISearchResult</a> object are usable, but they aren't necessarily complete. The properties of the <b>IUpdateException</b> objects that are returned by the <b>ISearchResult::Warnings</b> property contain info about the  aspects of the search that were incomplete. This info is unlikely to be useful programmatically, but can sometimes be useful for debugging.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateexception
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateEx extends IUpdate5 {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateEx extends IUpdate5 {
     /**
      * The interface identifier for IUpdateEx
      * @type {Guid}
      */
-    static IID => Guid("{769355a3-c5a0-497c-a606-560a36d2121c}")
+    static IID := Guid("{769355a3-c5a0-497c-a606-560a36d2121c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 60
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateEx interfaces
+    */
+    struct Vtbl extends IUpdate5.Vtbl {
+        get_ExtendedStaticProperty      : IntPtr
+        EvaluateExtendedDynamicProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ExtendedStaticProperty", "EvaluateExtendedDynamicProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,7 +47,7 @@ class IUpdateEx extends IUpdate5 {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
         retval := VARIANT()
-        result := ComCall(60, this, "ptr", propertyName, "ptr", retval, "HRESULT")
+        result := ComCall(60, this, BSTR, propertyName, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -54,7 +60,29 @@ class IUpdateEx extends IUpdate5 {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
         retval := VARIANT()
-        result := ComCall(61, this, "ptr", propertyName, "ptr", retval, "HRESULT")
+        result := ComCall(61, this, BSTR, propertyName, VARIANT.Ptr, retval, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IUpdateEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ExtendedStaticProperty := CallbackCreate(GetMethod(implObj, "get_ExtendedStaticProperty"), flags, 3)
+        this.vtbl.EvaluateExtendedDynamicProperty := CallbackCreate(GetMethod(implObj, "EvaluateExtendedDynamicProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ExtendedStaticProperty)
+        CallbackFree(this.vtbl.EvaluateExtendedDynamicProperty)
     }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGRLOGERRORINFO.ahk" { SYNCMGRLOGERRORINFO }
+#Import ".\SYNCMGRPROGRESSITEM.ahk" { SYNCMGRPROGRESSITEM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that manage the synchronization process.
@@ -14,26 +19,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrsynchronizecallback
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrSynchronizeCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrSynchronizeCallback extends IUnknown {
     /**
      * The interface identifier for ISyncMgrSynchronizeCallback
      * @type {Guid}
      */
-    static IID => Guid("{6295df41-35ee-11d1-8707-00c04fd93327}")
+    static IID := Guid("{6295df41-35ee-11d1-8707-00c04fd93327}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrSynchronizeCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShowPropertiesCompleted : IntPtr
+        PrepareForSyncCompleted : IntPtr
+        SynchronizeCompleted    : IntPtr
+        ShowErrorCompleted      : IntPtr
+        EnableModeless          : IntPtr
+        Progress                : IntPtr
+        LogError                : IntPtr
+        DeleteLogError          : IntPtr
+        EstablishConnection     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowPropertiesCompleted", "PrepareForSyncCompleted", "SynchronizeCompleted", "ShowErrorCompleted", "EnableModeless", "Progress", "LogError", "DeleteLogError", "EstablishConnection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrSynchronizeCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the registered application's handler before or after its ShowProperties operation is completed.
@@ -199,7 +219,7 @@ class ISyncMgrSynchronizeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-showerrorcompleted
      */
     ShowErrorCompleted(hr, cItems, pItemIDs) {
-        result := ComCall(6, this, "int", hr, "uint", cItems, "ptr", pItemIDs, "HRESULT")
+        result := ComCall(6, this, "int", hr, "uint", cItems, Guid.Ptr, pItemIDs, "HRESULT")
         return result
     }
 
@@ -245,7 +265,7 @@ class ISyncMgrSynchronizeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-enablemodeless
      */
     EnableModeless(fEnable) {
-        result := ComCall(7, this, "int", fEnable, "HRESULT")
+        result := ComCall(7, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -305,7 +325,7 @@ class ISyncMgrSynchronizeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-progress
      */
     Progress(ItemID, pSyncProgressItem) {
-        result := ComCall(8, this, "ptr", ItemID, "ptr", pSyncProgressItem, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, ItemID, SYNCMGRPROGRESSITEM.Ptr, pSyncProgressItem, "HRESULT")
         return result
     }
 
@@ -346,7 +366,7 @@ class ISyncMgrSynchronizeCallback extends IUnknown {
     LogError(dwErrorLevel, pszErrorText, pSyncLogError) {
         pszErrorText := pszErrorText is String ? StrPtr(pszErrorText) : pszErrorText
 
-        result := ComCall(9, this, "uint", dwErrorLevel, "ptr", pszErrorText, "ptr", pSyncLogError, "HRESULT")
+        result := ComCall(9, this, "uint", dwErrorLevel, "ptr", pszErrorText, SYNCMGRLOGERRORINFO.Ptr, pSyncLogError, "HRESULT")
         return result
     }
 
@@ -380,7 +400,7 @@ class ISyncMgrSynchronizeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-deletelogerror
      */
     DeleteLogError(ErrorID, dwReserved) {
-        result := ComCall(10, this, "ptr", ErrorID, "uint", dwReserved, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, ErrorID, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -423,5 +443,41 @@ class ISyncMgrSynchronizeCallback extends IUnknown {
 
         result := ComCall(11, this, "ptr", pwszConnection, "uint", dwReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrSynchronizeCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowPropertiesCompleted := CallbackCreate(GetMethod(implObj, "ShowPropertiesCompleted"), flags, 2)
+        this.vtbl.PrepareForSyncCompleted := CallbackCreate(GetMethod(implObj, "PrepareForSyncCompleted"), flags, 2)
+        this.vtbl.SynchronizeCompleted := CallbackCreate(GetMethod(implObj, "SynchronizeCompleted"), flags, 2)
+        this.vtbl.ShowErrorCompleted := CallbackCreate(GetMethod(implObj, "ShowErrorCompleted"), flags, 4)
+        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.Progress := CallbackCreate(GetMethod(implObj, "Progress"), flags, 3)
+        this.vtbl.LogError := CallbackCreate(GetMethod(implObj, "LogError"), flags, 4)
+        this.vtbl.DeleteLogError := CallbackCreate(GetMethod(implObj, "DeleteLogError"), flags, 3)
+        this.vtbl.EstablishConnection := CallbackCreate(GetMethod(implObj, "EstablishConnection"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowPropertiesCompleted)
+        CallbackFree(this.vtbl.PrepareForSyncCompleted)
+        CallbackFree(this.vtbl.SynchronizeCompleted)
+        CallbackFree(this.vtbl.ShowErrorCompleted)
+        CallbackFree(this.vtbl.EnableModeless)
+        CallbackFree(this.vtbl.Progress)
+        CallbackFree(this.vtbl.LogError)
+        CallbackFree(this.vtbl.DeleteLogError)
+        CallbackFree(this.vtbl.EstablishConnection)
     }
 }

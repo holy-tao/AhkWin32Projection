@@ -1,139 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ARMV8_AARCH32_GPRS extends Win32Struct {
-    static sizeof => 64
+export default struct WHEA_ARMV8_AARCH32_GPRS {
+    #StructPack 4
 
-    static packingSize => 4
+    R0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R0 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    R1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    R2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    R3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R3 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    R4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R4 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    R5 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R5 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    R6 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R6 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    R7 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R7 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    R8 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R8 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    R9 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R9 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    R10 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R10 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    R11 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R11 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    R12 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R12 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    R13 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R13 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    R14 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R14 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    R15 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    R15 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

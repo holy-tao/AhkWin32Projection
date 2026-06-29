@@ -1,49 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_KEY_ALGO_TKIP_MIC extends Win32Struct {
-    static sizeof => 20
+export default struct DOT11_KEY_ALGO_TKIP_MIC {
+    #StructPack 4
 
-    static packingSize => 4
+    ucIV48Counter : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucIV48Counter {
-        get {
-            if(!this.HasProp("__ucIV48CounterProxyArray"))
-                this.__ucIV48CounterProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__ucIV48CounterProxyArray
-        }
-    }
+    ulTKIPKeyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTKIPKeyLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulMICKeyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMICKeyLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ucTKIPMICKeys : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucTKIPMICKeys {
-        get {
-            if(!this.HasProp("__ucTKIPMICKeysProxyArray"))
-                this.__ucTKIPMICKeysProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__ucTKIPMICKeysProxyArray
-        }
-    }
 }

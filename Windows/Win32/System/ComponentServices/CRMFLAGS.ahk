@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides information about when a particular log record to the CRM compensator was written.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-crmflags
  * @namespace Windows.Win32.System.ComponentServices
  */
-class CRMFLAGS extends Win32Enum {
+export default struct CRMFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

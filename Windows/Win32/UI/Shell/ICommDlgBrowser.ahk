@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposed by the common file dialog boxes to be used when they host a Shell browser.
@@ -15,26 +18,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icommdlgbrowser
  * @namespace Windows.Win32.UI.Shell
  */
-class ICommDlgBrowser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICommDlgBrowser extends IUnknown {
     /**
      * The interface identifier for ICommDlgBrowser
      * @type {Guid}
      */
-    static IID => Guid("{000214f1-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214f1-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICommDlgBrowser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDefaultCommand : IntPtr
+        OnStateChange    : IntPtr
+        IncludeObject    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDefaultCommand", "OnStateChange", "IncludeObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICommDlgBrowser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when a user double-clicks in the view or presses the ENTER key.
@@ -98,7 +110,31 @@ class ICommDlgBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser-includeobject
      */
     IncludeObject(ppshv, pidl) {
-        result := ComCall(5, this, "ptr", ppshv, "ptr", pidl, "HRESULT")
+        result := ComCall(5, this, "ptr", ppshv, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICommDlgBrowser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDefaultCommand := CallbackCreate(GetMethod(implObj, "OnDefaultCommand"), flags, 2)
+        this.vtbl.OnStateChange := CallbackCreate(GetMethod(implObj, "OnStateChange"), flags, 3)
+        this.vtbl.IncludeObject := CallbackCreate(GetMethod(implObj, "IncludeObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDefaultCommand)
+        CallbackFree(this.vtbl.OnStateChange)
+        CallbackFree(this.vtbl.IncludeObject)
     }
 }

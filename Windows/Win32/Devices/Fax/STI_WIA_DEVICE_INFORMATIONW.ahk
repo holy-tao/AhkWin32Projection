@@ -1,111 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STI_DEV_CAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\STI_DEV_CAPS.ahk" { STI_DEV_CAPS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct {
-    static sizeof => 328
+export default struct STI_WIA_DEVICE_INFORMATIONW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szDeviceInternalName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szDeviceInternalName {
-        get => StrGet(this.ptr + 8, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 127, "UTF-16")
-    }
+    DeviceCapabilitiesA : STI_DEV_CAPS
 
-    /**
-     * @type {STI_DEV_CAPS}
-     */
-    DeviceCapabilitiesA {
-        get {
-            if(!this.HasProp("__DeviceCapabilitiesA"))
-                this.__DeviceCapabilitiesA := STI_DEV_CAPS(264, this)
-            return this.__DeviceCapabilitiesA
-        }
-    }
+    dwHardwareConfiguration : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHardwareConfiguration {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    pszVendorDescription : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszVendorDescription {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    pszDeviceDescription : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDeviceDescription {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    pszPortName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszPortName {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    pszPropProvider : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszPropProvider {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
-    }
+    pszLocalName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszLocalName {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
+    pszUiDll : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszUiDll {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
-    }
+    pszServer : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszServer {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
-    }
 }

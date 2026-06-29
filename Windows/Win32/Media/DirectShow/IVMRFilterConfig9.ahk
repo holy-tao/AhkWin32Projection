@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVMRImageCompositor9.ahk" { IVMRImageCompositor9 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRFilterConfig9 interface is implemented by the Video Mixing Renderer Filter 9.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrfilterconfig9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRFilterConfig9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRFilterConfig9 extends IUnknown {
     /**
      * The interface identifier for IVMRFilterConfig9
      * @type {Guid}
      */
-    static IID => Guid("{5a804648-4f66-4867-9c43-4f5c822cf1b8}")
+    static IID := Guid("{5a804648-4f66-4867-9c43-4f5c822cf1b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRFilterConfig9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetImageCompositor : IntPtr
+        SetNumberOfStreams : IntPtr
+        GetNumberOfStreams : IntPtr
+        SetRenderingPrefs  : IntPtr
+        GetRenderingPrefs  : IntPtr
+        SetRenderingMode   : IntPtr
+        GetRenderingMode   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetImageCompositor", "SetNumberOfStreams", "GetNumberOfStreams", "SetRenderingPrefs", "GetRenderingPrefs", "SetRenderingMode", "GetRenderingMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRFilterConfig9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetImageCompositor method installs an application-provided image compositor object.
@@ -306,5 +321,37 @@ class IVMRFilterConfig9 extends IUnknown {
     GetRenderingMode() {
         result := ComCall(9, this, "uint*", &pMode := 0, "HRESULT")
         return pMode
+    }
+
+    Query(iid) {
+        if (IVMRFilterConfig9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetImageCompositor := CallbackCreate(GetMethod(implObj, "SetImageCompositor"), flags, 2)
+        this.vtbl.SetNumberOfStreams := CallbackCreate(GetMethod(implObj, "SetNumberOfStreams"), flags, 2)
+        this.vtbl.GetNumberOfStreams := CallbackCreate(GetMethod(implObj, "GetNumberOfStreams"), flags, 2)
+        this.vtbl.SetRenderingPrefs := CallbackCreate(GetMethod(implObj, "SetRenderingPrefs"), flags, 2)
+        this.vtbl.GetRenderingPrefs := CallbackCreate(GetMethod(implObj, "GetRenderingPrefs"), flags, 2)
+        this.vtbl.SetRenderingMode := CallbackCreate(GetMethod(implObj, "SetRenderingMode"), flags, 2)
+        this.vtbl.GetRenderingMode := CallbackCreate(GetMethod(implObj, "GetRenderingMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetImageCompositor)
+        CallbackFree(this.vtbl.SetNumberOfStreams)
+        CallbackFree(this.vtbl.GetNumberOfStreams)
+        CallbackFree(this.vtbl.SetRenderingPrefs)
+        CallbackFree(this.vtbl.GetRenderingPrefs)
+        CallbackFree(this.vtbl.SetRenderingMode)
+        CallbackFree(this.vtbl.GetRenderingMode)
     }
 }

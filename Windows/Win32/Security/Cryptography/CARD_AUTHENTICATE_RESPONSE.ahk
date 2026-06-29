@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CARD_AUTHENTICATE_RESPONSE extends Win32Struct {
-    static sizeof => 16
+export default struct CARD_AUTHENTICATE_RESPONSE {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSessionPin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSessionPin {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cAttemptsRemaining : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cAttemptsRemaining {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pbSessionPin : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbSessionPin {
-        get {
-            if(!this.HasProp("__pbSessionPinProxyArray"))
-                this.__pbSessionPinProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__pbSessionPinProxyArray
-        }
-    }
 }

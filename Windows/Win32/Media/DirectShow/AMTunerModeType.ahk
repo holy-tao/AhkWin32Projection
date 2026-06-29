@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the frequency of a TV tuner (cable or antenna). (AMTunerModeType)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amtunermodetype
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMTunerModeType extends Win32Enum {
+export default struct AMTunerModeType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates default tuner mode.

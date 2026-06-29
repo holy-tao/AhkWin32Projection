@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether a display is showing desktop windows instead of Windows Store apps.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-monitor_app_visibility
  * @namespace Windows.Win32.UI.Shell
  */
-class MONITOR_APP_VISIBILITY extends Win32Enum {
+export default struct MONITOR_APP_VISIBILITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The display state is not known.

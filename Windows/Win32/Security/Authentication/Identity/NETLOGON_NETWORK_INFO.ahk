@@ -1,59 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\NETLOGON_LOGON_IDENTITY_INFO.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\CLEAR_BLOCK.ahk
-#Include .\LSA_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_STRING.ahk" { LSA_STRING }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NETLOGON_LOGON_IDENTITY_INFO.ahk" { NETLOGON_LOGON_IDENTITY_INFO }
+#Import ".\CLEAR_BLOCK.ahk" { CLEAR_BLOCK }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class NETLOGON_NETWORK_INFO extends Win32Struct {
-    static sizeof => 104
+export default struct NETLOGON_NETWORK_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Identity : NETLOGON_LOGON_IDENTITY_INFO
 
-    /**
-     * @type {NETLOGON_LOGON_IDENTITY_INFO}
-     */
-    Identity {
-        get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(0, this)
-            return this.__Identity
-        }
-    }
+    LmChallenge : CLEAR_BLOCK
 
-    /**
-     * @type {CLEAR_BLOCK}
-     */
-    LmChallenge {
-        get {
-            if(!this.HasProp("__LmChallenge"))
-                this.__LmChallenge := CLEAR_BLOCK(64, this)
-            return this.__LmChallenge
-        }
-    }
+    NtChallengeResponse : LSA_STRING
 
-    /**
-     * @type {LSA_STRING}
-     */
-    NtChallengeResponse {
-        get {
-            if(!this.HasProp("__NtChallengeResponse"))
-                this.__NtChallengeResponse := LSA_STRING(72, this)
-            return this.__NtChallengeResponse
-        }
-    }
+    LmChallengeResponse : LSA_STRING
 
-    /**
-     * @type {LSA_STRING}
-     */
-    LmChallengeResponse {
-        get {
-            if(!this.HasProp("__LmChallengeResponse"))
-                this.__LmChallengeResponse := LSA_STRING(88, this)
-            return this.__LmChallengeResponse
-        }
-    }
 }

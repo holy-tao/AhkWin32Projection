@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MSA_INFO_STATE.ahk
-#Include .\MSA_INFO_ACCOUNT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MSA_INFO_ACCOUNT_TYPE.ahk" { MSA_INFO_ACCOUNT_TYPE }
+#Import ".\MSA_INFO_STATE.ahk" { MSA_INFO_STATE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class MSA_INFO_1 extends Win32Struct {
-    static sizeof => 8
+export default struct MSA_INFO_1 {
+    #StructPack 4
 
-    static packingSize => 4
+    State : MSA_INFO_STATE
 
-    /**
-     * @type {MSA_INFO_STATE}
-     */
-    State {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AccountType : MSA_INFO_ACCOUNT_TYPE
 
-    /**
-     * @type {MSA_INFO_ACCOUNT_TYPE}
-     */
-    AccountType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

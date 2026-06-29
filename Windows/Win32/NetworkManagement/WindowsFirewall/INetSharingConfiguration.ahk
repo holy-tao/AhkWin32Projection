@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetSharingPortMappingCollection.ahk
-#Include .\INetSharingPortMapping.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INetSharingPortMapping.ahk" { INetSharingPortMapping }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SHARINGCONNECTIONTYPE.ahk" { SHARINGCONNECTIONTYPE }
+#Import ".\INetSharingPortMappingCollection.ahk" { INetSharingPortMappingCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICS_TARGETTYPE.ahk" { ICS_TARGETTYPE }
+#Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The INetSharingConfiguration interface provides methods to manage connection sharing, port mapping, and Internet Connection Firewall.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingconfiguration
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetSharingConfiguration extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetSharingConfiguration extends IDispatch {
     /**
      * The interface identifier for INetSharingConfiguration
      * @type {Guid}
      */
-    static IID => Guid("{c08956b6-1cd3-11d1-b1c5-00805fc1270e}")
+    static IID := Guid("{c08956b6-1cd3-11d1-b1c5-00805fc1270e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetSharingConfiguration interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_SharingEnabled          : IntPtr
+        get_SharingConnectionType   : IntPtr
+        DisableSharing              : IntPtr
+        EnableSharing               : IntPtr
+        get_InternetFirewallEnabled : IntPtr
+        DisableInternetFirewall     : IntPtr
+        EnableInternetFirewall      : IntPtr
+        get_EnumPortMappings        : IntPtr
+        AddPortMapping              : IntPtr
+        RemovePortMapping           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SharingEnabled", "get_SharingConnectionType", "DisableSharing", "EnableSharing", "get_InternetFirewallEnabled", "DisableInternetFirewall", "EnableInternetFirewall", "get_EnumPortMappings", "AddPortMapping", "RemovePortMapping"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetSharingConfiguration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -65,7 +87,7 @@ class INetSharingConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingenabled
      */
     get_SharingEnabled() {
-        result := ComCall(7, this, "short*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 
@@ -320,7 +342,7 @@ class INetSharingConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-enablesharing
      */
     EnableSharing(Type) {
-        result := ComCall(10, this, "int", Type, "HRESULT")
+        result := ComCall(10, this, SHARINGCONNECTIONTYPE, Type, "HRESULT")
         return result
     }
 
@@ -336,7 +358,7 @@ class INetSharingConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_internetfirewallenabled
      */
     get_InternetFirewallEnabled() {
-        result := ComCall(11, this, "short*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 
@@ -588,7 +610,7 @@ class INetSharingConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings
      */
     get_EnumPortMappings(Flags) {
-        result := ComCall(14, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
+        result := ComCall(14, this, SHARINGCONNECTION_ENUM_FLAGS, Flags, "ptr*", &ppColl := 0, "HRESULT")
         return INetSharingPortMappingCollection(ppColl)
     }
 
@@ -620,7 +642,7 @@ class INetSharingConfiguration extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrTargetNameOrIPAddress := bstrTargetNameOrIPAddress is String ? BSTR.Alloc(bstrTargetNameOrIPAddress).Value : bstrTargetNameOrIPAddress
 
-        result := ComCall(15, this, "ptr", bstrName, "char", ucIPProtocol, "ushort", usExternalPort, "ushort", usInternalPort, "uint", dwOptions, "ptr", bstrTargetNameOrIPAddress, "int", eTargetType, "ptr*", &ppMapping := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrName, "char", ucIPProtocol, "ushort", usExternalPort, "ushort", usInternalPort, "uint", dwOptions, BSTR, bstrTargetNameOrIPAddress, ICS_TARGETTYPE, eTargetType, "ptr*", &ppMapping := 0, "HRESULT")
         return INetSharingPortMapping(ppMapping)
     }
 
@@ -737,5 +759,43 @@ class INetSharingConfiguration extends IDispatch {
     RemovePortMapping(pMapping) {
         result := ComCall(16, this, "ptr", pMapping, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetSharingConfiguration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SharingEnabled := CallbackCreate(GetMethod(implObj, "get_SharingEnabled"), flags, 2)
+        this.vtbl.get_SharingConnectionType := CallbackCreate(GetMethod(implObj, "get_SharingConnectionType"), flags, 2)
+        this.vtbl.DisableSharing := CallbackCreate(GetMethod(implObj, "DisableSharing"), flags, 1)
+        this.vtbl.EnableSharing := CallbackCreate(GetMethod(implObj, "EnableSharing"), flags, 2)
+        this.vtbl.get_InternetFirewallEnabled := CallbackCreate(GetMethod(implObj, "get_InternetFirewallEnabled"), flags, 2)
+        this.vtbl.DisableInternetFirewall := CallbackCreate(GetMethod(implObj, "DisableInternetFirewall"), flags, 1)
+        this.vtbl.EnableInternetFirewall := CallbackCreate(GetMethod(implObj, "EnableInternetFirewall"), flags, 1)
+        this.vtbl.get_EnumPortMappings := CallbackCreate(GetMethod(implObj, "get_EnumPortMappings"), flags, 3)
+        this.vtbl.AddPortMapping := CallbackCreate(GetMethod(implObj, "AddPortMapping"), flags, 9)
+        this.vtbl.RemovePortMapping := CallbackCreate(GetMethod(implObj, "RemovePortMapping"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SharingEnabled)
+        CallbackFree(this.vtbl.get_SharingConnectionType)
+        CallbackFree(this.vtbl.DisableSharing)
+        CallbackFree(this.vtbl.EnableSharing)
+        CallbackFree(this.vtbl.get_InternetFirewallEnabled)
+        CallbackFree(this.vtbl.DisableInternetFirewall)
+        CallbackFree(this.vtbl.EnableInternetFirewall)
+        CallbackFree(this.vtbl.get_EnumPortMappings)
+        CallbackFree(this.vtbl.AddPortMapping)
+        CallbackFree(this.vtbl.RemovePortMapping)
     }
 }

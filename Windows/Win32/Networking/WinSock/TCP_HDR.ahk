@@ -1,56 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TCP_HDR extends Win32Struct {
-    static sizeof => 20
+export default struct TCP_HDR {
+    #StructPack 4
 
-    static packingSize => 4
+    th_sport : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    th_sport {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    th_dport : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    th_dport {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    th_seq : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    th_seq {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    th_ack {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    th_ack : UInt32
 
     /**
      * This bitfield backs the following members:
      * - th_x2
      * - th_len
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -67,36 +37,12 @@ class TCP_HDR extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    th_flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    th_flags {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    th_win : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    th_win {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    th_sum : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    th_sum {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    th_urp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    th_urp {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
 }

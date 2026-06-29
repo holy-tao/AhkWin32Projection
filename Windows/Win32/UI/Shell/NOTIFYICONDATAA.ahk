@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NOTIFY_ICON_DATA_FLAGS.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\NOTIFY_ICON_STATE.ahk
-#Include .\NOTIFY_ICON_INFOTIP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\NOTIFY_ICON_DATA_FLAGS.ahk" { NOTIFY_ICON_DATA_FLAGS }
+#Import ".\NOTIFY_ICON_STATE.ahk" { NOTIFY_ICON_STATE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NOTIFY_ICON_INFOTIP_FLAGS.ahk" { NOTIFY_ICON_INFOTIP_FLAGS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (ANSI)
@@ -25,55 +26,34 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class NOTIFYICONDATAA extends Win32Struct {
-    static sizeof => 520
-
-    static packingSize => 8
+export default struct NOTIFYICONDATAA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives notifications associated with an icon in the notification area.
-     * @type {HWND}
      */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(8, this)
-            return this.__hWnd
-        }
-    }
+    hWnd : HWND
 
     /**
      * Type: <b>UINT</b>
      * 
      * The application-defined identifier of the taskbar icon. The Shell uses either (<b>hWnd</b> plus <b>uID</b>) or <b>guidItem</b> to identify which icon to operate on when <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">Shell_NotifyIcon</a> is invoked. You can have multiple icons associated with a single <b>hWnd</b> by assigning each a different <b>uID</b>. If <b>guidItem</b> is specified, <b>uID</b> is ignored.
-     * @type {Integer}
      */
-    uID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uID : UInt32
 
     /**
      * Type: <b>UINT</b>
-     * @type {NOTIFY_ICON_DATA_FLAGS}
      */
-    uFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uFlags : NOTIFY_ICON_DATA_FLAGS
 
     /**
      * Type: <b>UINT</b>
@@ -96,12 +76,8 @@ class NOTIFYICONDATAA extends Win32Struct {
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/windowsx/nf-windowsx-get_y_lparam">GET_Y_LPARAM(wParam)</a> returns the Y anchor coordinate for notification events and messages as defined for the X anchor.</li>
      * </ul>
-     * @type {Integer}
      */
-    uCallbackMessage {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uCallbackMessage : UInt32
 
     /**
      * Type: <b>HICON</b>
@@ -109,15 +85,8 @@ class NOTIFYICONDATAA extends Win32Struct {
      * A handle to the icon to be added, modified, or deleted. Windows XP and later support icons of up to 32 BPP.
      * 
      * If only a 16x16 pixel icon is provided, it is scaled to a larger size in a system set to a high dpi value. This can lead to an unattractive result. It is recommended that you provide both a 16x16 pixel icon and a 32x32 icon in your resource file. Use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-loadiconmetric">LoadIconMetric</a> to ensure that the correct icon is loaded and scaled appropriately. See Remarks for a code example.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(32, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>TCHAR[64]</b>
@@ -127,81 +96,43 @@ class NOTIFYICONDATAA extends Win32Struct {
      * 
      * 
      * For Windows 2000 and later, <b>szTip</b> can have a maximum of 128 characters, including the terminating null character.
-     * @type {String}
      */
-    szTip {
-        get => StrGet(this.ptr + 40, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 40, 127, "UTF-8")
-    }
+    szTip : CHAR[128]
 
     /**
      * Type: <b>DWORD</b>
-     * @type {NOTIFY_ICON_STATE}
      */
-    dwState {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    dwState : NOTIFY_ICON_STATE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * <b>Windows 2000 and later</b>. A value that specifies which bits of the <b>dwState</b> member are retrieved or modified. The possible values are the same as those for <b>dwState</b>. For example, setting this member to <b>NIS_HIDDEN</b> causes only the item's hidden state to be modified while the icon sharing bit is ignored regardless of its value.
-     * @type {NOTIFY_ICON_STATE}
      */
-    dwStateMask {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    dwStateMask : NOTIFY_ICON_STATE
 
     /**
      * Type: <b>TCHAR[256]</b>
      * 
      * <b>Windows 2000 and later</b>. A null-terminated string that specifies the text to display in a balloon notification. It can have a maximum of 256 characters, including the terminating null character, but should be restricted to 200 characters in English to accommodate localization. To remove the balloon notification from the UI, either delete the icon (with <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">NIM_DELETE</a>) or set the <b>NIF_INFO</b> flag in <b>uFlags</b> and set <b>szInfo</b> to an empty string.
-     * @type {String}
      */
-    szInfo {
-        get => StrGet(this.ptr + 176, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 176, 255, "UTF-8")
-    }
+    szInfo : CHAR[256]
 
-    /**
-     * @type {Integer}
-     */
-    uTimeout {
-        get => NumGet(this, 432, "uint")
-        set => NumPut("uint", value, this, 432)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uVersion {
-        get => NumGet(this, 432, "uint")
-        set => NumPut("uint", value, this, 432)
-    }
+    uTimeout : UInt32
 
     /**
      * Type: <b>TCHAR[64]</b>
      * 
      * <b>Windows 2000 and later</b>. A null-terminated string that specifies a title for a balloon notification. This title appears in a larger font immediately above the text. It can have a maximum of 64 characters, including the terminating null character, but should be restricted to 48 characters in English to accommodate localization.
-     * @type {String}
      */
-    szInfoTitle {
-        get => StrGet(this.ptr + 436, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 436, 63, "UTF-8")
-    }
+    szInfoTitle : CHAR[64]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * <b>Windows 2000 and later</b>. Flags that can be set to modify the behavior and appearance of a balloon notification. The icon is placed to the left of the title. If the <b>szInfoTitle</b> member is zero-length, the icon is not shown.
-     * @type {NOTIFY_ICON_INFOTIP_FLAGS}
      */
-    dwInfoFlags {
-        get => NumGet(this, 500, "uint")
-        set => NumPut("uint", value, this, 500)
-    }
+    dwInfoFlags : NOTIFY_ICON_INFOTIP_FLAGS
 
     /**
      * Type: <b>GUID</b>
@@ -219,29 +150,18 @@ class NOTIFYICONDATAA extends Win32Struct {
      * If you identify the notification icon with a GUID in one call to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">Shell_NotifyIcon</a>, you must use that same GUID to identify the icon in any subsequent <b>Shell_NotifyIcon</b> calls that deal with that same icon.
      * 
      * To generate a GUID for use in this member, use a GUID-generating tool such as Guidgen.exe.
-     * @type {Pointer}
      */
-    guidItem {
-        get => NumGet(this, 504, "ptr")
-        set => NumPut("ptr", value, this, 504)
-    }
+    guidItem : Guid
 
     /**
      * Type: <b>HICON</b>
      * 
      * <b>Windows Vista and later</b>. The handle of a customized notification icon provided by the application that should be used independently of the notification area icon. If this member is non-NULL and the NIIF_USER flag is set in the <b>dwInfoFlags</b> member, this icon is used as the notification icon. If this member is <b>NULL</b>, the legacy behavior is carried out.
-     * @type {HICON}
      */
-    hBalloonIcon {
-        get {
-            if(!this.HasProp("__hBalloonIcon"))
-                this.__hBalloonIcon := HICON(512, this)
-            return this.__hBalloonIcon
-        }
-    }
+    hBalloonIcon : HICON
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 520
+    static __New() {
+        DefineProp(this.Prototype, 'uVersion', { type: UInt32, offset: 432 })
+        this.DeleteProp("__New")
     }
 }

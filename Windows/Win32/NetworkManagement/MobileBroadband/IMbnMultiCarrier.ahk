@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_PROVIDER2.ahk" { MBN_PROVIDER2 }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * This interface exposes the multi-carrier functionality of a capable Mobile Broadband device.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnmulticarrier
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnMultiCarrier extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnMultiCarrier extends IUnknown {
     /**
      * The interface identifier for IMbnMultiCarrier
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2020-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2020-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnMultiCarrier interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetHomeProvider             : IntPtr
+        GetPreferredProviders       : IntPtr
+        GetVisibleProviders         : IntPtr
+        GetSupportedCellularClasses : IntPtr
+        GetCurrentCellularClass     : IntPtr
+        ScanNetwork                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetHomeProvider", "GetPreferredProviders", "GetVisibleProviders", "GetSupportedCellularClasses", "GetCurrentCellularClass", "ScanNetwork"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnMultiCarrier.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the home provider for a multi-carrier device.
@@ -49,7 +65,7 @@ class IMbnMultiCarrier extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider
      */
     SetHomeProvider(homeProvider) {
-        result := ComCall(3, this, "ptr", homeProvider, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(3, this, MBN_PROVIDER2.Ptr, homeProvider, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -137,5 +153,35 @@ class IMbnMultiCarrier extends IUnknown {
     ScanNetwork() {
         result := ComCall(8, this, "uint*", &requestID := 0, "HRESULT")
         return requestID
+    }
+
+    Query(iid) {
+        if (IMbnMultiCarrier.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetHomeProvider := CallbackCreate(GetMethod(implObj, "SetHomeProvider"), flags, 3)
+        this.vtbl.GetPreferredProviders := CallbackCreate(GetMethod(implObj, "GetPreferredProviders"), flags, 2)
+        this.vtbl.GetVisibleProviders := CallbackCreate(GetMethod(implObj, "GetVisibleProviders"), flags, 3)
+        this.vtbl.GetSupportedCellularClasses := CallbackCreate(GetMethod(implObj, "GetSupportedCellularClasses"), flags, 2)
+        this.vtbl.GetCurrentCellularClass := CallbackCreate(GetMethod(implObj, "GetCurrentCellularClass"), flags, 2)
+        this.vtbl.ScanNetwork := CallbackCreate(GetMethod(implObj, "ScanNetwork"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetHomeProvider)
+        CallbackFree(this.vtbl.GetPreferredProviders)
+        CallbackFree(this.vtbl.GetVisibleProviders)
+        CallbackFree(this.vtbl.GetSupportedCellularClasses)
+        CallbackFree(this.vtbl.GetCurrentCellularClass)
+        CallbackFree(this.vtbl.ScanNetwork)
     }
 }

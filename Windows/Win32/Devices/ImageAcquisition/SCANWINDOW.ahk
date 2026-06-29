@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class SCANWINDOW extends Win32Struct {
-    static sizeof => 16
+export default struct SCANWINDOW {
+    #StructPack 4
 
-    static packingSize => 4
+    xPos : Int32
 
-    /**
-     * @type {Integer}
-     */
-    xPos {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    yPos : Int32
 
-    /**
-     * @type {Integer}
-     */
-    yPos {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    xExtent : Int32
 
-    /**
-     * @type {Integer}
-     */
-    xExtent {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    yExtent : Int32
 
-    /**
-     * @type {Integer}
-     */
-    yExtent {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

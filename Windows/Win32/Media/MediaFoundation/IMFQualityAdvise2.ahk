@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFQualityAdvise.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFQualityAdvise.ahk" { IMFQualityAdvise }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 
 /**
  * Enables a pipeline object to adjust its own audio or video quality, in response to quality messages.
@@ -18,26 +20,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfqualityadvise2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFQualityAdvise2 extends IMFQualityAdvise {
-
-    static sizeof => A_PtrSize
+export default struct IMFQualityAdvise2 extends IMFQualityAdvise {
     /**
      * The interface identifier for IMFQualityAdvise2
      * @type {Guid}
      */
-    static IID => Guid("{f3706f0d-8ea2-4886-8000-7155e9ec2eae}")
+    static IID := Guid("{f3706f0d-8ea2-4886-8000-7155e9ec2eae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFQualityAdvise2 interfaces
+    */
+    struct Vtbl extends IMFQualityAdvise.Vtbl {
+        NotifyQualityEvent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NotifyQualityEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFQualityAdvise2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Forwards an MEQualityNotify event from the media sink.
@@ -50,5 +59,25 @@ class IMFQualityAdvise2 extends IMFQualityAdvise {
     NotifyQualityEvent(pEvent) {
         result := ComCall(8, this, "ptr", pEvent, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
+    }
+
+    Query(iid) {
+        if (IMFQualityAdvise2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NotifyQualityEvent := CallbackCreate(GetMethod(implObj, "NotifyQualityEvent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NotifyQualityEvent)
     }
 }

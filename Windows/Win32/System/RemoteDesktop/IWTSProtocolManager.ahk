@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWTSProtocolListener.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWTSProtocolListener.ahk" { IWTSProtocolListener }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTS_SERVICE_STATE.ahk" { WTS_SERVICE_STATE }
 
 /**
  * IWTSProtocolManager is no longer available. Instead, use IWRdsProtocolManager.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolmanager
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWTSProtocolManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWTSProtocolManager extends IUnknown {
     /**
      * The interface identifier for IWTSProtocolManager
      * @type {Guid}
      */
-    static IID => Guid("{f9eaf6cc-ed79-4f01-821d-1f881b9f66cc}")
+    static IID := Guid("{f9eaf6cc-ed79-4f01-821d-1f881b9f66cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWTSProtocolManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateListener              : IntPtr
+        NotifyServiceStateChange    : IntPtr
+        NotifySessionOfServiceStart : IntPtr
+        NotifySessionOfServiceStop  : IntPtr
+        NotifySessionStateChange    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateListener", "NotifyServiceStateChange", "NotifySessionOfServiceStart", "NotifySessionOfServiceStop", "NotifySessionStateChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWTSProtocolManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IWTSProtocolManager::CreateListener is no longer available. Instead, use IWRdsProtocolManager::CreateListener.
@@ -63,7 +78,7 @@ class IWTSProtocolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifyservicestatechange
      */
     NotifyServiceStateChange(pTSServiceStateChange) {
-        result := ComCall(4, this, "ptr", pTSServiceStateChange, "HRESULT")
+        result := ComCall(4, this, WTS_SERVICE_STATE.Ptr, pTSServiceStateChange, "HRESULT")
         return result
     }
 
@@ -74,7 +89,7 @@ class IWTSProtocolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionofservicestart
      */
     NotifySessionOfServiceStart(SessionId) {
-        result := ComCall(5, this, "ptr", SessionId, "HRESULT")
+        result := ComCall(5, this, WTS_SESSION_ID.Ptr, SessionId, "HRESULT")
         return result
     }
 
@@ -85,7 +100,7 @@ class IWTSProtocolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionofservicestop
      */
     NotifySessionOfServiceStop(SessionId) {
-        result := ComCall(6, this, "ptr", SessionId, "HRESULT")
+        result := ComCall(6, this, WTS_SESSION_ID.Ptr, SessionId, "HRESULT")
         return result
     }
 
@@ -97,7 +112,35 @@ class IWTSProtocolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionstatechange
      */
     NotifySessionStateChange(SessionId, EventId) {
-        result := ComCall(7, this, "ptr", SessionId, "uint", EventId, "HRESULT")
+        result := ComCall(7, this, WTS_SESSION_ID.Ptr, SessionId, "uint", EventId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWTSProtocolManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateListener := CallbackCreate(GetMethod(implObj, "CreateListener"), flags, 3)
+        this.vtbl.NotifyServiceStateChange := CallbackCreate(GetMethod(implObj, "NotifyServiceStateChange"), flags, 2)
+        this.vtbl.NotifySessionOfServiceStart := CallbackCreate(GetMethod(implObj, "NotifySessionOfServiceStart"), flags, 2)
+        this.vtbl.NotifySessionOfServiceStop := CallbackCreate(GetMethod(implObj, "NotifySessionOfServiceStop"), flags, 2)
+        this.vtbl.NotifySessionStateChange := CallbackCreate(GetMethod(implObj, "NotifySessionStateChange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateListener)
+        CallbackFree(this.vtbl.NotifyServiceStateChange)
+        CallbackFree(this.vtbl.NotifySessionOfServiceStart)
+        CallbackFree(this.vtbl.NotifySessionOfServiceStop)
+        CallbackFree(this.vtbl.NotifySessionStateChange)
     }
 }

@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_SERVICE_HASH_LIST extends Win32Struct {
-    static sizeof => 8
+export default struct DOT11_WFD_SERVICE_HASH_LIST {
+    #StructPack 2
 
-    static packingSize => 2
+    ServiceHashCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ServiceHashCount {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ServiceHash : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ServiceHash {
-        get {
-            if(!this.HasProp("__ServiceHashProxyArray"))
-                this.__ServiceHashProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
-            return this.__ServiceHashProxyArray
-        }
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMPLibraryType enumeration type defines the possible library types to which Windows Media Player can connect.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmplibrarytype
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class WMPLibraryType extends Win32Enum {
+export default struct WMPLibraryType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not a valid library type.

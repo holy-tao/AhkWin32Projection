@@ -1,37 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGMatrix extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGMatrix extends IDispatch {
     /**
      * The interface identifier for ISVGMatrix
      * @type {Guid}
      */
-    static IID => Guid("{305104f6-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104f6-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGMatrix
      * @type {Guid}
      */
-    static CLSID => Guid("{305105ae-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105ae-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGMatrix interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_a            : IntPtr
+        get_a            : IntPtr
+        put_b            : IntPtr
+        get_b            : IntPtr
+        put_c            : IntPtr
+        get_c            : IntPtr
+        put_d            : IntPtr
+        get_d            : IntPtr
+        put_e            : IntPtr
+        get_e            : IntPtr
+        put_f            : IntPtr
+        get_f            : IntPtr
+        multiply         : IntPtr
+        inverse          : IntPtr
+        translate        : IntPtr
+        scale            : IntPtr
+        scaleNonUniform  : IntPtr
+        rotate           : IntPtr
+        rotateFromVector : IntPtr
+        flipX            : IntPtr
+        flipY            : IntPtr
+        skewX            : IntPtr
+        skewY            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_a", "get_a", "put_b", "get_b", "put_c", "get_c", "put_d", "get_d", "put_e", "get_e", "put_f", "get_f", "multiply", "inverse", "translate", "scale", "scaleNonUniform", "rotate", "rotateFromVector", "flipX", "flipY", "skewX", "skewY"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGMatrix.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -303,5 +333,69 @@ class ISVGMatrix extends IDispatch {
     skewY(angle) {
         result := ComCall(29, this, "float", angle, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGMatrix(ppResult)
+    }
+
+    Query(iid) {
+        if (ISVGMatrix.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_a := CallbackCreate(GetMethod(implObj, "put_a"), flags, 2)
+        this.vtbl.get_a := CallbackCreate(GetMethod(implObj, "get_a"), flags, 2)
+        this.vtbl.put_b := CallbackCreate(GetMethod(implObj, "put_b"), flags, 2)
+        this.vtbl.get_b := CallbackCreate(GetMethod(implObj, "get_b"), flags, 2)
+        this.vtbl.put_c := CallbackCreate(GetMethod(implObj, "put_c"), flags, 2)
+        this.vtbl.get_c := CallbackCreate(GetMethod(implObj, "get_c"), flags, 2)
+        this.vtbl.put_d := CallbackCreate(GetMethod(implObj, "put_d"), flags, 2)
+        this.vtbl.get_d := CallbackCreate(GetMethod(implObj, "get_d"), flags, 2)
+        this.vtbl.put_e := CallbackCreate(GetMethod(implObj, "put_e"), flags, 2)
+        this.vtbl.get_e := CallbackCreate(GetMethod(implObj, "get_e"), flags, 2)
+        this.vtbl.put_f := CallbackCreate(GetMethod(implObj, "put_f"), flags, 2)
+        this.vtbl.get_f := CallbackCreate(GetMethod(implObj, "get_f"), flags, 2)
+        this.vtbl.multiply := CallbackCreate(GetMethod(implObj, "multiply"), flags, 3)
+        this.vtbl.inverse := CallbackCreate(GetMethod(implObj, "inverse"), flags, 2)
+        this.vtbl.translate := CallbackCreate(GetMethod(implObj, "translate"), flags, 4)
+        this.vtbl.scale := CallbackCreate(GetMethod(implObj, "scale"), flags, 3)
+        this.vtbl.scaleNonUniform := CallbackCreate(GetMethod(implObj, "scaleNonUniform"), flags, 4)
+        this.vtbl.rotate := CallbackCreate(GetMethod(implObj, "rotate"), flags, 3)
+        this.vtbl.rotateFromVector := CallbackCreate(GetMethod(implObj, "rotateFromVector"), flags, 4)
+        this.vtbl.flipX := CallbackCreate(GetMethod(implObj, "flipX"), flags, 2)
+        this.vtbl.flipY := CallbackCreate(GetMethod(implObj, "flipY"), flags, 2)
+        this.vtbl.skewX := CallbackCreate(GetMethod(implObj, "skewX"), flags, 3)
+        this.vtbl.skewY := CallbackCreate(GetMethod(implObj, "skewY"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_a)
+        CallbackFree(this.vtbl.get_a)
+        CallbackFree(this.vtbl.put_b)
+        CallbackFree(this.vtbl.get_b)
+        CallbackFree(this.vtbl.put_c)
+        CallbackFree(this.vtbl.get_c)
+        CallbackFree(this.vtbl.put_d)
+        CallbackFree(this.vtbl.get_d)
+        CallbackFree(this.vtbl.put_e)
+        CallbackFree(this.vtbl.get_e)
+        CallbackFree(this.vtbl.put_f)
+        CallbackFree(this.vtbl.get_f)
+        CallbackFree(this.vtbl.multiply)
+        CallbackFree(this.vtbl.inverse)
+        CallbackFree(this.vtbl.translate)
+        CallbackFree(this.vtbl.scale)
+        CallbackFree(this.vtbl.scaleNonUniform)
+        CallbackFree(this.vtbl.rotate)
+        CallbackFree(this.vtbl.rotateFromVector)
+        CallbackFree(this.vtbl.flipX)
+        CallbackFree(this.vtbl.flipY)
+        CallbackFree(this.vtbl.skewX)
+        CallbackFree(this.vtbl.skewY)
     }
 }

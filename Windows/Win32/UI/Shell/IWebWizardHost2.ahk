@@ -1,32 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWebWizardHost.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWebWizardHost.ahk" { IWebWizardHost }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IWebWizardHost2 extends IWebWizardHost {
-
-    static sizeof => A_PtrSize
+export default struct IWebWizardHost2 extends IWebWizardHost {
     /**
      * The interface identifier for IWebWizardHost2
      * @type {Guid}
      */
-    static IID => Guid("{f9c013dc-3c23-4041-8e39-cfb402f7ea59}")
+    static IID := Guid("{f9c013dc-3c23-4041-8e39-cfb402f7ea59}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebWizardHost2 interfaces
+    */
+    struct Vtbl extends IWebWizardHost.Vtbl {
+        SignString : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SignString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebWizardHost2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,8 +44,28 @@ class IWebWizardHost2 extends IWebWizardHost {
     SignString(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        signedValue := BSTR()
-        result := ComCall(16, this, "ptr", value, "ptr", signedValue, "HRESULT")
+        signedValue := BSTR.Owned()
+        result := ComCall(16, this, BSTR, value, BSTR.Ptr, signedValue, "HRESULT")
         return signedValue
+    }
+
+    Query(iid) {
+        if (IWebWizardHost2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SignString := CallbackCreate(GetMethod(implObj, "SignString"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SignString)
     }
 }

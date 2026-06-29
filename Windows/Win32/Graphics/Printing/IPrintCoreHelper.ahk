@@ -1,31 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\PRINT_FEATURE_OPTION.ahk" { PRINT_FEATURE_OPTION }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintCoreHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintCoreHelper extends IUnknown {
     /**
      * The interface identifier for IPrintCoreHelper
      * @type {Guid}
      */
-    static IID => Guid("{a89ec53e-3905-49c6-9c1a-c0a88117fdb6}")
+    static IID := Guid("{a89ec53e-3905-49c6-9c1a-c0a88117fdb6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintCoreHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOption                   : IntPtr
+        SetOptions                  : IntPtr
+        EnumConstrainedOptions      : IntPtr
+        WhyConstrained              : IntPtr
+        EnumFeatures                : IntPtr
+        EnumOptions                 : IntPtr
+        GetFontSubstitution         : IntPtr
+        SetFontSubstitution         : IntPtr
+        CreateInstanceOfMSXMLObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOption", "SetOptions", "EnumConstrainedOptions", "WhyConstrained", "EnumFeatures", "EnumOptions", "GetFontSubstitution", "SetFontSubstitution", "CreateInstanceOfMSXMLObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintCoreHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -37,7 +58,7 @@ class IPrintCoreHelper extends IUnknown {
     GetOption(pDevmode, cbSize, pszFeatureRequested) {
         pszFeatureRequested := pszFeatureRequested is String ? StrPtr(pszFeatureRequested) : pszFeatureRequested
 
-        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, "ptr*", &ppszOption := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, PSTR.Ptr, &ppszOption := 0, "HRESULT")
         return ppszOption
     }
 
@@ -56,7 +77,7 @@ class IPrintCoreHelper extends IUnknown {
         pcPairsWrittenMarshal := pcPairsWritten is VarRef ? "uint*" : "ptr"
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDevmode, "uint", cbSize, "int", bResolveConflicts, "ptr", pFOPairs, "uint", cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
+        result := ComCall(4, this, DEVMODEA.Ptr, pDevmode, "uint", cbSize, BOOL, bResolveConflicts, PRINT_FEATURE_OPTION.Ptr, pFOPairs, "uint", cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -75,7 +96,7 @@ class IPrintCoreHelper extends IUnknown {
         pConstrainedOptionListMarshal := pConstrainedOptionList is VarRef ? "ptr*" : "ptr"
         pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(5, this, DEVMODEA.Ptr, pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
@@ -172,7 +193,43 @@ class IPrintCoreHelper extends IUnknown {
     CreateInstanceOfMSXMLObject(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintCoreHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 5)
+        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 8)
+        this.vtbl.EnumConstrainedOptions := CallbackCreate(GetMethod(implObj, "EnumConstrainedOptions"), flags, 6)
+        this.vtbl.WhyConstrained := CallbackCreate(GetMethod(implObj, "WhyConstrained"), flags, 7)
+        this.vtbl.EnumFeatures := CallbackCreate(GetMethod(implObj, "EnumFeatures"), flags, 3)
+        this.vtbl.EnumOptions := CallbackCreate(GetMethod(implObj, "EnumOptions"), flags, 4)
+        this.vtbl.GetFontSubstitution := CallbackCreate(GetMethod(implObj, "GetFontSubstitution"), flags, 3)
+        this.vtbl.SetFontSubstitution := CallbackCreate(GetMethod(implObj, "SetFontSubstitution"), flags, 3)
+        this.vtbl.CreateInstanceOfMSXMLObject := CallbackCreate(GetMethod(implObj, "CreateInstanceOfMSXMLObject"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOption)
+        CallbackFree(this.vtbl.SetOptions)
+        CallbackFree(this.vtbl.EnumConstrainedOptions)
+        CallbackFree(this.vtbl.WhyConstrained)
+        CallbackFree(this.vtbl.EnumFeatures)
+        CallbackFree(this.vtbl.EnumOptions)
+        CallbackFree(this.vtbl.GetFontSubstitution)
+        CallbackFree(this.vtbl.SetFontSubstitution)
+        CallbackFree(this.vtbl.CreateInstanceOfMSXMLObject)
     }
 }

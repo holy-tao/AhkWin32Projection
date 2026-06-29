@@ -1,42 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IMoniker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IMoniker.ahk" { IMoniker }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IPersistMoniker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPersistMoniker extends IUnknown {
     /**
      * The interface identifier for IPersistMoniker
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c9-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c9-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistMoniker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClassID    : IntPtr
+        IsDirty       : IntPtr
+        Load          : IntPtr
+        Save          : IntPtr
+        SaveCompleted : IntPtr
+        GetCurMoniker : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistMoniker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClassID", "IsDirty", "Load", "Save", "SaveCompleted", "GetCurMoniker"]
-
-    /**
-     * The GetClassIDFromBlob function retrieves a named class identifier value from a BLOB.
+     * 
      * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/getclassidfromblob
      */
     GetClassID() {
         pClassID := Guid()
-        result := ComCall(3, this, "ptr", pClassID, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pClassID, "HRESULT")
         return pClassID
     }
 
@@ -45,7 +58,7 @@ class IPersistMoniker extends IUnknown {
      * @returns {HRESULT} 
      */
     IsDirty() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, Int32)
         return result
     }
 
@@ -124,22 +137,19 @@ class IPersistMoniker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-to-load
      */
     Load(fFullyAvailable, pimkName, pibc, grfMode) {
-        result := ComCall(5, this, "int", fFullyAvailable, "ptr", pimkName, "ptr", pibc, "uint", grfMode, "HRESULT")
+        result := ComCall(5, this, BOOL, fFullyAvailable, "ptr", pimkName, "ptr", pibc, "uint", grfMode, "HRESULT")
         return result
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {IMoniker} pimkName 
      * @param {IBindCtx} pbc 
      * @param {BOOL} fRemember 
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * @returns {HRESULT} 
      */
     Save(pimkName, pbc, fRemember) {
-        result := ComCall(6, this, "ptr", pimkName, "ptr", pbc, "int", fRemember, "HRESULT")
+        result := ComCall(6, this, "ptr", pimkName, "ptr", pbc, BOOL, fRemember, "HRESULT")
         return result
     }
 
@@ -161,5 +171,35 @@ class IPersistMoniker extends IUnknown {
     GetCurMoniker() {
         result := ComCall(8, this, "ptr*", &ppimkName := 0, "HRESULT")
         return IMoniker(ppimkName)
+    }
+
+    Query(iid) {
+        if (IPersistMoniker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClassID := CallbackCreate(GetMethod(implObj, "GetClassID"), flags, 2)
+        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 5)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+        this.vtbl.SaveCompleted := CallbackCreate(GetMethod(implObj, "SaveCompleted"), flags, 3)
+        this.vtbl.GetCurMoniker := CallbackCreate(GetMethod(implObj, "GetCurMoniker"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClassID)
+        CallbackFree(this.vtbl.IsDirty)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SaveCompleted)
+        CallbackFree(this.vtbl.GetCurMoniker)
     }
 }

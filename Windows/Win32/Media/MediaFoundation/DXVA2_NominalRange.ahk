@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes how to map color data to a normalized [0...1] range.
@@ -109,7 +108,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_nominalrange
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_NominalRange extends Win32Enum {
+export default struct DXVA2_NominalRange {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

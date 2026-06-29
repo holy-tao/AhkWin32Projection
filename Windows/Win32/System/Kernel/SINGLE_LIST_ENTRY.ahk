@@ -1,6 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SINGLE_LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A SINGLE_LIST_ENTRY structure describes an entry in a singly linked list, or serves as the header for such a list.
@@ -13,17 +11,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-single_list_entry
  * @namespace Windows.Win32.System.Kernel
  */
-class SINGLE_LIST_ENTRY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct SINGLE_LIST_ENTRY {
+    #StructPack 8
 
     /**
      * For a <b>SINGLE_LIST_ENTRY</b> that serves as a list entry, the <b>Next</b> member points to the next entry in the list, or <b>NULL</b> if there is no next entry in the list. For a <b>SINGLE_LIST_ENTRY</b> that serves as the list header, the <b>Next</b> member points to the first entry in the list, or <b>NULL</b> if the list is empty.
-     * @type {Pointer<SINGLE_LIST_ENTRY>}
      */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Next : SINGLE_LIST_ENTRY.Ptr
+
 }

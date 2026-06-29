@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VBICODECFILTERING_SCANLINES extends Win32Struct {
-    static sizeof => 128
+export default struct VBICODECFILTERING_SCANLINES {
+    #StructPack 4
 
-    static packingSize => 4
+    DwordBitArray : UInt32[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DwordBitArray {
-        get {
-            if(!this.HasProp("__DwordBitArrayProxyArray"))
-                this.__DwordBitArrayProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "uint")
-            return this.__DwordBitArrayProxyArray
-        }
-    }
 }

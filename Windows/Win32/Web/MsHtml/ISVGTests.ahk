@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGStringList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGStringList.ahk" { ISVGStringList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGTests extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGTests extends IDispatch {
     /**
      * The interface identifier for ISVGTests
      * @type {Guid}
      */
-    static IID => Guid("{305104dd-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104dd-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGTests interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_requiredFeatures   : IntPtr
+        get_requiredExtensions : IntPtr
+        get_systemLanguage     : IntPtr
+        hasExtension           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_requiredFeatures", "get_requiredExtensions", "get_systemLanguage", "hasExtension"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGTests.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGStringList} 
@@ -84,7 +97,33 @@ class ISVGTests extends IDispatch {
     hasExtension(_extension) {
         _extension := _extension is String ? BSTR.Alloc(_extension).Value : _extension
 
-        result := ComCall(10, this, "ptr", _extension, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, _extension, VARIANT_BOOL.Ptr, &pResult := 0, "HRESULT")
         return pResult
+    }
+
+    Query(iid) {
+        if (ISVGTests.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_requiredFeatures := CallbackCreate(GetMethod(implObj, "get_requiredFeatures"), flags, 2)
+        this.vtbl.get_requiredExtensions := CallbackCreate(GetMethod(implObj, "get_requiredExtensions"), flags, 2)
+        this.vtbl.get_systemLanguage := CallbackCreate(GetMethod(implObj, "get_systemLanguage"), flags, 2)
+        this.vtbl.hasExtension := CallbackCreate(GetMethod(implObj, "hasExtension"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_requiredFeatures)
+        CallbackFree(this.vtbl.get_requiredExtensions)
+        CallbackFree(this.vtbl.get_systemLanguage)
+        CallbackFree(this.vtbl.hasExtension)
     }
 }

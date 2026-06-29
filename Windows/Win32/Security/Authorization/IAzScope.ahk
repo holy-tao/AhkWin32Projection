@@ -1,41 +1,87 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IAzApplicationGroups.ahk
-#Include .\IAzApplicationGroup.ahk
-#Include .\IAzRoles.ahk
-#Include .\IAzRole.ahk
-#Include .\IAzTasks.ahk
-#Include .\IAzTask.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAzRole.ahk" { IAzRole }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
+#Import ".\IAzRoles.ahk" { IAzRoles }
+#Import ".\IAzTasks.ahk" { IAzTasks }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import ".\IAzTask.ahk" { IAzTask }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a logical container of resources to which the application manages access.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazscope
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzScope extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAzScope extends IDispatch {
     /**
      * The interface identifier for IAzScope
      * @type {Guid}
      */
-    static IID => Guid("{00e52487-e08d-4514-b62e-877d5645f5ab}")
+    static IID := Guid("{00e52487-e08d-4514-b62e-877d5645f5ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzScope interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                      : IntPtr
+        put_Name                      : IntPtr
+        get_Description               : IntPtr
+        put_Description               : IntPtr
+        get_ApplicationData           : IntPtr
+        put_ApplicationData           : IntPtr
+        get_Writable                  : IntPtr
+        GetProperty                   : IntPtr
+        SetProperty                   : IntPtr
+        AddPropertyItem               : IntPtr
+        DeletePropertyItem            : IntPtr
+        get_PolicyAdministrators      : IntPtr
+        get_PolicyReaders             : IntPtr
+        AddPolicyAdministrator        : IntPtr
+        DeletePolicyAdministrator     : IntPtr
+        AddPolicyReader               : IntPtr
+        DeletePolicyReader            : IntPtr
+        get_ApplicationGroups         : IntPtr
+        OpenApplicationGroup          : IntPtr
+        CreateApplicationGroup        : IntPtr
+        DeleteApplicationGroup        : IntPtr
+        get_Roles                     : IntPtr
+        OpenRole                      : IntPtr
+        CreateRole                    : IntPtr
+        DeleteRole                    : IntPtr
+        get_Tasks                     : IntPtr
+        OpenTask                      : IntPtr
+        CreateTask                    : IntPtr
+        DeleteTask                    : IntPtr
+        Submit                        : IntPtr
+        get_CanBeDelegated            : IntPtr
+        get_BizrulesWritable          : IntPtr
+        get_PolicyAdministratorsName  : IntPtr
+        get_PolicyReadersName         : IntPtr
+        AddPolicyAdministratorName    : IntPtr
+        DeletePolicyAdministratorName : IntPtr
+        AddPolicyReaderName           : IntPtr
+        DeletePolicyReaderName        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "get_PolicyAdministrators", "get_PolicyReaders", "AddPolicyAdministrator", "DeletePolicyAdministrator", "AddPolicyReader", "DeletePolicyReader", "get_ApplicationGroups", "OpenApplicationGroup", "CreateApplicationGroup", "DeleteApplicationGroup", "get_Roles", "OpenRole", "CreateRole", "DeleteRole", "get_Tasks", "OpenTask", "CreateTask", "DeleteTask", "Submit", "get_CanBeDelegated", "get_BizrulesWritable", "get_PolicyAdministratorsName", "get_PolicyReadersName", "AddPolicyAdministratorName", "DeletePolicyAdministratorName", "AddPolicyReaderName", "DeletePolicyReaderName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzScope.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -139,8 +185,8 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -155,7 +201,7 @@ class IAzScope extends IDispatch {
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(8, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -167,8 +213,8 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -183,7 +229,7 @@ class IAzScope extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(10, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -196,8 +242,8 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_applicationdata
      */
     get_ApplicationData() {
-        pbstrApplicationData := BSTR()
-        result := ComCall(11, this, "ptr", pbstrApplicationData, "HRESULT")
+        pbstrApplicationData := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrApplicationData, "HRESULT")
         return pbstrApplicationData
     }
 
@@ -213,7 +259,7 @@ class IAzScope extends IDispatch {
     put_ApplicationData(bstrApplicationData) {
         bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
 
-        result := ComCall(12, this, "ptr", bstrApplicationData, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrApplicationData, "HRESULT")
         return result
     }
 
@@ -223,7 +269,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_writable
      */
     get_Writable() {
-        result := ComCall(13, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -353,7 +399,7 @@ class IAzScope extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(14, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(14, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -445,7 +491,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(15, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(15, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -511,7 +557,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(16, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(16, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -575,7 +621,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(17, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(17, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -599,7 +645,7 @@ class IAzScope extends IDispatch {
      */
     get_PolicyAdministrators() {
         pvarAdmins := VARIANT()
-        result := ComCall(18, this, "ptr", pvarAdmins, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, pvarAdmins, "HRESULT")
         return pvarAdmins
     }
 
@@ -614,7 +660,7 @@ class IAzScope extends IDispatch {
      */
     get_PolicyReaders() {
         pvarReaders := VARIANT()
-        result := ComCall(19, this, "ptr", pvarReaders, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, pvarReaders, "HRESULT")
         return pvarReaders
     }
 
@@ -642,7 +688,7 @@ class IAzScope extends IDispatch {
     AddPolicyAdministrator(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(20, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -668,7 +714,7 @@ class IAzScope extends IDispatch {
     DeletePolicyAdministrator(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(21, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -688,7 +734,7 @@ class IAzScope extends IDispatch {
     AddPolicyReader(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(22, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -706,7 +752,7 @@ class IAzScope extends IDispatch {
     DeletePolicyReader(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(23, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -732,7 +778,7 @@ class IAzScope extends IDispatch {
     OpenApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(25, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrGroupName, VARIANT, varReserved, "ptr*", &ppGroup := 0, "HRESULT")
         return IAzApplicationGroup(ppGroup)
     }
 
@@ -750,7 +796,7 @@ class IAzScope extends IDispatch {
     CreateApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(26, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrGroupName, VARIANT, varReserved, "ptr*", &ppGroup := 0, "HRESULT")
         return IAzApplicationGroup(ppGroup)
     }
 
@@ -766,7 +812,7 @@ class IAzScope extends IDispatch {
     DeleteApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(27, this, "ptr", bstrGroupName, "ptr", varReserved, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrGroupName, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -792,7 +838,7 @@ class IAzScope extends IDispatch {
     OpenRole(bstrRoleName, varReserved) {
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(29, this, "ptr", bstrRoleName, "ptr", varReserved, "ptr*", &ppRole := 0, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrRoleName, VARIANT, varReserved, "ptr*", &ppRole := 0, "HRESULT")
         return IAzRole(ppRole)
     }
 
@@ -810,7 +856,7 @@ class IAzScope extends IDispatch {
     CreateRole(bstrRoleName, varReserved) {
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(30, this, "ptr", bstrRoleName, "ptr", varReserved, "ptr*", &ppRole := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrRoleName, VARIANT, varReserved, "ptr*", &ppRole := 0, "HRESULT")
         return IAzRole(ppRole)
     }
 
@@ -826,7 +872,7 @@ class IAzScope extends IDispatch {
     DeleteRole(bstrRoleName, varReserved) {
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(31, this, "ptr", bstrRoleName, "ptr", varReserved, "HRESULT")
+        result := ComCall(31, this, BSTR, bstrRoleName, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -852,7 +898,7 @@ class IAzScope extends IDispatch {
     OpenTask(bstrTaskName, varReserved) {
         bstrTaskName := bstrTaskName is String ? BSTR.Alloc(bstrTaskName).Value : bstrTaskName
 
-        result := ComCall(33, this, "ptr", bstrTaskName, "ptr", varReserved, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrTaskName, VARIANT, varReserved, "ptr*", &ppTask := 0, "HRESULT")
         return IAzTask(ppTask)
     }
 
@@ -870,7 +916,7 @@ class IAzScope extends IDispatch {
     CreateTask(bstrTaskName, varReserved) {
         bstrTaskName := bstrTaskName is String ? BSTR.Alloc(bstrTaskName).Value : bstrTaskName
 
-        result := ComCall(34, this, "ptr", bstrTaskName, "ptr", varReserved, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrTaskName, VARIANT, varReserved, "ptr*", &ppTask := 0, "HRESULT")
         return IAzTask(ppTask)
     }
 
@@ -886,7 +932,7 @@ class IAzScope extends IDispatch {
     DeleteTask(bstrTaskName, varReserved) {
         bstrTaskName := bstrTaskName is String ? BSTR.Alloc(bstrTaskName).Value : bstrTaskName
 
-        result := ComCall(35, this, "ptr", bstrTaskName, "ptr", varReserved, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrTaskName, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -902,7 +948,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(36, this, "int", lFlags, "ptr", varReserved, "HRESULT")
+        result := ComCall(36, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -912,7 +958,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_canbedelegated
      */
     get_CanBeDelegated() {
-        result := ComCall(37, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(37, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -922,7 +968,7 @@ class IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_bizruleswritable
      */
     get_BizrulesWritable() {
-        result := ComCall(38, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(38, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -946,7 +992,7 @@ class IAzScope extends IDispatch {
      */
     get_PolicyAdministratorsName() {
         pvarAdmins := VARIANT()
-        result := ComCall(39, this, "ptr", pvarAdmins, "HRESULT")
+        result := ComCall(39, this, VARIANT.Ptr, pvarAdmins, "HRESULT")
         return pvarAdmins
     }
 
@@ -961,7 +1007,7 @@ class IAzScope extends IDispatch {
      */
     get_PolicyReadersName() {
         pvarReaders := VARIANT()
-        result := ComCall(40, this, "ptr", pvarReaders, "HRESULT")
+        result := ComCall(40, this, VARIANT.Ptr, pvarReaders, "HRESULT")
         return pvarReaders
     }
 
@@ -989,7 +1035,7 @@ class IAzScope extends IDispatch {
     AddPolicyAdministratorName(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(41, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(41, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1015,7 +1061,7 @@ class IAzScope extends IDispatch {
     DeletePolicyAdministratorName(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(42, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(42, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1035,7 +1081,7 @@ class IAzScope extends IDispatch {
     AddPolicyReaderName(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(43, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(43, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1053,7 +1099,101 @@ class IAzScope extends IDispatch {
     DeletePolicyReaderName(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(44, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(44, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAzScope.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_ApplicationData := CallbackCreate(GetMethod(implObj, "get_ApplicationData"), flags, 2)
+        this.vtbl.put_ApplicationData := CallbackCreate(GetMethod(implObj, "put_ApplicationData"), flags, 2)
+        this.vtbl.get_Writable := CallbackCreate(GetMethod(implObj, "get_Writable"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.AddPropertyItem := CallbackCreate(GetMethod(implObj, "AddPropertyItem"), flags, 4)
+        this.vtbl.DeletePropertyItem := CallbackCreate(GetMethod(implObj, "DeletePropertyItem"), flags, 4)
+        this.vtbl.get_PolicyAdministrators := CallbackCreate(GetMethod(implObj, "get_PolicyAdministrators"), flags, 2)
+        this.vtbl.get_PolicyReaders := CallbackCreate(GetMethod(implObj, "get_PolicyReaders"), flags, 2)
+        this.vtbl.AddPolicyAdministrator := CallbackCreate(GetMethod(implObj, "AddPolicyAdministrator"), flags, 3)
+        this.vtbl.DeletePolicyAdministrator := CallbackCreate(GetMethod(implObj, "DeletePolicyAdministrator"), flags, 3)
+        this.vtbl.AddPolicyReader := CallbackCreate(GetMethod(implObj, "AddPolicyReader"), flags, 3)
+        this.vtbl.DeletePolicyReader := CallbackCreate(GetMethod(implObj, "DeletePolicyReader"), flags, 3)
+        this.vtbl.get_ApplicationGroups := CallbackCreate(GetMethod(implObj, "get_ApplicationGroups"), flags, 2)
+        this.vtbl.OpenApplicationGroup := CallbackCreate(GetMethod(implObj, "OpenApplicationGroup"), flags, 4)
+        this.vtbl.CreateApplicationGroup := CallbackCreate(GetMethod(implObj, "CreateApplicationGroup"), flags, 4)
+        this.vtbl.DeleteApplicationGroup := CallbackCreate(GetMethod(implObj, "DeleteApplicationGroup"), flags, 3)
+        this.vtbl.get_Roles := CallbackCreate(GetMethod(implObj, "get_Roles"), flags, 2)
+        this.vtbl.OpenRole := CallbackCreate(GetMethod(implObj, "OpenRole"), flags, 4)
+        this.vtbl.CreateRole := CallbackCreate(GetMethod(implObj, "CreateRole"), flags, 4)
+        this.vtbl.DeleteRole := CallbackCreate(GetMethod(implObj, "DeleteRole"), flags, 3)
+        this.vtbl.get_Tasks := CallbackCreate(GetMethod(implObj, "get_Tasks"), flags, 2)
+        this.vtbl.OpenTask := CallbackCreate(GetMethod(implObj, "OpenTask"), flags, 4)
+        this.vtbl.CreateTask := CallbackCreate(GetMethod(implObj, "CreateTask"), flags, 4)
+        this.vtbl.DeleteTask := CallbackCreate(GetMethod(implObj, "DeleteTask"), flags, 3)
+        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 3)
+        this.vtbl.get_CanBeDelegated := CallbackCreate(GetMethod(implObj, "get_CanBeDelegated"), flags, 2)
+        this.vtbl.get_BizrulesWritable := CallbackCreate(GetMethod(implObj, "get_BizrulesWritable"), flags, 2)
+        this.vtbl.get_PolicyAdministratorsName := CallbackCreate(GetMethod(implObj, "get_PolicyAdministratorsName"), flags, 2)
+        this.vtbl.get_PolicyReadersName := CallbackCreate(GetMethod(implObj, "get_PolicyReadersName"), flags, 2)
+        this.vtbl.AddPolicyAdministratorName := CallbackCreate(GetMethod(implObj, "AddPolicyAdministratorName"), flags, 3)
+        this.vtbl.DeletePolicyAdministratorName := CallbackCreate(GetMethod(implObj, "DeletePolicyAdministratorName"), flags, 3)
+        this.vtbl.AddPolicyReaderName := CallbackCreate(GetMethod(implObj, "AddPolicyReaderName"), flags, 3)
+        this.vtbl.DeletePolicyReaderName := CallbackCreate(GetMethod(implObj, "DeletePolicyReaderName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_ApplicationData)
+        CallbackFree(this.vtbl.put_ApplicationData)
+        CallbackFree(this.vtbl.get_Writable)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.AddPropertyItem)
+        CallbackFree(this.vtbl.DeletePropertyItem)
+        CallbackFree(this.vtbl.get_PolicyAdministrators)
+        CallbackFree(this.vtbl.get_PolicyReaders)
+        CallbackFree(this.vtbl.AddPolicyAdministrator)
+        CallbackFree(this.vtbl.DeletePolicyAdministrator)
+        CallbackFree(this.vtbl.AddPolicyReader)
+        CallbackFree(this.vtbl.DeletePolicyReader)
+        CallbackFree(this.vtbl.get_ApplicationGroups)
+        CallbackFree(this.vtbl.OpenApplicationGroup)
+        CallbackFree(this.vtbl.CreateApplicationGroup)
+        CallbackFree(this.vtbl.DeleteApplicationGroup)
+        CallbackFree(this.vtbl.get_Roles)
+        CallbackFree(this.vtbl.OpenRole)
+        CallbackFree(this.vtbl.CreateRole)
+        CallbackFree(this.vtbl.DeleteRole)
+        CallbackFree(this.vtbl.get_Tasks)
+        CallbackFree(this.vtbl.OpenTask)
+        CallbackFree(this.vtbl.CreateTask)
+        CallbackFree(this.vtbl.DeleteTask)
+        CallbackFree(this.vtbl.Submit)
+        CallbackFree(this.vtbl.get_CanBeDelegated)
+        CallbackFree(this.vtbl.get_BizrulesWritable)
+        CallbackFree(this.vtbl.get_PolicyAdministratorsName)
+        CallbackFree(this.vtbl.get_PolicyReadersName)
+        CallbackFree(this.vtbl.AddPolicyAdministratorName)
+        CallbackFree(this.vtbl.DeletePolicyAdministratorName)
+        CallbackFree(this.vtbl.AddPolicyReaderName)
+        CallbackFree(this.vtbl.DeletePolicyReaderName)
     }
 }

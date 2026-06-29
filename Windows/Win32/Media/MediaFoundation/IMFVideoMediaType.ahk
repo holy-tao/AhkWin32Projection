@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFVIDEOFORMAT.ahk" { MFVIDEOFORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * Represents a description of a video format.
@@ -12,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfvideomediatype
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoMediaType extends IMFMediaType {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoMediaType extends IMFMediaType {
     /**
      * The interface identifier for IMFVideoMediaType
      * @type {Guid}
      */
-    static IID => Guid("{b99f381f-a8f9-47a2-a5af-ca3a225a3890}")
+    static IID := Guid("{b99f381f-a8f9-47a2-a5af-ca3a225a3890}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 38
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoMediaType interfaces
+    */
+    struct Vtbl extends IMFMediaType.Vtbl {
+        GetVideoFormat         : IntPtr
+        GetVideoRepresentation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVideoFormat", "GetVideoRepresentation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoMediaType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * GetVideoFormat is no longer available for use as of Windows 7.
@@ -43,7 +53,7 @@ class IMFVideoMediaType extends IMFMediaType {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideoformat
      */
     GetVideoFormat() {
-        result := ComCall(38, this, "ptr")
+        result := ComCall(38, this, MFVIDEOFORMAT.Ptr)
         return result
     }
 
@@ -59,7 +69,29 @@ class IMFVideoMediaType extends IMFMediaType {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
      */
     GetVideoRepresentation(guidRepresentation, lStride) {
-        result := ComCall(39, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "int", lStride, "HRESULT")
+        result := ComCall(39, this, Guid, guidRepresentation, "ptr*", &ppvRepresentation := 0, "int", lStride, "HRESULT")
         return ppvRepresentation
+    }
+
+    Query(iid) {
+        if (IMFVideoMediaType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVideoFormat := CallbackCreate(GetMethod(implObj, "GetVideoFormat"), flags, 1)
+        this.vtbl.GetVideoRepresentation := CallbackCreate(GetMethod(implObj, "GetVideoRepresentation"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVideoFormat)
+        CallbackFree(this.vtbl.GetVideoRepresentation)
     }
 }

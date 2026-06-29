@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_DRAWPRIMCOUNTS extends Win32Struct {
-    static sizeof => 8
+export default struct D3DHAL_DRAWPRIMCOUNTS {
+    #StructPack 2
 
-    static packingSize => 2
+    wNumStateChanges : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wNumStateChanges {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wPrimitiveType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPrimitiveType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wVertexType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wVertexType {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wNumVertices : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wNumVertices {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

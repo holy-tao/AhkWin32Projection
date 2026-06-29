@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the buffer validation flags for the APO_CONNECTION_PROPERTY structure associated with each APO connection.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioapotypes/ne-audioapotypes-apo_buffer_flags
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APO_BUFFER_FLAGS extends Win32Enum {
+export default struct APO_BUFFER_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * There is no valid data in  the connection

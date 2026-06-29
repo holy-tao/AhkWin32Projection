@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_COMMITMENT_DATA extends Win32Struct {
-    static sizeof => 48
+export default struct D3DKMT_QUERYSTATISTICS_COMMITMENT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    TotalBytesEvictedFromProcess : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalBytesEvictedFromProcess {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BytesBySegmentPreference : Int64[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BytesBySegmentPreference {
-        get {
-            if(!this.HasProp("__BytesBySegmentPreferenceProxyArray"))
-                this.__BytesBySegmentPreferenceProxyArray := Win32FixedArray(this.ptr + 8, 5, Primitive, "uint")
-            return this.__BytesBySegmentPreferenceProxyArray
-        }
-    }
 }

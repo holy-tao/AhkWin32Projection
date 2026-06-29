@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_UPDATENONLOCALHEAPDATA extends Win32Struct {
-    static sizeof => 56
+export default struct DDHAL_UPDATENONLOCALHEAPDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwHeap : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeap {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fpGARTLin : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpGARTLin {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    fpGARTDev : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpGARTDev {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ulPolicyMaxBytes : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ulPolicyMaxBytes {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    UpdateNonLocalHeap : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_UPDATENONLOCALHEAP>}
-     */
-    UpdateNonLocalHeap {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

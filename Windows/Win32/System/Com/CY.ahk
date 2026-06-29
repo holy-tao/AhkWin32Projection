@@ -1,37 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CY structure is useful for calculations involving money, or for any fixed-point calculation where accuracy is particularly important.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-cy~r1
  * @namespace Windows.Win32.System.Com
  */
-class CY extends Win32Struct {
-    static sizeof => 16
+export default struct CY {
+    #StructPack 8
 
-    static packingSize => 8
+    Lo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Lo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Hi : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Hi {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    int64 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'int64', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

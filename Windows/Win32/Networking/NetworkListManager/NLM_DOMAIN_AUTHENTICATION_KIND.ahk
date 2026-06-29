@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify a domain authentication method.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_domain_authentication_kind
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_DOMAIN_AUTHENTICATION_KIND extends Win32Enum {
+export default struct NLM_DOMAIN_AUTHENTICATION_KIND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies no domain authentication method; and/or that the network couldn't be domain-authenticated.

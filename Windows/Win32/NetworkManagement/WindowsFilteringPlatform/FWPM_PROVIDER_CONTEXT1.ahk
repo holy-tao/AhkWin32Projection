@@ -1,14 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
-#Include .\IPSEC_KEYING_POLICY0.ahk
-#Include .\IPSEC_TRANSPORT_POLICY1.ahk
-#Include .\IPSEC_TUNNEL_POLICY1.ahk
-#Include .\IKEEXT_POLICY1.ahk
-#Include .\FWPM_CLASSIFY_OPTIONS0.ahk
-#Include .\IPSEC_DOSP_OPTIONS0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_DOSP_OPTIONS0.ahk" { IPSEC_DOSP_OPTIONS0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
+#Import ".\FWPM_CLASSIFY_OPTIONS0.ahk" { FWPM_CLASSIFY_OPTIONS0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IPSEC_KEYING_POLICY0.ahk" { IPSEC_KEYING_POLICY0 }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import ".\IKEEXT_POLICY1.ahk" { IKEEXT_POLICY1 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPSEC_TUNNEL_POLICY1.ahk" { IPSEC_TUNNEL_POLICY1 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_TRANSPORT_POLICY1.ahk" { IPSEC_TRANSPORT_POLICY1 }
 
 /**
  * Stores the state associated with a provider context. (FWPM_PROVIDER_CONTEXT1)
@@ -19,31 +20,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_PROVIDER_CONTEXT1 extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct FWPM_PROVIDER_CONTEXT1 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the provider context. If the GUID is zero-initialized in the call to [FwpmProviderContextAdd1](../fwpmu/nf-fwpmu-fwpmprovidercontextadd1.md), Base Filtering Engine (BFE) will generate one.
-     * @type {Pointer}
      */
-    providerContextKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    providerContextKey : Guid
 
     /**
      * Allows provider contexts to be annotated in a human-readable form. The [FWPM_DISPLAY_DATA0](../fwptypes/ns-fwptypes-fwpm_display_data0.md) structure is required.
-     * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData {
-        get {
-            if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
-            return this.__displayData
-        }
-    }
+    displayData : FWPM_DISPLAY_DATA0
 
     /**
      * Possible values:
@@ -51,145 +39,43 @@ class FWPM_PROVIDER_CONTEXT1 extends Win32Struct {
      * | Provider context flag | Meaning |
      * | ----- | ------- |
      * | FWPM_PROVIDER_CONTEXT_FLAG_PERSISTENT | The object is persistent, that is, it survives across BFE stop/start. |
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    flags : UInt32
 
     /**
      * GUID of the policy provider that manages this object.
-     * @type {Pointer<Guid>}
      */
-    providerKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    providerKey : Guid.Ptr
 
     /**
      * An [FWP_BYTE_BLOB](../fwptypes/ns-fwptypes-fwp_byte_blob.md) structure that contains optional provider-specific data that allows providers to store additional context info with the object.
-     * @type {FWP_BYTE_BLOB}
      */
-    providerData {
-        get {
-            if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(40, this)
-            return this.__providerData
-        }
-    }
+    providerData : FWP_BYTE_BLOB
 
     /**
      * A [FWPM_PROVIDER_CONTEXT_TYPE](ne-fwpmtypes-fwpm_provider_context_type.md) value specifying the type of provider context..
-     * @type {FWPM_PROVIDER_CONTEXT_TYPE}
      */
-    type {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    type : FWPM_PROVIDER_CONTEXT_TYPE
 
-    /**
-     * @type {Pointer<IPSEC_KEYING_POLICY0>}
-     */
-    keyingPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TRANSPORT_POLICY1>}
-     */
-    ikeQmTransportPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TUNNEL_POLICY1>}
-     */
-    ikeQmTunnelPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TRANSPORT_POLICY1>}
-     */
-    authipQmTransportPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TUNNEL_POLICY1>}
-     */
-    authipQmTunnelPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_POLICY1>}
-     */
-    ikeMmPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_POLICY1>}
-     */
-    authIpMmPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_BLOB>}
-     */
-    dataBuffer {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<FWPM_CLASSIFY_OPTIONS0>}
-     */
-    classifyOptions {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TUNNEL_POLICY1>}
-     */
-    ikeV2QmTunnelPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_POLICY1>}
-     */
-    ikeV2MmPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_DOSP_OPTIONS0>}
-     */
-    idpOptions {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    keyingPolicy : IPSEC_KEYING_POLICY0.Ptr
 
     /**
      * LUID identifying the context.  This is the context value stored in the **FWPS_FILTER1** structure for filters that reference a provider context. The **FWPS_FILTER1** structure is documented in the WDK.
-     * @type {Integer}
      */
-    providerContextId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+    providerContextId : Int64
+
+    static __New() {
+        DefineProp(this.Prototype, 'ikeQmTransportPolicy', { type: IPSEC_TRANSPORT_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeQmTunnelPolicy', { type: IPSEC_TUNNEL_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'authipQmTransportPolicy', { type: IPSEC_TRANSPORT_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'authipQmTunnelPolicy', { type: IPSEC_TUNNEL_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeMmPolicy', { type: IKEEXT_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'authIpMmPolicy', { type: IKEEXT_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'dataBuffer', { type: FWP_BYTE_BLOB.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'classifyOptions', { type: FWPM_CLASSIFY_OPTIONS0.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeV2QmTunnelPolicy', { type: IPSEC_TUNNEL_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeV2MmPolicy', { type: IKEEXT_POLICY1.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'idpOptions', { type: IPSEC_DOSP_OPTIONS0.Ptr, offset: 72 })
+        this.DeleteProp("__New")
     }
 }

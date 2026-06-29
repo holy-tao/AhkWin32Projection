@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISurrogate (objidlbase.h) interface is used to dynamically load new DLL servers into an existing surrogate and free the surrogate when it is no longer needed.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isurrogate
  * @namespace Windows.Win32.System.Com
  */
-class ISurrogate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISurrogate extends IUnknown {
     /**
      * The interface identifier for ISurrogate
      * @type {Guid}
      */
-    static IID => Guid("{00000022-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000022-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISurrogate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LoadDllServer : IntPtr
+        FreeSurrogate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadDllServer", "FreeSurrogate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISurrogate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ISurrogate::LoadDllServer (objidlbase.h) method loads a DLL server into the implementing surrogate.
@@ -46,7 +55,7 @@ class ISurrogate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isurrogate-loaddllserver
      */
     LoadDllServer(Clsid) {
-        result := ComCall(3, this, "ptr", Clsid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Clsid, "HRESULT")
         return result
     }
 
@@ -62,5 +71,27 @@ class ISurrogate extends IUnknown {
     FreeSurrogate() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISurrogate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadDllServer := CallbackCreate(GetMethod(implObj, "LoadDllServer"), flags, 2)
+        this.vtbl.FreeSurrogate := CallbackCreate(GetMethod(implObj, "FreeSurrogate"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadDllServer)
+        CallbackFree(this.vtbl.FreeSurrogate)
     }
 }

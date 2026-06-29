@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D11_TRACE_STATS.ahk
-#Include .\D3D11_TRACE_VALUE.ahk
-#Include .\D3D11_TRACE_STEP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D11_TRACE_STEP.ahk" { D3D11_TRACE_STEP }
+#Import ".\D3D11_TRACE_REGISTER.ahk" { D3D11_TRACE_REGISTER }
+#Import ".\D3D11_TRACE_VALUE.ahk" { D3D11_TRACE_VALUE }
+#Import ".\D3D11_TRACE_STATS.ahk" { D3D11_TRACE_STATS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An ID3D11ShaderTrace interface implements methods for obtaining traces of shader executions.
@@ -21,26 +23,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertrace
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11ShaderTrace extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11ShaderTrace extends IUnknown {
     /**
      * The interface identifier for ID3D11ShaderTrace
      * @type {Guid}
      */
-    static IID => Guid("{36b013e6-2811-4845-baa7-d623fe0df104}")
+    static IID := Guid("{36b013e6-2811-4845-baa7-d623fe0df104}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11ShaderTrace interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TraceReady                 : IntPtr
+        ResetTrace                 : IntPtr
+        GetTraceStats              : IntPtr
+        PSSelectStamp              : IntPtr
+        GetInitialRegisterContents : IntPtr
+        GetStep                    : IntPtr
+        GetWrittenRegister         : IntPtr
+        GetReadRegister            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TraceReady", "ResetTrace", "GetTraceStats", "PSSelectStamp", "GetInitialRegisterContents", "GetStep", "GetWrittenRegister", "GetReadRegister"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11ShaderTrace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies that the shader trace recorded and is ready to use.
@@ -83,7 +99,7 @@ class ID3D11ShaderTrace extends IUnknown {
      */
     GetTraceStats() {
         pTraceStats := D3D11_TRACE_STATS()
-        result := ComCall(5, this, "ptr", pTraceStats, "HRESULT")
+        result := ComCall(5, this, D3D11_TRACE_STATS.Ptr, pTraceStats, "HRESULT")
         return pTraceStats
     }
 
@@ -123,7 +139,7 @@ class ID3D11ShaderTrace extends IUnknown {
      */
     GetInitialRegisterContents(pRegister) {
         pValue := D3D11_TRACE_VALUE()
-        result := ComCall(7, this, "ptr", pRegister, "ptr", pValue, "HRESULT")
+        result := ComCall(7, this, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -137,7 +153,7 @@ class ID3D11ShaderTrace extends IUnknown {
      */
     GetStep(stepIndex) {
         pTraceStep := D3D11_TRACE_STEP()
-        result := ComCall(8, this, "uint", stepIndex, "ptr", pTraceStep, "HRESULT")
+        result := ComCall(8, this, "uint", stepIndex, D3D11_TRACE_STEP.Ptr, pTraceStep, "HRESULT")
         return pTraceStep
     }
 
@@ -159,7 +175,7 @@ class ID3D11ShaderTrace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getwrittenregister
      */
     GetWrittenRegister(stepIndex, writtenRegisterIndex, pRegister, pValue) {
-        result := ComCall(9, this, "uint", stepIndex, "uint", writtenRegisterIndex, "ptr", pRegister, "ptr", pValue, "HRESULT")
+        result := ComCall(9, this, "uint", stepIndex, "uint", writtenRegisterIndex, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -181,7 +197,41 @@ class ID3D11ShaderTrace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getreadregister
      */
     GetReadRegister(stepIndex, readRegisterIndex, pRegister, pValue) {
-        result := ComCall(10, this, "uint", stepIndex, "uint", readRegisterIndex, "ptr", pRegister, "ptr", pValue, "HRESULT")
+        result := ComCall(10, this, "uint", stepIndex, "uint", readRegisterIndex, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11ShaderTrace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TraceReady := CallbackCreate(GetMethod(implObj, "TraceReady"), flags, 2)
+        this.vtbl.ResetTrace := CallbackCreate(GetMethod(implObj, "ResetTrace"), flags, 1)
+        this.vtbl.GetTraceStats := CallbackCreate(GetMethod(implObj, "GetTraceStats"), flags, 2)
+        this.vtbl.PSSelectStamp := CallbackCreate(GetMethod(implObj, "PSSelectStamp"), flags, 2)
+        this.vtbl.GetInitialRegisterContents := CallbackCreate(GetMethod(implObj, "GetInitialRegisterContents"), flags, 3)
+        this.vtbl.GetStep := CallbackCreate(GetMethod(implObj, "GetStep"), flags, 3)
+        this.vtbl.GetWrittenRegister := CallbackCreate(GetMethod(implObj, "GetWrittenRegister"), flags, 5)
+        this.vtbl.GetReadRegister := CallbackCreate(GetMethod(implObj, "GetReadRegister"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TraceReady)
+        CallbackFree(this.vtbl.ResetTrace)
+        CallbackFree(this.vtbl.GetTraceStats)
+        CallbackFree(this.vtbl.PSSelectStamp)
+        CallbackFree(this.vtbl.GetInitialRegisterContents)
+        CallbackFree(this.vtbl.GetStep)
+        CallbackFree(this.vtbl.GetWrittenRegister)
+        CallbackFree(this.vtbl.GetReadRegister)
     }
 }

@@ -1,48 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MMC_TASK_DISPLAY_TYPE.ahk
-#Include .\MMC_TASK_DISPLAY_BITMAP.ahk
-#Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MMC_TASK_DISPLAY_SYMBOL.ahk" { MMC_TASK_DISPLAY_SYMBOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
+#Import ".\MMC_TASK_DISPLAY_BITMAP.ahk" { MMC_TASK_DISPLAY_BITMAP }
 
 /**
  * Specifies the type of image and all the data required to use that image to display a task or the background on a taskpad.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task_display_object
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_TASK_DISPLAY_OBJECT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MMC_TASK_DISPLAY_OBJECT {
+    #StructPack 8
 
     /**
      * Value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_task_display_type">MMC_TASK_DISPLAY_TYPE</a> that specifies the type of image displayed as the background. The image can be one of three types: symbol, GIF, or bitmap.
-     * @type {MMC_TASK_DISPLAY_TYPE}
      */
-    eDisplayType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    eDisplayType : MMC_TASK_DISPLAY_TYPE
 
-    /**
-     * @type {MMC_TASK_DISPLAY_BITMAP}
-     */
-    uBitmap {
-        get {
-            if(!this.HasProp("__uBitmap"))
-                this.__uBitmap := MMC_TASK_DISPLAY_BITMAP(8, this)
-            return this.__uBitmap
-        }
-    }
+    uBitmap : MMC_TASK_DISPLAY_BITMAP
 
-    /**
-     * @type {MMC_TASK_DISPLAY_SYMBOL}
-     */
-    uSymbol {
-        get {
-            if(!this.HasProp("__uSymbol"))
-                this.__uSymbol := MMC_TASK_DISPLAY_SYMBOL(8, this)
-            return this.__uSymbol
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'uSymbol', { type: MMC_TASK_DISPLAY_SYMBOL, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

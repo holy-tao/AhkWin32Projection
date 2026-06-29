@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERY_ADAPTER_UNIQUE_GUID extends Win32Struct {
-    static sizeof => 80
+export default struct D3DKMT_QUERY_ADAPTER_UNIQUE_GUID {
+    #StructPack 2
 
-    static packingSize => 2
+    AdapterUniqueGUID : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    AdapterUniqueGUID {
-        get => StrGet(this.ptr + 0, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 39, "UTF-16")
-    }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ICodecAPI interface (strmif.h) sets and retrieves settings on an encoder or decoder filter.
@@ -54,26 +56,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-icodecapi
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ICodecAPI extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICodecAPI extends IUnknown {
     /**
      * The interface identifier for ICodecAPI
      * @type {Guid}
      */
-    static IID => Guid("{901db4c7-31ce-41a2-85dc-8fa0bf41b8da}")
+    static IID := Guid("{901db4c7-31ce-41a2-85dc-8fa0bf41b8da}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICodecAPI interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsSupported              : IntPtr
+        IsModifiable             : IntPtr
+        GetParameterRange        : IntPtr
+        GetParameterValues       : IntPtr
+        GetDefaultValue          : IntPtr
+        GetValue                 : IntPtr
+        SetValue                 : IntPtr
+        RegisterForEvent         : IntPtr
+        UnregisterForEvent       : IntPtr
+        SetAllDefaults           : IntPtr
+        SetValueWithNotify       : IntPtr
+        SetAllDefaultsWithNotify : IntPtr
+        GetAllSettings           : IntPtr
+        SetAllSettings           : IntPtr
+        SetAllSettingsWithNotify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsSupported", "IsModifiable", "GetParameterRange", "GetParameterValues", "GetDefaultValue", "GetValue", "SetValue", "RegisterForEvent", "UnregisterForEvent", "SetAllDefaults", "SetValueWithNotify", "SetAllDefaultsWithNotify", "GetAllSettings", "SetAllSettings", "SetAllSettingsWithNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICodecAPI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsSupported method queries whether a codec supports a given property. (ICodecAPI.IsSupported)
@@ -127,7 +150,7 @@ class ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-issupported
      */
     IsSupported(Api) {
-        result := ComCall(3, this, "ptr", Api, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Api, "HRESULT")
         return result
     }
 
@@ -169,7 +192,7 @@ class ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-ismodifiable
      */
     IsModifiable(Api) {
-        result := ComCall(4, this, "ptr", Api, "int")
+        result := ComCall(4, this, Guid.Ptr, Api, Int32)
         return result
     }
 
@@ -234,7 +257,7 @@ class ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getparameterrange
      */
     GetParameterRange(Api, ValueMin, ValueMax, SteppingDelta) {
-        result := ComCall(5, this, "ptr", Api, "ptr", ValueMin, "ptr", ValueMax, "ptr", SteppingDelta, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, Api, VARIANT.Ptr, ValueMin, VARIANT.Ptr, ValueMax, VARIANT.Ptr, SteppingDelta, "HRESULT")
         return result
     }
 
@@ -292,7 +315,7 @@ class ICodecAPI extends IUnknown {
         ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
         ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", Api, ValuesMarshal, Values, ValuesCountMarshal, ValuesCount, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, Api, ValuesMarshal, Values, ValuesCountMarshal, ValuesCount, "HRESULT")
         return result
     }
 
@@ -304,7 +327,7 @@ class ICodecAPI extends IUnknown {
      */
     GetDefaultValue(Api) {
         Value := VARIANT()
-        result := ComCall(7, this, "ptr", Api, "ptr", Value, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, Api, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -316,7 +339,7 @@ class ICodecAPI extends IUnknown {
      */
     GetValue(Api) {
         Value := VARIANT()
-        result := ComCall(8, this, "ptr", Api, "ptr", Value, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, Api, VARIANT.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -369,7 +392,7 @@ class ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setvalue
      */
     SetValue(Api, Value) {
-        result := ComCall(9, this, "ptr", Api, "ptr", Value, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, Api, VARIANT.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -476,7 +499,7 @@ class ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-registerforevent
      */
     RegisterForEvent(Api, _userData) {
-        result := ComCall(10, this, "ptr", Api, "ptr", _userData, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, Api, "ptr", _userData, "HRESULT")
         return result
     }
 
@@ -487,7 +510,7 @@ class ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-unregisterforevent
      */
     UnregisterForEvent(Api) {
-        result := ComCall(11, this, "ptr", Api, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, Api, "HRESULT")
         return result
     }
 
@@ -546,7 +569,7 @@ class ICodecAPI extends IUnknown {
         ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
         ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", Api, "ptr", Value, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, Api, VARIANT.Ptr, Value, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 
@@ -729,5 +752,53 @@ class ICodecAPI extends IUnknown {
 
         result := ComCall(17, this, "ptr", __MIDL__ICodecAPI0002, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICodecAPI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 2)
+        this.vtbl.IsModifiable := CallbackCreate(GetMethod(implObj, "IsModifiable"), flags, 2)
+        this.vtbl.GetParameterRange := CallbackCreate(GetMethod(implObj, "GetParameterRange"), flags, 5)
+        this.vtbl.GetParameterValues := CallbackCreate(GetMethod(implObj, "GetParameterValues"), flags, 4)
+        this.vtbl.GetDefaultValue := CallbackCreate(GetMethod(implObj, "GetDefaultValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.RegisterForEvent := CallbackCreate(GetMethod(implObj, "RegisterForEvent"), flags, 3)
+        this.vtbl.UnregisterForEvent := CallbackCreate(GetMethod(implObj, "UnregisterForEvent"), flags, 2)
+        this.vtbl.SetAllDefaults := CallbackCreate(GetMethod(implObj, "SetAllDefaults"), flags, 1)
+        this.vtbl.SetValueWithNotify := CallbackCreate(GetMethod(implObj, "SetValueWithNotify"), flags, 5)
+        this.vtbl.SetAllDefaultsWithNotify := CallbackCreate(GetMethod(implObj, "SetAllDefaultsWithNotify"), flags, 3)
+        this.vtbl.GetAllSettings := CallbackCreate(GetMethod(implObj, "GetAllSettings"), flags, 2)
+        this.vtbl.SetAllSettings := CallbackCreate(GetMethod(implObj, "SetAllSettings"), flags, 2)
+        this.vtbl.SetAllSettingsWithNotify := CallbackCreate(GetMethod(implObj, "SetAllSettingsWithNotify"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsSupported)
+        CallbackFree(this.vtbl.IsModifiable)
+        CallbackFree(this.vtbl.GetParameterRange)
+        CallbackFree(this.vtbl.GetParameterValues)
+        CallbackFree(this.vtbl.GetDefaultValue)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.RegisterForEvent)
+        CallbackFree(this.vtbl.UnregisterForEvent)
+        CallbackFree(this.vtbl.SetAllDefaults)
+        CallbackFree(this.vtbl.SetValueWithNotify)
+        CallbackFree(this.vtbl.SetAllDefaultsWithNotify)
+        CallbackFree(this.vtbl.GetAllSettings)
+        CallbackFree(this.vtbl.SetAllSettings)
+        CallbackFree(this.vtbl.SetAllSettingsWithNotify)
     }
 }

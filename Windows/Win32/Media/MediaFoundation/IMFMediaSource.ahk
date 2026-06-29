@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEventGenerator.ahk
-#Include .\IMFPresentationDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 
 /**
  * Implemented by media source objects.
@@ -16,26 +18,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasource
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaSource extends IMFMediaEventGenerator {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaSource extends IMFMediaEventGenerator {
     /**
      * The interface identifier for IMFMediaSource
      * @type {Guid}
      */
-    static IID => Guid("{279a808d-aec7-40c8-9c6b-a6b492c78a66}")
+    static IID := Guid("{279a808d-aec7-40c8-9c6b-a6b492c78a66}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaSource interfaces
+    */
+    struct Vtbl extends IMFMediaEventGenerator.Vtbl {
+        GetCharacteristics           : IntPtr
+        CreatePresentationDescriptor : IntPtr
+        Start                        : IntPtr
+        Stop                         : IntPtr
+        Pause                        : IntPtr
+        Shutdown                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCharacteristics", "CreatePresentationDescriptor", "Start", "Stop", "Pause", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the characteristics of the media source.
@@ -197,7 +211,7 @@ class IMFMediaSource extends IMFMediaEventGenerator {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasource-start
      */
     Start(pPresentationDescriptor, pguidTimeFormat, pvarStartPosition) {
-        result := ComCall(9, this, "ptr", pPresentationDescriptor, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "HRESULT")
+        result := ComCall(9, this, "ptr", pPresentationDescriptor, Guid.Ptr, pguidTimeFormat, PROPVARIANT.Ptr, pvarStartPosition, "HRESULT")
         return result
     }
 
@@ -334,5 +348,35 @@ class IMFMediaSource extends IMFMediaEventGenerator {
     Shutdown() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.CreatePresentationDescriptor := CallbackCreate(GetMethod(implObj, "CreatePresentationDescriptor"), flags, 2)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 4)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCharacteristics)
+        CallbackFree(this.vtbl.CreatePresentationDescriptor)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

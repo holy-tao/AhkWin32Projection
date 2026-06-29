@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class SPC_SIGINFO extends Win32Struct {
-    static sizeof => 40
+export default struct SPC_SIGINFO {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSipVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSipVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    gSIPGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    gSIPGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwReserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved4 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwReserved5 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved5 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

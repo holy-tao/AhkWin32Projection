@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITDetectTone interface exposes methods that allow an application to specify the tones and tone characteristics that should cause the TAPI Server to generate a tone event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdetecttone
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDetectTone extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDetectTone extends IDispatch {
     /**
      * The interface identifier for ITDetectTone
      * @type {Guid}
      */
-    static IID => Guid("{961f79bd-3097-49df-a1d6-909b77e89ca0}")
+    static IID := Guid("{961f79bd-3097-49df-a1d6-909b77e89ca0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDetectTone interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AppSpecific : IntPtr
+        put_AppSpecific : IntPtr
+        get_Duration    : IntPtr
+        put_Duration    : IntPtr
+        get_Frequency   : IntPtr
+        put_Frequency   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AppSpecific", "put_AppSpecific", "get_Duration", "put_Duration", "get_Frequency", "put_Frequency"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDetectTone.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -166,5 +179,35 @@ class ITDetectTone extends IDispatch {
     put_Frequency(Index, lFrequency) {
         result := ComCall(12, this, "int", Index, "int", lFrequency, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITDetectTone.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AppSpecific := CallbackCreate(GetMethod(implObj, "get_AppSpecific"), flags, 2)
+        this.vtbl.put_AppSpecific := CallbackCreate(GetMethod(implObj, "put_AppSpecific"), flags, 2)
+        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_Duration := CallbackCreate(GetMethod(implObj, "put_Duration"), flags, 2)
+        this.vtbl.get_Frequency := CallbackCreate(GetMethod(implObj, "get_Frequency"), flags, 3)
+        this.vtbl.put_Frequency := CallbackCreate(GetMethod(implObj, "put_Frequency"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AppSpecific)
+        CallbackFree(this.vtbl.put_AppSpecific)
+        CallbackFree(this.vtbl.get_Duration)
+        CallbackFree(this.vtbl.put_Duration)
+        CallbackFree(this.vtbl.get_Frequency)
+        CallbackFree(this.vtbl.put_Frequency)
     }
 }

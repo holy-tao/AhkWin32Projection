@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BOID.ahk" { BOID }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class ITransactionResourceAsync extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITransactionResourceAsync extends IUnknown {
     /**
      * The interface identifier for ITransactionResourceAsync
      * @type {Guid}
      */
-    static IID => Guid("{69e971f0-23ce-11cf-ad60-00aa00a74ccd}")
+    static IID := Guid("{69e971f0-23ce-11cf-ad60-00aa00a74ccd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransactionResourceAsync interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PrepareRequest : IntPtr
+        CommitRequest  : IntPtr
+        AbortRequest   : IntPtr
+        TMDown         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PrepareRequest", "CommitRequest", "AbortRequest", "TMDown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransactionResourceAsync.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +49,7 @@ class ITransactionResourceAsync extends IUnknown {
      * @returns {HRESULT} 
      */
     PrepareRequest(fRetaining, grfRM, fWantMoniker, fSinglePhase) {
-        result := ComCall(3, this, "int", fRetaining, "uint", grfRM, "int", fWantMoniker, "int", fSinglePhase, "HRESULT")
+        result := ComCall(3, this, BOOL, fRetaining, "uint", grfRM, BOOL, fWantMoniker, BOOL, fSinglePhase, "HRESULT")
         return result
     }
 
@@ -47,7 +60,7 @@ class ITransactionResourceAsync extends IUnknown {
      * @returns {HRESULT} 
      */
     CommitRequest(grfRM, pNewUOW) {
-        result := ComCall(4, this, "uint", grfRM, "ptr", pNewUOW, "HRESULT")
+        result := ComCall(4, this, "uint", grfRM, BOID.Ptr, pNewUOW, "HRESULT")
         return result
     }
 
@@ -59,7 +72,7 @@ class ITransactionResourceAsync extends IUnknown {
      * @returns {HRESULT} 
      */
     AbortRequest(pboidReason, fRetaining, pNewUOW) {
-        result := ComCall(5, this, "ptr", pboidReason, "int", fRetaining, "ptr", pNewUOW, "HRESULT")
+        result := ComCall(5, this, BOID.Ptr, pboidReason, BOOL, fRetaining, BOID.Ptr, pNewUOW, "HRESULT")
         return result
     }
 
@@ -70,5 +83,31 @@ class ITransactionResourceAsync extends IUnknown {
     TMDown() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITransactionResourceAsync.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PrepareRequest := CallbackCreate(GetMethod(implObj, "PrepareRequest"), flags, 5)
+        this.vtbl.CommitRequest := CallbackCreate(GetMethod(implObj, "CommitRequest"), flags, 3)
+        this.vtbl.AbortRequest := CallbackCreate(GetMethod(implObj, "AbortRequest"), flags, 4)
+        this.vtbl.TMDown := CallbackCreate(GetMethod(implObj, "TMDown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PrepareRequest)
+        CallbackFree(this.vtbl.CommitRequest)
+        CallbackFree(this.vtbl.AbortRequest)
+        CallbackFree(this.vtbl.TMDown)
     }
 }

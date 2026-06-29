@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DNS_ATMA_DATA structure represents a DNS ATM address (ATMA) resource record (RR).
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_atma_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_ATMA_DATA extends Win32Struct {
-    static sizeof => 21
-
-    static packingSize => 1
+export default struct DNS_ATMA_DATA {
+    #StructPack 1
 
     /**
      * The format of the ATM address in <b>Address</b>. The possible values for <b>AddressType</b> are: 
@@ -45,22 +42,12 @@ class DNS_ATMA_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AddressType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AddressType : Int8
 
     /**
      * A <b>BYTE</b> array that contains the ATM address whose format is specified by <b>AddressType</b>.
-     * @type {Array<Integer>}
      */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 1, 20, Primitive, "char")
-            return this.__AddressProxyArray
-        }
-    }
+    Address : Int8[20]
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of a command list.
@@ -20,7 +19,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_COMMAND_LIST_TYPE extends Win32Enum {
+export default struct D3D12_COMMAND_LIST_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies a command buffer that the GPU can execute. A direct command list doesn't inherit any GPU state.

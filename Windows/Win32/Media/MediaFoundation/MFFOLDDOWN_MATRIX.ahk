@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains coefficients used to transform multichannel audio into a smaller number of audio channels. This process is called fold-down.
@@ -10,61 +9,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mffolddown_matrix
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFFOLDDOWN_MATRIX extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 4
+export default struct MFFOLDDOWN_MATRIX {
+    #StructPack 4
 
     /**
      * Size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Number of source channels.
-     * @type {Integer}
      */
-    cSrcChannels {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cSrcChannels : UInt32
 
     /**
      * Number of destination channels.
-     * @type {Integer}
      */
-    cDstChannels {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cDstChannels : UInt32
 
     /**
      * Specifies the assignment of audio channels to speaker positions in the transformed audio. This member is a bitwise <b>OR</b> of flags that define the speaker positions. For a list of valid flags, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-audio-channel-mask-attribute">MF_MT_AUDIO_CHANNEL_MASK</a> attribute.
-     * @type {Integer}
      */
-    dwChannelMask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwChannelMask : UInt32
 
     /**
      * Array that contains the fold-down coefficients. The number of coefficients is <b>cSrcChannels</b>×<b>cDstChannels</b>. If the number of coefficients is less than the size of the array, the remaining elements in the array are ignored. For more information about how the coefficients are applied, see <a href="https://docs.microsoft.com/previous-versions/ms867218(v=msdn.10)">Windows Media Audio Professional Codec Features</a>.
-     * @type {Array<Integer>}
      */
-    Coeff {
-        get {
-            if(!this.HasProp("__CoeffProxyArray"))
-                this.__CoeffProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "int")
-            return this.__CoeffProxyArray
-        }
-    }
+    Coeff : Int32[64]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 272
-    }
 }

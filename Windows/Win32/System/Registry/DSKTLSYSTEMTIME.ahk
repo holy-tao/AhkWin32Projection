@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Registry
  */
-class DSKTLSYSTEMTIME extends Win32Struct {
-    static sizeof => 18
+export default struct DSKTLSYSTEMTIME {
+    #StructPack 2
 
-    static packingSize => 2
+    wYear : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wYear {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMonth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMonth {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wDayOfWeek : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDayOfWeek {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wDay : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDay {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wHour : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHour {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wMinute : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMinute {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wSecond : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSecond {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wMilliseconds : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMilliseconds {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    wResult : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wResult {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
 }

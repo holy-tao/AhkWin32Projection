@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_TPM_SPECIFICATION_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct CERT_TPM_SPECIFICATION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszFamily : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszFamily {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLevel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwRevision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRevision {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

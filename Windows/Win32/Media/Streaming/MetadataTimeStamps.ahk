@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MetadataTimeStamps structure describes the blob format for the MF_CAPTURE_METADATA_FACEROITIMESTAMPS attribute.
@@ -13,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-metadatatimestamps
  * @namespace Windows.Win32.Media.Streaming
  */
-class MetadataTimeStamps extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MetadataTimeStamps {
+    #StructPack 8
 
     /**
      * Bitwise OR of the <b>MF_METADATATIMESTAMPS_*</b> flags.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * QPC time for the sample  the face rectangle is derived from (in 100ns).
-     * @type {Integer}
      */
-    Device {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Device : Int64
 
     /**
      * PTS for the sample  the face rectangle is derived from (in 100ns).
-     * @type {Integer}
      */
-    Presentation {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    Presentation : Int64
+
 }

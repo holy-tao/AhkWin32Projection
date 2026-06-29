@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISurfacePresenterFlip.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\MsHtml\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
+#Import ".\ISurfacePresenterFlip.ahk" { ISurfacePresenterFlip }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class IViewObjectPresentFlipSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IViewObjectPresentFlipSite extends IUnknown {
     /**
      * The interface identifier for IViewObjectPresentFlipSite
      * @type {Guid}
      */
-    static IID => Guid("{30510846-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510846-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IViewObjectPresentFlipSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateSurfacePresenterFlip : IntPtr
+        GetDeviceLuid              : IntPtr
+        EnterFullScreen            : IntPtr
+        ExitFullScreen             : IntPtr
+        IsFullScreen               : IntPtr
+        GetBoundingRect            : IntPtr
+        GetMetrics                 : IntPtr
+        GetFullScreenSize          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSurfacePresenterFlip", "GetDeviceLuid", "EnterFullScreen", "ExitFullScreen", "IsFullScreen", "GetBoundingRect", "GetMetrics", "GetFullScreenSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IViewObjectPresentFlipSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -42,7 +61,7 @@ class IViewObjectPresentFlipSite extends IUnknown {
      * @returns {ISurfacePresenterFlip} 
      */
     CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, _mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
         return ISurfacePresenterFlip(ppSPFlip)
     }
 
@@ -52,7 +71,7 @@ class IViewObjectPresentFlipSite extends IUnknown {
      */
     GetDeviceLuid() {
         pLuid := LUID()
-        result := ComCall(4, this, "ptr", pLuid, "HRESULT")
+        result := ComCall(4, this, LUID.Ptr, pLuid, "HRESULT")
         return pLuid
     }
 
@@ -79,7 +98,7 @@ class IViewObjectPresentFlipSite extends IUnknown {
      * @returns {BOOL} 
      */
     IsFullScreen() {
-        result := ComCall(7, this, "int*", &pfFullScreen := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pfFullScreen := 0, "HRESULT")
         return pfFullScreen
     }
 
@@ -89,7 +108,7 @@ class IViewObjectPresentFlipSite extends IUnknown {
      */
     GetBoundingRect() {
         pRect := RECT()
-        result := ComCall(8, this, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -105,7 +124,7 @@ class IViewObjectPresentFlipSite extends IUnknown {
         pScaleXMarshal := pScaleX is VarRef ? "float*" : "ptr"
         pScaleYMarshal := pScaleY is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pPos, "ptr", pSize, pScaleXMarshal, pScaleX, pScaleYMarshal, pScaleY, "HRESULT")
+        result := ComCall(9, this, POINT.Ptr, pPos, SIZE.Ptr, pSize, pScaleXMarshal, pScaleX, pScaleYMarshal, pScaleY, "HRESULT")
         return result
     }
 
@@ -115,7 +134,41 @@ class IViewObjectPresentFlipSite extends IUnknown {
      */
     GetFullScreenSize() {
         pSize := SIZE()
-        result := ComCall(10, this, "ptr", pSize, "HRESULT")
+        result := ComCall(10, this, SIZE.Ptr, pSize, "HRESULT")
         return pSize
+    }
+
+    Query(iid) {
+        if (IViewObjectPresentFlipSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSurfacePresenterFlip := CallbackCreate(GetMethod(implObj, "CreateSurfacePresenterFlip"), flags, 8)
+        this.vtbl.GetDeviceLuid := CallbackCreate(GetMethod(implObj, "GetDeviceLuid"), flags, 2)
+        this.vtbl.EnterFullScreen := CallbackCreate(GetMethod(implObj, "EnterFullScreen"), flags, 1)
+        this.vtbl.ExitFullScreen := CallbackCreate(GetMethod(implObj, "ExitFullScreen"), flags, 1)
+        this.vtbl.IsFullScreen := CallbackCreate(GetMethod(implObj, "IsFullScreen"), flags, 2)
+        this.vtbl.GetBoundingRect := CallbackCreate(GetMethod(implObj, "GetBoundingRect"), flags, 2)
+        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 5)
+        this.vtbl.GetFullScreenSize := CallbackCreate(GetMethod(implObj, "GetFullScreenSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSurfacePresenterFlip)
+        CallbackFree(this.vtbl.GetDeviceLuid)
+        CallbackFree(this.vtbl.EnterFullScreen)
+        CallbackFree(this.vtbl.ExitFullScreen)
+        CallbackFree(this.vtbl.IsFullScreen)
+        CallbackFree(this.vtbl.GetBoundingRect)
+        CallbackFree(this.vtbl.GetMetrics)
+        CallbackFree(this.vtbl.GetFullScreenSize)
     }
 }

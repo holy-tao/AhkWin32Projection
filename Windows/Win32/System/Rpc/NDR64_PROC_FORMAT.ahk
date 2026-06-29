@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_PROC_FORMAT extends Win32Struct {
-    static sizeof => 24
+export default struct NDR64_PROC_FORMAT {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StackSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StackSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ConstantClientBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstantClientBufferSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ConstantServerBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstantServerBufferSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    RpcFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RpcFlags {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    FloatDoubleMask : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FloatDoubleMask {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    NumberOfParams : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfParams {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    ExtensionSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ExtensionSize {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
 }

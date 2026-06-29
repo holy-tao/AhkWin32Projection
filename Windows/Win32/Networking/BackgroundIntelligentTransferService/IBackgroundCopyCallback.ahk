@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implement the IBackgroundCopyCallback interface to receive notification that a job is complete, has been modified, or is in error. Clients use this interface instead of polling for the status of the job.
@@ -50,26 +53,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopycallback
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyCallback extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyCallback
      * @type {Guid}
      */
-    static IID => Guid("{97ea99c7-0186-4ad4-8df9-c5b4e0ed6b22}")
+    static IID := Guid("{97ea99c7-0186-4ad4-8df9-c5b4e0ed6b22}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        JobTransferred  : IntPtr
+        JobError        : IntPtr
+        JobModification : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["JobTransferred", "JobError", "JobModification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * BITS calls your implementation of the JobTransferred method when all of the files in the job have been successfully transferred.
@@ -158,5 +170,29 @@ class IBackgroundCopyCallback extends IUnknown {
     JobModification(pJob, dwReserved) {
         result := ComCall(5, this, "ptr", pJob, "uint", dwReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.JobTransferred := CallbackCreate(GetMethod(implObj, "JobTransferred"), flags, 2)
+        this.vtbl.JobError := CallbackCreate(GetMethod(implObj, "JobError"), flags, 3)
+        this.vtbl.JobModification := CallbackCreate(GetMethod(implObj, "JobModification"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.JobTransferred)
+        CallbackFree(this.vtbl.JobError)
+        CallbackFree(this.vtbl.JobModification)
     }
 }

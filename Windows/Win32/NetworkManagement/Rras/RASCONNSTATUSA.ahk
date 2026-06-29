@@ -1,95 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RASCONNSTATE.ahk
-#Include .\RASTUNNELENDPOINT.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASCONNSUBSTATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\RASTUNNELENDPOINT.ahk" { RASTUNNELENDPOINT }
+#Import ".\RASCONNSUBSTATE.ahk" { RASCONNSUBSTATE }
+#Import ".\RASCONNSTATE.ahk" { RASCONNSTATE }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset ANSI
  */
-class RASCONNSTATUSA extends Win32Struct {
-    static sizeof => 332
+export default struct RASCONNSTATUSA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rasconnstate : RASCONNSTATE
 
-    /**
-     * @type {RASCONNSTATE}
-     */
-    rasconnstate {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    szDeviceType : CHAR[17]
 
-    /**
-     * @type {String}
-     */
-    szDeviceType {
-        get => StrGet(this.ptr + 12, 16, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 16, "UTF-8")
-    }
+    szDeviceName : CHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szDeviceName {
-        get => StrGet(this.ptr + 29, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 29, 128, "UTF-8")
-    }
+    szPhoneNumber : CHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szPhoneNumber {
-        get => StrGet(this.ptr + 158, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 158, 128, "UTF-8")
-    }
+    localEndPoint : RASTUNNELENDPOINT
 
-    /**
-     * @type {RASTUNNELENDPOINT}
-     */
-    localEndPoint {
-        get {
-            if(!this.HasProp("__localEndPoint"))
-                this.__localEndPoint := RASTUNNELENDPOINT(288, this)
-            return this.__localEndPoint
-        }
-    }
+    remoteEndPoint : RASTUNNELENDPOINT
 
-    /**
-     * @type {RASTUNNELENDPOINT}
-     */
-    remoteEndPoint {
-        get {
-            if(!this.HasProp("__remoteEndPoint"))
-                this.__remoteEndPoint := RASTUNNELENDPOINT(308, this)
-            return this.__remoteEndPoint
-        }
-    }
+    rasconnsubstate : RASCONNSUBSTATE
 
-    /**
-     * @type {RASCONNSUBSTATE}
-     */
-    rasconnsubstate {
-        get => NumGet(this, 328, "int")
-        set => NumPut("int", value, this, 328)
-    }
 }

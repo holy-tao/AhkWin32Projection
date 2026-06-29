@@ -1,132 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset Unicode
  */
-class RASPPPLCPW extends Win32Struct {
-    static sizeof => 2104
+export default struct RASPPPLCPW {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fBundled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fBundled {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAuthenticationProtocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAuthenticationProtocol {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwAuthenticationData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAuthenticationData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwEapTypeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEapTypeId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwServerAuthenticationProtocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerAuthenticationProtocol {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwServerAuthenticationData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerAuthenticationData {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwServerEapTypeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerEapTypeId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    fMultilink : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fMultilink {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    dwTerminateReason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTerminateReason {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwServerTerminateReason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerTerminateReason {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    szReplyMessage : WCHAR[1024]
 
-    /**
-     * @type {String}
-     */
-    szReplyMessage {
-        get => StrGet(this.ptr + 48, 1023, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 1023, "UTF-16")
-    }
+    dwOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOptions {
-        get => NumGet(this, 2096, "uint")
-        set => NumPut("uint", value, this, 2096)
-    }
+    dwServerOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerOptions {
-        get => NumGet(this, 2100, "uint")
-        set => NumPut("uint", value, this, 2100)
-    }
 }

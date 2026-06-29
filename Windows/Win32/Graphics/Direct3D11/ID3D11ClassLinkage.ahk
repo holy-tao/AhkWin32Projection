@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
-#Include .\ID3D11ClassInstance.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import ".\ID3D11ClassInstance.ahk" { ID3D11ClassInstance }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This interface encapsulates an HLSL dynamic linkage.
@@ -13,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11classlinkage
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11ClassLinkage extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11ClassLinkage extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11ClassLinkage
      * @type {Guid}
      */
-    static IID => Guid("{ddf57cba-9543-46e4-a12b-f207a0fe7fed}")
+    static IID := Guid("{ddf57cba-9543-46e4-a12b-f207a0fe7fed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11ClassLinkage interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        GetClassInstance    : IntPtr
+        CreateClassInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClassInstance", "CreateClassInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11ClassLinkage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the class-instance object that represents the specified HLSL class.
@@ -103,5 +113,27 @@ class ID3D11ClassLinkage extends ID3D11DeviceChild {
 
         result := ComCall(8, this, "ptr", pClassTypeName, "uint", ConstantBufferOffset, "uint", ConstantVectorOffset, "uint", TextureOffset, "uint", SamplerOffset, "ptr*", &ppInstance := 0, "HRESULT")
         return ID3D11ClassInstance(ppInstance)
+    }
+
+    Query(iid) {
+        if (ID3D11ClassLinkage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClassInstance := CallbackCreate(GetMethod(implObj, "GetClassInstance"), flags, 4)
+        this.vtbl.CreateClassInstance := CallbackCreate(GetMethod(implObj, "CreateClassInstance"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClassInstance)
+        CallbackFree(this.vtbl.CreateClassInstance)
     }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The ITfKeyTraceEventSink interface is implemented by an application or text service to receive key stroke event notifications before the event is processed by the target.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfkeytraceeventsink
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfKeyTraceEventSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfKeyTraceEventSink extends IUnknown {
     /**
      * The interface identifier for ITfKeyTraceEventSink
      * @type {Guid}
      */
-    static IID => Guid("{1cd4c13b-1c36-4191-a70a-7f3e611f367d}")
+    static IID := Guid("{1cd4c13b-1c36-4191-a70a-7f3e611f367d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfKeyTraceEventSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnKeyTraceDown : IntPtr
+        OnKeyTraceUp   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnKeyTraceDown", "OnKeyTraceUp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfKeyTraceEventSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfKeyTraceEventSink::OnKeyTraceDown method
@@ -39,7 +50,7 @@ class ITfKeyTraceEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeytraceeventsink-onkeytracedown
      */
     OnKeyTraceDown(_wParam, _lParam) {
-        result := ComCall(3, this, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(3, this, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -51,7 +62,29 @@ class ITfKeyTraceEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeytraceeventsink-onkeytraceup
      */
     OnKeyTraceUp(_wParam, _lParam) {
-        result := ComCall(4, this, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(4, this, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfKeyTraceEventSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnKeyTraceDown := CallbackCreate(GetMethod(implObj, "OnKeyTraceDown"), flags, 3)
+        this.vtbl.OnKeyTraceUp := CallbackCreate(GetMethod(implObj, "OnKeyTraceUp"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnKeyTraceDown)
+        CallbackFree(this.vtbl.OnKeyTraceUp)
     }
 }

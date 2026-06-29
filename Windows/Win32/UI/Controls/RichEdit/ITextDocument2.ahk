@@ -1,43 +1,95 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextDocument.ahk
-#Include .\ITextDisplays.ahk
-#Include .\ITextFont2.ahk
-#Include .\ITextPara2.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextSelection2.ahk
-#Include .\ITextStoryRanges2.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextStrings.ahk
-#Include .\ITextRange2.ahk
-#Include .\ITextStory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextPara2.ahk" { ITextPara2 }
+#Import ".\ITextStrings.ahk" { ITextStrings }
+#Import ".\ITextSelection2.ahk" { ITextSelection2 }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITextStory.ahk" { ITextStory }
+#Import ".\ITextStoryRanges2.ahk" { ITextStoryRanges2 }
+#Import ".\ITextFont2.ahk" { ITextFont2 }
+#Import ".\ITextDocument.ahk" { ITextDocument }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import ".\ITextDisplays.ahk" { ITextDisplays }
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextdocument2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextDocument2 extends ITextDocument {
-
-    static sizeof => A_PtrSize
+export default struct ITextDocument2 extends ITextDocument {
     /**
      * The interface identifier for ITextDocument2
      * @type {Guid}
      */
-    static IID => Guid("{c241f5e0-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5e0-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextDocument2 interfaces
+    */
+    struct Vtbl extends ITextDocument.Vtbl {
+        GetCaretType         : IntPtr
+        SetCaretType         : IntPtr
+        GetDisplays          : IntPtr
+        GetDocumentFont      : IntPtr
+        SetDocumentFont      : IntPtr
+        GetDocumentPara      : IntPtr
+        SetDocumentPara      : IntPtr
+        GetEastAsianFlags    : IntPtr
+        GetGenerator         : IntPtr
+        SetIMEInProgress     : IntPtr
+        GetNotificationMode  : IntPtr
+        SetNotificationMode  : IntPtr
+        GetSelection2        : IntPtr
+        GetStoryRanges2      : IntPtr
+        GetTypographyOptions : IntPtr
+        GetVersion           : IntPtr
+        GetWindow            : IntPtr
+        AttachMsgFilter      : IntPtr
+        CheckTextLimit       : IntPtr
+        GetCallManager       : IntPtr
+        GetClientRect        : IntPtr
+        GetEffectColor       : IntPtr
+        GetImmContext        : IntPtr
+        GetPreferredFont     : IntPtr
+        GetProperty          : IntPtr
+        GetStrings           : IntPtr
+        Notify               : IntPtr
+        Range2               : IntPtr
+        RangeFromPoint2      : IntPtr
+        ReleaseCallManager   : IntPtr
+        ReleaseImmContext    : IntPtr
+        SetEffectColor       : IntPtr
+        SetProperty          : IntPtr
+        SetTypographyOptions : IntPtr
+        SysBeep              : IntPtr
+        Update               : IntPtr
+        UpdateWindow         : IntPtr
+        GetMathProperties    : IntPtr
+        SetMathProperties    : IntPtr
+        GetActiveStory       : IntPtr
+        SetActiveStory       : IntPtr
+        GetMainStory         : IntPtr
+        GetNewStory          : IntPtr
+        GetStory             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCaretType", "SetCaretType", "GetDisplays", "GetDocumentFont", "SetDocumentFont", "GetDocumentPara", "SetDocumentPara", "GetEastAsianFlags", "GetGenerator", "SetIMEInProgress", "GetNotificationMode", "SetNotificationMode", "GetSelection2", "GetStoryRanges2", "GetTypographyOptions", "GetVersion", "GetWindow", "AttachMsgFilter", "CheckTextLimit", "GetCallManager", "GetClientRect", "GetEffectColor", "GetImmContext", "GetPreferredFont", "GetProperty", "GetStrings", "Notify", "Range2", "RangeFromPoint2", "ReleaseCallManager", "ReleaseImmContext", "SetEffectColor", "SetProperty", "SetTypographyOptions", "SysBeep", "Update", "UpdateWindow", "GetMathProperties", "SetMathProperties", "GetActiveStory", "SetActiveStory", "GetMainStory", "GetNewStory", "GetStory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextDocument2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the caret type.
@@ -152,8 +204,8 @@ class ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getgenerator
      */
     GetGenerator() {
-        pbstr := BSTR()
-        result := ComCall(34, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -369,7 +421,7 @@ class ITextDocument2 extends ITextDocument {
         pRightMarshal := pRight is VarRef ? "int*" : "ptr"
         pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
 
-        result := ComCall(46, this, "int", Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
+        result := ComCall(46, this, tomConstants, Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
         return result
     }
 
@@ -431,7 +483,7 @@ class ITextDocument2 extends ITextDocument {
         pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
         pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(49, this, "int", cp, "int", CharRep, "int", Options, "int", curCharRep, "int", curFontSize, "ptr", pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
+        result := ComCall(49, this, "int", cp, "int", CharRep, "int", Options, "int", curCharRep, "int", curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
     }
 
@@ -1018,5 +1070,111 @@ class ITextDocument2 extends ITextDocument {
     GetStory(Index) {
         result := ComCall(69, this, "int", Index, "ptr*", &ppStory := 0, "HRESULT")
         return ITextStory(ppStory)
+    }
+
+    Query(iid) {
+        if (ITextDocument2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCaretType := CallbackCreate(GetMethod(implObj, "GetCaretType"), flags, 2)
+        this.vtbl.SetCaretType := CallbackCreate(GetMethod(implObj, "SetCaretType"), flags, 2)
+        this.vtbl.GetDisplays := CallbackCreate(GetMethod(implObj, "GetDisplays"), flags, 2)
+        this.vtbl.GetDocumentFont := CallbackCreate(GetMethod(implObj, "GetDocumentFont"), flags, 2)
+        this.vtbl.SetDocumentFont := CallbackCreate(GetMethod(implObj, "SetDocumentFont"), flags, 2)
+        this.vtbl.GetDocumentPara := CallbackCreate(GetMethod(implObj, "GetDocumentPara"), flags, 2)
+        this.vtbl.SetDocumentPara := CallbackCreate(GetMethod(implObj, "SetDocumentPara"), flags, 2)
+        this.vtbl.GetEastAsianFlags := CallbackCreate(GetMethod(implObj, "GetEastAsianFlags"), flags, 2)
+        this.vtbl.GetGenerator := CallbackCreate(GetMethod(implObj, "GetGenerator"), flags, 2)
+        this.vtbl.SetIMEInProgress := CallbackCreate(GetMethod(implObj, "SetIMEInProgress"), flags, 2)
+        this.vtbl.GetNotificationMode := CallbackCreate(GetMethod(implObj, "GetNotificationMode"), flags, 2)
+        this.vtbl.SetNotificationMode := CallbackCreate(GetMethod(implObj, "SetNotificationMode"), flags, 2)
+        this.vtbl.GetSelection2 := CallbackCreate(GetMethod(implObj, "GetSelection2"), flags, 2)
+        this.vtbl.GetStoryRanges2 := CallbackCreate(GetMethod(implObj, "GetStoryRanges2"), flags, 2)
+        this.vtbl.GetTypographyOptions := CallbackCreate(GetMethod(implObj, "GetTypographyOptions"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.AttachMsgFilter := CallbackCreate(GetMethod(implObj, "AttachMsgFilter"), flags, 2)
+        this.vtbl.CheckTextLimit := CallbackCreate(GetMethod(implObj, "CheckTextLimit"), flags, 3)
+        this.vtbl.GetCallManager := CallbackCreate(GetMethod(implObj, "GetCallManager"), flags, 2)
+        this.vtbl.GetClientRect := CallbackCreate(GetMethod(implObj, "GetClientRect"), flags, 6)
+        this.vtbl.GetEffectColor := CallbackCreate(GetMethod(implObj, "GetEffectColor"), flags, 3)
+        this.vtbl.GetImmContext := CallbackCreate(GetMethod(implObj, "GetImmContext"), flags, 2)
+        this.vtbl.GetPreferredFont := CallbackCreate(GetMethod(implObj, "GetPreferredFont"), flags, 9)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetStrings := CallbackCreate(GetMethod(implObj, "GetStrings"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 2)
+        this.vtbl.Range2 := CallbackCreate(GetMethod(implObj, "Range2"), flags, 4)
+        this.vtbl.RangeFromPoint2 := CallbackCreate(GetMethod(implObj, "RangeFromPoint2"), flags, 5)
+        this.vtbl.ReleaseCallManager := CallbackCreate(GetMethod(implObj, "ReleaseCallManager"), flags, 2)
+        this.vtbl.ReleaseImmContext := CallbackCreate(GetMethod(implObj, "ReleaseImmContext"), flags, 2)
+        this.vtbl.SetEffectColor := CallbackCreate(GetMethod(implObj, "SetEffectColor"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetTypographyOptions := CallbackCreate(GetMethod(implObj, "SetTypographyOptions"), flags, 3)
+        this.vtbl.SysBeep := CallbackCreate(GetMethod(implObj, "SysBeep"), flags, 1)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
+        this.vtbl.UpdateWindow := CallbackCreate(GetMethod(implObj, "UpdateWindow"), flags, 1)
+        this.vtbl.GetMathProperties := CallbackCreate(GetMethod(implObj, "GetMathProperties"), flags, 2)
+        this.vtbl.SetMathProperties := CallbackCreate(GetMethod(implObj, "SetMathProperties"), flags, 3)
+        this.vtbl.GetActiveStory := CallbackCreate(GetMethod(implObj, "GetActiveStory"), flags, 2)
+        this.vtbl.SetActiveStory := CallbackCreate(GetMethod(implObj, "SetActiveStory"), flags, 2)
+        this.vtbl.GetMainStory := CallbackCreate(GetMethod(implObj, "GetMainStory"), flags, 2)
+        this.vtbl.GetNewStory := CallbackCreate(GetMethod(implObj, "GetNewStory"), flags, 2)
+        this.vtbl.GetStory := CallbackCreate(GetMethod(implObj, "GetStory"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCaretType)
+        CallbackFree(this.vtbl.SetCaretType)
+        CallbackFree(this.vtbl.GetDisplays)
+        CallbackFree(this.vtbl.GetDocumentFont)
+        CallbackFree(this.vtbl.SetDocumentFont)
+        CallbackFree(this.vtbl.GetDocumentPara)
+        CallbackFree(this.vtbl.SetDocumentPara)
+        CallbackFree(this.vtbl.GetEastAsianFlags)
+        CallbackFree(this.vtbl.GetGenerator)
+        CallbackFree(this.vtbl.SetIMEInProgress)
+        CallbackFree(this.vtbl.GetNotificationMode)
+        CallbackFree(this.vtbl.SetNotificationMode)
+        CallbackFree(this.vtbl.GetSelection2)
+        CallbackFree(this.vtbl.GetStoryRanges2)
+        CallbackFree(this.vtbl.GetTypographyOptions)
+        CallbackFree(this.vtbl.GetVersion)
+        CallbackFree(this.vtbl.GetWindow)
+        CallbackFree(this.vtbl.AttachMsgFilter)
+        CallbackFree(this.vtbl.CheckTextLimit)
+        CallbackFree(this.vtbl.GetCallManager)
+        CallbackFree(this.vtbl.GetClientRect)
+        CallbackFree(this.vtbl.GetEffectColor)
+        CallbackFree(this.vtbl.GetImmContext)
+        CallbackFree(this.vtbl.GetPreferredFont)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetStrings)
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.Range2)
+        CallbackFree(this.vtbl.RangeFromPoint2)
+        CallbackFree(this.vtbl.ReleaseCallManager)
+        CallbackFree(this.vtbl.ReleaseImmContext)
+        CallbackFree(this.vtbl.SetEffectColor)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.SetTypographyOptions)
+        CallbackFree(this.vtbl.SysBeep)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.UpdateWindow)
+        CallbackFree(this.vtbl.GetMathProperties)
+        CallbackFree(this.vtbl.SetMathProperties)
+        CallbackFree(this.vtbl.GetActiveStory)
+        CallbackFree(this.vtbl.SetActiveStory)
+        CallbackFree(this.vtbl.GetMainStory)
+        CallbackFree(this.vtbl.GetNewStory)
+        CallbackFree(this.vtbl.GetStory)
     }
 }

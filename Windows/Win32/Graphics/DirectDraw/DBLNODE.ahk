@@ -1,46 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DBLNODE.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DBLNODE extends Win32Struct {
-    static sizeof => 32
+export default struct DBLNODE {
+    #StructPack 8
 
-    static packingSize => 8
+    next : DBLNODE.Ptr
 
-    /**
-     * @type {Pointer<DBLNODE>}
-     */
-    next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    prev : DBLNODE.Ptr
 
-    /**
-     * @type {Pointer<DBLNODE>}
-     */
-    prev {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
+    __object_ptr : IntPtr
     object {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__object_ptr) ? DDRAWI_DDRAWSURFACE_LCL.At(addr) : unset
+        set => this.__object_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __object_int_ptr : IntPtr
     object_int {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => (addr := this.__object_int_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__object_int_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

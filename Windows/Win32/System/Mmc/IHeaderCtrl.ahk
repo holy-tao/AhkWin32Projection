@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables the manipulation of columns and indicates the kind of information that is to be presented in the result view pane of the console.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iheaderctrl
  * @namespace Windows.Win32.System.Mmc
  */
-class IHeaderCtrl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHeaderCtrl extends IUnknown {
     /**
      * The interface identifier for IHeaderCtrl
      * @type {Guid}
      */
-    static IID => Guid("{43136eb3-d36c-11cf-adbc-00aa00a80033}")
+    static IID := Guid("{43136eb3-d36c-11cf-adbc-00aa00a80033}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHeaderCtrl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InsertColumn   : IntPtr
+        DeleteColumn   : IntPtr
+        SetColumnText  : IntPtr
+        GetColumnText  : IntPtr
+        SetColumnWidth : IntPtr
+        GetColumnWidth : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertColumn", "DeleteColumn", "SetColumnText", "GetColumnText", "SetColumnWidth", "GetColumnWidth"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHeaderCtrl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a column to a default result pane.
@@ -96,7 +110,7 @@ class IHeaderCtrl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumntext
      */
     GetColumnText(nCol) {
-        result := ComCall(6, this, "int", nCol, "ptr*", &pText := 0, "HRESULT")
+        result := ComCall(6, this, "int", nCol, PWSTR.Ptr, &pText := 0, "HRESULT")
         return pText
     }
 
@@ -133,5 +147,35 @@ class IHeaderCtrl extends IUnknown {
     GetColumnWidth(nCol) {
         result := ComCall(8, this, "int", nCol, "int*", &pWidth := 0, "HRESULT")
         return pWidth
+    }
+
+    Query(iid) {
+        if (IHeaderCtrl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertColumn := CallbackCreate(GetMethod(implObj, "InsertColumn"), flags, 5)
+        this.vtbl.DeleteColumn := CallbackCreate(GetMethod(implObj, "DeleteColumn"), flags, 2)
+        this.vtbl.SetColumnText := CallbackCreate(GetMethod(implObj, "SetColumnText"), flags, 3)
+        this.vtbl.GetColumnText := CallbackCreate(GetMethod(implObj, "GetColumnText"), flags, 3)
+        this.vtbl.SetColumnWidth := CallbackCreate(GetMethod(implObj, "SetColumnWidth"), flags, 3)
+        this.vtbl.GetColumnWidth := CallbackCreate(GetMethod(implObj, "GetColumnWidth"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertColumn)
+        CallbackFree(this.vtbl.DeleteColumn)
+        CallbackFree(this.vtbl.SetColumnText)
+        CallbackFree(this.vtbl.GetColumnText)
+        CallbackFree(this.vtbl.SetColumnWidth)
+        CallbackFree(this.vtbl.GetColumnWidth)
     }
 }

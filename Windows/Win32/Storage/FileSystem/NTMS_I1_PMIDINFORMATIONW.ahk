@@ -1,100 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_I1_PMIDINFORMATIONW extends Win32Struct {
-    static sizeof => 256
+export default struct NTMS_I1_PMIDINFORMATIONW {
+    #StructPack 4
 
-    static packingSize => 8
+    CurrentLibrary : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CurrentLibrary {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MediaPool : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    MediaPool {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Location : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Location {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    LocationType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LocationType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MediaType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    MediaType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    HomeSlot : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    HomeSlot {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    szBarCode : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szBarCode {
-        get => StrGet(this.ptr + 48, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-16")
-    }
+    BarCodeState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BarCodeState {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    szSequenceNumber : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szSequenceNumber {
-        get => StrGet(this.ptr + 180, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 180, 31, "UTF-16")
-    }
+    MediaState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MediaState {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    dwNumberOfPartitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfPartitions {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
-    }
 }

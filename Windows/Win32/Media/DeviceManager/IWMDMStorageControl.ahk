@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMDMStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 
 /**
  * The IWMDMStorageControl interface is used to insert, delete, or move files within a storage, a device, or between a device and the computer.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstoragecontrol
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMStorageControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMStorageControl extends IUnknown {
     /**
      * The interface identifier for IWMDMStorageControl
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a08-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a08-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMStorageControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Insert : IntPtr
+        Delete : IntPtr
+        Rename : IntPtr
+        Read   : IntPtr
+        Move   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Insert", "Delete", "Rename", "Read", "Move"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMStorageControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Insert method puts content into the storage on the device.
@@ -273,5 +288,33 @@ class IWMDMStorageControl extends IUnknown {
     Move(fuMode, pTargetObject, pProgress) {
         result := ComCall(7, this, "uint", fuMode, "ptr", pTargetObject, "ptr", pProgress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMStorageControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 6)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 4)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 5)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Insert)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Rename)
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.Move)
     }
 }

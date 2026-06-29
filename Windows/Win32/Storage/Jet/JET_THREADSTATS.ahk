@@ -1,77 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_THREADSTATS structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-threadstats-structure2
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_THREADSTATS extends Win32Struct {
-    static sizeof => 32
+export default struct JET_THREADSTATS {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cPageReferenced : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPageReferenced {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cPageRead : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPageRead {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cPagePreread : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPagePreread {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cPageDirtied : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPageDirtied {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cPageRedirtied : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPageRedirtied {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cLogRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cLogRecord {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbLogRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbLogRecord {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

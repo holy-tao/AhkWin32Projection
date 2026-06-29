@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface exposes methods used to enumerate and manipulate property values.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertystore
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyStore extends IUnknown {
     /**
      * The interface identifier for IPropertyStore
      * @type {Guid}
      */
-    static IID => Guid("{886d8eeb-8cf2-4446-8d02-cdba1dbdcf99}")
+    static IID := Guid("{886d8eeb-8cf2-4446-8d02-cdba1dbdcf99}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetAt    : IntPtr
+        GetValue : IntPtr
+        SetValue : IntPtr
+        Commit   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAt", "GetValue", "SetValue", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method returns a count of the number of properties that are attached to the file.
@@ -57,7 +69,7 @@ class IPropertyStore extends IUnknown {
      */
     GetAt(iProp) {
         pkey := PROPERTYKEY()
-        result := ComCall(4, this, "uint", iProp, "ptr", pkey, "HRESULT")
+        result := ComCall(4, this, "uint", iProp, PROPERTYKEY.Ptr, pkey, "HRESULT")
         return pkey
     }
 
@@ -71,7 +83,7 @@ class IPropertyStore extends IUnknown {
      */
     GetValue(key) {
         pv := PROPVARIANT()
-        result := ComCall(5, this, "ptr", key, "ptr", pv, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, pv, "HRESULT")
         return pv
     }
 
@@ -141,7 +153,7 @@ class IPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystore-setvalue
      */
     SetValue(key, propvar) {
-        result := ComCall(6, this, "ptr", key, "ptr", propvar, "HRESULT")
+        result := ComCall(6, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, propvar, "HRESULT")
         return result
     }
 
@@ -197,5 +209,33 @@ class IPropertyStore extends IUnknown {
     Commit() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.Commit)
     }
 }

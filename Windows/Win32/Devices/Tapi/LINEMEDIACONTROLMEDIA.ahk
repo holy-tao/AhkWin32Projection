@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEMEDIACONTROLMEDIA structure describes a media action to be executed when detecting a media type change. It is used as an entry in an array. The lineSetMediaControl and TSPI_lineSetMediaControl functions use this structure.
@@ -12,37 +11,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontrolmedia
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEMEDIACONTROLMEDIA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct LINEMEDIACONTROLMEDIA {
+    #StructPack 4
 
     /**
      * One or more media types. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>.
-     * @type {Integer}
      */
-    dwMediaModes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMediaModes : UInt32
 
     /**
      * Duration of time during which the media type should be present before the application should be notified or media control action should be taken, in milliseconds.
-     * @type {Integer}
      */
-    dwDuration {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDuration : UInt32
 
     /**
      * Media control action. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediacontrol--constants">LINEMEDIACONTROL_ Constants</a>.
-     * @type {Integer}
      */
-    dwMediaControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMediaControl : UInt32
+
 }

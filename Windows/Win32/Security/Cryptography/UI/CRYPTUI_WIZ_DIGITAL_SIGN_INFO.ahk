@@ -1,112 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO }
+#Import ".\CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE.ahk" { CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO }
 
 /**
  * Contains information about digital signing.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct CRYPTUI_WIZ_DIGITAL_SIGN_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT}
-     */
-    dwSubjectChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSubjectChoice : CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszFileName : PWSTR
 
-    /**
-     * @type {Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO>}
-     */
-    pSignBlobInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwSigningCertChoice : CRYPTUI_WIZ_DIGITAL_SIGN
 
-    /**
-     * @type {CRYPTUI_WIZ_DIGITAL_SIGN}
-     */
-    dwSigningCertChoice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<CERT_CONTEXT>}
-     */
-    pSigningCertContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO>}
-     */
-    pSigningCertStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO>}
-     */
-    pSigningCertPvkInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pSigningCertContext : CERT_CONTEXT.Ptr
 
     /**
      * A pointer to a null-terminated Unicode string that contains the URL for the time stamp.
-     * @type {PWSTR}
      */
-    pwszTimestampURL {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwszTimestampURL : PWSTR
 
-    /**
-     * @type {CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE}
-     */
-    dwAdditionalCertChoice {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwAdditionalCertChoice : CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_extended_info">CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO</a> structure that contains extended information about the signature.
-     * @type {Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO>}
      */
-    pSignExtInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pSignExtInfo : CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO.Ptr
+
+    static __New() {
+        DefineProp(this.Prototype, 'pSignBlobInfo', { type: CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pSigningCertStore', { type: CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO.Ptr, offset: 24 })
+        DefineProp(this.Prototype, 'pSigningCertPvkInfo', { type: CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO.Ptr, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

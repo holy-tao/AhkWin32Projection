@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The FAX_EVENT structure represents the contents of an I/O completion packet. The fax server sends the completion packet to notify a fax client application of an asynchronous fax server event. (Unicode)
@@ -19,66 +18,42 @@
  * @namespace Windows.Win32.Devices.Fax
  * @charset Unicode
  */
-class FAX_EVENTW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct FAX_EVENTW {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the <b>FAX_EVENT</b> structure. The fax server sets this member to <b>sizeof(FAX_EVENT)</b>.
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time at which the fax server generated the event.
-     * @type {FILETIME}
      */
-    TimeStamp {
-        get {
-            if(!this.HasProp("__TimeStamp"))
-                this.__TimeStamp := FILETIME(4, this)
-            return this.__TimeStamp
-        }
-    }
+    TimeStamp : FILETIME
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that indicates the permanent line identifier for the fax device of interest.
-     * @type {Integer}
      */
-    DeviceId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DeviceId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a <b>DWORD</b> variable that identifies the current asynchronous event that occurred within the fax server. The following table lists the possible events and their meanings.
-     * @type {Integer}
      */
-    EventId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    EventId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job of interest. If this member is equal to the value 0xffffffff, it indicates an inactive fax job. Note that this number is not a print spooler identification number.
-     * @type {Integer}
      */
-    JobId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    JobId : UInt32
+
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_NPEM_CAPABILITY extends Win32Struct {
-    static sizeof => 32
+export default struct PCI_EXPRESS_NPEM_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Capability : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Capability {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Control : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Control {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Status : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Status {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

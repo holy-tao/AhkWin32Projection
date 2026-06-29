@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDOMDocumentType extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDOMDocumentType extends IDispatch {
     /**
      * The interface identifier for IDOMDocumentType
      * @type {Guid}
      */
-    static IID => Guid("{30510738-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510738-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for DOMDocumentType
      * @type {Guid}
      */
-    static CLSID => Guid("{30510739-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{30510739-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDOMDocumentType interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_name           : IntPtr
+        get_entities       : IntPtr
+        get_notations      : IntPtr
+        get_publicId       : IntPtr
+        get_systemId       : IntPtr
+        get_internalSubset : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_name", "get_entities", "get_notations", "get_publicId", "get_systemId", "get_internalSubset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDOMDocumentType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -82,8 +95,8 @@ class IDOMDocumentType extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -111,7 +124,7 @@ class IDOMDocumentType extends IDispatch {
      */
     get_publicId() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -121,7 +134,7 @@ class IDOMDocumentType extends IDispatch {
      */
     get_systemId() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -131,7 +144,37 @@ class IDOMDocumentType extends IDispatch {
      */
     get_internalSubset() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IDOMDocumentType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_entities := CallbackCreate(GetMethod(implObj, "get_entities"), flags, 2)
+        this.vtbl.get_notations := CallbackCreate(GetMethod(implObj, "get_notations"), flags, 2)
+        this.vtbl.get_publicId := CallbackCreate(GetMethod(implObj, "get_publicId"), flags, 2)
+        this.vtbl.get_systemId := CallbackCreate(GetMethod(implObj, "get_systemId"), flags, 2)
+        this.vtbl.get_internalSubset := CallbackCreate(GetMethod(implObj, "get_internalSubset"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.get_entities)
+        CallbackFree(this.vtbl.get_notations)
+        CallbackFree(this.vtbl.get_publicId)
+        CallbackFree(this.vtbl.get_systemId)
+        CallbackFree(this.vtbl.get_internalSubset)
     }
 }

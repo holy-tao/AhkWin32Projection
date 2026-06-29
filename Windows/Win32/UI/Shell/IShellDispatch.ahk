@@ -1,34 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\Folder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Folder.ahk" { Folder }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents an object in the Shell.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellDispatch extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IShellDispatch extends IDispatch {
     /**
      * The interface identifier for IShellDispatch
      * @type {Guid}
      */
-    static IID => Guid("{d8f015c0-c278-11ce-a49e-444553540000}")
+    static IID := Guid("{d8f015c0-c278-11ce-a49e-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellDispatch interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Application  : IntPtr
+        get_Parent       : IntPtr
+        NameSpace        : IntPtr
+        BrowseForFolder  : IntPtr
+        Windows          : IntPtr
+        Open             : IntPtr
+        Explore          : IntPtr
+        MinimizeAll      : IntPtr
+        UndoMinimizeALL  : IntPtr
+        FileRun          : IntPtr
+        CascadeWindows   : IntPtr
+        TileVertically   : IntPtr
+        TileHorizontally : IntPtr
+        ShutdownWindows  : IntPtr
+        Suspend          : IntPtr
+        EjectPC          : IntPtr
+        SetTime          : IntPtr
+        TrayProperties   : IntPtr
+        Help             : IntPtr
+        FindFiles        : IntPtr
+        FindComputer     : IntPtr
+        RefreshMenu      : IntPtr
+        ControlPanelItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Application", "get_Parent", "NameSpace", "BrowseForFolder", "Windows", "Open", "Explore", "MinimizeAll", "UndoMinimizeALL", "FileRun", "CascadeWindows", "TileVertically", "TileHorizontally", "ShutdownWindows", "Suspend", "EjectPC", "SetTime", "TrayProperties", "Help", "FindFiles", "FindComputer", "RefreshMenu", "ControlPanelItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellDispatch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -73,7 +105,7 @@ class IShellDispatch extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-namespace
      */
     NameSpace(vDir) {
-        result := ComCall(9, this, "ptr", vDir, "ptr*", &ppsdf := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT, vDir, "ptr*", &ppsdf := 0, "HRESULT")
         return Folder(ppsdf)
     }
 
@@ -93,7 +125,7 @@ class IShellDispatch extends IDispatch {
     BrowseForFolder(_Hwnd, Title, Options, RootFolder) {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
 
-        result := ComCall(10, this, "int", _Hwnd, "ptr", Title, "int", Options, "ptr", RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
+        result := ComCall(10, this, "int", _Hwnd, BSTR, Title, "int", Options, VARIANT, RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
         return Folder(ppsdf)
     }
 
@@ -122,7 +154,7 @@ class IShellDispatch extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-open
      */
     Open(vDir) {
-        result := ComCall(12, this, "ptr", vDir, "HRESULT")
+        result := ComCall(12, this, VARIANT, vDir, "HRESULT")
         return result
     }
 
@@ -137,7 +169,7 @@ class IShellDispatch extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-explore
      */
     Explore(vDir) {
-        result := ComCall(13, this, "ptr", vDir, "HRESULT")
+        result := ComCall(13, this, VARIANT, vDir, "HRESULT")
         return result
     }
 
@@ -334,7 +366,71 @@ class IShellDispatch extends IDispatch {
     ControlPanelItem(bstrDir) {
         bstrDir := bstrDir is String ? BSTR.Alloc(bstrDir).Value : bstrDir
 
-        result := ComCall(29, this, "ptr", bstrDir, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrDir, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellDispatch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.NameSpace := CallbackCreate(GetMethod(implObj, "NameSpace"), flags, 3)
+        this.vtbl.BrowseForFolder := CallbackCreate(GetMethod(implObj, "BrowseForFolder"), flags, 6)
+        this.vtbl.Windows := CallbackCreate(GetMethod(implObj, "Windows"), flags, 2)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Explore := CallbackCreate(GetMethod(implObj, "Explore"), flags, 2)
+        this.vtbl.MinimizeAll := CallbackCreate(GetMethod(implObj, "MinimizeAll"), flags, 1)
+        this.vtbl.UndoMinimizeALL := CallbackCreate(GetMethod(implObj, "UndoMinimizeALL"), flags, 1)
+        this.vtbl.FileRun := CallbackCreate(GetMethod(implObj, "FileRun"), flags, 1)
+        this.vtbl.CascadeWindows := CallbackCreate(GetMethod(implObj, "CascadeWindows"), flags, 1)
+        this.vtbl.TileVertically := CallbackCreate(GetMethod(implObj, "TileVertically"), flags, 1)
+        this.vtbl.TileHorizontally := CallbackCreate(GetMethod(implObj, "TileHorizontally"), flags, 1)
+        this.vtbl.ShutdownWindows := CallbackCreate(GetMethod(implObj, "ShutdownWindows"), flags, 1)
+        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.EjectPC := CallbackCreate(GetMethod(implObj, "EjectPC"), flags, 1)
+        this.vtbl.SetTime := CallbackCreate(GetMethod(implObj, "SetTime"), flags, 1)
+        this.vtbl.TrayProperties := CallbackCreate(GetMethod(implObj, "TrayProperties"), flags, 1)
+        this.vtbl.Help := CallbackCreate(GetMethod(implObj, "Help"), flags, 1)
+        this.vtbl.FindFiles := CallbackCreate(GetMethod(implObj, "FindFiles"), flags, 1)
+        this.vtbl.FindComputer := CallbackCreate(GetMethod(implObj, "FindComputer"), flags, 1)
+        this.vtbl.RefreshMenu := CallbackCreate(GetMethod(implObj, "RefreshMenu"), flags, 1)
+        this.vtbl.ControlPanelItem := CallbackCreate(GetMethod(implObj, "ControlPanelItem"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Application)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.NameSpace)
+        CallbackFree(this.vtbl.BrowseForFolder)
+        CallbackFree(this.vtbl.Windows)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Explore)
+        CallbackFree(this.vtbl.MinimizeAll)
+        CallbackFree(this.vtbl.UndoMinimizeALL)
+        CallbackFree(this.vtbl.FileRun)
+        CallbackFree(this.vtbl.CascadeWindows)
+        CallbackFree(this.vtbl.TileVertically)
+        CallbackFree(this.vtbl.TileHorizontally)
+        CallbackFree(this.vtbl.ShutdownWindows)
+        CallbackFree(this.vtbl.Suspend)
+        CallbackFree(this.vtbl.EjectPC)
+        CallbackFree(this.vtbl.SetTime)
+        CallbackFree(this.vtbl.TrayProperties)
+        CallbackFree(this.vtbl.Help)
+        CallbackFree(this.vtbl.FindFiles)
+        CallbackFree(this.vtbl.FindComputer)
+        CallbackFree(this.vtbl.RefreshMenu)
+        CallbackFree(this.vtbl.ControlPanelItem)
     }
 }

@@ -1,22 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes a focus event in a console INPUT\_RECORD structure. These events are used internally and should be ignored.
  * @see https://learn.microsoft.com/windows/console/focus-event-record-str
  * @namespace Windows.Win32.System.Console
  */
-class FOCUS_EVENT_RECORD extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct FOCUS_EVENT_RECORD {
+    #StructPack 4
 
     /**
      * Reserved.
-     * @type {BOOL}
      */
-    bSetFocus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bSetFocus : BOOL
+
 }

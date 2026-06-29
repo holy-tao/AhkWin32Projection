@@ -1,36 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PTP_POOL.ahk
-#Include .\PTP_CLEANUP_GROUP.ahk
-#Include .\TP_CALLBACK_PRIORITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PTP_POOL.ahk" { PTP_POOL }
+#Import ".\PTP_CLEANUP_GROUP.ahk" { PTP_CLEANUP_GROUP }
+#Import ".\TP_CALLBACK_PRIORITY.ahk" { TP_CALLBACK_PRIORITY }
 
 /**
  * @namespace Windows.Win32.System.Threading
  */
-class TP_CALLBACK_ENVIRON_V3 extends Win32Struct {
-    static sizeof => 72
+export default struct TP_CALLBACK_ENVIRON_V3 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _u {
 
-        class _s extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
-
+        struct _s {
             /**
              * This bitfield backs the following members:
              * - LongFunction
              * - Persistent
              * - Private
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            _bitfield : Int32
+
 
             /**
              * @type {Integer}
@@ -57,112 +47,32 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct {
             }
         }
 
-        /**
-         * @type {Integer}
-         */
-        Flags {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Flags : UInt32
 
-        /**
-         * @type {_s}
-         */
-        s {
-            get {
-                if(!this.HasProp("__s"))
-                    this.__s := TP_CALLBACK_ENVIRON_V3._u_e__Union._s(0, this)
-                return this.__s
-            }
+        static __New() {
+            DefineProp(this.Prototype, 's', { type: TP_CALLBACK_ENVIRON_V3._u._s, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {PTP_POOL}
-     */
-    Pool {
-        get {
-            if(!this.HasProp("__Pool"))
-                this.__Pool := PTP_POOL(8, this)
-            return this.__Pool
-        }
-    }
+    Pool : PTP_POOL
 
-    /**
-     * @type {PTP_CLEANUP_GROUP}
-     */
-    CleanupGroup {
-        get {
-            if(!this.HasProp("__CleanupGroup"))
-                this.__CleanupGroup := PTP_CLEANUP_GROUP(16, this)
-            return this.__CleanupGroup
-        }
-    }
+    CleanupGroup : PTP_CLEANUP_GROUP
 
-    /**
-     * @type {Pointer<PTP_CLEANUP_GROUP_CANCEL_CALLBACK>}
-     */
-    CleanupGroupCancelCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CleanupGroupCancelCallback : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    RaceDll {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    RaceDll : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ActivationContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ActivationContext : IntPtr
 
-    /**
-     * @type {Pointer<PTP_SIMPLE_CALLBACK>}
-     */
-    FinalizationCallback {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    FinalizationCallback : IntPtr
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := TP_CALLBACK_ENVIRON_V3._u_e__Union(56, this)
-            return this.__u
-        }
-    }
+    u : TP_CALLBACK_ENVIRON_V3._u
 
-    /**
-     * @type {TP_CALLBACK_PRIORITY}
-     */
-    CallbackPriority {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    CallbackPriority : TP_CALLBACK_PRIORITY
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    Size : UInt32
+
 }

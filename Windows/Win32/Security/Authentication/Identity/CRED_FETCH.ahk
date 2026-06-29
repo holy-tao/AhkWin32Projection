@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that determine how to fetch the credential of a Group Managed Service Account (gMSA).
  * @see https://learn.microsoft.com/windows/win32/SecMgmt/cred-fetch
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class CRED_FETCH extends Win32Enum {
+export default struct CRED_FETCH {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

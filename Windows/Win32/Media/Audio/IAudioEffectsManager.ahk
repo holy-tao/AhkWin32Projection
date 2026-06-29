@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIO_EFFECT.ahk" { AUDIO_EFFECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AUDIO_EFFECT_STATE.ahk" { AUDIO_EFFECT_STATE }
+#Import ".\IAudioEffectsChangedNotificationClient.ahk" { IAudioEffectsChangedNotificationClient }
 
 /**
  * Provides management functionality for the audio effects pipeline
@@ -15,26 +19,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioeffectsmanager
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioEffectsManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEffectsManager extends IUnknown {
     /**
      * The interface identifier for IAudioEffectsManager
      * @type {Guid}
      */
-    static IID => Guid("{4460b3ae-4b44-4527-8676-7548a8acd260}")
+    static IID := Guid("{4460b3ae-4b44-4527-8676-7548a8acd260}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEffectsManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterAudioEffectsChangedNotificationCallback   : IntPtr
+        UnregisterAudioEffectsChangedNotificationCallback : IntPtr
+        GetAudioEffects                                   : IntPtr
+        SetAudioEffectState                               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterAudioEffectsChangedNotificationCallback", "UnregisterAudioEffectsChangedNotificationCallback", "GetAudioEffects", "SetAudioEffectState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEffectsManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers an AudioEffectsChangedNotificationClient interface.
@@ -102,7 +116,33 @@ class IAudioEffectsManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioeffectsmanager-setaudioeffectstate
      */
     SetAudioEffectState(effectId, state) {
-        result := ComCall(6, this, "ptr", effectId, "int", state, "HRESULT")
+        result := ComCall(6, this, Guid, effectId, AUDIO_EFFECT_STATE, state, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioEffectsManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterAudioEffectsChangedNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterAudioEffectsChangedNotificationCallback"), flags, 2)
+        this.vtbl.UnregisterAudioEffectsChangedNotificationCallback := CallbackCreate(GetMethod(implObj, "UnregisterAudioEffectsChangedNotificationCallback"), flags, 2)
+        this.vtbl.GetAudioEffects := CallbackCreate(GetMethod(implObj, "GetAudioEffects"), flags, 3)
+        this.vtbl.SetAudioEffectState := CallbackCreate(GetMethod(implObj, "SetAudioEffectState"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterAudioEffectsChangedNotificationCallback)
+        CallbackFree(this.vtbl.UnregisterAudioEffectsChangedNotificationCallback)
+        CallbackFree(this.vtbl.GetAudioEffects)
+        CallbackFree(this.vtbl.SetAudioEffectState)
     }
 }

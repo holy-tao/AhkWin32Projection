@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ADS_ATTR_INFO.ahk" { ADS_ATTR_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ADS_OBJECT_INFO.ahk" { ADS_OBJECT_INFO }
 
 /**
  * The IDirectoryObject interface is a non-Automation COM interface that provides clients with direct access to directory service objects.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryobject
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDirectoryObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectoryObject extends IUnknown {
     /**
      * The interface identifier for IDirectoryObject
      * @type {Guid}
      */
-    static IID => Guid("{e798de2c-22e4-11d0-84fe-00c04fd8d503}")
+    static IID := Guid("{e798de2c-22e4-11d0-84fe-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectoryObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetObjectInformation : IntPtr
+        GetObjectAttributes  : IntPtr
+        SetObjectAttributes  : IntPtr
+        CreateDSObject       : IntPtr
+        DeleteDSObject       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetObjectInformation", "GetObjectAttributes", "SetObjectAttributes", "CreateDSObject", "DeleteDSObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectoryObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirectoryObject::GetObjectInformation method retrieves a pointer to an ADS_OBJECT_INFO structure that contains data regarding the identity and location of a directory service object.
@@ -90,7 +105,7 @@ class IDirectoryObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-setobjectattributes
      */
     SetObjectAttributes(pAttributeEntries, dwNumAttributes) {
-        result := ComCall(5, this, "ptr", pAttributeEntries, "uint", dwNumAttributes, "uint*", &pdwNumAttributesModified := 0, "HRESULT")
+        result := ComCall(5, this, ADS_ATTR_INFO.Ptr, pAttributeEntries, "uint", dwNumAttributes, "uint*", &pdwNumAttributesModified := 0, "HRESULT")
         return pdwNumAttributesModified
     }
 
@@ -107,7 +122,7 @@ class IDirectoryObject extends IUnknown {
     CreateDSObject(pszRDNName, pAttributeEntries, dwNumAttributes) {
         pszRDNName := pszRDNName is String ? StrPtr(pszRDNName) : pszRDNName
 
-        result := ComCall(6, this, "ptr", pszRDNName, "ptr", pAttributeEntries, "uint", dwNumAttributes, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszRDNName, ADS_ATTR_INFO.Ptr, pAttributeEntries, "uint", dwNumAttributes, "ptr*", &ppObject := 0, "HRESULT")
         return IDispatch(ppObject)
     }
 
@@ -124,5 +139,33 @@ class IDirectoryObject extends IUnknown {
 
         result := ComCall(7, this, "ptr", pszRDNName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectoryObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetObjectInformation := CallbackCreate(GetMethod(implObj, "GetObjectInformation"), flags, 2)
+        this.vtbl.GetObjectAttributes := CallbackCreate(GetMethod(implObj, "GetObjectAttributes"), flags, 5)
+        this.vtbl.SetObjectAttributes := CallbackCreate(GetMethod(implObj, "SetObjectAttributes"), flags, 4)
+        this.vtbl.CreateDSObject := CallbackCreate(GetMethod(implObj, "CreateDSObject"), flags, 5)
+        this.vtbl.DeleteDSObject := CallbackCreate(GetMethod(implObj, "DeleteDSObject"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetObjectInformation)
+        CallbackFree(this.vtbl.GetObjectAttributes)
+        CallbackFree(this.vtbl.SetObjectAttributes)
+        CallbackFree(this.vtbl.CreateDSObject)
+        CallbackFree(this.vtbl.DeleteDSObject)
     }
 }

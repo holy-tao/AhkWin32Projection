@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MIXERCONTROLDETAILS_BOOLEAN structure retrieves and sets Boolean control properties for an audio mixer control.
@@ -44,17 +43,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails_boolean
  * @namespace Windows.Win32.Media.Audio
  */
-class MIXERCONTROLDETAILS_BOOLEAN extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct MIXERCONTROLDETAILS_BOOLEAN {
+    #StructPack 4
 
     /**
      * Boolean value for a single item or channel. This value is assumed to be zero for a FALSE state (such as off or disabled), and nonzero for a TRUE state (such as on or enabled).
-     * @type {Integer}
      */
-    fValue {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fValue : Int32
+
 }

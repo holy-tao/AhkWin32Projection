@@ -1,77 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_FLIPDATA extends Win32Struct {
-    static sizeof => 56
+export default struct DDHAL_FLIPDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpSurfCurr : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpSurfCurr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpSurfTarg : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpSurfTarg {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    Flip : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALSURFCB_FLIP>}
-     */
-    Flip {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpSurfCurrLeft : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpSurfCurrLeft {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpSurfTargLeft : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpSurfTargLeft {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

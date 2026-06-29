@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_SIGNATURE.ahk
-#Include .\JET_LOGTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
+#Import ".\JET_SIGNATURE.ahk" { JET_SIGNATURE }
 
 /**
  * Learn more about: JET_COMMIT_ID class
@@ -9,35 +8,13 @@
  * @namespace Windows.Win32.Storage.Jet
  * @architecture X64, Arm64
  */
-class JET_COMMIT_ID extends Win32Struct {
-    static sizeof => 40
+export default struct JET_COMMIT_ID {
+    #StructPack 8
 
-    static packingSize => 8
+    signLog : JET_SIGNATURE
 
-    /**
-     * @type {JET_SIGNATURE}
-     */
-    signLog {
-        get {
-            if(!this.HasProp("__signLog"))
-                this.__signLog := JET_SIGNATURE(0, this)
-            return this.__signLog
-        }
-    }
+    reserved : Int32
 
-    /**
-     * @type {Integer}
-     */
-    reserved {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    commitId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    commitId {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
 }

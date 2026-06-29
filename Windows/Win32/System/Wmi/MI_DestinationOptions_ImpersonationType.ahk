@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by the DCOM protocol handler to specify how impersonation is done on the server.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_destinationoptions_impersonationtype
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_DestinationOptions_ImpersonationType extends Win32Enum {
+export default struct MI_DestinationOptions_ImpersonationType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the default impersonation.

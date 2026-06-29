@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that manipulate and interact with image lists.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist
  * @namespace Windows.Win32.System.Mmc
  */
-class IImageList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IImageList extends IUnknown {
     /**
      * The interface identifier for IImageList
      * @type {Guid}
      */
-    static IID => Guid("{43136eb8-d36c-11cf-adbc-00aa00a80033}")
+    static IID := Guid("{43136eb8-d36c-11cf-adbc-00aa00a80033}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImageList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ImageListSetIcon  : IntPtr
+        ImageListSetStrip : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ImageListSetIcon", "ImageListSetStrip"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImageList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IImageList::ImageListSetIcon method enables a user to set an icon in the image list or to create an icon if it is not there.
@@ -91,7 +101,29 @@ class IImageList extends IUnknown {
         pBMapSmMarshal := pBMapSm is VarRef ? "ptr*" : "ptr"
         pBMapLgMarshal := pBMapLg is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, "int", nStartLoc, "uint", cMask, "HRESULT")
+        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, "int", nStartLoc, COLORREF, cMask, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IImageList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ImageListSetIcon := CallbackCreate(GetMethod(implObj, "ImageListSetIcon"), flags, 3)
+        this.vtbl.ImageListSetStrip := CallbackCreate(GetMethod(implObj, "ImageListSetStrip"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ImageListSetIcon)
+        CallbackFree(this.vtbl.ImageListSetStrip)
     }
 }

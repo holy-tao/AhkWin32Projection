@@ -1,39 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
+#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
+#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides functionality to edit app packages.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxpackageeditor
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxPackageEditor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxPackageEditor extends IUnknown {
     /**
      * The interface identifier for IAppxPackageEditor
      * @type {Guid}
      */
-    static IID => Guid("{e2adb6dc-5e71-4416-86b6-86e5f5291a6b}")
+    static IID := Guid("{e2adb6dc-5e71-4416-86b6-86e5f5291a6b}")
 
     /**
      * The class identifier for AppxPackageEditor
      * @type {Guid}
      */
-    static CLSID => Guid("{f004f2ca-aebc-4b0d-bf58-e516d5bcc0ab}")
+    static CLSID := Guid("{f004f2ca-aebc-4b0d-bf58-e516d5bcc0ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxPackageEditor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetWorkingDirectory                     : IntPtr
+        CreateDeltaPackage                      : IntPtr
+        CreateDeltaPackageUsingBaselineBlockMap : IntPtr
+        UpdatePackage                           : IntPtr
+        UpdateEncryptedPackage                  : IntPtr
+        UpdatePackageManifest                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWorkingDirectory", "CreateDeltaPackage", "CreateDeltaPackageUsingBaselineBlockMap", "UpdatePackage", "UpdateEncryptedPackage", "UpdatePackageManifest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxPackageEditor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -85,7 +105,7 @@ class IAppxPackageEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackageeditor-updatepackage
      */
     UpdatePackage(baselinePackageStream, deltaPackageStream, updateOption) {
-        result := ComCall(6, this, "ptr", baselinePackageStream, "ptr", deltaPackageStream, "int", updateOption, "HRESULT")
+        result := ComCall(6, this, "ptr", baselinePackageStream, "ptr", deltaPackageStream, APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION, updateOption, "HRESULT")
         return result
     }
 
@@ -100,7 +120,7 @@ class IAppxPackageEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackageeditor-updateencryptedpackage
      */
     UpdateEncryptedPackage(baselineEncryptedPackageStream, deltaPackageStream, updateOption, settings, keyInfo) {
-        result := ComCall(7, this, "ptr", baselineEncryptedPackageStream, "ptr", deltaPackageStream, "int", updateOption, "ptr", settings, "ptr", keyInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", baselineEncryptedPackageStream, "ptr", deltaPackageStream, APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION, updateOption, APPX_ENCRYPTED_PACKAGE_SETTINGS2.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, "HRESULT")
         return result
     }
 
@@ -114,7 +134,37 @@ class IAppxPackageEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackageeditor-updatepackagemanifest
      */
     UpdatePackageManifest(packageStream, updatedManifestStream, isPackageEncrypted, options) {
-        result := ComCall(8, this, "ptr", packageStream, "ptr", updatedManifestStream, "int", isPackageEncrypted, "int", options, "HRESULT")
+        result := ComCall(8, this, "ptr", packageStream, "ptr", updatedManifestStream, BOOL, isPackageEncrypted, APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS, options, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAppxPackageEditor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWorkingDirectory := CallbackCreate(GetMethod(implObj, "SetWorkingDirectory"), flags, 2)
+        this.vtbl.CreateDeltaPackage := CallbackCreate(GetMethod(implObj, "CreateDeltaPackage"), flags, 4)
+        this.vtbl.CreateDeltaPackageUsingBaselineBlockMap := CallbackCreate(GetMethod(implObj, "CreateDeltaPackageUsingBaselineBlockMap"), flags, 5)
+        this.vtbl.UpdatePackage := CallbackCreate(GetMethod(implObj, "UpdatePackage"), flags, 4)
+        this.vtbl.UpdateEncryptedPackage := CallbackCreate(GetMethod(implObj, "UpdateEncryptedPackage"), flags, 6)
+        this.vtbl.UpdatePackageManifest := CallbackCreate(GetMethod(implObj, "UpdatePackageManifest"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWorkingDirectory)
+        CallbackFree(this.vtbl.CreateDeltaPackage)
+        CallbackFree(this.vtbl.CreateDeltaPackageUsingBaselineBlockMap)
+        CallbackFree(this.vtbl.UpdatePackage)
+        CallbackFree(this.vtbl.UpdateEncryptedPackage)
+        CallbackFree(this.vtbl.UpdatePackageManifest)
     }
 }

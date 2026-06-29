@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class TAPE_STATISTICS extends Win32Struct {
-    static sizeof => 48
+export default struct TAPE_STATISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RecoveredWrites : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RecoveredWrites {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    UnrecoveredWrites : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UnrecoveredWrites {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    RecoveredReads : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RecoveredReads {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    UnrecoveredReads : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UnrecoveredReads {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    CompressionRatioReads : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CompressionRatioReads {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    CompressionRatioWrites : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CompressionRatioWrites {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
 }

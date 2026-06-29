@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_FRAME_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVAHD_FRAME_FORMAT.ahk" { DXVAHD_FRAME_FORMAT }
 
 /**
  * Specifies how a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) input stream is interlaced.
@@ -13,19 +12,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_frame_format_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_FRAME_FORMAT_DATA extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DXVAHD_STREAM_STATE_FRAME_FORMAT_DATA {
+    #StructPack 4
 
     /**
      * The video interlacing, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_frame_format">DXVAHD_FRAME_FORMAT</a> value.
      * 
      * The default state value is <b>DXVAHD_FRAME_FORMAT_PROGRESSIVE</b> (progressive frames).
-     * @type {DXVAHD_FRAME_FORMAT}
      */
-    FrameFormat {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    FrameFormat : DXVAHD_FRAME_FORMAT
+
 }

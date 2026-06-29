@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods to create a new Internet shortcut. (Unicode)
@@ -21,26 +24,38 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset Unicode
  */
-class INewShortcutHookW extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INewShortcutHookW extends IUnknown {
     /**
      * The interface identifier for INewShortcutHookW
      * @type {Guid}
      */
-    static IID => Guid("{000214f7-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214f7-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INewShortcutHookW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetReferent  : IntPtr
+        GetReferent  : IntPtr
+        SetFolder    : IntPtr
+        GetFolder    : IntPtr
+        GetName      : IntPtr
+        GetExtension : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetReferent", "GetReferent", "SetFolder", "GetFolder", "GetName", "GetExtension"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INewShortcutHookW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the referent of the shortcut object. (Unicode)
@@ -55,9 +70,8 @@ class INewShortcutHookW extends IUnknown {
      */
     SetReferent(pcszReferent, _hwnd) {
         pcszReferent := pcszReferent is String ? StrPtr(pcszReferent) : pcszReferent
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", pcszReferent, "ptr", _hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pcszReferent, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -156,5 +170,35 @@ class INewShortcutHookW extends IUnknown {
 
         result := ComCall(8, this, "ptr", pszExtension, "int", cchExtension, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INewShortcutHookW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetReferent := CallbackCreate(GetMethod(implObj, "SetReferent"), flags, 3)
+        this.vtbl.GetReferent := CallbackCreate(GetMethod(implObj, "GetReferent"), flags, 3)
+        this.vtbl.SetFolder := CallbackCreate(GetMethod(implObj, "SetFolder"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetReferent)
+        CallbackFree(this.vtbl.GetReferent)
+        CallbackFree(this.vtbl.SetFolder)
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetExtension)
     }
 }

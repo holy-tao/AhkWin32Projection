@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RESOURCE_DIMENSION.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
-#Include .\D3D12_TEXTURE_LAYOUT.ahk
-#Include .\D3D12_RESOURCE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_TEXTURE_LAYOUT.ahk" { D3D12_TEXTURE_LAYOUT }
+#Import ".\D3D12_RESOURCE_FLAGS.ahk" { D3D12_RESOURCE_FLAGS }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
+#Import ".\D3D12_RESOURCE_DIMENSION.ahk" { D3D12_RESOURCE_DIMENSION }
 
 /**
  * Describes a resource, such as a texture. This structure is used extensively.
@@ -115,101 +114,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RESOURCE_DESC extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct D3D12_RESOURCE_DESC {
+    #StructPack 8
 
     /**
      * One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_dimension">D3D12_RESOURCE_DIMENSION</a>, specifying the dimensions of the resource (for example, D3D12_RESOURCE_DIMENSION_TEXTURE1D), or whether it is a buffer ((D3D12_RESOURCE_DIMENSION_BUFFER).
-     * @type {D3D12_RESOURCE_DIMENSION}
      */
-    Dimension {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Dimension : D3D12_RESOURCE_DIMENSION
 
     /**
      * Specifies the alignment.
-     * @type {Integer}
      */
-    Alignment {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Alignment : Int64
 
     /**
      * Specifies the width of the resource.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Width : Int64
 
     /**
      * Specifies the height of the resource.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Height : UInt32
 
     /**
      * Specifies the depth of the resource, if it is 3D, or the array size if it is an array of 1D or 2D resources.
-     * @type {Integer}
      */
-    DepthOrArraySize {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    DepthOrArraySize : UInt16
 
     /**
      * Specifies the number of MIP levels.
-     * @type {Integer}
      */
-    MipLevels {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    MipLevels : UInt16
 
     /**
      * Specifies one member of  <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure.
-     * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc {
-        get {
-            if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(36, this)
-            return this.__SampleDesc
-        }
-    }
+    SampleDesc : DXGI_SAMPLE_DESC
 
     /**
      * Specifies one member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_layout">D3D12_TEXTURE_LAYOUT</a>.
-     * @type {D3D12_TEXTURE_LAYOUT}
      */
-    Layout {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    Layout : D3D12_TEXTURE_LAYOUT
 
     /**
      * Bitwise-OR'd flags, as <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_flags">D3D12_RESOURCE_FLAGS</a> enumeration constants.
-     * @type {D3D12_RESOURCE_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Flags : D3D12_RESOURCE_FLAGS
+
 }

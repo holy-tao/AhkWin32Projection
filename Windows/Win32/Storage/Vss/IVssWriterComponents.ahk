@@ -1,28 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IVssComponent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVssComponent.ahk" { IVssComponent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods used to obtain and modify component information.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswritercomponents
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssWriterComponents extends Win32ComInterface {
+export default struct IVssWriterComponents extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetComponentCount", "GetWriterInfo", "GetComponent"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssWriterComponents interfaces
+    */
+    struct Vtbl {
+        GetComponentCount : IntPtr
+        GetWriterInfo     : IntPtr
+        GetComponent      : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssWriterComponents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetComponentCount method returns the number of a given writer's components explicitly stored in the Backup Components Document.
@@ -137,7 +147,7 @@ class IVssWriterComponents extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getwriterinfo
      */
     GetWriterInfo(pidInstance, pidWriter) {
-        result := ComCall(1, this, "ptr", pidInstance, "ptr", pidWriter, "HRESULT")
+        result := ComCall(1, this, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, "HRESULT")
         return result
     }
 
@@ -156,5 +166,12 @@ class IVssWriterComponents extends Win32ComInterface {
     GetComponent(_iComponent) {
         result := ComCall(2, this, "uint", _iComponent, "ptr*", &ppComponent := 0, "HRESULT")
         return IVssComponent(ppComponent)
+    }
+
+    Query(iid) {
+        if (IVssWriterComponents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

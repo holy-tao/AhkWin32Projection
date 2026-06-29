@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IImageList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAGELISTSTATS.ahk" { IMAGELISTSTATS }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\IMAGELIST_CREATION_FLAGS.ahk" { IMAGELIST_CREATION_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
+#Import ".\IImageList.ahk" { IImageList }
 
 /**
  * Extends IImageList by providing additional methods for manipulating and interacting with image lists.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist2
  * @namespace Windows.Win32.UI.Controls
  */
-class IImageList2 extends IImageList {
-
-    static sizeof => A_PtrSize
+export default struct IImageList2 extends IImageList {
     /**
      * The interface identifier for IImageList2
      * @type {Guid}
      */
-    static IID => Guid("{192b9d83-50fc-457b-90a0-2b82a8b5dae1}")
+    static IID := Guid("{192b9d83-50fc-457b-90a0-2b82a8b5dae1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImageList2 interfaces
+    */
+    struct Vtbl extends IImageList.Vtbl {
+        Resize               : IntPtr
+        GetOriginalSize      : IntPtr
+        SetOriginalSize      : IntPtr
+        SetCallback          : IntPtr
+        GetCallback          : IntPtr
+        ForceImagePresent    : IntPtr
+        DiscardImages        : IntPtr
+        PreloadImages        : IntPtr
+        GetStatistics        : IntPtr
+        Initialize           : IntPtr
+        Replace2             : IntPtr
+        ReplaceFromImageList : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Resize", "GetOriginalSize", "SetOriginalSize", "SetCallback", "GetCallback", "ForceImagePresent", "DiscardImages", "PreloadImages", "GetStatistics", "Initialize", "Replace2", "ReplaceFromImageList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImageList2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resizes the current image.
@@ -150,7 +174,7 @@ class IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getcallback
      */
     GetCallback(riid) {
-        result := ComCall(36, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(36, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -284,7 +308,7 @@ class IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-preloadimages
      */
     PreloadImages(pimldp) {
-        result := ComCall(39, this, "ptr", pimldp, "HRESULT")
+        result := ComCall(39, this, IMAGELISTDRAWPARAMS.Ptr, pimldp, "HRESULT")
         return result
     }
 
@@ -299,7 +323,7 @@ class IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getstatistics
      */
     GetStatistics(pils) {
-        result := ComCall(40, this, "ptr", pils, "HRESULT")
+        result := ComCall(40, this, IMAGELISTSTATS.Ptr, pils, "HRESULT")
         return result
     }
 
@@ -326,7 +350,7 @@ class IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize
      */
     Initialize(cx, _cy, flags, cInitial, cGrow) {
-        result := ComCall(41, this, "int", cx, "int", _cy, "uint", flags, "int", cInitial, "int", cGrow, "HRESULT")
+        result := ComCall(41, this, "int", cx, "int", _cy, IMAGELIST_CREATION_FLAGS, flags, "int", cInitial, "int", cGrow, "HRESULT")
         return result
     }
 
@@ -459,10 +483,7 @@ class IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replace2
      */
     Replace2(i, hbmImage, hbmMask, punk, dwFlags) {
-        hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
-        hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
-
-        result := ComCall(42, this, "int", i, "ptr", hbmImage, "ptr", hbmMask, "ptr", punk, "uint", dwFlags, "HRESULT")
+        result := ComCall(42, this, "int", i, HBITMAP, hbmImage, HBITMAP, hbmMask, "ptr", punk, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -491,5 +512,47 @@ class IImageList2 extends IImageList {
     ReplaceFromImageList(i, pil, iSrc, punk, dwFlags) {
         result := ComCall(43, this, "int", i, "ptr", pil, "int", iSrc, "ptr", punk, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IImageList2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.GetOriginalSize := CallbackCreate(GetMethod(implObj, "GetOriginalSize"), flags, 5)
+        this.vtbl.SetOriginalSize := CallbackCreate(GetMethod(implObj, "SetOriginalSize"), flags, 4)
+        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 2)
+        this.vtbl.GetCallback := CallbackCreate(GetMethod(implObj, "GetCallback"), flags, 3)
+        this.vtbl.ForceImagePresent := CallbackCreate(GetMethod(implObj, "ForceImagePresent"), flags, 3)
+        this.vtbl.DiscardImages := CallbackCreate(GetMethod(implObj, "DiscardImages"), flags, 4)
+        this.vtbl.PreloadImages := CallbackCreate(GetMethod(implObj, "PreloadImages"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.Replace2 := CallbackCreate(GetMethod(implObj, "Replace2"), flags, 6)
+        this.vtbl.ReplaceFromImageList := CallbackCreate(GetMethod(implObj, "ReplaceFromImageList"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Resize)
+        CallbackFree(this.vtbl.GetOriginalSize)
+        CallbackFree(this.vtbl.SetOriginalSize)
+        CallbackFree(this.vtbl.SetCallback)
+        CallbackFree(this.vtbl.GetCallback)
+        CallbackFree(this.vtbl.ForceImagePresent)
+        CallbackFree(this.vtbl.DiscardImages)
+        CallbackFree(this.vtbl.PreloadImages)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Replace2)
+        CallbackFree(this.vtbl.ReplaceFromImageList)
     }
 }

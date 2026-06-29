@@ -1,40 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Credentials\CREDENTIALW.ahk
-#Include ..\..\Credentials\CRED_FLAGS.ahk
-#Include ..\..\Credentials\CRED_TYPE.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
-#Include ..\..\Credentials\CRED_PERSIST.ahk
-#Include ..\..\Credentials\CREDENTIAL_ATTRIBUTEW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Credentials\CREDENTIAL_ATTRIBUTEW.ahk" { CREDENTIAL_ATTRIBUTEW }
+#Import "..\..\Credentials\CRED_PERSIST.ahk" { CRED_PERSIST }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Credentials\CRED_FLAGS.ahk" { CRED_FLAGS }
+#Import "..\..\Credentials\CREDENTIALW.ahk" { CREDENTIALW }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Credentials\CRED_TYPE.ahk" { CRED_TYPE }
 
 /**
  * Represents an encrypted credential.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-encrypted_credentialw
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class ENCRYPTED_CREDENTIALW extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct ENCRYPTED_CREDENTIALW {
+    #StructPack 8
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure that contains the encrypted credential.
-     * @type {CREDENTIALW}
      */
-    Cred {
-        get {
-            if(!this.HasProp("__Cred"))
-                this.__Cred := CREDENTIALW(0, this)
-            return this.__Cred
-        }
-    }
+    Cred : CREDENTIALW
 
     /**
      * The size, in bytes, of the unencrypted credential.
-     * @type {Integer}
      */
-    ClearCredentialBlobSize {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ClearCredentialBlobSize : UInt32
+
 }

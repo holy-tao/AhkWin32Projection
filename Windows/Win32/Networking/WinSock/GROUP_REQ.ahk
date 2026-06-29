@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR_STORAGE.ahk
-#Include .\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Provides multicast group information for IPv6 or IPv4 addresses.
@@ -20,29 +20,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-group_req
  * @namespace Windows.Win32.Networking.WinSock
  */
-class GROUP_REQ extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct GROUP_REQ {
+    #StructPack 8
 
     /**
      * The interface index of the local interface on which the multicast group should be joined or dropped.
-     * @type {Integer}
      */
-    gr_interface {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    gr_interface : UInt32
 
     /**
      * The address of the multicast group. This may be either an IPv6 or IPv4 multicast address.
-     * @type {SOCKADDR_STORAGE}
      */
-    gr_group {
-        get {
-            if(!this.HasProp("__gr_group"))
-                this.__gr_group := SOCKADDR_STORAGE(8, this)
-            return this.__gr_group
-        }
-    }
+    gr_group : SOCKADDR_STORAGE
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Declares the scenarios in which a credential provider is supported. A credential provider usage scenario (CPUS) enables the credential provider to provide distinct enumeration behavior and UI field setup across scenarios.
@@ -15,7 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario
  * @namespace Windows.Win32.UI.Shell
  */
-class CREDENTIAL_PROVIDER_USAGE_SCENARIO extends Win32Enum {
+export default struct CREDENTIAL_PROVIDER_USAGE_SCENARIO {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No usage scenario has been set for the credential provider. The scenario is not passed to <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovider-setusagescenario">ICredentialProvider::SetUsageScenario</a>. If a credential provider stores its current usage scenario as a class member, this provides an initialization value before the first call to <b>ICredentialProvider::SetUsageScenario</b>.

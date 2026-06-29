@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KBUGCHECK_DUMP_IO_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KBUGCHECK_DUMP_IO_TYPE.ahk" { KBUGCHECK_DUMP_IO_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KBUGCHECK_DUMP_IO extends Win32Struct {
-    static sizeof => 24
+export default struct KBUGCHECK_DUMP_IO {
+    #StructPack 8
 
-    static packingSize => 8
+    Offset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Buffer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Type : KBUGCHECK_DUMP_IO_TYPE
 
-    /**
-     * @type {KBUGCHECK_DUMP_IO_TYPE}
-     */
-    Type {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

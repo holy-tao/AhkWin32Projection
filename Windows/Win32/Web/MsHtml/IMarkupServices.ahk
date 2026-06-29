@@ -1,35 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMarkupPointer.ahk
-#Include .\IMarkupContainer.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
+#Import ".\ELEMENT_TAG_ID.ahk" { ELEMENT_TAG_ID }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IMarkupServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMarkupServices extends IUnknown {
     /**
      * The interface identifier for IMarkupServices
      * @type {Guid}
      */
-    static IID => Guid("{3050f4a0-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f4a0-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMarkupServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateMarkupPointer   : IntPtr
+        CreateMarkupContainer : IntPtr
+        CreateElement         : IntPtr
+        CloneElement          : IntPtr
+        InsertElement         : IntPtr
+        RemoveElement         : IntPtr
+        Remove                : IntPtr
+        Copy                  : IntPtr
+        Move                  : IntPtr
+        InsertText            : IntPtr
+        ParseString           : IntPtr
+        ParseGlobal           : IntPtr
+        IsScopedElement       : IntPtr
+        GetElementTagId       : IntPtr
+        GetTagIDForName       : IntPtr
+        GetNameForTagID       : IntPtr
+        MovePointersToRange   : IntPtr
+        MoveRangeToPointers   : IntPtr
+        BeginUndoUnit         : IntPtr
+        EndUndoUnit           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateMarkupPointer", "CreateMarkupContainer", "CreateElement", "CloneElement", "InsertElement", "RemoveElement", "Remove", "Copy", "Move", "InsertText", "ParseString", "ParseGlobal", "IsScopedElement", "GetElementTagId", "GetTagIDForName", "GetNameForTagID", "MovePointersToRange", "MoveRangeToPointers", "BeginUndoUnit", "EndUndoUnit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMarkupServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -58,7 +90,7 @@ class IMarkupServices extends IUnknown {
     CreateElement(tagID, pchAttributes) {
         pchAttributes := pchAttributes is String ? StrPtr(pchAttributes) : pchAttributes
 
-        result := ComCall(5, this, "int", tagID, "ptr", pchAttributes, "ptr*", &ppElement := 0, "HRESULT")
+        result := ComCall(5, this, ELEMENT_TAG_ID, tagID, "ptr", pchAttributes, "ptr*", &ppElement := 0, "HRESULT")
         return IHTMLElement(ppElement)
     }
 
@@ -95,23 +127,10 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(pPointerStart, pPointerFinish) {
         result := ComCall(9, this, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
@@ -119,18 +138,11 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines CopyAcceleratorTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
-     * @returns {HRESULT} Type: <b>int</b>
-     * 
-     * If 
-     *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyacceleratortablew
+     * @returns {HRESULT} 
      */
     Copy(pPointerSourceStart, pPointerSourceFinish, pPointerTarget) {
         result := ComCall(10, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "HRESULT")
@@ -138,47 +150,11 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * Moves a group and all of its resources from one node to another.
-     * @remarks
-     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
      * 
-     * If you want your application to ensure a particular state for a resource or a group after a move:
-     * 
-     * <ol>
-     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
-     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
-     * </ol>
-     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
-     * 
-     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
-     * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_IO_PENDING</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The reassignment of ownership of the group is in progress.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
+     * @returns {HRESULT} 
      */
     Move(pPointerSourceStart, pPointerSourceFinish, pPointerTarget) {
         result := ComCall(11, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "HRESULT")
@@ -223,9 +199,7 @@ class IMarkupServices extends IUnknown {
      * @returns {IMarkupContainer} 
      */
     ParseGlobal(hglobalHTML, dwFlags, pPointerStart, pPointerFinish) {
-        hglobalHTML := hglobalHTML is Win32Handle ? NumGet(hglobalHTML, "ptr") : hglobalHTML
-
-        result := ComCall(14, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(14, this, HGLOBAL, hglobalHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
         return IMarkupContainer(ppContainerResult)
     }
 
@@ -235,7 +209,7 @@ class IMarkupServices extends IUnknown {
      * @returns {BOOL} 
      */
     IsScopedElement(pElement) {
-        result := ComCall(15, this, "ptr", pElement, "int*", &pfScoped := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pElement, BOOL.Ptr, &pfScoped := 0, "HRESULT")
         return pfScoped
     }
 
@@ -257,7 +231,7 @@ class IMarkupServices extends IUnknown {
     GetTagIDForName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(17, this, "ptr", bstrName, "int*", &ptagId := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrName, "int*", &ptagId := 0, "HRESULT")
         return ptagId
     }
 
@@ -267,8 +241,8 @@ class IMarkupServices extends IUnknown {
      * @returns {BSTR} 
      */
     GetNameForTagID(tagId) {
-        pbstrName := BSTR()
-        result := ComCall(18, this, "int", tagId, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(18, this, ELEMENT_TAG_ID, tagId, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -315,5 +289,63 @@ class IMarkupServices extends IUnknown {
     EndUndoUnit() {
         result := ComCall(22, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMarkupServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateMarkupPointer := CallbackCreate(GetMethod(implObj, "CreateMarkupPointer"), flags, 2)
+        this.vtbl.CreateMarkupContainer := CallbackCreate(GetMethod(implObj, "CreateMarkupContainer"), flags, 2)
+        this.vtbl.CreateElement := CallbackCreate(GetMethod(implObj, "CreateElement"), flags, 4)
+        this.vtbl.CloneElement := CallbackCreate(GetMethod(implObj, "CloneElement"), flags, 3)
+        this.vtbl.InsertElement := CallbackCreate(GetMethod(implObj, "InsertElement"), flags, 4)
+        this.vtbl.RemoveElement := CallbackCreate(GetMethod(implObj, "RemoveElement"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+        this.vtbl.InsertText := CallbackCreate(GetMethod(implObj, "InsertText"), flags, 4)
+        this.vtbl.ParseString := CallbackCreate(GetMethod(implObj, "ParseString"), flags, 6)
+        this.vtbl.ParseGlobal := CallbackCreate(GetMethod(implObj, "ParseGlobal"), flags, 6)
+        this.vtbl.IsScopedElement := CallbackCreate(GetMethod(implObj, "IsScopedElement"), flags, 3)
+        this.vtbl.GetElementTagId := CallbackCreate(GetMethod(implObj, "GetElementTagId"), flags, 3)
+        this.vtbl.GetTagIDForName := CallbackCreate(GetMethod(implObj, "GetTagIDForName"), flags, 3)
+        this.vtbl.GetNameForTagID := CallbackCreate(GetMethod(implObj, "GetNameForTagID"), flags, 3)
+        this.vtbl.MovePointersToRange := CallbackCreate(GetMethod(implObj, "MovePointersToRange"), flags, 4)
+        this.vtbl.MoveRangeToPointers := CallbackCreate(GetMethod(implObj, "MoveRangeToPointers"), flags, 4)
+        this.vtbl.BeginUndoUnit := CallbackCreate(GetMethod(implObj, "BeginUndoUnit"), flags, 2)
+        this.vtbl.EndUndoUnit := CallbackCreate(GetMethod(implObj, "EndUndoUnit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateMarkupPointer)
+        CallbackFree(this.vtbl.CreateMarkupContainer)
+        CallbackFree(this.vtbl.CreateElement)
+        CallbackFree(this.vtbl.CloneElement)
+        CallbackFree(this.vtbl.InsertElement)
+        CallbackFree(this.vtbl.RemoveElement)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.InsertText)
+        CallbackFree(this.vtbl.ParseString)
+        CallbackFree(this.vtbl.ParseGlobal)
+        CallbackFree(this.vtbl.IsScopedElement)
+        CallbackFree(this.vtbl.GetElementTagId)
+        CallbackFree(this.vtbl.GetTagIDForName)
+        CallbackFree(this.vtbl.GetNameForTagID)
+        CallbackFree(this.vtbl.MovePointersToRange)
+        CallbackFree(this.vtbl.MoveRangeToPointers)
+        CallbackFree(this.vtbl.BeginUndoUnit)
+        CallbackFree(this.vtbl.EndUndoUnit)
     }
 }

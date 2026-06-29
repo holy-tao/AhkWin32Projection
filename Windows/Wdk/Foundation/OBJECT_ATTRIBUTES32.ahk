@@ -1,62 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk
-#Include ..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk
-#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
+#Import "..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import "..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk" { OBJECT_ATTRIBUTE_FLAGS }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class OBJECT_ATTRIBUTES32 extends Win32Struct {
-    static sizeof => 32
+export default struct OBJECT_ATTRIBUTES32 {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RootDirectory : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RootDirectory {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ObjectName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectName {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Attributes : OBJECT_ATTRIBUTE_FLAGS
 
-    /**
-     * @type {OBJECT_ATTRIBUTE_FLAGS}
-     */
-    Attributes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SecurityDescriptor : SECURITY_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<SECURITY_DESCRIPTOR>}
-     */
-    SecurityDescriptor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SecurityQualityOfService : SECURITY_QUALITY_OF_SERVICE.Ptr
 
-    /**
-     * @type {Pointer<SECURITY_QUALITY_OF_SERVICE>}
-     */
-    SecurityQualityOfService {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

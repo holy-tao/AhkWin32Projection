@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class SIPAEVENT_SI_POLICY_CERTIFICATE_PAYLOAD extends Win32Struct {
-    static sizeof => 12
+export default struct SIPAEVENT_SI_POLICY_CERTIFICATE_PAYLOAD {
+    #StructPack 4
 
-    static packingSize => 4
+    PublisherCommonNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PublisherCommonNameLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    IssuerCommonNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    IssuerCommonNameLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    HashAlgID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HashAlgID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DigestLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DigestLength {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    VarLengthData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VarLengthData {
-        get {
-            if(!this.HasProp("__VarLengthDataProxyArray"))
-                this.__VarLengthDataProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
-            return this.__VarLengthDataProxyArray
-        }
-    }
 }

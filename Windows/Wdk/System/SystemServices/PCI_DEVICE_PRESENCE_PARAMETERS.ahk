@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_DEVICE_PRESENCE_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct PCI_DEVICE_PRESENCE_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    DeviceID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceID {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    RevisionID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RevisionID {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    SubVendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubVendorID {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    SubSystemID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubSystemID {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    BaseClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BaseClass {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    SubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SubClass {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    ProgIf : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProgIf {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
 }

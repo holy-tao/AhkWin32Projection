@@ -1,38 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFPinholeCameraIntrinsic_IntrinsicModel.ahk
-#Include .\MFCameraIntrinsic_PinholeCameraModel.ahk
-#Include .\MF_FLOAT2.ahk
-#Include .\MFCameraIntrinsic_DistortionModel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFCameraIntrinsic_DistortionModel.ahk" { MFCameraIntrinsic_DistortionModel }
+#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
+#Import ".\MFPinholeCameraIntrinsic_IntrinsicModel.ahk" { MFPinholeCameraIntrinsic_IntrinsicModel }
+#Import ".\MFCameraIntrinsic_PinholeCameraModel.ahk" { MFCameraIntrinsic_PinholeCameraModel }
 
 /**
  * Contains zero or 1 pinhole camera intrinsic models that describe how to project a 3D point in physical world onto the 2D image frame of a camera.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfpinholecameraintrinsics
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFPinholeCameraIntrinsics extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct MFPinholeCameraIntrinsics {
+    #StructPack 4
 
     /**
      * The number of camera intrinsic models in the <i>IntrinsicModels</i> array.
-     * @type {Integer}
      */
-    IntrinsicModelCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IntrinsicModelCount : UInt32
 
     /**
      * The array of camera intrinsic models in the intrinsic data.
-     * @type {MFPinholeCameraIntrinsic_IntrinsicModel}
      */
-    IntrinsicModels {
-        get {
-            if(!this.HasProp("__IntrinsicModelsProxyArray"))
-                this.__IntrinsicModelsProxyArray := Win32FixedArray(this.ptr + 4, 1, MFPinholeCameraIntrinsic_IntrinsicModel, "")
-            return this.__IntrinsicModelsProxyArray
-        }
-    }
+    IntrinsicModels : MFPinholeCameraIntrinsic_IntrinsicModel[1]
+
 }

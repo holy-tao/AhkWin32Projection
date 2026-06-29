@@ -1,32 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct {
-    static sizeof => 11
+export default struct CDROM_TOC_FULL_TOC_DATA_BLOCK {
+    #StructPack 1
 
-    static packingSize => 1
-
-    /**
-     * @type {Integer}
-     */
-    SessionNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    SessionNumber : Int8
 
     /**
      * This bitfield backs the following members:
      * - Control
      * - Adr
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -43,50 +31,14 @@ class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Point : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Point {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    MsfExtra : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MsfExtra {
-        get {
-            if(!this.HasProp("__MsfExtraProxyArray"))
-                this.__MsfExtraProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
-            return this.__MsfExtraProxyArray
-        }
-    }
+    Zero : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Zero {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    Msf : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Msf {
-        get {
-            if(!this.HasProp("__MsfProxyArray"))
-                this.__MsfProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")
-            return this.__MsfProxyArray
-        }
-    }
 }

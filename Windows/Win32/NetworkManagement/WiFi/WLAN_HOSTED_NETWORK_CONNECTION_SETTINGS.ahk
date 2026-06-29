@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * Contains information about the connection settings on the wireless Hosted Network.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_connection_settings
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS {
+    #StructPack 4
 
     /**
      * The SSID associated with the wireless Hosted Network.
-     * @type {DOT11_SSID}
      */
-    hostedNetworkSSID {
-        get {
-            if(!this.HasProp("__hostedNetworkSSID"))
-                this.__hostedNetworkSSID := DOT11_SSID(0, this)
-            return this.__hostedNetworkSSID
-        }
-    }
+    hostedNetworkSSID : DOT11_SSID
 
     /**
      * The maximum number of concurrent peers allowed by the wireless Hosted Network.
-     * @type {Integer}
      */
-    dwMaxNumberOfPeers {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwMaxNumberOfPeers : UInt32
+
 }

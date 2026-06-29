@@ -1,67 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_MOVE_RECT.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION.ahk
-#Include .\D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION.ahk" { D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG.ahk" { D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG }
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk" { D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE }
+#Import ".\D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS.ahk" { D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_MOVE_RECT.ahk" { D3D12_VIDEO_ENCODER_MOVE_RECT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct D3D12_VIDEO_ENCODER_MOVEREGION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    NumMoveRegions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumMoveRegions {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pMoveRegions : D3D12_VIDEO_ENCODER_MOVE_RECT.Ptr
 
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_MOVE_RECT>}
-     */
-    pMoveRegions {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MotionSearchModeConfiguration : D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG}
-     */
-    MotionSearchModeConfiguration {
-        get {
-            if(!this.HasProp("__MotionSearchModeConfiguration"))
-                this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(16, this)
-            return this.__MotionSearchModeConfiguration
-        }
-    }
+    SourceDPBFrameReference : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SourceDPBFrameReference {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MotionUnitPrecision : D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION}
-     */
-    MotionUnitPrecision {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    Flags : D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
 }

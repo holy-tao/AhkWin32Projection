@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Transform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Transform.ahk" { ID2D1Transform }
+#Import ".\ID2D1DrawInfo.ahk" { ID2D1DrawInfo }
 
 /**
  * A specialized implementation of the Shantzis calculations to a transform implemented on the GPU.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1drawtransform
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1DrawTransform extends ID2D1Transform {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1DrawTransform extends ID2D1Transform {
     /**
      * The interface identifier for ID2D1DrawTransform
      * @type {Guid}
      */
-    static IID => Guid("{36bfdcb6-9739-435d-a30d-a653beff6a6f}")
+    static IID := Guid("{36bfdcb6-9739-435d-a30d-a653beff6a6f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1DrawTransform interfaces
+    */
+    struct Vtbl extends ID2D1Transform.Vtbl {
+        SetDrawInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDrawInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1DrawTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides the GPU render info interface to the transform implementation.
@@ -46,5 +55,25 @@ class ID2D1DrawTransform extends ID2D1Transform {
     SetDrawInfo(drawInfo) {
         result := ComCall(7, this, "ptr", drawInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1DrawTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDrawInfo := CallbackCreate(GetMethod(implObj, "SetDrawInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDrawInfo)
     }
 }

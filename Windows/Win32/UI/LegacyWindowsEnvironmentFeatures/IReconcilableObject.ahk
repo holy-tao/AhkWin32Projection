@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IReconcileInitiator.ahk" { IReconcileInitiator }
+#Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that reconcile a given document. The briefcase reconciler is responsible for implementing this interface.
  * @see https://learn.microsoft.com/windows/win32/api/reconcil/nn-reconcil-ireconcilableobject
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  */
-class IReconcilableObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IReconcilableObject extends IUnknown {
     /**
      * The interface identifier for IReconcilableObject
      * @type {Guid}
      */
-    static IID => Guid("{99180162-da16-101a-935c-444553540000}")
+    static IID := Guid("{99180162-da16-101a-935c-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IReconcilableObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reconcile                      : IntPtr
+        GetProgressFeedbackMaxEstimate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reconcile", "GetProgressFeedbackMaxEstimate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IReconcilableObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reconciles the state of an object with one or more other objects. The reconciliation updates the internal state of the object by merging the states of all objects to form a combined state.
@@ -65,10 +78,7 @@ class IReconcilableObject extends IUnknown {
     Reconcile(pInitiator, dwFlags, hwndOwner, hwndProgressFeedback, ulcInput, rgpmkOtherInput, pstgNewResidues) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-        hwndProgressFeedback := hwndProgressFeedback is Win32Handle ? NumGet(hwndProgressFeedback, "ptr") : hwndProgressFeedback
-
-        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, "ptr", hwndOwner, "ptr", hwndProgressFeedback, "uint", ulcInput, "ptr*", rgpmkOtherInput, "int*", &plOutIndex := 0, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, HWND, hwndOwner, HWND, hwndProgressFeedback, "uint", ulcInput, IMoniker.Ptr, rgpmkOtherInput, "int*", &plOutIndex := 0, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
         return plOutIndex
     }
 
@@ -82,5 +92,27 @@ class IReconcilableObject extends IUnknown {
     GetProgressFeedbackMaxEstimate() {
         result := ComCall(4, this, "uint*", &pulProgressMax := 0, "HRESULT")
         return pulProgressMax
+    }
+
+    Query(iid) {
+        if (IReconcilableObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reconcile := CallbackCreate(GetMethod(implObj, "Reconcile"), flags, 10)
+        this.vtbl.GetProgressFeedbackMaxEstimate := CallbackCreate(GetMethod(implObj, "GetProgressFeedbackMaxEstimate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reconcile)
+        CallbackFree(this.vtbl.GetProgressFeedbackMaxEstimate)
     }
 }

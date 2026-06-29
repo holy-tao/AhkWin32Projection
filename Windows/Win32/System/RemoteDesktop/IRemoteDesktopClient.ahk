@@ -1,36 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRemoteDesktopClientSettings.ahk
-#Include .\IRemoteDesktopClientActions.ahk
-#Include .\IRemoteDesktopClientTouchPointer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRemoteDesktopClientActions.ahk" { IRemoteDesktopClientActions }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRemoteDesktopClientSettings.ahk" { IRemoteDesktopClientSettings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRemoteDesktopClientTouchPointer.ahk" { IRemoteDesktopClientTouchPointer }
 
 /**
  * Provides methods and properties used to configure and use the Remote Desktop Protocol (RDP) app container client control.
  * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclient
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IRemoteDesktopClient extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRemoteDesktopClient extends IDispatch {
     /**
      * The interface identifier for IRemoteDesktopClient
      * @type {Guid}
      */
-    static IID => Guid("{57d25668-625a-4905-be4e-304caa13f89c}")
+    static IID := Guid("{57d25668-625a-4905-be4e-304caa13f89c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRemoteDesktopClient interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Connect                      : IntPtr
+        Disconnect                   : IntPtr
+        Reconnect                    : IntPtr
+        get_Settings                 : IntPtr
+        get_Actions                  : IntPtr
+        get_TouchPointer             : IntPtr
+        DeleteSavedCredentials       : IntPtr
+        UpdateSessionDisplaySettings : IntPtr
+        attachEvent                  : IntPtr
+        detachEvent                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect", "Reconnect", "get_Settings", "get_Actions", "get_TouchPointer", "DeleteSavedCredentials", "UpdateSessionDisplaySettings", "attachEvent", "detachEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRemoteDesktopClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRemoteDesktopClientSettings} 
@@ -124,7 +142,7 @@ class IRemoteDesktopClient extends IDispatch {
     DeleteSavedCredentials(serverName) {
         serverName := serverName is String ? BSTR.Alloc(serverName).Value : serverName
 
-        result := ComCall(13, this, "ptr", serverName, "HRESULT")
+        result := ComCall(13, this, BSTR, serverName, "HRESULT")
         return result
     }
 
@@ -150,7 +168,7 @@ class IRemoteDesktopClient extends IDispatch {
     attachEvent(eventName, callback) {
         eventName := eventName is String ? BSTR.Alloc(eventName).Value : eventName
 
-        result := ComCall(15, this, "ptr", eventName, "ptr", callback, "HRESULT")
+        result := ComCall(15, this, BSTR, eventName, "ptr", callback, "HRESULT")
         return result
     }
 
@@ -164,7 +182,45 @@ class IRemoteDesktopClient extends IDispatch {
     detachEvent(eventName, callback) {
         eventName := eventName is String ? BSTR.Alloc(eventName).Value : eventName
 
-        result := ComCall(16, this, "ptr", eventName, "ptr", callback, "HRESULT")
+        result := ComCall(16, this, BSTR, eventName, "ptr", callback, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRemoteDesktopClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Reconnect := CallbackCreate(GetMethod(implObj, "Reconnect"), flags, 3)
+        this.vtbl.get_Settings := CallbackCreate(GetMethod(implObj, "get_Settings"), flags, 2)
+        this.vtbl.get_Actions := CallbackCreate(GetMethod(implObj, "get_Actions"), flags, 2)
+        this.vtbl.get_TouchPointer := CallbackCreate(GetMethod(implObj, "get_TouchPointer"), flags, 2)
+        this.vtbl.DeleteSavedCredentials := CallbackCreate(GetMethod(implObj, "DeleteSavedCredentials"), flags, 2)
+        this.vtbl.UpdateSessionDisplaySettings := CallbackCreate(GetMethod(implObj, "UpdateSessionDisplaySettings"), flags, 3)
+        this.vtbl.attachEvent := CallbackCreate(GetMethod(implObj, "attachEvent"), flags, 3)
+        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Reconnect)
+        CallbackFree(this.vtbl.get_Settings)
+        CallbackFree(this.vtbl.get_Actions)
+        CallbackFree(this.vtbl.get_TouchPointer)
+        CallbackFree(this.vtbl.DeleteSavedCredentials)
+        CallbackFree(this.vtbl.UpdateSessionDisplaySettings)
+        CallbackFree(this.vtbl.attachEvent)
+        CallbackFree(this.vtbl.detachEvent)
     }
 }

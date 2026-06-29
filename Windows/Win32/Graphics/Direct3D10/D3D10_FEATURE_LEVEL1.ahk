@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The version of hardware acceleration requested.
@@ -16,7 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_FEATURE_LEVEL1 extends Win32Enum {
+export default struct D3D10_FEATURE_LEVEL1 {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The hardware supports Direct3D 10.0 features.

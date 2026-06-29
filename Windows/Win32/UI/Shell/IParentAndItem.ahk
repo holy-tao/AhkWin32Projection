@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Exposes methods that get and set the parent and the parent's child ID. While IParentAndItem is typically implemented on IShellItems, it is not specific to IShellItem.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iparentanditem
  * @namespace Windows.Win32.UI.Shell
  */
-class IParentAndItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IParentAndItem extends IUnknown {
     /**
      * The interface identifier for IParentAndItem
      * @type {Guid}
      */
-    static IID => Guid("{b3a4b685-b685-4805-99d9-5dead2873236}")
+    static IID := Guid("{b3a4b685-b685-4805-99d9-5dead2873236}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IParentAndItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetParentAndItem : IntPtr
+        GetParentAndItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetParentAndItem", "GetParentAndItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IParentAndItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the parent of an item and the parent's child ID.
@@ -50,7 +61,7 @@ class IParentAndItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iparentanditem-setparentanditem
      */
     SetParentAndItem(pidlParent, psf, pidlChild) {
-        result := ComCall(3, this, "ptr", pidlParent, "ptr", psf, "ptr", pidlChild, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidlParent, "ptr", psf, ITEMIDLIST.Ptr, pidlChild, "HRESULT")
         return result
     }
 
@@ -76,7 +87,29 @@ class IParentAndItem extends IUnknown {
         ppidlParentMarshal := ppidlParent is VarRef ? "ptr*" : "ptr"
         ppidlChildMarshal := ppidlChild is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, "ptr*", ppsf, ppidlChildMarshal, ppidlChild, "HRESULT")
+        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, IShellFolder.Ptr, ppsf, ppidlChildMarshal, ppidlChild, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IParentAndItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetParentAndItem := CallbackCreate(GetMethod(implObj, "SetParentAndItem"), flags, 4)
+        this.vtbl.GetParentAndItem := CallbackCreate(GetMethod(implObj, "GetParentAndItem"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetParentAndItem)
+        CallbackFree(this.vtbl.GetParentAndItem)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NET_FW_POLICY_TYPE enumerated type specifies the type of policy.
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_policy_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NET_FW_POLICY_TYPE extends Win32Enum {
+export default struct NET_FW_POLICY_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Policy type is group.

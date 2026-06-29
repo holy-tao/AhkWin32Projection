@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWscProduct.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSC_SECURITY_PRODUCT_SUBSTATUS.ahk" { WSC_SECURITY_PRODUCT_SUBSTATUS }
+#Import ".\IWscProduct.ahk" { IWscProduct }
 
 /**
  * @namespace Windows.Win32.System.SecurityCenter
  */
-class IWscProduct2 extends IWscProduct {
-
-    static sizeof => A_PtrSize
+export default struct IWscProduct2 extends IWscProduct {
     /**
      * The interface identifier for IWscProduct2
      * @type {Guid}
      */
-    static IID => Guid("{f896ca54-fe09-4403-86d4-23cb488d81d8}")
+    static IID := Guid("{f896ca54-fe09-4403-86d4-23cb488d81d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWscProduct2 interfaces
+    */
+    struct Vtbl extends IWscProduct.Vtbl {
+        get_AntivirusScanSubstatus             : IntPtr
+        get_AntivirusSettingsSubstatus         : IntPtr
+        get_AntivirusProtectionUpdateSubstatus : IntPtr
+        get_FirewallDomainProfileSubstatus     : IntPtr
+        get_FirewallPrivateProfileSubstatus    : IntPtr
+        get_FirewallPublicProfileSubstatus     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AntivirusScanSubstatus", "get_AntivirusSettingsSubstatus", "get_AntivirusProtectionUpdateSubstatus", "get_FirewallDomainProfileSubstatus", "get_FirewallPrivateProfileSubstatus", "get_FirewallPublicProfileSubstatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWscProduct2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
@@ -121,5 +135,35 @@ class IWscProduct2 extends IWscProduct {
     get_FirewallPublicProfileSubstatus() {
         result := ComCall(19, this, "int*", &peStatus := 0, "HRESULT")
         return peStatus
+    }
+
+    Query(iid) {
+        if (IWscProduct2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AntivirusScanSubstatus := CallbackCreate(GetMethod(implObj, "get_AntivirusScanSubstatus"), flags, 2)
+        this.vtbl.get_AntivirusSettingsSubstatus := CallbackCreate(GetMethod(implObj, "get_AntivirusSettingsSubstatus"), flags, 2)
+        this.vtbl.get_AntivirusProtectionUpdateSubstatus := CallbackCreate(GetMethod(implObj, "get_AntivirusProtectionUpdateSubstatus"), flags, 2)
+        this.vtbl.get_FirewallDomainProfileSubstatus := CallbackCreate(GetMethod(implObj, "get_FirewallDomainProfileSubstatus"), flags, 2)
+        this.vtbl.get_FirewallPrivateProfileSubstatus := CallbackCreate(GetMethod(implObj, "get_FirewallPrivateProfileSubstatus"), flags, 2)
+        this.vtbl.get_FirewallPublicProfileSubstatus := CallbackCreate(GetMethod(implObj, "get_FirewallPublicProfileSubstatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AntivirusScanSubstatus)
+        CallbackFree(this.vtbl.get_AntivirusSettingsSubstatus)
+        CallbackFree(this.vtbl.get_AntivirusProtectionUpdateSubstatus)
+        CallbackFree(this.vtbl.get_FirewallDomainProfileSubstatus)
+        CallbackFree(this.vtbl.get_FirewallPrivateProfileSubstatus)
+        CallbackFree(this.vtbl.get_FirewallPublicProfileSubstatus)
     }
 }

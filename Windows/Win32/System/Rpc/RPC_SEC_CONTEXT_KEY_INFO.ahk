@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_SEC_CONTEXT_KEY_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct RPC_SEC_CONTEXT_KEY_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    EncryptAlgorithm : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncryptAlgorithm {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    KeySize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeySize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SignatureAlgorithm : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SignatureAlgorithm {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

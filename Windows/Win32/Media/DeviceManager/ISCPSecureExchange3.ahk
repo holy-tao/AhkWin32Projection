@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureExchange2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISCPSecureExchange2.ahk" { ISCPSecureExchange2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
 
 /**
  * The ISCPSecureExchange3 interface extends ISCPSecureExchange2 by providing improved data exchange performance, and a transfer-complete callback method.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureexchange3
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class ISCPSecureExchange3 extends ISCPSecureExchange2 {
-
-    static sizeof => A_PtrSize
+export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
     /**
      * The interface identifier for ISCPSecureExchange3
      * @type {Guid}
      */
-    static IID => Guid("{ab4e77e4-8908-4b17-bd2a-b1dbe6dd69e1}")
+    static IID := Guid("{ab4e77e4-8908-4b17-bd2a-b1dbe6dd69e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISCPSecureExchange3 interfaces
+    */
+    struct Vtbl extends ISCPSecureExchange2.Vtbl {
+        TransferContainerDataOnClearChannel : IntPtr
+        GetObjectDataOnClearChannel         : IntPtr
+        TransferCompleteForDevice           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TransferContainerDataOnClearChannel", "GetObjectDataOnClearChannel", "TransferCompleteForDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISCPSecureExchange3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The TransferContainerDataOnClearChannel method transfers container file data to the content provider through the clear channel.
@@ -164,5 +176,29 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2 {
     TransferCompleteForDevice(pDevice) {
         result := ComCall(9, this, "ptr", pDevice, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISCPSecureExchange3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TransferContainerDataOnClearChannel := CallbackCreate(GetMethod(implObj, "TransferContainerDataOnClearChannel"), flags, 6)
+        this.vtbl.GetObjectDataOnClearChannel := CallbackCreate(GetMethod(implObj, "GetObjectDataOnClearChannel"), flags, 4)
+        this.vtbl.TransferCompleteForDevice := CallbackCreate(GetMethod(implObj, "TransferCompleteForDevice"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TransferContainerDataOnClearChannel)
+        CallbackFree(this.vtbl.GetObjectDataOnClearChannel)
+        CallbackFree(this.vtbl.TransferCompleteForDevice)
     }
 }

@@ -1,35 +1,108 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLDOMAttribute2.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLAttributeCollection3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLAttributeCollection3.ahk" { IHTMLAttributeCollection3 }
+#Import ".\IHTMLDOMAttribute2.ahk" { IHTMLDOMAttribute2 }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLElement5 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLElement5 extends IDispatch {
     /**
      * The interface identifier for IHTMLElement5
      * @type {Guid}
      */
-    static IID => Guid("{3051045d-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051045d-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLElement5 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        getAttributeNode         : IntPtr
+        setAttributeNode         : IntPtr
+        removeAttributeNode      : IntPtr
+        hasAttribute             : IntPtr
+        put_role                 : IntPtr
+        get_role                 : IntPtr
+        put_ariaBusy             : IntPtr
+        get_ariaBusy             : IntPtr
+        put_ariaChecked          : IntPtr
+        get_ariaChecked          : IntPtr
+        put_ariaDisabled         : IntPtr
+        get_ariaDisabled         : IntPtr
+        put_ariaExpanded         : IntPtr
+        get_ariaExpanded         : IntPtr
+        put_ariaHaspopup         : IntPtr
+        get_ariaHaspopup         : IntPtr
+        put_ariaHidden           : IntPtr
+        get_ariaHidden           : IntPtr
+        put_ariaInvalid          : IntPtr
+        get_ariaInvalid          : IntPtr
+        put_ariaMultiselectable  : IntPtr
+        get_ariaMultiselectable  : IntPtr
+        put_ariaPressed          : IntPtr
+        get_ariaPressed          : IntPtr
+        put_ariaReadonly         : IntPtr
+        get_ariaReadonly         : IntPtr
+        put_ariaRequired         : IntPtr
+        get_ariaRequired         : IntPtr
+        put_ariaSecret           : IntPtr
+        get_ariaSecret           : IntPtr
+        put_ariaSelected         : IntPtr
+        get_ariaSelected         : IntPtr
+        getAttribute             : IntPtr
+        setAttribute             : IntPtr
+        removeAttribute          : IntPtr
+        get_attributes           : IntPtr
+        put_ariaValuenow         : IntPtr
+        get_ariaValuenow         : IntPtr
+        put_ariaPosinset         : IntPtr
+        get_ariaPosinset         : IntPtr
+        put_ariaSetsize          : IntPtr
+        get_ariaSetsize          : IntPtr
+        put_ariaLevel            : IntPtr
+        get_ariaLevel            : IntPtr
+        put_ariaValuemin         : IntPtr
+        get_ariaValuemin         : IntPtr
+        put_ariaValuemax         : IntPtr
+        get_ariaValuemax         : IntPtr
+        put_ariaControls         : IntPtr
+        get_ariaControls         : IntPtr
+        put_ariaDescribedby      : IntPtr
+        get_ariaDescribedby      : IntPtr
+        put_ariaFlowto           : IntPtr
+        get_ariaFlowto           : IntPtr
+        put_ariaLabelledby       : IntPtr
+        get_ariaLabelledby       : IntPtr
+        put_ariaActivedescendant : IntPtr
+        get_ariaActivedescendant : IntPtr
+        put_ariaOwns             : IntPtr
+        get_ariaOwns             : IntPtr
+        hasAttributes            : IntPtr
+        put_ariaLive             : IntPtr
+        get_ariaLive             : IntPtr
+        put_ariaRelevant         : IntPtr
+        get_ariaRelevant         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getAttributeNode", "setAttributeNode", "removeAttributeNode", "hasAttribute", "put_role", "get_role", "put_ariaBusy", "get_ariaBusy", "put_ariaChecked", "get_ariaChecked", "put_ariaDisabled", "get_ariaDisabled", "put_ariaExpanded", "get_ariaExpanded", "put_ariaHaspopup", "get_ariaHaspopup", "put_ariaHidden", "get_ariaHidden", "put_ariaInvalid", "get_ariaInvalid", "put_ariaMultiselectable", "get_ariaMultiselectable", "put_ariaPressed", "get_ariaPressed", "put_ariaReadonly", "get_ariaReadonly", "put_ariaRequired", "get_ariaRequired", "put_ariaSecret", "get_ariaSecret", "put_ariaSelected", "get_ariaSelected", "getAttribute", "setAttribute", "removeAttribute", "get_attributes", "put_ariaValuenow", "get_ariaValuenow", "put_ariaPosinset", "get_ariaPosinset", "put_ariaSetsize", "get_ariaSetsize", "put_ariaLevel", "get_ariaLevel", "put_ariaValuemin", "get_ariaValuemin", "put_ariaValuemax", "get_ariaValuemax", "put_ariaControls", "get_ariaControls", "put_ariaDescribedby", "get_ariaDescribedby", "put_ariaFlowto", "get_ariaFlowto", "put_ariaLabelledby", "get_ariaLabelledby", "put_ariaActivedescendant", "get_ariaActivedescendant", "put_ariaOwns", "get_ariaOwns", "hasAttributes", "put_ariaLive", "get_ariaLive", "put_ariaRelevant", "get_ariaRelevant"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLElement5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -270,7 +343,7 @@ class IHTMLElement5 extends IDispatch {
     getAttributeNode(bstrname) {
         bstrname := bstrname is String ? BSTR.Alloc(bstrname).Value : bstrname
 
-        result := ComCall(7, this, "ptr", bstrname, "ptr*", &ppretAttribute := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrname, "ptr*", &ppretAttribute := 0, "HRESULT")
         return IHTMLDOMAttribute2(ppretAttribute)
     }
 
@@ -302,7 +375,7 @@ class IHTMLElement5 extends IDispatch {
     hasAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "short*", &pfHasAttribute := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, name, VARIANT_BOOL.Ptr, &pfHasAttribute := 0, "HRESULT")
         return pfHasAttribute
     }
 
@@ -314,7 +387,7 @@ class IHTMLElement5 extends IDispatch {
     put_role(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -323,8 +396,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_role() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -336,7 +409,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaBusy(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -345,8 +418,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaBusy() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -358,7 +431,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaChecked(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -367,8 +440,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaChecked() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -380,7 +453,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaDisabled(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -389,8 +462,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaDisabled() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -402,7 +475,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaExpanded(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -411,8 +484,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaExpanded() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -424,7 +497,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaHaspopup(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -433,8 +506,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaHaspopup() {
-        p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -446,7 +519,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaHidden(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -455,8 +528,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaHidden() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -468,7 +541,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaInvalid(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -477,8 +550,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaInvalid() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -490,7 +563,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaMultiselectable(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -499,8 +572,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaMultiselectable() {
-        p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -512,7 +585,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaPressed(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -521,8 +594,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaPressed() {
-        p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -534,7 +607,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaReadonly(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -543,8 +616,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaReadonly() {
-        p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -556,7 +629,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaRequired(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -565,8 +638,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaRequired() {
-        p := BSTR()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -578,7 +651,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaSecret(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -587,8 +660,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaSecret() {
-        p := BSTR()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -600,7 +673,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaSelected(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -609,8 +682,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaSelected() {
-        p := BSTR()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -623,7 +696,7 @@ class IHTMLElement5 extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(39, this, "ptr", strAttributeName, "ptr", AttributeValue, "HRESULT")
+        result := ComCall(39, this, BSTR, strAttributeName, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -636,7 +709,7 @@ class IHTMLElement5 extends IDispatch {
     setAttribute(strAttributeName, AttributeValue) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(40, this, "ptr", strAttributeName, "ptr", AttributeValue, "HRESULT")
+        result := ComCall(40, this, BSTR, strAttributeName, VARIANT, AttributeValue, "HRESULT")
         return result
     }
 
@@ -648,7 +721,7 @@ class IHTMLElement5 extends IDispatch {
     removeAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(41, this, "ptr", strAttributeName, "short*", &pfSuccess := 0, "HRESULT")
+        result := ComCall(41, this, BSTR, strAttributeName, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
         return pfSuccess
     }
 
@@ -669,7 +742,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaValuenow(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -678,8 +751,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaValuenow() {
-        p := BSTR()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(44, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -748,7 +821,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaValuemin(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(51, this, "ptr", v, "HRESULT")
+        result := ComCall(51, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -757,8 +830,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaValuemin() {
-        p := BSTR()
-        result := ComCall(52, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(52, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -770,7 +843,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaValuemax(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(53, this, "ptr", v, "HRESULT")
+        result := ComCall(53, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -779,8 +852,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaValuemax() {
-        p := BSTR()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -792,7 +865,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaControls(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(55, this, "ptr", v, "HRESULT")
+        result := ComCall(55, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -801,8 +874,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaControls() {
-        p := BSTR()
-        result := ComCall(56, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(56, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -814,7 +887,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaDescribedby(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(57, this, "ptr", v, "HRESULT")
+        result := ComCall(57, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -823,8 +896,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaDescribedby() {
-        p := BSTR()
-        result := ComCall(58, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(58, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -836,7 +909,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaFlowto(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(59, this, "ptr", v, "HRESULT")
+        result := ComCall(59, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -845,8 +918,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaFlowto() {
-        p := BSTR()
-        result := ComCall(60, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(60, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -858,7 +931,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaLabelledby(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(61, this, "ptr", v, "HRESULT")
+        result := ComCall(61, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -867,8 +940,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaLabelledby() {
-        p := BSTR()
-        result := ComCall(62, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(62, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -880,7 +953,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaActivedescendant(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(63, this, "ptr", v, "HRESULT")
+        result := ComCall(63, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -889,8 +962,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaActivedescendant() {
-        p := BSTR()
-        result := ComCall(64, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(64, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -902,7 +975,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaOwns(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(65, this, "ptr", v, "HRESULT")
+        result := ComCall(65, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -911,8 +984,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaOwns() {
-        p := BSTR()
-        result := ComCall(66, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(66, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -921,7 +994,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
-        result := ComCall(67, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        result := ComCall(67, this, VARIANT_BOOL.Ptr, &pfHasAttributes := 0, "HRESULT")
         return pfHasAttributes
     }
 
@@ -933,7 +1006,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaLive(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(68, this, "ptr", v, "HRESULT")
+        result := ComCall(68, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -942,8 +1015,8 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaLive() {
-        p := BSTR()
-        result := ComCall(69, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(69, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -955,7 +1028,7 @@ class IHTMLElement5 extends IDispatch {
     put_ariaRelevant(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(70, this, "ptr", v, "HRESULT")
+        result := ComCall(70, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -964,8 +1037,156 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaRelevant() {
-        p := BSTR()
-        result := ComCall(71, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(71, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLElement5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.hasAttribute := CallbackCreate(GetMethod(implObj, "hasAttribute"), flags, 3)
+        this.vtbl.put_role := CallbackCreate(GetMethod(implObj, "put_role"), flags, 2)
+        this.vtbl.get_role := CallbackCreate(GetMethod(implObj, "get_role"), flags, 2)
+        this.vtbl.put_ariaBusy := CallbackCreate(GetMethod(implObj, "put_ariaBusy"), flags, 2)
+        this.vtbl.get_ariaBusy := CallbackCreate(GetMethod(implObj, "get_ariaBusy"), flags, 2)
+        this.vtbl.put_ariaChecked := CallbackCreate(GetMethod(implObj, "put_ariaChecked"), flags, 2)
+        this.vtbl.get_ariaChecked := CallbackCreate(GetMethod(implObj, "get_ariaChecked"), flags, 2)
+        this.vtbl.put_ariaDisabled := CallbackCreate(GetMethod(implObj, "put_ariaDisabled"), flags, 2)
+        this.vtbl.get_ariaDisabled := CallbackCreate(GetMethod(implObj, "get_ariaDisabled"), flags, 2)
+        this.vtbl.put_ariaExpanded := CallbackCreate(GetMethod(implObj, "put_ariaExpanded"), flags, 2)
+        this.vtbl.get_ariaExpanded := CallbackCreate(GetMethod(implObj, "get_ariaExpanded"), flags, 2)
+        this.vtbl.put_ariaHaspopup := CallbackCreate(GetMethod(implObj, "put_ariaHaspopup"), flags, 2)
+        this.vtbl.get_ariaHaspopup := CallbackCreate(GetMethod(implObj, "get_ariaHaspopup"), flags, 2)
+        this.vtbl.put_ariaHidden := CallbackCreate(GetMethod(implObj, "put_ariaHidden"), flags, 2)
+        this.vtbl.get_ariaHidden := CallbackCreate(GetMethod(implObj, "get_ariaHidden"), flags, 2)
+        this.vtbl.put_ariaInvalid := CallbackCreate(GetMethod(implObj, "put_ariaInvalid"), flags, 2)
+        this.vtbl.get_ariaInvalid := CallbackCreate(GetMethod(implObj, "get_ariaInvalid"), flags, 2)
+        this.vtbl.put_ariaMultiselectable := CallbackCreate(GetMethod(implObj, "put_ariaMultiselectable"), flags, 2)
+        this.vtbl.get_ariaMultiselectable := CallbackCreate(GetMethod(implObj, "get_ariaMultiselectable"), flags, 2)
+        this.vtbl.put_ariaPressed := CallbackCreate(GetMethod(implObj, "put_ariaPressed"), flags, 2)
+        this.vtbl.get_ariaPressed := CallbackCreate(GetMethod(implObj, "get_ariaPressed"), flags, 2)
+        this.vtbl.put_ariaReadonly := CallbackCreate(GetMethod(implObj, "put_ariaReadonly"), flags, 2)
+        this.vtbl.get_ariaReadonly := CallbackCreate(GetMethod(implObj, "get_ariaReadonly"), flags, 2)
+        this.vtbl.put_ariaRequired := CallbackCreate(GetMethod(implObj, "put_ariaRequired"), flags, 2)
+        this.vtbl.get_ariaRequired := CallbackCreate(GetMethod(implObj, "get_ariaRequired"), flags, 2)
+        this.vtbl.put_ariaSecret := CallbackCreate(GetMethod(implObj, "put_ariaSecret"), flags, 2)
+        this.vtbl.get_ariaSecret := CallbackCreate(GetMethod(implObj, "get_ariaSecret"), flags, 2)
+        this.vtbl.put_ariaSelected := CallbackCreate(GetMethod(implObj, "put_ariaSelected"), flags, 2)
+        this.vtbl.get_ariaSelected := CallbackCreate(GetMethod(implObj, "get_ariaSelected"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 3)
+        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.put_ariaValuenow := CallbackCreate(GetMethod(implObj, "put_ariaValuenow"), flags, 2)
+        this.vtbl.get_ariaValuenow := CallbackCreate(GetMethod(implObj, "get_ariaValuenow"), flags, 2)
+        this.vtbl.put_ariaPosinset := CallbackCreate(GetMethod(implObj, "put_ariaPosinset"), flags, 2)
+        this.vtbl.get_ariaPosinset := CallbackCreate(GetMethod(implObj, "get_ariaPosinset"), flags, 2)
+        this.vtbl.put_ariaSetsize := CallbackCreate(GetMethod(implObj, "put_ariaSetsize"), flags, 2)
+        this.vtbl.get_ariaSetsize := CallbackCreate(GetMethod(implObj, "get_ariaSetsize"), flags, 2)
+        this.vtbl.put_ariaLevel := CallbackCreate(GetMethod(implObj, "put_ariaLevel"), flags, 2)
+        this.vtbl.get_ariaLevel := CallbackCreate(GetMethod(implObj, "get_ariaLevel"), flags, 2)
+        this.vtbl.put_ariaValuemin := CallbackCreate(GetMethod(implObj, "put_ariaValuemin"), flags, 2)
+        this.vtbl.get_ariaValuemin := CallbackCreate(GetMethod(implObj, "get_ariaValuemin"), flags, 2)
+        this.vtbl.put_ariaValuemax := CallbackCreate(GetMethod(implObj, "put_ariaValuemax"), flags, 2)
+        this.vtbl.get_ariaValuemax := CallbackCreate(GetMethod(implObj, "get_ariaValuemax"), flags, 2)
+        this.vtbl.put_ariaControls := CallbackCreate(GetMethod(implObj, "put_ariaControls"), flags, 2)
+        this.vtbl.get_ariaControls := CallbackCreate(GetMethod(implObj, "get_ariaControls"), flags, 2)
+        this.vtbl.put_ariaDescribedby := CallbackCreate(GetMethod(implObj, "put_ariaDescribedby"), flags, 2)
+        this.vtbl.get_ariaDescribedby := CallbackCreate(GetMethod(implObj, "get_ariaDescribedby"), flags, 2)
+        this.vtbl.put_ariaFlowto := CallbackCreate(GetMethod(implObj, "put_ariaFlowto"), flags, 2)
+        this.vtbl.get_ariaFlowto := CallbackCreate(GetMethod(implObj, "get_ariaFlowto"), flags, 2)
+        this.vtbl.put_ariaLabelledby := CallbackCreate(GetMethod(implObj, "put_ariaLabelledby"), flags, 2)
+        this.vtbl.get_ariaLabelledby := CallbackCreate(GetMethod(implObj, "get_ariaLabelledby"), flags, 2)
+        this.vtbl.put_ariaActivedescendant := CallbackCreate(GetMethod(implObj, "put_ariaActivedescendant"), flags, 2)
+        this.vtbl.get_ariaActivedescendant := CallbackCreate(GetMethod(implObj, "get_ariaActivedescendant"), flags, 2)
+        this.vtbl.put_ariaOwns := CallbackCreate(GetMethod(implObj, "put_ariaOwns"), flags, 2)
+        this.vtbl.get_ariaOwns := CallbackCreate(GetMethod(implObj, "get_ariaOwns"), flags, 2)
+        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.put_ariaLive := CallbackCreate(GetMethod(implObj, "put_ariaLive"), flags, 2)
+        this.vtbl.get_ariaLive := CallbackCreate(GetMethod(implObj, "get_ariaLive"), flags, 2)
+        this.vtbl.put_ariaRelevant := CallbackCreate(GetMethod(implObj, "put_ariaRelevant"), flags, 2)
+        this.vtbl.get_ariaRelevant := CallbackCreate(GetMethod(implObj, "get_ariaRelevant"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getAttributeNode)
+        CallbackFree(this.vtbl.setAttributeNode)
+        CallbackFree(this.vtbl.removeAttributeNode)
+        CallbackFree(this.vtbl.hasAttribute)
+        CallbackFree(this.vtbl.put_role)
+        CallbackFree(this.vtbl.get_role)
+        CallbackFree(this.vtbl.put_ariaBusy)
+        CallbackFree(this.vtbl.get_ariaBusy)
+        CallbackFree(this.vtbl.put_ariaChecked)
+        CallbackFree(this.vtbl.get_ariaChecked)
+        CallbackFree(this.vtbl.put_ariaDisabled)
+        CallbackFree(this.vtbl.get_ariaDisabled)
+        CallbackFree(this.vtbl.put_ariaExpanded)
+        CallbackFree(this.vtbl.get_ariaExpanded)
+        CallbackFree(this.vtbl.put_ariaHaspopup)
+        CallbackFree(this.vtbl.get_ariaHaspopup)
+        CallbackFree(this.vtbl.put_ariaHidden)
+        CallbackFree(this.vtbl.get_ariaHidden)
+        CallbackFree(this.vtbl.put_ariaInvalid)
+        CallbackFree(this.vtbl.get_ariaInvalid)
+        CallbackFree(this.vtbl.put_ariaMultiselectable)
+        CallbackFree(this.vtbl.get_ariaMultiselectable)
+        CallbackFree(this.vtbl.put_ariaPressed)
+        CallbackFree(this.vtbl.get_ariaPressed)
+        CallbackFree(this.vtbl.put_ariaReadonly)
+        CallbackFree(this.vtbl.get_ariaReadonly)
+        CallbackFree(this.vtbl.put_ariaRequired)
+        CallbackFree(this.vtbl.get_ariaRequired)
+        CallbackFree(this.vtbl.put_ariaSecret)
+        CallbackFree(this.vtbl.get_ariaSecret)
+        CallbackFree(this.vtbl.put_ariaSelected)
+        CallbackFree(this.vtbl.get_ariaSelected)
+        CallbackFree(this.vtbl.getAttribute)
+        CallbackFree(this.vtbl.setAttribute)
+        CallbackFree(this.vtbl.removeAttribute)
+        CallbackFree(this.vtbl.get_attributes)
+        CallbackFree(this.vtbl.put_ariaValuenow)
+        CallbackFree(this.vtbl.get_ariaValuenow)
+        CallbackFree(this.vtbl.put_ariaPosinset)
+        CallbackFree(this.vtbl.get_ariaPosinset)
+        CallbackFree(this.vtbl.put_ariaSetsize)
+        CallbackFree(this.vtbl.get_ariaSetsize)
+        CallbackFree(this.vtbl.put_ariaLevel)
+        CallbackFree(this.vtbl.get_ariaLevel)
+        CallbackFree(this.vtbl.put_ariaValuemin)
+        CallbackFree(this.vtbl.get_ariaValuemin)
+        CallbackFree(this.vtbl.put_ariaValuemax)
+        CallbackFree(this.vtbl.get_ariaValuemax)
+        CallbackFree(this.vtbl.put_ariaControls)
+        CallbackFree(this.vtbl.get_ariaControls)
+        CallbackFree(this.vtbl.put_ariaDescribedby)
+        CallbackFree(this.vtbl.get_ariaDescribedby)
+        CallbackFree(this.vtbl.put_ariaFlowto)
+        CallbackFree(this.vtbl.get_ariaFlowto)
+        CallbackFree(this.vtbl.put_ariaLabelledby)
+        CallbackFree(this.vtbl.get_ariaLabelledby)
+        CallbackFree(this.vtbl.put_ariaActivedescendant)
+        CallbackFree(this.vtbl.get_ariaActivedescendant)
+        CallbackFree(this.vtbl.put_ariaOwns)
+        CallbackFree(this.vtbl.get_ariaOwns)
+        CallbackFree(this.vtbl.hasAttributes)
+        CallbackFree(this.vtbl.put_ariaLive)
+        CallbackFree(this.vtbl.get_ariaLive)
+        CallbackFree(this.vtbl.put_ariaRelevant)
+        CallbackFree(this.vtbl.get_ariaRelevant)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QOS_SERVICE_LEVEL enum is used by the ITBasicCallControl::SetQOS method to indicate quality of service requirements for a call.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-qos_service_level
  * @namespace Windows.Win32.Devices.Tapi
  */
-class QOS_SERVICE_LEVEL extends Win32Enum {
+export default struct QOS_SERVICE_LEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Quality of service level required.

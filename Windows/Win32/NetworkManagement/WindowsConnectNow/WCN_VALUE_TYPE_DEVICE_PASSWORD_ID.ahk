@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * WCN_VALUE_TYPE_DEVICE_PASSWORD_ID enumeration defines values that specify the origin or 'type' of a password.
  * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_value_type_device_password_id
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  */
-class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
+export default struct WCN_VALUE_TYPE_DEVICE_PASSWORD_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The PIN password, obtained from the label, or

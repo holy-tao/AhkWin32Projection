@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for media types that the boot image is intended to emulate.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/ne-imapi2fs-emulationtype
  * @namespace Windows.Win32.Storage.Imapi
  */
-class EmulationType extends Win32Enum {
+export default struct EmulationType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No emulation. The BIOS will not emulate any device type or special sector size for the CD during boot from the CD.

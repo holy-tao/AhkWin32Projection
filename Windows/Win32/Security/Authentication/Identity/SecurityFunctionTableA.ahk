@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SecurityFunctionTable structure is a dispatch table that contains pointers to the functions defined in SSPI. (ANSI)
@@ -10,282 +9,125 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @charset ANSI
  */
-class SecurityFunctionTableA extends Win32Struct {
-    static sizeof => 256
-
-    static packingSize => 8
+export default struct SecurityFunctionTableA {
+    #StructPack 8
 
     /**
      * Version number of the table.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
-    /**
-     * @type {Pointer<ENUMERATE_SECURITY_PACKAGES_FN_A>}
-     */
-    EnumerateSecurityPackagesA {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    EnumerateSecurityPackagesA : IntPtr
 
-    /**
-     * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_FN_A>}
-     */
-    QueryCredentialsAttributesA {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    QueryCredentialsAttributesA : IntPtr
 
-    /**
-     * @type {Pointer<ACQUIRE_CREDENTIALS_HANDLE_FN_A>}
-     */
-    AcquireCredentialsHandleA {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AcquireCredentialsHandleA : IntPtr
 
-    /**
-     * @type {Pointer<FREE_CREDENTIALS_HANDLE_FN>}
-     */
-    FreeCredentialsHandle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FreeCredentialsHandle : IntPtr
 
     /**
      * Reserved for future use.
-     * @type {Pointer<Void>}
      */
-    Reserved2 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved2 : IntPtr
 
-    /**
-     * @type {Pointer<INITIALIZE_SECURITY_CONTEXT_FN_A>}
-     */
-    InitializeSecurityContextA {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    InitializeSecurityContextA : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> function.
-     * @type {Pointer<ACCEPT_SECURITY_CONTEXT_FN>}
      */
-    AcceptSecurityContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    AcceptSecurityContext : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-completeauthtoken">CompleteAuthToken</a> function.
-     * @type {Pointer<COMPLETE_AUTH_TOKEN_FN>}
      */
-    CompleteAuthToken {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    CompleteAuthToken : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-deletesecuritycontext">DeleteSecurityContext</a> function.
-     * @type {Pointer<DELETE_SECURITY_CONTEXT_FN>}
      */
-    DeleteSecurityContext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    DeleteSecurityContext : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
-     * @type {Pointer<APPLY_CONTROL_TOKEN_FN>}
      */
-    ApplyControlToken {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ApplyControlToken : IntPtr
 
-    /**
-     * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_FN_A>}
-     */
-    QueryContextAttributesA {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    QueryContextAttributesA : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-impersonatesecuritycontext">ImpersonateSecurityContext</a> function.
-     * @type {Pointer<IMPERSONATE_SECURITY_CONTEXT_FN>}
      */
-    ImpersonateSecurityContext {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    ImpersonateSecurityContext : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-revertsecuritycontext">RevertSecurityContext</a> function.
-     * @type {Pointer<REVERT_SECURITY_CONTEXT_FN>}
      */
-    RevertSecurityContext {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    RevertSecurityContext : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-makesignature">MakeSignature</a> function.
-     * @type {Pointer<MAKE_SIGNATURE_FN>}
      */
-    MakeSignature {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    MakeSignature : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-verifysignature">VerifySignature</a> function.
-     * @type {Pointer<VERIFY_SIGNATURE_FN>}
      */
-    VerifySignature {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    VerifySignature : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a> function.
-     * @type {Pointer<FREE_CONTEXT_BUFFER_FN>}
      */
-    FreeContextBuffer {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    FreeContextBuffer : IntPtr
 
-    /**
-     * @type {Pointer<QUERY_SECURITY_PACKAGE_INFO_FN_A>}
-     */
-    QuerySecurityPackageInfoA {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    QuerySecurityPackageInfoA : IntPtr
 
     /**
      * Reserved for future use.
-     * @type {Pointer<Void>}
      */
-    Reserved3 {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    Reserved3 : IntPtr
 
     /**
      * Reserved for future use.
-     * @type {Pointer<Void>}
      */
-    Reserved4 {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    Reserved4 : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-exportsecuritycontext">ExportSecurityContext</a> function.
-     * @type {Pointer<EXPORT_SECURITY_CONTEXT_FN>}
      */
-    ExportSecurityContext {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    ExportSecurityContext : IntPtr
 
-    /**
-     * @type {Pointer<IMPORT_SECURITY_CONTEXT_FN_A>}
-     */
-    ImportSecurityContextA {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    ImportSecurityContextA : IntPtr
 
-    /**
-     * @type {Pointer<ADD_CREDENTIALS_FN_A>}
-     */
-    AddCredentialsA {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    AddCredentialsA : IntPtr
 
     /**
      * Reserved for future use.
-     * @type {Pointer<Void>}
      */
-    Reserved8 {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    Reserved8 : IntPtr
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querysecuritycontexttoken">QuerySecurityContextToken</a> function.
-     * @type {Pointer<QUERY_SECURITY_CONTEXT_TOKEN_FN>}
      */
-    QuerySecurityContextToken {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    QuerySecurityContextToken : IntPtr
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-encryptmessage">EncryptMessage (General)</a> function.
-     * @type {Pointer<ENCRYPT_MESSAGE_FN>}
      */
-    EncryptMessage {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    EncryptMessage : IntPtr
 
     /**
      * Pointer to the   <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-decryptmessage">DecryptMessage (General)</a> function.
-     * @type {Pointer<DECRYPT_MESSAGE_FN>}
      */
-    DecryptMessage {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    DecryptMessage : IntPtr
 
-    /**
-     * @type {Pointer<SET_CONTEXT_ATTRIBUTES_FN_A>}
-     */
-    SetContextAttributesA {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    SetContextAttributesA : IntPtr
 
-    /**
-     * @type {Pointer<SET_CREDENTIALS_ATTRIBUTES_FN_A>}
-     */
-    SetCredentialsAttributesA {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    SetCredentialsAttributesA : IntPtr
 
-    /**
-     * @type {Pointer<CHANGE_PASSWORD_FN_A>}
-     */
-    ChangeAccountPasswordA {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    ChangeAccountPasswordA : IntPtr
 
-    /**
-     * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_EX_FN_A>}
-     */
-    QueryContextAttributesExA {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
+    QueryContextAttributesExA : IntPtr
 
-    /**
-     * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_A>}
-     */
-    QueryCredentialsAttributesExA {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
-    }
+    QueryCredentialsAttributesExA : IntPtr
+
 }

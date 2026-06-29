@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include .\IUpdateDownloadResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DownloadPhase.ahk" { DownloadPhase }
+#Import ".\IUpdateDownloadResult.ahk" { IUpdateDownloadResult }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the progress of an asynchronous download operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadprogress
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IDownloadProgress extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDownloadProgress extends IDispatch {
     /**
      * The interface identifier for IDownloadProgress
      * @type {Guid}
      */
-    static IID => Guid("{d31a5bac-f719-4178-9dbb-5e2cb47fd18a}")
+    static IID := Guid("{d31a5bac-f719-4178-9dbb-5e2cb47fd18a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDownloadProgress interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CurrentUpdateBytesDownloaded : IntPtr
+        get_CurrentUpdateBytesToDownload : IntPtr
+        get_CurrentUpdateIndex           : IntPtr
+        get_PercentComplete              : IntPtr
+        get_TotalBytesDownloaded         : IntPtr
+        get_TotalBytesToDownload         : IntPtr
+        GetUpdateResult                  : IntPtr
+        get_CurrentUpdateDownloadPhase   : IntPtr
+        get_CurrentUpdatePercentComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentUpdateBytesDownloaded", "get_CurrentUpdateBytesToDownload", "get_CurrentUpdateIndex", "get_PercentComplete", "get_TotalBytesDownloaded", "get_TotalBytesToDownload", "GetUpdateResult", "get_CurrentUpdateDownloadPhase", "get_CurrentUpdatePercentComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDownloadProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {DECIMAL} 
@@ -94,7 +111,7 @@ class IDownloadProgress extends IDispatch {
      */
     get_CurrentUpdateBytesDownloaded() {
         retval := DECIMAL()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, DECIMAL.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -105,7 +122,7 @@ class IDownloadProgress extends IDispatch {
      */
     get_CurrentUpdateBytesToDownload() {
         retval := DECIMAL()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        result := ComCall(8, this, DECIMAL.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -136,7 +153,7 @@ class IDownloadProgress extends IDispatch {
      */
     get_TotalBytesDownloaded() {
         retval := DECIMAL()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        result := ComCall(11, this, DECIMAL.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -147,7 +164,7 @@ class IDownloadProgress extends IDispatch {
      */
     get_TotalBytesToDownload() {
         retval := DECIMAL()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        result := ComCall(12, this, DECIMAL.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -180,5 +197,41 @@ class IDownloadProgress extends IDispatch {
     get_CurrentUpdatePercentComplete() {
         result := ComCall(15, this, "int*", &retval := 0, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IDownloadProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentUpdateBytesDownloaded := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateBytesDownloaded"), flags, 2)
+        this.vtbl.get_CurrentUpdateBytesToDownload := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateBytesToDownload"), flags, 2)
+        this.vtbl.get_CurrentUpdateIndex := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateIndex"), flags, 2)
+        this.vtbl.get_PercentComplete := CallbackCreate(GetMethod(implObj, "get_PercentComplete"), flags, 2)
+        this.vtbl.get_TotalBytesDownloaded := CallbackCreate(GetMethod(implObj, "get_TotalBytesDownloaded"), flags, 2)
+        this.vtbl.get_TotalBytesToDownload := CallbackCreate(GetMethod(implObj, "get_TotalBytesToDownload"), flags, 2)
+        this.vtbl.GetUpdateResult := CallbackCreate(GetMethod(implObj, "GetUpdateResult"), flags, 3)
+        this.vtbl.get_CurrentUpdateDownloadPhase := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateDownloadPhase"), flags, 2)
+        this.vtbl.get_CurrentUpdatePercentComplete := CallbackCreate(GetMethod(implObj, "get_CurrentUpdatePercentComplete"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentUpdateBytesDownloaded)
+        CallbackFree(this.vtbl.get_CurrentUpdateBytesToDownload)
+        CallbackFree(this.vtbl.get_CurrentUpdateIndex)
+        CallbackFree(this.vtbl.get_PercentComplete)
+        CallbackFree(this.vtbl.get_TotalBytesDownloaded)
+        CallbackFree(this.vtbl.get_TotalBytesToDownload)
+        CallbackFree(this.vtbl.GetUpdateResult)
+        CallbackFree(this.vtbl.get_CurrentUpdateDownloadPhase)
+        CallbackFree(this.vtbl.get_CurrentUpdatePercentComplete)
     }
 }

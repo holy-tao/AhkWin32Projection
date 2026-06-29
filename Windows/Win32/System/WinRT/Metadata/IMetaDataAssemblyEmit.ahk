@@ -1,31 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataAssemblyEmit extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataAssemblyEmit extends IUnknown {
     /**
      * The interface identifier for IMetaDataAssemblyEmit
      * @type {Guid}
      */
-    static IID => Guid("{211ef15b-5317-4438-b196-dec87b887693}")
+    static IID := Guid("{211ef15b-5317-4438-b196-dec87b887693}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataAssemblyEmit interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DefineAssembly           : IntPtr
+        DefineAssemblyRef        : IntPtr
+        DefineFile               : IntPtr
+        DefineExportedType       : IntPtr
+        DefineManifestResource   : IntPtr
+        SetAssemblyProps         : IntPtr
+        SetAssemblyRefProps      : IntPtr
+        SetFileProps             : IntPtr
+        SetExportedTypeProps     : IntPtr
+        SetManifestResourceProps : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DefineAssembly", "DefineAssemblyRef", "DefineFile", "DefineExportedType", "DefineManifestResource", "SetAssemblyProps", "SetAssemblyRefProps", "SetFileProps", "SetExportedTypeProps", "SetManifestResourceProps"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataAssemblyEmit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -44,7 +63,7 @@ class IMetaDataAssemblyEmit extends IUnknown {
         pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
         pmaMarshal := pma is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, "ptr", pMetaData, "uint", dwAssemblyFlags, pmaMarshal, pma, "HRESULT")
+        result := ComCall(3, this, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, "uint", dwAssemblyFlags, pmaMarshal, pma, "HRESULT")
         return result
     }
 
@@ -67,7 +86,7 @@ class IMetaDataAssemblyEmit extends IUnknown {
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
         pmdarMarshal := pmdar is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, "ptr", pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, pmdarMarshal, pmdar, "HRESULT")
+        result := ComCall(4, this, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, pmdarMarshal, pmdar, "HRESULT")
         return result
     }
 
@@ -142,7 +161,7 @@ class IMetaDataAssemblyEmit extends IUnknown {
 
         pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", pma, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, "ptr", pMetaData, "uint", dwAssemblyFlags, "HRESULT")
+        result := ComCall(8, this, "uint", pma, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, "uint", dwAssemblyFlags, "HRESULT")
         return result
     }
 
@@ -164,7 +183,7 @@ class IMetaDataAssemblyEmit extends IUnknown {
         pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : "ptr"
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", ar, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, "ptr", pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, "HRESULT")
+        result := ComCall(9, this, "uint", ar, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, "HRESULT")
         return result
     }
 
@@ -207,5 +226,43 @@ class IMetaDataAssemblyEmit extends IUnknown {
     SetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags) {
         result := ComCall(12, this, "uint", mr, "uint", tkImplementation, "uint", dwOffset, "uint", dwResourceFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataAssemblyEmit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DefineAssembly := CallbackCreate(GetMethod(implObj, "DefineAssembly"), flags, 8)
+        this.vtbl.DefineAssemblyRef := CallbackCreate(GetMethod(implObj, "DefineAssemblyRef"), flags, 9)
+        this.vtbl.DefineFile := CallbackCreate(GetMethod(implObj, "DefineFile"), flags, 6)
+        this.vtbl.DefineExportedType := CallbackCreate(GetMethod(implObj, "DefineExportedType"), flags, 6)
+        this.vtbl.DefineManifestResource := CallbackCreate(GetMethod(implObj, "DefineManifestResource"), flags, 6)
+        this.vtbl.SetAssemblyProps := CallbackCreate(GetMethod(implObj, "SetAssemblyProps"), flags, 8)
+        this.vtbl.SetAssemblyRefProps := CallbackCreate(GetMethod(implObj, "SetAssemblyRefProps"), flags, 9)
+        this.vtbl.SetFileProps := CallbackCreate(GetMethod(implObj, "SetFileProps"), flags, 5)
+        this.vtbl.SetExportedTypeProps := CallbackCreate(GetMethod(implObj, "SetExportedTypeProps"), flags, 5)
+        this.vtbl.SetManifestResourceProps := CallbackCreate(GetMethod(implObj, "SetManifestResourceProps"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DefineAssembly)
+        CallbackFree(this.vtbl.DefineAssemblyRef)
+        CallbackFree(this.vtbl.DefineFile)
+        CallbackFree(this.vtbl.DefineExportedType)
+        CallbackFree(this.vtbl.DefineManifestResource)
+        CallbackFree(this.vtbl.SetAssemblyProps)
+        CallbackFree(this.vtbl.SetAssemblyRefProps)
+        CallbackFree(this.vtbl.SetFileProps)
+        CallbackFree(this.vtbl.SetExportedTypeProps)
+        CallbackFree(this.vtbl.SetManifestResourceProps)
     }
 }

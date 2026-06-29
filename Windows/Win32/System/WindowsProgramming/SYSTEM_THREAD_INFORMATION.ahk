@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLIENT_ID.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CLIENT_ID.ahk" { CLIENT_ID }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class SYSTEM_THREAD_INFORMATION extends Win32Struct {
-    static sizeof => 80
+export default struct SYSTEM_THREAD_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Reserved1 : Int64[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "int64")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    StartAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    StartAddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ClientId : CLIENT_ID
 
-    /**
-     * @type {CLIENT_ID}
-     */
-    ClientId {
-        get {
-            if(!this.HasProp("__ClientId"))
-                this.__ClientId := CLIENT_ID(40, this)
-            return this.__ClientId
-        }
-    }
+    Priority : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Priority {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    BasePriority : Int32
 
-    /**
-     * @type {Integer}
-     */
-    BasePriority {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    Reserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ThreadState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ThreadState {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    WaitReason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WaitReason {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

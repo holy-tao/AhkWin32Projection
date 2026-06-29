@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ATM_ADDRESS structure holds ATM address data for ATM-based sockets.
@@ -12,38 +11,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2atm/ns-ws2atm-atm_address
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ATM_ADDRESS extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct ATM_ADDRESS {
+    #StructPack 4
 
     /**
      * Type of end-system ATM address.
-     * @type {Integer}
      */
-    AddressType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AddressType : UInt32
 
     /**
      * Number of digits in the <b>Addr</b> parameter.
-     * @type {Integer}
      */
-    NumofDigits {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumofDigits : UInt32
 
     /**
      * Array representing the ATM address.
-     * @type {Array<Integer>}
      */
-    Addr {
-        get {
-            if(!this.HasProp("__AddrProxyArray"))
-                this.__AddrProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")
-            return this.__AddrProxyArray
-        }
-    }
+    Addr : Int8[20]
+
 }

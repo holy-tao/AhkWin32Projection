@@ -1,85 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_FRAGMENT.ahk
-#Include .\WSMAN_FILTER.ahk
-#Include .\WSMAN_SELECTOR_SET.ahk
-#Include .\WSMAN_KEY.ahk
-#Include .\WSMAN_OPTION_SETEX.ahk
-#Include .\WSMAN_OPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSMAN_SELECTOR_SET.ahk" { WSMAN_SELECTOR_SET }
+#Import ".\WSMAN_KEY.ahk" { WSMAN_KEY }
+#Import ".\WSMAN_OPTION.ahk" { WSMAN_OPTION }
+#Import ".\WSMAN_FILTER.ahk" { WSMAN_FILTER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_FRAGMENT.ahk" { WSMAN_FRAGMENT }
+#Import ".\WSMAN_OPTION_SETEX.ahk" { WSMAN_OPTION_SETEX }
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class WSMAN_OPERATION_INFOEX extends Win32Struct {
-    static sizeof => 104
+export default struct WSMAN_OPERATION_INFOEX {
+    #StructPack 8
 
-    static packingSize => 8
+    fragment : WSMAN_FRAGMENT
 
-    /**
-     * @type {WSMAN_FRAGMENT}
-     */
-    fragment {
-        get {
-            if(!this.HasProp("__fragment"))
-                this.__fragment := WSMAN_FRAGMENT(0, this)
-            return this.__fragment
-        }
-    }
+    filter : WSMAN_FILTER
 
-    /**
-     * @type {WSMAN_FILTER}
-     */
-    filter {
-        get {
-            if(!this.HasProp("__filter"))
-                this.__filter := WSMAN_FILTER(16, this)
-            return this.__filter
-        }
-    }
+    selectorSet : WSMAN_SELECTOR_SET
 
-    /**
-     * @type {WSMAN_SELECTOR_SET}
-     */
-    selectorSet {
-        get {
-            if(!this.HasProp("__selectorSet"))
-                this.__selectorSet := WSMAN_SELECTOR_SET(32, this)
-            return this.__selectorSet
-        }
-    }
+    optionSet : WSMAN_OPTION_SETEX
 
-    /**
-     * @type {WSMAN_OPTION_SETEX}
-     */
-    optionSet {
-        get {
-            if(!this.HasProp("__optionSet"))
-                this.__optionSet := WSMAN_OPTION_SETEX(48, this)
-            return this.__optionSet
-        }
-    }
+    version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    version {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    uiLocale : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    uiLocale {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    dataLocale : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    dataLocale {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

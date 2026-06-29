@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ASSEMBLY_INFO structure contains information about an assembly in the side-by-side assembly store. The information is used by the QueryAssemblyInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/ns-winsxs-assembly_info
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ASSEMBLY_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ASSEMBLY_INFO {
+    #StructPack 8
 
     /**
      * The size of the structure in bytes.
-     * @type {Integer}
      */
-    cbAssemblyInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbAssemblyInfo : UInt32
 
     /**
      * This member can contain the following values:
@@ -39,37 +33,22 @@ class ASSEMBLY_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwAssemblyFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAssemblyFlags : UInt32
 
     /**
      * The size of the files that comprise the assembly in kilobytes (KB).
-     * @type {Integer}
      */
-    uliAssemblySizeInKB {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uliAssemblySizeInKB : Int64
 
     /**
      * A pointer to a null-terminated string that contains the path to the manifest file.
-     * @type {PWSTR}
      */
-    pszCurrentAssemblyPathBuf {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszCurrentAssemblyPathBuf : PWSTR
 
     /**
      * The number  of characters, including the null terminator, in the string specified by <i>pszCurrentAssemblyPathBuf</i>.
-     * @type {Integer}
      */
-    cchBuf {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cchBuf : UInt32
+
 }

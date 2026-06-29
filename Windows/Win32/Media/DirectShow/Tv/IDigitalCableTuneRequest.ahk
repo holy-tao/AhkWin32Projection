@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IATSCChannelTuneRequest.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IATSCChannelTuneRequest.ahk" { IATSCChannelTuneRequest }
 
 /**
  * The IDigitalCableTuneRequest interface provides methods for tuning to a channel in a digital cable network.
@@ -21,32 +22,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idigitalcabletunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDigitalCableTuneRequest extends IATSCChannelTuneRequest {
-
-    static sizeof => A_PtrSize
+export default struct IDigitalCableTuneRequest extends IATSCChannelTuneRequest {
     /**
      * The interface identifier for IDigitalCableTuneRequest
      * @type {Guid}
      */
-    static IID => Guid("{bad7753b-6b37-4810-ae57-3ce0c4a9e6cb}")
+    static IID := Guid("{bad7753b-6b37-4810-ae57-3ce0c4a9e6cb}")
 
     /**
      * The class identifier for DigitalCableTuneRequest
      * @type {Guid}
      */
-    static CLSID => Guid("{26ec0b63-aa90-458a-8df4-5659f2c8a18a}")
+    static CLSID := Guid("{26ec0b63-aa90-458a-8df4-5659f2c8a18a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDigitalCableTuneRequest interfaces
+    */
+    struct Vtbl extends IATSCChannelTuneRequest.Vtbl {
+        get_MajorChannel : IntPtr
+        put_MajorChannel : IntPtr
+        get_SourceID     : IntPtr
+        put_SourceID     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MajorChannel", "put_MajorChannel", "get_SourceID", "put_SourceID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDigitalCableTuneRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -104,5 +115,31 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest {
     put_SourceID(SourceID) {
         result := ComCall(19, this, "int", SourceID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDigitalCableTuneRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MajorChannel := CallbackCreate(GetMethod(implObj, "get_MajorChannel"), flags, 2)
+        this.vtbl.put_MajorChannel := CallbackCreate(GetMethod(implObj, "put_MajorChannel"), flags, 2)
+        this.vtbl.get_SourceID := CallbackCreate(GetMethod(implObj, "get_SourceID"), flags, 2)
+        this.vtbl.put_SourceID := CallbackCreate(GetMethod(implObj, "put_SourceID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MajorChannel)
+        CallbackFree(this.vtbl.put_MajorChannel)
+        CallbackFree(this.vtbl.get_SourceID)
+        CallbackFree(this.vtbl.put_SourceID)
     }
 }

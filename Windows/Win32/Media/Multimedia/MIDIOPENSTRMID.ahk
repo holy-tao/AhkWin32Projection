@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MIDIOPENSTRMID extends Win32Struct {
-    static sizeof => 8
+export default struct MIDIOPENSTRMID {
+    #StructPack 4
 
-    static packingSize => 4
+    dwStreamID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStreamID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uDeviceID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDeviceID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

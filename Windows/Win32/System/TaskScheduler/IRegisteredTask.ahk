@@ -1,37 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRunningTask.ahk
-#Include .\IRunningTaskCollection.ahk
-#Include .\ITaskDefinition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRunningTask.ahk" { IRunningTask }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\TASK_STATE.ahk" { TASK_STATE }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the methods that are used to run the task immediately, get any running instances of the task, get or set the credentials that are used to register the task, and the properties that describe the task.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iregisteredtask
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IRegisteredTask extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRegisteredTask extends IDispatch {
     /**
      * The interface identifier for IRegisteredTask
      * @type {Guid}
      */
-    static IID => Guid("{9c86f320-dee3-4dd1-b972-a303f26b061e}")
+    static IID := Guid("{9c86f320-dee3-4dd1-b972-a303f26b061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRegisteredTask interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name               : IntPtr
+        get_Path               : IntPtr
+        get_State              : IntPtr
+        get_Enabled            : IntPtr
+        put_Enabled            : IntPtr
+        Run                    : IntPtr
+        RunEx                  : IntPtr
+        GetInstances           : IntPtr
+        get_LastRunTime        : IntPtr
+        get_LastTaskResult     : IntPtr
+        get_NumberOfMissedRuns : IntPtr
+        get_NextRunTime        : IntPtr
+        get_Definition         : IntPtr
+        get_Xml                : IntPtr
+        GetSecurityDescriptor  : IntPtr
+        SetSecurityDescriptor  : IntPtr
+        Stop                   : IntPtr
+        GetRunTimes            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Path", "get_State", "get_Enabled", "put_Enabled", "Run", "RunEx", "GetInstances", "get_LastRunTime", "get_LastTaskResult", "get_NumberOfMissedRuns", "get_NextRunTime", "get_Definition", "get_Xml", "GetSecurityDescriptor", "SetSecurityDescriptor", "Stop", "GetRunTimes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRegisteredTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -110,8 +139,8 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_name
      */
     get_Name() {
-        pName := BSTR()
-        result := ComCall(7, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -121,8 +150,8 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_path
      */
     get_Path() {
-        pPath := BSTR()
-        result := ComCall(8, this, "ptr", pPath, "HRESULT")
+        pPath := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pPath, "HRESULT")
         return pPath
     }
 
@@ -144,7 +173,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_enabled
      */
     get_Enabled() {
-        result := ComCall(10, this, "short*", &pEnabled := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pEnabled := 0, "HRESULT")
         return pEnabled
     }
 
@@ -157,7 +186,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(11, this, "short", enabled, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -184,7 +213,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-run
      */
     Run(params) {
-        result := ComCall(12, this, "ptr", params, "ptr*", &ppRunningTask := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT, params, "ptr*", &ppRunningTask := 0, "HRESULT")
         return IRunningTask(ppRunningTask)
     }
 
@@ -220,7 +249,7 @@ class IRegisteredTask extends IDispatch {
     RunEx(params, flags, sessionID, user) {
         user := user is String ? BSTR.Alloc(user).Value : user
 
-        result := ComCall(13, this, "ptr", params, "int", flags, "int", sessionID, "ptr", user, "ptr*", &ppRunningTask := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT, params, "int", flags, "int", sessionID, BSTR, user, "ptr*", &ppRunningTask := 0, "HRESULT")
         return IRunningTask(ppRunningTask)
     }
 
@@ -295,8 +324,8 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_xml
      */
     get_Xml() {
-        pXml := BSTR()
-        result := ComCall(20, this, "ptr", pXml, "HRESULT")
+        pXml := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, pXml, "HRESULT")
         return pXml
     }
 
@@ -307,8 +336,8 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getsecuritydescriptor
      */
     GetSecurityDescriptor(securityInformation) {
-        pSddl := BSTR()
-        result := ComCall(21, this, "int", securityInformation, "ptr", pSddl, "HRESULT")
+        pSddl := BSTR.Owned()
+        result := ComCall(21, this, "int", securityInformation, BSTR.Ptr, pSddl, "HRESULT")
         return pSddl
     }
 
@@ -327,7 +356,7 @@ class IRegisteredTask extends IDispatch {
     SetSecurityDescriptor(sddl, flags) {
         sddl := sddl is String ? BSTR.Alloc(sddl).Value : sddl
 
-        result := ComCall(22, this, "ptr", sddl, "int", flags, "HRESULT")
+        result := ComCall(22, this, BSTR, sddl, "int", flags, "HRESULT")
         return result
     }
 
@@ -388,7 +417,61 @@ class IRegisteredTask extends IDispatch {
     GetRunTimes(pstStart, pstEnd, pCount) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", &pRunTimes := 0, "HRESULT")
+        result := ComCall(24, this, SYSTEMTIME.Ptr, pstStart, SYSTEMTIME.Ptr, pstEnd, pCountMarshal, pCount, "ptr*", &pRunTimes := 0, "HRESULT")
         return pRunTimes
+    }
+
+    Query(iid) {
+        if (IRegisteredTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 3)
+        this.vtbl.RunEx := CallbackCreate(GetMethod(implObj, "RunEx"), flags, 6)
+        this.vtbl.GetInstances := CallbackCreate(GetMethod(implObj, "GetInstances"), flags, 3)
+        this.vtbl.get_LastRunTime := CallbackCreate(GetMethod(implObj, "get_LastRunTime"), flags, 2)
+        this.vtbl.get_LastTaskResult := CallbackCreate(GetMethod(implObj, "get_LastTaskResult"), flags, 2)
+        this.vtbl.get_NumberOfMissedRuns := CallbackCreate(GetMethod(implObj, "get_NumberOfMissedRuns"), flags, 2)
+        this.vtbl.get_NextRunTime := CallbackCreate(GetMethod(implObj, "get_NextRunTime"), flags, 2)
+        this.vtbl.get_Definition := CallbackCreate(GetMethod(implObj, "get_Definition"), flags, 2)
+        this.vtbl.get_Xml := CallbackCreate(GetMethod(implObj, "get_Xml"), flags, 2)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 3)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.GetRunTimes := CallbackCreate(GetMethod(implObj, "GetRunTimes"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.RunEx)
+        CallbackFree(this.vtbl.GetInstances)
+        CallbackFree(this.vtbl.get_LastRunTime)
+        CallbackFree(this.vtbl.get_LastTaskResult)
+        CallbackFree(this.vtbl.get_NumberOfMissedRuns)
+        CallbackFree(this.vtbl.get_NextRunTime)
+        CallbackFree(this.vtbl.get_Definition)
+        CallbackFree(this.vtbl.get_Xml)
+        CallbackFree(this.vtbl.GetSecurityDescriptor)
+        CallbackFree(this.vtbl.SetSecurityDescriptor)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.GetRunTimes)
     }
 }

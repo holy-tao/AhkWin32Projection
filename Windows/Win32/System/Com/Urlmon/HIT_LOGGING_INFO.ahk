@@ -1,58 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class HIT_LOGGING_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct HIT_LOGGING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwStructSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpszLoggedUrlName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszLoggedUrlName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    StartTime : SYSTEMTIME
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    StartTime {
-        get {
-            if(!this.HasProp("__StartTime"))
-                this.__StartTime := SYSTEMTIME(16, this)
-            return this.__StartTime
-        }
-    }
+    EndTime : SYSTEMTIME
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    EndTime {
-        get {
-            if(!this.HasProp("__EndTime"))
-                this.__EndTime := SYSTEMTIME(32, this)
-            return this.__EndTime
-        }
-    }
+    lpszExtendedInfo : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszExtendedInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

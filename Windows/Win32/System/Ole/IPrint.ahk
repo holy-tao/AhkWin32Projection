@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IContinueCallback.ahk" { IContinueCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import ".\PAGESET.ahk" { PAGESET }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables compound documents in general and active documents in particular to support programmatic printing.
@@ -20,26 +25,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-iprint
  * @namespace Windows.Win32.System.Ole
  */
-class IPrint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrint extends IUnknown {
     /**
      * The interface identifier for IPrint
      * @type {Guid}
      */
-    static IID => Guid("{b722bcc9-4e68-101b-a2bc-00aa00404770}")
+    static IID := Guid("{b722bcc9-4e68-101b-a2bc-00aa00404770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetInitialPageNum : IntPtr
+        GetPageInfo       : IntPtr
+        Print             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetInitialPageNum", "GetPageInfo", "Print"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the page number of the first page of a document.
@@ -136,7 +150,31 @@ class IPrint extends IUnknown {
         pcPagesPrintedMarshal := pcPagesPrinted is VarRef ? "int*" : "ptr"
         pnLastPageMarshal := pnLastPage is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", grfFlags, pptdMarshal, pptd, ppPageSetMarshal, ppPageSet, "ptr", pstgmOptions, "ptr", pcallback, "int", nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
+        result := ComCall(5, this, "uint", grfFlags, pptdMarshal, pptd, ppPageSetMarshal, ppPageSet, STGMEDIUM.Ptr, pstgmOptions, "ptr", pcallback, "int", nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetInitialPageNum := CallbackCreate(GetMethod(implObj, "SetInitialPageNum"), flags, 2)
+        this.vtbl.GetPageInfo := CallbackCreate(GetMethod(implObj, "GetPageInfo"), flags, 3)
+        this.vtbl.Print := CallbackCreate(GetMethod(implObj, "Print"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetInitialPageNum)
+        CallbackFree(this.vtbl.GetPageInfo)
+        CallbackFree(this.vtbl.Print)
     }
 }

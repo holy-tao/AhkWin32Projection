@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PO_FX_COMPONENT_IDLE_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PO_FX_COMPONENT_IDLE_STATE.ahk" { PO_FX_COMPONENT_IDLE_STATE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PO_FX_COMPONENT_V2 extends Win32Struct {
-    static sizeof => 48
+export default struct PO_FX_COMPONENT_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Id : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeepestWakeableIdleState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeepestWakeableIdleState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    IdleStateCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IdleStateCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    IdleStates : PO_FX_COMPONENT_IDLE_STATE.Ptr
 
-    /**
-     * @type {Pointer<PO_FX_COMPONENT_IDLE_STATE>}
-     */
-    IdleStates {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ProviderCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProviderCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Providers : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    Providers {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

@@ -1,44 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\_ColumnSortOrder.ahk" { _ColumnSortOrder }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
- * Represents a vertical separator (visible or hidden) in custom SizeDefinition layout templates.
- * @remarks
- * Optional.
- * 
- * May occur one or more times for each [**GroupSizeDefinition**](windowsribbon-element-groupsizedefinition.md) element.
- * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-columnbreak
  * @namespace Windows.Win32.System.Mmc
  */
-class Column extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Column extends IDispatch {
     /**
      * The interface identifier for Column
      * @type {Guid}
      */
-    static IID => Guid("{fd1c5f63-2b16-4d06-9ab3-f45350b940ab}")
+    static IID := Guid("{fd1c5f63-2b16-4d06-9ab3-f45350b940ab}")
 
     /**
      * The class identifier for Column
      * @type {Guid}
      */
-    static CLSID => Guid("{fd1c5f63-2b16-4d06-9ab3-f45350b940ab}")
+    static CLSID := Guid("{fd1c5f63-2b16-4d06-9ab3-f45350b940ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Column interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Name                : IntPtr
+        get_Width           : IntPtr
+        put_Width           : IntPtr
+        get_DisplayPosition : IntPtr
+        put_DisplayPosition : IntPtr
+        get_Hidden          : IntPtr
+        put_Hidden          : IntPtr
+        SetAsSortColumn     : IntPtr
+        IsSortColumn        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Name", "get_Width", "put_Width", "get_DisplayPosition", "put_DisplayPosition", "get_Hidden", "put_Hidden", "SetAsSortColumn", "IsSortColumn"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Column.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -70,8 +82,8 @@ class Column extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-name-headerfieldtype-element
      */
     Name() {
-        Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -118,7 +130,7 @@ class Column extends IDispatch {
      * @returns {BOOL} 
      */
     get_Hidden() {
-        result := ComCall(12, this, "int*", &Hidden := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &Hidden := 0, "HRESULT")
         return Hidden
     }
 
@@ -128,7 +140,7 @@ class Column extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Hidden(Hidden) {
-        result := ComCall(13, this, "int", Hidden, "HRESULT")
+        result := ComCall(13, this, BOOL, Hidden, "HRESULT")
         return result
     }
 
@@ -138,7 +150,7 @@ class Column extends IDispatch {
      * @returns {HRESULT} 
      */
     SetAsSortColumn(SortOrder) {
-        result := ComCall(14, this, "int", SortOrder, "HRESULT")
+        result := ComCall(14, this, _ColumnSortOrder, SortOrder, "HRESULT")
         return result
     }
 
@@ -147,7 +159,43 @@ class Column extends IDispatch {
      * @returns {BOOL} 
      */
     IsSortColumn() {
-        result := ComCall(15, this, "int*", &IsSortColumn := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &IsSortColumn := 0, "HRESULT")
         return IsSortColumn
+    }
+
+    Query(iid) {
+        if (Column.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_DisplayPosition := CallbackCreate(GetMethod(implObj, "get_DisplayPosition"), flags, 2)
+        this.vtbl.put_DisplayPosition := CallbackCreate(GetMethod(implObj, "put_DisplayPosition"), flags, 2)
+        this.vtbl.get_Hidden := CallbackCreate(GetMethod(implObj, "get_Hidden"), flags, 2)
+        this.vtbl.put_Hidden := CallbackCreate(GetMethod(implObj, "put_Hidden"), flags, 2)
+        this.vtbl.SetAsSortColumn := CallbackCreate(GetMethod(implObj, "SetAsSortColumn"), flags, 2)
+        this.vtbl.IsSortColumn := CallbackCreate(GetMethod(implObj, "IsSortColumn"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Name)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_DisplayPosition)
+        CallbackFree(this.vtbl.put_DisplayPosition)
+        CallbackFree(this.vtbl.get_Hidden)
+        CallbackFree(this.vtbl.put_Hidden)
+        CallbackFree(this.vtbl.SetAsSortColumn)
+        CallbackFree(this.vtbl.IsSortColumn)
     }
 }

@@ -1,38 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory1.ahk
-#Include .\IDWriteFontFallback.ahk
-#Include .\IDWriteFontFallbackBuilder.ahk
-#Include .\IDWriteColorGlyphRunEnumerator.ahk
-#Include .\IDWriteRenderingParams2.ahk
-#Include .\IDWriteGlyphRunAnalysis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFactory1.ahk" { IDWriteFactory1 }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
+#Import ".\IDWriteColorGlyphRunEnumerator.ahk" { IDWriteColorGlyphRunEnumerator }
+#Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
+#Import ".\IDWriteFontFallbackBuilder.ahk" { IDWriteFontFallbackBuilder }
+#Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
+#Import ".\IDWriteRenderingParams2.ahk" { IDWriteRenderingParams2 }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 
 /**
  * The root factory interface for all DirectWrite objects.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFactory2 extends IDWriteFactory1 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFactory2 extends IDWriteFactory1 {
     /**
      * The interface identifier for IDWriteFactory2
      * @type {Guid}
      */
-    static IID => Guid("{0439fc60-ca44-4994-8dee-3a9af7b732ec}")
+    static IID := Guid("{0439fc60-ca44-4994-8dee-3a9af7b732ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFactory2 interfaces
+    */
+    struct Vtbl extends IDWriteFactory1.Vtbl {
+        GetSystemFontFallback       : IntPtr
+        CreateFontFallbackBuilder   : IntPtr
+        TranslateColorGlyphRun      : IntPtr
+        CreateCustomRenderingParams : IntPtr
+        CreateGlyphRunAnalysis      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSystemFontFallback", "CreateFontFallbackBuilder", "TranslateColorGlyphRun", "CreateCustomRenderingParams", "CreateGlyphRunAnalysis"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFactory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a font fallback object from the system font fallback list.
@@ -98,7 +118,7 @@ class IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOriginX, baselineOriginY, _glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex) {
-        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, "ptr", _glyphRun, "ptr", glyphRunDescription, "int", measuringMode, "ptr", worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator(colorLayers)
     }
 
@@ -131,7 +151,7 @@ class IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode) {
-        result := ComCall(29, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(29, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, DWRITE_GRID_FIT_MODE, gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams2(renderingParams)
     }
 
@@ -167,7 +187,35 @@ class IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(30, this, "ptr", _glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        result := ComCall(30, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
+    }
+
+    Query(iid) {
+        if (IDWriteFactory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSystemFontFallback := CallbackCreate(GetMethod(implObj, "GetSystemFontFallback"), flags, 2)
+        this.vtbl.CreateFontFallbackBuilder := CallbackCreate(GetMethod(implObj, "CreateFontFallbackBuilder"), flags, 2)
+        this.vtbl.TranslateColorGlyphRun := CallbackCreate(GetMethod(implObj, "TranslateColorGlyphRun"), flags, 9)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 9)
+        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(GetMethod(implObj, "CreateGlyphRunAnalysis"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSystemFontFallback)
+        CallbackFree(this.vtbl.CreateFontFallbackBuilder)
+        CallbackFree(this.vtbl.TranslateColorGlyphRun)
+        CallbackFree(this.vtbl.CreateCustomRenderingParams)
+        CallbackFree(this.vtbl.CreateGlyphRunAnalysis)
     }
 }

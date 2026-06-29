@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * DTBLMVLISTBOX describes a multi-valued list that will be displayed in a dialog box that is built from a display table.
@@ -14,26 +13,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblmvlistbox
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLMVLISTBOX extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DTBLMVLISTBOX {
+    #StructPack 4
 
     /**
      * > Reserved; must be zero.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : UInt32
 
     /**
      * > Property tag for a multi-valued property of type PT_MV_TSTRING.
-     * @type {Integer}
      */
-    ulMVPropTag {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulMVPropTag : UInt32
+
 }

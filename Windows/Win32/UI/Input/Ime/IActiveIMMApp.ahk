@@ -1,58 +1,140 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\HIMC.ahk
-#Include .\IEnumRegisterWordA.ahk
-#Include .\IEnumRegisterWordW.ahk
-#Include .\CANDIDATEFORM.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include .\COMPOSITIONFORM.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\KeyboardAndMouse\HKL.ahk
-#Include .\IEnumInputContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
+#Import ".\IEnumInputContext.ahk" { IEnumInputContext }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IEnumRegisterWordA.ahk" { IEnumRegisterWordA }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\REGISTERWORDA.ahk" { REGISTERWORDA }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
+#Import ".\CANDIDATELIST.ahk" { CANDIDATELIST }
+#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
+#Import ".\IEnumRegisterWordW.ahk" { IEnumRegisterWordW }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HIMC.ahk" { HIMC }
+#Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
+#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\STYLEBUFA.ahk" { STYLEBUFA }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IActiveIMMApp extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveIMMApp extends IUnknown {
     /**
      * The interface identifier for IActiveIMMApp
      * @type {Guid}
      */
-    static IID => Guid("{08c0e040-62d1-11d1-9326-0060b067b86e}")
+    static IID := Guid("{08c0e040-62d1-11d1-9326-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveIMMApp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AssociateContext       : IntPtr
+        ConfigureIMEA          : IntPtr
+        ConfigureIMEW          : IntPtr
+        CreateContext          : IntPtr
+        DestroyContext         : IntPtr
+        EnumRegisterWordA      : IntPtr
+        EnumRegisterWordW      : IntPtr
+        EscapeA                : IntPtr
+        EscapeW                : IntPtr
+        GetCandidateListA      : IntPtr
+        GetCandidateListW      : IntPtr
+        GetCandidateListCountA : IntPtr
+        GetCandidateListCountW : IntPtr
+        GetCandidateWindow     : IntPtr
+        GetCompositionFontA    : IntPtr
+        GetCompositionFontW    : IntPtr
+        GetCompositionStringA  : IntPtr
+        GetCompositionStringW  : IntPtr
+        GetCompositionWindow   : IntPtr
+        GetContext             : IntPtr
+        GetConversionListA     : IntPtr
+        GetConversionListW     : IntPtr
+        GetConversionStatus    : IntPtr
+        GetDefaultIMEWnd       : IntPtr
+        GetDescriptionA        : IntPtr
+        GetDescriptionW        : IntPtr
+        GetGuideLineA          : IntPtr
+        GetGuideLineW          : IntPtr
+        GetIMEFileNameA        : IntPtr
+        GetIMEFileNameW        : IntPtr
+        GetOpenStatus          : IntPtr
+        GetProperty            : IntPtr
+        GetRegisterWordStyleA  : IntPtr
+        GetRegisterWordStyleW  : IntPtr
+        GetStatusWindowPos     : IntPtr
+        GetVirtualKey          : IntPtr
+        InstallIMEA            : IntPtr
+        InstallIMEW            : IntPtr
+        IsIME                  : IntPtr
+        IsUIMessageA           : IntPtr
+        IsUIMessageW           : IntPtr
+        NotifyIME              : IntPtr
+        RegisterWordA          : IntPtr
+        RegisterWordW          : IntPtr
+        ReleaseContext         : IntPtr
+        SetCandidateWindow     : IntPtr
+        SetCompositionFontA    : IntPtr
+        SetCompositionFontW    : IntPtr
+        SetCompositionStringA  : IntPtr
+        SetCompositionStringW  : IntPtr
+        SetCompositionWindow   : IntPtr
+        SetConversionStatus    : IntPtr
+        SetOpenStatus          : IntPtr
+        SetStatusWindowPos     : IntPtr
+        SimulateHotKey         : IntPtr
+        UnregisterWordA        : IntPtr
+        UnregisterWordW        : IntPtr
+        Activate               : IntPtr
+        Deactivate             : IntPtr
+        OnDefWindowProc        : IntPtr
+        FilterClientWindows    : IntPtr
+        GetCodePageA           : IntPtr
+        GetLangId              : IntPtr
+        AssociateContextEx     : IntPtr
+        DisableIME             : IntPtr
+        GetImeMenuItemsA       : IntPtr
+        GetImeMenuItemsW       : IntPtr
+        EnumInputContext       : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveIMMApp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AssociateContext", "ConfigureIMEA", "ConfigureIMEW", "CreateContext", "DestroyContext", "EnumRegisterWordA", "EnumRegisterWordW", "EscapeA", "EscapeW", "GetCandidateListA", "GetCandidateListW", "GetCandidateListCountA", "GetCandidateListCountW", "GetCandidateWindow", "GetCompositionFontA", "GetCompositionFontW", "GetCompositionStringA", "GetCompositionStringW", "GetCompositionWindow", "GetContext", "GetConversionListA", "GetConversionListW", "GetConversionStatus", "GetDefaultIMEWnd", "GetDescriptionA", "GetDescriptionW", "GetGuideLineA", "GetGuideLineW", "GetIMEFileNameA", "GetIMEFileNameW", "GetOpenStatus", "GetProperty", "GetRegisterWordStyleA", "GetRegisterWordStyleW", "GetStatusWindowPos", "GetVirtualKey", "InstallIMEA", "InstallIMEW", "IsIME", "IsUIMessageA", "IsUIMessageW", "NotifyIME", "RegisterWordA", "RegisterWordW", "ReleaseContext", "SetCandidateWindow", "SetCompositionFontA", "SetCompositionFontW", "SetCompositionStringA", "SetCompositionStringW", "SetCompositionWindow", "SetConversionStatus", "SetOpenStatus", "SetStatusWindowPos", "SimulateHotKey", "UnregisterWordA", "UnregisterWordW", "Activate", "Deactivate", "OnDefWindowProc", "FilterClientWindows", "GetCodePageA", "GetLangId", "AssociateContextEx", "DisableIME", "GetImeMenuItemsA", "GetImeMenuItemsW", "EnumInputContext"]
-
-    /**
-     * Inserts a name into the name cache to find a specified FIO_CONTEXT structure.
-     * @remarks
-     * If the name is already present in the cache, this call fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_DUP_NAME.
+     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-associatecontextwithname
      */
     AssociateContext(_hWnd, hIME) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        hIME := hIME is Win32Handle ? NumGet(hIME, "ptr") : hIME
-
-        phPrev := HIMC()
-        result := ComCall(3, this, "ptr", _hWnd, "ptr", hIME, "ptr", phPrev, "HRESULT")
+        phPrev := HIMC.Owned()
+        result := ComCall(3, this, HWND, _hWnd, HIMC, hIME, HIMC.Ptr, phPrev, "HRESULT")
         return phPrev
     }
 
@@ -65,10 +147,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     ConfigureIMEA(_hKL, _hWnd, dwMode, pData) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(4, this, "ptr", _hKL, "ptr", _hWnd, "uint", dwMode, "ptr", pData, "HRESULT")
+        result := ComCall(4, this, HKL, _hKL, HWND, _hWnd, "uint", dwMode, REGISTERWORDA.Ptr, pData, "HRESULT")
         return result
     }
 
@@ -81,10 +160,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     ConfigureIMEW(_hKL, _hWnd, dwMode, pData) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(5, this, "ptr", _hKL, "ptr", _hWnd, "uint", dwMode, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, HKL, _hKL, HWND, _hWnd, "uint", dwMode, REGISTERWORDW.Ptr, pData, "HRESULT")
         return result
     }
 
@@ -94,8 +170,8 @@ class IActiveIMMApp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createcontext
      */
     CreateContext() {
-        phIMC := HIMC()
-        result := ComCall(6, this, "ptr", phIMC, "HRESULT")
+        phIMC := HIMC.Owned()
+        result := ComCall(6, this, HIMC.Ptr, phIMC, "HRESULT")
         return phIMC
     }
 
@@ -157,9 +233,7 @@ class IActiveIMMApp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroycontext
      */
     DestroyContext(hIME) {
-        hIME := hIME is Win32Handle ? NumGet(hIME, "ptr") : hIME
-
-        result := ComCall(7, this, "ptr", hIME, "HRESULT")
+        result := ComCall(7, this, HIMC, hIME, "HRESULT")
         return result
     }
 
@@ -173,13 +247,12 @@ class IActiveIMMApp extends IUnknown {
      * @returns {IEnumRegisterWordA} 
      */
     EnumRegisterWordA(_hKL, szReading, dwStyle, szRegister, pData) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &pEnum := 0, "HRESULT")
+        result := ComCall(8, this, HKL, _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &pEnum := 0, "HRESULT")
         return IEnumRegisterWordA(pEnum)
     }
 
@@ -193,13 +266,12 @@ class IActiveIMMApp extends IUnknown {
      * @returns {IEnumRegisterWordW} 
      */
     EnumRegisterWordW(_hKL, szReading, dwStyle, szRegister, pData) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &pEnum := 0, "HRESULT")
+        result := ComCall(9, this, HKL, _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &pEnum := 0, "HRESULT")
         return IEnumRegisterWordW(pEnum)
     }
 
@@ -212,12 +284,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {LRESULT} 
      */
     EscapeA(_hKL, _hIMC, uEscape, pData) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", _hKL, "ptr", _hIMC, "uint", uEscape, pDataMarshal, pData, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(10, this, HKL, _hKL, HIMC, _hIMC, "uint", uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -230,12 +299,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {LRESULT} 
      */
     EscapeW(_hKL, _hIMC, uEscape, pData) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", _hKL, "ptr", _hIMC, "uint", uEscape, pDataMarshal, pData, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(11, this, HKL, _hKL, HIMC, _hIMC, "uint", uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -249,11 +315,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCandidateListA(_hIMC, dwIndex, uBufLen, pCandList, puCopied) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", _hIMC, "uint", dwIndex, "uint", uBufLen, "ptr", pCandList, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(12, this, HIMC, _hIMC, "uint", dwIndex, "uint", uBufLen, CANDIDATELIST.Ptr, pCandList, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -267,11 +331,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCandidateListW(_hIMC, dwIndex, uBufLen, pCandList, puCopied) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", _hIMC, "uint", dwIndex, "uint", uBufLen, "ptr", pCandList, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(13, this, HIMC, _hIMC, "uint", dwIndex, "uint", uBufLen, CANDIDATELIST.Ptr, pCandList, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -283,12 +345,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCandidateListCountA(_hIMC, pdwListSize, pdwBufLen) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : "ptr"
         pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", _hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
+        result := ComCall(14, this, HIMC, _hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
         return result
     }
 
@@ -300,12 +360,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCandidateListCountW(_hIMC, pdwListSize, pdwBufLen) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : "ptr"
         pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", _hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
+        result := ComCall(15, this, HIMC, _hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
         return result
     }
 
@@ -316,10 +374,8 @@ class IActiveIMMApp extends IUnknown {
      * @returns {CANDIDATEFORM} 
      */
     GetCandidateWindow(_hIMC, dwIndex) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pCandidate := CANDIDATEFORM()
-        result := ComCall(16, this, "ptr", _hIMC, "uint", dwIndex, "ptr", pCandidate, "HRESULT")
+        result := ComCall(16, this, HIMC, _hIMC, "uint", dwIndex, CANDIDATEFORM.Ptr, pCandidate, "HRESULT")
         return pCandidate
     }
 
@@ -329,10 +385,8 @@ class IActiveIMMApp extends IUnknown {
      * @returns {LOGFONTA} 
      */
     GetCompositionFontA(_hIMC) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         plf := LOGFONTA()
-        result := ComCall(17, this, "ptr", _hIMC, "ptr", plf, "HRESULT")
+        result := ComCall(17, this, HIMC, _hIMC, LOGFONTA.Ptr, plf, "HRESULT")
         return plf
     }
 
@@ -342,10 +396,8 @@ class IActiveIMMApp extends IUnknown {
      * @returns {LOGFONTW} 
      */
     GetCompositionFontW(_hIMC) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         plf := LOGFONTW()
-        result := ComCall(18, this, "ptr", _hIMC, "ptr", plf, "HRESULT")
+        result := ComCall(18, this, HIMC, _hIMC, LOGFONTW.Ptr, plf, "HRESULT")
         return plf
     }
 
@@ -359,12 +411,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCompositionStringA(_hIMC, dwIndex, dwBufLen, plCopied, pBuf) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         plCopiedMarshal := plCopied is VarRef ? "int*" : "ptr"
         pBufMarshal := pBuf is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, "ptr", _hIMC, "uint", dwIndex, "uint", dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
+        result := ComCall(19, this, HIMC, _hIMC, "uint", dwIndex, "uint", dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
         return result
     }
 
@@ -378,12 +428,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCompositionStringW(_hIMC, dwIndex, dwBufLen, plCopied, pBuf) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         plCopiedMarshal := plCopied is VarRef ? "int*" : "ptr"
         pBufMarshal := pBuf is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, "ptr", _hIMC, "uint", dwIndex, "uint", dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
+        result := ComCall(20, this, HIMC, _hIMC, "uint", dwIndex, "uint", dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
         return result
     }
 
@@ -393,24 +441,19 @@ class IActiveIMMApp extends IUnknown {
      * @returns {COMPOSITIONFORM} 
      */
     GetCompositionWindow(_hIMC) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pCompForm := COMPOSITIONFORM()
-        result := ComCall(21, this, "ptr", _hIMC, "ptr", pCompForm, "HRESULT")
+        result := ComCall(21, this, HIMC, _hIMC, COMPOSITIONFORM.Ptr, pCompForm, "HRESULT")
         return pCompForm
     }
 
     /**
-     * Gets the context preference flags.
+     * 
      * @param {HWND} _hWnd 
      * @returns {HIMC} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext(_hWnd) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        phIMC := HIMC()
-        result := ComCall(22, this, "ptr", _hWnd, "ptr", phIMC, "HRESULT")
+        phIMC := HIMC.Owned()
+        result := ComCall(22, this, HWND, _hWnd, HIMC.Ptr, phIMC, "HRESULT")
         return phIMC
     }
 
@@ -426,13 +469,11 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetConversionListA(_hKL, _hIMC, pSrc, uBufLen, uFlag, pDst, puCopied) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
         pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "ptr", _hKL, "ptr", _hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(23, this, HKL, _hKL, HIMC, _hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, CANDIDATELIST.Ptr, pDst, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -448,13 +489,11 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetConversionListW(_hKL, _hIMC, pSrc, uBufLen, uFlag, pDst, puCopied) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
         pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "ptr", _hKL, "ptr", _hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(24, this, HKL, _hKL, HIMC, _hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, CANDIDATELIST.Ptr, pDst, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -478,12 +517,10 @@ class IActiveIMMApp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/getconversionstatus-win32-encryptablevolume
      */
     GetConversionStatus(_hIMC, pfdwConversion, pfdwSentence) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pfdwConversionMarshal := pfdwConversion is VarRef ? "uint*" : "ptr"
         pfdwSentenceMarshal := pfdwSentence is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "ptr", _hIMC, pfdwConversionMarshal, pfdwConversion, pfdwSentenceMarshal, pfdwSentence, "HRESULT")
+        result := ComCall(25, this, HIMC, _hIMC, pfdwConversionMarshal, pfdwConversion, pfdwSentenceMarshal, pfdwSentence, "HRESULT")
         return result
     }
 
@@ -493,10 +530,8 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HWND} 
      */
     GetDefaultIMEWnd(_hWnd) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
         phDefWnd := HWND()
-        result := ComCall(26, this, "ptr", _hWnd, "ptr", phDefWnd, "HRESULT")
+        result := ComCall(26, this, HWND, _hWnd, HWND.Ptr, phDefWnd, "HRESULT")
         return phDefWnd
     }
 
@@ -508,10 +543,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetDescriptionA(_hKL, uBufLen, szDescription) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        result := ComCall(27, this, "ptr", _hKL, "uint", uBufLen, "ptr", szDescription, "uint*", &puCopied := 0, "HRESULT")
+        result := ComCall(27, this, HKL, _hKL, "uint", uBufLen, "ptr", szDescription, "uint*", &puCopied := 0, "HRESULT")
         return puCopied
     }
 
@@ -523,10 +557,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetDescriptionW(_hKL, uBufLen, szDescription) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        result := ComCall(28, this, "ptr", _hKL, "uint", uBufLen, "ptr", szDescription, "uint*", &puCopied := 0, "HRESULT")
+        result := ComCall(28, this, HKL, _hKL, "uint", uBufLen, "ptr", szDescription, "uint*", &puCopied := 0, "HRESULT")
         return puCopied
     }
 
@@ -539,10 +572,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetGuideLineA(_hIMC, dwIndex, dwBufLen, pBuf) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
         pBuf := pBuf is String ? StrPtr(pBuf) : pBuf
 
-        result := ComCall(29, this, "ptr", _hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", &pdwResult := 0, "HRESULT")
+        result := ComCall(29, this, HIMC, _hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", &pdwResult := 0, "HRESULT")
         return pdwResult
     }
 
@@ -555,10 +587,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetGuideLineW(_hIMC, dwIndex, dwBufLen, pBuf) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
         pBuf := pBuf is String ? StrPtr(pBuf) : pBuf
 
-        result := ComCall(30, this, "ptr", _hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", &pdwResult := 0, "HRESULT")
+        result := ComCall(30, this, HIMC, _hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", &pdwResult := 0, "HRESULT")
         return pdwResult
     }
 
@@ -570,10 +601,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetIMEFileNameA(_hKL, uBufLen, szFileName) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
-        result := ComCall(31, this, "ptr", _hKL, "uint", uBufLen, "ptr", szFileName, "uint*", &puCopied := 0, "HRESULT")
+        result := ComCall(31, this, HKL, _hKL, "uint", uBufLen, "ptr", szFileName, "uint*", &puCopied := 0, "HRESULT")
         return puCopied
     }
 
@@ -585,10 +615,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetIMEFileNameW(_hKL, uBufLen, szFileName) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
-        result := ComCall(32, this, "ptr", _hKL, "uint", uBufLen, "ptr", szFileName, "uint*", &puCopied := 0, "HRESULT")
+        result := ComCall(32, this, HKL, _hKL, "uint", uBufLen, "ptr", szFileName, "uint*", &puCopied := 0, "HRESULT")
         return puCopied
     }
 
@@ -598,9 +627,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetOpenStatus(_hIMC) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(33, this, "ptr", _hIMC, "HRESULT")
+        result := ComCall(33, this, HIMC, _hIMC, "HRESULT")
         return result
     }
 
@@ -616,9 +643,7 @@ class IActiveIMMApp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(_hKL, fdwIndex) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
-        result := ComCall(34, this, "ptr", _hKL, "uint", fdwIndex, "uint*", &pdwProperty := 0, "HRESULT")
+        result := ComCall(34, this, HKL, _hKL, "uint", fdwIndex, "uint*", &pdwProperty := 0, "HRESULT")
         return pdwProperty
     }
 
@@ -631,11 +656,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRegisterWordStyleA(_hKL, nItem, pStyleBuf, puCopied) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(35, this, "ptr", _hKL, "uint", nItem, "ptr", pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(35, this, HKL, _hKL, "uint", nItem, STYLEBUFA.Ptr, pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -648,11 +671,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRegisterWordStyleW(_hKL, nItem, pStyleBuf, puCopied) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(36, this, "ptr", _hKL, "uint", nItem, "ptr", pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(36, this, HKL, _hKL, "uint", nItem, STYLEBUFW.Ptr, pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -662,10 +683,8 @@ class IActiveIMMApp extends IUnknown {
      * @returns {POINT} 
      */
     GetStatusWindowPos(_hIMC) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pptPos := POINT()
-        result := ComCall(37, this, "ptr", _hIMC, "ptr", pptPos, "HRESULT")
+        result := ComCall(37, this, HIMC, _hIMC, POINT.Ptr, pptPos, "HRESULT")
         return pptPos
     }
 
@@ -675,9 +694,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetVirtualKey(_hWnd) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(38, this, "ptr", _hWnd, "uint*", &puVirtualKey := 0, "HRESULT")
+        result := ComCall(38, this, HWND, _hWnd, "uint*", &puVirtualKey := 0, "HRESULT")
         return puVirtualKey
     }
 
@@ -691,8 +708,8 @@ class IActiveIMMApp extends IUnknown {
         szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
         szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
 
-        phKL := HKL()
-        result := ComCall(39, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
+        phKL := HKL.Owned()
+        result := ComCall(39, this, "ptr", szIMEFileName, "ptr", szLayoutText, HKL.Ptr, phKL, "HRESULT")
         return phKL
     }
 
@@ -706,8 +723,8 @@ class IActiveIMMApp extends IUnknown {
         szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
         szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
 
-        phKL := HKL()
-        result := ComCall(40, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
+        phKL := HKL.Owned()
+        result := ComCall(40, this, "ptr", szIMEFileName, "ptr", szLayoutText, HKL.Ptr, phKL, "HRESULT")
         return phKL
     }
 
@@ -717,9 +734,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     IsIME(_hKL) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
-        result := ComCall(41, this, "ptr", _hKL, "HRESULT")
+        result := ComCall(41, this, HKL, _hKL, "HRESULT")
         return result
     }
 
@@ -732,9 +747,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     IsUIMessageA(hWndIME, _msg, _wParam, _lParam) {
-        hWndIME := hWndIME is Win32Handle ? NumGet(hWndIME, "ptr") : hWndIME
-
-        result := ComCall(42, this, "ptr", hWndIME, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(42, this, HWND, hWndIME, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -747,9 +760,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     IsUIMessageW(hWndIME, _msg, _wParam, _lParam) {
-        hWndIME := hWndIME is Win32Handle ? NumGet(hWndIME, "ptr") : hWndIME
-
-        result := ComCall(43, this, "ptr", hWndIME, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(43, this, HWND, hWndIME, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -762,9 +773,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     NotifyIME(_hIMC, dwAction, dwIndex, dwValue) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(44, this, "ptr", _hIMC, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "HRESULT")
+        result := ComCall(44, this, HIMC, _hIMC, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "HRESULT")
         return result
     }
 
@@ -777,11 +786,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     RegisterWordA(_hKL, szReading, dwStyle, szRegister) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        result := ComCall(45, this, "ptr", _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "HRESULT")
+        result := ComCall(45, this, HKL, _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "HRESULT")
         return result
     }
 
@@ -794,11 +802,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     RegisterWordW(_hKL, szReading, dwStyle, szRegister) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        result := ComCall(46, this, "ptr", _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "HRESULT")
+        result := ComCall(46, this, HKL, _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "HRESULT")
         return result
     }
 
@@ -809,10 +816,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     ReleaseContext(_hWnd, _hIMC) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(47, this, "ptr", _hWnd, "ptr", _hIMC, "HRESULT")
+        result := ComCall(47, this, HWND, _hWnd, HIMC, _hIMC, "HRESULT")
         return result
     }
 
@@ -823,9 +827,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCandidateWindow(_hIMC, pCandidate) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(48, this, "ptr", _hIMC, "ptr", pCandidate, "HRESULT")
+        result := ComCall(48, this, HIMC, _hIMC, CANDIDATEFORM.Ptr, pCandidate, "HRESULT")
         return result
     }
 
@@ -836,9 +838,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionFontA(_hIMC, plf) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(49, this, "ptr", _hIMC, "ptr", plf, "HRESULT")
+        result := ComCall(49, this, HIMC, _hIMC, LOGFONTA.Ptr, plf, "HRESULT")
         return result
     }
 
@@ -849,9 +849,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionFontW(_hIMC, plf) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(50, this, "ptr", _hIMC, "ptr", plf, "HRESULT")
+        result := ComCall(50, this, HIMC, _hIMC, LOGFONTW.Ptr, plf, "HRESULT")
         return result
     }
 
@@ -866,12 +864,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionStringA(_hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
         pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(51, this, "ptr", _hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
+        result := ComCall(51, this, HIMC, _hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
         return result
     }
 
@@ -886,12 +882,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionStringW(_hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
         pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(52, this, "ptr", _hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
+        result := ComCall(52, this, HIMC, _hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
         return result
     }
 
@@ -902,9 +896,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionWindow(_hIMC, pCompForm) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(53, this, "ptr", _hIMC, "ptr", pCompForm, "HRESULT")
+        result := ComCall(53, this, HIMC, _hIMC, COMPOSITIONFORM.Ptr, pCompForm, "HRESULT")
         return result
     }
 
@@ -916,9 +908,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConversionStatus(_hIMC, fdwConversion, fdwSentence) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(54, this, "ptr", _hIMC, "uint", fdwConversion, "uint", fdwSentence, "HRESULT")
+        result := ComCall(54, this, HIMC, _hIMC, "uint", fdwConversion, "uint", fdwSentence, "HRESULT")
         return result
     }
 
@@ -929,9 +919,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOpenStatus(_hIMC, fOpen) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(55, this, "ptr", _hIMC, "int", fOpen, "HRESULT")
+        result := ComCall(55, this, HIMC, _hIMC, BOOL, fOpen, "HRESULT")
         return result
     }
 
@@ -942,9 +930,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SetStatusWindowPos(_hIMC, pptPos) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(56, this, "ptr", _hIMC, "ptr", pptPos, "HRESULT")
+        result := ComCall(56, this, HIMC, _hIMC, POINT.Ptr, pptPos, "HRESULT")
         return result
     }
 
@@ -955,9 +941,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     SimulateHotKey(_hWnd, dwHotKeyID) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(57, this, "ptr", _hWnd, "uint", dwHotKeyID, "HRESULT")
+        result := ComCall(57, this, HWND, _hWnd, "uint", dwHotKeyID, "HRESULT")
         return result
     }
 
@@ -970,11 +954,10 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     UnregisterWordA(_hKL, szReading, dwStyle, szUnregister) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szUnregister := szUnregister is String ? StrPtr(szUnregister) : szUnregister
 
-        result := ComCall(58, this, "ptr", _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szUnregister, "HRESULT")
+        result := ComCall(58, this, HKL, _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szUnregister, "HRESULT")
         return result
     }
 
@@ -987,50 +970,26 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     UnregisterWordW(_hKL, szReading, dwStyle, szUnregister) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szUnregister := szUnregister is String ? StrPtr(szUnregister) : szUnregister
 
-        result := ComCall(59, this, "ptr", _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szUnregister, "HRESULT")
+        result := ComCall(59, this, HKL, _hKL, "ptr", szReading, "uint", dwStyle, "ptr", szUnregister, "HRESULT")
         return result
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fRestoreLayout 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(fRestoreLayout) {
-        result := ComCall(60, this, "int", fRestoreLayout, "HRESULT")
+        result := ComCall(60, this, BOOL, fRestoreLayout, "HRESULT")
         return result
     }
 
     /**
-     * The DeactivateActCtx function deactivates the activation context corresponding to the specified cookie.
-     * @remarks
-     * The deactivation of activation contexts must occur in the reverse order of activation. It can be understood as popping an activation context from a stack.
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deactivateactctx
+     * @returns {HRESULT} 
      */
     Deactivate() {
         result := ComCall(61, this, "HRESULT")
@@ -1046,9 +1005,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {LRESULT} 
      */
     OnDefWindowProc(_hWnd, _Msg, _wParam, _lParam) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(62, this, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(62, this, HWND, _hWnd, "uint", _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -1071,9 +1028,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetCodePageA(_hKL) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
-        result := ComCall(64, this, "ptr", _hKL, "uint*", &uCodePage := 0, "HRESULT")
+        result := ComCall(64, this, HKL, _hKL, "uint*", &uCodePage := 0, "HRESULT")
         return uCodePage
     }
 
@@ -1083,9 +1038,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {Integer} 
      */
     GetLangId(_hKL) {
-        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
-
-        result := ComCall(65, this, "ptr", _hKL, "ushort*", &plid := 0, "HRESULT")
+        result := ComCall(65, this, HKL, _hKL, "ushort*", &plid := 0, "HRESULT")
         return plid
     }
 
@@ -1097,10 +1050,7 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     AssociateContextEx(_hWnd, _hIMC, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
-        result := ComCall(66, this, "ptr", _hWnd, "ptr", _hIMC, "uint", dwFlags, "HRESULT")
+        result := ComCall(66, this, HWND, _hWnd, HIMC, _hIMC, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -1126,11 +1076,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetImeMenuItemsA(_hIMC, dwFlags, dwType, pImeParentMenu, pImeMenu, dwSize, pdwResult) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(68, this, "ptr", _hIMC, "uint", dwFlags, "uint", dwType, "ptr", pImeParentMenu, "ptr", pImeMenu, "uint", dwSize, pdwResultMarshal, pdwResult, "HRESULT")
+        result := ComCall(68, this, HIMC, _hIMC, "uint", dwFlags, "uint", dwType, IMEMENUITEMINFOA.Ptr, pImeParentMenu, IMEMENUITEMINFOA.Ptr, pImeMenu, "uint", dwSize, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -1146,11 +1094,9 @@ class IActiveIMMApp extends IUnknown {
      * @returns {HRESULT} 
      */
     GetImeMenuItemsW(_hIMC, dwFlags, dwType, pImeParentMenu, pImeMenu, dwSize, pdwResult) {
-        _hIMC := _hIMC is Win32Handle ? NumGet(_hIMC, "ptr") : _hIMC
-
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(69, this, "ptr", _hIMC, "uint", dwFlags, "uint", dwType, "ptr", pImeParentMenu, "ptr", pImeMenu, "uint", dwSize, pdwResultMarshal, pdwResult, "HRESULT")
+        result := ComCall(69, this, HIMC, _hIMC, "uint", dwFlags, "uint", dwType, IMEMENUITEMINFOW.Ptr, pImeParentMenu, IMEMENUITEMINFOW.Ptr, pImeMenu, "uint", dwSize, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -1162,5 +1108,159 @@ class IActiveIMMApp extends IUnknown {
     EnumInputContext(idThread) {
         result := ComCall(70, this, "uint", idThread, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumInputContext(ppEnum)
+    }
+
+    Query(iid) {
+        if (IActiveIMMApp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AssociateContext := CallbackCreate(GetMethod(implObj, "AssociateContext"), flags, 4)
+        this.vtbl.ConfigureIMEA := CallbackCreate(GetMethod(implObj, "ConfigureIMEA"), flags, 5)
+        this.vtbl.ConfigureIMEW := CallbackCreate(GetMethod(implObj, "ConfigureIMEW"), flags, 5)
+        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 2)
+        this.vtbl.DestroyContext := CallbackCreate(GetMethod(implObj, "DestroyContext"), flags, 2)
+        this.vtbl.EnumRegisterWordA := CallbackCreate(GetMethod(implObj, "EnumRegisterWordA"), flags, 7)
+        this.vtbl.EnumRegisterWordW := CallbackCreate(GetMethod(implObj, "EnumRegisterWordW"), flags, 7)
+        this.vtbl.EscapeA := CallbackCreate(GetMethod(implObj, "EscapeA"), flags, 6)
+        this.vtbl.EscapeW := CallbackCreate(GetMethod(implObj, "EscapeW"), flags, 6)
+        this.vtbl.GetCandidateListA := CallbackCreate(GetMethod(implObj, "GetCandidateListA"), flags, 6)
+        this.vtbl.GetCandidateListW := CallbackCreate(GetMethod(implObj, "GetCandidateListW"), flags, 6)
+        this.vtbl.GetCandidateListCountA := CallbackCreate(GetMethod(implObj, "GetCandidateListCountA"), flags, 4)
+        this.vtbl.GetCandidateListCountW := CallbackCreate(GetMethod(implObj, "GetCandidateListCountW"), flags, 4)
+        this.vtbl.GetCandidateWindow := CallbackCreate(GetMethod(implObj, "GetCandidateWindow"), flags, 4)
+        this.vtbl.GetCompositionFontA := CallbackCreate(GetMethod(implObj, "GetCompositionFontA"), flags, 3)
+        this.vtbl.GetCompositionFontW := CallbackCreate(GetMethod(implObj, "GetCompositionFontW"), flags, 3)
+        this.vtbl.GetCompositionStringA := CallbackCreate(GetMethod(implObj, "GetCompositionStringA"), flags, 6)
+        this.vtbl.GetCompositionStringW := CallbackCreate(GetMethod(implObj, "GetCompositionStringW"), flags, 6)
+        this.vtbl.GetCompositionWindow := CallbackCreate(GetMethod(implObj, "GetCompositionWindow"), flags, 3)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
+        this.vtbl.GetConversionListA := CallbackCreate(GetMethod(implObj, "GetConversionListA"), flags, 8)
+        this.vtbl.GetConversionListW := CallbackCreate(GetMethod(implObj, "GetConversionListW"), flags, 8)
+        this.vtbl.GetConversionStatus := CallbackCreate(GetMethod(implObj, "GetConversionStatus"), flags, 4)
+        this.vtbl.GetDefaultIMEWnd := CallbackCreate(GetMethod(implObj, "GetDefaultIMEWnd"), flags, 3)
+        this.vtbl.GetDescriptionA := CallbackCreate(GetMethod(implObj, "GetDescriptionA"), flags, 5)
+        this.vtbl.GetDescriptionW := CallbackCreate(GetMethod(implObj, "GetDescriptionW"), flags, 5)
+        this.vtbl.GetGuideLineA := CallbackCreate(GetMethod(implObj, "GetGuideLineA"), flags, 6)
+        this.vtbl.GetGuideLineW := CallbackCreate(GetMethod(implObj, "GetGuideLineW"), flags, 6)
+        this.vtbl.GetIMEFileNameA := CallbackCreate(GetMethod(implObj, "GetIMEFileNameA"), flags, 5)
+        this.vtbl.GetIMEFileNameW := CallbackCreate(GetMethod(implObj, "GetIMEFileNameW"), flags, 5)
+        this.vtbl.GetOpenStatus := CallbackCreate(GetMethod(implObj, "GetOpenStatus"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.GetRegisterWordStyleA := CallbackCreate(GetMethod(implObj, "GetRegisterWordStyleA"), flags, 5)
+        this.vtbl.GetRegisterWordStyleW := CallbackCreate(GetMethod(implObj, "GetRegisterWordStyleW"), flags, 5)
+        this.vtbl.GetStatusWindowPos := CallbackCreate(GetMethod(implObj, "GetStatusWindowPos"), flags, 3)
+        this.vtbl.GetVirtualKey := CallbackCreate(GetMethod(implObj, "GetVirtualKey"), flags, 3)
+        this.vtbl.InstallIMEA := CallbackCreate(GetMethod(implObj, "InstallIMEA"), flags, 4)
+        this.vtbl.InstallIMEW := CallbackCreate(GetMethod(implObj, "InstallIMEW"), flags, 4)
+        this.vtbl.IsIME := CallbackCreate(GetMethod(implObj, "IsIME"), flags, 2)
+        this.vtbl.IsUIMessageA := CallbackCreate(GetMethod(implObj, "IsUIMessageA"), flags, 5)
+        this.vtbl.IsUIMessageW := CallbackCreate(GetMethod(implObj, "IsUIMessageW"), flags, 5)
+        this.vtbl.NotifyIME := CallbackCreate(GetMethod(implObj, "NotifyIME"), flags, 5)
+        this.vtbl.RegisterWordA := CallbackCreate(GetMethod(implObj, "RegisterWordA"), flags, 5)
+        this.vtbl.RegisterWordW := CallbackCreate(GetMethod(implObj, "RegisterWordW"), flags, 5)
+        this.vtbl.ReleaseContext := CallbackCreate(GetMethod(implObj, "ReleaseContext"), flags, 3)
+        this.vtbl.SetCandidateWindow := CallbackCreate(GetMethod(implObj, "SetCandidateWindow"), flags, 3)
+        this.vtbl.SetCompositionFontA := CallbackCreate(GetMethod(implObj, "SetCompositionFontA"), flags, 3)
+        this.vtbl.SetCompositionFontW := CallbackCreate(GetMethod(implObj, "SetCompositionFontW"), flags, 3)
+        this.vtbl.SetCompositionStringA := CallbackCreate(GetMethod(implObj, "SetCompositionStringA"), flags, 7)
+        this.vtbl.SetCompositionStringW := CallbackCreate(GetMethod(implObj, "SetCompositionStringW"), flags, 7)
+        this.vtbl.SetCompositionWindow := CallbackCreate(GetMethod(implObj, "SetCompositionWindow"), flags, 3)
+        this.vtbl.SetConversionStatus := CallbackCreate(GetMethod(implObj, "SetConversionStatus"), flags, 4)
+        this.vtbl.SetOpenStatus := CallbackCreate(GetMethod(implObj, "SetOpenStatus"), flags, 3)
+        this.vtbl.SetStatusWindowPos := CallbackCreate(GetMethod(implObj, "SetStatusWindowPos"), flags, 3)
+        this.vtbl.SimulateHotKey := CallbackCreate(GetMethod(implObj, "SimulateHotKey"), flags, 3)
+        this.vtbl.UnregisterWordA := CallbackCreate(GetMethod(implObj, "UnregisterWordA"), flags, 5)
+        this.vtbl.UnregisterWordW := CallbackCreate(GetMethod(implObj, "UnregisterWordW"), flags, 5)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.OnDefWindowProc := CallbackCreate(GetMethod(implObj, "OnDefWindowProc"), flags, 6)
+        this.vtbl.FilterClientWindows := CallbackCreate(GetMethod(implObj, "FilterClientWindows"), flags, 3)
+        this.vtbl.GetCodePageA := CallbackCreate(GetMethod(implObj, "GetCodePageA"), flags, 3)
+        this.vtbl.GetLangId := CallbackCreate(GetMethod(implObj, "GetLangId"), flags, 3)
+        this.vtbl.AssociateContextEx := CallbackCreate(GetMethod(implObj, "AssociateContextEx"), flags, 4)
+        this.vtbl.DisableIME := CallbackCreate(GetMethod(implObj, "DisableIME"), flags, 2)
+        this.vtbl.GetImeMenuItemsA := CallbackCreate(GetMethod(implObj, "GetImeMenuItemsA"), flags, 8)
+        this.vtbl.GetImeMenuItemsW := CallbackCreate(GetMethod(implObj, "GetImeMenuItemsW"), flags, 8)
+        this.vtbl.EnumInputContext := CallbackCreate(GetMethod(implObj, "EnumInputContext"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AssociateContext)
+        CallbackFree(this.vtbl.ConfigureIMEA)
+        CallbackFree(this.vtbl.ConfigureIMEW)
+        CallbackFree(this.vtbl.CreateContext)
+        CallbackFree(this.vtbl.DestroyContext)
+        CallbackFree(this.vtbl.EnumRegisterWordA)
+        CallbackFree(this.vtbl.EnumRegisterWordW)
+        CallbackFree(this.vtbl.EscapeA)
+        CallbackFree(this.vtbl.EscapeW)
+        CallbackFree(this.vtbl.GetCandidateListA)
+        CallbackFree(this.vtbl.GetCandidateListW)
+        CallbackFree(this.vtbl.GetCandidateListCountA)
+        CallbackFree(this.vtbl.GetCandidateListCountW)
+        CallbackFree(this.vtbl.GetCandidateWindow)
+        CallbackFree(this.vtbl.GetCompositionFontA)
+        CallbackFree(this.vtbl.GetCompositionFontW)
+        CallbackFree(this.vtbl.GetCompositionStringA)
+        CallbackFree(this.vtbl.GetCompositionStringW)
+        CallbackFree(this.vtbl.GetCompositionWindow)
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.GetConversionListA)
+        CallbackFree(this.vtbl.GetConversionListW)
+        CallbackFree(this.vtbl.GetConversionStatus)
+        CallbackFree(this.vtbl.GetDefaultIMEWnd)
+        CallbackFree(this.vtbl.GetDescriptionA)
+        CallbackFree(this.vtbl.GetDescriptionW)
+        CallbackFree(this.vtbl.GetGuideLineA)
+        CallbackFree(this.vtbl.GetGuideLineW)
+        CallbackFree(this.vtbl.GetIMEFileNameA)
+        CallbackFree(this.vtbl.GetIMEFileNameW)
+        CallbackFree(this.vtbl.GetOpenStatus)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetRegisterWordStyleA)
+        CallbackFree(this.vtbl.GetRegisterWordStyleW)
+        CallbackFree(this.vtbl.GetStatusWindowPos)
+        CallbackFree(this.vtbl.GetVirtualKey)
+        CallbackFree(this.vtbl.InstallIMEA)
+        CallbackFree(this.vtbl.InstallIMEW)
+        CallbackFree(this.vtbl.IsIME)
+        CallbackFree(this.vtbl.IsUIMessageA)
+        CallbackFree(this.vtbl.IsUIMessageW)
+        CallbackFree(this.vtbl.NotifyIME)
+        CallbackFree(this.vtbl.RegisterWordA)
+        CallbackFree(this.vtbl.RegisterWordW)
+        CallbackFree(this.vtbl.ReleaseContext)
+        CallbackFree(this.vtbl.SetCandidateWindow)
+        CallbackFree(this.vtbl.SetCompositionFontA)
+        CallbackFree(this.vtbl.SetCompositionFontW)
+        CallbackFree(this.vtbl.SetCompositionStringA)
+        CallbackFree(this.vtbl.SetCompositionStringW)
+        CallbackFree(this.vtbl.SetCompositionWindow)
+        CallbackFree(this.vtbl.SetConversionStatus)
+        CallbackFree(this.vtbl.SetOpenStatus)
+        CallbackFree(this.vtbl.SetStatusWindowPos)
+        CallbackFree(this.vtbl.SimulateHotKey)
+        CallbackFree(this.vtbl.UnregisterWordA)
+        CallbackFree(this.vtbl.UnregisterWordW)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
+        CallbackFree(this.vtbl.OnDefWindowProc)
+        CallbackFree(this.vtbl.FilterClientWindows)
+        CallbackFree(this.vtbl.GetCodePageA)
+        CallbackFree(this.vtbl.GetLangId)
+        CallbackFree(this.vtbl.AssociateContextEx)
+        CallbackFree(this.vtbl.DisableIME)
+        CallbackFree(this.vtbl.GetImeMenuItemsA)
+        CallbackFree(this.vtbl.GetImeMenuItemsW)
+        CallbackFree(this.vtbl.EnumInputContext)
     }
 }

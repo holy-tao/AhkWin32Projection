@@ -1,39 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides caching for objects that handle persistent data. This interface can be inherited by other interfaces that represent persisted objects.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcacheable
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportCacheable extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportCacheable extends IDispatch {
     /**
      * The interface identifier for IWdsTransportCacheable
      * @type {Guid}
      */
-    static IID => Guid("{46ad894b-0bab-47dc-84b2-7b553f1d8f80}")
+    static IID := Guid("{46ad894b-0bab-47dc-84b2-7b553f1d8f80}")
 
     /**
      * The class identifier for WdsTransportCacheable
      * @type {Guid}
      */
-    static CLSID => Guid("{70590b16-f146-46bd-bd9d-4aaa90084bf5}")
+    static CLSID := Guid("{70590b16-f146-46bd-bd9d-4aaa90084bf5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportCacheable interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Dirty : IntPtr
+        Discard   : IntPtr
+        Refresh   : IntPtr
+        Commit    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Dirty", "Discard", "Refresh", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportCacheable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -50,7 +62,7 @@ class IWdsTransportCacheable extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcacheable-get_dirty
      */
     get_Dirty() {
-        result := ComCall(7, this, "short*", &pbDirty := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbDirty := 0, "HRESULT")
         return pbDirty
     }
 
@@ -90,5 +102,31 @@ class IWdsTransportCacheable extends IDispatch {
     Commit() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportCacheable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Dirty := CallbackCreate(GetMethod(implObj, "get_Dirty"), flags, 2)
+        this.vtbl.Discard := CallbackCreate(GetMethod(implObj, "Discard"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Dirty)
+        CallbackFree(this.vtbl.Discard)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Commit)
     }
 }

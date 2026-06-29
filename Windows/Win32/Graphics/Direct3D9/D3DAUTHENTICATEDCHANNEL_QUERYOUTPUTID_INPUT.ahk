@@ -1,60 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_INPUT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains input data for a D3DAUTHENTICATEDQUERY\_OUTPUTID query.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryoutputid-input
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT {
+    #StructPack 8
 
     /**
      * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_INPUT**](d3dauthenticatedchannel-query-input.md) structure that contains the GUID for the query and other data.
-     * @type {D3DAUTHENTICATEDCHANNEL_QUERY_INPUT}
      */
-    Input {
-        get {
-            if(!this.HasProp("__Input"))
-                this.__Input := D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(0, this)
-            return this.__Input
-        }
-    }
+    Input : D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
 
     /**
      * A handle to the device.
-     * @type {HANDLE}
      */
-    DeviceHandle {
-        get {
-            if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(24, this)
-            return this.__DeviceHandle
-        }
-    }
+    DeviceHandle : HANDLE
 
     /**
      * A handle to the cryptographic session.
-     * @type {HANDLE}
      */
-    CryptoSessionHandle {
-        get {
-            if(!this.HasProp("__CryptoSessionHandle"))
-                this.__CryptoSessionHandle := HANDLE(32, this)
-            return this.__CryptoSessionHandle
-        }
-    }
+    CryptoSessionHandle : HANDLE
 
     /**
      * The index of the output ID.
-     * @type {Integer}
      */
-    OutputIDIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    OutputIDIndex : UInt32
+
 }

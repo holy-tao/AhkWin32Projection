@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_DISK_GEOMETRY_DEVICE_DATA extends Win32Struct {
-    static sizeof => 16
+export default struct CM_DISK_GEOMETRY_DEVICE_DATA {
+    #StructPack 4
 
-    static packingSize => 4
+    BytesPerSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesPerSector {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfCylinders : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfCylinders {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SectorsPerTrack : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SectorsPerTrack {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumberOfHeads : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfHeads {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

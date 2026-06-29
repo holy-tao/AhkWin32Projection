@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the reason for non-fatal or soft errors recorded on a TCP connection.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ne-tcpestats-tcp_soft_error
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_SOFT_ERROR extends Win32Enum {
+export default struct TCP_SOFT_ERROR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No soft errors have occurred.

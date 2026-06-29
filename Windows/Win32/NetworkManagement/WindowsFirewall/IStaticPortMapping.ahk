@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IStaticPortMapping interface provides methods to retrieve and change the information for a particular port mapping.
@@ -11,26 +13,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-istaticportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class IStaticPortMapping extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IStaticPortMapping extends IDispatch {
     /**
      * The interface identifier for IStaticPortMapping
      * @type {Guid}
      */
-    static IID => Guid("{6f10711f-729b-41e5-93b8-f21d0f818df1}")
+    static IID := Guid("{6f10711f-729b-41e5-93b8-f21d0f818df1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStaticPortMapping interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ExternalIPAddress : IntPtr
+        get_ExternalPort      : IntPtr
+        get_InternalPort      : IntPtr
+        get_Protocol          : IntPtr
+        get_InternalClient    : IntPtr
+        get_Enabled           : IntPtr
+        get_Description       : IntPtr
+        EditInternalClient    : IntPtr
+        Enable                : IntPtr
+        EditDescription       : IntPtr
+        EditInternalPort      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ExternalIPAddress", "get_ExternalPort", "get_InternalPort", "get_Protocol", "get_InternalClient", "get_Enabled", "get_Description", "EditInternalClient", "Enable", "EditDescription", "EditInternalPort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStaticPortMapping.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -88,8 +107,8 @@ class IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalipaddress
      */
     get_ExternalIPAddress() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -120,8 +139,8 @@ class IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_protocol
      */
     get_Protocol() {
-        pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -132,8 +151,8 @@ class IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_internalclient
      */
     get_InternalClient() {
-        pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -143,7 +162,7 @@ class IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_enabled
      */
     get_Enabled() {
-        result := ComCall(12, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -154,8 +173,8 @@ class IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_description
      */
     get_Description() {
-        pVal := BSTR()
-        result := ComCall(13, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -269,7 +288,7 @@ class IStaticPortMapping extends IDispatch {
     EditInternalClient(bstrInternalClient) {
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
 
-        result := ComCall(14, this, "ptr", bstrInternalClient, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrInternalClient, "HRESULT")
         return result
     }
 
@@ -377,7 +396,7 @@ class IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-enable
      */
     Enable(vb) {
-        result := ComCall(15, this, "short", vb, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, vb, "HRESULT")
         return result
     }
 
@@ -487,7 +506,7 @@ class IStaticPortMapping extends IDispatch {
     EditDescription(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(16, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -597,5 +616,45 @@ class IStaticPortMapping extends IDispatch {
     EditInternalPort(lInternalPort) {
         result := ComCall(17, this, "int", lInternalPort, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStaticPortMapping.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ExternalIPAddress := CallbackCreate(GetMethod(implObj, "get_ExternalIPAddress"), flags, 2)
+        this.vtbl.get_ExternalPort := CallbackCreate(GetMethod(implObj, "get_ExternalPort"), flags, 2)
+        this.vtbl.get_InternalPort := CallbackCreate(GetMethod(implObj, "get_InternalPort"), flags, 2)
+        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_InternalClient := CallbackCreate(GetMethod(implObj, "get_InternalClient"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.EditInternalClient := CallbackCreate(GetMethod(implObj, "EditInternalClient"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.EditDescription := CallbackCreate(GetMethod(implObj, "EditDescription"), flags, 2)
+        this.vtbl.EditInternalPort := CallbackCreate(GetMethod(implObj, "EditInternalPort"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ExternalIPAddress)
+        CallbackFree(this.vtbl.get_ExternalPort)
+        CallbackFree(this.vtbl.get_InternalPort)
+        CallbackFree(this.vtbl.get_Protocol)
+        CallbackFree(this.vtbl.get_InternalClient)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.EditInternalClient)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.EditDescription)
+        CallbackFree(this.vtbl.EditInternalPort)
     }
 }

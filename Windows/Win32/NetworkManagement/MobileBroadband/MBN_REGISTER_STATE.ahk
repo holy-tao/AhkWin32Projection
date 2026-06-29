@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_REGISTER_STATE enumerated type indicates the network registration state of a Mobile Broadband device.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_register_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_REGISTER_STATE extends Win32Enum {
+export default struct MBN_REGISTER_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The device registration state is unknown.  This state may be set upon failure of registration mode change requests.

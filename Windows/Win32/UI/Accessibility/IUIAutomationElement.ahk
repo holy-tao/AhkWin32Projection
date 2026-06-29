@@ -1,38 +1,137 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationElementArray.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OrientationType.ahk" { OrientationType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import ".\UIA_CONTROLTYPE_ID.ahk" { UIA_CONTROLTYPE_ID }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods and properties for a UI Automation element, which represents a UI item.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationElement extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationElement extends IUnknown {
     /**
      * The interface identifier for IUIAutomationElement
      * @type {Guid}
      */
-    static IID => Guid("{d22108aa-8ac5-49a5-837b-37bbb3d7591e}")
+    static IID := Guid("{d22108aa-8ac5-49a5-837b-37bbb3d7591e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationElement interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFocus                        : IntPtr
+        GetRuntimeId                    : IntPtr
+        FindFirst                       : IntPtr
+        FindAll                         : IntPtr
+        FindFirstBuildCache             : IntPtr
+        FindAllBuildCache               : IntPtr
+        BuildUpdatedCache               : IntPtr
+        GetCurrentPropertyValue         : IntPtr
+        GetCurrentPropertyValueEx       : IntPtr
+        GetCachedPropertyValue          : IntPtr
+        GetCachedPropertyValueEx        : IntPtr
+        GetCurrentPatternAs             : IntPtr
+        GetCachedPatternAs              : IntPtr
+        GetCurrentPattern               : IntPtr
+        GetCachedPattern                : IntPtr
+        GetCachedParent                 : IntPtr
+        GetCachedChildren               : IntPtr
+        get_CurrentProcessId            : IntPtr
+        get_CurrentControlType          : IntPtr
+        get_CurrentLocalizedControlType : IntPtr
+        get_CurrentName                 : IntPtr
+        get_CurrentAcceleratorKey       : IntPtr
+        get_CurrentAccessKey            : IntPtr
+        get_CurrentHasKeyboardFocus     : IntPtr
+        get_CurrentIsKeyboardFocusable  : IntPtr
+        get_CurrentIsEnabled            : IntPtr
+        get_CurrentAutomationId         : IntPtr
+        get_CurrentClassName            : IntPtr
+        get_CurrentHelpText             : IntPtr
+        get_CurrentCulture              : IntPtr
+        get_CurrentIsControlElement     : IntPtr
+        get_CurrentIsContentElement     : IntPtr
+        get_CurrentIsPassword           : IntPtr
+        get_CurrentNativeWindowHandle   : IntPtr
+        get_CurrentItemType             : IntPtr
+        get_CurrentIsOffscreen          : IntPtr
+        get_CurrentOrientation          : IntPtr
+        get_CurrentFrameworkId          : IntPtr
+        get_CurrentIsRequiredForForm    : IntPtr
+        get_CurrentItemStatus           : IntPtr
+        get_CurrentBoundingRectangle    : IntPtr
+        get_CurrentLabeledBy            : IntPtr
+        get_CurrentAriaRole             : IntPtr
+        get_CurrentAriaProperties       : IntPtr
+        get_CurrentIsDataValidForForm   : IntPtr
+        get_CurrentControllerFor        : IntPtr
+        get_CurrentDescribedBy          : IntPtr
+        get_CurrentFlowsTo              : IntPtr
+        get_CurrentProviderDescription  : IntPtr
+        get_CachedProcessId             : IntPtr
+        get_CachedControlType           : IntPtr
+        get_CachedLocalizedControlType  : IntPtr
+        get_CachedName                  : IntPtr
+        get_CachedAcceleratorKey        : IntPtr
+        get_CachedAccessKey             : IntPtr
+        get_CachedHasKeyboardFocus      : IntPtr
+        get_CachedIsKeyboardFocusable   : IntPtr
+        get_CachedIsEnabled             : IntPtr
+        get_CachedAutomationId          : IntPtr
+        get_CachedClassName             : IntPtr
+        get_CachedHelpText              : IntPtr
+        get_CachedCulture               : IntPtr
+        get_CachedIsControlElement      : IntPtr
+        get_CachedIsContentElement      : IntPtr
+        get_CachedIsPassword            : IntPtr
+        get_CachedNativeWindowHandle    : IntPtr
+        get_CachedItemType              : IntPtr
+        get_CachedIsOffscreen           : IntPtr
+        get_CachedOrientation           : IntPtr
+        get_CachedFrameworkId           : IntPtr
+        get_CachedIsRequiredForForm     : IntPtr
+        get_CachedItemStatus            : IntPtr
+        get_CachedBoundingRectangle     : IntPtr
+        get_CachedLabeledBy             : IntPtr
+        get_CachedAriaRole              : IntPtr
+        get_CachedAriaProperties        : IntPtr
+        get_CachedIsDataValidForForm    : IntPtr
+        get_CachedControllerFor         : IntPtr
+        get_CachedDescribedBy           : IntPtr
+        get_CachedFlowsTo               : IntPtr
+        get_CachedProviderDescription   : IntPtr
+        GetClickablePoint               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFocus", "GetRuntimeId", "FindFirst", "FindAll", "FindFirstBuildCache", "FindAllBuildCache", "BuildUpdatedCache", "GetCurrentPropertyValue", "GetCurrentPropertyValueEx", "GetCachedPropertyValue", "GetCachedPropertyValueEx", "GetCurrentPatternAs", "GetCachedPatternAs", "GetCurrentPattern", "GetCachedPattern", "GetCachedParent", "GetCachedChildren", "get_CurrentProcessId", "get_CurrentControlType", "get_CurrentLocalizedControlType", "get_CurrentName", "get_CurrentAcceleratorKey", "get_CurrentAccessKey", "get_CurrentHasKeyboardFocus", "get_CurrentIsKeyboardFocusable", "get_CurrentIsEnabled", "get_CurrentAutomationId", "get_CurrentClassName", "get_CurrentHelpText", "get_CurrentCulture", "get_CurrentIsControlElement", "get_CurrentIsContentElement", "get_CurrentIsPassword", "get_CurrentNativeWindowHandle", "get_CurrentItemType", "get_CurrentIsOffscreen", "get_CurrentOrientation", "get_CurrentFrameworkId", "get_CurrentIsRequiredForForm", "get_CurrentItemStatus", "get_CurrentBoundingRectangle", "get_CurrentLabeledBy", "get_CurrentAriaRole", "get_CurrentAriaProperties", "get_CurrentIsDataValidForForm", "get_CurrentControllerFor", "get_CurrentDescribedBy", "get_CurrentFlowsTo", "get_CurrentProviderDescription", "get_CachedProcessId", "get_CachedControlType", "get_CachedLocalizedControlType", "get_CachedName", "get_CachedAcceleratorKey", "get_CachedAccessKey", "get_CachedHasKeyboardFocus", "get_CachedIsKeyboardFocusable", "get_CachedIsEnabled", "get_CachedAutomationId", "get_CachedClassName", "get_CachedHelpText", "get_CachedCulture", "get_CachedIsControlElement", "get_CachedIsContentElement", "get_CachedIsPassword", "get_CachedNativeWindowHandle", "get_CachedItemType", "get_CachedIsOffscreen", "get_CachedOrientation", "get_CachedFrameworkId", "get_CachedIsRequiredForForm", "get_CachedItemStatus", "get_CachedBoundingRectangle", "get_CachedLabeledBy", "get_CachedAriaRole", "get_CachedAriaProperties", "get_CachedIsDataValidForForm", "get_CachedControllerFor", "get_CachedDescribedBy", "get_CachedFlowsTo", "get_CachedProviderDescription", "GetClickablePoint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -532,7 +631,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst
      */
     FindFirst(scope, condition) {
-        result := ComCall(5, this, "int", scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
+        result := ComCall(5, this, TreeScope, scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationElement(found)
     }
 
@@ -556,7 +655,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findall
      */
     FindAll(scope, condition) {
-        result := ComCall(6, this, "int", scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
+        result := ComCall(6, this, TreeScope, scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationElementArray(found)
     }
 
@@ -585,7 +684,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirstbuildcache
      */
     FindFirstBuildCache(scope, condition, cacheRequest) {
-        result := ComCall(7, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
+        result := ComCall(7, this, TreeScope, scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationElement(found)
     }
 
@@ -612,7 +711,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findallbuildcache
      */
     FindAllBuildCache(scope, condition, cacheRequest) {
-        result := ComCall(8, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
+        result := ComCall(8, this, TreeScope, scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationElementArray(found)
     }
 
@@ -647,7 +746,7 @@ class IUIAutomationElement extends IUnknown {
      */
     GetCurrentPropertyValue(propertyId) {
         retVal := VARIANT()
-        result := ComCall(10, this, "int", propertyId, "ptr", retVal, "HRESULT")
+        result := ComCall(10, this, UIA_PROPERTY_ID, propertyId, VARIANT.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -674,7 +773,7 @@ class IUIAutomationElement extends IUnknown {
      */
     GetCurrentPropertyValueEx(propertyId, ignoreDefaultValue) {
         retVal := VARIANT()
-        result := ComCall(11, this, "int", propertyId, "int", ignoreDefaultValue, "ptr", retVal, "HRESULT")
+        result := ComCall(11, this, UIA_PROPERTY_ID, propertyId, BOOL, ignoreDefaultValue, VARIANT.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -692,7 +791,7 @@ class IUIAutomationElement extends IUnknown {
      */
     GetCachedPropertyValue(propertyId) {
         retVal := VARIANT()
-        result := ComCall(12, this, "int", propertyId, "ptr", retVal, "HRESULT")
+        result := ComCall(12, this, UIA_PROPERTY_ID, propertyId, VARIANT.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -721,7 +820,7 @@ class IUIAutomationElement extends IUnknown {
      */
     GetCachedPropertyValueEx(propertyId, ignoreDefaultValue) {
         retVal := VARIANT()
-        result := ComCall(13, this, "int", propertyId, "int", ignoreDefaultValue, "ptr", retVal, "HRESULT")
+        result := ComCall(13, this, UIA_PROPERTY_ID, propertyId, BOOL, ignoreDefaultValue, VARIANT.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -741,7 +840,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpatternas
      */
     GetCurrentPatternAs(patternId, riid) {
-        result := ComCall(14, this, "int", patternId, "ptr", riid, "ptr*", &patternObject := 0, "HRESULT")
+        result := ComCall(14, this, UIA_PATTERN_ID, patternId, Guid.Ptr, riid, "ptr*", &patternObject := 0, "HRESULT")
         return patternObject
     }
 
@@ -761,7 +860,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpatternas
      */
     GetCachedPatternAs(patternId, riid) {
-        result := ComCall(15, this, "int", patternId, "ptr", riid, "ptr*", &patternObject := 0, "HRESULT")
+        result := ComCall(15, this, UIA_PATTERN_ID, patternId, Guid.Ptr, riid, "ptr*", &patternObject := 0, "HRESULT")
         return patternObject
     }
 
@@ -780,7 +879,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpattern
      */
     GetCurrentPattern(patternId) {
-        result := ComCall(16, this, "int", patternId, "ptr*", &patternObject := 0, "HRESULT")
+        result := ComCall(16, this, UIA_PATTERN_ID, patternId, "ptr*", &patternObject := 0, "HRESULT")
         return IUnknown(patternObject)
     }
 
@@ -795,7 +894,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpattern
      */
     GetCachedPattern(patternId) {
-        result := ComCall(17, this, "int", patternId, "ptr*", &patternObject := 0, "HRESULT")
+        result := ComCall(17, this, UIA_PATTERN_ID, patternId, "ptr*", &patternObject := 0, "HRESULT")
         return IUnknown(patternObject)
     }
 
@@ -858,8 +957,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlocalizedcontroltype
      */
     get_CurrentLocalizedControlType() {
-        retVal := BSTR()
-        result := ComCall(22, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -871,8 +970,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentname
      */
     get_CurrentName() {
-        retVal := BSTR()
-        result := ComCall(23, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -882,8 +981,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentacceleratorkey
      */
     get_CurrentAcceleratorKey() {
-        retVal := BSTR()
-        result := ComCall(24, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -895,8 +994,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentaccesskey
      */
     get_CurrentAccessKey() {
-        retVal := BSTR()
-        result := ComCall(25, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -906,7 +1005,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthaskeyboardfocus
      */
     get_CurrentHasKeyboardFocus() {
-        result := ComCall(26, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(26, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -916,7 +1015,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiskeyboardfocusable
      */
     get_CurrentIsKeyboardFocusable() {
-        result := ComCall(27, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(27, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -926,7 +1025,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisenabled
      */
     get_CurrentIsEnabled() {
-        result := ComCall(28, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(28, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -938,8 +1037,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentautomationid
      */
     get_CurrentAutomationId() {
-        retVal := BSTR()
-        result := ComCall(29, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -951,8 +1050,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname
      */
     get_CurrentClassName() {
-        retVal := BSTR()
-        result := ComCall(30, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -967,8 +1066,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthelptext
      */
     get_CurrentHelpText() {
-        retVal := BSTR()
-        result := ComCall(31, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -988,7 +1087,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontrolelement
      */
     get_CurrentIsControlElement() {
-        result := ComCall(33, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(33, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1000,7 +1099,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontentelement
      */
     get_CurrentIsContentElement() {
-        result := ComCall(34, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(34, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1012,7 +1111,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentispassword
      */
     get_CurrentIsPassword() {
-        result := ComCall(35, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(35, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1023,7 +1122,7 @@ class IUIAutomationElement extends IUnknown {
      */
     get_CurrentNativeWindowHandle() {
         retVal := HWND()
-        result := ComCall(36, this, "ptr", retVal, "HRESULT")
+        result := ComCall(36, this, HWND.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1035,8 +1134,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemtype
      */
     get_CurrentItemType() {
-        retVal := BSTR()
-        result := ComCall(37, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1046,7 +1145,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisoffscreen
      */
     get_CurrentIsOffscreen() {
-        result := ComCall(38, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(38, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1068,8 +1167,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentframeworkid
      */
     get_CurrentFrameworkId() {
-        retVal := BSTR()
-        result := ComCall(40, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1079,7 +1178,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisrequiredforform
      */
     get_CurrentIsRequiredForForm() {
-        result := ComCall(41, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(41, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1091,8 +1190,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemstatus
      */
     get_CurrentItemStatus() {
-        retVal := BSTR()
-        result := ComCall(42, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(42, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1103,7 +1202,7 @@ class IUIAutomationElement extends IUnknown {
      */
     get_CurrentBoundingRectangle() {
         retVal := RECT()
-        result := ComCall(43, this, "ptr", retVal, "HRESULT")
+        result := ComCall(43, this, RECT.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1127,8 +1226,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariarole
      */
     get_CurrentAriaRole() {
-        retVal := BSTR()
-        result := ComCall(45, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(45, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1138,8 +1237,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariaproperties
      */
     get_CurrentAriaProperties() {
-        retVal := BSTR()
-        result := ComCall(46, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(46, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1149,7 +1248,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisdatavalidforform
      */
     get_CurrentIsDataValidForForm() {
-        result := ComCall(47, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(47, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1193,8 +1292,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentproviderdescription
      */
     get_CurrentProviderDescription() {
-        retVal := BSTR()
-        result := ComCall(51, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(51, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1226,8 +1325,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlocalizedcontroltype
      */
     get_CachedLocalizedControlType() {
-        retVal := BSTR()
-        result := ComCall(54, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1239,8 +1338,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedname
      */
     get_CachedName() {
-        retVal := BSTR()
-        result := ComCall(55, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(55, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1250,8 +1349,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedacceleratorkey
      */
     get_CachedAcceleratorKey() {
-        retVal := BSTR()
-        result := ComCall(56, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(56, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1263,8 +1362,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedaccesskey
      */
     get_CachedAccessKey() {
-        retVal := BSTR()
-        result := ComCall(57, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(57, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1274,7 +1373,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhaskeyboardfocus
      */
     get_CachedHasKeyboardFocus() {
-        result := ComCall(58, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(58, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1284,7 +1383,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediskeyboardfocusable
      */
     get_CachedIsKeyboardFocusable() {
-        result := ComCall(59, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(59, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1294,7 +1393,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisenabled
      */
     get_CachedIsEnabled() {
-        result := ComCall(60, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(60, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1306,8 +1405,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedautomationid
      */
     get_CachedAutomationId() {
-        retVal := BSTR()
-        result := ComCall(61, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(61, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1319,8 +1418,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname
      */
     get_CachedClassName() {
-        retVal := BSTR()
-        result := ComCall(62, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(62, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1335,8 +1434,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhelptext
      */
     get_CachedHelpText() {
-        retVal := BSTR()
-        result := ComCall(63, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(63, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1358,7 +1457,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontrolelement
      */
     get_CachedIsControlElement() {
-        result := ComCall(65, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(65, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1370,7 +1469,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontentelement
      */
     get_CachedIsContentElement() {
-        result := ComCall(66, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(66, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1382,7 +1481,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedispassword
      */
     get_CachedIsPassword() {
-        result := ComCall(67, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(67, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1393,7 +1492,7 @@ class IUIAutomationElement extends IUnknown {
      */
     get_CachedNativeWindowHandle() {
         retVal := HWND()
-        result := ComCall(68, this, "ptr", retVal, "HRESULT")
+        result := ComCall(68, this, HWND.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1405,8 +1504,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemtype
      */
     get_CachedItemType() {
-        retVal := BSTR()
-        result := ComCall(69, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(69, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1416,7 +1515,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisoffscreen
      */
     get_CachedIsOffscreen() {
-        result := ComCall(70, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(70, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1438,8 +1537,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedframeworkid
      */
     get_CachedFrameworkId() {
-        retVal := BSTR()
-        result := ComCall(72, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(72, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1449,7 +1548,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisrequiredforform
      */
     get_CachedIsRequiredForForm() {
-        result := ComCall(73, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(73, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1461,8 +1560,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemstatus
      */
     get_CachedItemStatus() {
-        retVal := BSTR()
-        result := ComCall(74, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(74, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1473,7 +1572,7 @@ class IUIAutomationElement extends IUnknown {
      */
     get_CachedBoundingRectangle() {
         retVal := RECT()
-        result := ComCall(75, this, "ptr", retVal, "HRESULT")
+        result := ComCall(75, this, RECT.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1497,8 +1596,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariarole
      */
     get_CachedAriaRole() {
-        retVal := BSTR()
-        result := ComCall(77, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(77, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1508,8 +1607,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariaproperties
      */
     get_CachedAriaProperties() {
-        retVal := BSTR()
-        result := ComCall(78, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(78, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1519,7 +1618,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisdatavalidforform
      */
     get_CachedIsDataValidForForm() {
-        result := ComCall(79, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(79, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -1563,8 +1662,8 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedproviderdescription
      */
     get_CachedProviderDescription() {
-        retVal := BSTR()
-        result := ComCall(83, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(83, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -1586,7 +1685,189 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getclickablepoint
      */
     GetClickablePoint(clickable) {
-        result := ComCall(84, this, "ptr", clickable, "int*", &gotClickable := 0, "HRESULT")
+        result := ComCall(84, this, POINT.Ptr, clickable, BOOL.Ptr, &gotClickable := 0, "HRESULT")
         return gotClickable
+    }
+
+    Query(iid) {
+        if (IUIAutomationElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.GetRuntimeId := CallbackCreate(GetMethod(implObj, "GetRuntimeId"), flags, 2)
+        this.vtbl.FindFirst := CallbackCreate(GetMethod(implObj, "FindFirst"), flags, 4)
+        this.vtbl.FindAll := CallbackCreate(GetMethod(implObj, "FindAll"), flags, 4)
+        this.vtbl.FindFirstBuildCache := CallbackCreate(GetMethod(implObj, "FindFirstBuildCache"), flags, 5)
+        this.vtbl.FindAllBuildCache := CallbackCreate(GetMethod(implObj, "FindAllBuildCache"), flags, 5)
+        this.vtbl.BuildUpdatedCache := CallbackCreate(GetMethod(implObj, "BuildUpdatedCache"), flags, 3)
+        this.vtbl.GetCurrentPropertyValue := CallbackCreate(GetMethod(implObj, "GetCurrentPropertyValue"), flags, 3)
+        this.vtbl.GetCurrentPropertyValueEx := CallbackCreate(GetMethod(implObj, "GetCurrentPropertyValueEx"), flags, 4)
+        this.vtbl.GetCachedPropertyValue := CallbackCreate(GetMethod(implObj, "GetCachedPropertyValue"), flags, 3)
+        this.vtbl.GetCachedPropertyValueEx := CallbackCreate(GetMethod(implObj, "GetCachedPropertyValueEx"), flags, 4)
+        this.vtbl.GetCurrentPatternAs := CallbackCreate(GetMethod(implObj, "GetCurrentPatternAs"), flags, 4)
+        this.vtbl.GetCachedPatternAs := CallbackCreate(GetMethod(implObj, "GetCachedPatternAs"), flags, 4)
+        this.vtbl.GetCurrentPattern := CallbackCreate(GetMethod(implObj, "GetCurrentPattern"), flags, 3)
+        this.vtbl.GetCachedPattern := CallbackCreate(GetMethod(implObj, "GetCachedPattern"), flags, 3)
+        this.vtbl.GetCachedParent := CallbackCreate(GetMethod(implObj, "GetCachedParent"), flags, 2)
+        this.vtbl.GetCachedChildren := CallbackCreate(GetMethod(implObj, "GetCachedChildren"), flags, 2)
+        this.vtbl.get_CurrentProcessId := CallbackCreate(GetMethod(implObj, "get_CurrentProcessId"), flags, 2)
+        this.vtbl.get_CurrentControlType := CallbackCreate(GetMethod(implObj, "get_CurrentControlType"), flags, 2)
+        this.vtbl.get_CurrentLocalizedControlType := CallbackCreate(GetMethod(implObj, "get_CurrentLocalizedControlType"), flags, 2)
+        this.vtbl.get_CurrentName := CallbackCreate(GetMethod(implObj, "get_CurrentName"), flags, 2)
+        this.vtbl.get_CurrentAcceleratorKey := CallbackCreate(GetMethod(implObj, "get_CurrentAcceleratorKey"), flags, 2)
+        this.vtbl.get_CurrentAccessKey := CallbackCreate(GetMethod(implObj, "get_CurrentAccessKey"), flags, 2)
+        this.vtbl.get_CurrentHasKeyboardFocus := CallbackCreate(GetMethod(implObj, "get_CurrentHasKeyboardFocus"), flags, 2)
+        this.vtbl.get_CurrentIsKeyboardFocusable := CallbackCreate(GetMethod(implObj, "get_CurrentIsKeyboardFocusable"), flags, 2)
+        this.vtbl.get_CurrentIsEnabled := CallbackCreate(GetMethod(implObj, "get_CurrentIsEnabled"), flags, 2)
+        this.vtbl.get_CurrentAutomationId := CallbackCreate(GetMethod(implObj, "get_CurrentAutomationId"), flags, 2)
+        this.vtbl.get_CurrentClassName := CallbackCreate(GetMethod(implObj, "get_CurrentClassName"), flags, 2)
+        this.vtbl.get_CurrentHelpText := CallbackCreate(GetMethod(implObj, "get_CurrentHelpText"), flags, 2)
+        this.vtbl.get_CurrentCulture := CallbackCreate(GetMethod(implObj, "get_CurrentCulture"), flags, 2)
+        this.vtbl.get_CurrentIsControlElement := CallbackCreate(GetMethod(implObj, "get_CurrentIsControlElement"), flags, 2)
+        this.vtbl.get_CurrentIsContentElement := CallbackCreate(GetMethod(implObj, "get_CurrentIsContentElement"), flags, 2)
+        this.vtbl.get_CurrentIsPassword := CallbackCreate(GetMethod(implObj, "get_CurrentIsPassword"), flags, 2)
+        this.vtbl.get_CurrentNativeWindowHandle := CallbackCreate(GetMethod(implObj, "get_CurrentNativeWindowHandle"), flags, 2)
+        this.vtbl.get_CurrentItemType := CallbackCreate(GetMethod(implObj, "get_CurrentItemType"), flags, 2)
+        this.vtbl.get_CurrentIsOffscreen := CallbackCreate(GetMethod(implObj, "get_CurrentIsOffscreen"), flags, 2)
+        this.vtbl.get_CurrentOrientation := CallbackCreate(GetMethod(implObj, "get_CurrentOrientation"), flags, 2)
+        this.vtbl.get_CurrentFrameworkId := CallbackCreate(GetMethod(implObj, "get_CurrentFrameworkId"), flags, 2)
+        this.vtbl.get_CurrentIsRequiredForForm := CallbackCreate(GetMethod(implObj, "get_CurrentIsRequiredForForm"), flags, 2)
+        this.vtbl.get_CurrentItemStatus := CallbackCreate(GetMethod(implObj, "get_CurrentItemStatus"), flags, 2)
+        this.vtbl.get_CurrentBoundingRectangle := CallbackCreate(GetMethod(implObj, "get_CurrentBoundingRectangle"), flags, 2)
+        this.vtbl.get_CurrentLabeledBy := CallbackCreate(GetMethod(implObj, "get_CurrentLabeledBy"), flags, 2)
+        this.vtbl.get_CurrentAriaRole := CallbackCreate(GetMethod(implObj, "get_CurrentAriaRole"), flags, 2)
+        this.vtbl.get_CurrentAriaProperties := CallbackCreate(GetMethod(implObj, "get_CurrentAriaProperties"), flags, 2)
+        this.vtbl.get_CurrentIsDataValidForForm := CallbackCreate(GetMethod(implObj, "get_CurrentIsDataValidForForm"), flags, 2)
+        this.vtbl.get_CurrentControllerFor := CallbackCreate(GetMethod(implObj, "get_CurrentControllerFor"), flags, 2)
+        this.vtbl.get_CurrentDescribedBy := CallbackCreate(GetMethod(implObj, "get_CurrentDescribedBy"), flags, 2)
+        this.vtbl.get_CurrentFlowsTo := CallbackCreate(GetMethod(implObj, "get_CurrentFlowsTo"), flags, 2)
+        this.vtbl.get_CurrentProviderDescription := CallbackCreate(GetMethod(implObj, "get_CurrentProviderDescription"), flags, 2)
+        this.vtbl.get_CachedProcessId := CallbackCreate(GetMethod(implObj, "get_CachedProcessId"), flags, 2)
+        this.vtbl.get_CachedControlType := CallbackCreate(GetMethod(implObj, "get_CachedControlType"), flags, 2)
+        this.vtbl.get_CachedLocalizedControlType := CallbackCreate(GetMethod(implObj, "get_CachedLocalizedControlType"), flags, 2)
+        this.vtbl.get_CachedName := CallbackCreate(GetMethod(implObj, "get_CachedName"), flags, 2)
+        this.vtbl.get_CachedAcceleratorKey := CallbackCreate(GetMethod(implObj, "get_CachedAcceleratorKey"), flags, 2)
+        this.vtbl.get_CachedAccessKey := CallbackCreate(GetMethod(implObj, "get_CachedAccessKey"), flags, 2)
+        this.vtbl.get_CachedHasKeyboardFocus := CallbackCreate(GetMethod(implObj, "get_CachedHasKeyboardFocus"), flags, 2)
+        this.vtbl.get_CachedIsKeyboardFocusable := CallbackCreate(GetMethod(implObj, "get_CachedIsKeyboardFocusable"), flags, 2)
+        this.vtbl.get_CachedIsEnabled := CallbackCreate(GetMethod(implObj, "get_CachedIsEnabled"), flags, 2)
+        this.vtbl.get_CachedAutomationId := CallbackCreate(GetMethod(implObj, "get_CachedAutomationId"), flags, 2)
+        this.vtbl.get_CachedClassName := CallbackCreate(GetMethod(implObj, "get_CachedClassName"), flags, 2)
+        this.vtbl.get_CachedHelpText := CallbackCreate(GetMethod(implObj, "get_CachedHelpText"), flags, 2)
+        this.vtbl.get_CachedCulture := CallbackCreate(GetMethod(implObj, "get_CachedCulture"), flags, 2)
+        this.vtbl.get_CachedIsControlElement := CallbackCreate(GetMethod(implObj, "get_CachedIsControlElement"), flags, 2)
+        this.vtbl.get_CachedIsContentElement := CallbackCreate(GetMethod(implObj, "get_CachedIsContentElement"), flags, 2)
+        this.vtbl.get_CachedIsPassword := CallbackCreate(GetMethod(implObj, "get_CachedIsPassword"), flags, 2)
+        this.vtbl.get_CachedNativeWindowHandle := CallbackCreate(GetMethod(implObj, "get_CachedNativeWindowHandle"), flags, 2)
+        this.vtbl.get_CachedItemType := CallbackCreate(GetMethod(implObj, "get_CachedItemType"), flags, 2)
+        this.vtbl.get_CachedIsOffscreen := CallbackCreate(GetMethod(implObj, "get_CachedIsOffscreen"), flags, 2)
+        this.vtbl.get_CachedOrientation := CallbackCreate(GetMethod(implObj, "get_CachedOrientation"), flags, 2)
+        this.vtbl.get_CachedFrameworkId := CallbackCreate(GetMethod(implObj, "get_CachedFrameworkId"), flags, 2)
+        this.vtbl.get_CachedIsRequiredForForm := CallbackCreate(GetMethod(implObj, "get_CachedIsRequiredForForm"), flags, 2)
+        this.vtbl.get_CachedItemStatus := CallbackCreate(GetMethod(implObj, "get_CachedItemStatus"), flags, 2)
+        this.vtbl.get_CachedBoundingRectangle := CallbackCreate(GetMethod(implObj, "get_CachedBoundingRectangle"), flags, 2)
+        this.vtbl.get_CachedLabeledBy := CallbackCreate(GetMethod(implObj, "get_CachedLabeledBy"), flags, 2)
+        this.vtbl.get_CachedAriaRole := CallbackCreate(GetMethod(implObj, "get_CachedAriaRole"), flags, 2)
+        this.vtbl.get_CachedAriaProperties := CallbackCreate(GetMethod(implObj, "get_CachedAriaProperties"), flags, 2)
+        this.vtbl.get_CachedIsDataValidForForm := CallbackCreate(GetMethod(implObj, "get_CachedIsDataValidForForm"), flags, 2)
+        this.vtbl.get_CachedControllerFor := CallbackCreate(GetMethod(implObj, "get_CachedControllerFor"), flags, 2)
+        this.vtbl.get_CachedDescribedBy := CallbackCreate(GetMethod(implObj, "get_CachedDescribedBy"), flags, 2)
+        this.vtbl.get_CachedFlowsTo := CallbackCreate(GetMethod(implObj, "get_CachedFlowsTo"), flags, 2)
+        this.vtbl.get_CachedProviderDescription := CallbackCreate(GetMethod(implObj, "get_CachedProviderDescription"), flags, 2)
+        this.vtbl.GetClickablePoint := CallbackCreate(GetMethod(implObj, "GetClickablePoint"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.GetRuntimeId)
+        CallbackFree(this.vtbl.FindFirst)
+        CallbackFree(this.vtbl.FindAll)
+        CallbackFree(this.vtbl.FindFirstBuildCache)
+        CallbackFree(this.vtbl.FindAllBuildCache)
+        CallbackFree(this.vtbl.BuildUpdatedCache)
+        CallbackFree(this.vtbl.GetCurrentPropertyValue)
+        CallbackFree(this.vtbl.GetCurrentPropertyValueEx)
+        CallbackFree(this.vtbl.GetCachedPropertyValue)
+        CallbackFree(this.vtbl.GetCachedPropertyValueEx)
+        CallbackFree(this.vtbl.GetCurrentPatternAs)
+        CallbackFree(this.vtbl.GetCachedPatternAs)
+        CallbackFree(this.vtbl.GetCurrentPattern)
+        CallbackFree(this.vtbl.GetCachedPattern)
+        CallbackFree(this.vtbl.GetCachedParent)
+        CallbackFree(this.vtbl.GetCachedChildren)
+        CallbackFree(this.vtbl.get_CurrentProcessId)
+        CallbackFree(this.vtbl.get_CurrentControlType)
+        CallbackFree(this.vtbl.get_CurrentLocalizedControlType)
+        CallbackFree(this.vtbl.get_CurrentName)
+        CallbackFree(this.vtbl.get_CurrentAcceleratorKey)
+        CallbackFree(this.vtbl.get_CurrentAccessKey)
+        CallbackFree(this.vtbl.get_CurrentHasKeyboardFocus)
+        CallbackFree(this.vtbl.get_CurrentIsKeyboardFocusable)
+        CallbackFree(this.vtbl.get_CurrentIsEnabled)
+        CallbackFree(this.vtbl.get_CurrentAutomationId)
+        CallbackFree(this.vtbl.get_CurrentClassName)
+        CallbackFree(this.vtbl.get_CurrentHelpText)
+        CallbackFree(this.vtbl.get_CurrentCulture)
+        CallbackFree(this.vtbl.get_CurrentIsControlElement)
+        CallbackFree(this.vtbl.get_CurrentIsContentElement)
+        CallbackFree(this.vtbl.get_CurrentIsPassword)
+        CallbackFree(this.vtbl.get_CurrentNativeWindowHandle)
+        CallbackFree(this.vtbl.get_CurrentItemType)
+        CallbackFree(this.vtbl.get_CurrentIsOffscreen)
+        CallbackFree(this.vtbl.get_CurrentOrientation)
+        CallbackFree(this.vtbl.get_CurrentFrameworkId)
+        CallbackFree(this.vtbl.get_CurrentIsRequiredForForm)
+        CallbackFree(this.vtbl.get_CurrentItemStatus)
+        CallbackFree(this.vtbl.get_CurrentBoundingRectangle)
+        CallbackFree(this.vtbl.get_CurrentLabeledBy)
+        CallbackFree(this.vtbl.get_CurrentAriaRole)
+        CallbackFree(this.vtbl.get_CurrentAriaProperties)
+        CallbackFree(this.vtbl.get_CurrentIsDataValidForForm)
+        CallbackFree(this.vtbl.get_CurrentControllerFor)
+        CallbackFree(this.vtbl.get_CurrentDescribedBy)
+        CallbackFree(this.vtbl.get_CurrentFlowsTo)
+        CallbackFree(this.vtbl.get_CurrentProviderDescription)
+        CallbackFree(this.vtbl.get_CachedProcessId)
+        CallbackFree(this.vtbl.get_CachedControlType)
+        CallbackFree(this.vtbl.get_CachedLocalizedControlType)
+        CallbackFree(this.vtbl.get_CachedName)
+        CallbackFree(this.vtbl.get_CachedAcceleratorKey)
+        CallbackFree(this.vtbl.get_CachedAccessKey)
+        CallbackFree(this.vtbl.get_CachedHasKeyboardFocus)
+        CallbackFree(this.vtbl.get_CachedIsKeyboardFocusable)
+        CallbackFree(this.vtbl.get_CachedIsEnabled)
+        CallbackFree(this.vtbl.get_CachedAutomationId)
+        CallbackFree(this.vtbl.get_CachedClassName)
+        CallbackFree(this.vtbl.get_CachedHelpText)
+        CallbackFree(this.vtbl.get_CachedCulture)
+        CallbackFree(this.vtbl.get_CachedIsControlElement)
+        CallbackFree(this.vtbl.get_CachedIsContentElement)
+        CallbackFree(this.vtbl.get_CachedIsPassword)
+        CallbackFree(this.vtbl.get_CachedNativeWindowHandle)
+        CallbackFree(this.vtbl.get_CachedItemType)
+        CallbackFree(this.vtbl.get_CachedIsOffscreen)
+        CallbackFree(this.vtbl.get_CachedOrientation)
+        CallbackFree(this.vtbl.get_CachedFrameworkId)
+        CallbackFree(this.vtbl.get_CachedIsRequiredForForm)
+        CallbackFree(this.vtbl.get_CachedItemStatus)
+        CallbackFree(this.vtbl.get_CachedBoundingRectangle)
+        CallbackFree(this.vtbl.get_CachedLabeledBy)
+        CallbackFree(this.vtbl.get_CachedAriaRole)
+        CallbackFree(this.vtbl.get_CachedAriaProperties)
+        CallbackFree(this.vtbl.get_CachedIsDataValidForForm)
+        CallbackFree(this.vtbl.get_CachedControllerFor)
+        CallbackFree(this.vtbl.get_CachedDescribedBy)
+        CallbackFree(this.vtbl.get_CachedFlowsTo)
+        CallbackFree(this.vtbl.get_CachedProviderDescription)
+        CallbackFree(this.vtbl.GetClickablePoint)
     }
 }

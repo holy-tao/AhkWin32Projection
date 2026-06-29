@@ -1,291 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_X64_REGISTER_STATE extends Win32Struct {
-    static sizeof => 232
+export default struct WHEA_X64_REGISTER_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    Rax : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rax {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Rbx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rbx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Rcx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rcx {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Rdx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rdx {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Rsi : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rsi {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Rdi : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rdi {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Rbp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rbp {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Rsp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rsp {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    R8 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R8 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    R9 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R9 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    R10 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R10 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    R11 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R11 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    R12 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R12 {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    R13 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R13 {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    R14 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R14 {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    R15 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    R15 {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    Cs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Cs {
-        get => NumGet(this, 128, "ushort")
-        set => NumPut("ushort", value, this, 128)
-    }
+    Ds : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Ds {
-        get => NumGet(this, 130, "ushort")
-        set => NumPut("ushort", value, this, 130)
-    }
+    Ss : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Ss {
-        get => NumGet(this, 132, "ushort")
-        set => NumPut("ushort", value, this, 132)
-    }
+    Es : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Es {
-        get => NumGet(this, 134, "ushort")
-        set => NumPut("ushort", value, this, 134)
-    }
+    Fs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Fs {
-        get => NumGet(this, 136, "ushort")
-        set => NumPut("ushort", value, this, 136)
-    }
+    Gs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Gs {
-        get => NumGet(this, 138, "ushort")
-        set => NumPut("ushort", value, this, 138)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    Rflags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rflags {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    Eip : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Eip {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    Cr0 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cr0 {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    Cr1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cr1 {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    Cr2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cr2 {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    Cr3 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cr3 {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    Cr4 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cr4 {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    Cr8 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cr8 {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    Gdtr : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Gdtr {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    Idtr : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Idtr {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    Ldtr : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Ldtr {
-        get => NumGet(this, 224, "ushort")
-        set => NumPut("ushort", value, this, 224)
-    }
+    Tr : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Tr {
-        get => NumGet(this, 226, "ushort")
-        set => NumPut("ushort", value, this, 226)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains data for a specific WebSocket action.
@@ -8,80 +7,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/websocket/ns-websocket-web_socket_buffer
  * @namespace Windows.Win32.Networking.WebSocket
  */
-class WEB_SOCKET_BUFFER extends Win32Struct {
-    static sizeof => 32
+export default struct WEB_SOCKET_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Data extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _Data {
+        pbBuffer : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pbBuffer {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        ulBufferLength : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ulBufferLength {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    class _CloseStatus extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _CloseStatus {
+        pbReason : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pbReason {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        ulReasonLength : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ulReasonLength {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        usStatus : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        usStatus {
-            get => NumGet(this, 12, "ushort")
-            set => NumPut("ushort", value, this, 12)
-        }
     }
 
-    /**
-     * @type {_Data}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := WEB_SOCKET_BUFFER._Data(0, this)
-            return this.__Data
-        }
-    }
+    Data : WEB_SOCKET_BUFFER._Data
 
-    /**
-     * @type {_CloseStatus}
-     */
-    CloseStatus {
-        get {
-            if(!this.HasProp("__CloseStatus"))
-                this.__CloseStatus := WEB_SOCKET_BUFFER._CloseStatus(0, this)
-            return this.__CloseStatus
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'CloseStatus', { type: WEB_SOCKET_BUFFER._CloseStatus, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

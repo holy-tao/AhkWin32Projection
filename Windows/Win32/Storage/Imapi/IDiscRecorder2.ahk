@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * This interface represents a physical device. You use this interface to retrieve information about a CD and DVD device installed on the computer and to perform operations such as closing the tray or eject the media.
@@ -15,26 +18,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscrecorder2
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscRecorder2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDiscRecorder2 extends IDispatch {
     /**
      * The interface identifier for IDiscRecorder2
      * @type {Guid}
      */
-    static IID => Guid("{27354133-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354133-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscRecorder2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        EjectMedia                : IntPtr
+        CloseTray                 : IntPtr
+        AcquireExclusiveAccess    : IntPtr
+        ReleaseExclusiveAccess    : IntPtr
+        DisableMcn                : IntPtr
+        EnableMcn                 : IntPtr
+        InitializeDiscRecorder    : IntPtr
+        get_ActiveDiscRecorder    : IntPtr
+        get_VendorId              : IntPtr
+        get_ProductId             : IntPtr
+        get_ProductRevision       : IntPtr
+        get_VolumeName            : IntPtr
+        get_VolumePathNames       : IntPtr
+        get_DeviceCanLoadMedia    : IntPtr
+        get_LegacyDeviceNumber    : IntPtr
+        get_SupportedFeaturePages : IntPtr
+        get_CurrentFeaturePages   : IntPtr
+        get_SupportedProfiles     : IntPtr
+        get_CurrentProfiles       : IntPtr
+        get_SupportedModePages    : IntPtr
+        get_ExclusiveAccessOwner  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EjectMedia", "CloseTray", "AcquireExclusiveAccess", "ReleaseExclusiveAccess", "DisableMcn", "EnableMcn", "InitializeDiscRecorder", "get_ActiveDiscRecorder", "get_VendorId", "get_ProductId", "get_ProductRevision", "get_VolumeName", "get_VolumePathNames", "get_DeviceCanLoadMedia", "get_LegacyDeviceNumber", "get_SupportedFeaturePages", "get_CurrentFeaturePages", "get_SupportedProfiles", "get_CurrentProfiles", "get_SupportedModePages", "get_ExclusiveAccessOwner"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscRecorder2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -848,7 +878,7 @@ class IDiscRecorder2 extends IDispatch {
     AcquireExclusiveAccess(force, __MIDL__IDiscRecorder20000) {
         __MIDL__IDiscRecorder20000 := __MIDL__IDiscRecorder20000 is String ? BSTR.Alloc(__MIDL__IDiscRecorder20000).Value : __MIDL__IDiscRecorder20000
 
-        result := ComCall(9, this, "short", force, "ptr", __MIDL__IDiscRecorder20000, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, force, BSTR, __MIDL__IDiscRecorder20000, "HRESULT")
         return result
     }
 
@@ -1446,7 +1476,7 @@ class IDiscRecorder2 extends IDispatch {
     InitializeDiscRecorder(recorderUniqueId) {
         recorderUniqueId := recorderUniqueId is String ? BSTR.Alloc(recorderUniqueId).Value : recorderUniqueId
 
-        result := ComCall(13, this, "ptr", recorderUniqueId, "HRESULT")
+        result := ComCall(13, this, BSTR, recorderUniqueId, "HRESULT")
         return result
     }
 
@@ -1456,8 +1486,8 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_activediscrecorder
      */
     get_ActiveDiscRecorder() {
-        value := BSTR()
-        result := ComCall(14, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -1467,8 +1497,8 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_vendorid
      */
     get_VendorId() {
-        value := BSTR()
-        result := ComCall(15, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -1478,8 +1508,8 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_productid
      */
     get_ProductId() {
-        value := BSTR()
-        result := ComCall(16, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -1489,8 +1519,8 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_productrevision
      */
     get_ProductRevision() {
-        value := BSTR()
-        result := ComCall(17, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -1502,8 +1532,8 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_volumename
      */
     get_VolumeName() {
-        value := BSTR()
-        result := ComCall(18, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -1526,7 +1556,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_devicecanloadmedia
      */
     get_DeviceCanLoadMedia() {
-        result := ComCall(20, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -1600,8 +1630,68 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner
      */
     get_ExclusiveAccessOwner() {
-        value := BSTR()
-        result := ComCall(27, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, value, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IDiscRecorder2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EjectMedia := CallbackCreate(GetMethod(implObj, "EjectMedia"), flags, 1)
+        this.vtbl.CloseTray := CallbackCreate(GetMethod(implObj, "CloseTray"), flags, 1)
+        this.vtbl.AcquireExclusiveAccess := CallbackCreate(GetMethod(implObj, "AcquireExclusiveAccess"), flags, 3)
+        this.vtbl.ReleaseExclusiveAccess := CallbackCreate(GetMethod(implObj, "ReleaseExclusiveAccess"), flags, 1)
+        this.vtbl.DisableMcn := CallbackCreate(GetMethod(implObj, "DisableMcn"), flags, 1)
+        this.vtbl.EnableMcn := CallbackCreate(GetMethod(implObj, "EnableMcn"), flags, 1)
+        this.vtbl.InitializeDiscRecorder := CallbackCreate(GetMethod(implObj, "InitializeDiscRecorder"), flags, 2)
+        this.vtbl.get_ActiveDiscRecorder := CallbackCreate(GetMethod(implObj, "get_ActiveDiscRecorder"), flags, 2)
+        this.vtbl.get_VendorId := CallbackCreate(GetMethod(implObj, "get_VendorId"), flags, 2)
+        this.vtbl.get_ProductId := CallbackCreate(GetMethod(implObj, "get_ProductId"), flags, 2)
+        this.vtbl.get_ProductRevision := CallbackCreate(GetMethod(implObj, "get_ProductRevision"), flags, 2)
+        this.vtbl.get_VolumeName := CallbackCreate(GetMethod(implObj, "get_VolumeName"), flags, 2)
+        this.vtbl.get_VolumePathNames := CallbackCreate(GetMethod(implObj, "get_VolumePathNames"), flags, 2)
+        this.vtbl.get_DeviceCanLoadMedia := CallbackCreate(GetMethod(implObj, "get_DeviceCanLoadMedia"), flags, 2)
+        this.vtbl.get_LegacyDeviceNumber := CallbackCreate(GetMethod(implObj, "get_LegacyDeviceNumber"), flags, 2)
+        this.vtbl.get_SupportedFeaturePages := CallbackCreate(GetMethod(implObj, "get_SupportedFeaturePages"), flags, 2)
+        this.vtbl.get_CurrentFeaturePages := CallbackCreate(GetMethod(implObj, "get_CurrentFeaturePages"), flags, 2)
+        this.vtbl.get_SupportedProfiles := CallbackCreate(GetMethod(implObj, "get_SupportedProfiles"), flags, 2)
+        this.vtbl.get_CurrentProfiles := CallbackCreate(GetMethod(implObj, "get_CurrentProfiles"), flags, 2)
+        this.vtbl.get_SupportedModePages := CallbackCreate(GetMethod(implObj, "get_SupportedModePages"), flags, 2)
+        this.vtbl.get_ExclusiveAccessOwner := CallbackCreate(GetMethod(implObj, "get_ExclusiveAccessOwner"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EjectMedia)
+        CallbackFree(this.vtbl.CloseTray)
+        CallbackFree(this.vtbl.AcquireExclusiveAccess)
+        CallbackFree(this.vtbl.ReleaseExclusiveAccess)
+        CallbackFree(this.vtbl.DisableMcn)
+        CallbackFree(this.vtbl.EnableMcn)
+        CallbackFree(this.vtbl.InitializeDiscRecorder)
+        CallbackFree(this.vtbl.get_ActiveDiscRecorder)
+        CallbackFree(this.vtbl.get_VendorId)
+        CallbackFree(this.vtbl.get_ProductId)
+        CallbackFree(this.vtbl.get_ProductRevision)
+        CallbackFree(this.vtbl.get_VolumeName)
+        CallbackFree(this.vtbl.get_VolumePathNames)
+        CallbackFree(this.vtbl.get_DeviceCanLoadMedia)
+        CallbackFree(this.vtbl.get_LegacyDeviceNumber)
+        CallbackFree(this.vtbl.get_SupportedFeaturePages)
+        CallbackFree(this.vtbl.get_CurrentFeaturePages)
+        CallbackFree(this.vtbl.get_SupportedProfiles)
+        CallbackFree(this.vtbl.get_CurrentProfiles)
+        CallbackFree(this.vtbl.get_SupportedModePages)
+        CallbackFree(this.vtbl.get_ExclusiveAccessOwner)
     }
 }

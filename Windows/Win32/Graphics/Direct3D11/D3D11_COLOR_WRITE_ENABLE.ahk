@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identify which components of each pixel of a render target are writable during blending. (D3D11_COLOR_WRITE_ENABLE)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_color_write_enable
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_COLOR_WRITE_ENABLE extends Win32Enum {
+export default struct D3D11_COLOR_WRITE_ENABLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Allow data to be stored in the red component.

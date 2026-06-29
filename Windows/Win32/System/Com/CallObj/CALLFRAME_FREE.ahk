@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the parameter type to be freed. (CALLFRAME_FREE)
  * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_free
  * @namespace Windows.Win32.System.Com.CallObj
  */
-class CALLFRAME_FREE extends Win32Enum {
+export default struct CALLFRAME_FREE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No values are freed.

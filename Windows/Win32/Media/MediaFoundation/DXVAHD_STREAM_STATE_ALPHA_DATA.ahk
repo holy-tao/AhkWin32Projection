@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the planar alpha value for an input stream, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -25,28 +25,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_alpha_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_ALPHA_DATA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DXVAHD_STREAM_STATE_ALPHA_DATA {
+    #StructPack 4
 
     /**
      * <b>If TRUE</b>, alpha blending is enabled. Otherwise, alpha blending is disabled. The default state value is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * Specifies the planar alpha value as a floating-point number from 0.0 (transparent) to 1.0 (opaque). 
      * 
      * If the <b>Enable</b> member is <b>FALSE</b>, this member is ignored.
-     * @type {Float}
      */
-    Alpha {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Alpha : Float32
+
 }

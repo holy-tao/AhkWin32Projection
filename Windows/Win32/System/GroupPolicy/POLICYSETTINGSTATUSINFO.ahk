@@ -1,82 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SETTINGSTATUS.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\SETTINGSTATUS.ahk" { SETTINGSTATUS }
 
 /**
  * The POLICYSETTINGSTATUSINFO structure provides information about a policy-setting event.
  * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-policysettingstatusinfo
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class POLICYSETTINGSTATUSINFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct POLICYSETTINGSTATUSINFO {
+    #StructPack 8
 
     /**
      * This member is optional. If it is <b>NULL</b>, the system generates a value.
-     * @type {PWSTR}
      */
-    szKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szKey : PWSTR
 
     /**
      * Pointer to a string specifying the name of the source (application, service, driver, subsystem) that generated the log entry.
-     * @type {PWSTR}
      */
-    szEventSource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szEventSource : PWSTR
 
     /**
      * Pointer to a string specifying the name of the event log.
-     * @type {PWSTR}
      */
-    szEventLogName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szEventLogName : PWSTR
 
     /**
      * Specifies the event log message ID.
-     * @type {Integer}
      */
-    dwEventID {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwEventID : UInt32
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> that indicates an error that occurred during the application of the policy setting.
-     * @type {Integer}
      */
-    dwErrorCode {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwErrorCode : UInt32
 
-    /**
-     * @type {SETTINGSTATUS}
-     */
-    status {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    status : SETTINGSTATUS
 
     /**
      * Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that indicates the time at which the source generated the event.
-     * @type {SYSTEMTIME}
      */
-    timeLogged {
-        get {
-            if(!this.HasProp("__timeLogged"))
-                this.__timeLogged := SYSTEMTIME(36, this)
-            return this.__timeLogged
-        }
-    }
+    timeLogged : SYSTEMTIME
+
 }

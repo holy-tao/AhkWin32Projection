@@ -1,33 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IStreamSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IStreamSample.ahk" { IStreamSample }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-iammediatypesample
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMMediaTypeSample extends IStreamSample {
-
-    static sizeof => A_PtrSize
+export default struct IAMMediaTypeSample extends IStreamSample {
     /**
      * The interface identifier for IAMMediaTypeSample
      * @type {Guid}
      */
-    static IID => Guid("{ab6b4afb-f6e4-11d0-900d-00c04fd9189d}")
+    static IID := Guid("{ab6b4afb-f6e4-11d0-900d-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMMediaTypeSample interfaces
+    */
+    struct Vtbl extends IStreamSample.Vtbl {
+        SetPointer          : IntPtr
+        GetPointer          : IntPtr
+        GetSize             : IntPtr
+        GetTime             : IntPtr
+        SetTime             : IntPtr
+        IsSyncPoint         : IntPtr
+        SetSyncPoint        : IntPtr
+        IsPreroll           : IntPtr
+        SetPreroll          : IntPtr
+        GetActualDataLength : IntPtr
+        SetActualDataLength : IntPtr
+        GetMediaType        : IntPtr
+        SetMediaType        : IntPtr
+        IsDiscontinuity     : IntPtr
+        SetDiscontinuity    : IntPtr
+        GetMediaTime        : IntPtr
+        SetMediaTime        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPointer", "GetPointer", "GetSize", "GetTime", "SetTime", "IsSyncPoint", "SetSyncPoint", "IsPreroll", "SetPreroll", "GetActualDataLength", "SetActualDataLength", "GetMediaType", "SetMediaType", "IsDiscontinuity", "SetDiscontinuity", "GetMediaTime", "SetMediaTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMMediaTypeSample.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The SetPointer method sets the pointer to the media sample's memory buffer.
@@ -90,7 +116,7 @@ class IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-getsize
      */
     GetSize() {
-        result := ComCall(10, this, "int")
+        result := ComCall(10, this, Int32)
         return result
     }
 
@@ -181,7 +207,7 @@ class IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setsyncpoint
      */
     SetSyncPoint(bIsSyncPoint) {
-        result := ComCall(14, this, "int", bIsSyncPoint, "HRESULT")
+        result := ComCall(14, this, BOOL, bIsSyncPoint, "HRESULT")
         return result
     }
 
@@ -202,7 +228,7 @@ class IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setpreroll
      */
     SetPreroll(bIsPreroll) {
-        result := ComCall(16, this, "int", bIsPreroll, "HRESULT")
+        result := ComCall(16, this, BOOL, bIsPreroll, "HRESULT")
         return result
     }
 
@@ -212,7 +238,7 @@ class IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-getactualdatalength
      */
     GetActualDataLength() {
-        result := ComCall(17, this, "int")
+        result := ComCall(17, this, Int32)
         return result
     }
 
@@ -302,7 +328,7 @@ class IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setmediatype
      */
     SetMediaType(pMediaType) {
-        result := ComCall(20, this, "ptr", pMediaType, "HRESULT")
+        result := ComCall(20, this, AM_MEDIA_TYPE.Ptr, pMediaType, "HRESULT")
         return result
     }
 
@@ -323,7 +349,7 @@ class IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setdiscontinuity
      */
     SetDiscontinuity(bDiscontinuity) {
-        result := ComCall(22, this, "int", bDiscontinuity, "HRESULT")
+        result := ComCall(22, this, BOOL, bDiscontinuity, "HRESULT")
         return result
     }
 
@@ -384,5 +410,57 @@ class IAMMediaTypeSample extends IStreamSample {
 
         result := ComCall(24, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMMediaTypeSample.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPointer := CallbackCreate(GetMethod(implObj, "SetPointer"), flags, 3)
+        this.vtbl.GetPointer := CallbackCreate(GetMethod(implObj, "GetPointer"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 1)
+        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 3)
+        this.vtbl.SetTime := CallbackCreate(GetMethod(implObj, "SetTime"), flags, 3)
+        this.vtbl.IsSyncPoint := CallbackCreate(GetMethod(implObj, "IsSyncPoint"), flags, 1)
+        this.vtbl.SetSyncPoint := CallbackCreate(GetMethod(implObj, "SetSyncPoint"), flags, 2)
+        this.vtbl.IsPreroll := CallbackCreate(GetMethod(implObj, "IsPreroll"), flags, 1)
+        this.vtbl.SetPreroll := CallbackCreate(GetMethod(implObj, "SetPreroll"), flags, 2)
+        this.vtbl.GetActualDataLength := CallbackCreate(GetMethod(implObj, "GetActualDataLength"), flags, 1)
+        this.vtbl.SetActualDataLength := CallbackCreate(GetMethod(implObj, "SetActualDataLength"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 2)
+        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
+        this.vtbl.IsDiscontinuity := CallbackCreate(GetMethod(implObj, "IsDiscontinuity"), flags, 1)
+        this.vtbl.SetDiscontinuity := CallbackCreate(GetMethod(implObj, "SetDiscontinuity"), flags, 2)
+        this.vtbl.GetMediaTime := CallbackCreate(GetMethod(implObj, "GetMediaTime"), flags, 3)
+        this.vtbl.SetMediaTime := CallbackCreate(GetMethod(implObj, "SetMediaTime"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPointer)
+        CallbackFree(this.vtbl.GetPointer)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetTime)
+        CallbackFree(this.vtbl.SetTime)
+        CallbackFree(this.vtbl.IsSyncPoint)
+        CallbackFree(this.vtbl.SetSyncPoint)
+        CallbackFree(this.vtbl.IsPreroll)
+        CallbackFree(this.vtbl.SetPreroll)
+        CallbackFree(this.vtbl.GetActualDataLength)
+        CallbackFree(this.vtbl.SetActualDataLength)
+        CallbackFree(this.vtbl.GetMediaType)
+        CallbackFree(this.vtbl.SetMediaType)
+        CallbackFree(this.vtbl.IsDiscontinuity)
+        CallbackFree(this.vtbl.SetDiscontinuity)
+        CallbackFree(this.vtbl.GetMediaTime)
+        CallbackFree(this.vtbl.SetMediaTime)
     }
 }

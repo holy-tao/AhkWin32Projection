@@ -1,31 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRStrongName extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRStrongName extends IUnknown {
     /**
      * The interface identifier for ICLRStrongName
      * @type {Guid}
      */
-    static IID => Guid("{9fd93ccf-3280-4391-b3a9-96e1cde77c8d}")
+    static IID := Guid("{9fd93ccf-3280-4391-b3a9-96e1cde77c8d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRStrongName interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetHashFromAssemblyFile                  : IntPtr
+        GetHashFromAssemblyFileW                 : IntPtr
+        GetHashFromBlob                          : IntPtr
+        GetHashFromFile                          : IntPtr
+        GetHashFromFileW                         : IntPtr
+        GetHashFromHandle                        : IntPtr
+        StrongNameCompareAssemblies              : IntPtr
+        StrongNameFreeBuffer                     : IntPtr
+        StrongNameGetBlob                        : IntPtr
+        StrongNameGetBlobFromImage               : IntPtr
+        StrongNameGetPublicKey                   : IntPtr
+        StrongNameHashSize                       : IntPtr
+        StrongNameKeyDelete                      : IntPtr
+        StrongNameKeyGen                         : IntPtr
+        StrongNameKeyGenEx                       : IntPtr
+        StrongNameKeyInstall                     : IntPtr
+        StrongNameSignatureGeneration            : IntPtr
+        StrongNameSignatureGenerationEx          : IntPtr
+        StrongNameSignatureSize                  : IntPtr
+        StrongNameSignatureVerification          : IntPtr
+        StrongNameSignatureVerificationEx        : IntPtr
+        StrongNameSignatureVerificationFromImage : IntPtr
+        StrongNameTokenFromAssembly              : IntPtr
+        StrongNameTokenFromAssemblyEx            : IntPtr
+        StrongNameTokenFromPublicKey             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetHashFromAssemblyFile", "GetHashFromAssemblyFileW", "GetHashFromBlob", "GetHashFromFile", "GetHashFromFileW", "GetHashFromHandle", "StrongNameCompareAssemblies", "StrongNameFreeBuffer", "StrongNameGetBlob", "StrongNameGetBlobFromImage", "StrongNameGetPublicKey", "StrongNameHashSize", "StrongNameKeyDelete", "StrongNameKeyGen", "StrongNameKeyGenEx", "StrongNameKeyInstall", "StrongNameSignatureGeneration", "StrongNameSignatureGenerationEx", "StrongNameSignatureSize", "StrongNameSignatureVerification", "StrongNameSignatureVerificationEx", "StrongNameSignatureVerificationFromImage", "StrongNameTokenFromAssembly", "StrongNameTokenFromAssemblyEx", "StrongNameTokenFromPublicKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRStrongName.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -137,13 +173,11 @@ class ICLRStrongName extends IUnknown {
      * @returns {HRESULT} 
      */
     GetHashFromHandle(hFile, piHashAlg, pbHash, cchHash, pchHash) {
-        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
-
         piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hFile, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(8, this, HANDLE, hFile, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -382,7 +416,7 @@ class ICLRStrongName extends IUnknown {
     StrongNameSignatureVerificationEx(pwzFilePath, fForceVerification) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := ComCall(23, this, "ptr", pwzFilePath, "char", fForceVerification, "char*", &pfWasVerified := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", pwzFilePath, BOOLEAN, fForceVerification, "char*", &pfWasVerified := 0, "HRESULT")
         return pfWasVerified
     }
 
@@ -453,5 +487,73 @@ class ICLRStrongName extends IUnknown {
 
         result := ComCall(27, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, "uint", cbPublicKeyBlob, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICLRStrongName.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetHashFromAssemblyFile := CallbackCreate(GetMethod(implObj, "GetHashFromAssemblyFile"), flags, 6)
+        this.vtbl.GetHashFromAssemblyFileW := CallbackCreate(GetMethod(implObj, "GetHashFromAssemblyFileW"), flags, 6)
+        this.vtbl.GetHashFromBlob := CallbackCreate(GetMethod(implObj, "GetHashFromBlob"), flags, 7)
+        this.vtbl.GetHashFromFile := CallbackCreate(GetMethod(implObj, "GetHashFromFile"), flags, 6)
+        this.vtbl.GetHashFromFileW := CallbackCreate(GetMethod(implObj, "GetHashFromFileW"), flags, 6)
+        this.vtbl.GetHashFromHandle := CallbackCreate(GetMethod(implObj, "GetHashFromHandle"), flags, 6)
+        this.vtbl.StrongNameCompareAssemblies := CallbackCreate(GetMethod(implObj, "StrongNameCompareAssemblies"), flags, 4)
+        this.vtbl.StrongNameFreeBuffer := CallbackCreate(GetMethod(implObj, "StrongNameFreeBuffer"), flags, 2)
+        this.vtbl.StrongNameGetBlob := CallbackCreate(GetMethod(implObj, "StrongNameGetBlob"), flags, 4)
+        this.vtbl.StrongNameGetBlobFromImage := CallbackCreate(GetMethod(implObj, "StrongNameGetBlobFromImage"), flags, 5)
+        this.vtbl.StrongNameGetPublicKey := CallbackCreate(GetMethod(implObj, "StrongNameGetPublicKey"), flags, 6)
+        this.vtbl.StrongNameHashSize := CallbackCreate(GetMethod(implObj, "StrongNameHashSize"), flags, 3)
+        this.vtbl.StrongNameKeyDelete := CallbackCreate(GetMethod(implObj, "StrongNameKeyDelete"), flags, 2)
+        this.vtbl.StrongNameKeyGen := CallbackCreate(GetMethod(implObj, "StrongNameKeyGen"), flags, 5)
+        this.vtbl.StrongNameKeyGenEx := CallbackCreate(GetMethod(implObj, "StrongNameKeyGenEx"), flags, 6)
+        this.vtbl.StrongNameKeyInstall := CallbackCreate(GetMethod(implObj, "StrongNameKeyInstall"), flags, 4)
+        this.vtbl.StrongNameSignatureGeneration := CallbackCreate(GetMethod(implObj, "StrongNameSignatureGeneration"), flags, 7)
+        this.vtbl.StrongNameSignatureGenerationEx := CallbackCreate(GetMethod(implObj, "StrongNameSignatureGenerationEx"), flags, 8)
+        this.vtbl.StrongNameSignatureSize := CallbackCreate(GetMethod(implObj, "StrongNameSignatureSize"), flags, 4)
+        this.vtbl.StrongNameSignatureVerification := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerification"), flags, 4)
+        this.vtbl.StrongNameSignatureVerificationEx := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerificationEx"), flags, 4)
+        this.vtbl.StrongNameSignatureVerificationFromImage := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerificationFromImage"), flags, 5)
+        this.vtbl.StrongNameTokenFromAssembly := CallbackCreate(GetMethod(implObj, "StrongNameTokenFromAssembly"), flags, 4)
+        this.vtbl.StrongNameTokenFromAssemblyEx := CallbackCreate(GetMethod(implObj, "StrongNameTokenFromAssemblyEx"), flags, 6)
+        this.vtbl.StrongNameTokenFromPublicKey := CallbackCreate(GetMethod(implObj, "StrongNameTokenFromPublicKey"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetHashFromAssemblyFile)
+        CallbackFree(this.vtbl.GetHashFromAssemblyFileW)
+        CallbackFree(this.vtbl.GetHashFromBlob)
+        CallbackFree(this.vtbl.GetHashFromFile)
+        CallbackFree(this.vtbl.GetHashFromFileW)
+        CallbackFree(this.vtbl.GetHashFromHandle)
+        CallbackFree(this.vtbl.StrongNameCompareAssemblies)
+        CallbackFree(this.vtbl.StrongNameFreeBuffer)
+        CallbackFree(this.vtbl.StrongNameGetBlob)
+        CallbackFree(this.vtbl.StrongNameGetBlobFromImage)
+        CallbackFree(this.vtbl.StrongNameGetPublicKey)
+        CallbackFree(this.vtbl.StrongNameHashSize)
+        CallbackFree(this.vtbl.StrongNameKeyDelete)
+        CallbackFree(this.vtbl.StrongNameKeyGen)
+        CallbackFree(this.vtbl.StrongNameKeyGenEx)
+        CallbackFree(this.vtbl.StrongNameKeyInstall)
+        CallbackFree(this.vtbl.StrongNameSignatureGeneration)
+        CallbackFree(this.vtbl.StrongNameSignatureGenerationEx)
+        CallbackFree(this.vtbl.StrongNameSignatureSize)
+        CallbackFree(this.vtbl.StrongNameSignatureVerification)
+        CallbackFree(this.vtbl.StrongNameSignatureVerificationEx)
+        CallbackFree(this.vtbl.StrongNameSignatureVerificationFromImage)
+        CallbackFree(this.vtbl.StrongNameTokenFromAssembly)
+        CallbackFree(this.vtbl.StrongNameTokenFromAssemblyEx)
+        CallbackFree(this.vtbl.StrongNameTokenFromPublicKey)
     }
 }

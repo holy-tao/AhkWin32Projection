@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DVD_ERROR enumeration value defines DVD error conditions.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdevcod/ne-dvdevcod-dvd_error
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_ERROR extends Win32Enum {
+export default struct DVD_ERROR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Something unexpected happened; perhaps content is authored incorrectly. Playback is stopped.

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestReader.ahk
-#Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxManifestQualifiedResourcesEnumerator.ahk" { IAppxManifestQualifiedResourcesEnumerator }
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader2)
@@ -12,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestreader2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxManifestReader2 extends IAppxManifestReader {
-
-    static sizeof => A_PtrSize
+export default struct IAppxManifestReader2 extends IAppxManifestReader {
     /**
      * The interface identifier for IAppxManifestReader2
      * @type {Guid}
      */
-    static IID => Guid("{d06f67bc-b31d-4eba-a8af-638e73e77b4d}")
+    static IID := Guid("{d06f67bc-b31d-4eba-a8af-638e73e77b4d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxManifestReader2 interfaces
+    */
+    struct Vtbl extends IAppxManifestReader.Vtbl {
+        GetQualifiedResources : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetQualifiedResources"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxManifestReader2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an enumerator that iterates through the qualified resources that are defined in the manifest.
@@ -47,5 +55,25 @@ class IAppxManifestReader2 extends IAppxManifestReader {
     GetQualifiedResources() {
         result := ComCall(12, this, "ptr*", &resources := 0, "HRESULT")
         return IAppxManifestQualifiedResourcesEnumerator(resources)
+    }
+
+    Query(iid) {
+        if (IAppxManifestReader2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetQualifiedResources := CallbackCreate(GetMethod(implObj, "GetQualifiedResources"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetQualifiedResources)
     }
 }

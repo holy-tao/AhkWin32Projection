@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Exposes a method that allows communication between Windows Explorer and a folder view implemented using the system folder view object (the IShellView object returned through SHCreateShellFolderView) so that the folder view can be notified of events and modify its view accordingly.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFolderViewCB extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellFolderViewCB extends IUnknown {
     /**
      * The interface identifier for IShellFolderViewCB
      * @type {Guid}
      */
-    static IID => Guid("{2047e320-f2a9-11ce-ae65-08002b2e1262}")
+    static IID := Guid("{2047e320-f2a9-11ce-ae65-08002b2e1262}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFolderViewCB interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MessageSFVCB : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MessageSFVCB"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFolderViewCB.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows communication between the system folder view object and a system folder view callback object.
@@ -258,7 +268,27 @@ class IShellFolderViewCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
      */
     MessageSFVCB(uMsg, _wParam, _lParam) {
-        result := ComCall(3, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(3, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellFolderViewCB.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MessageSFVCB := CallbackCreate(GetMethod(implObj, "MessageSFVCB"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MessageSFVCB)
     }
 }

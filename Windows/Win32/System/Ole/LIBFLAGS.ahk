@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines flags that apply to type libraries.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-libflags
  * @namespace Windows.Win32.System.Ole
  */
-class LIBFLAGS extends Win32Enum {
+export default struct LIBFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The type library is restricted, and should not be displayed to users.

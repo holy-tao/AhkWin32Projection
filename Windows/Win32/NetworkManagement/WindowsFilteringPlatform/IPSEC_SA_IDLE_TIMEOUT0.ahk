@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The security association (SA) idle timeout in IPsec policy.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_idle_timeout0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_IDLE_TIMEOUT0 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IPSEC_SA_IDLE_TIMEOUT0 {
+    #StructPack 4
 
     /**
      * Specifies the amount of time in seconds after which IPsec SAs should become  idle.
-     * @type {Integer}
      */
-    idleTimeoutSeconds {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    idleTimeoutSeconds : UInt32
 
     /**
      * Specifies the amount of time in seconds after which IPsec SAs should become idle if the peer machine supports fail over.
-     * @type {Integer}
      */
-    idleTimeoutSecondsFailOver {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    idleTimeoutSecondsFailOver : UInt32
+
 }

@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICertProperty.ahk" { ICertProperty }
 
 /**
  * Represents a SHA-1 hash of an encrypted private key submitted to a certification authority for archival.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyarchivedkeyhash
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertPropertyArchivedKeyHash extends ICertProperty {
-
-    static sizeof => A_PtrSize
+export default struct ICertPropertyArchivedKeyHash extends ICertProperty {
     /**
      * The interface identifier for ICertPropertyArchivedKeyHash
      * @type {Guid}
      */
-    static IID => Guid("{728ab33b-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab33b-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertPropertyArchivedKeyHash interfaces
+    */
+    struct Vtbl extends ICertProperty.Vtbl {
+        Initialize          : IntPtr
+        get_ArchivedKeyHash : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "get_ArchivedKeyHash"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertPropertyArchivedKeyHash.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the object from a byte array that contains the hash.
@@ -63,7 +73,7 @@ class ICertPropertyArchivedKeyHash extends ICertProperty {
     Initialize(Encoding, strArchivedKeyHashValue) {
         strArchivedKeyHashValue := strArchivedKeyHashValue is String ? BSTR.Alloc(strArchivedKeyHashValue).Value : strArchivedKeyHashValue
 
-        result := ComCall(14, this, "int", Encoding, "ptr", strArchivedKeyHashValue, "HRESULT")
+        result := ComCall(14, this, EncodingType, Encoding, BSTR, strArchivedKeyHashValue, "HRESULT")
         return result
     }
 
@@ -76,8 +86,30 @@ class ICertPropertyArchivedKeyHash extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchivedkeyhash-get_archivedkeyhash
      */
     get_ArchivedKeyHash(Encoding) {
-        pValue := BSTR()
-        result := ComCall(15, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(15, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (ICertPropertyArchivedKeyHash.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.get_ArchivedKeyHash := CallbackCreate(GetMethod(implObj, "get_ArchivedKeyHash"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_ArchivedKeyHash)
     }
 }

@@ -1,36 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumTASK.ahk
-#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
-#Include .\MMC_LISTPAD_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import ".\MMC_TASK_DISPLAY_OBJECT.ahk" { MMC_TASK_DISPLAY_OBJECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTASK.ahk" { IEnumTASK }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\MMC_LISTPAD_INFO.ahk" { MMC_LISTPAD_INFO }
 
 /**
  * The IExtendTaskPad interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendtaskpad
  * @namespace Windows.Win32.System.Mmc
  */
-class IExtendTaskPad extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExtendTaskPad extends IUnknown {
     /**
      * The interface identifier for IExtendTaskPad
      * @type {Guid}
      */
-    static IID => Guid("{8dee6511-554d-11d1-9fea-00600832db4a}")
+    static IID := Guid("{8dee6511-554d-11d1-9fea-00600832db4a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtendTaskPad interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TaskNotify         : IntPtr
+        EnumTasks          : IntPtr
+        GetTitle           : IntPtr
+        GetDescriptiveText : IntPtr
+        GetBackground      : IntPtr
+        GetListPadInfo     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TaskNotify", "EnumTasks", "GetTitle", "GetDescriptiveText", "GetBackground", "GetListPadInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtendTaskPad.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IExtendTaskPad::TaskNotify method enables MMC to notify the snap-in when a task is extended. If the taskpad is a list-view taskpad, MMC also calls IExtendTaskPad::TaskNotify when a list-view button is extended.
@@ -66,7 +82,7 @@ class IExtendTaskPad extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendtaskpad-tasknotify
      */
     TaskNotify(pdo, arg, param2) {
-        result := ComCall(3, this, "ptr", pdo, "ptr", arg, "ptr", param2, "HRESULT")
+        result := ComCall(3, this, "ptr", pdo, VARIANT.Ptr, arg, VARIANT.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -99,7 +115,7 @@ class IExtendTaskPad extends IUnknown {
     GetTitle(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-        result := ComCall(5, this, "ptr", pszGroup, "ptr*", &pszTitle := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszGroup, PWSTR.Ptr, &pszTitle := 0, "HRESULT")
         return pszTitle
     }
 
@@ -118,7 +134,7 @@ class IExtendTaskPad extends IUnknown {
     GetDescriptiveText(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-        result := ComCall(6, this, "ptr", pszGroup, "ptr*", &pszDescriptiveText := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszGroup, PWSTR.Ptr, &pszDescriptiveText := 0, "HRESULT")
         return pszDescriptiveText
     }
 
@@ -140,7 +156,7 @@ class IExtendTaskPad extends IUnknown {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
         pTDO := MMC_TASK_DISPLAY_OBJECT()
-        result := ComCall(7, this, "ptr", pszGroup, "ptr", pTDO, "HRESULT")
+        result := ComCall(7, this, "ptr", pszGroup, MMC_TASK_DISPLAY_OBJECT.Ptr, pTDO, "HRESULT")
         return pTDO
     }
 
@@ -160,7 +176,37 @@ class IExtendTaskPad extends IUnknown {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
         lpListPadInfo := MMC_LISTPAD_INFO()
-        result := ComCall(8, this, "ptr", pszGroup, "ptr", lpListPadInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pszGroup, MMC_LISTPAD_INFO.Ptr, lpListPadInfo, "HRESULT")
         return lpListPadInfo
+    }
+
+    Query(iid) {
+        if (IExtendTaskPad.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TaskNotify := CallbackCreate(GetMethod(implObj, "TaskNotify"), flags, 4)
+        this.vtbl.EnumTasks := CallbackCreate(GetMethod(implObj, "EnumTasks"), flags, 4)
+        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 3)
+        this.vtbl.GetDescriptiveText := CallbackCreate(GetMethod(implObj, "GetDescriptiveText"), flags, 3)
+        this.vtbl.GetBackground := CallbackCreate(GetMethod(implObj, "GetBackground"), flags, 3)
+        this.vtbl.GetListPadInfo := CallbackCreate(GetMethod(implObj, "GetListPadInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TaskNotify)
+        CallbackFree(this.vtbl.EnumTasks)
+        CallbackFree(this.vtbl.GetTitle)
+        CallbackFree(this.vtbl.GetDescriptiveText)
+        CallbackFree(this.vtbl.GetBackground)
+        CallbackFree(this.vtbl.GetListPadInfo)
     }
 }

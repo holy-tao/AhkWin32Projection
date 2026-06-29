@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class TIMEREVENT extends Win32Struct {
-    static sizeof => 24
+export default struct TIMEREVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    wDelay : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDelay {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wResolution : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wResolution {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    lpFunction : IntPtr
 
-    /**
-     * @type {Pointer<LPTIMECALLBACK>}
-     */
-    lpFunction {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwUser : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUser {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    wFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFlags {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    wReserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
 }

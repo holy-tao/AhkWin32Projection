@@ -1,82 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DCICMD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DCICMD.ahk" { DCICMD }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class DCICREATEINPUT extends Win32Struct {
-    static sizeof => 64
+export default struct DCICREATEINPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    cmd : DCICMD
 
-    /**
-     * @type {DCICMD}
-     */
-    cmd {
-        get {
-            if(!this.HasProp("__cmd"))
-                this.__cmd := DCICMD(0, this)
-            return this.__cmd
-        }
-    }
+    dwCompression : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCompression {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwMask : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwMask {
-        get {
-            if(!this.HasProp("__dwMaskProxyArray"))
-                this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")
-            return this.__dwMaskProxyArray
-        }
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwDCICaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDCICaps {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwBitCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBitCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    lpSurface : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpSurface {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

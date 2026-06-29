@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechAudio.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpeechAudio.ahk" { ISpeechAudio }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechMMSysAudio extends ISpeechAudio {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechMMSysAudio extends ISpeechAudio {
     /**
      * The interface identifier for ISpeechMMSysAudio
      * @type {Guid}
      */
-    static IID => Guid("{3c76af6d-1fd7-4831-81d1-3b71d5a13c44}")
+    static IID := Guid("{3c76af6d-1fd7-4831-81d1-3b71d5a13c44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechMMSysAudio interfaces
+    */
+    struct Vtbl extends ISpeechAudio.Vtbl {
+        get_DeviceId : IntPtr
+        put_DeviceId : IntPtr
+        get_LineId   : IntPtr
+        put_LineId   : IntPtr
+        get_MMHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DeviceId", "put_DeviceId", "get_LineId", "put_LineId", "get_MMHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechMMSysAudio.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -95,5 +107,33 @@ class ISpeechMMSysAudio extends ISpeechAudio {
     get_MMHandle() {
         result := ComCall(25, this, "int*", &_Handle := 0, "HRESULT")
         return _Handle
+    }
+
+    Query(iid) {
+        if (ISpeechMMSysAudio.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DeviceId := CallbackCreate(GetMethod(implObj, "get_DeviceId"), flags, 2)
+        this.vtbl.put_DeviceId := CallbackCreate(GetMethod(implObj, "put_DeviceId"), flags, 2)
+        this.vtbl.get_LineId := CallbackCreate(GetMethod(implObj, "get_LineId"), flags, 2)
+        this.vtbl.put_LineId := CallbackCreate(GetMethod(implObj, "put_LineId"), flags, 2)
+        this.vtbl.get_MMHandle := CallbackCreate(GetMethod(implObj, "get_MMHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DeviceId)
+        CallbackFree(this.vtbl.put_DeviceId)
+        CallbackFree(this.vtbl.get_LineId)
+        CallbackFree(this.vtbl.put_LineId)
+        CallbackFree(this.vtbl.get_MMHandle)
     }
 }

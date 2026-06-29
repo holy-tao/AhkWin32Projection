@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class FRAME_MARGIN extends Win32Struct {
-    static sizeof => 8
+export default struct FRAME_MARGIN {
+    #StructPack 2
 
-    static packingSize => 2
+    left : Int16
 
-    /**
-     * @type {Integer}
-     */
-    left {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    right : Int16
 
-    /**
-     * @type {Integer}
-     */
-    right {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    top : Int16
 
-    /**
-     * @type {Integer}
-     */
-    top {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    bottom : Int16
 
-    /**
-     * @type {Integer}
-     */
-    bottom {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
 }

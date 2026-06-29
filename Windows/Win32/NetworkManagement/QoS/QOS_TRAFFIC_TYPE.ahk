@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QOS_TRAFFIC_TYPE enumeration defines the various traffic types. Each flow has a single traffic type. This allows the QOS subsystem to apply user-specified policies to each type.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_traffic_type
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_TRAFFIC_TYPE extends Win32Enum {
+export default struct QOS_TRAFFIC_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Flow traffic has the same network priority as regular traffic not associated with QOS.

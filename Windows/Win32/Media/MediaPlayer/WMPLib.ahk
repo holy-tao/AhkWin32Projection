@@ -1,15 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The WMPLibraryType enumeration type defines the possible library types to which Windows Media Player can connect.
- * @remarks
- * Windows Media Player 10 Mobile: This enumeration is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmplibrarytype
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class WMPLib extends Win32Struct {
-    static sizeof => 0
+export default struct WMPLib {
+    #StructPack 1
 
-    static packingSize => 1
 }

@@ -1,37 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ATM_CONNECTION_ID.ahk
-#Include .\QOS.ahk
-#Include .\FLOWSPEC.ahk
-#Include .\WSABUF.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FLOWSPEC.ahk" { FLOWSPEC }
+#Import ".\ATM_CONNECTION_ID.ahk" { ATM_CONNECTION_ID }
+#Import ".\QOS.ahk" { QOS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ATM_PVC_PARAMS extends Win32Struct {
-    static sizeof => 96
+export default struct ATM_PVC_PARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    PvcConnectionId : ATM_CONNECTION_ID
 
-    /**
-     * @type {ATM_CONNECTION_ID}
-     */
-    PvcConnectionId {
-        get {
-            if(!this.HasProp("__PvcConnectionId"))
-                this.__PvcConnectionId := ATM_CONNECTION_ID(0, this)
-            return this.__PvcConnectionId
-        }
-    }
+    PvcQos : QOS
 
-    /**
-     * @type {QOS}
-     */
-    PvcQos {
-        get {
-            if(!this.HasProp("__PvcQos"))
-                this.__PvcQos := QOS(16, this)
-            return this.__PvcQos
-        }
-    }
 }

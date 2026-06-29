@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationTextRange2.ahk
-#Include .\IUIAutomationElement.ahk
-#Include .\IUIAutomationElementArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationTextRange2.ahk" { IUIAutomationTextRange2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Extends the IUIAutomationTextRange2 interface to support faster access to the underlying rich text data on a text range.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange3
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationTextRange3 extends IUIAutomationTextRange2 {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationTextRange3 extends IUIAutomationTextRange2 {
     /**
      * The interface identifier for IUIAutomationTextRange3
      * @type {Guid}
      */
-    static IID => Guid("{6a315d69-5512-4c2e-85f0-53fce6dd4bc2}")
+    static IID := Guid("{6a315d69-5512-4c2e-85f0-53fce6dd4bc2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationTextRange3 interfaces
+    */
+    struct Vtbl extends IUIAutomationTextRange2.Vtbl {
+        GetEnclosingElementBuildCache : IntPtr
+        GetChildrenBuildCache         : IntPtr
+        GetAttributeValues            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEnclosingElementBuildCache", "GetChildrenBuildCache", "GetAttributeValues"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationTextRange3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the enclosing element and supplied properties and patterns for an element in a text range in a single cross-process call. This is equivalent to calling GetEnclosingElement, but adds the standard build cache pattern.
@@ -82,5 +95,29 @@ class IUIAutomationTextRange3 extends IUIAutomationTextRange2 {
 
         result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, "ptr*", &attributeValues := 0, "HRESULT")
         return attributeValues
+    }
+
+    Query(iid) {
+        if (IUIAutomationTextRange3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEnclosingElementBuildCache := CallbackCreate(GetMethod(implObj, "GetEnclosingElementBuildCache"), flags, 3)
+        this.vtbl.GetChildrenBuildCache := CallbackCreate(GetMethod(implObj, "GetChildrenBuildCache"), flags, 3)
+        this.vtbl.GetAttributeValues := CallbackCreate(GetMethod(implObj, "GetAttributeValues"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEnclosingElementBuildCache)
+        CallbackFree(this.vtbl.GetChildrenBuildCache)
+        CallbackFree(this.vtbl.GetAttributeValues)
     }
 }

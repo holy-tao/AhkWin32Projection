@@ -1,40 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSNODEPROPERTY.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSNODEPROPERTY.ahk" { KSNODEPROPERTY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSNODEPROPERTY_AUDIO_CHANNEL extends Win32Struct {
-    static sizeof => 32
+export default struct KSNODEPROPERTY_AUDIO_CHANNEL {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeProperty : KSNODEPROPERTY
 
-    /**
-     * @type {KSNODEPROPERTY}
-     */
-    NodeProperty {
-        get {
-            if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSNODEPROPERTY(0, this)
-            return this.__NodeProperty
-        }
-    }
+    Channel : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Channel {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

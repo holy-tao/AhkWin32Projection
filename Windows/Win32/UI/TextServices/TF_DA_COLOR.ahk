@@ -1,39 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TF_DA_COLORTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TF_DA_COLORTYPE.ahk" { TF_DA_COLORTYPE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The TF_DA_COLOR structure contains color data used in the display attributes for a range of text.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_da_color
  * @namespace Windows.Win32.UI.TextServices
  */
-class TF_DA_COLOR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct TF_DA_COLOR {
+    #StructPack 4
 
     /**
      * Specifies the color type as defined in the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tf_da_colortype">TF_DA_COLORTYPE</a> enumeration.
-     * @type {TF_DA_COLORTYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : TF_DA_COLORTYPE
 
-    /**
-     * @type {Integer}
-     */
-    nIndex {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    nIndex : Int32
 
-    /**
-     * @type {COLORREF}
-     */
-    cr {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'cr', { type: COLORREF, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

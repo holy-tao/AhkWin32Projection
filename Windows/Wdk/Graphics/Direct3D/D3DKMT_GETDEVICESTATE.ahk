@@ -1,77 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_DEVICESTATE_TYPE.ahk
-#Include .\D3DKMT_DEVICEEXECUTION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_DEVICEEXECUTION_STATE.ahk" { D3DKMT_DEVICEEXECUTION_STATE }
+#Import ".\D3DKMT_DEVICESTATE_TYPE.ahk" { D3DKMT_DEVICESTATE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_GETDEVICESTATE extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMT_GETDEVICESTATE {
+    #StructPack 8
 
-    static packingSize => 8
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StateType : D3DKMT_DEVICESTATE_TYPE
 
-    /**
-     * @type {D3DKMT_DEVICESTATE_TYPE}
-     */
-    StateType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ExecutionState : D3DKMT_DEVICEEXECUTION_STATE
 
-    /**
-     * @type {D3DKMT_DEVICEEXECUTION_STATE}
-     */
-    ExecutionState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PresentState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    ResetState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PresentStateDWM {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PageFaultState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PresentQueueState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'PresentState', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'ResetState', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'PresentStateDWM', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'PageFaultState', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'PresentQueueState', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

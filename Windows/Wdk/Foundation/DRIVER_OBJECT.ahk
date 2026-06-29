@@ -1,138 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\DRIVER_EXTENSION.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include .\FAST_IO_DISPATCH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\DRIVER_EXTENSION.ahk" { DRIVER_EXTENSION }
+#Import ".\FAST_IO_DISPATCH.ahk" { FAST_IO_DISPATCH }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class DRIVER_OBJECT extends Win32Struct {
-    static sizeof => 328
+export default struct DRIVER_OBJECT {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Size : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
-
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
+    __DeviceObject_ptr : IntPtr
     DeviceObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__DeviceObject_ptr) ? DEVICE_OBJECT.At(addr) : unset
+        set => this.__DeviceObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DriverStart {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DriverStart : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    DriverSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DriverSize : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DriverSection {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DriverSection : IntPtr
 
-    /**
-     * @type {Pointer<DRIVER_EXTENSION>}
-     */
+    __DriverExtension_ptr : IntPtr
     DriverExtension {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => (addr := this.__DriverExtension_ptr) ? DRIVER_EXTENSION.At(addr) : unset
+        set => this.__DriverExtension_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer}
-     */
-    DriverName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    DriverName : IntPtr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    HardwareDatabase {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    HardwareDatabase : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<FAST_IO_DISPATCH>}
-     */
-    FastIoDispatch {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    FastIoDispatch : FAST_IO_DISPATCH.Ptr
 
-    /**
-     * @type {Pointer<DRIVER_INITIALIZE>}
-     */
-    DriverInit {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    DriverInit : IntPtr
 
-    /**
-     * @type {Pointer<DRIVER_STARTIO>}
-     */
-    DriverStartIo {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    DriverStartIo : IntPtr
 
-    /**
-     * @type {Pointer<DRIVER_UNLOAD>}
-     */
-    DriverUnload {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    DriverUnload : IntPtr
 
-    /**
-     * @type {Array<Pointer<DRIVER_DISPATCH>>}
-     */
-    MajorFunction {
-        get {
-            if(!this.HasProp("__MajorFunctionProxyArray"))
-                this.__MajorFunctionProxyArray := Win32FixedArray(this.ptr + 104, 28, Primitive, "ptr")
-            return this.__MajorFunctionProxyArray
-        }
-    }
+    MajorFunction : IntPtr[28]
+
 }

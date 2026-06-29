@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a wireless LAN authentication algorithm.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-auth-algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_AUTH_ALGORITHM extends Win32Enum {
+export default struct DOT11_AUTH_ALGORITHM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

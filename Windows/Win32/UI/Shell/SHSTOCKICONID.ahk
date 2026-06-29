@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by SHGetStockIconInfo to identify which stock system icon to retrieve.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ne-shellapi-shstockiconid
  * @namespace Windows.Win32.UI.Shell
  */
-class SHSTOCKICONID extends Win32Enum {
+export default struct SHSTOCKICONID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * :::image type="icon" source="./images/SIID_DOCNOASSOC.png":::

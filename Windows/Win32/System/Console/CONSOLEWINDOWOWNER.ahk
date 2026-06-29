@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * @namespace Windows.Win32.System.Console
  */
-class CONSOLEWINDOWOWNER extends Win32Struct {
-    static sizeof => 16
+export default struct CONSOLEWINDOWOWNER {
+    #StructPack 8
 
-    static packingSize => 8
+    hwnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(0, this)
-            return this.__hwnd
-        }
-    }
+    ProcessId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ThreadId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ThreadId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

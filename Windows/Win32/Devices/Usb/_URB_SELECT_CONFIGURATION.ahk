@@ -1,54 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
-#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
-#Include .\USBD_INTERFACE_INFORMATION.ahk
-#Include .\USBD_PIPE_INFORMATION.ahk
-#Include .\USBD_PIPE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USBD_PIPE_INFORMATION.ahk" { USBD_PIPE_INFORMATION }
+#Import ".\USB_CONFIGURATION_DESCRIPTOR.ahk" { USB_CONFIGURATION_DESCRIPTOR }
+#Import ".\USBD_INTERFACE_INFORMATION.ahk" { USBD_INTERFACE_INFORMATION }
+#Import ".\USBD_PIPE_TYPE.ahk" { USBD_PIPE_TYPE }
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class _URB_SELECT_CONFIGURATION extends Win32Struct {
-    static sizeof => 88
+export default struct _URB_SELECT_CONFIGURATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Hdr : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    Hdr {
-        get {
-            if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(0, this)
-            return this.__Hdr
-        }
-    }
+    ConfigurationDescriptor : USB_CONFIGURATION_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<USB_CONFIGURATION_DESCRIPTOR>}
-     */
-    ConfigurationDescriptor {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ConfigurationHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ConfigurationHandle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Interface : USBD_INTERFACE_INFORMATION
 
-    /**
-     * @type {USBD_INTERFACE_INFORMATION}
-     */
-    Interface {
-        get {
-            if(!this.HasProp("__Interface"))
-                this.__Interface := USBD_INTERFACE_INFORMATION(40, this)
-            return this.__Interface
-        }
-    }
 }

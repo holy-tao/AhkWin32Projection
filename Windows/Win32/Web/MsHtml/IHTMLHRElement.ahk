@@ -1,39 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLHRElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLHRElement extends IDispatch {
     /**
      * The interface identifier for IHTMLHRElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f1f4-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f1f4-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLHRElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f252-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f252-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLHRElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_align   : IntPtr
+        get_align   : IntPtr
+        put_color   : IntPtr
+        get_color   : IntPtr
+        put_noShade : IntPtr
+        get_noShade : IntPtr
+        put_width   : IntPtr
+        get_width   : IntPtr
+        put_size    : IntPtr
+        get_size    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_align", "get_align", "put_color", "get_color", "put_noShade", "get_noShade", "put_width", "get_width", "put_size", "get_size"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLHRElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -83,7 +101,7 @@ class IHTMLHRElement extends IDispatch {
     put_align(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -92,8 +110,8 @@ class IHTMLHRElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -103,7 +121,7 @@ class IHTMLHRElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_color(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -113,7 +131,7 @@ class IHTMLHRElement extends IDispatch {
      */
     get_color() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -123,7 +141,7 @@ class IHTMLHRElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_noShade(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -132,7 +150,7 @@ class IHTMLHRElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_noShade() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -142,7 +160,7 @@ class IHTMLHRElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -152,7 +170,7 @@ class IHTMLHRElement extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -162,7 +180,7 @@ class IHTMLHRElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_size(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -172,7 +190,45 @@ class IHTMLHRElement extends IDispatch {
      */
     get_size() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLHRElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_color := CallbackCreate(GetMethod(implObj, "put_color"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.put_noShade := CallbackCreate(GetMethod(implObj, "put_noShade"), flags, 2)
+        this.vtbl.get_noShade := CallbackCreate(GetMethod(implObj, "get_noShade"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_align)
+        CallbackFree(this.vtbl.get_align)
+        CallbackFree(this.vtbl.put_color)
+        CallbackFree(this.vtbl.get_color)
+        CallbackFree(this.vtbl.put_noShade)
+        CallbackFree(this.vtbl.get_noShade)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_size)
+        CallbackFree(this.vtbl.get_size)
     }
 }

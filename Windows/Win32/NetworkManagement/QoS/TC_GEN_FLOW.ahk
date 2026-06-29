@@ -1,50 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\FLOWSPEC.ahk
-#Include .\QOS_OBJECT_HDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
+#Import "..\..\Networking\WinSock\FLOWSPEC.ahk" { FLOWSPEC }
 
 /**
  * The TC_GEN_FLOW structure creates a generic flow for use with the traffic control interface. The flow is customized through the members of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tc_gen_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class TC_GEN_FLOW extends Win32Struct {
-    static sizeof => 76
-
-    static packingSize => 4
+export default struct TC_GEN_FLOW {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structure for the sending direction of the flow.
-     * @type {FLOWSPEC}
      */
-    SendingFlowspec {
-        get {
-            if(!this.HasProp("__SendingFlowspec"))
-                this.__SendingFlowspec := FLOWSPEC(0, this)
-            return this.__SendingFlowspec
-        }
-    }
+    SendingFlowspec : FLOWSPEC
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structure for the receiving direction of the flow.
-     * @type {FLOWSPEC}
      */
-    ReceivingFlowspec {
-        get {
-            if(!this.HasProp("__ReceivingFlowspec"))
-                this.__ReceivingFlowspec := FLOWSPEC(32, this)
-            return this.__ReceivingFlowspec
-        }
-    }
+    ReceivingFlowspec : FLOWSPEC
 
     /**
      * Length of <b>TcObjects</b>, in bytes.
-     * @type {Integer}
      */
-    TcObjectsLength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    TcObjectsLength : UInt32
 
     /**
      * Buffer that contains an array of traffic control objects specific to the given flow. The <b>TcObjects</b> member can contain objects from the list of currently supported objects. Definitions of these objects can be found in Qos.h and Traffic.h: 
@@ -73,13 +52,7 @@ class TC_GEN_FLOW extends Win32Struct {
      * 
      * 
      * QOS_OBJECT_END_OF_LIST
-     * @type {QOS_OBJECT_HDR}
      */
-    TcObjects {
-        get {
-            if(!this.HasProp("__TcObjectsProxyArray"))
-                this.__TcObjectsProxyArray := Win32FixedArray(this.ptr + 68, 1, QOS_OBJECT_HDR, "")
-            return this.__TcObjectsProxyArray
-        }
-    }
+    TcObjects : QOS_OBJECT_HDR[1]
+
 }

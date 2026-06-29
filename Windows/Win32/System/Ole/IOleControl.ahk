@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONTROLINFO.ahk" { CONTROLINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Provides the features for supporting keyboard mnemonics, ambient properties, and events in control objects.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iolecontrol
  * @namespace Windows.Win32.System.Ole
  */
-class IOleControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleControl extends IUnknown {
     /**
      * The interface identifier for IOleControl
      * @type {Guid}
      */
-    static IID => Guid("{b196b288-bab4-101a-b69c-00aa00341d07}")
+    static IID := Guid("{b196b288-bab4-101a-b69c-00aa00341d07}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetControlInfo          : IntPtr
+        OnMnemonic              : IntPtr
+        OnAmbientPropertyChange : IntPtr
+        FreezeEvents            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetControlInfo", "OnMnemonic", "OnAmbientPropertyChange", "FreezeEvents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves information about the control's keyboard mnemonics and behavior.
@@ -76,7 +90,7 @@ class IOleControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrol-getcontrolinfo
      */
     GetControlInfo(pCI) {
-        result := ComCall(3, this, "ptr", pCI, "HRESULT")
+        result := ComCall(3, this, CONTROLINFO.Ptr, pCI, "HRESULT")
         return result
     }
 
@@ -125,7 +139,7 @@ class IOleControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrol-onmnemonic
      */
     OnMnemonic(pMsg) {
-        result := ComCall(4, this, "ptr", pMsg, "HRESULT")
+        result := ComCall(4, this, MSG.Ptr, pMsg, "HRESULT")
         return result
     }
 
@@ -155,7 +169,33 @@ class IOleControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrol-freezeevents
      */
     FreezeEvents(bFreeze) {
-        result := ComCall(6, this, "int", bFreeze, "HRESULT")
+        result := ComCall(6, this, BOOL, bFreeze, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetControlInfo := CallbackCreate(GetMethod(implObj, "GetControlInfo"), flags, 2)
+        this.vtbl.OnMnemonic := CallbackCreate(GetMethod(implObj, "OnMnemonic"), flags, 2)
+        this.vtbl.OnAmbientPropertyChange := CallbackCreate(GetMethod(implObj, "OnAmbientPropertyChange"), flags, 2)
+        this.vtbl.FreezeEvents := CallbackCreate(GetMethod(implObj, "FreezeEvents"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetControlInfo)
+        CallbackFree(this.vtbl.OnMnemonic)
+        CallbackFree(this.vtbl.OnAmbientPropertyChange)
+        CallbackFree(this.vtbl.FreezeEvents)
     }
 }

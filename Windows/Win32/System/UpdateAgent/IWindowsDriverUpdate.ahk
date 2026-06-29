@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUpdate.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdate.ahk" { IUpdate }
 
 /**
  * Contains the properties and the methods that are available only from a Windows driver update.
@@ -11,26 +12,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdate
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IWindowsDriverUpdate extends IUpdate {
-
-    static sizeof => A_PtrSize
+export default struct IWindowsDriverUpdate extends IUpdate {
     /**
      * The interface identifier for IWindowsDriverUpdate
      * @type {Guid}
      */
-    static IID => Guid("{b383cd1a-5ce9-4504-9f63-764b1236f191}")
+    static IID := Guid("{b383cd1a-5ce9-4504-9f63-764b1236f191}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 52
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWindowsDriverUpdate interfaces
+    */
+    struct Vtbl extends IUpdate.Vtbl {
+        get_DriverClass         : IntPtr
+        get_DriverHardwareID    : IntPtr
+        get_DriverManufacturer  : IntPtr
+        get_DriverModel         : IntPtr
+        get_DriverProvider      : IntPtr
+        get_DriverVerDate       : IntPtr
+        get_DeviceProblemNumber : IntPtr
+        get_DeviceStatus        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DriverClass", "get_DriverHardwareID", "get_DriverManufacturer", "get_DriverModel", "get_DriverProvider", "get_DriverVerDate", "get_DeviceProblemNumber", "get_DeviceStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWindowsDriverUpdate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -94,8 +109,8 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverclass
      */
     get_DriverClass() {
-        retval := BSTR()
-        result := ComCall(52, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(52, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -105,8 +120,8 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverhardwareid
      */
     get_DriverHardwareID() {
-        retval := BSTR()
-        result := ComCall(53, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(53, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -116,8 +131,8 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermanufacturer
      */
     get_DriverManufacturer() {
-        retval := BSTR()
-        result := ComCall(54, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -127,8 +142,8 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermodel
      */
     get_DriverModel() {
-        retval := BSTR()
-        result := ComCall(55, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(55, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -138,8 +153,8 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverprovider
      */
     get_DriverProvider() {
-        retval := BSTR()
-        result := ComCall(56, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(56, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -171,5 +186,39 @@ class IWindowsDriverUpdate extends IUpdate {
     get_DeviceStatus() {
         result := ComCall(59, this, "int*", &retval := 0, "HRESULT")
         return retval
+    }
+
+    Query(iid) {
+        if (IWindowsDriverUpdate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DriverClass := CallbackCreate(GetMethod(implObj, "get_DriverClass"), flags, 2)
+        this.vtbl.get_DriverHardwareID := CallbackCreate(GetMethod(implObj, "get_DriverHardwareID"), flags, 2)
+        this.vtbl.get_DriverManufacturer := CallbackCreate(GetMethod(implObj, "get_DriverManufacturer"), flags, 2)
+        this.vtbl.get_DriverModel := CallbackCreate(GetMethod(implObj, "get_DriverModel"), flags, 2)
+        this.vtbl.get_DriverProvider := CallbackCreate(GetMethod(implObj, "get_DriverProvider"), flags, 2)
+        this.vtbl.get_DriverVerDate := CallbackCreate(GetMethod(implObj, "get_DriverVerDate"), flags, 2)
+        this.vtbl.get_DeviceProblemNumber := CallbackCreate(GetMethod(implObj, "get_DeviceProblemNumber"), flags, 2)
+        this.vtbl.get_DeviceStatus := CallbackCreate(GetMethod(implObj, "get_DeviceStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DriverClass)
+        CallbackFree(this.vtbl.get_DriverHardwareID)
+        CallbackFree(this.vtbl.get_DriverManufacturer)
+        CallbackFree(this.vtbl.get_DriverModel)
+        CallbackFree(this.vtbl.get_DriverProvider)
+        CallbackFree(this.vtbl.get_DriverVerDate)
+        CallbackFree(this.vtbl.get_DeviceProblemNumber)
+        CallbackFree(this.vtbl.get_DeviceStatus)
     }
 }

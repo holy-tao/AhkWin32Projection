@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags indicating the memory location of a resource.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_residency
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_RESIDENCY extends Win32Enum {
+export default struct DXGI_RESIDENCY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The resource is located in video memory.

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The SP_INF_SIGNER_INFO structure stores information about an INF file's digital signature. (sp_inf_signer_info_v1_w)
@@ -11,49 +11,27 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class SP_INF_SIGNER_INFO_V1_W extends Win32Struct {
-    static sizeof => 1564
-
-    static packingSize => 4
+export default struct SP_INF_SIGNER_INFO_V1_W {
+    #StructPack 4
 
     /**
      * Size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Path to the catalog file, stored in an array of maximum size MAX_PATH characters.
-     * @type {String}
      */
-    CatalogFile {
-        get => StrGet(this.ptr + 4, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-16")
-    }
+    CatalogFile : WCHAR[260]
 
     /**
      * Path to the digital signer of the file, stored in an array of maximum size MAX_PATH characters.
-     * @type {String}
      */
-    DigitalSigner {
-        get => StrGet(this.ptr + 524, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 524, 259, "UTF-16")
-    }
+    DigitalSigner : WCHAR[260]
 
     /**
      * Version of the digital signer, stored in an array of size MAX_PATH characters.
-     * @type {String}
      */
-    DigitalSignerVersion {
-        get => StrGet(this.ptr + 1044, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1044, 259, "UTF-16")
-    }
+    DigitalSignerVersion : WCHAR[260]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 1564
-    }
 }

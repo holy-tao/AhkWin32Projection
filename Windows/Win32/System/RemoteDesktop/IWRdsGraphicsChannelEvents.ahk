@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface receives notifications that relate to a graphics virtual channel.
  * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannelevents
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWRdsGraphicsChannelEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWRdsGraphicsChannelEvents extends IUnknown {
     /**
      * The interface identifier for IWRdsGraphicsChannelEvents
      * @type {Guid}
      */
-    static IID => Guid("{67f2368c-d674-4fae-66a5-d20628a640d2}")
+    static IID := Guid("{67f2368c-d674-4fae-66a5-d20628a640d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWRdsGraphicsChannelEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDataReceived  : IntPtr
+        OnClose         : IntPtr
+        OnChannelOpened : IntPtr
+        OnDataSent      : IntPtr
+        OnMetricsUpdate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDataReceived", "OnClose", "OnChannelOpened", "OnDataSent", "OnMetricsUpdate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWRdsGraphicsChannelEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when a full message is received from the server.
@@ -77,7 +90,7 @@ class IWRdsGraphicsChannelEvents extends IUnknown {
     OnDataSent(pWriteContext, bCancelled, pBuffer, cbBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pWriteContext, "int", bCancelled, pBufferMarshal, pBuffer, "uint", cbBuffer, "HRESULT")
+        result := ComCall(6, this, "ptr", pWriteContext, BOOL, bCancelled, pBufferMarshal, pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -92,5 +105,33 @@ class IWRdsGraphicsChannelEvents extends IUnknown {
     OnMetricsUpdate(bandwidth, RTT, lastSentByteIndex) {
         result := ComCall(7, this, "uint", bandwidth, "uint", RTT, "uint", lastSentByteIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWRdsGraphicsChannelEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDataReceived := CallbackCreate(GetMethod(implObj, "OnDataReceived"), flags, 3)
+        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
+        this.vtbl.OnChannelOpened := CallbackCreate(GetMethod(implObj, "OnChannelOpened"), flags, 3)
+        this.vtbl.OnDataSent := CallbackCreate(GetMethod(implObj, "OnDataSent"), flags, 5)
+        this.vtbl.OnMetricsUpdate := CallbackCreate(GetMethod(implObj, "OnMetricsUpdate"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDataReceived)
+        CallbackFree(this.vtbl.OnClose)
+        CallbackFree(this.vtbl.OnChannelOpened)
+        CallbackFree(this.vtbl.OnDataSent)
+        CallbackFree(this.vtbl.OnMetricsUpdate)
     }
 }

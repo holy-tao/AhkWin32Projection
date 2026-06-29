@@ -1,40 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDvbSiParser2.ahk
-#Include .\IISDB_SDT.ahk
-#Include .\IISDB_BIT.ahk
-#Include .\IISDB_NBIT.ahk
-#Include .\IISDB_LDT.ahk
-#Include .\IISDB_SDTT.ahk
-#Include .\IISDB_CDT.ahk
-#Include .\IISDB_EMM.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IISDB_NBIT.ahk" { IISDB_NBIT }
+#Import ".\IDvbSiParser2.ahk" { IDvbSiParser2 }
+#Import ".\IISDB_EMM.ahk" { IISDB_EMM }
+#Import ".\IISDB_SDT.ahk" { IISDB_SDT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IISDB_BIT.ahk" { IISDB_BIT }
+#Import ".\IISDB_LDT.ahk" { IISDB_LDT }
+#Import ".\IISDB_CDT.ahk" { IISDB_CDT }
+#Import ".\IISDB_SDTT.ahk" { IISDB_SDTT }
 
 /**
  * Implements methods that retrieve program specific information (PSI) tables and service information tables from an Integrated Services Digital Broadcast (ISDB) transport stream.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbsiparser2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IIsdbSiParser2 extends IDvbSiParser2 {
-
-    static sizeof => A_PtrSize
+export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     /**
      * The interface identifier for IIsdbSiParser2
      * @type {Guid}
      */
-    static IID => Guid("{900e4bb7-18cd-453f-98be-3be6aa211772}")
+    static IID := Guid("{900e4bb7-18cd-453f-98be-3be6aa211772}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIsdbSiParser2 interfaces
+    */
+    struct Vtbl extends IDvbSiParser2.Vtbl {
+        GetSDT  : IntPtr
+        GetBIT  : IntPtr
+        GetNBIT : IntPtr
+        GetLDT  : IntPtr
+        GetSDTT : IntPtr
+        GetCDT  : IntPtr
+        GetEMM  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSDT", "GetBIT", "GetNBIT", "GetLDT", "GetSDTT", "GetCDT", "GetEMM"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIsdbSiParser2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a service description table (SDT) from an Integrated Services Digital Broadcast (ISDB) transport stream. An SDT lists the names and other parameters of the services in an MPEG-2 transport stream.
@@ -140,5 +154,37 @@ class IIsdbSiParser2 extends IDvbSiParser2 {
     GetEMM(pid, wTableIdExt) {
         result := ComCall(25, this, "ushort", pid, "ushort", wTableIdExt, "ptr*", &ppEMM := 0, "HRESULT")
         return IISDB_EMM(ppEMM)
+    }
+
+    Query(iid) {
+        if (IIsdbSiParser2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSDT := CallbackCreate(GetMethod(implObj, "GetSDT"), flags, 4)
+        this.vtbl.GetBIT := CallbackCreate(GetMethod(implObj, "GetBIT"), flags, 4)
+        this.vtbl.GetNBIT := CallbackCreate(GetMethod(implObj, "GetNBIT"), flags, 4)
+        this.vtbl.GetLDT := CallbackCreate(GetMethod(implObj, "GetLDT"), flags, 4)
+        this.vtbl.GetSDTT := CallbackCreate(GetMethod(implObj, "GetSDTT"), flags, 4)
+        this.vtbl.GetCDT := CallbackCreate(GetMethod(implObj, "GetCDT"), flags, 5)
+        this.vtbl.GetEMM := CallbackCreate(GetMethod(implObj, "GetEMM"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSDT)
+        CallbackFree(this.vtbl.GetBIT)
+        CallbackFree(this.vtbl.GetNBIT)
+        CallbackFree(this.vtbl.GetLDT)
+        CallbackFree(this.vtbl.GetSDTT)
+        CallbackFree(this.vtbl.GetCDT)
+        CallbackFree(this.vtbl.GetEMM)
     }
 }

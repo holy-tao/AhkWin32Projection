@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class ERRORINFO extends Win32Struct {
-    static sizeof => 32
+export default struct ERRORINFO {
+    #StructPack 4
 
-    static packingSize => 8
+    hrError : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    hrError {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwMinor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    clsid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    iid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    iid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dispid : Int32
 
-    /**
-     * @type {Integer}
-     */
-    dispid {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

@@ -1,87 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XPF_MC_BANK_FLAGS.ahk" { XPF_MC_BANK_FLAGS }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+export default struct WHEA_XPF_MC_BANK_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    BankNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BankNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ClearOnInitialization : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ClearOnInitialization {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    StatusDataFormat : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StatusDataFormat {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Flags : XPF_MC_BANK_FLAGS
 
-    /**
-     * @type {XPF_MC_BANK_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MC_BANK_FLAGS(3, this)
-            return this.__Flags
-        }
-    }
+    ControlMsr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ControlMsr {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StatusMsr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StatusMsr {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AddressMsr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressMsr {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MiscMsr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MiscMsr {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ControlData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ControlData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

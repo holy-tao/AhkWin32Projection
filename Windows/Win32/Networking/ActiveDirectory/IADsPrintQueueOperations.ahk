@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
-#Include .\IADsCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADsCollection.ahk" { IADsCollection }
+#Import ".\IADs.ahk" { IADs }
 
 /**
  * Used to control a printer from across a network.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsprintqueueoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsPrintQueueOperations extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsPrintQueueOperations extends IADs {
     /**
      * The interface identifier for IADsPrintQueueOperations
      * @type {Guid}
      */
-    static IID => Guid("{124be5c0-156e-11cf-a986-00aa006bc149}")
+    static IID := Guid("{124be5c0-156e-11cf-a986-00aa006bc149}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsPrintQueueOperations interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_Status : IntPtr
+        PrintJobs  : IntPtr
+        Pause      : IntPtr
+        Resume     : IntPtr
+        Purge      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Status", "PrintJobs", "Pause", "Resume", "Purge"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsPrintQueueOperations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -84,5 +96,33 @@ class IADsPrintQueueOperations extends IADs {
     Purge() {
         result := ComCall(24, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsPrintQueueOperations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.PrintJobs := CallbackCreate(GetMethod(implObj, "PrintJobs"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Purge := CallbackCreate(GetMethod(implObj, "Purge"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.PrintJobs)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.Purge)
     }
 }

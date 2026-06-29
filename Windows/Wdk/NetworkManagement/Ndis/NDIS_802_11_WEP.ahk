@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_WEP extends Win32Struct {
-    static sizeof => 16
+export default struct NDIS_802_11_WEP {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    KeyIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    KeyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    KeyMaterial : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    KeyMaterial {
-        get {
-            if(!this.HasProp("__KeyMaterialProxyArray"))
-                this.__KeyMaterialProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__KeyMaterialProxyArray
-        }
-    }
 }

@@ -1,70 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class REFS_STREAM_SNAPSHOT_LIST_OUTPUT_BUFFER_ENTRY extends Win32Struct {
-    static sizeof => 56
+export default struct REFS_STREAM_SNAPSHOT_LIST_OUTPUT_BUFFER_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SnapshotNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SnapshotNameLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    SnapshotCreationTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SnapshotCreationTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StreamSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StreamSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    StreamAllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StreamAllocationSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved : Int64[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    SnapshotName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    SnapshotName {
-        get => StrGet(this.ptr + 48, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 0, "UTF-16")
-    }
 }

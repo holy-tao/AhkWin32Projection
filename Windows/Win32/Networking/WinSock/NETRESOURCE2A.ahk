@@ -1,104 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NS_INFOA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NS_INFOA.ahk" { NS_INFOA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  * @charset ANSI
  */
-class NETRESOURCE2A extends Win32Struct {
-    static sizeof => 80
+export default struct NETRESOURCE2A {
+    #StructPack 8
 
-    static packingSize => 8
+    dwScope : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwScope {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwUsage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUsage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDisplayType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDisplayType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpLocalName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpLocalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpRemoteName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpRemoteName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpComment : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ns_info : NS_INFOA
 
-    /**
-     * @type {NS_INFOA}
-     */
-    ns_info {
-        get {
-            if(!this.HasProp("__ns_info"))
-                this.__ns_info := NS_INFOA(40, this)
-            return this.__ns_info
-        }
-    }
+    ServiceType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ServiceType {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwProtocols : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProtocols {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    lpiProtocols : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpiProtocols {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

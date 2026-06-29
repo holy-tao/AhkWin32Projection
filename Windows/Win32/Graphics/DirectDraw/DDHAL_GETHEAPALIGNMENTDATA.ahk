@@ -1,57 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HEAPALIGNMENT.ahk
-#Include .\DDSCAPS.ahk
-#Include .\SURFACEALIGNMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HEAPALIGNMENT.ahk" { HEAPALIGNMENT }
+#Import ".\SURFACEALIGNMENT.ahk" { SURFACEALIGNMENT }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_GETHEAPALIGNMENTDATA extends Win32Struct {
-    static sizeof => 152
+export default struct DDHAL_GETHEAPALIGNMENTDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwInstance : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwInstance {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwHeap : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeap {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    GetHeapAlignment : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_GETHEAPALIGNMENT>}
-     */
-    GetHeapAlignment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Alignment : HEAPALIGNMENT
 
-    /**
-     * @type {HEAPALIGNMENT}
-     */
-    Alignment {
-        get {
-            if(!this.HasProp("__Alignment"))
-                this.__Alignment := HEAPALIGNMENT(24, this)
-            return this.__Alignment
-        }
-    }
 }

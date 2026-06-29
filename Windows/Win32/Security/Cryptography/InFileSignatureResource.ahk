@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class InFileSignatureResource extends Win32Struct {
-    static sizeof => 96
+export default struct InFileSignatureResource {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCrcOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCrcOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    rgbSignature : Int8[88]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbSignature {
-        get {
-            if(!this.HasProp("__rgbSignatureProxyArray"))
-                this.__rgbSignatureProxyArray := Win32FixedArray(this.ptr + 8, 88, Primitive, "char")
-            return this.__rgbSignatureProxyArray
-        }
-    }
 }

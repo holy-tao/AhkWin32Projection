@@ -1,57 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a rectangle for Windows Imaging Component (WIC) API.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrect
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICRect extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct WICRect {
+    #StructPack 4
 
     /**
      * Type: <b>INT</b>
      * 
      * The horizontal coordinate of the rectangle.
-     * @type {Integer}
      */
-    X {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    X : Int32
 
     /**
      * Type: <b>INT</b>
      * 
      * The vertical coordinate of the rectangle.
-     * @type {Integer}
      */
-    Y {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Y : Int32
 
     /**
      * Type: <b>INT</b>
      * 
      * The width of the rectangle.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Width : Int32
 
     /**
      * Type: <b>INT</b>
      * 
      * The height of the rectangle.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Height : Int32
+
 }

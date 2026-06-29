@@ -1,58 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The HEAP_SUMMARY structure (heapapi.h) represents a heap summary retrieved with a call to the HeapSummary function.
  * @see https://learn.microsoft.com/windows/win32/api/heapapi/ns-heapapi-heap_summary
  * @namespace Windows.Win32.System.Memory
  */
-class HEAP_SUMMARY extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct HEAP_SUMMARY {
+    #StructPack 8
 
     /**
      * The size of this data structure, in bytes. Set this member to sizeof(HEAP_SUMMARY).
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * The size of the allocated memory.
-     * @type {Pointer}
      */
-    cbAllocated {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbAllocated : IntPtr
 
     /**
      * The size of the committed memory.
-     * @type {Pointer}
      */
-    cbCommitted {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbCommitted : IntPtr
 
     /**
      * The size of the reserved memory.
-     * @type {Pointer}
      */
-    cbReserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbReserved : IntPtr
 
     /**
      * The size of the maximum reserved memory.
-     * @type {Pointer}
      */
-    cbMaxReserve {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cbMaxReserve : IntPtr
+
 }

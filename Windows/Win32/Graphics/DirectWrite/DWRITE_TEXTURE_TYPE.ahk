@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies a type of alpha texture.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_texture_type
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_TEXTURE_TYPE extends Win32Enum {
+export default struct DWRITE_TEXTURE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies an alpha texture for aliased text rendering (that is,  each pixel is either fully opaque or fully transparent), with one byte per pixel.

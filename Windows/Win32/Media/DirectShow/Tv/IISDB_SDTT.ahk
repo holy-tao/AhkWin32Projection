@@ -1,36 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\MPEG_DATE_AND_TIME.ahk
-#Include .\MPEG_TIME.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT). An SDTT contains download information such as service ID, schedule, and receiver types for revision.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_sdtt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IISDB_SDTT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IISDB_SDTT extends IUnknown {
     /**
      * The interface identifier for IISDB_SDTT
      * @type {Guid}
      */
-    static IID => Guid("{ee60ef2d-813a-4dc7-bf92-ea13dac85313}")
+    static IID := Guid("{ee60ef2d-813a-4dc7-bf92-ea13dac85313}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IISDB_SDTT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                            : IntPtr
+        GetVersionNumber                      : IntPtr
+        GetTableIdExt                         : IntPtr
+        GetTransportStreamId                  : IntPtr
+        GetOriginalNetworkId                  : IntPtr
+        GetServiceId                          : IntPtr
+        GetCountOfRecords                     : IntPtr
+        GetRecordGroup                        : IntPtr
+        GetRecordTargetVersion                : IntPtr
+        GetRecordNewVersion                   : IntPtr
+        GetRecordDownloadLevel                : IntPtr
+        GetRecordVersionIndicator             : IntPtr
+        GetRecordScheduleTimeShiftInformation : IntPtr
+        GetRecordCountOfSchedules             : IntPtr
+        GetRecordStartTimeByIndex             : IntPtr
+        GetRecordDurationByIndex              : IntPtr
+        GetRecordCountOfDescriptors           : IntPtr
+        GetRecordDescriptorByIndex            : IntPtr
+        GetRecordDescriptorByTag              : IntPtr
+        GetVersionHash                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetTableIdExt", "GetTransportStreamId", "GetOriginalNetworkId", "GetServiceId", "GetCountOfRecords", "GetRecordGroup", "GetRecordTargetVersion", "GetRecordNewVersion", "GetRecordDownloadLevel", "GetRecordVersionIndicator", "GetRecordScheduleTimeShiftInformation", "GetRecordCountOfSchedules", "GetRecordStartTimeByIndex", "GetRecordDurationByIndex", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "GetVersionHash"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IISDB_SDTT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the object by using captured table section data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
@@ -199,7 +228,7 @@ class IISDB_SDTT extends IUnknown {
      */
     GetRecordStartTimeByIndex(dwRecordIndex, dwIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(17, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr", pmdtVal, "HRESULT")
+        result := ComCall(17, this, "uint", dwRecordIndex, "uint", dwIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -215,7 +244,7 @@ class IISDB_SDTT extends IUnknown {
      */
     GetRecordDurationByIndex(dwRecordIndex, dwIndex) {
         pmdVal := MPEG_TIME()
-        result := ComCall(18, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr", pmdVal, "HRESULT")
+        result := ComCall(18, this, "uint", dwRecordIndex, "uint", dwIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
         return pmdVal
     }
 
@@ -278,5 +307,63 @@ class IISDB_SDTT extends IUnknown {
     GetVersionHash() {
         result := ComCall(22, this, "uint*", &pdwVersionHash := 0, "HRESULT")
         return pdwVersionHash
+    }
+
+    Query(iid) {
+        if (IISDB_SDTT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetTableIdExt := CallbackCreate(GetMethod(implObj, "GetTableIdExt"), flags, 2)
+        this.vtbl.GetTransportStreamId := CallbackCreate(GetMethod(implObj, "GetTransportStreamId"), flags, 2)
+        this.vtbl.GetOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetOriginalNetworkId"), flags, 2)
+        this.vtbl.GetServiceId := CallbackCreate(GetMethod(implObj, "GetServiceId"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordGroup := CallbackCreate(GetMethod(implObj, "GetRecordGroup"), flags, 3)
+        this.vtbl.GetRecordTargetVersion := CallbackCreate(GetMethod(implObj, "GetRecordTargetVersion"), flags, 3)
+        this.vtbl.GetRecordNewVersion := CallbackCreate(GetMethod(implObj, "GetRecordNewVersion"), flags, 3)
+        this.vtbl.GetRecordDownloadLevel := CallbackCreate(GetMethod(implObj, "GetRecordDownloadLevel"), flags, 3)
+        this.vtbl.GetRecordVersionIndicator := CallbackCreate(GetMethod(implObj, "GetRecordVersionIndicator"), flags, 3)
+        this.vtbl.GetRecordScheduleTimeShiftInformation := CallbackCreate(GetMethod(implObj, "GetRecordScheduleTimeShiftInformation"), flags, 3)
+        this.vtbl.GetRecordCountOfSchedules := CallbackCreate(GetMethod(implObj, "GetRecordCountOfSchedules"), flags, 3)
+        this.vtbl.GetRecordStartTimeByIndex := CallbackCreate(GetMethod(implObj, "GetRecordStartTimeByIndex"), flags, 4)
+        this.vtbl.GetRecordDurationByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDurationByIndex"), flags, 4)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetTableIdExt)
+        CallbackFree(this.vtbl.GetTransportStreamId)
+        CallbackFree(this.vtbl.GetOriginalNetworkId)
+        CallbackFree(this.vtbl.GetServiceId)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordGroup)
+        CallbackFree(this.vtbl.GetRecordTargetVersion)
+        CallbackFree(this.vtbl.GetRecordNewVersion)
+        CallbackFree(this.vtbl.GetRecordDownloadLevel)
+        CallbackFree(this.vtbl.GetRecordVersionIndicator)
+        CallbackFree(this.vtbl.GetRecordScheduleTimeShiftInformation)
+        CallbackFree(this.vtbl.GetRecordCountOfSchedules)
+        CallbackFree(this.vtbl.GetRecordStartTimeByIndex)
+        CallbackFree(this.vtbl.GetRecordDurationByIndex)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
+        CallbackFree(this.vtbl.GetVersionHash)
     }
 }

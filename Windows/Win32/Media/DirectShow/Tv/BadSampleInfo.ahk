@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class BadSampleInfo extends Win32Struct {
-    static sizeof => 4
+export default struct BadSampleInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    hrReason : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    hrReason {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

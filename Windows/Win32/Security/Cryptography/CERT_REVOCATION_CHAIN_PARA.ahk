@@ -1,51 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTCHAINENGINE.ahk
-#Include .\HCERTSTORE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Contains parameters used for building a chain for an independent online certificate status protocol (OCSP) response signer certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_chain_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_REVOCATION_CHAIN_PARA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct CERT_REVOCATION_CHAIN_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A handle to the chain engine used by the caller.
-     * @type {HCERTCHAINENGINE}
      */
-    hChainEngine {
-        get {
-            if(!this.HasProp("__hChainEngine"))
-                this.__hChainEngine := HCERTCHAINENGINE(8, this)
-            return this.__hChainEngine
-        }
-    }
+    hChainEngine : HCERTCHAINENGINE
 
     /**
      * A handle to a store that contains the certificates used to build the original chain. The handle can be <b>NULL</b>.
-     * @type {HCERTSTORE}
      */
-    hAdditionalStore {
-        get {
-            if(!this.HasProp("__hAdditionalStore"))
-                this.__hAdditionalStore := HCERTSTORE(16, this)
-            return this.__hAdditionalStore
-        }
-    }
+    hAdditionalStore : HCERTSTORE
 
     /**
      * A value for the <i>dwFlags</i> parameter passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatechain">CertGetCertificateChain</a> function.
@@ -70,54 +49,30 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwChainFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwChainFlags : UInt32
 
     /**
      * A value that contains the time-out limit, in milliseconds. If zero, the revocation handler's default time-out is used.
-     * @type {Integer}
      */
-    dwUrlRetrievalTimeout {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwUrlRetrievalTimeout : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure used in the freshness time check. If this pointer is <b>NULL</b>, the revocation handler uses the current time.
-     * @type {Pointer<FILETIME>}
      */
-    pftCurrentTime {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pftCurrentTime : FILETIME.Ptr
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that governs the use of cached information. Any information cached  before this time is considered invalid and new information is retrieved. When set, this value overrides
      *     the registry configuration CacheResync time.
-     * @type {Pointer<FILETIME>}
      */
-    pftCacheResync {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pftCacheResync : FILETIME.Ptr
 
     /**
      * A <b>DWORD</b> value that specifies the maximum number of bytes to download from the URL object. A value of 0 specifies no limit.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not supported.
-     * @type {Integer}
      */
-    cbMaxUrlRetrievalByteCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbMaxUrlRetrievalByteCount : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

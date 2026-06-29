@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an image that is stored as metadata for a media source. This structure is used as the data item for the WM/Picture metadata attribute.
@@ -24,26 +23,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-asf_flat_picture
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ASF_FLAT_PICTURE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct ASF_FLAT_PICTURE {
+    #StructPack 4
 
     /**
      * Specifies the type of image. This member is equivalent to the <b>bPictureType</b> member in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_picture">WM_PICTURE</a> structure.
-     * @type {Integer}
      */
-    bPictureType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bPictureType : Int8
 
     /**
      * Size, in bytes, of the image data.
-     * @type {Integer}
      */
-    dwDataLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDataLen : UInt32
+
 }

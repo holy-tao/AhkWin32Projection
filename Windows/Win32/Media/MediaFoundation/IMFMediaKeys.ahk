@@ -1,36 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaKeySession.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFCdmSuspendNotify.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
+#Import ".\IMFMediaKeySessionNotify.ahk" { IMFMediaKeySessionNotify }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediakeys
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaKeys extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaKeys extends IUnknown {
     /**
      * The interface identifier for IMFMediaKeys
      * @type {Guid}
      */
-    static IID => Guid("{5cb31c05-61ff-418f-afda-caaf41421a38}")
+    static IID := Guid("{5cb31c05-61ff-418f-afda-caaf41421a38}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaKeys interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateSession    : IntPtr
+        get_KeySystem    : IntPtr
+        Shutdown         : IntPtr
+        GetSuspendNotify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSession", "get_KeySystem", "Shutdown", "GetSuspendNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaKeys.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -53,7 +65,7 @@ class IMFMediaKeys extends IUnknown {
     CreateSession(mimeType, initData, cb, customData, cbCustomData, notify) {
         mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
 
-        result := ComCall(3, this, "ptr", mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
         return IMFMediaKeySession(ppSession)
     }
 
@@ -63,8 +75,8 @@ class IMFMediaKeys extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
      */
     get_KeySystem() {
-        keySystem := BSTR()
-        result := ComCall(4, this, "ptr", keySystem, "HRESULT")
+        keySystem := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, keySystem, "HRESULT")
         return keySystem
     }
 
@@ -88,5 +100,31 @@ class IMFMediaKeys extends IUnknown {
     GetSuspendNotify() {
         result := ComCall(6, this, "ptr*", &notify := 0, "HRESULT")
         return IMFCdmSuspendNotify(notify)
+    }
+
+    Query(iid) {
+        if (IMFMediaKeys.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 8)
+        this.vtbl.get_KeySystem := CallbackCreate(GetMethod(implObj, "get_KeySystem"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetSuspendNotify := CallbackCreate(GetMethod(implObj, "GetSuspendNotify"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSession)
+        CallbackFree(this.vtbl.get_KeySystem)
+        CallbackFree(this.vtbl.Shutdown)
+        CallbackFree(this.vtbl.GetSuspendNotify)
     }
 }

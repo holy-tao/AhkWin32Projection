@@ -1,35 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaType.ahk
-#Include .\IMFAttributes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFT_MESSAGE_TYPE.ahk" { MFT_MESSAGE_TYPE }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFT_OUTPUT_DATA_BUFFER.ahk" { MFT_OUTPUT_DATA_BUFFER }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\DeviceStreamState.ahk" { DeviceStreamState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This section contains reference information for the IMFDeviceTransform interface.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/nn-mftransform-imfdevicetransform
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFDeviceTransform extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFDeviceTransform extends IUnknown {
     /**
      * The interface identifier for IMFDeviceTransform
      * @type {Guid}
      */
-    static IID => Guid("{d818fbd8-fc46-42f2-87ac-1ea2d1f9bf32}")
+    static IID := Guid("{d818fbd8-fc46-42f2-87ac-1ea2d1f9bf32}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFDeviceTransform interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeTransform          : IntPtr
+        GetInputAvailableType        : IntPtr
+        GetInputCurrentType          : IntPtr
+        GetInputStreamAttributes     : IntPtr
+        GetOutputAvailableType       : IntPtr
+        GetOutputCurrentType         : IntPtr
+        GetOutputStreamAttributes    : IntPtr
+        GetStreamCount               : IntPtr
+        GetStreamIDs                 : IntPtr
+        ProcessEvent                 : IntPtr
+        ProcessInput                 : IntPtr
+        ProcessMessage               : IntPtr
+        ProcessOutput                : IntPtr
+        SetInputStreamState          : IntPtr
+        GetInputStreamState          : IntPtr
+        SetOutputStreamState         : IntPtr
+        GetOutputStreamState         : IntPtr
+        GetInputStreamPreferredState : IntPtr
+        FlushInputStream             : IntPtr
+        FlushOutputStream            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeTransform", "GetInputAvailableType", "GetInputCurrentType", "GetInputStreamAttributes", "GetOutputAvailableType", "GetOutputCurrentType", "GetOutputStreamAttributes", "GetStreamCount", "GetStreamIDs", "ProcessEvent", "ProcessInput", "ProcessMessage", "ProcessOutput", "SetInputStreamState", "GetInputStreamState", "SetOutputStreamState", "GetOutputStreamState", "GetInputStreamPreferredState", "FlushInputStream", "FlushOutputStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFDeviceTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * InitializeTransform is called to initialize the Device MFT.
@@ -577,7 +609,7 @@ class IMFDeviceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-processmessage
      */
     ProcessMessage(eMessage, ulParam) {
-        result := ComCall(14, this, "int", eMessage, "ptr", ulParam, "HRESULT")
+        result := ComCall(14, this, MFT_MESSAGE_TYPE, eMessage, "ptr", ulParam, "HRESULT")
         return result
     }
 
@@ -598,7 +630,7 @@ class IMFDeviceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-processoutput
      */
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputSample) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSample, "uint*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(15, this, "uint", dwFlags, "uint", cOutputBufferCount, MFT_OUTPUT_DATA_BUFFER.Ptr, pOutputSample, "uint*", &pdwStatus := 0, "HRESULT")
         return pdwStatus
     }
 
@@ -667,7 +699,7 @@ class IMFDeviceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-setinputstreamstate
      */
     SetInputStreamState(dwStreamID, pMediaType, value, dwFlags) {
-        result := ComCall(16, this, "uint", dwStreamID, "ptr", pMediaType, "int", value, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "uint", dwStreamID, "ptr", pMediaType, DeviceStreamState, value, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -755,7 +787,7 @@ class IMFDeviceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-setoutputstreamstate
      */
     SetOutputStreamState(dwStreamID, pMediaType, value, dwFlags) {
-        result := ComCall(18, this, "uint", dwStreamID, "ptr", pMediaType, "int", value, "uint", dwFlags, "HRESULT")
+        result := ComCall(18, this, "uint", dwStreamID, "ptr", pMediaType, DeviceStreamState, value, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -840,7 +872,7 @@ class IMFDeviceTransform extends IUnknown {
     GetInputStreamPreferredState(dwStreamID, value, ppMediaType) {
         valueMarshal := value is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, "uint", dwStreamID, valueMarshal, value, "ptr*", ppMediaType, "HRESULT")
+        result := ComCall(20, this, "uint", dwStreamID, valueMarshal, value, IMFMediaType.Ptr, ppMediaType, "HRESULT")
         return result
     }
 
@@ -982,5 +1014,63 @@ class IMFDeviceTransform extends IUnknown {
     FlushOutputStream(dwStreamIndex, dwFlags) {
         result := ComCall(22, this, "uint", dwStreamIndex, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFDeviceTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeTransform := CallbackCreate(GetMethod(implObj, "InitializeTransform"), flags, 2)
+        this.vtbl.GetInputAvailableType := CallbackCreate(GetMethod(implObj, "GetInputAvailableType"), flags, 4)
+        this.vtbl.GetInputCurrentType := CallbackCreate(GetMethod(implObj, "GetInputCurrentType"), flags, 3)
+        this.vtbl.GetInputStreamAttributes := CallbackCreate(GetMethod(implObj, "GetInputStreamAttributes"), flags, 3)
+        this.vtbl.GetOutputAvailableType := CallbackCreate(GetMethod(implObj, "GetOutputAvailableType"), flags, 4)
+        this.vtbl.GetOutputCurrentType := CallbackCreate(GetMethod(implObj, "GetOutputCurrentType"), flags, 3)
+        this.vtbl.GetOutputStreamAttributes := CallbackCreate(GetMethod(implObj, "GetOutputStreamAttributes"), flags, 3)
+        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 3)
+        this.vtbl.GetStreamIDs := CallbackCreate(GetMethod(implObj, "GetStreamIDs"), flags, 5)
+        this.vtbl.ProcessEvent := CallbackCreate(GetMethod(implObj, "ProcessEvent"), flags, 3)
+        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 4)
+        this.vtbl.ProcessMessage := CallbackCreate(GetMethod(implObj, "ProcessMessage"), flags, 3)
+        this.vtbl.ProcessOutput := CallbackCreate(GetMethod(implObj, "ProcessOutput"), flags, 5)
+        this.vtbl.SetInputStreamState := CallbackCreate(GetMethod(implObj, "SetInputStreamState"), flags, 5)
+        this.vtbl.GetInputStreamState := CallbackCreate(GetMethod(implObj, "GetInputStreamState"), flags, 3)
+        this.vtbl.SetOutputStreamState := CallbackCreate(GetMethod(implObj, "SetOutputStreamState"), flags, 5)
+        this.vtbl.GetOutputStreamState := CallbackCreate(GetMethod(implObj, "GetOutputStreamState"), flags, 3)
+        this.vtbl.GetInputStreamPreferredState := CallbackCreate(GetMethod(implObj, "GetInputStreamPreferredState"), flags, 4)
+        this.vtbl.FlushInputStream := CallbackCreate(GetMethod(implObj, "FlushInputStream"), flags, 3)
+        this.vtbl.FlushOutputStream := CallbackCreate(GetMethod(implObj, "FlushOutputStream"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeTransform)
+        CallbackFree(this.vtbl.GetInputAvailableType)
+        CallbackFree(this.vtbl.GetInputCurrentType)
+        CallbackFree(this.vtbl.GetInputStreamAttributes)
+        CallbackFree(this.vtbl.GetOutputAvailableType)
+        CallbackFree(this.vtbl.GetOutputCurrentType)
+        CallbackFree(this.vtbl.GetOutputStreamAttributes)
+        CallbackFree(this.vtbl.GetStreamCount)
+        CallbackFree(this.vtbl.GetStreamIDs)
+        CallbackFree(this.vtbl.ProcessEvent)
+        CallbackFree(this.vtbl.ProcessInput)
+        CallbackFree(this.vtbl.ProcessMessage)
+        CallbackFree(this.vtbl.ProcessOutput)
+        CallbackFree(this.vtbl.SetInputStreamState)
+        CallbackFree(this.vtbl.GetInputStreamState)
+        CallbackFree(this.vtbl.SetOutputStreamState)
+        CallbackFree(this.vtbl.GetOutputStreamState)
+        CallbackFree(this.vtbl.GetInputStreamPreferredState)
+        CallbackFree(this.vtbl.FlushInputStream)
+        CallbackFree(this.vtbl.FlushOutputStream)
     }
 }

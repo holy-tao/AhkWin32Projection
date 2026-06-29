@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_ISCSI_LOGIN_TYPE.ahk" { VDS_ISCSI_LOGIN_TYPE }
+#Import ".\VDS_ISCSI_AUTH_TYPE.ahk" { VDS_ISCSI_AUTH_TYPE }
+#Import ".\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk" { VDS_ISCSI_INITIATOR_ADAPTER_PROP }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * Provides methods to query and interact with iSCSI initiator adapters on the local system.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsiscsiinitiatoradapter
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsIscsiInitiatorAdapter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsIscsiInitiatorAdapter extends IUnknown {
     /**
      * The interface identifier for IVdsIscsiInitiatorAdapter
      * @type {Guid}
      */
-    static IID => Guid("{b07fedd4-1682-4440-9189-a39b55194dc5}")
+    static IID := Guid("{b07fedd4-1682-4440-9189-a39b55194dc5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsIscsiInitiatorAdapter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties         : IntPtr
+        QueryInitiatorPortals : IntPtr
+        LoginToTarget         : IntPtr
+        LogoutFromTarget      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "QueryInitiatorPortals", "LoginToTarget", "LogoutFromTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsIscsiInitiatorAdapter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the properties of an initiator adapter.
@@ -43,7 +57,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown {
      */
     GetProperties() {
         pInitiatorAdapterProp := VDS_ISCSI_INITIATOR_ADAPTER_PROP()
-        result := ComCall(3, this, "ptr", pInitiatorAdapterProp, "HRESULT")
+        result := ComCall(3, this, VDS_ISCSI_INITIATOR_ADAPTER_PROP.Ptr, pInitiatorAdapterProp, "HRESULT")
         return pInitiatorAdapterProp
     }
 
@@ -82,7 +96,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logintotarget
      */
     LoginToTarget(loginType, targetId, targetPortalId, initiatorPortalId, ulLoginFlags, bHeaderDigest, bDataDigest, authType) {
-        result := ComCall(5, this, "int", loginType, "ptr", targetId, "ptr", targetPortalId, "ptr", initiatorPortalId, "uint", ulLoginFlags, "int", bHeaderDigest, "int", bDataDigest, "int", authType, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, VDS_ISCSI_LOGIN_TYPE, loginType, Guid, targetId, Guid, targetPortalId, Guid, initiatorPortalId, "uint", ulLoginFlags, BOOL, bHeaderDigest, BOOL, bDataDigest, VDS_ISCSI_AUTH_TYPE, authType, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -98,7 +112,33 @@ class IVdsIscsiInitiatorAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logoutfromtarget
      */
     LogoutFromTarget(targetId) {
-        result := ComCall(6, this, "ptr", targetId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, Guid, targetId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsIscsiInitiatorAdapter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.QueryInitiatorPortals := CallbackCreate(GetMethod(implObj, "QueryInitiatorPortals"), flags, 2)
+        this.vtbl.LoginToTarget := CallbackCreate(GetMethod(implObj, "LoginToTarget"), flags, 10)
+        this.vtbl.LogoutFromTarget := CallbackCreate(GetMethod(implObj, "LogoutFromTarget"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.QueryInitiatorPortals)
+        CallbackFree(this.vtbl.LoginToTarget)
+        CallbackFree(this.vtbl.LogoutFromTarget)
     }
 }

@@ -1,35 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BTH_LE_UUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BTH_LE_UUID.ahk" { BTH_LE_UUID }
 
 /**
  * The BTH_LE_GATT_SERVICE structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile service.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_service
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_LE_GATT_SERVICE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct BTH_LE_GATT_SERVICE {
+    #StructPack 4
 
     /**
      * The Universally Unique ID (UUID) of the Bluetooth LE GATT profile service.
-     * @type {BTH_LE_UUID}
      */
-    ServiceUuid {
-        get {
-            if(!this.HasProp("__ServiceUuid"))
-                this.__ServiceUuid := BTH_LE_UUID(0, this)
-            return this.__ServiceUuid
-        }
-    }
+    ServiceUuid : BTH_LE_UUID
 
     /**
      * The handle to the Bluetooth LE GATT profile attributes.
-     * @type {Integer}
      */
-    AttributeHandle {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    AttributeHandle : UInt16
+
 }

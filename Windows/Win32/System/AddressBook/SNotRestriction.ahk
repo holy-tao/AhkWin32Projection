@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SRestriction.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SRestriction.ahk" { SRestriction }
 
 /**
  * Describes a NOT restriction, which is used to apply a logical NOT operation to a restriction.
@@ -9,26 +8,21 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/snotrestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SNotRestriction extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SNotRestriction {
+    #StructPack 8
 
     /**
      * > [in] Reserved; must be zero.
-     * @type {Integer}
      */
-    ulReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved : UInt32
 
+    __lpRes_ptr : IntPtr
     /**
      * > Pointer to a [SRestriction](srestriction.md) structure describing the restriction to be joined to the logical **NOT** operator.
-     * @type {Pointer<SRestriction>}
      */
     lpRes {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpRes_ptr) ? SRestriction.At(addr) : unset
+        set => this.__lpRes_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

@@ -1,40 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IMSMQQueue.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSMQQueue.ahk" { IMSMQQueue }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQQueueInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQQueueInfo extends IDispatch {
     /**
      * The interface identifier for IMSMQQueueInfo
      * @type {Guid}
      */
-    static IID => Guid("{d7d6e07b-dccd-11d0-aa4b-0060970debae}")
+    static IID := Guid("{d7d6e07b-dccd-11d0-aa4b-0060970debae}")
 
     /**
      * The class identifier for MSMQQueueInfo
      * @type {Guid}
      */
-    static CLSID => Guid("{d7d6e07c-dccd-11d0-aa4b-0060970debae}")
+    static CLSID := Guid("{d7d6e07c-dccd-11d0-aa4b-0060970debae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQQueueInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_QueueGuid       : IntPtr
+        get_ServiceTypeGuid : IntPtr
+        put_ServiceTypeGuid : IntPtr
+        get_Label           : IntPtr
+        put_Label           : IntPtr
+        get_PathName        : IntPtr
+        put_PathName        : IntPtr
+        get_FormatName      : IntPtr
+        put_FormatName      : IntPtr
+        get_IsTransactional : IntPtr
+        get_PrivLevel       : IntPtr
+        put_PrivLevel       : IntPtr
+        get_Journal         : IntPtr
+        put_Journal         : IntPtr
+        get_Quota           : IntPtr
+        put_Quota           : IntPtr
+        get_BasePriority    : IntPtr
+        put_BasePriority    : IntPtr
+        get_CreateTime      : IntPtr
+        get_ModifyTime      : IntPtr
+        get_Authenticate    : IntPtr
+        put_Authenticate    : IntPtr
+        get_JournalQuota    : IntPtr
+        put_JournalQuota    : IntPtr
+        get_IsWorldReadable : IntPtr
+        Create              : IntPtr
+        Delete              : IntPtr
+        Open                : IntPtr
+        Refresh             : IntPtr
+        Update              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_QueueGuid", "get_ServiceTypeGuid", "put_ServiceTypeGuid", "get_Label", "put_Label", "get_PathName", "put_PathName", "get_FormatName", "put_FormatName", "get_IsTransactional", "get_PrivLevel", "put_PrivLevel", "get_Journal", "put_Journal", "get_Quota", "put_Quota", "get_BasePriority", "put_BasePriority", "get_CreateTime", "get_ModifyTime", "get_Authenticate", "put_Authenticate", "get_JournalQuota", "put_JournalQuota", "get_IsWorldReadable", "Create", "Delete", "Open", "Refresh", "Update"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQQueueInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -156,8 +193,8 @@ class IMSMQQueueInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_QueueGuid() {
-        pbstrGuidQueue := BSTR()
-        result := ComCall(7, this, "ptr", pbstrGuidQueue, "HRESULT")
+        pbstrGuidQueue := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrGuidQueue, "HRESULT")
         return pbstrGuidQueue
     }
 
@@ -166,8 +203,8 @@ class IMSMQQueueInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_ServiceTypeGuid() {
-        pbstrGuidServiceType := BSTR()
-        result := ComCall(8, this, "ptr", pbstrGuidServiceType, "HRESULT")
+        pbstrGuidServiceType := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrGuidServiceType, "HRESULT")
         return pbstrGuidServiceType
     }
 
@@ -179,7 +216,7 @@ class IMSMQQueueInfo extends IDispatch {
     put_ServiceTypeGuid(bstrGuidServiceType) {
         bstrGuidServiceType := bstrGuidServiceType is String ? BSTR.Alloc(bstrGuidServiceType).Value : bstrGuidServiceType
 
-        result := ComCall(9, this, "ptr", bstrGuidServiceType, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrGuidServiceType, "HRESULT")
         return result
     }
 
@@ -188,8 +225,8 @@ class IMSMQQueueInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Label() {
-        pbstrLabel := BSTR()
-        result := ComCall(10, this, "ptr", pbstrLabel, "HRESULT")
+        pbstrLabel := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrLabel, "HRESULT")
         return pbstrLabel
     }
 
@@ -201,7 +238,7 @@ class IMSMQQueueInfo extends IDispatch {
     put_Label(bstrLabel) {
         bstrLabel := bstrLabel is String ? BSTR.Alloc(bstrLabel).Value : bstrLabel
 
-        result := ComCall(11, this, "ptr", bstrLabel, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrLabel, "HRESULT")
         return result
     }
 
@@ -210,8 +247,8 @@ class IMSMQQueueInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_PathName() {
-        pbstrPathName := BSTR()
-        result := ComCall(12, this, "ptr", pbstrPathName, "HRESULT")
+        pbstrPathName := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrPathName, "HRESULT")
         return pbstrPathName
     }
 
@@ -223,7 +260,7 @@ class IMSMQQueueInfo extends IDispatch {
     put_PathName(bstrPathName) {
         bstrPathName := bstrPathName is String ? BSTR.Alloc(bstrPathName).Value : bstrPathName
 
-        result := ComCall(13, this, "ptr", bstrPathName, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrPathName, "HRESULT")
         return result
     }
 
@@ -232,8 +269,8 @@ class IMSMQQueueInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_FormatName() {
-        pbstrFormatName := BSTR()
-        result := ComCall(14, this, "ptr", pbstrFormatName, "HRESULT")
+        pbstrFormatName := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrFormatName, "HRESULT")
         return pbstrFormatName
     }
 
@@ -245,7 +282,7 @@ class IMSMQQueueInfo extends IDispatch {
     put_FormatName(bstrFormatName) {
         bstrFormatName := bstrFormatName is String ? BSTR.Alloc(bstrFormatName).Value : bstrFormatName
 
-        result := ComCall(15, this, "ptr", bstrFormatName, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrFormatName, "HRESULT")
         return result
     }
 
@@ -340,7 +377,7 @@ class IMSMQQueueInfo extends IDispatch {
      */
     get_CreateTime() {
         pvarCreateTime := VARIANT()
-        result := ComCall(25, this, "ptr", pvarCreateTime, "HRESULT")
+        result := ComCall(25, this, VARIANT.Ptr, pvarCreateTime, "HRESULT")
         return pvarCreateTime
     }
 
@@ -350,7 +387,7 @@ class IMSMQQueueInfo extends IDispatch {
      */
     get_ModifyTime() {
         pvarModifyTime := VARIANT()
-        result := ComCall(26, this, "ptr", pvarModifyTime, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, pvarModifyTime, "HRESULT")
         return pvarModifyTime
     }
 
@@ -409,22 +446,13 @@ class IMSMQQueueInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(IsTransactional, IsWorldReadable) {
-        result := ComCall(32, this, "ptr", IsTransactional, "ptr", IsWorldReadable, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, IsTransactional, VARIANT.Ptr, IsWorldReadable, "HRESULT")
         return result
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(33, this, "HRESULT")
@@ -432,22 +460,10 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * Opens a handle to a backup event log created by the BackupEventLog function. (ANSI)
-     * @remarks
-     * If the backup filename specifies a remote server, the <i>lpUNCServerName</i> parameter must be <b>NULL</b>.
      * 
-     * When this function is used on Windows Vista and later computers, only backup event logs that were saved with the <b>BackupEventLog</b> function on Windows Vista and later computers can be opened.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} Access 
      * @param {Integer} ShareMode 
      * @returns {IMSMQQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventloga
      */
     Open(Access, ShareMode) {
         result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", &ppq := 0, "HRESULT")
@@ -455,12 +471,8 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * 
+     * @returns {HRESULT} 
      */
     Refresh() {
         result := ComCall(35, this, "HRESULT")
@@ -475,5 +487,83 @@ class IMSMQQueueInfo extends IDispatch {
     Update() {
         result := ComCall(36, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSMQQueueInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_QueueGuid := CallbackCreate(GetMethod(implObj, "get_QueueGuid"), flags, 2)
+        this.vtbl.get_ServiceTypeGuid := CallbackCreate(GetMethod(implObj, "get_ServiceTypeGuid"), flags, 2)
+        this.vtbl.put_ServiceTypeGuid := CallbackCreate(GetMethod(implObj, "put_ServiceTypeGuid"), flags, 2)
+        this.vtbl.get_Label := CallbackCreate(GetMethod(implObj, "get_Label"), flags, 2)
+        this.vtbl.put_Label := CallbackCreate(GetMethod(implObj, "put_Label"), flags, 2)
+        this.vtbl.get_PathName := CallbackCreate(GetMethod(implObj, "get_PathName"), flags, 2)
+        this.vtbl.put_PathName := CallbackCreate(GetMethod(implObj, "put_PathName"), flags, 2)
+        this.vtbl.get_FormatName := CallbackCreate(GetMethod(implObj, "get_FormatName"), flags, 2)
+        this.vtbl.put_FormatName := CallbackCreate(GetMethod(implObj, "put_FormatName"), flags, 2)
+        this.vtbl.get_IsTransactional := CallbackCreate(GetMethod(implObj, "get_IsTransactional"), flags, 2)
+        this.vtbl.get_PrivLevel := CallbackCreate(GetMethod(implObj, "get_PrivLevel"), flags, 2)
+        this.vtbl.put_PrivLevel := CallbackCreate(GetMethod(implObj, "put_PrivLevel"), flags, 2)
+        this.vtbl.get_Journal := CallbackCreate(GetMethod(implObj, "get_Journal"), flags, 2)
+        this.vtbl.put_Journal := CallbackCreate(GetMethod(implObj, "put_Journal"), flags, 2)
+        this.vtbl.get_Quota := CallbackCreate(GetMethod(implObj, "get_Quota"), flags, 2)
+        this.vtbl.put_Quota := CallbackCreate(GetMethod(implObj, "put_Quota"), flags, 2)
+        this.vtbl.get_BasePriority := CallbackCreate(GetMethod(implObj, "get_BasePriority"), flags, 2)
+        this.vtbl.put_BasePriority := CallbackCreate(GetMethod(implObj, "put_BasePriority"), flags, 2)
+        this.vtbl.get_CreateTime := CallbackCreate(GetMethod(implObj, "get_CreateTime"), flags, 2)
+        this.vtbl.get_ModifyTime := CallbackCreate(GetMethod(implObj, "get_ModifyTime"), flags, 2)
+        this.vtbl.get_Authenticate := CallbackCreate(GetMethod(implObj, "get_Authenticate"), flags, 2)
+        this.vtbl.put_Authenticate := CallbackCreate(GetMethod(implObj, "put_Authenticate"), flags, 2)
+        this.vtbl.get_JournalQuota := CallbackCreate(GetMethod(implObj, "get_JournalQuota"), flags, 2)
+        this.vtbl.put_JournalQuota := CallbackCreate(GetMethod(implObj, "put_JournalQuota"), flags, 2)
+        this.vtbl.get_IsWorldReadable := CallbackCreate(GetMethod(implObj, "get_IsWorldReadable"), flags, 2)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_QueueGuid)
+        CallbackFree(this.vtbl.get_ServiceTypeGuid)
+        CallbackFree(this.vtbl.put_ServiceTypeGuid)
+        CallbackFree(this.vtbl.get_Label)
+        CallbackFree(this.vtbl.put_Label)
+        CallbackFree(this.vtbl.get_PathName)
+        CallbackFree(this.vtbl.put_PathName)
+        CallbackFree(this.vtbl.get_FormatName)
+        CallbackFree(this.vtbl.put_FormatName)
+        CallbackFree(this.vtbl.get_IsTransactional)
+        CallbackFree(this.vtbl.get_PrivLevel)
+        CallbackFree(this.vtbl.put_PrivLevel)
+        CallbackFree(this.vtbl.get_Journal)
+        CallbackFree(this.vtbl.put_Journal)
+        CallbackFree(this.vtbl.get_Quota)
+        CallbackFree(this.vtbl.put_Quota)
+        CallbackFree(this.vtbl.get_BasePriority)
+        CallbackFree(this.vtbl.put_BasePriority)
+        CallbackFree(this.vtbl.get_CreateTime)
+        CallbackFree(this.vtbl.get_ModifyTime)
+        CallbackFree(this.vtbl.get_Authenticate)
+        CallbackFree(this.vtbl.put_Authenticate)
+        CallbackFree(this.vtbl.get_JournalQuota)
+        CallbackFree(this.vtbl.put_JournalQuota)
+        CallbackFree(this.vtbl.get_IsWorldReadable)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Update)
     }
 }

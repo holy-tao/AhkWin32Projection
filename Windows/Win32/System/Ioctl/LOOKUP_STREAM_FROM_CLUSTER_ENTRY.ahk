@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Returned from the FSCTL_LOOKUP_STREAM_FROM_CLUSTER control code.
@@ -13,21 +13,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_entry
  * @namespace Windows.Win32.System.Ioctl
  */
-class LOOKUP_STREAM_FROM_CLUSTER_ENTRY extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct LOOKUP_STREAM_FROM_CLUSTER_ENTRY {
+    #StructPack 8
 
     /**
      * Offset in bytes from the beginning of this structure to the next 
      *       <b>LOOKUP_STREAM_FROM_CLUSTER_ENTRY</b> 
      *       structure returned. If there are no more entries, this value is zero.
-     * @type {Integer}
      */
-    OffsetToNext {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OffsetToNext : UInt32
 
     /**
      * Flags describing characteristics about this stream. The value will consist of one or more of these values. 
@@ -118,31 +112,19 @@ class LOOKUP_STREAM_FROM_CLUSTER_ENTRY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * This value is reserved and is currently zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Reserved : Int64
 
     /**
      * This is the cluster that this entry refers to. It will be one of the clusters passed in the input 
      *       structure.
-     * @type {Integer}
      */
-    Cluster {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    Cluster : Int64
 
     /**
      * A <b>NULL</b>-terminated Unicode string containing the path of the object relative to 
@@ -152,10 +134,7 @@ class LOOKUP_STREAM_FROM_CLUSTER_ENTRY extends Win32Struct {
      *       exclusively. The string returned includes the full path including filename, stream name, and attribute type name 
      *       in the form 
      *       "<i>full</i>&#92;<i>path</i>&#92;<i>to</i>&#92;<i>file</i>&#92;<i>filename.ext</i>:<i>streamname</i>:<i>typename</i>".
-     * @type {String}
      */
-    FileName {
-        get => StrGet(this.ptr + 24, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-16")
-    }
+    FileName : WCHAR[1]
+
 }

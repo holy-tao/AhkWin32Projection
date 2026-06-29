@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRL_CONTEXT.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The CRYPT_SIGN_MESSAGE_PARA structure contains information for signing messages using a specified signing certificate context.
@@ -13,19 +13,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_sign_message_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct CRYPT_SIGN_MESSAGE_PARA {
+    #StructPack 8
 
     /**
      * Size of this structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
@@ -38,121 +32,70 @@ class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
      */
-    dwMsgEncodingType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMsgEncodingType : UInt32
 
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> to be used in the signing.
      * 
      * Either the CERT_KEY_PROV_INFO_PROP_ID, or CERT_KEY_CONTEXT_PROP_ID property must be set for the context to provide access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private signature key</a>.
-     * @type {Pointer<CERT_CONTEXT>}
      */
-    pSigningCert {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSigningCert : CERT_CONTEXT.Ptr
 
     /**
      * CRYPT_ALGORITHM_IDENTIFIER containing the hashing algorithm used to hash the data to be signed.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm {
-        get {
-            if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
-            return this.__HashAlgorithm
-        }
-    }
+    HashAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * Not currently used, and must be set to <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pvHashAuxInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pvHashAuxInfo : IntPtr
 
     /**
      * Number of elements in the <b>rgpMsgCert</b> array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures. If set to zero no certificates are included in the signed message.
-     * @type {Integer}
      */
-    cMsgCert {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cMsgCert : UInt32
 
     /**
      * Array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures to be included in the signed message. If the <b>pSigningCert</b> is to be included, a pointer to it must be in the <b>rgpMsgCert</b> array.
-     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
-    rgpMsgCert {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    rgpMsgCert : IntPtr
 
     /**
      * Number of elements in the <b>rgpMsgCrl</b> array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structures. If set to zero, no <b>CRL_CONTEXT</b> structures are included in the signed message.
-     * @type {Integer}
      */
-    cMsgCrl {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cMsgCrl : UInt32
 
     /**
      * Array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structures to be included in the signed message.
-     * @type {Pointer<Pointer<CRL_CONTEXT>>}
      */
-    rgpMsgCrl {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    rgpMsgCrl : IntPtr
 
     /**
      * Number of elements in the <b>rgAuthAttr</b> array. If no authenticated attributes are present in <b>rgAuthAttr</b>, this member is set to zero.
-     * @type {Integer}
      */
-    cAuthAttr {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    cAuthAttr : UInt32
 
     /**
      * Array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structures, each holding authenticated attribute information. If there are authenticated attributes present, the PKCS #9 standard dictates that there must be at least two attributes present, the content type <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID), and the hash of the message itself. These attributes are automatically added by the system.
-     * @type {Pointer<CRYPT_ATTRIBUTE>}
      */
-    rgAuthAttr {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    rgAuthAttr : CRYPT_ATTRIBUTE.Ptr
 
     /**
      * Number of elements in the <b>rgUnauthAttr</b> array. If no unauthenticated attributes are present in <b>rgUnauthAttr</b>, this member is zero.
-     * @type {Integer}
      */
-    cUnauthAttr {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    cUnauthAttr : UInt32
 
     /**
      * Array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structures each holding an unauthenticated attribute information. Unauthenticated attributes can be used to contain <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">countersignatures</a>, among other uses.
-     * @type {Pointer<CRYPT_ATTRIBUTE>}
      */
-    rgUnauthAttr {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    rgUnauthAttr : CRYPT_ATTRIBUTE.Ptr
 
     /**
      * Normally zero. If the encoded output is to be a CMSG_SIGNED <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a> of an outer cryptographic message such as a CMSG_ENVELOPED message, the CRYPT_MESSAGE_BARE_CONTENT_OUT_FLAG must be set. If it is not set, the message will be encoded as an <i>inner content</i> type of CMSG_DATA. 
@@ -164,24 +107,12 @@ class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct {
      * 
      * CRYPT_MESSAGE_SILENT_KEYSET_FLAG can be set to suppress any UI by the CSP. For more information about the CRYPT_SILENT flag, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    dwFlags : UInt32
 
     /**
      * Normally zero. Set to the encoding type of the input message if that input to be signed is the encoded output of another cryptographic message.
-     * @type {Integer}
      */
-    dwInnerContentType {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    dwInnerContentType : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 120
-    }
 }

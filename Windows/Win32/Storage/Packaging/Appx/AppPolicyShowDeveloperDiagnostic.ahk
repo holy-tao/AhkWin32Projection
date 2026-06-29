@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AppPolicyShowDeveloperDiagnostic enumeration indicates the method used for a process to surface developer information, such as asserts, to the user.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class AppPolicyShowDeveloperDiagnostic extends Win32Enum {
+export default struct AppPolicyShowDeveloperDiagnostic {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the process does not show developer diagnostics. This value is expected for a UWP app.

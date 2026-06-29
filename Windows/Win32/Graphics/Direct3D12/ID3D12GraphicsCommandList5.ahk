@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12GraphicsCommandList4.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_SHADING_RATE.ahk" { D3D12_SHADING_RATE }
+#Import ".\D3D12_SHADING_RATE_COMBINER.ahk" { D3D12_SHADING_RATE_COMBINER }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12GraphicsCommandList4.ahk" { ID3D12GraphicsCommandList4 }
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support variable-rate shading (VRS).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist5
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4 {
     /**
      * The interface identifier for ID3D12GraphicsCommandList5
      * @type {Guid}
      */
-    static IID => Guid("{55050859-4024-474c-87f5-6472eaee44ea}")
+    static IID := Guid("{55050859-4024-474c-87f5-6472eaee44ea}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 77
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12GraphicsCommandList5 interfaces
+    */
+    struct Vtbl extends ID3D12GraphicsCommandList4.Vtbl {
+        RSSetShadingRate      : IntPtr
+        RSSetShadingRateImage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RSSetShadingRate", "RSSetShadingRateImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12GraphicsCommandList5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ID3D12GraphicsCommandList5::RSSetShadingRate method (d3d12.h) sets the base shading rate, and combiners, for variable-rate shading (VRS).
@@ -78,7 +89,7 @@ class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4 {
     RSSetShadingRate(baseShadingRate, combiners) {
         combinersMarshal := combiners is VarRef ? "int*" : "ptr"
 
-        ComCall(77, this, "int", baseShadingRate, combinersMarshal, combiners)
+        ComCall(77, this, D3D12_SHADING_RATE, baseShadingRate, combinersMarshal, combiners)
     }
 
     /**
@@ -139,5 +150,27 @@ class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4 {
      */
     RSSetShadingRateImage(shadingRateImage) {
         ComCall(78, this, "ptr", shadingRateImage)
+    }
+
+    Query(iid) {
+        if (ID3D12GraphicsCommandList5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RSSetShadingRate := CallbackCreate(GetMethod(implObj, "RSSetShadingRate"), flags, 3)
+        this.vtbl.RSSetShadingRateImage := CallbackCreate(GetMethod(implObj, "RSSetShadingRateImage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RSSetShadingRate)
+        CallbackFree(this.vtbl.RSSetShadingRateImage)
     }
 }

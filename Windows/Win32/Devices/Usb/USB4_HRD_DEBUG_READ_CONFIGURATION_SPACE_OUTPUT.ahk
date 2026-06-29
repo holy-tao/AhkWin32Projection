@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB4_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB4_STATUS.ahk" { USB4_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_OUTPUT extends Win32Struct {
-    static sizeof => 244
+export default struct USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_OUTPUT {
+    #StructPack 4
 
-    static packingSize => 4
+    Usb4Status : USB4_STATUS
 
-    /**
-     * @type {USB4_STATUS}
-     */
-    Usb4Status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Data : UInt32[60]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 60, Primitive, "uint")
-            return this.__DataProxyArray
-        }
-    }
 }

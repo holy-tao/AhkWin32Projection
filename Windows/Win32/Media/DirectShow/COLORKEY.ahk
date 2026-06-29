@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The COLORKEY structure communicates color key information between the renderer and another filter.
@@ -8,44 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-colorkey
  * @namespace Windows.Win32.Media.DirectShow
  */
-class COLORKEY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct COLORKEY {
+    #StructPack 4
 
     /**
      * Key type. Can be <b>CK_NOCOLORKEY</b>, <b>CK_INDEX</b>, or <b>CK_RGB</b>. The <b>CK_INDEX</b> and <b>CK_RGB</b> can be combined with a bitwise <b>OR</b>.
-     * @type {Integer}
      */
-    KeyType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    KeyType : UInt32
 
     /**
      * Palette index.
-     * @type {Integer}
      */
-    PaletteIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PaletteIndex : UInt32
 
     /**
      * Lowest RGB color value.
-     * @type {COLORREF}
      */
-    LowColorValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LowColorValue : COLORREF
 
     /**
      * Highest RGB color value.
-     * @type {COLORREF}
      */
-    HighColorValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HighColorValue : COLORREF
+
 }

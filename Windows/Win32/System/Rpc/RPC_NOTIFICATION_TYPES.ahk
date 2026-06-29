@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RPC_NOTIFICATION_TYPES enumerated type contains values that specify the method of asynchronous notification that a client program will use.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpc_notification_types
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_NOTIFICATION_TYPES extends Win32Enum {
+export default struct RPC_NOTIFICATION_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The client does not require notification of the completion of an asynchronous remote procedure call.

@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\NEWTEXTMETRICEXW.ahk
-#Include ..\Graphics\Gdi\NEWTEXTMETRICW.ahk
-#Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
-#Include .\FONTSIGNATURE.ahk
-#Include ..\Graphics\Gdi\AXESLISTW.ahk
-#Include ..\Graphics\Gdi\AXISINFOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
+#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import "..\Graphics\Gdi\AXESLISTW.ahk" { AXESLISTW }
+#Import ".\NEWTEXTMETRICEXW.ahk" { NEWTEXTMETRICEXW }
+#Import "..\Graphics\Gdi\AXISINFOW.ahk" { AXISINFOW }
+#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The ENUMTEXTMETRIC structure contains information about a physical font. (Unicode)
@@ -24,32 +24,17 @@
  * @namespace Windows.Win32.Globalization
  * @charset Unicode
  */
-class ENUMTEXTMETRICW extends Win32Struct {
-    static sizeof => 748
-
-    static packingSize => 4
+export default struct ENUMTEXTMETRICW {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetricexa">NEWTEXTMETRICEX</a> structure, containing information about a physical font.
-     * @type {NEWTEXTMETRICEXW}
      */
-    etmNewTextMetricEx {
-        get {
-            if(!this.HasProp("__etmNewTextMetricEx"))
-                this.__etmNewTextMetricEx := NEWTEXTMETRICEXW(0, this)
-            return this.__etmNewTextMetricEx
-        }
-    }
+    etmNewTextMetricEx : NEWTEXTMETRICEXW
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-axeslista">AXESLIST</a> structure, containing information about the axes for the font. This is only used for multiple master fonts.
-     * @type {AXESLISTW}
      */
-    etmAxesList {
-        get {
-            if(!this.HasProp("__etmAxesList"))
-                this.__etmAxesList := AXESLISTW(100, this)
-            return this.__etmAxesList
-        }
-    }
+    etmAxesList : AXESLISTW
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_FILTER_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information used to enable a provider via EnableTraceEx2. This structure is obsolete.
@@ -21,19 +21,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-enable_trace_parameters_v1
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ENABLE_TRACE_PARAMETERS_V1 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ENABLE_TRACE_PARAMETERS_V1 {
+    #StructPack 8
 
     /**
      * Set to **ENABLE_TRACE_PARAMETERS_VERSION** (1).
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Optional information that ETW can include when writing the event. The data is
@@ -69,33 +63,21 @@ class ENABLE_TRACE_PARAMETERS_V1 extends Win32Struct {
      *   [EVENT_EXTENDED_ITEM_STACK_TRACE64](/windows/desktop/api/evntcons/ns-evntcons-event_extended_item_stack_trace64)
      *   extended item. Note that 32-bit consumers may receive 64-bit stack traces from
      *   64-bit processes.
-     * @type {Integer}
      */
-    EnableProperty {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EnableProperty : UInt32
 
     /**
      * Reserved. Set to 0.
-     * @type {Integer}
      */
-    ControlFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ControlFlags : UInt32
 
     /**
      * A GUID that uniquely identifies the caller that is enabling or disabling the
      * provider. If the provider does not implement
      * [EnableCallback](/windows/desktop/api/evntprov/nc-evntprov-penablecallback), the
      * GUID is not used.
-     * @type {Pointer}
      */
-    SourceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SourceId : Guid
 
     /**
      * An
@@ -108,10 +90,7 @@ class ENABLE_TRACE_PARAMETERS_V1 extends Win32Struct {
      * A session can call the
      * [TdhEnumerateProviderFilters](/windows/desktop/api/tdh/nf-tdh-tdhenumerateproviderfilters)
      * function to determine the schematized filters that it can pass to the provider.
-     * @type {Pointer<EVENT_FILTER_DESCRIPTOR>}
      */
-    EnableFilterDesc {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    EnableFilterDesc : EVENT_FILTER_DESCRIPTOR.Ptr
+
 }

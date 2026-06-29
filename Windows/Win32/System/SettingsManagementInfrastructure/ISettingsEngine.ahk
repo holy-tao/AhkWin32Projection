@@ -1,46 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IItemEnumerator.ahk
-#Include .\ISettingsNamespace.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISettingsIdentity.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\ITargetInfo.ahk
-#Include .\ISettingsContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISettingsNamespace.ahk" { ISettingsNamespace }
+#Import ".\WcmNamespaceEnumerationFlags.ahk" { WcmNamespaceEnumerationFlags }
+#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WcmNamespaceAccess.ahk" { WcmNamespaceAccess }
+#Import ".\ISettingsContext.ahk" { ISettingsContext }
+#Import ".\WcmUserStatus.ahk" { WcmUserStatus }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITargetInfo.ahk" { ITargetInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The central interface for opening namespaces and controlling how they are opened.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsengine
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class ISettingsEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISettingsEngine extends IUnknown {
     /**
      * The interface identifier for ISettingsEngine
      * @type {Guid}
      */
-    static IID => Guid("{9f7d7bb9-20b3-11da-81a5-0030f1642e3c}")
+    static IID := Guid("{9f7d7bb9-20b3-11da-81a5-0030f1642e3c}")
 
     /**
      * The class identifier for SettingsEngine
      * @type {Guid}
      */
-    static CLSID => Guid("{9f7d7bb5-20b3-11da-81a5-0030f1642e3c}")
+    static CLSID := Guid("{9f7d7bb5-20b3-11da-81a5-0030f1642e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISettingsEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNamespaces          : IntPtr
+        GetNamespace           : IntPtr
+        GetErrorDescription    : IntPtr
+        CreateSettingsIdentity : IntPtr
+        GetStoreStatus         : IntPtr
+        LoadStore              : IntPtr
+        UnloadStore            : IntPtr
+        RegisterNamespace      : IntPtr
+        UnregisterNamespace    : IntPtr
+        CreateTargetInfo       : IntPtr
+        GetTargetInfo          : IntPtr
+        SetTargetInfo          : IntPtr
+        CreateSettingsContext  : IntPtr
+        SetSettingsContext     : IntPtr
+        ApplySettingsContext   : IntPtr
+        GetSettingsContext     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNamespaces", "GetNamespace", "GetErrorDescription", "CreateSettingsIdentity", "GetStoreStatus", "LoadStore", "UnloadStore", "RegisterNamespace", "UnregisterNamespace", "CreateTargetInfo", "GetTargetInfo", "SetTargetInfo", "CreateSettingsContext", "SetSettingsContext", "ApplySettingsContext", "GetSettingsContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISettingsEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns an enumerator to the installed namespaces.
@@ -52,7 +81,7 @@ class ISettingsEngine extends IUnknown {
     GetNamespaces(Flags, Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "int", Flags, ReservedMarshal, Reserved, "ptr*", &Namespaces := 0, "HRESULT")
+        result := ComCall(3, this, WcmNamespaceEnumerationFlags, Flags, ReservedMarshal, Reserved, "ptr*", &Namespaces := 0, "HRESULT")
         return IItemEnumerator(Namespaces)
     }
 
@@ -67,7 +96,7 @@ class ISettingsEngine extends IUnknown {
     GetNamespace(SettingsID, Access, Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", SettingsID, "int", Access, ReservedMarshal, Reserved, "ptr*", &NamespaceItem := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", SettingsID, WcmNamespaceAccess, Access, ReservedMarshal, Reserved, "ptr*", &NamespaceItem := 0, "HRESULT")
         return ISettingsNamespace(NamespaceItem)
     }
 
@@ -78,8 +107,8 @@ class ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-geterrordescription
      */
     GetErrorDescription(_HResult) {
-        Message := BSTR()
-        result := ComCall(5, this, "int", _HResult, "ptr", Message, "HRESULT")
+        Message := BSTR.Owned()
+        result := ComCall(5, this, "int", _HResult, BSTR.Ptr, Message, "HRESULT")
         return Message
     }
 
@@ -145,7 +174,7 @@ class ISettingsEngine extends IUnknown {
      */
     RegisterNamespace(SettingsID, Stream, PushSettings) {
         Results := VARIANT()
-        result := ComCall(10, this, "ptr", SettingsID, "ptr", Stream, "int", PushSettings, "ptr", Results, "HRESULT")
+        result := ComCall(10, this, "ptr", SettingsID, "ptr", Stream, BOOL, PushSettings, VARIANT.Ptr, Results, "HRESULT")
         return Results
     }
 
@@ -157,7 +186,7 @@ class ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-unregisternamespace
      */
     UnregisterNamespace(SettingsID, RemoveSettings) {
-        result := ComCall(11, this, "ptr", SettingsID, "int", RemoveSettings, "HRESULT")
+        result := ComCall(11, this, "ptr", SettingsID, BOOL, RemoveSettings, "HRESULT")
         return result
     }
 
@@ -237,5 +266,55 @@ class ISettingsEngine extends IUnknown {
     GetSettingsContext() {
         result := ComCall(18, this, "ptr*", &SettingsContext := 0, "HRESULT")
         return ISettingsContext(SettingsContext)
+    }
+
+    Query(iid) {
+        if (ISettingsEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNamespaces := CallbackCreate(GetMethod(implObj, "GetNamespaces"), flags, 4)
+        this.vtbl.GetNamespace := CallbackCreate(GetMethod(implObj, "GetNamespace"), flags, 5)
+        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 3)
+        this.vtbl.CreateSettingsIdentity := CallbackCreate(GetMethod(implObj, "CreateSettingsIdentity"), flags, 2)
+        this.vtbl.GetStoreStatus := CallbackCreate(GetMethod(implObj, "GetStoreStatus"), flags, 3)
+        this.vtbl.LoadStore := CallbackCreate(GetMethod(implObj, "LoadStore"), flags, 2)
+        this.vtbl.UnloadStore := CallbackCreate(GetMethod(implObj, "UnloadStore"), flags, 2)
+        this.vtbl.RegisterNamespace := CallbackCreate(GetMethod(implObj, "RegisterNamespace"), flags, 5)
+        this.vtbl.UnregisterNamespace := CallbackCreate(GetMethod(implObj, "UnregisterNamespace"), flags, 3)
+        this.vtbl.CreateTargetInfo := CallbackCreate(GetMethod(implObj, "CreateTargetInfo"), flags, 2)
+        this.vtbl.GetTargetInfo := CallbackCreate(GetMethod(implObj, "GetTargetInfo"), flags, 2)
+        this.vtbl.SetTargetInfo := CallbackCreate(GetMethod(implObj, "SetTargetInfo"), flags, 2)
+        this.vtbl.CreateSettingsContext := CallbackCreate(GetMethod(implObj, "CreateSettingsContext"), flags, 4)
+        this.vtbl.SetSettingsContext := CallbackCreate(GetMethod(implObj, "SetSettingsContext"), flags, 2)
+        this.vtbl.ApplySettingsContext := CallbackCreate(GetMethod(implObj, "ApplySettingsContext"), flags, 4)
+        this.vtbl.GetSettingsContext := CallbackCreate(GetMethod(implObj, "GetSettingsContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNamespaces)
+        CallbackFree(this.vtbl.GetNamespace)
+        CallbackFree(this.vtbl.GetErrorDescription)
+        CallbackFree(this.vtbl.CreateSettingsIdentity)
+        CallbackFree(this.vtbl.GetStoreStatus)
+        CallbackFree(this.vtbl.LoadStore)
+        CallbackFree(this.vtbl.UnloadStore)
+        CallbackFree(this.vtbl.RegisterNamespace)
+        CallbackFree(this.vtbl.UnregisterNamespace)
+        CallbackFree(this.vtbl.CreateTargetInfo)
+        CallbackFree(this.vtbl.GetTargetInfo)
+        CallbackFree(this.vtbl.SetTargetInfo)
+        CallbackFree(this.vtbl.CreateSettingsContext)
+        CallbackFree(this.vtbl.SetSettingsContext)
+        CallbackFree(this.vtbl.ApplySettingsContext)
+        CallbackFree(this.vtbl.GetSettingsContext)
     }
 }

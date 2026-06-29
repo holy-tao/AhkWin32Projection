@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 
 /**
  * Is a collection of namespaces and types used in a WSDAPI stack.
@@ -10,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nn-wsdxml-iwsdxmlcontext
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDXMLContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDXMLContext extends IUnknown {
     /**
      * The interface identifier for IWSDXMLContext
      * @type {Guid}
      */
-    static IID => Guid("{75d8f3ee-3e5a-43b4-a15a-bcf6887460c0}")
+    static IID := Guid("{75d8f3ee-3e5a-43b4-a15a-bcf6887460c0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDXMLContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddNamespace       : IntPtr
+        AddNameToNamespace : IntPtr
+        SetNamespaces      : IntPtr
+        SetTypes           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddNamespace", "AddNameToNamespace", "SetNamespaces", "SetTypes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDXMLContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an object that represents a namespace in an XML context.
@@ -197,5 +212,31 @@ class IWSDXMLContext extends IUnknown {
 
         result := ComCall(6, this, pTypesMarshal, pTypes, "uint", dwTypesCount, "char", bLayerNumber, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDXMLContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddNamespace := CallbackCreate(GetMethod(implObj, "AddNamespace"), flags, 4)
+        this.vtbl.AddNameToNamespace := CallbackCreate(GetMethod(implObj, "AddNameToNamespace"), flags, 4)
+        this.vtbl.SetNamespaces := CallbackCreate(GetMethod(implObj, "SetNamespaces"), flags, 4)
+        this.vtbl.SetTypes := CallbackCreate(GetMethod(implObj, "SetTypes"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddNamespace)
+        CallbackFree(this.vtbl.AddNameToNamespace)
+        CallbackFree(this.vtbl.SetNamespaces)
+        CallbackFree(this.vtbl.SetTypes)
     }
 }

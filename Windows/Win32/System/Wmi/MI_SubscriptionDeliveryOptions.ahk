@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_SubscriptionDeliveryOptionsFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_SubscriptionDeliveryOptionsFT.ahk" { MI_SubscriptionDeliveryOptionsFT }
 
 /**
  * The subscription options object stores configuration options used for passing into subscription operations.
@@ -9,35 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_subscriptiondeliveryoptions
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_SubscriptionDeliveryOptions extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MI_SubscriptionDeliveryOptions {
+    #StructPack 8
 
     /**
      * Reserved for internal use only.
-     * @type {Integer}
      */
-    reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved1 : Int64
 
     /**
      * Reserved for internal use only.
-     * @type {Pointer}
      */
-    reserved2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    reserved2 : IntPtr
 
     /**
      * Pointer to the <b>MI_SubscriptionDeliveryOptions</b> function table.
-     * @type {Pointer<MI_SubscriptionDeliveryOptionsFT>}
      */
-    ft {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ft : MI_SubscriptionDeliveryOptionsFT.Ptr
+
 }

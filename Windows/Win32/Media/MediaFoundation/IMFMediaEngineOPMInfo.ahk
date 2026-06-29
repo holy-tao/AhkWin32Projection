@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MF_MEDIA_ENGINE_OPM_STATUS.ahk" { MF_MEDIA_ENGINE_OPM_STATUS }
 
 /**
  * Provides methods for getting information about the Output Protection Manager (OPM).
@@ -12,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineopminfo
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineOPMInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineOPMInfo extends IUnknown {
     /**
      * The interface identifier for IMFMediaEngineOPMInfo
      * @type {Guid}
      */
-    static IID => Guid("{765763e6-6c01-4b01-bb0f-b829f60ed28c}")
+    static IID := Guid("{765763e6-6c01-4b01-bb0f-b829f60ed28c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineOPMInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOPMInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOPMInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineOPMInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets status information about the Output Protection Manager (OPM).
@@ -75,5 +85,25 @@ class IMFMediaEngineOPMInfo extends IUnknown {
 
         result := ComCall(3, this, pStatusMarshal, pStatus, pConstrictedMarshal, pConstricted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineOPMInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOPMInfo := CallbackCreate(GetMethod(implObj, "GetOPMInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOPMInfo)
     }
 }

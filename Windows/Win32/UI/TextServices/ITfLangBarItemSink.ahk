@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfLangBarItemSink interface is implemented by the language bar and used by a language bar item provider to notify the language bar of changes to a language bar item.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritemsink
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarItemSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarItemSink extends IUnknown {
     /**
      * The interface identifier for ITfLangBarItemSink
      * @type {Guid}
      */
-    static IID => Guid("{57dbe1a0-de25-11d2-afdd-00105a2799b5}")
+    static IID := Guid("{57dbe1a0-de25-11d2-afdd-00105a2799b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarItemSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnUpdate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnUpdate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarItemSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfLangBarItemSink::OnUpdate method
@@ -69,5 +77,25 @@ class ITfLangBarItemSink extends IUnknown {
     OnUpdate(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfLangBarItemSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnUpdate := CallbackCreate(GetMethod(implObj, "OnUpdate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnUpdate)
     }
 }

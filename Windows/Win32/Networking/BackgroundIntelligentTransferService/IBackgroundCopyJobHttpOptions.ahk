@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BG_CERT_STORE_LOCATION.ahk" { BG_CERT_STORE_LOCATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
  * Use this interface to specify client certificates for certificate-based client authentication and custom headers for HTTP requests.
  * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nn-bits2_5-ibackgroundcopyjobhttpoptions
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJobHttpOptions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJobHttpOptions extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyJobHttpOptions
      * @type {Guid}
      */
-    static IID => Guid("{f1bd1079-9f01-4bdc-8036-f09b70095066}")
+    static IID := Guid("{f1bd1079-9f01-4bdc-8036-f09b70095066}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJobHttpOptions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetClientCertificateByID   : IntPtr
+        SetClientCertificateByName : IntPtr
+        RemoveClientCertificate    : IntPtr
+        GetClientCertificate       : IntPtr
+        SetCustomHeaders           : IntPtr
+        GetCustomHeaders           : IntPtr
+        SetSecurityFlags           : IntPtr
+        GetSecurityFlags           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetClientCertificateByID", "SetClientCertificateByName", "RemoveClientCertificate", "GetClientCertificate", "SetCustomHeaders", "GetCustomHeaders", "SetSecurityFlags", "GetSecurityFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJobHttpOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the identifier of the client certificate to use for client authentication in an HTTPS (SSL) request.
@@ -206,7 +223,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown {
 
         pCertHashBlobMarshal := pCertHashBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "int", StoreLocation, "ptr", StoreName, pCertHashBlobMarshal, pCertHashBlob, "HRESULT")
+        result := ComCall(3, this, BG_CERT_STORE_LOCATION, StoreLocation, "ptr", StoreName, pCertHashBlobMarshal, pCertHashBlob, "HRESULT")
         return result
     }
 
@@ -376,7 +393,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown {
         StoreName := StoreName is String ? StrPtr(StoreName) : StoreName
         SubjectName := SubjectName is String ? StrPtr(SubjectName) : SubjectName
 
-        result := ComCall(4, this, "int", StoreLocation, "ptr", StoreName, "ptr", SubjectName, "HRESULT")
+        result := ComCall(4, this, BG_CERT_STORE_LOCATION, StoreLocation, "ptr", StoreName, "ptr", SubjectName, "HRESULT")
         return result
     }
 
@@ -492,10 +509,10 @@ class IBackgroundCopyJobHttpOptions extends IUnknown {
         ppCertHashBlobMarshal := ppCertHashBlob is VarRef ? "ptr*" : "ptr"
         pSubjectNameMarshal := pSubjectName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, pStoreNameMarshal, pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, pSubjectNameMarshal, pSubjectName, "int")
+        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, pStoreNameMarshal, pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, pSubjectNameMarshal, pSubjectName, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(ppCertHashBlob)
-            Com.CoTaskMemFree(pSubjectName)
+            CoTaskMemFree(ppCertHashBlob)
+            CoTaskMemFree(pSubjectName.value)
             throw OSError()
         }
 
@@ -574,9 +591,9 @@ class IBackgroundCopyJobHttpOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getcustomheaders
      */
     GetCustomHeaders() {
-        result := ComCall(8, this, "ptr*", &pRequestHeaders := 0, "int")
+        result := ComCall(8, this, PWSTR.Ptr, &pRequestHeaders := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pRequestHeaders)
+            CoTaskMemFree(pRequestHeaders.value)
             throw OSError()
         }
 
@@ -916,5 +933,39 @@ class IBackgroundCopyJobHttpOptions extends IUnknown {
     GetSecurityFlags() {
         result := ComCall(10, this, "uint*", &pFlags := 0, "HRESULT")
         return pFlags
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJobHttpOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetClientCertificateByID := CallbackCreate(GetMethod(implObj, "SetClientCertificateByID"), flags, 4)
+        this.vtbl.SetClientCertificateByName := CallbackCreate(GetMethod(implObj, "SetClientCertificateByName"), flags, 4)
+        this.vtbl.RemoveClientCertificate := CallbackCreate(GetMethod(implObj, "RemoveClientCertificate"), flags, 1)
+        this.vtbl.GetClientCertificate := CallbackCreate(GetMethod(implObj, "GetClientCertificate"), flags, 5)
+        this.vtbl.SetCustomHeaders := CallbackCreate(GetMethod(implObj, "SetCustomHeaders"), flags, 2)
+        this.vtbl.GetCustomHeaders := CallbackCreate(GetMethod(implObj, "GetCustomHeaders"), flags, 2)
+        this.vtbl.SetSecurityFlags := CallbackCreate(GetMethod(implObj, "SetSecurityFlags"), flags, 2)
+        this.vtbl.GetSecurityFlags := CallbackCreate(GetMethod(implObj, "GetSecurityFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetClientCertificateByID)
+        CallbackFree(this.vtbl.SetClientCertificateByName)
+        CallbackFree(this.vtbl.RemoveClientCertificate)
+        CallbackFree(this.vtbl.GetClientCertificate)
+        CallbackFree(this.vtbl.SetCustomHeaders)
+        CallbackFree(this.vtbl.GetCustomHeaders)
+        CallbackFree(this.vtbl.SetSecurityFlags)
+        CallbackFree(this.vtbl.GetSecurityFlags)
     }
 }

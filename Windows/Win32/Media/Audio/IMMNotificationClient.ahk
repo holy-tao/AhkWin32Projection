@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EDataFlow.ahk" { EDataFlow }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ERole.ahk" { ERole }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEVICE_STATE.ahk" { DEVICE_STATE }
 
 /**
  * The IMMNotificationClient interface provides notifications when an audio endpoint device is added or removed, when the state or properties of an endpoint device change, or when there is a change in the default role assigned to an endpoint device.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immnotificationclient
  * @namespace Windows.Win32.Media.Audio
  */
-class IMMNotificationClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMMNotificationClient extends IUnknown {
     /**
      * The interface identifier for IMMNotificationClient
      * @type {Guid}
      */
-    static IID => Guid("{7991eec9-7e89-4d85-8390-6c703cec60c0}")
+    static IID := Guid("{7991eec9-7e89-4d85-8390-6c703cec60c0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMMNotificationClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDeviceStateChanged   : IntPtr
+        OnDeviceAdded          : IntPtr
+        OnDeviceRemoved        : IntPtr
+        OnDefaultDeviceChanged : IntPtr
+        OnPropertyValueChanged : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDeviceStateChanged", "OnDeviceAdded", "OnDeviceRemoved", "OnDefaultDeviceChanged", "OnPropertyValueChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMMNotificationClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnDeviceStateChanged method indicates that the state of an audio endpoint device has changed.
@@ -49,7 +66,7 @@ class IMMNotificationClient extends IUnknown {
     OnDeviceStateChanged(pwstrDeviceId, dwNewState) {
         pwstrDeviceId := pwstrDeviceId is String ? StrPtr(pwstrDeviceId) : pwstrDeviceId
 
-        result := ComCall(3, this, "ptr", pwstrDeviceId, "uint", dwNewState, "HRESULT")
+        result := ComCall(3, this, "ptr", pwstrDeviceId, DEVICE_STATE, dwNewState, "HRESULT")
         return result
     }
 
@@ -114,7 +131,7 @@ class IMMNotificationClient extends IUnknown {
     OnDefaultDeviceChanged(flow, role, pwstrDefaultDeviceId) {
         pwstrDefaultDeviceId := pwstrDefaultDeviceId is String ? StrPtr(pwstrDefaultDeviceId) : pwstrDefaultDeviceId
 
-        result := ComCall(6, this, "int", flow, "int", role, "ptr", pwstrDefaultDeviceId, "HRESULT")
+        result := ComCall(6, this, EDataFlow, flow, ERole, role, "ptr", pwstrDefaultDeviceId, "HRESULT")
         return result
     }
 
@@ -134,7 +151,35 @@ class IMMNotificationClient extends IUnknown {
     OnPropertyValueChanged(pwstrDeviceId, key) {
         pwstrDeviceId := pwstrDeviceId is String ? StrPtr(pwstrDeviceId) : pwstrDeviceId
 
-        result := ComCall(7, this, "ptr", pwstrDeviceId, "ptr", key, "HRESULT")
+        result := ComCall(7, this, "ptr", pwstrDeviceId, PROPERTYKEY, key, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMMNotificationClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDeviceStateChanged := CallbackCreate(GetMethod(implObj, "OnDeviceStateChanged"), flags, 3)
+        this.vtbl.OnDeviceAdded := CallbackCreate(GetMethod(implObj, "OnDeviceAdded"), flags, 2)
+        this.vtbl.OnDeviceRemoved := CallbackCreate(GetMethod(implObj, "OnDeviceRemoved"), flags, 2)
+        this.vtbl.OnDefaultDeviceChanged := CallbackCreate(GetMethod(implObj, "OnDefaultDeviceChanged"), flags, 4)
+        this.vtbl.OnPropertyValueChanged := CallbackCreate(GetMethod(implObj, "OnPropertyValueChanged"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDeviceStateChanged)
+        CallbackFree(this.vtbl.OnDeviceAdded)
+        CallbackFree(this.vtbl.OnDeviceRemoved)
+        CallbackFree(this.vtbl.OnDefaultDeviceChanged)
+        CallbackFree(this.vtbl.OnPropertyValueChanged)
     }
 }

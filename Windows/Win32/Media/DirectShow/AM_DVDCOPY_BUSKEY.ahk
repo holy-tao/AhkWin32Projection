@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the DVD bus key.
@@ -10,32 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_buskey
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_DVDCOPY_BUSKEY extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 1
+export default struct AM_DVDCOPY_BUSKEY {
+    #StructPack 1
 
     /**
      * DVD drive bus key.
-     * @type {Array<Integer>}
      */
-    BusKey {
-        get {
-            if(!this.HasProp("__BusKeyProxyArray"))
-                this.__BusKeyProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "char")
-            return this.__BusKeyProxyArray
-        }
-    }
+    BusKey : Int8[5]
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[1]
+
 }

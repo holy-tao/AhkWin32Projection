@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies channel binding information for a security context.
@@ -16,80 +15,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_channel_bindings
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_CHANNEL_BINDINGS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct SEC_CHANNEL_BINDINGS {
+    #StructPack 4
 
     /**
      * The type of  address (for example, HTTP) specified for the client.
-     * @type {Integer}
      */
-    dwInitiatorAddrType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwInitiatorAddrType : UInt32
 
     /**
      * The size, in bytes, of the data that specifies the client address.
-     * @type {Integer}
      */
-    cbInitiatorLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbInitiatorLength : UInt32
 
     /**
      * The number of bytes from the beginning of this structure to the beginning of the data that specifies the client address.
-     * @type {Integer}
      */
-    dwInitiatorOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwInitiatorOffset : UInt32
 
     /**
      * The type of  address (for example, SPN) specified for the server.
-     * @type {Integer}
      */
-    dwAcceptorAddrType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwAcceptorAddrType : UInt32
 
     /**
      * The size, in bytes, of the data that specifies the server address.
-     * @type {Integer}
      */
-    cbAcceptorLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbAcceptorLength : UInt32
 
     /**
      * The number of bytes from the beginning of this structure to the beginning of the data that specifies the server address.
-     * @type {Integer}
      */
-    dwAcceptorOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwAcceptorOffset : UInt32
 
     /**
      * The size, in bytes, of the channel binding data.
-     * @type {Integer}
      */
-    cbApplicationDataLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbApplicationDataLength : UInt32
 
     /**
      * The size, in  bytes, of this structure. The channel binding data immediately follows this structure.
-     * @type {Integer}
      */
-    dwApplicationDataOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwApplicationDataOffset : UInt32
+
 }

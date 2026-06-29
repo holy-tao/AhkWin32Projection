@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMClientConnections.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMClientConnections.ahk" { IWMClientConnections }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMClientConnections2 interface retrieves advanced client information.The writer network sink object exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmclientconnections2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMClientConnections2 extends IWMClientConnections {
-
-    static sizeof => A_PtrSize
+export default struct IWMClientConnections2 extends IWMClientConnections {
     /**
      * The interface identifier for IWMClientConnections2
      * @type {Guid}
      */
-    static IID => Guid("{4091571e-4701-4593-bb3d-d5f5f0c74246}")
+    static IID := Guid("{4091571e-4701-4593-bb3d-d5f5f0c74246}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMClientConnections2 interfaces
+    */
+    struct Vtbl extends IWMClientConnections.Vtbl {
+        GetClientInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClientInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMClientConnections2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetClientInfo method retrieves information about a client attached to a writer network sink.
@@ -52,5 +61,25 @@ class IWMClientConnections2 extends IWMClientConnections {
 
         result := ComCall(5, this, "uint", dwClientNum, "ptr", pwszNetworkAddress, pcchNetworkAddressMarshal, pcchNetworkAddress, "ptr", pwszPort, pcchPortMarshal, pcchPort, "ptr", pwszDNSName, pcchDNSNameMarshal, pcchDNSName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMClientConnections2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClientInfo := CallbackCreate(GetMethod(implObj, "GetClientInfo"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClientInfo)
     }
 }

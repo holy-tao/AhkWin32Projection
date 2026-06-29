@@ -1,66 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Provides information about the handler for use in the ISyncMgrSynchronize::GetHandlerInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgrhandlerinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class SYNCMGRHANDLERINFO extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct SYNCMGRHANDLERINFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HICON</b>
      * 
      * The icon for the handler.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(8, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The value of the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgrhandlerflags">SYNCMGRHANDLERFLAGS</a> enumeration.
-     * @type {Integer}
      */
-    SyncMgrHandlerFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SyncMgrHandlerFlags : UInt32
 
     /**
      * Type: <b>WCHAR[MAX_SYNCMGRHANDLERNAME]</b>
      * 
      * The name to use for the handler.
-     * @type {String}
      */
-    wszHandlerName {
-        get => StrGet(this.ptr + 20, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 31, "UTF-16")
-    }
+    wszHandlerName : WCHAR[32]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 88
-    }
 }

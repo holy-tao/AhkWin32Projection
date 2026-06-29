@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_DEPTH_STENCIL_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DEPTH_STENCIL_VALUE.ahk" { D3D12_DEPTH_STENCIL_VALUE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Describes a value used to optimize clear operations for a particular resource.
@@ -23,10 +22,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_clear_value
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_CLEAR_VALUE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3D12_CLEAR_VALUE {
+    #StructPack 4
 
     /**
      * Specifies one member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> enum.
@@ -34,32 +31,13 @@ class D3D12_CLEAR_VALUE extends Win32Struct {
      * The format of the commonly cleared color follows the same validation rules as a view/ descriptor creation. In general, the format of the clear color can be any format in the same typeless group that the resource format belongs to.
      * 
      * This <i>Format</i> must match the format of the view used during the clear operation. It indicates whether the <i>Color</i> or the <i>DepthStencil</i> member is valid and how to convert the values for usage with the resource.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Format : DXGI_FORMAT
 
-    /**
-     * @type {Array<Float>}
-     */
-    Color {
-        get {
-            if(!this.HasProp("__ColorProxyArray"))
-                this.__ColorProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "float")
-            return this.__ColorProxyArray
-        }
-    }
+    Color : Float32[4]
 
-    /**
-     * @type {D3D12_DEPTH_STENCIL_VALUE}
-     */
-    DepthStencil {
-        get {
-            if(!this.HasProp("__DepthStencil"))
-                this.__DepthStencil := D3D12_DEPTH_STENCIL_VALUE(4, this)
-            return this.__DepthStencil
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'DepthStencil', { type: D3D12_DEPTH_STENCIL_VALUE, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REPORT_EVENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
 
 /**
  * Contains information about an event record returned by the ReadEventLog function.
@@ -28,156 +27,89 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-eventlogrecord
  * @namespace Windows.Win32.System.EventLog
  */
-class EVENTLOGRECORD extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct EVENTLOGRECORD {
+    #StructPack 4
 
     /**
      * The size of this event record, in bytes. Note that this value is stored at both ends of the entry to ease moving forward or backward through the log. The length includes any pad bytes inserted at the end of the record for <b>DWORD</b> alignment.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
     /**
      * A DWORD value that is always set to <b>ELF_LOG_SIGNATURE</b> (the value is 0x654c664c), which is ASCII for eLfL.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * The number of the record. This value can be used with the EVENTLOG_SEEK_READ flag in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readeventloga">ReadEventLog</a> function to begin reading at a specified record. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-log-records">Event Log Records</a>.
-     * @type {Integer}
      */
-    RecordNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RecordNumber : UInt32
 
     /**
      * The time at which this entry was submitted. This time is measured in the number of seconds elapsed since 00:00:00 January 1, 1970, Universal Coordinated Time.
-     * @type {Integer}
      */
-    TimeGenerated {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TimeGenerated : UInt32
 
     /**
      * The time at which this entry was received by the service to be written to the log. This time is measured in the number of seconds elapsed since 00:00:00 January 1, 1970, Universal Coordinated Time.
-     * @type {Integer}
      */
-    TimeWritten {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TimeWritten : UInt32
 
     /**
      * The event identifier. The value is specific to the event source for the event, and is used with source name to locate a description string in the message file for the event source. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-identifiers">Event Identifiers</a>.
-     * @type {Integer}
      */
-    EventID {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    EventID : UInt32
 
-    /**
-     * @type {REPORT_EVENT_TYPE}
-     */
-    EventType {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    EventType : REPORT_EVENT_TYPE
 
     /**
      * The number of strings present in the log (at the position indicated by <b>StringOffset</b>). These strings are merged into the message before it is displayed to the user.
-     * @type {Integer}
      */
-    NumStrings {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    NumStrings : UInt16
 
     /**
      * The category for this event. The meaning of this value depends on the event source. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-categories">Event Categories</a>.
-     * @type {Integer}
      */
-    EventCategory {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    EventCategory : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    ReservedFlags {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    ReservedFlags : UInt16
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    ClosingRecordNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ClosingRecordNumber : UInt32
 
     /**
      * The offset of the description strings within this event log record.
-     * @type {Integer}
      */
-    StringOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    StringOffset : UInt32
 
     /**
      * The size of the <b>UserSid</b> member, in bytes. This value can be zero if no security identifier was provided.
-     * @type {Integer}
      */
-    UserSidLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    UserSidLength : UInt32
 
     /**
      * The offset of the security identifier (SID) within this event log record. To obtain the user name for this SID, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountsida">LookupAccountSid</a> function.
-     * @type {Integer}
      */
-    UserSidOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    UserSidOffset : UInt32
 
     /**
      * The size of the event-specific data (at the position indicated by <b>DataOffset</b>), in bytes.
-     * @type {Integer}
      */
-    DataLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DataLength : UInt32
 
     /**
      * The offset of the event-specific information within this event log record, in bytes. This information could be something specific (a disk driver might log the number of retries, for example), followed by binary information specific to the event being logged and to the source that generated the entry.
-     * @type {Integer}
      */
-    DataOffset {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    DataOffset : UInt32
+
 }

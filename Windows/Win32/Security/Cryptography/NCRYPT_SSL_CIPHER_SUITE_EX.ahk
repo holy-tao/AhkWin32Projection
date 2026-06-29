@@ -1,139 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_SSL_CIPHER_SUITE_EX extends Win32Struct {
-    static sizeof => 808
+export default struct NCRYPT_SSL_CIPHER_SUITE_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwProtocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProtocol {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCipherSuite : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCipherSuite {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwBaseCipherSuite : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBaseCipherSuite {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    szCipherSuite : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szCipherSuite {
-        get => StrGet(this.ptr + 16, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-16")
-    }
+    szCipher : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szCipher {
-        get => StrGet(this.ptr + 144, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
-    }
+    dwCipherLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCipherLen {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    dwCipherBlockLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCipherBlockLen {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
+    szHash : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szHash {
-        get => StrGet(this.ptr + 280, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 280, 63, "UTF-16")
-    }
+    dwHashLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHashLen {
-        get => NumGet(this, 408, "uint")
-        set => NumPut("uint", value, this, 408)
-    }
+    szExchange : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szExchange {
-        get => StrGet(this.ptr + 412, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 412, 63, "UTF-16")
-    }
+    dwMinExchangeLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinExchangeLen {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
-    }
+    dwMaxExchangeLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxExchangeLen {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
+    szCertificate : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szCertificate {
-        get => StrGet(this.ptr + 548, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 548, 63, "UTF-16")
-    }
+    dwKeyType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKeyType {
-        get => NumGet(this, 676, "uint")
-        set => NumPut("uint", value, this, 676)
-    }
+    szCipherMode : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szCipherMode {
-        get => StrGet(this.ptr + 680, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 680, 63, "UTF-16")
-    }
 }

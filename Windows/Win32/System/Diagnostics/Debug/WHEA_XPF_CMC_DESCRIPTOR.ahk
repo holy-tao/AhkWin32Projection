@@ -1,69 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
-#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XPF_MC_BANK_FLAGS.ahk" { XPF_MC_BANK_FLAGS }
+#Import ".\WHEA_NOTIFICATION_DESCRIPTOR.ahk" { WHEA_NOTIFICATION_DESCRIPTOR }
+#Import ".\WHEA_NOTIFICATION_FLAGS.ahk" { WHEA_NOTIFICATION_FLAGS }
+#Import ".\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk" { WHEA_XPF_MC_BANK_DESCRIPTOR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct {
-    static sizeof => 1064
+export default struct WHEA_XPF_CMC_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Enabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Enabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    NumberOfBanks : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfBanks {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Notify : WHEA_NOTIFICATION_DESCRIPTOR
 
-    /**
-     * @type {WHEA_NOTIFICATION_DESCRIPTOR}
-     */
-    Notify {
-        get {
-            if(!this.HasProp("__Notify"))
-                this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(8, this)
-            return this.__Notify
-        }
-    }
+    Banks : WHEA_XPF_MC_BANK_DESCRIPTOR[32]
 
-    /**
-     * @type {WHEA_XPF_MC_BANK_DESCRIPTOR}
-     */
-    Banks {
-        get {
-            if(!this.HasProp("__BanksProxyArray"))
-                this.__BanksProxyArray := Win32FixedArray(this.ptr + 40, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
-            return this.__BanksProxyArray
-        }
-    }
 }

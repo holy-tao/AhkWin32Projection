@@ -1,49 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the version information about the miniversion created by FSCTL_TXFS_CREATE_MINIVERSION.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_create_miniversion_info
  * @namespace Windows.Win32.System.Ioctl
  */
-class TXFS_CREATE_MINIVERSION_INFO extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct TXFS_CREATE_MINIVERSION_INFO {
+    #StructPack 4
 
     /**
      * The version number of this <b>TXFS_CREATE_MINIVERSION_INFO</b> structure.
-     * @type {Integer}
      */
-    StructureVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    StructureVersion : UInt16
 
     /**
      * The length of this <b>TXFS_CREATE_MINIVERSION_INFO</b> structure.
-     * @type {Integer}
      */
-    StructureLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    StructureLength : UInt16
 
     /**
      * The identifier of the most recently committed version of the file.
-     * @type {Integer}
      */
-    BaseVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BaseVersion : UInt32
 
     /**
      * The identifier of the newly-created miniversion.
-     * @type {Integer}
      */
-    MiniVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MiniVersion : UInt16
+
 }

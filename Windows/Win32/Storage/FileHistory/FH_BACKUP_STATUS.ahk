@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether File History backups are enabled.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_backup_status
  * @namespace Windows.Win32.Storage.FileHistory
  */
-class FH_BACKUP_STATUS extends Win32Enum {
+export default struct FH_BACKUP_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * File History backups are not enabled by the user.

@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxOutgoingJobs.ahk
-#Include .\IFaxOutgoingJob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxOutgoingJobs.ahk" { IFaxOutgoingJobs }
+#Import ".\IFaxOutgoingJob.ahk" { IFaxOutgoingJob }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IFaxOutgoingQueue interface defines a FaxOutgoingQueue configuration object used by a fax client application to set and retrieve the configuration parameters on the outbound fax queue on a fax server.
@@ -12,32 +15,62 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingqueue
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutgoingQueue extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutgoingQueue extends IDispatch {
     /**
      * The interface identifier for IFaxOutgoingQueue
      * @type {Guid}
      */
-    static IID => Guid("{80b1df24-d9ac-4333-b373-487cedc80ce5}")
+    static IID := Guid("{80b1df24-d9ac-4333-b373-487cedc80ce5}")
 
     /**
      * The class identifier for FaxOutgoingQueue
      * @type {Guid}
      */
-    static CLSID => Guid("{7421169e-8c43-4b0d-bb16-645c8fa40357}")
+    static CLSID := Guid("{7421169e-8c43-4b0d-bb16-645c8fa40357}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutgoingQueue interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Blocked                 : IntPtr
+        put_Blocked                 : IntPtr
+        get_Paused                  : IntPtr
+        put_Paused                  : IntPtr
+        get_AllowPersonalCoverPages : IntPtr
+        put_AllowPersonalCoverPages : IntPtr
+        get_UseDeviceTSID           : IntPtr
+        put_UseDeviceTSID           : IntPtr
+        get_Retries                 : IntPtr
+        put_Retries                 : IntPtr
+        get_RetryDelay              : IntPtr
+        put_RetryDelay              : IntPtr
+        get_DiscountRateStart       : IntPtr
+        put_DiscountRateStart       : IntPtr
+        get_DiscountRateEnd         : IntPtr
+        put_DiscountRateEnd         : IntPtr
+        get_AgeLimit                : IntPtr
+        put_AgeLimit                : IntPtr
+        get_Branding                : IntPtr
+        put_Branding                : IntPtr
+        Refresh                     : IntPtr
+        Save                        : IntPtr
+        GetJobs                     : IntPtr
+        GetJob                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Blocked", "put_Blocked", "get_Paused", "put_Paused", "get_AllowPersonalCoverPages", "put_AllowPersonalCoverPages", "get_UseDeviceTSID", "put_UseDeviceTSID", "get_Retries", "put_Retries", "get_RetryDelay", "put_RetryDelay", "get_DiscountRateStart", "put_DiscountRateStart", "get_DiscountRateEnd", "put_DiscountRateEnd", "get_AgeLimit", "put_AgeLimit", "get_Branding", "put_Branding", "Refresh", "Save", "GetJobs", "GetJob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutgoingQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -129,7 +162,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_blocked
      */
     get_Blocked() {
-        result := ComCall(7, this, "short*", &pbBlocked := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbBlocked := 0, "HRESULT")
         return pbBlocked
     }
 
@@ -144,7 +177,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_blocked
      */
     put_Blocked(bBlocked) {
-        result := ComCall(8, this, "short", bBlocked, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, bBlocked, "HRESULT")
         return result
     }
 
@@ -158,7 +191,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_paused
      */
     get_Paused() {
-        result := ComCall(9, this, "short*", &pbPaused := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pbPaused := 0, "HRESULT")
         return pbPaused
     }
 
@@ -173,7 +206,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_paused
      */
     put_Paused(bPaused) {
-        result := ComCall(10, this, "short", bPaused, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, bPaused, "HRESULT")
         return result
     }
 
@@ -187,7 +220,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_allowpersonalcoverpages
      */
     get_AllowPersonalCoverPages() {
-        result := ComCall(11, this, "short*", &pbAllowPersonalCoverPages := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbAllowPersonalCoverPages := 0, "HRESULT")
         return pbAllowPersonalCoverPages
     }
 
@@ -202,7 +235,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_allowpersonalcoverpages
      */
     put_AllowPersonalCoverPages(bAllowPersonalCoverPages) {
-        result := ComCall(12, this, "short", bAllowPersonalCoverPages, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, bAllowPersonalCoverPages, "HRESULT")
         return result
     }
 
@@ -216,7 +249,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_usedevicetsid
      */
     get_UseDeviceTSID() {
-        result := ComCall(13, this, "short*", &pbUseDeviceTSID := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pbUseDeviceTSID := 0, "HRESULT")
         return pbUseDeviceTSID
     }
 
@@ -231,7 +264,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_usedevicetsid
      */
     put_UseDeviceTSID(bUseDeviceTSID) {
-        result := ComCall(14, this, "short", bUseDeviceTSID, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, bUseDeviceTSID, "HRESULT")
         return result
     }
 
@@ -372,7 +405,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_branding
      */
     get_Branding() {
-        result := ComCall(25, this, "short*", &pbBranding := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &pbBranding := 0, "HRESULT")
         return pbBranding
     }
 
@@ -385,7 +418,7 @@ class IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_branding
      */
     put_Branding(bBranding) {
-        result := ComCall(26, this, "short", bBranding, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, bBranding, "HRESULT")
         return result
     }
 
@@ -450,7 +483,73 @@ class IFaxOutgoingQueue extends IDispatch {
     GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(30, this, "ptr", bstrJobId, "ptr*", &pFaxOutgoingJob := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrJobId, "ptr*", &pFaxOutgoingJob := 0, "HRESULT")
         return IFaxOutgoingJob(pFaxOutgoingJob)
+    }
+
+    Query(iid) {
+        if (IFaxOutgoingQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Blocked := CallbackCreate(GetMethod(implObj, "get_Blocked"), flags, 2)
+        this.vtbl.put_Blocked := CallbackCreate(GetMethod(implObj, "put_Blocked"), flags, 2)
+        this.vtbl.get_Paused := CallbackCreate(GetMethod(implObj, "get_Paused"), flags, 2)
+        this.vtbl.put_Paused := CallbackCreate(GetMethod(implObj, "put_Paused"), flags, 2)
+        this.vtbl.get_AllowPersonalCoverPages := CallbackCreate(GetMethod(implObj, "get_AllowPersonalCoverPages"), flags, 2)
+        this.vtbl.put_AllowPersonalCoverPages := CallbackCreate(GetMethod(implObj, "put_AllowPersonalCoverPages"), flags, 2)
+        this.vtbl.get_UseDeviceTSID := CallbackCreate(GetMethod(implObj, "get_UseDeviceTSID"), flags, 2)
+        this.vtbl.put_UseDeviceTSID := CallbackCreate(GetMethod(implObj, "put_UseDeviceTSID"), flags, 2)
+        this.vtbl.get_Retries := CallbackCreate(GetMethod(implObj, "get_Retries"), flags, 2)
+        this.vtbl.put_Retries := CallbackCreate(GetMethod(implObj, "put_Retries"), flags, 2)
+        this.vtbl.get_RetryDelay := CallbackCreate(GetMethod(implObj, "get_RetryDelay"), flags, 2)
+        this.vtbl.put_RetryDelay := CallbackCreate(GetMethod(implObj, "put_RetryDelay"), flags, 2)
+        this.vtbl.get_DiscountRateStart := CallbackCreate(GetMethod(implObj, "get_DiscountRateStart"), flags, 2)
+        this.vtbl.put_DiscountRateStart := CallbackCreate(GetMethod(implObj, "put_DiscountRateStart"), flags, 2)
+        this.vtbl.get_DiscountRateEnd := CallbackCreate(GetMethod(implObj, "get_DiscountRateEnd"), flags, 2)
+        this.vtbl.put_DiscountRateEnd := CallbackCreate(GetMethod(implObj, "put_DiscountRateEnd"), flags, 2)
+        this.vtbl.get_AgeLimit := CallbackCreate(GetMethod(implObj, "get_AgeLimit"), flags, 2)
+        this.vtbl.put_AgeLimit := CallbackCreate(GetMethod(implObj, "put_AgeLimit"), flags, 2)
+        this.vtbl.get_Branding := CallbackCreate(GetMethod(implObj, "get_Branding"), flags, 2)
+        this.vtbl.put_Branding := CallbackCreate(GetMethod(implObj, "put_Branding"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetJobs := CallbackCreate(GetMethod(implObj, "GetJobs"), flags, 2)
+        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Blocked)
+        CallbackFree(this.vtbl.put_Blocked)
+        CallbackFree(this.vtbl.get_Paused)
+        CallbackFree(this.vtbl.put_Paused)
+        CallbackFree(this.vtbl.get_AllowPersonalCoverPages)
+        CallbackFree(this.vtbl.put_AllowPersonalCoverPages)
+        CallbackFree(this.vtbl.get_UseDeviceTSID)
+        CallbackFree(this.vtbl.put_UseDeviceTSID)
+        CallbackFree(this.vtbl.get_Retries)
+        CallbackFree(this.vtbl.put_Retries)
+        CallbackFree(this.vtbl.get_RetryDelay)
+        CallbackFree(this.vtbl.put_RetryDelay)
+        CallbackFree(this.vtbl.get_DiscountRateStart)
+        CallbackFree(this.vtbl.put_DiscountRateStart)
+        CallbackFree(this.vtbl.get_DiscountRateEnd)
+        CallbackFree(this.vtbl.put_DiscountRateEnd)
+        CallbackFree(this.vtbl.get_AgeLimit)
+        CallbackFree(this.vtbl.put_AgeLimit)
+        CallbackFree(this.vtbl.get_Branding)
+        CallbackFree(this.vtbl.put_Branding)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetJobs)
+        CallbackFree(this.vtbl.GetJob)
     }
 }

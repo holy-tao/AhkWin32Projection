@@ -1,29 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
-#Include .\IMAPITable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\IMAPITable.ahk" { IMAPITable }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IMAPIContainerIMAPIProp manages high-level operations on container objects such as address books, distribution lists, and folders.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainerimapiprop
  * @namespace Windows.Win32.System.AddressBook
  */
-class IMAPIContainer extends IMAPIProp {
+export default struct IMAPIContainer extends IMAPIProp {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContentsTable", "GetHierarchyTable", "OpenEntry", "SetSearchCriteria", "GetSearchCriteria"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMAPIContainer interfaces
+    */
+    struct Vtbl extends IMAPIProp.Vtbl {
+        GetContentsTable  : IntPtr
+        GetHierarchyTable : IntPtr
+        OpenEntry         : IntPtr
+        SetSearchCriteria : IntPtr
+        GetSearchCriteria : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMAPIContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IMAPIContainerGetContentsTable returns a pointer to the container's contents table. This article describes its syntax, parameters, return value, and remarks.
@@ -143,7 +158,7 @@ class IMAPIContainer extends IMAPIProp {
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, lppUnk) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", lppUnk, "HRESULT")
+        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, Guid.Ptr, lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, lppUnk, "HRESULT")
         return result
     }
 
@@ -196,7 +211,7 @@ class IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-setsearchcriteria
      */
     SetSearchCriteria(lpRestriction, lpContainerList, ulSearchFlags) {
-        result := ComCall(17, this, "ptr", lpRestriction, "ptr", lpContainerList, "uint", ulSearchFlags, "HRESULT")
+        result := ComCall(17, this, SRestriction.Ptr, lpRestriction, SBinaryArray.Ptr, lpContainerList, "uint", ulSearchFlags, "HRESULT")
         return result
     }
 
@@ -248,5 +263,33 @@ class IMAPIContainer extends IMAPIProp {
 
         result := ComCall(18, this, "uint", ulFlags, lppRestrictionMarshal, lppRestriction, lppContainerListMarshal, lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMAPIContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContentsTable := CallbackCreate(GetMethod(implObj, "GetContentsTable"), flags, 3)
+        this.vtbl.GetHierarchyTable := CallbackCreate(GetMethod(implObj, "GetHierarchyTable"), flags, 3)
+        this.vtbl.OpenEntry := CallbackCreate(GetMethod(implObj, "OpenEntry"), flags, 7)
+        this.vtbl.SetSearchCriteria := CallbackCreate(GetMethod(implObj, "SetSearchCriteria"), flags, 4)
+        this.vtbl.GetSearchCriteria := CallbackCreate(GetMethod(implObj, "GetSearchCriteria"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContentsTable)
+        CallbackFree(this.vtbl.GetHierarchyTable)
+        CallbackFree(this.vtbl.OpenEntry)
+        CallbackFree(this.vtbl.SetSearchCriteria)
+        CallbackFree(this.vtbl.GetSearchCriteria)
     }
 }

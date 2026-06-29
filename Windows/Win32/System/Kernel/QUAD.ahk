@@ -1,27 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class QUAD extends Win32Struct {
-    static sizeof => 8
+export default struct QUAD {
+    #StructPack 8
 
-    static packingSize => 8
+    UseThisFieldToCopy : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UseThisFieldToCopy {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    DoNotUseThisField {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'DoNotUseThisField', { type: Float64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

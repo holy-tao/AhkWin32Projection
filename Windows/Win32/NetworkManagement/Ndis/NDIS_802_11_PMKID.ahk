@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BSSID_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BSSID_INFO.ahk" { BSSID_INFO }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_802_11_PMKID extends Win32Struct {
-    static sizeof => 32
+export default struct NDIS_802_11_PMKID {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BSSIDInfoCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BSSIDInfoCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BSSIDInfo : BSSID_INFO[1]
 
-    /**
-     * @type {BSSID_INFO}
-     */
-    BSSIDInfo {
-        get {
-            if(!this.HasProp("__BSSIDInfoProxyArray"))
-                this.__BSSIDInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, BSSID_INFO, "")
-            return this.__BSSIDInfoProxyArray
-        }
-    }
 }

@@ -1,16 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IF_ROW2.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
-#Include ..\Ndis\NDIS_MEDIUM.ahk
-#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
-#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
-#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
-#Include ..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
-#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
+#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
+#Import "..\Ndis\NET_IF_ACCESS_TYPE.ahk" { NET_IF_ACCESS_TYPE }
+#Import "..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk" { NDIS_PHYSICAL_MEDIUM }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
+#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
+#Import "..\Ndis\NET_IF_ADMIN_STATUS.ahk" { NET_IF_ADMIN_STATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Ndis\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
+#Import "..\Ndis\TUNNEL_TYPE.ahk" { TUNNEL_TYPE }
+#Import "..\Ndis\NDIS_MEDIUM.ahk" { NDIS_MEDIUM }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains a table of logical and physical interface entries.
@@ -29,30 +30,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_table2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IF_TABLE2 extends Win32Struct {
-    static sizeof => 1360
-
-    static packingSize => 8
+export default struct MIB_IF_TABLE2 {
+    #StructPack 8
 
     /**
      * The number of interface entries in the array.
-     * @type {Integer}
      */
-    NumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structures containing interface entries.
-     * @type {MIB_IF_ROW2}
      */
-    Table {
-        get {
-            if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IF_ROW2, "")
-            return this.__TableProxyArray
-        }
-    }
+    Table : MIB_IF_ROW2[1]
+
 }

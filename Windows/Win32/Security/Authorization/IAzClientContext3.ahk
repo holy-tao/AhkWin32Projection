@@ -1,38 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAzClientContext2.ahk
-#Include .\IAzOperations.ahk
-#Include .\IAzTasks.ahk
-#Include .\IAzBizRuleParameters.ahk
-#Include .\IAzBizRuleInterfaces.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzClientContext2.ahk" { IAzClientContext2 }
+#Import ".\IAzBizRuleParameters.ahk" { IAzBizRuleParameters }
+#Import ".\IAzTasks.ahk" { IAzTasks }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzBizRuleInterfaces.ahk" { IAzBizRuleInterfaces }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAzOperations.ahk" { IAzOperations }
 
 /**
  * Extends the IAzClientContext2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazclientcontext3
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzClientContext3 extends IAzClientContext2 {
-
-    static sizeof => A_PtrSize
+export default struct IAzClientContext3 extends IAzClientContext2 {
     /**
      * The interface identifier for IAzClientContext3
      * @type {Guid}
      */
-    static IID => Guid("{11894fde-1deb-4b4b-8907-6d1cda1f5d4f}")
+    static IID := Guid("{11894fde-1deb-4b4b-8907-6d1cda1f5d4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzClientContext3 interfaces
+    */
+    struct Vtbl extends IAzClientContext2.Vtbl {
+        AccessCheck2          : IntPtr
+        IsInRoleAssignment    : IntPtr
+        GetOperations         : IntPtr
+        GetTasks              : IntPtr
+        get_BizRuleParameters : IntPtr
+        get_BizRuleInterfaces : IntPtr
+        GetGroups             : IntPtr
+        get_Sids              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AccessCheck2", "IsInRoleAssignment", "GetOperations", "GetTasks", "get_BizRuleParameters", "get_BizRuleInterfaces", "GetGroups", "get_Sids"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzClientContext3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IAzBizRuleParameters} 
@@ -69,7 +86,7 @@ class IAzClientContext3 extends IAzClientContext2 {
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(26, this, "ptr", bstrObjectName, "ptr", bstrScopeName, "int", lOperation, "uint*", &plResult := 0, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrObjectName, BSTR, bstrScopeName, "int", lOperation, "uint*", &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -84,7 +101,7 @@ class IAzClientContext3 extends IAzClientContext2 {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(27, this, "ptr", bstrScopeName, "ptr", bstrRoleName, "short*", &pbIsInRole := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrScopeName, BSTR, bstrRoleName, VARIANT_BOOL.Ptr, &pbIsInRole := 0, "HRESULT")
         return pbIsInRole
     }
 
@@ -97,7 +114,7 @@ class IAzClientContext3 extends IAzClientContext2 {
     GetOperations(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(28, this, "ptr", bstrScopeName, "ptr*", &ppOperationCollection := 0, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrScopeName, "ptr*", &ppOperationCollection := 0, "HRESULT")
         return IAzOperations(ppOperationCollection)
     }
 
@@ -110,7 +127,7 @@ class IAzClientContext3 extends IAzClientContext2 {
     GetTasks(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(29, this, "ptr", bstrScopeName, "ptr*", &ppTaskCollection := 0, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrScopeName, "ptr*", &ppTaskCollection := 0, "HRESULT")
         return IAzTasks(ppTaskCollection)
     }
 
@@ -147,7 +164,7 @@ class IAzClientContext3 extends IAzClientContext2 {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
         pGroupArray := VARIANT()
-        result := ComCall(32, this, "ptr", bstrScopeName, "uint", ulOptions, "ptr", pGroupArray, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrScopeName, "uint", ulOptions, VARIANT.Ptr, pGroupArray, "HRESULT")
         return pGroupArray
     }
 
@@ -158,7 +175,41 @@ class IAzClientContext3 extends IAzClientContext2 {
      */
     get_Sids() {
         pStringSidArray := VARIANT()
-        result := ComCall(33, this, "ptr", pStringSidArray, "HRESULT")
+        result := ComCall(33, this, VARIANT.Ptr, pStringSidArray, "HRESULT")
         return pStringSidArray
+    }
+
+    Query(iid) {
+        if (IAzClientContext3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AccessCheck2 := CallbackCreate(GetMethod(implObj, "AccessCheck2"), flags, 5)
+        this.vtbl.IsInRoleAssignment := CallbackCreate(GetMethod(implObj, "IsInRoleAssignment"), flags, 4)
+        this.vtbl.GetOperations := CallbackCreate(GetMethod(implObj, "GetOperations"), flags, 3)
+        this.vtbl.GetTasks := CallbackCreate(GetMethod(implObj, "GetTasks"), flags, 3)
+        this.vtbl.get_BizRuleParameters := CallbackCreate(GetMethod(implObj, "get_BizRuleParameters"), flags, 2)
+        this.vtbl.get_BizRuleInterfaces := CallbackCreate(GetMethod(implObj, "get_BizRuleInterfaces"), flags, 2)
+        this.vtbl.GetGroups := CallbackCreate(GetMethod(implObj, "GetGroups"), flags, 4)
+        this.vtbl.get_Sids := CallbackCreate(GetMethod(implObj, "get_Sids"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AccessCheck2)
+        CallbackFree(this.vtbl.IsInRoleAssignment)
+        CallbackFree(this.vtbl.GetOperations)
+        CallbackFree(this.vtbl.GetTasks)
+        CallbackFree(this.vtbl.get_BizRuleParameters)
+        CallbackFree(this.vtbl.get_BizRuleInterfaces)
+        CallbackFree(this.vtbl.GetGroups)
+        CallbackFree(this.vtbl.get_Sids)
     }
 }

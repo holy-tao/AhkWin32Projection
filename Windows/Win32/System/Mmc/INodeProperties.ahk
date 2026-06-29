@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INodeProperties interface retrieves text-only properties for a node.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-inodeproperties
  * @namespace Windows.Win32.System.Mmc
  */
-class INodeProperties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INodeProperties extends IUnknown {
     /**
      * The interface identifier for INodeProperties
      * @type {Guid}
      */
-    static IID => Guid("{15bc4d24-a522-4406-aa55-0749537a6865}")
+    static IID := Guid("{15bc4d24-a522-4406-aa55-0749537a6865}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INodeProperties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INodeProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetProperty method retrieves text-only property values for a node. Your implementation of the INodeProperties::GetProperty method is called when an application based on the MMC 2.0 Automation Object Model retrieves the Node.Property property.
@@ -50,8 +59,28 @@ class INodeProperties extends IUnknown {
     GetProperty(pDataObject, szPropertyName) {
         szPropertyName := szPropertyName is String ? BSTR.Alloc(szPropertyName).Value : szPropertyName
 
-        pbstrProperty := BSTR()
-        result := ComCall(3, this, "ptr", pDataObject, "ptr", szPropertyName, "ptr", pbstrProperty, "HRESULT")
+        pbstrProperty := BSTR.Owned()
+        result := ComCall(3, this, "ptr", pDataObject, BSTR, szPropertyName, BSTR.Ptr, pbstrProperty, "HRESULT")
         return pbstrProperty
+    }
+
+    Query(iid) {
+        if (INodeProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperty)
     }
 }

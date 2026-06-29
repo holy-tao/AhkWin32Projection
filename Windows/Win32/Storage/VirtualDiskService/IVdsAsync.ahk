@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_ASYNC_OUTPUT.ahk" { VDS_ASYNC_OUTPUT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsAsync (vdshwprv.h) interface manages asynchronous operations. Methods that initiate asynchronous operations return a pointer to an IVdsAsync interface.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsasync
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsAsync extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsAsync extends IUnknown {
     /**
      * The interface identifier for IVdsAsync
      * @type {Guid}
      */
-    static IID => Guid("{d5d23b6d-5a55-4492-9889-397a3c2d2dbc}")
+    static IID := Guid("{d5d23b6d-5a55-4492-9889-397a3c2d2dbc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsAsync interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Cancel      : IntPtr
+        Wait        : IntPtr
+        QueryStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Cancel", "Wait", "QueryStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsAsync.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsAsync::Cancel method (vdshwprv.h) cancels the asynchronous operation.
@@ -147,7 +158,7 @@ class IVdsAsync extends IUnknown {
     Wait(pHrResult, pAsyncOut) {
         pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, pHrResultMarshal, pHrResult, "ptr", pAsyncOut, "HRESULT")
+        result := ComCall(4, this, pHrResultMarshal, pHrResult, VDS_ASYNC_OUTPUT.Ptr, pAsyncOut, "HRESULT")
         return result
     }
 
@@ -202,5 +213,29 @@ class IVdsAsync extends IUnknown {
 
         result := ComCall(5, this, pHrResultMarshal, pHrResult, pulPercentCompletedMarshal, pulPercentCompleted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsAsync.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.QueryStatus := CallbackCreate(GetMethod(implObj, "QueryStatus"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Wait)
+        CallbackFree(this.vtbl.QueryStatus)
     }
 }

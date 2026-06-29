@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
  */
-class RECYCLE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct RECYCLE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    guidCombaseProcessIdentifier : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidCombaseProcessIdentifier {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ProcessStartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ProcessStartTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    dwRecycleLifetimeLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRecycleLifetimeLimit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwRecycleMemoryLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRecycleMemoryLimit {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwRecycleExpirationTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRecycleExpirationTimeout {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

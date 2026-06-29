@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ERF structure contains error information from FCI/FDI. The caller should not modify this structure.
  * @see https://learn.microsoft.com/windows/win32/api/fdi_fci_types/ns-fdi_fci_types-erf
  * @namespace Windows.Win32.Storage.Cabinets
  */
-class ERF extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct ERF {
+    #StructPack 4
 
     /**
      * An FCI/FDI error code.
@@ -280,28 +278,17 @@ class ERF extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    erfOper {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    erfOper : Int32
 
     /**
      * An optional error value filled in by FCI/FDI. For FCI, this is usually the C runtime errno value.
-     * @type {Integer}
      */
-    erfType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    erfType : Int32
 
     /**
      * A flag that indicates an error. If <b>TRUE</b>, an error is present.
-     * @type {BOOL}
      */
-    fError {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fError : BOOL
+
 }

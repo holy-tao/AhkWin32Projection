@@ -1,48 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_PRINT_FONT_SUBSET_MODE.ahk
-#Include .\D2D1_COLOR_SPACE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_PRINT_FONT_SUBSET_MODE.ahk" { D2D1_PRINT_FONT_SUBSET_MODE }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
 
 /**
  * The creation properties for a ID2D1PrintControl object.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_print_control_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_PRINT_CONTROL_PROPERTIES extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D2D1_PRINT_CONTROL_PROPERTIES {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_print_font_subset_mode">D2D1_PRINT_FONT_SUBSET_MODE</a></b>
      * 
      * The mode to use for subsetting fonts for printing, defaults to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_print_font_subset_mode">D2D1_PRINT_FONT_SUBSET_MODE_DEFAULT</a>.
-     * @type {D2D1_PRINT_FONT_SUBSET_MODE}
      */
-    fontSubset {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fontSubset : D2D1_PRINT_FONT_SUBSET_MODE
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * DPI for rasterization of all unsupported Direct2D commands or options, defaults to 150.0.
-     * @type {Float}
      */
-    rasterDPI {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    rasterDPI : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * Color space for vector graphics, defaults to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE_SRGB</a>.
-     * @type {D2D1_COLOR_SPACE}
      */
-    colorSpace {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    colorSpace : D2D1_COLOR_SPACE
+
 }

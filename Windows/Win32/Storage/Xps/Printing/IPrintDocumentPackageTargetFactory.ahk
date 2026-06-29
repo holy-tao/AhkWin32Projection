@@ -1,40 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IPrintDocumentPackageTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPrintDocumentPackageTarget.ahk" { IPrintDocumentPackageTarget }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used with IPrintDocumentPackageTarget for starting a print job.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nn-documenttarget-iprintdocumentpackagetargetfactory
  * @namespace Windows.Win32.Storage.Xps.Printing
  */
-class IPrintDocumentPackageTargetFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintDocumentPackageTargetFactory extends IUnknown {
     /**
      * The interface identifier for IPrintDocumentPackageTargetFactory
      * @type {Guid}
      */
-    static IID => Guid("{d2959bf7-b31b-4a3d-9600-712eb1335ba4}")
+    static IID := Guid("{d2959bf7-b31b-4a3d-9600-712eb1335ba4}")
 
     /**
      * The class identifier for PrintDocumentPackageTargetFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{348ef17d-6c81-4982-92b4-ee188a43867a}")
+    static CLSID := Guid("{348ef17d-6c81-4982-92b4-ee188a43867a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintDocumentPackageTargetFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateDocumentPackageTargetForPrintJob : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateDocumentPackageTargetForPrintJob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintDocumentPackageTargetFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Acts as the entry point for creating an IPrintDocumentPackageTarget object.
@@ -54,5 +64,25 @@ class IPrintDocumentPackageTargetFactory extends IUnknown {
 
         result := ComCall(3, this, "ptr", printerName, "ptr", jobName, "ptr", jobOutputStream, "ptr", jobPrintTicketStream, "ptr*", &docPackageTarget := 0, "HRESULT")
         return IPrintDocumentPackageTarget(docPackageTarget)
+    }
+
+    Query(iid) {
+        if (IPrintDocumentPackageTargetFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateDocumentPackageTargetForPrintJob := CallbackCreate(GetMethod(implObj, "CreateDocumentPackageTargetForPrintJob"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateDocumentPackageTargetForPrintJob)
     }
 }

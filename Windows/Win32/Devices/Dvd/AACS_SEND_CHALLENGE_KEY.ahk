@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AACS_CHALLENGE_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AACS_CHALLENGE_KEY.ahk" { AACS_CHALLENGE_KEY }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class AACS_SEND_CHALLENGE_KEY extends Win32Struct {
-    static sizeof => 84
+export default struct AACS_SEND_CHALLENGE_KEY {
+    #StructPack 4
 
-    static packingSize => 4
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ChallengeKey : AACS_CHALLENGE_KEY
 
-    /**
-     * @type {AACS_CHALLENGE_KEY}
-     */
-    ChallengeKey {
-        get {
-            if(!this.HasProp("__ChallengeKey"))
-                this.__ChallengeKey := AACS_CHALLENGE_KEY(4, this)
-            return this.__ChallengeKey
-        }
-    }
 }

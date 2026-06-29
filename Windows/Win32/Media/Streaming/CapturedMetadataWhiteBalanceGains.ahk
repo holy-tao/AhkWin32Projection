@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure describes the blob format for the MF_CAPTURE_METADATA_WHITEBALANCE_GAINS attribute.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-capturedmetadatawhitebalancegains
  * @namespace Windows.Win32.Media.Streaming
  */
-class CapturedMetadataWhiteBalanceGains extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct CapturedMetadataWhiteBalanceGains {
+    #StructPack 4
 
     /**
      * The  <b>R</b> value of the blob.
-     * @type {Float}
      */
-    R {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    R : Float32
 
     /**
      * The  <b>G</b> value of the blob.
-     * @type {Float}
      */
-    G {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    G : Float32
 
     /**
      * The  <b>B</b> value of the blob.
-     * @type {Float}
      */
-    B {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    B : Float32
+
 }

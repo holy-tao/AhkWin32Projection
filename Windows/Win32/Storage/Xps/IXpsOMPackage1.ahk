@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPackage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
 
 /**
  * Inherits from IXpsOMPackage.
@@ -13,26 +19,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompackage1
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPackage1 extends IXpsOMPackage {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPackage1 extends IXpsOMPackage {
     /**
      * The interface identifier for IXpsOMPackage1
      * @type {Guid}
      */
-    static IID => Guid("{95a9435e-12bb-461b-8e7f-c6adb04cd96a}")
+    static IID := Guid("{95a9435e-12bb-461b-8e7f-c6adb04cd96a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPackage1 interfaces
+    */
+    struct Vtbl extends IXpsOMPackage.Vtbl {
+        GetDocumentType : IntPtr
+        WriteToFile1    : IntPtr
+        WriteToStream1  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDocumentType", "WriteToFile1", "WriteToStream1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPackage1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the document type of the data that was used to initialize this package. This method is used to determine whether a document is the XPS or OpenXPS type. For more information, see XPS Documents.
@@ -83,7 +98,7 @@ class IXpsOMPackage1 extends IXpsOMPackage {
     WriteToFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(14, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", documentType, "HRESULT")
+        result := ComCall(14, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_DOCUMENT_TYPE, documentType, "HRESULT")
         return result
     }
 
@@ -108,7 +123,31 @@ class IXpsOMPackage1 extends IXpsOMPackage {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-writetostream1
      */
     WriteToStream1(outputStream, optimizeMarkupSize, documentType) {
-        result := ComCall(15, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", documentType, "HRESULT")
+        result := ComCall(15, this, "ptr", outputStream, BOOL, optimizeMarkupSize, XPS_DOCUMENT_TYPE, documentType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMPackage1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDocumentType := CallbackCreate(GetMethod(implObj, "GetDocumentType"), flags, 2)
+        this.vtbl.WriteToFile1 := CallbackCreate(GetMethod(implObj, "WriteToFile1"), flags, 6)
+        this.vtbl.WriteToStream1 := CallbackCreate(GetMethod(implObj, "WriteToStream1"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDocumentType)
+        CallbackFree(this.vtbl.WriteToFile1)
+        CallbackFree(this.vtbl.WriteToStream1)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the coordinates of the upper left and lower right corners of a rectangle.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/console/small-rect-str
  * @namespace Windows.Win32.System.Console
  */
-class SMALL_RECT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct SMALL_RECT {
+    #StructPack 2
 
     /**
      * The x-coordinate of the upper left corner of the rectangle.
-     * @type {Integer}
      */
-    Left {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Left : Int16
 
     /**
      * The y-coordinate of the upper left corner of the rectangle.
-     * @type {Integer}
      */
-    Top {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Top : Int16
 
     /**
      * The x-coordinate of the lower right corner of the rectangle.
-     * @type {Integer}
      */
-    Right {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    Right : Int16
 
     /**
      * The y-coordinate of the lower right corner of the rectangle.
-     * @type {Integer}
      */
-    Bottom {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
+    Bottom : Int16
+
 }

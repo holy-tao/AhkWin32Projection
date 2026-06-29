@@ -1,21 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Specifies a Unicode or ANSI character and its attributes. This structure is used by console functions to read from and write to a console screen buffer.
- * @see https://learn.microsoft.com/windows/console/char-info-str
  * @namespace Windows.Win32.Foundation
  */
-class CHAR extends Win32Struct {
-    static sizeof => 1
+export default struct CHAR {
+    value : Int8
 
-    static packingSize => 1
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    __value {
+        set {
+            if (value is CHAR) {
+                this.value := value.value
+            }
+            else {
+                this.value := value is String ? Ord(value) : value
+            }
+        }
     }
+
+    __New(value := 0) {
+        this.value := value
+    }
+
+    static __Item[Length] {
+        get {
+            cls := super[Length]
+            if (!ObjHasOwnProp(cls.Prototype, "__StringArrayHooked")) {
+                DefineProp(cls.Prototype, "__value", {
+                    set: (this, value) => StrPut(value, this.Ptr, this.Length, "UTF-8")
+                })
+                DefineProp(cls.Prototype, "ToString", {
+                    Call: (this) => StrGet(this.Ptr, this.Length, "UTF-8")
+                })
+                DefineProp(cls.Prototype, "__StringArrayHooked", { value: true })
+            }
+            return cls
+        }
+    }
+    
 }

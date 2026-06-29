@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITaskSettings.ahk
-#Include .\IMaintenanceSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMaintenanceSettings.ahk" { IMaintenanceSettings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITaskSettings.ahk" { ITaskSettings }
 
 /**
  * Provides the extended settings that the Task Scheduler uses to run the task. (ITaskSettings3)
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasksettings3
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskSettings3 extends ITaskSettings {
-
-    static sizeof => A_PtrSize
+export default struct ITaskSettings3 extends ITaskSettings {
     /**
      * The interface identifier for ITaskSettings3
      * @type {Guid}
      */
-    static IID => Guid("{0ad9d0d7-0c7f-4ebb-9a5f-d1c648dca528}")
+    static IID := Guid("{0ad9d0d7-0c7f-4ebb-9a5f-d1c648dca528}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 47
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskSettings3 interfaces
+    */
+    struct Vtbl extends ITaskSettings.Vtbl {
+        get_DisallowStartOnRemoteAppSession : IntPtr
+        put_DisallowStartOnRemoteAppSession : IntPtr
+        get_UseUnifiedSchedulingEngine      : IntPtr
+        put_UseUnifiedSchedulingEngine      : IntPtr
+        get_MaintenanceSettings             : IntPtr
+        put_MaintenanceSettings             : IntPtr
+        CreateMaintenanceSettings           : IntPtr
+        get_Volatile                        : IntPtr
+        put_Volatile                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DisallowStartOnRemoteAppSession", "put_DisallowStartOnRemoteAppSession", "get_UseUnifiedSchedulingEngine", "put_UseUnifiedSchedulingEngine", "get_MaintenanceSettings", "put_MaintenanceSettings", "CreateMaintenanceSettings", "get_Volatile", "put_Volatile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskSettings3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -80,7 +97,7 @@ class ITaskSettings3 extends ITaskSettings {
      * @returns {HRESULT} 
      */
     put_DisallowStartOnRemoteAppSession(disallowStart) {
-        result := ComCall(48, this, "short", disallowStart, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL, disallowStart, "HRESULT")
         return result
     }
 
@@ -102,7 +119,7 @@ class ITaskSettings3 extends ITaskSettings {
      * @returns {HRESULT} 
      */
     put_UseUnifiedSchedulingEngine(useUnifiedEngine) {
-        result := ComCall(50, this, "short", useUnifiedEngine, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL, useUnifiedEngine, "HRESULT")
         return result
     }
 
@@ -174,7 +191,43 @@ class ITaskSettings3 extends ITaskSettings {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings3-put_volatile
      */
     put_Volatile(Volatile) {
-        result := ComCall(55, this, "short", Volatile, "HRESULT")
+        result := ComCall(55, this, VARIANT_BOOL, Volatile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskSettings3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "get_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.put_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "put_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.get_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "get_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.put_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "put_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.get_MaintenanceSettings := CallbackCreate(GetMethod(implObj, "get_MaintenanceSettings"), flags, 2)
+        this.vtbl.put_MaintenanceSettings := CallbackCreate(GetMethod(implObj, "put_MaintenanceSettings"), flags, 2)
+        this.vtbl.CreateMaintenanceSettings := CallbackCreate(GetMethod(implObj, "CreateMaintenanceSettings"), flags, 2)
+        this.vtbl.get_Volatile := CallbackCreate(GetMethod(implObj, "get_Volatile"), flags, 2)
+        this.vtbl.put_Volatile := CallbackCreate(GetMethod(implObj, "put_Volatile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DisallowStartOnRemoteAppSession)
+        CallbackFree(this.vtbl.put_DisallowStartOnRemoteAppSession)
+        CallbackFree(this.vtbl.get_UseUnifiedSchedulingEngine)
+        CallbackFree(this.vtbl.put_UseUnifiedSchedulingEngine)
+        CallbackFree(this.vtbl.get_MaintenanceSettings)
+        CallbackFree(this.vtbl.put_MaintenanceSettings)
+        CallbackFree(this.vtbl.CreateMaintenanceSettings)
+        CallbackFree(this.vtbl.get_Volatile)
+        CallbackFree(this.vtbl.put_Volatile)
     }
 }

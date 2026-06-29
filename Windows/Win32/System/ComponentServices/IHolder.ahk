@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allocates or frees resources for an installed Resource Dispenser.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iholder
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IHolder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHolder extends IUnknown {
     /**
      * The interface identifier for IHolder
      * @type {Guid}
      */
-    static IID => Guid("{bf6a1850-2b45-11cf-be10-00aa00a2fa25}")
+    static IID := Guid("{bf6a1850-2b45-11cf-be10-00aa00a2fa25}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHolder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AllocResource          : IntPtr
+        FreeResource           : IntPtr
+        TrackResource          : IntPtr
+        TrackResourceS         : IntPtr
+        UntrackResource        : IntPtr
+        UntrackResourceS       : IntPtr
+        Close                  : IntPtr
+        RequestDestroyResource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AllocResource", "FreeResource", "TrackResource", "TrackResourceS", "UntrackResource", "UntrackResourceS", "Close", "RequestDestroyResource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allocates a resource from the inventory.
@@ -312,7 +328,7 @@ class IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-untrackresource
      */
     UntrackResource(__MIDL__IHolder0005, __MIDL__IHolder0006) {
-        result := ComCall(7, this, "ptr", __MIDL__IHolder0005, "int", __MIDL__IHolder0006, "HRESULT")
+        result := ComCall(7, this, "ptr", __MIDL__IHolder0005, BOOL, __MIDL__IHolder0006, "HRESULT")
         return result
     }
 
@@ -366,7 +382,7 @@ class IHolder extends IUnknown {
     UntrackResourceS(__MIDL__IHolder0007, __MIDL__IHolder0008) {
         __MIDL__IHolder0007Marshal := __MIDL__IHolder0007 is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, __MIDL__IHolder0007Marshal, __MIDL__IHolder0007, "int", __MIDL__IHolder0008, "HRESULT")
+        result := ComCall(8, this, __MIDL__IHolder0007Marshal, __MIDL__IHolder0007, BOOL, __MIDL__IHolder0008, "HRESULT")
         return result
     }
 
@@ -459,5 +475,39 @@ class IHolder extends IUnknown {
     RequestDestroyResource(__MIDL__IHolder0009) {
         result := ComCall(10, this, "ptr", __MIDL__IHolder0009, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AllocResource := CallbackCreate(GetMethod(implObj, "AllocResource"), flags, 3)
+        this.vtbl.FreeResource := CallbackCreate(GetMethod(implObj, "FreeResource"), flags, 2)
+        this.vtbl.TrackResource := CallbackCreate(GetMethod(implObj, "TrackResource"), flags, 2)
+        this.vtbl.TrackResourceS := CallbackCreate(GetMethod(implObj, "TrackResourceS"), flags, 2)
+        this.vtbl.UntrackResource := CallbackCreate(GetMethod(implObj, "UntrackResource"), flags, 3)
+        this.vtbl.UntrackResourceS := CallbackCreate(GetMethod(implObj, "UntrackResourceS"), flags, 3)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.RequestDestroyResource := CallbackCreate(GetMethod(implObj, "RequestDestroyResource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AllocResource)
+        CallbackFree(this.vtbl.FreeResource)
+        CallbackFree(this.vtbl.TrackResource)
+        CallbackFree(this.vtbl.TrackResourceS)
+        CallbackFree(this.vtbl.UntrackResource)
+        CallbackFree(this.vtbl.UntrackResourceS)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.RequestDestroyResource)
     }
 }

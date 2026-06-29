@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Use this structure to specify one or more ALink names or KLink keywords that you want to search for.
@@ -27,64 +27,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_aklink
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class HH_AKLINK extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct HH_AKLINK {
+    #StructPack 8
 
     /**
      * Specifies the size of the structure. This value must always be filled in before passing the structure to the HTML Help API.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cbStruct : Int32
 
     /**
      * This parameter must be set to FALSE.
-     * @type {BOOL}
      */
-    fReserved {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fReserved : BOOL
 
     /**
      * Specifies one or more ALink names or KLink keywords to look up. Multiple entries are delimited by a semicolon.
-     * @type {Pointer<Integer>}
      */
-    pszKeywords {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszKeywords : IntPtr
 
     /**
      * Specifies the topic file to navigate to if the lookup fails. <i>pszURL</i> refers to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">valid topic</a> within the specified compiled help (.chm) file and does not support Internet protocols that point to an HTML file.
-     * @type {Pointer<Integer>}
      */
-    pszUrl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszUrl : IntPtr
 
     /**
      * Specifies the text to display in a message box if the lookup fails and <i>fIndexOnFail</i> is FALSE and <i>pszURL</i> is NULL.
-     * @type {Pointer<Integer>}
      */
-    pszMsgText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszMsgText : IntPtr
 
     /**
      * Specifies the caption of the message box in which the <i>pszMsgText</i> parameter appears.
-     * @type {Pointer<Integer>}
      */
-    pszMsgTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszMsgTitle : IntPtr
 
     /**
      * Specifies the name of the window type in which to display one of the following: 
@@ -95,19 +69,12 @@ class HH_AKLINK extends Win32Struct {
      * <li>The topic specified in <i>pszURL</i>, if the lookup fails and a topic is specified in <i>pszURL</i>.</li>
      * </ul>
      * The Index tab, if the lookup fails and <i>fIndexOnFail</i> is specified as TRUE.
-     * @type {Pointer<Integer>}
      */
-    pszWindow {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pszWindow : IntPtr
 
     /**
      * Specifies whether to display the keyword in the Index tab of the HTML Help Viewer if the lookup fails. The value of <i>pszWindow</i> specifies the Help Viewer.
-     * @type {BOOL}
      */
-    fIndexOnFail {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    fIndexOnFail : BOOL
+
 }

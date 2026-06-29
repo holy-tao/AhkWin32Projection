@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PWMFRect16.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PWMFRect16.ahk" { PWMFRect16 }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class WmfPlaceableFileHeader extends Win32Struct {
-    static sizeof => 24
+export default struct WmfPlaceableFileHeader {
+    #StructPack 4
 
-    static packingSize => 4
+    Key : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Key {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Hmf : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Hmf {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    BoundingBox : PWMFRect16
 
-    /**
-     * @type {PWMFRect16}
-     */
-    BoundingBox {
-        get {
-            if(!this.HasProp("__BoundingBox"))
-                this.__BoundingBox := PWMFRect16(6, this)
-            return this.__BoundingBox
-        }
-    }
+    Inch : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Inch {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Checksum : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Checksum {
-        get => NumGet(this, 20, "short")
-        set => NumPut("short", value, this, 20)
-    }
 }

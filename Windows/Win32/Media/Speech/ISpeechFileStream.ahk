@@ -1,75 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechBaseStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\SpeechStreamFileMode.ahk" { SpeechStreamFileMode }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechFileStream extends ISpeechBaseStream {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechFileStream extends ISpeechBaseStream {
     /**
      * The interface identifier for ISpeechFileStream
      * @type {Guid}
      */
-    static IID => Guid("{af67f125-ab39-4e93-b4a2-cc2e66e182a7}")
+    static IID := Guid("{af67f125-ab39-4e93-b4a2-cc2e66e182a7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechFileStream interfaces
+    */
+    struct Vtbl extends ISpeechBaseStream.Vtbl {
+        Open  : IntPtr
+        Close : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechFileStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close"]
-
-    /**
-     * Opens a handle to a backup event log created by the BackupEventLog function. (ANSI)
-     * @remarks
-     * If the backup filename specifies a remote server, the <i>lpUNCServerName</i> parameter must be <b>NULL</b>.
      * 
-     * When this function is used on Windows Vista and later computers, only backup event logs that were saved with the <b>BackupEventLog</b> function on Windows Vista and later computers can be opened.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} FileName 
      * @param {SpeechStreamFileMode} FileMode 
      * @param {VARIANT_BOOL} DoEvents 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the backup event log.
-     * 						
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventloga
+     * @returns {HRESULT} 
      */
     Open(FileName, FileMode, DoEvents) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
-        result := ComCall(12, this, "ptr", FileName, "int", FileMode, "short", DoEvents, "HRESULT")
+        result := ComCall(12, this, BSTR, FileName, SpeechStreamFileMode, FileMode, VARIANT_BOOL, DoEvents, "HRESULT")
         return result
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechFileStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
     }
 }

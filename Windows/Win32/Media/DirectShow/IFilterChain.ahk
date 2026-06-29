@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFilterChain interface provides methods for starting, stopping, or removing chains of filters in a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifilterchain
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFilterChain extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFilterChain extends IUnknown {
     /**
      * The interface identifier for IFilterChain
      * @type {Guid}
      */
-    static IID => Guid("{dcfbdcf6-0dc2-45f5-9ab2-7c330ea09c29}")
+    static IID := Guid("{dcfbdcf6-0dc2-45f5-9ab2-7c330ea09c29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilterChain interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartChain  : IntPtr
+        PauseChain  : IntPtr
+        StopChain   : IntPtr
+        RemoveChain : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartChain", "PauseChain", "StopChain", "RemoveChain"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilterChain.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StartChain method switches all the filters in a filter chain into a running state.
@@ -81,5 +93,31 @@ class IFilterChain extends IUnknown {
     RemoveChain(pStartFilter, pEndFilter) {
         result := ComCall(6, this, "ptr", pStartFilter, "ptr", pEndFilter, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFilterChain.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartChain := CallbackCreate(GetMethod(implObj, "StartChain"), flags, 3)
+        this.vtbl.PauseChain := CallbackCreate(GetMethod(implObj, "PauseChain"), flags, 3)
+        this.vtbl.StopChain := CallbackCreate(GetMethod(implObj, "StopChain"), flags, 3)
+        this.vtbl.RemoveChain := CallbackCreate(GetMethod(implObj, "RemoveChain"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartChain)
+        CallbackFree(this.vtbl.PauseChain)
+        CallbackFree(this.vtbl.StopChain)
+        CallbackFree(this.vtbl.RemoveChain)
     }
 }

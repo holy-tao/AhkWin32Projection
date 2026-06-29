@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TEXT_STORE_LOCK_FLAGS.ahk" { TEXT_STORE_LOCK_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TEXT_STORE_CHANGE_FLAGS.ahk" { TEXT_STORE_CHANGE_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAnchor.ahk" { IAnchor }
+#Import ".\TsLayoutCode.ahk" { TsLayoutCode }
 
 /**
  * The ITextStoreAnchorSink interface is implemented by the TSF manager and is used by an anchor-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreAnchor::AdviseSink.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-itextstoreanchorsink
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITextStoreAnchorSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextStoreAnchorSink extends IUnknown {
     /**
      * The interface identifier for ITextStoreAnchorSink
      * @type {Guid}
      */
-    static IID => Guid("{aa80e905-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e905-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextStoreAnchorSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnTextChange           : IntPtr
+        OnSelectionChange      : IntPtr
+        OnLayoutChange         : IntPtr
+        OnStatusChange         : IntPtr
+        OnAttrsChange          : IntPtr
+        OnLockGranted          : IntPtr
+        OnStartEditTransaction : IntPtr
+        OnEndEditTransaction   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnTextChange", "OnSelectionChange", "OnLayoutChange", "OnStatusChange", "OnAttrsChange", "OnLockGranted", "OnStartEditTransaction", "OnEndEditTransaction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextStoreAnchorSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITextStoreAnchorSink::OnTextChange method
@@ -104,7 +123,7 @@ class ITextStoreAnchorSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchorsink-ontextchange
      */
     OnTextChange(dwFlags, paStart, paEnd) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "HRESULT")
+        result := ComCall(3, this, TEXT_STORE_CHANGE_FLAGS, dwFlags, "ptr", paStart, "ptr", paEnd, "HRESULT")
         return result
     }
 
@@ -183,7 +202,7 @@ class ITextStoreAnchorSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchorsink-onlayoutchange
      */
     OnLayoutChange(lcode, vcView) {
-        result := ComCall(5, this, "int", lcode, "uint", vcView, "HRESULT")
+        result := ComCall(5, this, TsLayoutCode, lcode, "uint", vcView, "HRESULT")
         return result
     }
 
@@ -257,7 +276,7 @@ class ITextStoreAnchorSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchorsink-onattrschange
      */
     OnAttrsChange(paStart, paEnd, cAttrs, paAttrs) {
-        result := ComCall(7, this, "ptr", paStart, "ptr", paEnd, "uint", cAttrs, "ptr", paAttrs, "HRESULT")
+        result := ComCall(7, this, "ptr", paStart, "ptr", paEnd, "uint", cAttrs, Guid.Ptr, paAttrs, "HRESULT")
         return result
     }
 
@@ -318,7 +337,7 @@ class ITextStoreAnchorSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchorsink-onlockgranted
      */
     OnLockGranted(dwLockFlags) {
-        result := ComCall(8, this, "uint", dwLockFlags, "HRESULT")
+        result := ComCall(8, this, TEXT_STORE_LOCK_FLAGS, dwLockFlags, "HRESULT")
         return result
     }
 
@@ -399,5 +418,39 @@ class ITextStoreAnchorSink extends IUnknown {
     OnEndEditTransaction() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextStoreAnchorSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnTextChange := CallbackCreate(GetMethod(implObj, "OnTextChange"), flags, 4)
+        this.vtbl.OnSelectionChange := CallbackCreate(GetMethod(implObj, "OnSelectionChange"), flags, 1)
+        this.vtbl.OnLayoutChange := CallbackCreate(GetMethod(implObj, "OnLayoutChange"), flags, 3)
+        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 2)
+        this.vtbl.OnAttrsChange := CallbackCreate(GetMethod(implObj, "OnAttrsChange"), flags, 5)
+        this.vtbl.OnLockGranted := CallbackCreate(GetMethod(implObj, "OnLockGranted"), flags, 2)
+        this.vtbl.OnStartEditTransaction := CallbackCreate(GetMethod(implObj, "OnStartEditTransaction"), flags, 1)
+        this.vtbl.OnEndEditTransaction := CallbackCreate(GetMethod(implObj, "OnEndEditTransaction"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnTextChange)
+        CallbackFree(this.vtbl.OnSelectionChange)
+        CallbackFree(this.vtbl.OnLayoutChange)
+        CallbackFree(this.vtbl.OnStatusChange)
+        CallbackFree(this.vtbl.OnAttrsChange)
+        CallbackFree(this.vtbl.OnLockGranted)
+        CallbackFree(this.vtbl.OnStartEditTransaction)
+        CallbackFree(this.vtbl.OnEndEditTransaction)
     }
 }

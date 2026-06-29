@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a write-only object model for encrypted bundle packages. (IAppxEncryptedBundleWriter3)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxencryptedbundlewriter3
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxEncryptedBundleWriter3 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxEncryptedBundleWriter3 extends IUnknown {
     /**
      * The interface identifier for IAppxEncryptedBundleWriter3
      * @type {Guid}
      */
-    static IID => Guid("{0d34deb3-5cae-4dd3-977c-504932a51d31}")
+    static IID := Guid("{0d34deb3-5cae-4dd3-977c-504932a51d31}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxEncryptedBundleWriter3 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddPayloadPackageEncrypted  : IntPtr
+        AddExternalPackageReference : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddPayloadPackageEncrypted", "AddExternalPackageReference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxEncryptedBundleWriter3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Encrypts a new payload package to the bundle. (IAppxEncryptedBundleWriter3.AddPayloadPackageEncrypted)
@@ -40,7 +52,7 @@ class IAppxEncryptedBundleWriter3 extends IUnknown {
     AddPayloadPackageEncrypted(fileName, packageStream, isDefaultApplicablePackage) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(3, this, "ptr", fileName, "ptr", packageStream, "int", isDefaultApplicablePackage, "HRESULT")
+        result := ComCall(3, this, "ptr", fileName, "ptr", packageStream, BOOL, isDefaultApplicablePackage, "HRESULT")
         return result
     }
 
@@ -55,7 +67,29 @@ class IAppxEncryptedBundleWriter3 extends IUnknown {
     AddExternalPackageReference(fileName, inputStream, isDefaultApplicablePackage) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(4, this, "ptr", fileName, "ptr", inputStream, "int", isDefaultApplicablePackage, "HRESULT")
+        result := ComCall(4, this, "ptr", fileName, "ptr", inputStream, BOOL, isDefaultApplicablePackage, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAppxEncryptedBundleWriter3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddPayloadPackageEncrypted := CallbackCreate(GetMethod(implObj, "AddPayloadPackageEncrypted"), flags, 4)
+        this.vtbl.AddExternalPackageReference := CallbackCreate(GetMethod(implObj, "AddExternalPackageReference"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddPayloadPackageEncrypted)
+        CallbackFree(this.vtbl.AddExternalPackageReference)
     }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_RADIO_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_RADIO_STATE.ahk" { DOT11_RADIO_STATE }
 
 /**
  * Contains information about the radio state on the wireless Hosted Network.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_radio_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_RADIO_STATE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WLAN_HOSTED_NETWORK_RADIO_STATE {
+    #StructPack 4
 
     /**
      * The software radio state of the wireless Hosted Network.
-     * @type {DOT11_RADIO_STATE}
      */
-    dot11SoftwareRadioState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dot11SoftwareRadioState : DOT11_RADIO_STATE
 
     /**
      * The hardware radio state of the wireless Hosted Network.
-     * @type {DOT11_RADIO_STATE}
      */
-    dot11HardwareRadioState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dot11HardwareRadioState : DOT11_RADIO_STATE
+
 }

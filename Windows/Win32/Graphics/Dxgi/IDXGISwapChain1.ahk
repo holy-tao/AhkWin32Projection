@@ -1,12 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISwapChain.ahk
-#Include .\DXGI_SWAP_CHAIN_DESC1.ahk
-#Include .\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IDXGIOutput.ahk
-#Include .\DXGI_RGBA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
+#Import ".\DXGI_RGBA.ahk" { DXGI_RGBA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
+#Import "Common\DXGI_MODE_ROTATION.ahk" { DXGI_MODE_ROTATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\DXGI_PRESENT_PARAMETERS.ahk" { DXGI_PRESENT_PARAMETERS }
 
 /**
  * Provides presentation capabilities that are enhanced from IDXGISwapChain. These presentation capabilities consist of specifying dirty rectangles and scroll rectangle to optimize the presentation.
@@ -22,26 +27,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgiswapchain1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISwapChain1 extends IDXGISwapChain {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISwapChain1 extends IDXGISwapChain {
     /**
      * The interface identifier for IDXGISwapChain1
      * @type {Guid}
      */
-    static IID => Guid("{790a45f7-0d42-4876-983a-0a55cfe6f4aa}")
+    static IID := Guid("{790a45f7-0d42-4876-983a-0a55cfe6f4aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISwapChain1 interfaces
+    */
+    struct Vtbl extends IDXGISwapChain.Vtbl {
+        GetDesc1                 : IntPtr
+        GetFullscreenDesc        : IntPtr
+        GetHwnd                  : IntPtr
+        GetCoreWindow            : IntPtr
+        Present1                 : IntPtr
+        IsTemporaryMonoSupported : IntPtr
+        GetRestrictToOutput      : IntPtr
+        SetBackgroundColor       : IntPtr
+        GetBackgroundColor       : IntPtr
+        SetRotation              : IntPtr
+        GetRotation              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc1", "GetFullscreenDesc", "GetHwnd", "GetCoreWindow", "Present1", "IsTemporaryMonoSupported", "GetRestrictToOutput", "SetBackgroundColor", "GetBackgroundColor", "SetRotation", "GetRotation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISwapChain1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a description of the swap chain.
@@ -50,7 +72,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      */
     GetDesc1() {
         pDesc := DXGI_SWAP_CHAIN_DESC1()
-        result := ComCall(18, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(18, this, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -63,7 +85,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      */
     GetFullscreenDesc() {
         pDesc := DXGI_SWAP_CHAIN_FULLSCREEN_DESC()
-        result := ComCall(19, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(19, this, DXGI_SWAP_CHAIN_FULLSCREEN_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -76,7 +98,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      */
     GetHwnd() {
         pHwnd := HWND()
-        result := ComCall(20, this, "ptr", pHwnd, "HRESULT")
+        result := ComCall(20, this, HWND.Ptr, pHwnd, "HRESULT")
         return pHwnd
     }
 
@@ -90,7 +112,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getcorewindow
      */
     GetCoreWindow(refiid) {
-        result := ComCall(21, this, "ptr", refiid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, refiid, "ptr*", &ppUnk := 0, "HRESULT")
         return ppUnk
     }
 
@@ -140,7 +162,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1
      */
     Present1(SyncInterval, PresentFlags, pPresentParameters) {
-        result := ComCall(22, this, "uint", SyncInterval, "uint", PresentFlags, "ptr", pPresentParameters, "int")
+        result := ComCall(22, this, "uint", SyncInterval, DXGI_PRESENT, PresentFlags, DXGI_PRESENT_PARAMETERS.Ptr, pPresentParameters, Int32)
         return result
     }
 
@@ -155,7 +177,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-istemporarymonosupported
      */
     IsTemporaryMonoSupported() {
-        result := ComCall(23, this, "int")
+        result := ComCall(23, this, BOOL)
         return result
     }
 
@@ -197,7 +219,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-setbackgroundcolor
      */
     SetBackgroundColor(pColor) {
-        result := ComCall(25, this, "ptr", pColor, "HRESULT")
+        result := ComCall(25, this, DXGI_RGBA.Ptr, pColor, "HRESULT")
         return result
     }
 
@@ -211,7 +233,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      */
     GetBackgroundColor() {
         pColor := DXGI_RGBA()
-        result := ComCall(26, this, "ptr", pColor, "HRESULT")
+        result := ComCall(26, this, DXGI_RGBA.Ptr, pColor, "HRESULT")
         return pColor
     }
 
@@ -234,7 +256,7 @@ class IDXGISwapChain1 extends IDXGISwapChain {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-setrotation
      */
     SetRotation(Rotation) {
-        result := ComCall(27, this, "int", Rotation, "HRESULT")
+        result := ComCall(27, this, DXGI_MODE_ROTATION, Rotation, "HRESULT")
         return result
     }
 
@@ -246,5 +268,45 @@ class IDXGISwapChain1 extends IDXGISwapChain {
     GetRotation() {
         result := ComCall(28, this, "int*", &pRotation := 0, "HRESULT")
         return pRotation
+    }
+
+    Query(iid) {
+        if (IDXGISwapChain1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
+        this.vtbl.GetFullscreenDesc := CallbackCreate(GetMethod(implObj, "GetFullscreenDesc"), flags, 2)
+        this.vtbl.GetHwnd := CallbackCreate(GetMethod(implObj, "GetHwnd"), flags, 2)
+        this.vtbl.GetCoreWindow := CallbackCreate(GetMethod(implObj, "GetCoreWindow"), flags, 3)
+        this.vtbl.Present1 := CallbackCreate(GetMethod(implObj, "Present1"), flags, 4)
+        this.vtbl.IsTemporaryMonoSupported := CallbackCreate(GetMethod(implObj, "IsTemporaryMonoSupported"), flags, 1)
+        this.vtbl.GetRestrictToOutput := CallbackCreate(GetMethod(implObj, "GetRestrictToOutput"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc1)
+        CallbackFree(this.vtbl.GetFullscreenDesc)
+        CallbackFree(this.vtbl.GetHwnd)
+        CallbackFree(this.vtbl.GetCoreWindow)
+        CallbackFree(this.vtbl.Present1)
+        CallbackFree(this.vtbl.IsTemporaryMonoSupported)
+        CallbackFree(this.vtbl.GetRestrictToOutput)
+        CallbackFree(this.vtbl.SetBackgroundColor)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.SetRotation)
+        CallbackFree(this.vtbl.GetRotation)
     }
 }

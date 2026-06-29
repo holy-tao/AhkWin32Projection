@@ -1,32 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY extends Win32Struct {
-    static sizeof => 4
+export default struct PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - EnablePointerAuthUserIp
-     * - ReservedFlags
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -42,5 +23,9 @@ class PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY extends Win32Struct {
     ReservedFlags {
         get => (this._bitfield >> 1) & 0x7FFFFFFF
         set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

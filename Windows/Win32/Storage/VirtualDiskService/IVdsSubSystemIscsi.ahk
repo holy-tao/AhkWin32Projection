@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsSubSystemIscsi interface (vdshwprv.h) provides methods to query and configure iSCSI targets and portals on a subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsystemiscsi
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsSubSystemIscsi extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsSubSystemIscsi extends IUnknown {
     /**
      * The interface identifier for IVdsSubSystemIscsi
      * @type {Guid}
      */
-    static IID => Guid("{0027346f-40d0-4b45-8cec-5906dc0380c8}")
+    static IID := Guid("{0027346f-40d0-4b45-8cec-5906dc0380c8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsSubSystemIscsi interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryTargets              : IntPtr
+        QueryPortals              : IntPtr
+        CreateTarget              : IntPtr
+        SetIpsecGroupPresharedKey : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryTargets", "QueryPortals", "CreateTarget", "SetIpsecGroupPresharedKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsSubSystemIscsi.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsSubSystemIscsi::QueryTargets (vdshwprv.h) method returns an object that enumerates the iSCSI targets of the subsystem.
@@ -100,7 +113,33 @@ class IVdsSubSystemIscsi extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystemiscsi-setipsecgrouppresharedkey
      */
     SetIpsecGroupPresharedKey(pIpsecKey) {
-        result := ComCall(6, this, "ptr", pIpsecKey, "HRESULT")
+        result := ComCall(6, this, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsSubSystemIscsi.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryTargets := CallbackCreate(GetMethod(implObj, "QueryTargets"), flags, 2)
+        this.vtbl.QueryPortals := CallbackCreate(GetMethod(implObj, "QueryPortals"), flags, 2)
+        this.vtbl.CreateTarget := CallbackCreate(GetMethod(implObj, "CreateTarget"), flags, 4)
+        this.vtbl.SetIpsecGroupPresharedKey := CallbackCreate(GetMethod(implObj, "SetIpsecGroupPresharedKey"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryTargets)
+        CallbackFree(this.vtbl.QueryPortals)
+        CallbackFree(this.vtbl.CreateTarget)
+        CallbackFree(this.vtbl.SetIpsecGroupPresharedKey)
     }
 }

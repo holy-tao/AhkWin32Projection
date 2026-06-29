@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.ahk" { EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct {
-    static sizeof => 24
+export default struct EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszPluginClsId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszPluginClsId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cCredentialDetails : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCredentialDetails {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pCredentialDetails : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>>}
-     */
-    pCredentialDetails {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

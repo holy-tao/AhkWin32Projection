@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FAX_ACCESS_RIGHTS_ENUM.ahk" { FAX_ACCESS_RIGHTS_ENUM }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IFaxSecurity configuration object is used by a fax client application to configure the security on a fax server, and permits the calling application to set and retrieve a security descriptor for the fax server.
@@ -13,32 +15,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxsecurity
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxSecurity extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxSecurity extends IDispatch {
     /**
      * The interface identifier for IFaxSecurity
      * @type {Guid}
      */
-    static IID => Guid("{77b508c1-09c0-47a2-91eb-fce7fdf2690e}")
+    static IID := Guid("{77b508c1-09c0-47a2-91eb-fce7fdf2690e}")
 
     /**
      * The class identifier for FaxSecurity
      * @type {Guid}
      */
-    static CLSID => Guid("{10c4ddde-abf0-43df-964f-7f3ac21a4c7b}")
+    static CLSID := Guid("{10c4ddde-abf0-43df-964f-7f3ac21a4c7b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxSecurity interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Descriptor      : IntPtr
+        put_Descriptor      : IntPtr
+        get_GrantedRights   : IntPtr
+        Refresh             : IntPtr
+        Save                : IntPtr
+        get_InformationType : IntPtr
+        put_InformationType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Descriptor", "put_Descriptor", "get_GrantedRights", "Refresh", "Save", "get_InformationType", "put_InformationType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxSecurity.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -74,7 +89,7 @@ class IFaxSecurity extends IDispatch {
      */
     get_Descriptor() {
         pvDescriptor := VARIANT()
-        result := ComCall(7, this, "ptr", pvDescriptor, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pvDescriptor, "HRESULT")
         return pvDescriptor
     }
 
@@ -89,7 +104,7 @@ class IFaxSecurity extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity-put_descriptor
      */
     put_Descriptor(vDescriptor) {
-        result := ComCall(8, this, "ptr", vDescriptor, "HRESULT")
+        result := ComCall(8, this, VARIANT, vDescriptor, "HRESULT")
         return result
     }
 
@@ -216,5 +231,37 @@ class IFaxSecurity extends IDispatch {
     put_InformationType(lInformationType) {
         result := ComCall(13, this, "int", lInformationType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxSecurity.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Descriptor := CallbackCreate(GetMethod(implObj, "get_Descriptor"), flags, 2)
+        this.vtbl.put_Descriptor := CallbackCreate(GetMethod(implObj, "put_Descriptor"), flags, 2)
+        this.vtbl.get_GrantedRights := CallbackCreate(GetMethod(implObj, "get_GrantedRights"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_InformationType := CallbackCreate(GetMethod(implObj, "get_InformationType"), flags, 2)
+        this.vtbl.put_InformationType := CallbackCreate(GetMethod(implObj, "put_InformationType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Descriptor)
+        CallbackFree(this.vtbl.put_Descriptor)
+        CallbackFree(this.vtbl.get_GrantedRights)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.get_InformationType)
+        CallbackFree(this.vtbl.put_InformationType)
     }
 }

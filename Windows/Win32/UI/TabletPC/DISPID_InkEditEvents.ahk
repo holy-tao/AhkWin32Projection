@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies various ink editor events.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-dispid_inkeditevents
  * @namespace Windows.Win32.UI.TabletPC
  */
-class DISPID_InkEditEvents extends Win32Enum {
+export default struct DISPID_InkEditEvents {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Content changed.

@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_DEBUG_SNAPSHOT_ESCAPE extends Win32Struct {
-    static sizeof => 8
+export default struct D3DKMT_DEBUG_SNAPSHOT_ESCAPE {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Buffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__BufferProxyArray
-        }
-    }
 }

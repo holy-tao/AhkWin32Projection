@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDeviceKeyCollection.ahk
-#Include .\IPortableDeviceValues.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDeviceProperties interface retrieves, adds, or deletes properties from an object on a device, or the device itself.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceproperties
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceProperties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceProperties extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceProperties
      * @type {Guid}
      */
-    static IID => Guid("{7f6d695c-03df-4439-a809-59266beee3a6}")
+    static IID := Guid("{7f6d695c-03df-4439-a809-59266beee3a6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceProperties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSupportedProperties : IntPtr
+        GetPropertyAttributes  : IntPtr
+        GetValues              : IntPtr
+        SetValues              : IntPtr
+        Delete                 : IntPtr
+        Cancel                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSupportedProperties", "GetPropertyAttributes", "GetValues", "SetValues", "Delete", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSupportedProperties method retrieves a list of properties that a specified object supports. Note that not all of these properties may actually have values.
@@ -58,7 +73,7 @@ class IPortableDeviceProperties extends IUnknown {
     GetPropertyAttributes(pszObjectID, Key) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(4, this, "ptr", pszObjectID, "ptr", Key, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszObjectID, PROPERTYKEY.Ptr, Key, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -178,5 +193,35 @@ class IPortableDeviceProperties extends IUnknown {
     Cancel() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSupportedProperties := CallbackCreate(GetMethod(implObj, "GetSupportedProperties"), flags, 3)
+        this.vtbl.GetPropertyAttributes := CallbackCreate(GetMethod(implObj, "GetPropertyAttributes"), flags, 4)
+        this.vtbl.GetValues := CallbackCreate(GetMethod(implObj, "GetValues"), flags, 4)
+        this.vtbl.SetValues := CallbackCreate(GetMethod(implObj, "SetValues"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSupportedProperties)
+        CallbackFree(this.vtbl.GetPropertyAttributes)
+        CallbackFree(this.vtbl.GetValues)
+        CallbackFree(this.vtbl.SetValues)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

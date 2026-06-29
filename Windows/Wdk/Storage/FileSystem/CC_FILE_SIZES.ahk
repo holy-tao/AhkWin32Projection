@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class CC_FILE_SIZES extends Win32Struct {
-    static sizeof => 24
+export default struct CC_FILE_SIZES {
+    #StructPack 8
 
-    static packingSize => 8
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    FileSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileSize {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    ValidDataLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ValidDataLength {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
 }

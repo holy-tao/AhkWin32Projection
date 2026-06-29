@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of data that a writer manages.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_source_type
  * @namespace Windows.Win32.Storage.Vss
  */
-class VSS_SOURCE_TYPE extends Win32Enum {
+export default struct VSS_SOURCE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The source of the data is not known. 

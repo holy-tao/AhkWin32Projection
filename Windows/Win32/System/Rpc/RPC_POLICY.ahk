@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RPC_POLICY structure contains flags that determine binding on multihomed computers, and port allocations when using the ncacn_ip_tcp and ncadg_ip_udp protocols.
@@ -19,21 +18,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_policy
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_POLICY extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct RPC_POLICY {
+    #StructPack 4
 
     /**
      * Size of the 
      * <b>RPC_POLICY</b> structure, in bytes. The <b>Length</b> member allows compatibility with future versions of this structure, which may contain additional fields. Always set the <b>Length</b> equal to <b>sizeof</b>(RPC_POLICY) when you initialize the 
      * <b>RPC_POLICY</b> structure in your code.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
     /**
      * Set of flags that determine the attributes of the port or ports where the server receives remote procedure calls. You can specify more than one flag (by using the bitwise OR operator) from the set of values for a given protocol sequence. The following table lists the possible values for the <b>EndpointFlags</b> member. 
@@ -183,12 +176,8 @@ class RPC_POLICY extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncadg-ip-udp">ncadg_ip_udp</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncadg-mq">ncadg_mq</a>) is marked as invalid and all calls to <b>RpcServerUseProtseq*</b> functions over that protocol will fail.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    EndpointFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EndpointFlags : UInt32
 
     /**
      * Policy for binding to Network Interface Cards (NICs). The following table lists the possible values for the <b>NICFlags</b> member. 
@@ -223,10 +212,7 @@ class RPC_POLICY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    NICFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NICFlags : UInt32
+
 }

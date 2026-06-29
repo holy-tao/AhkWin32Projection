@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR.ahk" { WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR }
 
 /**
  * Contains status information for one entry to be shown in the Windows Server Backup MMC snap-in.
@@ -13,57 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_entry
  * @namespace Windows.Win32.System.ServerBackup
  */
-class WSB_OB_STATUS_ENTRY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WSB_OB_STATUS_ENTRY {
+    #StructPack 8
 
     /**
      * The resource identifier of the icon to be shown with the status entry. A value of zero indicates no icon is 
      *       to be shown.
-     * @type {Integer}
      */
-    m_dwIcon {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    m_dwIcon : UInt32
 
     /**
      * The resource identifier of the name of the status entry.
-     * @type {Integer}
      */
-    m_dwStatusEntryName {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    m_dwStatusEntryName : UInt32
 
     /**
      * The resource identifier of the value of the status entry.
-     * @type {Integer}
      */
-    m_dwStatusEntryValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    m_dwStatusEntryValue : UInt32
 
     /**
      * The number of 
      *       <a href="https://docs.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_entry_value_type_pair">WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR</a> 
      *       structures pointed to by the <b>m_rgValueTypePair</b> member.
-     * @type {Integer}
      */
-    m_cValueTypePair {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    m_cValueTypePair : UInt32
 
     /**
      * The list of parameters used to expand the value string contained in the 
      *       <b>m_dwStatusEntryValue</b> member.
-     * @type {Pointer<WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR>}
      */
-    m_rgValueTypePair {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    m_rgValueTypePair : WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR.Ptr
+
 }

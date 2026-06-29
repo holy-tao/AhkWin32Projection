@@ -1,77 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DATETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DATETIME.ahk" { DATETIME }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset ANSI
  */
-class IMEPROA extends Win32Struct {
-    static sizeof => 184
+export default struct IMEPROA {
+    #StructPack 8
 
-    static packingSize => 8
+    hWnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(0, this)
-            return this.__hWnd
-        }
-    }
+    InstDate : DATETIME
 
-    /**
-     * @type {DATETIME}
-     */
-    InstDate {
-        get {
-            if(!this.HasProp("__InstDate"))
-                this.__InstDate := DATETIME(8, this)
-            return this.__InstDate
-        }
-    }
+    wVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wVersion {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    szDescription : Int8[50]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szDescription {
-        get {
-            if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 24, 50, Primitive, "char")
-            return this.__szDescriptionProxyArray
-        }
-    }
+    szName : Int8[80]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szName {
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 74, 80, Primitive, "char")
-            return this.__szNameProxyArray
-        }
-    }
+    szOptions : Int8[30]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szOptions {
-        get {
-            if(!this.HasProp("__szOptionsProxyArray"))
-                this.__szOptionsProxyArray := Win32FixedArray(this.ptr + 154, 30, Primitive, "char")
-            return this.__szOptionsProxyArray
-        }
-    }
 }

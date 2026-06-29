@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmPropertyBag.ahk" { IFsrmPropertyBag }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmPipelineModuleImplementation.ahk" { IFsrmPipelineModuleImplementation }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Classifier modules implement this interface. FSRM calls the module's implementation when it runs classification.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduleimplementation
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementation {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementation {
     /**
      * The interface identifier for IFsrmClassifierModuleImplementation
      * @type {Guid}
      */
-    static IID => Guid("{4c968fc6-6edb-4051-9c18-73b7291ae106}")
+    static IID := Guid("{4c968fc6-6edb-4051-9c18-73b7291ae106}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmClassifierModuleImplementation interfaces
+    */
+    struct Vtbl extends IFsrmPipelineModuleImplementation.Vtbl {
+        get_LastModified        : IntPtr
+        UseRulesAndDefinitions  : IntPtr
+        OnBeginFile             : IntPtr
+        DoesPropertyValueApply  : IntPtr
+        GetPropertyValueToApply : IntPtr
+        OnEndFile               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LastModified", "UseRulesAndDefinitions", "OnBeginFile", "DoesPropertyValueApply", "GetPropertyValueToApply", "OnEndFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmClassifierModuleImplementation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -51,7 +68,7 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
      */
     get_LastModified() {
         lastModified := VARIANT()
-        result := ComCall(9, this, "ptr", lastModified, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, lastModified, "HRESULT")
         return lastModified
     }
 
@@ -94,7 +111,7 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-onbeginfile
      */
     OnBeginFile(propertyBag, arrayRuleIds) {
-        result := ComCall(11, this, "ptr", propertyBag, "ptr", arrayRuleIds, "HRESULT")
+        result := ComCall(11, this, "ptr", propertyBag, SAFEARRAY.Ptr, arrayRuleIds, "HRESULT")
         return result
     }
 
@@ -117,7 +134,7 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
         _property := _property is String ? BSTR.Alloc(_property).Value : _property
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(12, this, "ptr", _property, "ptr", value, "short*", &applyValue := 0, "ptr", idRule, "ptr", idPropDef, "HRESULT")
+        result := ComCall(12, this, BSTR, _property, BSTR, value, VARIANT_BOOL.Ptr, &applyValue := 0, Guid, idRule, Guid, idPropDef, "HRESULT")
         return applyValue
     }
 
@@ -138,8 +155,8 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
     GetPropertyValueToApply(_property, idRule, idPropDef) {
         _property := _property is String ? BSTR.Alloc(_property).Value : _property
 
-        value := BSTR()
-        result := ComCall(13, this, "ptr", _property, "ptr", value, "ptr", idRule, "ptr", idPropDef, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(13, this, BSTR, _property, BSTR.Ptr, value, Guid, idRule, Guid, idPropDef, "HRESULT")
         return value
     }
 
@@ -151,5 +168,35 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
     OnEndFile() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmClassifierModuleImplementation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LastModified := CallbackCreate(GetMethod(implObj, "get_LastModified"), flags, 2)
+        this.vtbl.UseRulesAndDefinitions := CallbackCreate(GetMethod(implObj, "UseRulesAndDefinitions"), flags, 3)
+        this.vtbl.OnBeginFile := CallbackCreate(GetMethod(implObj, "OnBeginFile"), flags, 3)
+        this.vtbl.DoesPropertyValueApply := CallbackCreate(GetMethod(implObj, "DoesPropertyValueApply"), flags, 6)
+        this.vtbl.GetPropertyValueToApply := CallbackCreate(GetMethod(implObj, "GetPropertyValueToApply"), flags, 5)
+        this.vtbl.OnEndFile := CallbackCreate(GetMethod(implObj, "OnEndFile"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LastModified)
+        CallbackFree(this.vtbl.UseRulesAndDefinitions)
+        CallbackFree(this.vtbl.OnBeginFile)
+        CallbackFree(this.vtbl.DoesPropertyValueApply)
+        CallbackFree(this.vtbl.GetPropertyValueToApply)
+        CallbackFree(this.vtbl.OnEndFile)
     }
 }

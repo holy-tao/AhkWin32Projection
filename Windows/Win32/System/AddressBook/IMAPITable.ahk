@@ -1,28 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import ".\SRowSet.ahk" { SRowSet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
 
 /**
  * Do not use. This interface is used for content tables of Windows Address Book (WAB) containers and distribution lists.
  * @see https://learn.microsoft.com/windows/win32/api/wabdefs/nn-wabdefs-imapitable
  * @namespace Windows.Win32.System.AddressBook
  */
-class IMAPITable extends IUnknown {
+export default struct IMAPITable extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLastError", "Advise", "Unadvise", "GetStatus", "SetColumns", "QueryColumns", "GetRowCount", "SeekRow", "SeekRowApprox", "QueryPosition", "FindRow", "Restrict", "CreateBookmark", "FreeBookmark", "SortTable", "QuerySortOrder", "QueryRows", "Abort", "ExpandRow", "CollapseRow", "WaitForCompletion", "GetCollapseState", "SetCollapseState"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMAPITable interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLastError      : IntPtr
+        Advise            : IntPtr
+        Unadvise          : IntPtr
+        GetStatus         : IntPtr
+        SetColumns        : IntPtr
+        QueryColumns      : IntPtr
+        GetRowCount       : IntPtr
+        SeekRow           : IntPtr
+        SeekRowApprox     : IntPtr
+        QueryPosition     : IntPtr
+        FindRow           : IntPtr
+        Restrict          : IntPtr
+        CreateBookmark    : IntPtr
+        FreeBookmark      : IntPtr
+        SortTable         : IntPtr
+        QuerySortOrder    : IntPtr
+        QueryRows         : IntPtr
+        Abort             : IntPtr
+        ExpandRow         : IntPtr
+        CollapseRow       : IntPtr
+        WaitForCompletion : IntPtr
+        GetCollapseState  : IntPtr
+        SetCollapseState  : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMAPITable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -190,7 +226,7 @@ class IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-setcolumns
      */
     SetColumns(lpPropTagArray, ulFlags) {
-        result := ComCall(7, this, "ptr", lpPropTagArray, "uint", ulFlags, "HRESULT")
+        result := ComCall(7, this, SPropTagArray.Ptr, lpPropTagArray, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -379,7 +415,7 @@ class IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-findrow
      */
     FindRow(lpRestriction, bkOrigin, ulFlags) {
-        result := ComCall(13, this, "ptr", lpRestriction, "uint", bkOrigin, "uint", ulFlags, "HRESULT")
+        result := ComCall(13, this, SRestriction.Ptr, lpRestriction, "uint", bkOrigin, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -422,7 +458,7 @@ class IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-restrict
      */
     Restrict(lpRestriction, ulFlags) {
-        result := ComCall(14, this, "ptr", lpRestriction, "uint", ulFlags, "HRESULT")
+        result := ComCall(14, this, SRestriction.Ptr, lpRestriction, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -526,7 +562,7 @@ class IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-sorttable
      */
     SortTable(lpSortCriteria, ulFlags) {
-        result := ComCall(17, this, "ptr", lpSortCriteria, "uint", ulFlags, "HRESULT")
+        result := ComCall(17, this, SSortOrderSet.Ptr, lpSortCriteria, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -799,5 +835,69 @@ class IMAPITable extends IUnknown {
 
         result := ComCall(25, this, "uint", ulFlags, "uint", cbCollapseState, pbCollapseStateMarshal, pbCollapseState, lpbkLocationMarshal, lpbkLocation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMAPITable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 4)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.SetColumns := CallbackCreate(GetMethod(implObj, "SetColumns"), flags, 3)
+        this.vtbl.QueryColumns := CallbackCreate(GetMethod(implObj, "QueryColumns"), flags, 3)
+        this.vtbl.GetRowCount := CallbackCreate(GetMethod(implObj, "GetRowCount"), flags, 3)
+        this.vtbl.SeekRow := CallbackCreate(GetMethod(implObj, "SeekRow"), flags, 4)
+        this.vtbl.SeekRowApprox := CallbackCreate(GetMethod(implObj, "SeekRowApprox"), flags, 3)
+        this.vtbl.QueryPosition := CallbackCreate(GetMethod(implObj, "QueryPosition"), flags, 4)
+        this.vtbl.FindRow := CallbackCreate(GetMethod(implObj, "FindRow"), flags, 4)
+        this.vtbl.Restrict := CallbackCreate(GetMethod(implObj, "Restrict"), flags, 3)
+        this.vtbl.CreateBookmark := CallbackCreate(GetMethod(implObj, "CreateBookmark"), flags, 2)
+        this.vtbl.FreeBookmark := CallbackCreate(GetMethod(implObj, "FreeBookmark"), flags, 2)
+        this.vtbl.SortTable := CallbackCreate(GetMethod(implObj, "SortTable"), flags, 3)
+        this.vtbl.QuerySortOrder := CallbackCreate(GetMethod(implObj, "QuerySortOrder"), flags, 2)
+        this.vtbl.QueryRows := CallbackCreate(GetMethod(implObj, "QueryRows"), flags, 4)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.ExpandRow := CallbackCreate(GetMethod(implObj, "ExpandRow"), flags, 7)
+        this.vtbl.CollapseRow := CallbackCreate(GetMethod(implObj, "CollapseRow"), flags, 5)
+        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 4)
+        this.vtbl.GetCollapseState := CallbackCreate(GetMethod(implObj, "GetCollapseState"), flags, 6)
+        this.vtbl.SetCollapseState := CallbackCreate(GetMethod(implObj, "SetCollapseState"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetColumns)
+        CallbackFree(this.vtbl.QueryColumns)
+        CallbackFree(this.vtbl.GetRowCount)
+        CallbackFree(this.vtbl.SeekRow)
+        CallbackFree(this.vtbl.SeekRowApprox)
+        CallbackFree(this.vtbl.QueryPosition)
+        CallbackFree(this.vtbl.FindRow)
+        CallbackFree(this.vtbl.Restrict)
+        CallbackFree(this.vtbl.CreateBookmark)
+        CallbackFree(this.vtbl.FreeBookmark)
+        CallbackFree(this.vtbl.SortTable)
+        CallbackFree(this.vtbl.QuerySortOrder)
+        CallbackFree(this.vtbl.QueryRows)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.ExpandRow)
+        CallbackFree(this.vtbl.CollapseRow)
+        CallbackFree(this.vtbl.WaitForCompletion)
+        CallbackFree(this.vtbl.GetCollapseState)
+        CallbackFree(this.vtbl.SetCollapseState)
     }
 }

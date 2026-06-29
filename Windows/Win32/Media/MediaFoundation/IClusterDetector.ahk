@@ -1,32 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IToc.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IToc.ahk" { IToc }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IClusterDetector extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IClusterDetector extends IUnknown {
     /**
      * The interface identifier for IClusterDetector
      * @type {Guid}
      */
-    static IID => Guid("{3f07f7b7-c680-41d9-9423-915107ec9ff9}")
+    static IID := Guid("{3f07f7b7-c680-41d9-9423-915107ec9ff9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IClusterDetector interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        Detect     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Detect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IClusterDetector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -64,19 +73,37 @@ class IClusterDetector extends IUnknown {
     }
 
     /**
-     * The DetectAutoProxyUrl function (wininet.h) attempts to determine the location of a WPAD autoproxy script.
-     * @remarks
-     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
-     * <div> </div>
+     * 
      * @param {Integer} dwMaxNumClusters 
      * @param {Float} fMinClusterDuration 
      * @param {Float} fMaxClusterDuration 
      * @param {IToc} pSrcToc 
      * @returns {IToc} 
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-detectautoproxyurl
      */
     Detect(dwMaxNumClusters, fMinClusterDuration, fMaxClusterDuration, pSrcToc) {
         result := ComCall(4, this, "uint", dwMaxNumClusters, "float", fMinClusterDuration, "float", fMaxClusterDuration, "ptr", pSrcToc, "ptr*", &ppDstToc := 0, "HRESULT")
         return IToc(ppDstToc)
+    }
+
+    Query(iid) {
+        if (IClusterDetector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Detect := CallbackCreate(GetMethod(implObj, "Detect"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Detect)
     }
 }

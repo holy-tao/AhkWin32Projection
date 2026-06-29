@@ -1,44 +1,93 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectInputEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import ".\DIDEVICEINSTANCEA.ahk" { DIDEVICEINSTANCEA }
+#Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
+#Import ".\DIDATAFORMAT.ahk" { DIDATAFORMAT }
+#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
+#Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
+#Import ".\DIDEVICEOBJECTINSTANCEA.ahk" { DIDEVICEOBJECTINSTANCEA }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DIDEVCAPS.ahk" { DIDEVCAPS }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import ".\DIDEVICEIMAGEINFOHEADERA.ahk" { DIDEVICEIMAGEINFOHEADERA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset ANSI
  */
-class IDirectInputDevice8A extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectInputDevice8A extends IUnknown {
     /**
      * The interface identifier for IDirectInputDevice8A
      * @type {Guid}
      */
-    static IID => Guid("{54d41080-dc15-4833-a41b-748f73a38179}")
+    static IID := Guid("{54d41080-dc15-4833-a41b-748f73a38179}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectInputDevice8A interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapabilities          : IntPtr
+        EnumObjects              : IntPtr
+        GetProperty              : IntPtr
+        SetProperty              : IntPtr
+        Acquire                  : IntPtr
+        Unacquire                : IntPtr
+        GetDeviceState           : IntPtr
+        GetDeviceData            : IntPtr
+        SetDataFormat            : IntPtr
+        SetEventNotification     : IntPtr
+        SetCooperativeLevel      : IntPtr
+        GetObjectInfo            : IntPtr
+        GetDeviceInfo            : IntPtr
+        RunControlPanel          : IntPtr
+        Initialize               : IntPtr
+        CreateEffect             : IntPtr
+        EnumEffects              : IntPtr
+        GetEffectInfo            : IntPtr
+        GetForceFeedbackState    : IntPtr
+        SendForceFeedbackCommand : IntPtr
+        EnumCreatedEffectObjects : IntPtr
+        Escape                   : IntPtr
+        Poll                     : IntPtr
+        SendDeviceData           : IntPtr
+        EnumEffectsInFile        : IntPtr
+        WriteEffectToFile        : IntPtr
+        BuildActionMap           : IntPtr
+        SetActionMap             : IntPtr
+        GetImageInfo             : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectInputDevice8A.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapabilities", "EnumObjects", "GetProperty", "SetProperty", "Acquire", "Unacquire", "GetDeviceState", "GetDeviceData", "SetDataFormat", "SetEventNotification", "SetCooperativeLevel", "GetObjectInfo", "GetDeviceInfo", "RunControlPanel", "Initialize", "CreateEffect", "EnumEffects", "GetEffectInfo", "GetForceFeedbackState", "SendForceFeedbackCommand", "EnumCreatedEffectObjects", "Escape", "Poll", "SendDeviceData", "EnumEffectsInFile", "WriteEffectToFile", "BuildActionMap", "SetActionMap", "GetImageInfo"]
-
-    /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @param {Pointer<DIDEVCAPS>} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
+     * @returns {HRESULT} 
      */
     GetCapabilities(param0) {
-        result := ComCall(3, this, "ptr", param0, "HRESULT")
+        result := ComCall(3, this, DIDEVCAPS.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -73,127 +122,24 @@ class IDirectInputDevice8A extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(param0, param1) {
-        result := ComCall(5, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, param0, DIPROPHEADER.Ptr, param1, "HRESULT")
         return result
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIPROPHEADER>} param1 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(param0, param1) {
-        result := ComCall(6, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, param0, DIPROPHEADER.Ptr, param1, "HRESULT")
         return result
     }
 
     /**
-     * The AcquireCredentialsHandle (CredSSP) function acquires a handle to preexisting credentials of a security principal. (ANSI)
-     * @remarks
-     * The <b>AcquireCredentialsHandle (CredSSP)</b> function returns a handle to the credentials of a principal, such as a user or client, as used by a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a>. The function can return the handle to either preexisting credentials or  newly created credentials and return it. This handle can be used in subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (CredSSP)</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (CredSSP)</a> functions.
      * 
-     * In general, <b>AcquireCredentialsHandle (CredSSP)</b> does not provide  the credentials of other users logged on to the same computer. However, a caller with SE_TCB_NAME  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privilege</a> can obtain the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">credentials</a> of an existing logon session by specifying the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon identifier</a> (LUID) of that session. Typically, this is used by kernel-mode modules that must act on behalf of a logged-on user.
-     * 
-     * A package might call the function in <i>pGetKeyFn</i> provided by the RPC run-time transport. If the transport does not support the notion of callback to retrieve credentials, this parameter must be <b>NULL</b>.
-     * 
-     * For kernel mode callers, the following differences must be noted:
-     * 
-     * <ul>
-     * <li>The two string parameters must be <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> strings.</li>
-     * <li>The buffer values must be allocated in process virtual memory, not from the pool.</li>
-     * </ul>
-     * When you have finished using the returned credentials, free the memory used by the credentials by calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecredentialshandle">FreeCredentialsHandle</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sspi.h header defines AcquireCredentialsHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is insufficient memory available to complete the requested action.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INTERNAL_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred that did not map to an SSPI error code.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NO_CREDENTIALS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No credentials are available in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NOT_OWNER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller of the function does not have the necessary credentials.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_SECPKG_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The requested security package does not exist.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNKNOWN_CREDENTIALS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The credentials supplied to the package were not recognized.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-acquirecredentialshandlea
+     * @returns {HRESULT} 
      */
     Acquire() {
         result := ComCall(7, this, "HRESULT")
@@ -233,7 +179,7 @@ class IDirectInputDevice8A extends IUnknown {
     GetDeviceData(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(10, this, "uint", param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -243,7 +189,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDataFormat(param0) {
-        result := ComCall(11, this, "ptr", param0, "HRESULT")
+        result := ComCall(11, this, DIDATAFORMAT.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -253,9 +199,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEventNotification(param0) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(12, this, "ptr", param0, "HRESULT")
+        result := ComCall(12, this, HANDLE, param0, "HRESULT")
         return result
     }
 
@@ -266,9 +210,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(13, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(13, this, HWND, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -280,7 +222,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     GetObjectInfo(param0, param1, param2) {
-        result := ComCall(14, this, "ptr", param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(14, this, DIDEVICEOBJECTINSTANCEA.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -290,7 +232,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDeviceInfo(param0) {
-        result := ComCall(15, this, "ptr", param0, "HRESULT")
+        result := ComCall(15, this, DIDEVICEINSTANCEA.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -301,9 +243,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     RunControlPanel(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(16, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(16, this, HWND, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -339,9 +279,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1, param2) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(17, this, "ptr", param0, "uint", param1, "ptr", param2, "HRESULT")
+        result := ComCall(17, this, HINSTANCE, param0, "uint", param1, Guid.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -353,7 +291,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {IDirectInputEffect} 
      */
     CreateEffect(param0, param1, param3) {
-        result := ComCall(18, this, "ptr", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, param0, DIEFFECT.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
         return IDirectInputEffect(param2)
     }
 
@@ -378,7 +316,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     GetEffectInfo(param0, param1) {
-        result := ComCall(20, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(20, this, DIEFFECTINFOA.Ptr, param0, Guid.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -465,7 +403,7 @@ class IDirectInputDevice8A extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(param0) {
-        result := ComCall(24, this, "ptr", param0, "HRESULT")
+        result := ComCall(24, this, DIEFFESCAPE.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -489,7 +427,7 @@ class IDirectInputDevice8A extends IUnknown {
     SendDeviceData(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(26, this, "uint", param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -521,7 +459,7 @@ class IDirectInputDevice8A extends IUnknown {
     WriteEffectToFile(param0, param1, param2, param3) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(28, this, "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "HRESULT")
+        result := ComCall(28, this, "ptr", param0, "uint", param1, DIFILEEFFECT.Ptr, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -535,7 +473,7 @@ class IDirectInputDevice8A extends IUnknown {
     BuildActionMap(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := ComCall(29, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(29, this, DIACTIONFORMATA.Ptr, param0, "ptr", param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -549,7 +487,7 @@ class IDirectInputDevice8A extends IUnknown {
     SetActionMap(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := ComCall(30, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(30, this, DIACTIONFORMATA.Ptr, param0, "ptr", param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -559,7 +497,83 @@ class IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     GetImageInfo(param0) {
-        result := ComCall(31, this, "ptr", param0, "HRESULT")
+        result := ComCall(31, this, DIDEVICEIMAGEINFOHEADERA.Ptr, param0, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectInputDevice8A.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Acquire := CallbackCreate(GetMethod(implObj, "Acquire"), flags, 1)
+        this.vtbl.Unacquire := CallbackCreate(GetMethod(implObj, "Unacquire"), flags, 1)
+        this.vtbl.GetDeviceState := CallbackCreate(GetMethod(implObj, "GetDeviceState"), flags, 3)
+        this.vtbl.GetDeviceData := CallbackCreate(GetMethod(implObj, "GetDeviceData"), flags, 5)
+        this.vtbl.SetDataFormat := CallbackCreate(GetMethod(implObj, "SetDataFormat"), flags, 2)
+        this.vtbl.SetEventNotification := CallbackCreate(GetMethod(implObj, "SetEventNotification"), flags, 2)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.GetObjectInfo := CallbackCreate(GetMethod(implObj, "GetObjectInfo"), flags, 4)
+        this.vtbl.GetDeviceInfo := CallbackCreate(GetMethod(implObj, "GetDeviceInfo"), flags, 2)
+        this.vtbl.RunControlPanel := CallbackCreate(GetMethod(implObj, "RunControlPanel"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 5)
+        this.vtbl.EnumEffects := CallbackCreate(GetMethod(implObj, "EnumEffects"), flags, 4)
+        this.vtbl.GetEffectInfo := CallbackCreate(GetMethod(implObj, "GetEffectInfo"), flags, 3)
+        this.vtbl.GetForceFeedbackState := CallbackCreate(GetMethod(implObj, "GetForceFeedbackState"), flags, 2)
+        this.vtbl.SendForceFeedbackCommand := CallbackCreate(GetMethod(implObj, "SendForceFeedbackCommand"), flags, 2)
+        this.vtbl.EnumCreatedEffectObjects := CallbackCreate(GetMethod(implObj, "EnumCreatedEffectObjects"), flags, 4)
+        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 2)
+        this.vtbl.Poll := CallbackCreate(GetMethod(implObj, "Poll"), flags, 1)
+        this.vtbl.SendDeviceData := CallbackCreate(GetMethod(implObj, "SendDeviceData"), flags, 5)
+        this.vtbl.EnumEffectsInFile := CallbackCreate(GetMethod(implObj, "EnumEffectsInFile"), flags, 5)
+        this.vtbl.WriteEffectToFile := CallbackCreate(GetMethod(implObj, "WriteEffectToFile"), flags, 5)
+        this.vtbl.BuildActionMap := CallbackCreate(GetMethod(implObj, "BuildActionMap"), flags, 4)
+        this.vtbl.SetActionMap := CallbackCreate(GetMethod(implObj, "SetActionMap"), flags, 4)
+        this.vtbl.GetImageInfo := CallbackCreate(GetMethod(implObj, "GetImageInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.EnumObjects)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.Acquire)
+        CallbackFree(this.vtbl.Unacquire)
+        CallbackFree(this.vtbl.GetDeviceState)
+        CallbackFree(this.vtbl.GetDeviceData)
+        CallbackFree(this.vtbl.SetDataFormat)
+        CallbackFree(this.vtbl.SetEventNotification)
+        CallbackFree(this.vtbl.SetCooperativeLevel)
+        CallbackFree(this.vtbl.GetObjectInfo)
+        CallbackFree(this.vtbl.GetDeviceInfo)
+        CallbackFree(this.vtbl.RunControlPanel)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.CreateEffect)
+        CallbackFree(this.vtbl.EnumEffects)
+        CallbackFree(this.vtbl.GetEffectInfo)
+        CallbackFree(this.vtbl.GetForceFeedbackState)
+        CallbackFree(this.vtbl.SendForceFeedbackCommand)
+        CallbackFree(this.vtbl.EnumCreatedEffectObjects)
+        CallbackFree(this.vtbl.Escape)
+        CallbackFree(this.vtbl.Poll)
+        CallbackFree(this.vtbl.SendDeviceData)
+        CallbackFree(this.vtbl.EnumEffectsInFile)
+        CallbackFree(this.vtbl.WriteEffectToFile)
+        CallbackFree(this.vtbl.BuildActionMap)
+        CallbackFree(this.vtbl.SetActionMap)
+        CallbackFree(this.vtbl.GetImageInfo)
     }
 }

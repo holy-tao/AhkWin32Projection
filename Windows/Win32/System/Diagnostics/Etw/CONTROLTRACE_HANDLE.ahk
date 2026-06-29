@@ -1,14 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class CONTROLTRACE_HANDLE extends Win32Handle {
-    static sizeof => 8
+export default struct CONTROLTRACE_HANDLE {
+    Value : Int64
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is CONTROLTRACE_HANDLE) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -16,11 +23,7 @@ class CONTROLTRACE_HANDLE extends Win32Handle {
      */
     static invalidValues => [0]
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    __New(Value := 0) {
+        this.Value := Value
     }
 }

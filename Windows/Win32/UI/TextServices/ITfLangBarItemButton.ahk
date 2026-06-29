@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITfMenu.ahk" { ITfMenu }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\TfLBIClick.ahk" { TfLBIClick }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITfLangBarItemButton interface is implemented by a language bar button provider and used by the language bar manager to obtain information about a button item on the language bar.
@@ -18,26 +23,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritembutton
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarItemButton extends ITfLangBarItem {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarItemButton extends ITfLangBarItem {
     /**
      * The interface identifier for ITfLangBarItemButton
      * @type {Guid}
      */
-    static IID => Guid("{28c7f1d0-de25-11d2-afdd-00105a2799b5}")
+    static IID := Guid("{28c7f1d0-de25-11d2-afdd-00105a2799b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarItemButton interfaces
+    */
+    struct Vtbl extends ITfLangBarItem.Vtbl {
+        OnClick      : IntPtr
+        InitMenu     : IntPtr
+        OnMenuSelect : IntPtr
+        GetIcon      : IntPtr
+        GetText      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnClick", "InitMenu", "OnMenuSelect", "GetIcon", "GetText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarItemButton.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method is not used if the button item does not have the TF_LBI_STYLE_BTN_BUTTON style. (ITfLangBarItemButton.OnClick)
@@ -77,7 +93,7 @@ class ITfLangBarItemButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-onclick
      */
     OnClick(click, pt, prcArea) {
-        result := ComCall(7, this, "int", click, "ptr", pt, "ptr", prcArea, "HRESULT")
+        result := ComCall(7, this, TfLBIClick, click, POINT, pt, RECT.Ptr, prcArea, "HRESULT")
         return result
     }
 
@@ -171,8 +187,8 @@ class ITfLangBarItemButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-geticon
      */
     GetIcon() {
-        phIcon := HICON()
-        result := ComCall(10, this, "ptr", phIcon, "HRESULT")
+        phIcon := HICON.Owned()
+        result := ComCall(10, this, HICON.Ptr, phIcon, "HRESULT")
         return phIcon
     }
 
@@ -182,8 +198,36 @@ class ITfLangBarItemButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-gettext
      */
     GetText() {
-        pbstrText := BSTR()
-        result := ComCall(11, this, "ptr", pbstrText, "HRESULT")
+        pbstrText := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrText, "HRESULT")
         return pbstrText
+    }
+
+    Query(iid) {
+        if (ITfLangBarItemButton.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnClick := CallbackCreate(GetMethod(implObj, "OnClick"), flags, 4)
+        this.vtbl.InitMenu := CallbackCreate(GetMethod(implObj, "InitMenu"), flags, 2)
+        this.vtbl.OnMenuSelect := CallbackCreate(GetMethod(implObj, "OnMenuSelect"), flags, 2)
+        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnClick)
+        CallbackFree(this.vtbl.InitMenu)
+        CallbackFree(this.vtbl.OnMenuSelect)
+        CallbackFree(this.vtbl.GetIcon)
+        CallbackFree(this.vtbl.GetText)
     }
 }

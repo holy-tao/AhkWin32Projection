@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationCondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a condition that can be either TRUE (selects all elements) or FALSE (selects no elements).
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationboolcondition
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationBoolCondition extends IUIAutomationCondition {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationBoolCondition extends IUIAutomationCondition {
     /**
      * The interface identifier for IUIAutomationBoolCondition
      * @type {Guid}
      */
-    static IID => Guid("{1b4e1f2e-75eb-4d0b-8952-5a69988e2307}")
+    static IID := Guid("{1b4e1f2e-75eb-4d0b-8952-5a69988e2307}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationBoolCondition interfaces
+    */
+    struct Vtbl extends IUIAutomationCondition.Vtbl {
+        get_BooleanValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BooleanValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationBoolCondition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -42,7 +51,27 @@ class IUIAutomationBoolCondition extends IUIAutomationCondition {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue
      */
     get_BooleanValue() {
-        result := ComCall(3, this, "int*", &boolVal := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &boolVal := 0, "HRESULT")
         return boolVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationBoolCondition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BooleanValue := CallbackCreate(GetMethod(implObj, "get_BooleanValue"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BooleanValue)
     }
 }

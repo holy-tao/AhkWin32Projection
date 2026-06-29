@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NLM_DOMAIN_TYPE enumeration is a set of flags that specify the domain type of a network.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_domain_type
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_DOMAIN_TYPE extends Win32Enum {
+export default struct NLM_DOMAIN_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Network is not an Active Directory Network.

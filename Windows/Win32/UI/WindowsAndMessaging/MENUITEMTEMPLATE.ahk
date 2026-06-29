@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Defines a menu item in a menu template.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuitemtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MENUITEMTEMPLATE extends Win32Struct {
-    static sizeof => 6
-
-    static packingSize => 2
+export default struct MENUITEMTEMPLATE {
+    #StructPack 2
 
     /**
      * Type: <b>WORD</b>
@@ -99,33 +97,22 @@ class MENUITEMTEMPLATE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    mtOption {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    mtOption : UInt16
 
     /**
      * Type: <b>WORD</b>
      * 
      * The menu item identifier of a command item; a command item sends a command message to its owner window. The <b>MENUITEMTEMPLATE</b> structure for an item that opens a drop-down menu or submenu does not contain the 
      * 					<b>mtID</b> member.
-     * @type {Integer}
      */
-    mtID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    mtID : UInt16
 
     /**
      * Type: <b>WCHAR[1]</b>
      * 
      * The menu item.
-     * @type {String}
      */
-    mtString {
-        get => StrGet(this.ptr + 4, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 0, "UTF-16")
-    }
+    mtString : WCHAR[1]
+
 }

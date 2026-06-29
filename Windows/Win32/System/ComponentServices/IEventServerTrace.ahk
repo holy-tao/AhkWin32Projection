@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IEventServerTrace extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEventServerTrace extends IDispatch {
     /**
      * The interface identifier for IEventServerTrace
      * @type {Guid}
      */
-    static IID => Guid("{9a9f12b8-80af-47ab-a579-35ea57725370}")
+    static IID := Guid("{9a9f12b8-80af-47ab-a579-35ea57725370}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEventServerTrace interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        StartTraceGuid : IntPtr
+        StopTraceGuid  : IntPtr
+        EnumTraceGuid  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartTraceGuid", "StopTraceGuid", "EnumTraceGuid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEventServerTrace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -38,7 +49,7 @@ class IEventServerTrace extends IDispatch {
         bstrguidEvent := bstrguidEvent is String ? BSTR.Alloc(bstrguidEvent).Value : bstrguidEvent
         bstrguidFilter := bstrguidFilter is String ? BSTR.Alloc(bstrguidFilter).Value : bstrguidFilter
 
-        result := ComCall(7, this, "ptr", bstrguidEvent, "ptr", bstrguidFilter, "int", lPidFilter, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrguidEvent, BSTR, bstrguidFilter, "int", lPidFilter, "HRESULT")
         return result
     }
 
@@ -53,7 +64,7 @@ class IEventServerTrace extends IDispatch {
         bstrguidEvent := bstrguidEvent is String ? BSTR.Alloc(bstrguidEvent).Value : bstrguidEvent
         bstrguidFilter := bstrguidFilter is String ? BSTR.Alloc(bstrguidFilter).Value : bstrguidFilter
 
-        result := ComCall(8, this, "ptr", bstrguidEvent, "ptr", bstrguidFilter, "int", lPidFilter, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrguidEvent, BSTR, bstrguidFilter, "int", lPidFilter, "HRESULT")
         return result
     }
 
@@ -66,7 +77,31 @@ class IEventServerTrace extends IDispatch {
     EnumTraceGuid(plCntGuids, pbstrGuidList) {
         plCntGuidsMarshal := plCntGuids is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, plCntGuidsMarshal, plCntGuids, "ptr", pbstrGuidList, "HRESULT")
+        result := ComCall(9, this, plCntGuidsMarshal, plCntGuids, BSTR.Ptr, pbstrGuidList, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEventServerTrace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartTraceGuid := CallbackCreate(GetMethod(implObj, "StartTraceGuid"), flags, 4)
+        this.vtbl.StopTraceGuid := CallbackCreate(GetMethod(implObj, "StopTraceGuid"), flags, 4)
+        this.vtbl.EnumTraceGuid := CallbackCreate(GetMethod(implObj, "EnumTraceGuid"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartTraceGuid)
+        CallbackFree(this.vtbl.StopTraceGuid)
+        CallbackFree(this.vtbl.EnumTraceGuid)
     }
 }

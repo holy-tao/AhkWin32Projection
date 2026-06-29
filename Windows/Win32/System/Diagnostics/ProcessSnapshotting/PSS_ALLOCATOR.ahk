@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies custom functions which the Process Snapshotting functions use to allocate and free the internal walk marker structures.
@@ -14,35 +13,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_allocator
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  */
-class PSS_ALLOCATOR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PSS_ALLOCATOR {
+    #StructPack 8
 
     /**
      * An arbitrary pointer-sized value that the Process Snapshotting functions pass to <b>AllocRoutine</b> and <b>FreeRoutine</b>.
-     * @type {Pointer<Void>}
      */
-    Context {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Context : IntPtr
 
     /**
      * A pointer to a WINAPI-calling convention function that takes two parameters. It returns a pointer to the block of memory that it allocates, or <b>NULL</b> if allocation fails.
-     * @type {Pointer}
      */
-    AllocRoutine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AllocRoutine : IntPtr
 
     /**
      * A pointer to a WINAPI-calling convention function taking two parameters. It deallocates a block of memory that <b>AllocRoutine</b> allocated.
-     * @type {Pointer}
      */
-    FreeRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    FreeRoutine : IntPtr
+
 }

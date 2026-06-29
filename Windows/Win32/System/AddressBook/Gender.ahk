@@ -1,11 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/gender
  * @namespace Windows.Win32.System.AddressBook
  */
-class Gender extends Win32Enum {
+export default struct Gender {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * > The gender is not specified for the messaging user.

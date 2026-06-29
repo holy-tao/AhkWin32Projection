@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a combo box control that will be used in a dialog box built from a display table.
@@ -16,10 +15,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblcombobox
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLCOMBOBOX extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DTBLCOMBOBOX {
+    #StructPack 4
 
     /**
      * > An offset from the start of the **DTBLCOMBOBOX** structure to a character string filter that describes restrictions, if any, to the characters that can be entered into the combo box's edit control. The filter is not interpreted as a regular expression and the same filter is applied to every character entered. The format of the filter is as follows:
@@ -31,12 +28,8 @@ class DTBLCOMBOBOX extends Win32Struct {
      * | `-`  |Indicates a range of characters (for example, `"[a-z]"`). |
      * | `~`  |Indicates that these characters are not allowed. (for example, `"[~0-9]"`). |
      * | `\`  |Used to quote any of the previous symbols (for example, `"[\-\\\[\]]"` means -, \, [, and ] characters are allowed). |
-     * @type {Integer}
      */
-    ulbLpszCharsAllowed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulbLpszCharsAllowed : UInt32
 
     /**
      * > Bitmask of flags used to designate the format of the character string filter. The following flag can be set:
@@ -44,37 +37,22 @@ class DTBLCOMBOBOX extends Win32Struct {
      * MAPI_UNICODE
      *   
      * > The filter is in Unicode format. If the MAPI_UNICODE flag is not set, the filter is in ANSI format.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFlags : UInt32
 
     /**
      * > Maximum number of characters that can be entered in the combo box's text box.
-     * @type {Integer}
      */
-    ulNumCharsAllowed {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulNumCharsAllowed : UInt32
 
     /**
      * > Property tag for a property of type PT_TSTRING.
-     * @type {Integer}
      */
-    ulPRPropertyName {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulPRPropertyName : UInt32
 
     /**
      * > Property tag for a property of type PT_OBJECT on which an **IMAPITable** interface can be opened by using an **OpenProperty** call. The table must have one column with a property that is the same type as the property identified by the **ulPRPropertyName** member. The rows of the table are used to populate the list.
-     * @type {Integer}
      */
-    ulPRTableName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulPRTableName : UInt32
+
 }

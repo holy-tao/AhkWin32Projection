@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DO_DOWNLOAD_STATUS.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DO_DOWNLOAD_RANGES_INFO.ahk" { DO_DOWNLOAD_RANGES_INFO }
+#Import ".\DODownloadProperty.ahk" { DODownloadProperty }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DO_DOWNLOAD_STATUS.ahk" { DO_DOWNLOAD_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to start and manage a download.
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nn-deliveryoptimization-idodownload
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  */
-class IDODownload extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDODownload extends IUnknown {
     /**
      * The interface identifier for IDODownload
      * @type {Guid}
      */
-    static IID => Guid("{fbbd7fc0-c147-4727-a38d-827ef071ee77}")
+    static IID := Guid("{fbbd7fc0-c147-4727-a38d-827ef071ee77}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDODownload interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Start       : IntPtr
+        Pause       : IntPtr
+        Abort       : IntPtr
+        Finalize    : IntPtr
+        GetStatus   : IntPtr
+        GetProperty : IntPtr
+        SetProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Pause", "Abort", "Finalize", "GetStatus", "GetProperty", "SetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDODownload.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts or resumes a download.
@@ -38,7 +54,7 @@ class IDODownload extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownload-start
      */
     Start(ranges) {
-        result := ComCall(3, this, "ptr", ranges, "HRESULT")
+        result := ComCall(3, this, DO_DOWNLOAD_RANGES_INFO.Ptr, ranges, "HRESULT")
         return result
     }
 
@@ -79,7 +95,7 @@ class IDODownload extends IUnknown {
      */
     GetStatus() {
         _status := DO_DOWNLOAD_STATUS()
-        result := ComCall(7, this, "ptr", _status, "HRESULT")
+        result := ComCall(7, this, DO_DOWNLOAD_STATUS.Ptr, _status, "HRESULT")
         return _status
     }
 
@@ -91,7 +107,7 @@ class IDODownload extends IUnknown {
      */
     GetProperty(propId) {
         propVal := VARIANT()
-        result := ComCall(8, this, "int", propId, "ptr", propVal, "HRESULT")
+        result := ComCall(8, this, DODownloadProperty, propId, VARIANT.Ptr, propVal, "HRESULT")
         return propVal
     }
 
@@ -108,7 +124,39 @@ class IDODownload extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownload-setproperty
      */
     SetProperty(propId, propVal) {
-        result := ComCall(9, this, "int", propId, "ptr", propVal, "HRESULT")
+        result := ComCall(9, this, DODownloadProperty, propId, VARIANT.Ptr, propVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDODownload.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Finalize := CallbackCreate(GetMethod(implObj, "Finalize"), flags, 1)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.Finalize)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
     }
 }

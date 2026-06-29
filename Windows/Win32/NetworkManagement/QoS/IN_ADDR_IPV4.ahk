@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IN_ADDR_IPV4 union stores an IPv4 address for use with RSVP FILTERSPECs.
@@ -8,29 +7,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-in_addr_ipv4
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class IN_ADDR_IPV4 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IN_ADDR_IPV4 {
+    #StructPack 4
 
     /**
      * IPv4 address, expressed as a ULONG.
-     * @type {Integer}
      */
-    Addr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Addr : UInt32
 
-    /**
-     * IPv4 address, expressed as four UCHARs.
-     * @type {Array<Integer>}
-     */
-    AddrBytes {
-        get {
-            if(!this.HasProp("__AddrBytesProxyArray"))
-                this.__AddrBytesProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__AddrBytesProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'AddrBytes', { type: Int8[4], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

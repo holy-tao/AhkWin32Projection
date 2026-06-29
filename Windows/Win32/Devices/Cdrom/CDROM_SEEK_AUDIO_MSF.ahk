@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_SEEK_AUDIO_MSF extends Win32Struct {
-    static sizeof => 3
+export default struct CDROM_SEEK_AUDIO_MSF {
+    #StructPack 1
 
-    static packingSize => 1
+    M : Int8
 
-    /**
-     * @type {Integer}
-     */
-    M {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    S : Int8
 
-    /**
-     * @type {Integer}
-     */
-    S {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    F : Int8
 
-    /**
-     * @type {Integer}
-     */
-    F {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
 }

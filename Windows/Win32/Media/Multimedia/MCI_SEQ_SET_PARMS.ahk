@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI\_SEQ\_SET\_PARMS structure contains information for the MCI\_SET command for MIDI sequencer devices.
@@ -8,80 +7,47 @@
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-seq-set-parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_SEQ_SET_PARMS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MCI_SEQ_SET_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Sequencer's time format.
-     * @type {Integer}
      */
-    dwTimeFormat {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTimeFormat : UInt32
 
     /**
      * Audio output channel.
-     * @type {Integer}
      */
-    dwAudio {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwAudio : UInt32
 
     /**
      * Tempo.
-     * @type {Integer}
      */
-    dwTempo {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwTempo : UInt32
 
     /**
      * Port.
-     * @type {Integer}
      */
-    dwPort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwPort : UInt32
 
     /**
      * Type of synchronization used by the sequencer for subordinate operation.
-     * @type {Integer}
      */
-    dwSlave {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwSlave : UInt32
 
     /**
      * Type of synchronization used by the sequencer for master operation.
-     * @type {Integer}
      */
-    dwMaster {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwMaster : UInt32
 
     /**
      * Data offset.
-     * @type {Integer}
      */
-    dwOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwOffset : UInt32
+
 }

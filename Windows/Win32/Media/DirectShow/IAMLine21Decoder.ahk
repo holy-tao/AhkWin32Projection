@@ -1,33 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\AM_LINE21_CCSERVICE.ahk" { AM_LINE21_CCSERVICE }
+#Import ".\AM_LINE21_CCLEVEL.ahk" { AM_LINE21_CCLEVEL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AM_LINE21_CCSTATE.ahk" { AM_LINE21_CCSTATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AM_LINE21_DRAWBGMODE.ahk" { AM_LINE21_DRAWBGMODE }
 
 /**
  * The IAMLine21Decoder interface sets and retrieves information about closed captions.The Line 21 Decoder filter exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/il21dec/nn-il21dec-iamline21decoder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMLine21Decoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMLine21Decoder extends IUnknown {
     /**
      * The interface identifier for IAMLine21Decoder
      * @type {Guid}
      */
-    static IID => Guid("{6e8d4a21-310c-11d0-b79a-00aa003767a7}")
+    static IID := Guid("{6e8d4a21-310c-11d0-b79a-00aa003767a7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMLine21Decoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDecoderLevel       : IntPtr
+        GetCurrentService     : IntPtr
+        SetCurrentService     : IntPtr
+        GetServiceState       : IntPtr
+        SetServiceState       : IntPtr
+        GetOutputFormat       : IntPtr
+        SetOutputFormat       : IntPtr
+        GetBackgroundColor    : IntPtr
+        SetBackgroundColor    : IntPtr
+        GetRedrawAlways       : IntPtr
+        SetRedrawAlways       : IntPtr
+        GetDrawBackgroundMode : IntPtr
+        SetDrawBackgroundMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDecoderLevel", "GetCurrentService", "SetCurrentService", "GetServiceState", "SetServiceState", "GetOutputFormat", "SetOutputFormat", "GetBackgroundColor", "SetBackgroundColor", "GetRedrawAlways", "SetRedrawAlways", "GetDrawBackgroundMode", "SetDrawBackgroundMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMLine21Decoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDecoderLevel method retrieves the closed-captioned decoder level.
@@ -141,7 +168,7 @@ class IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setcurrentservice
      */
     SetCurrentService(Service) {
-        result := ComCall(5, this, "int", Service, "HRESULT")
+        result := ComCall(5, this, AM_LINE21_CCSERVICE, Service, "HRESULT")
         return result
     }
 
@@ -225,7 +252,7 @@ class IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setservicestate
      */
     SetServiceState(State) {
-        result := ComCall(7, this, "int", State, "HRESULT")
+        result := ComCall(7, this, AM_LINE21_CCSTATE, State, "HRESULT")
         return result
     }
 
@@ -276,7 +303,7 @@ class IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getoutputformat
      */
     GetOutputFormat(lpbmih) {
-        result := ComCall(8, this, "ptr", lpbmih, "HRESULT")
+        result := ComCall(8, this, BITMAPINFOHEADER.Ptr, lpbmih, "HRESULT")
         return result
     }
 
@@ -287,7 +314,7 @@ class IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setoutputformat
      */
     SetOutputFormat(lpbmi) {
-        result := ComCall(9, this, "ptr", lpbmi, "HRESULT")
+        result := ComCall(9, this, BITMAPINFO.Ptr, lpbmi, "HRESULT")
         return result
     }
 
@@ -395,7 +422,7 @@ class IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setredrawalways
      */
     SetRedrawAlways(bOption) {
-        result := ComCall(13, this, "int", bOption, "HRESULT")
+        result := ComCall(13, this, BOOL, bOption, "HRESULT")
         return result
     }
 
@@ -477,7 +504,51 @@ class IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setdrawbackgroundmode
      */
     SetDrawBackgroundMode(_Mode) {
-        result := ComCall(15, this, "int", _Mode, "HRESULT")
+        result := ComCall(15, this, AM_LINE21_DRAWBGMODE, _Mode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMLine21Decoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDecoderLevel := CallbackCreate(GetMethod(implObj, "GetDecoderLevel"), flags, 2)
+        this.vtbl.GetCurrentService := CallbackCreate(GetMethod(implObj, "GetCurrentService"), flags, 2)
+        this.vtbl.SetCurrentService := CallbackCreate(GetMethod(implObj, "SetCurrentService"), flags, 2)
+        this.vtbl.GetServiceState := CallbackCreate(GetMethod(implObj, "GetServiceState"), flags, 2)
+        this.vtbl.SetServiceState := CallbackCreate(GetMethod(implObj, "SetServiceState"), flags, 2)
+        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 2)
+        this.vtbl.SetOutputFormat := CallbackCreate(GetMethod(implObj, "SetOutputFormat"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetRedrawAlways := CallbackCreate(GetMethod(implObj, "GetRedrawAlways"), flags, 2)
+        this.vtbl.SetRedrawAlways := CallbackCreate(GetMethod(implObj, "SetRedrawAlways"), flags, 2)
+        this.vtbl.GetDrawBackgroundMode := CallbackCreate(GetMethod(implObj, "GetDrawBackgroundMode"), flags, 2)
+        this.vtbl.SetDrawBackgroundMode := CallbackCreate(GetMethod(implObj, "SetDrawBackgroundMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDecoderLevel)
+        CallbackFree(this.vtbl.GetCurrentService)
+        CallbackFree(this.vtbl.SetCurrentService)
+        CallbackFree(this.vtbl.GetServiceState)
+        CallbackFree(this.vtbl.SetServiceState)
+        CallbackFree(this.vtbl.GetOutputFormat)
+        CallbackFree(this.vtbl.SetOutputFormat)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.SetBackgroundColor)
+        CallbackFree(this.vtbl.GetRedrawAlways)
+        CallbackFree(this.vtbl.SetRedrawAlways)
+        CallbackFree(this.vtbl.GetDrawBackgroundMode)
+        CallbackFree(this.vtbl.SetDrawBackgroundMode)
     }
 }

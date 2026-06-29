@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_REGISTRY_STORE_CLIENT_GPT_PARA extends Win32Struct {
-    static sizeof => 16
+export default struct CERT_REGISTRY_STORE_CLIENT_GPT_PARA {
+    #StructPack 8
 
-    static packingSize => 8
+    hKeyBase : HKEY
 
-    /**
-     * @type {HKEY}
-     */
-    hKeyBase {
-        get {
-            if(!this.HasProp("__hKeyBase"))
-                this.__hKeyBase := HKEY(0, this)
-            return this.__hKeyBase
-        }
-    }
+    pwszRegPath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszRegPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

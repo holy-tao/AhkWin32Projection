@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_CHIPSETINFO extends Win32Struct {
-    static sizeof => 660
+export default struct GNSS_CHIPSETINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ManufacturerID : WCHAR[25]
 
-    /**
-     * @type {String}
-     */
-    ManufacturerID {
-        get => StrGet(this.ptr + 8, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 24, "UTF-16")
-    }
+    HardwareID : WCHAR[25]
 
-    /**
-     * @type {String}
-     */
-    HardwareID {
-        get => StrGet(this.ptr + 58, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 58, 24, "UTF-16")
-    }
+    FirmwareVersion : WCHAR[20]
 
-    /**
-     * @type {String}
-     */
-    FirmwareVersion {
-        get => StrGet(this.ptr + 108, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 108, 19, "UTF-16")
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 148, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

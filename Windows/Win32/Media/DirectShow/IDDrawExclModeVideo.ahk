@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import ".\IDDrawExclModeVideoCallback.ahk" { IDDrawExclModeVideoCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDDrawExclModeVideo interface enables video playback in DirectDraw exclusive full-screen mode.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iddrawexclmodevideo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDDrawExclModeVideo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDDrawExclModeVideo extends IUnknown {
     /**
      * The interface identifier for IDDrawExclModeVideo
      * @type {Guid}
      */
-    static IID => Guid("{153acc21-d83b-11d1-82bf-00a0c9696c8f}")
+    static IID := Guid("{153acc21-d83b-11d1-82bf-00a0c9696c8f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDDrawExclModeVideo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDDrawObject       : IntPtr
+        GetDDrawObject       : IntPtr
+        SetDDrawSurface      : IntPtr
+        GetDDrawSurface      : IntPtr
+        SetDrawParameters    : IntPtr
+        GetNativeVideoProps  : IntPtr
+        SetCallbackInterface : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDDrawObject", "GetDDrawObject", "SetDDrawSurface", "GetDDrawSurface", "SetDrawParameters", "GetNativeVideoProps", "SetCallbackInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDDrawExclModeVideo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetDDrawObject method sets the DirectDraw object to be used in subsequent drawing.
@@ -134,7 +153,7 @@ class IDDrawExclModeVideo extends IUnknown {
     GetDDrawObject(ppDDrawObject, pbUsingExternal) {
         pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppDDrawObject, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
+        result := ComCall(4, this, IDirectDraw.Ptr, ppDDrawObject, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
         return result
     }
 
@@ -245,7 +264,7 @@ class IDDrawExclModeVideo extends IUnknown {
     GetDDrawSurface(ppDDrawSurface, pbUsingExternal) {
         pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr*", ppDDrawSurface, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
+        result := ComCall(6, this, IDirectDrawSurface.Ptr, ppDDrawSurface, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
         return result
     }
 
@@ -257,7 +276,7 @@ class IDDrawExclModeVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-setdrawparameters
      */
     SetDrawParameters(prcSource, prcTarget) {
-        result := ComCall(7, this, "ptr", prcSource, "ptr", prcTarget, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, prcSource, RECT.Ptr, prcTarget, "HRESULT")
         return result
     }
 
@@ -352,5 +371,37 @@ class IDDrawExclModeVideo extends IUnknown {
     SetCallbackInterface(pCallback, dwFlags) {
         result := ComCall(9, this, "ptr", pCallback, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDDrawExclModeVideo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDDrawObject := CallbackCreate(GetMethod(implObj, "SetDDrawObject"), flags, 2)
+        this.vtbl.GetDDrawObject := CallbackCreate(GetMethod(implObj, "GetDDrawObject"), flags, 3)
+        this.vtbl.SetDDrawSurface := CallbackCreate(GetMethod(implObj, "SetDDrawSurface"), flags, 2)
+        this.vtbl.GetDDrawSurface := CallbackCreate(GetMethod(implObj, "GetDDrawSurface"), flags, 3)
+        this.vtbl.SetDrawParameters := CallbackCreate(GetMethod(implObj, "SetDrawParameters"), flags, 3)
+        this.vtbl.GetNativeVideoProps := CallbackCreate(GetMethod(implObj, "GetNativeVideoProps"), flags, 5)
+        this.vtbl.SetCallbackInterface := CallbackCreate(GetMethod(implObj, "SetCallbackInterface"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDDrawObject)
+        CallbackFree(this.vtbl.GetDDrawObject)
+        CallbackFree(this.vtbl.SetDDrawSurface)
+        CallbackFree(this.vtbl.GetDDrawSurface)
+        CallbackFree(this.vtbl.SetDrawParameters)
+        CallbackFree(this.vtbl.GetNativeVideoProps)
+        CallbackFree(this.vtbl.SetCallbackInterface)
     }
 }

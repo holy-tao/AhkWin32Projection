@@ -1,34 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IScriptNode.ahk
-#Include .\IScriptEntry.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IScriptEntry.ahk" { IScriptEntry }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IScriptNode.ahk" { IScriptNode }
+#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IActiveScriptAuthor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveScriptAuthor extends IUnknown {
     /**
      * The interface identifier for IActiveScriptAuthor
      * @type {Guid}
      */
-    static IID => Guid("{9c109da0-7006-11d1-b36c-00a0c911e8b2}")
+    static IID := Guid("{9c109da0-7006-11d1-b36c-00a0c911e8b2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveScriptAuthor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddNamedItem               : IntPtr
+        AddScriptlet               : IntPtr
+        ParseScriptText            : IntPtr
+        GetScriptTextAttributes    : IntPtr
+        GetScriptletTextAttributes : IntPtr
+        GetRoot                    : IntPtr
+        GetLanguageFlags           : IntPtr
+        GetEventHandler            : IntPtr
+        RemoveNamedItem            : IntPtr
+        AddTypeLib                 : IntPtr
+        RemoveTypeLib              : IntPtr
+        GetChars                   : IntPtr
+        GetInfoFromContext         : IntPtr
+        IsCommitChar               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddNamedItem", "AddScriptlet", "ParseScriptText", "GetScriptTextAttributes", "GetScriptletTextAttributes", "GetRoot", "GetLanguageFlags", "GetEventHandler", "RemoveNamedItem", "AddTypeLib", "RemoveTypeLib", "GetChars", "GetInfoFromContext", "IsCommitChar"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveScriptAuthor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -180,7 +204,7 @@ class IActiveScriptAuthor extends IUnknown {
      * @returns {HRESULT} 
      */
     AddTypeLib(rguidTypeLib, dwMajor, dwMinor, dwFlags) {
-        result := ComCall(12, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -192,7 +216,7 @@ class IActiveScriptAuthor extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveTypeLib(rguidTypeLib, dwMajor, dwMinor) {
-        result := ComCall(13, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "HRESULT")
         return result
     }
 
@@ -202,8 +226,8 @@ class IActiveScriptAuthor extends IUnknown {
      * @returns {BSTR} 
      */
     GetChars(fRequestedList) {
-        pbstrChars := BSTR()
-        result := ComCall(14, this, "uint", fRequestedList, "ptr", pbstrChars, "HRESULT")
+        pbstrChars := BSTR.Owned()
+        result := ComCall(14, this, "uint", fRequestedList, BSTR.Ptr, pbstrChars, "HRESULT")
         return pbstrChars
     }
 
@@ -230,7 +254,7 @@ class IActiveScriptAuthor extends IUnknown {
         pmemidMarshal := pmemid is VarRef ? "int*" : "ptr"
         piCurrentParameterMarshal := piCurrentParameter is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, "ptr*", ppunk, "HRESULT")
+        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, IUnknown.Ptr, ppunk, "HRESULT")
         return result
     }
 
@@ -240,7 +264,53 @@ class IActiveScriptAuthor extends IUnknown {
      * @returns {BOOL} 
      */
     IsCommitChar(ch) {
-        result := ComCall(16, this, "char", ch, "int*", &pfcommit := 0, "HRESULT")
+        result := ComCall(16, this, "char", ch, BOOL.Ptr, &pfcommit := 0, "HRESULT")
         return pfcommit
+    }
+
+    Query(iid) {
+        if (IActiveScriptAuthor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddNamedItem := CallbackCreate(GetMethod(implObj, "AddNamedItem"), flags, 4)
+        this.vtbl.AddScriptlet := CallbackCreate(GetMethod(implObj, "AddScriptlet"), flags, 9)
+        this.vtbl.ParseScriptText := CallbackCreate(GetMethod(implObj, "ParseScriptText"), flags, 6)
+        this.vtbl.GetScriptTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptTextAttributes"), flags, 6)
+        this.vtbl.GetScriptletTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptletTextAttributes"), flags, 6)
+        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 2)
+        this.vtbl.GetLanguageFlags := CallbackCreate(GetMethod(implObj, "GetLanguageFlags"), flags, 2)
+        this.vtbl.GetEventHandler := CallbackCreate(GetMethod(implObj, "GetEventHandler"), flags, 6)
+        this.vtbl.RemoveNamedItem := CallbackCreate(GetMethod(implObj, "RemoveNamedItem"), flags, 2)
+        this.vtbl.AddTypeLib := CallbackCreate(GetMethod(implObj, "AddTypeLib"), flags, 5)
+        this.vtbl.RemoveTypeLib := CallbackCreate(GetMethod(implObj, "RemoveTypeLib"), flags, 4)
+        this.vtbl.GetChars := CallbackCreate(GetMethod(implObj, "GetChars"), flags, 3)
+        this.vtbl.GetInfoFromContext := CallbackCreate(GetMethod(implObj, "GetInfoFromContext"), flags, 11)
+        this.vtbl.IsCommitChar := CallbackCreate(GetMethod(implObj, "IsCommitChar"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddNamedItem)
+        CallbackFree(this.vtbl.AddScriptlet)
+        CallbackFree(this.vtbl.ParseScriptText)
+        CallbackFree(this.vtbl.GetScriptTextAttributes)
+        CallbackFree(this.vtbl.GetScriptletTextAttributes)
+        CallbackFree(this.vtbl.GetRoot)
+        CallbackFree(this.vtbl.GetLanguageFlags)
+        CallbackFree(this.vtbl.GetEventHandler)
+        CallbackFree(this.vtbl.RemoveNamedItem)
+        CallbackFree(this.vtbl.AddTypeLib)
+        CallbackFree(this.vtbl.RemoveTypeLib)
+        CallbackFree(this.vtbl.GetChars)
+        CallbackFree(this.vtbl.GetInfoFromContext)
+        CallbackFree(this.vtbl.IsCommitChar)
     }
 }

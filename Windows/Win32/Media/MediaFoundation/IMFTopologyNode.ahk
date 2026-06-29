@@ -1,35 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_TOPOLOGY_TYPE.ahk" { MF_TOPOLOGY_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a node in a topology.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopologynode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTopologyNode extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFTopologyNode extends IMFAttributes {
     /**
      * The interface identifier for IMFTopologyNode
      * @type {Guid}
      */
-    static IID => Guid("{83cf873a-f6da-4bc8-823f-bacfd55dc430}")
+    static IID := Guid("{83cf873a-f6da-4bc8-823f-bacfd55dc430}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTopologyNode interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        SetObject         : IntPtr
+        GetObject         : IntPtr
+        GetNodeType       : IntPtr
+        GetTopoNodeID     : IntPtr
+        SetTopoNodeID     : IntPtr
+        GetInputCount     : IntPtr
+        GetOutputCount    : IntPtr
+        ConnectOutput     : IntPtr
+        DisconnectOutput  : IntPtr
+        GetInput          : IntPtr
+        GetOutput         : IntPtr
+        SetOutputPrefType : IntPtr
+        GetOutputPrefType : IntPtr
+        SetInputPrefType  : IntPtr
+        GetInputPrefType  : IntPtr
+        CloneFrom         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetObject", "GetObject", "GetNodeType", "GetTopoNodeID", "SetTopoNodeID", "GetInputCount", "GetOutputCount", "ConnectOutput", "DisconnectOutput", "GetInput", "GetOutput", "SetOutputPrefType", "GetOutputPrefType", "SetInputPrefType", "GetInputPrefType", "CloneFrom"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTopologyNode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the object associated with this node.
@@ -374,7 +398,7 @@ class IMFTopologyNode extends IMFAttributes {
     GetInput(dwInputIndex, ppUpstreamNode, pdwOutputIndexOnUpstreamNode) {
         pdwOutputIndexOnUpstreamNodeMarshal := pdwOutputIndexOnUpstreamNode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, "uint", dwInputIndex, "ptr*", ppUpstreamNode, pdwOutputIndexOnUpstreamNodeMarshal, pdwOutputIndexOnUpstreamNode, "HRESULT")
+        result := ComCall(42, this, "uint", dwInputIndex, IMFTopologyNode.Ptr, ppUpstreamNode, pdwOutputIndexOnUpstreamNodeMarshal, pdwOutputIndexOnUpstreamNode, "HRESULT")
         return result
     }
 
@@ -429,7 +453,7 @@ class IMFTopologyNode extends IMFAttributes {
     GetOutput(dwOutputIndex, ppDownstreamNode, pdwInputIndexOnDownstreamNode) {
         pdwInputIndexOnDownstreamNodeMarshal := pdwInputIndexOnDownstreamNode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(43, this, "uint", dwOutputIndex, "ptr*", ppDownstreamNode, pdwInputIndexOnDownstreamNodeMarshal, pdwInputIndexOnDownstreamNode, "HRESULT")
+        result := ComCall(43, this, "uint", dwOutputIndex, IMFTopologyNode.Ptr, ppDownstreamNode, pdwInputIndexOnDownstreamNodeMarshal, pdwInputIndexOnDownstreamNode, "HRESULT")
         return result
     }
 
@@ -609,5 +633,55 @@ class IMFTopologyNode extends IMFAttributes {
     CloneFrom(pNode) {
         result := ComCall(48, this, "ptr", pNode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFTopologyNode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetObject := CallbackCreate(GetMethod(implObj, "SetObject"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 2)
+        this.vtbl.GetNodeType := CallbackCreate(GetMethod(implObj, "GetNodeType"), flags, 2)
+        this.vtbl.GetTopoNodeID := CallbackCreate(GetMethod(implObj, "GetTopoNodeID"), flags, 2)
+        this.vtbl.SetTopoNodeID := CallbackCreate(GetMethod(implObj, "SetTopoNodeID"), flags, 2)
+        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 2)
+        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.ConnectOutput := CallbackCreate(GetMethod(implObj, "ConnectOutput"), flags, 4)
+        this.vtbl.DisconnectOutput := CallbackCreate(GetMethod(implObj, "DisconnectOutput"), flags, 2)
+        this.vtbl.GetInput := CallbackCreate(GetMethod(implObj, "GetInput"), flags, 4)
+        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 4)
+        this.vtbl.SetOutputPrefType := CallbackCreate(GetMethod(implObj, "SetOutputPrefType"), flags, 3)
+        this.vtbl.GetOutputPrefType := CallbackCreate(GetMethod(implObj, "GetOutputPrefType"), flags, 3)
+        this.vtbl.SetInputPrefType := CallbackCreate(GetMethod(implObj, "SetInputPrefType"), flags, 3)
+        this.vtbl.GetInputPrefType := CallbackCreate(GetMethod(implObj, "GetInputPrefType"), flags, 3)
+        this.vtbl.CloneFrom := CallbackCreate(GetMethod(implObj, "CloneFrom"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetObject)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetNodeType)
+        CallbackFree(this.vtbl.GetTopoNodeID)
+        CallbackFree(this.vtbl.SetTopoNodeID)
+        CallbackFree(this.vtbl.GetInputCount)
+        CallbackFree(this.vtbl.GetOutputCount)
+        CallbackFree(this.vtbl.ConnectOutput)
+        CallbackFree(this.vtbl.DisconnectOutput)
+        CallbackFree(this.vtbl.GetInput)
+        CallbackFree(this.vtbl.GetOutput)
+        CallbackFree(this.vtbl.SetOutputPrefType)
+        CallbackFree(this.vtbl.GetOutputPrefType)
+        CallbackFree(this.vtbl.SetInputPrefType)
+        CallbackFree(this.vtbl.GetInputPrefType)
+        CallbackFree(this.vtbl.CloneFrom)
     }
 }

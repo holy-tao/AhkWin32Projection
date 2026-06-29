@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class BM_REQUEST_TYPE extends Win32Struct {
-    static sizeof => 2
+export default struct BM_REQUEST_TYPE {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _BM extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _BM {
         /**
          * This bitfield backs the following members:
          * - Recipient
          * - Reserved
          * - Type
          * - Dir
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -51,22 +43,10 @@ class BM_REQUEST_TYPE extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_BM}
-     */
-    s {
-        get {
-            if(!this.HasProp("__s"))
-                this.__s := BM_REQUEST_TYPE._BM(0, this)
-            return this.__s
-        }
-    }
+    s : BM_REQUEST_TYPE._BM
 
-    /**
-     * @type {Integer}
-     */
-    B {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'B', { type: Int8, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

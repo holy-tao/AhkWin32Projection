@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the possible states of a Transmission Control Protocol (TCP) connection.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-tcpstate
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TCPSTATE extends Win32Enum {
+export default struct TCPSTATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The TCP connection has no connection state at all. This state represents the state when there is no Transmission Control Block (TCB), and therefore,

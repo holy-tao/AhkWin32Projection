@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SEARCH_INDEXING_PHASE.ahk" { SEARCH_INDEXING_PHASE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SEARCH_ITEM_INDEXING_STATUS.ahk" { SEARCH_ITEM_INDEXING_STATUS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods the Search service uses to send updates on catalog and index status to notification providers.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchnotifyinlinesite
  * @namespace Windows.Win32.System.Search
  */
-class ISearchNotifyInlineSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchNotifyInlineSite extends IUnknown {
     /**
      * The interface identifier for ISearchNotifyInlineSite
      * @type {Guid}
      */
-    static IID => Guid("{b5702e61-e75c-4b64-82a1-6cb4f832fccf}")
+    static IID := Guid("{b5702e61-e75c-4b64-82a1-6cb4f832fccf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchNotifyInlineSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnItemIndexedStatusChange : IntPtr
+        OnCatalogStatusChange     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnItemIndexedStatusChange", "OnCatalogStatusChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchNotifyInlineSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the search service to notify the client when the status of a particular document or item changes.
@@ -46,7 +57,7 @@ class ISearchNotifyInlineSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-onitemindexedstatuschange
      */
     OnItemIndexedStatusChange(sipStatus, dwNumEntries, rgItemStatusEntries) {
-        result := ComCall(3, this, "int", sipStatus, "uint", dwNumEntries, "ptr", rgItemStatusEntries, "HRESULT")
+        result := ComCall(3, this, SEARCH_INDEXING_PHASE, sipStatus, "uint", dwNumEntries, SEARCH_ITEM_INDEXING_STATUS.Ptr, rgItemStatusEntries, "HRESULT")
         return result
     }
 
@@ -75,7 +86,29 @@ class ISearchNotifyInlineSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-oncatalogstatuschange
      */
     OnCatalogStatusChange(guidCatalogResetSignature, guidCheckPointSignature, dwLastCheckPointNumber) {
-        result := ComCall(4, this, "ptr", guidCatalogResetSignature, "ptr", guidCheckPointSignature, "uint", dwLastCheckPointNumber, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidCatalogResetSignature, Guid.Ptr, guidCheckPointSignature, "uint", dwLastCheckPointNumber, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISearchNotifyInlineSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnItemIndexedStatusChange := CallbackCreate(GetMethod(implObj, "OnItemIndexedStatusChange"), flags, 4)
+        this.vtbl.OnCatalogStatusChange := CallbackCreate(GetMethod(implObj, "OnCatalogStatusChange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnItemIndexedStatusChange)
+        CallbackFree(this.vtbl.OnCatalogStatusChange)
     }
 }

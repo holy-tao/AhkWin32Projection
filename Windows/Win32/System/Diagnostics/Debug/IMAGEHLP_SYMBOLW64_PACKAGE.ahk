@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGEHLP_SYMBOLW64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGEHLP_SYMBOLW64.ahk" { IMAGEHLP_SYMBOLW64 }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGEHLP_SYMBOLW64_PACKAGE extends Win32Struct {
-    static sizeof => 4040
+export default struct IMAGEHLP_SYMBOLW64_PACKAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    sym : IMAGEHLP_SYMBOLW64
 
-    /**
-     * @type {IMAGEHLP_SYMBOLW64}
-     */
-    sym {
-        get {
-            if(!this.HasProp("__sym"))
-                this.__sym := IMAGEHLP_SYMBOLW64(0, this)
-            return this.__sym
-        }
-    }
+    name : WCHAR[2001]
 
-    /**
-     * @type {String}
-     */
-    name {
-        get => StrGet(this.ptr + 32, 2000, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 2000, "UTF-16")
-    }
 }

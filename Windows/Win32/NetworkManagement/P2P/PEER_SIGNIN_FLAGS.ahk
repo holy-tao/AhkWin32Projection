@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PEER_SIGNIN_FLAGS enumeration defines the set of peer presence publication behaviors available when the peer signs in to a peer collaboration network.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_signin_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_SIGNIN_FLAGS extends Win32Enum {
+export default struct PEER_SIGNIN_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A peer's presence is not being published in any scope.

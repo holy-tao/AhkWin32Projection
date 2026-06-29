@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMpeg2TableFilter interface controls which tables are parsed by the MPEG-2 Sections and Tables filter. The BDA MPEG-2 Transport Information filter exposes this interface on its output pins.
@@ -10,26 +11,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nn-mpeg2data-impeg2tablefilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMpeg2TableFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMpeg2TableFilter extends IUnknown {
     /**
      * The interface identifier for IMpeg2TableFilter
      * @type {Guid}
      */
-    static IID => Guid("{bdcdd913-9ecd-4fb2-81ae-adf747ea75a5}")
+    static IID := Guid("{bdcdd913-9ecd-4fb2-81ae-adf747ea75a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMpeg2TableFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddPID          : IntPtr
+        AddTable        : IntPtr
+        AddExtension    : IntPtr
+        RemovePID       : IntPtr
+        RemoveTable     : IntPtr
+        RemoveExtension : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddPID", "AddTable", "AddExtension", "RemovePID", "RemoveTable", "RemoveExtension"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMpeg2TableFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AddPID method adds a packet identifier (PID) to the list of PIDs that the filter sends.
@@ -101,5 +114,35 @@ class IMpeg2TableFilter extends IUnknown {
     RemoveExtension(p, t, e) {
         result := ComCall(8, this, "ushort", p, "char", t, "ushort", e, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMpeg2TableFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddPID := CallbackCreate(GetMethod(implObj, "AddPID"), flags, 2)
+        this.vtbl.AddTable := CallbackCreate(GetMethod(implObj, "AddTable"), flags, 3)
+        this.vtbl.AddExtension := CallbackCreate(GetMethod(implObj, "AddExtension"), flags, 4)
+        this.vtbl.RemovePID := CallbackCreate(GetMethod(implObj, "RemovePID"), flags, 2)
+        this.vtbl.RemoveTable := CallbackCreate(GetMethod(implObj, "RemoveTable"), flags, 3)
+        this.vtbl.RemoveExtension := CallbackCreate(GetMethod(implObj, "RemoveExtension"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddPID)
+        CallbackFree(this.vtbl.AddTable)
+        CallbackFree(this.vtbl.AddExtension)
+        CallbackFree(this.vtbl.RemovePID)
+        CallbackFree(this.vtbl.RemoveTable)
+        CallbackFree(this.vtbl.RemoveExtension)
     }
 }

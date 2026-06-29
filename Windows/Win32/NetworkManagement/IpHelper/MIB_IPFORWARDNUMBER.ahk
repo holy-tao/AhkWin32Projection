@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores the number of routes in a particular IP routing table.
@@ -8,17 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipforwardnumber
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPFORWARDNUMBER extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct MIB_IPFORWARDNUMBER {
+    #StructPack 4
 
     /**
      * Specifies the number of routes in the IP routing table.
-     * @type {Integer}
      */
-    dwValue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwValue : UInt32
+
 }

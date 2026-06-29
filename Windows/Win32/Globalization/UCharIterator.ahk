@@ -1,139 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UCharIterator extends Win32Struct {
-    static sizeof => 112
+export default struct UCharIterator {
+    #StructPack 8
 
-    static packingSize => 8
+    context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    context {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    length : Int32
 
-    /**
-     * @type {Integer}
-     */
-    length {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    start : Int32
 
-    /**
-     * @type {Integer}
-     */
-    start {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    index : Int32
 
-    /**
-     * @type {Integer}
-     */
-    index {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    limit : Int32
 
-    /**
-     * @type {Integer}
-     */
-    limit {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    reservedField : Int32
 
-    /**
-     * @type {Integer}
-     */
-    reservedField {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    getIndex : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorGetIndex>}
-     */
-    getIndex {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    move : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorMove>}
-     */
-    move {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    hasNext : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorHasNext>}
-     */
-    hasNext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    hasPrevious : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorHasPrevious>}
-     */
-    hasPrevious {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    current : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorCurrent>}
-     */
-    current {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    next : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorNext>}
-     */
-    next {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    previous : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorPrevious>}
-     */
-    previous {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    reservedFn : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorReserved>}
-     */
-    reservedFn {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    getState : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorGetState>}
-     */
-    getState {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    setState : IntPtr
 
-    /**
-     * @type {Pointer<UCharIteratorSetState>}
-     */
-    setState {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
 }

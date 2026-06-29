@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINBIO_DATA.ahk" { WINBIO_DATA }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_CAPTURE_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct WINBIO_CAPTURE_DATA {
+    #StructPack 4
 
-    static packingSize => 4
+    PayloadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PayloadSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    WinBioHresult : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    WinBioHresult {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SensorStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SensorStatus {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RejectDetail : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RejectDetail {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CaptureData : WINBIO_DATA
 
-    /**
-     * @type {WINBIO_DATA}
-     */
-    CaptureData {
-        get {
-            if(!this.HasProp("__CaptureData"))
-                this.__CaptureData := WINBIO_DATA(16, this)
-            return this.__CaptureData
-        }
-    }
 }

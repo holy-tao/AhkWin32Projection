@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IActiveScriptEncode extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveScriptEncode extends IUnknown {
     /**
      * The interface identifier for IActiveScriptEncode
      * @type {Guid}
      */
-    static IID => Guid("{bb1a2ae3-a4f9-11cf-8f20-00805f2cd064}")
+    static IID := Guid("{bb1a2ae3-a4f9-11cf-8f20-00805f2cd064}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveScriptEncode interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EncodeSection   : IntPtr
+        DecodeScript    : IntPtr
+        GetEncodeProgId : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EncodeSection", "DecodeScript", "GetEncodeProgId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveScriptEncode.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -71,7 +83,31 @@ class IActiveScriptEncode extends IUnknown {
      * @returns {HRESULT} 
      */
     GetEncodeProgId(pbstrOut) {
-        result := ComCall(5, this, "ptr", pbstrOut, "HRESULT")
+        result := ComCall(5, this, BSTR.Ptr, pbstrOut, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IActiveScriptEncode.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EncodeSection := CallbackCreate(GetMethod(implObj, "EncodeSection"), flags, 6)
+        this.vtbl.DecodeScript := CallbackCreate(GetMethod(implObj, "DecodeScript"), flags, 6)
+        this.vtbl.GetEncodeProgId := CallbackCreate(GetMethod(implObj, "GetEncodeProgId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EncodeSection)
+        CallbackFree(this.vtbl.DecodeScript)
+        CallbackFree(this.vtbl.GetEncodeProgId)
     }
 }

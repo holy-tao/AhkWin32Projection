@@ -1,34 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\STI_USD_CAPS.ahk
-#Include .\STINOTIFY.ahk
-#Include .\_ERROR_INFOW.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\STI_USD_CAPS.ahk" { STI_USD_CAPS }
+#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\STINOTIFY.ahk" { STINOTIFY }
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import ".\IStiDeviceControl.ahk" { IStiDeviceControl }
+#Import ".\STI_DIAG.ahk" { STI_DIAG }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class IStiUSD extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStiUSD extends IUnknown {
     /**
      * The interface identifier for IStiUSD
      * @type {Guid}
      */
-    static IID => Guid("{0c9bb460-51ac-11d0-90ea-00aa0060f86c}")
+    static IID := Guid("{0c9bb460-51ac-11d0-90ea-00aa0060f86c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStiUSD interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize            : IntPtr
+        GetCapabilities       : IntPtr
+        GetStatus             : IntPtr
+        DeviceReset           : IntPtr
+        Diagnostic            : IntPtr
+        Escape                : IntPtr
+        GetLastError          : IntPtr
+        LockDevice            : IntPtr
+        UnLockDevice          : IntPtr
+        RawReadData           : IntPtr
+        RawWriteData          : IntPtr
+        RawReadCommand        : IntPtr
+        RawWriteCommand       : IntPtr
+        SetNotificationHandle : IntPtr
+        GetNotificationData   : IntPtr
+        GetLastErrorInfo      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetCapabilities", "GetStatus", "DeviceReset", "Diagnostic", "Escape", "GetLastError", "LockDevice", "UnLockDevice", "RawReadData", "RawWriteData", "RawReadCommand", "RawWriteCommand", "SetNotificationHandle", "GetNotificationData", "GetLastErrorInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStiUSD.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -62,22 +91,17 @@ class IStiUSD extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pHelDcb, dwStiVersion, hParametersKey) {
-        hParametersKey := hParametersKey is Win32Handle ? NumGet(hParametersKey, "ptr") : hParametersKey
-
-        result := ComCall(3, this, "ptr", pHelDcb, "uint", dwStiVersion, "ptr", hParametersKey, "HRESULT")
+        result := ComCall(3, this, "ptr", pHelDcb, "uint", dwStiVersion, HKEY, hParametersKey, "HRESULT")
         return result
     }
 
     /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @returns {STI_USD_CAPS} 
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      */
     GetCapabilities() {
         pDevCaps := STI_USD_CAPS()
-        result := ComCall(4, this, "ptr", pDevCaps, "HRESULT")
+        result := ComCall(4, this, STI_USD_CAPS.Ptr, pDevCaps, "HRESULT")
         return pDevCaps
     }
 
@@ -87,7 +111,7 @@ class IStiUSD extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatus(pDevStatus) {
-        result := ComCall(5, this, "ptr", pDevStatus, "HRESULT")
+        result := ComCall(5, this, STI_DEVICE_STATUS.Ptr, pDevStatus, "HRESULT")
         return result
     }
 
@@ -101,13 +125,12 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * Windows has APIs and services that support diagnostics in and of your desktop apps.
+     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/diagnostics
      */
     Diagnostic(pBuffer) {
-        result := ComCall(7, this, "ptr", pBuffer, "HRESULT")
+        result := ComCall(7, this, STI_DIAG.Ptr, pBuffer, "HRESULT")
         return result
     }
 
@@ -218,7 +241,7 @@ class IStiUSD extends IUnknown {
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -230,7 +253,7 @@ class IStiUSD extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -244,7 +267,7 @@ class IStiUSD extends IUnknown {
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -256,7 +279,7 @@ class IStiUSD extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -266,9 +289,7 @@ class IStiUSD extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNotificationHandle(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(16, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(16, this, HANDLE, hEvent, "HRESULT")
         return result
     }
 
@@ -278,7 +299,7 @@ class IStiUSD extends IUnknown {
      */
     GetNotificationData() {
         lpNotify := STINOTIFY()
-        result := ComCall(17, this, "ptr", lpNotify, "HRESULT")
+        result := ComCall(17, this, STINOTIFY.Ptr, lpNotify, "HRESULT")
         return lpNotify
     }
 
@@ -288,7 +309,57 @@ class IStiUSD extends IUnknown {
      */
     GetLastErrorInfo() {
         pLastErrorInfo := _ERROR_INFOW()
-        result := ComCall(18, this, "ptr", pLastErrorInfo, "HRESULT")
+        result := ComCall(18, this, _ERROR_INFOW.Ptr, pLastErrorInfo, "HRESULT")
         return pLastErrorInfo
+    }
+
+    Query(iid) {
+        if (IStiUSD.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.DeviceReset := CallbackCreate(GetMethod(implObj, "DeviceReset"), flags, 1)
+        this.vtbl.Diagnostic := CallbackCreate(GetMethod(implObj, "Diagnostic"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 7)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 2)
+        this.vtbl.LockDevice := CallbackCreate(GetMethod(implObj, "LockDevice"), flags, 1)
+        this.vtbl.UnLockDevice := CallbackCreate(GetMethod(implObj, "UnLockDevice"), flags, 1)
+        this.vtbl.RawReadData := CallbackCreate(GetMethod(implObj, "RawReadData"), flags, 4)
+        this.vtbl.RawWriteData := CallbackCreate(GetMethod(implObj, "RawWriteData"), flags, 4)
+        this.vtbl.RawReadCommand := CallbackCreate(GetMethod(implObj, "RawReadCommand"), flags, 4)
+        this.vtbl.RawWriteCommand := CallbackCreate(GetMethod(implObj, "RawWriteCommand"), flags, 4)
+        this.vtbl.SetNotificationHandle := CallbackCreate(GetMethod(implObj, "SetNotificationHandle"), flags, 2)
+        this.vtbl.GetNotificationData := CallbackCreate(GetMethod(implObj, "GetNotificationData"), flags, 2)
+        this.vtbl.GetLastErrorInfo := CallbackCreate(GetMethod(implObj, "GetLastErrorInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.DeviceReset)
+        CallbackFree(this.vtbl.Diagnostic)
+        CallbackFree(this.vtbl.Escape)
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.LockDevice)
+        CallbackFree(this.vtbl.UnLockDevice)
+        CallbackFree(this.vtbl.RawReadData)
+        CallbackFree(this.vtbl.RawWriteData)
+        CallbackFree(this.vtbl.RawReadCommand)
+        CallbackFree(this.vtbl.RawWriteCommand)
+        CallbackFree(this.vtbl.SetNotificationHandle)
+        CallbackFree(this.vtbl.GetNotificationData)
+        CallbackFree(this.vtbl.GetLastErrorInfo)
     }
 }

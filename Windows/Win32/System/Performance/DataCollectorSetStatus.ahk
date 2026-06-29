@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the running status of the data collector set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-datacollectorsetstatus
  * @namespace Windows.Win32.System.Performance
  */
-class DataCollectorSetStatus extends Win32Enum {
+export default struct DataCollectorSetStatus {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The data collector set is not running.

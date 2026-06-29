@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The HTTP_RESPONSE_INFO_TYPE enumeration defines the type of information contained in the HTTP_RESPONSE_INFO structure.This enumeration is used in the HTTP_RESPONSE_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_response_info_type
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_RESPONSE_INFO_TYPE extends Win32Enum {
+export default struct HTTP_RESPONSE_INFO_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The response information type is authentication.

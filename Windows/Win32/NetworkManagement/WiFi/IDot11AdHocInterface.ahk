@@ -1,36 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDot11AdHocNetwork.ahk
-#Include .\IEnumDot11AdHocSecuritySettings.ahk
-#Include .\IEnumDot11AdHocNetworks.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import ".\IEnumDot11AdHocNetworks.ahk" { IEnumDot11AdHocNetworks }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk" { DOT11_ADHOC_NETWORK_CONNECTION_STATUS }
+#Import ".\IEnumDot11AdHocSecuritySettings.ahk" { IEnumDot11AdHocSecuritySettings }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a wireless network interface card (NIC).
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocinterface
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class IDot11AdHocInterface extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDot11AdHocInterface extends IUnknown {
     /**
      * The interface identifier for IDot11AdHocInterface
      * @type {Guid}
      */
-    static IID => Guid("{8f10cc2b-cf0d-42a0-acbe-e2de7007384d}")
+    static IID := Guid("{8f10cc2b-cf0d-42a0-acbe-e2de7007384d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDot11AdHocInterface interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDeviceSignature         : IntPtr
+        GetFriendlyName            : IntPtr
+        IsDot11d                   : IntPtr
+        IsAdHocCapable             : IntPtr
+        IsRadioOn                  : IntPtr
+        GetActiveNetwork           : IntPtr
+        GetIEnumSecuritySettings   : IntPtr
+        GetIEnumDot11AdHocNetworks : IntPtr
+        GetStatus                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDeviceSignature", "GetFriendlyName", "IsDot11d", "IsAdHocCapable", "IsRadioOn", "GetActiveNetwork", "GetIEnumSecuritySettings", "GetIEnumDot11AdHocNetworks", "GetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDot11AdHocInterface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the signature of the NIC.
@@ -101,7 +119,7 @@ class IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getdevicesignature
      */
     GetDeviceSignature(pSignature) {
-        result := ComCall(3, this, "ptr", pSignature, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pSignature, "HRESULT")
         return result
     }
 
@@ -113,7 +131,7 @@ class IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getfriendlyname
      */
     GetFriendlyName() {
-        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -377,7 +395,7 @@ class IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getienumdot11adhocnetworks
      */
     GetIEnumDot11AdHocNetworks(pFilterGuid) {
-        result := ComCall(10, this, "ptr", pFilterGuid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pFilterGuid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumDot11AdHocNetworks(ppEnum)
     }
 
@@ -454,5 +472,41 @@ class IDot11AdHocInterface extends IUnknown {
 
         result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDot11AdHocInterface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDeviceSignature := CallbackCreate(GetMethod(implObj, "GetDeviceSignature"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.IsDot11d := CallbackCreate(GetMethod(implObj, "IsDot11d"), flags, 2)
+        this.vtbl.IsAdHocCapable := CallbackCreate(GetMethod(implObj, "IsAdHocCapable"), flags, 2)
+        this.vtbl.IsRadioOn := CallbackCreate(GetMethod(implObj, "IsRadioOn"), flags, 2)
+        this.vtbl.GetActiveNetwork := CallbackCreate(GetMethod(implObj, "GetActiveNetwork"), flags, 2)
+        this.vtbl.GetIEnumSecuritySettings := CallbackCreate(GetMethod(implObj, "GetIEnumSecuritySettings"), flags, 2)
+        this.vtbl.GetIEnumDot11AdHocNetworks := CallbackCreate(GetMethod(implObj, "GetIEnumDot11AdHocNetworks"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDeviceSignature)
+        CallbackFree(this.vtbl.GetFriendlyName)
+        CallbackFree(this.vtbl.IsDot11d)
+        CallbackFree(this.vtbl.IsAdHocCapable)
+        CallbackFree(this.vtbl.IsRadioOn)
+        CallbackFree(this.vtbl.GetActiveNetwork)
+        CallbackFree(this.vtbl.GetIEnumSecuritySettings)
+        CallbackFree(this.vtbl.GetIEnumDot11AdHocNetworks)
+        CallbackFree(this.vtbl.GetStatus)
     }
 }

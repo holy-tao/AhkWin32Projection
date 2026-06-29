@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleInPlaceSiteEx.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\IOleInPlaceSiteEx.ahk" { IOleInPlaceSiteEx }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Extends the IOleInPlaceSiteEx interface.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleinplacesitewindowless
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
     /**
      * The interface identifier for IOleInPlaceSiteWindowless
      * @type {Guid}
      */
-    static IID => Guid("{922eada0-3424-11cf-b670-00aa004cd6d8}")
+    static IID := Guid("{922eada0-3424-11cf-b670-00aa004cd6d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceSiteWindowless interfaces
+    */
+    struct Vtbl extends IOleInPlaceSiteEx.Vtbl {
+        CanWindowlessActivate : IntPtr
+        GetCapture            : IntPtr
+        SetCapture            : IntPtr
+        GetFocus              : IntPtr
+        SetFocus              : IntPtr
+        GetDC                 : IntPtr
+        ReleaseDC             : IntPtr
+        InvalidateRect        : IntPtr
+        InvalidateRgn         : IntPtr
+        ScrollRect            : IntPtr
+        AdjustRect            : IntPtr
+        OnDefWindowMessage    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CanWindowlessActivate", "GetCapture", "SetCapture", "GetFocus", "SetFocus", "GetDC", "ReleaseDC", "InvalidateRect", "InvalidateRgn", "ScrollRect", "AdjustRect", "OnDefWindowMessage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceSiteWindowless.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs an object if its container can support it as a windowless object that can be in-place activated.
@@ -112,7 +137,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-setcapture
      */
     SetCapture(fCapture) {
-        result := ComCall(20, this, "int", fCapture, "HRESULT")
+        result := ComCall(20, this, BOOL, fCapture, "HRESULT")
         return result
     }
 
@@ -177,7 +202,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-setfocus
      */
     SetFocus(fFocus) {
-        result := ComCall(22, this, "int", fFocus, "HRESULT")
+        result := ComCall(22, this, BOOL, fFocus, "HRESULT")
         return result
     }
 
@@ -260,7 +285,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      */
     GetDC(pRect, grfFlags) {
         phDC := HDC()
-        result := ComCall(23, this, "ptr", pRect, "uint", grfFlags, "ptr", phDC, "HRESULT")
+        result := ComCall(23, this, RECT.Ptr, pRect, "uint", grfFlags, HDC.Ptr, phDC, "HRESULT")
         return phDC
     }
 
@@ -273,9 +298,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-releasedc
      */
     ReleaseDC(_hDC) {
-        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
-
-        result := ComCall(24, this, "ptr", _hDC, "HRESULT")
+        result := ComCall(24, this, HDC, _hDC, "HRESULT")
         return result
     }
 
@@ -289,7 +312,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-invalidaterect
      */
     InvalidateRect(pRect, fErase) {
-        result := ComCall(25, this, "ptr", pRect, "int", fErase, "HRESULT")
+        result := ComCall(25, this, RECT.Ptr, pRect, BOOL, fErase, "HRESULT")
         return result
     }
 
@@ -303,9 +326,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-invalidatergn
      */
     InvalidateRgn(_hRGN, fErase) {
-        _hRGN := _hRGN is Win32Handle ? NumGet(_hRGN, "ptr") : _hRGN
-
-        result := ComCall(26, this, "ptr", _hRGN, "int", fErase, "HRESULT")
+        result := ComCall(26, this, HRGN, _hRGN, BOOL, fErase, "HRESULT")
         return result
     }
 
@@ -343,7 +364,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-scrollrect
      */
     ScrollRect(dx, dy, pRectScroll, pRectClip) {
-        result := ComCall(27, this, "int", dx, "int", dy, "ptr", pRectScroll, "ptr", pRectClip, "HRESULT")
+        result := ComCall(27, this, "int", dx, "int", dy, RECT.Ptr, pRectScroll, RECT.Ptr, pRectClip, "HRESULT")
         return result
     }
 
@@ -378,7 +399,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-adjustrect
      */
     AdjustRect(prc) {
-        result := ComCall(28, this, "ptr", prc, "HRESULT")
+        result := ComCall(28, this, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -421,7 +442,49 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage
      */
     OnDefWindowMessage(_msg, _wParam, _lParam) {
-        result := ComCall(29, this, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(29, this, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
+    }
+
+    Query(iid) {
+        if (IOleInPlaceSiteWindowless.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CanWindowlessActivate := CallbackCreate(GetMethod(implObj, "CanWindowlessActivate"), flags, 1)
+        this.vtbl.GetCapture := CallbackCreate(GetMethod(implObj, "GetCapture"), flags, 1)
+        this.vtbl.SetCapture := CallbackCreate(GetMethod(implObj, "SetCapture"), flags, 2)
+        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 1)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 4)
+        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.InvalidateRect := CallbackCreate(GetMethod(implObj, "InvalidateRect"), flags, 3)
+        this.vtbl.InvalidateRgn := CallbackCreate(GetMethod(implObj, "InvalidateRgn"), flags, 3)
+        this.vtbl.ScrollRect := CallbackCreate(GetMethod(implObj, "ScrollRect"), flags, 5)
+        this.vtbl.AdjustRect := CallbackCreate(GetMethod(implObj, "AdjustRect"), flags, 2)
+        this.vtbl.OnDefWindowMessage := CallbackCreate(GetMethod(implObj, "OnDefWindowMessage"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CanWindowlessActivate)
+        CallbackFree(this.vtbl.GetCapture)
+        CallbackFree(this.vtbl.SetCapture)
+        CallbackFree(this.vtbl.GetFocus)
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.GetDC)
+        CallbackFree(this.vtbl.ReleaseDC)
+        CallbackFree(this.vtbl.InvalidateRect)
+        CallbackFree(this.vtbl.InvalidateRgn)
+        CallbackFree(this.vtbl.ScrollRect)
+        CallbackFree(this.vtbl.AdjustRect)
+        CallbackFree(this.vtbl.OnDefWindowMessage)
     }
 }

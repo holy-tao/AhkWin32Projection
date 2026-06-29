@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the object type of a given Windows Network Virtualization (WNV) notification when the WNV notification type is WnvObjectChangeType.
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ne-wnvapi-wnv_object_type
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  */
-class WNV_OBJECT_TYPE extends Win32Enum {
+export default struct WNV_OBJECT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The notification is about a change in a property of a provider address object.

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with the DRMGetUsagePolicy and DRMSetUsagePolicy functions to specify a type of usage policy.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type
  * @namespace Windows.Win32.Data.RightsManagement
  */
-class DRM_USAGEPOLICY_TYPE extends Win32Enum {
+export default struct DRM_USAGEPOLICY_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The usage policy is tied to an application name.

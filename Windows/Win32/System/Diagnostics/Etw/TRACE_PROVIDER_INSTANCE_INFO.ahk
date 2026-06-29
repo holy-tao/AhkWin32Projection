@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines an instance of the provider GUID.
@@ -10,40 +9,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_provider_instance_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_PROVIDER_INSTANCE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct TRACE_PROVIDER_INSTANCE_INFO {
+    #StructPack 4
 
     /**
      * Offset, in bytes, from the beginning of this structure to the next
      * **TRACE_PROVIDER_INSTANCE_INFO** structure. The value is zero if there is not
      * another instance info block.
-     * @type {Integer}
      */
-    NextOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NextOffset : UInt32
 
     /**
      * Number of [TRACE_ENABLE_INFO](/windows/desktop/ETW/trace-enable-info) structures
      * in this block. Each structure represents a session that enabled the provider.
-     * @type {Integer}
      */
-    EnableCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EnableCount : UInt32
 
     /**
      * Process identifier of the process that registered the provider.
-     * @type {Integer}
      */
-    Pid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Pid : UInt32
 
     /**
      * Can be one of the following flags.
@@ -55,10 +40,7 @@ class TRACE_PROVIDER_INSTANCE_INFO extends Win32Struct {
      * 
      * - **TRACE_PROVIDER_FLAG_PRE_ENABLE**: The provider is not registered; however,
      *   one or more sessions have enabled the provider.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
+
 }

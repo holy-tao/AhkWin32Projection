@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINBIO_DATA.ahk" { WINBIO_DATA }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct WINBIO_PRIVATE_SENSOR_TYPE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    PayloadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PayloadSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    WinBioHresult : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    WinBioHresult {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    PrivateSensorTypeInfo : WINBIO_DATA
 
-    /**
-     * @type {WINBIO_DATA}
-     */
-    PrivateSensorTypeInfo {
-        get {
-            if(!this.HasProp("__PrivateSensorTypeInfo"))
-                this.__PrivateSensorTypeInfo := WINBIO_DATA(8, this)
-            return this.__PrivateSensorTypeInfo
-        }
-    }
 }

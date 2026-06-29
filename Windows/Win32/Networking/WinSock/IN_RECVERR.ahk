@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPPROTO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPPROTO.ahk" { IPPROTO }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IN_RECVERR extends Win32Struct {
-    static sizeof => 12
+export default struct IN_RECVERR {
+    #StructPack 4
 
-    static packingSize => 4
+    protocol : IPPROTO
 
-    /**
-     * @type {IPPROTO}
-     */
-    protocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    info : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    info {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    type {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    code : Int8
 
-    /**
-     * @type {Integer}
-     */
-    code {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

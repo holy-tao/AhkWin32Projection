@@ -1,19 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontCollection.ahk
-#Include .\IDWriteFontFile.ahk
-#Include .\IDWriteFontFace.ahk
-#Include .\IDWriteRenderingParams.ahk
-#Include .\IDWriteTextFormat.ahk
-#Include .\IDWriteTypography.ahk
-#Include .\IDWriteGdiInterop.ahk
-#Include .\IDWriteTextLayout.ahk
-#Include .\IDWriteInlineObject.ahk
-#Include .\IDWriteTextAnalyzer.ahk
-#Include .\IDWriteNumberSubstitution.ahk
-#Include .\IDWriteGlyphRunAnalysis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import ".\IDWriteTextLayout.ahk" { IDWriteTextLayout }
+#Import ".\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
+#Import ".\DWRITE_NUMBER_SUBSTITUTION_METHOD.ahk" { DWRITE_NUMBER_SUBSTITUTION_METHOD }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteGdiInterop.ahk" { IDWriteGdiInterop }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
+#Import ".\IDWriteTypography.ahk" { IDWriteTypography }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\IDWriteFontCollectionLoader.ahk" { IDWriteFontCollectionLoader }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Used to create all subsequent DirectWrite objects. This interface is the root factory interface for all DirectWrite objects.
@@ -40,26 +58,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFactory extends IUnknown {
     /**
      * The interface identifier for IDWriteFactory
      * @type {Guid}
      */
-    static IID => Guid("{b859ee5a-d838-4b5b-a2e8-1adc7d93db48}")
+    static IID := Guid("{b859ee5a-d838-4b5b-a2e8-1adc7d93db48}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSystemFontCollection        : IntPtr
+        CreateCustomFontCollection     : IntPtr
+        RegisterFontCollectionLoader   : IntPtr
+        UnregisterFontCollectionLoader : IntPtr
+        CreateFontFileReference        : IntPtr
+        CreateCustomFontFileReference  : IntPtr
+        CreateFontFace                 : IntPtr
+        CreateRenderingParams          : IntPtr
+        CreateMonitorRenderingParams   : IntPtr
+        CreateCustomRenderingParams    : IntPtr
+        RegisterFontFileLoader         : IntPtr
+        UnregisterFontFileLoader       : IntPtr
+        CreateTextFormat               : IntPtr
+        CreateTypography               : IntPtr
+        GetGdiInterop                  : IntPtr
+        CreateTextLayout               : IntPtr
+        CreateGdiCompatibleTextLayout  : IntPtr
+        CreateEllipsisTrimmingSign     : IntPtr
+        CreateTextAnalyzer             : IntPtr
+        CreateNumberSubstitution       : IntPtr
+        CreateGlyphRunAnalysis         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSystemFontCollection", "CreateCustomFontCollection", "RegisterFontCollectionLoader", "UnregisterFontCollectionLoader", "CreateFontFileReference", "CreateCustomFontFileReference", "CreateFontFace", "CreateRenderingParams", "CreateMonitorRenderingParams", "CreateCustomRenderingParams", "RegisterFontFileLoader", "UnregisterFontFileLoader", "CreateTextFormat", "CreateTypography", "GetGdiInterop", "CreateTextLayout", "CreateGdiCompatibleTextLayout", "CreateEllipsisTrimmingSign", "CreateTextAnalyzer", "CreateNumberSubstitution", "CreateGlyphRunAnalysis"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an object which represents the set of installed fonts.
@@ -75,7 +120,7 @@ class IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getsystemfontcollection
      */
     GetSystemFontCollection(checkForUpdates) {
-        result := ComCall(3, this, "ptr*", &_fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        result := ComCall(3, this, "ptr*", &_fontCollection := 0, BOOL, checkForUpdates, "HRESULT")
         return IDWriteFontCollection(_fontCollection)
     }
 
@@ -157,7 +202,7 @@ class IDWriteFactory extends IUnknown {
     CreateFontFileReference(filePath, lastWriteTime) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(7, this, "ptr", filePath, "ptr", lastWriteTime, "ptr*", &fontFile := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", filePath, FILETIME.Ptr, lastWriteTime, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
     }
 
@@ -213,7 +258,7 @@ class IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createfontface
      */
     CreateFontFace(fontFaceType, numberOfFiles, fontFiles, faceIndex, fontFaceSimulationFlags) {
-        result := ComCall(9, this, "int", fontFaceType, "uint", numberOfFiles, "ptr*", fontFiles, "uint", faceIndex, "int", fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(9, this, DWRITE_FONT_FACE_TYPE, fontFaceType, "uint", numberOfFiles, IDWriteFontFile.Ptr, fontFiles, "uint", faceIndex, DWRITE_FONT_SIMULATIONS, fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace(fontFace)
     }
 
@@ -240,9 +285,7 @@ class IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createmonitorrenderingparams
      */
     CreateMonitorRenderingParams(_monitor) {
-        _monitor := _monitor is Win32Handle ? NumGet(_monitor, "ptr") : _monitor
-
-        result := ComCall(11, this, "ptr", _monitor, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(11, this, HMONITOR, _monitor, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams(renderingParams)
     }
 
@@ -269,7 +312,7 @@ class IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, clearTypeLevel, pixelGeometry, renderingMode) {
-        result := ComCall(12, this, "float", gamma, "float", enhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(12, this, "float", gamma, "float", enhancedContrast, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams(renderingParams)
     }
 
@@ -353,7 +396,7 @@ class IDWriteFactory extends IUnknown {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", _fontCollection, "int", fontWeight, "int", _fontStyle, "int", fontStretch, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STYLE, _fontStyle, DWRITE_FONT_STRETCH, fontStretch, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat(textFormat)
     }
 
@@ -450,7 +493,7 @@ class IDWriteFactory extends IUnknown {
     CreateGdiCompatibleTextLayout(_string, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        result := ComCall(19, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
         return IDWriteTextLayout(textLayout)
     }
 
@@ -503,7 +546,7 @@ class IDWriteFactory extends IUnknown {
     CreateNumberSubstitution(substitutionMethod, localeName, ignoreUserOverride) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(22, this, "int", substitutionMethod, "ptr", localeName, "int", ignoreUserOverride, "ptr*", &numberSubstitution := 0, "HRESULT")
+        result := ComCall(22, this, DWRITE_NUMBER_SUBSTITUTION_METHOD, substitutionMethod, "ptr", localeName, BOOL, ignoreUserOverride, "ptr*", &numberSubstitution := 0, "HRESULT")
         return IDWriteNumberSubstitution(numberSubstitution)
     }
 
@@ -539,7 +582,67 @@ class IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, pixelsPerDip, transform, renderingMode, measuringMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(23, this, "ptr", _glyphRun, "float", pixelsPerDip, "ptr", transform, "int", renderingMode, "int", measuringMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        result := ComCall(23, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
+    }
+
+    Query(iid) {
+        if (IDWriteFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSystemFontCollection := CallbackCreate(GetMethod(implObj, "GetSystemFontCollection"), flags, 3)
+        this.vtbl.CreateCustomFontCollection := CallbackCreate(GetMethod(implObj, "CreateCustomFontCollection"), flags, 5)
+        this.vtbl.RegisterFontCollectionLoader := CallbackCreate(GetMethod(implObj, "RegisterFontCollectionLoader"), flags, 2)
+        this.vtbl.UnregisterFontCollectionLoader := CallbackCreate(GetMethod(implObj, "UnregisterFontCollectionLoader"), flags, 2)
+        this.vtbl.CreateFontFileReference := CallbackCreate(GetMethod(implObj, "CreateFontFileReference"), flags, 4)
+        this.vtbl.CreateCustomFontFileReference := CallbackCreate(GetMethod(implObj, "CreateCustomFontFileReference"), flags, 5)
+        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 7)
+        this.vtbl.CreateRenderingParams := CallbackCreate(GetMethod(implObj, "CreateRenderingParams"), flags, 2)
+        this.vtbl.CreateMonitorRenderingParams := CallbackCreate(GetMethod(implObj, "CreateMonitorRenderingParams"), flags, 3)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 7)
+        this.vtbl.RegisterFontFileLoader := CallbackCreate(GetMethod(implObj, "RegisterFontFileLoader"), flags, 2)
+        this.vtbl.UnregisterFontFileLoader := CallbackCreate(GetMethod(implObj, "UnregisterFontFileLoader"), flags, 2)
+        this.vtbl.CreateTextFormat := CallbackCreate(GetMethod(implObj, "CreateTextFormat"), flags, 9)
+        this.vtbl.CreateTypography := CallbackCreate(GetMethod(implObj, "CreateTypography"), flags, 2)
+        this.vtbl.GetGdiInterop := CallbackCreate(GetMethod(implObj, "GetGdiInterop"), flags, 2)
+        this.vtbl.CreateTextLayout := CallbackCreate(GetMethod(implObj, "CreateTextLayout"), flags, 7)
+        this.vtbl.CreateGdiCompatibleTextLayout := CallbackCreate(GetMethod(implObj, "CreateGdiCompatibleTextLayout"), flags, 10)
+        this.vtbl.CreateEllipsisTrimmingSign := CallbackCreate(GetMethod(implObj, "CreateEllipsisTrimmingSign"), flags, 3)
+        this.vtbl.CreateTextAnalyzer := CallbackCreate(GetMethod(implObj, "CreateTextAnalyzer"), flags, 2)
+        this.vtbl.CreateNumberSubstitution := CallbackCreate(GetMethod(implObj, "CreateNumberSubstitution"), flags, 5)
+        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(GetMethod(implObj, "CreateGlyphRunAnalysis"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSystemFontCollection)
+        CallbackFree(this.vtbl.CreateCustomFontCollection)
+        CallbackFree(this.vtbl.RegisterFontCollectionLoader)
+        CallbackFree(this.vtbl.UnregisterFontCollectionLoader)
+        CallbackFree(this.vtbl.CreateFontFileReference)
+        CallbackFree(this.vtbl.CreateCustomFontFileReference)
+        CallbackFree(this.vtbl.CreateFontFace)
+        CallbackFree(this.vtbl.CreateRenderingParams)
+        CallbackFree(this.vtbl.CreateMonitorRenderingParams)
+        CallbackFree(this.vtbl.CreateCustomRenderingParams)
+        CallbackFree(this.vtbl.RegisterFontFileLoader)
+        CallbackFree(this.vtbl.UnregisterFontFileLoader)
+        CallbackFree(this.vtbl.CreateTextFormat)
+        CallbackFree(this.vtbl.CreateTypography)
+        CallbackFree(this.vtbl.GetGdiInterop)
+        CallbackFree(this.vtbl.CreateTextLayout)
+        CallbackFree(this.vtbl.CreateGdiCompatibleTextLayout)
+        CallbackFree(this.vtbl.CreateEllipsisTrimmingSign)
+        CallbackFree(this.vtbl.CreateTextAnalyzer)
+        CallbackFree(this.vtbl.CreateNumberSubstitution)
+        CallbackFree(this.vtbl.CreateGlyphRunAnalysis)
     }
 }

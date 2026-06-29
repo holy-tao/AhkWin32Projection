@@ -1,44 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HIMC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HIMC.ahk" { HIMC }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEKMSINVK extends Win32Struct {
-    static sizeof => 24
+export default struct IMEKMSINVK {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : Int32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hIMC : HIMC
 
-    /**
-     * @type {HIMC}
-     */
-    hIMC {
-        get {
-            if(!this.HasProp("__hIMC"))
-                this.__hIMC := HIMC(8, this)
-            return this.__hIMC
-        }
-    }
+    dwControl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwControl {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

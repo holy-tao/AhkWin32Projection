@@ -1,39 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IInkRecognizerGuide.ahk
-#Include .\IInkWordList.ahk
-#Include .\IInkRecognizer.ahk
-#Include .\IInkRecognitionResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\InkRecognitionStatus.ahk" { InkRecognitionStatus }
+#Import ".\InkRecognizerCharacterAutoCompletionMode.ahk" { InkRecognizerCharacterAutoCompletionMode }
+#Import ".\IInkWordList.ahk" { IInkWordList }
+#Import ".\InkRecognitionModes.ahk" { InkRecognitionModes }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkRecognizer.ahk" { IInkRecognizer }
+#Import ".\IInkRecognizerGuide.ahk" { IInkRecognizerGuide }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IInkRecognizerContext)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizercontext
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkRecognizerContext extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkRecognizerContext extends IDispatch {
     /**
      * The interface identifier for IInkRecognizerContext
      * @type {Guid}
      */
-    static IID => Guid("{c68f52f9-32a3-4625-906c-44fc23b40958}")
+    static IID := Guid("{c68f52f9-32a3-4625-906c-44fc23b40958}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkRecognizerContext interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Strokes                       : IntPtr
+        putref_Strokes                    : IntPtr
+        get_CharacterAutoCompletionMode   : IntPtr
+        put_CharacterAutoCompletionMode   : IntPtr
+        get_Factoid                       : IntPtr
+        put_Factoid                       : IntPtr
+        get_Guide                         : IntPtr
+        putref_Guide                      : IntPtr
+        get_PrefixText                    : IntPtr
+        put_PrefixText                    : IntPtr
+        get_SuffixText                    : IntPtr
+        put_SuffixText                    : IntPtr
+        get_RecognitionFlags              : IntPtr
+        put_RecognitionFlags              : IntPtr
+        get_WordList                      : IntPtr
+        putref_WordList                   : IntPtr
+        get_Recognizer                    : IntPtr
+        Recognize                         : IntPtr
+        StopBackgroundRecognition         : IntPtr
+        EndInkInput                       : IntPtr
+        BackgroundRecognize               : IntPtr
+        BackgroundRecognizeWithAlternates : IntPtr
+        Clone                             : IntPtr
+        IsStringSupported                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Strokes", "putref_Strokes", "get_CharacterAutoCompletionMode", "put_CharacterAutoCompletionMode", "get_Factoid", "put_Factoid", "get_Guide", "putref_Guide", "get_PrefixText", "put_PrefixText", "get_SuffixText", "put_SuffixText", "get_RecognitionFlags", "put_RecognitionFlags", "get_WordList", "putref_WordList", "get_Recognizer", "Recognize", "StopBackgroundRecognition", "EndInkInput", "BackgroundRecognize", "BackgroundRecognizeWithAlternates", "Clone", "IsStringSupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkRecognizerContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IInkStrokes} 
@@ -183,7 +219,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-put_characterautocompletionmode
      */
     put_CharacterAutoCompletionMode(_Mode) {
-        result := ComCall(10, this, "int", _Mode, "HRESULT")
+        result := ComCall(10, this, InkRecognizerCharacterAutoCompletionMode, _Mode, "HRESULT")
         return result
     }
 
@@ -207,8 +243,8 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_factoid
      */
     get_Factoid() {
-        Factoid := BSTR()
-        result := ComCall(11, this, "ptr", Factoid, "HRESULT")
+        Factoid := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, Factoid, "HRESULT")
         return Factoid
     }
 
@@ -235,7 +271,7 @@ class IInkRecognizerContext extends IDispatch {
     put_Factoid(factoid) {
         factoid := factoid is String ? BSTR.Alloc(factoid).Value : factoid
 
-        result := ComCall(12, this, "ptr", factoid, "HRESULT")
+        result := ComCall(12, this, BSTR, factoid, "HRESULT")
         return result
     }
 
@@ -308,8 +344,8 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_prefixtext
      */
     get_PrefixText() {
-        Prefix := BSTR()
-        result := ComCall(15, this, "ptr", Prefix, "HRESULT")
+        Prefix := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, Prefix, "HRESULT")
         return Prefix
     }
 
@@ -336,7 +372,7 @@ class IInkRecognizerContext extends IDispatch {
     put_PrefixText(Prefix) {
         Prefix := Prefix is String ? BSTR.Alloc(Prefix).Value : Prefix
 
-        result := ComCall(16, this, "ptr", Prefix, "HRESULT")
+        result := ComCall(16, this, BSTR, Prefix, "HRESULT")
         return result
     }
 
@@ -360,8 +396,8 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_suffixtext
      */
     get_SuffixText() {
-        Suffix := BSTR()
-        result := ComCall(17, this, "ptr", Suffix, "HRESULT")
+        Suffix := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, Suffix, "HRESULT")
         return Suffix
     }
 
@@ -388,7 +424,7 @@ class IInkRecognizerContext extends IDispatch {
     put_SuffixText(Suffix) {
         Suffix := Suffix is String ? BSTR.Alloc(Suffix).Value : Suffix
 
-        result := ComCall(18, this, "ptr", Suffix, "HRESULT")
+        result := ComCall(18, this, BSTR, Suffix, "HRESULT")
         return result
     }
 
@@ -427,7 +463,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-put_recognitionflags
      */
     put_RecognitionFlags(Modes) {
-        result := ComCall(20, this, "int", Modes, "HRESULT")
+        result := ComCall(20, this, InkRecognitionModes, Modes, "HRESULT")
         return result
     }
 
@@ -698,7 +734,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-backgroundrecognize
      */
     BackgroundRecognize(CustomData) {
-        result := ComCall(27, this, "ptr", CustomData, "HRESULT")
+        result := ComCall(27, this, VARIANT, CustomData, "HRESULT")
         return result
     }
 
@@ -768,7 +804,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-backgroundrecognizewithalternates
      */
     BackgroundRecognizeWithAlternates(CustomData) {
-        result := ComCall(28, this, "ptr", CustomData, "HRESULT")
+        result := ComCall(28, this, VARIANT, CustomData, "HRESULT")
         return result
     }
 
@@ -806,7 +842,73 @@ class IInkRecognizerContext extends IDispatch {
     IsStringSupported(_String) {
         _String := _String is String ? BSTR.Alloc(_String).Value : _String
 
-        result := ComCall(30, this, "ptr", _String, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, _String, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
         return Supported
+    }
+
+    Query(iid) {
+        if (IInkRecognizerContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.putref_Strokes := CallbackCreate(GetMethod(implObj, "putref_Strokes"), flags, 2)
+        this.vtbl.get_CharacterAutoCompletionMode := CallbackCreate(GetMethod(implObj, "get_CharacterAutoCompletionMode"), flags, 2)
+        this.vtbl.put_CharacterAutoCompletionMode := CallbackCreate(GetMethod(implObj, "put_CharacterAutoCompletionMode"), flags, 2)
+        this.vtbl.get_Factoid := CallbackCreate(GetMethod(implObj, "get_Factoid"), flags, 2)
+        this.vtbl.put_Factoid := CallbackCreate(GetMethod(implObj, "put_Factoid"), flags, 2)
+        this.vtbl.get_Guide := CallbackCreate(GetMethod(implObj, "get_Guide"), flags, 2)
+        this.vtbl.putref_Guide := CallbackCreate(GetMethod(implObj, "putref_Guide"), flags, 2)
+        this.vtbl.get_PrefixText := CallbackCreate(GetMethod(implObj, "get_PrefixText"), flags, 2)
+        this.vtbl.put_PrefixText := CallbackCreate(GetMethod(implObj, "put_PrefixText"), flags, 2)
+        this.vtbl.get_SuffixText := CallbackCreate(GetMethod(implObj, "get_SuffixText"), flags, 2)
+        this.vtbl.put_SuffixText := CallbackCreate(GetMethod(implObj, "put_SuffixText"), flags, 2)
+        this.vtbl.get_RecognitionFlags := CallbackCreate(GetMethod(implObj, "get_RecognitionFlags"), flags, 2)
+        this.vtbl.put_RecognitionFlags := CallbackCreate(GetMethod(implObj, "put_RecognitionFlags"), flags, 2)
+        this.vtbl.get_WordList := CallbackCreate(GetMethod(implObj, "get_WordList"), flags, 2)
+        this.vtbl.putref_WordList := CallbackCreate(GetMethod(implObj, "putref_WordList"), flags, 2)
+        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.Recognize := CallbackCreate(GetMethod(implObj, "Recognize"), flags, 3)
+        this.vtbl.StopBackgroundRecognition := CallbackCreate(GetMethod(implObj, "StopBackgroundRecognition"), flags, 1)
+        this.vtbl.EndInkInput := CallbackCreate(GetMethod(implObj, "EndInkInput"), flags, 1)
+        this.vtbl.BackgroundRecognize := CallbackCreate(GetMethod(implObj, "BackgroundRecognize"), flags, 2)
+        this.vtbl.BackgroundRecognizeWithAlternates := CallbackCreate(GetMethod(implObj, "BackgroundRecognizeWithAlternates"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.IsStringSupported := CallbackCreate(GetMethod(implObj, "IsStringSupported"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Strokes)
+        CallbackFree(this.vtbl.putref_Strokes)
+        CallbackFree(this.vtbl.get_CharacterAutoCompletionMode)
+        CallbackFree(this.vtbl.put_CharacterAutoCompletionMode)
+        CallbackFree(this.vtbl.get_Factoid)
+        CallbackFree(this.vtbl.put_Factoid)
+        CallbackFree(this.vtbl.get_Guide)
+        CallbackFree(this.vtbl.putref_Guide)
+        CallbackFree(this.vtbl.get_PrefixText)
+        CallbackFree(this.vtbl.put_PrefixText)
+        CallbackFree(this.vtbl.get_SuffixText)
+        CallbackFree(this.vtbl.put_SuffixText)
+        CallbackFree(this.vtbl.get_RecognitionFlags)
+        CallbackFree(this.vtbl.put_RecognitionFlags)
+        CallbackFree(this.vtbl.get_WordList)
+        CallbackFree(this.vtbl.putref_WordList)
+        CallbackFree(this.vtbl.get_Recognizer)
+        CallbackFree(this.vtbl.Recognize)
+        CallbackFree(this.vtbl.StopBackgroundRecognition)
+        CallbackFree(this.vtbl.EndInkInput)
+        CallbackFree(this.vtbl.BackgroundRecognize)
+        CallbackFree(this.vtbl.BackgroundRecognizeWithAlternates)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.IsStringSupported)
     }
 }

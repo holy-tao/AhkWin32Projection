@@ -1,35 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TF_PRESERVEDKEY.ahk" { TF_PRESERVEDKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfKeyEventSink.ahk" { ITfKeyEventSink }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The ITfKeystrokeMgr interface is implemented by the TSF manager and used by applications and text services to interact with the keyboard manager.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfkeystrokemgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfKeystrokeMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfKeystrokeMgr extends IUnknown {
     /**
      * The interface identifier for ITfKeystrokeMgr
      * @type {Guid}
      */
-    static IID => Guid("{aa80e7f0-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e7f0-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfKeystrokeMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseKeyEventSink         : IntPtr
+        UnadviseKeyEventSink       : IntPtr
+        GetForeground              : IntPtr
+        TestKeyDown                : IntPtr
+        TestKeyUp                  : IntPtr
+        KeyDown                    : IntPtr
+        KeyUp                      : IntPtr
+        GetPreservedKey            : IntPtr
+        IsPreservedKey             : IntPtr
+        PreserveKey                : IntPtr
+        UnpreserveKey              : IntPtr
+        SetPreservedKeyDescription : IntPtr
+        GetPreservedKeyDescription : IntPtr
+        SimulatePreservedKey       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseKeyEventSink", "UnadviseKeyEventSink", "GetForeground", "TestKeyDown", "TestKeyUp", "KeyDown", "KeyUp", "GetPreservedKey", "IsPreservedKey", "PreserveKey", "UnpreserveKey", "SetPreservedKeyDescription", "GetPreservedKeyDescription", "SimulatePreservedKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfKeystrokeMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfKeystrokeMgr::AdviseKeyEventSink method
@@ -82,7 +109,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-advisekeyeventsink
      */
     AdviseKeyEventSink(tid, pSink, fForeground) {
-        result := ComCall(3, this, "uint", tid, "ptr", pSink, "int", fForeground, "HRESULT")
+        result := ComCall(3, this, "uint", tid, "ptr", pSink, BOOL, fForeground, "HRESULT")
         return result
     }
 
@@ -144,7 +171,7 @@ class ITfKeystrokeMgr extends IUnknown {
      */
     GetForeground() {
         pclsid := Guid()
-        result := ComCall(5, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pclsid, "HRESULT")
         return pclsid
     }
 
@@ -181,7 +208,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-testkeydown
      */
     TestKeyDown(_wParam, _lParam) {
-        result := ComCall(6, this, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
+        result := ComCall(6, this, WPARAM, _wParam, LPARAM, _lParam, BOOL.Ptr, &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
@@ -218,7 +245,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-testkeyup
      */
     TestKeyUp(_wParam, _lParam) {
-        result := ComCall(7, this, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
+        result := ComCall(7, this, WPARAM, _wParam, LPARAM, _lParam, BOOL.Ptr, &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
@@ -255,7 +282,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-keydown
      */
     KeyDown(_wParam, _lParam) {
-        result := ComCall(8, this, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
+        result := ComCall(8, this, WPARAM, _wParam, LPARAM, _lParam, BOOL.Ptr, &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
@@ -292,7 +319,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-keyup
      */
     KeyUp(_wParam, _lParam) {
-        result := ComCall(9, this, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
+        result := ComCall(9, this, WPARAM, _wParam, LPARAM, _lParam, BOOL.Ptr, &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
@@ -307,7 +334,7 @@ class ITfKeystrokeMgr extends IUnknown {
      */
     GetPreservedKey(pic, pprekey) {
         pguid := Guid()
-        result := ComCall(10, this, "ptr", pic, "ptr", pprekey, "ptr", pguid, "HRESULT")
+        result := ComCall(10, this, "ptr", pic, TF_PRESERVEDKEY.Ptr, pprekey, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -321,7 +348,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-ispreservedkey
      */
     IsPreservedKey(rguid, pprekey) {
-        result := ComCall(11, this, "ptr", rguid, "ptr", pprekey, "int*", &pfRegistered := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, rguid, TF_PRESERVEDKEY.Ptr, pprekey, BOOL.Ptr, &pfRegistered := 0, "HRESULT")
         return pfRegistered
     }
 
@@ -402,7 +429,7 @@ class ITfKeystrokeMgr extends IUnknown {
     PreserveKey(tid, rguid, prekey, pchDesc, cchDesc) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
 
-        result := ComCall(12, this, "uint", tid, "ptr", rguid, "ptr", prekey, "ptr", pchDesc, "uint", cchDesc, "HRESULT")
+        result := ComCall(12, this, "uint", tid, Guid.Ptr, rguid, TF_PRESERVEDKEY.Ptr, prekey, "ptr", pchDesc, "uint", cchDesc, "HRESULT")
         return result
     }
 
@@ -456,7 +483,7 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-unpreservekey
      */
     UnpreserveKey(rguid, pprekey) {
-        result := ComCall(13, this, "ptr", rguid, "ptr", pprekey, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, rguid, TF_PRESERVEDKEY.Ptr, pprekey, "HRESULT")
         return result
     }
 
@@ -513,7 +540,7 @@ class ITfKeystrokeMgr extends IUnknown {
     SetPreservedKeyDescription(rguid, pchDesc, cchDesc) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
 
-        result := ComCall(14, this, "ptr", rguid, "ptr", pchDesc, "uint", cchDesc, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, rguid, "ptr", pchDesc, "uint", cchDesc, "HRESULT")
         return result
     }
 
@@ -526,8 +553,8 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-getpreservedkeydescription
      */
     GetPreservedKeyDescription(rguid) {
-        pbstrDesc := BSTR()
-        result := ComCall(15, this, "ptr", rguid, "ptr", pbstrDesc, "HRESULT")
+        pbstrDesc := BSTR.Owned()
+        result := ComCall(15, this, Guid.Ptr, rguid, BSTR.Ptr, pbstrDesc, "HRESULT")
         return pbstrDesc
     }
 
@@ -539,7 +566,53 @@ class ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-simulatepreservedkey
      */
     SimulatePreservedKey(pic, rguid) {
-        result := ComCall(16, this, "ptr", pic, "ptr", rguid, "int*", &pfEaten := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pic, Guid.Ptr, rguid, BOOL.Ptr, &pfEaten := 0, "HRESULT")
         return pfEaten
+    }
+
+    Query(iid) {
+        if (ITfKeystrokeMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseKeyEventSink := CallbackCreate(GetMethod(implObj, "AdviseKeyEventSink"), flags, 4)
+        this.vtbl.UnadviseKeyEventSink := CallbackCreate(GetMethod(implObj, "UnadviseKeyEventSink"), flags, 2)
+        this.vtbl.GetForeground := CallbackCreate(GetMethod(implObj, "GetForeground"), flags, 2)
+        this.vtbl.TestKeyDown := CallbackCreate(GetMethod(implObj, "TestKeyDown"), flags, 4)
+        this.vtbl.TestKeyUp := CallbackCreate(GetMethod(implObj, "TestKeyUp"), flags, 4)
+        this.vtbl.KeyDown := CallbackCreate(GetMethod(implObj, "KeyDown"), flags, 4)
+        this.vtbl.KeyUp := CallbackCreate(GetMethod(implObj, "KeyUp"), flags, 4)
+        this.vtbl.GetPreservedKey := CallbackCreate(GetMethod(implObj, "GetPreservedKey"), flags, 4)
+        this.vtbl.IsPreservedKey := CallbackCreate(GetMethod(implObj, "IsPreservedKey"), flags, 4)
+        this.vtbl.PreserveKey := CallbackCreate(GetMethod(implObj, "PreserveKey"), flags, 6)
+        this.vtbl.UnpreserveKey := CallbackCreate(GetMethod(implObj, "UnpreserveKey"), flags, 3)
+        this.vtbl.SetPreservedKeyDescription := CallbackCreate(GetMethod(implObj, "SetPreservedKeyDescription"), flags, 4)
+        this.vtbl.GetPreservedKeyDescription := CallbackCreate(GetMethod(implObj, "GetPreservedKeyDescription"), flags, 3)
+        this.vtbl.SimulatePreservedKey := CallbackCreate(GetMethod(implObj, "SimulatePreservedKey"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseKeyEventSink)
+        CallbackFree(this.vtbl.UnadviseKeyEventSink)
+        CallbackFree(this.vtbl.GetForeground)
+        CallbackFree(this.vtbl.TestKeyDown)
+        CallbackFree(this.vtbl.TestKeyUp)
+        CallbackFree(this.vtbl.KeyDown)
+        CallbackFree(this.vtbl.KeyUp)
+        CallbackFree(this.vtbl.GetPreservedKey)
+        CallbackFree(this.vtbl.IsPreservedKey)
+        CallbackFree(this.vtbl.PreserveKey)
+        CallbackFree(this.vtbl.UnpreserveKey)
+        CallbackFree(this.vtbl.SetPreservedKeyDescription)
+        CallbackFree(this.vtbl.GetPreservedKeyDescription)
+        CallbackFree(this.vtbl.SimulatePreservedKey)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_LIST_PARMSA (ANSI) structure (digitalv.h) contains the information for the MCI_LIST command for digital-video devices.
@@ -16,62 +16,37 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class MCI_DGV_LIST_PARMSA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MCI_DGV_LIST_PARMSA {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Buffer for return string.
-     * @type {PSTR}
      */
-    lpstrReturn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrReturn : PSTR
 
     /**
      * Length, in bytes, of buffer.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLength : UInt32
 
     /**
      * Index of item in list.
-     * @type {Integer}
      */
-    dwNumber {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwNumber : UInt32
 
     /**
      * Type of list item.
-     * @type {Integer}
      */
-    dwItem {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwItem : UInt32
 
     /**
      * String containing algorithm name.
-     * @type {PSTR}
      */
-    lpstrAlgorithm {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpstrAlgorithm : PSTR
+
 }

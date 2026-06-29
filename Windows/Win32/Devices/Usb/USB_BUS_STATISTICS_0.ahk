@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The USB_BUS_STATISTICS_0 structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve bus statistics.
@@ -10,151 +10,84 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_bus_statistics_0
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_BUS_STATISTICS_0 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct USB_BUS_STATISTICS_0 {
+    #StructPack 8
 
     /**
      * The number of devices on the bus.
-     * @type {Integer}
      */
-    DeviceCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceCount : UInt32
 
     /**
      * The current system time.
-     * @type {Integer}
      */
-    CurrentSystemTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    CurrentSystemTime : Int64
 
     /**
      * The number of the current USB frame.
-     * @type {Integer}
      */
-    CurrentUsbFrame {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CurrentUsbFrame : UInt32
 
     /**
      * The amount, in bytes, of bulk transfer data.
-     * @type {Integer}
      */
-    BulkBytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BulkBytes : UInt32
 
     /**
      * The amount, in bytes, of isochronous data.
-     * @type {Integer}
      */
-    IsoBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    IsoBytes : UInt32
 
     /**
      * The amount, in bytes, of interrupt data.
-     * @type {Integer}
      */
-    InterruptBytes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    InterruptBytes : UInt32
 
     /**
      * The amount, in bytes, of control data.
-     * @type {Integer}
      */
-    ControlDataBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ControlDataBytes : UInt32
 
     /**
      * The amount, in bytes, of interrupt data.
-     * @type {Integer}
      */
-    PciInterruptCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    PciInterruptCount : UInt32
 
     /**
      * The number of hard bus resets that have occurred.
-     * @type {Integer}
      */
-    HardResetCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    HardResetCount : UInt32
 
     /**
      * The number of times that a worker thread has signaled completion of a task.
-     * @type {Integer}
      */
-    WorkerSignalCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    WorkerSignalCount : UInt32
 
     /**
      * The number of bytes that are transferred by common buffer.
-     * @type {Integer}
      */
-    CommonBufferBytes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    CommonBufferBytes : UInt32
 
     /**
      * The amount of time, in milliseconds, that worker threads have been idle.
-     * @type {Integer}
      */
-    WorkerIdleTimeMs {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    WorkerIdleTimeMs : UInt32
 
     /**
      * A Boolean value that indicates whether the root hub is enabled. If <b>TRUE</b>, he root hub is enabled. If <b>FALSE</b>, the root hub is disabled.
-     * @type {BOOLEAN}
      */
-    RootHubEnabled {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
-    }
+    RootHubEnabled : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    RootHubDevicePowerState {
-        get => NumGet(this, 57, "char")
-        set => NumPut("char", value, this, 57)
-    }
+    RootHubDevicePowerState : Int8
 
     /**
      * If this member is 1, the bus is active. If 0, the bus is inactive.
-     * @type {Integer}
      */
-    Unused {
-        get => NumGet(this, 58, "char")
-        set => NumPut("char", value, this, 58)
-    }
+    Unused : Int8
 
     /**
      * The index that is used to generate a symbolic link name for the hub PDO. This format of the symbolic link is USBPDO-<i>n</i>, where <i>n</i> is the value in <b>NameIndex</b>.
-     * @type {Integer}
      */
-    NameIndex {
-        get => NumGet(this, 59, "char")
-        set => NumPut("char", value, this, 59)
-    }
+    NameIndex : Int8
+
 }

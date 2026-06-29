@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PNRP_SCOPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PNRP_SCOPE.ahk" { PNRP_SCOPE }
 
 /**
  * Contains information about a Peer Name Resolution Protocol (PNRP) cloud.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_pnrp_cloud_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_PNRP_CLOUD_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PEER_PNRP_CLOUD_INFO {
+    #StructPack 8
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the name of the PNRP cloud. The maximum size of this name is 256 characters.
-     * @type {PWSTR}
      */
-    pwzCloudName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwzCloudName : PWSTR
 
     /**
      * Constant value that specifies the network scope of the PNRP cloud.
@@ -74,19 +68,12 @@ class PEER_PNRP_CLOUD_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PNRP_SCOPE}
      */
-    dwScope {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwScope : PNRP_SCOPE
 
     /**
      * The ID of a specific IP address scope defined for the PNRP cloud.
-     * @type {Integer}
      */
-    dwScopeId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwScopeId : UInt32
+
 }

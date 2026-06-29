@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class RTL_NLS_STATE extends Win32Struct {
-    static sizeof => 72
+export default struct RTL_NLS_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    DefaultAcpTableInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DefaultAcpTableInfo {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DefaultOemTableInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DefaultOemTableInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ActiveCodePageData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ActiveCodePageData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OemCodePageData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    OemCodePageData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    LeadByteInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    LeadByteInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    OemLeadByteInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    OemLeadByteInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CaseMappingData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    CaseMappingData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    UnicodeUpcaseTable844 : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    UnicodeUpcaseTable844 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    UnicodeLowercaseTable844 : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    UnicodeLowercaseTable844 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

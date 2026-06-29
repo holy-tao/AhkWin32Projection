@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the information associated with local changes made to an item while working offline.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefileschangeinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesChangeInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesChangeInfo extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesChangeInfo
      * @type {Guid}
      */
-    static IID => Guid("{a96e6fa4-e0d1-4c29-960b-ee508fe68c72}")
+    static IID := Guid("{a96e6fa4-e0d1-4c29-960b-ee508fe68c72}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesChangeInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsDirty                     : IntPtr
+        IsDeletedOffline            : IntPtr
+        IsCreatedOffline            : IntPtr
+        IsLocallyModifiedData       : IntPtr
+        IsLocallyModifiedAttributes : IntPtr
+        IsLocallyModifiedTime       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsDirty", "IsDeletedOffline", "IsCreatedOffline", "IsLocallyModifiedData", "IsLocallyModifiedAttributes", "IsLocallyModifiedTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesChangeInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether an item in the Offline Files cache has been modified.
@@ -37,7 +51,7 @@ class IOfflineFilesChangeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-isdirty
      */
     IsDirty() {
-        result := ComCall(3, this, "int*", &pbDirty := 0, "int")
+        result := ComCall(3, this, BOOL.Ptr, &pbDirty := 0, Int32)
         return pbDirty
     }
 
@@ -47,7 +61,7 @@ class IOfflineFilesChangeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-isdeletedoffline
      */
     IsDeletedOffline() {
-        result := ComCall(4, this, "int*", &pbDeletedOffline := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pbDeletedOffline := 0, "HRESULT")
         return pbDeletedOffline
     }
 
@@ -57,7 +71,7 @@ class IOfflineFilesChangeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-iscreatedoffline
      */
     IsCreatedOffline() {
-        result := ComCall(5, this, "int*", &pbCreatedOffline := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &pbCreatedOffline := 0, "HRESULT")
         return pbCreatedOffline
     }
 
@@ -67,7 +81,7 @@ class IOfflineFilesChangeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifieddata
      */
     IsLocallyModifiedData() {
-        result := ComCall(6, this, "int*", &pbLocallyModifiedData := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pbLocallyModifiedData := 0, "HRESULT")
         return pbLocallyModifiedData
     }
 
@@ -79,7 +93,7 @@ class IOfflineFilesChangeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedattributes
      */
     IsLocallyModifiedAttributes() {
-        result := ComCall(7, this, "int*", &pbLocallyModifiedAttributes := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pbLocallyModifiedAttributes := 0, "HRESULT")
         return pbLocallyModifiedAttributes
     }
 
@@ -91,7 +105,37 @@ class IOfflineFilesChangeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedtime
      */
     IsLocallyModifiedTime() {
-        result := ComCall(8, this, "int*", &pbLocallyModifiedTime := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pbLocallyModifiedTime := 0, "HRESULT")
         return pbLocallyModifiedTime
+    }
+
+    Query(iid) {
+        if (IOfflineFilesChangeInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 2)
+        this.vtbl.IsDeletedOffline := CallbackCreate(GetMethod(implObj, "IsDeletedOffline"), flags, 2)
+        this.vtbl.IsCreatedOffline := CallbackCreate(GetMethod(implObj, "IsCreatedOffline"), flags, 2)
+        this.vtbl.IsLocallyModifiedData := CallbackCreate(GetMethod(implObj, "IsLocallyModifiedData"), flags, 2)
+        this.vtbl.IsLocallyModifiedAttributes := CallbackCreate(GetMethod(implObj, "IsLocallyModifiedAttributes"), flags, 2)
+        this.vtbl.IsLocallyModifiedTime := CallbackCreate(GetMethod(implObj, "IsLocallyModifiedTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsDirty)
+        CallbackFree(this.vtbl.IsDeletedOffline)
+        CallbackFree(this.vtbl.IsCreatedOffline)
+        CallbackFree(this.vtbl.IsLocallyModifiedData)
+        CallbackFree(this.vtbl.IsLocallyModifiedAttributes)
+        CallbackFree(this.vtbl.IsLocallyModifiedTime)
     }
 }

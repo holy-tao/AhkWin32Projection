@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the granularity of the battery capacity that is reported by IOCTL_BATTERY_QUERY_STATUS.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-battery_reporting_scale
  * @namespace Windows.Win32.System.Power
  */
-class BATTERY_REPORTING_SCALE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct BATTERY_REPORTING_SCALE {
+    #StructPack 4
 
     /**
      * The granularity of the capacity reading returned by <a href="https://docs.microsoft.com/windows/desktop/Power/ioctl-battery-query-status">IOCTL_BATTERY_QUERY_STATUS</a> in milliwatt-hours (mWh).  Granularity may change over time as battery discharge and recharge lowers the range of readings.
-     * @type {Integer}
      */
-    Granularity {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Granularity : UInt32
 
     /**
      * The upper capacity limit for <i>Granularity</i>.   The value of <i>Granularity</i> is valid for capacities reported by <a href="https://docs.microsoft.com/windows/desktop/Power/ioctl-battery-query-status">IOCTL_BATTERY_QUERY_STATUS</a> that are less than or equal to this capacity (mWh), but greater than or equal to the capacity given in the previous array element, or zero if this is the first array element.
-     * @type {Integer}
      */
-    Capacity {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Capacity : UInt32
+
 }

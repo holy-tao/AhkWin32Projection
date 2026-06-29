@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a version of the HTTP protocol that a request requires or a response provides.
@@ -17,26 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_version
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_VERSION extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct HTTP_VERSION {
+    #StructPack 2
 
     /**
      * Major version of the HTTP protocol.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MajorVersion : UInt16
 
     /**
      * Minor version of the HTTP protocol.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    MinorVersion : UInt16
+
 }

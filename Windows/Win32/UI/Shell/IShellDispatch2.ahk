@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellDispatch.ahk" { IShellDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the IShellDispatch object with a variety of new functionality.
@@ -16,26 +18,41 @@
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-object
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellDispatch2 extends IShellDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IShellDispatch2 extends IShellDispatch {
     /**
      * The interface identifier for IShellDispatch2
      * @type {Guid}
      */
-    static IID => Guid("{a4c6892c-3ba9-11d2-9dea-00c04fb16162}")
+    static IID := Guid("{a4c6892c-3ba9-11d2-9dea-00c04fb16162}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellDispatch2 interfaces
+    */
+    struct Vtbl extends IShellDispatch.Vtbl {
+        IsRestricted         : IntPtr
+        ShellExecute         : IntPtr
+        FindPrinter          : IntPtr
+        GetSystemInformation : IntPtr
+        ServiceStart         : IntPtr
+        ServiceStop          : IntPtr
+        IsServiceRunning     : IntPtr
+        CanStartStopService  : IntPtr
+        ShowBrowserBar       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsRestricted", "ShellExecute", "FindPrinter", "GetSystemInformation", "ServiceStart", "ServiceStop", "IsServiceRunning", "CanStartStopService", "ShowBrowserBar"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellDispatch2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IShellDispatch2.IsRestricted method - Retrieves a group's restriction setting from the registry.
@@ -65,7 +82,7 @@ class IShellDispatch2 extends IShellDispatch {
         Group := Group is String ? BSTR.Alloc(Group).Value : Group
         _Restriction := _Restriction is String ? BSTR.Alloc(_Restriction).Value : _Restriction
 
-        result := ComCall(30, this, "ptr", Group, "ptr", _Restriction, "int*", &plRestrictValue := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, Group, BSTR, _Restriction, "int*", &plRestrictValue := 0, "HRESULT")
         return plRestrictValue
     }
 
@@ -105,7 +122,7 @@ class IShellDispatch2 extends IShellDispatch {
     ShellExecute(_File, vArgs, vDir, vOperation, vShow) {
         _File := _File is String ? BSTR.Alloc(_File).Value : _File
 
-        result := ComCall(31, this, "ptr", _File, "ptr", vArgs, "ptr", vDir, "ptr", vOperation, "ptr", vShow, "HRESULT")
+        result := ComCall(31, this, BSTR, _File, VARIANT, vArgs, VARIANT, vDir, VARIANT, vOperation, VARIANT, vShow, "HRESULT")
         return result
     }
 
@@ -128,7 +145,7 @@ class IShellDispatch2 extends IShellDispatch {
         _location := _location is String ? BSTR.Alloc(_location).Value : _location
         model := model is String ? BSTR.Alloc(model).Value : model
 
-        result := ComCall(32, this, "ptr", name, "ptr", _location, "ptr", model, "HRESULT")
+        result := ComCall(32, this, BSTR, name, BSTR, _location, BSTR, model, "HRESULT")
         return result
     }
 
@@ -218,7 +235,7 @@ class IShellDispatch2 extends IShellDispatch {
         name := name is String ? BSTR.Alloc(name).Value : name
 
         pv := VARIANT()
-        result := ComCall(33, this, "ptr", name, "ptr", pv, "HRESULT")
+        result := ComCall(33, this, BSTR, name, VARIANT.Ptr, pv, "HRESULT")
         return pv
     }
 
@@ -239,7 +256,7 @@ class IShellDispatch2 extends IShellDispatch {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
         pSuccess := VARIANT()
-        result := ComCall(34, this, "ptr", ServiceName, "ptr", Persistent, "ptr", pSuccess, "HRESULT")
+        result := ComCall(34, this, BSTR, ServiceName, VARIANT, Persistent, VARIANT.Ptr, pSuccess, "HRESULT")
         return pSuccess
     }
 
@@ -260,7 +277,7 @@ class IShellDispatch2 extends IShellDispatch {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
         pSuccess := VARIANT()
-        result := ComCall(35, this, "ptr", ServiceName, "ptr", Persistent, "ptr", pSuccess, "HRESULT")
+        result := ComCall(35, this, BSTR, ServiceName, VARIANT, Persistent, VARIANT.Ptr, pSuccess, "HRESULT")
         return pSuccess
     }
 
@@ -278,7 +295,7 @@ class IShellDispatch2 extends IShellDispatch {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
         pRunning := VARIANT()
-        result := ComCall(36, this, "ptr", ServiceName, "ptr", pRunning, "HRESULT")
+        result := ComCall(36, this, BSTR, ServiceName, VARIANT.Ptr, pRunning, "HRESULT")
         return pRunning
     }
 
@@ -296,7 +313,7 @@ class IShellDispatch2 extends IShellDispatch {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
         pCanStartStop := VARIANT()
-        result := ComCall(37, this, "ptr", ServiceName, "ptr", pCanStartStop, "HRESULT")
+        result := ComCall(37, this, BSTR, ServiceName, VARIANT.Ptr, pCanStartStop, "HRESULT")
         return pCanStartStop
     }
 
@@ -330,7 +347,43 @@ class IShellDispatch2 extends IShellDispatch {
         bstrClsid := bstrClsid is String ? BSTR.Alloc(bstrClsid).Value : bstrClsid
 
         pSuccess := VARIANT()
-        result := ComCall(38, this, "ptr", bstrClsid, "ptr", bShow, "ptr", pSuccess, "HRESULT")
+        result := ComCall(38, this, BSTR, bstrClsid, VARIANT, bShow, VARIANT.Ptr, pSuccess, "HRESULT")
         return pSuccess
+    }
+
+    Query(iid) {
+        if (IShellDispatch2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsRestricted := CallbackCreate(GetMethod(implObj, "IsRestricted"), flags, 4)
+        this.vtbl.ShellExecute := CallbackCreate(GetMethod(implObj, "ShellExecute"), flags, 6)
+        this.vtbl.FindPrinter := CallbackCreate(GetMethod(implObj, "FindPrinter"), flags, 4)
+        this.vtbl.GetSystemInformation := CallbackCreate(GetMethod(implObj, "GetSystemInformation"), flags, 3)
+        this.vtbl.ServiceStart := CallbackCreate(GetMethod(implObj, "ServiceStart"), flags, 4)
+        this.vtbl.ServiceStop := CallbackCreate(GetMethod(implObj, "ServiceStop"), flags, 4)
+        this.vtbl.IsServiceRunning := CallbackCreate(GetMethod(implObj, "IsServiceRunning"), flags, 3)
+        this.vtbl.CanStartStopService := CallbackCreate(GetMethod(implObj, "CanStartStopService"), flags, 3)
+        this.vtbl.ShowBrowserBar := CallbackCreate(GetMethod(implObj, "ShowBrowserBar"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsRestricted)
+        CallbackFree(this.vtbl.ShellExecute)
+        CallbackFree(this.vtbl.FindPrinter)
+        CallbackFree(this.vtbl.GetSystemInformation)
+        CallbackFree(this.vtbl.ServiceStart)
+        CallbackFree(this.vtbl.ServiceStop)
+        CallbackFree(this.vtbl.IsServiceRunning)
+        CallbackFree(this.vtbl.CanStartStopService)
+        CallbackFree(this.vtbl.ShowBrowserBar)
     }
 }

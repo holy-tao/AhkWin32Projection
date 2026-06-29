@@ -1,148 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_BINARY_DATA.ahk
-#Include .\DATE_TIME.ahk
-#Include .\DHCP_HOST_INFO.ahk
-#Include .\QuarantineStatus.ahk
-#Include .\DHCP_PROPERTY_ARRAY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_PROPERTY_ARRAY.ahk" { DHCP_PROPERTY_ARRAY }
+#Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import ".\QuarantineStatus.ahk" { QuarantineStatus }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
+#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_CLIENT_INFO_EX extends Win32Struct {
-    static sizeof => 112
+export default struct DHCP_CLIENT_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    ClientIpAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClientIpAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SubnetMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubnetMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ClientHardwareAddress : DHCP_BINARY_DATA
 
-    /**
-     * @type {DHCP_BINARY_DATA}
-     */
-    ClientHardwareAddress {
-        get {
-            if(!this.HasProp("__ClientHardwareAddress"))
-                this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
-            return this.__ClientHardwareAddress
-        }
-    }
+    ClientName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ClientName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ClientComment : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ClientComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ClientLeaseExpires : DATE_TIME
 
-    /**
-     * @type {DATE_TIME}
-     */
-    ClientLeaseExpires {
-        get {
-            if(!this.HasProp("__ClientLeaseExpires"))
-                this.__ClientLeaseExpires := DATE_TIME(40, this)
-            return this.__ClientLeaseExpires
-        }
-    }
+    OwnerHost : DHCP_HOST_INFO
 
-    /**
-     * @type {DHCP_HOST_INFO}
-     */
-    OwnerHost {
-        get {
-            if(!this.HasProp("__OwnerHost"))
-                this.__OwnerHost := DHCP_HOST_INFO(48, this)
-            return this.__OwnerHost
-        }
-    }
+    bClientType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bClientType {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    AddressState : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AddressState {
-        get => NumGet(this, 73, "char")
-        set => NumPut("char", value, this, 73)
-    }
+    Status : QuarantineStatus
 
-    /**
-     * @type {QuarantineStatus}
-     */
-    Status {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    ProbationEnds : DATE_TIME
 
-    /**
-     * @type {DATE_TIME}
-     */
-    ProbationEnds {
-        get {
-            if(!this.HasProp("__ProbationEnds"))
-                this.__ProbationEnds := DATE_TIME(80, this)
-            return this.__ProbationEnds
-        }
-    }
+    QuarantineCapable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    QuarantineCapable {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    FilterStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FilterStatus {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    PolicyName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    PolicyName {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Properties : DHCP_PROPERTY_ARRAY.Ptr
 
-    /**
-     * @type {Pointer<DHCP_PROPERTY_ARRAY>}
-     */
-    Properties {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
 }

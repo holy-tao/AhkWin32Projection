@@ -1,36 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA extends Win32Struct {
-    static sizeof => 8
+export default struct IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    HeaderData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HeaderData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - FunctionLength
-     * - Version
-     * - ExceptionDataPresent
-     * - EpilogInHeader
-     * - EpilogCount
-     * - CodeWords
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -78,5 +55,9 @@ class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA extends Win32Struct {
     CodeWords {
         get => (this._bitfield >> 27) & 0x1F
         set => this._bitfield := ((value & 0x1F) << 27) | (this._bitfield & ~(0x1F << 27))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

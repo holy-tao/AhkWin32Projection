@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRUSTEE_A.ahk
-#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
-#Include .\TRUSTEE_FORM.ahk
-#Include .\TRUSTEE_TYPE.ahk
-#Include .\ACTRL_ACCESS_ENTRY_ACCESS_FLAGS.ahk
-#Include ..\ACE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\ACE_FLAGS.ahk" { ACE_FLAGS }
+#Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
+#Import ".\ACTRL_ACCESS_ENTRY_ACCESS_FLAGS.ahk" { ACTRL_ACCESS_ENTRY_ACCESS_FLAGS }
+#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
+#Import ".\TRUSTEE_A.ahk" { TRUSTEE_A }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
 
 /**
  * Contains access-control information for a specified trustee. This structure stores information equivalent to the access-control information stored in an ACE. (ANSI)
@@ -16,30 +16,15 @@
  * @namespace Windows.Win32.Security.Authorization
  * @charset ANSI
  */
-class ACTRL_ACCESS_ENTRYA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct ACTRL_ACCESS_ENTRYA {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the user, group, or program (such as a service) to which the access-control entry applies.
-     * @type {TRUSTEE_A}
      */
-    Trustee {
-        get {
-            if(!this.HasProp("__Trustee"))
-                this.__Trustee := TRUSTEE_A(0, this)
-            return this.__Trustee
-        }
-    }
+    Trustee : TRUSTEE_A
 
-    /**
-     * @type {ACTRL_ACCESS_ENTRY_ACCESS_FLAGS}
-     */
-    fAccessFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    fAccessFlags : ACTRL_ACCESS_ENTRY_ACCESS_FLAGS
 
     /**
      * A bitmask that specifies the access rights that the entry allows, denies, or audits for the trustee.
@@ -50,36 +35,19 @@ class ACTRL_ACCESS_ENTRYA extends Win32Struct {
      * 
      * <a id="ACTRL_SYSTEM_ACCESS"></a>
      * <a id="actrl_system_access"></a>
-     * @type {Integer}
      */
-    Access {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Access : UInt32
 
     /**
      * A bitmask that specifies access rights specific to the provider type. The functions that use the <b>ACTRL_ACCESS_ENTRY</b> structure pass these bits on to the provider without interpreting them. In most cases, this member should be 0.
-     * @type {Integer}
      */
-    ProvSpecificAccess {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ProvSpecificAccess : UInt32
 
-    /**
-     * @type {ACE_FLAGS}
-     */
-    Inheritance {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Inheritance : ACE_FLAGS
 
     /**
      * A pointer to a null-terminated string that identifies the object types that can inherit the entry. If you are using this structure with the COM implementation of <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nn-iaccess-iaccesscontrol">IAccessControl</a>, this member must be <b>NULL</b>.
-     * @type {PSTR}
      */
-    lpInheritProperty {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpInheritProperty : PSTR
+
 }

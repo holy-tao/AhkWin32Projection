@@ -1,131 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used to contain attribute value replication metadata.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_value_meta_data_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct DS_REPL_VALUE_META_DATA_BLOB {
+    #StructPack 8
 
     /**
      * Contains the offset, in bytes, from the address of this structure  to  a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata. A value of zero indicates an empty or <b>NULL</b> string.
-     * @type {Integer}
      */
-    oszAttributeName {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    oszAttributeName : UInt32
 
     /**
      * Contains the offset, in bytes, from the address of this structure  to  a null-terminated Unicode string that contains the distinguished name of the object that this attribute belongs to. A value of zero indicates an empty or <b>NULL</b> string.
-     * @type {Integer}
      */
-    oszObjectDn {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    oszObjectDn : UInt32
 
     /**
      * Contains the number of bytes in the <b>pbData</b> array.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbData : UInt32
 
     /**
      * Pointer to a buffer that contains the attribute replication metadata. The <b>cbData</b> member contains the length, in bytes, of this buffer.
-     * @type {Integer}
      */
-    obData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    obData : UInt32
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time that  this attribute was deleted.
-     * @type {FILETIME}
      */
-    ftimeDeleted {
-        get {
-            if(!this.HasProp("__ftimeDeleted"))
-                this.__ftimeDeleted := FILETIME(16, this)
-            return this.__ftimeDeleted
-        }
-    }
+    ftimeDeleted : FILETIME
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time that this attribute was created.
-     * @type {FILETIME}
      */
-    ftimeCreated {
-        get {
-            if(!this.HasProp("__ftimeCreated"))
-                this.__ftimeCreated := FILETIME(24, this)
-            return this.__ftimeCreated
-        }
-    }
+    ftimeCreated : FILETIME
 
     /**
      * Contains the version of this attribute. Each originating modification of the attribute increases this value by one. Replication of a modification does not affect the version.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwVersion : UInt32
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time at which the last originating change was made to this attribute. Replication of the change does not affect this value.
-     * @type {FILETIME}
      */
-    ftimeLastOriginatingChange {
-        get {
-            if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(36, this)
-            return this.__ftimeLastOriginatingChange
-        }
-    }
+    ftimeLastOriginatingChange : FILETIME
 
     /**
      * Contains the invocation identifier of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer}
      */
-    uuidLastOriginatingDsaInvocationID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    uuidLastOriginatingDsaInvocationID : Guid
 
     /**
      * Contains the update sequence number (USN) on the originating server at which the last change to this attribute was made. Replication of the change does not affect this value.
-     * @type {Integer}
      */
-    usnOriginatingChange {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
-    }
+    usnOriginatingChange : Int64
 
     /**
      * Contains the USN on the destination server, that is, the server from which the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function retrieved the metadata, at which the last change to this attribute was applied. This value is typically different on all servers.
-     * @type {Integer}
      */
-    usnLocalChange {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
-    }
+    usnLocalChange : Int64
 
     /**
      * Contains the offset, in bytes, from the address of this structure  to  a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication. A value of zero indicates an empty or <b>NULL</b> string.
-     * @type {Integer}
      */
-    oszLastOriginatingDsaDN {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    oszLastOriginatingDsaDN : UInt32
+
 }

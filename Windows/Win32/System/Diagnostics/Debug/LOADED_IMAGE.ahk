@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\IMAGE_NT_HEADERS64.ahk
-#Include .\IMAGE_SECTION_HEADER.ahk
-#Include .\IMAGE_FILE_CHARACTERISTICS2.ahk
-#Include ..\..\Kernel\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IMAGE_SECTION_HEADER.ahk" { IMAGE_SECTION_HEADER }
+#Import ".\IMAGE_NT_HEADERS64.ahk" { IMAGE_NT_HEADERS64 }
+#Import "..\..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
+#Import ".\IMAGE_FILE_CHARACTERISTICS2.ahk" { IMAGE_FILE_CHARACTERISTICS2 }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about the loaded image.
@@ -22,146 +23,81 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64, Arm64
  */
-class LOADED_IMAGE extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct LOADED_IMAGE {
+    #StructPack 8
 
     /**
      * The file name of the mapped file.
-     * @type {PSTR}
      */
-    ModuleName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ModuleName : PSTR
 
     /**
      * A handle to the mapped file.
-     * @type {HANDLE}
      */
-    hFile {
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(8, this)
-            return this.__hFile
-        }
-    }
+    hFile : HANDLE
 
     /**
      * The base address of the mapped file.
-     * @type {Pointer<Integer>}
      */
-    MappedAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MappedAddress : IntPtr
 
     /**
      * A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32">IMAGE_NT_HEADERS</a> structure.
-     * @type {Pointer<IMAGE_NT_HEADERS64>}
      */
-    FileHeader {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FileHeader : IMAGE_NT_HEADERS64.Ptr
 
     /**
      * A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_section_header">IMAGE_SECTION_HEADER</a> structure.
-     * @type {Pointer<IMAGE_SECTION_HEADER>}
      */
-    LastRvaSection {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    LastRvaSection : IMAGE_SECTION_HEADER.Ptr
 
     /**
      * The number of COFF section headers.
-     * @type {Integer}
      */
-    NumberOfSections {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    NumberOfSections : UInt32
 
     /**
      * A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_section_header">IMAGE_SECTION_HEADER</a> structure.
-     * @type {Pointer<IMAGE_SECTION_HEADER>}
      */
-    Sections {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Sections : IMAGE_SECTION_HEADER.Ptr
 
-    /**
-     * @type {IMAGE_FILE_CHARACTERISTICS2}
-     */
-    Characteristics {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Characteristics : IMAGE_FILE_CHARACTERISTICS2
 
     /**
      * If the image is a kernel mode executable image, this value is <b>TRUE</b>.
-     * @type {BOOLEAN}
      */
-    fSystemImage {
-        get => NumGet(this, 60, "char")
-        set => NumPut("char", value, this, 60)
-    }
+    fSystemImage : BOOLEAN
 
     /**
      * If the image is a 16-bit executable image, this value is <b>TRUE</b>.
-     * @type {BOOLEAN}
      */
-    fDOSImage {
-        get => NumGet(this, 61, "char")
-        set => NumPut("char", value, this, 61)
-    }
+    fDOSImage : BOOLEAN
 
     /**
      * If the image is read-only, this value is <b>TRUE</b>.
      * 
      * <b>Prior to Windows Vista:  </b>This member is not included in the structure.
-     * @type {BOOLEAN}
      */
-    fReadOnly {
-        get => NumGet(this, 62, "char")
-        set => NumPut("char", value, this, 62)
-    }
+    fReadOnly : BOOLEAN
 
     /**
      * The version string.
      * 
      * <b>Prior to Windows Vista:  </b>This member is not included in the structure.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 63, "char")
-        set => NumPut("char", value, this, 63)
-    }
+    Version : Int8
 
     /**
      * The list of loaded images.
-     * @type {LIST_ENTRY}
      */
-    Links {
-        get {
-            if(!this.HasProp("__Links"))
-                this.__Links := LIST_ENTRY(64, this)
-            return this.__Links
-        }
-    }
+    Links : LIST_ENTRY
 
     /**
      * The size of the image, in bytes.
-     * @type {Integer}
      */
-    SizeOfImage {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SizeOfImage : UInt32
+
 }

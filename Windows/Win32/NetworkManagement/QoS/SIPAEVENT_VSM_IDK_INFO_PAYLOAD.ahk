@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SIPAEVENT_VSM_IDK_RSA_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SIPAEVENT_VSM_IDK_RSA_INFO.ahk" { SIPAEVENT_VSM_IDK_RSA_INFO }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class SIPAEVENT_VSM_IDK_INFO_PAYLOAD extends Win32Struct {
-    static sizeof => 20
+export default struct SIPAEVENT_VSM_IDK_INFO_PAYLOAD {
+    #StructPack 4
 
-    static packingSize => 4
+    KeyAlgID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeyAlgID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RsaKeyInfo : SIPAEVENT_VSM_IDK_RSA_INFO
 
-    /**
-     * @type {SIPAEVENT_VSM_IDK_RSA_INFO}
-     */
-    RsaKeyInfo {
-        get {
-            if(!this.HasProp("__RsaKeyInfo"))
-                this.__RsaKeyInfo := SIPAEVENT_VSM_IDK_RSA_INFO(4, this)
-            return this.__RsaKeyInfo
-        }
-    }
 }

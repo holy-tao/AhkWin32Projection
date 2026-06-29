@@ -1,7 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12CommandList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_STREAM_OUTPUT_BUFFER_VIEW.ahk" { D3D12_STREAM_OUTPUT_BUFFER_VIEW }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_GPU_DESCRIPTOR_HANDLE.ahk" { D3D12_GPU_DESCRIPTOR_HANDLE }
+#Import ".\ID3D12DescriptorHeap.ahk" { ID3D12DescriptorHeap }
+#Import ".\D3D12_VIEWPORT.ahk" { D3D12_VIEWPORT }
+#Import ".\D3D12_VERTEX_BUFFER_VIEW.ahk" { D3D12_VERTEX_BUFFER_VIEW }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_TEXTURE_COPY_LOCATION.ahk" { D3D12_TEXTURE_COPY_LOCATION }
+#Import ".\D3D12_CLEAR_FLAGS.ahk" { D3D12_CLEAR_FLAGS }
+#Import ".\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
+#Import ".\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import ".\D3D12_INDEX_BUFFER_VIEW.ahk" { D3D12_INDEX_BUFFER_VIEW }
+#Import "..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk" { D3D_PRIMITIVE_TOPOLOGY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
+#Import ".\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
+#Import ".\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
+#Import ".\D3D12_BOX.ahk" { D3D12_BOX }
+#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
+#Import ".\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
+#Import ".\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
+#Import ".\D3D12_TILE_COPY_FLAGS.ahk" { D3D12_TILE_COPY_FLAGS }
+#Import ".\ID3D12CommandSignature.ahk" { ID3D12CommandSignature }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
 
 /**
  * Encapsulates a list of graphics commands for rendering. Includes APIs for instrumenting the command list execution, and for setting and clearing the pipeline state.
@@ -10,26 +38,83 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12GraphicsCommandList extends ID3D12CommandList {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
     /**
      * The interface identifier for ID3D12GraphicsCommandList
      * @type {Guid}
      */
-    static IID => Guid("{5b160d0f-ac1b-4185-8ba8-b3ae42a5a455}")
+    static IID := Guid("{5b160d0f-ac1b-4185-8ba8-b3ae42a5a455}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12GraphicsCommandList interfaces
+    */
+    struct Vtbl extends ID3D12CommandList.Vtbl {
+        Close                              : IntPtr
+        Reset                              : IntPtr
+        ClearState                         : IntPtr
+        DrawInstanced                      : IntPtr
+        DrawIndexedInstanced               : IntPtr
+        Dispatch                           : IntPtr
+        CopyBufferRegion                   : IntPtr
+        CopyTextureRegion                  : IntPtr
+        CopyResource                       : IntPtr
+        CopyTiles                          : IntPtr
+        ResolveSubresource                 : IntPtr
+        IASetPrimitiveTopology             : IntPtr
+        RSSetViewports                     : IntPtr
+        RSSetScissorRects                  : IntPtr
+        OMSetBlendFactor                   : IntPtr
+        OMSetStencilRef                    : IntPtr
+        SetPipelineState                   : IntPtr
+        ResourceBarrier                    : IntPtr
+        ExecuteBundle                      : IntPtr
+        SetDescriptorHeaps                 : IntPtr
+        SetComputeRootSignature            : IntPtr
+        SetGraphicsRootSignature           : IntPtr
+        SetComputeRootDescriptorTable      : IntPtr
+        SetGraphicsRootDescriptorTable     : IntPtr
+        SetComputeRoot32BitConstant        : IntPtr
+        SetGraphicsRoot32BitConstant       : IntPtr
+        SetComputeRoot32BitConstants       : IntPtr
+        SetGraphicsRoot32BitConstants      : IntPtr
+        SetComputeRootConstantBufferView   : IntPtr
+        SetGraphicsRootConstantBufferView  : IntPtr
+        SetComputeRootShaderResourceView   : IntPtr
+        SetGraphicsRootShaderResourceView  : IntPtr
+        SetComputeRootUnorderedAccessView  : IntPtr
+        SetGraphicsRootUnorderedAccessView : IntPtr
+        IASetIndexBuffer                   : IntPtr
+        IASetVertexBuffers                 : IntPtr
+        SOSetTargets                       : IntPtr
+        OMSetRenderTargets                 : IntPtr
+        ClearDepthStencilView              : IntPtr
+        ClearRenderTargetView              : IntPtr
+        ClearUnorderedAccessViewUint       : IntPtr
+        ClearUnorderedAccessViewFloat      : IntPtr
+        DiscardResource                    : IntPtr
+        BeginQuery                         : IntPtr
+        EndQuery                           : IntPtr
+        ResolveQueryData                   : IntPtr
+        SetPredication                     : IntPtr
+        SetMarker                          : IntPtr
+        BeginEvent                         : IntPtr
+        EndEvent                           : IntPtr
+        ExecuteIndirect                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Close", "Reset", "ClearState", "DrawInstanced", "DrawIndexedInstanced", "Dispatch", "CopyBufferRegion", "CopyTextureRegion", "CopyResource", "CopyTiles", "ResolveSubresource", "IASetPrimitiveTopology", "RSSetViewports", "RSSetScissorRects", "OMSetBlendFactor", "OMSetStencilRef", "SetPipelineState", "ResourceBarrier", "ExecuteBundle", "SetDescriptorHeaps", "SetComputeRootSignature", "SetGraphicsRootSignature", "SetComputeRootDescriptorTable", "SetGraphicsRootDescriptorTable", "SetComputeRoot32BitConstant", "SetGraphicsRoot32BitConstant", "SetComputeRoot32BitConstants", "SetGraphicsRoot32BitConstants", "SetComputeRootConstantBufferView", "SetGraphicsRootConstantBufferView", "SetComputeRootShaderResourceView", "SetGraphicsRootShaderResourceView", "SetComputeRootUnorderedAccessView", "SetGraphicsRootUnorderedAccessView", "IASetIndexBuffer", "IASetVertexBuffers", "SOSetTargets", "OMSetRenderTargets", "ClearDepthStencilView", "ClearRenderTargetView", "ClearUnorderedAccessViewUint", "ClearUnorderedAccessViewFloat", "DiscardResource", "BeginQuery", "EndQuery", "ResolveQueryData", "SetPredication", "SetMarker", "BeginEvent", "EndEvent", "ExecuteIndirect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12GraphicsCommandList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates that recording to the command list has finished. (ID3D12GraphicsCommandList.Close)
@@ -317,7 +402,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion
      */
     CopyTextureRegion(pDst, DstX, DstY, DstZ, pSrc, pSrcBox) {
-        ComCall(16, this, "ptr", pDst, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrc, "ptr", pSrcBox)
+        ComCall(16, this, D3D12_TEXTURE_COPY_LOCATION.Ptr, pDst, "uint", DstX, "uint", DstY, "uint", DstZ, D3D12_TEXTURE_COPY_LOCATION.Ptr, pSrc, D3D12_BOX.Ptr, pSrcBox)
     }
 
     /**
@@ -384,7 +469,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles
      */
     CopyTiles(pTiledResource, pTileRegionStartCoordinate, pTileRegionSize, pBuffer, BufferStartOffsetInBytes, Flags) {
-        ComCall(18, this, "ptr", pTiledResource, "ptr", pTileRegionStartCoordinate, "ptr", pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, "int", Flags)
+        ComCall(18, this, "ptr", pTiledResource, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pTileRegionStartCoordinate, D3D12_TILE_REGION_SIZE.Ptr, pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, D3D12_TILE_COPY_FLAGS, Flags)
     }
 
     /**
@@ -442,7 +527,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource
      */
     ResolveSubresource(pDstResource, DstSubresource, pSrcResource, SrcSubresource, Format) {
-        ComCall(19, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, "int", Format)
+        ComCall(19, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, DXGI_FORMAT, Format)
     }
 
     /**
@@ -454,7 +539,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetprimitivetopology
      */
     IASetPrimitiveTopology(PrimitiveTopology) {
-        ComCall(20, this, "int", PrimitiveTopology)
+        ComCall(20, this, D3D_PRIMITIVE_TOPOLOGY, PrimitiveTopology)
     }
 
     /**
@@ -475,7 +560,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports
      */
     RSSetViewports(NumViewports, pViewports) {
-        ComCall(21, this, "uint", NumViewports, "ptr", pViewports)
+        ComCall(21, this, "uint", NumViewports, D3D12_VIEWPORT.Ptr, pViewports)
     }
 
     /**
@@ -498,7 +583,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetscissorrects
      */
     RSSetScissorRects(NumRects, pRects) {
-        ComCall(22, this, "uint", NumRects, "ptr", pRects)
+        ComCall(22, this, "uint", NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -668,7 +753,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier
      */
     ResourceBarrier(NumBarriers, pBarriers) {
-        ComCall(26, this, "uint", NumBarriers, "ptr", pBarriers)
+        ComCall(26, this, "uint", NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
     }
 
     /**
@@ -723,7 +808,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps
      */
     SetDescriptorHeaps(NumDescriptorHeaps, ppDescriptorHeaps) {
-        ComCall(28, this, "uint", NumDescriptorHeaps, "ptr*", ppDescriptorHeaps)
+        ComCall(28, this, "uint", NumDescriptorHeaps, ID3D12DescriptorHeap.Ptr, ppDescriptorHeaps)
     }
 
     /**
@@ -762,7 +847,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable
      */
     SetComputeRootDescriptorTable(RootParameterIndex, BaseDescriptor) {
-        ComCall(31, this, "uint", RootParameterIndex, "ptr", BaseDescriptor)
+        ComCall(31, this, "uint", RootParameterIndex, D3D12_GPU_DESCRIPTOR_HANDLE, BaseDescriptor)
     }
 
     /**
@@ -777,7 +862,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable
      */
     SetGraphicsRootDescriptorTable(RootParameterIndex, BaseDescriptor) {
-        ComCall(32, this, "uint", RootParameterIndex, "ptr", BaseDescriptor)
+        ComCall(32, this, "uint", RootParameterIndex, D3D12_GPU_DESCRIPTOR_HANDLE, BaseDescriptor)
     }
 
     /**
@@ -968,7 +1053,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetindexbuffer
      */
     IASetIndexBuffer(pView) {
-        ComCall(43, this, "ptr", pView)
+        ComCall(43, this, D3D12_INDEX_BUFFER_VIEW.Ptr, pView)
     }
 
     /**
@@ -986,7 +1071,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumViews, pViews) {
-        ComCall(44, this, "uint", StartSlot, "uint", NumViews, "ptr", pViews)
+        ComCall(44, this, "uint", StartSlot, "uint", NumViews, D3D12_VERTEX_BUFFER_VIEW.Ptr, pViews)
     }
 
     /**
@@ -1004,7 +1089,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-sosettargets
      */
     SOSetTargets(StartSlot, NumViews, pViews) {
-        ComCall(45, this, "uint", StartSlot, "uint", NumViews, "ptr", pViews)
+        ComCall(45, this, "uint", StartSlot, "uint", NumViews, D3D12_STREAM_OUTPUT_BUFFER_VIEW.Ptr, pViews)
     }
 
     /**
@@ -1033,7 +1118,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets
      */
     OMSetRenderTargets(NumRenderTargetDescriptors, pRenderTargetDescriptors, RTsSingleHandleToDescriptorRange, pDepthStencilDescriptor) {
-        ComCall(46, this, "uint", NumRenderTargetDescriptors, "ptr", pRenderTargetDescriptors, "int", RTsSingleHandleToDescriptorRange, "ptr", pDepthStencilDescriptor)
+        ComCall(46, this, "uint", NumRenderTargetDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pRenderTargetDescriptors, BOOL, RTsSingleHandleToDescriptorRange, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDepthStencilDescriptor)
     }
 
     /**
@@ -1075,7 +1160,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-cleardepthstencilview
      */
     ClearDepthStencilView(DepthStencilView, ClearFlags, Depth, Stencil, NumRects, pRects) {
-        ComCall(47, this, "ptr", DepthStencilView, "int", ClearFlags, "float", Depth, "char", Stencil, "uint", NumRects, "ptr", pRects)
+        ComCall(47, this, D3D12_CPU_DESCRIPTOR_HANDLE, DepthStencilView, D3D12_CLEAR_FLAGS, ClearFlags, "float", Depth, "char", Stencil, "uint", NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1112,7 +1197,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
     ClearRenderTargetView(RenderTargetView, ColorRGBA, NumRects, pRects) {
         ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
 
-        ComCall(48, this, "ptr", RenderTargetView, ColorRGBAMarshal, ColorRGBA, "uint", NumRects, "ptr", pRects)
+        ComCall(48, this, D3D12_CPU_DESCRIPTOR_HANDLE, RenderTargetView, ColorRGBAMarshal, ColorRGBA, "uint", NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1144,7 +1229,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
     ClearUnorderedAccessViewUint(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
         ValuesMarshal := Values is VarRef ? "uint*" : "ptr"
 
-        ComCall(49, this, "ptr", ViewGPUHandleInCurrentHeap, "ptr", ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, "ptr", pRects)
+        ComCall(49, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1176,7 +1261,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
     ClearUnorderedAccessViewFloat(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
         ValuesMarshal := Values is VarRef ? "float*" : "ptr"
 
-        ComCall(50, this, "ptr", ViewGPUHandleInCurrentHeap, "ptr", ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, "ptr", pRects)
+        ComCall(50, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1207,7 +1292,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource
      */
     DiscardResource(pResource, pRegion) {
-        ComCall(51, this, "ptr", pResource, "ptr", pRegion)
+        ComCall(51, this, "ptr", pResource, D3D12_DISCARD_REGION.Ptr, pRegion)
     }
 
     /**
@@ -1227,7 +1312,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery
      */
     BeginQuery(pQueryHeap, Type, Index) {
-        ComCall(52, this, "ptr", pQueryHeap, "int", Type, "uint", Index)
+        ComCall(52, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
     }
 
     /**
@@ -1247,7 +1332,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery
      */
     EndQuery(pQueryHeap, Type, Index) {
-        ComCall(53, this, "ptr", pQueryHeap, "int", Type, "uint", Index)
+        ComCall(53, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
     }
 
     /**
@@ -1307,7 +1392,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pDestinationBuffer, AlignedDestinationBufferOffset) {
-        ComCall(54, this, "ptr", pQueryHeap, "int", Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
+        ComCall(54, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
     }
 
     /**
@@ -1343,7 +1428,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(55, this, "ptr", pBuffer, "uint", AlignedBufferOffset, "int", Operation)
+        ComCall(55, this, "ptr", pBuffer, "uint", AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -1507,5 +1592,125 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList {
      */
     ExecuteIndirect(pCommandSignature, MaxCommandCount, pArgumentBuffer, ArgumentBufferOffset, pCountBuffer, CountBufferOffset) {
         ComCall(59, this, "ptr", pCommandSignature, "uint", MaxCommandCount, "ptr", pArgumentBuffer, "uint", ArgumentBufferOffset, "ptr", pCountBuffer, "uint", CountBufferOffset)
+    }
+
+    Query(iid) {
+        if (ID3D12GraphicsCommandList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
+        this.vtbl.ClearState := CallbackCreate(GetMethod(implObj, "ClearState"), flags, 2)
+        this.vtbl.DrawInstanced := CallbackCreate(GetMethod(implObj, "DrawInstanced"), flags, 5)
+        this.vtbl.DrawIndexedInstanced := CallbackCreate(GetMethod(implObj, "DrawIndexedInstanced"), flags, 6)
+        this.vtbl.Dispatch := CallbackCreate(GetMethod(implObj, "Dispatch"), flags, 4)
+        this.vtbl.CopyBufferRegion := CallbackCreate(GetMethod(implObj, "CopyBufferRegion"), flags, 6)
+        this.vtbl.CopyTextureRegion := CallbackCreate(GetMethod(implObj, "CopyTextureRegion"), flags, 7)
+        this.vtbl.CopyResource := CallbackCreate(GetMethod(implObj, "CopyResource"), flags, 3)
+        this.vtbl.CopyTiles := CallbackCreate(GetMethod(implObj, "CopyTiles"), flags, 7)
+        this.vtbl.ResolveSubresource := CallbackCreate(GetMethod(implObj, "ResolveSubresource"), flags, 6)
+        this.vtbl.IASetPrimitiveTopology := CallbackCreate(GetMethod(implObj, "IASetPrimitiveTopology"), flags, 2)
+        this.vtbl.RSSetViewports := CallbackCreate(GetMethod(implObj, "RSSetViewports"), flags, 3)
+        this.vtbl.RSSetScissorRects := CallbackCreate(GetMethod(implObj, "RSSetScissorRects"), flags, 3)
+        this.vtbl.OMSetBlendFactor := CallbackCreate(GetMethod(implObj, "OMSetBlendFactor"), flags, 2)
+        this.vtbl.OMSetStencilRef := CallbackCreate(GetMethod(implObj, "OMSetStencilRef"), flags, 2)
+        this.vtbl.SetPipelineState := CallbackCreate(GetMethod(implObj, "SetPipelineState"), flags, 2)
+        this.vtbl.ResourceBarrier := CallbackCreate(GetMethod(implObj, "ResourceBarrier"), flags, 3)
+        this.vtbl.ExecuteBundle := CallbackCreate(GetMethod(implObj, "ExecuteBundle"), flags, 2)
+        this.vtbl.SetDescriptorHeaps := CallbackCreate(GetMethod(implObj, "SetDescriptorHeaps"), flags, 3)
+        this.vtbl.SetComputeRootSignature := CallbackCreate(GetMethod(implObj, "SetComputeRootSignature"), flags, 2)
+        this.vtbl.SetGraphicsRootSignature := CallbackCreate(GetMethod(implObj, "SetGraphicsRootSignature"), flags, 2)
+        this.vtbl.SetComputeRootDescriptorTable := CallbackCreate(GetMethod(implObj, "SetComputeRootDescriptorTable"), flags, 3)
+        this.vtbl.SetGraphicsRootDescriptorTable := CallbackCreate(GetMethod(implObj, "SetGraphicsRootDescriptorTable"), flags, 3)
+        this.vtbl.SetComputeRoot32BitConstant := CallbackCreate(GetMethod(implObj, "SetComputeRoot32BitConstant"), flags, 4)
+        this.vtbl.SetGraphicsRoot32BitConstant := CallbackCreate(GetMethod(implObj, "SetGraphicsRoot32BitConstant"), flags, 4)
+        this.vtbl.SetComputeRoot32BitConstants := CallbackCreate(GetMethod(implObj, "SetComputeRoot32BitConstants"), flags, 5)
+        this.vtbl.SetGraphicsRoot32BitConstants := CallbackCreate(GetMethod(implObj, "SetGraphicsRoot32BitConstants"), flags, 5)
+        this.vtbl.SetComputeRootConstantBufferView := CallbackCreate(GetMethod(implObj, "SetComputeRootConstantBufferView"), flags, 3)
+        this.vtbl.SetGraphicsRootConstantBufferView := CallbackCreate(GetMethod(implObj, "SetGraphicsRootConstantBufferView"), flags, 3)
+        this.vtbl.SetComputeRootShaderResourceView := CallbackCreate(GetMethod(implObj, "SetComputeRootShaderResourceView"), flags, 3)
+        this.vtbl.SetGraphicsRootShaderResourceView := CallbackCreate(GetMethod(implObj, "SetGraphicsRootShaderResourceView"), flags, 3)
+        this.vtbl.SetComputeRootUnorderedAccessView := CallbackCreate(GetMethod(implObj, "SetComputeRootUnorderedAccessView"), flags, 3)
+        this.vtbl.SetGraphicsRootUnorderedAccessView := CallbackCreate(GetMethod(implObj, "SetGraphicsRootUnorderedAccessView"), flags, 3)
+        this.vtbl.IASetIndexBuffer := CallbackCreate(GetMethod(implObj, "IASetIndexBuffer"), flags, 2)
+        this.vtbl.IASetVertexBuffers := CallbackCreate(GetMethod(implObj, "IASetVertexBuffers"), flags, 4)
+        this.vtbl.SOSetTargets := CallbackCreate(GetMethod(implObj, "SOSetTargets"), flags, 4)
+        this.vtbl.OMSetRenderTargets := CallbackCreate(GetMethod(implObj, "OMSetRenderTargets"), flags, 5)
+        this.vtbl.ClearDepthStencilView := CallbackCreate(GetMethod(implObj, "ClearDepthStencilView"), flags, 7)
+        this.vtbl.ClearRenderTargetView := CallbackCreate(GetMethod(implObj, "ClearRenderTargetView"), flags, 5)
+        this.vtbl.ClearUnorderedAccessViewUint := CallbackCreate(GetMethod(implObj, "ClearUnorderedAccessViewUint"), flags, 7)
+        this.vtbl.ClearUnorderedAccessViewFloat := CallbackCreate(GetMethod(implObj, "ClearUnorderedAccessViewFloat"), flags, 7)
+        this.vtbl.DiscardResource := CallbackCreate(GetMethod(implObj, "DiscardResource"), flags, 3)
+        this.vtbl.BeginQuery := CallbackCreate(GetMethod(implObj, "BeginQuery"), flags, 4)
+        this.vtbl.EndQuery := CallbackCreate(GetMethod(implObj, "EndQuery"), flags, 4)
+        this.vtbl.ResolveQueryData := CallbackCreate(GetMethod(implObj, "ResolveQueryData"), flags, 7)
+        this.vtbl.SetPredication := CallbackCreate(GetMethod(implObj, "SetPredication"), flags, 4)
+        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 4)
+        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 4)
+        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.ExecuteIndirect := CallbackCreate(GetMethod(implObj, "ExecuteIndirect"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.ClearState)
+        CallbackFree(this.vtbl.DrawInstanced)
+        CallbackFree(this.vtbl.DrawIndexedInstanced)
+        CallbackFree(this.vtbl.Dispatch)
+        CallbackFree(this.vtbl.CopyBufferRegion)
+        CallbackFree(this.vtbl.CopyTextureRegion)
+        CallbackFree(this.vtbl.CopyResource)
+        CallbackFree(this.vtbl.CopyTiles)
+        CallbackFree(this.vtbl.ResolveSubresource)
+        CallbackFree(this.vtbl.IASetPrimitiveTopology)
+        CallbackFree(this.vtbl.RSSetViewports)
+        CallbackFree(this.vtbl.RSSetScissorRects)
+        CallbackFree(this.vtbl.OMSetBlendFactor)
+        CallbackFree(this.vtbl.OMSetStencilRef)
+        CallbackFree(this.vtbl.SetPipelineState)
+        CallbackFree(this.vtbl.ResourceBarrier)
+        CallbackFree(this.vtbl.ExecuteBundle)
+        CallbackFree(this.vtbl.SetDescriptorHeaps)
+        CallbackFree(this.vtbl.SetComputeRootSignature)
+        CallbackFree(this.vtbl.SetGraphicsRootSignature)
+        CallbackFree(this.vtbl.SetComputeRootDescriptorTable)
+        CallbackFree(this.vtbl.SetGraphicsRootDescriptorTable)
+        CallbackFree(this.vtbl.SetComputeRoot32BitConstant)
+        CallbackFree(this.vtbl.SetGraphicsRoot32BitConstant)
+        CallbackFree(this.vtbl.SetComputeRoot32BitConstants)
+        CallbackFree(this.vtbl.SetGraphicsRoot32BitConstants)
+        CallbackFree(this.vtbl.SetComputeRootConstantBufferView)
+        CallbackFree(this.vtbl.SetGraphicsRootConstantBufferView)
+        CallbackFree(this.vtbl.SetComputeRootShaderResourceView)
+        CallbackFree(this.vtbl.SetGraphicsRootShaderResourceView)
+        CallbackFree(this.vtbl.SetComputeRootUnorderedAccessView)
+        CallbackFree(this.vtbl.SetGraphicsRootUnorderedAccessView)
+        CallbackFree(this.vtbl.IASetIndexBuffer)
+        CallbackFree(this.vtbl.IASetVertexBuffers)
+        CallbackFree(this.vtbl.SOSetTargets)
+        CallbackFree(this.vtbl.OMSetRenderTargets)
+        CallbackFree(this.vtbl.ClearDepthStencilView)
+        CallbackFree(this.vtbl.ClearRenderTargetView)
+        CallbackFree(this.vtbl.ClearUnorderedAccessViewUint)
+        CallbackFree(this.vtbl.ClearUnorderedAccessViewFloat)
+        CallbackFree(this.vtbl.DiscardResource)
+        CallbackFree(this.vtbl.BeginQuery)
+        CallbackFree(this.vtbl.EndQuery)
+        CallbackFree(this.vtbl.ResolveQueryData)
+        CallbackFree(this.vtbl.SetPredication)
+        CallbackFree(this.vtbl.SetMarker)
+        CallbackFree(this.vtbl.BeginEvent)
+        CallbackFree(this.vtbl.EndEvent)
+        CallbackFree(this.vtbl.ExecuteIndirect)
     }
 }

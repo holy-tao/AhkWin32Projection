@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMC_PEND_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMC_PEND_INFO.ahk" { CMC_PEND_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains status information about Certificate Management Messages over CMS.
@@ -9,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_status_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMC_STATUS_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CMC_STATUS_INFO {
+    #StructPack 8
 
     /**
      * A <b>DWORD</b> value that indicates the status of the message.
@@ -78,62 +76,33 @@ class CMC_STATUS_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : UInt32
 
     /**
      * A <b>DWORD</b> count of the elements in the <b>rgdwBodyList</b> array.
-     * @type {Integer}
      */
-    cBodyList {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cBodyList : UInt32
 
     /**
      * A <b>DWORD</b> array.
-     * @type {Pointer<Integer>}
      */
-    rgdwBodyList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgdwBodyList : IntPtr
 
     /**
      * Optional string text indicating message status.
-     * @type {PWSTR}
      */
-    pwszStatusString {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszStatusString : PWSTR
 
     /**
      * A <b>DWORD</b> value that identifies the union member to be used.
-     * @type {Integer}
      */
-    dwOtherInfoChoice {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwOtherInfoChoice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFailInfo {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFailInfo : UInt32
 
-    /**
-     * @type {Pointer<CMC_PEND_INFO>}
-     */
-    pPendInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'pPendInfo', { type: CMC_PEND_INFO.Ptr, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

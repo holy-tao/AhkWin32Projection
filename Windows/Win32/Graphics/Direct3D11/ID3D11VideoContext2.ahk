@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11VideoContext1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11VideoContext1.ahk" { ID3D11VideoContext1 }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import "..\Dxgi\DXGI_HDR_METADATA_TYPE.ahk" { DXGI_HDR_METADATA_TYPE }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext2)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nn-d3d11_4-id3d11videocontext2
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoContext2 extends ID3D11VideoContext1 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
     /**
      * The interface identifier for ID3D11VideoContext2
      * @type {Guid}
      */
-    static IID => Guid("{c4e7374c-6243-4d1b-ae87-52b4f740e261}")
+    static IID := Guid("{c4e7374c-6243-4d1b-ae87-52b4f740e261}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 79
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoContext2 interfaces
+    */
+    struct Vtbl extends ID3D11VideoContext1.Vtbl {
+        VideoProcessorSetOutputHDRMetaData : IntPtr
+        VideoProcessorGetOutputHDRMetaData : IntPtr
+        VideoProcessorSetStreamHDRMetaData : IntPtr
+        VideoProcessorGetStreamHDRMetaData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["VideoProcessorSetOutputHDRMetaData", "VideoProcessorGetOutputHDRMetaData", "VideoProcessorSetStreamHDRMetaData", "VideoProcessorGetStreamHDRMetaData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoContext2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the HDR metadata describing the display on which the content will be presented.
@@ -49,7 +61,7 @@ class ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorsetoutputhdrmetadata
      */
     VideoProcessorSetOutputHDRMetaData(pVideoProcessor, Type, _Size, pHDRMetaData) {
-        ComCall(79, this, "ptr", pVideoProcessor, "int", Type, "uint", _Size, "ptr", pHDRMetaData)
+        ComCall(79, this, "ptr", pVideoProcessor, DXGI_HDR_METADATA_TYPE, Type, "uint", _Size, "ptr", pHDRMetaData)
     }
 
     /**
@@ -94,7 +106,7 @@ class ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorsetstreamhdrmetadata
      */
     VideoProcessorSetStreamHDRMetaData(pVideoProcessor, StreamIndex, Type, _Size, pHDRMetaData) {
-        ComCall(81, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Type, "uint", _Size, "ptr", pHDRMetaData)
+        ComCall(81, this, "ptr", pVideoProcessor, "uint", StreamIndex, DXGI_HDR_METADATA_TYPE, Type, "uint", _Size, "ptr", pHDRMetaData)
     }
 
     /**
@@ -117,5 +129,31 @@ class ID3D11VideoContext2 extends ID3D11VideoContext1 {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
         ComCall(82, this, "ptr", pVideoProcessor, "uint", StreamIndex, pTypeMarshal, pType, "uint", _Size, "ptr", pMetaData)
+    }
+
+    Query(iid) {
+        if (ID3D11VideoContext2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.VideoProcessorSetOutputHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputHDRMetaData"), flags, 5)
+        this.vtbl.VideoProcessorGetOutputHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputHDRMetaData"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamHDRMetaData"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamHDRMetaData"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.VideoProcessorSetOutputHDRMetaData)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputHDRMetaData)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamHDRMetaData)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamHDRMetaData)
     }
 }

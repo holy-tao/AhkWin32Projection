@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the possible results when a knowledge cookie is compared with a knowledge object by using ISyncKnowledge2::CompareToKnowledgeCookie.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-knowledge_cookie_comparison_result
  * @namespace Windows.Win32.System.WindowsSync
  */
-class KNOWLEDGE_COOKIE_COMPARISON_RESULT extends Win32Enum {
+export default struct KNOWLEDGE_COOKIE_COMPARISON_RESULT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The knowledge cookie is equal to the specified knowledge.

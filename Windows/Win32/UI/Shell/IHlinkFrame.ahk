@@ -1,32 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IHlinkBrowseContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import ".\IHlink.ahk" { IHlink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IHlinkFrame extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHlinkFrame extends IUnknown {
     /**
      * The interface identifier for IHlinkFrame
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c5-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c5-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHlinkFrame interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetBrowseContext : IntPtr
+        GetBrowseContext : IntPtr
+        Navigate         : IntPtr
+        OnNavigate       : IntPtr
+        UpdateHlink      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBrowseContext", "GetBrowseContext", "Navigate", "OnNavigate", "UpdateHlink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHlinkFrame.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -92,5 +109,33 @@ class IHlinkFrame extends IUnknown {
 
         result := ComCall(7, this, "uint", uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHlinkFrame.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBrowseContext := CallbackCreate(GetMethod(implObj, "SetBrowseContext"), flags, 2)
+        this.vtbl.GetBrowseContext := CallbackCreate(GetMethod(implObj, "GetBrowseContext"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 5)
+        this.vtbl.OnNavigate := CallbackCreate(GetMethod(implObj, "OnNavigate"), flags, 6)
+        this.vtbl.UpdateHlink := CallbackCreate(GetMethod(implObj, "UpdateHlink"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBrowseContext)
+        CallbackFree(this.vtbl.GetBrowseContext)
+        CallbackFree(this.vtbl.Navigate)
+        CallbackFree(this.vtbl.OnNavigate)
+        CallbackFree(this.vtbl.UpdateHlink)
     }
 }

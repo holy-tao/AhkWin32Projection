@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
-#Include .\XPS_MATRIX.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_MATRIX.ahk" { XPS_MATRIX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
 
 /**
  * Specifies an affine matrix transform that can be applied to other objects in the object model.
@@ -51,26 +52,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMMatrixTransform extends IXpsOMShareable {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMMatrixTransform extends IXpsOMShareable {
     /**
      * The interface identifier for IXpsOMMatrixTransform
      * @type {Guid}
      */
-    static IID => Guid("{b77330ff-bb37-4501-a93e-f1b1e50bfc46}")
+    static IID := Guid("{b77330ff-bb37-4501-a93e-f1b1e50bfc46}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMMatrixTransform interfaces
+    */
+    struct Vtbl extends IXpsOMShareable.Vtbl {
+        GetMatrix : IntPtr
+        SetMatrix : IntPtr
+        Clone     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMatrix", "SetMatrix", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMMatrixTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the XPS_MATRIX structure, which specifies the transform matrix.
@@ -79,7 +89,7 @@ class IXpsOMMatrixTransform extends IXpsOMShareable {
      */
     GetMatrix() {
         _matrix := XPS_MATRIX()
-        result := ComCall(5, this, "ptr", _matrix, "HRESULT")
+        result := ComCall(5, this, XPS_MATRIX.Ptr, _matrix, "HRESULT")
         return _matrix
     }
 
@@ -130,7 +140,7 @@ class IXpsOMMatrixTransform extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-setmatrix
      */
     SetMatrix(_matrix) {
-        result := ComCall(6, this, "ptr", _matrix, "HRESULT")
+        result := ComCall(6, this, XPS_MATRIX.Ptr, _matrix, "HRESULT")
         return result
     }
 
@@ -142,5 +152,29 @@ class IXpsOMMatrixTransform extends IXpsOMShareable {
     Clone() {
         result := ComCall(7, this, "ptr*", &matrixTransform := 0, "HRESULT")
         return IXpsOMMatrixTransform(matrixTransform)
+    }
+
+    Query(iid) {
+        if (IXpsOMMatrixTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMatrix := CallbackCreate(GetMethod(implObj, "GetMatrix"), flags, 2)
+        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMatrix)
+        CallbackFree(this.vtbl.SetMatrix)
+        CallbackFree(this.vtbl.Clone)
     }
 }

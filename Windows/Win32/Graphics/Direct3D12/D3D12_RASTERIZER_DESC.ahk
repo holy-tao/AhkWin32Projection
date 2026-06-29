@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_FILL_MODE.ahk
-#Include .\D3D12_CULL_MODE.ahk
-#Include .\D3D12_CONSERVATIVE_RASTERIZATION_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_FILL_MODE.ahk" { D3D12_FILL_MODE }
+#Import ".\D3D12_CONSERVATIVE_RASTERIZATION_MODE.ahk" { D3D12_CONSERVATIVE_RASTERIZATION_MODE }
+#Import ".\D3D12_CULL_MODE.ahk" { D3D12_CULL_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes rasterizer state. (D3D12_RASTERIZER_DESC)
@@ -105,64 +105,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_rasterizer_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RASTERIZER_DESC extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct D3D12_RASTERIZER_DESC {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_fill_mode">D3D12_FILL_MODE</a>-typed value that specifies the fill mode to use when rendering.
-     * @type {D3D12_FILL_MODE}
      */
-    FillMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    FillMode : D3D12_FILL_MODE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_cull_mode">D3D12_CULL_MODE</a>-typed value that specifies that triangles facing the specified direction are not drawn.
-     * @type {D3D12_CULL_MODE}
      */
-    CullMode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    CullMode : D3D12_CULL_MODE
 
     /**
      * Determines if a triangle is front- or back-facing. If this member is <b>TRUE</b>, a triangle will be considered front-facing if its vertices are counter-clockwise on the render target and considered back-facing if they are clockwise. If this parameter is <b>FALSE</b>, the opposite is true.
-     * @type {BOOL}
      */
-    FrontCounterClockwise {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    FrontCounterClockwise : BOOL
 
     /**
      * Depth value added to a given pixel. For info about depth bias, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias">Depth Bias</a>.
-     * @type {Integer}
      */
-    DepthBias {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    DepthBias : Int32
 
     /**
      * Maximum depth bias of a pixel. For info about depth bias, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias">Depth Bias</a>.
-     * @type {Float}
      */
-    DepthBiasClamp {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    DepthBiasClamp : Float32
 
     /**
      * Scalar on a given pixel's slope. For info about depth bias, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage-depth-bias">Depth Bias</a>.
-     * @type {Float}
      */
-    SlopeScaledDepthBias {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    SlopeScaledDepthBias : Float32
 
     /**
      * Specifies whether to enable clipping based on distance.
@@ -182,30 +156,18 @@ class D3D12_RASTERIZER_DESC extends Win32Struct {
      * ```
      * 
      * When you set <b>DepthClipEnable</b> to <b>FALSE</b>, the hardware skips the z clipping (that is, the last step in the preceding algorithm). However, the hardware still performs the "0 &lt; w" clipping. When z clipping is disabled, improper depth ordering at the pixel level might result. However, when z clipping is disabled, stencil shadow implementations are simplified. In other words, you can avoid complex special-case handling for geometry that goes beyond the back clipping plane.
-     * @type {BOOL}
      */
-    DepthClipEnable {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DepthClipEnable : BOOL
 
     /**
      * Specifies whether to use the quadrilateral or alpha line anti-aliasing algorithm on multisample antialiasing (MSAA) render targets. Set to <b>TRUE</b> to use the quadrilateral line anti-aliasing algorithm and to <b>FALSE</b> to use the alpha line anti-aliasing algorithm. For more info about this member, see Remarks.
-     * @type {BOOL}
      */
-    MultisampleEnable {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    MultisampleEnable : BOOL
 
     /**
      * Specifies whether to enable line antialiasing; only applies if doing line drawing and <b>MultisampleEnable</b> is <b>FALSE</b>. For more info about this member, see Remarks.
-     * @type {BOOL}
      */
-    AntialiasedLineEnable {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    AntialiasedLineEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -222,19 +184,12 @@ class D3D12_RASTERIZER_DESC extends Win32Struct {
      * <li>Don't operate the shader at sample frequency. Therefore, <a href="https://docs.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflection-issamplefrequencyshader">ID3D12ShaderReflection::IsSampleFrequencyShader</a> returns <b>FALSE</b>.</li>
      * </ul>Otherwise, rendering behavior is undefined.</div>
      * <div></div>
-     * @type {Integer}
      */
-    ForcedSampleCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ForcedSampleCount : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_conservative_rasterization_mode">D3D12_CONSERVATIVE_RASTERIZATION_MODE</a>-typed value that identifies whether conservative rasterization is on or off.
-     * @type {D3D12_CONSERVATIVE_RASTERIZATION_MODE}
      */
-    ConservativeRaster {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    ConservativeRaster : D3D12_CONSERVATIVE_RASTERIZATION_MODE
+
 }

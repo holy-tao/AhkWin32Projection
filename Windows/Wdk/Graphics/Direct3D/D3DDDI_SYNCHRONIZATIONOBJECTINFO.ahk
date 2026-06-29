@@ -1,87 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk" { D3DDDI_SYNCHRONIZATIONOBJECT_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_SYNCHRONIZATIONOBJECTINFO extends Win32Struct {
-    static sizeof => 68
+export default struct D3DDDI_SYNCHRONIZATIONOBJECTINFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    /**
-     * @type {D3DDDI_SYNCHRONIZATIONOBJECT_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _SynchronizationMutex {
+        InitialState : BOOL
+
     }
 
-    class _SynchronizationMutex extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Semaphore {
+        MaxCount : UInt32
 
-        /**
-         * @type {BOOL}
-         */
-        InitialState {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+        InitialCount : UInt32
+
     }
 
-    class _Semaphore extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    Type : D3DDDI_SYNCHRONIZATIONOBJECT_TYPE
 
-        /**
-         * @type {Integer}
-         */
-        MaxCount {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    SynchronizationMutex : D3DDDI_SYNCHRONIZATIONOBJECTINFO._SynchronizationMutex
 
-        /**
-         * @type {Integer}
-         */
-        InitialCount {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    }
-
-    /**
-     * @type {_SynchronizationMutex}
-     */
-    SynchronizationMutex {
-        get {
-            if(!this.HasProp("__SynchronizationMutex"))
-                this.__SynchronizationMutex := D3DDDI_SYNCHRONIZATIONOBJECTINFO._SynchronizationMutex(4, this)
-            return this.__SynchronizationMutex
-        }
-    }
-
-    /**
-     * @type {_Semaphore}
-     */
-    Semaphore {
-        get {
-            if(!this.HasProp("__Semaphore"))
-                this.__Semaphore := D3DDDI_SYNCHRONIZATIONOBJECTINFO._Semaphore(4, this)
-            return this.__Semaphore
-        }
-    }
-
-    /**
-     * @type {_Reserved}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := D3DDDI_SYNCHRONIZATIONOBJECTINFO._Reserved(4, this)
-            return this.__Reserved
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Semaphore', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO._Semaphore, offset: 4 })
+        DefineProp(this.Prototype, 'Reserved', { type: D3DDDI_SYNCHRONIZATIONOBJECTINFO._Reserved, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

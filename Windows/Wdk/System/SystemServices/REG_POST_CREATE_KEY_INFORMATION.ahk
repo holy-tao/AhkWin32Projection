@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class REG_POST_CREATE_KEY_INFORMATION extends Win32Struct {
-    static sizeof => 24
+export default struct REG_POST_CREATE_KEY_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    CompleteName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    CompleteName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Status : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    Status {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  * @architecture X64, Arm64
  */
-class DUPLICATE_EXTENTS_DATA32 extends Win32Struct {
-    static sizeof => 32
+export default struct DUPLICATE_EXTENTS_DATA32 {
+    #StructPack 8
 
-    static packingSize => 8
+    FileHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileHandle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SourceFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SourceFileOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    TargetFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetFileOffset {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    ByteCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
 }

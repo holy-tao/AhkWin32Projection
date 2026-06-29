@@ -1,48 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSNODEPROPERTY.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSNODEPROPERTY.ahk" { KSNODEPROPERTY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_CAMERACONTROL_NODE_FOCAL_LENGTH_S extends Win32Struct {
-    static sizeof => 40
+export default struct KSPROPERTY_CAMERACONTROL_NODE_FOCAL_LENGTH_S {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeProperty : KSNODEPROPERTY
 
-    /**
-     * @type {KSNODEPROPERTY}
-     */
-    NodeProperty {
-        get {
-            if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSNODEPROPERTY(0, this)
-            return this.__NodeProperty
-        }
-    }
+    lOcularFocalLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lOcularFocalLength {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    lObjectiveFocalLengthMin : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lObjectiveFocalLengthMin {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    lObjectiveFocalLengthMax : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lObjectiveFocalLengthMax {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
 }

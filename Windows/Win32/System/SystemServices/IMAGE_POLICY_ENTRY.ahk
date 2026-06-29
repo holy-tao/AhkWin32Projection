@@ -1,141 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_POLICY_ENTRY_TYPE.ahk
-#Include .\IMAGE_POLICY_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_POLICY_ENTRY_TYPE.ahk" { IMAGE_POLICY_ENTRY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IMAGE_POLICY_ID.ahk" { IMAGE_POLICY_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_POLICY_ENTRY extends Win32Struct {
-    static sizeof => 16
+export default struct IMAGE_POLICY_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _u {
+        None : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        None {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {BOOLEAN}
-         */
-        BoolValue {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Int8Value {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        UInt8Value {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Int16Value {
-            get => NumGet(this, 0, "short")
-            set => NumPut("short", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        UInt16Value {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Int32Value {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        UInt32Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Int64Value {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        UInt64Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {PSTR}
-         */
-        AnsiStringValue {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        UnicodeStringValue {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'BoolValue', { type: BOOLEAN, offset: 0 })
+            DefineProp(this.Prototype, 'Int8Value', { type: Int8, offset: 0 })
+            DefineProp(this.Prototype, 'UInt8Value', { type: Int8, offset: 0 })
+            DefineProp(this.Prototype, 'Int16Value', { type: Int16, offset: 0 })
+            DefineProp(this.Prototype, 'UInt16Value', { type: UInt16, offset: 0 })
+            DefineProp(this.Prototype, 'Int32Value', { type: Int32, offset: 0 })
+            DefineProp(this.Prototype, 'UInt32Value', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'Int64Value', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'UInt64Value', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'AnsiStringValue', { type: PSTR, offset: 0 })
+            DefineProp(this.Prototype, 'UnicodeStringValue', { type: PWSTR, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {IMAGE_POLICY_ENTRY_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : IMAGE_POLICY_ENTRY_TYPE
 
-    /**
-     * @type {IMAGE_POLICY_ID}
-     */
-    PolicyId {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    PolicyId : IMAGE_POLICY_ID
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := IMAGE_POLICY_ENTRY._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : IMAGE_POLICY_ENTRY._u
+
 }

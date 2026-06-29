@@ -1,7 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMEDP.ahk" { IMEDP }
+#Import ".\IMESHF.ahk" { IMESHF }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMEREG.ahk" { IMEREG }
+#Import ".\IMEFMT.ahk" { IMEFMT }
+#Import ".\IMEWRD.ahk" { IMEWRD }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\POSTBL.ahk" { POSTBL }
+#Import ".\IMEREL.ahk" { IMEREL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The IFEDictionary interface allows clients to access a Microsoft IME user dictionary.
@@ -10,26 +21,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifedictionary
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IFEDictionary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFEDictionary extends IUnknown {
     /**
      * The interface identifier for IFEDictionary
      * @type {Guid}
      */
-    static IID => Guid("{019f7153-e6db-11d0-83c3-00c04fddb82e}")
+    static IID := Guid("{019f7153-e6db-11d0-83c3-00c04fddb82e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFEDictionary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open                 : IntPtr
+        Close                : IntPtr
+        GetHeader            : IntPtr
+        DisplayProperty      : IntPtr
+        GetPosTable          : IntPtr
+        GetWords             : IntPtr
+        NextWords            : IntPtr
+        Create               : IntPtr
+        SetHeader            : IntPtr
+        ExistWord            : IntPtr
+        ExistDependency      : IntPtr
+        RegisterWord         : IntPtr
+        RegisterDependency   : IntPtr
+        GetDependencies      : IntPtr
+        NextDependencies     : IntPtr
+        ConvertFromOldMSIME  : IntPtr
+        ConvertFromUserToSys : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "GetHeader", "DisplayProperty", "GetPosTable", "GetWords", "NextWords", "Create", "SetHeader", "ExistWord", "ExistDependency", "RegisterWord", "RegisterDependency", "GetDependencies", "NextDependencies", "ConvertFromOldMSIME", "ConvertFromUserToSys"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFEDictionary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a dictionary file.
@@ -50,7 +84,7 @@ class IFEDictionary extends IUnknown {
     Open(pchDictPath, pshf) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
 
-        result := ComCall(3, this, "ptr", pchDictPath, "ptr", pshf, "HRESULT")
+        result := ComCall(3, this, "ptr", pchDictPath, IMESHF.Ptr, pshf, "HRESULT")
         return result
     }
 
@@ -162,7 +196,7 @@ class IFEDictionary extends IUnknown {
         pjfmtMarshal := pjfmt is VarRef ? "int*" : "ptr"
         pulTypeMarshal := pulType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pchDictPath, "ptr", pshf, pjfmtMarshal, pjfmt, pulTypeMarshal, pulType, "HRESULT")
+        result := ComCall(5, this, "ptr", pchDictPath, IMESHF.Ptr, pshf, pjfmtMarshal, pjfmt, pulTypeMarshal, pulType, "HRESULT")
         return result
     }
 
@@ -173,9 +207,7 @@ class IFEDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-displayproperty
      */
     DisplayProperty(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -441,7 +473,7 @@ class IFEDictionary extends IUnknown {
     Create(pchDictPath, pshf) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
 
-        result := ComCall(10, this, "ptr", pchDictPath, "ptr", pshf, "HRESULT")
+        result := ComCall(10, this, "ptr", pchDictPath, IMESHF.Ptr, pshf, "HRESULT")
         return result
     }
 
@@ -452,7 +484,7 @@ class IFEDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-setheader
      */
     SetHeader(pshf) {
-        result := ComCall(11, this, "ptr", pshf, "HRESULT")
+        result := ComCall(11, this, IMESHF.Ptr, pshf, "HRESULT")
         return result
     }
 
@@ -503,7 +535,7 @@ class IFEDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-existword
      */
     ExistWord(pwrd) {
-        result := ComCall(12, this, "ptr", pwrd, "int")
+        result := ComCall(12, this, IMEWRD.Ptr, pwrd, Int32)
         return result
     }
 
@@ -513,7 +545,7 @@ class IFEDictionary extends IUnknown {
      * @returns {HRESULT} 
      */
     ExistDependency(pdp) {
-        result := ComCall(13, this, "ptr", pdp, "HRESULT")
+        result := ComCall(13, this, IMEDP.Ptr, pdp, "HRESULT")
         return result
     }
 
@@ -598,7 +630,7 @@ class IFEDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-registerword
      */
     RegisterWord(reg, pwrd) {
-        result := ComCall(14, this, "int", reg, "ptr", pwrd, "HRESULT")
+        result := ComCall(14, this, IMEREG, reg, IMEWRD.Ptr, pwrd, "HRESULT")
         return result
     }
 
@@ -609,7 +641,7 @@ class IFEDictionary extends IUnknown {
      * @returns {HRESULT} 
      */
     RegisterDependency(reg, pdp) {
-        result := ComCall(15, this, "int", reg, "ptr", pdp, "HRESULT")
+        result := ComCall(15, this, IMEREG, reg, IMEDP.Ptr, pdp, "HRESULT")
         return result
     }
 
@@ -637,7 +669,7 @@ class IFEDictionary extends IUnknown {
         pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
         pcdpMarshal := pcdp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, "uint", ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, "uint", ulUkePos, "int", jrel, "uint", ulWordSrc, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcdpMarshal, pcdp, "HRESULT")
+        result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, "uint", ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, "uint", ulUkePos, IMEREL, jrel, "uint", ulWordSrc, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcdpMarshal, pcdp, "HRESULT")
         return result
     }
 
@@ -666,7 +698,7 @@ class IFEDictionary extends IUnknown {
     ConvertFromOldMSIME(pchDic, _pfnLog, reg) {
         pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
 
-        result := ComCall(18, this, "ptr", pchDic, "ptr", _pfnLog, "int", reg, "HRESULT")
+        result := ComCall(18, this, "ptr", pchDic, "ptr", _pfnLog, IMEREG, reg, "HRESULT")
         return result
     }
 
@@ -677,5 +709,57 @@ class IFEDictionary extends IUnknown {
     ConvertFromUserToSys() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFEDictionary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 3)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetHeader := CallbackCreate(GetMethod(implObj, "GetHeader"), flags, 5)
+        this.vtbl.DisplayProperty := CallbackCreate(GetMethod(implObj, "DisplayProperty"), flags, 2)
+        this.vtbl.GetPosTable := CallbackCreate(GetMethod(implObj, "GetPosTable"), flags, 3)
+        this.vtbl.GetWords := CallbackCreate(GetMethod(implObj, "GetWords"), flags, 10)
+        this.vtbl.NextWords := CallbackCreate(GetMethod(implObj, "NextWords"), flags, 4)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
+        this.vtbl.SetHeader := CallbackCreate(GetMethod(implObj, "SetHeader"), flags, 2)
+        this.vtbl.ExistWord := CallbackCreate(GetMethod(implObj, "ExistWord"), flags, 2)
+        this.vtbl.ExistDependency := CallbackCreate(GetMethod(implObj, "ExistDependency"), flags, 2)
+        this.vtbl.RegisterWord := CallbackCreate(GetMethod(implObj, "RegisterWord"), flags, 3)
+        this.vtbl.RegisterDependency := CallbackCreate(GetMethod(implObj, "RegisterDependency"), flags, 3)
+        this.vtbl.GetDependencies := CallbackCreate(GetMethod(implObj, "GetDependencies"), flags, 12)
+        this.vtbl.NextDependencies := CallbackCreate(GetMethod(implObj, "NextDependencies"), flags, 4)
+        this.vtbl.ConvertFromOldMSIME := CallbackCreate(GetMethod(implObj, "ConvertFromOldMSIME"), flags, 4)
+        this.vtbl.ConvertFromUserToSys := CallbackCreate(GetMethod(implObj, "ConvertFromUserToSys"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.GetHeader)
+        CallbackFree(this.vtbl.DisplayProperty)
+        CallbackFree(this.vtbl.GetPosTable)
+        CallbackFree(this.vtbl.GetWords)
+        CallbackFree(this.vtbl.NextWords)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.SetHeader)
+        CallbackFree(this.vtbl.ExistWord)
+        CallbackFree(this.vtbl.ExistDependency)
+        CallbackFree(this.vtbl.RegisterWord)
+        CallbackFree(this.vtbl.RegisterDependency)
+        CallbackFree(this.vtbl.GetDependencies)
+        CallbackFree(this.vtbl.NextDependencies)
+        CallbackFree(this.vtbl.ConvertFromOldMSIME)
+        CallbackFree(this.vtbl.ConvertFromUserToSys)
     }
 }

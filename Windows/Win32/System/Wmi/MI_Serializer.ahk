@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * An object tied to a specific serialization technique.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_serializer
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Serializer extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MI_Serializer {
+    #StructPack 8
 
     /**
      * Reserved for internals use.
-     * @type {Integer}
      */
-    reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved1 : Int64
 
     /**
      * Reserved for internals use.
-     * @type {Pointer}
      */
-    reserved2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    reserved2 : IntPtr
+
 }

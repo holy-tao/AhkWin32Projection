@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include ..\STATSTG.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\STATSTG.ahk" { STATSTG }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * The ILockBytes interface is implemented on a byte array object that is backed by some physical storage, such as a disk file, global memory, or a database.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ilockbytes
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class ILockBytes extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ILockBytes extends IUnknown {
     /**
      * The interface identifier for ILockBytes
      * @type {Guid}
      */
-    static IID => Guid("{0000000a-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000000a-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILockBytes interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReadAt       : IntPtr
+        WriteAt      : IntPtr
+        Flush        : IntPtr
+        SetSize      : IntPtr
+        LockRegion   : IntPtr
+        UnlockRegion : IntPtr
+        Stat         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadAt", "WriteAt", "Flush", "SetSize", "LockRegion", "UnlockRegion", "Stat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILockBytes.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ReadAt method reads a specified number of bytes starting at a specified offset from the beginning of the byte array object.
@@ -202,7 +216,39 @@ class ILockBytes extends IUnknown {
      */
     Stat(grfStatFlag) {
         pstatstg := STATSTG()
-        result := ComCall(9, this, "ptr", pstatstg, "uint", grfStatFlag, "HRESULT")
+        result := ComCall(9, this, STATSTG.Ptr, pstatstg, "uint", grfStatFlag, "HRESULT")
         return pstatstg
+    }
+
+    Query(iid) {
+        if (ILockBytes.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadAt := CallbackCreate(GetMethod(implObj, "ReadAt"), flags, 5)
+        this.vtbl.WriteAt := CallbackCreate(GetMethod(implObj, "WriteAt"), flags, 5)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.LockRegion := CallbackCreate(GetMethod(implObj, "LockRegion"), flags, 4)
+        this.vtbl.UnlockRegion := CallbackCreate(GetMethod(implObj, "UnlockRegion"), flags, 4)
+        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadAt)
+        CallbackFree(this.vtbl.WriteAt)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.SetSize)
+        CallbackFree(this.vtbl.LockRegion)
+        CallbackFree(this.vtbl.UnlockRegion)
+        CallbackFree(this.vtbl.Stat)
     }
 }

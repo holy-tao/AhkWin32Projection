@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IMAGE_INFO_EX extends Win32Struct {
-    static sizeof => 24
+export default struct IMAGE_INFO_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Size {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ImageInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ImageInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    FileObject {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

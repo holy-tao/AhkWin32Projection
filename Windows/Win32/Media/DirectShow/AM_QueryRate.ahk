@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AM_QueryRate structure is used to query the decoder's maximum full-frame rate for forward and reverse playback.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_queryrate
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_QueryRate extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct AM_QueryRate {
+    #StructPack 4
 
     /**
      * Specifies the maximum forward full-frame rate, as rate x 10000.
-     * @type {Integer}
      */
-    lMaxForwardFullFrame {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lMaxForwardFullFrame : Int32
 
     /**
      * Specifies the maximum reverse full-frame rate, as rate x 10000.
-     * @type {Integer}
      */
-    lMaxReverseFullFrame {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lMaxReverseFullFrame : Int32
+
 }

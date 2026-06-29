@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COORD.ahk" { COORD }
 
 /**
  * See reference information about the WINDOW_BUFFER_SIZE_RECORD structure, which describes a change in the size of the console screen buffer.
@@ -9,20 +8,12 @@
  * @see https://learn.microsoft.com/windows/console/window-buffer-size-record-str
  * @namespace Windows.Win32.System.Console
  */
-class WINDOW_BUFFER_SIZE_RECORD extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct WINDOW_BUFFER_SIZE_RECORD {
+    #StructPack 2
 
     /**
      * A [**COORD**](coord-str.md) structure that contains the size of the console screen buffer, in character cell columns and rows.
-     * @type {COORD}
      */
-    dwSize {
-        get {
-            if(!this.HasProp("__dwSize"))
-                this.__dwSize := COORD(0, this)
-            return this.__dwSize
-        }
-    }
+    dwSize : COORD
+
 }

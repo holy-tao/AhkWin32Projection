@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The AUXCAPS structure describes the capabilities of an auxiliary output device. (AUXCAPSW)
@@ -10,46 +10,28 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class AUXCAPSW extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 4
+export default struct AUXCAPSW {
+    #StructPack 4
 
     /**
      * Manufacturer identifier for the device driver for the auxiliary audio device. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMid : UInt16
 
     /**
      * Product identifier for the auxiliary audio device. Currently, no product identifiers are defined for auxiliary audio devices.
-     * @type {Integer}
      */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPid : UInt16
 
     /**
      * Version number of the device driver for the auxiliary audio device. The high-order byte is the major version number, and the low-order byte is the minor version number.
-     * @type {Integer}
      */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    vDriverVersion : UInt32
 
     /**
      * Product name in a null-terminated string.
-     * @type {String}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
+    szPname : WCHAR[32]
 
     /**
      * Type of the auxiliary audio output:
@@ -80,20 +62,10 @@ class AUXCAPSW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wTechnology {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
+    wTechnology : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
-    }
+    wReserved1 : UInt16
 
     /**
      * Describes optional functionality supported by the auxiliary audio device.
@@ -127,10 +99,7 @@ class AUXCAPSW extends Win32Struct {
      *  
      * 
      * If a device supports volume changes, the AUXCAPS_VOLUME flag will be set. If a device supports separate volume changes on the left and right channels, both AUXCAPS_VOLUME and the AUXCAPS_LRVOLUME will be set.
-     * @type {Integer}
      */
-    dwSupport {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwSupport : UInt32
+
 }

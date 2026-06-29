@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the initial setting of the function used to track the progress of a call to the TreeSetNamedSecurityInfo or TreeResetNamedSecurityInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting
  * @namespace Windows.Win32.Security.Authorization
  */
-class PROG_INVOKE_SETTING extends Win32Enum {
+export default struct PROG_INVOKE_SETTING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Never invoke the progress function.

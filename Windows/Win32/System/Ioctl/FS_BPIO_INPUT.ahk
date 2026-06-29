@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FS_BPIO_OPERATIONS.ahk
-#Include .\FS_BPIO_INFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FS_BPIO_INFLAGS.ahk" { FS_BPIO_INFLAGS }
+#Import ".\FS_BPIO_OPERATIONS.ahk" { FS_BPIO_OPERATIONS }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class FS_BPIO_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct FS_BPIO_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Operation : FS_BPIO_OPERATIONS
 
-    /**
-     * @type {FS_BPIO_OPERATIONS}
-     */
-    Operation {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    InFlags : FS_BPIO_INFLAGS
 
-    /**
-     * @type {FS_BPIO_INFLAGS}
-     */
-    InFlags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

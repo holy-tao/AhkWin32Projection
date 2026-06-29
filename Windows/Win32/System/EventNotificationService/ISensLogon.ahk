@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISensLogon interface handles logon events fired by SENS.
  * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isenslogon
  * @namespace Windows.Win32.System.EventNotificationService
  */
-class ISensLogon extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISensLogon extends IDispatch {
     /**
      * The interface identifier for ISensLogon
      * @type {Guid}
      */
-    static IID => Guid("{d597bab3-5b9f-11d1-8dd2-00aa004abd5e}")
+    static IID := Guid("{d597bab3-5b9f-11d1-8dd2-00aa004abd5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISensLogon interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Logon            : IntPtr
+        Logoff           : IntPtr
+        StartShell       : IntPtr
+        DisplayLock      : IntPtr
+        DisplayUnlock    : IntPtr
+        StartScreenSaver : IntPtr
+        StopScreenSaver  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Logon", "Logoff", "StartShell", "DisplayLock", "DisplayUnlock", "StartScreenSaver", "StopScreenSaver"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISensLogon.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Logon method notifies an application that a user is logged on. (ISensLogon.Logon)
@@ -61,7 +76,7 @@ class ISensLogon extends IDispatch {
     Logon(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(7, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -97,7 +112,7 @@ class ISensLogon extends IDispatch {
     Logoff(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(8, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -130,7 +145,7 @@ class ISensLogon extends IDispatch {
     StartShell(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(9, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -166,7 +181,7 @@ class ISensLogon extends IDispatch {
     DisplayLock(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(10, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -202,7 +217,7 @@ class ISensLogon extends IDispatch {
     DisplayUnlock(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(11, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -235,7 +250,7 @@ class ISensLogon extends IDispatch {
     StartScreenSaver(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(12, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrUserName, "HRESULT")
         return result
     }
 
@@ -268,7 +283,39 @@ class ISensLogon extends IDispatch {
     StopScreenSaver(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(13, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrUserName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISensLogon.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Logon := CallbackCreate(GetMethod(implObj, "Logon"), flags, 2)
+        this.vtbl.Logoff := CallbackCreate(GetMethod(implObj, "Logoff"), flags, 2)
+        this.vtbl.StartShell := CallbackCreate(GetMethod(implObj, "StartShell"), flags, 2)
+        this.vtbl.DisplayLock := CallbackCreate(GetMethod(implObj, "DisplayLock"), flags, 2)
+        this.vtbl.DisplayUnlock := CallbackCreate(GetMethod(implObj, "DisplayUnlock"), flags, 2)
+        this.vtbl.StartScreenSaver := CallbackCreate(GetMethod(implObj, "StartScreenSaver"), flags, 2)
+        this.vtbl.StopScreenSaver := CallbackCreate(GetMethod(implObj, "StopScreenSaver"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Logon)
+        CallbackFree(this.vtbl.Logoff)
+        CallbackFree(this.vtbl.StartShell)
+        CallbackFree(this.vtbl.DisplayLock)
+        CallbackFree(this.vtbl.DisplayUnlock)
+        CallbackFree(this.vtbl.StartScreenSaver)
+        CallbackFree(this.vtbl.StopScreenSaver)
     }
 }

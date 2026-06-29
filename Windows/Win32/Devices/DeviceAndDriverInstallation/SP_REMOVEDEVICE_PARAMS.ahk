@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
-#Include .\SETUP_DI_REMOVE_DEVICE_SCOPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SETUP_DI_REMOVE_DEVICE_SCOPE.ahk" { SETUP_DI_REMOVE_DEVICE_SCOPE }
+#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
+#Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
 
 /**
  * An SP_REMOVEDEVICE_PARAMS structure corresponds to the DIF_REMOVE installation request.
@@ -10,37 +9,19 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_REMOVEDEVICE_PARAMS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct SP_REMOVEDEVICE_PARAMS {
+    #StructPack 4
 
     /**
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
-     * @type {SP_CLASSINSTALL_HEADER}
      */
-    ClassInstallHeader {
-        get {
-            if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
-            return this.__ClassInstallHeader
-        }
-    }
+    ClassInstallHeader : SP_CLASSINSTALL_HEADER
 
-    /**
-     * @type {SETUP_DI_REMOVE_DEVICE_SCOPE}
-     */
-    Scope {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Scope : SETUP_DI_REMOVE_DEVICE_SCOPE
 
     /**
      * The hardware profile ID for profile-specific changes. Zero specifies the current hardware profile.
-     * @type {Integer}
      */
-    HwProfile {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HwProfile : UInt32
+
 }

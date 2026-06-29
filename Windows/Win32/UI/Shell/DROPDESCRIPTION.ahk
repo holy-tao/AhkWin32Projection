@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DROPIMAGETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DROPIMAGETYPE.ahk" { DROPIMAGETYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Describes the image and accompanying text for a drop object.
@@ -9,41 +9,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-dropdescription
  * @namespace Windows.Win32.UI.Shell
  */
-class DROPDESCRIPTION extends Win32Struct {
-    static sizeof => 1044
-
-    static packingSize => 4
+export default struct DROPDESCRIPTION {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-dropimagetype">DROPIMAGETYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-dropimagetype">DROPIMAGETYPE</a> indicating the stock image to use.
-     * @type {DROPIMAGETYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : DROPIMAGETYPE
 
     /**
      * Type: <b>WCHAR[MAX_PATH]</b>
      * 
      * Text such as "Move to %1".
-     * @type {String}
      */
-    szMessage {
-        get => StrGet(this.ptr + 4, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-16")
-    }
+    szMessage : WCHAR[260]
 
     /**
      * Type: <b>WCHAR[MAX_PATH]</b>
      * 
      * Text such as "Documents", inserted as specified by <b>szMessage</b>.
-     * @type {String}
      */
-    szInsert {
-        get => StrGet(this.ptr + 524, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 524, 259, "UTF-16")
-    }
+    szInsert : WCHAR[260]
+
 }

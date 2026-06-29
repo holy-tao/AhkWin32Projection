@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT.ahk
-#Include .\WS_ENDPOINT_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT.ahk" { WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
+#Import ".\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk" { WS_SECURITY_BINDING_PROPERTY_CONSTRAINT }
+#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT.ahk" { WS_SECURITY_BINDING_CONSTRAINT }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk" { WS_SECURITY_BINDING_CONSTRAINT_TYPE }
 
 /**
  * A security binding constraint that can be used to extract information about how to obtain an issued token from an issuing party.
@@ -22,30 +22,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_issued_token_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
-    static sizeof => 80
+export default struct WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _out extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _out {
+        issuerAddress : WS_ENDPOINT_ADDRESS.Ptr
 
-        /**
-         * @type {Pointer<WS_ENDPOINT_ADDRESS>}
-         */
-        issuerAddress {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        requestSecurityTokenTemplate : WS_XML_BUFFER.Ptr
 
-        /**
-         * @type {Pointer<WS_XML_BUFFER>}
-         */
-        requestSecurityTokenTemplate {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
     }
 
     /**
@@ -53,35 +38,20 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
      *                 
      * 
      * There are currently no binding-specific properties defined for this binding constraint.
-     * @type {WS_SECURITY_BINDING_CONSTRAINT}
      */
-    bindingConstraint {
-        get {
-            if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
-            return this.__bindingConstraint
-        }
-    }
+    bindingConstraint : WS_SECURITY_BINDING_CONSTRAINT
 
     /**
      * This specifies how the issued token should be attached to a message.
-     * @type {WS_MESSAGE_SECURITY_USAGE}
      */
-    bindingUsage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bindingUsage : WS_MESSAGE_SECURITY_USAGE
 
     /**
      * This field contains a list of claim types that 
      *                     are allowed in the policy.  Each claim type is 
      *                     a URI which identifies the type of claim.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    claimConstraints {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    claimConstraints : WS_XML_STRING.Ptr
 
     /**
      * The number of elements in the claimConstraints array.
@@ -89,47 +59,29 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
      * 
      * If this value is 0, then the claimConstraints array may be
      *                     <b>NULL</b>, and any claims are allowed to appear in the policy.
-     * @type {Integer}
      */
-    claimConstraintCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    claimConstraintCount : UInt32
 
     /**
      * A set of property constraints relating to how to request a security token.
      *                 
      * 
      * See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_request_security_token_property_constraint">WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT</a> for more information.
-     * @type {Pointer<WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT>}
      */
-    requestSecurityTokenPropertyConstraints {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    requestSecurityTokenPropertyConstraints : WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT.Ptr
 
     /**
      * The number of elements in the requestSecurityTokenPropertyConstraints array.
      *                 
      * 
      * If the array has zero elements, the requestSecurityTokenPropertyConstraints field may be <b>NULL</b>.
-     * @type {Integer}
      */
-    requestSecurityTokenPropertyConstraintCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    requestSecurityTokenPropertyConstraintCount : UInt32
 
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     entire contents of this structure will be filled out.
-     * @type {_out}
      */
-    out {
-        get {
-            if(!this.HasProp("__out"))
-                this.__out := WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT._out(64, this)
-            return this.__out
-        }
-    }
+    out : WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT._out
+
 }

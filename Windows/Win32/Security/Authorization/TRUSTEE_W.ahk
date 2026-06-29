@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRUSTEE_W.ahk
-#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
-#Include .\TRUSTEE_FORM.ahk
-#Include .\TRUSTEE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
+#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
 
 /**
  * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies. (Unicode)
@@ -49,56 +48,35 @@
  * @namespace Windows.Win32.Security.Authorization
  * @charset Unicode
  */
-class TRUSTEE_W extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TRUSTEE_W {
+    #StructPack 8
 
     /**
      * A pointer to a <b>TRUSTEE</b> structure that identifies a server account that can impersonate the user identified by the <b>ptstrName</b> member. This member is not currently supported and must be <b>NULL</b>.
-     * @type {Pointer<TRUSTEE_W>}
      */
-    pMultipleTrustee {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pMultipleTrustee : TRUSTEE_W.Ptr
 
     /**
      * A value of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-multiple_trustee_operation">MULTIPLE_TRUSTEE_OPERATION</a> enumeration type. Currently, this member must be NO_MULTIPLE_TRUSTEE.
-     * @type {MULTIPLE_TRUSTEE_OPERATION}
      */
-    MultipleTrusteeOperation {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    MultipleTrusteeOperation : MULTIPLE_TRUSTEE_OPERATION
 
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration type that indicates the type of data pointed to by the <b>ptstrName</b> member.
-     * @type {TRUSTEE_FORM}
      */
-    TrusteeForm {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    TrusteeForm : TRUSTEE_FORM
 
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration type that indicates whether the trustee is a user account, a group account, or an unknown account type.
-     * @type {TRUSTEE_TYPE}
      */
-    TrusteeType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    TrusteeType : TRUSTEE_TYPE
 
     /**
      * A pointer to a buffer that identifies the trustee and, optionally, contains information about object-specific ACEs. The type of data depends on the value of the <b>TrusteeForm</b> member.
-     * @type {PWSTR}
      */
-    ptstrName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ptstrName : PWSTR
+
 }

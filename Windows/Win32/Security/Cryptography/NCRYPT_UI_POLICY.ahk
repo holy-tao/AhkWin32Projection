@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used with the NCRYPT_UI_POLICY_PROPERTY property to contain strong key user interface information for a key.
  * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_ui_policy
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_UI_POLICY extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct NCRYPT_UI_POLICY {
+    #StructPack 8
 
     /**
      * The version number of the structure. This member must contain 1.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A set of flags that provide additional user interface information or requirements.
@@ -62,37 +56,22 @@ class NCRYPT_UI_POLICY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be used in the title of the strong key dialog box when the key is completed. If this member is <b>NULL</b>, a default creation title will be used in the strong key dialog box.  This member is only used on key finalization.
-     * @type {PWSTR}
      */
-    pszCreationTitle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszCreationTitle : PWSTR
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be displayed in the strong key dialog box as the name of the key. If this member is <b>NULL</b>, a default name will be used in the strong key dialog box.  This member is used both when the key is completed and when the key is used.
-     * @type {PWSTR}
      */
-    pszFriendlyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszFriendlyName : PWSTR
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be displayed in the strong key dialog box as the description of the key. If this member is <b>NULL</b>, a default description will be used in the strong key dialog box.  This member is used both when the key is completed and when the key is used.
-     * @type {PWSTR}
      */
-    pszDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszDescription : PWSTR
+
 }

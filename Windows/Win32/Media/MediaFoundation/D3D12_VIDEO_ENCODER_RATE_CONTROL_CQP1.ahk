@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1 {
+    #StructPack 4
 
-    static packingSize => 4
+    ConstantQP_FullIntracodedFrame : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstantQP_FullIntracodedFrame {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ConstantQP_InterPredictedFrame_PrevRefOnly : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstantQP_InterPredictedFrame_PrevRefOnly {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ConstantQP_InterPredictedFrame_BiDirectionalRef : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConstantQP_InterPredictedFrame_BiDirectionalRef {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    QualityVsSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QualityVsSpeed {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

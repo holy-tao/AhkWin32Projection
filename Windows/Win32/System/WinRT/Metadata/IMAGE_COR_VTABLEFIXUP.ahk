@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMAGE_COR_VTABLEFIXUP extends Win32Struct {
-    static sizeof => 8
+export default struct IMAGE_COR_VTABLEFIXUP {
+    #StructPack 4
 
-    static packingSize => 4
+    RVA : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RVA {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

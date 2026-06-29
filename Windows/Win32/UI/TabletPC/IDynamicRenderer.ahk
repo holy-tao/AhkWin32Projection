@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\IInkDrawingAttributes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
  * Displays the tablet pen data in real-time as that data is being handled by the RealTimeStylus Class object.
@@ -41,32 +44,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-idynamicrenderer
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IDynamicRenderer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDynamicRenderer extends IUnknown {
     /**
      * The interface identifier for IDynamicRenderer
      * @type {Guid}
      */
-    static IID => Guid("{a079468e-7165-46f9-b7af-98ad01a93009}")
+    static IID := Guid("{a079468e-7165-46f9-b7af-98ad01a93009}")
 
     /**
      * The class identifier for DynamicRenderer
      * @type {Guid}
      */
-    static CLSID => Guid("{ecd32aea-746f-4dcb-bf68-082757faff18}")
+    static CLSID := Guid("{ecd32aea-746f-4dcb-bf68-082757faff18}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDynamicRenderer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Enabled              : IntPtr
+        put_Enabled              : IntPtr
+        get_HWND                 : IntPtr
+        put_HWND                 : IntPtr
+        get_ClipRectangle        : IntPtr
+        put_ClipRectangle        : IntPtr
+        get_ClipRegion           : IntPtr
+        put_ClipRegion           : IntPtr
+        get_DrawingAttributes    : IntPtr
+        putref_DrawingAttributes : IntPtr
+        get_DataCacheEnabled     : IntPtr
+        put_DataCacheEnabled     : IntPtr
+        ReleaseCachedData        : IntPtr
+        Refresh                  : IntPtr
+        Draw                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Enabled", "put_Enabled", "get_HWND", "put_HWND", "get_ClipRectangle", "put_ClipRectangle", "get_ClipRegion", "put_ClipRegion", "get_DrawingAttributes", "putref_DrawingAttributes", "get_DataCacheEnabled", "put_DataCacheEnabled", "ReleaseCachedData", "Refresh", "Draw"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDynamicRenderer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -123,7 +147,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_enabled
      */
     get_Enabled() {
-        result := ComCall(3, this, "int*", &bEnabled := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &bEnabled := 0, "HRESULT")
         return bEnabled
     }
 
@@ -136,7 +160,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-put_enabled
      */
     put_Enabled(bEnabled) {
-        result := ComCall(4, this, "int", bEnabled, "HRESULT")
+        result := ComCall(4, this, BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -146,7 +170,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_hwnd
      */
     get_HWND() {
-        result := ComCall(5, this, "ptr*", &_hwnd := 0, "HRESULT")
+        result := ComCall(5, this, HANDLE_PTR.Ptr, &_hwnd := 0, "HRESULT")
         return _hwnd
     }
 
@@ -157,7 +181,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-put_hwnd
      */
     put_HWND(_hwnd) {
-        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(6, this, HANDLE_PTR, _hwnd, "HRESULT")
         return result
     }
 
@@ -175,7 +199,7 @@ class IDynamicRenderer extends IUnknown {
      */
     get_ClipRectangle() {
         prcClipRect := RECT()
-        result := ComCall(7, this, "ptr", prcClipRect, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, prcClipRect, "HRESULT")
         return prcClipRect
     }
 
@@ -193,7 +217,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-put_cliprectangle
      */
     put_ClipRectangle(prcClipRect) {
-        result := ComCall(8, this, "ptr", prcClipRect, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, prcClipRect, "HRESULT")
         return result
     }
 
@@ -208,7 +232,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_clipregion
      */
     get_ClipRegion() {
-        result := ComCall(9, this, "ptr*", &phClipRgn := 0, "HRESULT")
+        result := ComCall(9, this, HANDLE_PTR.Ptr, &phClipRgn := 0, "HRESULT")
         return phClipRgn
     }
 
@@ -224,7 +248,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-put_clipregion
      */
     put_ClipRegion(hClipRgn) {
-        result := ComCall(10, this, "ptr", hClipRgn, "HRESULT")
+        result := ComCall(10, this, HANDLE_PTR, hClipRgn, "HRESULT")
         return result
     }
 
@@ -383,7 +407,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_datacacheenabled
      */
     get_DataCacheEnabled() {
-        result := ComCall(13, this, "int*", &pfCacheData := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pfCacheData := 0, "HRESULT")
         return pfCacheData
     }
 
@@ -404,7 +428,7 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-put_datacacheenabled
      */
     put_DataCacheEnabled(fCacheData) {
-        result := ComCall(14, this, "int", fCacheData, "HRESULT")
+        result := ComCall(14, this, BOOL, fCacheData, "HRESULT")
         return result
     }
 
@@ -454,7 +478,55 @@ class IDynamicRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-draw
      */
     Draw(_hDC) {
-        result := ComCall(17, this, "ptr", _hDC, "HRESULT")
+        result := ComCall(17, this, HANDLE_PTR, _hDC, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDynamicRenderer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.put_HWND := CallbackCreate(GetMethod(implObj, "put_HWND"), flags, 2)
+        this.vtbl.get_ClipRectangle := CallbackCreate(GetMethod(implObj, "get_ClipRectangle"), flags, 2)
+        this.vtbl.put_ClipRectangle := CallbackCreate(GetMethod(implObj, "put_ClipRectangle"), flags, 2)
+        this.vtbl.get_ClipRegion := CallbackCreate(GetMethod(implObj, "get_ClipRegion"), flags, 2)
+        this.vtbl.put_ClipRegion := CallbackCreate(GetMethod(implObj, "put_ClipRegion"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_DataCacheEnabled := CallbackCreate(GetMethod(implObj, "get_DataCacheEnabled"), flags, 2)
+        this.vtbl.put_DataCacheEnabled := CallbackCreate(GetMethod(implObj, "put_DataCacheEnabled"), flags, 2)
+        this.vtbl.ReleaseCachedData := CallbackCreate(GetMethod(implObj, "ReleaseCachedData"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_HWND)
+        CallbackFree(this.vtbl.put_HWND)
+        CallbackFree(this.vtbl.get_ClipRectangle)
+        CallbackFree(this.vtbl.put_ClipRectangle)
+        CallbackFree(this.vtbl.get_ClipRegion)
+        CallbackFree(this.vtbl.put_ClipRegion)
+        CallbackFree(this.vtbl.get_DrawingAttributes)
+        CallbackFree(this.vtbl.putref_DrawingAttributes)
+        CallbackFree(this.vtbl.get_DataCacheEnabled)
+        CallbackFree(this.vtbl.put_DataCacheEnabled)
+        CallbackFree(this.vtbl.ReleaseCachedData)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Draw)
     }
 }

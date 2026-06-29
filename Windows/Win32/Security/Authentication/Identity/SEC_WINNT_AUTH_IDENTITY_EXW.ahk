@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SEC_WINNT_AUTH_IDENTITY_EXW (Unicode) structure contains information about a user.
@@ -9,82 +8,48 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @charset Unicode
  */
-class SEC_WINNT_AUTH_IDENTITY_EXW extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct SEC_WINNT_AUTH_IDENTITY_EXW {
+    #StructPack 8
 
     /**
      * An unsigned long that indicates the version number of the structure.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * An unsigned long that indicates the length, in bytes, of the structure.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
     /**
      * A Unicode or ANSI string that contains the name of the user account.
-     * @type {Pointer<Integer>}
      */
-    User {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    User : IntPtr
 
     /**
      * The length, in characters, of the <b>User</b> string.
-     * @type {Integer}
      */
-    UserLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    UserLength : UInt32
 
     /**
      * A Unicode or ANSI string that contains the name of the domain for the user account.
-     * @type {Pointer<Integer>}
      */
-    Domain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Domain : IntPtr
 
     /**
      * The length, in characters, of the <b>Domain</b> string.
-     * @type {Integer}
      */
-    DomainLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DomainLength : UInt32
 
     /**
      * A Unicode or ANSI string that contains the user password in plaintext. When you have finished using the password, remove the sensitive information from memory by calling the <a href="https://msdn.microsoft.com/2c4090a6-025b-4b7b-8f31-7e744ad51b39">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://msdn.microsoft.com/1d810f71-9bf5-4c5c-a573-c35081f604cf">Handling Passwords</a>.
-     * @type {Pointer<Integer>}
      */
-    Password {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Password : IntPtr
 
     /**
      * The length, in characters, of the <b>Password</b> string.
-     * @type {Integer}
      */
-    PasswordLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PasswordLength : UInt32
 
     /**
      * An unsigned long flag that indicates the type used by negotiable <a href="https://msdn.microsoft.com/3e9d7672-2314-45c8-8178-5a0afcfd0c50">security packages</a>.
@@ -135,30 +100,19 @@ class SEC_WINNT_AUTH_IDENTITY_EXW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    Flags : UInt32
 
     /**
      * A Unicode or ANSI string that contains a comma-separated list of names of security packages that are available when using the <a href="https://msdn.microsoft.com/3aa7e979-8b55-416d-bed1-28296055d38e">Microsoft Negotiate</a> provider.
      * 
      * Set this to "!ntlm" to specify that the <a href="https://msdn.microsoft.com/35a38858-d36f-45c9-95f4-2541a182f5ac">NTLM</a> package is not to be used.
-     * @type {Pointer<Integer>}
      */
-    PackageList {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PackageList : IntPtr
 
     /**
      * The length, in characters, of the <b>PackageList</b> string.
-     * @type {Integer}
      */
-    PackageListLength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    PackageListLength : UInt32
+
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CREATESTRUCTW.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CREATESTRUCTW.ahk" { CREATESTRUCTW }
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is created. (Unicode)
@@ -12,33 +11,21 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset Unicode
  */
-class CBT_CREATEWNDW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CBT_CREATEWNDW {
+    #StructPack 8
 
     /**
      * Type: <b>LPCREATESTRUCT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure that contains initialization parameters for the window about to be created.
-     * @type {Pointer<CREATESTRUCTW>}
      */
-    lpcs {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpcs : CREATESTRUCTW.Ptr
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window whose position in the Z order precedes that of the window being created. This member can also be <b>NULL</b>.
-     * @type {HWND}
      */
-    hwndInsertAfter {
-        get {
-            if(!this.HasProp("__hwndInsertAfter"))
-                this.__hwndInsertAfter := HWND(8, this)
-            return this.__hwndInsertAfter
-        }
-    }
+    hwndInsertAfter : HWND
+
 }

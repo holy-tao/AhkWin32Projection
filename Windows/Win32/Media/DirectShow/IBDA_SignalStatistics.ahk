@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_SignalStatistics interface is implemented on a BDA device filter and provides methods by which the filter can describe the condition of a signal that is being received.
@@ -10,26 +12,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_signalstatistics
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_SignalStatistics extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_SignalStatistics extends IUnknown {
     /**
      * The interface identifier for IBDA_SignalStatistics
      * @type {Guid}
      */
-    static IID => Guid("{1347d106-cf3a-428a-a5cb-ac0d9a2a4338}")
+    static IID := Guid("{1347d106-cf3a-428a-a5cb-ac0d9a2a4338}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_SignalStatistics interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_SignalStrength : IntPtr
+        get_SignalStrength : IntPtr
+        put_SignalQuality  : IntPtr
+        get_SignalQuality  : IntPtr
+        put_SignalPresent  : IntPtr
+        get_SignalPresent  : IntPtr
+        put_SignalLocked   : IntPtr
+        get_SignalLocked   : IntPtr
+        put_SampleTime     : IntPtr
+        get_SampleTime     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_SignalStrength", "get_SignalStrength", "put_SignalQuality", "get_SignalQuality", "put_SignalPresent", "get_SignalPresent", "put_SignalLocked", "get_SignalLocked", "put_SampleTime", "get_SampleTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_SignalStatistics.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -126,7 +144,7 @@ class IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-put_signalpresent
      */
     put_SignalPresent(fPresent) {
-        result := ComCall(7, this, "char", fPresent, "HRESULT")
+        result := ComCall(7, this, BOOLEAN, fPresent, "HRESULT")
         return result
     }
 
@@ -150,7 +168,7 @@ class IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-put_signallocked
      */
     put_SignalLocked(fLocked) {
-        result := ComCall(9, this, "char", fLocked, "HRESULT")
+        result := ComCall(9, this, BOOLEAN, fLocked, "HRESULT")
         return result
     }
 
@@ -189,5 +207,43 @@ class IBDA_SignalStatistics extends IUnknown {
 
         result := ComCall(12, this, plmsSampleTimeMarshal, plmsSampleTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_SignalStatistics.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_SignalStrength := CallbackCreate(GetMethod(implObj, "put_SignalStrength"), flags, 2)
+        this.vtbl.get_SignalStrength := CallbackCreate(GetMethod(implObj, "get_SignalStrength"), flags, 2)
+        this.vtbl.put_SignalQuality := CallbackCreate(GetMethod(implObj, "put_SignalQuality"), flags, 2)
+        this.vtbl.get_SignalQuality := CallbackCreate(GetMethod(implObj, "get_SignalQuality"), flags, 2)
+        this.vtbl.put_SignalPresent := CallbackCreate(GetMethod(implObj, "put_SignalPresent"), flags, 2)
+        this.vtbl.get_SignalPresent := CallbackCreate(GetMethod(implObj, "get_SignalPresent"), flags, 2)
+        this.vtbl.put_SignalLocked := CallbackCreate(GetMethod(implObj, "put_SignalLocked"), flags, 2)
+        this.vtbl.get_SignalLocked := CallbackCreate(GetMethod(implObj, "get_SignalLocked"), flags, 2)
+        this.vtbl.put_SampleTime := CallbackCreate(GetMethod(implObj, "put_SampleTime"), flags, 2)
+        this.vtbl.get_SampleTime := CallbackCreate(GetMethod(implObj, "get_SampleTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_SignalStrength)
+        CallbackFree(this.vtbl.get_SignalStrength)
+        CallbackFree(this.vtbl.put_SignalQuality)
+        CallbackFree(this.vtbl.get_SignalQuality)
+        CallbackFree(this.vtbl.put_SignalPresent)
+        CallbackFree(this.vtbl.get_SignalPresent)
+        CallbackFree(this.vtbl.put_SignalLocked)
+        CallbackFree(this.vtbl.get_SignalLocked)
+        CallbackFree(this.vtbl.put_SampleTime)
+        CallbackFree(this.vtbl.get_SampleTime)
     }
 }

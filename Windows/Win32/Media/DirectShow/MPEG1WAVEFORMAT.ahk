@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * The MPEG1WAVEFORMAT structure describes the format of MPEG-1 audio data.
@@ -54,22 +53,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-mpeg1waveformat
  * @namespace Windows.Win32.Media.DirectShow
  */
-class MPEG1WAVEFORMAT extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct MPEG1WAVEFORMAT {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that contains information about the audio format. See Remarks.
-     * @type {WAVEFORMATEX}
      */
-    wfx {
-        get {
-            if(!this.HasProp("__wfx"))
-                this.__wfx := WAVEFORMATEX(0, this)
-            return this.__wfx
-        }
-    }
+    wfx : WAVEFORMATEX
 
     /**
      * Specifies the MPEG audio layer, as defined by the following constants:
@@ -113,21 +103,13 @@ class MPEG1WAVEFORMAT extends Win32Struct {
      *  
      * 
      * Some MPEG streams may contain frames from more than one layer. If so, combine the flags with a bitwise <b>OR</b>.
-     * @type {Integer}
      */
-    fwHeadLayer {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    fwHeadLayer : UInt16
 
     /**
      * Specifies the bitrate, in bits per second. This value gives the actual bitrate, not the MPEG frame header code. If the bitrate is variable, or is a non-standard bitrate, set this field to zero.
-     * @type {Integer}
      */
-    dwHeadBitrate {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwHeadBitrate : UInt32
 
     /**
      * Specifies the stream mode, as defined by the following constants:
@@ -181,12 +163,8 @@ class MPEG1WAVEFORMAT extends Win32Struct {
      *  
      * 
      * Some MPEG streams may contain frames with different modes. If so, combine the flags with a bitwise OR.
-     * @type {Integer}
      */
-    fwHeadMode {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    fwHeadMode : UInt16
 
     /**
      * Specifies the mode extension for joint-stereo encoding:
@@ -228,12 +206,8 @@ class MPEG1WAVEFORMAT extends Win32Struct {
      * These values may be combined with a bitwise <b>OR</b>. In general, encoders will dynamically switch between extension modes according to the characteristics of the signal. Therefore, for normal joint-stereo encoding, set this field to 0x0F (the bitwise OR of all the flags). However, you can use this field to limit the encoder to a set of allowable encoding types.
      * 
      * This field applies only when <b>fwHeadMode</b> includes ACM_MPEG_JOINTSTEREO. For other modes, set this field to zero.
-     * @type {Integer}
      */
-    fwHeadModeExt {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    fwHeadModeExt : UInt16
 
     /**
      * Specifies the de-emphasis required by the decoder:
@@ -265,12 +239,8 @@ class MPEG1WAVEFORMAT extends Win32Struct {
      * <td>CCITT J.17 </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wHeadEmphasis {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    wHeadEmphasis : UInt16
 
     /**
      * Specifies a bitwise combination of zero or more of the following flags:
@@ -334,28 +304,17 @@ class MPEG1WAVEFORMAT extends Win32Struct {
      *  
      * 
      * An encoder will use these flags to set the corresponding bits in the MPEG audio frame headers.
-     * @type {Integer}
      */
-    fwHeadFlags {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    fwHeadFlags : UInt16
 
     /**
      * Specifies the least significant 32 bits of the presentation time stamp (PTS) of the first frame of the audio stream.
-     * @type {Integer}
      */
-    dwPTSLow {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwPTSLow : UInt32
 
     /**
      * Specifies the most significant bit of the PTS. The <b>dwPTSLow</b> and <b>dwPTSHigh</b> fields can be treated as a single 64-bit value.
-     * @type {Integer}
      */
-    dwPTSHigh {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwPTSHigh : UInt32
+
 }

@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides extended information about a partition on a Physical Disk resource.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/nn-msclus-iscluspartitionex
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ClusPartitionEx extends Win32Struct {
-    static sizeof => 0
+export default struct ClusPartitionEx {
+    #StructPack 1
 
-    static packingSize => 1
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_POINT_2F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * Contains the gradient origin offset and the size and position of the gradient ellipse for an ID2D1RadialGradientBrush.
@@ -13,58 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_radial_gradient_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * In the brush's coordinate space, the center of the gradient ellipse.
-     * @type {D2D_POINT_2F}
      */
-    center {
-        get {
-            if(!this.HasProp("__center"))
-                this.__center := D2D_POINT_2F(0, this)
-            return this.__center
-        }
-    }
+    center : D2D_POINT_2F
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * In the brush's coordinate space, the offset of the gradient origin relative to the gradient ellipse's center.
-     * @type {D2D_POINT_2F}
      */
-    gradientOriginOffset {
-        get {
-            if(!this.HasProp("__gradientOriginOffset"))
-                this.__gradientOriginOffset := D2D_POINT_2F(8, this)
-            return this.__gradientOriginOffset
-        }
-    }
+    gradientOriginOffset : D2D_POINT_2F
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * In the brush's coordinate space, the x-radius  of the gradient ellipse.
-     * @type {Float}
      */
-    radiusX {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    radiusX : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * In the brush's coordinate space, the y-radius  of the gradient ellipse.
-     * @type {Float}
      */
-    radiusY {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    radiusY : Float32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_DEVICE_TYPE extends Win32Enum {
+export default struct DXVAHD_DEVICE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Hardware device. Video processing is performed in the GPU by the driver.

@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDDrawExclModeVideoCallback interface is a callback interface for the IDDrawExclModeVideo interface.This callback interface enables applications to get synchronous notification about changes to the overlay position, size, visibility, and so on, so that the application can adjust its video visibility, size, and position. This avoids any color key flash at the beginning, end, or during playback. The application must implement the interface. It is important that none of the methods block or slow down the video processing, because this will cause problems with playback.Use this interface if you are writing a filter that supports IDDrawExclModeVideo or needs to generate callbacks to enable an application to draw color keys at the right time.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iddrawexclmodevideocallback
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDDrawExclModeVideoCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDDrawExclModeVideoCallback extends IUnknown {
     /**
      * The interface identifier for IDDrawExclModeVideoCallback
      * @type {Guid}
      */
-    static IID => Guid("{913c24a0-20ab-11d2-9038-00a0c9697298}")
+    static IID := Guid("{913c24a0-20ab-11d2-9038-00a0c9697298}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDDrawExclModeVideoCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnUpdateOverlay  : IntPtr
+        OnUpdateColorKey : IntPtr
+        OnUpdateSize     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnUpdateOverlay", "OnUpdateColorKey", "OnUpdateSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDDrawExclModeVideoCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnUpdateOverlay method informs the application when the overlay surface for the video is about to become visible, invisible, change size, or change position, so that the application can repaint its window appropriately.
@@ -74,7 +87,7 @@ class IDDrawExclModeVideoCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideocallback-onupdateoverlay
      */
     OnUpdateOverlay(bBefore, dwFlags, bOldVisible, prcOldSrc, prcOldDest, bNewVisible, prcNewSrc, prcNewDest) {
-        result := ComCall(3, this, "int", bBefore, "uint", dwFlags, "int", bOldVisible, "ptr", prcOldSrc, "ptr", prcOldDest, "int", bNewVisible, "ptr", prcNewSrc, "ptr", prcNewDest, "HRESULT")
+        result := ComCall(3, this, BOOL, bBefore, "uint", dwFlags, BOOL, bOldVisible, RECT.Ptr, prcOldSrc, RECT.Ptr, prcOldDest, BOOL, bNewVisible, RECT.Ptr, prcNewSrc, RECT.Ptr, prcNewDest, "HRESULT")
         return result
     }
 
@@ -115,7 +128,7 @@ class IDDrawExclModeVideoCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideocallback-onupdatecolorkey
      */
     OnUpdateColorKey(pKey, dwColor) {
-        result := ComCall(4, this, "ptr", pKey, "uint", dwColor, "HRESULT")
+        result := ComCall(4, this, COLORKEY.Ptr, pKey, "uint", dwColor, "HRESULT")
         return result
     }
 
@@ -133,5 +146,29 @@ class IDDrawExclModeVideoCallback extends IUnknown {
     OnUpdateSize(dwWidth, dwHeight, dwARWidth, dwARHeight) {
         result := ComCall(5, this, "uint", dwWidth, "uint", dwHeight, "uint", dwARWidth, "uint", dwARHeight, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDDrawExclModeVideoCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnUpdateOverlay := CallbackCreate(GetMethod(implObj, "OnUpdateOverlay"), flags, 9)
+        this.vtbl.OnUpdateColorKey := CallbackCreate(GetMethod(implObj, "OnUpdateColorKey"), flags, 3)
+        this.vtbl.OnUpdateSize := CallbackCreate(GetMethod(implObj, "OnUpdateSize"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnUpdateOverlay)
+        CallbackFree(this.vtbl.OnUpdateColorKey)
+        CallbackFree(this.vtbl.OnUpdateSize)
     }
 }

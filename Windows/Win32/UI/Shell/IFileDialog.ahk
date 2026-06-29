@@ -1,8 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IModalWindow.ahk
-#Include .\IShellItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILEOPENDIALOGOPTIONS.ahk" { FILEOPENDIALOGOPTIONS }
+#Import "Common\COMDLG_FILTERSPEC.ahk" { COMDLG_FILTERSPEC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IModalWindow.ahk" { IModalWindow }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\IFileDialogEvents.ahk" { IFileDialogEvents }
+#Import ".\IShellItemFilter.ahk" { IShellItemFilter }
+#Import ".\FDAP.ahk" { FDAP }
 
 /**
  * Exposes methods that initialize, show, and get results from the common file dialog.
@@ -13,26 +20,55 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifiledialog
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileDialog extends IModalWindow {
-
-    static sizeof => A_PtrSize
+export default struct IFileDialog extends IModalWindow {
     /**
      * The interface identifier for IFileDialog
      * @type {Guid}
      */
-    static IID => Guid("{42f85136-db7e-439c-85f1-e4075d135fc8}")
+    static IID := Guid("{42f85136-db7e-439c-85f1-e4075d135fc8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileDialog interfaces
+    */
+    struct Vtbl extends IModalWindow.Vtbl {
+        SetFileTypes        : IntPtr
+        SetFileTypeIndex    : IntPtr
+        GetFileTypeIndex    : IntPtr
+        Advise              : IntPtr
+        Unadvise            : IntPtr
+        SetOptions          : IntPtr
+        GetOptions          : IntPtr
+        SetDefaultFolder    : IntPtr
+        SetFolder           : IntPtr
+        GetFolder           : IntPtr
+        GetCurrentSelection : IntPtr
+        SetFileName         : IntPtr
+        GetFileName         : IntPtr
+        SetTitle            : IntPtr
+        SetOkButtonLabel    : IntPtr
+        SetFileNameLabel    : IntPtr
+        GetResult           : IntPtr
+        AddPlace            : IntPtr
+        SetDefaultExtension : IntPtr
+        Close               : IntPtr
+        SetClientGuid       : IntPtr
+        ClearClientData     : IntPtr
+        SetFilter           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFileTypes", "SetFileTypeIndex", "GetFileTypeIndex", "Advise", "Unadvise", "SetOptions", "GetOptions", "SetDefaultFolder", "SetFolder", "GetFolder", "GetCurrentSelection", "SetFileName", "GetFileName", "SetTitle", "SetOkButtonLabel", "SetFileNameLabel", "GetResult", "AddPlace", "SetDefaultExtension", "Close", "SetClientGuid", "ClearClientData", "SetFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the file types that the dialog can open or save.
@@ -93,7 +129,7 @@ class IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-setfiletypes
      */
     SetFileTypes(cFileTypes, rgFilterSpec) {
-        result := ComCall(4, this, "uint", cFileTypes, "ptr", rgFilterSpec, "HRESULT")
+        result := ComCall(4, this, "uint", cFileTypes, COMDLG_FILTERSPEC.Ptr, rgFilterSpec, "HRESULT")
         return result
     }
 
@@ -174,7 +210,7 @@ class IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-setoptions
      */
     SetOptions(fos) {
-        result := ComCall(9, this, "uint", fos, "HRESULT")
+        result := ComCall(9, this, FILEOPENDIALOGOPTIONS, fos, "HRESULT")
         return result
     }
 
@@ -283,7 +319,7 @@ class IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getfilename
      */
     GetFileName() {
-        result := ComCall(16, this, "ptr*", &pszName := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &pszName := 0, "HRESULT")
         return pszName
     }
 
@@ -372,7 +408,7 @@ class IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-addplace
      */
     AddPlace(psi, _fdap) {
-        result := ComCall(21, this, "ptr", psi, "int", _fdap, "HRESULT")
+        result := ComCall(21, this, "ptr", psi, FDAP, _fdap, "HRESULT")
         return result
     }
 
@@ -432,7 +468,7 @@ class IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-setclientguid
      */
     SetClientGuid(guid) {
-        result := ComCall(24, this, "ptr", guid, "HRESULT")
+        result := ComCall(24, this, Guid.Ptr, guid, "HRESULT")
         return result
     }
 
@@ -466,5 +502,69 @@ class IFileDialog extends IModalWindow {
     SetFilter(pFilter) {
         result := ComCall(26, this, "ptr", pFilter, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFileTypes := CallbackCreate(GetMethod(implObj, "SetFileTypes"), flags, 3)
+        this.vtbl.SetFileTypeIndex := CallbackCreate(GetMethod(implObj, "SetFileTypeIndex"), flags, 2)
+        this.vtbl.GetFileTypeIndex := CallbackCreate(GetMethod(implObj, "GetFileTypeIndex"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 2)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.SetDefaultFolder := CallbackCreate(GetMethod(implObj, "SetDefaultFolder"), flags, 2)
+        this.vtbl.SetFolder := CallbackCreate(GetMethod(implObj, "SetFolder"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 2)
+        this.vtbl.GetCurrentSelection := CallbackCreate(GetMethod(implObj, "GetCurrentSelection"), flags, 2)
+        this.vtbl.SetFileName := CallbackCreate(GetMethod(implObj, "SetFileName"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetOkButtonLabel := CallbackCreate(GetMethod(implObj, "SetOkButtonLabel"), flags, 2)
+        this.vtbl.SetFileNameLabel := CallbackCreate(GetMethod(implObj, "SetFileNameLabel"), flags, 2)
+        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 2)
+        this.vtbl.AddPlace := CallbackCreate(GetMethod(implObj, "AddPlace"), flags, 3)
+        this.vtbl.SetDefaultExtension := CallbackCreate(GetMethod(implObj, "SetDefaultExtension"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
+        this.vtbl.SetClientGuid := CallbackCreate(GetMethod(implObj, "SetClientGuid"), flags, 2)
+        this.vtbl.ClearClientData := CallbackCreate(GetMethod(implObj, "ClearClientData"), flags, 1)
+        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFileTypes)
+        CallbackFree(this.vtbl.SetFileTypeIndex)
+        CallbackFree(this.vtbl.GetFileTypeIndex)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.SetOptions)
+        CallbackFree(this.vtbl.GetOptions)
+        CallbackFree(this.vtbl.SetDefaultFolder)
+        CallbackFree(this.vtbl.SetFolder)
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.GetCurrentSelection)
+        CallbackFree(this.vtbl.SetFileName)
+        CallbackFree(this.vtbl.GetFileName)
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.SetOkButtonLabel)
+        CallbackFree(this.vtbl.SetFileNameLabel)
+        CallbackFree(this.vtbl.GetResult)
+        CallbackFree(this.vtbl.AddPlace)
+        CallbackFree(this.vtbl.SetDefaultExtension)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.SetClientGuid)
+        CallbackFree(this.vtbl.ClearClientData)
+        CallbackFree(this.vtbl.SetFilter)
     }
 }

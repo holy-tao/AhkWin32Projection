@@ -1,48 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMDT_VIDPN_TARGET_MODE {
+    #StructPack 8
 
-    static packingSize => 8
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VideoSignalInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VideoSignalInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    WireFormatAndPreference : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WireFormatAndPreference {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Preference
-     * - Anonymous
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 
     /**
      * @type {Integer}
@@ -59,12 +28,10 @@ class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct {
         get => (this._bitfield >> 2) & 0x3FFFFFFF
         set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
+    MinimumVSyncFreq : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MinimumVSyncFreq {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

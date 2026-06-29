@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
+#Import ".\IDirectSoundBuffer8.ahk" { IDirectSoundBuffer8 }
+#Import ".\IDirectSoundCaptureBuffer8.ahk" { IDirectSoundCaptureBuffer8 }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class IDirectSoundFullDuplex extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectSoundFullDuplex extends IUnknown {
     /**
      * The interface identifier for IDirectSoundFullDuplex
      * @type {Guid}
      */
-    static IID => Guid("{edcb4c7a-daab-4216-a42e-6c50596ddc1d}")
+    static IID := Guid("{edcb4c7a-daab-4216-a42e-6c50596ddc1d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectSoundFullDuplex interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectSoundFullDuplex.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -64,9 +77,27 @@ class IDirectSoundFullDuplex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pCaptureGuid, pRenderGuid, lpDscBufferDesc, lpDsBufferDesc, _hWnd, dwLevel, lplpDirectSoundCaptureBuffer8, lplpDirectSoundBuffer8) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(3, this, "ptr", pCaptureGuid, "ptr", pRenderGuid, "ptr", lpDscBufferDesc, "ptr", lpDsBufferDesc, "ptr", _hWnd, "uint", dwLevel, "ptr*", lplpDirectSoundCaptureBuffer8, "ptr*", lplpDirectSoundBuffer8, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pCaptureGuid, Guid.Ptr, pRenderGuid, DSCBUFFERDESC.Ptr, lpDscBufferDesc, DSBUFFERDESC.Ptr, lpDsBufferDesc, HWND, _hWnd, "uint", dwLevel, IDirectSoundCaptureBuffer8.Ptr, lplpDirectSoundCaptureBuffer8, IDirectSoundBuffer8.Ptr, lplpDirectSoundBuffer8, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectSoundFullDuplex.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
     }
 }

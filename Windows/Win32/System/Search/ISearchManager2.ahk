@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISearchManager.ahk
-#Include .\ISearchCatalogManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
+#Import ".\ISearchManager.ahk" { ISearchManager }
 
 /**
  * Enabled applications to create and delete custom catalogs in the Windows Search indexer.
@@ -18,26 +20,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchmanager2
  * @namespace Windows.Win32.System.Search
  */
-class ISearchManager2 extends ISearchManager {
-
-    static sizeof => A_PtrSize
+export default struct ISearchManager2 extends ISearchManager {
     /**
      * The interface identifier for ISearchManager2
      * @type {Guid}
      */
-    static IID => Guid("{dbab3f73-db19-4a79-bfc0-a61a93886ddf}")
+    static IID := Guid("{dbab3f73-db19-4a79-bfc0-a61a93886ddf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchManager2 interfaces
+    */
+    struct Vtbl extends ISearchManager.Vtbl {
+        CreateCatalog : IntPtr
+        DeleteCatalog : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateCatalog", "DeleteCatalog"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchManager2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new custom catalog in the Windows Search indexer and returns a reference to it.
@@ -106,5 +116,27 @@ class ISearchManager2 extends ISearchManager {
 
         result := ComCall(17, this, "ptr", pszCatalog, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISearchManager2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateCatalog := CallbackCreate(GetMethod(implObj, "CreateCatalog"), flags, 3)
+        this.vtbl.DeleteCatalog := CallbackCreate(GetMethod(implObj, "DeleteCatalog"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateCatalog)
+        CallbackFree(this.vtbl.DeleteCatalog)
     }
 }

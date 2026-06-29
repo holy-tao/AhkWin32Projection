@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class EXBMINFOHEADER extends Win32Struct {
-    static sizeof => 44
+export default struct EXBMINFOHEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    bmi : BITMAPINFOHEADER
 
-    /**
-     * @type {BITMAPINFOHEADER}
-     */
-    bmi {
-        get {
-            if(!this.HasProp("__bmi"))
-                this.__bmi := BITMAPINFOHEADER(0, this)
-            return this.__bmi
-        }
-    }
+    biExtDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    biExtDataOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

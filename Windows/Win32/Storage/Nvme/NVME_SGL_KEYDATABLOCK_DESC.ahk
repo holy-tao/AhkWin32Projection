@@ -1,28 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct {
-    static sizeof => 16
+export default struct NVME_SGL_KEYDATABLOCK_DESC {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Identifier_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Identifier {
         /**
          * This bitfield backs the following members:
          * - SubType
          * - Type
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -39,54 +31,18 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct {
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Address {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Address : Int64
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Length {
-        get {
-            if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")
-            return this.__LengthProxyArray
-        }
-    }
+    Length : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Key {
-        get {
-            if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 11, 4, Primitive, "char")
-            return this.__KeyProxyArray
-        }
-    }
+    Key : Int8[4]
 
-    /**
-     * @type {_Identifier_e__Union}
-     */
-    Identifier {
-        get {
-            if(!this.HasProp("__Identifier"))
-                this.__Identifier := NVME_SGL_KEYDATABLOCK_DESC._Identifier_e__Union(15, this)
-            return this.__Identifier
-        }
-    }
+    Identifier : NVME_SGL_KEYDATABLOCK_DESC._Identifier
+
 }

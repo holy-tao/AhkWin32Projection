@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPIN_PHYSICALCONNECTION extends Win32Struct {
-    static sizeof => 12
+export default struct KSPIN_PHYSICALCONNECTION {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Pin : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pin {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SymbolicLinkName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    SymbolicLinkName {
-        get => StrGet(this.ptr + 8, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 0, "UTF-16")
-    }
 }

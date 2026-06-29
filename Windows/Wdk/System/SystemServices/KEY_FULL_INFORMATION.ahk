@@ -1,99 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KEY_FULL_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct KEY_FULL_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    LastWriteTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastWriteTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    TitleIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TitleIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ClassOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClassOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ClassLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClassLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SubKeys : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubKeys {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxNameLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxNameLen {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaxClassLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxClassLen {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Values : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Values {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MaxValueNameLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxValueNameLen {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaxValueDataLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxValueDataLen {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Class : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    Class {
-        get => StrGet(this.ptr + 44, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 0, "UTF-16")
-    }
 }

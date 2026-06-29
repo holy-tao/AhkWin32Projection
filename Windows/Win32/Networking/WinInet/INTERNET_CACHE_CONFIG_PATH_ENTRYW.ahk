@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  * @charset Unicode
  */
-class INTERNET_CACHE_CONFIG_PATH_ENTRYW extends Win32Struct {
-    static sizeof => 524
+export default struct INTERNET_CACHE_CONFIG_PATH_ENTRYW {
+    #StructPack 4
 
-    static packingSize => 4
+    CachePath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    CachePath {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
+    dwCacheSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCacheSize {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
-    }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_VAR_DATA_DESC extends Win32Struct {
-    static sizeof => 16
+export default struct NDIS_VAR_DATA_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MaximumLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaximumLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Offset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Offset {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

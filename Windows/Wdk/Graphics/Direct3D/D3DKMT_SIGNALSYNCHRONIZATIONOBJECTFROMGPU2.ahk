@@ -1,90 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 extends Win32Struct {
-    static sizeof => 104
+export default struct D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 {
+    #StructPack 8
 
-    static packingSize => 8
+    ObjectCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ObjectHandleArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ObjectHandleArray {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    BroadcastContextCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BroadcastContextCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BroadcastContextArray : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    BroadcastContextArray {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FenceValue {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    CpuEventHandle {
-        get {
-            if(!this.HasProp("__CpuEventHandle"))
-                this.__CpuEventHandle := HANDLE(40, this)
-            return this.__CpuEventHandle
-        }
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    MonitoredFenceValueArray {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'CpuEventHandle', { type: HANDLE, offset: 40 })
+        DefineProp(this.Prototype, 'MonitoredFenceValueArray', { type: IntPtr, offset: 40 })
+        DefineProp(this.Prototype, 'Reserved', { type: Int64[8], offset: 40 })
+        this.DeleteProp("__New")
     }
 }

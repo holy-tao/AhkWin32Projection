@@ -1,116 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  */
-class PROPSHEETPAGEA_V1 extends Win32Struct {
-    static sizeof => 72
+export default struct PROPSHEETPAGEA_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hInstance : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(8, this)
-            return this.__hInstance
-        }
-    }
+    pszTemplate : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszTemplate {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    hIcon : HICON
 
-    /**
-     * @type {Pointer<DLGTEMPLATE>}
-     */
-    pResource {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszTitle : PSTR
 
-    /**
-     * @type {HICON}
-     */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(24, this)
-            return this.__hIcon
-        }
-    }
+    pfnDlgProc : IntPtr
 
-    /**
-     * @type {PSTR}
-     */
-    pszIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lParam : LPARAM
 
-    /**
-     * @type {PSTR}
-     */
-    pszTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pfnCallback : IntPtr
 
-    /**
-     * @type {Pointer<DLGPROC>}
-     */
-    pfnDlgProc {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pcRefParent : IntPtr
 
-    /**
-     * @type {LPARAM}
-     */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<LPFNPSPCALLBACKA>}
-     */
-    pfnCallback {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pcRefParent {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    static __New() {
+        DefineProp(this.Prototype, 'pResource', { type: DLGTEMPLATE.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pszIcon', { type: PSTR, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

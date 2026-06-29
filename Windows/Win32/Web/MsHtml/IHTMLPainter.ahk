@@ -1,51 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\HTML_PAINTER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HTML_PAINTER_INFO.ahk" { HTML_PAINTER_INFO }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLPainter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLPainter extends IUnknown {
     /**
      * The interface identifier for IHTMLPainter
      * @type {Guid}
      */
-    static IID => Guid("{3050f6a6-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f6a6-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLPainter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Draw           : IntPtr
+        OnResize       : IntPtr
+        GetPainterInfo : IntPtr
+        HitTestPoint   : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLPainter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Draw", "OnResize", "GetPainterInfo", "HitTestPoint"]
-
-    /**
-     * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
+     * 
      * @param {RECT} rcBounds 
      * @param {RECT} rcUpdate 
      * @param {Integer} lDrawFlags 
      * @param {HDC} _hdc 
      * @param {Pointer<Void>} pvDrawObject 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
+     * @returns {HRESULT} 
      */
     Draw(rcBounds, rcUpdate, lDrawFlags, _hdc, pvDrawObject) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
         pvDrawObjectMarshal := pvDrawObject is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", rcBounds, "ptr", rcUpdate, "int", lDrawFlags, "ptr", _hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
+        result := ComCall(3, this, RECT, rcBounds, RECT, rcUpdate, "int", lDrawFlags, HDC, _hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
         return result
     }
 
@@ -55,7 +66,7 @@ class IHTMLPainter extends IUnknown {
      * @returns {HRESULT} 
      */
     OnResize(_size) {
-        result := ComCall(4, this, "ptr", _size, "HRESULT")
+        result := ComCall(4, this, SIZE, _size, "HRESULT")
         return result
     }
 
@@ -65,7 +76,7 @@ class IHTMLPainter extends IUnknown {
      */
     GetPainterInfo() {
         pInfo := HTML_PAINTER_INFO()
-        result := ComCall(5, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(5, this, HTML_PAINTER_INFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -80,7 +91,33 @@ class IHTMLPainter extends IUnknown {
         pbHitMarshal := pbHit is VarRef ? "int*" : "ptr"
         plPartIDMarshal := plPartID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pt, pbHitMarshal, pbHit, plPartIDMarshal, plPartID, "HRESULT")
+        result := ComCall(6, this, POINT, pt, pbHitMarshal, pbHit, plPartIDMarshal, plPartID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLPainter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 6)
+        this.vtbl.OnResize := CallbackCreate(GetMethod(implObj, "OnResize"), flags, 2)
+        this.vtbl.GetPainterInfo := CallbackCreate(GetMethod(implObj, "GetPainterInfo"), flags, 2)
+        this.vtbl.HitTestPoint := CallbackCreate(GetMethod(implObj, "HitTestPoint"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.OnResize)
+        CallbackFree(this.vtbl.GetPainterInfo)
+        CallbackFree(this.vtbl.HitTestPoint)
     }
 }

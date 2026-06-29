@@ -1,49 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a CIM qualifier.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_qualifier
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Qualifier extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MI_Qualifier {
+    #StructPack 8
 
     /**
      * Name of this qualifier.
-     * @type {Pointer<Integer>}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    name : IntPtr
 
     /**
      * Type of this qualifier.
-     * @type {Integer}
      */
-    type {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    type : UInt32
 
     /**
      * Flavor of this qualifier.
-     * @type {Integer}
      */
-    flavor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    flavor : UInt32
 
     /**
      * Value of this qualifier.
-     * @type {Pointer<Void>}
      */
-    value {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    value : IntPtr
+
 }

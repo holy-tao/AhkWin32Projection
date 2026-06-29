@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAMWMBufferPassCallback.ahk" { IAMWMBufferPassCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMWMBufferPass interface is implemented on the output pins of the WM ASF Reader and the input pins of the WM ASF Writer.
  * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nn-dshowasf-iamwmbufferpass
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMWMBufferPass extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMWMBufferPass extends IUnknown {
     /**
      * The interface identifier for IAMWMBufferPass
      * @type {Guid}
      */
-    static IID => Guid("{6dd816d7-e740-4123-9e24-2444412644d8}")
+    static IID := Guid("{6dd816d7-e740-4123-9e24-2444412644d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMWMBufferPass interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetNotify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMWMBufferPass.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetNotify method is used by applications to provide the WM ASF Writer or WM ASF Reader filter with a pointer to the application's IAMWMBufferPassCallback interface.
@@ -40,5 +49,25 @@ class IAMWMBufferPass extends IUnknown {
     SetNotify(pCallback) {
         result := ComCall(3, this, "ptr", pCallback, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMWMBufferPass.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNotify := CallbackCreate(GetMethod(implObj, "SetNotify"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNotify)
     }
 }

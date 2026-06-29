@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_RETINFO Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-retinfo-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_RETINFO extends Win32Struct {
-    static sizeof => 16
+export default struct JET_RETINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ibLongValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ibLongValue {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    itagSequence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    itagSequence {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    columnidNextTagged : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidNextTagged {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

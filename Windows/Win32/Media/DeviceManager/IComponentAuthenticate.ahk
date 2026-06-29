@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IComponentAuthenticate interface provides secure, encrypted communication between modules of Windows Media Device Manager.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-icomponentauthenticate
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IComponentAuthenticate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComponentAuthenticate extends IUnknown {
     /**
      * The interface identifier for IComponentAuthenticate
      * @type {Guid}
      */
-    static IID => Guid("{a9889c00-6d2b-11d3-8496-00c04f79dbc0}")
+    static IID := Guid("{a9889c00-6d2b-11d3-8496-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComponentAuthenticate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SACAuth         : IntPtr
+        SACGetProtocols : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SACAuth", "SACGetProtocols"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComponentAuthenticate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SACAuth method establishes a secure authenticated channel between components.
@@ -82,5 +91,27 @@ class IComponentAuthenticate extends IUnknown {
 
         result := ComCall(4, this, ppdwProtocolsMarshal, ppdwProtocols, pdwProtocolCountMarshal, pdwProtocolCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComponentAuthenticate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SACAuth := CallbackCreate(GetMethod(implObj, "SACAuth"), flags, 7)
+        this.vtbl.SACGetProtocols := CallbackCreate(GetMethod(implObj, "SACGetProtocols"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SACAuth)
+        CallbackFree(this.vtbl.SACGetProtocols)
     }
 }

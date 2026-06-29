@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ExtendedErrorParamTypes.ahk
-#Include .\BinaryParam.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ExtendedErrorParamTypes.ahk" { ExtendedErrorParamTypes }
+#Import ".\BinaryParam.ahk" { BinaryParam }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The RPC_EE_INFO_PARAM structure is used to store extended error information.
@@ -11,64 +12,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_ee_info_param
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_EE_INFO_PARAM extends Win32Struct {
-    static sizeof => 24
+export default struct RPC_EE_INFO_PARAM {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _u {
+        AnsiString : PSTR
 
-        /**
-         * @type {PSTR}
-         */
-        AnsiString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        UnicodeString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        LVal {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SVal {
-            get => NumGet(this, 0, "short")
-            set => NumPut("short", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PVal {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {BinaryParam}
-         */
-        BVal {
-            get {
-                if(!this.HasProp("__BVal"))
-                    this.__BVal := BinaryParam(0, this)
-                return this.__BVal
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'UnicodeString', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'LVal', { type: Int32, offset: 0 })
+            DefineProp(this.Prototype, 'SVal', { type: Int16, offset: 0 })
+            DefineProp(this.Prototype, 'PVal', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'BVal', { type: BinaryParam, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -87,21 +44,9 @@ class RPC_EE_INFO_PARAM extends Win32Struct {
      * <li><b>eeptBinary</b> is used by the RPC Runtime and should not be used or specified by applications.</li>
      * <li><b>eeptNone</b> indicates the parameter contained either a Unicode or ANSI string, but was truncated due to lack of memory or network fragment length limitations.</li>
      * </ul>
-     * @type {ExtendedErrorParamTypes}
      */
-    ParameterType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ParameterType : ExtendedErrorParamTypes
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := RPC_EE_INFO_PARAM._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : RPC_EE_INFO_PARAM._u
+
 }

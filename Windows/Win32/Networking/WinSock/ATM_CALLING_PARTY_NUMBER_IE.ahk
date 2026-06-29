@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ATM_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ATM_ADDRESS.ahk" { ATM_ADDRESS }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ATM_CALLING_PARTY_NUMBER_IE extends Win32Struct {
-    static sizeof => 32
+export default struct ATM_CALLING_PARTY_NUMBER_IE {
+    #StructPack 4
 
-    static packingSize => 4
+    ATM_Number : ATM_ADDRESS
 
-    /**
-     * @type {ATM_ADDRESS}
-     */
-    ATM_Number {
-        get {
-            if(!this.HasProp("__ATM_Number"))
-                this.__ATM_Number := ATM_ADDRESS(0, this)
-            return this.__ATM_Number
-        }
-    }
+    Presentation_Indication : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Presentation_Indication {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    Screening_Indicator : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Screening_Indicator {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
-    }
 }

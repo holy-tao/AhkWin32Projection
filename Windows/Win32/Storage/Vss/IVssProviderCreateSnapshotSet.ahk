@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVssProviderCreateSnapshotSet interface contains the methods used during shadow copy creation.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivssprovidercreatesnapshotset
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssProviderCreateSnapshotSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssProviderCreateSnapshotSet extends IUnknown {
     /**
      * The interface identifier for IVssProviderCreateSnapshotSet
      * @type {Guid}
      */
-    static IID => Guid("{5f894e5b-1e39-4778-8e23-9abad9f0e08c}")
+    static IID := Guid("{5f894e5b-1e39-4778-8e23-9abad9f0e08c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssProviderCreateSnapshotSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EndPrepareSnapshots      : IntPtr
+        PreCommitSnapshots       : IntPtr
+        CommitSnapshots          : IntPtr
+        PostCommitSnapshots      : IntPtr
+        PreFinalCommitSnapshots  : IntPtr
+        PostFinalCommitSnapshots : IntPtr
+        AbortSnapshots           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EndPrepareSnapshots", "PreCommitSnapshots", "CommitSnapshots", "PostCommitSnapshots", "PreFinalCommitSnapshots", "PostFinalCommitSnapshots", "AbortSnapshots"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssProviderCreateSnapshotSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Is called once for the complete shadow copy set, after the last IVssHardwareSnapshotProvider::BeginPrepareSnapshot call.
@@ -120,7 +134,7 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-endpreparesnapshots
      */
     EndPrepareSnapshots(SnapshotSetId) {
-        result := ComCall(3, this, "ptr", SnapshotSetId, "HRESULT")
+        result := ComCall(3, this, Guid, SnapshotSetId, "HRESULT")
         return result
     }
 
@@ -201,7 +215,7 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-precommitsnapshots
      */
     PreCommitSnapshots(SnapshotSetId) {
-        result := ComCall(4, this, "ptr", SnapshotSetId, "HRESULT")
+        result := ComCall(4, this, Guid, SnapshotSetId, "HRESULT")
         return result
     }
 
@@ -297,7 +311,7 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-commitsnapshots
      */
     CommitSnapshots(SnapshotSetId) {
-        result := ComCall(5, this, "ptr", SnapshotSetId, "HRESULT")
+        result := ComCall(5, this, Guid, SnapshotSetId, "HRESULT")
         return result
     }
 
@@ -379,7 +393,7 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-postcommitsnapshots
      */
     PostCommitSnapshots(SnapshotSetId, lSnapshotsCount) {
-        result := ComCall(6, this, "ptr", SnapshotSetId, "int", lSnapshotsCount, "HRESULT")
+        result := ComCall(6, this, Guid, SnapshotSetId, "int", lSnapshotsCount, "HRESULT")
         return result
     }
 
@@ -466,7 +480,7 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-prefinalcommitsnapshots
      */
     PreFinalCommitSnapshots(SnapshotSetId) {
-        result := ComCall(7, this, "ptr", SnapshotSetId, "HRESULT")
+        result := ComCall(7, this, Guid, SnapshotSetId, "HRESULT")
         return result
     }
 
@@ -553,7 +567,7 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-postfinalcommitsnapshots
      */
     PostFinalCommitSnapshots(SnapshotSetId) {
-        result := ComCall(8, this, "ptr", SnapshotSetId, "HRESULT")
+        result := ComCall(8, this, Guid, SnapshotSetId, "HRESULT")
         return result
     }
 
@@ -645,7 +659,39 @@ class IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-abortsnapshots
      */
     AbortSnapshots(SnapshotSetId) {
-        result := ComCall(9, this, "ptr", SnapshotSetId, "HRESULT")
+        result := ComCall(9, this, Guid, SnapshotSetId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssProviderCreateSnapshotSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EndPrepareSnapshots := CallbackCreate(GetMethod(implObj, "EndPrepareSnapshots"), flags, 2)
+        this.vtbl.PreCommitSnapshots := CallbackCreate(GetMethod(implObj, "PreCommitSnapshots"), flags, 2)
+        this.vtbl.CommitSnapshots := CallbackCreate(GetMethod(implObj, "CommitSnapshots"), flags, 2)
+        this.vtbl.PostCommitSnapshots := CallbackCreate(GetMethod(implObj, "PostCommitSnapshots"), flags, 3)
+        this.vtbl.PreFinalCommitSnapshots := CallbackCreate(GetMethod(implObj, "PreFinalCommitSnapshots"), flags, 2)
+        this.vtbl.PostFinalCommitSnapshots := CallbackCreate(GetMethod(implObj, "PostFinalCommitSnapshots"), flags, 2)
+        this.vtbl.AbortSnapshots := CallbackCreate(GetMethod(implObj, "AbortSnapshots"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EndPrepareSnapshots)
+        CallbackFree(this.vtbl.PreCommitSnapshots)
+        CallbackFree(this.vtbl.CommitSnapshots)
+        CallbackFree(this.vtbl.PostCommitSnapshots)
+        CallbackFree(this.vtbl.PreFinalCommitSnapshots)
+        CallbackFree(this.vtbl.PostFinalCommitSnapshots)
+        CallbackFree(this.vtbl.AbortSnapshots)
     }
 }

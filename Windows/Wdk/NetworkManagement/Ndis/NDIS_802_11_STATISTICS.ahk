@@ -1,211 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_STATISTICS extends Win32Struct {
-    static sizeof => 200
+export default struct NDIS_802_11_STATISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TransmittedFragmentCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TransmittedFragmentCount {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    MulticastTransmittedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MulticastTransmittedFrameCount {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    FailedCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FailedCount {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    RetryCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RetryCount {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    MultipleRetryCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MultipleRetryCount {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    RTSSuccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RTSSuccessCount {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    RTSFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RTSFailureCount {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
-    }
+    ACKFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ACKFailureCount {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
-    }
+    FrameDuplicateCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FrameDuplicateCount {
-        get => NumGet(this, 72, "int64")
-        set => NumPut("int64", value, this, 72)
-    }
+    ReceivedFragmentCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReceivedFragmentCount {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
-    }
+    MulticastReceivedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MulticastReceivedFrameCount {
-        get => NumGet(this, 88, "int64")
-        set => NumPut("int64", value, this, 88)
-    }
+    FCSErrorCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FCSErrorCount {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
-    }
+    TKIPLocalMICFailures : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TKIPLocalMICFailures {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
-    }
+    TKIPICVErrorCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TKIPICVErrorCount {
-        get => NumGet(this, 112, "int64")
-        set => NumPut("int64", value, this, 112)
-    }
+    TKIPCounterMeasuresInvoked : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TKIPCounterMeasuresInvoked {
-        get => NumGet(this, 120, "int64")
-        set => NumPut("int64", value, this, 120)
-    }
+    TKIPReplays : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TKIPReplays {
-        get => NumGet(this, 128, "int64")
-        set => NumPut("int64", value, this, 128)
-    }
+    CCMPFormatErrors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CCMPFormatErrors {
-        get => NumGet(this, 136, "int64")
-        set => NumPut("int64", value, this, 136)
-    }
+    CCMPReplays : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CCMPReplays {
-        get => NumGet(this, 144, "int64")
-        set => NumPut("int64", value, this, 144)
-    }
+    CCMPDecryptErrors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CCMPDecryptErrors {
-        get => NumGet(this, 152, "int64")
-        set => NumPut("int64", value, this, 152)
-    }
+    FourWayHandshakeFailures : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FourWayHandshakeFailures {
-        get => NumGet(this, 160, "int64")
-        set => NumPut("int64", value, this, 160)
-    }
+    WEPUndecryptableCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WEPUndecryptableCount {
-        get => NumGet(this, 168, "int64")
-        set => NumPut("int64", value, this, 168)
-    }
+    WEPICVErrorCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WEPICVErrorCount {
-        get => NumGet(this, 176, "int64")
-        set => NumPut("int64", value, this, 176)
-    }
+    DecryptSuccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DecryptSuccessCount {
-        get => NumGet(this, 184, "int64")
-        set => NumPut("int64", value, this, 184)
-    }
+    DecryptFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DecryptFailureCount {
-        get => NumGet(this, 192, "int64")
-        set => NumPut("int64", value, this, 192)
-    }
 }

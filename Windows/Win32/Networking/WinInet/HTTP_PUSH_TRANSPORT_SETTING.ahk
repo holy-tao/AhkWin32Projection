@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class HTTP_PUSH_TRANSPORT_SETTING extends Win32Struct {
-    static sizeof => 16
+export default struct HTTP_PUSH_TRANSPORT_SETTING {
+    #StructPack 4
 
-    static packingSize => 8
+    TransportSettingId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    TransportSettingId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BrokerEventId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    BrokerEventId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

@@ -1,44 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_LUT_RGB256WORDS extends Win32Struct {
-    static sizeof => 1536
+export default struct VIDEO_LUT_RGB256WORDS {
+    #StructPack 2
 
-    static packingSize => 2
+    Red : UInt16[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Red {
-        get {
-            if(!this.HasProp("__RedProxyArray"))
-                this.__RedProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
-            return this.__RedProxyArray
-        }
-    }
+    Green : UInt16[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Green {
-        get {
-            if(!this.HasProp("__GreenProxyArray"))
-                this.__GreenProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
-            return this.__GreenProxyArray
-        }
-    }
+    Blue : UInt16[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Blue {
-        get {
-            if(!this.HasProp("__BlueProxyArray"))
-                this.__BlueProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")
-            return this.__BlueProxyArray
-        }
-    }
 }

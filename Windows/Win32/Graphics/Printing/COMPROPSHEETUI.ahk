@@ -1,153 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\OPTITEM.ahk
-#Include .\DLGPAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\DLGPAGE.ahk" { DLGPAGE }
+#Import ".\OPTITEM.ahk" { OPTITEM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class COMPROPSHEETUI extends Win32Struct {
-    static sizeof => 128
+export default struct COMPROPSHEETUI {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    hInstCaller : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstCaller {
-        get {
-            if(!this.HasProp("__hInstCaller"))
-                this.__hInstCaller := HINSTANCE(8, this)
-            return this.__hInstCaller
-        }
-    }
+    pCallerName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pCallerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    UserData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UserData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pHelpFile : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pHelpFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pfnCallBack : IntPtr
 
-    /**
-     * @type {Pointer<_CPSUICALLBACK>}
-     */
-    pfnCallBack {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pOptItem : OPTITEM.Ptr
 
-    /**
-     * @type {Pointer<OPTITEM>}
-     */
-    pOptItem {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pDlgPage : DLGPAGE.Ptr
 
-    /**
-     * @type {Pointer<DLGPAGE>}
-     */
-    pDlgPage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    cOptItem : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cOptItem {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    cDlgPage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cDlgPage {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
+    IconID : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    IconID {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pOptItemName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pOptItemName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    CallerVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CallerVersion {
-        get => NumGet(this, 88, "ushort")
-        set => NumPut("ushort", value, this, 88)
-    }
+    OptItemVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    OptItemVersion {
-        get => NumGet(this, 90, "ushort")
-        set => NumPut("ushort", value, this, 90)
-    }
+    dwReserved : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 96, 4, Primitive, "ptr")
-            return this.__dwReservedProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 128
-    }
 }

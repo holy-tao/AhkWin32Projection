@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class DvbParentalRatingParam extends Win32Struct {
-    static sizeof => 6
+export default struct DvbParentalRatingParam {
+    #StructPack 2
 
-    static packingSize => 2
+    szCountryCode : CHAR[4]
 
-    /**
-     * @type {String}
-     */
-    szCountryCode {
-        get => StrGet(this.ptr + 0, 3, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 3, "UTF-8")
-    }
+    bRating : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bRating {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Sets properties on the video resizer DSP.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmresizerprops
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IWMResizerProps extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMResizerProps extends IUnknown {
     /**
      * The interface identifier for IWMResizerProps
      * @type {Guid}
      */
-    static IID => Guid("{57665d4c-0414-4faa-905b-10e546f81c33}")
+    static IID := Guid("{57665d4c-0414-4faa-905b-10e546f81c33}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMResizerProps interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetResizerQuality : IntPtr
+        SetInterlaceMode  : IntPtr
+        SetClipRegion     : IntPtr
+        SetFullCropRegion : IntPtr
+        GetFullCropRegion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetResizerQuality", "SetInterlaceMode", "SetClipRegion", "SetFullCropRegion", "GetFullCropRegion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMResizerProps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies whether to use an algorithm that produces higher-quality video, or a faster algorithm.
@@ -252,5 +264,33 @@ class IWMResizerProps extends IUnknown {
 
         result := ComCall(7, this, lClipOriXSrcMarshal, lClipOriXSrc, lClipOriYSrcMarshal, lClipOriYSrc, lClipWidthSrcMarshal, lClipWidthSrc, lClipHeightSrcMarshal, lClipHeightSrc, lClipOriXDstMarshal, lClipOriXDst, lClipOriYDstMarshal, lClipOriYDst, lClipWidthDstMarshal, lClipWidthDst, lClipHeightDstMarshal, lClipHeightDst, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMResizerProps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetResizerQuality := CallbackCreate(GetMethod(implObj, "SetResizerQuality"), flags, 2)
+        this.vtbl.SetInterlaceMode := CallbackCreate(GetMethod(implObj, "SetInterlaceMode"), flags, 2)
+        this.vtbl.SetClipRegion := CallbackCreate(GetMethod(implObj, "SetClipRegion"), flags, 5)
+        this.vtbl.SetFullCropRegion := CallbackCreate(GetMethod(implObj, "SetFullCropRegion"), flags, 9)
+        this.vtbl.GetFullCropRegion := CallbackCreate(GetMethod(implObj, "GetFullCropRegion"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetResizerQuality)
+        CallbackFree(this.vtbl.SetInterlaceMode)
+        CallbackFree(this.vtbl.SetClipRegion)
+        CallbackFree(this.vtbl.SetFullCropRegion)
+        CallbackFree(this.vtbl.GetFullCropRegion)
     }
 }

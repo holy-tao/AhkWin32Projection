@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_BANK_SELECT extends Win32Struct {
-    static sizeof => 52
+export default struct VIDEO_BANK_SELECT {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BankingFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BankingFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BankingType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BankingType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PlanarHCBankingType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlanarHCBankingType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BitmapWidthInBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BitmapWidthInBytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BitmapSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BitmapSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Granularity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Granularity {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PlanarHCGranularity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlanarHCGranularity {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CodeOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CodeOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    PlanarHCBankCodeOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlanarHCBankCodeOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PlanarHCEnableCodeOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlanarHCEnableCodeOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    PlanarHCDisableCodeOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PlanarHCDisableCodeOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

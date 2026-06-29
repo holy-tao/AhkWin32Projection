@@ -1,80 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * Contains information used to change a password.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_changepassword_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct {
-    static sizeof => 80
+export default struct KERB_CHANGEPASSWORD_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
     /**
      * <b>UNICODE_STRING</b> that contains the domain name of the account for which to change the password.
-     * @type {LSA_UNICODE_STRING}
      */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(8, this)
-            return this.__DomainName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
     /**
      * <b>UNICODE_STRING</b> that contains the account name of the account for which to change the password.
-     * @type {LSA_UNICODE_STRING}
      */
-    AccountName {
-        get {
-            if(!this.HasProp("__AccountName"))
-                this.__AccountName := LSA_UNICODE_STRING(24, this)
-            return this.__AccountName
-        }
-    }
+    AccountName : LSA_UNICODE_STRING
 
     /**
      * <b>UNICODE_STRING</b> that contains the old password to be changed.
-     * @type {LSA_UNICODE_STRING}
      */
-    OldPassword {
-        get {
-            if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(40, this)
-            return this.__OldPassword
-        }
-    }
+    OldPassword : LSA_UNICODE_STRING
 
     /**
      * <b>UNICODE_STRING</b> that contains the new password.
-     * @type {LSA_UNICODE_STRING}
      */
-    NewPassword {
-        get {
-            if(!this.HasProp("__NewPassword"))
-                this.__NewPassword := LSA_UNICODE_STRING(56, this)
-            return this.__NewPassword
-        }
-    }
+    NewPassword : LSA_UNICODE_STRING
 
     /**
      * TRUE if the client is impersonating another <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a>. Otherwise, false.
-     * @type {BOOLEAN}
      */
-    Impersonating {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    Impersonating : BOOLEAN
+
 }

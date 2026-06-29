@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEFAREASTINFO extends Win32Struct {
-    static sizeof => 12
+export default struct IMEFAREASTINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwData : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwData {
-        get {
-            if(!this.HasProp("__dwDataProxyArray"))
-                this.__dwDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
-            return this.__dwDataProxyArray
-        }
-    }
 }

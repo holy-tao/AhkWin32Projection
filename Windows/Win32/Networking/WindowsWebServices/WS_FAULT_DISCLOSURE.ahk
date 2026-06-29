@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Controls how much error information is included in a fault. Since the error object may contain sensitive data as part of the error string, it is not always appropriate to include the error strings information in all faults.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_fault_disclosure
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_FAULT_DISCLOSURE extends Win32Enum {
+export default struct WS_FAULT_DISCLOSURE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use a generic fault string for all errors.

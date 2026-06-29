@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A structure that is used to specify a set of callbacks that can transform the content type and encoded bytes of a received message.
@@ -47,72 +46,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_decoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CHANNEL_DECODER extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct WS_CHANNEL_DECODER {
+    #StructPack 8
 
     /**
      * A context that will be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a>.
-     * @type {Pointer<Void>}
      */
-    createContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    createContext : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a> callback that creates an instance of a decoder.
-     * @type {Pointer<WS_CREATE_DECODER_CALLBACK>}
      */
-    createDecoderCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    createDecoderCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_get_content_type_callback">WS_DECODER_GET_CONTENT_TYPE_CALLBACK</a> callback that is invoked to get the content type of the message.
-     * @type {Pointer<WS_DECODER_GET_CONTENT_TYPE_CALLBACK>}
      */
-    decoderGetContentTypeCallback {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    decoderGetContentTypeCallback : IntPtr
 
     /**
      * A 
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_start_callback">WS_DECODER_START_CALLBACK</a> callback that is invoked at the start of decoding a message.
-     * @type {Pointer<WS_DECODER_START_CALLBACK>}
      */
-    decoderStartCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    decoderStartCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_decode_callback">WS_DECODER_DECODE_CALLBACK</a> callback that is invoked to decode a message.
-     * @type {Pointer<WS_DECODER_DECODE_CALLBACK>}
      */
-    decoderDecodeCallback {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    decoderDecodeCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_end_callback">WS_DECODER_END_CALLBACK</a> callback that is invoked at the end of decoding a message.
-     * @type {Pointer<WS_DECODER_END_CALLBACK>}
      */
-    decoderEndCallback {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    decoderEndCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a> callback that frees an instance of a decoder.
-     * @type {Pointer<WS_FREE_DECODER_CALLBACK>}
      */
-    freeDecoderCallback {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    freeDecoderCallback : IntPtr
+
 }

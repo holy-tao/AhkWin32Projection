@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\MONTH_CALDENDAR_MESSAGES_VIEW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\MONTH_CALDENDAR_MESSAGES_VIEW.ahk" { MONTH_CALDENDAR_MESSAGES_VIEW }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Stores information required to process the MCN_VIEWCHANGE notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmviewchange
  * @namespace Windows.Win32.UI.Controls
  */
-class NMVIEWCHANGE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct NMVIEWCHANGE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
-     * @type {NMHDR}
      */
-    nmhdr {
-        get {
-            if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(0, this)
-            return this.__nmhdr
-        }
-    }
+    nmhdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -80,21 +70,14 @@ class NMVIEWCHANGE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {MONTH_CALDENDAR_MESSAGES_VIEW}
      */
-    dwOldView {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwOldView : MONTH_CALDENDAR_MESSAGES_VIEW
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * New view. One of the constants listed at <b>dwOldView</b>.
-     * @type {MONTH_CALDENDAR_MESSAGES_VIEW}
      */
-    dwNewView {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwNewView : MONTH_CALDENDAR_MESSAGES_VIEW
+
 }

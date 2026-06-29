@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSTER_CONTROL_OBJECT (msclus.h) is the 8-bit object component of a control code that indicates the cluster object type to which the control code applies.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_control_object
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_CONTROL_OBJECT extends Win32Enum {
+export default struct CLUSTER_CONTROL_OBJECT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Zero is not a valid object code value.

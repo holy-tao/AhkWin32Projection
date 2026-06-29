@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the gestures that can be passed to SetManualGesture.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_gesture_configuration
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class DIRECTMANIPULATION_GESTURE_CONFIGURATION extends Win32BitflagEnum {
+export default struct DIRECTMANIPULATION_GESTURE_CONFIGURATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No gestures are defined.

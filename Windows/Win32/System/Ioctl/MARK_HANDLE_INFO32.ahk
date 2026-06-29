@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information that is used to mark a specified file or directory, and its update sequence number (USN) change journal record with data about changes.
@@ -7,26 +6,10 @@
  * @namespace Windows.Win32.System.Ioctl
  * @architecture X64, Arm64
  */
-class MARK_HANDLE_INFO32 extends Win32Struct {
-    static sizeof => 12
+export default struct MARK_HANDLE_INFO32 {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    UsnSourceInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CopyNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsnSourceInfo : UInt32
 
     /**
      * The volume handle to the volume where the file or directory resides. For more information on obtaining a 
@@ -36,12 +19,8 @@ class MARK_HANDLE_INFO32 extends Win32Struct {
      * 
      * The caller must have the <b>SE_MANAGE_VOLUME_NAME</b> privilege. For more information, 
      *         see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">Privileges</a>.
-     * @type {Integer}
      */
-    VolumeHandle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    VolumeHandle : UInt32
 
     /**
      * The flag that specifies additional information about the file or directory identified by the handle value 
@@ -112,10 +91,11 @@ class MARK_HANDLE_INFO32 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    HandleInfo {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    HandleInfo : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'CopyNumber', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

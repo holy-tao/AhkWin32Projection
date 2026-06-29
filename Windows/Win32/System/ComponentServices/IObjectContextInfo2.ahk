@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IObjectContextInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectContextInfo.ahk" { IObjectContextInfo }
 
 /**
  * Provides additional information about an object's context. This interface extends the IObjectContextInfo interface.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontextinfo2
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IObjectContextInfo2 extends IObjectContextInfo {
-
-    static sizeof => A_PtrSize
+export default struct IObjectContextInfo2 extends IObjectContextInfo {
     /**
      * The interface identifier for IObjectContextInfo2
      * @type {Guid}
      */
-    static IID => Guid("{594be71a-4bc4-438b-9197-cfd176248b09}")
+    static IID := Guid("{594be71a-4bc4-438b-9197-cfd176248b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IObjectContextInfo2 interfaces
+    */
+    struct Vtbl extends IObjectContextInfo.Vtbl {
+        GetPartitionId           : IntPtr
+        GetApplicationId         : IntPtr
+        GetApplicationInstanceId : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPartitionId", "GetApplicationId", "GetApplicationInstanceId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IObjectContextInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the identifier of the partition of the current object context.
@@ -65,7 +75,7 @@ class IObjectContextInfo2 extends IObjectContextInfo {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getpartitionid
      */
     GetPartitionId(pGuid) {
-        result := ComCall(8, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pGuid, "HRESULT")
         return result
     }
 
@@ -76,7 +86,7 @@ class IObjectContextInfo2 extends IObjectContextInfo {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationid
      */
     GetApplicationId(pGuid) {
-        result := ComCall(9, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pGuid, "HRESULT")
         return result
     }
 
@@ -87,7 +97,31 @@ class IObjectContextInfo2 extends IObjectContextInfo {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationinstanceid
      */
     GetApplicationInstanceId(pGuid) {
-        result := ComCall(10, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pGuid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IObjectContextInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPartitionId := CallbackCreate(GetMethod(implObj, "GetPartitionId"), flags, 2)
+        this.vtbl.GetApplicationId := CallbackCreate(GetMethod(implObj, "GetApplicationId"), flags, 2)
+        this.vtbl.GetApplicationInstanceId := CallbackCreate(GetMethod(implObj, "GetApplicationInstanceId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPartitionId)
+        CallbackFree(this.vtbl.GetApplicationId)
+        CallbackFree(this.vtbl.GetApplicationInstanceId)
     }
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemEventProviderQuerySink interface is optionally implemented by event providers who want to know what kinds of event query filters are currently active to optimize performance.
@@ -17,26 +18,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventproviderquerysink
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemEventProviderQuerySink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemEventProviderQuerySink extends IUnknown {
     /**
      * The interface identifier for IWbemEventProviderQuerySink
      * @type {Guid}
      */
-    static IID => Guid("{580acaf8-fa1c-11d0-ad72-00c04fd8fdff}")
+    static IID := Guid("{580acaf8-fa1c-11d0-ad72-00c04fd8fdff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemEventProviderQuerySink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NewQuery    : IntPtr
+        CancelQuery : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NewQuery", "CancelQuery"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemEventProviderQuerySink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Call the IWbemEventProviderQuerySink::NewQuery method when a logical event consumer registers a relevant event query filter with Windows Management.
@@ -89,5 +98,27 @@ class IWbemEventProviderQuerySink extends IUnknown {
     CancelQuery(dwId) {
         result := ComCall(4, this, "uint", dwId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemEventProviderQuerySink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NewQuery := CallbackCreate(GetMethod(implObj, "NewQuery"), flags, 4)
+        this.vtbl.CancelQuery := CallbackCreate(GetMethod(implObj, "CancelQuery"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NewQuery)
+        CallbackFree(this.vtbl.CancelQuery)
     }
 }

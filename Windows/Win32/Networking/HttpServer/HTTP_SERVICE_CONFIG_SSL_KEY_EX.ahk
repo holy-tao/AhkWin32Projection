@@ -1,24 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_SSL_KEY_EX extends Win32Struct {
-    static sizeof => 128
+export default struct HTTP_SERVICE_CONFIG_SSL_KEY_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    IpPort : SOCKADDR_STORAGE
 
-    /**
-     * @type {SOCKADDR_STORAGE}
-     */
-    IpPort {
-        get {
-            if(!this.HasProp("__IpPort"))
-                this.__IpPort := SOCKADDR_STORAGE(0, this)
-            return this.__IpPort
-        }
-    }
 }

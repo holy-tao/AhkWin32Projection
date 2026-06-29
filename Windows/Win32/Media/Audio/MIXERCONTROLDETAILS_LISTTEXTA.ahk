@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control. (mixercontroldetails_listtexta)
@@ -28,10 +28,8 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset ANSI
  */
-class MIXERCONTROLDETAILS_LISTTEXTA extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 4
+export default struct MIXERCONTROLDETAILS_LISTTEXTA {
+    #StructPack 4
 
     /**
      * Control class-specific values. The following control types are listed with their corresponding values:
@@ -41,28 +39,17 @@ class MIXERCONTROLDETAILS_LISTTEXTA extends Win32Struct {
      * | EQUALIZER  | MIXERCONTROL. Bounds dwMinimum member.|
      * | MIXER and MUX  | MIXERLINEdwLineID member.|
      * | MULTIPLESELECT and SINGLESELECT | Undefined; must be zero |
-     * @type {Integer}
      */
-    dwParam1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwParam1 : UInt32
 
     /**
      * See dwParam1.
-     * @type {Integer}
      */
-    dwParam2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwParam2 : UInt32
 
     /**
      * Name describing a single item in a multiple-item control. This text can be used as a label or item text, depending on the control class.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 8, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 63, "UTF-8")
-    }
+    szName : CHAR[64]
+
 }

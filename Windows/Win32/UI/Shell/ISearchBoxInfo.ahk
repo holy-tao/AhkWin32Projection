@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow the caller to retrieve information entered into a search box.
@@ -20,26 +22,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-isearchboxinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class ISearchBoxInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchBoxInfo extends IUnknown {
     /**
      * The interface identifier for ISearchBoxInfo
      * @type {Guid}
      */
-    static IID => Guid("{6af6e03f-d664-4ef4-9626-f7e0ed36755e}")
+    static IID := Guid("{6af6e03f-d664-4ef4-9626-f7e0ed36755e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchBoxInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCondition : IntPtr
+        GetText      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCondition", "GetText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchBoxInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the contents of the search box as an ICondition object.
@@ -56,7 +66,7 @@ class ISearchBoxInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-getcondition
      */
     GetCondition(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -68,7 +78,29 @@ class ISearchBoxInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-gettext
      */
     GetText() {
-        result := ComCall(4, this, "ptr*", &ppsz := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppsz := 0, "HRESULT")
         return ppsz
+    }
+
+    Query(iid) {
+        if (ISearchBoxInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCondition := CallbackCreate(GetMethod(implObj, "GetCondition"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCondition)
+        CallbackFree(this.vtbl.GetText)
     }
 }

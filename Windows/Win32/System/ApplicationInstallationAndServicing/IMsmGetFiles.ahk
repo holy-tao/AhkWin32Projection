@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMsmStrings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMsmStrings.ahk" { IMsmStrings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMsmGetFiles interface enables the client to retrieve the files needed in a particular language of the module.
  * @see https://learn.microsoft.com/windows/win32/api/mergemod/nn-mergemod-imsmgetfiles
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IMsmGetFiles extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMsmGetFiles extends IDispatch {
     /**
      * The interface identifier for IMsmGetFiles
      * @type {Guid}
      */
-    static IID => Guid("{7041ae26-2d78-11d2-888a-00a0c981b015}")
+    static IID := Guid("{7041ae26-2d78-11d2-888a-00a0c981b015}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMsmGetFiles interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ModuleFiles : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ModuleFiles"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMsmGetFiles.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IMsmStrings} 
@@ -46,5 +54,25 @@ class IMsmGetFiles extends IDispatch {
     get_ModuleFiles() {
         result := ComCall(7, this, "ptr*", &Files := 0, "HRESULT")
         return IMsmStrings(Files)
+    }
+
+    Query(iid) {
+        if (IMsmGetFiles.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ModuleFiles := CallbackCreate(GetMethod(implObj, "get_ModuleFiles"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ModuleFiles)
     }
 }

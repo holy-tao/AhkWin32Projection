@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Environment
  */
-class PS_TRUSTLET_TKSESSION_ID extends Win32Struct {
-    static sizeof => 32
+export default struct PS_TRUSTLET_TKSESSION_ID {
+    #StructPack 8
 
-    static packingSize => 8
+    SessionId : Int64[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SessionId {
-        get {
-            if(!this.HasProp("__SessionIdProxyArray"))
-                this.__SessionIdProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__SessionIdProxyArray
-        }
-    }
 }

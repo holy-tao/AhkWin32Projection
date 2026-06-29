@@ -1,202 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_EVENT_TYPE.ahk
-#Include .\GNSS_FIXDATA.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\GNSS_FIXDATA_BASIC.ahk
-#Include .\GNSS_FIXDATA_ACCURACY.ahk
-#Include .\GNSS_FIXDATA_SATELLITE.ahk
-#Include .\GNSS_SATELLITEINFO.ahk
-#Include .\GNSS_FIXDATA_2.ahk
-#Include .\GNSS_FIXDATA_BASIC_2.ahk
-#Include .\GNSS_FIXDATA_ACCURACY_2.ahk
-#Include .\GNSS_AGNSS_REQUEST_PARAM.ahk
-#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
-#Include .\GNSS_NI_REQUEST_PARAM.ahk
-#Include .\GNSS_NI_REQUEST_TYPE.ahk
-#Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
-#Include .\GNSS_NI_PLANE_TYPE.ahk
-#Include .\GNSS_SUPL_NI_INFO.ahk
-#Include .\GNSS_CP_NI_INFO.ahk
-#Include .\GNSS_V2UPL_NI_INFO.ahk
-#Include .\GNSS_ERRORINFO.ahk
-#Include .\GNSS_NMEA_DATA.ahk
-#Include .\GNSS_GEOFENCE_ALERT_DATA.ahk
-#Include .\GNSS_GEOFENCE_STATE.ahk
-#Include .\GNSS_BREADCRUMBING_ALERT_DATA.ahk
-#Include .\GNSS_GEOFENCES_TRACKINGSTATUS_DATA.ahk
-#Include .\GNSS_DRIVER_REQUEST_DATA.ahk
-#Include .\GNSS_DRIVER_REQUEST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GNSS_BREADCRUMBING_ALERT_DATA.ahk" { GNSS_BREADCRUMBING_ALERT_DATA }
+#Import ".\GNSS_FIXDATA_SATELLITE.ahk" { GNSS_FIXDATA_SATELLITE }
+#Import ".\GNSS_SATELLITEINFO.ahk" { GNSS_SATELLITEINFO }
+#Import ".\GNSS_GEOFENCE_STATE.ahk" { GNSS_GEOFENCE_STATE }
+#Import ".\GNSS_AGNSS_REQUEST_PARAM.ahk" { GNSS_AGNSS_REQUEST_PARAM }
+#Import ".\GNSS_NI_NOTIFICATION_TYPE.ahk" { GNSS_NI_NOTIFICATION_TYPE }
+#Import ".\GNSS_FIXDATA_BASIC_2.ahk" { GNSS_FIXDATA_BASIC_2 }
+#Import ".\GNSS_CP_NI_INFO.ahk" { GNSS_CP_NI_INFO }
+#Import ".\GNSS_FIXDATA_2.ahk" { GNSS_FIXDATA_2 }
+#Import ".\GNSS_FIXDATA.ahk" { GNSS_FIXDATA }
+#Import ".\GNSS_V2UPL_NI_INFO.ahk" { GNSS_V2UPL_NI_INFO }
+#Import ".\GNSS_NMEA_DATA.ahk" { GNSS_NMEA_DATA }
+#Import ".\GNSS_NI_REQUEST_TYPE.ahk" { GNSS_NI_REQUEST_TYPE }
+#Import ".\GNSS_GEOFENCES_TRACKINGSTATUS_DATA.ahk" { GNSS_GEOFENCES_TRACKINGSTATUS_DATA }
+#Import ".\GNSS_FIXDATA_BASIC.ahk" { GNSS_FIXDATA_BASIC }
+#Import ".\GNSS_NI_REQUEST_PARAM.ahk" { GNSS_NI_REQUEST_PARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\GNSS_EVENT_TYPE.ahk" { GNSS_EVENT_TYPE }
+#Import ".\GNSS_DRIVER_REQUEST_DATA.ahk" { GNSS_DRIVER_REQUEST_DATA }
+#Import ".\GNSS_ERRORINFO.ahk" { GNSS_ERRORINFO }
+#Import ".\GNSS_FIXDATA_ACCURACY_2.ahk" { GNSS_FIXDATA_ACCURACY_2 }
+#Import ".\GNSS_DRIVER_REQUEST.ahk" { GNSS_DRIVER_REQUEST }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\GNSS_GEOFENCE_ALERT_DATA.ahk" { GNSS_GEOFENCE_ALERT_DATA }
+#Import ".\GNSS_FIXDATA_ACCURACY.ahk" { GNSS_FIXDATA_ACCURACY }
+#Import ".\GNSS_NI_PLANE_TYPE.ahk" { GNSS_NI_PLANE_TYPE }
+#Import ".\GNSS_SUPL_NI_INFO.ahk" { GNSS_SUPL_NI_INFO }
+#Import ".\GNSS_AGNSS_REQUEST_TYPE.ahk" { GNSS_AGNSS_REQUEST_TYPE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_EVENT_2 extends Win32Struct {
-    static sizeof => 2800
+export default struct GNSS_EVENT_2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EventType : GNSS_EVENT_TYPE
 
-    /**
-     * @type {GNSS_EVENT_TYPE}
-     */
-    EventType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    EventDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EventDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
+    FixData : GNSS_FIXDATA
 
-    /**
-     * @type {GNSS_FIXDATA}
-     */
-    FixData {
-        get {
-            if(!this.HasProp("__FixData"))
-                this.__FixData := GNSS_FIXDATA(528, this)
-            return this.__FixData
-        }
-    }
-
-    /**
-     * @type {GNSS_FIXDATA_2}
-     */
-    FixData2 {
-        get {
-            if(!this.HasProp("__FixData2"))
-                this.__FixData2 := GNSS_FIXDATA_2(528, this)
-            return this.__FixData2
-        }
-    }
-
-    /**
-     * @type {GNSS_AGNSS_REQUEST_PARAM}
-     */
-    AgnssRequest {
-        get {
-            if(!this.HasProp("__AgnssRequest"))
-                this.__AgnssRequest := GNSS_AGNSS_REQUEST_PARAM(528, this)
-            return this.__AgnssRequest
-        }
-    }
-
-    /**
-     * @type {GNSS_NI_REQUEST_PARAM}
-     */
-    NiRequest {
-        get {
-            if(!this.HasProp("__NiRequest"))
-                this.__NiRequest := GNSS_NI_REQUEST_PARAM(528, this)
-            return this.__NiRequest
-        }
-    }
-
-    /**
-     * @type {GNSS_ERRORINFO}
-     */
-    ErrorInformation {
-        get {
-            if(!this.HasProp("__ErrorInformation"))
-                this.__ErrorInformation := GNSS_ERRORINFO(528, this)
-            return this.__ErrorInformation
-        }
-    }
-
-    /**
-     * @type {GNSS_NMEA_DATA}
-     */
-    NmeaData {
-        get {
-            if(!this.HasProp("__NmeaData"))
-                this.__NmeaData := GNSS_NMEA_DATA(528, this)
-            return this.__NmeaData
-        }
-    }
-
-    /**
-     * @type {GNSS_GEOFENCE_ALERT_DATA}
-     */
-    GeofenceAlertData {
-        get {
-            if(!this.HasProp("__GeofenceAlertData"))
-                this.__GeofenceAlertData := GNSS_GEOFENCE_ALERT_DATA(528, this)
-            return this.__GeofenceAlertData
-        }
-    }
-
-    /**
-     * @type {GNSS_BREADCRUMBING_ALERT_DATA}
-     */
-    BreadcrumbAlertData {
-        get {
-            if(!this.HasProp("__BreadcrumbAlertData"))
-                this.__BreadcrumbAlertData := GNSS_BREADCRUMBING_ALERT_DATA(528, this)
-            return this.__BreadcrumbAlertData
-        }
-    }
-
-    /**
-     * @type {GNSS_GEOFENCES_TRACKINGSTATUS_DATA}
-     */
-    GeofencesTrackingStatus {
-        get {
-            if(!this.HasProp("__GeofencesTrackingStatus"))
-                this.__GeofencesTrackingStatus := GNSS_GEOFENCES_TRACKINGSTATUS_DATA(528, this)
-            return this.__GeofencesTrackingStatus
-        }
-    }
-
-    /**
-     * @type {GNSS_DRIVER_REQUEST_DATA}
-     */
-    DriverRequestData {
-        get {
-            if(!this.HasProp("__DriverRequestData"))
-                this.__DriverRequestData := GNSS_DRIVER_REQUEST_DATA(528, this)
-            return this.__DriverRequestData
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    CustomData {
-        get {
-            if(!this.HasProp("__CustomDataProxyArray"))
-                this.__CustomDataProxyArray := Win32FixedArray(this.ptr + 528, 1, Primitive, "char")
-            return this.__CustomDataProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'FixData2', { type: GNSS_FIXDATA_2, offset: 528 })
+        DefineProp(this.Prototype, 'AgnssRequest', { type: GNSS_AGNSS_REQUEST_PARAM, offset: 528 })
+        DefineProp(this.Prototype, 'NiRequest', { type: GNSS_NI_REQUEST_PARAM, offset: 528 })
+        DefineProp(this.Prototype, 'ErrorInformation', { type: GNSS_ERRORINFO, offset: 528 })
+        DefineProp(this.Prototype, 'NmeaData', { type: GNSS_NMEA_DATA, offset: 528 })
+        DefineProp(this.Prototype, 'GeofenceAlertData', { type: GNSS_GEOFENCE_ALERT_DATA, offset: 528 })
+        DefineProp(this.Prototype, 'BreadcrumbAlertData', { type: GNSS_BREADCRUMBING_ALERT_DATA, offset: 528 })
+        DefineProp(this.Prototype, 'GeofencesTrackingStatus', { type: GNSS_GEOFENCES_TRACKINGSTATUS_DATA, offset: 528 })
+        DefineProp(this.Prototype, 'DriverRequestData', { type: GNSS_DRIVER_REQUEST_DATA, offset: 528 })
+        DefineProp(this.Prototype, 'CustomData', { type: Int8[1], offset: 528 })
+        this.DeleteProp("__New")
     }
 }

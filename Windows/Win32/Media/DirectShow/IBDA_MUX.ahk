@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BDA_MUX_PIDLISTITEM.ahk" { BDA_MUX_PIDLISTITEM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a device's Mux Service. The Mux Service is used to specify which packet identifiers (PIDs) in the MPEG transport stream are delivered to a media sink device (MSD).
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_mux
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_MUX extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_MUX extends IUnknown {
     /**
      * The interface identifier for IBDA_MUX
      * @type {Guid}
      */
-    static IID => Guid("{942aafec-4c05-4c74-b8eb-8706c2a4943f}")
+    static IID := Guid("{942aafec-4c05-4c74-b8eb-8706c2a4943f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_MUX interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetPidList : IntPtr
+        GetPidList : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPidList", "GetPidList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_MUX.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the list of packet identifiers (PIDs) that are enabled to go across the Protected Broadcast Driver Architecture (PBDA) interface.
@@ -39,7 +49,7 @@ class IBDA_MUX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_mux-setpidlist
      */
     SetPidList(ulPidListCount, pbPidListBuffer) {
-        result := ComCall(3, this, "uint", ulPidListCount, "ptr", pbPidListBuffer, "HRESULT")
+        result := ComCall(3, this, "uint", ulPidListCount, BDA_MUX_PIDLISTITEM.Ptr, pbPidListBuffer, "HRESULT")
         return result
     }
 
@@ -84,7 +94,29 @@ class IBDA_MUX extends IUnknown {
     GetPidList(pulPidListCount, pbPidListBuffer) {
         pulPidListCountMarshal := pulPidListCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pulPidListCountMarshal, pulPidListCount, "ptr", pbPidListBuffer, "HRESULT")
+        result := ComCall(4, this, pulPidListCountMarshal, pulPidListCount, BDA_MUX_PIDLISTITEM.Ptr, pbPidListBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_MUX.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPidList := CallbackCreate(GetMethod(implObj, "SetPidList"), flags, 3)
+        this.vtbl.GetPidList := CallbackCreate(GetMethod(implObj, "GetPidList"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPidList)
+        CallbackFree(this.vtbl.GetPidList)
     }
 }

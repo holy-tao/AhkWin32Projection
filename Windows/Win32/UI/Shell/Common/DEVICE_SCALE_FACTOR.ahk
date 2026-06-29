@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates a spoofed device scale factor, as a percent. Used by IApplicationDesignModeSettings::SetApplicationViewState and IApplicationDesignModeSettings::IsApplicationViewStateSupported.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-device_scale_factor
  * @namespace Windows.Win32.UI.Shell.Common
  */
-class DEVICE_SCALE_FACTOR extends Win32Enum {
+export default struct DEVICE_SCALE_FACTOR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

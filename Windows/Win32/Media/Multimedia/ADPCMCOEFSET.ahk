@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ADPCMCOEFSET extends Win32Struct {
-    static sizeof => 4
+export default struct ADPCMCOEFSET {
+    #StructPack 2
 
-    static packingSize => 2
+    iCoef1 : Int16
 
-    /**
-     * @type {Integer}
-     */
-    iCoef1 {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    iCoef2 : Int16
 
-    /**
-     * @type {Integer}
-     */
-    iCoef2 {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
 }

@@ -1,43 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUnknown.ahk
-#Include .\IDispatch.ahk
-#Include .\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDispatch.ahk" { IDispatch }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents a custom data item.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-custdataitem
  * @namespace Windows.Win32.System.Com
  */
-class CUSTDATAITEM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CUSTDATAITEM {
+    #StructPack 8
 
     /**
      * The unique identifier of the data item.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
     /**
      * The value of the data item.
-     * @type {VARIANT}
      */
-    varValue {
-        get {
-            if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(8, this)
-            return this.__varValue
-        }
-    }
+    varValue : VARIANT
+
 }

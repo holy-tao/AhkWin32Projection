@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DVD_YCrCb extends Win32Struct {
-    static sizeof => 4
+export default struct KS_DVD_YCrCb {
+    #StructPack 1
 
-    static packingSize => 1
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Y : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Y {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Cr : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Cr {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Cb : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Cb {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

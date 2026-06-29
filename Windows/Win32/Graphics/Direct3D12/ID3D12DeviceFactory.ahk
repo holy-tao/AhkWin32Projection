@@ -1,31 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_DEVICE_FACTORY_FLAGS.ahk" { D3D12_DEVICE_FACTORY_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12DeviceFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12DeviceFactory extends IUnknown {
     /**
      * The interface identifier for ID3D12DeviceFactory
      * @type {Guid}
      */
-    static IID => Guid("{61f307d3-d34e-4e7c-8374-3ba4de23cccb}")
+    static IID := Guid("{61f307d3-d34e-4e7c-8374-3ba4de23cccb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12DeviceFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeFromGlobalState  : IntPtr
+        ApplyToGlobalState         : IntPtr
+        SetFlags                   : IntPtr
+        GetFlags                   : IntPtr
+        GetConfigurationInterface  : IntPtr
+        EnableExperimentalFeatures : IntPtr
+        CreateDevice               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromGlobalState", "ApplyToGlobalState", "SetFlags", "GetFlags", "GetConfigurationInterface", "EnableExperimentalFeatures", "CreateDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12DeviceFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -133,7 +149,7 @@ class ID3D12DeviceFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setflags
      */
     SetFlags(flags) {
-        result := ComCall(5, this, "int", flags, "HRESULT")
+        result := ComCall(5, this, D3D12_DEVICE_FACTORY_FLAGS, flags, "HRESULT")
         return result
     }
 
@@ -142,7 +158,7 @@ class ID3D12DeviceFactory extends IUnknown {
      * @returns {D3D12_DEVICE_FACTORY_FLAGS} 
      */
     GetFlags() {
-        result := ComCall(6, this, "int")
+        result := ComCall(6, this, D3D12_DEVICE_FACTORY_FLAGS)
         return result
     }
 
@@ -153,7 +169,7 @@ class ID3D12DeviceFactory extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetConfigurationInterface(clsid, iid) {
-        result := ComCall(7, this, "ptr", clsid, "ptr", iid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, clsid, Guid.Ptr, iid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -169,20 +185,51 @@ class ID3D12DeviceFactory extends IUnknown {
         pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
         pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", NumFeatures, "ptr", pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
+        result := ComCall(8, this, "uint", NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
         return result
     }
 
     /**
-     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
+     * 
      * @param {IUnknown} _adapter 
      * @param {D3D_FEATURE_LEVEL} FeatureLevel 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(_adapter, FeatureLevel, riid) {
-        result := ComCall(9, this, "ptr", _adapter, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", _adapter, D3D_FEATURE_LEVEL, FeatureLevel, Guid.Ptr, riid, "ptr*", &ppvDevice := 0, "HRESULT")
         return ppvDevice
+    }
+
+    Query(iid) {
+        if (ID3D12DeviceFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromGlobalState := CallbackCreate(GetMethod(implObj, "InitializeFromGlobalState"), flags, 1)
+        this.vtbl.ApplyToGlobalState := CallbackCreate(GetMethod(implObj, "ApplyToGlobalState"), flags, 1)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 1)
+        this.vtbl.GetConfigurationInterface := CallbackCreate(GetMethod(implObj, "GetConfigurationInterface"), flags, 4)
+        this.vtbl.EnableExperimentalFeatures := CallbackCreate(GetMethod(implObj, "EnableExperimentalFeatures"), flags, 5)
+        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromGlobalState)
+        CallbackFree(this.vtbl.ApplyToGlobalState)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetConfigurationInterface)
+        CallbackFree(this.vtbl.EnableExperimentalFeatures)
+        CallbackFree(this.vtbl.CreateDevice)
     }
 }

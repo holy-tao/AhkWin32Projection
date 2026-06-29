@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_CACHE_STATS_UN.ahk
-#Include .\WTS_PROTOCOL_CACHE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WTS_CACHE_STATS_UN.ahk" { WTS_CACHE_STATS_UN }
+#Import ".\WTS_PROTOCOL_CACHE.ahk" { WTS_PROTOCOL_CACHE }
 
 /**
  * Contains protocol cache statistics.
@@ -10,46 +9,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_cache_stats
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_CACHE_STATS extends Win32Struct {
-    static sizeof => 124
+export default struct WTS_CACHE_STATS {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    Specific {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Specific : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_cache_stats_un">WTS_CACHE_STATS_UN</a> union that contains the cache statistics.
-     * @type {WTS_CACHE_STATS_UN}
      */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := WTS_CACHE_STATS_UN(4, this)
-            return this.__Data
-        }
-    }
+    Data : WTS_CACHE_STATS_UN
 
     /**
      * An integer that specifies the protocol type. This is not currently used by the Remote Desktop Services service.
-     * @type {Integer}
      */
-    ProtocolType {
-        get => NumGet(this, 120, "ushort")
-        set => NumPut("ushort", value, this, 120)
-    }
+    ProtocolType : UInt16
 
     /**
      * An integer that contains the length of the data in the <b>Reserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_cache_stats_un">WTS_CACHE_STATS_UN</a> union. The maximum size is WTS_MAX_CACHE_RESERVED multiplied by the length of an unsigned long integer.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 122, "ushort")
-        set => NumPut("ushort", value, this, 122)
-    }
+    Length : UInt16
+
 }

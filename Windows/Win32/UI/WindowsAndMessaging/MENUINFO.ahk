@@ -1,72 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENUINFO_MASK.ahk
-#Include .\MENUINFO_STYLE.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MENUINFO_MASK.ahk" { MENUINFO_MASK }
+#Import ".\MENUINFO_STYLE.ahk" { MENUINFO_STYLE }
+#Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
 
 /**
  * Contains information about a menu.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MENUINFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MENUINFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure, in bytes. The caller must set this member to <c>sizeof(MENUINFO)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
-     * @type {MENUINFO_MASK}
      */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fMask : MENUINFO_MASK
 
     /**
      * Type: <b>DWORD</b>
-     * @type {MENUINFO_STYLE}
      */
-    dwStyle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwStyle : MENUINFO_STYLE
 
     /**
      * Type: <b>UINT</b>
      * 
      * The maximum height of the menu in pixels. When the menu items exceed the space available, scroll bars are automatically used. The default (0) is the screen height.
-     * @type {Integer}
      */
-    cyMax {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cyMax : UInt32
 
     /**
      * Type: <b>HBRUSH</b>
      * 
      * A handle to the brush to be used for the menu's background.
-     * @type {HBRUSH}
      */
-    hbrBack {
-        get {
-            if(!this.HasProp("__hbrBack"))
-                this.__hbrBack := HBRUSH(16, this)
-            return this.__hbrBack
-        }
-    }
+    hbrBack : HBRUSH
 
     /**
      * Type: <b>DWORD</b>
@@ -74,26 +48,14 @@ class MENUINFO extends Win32Struct {
      * The context help identifier. This is the same value used in 
      * 					the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmenucontexthelpid">GetMenuContextHelpId</a> and 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenucontexthelpid">SetMenuContextHelpId</a> functions.
-     * @type {Integer}
      */
-    dwContextHelpID {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwContextHelpID : UInt32
 
     /**
      * Type: <b>ULONG_PTR</b>
      * 
      * An application-defined value.
-     * @type {Pointer}
      */
-    dwMenuData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwMenuData : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

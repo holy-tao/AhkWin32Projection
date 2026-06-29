@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IReferenceTrackerHost.ahk" { IReferenceTrackerHost }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines the interface for a XAML object reference manager. Implement this interface to manage instances of IReferenceTracker on XAML objects.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackermanager
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class IReferenceTrackerManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IReferenceTrackerManager extends IUnknown {
     /**
      * The interface identifier for IReferenceTrackerManager
      * @type {Guid}
      */
-    static IID => Guid("{3cf184b4-7ccb-4dda-8455-7e6ce99a3298}")
+    static IID := Guid("{3cf184b4-7ccb-4dda-8455-7e6ce99a3298}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IReferenceTrackerManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReferenceTrackingStarted    : IntPtr
+        FindTrackerTargetsCompleted : IntPtr
+        ReferenceTrackingCompleted  : IntPtr
+        SetReferenceTrackerHost     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReferenceTrackingStarted", "FindTrackerTargetsCompleted", "ReferenceTrackingCompleted", "SetReferenceTrackerHost"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IReferenceTrackerManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates that a garbage collector is performing a collection; when the collection is finished, the garbage collector calls FindTrackerTargetsCompleted.
@@ -75,5 +87,31 @@ class IReferenceTrackerManager extends IUnknown {
     SetReferenceTrackerHost(value) {
         result := ComCall(6, this, "ptr", value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IReferenceTrackerManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReferenceTrackingStarted := CallbackCreate(GetMethod(implObj, "ReferenceTrackingStarted"), flags, 1)
+        this.vtbl.FindTrackerTargetsCompleted := CallbackCreate(GetMethod(implObj, "FindTrackerTargetsCompleted"), flags, 2)
+        this.vtbl.ReferenceTrackingCompleted := CallbackCreate(GetMethod(implObj, "ReferenceTrackingCompleted"), flags, 1)
+        this.vtbl.SetReferenceTrackerHost := CallbackCreate(GetMethod(implObj, "SetReferenceTrackerHost"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReferenceTrackingStarted)
+        CallbackFree(this.vtbl.FindTrackerTargetsCompleted)
+        CallbackFree(this.vtbl.ReferenceTrackingCompleted)
+        CallbackFree(this.vtbl.SetReferenceTrackerHost)
     }
 }

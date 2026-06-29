@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class IO_BLOCK extends Win32Struct {
-    static sizeof => 24
+export default struct IO_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    uOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pbyData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbyData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    uIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ERROR_ADVISE_RESULT enumeration type indicates the type of error values that can be assigned to the pnErrorAdviseResult parameter of IPhotoAcquireProgressCB::ErrorAdvise.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-error_advise_result
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class ERROR_ADVISE_RESULT extends Win32Enum {
+export default struct ERROR_ADVISE_RESULT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies a Yes response to an error dialog. Valid only if the <i>nMessageType</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-erroradvise">IPhotoAcquireProgressCB::ErrorAdvise</a> is PHOTOACQUIRE_ERROR_YESNO.

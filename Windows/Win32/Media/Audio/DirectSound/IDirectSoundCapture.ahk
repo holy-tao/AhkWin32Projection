@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDirectSoundCaptureBuffer.ahk
-#Include .\DSCCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
+#Import ".\IDirectSoundCaptureBuffer.ahk" { IDirectSoundCaptureBuffer }
+#Import ".\DSCCAPS.ahk" { DSCCAPS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class IDirectSoundCapture extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectSoundCapture extends IUnknown {
     /**
      * The interface identifier for IDirectSoundCapture
      * @type {Guid}
      */
-    static IID => Guid("{b0210781-89cd-11d0-af08-00a0c925cd16}")
+    static IID := Guid("{b0210781-89cd-11d0-af08-00a0c925cd16}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectSoundCapture interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateCaptureBuffer : IntPtr
+        GetCaps             : IntPtr
+        Initialize          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateCaptureBuffer", "GetCaps", "Initialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectSoundCapture.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +47,7 @@ class IDirectSoundCapture extends IUnknown {
      * @returns {IDirectSoundCaptureBuffer} 
      */
     CreateCaptureBuffer(pcDSCBufferDesc, pUnkOuter) {
-        result := ComCall(3, this, "ptr", pcDSCBufferDesc, "ptr*", &ppDSCBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        result := ComCall(3, this, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, "ptr*", &ppDSCBuffer := 0, "ptr", pUnkOuter, "HRESULT")
         return IDirectSoundCaptureBuffer(ppDSCBuffer)
     }
 
@@ -46,7 +57,7 @@ class IDirectSoundCapture extends IUnknown {
      */
     GetCaps() {
         pDSCCaps := DSCCAPS()
-        result := ComCall(4, this, "ptr", pDSCCaps, "HRESULT")
+        result := ComCall(4, this, DSCCAPS.Ptr, pDSCCaps, "HRESULT")
         return pDSCCaps
     }
 
@@ -80,7 +91,31 @@ class IDirectSoundCapture extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pcGuidDevice) {
-        result := ComCall(5, this, "ptr", pcGuidDevice, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pcGuidDevice, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectSoundCapture.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateCaptureBuffer := CallbackCreate(GetMethod(implObj, "CreateCaptureBuffer"), flags, 4)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateCaptureBuffer)
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.Initialize)
     }
 }

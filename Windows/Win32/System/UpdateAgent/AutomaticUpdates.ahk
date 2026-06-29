@@ -1,13 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Defines the possible ways in which elevated users are notified about Automatic Updates events.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class AutomaticUpdates extends Win32Struct {
-    static sizeof => 0
+export default struct AutomaticUpdates {
+    #StructPack 1
 
-    static packingSize => 1
 }

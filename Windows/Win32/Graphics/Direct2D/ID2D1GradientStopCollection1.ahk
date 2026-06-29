@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1GradientStopCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_COLOR_INTERPOLATION_MODE.ahk" { D2D1_COLOR_INTERPOLATION_MODE }
+#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
 
 /**
  * Represents a collection of D2D1_GRADIENT_STOP objects for linear and radial gradient brushes. It provides get methods for all the new parameters added to the gradient stop collection.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1gradientstopcollection1
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
     /**
      * The interface identifier for ID2D1GradientStopCollection1
      * @type {Guid}
      */
-    static IID => Guid("{ae1572f4-5dd0-4777-998b-9279472ae63b}")
+    static IID := Guid("{ae1572f4-5dd0-4777-998b-9279472ae63b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1GradientStopCollection1 interfaces
+    */
+    struct Vtbl extends ID2D1GradientStopCollection.Vtbl {
+        GetGradientStops1         : IntPtr
+        GetPreInterpolationSpace  : IntPtr
+        GetPostInterpolationSpace : IntPtr
+        GetBufferPrecision        : IntPtr
+        GetColorInterpolationMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGradientStops1", "GetPreInterpolationSpace", "GetPostInterpolationSpace", "GetBufferPrecision", "GetColorInterpolationMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1GradientStopCollection1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Copies the gradient stops from the collection into memory.
@@ -45,7 +60,7 @@ class ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gradientstopcollection1-getgradientstops1
      */
     GetGradientStops1(gradientStops, gradientStopsCount) {
-        ComCall(8, this, "ptr", gradientStops, "uint", gradientStopsCount)
+        ComCall(8, this, D2D1_GRADIENT_STOP.Ptr, gradientStops, "uint", gradientStopsCount)
     }
 
     /**
@@ -58,7 +73,7 @@ class ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gradientstopcollection1-getpreinterpolationspace
      */
     GetPreInterpolationSpace() {
-        result := ComCall(9, this, "int")
+        result := ComCall(9, this, D2D1_COLOR_SPACE)
         return result
     }
 
@@ -72,7 +87,7 @@ class ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gradientstopcollection1-getpostinterpolationspace
      */
     GetPostInterpolationSpace() {
-        result := ComCall(10, this, "int")
+        result := ComCall(10, this, D2D1_COLOR_SPACE)
         return result
     }
 
@@ -86,7 +101,7 @@ class ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gradientstopcollection1-getbufferprecision
      */
     GetBufferPrecision() {
-        result := ComCall(11, this, "int")
+        result := ComCall(11, this, D2D1_BUFFER_PRECISION)
         return result
     }
 
@@ -98,7 +113,35 @@ class ID2D1GradientStopCollection1 extends ID2D1GradientStopCollection {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gradientstopcollection1-getcolorinterpolationmode
      */
     GetColorInterpolationMode() {
-        result := ComCall(12, this, "int")
+        result := ComCall(12, this, D2D1_COLOR_INTERPOLATION_MODE)
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1GradientStopCollection1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGradientStops1 := CallbackCreate(GetMethod(implObj, "GetGradientStops1"), flags, 3)
+        this.vtbl.GetPreInterpolationSpace := CallbackCreate(GetMethod(implObj, "GetPreInterpolationSpace"), flags, 1)
+        this.vtbl.GetPostInterpolationSpace := CallbackCreate(GetMethod(implObj, "GetPostInterpolationSpace"), flags, 1)
+        this.vtbl.GetBufferPrecision := CallbackCreate(GetMethod(implObj, "GetBufferPrecision"), flags, 1)
+        this.vtbl.GetColorInterpolationMode := CallbackCreate(GetMethod(implObj, "GetColorInterpolationMode"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGradientStops1)
+        CallbackFree(this.vtbl.GetPreInterpolationSpace)
+        CallbackFree(this.vtbl.GetPostInterpolationSpace)
+        CallbackFree(this.vtbl.GetBufferPrecision)
+        CallbackFree(this.vtbl.GetColorInterpolationMode)
     }
 }

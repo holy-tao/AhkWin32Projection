@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Parses the X.500 and Windows path in ADSI.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspathname
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsPathname extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsPathname extends IDispatch {
     /**
      * The interface identifier for IADsPathname
      * @type {Guid}
      */
-    static IID => Guid("{d592aed4-f420-11d0-a36e-00c04fb950dc}")
+    static IID := Guid("{d592aed4-f420-11d0-a36e-00c04fb950dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsPathname interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Set               : IntPtr
+        SetDisplayType    : IntPtr
+        Retrieve          : IntPtr
+        GetNumElements    : IntPtr
+        GetElement        : IntPtr
+        AddLeafElement    : IntPtr
+        RemoveLeafElement : IntPtr
+        CopyPath          : IntPtr
+        GetEscapedElement : IntPtr
+        get_EscapedMode   : IntPtr
+        put_EscapedMode   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Set", "SetDisplayType", "Retrieve", "GetNumElements", "GetElement", "AddLeafElement", "RemoveLeafElement", "CopyPath", "GetEscapedElement", "get_EscapedMode", "put_EscapedMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsPathname.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -52,7 +70,7 @@ class IADsPathname extends IDispatch {
     Set(bstrADsPath, lnSetType) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(7, this, "ptr", bstrADsPath, "int", lnSetType, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrADsPath, "int", lnSetType, "HRESULT")
         return result
     }
 
@@ -74,8 +92,8 @@ class IADsPathname extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-retrieve
      */
     Retrieve(lnFormatType) {
-        pbstrADsPath := BSTR()
-        result := ComCall(9, this, "int", lnFormatType, "ptr", pbstrADsPath, "HRESULT")
+        pbstrADsPath := BSTR.Owned()
+        result := ComCall(9, this, "int", lnFormatType, BSTR.Ptr, pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }
 
@@ -96,8 +114,8 @@ class IADsPathname extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-getelement
      */
     GetElement(lnElementIndex) {
-        pbstrElement := BSTR()
-        result := ComCall(11, this, "int", lnElementIndex, "ptr", pbstrElement, "HRESULT")
+        pbstrElement := BSTR.Owned()
+        result := ComCall(11, this, "int", lnElementIndex, BSTR.Ptr, pbstrElement, "HRESULT")
         return pbstrElement
     }
 
@@ -112,7 +130,7 @@ class IADsPathname extends IDispatch {
     AddLeafElement(bstrLeafElement) {
         bstrLeafElement := bstrLeafElement is String ? BSTR.Alloc(bstrLeafElement).Value : bstrLeafElement
 
-        result := ComCall(12, this, "ptr", bstrLeafElement, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrLeafElement, "HRESULT")
         return result
     }
 
@@ -153,8 +171,8 @@ class IADsPathname extends IDispatch {
     GetEscapedElement(lnReserved, bstrInStr) {
         bstrInStr := bstrInStr is String ? BSTR.Alloc(bstrInStr).Value : bstrInStr
 
-        pbstrOutStr := BSTR()
-        result := ComCall(15, this, "int", lnReserved, "ptr", bstrInStr, "ptr", pbstrOutStr, "HRESULT")
+        pbstrOutStr := BSTR.Owned()
+        result := ComCall(15, this, "int", lnReserved, BSTR, bstrInStr, BSTR.Ptr, pbstrOutStr, "HRESULT")
         return pbstrOutStr
     }
 
@@ -175,5 +193,45 @@ class IADsPathname extends IDispatch {
     put_EscapedMode(lnEscapedMode) {
         result := ComCall(17, this, "int", lnEscapedMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsPathname.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 3)
+        this.vtbl.SetDisplayType := CallbackCreate(GetMethod(implObj, "SetDisplayType"), flags, 2)
+        this.vtbl.Retrieve := CallbackCreate(GetMethod(implObj, "Retrieve"), flags, 3)
+        this.vtbl.GetNumElements := CallbackCreate(GetMethod(implObj, "GetNumElements"), flags, 2)
+        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 3)
+        this.vtbl.AddLeafElement := CallbackCreate(GetMethod(implObj, "AddLeafElement"), flags, 2)
+        this.vtbl.RemoveLeafElement := CallbackCreate(GetMethod(implObj, "RemoveLeafElement"), flags, 1)
+        this.vtbl.CopyPath := CallbackCreate(GetMethod(implObj, "CopyPath"), flags, 2)
+        this.vtbl.GetEscapedElement := CallbackCreate(GetMethod(implObj, "GetEscapedElement"), flags, 4)
+        this.vtbl.get_EscapedMode := CallbackCreate(GetMethod(implObj, "get_EscapedMode"), flags, 2)
+        this.vtbl.put_EscapedMode := CallbackCreate(GetMethod(implObj, "put_EscapedMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.SetDisplayType)
+        CallbackFree(this.vtbl.Retrieve)
+        CallbackFree(this.vtbl.GetNumElements)
+        CallbackFree(this.vtbl.GetElement)
+        CallbackFree(this.vtbl.AddLeafElement)
+        CallbackFree(this.vtbl.RemoveLeafElement)
+        CallbackFree(this.vtbl.CopyPath)
+        CallbackFree(this.vtbl.GetEscapedElement)
+        CallbackFree(this.vtbl.get_EscapedMode)
+        CallbackFree(this.vtbl.put_EscapedMode)
     }
 }

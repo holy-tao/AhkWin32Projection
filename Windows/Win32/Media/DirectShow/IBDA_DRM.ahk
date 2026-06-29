@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_DRM interface is used to request a tuner to perform a DRM handshake with the user's computer.
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_drm
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DRM extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DRM extends IUnknown {
     /**
      * The interface identifier for IBDA_DRM
      * @type {Guid}
      */
-    static IID => Guid("{f98d88b0-1992-4cd6-a6d9-b9afab99330d}")
+    static IID := Guid("{f98d88b0-1992-4cd6-a6d9-b9afab99330d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DRM interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDRMPairingStatus : IntPtr
+        PerformDRMPairing   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDRMPairingStatus", "PerformDRMPairing"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DRM.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDRMPairingStatus method queries the status of the DRM handshake.
@@ -84,7 +94,29 @@ class IBDA_DRM extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drm-performdrmpairing
      */
     PerformDRMPairing(fSync) {
-        result := ComCall(4, this, "int", fSync, "HRESULT")
+        result := ComCall(4, this, BOOL, fSync, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DRM.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDRMPairingStatus := CallbackCreate(GetMethod(implObj, "GetDRMPairingStatus"), flags, 3)
+        this.vtbl.PerformDRMPairing := CallbackCreate(GetMethod(implObj, "PerformDRMPairing"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDRMPairingStatus)
+        CallbackFree(this.vtbl.PerformDRMPairing)
     }
 }

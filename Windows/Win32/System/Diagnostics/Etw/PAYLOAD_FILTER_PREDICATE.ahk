@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines an event payload filter predicate that describes how to filter on a single field in a trace session.
@@ -20,19 +20,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-payload_filter_predicate
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class PAYLOAD_FILTER_PREDICATE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PAYLOAD_FILTER_PREDICATE {
+    #StructPack 8
 
     /**
      * The name of the field to filter in package manifest.
-     * @type {PWSTR}
      */
-    FieldName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FieldName : PWSTR
 
     /**
      * The payload operator to use for the comparison.
@@ -225,19 +219,12 @@ class PAYLOAD_FILTER_PREDICATE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    CompareOp {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    CompareOp : UInt16
 
     /**
      * The string that contains one or values to compare depending on the <b>CompareOp</b> member.
-     * @type {PWSTR}
      */
-    Value {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Value : PWSTR
+
 }

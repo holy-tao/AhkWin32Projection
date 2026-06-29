@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellFolderViewDual2.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IShellFolderViewDual2.ahk" { IShellFolderViewDual2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that modify the current folder view.
@@ -11,26 +12,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-ishellfolderviewdual3
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFolderViewDual3 extends IShellFolderViewDual2 {
-
-    static sizeof => A_PtrSize
+export default struct IShellFolderViewDual3 extends IShellFolderViewDual2 {
     /**
      * The interface identifier for IShellFolderViewDual3
      * @type {Guid}
      */
-    static IID => Guid("{29ec8e6c-46d3-411f-baaa-611a6c9cac66}")
+    static IID := Guid("{29ec8e6c-46d3-411f-baaa-611a6c9cac66}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFolderViewDual3 interfaces
+    */
+    struct Vtbl extends IShellFolderViewDual2.Vtbl {
+        get_GroupBy     : IntPtr
+        put_GroupBy     : IntPtr
+        get_FolderFlags : IntPtr
+        put_FolderFlags : IntPtr
+        get_SortColumns : IntPtr
+        put_SortColumns : IntPtr
+        put_IconSize    : IntPtr
+        get_IconSize    : IntPtr
+        FilterView      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_GroupBy", "put_GroupBy", "get_FolderFlags", "put_FolderFlags", "get_SortColumns", "put_SortColumns", "put_IconSize", "get_IconSize", "FilterView"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFolderViewDual3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -72,8 +88,8 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_groupby
      */
     get_GroupBy() {
-        pbstrGroupBy := BSTR()
-        result := ComCall(19, this, "ptr", pbstrGroupBy, "HRESULT")
+        pbstrGroupBy := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstrGroupBy, "HRESULT")
         return pbstrGroupBy
     }
 
@@ -90,7 +106,7 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
     put_GroupBy(bstrGroupBy) {
         bstrGroupBy := bstrGroupBy is String ? BSTR.Alloc(bstrGroupBy).Value : bstrGroupBy
 
-        result := ComCall(20, this, "ptr", bstrGroupBy, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrGroupBy, "HRESULT")
         return result
     }
 
@@ -129,8 +145,8 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_sortcolumns
      */
     get_SortColumns() {
-        pbstrSortColumns := BSTR()
-        result := ComCall(23, this, "ptr", pbstrSortColumns, "HRESULT")
+        pbstrSortColumns := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pbstrSortColumns, "HRESULT")
         return pbstrSortColumns
     }
 
@@ -147,7 +163,7 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
     put_SortColumns(bstrSortColumns) {
         bstrSortColumns := bstrSortColumns is String ? BSTR.Alloc(bstrSortColumns).Value : bstrSortColumns
 
-        result := ComCall(24, this, "ptr", bstrSortColumns, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrSortColumns, "HRESULT")
         return result
     }
 
@@ -191,7 +207,43 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
     FilterView(bstrFilterText) {
         bstrFilterText := bstrFilterText is String ? BSTR.Alloc(bstrFilterText).Value : bstrFilterText
 
-        result := ComCall(27, this, "ptr", bstrFilterText, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrFilterText, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellFolderViewDual3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_GroupBy := CallbackCreate(GetMethod(implObj, "get_GroupBy"), flags, 2)
+        this.vtbl.put_GroupBy := CallbackCreate(GetMethod(implObj, "put_GroupBy"), flags, 2)
+        this.vtbl.get_FolderFlags := CallbackCreate(GetMethod(implObj, "get_FolderFlags"), flags, 2)
+        this.vtbl.put_FolderFlags := CallbackCreate(GetMethod(implObj, "put_FolderFlags"), flags, 2)
+        this.vtbl.get_SortColumns := CallbackCreate(GetMethod(implObj, "get_SortColumns"), flags, 2)
+        this.vtbl.put_SortColumns := CallbackCreate(GetMethod(implObj, "put_SortColumns"), flags, 2)
+        this.vtbl.put_IconSize := CallbackCreate(GetMethod(implObj, "put_IconSize"), flags, 2)
+        this.vtbl.get_IconSize := CallbackCreate(GetMethod(implObj, "get_IconSize"), flags, 2)
+        this.vtbl.FilterView := CallbackCreate(GetMethod(implObj, "FilterView"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_GroupBy)
+        CallbackFree(this.vtbl.put_GroupBy)
+        CallbackFree(this.vtbl.get_FolderFlags)
+        CallbackFree(this.vtbl.put_FolderFlags)
+        CallbackFree(this.vtbl.get_SortColumns)
+        CallbackFree(this.vtbl.put_SortColumns)
+        CallbackFree(this.vtbl.put_IconSize)
+        CallbackFree(this.vtbl.get_IconSize)
+        CallbackFree(this.vtbl.FilterView)
     }
 }

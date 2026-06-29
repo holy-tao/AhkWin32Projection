@@ -1,40 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLFormElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLInputFileElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLInputFileElement extends IDispatch {
     /**
      * The interface identifier for IHTMLInputFileElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f2ad-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2ad-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLInputFileElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f2ae-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f2ae-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLInputFileElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_type      : IntPtr
+        put_name      : IntPtr
+        get_name      : IntPtr
+        put_status    : IntPtr
+        get_status    : IntPtr
+        put_disabled  : IntPtr
+        get_disabled  : IntPtr
+        get_form      : IntPtr
+        put_size      : IntPtr
+        get_size      : IntPtr
+        put_maxLength : IntPtr
+        get_maxLength : IntPtr
+        select        : IntPtr
+        put_onchange  : IntPtr
+        get_onchange  : IntPtr
+        put_onselect  : IntPtr
+        get_onselect  : IntPtr
+        put_value     : IntPtr
+        get_value     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_type", "put_name", "get_name", "put_status", "get_status", "put_disabled", "get_disabled", "get_form", "put_size", "get_size", "put_maxLength", "get_maxLength", "select", "put_onchange", "get_onchange", "put_onselect", "get_onselect", "put_value", "get_value"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLInputFileElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -119,8 +146,8 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -132,7 +159,7 @@ class IHTMLInputFileElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -141,8 +168,8 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -152,7 +179,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_status(v) {
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -162,7 +189,7 @@ class IHTMLInputFileElement extends IDispatch {
      */
     get_status() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -172,7 +199,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(12, this, "short", v, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -181,7 +208,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -432,7 +459,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -442,7 +469,7 @@ class IHTMLInputFileElement extends IDispatch {
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -452,7 +479,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onselect(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -462,7 +489,7 @@ class IHTMLInputFileElement extends IDispatch {
      */
     get_onselect() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -474,7 +501,7 @@ class IHTMLInputFileElement extends IDispatch {
     put_value(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(24, this, "ptr", v, "HRESULT")
+        result := ComCall(24, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -483,8 +510,64 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
-        result := ComCall(25, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLInputFileElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.put_maxLength := CallbackCreate(GetMethod(implObj, "put_maxLength"), flags, 2)
+        this.vtbl.get_maxLength := CallbackCreate(GetMethod(implObj, "get_maxLength"), flags, 2)
+        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
+        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_status)
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.get_form)
+        CallbackFree(this.vtbl.put_size)
+        CallbackFree(this.vtbl.get_size)
+        CallbackFree(this.vtbl.put_maxLength)
+        CallbackFree(this.vtbl.get_maxLength)
+        CallbackFree(this.vtbl.select)
+        CallbackFree(this.vtbl.put_onchange)
+        CallbackFree(this.vtbl.get_onchange)
+        CallbackFree(this.vtbl.put_onselect)
+        CallbackFree(this.vtbl.get_onselect)
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
     }
 }

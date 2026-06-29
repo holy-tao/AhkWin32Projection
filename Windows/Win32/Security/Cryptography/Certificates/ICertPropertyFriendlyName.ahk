@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICertProperty.ahk" { ICertProperty }
 
 /**
  * Enables you to specify and retrieve a string that contains the display name of a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyfriendlyname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertPropertyFriendlyName extends ICertProperty {
-
-    static sizeof => A_PtrSize
+export default struct ICertPropertyFriendlyName extends ICertProperty {
     /**
      * The interface identifier for ICertPropertyFriendlyName
      * @type {Guid}
      */
-    static IID => Guid("{728ab330-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab330-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertPropertyFriendlyName interfaces
+    */
+    struct Vtbl extends ICertProperty.Vtbl {
+        Initialize       : IntPtr
+        get_FriendlyName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "get_FriendlyName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertPropertyFriendlyName.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -83,7 +92,7 @@ class ICertPropertyFriendlyName extends ICertProperty {
     Initialize(strFriendlyName) {
         strFriendlyName := strFriendlyName is String ? BSTR.Alloc(strFriendlyName).Value : strFriendlyName
 
-        result := ComCall(14, this, "ptr", strFriendlyName, "HRESULT")
+        result := ComCall(14, this, BSTR, strFriendlyName, "HRESULT")
         return result
     }
 
@@ -95,8 +104,30 @@ class ICertPropertyFriendlyName extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyfriendlyname-get_friendlyname
      */
     get_FriendlyName() {
-        pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (ICertPropertyFriendlyName.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_FriendlyName)
     }
 }

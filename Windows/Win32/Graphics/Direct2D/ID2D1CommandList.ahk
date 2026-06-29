@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Image.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1CommandSink.ahk" { ID2D1CommandSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a sequence of commands that can be recorded and played back.
@@ -217,26 +219,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1commandlist
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1CommandList extends ID2D1Image {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1CommandList extends ID2D1Image {
     /**
      * The interface identifier for ID2D1CommandList
      * @type {Guid}
      */
-    static IID => Guid("{b4f34a19-2383-4d76-94f6-ec343657c3dc}")
+    static IID := Guid("{b4f34a19-2383-4d76-94f6-ec343657c3dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1CommandList interfaces
+    */
+    struct Vtbl extends ID2D1Image.Vtbl {
+        Stream : IntPtr
+        Close  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Stream", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1CommandList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Streams the contents of the command list to the specified command sink.
@@ -327,5 +337,27 @@ class ID2D1CommandList extends ID2D1Image {
     Close() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1CommandList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Stream := CallbackCreate(GetMethod(implObj, "Stream"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Stream)
+        CallbackFree(this.vtbl.Close)
     }
 }

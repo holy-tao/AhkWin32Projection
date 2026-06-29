@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class SCRIPTFONTINFO extends Win32Struct {
-    static sizeof => 72
+export default struct SCRIPTFONTINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    scripts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    scripts {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    wszFont : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    wszFont {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
 }

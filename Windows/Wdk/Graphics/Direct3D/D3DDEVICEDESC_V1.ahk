@@ -1,115 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDEVICEDESC_V1 extends Win32Struct {
-    static sizeof => 72
+export default struct D3DDEVICEDESC_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dcmColorModel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dcmColorModel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDevCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dtcTransformCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dtcTransformCaps {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    bClipping : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bClipping {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dlcLightingCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dlcLightingCaps {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dpcLineCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dpcLineCaps {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dpcTriCaps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dpcTriCaps {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwDeviceRenderBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceRenderBitDepth {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwDeviceZBufferBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceZBufferBitDepth {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwMaxBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxBufferSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwMaxVertexCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxVertexCount {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_FOUND_ERROR_IN_BANK_EVENT extends Win32Struct {
-    static sizeof => 32
+export default struct WHEAP_FOUND_ERROR_IN_BANK_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    EpIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EpIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Bank : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Bank {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MciStatus : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MciStatus {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ErrorType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

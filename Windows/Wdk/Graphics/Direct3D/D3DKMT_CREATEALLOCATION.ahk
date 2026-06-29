@@ -1,122 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_CREATESTANDARDALLOCATION.ahk
-#Include .\D3DDDI_ALLOCATIONINFO.ahk
-#Include .\D3DDDI_ALLOCATIONINFO2.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DDDI_ALLOCATIONINFO2.ahk" { D3DDDI_ALLOCATIONINFO2 }
+#Import ".\D3DKMT_CREATESTANDARDALLOCATION.ahk" { D3DKMT_CREATESTANDARDALLOCATION }
+#Import ".\D3DDDI_ALLOCATIONINFO.ahk" { D3DDDI_ALLOCATIONINFO }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CREATEALLOCATION extends Win32Struct {
-    static sizeof => 72
+export default struct D3DKMT_CREATEALLOCATION {
+    #StructPack 8
 
-    static packingSize => 8
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hResource : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hResource {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hGlobalShare : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hGlobalShare {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pPrivateRuntimeData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateRuntimeData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PrivateRuntimeDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateRuntimeDataSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pStandardAllocation : D3DKMT_CREATESTANDARDALLOCATION.Ptr
 
-    /**
-     * @type {Pointer<D3DKMT_CREATESTANDARDALLOCATION>}
-     */
-    pStandardAllocation {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    PrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateDriverData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    NumAllocations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateDriverDataSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pAllocationInfo : D3DDDI_ALLOCATIONINFO.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    NumAllocations {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer<D3DDDI_ALLOCATIONINFO>}
-     */
-    pAllocationInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    hPrivateRuntimeResourceHandle : HANDLE
 
-    /**
-     * @type {Pointer<D3DDDI_ALLOCATIONINFO2>}
-     */
-    pAllocationInfo2 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hPrivateRuntimeResourceHandle {
-        get {
-            if(!this.HasProp("__hPrivateRuntimeResourceHandle"))
-                this.__hPrivateRuntimeResourceHandle := HANDLE(64, this)
-            return this.__hPrivateRuntimeResourceHandle
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'pPrivateDriverData', { type: IntPtr, offset: 32 })
+        DefineProp(this.Prototype, 'pAllocationInfo2', { type: D3DDDI_ALLOCATIONINFO2.Ptr, offset: 48 })
+        this.DeleteProp("__New")
     }
 }

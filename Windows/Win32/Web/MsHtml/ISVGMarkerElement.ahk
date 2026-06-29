@@ -1,40 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedLength.ahk
-#Include .\ISVGAnimatedEnumeration.ahk
-#Include .\ISVGAnimatedAngle.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGAngle.ahk" { ISVGAngle }
+#Import ".\ISVGAnimatedEnumeration.ahk" { ISVGAnimatedEnumeration }
+#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGAnimatedAngle.ahk" { ISVGAnimatedAngle }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGMarkerElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGMarkerElement extends IDispatch {
     /**
      * The interface identifier for ISVGMarkerElement
      * @type {Guid}
      */
-    static IID => Guid("{30510525-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510525-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGMarkerElement
      * @type {Guid}
      */
-    static CLSID => Guid("{305105de-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105de-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGMarkerElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_refX         : IntPtr
+        get_refX            : IntPtr
+        putref_refY         : IntPtr
+        get_refY            : IntPtr
+        putref_markerUnits  : IntPtr
+        get_markerUnits     : IntPtr
+        putref_markerWidth  : IntPtr
+        get_markerWidth     : IntPtr
+        putref_markerHeight : IntPtr
+        get_markerHeight    : IntPtr
+        putref_orientType   : IntPtr
+        get_orientType      : IntPtr
+        putref_orientAngle  : IntPtr
+        get_orientAngle     : IntPtr
+        setOrientToAuto     : IntPtr
+        setOrientToAngle    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_refX", "get_refX", "putref_refY", "get_refY", "putref_markerUnits", "get_markerUnits", "putref_markerWidth", "get_markerWidth", "putref_markerHeight", "get_markerHeight", "putref_orientType", "get_orientType", "putref_orientAngle", "get_orientAngle", "setOrientToAuto", "setOrientToAngle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGMarkerElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGAnimatedLength} 
@@ -235,5 +259,55 @@ class ISVGMarkerElement extends IDispatch {
     setOrientToAngle(pSVGAngle) {
         result := ComCall(22, this, "ptr", pSVGAngle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISVGMarkerElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_refX := CallbackCreate(GetMethod(implObj, "putref_refX"), flags, 2)
+        this.vtbl.get_refX := CallbackCreate(GetMethod(implObj, "get_refX"), flags, 2)
+        this.vtbl.putref_refY := CallbackCreate(GetMethod(implObj, "putref_refY"), flags, 2)
+        this.vtbl.get_refY := CallbackCreate(GetMethod(implObj, "get_refY"), flags, 2)
+        this.vtbl.putref_markerUnits := CallbackCreate(GetMethod(implObj, "putref_markerUnits"), flags, 2)
+        this.vtbl.get_markerUnits := CallbackCreate(GetMethod(implObj, "get_markerUnits"), flags, 2)
+        this.vtbl.putref_markerWidth := CallbackCreate(GetMethod(implObj, "putref_markerWidth"), flags, 2)
+        this.vtbl.get_markerWidth := CallbackCreate(GetMethod(implObj, "get_markerWidth"), flags, 2)
+        this.vtbl.putref_markerHeight := CallbackCreate(GetMethod(implObj, "putref_markerHeight"), flags, 2)
+        this.vtbl.get_markerHeight := CallbackCreate(GetMethod(implObj, "get_markerHeight"), flags, 2)
+        this.vtbl.putref_orientType := CallbackCreate(GetMethod(implObj, "putref_orientType"), flags, 2)
+        this.vtbl.get_orientType := CallbackCreate(GetMethod(implObj, "get_orientType"), flags, 2)
+        this.vtbl.putref_orientAngle := CallbackCreate(GetMethod(implObj, "putref_orientAngle"), flags, 2)
+        this.vtbl.get_orientAngle := CallbackCreate(GetMethod(implObj, "get_orientAngle"), flags, 2)
+        this.vtbl.setOrientToAuto := CallbackCreate(GetMethod(implObj, "setOrientToAuto"), flags, 1)
+        this.vtbl.setOrientToAngle := CallbackCreate(GetMethod(implObj, "setOrientToAngle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_refX)
+        CallbackFree(this.vtbl.get_refX)
+        CallbackFree(this.vtbl.putref_refY)
+        CallbackFree(this.vtbl.get_refY)
+        CallbackFree(this.vtbl.putref_markerUnits)
+        CallbackFree(this.vtbl.get_markerUnits)
+        CallbackFree(this.vtbl.putref_markerWidth)
+        CallbackFree(this.vtbl.get_markerWidth)
+        CallbackFree(this.vtbl.putref_markerHeight)
+        CallbackFree(this.vtbl.get_markerHeight)
+        CallbackFree(this.vtbl.putref_orientType)
+        CallbackFree(this.vtbl.get_orientType)
+        CallbackFree(this.vtbl.putref_orientAngle)
+        CallbackFree(this.vtbl.get_orientAngle)
+        CallbackFree(this.vtbl.setOrientToAuto)
+        CallbackFree(this.vtbl.setOrientToAngle)
     }
 }

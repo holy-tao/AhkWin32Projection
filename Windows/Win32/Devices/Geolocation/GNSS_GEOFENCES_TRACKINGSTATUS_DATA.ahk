@@ -1,58 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct {
-    static sizeof => 532
+export default struct GNSS_GEOFENCES_TRACKINGSTATUS_DATA {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Status : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    Status {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    StatusTimeStamp : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    StatusTimeStamp {
-        get {
-            if(!this.HasProp("__StatusTimeStamp"))
-                this.__StatusTimeStamp := FILETIME(12, this)
-            return this.__StatusTimeStamp
-        }
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

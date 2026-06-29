@@ -1,62 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\SystemServices\userHBITMAP.ahk
-#Include ..\SystemServices\userHPALETTE.ahk
-#Include ..\SystemServices\userHGLOBAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\SystemServices\userHBITMAP.ahk" { userHBITMAP }
+#Import "..\SystemServices\userHGLOBAL.ahk" { userHGLOBAL }
+#Import "..\SystemServices\userHPALETTE.ahk" { userHPALETTE }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class GDI_OBJECT extends Win32Struct {
-    static sizeof => 32
+export default struct GDI_OBJECT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _u {
+        hBitmap : userHBITMAP.Ptr
 
-        /**
-         * @type {Pointer<userHBITMAP>}
-         */
-        hBitmap {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<userHPALETTE>}
-         */
-        hPalette {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<userHGLOBAL>}
-         */
-        hGeneric {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'hPalette', { type: userHPALETTE.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'hGeneric', { type: userHGLOBAL.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    ObjectType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ObjectType : UInt32
 
-    /**
-     * @type {_u}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := GDI_OBJECT._u(8, this)
-            return this.__u
-        }
-    }
+    u : GDI_OBJECT._u
+
 }

@@ -1,11 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IContextMenuCB.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include .\IShellFolder.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Contains context menu information used by SHCreateDefaultContextMenu.
@@ -16,79 +15,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-defcontextmenu
  * @namespace Windows.Win32.UI.Shell
  */
-class DEFCONTEXTMENU extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DEFCONTEXTMENU {
+    #StructPack 8
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the context menu. Set this member to the handle returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createmenu">CreateMenu</a>.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(0, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenucb">IContextMenuCB</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenucb">IContextMenuCB</a> interface supported by the callback object. This value is optional and can be <b>NULL</b>.
-     * @type {IContextMenuCB}
      */
-    pcmcb {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pcmcb : IContextMenuCB
 
     /**
      * Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The PIDL of the folder that contains the selected file object(s) or the folder of the context menu if no file objects are selected. This value is optional and can be <b>NULL</b>, in which case the PIDL is computed from the <b>psf</b> member.
-     * @type {Pointer<ITEMIDLIST>}
      */
-    pidlFolder {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pidlFolder : ITEMIDLIST.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface of the folder object that contains the selected file objects, or the folder that contains the context menu if no file objects are selected.
-     * @type {IShellFolder}
      */
-    psf {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    psf : IShellFolder
 
     /**
      * Type: <b>UINT</b>
      * 
      * The count of items in member <b>apidl</b>.
-     * @type {Integer}
      */
-    cidl {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cidl : UInt32
 
     /**
      * Type: <b>PCUITEMID_CHILD_ARRAY</b>
      * 
      * A pointer to a constant array of <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures. Each entry in the array describes a child item to which the context menu applies, for instance, a selected file the user wants to <b>Open</b>.
-     * @type {Pointer<Pointer<ITEMIDLIST>>}
      */
-    apidl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    apidl : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -96,12 +66,8 @@ class DEFCONTEXTMENU extends Win32Struct {
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface on the object from which to load extensions. This parameter is optional and thus can be <b>NULL</b>. If this value is <b>NULL</b> and members <b>aKeys</b> and <b>cKeys</b> are also <b>NULL</b> (see Remarks),  <b>punkAssociationInfo</b> is computed from the <b>apidl</b> member and <b>cidl</b> via a request for <b>IQueryAssociations</b> through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a>.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a> returns <b>E_NOTIMPL</b>, a default implementation is provided based on the <i>SFGAO_FOLDER</i> and <i>SFGAO_FILESYSTEM</i> attributes returned from <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
-     * @type {IUnknown}
      */
-    punkAssociationInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    punkAssociationInfo : IUnknown
 
     /**
      * Type: <b>UINT</b>
@@ -112,21 +78,14 @@ class DEFCONTEXTMENU extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  The maximum number of keys is 16. Callers must enforce this limit as the API does not. Failing to do so can result in memory corruption.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    cKeys {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cKeys : UInt32
 
     /**
      * Type: <b>const HKEY*</b>
      * 
      * A pointer to an HKEY that specifies the registry key from which to load extensions. This parameter is optional and can be <b>NULL</b>. If the value is <b>NULL</b>, the extensions are loaded based on the object that supports interface <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> as specified in <b>punkAssociationInfo</b>.
-     * @type {Pointer<HKEY>}
      */
-    aKeys {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    aKeys : HKEY.Ptr
+
 }

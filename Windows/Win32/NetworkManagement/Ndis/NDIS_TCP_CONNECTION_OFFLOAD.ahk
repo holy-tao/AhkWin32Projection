@@ -1,33 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_TCP_CONNECTION_OFFLOAD extends Win32Struct {
-    static sizeof => 20
+export default struct NDIS_TCP_CONNECTION_OFFLOAD {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Encapsulation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Encapsulation : UInt32
 
     /**
      * This bitfield backs the following members:
@@ -35,12 +17,9 @@ class NDIS_TCP_CONNECTION_OFFLOAD extends Win32Struct {
      * - SupportIPv6
      * - SupportIPv6ExtensionHeaders
      * - SupportSack
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -73,20 +52,8 @@ class NDIS_TCP_CONNECTION_OFFLOAD extends Win32Struct {
         get => (this._bitfield >> 6) & 0x3
         set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
     }
+    TcpConnectionOffloadCapacity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TcpConnectionOffloadCapacity {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

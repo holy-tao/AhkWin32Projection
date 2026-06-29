@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_SNEP_SERVER_TYPE.ahk
-#Include .\NFC_LLCP_SOCKET_OPTION.ahk
-#Include .\NFC_LLCP_SERVICE_NAME_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NFC_SNEP_SERVER_TYPE.ahk" { NFC_SNEP_SERVER_TYPE }
+#Import ".\NFC_LLCP_SERVICE_NAME_ENTRY.ahk" { NFC_LLCP_SERVICE_NAME_ENTRY }
+#Import ".\NFC_LLCP_SOCKET_OPTION.ahk" { NFC_LLCP_SOCKET_OPTION }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_SNEP_CLIENT_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct NFC_SNEP_CLIENT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hRemoteDev : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hRemoteDev {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    eServerType : NFC_SNEP_SERVER_TYPE
 
-    /**
-     * @type {NFC_SNEP_SERVER_TYPE}
-     */
-    eServerType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    sSocketOption : NFC_LLCP_SOCKET_OPTION
 
-    /**
-     * @type {NFC_LLCP_SOCKET_OPTION}
-     */
-    sSocketOption {
-        get {
-            if(!this.HasProp("__sSocketOption"))
-                this.__sSocketOption := NFC_LLCP_SOCKET_OPTION(12, this)
-            return this.__sSocketOption
-        }
-    }
+    sService : NFC_LLCP_SERVICE_NAME_ENTRY
 
-    /**
-     * @type {NFC_LLCP_SERVICE_NAME_ENTRY}
-     */
-    sService {
-        get {
-            if(!this.HasProp("__sService"))
-                this.__sService := NFC_LLCP_SERVICE_NAME_ENTRY(16, this)
-            return this.__sService
-        }
-    }
 }

@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumFilters.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPinConnection.ahk" { IPinConnection }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IGraphConfigCallback.ahk" { IGraphConfigCallback }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import ".\IEnumFilters.ahk" { IEnumFilters }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The Filter Graph Manager exposes IGraphConfig to support dynamic graph building.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphconfig
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IGraphConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGraphConfig extends IUnknown {
     /**
      * The interface identifier for IGraphConfig
      * @type {Guid}
      */
-    static IID => Guid("{03a1eb8e-32bf-4245-8502-114d08a9cb88}")
+    static IID := Guid("{03a1eb8e-32bf-4245-8502-114d08a9cb88}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGraphConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reconnect             : IntPtr
+        Reconfigure           : IntPtr
+        AddFilterToCache      : IntPtr
+        EnumCacheFilter       : IntPtr
+        RemoveFilterFromCache : IntPtr
+        GetStartTime          : IntPtr
+        PushThroughData       : IntPtr
+        SetFilterFlags        : IntPtr
+        GetFilterFlags        : IntPtr
+        RemoveFilterEx        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reconnect", "Reconfigure", "AddFilterToCache", "EnumCacheFilter", "RemoveFilterFromCache", "GetStartTime", "PushThroughData", "SetFilterFlags", "GetFilterFlags", "RemoveFilterEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGraphConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Reconnect method performs a dynamic reconnection between two pins.
@@ -106,9 +129,7 @@ class IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-reconnect
      */
     Reconnect(pOutputPin, pInputPin, pmtFirstConnection, pUsingFilter, hAbortEvent, dwFlags) {
-        hAbortEvent := hAbortEvent is Win32Handle ? NumGet(hAbortEvent, "ptr") : hAbortEvent
-
-        result := ComCall(3, this, "ptr", pOutputPin, "ptr", pInputPin, "ptr", pmtFirstConnection, "ptr", pUsingFilter, "ptr", hAbortEvent, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pOutputPin, "ptr", pInputPin, AM_MEDIA_TYPE.Ptr, pmtFirstConnection, "ptr", pUsingFilter, HANDLE, hAbortEvent, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -128,11 +149,9 @@ class IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-reconfigure
      */
     Reconfigure(pCallback, pvContext, dwFlags, hAbortEvent) {
-        hAbortEvent := hAbortEvent is Win32Handle ? NumGet(hAbortEvent, "ptr") : hAbortEvent
-
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, "uint", dwFlags, "ptr", hAbortEvent, "HRESULT")
+        result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, "uint", dwFlags, HANDLE, hAbortEvent, "HRESULT")
         return result
     }
 
@@ -326,9 +345,7 @@ class IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-pushthroughdata
      */
     PushThroughData(pOutputPin, pConnection, hEventAbort) {
-        hEventAbort := hEventAbort is Win32Handle ? NumGet(hEventAbort, "ptr") : hEventAbort
-
-        result := ComCall(9, this, "ptr", pOutputPin, "ptr", pConnection, "ptr", hEventAbort, "HRESULT")
+        result := ComCall(9, this, "ptr", pOutputPin, "ptr", pConnection, HANDLE, hEventAbort, "HRESULT")
         return result
     }
 
@@ -422,5 +439,43 @@ class IGraphConfig extends IUnknown {
     RemoveFilterEx(pFilter, Flags) {
         result := ComCall(12, this, "ptr", pFilter, "uint", Flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGraphConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reconnect := CallbackCreate(GetMethod(implObj, "Reconnect"), flags, 7)
+        this.vtbl.Reconfigure := CallbackCreate(GetMethod(implObj, "Reconfigure"), flags, 5)
+        this.vtbl.AddFilterToCache := CallbackCreate(GetMethod(implObj, "AddFilterToCache"), flags, 2)
+        this.vtbl.EnumCacheFilter := CallbackCreate(GetMethod(implObj, "EnumCacheFilter"), flags, 2)
+        this.vtbl.RemoveFilterFromCache := CallbackCreate(GetMethod(implObj, "RemoveFilterFromCache"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 2)
+        this.vtbl.PushThroughData := CallbackCreate(GetMethod(implObj, "PushThroughData"), flags, 4)
+        this.vtbl.SetFilterFlags := CallbackCreate(GetMethod(implObj, "SetFilterFlags"), flags, 3)
+        this.vtbl.GetFilterFlags := CallbackCreate(GetMethod(implObj, "GetFilterFlags"), flags, 3)
+        this.vtbl.RemoveFilterEx := CallbackCreate(GetMethod(implObj, "RemoveFilterEx"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reconnect)
+        CallbackFree(this.vtbl.Reconfigure)
+        CallbackFree(this.vtbl.AddFilterToCache)
+        CallbackFree(this.vtbl.EnumCacheFilter)
+        CallbackFree(this.vtbl.RemoveFilterFromCache)
+        CallbackFree(this.vtbl.GetStartTime)
+        CallbackFree(this.vtbl.PushThroughData)
+        CallbackFree(this.vtbl.SetFilterFlags)
+        CallbackFree(this.vtbl.GetFilterFlags)
+        CallbackFree(this.vtbl.RemoveFilterEx)
     }
 }

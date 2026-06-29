@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * Contains information about a process running on a Remote Desktop Session Host (RD Session Host) server. (Unicode)
@@ -10,46 +11,29 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset Unicode
  */
-class WTS_PROCESS_INFOW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WTS_PROCESS_INFOW {
+    #StructPack 8
 
     /**
      * Remote Desktop Services session identifier for the session associated with the process.
-     * @type {Integer}
      */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SessionId : UInt32
 
     /**
      * Process identifier that uniquely identifies the process on the RD Session Host server.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProcessId : UInt32
 
     /**
      * Pointer to a null-terminated string containing the name of the executable file associated with the process.
-     * @type {PWSTR}
      */
-    pProcessName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pProcessName : PWSTR
 
     /**
      * Pointer to the user 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a> in the process's primary access token. For more information about SIDs and access tokens, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * @type {PSID}
      */
-    pUserSid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pUserSid : PSID
+
 }

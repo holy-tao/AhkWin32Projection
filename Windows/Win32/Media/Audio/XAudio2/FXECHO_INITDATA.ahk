@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Initialization parameters for use with the FXECHO XAPOFX.
@@ -13,17 +12,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapofx/ns-xapofx-fxecho_initdata
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class FXECHO_INITDATA extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct FXECHO_INITDATA {
+    #StructPack 4
 
     /**
      * Maximum delay (all channels) in milliseconds. This must be within <b>FXECHO_MIN_DELAY</b> and <b>FXECHO_MAX_DELAY</b>.
-     * @type {Float}
      */
-    MaxDelay {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    MaxDelay : Float32
+
 }

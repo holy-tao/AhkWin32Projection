@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D2D1_TRIANGLE.ahk" { D2D1_TRIANGLE }
 
 /**
  * Populates an ID2D1Mesh object with triangles.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1tessellationsink
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1TessellationSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1TessellationSink extends IUnknown {
     /**
      * The interface identifier for ID2D1TessellationSink
      * @type {Guid}
      */
-    static IID => Guid("{2cd906c1-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906c1-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1TessellationSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddTriangles : IntPtr
+        Close        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddTriangles", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1TessellationSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Copies the specified triangles to the sink.
@@ -41,7 +51,7 @@ class ID2D1TessellationSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1tessellationsink-addtriangles
      */
     AddTriangles(triangles, trianglesCount) {
-        ComCall(3, this, "ptr", triangles, "uint", trianglesCount)
+        ComCall(3, this, D2D1_TRIANGLE.Ptr, triangles, "uint", trianglesCount)
     }
 
     /**
@@ -54,5 +64,27 @@ class ID2D1TessellationSink extends IUnknown {
     Close() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1TessellationSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddTriangles := CallbackCreate(GetMethod(implObj, "AddTriangles"), flags, 3)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddTriangles)
+        CallbackFree(this.vtbl.Close)
     }
 }

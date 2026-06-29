@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies execution options when querying for execution authorization with WldpCanExecuteBuffer, WldpCanExecuteFile, and WldpCanExecuteStream.
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_execution_evaluation_options
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class WLDP_EXECUTION_EVALUATION_OPTIONS extends Win32BitflagEnum {
+export default struct WLDP_EXECUTION_EVALUATION_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No options.

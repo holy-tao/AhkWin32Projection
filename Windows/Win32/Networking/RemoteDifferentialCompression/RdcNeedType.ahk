@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the set of data chunks used to generate a remote copy.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcneedtype
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  */
-class RdcNeedType extends Win32Enum {
+export default struct RdcNeedType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The chunk is a source chunk.

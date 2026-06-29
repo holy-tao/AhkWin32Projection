@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEO_CURSOR_POSITION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VIDEO_CURSOR_POSITION.ahk" { VIDEO_CURSOR_POSITION }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FSVIDEO_CURSOR_POSITION extends Win32Struct {
-    static sizeof => 8
+export default struct FSVIDEO_CURSOR_POSITION {
+    #StructPack 4
 
-    static packingSize => 4
+    Coord : VIDEO_CURSOR_POSITION
 
-    /**
-     * @type {VIDEO_CURSOR_POSITION}
-     */
-    Coord {
-        get {
-            if(!this.HasProp("__Coord"))
-                this.__Coord := VIDEO_CURSOR_POSITION(0, this)
-            return this.__Coord
-        }
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * A MapiFileDescW structure contains information about a file containing a message attachment stored as a temporary file. That file can contain a static OLE object, an embedded OLE object, an embedded message, and other types of files.
@@ -29,21 +29,15 @@
  * @namespace Windows.Win32.System.Mapi
  * @charset Unicode
  */
-class MapiFileDescW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MapiFileDescW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
      * 
      * Reserved; must be 0.
-     * @type {Integer}
      */
-    ulReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
@@ -81,12 +75,8 @@ class MapiFileDescW extends Win32Struct {
      *  
      * 
      * If neither flag is set, the attachment is treated as a data file.
-     * @type {Integer}
      */
-    flFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    flFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
@@ -94,23 +84,15 @@ class MapiFileDescW extends Win32Struct {
      * An integer used to indicate where the attachment is rendered in the message text. The message text is stored in the <b>NoteText</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapimessagew">MapiMessageW</a> structure, and the integer is used as an index to identify a specific character in the message string, <b>NoteText</b>[<b>nPosition</b>], that is replaced by the attachment.
      * 
      * A value of   -1 (0xFFFFFFFF) means the attachment position is not indicated and the client application must provide a way for the user to access the attachment.
-     * @type {Integer}
      */
-    nPosition {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    nPosition : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to the fully qualified path of the attached file. This path should include the disk drive letter and directory name.
-     * @type {PWSTR}
      */
-    lpszPathName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszPathName : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
@@ -118,12 +100,8 @@ class MapiFileDescW extends Win32Struct {
      * Pointer to the filename of the attachment as seen by the recipient. The filename that is seen by the recipient may differ from the filename in the <b>lpszPathName</b> member if temporary files are being used.
      * 
      * If the <b>lpszFileName</b> member is empty or <b>NULL</b>, the filename from <b>lpszPathName</b> is used.
-     * @type {PWSTR}
      */
-    lpszFileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszFileName : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PVOID</a></b>
@@ -131,10 +109,7 @@ class MapiFileDescW extends Win32Struct {
      * Pointer to the attachment file type, which can be represented with a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapifiletagext">MapiFileTagExt</a> structure.
      * 
      * A value of <b>NULL</b> indicates an unknown file type or a file type determined by the operating system.
-     * @type {Pointer<Void>}
      */
-    lpFileType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpFileType : IntPtr
+
 }

@@ -1,40 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEITEM extends Win32Struct {
-    static sizeof => 16
+export default struct IMEITEM {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : Int32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    iType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    iType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lpItemData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpItemData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

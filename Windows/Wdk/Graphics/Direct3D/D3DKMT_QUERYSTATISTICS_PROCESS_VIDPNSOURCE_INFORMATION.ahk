@@ -1,86 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_VIDPNSOURCE_INFORMATION extends Win32Struct {
-    static sizeof => 80
+export default struct D3DKMT_QUERYSTATISTICS_PROCESS_VIDPNSOURCE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Frame : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Frame {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CancelledFrame : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CancelledFrame {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    QueuedPresent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QueuedPresent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Padding : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Padding {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    IsVSyncEnabled : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IsVSyncEnabled {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    VSyncOnTotalTimeMs : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VSyncOnTotalTimeMs {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VSyncOffKeepPhaseTotalTimeMs : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VSyncOffKeepPhaseTotalTimeMs {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    VSyncOffNoPhaseTotalTimeMs : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VSyncOffNoPhaseTotalTimeMs {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Reserved : Int64[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

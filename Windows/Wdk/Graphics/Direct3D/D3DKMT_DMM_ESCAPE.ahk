@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_DMMESCAPETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_DMMESCAPETYPE.ahk" { D3DKMT_DMMESCAPETYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_DMM_ESCAPE extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMT_DMM_ESCAPE {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : D3DKMT_DMMESCAPETYPE
 
-    /**
-     * @type {D3DKMT_DMMESCAPETYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ProvidedBufferSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ProvidedBufferSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MinRequiredBufferSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MinRequiredBufferSize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a Remote Desktop Connection (RDC) client. (Unicode)
@@ -16,184 +16,104 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset Unicode
  */
-class WTSCLIENTW extends Win32Struct {
-    static sizeof => 2304
-
-    static packingSize => 4
+export default struct WTSCLIENTW {
+    #StructPack 4
 
     /**
      * The NetBIOS name of the client computer.
-     * @type {String}
      */
-    ClientName {
-        get => StrGet(this.ptr + 0, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 20, "UTF-16")
-    }
+    ClientName : WCHAR[21]
 
     /**
      * The domain name of the client computer.
-     * @type {String}
      */
-    Domain {
-        get => StrGet(this.ptr + 42, 17, "UTF-16")
-        set => StrPut(value, this.ptr + 42, 17, "UTF-16")
-    }
+    Domain : WCHAR[18]
 
     /**
      * The client user name.
-     * @type {String}
      */
-    UserName {
-        get => StrGet(this.ptr + 78, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 78, 20, "UTF-16")
-    }
+    UserName : WCHAR[21]
 
     /**
      * The folder for the initial program.
-     * @type {String}
      */
-    WorkDirectory {
-        get => StrGet(this.ptr + 120, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 120, 260, "UTF-16")
-    }
+    WorkDirectory : WCHAR[261]
 
     /**
      * The program to start on connection.
-     * @type {String}
      */
-    InitialProgram {
-        get => StrGet(this.ptr + 642, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 642, 260, "UTF-16")
-    }
+    InitialProgram : WCHAR[261]
 
     /**
      * The security level of encryption.
-     * @type {Integer}
      */
-    EncryptionLevel {
-        get => NumGet(this, 1164, "char")
-        set => NumPut("char", value, this, 1164)
-    }
+    EncryptionLevel : Int8
 
     /**
      * The address family. This member can be <b>AF_INET</b>, <b>AF_INET6</b>, <b>AF_IPX</b>, <b>AF_NETBIOS</b>, or <b>AF_UNSPEC</b>.
-     * @type {Integer}
      */
-    ClientAddressFamily {
-        get => NumGet(this, 1168, "uint")
-        set => NumPut("uint", value, this, 1168)
-    }
+    ClientAddressFamily : UInt32
 
     /**
      * The client network address.
-     * @type {Array<Integer>}
      */
-    ClientAddress {
-        get {
-            if(!this.HasProp("__ClientAddressProxyArray"))
-                this.__ClientAddressProxyArray := Win32FixedArray(this.ptr + 1172, 31, Primitive, "ushort")
-            return this.__ClientAddressProxyArray
-        }
-    }
+    ClientAddress : UInt16[31]
 
     /**
      * Horizontal dimension, in pixels, of the client's display.
-     * @type {Integer}
      */
-    HRes {
-        get => NumGet(this, 1234, "ushort")
-        set => NumPut("ushort", value, this, 1234)
-    }
+    HRes : UInt16
 
     /**
      * Vertical dimension, in pixels, of the client's display.
-     * @type {Integer}
      */
-    VRes {
-        get => NumGet(this, 1236, "ushort")
-        set => NumPut("ushort", value, this, 1236)
-    }
+    VRes : UInt16
 
     /**
      * Color depth of the client's display. For possible values, see the <b>ColorDepth</b> 
      *       member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_display">WTS_CLIENT_DISPLAY</a> 
      *       structure.
-     * @type {Integer}
      */
-    ColorDepth {
-        get => NumGet(this, 1238, "ushort")
-        set => NumPut("ushort", value, this, 1238)
-    }
+    ColorDepth : UInt16
 
     /**
      * The location of the client ActiveX control DLL.
-     * @type {String}
      */
-    ClientDirectory {
-        get => StrGet(this.ptr + 1240, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 1240, 260, "UTF-16")
-    }
+    ClientDirectory : WCHAR[261]
 
     /**
      * The client build number.
-     * @type {Integer}
      */
-    ClientBuildNumber {
-        get => NumGet(this, 1764, "uint")
-        set => NumPut("uint", value, this, 1764)
-    }
+    ClientBuildNumber : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    ClientHardwareId {
-        get => NumGet(this, 1768, "uint")
-        set => NumPut("uint", value, this, 1768)
-    }
+    ClientHardwareId : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    ClientProductId {
-        get => NumGet(this, 1772, "ushort")
-        set => NumPut("ushort", value, this, 1772)
-    }
+    ClientProductId : UInt16
 
     /**
      * The number of output buffers on the server per session.
-     * @type {Integer}
      */
-    OutBufCountHost {
-        get => NumGet(this, 1774, "ushort")
-        set => NumPut("ushort", value, this, 1774)
-    }
+    OutBufCountHost : UInt16
 
     /**
      * The number of output buffers on the client.
-     * @type {Integer}
      */
-    OutBufCountClient {
-        get => NumGet(this, 1776, "ushort")
-        set => NumPut("ushort", value, this, 1776)
-    }
+    OutBufCountClient : UInt16
 
     /**
      * The length of the output buffers, in bytes.
-     * @type {Integer}
      */
-    OutBufLength {
-        get => NumGet(this, 1778, "ushort")
-        set => NumPut("ushort", value, this, 1778)
-    }
+    OutBufLength : UInt16
 
     /**
      * The device ID of the network adapter.
-     * @type {String}
      */
-    DeviceId {
-        get => StrGet(this.ptr + 1780, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 1780, 260, "UTF-16")
-    }
+    DeviceId : WCHAR[261]
+
 }

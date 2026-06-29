@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the relationship between two network interfaces. (MIB_INVERTEDIFSTACK_ROW)
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_invertedifstack_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_INVERTEDIFSTACK_ROW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIB_INVERTEDIFSTACK_ROW {
+    #StructPack 4
 
     /**
      * The network interface index for the interface that is lower in the interface stack table.
-     * @type {Integer}
      */
-    LowerLayerInterfaceIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LowerLayerInterfaceIndex : UInt32
 
     /**
      * The network interface index for the interface that is higher in the interface stack table.
-     * @type {Integer}
      */
-    HigherLayerInterfaceIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HigherLayerInterfaceIndex : UInt32
+
 }

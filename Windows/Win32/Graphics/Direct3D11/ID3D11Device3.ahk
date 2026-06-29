@@ -1,41 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device2.ahk
-#Include .\ID3D11Texture2D1.ahk
-#Include .\ID3D11Texture3D1.ahk
-#Include .\ID3D11RasterizerState2.ahk
-#Include .\ID3D11ShaderResourceView1.ahk
-#Include .\ID3D11UnorderedAccessView1.ahk
-#Include .\ID3D11RenderTargetView1.ahk
-#Include .\ID3D11Query1.ahk
-#Include .\ID3D11DeviceContext3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
+#Import ".\ID3D11ShaderResourceView1.ahk" { ID3D11ShaderResourceView1 }
+#Import ".\ID3D11UnorderedAccessView1.ahk" { ID3D11UnorderedAccessView1 }
+#Import ".\ID3D11Texture2D1.ahk" { ID3D11Texture2D1 }
+#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
+#Import ".\ID3D11RasterizerState2.ahk" { ID3D11RasterizerState2 }
+#Import ".\D3D11_QUERY_DESC1.ahk" { D3D11_QUERY_DESC1 }
+#Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
+#Import ".\D3D11_RASTERIZER_DESC2.ahk" { D3D11_RASTERIZER_DESC2 }
+#Import ".\D3D11_SHADER_RESOURCE_VIEW_DESC1.ahk" { D3D11_SHADER_RESOURCE_VIEW_DESC1 }
+#Import ".\ID3D11Device2.ahk" { ID3D11Device2 }
+#Import ".\ID3D11Texture3D1.ahk" { ID3D11Texture3D1 }
+#Import ".\D3D11_RENDER_TARGET_VIEW_DESC1.ahk" { D3D11_RENDER_TARGET_VIEW_DESC1 }
+#Import ".\D3D11_TEXTURE3D_DESC1.ahk" { D3D11_TEXTURE3D_DESC1 }
+#Import ".\ID3D11RenderTargetView1.ahk" { ID3D11RenderTargetView1 }
+#Import ".\D3D11_TEXTURE2D_DESC1.ahk" { D3D11_TEXTURE2D_DESC1 }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\ID3D11Query1.ahk" { ID3D11Query1 }
+#Import ".\D3D11_UNORDERED_ACCESS_VIEW_DESC1.ahk" { D3D11_UNORDERED_ACCESS_VIEW_DESC1 }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device3 adds new methods to those in ID3D11Device2.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11device3
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Device3 extends ID3D11Device2 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Device3 extends ID3D11Device2 {
     /**
      * The interface identifier for ID3D11Device3
      * @type {Guid}
      */
-    static IID => Guid("{a05c8c37-d2c6-4732-b3a0-9ce0b0dc9ae6}")
+    static IID := Guid("{a05c8c37-d2c6-4732-b3a0-9ce0b0dc9ae6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 54
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Device3 interfaces
+    */
+    struct Vtbl extends ID3D11Device2.Vtbl {
+        CreateTexture2D1           : IntPtr
+        CreateTexture3D1           : IntPtr
+        CreateRasterizerState2     : IntPtr
+        CreateShaderResourceView1  : IntPtr
+        CreateUnorderedAccessView1 : IntPtr
+        CreateRenderTargetView1    : IntPtr
+        CreateQuery1               : IntPtr
+        GetImmediateContext3       : IntPtr
+        CreateDeferredContext3     : IntPtr
+        WriteToSubresource         : IntPtr
+        ReadFromSubresource        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTexture2D1", "CreateTexture3D1", "CreateRasterizerState2", "CreateShaderResourceView1", "CreateUnorderedAccessView1", "CreateRenderTargetView1", "CreateQuery1", "GetImmediateContext3", "CreateDeferredContext3", "WriteToSubresource", "ReadFromSubresource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Device3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a 2D texture.
@@ -78,7 +106,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createtexture2d1
      */
     CreateTexture2D1(pDesc1, pInitialData) {
-        result := ComCall(54, this, "ptr", pDesc1, "ptr", pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
+        result := ComCall(54, this, D3D11_TEXTURE2D_DESC1.Ptr, pDesc1, D3D11_SUBRESOURCE_DATA.Ptr, pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
         return ID3D11Texture2D1(ppTexture2D)
     }
 
@@ -120,7 +148,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createtexture3d1
      */
     CreateTexture3D1(pDesc1, pInitialData) {
-        result := ComCall(55, this, "ptr", pDesc1, "ptr", pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
+        result := ComCall(55, this, D3D11_TEXTURE3D_DESC1.Ptr, pDesc1, D3D11_SUBRESOURCE_DATA.Ptr, pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
         return ID3D11Texture3D1(ppTexture3D)
     }
 
@@ -135,7 +163,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createrasterizerstate2
      */
     CreateRasterizerState2(pRasterizerDesc) {
-        result := ComCall(56, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        result := ComCall(56, this, D3D11_RASTERIZER_DESC2.Ptr, pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
         return ID3D11RasterizerState2(ppRasterizerState)
     }
 
@@ -154,7 +182,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createshaderresourceview1
      */
     CreateShaderResourceView1(pResource, pDesc1) {
-        result := ComCall(57, this, "ptr", pResource, "ptr", pDesc1, "ptr*", &ppSRView1 := 0, "HRESULT")
+        result := ComCall(57, this, "ptr", pResource, D3D11_SHADER_RESOURCE_VIEW_DESC1.Ptr, pDesc1, "ptr*", &ppSRView1 := 0, "HRESULT")
         return ID3D11ShaderResourceView1(ppSRView1)
     }
 
@@ -172,7 +200,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createunorderedaccessview1
      */
     CreateUnorderedAccessView1(pResource, pDesc1) {
-        result := ComCall(58, this, "ptr", pResource, "ptr", pDesc1, "ptr*", &ppUAView1 := 0, "HRESULT")
+        result := ComCall(58, this, "ptr", pResource, D3D11_UNORDERED_ACCESS_VIEW_DESC1.Ptr, pDesc1, "ptr*", &ppUAView1 := 0, "HRESULT")
         return ID3D11UnorderedAccessView1(ppUAView1)
     }
 
@@ -192,7 +220,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createrendertargetview1
      */
     CreateRenderTargetView1(pResource, pDesc1) {
-        result := ComCall(59, this, "ptr", pResource, "ptr", pDesc1, "ptr*", &ppRTView1 := 0, "HRESULT")
+        result := ComCall(59, this, "ptr", pResource, D3D11_RENDER_TARGET_VIEW_DESC1.Ptr, pDesc1, "ptr*", &ppRTView1 := 0, "HRESULT")
         return ID3D11RenderTargetView1(ppRTView1)
     }
 
@@ -207,7 +235,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createquery1
      */
     CreateQuery1(pQueryDesc1) {
-        result := ComCall(60, this, "ptr", pQueryDesc1, "ptr*", &ppQuery1 := 0, "HRESULT")
+        result := ComCall(60, this, D3D11_QUERY_DESC1.Ptr, pQueryDesc1, "ptr*", &ppQuery1 := 0, "HRESULT")
         return ID3D11Query1(ppQuery1)
     }
 
@@ -229,7 +257,7 @@ class ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-getimmediatecontext3
      */
     GetImmediateContext3(ppImmediateContext) {
-        ComCall(61, this, "ptr*", ppImmediateContext)
+        ComCall(61, this, ID3D11DeviceContext3.Ptr, ppImmediateContext)
     }
 
     /**
@@ -304,7 +332,7 @@ class ID3D11Device3 extends ID3D11Device2 {
     WriteToSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(63, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        ComCall(63, this, "ptr", pDstResource, "uint", DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
     }
 
     /**
@@ -364,6 +392,46 @@ class ID3D11Device3 extends ID3D11Device2 {
     ReadFromSubresource(pDstData, DstRowPitch, DstDepthPitch, pSrcResource, SrcSubresource, pSrcBox) {
         pDstDataMarshal := pDstData is VarRef ? "ptr" : "ptr"
 
-        ComCall(64, this, pDstDataMarshal, pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "ptr", pSrcResource, "uint", SrcSubresource, "ptr", pSrcBox)
+        ComCall(64, this, pDstDataMarshal, pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "ptr", pSrcResource, "uint", SrcSubresource, D3D11_BOX.Ptr, pSrcBox)
+    }
+
+    Query(iid) {
+        if (ID3D11Device3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTexture2D1 := CallbackCreate(GetMethod(implObj, "CreateTexture2D1"), flags, 4)
+        this.vtbl.CreateTexture3D1 := CallbackCreate(GetMethod(implObj, "CreateTexture3D1"), flags, 4)
+        this.vtbl.CreateRasterizerState2 := CallbackCreate(GetMethod(implObj, "CreateRasterizerState2"), flags, 3)
+        this.vtbl.CreateShaderResourceView1 := CallbackCreate(GetMethod(implObj, "CreateShaderResourceView1"), flags, 4)
+        this.vtbl.CreateUnorderedAccessView1 := CallbackCreate(GetMethod(implObj, "CreateUnorderedAccessView1"), flags, 4)
+        this.vtbl.CreateRenderTargetView1 := CallbackCreate(GetMethod(implObj, "CreateRenderTargetView1"), flags, 4)
+        this.vtbl.CreateQuery1 := CallbackCreate(GetMethod(implObj, "CreateQuery1"), flags, 3)
+        this.vtbl.GetImmediateContext3 := CallbackCreate(GetMethod(implObj, "GetImmediateContext3"), flags, 2)
+        this.vtbl.CreateDeferredContext3 := CallbackCreate(GetMethod(implObj, "CreateDeferredContext3"), flags, 3)
+        this.vtbl.WriteToSubresource := CallbackCreate(GetMethod(implObj, "WriteToSubresource"), flags, 7)
+        this.vtbl.ReadFromSubresource := CallbackCreate(GetMethod(implObj, "ReadFromSubresource"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTexture2D1)
+        CallbackFree(this.vtbl.CreateTexture3D1)
+        CallbackFree(this.vtbl.CreateRasterizerState2)
+        CallbackFree(this.vtbl.CreateShaderResourceView1)
+        CallbackFree(this.vtbl.CreateUnorderedAccessView1)
+        CallbackFree(this.vtbl.CreateRenderTargetView1)
+        CallbackFree(this.vtbl.CreateQuery1)
+        CallbackFree(this.vtbl.GetImmediateContext3)
+        CallbackFree(this.vtbl.CreateDeferredContext3)
+        CallbackFree(this.vtbl.WriteToSubresource)
+        CallbackFree(this.vtbl.ReadFromSubresource)
     }
 }

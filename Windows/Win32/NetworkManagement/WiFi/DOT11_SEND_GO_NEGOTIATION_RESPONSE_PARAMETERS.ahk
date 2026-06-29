@@ -1,146 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_WFD_GO_INTENT.ahk
-#Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
-#Include .\DOT11_WFD_GROUP_ID.ahk
-#Include .\DOT11_SSID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_WFD_GO_INTENT.ahk" { DOT11_WFD_GO_INTENT }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_WFD_GROUP_ID.ahk" { DOT11_WFD_GROUP_ID }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk" { DOT11_WFD_CONFIGURATION_TIMEOUT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct {
-    static sizeof => 96
+export default struct DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    PeerDeviceAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerDeviceAddress {
-        get {
-            if(!this.HasProp("__PeerDeviceAddressProxyArray"))
-                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__PeerDeviceAddressProxyArray
-        }
-    }
+    DialogToken : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DialogToken {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    RequestContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    RequestContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    uSendTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSendTimeout {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Status : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    GroupOwnerIntent : DOT11_WFD_GO_INTENT
 
-    /**
-     * @type {DOT11_WFD_GO_INTENT}
-     */
-    GroupOwnerIntent {
-        get {
-            if(!this.HasProp("__GroupOwnerIntent"))
-                this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(29, this)
-            return this.__GroupOwnerIntent
-        }
-    }
+    MinimumConfigTimeout : DOT11_WFD_CONFIGURATION_TIMEOUT
 
-    /**
-     * @type {DOT11_WFD_CONFIGURATION_TIMEOUT}
-     */
-    MinimumConfigTimeout {
-        get {
-            if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(30, this)
-            return this.__MinimumConfigTimeout
-        }
-    }
+    IntendedInterfaceAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    IntendedInterfaceAddress {
-        get {
-            if(!this.HasProp("__IntendedInterfaceAddressProxyArray"))
-                this.__IntendedInterfaceAddressProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
-            return this.__IntendedInterfaceAddressProxyArray
-        }
-    }
+    GroupCapability : Int8
 
-    /**
-     * @type {Integer}
-     */
-    GroupCapability {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
-    }
+    GroupID : DOT11_WFD_GROUP_ID
 
-    /**
-     * @type {DOT11_WFD_GROUP_ID}
-     */
-    GroupID {
-        get {
-            if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(40, this)
-            return this.__GroupID
-        }
-    }
+    bUseGroupID : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bUseGroupID {
-        get => NumGet(this, 84, "char")
-        set => NumPut("char", value, this, 84)
-    }
+    uIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsOffset {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    uIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsLength {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 }

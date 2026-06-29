@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DeviceChild.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk" { D3D12_GRAPHICS_PIPELINE_STATE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
+#Import ".\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk" { D3D12_COMPUTE_PIPELINE_STATE_DESC }
+#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
 
 /**
  * Manages a pipeline library, in particular loading and retrieving individual PSOs.
@@ -10,26 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinelibrary
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12PipelineLibrary extends ID3D12DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12PipelineLibrary extends ID3D12DeviceChild {
     /**
      * The interface identifier for ID3D12PipelineLibrary
      * @type {Guid}
      */
-    static IID => Guid("{c64226a8-9201-46af-b4cc-53fb9ff7414f}")
+    static IID := Guid("{c64226a8-9201-46af-b4cc-53fb9ff7414f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12PipelineLibrary interfaces
+    */
+    struct Vtbl extends ID3D12DeviceChild.Vtbl {
+        StorePipeline        : IntPtr
+        LoadGraphicsPipeline : IntPtr
+        LoadComputePipeline  : IntPtr
+        GetSerializedSize    : IntPtr
+        Serialize            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StorePipeline", "LoadGraphicsPipeline", "LoadComputePipeline", "GetSerializedSize", "Serialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12PipelineLibrary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds the input PSO to an internal database with the corresponding name.
@@ -74,7 +90,7 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild {
     LoadGraphicsPipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(9, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pName, D3D12_GRAPHICS_PIPELINE_STATE_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppPipelineState := 0, "HRESULT")
         return ppPipelineState
     }
 
@@ -99,7 +115,7 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild {
     LoadComputePipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(10, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pName, D3D12_COMPUTE_PIPELINE_STATE_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppPipelineState := 0, "HRESULT")
         return ppPipelineState
     }
 
@@ -113,7 +129,7 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-getserializedsize
      */
     GetSerializedSize() {
-        result := ComCall(11, this, "ptr")
+        result := ComCall(11, this, IntPtr)
         return result
     }
 
@@ -132,5 +148,33 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild {
     Serialize(DataSizeInBytes) {
         result := ComCall(12, this, "ptr", &pData := 0, "ptr", DataSizeInBytes, "HRESULT")
         return pData
+    }
+
+    Query(iid) {
+        if (ID3D12PipelineLibrary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StorePipeline := CallbackCreate(GetMethod(implObj, "StorePipeline"), flags, 3)
+        this.vtbl.LoadGraphicsPipeline := CallbackCreate(GetMethod(implObj, "LoadGraphicsPipeline"), flags, 5)
+        this.vtbl.LoadComputePipeline := CallbackCreate(GetMethod(implObj, "LoadComputePipeline"), flags, 5)
+        this.vtbl.GetSerializedSize := CallbackCreate(GetMethod(implObj, "GetSerializedSize"), flags, 1)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StorePipeline)
+        CallbackFree(this.vtbl.LoadGraphicsPipeline)
+        CallbackFree(this.vtbl.LoadComputePipeline)
+        CallbackFree(this.vtbl.GetSerializedSize)
+        CallbackFree(this.vtbl.Serialize)
     }
 }

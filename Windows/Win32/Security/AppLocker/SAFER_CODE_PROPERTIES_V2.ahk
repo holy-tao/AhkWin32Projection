@@ -1,27 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\Cryptography\ALG_ID.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**
  * Contains code image information and criteria to be checked on the code image.S
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_code_properties_v2
  * @namespace Windows.Win32.Security.AppLocker
  */
-class SAFER_CODE_PROPERTIES_V2 extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct SAFER_CODE_PROPERTIES_V2 {
+    #StructPack 8
 
     /**
      * The size of this structure in bytes. This is used for future and backward compatibility.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The types of criteria considered when evaluating this structure. Some flags might be silently ignored if some or all of their associated structure elements are not supplied. Specifying zero for this parameter causes the entire structure's contents to be ignored. 
@@ -103,33 +98,18 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCheckFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCheckFlags : UInt32
 
     /**
      * A string specifying the fully qualified path and file name to be used for discrimination checks based on the path. The image path is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if the <b>dwCheckFlags</b> member includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>hImageFileHandle</b> member must be set.
-     * @type {PWSTR}
      */
-    ImagePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ImagePath : PWSTR
 
     /**
      * A file handle to a code image with at least GENERIC_READ access. The handle is used instead of explicitly reopening the file  to compute discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if <b>dwCheckFlags</b> includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>ImagePath</b> member must be set.
-     * @type {HANDLE}
      */
-    hImageFileHandle {
-        get {
-            if(!this.HasProp("__hImageFileHandle"))
-                this.__hImageFileHandle := HANDLE(16, this)
-            return this.__hImageFileHandle
-        }
-    }
+    hImageFileHandle : HANDLE
 
     /**
      * The predetermined Internet Explorer security zones. The following zones are defined: 
@@ -145,12 +125,8 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct {
      * <li>URLZONE_UNTRUSTED</li>
      * </ul>
      * This member can be set to 0.
-     * @type {Integer}
      */
-    UrlZoneId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    UrlZoneId : UInt32
 
     /**
      * The pre-computed hash of the image. The supplied hash is interpreted as  valid if both the <b>ImageSize</b> member and the <b>dwImageHashSize</b> member are nonzero and the <b>HashAlgorithm</b> member contains a valid hashing algorithm from Wincrypt.h. 
@@ -165,63 +141,33 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct {
      * <li>Using the <b>hImageFileHandle</b> member if it is not <b>NULL</b>.</li>
      * <li>Opening and using the <b>ImagePath</b> member if it is not <b>NULL</b>.</li>
      * </ul>
-     * @type {Array<Integer>}
      */
-    ImageHash {
-        get {
-            if(!this.HasProp("__ImageHashProxyArray"))
-                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 28, 64, Primitive, "char")
-            return this.__ImageHashProxyArray
-        }
-    }
+    ImageHash : Int8[64]
 
     /**
      * The size in bytes of the <b>ImageHash</b> member.
-     * @type {Integer}
      */
-    dwImageHashSize {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwImageHashSize : UInt32
 
     /**
      * The size in bytes of the <b>pByteBlock</b> member. This member is not used if the <b>pByteBlock</b> member is <b>NULL</b>.
-     * @type {Integer}
      */
-    ImageSize {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
-    }
+    ImageSize : Int64
 
     /**
      * The hash algorithm used to create the <b>ImageHash</b> member.
-     * @type {ALG_ID}
      */
-    HashAlgorithm {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    HashAlgorithm : ALG_ID
 
     /**
      * The memory block containing the image of the code being checked. This member is optional. If this member is specified, the <b>ImageSize</b> member must also be supplied.
-     * @type {Pointer<Integer>}
      */
-    pByteBlock {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    pByteBlock : IntPtr
 
     /**
      * The arguments used for Authenticode signer certificate verification. These arguments are passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function and control the user interface (UI) that prompts the user to accept or reject entrusted certificates.
-     * @type {HWND}
      */
-    hWndParent {
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(120, this)
-            return this.__hWndParent
-        }
-    }
+    hWndParent : HWND
 
     /**
      * Indicates  the type of UI used. The following table shows the possible values. 
@@ -277,70 +223,42 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwWVTUIChoice {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwWVTUIChoice : UInt32
 
     /**
      * The package moniker property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {PWSTR}
      */
-    PackageMoniker {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    PackageMoniker : PWSTR
 
     /**
      * The package publisher property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {PWSTR}
      */
-    PackagePublisher {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    PackagePublisher : PWSTR
 
     /**
      * The package name property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {PWSTR}
      */
-    PackageName {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    PackageName : PWSTR
 
     /**
      * The package version property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {Integer}
      */
-    PackageVersion {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    PackageVersion : Int64
 
     /**
      * The package is a framework package. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {BOOL}
      */
-    PackageIsFramework {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
-    }
+    PackageIsFramework : BOOL
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 176
-    }
 }

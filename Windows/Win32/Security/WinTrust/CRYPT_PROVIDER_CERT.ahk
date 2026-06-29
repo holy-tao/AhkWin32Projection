@@ -1,81 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CERT_CONTEXT.ahk
-#Include ..\Cryptography\CTL_CONTEXT.ahk
-#Include ..\Cryptography\CERT_CHAIN_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\Cryptography\CERT_CHAIN_ELEMENT.ahk" { CERT_CHAIN_ELEMENT }
+#Import "..\Cryptography\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides information about a provider certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_cert
  * @namespace Windows.Win32.Security.WinTrust
  */
-class CRYPT_PROVIDER_CERT extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct CRYPT_PROVIDER_CERT {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * A pointer to the certificate context.
-     * @type {Pointer<CERT_CONTEXT>}
      */
-    pCert {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCert : CERT_CONTEXT.Ptr
 
     /**
      * Boolean value that indicates whether the certificate is a commercial certificate.
-     * @type {BOOL}
      */
-    fCommercial {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fCommercial : BOOL
 
     /**
      * Boolean value that indicates whether the certificate is a trusted root certificate.
-     * @type {BOOL}
      */
-    fTrustedRoot {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    fTrustedRoot : BOOL
 
     /**
      * Boolean value that indicates whether the certificate is self-signed.
-     * @type {BOOL}
      */
-    fSelfSigned {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fSelfSigned : BOOL
 
     /**
      * Boolean value that indicates whether the certificate is a test certificate.
-     * @type {BOOL}
      */
-    fTestCert {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fTestCert : BOOL
 
     /**
      * Value that specifies the revocation reason, if applicable.
-     * @type {Integer}
      */
-    dwRevokedReason {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwRevokedReason : UInt32
 
     /**
      * Bitwise combination of zero or more of the following confidence values.
@@ -154,73 +124,42 @@ class CRYPT_PROVIDER_CERT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwConfidence {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwConfidence : UInt32
 
     /**
      * A pointer to a <b>DWORD</b> variable that contains the error value for this certificate, if applicable.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwError : UInt32
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> that represents the certificate trust list (CTL).
-     * @type {Pointer<CTL_CONTEXT>}
      */
-    pTrustListContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pTrustListContext : CTL_CONTEXT.Ptr
 
     /**
      * Boolean value that specifies whether the certificate is a trust list signer certificate.
-     * @type {BOOL}
      */
-    fTrustListSignerCert {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    fTrustListSignerCert : BOOL
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> that represents a CTL that contains a self-signed certificate, if applicable.
-     * @type {Pointer<CTL_CONTEXT>}
      */
-    pCtlContext {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pCtlContext : CTL_CONTEXT.Ptr
 
     /**
      * A pointer to a <b>DWORD</b> variable that contains the error value for a CTL that contains a self-signed certificate, if applicable.
-     * @type {Integer}
      */
-    dwCtlError {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwCtlError : UInt32
 
     /**
      * Boolean value that indicates whether the certificate trust is cyclical.
-     * @type {BOOL}
      */
-    fIsCyclic {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    fIsCyclic : BOOL
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_element">CERT_CHAIN_ELEMENT</a> that represents the status of the certificate within a chain.
-     * @type {Pointer<CERT_CHAIN_ELEMENT>}
      */
-    pChainElement {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pChainElement : CERT_CHAIN_ELEMENT.Ptr
+
 }

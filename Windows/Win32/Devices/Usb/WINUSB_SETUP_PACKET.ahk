@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WINUSB_SETUP_PACKET structure describes a USB setup packet.
@@ -8,53 +7,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/winusb/ns-winusb-winusb_setup_packet
  * @namespace Windows.Win32.Devices.Usb
  */
-class WINUSB_SETUP_PACKET extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct WINUSB_SETUP_PACKET {
+    #StructPack 2
 
     /**
      * The request type. The values that are assigned to this member are defined in Table 9.2 of section 9.3 of the Universal Serial Bus (USB) specification (www.usb.org).
-     * @type {Integer}
      */
-    RequestType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    RequestType : Int8
 
     /**
      * The device request. The values that are assigned to this member are defined in Table 9.3 of section 9.4 of the Universal Serial Bus (USB) specification.
-     * @type {Integer}
      */
-    Request {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Request : Int8
 
     /**
      * The meaning of this member varies according to the request. For an explanation of this member, see the Universal Serial Bus (USB) specification.
-     * @type {Integer}
      */
-    Value {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Value : UInt16
 
     /**
      * The meaning of this member varies according to the request. For an explanation of this member, see the Universal Serial Bus (USB) specification.
-     * @type {Integer}
      */
-    Index {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Index : UInt16
 
     /**
      * The number of bytes to transfer.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Length : UInt16
+
 }

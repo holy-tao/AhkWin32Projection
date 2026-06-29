@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether or how a property can be indexed.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_columnindex_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class PROPDESC_COLUMNINDEX_TYPE extends Win32Enum {
+export default struct PROPDESC_COLUMNINDEX_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Never generate any index on this property.

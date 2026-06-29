@@ -1,54 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\KERB_LOGON_SUBMIT_TYPE.ahk" { KERB_LOGON_SUBMIT_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about a smart card logon session. (KERB_SMART_CARD_LOGON)
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_smart_card_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_SMART_CARD_LOGON extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct KERB_SMART_CARD_LOGON {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type">KERB_LOGON_SUBMIT_TYPE</a> value identifying the type of logon request being made. This member must be set to <b>KerbInteractiveLogon</b>.
-     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_LOGON_SUBMIT_TYPE
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that specifies the PIN associated with the smart card.
-     * @type {LSA_UNICODE_STRING}
      */
-    Pin {
-        get {
-            if(!this.HasProp("__Pin"))
-                this.__Pin := LSA_UNICODE_STRING(8, this)
-            return this.__Pin
-        }
-    }
+    Pin : LSA_UNICODE_STRING
 
     /**
      * The length, in characters, of the <b>CspData</b> member.
-     * @type {Integer}
      */
-    CspDataLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CspDataLength : UInt32
 
     /**
      * A pointer to a <b>KERB_SMARTCARD_CSP_INFO</b> structure that contains information about the smart card cryptographic service provider (CSP) or a pointer to a marshaled <b>KERB_CERTIFICATE_INFO</b> structure when updating certificate credentials.
-     * @type {Pointer<Integer>}
      */
-    CspData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    CspData : IntPtr
+
 }

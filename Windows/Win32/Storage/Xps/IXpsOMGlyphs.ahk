@@ -1,11 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\XPS_POINT.ahk
-#Include .\IXpsOMFontResource.ahk
-#Include .\IXpsOMBrush.ahk
-#Include .\IXpsOMGlyphsEditor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMGlyphsEditor.ahk" { IXpsOMGlyphsEditor }
+#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
+#Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XPS_STYLE_SIMULATION.ahk" { XPS_STYLE_SIMULATION }
 
 /**
  * Describes the text that appears on a page.
@@ -50,26 +56,59 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphs
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMGlyphs extends IXpsOMVisual {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMGlyphs extends IXpsOMVisual {
     /**
      * The interface identifier for IXpsOMGlyphs
      * @type {Guid}
      */
-    static IID => Guid("{819b3199-0a5a-4b64-bec7-a9e17e780de2}")
+    static IID := Guid("{819b3199-0a5a-4b64-bec7-a9e17e780de2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMGlyphs interfaces
+    */
+    struct Vtbl extends IXpsOMVisual.Vtbl {
+        GetUnicodeString            : IntPtr
+        GetGlyphIndexCount          : IntPtr
+        GetGlyphIndices             : IntPtr
+        GetGlyphMappingCount        : IntPtr
+        GetGlyphMappings            : IntPtr
+        GetProhibitedCaretStopCount : IntPtr
+        GetProhibitedCaretStops     : IntPtr
+        GetBidiLevel                : IntPtr
+        GetIsSideways               : IntPtr
+        GetDeviceFontName           : IntPtr
+        GetStyleSimulations         : IntPtr
+        SetStyleSimulations         : IntPtr
+        GetOrigin                   : IntPtr
+        SetOrigin                   : IntPtr
+        GetFontRenderingEmSize      : IntPtr
+        SetFontRenderingEmSize      : IntPtr
+        GetFontResource             : IntPtr
+        SetFontResource             : IntPtr
+        GetFontFaceIndex            : IntPtr
+        SetFontFaceIndex            : IntPtr
+        GetFillBrush                : IntPtr
+        GetFillBrushLocal           : IntPtr
+        SetFillBrushLocal           : IntPtr
+        GetFillBrushLookup          : IntPtr
+        SetFillBrushLookup          : IntPtr
+        GetGlyphsEditor             : IntPtr
+        Clone                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUnicodeString", "GetGlyphIndexCount", "GetGlyphIndices", "GetGlyphMappingCount", "GetGlyphMappings", "GetProhibitedCaretStopCount", "GetProhibitedCaretStops", "GetBidiLevel", "GetIsSideways", "GetDeviceFontName", "GetStyleSimulations", "SetStyleSimulations", "GetOrigin", "SetOrigin", "GetFontRenderingEmSize", "SetFontRenderingEmSize", "GetFontResource", "SetFontResource", "GetFontFaceIndex", "SetFontFaceIndex", "GetFillBrush", "GetFillBrushLocal", "SetFillBrushLocal", "GetFillBrushLookup", "SetFillBrushLookup", "GetGlyphsEditor", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMGlyphs.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the text in unescaped UTF-16 scalar values. (IXpsOMGlyphs.GetUnicodeString)
@@ -79,7 +118,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getunicodestring
      */
     GetUnicodeString() {
-        result := ComCall(30, this, "ptr*", &unicodeString := 0, "HRESULT")
+        result := ComCall(30, this, PWSTR.Ptr, &unicodeString := 0, "HRESULT")
         return unicodeString
     }
 
@@ -149,7 +188,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
     GetGlyphIndices(indexCount, glyphIndices) {
         indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, indexCountMarshal, indexCount, "ptr", glyphIndices, "HRESULT")
+        result := ComCall(32, this, indexCountMarshal, indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
         return result
     }
 
@@ -217,7 +256,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
     GetGlyphMappings(glyphMappingCount, glyphMappings) {
         glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(34, this, glyphMappingCountMarshal, glyphMappingCount, "ptr", glyphMappings, "HRESULT")
+        result := ComCall(34, this, glyphMappingCountMarshal, glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
         return result
     }
 
@@ -306,7 +345,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getissideways
      */
     GetIsSideways() {
-        result := ComCall(38, this, "int*", &isSideways := 0, "HRESULT")
+        result := ComCall(38, this, BOOL.Ptr, &isSideways := 0, "HRESULT")
         return isSideways
     }
 
@@ -322,7 +361,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getdevicefontname
      */
     GetDeviceFontName() {
-        result := ComCall(39, this, "ptr*", &deviceFontName := 0, "HRESULT")
+        result := ComCall(39, this, PWSTR.Ptr, &deviceFontName := 0, "HRESULT")
         return deviceFontName
     }
 
@@ -372,7 +411,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-setstylesimulations
      */
     SetStyleSimulations(styleSimulations) {
-        result := ComCall(41, this, "int", styleSimulations, "HRESULT")
+        result := ComCall(41, this, XPS_STYLE_SIMULATION, styleSimulations, "HRESULT")
         return result
     }
 
@@ -385,7 +424,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      */
     GetOrigin() {
         origin := XPS_POINT()
-        result := ComCall(42, this, "ptr", origin, "HRESULT")
+        result := ComCall(42, this, XPS_POINT.Ptr, origin, "HRESULT")
         return origin
     }
 
@@ -438,7 +477,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-setorigin
      */
     SetOrigin(origin) {
-        result := ComCall(43, this, "ptr", origin, "HRESULT")
+        result := ComCall(43, this, XPS_POINT.Ptr, origin, "HRESULT")
         return result
     }
 
@@ -924,7 +963,7 @@ class IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfillbrushlookup
      */
     GetFillBrushLookup() {
-        result := ComCall(53, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(53, this, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -1084,5 +1123,77 @@ class IXpsOMGlyphs extends IXpsOMVisual {
     Clone() {
         result := ComCall(56, this, "ptr*", &glyphs := 0, "HRESULT")
         return IXpsOMGlyphs(glyphs)
+    }
+
+    Query(iid) {
+        if (IXpsOMGlyphs.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUnicodeString := CallbackCreate(GetMethod(implObj, "GetUnicodeString"), flags, 2)
+        this.vtbl.GetGlyphIndexCount := CallbackCreate(GetMethod(implObj, "GetGlyphIndexCount"), flags, 2)
+        this.vtbl.GetGlyphIndices := CallbackCreate(GetMethod(implObj, "GetGlyphIndices"), flags, 3)
+        this.vtbl.GetGlyphMappingCount := CallbackCreate(GetMethod(implObj, "GetGlyphMappingCount"), flags, 2)
+        this.vtbl.GetGlyphMappings := CallbackCreate(GetMethod(implObj, "GetGlyphMappings"), flags, 3)
+        this.vtbl.GetProhibitedCaretStopCount := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStopCount"), flags, 2)
+        this.vtbl.GetProhibitedCaretStops := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStops"), flags, 3)
+        this.vtbl.GetBidiLevel := CallbackCreate(GetMethod(implObj, "GetBidiLevel"), flags, 2)
+        this.vtbl.GetIsSideways := CallbackCreate(GetMethod(implObj, "GetIsSideways"), flags, 2)
+        this.vtbl.GetDeviceFontName := CallbackCreate(GetMethod(implObj, "GetDeviceFontName"), flags, 2)
+        this.vtbl.GetStyleSimulations := CallbackCreate(GetMethod(implObj, "GetStyleSimulations"), flags, 2)
+        this.vtbl.SetStyleSimulations := CallbackCreate(GetMethod(implObj, "SetStyleSimulations"), flags, 2)
+        this.vtbl.GetOrigin := CallbackCreate(GetMethod(implObj, "GetOrigin"), flags, 2)
+        this.vtbl.SetOrigin := CallbackCreate(GetMethod(implObj, "SetOrigin"), flags, 2)
+        this.vtbl.GetFontRenderingEmSize := CallbackCreate(GetMethod(implObj, "GetFontRenderingEmSize"), flags, 2)
+        this.vtbl.SetFontRenderingEmSize := CallbackCreate(GetMethod(implObj, "SetFontRenderingEmSize"), flags, 2)
+        this.vtbl.GetFontResource := CallbackCreate(GetMethod(implObj, "GetFontResource"), flags, 2)
+        this.vtbl.SetFontResource := CallbackCreate(GetMethod(implObj, "SetFontResource"), flags, 2)
+        this.vtbl.GetFontFaceIndex := CallbackCreate(GetMethod(implObj, "GetFontFaceIndex"), flags, 2)
+        this.vtbl.SetFontFaceIndex := CallbackCreate(GetMethod(implObj, "SetFontFaceIndex"), flags, 2)
+        this.vtbl.GetFillBrush := CallbackCreate(GetMethod(implObj, "GetFillBrush"), flags, 2)
+        this.vtbl.GetFillBrushLocal := CallbackCreate(GetMethod(implObj, "GetFillBrushLocal"), flags, 2)
+        this.vtbl.SetFillBrushLocal := CallbackCreate(GetMethod(implObj, "SetFillBrushLocal"), flags, 2)
+        this.vtbl.GetFillBrushLookup := CallbackCreate(GetMethod(implObj, "GetFillBrushLookup"), flags, 2)
+        this.vtbl.SetFillBrushLookup := CallbackCreate(GetMethod(implObj, "SetFillBrushLookup"), flags, 2)
+        this.vtbl.GetGlyphsEditor := CallbackCreate(GetMethod(implObj, "GetGlyphsEditor"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUnicodeString)
+        CallbackFree(this.vtbl.GetGlyphIndexCount)
+        CallbackFree(this.vtbl.GetGlyphIndices)
+        CallbackFree(this.vtbl.GetGlyphMappingCount)
+        CallbackFree(this.vtbl.GetGlyphMappings)
+        CallbackFree(this.vtbl.GetProhibitedCaretStopCount)
+        CallbackFree(this.vtbl.GetProhibitedCaretStops)
+        CallbackFree(this.vtbl.GetBidiLevel)
+        CallbackFree(this.vtbl.GetIsSideways)
+        CallbackFree(this.vtbl.GetDeviceFontName)
+        CallbackFree(this.vtbl.GetStyleSimulations)
+        CallbackFree(this.vtbl.SetStyleSimulations)
+        CallbackFree(this.vtbl.GetOrigin)
+        CallbackFree(this.vtbl.SetOrigin)
+        CallbackFree(this.vtbl.GetFontRenderingEmSize)
+        CallbackFree(this.vtbl.SetFontRenderingEmSize)
+        CallbackFree(this.vtbl.GetFontResource)
+        CallbackFree(this.vtbl.SetFontResource)
+        CallbackFree(this.vtbl.GetFontFaceIndex)
+        CallbackFree(this.vtbl.SetFontFaceIndex)
+        CallbackFree(this.vtbl.GetFillBrush)
+        CallbackFree(this.vtbl.GetFillBrushLocal)
+        CallbackFree(this.vtbl.SetFillBrushLocal)
+        CallbackFree(this.vtbl.GetFillBrushLookup)
+        CallbackFree(this.vtbl.SetFillBrushLookup)
+        CallbackFree(this.vtbl.GetGlyphsEditor)
+        CallbackFree(this.vtbl.Clone)
     }
 }
